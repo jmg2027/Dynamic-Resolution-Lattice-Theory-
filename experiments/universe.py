@@ -102,6 +102,8 @@ def try_pachner_1to5(net: Network, h_eff_threshold: float = 0.4) -> int:
     local_W = np.mean([net.vertices[ids[a]].W(net.vertices[ids[b]])
                        for a in range(len(ids)) for b in range(a+1, len(ids))])
 
+    if net.N >= 40:  # cap to keep simulation tractable
+        return 0
     # High W → low ℏ_eff → no splitting (classical regime)
     # Low W → high ℏ_eff → splitting allowed (quantum regime)
     if local_W < 0.15:  # region is diverse enough → can add resolution
@@ -186,7 +188,7 @@ def observe(net: Network, w_thresh: float = 0.03) -> dict:
 # ═══════════════════════════════════════════════════════════════
 
 def run():
-    STEPS = 200
+    STEPS = 500
     DT = 0.08
 
     print("=" * 72)
@@ -228,8 +230,8 @@ def run():
         m['t'] = t
         history.append(m)
 
-        # Print every 5 steps or on events
-        if t % 10 == 0 or events:
+        # Print periodically
+        if t % 50 == 0 or (events and t % 10 == 0):
             ev_str = " ".join(events) if events else ""
             print(f"  {t:4d} {m['N']:4d} {m['N_simp']:5d} {m['mean_W']:8.5f} "
                   f"{m['min_ds2']:8.5f} {m['total_info']:7.2f} "
