@@ -77,7 +77,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_013: Entanglement & Bell (얽힘/벨 부등식, 1/4 — 얽힘 구조 탐색 중)
 - EXP_014: Particles from geometry (입자=기하학, 5/5 ✓)
 - EXP_015: All physics from C⁵ (전체 물리 법칙 카탈로그, 25/25 ✓)
-- Next: EXP_016
+- EXP_016: Neutrino mass (중성미자 질량 & 시소 메커니즘, 3/4)
+- Next: EXP_017
 
 ## Key Library API (lib/drlt.py)
 ```python
