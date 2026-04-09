@@ -824,6 +824,82 @@ Both computable on a finite lattice from {|ψ_i⟩} alone. **No infinities, no r
 
 ---
 
+## Derivation 13: Uncertainty Principle and Quantum Repulsion
+
+### 13.1 Uncertainty principle from the Hilbert space
+
+Derivation 1 established that states live in C^(d+1), a finite-dimensional Hilbert space. For **any** two Hermitian operators A, B on a Hilbert space, the Cauchy-Schwarz inequality gives the Robertson relation:
+
+$$\Delta A \;\Delta B \;\geq\; \frac{1}{2}\left|\langle[A, B]\rangle\right|$$
+
+This is a theorem of linear algebra — it requires no additional physics. The axiom gave us the Hilbert space; the uncertainty principle is automatic.
+
+For position-like and momentum-like operators on the lattice (defined from spatial W_ij gradients):
+
+$$\boxed{\Delta x\;\Delta p \;\geq\; \frac{\hbar_{\text{eff}}}{2}}$$
+
+where ℏ_eff is the local effective Planck constant from Derivation 12.
+
+### 13.2 Quantum repulsion from uncertainty
+
+Confining a state to a region of size Δx:
+
+**Minimum momentum**: p_min ~ ℏ_eff / (2Δx)
+
+**Zero-point kinetic energy**:
+
+$$E_{\text{quantum}} \;\sim\; \frac{\hbar_{\text{eff}}^2}{8m\,(\Delta x)^2}$$
+
+As Δx → 0, E_quantum → ∞. This is an **effective repulsive energy** that resists compression — the quantum degeneracy pressure.
+
+### 13.3 Equilibrium: quantum repulsion vs. gravity
+
+For gravitational collapse of mass M confined to radius Δx:
+
+**Gravitational energy**: E_grav ~ -GmM / Δx
+
+**Quantum zero-point energy**: E_quantum ~ ℏ_eff² / (8m Δx²)
+
+Total energy:
+
+$$E_{\text{total}} = \frac{\hbar_{\text{eff}}^2}{8m\,(\Delta x)^2} - \frac{GmM}{\Delta x}$$
+
+Minimizing (dE/d(Δx) = 0):
+
+$$\Delta x_{\min} = \frac{\hbar_{\text{eff}}^2}{4\,G\,m^2 M}$$
+
+**This is nonzero as long as ℏ_eff > 0.** The singularity (Δx = 0) is never reached.
+
+### 13.4 ℏ_eff > 0 is guaranteed
+
+From Derivation 7: distinct cells require ds² > 0, which means A_cell > 0. From Derivation 12:
+
+$$\hbar_{\text{eff}} = \frac{A_{\text{cell}} \cdot c^3}{4G \cdot s} > 0 \quad\text{(since } A_{\text{cell}} > 0 \text{ and } s > 0 \text{)}$$
+
+Therefore:
+
+$$\Delta x\,\Delta p \;\geq\; \frac{\hbar_{\text{eff}}}{2} \;>\; 0 \quad\text{always}$$
+
+**The quantum repulsion never vanishes.** It weakens as ℏ_eff decreases in strong gravity, but it never reaches zero. The singularity is forbidden by three **independent** mechanisms:
+
+| # | Mechanism | Source |
+|---|---|---|
+| [7] | Structural: distinct cells → ds² > 0 | Axiom (simplex distinctness) |
+| [8] | Dynamical: max action → forced bounce | Action principle |
+| [13] | Quantum: ΔxΔp ≥ ℏ_eff/2 → repulsion | Uncertainty principle |
+
+All three are derived from the same axiom, and all three independently prevent the singularity.
+
+### 13.5 The bounce point is computable
+
+At the bounce, quantum repulsion balances gravity. The bounce radius:
+
+$$\Delta x_{\text{bounce}} = \frac{\hbar_{\text{eff}}^2}{4\,G\,m^2 M}$$
+
+With ℏ_eff = A_cell c³/(4Gs) from Derivation 12, this is fully determined by the lattice state configuration. **The bounce point is a prediction, not a parameter.**
+
+---
+
 ## Summary: Derivation Chain
 
 ```
@@ -880,8 +956,12 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     arg⟨i|j⟩ → connection     phase = gauge fields
   │     interior = blind spot    simplex = minimal processor
   │
-  └[12] S_BH = S_info            → equate two entropies
-        ℏ_eff = Ac³/(4G·S)       → computable from lattice states
-        area per bit varies      → ℏ₀ recovered when s = 1 bit/cell
-```
+  ├[12] S_BH = S_info            → equate two entropies
+  │     ℏ_eff = Ac³/(4G·S)       → computable from lattice states
+  │     area per bit varies      → ℏ₀ recovered when s = 1 bit/cell
+  │
+  └[13] C^(d+1) + Cauchy-Schwarz → ΔxΔp ≥ ℏ_eff/2     (uncertainty principle)
+        confinement → E~ℏ²/Δx²  → quantum repulsion     (degeneracy pressure)
+        repulsion vs gravity     → Δx_bounce > 0          (singularity impossible)
+        3 independent mechanisms → [7] structural + [8] dynamical + [13] quantum
 ```
