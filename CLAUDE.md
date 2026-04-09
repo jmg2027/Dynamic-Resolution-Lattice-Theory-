@@ -78,7 +78,9 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_014: Particles from geometry (입자=기하학, 5/5 ✓)
 - EXP_015: All physics from C⁵ (전체 물리 법칙 카탈로그, 25/25 ✓)
 - EXP_016: Neutrino mass (중성미자 질량 & 시소 메커니즘, 3/4)
-- Next: EXP_017
+- EXP_017: Yukawa running (유카와 β 함수 격자 유도, 3/3 ✓)
+- EXP_018: Precision constants (정밀 상수 종합: 세 공식+β+쿼크질량+카르탄+3줄증명, 5/5 ✓)
+- Next: EXP_019
 
 ## Key Library API (lib/drlt.py)
 ```python
