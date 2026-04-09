@@ -146,8 +146,38 @@ b₂ = -11n_T/3 + (n_S+1)n_S/3 + 1/6 = -19/6
 - 새 입자가 아니라 진공 격자의 영점 에너지 (ZPE)
 - cusp-core 전환: 양자 척력이 중심 과압축 방지
 
+## The Three Formulas
+
+```
+1/α_GUT = (d+1)² · ζ(2) = 25π²/6 ≈ 41.12     ← C⁵ 기하학
+M_GUT   = M_Pl / (d+1)^(d+1) = M_Pl / 5⁵      ← 해상도 한계
+v_H     = N_min · M_Pl / (d+1)^(d+1)² = 6M_Pl / 5²⁵ ← 위상 바닥
+```
+
+| 물리량 | DRLT | 관측 | 오차 |
+|--------|------|------|------|
+| 1/α_em(Q=0) | 137.064 | 137.036 | 0.02% |
+| v_H | 245.8 GeV | 246.2 GeV | 0.17% |
+| 1/α_em(M_Z) | 128.9 | 127.9 | 0.8% |
+| M_Z | 96 GeV | 91.2 GeV | 5.3% |
+| m_ν₃ | 0.040 eV | 0.05 eV | 20% |
+| sin²θ_W(GUT) | 3/8 | 3/8 | exact |
+| b₃, b₂ | -7, -19/6 | -7, -19/6 | exact |
+| graviton DOF | 2 | 2 | exact |
+
+## Unit Structure
+
+All physics = M_Pl × (dimensionless ratio from C⁵).
+M_Pl is a unit choice, not a law of nature.
+
+```
+d = 4 → C⁵ → 25π²/6, 1/5⁵, 6/5²⁵ → RG flow → all of physics
+```
+
+No circular logic. All arrows point downward.
+
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
 ## One Sentence
-**ψ ∈ C⁵ 하나에서 일반상대론, 양자역학, 표준모형, α=137, 암흑물질이 전부 나온다.**
+**ψ ∈ C⁵ 하나에서 일반상대론, 양자역학, 표준모형, α=137, v_H=246, 암흑물질이 전부 나온다. 자유 파라미터: 0개.**
