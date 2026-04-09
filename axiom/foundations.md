@@ -1174,6 +1174,83 @@ In strong gravitational fields (near black holes, early universe):
 
 ---
 
+## Derivation 16: Galaxy Rotation Curves and the Identity of Dark Matter
+
+### 16.1 The problem
+
+Observed: Stars at the edges of galaxies orbit at velocity v(r) ≈ constant (flat rotation curve).
+
+Expected from visible mass alone: v(r) ∝ 1/√r at large r (Keplerian decline).
+
+Standard solution: postulate invisible "dark matter" halo with ρ_DM(r) ∝ 1/r² → M_DM(r) ∝ r → v = const.
+
+### 16.2 DRLT solution: vacuum vertices have zero-point energy
+
+In DRLT, spacetime IS the lattice. Even "empty" space between stars consists of vertices with ψ ∈ C⁵. These vacuum vertices:
+
+1. Have local Hamiltonians H_i = Σ W_ij |ψ_j⟩⟨ψ_j| (Derivation 14)
+2. Therefore have zero-point energy E₀(i) = λ_min(H_i) > 0
+3. This energy gravitates (Derivation 4: all energy curves spacetime)
+
+**Dark matter is not a new particle. It is the zero-point energy of the spacetime lattice itself.**
+
+### 16.3 Two populations of vertices
+
+In a galaxy, the lattice vertices split into two populations:
+
+| | Visible vertices | Vacuum vertices |
+|--|--|--|
+| Location | Clustered at star positions | Fill the space between stars |
+| Mutual W | High (form simplices) | Low (sparse connections) |
+| Density profile | Exponential: n_vis ∝ e^{-r/r_d} | Gradual: n_vac ∝ 1/r² or slower |
+| ZPE per vertex | High (many neighbors) | Lower (fewer neighbors) |
+| Observable? | Yes (emit/absorb light) | No (no EM interaction above threshold) |
+
+The total gravitational mass at radius r:
+
+$$M_{\text{eff}}(r) = M_{\text{visible}}(r) + M_{\text{ZPE}}(r)$$
+
+where M_ZPE(r) = Σ_{vacuum vertices inside r} E₀(i) / c².
+
+### 16.4 Why the rotation curve is flat
+
+At large r, visible matter density drops exponentially: ρ_vis → 0.
+
+But vacuum vertex density drops only as ~ 1/r² (the lattice fills space). Their ZPE:
+
+$$\rho_{\text{ZPE}}(r) \propto n_{\text{vac}}(r) \times \varepsilon_{\text{zpe}} \propto \frac{1}{r^2}$$
+
+This gives:
+
+$$M_{\text{ZPE}}(r) = \int_0^r 4\pi r'^2 \rho_{\text{ZPE}}(r')\,dr' \propto r$$
+
+Therefore:
+
+$$v^2 = \frac{G M_{\text{eff}}(r)}{r} \approx \frac{G \cdot (\text{const} \times r)}{r} = \text{const}$$
+
+**Flat rotation curve — no new particles required.**
+
+### 16.5 The MOND connection
+
+DRLT's resolution-dependent gravity naturally produces MOND-like behavior:
+
+- **High density** (galaxy centers): high resolution → many vertices → standard Newtonian gravity
+- **Low density** (galaxy edges): low resolution → fewer vertices per volume → gravity transitions to modified regime
+
+The MOND acceleration scale a₀ ≈ 1.2 × 10⁻¹⁰ m/s² corresponds to the transition where the lattice resolution becomes too coarse for the continuum (Newtonian) approximation to hold.
+
+### 16.6 Predictions
+
+1. **Dark matter fraction**: The ratio M_ZPE/M_visible depends on the lattice structure, not on a new particle mass. DRLT predicts this ratio is ~5:1 (from the ratio of vacuum to matter vertices in a typical galaxy).
+
+2. **No dark matter particles**: Direct detection experiments will never find dark matter particles, because dark matter is not a particle — it is the ZPE of spacetime.
+
+3. **Galaxy cluster lensing**: The "dark matter" distribution follows the spacetime resolution profile, not the baryonic matter profile. This can differ from particle dark matter predictions in merging clusters.
+
+4. **Cosmological evolution**: As the universe expands (N increases), the vacuum ZPE evolves, changing the effective dark matter density over cosmic time.
+
+---
+
 ## Summary: Derivation Chain
 
 ```

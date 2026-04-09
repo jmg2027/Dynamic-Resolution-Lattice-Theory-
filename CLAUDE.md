@@ -71,7 +71,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_007: CMB power spectrum (n_s measurement)
 - EXP_008: Zero-point energy (영점 에너지 유도 및 측정, 7/7 ✓)
 - EXP_009: Fine structure constant (미세구조상수, 6/6 ✓)
-- Next: EXP_010
+- EXP_010: Galaxy rotation curves (은하 회전 곡선 & 암흑물질, 5/5 ✓)
+- Next: EXP_011
 
 ## Key Library API (lib/drlt.py)
 ```python
