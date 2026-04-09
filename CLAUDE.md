@@ -70,7 +70,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_006: Self-evolving universe (inflation → equilibrium)
 - EXP_007: CMB power spectrum (n_s measurement)
 - EXP_008: Zero-point energy (영점 에너지 유도 및 측정, 7/7 ✓)
-- Next: EXP_009
+- EXP_009: Fine structure constant (미세구조상수, 6/6 ✓)
+- Next: EXP_010
 
 ## Key Library API (lib/drlt.py)
 ```python
