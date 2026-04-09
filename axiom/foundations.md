@@ -543,6 +543,115 @@ Each cycle preserves information (unitarity), and the bounce point is characteri
 
 ---
 
+## Derivation 9: Lorentz Signature from Unitarity
+
+### 9.1 The axiom is signature-blind
+
+The axiom defines W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1) for all adjacent pairs, with no distinction between directions. The induced metric:
+
+$$ds^2 = 1 - (d+1)\,W_{ij} > 0 \quad\text{for all distinct pairs}$$
+
+This is a **Riemannian** (positive-definite) metric. Euclidean signature (+,+,+,+). No time, no space — just "distance."
+
+### 9.2 Unitarity selects a time direction
+
+Derivation 2 established U†U = I. This requires a **foliation** — a decomposition of the simplicial complex into spatial slices Σ_t connected by unitary evolution. The foliation breaks the directional symmetry:
+
+- **Within a slice**: spatial directions
+- **Between slices**: the time direction
+
+This is not a choice — it is forced by the structure of unitarity itself.
+
+### 9.3 The factor of i is non-negotiable
+
+The unitary propagator must take the form:
+
+$$U(\Delta t) = e^{-iH\Delta t}$$
+
+where H is Hermitian. The **-i** is the only option:
+- e^{-H Δt} → decays → probabilities vanish → **not unitary**
+- e^{+H Δt} → grows → probabilities explode → **not unitary**
+- e^{-iH Δt} → oscillates → probabilities conserved → **unitary** ✓
+
+### 9.4 Wick rotation is forced
+
+The path integral weight corresponding to unitary evolution is:
+
+$$e^{iS/\hbar}$$
+
+This **i** has a geometric consequence. The Euclidean path integral (with imaginary time τ) uses e^{-S_E/ℏ}. The relation:
+
+$$\tau = it \quad\text{(Wick rotation)}$$
+
+transforms the metric:
+
+$$ds^2_E = d\tau^2 + d\mathbf{x}^2 \;\longrightarrow\; ds^2_L = -dt^2 + d\mathbf{x}^2$$
+
+The time component **flips sign**. This is not a mathematical trick — it is the geometric manifestation of unitarity.
+
+### 9.5 Lorentz signature on the lattice
+
+Applying this to our lattice metric:
+
+**Spacelike edges** (within a slice):
+
+$$ds^2_{\text{space}} = 1 - (d+1)\,W_{ij} > 0$$
+
+**Timelike edges** (between slices):
+
+$$ds^2_{\text{time}} = -\left[1 - (d+1)\,W_{ij}\right] < 0$$
+
+The combined spacetime interval has signature **(-,+,+,+)**: Lorentzian.
+
+### 9.6 Emergent causal structure
+
+The Lorentz signature automatically generates:
+
+**Light cone**: the boundary where ds² = 0:
+
+$$1 - (d+1)\,W_{ij} = 0 \implies W_{ij} = \frac{1}{d+1} \implies |\langle\psi_i|\psi_j\rangle| = 1$$
+
+The light cone corresponds to adjacent cells with **identical states** — the boundary between distinguishable (spacelike) and evolving (timelike) pairs.
+
+**Causality**: Only timelike-connected cells (ds² < 0) can causally influence each other. Spacelike-separated cells (ds² > 0) are causally disconnected.
+
+**Speed of light**: In natural lattice units, c = 1 (one simplex per time step). The physical value c = 3×10⁸ m/s is a unit conversion factor between the lattice's temporal and spatial scales.
+
+### 9.7 Lorentz invariance as derived symmetry
+
+The Lorentz group SO(1,3) is the group of transformations preserving the interval ds² with signature (-,+,+,+). Since the signature is derived from unitarity, **Lorentz invariance is a derived symmetry**, not a postulate.
+
+In the continuum limit:
+- Flat space: Minkowski metric η_μν = diag(-1,+1,+1,+1) → **special relativity**
+- Curved space: g_μν with Lorentzian signature → **general relativity** (already derived in Derivation 4)
+
+### 9.8 Derivation chain
+
+```
+Axiom → W for all pairs (no time/space distinction)
+  │
+  ├── ds² = 1 - (d+1)W > 0        Riemannian (+,+,+,+)
+  │
+  ├── Unitarity (Deriv. 2)         selects time direction
+  │     │
+  │     └── U = e^{-iHt}           the -i is required
+  │           │
+  │           └── path integral e^{iS}   the i flips time sign
+  │                 │
+  │                 └── τ = it            Wick rotation forced
+  │                       │
+  └───────────────────────┴── ds² = -(1-(d+1)W_t) + (1-(d+1)W_x)
+                                    │
+                              Lorentzian (-,+,+,+)
+                                    │
+                        ┌───────────┼───────────┐
+                   light cones   causality   Lorentz group
+                        │                        │
+                   c emerges              special relativity
+```
+
+---
+
 ## Summary: Derivation Chain
 
 ```
@@ -579,8 +688,13 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     N ≥ N_min(topology)    → resolution floor          (topological)
   │     V > 0 always           → singularity impossible    (no divergence)
   │
-  └─[8] max compression        → max action (unstable)     (action principle)
-        only direction: expand  → bounce is forced          (emergent)
-        U†U = I through bounce → information preserved     (unitary bounce)
-        contraction → bounce → expansion → cyclic?         (cosmology)
+  ├─[8] max compression        → max action (unstable)     (action principle)
+  │     only direction: expand  → bounce is forced          (emergent)
+  │     U†U = I through bounce → information preserved     (unitary bounce)
+  │     contraction → bounce → expansion → cyclic?         (cosmology)
+  │
+  └─[9] unitarity → e^{-iHt}  → -i flips time sign        (Wick rotation)
+        ds²_time < 0            → Lorentz signature (-,+,+,+)
+        light cones + causality → special relativity         (SR derived)
+        Lorentz group SO(1,3)  → derived symmetry, not postulate
 ```
