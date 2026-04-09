@@ -384,6 +384,165 @@ $$\text{Re}[w(i,j)] = 8(d+1)^2 W_{ij}^2 - 8(d+1)W_{ij} + 1$$
 
 ---
 
+## Derivation 7: Singularity Resolution
+
+### 7.1 Zero distance is structurally forbidden
+
+In a simplicial complex, adjacent cells are **distinct simplices by definition**. If two cells had identical states, they would be the same cell. Therefore, for any adjacent pair:
+
+$$|\psi_i\rangle \neq |\psi_j\rangle \implies |\langle\psi_i|\psi_j\rangle| < 1 \implies W_{ij} < \frac{1}{d+1}$$
+
+Substituting into the metric formula from Derivation 4:
+
+$$ds^2 = 1 - (d+1)\,W_{ij} > 0$$
+
+**The physical distance between distinct cells is strictly positive.** This is not a regularization or a cutoff — it is a structural consequence of the axiom.
+
+### 7.2 Dynamic Resolution as negative feedback
+
+Under increasing gravitational density:
+
+1. Strong T_μν → large curvature → states pushed toward alignment
+2. When |⟨ψ_i|ψ_j⟩| → 1, cells become indistinguishable → they **merge** (same state = same cell)
+3. Cell count N decreases → lattice coarsens (resolution drops)
+4. Fewer cells = less encoded information = less matter-energy content
+5. Less matter-energy → weaker gravity → compression halts
+
+This is a **negative feedback loop**:
+
+```
+↑ density → ↑ gravity → cells merge → ↓ information/energy → ↓ gravity → equilibrium
+```
+
+The lattice self-regulates against infinite compression.
+
+### 7.3 Topological floor
+
+A closed d-manifold requires a minimum number of simplices N_min for any valid triangulation. This is a **topological invariant** — no amount of gravity can change it.
+
+For example, the minimum triangulation of S⁴ (boundary of a 5-simplex) requires N_min = 6 four-simplices.
+
+Therefore the coarsening process has a hard floor:
+
+$$N \geq N_{\min}(\text{topology})$$
+
+At the floor:
+- N_min cells, each with finite area A_cell > 0 (since all cells remain distinct)
+- Total volume V ≥ N_min × V_cell > 0
+- Maximum density ρ_max = E_total / V_min < ∞
+
+**The singularity is physically impossible.** Not informationally — structurally. The lattice cannot represent a zero-volume state.
+
+### 7.4 Comparison with standard GR
+
+| | Standard GR | DRLT |
+|---|---|---|
+| Spacetime | Continuous manifold | Simplicial complex |
+| Minimum volume | None (V → 0 allowed) | V > 0 (structural) |
+| Singularity | Exists (Penrose-Hawking theorems) | Forbidden (discrete + feedback) |
+| Resolution | Infinite | Finite, dynamical |
+| Mechanism | — | Negative feedback + topological floor |
+
+---
+
+## Derivation 8: Emergent Bounce
+
+### 8.1 Setup: gravitational collapse
+
+Consider a region undergoing gravitational collapse. The sequence, from Derivation 7:
+
+1. Density increases → curvature increases → states align
+2. Cells merge → N decreases → resolution drops
+3. N reaches N_min → **floor hit, merging stops**
+
+At this point the lattice is at maximum compression: N_min cells, maximum curvature, minimum volume. What happens next?
+
+### 8.2 Maximum compression = maximum action
+
+At the floor, the deficit angles δ_h are near their maximum achievable values (states are as aligned as possible while remaining distinct). The dimensionless action:
+
+$$\frac{S}{\hbar} = 8\pi N_h - 4\sum_{\langle ij\rangle}\arccos|\langle\psi_i|\psi_j\rangle|$$
+
+When states are nearly aligned: arccos|⟨ψ_i|ψ_j⟩| ≈ 0, so:
+
+$$\frac{S}{\hbar} \approx 8\pi N_h \quad\text{(near maximum)}$$
+
+The system sits at a **maximum of the action**.
+
+### 8.3 The action principle forces expansion
+
+The classical equations of motion (extremizing the Regge action) at maximum compression yield no static solution — a uniformly maximally curved closed spacetime is **dynamically unstable**.
+
+The path integral makes this concrete. The dominant contribution comes from paths that **decrease** the action. Decreasing the action requires:
+
+$$\sum\arccos|\langle\psi_i|\psi_j\rangle| \;\text{increases} \implies |\langle\psi_i|\psi_j\rangle| \;\text{decreases} \implies \text{states diversify}$$
+
+States diversifying means:
+- W_ij decreases → ds² increases → distances grow → **expansion**
+- Cells become more distinct → resolution can increase → N can grow
+- New cells appear (resolution increases) → lattice refines
+
+**The only dynamically available direction from maximum compression is expansion.**
+
+### 8.4 The bounce
+
+The full cycle:
+
+```
+      CONTRACTION                    EXPANSION
+      ──────────                     ─────────
+      N large, diverse states        N grows, states diversify
+      ↓ gravity compresses           ↑ action drives expansion
+      N decreases, states align      states were aligned
+      ↓                              ↑
+      N → N_min                      N = N_min
+      ──────── BOUNCE POINT ─────────
+               maximum compression
+               maximum action
+               minimum volume
+               minimum ℏ
+               ds² > 0 (still finite!)
+```
+
+The bounce is **not inserted by hand**. It emerges from:
+1. **Dynamic Resolution** (Derivation 7): lattice coarsens under compression
+2. **Topological floor**: N ≥ N_min prevents infinite coarsening
+3. **Action principle** (Derivation 6): maximum action is unstable → system must expand
+4. **Unitarity** (Derivation 2): information is conserved through the bounce
+
+### 8.5 Information through the bounce
+
+Unitarity (Derivation 2) requires U†U = I — time evolution preserves all information. During contraction:
+
+- N_initial cells with diverse states → N_min cells with aligned states
+- Information is **not lost** — it is encoded in the precise alignment angles and phases of the N_min cells
+- The evolution is invertible: given the N_min states at the bounce, the pre-bounce configuration is uniquely recoverable
+
+After the bounce:
+- N_min cells expand and split into new cells
+- The new cells' states are **determined by unitary evolution** from the bounce state
+- Information from the pre-bounce era is imprinted in the post-bounce state configuration
+
+**The bounce is unitary. The pre-bounce universe is encoded in the post-bounce universe.**
+
+### 8.6 Cosmological and astrophysical implications
+
+**Big Bang → Big Bounce**: The initial singularity of standard cosmology is replaced by a bounce. The universe did not begin from a point of infinite density — it transitioned from a contracting phase through maximum compression (at the topological floor) to the expanding phase we observe.
+
+**Black holes**: Stellar collapse reaches the resolution floor, bounces, and either:
+- Re-expands (producing an explosion — possibly related to observed phenomena like gamma-ray bursts)
+- Creates a new expanding region connected to the original spacetime (baby universe)
+
+**Cyclic cosmology**: If the expansion eventually reverses (in a closed universe), the cycle repeats: expansion → contraction → bounce → expansion → ...
+
+Each cycle preserves information (unitarity), and the bounce point is characterized by:
+- N = N_min (minimum complexity)
+- V = V_min > 0 (finite, nonzero)
+- ρ = ρ_max < ∞ (finite density)
+- ℏ = ℏ_min > 0 (small but nonzero — near-classical)
+
+---
+
 ## Summary: Derivation Chain
 
 ```
@@ -411,7 +570,17 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     A_cell = A(T_μν)       → geometry dynamical      (variable)
   │     Bekenstein bridge       → ℏ = A_cell·c³/(4G)    (ℏ is a field)
   │
-  └─[6] S_h/ℏ_h = 4Gδ_h/c³   → area cancels!          (scale-free action)
-        S/ℏ = 8πN_h - 4Σarccos → purely angular          (no lengths in action)
-        Z = Σ_T ∫D[ψ]∏w(ij)   → lattice gauge on CP^d   (UV-finite, computable)
+  ├─[6] S_h/ℏ_h = 4Gδ_h/c³   → area cancels!          (scale-free action)
+  │     S/ℏ = 8πN_h - 4Σarccos → purely angular          (no lengths in action)
+  │     Z = Σ_T ∫D[ψ]∏w(ij)   → lattice gauge on CP^d   (UV-finite, computable)
+  │
+  ├─[7] |ψ_i⟩≠|ψ_j⟩ → ds²>0  → zero distance forbidden (structural)
+  │     cell merging feedback   → self-regulated density   (negative feedback)
+  │     N ≥ N_min(topology)    → resolution floor          (topological)
+  │     V > 0 always           → singularity impossible    (no divergence)
+  │
+  └─[8] max compression        → max action (unstable)     (action principle)
+        only direction: expand  → bounce is forced          (emergent)
+        U†U = I through bounce → information preserved     (unitary bounce)
+        contraction → bounce → expansion → cyclic?         (cosmology)
 ```
