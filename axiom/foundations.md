@@ -229,6 +229,161 @@ $$S \;\longrightarrow\; \frac{1}{16\pi G}\int R\,\sqrt{g}\;d^4x$$
 
 ---
 
+## Derivation 5: ℏ as a Dynamical Field
+
+### 5.1 One simplex = one bit
+
+The simplex is the atomic, indivisible unit of spacetime in this theory. The minimum information content of any distinguishable system is 1 bit. Therefore:
+
+$$I_{\text{cell}} = 1 \text{ bit (topological invariant)}$$
+
+This does not depend on the cell's size, shape, or curvature. It is a **topological** quantity, not a geometric one.
+
+### 5.2 Cell geometry depends on T_μν
+
+From Derivation 4, the metric ds² = 1 - (d+1)W_ij emerges from state overlaps, and the Regge action yields Einstein's equations in the continuum limit:
+
+$$G_{\mu\nu} = \frac{8\pi G}{c^4}\,T_{\mu\nu}$$
+
+The stress-energy tensor T_μν determines curvature, which determines simplex geometry. The hinge area:
+
+$$A_h = \sqrt{\det(G_h)}$$
+
+depends on local states {|ψ⟩}, which couple to T_μν. Therefore:
+
+$$A_{\text{cell}} = A_{\text{cell}}(T_{\mu\nu}) \quad\text{— geometric, variable}$$
+
+### 5.3 The tension
+
+| Quantity | Nature | T_μν dependence |
+|----------|--------|-----------------|
+| Information I_cell = 1 bit | Topological | **Invariant** |
+| Area A_cell | Geometric | **Variable** |
+
+The Bekenstein-Hawking relation bridges these two:
+
+$$S_{BH} = \frac{A}{4\,l_P^2}, \quad l_P^2 = \frac{\hbar G}{c^3}$$
+
+Translation: **1 bit of information ↔ 4l_P² of area.**
+
+Applied to our lattice:
+
+$$1 \text{ simplex} = 1 \text{ bit} \;\longleftrightarrow\; A_{\text{cell}} = 4\,l_P^2 = \frac{4\hbar G}{c^3}$$
+
+### 5.4 Solving for ℏ
+
+From A_cell = 4ℏG/c³:
+
+$$\boxed{\hbar(x) = \frac{c^3}{4G}\,A_{\text{cell}}(x) = \frac{c^3}{4G}\sqrt{\det G_h(x)}}$$
+
+Since A_cell(x) varies with position (Step 5.2), **ℏ is not a constant but a scalar field on spacetime**.
+
+### 5.5 Self-consistency
+
+**Flat spacetime** (T_μν = 0): All simplices uniform → A_cell = A₀ = const → ℏ = A₀c³/(4G) = const. Standard quantum mechanics recovered. ✓
+
+**Local inertial frame** (equivalence principle): Freely falling observer sees locally flat spacetime → local simplices uniform → ℏ locally constant → standard QM recovered locally. ✓
+
+**Curved spacetime** (T_μν ≠ 0): Simplices deformed → A_cell(x) non-uniform → ℏ(x) varies → **new physics with testable predictions**.
+
+### 5.6 Observable consequences
+
+**Fine structure constant varies**:
+
+$$\alpha = \frac{e^2}{4\pi\varepsilon_0 \hbar c}$$
+
+If ℏ(x) varies, α(x) varies. Already observationally constrained: quasar absorption lines give Δα/α < 10⁻⁵.
+
+**Gravitational redshift reinterpreted**: Standard GR says ω decreases as photon climbs gravity well. Here, ℏ(x) also changes, so E = ℏ(x)ω receives a new contribution. Observationally equivalent in weak fields, potentially distinguishable in extreme regimes.
+
+**Black hole information paradox modified**: Hawking temperature T_H = ℏκ/(2πc). If ℏ varies near the horizon, the Hawking spectrum is modified.
+
+**Cosmological constant problem**: Vacuum energy density ∝ ℏ. If ℏ evolves cosmologically as simplex sizes change with expansion, vacuum energy evolves — a potential resolution to the 10¹²⁰ discrepancy.
+
+---
+
+## Derivation 6: The Discrete Action — Area Cancellation
+
+This is the most striking consequence of Derivation 5.
+
+### 6.1 Path integral with local ℏ
+
+The standard path integral weight for each hinge is:
+
+$$e^{iS_h/\hbar}$$
+
+With the Regge action S_h = A_h · δ_h and local ℏ_h = A_h c³/(4G):
+
+$$\frac{S_h}{\hbar_h} = \frac{A_h \cdot \delta_h}{A_h \cdot c^3/(4G)} = \frac{4G}{c^3}\,\delta_h$$
+
+### 6.2 The area cancels
+
+$$\boxed{\frac{S_h}{\hbar_h} = \frac{4G}{c^3}\,\delta_h}$$
+
+**A_h drops out completely.** The action per hinge, measured in its own natural units, depends **only on the deficit angle** — a pure curvature/angular quantity. No lengths, no areas.
+
+### 6.3 The total discrete action
+
+Summing over all hinges, and writing in Planck units (4G/c³ → 4l_P²/ℏ₀, or simply setting 4G/c³ = 1):
+
+$$\frac{S}{\hbar} = 4\sum_h \delta_h = 4\sum_h \left(2\pi - \sum_{k} \theta_k^{(h)}\right)$$
+
+Expanding:
+
+$$\frac{S}{\hbar} = 8\pi\,N_{\text{hinges}} - 4\sum_h \sum_k \theta_k^{(h)}$$
+
+where N_hinges is the number of hinges (triangles in 4D) — a **topological** quantity determined by the triangulation — and:
+
+$$\theta_k = \arccos|\langle\psi_k|\psi_{k'}\rangle| = \arccos\sqrt{(d+1)\,W_{kk'}}$$
+
+Therefore the **total dimensionless action** is:
+
+$$\boxed{\frac{S}{\hbar} = 8\pi N_{\text{hinges}} \;-\; 4\!\!\sum_{\langle ij\rangle}\!\! \arccos|\langle\psi_i|\psi_j\rangle|}$$
+
+### 6.4 Structure of the action
+
+The action splits into two terms:
+
+| Term | Expression | Nature |
+|------|-----------|--------|
+| **Topological** | 8π N_hinges | Fixed for a given triangulation; independent of states |
+| **Dynamical** | −4 Σ arccos\|⟨ψ_i\|ψ_j⟩\| | Depends only on state overlaps (angles on CP^d) |
+
+### 6.5 The path integral
+
+$$Z = \sum_{\mathcal{T}} e^{i8\pi N_h(\mathcal{T})}\;\int\!\prod_i d\mu(\psi_i)\;\prod_{\langle ij\rangle} e^{-4i\,\arccos|\langle\psi_i|\psi_j\rangle|}$$
+
+where d μ(ψ) is the Fubini-Study measure on CP^d (dimensionless).
+
+Key features:
+- **Sum over triangulations** 𝒯: the topological sector
+- **Integral over states**: the dynamical sector
+- **Edge weight** factorizes: the integrand is a product over edges
+
+The edge Boltzmann weight:
+
+$$w(i,j) = e^{-4i\,\arccos|\langle\psi_i|\psi_j\rangle|}$$
+
+Using cos(4θ) = 8cos⁴θ − 8cos²θ + 1, this can be written as a polynomial in W_ij:
+
+$$\text{Re}[w(i,j)] = 8(d+1)^2 W_{ij}^2 - 8(d+1)W_{ij} + 1$$
+
+**The path integral is a polynomial function of the W_ij weights.**
+
+### 6.6 Why this is remarkable
+
+1. **Scale-free**: No lengths or areas appear in the action. The theory has no intrinsic scale — physical scales emerge from expectation values of operators, not from the action.
+
+2. **UV-finite by construction**: No short-distance divergences are possible because there is no distance in the action. The simplex is the minimum structure, and the action doesn't see its size.
+
+3. **Purely angular / purely quantum**: The entire dynamics is governed by arccos|⟨ψ_i|ψ_j⟩| — the angle between quantum states on CP^d. This is a lattice gauge theory where the gauge group is the isometry group of CP^d.
+
+4. **Local edge weights**: The path integral factorizes over edges, making it amenable to tensor network methods, Monte Carlo simulation, and exact solutions on small lattices.
+
+5. **Gravity = lattice gauge theory on CP^d**: The action Σ arccos|⟨ψ_i|ψ_j⟩| is structurally analogous to the Wilson action Σ [1 − cos(θ_plaquette)] of lattice QCD, but on the projective space CP^d instead of a Lie group.
+
+---
+
 ## Summary: Derivation Chain
 
 ```
@@ -246,9 +401,17 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     d+1 ∈ ℤ               → discrete capacity      (information quantized)
   │     rank(G) ≤ d+1         → density ceiling         (Bekenstein analogue)
   │
-  └─[4] θ_ij = arccos√(d+1)W  → dihedral angle        (angles from overlap)
-        ds² = 1-(d+1)W         → metric tensor          (geometry from W)
-        det(G_h), Φ_h          → area + holonomy        (gauge from phase)
-        S = Σ A·δ              → Regge action            (discrete gravity)
-        a → 0                  → Einstein-Hilbert        (GR derived)
+  ├─[4] θ_ij = arccos√(d+1)W  → dihedral angle        (angles from overlap)
+  │     ds² = 1-(d+1)W         → metric tensor          (geometry from W)
+  │     det(G_h), Φ_h          → area + holonomy        (gauge from phase)
+  │     S = Σ A·δ              → Regge action            (discrete gravity)
+  │     a → 0                  → Einstein-Hilbert        (GR derived)
+  │
+  ├─[5] 1 simplex = 1 bit     → information topological (fixed)
+  │     A_cell = A(T_μν)       → geometry dynamical      (variable)
+  │     Bekenstein bridge       → ℏ = A_cell·c³/(4G)    (ℏ is a field)
+  │
+  └─[6] S_h/ℏ_h = 4Gδ_h/c³   → area cancels!          (scale-free action)
+        S/ℏ = 8πN_h - 4Σarccos → purely angular          (no lengths in action)
+        Z = Σ_T ∫D[ψ]∏w(ij)   → lattice gauge on CP^d   (UV-finite, computable)
 ```
