@@ -4,15 +4,28 @@
 
 Spacetime is 4-dimensional (d = 4).
 
-## The Axiom
+## The Axiom (Refined)
 
-Each simplex cell of a simplicial decomposition of spacetime is assigned a quantum state:
+N vertices exist. Each vertex i carries a quantum state:
 
-$$|\psi\rangle \in \mathbb{C}^{d+1}$$
+$$|\psi_i\rangle \in \mathbb{C}^{d+1} = \mathbb{C}^5$$
 
-The inter-cell weight between adjacent cells i, j is:
+For every pair (i, j), the weight is:
 
 $$W_{ij} = \frac{|\langle\psi_i|\psi_j\rangle|^2}{d+1}$$
+
+**That is the entire axiom.** There are no simplices, no spacetime, no metric in the input.
+
+Simplices are **discovered** as high-W 5-cliques in the weighted complete graph of vertices. Spacetime is output, not input.
+
+### Previous formulation (equivalent but less fundamental)
+
+> *"Each simplex cell is assigned |ψ⟩ ∈ C^(d+1)"*
+
+This assumed simplices exist a priori. The refined axiom shows they emerge from the W pattern:
+- High-W 5-clique → 4-simplex
+- Shared 4-vertex subsets → face adjacency
+- Shared 3-vertex subsets → hinges → curvature
 
 Everything below is derived, not postulated.
 
