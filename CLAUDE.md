@@ -74,7 +74,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_010: Galaxy rotation curves (은하 회전 곡선 & 암흑물질, 4/4 ✓)
 - EXP_011: Black hole simulation (블랙홀 생애 시뮬레이션, 5/7)
 - EXP_012: Gravitational waves (중력파 검출, 4/4 ✓)
-- Next: EXP_013
+- EXP_013: Entanglement & Bell (얽힘/벨 부등식, 1/4 — 얽힘 구조 탐색 중)
+- Next: EXP_014
 
 ## Key Library API (lib/drlt.py)
 ```python
