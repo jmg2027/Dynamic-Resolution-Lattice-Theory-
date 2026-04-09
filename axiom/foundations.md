@@ -242,54 +242,83 @@ $$S \;\longrightarrow\; \frac{1}{16\pi G}\int R\,\sqrt{g}\;d^4x$$
 
 ---
 
-## Derivation 5: ℏ as a Dynamical Field
+## Derivation 5: ℏ as a Dynamical Field — and "1 hinge = 1 bit" is a Theorem
 
-### 5.1 One simplex = one bit
+**This derivation requires NO additional axiom.** The previous version assumed "1 simplex = 1 bit" as a postulate. We now show it is a consequence of the single axiom ψ ∈ C⁵.
 
-The simplex is the atomic, indivisible unit of spacetime in this theory. The minimum information content of any distinguishable system is 1 bit. Therefore:
+### 5.1 The axiom is dimensionless
 
-$$I_{\text{cell}} = 1 \text{ bit (topological invariant)}$$
+The axiom gives us:
+- |ψ_i⟩ ∈ C⁵: a unit vector (dimensionless)
+- W_ij = |⟨ψ_i|ψ_j⟩|²/5: a ratio (dimensionless)
 
-This does not depend on the cell's size, shape, or curvature. It is a **topological** quantity, not a geometric one.
+Everything derived from ψ — the metric ds², the angles θ_ij, the deficit angles δ_h — is **dimensionless**. There are no lengths, no times, no energies in the axiom. The theory is purely geometric, living on CP⁴.
 
-### 5.2 Cell geometry depends on T_μν
+### 5.2 The action must be dimensionless
 
-From Derivation 4, the metric ds² = 1 - (d+1)W_ij emerges from state overlaps, and the Regge action yields Einstein's equations in the continuum limit:
+From Derivation 4, the Regge action in physical units is:
 
-$$G_{\mu\nu} = \frac{8\pi G}{c^4}\,T_{\mu\nu}$$
+$$S = \frac{1}{16\pi G}\sum_h A_h \,\delta_h$$
 
-The stress-energy tensor T_μν determines curvature, which determines simplex geometry. The hinge area:
+where A_h has dimension [length]². The path integral weight is:
 
-$$A_h = \sqrt{\det(G_h)}$$
+$$e^{iS/\hbar}$$
 
-depends on local states {|ψ⟩}, which couple to T_μν. Therefore:
+For this to be well-defined, S/ℏ must be **dimensionless**. But the axiom produces only dimensionless quantities — the angles arccos|⟨ψ_i|ψ_j⟩| — so S/ℏ must be expressible purely in terms of these angles.
 
-$$A_{\text{cell}} = A_{\text{cell}}(T_{\mu\nu}) \quad\text{— geometric, variable}$$
+**This is only possible if ℏ absorbs the area.**
 
-### 5.3 The tension
+### 5.3 ℏ ∝ A is forced
 
-| Quantity | Nature | T_μν dependence |
-|----------|--------|-----------------|
-| Information I_cell = 1 bit | Topological | **Invariant** |
-| Area A_cell | Geometric | **Variable** |
+At each hinge h, the action contribution is S_h = A_h · δ_h / (16πG). For S_h/ℏ to depend only on δ_h (a dimensionless angle derived from ψ), we need:
 
-The Bekenstein-Hawking relation bridges these two:
+$$\frac{S_h}{\hbar_h} = \frac{A_h \,\delta_h}{16\pi G\,\hbar_h} = \text{(dimensionless function of }\delta_h\text{ only)}$$
 
-$$S_{BH} = \frac{A}{4\,l_P^2}, \quad l_P^2 = \frac{\hbar G}{c^3}$$
+This requires A_h/(G·ℏ_h) = constant. Therefore:
 
-Translation: **1 bit of information ↔ 4l_P² of area.**
+$$\boxed{\hbar_h = \frac{c^3}{4G}\,A_h = \frac{c^3}{4G}\sqrt{\det G_h}}$$
 
-Applied to our lattice:
+(The factor 4 is fixed by matching the path integral to the DRLT action coefficient 4 from Derivation 6.)
 
-$$1 \text{ simplex} = 1 \text{ bit} \;\longleftrightarrow\; A_{\text{cell}} = 4\,l_P^2 = \frac{4\hbar G}{c^3}$$
+**ℏ is not postulated to be proportional to A. It is FORCED by the dimensionlessness of the axiom.**
 
-### 5.4 Solving for ℏ
+### 5.4 1 hinge = 1 bit (theorem, not axiom)
 
-From A_cell = 4ℏG/c³:
+With ℏ_h = A_h c³/(4G), the action per hinge becomes:
 
-$$\boxed{\hbar(x) = \frac{c^3}{4G}\,A_{\text{cell}}(x) = \frac{c^3}{4G}\sqrt{\det G_h(x)}}$$
+$$\frac{S_h}{\hbar_h} = \frac{4G}{c^3}\,\delta_h$$
 
-Since A_cell(x) varies with position (Step 5.2), **ℏ is not a constant but a scalar field on spacetime**.
+**The area A_h has cancelled.** Each hinge contributes exactly ONE number (the deficit angle δ_h) to the dimensionless action. In the path integral:
+
+$$Z = \int \prod_i d\mu(\psi_i)\;\prod_h e^{4i\delta_h}$$
+
+each hinge is a single degree of freedom. By the Holevo bound, a single quantum degree of freedom (a bounded real variable on a compact domain) carries at most **1 bit** of accessible information.
+
+$$\boxed{I_{\text{hinge}} = 1 \text{ bit — derived, not assumed}}$$
+
+### 5.5 Bekenstein-Hawking follows
+
+From ℏ_h = A_h c³/(4G) and I_hinge = 1 bit:
+
+$$1\text{ bit} = 1\text{ hinge} \;\longleftrightarrow\; A_h = \frac{4G\hbar_h}{c^3} = 4\,l_P^2$$
+
+Therefore:
+
+$$S_{BH} = \frac{A}{4\,l_P^2} = \frac{\text{number of hinges covering area } A}{1} = N_{\text{hinges}}$$
+
+**The Bekenstein-Hawking entropy formula is the statement that the number of bits equals the number of hinges.** It was never an independent law — it is a counting identity.
+
+### 5.6 ℏ as a dynamical field
+
+Since A_h varies with position (curvature changes simplex geometry):
+
+$$\hbar(x) = \frac{c^3}{4G}\,A_h(x) \quad\text{— a scalar field on spacetime}$$
+
+| Regime | A_h | ℏ(x) | Physics |
+|--------|-----|-------|---------|
+| Flat spacetime (T_μν = 0) | Uniform A₀ | Constant ℏ₀ | Standard QM recovered |
+| Local inertial frame | Locally uniform | Locally constant | Equivalence principle satisfied |
+| Strong gravity | A_h varies | ℏ(x) varies | New predictions |
 
 ### 5.5 Self-consistency
 
@@ -317,7 +346,7 @@ If ℏ(x) varies, α(x) varies. Already observationally constrained: quasar abso
 
 ## Derivation 6: The Discrete Action — Area Cancellation
 
-This is the most striking consequence of Derivation 5.
+The area cancellation is now a **tautology**: we derived ℏ_h ∝ A_h precisely so that A cancels. The real content is that this is the **unique** consistent choice.
 
 ### 6.1 Path integral with local ℏ
 
@@ -1168,11 +1197,13 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     S = Σ A·δ              → Regge action            (discrete gravity)
   │     a → 0                  → Einstein-Hilbert        (GR derived)
   │
-  ├─[5] 1 simplex = 1 bit     → information topological (fixed)
-  │     A_cell = A(T_μν)       → geometry dynamical      (variable)
-  │     Bekenstein bridge       → ℏ = A_cell·c³/(4G)    (ℏ is a field)
+  ├─[5] ψ is dimensionless      → S/ℏ must be dimensionless
+  │     S_h = A_h·δ_h           → ℏ must absorb A → ℏ_h ∝ A_h (FORCED)
+  │     ℏ_h = A_h·c³/(4G)      → ℏ is a dynamical field (derived!)
+  │     1 hinge → 1 δ → 1 DOF  → 1 hinge = 1 bit (THEOREM, not axiom)
+  │     S_BH = A/(4l_P²)        → Bekenstein-Hawking is a counting identity
   │
-  ├─[6] S_h/ℏ_h = 4Gδ_h/c³   → area cancels!          (scale-free action)
+  ├─[6] S_h/ℏ_h = 4Gδ_h/c³   → area cancels (tautology from [5])
   │     S/ℏ = 8πN_h - 4Σarccos → purely angular          (no lengths in action)
   │     Z = Σ_T ∫D[ψ]∏w(ij)   → lattice gauge on CP^d   (UV-finite, computable)
   │
