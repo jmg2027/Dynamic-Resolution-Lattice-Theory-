@@ -107,7 +107,26 @@ def test_seesaw():
     print(f"  → y_eff = y × √(d+1) = y × √5 (정규화 복원)")
 
     obs_eV = [0.001, 0.009, 0.05]
-    gen_yukawa = [1/3, 2/3, 1.0]
+
+    # 유카와 계층: C³ 해밀토니안 고유값에서 유도
+    # H_i 의 공간 블록 고유값 비 = 1 : ~2.8 : ~7.3 (evolve 후 평형)
+    # 정규화 (3세대=1): 0.14 : 0.41 : 1.0
+    from drlt import Network, evolve_step as _ev
+    _yukawa_ratios = []
+    for _ in range(80):
+        _net = Network(n=8)
+        for __ in range(30):
+            _ev(_net, dt=0.1)
+        for _i in range(_net.N):
+            _H = _net.local_hamiltonian(_i)
+            _eigs = np.sort(np.linalg.eigvalsh(_H[2:5, 2:5]))
+            if _eigs[0] > 1e-10:
+                _yukawa_ratios.append(_eigs / _eigs[2])
+    _yr = np.mean(_yukawa_ratios, axis=0)
+    gen_yukawa = list(_yr / _yr[2])  # 3세대=1 정규화
+    print(f"\n  ── 유카와 계층 (C³ 고유값에서 유도) ──")
+    print(f"  H_i 공간 블록 고유값 비: {_yr[0]/_yr[0]:.2f} : {_yr[1]/_yr[0]:.2f} : {_yr[2]/_yr[0]:.2f}")
+    print(f"  정규화 (3세대=1): {gen_yukawa[0]:.4f} : {gen_yukawa[1]:.4f} : {gen_yukawa[2]:.4f}")
 
     print(f"\n  {'세대':>4} {'y':>6} {'m_D (GeV)':>12} {'m_ν (eV)':>10} "
           f"{'관측 (eV)':>10} {'비율':>6}")
