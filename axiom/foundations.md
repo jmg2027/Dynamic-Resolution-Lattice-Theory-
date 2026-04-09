@@ -652,6 +652,178 @@ Axiom → W for all pairs (no time/space distinction)
 
 ---
 
+## Derivation 10: SU(5) Grand Unification from the Simplex
+
+### 10.1 The natural symmetry of C^5
+
+The state space of each simplex is C^(d+1) = C^5. The group of unitary transformations preserving the inner product on C^5 is U(5). Factoring out the overall phase (already shown to be unphysical in Derivation 1):
+
+$$\text{Symmetry group of } \mathbb{C}^5 = SU(5) \times U(1)$$
+
+SU(5) is **exactly** the Georgi-Glashow grand unification group.
+
+### 10.2 Causal structure breaks SU(5)
+
+The Lorentz foliation (Derivation 9) classifies 4-simplices by how their 5 vertices distribute between time slices. For the **(2,3) type** — 2 past vertices, 3 future vertices:
+
+The 5 vertices split into two groups that are **no longer interchangeable** (past ≠ future). This breaks the SU(5) symmetry:
+
+- Rotations among the **3 future (spatial) vertices**: **SU(3)**
+- Rotations among the **2 past (temporal) vertices**: **SU(2)**
+- Relative phase between the two groups: **U(1)**
+
+$$\boxed{SU(5) \;\longrightarrow\; SU(3) \times SU(2) \times U(1)}$$
+
+**This is the Standard Model gauge group.**
+
+### 10.3 Physical identification
+
+| Vertex group | Symmetry | Standard Model | Force |
+|---|---|---|---|
+| 3 future (spatial) | SU(3) | Color charge | Strong nuclear |
+| 2 past (temporal) | SU(2) | Weak isospin | Weak nuclear |
+| Relative phase | U(1) | Hypercharge | Electromagnetic |
+
+### 10.4 Why SU(2) is temporal
+
+The association of SU(2) with the **temporal** vertices explains key properties of the weak force:
+
+- **Parity violation**: Time has a preferred direction (arrow of time from Derivation 8). The weak force inherits this asymmetry.
+- **CP violation**: The temporal direction breaks both C and P symmetries. Their combination CP is also broken because the causal structure is not symmetric under time reversal at the bounce.
+- **Mass acquisition (Higgs mechanism)**: The 2 temporal vertices define a 1-simplex (edge) in the time direction. The "extra" temporal vertex (beyond the single time dimension) provides a geometric origin for the Higgs field — electroweak symmetry breaking is the geometric distinction between the 2 temporal directions.
+
+### 10.5 Matter representations
+
+Under SU(5) → SU(3) × SU(2) × U(1), the fundamental representation **5** decomposes:
+
+$$\mathbf{5} \;\rightarrow\; (\mathbf{3}, \mathbf{1})_{-1/3} \;\oplus\; (\mathbf{1}, \mathbf{2})_{1/2}$$
+
+- **(3,1)**: 3 color states, SU(2) singlet → **down-type quarks** (d, s, b)
+- **(1,2)**: color singlet, SU(2) doublet → **lepton doublet** (e, ν_e)
+
+The **10** representation (antisymmetric tensor):
+
+$$\mathbf{10} \;\rightarrow\; (\mathbf{3}, \mathbf{2})_{1/6} \;\oplus\; (\bar{\mathbf{3}}, \mathbf{1})_{-2/3} \;\oplus\; (\mathbf{1}, \mathbf{1})_{1}$$
+
+This gives **up-type quarks**, **anti-down quarks**, and the **positron** — one complete generation of fermions.
+
+**One generation of Standard Model fermions is encoded in the representations of the simplex's vertex symmetry group.**
+
+---
+
+## Derivation 11: The 10-Bit Data Bus — Simplex as Processor
+
+### 11.1 Vertices as registers, edges as bus
+
+Reinterpreting the axiom computationally:
+
+- **Storage**: 5 complex-number registers (one per vertex): |ψ_1⟩, ..., |ψ_5⟩
+- **Computation**: Pairwise overlap comparison between all registers
+- **Output**: ₅C₂ = **10 values** of W_ij
+
+The simplex is a minimal processor:
+
+```
+INPUT           PROCESS              OUTPUT
+5 complex       All pairwise         10 weights
+numbers ──────→ W_ij = |⟨i|j⟩|²/5 ──────→ = local g_μν
+(vertices)      (edges/hinges)       (geometry)
+```
+
+### 11.2 10 edges = 10 metric components
+
+A 4D symmetric metric tensor g_μν has:
+- 4 diagonal components + 6 off-diagonal = **10 independent components**
+
+A 4-simplex has ₅C₂ = **10 edges**.
+
+**Each edge maps to one component of the metric tensor.** The mapping is the discrete Regge correspondence: 10 edge data → local geometry.
+
+### 11.3 Decomposition under the (2,3) causal split
+
+| Edge type | Count | Computation | Metric role |
+|---|---|---|---|
+| Past-Past (temporal internal) | ₂C₂ = **1** | W within time | g₀₀ (lapse) |
+| Future-Future (spatial internal) | ₃C₂ = **3** | W within space | g_ij, i≠j (spatial off-diag) |
+| Past↔Future (cross-temporal) | 2×3 = **6** | W across slices | g₀ᵢ (shift) + diagonal |
+| **Total** | **10** | | **g_μν fully determined** |
+
+### 11.4 Each edge carries two data channels
+
+Each edge stores more than just W_ij. The full inner product ⟨ψ_i|ψ_j⟩ is complex:
+
+$$\langle\psi_i|\psi_j\rangle = |\langle\psi_i|\psi_j\rangle|\;e^{i\phi_{ij}}$$
+
+- **Magnitude** |⟨ψ_i|ψ_j⟩|² → W_ij → **metric component** (gravity)
+- **Phase** φ_ij = arg⟨ψ_i|ψ_j⟩ → holonomy → **gauge connection** (gauge forces)
+
+10 magnitudes = **gravity** (g_μν)
+10 phases = **gauge fields** (connections)
+
+**Gravity and gauge forces are the magnitude and phase of the same edge data.**
+
+### 11.5 The simplex interior is not computed
+
+The interior of the simplex contains **no information**:
+
+- Data exists only at vertices (registers) and edges (bus)
+- The interior is a "blind spot" — no resolution, no physics
+- Information jumps discretely from vertex to vertex via edges
+- The simplex interior is a black box between inputs and outputs
+
+This is not a limitation but a **feature**: it is the precise statement that the simplex is the minimum resolution unit. "Dynamic Resolution" means the lattice resolves physics only at the vertex/edge level, never finer.
+
+---
+
+## Derivation 12: Computable ℏ_eff from Entropy Matching
+
+### 12.1 Two entropies for one boundary
+
+For any boundary surface, entropy can be computed two ways:
+
+**Geometric (Bekenstein-Hawking)**:
+
+$$S_{BH} = \frac{A \cdot c^3}{4G\,\hbar_{\text{eff}}}$$
+
+**Information-theoretic (from lattice states)**: For each link crossing the boundary with overlap W_ij, the binary entropy:
+
+$$s_{\text{link}} = H_2\!\left((d{+}1)W_{ij}\right) = -(d{+}1)W_{ij}\log(d{+}1)W_{ij} - \left[1-(d{+}1)W_{ij}\right]\log\left[1-(d{+}1)W_{ij}\right]$$
+
+Total: $S_{\text{info}} = \sum_{\text{links}} s_{\text{link}}$
+
+### 12.2 Equating gives ℏ_eff
+
+Setting S_info = S_BH:
+
+$$\hbar_{\text{eff}} = \frac{A \cdot c^3}{4G \cdot S_{\text{info}}} = \frac{\displaystyle\sum_h \sqrt{\det G_h}}{\displaystyle\sum_{\langle ij\rangle} H_2\!\left((d{+}1)W_{ij}\right)} \;\cdot\; \frac{c^3}{4G}$$
+
+**Both numerator and denominator are computable from the quantum states {|ψ_i⟩}.**
+
+### 12.3 Interpretation: area per bit
+
+$$\hbar_{\text{eff}} = \frac{A/S_{\text{info}} \;\cdot\; c^3}{4G} = \frac{(\text{area per bit}) \cdot c^3}{4G}$$
+
+| Regime | Area per bit | ℏ_eff | Physics |
+|---|---|---|---|
+| High entropy (thermal) | Small | **Small** | Classical |
+| Standard (1 bit/cell) | 4l_P² | **ℏ₀** | Standard QM |
+| Low entropy (quantum) | Large | **Large** | Strongly quantum |
+| Zero entropy | ∞ | **∞** | Pure quantum state |
+
+### 12.4 Refinement of Derivation 5
+
+Derivation 5 assumed 1 bit per cell (s = 1). The general formula:
+
+$$\hbar_{\text{eff}}(x) = \frac{A_{\text{cell}}(x) \cdot c^3}{4G \cdot s(x)}$$
+
+Two local functions:
+- Numerator A_cell(x): geometric (from Gram determinant)
+- Denominator s(x): information-theoretic (from binary entropy of W)
+
+Both computable on a finite lattice from {|ψ_i⟩} alone. **No infinities, no renormalization, no ambiguity.**
+
+---
+
 ## Summary: Derivation Chain
 
 ```
@@ -693,8 +865,23 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     U†U = I through bounce → information preserved     (unitary bounce)
   │     contraction → bounce → expansion → cyclic?         (cosmology)
   │
-  └─[9] unitarity → e^{-iHt}  → -i flips time sign        (Wick rotation)
-        ds²_time < 0            → Lorentz signature (-,+,+,+)
-        light cones + causality → special relativity         (SR derived)
-        Lorentz group SO(1,3)  → derived symmetry, not postulate
+  ├─[9] unitarity → e^{-iHt}  → -i flips time sign        (Wick rotation)
+  │     ds²_time < 0            → Lorentz signature (-,+,+,+)
+  │     light cones + causality → special relativity         (SR derived)
+  │     Lorentz group SO(1,3)  → derived symmetry, not postulate
+  │
+  ├[10] Sym(C^5) = SU(5)       → GUT group is simplex symmetry
+  │     (2,3) causal split      → SU(5) → SU(3)×SU(2)×U(1)
+  │     3 spatial + 2 temporal  → Standard Model gauge group (derived!)
+  │     fund. rep 5 → (3,1)⊕(1,2) → quarks + leptons
+  │
+  ├[11] 5 vertices → ₅C₂=10 edges → 10 components of g_μν
+  │     |⟨i|j⟩|² → metric        magnitude = gravity
+  │     arg⟨i|j⟩ → connection     phase = gauge fields
+  │     interior = blind spot    simplex = minimal processor
+  │
+  └[12] S_BH = S_info            → equate two entropies
+        ℏ_eff = Ac³/(4G·S)       → computable from lattice states
+        area per bit varies      → ℏ₀ recovered when s = 1 bit/cell
+```
 ```
