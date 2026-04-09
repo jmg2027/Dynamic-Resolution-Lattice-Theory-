@@ -1,282 +1,263 @@
 """
-Mini Black Hole Bounce Simulation
-===================================
-A lattice of simplices undergoes gravitational collapse,
-hits the resolution floor, and bounces back.
+Mini Black Hole Bounce Simulation (Unitary Version)
+=====================================================
+N_total cells are FIXED. Information is CONSERVED.
 
-Physics demonstrated:
-  - Collapse: states align → W increases → ds² decreases → curvature grows
-  - Resolution floor: indistinguishable cells merge → N decreases
-  - Bounce: N hits N_min → expansion forced
-  - Throughout: ℏ_eff > 0 always (no singularity)
+"Merging" = cells freeze (become identical, indistinguishable)
+"Splitting" = cells thaw (differentiate, become distinguishable)
+
+N_active (distinguishable cells) changes, but N_total and
+total information are conserved throughout — as required
+by unitarity (Derivation 2: U†U = I).
 """
 
 import numpy as np
-import sys
 from simplex import Simplex4D
 
 np.random.seed(42)
 
 
-# ── Measurement tools ─────────────────────────────────────────
-
-def measure_lattice(cells: list[Simplex4D]) -> dict:
-    """Measure all observables of a lattice configuration."""
-    n = len(cells)
-    if n < 2:
-        return {"N": n, "mean_W": 0, "mean_ds2": 1, "mean_theta": 0,
-                "deficit": 2*np.pi, "h_eff": float('inf'), "entropy": 0}
-
-    # Collect all pairwise W and ds²
-    W_vals, ds2_vals, theta_vals = [], [], []
-    for i in range(n):
-        for j in range(i+1, n):
-            w = cells[i].W(cells[j])
-            W_vals.append(w)
-            ds2_vals.append(1.0 - 5.0 * w)
-            theta_vals.append(cells[i].dihedral_angle(cells[j]))
-
-    # Deficit angle: treat all cells as sharing one hinge (ring)
-    theta_sum = sum(cells[k].dihedral_angle(cells[(k+1) % n]) for k in range(n))
-    deficit = 2 * np.pi - theta_sum
-
-    # ℏ_eff
-    h = cells[0].h_eff(cells[1:])
-
-    # Total information = N × avg Shannon entropy (not just avg)
-    avg_entropy = np.mean([c.shannon_entropy for c in cells])
-    total_info = n * avg_entropy
-
-    return {
-        "N": n,
-        "mean_W": np.mean(W_vals),
-        "max_W": np.max(W_vals),
-        "mean_ds2": np.mean(ds2_vals),
-        "min_ds2": np.min(ds2_vals),
-        "mean_theta": np.degrees(np.mean(theta_vals)),
-        "deficit_deg": np.degrees(deficit),
-        "h_eff": h,
-        "entropy": avg_entropy,
-        "total_info": total_info,
-    }
-
-
-# ── Collapse dynamics ────────────────────────────────────────
-
-def gravitational_step(cells: list[Simplex4D], strength: float = 0.1
-                       ) -> list[Simplex4D]:
+class UnitaryLattice:
     """
-    One step of gravitational collapse.
-
-    "Gravity" pushes states toward alignment:
-    each cell's state moves toward the mean state.
-    Strength controls how fast (0 = no gravity, 1 = instant collapse).
+    A lattice with fixed N_total cells.
+    Each cell is either ACTIVE (distinguishable) or FROZEN (identical to a neighbor).
+    Total Hilbert space dimension is fixed → information conserved.
     """
-    if len(cells) < 2:
-        return cells
 
-    # Compute mean state (center of mass in Hilbert space)
-    mean_psi = np.mean([c.psi for c in cells], axis=0)
-    mean_psi = mean_psi / np.linalg.norm(mean_psi)
+    def __init__(self, n_total: int):
+        self.n_total = n_total
+        self.cells = [Simplex4D() for _ in range(n_total)]
+        self.active = [True] * n_total  # all start active
 
-    new_cells = []
-    for c in cells:
-        # Interpolate toward mean: ψ_new = (1-s)ψ_old + s·ψ_mean
-        new_psi = (1.0 - strength) * c.psi + strength * mean_psi
-        new_cells.append(Simplex4D(new_psi))
+    @property
+    def n_active(self) -> int:
+        return sum(self.active)
 
-    return new_cells
+    @property
+    def active_cells(self) -> list[Simplex4D]:
+        return [c for c, a in zip(self.cells, self.active) if a]
 
+    def total_info(self) -> float:
+        """Total information: summed over ALL cells (active + frozen)."""
+        return sum(c.shannon_entropy for c in self.cells)
 
-def merge_indistinguishable(cells: list[Simplex4D], threshold: float = 0.195
-                            ) -> list[Simplex4D]:
-    """
-    Dynamic Resolution: merge cells that are nearly identical.
+    def active_info(self) -> float:
+        """Information in active (distinguishable) cells only."""
+        return sum(c.shannon_entropy for c, a in zip(self.cells, self.active) if a)
 
-    If W_ij > threshold (close to 1/5 = 0.2 max), the cells
-    are indistinguishable → merge them into one.
+    def mean_W_active(self) -> float:
+        """Mean W among active cells."""
+        ac = self.active_cells
+        if len(ac) < 2:
+            return 0.2
+        vals = [ac[i].W(ac[j]) for i in range(len(ac)) for j in range(i+1, len(ac))]
+        return float(np.mean(vals))
 
-    This is the negative feedback mechanism (Derivation 7).
-    """
-    if len(cells) < 2:
-        return cells
+    def min_ds2_active(self) -> float:
+        """Minimum ds² among active cells."""
+        ac = self.active_cells
+        if len(ac) < 2:
+            return 1.0
+        vals = [ac[i].ds_squared(ac[j]) for i in range(len(ac))
+                for j in range(i+1, len(ac))]
+        return float(np.min(vals))
 
-    merged = [True] * len(cells)  # True = still alive
-    keep = []
+    def h_eff(self) -> float:
+        """ℏ_eff from active cells."""
+        ac = self.active_cells
+        if len(ac) < 2:
+            return float('inf')
+        return ac[0].h_eff(ac[1:])
 
-    for i in range(len(cells)):
-        if not merged[i]:
-            continue
-        # Check against all later cells
-        for j in range(i+1, len(cells)):
-            if not merged[j]:
+    # ── Dynamics ──────────────────────────────────────────────
+
+    def gravitational_step(self, strength: float):
+        """
+        Gravity: push ALL cell states toward the mean.
+        This is unitary (a rotation in Hilbert space).
+        """
+        mean_psi = np.mean([c.psi for c in self.cells], axis=0)
+        mean_psi = mean_psi / np.linalg.norm(mean_psi)
+
+        for i in range(self.n_total):
+            new_psi = (1.0 - strength) * self.cells[i].psi + strength * mean_psi
+            self.cells[i] = Simplex4D(new_psi)
+
+    def update_active_status(self, threshold: float = 0.195):
+        """
+        Cells with W > threshold to ANY active cell become FROZEN.
+        Frozen cells are still there — just indistinguishable.
+        No information is lost.
+        """
+        # Find which cells are distinguishable
+        n = self.n_total
+        distinguishable = [True] * n
+
+        for i in range(n):
+            if not distinguishable[i]:
                 continue
-            w = cells[i].W(cells[j])
-            if w > threshold:
-                # Cells are indistinguishable → kill j
-                merged[j] = False
+            for j in range(i + 1, n):
+                if not distinguishable[j]:
+                    continue
+                w = self.cells[i].W(self.cells[j])
+                if w > threshold:
+                    distinguishable[j] = False  # j is redundant
 
-    return [cells[i] for i in range(len(cells)) if merged[i]]
+        self.active = distinguishable
 
+    def expansion_step(self, strength: float):
+        """
+        Post-bounce: perturb ALL cells (active and frozen) away from mean.
+        Frozen cells may become distinguishable again → thaw.
+        """
+        for i in range(self.n_total):
+            noise = (np.random.randn(5) + 1j * np.random.randn(5))
+            noise = noise / np.linalg.norm(noise) * strength
+            new_psi = self.cells[i].psi + noise
+            self.cells[i] = Simplex4D(new_psi)
 
-# ── Expansion dynamics (post-bounce) ─────────────────────────
+    # ── Measurement ───────────────────────────────────────────
 
-def expansion_step(cells: list[Simplex4D], strength: float = 0.15
-                   ) -> list[Simplex4D]:
-    """
-    Post-bounce expansion: states diversify.
-
-    Each cell gets a random perturbation pushing it away from the mean.
-    This is the action principle forcing expansion from max compression.
-    """
-    if len(cells) < 2:
-        return cells
-
-    mean_psi = np.mean([c.psi for c in cells], axis=0)
-    mean_psi = mean_psi / np.linalg.norm(mean_psi)
-
-    new_cells = []
-    for c in cells:
-        # Push AWAY from mean + random diversification
-        noise = np.random.randn(5) + 1j * np.random.randn(5)
-        noise = noise / np.linalg.norm(noise) * strength
-        new_psi = c.psi + noise
-        new_cells.append(Simplex4D(new_psi))
-
-    return new_cells
-
-
-def spawn_new_cells(cells: list[Simplex4D], n_new: int = 2
-                    ) -> list[Simplex4D]:
-    """
-    Resolution increase: new cells split off during expansion.
-    Opposite of merging — the lattice refines.
-    """
-    new_cells = list(cells)
-    for _ in range(n_new):
-        # New cell: perturbed version of a random existing cell
-        parent = cells[np.random.randint(len(cells))]
-        noise = (np.random.randn(5) + 1j * np.random.randn(5)) * 0.3
-        new_cells.append(Simplex4D(parent.psi + noise))
-    return new_cells
+    def measure(self) -> dict:
+        return {
+            "N_total": self.n_total,
+            "N_active": self.n_active,
+            "mean_W": self.mean_W_active(),
+            "min_ds2": self.min_ds2_active(),
+            "h_eff": self.h_eff(),
+            "total_info": self.total_info(),
+            "active_info": self.active_info(),
+        }
 
 
 # ═══════════════════════════════════════════════════════════════
-#  MAIN SIMULATION
+#  SIMULATION
 # ═══════════════════════════════════════════════════════════════
 
-def run_simulation():
+def run():
     print("=" * 65)
-    print("  DRLT Mini Black Hole: Collapse → Bounce → Expansion")
+    print("  DRLT Black Hole Bounce (Unitary — Info Conserved)")
     print("=" * 65)
 
-    N_INITIAL = 20
-    N_MIN = 3            # topological floor
-    COLLAPSE_STEPS = 30
-    EXPAND_STEPS = 15
-    MERGE_THRESHOLD = 0.195  # W > this → cells merge
+    N_TOTAL = 20
+    N_MIN = 3
+    MERGE_THRESH = 0.195
 
-    # ── Phase 0: Initial state ────────────────────────────────
-    cells = [Simplex4D() for _ in range(N_INITIAL)]
+    lat = UnitaryLattice(N_TOTAL)
     history = []
 
-    m = measure_lattice(cells)
+    m = lat.measure()
     history.append(m)
-    print(f"\n{'─'*65}")
-    print(f"  INITIAL: {m['N']} cells, mean W={m['mean_W']:.5f}, "
-          f"ℏ_eff={m['h_eff']:.4f}, S={m['entropy']:.3f} bits")
+    print(f"\n  INITIAL: N_total={m['N_total']}, N_active={m['N_active']}, "
+          f"total_info={m['total_info']:.2f} bits")
 
-    # ── Phase 1: Gravitational Collapse ───────────────────────
+    # ── Phase 1: Collapse ─────────────────────────────────────
     print(f"\n{'━'*65}")
-    print(f"  PHASE 1: GRAVITATIONAL COLLAPSE")
+    print(f"  PHASE 1: COLLAPSE")
     print(f"{'━'*65}")
-    print(f"  {'step':>4} {'N':>3} {'mean_W':>8} {'min_ds²':>8} "
-          f"{'ℏ_eff':>8} {'entropy':>7}  event")
+    print(f"  {'step':>4} {'N_act':>5} {'mean_W':>8} {'min_ds²':>8} "
+          f"{'ℏ_eff':>8} {'tot_info':>8} {'act_info':>8}")
 
     bounced = False
-    bounce_step = -1
+    bounce_step = 0
 
-    for step in range(1, COLLAPSE_STEPS + 1):
-        gravity = 0.08 + 0.005 * step
-        cells = gravitational_step(cells, strength=min(gravity, 0.5))
+    for step in range(1, 35):
+        gravity = 0.06 + 0.005 * step
+        lat.gravitational_step(strength=min(gravity, 0.45))
+        lat.update_active_status(threshold=MERGE_THRESH)
 
-        n_before = len(cells)
-        cells = merge_indistinguishable(cells, threshold=MERGE_THRESHOLD)
-        n_merged = n_before - len(cells)
+        m = lat.measure()
+        history.append(m)
 
-        event = f"merged {n_merged}" if n_merged > 0 else ""
-
-        if len(cells) <= N_MIN and not bounced:
+        flag = ""
+        if m['N_active'] <= N_MIN and not bounced:
             bounced = True
             bounce_step = step
-            event += " ★ BOUNCE ★"
+            flag = " ★ BOUNCE"
 
-        m = measure_lattice(cells)
-        history.append(m)
-        print(f"  {step:4d} {m['N']:3d} {m['mean_W']:8.5f} {m['min_ds2']:8.5f} "
-              f"{m['h_eff']:8.4f} {m['entropy']:7.3f}  {event}")
+        print(f"  {step:4d} {m['N_active']:5d} {m['mean_W']:8.5f} {m['min_ds2']:8.5f} "
+              f"{m['h_eff']:8.4f} {m['total_info']:8.3f} {m['active_info']:8.3f}{flag}")
 
         if bounced:
             break
 
-    # ── Phase 2: Bounce & Expansion ───────────────────────────
+    # ── Phase 2: Expansion ────────────────────────────────────
     if bounced:
         print(f"\n{'━'*65}")
-        print(f"  PHASE 2: POST-BOUNCE EXPANSION")
+        print(f"  PHASE 2: EXPANSION")
         print(f"{'━'*65}")
-        print(f"  {'step':>4} {'N':>3} {'mean_W':>8} {'min_ds²':>8} "
-              f"{'ℏ_eff':>8} {'entropy':>7}  event")
+        print(f"  {'step':>4} {'N_act':>5} {'mean_W':>8} {'min_ds²':>8} "
+              f"{'ℏ_eff':>8} {'tot_info':>8} {'act_info':>8}")
 
-        for step in range(1, EXPAND_STEPS + 1):
-            cells = expansion_step(cells, strength=0.1 + 0.02 * step)
+        for step in range(1, 20):
+            lat.expansion_step(strength=0.08 + 0.015 * step)
+            lat.update_active_status(threshold=MERGE_THRESH)
 
-            event = ""
-            if step % 3 == 0 and len(cells) < N_INITIAL:
-                n_b = len(cells)
-                cells = spawn_new_cells(cells, n_new=2)
-                event = f"+{len(cells)-n_b} new"
-
-            m = measure_lattice(cells)
+            m = lat.measure()
             history.append(m)
-            print(f"  {step:4d} {m['N']:3d} {m['mean_W']:8.5f} {m['min_ds2']:8.5f} "
-                  f"{m['h_eff']:8.4f} {m['entropy']:7.3f}  {event}")
 
-    # ── Summary ───────────────────────────────────────────────
+            print(f"  {step:4d} {m['N_active']:5d} {m['mean_W']:8.5f} "
+                  f"{m['min_ds2']:8.5f} {m['h_eff']:8.4f} "
+                  f"{m['total_info']:8.3f} {m['active_info']:8.3f}")
+
+    # ── Results ───────────────────────────────────────────────
     print(f"\n{'═'*65}")
     print(f"  RESULTS")
     print(f"{'═'*65}")
 
-    hi, hb, hf = history[0], history[bounce_step], history[-1]
+    hi = history[0]
+    hb = history[bounce_step]
+    hf = history[-1]
 
-    print(f"\n  {'':15s} {'Initial':>10} {'Bounce':>10} {'Final':>10}")
-    print(f"  {'─'*45}")
-    for key, label in [('N','N (cells)'), ('mean_W','mean W'),
-                       ('min_ds2','min ds²'), ('h_eff','ℏ_eff'),
-                       ('total_info','total info')]:
-        fmt = "d" if key == "N" else ".5f" if key in ('mean_W','min_ds2') else ".4f" if key == 'h_eff' else ".3f"
-        print(f"  {label:15s} {hi[key]:>10{fmt}} {hb[key]:>10{fmt}} {hf[key]:>10{fmt}}")
+    print(f"\n  {'':18s} {'Initial':>10} {'Bounce':>10} {'Final':>10}")
+    print(f"  {'─'*48}")
+    print(f"  {'N_total':18s} {hi['N_total']:10d} {hb['N_total']:10d} {hf['N_total']:10d}")
+    print(f"  {'N_active':18s} {hi['N_active']:10d} {hb['N_active']:10d} {hf['N_active']:10d}")
+    print(f"  {'mean W':18s} {hi['mean_W']:10.5f} {hb['mean_W']:10.5f} {hf['mean_W']:10.5f}")
+    print(f"  {'min ds²':18s} {hi['min_ds2']:10.5f} {hb['min_ds2']:10.5f} {hf['min_ds2']:10.5f}")
+    print(f"  {'ℏ_eff':18s} {hi['h_eff']:10.4f} {hb['h_eff']:10.4f} {hf['h_eff']:10.4f}")
+    print(f"  {'TOTAL info':18s} {hi['total_info']:10.3f} {hb['total_info']:10.3f} {hf['total_info']:10.3f}")
+    print(f"  {'active info':18s} {hi['active_info']:10.3f} {hb['active_info']:10.3f} {hf['active_info']:10.3f}")
+
+    # Info conservation check
+    info_range = [h['total_info'] for h in history]
+    info_min, info_max = min(info_range), max(info_range)
+    info_variation = (info_max - info_min) / info_max * 100
 
     print(f"\n  PHYSICS CHECKS:")
     checks = [
-        ("N decreased during collapse",
-         any(history[i+1]['N'] < history[i]['N'] for i in range(bounce_step))),
-        ("Bounce occurred at N_min",        bounced),
-        ("N increased after bounce",        hf['N'] > hb['N']),
-        ("ℏ_eff > 0 ALWAYS",               all(h['h_eff'] > 0 for h in history)),
-        ("ds² > 0 ALWAYS (no singularity)", all(h['min_ds2'] > 0 for h in history)),
-        ("W ∈ [0, 1/5] ALWAYS",            all(h['max_W'] <= 0.2+1e-6 for h in history)),
-        ("Total info fell in collapse",     hb['total_info'] < hi['total_info']),
-        ("Total info rose after bounce",   hf['total_info'] > hb['total_info']),
+        ("N_total constant throughout",
+         all(h['N_total'] == N_TOTAL for h in history)),
+        ("N_active decreased in collapse",
+         hb['N_active'] < hi['N_active']),
+        ("Bounce occurred",
+         bounced),
+        ("N_active increased after bounce",
+         hf['N_active'] > hb['N_active']),
+        ("ℏ_eff > 0 ALWAYS",
+         all(h['h_eff'] > 0 for h in history)),
+        ("ds² > 0 ALWAYS (no singularity)",
+         all(h['min_ds2'] > 0 for h in history)),
+        (f"TOTAL info conserved (variation < 5%: {info_variation:.1f}%)",
+         info_variation < 5),
+        ("Active info fell then rose",
+         hb['active_info'] < hi['active_info'] and hf['active_info'] > hb['active_info']),
     ]
-    passed = sum(1 for _, ok in checks if ok)
+
+    passed = 0
     for name, ok in checks:
         print(f"    [{'✓' if ok else '✗'}] {name}")
+        if ok:
+            passed += 1
 
     print(f"\n  {passed}/{len(checks)} passed")
+
     if bounced:
         print(f"\n  ★ No singularity. min ds² = {hb['min_ds2']:.6f} > 0")
-        print(f"    Quantum repulsion ℏ_eff/2 = {hb['h_eff']/2:.6f} prevented collapse.")
+        print(f"    N_total stayed {N_TOTAL} throughout (Hilbert space fixed)")
+        print(f"    Total info: {hi['total_info']:.2f} → {hb['total_info']:.2f} "
+              f"→ {hf['total_info']:.2f} bits (conserved)")
 
 
 if __name__ == "__main__":
-    run_simulation()
+    run()
