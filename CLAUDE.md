@@ -75,7 +75,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_011: Black hole simulation (블랙홀 생애 시뮬레이션, 5/7)
 - EXP_012: Gravitational waves (중력파 검출, 4/4 ✓)
 - EXP_013: Entanglement & Bell (얽힘/벨 부등식, 1/4 — 얽힘 구조 탐색 중)
-- Next: EXP_014
+- EXP_014: Particles from geometry (입자=기하학, 5/5 ✓)
+- Next: EXP_015
 
 ## Key Library API (lib/drlt.py)
 ```python
