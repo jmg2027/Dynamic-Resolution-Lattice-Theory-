@@ -76,7 +76,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_012: Gravitational waves (중력파 검출, 4/4 ✓)
 - EXP_013: Entanglement & Bell (얽힘/벨 부등식, 1/4 — 얽힘 구조 탐색 중)
 - EXP_014: Particles from geometry (입자=기하학, 5/5 ✓)
-- Next: EXP_015
+- EXP_015: All physics from C⁵ (전체 물리 법칙 카탈로그, 25/25 ✓)
+- Next: EXP_016
 
 ## Key Library API (lib/drlt.py)
 ```python
