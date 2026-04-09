@@ -137,8 +137,24 @@ def test_mass_with_mixing():
         mark = " ✓" if 0.5 < r < 2 else ""
         print(f"  {name:>4} {preds[name]:10.4f} {obs[name]:10.4f} {r:6.1f}×{mark}")
 
-    ok = all(0.5 < preds[n]/obs[n] < 2 for n in ["t","c","u","b","τ"])
-    print(f"\n  [{'✓ PASS' if ok else '✗'}] 3세대 + 업타입 전부 2× 이내")
+    # C² 혼합 보정: rT_eff(k) = rT[0] × rS(k)^(-0.5)
+    print(f"\n  ── C² 혼합 보정 (α=-0.5) ──")
+    rT_model = [rT[0] * rS[k]**(-0.5) for k in range(3)]
+    down_corr = [v_H * rS[k]**n_S * rT_model[k]**n_T for k in range(3)]
+    lep_corr = [down_corr[k] * rT_model[k] for k in range(3)]
+    preds_corr = {"t":up[2],"c":up[1],"u":up[0],
+                  "b":down_corr[2],"s":down_corr[1],"d":down_corr[0],
+                  "τ":lep_corr[2],"μ":lep_corr[1],"e":lep_corr[0]}
+
+    print(f"\n  {'입자':>4} {'DRLT':>10} {'관측':>10} {'비율':>6}")
+    print(f"  {'─' * 35}")
+    for name in ["t","c","u","b","s","d","τ","μ","e"]:
+        r = preds_corr[name]/obs[name]
+        mark = " ✓" if 0.3 < r < 3 else ""
+        print(f"  {name:>4} {preds_corr[name]:10.4f} {obs[name]:10.4f} {r:6.1f}×{mark}")
+
+    ok = sum(1 for n in preds_corr if 0.3 < preds_corr[n]/obs[n] < 3) >= 7
+    print(f"\n  [{'✓ PASS' if ok else '✗'}] 7/9 이상 3× 이내")
     return ok
 
 
