@@ -73,7 +73,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_009: Fine structure constant (미세구조상수, 6/6 ✓)
 - EXP_010: Galaxy rotation curves (은하 회전 곡선 & 암흑물질, 4/4 ✓)
 - EXP_011: Black hole simulation (블랙홀 생애 시뮬레이션, 5/7)
-- Next: EXP_012
+- EXP_012: Gravitational waves (중력파 검출, 4/4 ✓)
+- Next: EXP_013
 
 ## Key Library API (lib/drlt.py)
 ```python
