@@ -69,7 +69,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_005: 4D lattice force law (1/r² convergence)
 - EXP_006: Self-evolving universe (inflation → equilibrium)
 - EXP_007: CMB power spectrum (n_s measurement)
-- Next: EXP_008
+- EXP_008: Zero-point energy (영점 에너지 유도 및 측정, 7/7 ✓)
+- Next: EXP_009
 
 ## Key Library API (lib/drlt.py)
 ```python
@@ -88,6 +89,15 @@ Network(n=20)            # N random vertices
 net.W_matrix()           # full W_ij
 net.find_simplices()     # discover 4-simplices from W
 net.curvature_map()      # deficit angles at hinges
+
+# Zero-point energy (Derivation 14)
+net.local_hamiltonian(i)         # H_i = Σ W_ij|ψ_j⟩⟨ψ_j|
+net.local_energy_spectrum(i)     # eigenvalues of H_i
+net.zero_point_energy(i)         # λ_min(H_i)
+net.total_zero_point_energy()    # Σ_i λ_min(H_i)
+net.zpe_density()                # E_zpe / N
+net.W_spectrum()                 # eigenvalues of W matrix
+net.vacuum_fluctuation_variance() # σ²_W (vacuum fluctuations)
 
 # Evolution
 evolve_step(net, dt)     # self-consistent local H

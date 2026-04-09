@@ -913,6 +913,119 @@ With ℏ_eff = A_cell c³/(4Gs) from Derivation 12, this is fully determined by 
 
 ---
 
+## Derivation 14: Zero-Point Energy from the Lattice Vacuum
+
+### 14.1 The local Hamiltonian
+
+From the evolution engine (used in Derivations 2, 8), each vertex i has a self-consistent local Hamiltonian:
+
+$$H_i = \sum_{j \neq i} W_{ij}\,|\psi_j\rangle\langle\psi_j|$$
+
+This is a 5×5 positive semi-definite Hermitian matrix (a sum of rank-1 projectors weighted by W_ij ≥ 0). Its eigenvalues:
+
+$$0 \leq \lambda_1^{(i)} \leq \lambda_2^{(i)} \leq \ldots \leq \lambda_5^{(i)}$$
+
+represent the energy spectrum accessible to vertex i, determined entirely by its neighbors' states.
+
+### 14.2 The ground state energy is nonzero
+
+The minimum eigenvalue λ₁(H_i) is the zero-point energy of vertex i. Is it ever exactly zero?
+
+λ₁ = 0 requires a state |φ⟩ such that H_i|φ⟩ = 0, meaning:
+
+$$\sum_{j \neq i} W_{ij}\,|\langle\phi|\psi_j\rangle|^2 = 0$$
+
+Since W_ij > 0 for all connected pairs (Derivation 7: distinct vertices cannot have W = 0 in a connected network), this requires ⟨φ|ψ_j⟩ = 0 for **all** j ≠ i. But |φ⟩ ∈ C⁵ and there are N-1 other vertices. For N ≥ 7 (more than dim C⁵ + 1 = 6), no single state can be orthogonal to all neighbors.
+
+Even for N < 7, in any generic configuration (states not forming a perfect orthonormal subset), λ₁ > 0.
+
+**The zero-point energy is strictly positive for any realistic network:**
+
+$$\boxed{E_0^{(i)} = \lambda_{\min}(H_i) > 0}$$
+
+### 14.3 Zero-point energy of the entire lattice
+
+The total zero-point energy of the vacuum state:
+
+$$\boxed{E_{\text{zpe}} = \sum_{i=1}^{N} \lambda_{\min}(H_i)}$$
+
+And the vacuum energy density (per vertex):
+
+$$\varepsilon_{\text{zpe}} = \frac{E_{\text{zpe}}}{N} = \frac{1}{N}\sum_{i=1}^{N} \lambda_{\min}(H_i)$$
+
+### 14.4 Analytic estimate in equilibrium
+
+In a homogeneous equilibrium state where all pairwise W_ij ≈ ⟨W⟩ and the N-1 neighbors' states are "generic" (roughly uniformly distributed over CP⁴):
+
+$$H_i \approx \langle W\rangle \sum_{j \neq i} |\psi_j\rangle\langle\psi_j|$$
+
+By random matrix theory, for N-1 generic unit vectors in C⁵:
+
+$$\sum_{j \neq i} |\psi_j\rangle\langle\psi_j| \approx \frac{N-1}{5}\,I_5 + \text{fluctuations}$$
+
+The minimum eigenvalue:
+
+$$\lambda_{\min} \approx \langle W\rangle \cdot \frac{N-1}{5}\left(1 - 2\sqrt{\frac{5}{N-1}}\right)$$
+
+For large N: λ_min → ⟨W⟩(N-1)/5, growing with network size. The zero-point energy density:
+
+$$\varepsilon_{\text{zpe}} \approx \langle W\rangle \cdot \frac{N-1}{5}$$
+
+### 14.5 The W-spectrum: mode decomposition
+
+The N×N weight matrix W has eigenvalues ω₁ ≤ ω₂ ≤ ... ≤ ω_N. Each eigenvector represents a collective mode of the lattice geometry. The zero-point energy can also be expressed as:
+
+$$E_{\text{zpe}}^{(\text{modes})} = \frac{1}{2}\hbar_{\text{eff}}\sum_{k=1}^{N} |\omega_k|$$
+
+where ℏ_eff is from Derivation 12. This is the direct analogue of standard QFT: ½ℏω per mode, but with exactly N modes (not infinite).
+
+### 14.6 Why this resolves the cosmological constant problem
+
+**Standard QFT** (the 10¹²⁰ disaster):
+- Infinite modes up to Planck scale → E_zpe = Σ_k ½ℏω_k → diverges
+- With Planck cutoff: ε ~ ℏc/l_P⁴ ~ 10¹¹³ J/m³
+- Observed: ε_Λ ~ 10⁻⁹ J/m³
+- Discrepancy: 10¹²² orders of magnitude
+
+**DRLT** (naturally finite):
+- Exactly N modes (N = number of vertices in the observable universe)
+- Each mode contributes ½ℏ_eff ω_k
+- ℏ_eff itself varies (Derivation 5): smaller in dense regions
+- Total: E_zpe = ½ℏ_eff Σ_{k=1}^{N} ω_k < ∞
+
+The ratio:
+
+$$\frac{\Lambda_{\text{QFT}}}{\Lambda_{\text{DRLT}}} \sim \frac{\text{modes in QFT (infinite, cutoff)}}{\text{modes in DRLT (exactly } N\text{)}}$$
+
+The cosmological constant problem is not "solved by fine-tuning" — it **does not arise**. The vacuum energy was always finite; the infinity was an artifact of assuming continuous spacetime with infinite modes.
+
+### 14.7 Vacuum fluctuations as W-field variance
+
+Even in the ground state, the W_ij values are not perfectly uniform. The irreducible variance:
+
+$$\sigma_W^2 = \frac{1}{N(N-1)/2}\sum_{i<j}\left(W_{ij} - \langle W\rangle\right)^2$$
+
+represents quantum vacuum fluctuations. These fluctuations:
+- Cannot be eliminated (Derivation 13: uncertainty principle)
+- Produce measurable effects (Casimir force, Lamb shift)
+- Their spectrum is naturally cut off at the lattice scale
+
+The zero-point energy is related to the fluctuation variance:
+
+$$E_{\text{zpe}} \propto N \cdot \langle W\rangle + \mathcal{O}(\sigma_W^2)$$
+
+### 14.8 Observable predictions
+
+1. **Casimir effect**: Between two "boundaries" (regions of high W contrast), the number of available modes is restricted → net attractive force. Computable from the W-spectrum with boundary conditions.
+
+2. **Lamb shift**: Vacuum W-fluctuations shift the energy levels of a bound vertex, proportional to σ²_W.
+
+3. **Cosmological evolution**: As the universe expands (N grows, ⟨W⟩ decreases), ε_zpe evolves — not fixed. This may explain why the observed Λ is small but nonzero: it has been decreasing since inflation.
+
+4. **Scale dependence**: ε_zpe(scale) depends on how many vertices are resolved at that scale. This is the DRLT version of the renormalization group for vacuum energy.
+
+---
+
 ## Summary: Derivation Chain
 
 ```
@@ -979,27 +1092,33 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     repulsion vs gravity     → Δx_bounce > 0          (singularity impossible)
   │     3 independent mechanisms → [7] structural + [8] dynamical + [13] quantum
   │
-  ├[14] g_μν has d(d+1)/2 = 10 components
+  ├[14] H_i = Σ W_ij|ψ_j⟩⟨ψ_j|  → local Hamiltonian (positive semi-definite)
+  │     λ_min(H_i) > 0           → zero-point energy (nonzero for N≥7)
+  │     E_zpe = Σ_i λ_min(H_i)   → total vacuum energy (finite, exactly N modes)
+  │     QFT: infinite modes → 10¹²⁰ problem
+  │     DRLT: N modes → no divergence → cosmological constant resolved
+  │
+  ├[15] g_μν has d(d+1)/2 = 10 components
   │     ψ has 2d = 8 real DOF (dim CP^d)
   │     10 − 8 = d(d−3)/2 = 2 = graviton polarizations!
   │     graviton DOF = geometry's surplus over quantum state
   │     d=3→0 (no propagating gravity), d=4→2, d=5→5  all match GR
   │
-  ├[15] Pachner moves (1→5, 5→1) change N (vertex count)
+  ├[16] Pachner moves (1→5, 5→1) change N (vertex count)
         1→5: ψ_new = mean(neighbors) → 0 new info → resolution up
         5→1: only when ℏ_eff ≪ 1 (states identical) → ~0 info lost
         unitary evolution between moves → dependent ψ becomes independent
         = entropy increase = second law = arrow of time
         1→5 easy / 5→1 hard → time asymmetry from ℏ_eff asymmetry
   │
-  ├[16] ⟨ψ_i|ψ_j⟩ = overlap_T + overlap_S   (2,3) decomposition
+  ├[17] ⟨ψ_i|ψ_j⟩ = overlap_T + overlap_S   (2,3) decomposition
   │     |overlap_T|²/2  → weak force           SU(2) temporal sector
   │     |overlap_S|²/3  → strong force          SU(3) spatial sector
   │     arg(T/S)        → electromagnetism       U(1) relative phase
   │     |full overlap|²/5 → gravity              all vertices
   │     ALL 4 FORCES = same inner product, different projections
   │
-  └[17] g² ∝ 1/n_vertices per sector
+  └[18] g² ∝ 1/n_vertices per sector
         g_s² ∝ 1/3, g_w² ∝ 1/2, g_em² ∝ 1
         10−8 = 2 graviton polarizations = d(d−3)/2
         hierarchy: gravity uses ALL vertices → diluted by N

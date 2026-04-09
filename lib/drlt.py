@@ -447,6 +447,63 @@ class Network:
 
     # ── Global observables ────────────────────────────────────
 
+    # ── Zero-point energy (Derivation 14) ──────────────────────
+
+    def local_hamiltonian(self, i: int) -> np.ndarray:
+        """
+        H_i = Σ_{j≠i} W_ij |ψ_j⟩⟨ψ_j|
+        Self-consistent local Hamiltonian for vertex i.
+        Positive semi-definite 5×5 matrix.
+        """
+        H = np.zeros((5, 5), dtype=complex)
+        for j in range(self.N):
+            if j == i:
+                continue
+            w = self.vertices[i].W(self.vertices[j])
+            psi_j = self.vertices[j].psi
+            H += w * np.outer(psi_j, psi_j.conj())
+        return H
+
+    def local_energy_spectrum(self, i: int) -> np.ndarray:
+        """Eigenvalues of H_i (sorted ascending). The energy spectrum of vertex i."""
+        H = self.local_hamiltonian(i)
+        return np.sort(np.linalg.eigvalsh(H))
+
+    def zero_point_energy(self, i: int) -> float:
+        """λ_min(H_i) — zero-point energy of vertex i."""
+        return float(self.local_energy_spectrum(i)[0])
+
+    def total_zero_point_energy(self) -> float:
+        """E_zpe = Σ_i λ_min(H_i) — total vacuum energy of the lattice."""
+        return sum(self.zero_point_energy(i) for i in range(self.N))
+
+    def zpe_density(self) -> float:
+        """ε_zpe = E_zpe / N — vacuum energy density per vertex."""
+        if self.N == 0:
+            return 0.0
+        return self.total_zero_point_energy() / self.N
+
+    def W_spectrum(self) -> np.ndarray:
+        """Eigenvalues of the W matrix — collective modes of geometry."""
+        W = self.W_matrix()
+        return np.sort(np.linalg.eigvalsh(W))
+
+    def zpe_from_modes(self, h_eff: float = 1.0) -> float:
+        """E_zpe = ½ h_eff Σ_k |ω_k| — mode-based zero-point energy."""
+        spectrum = self.W_spectrum()
+        return 0.5 * h_eff * float(np.sum(np.abs(spectrum)))
+
+    def vacuum_fluctuation_variance(self) -> float:
+        """σ²_W = variance of off-diagonal W_ij — irreducible vacuum fluctuations."""
+        W = self.W_matrix()
+        n = self.N
+        if n < 2:
+            return 0.0
+        mask = ~np.eye(n, dtype=bool)
+        return float(np.var(W[mask]))
+
+    # ── Global observables ────────────────────────────────────
+
     def total_info(self) -> float:
         """Total Shannon entropy across all vertices."""
         return sum(v.shannon_entropy for v in self.vertices)
