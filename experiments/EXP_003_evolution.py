@@ -11,7 +11,10 @@ through a block universe.
 """
 
 import numpy as np
-from core import Vertex, Network, make_clustered_network
+import sys, os
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+from drlt import Vertex, Network, make_clustered_network
 
 np.random.seed(42)
 

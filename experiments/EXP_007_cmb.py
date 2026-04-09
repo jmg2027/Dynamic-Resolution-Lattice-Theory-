@@ -11,8 +11,9 @@ Can we get this from the axiom?
 """
 
 import numpy as np
-from core import Vertex, Network
-from universe import big_bounce_initial, evolve_step, try_pachner_1to5, try_pachner_5to1
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+from drlt import Vertex, Network, big_bounce_initial, evolve_step, try_pachner_1to5, try_pachner_5to1
 
 np.random.seed(42)
 

@@ -7,7 +7,9 @@ Each stage is demonstrated and verified against analytic predictions.
 """
 
 import numpy as np
-from simplex import Simplex4D
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+from drlt import Vertex as Simplex4D
 
 np.random.seed(42)
 

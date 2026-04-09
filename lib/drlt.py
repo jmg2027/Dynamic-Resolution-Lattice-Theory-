@@ -29,7 +29,13 @@ class Vertex:
     spacetime — emerges from collections of vertices.
     """
 
-    DIM = 5  # C⁵ (= d+1, where d=4 spacetime dimensions)
+    DIM = 5        # C⁵ (= d+1, where d=4 spacetime dimensions)
+    D = 4          # spacetime dimension (legacy compat)
+    N_VERTICES = 5  # = d+1 (legacy compat)
+    N_EDGES = 10   # C(5,2) (legacy compat)
+    TEMPORAL_VERTICES = [0, 1]
+    SPATIAL_VERTICES = [2, 3, 4]
+    EDGES = list(combinations(range(5), 2))
 
     def __init__(self, psi: np.ndarray | None = None):
         if psi is None:
@@ -119,6 +125,64 @@ class Vertex:
         p = np.abs(self.psi) ** 2
         p = p[p > 1e-15]
         return float(-np.sum(p * np.log2(p)))
+
+    # ── Legacy compatibility aliases ────────────────────────
+
+    def dihedral_angle(self, other): return self.angle(other)
+    def ds_squared(self, other): return self.ds2(other)
+    def holonomy_phase(self, b, c):
+        ab, bc, ca = self.overlap(b), b.overlap(c), c.overlap(self)
+        return float(np.angle(ab * bc * ca))
+
+    @staticmethod
+    def gram_matrix(cells):
+        n = len(cells)
+        G = np.zeros((n, n), dtype=complex)
+        for i in range(n):
+            for j in range(n):
+                G[i, j] = cells[i].overlap(cells[j])
+        return G
+
+    @staticmethod
+    def hinge_area(cells):
+        G = Vertex.gram_matrix(cells)
+        return float(np.sqrt(max(0.0, np.linalg.det(G).real)))
+
+    def deficit_angle(self, neighbors):
+        return 2.0 * np.pi - sum(self.angle(n) for n in neighbors)
+
+    def h_eff(self, neighbors, G_newton=1.0, c_light=1.0):
+        areas = [self.hinge_area([self, n]) for n in neighbors]
+        A = sum(areas) if areas else 0.0
+        S_info = 0.0
+        for n in neighbors:
+            p = self.DIM * self.W(n)
+            p = np.clip(p, 1e-15, 1.0 - 1e-15)
+            S_info += -p * np.log(p) - (1 - p) * np.log(1 - p)
+        if S_info < 1e-15:
+            return float('inf')
+        return A * c_light**3 / (4.0 * G_newton * S_info)
+
+    def edge_boltzmann_weight(self, other):
+        return np.exp(-4j * self.angle(other))
+
+    @property
+    def probabilities(self): return np.abs(self.psi) ** 2
+    @property
+    def phases(self): return np.angle(self.psi)
+    @property
+    def temporal_state(self): return self.psi[self.T_IDX]
+    @property
+    def spatial_state(self): return self.psi[self.S_IDX]
+    @property
+    def temporal_weight(self): return float(np.sum(np.abs(self.temporal_state)**2))
+    @property
+    def spatial_weight(self): return float(np.sum(np.abs(self.spatial_state)**2))
+
+    def edge_weights(self):
+        from itertools import combinations as _c
+        return {(i,j): float(np.abs(self.psi[i]*np.conj(self.psi[j]))**2)
+                for i,j in _c(range(5), 2)}
 
     def __repr__(self):
         return f"Vertex(S={self.shannon_entropy:.2f}bits)"
@@ -404,7 +468,74 @@ class Network:
 
 
 # ═══════════════════════════════════════════════════════════════
-#  DEMO
+#  EVOLUTION ENGINE (shared by experiments)
+# ═══════════════════════════════════════════════════════════════
+
+def big_bounce_initial(n_vertices: int = 6) -> Network:
+    """Post-bounce state: small N, nearly aligned states."""
+    seed = Vertex._random_state()
+    seed = seed / np.linalg.norm(seed)
+    verts = []
+    for _ in range(n_vertices):
+        noise = (np.random.randn(5) + 1j * np.random.randn(5)) * 0.15
+        verts.append(Vertex(seed + noise))
+    return Network(vertices=verts)
+
+
+def evolve_step(net: Network, dt: float = 0.1):
+    """Self-consistent evolution: H_i = Σ_j W_ij |ψ_j⟩⟨ψ_j|."""
+    n = net.N
+    new_psis = []
+    for i in range(n):
+        H_i = np.zeros((5, 5), dtype=complex)
+        for j in range(n):
+            if j == i:
+                continue
+            w = net.vertices[i].W(net.vertices[j])
+            psi_j = net.vertices[j].psi
+            H_i += w * np.outer(psi_j, psi_j.conj())
+        eigvals, eigvecs = np.linalg.eigh(H_i)
+        U_i = eigvecs @ np.diag(np.exp(-1j * eigvals * dt)) @ eigvecs.conj().T
+        new_psis.append(U_i @ net.vertices[i].psi)
+    for i in range(n):
+        net.vertices[i] = Vertex(new_psis[i])
+
+
+def try_pachner_1to5(net: Network, n_cap: int = 40) -> int:
+    """1→5 move: add vertex if region is diverse enough."""
+    if net.N < 5 or net.N >= n_cap:
+        return 0
+    ids = np.random.choice(net.N, size=min(5, net.N), replace=False)
+    mean_psi = np.mean([net.vertices[i].psi for i in ids], axis=0)
+    local_W = np.mean([net.vertices[ids[a]].W(net.vertices[ids[b]])
+                       for a in range(len(ids)) for b in range(a+1, len(ids))])
+    if local_W < 0.15:
+        net.vertices.append(Vertex(mean_psi +
+            (np.random.randn(5) + 1j * np.random.randn(5)) * 0.05))
+        return 1
+    return 0
+
+
+def try_pachner_5to1(net: Network, w_threshold: float = 0.195) -> int:
+    """5→1 move: merge nearly identical vertices."""
+    if net.N <= 3:
+        return 0
+    to_remove = set()
+    for i in range(net.N):
+        if i in to_remove:
+            continue
+        for j in range(i + 1, net.N):
+            if j in to_remove:
+                continue
+            if net.vertices[i].W(net.vertices[j]) > w_threshold:
+                to_remove.add(j)
+    if to_remove:
+        net.vertices = [v for idx, v in enumerate(net.vertices) if idx not in to_remove]
+    return len(to_remove)
+
+
+# ═══════════════════════════════════════════════════════════════
+#  UTILITY
 # ═══════════════════════════════════════════════════════════════
 
 def make_clustered_network(n_clusters: int = 3, per_cluster: int = 6,
