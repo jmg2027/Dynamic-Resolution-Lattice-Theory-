@@ -985,10 +985,23 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     graviton DOF = geometry's surplus over quantum state
   │     d=3→0 (no propagating gravity), d=4→2, d=5→5  all match GR
   │
-  └[15] Pachner moves (1→5, 5→1) change N (vertex count)
+  ├[15] Pachner moves (1→5, 5→1) change N (vertex count)
         1→5: ψ_new = mean(neighbors) → 0 new info → resolution up
         5→1: only when ℏ_eff ≪ 1 (states identical) → ~0 info lost
         unitary evolution between moves → dependent ψ becomes independent
         = entropy increase = second law = arrow of time
         1→5 easy / 5→1 hard → time asymmetry from ℏ_eff asymmetry
+  │
+  ├[16] ⟨ψ_i|ψ_j⟩ = overlap_T + overlap_S   (2,3) decomposition
+  │     |overlap_T|²/2  → weak force           SU(2) temporal sector
+  │     |overlap_S|²/3  → strong force          SU(3) spatial sector
+  │     arg(T/S)        → electromagnetism       U(1) relative phase
+  │     |full overlap|²/5 → gravity              all vertices
+  │     ALL 4 FORCES = same inner product, different projections
+  │
+  └[17] g² ∝ 1/n_vertices per sector
+        g_s² ∝ 1/3, g_w² ∝ 1/2, g_em² ∝ 1
+        10−8 = 2 graviton polarizations = d(d−3)/2
+        hierarchy: gravity uses ALL vertices → diluted by N
+                   gauge forces use SUBSETS → not diluted → stronger
 ```

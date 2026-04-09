@@ -68,6 +68,52 @@ class Vertex:
         """arg⟨ψ_i|ψ_j⟩ — gauge connection."""
         return float(np.angle(self.overlap(other)))
 
+    # ── (2,3) causal split ─────────────────────────────────
+
+    T_IDX = [0, 1]       # temporal vertices → SU(2)
+    S_IDX = [2, 3, 4]    # spatial vertices  → SU(3)
+
+    def overlap_T(self, other: "Vertex") -> complex:
+        """Temporal sector overlap: Σ_{k∈T} c_k^(i)* c_k^(j)"""
+        return complex(np.vdot(self.psi[self.T_IDX], other.psi[self.T_IDX]))
+
+    def overlap_S(self, other: "Vertex") -> complex:
+        """Spatial sector overlap: Σ_{k∈S} c_k^(i)* c_k^(j)"""
+        return complex(np.vdot(self.psi[self.S_IDX], other.psi[self.S_IDX]))
+
+    def interaction_decomposition(self, other: "Vertex") -> dict:
+        """
+        Decompose ⟨ψ_i|ψ_j⟩ into the four fundamental interactions.
+
+        All four forces come from the SAME inner product,
+        split by the (2,3) causal structure.
+        """
+        oT = self.overlap_T(other)
+        oS = self.overlap_S(other)
+        o_full = oT + oS  # = self.overlap(other)
+
+        # Gravity: full overlap magnitude (all 5 vertices)
+        gravity = float(np.abs(o_full) ** 2) / 5
+
+        # Weak force: temporal sector (SU(2), 2 vertices)
+        weak = float(np.abs(oT) ** 2) / 2
+
+        # Strong force: spatial sector (SU(3), 3 vertices)
+        strong = float(np.abs(oS) ** 2) / 3
+
+        # Electromagnetism: relative phase between T and S sectors (U(1))
+        phase_T = np.angle(oT) if np.abs(oT) > 1e-15 else 0.0
+        phase_S = np.angle(oS) if np.abs(oS) > 1e-15 else 0.0
+        em_phase = float(phase_T - phase_S)
+
+        return {
+            "gravity": gravity,       # W_ij (full)
+            "weak": weak,             # W_T (SU(2) sector)
+            "strong": strong,         # W_S (SU(3) sector)
+            "em_phase": em_phase,     # arg(T/S) (U(1))
+            "em_strength": float(np.abs(np.sin(em_phase))),
+        }
+
     @property
     def shannon_entropy(self) -> float:
         p = np.abs(self.psi) ** 2
@@ -219,6 +265,62 @@ class Network:
             delta = self.deficit_angle(simplex_ids, simplices)
             result.append((tri, delta, len(simplex_ids)))
         return result
+
+    # ── Interaction decomposition (all 4 forces) ────────────
+
+    def interaction_map(self) -> dict:
+        """
+        Decompose ALL pairwise interactions into the four forces.
+
+        Gravity, weak, strong, EM all come from the SAME W_ij,
+        split by the (2,3) causal structure of C⁵.
+        """
+        n = self.N
+        grav, weak, strong, em = [], [], [], []
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                d = self.vertices[i].interaction_decomposition(self.vertices[j])
+                grav.append(d["gravity"])
+                weak.append(d["weak"])
+                strong.append(d["strong"])
+                em.append(d["em_strength"])
+
+        return {
+            "gravity":  {"mean": np.mean(grav),  "std": np.std(grav)},
+            "weak":     {"mean": np.mean(weak),  "std": np.std(weak)},
+            "strong":   {"mean": np.mean(strong), "std": np.std(strong)},
+            "em":       {"mean": np.mean(em),    "std": np.std(em)},
+        }
+
+    @staticmethod
+    def coupling_ratios() -> dict:
+        """
+        Coupling constant ratios from vertex counting.
+
+        At the GUT scale (SU(5) unbroken), all vertices equivalent.
+        Below GUT scale, (2,3) split gives:
+
+          g_strong² ∝ 1/n_spatial  = 1/3
+          g_weak²   ∝ 1/n_temporal = 1/2
+          g_em²     ∝ 1/1          = 1
+
+        With SU(5) normalization (U(1) factor √(3/5)):
+          α₁ : α₂ : α₃ = (3/5) : 1 : 1  at GUT scale
+        """
+        return {
+            "g_strong_sq": 1 / 3,
+            "g_weak_sq": 1 / 2,
+            "g_em_sq": 1.0,
+            "ratio_strong_weak": (1/3) / (1/2),  # = 2/3
+            "ratio_em_weak": 1.0 / (1/2),        # = 2
+            "ratio_em_strong": 1.0 / (1/3),      # = 3
+            "su5_normalized": {
+                "alpha1": 3/5,  # with √(3/5) normalization
+                "alpha2": 1.0,
+                "alpha3": 1.0,
+            },
+        }
 
     # ── Pachner moves (topology change) ───────────────────────
 
@@ -406,3 +508,39 @@ if __name__ == "__main__":
     print()
     print("    Simplices were DISCOVERED, not placed.")
     print("    Spacetime is OUTPUT, not INPUT.")
+
+    # ── 7. Four forces from geometry ──────────────────────────
+    print(f"\n[7] Four forces from W_ij decomposition")
+    forces = net.interaction_map()
+    print(f"    Gravity (full W):       mean = {forces['gravity']['mean']:.5f}")
+    print(f"    Weak (SU(2) temporal):  mean = {forces['weak']['mean']:.5f}")
+    print(f"    Strong (SU(3) spatial): mean = {forces['strong']['mean']:.5f}")
+    print(f"    EM (U(1) phase):        mean = {forces['em']['mean']:.5f}")
+
+    # Show one pair in detail
+    print(f"\n    Example: vertices 0 and 1 (same cluster)")
+    d = net.vertices[0].interaction_decomposition(net.vertices[1])
+    for k, v in d.items():
+        print(f"      {k:15s} = {v:.5f}")
+
+    print(f"\n    Example: vertices 0 and 8 (different clusters)")
+    d2 = net.vertices[0].interaction_decomposition(net.vertices[8])
+    for k, v in d2.items():
+        print(f"      {k:15s} = {v:.5f}")
+
+    # ── 8. Coupling constant ratios ──────────────────────────
+    print(f"\n[8] Coupling constants from vertex counting")
+    cr = Network.coupling_ratios()
+    print(f"    g_strong² ∝ 1/3 = {cr['g_strong_sq']:.4f}")
+    print(f"    g_weak²   ∝ 1/2 = {cr['g_weak_sq']:.4f}")
+    print(f"    g_em²     ∝ 1/1 = {cr['g_em_sq']:.4f}")
+    print(f"    Ratio strong/weak = {cr['ratio_strong_weak']:.4f} (= 2/3)")
+    print(f"    Ratio em/strong   = {cr['ratio_em_strong']:.4f} (= 3)")
+
+    # ── 9. Graviton polarizations ─────────────────────────────
+    print(f"\n[9] Graviton polarizations (the 10/8 ratio)")
+    for d_dim in [3, 4, 5, 6]:
+        g = Network.graviton_dof(d_dim)
+        print(f"    d={d_dim}: g_μν={g['g_components']:2d}, "
+              f"CP^d={g['cp_dim']:2d}, "
+              f"graviton={g['graviton_polarizations']} polarizations")
