@@ -176,6 +176,15 @@ d = 4 → C⁵ → 25π²/6, 1/5⁵, 6/5²⁵ → RG flow → all of physics
 
 No circular logic. All arrows point downward.
 
+## Open Problems (with progress)
+
+| 문제 | 상태 | 노트 |
+|------|------|------|
+| 벨 부등식 | |S|=1.96 (미위반) | 측정 관측량 정의 문제 — 심플렉스 얽힘 구조 필요 |
+| 쿼크 질량 계층 | 비율 2.9 vs 관측 100+ | C³ 고유값은 2차 계층, 실제는 지수적 — 비선형 running 필요 |
+| QED Δ(1/α) | 11.9 vs 9.1 (31% off) | 구조 맞음 (Q_f, N_c 전부 C⁵), 경쿼크 질량 정밀화 필요 |
+| H₀ | 초기 조건 | 기본 상수 아닌 우주 나이 — 동역학적 문제 |
+
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
