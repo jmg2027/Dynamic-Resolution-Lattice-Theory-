@@ -974,8 +974,21 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     ℏ_eff = Ac³/(4G·S)       → computable from lattice states
   │     area per bit varies      → ℏ₀ recovered when s = 1 bit/cell
   │
-  └[13] C^(d+1) + Cauchy-Schwarz → ΔxΔp ≥ ℏ_eff/2     (uncertainty principle)
-        confinement → E~ℏ²/Δx²  → quantum repulsion     (degeneracy pressure)
-        repulsion vs gravity     → Δx_bounce > 0          (singularity impossible)
-        3 independent mechanisms → [7] structural + [8] dynamical + [13] quantum
+  ├[13] C^(d+1) + Cauchy-Schwarz → ΔxΔp ≥ ℏ_eff/2     (uncertainty principle)
+  │     confinement → E~ℏ²/Δx²  → quantum repulsion     (degeneracy pressure)
+  │     repulsion vs gravity     → Δx_bounce > 0          (singularity impossible)
+  │     3 independent mechanisms → [7] structural + [8] dynamical + [13] quantum
+  │
+  ├[14] g_μν has d(d+1)/2 = 10 components
+  │     ψ has 2d = 8 real DOF (dim CP^d)
+  │     10 − 8 = d(d−3)/2 = 2 = graviton polarizations!
+  │     graviton DOF = geometry's surplus over quantum state
+  │     d=3→0 (no propagating gravity), d=4→2, d=5→5  all match GR
+  │
+  └[15] Pachner moves (1→5, 5→1) change N (vertex count)
+        1→5: ψ_new = mean(neighbors) → 0 new info → resolution up
+        5→1: only when ℏ_eff ≪ 1 (states identical) → ~0 info lost
+        unitary evolution between moves → dependent ψ becomes independent
+        = entropy increase = second law = arrow of time
+        1→5 easy / 5→1 hard → time asymmetry from ℏ_eff asymmetry
 ```

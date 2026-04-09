@@ -220,6 +220,65 @@ class Network:
             result.append((tri, delta, len(simplex_ids)))
         return result
 
+    # ── Pachner moves (topology change) ───────────────────────
+
+    def pachner_1to5(self, vertex_ids: list[int]) -> int:
+        """
+        1→5 Pachner move: add a new vertex at the "center" of existing ones.
+
+        ψ_new = normalized mean of neighbors → 0 new independent info.
+        N increases by 1, but information is conserved.
+        Resolution goes UP.
+        """
+        mean_psi = np.mean([self.vertices[i].psi for i in vertex_ids], axis=0)
+        new_v = Vertex(mean_psi)  # normalized in __init__
+        self.vertices.append(new_v)
+        return len(self.vertices) - 1
+
+    def pachner_5to1(self, vertex_ids: list[int],
+                     w_threshold: float = 0.18) -> bool:
+        """
+        5→1 Pachner move: remove vertices that are nearly identical.
+
+        Only allowed when the vertices' mutual W > threshold
+        (i.e., ℏ_eff is small → states are indistinguishable).
+        Returns True if merge happened.
+        """
+        # Check: are all pairs nearly identical?
+        for i in range(len(vertex_ids)):
+            for j in range(i + 1, len(vertex_ids)):
+                w = self.vertices[vertex_ids[i]].W(self.vertices[vertex_ids[j]])
+                if w < w_threshold:
+                    return False  # not similar enough → move forbidden
+
+        # Keep the first, remove the rest (sorted descending to avoid index shift)
+        to_remove = sorted(vertex_ids[1:], reverse=True)
+        for idx in to_remove:
+            self.vertices.pop(idx)
+        return True
+
+    # ── The 10/8 ratio ────────────────────────────────────────
+
+    @staticmethod
+    def graviton_dof(d: int = 4) -> dict:
+        """
+        The 10/8 ratio and graviton polarizations.
+
+        g_μν components:  d(d+1)/2
+        CP^d dimension:   2d
+        Difference:       d(d-3)/2 = graviton polarizations
+        """
+        g_components = d * (d + 1) // 2
+        cp_dim = 2 * d
+        graviton = d * (d - 3) // 2
+        return {
+            "d": d,
+            "g_components": g_components,
+            "cp_dim": cp_dim,
+            "graviton_polarizations": graviton,
+            "ratio": g_components / cp_dim,
+        }
+
     # ── Global observables ────────────────────────────────────
 
     def total_info(self) -> float:
