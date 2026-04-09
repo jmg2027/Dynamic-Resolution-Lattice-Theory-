@@ -947,6 +947,7 @@ Axiom: cell → |ψ⟩ ∈ C^(d+1),  W_ij = |⟨ψ_i|ψ_j⟩|²/(d+1)
   │     Lorentz group SO(1,3)  → derived symmetry, not postulate
   │
   ├[10] Sym(C^5) = SU(5)       → GUT group is simplex symmetry
+  │     d_time=1 → n_time=2     → 2+3=5 is arithmetic, not choice
   │     (2,3) causal split      → SU(5) → SU(3)×SU(2)×U(1)
   │     3 spatial + 2 temporal  → Standard Model gauge group (derived!)
   │     fund. rep 5 → (3,1)⊕(1,2) → quarks + leptons
