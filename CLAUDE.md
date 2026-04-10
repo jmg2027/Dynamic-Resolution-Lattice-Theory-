@@ -85,7 +85,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_021: Pachner block (블록 우주에서 Pachner = 유효 N = 줌인, 5/5 ✓)
 - EXP_022: Cosmic history (W 고유값 스펙트럼 = 우주 역사, 5/5 ✓)
 - EXP_023: Cosmic mysteries (우주론 미스테리 8개 재해석, 8/8 ✓)
-- Next: EXP_024
+- EXP_024: Large-N cosmos (N=10000 스케일링, 허블텐션, 구조형성, 5/5 ✓)
+- Next: EXP_025
 
 ## Key Library API (lib/drlt.py)
 ```python

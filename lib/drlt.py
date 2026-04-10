@@ -210,14 +210,15 @@ class Network:
 
     # ── The W matrix (the universe itself) ────────────────────
 
+    def psi_matrix(self) -> np.ndarray:
+        """N×5 matrix of all ψ vectors (rows)."""
+        return np.array([v.psi for v in self.vertices])
+
     def W_matrix(self) -> np.ndarray:
         """Full W_ij for all pairs. This encodes everything."""
-        n = self.N
-        W = np.zeros((n, n))
-        for i in range(n):
-            for j in range(n):
-                W[i, j] = self.vertices[i].W(self.vertices[j])
-        return W
+        P = self.psi_matrix()         # N×5
+        G = P @ P.conj().T            # N×N Gram matrix
+        return np.abs(G)**2 / Vertex.DIM  # W = |⟨ψ_i|ψ_j⟩|²/5
 
     def ds2_matrix(self) -> np.ndarray:
         """Emergent metric between all pairs."""
