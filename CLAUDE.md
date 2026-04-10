@@ -89,7 +89,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_025: Baryon asymmetry (η_B = 0.68/√C(5⁹,3) = 6.10e-10, 관측 일치!, 5/5 ✓)
 - EXP_026: CMB spectrum (W 고유모드 파워 스펙트럼, 피크 7개, n_s<1, 5/5 ✓)
 - EXP_027: Rank 25 (rank(W)=5²=25 정리 증명, 우주=200 bytes, 진행중)
-- Next: EXP_028
+- EXP_028: 200 bytes (25개 고유값=물리 전체? SU(5)분해+M_H+Λ+τ_p, 5/5 ✓)
+- Next: EXP_029
 
 ## Key Library API (lib/drlt.py)
 ```python
