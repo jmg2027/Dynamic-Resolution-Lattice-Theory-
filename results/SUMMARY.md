@@ -301,6 +301,14 @@ N=25 = CP⁴ 해상 = 섭동↔비섭동 경계 = 구속 onset (31%).
 rS₃/rS₁=3.0 (GUT 통일 스케일, 민주적).
 ```
 
+### N=3125 = 5⁵: Asymptotic Freedom Confirmed
+
+```
+N=125: 구속 40%, ℏ/ℏ_vac=1.32
+N=3125: 구속 0%!, ℏ/ℏ_vac=0.693=ln2!  ← 점근 자유!
+GUT 스케일에서 쿼크는 자유. β₃=-7<0 시뮬레이션 확인.
+```
+
 ### SM-Borrowed → DRLT Independent
 
 ```
