@@ -327,6 +327,14 @@ GUT 스케일에서 쿼크는 자유. β₃=-7<0 시뮬레이션 확인.
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
+### Generations = Dimensionality (1D/2D/3D)
+
+```
+ħ₁=1.16(1D), ħ₂=1.87(2D), ħ₃=1.62=φ(3D). 전부 >1 → 쿼크 구속.
+ħ₃/ħ₂ = √3/2 (정확히). c: 0.85→0.98×(2세대 보정).
+세대 = "공간의 몇 차원을 쓰느냐". 3차원 → 3세대.
+```
+
 ### ħ_gluon = φ (Golden Ratio, 0.01%!)
 
 ```
