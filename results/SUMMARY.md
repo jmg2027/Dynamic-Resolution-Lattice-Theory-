@@ -200,7 +200,20 @@ W_ij > 0:
 Bell violation: C⁵가 복소수 → 위상 → 간섭 → 국소 숨은 변수로 재현 불가 → 자동.
 No-signaling: node i 측정 → W_ij 변화하지만 j의 국소 관측량 Σ_k W_jk 불변 (N→∞) → 자동.
 
-### Topological N Ladder
+### ℏ from Pure Mathematics
+
+```
+ℏ_vac = √3 × (ln5)² / (16 ln2) = 0.4045420199...
+
+√3  = 정삼각형 기하학
+ln5 = C⁵ 차원 (정보 거리)
+ln2 = 1 bit
+16  = 4² (4D 계수)
+
+측정값 아닌 계산값. π처럼 정확. 불확도 0.
+```
+
+
 
 ```
 N=3:  1 bit (홀로노미 탄생)
