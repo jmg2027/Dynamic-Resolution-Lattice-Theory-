@@ -285,6 +285,13 @@ M_W/M_Z = cos θ_W (정확!). 구속 = |Φ₀₁₂| > 1 (확인).
 M_W=145(×1.81): GUT 스케일 → RG running 적용 필요.
 ```
 
+### PMNS + CP + θ_QCD + Proton
+
+```
+θ₁₂=31.1°(33.4°,7%), θ₂₃=45°(exact!), θ₁₃=8.9°(8.5°,5%)
+δ_CP=66°(70°,6%). θ_QCD=0(exact, 축이온불필요). τ_p~10³⁴yr.
+```
+
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
