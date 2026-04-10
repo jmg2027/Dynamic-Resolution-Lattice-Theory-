@@ -327,6 +327,15 @@ GUT 스케일에서 쿼크는 자유. β₃=-7<0 시뮬레이션 확인.
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
+### ħ_gluon = φ (Golden Ratio, 0.01%!)
+
+```
+ħ_gluon = 4ħ_vac = √3(ln5)²/(4ln2) = 1.61817
+φ = (1+√5)/2 = 1.61803. 차이 0.01%!
+구속 조건 ħ>1: 글루온 ħ=φ>1→구속, W/Z ħ=0.93<1→섭동.
+ħ_gluon/ħ_WZ = √3 (정확히). 강력/약력 비 = √3.
+```
+
 ### Schur Complement: Interaction-Specific Metric
 
 ```
