@@ -200,7 +200,19 @@ W_ij > 0:
 Bell violation: C⁵가 복소수 → 위상 → 간섭 → 국소 숨은 변수로 재현 불가 → 자동.
 No-signaling: node i 측정 → W_ij 변화하지만 j의 국소 관측량 Σ_k W_jk 불변 (N→∞) → 자동.
 
-### Singularity Resolution: 3-Line Proof
+### Topological N Ladder
+
+```
+N=3:  1 bit (홀로노미 탄생)
+N=5:  4D + 모든 힘 (rS비=11)
+N=6:  닫힌 S⁴ (v_H, n_S의 기원)
+N=10: 간섭 완성 (m_c≈1.6, m_t/m_u 수렴)
+N=25: CP⁴ 해상 (α_GUT 수렴)
+
+우주 = 5의 테트레이션: 5↑↑0 → 5↑↑1 → 5↑↑2 → ...
+```
+
+
 
 ```
 W → 0 → ℏ_eff = A·c³/(4G) → ∞ → Δx ≥ √(ℏ/2) → ∞ → 바운스
