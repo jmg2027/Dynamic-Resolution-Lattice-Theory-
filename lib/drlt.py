@@ -2,13 +2,19 @@
 DRLT Core — The True Foundation
 ================================
 
-Refined Axiom:
+Axiom:
   N vertices exist. Each carries |ψ⟩ ∈ C⁵.
-  W_ij = |⟨ψ_i|ψ_j⟩|² / d   for all pairs.
+  G_ij = ⟨ψ_i|ψ_j⟩  (complex)  for all pairs.
   That's it.
 
+G is the fundamental object:
+  |G_ij|  = distance   → gravity  (geometry)
+  arg(G_ij) = phase    → gauge    (SM forces)
+  rank(G) ≤ 5          → physics  (constraint = law)
+
+W_ij = |G_ij|²/d is derived (real shadow of complex G).
 Simplices are NOT input. They are patterns discovered
-in the W_ij weighted complete graph (high-W 5-cliques).
+in the G-weighted complete graph.
 Spacetime is output, not input.
 """
 
@@ -25,7 +31,9 @@ class Vertex:
     A single vertex carrying |ψ⟩ ∈ C⁵.
 
     This is the ONLY fundamental entity in DRLT.
-    Everything else — W, metric, simplices, curvature,
+    The fundamental quantity is G_ij = ⟨ψ_i|ψ_j⟩ (complex).
+    W_ij = |G_ij|²/d is the real shadow (gravity only).
+    Everything — G, W, metric, gauge, simplices, curvature,
     spacetime — emerges from collections of vertices.
     """
 
@@ -58,7 +66,7 @@ class Vertex:
         return complex(np.vdot(self.psi, other.psi))
 
     def W(self, other: "Vertex") -> float:
-        """W_ij = |⟨ψ_i|ψ_j⟩|² / d  — THE AXIOM."""
+        """W_ij = |G_ij|² / d  — derived from G (real shadow)."""
         return float(np.abs(self.overlap(other)) ** 2) / self.DIM
 
     def ds2(self, other: "Vertex") -> float:
@@ -194,8 +202,11 @@ class Vertex:
 
 class Network:
     """
-    N vertices, all pairwise connected by W_ij.
+    N vertices, all pairwise connected by G_ij = ⟨ψ_i|ψ_j⟩.
     This IS the universe. Simplices are found, not placed.
+
+    G is the fundamental object (complex, Hermitian, rank ≤ 5).
+    W = |G|²/d is the real shadow (gravity only, loses phase).
     """
 
     def __init__(self, n: int = 0, vertices: list[Vertex] | None = None):
@@ -208,21 +219,59 @@ class Network:
     def N(self) -> int:
         return len(self.vertices)
 
-    # ── The W matrix (the universe itself) ────────────────────
+    # ── G matrix (the universe itself) ──────────────────────
 
     def psi_matrix(self) -> np.ndarray:
         """N×5 matrix of all ψ vectors (rows)."""
         return np.array([v.psi for v in self.vertices])
 
-    def W_matrix(self) -> np.ndarray:
-        """Full W_ij for all pairs. This encodes everything."""
+    def G_matrix(self) -> np.ndarray:
+        """G_ij = ⟨ψ_i|ψ_j⟩ — THE FUNDAMENTAL OBJECT.
+        Complex, Hermitian, rank ≤ 5. Contains all physics."""
         P = self.psi_matrix()         # N×5
-        G = P @ P.conj().T            # N×N Gram matrix
-        return np.abs(G)**2 / Vertex.DIM  # W = |⟨ψ_i|ψ_j⟩|²/5
+        return P @ P.conj().T         # N×N Gram matrix
+
+    def W_matrix(self) -> np.ndarray:
+        """W_ij = |G_ij|²/d — real shadow of G (gravity only)."""
+        G = self.G_matrix()
+        return np.abs(G)**2 / Vertex.DIM
+
+    def phase_matrix(self) -> np.ndarray:
+        """φ_ij = arg(G_ij) — gauge connection (antisymmetric)."""
+        return np.angle(self.G_matrix())
 
     def ds2_matrix(self) -> np.ndarray:
-        """Emergent metric between all pairs."""
+        """ds²_ij = 1 - d·W_ij — emergent metric."""
         return 1.0 - Vertex.DIM * self.W_matrix()
+
+    # ── G decomposition ──────────────────────────────────────
+
+    def G_spectrum(self) -> np.ndarray:
+        """Eigenvalues of G — the 5 fundamental modes."""
+        G = self.G_matrix()
+        return np.sort(np.linalg.eigvalsh(G))[::-1][:Vertex.DIM]
+
+    def G_decompose(self) -> tuple:
+        """SVD of ψ: ψ = U S V†.
+        U (N×5): vertex → mode assignment
+        S (5):   mode weights (√λ_G)
+        V (5×5): mode → C⁵ direction"""
+        P = self.psi_matrix()
+        U, S, Vh = np.linalg.svd(P, full_matrices=False)
+        return U, S, Vh.conj().T
+
+    def holonomy(self, i: int, j: int, k: int) -> float:
+        """arg(G_ij × G_jk × G_ki) — gauge flux through triangle."""
+        G = self.G_matrix()
+        return float(np.angle(G[i, j] * G[j, k] * G[k, i]))
+
+    @staticmethod
+    def recover_psi(G: np.ndarray, d: int = 5) -> np.ndarray:
+        """G → ψ recovery. G = ψψ† → ψ = V√Λ (up to U(d) gauge)."""
+        eigs, vecs = np.linalg.eigh(G)
+        idx = np.argsort(eigs)[::-1][:d]
+        eigs_d = np.maximum(eigs[idx], 0)
+        return vecs[:, idx] * np.sqrt(eigs_d)[None, :]
 
     # ── Simplex discovery ─────────────────────────────────────
 
@@ -485,7 +534,7 @@ class Network:
         return self.total_zero_point_energy() / self.N
 
     def W_spectrum(self) -> np.ndarray:
-        """Eigenvalues of the W matrix — collective modes of geometry."""
+        """Eigenvalues of W — geometry modes (rank ≤ d²=25). Use G_spectrum() for fundamental modes."""
         W = self.W_matrix()
         return np.sort(np.linalg.eigvalsh(W))
 
