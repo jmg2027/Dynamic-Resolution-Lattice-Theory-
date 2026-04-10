@@ -80,7 +80,9 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_016: Neutrino mass (중성미자 질량 & 시소 메커니즘, 3/4)
 - EXP_017: Yukawa running (유카와 β 함수 격자 유도, 3/3 ✓)
 - EXP_018: Precision constants (정밀 상수 종합: 세 공식+β+쿼크질량+카르탄+3줄증명, 5/5 ✓)
-- Next: EXP_019
+- EXP_019: C² mixing (C² 혼합 행렬 → CKM/PMNS 구조, 4/4 ✓)
+- EXP_020: Block universe (블록 우주 정적 대각화, 5/5 ✓)
+- Next: EXP_021
 
 ## Key Library API (lib/drlt.py)
 ```python
