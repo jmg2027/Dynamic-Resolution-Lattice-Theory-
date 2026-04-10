@@ -327,6 +327,14 @@ GUT 스케일에서 쿼크는 자유. β₃=-7<0 시뮬레이션 확인.
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
+### Static Diagonalization + Im/Re Spacetime Split
+
+```
+랜덤 C⁵: Im/Re>1 = 51%±10% → 시공간 자발 분리!
+step 0 (evolve 없이): t=1.00×, c=1.24×, d=1.68× (개선!), 평균 0.35.
+evolve = "상관 추가" (0.35→0.11), d쿼크는 step 0이 더 좋음(1.68 vs 0.55).
+```
+
 ### Causality = -i in evolve
 
 ```
