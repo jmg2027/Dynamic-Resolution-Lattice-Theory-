@@ -261,6 +261,14 @@ W → 0 → ℏ_eff = A·c³/(4G) → ∞ → Δx ≥ √(ℏ/2) → ∞ → 바
 W = 경로적분: Tr(W^n) → ×1/2 수렴, W↑↔S↓ r=-0.981
 ```
 
+### Three Forces = Three Triangle Types
+
+```
+10 삼각형 = 1(공간=강력) + 3(시간=약력) + 6(혼합=EM)
+M_W/M_Z = cos θ_W (정확!). 구속 = |Φ₀₁₂| > 1 (확인).
+M_W=145(×1.81): GUT 스케일 → RG running 적용 필요.
+```
+
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
