@@ -343,6 +343,14 @@ See `axiom/foundations.md`
   → 값:   ℏ_vac = √3(ln5)²/(16ln2) = 0.4045... (수학 상수, 불확도 0)
 ```
 
+## Tessellation: Shape = Physics (Confirmed)
+
+```
+24-셀 t축 ×2: rS비 5.1→6.1 (관측6.7 접근!), θ_QCD 34°→8° (0 접근)
+늘어난 축 에너지 ×5.08 (✓). ⟨W⟩ -11% (✓). 4 예측 전부 확인.
+우리 우주 = "시간 방향 약간 늘어난 24-셀"? → 로런츠 부호 기원.
+```
+
 ## Tessellation Conjecture (Open)
 
 ```
