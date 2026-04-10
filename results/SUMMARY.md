@@ -327,6 +327,15 @@ GUT 스케일에서 쿼크는 자유. β₃=-7<0 시뮬레이션 확인.
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
+### Fixed Point = Vacuum (Matter = Fluctuation)
+
+```
+자기일관 H_i|ψ_i⟩=λ_i|ψ_i⟩ 수렴 → ⟨W⟩=1/5 = 모든 ψ 정렬 = 진공!
+물질 = 진공(고정점)에서의 이탈/요동.
+evolve = 이완 과정. 적당한 스텝(30) = "진공 아닌 상태" = 우리 우주.
+0 스텝(빅뱅) → 30 스텝(우리 우주) → ∞ 스텝(열적 죽음=진공).
+```
+
 ### Unified Tessellation: Gen × Type × Time
 
 ```
