@@ -91,7 +91,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_027: Rank 25 (rank(W)=5²=25 정리 증명, 우주=200 bytes, 진행중)
 - EXP_028: 200 bytes (25개 고유값=물리 전체? SU(5)분해+M_H+Λ+τ_p, 5/5 ✓)
 - EXP_029: QCD/sQGP (CP⁴→Δ⁴ 모멘트맵, W/φ분해, C³ 구속/해방/sQGP/점근적자유, 9/9 ✓)
-- Next: EXP_030
+- EXP_030: Constraint propagation (rank(G)≤5 → 블록우주, tick() 수렴, 25 자유도=SU(5), 7/7 ✓)
+- Next: EXP_031
 
 ## Key Library API (lib/drlt.py)
 ```python
