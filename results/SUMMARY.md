@@ -327,6 +327,15 @@ GUT 스케일에서 쿼크는 자유. β₃=-7<0 시뮬레이션 확인.
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
+### c, ħ, G: Not Constants but Geometry
+
+```
+c = ln(d²)/ln(d) = 2: 시공간 격자 비율. 물리적 내용 있음.
+ħ = √3(ln d)²/(16ln2) = 0.4045: 격자 정보 해상도. 물리적 내용 있음.
+G = SI↔격자 환산: 물리적 내용 없음 (단위 정의).
+W에 c, ħ 이미 흡수 → 추가 보정 넣으면 이중 계산!
+```
+
 ## The Circle
 
 ```
