@@ -4,6 +4,7 @@
 - Always edit files in small chunks. Never write an entire large file at once.
 - Use the Edit tool to make incremental changes, not the Write tool for full rewrites.
 - Each edit should be a focused, reviewable unit of change.
+- 실험 실행 후 전체 출력을 `results/EXP_NNN_*.txt`에 반드시 저장할 것. Experiment 클래스가 자동 저장하지만, 스크립트 직접 실행 시에도 출력을 파일로 리다이렉트하거나 tee로 저장.
 
 ## Project: Dynamic Resolution Lattice Theory (DRLT)
 - Refined Axiom: N vertices with ψ ∈ C⁵, W_ij = |⟨ψ_i|ψ_j⟩|²/5. That's it.
