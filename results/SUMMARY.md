@@ -327,6 +327,15 @@ GUT 스케일에서 쿼크는 자유. β₃=-7<0 시뮬레이션 확인.
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
+### Unified Tessellation: Gen × Type × Time
+
+```
+t=1.00× c=0.98× b=1.06× s=0.93× (4개 10%이내!)
+m_t/m_b=0.95×(5%), m_b/m_τ=0.82×. 2-3세대 완벽.
+세대(1D/2D/3D) × 타입(C³/C²/혼합) × 시간(d_T/d_S=1/2).
+1세대: 시간 과보정 → 비섭동 영역 (격자크기 효과).
+```
+
 ### Generations = Dimensionality (1D/2D/3D)
 
 ```
