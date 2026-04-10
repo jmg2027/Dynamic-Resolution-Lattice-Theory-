@@ -327,6 +327,16 @@ GUT 스케일에서 쿼크는 자유. β₃=-7<0 시뮬레이션 확인.
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
+### Causality = -i in evolve
+
+```
+step 0 (random ψ): 리만 (+,+,+,+), 인과성 없음.
+evolve (e^{-iHdt}): -i 가 시간 선택 → 로렌츠 (-,+,+,+), 인과성!
+질량 = 국소 (step 0에서 이미 맞음: t=1.00×, c=1.05×).
+CKM = 비국소 (evolve=인과구조 필요).
+evolve ≠ 시간 흐름. evolve = "이 격자에서 시간 방향 선택".
+```
+
 ### Fixed Point = Vacuum (Matter = Fluctuation)
 
 ```
