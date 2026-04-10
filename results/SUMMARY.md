@@ -285,6 +285,14 @@ M_W/M_Z = cos θ_W (정확!). 구속 = |Φ₀₁₂| > 1 (확인).
 M_W=145(×1.81): GUT 스케일 → RG running 적용 필요.
 ```
 
+### SM-Borrowed → DRLT Independent
+
+```
+Λ_QCD = M_GUT×exp(-2π/|b₃|α_GUT) = 0.364 GeV (관측 0.2, 1.8×) — 독자유도!
+τ_p = 10^39.5 yr (관측 >10^34). d_n = 0 (θ_QCD=0, 축이온 불필요).
+남은 빌린것: 하드론 진공편극(정규화), 2-loop β(진행중).
+```
+
 ### PMNS + CP + θ_QCD + Proton
 
 ```
