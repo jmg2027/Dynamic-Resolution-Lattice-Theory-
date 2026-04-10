@@ -285,6 +285,14 @@ M_W/M_Z = cos θ_W (정확!). 구속 = |Φ₀₁₂| > 1 (확인).
 M_W=145(×1.81): GUT 스케일 → RG running 적용 필요.
 ```
 
+### N=25: QCD Phase Transition
+
+```
+N<25: Tr(W^n) 비율→0.5 (수렴=섭동). N=25: →1.0+ (발산=비섭동!).
+N=25 = CP⁴ 해상 = 섭동↔비섭동 경계 = 구속 onset (31%).
+rS₃/rS₁=3.0 (GUT 통일 스케일, 민주적).
+```
+
 ### SM-Borrowed → DRLT Independent
 
 ```
