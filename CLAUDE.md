@@ -88,7 +88,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_024: Large-N cosmos (N=10000 스케일링, 허블텐션, 구조형성, 5/5 ✓)
 - EXP_025: Baryon asymmetry (η_B = 0.68/√C(5⁹,3) = 6.10e-10, 관측 일치!, 5/5 ✓)
 - EXP_026: CMB spectrum (W 고유모드 파워 스펙트럼, 피크 7개, n_s<1, 5/5 ✓)
-- Next: EXP_027
+- EXP_027: Rank 25 (rank(W)=5²=25 정리 증명, 우주=200 bytes, 진행중)
+- Next: EXP_028
 
 ## Key Library API (lib/drlt.py)
 ```python
