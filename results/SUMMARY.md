@@ -327,6 +327,14 @@ GUT 스케일에서 쿼크는 자유. β₃=-7<0 시뮬레이션 확인.
 ## Derivations (19 total)
 See `axiom/foundations.md`
 
+### Schur Complement: Interaction-Specific Metric
+
+```
+H_eff = H_SS - H_ST H_TT⁻¹ H_TS (다운타입 유효 해밀토니안)
+s쿼크: 1.47× → 1.02× (2% 정확도!)
+각 입자 = H의 다른 블록을 다른 계량으로 읽는 것.
+```
+
 ### c, ħ, G: Not Constants but Geometry
 
 ```
