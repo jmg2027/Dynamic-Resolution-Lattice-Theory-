@@ -7,11 +7,11 @@
 - 실험 실행 후 전체 출력을 `results/EXP_NNN_*.txt`에 반드시 저장할 것. Experiment 클래스가 자동 저장하지만, 스크립트 직접 실행 시에도 출력을 파일로 리다이렉트하거나 tee로 저장.
 
 ## Project: Dynamic Resolution Lattice Theory (DRLT)
-- Axiom: N vertices with ψ ∈ C⁵, G_ij = ⟨ψ_i|ψ_j⟩ (complex). That's it.
-- G is fundamental: |G| = gravity, arg(G) = gauge forces, rank(G) ≤ 5 = laws.
-- W_ij = |G_ij|²/d is derived (real shadow, gravity only).
+- THE AXIOM: N vertices with ψ ∈ C⁵. That's it. (단 하나)
+- Everything derived: ψ → G=⟨ψ|ψ⟩ → W,φ → rank≤5 → laws → ħ → S=A/4 → QM
+- G is fundamental (complex), W = |G|²/d is real shadow.
+- 1 edge = 1 bit (Holevo bound, derived not postulated).
 - Simplices are emergent (high-W 5-cliques), not input.
-- All physics is derived, not postulated.
 - Korean is the primary communication language.
 
 ## Repository Structure

@@ -2,20 +2,22 @@
 DRLT Core — The True Foundation
 ================================
 
-Axiom:
-  N vertices exist. Each carries |ψ⟩ ∈ C⁵.
-  G_ij = ⟨ψ_i|ψ_j⟩  (complex)  for all pairs.
-  That's it.
+THE AXIOM (one and only):
+  N vertices exist. Each carries ψ ∈ C⁵.
 
-G is the fundamental object:
-  |G_ij|  = distance   → gravity  (geometry)
-  arg(G_ij) = phase    → gauge    (SM forces)
-  rank(G) ≤ 5          → physics  (constraint = law)
+Everything else is derived:
+  ψ ∈ C⁵                              (axiom)
+  → G_ij = ⟨ψ_i|ψ_j⟩                 (Hilbert space structure)
+  → W_ij = |G_ij|²/d, φ_ij = arg(G_ij)  (polar decomposition)
+  → rank(G) ≤ 5                       (dimension → laws of physics)
+  → 1 edge = 1 bit                    (Holevo bound)
+  → ħ_eff = A/(4ln2)                  (Heron + information)
+  → S = A/4                           (Bekenstein, derived)
+  → iħ∂ψ/∂t = Hψ                     (Stone's theorem)
 
-W_ij = |G_ij|²/d is derived (real shadow of complex G).
-Simplices are NOT input. They are patterns discovered
-in the G-weighted complete graph.
-Spacetime is output, not input.
+G is the fundamental object (complex, Hermitian, rank ≤ 5).
+W is the real shadow (gravity only, loses gauge phases).
+Spacetime, forces, matter — all output, not input.
 """
 
 import numpy as np
