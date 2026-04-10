@@ -351,6 +351,14 @@ See `axiom/foundations.md`
 우리 우주 = "시간 방향 약간 늘어난 24-셀"? → 로런츠 부호 기원.
 ```
 
+### Lattice Shape Optimization
+
+```
+t=2.9: d=1.05×(★), t=1.00×(★). rS비=9.6 → c나쁨.
+한 격자로 9개 동시 불가 → 스케일별 격자 모양 변함 = RG!
+고에너지: 정규 24-셀(통일). 저에너지: 비스듬(분리+구속).
+```
+
 ## Tessellation Conjecture (Open)
 
 ```
