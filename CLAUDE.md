@@ -120,11 +120,13 @@ net.zpe_density()                # E_zpe / N
 net.W_spectrum()                 # eigenvalues of W matrix
 net.vacuum_fluctuation_variance() # σ²_W (vacuum fluctuations)
 
-# Evolution
-evolve_step(net, dt)     # self-consistent local H
-try_pachner_1to5(net)    # add vertex
-try_pachner_5to1(net)    # merge vertices
-big_bounce_initial(6)    # post-bounce initial state
+# Evolution (tick = natural unit, no dt)
+tick(net)                        # U_i = exp(-iH_i/ħ_eff,i), dt 없음
+net.local_hbar_eff(i)            # ħ_eff = A/(4S), 국소 시간 스케일
+evolve_step(net, dt)             # legacy (arbitrary dt)
+try_pachner_1to5(net)            # add vertex
+try_pachner_5to1(net)            # merge vertices
+big_bounce_initial(6)            # post-bounce initial state
 ```
 
 ## Git Rules

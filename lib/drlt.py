@@ -503,6 +503,37 @@ class Network:
         mask = ~np.eye(n, dtype=bool)
         return float(np.var(W[mask]))
 
+    # ── Local ħ_eff (information geometry) ─────────────────────
+
+    def local_hbar_eff(self, i: int) -> float:
+        """
+        ħ_eff,i = A_i / (4 S_i)  — local effective Planck constant.
+
+        A_i = Σ_j √(ds²_ij) = total metric distance to neighbors
+        S_i = Σ_j H_binary(5W_ij) = total information entropy
+
+        ħ_eff 큼 → 회전 작음 → 느린 진화 → 중력적 시간 팽창
+        ħ_eff 작음 → 회전 큼 → 빠른 진화 → 진공
+
+        Returns float('inf') if vertex is frozen (S → 0).
+        """
+        vi = self.vertices[i]
+        A = 0.0   # total "area" (metric distance)
+        S = 0.0   # total information
+        for j in range(self.N):
+            if j == i:
+                continue
+            w = vi.W(self.vertices[j])
+            # area = √(1 - 5W) = √(ds²) per edge
+            ds2 = max(0.0, 1.0 - Vertex.DIM * w)
+            A += np.sqrt(ds2)
+            # binary entropy of overlap
+            p = np.clip(Vertex.DIM * w, 1e-15, 1.0 - 1e-15)
+            S += -p * np.log(p) - (1 - p) * np.log(1 - p)
+        if S < 1e-15:
+            return float('inf')  # frozen
+        return A / (4.0 * S)
+
     # ── Global observables ────────────────────────────────────
 
     def total_info(self) -> float:
@@ -540,8 +571,57 @@ def big_bounce_initial(n_vertices: int = 6) -> Network:
     return Network(vertices=verts)
 
 
+def tick(net: Network):
+    """
+    자연스러운 1 틱: U_i = exp(-i H_i / ħ_eff,i).  dt 없음.
+
+    1 tick = 1 bit of information processing.
+    ħ_eff가 자기일관적으로 회전 크기를 결정:
+
+      ħ_eff 큼  → 회전 작음 → 중력적 시간 팽창
+      ħ_eff 작음 → 회전 큼  → 진공 양자 요동
+      ħ_eff = ∞  → 동결     → 고정점 (블록 우주)
+
+    수렴 시 (고정점):
+      H_i ψ_i = λ_i ψ_i  (ψ가 자기 이웃 H의 고유벡터)
+      → U_i ψ_i = e^{-iλ/ħ} ψ_i (위상만 변화)
+      → W 불변 → 블록 우주 도달
+
+    이 flow = rank(G) ≤ 5 조건의 해를 찾는 반복법.
+    수렴 = 자기일관적 ψ 배치 = 물리 법칙의 필연적 귀결.
+    """
+    n = net.N
+    new_psis = []
+    for i in range(n):
+        # 1. Local Hamiltonian: H_i = Σ_{j≠i} W_ij |ψ_j⟩⟨ψ_j|
+        H_i = np.zeros((5, 5), dtype=complex)
+        for j in range(n):
+            if j == i:
+                continue
+            w = net.vertices[i].W(net.vertices[j])
+            psi_j = net.vertices[j].psi
+            H_i += w * np.outer(psi_j, psi_j.conj())
+
+        # 2. Local ħ_eff from information geometry
+        h_eff = net.local_hbar_eff(i)
+
+        # 3. Frozen vertex: ħ_eff = ∞ → no evolution
+        if h_eff == float('inf'):
+            new_psis.append(net.vertices[i].psi.copy())
+            continue
+
+        # 4. U_i = exp(-i H_i / ħ_eff) — natural 1 tick, no dt
+        eigvals, eigvecs = np.linalg.eigh(H_i)
+        U_i = eigvecs @ np.diag(np.exp(-1j * eigvals / h_eff)) @ eigvecs.conj().T
+        new_psis.append(U_i @ net.vertices[i].psi)
+
+    # 5. Simultaneous update (all vertices at once)
+    for i in range(n):
+        net.vertices[i] = Vertex(new_psis[i])
+
+
 def evolve_step(net: Network, dt: float = 0.1):
-    """Self-consistent evolution: H_i = Σ_j W_ij |ψ_j⟩⟨ψ_j|."""
+    """Legacy evolution with arbitrary dt. Use tick() instead."""
     n = net.N
     new_psis = []
     for i in range(n):
