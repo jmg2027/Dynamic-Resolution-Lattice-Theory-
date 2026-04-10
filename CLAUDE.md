@@ -69,7 +69,28 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_005: 4D lattice force law (1/r² convergence)
 - EXP_006: Self-evolving universe (inflation → equilibrium)
 - EXP_007: CMB power spectrum (n_s measurement)
-- Next: EXP_008
+- EXP_008: Zero-point energy (영점 에너지 유도 및 측정, 7/7 ✓)
+- EXP_009: Fine structure constant (미세구조상수, 6/6 ✓)
+- EXP_010: Galaxy rotation curves (은하 회전 곡선 & 암흑물질, 4/4 ✓)
+- EXP_011: Black hole simulation (블랙홀 생애 시뮬레이션, 5/7)
+- EXP_012: Gravitational waves (중력파 검출, 4/4 ✓)
+- EXP_013: Entanglement & Bell (얽힘/벨 부등식, 1/4 — 얽힘 구조 탐색 중)
+- EXP_014: Particles from geometry (입자=기하학, 5/5 ✓)
+- EXP_015: All physics from C⁵ (전체 물리 법칙 카탈로그, 25/25 ✓)
+- EXP_016: Neutrino mass (중성미자 질량 & 시소 메커니즘, 3/4)
+- EXP_017: Yukawa running (유카와 β 함수 격자 유도, 3/3 ✓)
+- EXP_018: Precision constants (정밀 상수 종합: 세 공식+β+쿼크질량+카르탄+3줄증명, 5/5 ✓)
+- EXP_019: C² mixing (C² 혼합 행렬 → CKM/PMNS 구조, 4/4 ✓)
+- EXP_020: Block universe (블록 우주 정적 대각화, 5/5 ✓)
+- EXP_021: Pachner block (블록 우주에서 Pachner = 유효 N = 줌인, 5/5 ✓)
+- EXP_022: Cosmic history (W 고유값 스펙트럼 = 우주 역사, 5/5 ✓)
+- EXP_023: Cosmic mysteries (우주론 미스테리 8개 재해석, 8/8 ✓)
+- EXP_024: Large-N cosmos (N=10000 스케일링, 허블텐션, 구조형성, 5/5 ✓)
+- EXP_025: Baryon asymmetry (η_B = 0.68/√C(5⁹,3) = 6.10e-10, 관측 일치!, 5/5 ✓)
+- EXP_026: CMB spectrum (W 고유모드 파워 스펙트럼, 피크 7개, n_s<1, 5/5 ✓)
+- EXP_027: Rank 25 (rank(W)=5²=25 정리 증명, 우주=200 bytes, 진행중)
+- EXP_028: 200 bytes (25개 고유값=물리 전체? SU(5)분해+M_H+Λ+τ_p, 5/5 ✓)
+- Next: EXP_029
 
 ## Key Library API (lib/drlt.py)
 ```python
@@ -88,6 +109,15 @@ Network(n=20)            # N random vertices
 net.W_matrix()           # full W_ij
 net.find_simplices()     # discover 4-simplices from W
 net.curvature_map()      # deficit angles at hinges
+
+# Zero-point energy (Derivation 14)
+net.local_hamiltonian(i)         # H_i = Σ W_ij|ψ_j⟩⟨ψ_j|
+net.local_energy_spectrum(i)     # eigenvalues of H_i
+net.zero_point_energy(i)         # λ_min(H_i)
+net.total_zero_point_energy()    # Σ_i λ_min(H_i)
+net.zpe_density()                # E_zpe / N
+net.W_spectrum()                 # eigenvalues of W matrix
+net.vacuum_fluctuation_variance() # σ²_W (vacuum fluctuations)
 
 # Evolution
 evolve_step(net, dt)     # self-consistent local H
