@@ -83,7 +83,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_019: C² mixing (C² 혼합 행렬 → CKM/PMNS 구조, 4/4 ✓)
 - EXP_020: Block universe (블록 우주 정적 대각화, 5/5 ✓)
 - EXP_021: Pachner block (블록 우주에서 Pachner = 유효 N = 줌인, 5/5 ✓)
-- Next: EXP_022
+- EXP_022: Cosmic history (W 고유값 스펙트럼 = 우주 역사, 5/5 ✓)
+- Next: EXP_023
 
 ## Key Library API (lib/drlt.py)
 ```python
