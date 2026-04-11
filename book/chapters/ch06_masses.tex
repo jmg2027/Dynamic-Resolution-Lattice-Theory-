@@ -161,3 +161,43 @@ Median accuracy: 3\%. All 9 masses from 4 building blocks: $v_H$ (from $d$), $\a
 \begin{remark}[Error structure]
 The errors are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the opposite of the coupling constant pattern (Chapter~\ref{ch:couplings}: $\alpha_3$ has the largest error). The physical reason: lower generations have less internal structure ($k = 1$ has no internal edges), making them more susceptible to perturbations from the $N > 5$ ghost remnants. This error pattern is quantified by the Ghost Sum Rule (Chapter~\ref{ch:ghosts}).
 \end{remark}
+
+\subsection{The QCD confinement scale}
+
+The confinement scale $\Lambda_\text{QCD}$ is derived from the same building blocks as the fermion masses:
+\begin{equation}
+\boxed{\Lambda_\text{QCD} = \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times n_S = \frac{245.6}{\sqrt{2}} \times \frac{1}{41.12^2} \times 3 = 308\;\text{MeV}.}
+\end{equation}
+Observed: 200--340 MeV (scheme-dependent). The formula reads: the top-quark mass $m_t = v_H/\sqrt{c}$ suppressed by two powers of $\alpha_\text{GUT}$ (one for each vertex of the quark-antiquark string) and multiplied by the number of spatial vertices $n_S = 3$ (the color factor).
+
+Equivalently: $\Lambda_\text{QCD} = m_b \times \alpha_\text{GUT} \times n_S = 4.22 \times 0.0243 \times 3 = 308\;\text{MeV}$.
+
+\begin{remark}[Ghost protection]
+The standard dimensional transmutation formula $\Lambda = M_\text{GUT}\,e^{-2\pi/(|b_3|\alpha_\text{GUT})} \approx 364\;\text{MeV}$ uses the RG $\beta$-coefficient $b_3 = -7$, which is scheme-dependent and exposed to ghost corrections. The DRLT formula uses $\alpha_\text{GUT} = 6/(25\pi^2)$ directly, which is ghost-invariant (it equals the total Binet--Cauchy channel sum, protected by the trace conservation $\text{Tr}(G) = N$). Ghost contamination of $\Lambda_\text{QCD}$ enters only through $v_H$, at the $\sim 0.25\%$ level.
+\end{remark}
+
+\subsection{The proton mass}
+
+A proton consists of $n_S = 3$ valence quarks, each contributing $\Lambda_\text{QCD}$ of binding energy. The leading-order mass is $3\Lambda_\text{QCD} = 924\;\text{MeV}$, which is 1.5\% below the observed value. The deficit is filled by a single 1-loop correction from the SSS hinge self-interaction:
+\begin{equation}
+\boxed{m_p = n_S^2 \times \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times \left(1 + \alpha_\text{GUT}\,\frac{n_S}{d}\right) = 937.5\;\text{MeV}.}
+\end{equation}
+Observed: $938.3\;\text{MeV}$ (0.08\%).
+
+The correction factor $(1 + \alpha_\text{GUT}\,n_S/d) = 1 + 0.0243 \times 3/5 = 1.0146$: one power of $\alpha_\text{GUT}$ for the self-coupling, and $n_S/d = 3/5$ for the spatial fraction of the simplex.
+
+\begin{center}
+\begin{tabular}{lccl}
+\hline
+Quantity & DRLT & Observed & Error \\
+\hline
+$\Lambda_\text{QCD}$ & 308 MeV & 200--340 MeV & in range \\
+$m_p$ (leading) & 924 MeV & 938.3 MeV & 1.5\% \\
+$m_p$ (1-loop) & 937.5 MeV & 938.3 MeV & 0.08\% \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}
+The proton mass is $\sim 100\times$ the sum of its valence quark masses ($m_u + m_u + m_d \approx 9\;\text{MeV}$). In standard QCD, this factor is ``explained'' by lattice QCD simulations requiring $\sim 10^{18}$ floating-point operations. In DRLT, it is $n_S^2 \times \alpha_\text{GUT}^2 \times (1 + \alpha_\text{GUT}\,n_S/d)$: five numbers, all derived from $d = 5$.
+\end{remark}
