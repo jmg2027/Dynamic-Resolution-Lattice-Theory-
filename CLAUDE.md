@@ -103,7 +103,9 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_028: 200 bytes (25개 고유값=물리 전체? SU(5)분해+M_H+Λ+τ_p, 5/5 ✓)
 - EXP_029: QCD/sQGP (CP⁴→Δ⁴ 모멘트맵, W/φ분해, C³ 구속/해방/sQGP/점근적자유, 9/9 ✓)
 - EXP_030: Constraint propagation (rank(G)≤5 → 블록우주, tick() 수렴, 25 자유도=SU(5), 7/7 ✓)
-- Next: EXP_031
+- EXP_031: Simplex spacetime (심플렉스 격자 시공간 모델, 4/5)
+- EXP_032: Compact stars (중성자별/쿼크별 det(G_h) 계층, 6/6 ✓)
+- Next: EXP_033
 
 ## Key Library API (lib/drlt.py)
 ```python
