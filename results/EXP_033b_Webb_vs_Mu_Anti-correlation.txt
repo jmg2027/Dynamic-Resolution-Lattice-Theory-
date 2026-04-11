@@ -1,0 +1,69 @@
+============================================================
+  EXP_033b_Webb_vs_Mu_Anti-correlation
+  2026-04-11 21:23:17
+============================================================
+=================================================================
+Webb Dipole Δα/α vs Published Δμ/μ: Sign Correlation Test
+=================================================================
+
+Webb dipole: A = 1.1e-05
+Direction: RA = 17.3h, Dec = -61.0 deg
+
+DRLT prediction: Δα and Δμ must have OPPOSITE signs
+(ghost sum rule Σδᵢ = 0 → α_s anti-correlates with α_em)
+(μ = m_p/m_e ∝ Λ_QCD ∝ α_s → μ tracks α_s)
+
+  Quasar               z   Δα/α(pred)    Δμ/μ(obs)       ±err   Signs  Anti?
+  ------------------------------------------------------------------------
+  Q0347-383        3.025    +2.07e-06    +2.10e-06   6.00e-06   +/+       ~0
+  Q0405-443        2.595    +3.06e-06    +1.01e-05   6.20e-06   +/+       NO
+  Q0528-250        2.811    -7.55e-07    +3.00e-07   3.70e-06   -/+       ~0
+  Q0642-504        2.659    +4.26e-06    +1.71e-05   5.80e-06   +/+       NO
+  J1237+0648       2.688    +6.50e-07    -5.40e-06   7.20e-06   +/-       ~0
+  J2123-0050       2.059    +2.70e-06    +5.60e-06   6.20e-06   +/+       ~0
+  Q2348-011        2.426    -6.11e-07    -6.80e-06   2.78e-05   -/-       ~0
+  B0642-5038       2.659    +4.28e-06    +1.27e-05   4.50e-06   +/+       NO
+  HE0027-1836      2.402    +1.46e-06    -7.60e-06   1.02e-05   +/-       ~0
+  Q1443+2724       4.224    -6.44e-07    -9.50e-06   7.60e-06   -/-       NO
+
+  Anti-correlated (DRLT consistent): 0
+  Same sign (DRLT inconsistent):     4
+  Ambiguous (|Δμ| < 1σ):             6
+
+  Weighted Pearson r = +0.847
+  (negative = anti-correlation = DRLT consistent)
+
+=================================================================
+INTERPRETATION
+=================================================================
+
+  *** DRLT TENSION: majority same-sign ***
+  Ghost sum rule may be violated.
+
+  IMPORTANT CAVEATS:
+  - Δμ/μ measurements have large uncertainties (~10⁻⁵)
+  - Webb Δα/α dipole amplitude is also ~10⁻⁵
+  - Individual Δμ/μ values are mostly 1-2σ from zero
+  - This is a consistency check, not a definitive test
+  - A definitive test requires dedicated observations
+    of BOTH α and μ from the SAME quasar sightlines
+  [✓ PASS] data loaded and processed
+  [✗ FAIL] anti-correlation count >= same-sign count
+  [✗ FAIL] weighted correlation negative or near zero
+
+  Prediction for future observations:
+  At RA~17h Dec~-61 (toward dipole): Δα > 0, Δμ < 0
+  At RA~5h Dec~+61 (away from dipole): Δα < 0, Δμ > 0
+
+  Free parameters: 0
+  Data sources: Webb+ 2011, King+ 2012, Ubachs+ 2016
+
+============================================================
+  SUMMARY: EXP_033b_Webb_vs_Mu_Anti-correlation
+============================================================
+  [✓] data loaded and processed
+  [✗] anti-correlation count >= same-sign count
+  [✗] weighted correlation negative or near zero
+
+  1/3 checks passed
+  Time: 0.0s
