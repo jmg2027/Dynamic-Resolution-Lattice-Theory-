@@ -7,12 +7,20 @@
 - 실험 실행 후 전체 출력을 `results/EXP_NNN_*.txt`에 반드시 저장할 것. Experiment 클래스가 자동 저장하지만, 스크립트 직접 실행 시에도 출력을 파일로 리다이렉트하거나 tee로 저장.
 
 ## Project: Dynamic Resolution Lattice Theory (DRLT)
-- THE AXIOM: N vertices with ψ ∈ C⁵. That's it. (단 하나)
-- Everything derived: ψ → G=⟨ψ|ψ⟩ → W,φ → rank≤5 → laws → ħ → S=A/4 → QM
+- THE AXIOM: 상호작용하는 존재가 있다. (Things exist with pairwise relations.)
+- C⁵ is not the axiom — it is derived (Frobenius → C, atomic uniqueness → d=5).
+- Deeper: ANY large random matrix naturally stratifies by rank under W-ordering.
+  d=5 is our address in the universal rank cascade, not a fundamental constraint.
+- Everything derived: relations → C → G=⟨ψ|ψ⟩ → W,φ → rank cascade → laws → ħ → QM
 - G is fundamental (complex), W = |G|²/d is real shadow.
 - 1 edge = 1 bit (Holevo bound, derived not postulated).
 - Simplices are emergent (high-W 5-cliques), not input.
 - Korean is the primary communication language.
+
+## Authoritative Theory
+- The book in `book/` (main.tex + chapters/) is the authoritative, correct formulation.
+- `axiom/` files are historical drafts — some use older W-based axiom or d=4 as input.
+- When in conflict, the book takes precedence over everything else in the repo.
 
 ## Repository Structure
 ```
