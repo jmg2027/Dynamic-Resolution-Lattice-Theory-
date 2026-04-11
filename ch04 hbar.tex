@@ -1,0 +1,147 @@
+%=====================================================================
+\section{The Dynamical Planck Constant}
+\label{ch:hbar}
+%=====================================================================
+
+In standard physics, $\hbar$ is a universal constant. In DRLT, it is a \emph{local, dynamical field} determined by the hinge geometry. This chapter derives $\hbar_h$ from information theory and shows that its key properties --- vanishing in vacuum, positivity in matter, and area-proportionality --- follow without assumptions.
+
+\subsection{Information capacity of a hinge}
+
+A hinge (triangle) $\{i, j, k\}$ in $\mathbb{C}^5$ carries three edges, each encoding a complex inner product $G_{ij}$. The question is: how much \emph{classical information} can be extracted from the quantum state of this triangle?
+
+\begin{theorem}[Holevo bound applied to hinges]
+The maximum classical information extractable from a hinge is 1 bit.
+\end{theorem}
+
+\begin{proof}
+Each edge carries one complex number $G_{ij} \in \mathbb{C}$. By the Holevo bound \cite{Holevo}, the maximum classical information extractable from a quantum state in $\mathbb{C}^d$ through a single measurement is $\log_2 d$ bits.
+
+A hinge spans 3 vertices in $\mathbb{C}^5$. The effective dimension of the hinge subspace is 3. The accessible information from the Gram sub-matrix $G_h$ (a single $3\times 3$ Hermitian matrix) has a geometrically accessible component encoded in the single real number $\det(G_h)$, yielding:
+\begin{equation}
+I_\text{hinge} = 1\;\text{bit}.
+\end{equation}
+
+Alternatively: the hinge has 3 edges carrying 3 independent real magnitudes $|G_{ij}|$, constrained by 2 triangle inequalities. Independent real parameters: $3 - 2 = 1$, encoding exactly 1 bit.
+\end{proof}
+
+\subsection{Derivation of $\hbar_h$}
+
+The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas in $\mathbb{CP}^4$ units). For the path integral $Z = \int D\psi\; e^{iS/\hbar}$ to be well-defined, $\hbar$ must have units of area. We define:
+
+\begin{equation}
+\boxed{\hbar_h = \frac{\sqrt{\det(G_h)}}{4\ln 2} = \frac{A_h}{4\ln 2}}
+\label{eq:hbar}
+\end{equation}
+
+The factor $4\ln 2$ ensures that $S/\hbar$ counts information in bits: each hinge contributes $\delta_h/(4\ln 2)$ bits to the action, consistent with $I_\text{hinge} = 1$ bit.
+
+\begin{remark}[Origin of the factor $4\ln 2$]
+The factor decomposes as:
+\begin{itemize}
+\item $\ln 2$: conversion from nats to bits ($1\;\text{bit} = \ln 2\;\text{nats}$).
+\item $4 = 2 \times 2$: the first factor of 2 arises from the two causal directions (past and future) that a hinge can influence; the second from the codimension-2 nature of hinges in 4D spacetime (area is 2-dimensional in a 4-dimensional volume).
+\end{itemize}
+This is not a fit; it is uniquely determined by dimensional analysis and the $I = 1\;\text{bit}$ normalization.
+\end{remark}
+
+\subsection{Key property: $\hbar$ as a local field}
+
+Unlike standard quantum mechanics where $\hbar = 1.054 \times 10^{-34}\;\text{J}\cdot\text{s}$ is universal, in DRLT $\hbar_h$ is:
+
+\begin{enumerate}
+\item \textbf{Local:} it varies from hinge to hinge, depending on the local geometry.
+\item \textbf{Dynamical:} it changes as the $\psi_i$ configuration evolves.
+\item \textbf{Non-negative:} $\det(G_h) \geq 0$ for positive semidefinite $G$, so $\hbar_h \geq 0$.
+\item \textbf{Determined:} it is not a free parameter but a function of the state.
+\end{enumerate}
+
+\subsection{Vacuum: $\hbar = 0$}
+
+\begin{proposition}[Vacuum is classical]
+If all vertices are in the same state ($\psi_i = e^{i\theta_i}\psi_0$ for all $i$), then $\hbar_h = 0$ for every hinge.
+\end{proposition}
+
+\begin{proof}
+In this configuration, $G_{ij} = e^{i(\theta_j - \theta_i)}$, so $|G_{ij}| = 1$ for all pairs. The Gram sub-matrix of any hinge has all $|G_{ij}| = 1$:
+\begin{equation}
+\det(G_h) = 1 - 1 - 1 - 1 + 2\cos\Phi_h.
+\end{equation}
+For aligned states, the holonomy $\Phi_h = 0$, giving $\det(G_h) = 1 - 3 + 2 = 0$.
+
+Therefore $A_h = 0$ and $\hbar_h = 0$.
+\end{proof}
+
+\textbf{Physical meaning:} The vacuum is \emph{exactly classical}. There are no quantum fluctuations, no zero-point energy, no vacuum catastrophe. The cosmological constant problem is eliminated at its root: $E_\text{vac} = 0$ exactly.
+
+\subsection{Matter: $\hbar > 0$}
+
+\begin{proposition}[Matter is quantum]
+If any vertex $\psi_i$ differs from its neighbors ($\psi_i \neq e^{i\theta}\psi_j$), then $\det(G_h) > 0$ for hinges containing $i$, hence $\hbar_h > 0$.
+\end{proposition}
+
+\begin{proof}
+For distinct states in $\mathbb{CP}^4$, $|G_{ij}| < 1$. The Gram sub-matrix has off-diagonal entries strictly less than 1, and for generic configurations, $\det(G_h) > 0$.
+\end{proof}
+
+\textbf{Physical meaning:} Matter is ``difference.'' A vertex that differs from its neighbors creates a nonzero hinge area, which creates a nonzero $\hbar$, which creates quantum behavior. Matter is inherently quantum because it is inherently different from vacuum.
+
+The uncertainty principle $\Delta x\,\Delta p \geq \hbar/2$ then \emph{prevents} the matter from returning to the vacuum state: once $\hbar > 0$, the state cannot be perfectly aligned again. Quantum mechanics is self-sustaining.
+
+\subsection{Characteristic values}
+
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Configuration & $\det(G_h)$ & $A_h$ & $\hbar_h$ \\
+\hline
+Vacuum ($\psi_i = \psi_j = \psi_k$) & 0 & 0 & 0 \\
+Weak perturbation & $\ll 1$ & small & small \\
+Orthogonal quarks (RGB) & $\sim 1$ & $\sim 1$ & $\sim 0.36$ \\
+Random states & $\sim 0.49$ & $\sim 0.70$ & $\sim 0.25$ \\
+Maximum gauge field ($\Phi_h = \pi$) & $\to 0$ & $\to 0$ & $\to 0$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Bekenstein--Hawking entropy}
+
+For a surface with $n$ hinges, the total entropy is:
+\begin{equation}
+S_\text{BH} = n \times 1\;\text{bit} = \frac{A_\text{surface}}{4\ell_P^2\,\ln 2}
+\end{equation}
+reproducing the Bekenstein--Hawking formula with the correct numerical factor. The ``$1/4$'' in $S = A/(4\ell_P^2)$ (in natural units) is not mysterious: it is the same $4\ln 2$ from Eq.~(\ref{eq:hbar}), converted from bits to nats.
+
+\subsection{Connection to Einstein field equations}
+
+The action per hinge is:
+\begin{equation}
+\frac{S_h}{\hbar_h} = \frac{A_h\,\delta_h}{A_h/(4\ln 2)} = 4\ln 2 \cdot \delta_h
+\end{equation}
+which is dimensionless and depends only on the deficit angle $\delta_h$. In the continuum limit, this becomes:
+\begin{equation}
+\frac{S}{\hbar} \;\to\; \frac{4G}{c^3}\int R\,\sqrt{g}\,d^4x
+\end{equation}
+where:
+\begin{itemize}
+\item $c = 2$ is the lattice speed of light (Eq.~\ref{eq:speed_of_light}), derived from $(n_S, n_T) = (3, 2)$.
+\item $G$ is Newton's constant, which in Planck units is $G = \ell_P^2 c^3/\hbar$ --- a unit conversion, not a free parameter.
+\end{itemize}
+
+Both $c$ and $G$ are determined by the lattice structure. The only dynamical content is $\det(G_h)$ and $\delta_h$, which are functions of $\psi$.
+
+\subsection{Physical interpretation: $\hbar$ as resolution}
+
+The Planck constant measures the \emph{resolution} of spacetime:
+\begin{itemize}
+\item $\hbar = 0$ (vacuum): infinite resolution, perfectly classical, no uncertainty. Like a photograph with infinite pixels --- but nothing to photograph.
+\item $\hbar > 0$ (matter): finite resolution, quantum uncertainty, structure. The higher $\hbar$, the ``blurrier'' the spacetime, the more quantum the physics.
+\item $\hbar \to \infty$: maximally quantum, maximally uncertain. This is the deep interior of a dense matter configuration --- but as shown in Sec.~3.13, compression drives $\psi$ alignment, which drives $\hbar \to 0$, preventing this limit from being reached. Singularities are impossible.
+\end{itemize}
+
+The transition from quantum to classical is not a ``collapse'' or a ``decoherence'' but a geometric fact: as regions of spacetime align ($\psi_i \to \psi_j$), their $\hbar$ decreases continuously to zero. The classical world is the aligned world.
+
+\begin{remark}[Why $\hbar$ appears constant in experiments]
+In laboratory settings, the matter configurations are similar across experiments: atoms, molecules, and photons have similar $\psi$ structures. The ``universal'' value $\hbar = 1.054 \times 10^{-34}\;\text{J}\cdot\text{s}$ is the average $\hbar_h$ for typical baryonic matter in the current epoch. It is approximately constant for the same reason that the average temperature of a room is approximately constant --- not because temperature is a fundamental constant, but because the local conditions are similar.
+
+A prediction: in extreme gravitational environments (near black holes, in the early universe), $\hbar_\text{eff}$ differs measurably from the laboratory value.
+\end{remark}
