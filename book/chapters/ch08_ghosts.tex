@@ -155,6 +155,38 @@ The Ghost Sum Rule generates predictions of a new kind --- not about the values 
 \item \textbf{Gravity prediction:} $\delta_G = +0.15$ is a prediction for the gravitational sector correction, potentially testable through precision measurements of Newton's constant at different energy scales.
 \end{enumerate}
 
+\subsection{The Webb dipole: $\alpha_\text{em}$ varies, $\alpha_\text{GUT}$ does not}
+
+Webb et al.\ reported a spatial dipole variation in $\alpha_\text{em}$ across the sky: $\Delta\alpha/\alpha \approx (1.1 \pm 0.25) \times 10^{-5}$ \cite{Webb}. For 25 years, the community has debated whether this is real physics or systematic error. The Ghost Sum Rule resolves the debate: \textbf{both sides are right}.
+
+The key insight is that $\varepsilon_0$ is a \emph{local field}: $\varepsilon_0 = \varepsilon_0(\mathbf{x})$, varying with position due to the large-scale $\det(G_h)$ distribution. This does not violate the sum rule --- at every spatial point, $\sum_i \delta_i(\mathbf{x}) = 0$ holds exactly. Only the \emph{distribution} of ghosts among sectors varies; the total $1/\alpha_\text{GUT} = 25\pi^2/6$ is spatially invariant.
+
+If $\varepsilon_0$ varies by a fraction $f = \Delta\varepsilon_0/\varepsilon_0$ across the sky, then:
+\begin{equation}
+\frac{\Delta\alpha_\text{em}}{\alpha_\text{em}} = \frac{0.767\,f}{128.7} = 5.96 \times 10^{-3}\,f.
+\end{equation}
+Setting this equal to the observed $10^{-5}$:
+\begin{equation}
+f = 1.68 \times 10^{-3} = 0.17\%.
+\end{equation}
+This is 1.4 times the CMB dipole ($v/c = 0.12\%$) --- the same order of magnitude, consistent with the known large-scale anisotropy.
+
+The mechanism makes a \textbf{falsifiable prediction}: $\alpha_s$ must vary in the \emph{opposite direction} to $\alpha_\text{em}$, maintaining $\sum\delta_i(\mathbf{x}) = 0$ everywhere. Specifically, the proton-to-electron mass ratio $\mu = m_p/m_e$ (which depends on $\Lambda_\text{QCD} \propto \alpha_s$) must anti-correlate with $\alpha_\text{em}$ in quasar absorption spectra. If $\Delta\alpha_\text{em}$ and $\Delta\mu$ have the same sign, DRLT is falsified.
+
+\begin{center}
+\begin{tabular}{lcl}
+\hline
+Quantity & Status & Why \\
+\hline
+(none) & No universal constant & Universe $=$ rank-$N$ matrix \\
+$25\pi^2/6$ & Plateau constant & Geometric identity of rank-5 \\
+$1/\alpha_3, 1/\alpha_2, 1/\alpha_1$ & Local values & Ghost redistribution \\
+$1/\alpha_\text{em} \approx 137$ & Local composite & $= \tfrac{5}{3}(1/\alpha_1) + (1/\alpha_2)$ \\
+$1/137.036$ & Our address & $\varepsilon_0 \approx 0.0038$ here, now \\
+\hline
+\end{tabular}
+\end{center}
+
 \begin{remark}[A new kind of theory]
 Standard theories predict values. DRLT predicts values \emph{and} the pattern of its own errors. This is possible because the errors are not noise but \emph{signal}: they encode the ghost remnants of the $N > 5 \to 5$ dimensional reduction. A theory that can predict how it fails is harder to falsify accidentally and easier to falsify genuinely --- the ideal scientific theory.
 \end{remark}
