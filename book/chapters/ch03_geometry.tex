@@ -249,6 +249,36 @@ The STT hinges have $\det(G_h) = 0$ because $n_T = 2 < 3$: two temporal vertices
 
 This gives a natural force hierarchy: 7 quantum hinges (SSS + SST) mediate the strong and electroweak forces, while STT hinges are classical ($\hbar = 0$). The weak force has no dedicated hinge (TTT $= 0$) and must ``borrow'' from the SST sector, providing a geometric explanation for its weakness.
 
+\subsection{Why exactly four forces}
+
+The number of gauge forces equals the number of ways to distribute 3 hinge vertices into two sectors ($\mathbb{C}^3$ and $\mathbb{C}^2$), excluding the impossible case:
+\begin{equation}
+\text{Gauge forces} = |\{(3,0),\;(2,1),\;(1,2)\}| = 3. \qquad (0,3)\;\text{is forbidden since } n_T = 2 < 3.
+\end{equation}
+Gravity adds one more: it operates not \emph{within} a hinge but \emph{between} hinges (the deficit angle $\delta_h$ measures how neighboring hinges are arranged). Total:
+\begin{equation}
+\text{Forces} = \underbrace{\min(3, n_T) + 1}_{\text{gauge + gravity}} = 3 + 1 = 4.
+\end{equation}
+
+A 5th force is mathematically forbidden: it would require either a 4th hinge type (impossible since $n_T = 2$) or a 2nd geometric level beyond hinges (but hinge-to-hinge is already the simplicial boundary structure, and there is nothing beyond it).
+
+\begin{center}
+\begin{tabular}{lccl}
+\hline
+Force & Level & Hinge type & Metaphor \\
+\hline
+Strong & within hinge & SSS & The room \\
+EM & within hinge & SST & The glue \\
+Weak & within hinge & STT & The door \\
+Gravity & between hinges & $\det(G_h)$ & The road \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}[Spin from dimensionality]
+Gauge bosons propagate on \emph{edges} (1-dimensional $\to$ vector $\to$ spin 1). Gravity propagates on \emph{hinges} (2-dimensional $\to$ tensor $\to$ spin 2). The spin of a force carrier is the dimensionality of the geometric object it lives on.
+\end{remark}
+
 \subsection{Singularity resolution}
 
 \begin{proposition}

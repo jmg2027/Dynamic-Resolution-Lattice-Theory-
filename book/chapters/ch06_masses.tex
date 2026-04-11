@@ -201,3 +201,64 @@ $m_p$ (1-loop) & 937.5 MeV & 938.3 MeV & 0.08\% \\
 \begin{remark}
 The proton mass is $\sim 100\times$ the sum of its valence quark masses ($m_u + m_u + m_d \approx 9\;\text{MeV}$). In standard QCD, this factor is ``explained'' by lattice QCD simulations requiring $\sim 10^{18}$ floating-point operations. In DRLT, it is $n_S^2 \times \alpha_\text{GUT}^2 \times (1 + \alpha_\text{GUT}\,n_S/d)$: five numbers, all derived from $d = 5$.
 \end{remark}
+
+\subsection{Neutron-proton mass difference}
+
+The neutron ($udd$) differs from the proton ($uud$) only in its $\mathbb{C}^2$ (isospin) quantum numbers. The mass difference is:
+\begin{equation}
+\boxed{m_n - m_p = (m_d - m_u) \times \frac{n_S\bigl(d - 1 + S(2)/S(\infty)\bigr)}{d^2} = 1.302\;\text{MeV}.}
+\end{equation}
+Observed: $1.293\;\text{MeV}$ (0.7\%). Each factor:
+\begin{itemize}
+\item $(m_d - m_u) = 2.28\;\text{MeV}$: isospin breaking source ($\mathbb{C}^2$ asymmetry).
+\item $n_S/d^2 = 3/25$: spatial projection normalized by the full simplex.
+\item $(d - 1) = 4$: gravitational contribution from 4D spacetime.
+\item $S(2)/S(\infty) = 15/(2\pi^2) = 0.760$: electroweak asymmetry correction, measuring how much the SST $=$ STT $= 12$ channel symmetry is broken.
+\end{itemize}
+
+\begin{remark}[Why the mass difference is tiny]
+$m_n - m_p \approx 0.14\%$ of $m_p$. This extreme smallness follows from the Binet--Cauchy identity SST $=$ STT $= 12$: the electromagnetic and weak channels have identical channel counts when $c = 2$, so their effects nearly cancel. If $c \neq 2$, the cancellation would fail, and $m_n - m_p$ would be much larger --- potentially destabilizing all nuclei and preventing chemistry.
+\end{remark}
+
+\subsection{Beta decay as $\mathbb{C}^2$ state flip}
+
+Neutron beta decay $n \to p + e^- + \bar{\nu}_e$ is a $\mathbb{C}^2$ isospin transition: a $d$-quark's temporal state flips to $u$-type, emitting energy through the STT (weak) channels. The $Q$-value:
+\begin{equation}
+Q_\beta = m_n - m_p - m_e = 1.302 - 0.490 = 0.812\;\text{MeV}.
+\end{equation}
+Observed: $0.782\;\text{MeV}$ (3.8\%). The neutron lifetime $\tau_n \approx 880\;\text{s}$ is long because the weak rate is suppressed relative to the strong rate by $\sim(1/15)^2 \times Q^5$ (channel count ratio squared times phase space).
+
+\subsection{The neutrino as $\mathbb{C}^2$ ghost}
+
+The neutrino is a state almost perfectly aligned with the $\mathbb{C}^2$ vacuum: $\psi_\nu \approx (0, 0, 0, 1, 0) \in \mathbb{C}^5$. Its $\mathbb{C}^3$ components are nearly zero. This single fact explains all neutrino properties:
+
+\begin{center}
+\begin{tabular}{ll}
+\hline
+Property & DRLT origin \\
+\hline
+Electrically neutral & $\mathbb{C}^3$ component $\approx 0$ $\to$ no SST coupling \\
+Only weak interaction & Only STT hinges have nonzero $\det$ \\
+Nearly massless & Almost aligned with vacuum ($\det \approx 0$) \\
+Left-handed & $\mathbb{C}^2$ has chirality (pseudo-real fundamental) \\
+Three flavors & $n_S = 3$ generations \\
+Oscillates & Small $\mathbb{C}^3$ admixture allows flavor mixing \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Nuclear force as cross-hinges}
+
+Two nucleons (two SSS hinges, 6 quarks total) interact through \emph{cross-hinges}: triangles whose vertices come from both nucleons. The number of cross-hinges is $\binom{6}{3} - 2 = 18$, providing 18 attractive channels. The deuterium binding energy:
+\begin{equation}
+E_d \sim \Lambda_\text{QCD} \times \alpha_\text{GUT} \times n_T/n_S = 308 \times 0.0243 \times 2/3 \approx 5.0\;\text{MeV}
+\end{equation}
+(observed: $2.224\;\text{MeV}$, factor $\sim 2\times$ overestimate --- the cross-hinge overlap integral needs refinement).
+
+\subsection{The hydrogen atom}
+
+Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\mathbb{C}^3$) and $\{e\}$ (electron, $\mathbb{C}^2$), forming 1 SSS hinge (nuclear binding) + 3 SST hinges (electromagnetic binding). The ground-state energy:
+\begin{equation}
+E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -12.9\;\text{eV}
+\end{equation}
+(observed: $-13.6\;\text{eV}$, $-5.1\%$, due to $m_e$ being 4\% low in DRLT). The atom exists because U(1) --- the relative phase between $\mathbb{C}^3$ and $\mathbb{C}^2$ --- binds the electron to the proton. Without this glue (Chapter~\ref{ch:whyC}), atoms could not form.
