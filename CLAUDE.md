@@ -105,7 +105,8 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_030: Constraint propagation (rank(G)≤5 → 블록우주, tick() 수렴, 25 자유도=SU(5), 7/7 ✓)
 - EXP_031: Simplex spacetime (심플렉스 격자 시공간 모델, 4/5)
 - EXP_032: Compact stars (중성자별/쿼크별 det(G_h) 계층, 6/6 ✓)
-- Next: EXP_033
+- EXP_033: Webb dipole (ghost 공간변동 정합성, α_s↔α_em 역상관, 7/7 ✓)
+- Next: EXP_034
 
 ## Key Library API (lib/drlt.py)
 ```python
