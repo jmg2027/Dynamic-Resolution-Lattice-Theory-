@@ -129,6 +129,66 @@ Result & $\eta/s \geq 1/(4\pi)$ (bound) & $\eta/s = 1/(4\pi)$ (exact value) \\
 
 AdS/CFT gives an \emph{inequality}: $\eta/s \geq 1/(4\pi)$ in the infinite coupling limit of $\mathcal{N} = 4$ super Yang--Mills, a theory that is not QCD. DRLT gives the \emph{exact value} for any deconfined $\mathbb{C}^5$ configuration, with zero free parameters and no supersymmetry.
 
+\subsection{Why AdS/CFT works: the 5 is the same 5}
+
+The deepest question is not \emph{what} AdS/CFT computes, but \emph{why} it works at all. DRLT provides the answer: the 5 in AdS$_5$ is not an arbitrary choice --- it is $d = 5$, the dimension of the internal space $\mathbb{C}^5$.
+
+\subsubsection{The dictionary}
+
+\begin{center}
+\begin{tabular}{lcl}
+\hline
+AdS/CFT & & DRLT \\
+\hline
+AdS$_5$ (5D spacetime) & $=$ & $\mathbb{C}^5$ (internal space, $d = 5$) \\
+Black hole horizon & $=$ & $\det(G_h) \to 0^+$ boundary \\
+Hawking temperature & $=$ & $\hbar_\text{eff} \to 0^+$ (Chapter~\ref{ch:hbar}) \\
+Strong coupling ($\lambda \to \infty$) & $=$ & All $d^2 = 25$ channels active \\
+Horizon area & $=$ & Hinge area $A_h$ \\
+Bekenstein--Hawking entropy & $=$ & 1 bit per hinge (Holevo) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{The black hole horizon IS the sQGP}
+
+In DRLT, a black hole horizon is a surface where $\det(G_h) \to 0^+$: vertices are nearly aligned ($\psi_i \approx e^{i\theta}\psi_j$), $\hbar_\text{eff} \to 0$, and the region transitions from quantum to classical (Chapter~\ref{ch:hbar}). The sQGP is a state where the full $\mathbb{C}^5$ is active and energy density is extreme, driving $\det(G_h)$ toward uniformity and then toward zero.
+
+These are the \emph{same geometric state}:
+
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+& Region & $\det(G_h)$ & $\hbar_\text{eff}$ \\
+\hline
+\multicolumn{4}{l}{\emph{Black hole:}} \\
+\quad Exterior & quantum & $> 0$ & $> 0$ \\
+\quad Horizon & transition & $\to 0^+$ & $\to 0^+$ \\
+\quad Interior & vacuum ($\psi$ aligned) & $= 0$ & $= 0$ \\
+\hline
+\multicolumn{4}{l}{\emph{Heavy-ion collision:}} \\
+\quad $T < T_c$ & confined (hadrons) & large, fluctuating & $> 0$ \\
+\quad $T = T_c$ & deconfined (sQGP) & uniform, $\to 0^+$ & $\to 0^+$ \\
+\quad $T \to \infty$ & compressed $\to$ aligned & $\to 0$ & $\to 0$ \\
+\hline
+\end{tabular}
+\end{center}
+
+The physical environments are different --- one is gravitational collapse, the other is nuclear collision --- but the Gram matrix structure is identical: \textbf{$\mathbb{C}^5$ fully active, $\det(G_h) \to 0^+$, all 25 channels open}.
+
+\subsubsection{Why AdS/CFT had to use 5 dimensions}
+
+AdS/CFT did not know \emph{why} 5 dimensions work. The standard justification is mathematical: the conformal group $\text{SO}(4,2)$ of 4D CFT is the isometry group of AdS$_5$. In DRLT, the deeper reason is:
+
+\begin{enumerate}
+\item The internal space is $\mathbb{C}^d$ with $d = 5$ (derived, Chapter~\ref{ch:whyd5}).
+\item A black hole horizon in $\mathbb{C}^5$ has $\det(G_h) \to 0^+$, which is geometrically identical to the sQGP state.
+\item Computing $\eta/s$ on this surface gives $1/(c \times 2\pi) = 1/(4\pi)$ by hinge area cancellation.
+\item AdS/CFT reproduces this because it is (unknowingly) computing on the same $d = 5$ geometry.
+\end{enumerate}
+
+The AdS/CFT correspondence is not a ``duality'' between two different theories. It is a \emph{shadow} of the fact that the internal space is $\mathbb{C}^5$, projected into the language of 5-dimensional general relativity. It works because the 5 is right. It requires $\lambda \to \infty$ because only in that limit does the shadow faithfully reproduce the underlying $\mathbb{C}^5$ geometry.
+
 \subsection{The QCD phase diagram from $\mathbb{C}^3$}
 
 \begin{center}
