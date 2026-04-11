@@ -55,9 +55,46 @@ Observed: 0.685 (0.5\%). This arises from the fraction of horizon information th
 
 \subsubsection{Identity: vacuum zero-point energy}
 
-In DRLT, every vertex has a local Hamiltonian $H_i = \sum_j W_{ij}|\psi_j\rangle\langle\psi_j|$ with a strictly positive minimum eigenvalue. This zero-point energy (ZPE) exists for all vertices, including vacuum vertices.
+In DRLT, every vertex has a local Hamiltonian $H_i = \sum_j W_{ij}|\psi_j\rangle\langle\psi_j|$ with a strictly positive minimum eigenvalue (Chapter~\ref{ch:hbar}). This zero-point energy (ZPE) exists for all vertices, including vacuum vertices --- vertices that are not part of any baryonic structure but still carry energy through their $W_{ij} > 0$ connections.
 
-Dark matter is \emph{not a new particle}. It is the gravitational effect of the ZPE of vacuum vertices --- vertices that are not part of any baryonic structure but still carry energy through their $W_{ij} > 0$ connections.
+\textbf{Dark matter is not a new particle. It is the gravitational effect of the spacetime lattice's own zero-point energy.}
+
+\subsubsection{Two populations of vertices}
+
+In a galaxy, the lattice vertices split into two populations:
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+& Visible vertices & Vacuum vertices \\
+\hline
+Location & Clustered at stars & Fill inter-stellar space \\
+Mutual $W$ & High (form simplices) & Low (sparse connections) \\
+Density profile & $n_\text{vis} \propto e^{-r/r_d}$ & $n_\text{vac} \propto 1/r^2$ \\
+ZPE per vertex & High (many neighbors) & Lower (fewer neighbors) \\
+Observable? & Yes (emit/absorb light) & No (no EM interaction) \\
+\hline
+\end{tabular}
+\end{center}
+
+The total gravitational mass at radius $r$:
+\begin{equation}
+M_\text{eff}(r) = M_\text{vis}(r) + M_\text{ZPE}(r), \qquad M_\text{ZPE}(r) = \sum_{\text{vacuum vertices inside } r} \frac{E_0^{(i)}}{c^2}.
+\end{equation}
+
+\subsubsection{Flat rotation curves}
+
+At large $r$, visible matter density drops exponentially ($\rho_\text{vis} \to 0$), but vacuum vertices fill space with density $\sim 1/r^2$. Their ZPE contribution:
+\begin{equation}
+\rho_\text{ZPE}(r) \propto n_\text{vac}(r) \times \varepsilon_\text{zpe} \propto \frac{1}{r^2}
+\end{equation}
+gives $M_\text{ZPE}(r) = \int_0^r 4\pi r'^2 \rho_\text{ZPE}(r')\,dr' \propto r$, and therefore:
+\begin{equation}
+v^2(r) = \frac{G\,M_\text{eff}(r)}{r} \approx \frac{G \times (\text{const}\times r)}{r} = \text{const}.
+\end{equation}
+\textbf{Flat rotation curve --- no new particles required.}
+
+At the MOND acceleration scale $a_0 \approx 1.2 \times 10^{-10}\;\text{m/s}^2$, the lattice resolution becomes too coarse for the Newtonian continuum approximation. This provides a geometric explanation for the MOND phenomenology: it is not modified gravity but resolution-dependent gravity.
 
 \subsubsection{Dark-to-baryon ratio}
 
@@ -67,9 +104,11 @@ Each baryon involves $d = 5$ components in $\mathbb{C}^5$. The vacuum ZPE contri
 \end{equation}
 Observed: $0.120/0.0224 = 5.36$. Error: 0.4\%.
 
-\subsubsection{Properties}
+\subsubsection{Properties and predictions}
 
-DRLT dark matter: gravitationally interacting (through $W_{ij}$), electrically neutral (vacuum has no gauge phase), approximately collisionless (vacuum-vacuum interactions are second-order in $W$), and resolves the cusp-core problem (quantum repulsion from $\hbar_\text{eff} > 0$ prevents central over-compression).
+DRLT dark matter is: gravitationally interacting (through $W_{ij}$), electrically neutral (vacuum has no gauge phase), approximately collisionless (vacuum-vacuum interactions are second-order in $W$), and resolves the cusp-core problem (quantum repulsion from $\hbar_\text{eff} > 0$ prevents central over-compression).
+
+\textbf{Prediction:} Direct detection experiments will never find dark matter particles, because dark matter is not a particle --- it is the zero-point energy of spacetime itself.
 
 \subsection{Inflation}
 

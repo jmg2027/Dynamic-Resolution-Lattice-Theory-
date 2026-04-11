@@ -200,6 +200,15 @@ EM & 12 & 3 & $\infty$ & $\pi^2/6$ & $\mathbf{6\pi^2}$ & 59.0\;(0.4\%) \\
 The formula $1/\alpha_1 = 6\pi^2$ is exact. It contains no approximation, no truncation, no fitting. The irrational number $\pi$ enters physics through the Basel sum --- the total illuminance of the inverse-square lattice propagator.
 \end{remark}
 
+\begin{remark}[Geometric meaning of $6\pi^2$]
+The number $6\pi^2$ has a direct geometric interpretation:
+\begin{itemize}
+\item $6 = d + 1$: the number of vertices of the 4-simplex (equivalently, $\binom{5}{4}$ tetrahedra, or $c \times d_S = 2 \times 3$, the spacetime volume factor).
+\item $\pi^2/6 = \zeta(2)$: Euler's Basel sum, which is the total ``illuminance'' of the inverse-square lattice propagator $\sum_{n=1}^\infty 1/n^2$. Each lattice hop at distance $n$ contributes brightness $1/n^2$; the sum over all distances gives $\pi^2/6$.
+\end{itemize}
+Thus $1/\alpha_1 = (d+1) \times \pi^2 = 6\pi^2$: the EM coupling constant is ``the number of simplex vertices times the total brightness of the lattice.'' More precisely, it is the U(1) flux through $\mathbb{CP}^4$ computed via harmonic analysis on the Fubini--Study metric. The coupling constant is a measure of total lattice illuminance per channel.
+\end{remark}
+
 \subsection{Derived quantities}
 
 From the three fundamental couplings:

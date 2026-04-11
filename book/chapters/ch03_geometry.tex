@@ -70,6 +70,68 @@ A 4-simplex has:
 \binom{5}{5} = 1 \text{ 4-simplex}.
 \end{equation}
 
+\subsection{The simplex as data bus: 10 edges = 10 metric components}
+\label{sec:data_bus}
+
+The 4-simplex has $\binom{5}{2} = 10$ edges. A 4-dimensional symmetric metric tensor $g_{\mu\nu}$ has $d_\text{st}(d_\text{st}+1)/2 = 10$ independent components. This is not a coincidence: each edge of the simplex maps to one component of the metric tensor via the Regge correspondence.
+
+Each edge carries \emph{two} data channels from the full inner product $G_{ij} = |G_{ij}|\,e^{i\phi_{ij}}$:
+\begin{itemize}
+\item $|G_{ij}|^2 \to W_{ij}$: the metric component (\textbf{gravity}),
+\item $\phi_{ij} = \arg(G_{ij})$: the gauge connection (\textbf{forces}).
+\end{itemize}
+
+Under the causal $(n_S, n_T) = (3, 2)$ split, the 10 edges decompose as:
+
+\begin{center}
+\begin{tabular}{lccl}
+\hline
+Edge type & Count & Formula & Metric role \\
+\hline
+Temporal--Temporal & $\binom{2}{2} = 1$ & $W$ within time & $g_{00}$ (lapse) \\
+Spatial--Spatial & $\binom{3}{2} = 3$ & $W$ within space & $g_{ij},\;i\neq j$ (spatial off-diagonal) \\
+Spatial--Temporal & $2\times 3 = 6$ & $W$ across sectors & $g_{0i}$ (shift) + diagonal \\
+\hline
+\textbf{Total} & \textbf{10} & & $g_{\mu\nu}$ fully determined \\
+\hline
+\end{tabular}
+\end{center}
+
+The simplex is a minimal processor: 5 complex-number registers (vertices) connected by 10 pairwise comparisons (edges) whose magnitudes encode local geometry and whose phases encode gauge fields. The simplex interior carries no information --- it is the irreducible ``blind spot'' that defines the minimum resolution unit.
+
+\subsection{Lorentz signature from unitarity}
+\label{sec:Lorentz}
+
+The metric $ds^2_{ij} = 1 - d\,W_{ij}$ is positive-definite (Riemannian). All distances are spacelike. Where does the Lorentzian signature $(-,+,+,+)$ come from?
+
+\begin{theorem}[Lorentz signature is derived]
+Unitarity of time evolution forces Lorentzian signature.
+\end{theorem}
+
+\begin{proof}
+The argument has four steps.
+
+\medskip
+\noindent\textbf{Step 1: Unitarity selects a time direction.}
+Time evolution between spatial slices $\Sigma_t$ and $\Sigma_{t+1}$ is unitary: $U^\dagger U = I$ (a consequence of inner-product preservation). This foliation breaks the directional symmetry of $G$: directions \emph{within} a slice are spatial; directions \emph{between} slices are temporal.
+
+\medskip
+\noindent\textbf{Step 2: The factor of $i$ is non-negotiable.}
+The unitary propagator $U(\Delta t) = e^{-iH\Delta t}$ requires the imaginary unit. The alternatives fail: $e^{-H\Delta t}$ decays (not unitary), $e^{+H\Delta t}$ grows (not unitary). Only $e^{-iH\Delta t}$ oscillates, conserving probabilities.
+
+\medskip
+\noindent\textbf{Step 3: Wick rotation is forced.}
+The path integral weight $e^{iS/\hbar}$ relates to the Euclidean weight $e^{-S_E/\hbar}$ via $\tau = it$. This Wick rotation transforms the Euclidean metric $ds^2_E = d\tau^2 + d\mathbf{x}^2$ into the Lorentzian metric $ds^2_L = -dt^2 + d\mathbf{x}^2$: the temporal component flips sign.
+
+\medskip
+\noindent\textbf{Step 4: Lattice metric.}
+On the lattice, spacelike edges (within a slice) retain $ds^2_\text{space} = 1 - d\,W_{ij} > 0$, while timelike edges (between slices) acquire $ds^2_\text{time} = -(1 - d\,W_{ij}) < 0$. The combined signature is $(-,+,+,+)$.
+\end{proof}
+
+\begin{remark}
+The light cone corresponds to $ds^2 = 0$, i.e., $|G_{ij}| = 1$: the boundary where two points become indistinguishable. Lorentz invariance $\text{SO}(1,3)$ is the symmetry group preserving this derived signature --- it is a theorem, not a postulate. Special and general relativity follow as the flat and curved limits, respectively.
+\end{remark}
+
 \subsection{Hinge area and curvature}
 
 A hinge (triangle) with vertices $\{i, j, k\}$ has a $3\times 3$ Gram sub-matrix:

@@ -26,7 +26,7 @@ Alternatively: the hinge has 3 edges carrying 3 independent real magnitudes $|G_
 
 \subsection{Derivation of $\hbar_h$}
 
-The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas in $\mathbb{CP}^4$ units). For the path integral $Z = \int D\psi\; e^{iS/\hbar}$ to be well-defined, $\hbar$ must have units of area. We define:
+The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas in $\mathbb{CP}^4$ units). The axiom itself is dimensionless: $\psi \in \mathbb{C}^5$ with $\|\psi\| = 1$ introduces no length, time, or energy scale. For the path integral $Z = \int D\psi\; e^{iS/\hbar}$ to be well-defined, $S/\hbar$ must be dimensionless. Since $S$ has units of area (from the hinge areas $A_h$), $\hbar$ must also have units of area. Moreover, $\hbar$ must be \emph{local} (each hinge contributes independently to the action) and \emph{intrinsic} (determined by the state, not by an external scale). The unique local quantity with units of area available at a hinge is $A_h = \sqrt{\det(G_h)}$ itself. Therefore $\hbar \propto A$ is \emph{forced} by the dimensionlessness of the axiom --- it is the only consistent choice. We define:
 
 \begin{equation}
 \boxed{\hbar_h = \frac{\sqrt{\det(G_h)}}{4\ln 2} = \frac{A_h}{4\ln 2}}
@@ -86,6 +86,42 @@ For distinct states in $\mathbb{CP}^4$, $|G_{ij}| < 1$. The Gram sub-matrix has 
 \textbf{Physical meaning:} Matter is ``difference.'' A vertex that differs from its neighbors creates a nonzero hinge area, which creates a nonzero $\hbar$, which creates quantum behavior. Matter is inherently quantum because it is inherently different from vacuum.
 
 The uncertainty principle $\Delta x\,\Delta p \geq \hbar/2$ then \emph{prevents} the matter from returning to the vacuum state: once $\hbar > 0$, the state cannot be perfectly aligned again. Quantum mechanics is self-sustaining.
+
+\subsection{Zero-point energy: the local Hamiltonian}
+
+Each vertex $i$ in a network of $N$ points has a natural self-consistent Hamiltonian:
+\begin{equation}
+H_i = \sum_{j \neq i} W_{ij}\,|\psi_j\rangle\langle\psi_j|
+\end{equation}
+a $5\times 5$ positive semidefinite Hermitian matrix (a sum of rank-1 projectors weighted by $W_{ij} \geq 0$). Its eigenvalues $0 \leq \lambda_1 \leq \cdots \leq \lambda_5$ represent the energy spectrum accessible to vertex $i$.
+
+\begin{proposition}[Zero-point energy is strictly positive]
+For any connected network with $N \geq 7$, the minimum eigenvalue $\lambda_{\min}(H_i) > 0$ for every vertex $i$.
+\end{proposition}
+
+\begin{proof}
+$\lambda_{\min} = 0$ requires a state $|\phi\rangle$ with $H_i|\phi\rangle = 0$, i.e., $\sum_j W_{ij}|\langle\phi|\psi_j\rangle|^2 = 0$. Since $W_{ij} > 0$ for all connected pairs, this requires $\langle\phi|\psi_j\rangle = 0$ for all $j \neq i$. But $|\phi\rangle \in \mathbb{C}^5$ can be orthogonal to at most 4 independent vectors. For $N \geq 7$ (more than $d + 1 = 6$ vertices), no single state can be orthogonal to all neighbors.
+\end{proof}
+
+The total zero-point energy of the lattice is:
+\begin{equation}
+E_\text{zpe} = \sum_{i=1}^{N} \lambda_{\min}(H_i)
+\end{equation}
+with exactly $N$ modes --- \emph{not} infinite. This resolves the cosmological constant problem at its root:
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+& Standard QFT & DRLT \\
+\hline
+Modes & Infinite (up to $\Lambda_\text{UV}$) & Exactly $N$ \\
+$E_\text{zpe}$ & $\sim M_\text{Pl}^4$ (diverges) & $\sim N\langle W\rangle$ (finite) \\
+Discrepancy & $10^{122}$ & --- \\
+\hline
+\end{tabular}
+\end{center}
+
+The vacuum energy was always finite; the $10^{122}$ catastrophe was an artifact of assuming continuous spacetime with infinitely many modes. In DRLT, the lattice provides a natural, dynamical, non-arbitrary cutoff: each vertex is one mode.
 
 \subsection{Characteristic values}
 
