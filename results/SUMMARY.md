@@ -762,5 +762,64 @@ evolve_step:
 | 중력파 편극 | 2 | 2 | exact |
 | b₃, b₂ | -7, -19/6 | -7, -19/6 | exact |
 | sin²θ_W | 3/8 | 3/8 | exact |
+
+---
+
+## Experiments EXP_029 — EXP_042 (이전 SUMMARY에 누락)
+
+### EXP_029: QCD / sQGP (9/9 ✓)
+- CP⁴→Δ⁴ 모멘트맵, W/φ 분해, C³ 구속/해방/sQGP/점근적 자유
+- η/s = 1/(4π) (KSS bound) from c × 2π = 4π
+- 컨파인먼트: N_eff=1에서 SSS 분리 불가 (기하학적)
+
+### EXP_030: Constraint Propagation (7/7 ✓)
+- rank(G) ≤ 5 → 블록 우주 강제
+- tick() 수렴 (W-invariant fixed point, ~30 iterations)
+- 25 자유도 = SU(5), N=5 inflection point
+
+### EXP_031: Simplex Spacetime (4/5)
+- 4-심플렉스 C⁵ 격자 모델
+- 힌지 분류: SSS:SST:STT = 1:6:3, flat interior Φ=0
+- Regge action 계산 확인
+
+### EXP_032: Compact Stars (6/6 ✓)
+- 중성자별/쿼크별 det(G_h) 계층 구조
+- vacuum det ≈ 0.48, NS det_ratio ≈ 0.66
+- C³ 컨파인먼트가 safety valve → 중성자별 안정
+
+### EXP_033: Webb Dipole (7/7 ✓)
+- Ghost 공간변동 정합성 검증
+- Δα/α ≈ 1.1×10⁻⁵ 재현, ghost sum = 0 (exact)
+- α_s ↔ α_em 역상관 예측 (falsifiable)
+
+### EXP_033b: Webb vs μ (1/3)
+- μ ghost-protected 발견 → 자기교정
+- Δα/Δμ 역상관 4/4 같은 부호 → 텐션 (솔직한 결과)
+
+### EXP_039: Bond Angles (4/4 ✓)
+- CH₄: cos θ = -1/3 → 109.47° (관측 109.5°)
+- NH₃: cos θ = -4/13 → 107.80° (관측 107.8°)
+- H₂O: cos θ = -1/4 → 104.52° (관측 104.52°)
+- 전부 n_S = 3에서 exact. 파동함수/적분 없음.
+
+### EXP_040: Hydrogen Exact (4/4 ✓)
+- E_n = -m_e α²/(n_T × n²), n_T = 2
+- E₁ = -13.606 eV (관측 정확 일치, 0.00%)
+- 모든 여기 상태 오차 < 1%, 축퇴도 2n² 확인
+
+### EXP_041: Rank Cascade (2/2 ✓)
+- 200×30 랜덤 행렬에서 effective rank 관찰
+- λ₅/λ₁ ≈ 0.796 안정, PSD 유지
+- rank 층위가 자연스럽게 발생
+
+### EXP_042a: Regge Phase 1 (3/3 ✓)
+- SSS det = 1.0 (직교 쿼크 확인)
+- SST/STT 이면각 ε 의존성: det = 1 - 2ε²/3 (6자리 일치)
+- 단일 심플렉스 Regge action S = 47.31
+
+### EXP_042b: Regge Stationary (0/2)
+- H 정류점 S(H) = 46.51, |∇S|² = 0.78 (미수렴)
+- He S(He)/S(H) = 1.86 비율 맞음, gradient 미소멸
+- → Phase 1b: JAX 자동미분 또는 해석적 gradient 필요
 | M_H | 151 GeV | 125 GeV | 1.21 |
 | τ_p | 10³⁴·¹ yr | >10³⁴ yr | ✓ |

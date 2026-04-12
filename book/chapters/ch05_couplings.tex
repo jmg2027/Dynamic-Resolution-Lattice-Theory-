@@ -28,7 +28,7 @@ By the Binet--Cauchy theorem \cite{BinetCauchy}, $\det(\Phi\Phi^\dagger)$ expand
 \end{equation}
 where $\Phi_I$ is the $3 \times 3$ submatrix formed by columns $I$.
 
-Each column belongs to either $V_S$ (spatial) or $V_T$ (temporal). The temporal columns carry a density weight $\sqrt{c} = \sqrt{2}$ (Sec.~3.9: the temporal vertex density is $c = 2$ times the spatial density per dimension). When a submatrix $\Phi_I$ includes $k$ temporal columns, the squared minor picks up a factor $c^k$:
+Each column belongs to either $V_S$ (spatial) or $V_T$ (temporal). The temporal vertex density is $c = 2$ times the spatial density per dimension (Chapter~\ref{ch:geometry}, Eq.~\ref{eq:speed_of_light}): in the lattice, 2 temporal vertices occupy the same lattice spacing as 1 spatial vertex. A $3 \times 3$ minor containing $k$ temporal columns therefore spans a sub-volume that is $c^k$ times denser than the pure-spatial case. The squared minor inherits this scaling:
 \begin{equation}
 \det(G_h) = \sum_{k=0}^{2} c^k \sum_{\substack{|I_S| = 3-k \\ |I_T| = k}} |\det(\Phi_{I_S \cup I_T})|^2.
 \label{eq:BC_expansion}

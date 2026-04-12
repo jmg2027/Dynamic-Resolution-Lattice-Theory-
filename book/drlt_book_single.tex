@@ -843,6 +843,7 @@ The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas
 \boxed{\hbar_h = \frac{\sqrt{\det(G_h)}}{4\ln 2} = \frac{A_h}{4\ln 2}}
 \label{eq:hbar}
 \end{equation}
+where $G_h$ is the $3 \times 3$ Gram sub-matrix with entries $\langle\psi_i|\psi_j\rangle$ for the three hinge vertices (not the real shadow $W_h = |G_h|^2/d$). The hinge area $A_h = \sqrt{\det(G_h)}$ is a complex-geometric quantity derived from the fundamental overlap $G$.
 
 The factor $4\ln 2$ ensures that $S/\hbar$ counts information in bits: each hinge contributes $\delta_h/(4\ln 2)$ bits to the action, consistent with $I_\text{hinge} = 1$ bit.
 
@@ -866,10 +867,10 @@ Unlike standard quantum mechanics where $\hbar = 1.054 \times 10^{-34}\;\text{J}
 \item \textbf{Determined:} it is not a free parameter but a function of the state.
 \end{enumerate}
 
-\subsection{Vacuum: $\hbar = 0$}
+\subsection{The $\hbar \to 0$ limit}
 
-\begin{proposition}[Vacuum is classical]
-If all vertices are in the same state ($\psi_i = e^{i\theta_i}\psi_0$ for all $i$), then $\hbar_h = 0$ for every hinge.
+\begin{proposition}[Aligned limit]
+If all vertices were in the same state ($\psi_i = e^{i\theta_i}\psi_0$ for all $i$), then $\hbar_h = 0$ for every hinge.
 \end{proposition}
 
 \begin{proof}
@@ -882,7 +883,7 @@ For aligned states, the holonomy $\Phi_h = 0$, giving $\det(G_h) = 1 - 3 + 2 = 0
 Therefore $A_h = 0$ and $\hbar_h = 0$.
 \end{proof}
 
-\textbf{Physical meaning:} The vacuum is \emph{exactly classical}. There are no quantum fluctuations, no zero-point energy, no vacuum catastrophe. The cosmological constant problem is eliminated at its root: $E_\text{vac} = 0$ exactly.
+\textbf{Physical meaning:} Perfect alignment is a mathematical boundary that no physical configuration reaches --- not at the Big Bang, not inside black holes, not at heat death. Every physical state has $\det(G_h) > 0$ and $\hbar_h > 0$. The cosmological constant problem is solved not by $E_\text{vac} = 0$ but by \emph{finiteness}: $N$ vertices produce $N$ bounded modes, so the vacuum energy is strictly positive but cannot diverge. The $10^{122}$ catastrophe of QFT (infinite modes, each contributing $\sim M_\text{Pl}$) simply does not arise.
 
 \subsection{Matter: $\hbar > 0$}
 
@@ -994,12 +995,12 @@ Both $c$ and $G$ are determined by the lattice structure. The only dynamical con
 
 The Planck constant measures the \emph{resolution} of spacetime:
 \begin{itemize}
-\item $\hbar = 0$ (vacuum): infinite resolution, perfectly classical, no uncertainty. Like a photograph with infinite pixels --- but nothing to photograph.
+\item $\hbar \to 0$ (near-aligned limit): resolution increases, physics becomes more classical. This limit is approached but never reached --- every physical configuration retains $\hbar > 0$.
 \item $\hbar > 0$ (matter): finite resolution, quantum uncertainty, structure. The higher $\hbar$, the ``blurrier'' the spacetime, the more quantum the physics.
 \item $\hbar \to \infty$: maximally quantum, maximally uncertain. This is the deep interior of a dense matter configuration --- but as shown in Sec.~3.13, compression drives $\psi$ alignment, which drives $\hbar \to 0$, preventing this limit from being reached. Singularities are impossible.
 \end{itemize}
 
-The transition from quantum to classical is not a ``collapse'' or a ``decoherence'' but a geometric fact: as regions of spacetime align ($\psi_i \to \psi_j$), their $\hbar$ decreases continuously to zero. The classical world is the aligned world.
+The transition from quantum to classical is not a ``collapse'' or a ``decoherence'' but a geometric fact: as regions of spacetime align ($\psi_i \to \psi_j$), their $\hbar$ decreases continuously toward zero, though it never reaches it. The classical world is the nearly-aligned world.
 
 \begin{remark}[Why $\hbar$ appears constant in experiments]
 In laboratory settings, the matter configurations are similar across experiments: atoms, molecules, and photons have similar $\psi$ structures. The ``universal'' value $\hbar = 1.054 \times 10^{-34}\;\text{J}\cdot\text{s}$ is the average $\hbar_h$ for typical baryonic matter in the current epoch. It is approximately constant for the same reason that the average temperature of a room is approximately constant --- not because temperature is a fundamental constant, but because the local conditions are similar.
@@ -1037,7 +1038,7 @@ By the Binet--Cauchy theorem \cite{BinetCauchy}, $\det(\Phi\Phi^\dagger)$ expand
 \end{equation}
 where $\Phi_I$ is the $3 \times 3$ submatrix formed by columns $I$.
 
-Each column belongs to either $V_S$ (spatial) or $V_T$ (temporal). The temporal columns carry a density weight $\sqrt{c} = \sqrt{2}$ (Sec.~3.9: the temporal vertex density is $c = 2$ times the spatial density per dimension). When a submatrix $\Phi_I$ includes $k$ temporal columns, the squared minor picks up a factor $c^k$:
+Each column belongs to either $V_S$ (spatial) or $V_T$ (temporal). The temporal vertex density is $c = 2$ times the spatial density per dimension (Chapter~\ref{ch:geometry}, Eq.~\ref{eq:speed_of_light}): in the lattice, 2 temporal vertices occupy the same lattice spacing as 1 spatial vertex. A $3 \times 3$ minor containing $k$ temporal columns therefore spans a sub-volume that is $c^k$ times denser than the pure-spatial case. The squared minor inherits this scaling:
 \begin{equation}
 \det(G_h) = \sum_{k=0}^{2} c^k \sum_{\substack{|I_S| = 3-k \\ |I_T| = k}} |\det(\Phi_{I_S \cup I_T})|^2.
 \label{eq:BC_expansion}
@@ -1087,8 +1088,8 @@ The total $c$-weighted channel count is:
 This equals the rank of the Wishart matrix $W = |\Phi|^2/d$, independently proven in \cite{Wishart}. The gravitational hinge volume decomposes into exactly $d^2$ interaction channels.
 \end{theorem}
 
-\begin{remark}[$c = 2$ is essential]
-If $c = 1$ (no temporal density enhancement): $1 + 6 + 3 = 10 = \binom{5}{3} \neq d^2 = 25$. If $c = 3$: $1 + 18 + 27 = 46 \neq 25$. Only $c = 2$ gives $25 = d^2$. The speed of light is not merely a kinematic ratio; it is the \emph{unique value} that makes the Binet--Cauchy decomposition consistent with the Wishart rank.
+\begin{remark}[Self-consistency check: $c = 2$]
+The value $c = 2$ was already derived in Chapter~\ref{ch:geometry} (Eq.~\ref{eq:speed_of_light}) from the $(n_S, n_T) = (3, 2)$ structure. As an independent consistency check: if $c = 1$, the channel sum gives $1 + 6 + 3 = 10 \neq d^2$; if $c = 3$, it gives $1 + 18 + 27 = 46 \neq d^2$. Only the derived value $c = 2$ yields $1 + 12 + 12 = 25 = d^2$, confirming that the Binet--Cauchy decomposition is self-consistent with the Wishart rank.
 \end{remark}
 
 \begin{remark}[Electroweak geometric identity]
@@ -1317,11 +1318,11 @@ All 9 charged fermion masses and the electroweak scale are derived from the simp
 
 \subsection{The electroweak scale}
 
-The Higgs vacuum expectation value is set by the tunneling amplitude across all $d^2 = 25$ independent Wishart modes:
+The Higgs vacuum expectation value is set by the tunneling amplitude across all $d^2 = 25$ independent Gram matrix modes:
 \begin{equation}
 \boxed{v_H = \frac{(d+1)\,M_\text{Pl}}{d^{d^2}} = \frac{6\,M_\text{Pl}}{5^{25}} = 245.6\;\text{GeV}}
 \end{equation}
-Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_S = 2 \times 3$ counts the spacetime volume factor. The denominator $d^{d^2} = 5^{25}$ arises from 25 independent Wishart modes, each contributing a tunneling suppression of $1/d$. The suppression is exactly $1/d$ (not $1/d^2$ or $1/\sqrt{d}$) because the tunneling probability between two random states in $\mathbb{C}^d$ is the Haar-averaged overlap:
+Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_S = 2 \times 3$ counts the spacetime volume factor. The denominator $d^{d^2} = 5^{25}$ arises from 25 independent Gram matrix modes (the $d^2$ eigenvalues of $W = |G|^2/d$), each contributing a tunneling suppression of $1/d$. The suppression is exactly $1/d$ (not $1/d^2$ or $1/\sqrt{d}$) because the tunneling probability between two random states in $\mathbb{C}^d$ is the Haar-averaged overlap:
 \begin{equation}
 \langle|\langle\psi|\psi'\rangle|^2\rangle_\text{Haar} = \frac{1}{d}.
 \end{equation}
@@ -1567,10 +1568,20 @@ Only weak interaction & Only STT hinges have nonzero $\det$ \\
 Nearly massless & Almost aligned with vacuum ($\det \approx 0$) \\
 Left-handed & $\mathbb{C}^2$ has chirality (pseudo-real fundamental) \\
 Three flavors & $n_S = 3$ generations \\
-Oscillates & Small $\mathbb{C}^3$ admixture allows flavor mixing \\
+Oscillates & Hinge-sharing forces flavor rotation (see below) \\
 \hline
 \end{tabular}
 \end{center}
+
+\subsubsection{Neutrino oscillation: the geometric mechanism}
+
+Adjacent simplices share 4 vertices and differ by exactly 1 (the Pachner-adjacent structure). The shared face is a tetrahedron whose triangular hinges \emph{must} have $\det(G_h) > 0$ --- no physical hinge has $\det = 0$.
+
+Consider a beta decay producing a neutrino: a $\mathbb{C}^2$ slot opens in the source simplex. This ``empty'' vertex has near-zero $\mathbb{C}^3$ components, making it a ghost of the temporal sector. But the neighboring simplex shares a hinge with this vertex. For the shared hinge to maintain $\det(G_h) > 0$, the neighbor \emph{must fill the slot} with a nonzero value --- the geometry forbids a true vacancy.
+
+What flavor fills the slot? That is determined by the $\mathbb{C}^3$ admixture of the shared hinge. Each simplex boundary has a different hinge geometry (different $\Phi_I$ submatrices), so the $\mathbb{C}^3$ projection rotates at each crossing. This rotation \emph{is} flavor mixing. The neutrino ``oscillates'' because the geometric constraint $\det > 0$ forces successive simplices to fill the temporal slot with different $\mathbb{C}^3$ admixtures.
+
+No propagating wave function is needed. The oscillation is a boundary condition: the block universe's simplex network has $\det(G_h) > 0$ everywhere, and this single constraint, applied across adjacent simplices, produces the PMNS mixing pattern.
 
 \subsection{Nuclear force as cross-hinges}
 
@@ -1593,11 +1604,11 @@ E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -12.9\;\text{eV}
 \label{ch:atoms}
 %=====================================================================
 
-The simplex is the atom. This chapter derives atomic energy levels, molecular bond angles, and the rules of chemistry from the hinge geometry of $\mathbb{C}^5$, with zero free parameters and no Schr\"odinger equation.
+The simplex is the atom. When 5 vertices share mutually high $W_{ij}$, they form an emergent 4-simplex --- a bound structure discovered from the Gram matrix, not placed by hand. This chapter derives atomic energy levels, molecular bond angles, and the rules of chemistry from the hinge geometry of such emergent simplices, with zero free parameters and no Schr\"odinger equation.
 
 \subsection{The hydrogen simplex}
 
-Hydrogen is one 4-simplex: 5 vertices $\{S_1, S_2, S_3, T_1, T_2\}$, fully connected.
+The simplest emergent simplex is hydrogen: 5 vertices $\{S_1, S_2, S_3, T_1, T_2\}$, fully connected by strong mutual overlaps.
 \begin{itemize}
 \item $S_1, S_2, S_3 \in \mathbb{C}^3$: quarks (proton).
 \item $T_1 \in \mathbb{C}^2$: electron (spinor $(T_1, T_2)$ in the temporal sector).
@@ -1773,7 +1784,7 @@ The three angles of the CKM unitarity triangle:
 \alpha &= \pi - \gamma - \beta = 89.0^\circ \qquad (\text{obs: } \sim 89^\circ,\; \sim 0\%).
 \end{align}
 
-The CP phase $\delta_\text{CKM} = \gamma = \pi/\varphi^2$ deserves special attention. It arises from the diagonalization of the down-type mass matrix, whose off-diagonal elements carry a phase $\pi/d = 36^\circ$ (half the pentagon central angle) required by Hermiticity of the Gram sub-matrix. The nonlinear mapping from input phase $\pi/d$ to output phase $\pi/\varphi^2$ through diagonalization has been verified numerically.
+The CP phase $\delta_\text{CKM} = \gamma = \pi/\varphi^2$ deserves special attention. It arises from the diagonalization of the down-type mass matrix, whose off-diagonal elements carry a phase $\pi/d = 36^\circ$ (half the pentagon central angle) required by Hermiticity of the Gram sub-matrix. The nonlinear mapping from input phase $\pi/d$ to output phase $\pi/\varphi^2$ through diagonalization has been verified numerically (EXP\_019, $C^2$ mixing matrix diagonalization).
 
 \begin{remark}
 $\delta_\text{CKM} = \pi/\varphi^2 = 68.75^\circ$ matching $68.8^\circ$ to 0.1\% is the single most precise prediction of DRLT. The probability of this being a coincidence (given $\pi$, $\varphi$, and integers) is $< 10^{-3}$.
@@ -2180,23 +2191,23 @@ Baryon density: $\Omega_b h^2 = \eta_B \times 3.65 \times 10^7 = 0.0224$. Observ
 
 \subsubsection{The cosmological constant problem --- solved}
 
-In standard QFT, the vacuum energy diverges as $\Lambda^4_\text{UV} \sim M_\text{Pl}^4$, exceeding observations by 122 orders of magnitude. In DRLT, the vacuum has $\psi_i = e^{i\theta_i}\psi_0$ (aligned), giving $\det G_h = 0$ for every hinge, hence $\hbar = 0$, hence:
+In standard QFT, the vacuum energy diverges as $\Lambda^4_\text{UV} \sim M_\text{Pl}^4$, exceeding observations by 122 orders of magnitude. In DRLT, no such divergence can occur: the lattice has $N$ finite vertices, each contributing a bounded $\hbar_h = \sqrt{\det(G_h)}/(4\ln 2)$. Since $\det(G_h) > 0$ always --- no physical configuration achieves exact $\psi$ alignment, not at the Big Bang, not in black holes, not at heat death --- the vacuum energy is strictly positive but \emph{finite}:
 \begin{equation}
-E_\text{vac} = 0 \quad\text{(exactly)}.
+0 < E_\text{vac} \ll M_\text{Pl}^4.
 \end{equation}
 
-The observed dark energy is the minimum nonzero $\hbar$ fluctuation over the cosmological horizon:
+The observed dark energy density is set by the minimum $\hbar$ fluctuation over the cosmological horizon:
 \begin{equation}
 \hbar_\text{min} = \frac{1}{N_H}, \qquad N_H = \frac{A_\text{horizon}}{4\ell_P^2} \approx 10^{122}, \qquad \frac{\rho_\Lambda}{\rho_\text{Pl}} \sim 10^{-122}.
 \end{equation}
 
 \subsubsection{Equation of state}
 
-Our universe is not exact rank 1 (which would have $\hbar = 0$ exactly). It occupies the effective rank $\sim 5$ band, where residual eigenvalues are small but nonzero. True vacuum ($w = -1$ exactly) requires complete $\psi$ alignment --- the heat death endpoint, not our epoch:
+Every physical configuration has $\det G_h > 0$, hence $\hbar > 0$, hence nonzero energy density. There is no ``true vacuum'' with $\hbar = 0$ anywhere --- not in our universe, not at any epoch, not even as a theoretical limit. The state $\det G_h = 0$ (perfect $\psi$ alignment) is a mathematical boundary that no physical evolution reaches:
 \begin{equation}
 \boxed{w \approx -1 \quad\text{(high precision, not exact)}.}
 \end{equation}
-The deviation from $-1$ is of order $\varepsilon_0^2 \sim 10^{-5}$. There is no true vacuum anywhere in our universe --- every point has $\det > 0$, $\hbar > 0$.
+The deviation from $-1$ is of order $\varepsilon_0^2 \sim 10^{-5}$. Every point in spacetime has $\det > 0$, $\hbar > 0$.
 
 \begin{remark}[DESI and apparent $w \neq -1$]
 DRLT predicts $w = -1$ at each individual redshift $z$. However, combining data across multiple redshift bins introduces the Wishart eigenvalue non-linearity (Sec.~9.6): the effective equation of state $w_\text{eff}$, fitted to the combined data, can differ from $-1$ even though $w(z) = -1$ at every $z$ individually. This is the same mechanism that produces the Hubble tension. DESI's hint of $w \neq -1$ (via $w_0$-$w_a$ parameterization) is consistent with this:
@@ -2466,8 +2477,8 @@ Region of $G$ & $\text{rank}$ & $\det(G_h)$ & Epoch \\
 Random block & $N$ & large & Big Bang: $\text{SU}(N)$, all forces unified \\
 Rank reduction & $N \to 5$ & decreasing & Swap annihilation: atoms pair and die \\
 Rank-5 plateau & $5$ & moderate & Our era: $\text{SU}(3)\!\times\!\text{SU}(2)\!\times\!\text{U}(1)$ \\
-Further alignment & $5 \to 1$ & small & Far future: $3 \to 2 \to 1 \to 0$ \\
-Diagonal block & $1$ & $0$ & Heat death: $G_{ij} = 1\;\forall(i,j)$, vacuum \\
+Further alignment & $5 \to 1$ & small & Far future: $3 \to 2 \to 1$ (forces fade) \\
+Near-diagonal block & $1$ & $\to 0$ & Late universe: $G_{ij} \to 1$, $\det \to 0$ (never reached) \\
 \hline
 \end{tabular}
 \end{center}
@@ -2553,7 +2564,7 @@ Step & From & To & How \\
 4 & Hinges & $1 + 12 + 12 = 25$ & Binet--Cauchy + $c$-weight \\
 5 & Channels & $\alpha_3, \alpha_2, \alpha_1$ & Basel sum + Gram rank \\
 6 & $\alpha_i + v_H$ & 26 SM parameters & Simplex geometry \\
-7 & $\hbar_h = 0$ (vacuum) & Cosmology (9 observables) & Block universe \\
+7 & $\hbar_h > 0$ (finite) & Cosmology (9 observables) & Block universe \\
 8 & $\text{Tr}(G) = N$ & Ghost Sum Rule ($\Sigma\delta = 0$) & Completeness \\
 \hline
 & \multicolumn{2}{l}{\textbf{Free parameters:}} & \textbf{0} \\
@@ -2625,6 +2636,69 @@ The ``measurement problem'' does not arise. $G$ is static. Nothing collapses. Th
 This theory derived 52 quantitative predictions --- coupling constants, fermion masses, mixing angles, cosmological observables, $\eta/s = 1/(4\pi)$, the proton mass to 0.08\% --- without defining a single observable operator. No position operator $\hat{x}$, no momentum $\hat{p}$, no Hamiltonian postulated as ``the energy operator,'' no eigenvalue-equals-measurement axiom, no Born rule. The local Hamiltonian $H_i = \sum_j W_{ij}|\psi_j\rangle\langle\psi_j|$ was not introduced --- it emerged from the Gram matrix structure.
 
 The question ``is it a particle or a wave?'' does not arise. Each vertex carries a complex number $\psi \in \mathbb{C}^5$. Complex numbers are neither particles nor waves. The question is malformed --- like asking whether the number 3 is red or blue.
+
+\subsection{The simplex network}
+
+This section gives the geometric construction that produces the fully connected weighted network of the preceding chapters.
+
+\subsubsection{Construction}
+
+\begin{enumerate}
+\item Take a 4-simplex $\sigma$: 5 vertices, each carrying $\psi_k \in \mathbb{C}$ ($k = 1, \ldots, 5$). The interior of $\sigma$ is uniform --- all interior points share the same 5 complex values.
+
+\item Place $N$ such simplices $\{\sigma_1, \ldots, \sigma_N\}$ as nodes of a complete graph. Adjacent simplices share a tetrahedron (4 vertices) and differ by exactly 1 vertex (the Pachner-adjacent structure).
+
+\item Inflate each simplex until its boundary is a tangent manifold of its neighbors. Every pair of simplices now shares a codimension-1 face. The connection weight $W_{ij} = |G_{ij}|^2/d$ is determined by the shared face geometry.
+\end{enumerate}
+
+Most weights $W_{ij} \approx 0$, so the network has a sparse effective topology consistent with a 4-dimensional manifold. The underlying structure remains fully connected.
+
+\subsubsection{Information at hinges}
+
+Each hinge $h$ (a triangle: 3 of the 5 vertices) carries exactly 1 bit (Theorem~\ref{thm:holevo}). Information resides at the $\binom{5}{3} = 10$ hinges, not in the simplex interior. One simplex $=$ one discrete cell of spacetime.
+
+The hinge area $A_h = \sqrt{\det(G_h)}$ is at the Planck scale. The temporal vertex density is $c = 2$ times the spatial, so 2 temporal hinges correspond to 1 spatial hinge per unit of the lattice.
+
+\subsubsection{Forces as hinge types}
+
+Each hinge is classified by its vertex composition $(n_S, n_T)$ with $n_S + n_T = 3$:
+
+\begin{center}
+\begin{tabular}{ccll}
+\hline
+Type & $(n_S, n_T)$ & $\det(G_h)$ & Force \\
+\hline
+SSS & $(3,0)$ & $> 0$ & Strong \\
+SST & $(2,1)$ & $> 0$ & Electromagnetic \\
+STT & $(1,2)$ & $= 0$ ($n_T < 3$) & Weak (via SST borrowing) \\
+TTT & $(0,3)$ & --- & Impossible ($n_T = 2 < 3$) \\
+\hline
+\end{tabular}
+\end{center}
+
+Gravity is not a hinge \emph{type} but the deficit angle between hinges (Chapter~\ref{ch:geometry}): the $G_h$ tensor distorts each triangle, and the arrangement of distorted hinges around a common edge determines the curvature.
+
+Electromagnetism is pure phase ($\arg G_{ij}$): no degree of freedom is absorbed at any hinge boundary, so it propagates across all simplices. Gravity and electromagnetism propagate at the same speed $c = 2$ because both are communicated between simplices through the same hinge gradient.
+
+\subsubsection{Confinement from simplex geometry}
+
+At $N_\text{eff} = 1$: a single simplex. The labels $S, S, S, T, T$ are indistinguishable --- the 5 vertices are interchangeable. This is the deconfined phase ($\eta/s = 1/(4\pi)$, Appendix~\ref{app:qcd}).
+
+At $N_\text{eff} \geq 2$: the SSS triangle has all 3 spatial vertices within one simplex. An SSS hinge cannot be shared across a simplex boundary (adjacent simplices share 4 vertices, but the SSS triangle uses 3 spatial vertices, all belonging to one simplex). Therefore $\text{SU}(3)$ color is confined to a single simplex.
+
+At $N_\text{eff} = 2$: the $\text{SU}(2)$ temporal doublet has 2 components. Crossing one simplex boundary consumes both ($\binom{2}{2} = 1$), leaving no residual degree of freedom. Hence $\text{SU}(2)$ is broken.
+
+$\text{U}(1)$ electromagnetism carries only a phase --- it has no simplex-counting constraint and survives at all $N_\text{eff}$.
+
+\subsubsection{Consequences for field-theoretic limits}
+
+The continuous-manifold approximation of the simplex network introduces three artifacts that vanish in the discrete structure:
+
+\begin{enumerate}
+\item \textbf{UV divergences:} Continuous modes $\to$ infinite; simplex modes $\to$ $N$ (finite). No renormalization is needed.
+\item \textbf{Vacuum catastrophe:} $\sum_k \omega_k/2 \to \infty$ over continuous modes; in the network, $N$ bounded hinge areas give a finite vacuum energy.
+\item \textbf{Measurement problem:} A continuous wave function requires a collapse postulate; a simplex carries one discrete value per vertex --- there is nothing to collapse.
+\end{enumerate}
 
 \subsection{The minimal assumption}
 
