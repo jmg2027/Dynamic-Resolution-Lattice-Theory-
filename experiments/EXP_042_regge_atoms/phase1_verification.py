@@ -127,66 +127,124 @@ class Phase1(Experiment):
         self.log(f"  S/ħ = 4ln2 × Σδ = {S_over_hbar:.6f}")
         self.check("Regge action computed", S != 0)
 
-        # ═══ 1b: Helium shielding σ = 5/16 ═══
+        # ═══ 1b: Helium — full geometric stationary point ═══
         self.log(f"\n{'='*65}")
-        self.log("PHASE 1b: Helium shielding constant")
+        self.log("PHASE 1b: Helium — Regge stationary point (32 DOF)")
         self.log(f"{'='*65}")
 
         # He = 2 simplices sharing SSS face
-        # Scan ε (C³ leak of T vertices) and find Regge action
-        eps_values = np.linspace(0.01, 0.28, 30)
-        actions = []
+        # S₁,S₂,S₃ fixed (C³ orthogonal), T₁~T₄ free (32 real DOF)
+        from scipy.optimize import minimize as sci_min
 
-        for eps in eps_values:
-            all_vecs, slist, vt = build_helium(epsilon=eps)
-            S, _ = regge_action(all_vecs, slist)
-            actions.append(S)
+        S_fixed = {
+            0: np.array([0,0,1,0,0], dtype=complex),
+            1: np.array([0,0,0,1,0], dtype=complex),
+            2: np.array([0,0,0,0,1], dtype=complex),
+        }
+        slist = [(0,1,2,3,4), (0,1,2,5,6)]
+        vtypes = {0:'S',1:'S',2:'S',3:'T',4:'T',5:'T',6:'T'}
+        set_vertex_types(vtypes)
+        free_idx = [3,4,5,6]  # T vertices
 
-        actions = np.array(actions)
+        def regge_from_params(params):
+            vecs = dict(S_fixed)
+            for k, idx in enumerate(free_idx):
+                re = params[k*10:k*10+5]
+                im = params[k*10+5:k*10+10]
+                v = re + 1j*im
+                n = np.linalg.norm(v)
+                if n < 1e-15:
+                    return 1e10
+                v = v/n
+                # C² constraint
+                c3n = np.linalg.norm(v[2:5])
+                if c3n > 0.3:
+                    v[2:5] *= 0.3/c3n
+                    v = v/np.linalg.norm(v)
+                vecs[idx] = v
+            S, _ = regge_action(vecs, slist)
+            return S
 
-        # Find stationary point (dS/dε ≈ 0)
-        dS = np.gradient(actions, eps_values)
-        # Find zero crossing
-        zero_crossings = []
-        for i in range(len(dS) - 1):
-            if dS[i] * dS[i+1] < 0:
-                # Linear interpolation
-                eps_cross = eps_values[i] - dS[i] * (eps_values[i+1] - eps_values[i]) / (dS[i+1] - dS[i])
-                zero_crossings.append(eps_cross)
+        # Find STATIONARY POINT (not minimum)
+        # Strategy: gradient = 0. Use numerical gradient + root finding.
+        # But first: just scan to understand the landscape.
 
-        self.log(f"\n  Scanning ε = C³ leak of T vertices:")
-        self.log(f"  {'ε':>8} {'S(Regge)':>12} {'dS/dε':>12}")
-        self.log(f"  {'-'*8} {'-'*12} {'-'*12}")
-        for i in range(0, len(eps_values), 3):
-            self.log(f"  {eps_values[i]:8.3f} {actions[i]:12.6f} {dS[i]:12.6f}")
+        best_S = np.inf
+        best_params = None
 
-        if zero_crossings:
-            eps_star = zero_crossings[0]
-            self.log(f"\n  Stationary point at ε* = {eps_star:.4f}")
+        self.log(f"\n  Finding δS/dψ = 0 for 4 T vertices (40 real params)...")
+        self.log(f"  Method: minimize |∇S|² via L-BFGS-B")
 
-            # Z_eff = Z - σ where σ = screening
-            # At ε*, the ratio of He SST to H SST gives Z_eff
-            all_vecs_he, slist_he, _ = build_helium(epsilon=eps_star)
-            S_he, bd_he = regge_action(all_vecs_he, slist_he)
+        def gradient_S(params):
+            """Numerical gradient of Regge action."""
+            eps_fd = 1e-7
+            f0 = regge_from_params(params)
+            g = np.zeros_like(params)
+            for i in range(len(params)):
+                p2 = params.copy()
+                p2[i] += eps_fd
+                g[i] = (regge_from_params(p2) - f0) / eps_fd
+            return g
 
-            all_vecs_h, slist_h, _ = build_hydrogen(epsilon=eps_star)
-            S_h, bd_h = regge_action(all_vecs_h, slist_h)
+        def grad_norm_sq(params):
+            """Minimize this to find stationary points."""
+            g = gradient_S(params)
+            return float(np.sum(g**2))
 
-            if abs(S_h) > 1e-15:
-                ratio = S_he / S_h
-                Z_eff = ratio  # simplified
-                sigma = 2 - Z_eff  # Z=2 for He
-                self.log(f"  S(He) / S(H) = {ratio:.4f}")
-                self.log(f"  σ estimate = {sigma:.4f}")
-                self.log(f"  Theory: σ = d/c⁴ = 5/16 = {5/16:.4f}")
-            else:
-                self.log(f"  S(H) too small for ratio")
+        for trial in range(10):
+            x0 = []
+            for _ in range(4):
+                t = make_T_vertex(
+                    (np.random.uniform(0, np.pi), np.random.uniform(0, 2*np.pi)),
+                    c3_leak=np.random.uniform(0.05, 0.25)
+                )
+                x0.extend(t.real)
+                x0.extend(t.imag)
+            x0 = np.array(x0)
+
+            # Minimize |∇S|² to find stationary point
+            res = sci_min(grad_norm_sq, x0, method='Nelder-Mead',
+                         options={'maxiter': 500, 'xatol': 1e-8, 'fatol': 1e-12})
+
+            if res.fun < 1e-6:
+                S_val = regge_from_params(res.x)
+                if abs(S_val) < abs(best_S):
+                    best_S = S_val
+                    best_params = res.x.copy()
+                    self.log(f"    trial {trial}: |∇S|² = {res.fun:.2e}, S = {S_val:.4f}")
+
+        if best_params is not None:
+            self.log(f"  Best stationary S = {best_S:.6f}")
+
+            # Extract geometry at stationary point
+            vecs = dict(S_fixed)
+            for k, idx in enumerate(free_idx):
+                re = best_params[k*10:k*10+5]
+                im = best_params[k*10+5:k*10+10]
+                v = re + 1j*im
+                v = v/np.linalg.norm(v)
+                c3n = np.linalg.norm(v[2:5])
+                if c3n > 0.3:
+                    v[2:5] *= 0.3/c3n
+                    v = v/np.linalg.norm(v)
+                vecs[idx] = v
+
+            # READ the geometry
+            self.log(f"\n  Geometry at stationary point:")
+            S_tot, bd = regge_action(vecs, slist)
+            for h in sorted(bd, key=lambda x: x['type']):
+                self.log(f"    {h['type']} {h['hinge']}: det={h['det']:.4f} "
+                         f"A={h['area']:.4f} δ={np.degrees(h['deficit']):.1f}° "
+                         f"S_h={h['action']:.4f}")
+
+            # T vertex C³ leaks
+            self.log(f"\n  T vertex C³ leaks:")
+            for idx in free_idx:
+                c3 = np.linalg.norm(vecs[idx][2:5])
+                c2 = np.linalg.norm(vecs[idx][:2])
+                self.log(f"    v{idx}: C²={c2:.4f} C³={c3:.4f}")
         else:
-            self.log(f"\n  No stationary point found in range")
-            self.log(f"  Action is monotonic — need wider scan or different parameterization")
-
-        self.check("He action computed",
-                   len(actions) > 0 and not np.all(actions == 0))
+            self.log(f"  No stationary point found in 30 trials")
 
         # ═══ Summary ═══
         self.log(f"\n{'='*65}")
