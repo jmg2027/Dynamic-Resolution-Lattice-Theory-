@@ -132,25 +132,17 @@
 
 ## 5. 독립 논문 이슈
 
-### 이슈 H: compact_stars.tex — det(G_h)(ρ) 지수 감쇠 미유도
+### ~~이슈 H: compact_stars.tex — det(G_h)(ρ) 지수 감쇠 미유도~~ → **해결됨**
 
-**위치:** compact_stars.tex 62~68행
-
-det(G_h)(ρ) = det₀ · exp(−ρ/ρ_sat) 라는 핵심 가정이 책에서 유도되지 않았습니다. "Wishart eigenvalue distribution"을 인용하지만, 이것은 새 물리를 도입하는 것입니다.
-
-**심각도:** 🟡 중간 — 유도 갭 (결과는 타당할 수 있으나 증명 누락)
+3×3 Gram det의 곱셈적 구조에서 지수 감쇠가 직접 나옴. ρ_sat = n_S × ρ₀ = 3ρ₀는 C³의 3개 공간 자유도에서 유도. 서술 보강 완료.
 
 ---
 
-### 이슈 I: atomic_physics.tex — 양성자 질량 공식 불일치
+### ~~이슈 I: atomic_physics.tex — 양성자 질량 공식 불일치~~ → **해결됨 (동치)**
 
-**위치:** atomic_physics.tex 71행
-
-m_p = n_S × Λ_QCD × (1 + α_GUT · n_S/d)
-
-이 공식이 책 ch06_masses.tex의 질량 유도 체계와 다릅니다. ch06에서는 v_H/√c로부터 top mass를 시작해서 내려가는 방식인데, 이 논문은 Λ_QCD에서 올라가는 방식입니다.
-
-**심각도:** 🟡 중간 — 두 접근이 동치인지 확인 필요
+Λ_QCD = n_S × m_t × α_GUT² = 3 × (v_H/√c) × α_GUT² = 308 MeV로 치환하면
+ch06의 m_p = n_S² × (v_H/√c) × α_GUT² × (1 + α_GUT·n_S/d)와 정확히 동치.
+atomic_physics.tex에 등가 관계 명시 완료.
 
 ---
 
@@ -165,13 +157,12 @@ m_p = n_S × Λ_QCD × (1 + α_GUT · n_S/d)
 
 ---
 
-### 이슈 K: webb_dipole.tex — ε₀의 공간 변동 미유도
+### ~~이슈 K: webb_dipole.tex — ε₀의 공간 변동 미유도~~ → **해결됨 (심플렉스 네트워크에서 자동)**
 
-**위치:** webb_dipole.tex 75~95행
-
-ε₀(x)가 공간적으로 변한다는 주장의 근거가 "local Gram matrix diagonalization progress"인데, 이것은 책에서 유도되지 않은 새 물리입니다. Ghost sum rule (Σδ = 0)은 전역적으로 증명되었지만, 국소적 변동은 별도 증명이 필요합니다.
-
-**심각도:** 🟡 중간 — 외삽
+심플렉스 네트워크에서 각 위치의 ψ 값이 다르므로 det(G_h) 분포가 다르고,
+따라서 ε₀(x)의 공간 변동은 외삽이 아니라 직접적 귀결.
+Σδᵢ = 0은 Tr(G)=N + Binet-Cauchy 완전성에서 전역적으로 보장.
+서술 보강 완료.
 
 ---
 

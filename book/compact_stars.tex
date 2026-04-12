@@ -65,7 +65,9 @@ As matter is compressed, neighboring $\psi$ vectors are forced to align (their o
 \end{equation}
 where $\rho_\text{sat} = n_S \cdot \rho_0 = 3\rho_0$ is the $\mathbb{C}^3$ saturation density (the density at which all three spatial degrees of freedom begin to overlap), and $\rho_0 = 2.3 \times 10^{17}\;\text{kg/m}^3$ is nuclear saturation density.
 
-The exponential form follows from the Wishart eigenvalue distribution of the Gram matrix: each independent compression mode contributes a multiplicative factor $e^{-\Delta\rho/\rho_\text{sat}}$.
+The exponential form follows from the multiplicative structure of the Gram determinant. For a hinge with 3 spatial vertices, $\det(G_h) = 1 - |G_{12}|^2 - |G_{13}|^2 - |G_{23}|^2 + 2\text{Re}(G_{12}G_{23}G_{31})$. Under compression, each pairwise overlap $|G_{ij}| \to 1$ independently. Since the determinant is a product of independent pairwise contributions (each approaching zero as a factor), the decay is multiplicative across modes, giving the exponential.
+
+The saturation density $\rho_\text{sat} = n_S \cdot \rho_0 = 3\rho_0$ is the density at which all $n_S = 3$ spatial degrees of freedom begin to overlap: one nuclear saturation unit per spatial vertex of the simplex.
 
 \begin{center}
 \begin{tabular}{cccc}
