@@ -88,11 +88,16 @@ The electromagnetic and weak sectors carry \emph{identical} channel counts: $12 
 
 \subsection{The Basel sum: lattice Green's function}
 
-Each interaction channel propagates on the lattice. A gauge fluctuation originating at hinge $h_0$ contributes to the coupling at hinge $h_n$, located $n$ lattice spacings away, with amplitude:
+Each interaction channel propagates on the lattice. What propagates is not a ``field'' obeying a wave equation, but the \emph{deficit angle} $\delta_h$ --- the curvature at a hinge. A hinge at distance $n$ from a source sees the source through a solid angle:
 \begin{equation}
-D(n) = \frac{1}{n^2}
+D(n) = \frac{A_\text{source}}{n^{n_S - 1}} = \frac{1}{n^2} \qquad (n_S = 3).
 \end{equation}
---- the inverse-square law on a discrete lattice, the natural Green's function for a massless field in the lattice geometry.
+
+This is \emph{not} a lattice Green's function (which would be a modified Bessel function from inverting a discrete Laplacian). It is the geometric solid angle in $n_S = 3$ spatial dimensions --- independent of lattice structure, topology, or dynamics. In $n_S$ dimensions, $D(n) = 1/n^{n_S-1}$; our universe has $n_S = 3$, giving $1/n^2$.
+
+\begin{remark}[Coulomb's law]
+The potential $V(r) = \int D(n)\,dn \propto 1/n^{n_S-2} = 1/n$ for $n_S = 3$: the Coulomb $1/r$ law. The inverse-square force $F \propto 1/r^2$ and the inverse-square propagator $D(n) = 1/n^2$ are the same geometric fact.
+\end{remark}
 
 The total coupling per channel is the sum over all propagation distances:
 \begin{equation}
@@ -116,9 +121,14 @@ The propagation range $N_\text{eff}$ is not a free parameter. It is \emph{derive
 
 \noindent\textbf{Strong force: $N_\text{eff} = 1$ (confinement).}
 
-The strong force lives in the pure spatial sector $\Lambda^3 V_S$. The number of independent SSS configurations is $\binom{n_S}{n_S} = \binom{3}{3} = 1$: there is exactly \emph{one} way to choose all $n_S = 3$ spatial columns. To propagate one lattice step requires a \emph{new} independent SSS combination, but none exists.
+Propagation requires consuming an independent channel at each hop. For the SSS sector: all 3 vertices are in $\mathbb{C}^3$. The number of independent SSS configurations is $\binom{n_S}{n_S} = 1$.
 
-Physically: the strong force exhausts all spatial degrees of freedom in a single hinge. It cannot ``see'' beyond the nearest neighbor. This is \textbf{confinement} --- not as a dynamical phenomenon requiring proof, but as a combinatorial fact.
+\begin{itemize}
+\item \textbf{Hop 1}: the unique SSS triangle $(S_1, S_2, S_3)$ propagates to a neighboring hinge $(S_1', S_2', S_3')$.
+\item \textbf{Hop 2}: would require a \emph{second independent} SSS configuration. But $\binom{3}{3} = 1$: only one exists. Using the same configuration twice produces $\det = 0$ (linear dependence). Propagation stops.
+\end{itemize}
+
+This is \textbf{confinement}: the strong force exhausts all $\mathbb{C}^3$ degrees of freedom in a single hop. It is a combinatorial fact, not a dynamical phenomenon.
 \begin{equation}
 N_\text{eff}^\text{strong} = 1, \qquad S(1) = 1.
 \end{equation}

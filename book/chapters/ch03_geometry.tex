@@ -297,8 +297,29 @@ Gravity & between hinges & $\det(G_h)$ & The road \\
 \end{tabular}
 \end{center}
 
-\begin{remark}[Spin from dimensionality]
-Gauge bosons propagate on \emph{edges} (1-dimensional $\to$ vector $\to$ spin 1). Gravity propagates on \emph{hinges} (2-dimensional $\to$ tensor $\to$ spin 2). The spin of a force carrier is the dimensionality of the geometric object it lives on.
+\subsection{Spin-statistics from index counting}
+
+The spin of an object is determined by the number of simplex indices it carries:
+
+\begin{center}
+\begin{tabular}{cccl}
+\hline
+Simplex element & Indices & Parity & Physics \\
+\hline
+Vertex ($\psi_i$) & 1 (odd) & Fermionic & Quarks, electrons \\
+Edge ($\langle\psi_i|\psi_j\rangle$) & 2 (even) & Bosonic & Photon, gluon, $W/Z$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Fermions (1 index):} A vertex carries $\psi_i \in \mathbb{C}^2$ (temporal sector). $\text{SU}(2)$ acts on $\mathbb{C}^2$: spin-$1/2$. Two identical vertices $\psi_i = \psi_j$ merge into one point ($\det = 0$): Pauli exclusion.
+
+\textbf{Bosons (2 indices):} An edge carries $G_{ij} = \langle\psi_i|\psi_j\rangle = \psi_i \otimes \psi_j^*$. In $\text{SU}(2)$: $\frac{1}{2} \otimes \frac{1}{2} = 0 \oplus 1$, giving spin-0 and spin-1. Multiple edges between the same vertices are allowed ($G_{ij}$ is a number, not a slot): Bose statistics.
+
+\textbf{Gravity (between hinges):} Gravity is not a particle. It is not a vertex (fermion) or an edge (boson). It is the deficit angle $\delta_h = 2\pi - \sum\theta$ between neighboring hinges --- the geometric arrangement of simplices, not an object living on a simplex. The label ``spin 2'' reflects the 2-dimensional nature of the hinge, but there is no graviton to find: gravity is the arena, not an actor.
+
+\begin{remark}[The spin-statistics theorem in one line]
+Odd indices $\to$ antisymmetric under exchange $\to$ Fermi. Even indices $\to$ symmetric $\to$ Bose. The 40-page proof via Lorentz group $+$ CPT $+$ causality reduces to: \emph{is the index count odd or even?}
 \end{remark}
 
 \subsection{Singularity resolution}
