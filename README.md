@@ -1,6 +1,6 @@
 # Dynamic Resolution Lattice Theory (DRLT)
 
-**Author:** Mingoo Jeong (Independent Researcher)
+**Author:** Mingu Jeong (Independent Researcher)
 **AI Assistant:** Claude (Anthropic) — code, numerical experiments, LaTeX, editorial
 
 A theory deriving all of physics from a single axiom: *things exist with pairwise relations*.

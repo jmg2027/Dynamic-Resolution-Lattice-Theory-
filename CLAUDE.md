@@ -18,11 +18,11 @@
 - Korean is the primary communication language.
 
 ## Author and Attribution
-- Author: Mingoo Jeong (Independent Researcher)
+- Author: Mingu Jeong (Independent Researcher)
 - AI assistant: Claude (Anthropic) — code, numerical experiments, LaTeX, editorial
 - All theoretical content, physical insights, and mathematical derivations are by the author
 - Every tex/pdf must include AI disclosure: "Developed with assistance from Claude (Anthropic)"
-- Author name is always "Mingoo Jeong" (not Mingu, not Min-goo, etc.)
+- Author name is always "Mingu Jeong" (not Mingoo, not Min-goo, etc.)
 
 ## Authoritative Theory
 - The book in `book/` (main.tex + chapters/) is the authoritative, correct formulation.
