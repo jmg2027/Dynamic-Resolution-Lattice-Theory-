@@ -77,7 +77,9 @@ The angular momentum quantum number $l$ is the number of $\mathbb{C}^3$ directio
 
 Molecular bond angles follow from a single integer: $n_S = 3$.
 
-An atom with $k$ lone pairs among 4 electron pairs arranges them to maximize $\det(G_h)$ in $\mathbb{C}^3$. The result is a continued fraction in $n_S$:
+An atom with 4 electron pairs arranges them to maximize $\det(G_h)$ in $\mathbb{C}^3$. For equivalent pairs, the optimum is the regular tetrahedron: $n_S + 1 = 4$ points in $\mathbb{R}^{n_S}$, with $\cos\theta = -1/n_S$ between any two (a standard result in $n$-dimensional geometry).
+
+When $k$ of the 4 pairs are lone (unshared T vertex, $n_S$ connections) and $4-k$ are bonding (shared T vertex, $n_S + 1$ connections), the pairs are \emph{not} equivalent. The lone-pair T vertex connects to fewer simplices, so its $\det(G_h)$ is concentrated --- it occupies a \emph{larger} angular footprint than a bonding pair whose $\det$ is dispersed over more connections. The det-maximizing configuration pushes the bonding pairs closer together. The ratio of effective angular weights is $(n_S + 1)/n_S$, giving:
 
 \begin{theorem}[Molecular bond angles]
 \begin{align}
