@@ -131,6 +131,35 @@ The normalization $\|\psi_i\| = 1$ is not an additional assumption but a consequ
 Writing $\psi_i = \sum_{k=0}^{d-1}\sqrt{p_k}\,e^{i\varphi_k}|e_k\rangle$ with $\sum p_k = 1$, the probability vector $(p_0, \ldots, p_{d-1})$ lives on the standard probability simplex $\Delta^{d-1}$ --- a $(d{-}1)$-simplex. For $d = 5$, this is a 4-simplex: \emph{the same geometric object as the spacetime cell}. The state of a simplex lives on a simplex. This self-referential structure --- the universe's description is isomorphic to the universe itself --- is not imposed but follows from the inner product structure on $\mathbb{C}^d$.
 \end{remark}
 
+\subsection{The Born rule from $\mathbb{C}$}
+
+The relation $G_{ij} \in \mathbb{C}$ immediately raises a question: how do we extract observable (real, non-negative) quantities from a complex number? The answer is unique.
+
+\begin{theorem}[Born rule as algebraic necessity]
+The unique polynomial map $f: \mathbb{C} \to \mathbb{R}_{\geq 0}$ of minimal degree satisfying:
+\begin{enumerate}
+\item Real-valued: $f(z) \in \mathbb{R}$,
+\item Symmetric: $f(G_{ij}) = f(G_{ji})$,
+\item Non-negative: $f(z) \geq 0$,
+\item Faithful: $f(z) = 0 \Leftrightarrow z = 0$,
+\end{enumerate}
+is $f(z) = z\bar{z} = |z|^2$.
+\end{theorem}
+
+\begin{proof}
+Any polynomial in $z$ alone is complex-valued (violates 1). Any polynomial in $z$ and $\bar{z}$ that is real and non-negative must contain the factor $z\bar{z}$ (since $\text{Re}(z)$ and $\text{Im}(z)$ can be negative). The minimal such polynomial is $z\bar{z} = |z|^2$, of degree 2.
+\end{proof}
+
+Therefore:
+\begin{equation}
+W_{ij} = \frac{|G_{ij}|^2}{d} = \frac{G_{ij}\,G^*_{ij}}{d}
+\end{equation}
+is not a definition chosen for convenience. It is the \emph{only} way to extract a real, non-negative, symmetric quantity from $G_{ij} \in \mathbb{C}$. This is the Born rule: $P = |\langle\psi_i|\psi_j\rangle|^2$. It was never an axiom of quantum mechanics. It is a property of $\mathbb{C}$.
+
+\begin{remark}[Probability is geometry]
+$W_{ij}$ is not ``the probability of finding particle $j$ at location $i$.'' It is the geometric connection strength between two points. When an experiment is repeated, the measured frequency converges to $W_{ij}$ because the apparatus vertices sample the same region of $G$ repeatedly, and $W$ is the only real observable accessible through $G$. The appearance of ``probability'' is partial observation of a deterministic structure.
+\end{remark}
+
 \subsection{Physical interpretation}
 
 $\mathbb{C}$ is the unique field with \emph{exactly one phase direction}. Not zero (that's $\mathbb{R}$: geometry without forces), not three (that's $\mathbb{H}$: forces without well-defined gravity), but one.

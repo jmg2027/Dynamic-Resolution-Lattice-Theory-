@@ -182,6 +182,28 @@ is gauge-invariant ($\alpha_i$ cancels cyclically). This is the discrete analogu
 
 From Eq.~(\ref{eq:detGh}), the hinge area $A_h = \sqrt{\det(G_h)}$ depends on $\Phi_h$: geometry and gauge are coupled through the determinant. This coupling is Einstein's equation in discrete form: matter (gauge fields) curves spacetime (hinge areas).
 
+\subsection{Entanglement, Bell violation, and ER\,=\,EPR}
+
+The polar decomposition $G_{ij} = |G_{ij}|\,e^{i\phi_{ij}}$ separates each element of $G$ into two independent components:
+\begin{equation}
+\underbrace{|G_{ij}|^2/d = W_{ij}}_{\text{geometry (distance)}} \qquad \underbrace{\phi_{ij} = \arg(G_{ij})}_{\text{gauge (correlation)}}
+\end{equation}
+
+``Locality'' is defined by $W$: two vertices are ``far apart'' when $W_{ij} \approx 0$. But $G_{ij} \neq 0$ for generic $\psi$ in $\mathbb{C}^5$, regardless of $W_{ij}$. The phase $\phi_{ij}$ persists even when the magnitude vanishes. This is entanglement:
+\begin{equation}
+\text{Entanglement} = \phi_{ij} \neq 0 \quad\text{while}\quad W_{ij} \approx 0.
+\end{equation}
+
+\textbf{Bell violation.} Bell's theorem proves that no \emph{local} hidden-variable model can reproduce quantum correlations. In DRLT, ``local'' means ``depends only on $W$,'' which discards $\phi$. A local model sets $\phi_{ij} = 0$, losing the phase correlations that $G$ carries. Including $\phi$ (i.e., using the full $G$, not just $W$) reproduces the quantum correlations. Bell's inequality is violated because $G \in \mathbb{C}$, not $\mathbb{R}$.
+
+\textbf{No-signaling.} $W_{ij}$ carries energy and information (it is the magnitude of the interaction). $\phi_{ij}$ carries correlation (it is the relative phase). These are independent components of the same complex number. When $W_{ij} \approx 0$: no signal can propagate (no energy transfer), but correlation persists (phase is nonzero). No-signaling and entanglement coexist because magnitude and phase are independent.
+
+\textbf{ER\,=\,EPR.} In 2013, Maldacena and Susskind conjectured that wormholes (ER bridges, geometric connections) and entanglement (EPR correlations, quantum connections) are the same phenomenon. In DRLT this is immediate:
+\begin{equation}
+G_{ij} = \underbrace{|G_{ij}|}_{\text{ER (geometry)}} \times \underbrace{e^{i\phi_{ij}}}_{\text{EPR (entanglement)}}
+\end{equation}
+A wormhole is a region where $W_{ij}$ is large (strong geometric connection) despite spatial separation. Entanglement is a region where $\phi_{ij}$ is correlated despite $W_{ij} \approx 0$. Both are components of the same complex inner product $G_{ij}$. The ER\,=\,EPR conjecture is the statement that $|G_{ij}|$ and $e^{i\phi_{ij}}$ belong to the same number. This is not a conjecture; it is the definition of $\mathbb{C}$.
+
 \subsection{The causal split: $(n_S, n_T) = (3, 2)$}
 
 The 5 vertices of the simplex split into spatial and temporal:
