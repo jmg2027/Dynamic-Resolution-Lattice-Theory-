@@ -113,8 +113,13 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_031: Simplex spacetime (심플렉스 격자 시공간 모델, 4/5)
 - EXP_032: Compact stars (중성자별/쿼크별 det(G_h) 계층, 6/6 ✓)
 - EXP_033: Webb dipole (ghost 공간변동 정합성, α_s↔α_em 역상관, 7/7 ✓)
-- EXP_034: Helium atom (원자구조=선형대수, Z²스케일링, e-e반발, 7/7 ✓)
-- Next: EXP_035
+- EXP_033b: Webb vs μ (μ ghost-protected 발견, 자기교정, 1/3)
+- EXP_039: Bond angles (CH₄/NH₃/H₂O from n_S=3, 전부 exact, 4/4 ✓)
+- EXP_040: Hydrogen exact (E_n = -m_e α²/(n_T n²), 1/2=1/n_T, 4/4 ✓)
+- EXP_041: Rank cascade (랜덤 행렬 rank 층위 관찰, 2/2 ✓)
+- EXP_042: Regge atoms (정확한 Regge action으로 원자 계산, Phase 1a ✓, 진행중)
+- ~~EXP_034~038~~: 삭제됨 (ad hoc 에너지 함수, EXP_039~042가 대체)
+- Next: EXP_043
 
 ## Key Library API (lib/drlt.py)
 ```python
