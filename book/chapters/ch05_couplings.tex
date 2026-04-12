@@ -172,12 +172,30 @@ Combining the three ingredients --- Binet--Cauchy channels ($\mathcal{C}_i$), ga
 \frac{1}{\alpha_i} = \mathcal{C}_i \times g_i \times S(N_i).
 \end{equation}
 
-The gauge multiplicity $g_i$ counts the number of independent gauge generators that participate:
+The gauge multiplicity $g_i$ counts the number of independent gauge generators that participate. All three follow from a \textbf{single principle}: the representation of the sector symmetry group selected by the hinge type.
+
 \begin{itemize}
-\item Strong: $g_3 = n_S^2 - 1 = 8$ (the 8 gluons of SU(3)),
-\item Weak: $g_2 = n_T = 2$ (the isospin components),
-\item EM: $g_1 = n_S = 3$ (the 3 color charges that couple to U(1)).
+\item \textbf{Pure hinge} (all vertices from one sector): the force is a \emph{self-coupling} within that sector. The gauge degrees of freedom are the generators of $\text{SU}(n)$ acting on that sector: the \emph{adjoint representation}, with dimension $n^2 - 1$.
+
+\item \textbf{Mixed hinge} (vertices from both sectors): the force is a \emph{cross-coupling} between sectors. Each vertex of the dominant sector is an independent source/charge: the \emph{fundamental representation}, with dimension $n$.
 \end{itemize}
+
+Applied to the three hinge types:
+\begin{center}
+\begin{tabular}{lccccl}
+\hline
+Force & Hinge & Pure/Mixed & Sector & Representation & $g$ \\
+\hline
+Strong & SSS & Pure ($\mathbb{C}^3$) & SU($n_S$) & Adjoint & $n_S^2 - 1 = 8$ \\
+Weak & STT & Mixed & SU($n_T$) & Fundamental & $n_T = 2$ \\
+EM & SST & Mixed & U(1) over $\mathbb{C}^3$ & Charges & $n_S = 3$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}[Why SSS gets the adjoint]
+SSS is the \emph{only} pure hinge: all 3 vertices come from $\mathbb{C}^3$, with 0 from $\mathbb{C}^2$. A pure hinge sees the full internal rotation group of its sector. In $\mathbb{C}^3$, this is SU(3), with $3^2 - 1 = 8$ generators (the 8 gluons). SST and STT are mixed: they connect the two sectors, so each vertex of the ``other'' sector acts as a single charge, giving the fundamental representation. The self/cross distinction is the geometric origin of why gluons carry color charge (adjoint) while photons do not (singlet coupling to $n_S$ charges).
+\end{remark}
 
 \begin{theorem}[Coupling constants at $M_Z$]
 \label{thm:couplings}
