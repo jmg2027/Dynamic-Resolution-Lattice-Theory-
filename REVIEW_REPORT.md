@@ -36,67 +36,27 @@
 
 ## 3. 실질적 이슈 (수정 권장)
 
-### 이슈 A: ch09_cosmology.tex — "true vacuum" 정의 모호
+### ~~이슈 A: ch09_cosmology.tex — "true vacuum" 정의 모호~~ → **해결됨**
 
-**위치:** ch09_cosmology.tex 39~55행
-
-**문제:** 
-- 39행: "vacuum has ψ aligned → det G_h = 0 → ħ = 0 → E_vac = 0 (exactly)"
-- 51행: "True vacuum (w = -1 exactly) requires complete ψ alignment"
-
-이 두 문장이 충돌합니다. 완전 정렬 상태(true vacuum)는 E = 0이므로 ρ = 0이고, w = p/ρ는 **정의 불가**입니다. w = -1이 아니라 아예 의미 없는 양입니다.
-
-**수정 제안:** 51행을 다음으로:
-> "완전 정렬 진공(det = 0, ħ = 0)은 에너지 자체가 없으므로 w는 정의되지 않는다. 우리 우주는 이 상태에 도달하지 않으며, 관측되는 w ≈ -1은 잔여 eigenvalue가 매우 작지만 0이 아닌 상태를 반영한다."
-
-**심각도:** 🔴 높음 — 논리적 모순
+ch04/ch09 전면 재작성. ħ=0 상태는 물리적으로 존재 불가 (빅뱅, 블랙홀, 열사망 모두 예외 없음). 우주상수 문제 해법: E_vac = 0이 아니라 N개 유한 모드 → 유한 에너지.
 
 ---
 
-### 이슈 B: ch06b_atoms.tex — 심플렉스가 "input"처럼 서술됨
+### ~~이슈 B: ch06b_atoms.tex — 심플렉스가 "input"처럼 서술됨~~ → **해결됨**
 
-**위치:** ch06b_atoms.tex 6, 10행
-
-**문제:**
-- 6행: "The simplex is the atom."
-- 10행: "Hydrogen is one 4-simplex: 5 vertices {S₁, S₂, S₃, T₁, T₂}, fully connected."
-
-현재 이론의 원칙: **심플렉스는 emergent (W_ij가 높은 5-클릭으로 발견됨), input이 아님.**
-이 챕터는 심플렉스를 공리적으로 배치하는 것처럼 서술합니다.
-
-**수정 제안:** 도입부에 한 문장 추가:
-> "높은 W_ij를 공유하는 5개 꼭짓점이 자연스럽게 4-심플렉스를 형성한다. 수소 원자는 이렇게 창발한 하나의 심플렉스로 기술된다."
-
-**심각도:** 🟡 중간 — 서술 순서 문제 (수학은 올바름)
+ch06b 도입부 재작성: "높은 W_ij를 공유하는 5개 꼭짓점이 emergent 4-심플렉스를 형성" 명시.
 
 ---
 
-### 이슈 C: ch05_couplings.tex 82~87행 — c=2 결정의 인과 관계 역전
+### ~~이슈 C: ch05_couplings.tex — c=2 인과관계 역전~~ → **해결됨**
 
-**위치:** ch05_couplings.tex ~82행
-
-**문제:** "If c = 1: 10 ≠ 25. If c = 3: 46 ≠ 25. Only c = 2 gives 25 = d²."
-
-이것은 c = 2가 d² = 25 조건에서 **결정된다**는 인상을 줍니다. 하지만 c = 2는 ch03에서 (n_S, n_T) = (3, 2)로부터 이미 **유도된** 값입니다. d² = 25은 **자기일관성 검증**이지, c의 유도가 아닙니다.
-
-**수정 제안:** 
-> "c = 2는 이미 3장에서 (3,2) 분할로부터 유도되었다. 여기서 d² = 25과의 일치는 독립적인 자기일관성 검증이다."
-
-**심각도:** 🟡 중간 — 논리적 방향 오해 소지
+"Self-consistency check: c=2" 리마크로 교체. c=2는 ch03에서 이미 유도, d²=25 일치는 검증.
 
 ---
 
-### 이슈 D: ch06_masses.tex 10행 — "Wishart modes" 용어
+### ~~이슈 D: ch06_masses.tex — "Wishart modes" 용어~~ → **해결됨**
 
-**위치:** ch06_masses.tex 10행
-
-**문제:** "...the tunneling amplitude across all d² = 25 independent **Wishart modes**"
-
-현재 이론에서 G가 근본이고 W = |G|²/d는 파생입니다. "Wishart modes"는 W 행렬의 언어인데, 여기서는 사실 G의 eigenmode를 말하는 것입니다.
-
-**수정 제안:** "Wishart modes" → "Gram matrix modes" 또는 "G eigenvalue modes"
-
-**심각도:** 🟡 중간 — 용어 불일치
+"Wishart modes" → "Gram matrix modes"로 교체 (10행 + 14행).
 
 ---
 
@@ -184,15 +144,17 @@ atomic_physics.tex에 등가 관계 명시 완료.
 
 ## 7. 우선순위 요약
 
-| 우선순위 | 이슈 | 파일 | 행동 |
-|----------|------|------|------|
-| 🔴 1 | true vacuum w 정의 모순 | ch09_cosmology.tex:51 | 수정 필요 |
-| 🟡 2 | 심플렉스 emergent 서술 | ch06b_atoms.tex:6,10 | 도입부 보강 |
-| 🟡 3 | c=2 인과관계 역전 | ch05_couplings.tex:~82 | 프레이밍 수정 |
-| 🟡 4 | "Wishart modes" 용어 | ch06_masses.tex:10 | 용어 교체 |
-| 🟡 5 | compact_stars det 감쇠 미유도 | compact_stars.tex:62-68 | 유도 추가 또는 가정 명시 |
-| 🟡 6 | 양성자 질량 공식 이중성 | atomic_physics.tex:71 | ch06과 일관성 확인 |
-| 🟡 7 | Webb dipole ε₀ 공간변동 | webb_dipole.tex:75-95 | 외삽임을 명시 |
-| 🟢 8 | det(G_h) vs det(W_h) 구분 | ch04_hbar.tex:32 | 주석 추가 |
-| 🟢 9 | temporal weighting 설명 | ch05_couplings.tex:31 | 설명 보강 |
-| 🟢 10 | CP phase 검증 참조 | ch07_mixing.tex:40 | 참조 추가 |
+| # | 이슈 | 상태 |
+|---|------|------|
+| ~~1~~ | true vacuum w 정의 모순 | ✅ ch04/ch09 재작성 |
+| ~~2~~ | 심플렉스 emergent 서술 | ✅ ch06b 도입부 보강 |
+| ~~3~~ | c=2 인과관계 역전 | ✅ ch05 리프레이밍 |
+| ~~4~~ | "Wishart modes" 용어 | ✅ ch06 Gram으로 교체 |
+| ~~5~~ | compact_stars det 감쇠 미유도 | ✅ Gram det 곱셈적 구조 유도 |
+| ~~6~~ | 양성자 질량 공식 이중성 | ✅ 동치 증명 (Λ_QCD = n_S·m_t·α²) |
+| ~~7~~ | Webb dipole ε₀ 공간변동 | ✅ 심플렉스 네트워크에서 자동 |
+| ~~8~~ | det(G_h) vs det(W_h) 구분 | ✅ ch04 주석 추가 |
+| 9 | temporal weighting 설명 | 🟢 미완 (낮은 우선순위) |
+| 10 | CP phase 검증 참조 | 🟢 미완 (낮은 우선순위) |
+
+**10개 중 8개 해결. 나머지 2개는 서술 개선 수준 (수학은 맞음).**
