@@ -36,7 +36,20 @@ The DRLT framework proposes that starting from a single axiom --- ``points exist
 
 \subsection{The unique substrate}
 
-The DRLT axiom --- ``$N$ points exist with pairwise relations $G_{ij}$ taking values in an algebra $\mathbb{K}$'' --- combined with four necessary conditions for a universe (normed magnitude, continuous phase, well-defined determinant, integer winding numbers) uniquely selects $\mathbb{K} = \mathbb{C}$ via the Frobenius classification theorem.
+The DRLT axiom --- ``$N$ points exist with pairwise relations $G_{ij}$ taking values in an algebra $\mathbb{K}$'' --- requires four conditions for a universe with geometry and forces:
+
+\begin{enumerate}
+\item[\textbf{R1.}] \textbf{Magnitude} (geometry): $G_{ij}$ has a well-defined $|G_{ij}|$. Requires $\mathbb{K}$ normed.
+\item[\textbf{R2.}] \textbf{Phase} (gauge forces): $\arg(G_{ij})$ is continuous. Requires unit-norm elements to form a connected Lie group.
+\item[\textbf{R3.}] \textbf{Determinant} (gravity): $\det(G)$ is a single real number. Requires $\mathbb{K}$ commutative.
+\item[\textbf{R4.}] \textbf{Winding} (charge quantization): holonomy admits discrete winding numbers. Requires $\pi_1(\text{phase group}) \cong \mathbb{Z}$.
+\end{enumerate}
+
+By Frobenius, the finite-dimensional associative division algebras over $\mathbb{R}$ are $\{\mathbb{R}, \mathbb{C}, \mathbb{H}\}$ (octonions excluded by non-associativity). $\mathbb{R}$ fails R2 ($\{+1,-1\}$ is discrete). $\mathbb{H}$ fails R3 (non-commutative, determinant ambiguous). $\mathbb{C}$ satisfies all four, with $\pi_1(S^1) = \mathbb{Z}$ (R4).
+
+\begin{remark}
+$G_{ij} = \langle\psi_i|\psi_j\rangle$ is the unique sesquilinear form on $\mathbb{C}^d$ satisfying R1--R3. Positive semi-definiteness ($\mathbf{c}^\dagger G\,\mathbf{c} = \|\Psi^\dagger\mathbf{c}\|^2 \geq 0$) is a theorem, not an assumption. The Born rule $W = |G|^2/d$ is the unique minimal-degree polynomial $\mathbb{C} \to \mathbb{R}_{\geq 0}$ satisfying real, symmetric, non-negative, and faithful.
+\end{remark}
 
 \subsection{Atomic dimensions}
 
@@ -128,11 +141,17 @@ $\{2, 3\}$ & $\text{SU}(3)\!\times\!\text{SU}(2)\!\times\!\text{U}(1)$ & Yes & Y
 \end{tabular}
 \end{center}
 
-\textbf{Step 5:} $\{2\}$ and $\{3\}$ alone are topologically dead ($\pi_1 = 0$, no charge quantization).
+\textbf{Step 5: $\{2\}$ and $\{3\}$ alone are dead.}
 
-\textbf{Step 6:} U(1) is the unique glue ($\pi_1(\text{U}(1)) = \mathbb{Z}$).
+\emph{Topologically:} $\pi_1(\text{SU}(2)) = \pi_1(\text{SU}(3)) = 0$ --- both simply connected. No winding numbers, no charge quantization, no conserved particle number.
 
-\textbf{Step 7:} Independence from $N$. Steps 1--6 depend only on $\text{SU}(2)$, $\text{SU}(3)$, $\text{U}(1)$.
+\emph{Physically:} $\{3\}$ alone means $n_T = 0$: no temporal sector, no unitary evolution, no time. $\{2\}$ alone means $n_S = 0$: no spatial sector, no matter, no extent. Neither can support physics.
+
+\textbf{Step 6: U(1) is the unique and necessary glue.}
+
+The relative phase between $\mathbb{C}^3$ and $\mathbb{C}^2$ is $\text{U}(1)$, with $\pi_1(\text{U}(1)) = \pi_1(S^1) = \mathbb{Z}$. This provides winding numbers for charge quantization and the topological connection between sectors. Without U(1), the two sectors decouple: $\mathbb{C}^3$ has no time, $\mathbb{C}^2$ has no space, and each dies independently. The tracelessness condition $n_S \cdot y_\text{color} + n_T \cdot y_\text{weak} = 0$ enforces $y_\text{color}/y_\text{weak} = -2/3$, ensuring exact charge conservation.
+
+\textbf{Step 7:} Independence from $N$. Steps 1--6 use only the algebra of $\text{SU}(2)$, $\text{SU}(3)$, $\text{U}(1)$. Whether $N = 5$ or $N = 10^{60}$, the physically non-trivial content is $(2, 3)$.
 \end{proof}
 
 \begin{corollary}
@@ -145,10 +164,23 @@ The question ``why $d = 5$?'' dissolves. The physical content is $(2, 3)$ regard
 
 \subsection{Path 1: Simplex geometry (Binet--Cauchy)}
 
-The Binet--Cauchy decomposition of $\det(G_h)$ on $\mathbb{C}^5 = \mathbb{C}^3 \oplus \mathbb{C}^2$ with $c = 2$ produces $d^2 = 25$ channels. Each propagates via $D(n) = 1/n^2$, summing to $\zeta(2) = \pi^2/6$:
+The exterior algebra $\Lambda^3(\mathbb{C}^5)$ decomposes under the $(3,2)$ split into SSS ($k=0$), SST ($k=1$), STT ($k=2$) sectors. With the lattice speed of light $c = n_T/d_T \div n_S/d_S = 2$, the $c$-weighted channel count is:
 \begin{equation}
-1/\alpha_\text{GUT} = d^2 \times \zeta(2) = 25\pi^2/6.
+\underbrace{1}_{\text{SSS}} + \underbrace{12}_{\text{SST}} + \underbrace{12}_{\text{STT}} = 25 = d^2.
 \end{equation}
+
+The gauge multiplicity of each force follows a single principle: \emph{pure hinges get the adjoint representation ($n^2-1$), mixed hinges get the fundamental ($n$)}:
+\begin{align}
+\text{Strong (SSS, pure } \mathbb{C}^3\text{):} \quad g_3 &= n_S^2 - 1 = 8, \\
+\text{Weak (STT, mixed):} \quad g_2 &= n_T = 2, \\
+\text{EM (SST, mixed):} \quad g_1 &= n_S = 3.
+\end{align}
+
+Each channel propagates via the solid-angle propagator $D(n) = 1/n^{n_S-1} = 1/n^2$ (not a lattice Green's function, but the geometric solid angle in $n_S = 3$ dimensions). The total interaction capacity:
+\begin{equation}
+S(\infty) = \sum_{n=1}^{\infty} \frac{1}{n^2} = \zeta(2) = \frac{\pi^2}{6}.
+\end{equation}
+Therefore: $1/\alpha_\text{GUT} = d^2 \times \zeta(2) = 25\pi^2/6$, giving $\alpha_\text{GUT} = 6/(25\pi^2)$.
 
 \subsection{Path 2: Random matrix theory (GUE)}
 
@@ -180,7 +212,23 @@ $\alpha_\text{GUT} = 6/(25\pi^2)$ is a theorem, not a measurement.
 
 \subsection{Ghost corrections identified}
 
-The $\sim$2.4\% ghost corrections are contributions from $\lambda_6, \ldots, \lambda_{10}$: spectrally indistinguishable from $\lambda_1, \ldots, \lambda_5$ but representation-theoretically trivial.
+The $\sim$2.4\% ghost corrections throughout DRLT --- in the proton mass, water bond angle, baryon asymmetry, and coupling constants --- are now identified as contributions from $\lambda_6, \ldots, \lambda_{d_\text{indep}}$: spectrally indistinguishable from $\lambda_1, \ldots, \lambda_5$ but representation-theoretically trivial.
+
+The ghost sum rule $\sum_i \delta(1/\alpha_i) = 0$ follows from $\text{Tr}(G) = N$, which holds regardless of how many dimensions are trivial. The same $\alpha_\text{GUT}$ correction appears in:
+
+\begin{center}
+\begin{tabular}{lccl}
+\hline
+Quantity & Leading & $+\,\alpha_\text{GUT}$ & Residual \\
+\hline
+$m_p$ & 924 MeV & 937.5 MeV & 0.08\% \\
+$\theta_{\text{H}_2\text{O}}$ & $104.48^\circ$ & $104.52^\circ$ & $0.00^\circ$ \\
+$\eta_B$ & $5.98 \times 10^{-10}$ & $6.13 \times 10^{-10}$ & 0.2\% \\
+\hline
+\end{tabular}
+\end{center}
+
+These corrections are the signature of a unified theory: they vanish when gravity (the $\det$ contribution) is included alongside quantum mechanics.
 
 \subsection{No anthropic principle}
 
@@ -189,5 +237,8 @@ The constants \emph{cannot} be different. $\text{SU}(3)\times\text{SU}(2)\times\
 \begin{thebibliography}{9}
 \bibitem{DRLT} M.~Jeong, ``A Note on Lattice Geometry in $\mathbb{C}^5$'' (2026).
 \end{thebibliography}
+
+\bigskip
+\noindent\textbf{AI Disclosure.} Developed with assistance from Claude (Anthropic).
 
 \end{document}
