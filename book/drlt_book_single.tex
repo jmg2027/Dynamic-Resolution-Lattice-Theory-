@@ -1215,7 +1215,11 @@ The Higgs vacuum expectation value is set by the tunneling amplitude across all 
 \begin{equation}
 \boxed{v_H = \frac{(d+1)\,M_\text{Pl}}{d^{d^2}} = \frac{6\,M_\text{Pl}}{5^{25}} = 245.6\;\text{GeV}}
 \end{equation}
-Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_S = 2 \times 3$ counts the spacetime volume factor; the denominator $d^{d^2} = 5^{25}$ arises from 25 Wishart modes each contributing a tunneling suppression of $1/d$.
+Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_S = 2 \times 3$ counts the spacetime volume factor. The denominator $d^{d^2} = 5^{25}$ arises from 25 independent Wishart modes, each contributing a tunneling suppression of $1/d$. The suppression is exactly $1/d$ (not $1/d^2$ or $1/\sqrt{d}$) because the tunneling probability between two random states in $\mathbb{C}^d$ is the Haar-averaged overlap:
+\begin{equation}
+\langle|\langle\psi|\psi'\rangle|^2\rangle_\text{Haar} = \frac{1}{d}.
+\end{equation}
+This is a standard result of random matrix theory. The overlap is $|\langle\psi|\psi'\rangle|^2$ (already squared, hence not $1/\sqrt{d}$), and the average is over unit vectors (already normalized, hence not $1/d^2$). The 25 modes are independent, so the total suppression is $(1/d)^{d^2} = 1/d^{d^2}$.
 
 \subsection{Generations as simplex dimension}
 
@@ -1275,14 +1279,25 @@ Observed: $1.777\;\text{GeV}$ (1.0\%).
 
 \subsubsection{The recursion fixed point}
 
-A resolution change (Pachner-like move) on the lattice satisfies:
+A Pachner $1 \to 5$ move adds one vertex to a simplex. This produces the recursion:
 \begin{equation}
-\hbar_\text{new} = 1 + \frac{1}{\hbar_\text{old}}
+\hbar_\text{new} = 1 + \frac{1}{\hbar_\text{old}}.
 \end{equation}
-whose unique attractive fixed point is the golden ratio:
+
+Each term has a unique geometric origin:
+\begin{itemize}
+\item \textbf{The ``$1$''}: one new vertex $=$ one new independent hinge $=$ 1 bit of information (Holevo bound, Chapter~\ref{ch:hbar}). This is the minimum topological change; adding 2 vertices would be two successive Pachner moves, not one. The Holevo bound fixes this term.
+\item \textbf{The ``$1/\hbar_\text{old}$''}: the Pachner move is a scale change (subdivision). At the new, finer resolution, the old $\hbar$ contributes its \emph{inverse}: finer resolution $=$ smaller area per hinge $=$ $1/\hbar_\text{old}$. This is the self-similar structure of the resolution cascade.
+\end{itemize}
+
+No other form is consistent: $2 + 1/\hbar$ would require adding 2 independent bits per move (2 vertices, not 1). $1 + 2/\hbar$ would require a non-self-similar subdivision. The recursion $1 + 1/\hbar$ is the \emph{unique} continued fraction with integer coefficients equal to 1 --- the simplest self-similar structure.
+
+The unique attractive fixed point is the golden ratio:
 \begin{equation}
 \hbar^* = \varphi = \frac{1 + \sqrt{5}}{2} \approx 1.618.
 \end{equation}
+This is the definition of $\varphi$: the continued fraction $[1; 1, 1, 1, \ldots] = (1+\sqrt{5})/2$.
+
 Independent verification: the vacuum geometry gives $4\hbar_\text{vac} = 4\sqrt{3}(\ln d)^2/(16\ln 2) = 1.6182 \approx \varphi$ (0.008\% agreement).
 
 \subsubsection{Type ratios}
@@ -2047,10 +2062,17 @@ No quintessence, no dynamical dark energy. Any observed deviation from $w = -1$ 
 
 \subsubsection{Dark energy fraction}
 
+The cosmological horizon is the surface where the recession velocity equals the lattice speed of light $c = 2$ (Eq.~\ref{eq:speed_of_light}). At this surface, the deficit angle is:
 \begin{equation}
-\Omega_\Lambda = 1 - \frac{1}{\pi} = 0.682.
+\delta_\text{horizon} = 2\pi - \sum\theta = 2\pi - c = 2\pi - 2.
 \end{equation}
-Observed: 0.685 (0.5\%). This arises from the fraction of horizon information that is geometrically ``trapped'' by the circular horizon geometry.
+The sum of dihedral angles at the horizon equals $c$ radians: this is the angular range that light can cover before reaching the horizon. The remaining angle $\delta = 2\pi - c$ is the curvature of empty space --- the cosmological constant.
+
+The dark energy fraction is this deficit normalized by the full angle:
+\begin{equation}
+\boxed{\Omega_\Lambda = \frac{\delta_\text{horizon}}{2\pi} = \frac{2\pi - c}{2\pi} = 1 - \frac{c}{2\pi} = 1 - \frac{1}{\pi} = 0.6817.}
+\end{equation}
+Observed: $0.685$ ($0.5\%$). The factor $1/\pi$ is not numerology: it is $c/(2\pi) = 2/(2\pi)$, where $c = 2$ is derived from $(n_S, n_T) = (3, 2)$ and $2\pi$ is the full circle.
 
 \subsection{Dark matter}
 
