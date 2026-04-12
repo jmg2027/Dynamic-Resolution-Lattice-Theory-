@@ -44,20 +44,17 @@
 
 ### 저자에게 물어볼 것
 
-1. **Ω_Λ = 1-c/(2π) vs 17/25**: ch09에 1-c/(2π) 넣었는데, rep_theoretic 논문의 
-   ghost correction 관점에서는 (d²-(n_S²-1))/d² = 17/25도 유효. 둘 다 쓸지, 하나만?
+1. ~~Ω_Λ = 1-c/(2π) vs 17/25~~ → **해결: 1-c/(2π)만 사용** (지평선 결핍각)
 
-2. **w = -1 exact vs w ≈ -1**: ch09에 "w(z)=-1 at each z, w_eff≠-1 when combining"이라고 
-   썼는데, 이전 논의에서 "진짜 진공은 우리 우주에 없다 → ħ>0 → w≠-1 정확히"라고도 했음. 
-   이 둘이 충돌할 수 있음. 어느 쪽?
+2. ~~w = -1 exact vs w ≈ -1~~ → **해결: w ≈ -1 (진짜 진공은 우리 우주에 없음)**
+   ch09 수정 완료. 편차 ~ε₀² ~ 10⁻⁵.
 
-3. **Effective rank vs representation**: ch10을 "representation cascade"로 바꿨는데, 
-   이전의 "아무 행렬에 rank-5 밴드 존재" 주장과 논문의 "rank-5 안 나타남" 결과 사이의 
-   관계를 더 명확히 할 필요. "rank-5 밴드"가 아니라 "(2,3) 표현론적 구조"가 맞나?
+3. ~~Effective rank vs representation~~ → **해결: representation cascade** 
+   ch10 수정 완료. (2,3)은 표현론적 구조, 스펙트럼 gap 아님.
 
-4. **N_cross ≈ 1500과 물리적 GUT 에너지 스케일 (~10¹⁵ GeV)의 관계**: 
-   논문에서 "deferred to future work"라고 했는데, 계산 가능한가?
+4. **N_cross ≈ 1500 → 물리적 GUT 에너지 (~10¹⁵ GeV)**: 
+   SI 단위 변환으로 계산 가능할 수 있음. 미래 과제.
 
-5. **EXP_042 Regge 실험**: Phase 1a는 성공했지만 Phase 1b (He σ=5/16)와 
-   Phase 2 (H 에너지 준위, H₂O 결합각)는 미완. JAX 자동미분이나 해석적 gradient가 
-   필요한데, 방향을 결정해야 함.
+5. **EXP_042 Regge 실험**: 다음 세션으로 이관. 
+   JAX 자동미분 + 해석적 gradient 둘 다 시도.
+   상세: experiments/EXP_042_regge_atoms/NEXT_SESSION.md
