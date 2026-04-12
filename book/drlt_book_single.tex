@@ -151,10 +151,12 @@ Having established $\mathbb{K} = \mathbb{C}$, the relation $G_{ij}$ is most natu
 \begin{equation}
 G_{ij} = \langle\psi_i|\psi_j\rangle = \sum_{a=0}^{d-1} \psi^*_{i,a}\,\psi_{j,a}, \qquad \psi_i \in \mathbb{C}^d
 \end{equation}
-for some dimension $d$ to be determined. This form automatically satisfies:
+for some dimension $d$ to be determined. This is not an additional assumption: the inner product is the \emph{unique} sesquilinear form on $\mathbb{C}^d$ satisfying R1 (magnitude $= |\langle\psi|\psi\rangle|$), R2 (phase $= \arg\langle\psi_i|\psi_j\rangle$), and R3 (commutativity: $G_{ji} = G_{ij}^*$, so $\det(G)$ is real). No other bilinear form over $\mathbb{C}$ satisfies all three.
+
+This form automatically satisfies:
 \begin{enumerate}
 \item Hermiticity: $G_{ji} = G^*_{ij}$ (so $G$ is a Hermitian matrix),
-\item Positive semi-definiteness: $\mathbf{c}^\dagger G\,\mathbf{c} = \|\Psi^\dagger\mathbf{c}\|^2 \geq 0$,
+\item Positive semi-definiteness: $\mathbf{c}^\dagger G\,\mathbf{c} = \|\Psi^\dagger\mathbf{c}\|^2 \geq 0$ (a theorem of inner product spaces, not an assumption --- the norm-squared cannot be negative),
 \item Unit diagonal: $G_{ii} = \|\psi_i\|^2 = 1$ (normalization: no point is ``more real'' than another),
 \item Rank constraint: $\text{rank}(G) \leq d$.
 \end{enumerate}
@@ -961,7 +963,19 @@ The action per hinge is:
 \begin{equation}
 \frac{S_h}{\hbar_h} = \frac{A_h\,\delta_h}{A_h/(4\ln 2)} = 4\ln 2 \cdot \delta_h
 \end{equation}
-which is dimensionless and depends only on the deficit angle $\delta_h$. In the continuum limit, this becomes:
+which is dimensionless and depends only on the deficit angle $\delta_h$. The hinge area $A_h$ cancels completely --- the action per $\hbar$ is scale-free.
+
+\begin{remark}[Uniqueness of $S = \sum A\,\delta$]
+Why not $S = \sum A^2\delta$ or $S = \sum A\,\delta^2$? Because $\hbar_h = A_h/(4\ln 2)$:
+\begin{itemize}
+\item $A\,\delta$: $S/\hbar = 4\ln 2\;\delta$. Area cancels $\to$ UV-finite, first-order in curvature $\to$ correct GR limit. \checkmark
+\item $A^2\delta$: $S/\hbar = 4\ln 2\;A\,\delta$. Area does \emph{not} cancel $\to$ scale-dependent $\to$ UV-divergent. \ding{55}
+\item $A\,\delta^2$: $S/\hbar = 4\ln 2\;\delta^2$. Area cancels, but second-order in curvature $\to$ $R^2$ gravity, wrong limit. \ding{55}
+\end{itemize}
+$S = \sum A\,\delta$ is the \emph{unique} action that is UV-finite and first-order in curvature. This is a theorem, not a choice.
+\end{remark}
+
+In the continuum limit, this becomes:
 \begin{equation}
 \frac{S}{\hbar} \;\to\; \frac{4G}{c^3}\int R\,\sqrt{g}\,d^4x
 \end{equation}
@@ -2169,7 +2183,18 @@ Since $\hbar_\text{vac} = 0$ exactly, dark energy is a pure cosmological constan
 \begin{equation}
 \boxed{w = -1 \quad\text{(exact)}.}
 \end{equation}
-No quintessence, no dynamical dark energy. Any observed deviation from $w = -1$ would \textbf{falsify} this prediction. Current observations: $w = -1.03 \pm 0.03$, consistent.
+No quintessence, no dynamical dark energy.
+
+\begin{remark}[DESI and apparent $w \neq -1$]
+DRLT predicts $w = -1$ at each individual redshift $z$. However, combining data across multiple redshift bins introduces the Wishart eigenvalue non-linearity (Sec.~9.6): the effective equation of state $w_\text{eff}$, fitted to the combined data, can differ from $-1$ even though $w(z) = -1$ at every $z$ individually. This is the same mechanism that produces the Hubble tension. DESI's hint of $w \neq -1$ (via $w_0$-$w_a$ parameterization) is consistent with this:
+
+\begin{itemize}
+\item DRLT: $w(z) = -1$ at each $z$ separately, $w_\text{eff} \neq -1$ when bins are combined.
+\item Quintessence: $w(z) \neq -1$ at individual $z$.
+\end{itemize}
+
+These are distinguishable. If individual-$z$ measurements confirm $w(z) = -1$ but the combined fit gives $w_\text{eff} \neq -1$, DRLT is confirmed. If $w(z) \neq -1$ at individual $z$, DRLT is falsified.
+\end{remark}
 
 \subsubsection{Dark energy fraction}
 

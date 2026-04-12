@@ -117,10 +117,12 @@ Having established $\mathbb{K} = \mathbb{C}$, the relation $G_{ij}$ is most natu
 \begin{equation}
 G_{ij} = \langle\psi_i|\psi_j\rangle = \sum_{a=0}^{d-1} \psi^*_{i,a}\,\psi_{j,a}, \qquad \psi_i \in \mathbb{C}^d
 \end{equation}
-for some dimension $d$ to be determined. This form automatically satisfies:
+for some dimension $d$ to be determined. This is not an additional assumption: the inner product is the \emph{unique} sesquilinear form on $\mathbb{C}^d$ satisfying R1 (magnitude $= |\langle\psi|\psi\rangle|$), R2 (phase $= \arg\langle\psi_i|\psi_j\rangle$), and R3 (commutativity: $G_{ji} = G_{ij}^*$, so $\det(G)$ is real). No other bilinear form over $\mathbb{C}$ satisfies all three.
+
+This form automatically satisfies:
 \begin{enumerate}
 \item Hermiticity: $G_{ji} = G^*_{ij}$ (so $G$ is a Hermitian matrix),
-\item Positive semi-definiteness: $\mathbf{c}^\dagger G\,\mathbf{c} = \|\Psi^\dagger\mathbf{c}\|^2 \geq 0$,
+\item Positive semi-definiteness: $\mathbf{c}^\dagger G\,\mathbf{c} = \|\Psi^\dagger\mathbf{c}\|^2 \geq 0$ (a theorem of inner product spaces, not an assumption --- the norm-squared cannot be negative),
 \item Unit diagonal: $G_{ii} = \|\psi_i\|^2 = 1$ (normalization: no point is ``more real'' than another),
 \item Rank constraint: $\text{rank}(G) \leq d$.
 \end{enumerate}

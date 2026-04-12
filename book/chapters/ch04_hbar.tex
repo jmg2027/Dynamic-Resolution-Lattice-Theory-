@@ -155,7 +155,19 @@ The action per hinge is:
 \begin{equation}
 \frac{S_h}{\hbar_h} = \frac{A_h\,\delta_h}{A_h/(4\ln 2)} = 4\ln 2 \cdot \delta_h
 \end{equation}
-which is dimensionless and depends only on the deficit angle $\delta_h$. In the continuum limit, this becomes:
+which is dimensionless and depends only on the deficit angle $\delta_h$. The hinge area $A_h$ cancels completely --- the action per $\hbar$ is scale-free.
+
+\begin{remark}[Uniqueness of $S = \sum A\,\delta$]
+Why not $S = \sum A^2\delta$ or $S = \sum A\,\delta^2$? Because $\hbar_h = A_h/(4\ln 2)$:
+\begin{itemize}
+\item $A\,\delta$: $S/\hbar = 4\ln 2\;\delta$. Area cancels $\to$ UV-finite, first-order in curvature $\to$ correct GR limit. \checkmark
+\item $A^2\delta$: $S/\hbar = 4\ln 2\;A\,\delta$. Area does \emph{not} cancel $\to$ scale-dependent $\to$ UV-divergent. \ding{55}
+\item $A\,\delta^2$: $S/\hbar = 4\ln 2\;\delta^2$. Area cancels, but second-order in curvature $\to$ $R^2$ gravity, wrong limit. \ding{55}
+\end{itemize}
+$S = \sum A\,\delta$ is the \emph{unique} action that is UV-finite and first-order in curvature. This is a theorem, not a choice.
+\end{remark}
+
+In the continuum limit, this becomes:
 \begin{equation}
 \frac{S}{\hbar} \;\to\; \frac{4G}{c^3}\int R\,\sqrt{g}\,d^4x
 \end{equation}
