@@ -103,19 +103,22 @@ Graviton polarizations: $n_\text{grav} = d_\text{spacetime}(d_\text{spacetime} -
 
 \subsection{The uniqueness theorem}
 
-\begin{theorem}[Uniqueness of $d = 5$]
+\begin{theorem}[Uniqueness of $(2,3)$ --- independent of $N$]
 \label{thm:d5}
-The unique integer $d$ satisfying:
-\begin{enumerate}[label=(\roman*)]
-\item $d \geq 5$ (propagating gravity),
-\item $d = a + b$ with $a, b \geq 2$ both atomic and $a \neq b$,
-\end{enumerate}
-is $d = 5$, with $(a, b) = (3, 2)$.
+For any integer $N \geq 5$, the unique atomic decomposition of $\mathbb{C}^N$ supporting (a) chiral fermions, (b) CP violation, (c) connected spacetime, and (d) charge quantization, is $(n_S, n_T) = (3, 2)$, yielding $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$.
 \end{theorem}
 
 \begin{proof}
-Atoms $= \{2, 3\}$ (Lemma~\ref{lem:atoms}). Distinct pairs $= \{(2, 3)\}$. Sum $= 5 \geq 5$.\;\;$\square$
+(1) Atoms $= \{2, 3\}$ (Lemma~\ref{lem:atoms}). (2) Any $N \geq 2$ decomposes as $N = 2a + 3b$. (3) Repeated atoms are trivial: the swap $\sigma: \text{SU}(n)_1 \times \text{SU}(n)_2 \to \text{SU}(n)_2 \times \text{SU}(n)_1$ forces vector-like representations, precluding CP violation. (4) At most one copy of each atom survives. (5) $\{2\}$ alone: $n_S = 0$, no space. $\{3\}$ alone: $n_T = 0$, no time. Both have $\pi_1 = 0$: no charge quantization. (6) $\text{U}(1)$ is the unique glue: $\pi_1(\text{U}(1)) = \mathbb{Z}$. (7) Steps 1--6 depend only on the algebra of $\text{SU}(2)$, $\text{SU}(3)$, $\text{U}(1)$, independent of $N$.
 \end{proof}
+
+\begin{corollary}
+The question ``why $d = 5$?'' dissolves. The physical content is $(2, 3)$ regardless of $d$. The number $5 = 2 + 3$ is a consequence, not a cause. Whether $N = 5$ or $N = 10^{60}$, the physically non-trivial content is $(2, 3)$.
+\end{corollary}
+
+\begin{remark}[Spectral invisibility]
+Swap annihilation creates no spectral gap at rank 5. The chiral eigenvalues $\lambda_1, \ldots, \lambda_5$ and the trivial eigenvalues $\lambda_6, \ldots, \lambda_{d_\text{indep}}$ merge into a continuous spectrum as $N \to \infty$ (gap $\sim 1/\sqrt{N}$). The true spectral gap is at rank $d_\text{indep}$ (independent dimensions), where $\lambda_{d_\text{indep}+1} = 0$ exactly. The distinction between chiral and trivial dimensions is purely representation-theoretic: physics is algebraic, not spectral.
+\end{remark}
 
 \subsection{The cosmic attractor}
 
