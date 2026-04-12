@@ -32,66 +32,75 @@ def psi_S(direction):
     v[2 + direction] = 1.0
     return v
 
+alpha_GUT = 6.0 / (25 * np.pi**2)
+sqrt_alpha_GUT = np.sqrt(alpha_GUT)  # ≈ 0.156
+
 def psi_T(n, l, m_l, m_s):
     """T vertex from (n, l, m_l, m_s).
 
-    C² part (indices 0,1):
-      amplitude = √(1 - (l/n_S)²) × 1/(n+l)  [coupling × purity]
-      spin: m_s = +1/2 → ψ[0], m_s = -1/2 → ψ[1]
+    C³ amplitude = √α_GUT / n  (l에 무관! 크기는 hop distance만 결정)
+    C³ direction = l이 결정:
+      l=0 (s): (1,1,1)/√3  — 등방적, 3개 SST 힌지에 동시 coupling
+      l=1 (p): m_l가 선택한 1개 방향
+      l=2 (d): 2개 방향 조합
 
-    C³ part (indices 2,3,4):
-      amplitude = l/n_S  [angular momentum contamination]
-      direction: m_l selects which C³ axis/axes
+    C² amplitude = √(1 - c3²)
+    C² direction = m_s (spin up/down)
 
-    Normalization preserves the RATIO between C² and C³.
+    s가 p보다 IE 높은 이유: 같은 c3_amp에서 s는 SST 3개에 coupling,
+    p는 1개에만 → det 기여가 다름.
     """
     psi = np.zeros(5)
 
-    # C³ contamination amplitude
-    c3_amp = l / n_S  # 0 for s, 1/3 for p, 2/3 for d, 1 for f
+    # C³ amplitude: coupling to nucleus, l-independent
+    c3_amp = sqrt_alpha_GUT / n
 
-    # C² amplitude (temporal purity)
-    c2_amp = np.sqrt(max(1.0 - c3_amp**2, 0.01))
+    # C² amplitude
+    c2_amp = np.sqrt(1.0 - c3_amp**2)
 
-    # C² part: spin direction
-    if m_s > 0:  # spin up
-        psi[0] = c2_amp
-        psi[1] = 0
-    else:  # spin down
-        psi[0] = 0
-        psi[1] = c2_amp
+    # C² part: spin × shell phase rotation
+    # 같은 spin이라도 n이 다르면 C² 내에서 다른 방향
+    # θ_C2 = π/(2n) × (2m_l + l + 1) — shell과 m_l에 따라 회전
+    theta_c2 = np.pi * (n - 1 + (m_l + l) / max(2*l + 1, 1)) / 4
+    if m_s > 0:
+        psi[0] = c2_amp * np.cos(theta_c2)
+        psi[1] = c2_amp * np.sin(theta_c2)
+    else:
+        psi[0] = -c2_amp * np.sin(theta_c2)
+        psi[1] = c2_amp * np.cos(theta_c2)
 
-    # C³ part: m_l selects direction(s)
+    # C³ part: direction from l, m_l
     if l == 0:
-        # s orbital: tiny uniform C³ leak
-        psi[2] = c3_amp / np.sqrt(3) if c3_amp > 0 else 0.01
-        psi[3] = c3_amp / np.sqrt(3) if c3_amp > 0 else 0.01
-        psi[4] = c3_amp / np.sqrt(3) if c3_amp > 0 else 0.01
+        # s: isotropic — all 3 spatial directions equally
+        psi[2] = c3_amp / np.sqrt(3)
+        psi[3] = c3_amp / np.sqrt(3)
+        psi[4] = c3_amp / np.sqrt(3)
     elif l == 1:
-        # p orbital: m_l = -1, 0, +1 → x, y, z
+        # p: one direction selected by m_l
         if m_l == -1:
             psi[2] = c3_amp
         elif m_l == 0:
             psi[3] = c3_amp
-        else:  # m_l == +1
+        else:
             psi[4] = c3_amp
     elif l == 2:
-        # d orbital: m_l = -2..+2 → pairs of C³ directions
+        # d: two directions
+        r = 1.0 / np.sqrt(2)
         if m_l == -2:
-            psi[2] = c3_amp * 0.707; psi[3] = c3_amp * 0.707
+            psi[2] = c3_amp * r; psi[3] = c3_amp * r
         elif m_l == -1:
-            psi[2] = c3_amp * 0.707; psi[4] = c3_amp * 0.707
+            psi[2] = c3_amp * r; psi[4] = c3_amp * r
         elif m_l == 0:
-            psi[3] = c3_amp * 0.707; psi[4] = c3_amp * 0.707
+            psi[3] = c3_amp * r; psi[4] = c3_amp * r
         elif m_l == 1:
-            psi[2] = c3_amp; psi[3] = 0
-        else:  # m_l == 2
-            psi[3] = c3_amp; psi[4] = 0
+            psi[2] = c3_amp * r; psi[3] = -c3_amp * r
+        else:
+            psi[2] = c3_amp * r; psi[4] = -c3_amp * r
     elif l == 3:
-        # f orbital: all three C³ directions
+        # f: all three (like s but different phase)
         psi[2] = c3_amp / np.sqrt(3)
         psi[3] = c3_amp / np.sqrt(3)
-        psi[4] = c3_amp / np.sqrt(3)
+        psi[4] = -c3_amp / np.sqrt(3)  # sign flip for orthogonality
 
     # Normalize
     norm = np.linalg.norm(psi)
