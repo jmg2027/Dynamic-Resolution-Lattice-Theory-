@@ -36,23 +36,23 @@ Baryon density: $\Omega_b h^2 = \eta_B \times 3.65 \times 10^7 = 0.0224$. Observ
 
 \subsubsection{The cosmological constant problem --- solved}
 
-In standard QFT, the vacuum energy diverges as $\Lambda^4_\text{UV} \sim M_\text{Pl}^4$, exceeding observations by 122 orders of magnitude. In DRLT, the vacuum has $\psi_i = e^{i\theta_i}\psi_0$ (aligned), giving $\det G_h = 0$ for every hinge, hence $\hbar = 0$, hence:
+In standard QFT, the vacuum energy diverges as $\Lambda^4_\text{UV} \sim M_\text{Pl}^4$, exceeding observations by 122 orders of magnitude. In DRLT, no such divergence can occur: the lattice has $N$ finite vertices, each contributing a bounded $\hbar_h = \sqrt{\det(G_h)}/(4\ln 2)$. Since $\det(G_h) > 0$ always --- no physical configuration achieves exact $\psi$ alignment, not at the Big Bang, not in black holes, not at heat death --- the vacuum energy is strictly positive but \emph{finite}:
 \begin{equation}
-E_\text{vac} = 0 \quad\text{(exactly)}.
+0 < E_\text{vac} \ll M_\text{Pl}^4.
 \end{equation}
 
-The observed dark energy is the minimum nonzero $\hbar$ fluctuation over the cosmological horizon:
+The observed dark energy density is set by the minimum $\hbar$ fluctuation over the cosmological horizon:
 \begin{equation}
 \hbar_\text{min} = \frac{1}{N_H}, \qquad N_H = \frac{A_\text{horizon}}{4\ell_P^2} \approx 10^{122}, \qquad \frac{\rho_\Lambda}{\rho_\text{Pl}} \sim 10^{-122}.
 \end{equation}
 
 \subsubsection{Equation of state}
 
-Our universe is not exact rank 1 (which would have $\hbar = 0$ exactly). It occupies the effective rank $\sim 5$ band, where residual eigenvalues are small but nonzero. A perfectly aligned vacuum ($\psi_i \propto \psi_0$ for all $i$) would have $\det G_h = 0$, hence $\hbar = 0$ and $E = 0$; the equation of state $w = p/\rho$ is undefined there ($\rho = 0$). Our universe never reaches this state:
+Every physical configuration has $\det G_h > 0$, hence $\hbar > 0$, hence nonzero energy density. There is no ``true vacuum'' with $\hbar = 0$ anywhere --- not in our universe, not at any epoch, not even as a theoretical limit. The state $\det G_h = 0$ (perfect $\psi$ alignment) is a mathematical boundary that no physical evolution reaches:
 \begin{equation}
 \boxed{w \approx -1 \quad\text{(high precision, not exact)}.}
 \end{equation}
-The deviation from $-1$ is of order $\varepsilon_0^2 \sim 10^{-5}$. There is no true vacuum anywhere in our universe --- every point has $\det > 0$, $\hbar > 0$.
+The deviation from $-1$ is of order $\varepsilon_0^2 \sim 10^{-5}$. Every point in spacetime has $\det > 0$, $\hbar > 0$.
 
 \begin{remark}[DESI and apparent $w \neq -1$]
 DRLT predicts $w = -1$ at each individual redshift $z$. However, combining data across multiple redshift bins introduces the Wishart eigenvalue non-linearity (Sec.~9.6): the effective equation of state $w_\text{eff}$, fitted to the combined data, can differ from $-1$ even though $w(z) = -1$ at every $z$ individually. This is the same mechanism that produces the Hubble tension. DESI's hint of $w \neq -1$ (via $w_0$-$w_a$ parameterization) is consistent with this:
