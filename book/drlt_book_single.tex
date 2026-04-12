@@ -2564,46 +2564,45 @@ Step & From & To & How \\
 \end{tabular}
 \end{center}
 
-\subsection{The universal rank cascade}
+\subsection{The representation cascade}
 
-The derivation chain above starts from ``points with relations'' and arrives at $\mathbb{C}^5$. But there is a deeper way to see this.
+The derivation chain above starts from ``points with relations'' and arrives at $\mathbb{C}^5$. But there is a deeper way to see this --- one that does not require $d = 5$ at all.
 
-\textbf{One matrix, not many universes.} Take $N$ points, each carrying a complex vector of some large dimension $d_0 \gg 5$. The Gram matrix $G$ is $N \times N$, rank $\leq d_0$. No constraint is imposed --- not $\mathbb{C}^5$, not rank $\leq 5$, not even a specific dimension.
+\textbf{One matrix, one algebra.} Take $N$ points carrying vectors in $\mathbb{C}^{d_0}$ for any $d_0 \gg 5$. The Gram matrix $G$ is $N \times N$, rank $\leq d_0$. No constraint is imposed. The Uniqueness Theorem (Sec.~\ref{thm:d5}) proves: for \emph{any} $d_0 \geq 5$, the unique chiral, CP-violating, connected structure is $(n_S, n_T) = (3, 2)$.
 
-Sort by $\det(G_h)$ and examine different \emph{regions} of $G$. This is not a simulation of separate universes with different $d$. It is a single matrix whose different regions have different effective ranks:
+\textbf{No spectral gap at rank 5.} Numerical simulations confirm that swap annihilation creates no eigenvalue gap at rank 5. The chiral eigenvalues $\lambda_1, \ldots, \lambda_5$ and the trivial (swap-symmetric) eigenvalues $\lambda_6, \ldots, \lambda_{d_\text{indep}}$ merge into a continuous spectrum at large $N$, with the gap closing as $\sim 1/\sqrt{N}$. The true spectral gap is at rank $d_\text{indep}$ (independent dimensions after swap), where $\lambda_{d_\text{indep}+1} = 0$ exactly.
+
+The $(2,3)$ structure is not a \emph{spectral} feature --- it is a \emph{representation-theoretic} feature. The Standard Model gauge group is encoded in the algebra of the surviving atomic pair, not in eigenvalue magnitudes. Physics is algebraic, not spectral.
+
+\textbf{The spectral visibility transition.} What changes with $N$ is not the $(2,3)$ structure (which is always present) but its \emph{spectral visibility}:
 
 \begin{center}
 \begin{tabular}{cccl}
 \hline
-Effective rank & $1/\alpha$ & Gauge structure & Physics \\
+Epoch & $N_\text{eff}$ & Spectral gap & Visibility \\
 \hline
-$\gg 5$ & $d_\text{eff}^2\,\zeta(2)$ & $\text{SU}(d_\text{eff})$ & All forces unified, no separation \\
-$5$ & $25\pi^2/6 \approx 41$ & $\text{SU}(3)\!\times\!\text{SU}(2)\!\times\!\text{U}(1)$ & Our universe: SM $+$ GR \\
-$4$ & $16\pi^2/6 \approx 26$ & $\text{SU}(2)\!\times\!\text{SU}(2)$ & Swap-symmetric, no chirality \\
-$3$ & $9\pi^2/6 \approx 15$ & $\text{SU}(3)$ & Space but no time \\
-$2$ & $4\pi^2/6 \approx 6.6$ & $\text{SU}(2)$ & Time but no space \\
-$1$ & $\pi^2/6 \approx 1.6$ & $\{1\}$ & No structure \\
+Big Bang & $\sim 1$ & $\sim 100\%$ & Spectral: forces identical in eigenvalue spectrum \\
+GUT scale & $\sim 1500$ & $\sim \alpha_\text{GUT}$ & Transition: spectral distinction fading \\
+Present & $\sim 10^{80}$ & $\sim 0$ & Purely representation-theoretic \\
 \hline
 \end{tabular}
 \end{center}
 
-These are not parallel universes. They are \emph{regions of the same matrix}. The rank-5 band has $1/\alpha_\text{GUT} = 25\pi^2/6$, the rank-4 band has $16\pi^2/6$, and so on. Each band has its own ``physics'' determined by its rank.
+GUT symmetry breaking is not a phase transition requiring a Higgs potential. It is the inevitable fading of spectral visibility as $N_\text{eff}$ grows past $\sim 1500$. The $(2,3)$ structure was always there; it merely became invisible to spectroscopy.
 
-\textbf{Only rank 5 supports observers.} Rank $> 5$: all forces unified, no stable structures. Rank 4: swap-symmetric ($2+2$), no chirality (Theorem~\ref{thm:swap}), no chemistry. Rank 3: $n_T = 0$, no time. Rank 2: $n_S = 0$, no space. Rank 1: no structure at all. The rank-5 band is the \emph{only} band where space, time, chirality, and stable atoms coexist. It exists in every sufficiently large matrix with probability 1.
+\textbf{Only $(2,3)$ supports observers.} $\{3\}$ alone: no time. $\{2\}$ alone: no space. $\{2,2\}$: swap-symmetric, no chirality. $\{3,3\}$: same. $\{2,3\}$: space $+$ time $+$ U(1) glue $+$ chirality $+$ charge quantization. This is the unique configuration. It exists in the representation theory of $\mathbb{C}^N$ for \emph{any} $N \geq 5$.
 
-\textbf{Spacetime without spacetime.} A rank-2 region of $G$ has no spatial dimensions. It has no atoms, no light, no observers. But it is a perfectly valid mathematical object: it has $\det(G_h)$, eigenvalues, a coupling ``constant'' $4\pi^2/6$. It is a universe --- without spacetime. This is conceivable in DRLT because the universe is $G$, not ``spacetime plus matter.'' Spacetime is what $G$ looks like at rank 5; at other ranks, $G$ looks like something else. The matrix does not care whether anyone is reading it.
-
-This resolves three foundational puzzles simultaneously:
+This resolves three foundational puzzles:
 
 \begin{enumerate}
-\item \textbf{The anthropic principle dissolves.} ``Why does the universe have the right constants?'' $\to$ ``Why does a matrix have a rank-5 band?'' It always does. This is measure theory, not selection.
+\item \textbf{The anthropic principle dissolves.} The constants \emph{cannot} be different. $(2,3)$ is the unique chiral structure of $\mathbb{C}$, and $\alpha_\text{GUT} = 6/(25\pi^2)$ is its coupling constant. The question ``why these constants?'' reduces to ``do complex numbers exist?''
 
-\item \textbf{Fine-tuning dissolves.} The constants are not tuned. They are the mathematical properties of the rank-5 band: $1/\alpha_1 = 6\pi^2$, $\sin^2\theta_W = 3/8$, $v_H = 6M_\text{Pl}/5^{25}$. Any large matrix's rank-5 band has these values.
+\item \textbf{Fine-tuning dissolves.} The constants are not tuned. They are theorems: $1/\alpha_1 = 6\pi^2$, $\sin^2\theta_W = 3/8$, $v_H = 6M_\text{Pl}/5^{25}$. These follow from $(2,3)$, which follows from $\mathbb{C}$.
 
-\item \textbf{Cosmic necessity dissolves.} ``Why something rather than nothing?'' $\to$ ``Does a matrix have rank structure?'' Yes, with probability 1.
+\item \textbf{Cosmic necessity dissolves.} ``Why something rather than nothing?'' $\to$ ``Does $\mathbb{C}$ have a unique chiral structure?'' Yes. That structure is $(2,3)$, and it determines all of physics.
 \end{enumerate}
 
-The parameter $\varepsilon_0 \approx 0.0038$ is our coordinate within the rank-5 band: $\text{SU}(3)$ mostly frozen, $\text{SU}(2)$ freezing, $\text{U}(1)$ still active. A different $\varepsilon_0$ is a different address --- not a different universe.
+The parameter $\varepsilon_0 \approx 0.0038$ measures the spectral gap at our epoch --- how far $N_\text{eff}$ has grown past $N_\text{cross} \approx 1500$. It is an address within the $(2,3)$ structure, not a free parameter.
 
 \subsection{Measurement is reading $G$}
 
@@ -3152,5 +3151,8 @@ The entire physical content of DRLT is encoded in \texttt{OVERLAP}: a single inn
 \bibitem{Webb} J.~K.~Webb et al., ``Indications of a Spatial Variation of the Fine Structure Constant,'' Phys.~Rev.~Lett.\ \textbf{107}, 191101 (2011).
 \bibitem{KSS} P.~K.~Kovtun, D.~T.~Son, A.~O.~Starinets, Phys.~Rev.~Lett.\ \textbf{94}, 111601 (2005).
 \end{thebibliography}
+
+\bigskip
+\noindent\textbf{AI Disclosure.} This work was developed with assistance from Claude (Anthropic). Claude contributed to code implementation, numerical experiments, \LaTeX\ formatting, and editorial refinement. All theoretical content, physical insights, and mathematical derivations are by the author.
 
 \end{document}

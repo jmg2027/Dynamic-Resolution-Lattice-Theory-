@@ -17,6 +17,13 @@
 - Simplices are emergent (high-W 5-cliques), not input.
 - Korean is the primary communication language.
 
+## Author and Attribution
+- Author: Mingoo Jeong (Independent Researcher)
+- AI assistant: Claude (Anthropic) — code, numerical experiments, LaTeX, editorial
+- All theoretical content, physical insights, and mathematical derivations are by the author
+- Every tex/pdf must include AI disclosure: "Developed with assistance from Claude (Anthropic)"
+- Author name is always "Mingoo Jeong" (not Mingu, not Min-goo, etc.)
+
 ## Authoritative Theory
 - The book in `book/` (main.tex + chapters/) is the authoritative, correct formulation.
 - `axiom/` files are historical drafts — some use older W-based axiom or d=4 as input.
