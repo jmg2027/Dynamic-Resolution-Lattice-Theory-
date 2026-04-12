@@ -2,14 +2,22 @@
 DRLT Core — The True Foundation
 ================================
 
-Refined Axiom:
-  N vertices exist. Each carries |ψ⟩ ∈ C⁵.
-  W_ij = |⟨ψ_i|ψ_j⟩|² / d   for all pairs.
-  That's it.
+THE AXIOM (one and only):
+  N vertices exist. Each carries ψ ∈ C⁵.
 
-Simplices are NOT input. They are patterns discovered
-in the W_ij weighted complete graph (high-W 5-cliques).
-Spacetime is output, not input.
+Everything else is derived:
+  ψ ∈ C⁵                              (axiom)
+  → G_ij = ⟨ψ_i|ψ_j⟩                 (Hilbert space structure)
+  → W_ij = |G_ij|²/d, φ_ij = arg(G_ij)  (polar decomposition)
+  → rank(G) ≤ 5                       (dimension → laws of physics)
+  → 1 edge = 1 bit                    (Holevo bound)
+  → ħ_eff = A/(4ln2)                  (Heron + information)
+  → S = A/4                           (Bekenstein, derived)
+  → iħ∂ψ/∂t = Hψ                     (Stone's theorem)
+
+G is the fundamental object (complex, Hermitian, rank ≤ 5).
+W is the real shadow (gravity only, loses gauge phases).
+Spacetime, forces, matter — all output, not input.
 """
 
 import numpy as np
@@ -25,7 +33,9 @@ class Vertex:
     A single vertex carrying |ψ⟩ ∈ C⁵.
 
     This is the ONLY fundamental entity in DRLT.
-    Everything else — W, metric, simplices, curvature,
+    The fundamental quantity is G_ij = ⟨ψ_i|ψ_j⟩ (complex).
+    W_ij = |G_ij|²/d is the real shadow (gravity only).
+    Everything — G, W, metric, gauge, simplices, curvature,
     spacetime — emerges from collections of vertices.
     """
 
@@ -58,7 +68,7 @@ class Vertex:
         return complex(np.vdot(self.psi, other.psi))
 
     def W(self, other: "Vertex") -> float:
-        """W_ij = |⟨ψ_i|ψ_j⟩|² / d  — THE AXIOM."""
+        """W_ij = |G_ij|² / d  — derived from G (real shadow)."""
         return float(np.abs(self.overlap(other)) ** 2) / self.DIM
 
     def ds2(self, other: "Vertex") -> float:
@@ -194,8 +204,11 @@ class Vertex:
 
 class Network:
     """
-    N vertices, all pairwise connected by W_ij.
+    N vertices, all pairwise connected by G_ij = ⟨ψ_i|ψ_j⟩.
     This IS the universe. Simplices are found, not placed.
+
+    G is the fundamental object (complex, Hermitian, rank ≤ 5).
+    W = |G|²/d is the real shadow (gravity only, loses phase).
     """
 
     def __init__(self, n: int = 0, vertices: list[Vertex] | None = None):
@@ -208,21 +221,59 @@ class Network:
     def N(self) -> int:
         return len(self.vertices)
 
-    # ── The W matrix (the universe itself) ────────────────────
+    # ── G matrix (the universe itself) ──────────────────────
 
     def psi_matrix(self) -> np.ndarray:
         """N×5 matrix of all ψ vectors (rows)."""
         return np.array([v.psi for v in self.vertices])
 
-    def W_matrix(self) -> np.ndarray:
-        """Full W_ij for all pairs. This encodes everything."""
+    def G_matrix(self) -> np.ndarray:
+        """G_ij = ⟨ψ_i|ψ_j⟩ — THE FUNDAMENTAL OBJECT.
+        Complex, Hermitian, rank ≤ 5. Contains all physics."""
         P = self.psi_matrix()         # N×5
-        G = P @ P.conj().T            # N×N Gram matrix
-        return np.abs(G)**2 / Vertex.DIM  # W = |⟨ψ_i|ψ_j⟩|²/5
+        return P @ P.conj().T         # N×N Gram matrix
+
+    def W_matrix(self) -> np.ndarray:
+        """W_ij = |G_ij|²/d — real shadow of G (gravity only)."""
+        G = self.G_matrix()
+        return np.abs(G)**2 / Vertex.DIM
+
+    def phase_matrix(self) -> np.ndarray:
+        """φ_ij = arg(G_ij) — gauge connection (antisymmetric)."""
+        return np.angle(self.G_matrix())
 
     def ds2_matrix(self) -> np.ndarray:
-        """Emergent metric between all pairs."""
+        """ds²_ij = 1 - d·W_ij — emergent metric."""
         return 1.0 - Vertex.DIM * self.W_matrix()
+
+    # ── G decomposition ──────────────────────────────────────
+
+    def G_spectrum(self) -> np.ndarray:
+        """Eigenvalues of G — the 5 fundamental modes."""
+        G = self.G_matrix()
+        return np.sort(np.linalg.eigvalsh(G))[::-1][:Vertex.DIM]
+
+    def G_decompose(self) -> tuple:
+        """SVD of ψ: ψ = U S V†.
+        U (N×5): vertex → mode assignment
+        S (5):   mode weights (√λ_G)
+        V (5×5): mode → C⁵ direction"""
+        P = self.psi_matrix()
+        U, S, Vh = np.linalg.svd(P, full_matrices=False)
+        return U, S, Vh.conj().T
+
+    def holonomy(self, i: int, j: int, k: int) -> float:
+        """arg(G_ij × G_jk × G_ki) — gauge flux through triangle."""
+        G = self.G_matrix()
+        return float(np.angle(G[i, j] * G[j, k] * G[k, i]))
+
+    @staticmethod
+    def recover_psi(G: np.ndarray, d: int = 5) -> np.ndarray:
+        """G → ψ recovery. G = ψψ† → ψ = V√Λ (up to U(d) gauge)."""
+        eigs, vecs = np.linalg.eigh(G)
+        idx = np.argsort(eigs)[::-1][:d]
+        eigs_d = np.maximum(eigs[idx], 0)
+        return vecs[:, idx] * np.sqrt(eigs_d)[None, :]
 
     # ── Simplex discovery ─────────────────────────────────────
 
@@ -485,7 +536,7 @@ class Network:
         return self.total_zero_point_energy() / self.N
 
     def W_spectrum(self) -> np.ndarray:
-        """Eigenvalues of the W matrix — collective modes of geometry."""
+        """Eigenvalues of W — geometry modes (rank ≤ d²=25). Use G_spectrum() for fundamental modes."""
         W = self.W_matrix()
         return np.sort(np.linalg.eigvalsh(W))
 
@@ -502,6 +553,37 @@ class Network:
             return 0.0
         mask = ~np.eye(n, dtype=bool)
         return float(np.var(W[mask]))
+
+    # ── Local ħ_eff (information geometry) ─────────────────────
+
+    def local_hbar_eff(self, i: int) -> float:
+        """
+        ħ_eff,i = A_i / (4 S_i)  — local effective Planck constant.
+
+        A_i = Σ_j √(ds²_ij) = total metric distance to neighbors
+        S_i = Σ_j H_binary(5W_ij) = total information entropy
+
+        ħ_eff 큼 → 회전 작음 → 느린 진화 → 중력적 시간 팽창
+        ħ_eff 작음 → 회전 큼 → 빠른 진화 → 진공
+
+        Returns float('inf') if vertex is frozen (S → 0).
+        """
+        vi = self.vertices[i]
+        A = 0.0   # total "area" (metric distance)
+        S = 0.0   # total information
+        for j in range(self.N):
+            if j == i:
+                continue
+            w = vi.W(self.vertices[j])
+            # area = √(1 - 5W) = √(ds²) per edge
+            ds2 = max(0.0, 1.0 - Vertex.DIM * w)
+            A += np.sqrt(ds2)
+            # binary entropy of overlap
+            p = np.clip(Vertex.DIM * w, 1e-15, 1.0 - 1e-15)
+            S += -p * np.log(p) - (1 - p) * np.log(1 - p)
+        if S < 1e-15:
+            return float('inf')  # frozen
+        return A / (4.0 * S)
 
     # ── Global observables ────────────────────────────────────
 
@@ -540,8 +622,57 @@ def big_bounce_initial(n_vertices: int = 6) -> Network:
     return Network(vertices=verts)
 
 
+def tick(net: Network):
+    """
+    자연스러운 1 틱: U_i = exp(-i H_i / ħ_eff,i).  dt 없음.
+
+    1 tick = 1 bit of information processing.
+    ħ_eff가 자기일관적으로 회전 크기를 결정:
+
+      ħ_eff 큼  → 회전 작음 → 중력적 시간 팽창
+      ħ_eff 작음 → 회전 큼  → 진공 양자 요동
+      ħ_eff = ∞  → 동결     → 고정점 (블록 우주)
+
+    수렴 시 (고정점):
+      H_i ψ_i = λ_i ψ_i  (ψ가 자기 이웃 H의 고유벡터)
+      → U_i ψ_i = e^{-iλ/ħ} ψ_i (위상만 변화)
+      → W 불변 → 블록 우주 도달
+
+    이 flow = rank(G) ≤ 5 조건의 해를 찾는 반복법.
+    수렴 = 자기일관적 ψ 배치 = 물리 법칙의 필연적 귀결.
+    """
+    n = net.N
+    new_psis = []
+    for i in range(n):
+        # 1. Local Hamiltonian: H_i = Σ_{j≠i} W_ij |ψ_j⟩⟨ψ_j|
+        H_i = np.zeros((5, 5), dtype=complex)
+        for j in range(n):
+            if j == i:
+                continue
+            w = net.vertices[i].W(net.vertices[j])
+            psi_j = net.vertices[j].psi
+            H_i += w * np.outer(psi_j, psi_j.conj())
+
+        # 2. Local ħ_eff from information geometry
+        h_eff = net.local_hbar_eff(i)
+
+        # 3. Frozen vertex: ħ_eff = ∞ → no evolution
+        if h_eff == float('inf'):
+            new_psis.append(net.vertices[i].psi.copy())
+            continue
+
+        # 4. U_i = exp(-i H_i / ħ_eff) — natural 1 tick, no dt
+        eigvals, eigvecs = np.linalg.eigh(H_i)
+        U_i = eigvecs @ np.diag(np.exp(-1j * eigvals / h_eff)) @ eigvecs.conj().T
+        new_psis.append(U_i @ net.vertices[i].psi)
+
+    # 5. Simultaneous update (all vertices at once)
+    for i in range(n):
+        net.vertices[i] = Vertex(new_psis[i])
+
+
 def evolve_step(net: Network, dt: float = 0.1):
-    """Self-consistent evolution: H_i = Σ_j W_ij |ψ_j⟩⟨ψ_j|."""
+    """Legacy evolution with arbitrary dt. Use tick() instead."""
     n = net.N
     new_psis = []
     for i in range(n):

@@ -1,0 +1,64 @@
+%=====================================================================
+\section{The Path Integral on $\mathbb{CP}^4$}
+\label{app:path_integral}
+%=====================================================================
+
+The Regge action $S = \sum_h A_h\,\delta_h$ and the dynamical Planck constant $\hbar_h = A_h/(4\ln 2)$ combine into a fully explicit, UV-finite path integral on $\mathbb{CP}^4$.
+
+\subsection{Area cancellation}
+
+The action-to-$\hbar$ ratio at each hinge is:
+\begin{equation}
+\frac{S_h}{\hbar_h} = \frac{A_h\,\delta_h}{A_h/(4\ln 2)} = 4\ln 2 \cdot \delta_h.
+\end{equation}
+The hinge area $A_h$ \emph{cancels completely}. The dimensionless action depends only on the deficit angle $\delta_h$ --- a pure curvature quantity. No lengths, no areas, no scales appear.
+
+\subsection{The total dimensionless action}
+
+Summing over all hinges:
+\begin{equation}
+\frac{S}{\hbar} = 4\ln 2\sum_h \delta_h = 4\ln 2\sum_h \left(2\pi - \sum_{k} \theta_k^{(h)}\right)
+\end{equation}
+where $\theta_k^{(h)}$ is the dihedral angle of the $k$-th simplex at hinge $h$. Expanding:
+\begin{equation}
+\boxed{\frac{S}{\hbar} = 8\pi\ln 2\;\cdot N_\text{hinges} \;-\; 4\ln 2\!\!\sum_{\langle ij\rangle}\!\! \arccos|G_{ij}|}
+\end{equation}
+where $N_\text{hinges}$ is topological (fixed by the triangulation) and $|G_{ij}| = |\langle\psi_i|\psi_j\rangle|$.
+
+\subsection{The partition function}
+
+\begin{equation}
+\boxed{Z = \sum_{\mathcal{T}} e^{i\,8\pi\ln 2\;\cdot N_h(\mathcal{T})}\;\int\!\prod_i d\mu(\psi_i)\;\prod_{\langle ij\rangle} w(i,j)}
+\end{equation}
+where:
+\begin{itemize}
+\item $\sum_\mathcal{T}$: sum over triangulations (topological sector),
+\item $d\mu(\psi)$: Fubini--Study measure on $\mathbb{CP}^4$ (dimensionless, normalized),
+\item $w(i,j) = e^{-4i\ln 2\;\cdot\arccos|G_{ij}|}$: the edge Boltzmann weight.
+\end{itemize}
+
+\subsection{Polynomial structure}
+
+Using the identity $\cos(4\theta) = 8\cos^4\theta - 8\cos^2\theta + 1$, the real part of the edge weight can be written as a polynomial in $W_{ij} = |G_{ij}|^2/d$:
+\begin{equation}
+\text{Re}[w(i,j)] = 8d^2\,W_{ij}^2 - 8d\,W_{ij} + 1.
+\end{equation}
+The path integral is a polynomial function of the geometric weights --- making it amenable to tensor network methods, Monte Carlo simulation, and exact solutions on small lattices.
+
+\subsection{Key properties}
+
+\begin{enumerate}
+\item \textbf{Scale-free}: No lengths or areas appear in the action. Physical scales emerge from expectation values, not from the action itself.
+
+\item \textbf{UV-finite by construction}: No short-distance divergences are possible because there is no distance in the action. The simplex is the minimum resolution unit.
+
+\item \textbf{Purely angular}: The entire dynamics is governed by $\arccos|G_{ij}|$ --- the Fubini--Study angle between quantum states on $\mathbb{CP}^4$.
+
+\item \textbf{Factorized over edges}: The integrand is a product over edges, enabling efficient computation.
+
+\item \textbf{Gravity as lattice gauge theory}: The action $\sum\arccos|G_{ij}|$ is structurally analogous to the Wilson action $\sum[1 - \cos\theta_\text{plaq}]$ of lattice QCD, but on $\mathbb{CP}^4$ instead of a Lie group.
+\end{enumerate}
+
+\begin{remark}
+Standard approaches to quantum gravity (loop quantum gravity, causal dynamical triangulations, spin foams) introduce the path integral as a quantization procedure applied to a classical action. Here the path integral is \emph{derived}: the area cancellation is forced by $\hbar_h \propto A_h$, which itself is forced by the dimensionlessness of the axiom. The path integral is not quantization of gravity --- it is gravity.
+\end{remark}

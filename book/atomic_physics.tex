@@ -1,0 +1,290 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\title{Atomic and Nuclear Physics from $\mathbb{C}^5$:\\Particles, Nuclei, and Decays as Hinge Geometry}
+\author{Mingoo Jeong\\Independent Researcher}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+We derive atomic and nuclear structure from DRLT hinge geometry. Every particle is classified by its location in $\mathbb{C}^5 = \mathbb{C}^3 \oplus \mathbb{C}^2$: quarks inhabit $\mathbb{C}^3$ (spatial), leptons inhabit $\mathbb{C}^2$ (temporal), and gauge bosons connect them. The proton is an SSS hinge with mass $m_p = 937.5\;\text{MeV}$ (0.08\%), the neutron-proton mass difference $m_n - m_p = 1.302\;\text{MeV}$ (0.7\%) follows from the electroweak breaking parameter $\delta_\text{EW} = 1 - S(2)/S(\infty)$, and the nuclear force emerges as the 18 cross-hinges between two SSS structures. Beta decay is a $\mathbb{C}^2$ state flip emitting energy through STT channels. The neutrino is identified as a ``ghost'' --- a $\mathbb{C}^2$-aligned state barely distinguishable from vacuum. All results use zero free parameters.
+\end{abstract}
+
+\tableofcontents
+
+%=====================================================================
+\section{The DRLT Particle Dictionary}
+%=====================================================================
+
+Every particle in the Standard Model has a definite location in the $\mathbb{C}^5 = \mathbb{C}^3 \oplus \mathbb{C}^2$ decomposition:
+
+\begin{center}
+\small
+\begin{tabular}{lccccl}
+\hline
+Particle & $\mathbb{C}$ sector & Hinge type & Charge & Spin & Mass origin \\
+\hline
+\multicolumn{6}{l}{\emph{Fermions (matter)}} \\
+$u, c, t$ quarks & $\mathbb{C}^3$ & SSS & $+2/3$ & 1/2 & $v_H/\sqrt{c} \times \varepsilon^{2(3-k)}$ \\
+$d, s, b$ quarks & $\mathbb{C}^3$ & SSS & $-1/3$ & 1/2 & $m_t\alpha \times (\varepsilon\varphi)^{2(3-k)}$ \\
+$e, \mu, \tau$ & $\mathbb{C}^2$ & SST & $-1$ & 1/2 & $m_b(5/12) \times (\varepsilon\varphi^2)^{2(3-k)}$ \\
+$\nu_e, \nu_\mu, \nu_\tau$ & $\mathbb{C}^2$ (aligned) & STT & $0$ & 1/2 & seesaw \\
+\hline
+\multicolumn{6}{l}{\emph{Gauge bosons (forces)}} \\
+8 gluons & $\mathbb{C}^3$ internal & SSS & 0 & 1 & confined \\
+$\gamma$ (photon) & $\mathbb{C}^3 \leftrightarrow \mathbb{C}^2$ & SST & 0 & 1 & 0 (U(1)) \\
+$W^\pm$ & $\mathbb{C}^3 \leftrightarrow \mathbb{C}^2$ & STT & $\pm 1$ & 1 & $v_H/\sqrt{c}$ \\
+$Z^0$ & $\mathbb{C}^3 \leftrightarrow \mathbb{C}^2$ & STT & 0 & 1 & $m_W/\cos\theta_W$ \\
+\hline
+\multicolumn{6}{l}{\emph{Scalar}} \\
+Higgs & $\mathbb{C}^3 \leftrightarrow \mathbb{C}^2$ VEV & --- & 0 & 0 & $v_H\sqrt{c\alpha d}$ \\
+\hline
+\multicolumn{6}{l}{\emph{Gravity}} \\
+graviton & hinge-to-hinge & $\det(G_h)$ & 0 & 2 & 0 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}[Why spin-1 vs spin-2]
+Gauge bosons live on \emph{edges} (1-dimensional $\to$ vector $\to$ spin 1). Gravity lives on \emph{hinges} (2-dimensional $\to$ tensor $\to$ spin 2). This is why gravity is fundamentally different from gauge forces: it is the arena, not an actor.
+\end{remark}
+
+%=====================================================================
+\section{The Proton: Stable SSS Hinge}
+%=====================================================================
+
+The proton ($uud$) is a triangle (SSS hinge) in $\mathbb{C}^3$:
+\begin{equation}
+G_p = \begin{pmatrix} 1 & G_{u_1 u_2} & G_{u_1 d} \\ G_{u_2 u_1} & 1 & G_{u_2 d} \\ G_{d u_1} & G_{d u_2} & 1 \end{pmatrix}, \qquad \det(G_p) > 0.
+\end{equation}
+
+Mass:
+\begin{equation}
+m_p = n_S \times \Lambda_\text{QCD} \times (1 + \alpha_\text{GUT} \cdot n_S/d) = 3 \times 308 \times 1.0146 = 937.5\;\text{MeV}.
+\end{equation}
+Observed: $938.3\;\text{MeV}$ (0.08\%).
+
+Stability: $\binom{n_S}{n_S} = \binom{3}{3} = 1$ independent SSS configuration $\to$ no decay channel within $\mathbb{C}^3$ $\to$ proton is stable ($\tau_p \sim 10^{34}\;\text{yr}$).
+
+%=====================================================================
+\section{The Neutron and Isospin Splitting}
+%=====================================================================
+
+\subsection{Neutron as isospin partner}
+
+The neutron ($udd$) differs from the proton only in its $\mathbb{C}^2$ (temporal/isospin) quantum numbers: one $u$-type $\mathbb{C}^2$ state is replaced by a $d$-type.
+
+\subsection{Mass difference formula}
+
+\begin{equation}
+\boxed{m_n - m_p = (m_d - m_u) \times \frac{n_S\!\left(d - 1 + S(2)/S(\infty)\right)}{d^2} = 1.302\;\text{MeV}}
+\end{equation}
+Observed: $1.293\;\text{MeV}$ (0.7\%).
+
+Each factor:
+\begin{itemize}
+\item $(m_d - m_u) = 2.28\;\text{MeV}$: isospin breaking source ($\mathbb{C}^2$ asymmetry).
+\item $n_S/d^2 = 3/25$: spatial projection normalized by full simplex.
+\item $(d-1) = 4$: gravitational (metric) contribution from 4D spacetime.
+\item $S(2)/S(\infty) = 15/(2\pi^2) = 0.760$: electroweak asymmetry correction. $S(2) = 5/4$ (weak propagation range) vs $S(\infty) = \pi^2/6$ (EM propagation range). Their ratio measures how much the $12 = 12$ SST/STT channel symmetry is broken.
+\end{itemize}
+
+\subsection{Why the mass difference is small}
+
+$m_n - m_p \approx 0.14\%$ of $m_p$. This extreme smallness follows from the Binet--Cauchy identity $\text{SST} = \text{STT} = 12$: the electromagnetic and weak channels have \emph{identical} channel counts (when $c = 2$), so their effects nearly cancel. If $c \neq 2$, the channel counts would differ, the cancellation would fail, and $m_n - m_p$ would be much larger --- potentially destabilizing all nuclei.
+
+%=====================================================================
+\section{The Hydrogen Atom: $\mathbb{C}^3 + \mathbb{C}^2 + \text{U}(1)$}
+%=====================================================================
+
+\subsection{Hinge structure}
+
+The hydrogen atom has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\mathbb{C}^3$) and $\{e\}$ (electron, $\mathbb{C}^2$). The $\binom{4}{3} = 4$ possible hinges are:
+
+\begin{center}
+\begin{tabular}{ccccl}
+\hline
+Hinge & Vertices & Type & Force & Role \\
+\hline
+1 & $(u_1, u_2, d)$ & SSS & Strong & Binds proton \\
+2 & $(u_1, u_2, e)$ & SST & EM & Binds electron \\
+3 & $(u_1, d, e)$ & SST & EM & Binds electron \\
+4 & $(u_2, d, e)$ & SST & EM & Binds electron \\
+\hline
+\end{tabular}
+\end{center}
+
+The atom = 1 SSS hinge (nuclear binding) + 3 SST hinges (electromagnetic binding).
+
+\subsection{Binding energy}
+
+\begin{equation}
+E_1 = -\frac{m_e \alpha_\text{em}^2}{2} = -\frac{0.49\;\text{MeV} \times (1/137.8)^2}{2} = -12.9\;\text{eV}.
+\end{equation}
+Observed: $-13.6\;\text{eV}$ ($-5.1\%$, due to $m_e$ being 4\% low in DRLT).
+
+\subsection{Why the atom exists}
+
+The electron ($\mathbb{C}^2$) is bound to the proton ($\mathbb{C}^3$) by U(1) --- the relative phase between the two sectors. This is the \emph{same} U(1) that Chapter 1 proved necessary for forces to exist. The atom is a direct consequence of $\mathbb{K} = \mathbb{C}$: without the U(1) glue, $\mathbb{C}^3$ and $\mathbb{C}^2$ would be decoupled, and atoms could not form.
+
+%=====================================================================
+\section{Beta Decay: $\mathbb{C}^2$ State Transition}
+%=====================================================================
+
+\subsection{The process}
+
+$n \to p + e^- + \bar{\nu}_e$:
+\begin{enumerate}
+\item A $d$-quark's $\mathbb{C}^2$ state flips to $u$-type ($\mathbb{C}^2$ isospin transition).
+\item The $\mathbb{C}^2$ energy difference is emitted through STT channels (weak force).
+\item The emitted energy materializes as an electron ($\mathbb{C}^2$ perturbation) and an antineutrino ($\mathbb{C}^2$ ghost).
+\item The intermediary is a virtual $W^-$ boson (a transient STT-type hinge).
+\end{enumerate}
+
+\subsection{$Q$-value}
+
+\begin{equation}
+Q_\beta = m_n - m_p - m_e = 1.302 - 0.490 = 0.812\;\text{MeV}.
+\end{equation}
+Observed: $0.782\;\text{MeV}$ (3.8\%).
+
+\subsection{Why beta decay is slow}
+
+The neutron lifetime $\tau_n \approx 880\;\text{s}$ is extraordinarily long compared to strong interaction timescales ($\sim 10^{-23}\;\text{s}$). In DRLT: beta decay goes through STT channels with $S(2) = 5/4$, while the strong force uses SSS with $S(1) = 1$. The effective coupling ratio is:
+\begin{equation}
+\frac{\text{weak rate}}{\text{strong rate}} \sim \left(\frac{1 \times S(1)}{12 \times S(2)}\right)^2 \times \text{phase space} \sim \left(\frac{1}{15}\right)^2 \sim 10^{-3}.
+\end{equation}
+Combined with the small $Q$-value (phase space suppression $\propto Q^5$), this gives the observed long lifetime.
+
+%=====================================================================
+\section{The Neutrino: Ghost of $\mathbb{C}^2$}
+%=====================================================================
+
+The neutrino is a state almost perfectly aligned with the $\mathbb{C}^2$ vacuum:
+\begin{equation}
+\psi_\nu \approx (0, 0, 0, 1, 0) \in \mathbb{C}^5.
+\end{equation}
+
+The $\mathbb{C}^3$ components are nearly zero ($|\psi_\nu^{C^3}|/|\psi_\nu^{C^2}| \sim 10^{-3}$). This explains all neutrino properties simultaneously:
+
+\begin{center}
+\begin{tabular}{ll}
+\hline
+Property & DRLT origin \\
+\hline
+Electrically neutral & $\mathbb{C}^3$ component $\approx 0$ $\to$ no SST coupling \\
+Only weak interaction & Only STT hinges have nonzero $\det$ \\
+Nearly massless & Almost aligned with vacuum ($\det \approx 0$) \\
+Left-handed & $\mathbb{C}^2$ has chirality (pseudo-real fundamental) \\
+Three flavors & $n_S = 3$ generations \\
+Oscillates & Small $\mathbb{C}^3$ admixture allows flavor mixing \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}
+The neutrino is to $\mathbb{C}^2$ what the vacuum is to $\mathbb{C}^5$: an almost-aligned state. The vacuum has $\det(G_h) = 0$ exactly; the neutrino has $\det(G_h) = \epsilon \approx 0$. The neutrino is the lightest possible excitation of $\mathbb{C}^2$ --- a ``ghost'' of the temporal sector.
+\end{remark}
+
+%=====================================================================
+\section{Nuclear Force: Cross-Hinges}
+%=====================================================================
+
+\subsection{Mechanism}
+
+Two nucleons (two SSS hinges) interact through \emph{cross-hinges}: triangles whose vertices come from both nucleons.
+
+For deuterium (proton + neutron = 6 quarks):
+\begin{itemize}
+\item Intra-proton: $\binom{3}{3} = 1$ SSS hinge (proton binding).
+\item Intra-neutron: $\binom{3}{3} = 1$ SSS hinge (neutron binding).
+\item Cross-hinges: $\binom{6}{3} - 2 = 18$ hinges (nuclear force).
+\end{itemize}
+
+The 18 cross-hinges decompose as:
+\begin{equation}
+\binom{3}{1}\binom{3}{2} + \binom{3}{2}\binom{3}{1} = 9 + 9 = 18.
+\end{equation}
+Each cross-hinge has a nonzero $\det$ when the two nucleons overlap spatially, providing an attractive interaction.
+
+\subsection{Nuclear binding energy}
+
+The binding energy is the difference in total hinge energy between bound and separated states:
+\begin{equation}
+E_\text{bind} = \sum_{\text{cross}} A_h\,\delta_h \qquad \text{(Regge action of cross-hinges)}.
+\end{equation}
+
+For deuterium, preliminary estimate:
+\begin{equation}
+E_d \sim \Lambda_\text{QCD} \times \alpha_\text{GUT} \times n_T/n_S = 308 \times 0.0243 \times 2/3 \approx 5.0\;\text{MeV}.
+\end{equation}
+Observed: $2.224\;\text{MeV}$. The factor $\sim 2\times$ overestimate indicates that the nuclear force formula needs refinement (the simple product overestimates the cross-hinge $\det$ average). This remains an open problem.
+
+\subsection{Why nuclear physics is hard (but solvable)}
+
+In DRLT, nuclear binding is a \emph{geometric optimization problem}: given $A$ nucleons ($3A$ vertices in $\mathbb{C}^5$), find the configuration minimizing the total Regge action. This replaces the nuclear many-body Schr\"odinger equation with a $5 \times 5$ matrix problem.
+
+The computational cost scales polynomially with $A$ (matrix operations on $3A$ vectors in $\mathbb{C}^5$), not exponentially as in standard nuclear structure calculations. In principle, iron-56 ($A = 56$, $168$ vertices) is computable on a laptop.
+
+%=====================================================================
+\section{The Four Forces as Hinge Types}
+%=====================================================================
+
+\begin{equation}
+\text{Hinge types} = \{SSS,\; SST,\; STT\} + \underbrace{TTT}_{= 0\;\text{since } n_T = 2 < 3}
+\end{equation}
+
+The number of gauge forces $= \min(3, n_T) = \min(3, 2) = 2 + 1 = 3$ types, plus gravity (hinge-to-hinge):
+
+\begin{center}
+\begin{tabular}{lccl}
+\hline
+Force & Hinge type & Role & Metaphor \\
+\hline
+Strong & SSS & Binds quarks & The room \\
+EM & SST & Connects $\mathbb{C}^3$ to $\mathbb{C}^2$ & The glue \\
+Weak & STT & $\mathbb{C}^2$ transitions & The door \\
+Gravity & hinge $\leftrightarrow$ hinge & Connects simplices & The road \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Why exactly 4:} $n_T = 2 < 3$ forbids TTT hinges, capping gauge forces at 3. Gravity adds 1 (hinge-level). Total: $\min(3, n_T) + 1 = 3 + 1 = 4$. A 5th force is \emph{mathematically forbidden}.
+
+\textbf{Why gravity couples to everything:} gauge forces propagate \emph{on} hinges ($\phi_{ij}$ lives on edges of the hinge). Gravity \emph{is} the hinge ($\det(G_h)$ is the hinge itself). Without gravity (hinges), there is no arena for gauge forces to exist. Gravity is not a force --- it is the spacetime that makes forces possible.
+
+%=====================================================================
+\section{Summary of Predictions}
+%=====================================================================
+
+\begin{center}
+\begin{tabular}{clccl}
+\hline
+\# & Quantity & DRLT & Observed & Error \\
+\hline
+46 & $m_p$ & 937.5 MeV & 938.3 & 0.08\% \\
+47 & $m_n - m_p$ & 1.302 MeV & 1.293 & 0.7\% \\
+48 & 12=12 ($c=2$ essential) & geometric & --- & structural \\
+49 & $Q_\beta$ & 0.812 MeV & 0.782 & 3.8\% \\
+50 & $E_1$(hydrogen) & $-12.9$ eV & $-13.6$ & $-5.1$\% \\
+51 & Nuclear force = 18 cross-hinges & mechanism & --- & structural \\
+52 & Exactly 4 forces (5th forbidden) & $\min(3,n_T)+1$ & 4 & exact \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent Total DRLT predictions to date: \textbf{52}, with zero free parameters.
+
+\begin{thebibliography}{9}
+\bibitem{DRLT} M.~Jeong, ``A Note on Lattice Geometry in $\mathbb{C}^5$'' (2026).
+\end{thebibliography}
+
+\end{document}

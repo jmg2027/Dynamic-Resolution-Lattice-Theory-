@@ -1,0 +1,279 @@
+%=====================================================================
+\section{Fermion Masses}
+\label{ch:masses}
+%=====================================================================
+
+All 9 charged fermion masses and the electroweak scale are derived from the simplex geometry. The key ingredients are: (i) generations as simplex dimension, (ii) the SSS hinge infrared fixed point for the third generation, (iii) the Pachner recursion golden ratio for inter-generation suppression, and (iv) SU(5) representation theory for inter-type ratios.
+
+\subsection{The electroweak scale}
+
+The Higgs vacuum expectation value is set by the tunneling amplitude across all $d^2 = 25$ independent Wishart modes:
+\begin{equation}
+\boxed{v_H = \frac{(d+1)\,M_\text{Pl}}{d^{d^2}} = \frac{6\,M_\text{Pl}}{5^{25}} = 245.6\;\text{GeV}}
+\end{equation}
+Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_S = 2 \times 3$ counts the spacetime volume factor. The denominator $d^{d^2} = 5^{25}$ arises from 25 independent Wishart modes, each contributing a tunneling suppression of $1/d$. The suppression is exactly $1/d$ (not $1/d^2$ or $1/\sqrt{d}$) because the tunneling probability between two random states in $\mathbb{C}^d$ is the Haar-averaged overlap:
+\begin{equation}
+\langle|\langle\psi|\psi'\rangle|^2\rangle_\text{Haar} = \frac{1}{d}.
+\end{equation}
+This is a standard result of random matrix theory. The overlap is $|\langle\psi|\psi'\rangle|^2$ (already squared, hence not $1/\sqrt{d}$), and the average is over unit vectors (already normalized, hence not $1/d^2$). The 25 modes are independent, so the total suppression is $(1/d)^{d^2} = 1/d^{d^2}$.
+
+\subsection{Generations as simplex dimension}
+
+A fermion is a perturbation of the vacuum in the spatial sector $\mathbb{C}^3 \subset \mathbb{C}^5$. The perturbation excites $k$ of the $n_S = 3$ spatial vertices:
+\begin{equation}
+k = 1:\;\text{point}, \qquad k = 2:\;\text{edge}, \qquad k = 3:\;\text{triangle}.
+\end{equation}
+Since $k \in \{1, 2, 3\}$, there are exactly $n_S = 3$ \textbf{generations}.
+
+The internal structure of the $k$-simplex determines the perturbative character:
+
+\begin{center}
+\begin{tabular}{cccccl}
+\hline
+$k$ & Gen & Edges & Hinges & Character & Mass origin \\
+\hline
+1 & 1st & 0 & 0 & Tree-level & SU(5) representation \\
+2 & 2nd & 1 & 0 & 1-loop & Single propagator correction \\
+3 & 3rd & 3 & 1 (SSS) & Non-perturbative & SSS hinge self-coupling \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Third generation: the SSS fixed point}
+
+The $k = 3$ fermion occupies all three spatial vertices, creating an internal SSS hinge --- the unique pure-spatial hinge of the 4-simplex. This hinge provides maximal self-coupling.
+
+\subsubsection{Top quark}
+
+The top Yukawa renormalization group equation has an infrared quasi-fixed point $y^*_t \approx 1$ \cite{Pendleton, Hill}. Combined with the lattice speed of light:
+\begin{equation}
+m_t = \frac{y^*_t \cdot v_H}{\sqrt{c}} = \frac{245.6}{\sqrt{2}} = 173.7\;\text{GeV}.
+\end{equation}
+Observed: $172.76\;\text{GeV}$ (0.5\%). The $\sqrt{c}$ (conventionally written $\sqrt{2}$) is the lattice speed of light from Eq.~(\ref{eq:speed_of_light}).
+
+\subsubsection{Bottom quark}
+
+In SU(5), the top lives in the $\mathbf{10}$ representation and the bottom in $\bar{\mathbf{5}}$. At the GUT scale:
+\begin{equation}
+\frac{y_b}{y_t}\bigg|_{M_\text{GUT}} = \alpha_\text{GUT}, \qquad m_b = m_t \cdot \alpha_\text{GUT} = \frac{173.7}{41.12} = 4.22\;\text{GeV}.
+\end{equation}
+Observed: $4.18\;\text{GeV}$ (1.0\%).
+
+\subsubsection{Tau lepton}
+
+SU(5) predicts $y_b = y_\tau$ at $M_\text{GUT}$. QCD enhances $m_b$ relative to $m_\tau$ during running. The enhancement factor is geometric:
+\begin{equation}
+\frac{m_b}{m_\tau} = \frac{d^2 - 1}{c \cdot d} = \frac{24}{10} = \frac{12}{5}
+\end{equation}
+where $d^2 - 1 = 24 = \dim\,\text{SU}(5)$ and $c \cdot d = 10 = \binom{5}{2}$ (edges = gauge bosons coupling to quarks). Thus:
+\begin{equation}
+m_\tau = m_b \cdot \frac{5}{12} = 1.76\;\text{GeV}.
+\end{equation}
+Observed: $1.777\;\text{GeV}$ (1.0\%).
+
+\subsection{Generation suppression: the Pachner golden ratio}
+
+\subsubsection{The recursion fixed point}
+
+A Pachner $1 \to 5$ move adds one vertex to a simplex. This produces the recursion:
+\begin{equation}
+\hbar_\text{new} = 1 + \frac{1}{\hbar_\text{old}}.
+\end{equation}
+
+Each term has a unique geometric origin:
+\begin{itemize}
+\item \textbf{The ``$1$''}: one new vertex $=$ one new independent hinge $=$ 1 bit of information (Holevo bound, Chapter~\ref{ch:hbar}). This is the minimum topological change; adding 2 vertices would be two successive Pachner moves, not one. The Holevo bound fixes this term.
+\item \textbf{The ``$1/\hbar_\text{old}$''}: the Pachner move is a scale change (subdivision). At the new, finer resolution, the old $\hbar$ contributes its \emph{inverse}: finer resolution $=$ smaller area per hinge $=$ $1/\hbar_\text{old}$. This is the self-similar structure of the resolution cascade.
+\end{itemize}
+
+No other form is consistent: $2 + 1/\hbar$ would require adding 2 independent bits per move (2 vertices, not 1). $1 + 2/\hbar$ would require a non-self-similar subdivision. The recursion $1 + 1/\hbar$ is the \emph{unique} continued fraction with integer coefficients equal to 1 --- the simplest self-similar structure.
+
+The unique attractive fixed point is the golden ratio:
+\begin{equation}
+\hbar^* = \varphi = \frac{1 + \sqrt{5}}{2} \approx 1.618.
+\end{equation}
+This is the definition of $\varphi$: the continued fraction $[1; 1, 1, 1, \ldots] = (1+\sqrt{5})/2$.
+
+Independent verification: the vacuum geometry gives $4\hbar_\text{vac} = 4\sqrt{3}(\ln d)^2/(16\ln 2) = 1.6182 \approx \varphi$ (0.008\% agreement).
+
+\subsubsection{Type ratios}
+
+The suppression factors between fermion types (up $\to$ down $\to$ lepton) satisfy:
+\begin{equation}
+\frac{\varepsilon_\text{down}}{\varepsilon_\text{up}} = \frac{\varepsilon_\text{lepton}}{\varepsilon_\text{down}} = \varphi.
+\end{equation}
+Each type change (up $\to$ down $\to$ lepton) involves exchanging a spatial vertex for a temporal one --- a Pachner move contributing one factor of $\varphi$.
+
+\subsubsection{Base suppression}
+
+The generation suppression factor is:
+\begin{equation}
+\varepsilon = \alpha_\text{GUT}^{n_T/n_S}\,(1 + \alpha_\text{GUT}) = \alpha_\text{GUT}^{2/3}\,(1 + \alpha_\text{GUT}) = 0.0860.
+\end{equation}
+Empirical value: 0.0857 (0.3\%). The exponent $n_T/n_S = 2/3$: each generation step de-excites one spatial vertex through $n_T = 2$ SST hinge channels, shared among $n_S = 3$ spatial vertices. The $(1 + \alpha_\text{GUT})$ factor is the 1-loop self-energy correction.
+
+The complete type structure:
+\begin{equation}
+\varepsilon_\text{up} = \varepsilon, \qquad \varepsilon_\text{down} = \varepsilon\varphi, \qquad \varepsilon_\text{lepton} = \varepsilon\varphi^2.
+\end{equation}
+
+\subsection{Second generation: 1-loop}
+
+At $k = 2$, the fermion has one internal edge providing a single-propagator loop. The loop factor is $(1 + \varepsilon)$:
+\begin{align}
+m_c &= m_t \cdot \varepsilon^2 = 1.28\;\text{GeV} \qquad (\text{obs: } 1.27,\; 1\%), \\
+m_s &= m_b \cdot [\varepsilon\varphi(1+\varepsilon)]^2 = 93\;\text{MeV} \qquad (\text{obs: } 93,\; <1\%), \\
+m_\mu &= m_\tau \cdot [\varepsilon\varphi^2(1+\varepsilon)]^2 = 103\;\text{MeV} \qquad (\text{obs: } 105.7,\; 3\%).
+\end{align}
+
+\subsection{First generation: SU(5) representations}
+
+At $k = 1$, no internal structure exists. The mass is determined by the external environment --- the SU(5) representation:
+
+\begin{itemize}
+\item \textbf{Up quark} ($\mathbf{10}$, spatial vertex): fluctuation in $\mathbb{C}^2$ suppresses by $1/n_T^2$:
+\begin{equation}
+m_u = m_t \cdot \varepsilon^4 / n_T^2 = 2.27\;\text{MeV} \qquad (\text{obs: } 2.16,\; 5\%).
+\end{equation}
+
+\item \textbf{Down quark} ($\bar{\mathbf{5}}$, color triplet): three colors contribute coherently, enhancing by $n_S$:
+\begin{equation}
+m_d = m_b \cdot (\varepsilon\varphi)^4 \cdot n_S = 4.55\;\text{MeV} \qquad (\text{obs: } 4.67,\; 3\%).
+\end{equation}
+
+\item \textbf{Electron} ($\bar{\mathbf{5}}$, singlet): fluctuation in $\mathbb{C}^3$ suppresses by $1/n_S^2$:
+\begin{equation}
+m_e = m_\tau \cdot (\varepsilon\varphi^2)^4 / n_S^2 = 0.49\;\text{MeV} \qquad (\text{obs: } 0.511,\; 4\%).
+\end{equation}
+\end{itemize}
+
+The distinction between coherent enhancement ($\times n_S$ for the color triplet) and incoherent suppression ($\div n^2$ for singlets) is the standard quantum-mechanical difference, explaining why $m_d > m_u$ despite down being the ``heavier type.''
+
+\subsection{Complete mass table}
+
+\begin{center}
+\begin{tabular}{lccccl}
+\hline
+Particle & Gen & DRLT & Observed & Error & Formula \\
+\hline
+$m_t$ & 3 & 173.7 GeV & 172.76 & 0.5\% & $v_H/\sqrt{c}$ \\
+$m_b$ & 3 & 4.22 GeV & 4.18 & 1.0\% & $m_t\,\alpha_\text{GUT}$ \\
+$m_\tau$ & 3 & 1.76 GeV & 1.777 & 1.0\% & $m_b \cdot 5/12$ \\
+\hline
+$m_c$ & 2 & 1.28 GeV & 1.27 & 1\% & $m_t\,\varepsilon^2$ \\
+$m_s$ & 2 & 93 MeV & 93 & $<1\%$ & $m_b\,[\varepsilon\varphi(1+\varepsilon)]^2$ \\
+$m_\mu$ & 2 & 103 MeV & 105.7 & 3\% & $m_\tau\,[\varepsilon\varphi^2(1+\varepsilon)]^2$ \\
+\hline
+$m_u$ & 1 & 2.27 MeV & 2.16 & 5\% & $m_t\,\varepsilon^4/n_T^2$ \\
+$m_d$ & 1 & 4.55 MeV & 4.67 & 3\% & $m_b\,(\varepsilon\varphi)^4\,n_S$ \\
+$m_e$ & 1 & 0.49 MeV & 0.511 & 4\% & $m_\tau\,(\varepsilon\varphi^2)^4/n_S^2$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Median accuracy: 3\%. All 9 masses from 4 building blocks: $v_H$ (from $d$), $\alpha_\text{GUT}$ (from $d^2\zeta(2)$), $\varepsilon$ (from $\alpha_\text{GUT}$ and $n_S/n_T$), and $\varphi$ (from Pachner fixed point). Zero free parameters.
+
+\begin{remark}[Error structure]
+The errors are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the opposite of the coupling constant pattern (Chapter~\ref{ch:couplings}: $\alpha_3$ has the largest error). The physical reason: lower generations have less internal structure ($k = 1$ has no internal edges), making them more susceptible to perturbations from the $N > 5$ ghost remnants. This error pattern is quantified by the Ghost Sum Rule (Chapter~\ref{ch:ghosts}).
+\end{remark}
+
+\subsection{The QCD confinement scale}
+
+The confinement scale $\Lambda_\text{QCD}$ is derived from the same building blocks as the fermion masses:
+\begin{equation}
+\boxed{\Lambda_\text{QCD} = \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times n_S = \frac{245.6}{\sqrt{2}} \times \frac{1}{41.12^2} \times 3 = 308\;\text{MeV}.}
+\end{equation}
+Observed: 200--340 MeV (scheme-dependent). The formula reads: the top-quark mass $m_t = v_H/\sqrt{c}$ suppressed by two powers of $\alpha_\text{GUT}$ (one for each vertex of the quark-antiquark string) and multiplied by the number of spatial vertices $n_S = 3$ (the color factor).
+
+Equivalently: $\Lambda_\text{QCD} = m_b \times \alpha_\text{GUT} \times n_S = 4.22 \times 0.0243 \times 3 = 308\;\text{MeV}$.
+
+\begin{remark}[Ghost protection]
+The standard dimensional transmutation formula $\Lambda = M_\text{GUT}\,e^{-2\pi/(|b_3|\alpha_\text{GUT})} \approx 364\;\text{MeV}$ uses the RG $\beta$-coefficient $b_3 = -7$, which is scheme-dependent and exposed to ghost corrections. The DRLT formula uses $\alpha_\text{GUT} = 6/(25\pi^2)$ directly, which is ghost-invariant (it equals the total Binet--Cauchy channel sum, protected by the trace conservation $\text{Tr}(G) = N$). Ghost contamination of $\Lambda_\text{QCD}$ enters only through $v_H$, at the $\sim 0.25\%$ level.
+\end{remark}
+
+\subsection{The proton mass}
+
+A proton consists of $n_S = 3$ valence quarks, each contributing $\Lambda_\text{QCD}$ of binding energy. The leading-order mass is $3\Lambda_\text{QCD} = 924\;\text{MeV}$, which is 1.5\% below the observed value. The deficit is filled by a single 1-loop correction from the SSS hinge self-interaction:
+\begin{equation}
+\boxed{m_p = n_S^2 \times \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times \left(1 + \alpha_\text{GUT}\,\frac{n_S}{d}\right) = 937.5\;\text{MeV}.}
+\end{equation}
+Observed: $938.3\;\text{MeV}$ (0.08\%).
+
+The correction factor $(1 + \alpha_\text{GUT}\,n_S/d) = 1 + 0.0243 \times 3/5 = 1.0146$: one power of $\alpha_\text{GUT}$ for the self-coupling, and $n_S/d = 3/5$ for the spatial fraction of the simplex.
+
+\begin{center}
+\begin{tabular}{lccl}
+\hline
+Quantity & DRLT & Observed & Error \\
+\hline
+$\Lambda_\text{QCD}$ & 308 MeV & 200--340 MeV & in range \\
+$m_p$ (leading) & 924 MeV & 938.3 MeV & 1.5\% \\
+$m_p$ (1-loop) & 937.5 MeV & 938.3 MeV & 0.08\% \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}
+The proton mass is $\sim 100\times$ the sum of its valence quark masses ($m_u + m_u + m_d \approx 9\;\text{MeV}$). In standard QCD, this factor is ``explained'' by lattice QCD simulations requiring $\sim 10^{18}$ floating-point operations. In DRLT, it is $n_S^2 \times \alpha_\text{GUT}^2 \times (1 + \alpha_\text{GUT}\,n_S/d)$: five numbers, all derived from $d = 5$.
+\end{remark}
+
+\subsection{Neutron-proton mass difference}
+
+The neutron ($udd$) differs from the proton ($uud$) only in its $\mathbb{C}^2$ (isospin) quantum numbers. The mass difference is:
+\begin{equation}
+\boxed{m_n - m_p = (m_d - m_u) \times \frac{n_S\bigl(d - 1 + S(2)/S(\infty)\bigr)}{d^2} = 1.302\;\text{MeV}.}
+\end{equation}
+Observed: $1.293\;\text{MeV}$ (0.7\%). Each factor:
+\begin{itemize}
+\item $(m_d - m_u) = 2.28\;\text{MeV}$: isospin breaking source ($\mathbb{C}^2$ asymmetry).
+\item $n_S/d^2 = 3/25$: spatial projection normalized by the full simplex.
+\item $(d - 1) = 4$: gravitational contribution from 4D spacetime.
+\item $S(2)/S(\infty) = 15/(2\pi^2) = 0.760$: electroweak asymmetry correction, measuring how much the SST $=$ STT $= 12$ channel symmetry is broken.
+\end{itemize}
+
+\begin{remark}[Why the mass difference is tiny]
+$m_n - m_p \approx 0.14\%$ of $m_p$. This extreme smallness follows from the Binet--Cauchy identity SST $=$ STT $= 12$: the electromagnetic and weak channels have identical channel counts when $c = 2$, so their effects nearly cancel. If $c \neq 2$, the cancellation would fail, and $m_n - m_p$ would be much larger --- potentially destabilizing all nuclei and preventing chemistry.
+\end{remark}
+
+\subsection{Beta decay as $\mathbb{C}^2$ state flip}
+
+Neutron beta decay $n \to p + e^- + \bar{\nu}_e$ is a $\mathbb{C}^2$ isospin transition: a $d$-quark's temporal state flips to $u$-type, emitting energy through the STT (weak) channels. The $Q$-value:
+\begin{equation}
+Q_\beta = m_n - m_p - m_e = 1.302 - 0.490 = 0.812\;\text{MeV}.
+\end{equation}
+Observed: $0.782\;\text{MeV}$ (3.8\%). The neutron lifetime $\tau_n \approx 880\;\text{s}$ is long because the weak rate is suppressed relative to the strong rate by $\sim(1/15)^2 \times Q^5$ (channel count ratio squared times phase space).
+
+\subsection{The neutrino as $\mathbb{C}^2$ ghost}
+
+The neutrino is a state almost perfectly aligned with the $\mathbb{C}^2$ vacuum: $\psi_\nu \approx (0, 0, 0, 1, 0) \in \mathbb{C}^5$. Its $\mathbb{C}^3$ components are nearly zero. This single fact explains all neutrino properties:
+
+\begin{center}
+\begin{tabular}{ll}
+\hline
+Property & DRLT origin \\
+\hline
+Electrically neutral & $\mathbb{C}^3$ component $\approx 0$ $\to$ no SST coupling \\
+Only weak interaction & Only STT hinges have nonzero $\det$ \\
+Nearly massless & Almost aligned with vacuum ($\det \approx 0$) \\
+Left-handed & $\mathbb{C}^2$ has chirality (pseudo-real fundamental) \\
+Three flavors & $n_S = 3$ generations \\
+Oscillates & Small $\mathbb{C}^3$ admixture allows flavor mixing \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Nuclear force as cross-hinges}
+
+Two nucleons (two SSS hinges, 6 quarks total) interact through \emph{cross-hinges}: triangles whose vertices come from both nucleons. The number of cross-hinges is $\binom{6}{3} - 2 = 18$, providing 18 attractive channels. The deuterium binding energy:
+\begin{equation}
+E_d \sim \Lambda_\text{QCD} \times \alpha_\text{GUT} \times n_T/n_S = 308 \times 0.0243 \times 2/3 \approx 5.0\;\text{MeV}
+\end{equation}
+(observed: $2.224\;\text{MeV}$, factor $\sim 2\times$ overestimate --- the cross-hinge overlap integral needs refinement).
+
+\subsection{The hydrogen atom}
+
+Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\mathbb{C}^3$) and $\{e\}$ (electron, $\mathbb{C}^2$), forming 1 SSS hinge (nuclear binding) + 3 SST hinges (electromagnetic binding). The ground-state energy:
+\begin{equation}
+E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -12.9\;\text{eV}
+\end{equation}
+(observed: $-13.6\;\text{eV}$, $-5.1\%$, due to $m_e$ being 4\% low in DRLT). The atom exists because U(1) --- the relative phase between $\mathbb{C}^3$ and $\mathbb{C}^2$ --- binds the electron to the proton. Without this glue (Chapter~\ref{ch:whyC}), atoms could not form.

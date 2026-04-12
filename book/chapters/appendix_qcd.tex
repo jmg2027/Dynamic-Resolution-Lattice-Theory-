@@ -1,0 +1,218 @@
+%=====================================================================
+\section{QCD Phenomenology from $\mathbb{C}^5$}
+\label{app:qcd}
+%=====================================================================
+
+This appendix develops the non-perturbative aspects of the strong force from the spatial sector $\mathbb{C}^3 \subset \mathbb{C}^5$. The key results --- confinement, asymptotic freedom, the deconfinement transition, and the strongly-coupled quark-gluon plasma (sQGP) --- all follow from the rank structure of the spatial Gram sub-matrix.
+
+\subsection{The moment map: $\mathbb{CP}^4 \to \Delta^4$}
+
+Each normalized state $\psi \in \mathbb{CP}^4$ maps to its probability vector:
+\begin{equation}
+\mu(\psi) = (|\psi_0|^2, \ldots, |\psi_4|^2) \in \Delta^4
+\end{equation}
+where $\Delta^4$ is the standard 4-simplex ($\sum_a |\psi_a|^2 = 1$). This is the moment map for the $\text{U}(1)^5$ torus action on $\mathbb{CP}^4$. The $(3,2)$ split gives:
+\begin{equation}
+\mu_S = \sum_{a=0}^{2}|\psi_a|^2 \quad (\text{spatial weight}), \qquad \mu_T = \sum_{a=3}^{4}|\psi_a|^2 \quad (\text{temporal weight}), \qquad \mu_S + \mu_T = 1.
+\end{equation}
+
+\subsection{Confinement as $\mathbb{C}^3$ saturation}
+
+The spatial overlap between vertices $i$ and $j$:
+\begin{equation}
+G^S_{ij} = \sum_{a=0}^{2} \psi^*_{i,a}\,\psi_{j,a}
+\end{equation}
+has $|G^S_{ij}| \leq \mu_S(i)^{1/2}\,\mu_S(j)^{1/2}$ by Cauchy--Schwarz. The spatial Gram matrix $G^S$ has rank at most $n_S = 3$.
+
+\textbf{Confinement criterion:} When 3 vertices $\{a, b, c\}$ span all of $\mathbb{C}^3$ (i.e., $\text{rank}(G^S_{abc}) = 3$), the spatial sector is \emph{saturated}. No additional vertex can be spatially independent. Any fourth vertex must be a linear combination of $\{a, b, c\}$ in the spatial sector --- it is ``confined'' to the color space already defined.
+
+This is the lattice analogue of color confinement: quarks cannot exist as free particles because the $\mathbb{C}^3$ sector is always locally saturated. The confinement scale is not a free parameter but a geometric property of $n_S = 3$.
+
+\subsection{Asymptotic freedom as $\mathbb{C}^5$ dilution}
+
+At high energies (short distances), the full $\mathbb{C}^5$ becomes relevant. The effective coupling strength is:
+\begin{equation}
+\alpha_\text{eff}(Q) \propto \frac{n_S}{d} = \frac{3}{5}
+\end{equation}
+at the GUT scale, where all 5 dimensions participate equally. As energy decreases, the $(3,2)$ split freezes and the strong force sees only $\mathbb{C}^3$:
+\begin{equation}
+\alpha_\text{eff}(Q) \propto \frac{n_S}{n_S} = 1 \qquad (\text{low energy: confined}).
+\end{equation}
+The coupling grows from $3/5$ to $1$ as energy decreases --- this is asymptotic freedom.
+
+In DRLT, asymptotic freedom is equivalent to Pachner coarse-graining: at lower resolution (fewer effective vertices), the spatial sector occupies a larger fraction of the available Hilbert space, increasing the effective coupling. The standard QCD $\beta$-function $b_3 = -7$ is the derivative of this geometric transition.
+
+\subsection{Deconfinement: $\mathbb{C}^3 \to \mathbb{C}^5$}
+
+At temperature $T > T_c$, thermal fluctuations overwhelm the spatial rank constraint. The $\mathbb{C}^3$ boundary dissolves: quarks and gluons access the full $\mathbb{C}^5$ simplex, including the temporal sector $\mathbb{C}^2$. All $d^2 = 25$ Binet--Cauchy channels (Chapter~\ref{ch:couplings}) activate simultaneously.
+
+The order parameter is the Polyakov loop analogue:
+\begin{equation}
+L = \frac{1}{N}\sum_i \mu_S(i)
+\end{equation}
+which transitions from $\langle L\rangle \approx n_S/d = 3/5$ (confined) to $\langle L\rangle \to 1$ (deconfined, spatial sector dominates).
+
+\textbf{Key constraint:} even in the deconfined phase, $\text{rank}(G) \leq 5$ is absolute. Particles cannot achieve infinitely many independent degrees of freedom. They \emph{must} share hinges with neighbors. This prevents ideal-gas behavior and forces collective flow.
+
+\subsection{Entropy density from the Holevo bound}
+
+Each hinge carries 1 bit of classical information (Holevo bound, Chapter~\ref{ch:hbar}, Theorem 4.1). In the sQGP, all $d^2 = 25$ channels are active, so the hinge is at maximum local information capacity. The entropy per unit hinge area in natural units:
+\begin{equation}
+s = \frac{S}{A} = \frac{1\;\text{bit}}{A_h} \qquad\Rightarrow\qquad S = A_h.
+\end{equation}
+
+\subsection{Shear viscosity from hinge absorption}
+
+Momentum transfer between adjacent 4-simplices occurs \emph{only} through shared hinges --- the 2-dimensional triangular faces that connect them. The geometric absorption cross-section equals the hinge area $A_h$.
+
+The maximum rate at which a gauge fluctuation can traverse a hinge is limited by two derived quantities:
+\begin{itemize}
+\item $c = 2$: the lattice propagation speed (Chapter~\ref{ch:geometry}, Eq.~\ref{eq:speed_of_light}), derived from $(n_S, n_T) = (3, 2)$.
+\item $2\pi$: one complete $\text{U}(1)$ phase rotation --- the circumference of $S^1$, forced by $\mathbb{K} = \mathbb{C}$ (Chapter~\ref{ch:whyC}).
+\end{itemize}
+
+The total phase throughput of the hinge is $c \times 2\pi = 4\pi$. Shear viscosity is cross-section divided by phase throughput:
+\begin{equation}
+\eta = \frac{A_h}{c \times 2\pi} = \frac{A_h}{4\pi}.
+\end{equation}
+\textbf{Physical meaning:} the hinge is a geometric ``bottleneck'' with area $A_h$, through which gauge information passes at rate $c \times 2\pi$. Viscosity measures how effectively this bottleneck transmits momentum.
+
+\subsection{The KSS bound}
+
+Dividing $\eta$ by $s$, the hinge area cancels:
+
+\begin{equation}
+\boxed{\frac{\eta}{s} = \frac{A_h/(c \times 2\pi)}{A_h} = \frac{1}{c \times 2\pi} = \frac{1}{4\pi} \approx 0.0796.}
+\end{equation}
+
+This is the Kovtun--Son--Starinets (KSS) bound, derived here with:
+\begin{itemize}
+\item Zero free parameters.
+\item No AdS/CFT correspondence.
+\item No extra spatial dimension ($\mathbb{C}^5$ is the \emph{internal} space, not a 5th spatial direction).
+\item $c = 2$: derived from vertex counting (Chapter~\ref{ch:geometry}).
+\item $2\pi$: from $\text{U}(1) = S^1$ topology (Chapter~\ref{ch:whyC}).
+\end{itemize}
+
+\subsection{Why sQGP is a nearly perfect fluid}
+
+\begin{theorem}
+In DRLT, any deconfined state with all $d^2$ channels active has $\eta/s = 1/(4\pi)$.
+\end{theorem}
+
+\begin{proof}
+In the deconfined phase, $\text{rank}(G) \leq 5$ remains absolute. All momentum transfer between simplices must pass through shared hinges with area $A_h$. The entropy saturates at 1 bit per hinge (Holevo). The viscosity is $A_h/(c \times 2\pi)$ (phase throughput). The ratio $\eta/s = 1/(c \times 2\pi) = 1/(4\pi)$ is independent of $A_h$, the temperature, and the number of vertices.
+\end{proof}
+
+\textbf{Physical explanation.} If $\text{rank}(G) \to \infty$ were possible, particles could bypass hinges entirely: $\eta \to \infty$ (ideal gas, not a fluid). But $\text{rank}(G) \leq 5$ is absolute: all momentum transfer must funnel through the $A_h$ bottleneck. This forces area-dependent collective flow. The sQGP is a ``nearly perfect fluid'' not because interactions are infinitely strong, but because the geometry is finitely constrained:
+
+\begin{quote}
+\emph{Freed from the $\mathbb{C}^3$ jail, but still inside the $\mathbb{C}^5$ prison.}
+\end{quote}
+
+\subsection{Comparison with AdS/CFT}
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+& AdS/CFT & DRLT \\
+\hline
+Method & 5D black hole dual & $\mathbb{C}^5$ simplex geometry \\
+Extra dimension & Spatial (AdS$_5$) & Internal ($\mathbb{C}^5$) \\
+Origin of $4\pi$ & Black hole horizon area & $c \times 2\pi$ (speed $\times$ U(1) period) \\
+Free parameters & $\lambda \to \infty$ limit needed & 0 \\
+Applies to & $\mathcal{N}{=}4$ SYM (not QCD) & Any deconfined $\mathbb{C}^5$ state \\
+Result & $\eta/s \geq 1/(4\pi)$ (bound) & $\eta/s = 1/(4\pi)$ (exact value) \\
+\hline
+\end{tabular}
+\end{center}
+
+AdS/CFT gives an \emph{inequality}: $\eta/s \geq 1/(4\pi)$ in the infinite coupling limit of $\mathcal{N} = 4$ super Yang--Mills, a theory that is not QCD. DRLT gives the \emph{exact value} for any deconfined $\mathbb{C}^5$ configuration, with zero free parameters and no supersymmetry.
+
+\subsection{Why AdS/CFT works: the 5 is the same 5}
+
+The deepest question is not \emph{what} AdS/CFT computes, but \emph{why} it works at all. DRLT provides the answer: the 5 in AdS$_5$ is not an arbitrary choice --- it is $d = 5$, the dimension of the internal space $\mathbb{C}^5$.
+
+\subsubsection{The dictionary}
+
+\begin{center}
+\begin{tabular}{lcl}
+\hline
+AdS/CFT & & DRLT \\
+\hline
+AdS$_5$ (5D spacetime) & $=$ & $\mathbb{C}^5$ (internal space, $d = 5$) \\
+Black hole horizon & $=$ & $\det(G_h) \to 0^+$ boundary \\
+Hawking temperature & $=$ & $\hbar_\text{eff} \to 0^+$ (Chapter~\ref{ch:hbar}) \\
+Strong coupling ($\lambda \to \infty$) & $=$ & All $d^2 = 25$ channels active \\
+Horizon area & $=$ & Hinge area $A_h$ \\
+Bekenstein--Hawking entropy & $=$ & 1 bit per hinge (Holevo) \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{The black hole horizon IS the sQGP}
+
+In DRLT, a black hole horizon is a surface where $\det(G_h) \to 0^+$: vertices are nearly aligned ($\psi_i \approx e^{i\theta}\psi_j$), $\hbar_\text{eff} \to 0$, and the region transitions from quantum to classical (Chapter~\ref{ch:hbar}). The sQGP is a state where the full $\mathbb{C}^5$ is active and energy density is extreme, driving $\det(G_h)$ toward uniformity and then toward zero.
+
+These are the \emph{same geometric state}:
+
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+& Region & $\det(G_h)$ & $\hbar_\text{eff}$ \\
+\hline
+\multicolumn{4}{l}{\emph{Black hole:}} \\
+\quad Exterior & quantum & $> 0$ & $> 0$ \\
+\quad Horizon & transition & $\to 0^+$ & $\to 0^+$ \\
+\quad Interior & vacuum ($\psi$ aligned) & $= 0$ & $= 0$ \\
+\hline
+\multicolumn{4}{l}{\emph{Heavy-ion collision (RHIC/LHC):}} \\
+\quad $T < T_c$ & confined (hadrons) & large, fluctuating & $> 0$ \\
+\quad $T = T_c$ & deconfined (sQGP) & uniform, $\to 0^+$ & $\to 0^+$ \\
+\quad $T \to \infty$ & compressed $\to$ aligned & $\to 0$ & $\to 0$ \\
+\hline
+\multicolumn{4}{l}{\emph{Early universe (Big Bang):}} \\
+\quad Post-inflation & cooling, hadronization & increasing & $> 0$ \\
+\quad QGP epoch & primordial plasma & uniform, $\to 0^+$ & $\to 0^+$ \\
+\quad Planck era & maximal density & $\to 0$ & $\to 0$ \\
+\hline
+\end{tabular}
+\end{center}
+
+The physical environments are utterly different --- gravitational collapse, nuclear collision, cosmological density --- but the Gram matrix structure is identical in all three cases. In the language of DRLT, there is a single universal principle:
+
+\begin{quote}
+\textbf{Whenever $T_{\mu\nu}$ is large enough, $\psi$ vectors approach alignment, $\det(G_h) \to 0^+$, and the $\det = 0^+$ boundary surface has $\eta/s = 1/(4\pi)$.}
+\end{quote}
+
+The cause is irrelevant. The Gram matrix cannot distinguish gravity from collision from density. It sees only the degree of $\psi$-alignment --- and the geometry of the transition surface is universal.
+
+\subsubsection{Why AdS/CFT had to use 5 dimensions}
+
+AdS/CFT did not know \emph{why} 5 dimensions work. The standard justification is mathematical: the conformal group $\text{SO}(4,2)$ of 4D CFT is the isometry group of AdS$_5$. In DRLT, the deeper reason is:
+
+\begin{enumerate}
+\item The internal space is $\mathbb{C}^d$ with $d = 5$ (derived, Chapter~\ref{ch:whyd5}).
+\item A black hole horizon in $\mathbb{C}^5$ has $\det(G_h) \to 0^+$, which is geometrically identical to the sQGP state.
+\item Computing $\eta/s$ on this surface gives $1/(c \times 2\pi) = 1/(4\pi)$ by hinge area cancellation.
+\item AdS/CFT reproduces this because it is (unknowingly) computing on the same $d = 5$ geometry.
+\end{enumerate}
+
+The AdS/CFT correspondence is not a ``duality'' between two different theories. It is a \emph{shadow} of the fact that the internal space is $\mathbb{C}^5$, projected into the language of 5-dimensional general relativity. It works because the 5 is right. It requires $\lambda \to \infty$ because only in that limit does the shadow faithfully reproduce the underlying $\mathbb{C}^5$ geometry.
+
+\subsection{The QCD phase diagram from $\mathbb{C}^3$}
+
+\begin{center}
+\begin{tabular}{lccl}
+\hline
+Regime & $G^S$ rank & $\eta/s$ & Physics \\
+\hline
+Confined (hadrons) & 3 (locally saturated) & large & Color singlets only \\
+Crossover ($T \sim T_c$) & 3 (globally spreading) & decreasing & Deconfinement \\
+sQGP ($T > T_c$) & 3 (global, all 25 ch.) & $1/(4\pi)$ & Nearly perfect fluid \\
+Asymptotically free & 3 (diluted in $\mathbb{C}^5$) & increasing & Weakly coupled gas \\
+\hline
+\end{tabular}
+\end{center}
+
+The entire QCD phase structure --- confinement, deconfinement, the sQGP as a nearly perfect fluid, and asymptotic freedom --- follows from one integer ($n_S = 3$) and two derived constants ($c = 2$, $2\pi$).
