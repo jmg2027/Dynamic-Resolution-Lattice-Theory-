@@ -141,11 +141,13 @@ Maximum gauge field ($\Phi_h = \pi$) & $\to 0$ & $\to 0$ & $\to 0$ \\
 
 \subsection{Bekenstein--Hawking entropy}
 
-For a surface with $n$ hinges, the total entropy is:
+Each hinge carries 1 bit (Holevo bound). From Eq.~(\ref{eq:hbar}): $\hbar_h = A_h/(4\ln 2)$. In Planck units ($\hbar = 1$): $A_h = 4\ln 2\;\ell_P^2$. This is the area of one hinge --- not a choice but a consequence of combining the Holevo bound (1 hinge $=$ 1 bit) with the definition of $\hbar_h$.
+
+A surface with $n$ hinges has total area $A = n \times 4\ln 2\;\ell_P^2$ and entropy:
 \begin{equation}
-S_\text{BH} = n \times 1\;\text{bit} = \frac{A_\text{surface}}{4\ell_P^2\,\ln 2}
+S_\text{BH} = n \times 1\;\text{bit} = \frac{A}{4\ell_P^2\,\ln 2}.
 \end{equation}
-reproducing the Bekenstein--Hawking formula with the correct numerical factor. The ``$1/4$'' in $S = A/(4\ell_P^2)$ (in natural units) is not mysterious: it is the same $4\ln 2$ from Eq.~(\ref{eq:hbar}), converted from bits to nats.
+This is the Bekenstein--Hawking formula. The ``$1/4$'' is not mysterious: it is $1/(4\ln 2)$ in bits, originating from the $4\ln 2$ in the denominator of $\hbar_h$. The $4 = 2 \times 2$: two causal directions $\times$ codimension-2 of hinges. The $\ln 2$: nat-to-bit conversion.
 
 \subsection{Connection to Einstein field equations}
 
