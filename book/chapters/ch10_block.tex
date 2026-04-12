@@ -193,14 +193,46 @@ In this picture, $d = 5$ is not derived from atomic dimensions or swap eliminati
 
 The parameter $\varepsilon_0 \approx 0.0038$ is our coordinate within the band: $\text{SU}(3)$ is mostly frozen, $\text{SU}(2)$ is freezing, $\text{U}(1)$ is still active. A different $\varepsilon_0$ corresponds to a different address --- not a different universe.
 
+\subsection{Measurement is reading $G$}
+
+In standard quantum mechanics, measurement requires a separate axiom (the Born rule or the projection postulate). In DRLT, no measurement axiom exists or is needed.
+
+\textbf{Microscopic measurement} $=$ the inner product $G_{ij} = \langle\psi_i|\psi_j\rangle$ between two vertices. This is the same operation as spatial displacement (comparing two points) and temporal evolution (comparing two states). There is no distinction between ``interaction'' and ``measurement'' --- both are $G_{ij}$.
+
+\textbf{Macroscopic ``collapse''} is a consequence of large $N$. An apparatus with $\sim\!10^{23}$ vertices has $\sim\!10^{23}$ phases relative to the measured system. Their sum:
+\begin{equation}
+\sum_{j=1}^{N_\text{app}} G_{sj} = \sum_{j} |G_{sj}|\,e^{i\phi_{sj}} \;\xrightarrow{N \to \infty}\; O(1/\sqrt{N}) \quad\text{(non-aligned phases cancel)}
+\end{equation}
+Only the component of $\psi_s$ aligned with the apparatus eigenstates survives. This is projection --- not as a postulate, but as the law of large numbers applied to phases.
+
+\begin{remark}
+The ``measurement problem'' does not arise. $G$ is static. Nothing collapses. The appearance of collapse is what reading a static matrix looks like when the reader is part of the matrix.
+\end{remark}
+
+\subsection{No observables, no wave-particle duality}
+
+This theory derived 52 quantitative predictions --- coupling constants, fermion masses, mixing angles, cosmological observables, $\eta/s = 1/(4\pi)$, the proton mass to 0.08\% --- without defining a single observable operator. No position operator $\hat{x}$, no momentum $\hat{p}$, no Hamiltonian postulated as ``the energy operator,'' no eigenvalue-equals-measurement axiom, no Born rule. The local Hamiltonian $H_i = \sum_j W_{ij}|\psi_j\rangle\langle\psi_j|$ was not introduced --- it emerged from the Gram matrix structure.
+
+The question ``is it a particle or a wave?'' does not arise. Each vertex carries a complex number $\psi \in \mathbb{C}^5$. Complex numbers are neither particles nor waves. The question is malformed --- like asking whether the number 3 is red or blue.
+
+\subsection{The minimal assumption}
+
+The results of this work follow from a single mathematical fact: \emph{complex numbers exist}. Given sufficiently many complex numbers $\{z_\alpha\}$ assigned to any combinatorial structure, one can compute the Gram matrix $G_{ij} = \sum_\alpha z^*_{i,\alpha}\,z_{j,\alpha}$. This matrix:
+\begin{enumerate}
+\item is Hermitian ($G^\dagger = G$),
+\item is positive semidefinite ($\mathbf{c}^\dagger G\,\mathbf{c} \geq 0$),
+\item has finite rank ($\text{rank}(G) \leq d$ where $d$ is the number of components per vertex),
+\item stratifies by effective rank when sorted by $\det(G_h)$.
+\end{enumerate}
+
+For any $d$ large enough, the rank stratification contains a band at effective rank 5. In that band, the Binet--Cauchy decomposition gives $1 + 12 + 12 = 25$ channels, the Basel sum gives $1/\alpha_1 = 6\pi^2$, the causal split gives $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$, and all 52 predictions follow.
+
+No physics was assumed. No spacetime, no forces, no particles, no quantum mechanics, no relativity. Only $\mathbb{C}$ and the inner product.
+
 \bigskip
 
-\begin{center}
-\emph{The universe is not a process. It is a matrix.}
+\noindent\textbf{Theorem} (Existence of physics). \emph{Let $\{z_{i,a}\}$ be $N \times d$ complex numbers with $N \gg d \gg 5$, drawn from any distribution with finite variance. Let $G_{ij} = \sum_a z^*_{i,a}\,z_{j,a}$. Then with probability $1$, $G$ contains a region of effective rank $5$ whose geometric properties reproduce the Standard Model and general relativity.}
 
-\emph{Time is the direction we read it.}
+\bigskip
 
-\emph{Physics is the structure we find.}
-
-\emph{And any matrix large enough would do.}
-\end{center}
+\noindent The proof is the content of this book.
