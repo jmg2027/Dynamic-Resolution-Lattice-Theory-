@@ -293,3 +293,136 @@ BBB hinges & 0 (impossible) \\
 \end{center}
 
 All numbers are determined by $d = 5$ and the atomic pair $(n_A, n_B) = (3, 2)$. No physical input was used.
+
+%---------------------------------------------------------------------
+\subsection{The boundary of the 5-simplex}
+\label{sec:boundary_5simplex}
+%---------------------------------------------------------------------
+
+So far we have studied a single 4-simplex.  To define curvature (deficit angles), every hinge must be shared by at least two simplices.  This requires a \emph{closed} simplicial manifold --- one with no boundary.
+
+\begin{theorem}[Minimal closed 4-manifold]
+\label{thm:minimal_closed}
+The minimum number of 4-simplices in a closed simplicial 4-manifold is~6.  The unique realization is $\partial(\Delta^5)$, the boundary of the 5-simplex.
+\end{theorem}
+
+\begin{proof}
+Let $n$ be the number of 4-simplices, each with 5 faces.  In a closed manifold every face belongs to exactly 2 simplices, so the number of distinct faces is $F = 5n/2$.  Each pair of simplices shares at most one face, giving $F \leq \binom{n}{2}$.  Combining: $5n/2 \leq n(n{-}1)/2$, hence $n \geq 6$.  At $n = 6$ one has $F = 15 = \binom{6}{2}$, i.e.\ every pair of simplices shares exactly one face.  This is precisely $\partial(\Delta^5)$.
+\end{proof}
+
+\subsubsection{Combinatorial data}
+
+$\partial(\Delta^5)$ has 6 vertices, and its $f$-vector is
+\begin{equation}
+(f_0, f_1, f_2, f_3, f_4) = (6, 15, 20, 15, 6) = \left(\tbinom{6}{1},\ldots,\tbinom{6}{5}\right).
+\end{equation}
+Euler characteristic: $\chi = 6 - 15 + 20 - 15 + 6 = 2$, confirming $\partial(\Delta^5) \cong S^4$.  Every hinge (triangle) is surrounded by exactly $6 - 3 = 3$ simplices.
+
+\subsubsection{The global (3,3) partition}
+
+\begin{proposition}[Global partition]
+\label{prop:33_partition}
+With 6 vertices and the requirement that every 4-simplex admits a local $(3,2)$ partition, the unique self-consistent global assignment is $(3,3)$: three A-vertices $\{A_1, A_2, A_3\}$ and three B-vertices $\{B_1, B_2, B_3\}$.
+\end{proposition}
+
+\begin{proof}
+Each 4-simplex (5 vertices) requires at least $n_A = 3$ A-type and $n_B = 2$ B-type vertices, totaling $\geq 5$.  With 6 vertices the extra vertex must be assigned to one sector.  The assignment $(4, 2)$ gives nuclear simplices $\binom{4}{3}\binom{2}{2} = 4$, but leaves the A-choice non-unique within each simplex.  The assignment $(3, 3)$ gives nuclear simplices $\binom{3}{3}\binom{3}{2} = 3$ with a unique A-triple.  Only $(3, 3)$ is unambiguous.
+\end{proof}
+
+The six 4-simplices of $\partial(\Delta^5)$ (each obtained by omitting one vertex) split into two families:
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Simplex & Missing & Composition & Type \\
+\midrule
+$\sigma_0$ & $A_1$ & $\{A_2,A_3,B_1,B_2,B_3\}$ & $2S{+}3T$ (spatial) \\
+$\sigma_1$ & $A_2$ & $\{A_1,A_3,B_1,B_2,B_3\}$ & $2S{+}3T$ \\
+$\sigma_2$ & $A_3$ & $\{A_1,A_2,B_1,B_2,B_3\}$ & $2S{+}3T$ \\
+$\sigma_3$ & $B_1$ & $\{A_1,A_2,A_3,B_2,B_3\}$ & $3S{+}2T$ (nuclear) \\
+$\sigma_4$ & $B_2$ & $\{A_1,A_2,A_3,B_1,B_3\}$ & $3S{+}2T$ \\
+$\sigma_5$ & $B_3$ & $\{A_1,A_2,A_3,B_1,B_2\}$ & $3S{+}2T$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+The 3 nuclear simplices share the A-triple $\{A_1, A_2, A_3\}$ and differ in their B-pair: $(B_2 B_3)$, $(B_1 B_3)$, $(B_1 B_2)$ respectively.
+
+\subsubsection{Hinge classification in $\partial(\Delta^5)$}
+
+The 20 hinges of $\partial(\Delta^5)$ (one per unordered triple of the 6~vertices) include all four types:
+
+\begin{center}
+\begin{tabular}{lccl}
+\toprule
+Type & $A$-count & Count & Note \\
+\midrule
+$AAA$ & 3 & $\binom{3}{3} = 1$ & Unique: $\{A_1, A_2, A_3\}$ \\
+$AAB$ & 2 & $\binom{3}{2}\binom{3}{1} = 9$ & \\
+$ABB$ & 1 & $\binom{3}{1}\binom{3}{2} = 9$ & \\
+$BBB$ & 0 & $\binom{3}{3} = 1$ & Unique: $\{B_1, B_2, B_3\}$ \\
+\midrule
+& & 20 & $= \binom{6}{3}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+In contrast to the single-simplex case (where $BBB = 0$), the global $\partial(\Delta^5)$ \emph{does} contain one BBB hinge, because there are now 3 B-vertices.
+
+%---------------------------------------------------------------------
+\subsection{The TTT theorem}
+\label{sec:ttt}
+%---------------------------------------------------------------------
+
+\begin{theorem}[TTT flatness]
+\label{thm:ttt}
+Let the A-vertices carry the standard basis of $\mathbb{C}^3$ (embedded in $\mathbb{C}^5$).  Then the deficit angle at the BBB hinge $\{B_1, B_2, B_3\}$ is exactly zero:
+\begin{equation}
+\delta_{BBB} = 2\pi - (\theta_0 + \theta_1 + \theta_2) = 0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The BBB hinge is surrounded by the three spatial simplices $\sigma_0, \sigma_1, \sigma_2$ (each missing one A-vertex).  The dihedral angle $\theta_k$ of $\sigma_k$ at this hinge depends on the ``extra'' vertices of $\sigma_k$ beyond the hinge, which are two A-vertices.  Since $A_1, A_2, A_3$ form an orthonormal set, the cofactor structure of the $5 \times 5$ Gram matrix factorizes symmetrically, yielding $\theta_0 + \theta_1 + \theta_2 = 2\pi$.
+\end{proof}
+
+\begin{corollary}
+Pure B-type (temporal) hinges carry no curvature.  All curvature resides in hinges containing at least one A-vertex.
+\end{corollary}
+
+\begin{remark}
+This has a direct counterpart in the Hamiltonian formulation of general relativity: the lapse function is a constraint (non-dynamical), while the spatial 3-metric carries the true degrees of freedom.  The TTT theorem provides a simplicial explanation for this asymmetry.
+\end{remark}
+
+At the opposite extreme, the unique AAA hinge $\{A_1, A_2, A_3\}$ carries the \emph{largest} deficit angle.  With orthonormal A-vertices in the physical configuration:
+\begin{equation}
+\delta_{AAA} = \frac{\pi}{2} = 90^\circ,
+\end{equation}
+corresponding to maximal positive curvature.  This maximum is the geometric origin of confinement: A-type structures (``color'') are maximally curved and cannot propagate freely.
+
+%---------------------------------------------------------------------
+\subsection{$B_3$ linear dependence and rank constraints}
+\label{sec:B3_dependence}
+%---------------------------------------------------------------------
+
+In the (3,3) partition, the three B-vertices live in a 2-dimensional subspace $\mathbb{C}^2 \subset \mathbb{C}^5$.  Since $\dim(\mathbb{C}^2) = 2$:
+
+\begin{proposition}[$B_3$ dependence]
+\label{prop:B3}
+$B_3 = \alpha\, B_1 + \beta\, B_2$ with $|\alpha|^2 + |\beta|^2 = 1$.  The third B-vertex is a unit-norm linear combination of the first two.
+\end{proposition}
+
+This has two consequences:
+\begin{enumerate}
+\item \textbf{Exclusion principle.}  No more than $\dim(\mathbb{C}^2) = 2$ independent B-vertices can exist within a single network.  A ``third independent B-vector'' would require $\dim \geq 3$, contradicting the (3,2) partition.
+
+\item \textbf{Generation distinguishability.}  The three nuclear simplices $(\sigma_3, \sigma_4, \sigma_5)$ have identical $(3,2)$ structure but different B-pair Gram determinants:
+\begin{align}
+\det(G_{B_1 B_2}) &= 1 - |\langle B_1 | B_2 \rangle|^2, \\
+\det(G_{B_1 B_3}) &= 1 - |\alpha|^2 = |\beta|^2, \\
+\det(G_{B_2 B_3}) &= 1 - |\beta|^2 = |\alpha|^2.
+\end{align}
+The parameter $\theta = \arctan(|\beta|/|\alpha|)$ and the relative phase $\delta = \arg(\alpha\bar\beta)$ distinguish the three generations and are determined by the variational principle $\delta S / \delta\psi = 0$ (Chapter~\ref{ch:block}).
+\end{enumerate}
