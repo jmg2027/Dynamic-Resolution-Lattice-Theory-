@@ -242,3 +242,33 @@ $E_1$(H) & $-12.9$ eV & full topology $\to -13.6$ & $-13.6$ & 0.0\% \\
 \begin{remark}[Two halves of topology]
 The combinatorial values ($8, 30, 6\pi^2$ for the couplings) are the ``skeleton'' of the full answer --- the channel counts and propagation ranges. The $\det(G_h)$ contributions are the ``flesh'' --- the hinge areas $A_h = \sqrt{\det(G_h)}$ that the Regge action $S = \sum A_h\,\delta_h$ requires. Together they form the complete topological calculation. Omitting either half gives an incomplete result.
 \end{remark}
+
+%---------------------------------------------------------------------
+\subsection{Universal correction pattern}
+\label{sec:universal_correction}
+%---------------------------------------------------------------------
+
+The trace-conservation corrections across all observables follow a single structural pattern:
+\begin{equation}
+\boxed{\text{Observable} = \text{Leading} \times \left(1 + \alpha_\mathrm{GUT} \times f_\mathrm{sector}\right),}
+\end{equation}
+where $f_\mathrm{sector}$ is the fraction of the simplex traversed by the correction path.
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Observable & Sector factor $f$ & Path & Precision \\
+\midrule
+He ionization energy & $n_B/n_A = 2/3$ & ABB $\to$ AAB & 4 digits \\
+$m_\mu/m_e$ & $1/(n_A+1) = 1/4$ & Simplex boundary & 4 digits \\
+$\Omega_\Lambda$ & $1/d = 1/5$ & Full simplex & 4 digits \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The mechanism is always eigenvalue redistribution under $\operatorname{Tr}(G) = N$; only the geometric path varies.  Each correction brings the prediction from $\sim\!2\%$ to $<\!0.1\%$ agreement with observation.
+
+\begin{theorem}[Convergence]
+\label{thm:convergence}
+At each order $k$, the correction satisfies $\sum_i \delta^{(k)}_i = 0$ (zero-sum from trace conservation).  Higher-order corrections scale as $\alpha_\mathrm{GUT}^k \sim (1/41)^k$, giving geometric convergence.
+\end{theorem}

@@ -294,6 +294,28 @@ For any $d$ large enough, the rank stratification contains a band at effective r
 
 No physics was assumed. No spacetime, no forces, no particles, no quantum mechanics, no relativity. Only $\mathbb{C}$ and the inner product.
 
+%---------------------------------------------------------------------
+\subsection{Variational principle on $\partial(\Delta^5)$}
+\label{sec:variational}
+%---------------------------------------------------------------------
+
+The block universe is not constructed step by step.  It is a single extremum of the Regge action:
+\begin{equation}
+\frac{\delta S}{\delta\psi_k} = 0, \qquad S = \sum_{h=1}^{20} \sqrt{\det(G_h)}\,\delta_h, \qquad k = 1,\ldots,6.
+\end{equation}
+
+\subsubsection{Degrees of freedom}
+
+Six vertices in $\mathbb{C}^5$ give $60$ real parameters.  Normalization ($|{\psi_k}|^2 = 1$, 6 constraints) and global $U(5)$ gauge (25~parameters) leave $60 - 6 - 25 = 29$ physical degrees of freedom.  Numerically, the variational equations appear to determine 4 additional parameters (the CKM mixing angles and CP phase), leaving
+\begin{equation}
+29 - 4 = 25 = d^2
+\end{equation}
+undetermined parameters, coinciding with the maximal rank of $W = |G|^2/d$.  A rigorous proof that the Hessian of $S$ at the extremum has exactly 4 non-gauge zero modes is an important open problem; numerical evidence (from the $60\times60$ Hessian eigenvalue spectrum) is consistent with this counting.
+
+\subsubsection{Singularity instability}
+
+$\det(G_h) = 0$ requires three $\psi$-vectors to span a 2-dimensional subspace --- a codimension-2 condition (measure zero).  At such a configuration, trace conservation ($\operatorname{Tr}(G) = N$) ensures that any perturbation restores $\det > 0$.  Singularities are dynamically \emph{unstable}: they can be transiently approached but not maintained.
+
 \bigskip
 
 \noindent\textbf{Theorem} (Existence of physics). \emph{Let $\{z_{i,a}\}$ be $N \times d$ complex numbers with $N \gg d \gg 5$, drawn from any distribution with finite variance. Let $G_{ij} = \sum_a z^*_{i,a}\,z_{j,a}$. Then with probability $1$, $G$ contains a region of effective rank $5$ whose geometric properties reproduce the Standard Model and general relativity.}
