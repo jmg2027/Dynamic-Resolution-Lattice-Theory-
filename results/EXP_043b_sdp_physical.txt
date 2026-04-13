@@ -115,3 +115,5 @@ Done.
 
   3/4 checks passed
   Time: 19.3s
+
+  Results saved to: /home/user/Dynamic-Resolution-Lattice-Theory-/experiments/../lib/../results/EXP_043b_SDP_25_channels.txt

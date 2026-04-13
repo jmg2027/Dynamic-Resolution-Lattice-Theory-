@@ -51,7 +51,7 @@ def build_psi_32(params):
       [3] eps_B3    : B₃의 S-sector 혼합 (독립)
       [4] cp_pert   : CP-violating perturbation
     """
-    eps = 0.01  # 고정! A-B coupling = Zα/√3 수준
+    eps = ALPHA / np.sqrt(3)  # Z=1: Zα/√3 = 물리적 A-B 혼합
     theta3 = params[1]
     phi3 = params[2]
     eps3 = 0.001 + 0.199 / (1 + np.exp(-params[3]))  # B₃ 독립 혼합
