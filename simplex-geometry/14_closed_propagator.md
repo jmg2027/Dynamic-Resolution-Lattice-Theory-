@@ -207,3 +207,48 @@ DRLT: 0개 free parameter
 
   Representation → Confinement degree → Propagator → Mass
 ```
+
+---
+
+## 통합 공식: 15+1 Fermion
+
+### x = -(k_A/n_S)·ε + (k_B/d)·α_GUT
+
+| Type | Selection | k_A | k_B | x | P(x) | Δm |
+|------|-----------|-----|-----|---|------|-----|
+| u_R | AA pair | 2 | 0 | -2ε/3 | 0.939 | -6.1% |
+| d_R | A vertex | 1 | 0 | -ε/3 | 0.971 | -2.9% |
+| Q_L | AB pair | 1 | 1 | -ε/3+α/5 | 0.976 | -2.4% |
+| L_L | B vertex | 0 | 1 | +α/5 | 1.005 | +0.5% |
+| e_R | BB pair | 0 | 2 | +2α/5 | 1.010 | +1.0% |
+
+구속 스펙트럼:
+
+```
+x:  -0.057   -0.029   -0.024   +0.005   +0.010
+     u_R      d_R      Q_L      L_L      e_R
+     완전구속  부분구속  반구속    자유     완전자유
+     ← confined (-)              free (+) →
+```
+
+### 중성미자: δ_TTT = 0
+
+16번째 fermion. 같은 통합 공식이지만 **m_comb = 0** (tree level):
+
+```
+m_comb ∝ det(G_h) × δ_h
+
+하전 fermion: δ ≠ 0 (SSS=90°, SST=120°, STT=120°) → 질량 있음
+중성미자:     δ_TTT = 0 (순수 시간 hinge)             → 질량 = 0
+
+"순수 시간 hinge는 곡률을 만들지 않는다" → 중성미자 무질량의 기원
+```
+
+비영 질량은 TTT→SSS 네트워크 보정 (see-saw의 기하학적 기원):
+
+```
+M_R = 6M_Pl / 5^12 ≈ 3×10¹¹ GeV
+m_ν₃ = m_τ² / M_R ≈ 0.01 eV  (관측 ~0.05 eV, 같은 크기)
+
+5^25 모드 중 절반(5^12)만 tunneling = 시간 hinge 전파 거리 절반
+```
