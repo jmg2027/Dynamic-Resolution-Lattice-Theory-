@@ -282,11 +282,34 @@ $p$ ($\CC^3$) & 3 & $3/5$ & $3\agut/5$ & Spatial triplet (proton) \\
 \end{tabular}
 \end{center}
 
-For \emph{confined} particles (u quark, bound inside the AAA hinge), the propagator inverts:
+For \emph{confined} particles (u quark, bound inside the AAA hinge), the bare confinement coupling $\varepsilon = \alpha^{2/3}(1+\alpha) = 0.0860$ undergoes Dyson dressing:
 \begin{equation}
-P_\mathrm{conf}(\varepsilon) = \frac{1 - 2\varepsilon}{1 - \varepsilon}, \qquad \varepsilon = \alpha^{2/3}(1+\alpha),
+\label{eq:dyson_dressing}
+x_\mathrm{conf} = -\frac{\varepsilon}{1+\varepsilon}, \qquad P\!\left(-\frac{\varepsilon}{1+\varepsilon}\right) = 1 - \varepsilon.
 \end{equation}
-obtained from $P(x)$ by the substitution $\alpha \to -\varepsilon$, $k \to d$ (the entire simplex is the confinement cage).  This explains $m_u < m_d$: stronger confinement $\Rightarrow$ larger correction $\Rightarrow$ more mass reduction.
+This identity follows by direct substitution into Eq.~(\ref{eq:closed_propagator}).  The physical interpretation: confinement inverts the propagation direction ($x < 0$) and the self-dressing reduces the effective coupling from $\varepsilon$ to $\varepsilon/(1+\varepsilon)$.
+
+The unified formula for the propagator parameter $x$ across all fermion types:
+\begin{equation}
+x = -\frac{k_A}{n_A}\,\varepsilon + \frac{k_B}{d}\,\agut,
+\end{equation}
+where $k_A$ counts how many A-vertices are confined in the AAA hinge, and $k_B$ counts how many B-vertices propagate freely.
+
+\begin{center}
+\begin{tabular}{lccccl}
+\hline
+Representation & $k_A$ & $k_B$ & $x$ & $P(x)$ & Note \\
+\hline
+$u_R$ ($\mathbf{10}$, AA pair) & 2 & 0 & $-0.0573$ & 0.939 & Fully confined \\
+$d_R$ ($\bar{\mathbf{5}}$, A vertex) & 1 & 0 & $-0.0287$ & 0.970 & Partially confined \\
+$Q_L$ (A+B doublet) & 1 & 1 & $-0.0238$ & 0.976 & Mixed \\
+$L_L$ (B doublet) & 0 & 1 & $+0.0049$ & 1.005 & Free \\
+$e_R$ (B singlet) & 0 & 2 & $+0.0097$ & 1.010 & Free \\
+\hline
+\end{tabular}
+\end{center}
+
+This explains $m_u < m_d$: the u quark ($k_A = 2$) is more strongly confined than the d quark ($k_A = 1$), so $|x_u| > |x_d|$, giving $P_u < P_d$ and hence $m_u < m_d$.
 
 \subsubsection{Proton mass: 0.000\% error}
 

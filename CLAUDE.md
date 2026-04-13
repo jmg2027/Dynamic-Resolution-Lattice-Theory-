@@ -117,7 +117,7 @@ All experiments auto-detect `lib/` via sys.path.
 4. Update this file's experiment list.
 5. Results auto-save to `results/`.
 
-## Experiment Catalog (EXP_001 ~ EXP_047b, ~60 files)
+## Experiment Catalog (EXP_001 ~ EXP_052, ~65 files)
 See `experiments/` directory. Key completed experiments:
 - EXP_001: Pipeline verification (9/9 ✓)
 - EXP_009: Fine structure constant (1/α=137.064, 0.020% ✓)
@@ -129,27 +129,37 @@ See `experiments/` directory. Key completed experiments:
 - EXP_046b: Clean scorecard (all masses, 17/18 ✓)
 - EXP_047: Definitive test (|⟨B₁|B₃⟩|²=1/2, 8/8 ✓)
 - EXP_047b: Symmetric variational (δ_SSS=180°, 8/8 ✓)
+- EXP_048: Theorem 3 완전 증명 + det(SST) vs det(STT) 해결 (7/7 ✓)
+- EXP_049: Confined coupling 확정 — x=-ε/(1+ε), P=1-ε (3/3 ✓)
+- EXP_050: 렙톤 질량 정밀도 — m_μ/m_e 134 ppm (4/4 ✓)
+- EXP_051: 중성미자 PMNS 구조 (3/3 ✓)
+- EXP_052: Folded dimension leaking 통합 검증 (7/7 ✓)
 - ~~EXP_034~038~~: 삭제됨 (EXP_039~042가 대체)
-- Next: EXP_048
+- Next: EXP_053
+
+## 해결된 과제 (Resolved)
+- ~~det(SST) vs det(STT) 혼동~~ → EXP_048에서 해결: det(SST)=1-w²=0.964, det(STT)=2/3 (별개)
+- ~~Confined coupling~~ → EXP_049에서 확정: x=-ε/(1+ε), P=1-ε, m_u 오차 0.18%
+- ~~PMNS 구조~~ → EXP_051/052에서 유도: B-pair overlap → TBM + α_GUT 보정
+- ~~θ₁₃ 예측 15% 오차~~ → sin²θ₁₃ = α_GUT(1-4α_GUT) = 0.022 (0.2% 오차)
 
 ## 남은 과제 (Open Problems)
 
-#### 1. det(SST) = 0.964 ≠ 2/3 문제
-- EXP_047b에서 ⟨det(SST)⟩ = 0.964 (블록 대각이 아닌 경우)
-- 블록 대각 Gram에서는 정확히 2/3 (정리 2로 증명됨)
-- A-sector overlap w≠0일 때의 수정 분석 필요
+#### 1. 렙톤 질량 sub-ppm 정밀도
+- 현재: m_μ/m_e = 206.796 (134 ppm), 교차항 포함 시 46 ppm
+- α_GUT × α_em 교차항의 정확한 계수 유도 필요
 
-#### 3. Confined coupling 확정: ε vs α×ε
-- u quark: (1-2ε)/(1-ε)로 1.06% vs α×ε로 9%
-- SDP로 m_u의 정확한 값을 구해서 확정
+#### 2. 중성미자 질량비 m_ν₃/m_ν₂
+- 단순 seesaw: (m_τ/m_μ)² = 283 vs 관측 5.7
+- PMNS 혼합행렬과 질량 고유값의 결합 분석 필요
 
-#### 4. 렙톤 질량 정밀도 개선 (0.02% → ppm)
-- 현재: m_μ/m_e = 206.80 (0.017%)
-- 다중 전파자 합성 (자기에너지 × 세대hop × 자기에너지) 필요
+#### 3. w = 0.190 해석적 유도
+- A-sector overlap w ≈ 0.1903 (변분 최적화로 수치적으로만 결정)
+- w = f(α_GUT, d) 닫힌 공식 필요
 
-#### 5. 중성미자 세대 비율 (PMNS)
-- 현재: m_ν₃ ~ 0.01 eV (크기 맞음), m_ν₂/m_ν₃ ≠ 관측
-- B-pair overlap 구조에서 PMNS 유도 필요
+#### 4. Folded dimension leaking 정량화
+- C(n_S,2) = n_S ⟺ n_S = 3 항등식의 깊은 의미
+- STT 채널 → PMNS 유도의 엄밀한 증명
 
 ## Key Library API (lib/drlt.py)
 ```python
