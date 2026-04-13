@@ -10,13 +10,13 @@
 
 \begin{document}
 
-\title{The Fine Structure Constant is Not a Constant:\\Ghost Redistribution and the Webb Dipole}
+\title{The Fine Structure Constant is Not a Constant:\\$\det(G_h)$ Redistribution and the Webb Dipole}
 \author{Mingu Jeong\\Independent Researcher}
 \date{\today}
 \maketitle
 
 \begin{abstract}
-We show that the observed spatial variation of the fine structure constant $\alpha_\text{em}$ (the Webb dipole, $\Delta\alpha/\alpha \sim 10^{-5}$) is a natural consequence of the DRLT ghost redistribution mechanism. The fundamental coupling $\alpha_\text{GUT} = 6/(25\pi^2)$ is a true constant, protected by trace conservation ($\text{Tr}(G) = N$). However, the individual couplings $\alpha_3, \alpha_2, \alpha_1$ receive ghost corrections $\delta_i$ that sum to zero but whose \emph{spatial distribution} can vary. A variation $\Delta\varepsilon_0/\varepsilon_0 \sim 0.17\%$ --- comparable to the CMB dipole ($v/c = 0.12\%$) --- reproduces the observed $\Delta\alpha/\alpha \sim 10^{-5}$. The theory makes a falsifiable prediction: $\alpha_s$ must vary in the \emph{opposite direction} to $\alpha_\text{em}$, maintaining $\sum\delta_i = 0$ at every spatial location. This can be tested with existing quasar absorption line data.
+We show that the observed spatial variation of the fine structure constant $\alpha_\text{em}$ (the Webb dipole, $\Delta\alpha/\alpha \sim 10^{-5}$) is a natural consequence of the DRLT $\det(G_h)$ redistribution mechanism. The fundamental coupling $\alpha_\text{GUT} = 6/(25\pi^2)$ is a true constant, protected by trace conservation ($\operatorname{Tr}(G) = N$). However, the individual couplings $\alpha_3, \alpha_2, \alpha_1$ receive $\det(G_h)$ geometric contributions $\Delta_i$ that sum to zero but whose \emph{spatial distribution} can vary. A variation $\Delta\varepsilon_0/\varepsilon_0 \sim 0.17\%$ --- comparable to the CMB dipole ($v/c = 0.12\%$) --- reproduces the observed $\Delta\alpha/\alpha \sim 10^{-5}$. The theory makes a falsifiable prediction: $\alpha_s$ must vary in the \emph{opposite direction} to $\alpha_\text{em}$, maintaining $\sum\Delta_i = 0$ at every spatial location.
 \end{abstract}
 
 \tableofcontents
@@ -29,10 +29,10 @@ Richard Feynman called the fine structure constant $\alpha_\text{em} \approx 1/1
 
 In 1999, Webb et al.\ reported evidence that $\alpha_\text{em}$ is not even constant: quasar absorption spectra suggest a spatial variation $\Delta\alpha/\alpha \sim 10^{-5}$ with a dipole pattern across the sky \cite{Webb}. This finding, if confirmed, would overturn the assumption that physical laws are identical everywhere. For 25 years, the community has been split: is the Webb dipole real physics or systematic error?
 
-We propose a resolution from Dynamic Resolution Lattice Theory (DRLT) \cite{DRLT}: \textbf{$\alpha_\text{em}$ is not a fundamental constant. It is a local manifestation of ghost redistribution.} The true constant is $\alpha_\text{GUT} = 6/(25\pi^2)$, derived from lattice geometry. The measured $\alpha_\text{em}$ varies because the ghost corrections $\delta_i$ --- remnants of annihilated $N > 5$ structure --- are spatially non-uniform. Both sides of the Webb debate are correct: $\alpha_\text{em}$ varies (Webb is right), but the underlying physics is universal ($\alpha_\text{GUT}$ is constant).
+We propose a resolution from Dynamic Resolution Lattice Theory (DRLT) \cite{DRLT}: \textbf{$\alpha_\text{em}$ is not a fundamental constant. It is a local manifestation of $\det(G_h)$ redistribution.} The true constant is $\alpha_\text{GUT} = 6/(25\pi^2)$, derived from lattice geometry. The measured $\alpha_\text{em}$ varies because the geometric contributions $\Delta_i$ --- $\det(G_h)$ weights from the rank projection --- are spatially non-uniform. Both sides of the Webb debate are correct: $\alpha_\text{em}$ varies (Webb is right), but the underlying physics is universal ($\alpha_\text{GUT}$ is constant).
 
 %=====================================================================
-\section{The Ghost Sum Rule (Review)}
+\section{Trace Conservation (Review)}
 %=====================================================================
 
 \subsection{Coupling constants from DRLT}
@@ -45,7 +45,7 @@ In DRLT \cite{DRLT}, the three gauge couplings at $M_Z$ are derived from the Bin
 \end{align}
 where $S(N) = \sum_{n=1}^{N} 1/n^2$ is the partial Basel sum.
 
-These ``plateau values'' differ from observation by the ghost corrections:
+These combinatorial values receive $\det(G_h)$ geometric contributions:
 \begin{align}
 \delta_3 &= (1/\alpha_3)_\text{obs} - 8.0 = +0.47, \\
 \delta_2 &= (1/\alpha_2)_\text{obs} - 30.0 = -0.40, \\
@@ -54,7 +54,7 @@ These ``plateau values'' differ from observation by the ghost corrections:
 
 \subsection{The sum rule}
 
-The ghost corrections obey a sum rule:
+The geometric contributions obey trace conservation:
 \begin{equation}
 \sum_i \delta_i = \delta_3 + \delta_2 + \delta_1 + \delta_G = +0.47 - 0.40 - 0.22 + 0.15 = 0.00,
 \end{equation}
@@ -62,19 +62,19 @@ proven from trace conservation: $\text{Tr}(G) = N$ is invariant under the unitar
 
 \subsection{The base perturbation $\varepsilon_0$}
 
-All ghost corrections scale with a single parameter $\varepsilon_0 \approx 0.0038$:
+All geometric contributions scale with a single parameter $\varepsilon_0 \approx 0.0038$:
 \begin{equation}
 \delta_i = \text{Sgn}_i \times (1/\alpha_i)_\text{pred} \times M_i \times \varepsilon_0,
 \end{equation}
 where $M_i$ are geometric weights determined by $(n_S, n_T) = (3, 2)$. The parameter $\varepsilon_0$ is not free: it encodes the local ``diagonalization progress'' of the Gram matrix --- the cosmic address.
 
 %=====================================================================
-\section{Spatial Variation of Ghosts}
+\section{Spatial Variation of $\det(G_h)$ Contributions}
 %=====================================================================
 
 \subsection{Key insight: $\varepsilon_0$ is a local field}
 
-In the simplex network (Chapter~10), each spatial location corresponds to a set of simplices with specific $\psi$ values at their vertices. The Gram determinant $\det(G_h)$ varies from simplex to simplex because the $\psi$ values differ. The ghost parameter $\varepsilon_0$ is a function of the local $\det(G_h)$ distribution, so it inherits spatial dependence:
+In the simplex network (Chapter~10), each spatial location corresponds to a set of simplices with specific $\psi$ values at their vertices. The Gram determinant $\det(G_h)$ varies from simplex to simplex because the $\psi$ values differ. The geometric parameter $\varepsilon_0$ is a function of the local $\det(G_h)$ distribution, so it inherits spatial dependence:
 \begin{equation}
 \varepsilon_0 = \varepsilon_0(\mathbf{x}).
 \end{equation}
@@ -82,12 +82,12 @@ This is not an extrapolation: it is a direct consequence of the simplex network 
 
 \subsection{What varies and what doesn't}
 
-\begin{theorem}[Spatial Ghost Sum Rule]
+\begin{theorem}[Spatial trace conservation]
 At every spatial position $\mathbf{x}$:
 \begin{equation}
 \sum_i \delta_i(\mathbf{x}) = 0.
 \end{equation}
-The total coupling $1/\alpha_\text{GUT} = 25\pi^2/6$ is spatially invariant. Only the distribution of ghosts among sectors varies.
+The total coupling $1/\alpha_\text{GUT} = 25\pi^2/6$ is spatially invariant. Only the distribution of geometric weight among sectors varies.
 \end{theorem}
 
 \begin{proof}
@@ -140,7 +140,7 @@ The CMB dipole (our velocity relative to the CMB rest frame) gives:
 \frac{v}{c} = \frac{370\;\text{km/s}}{3 \times 10^5\;\text{km/s}} = 1.23 \times 10^{-3} = 0.12\%.
 \end{equation}
 
-The required $\varepsilon_0$ variation (0.17\%) is \textbf{1.4 times the CMB dipole} --- the same order of magnitude. This is non-trivial: the ghost redistribution parameter varies at a scale consistent with the known large-scale anisotropy of the universe.
+The required $\varepsilon_0$ variation (0.17\%) is \textbf{1.4 times the CMB dipole} --- the same order of magnitude. This is non-trivial: the geometric parameter varies at a scale consistent with the known large-scale anisotropy of the universe.
 
 \subsection{Direction}
 
@@ -150,19 +150,19 @@ The Webb dipole axis $(17.3^\text{h}, -61^\circ)$ does not align with the CMB di
 \section{Falsifiable Predictions}
 %=====================================================================
 
-The ghost redistribution mechanism makes four testable predictions that distinguish it from all other models of varying constants:
+The $\det(G_h)$ redistribution mechanism makes four testable predictions that distinguish it from all other models of varying constants:
 
 \subsection{Prediction 1: $\alpha_s$ anti-correlates with $\alpha_\text{em}$}
 
-The spatial ghost sum rule $\sum_i \delta_i(\mathbf{x}) = 0$ requires that if $\alpha_\text{em}$ is larger in some direction, $\alpha_s$ must be \textbf{smaller} in that direction:
+The spatial trace conservation $\sum_i \Delta_i(\mathbf{x}) = 0$ requires that if $\alpha_\text{em}$ is larger in some direction, $\alpha_s$ must be \textbf{smaller} in that direction:
 \begin{equation}
 \Delta\delta_3 = -(\Delta\delta_1 + \Delta\delta_2 + \Delta\delta_G) \approx -\Delta\delta_1 - \Delta\delta_2.
 \end{equation}
 
 This is testable by directly measuring $\alpha_s$ variations in quasar spectra.
 
-\begin{remark}[$\mu = m_p/m_e$ is ghost-protected --- a self-correction]
-An earlier version of this analysis predicted $\Delta\mu/\mu$ would anti-correlate with $\Delta\alpha_\text{em}/\alpha_\text{em}$ through the chain $\alpha_s \to \Lambda_\text{QCD} \to m_p$. However, DRLT's own results (Chapter 6) show this chain is broken: $\Lambda_\text{QCD} = v_H/\sqrt{c} \times \alpha_\text{GUT}^2 \times n_S$ depends on $\alpha_\text{GUT}$ (ghost-invariant by trace conservation), not on $\alpha_s$ (which varies with ghosts). Similarly, $m_e$ corrections depend on the lattice constant $\delta_\text{EW} = 1 - S(2)/S(\infty)$. Therefore $\mu \approx \text{const}$ across the sky: $\Delta\mu/\mu \approx 0$. Published H$_2$ quasar data ($\sim 10$ systems, all within $1$--$2\sigma$ of zero) are consistent with this corrected prediction. The theory caught its own error.
+\begin{remark}[$\mu = m_p/m_e$ is trace-protected]
+An earlier version of this analysis predicted $\Delta\mu/\mu$ would anti-correlate with $\Delta\alpha_\text{em}/\alpha_\text{em}$ through the chain $\alpha_s \to \Lambda_\text{QCD} \to m_p$. However, DRLT's own results (Chapter 6) show this chain is broken: $\Lambda_\text{QCD} = v_H/\sqrt{c} \times \alpha_\text{GUT}^2 \times n_A$ depends on $\alpha_\text{GUT}$ (trace-invariant), not on $\alpha_s$ (which varies with $\varepsilon_0$). Similarly, $m_e$ depends on the lattice constant $\delta_\text{EW} = 1 - S(2)/S(\infty)$. Therefore $\mu \approx \text{const}$ across the sky: $\Delta\mu/\mu \approx 0$. Published H$_2$ quasar data ($\sim 10$ systems, all within $1$--$2\sigma$ of zero) are consistent with this prediction.
 \end{remark}
 
 \subsection{Prediction 2: $\alpha_\text{GUT}$ is spatially invariant}
@@ -175,7 +175,7 @@ must be identical at every spatial location. Any observed variation in this comb
 
 \subsection{Prediction 3: Dipole amplitude depends on redshift}
 
-The ghost parameter $\varepsilon_0(z)$ changes with cosmic epoch (redshift $z$). The dipole amplitude should therefore vary with $z$:
+The geometric parameter $\varepsilon_0(z)$ changes with cosmic epoch (redshift $z$). The dipole amplitude should therefore vary with $z$:
 \begin{equation}
 \frac{\Delta\alpha}{\alpha}(z) = 5.96 \times 10^{-3} \times \frac{\Delta\varepsilon_0(z)}{\varepsilon_0(z)}.
 \end{equation}
@@ -184,7 +184,7 @@ At high $z$ (early universe, larger $\varepsilon_0$), the fractional variation $
 
 \subsection{Prediction 4: No variation in $\alpha_\text{em}$ at the GUT scale}
 
-At energies approaching $M_\text{GUT}$, all forces see $N_\text{eff} = \infty$, ghosts are uniformly distributed, and $\varepsilon_0 \to 0$. Therefore $\Delta\alpha/\alpha \to 0$ at high energy. If constant variation is observed in early-universe processes (e.g., BBN), DRLT is falsified.
+At energies approaching $M_\text{GUT}$, all forces see $N_\text{eff} = \infty$, geometric weight is uniformly distributed, and $\varepsilon_0 \to 0$. Therefore $\Delta\alpha/\alpha \to 0$ at high energy. If constant variation is observed in early-universe processes (e.g., BBN), DRLT is falsified.
 
 %=====================================================================
 \section{The True Constant}
@@ -192,7 +192,7 @@ At energies approaching $M_\text{GUT}$, all forces see $N_\text{eff} = \infty$, 
 
 Feynman asked: ``Why 1/137?'' DRLT answers: \textbf{the question is wrong.}
 
-$1/137$ is not a fundamental constant. It is a local value of $1/\alpha_\text{em}$, determined by the ghost redistribution at our cosmic address ($\varepsilon_0 \approx 0.0038$). The fundamental constant is:
+$1/137$ is not a fundamental constant. It is a local value of $1/\alpha_\text{em}$, determined by the $\det(G_h)$ redistribution at our cosmic address ($\varepsilon_0 \approx 0.0038$). The fundamental constant is:
 \begin{equation}
 \boxed{\frac{1}{\alpha_\text{GUT}} = \frac{25\pi^2}{6} = d^2 \times \zeta(2) \approx 41.12}
 \end{equation}
@@ -210,7 +210,7 @@ Quantity & Status & Why \\
 \hline
 (none) & No universal constant & Universe $=$ rank-$N$ matrix \\
 $25\pi^2/6$ & Plateau constant & Geometric identity of rank-5 \\
-$1/\alpha_3, 1/\alpha_2, 1/\alpha_1$ & Local values & Ghost redistribution \\
+$1/\alpha_3, 1/\alpha_2, 1/\alpha_1$ & Full topological values & $\det(G_h)$ redistribution \\
 $1/\alpha_\text{em} \approx 137$ & Local composite & $= \tfrac{5}{3}(1/\alpha_1) + (1/\alpha_2)$ \\
 $1/137.036$ & Our address & $\varepsilon_0 \approx 0.0038$ here, now \\
 \hline
@@ -222,16 +222,16 @@ $1/137.036$ & Our address & $\varepsilon_0 \approx 0.0038$ here, now \\
 \section{Conclusion}
 %=====================================================================
 
-The Webb dipole is not a systematic error. It is not evidence for new fields or extra dimensions. It is the spatial non-uniformity of ghost redistribution in $\mathbb{C}^5$, visible because $\alpha_\text{em}$ is a composite of ghost-corrected couplings.
+The Webb dipole is not a systematic error. It is not evidence for new fields or extra dimensions. It is the spatial non-uniformity of $\det(G_h)$ redistribution in $\mathbb{C}^5$, visible because $\alpha_\text{em}$ is a composite of individual sector couplings whose geometric weights vary spatially.
 
-The 25-year debate between ``$\alpha$ varies'' and ``$\alpha$ is constant'' is resolved: both are right, about different quantities. $\alpha_\text{em}$ varies. $\alpha_\text{GUT}$ is constant. The difference is ghosts.
+The 25-year debate between ``$\alpha$ varies'' and ``$\alpha$ is constant'' is resolved: both are right, about different quantities. $\alpha_\text{em}$ varies. $\alpha_\text{GUT}$ is constant. The difference is the $\det(G_h)$ redistribution among sectors.
 
-The theory makes an immediately testable prediction: $\alpha_s$ must anti-correlate with $\alpha_\text{em}$ spatially, preserving $\sum\delta_i = 0$. This can be checked with existing quasar data. A positive result would confirm the ghost mechanism; a negative result would falsify it.
+The theory makes an immediately testable prediction: $\alpha_s$ must anti-correlate with $\alpha_\text{em}$ spatially, preserving $\sum\Delta_i = 0$. This can be checked with existing quasar data. A positive result would confirm the redistribution mechanism; a negative result would falsify it.
 
 \begin{center}
 \emph{The fine structure constant is not a constant.}
 
-\emph{It is a ghost's shadow, cast differently in different places.}
+\emph{It is a $\det(G_h)$ shadow, cast differently in different places.}
 
 \emph{$25\pi^2/6$ is the constant of our plateau --- the rank-5 era.}
 
