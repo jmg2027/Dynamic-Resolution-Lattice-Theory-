@@ -232,36 +232,101 @@ def extract_25_channels(psi, log=print):
         log(f"  α_est (from AAB det) = {alpha_est:.6f}  "
             f"(α_GUT = {ALPHA_GUT:.6f})")
 
-    # ─── IE 추정 (수소 = AAAB face) ───
-    log(f"\n--- Ionization Energy (H-like) ---")
-    # AAAB face = {A₁,A₂,A₃,B₁} → B₂ 빠짐
-    # 3개 AAB hinge의 det 변화량 합
+    # ─── IE via Regge Action 차이 (Einstein eq.) ───
+    log(f"\n--- Ionization Energy (Regge action method) ---")
+    # AAAB face = {A₁,A₂,A₃,B₁}: B₁이 있는 simplex
+    # IE = ΔS = S(with B₁) - S(without B₁)
+    # = Σ over AAAB face hinges of (A_h × δ_h)
+
+    # Method 1: Σ(1-det) / n_T² (empirical)
     aab_dets_H = []
+    aab_actions_H = []
     for h in HINGES:
         if all(v in (0, 1, 2, 3) for v in h):
             n_A = sum(1 for v in h if v < 3)
-            if n_A == 2:  # AAB type in AAAB face
-                aab_dets_H.append(hinge_det3(G, h))
-    if aab_dets_H:
-        delta_det = sum(1 - d for d in aab_dets_H)
-        # IE = m_e × delta_det / n_T
-        IE_eV = 511000 * delta_det / N_T  # m_e c² in eV
-        log(f"  Σ(1-det) for AAAB face = {delta_det:.6f}")
-        log(f"  IE = m_e × Σ(1-det) / n_T = {IE_eV:.1f} eV  (obs: 13.6 eV)")
-        log(f"  Ratio to Rydberg: {IE_eV/13.606:.4f}")
+            d_h = hinge_det3(G, h)
+            a_h = np.sqrt(max(d_h, 0))
+            delta_h = 2 * np.pi - sum(
+                dihedral(G, SIMPLICES[si], h)
+                for si in HINGE_SIMPLICES[h])
+            if n_A == 2:  # AAB
+                aab_dets_H.append(d_h)
+                aab_actions_H.append(a_h * delta_h)
 
-    # ─── 질량비 ───
-    log(f"\n--- Mass Ratios ---")
-    det_12 = 1 - abs(G[3, 4])**2  # 1세대 (B₁B₂)
-    det_13 = 1 - abs(G[3, 5])**2  # 2세대 (B₁B₃)
-    det_23 = 1 - abs(G[4, 5])**2  # 3세대 (B₂B₃)
-    if det_13 > 1e-10 and det_23 > 1e-10:
-        log(f"  det(B₁B₂) = {det_12:.6f} (1st gen)")
-        log(f"  det(B₁B₃) = {det_13:.6f} (2nd gen)")
-        log(f"  det(B₂B₃) = {det_23:.6f} (3rd gen)")
-        log(f"  m₂/m₁ ~ det₁/det₂ = {det_12/det_13:.2f}")
-        log(f"  m₃/m₁ ~ det₁/det₃ = {det_12/det_23:.2f}")
-        log(f"  (1/α_GUT)^{N_S} = {(1/ALPHA_GUT)**N_S:.0f}  (theory: m_t/m_u)")
+    delta_det = sum(1 - d for d in aab_dets_H) if aab_dets_H else 0
+    delta_S_face = sum(aab_actions_H) if aab_actions_H else 0
+
+    log(f"  AAAB face hinges (AAB type):")
+    log(f"    Σ(1-det) = {delta_det:.6f}")
+    log(f"    ΔS_face  = Σ A_h δ_h = {delta_S_face:.6f}")
+
+    # Method 1: det 기반 (EXP_040 공식)
+    IE_det = 511000 * delta_det / (N_T * N_T)  # m_e × 2α²/n_T²
+    log(f"\n  Method 1 (det/n_T²): IE = {IE_det:.2f} eV")
+    log(f"    Ratio to Rydberg: {IE_det/13.606:.4f}")
+
+    # Method 2: Regge action 직접 (Einstein eq.)
+    # E = (M_P²) × ΔS × (lattice_to_Planck_factor)
+    # In lattice units: IE/E_P = ΔS / (16π)
+    # E_P = 1.22e28 eV. But hinge area in Planck units = l_P².
+    # Need to know lattice spacing in Planck units.
+    # Alternatively: calibrate with m_e.
+    # m_e/M_P = 4.18e-23. IE/m_e = α²/2. So IE/M_P = 4.18e-23 × α²/2.
+    # ΔS should equal 16π × IE/M_P² × (something).
+    # Let's just check the RATIO with calibration:
+    if abs(delta_S_face) > 1e-15:
+        # Calibration: ΔS_face should be proportional to α²
+        ratio_to_alpha2 = delta_S_face / ALPHA**2
+        log(f"\n  Method 2 (Regge action):")
+        log(f"    ΔS_face / α² = {ratio_to_alpha2:.4f}")
+        log(f"    If IE = m_e × ΔS_face / C, then C = m_e×α²/(2×13.606)")
+        log(f"    Expected ΔS ∝ α²: check {delta_det:.6e} vs "
+            f"2α² = {2*ALPHA**2:.6e}")
+        log(f"    Ratio: {delta_det/(2*ALPHA**2):.4f} (should be ~1.0)")
+
+    # ─── 질량비 (Einstein: m ∝ Regge action of region) ───
+    log(f"\n--- Mass Ratios (Regge action per generation) ---")
+    # 각 세대의 simplex에서 Regge action을 계산
+    # σ₅={0,1,2,3,4} (1세대), σ₄={0,1,2,3,5} (2세대), σ₃={0,1,2,4,5} (3세대)
+    gen_simplices = {
+        "1st (σ₅)": (0, 1, 2, 3, 4),
+        "2nd (σ₄)": (0, 1, 2, 3, 5),
+        "3rd (σ₃)": (0, 1, 2, 4, 5),
+    }
+    gen_actions = {}
+    for name, s in gen_simplices.items():
+        S_gen = 0.0
+        for h in HINGES:
+            if all(v in s for v in h):
+                d_h = hinge_det3(G, h)
+                if d_h < 1e-15:
+                    continue
+                a_h = np.sqrt(d_h)
+                delta_h = 2 * np.pi - sum(
+                    dihedral(G, SIMPLICES[si], h)
+                    for si in HINGE_SIMPLICES[h])
+                S_gen += a_h * delta_h
+        gen_actions[name] = S_gen
+        log(f"  {name}: S = {S_gen:.6f}")
+
+    # 질량 ∝ |S_gen| (Einstein: E = S × M_P²/16π)
+    actions = list(gen_actions.values())
+    if all(abs(a) > 1e-15 for a in actions):
+        S1, S2, S3 = [abs(a) for a in actions]
+        log(f"\n  Mass ratios (m ∝ |S_gen|):")
+        log(f"    m₂/m₁ = {S2/S1:.4f}")
+        log(f"    m₃/m₁ = {S3/S1:.4f}")
+        log(f"    m₃/m₂ = {S3/S2:.4f}")
+
+    # B-pair det도 참고로
+    det_12 = 1 - abs(G[3, 4])**2
+    det_13 = 1 - abs(G[3, 5])**2
+    det_23 = 1 - abs(G[4, 5])**2
+    log(f"\n  B-pair det (참고):")
+    log(f"    det(B₁B₂) = {det_12:.6f}")
+    log(f"    det(B₁B₃) = {det_13:.6f}")
+    log(f"    det(B₂B₃) = {det_23:.6f}")
+    log(f"    (1/α_GUT)^{N_S} = {(1/ALPHA_GUT)**N_S:.0f}")
 
     # ─── W 고유값 25개 ───
     log(f"\n--- W Spectrum (25 channels) ---")
