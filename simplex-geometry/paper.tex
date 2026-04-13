@@ -50,7 +50,9 @@ $\binom{3}{2} = 3$, (iii)~$SU(3)\times SU(2)\times U(1)$ from
 the toric fiber of $\CP^4$, (iv)~lepton mass ratios to 5
 significant figures via propagation impedance, (v)~the
 cosmological constant $\Omega_\Lambda = 0.6850$ to 4 significant
-figures, and (vi)~the impossibility of maintaining spacetime
+figures, (vi)~$3+1$ spacetime structure from the hinge-opposite
+duality ($1:6:3$ curvature modes uniquely select $(3,2)$),
+and (vii)~the impossibility of maintaining spacetime
 singularities from $\delta_{\mathrm{TTT}} = 0$.
 All corrections follow a universal pattern
 $\agut \times (\text{simplex sector ratio})$,
@@ -621,18 +623,126 @@ $\rho_\Lambda/\rho_{\mathrm{Pl}} \sim 1/N_H \sim 10^{-122}$
 where $N_H = A_{\mathrm{horizon}}/(4\ell_P^2)$.
 
 %% ==============================================================
-\section{The TTT theorem and singularities}
-\label{sec:ttt}
+\section{Hinge-opposite duality and spacetime structure}
+\label{sec:hinge-opposite}
 %% ==============================================================
 
-\begin{theorem}[$\delta_{\mathrm{TTT}} = 0$]
+\subsection{The opposite element theorem}
+
+In a single 4-simplex $\Delta^4$ with 5 vertices, each
+triangular hinge $H = \{i,j,k\}$ has an \emph{opposite edge}
+$H^\perp = \{l,m\}$ formed by the two vertices not in $H$.
+The deficit angle at $H$ measures curvature in the plane
+perpendicular to $H$; this direction is determined by the
+character of $H^\perp$.
+
+\begin{theorem}[Hinge-opposite curvature classification]
+\label{thm:opposite}
+In a 4-simplex with local $(3,2)$ partition, the 10 hinges
+decompose by opposite-edge type as follows:
+\begin{center}
+\begin{tabular}{lccll}
+\toprule
+Hinge type & Opposite type & Count & Curvature direction & Formula \\
+\midrule
+$AAA$ & $BB$ (temporal) & 1 & temporal ($R_{00}$) & $\binom{\nT}{2}$ \\
+$AAB$ & $AB$ (mixed)    & 6 & mixed ($R_{0i}$)    & $\nS\cdot\nT$ \\
+$ABB$ & $AA$ (spatial)  & 3 & spatial ($R_{ij}$)   & $\binom{\nS}{2}$ \\
+\midrule
+Total &                  & 10 &                     & $\binom{5}{3}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The perpendicular direction to a hinge is spanned by the
+opposite edge; its $S/T$ character determines whether the
+deficit angle encodes temporal, mixed, or spatial curvature.
+\end{theorem}
+
+\begin{proof}
+A hinge with $s$ $A$-vertices and $(3-s)$ $B$-vertices has
+opposite edge containing $(n_S - s)$ $A$-vertices and
+$(n_T - 3 + s)$ $B$-vertices. With $(n_S,n_T)=(3,2)$:
+$BB$ opposite requires $s = n_S = 3$, giving $\binom{3}{3}\binom{2}{0} = 1$ hinge;
+$AB$ opposite requires $s = n_S-1 = 2$, giving $\binom{3}{2}\binom{2}{1} = 6$;
+$AA$ opposite requires $s = n_S-2 = 1$, giving $\binom{3}{1}\binom{2}{2} = 3$.
+A $BBB$ hinge would require $s = 0$ with $\binom{2}{3} = 0$:
+it is combinatorially forbidden.
+\end{proof}
+
+\begin{corollary}[$3+1$ spacetime from $(3,2)$]
+\label{cor:31}
+The curvature mode count $1:6:3$ (temporal : mixed : spatial)
+is the unique signature of $(3,2)$.  No other partition of 5
+vertices produces exactly 1 temporal and 3 spatial curvature
+modes:
+\begin{center}
+\begin{tabular}{ccccl}
+\toprule
+$\nS$ & $\nT$ & Spatial $\binom{\nS}{2}$ & Temporal $\binom{\nT}{2}$ & Structure \\
+\midrule
+5 & 0 & 10 & 0 & no time \\
+4 & 1 & 6 & 0 & no time \\
+\textbf{3} & \textbf{2} & \textbf{3} & \textbf{1} & $\boldsymbol{3+1}$ \textbf{spacetime} \\
+2 & 3 & 1 & 3 & $1+3$ (mirror) \\
+1 & 4 & 0 & 6 & no space \\
+0 & 5 & 0 & 10 & no space \\
+\bottomrule
+\end{tabular}
+\end{center}
+The $(3,2)$ split is the \emph{only} partition where
+temporal curvature is unique (Newtonian gravity),
+spatial curvature has 3 modes (3-dimensional geometry),
+and all three curvature types coexist.
+\end{corollary}
+
+\subsection{Tetrahedron-vertex duality and time/space identification}
+
+The same opposite-element logic extends to tetrahedra (3-faces).
+Each tetrahedron has one opposite vertex whose character
+determines the normal direction:
+
+\begin{center}
+\begin{tabular}{lccl}
+\toprule
+Tetrahedron & Opposite & Count & Interpretation \\
+\midrule
+$AAAB$ & $B$ vertex & 2 & timelike normal $\to$ constant-$t$ slice \\
+$AABB$ & $A$ vertex & 3 & spacelike normal $\to$ constant-$x$ boundary \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$AAAB$ tetrahedra (opposite $= B$) have timelike normals
+and define spatial slices --- this is why $AAAB$ generates
+the time direction.
+$AABB$ tetrahedra (opposite $= A$) have spacelike normals
+and define spatial boundaries --- this is why $AABB$
+generates the space direction.
+Together with the edge--triangle duality (Theorem~\ref{thm:opposite}),
+this establishes a complete
+$k$-face $\leftrightarrow$ $(4-k-1)$-face duality with
+matching type counts: $3 \leftrightarrow 3$ (spatial),
+$2 \leftrightarrow 2$ (temporal), $6 \leftrightarrow 6$ (mixed).
+
+\subsection{The $\delta_{\mathrm{TTT}} = 0$ theorem}
+\label{subsec:ttt}
+
+Within a single $(3,2)$ simplex, a $BBB$ hinge is
+\emph{combinatorially impossible} ($\binom{2}{3} = 0$),
+so $\delta_{\mathrm{TTT}}$ is undefined ---
+not zero, but nonexistent.
+In the full manifold $\partial(\Delta^5)$ with three
+$B$-vertices, the unique $BBB$ hinge $\{B_1,B_2,B_3\}$
+\emph{does} exist, and its deficit angle is identically zero:
+
+\begin{theorem}[$\delta_{\mathrm{TTT}} = 0$ on $\partial(\Delta^5)$]
 \label{thm:ttt}
 The deficit angle at the pure-temporal hinge
 $\{B_1,B_2,B_3\}$ is exactly zero.
 \end{theorem}
 
 \begin{proof}
-The TTT hinge is surrounded by three simplices
+The $BBB$ hinge is surrounded by three simplices
 $\sigma_0,\sigma_1,\sigma_2$ (each missing one $A$-vertex).
 Since $A_1,A_2,A_3$ form the standard basis of $\CC^3$
 (orthogonal), their dihedral contributions sum to $2\pi$:
@@ -644,16 +754,25 @@ Since $A_1,A_2,A_3$ form the standard basis of $\CC^3$
 \end{proof}
 
 \begin{corollary}[Gravity is spatial]
-Pure temporal hinges carry no curvature.
+Pure temporal hinges either do not exist (per-simplex level)
+or carry zero curvature (manifold level).
 Gravity is generated exclusively by hinges with at least
 one spatial vertex.
 \end{corollary}
 
-This explains why, in the ADM formulation of GR, the lapse
-function $N$ is a Lagrange multiplier (constraint) rather than
-a dynamical variable: the pure-temporal geometry is flat.
+\begin{remark}
+This is a two-level result:
+\emph{(i)}~within any $(3,2)$ simplex, $BBB$ hinges are
+combinatorially forbidden (Theorem~\ref{thm:opposite});
+\emph{(ii)}~on $\partial(\Delta^5)$, the single $BBB$ hinge
+has $\delta = 0$ by $A$-orthogonality.
+Both mechanisms ensure that pure temporal curvature is absent.
+This explains why the lapse function $N$ in the ADM formalism
+is a constraint rather than a dynamical variable:
+pure-temporal geometry is flat.
+\end{remark}
 
-Contrast with the SSS hinge: $\delta_{\mathrm{SSS}} = 90°$
+Contrast with the $AAA$ hinge: $\delta_{\mathrm{AAA}} = 90°$
 (maximum curvature), corresponding to color confinement.
 
 \subsection{Singularity instability}
@@ -689,6 +808,7 @@ $\eta_B$ & $6.13\times10^{-10}$ & $6.12\times10^{-10}$ & 0.2\% \\
 $\Omega_c/\Omega_b$ & 5.33 & 5.36 & 0.4\% \\
 CP violation & automatic & exists & \checkmark \\
 $\delta_{\mathrm{TTT}}$ & $= 0$ & (lapse = constraint) & \checkmark \\
+$3+1$ structure & $\binom{\nT}{2}:\nS\nT:\binom{\nS}{2} = 1:6:3$ & $3+1$ spacetime & \checkmark \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -705,9 +825,6 @@ $(x_3 - x_4)$, related to EW breaking scale.
 \item Full CKM matrix: complex $\psi$ optimization gives
 $\theta_{\mathrm{Cabibbo}} \approx 8°$ (observed $13°$);
 refinement of the parametrization is needed.
-\item Book-level recalculation: replacing $W$-based formulas
-with $G$-based ones is expected to improve all existing
-predictions by incorporating the phase information.
 \end{itemize}
 
 \subsection{Falsifiable predictions}
