@@ -1817,7 +1817,7 @@ This is the Georgi--Glashow decomposition \cite{GeorgiGlashow}, but here it foll
 
 In $\text{SU}(5)$, the weak mixing angle at the unification scale is fixed by the trace condition on the generators:
 \begin{equation}
-\sin^2\theta_W = \frac{\text{Tr}(T_3^2)}{\text{Tr}(Q^2)} = \frac{3}{8}
+\sin^2\theta_W = \frac{\tr(T_3^2)}{\tr(Q^2)} = \frac{3}{8}
 \end{equation}
 where $T_3$ and $Q$ are evaluated in the fundamental $\mathbf{5}$ representation. This is the standard Georgi--Glashow result, but here it is a consequence of $\mathbb{C}^5 = \mathbb{C}^3 \oplus \mathbb{C}^2$.
 
@@ -2045,6 +2045,7 @@ In standard physics, $\hbar$ is a universal constant. In DRLT, it is a \emph{loc
 A hinge (triangle) $\{i, j, k\}$ in $\mathbb{C}^5$ carries three edges, each encoding a complex inner product $G_{ij}$. The question is: how much \emph{classical information} can be extracted from the quantum state of this triangle?
 
 \begin{theorem}[Holevo bound applied to hinges]
+\label{thm:holevo}
 The maximum classical information extractable from a hinge is 1 bit.
 \end{theorem}
 
@@ -4176,7 +4177,7 @@ Step & From & To & How \\
 5 & Channels & $\alpha_3, \alpha_2, \alpha_1$ & Basel sum + Gram rank \\
 6 & $\alpha_i + v_H$ & 26 SM parameters & Simplex geometry \\
 7 & $\hbar_h > 0$ (finite) & Cosmology (9 observables) & Block universe \\
-8 & $\text{Tr}(G) = N$ & Trace conservation ($\Sigma\Delta = 0$) & Completeness \\
+8 & $\tr(G) = N$ & Trace conservation ($\Sigma\Delta = 0$) & Completeness \\
 \hline
 & \multicolumn{2}{l}{\textbf{Free parameters:}} & \textbf{0} \\
 & \multicolumn{2}{l}{\textbf{Observational inputs:}} & \textbf{0} \\
@@ -4503,7 +4504,7 @@ $\CCP^4$. Each 4-simplex $\sigma$ has 5 vertices; each 2-face
 The Regge action \cite{Regge} is:
 \begin{equation}
 \boxed{S_R = \sum_{h \in K} A_h\, \delta_h.}
-\label{eq:Regge}
+\label{eq:Regge_YM}
 \end{equation}
 
 Hinges are classified by the $(3,2)$ split of their vertices:
@@ -5330,7 +5331,7 @@ The geometric contributions obey trace conservation:
 \begin{equation}
 \sum_i \delta_i = \delta_3 + \delta_2 + \delta_1 + \delta_G = +0.47 - 0.40 - 0.22 + 0.15 = 0.00,
 \end{equation}
-proven from trace conservation: $\text{Tr}(G) = N$ is invariant under the unitary projection from rank $N$ to rank 5.
+proven from trace conservation: $\tr(G) = N$ is invariant under the unitary projection from rank $N$ to rank 5.
 
 \subsubsection{The base perturbation $\varepsilon_0$}
 
@@ -5363,7 +5364,7 @@ The total coupling $1/\agut = 25\pi^2/6$ is spatially invariant. Only the distri
 \end{theorem}
 
 \begin{proof}
-$\text{Tr}(G) = N$ is a global constraint, independent of position. The Binet--Cauchy completeness $\sum_\text{channels} = d^2 = 25$ is a geometric identity, independent of the state $\psi$. Therefore $\sum_i(1/\alpha_i) = 25\pi^2/6$ at every point, and $\sum_i \delta_i = 0$ everywhere.
+$\tr(G) = N$ is a global constraint, independent of position. The Binet--Cauchy completeness $\sum_\text{channels} = d^2 = 25$ is a geometric identity, independent of the state $\psi$. Therefore $\sum_i(1/\alpha_i) = 25\pi^2/6$ at every point, and $\sum_i \delta_i = 0$ everywhere.
 \end{proof}
 
 \begin{corollary}
@@ -6164,7 +6165,7 @@ Level & Contribution & $E_1$ (eV) & Residual & Source \\
 
 \subsubsection{Errors as physics}
 
-This decomposition demonstrates a key property of DRLT: \textbf{the apparent ``errors'' of the combinatorial predictions are the $\det(G_h)$ geometric part of the topology.} The trace conservation theorem (Chapter~\ref{ch:trace}) determines the structure and magnitude of these contributions. The hydrogen ground state is a concrete case study where the full topology is verified to 5 significant figures.
+This decomposition demonstrates a key property of DRLT: \textbf{the apparent ``errors'' of the combinatorial predictions are the $\det(G_h)$ geometric part of the topology.} The trace conservation theorem (Chapter~\ref{ch:ghosts}) determines the structure and magnitude of these contributions. The hydrogen ground state is a concrete case study where the full topology is verified to 5 significant figures.
 
 \subsubsection{Hierarchy of topological contributions}
 
