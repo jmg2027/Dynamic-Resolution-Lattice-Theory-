@@ -37,10 +37,12 @@ from $\partial(\Delta^5)$}
 \maketitle
 
 \begin{abstract}
-We show that the boundary of the 5-simplex, $\partial(\Delta^5)$,
-equipped with quantum states $\psi \in \CC^5$ at each vertex,
-reproduces the Standard Model and General Relativity with zero
-free parameters. The 6-vertex, 6-simplex structure of
+We study the boundary of the 5-simplex, $\partial(\Delta^5)$,
+equipped with quantum states $\psi \in \CC^5$ at each vertex.
+We demonstrate that this minimal closed simplicial 4-manifold,
+combined with the Regge action and the Gram matrix formalism,
+yields the fermion content, gauge group, and several precision
+observables of the Standard Model without free parameters. The 6-vertex, 6-simplex structure of
 $\partial(\Delta^5)$ --- the minimal closed 4-manifold ---
 determines: (i)~15 Weyl fermions per generation from vertex
 selection combinatorics, (ii)~exactly 3 generations from
@@ -126,8 +128,9 @@ corresponding to $|G_{ij}|$ (modulus only).
 The Standard Model uses gauge connections $A_\mu$,
 corresponding to $\arg(G_{ij})$ (phase only).
 Neither framework sees the full complex Gram matrix $G_{ij}$.
-This paper works with $G \in \CC$ throughout, recovering both
-gravity and gauge interactions from a single object.
+This paper works with $G \in \CC$ throughout, and shows that
+metric and gauge degrees of freedom arise as the modulus and
+phase of this single object.
 %% ==============================================================
 \section{The boundary of the 5-simplex}
 \label{sec:boundary}
@@ -229,17 +232,20 @@ The moment map $\mu: \CP^4 \to \Delta^4$ is
 $\mu([z]) = (|z_0|^2/|z|^2,\ldots,|z_4|^2/|z|^2)$,
 whose image is the probability simplex $\Delta^4 \subset \RR^5$.
 
-\begin{theorem}[Shadow decomposition]
-\label{thm:shadow}
-$\CP^4$ decomposes as:
-\begin{center}
-\begin{tabular}{lcl}
-Base $\Delta^4$ & (4 real dim) & $= |G_{ij}|$ information $=$ metric $=$ GR \\
-Fiber $T^4$ & (4 real dim) & $= \arg(G_{ij})$ information $=$ gauge $=$ SM \\
-Total $\CP^4$ & (8 real dim) & $= G_{ij} \in \CC$ $=$ full physics $=$ DRLT
-\end{tabular}
-\end{center}
-\end{theorem}
+\begin{proposition}[Toric decomposition of $\CP^4$]
+\label{prop:shadow}
+The moment map $\mu$ realizes $\CP^4$ as a $T^4$-fibration
+over $\Delta^4$.  The base $\Delta^4$ ($4$ real dimensions)
+carries the modulus information $|G_{ij}|$, while the generic
+fiber $T^4$ ($4$ real dimensions) carries the phase information
+$\arg(G_{ij})$.
+\end{proposition}
+
+This is a standard result in toric geometry
+(see, e.g., \cite{fulton1993}).  We interpret
+the base as encoding metric (gravitational) data and the fiber
+as encoding gauge data.  The Gram matrix $G_{ij} \in \CC$
+contains both simultaneously.
 
 \subsection{Fiber decomposition under (3,2) split}
 
@@ -352,7 +358,15 @@ The number of fermion generations is 3.
 \end{theorem}
 
 \begin{proof}
-In $\partial(\Delta^5)$, the nuclear simplices ($3S+2T$)
+$\partial(\Delta^5)$ has 6 vertices.
+The (3,2) partition of each 4-simplex requires at least 3
+$A$-type and 2 $B$-type vertices globally, totaling $\geq 5$.
+With 6 vertices, exactly one extra vertex is available; assigning
+it to the $B$-sector gives the $(3,3)$ global partition ---
+the unique assignment in which every 4-simplex admits a local
+$(3,2)$ or $(2,3)$ split.
+
+The nuclear simplices ($3S+2T$)
 share all three $A$-vertices and contain 2 out of 3 $B$-vertices.
 Their number is:
 \begin{equation}
@@ -432,13 +446,16 @@ The total parameter space:
 \xrightarrow{-6\;(\text{norm})} 54
 \xrightarrow{-25\;(U(5))} 29 \text{ real parameters.}
 \end{equation}
-The variational equations $\delta S/\delta\psi_k = 0$
-fix 4 additional parameters (CKM: 3 angles + 1 phase), leaving
+Numerically, the variational equations $\delta S/\delta\psi_k = 0$
+appear to determine 4 additional parameters (the CKM mixing
+angles and CP phase), leaving
 \begin{equation}
-\boxed{29 - 4 = 25 = d^2}
+29 - 4 = 25 = d^2
 \end{equation}
-physical channels --- matching the rank of the $W$-matrix
-($W_{ij} = |G_{ij}|^2/d$, rank $\leq d^2 = 25$).
+undetermined parameters.  We note that this coincides with the
+maximal rank of $W_{ij} = |G_{ij}|^2/d$, which is $d^2 = 25$.
+A rigorous proof that the variational equations generically
+determine exactly 4 parameters remains open.
 
 \subsection{Numerical results}
 
@@ -495,7 +512,9 @@ with $c = \nT = 2$ in lattice units.
 
 \subsubsection{First hop: electron $\to$ muon}
 
-The cost of propagating across one generation boundary:
+We conjecture that the mass ratio between adjacent generations
+is determined by the impedance of propagating across the shared
+face.  For the first generation boundary:
 \begin{equation}
 \frac{m_\mu}{m_e} = \frac{\nS}{\nT\,\alpha}
 \left(1 + \frac{\agut}{\nS+1}\right)
@@ -511,7 +530,7 @@ Trace conservation term.
 
 \subsubsection{Second hop: muon $\to$ tau}
 
-The second generation boundary involves $B_3$
+For the second generation boundary, $B_3$ participates
 ($|\langle B|B_3\rangle|^2 = 1/c = 1/2$ from the action extremum):
 \begin{equation}
 \frac{m_\tau}{m_\mu} = c^{\nS}\cdot\nT
@@ -710,6 +729,10 @@ T.~Regge, ``General relativity without coordinates,''
 \bibitem{uniqueness}
 M.~Jeong and Claude (Anthropic), ``Swap annihilation and the
 uniqueness of the (3,2) partition,'' in preparation.
+
+\bibitem{fulton1993}
+W.~Fulton, \textit{Introduction to Toric Varieties},
+Annals of Mathematics Studies \textbf{131}, Princeton (1993).
 
 \bibitem{drlt}
 M.~Jeong and Claude (Anthropic), ``Dynamic Resolution Lattice
