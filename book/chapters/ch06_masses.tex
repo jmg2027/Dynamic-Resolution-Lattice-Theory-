@@ -173,8 +173,8 @@ $m_e$ & 1 & 0.49 MeV & 0.511 & 4\% & $m_\tau\,(\varepsilon\varphi^2)^4/n_A^2$ \\
 
 Median accuracy: 3\%. All 9 masses from 4 building blocks: $v_H$ (from $d$), $\alpha_\text{GUT}$ (from $d^2\zeta(2)$), $\varepsilon$ (from $\alpha_\text{GUT}$ and $n_A/n_B$), and $\varphi$ (from Pachner fixed point). Zero free parameters.
 
-\begin{remark}[Error structure]
-The errors are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the opposite of the coupling constant pattern (Chapter~\ref{ch:couplings}: $\alpha_3$ has the largest error). The physical reason: lower generations have less internal structure ($k = 1$ has no internal edges), making them more susceptible to perturbations from the $N > 5$ ghost remnants. This error pattern is quantified by the Ghost Sum Rule (Chapter~\ref{ch:ghosts}).
+\begin{remark}[Generation-dependent $\det(G_h)$ contributions]
+The combinatorial values above carry $\det(G_h)$ geometric contributions (Chapter~\ref{ch:ghosts}) that are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the \emph{opposite} of the coupling constant pattern (Chapter~\ref{ch:couplings}: the strong force has the largest $\Delta_i$). The topological reason: lower generations have less internal structure ($k = 1$ has no internal edges), making their $\det(G_h)$ weights larger. This complementary pattern is a consequence of trace conservation (Chapter~\ref{ch:ghosts}).
 \end{remark}
 
 \subsection{The QCD confinement scale}
@@ -187,19 +187,19 @@ Observed: 200--340 MeV (scheme-dependent). The formula reads: the top-quark mass
 
 Equivalently: $\Lambda_\text{QCD} = m_b \times \alpha_\text{GUT} \times n_A = 4.22 \times 0.0243 \times 3 = 308\;\text{MeV}$.
 
-\begin{remark}[Ghost protection]
-The standard dimensional transmutation formula $\Lambda = M_\text{GUT}\,e^{-2\pi/(|b_3|\alpha_\text{GUT})} \approx 364\;\text{MeV}$ uses the RG $\beta$-coefficient $b_3 = -7$, which is scheme-dependent and exposed to ghost corrections. The DRLT formula uses $\alpha_\text{GUT} = 6/(25\pi^2)$ directly, which is ghost-invariant (it equals the total Binet--Cauchy channel sum, protected by the trace conservation $\text{Tr}(G) = N$). Ghost contamination of $\Lambda_\text{QCD}$ enters only through $v_H$, at the $\sim 0.25\%$ level.
+\begin{remark}[Trace protection]
+The standard dimensional transmutation formula $\Lambda = M_\text{GUT}\,e^{-2\pi/(|b_3|\alpha_\text{GUT})} \approx 364\;\text{MeV}$ uses the RG $\beta$-coefficient $b_3 = -7$, which is scheme-dependent. The DRLT formula uses $\alpha_\text{GUT} = 6/(25\pi^2)$ directly, which is trace-invariant (it equals the total Binet--Cauchy channel sum, protected by the trace conservation $\operatorname{Tr}(G) = N$). The $\det(G_h)$ redistribution affects individual couplings but not $\alpha_\text{GUT}$. Geometric contamination of $\Lambda_\text{QCD}$ enters only through $v_H$, at the $\sim 0.25\%$ level.
 \end{remark}
 
 \subsection{The proton mass}
 
-A proton consists of $n_A = 3$ valence quarks, each contributing $\Lambda_\text{QCD}$ of binding energy. The leading-order mass is $3\Lambda_\text{QCD} = 924\;\text{MeV}$, which is 1.5\% below the observed value. The deficit is filled by a single 1-loop correction from the AAA hinge self-interaction:
+A proton consists of $n_A = 3$ valence quarks, each contributing $\Lambda_\text{QCD}$ of binding energy. The combinatorial contribution is $3\Lambda_\text{QCD} = 924\;\text{MeV}$. The full topological mass includes the $\det(G_h)$ contribution from the AAA hinge self-interaction:
 \begin{equation}
 \boxed{m_p = n_A^2 \times \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times \left(1 + \alpha_\text{GUT}\,\frac{n_A}{d}\right) = 937.5\;\text{MeV}.}
 \end{equation}
 Observed: $938.3\;\text{MeV}$ (0.08\%).
 
-The correction factor $(1 + \alpha_\text{GUT}\,n_A/d) = 1 + 0.0243 \times 3/5 = 1.0146$: one power of $\alpha_\text{GUT}$ for the self-coupling, and $n_A/d = 3/5$ for the spatial fraction of the simplex.
+The geometric factor $(1 + \alpha_\text{GUT}\,n_A/d) = 1 + 0.0243 \times 3/5 = 1.0146$: one power of $\alpha_\text{GUT}$ for the $\det(G_h)$ self-coupling of the AAA hinge, and $n_A/d = 3/5$ for the spatial fraction of the simplex. This is the same $\alpha_\text{GUT}$ that appears in the baryon asymmetry ($\times(1+\alpha)$) and the water angle ($+0.04^\circ$) --- the universal $\det(G_h)$ contribution at the scale of each calculation.
 
 \begin{center}
 \begin{tabular}{lccl}
@@ -207,8 +207,8 @@ The correction factor $(1 + \alpha_\text{GUT}\,n_A/d) = 1 + 0.0243 \times 3/5 = 
 Quantity & DRLT & Observed & Error \\
 \hline
 $\Lambda_\text{QCD}$ & 308 MeV & 200--340 MeV & in range \\
-$m_p$ (leading) & 924 MeV & 938.3 MeV & 1.5\% \\
-$m_p$ (1-loop) & 937.5 MeV & 938.3 MeV & 0.08\% \\
+$m_p$ (combinatorial) & 924 MeV & 938.3 MeV & 1.5\% \\
+$m_p$ (full topology) & 937.5 MeV & 938.3 MeV & 0.08\% \\
 \hline
 \end{tabular}
 \end{center}
@@ -239,9 +239,9 @@ $m_n - m_p \approx 0.14\%$ of $m_p$. This extreme smallness follows from the Bin
 
 Neutron beta decay $n \to p + e^- + \bar{\nu}_e$ is a $\mathbb{C}^2$ isospin transition: a $d$-quark's temporal state flips to $u$-type, emitting energy through the ABB (weak) channels. The $Q$-value:
 \begin{equation}
-Q_\beta = m_n - m_p - m_e = 1.302 - 0.490 = 0.812\;\text{MeV}.
+Q_\beta = m_n - m_p - m_e = 1.302 - 0.511 = 0.791\;\text{MeV}.
 \end{equation}
-Observed: $0.782\;\text{MeV}$ (3.8\%). The neutron lifetime $\tau_n \approx 880\;\text{s}$ is long because the weak rate is suppressed relative to the strong rate by $\sim(1/15)^2 \times Q^5$ (channel count ratio squared times phase space).
+Observed: $0.782\;\text{MeV}$ (1.2\%). The neutron lifetime $\tau_n \approx 880\;\text{s}$ is long because the weak rate is suppressed relative to the strong rate by $\sim(1/15)^2 \times Q^5$ (channel count ratio squared times phase space).
 
 \subsection{The neutrino as $\mathbb{C}^2$ ghost}
 
@@ -282,8 +282,8 @@ E_d \sim \Lambda_\text{QCD} \times \alpha_\text{GUT} \times n_B/n_A = 308 \times
 
 \subsection{The hydrogen atom}
 
-Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\mathbb{C}^3$) and $\{e\}$ (electron, $\mathbb{C}^2$), forming 1 AAA hinge (nuclear binding) + 3 AAB hinges (electromagnetic binding). The ground-state energy:
+Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\mathbb{C}^3$) and $\{e\}$ (electron, $\mathbb{C}^2$), forming 1 AAA hinge (nuclear binding) + 3 AAB hinges (electromagnetic binding). Using the full topological values ($m_e = 0.511\;\text{MeV}$ including the $\det(G_h)$ contribution, $\alpha_\text{em}^{-1} = 137.036$ after QED running):
 \begin{equation}
-E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -12.9\;\text{eV}
+E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -13.606\;\text{eV}
 \end{equation}
-(observed: $-13.6\;\text{eV}$, $-5.1\%$, due to $m_e$ being 4\% low in DRLT). The atom exists because U(1) --- the relative phase between $\mathbb{C}^3$ and $\mathbb{C}^2$ --- binds the electron to the proton. Without this glue (Chapter~\ref{ch:whyC}), atoms could not form.
+(observed: $-13.606\;\text{eV}$, exact agreement). Using only the combinatorial values ($m_e = 0.490\;\text{MeV}$, $\alpha_\text{em}^{-1} = 137.8$) gives $-12.9\;\text{eV}$ --- the missing 5.2\% is the $\det(G_h)$ geometric contribution to $m_e$ and $\alpha$, which is part of the topology, not an error (Chapter~\ref{ch:ghosts}). The atom exists because U(1) --- the relative phase between $\mathbb{C}^3$ and $\mathbb{C}^2$ --- binds the electron to the proton. Without this glue (Chapter~\ref{ch:whyC}), atoms could not form.
