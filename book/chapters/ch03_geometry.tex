@@ -204,14 +204,21 @@ G_{ij} = \underbrace{|G_{ij}|}_{\text{ER (geometry)}} \times \underbrace{e^{i\ph
 \end{equation}
 A wormhole is a region where $W_{ij}$ is large (strong geometric connection) despite spatial separation. Entanglement is a region where $\phi_{ij}$ is correlated despite $W_{ij} \approx 0$. Both are components of the same complex inner product $G_{ij}$. The ER\,=\,EPR conjecture is the statement that $|G_{ij}|$ and $e^{i\phi_{ij}}$ belong to the same number. This is not a conjecture; it is the definition of $\mathbb{C}$.
 
-\subsection{The causal split: $(n_S, n_T) = (3, 2)$}
+\textbf{Ghost channels.} The Gram matrix $G$ has 5 significant eigenvalues and $N - 5$ eigenvalues at $0^+$ (the ghosts of Chapter~\ref{ch:ghosts}). These $0^+$ eigenvalues connect distant simplices through ``almost zero'' hinge determinants: $\det(G_h) = 0^+$ means the hinge exists but carries negligible energy. Phase correlations persist through these ghost channels even when $W \approx 0$. The ghost dimensions are the geometric substrate of entanglement.
+
+\subsection{Physical identification: A = spatial, B = temporal}
+\label{sec:causal_split}
+
+The vertex labels $A$ and $B$ were introduced in Chapter~\ref{ch:simplex_geometry} as neutral combinatorial types. We now identify them physically.
 
 The 5 vertices of the simplex split into spatial and temporal:
 \begin{equation}
-\underbrace{a,\,b,\,c}_{n_S = 3\;\text{(spatial)}} \quad \underbrace{d,\,e}_{n_T = 2\;\text{(temporal)}}
+\underbrace{A_1,\,A_2,\,A_3}_{n_A = 3\;\text{(spatial)}} \quad \underbrace{B_1,\,B_2}_{n_B = 2\;\text{(temporal)}}
 \end{equation}
 
-This split is unique: chirality of the weak force requires $n_T = 2$. Among all $\text{SU}(n)$, only $\text{SU}(2)$ has a pseudo-real fundamental representation ($\mathbf{2} \cong \bar{\mathbf{2}}$ via the antisymmetric tensor $\epsilon_{ab}$), which is the algebraic condition for chiral fermions. This forces the temporal sector to be $\mathbb{C}^2$, and therefore $n_S = d - n_T = 3$.
+This identification follows from the Lorentz signature (Sec.~\ref{sec:Lorentz}): chirality of the weak force requires $n_B = 2$. Among all $\text{SU}(n)$, only $\text{SU}(2)$ has a pseudo-real fundamental representation ($\mathbf{2} \cong \bar{\mathbf{2}}$ via the antisymmetric tensor $\epsilon_{ab}$), which is the algebraic condition for chiral fermions. This forces the temporal sector to be $\mathbb{C}^2$, and therefore $n_A = d - n_B = 3$.
+
+With this identification, the geometric structures from Chapter~\ref{ch:simplex_geometry} acquire physical meaning: AAA hinges become the strong sector, AAB the electromagnetic/weak sector, ABB the weak sector, and the BBB impossibility becomes the absence of a triple-temporal closure condition.
 
 \subsection{Speed of light}
 
@@ -288,37 +295,56 @@ where $T_3$ and $Q$ are evaluated in the fundamental $\mathbf{5}$ representation
 
 \subsection{Hinge classification and force hierarchy}
 
-The 10 hinges of the 4-simplex classify by their vertex content:
+\subsubsection{Face-level structure}
+
+Chapter~\ref{ch:simplex_geometry} showed that each face contains 4 hinges. The face type determines which hinge types participate:
+
+\begin{center}
+\begin{tabular}{lcccc}
+\hline
+Face type & AAA & AAB & ABB & Total \\
+\hline
+AAAB face ($\times 2$) & 1 & 3 & 0 & 4 \\
+AABB face ($\times 3$) & 0 & 2 & 2 & 4 \\
+\hline
+\end{tabular}
+\end{center}
+
+Through an AAAB face, the AAA hinge participates: the full A-sector (strong force) is transmitted. Through an AABB face, no AAA hinge is involved: only the mixed sectors (electromagnetic, weak) are active.
+
+\subsubsection{Hinge types}
+
+The 10 hinges of the 4-simplex classify by vertex content (Chapter~\ref{ch:simplex_geometry}, now with physical identification):
 
 \begin{center}
 \begin{tabular}{lccl}
 \hline
 Type & Count & $\det(G_h)$ & Force \\
 \hline
-SSS (3 spatial) & $\binom{3}{3}\binom{2}{0} = 1$ & $> 0$ & Strong \\
-SST (2 spatial, 1 temporal) & $\binom{3}{2}\binom{2}{1} = 6$ & $> 0$ & EM / Weak \\
-STT (1 spatial, 2 temporal) & $\binom{3}{1}\binom{2}{2} = 3$ & $= 0$ always & Classical \\
-TTT (3 temporal) & $\binom{2}{3} = 0$ & --- & Impossible \\
+AAA (3 A-vertices) & $\binom{3}{3}\binom{2}{0} = 1$ & $> 0$ & Strong \\
+AAB (2 A + 1 B) & $\binom{3}{2}\binom{2}{1} = 6$ & $> 0$ & Electromagnetic / Weak \\
+ABB (1 A + 2 B) & $\binom{3}{1}\binom{2}{2} = 3$ & $= 0$ always & Classical ($n_B = 2 < 3$) \\
+BBB (3 B-vertices) & $\binom{2}{3} = 0$ & --- & Impossible \\
 \hline
 \end{tabular}
 \end{center}
 
-The STT hinges have $\det(G_h) = 0$ because $n_T = 2 < 3$: two temporal vertices cannot span a nondegenerate triangle. TTT is impossible since $\binom{2}{3} = 0$.
+The ABB hinges have $\det(G_h) = 0$ because $n_B = 2 < 3$: two temporal vertices cannot span a nondegenerate triangle. BBB is impossible since $\binom{2}{3} = 0$.
 
-This gives a natural force hierarchy: 7 quantum hinges (SSS + SST) mediate the strong and electroweak forces, while STT hinges are classical ($\hbar = 0$). The weak force has no dedicated hinge (TTT $= 0$) and must ``borrow'' from the SST sector, providing a geometric explanation for its weakness.
+This gives a natural force hierarchy: 7 quantum hinges (AAA + AAB) mediate the strong and electroweak forces, while ABB hinges are degenerate ($\hbar \to 0$). The weak force has no dedicated hinge (BBB $= 0$) and must ``borrow'' from the AAB sector, providing a geometric explanation for its weakness.
 
 \subsection{Why exactly four forces}
 
-The number of gauge forces equals the number of ways to distribute 3 hinge vertices into two sectors ($\mathbb{C}^3$ and $\mathbb{C}^2$), excluding the impossible case:
+The number of gauge forces equals the number of ways to distribute 3 hinge vertices into the A-sector ($\mathbb{C}^3$) and B-sector ($\mathbb{C}^2$), excluding the impossible case:
 \begin{equation}
-\text{Gauge forces} = |\{(3,0),\;(2,1),\;(1,2)\}| = 3. \qquad (0,3)\;\text{is forbidden since } n_T = 2 < 3.
+\text{Gauge forces} = |\{(3,0),\;(2,1),\;(1,2)\}| = 3. \qquad (0,3)\;\text{is forbidden since } n_B = 2 < 3.
 \end{equation}
 Gravity adds one more: it operates not \emph{within} a hinge but \emph{between} hinges (the deficit angle $\delta_h$ measures how neighboring hinges are arranged). Total:
 \begin{equation}
-\text{Forces} = \underbrace{\min(3, n_T) + 1}_{\text{gauge + gravity}} = 3 + 1 = 4.
+\text{Forces} = \underbrace{\min(3, n_B) + 1}_{\text{gauge + gravity}} = 3 + 1 = 4.
 \end{equation}
 
-A 5th force is mathematically forbidden: it would require either a 4th hinge type (impossible since $n_T = 2$) or a 2nd geometric level beyond hinges (but hinge-to-hinge is already the simplicial boundary structure, and there is nothing beyond it).
+A 5th force is mathematically forbidden: it would require either a 4th hinge type (impossible since $n_B = 2$) or a 2nd geometric level beyond hinges (but hinge-to-hinge is already the simplicial boundary structure, and there is nothing beyond it).
 
 \begin{center}
 \begin{tabular}{lccl}
@@ -333,29 +359,64 @@ Gravity & between hinges & $\det(G_h)$ & The road \\
 \end{tabular}
 \end{center}
 
-\subsection{Spin-statistics from index counting}
+\subsection{Fermions and bosons from vertex selection}
+\label{sec:spin_statistics}
 
-The spin of an object is determined by the number of simplex indices it carries:
+Chapter~\ref{ch:simplex_geometry} derived 15 antisymmetric vertex selection patterns purely from combinatorics. We now identify them with the Standard Model fermions.
+
+\subsubsection{The $\bar{5}$: 1-vertex selections}
+
+Selecting 1 vertex from 5 gives $\binom{5}{1} = 5$ patterns. With the physical identification $A$ = spatial, $B$ = temporal:
 
 \begin{center}
 \begin{tabular}{cccl}
 \hline
-Simplex element & Indices & Parity & Physics \\
+Selection & Fingerprint & Count & Standard Model \\
 \hline
-Vertex ($\psi_i$) & 1 (odd) & Fermionic & Quarks, electrons \\
-Edge ($\langle\psi_i|\psi_j\rangle$) & 2 (even) & Bosonic & Photon, gluon, $W/Z$ \\
+A vertex & AAA$\times$1 + AAB$\times$4 + ABB$\times$1 & 3 & $d_R$ (3 colors) \\
+B vertex & AAB$\times$3 + ABB$\times$3 & 2 & $(\nu, e)_L$ doublet \\
+\hline
+\multicolumn{3}{r}{Total} & 5 \\
 \hline
 \end{tabular}
 \end{center}
 
-\textbf{Fermions (1 index):} A vertex carries $\psi_i \in \mathbb{C}^2$ (temporal sector). $\text{SU}(2)$ acts on $\mathbb{C}^2$: spin-$1/2$. Two identical vertices $\psi_i = \psi_j$ merge into one point ($\det = 0$): Pauli exclusion.
+A-type selections participate in the AAA hinge $\to$ confined. B-type selections do not $\to$ free.
 
-\textbf{Bosons (2 indices):} An edge carries $G_{ij} = \langle\psi_i|\psi_j\rangle = \psi_i \otimes \psi_j^*$. In $\text{SU}(2)$: $\frac{1}{2} \otimes \frac{1}{2} = 0 \oplus 1$, giving spin-0 and spin-1. Multiple edges between the same vertices are allowed ($G_{ij}$ is a number, not a slot): Bose statistics.
+\subsubsection{The $10$: 2-vertex selections}
 
-\textbf{Gravity (between hinges):} Gravity is not a particle. It is not a vertex (fermion) or an edge (boson). It is the deficit angle $\delta_h = 2\pi - \sum\theta$ between neighboring hinges --- the geometric arrangement of simplices, not an object living on a simplex. The label ``spin 2'' reflects the 2-dimensional nature of the hinge, but there is no graviton to find: gravity is the arena, not an actor.
+Selecting 2 vertices gives $\binom{5}{2} = 10$ antisymmetric patterns:
 
-\begin{remark}[The spin-statistics theorem in one line]
-Odd indices $\to$ antisymmetric under exchange $\to$ Fermi. Even indices $\to$ symmetric $\to$ Bose. The 40-page proof via Lorentz group $+$ CPT $+$ causality reduces to: \emph{is the index count odd or even?}
+\begin{center}
+\begin{tabular}{cccl}
+\hline
+Pair type & Fingerprint & Count & Standard Model \\
+\hline
+AA & AAA$\times$1 + AAB$\times$2 & $\binom{3}{2} = 3$ & $u_R$ (3 colors) \\
+AB & AAB$\times$2 + ABB$\times$1 & $3 \times 2 = 6$ & $(u, d)_L$ doublet ($3 \times 2$) \\
+BB & ABB$\times$3 & $\binom{2}{2} = 1$ & $e_R$ singlet \\
+\hline
+\multicolumn{3}{r}{Total} & 10 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Total: 15 Weyl fermions per generation}
+
+$\binom{5}{1} + \binom{5}{2} = 5 + 10 = 15$. This is the exact content of one Standard Model generation under $\text{SU}(5)$: $\bar{\mathbf{5}} \oplus \mathbf{10}$.
+
+\textbf{Spin-$1/2$:} The B-sector is $\mathbb{C}^2$. $\text{SU}(2)$ acts on $\mathbb{C}^2$ as the spin-$1/2$ representation. The ``spin'' of a fermion is the dimension of the temporal sector it occupies.
+
+\textbf{Pauli exclusion:} Two identical vertices $\psi_i = \psi_j$ merge into one point ($\det = 0$). The simplex loses a vertex, destroying information. This is Pauli exclusion from geometry.
+
+\subsubsection{Bosons: symmetric structures}
+
+The symmetric structures are edges (inner products $G_{ij} = \langle\psi_i|\psi_j\rangle$), which carry 2 indices. In $\text{SU}(2)$: $\frac{1}{2} \otimes \frac{1}{2} = 0 \oplus 1$, giving spin-0 and spin-1.
+
+\textbf{Gravity} is not a vertex or edge. It is the deficit angle $\delta_h = 2\pi - \sum\theta$ --- the arrangement of simplices around a hinge, not an object on a simplex. The ``spin 2'' label reflects the 2-dimensional nature of the hinge.
+
+\begin{remark}[Spin-statistics in one line]
+1-vertex and 2-vertex selections are antisymmetric $\to$ Fermi. Edges ($G_{ij} = G_{ji}^*$) are Hermitian-symmetric $\to$ Bose.
 \end{remark}
 
 \subsection{Singularity resolution}
