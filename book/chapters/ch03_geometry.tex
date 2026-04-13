@@ -81,7 +81,7 @@ Each edge carries \emph{two} data channels from the full inner product $G_{ij} =
 \item $\phi_{ij} = \arg(G_{ij})$: the gauge connection (\textbf{forces}).
 \end{itemize}
 
-Under the causal $(n_S, n_T) = (3, 2)$ split, the 10 edges decompose as:
+Under the causal $(n_A, n_B) = (3, 2)$ split, the 10 edges decompose as:
 
 \begin{center}
 \begin{tabular}{lccl}
@@ -224,15 +224,15 @@ With this identification, the geometric structures from Chapter~\ref{ch:simplex_
 
 The lattice speed of light is the ratio of temporal to spatial vertex densities per dimension:
 \begin{equation}
-\boxed{c = \frac{n_T / d_T}{n_S / d_S} = \frac{2/1}{3/3} = 2}
+\boxed{c = \frac{n_B / d_B}{n_A / d_A} = \frac{2/1}{3/3} = 2}
 \label{eq:speed_of_light}
 \end{equation}
-where $d_T = 1$ (time has 1 macroscopic dimension) and $d_S = 3$ (space has 3).
+where $d_B = 1$ (time has 1 macroscopic dimension) and $d_A = 3$ (space has 3).
 
 Every factor of $\sqrt{2}$ in the Standard Model --- $m = yv/\sqrt{2}$, the Higgs normalization, etc.\ --- is $\sqrt{c}$. The speed of light is not a fundamental constant but a \emph{lattice ratio}: time has twice the vertex density of space, per dimension.
 
 \begin{remark}
-The constancy of $c$ follows from its being a ratio of integers. It cannot vary, because $n_S = 3$ and $n_T = 2$ are fixed by the uniqueness of $d = 5$ (Theorem~\ref{thm:d5}).
+The constancy of $c$ follows from its being a ratio of integers. It cannot vary, because $n_A = 3$ and $n_B = 2$ are fixed by the uniqueness of $d = 5$ (Theorem~\ref{thm:d5}).
 \end{remark}
 
 \subsubsection{From $c = 2$ to 299{,}792{,}458 m/s}
@@ -247,7 +247,7 @@ where:
 \item $\Delta t = 2\,t_P = 1.078 \times 10^{-43}\;\text{s}$ (temporal lattice spacing $= 2 \times$ Planck time).
 \end{itemize}
 
-The temporal tick is $2\,t_P$ (not $t_P$) because $c = 2$: the temporal lattice is twice as coarse as Planck time. This is the lattice manifestation of $n_T = 2$ --- two temporal vertices per temporal dimension produce a spacing that is $c = 2$ times the ``natural'' (Planck) tick.
+The temporal tick is $2\,t_P$ (not $t_P$) because $c = 2$: the temporal lattice is twice as coarse as Planck time. This is the lattice manifestation of $n_B = 2$ --- two temporal vertices per temporal dimension produce a spacing that is $c = 2$ times the ``natural'' (Planck) tick.
 
 The numerator's 2 and denominator's 2 cancel: $c_\text{SI} = \ell_P/t_P$. This is the definition of Planck units --- but in DRLT, $\ell_P$ and $t_P$ are themselves derived from $\hbar = \sqrt{\det}/(4\ln 2)$ and the Regge action. The number 299{,}792{,}458 encodes the ratio of Planck length to Planck time, which encodes $\hbar$, $G$, and $c = 2$ --- all derived from $d = 5$.
 
@@ -260,7 +260,7 @@ The Regge action per hinge is $S_h/\hbar_h = (4G/c^3)\,\delta_h$. In the DRLT la
 \hline
 Constant & DRLT value & Status & Role \\
 \hline
-$c$ & 2 & \textbf{Derived} & Physics: $(n_T/d_T)/(n_S/d_S)$ \\
+$c$ & 2 & \textbf{Derived} & Physics: $(n_B/d_B)/(n_A/d_A)$ \\
 $\hbar$ & 1 & \textbf{Definition} & Fixes lattice units: $\hbar_h = A_h/(4\ln 2)$ \\
 $G$ & $6.674 \times 10^{-11}$ & \textbf{Unit conversion} & Translates lattice $\leftrightarrow$ SI \\
 \hline
@@ -351,9 +351,9 @@ A 5th force is mathematically forbidden: it would require either a 4th hinge typ
 \hline
 Force & Level & Hinge type & Metaphor \\
 \hline
-Strong & within hinge & SSS & The room \\
-EM & within hinge & SST & The glue \\
-Weak & within hinge & STT & The door \\
+Strong & within hinge & AAA & The room \\
+EM & within hinge & AAB & The glue \\
+Weak & within hinge & ABB & The door \\
 Gravity & between hinges & $\det(G_h)$ & The road \\
 \hline
 \end{tabular}
