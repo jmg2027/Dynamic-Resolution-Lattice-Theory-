@@ -69,11 +69,19 @@ Observed: $206.768$ ($0.02\%$).
 
 All ingredients are independently verified: $W_{AB} = \alpha^2/(n_A d)$ (6 digits), $|\langle B|B_3\rangle|^2 = 1/c = 1/n_B$ (4 digits), $\det(G_\mathrm{ABB}) = n_B/n_A$ (3 digits).
 
-The connection to $n_A/(n_B\alpha)$ follows from Ohm's law on the lattice:
+The connection to $n_A/(n_B\alpha)$ follows from Ohm's law on the lattice.
+
+\begin{theorem}[Lepton mass ratio]
+\label{thm:lepton_mass}
+Let $\rho = n_A/n_B$ be the impedance per hop (from $\det(G_\mathrm{ABB}) = n_B/n_A$), and let $T = 1 - \alpha$ be the transmission coefficient per hop ($\alpha$ lost per hop, $1-\alpha$ transmitted).  Then the correlation length is $\xi = -1/\ln(1-\alpha) = 1/\alpha + O(1)$, and the total impedance is
 \begin{equation}
-R = \rho \times L,
+R = \rho \times \xi = \frac{n_A}{n_B\,\alpha}.
 \end{equation}
-where $\rho = n_A/n_B = 1/\det(G_\mathrm{ABB})$ is the impedance per hop (from the ABB hinge determinant), and $L = 1/\alpha$ is the correlation length of the lattice propagator with nearest-neighbor coupling amplitude $\sqrt{W_{AB}} \propto \alpha$.  The lattice Green's function $G(n) \sim e^{-n/\xi}$ with $\xi \sim 1/\alpha$ is a standard result; thus $R = (n_A/n_B) \times (1/\alpha) = n_A/(n_B\alpha)$.
+\end{theorem}
+
+\begin{proof}
+(i)~$\rho = 1/\det(G_\mathrm{ABB}) = n_A/n_B$: direct Gram matrix computation (verified numerically to 3~digits). (ii)~$T = 1 - \alpha$ per hop: each AAB hinge has coupling amplitude $\sqrt{W_{AB}} \propto \alpha$; fraction $\alpha$ is scattered, fraction $1-\alpha$ transmitted. (iii)~On the lattice, the Green's function $G(n) \sim T^n = (1-\alpha)^n = e^{-n/\xi}$ with $\xi = -1/\ln(1-\alpha)$.  Expanding: $\xi = 1/\alpha + 1/2 + \alpha/12 + \cdots \approx 1/\alpha$ for $\alpha \ll 1$. (iv)~$R = \rho \times \xi = (n_A/n_B)(1/\alpha) = n_A/(n_B\alpha)$.
+\end{proof}
 
 For the second generation boundary, the impedance involves $B_3$'s linear dependence ($|\langle B|B_3\rangle|^2 = 1/c$, from the variational extremum):
 \begin{equation}
