@@ -363,7 +363,7 @@ $$\sum_{\text{gen}} \delta m(\text{gen}) = 0$$
 
 ### 11.2 0.1-0.2% 오차의 정체
 
-현재 det(G_h)는 정밀 계산 (6자리). 그러나 δ_h (deficit angle)는 이상적 값 (90°, 120° 등)을 사용하고 있다.
+현재 det(G_h)는 정밀 계산 (6자리). δ_h는 EXP_047b 변분 결과를 사용: SSS=180°, SST=120°(일부 0°), STT=279°, TTT=0°.
 
 Deficit angle의 정밀값은 같은 Gram matrix의 cofactor에서 나온다:
 

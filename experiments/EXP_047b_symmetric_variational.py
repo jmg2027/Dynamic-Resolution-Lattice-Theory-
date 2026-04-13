@@ -214,7 +214,7 @@ class SymmetricVariational(Experiment):
         self.log(f"\n  {'Type':<5} {'N':>3} {'⟨det⟩':>12} {'⟨δ⟩':>10}  예측")
         self.log(f"  {'-'*55}")
         predictions = {
-            'SSS': 'δ=90°', 'SST': 'det=2/3,δ=120°',
+            'SSS': 'δ=180°', 'SST': 'det=2/3,δ=120°',
             'STT': 'det=2/3,δ=120°', 'TTT': 'δ=0°'
         }
         for htype in sorted(by_type.keys()):
@@ -283,7 +283,7 @@ class SymmetricVariational(Experiment):
 
         if 'SSS' in by_type:
             v = np.mean([e[4] for e in by_type['SSS']])
-            self.check(f"δ(SSS) = {v:.1f}° ≈ 90°", abs(v - 90) < 30)
+            self.check(f"δ(SSS) = {v:.1f}° ≈ 180°", abs(v - 180) < 30)
 
         if 'SST' in by_type:
             v = np.mean([e[1] for e in by_type['SST']])

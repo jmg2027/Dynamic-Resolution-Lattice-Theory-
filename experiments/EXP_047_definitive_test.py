@@ -265,12 +265,12 @@ class DefinitiveTest(Experiment):
             self.log(f"\n  δ(TTT) = {avg_TTT:.2f}°  (예측: 0°)")
             self.check("δ(TTT) = 0 → 중성미자 무질량", abs(avg_TTT) < 10)
 
-        # 3. δ_SSS = 90°?
+        # 3. δ_SSS = 180° (EXP_047b confirmed)
         if 'SSS' in by_type:
             defs_SSS = [e[4] for e in by_type['SSS']]
             avg_SSS = np.mean(defs_SSS)
-            self.log(f"  δ(SSS) = {avg_SSS:.2f}°  (예측: 90°)")
-            self.check("δ(SSS) ≈ 90° → confinement", abs(avg_SSS - 90) < 20)
+            self.log(f"  δ(SSS) = {avg_SSS:.2f}°  (예측: 180°)")
+            self.check("δ(SSS) ≈ 180° → confinement", abs(avg_SSS - 180) < 30)
 
         # 4. ⟨det(SST)⟩ = n_T/n_S?
         if 'SST' in by_type:

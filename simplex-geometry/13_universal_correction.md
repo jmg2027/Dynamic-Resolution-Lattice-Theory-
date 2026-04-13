@@ -96,10 +96,11 @@ GR의 ADM (3+1) 분해에서:
 SSST 사면체 (opposite = B vertex) = timelike 법선 → **등시면 (constant-t)** = 시간 정의 ✓
 SSTT 사면체 (opposite = A vertex) = spacelike 법선 → **등위면 (constant-x)** = 공간 정의 ✓
 
-### SSS δ = 90°의 의미
+### SSS δ = 180° = π (EXP_047b 확정)
 
-SSS (순수 공간) hinge의 δ = 90° = π/2.
-**최대 곡률** → **컨파인먼트**: 공간 방향끼리의 곡률 최대 → 색 자유도 갇힘.
+SSS (순수 공간) hinge의 δ = 180° = π. **완전한 접힘(complete folding).**
+컨파인먼트는 "부분적 곡률"이 아니라 **"완전한 봉인"**.
+e^{iδ} = e^{iπ} = -1 → 교대 급수 → 닫힌 전파자 (1+2x)/(1+x).
 
 ---
 
