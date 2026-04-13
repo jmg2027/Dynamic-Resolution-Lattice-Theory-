@@ -3,7 +3,7 @@ EXP_033b: Webb Dipole vs μ Anti-correlation — Published Data Test
 ================================================================
 
 DRLT prediction #54: Δα_em and Δμ must have OPPOSITE signs
-at the same sky location (ghost sum rule Σδᵢ = 0).
+at the same sky location (trace conservation Σδᵢ = 0).
 
 Method:
 1. Use Webb dipole model (amplitude, direction) to predict Δα/α
@@ -130,7 +130,7 @@ class EXP_033b(Experiment):
         self.log(f"Direction: RA = {DIPOLE_RA_h}h, Dec = {DIPOLE_DEC_deg} deg")
         self.log("")
         self.log("DRLT prediction: Δα and Δμ must have OPPOSITE signs")
-        self.log("(ghost sum rule Σδᵢ = 0 → α_s anti-correlates with α_em)")
+        self.log("(trace conservation Σδᵢ = 0 → α_s anti-correlates with α_em)")
         self.log("(μ = m_p/m_e ∝ Λ_QCD ∝ α_s → μ tracks α_s)")
         self.log("")
 
@@ -207,10 +207,10 @@ class EXP_033b(Experiment):
 
         if n_same > n_anti and n_same > 2:
             self.log("  *** DRLT TENSION: majority same-sign ***")
-            self.log("  Ghost sum rule may be violated.")
+            self.log("  Trace conservation may be violated.")
         elif n_anti > n_same:
             self.log("  DRLT CONSISTENT: anti-correlation tendency observed")
-            self.log("  Ghost sum rule Σδᵢ = 0 is compatible with data.")
+            self.log("  Trace conservation Σδᵢ = 0 is compatible with data.")
         else:
             self.log("  INCONCLUSIVE: data too noisy to distinguish")
             self.log("  Most measurements are consistent with zero.")

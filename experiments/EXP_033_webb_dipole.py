@@ -1,13 +1,13 @@
 """
-EXP_033: Webb Dipole Consistency — Ghost Sum Rule Spatial Test
+EXP_033: Webb Dipole Consistency — Trace Conservation Spatial Test
 ==============================================================
 
 DRLT prediction: α_em varies spatially but α_GUT does not.
-The ghost sum rule Σδᵢ(x) = 0 holds at every spatial location.
+The trace conservation Σδᵢ(x) = 0 holds at every spatial location.
 
 This experiment tests internal consistency:
 1. Given Δα/α ~ 10⁻⁵ (Webb), compute required Δε₀/ε₀
-2. Propagate to all couplings via ghost sum rule
+2. Propagate to all couplings via trace conservation
 3. Verify Σδᵢ = 0 at every simulated sky position
 4. Verify α_s anti-correlates with α_em
 5. Verify α_GUT is spatially invariant
@@ -20,9 +20,9 @@ from experiment import Experiment
 import numpy as np
 
 
-# ── DRLT ghost parameters (from ch05/ch08) ────────────────────
+# ── DRLT det(G_h) sector parameters (from ch05/ch08) ─────────
 
-# Plateau values (zero free parameters)
+# Combinatorial values (zero free parameters)
 ALPHA3_INV_PRED = 8.0        # 1 × 8 × S(1)
 ALPHA2_INV_PRED = 30.0       # 12 × 2 × S(2)
 ALPHA1_INV_PRED = 6 * np.pi**2  # 12 × 3 × S(∞) ≈ 59.22
@@ -32,15 +32,15 @@ ALPHA3_INV_OBS = 8.47
 ALPHA2_INV_OBS = 29.6
 ALPHA1_INV_OBS = 59.0
 
-# Ghost corrections δᵢ = obs - pred
+# det(G_h) contributions Δᵢ = full - combinatorial
 DELTA3 = ALPHA3_INV_OBS - ALPHA3_INV_PRED   # +0.47
 DELTA2 = ALPHA2_INV_OBS - ALPHA2_INV_PRED   # -0.40
 DELTA1 = ALPHA1_INV_OBS - ALPHA1_INV_PRED   # -0.22
 
-# Gravity ghost (from sum rule)
+# Gravity contribution (from trace conservation)
 DELTA_G = -(DELTA3 + DELTA2 + DELTA1)        # +0.15
 
-# Base perturbation
+# Geometric parameter
 EPS0 = 0.0038
 
 # α_em from α₁ and α₂
@@ -58,9 +58,9 @@ class EXP_033(Experiment):
     TITLE = "Webb Dipole Consistency"
 
     def run(self):
-        # ═══ Check 1: Ghost sum rule at our location ═══
+        # ═══ Check 1: Trace conservation at our location ═══
         self.log("=" * 60)
-        self.log("CHECK 1: Ghost sum rule at our location")
+        self.log("CHECK 1: Trace conservation at our location")
         self.log("=" * 60)
         total = DELTA3 + DELTA2 + DELTA1 + DELTA_G
         self.log(f"  delta_3 = {DELTA3:+.3f}")
@@ -68,7 +68,7 @@ class EXP_033(Experiment):
         self.log(f"  delta_1 = {DELTA1:+.3f}")
         self.log(f"  delta_G = {DELTA_G:+.3f}")
         self.log(f"  Sum     = {total:+.6f}  (should be 0)")
-        self.check("ghost sum = 0 at our location", abs(total) < 1e-10)
+        self.check("trace sum = 0 at our location", abs(total) < 1e-10)
 
         # ═══ Check 2: Webb dipole → required Δε₀/ε₀ ═══
         self.log("")
@@ -85,16 +85,16 @@ class EXP_033(Experiment):
 
         self.log(f"  Webb observed: Δα/α = {da_over_a_obs:.1e}")
         self.log(f"  1/α_em here = {alpha_em_inv_here:.2f}")
-        self.log(f"  Ghost sensitivity coeff = {coeff:.4f}")
+        self.log(f"  det(G_h) sensitivity coeff = {coeff:.4f}")
         self.log(f"  Required Δε₀/ε₀ = {f_required:.4e} = {f_required*100:.3f}%")
         self.log(f"  CMB dipole v/c   = 1.23e-3 = 0.123%")
         self.log(f"  Ratio to CMB     = {f_required/1.23e-3:.2f}")
         self.check("required f ~ CMB dipole order", 0.5e-3 < f_required < 5e-3)
 
-        # ═══ Check 3: Spatial ghost sum rule (simulate sky) ═══
+        # ═══ Check 3: Spatial trace conservation (simulate sky) ═══
         self.log("")
         self.log("=" * 60)
-        self.log("CHECK 3: Spatial ghost sum rule across sky")
+        self.log("CHECK 3: Spatial trace conservation across sky")
         self.log("=" * 60)
 
         N_positions = 1000
@@ -115,7 +115,7 @@ class EXP_033(Experiment):
 
         for i in range(N_positions):
             f = f_sky[i]
-            # Ghost corrections vary with local ε₀
+            # det(G_h) contributions vary with local ε₀
             d3 = DELTA3 * (1 + f)
             d2 = DELTA2 * (1 + f)
             d1 = DELTA1 * (1 + f)
@@ -138,7 +138,7 @@ class EXP_033(Experiment):
                                + (12*3)/(1*8) * a1_inv_sky[i])
 
             # μ = m_p/m_e ∝ Λ_QCD/m_e ∝ α_s^something
-            # Λ_QCD ∝ α_GUT^2 × nS (ghost-protected)
+            # Λ_QCD ∝ α_GUT^2 × nS (trace-protected)
             # but α_s = 1/a3_inv varies → μ varies
             # δμ/μ ≈ -2 × δα_s/α_s (from Λ_QCD ∝ exp(-2π/(b₃α_s)))
             alpha_s = 1.0 / a3_inv_sky[i]
@@ -162,7 +162,7 @@ class EXP_033(Experiment):
         self.log(f"  1/α_GUT std  = {agut_std:.2e}")
         self.log(f"  Theory: 25π²/6 = {ALPHA_GUT_INV:.6f}")
         # Note: agut as defined here is a weighted sum, not exactly 25π²/6
-        # because of the ghost structure, but its VARIATION should be zero
+        # because of the det(G_h) structure, but its VARIATION should be zero
         self.log(f"  Relative variation: {agut_std/agut_mean:.2e}")
         self.check("α_GUT relative variation negligible", agut_std/agut_mean < 1e-5)
 
@@ -218,7 +218,7 @@ class EXP_033(Experiment):
         self.log("=" * 60)
         self.log("")
         self.log("  The fine structure constant is not a constant.")
-        self.log("  It is a ghost's shadow, cast differently in different places.")
+        self.log("  It is a det(G_h) shadow, cast differently in different places.")
         self.log(f"  25π²/6 = {ALPHA_GUT_INV:.4f} is the constant of the rank-5 plateau.")
         self.log("  The universe itself has no constants. Only structure.")
         self.log("")
