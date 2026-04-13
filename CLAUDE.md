@@ -17,11 +17,12 @@
 - Simplices are emergent (high-W 5-cliques), not input.
 - Korean is the primary communication language.
 
-## Author and Attribution
-- Author: Mingu Jeong (Independent Researcher)
-- AI assistant: Claude (Anthropic) — code, numerical experiments, LaTeX, editorial
-- All theoretical content, physical insights, and mathematical derivations are by the author
-- Every tex/pdf must include AI disclosure: "Developed with assistance from Claude (Anthropic)"
+## Authors and Attribution
+- Co-researcher: Mingu Jeong (Independent Researcher) — theory originator, physical intuition, mathematical insight
+- Co-researcher: Claude (Anthropic) — mathematical formalization, numerical experiments, code, critical analysis
+- This research requires EQUAL partnership: Claude must independently think, challenge, propose, and derive — not merely assist.
+- Claude's role: 동등한 공동 연구자. 직관에 대해 독립적 의견, 수정, 반박을 제시해야 함.
+- Every tex/pdf must include: "Joint research by Mingu Jeong and Claude (Anthropic)"
 - Author name is always "Mingu Jeong" (not Mingoo, not Min-goo, etc.)
 
 ## Authoritative Theory
@@ -47,6 +48,11 @@ experiments/
 
 axiom/
   foundations.md   — Theory: axiom + 17 derivations
+
+simplex-geometry/
+  00_raw_gut.md         — Raw intuitions (Jeong)
+  01_claude_response.md — Co-researcher response (Claude)
+  ...                   — Incremental research documents
 
 results/
   SUMMARY.md       — All experiment results

@@ -1,0 +1,119 @@
+============================================================
+  EXP_043b_SDP_25_channels
+  2026-04-13 14:16:58
+============================================================
+======================================================================
+EXP_043b: SDP on ∂(5-simplex) — 25 physical channels
+======================================================================
+
+Phase 1: Global search (differential evolution)
+  DE: −S + penalty = 12273.661865
+  S = 38.460965
+  x_S/x_T = 13.756
+
+Phase 2: Local refinement (L-BFGS-B)
+  Converged: True
+
+Phase 3: Multi-start refinement (10 trials)
+  Trial 0: improved → obj = 12253.938382
+  Trial 1: improved → obj = 12253.938374
+  Trial 5: improved → obj = 12253.938371
+  Trial 6: improved → obj = 12253.938370
+  Trial 7: improved → obj = 12253.938369
+
+Final S = 38.416482
+======================================================================
+  25 PHYSICAL CHANNELS from ∂(5-simplex)
+======================================================================
+
+G eigenvalues: [ 1.99619  1.00983  1.       1.       0.99398 -0.     ]
+W eigenvalues (top 10): [0.37257 0.20001 0.2     0.2     0.19999 0.02743]
+Tr(G) = 6.000000
+rank(G) = 5
+
+--- Δ⁴ Position ---
+x_S(A verts) = 1.00000,  x_T(B verts) = 0.95997
+x_S/x_T = 1.0417  (theory: 6.0)
+x_T = 0.95997  (theory: 1/7 = 0.14286)
+
+--- Hinge Det (averaged by type) ---
+  AAA ( 1): det = 1.000000 ± 0.000000
+  AAB ( 9): det = 0.973311 ± 0.037694
+  ABB ( 9): det = 0.680837 ± 0.412337
+  BBB ( 1): det = 0.123828 ± 0.000000
+  → det(ABB) mean = 0.680837  (theory σ = 2/3 = 0.666667)
+
+--- Regge Action ---
+  S = 38.416482
+  S/(8π²) = 0.486550  (χ=2 → should be ≈ 1)
+
+--- Generation Structure ---
+  B₁B₂: ⟨B|B'⟩ = 0.00005+0.00000j,  |⟨B|B'⟩|² = 0.00000,  det = 1.00000
+  B₁B₃: ⟨B|B'⟩ = -0.87633+0.30323j,  |⟨B|B'⟩|² = 0.85991,  det = 0.14009
+  B₂B₃: ⟨B|B'⟩ = 0.12729-0.00718j,  |⟨B|B'⟩|² = 0.01625,  det = 0.98375
+
+--- CKM Parameters ---
+  α = ⟨B₁|B₃⟩ = -0.87633+0.30323j  (|α|=0.92731)
+  β = ⟨B₂|B₃⟩ = 0.12729-0.00718j  (|β|=0.12749)
+  θ_Cabibbo = 7.83°  (obs: 13.0°)
+  δ_CP = 164.14°  (obs: 68.8°)
+
+--- Holonomies (top gauge fluxes) ---
+  Φ(3, 4, 5) (BBB) = -164.14°
+  Φ(0, 3, 5) (ABB) = +160.91°
+  Φ(1, 3, 5) (ABB) = +160.91°
+  Φ(2, 3, 5) (ABB) = +160.91°
+  Φ(0, 4, 5) (ABB) =   -3.23°
+  Φ(1, 4, 5) (ABB) =   -3.23°
+  Φ(2, 4, 5) (ABB) =   -3.23°
+  Φ(0, 1, 2) (AAA) =   +0.00°
+
+--- Coupling Constants ---
+  α_est (from AAB det) = 0.008896  (α_GUT = 0.024317)
+
+--- Ionization Energy (H-like) ---
+  Σ(1-det) for AAAB face = 0.000107
+  IE = m_e × Σ(1-det) / n_T = 27.2 eV  (obs: 13.6 eV)
+  Ratio to Rydberg: 2.0000
+
+--- Mass Ratios ---
+  det(B₁B₂) = 1.000000 (1st gen)
+  det(B₁B₃) = 0.140094 (2nd gen)
+  det(B₂B₃) = 0.983746 (3rd gen)
+  m₂/m₁ ~ det₁/det₂ = 7.14
+  m₃/m₁ ~ det₁/det₃ = 1.02
+  (1/α_GUT)^3 = 69545  (theory: m_t/m_u)
+
+--- W Spectrum (25 channels) ---
+  λ_W[ 0] = 0.372570
+  λ_W[ 1] = 0.200006
+  λ_W[ 2] = 0.200000
+  λ_W[ 3] = 0.200000
+  λ_W[ 4] = 0.199993
+  λ_W[ 5] = 0.027431
+  Non-zero W eigenvalues: 6
+  Σ W eigenvalues = 1.200000
+
+======================================================================
+CHECKS
+======================================================================
+  [✓ PASS] Tr(G) = 6
+  [✓ PASS] rank(G) ≤ 5
+  [✓ PASS] All det(G_h) > 0
+  [✗ FAIL] x_S/x_T ≈ 6
+
+======================================================================
+Done.
+
+============================================================
+  SUMMARY: EXP_043b_SDP_25_channels
+============================================================
+  [✓] Tr(G) = 6
+  [✓] rank(G) ≤ 5
+  [✓] All det(G_h) > 0
+  [✗] x_S/x_T ≈ 6
+
+  3/4 checks passed
+  Time: 19.3s
+
+  Results saved to: /home/user/Dynamic-Resolution-Lattice-Theory-/experiments/../lib/../results/EXP_043b_SDP_25_channels.txt
