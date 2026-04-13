@@ -1,0 +1,109 @@
+======================================================================
+PART 1: MASS FORMULA DERIVATION
+======================================================================
+W_AB = |<A|B>|^2/d = 3.55e-06
+alpha^2/(n_S*d) = 3.55e-06
+Ratio: 1.0000  (should be ~1)
+
+mean det(AAB) = 0.99996450
+1 - det(AAB) = 0.00003550
+2*alpha^2/n_S = 0.00003550
+alpha from det = 0.007297  (true alpha = 0.007297)
+Match: 1.000000
+
+Transmission amplitude per A-B link: sqrt(W_AB) = 1.88e-03
+alpha/sqrt(n_S*d) = 1.88e-03
+
+det(B1,B2) = 1.000000
+det(B1,B3) = 0.500129
+det(B2,B3) = 0.499978
+|<B1|B3>|^2 = 0.499871 = 1/c = 0.5? 0.9997
+
+======================================================================
+PART 2: HESSIAN ANALYSIS (29 -> 25)
+======================================================================
+S at extremum = 36.579934
+Computing 30x30 Hessian...
+
+Hessian eigenvalue spectrum:
+  Negative: 21
+  Zero (|λ|<1e-3): 0
+  Positive: 9
+  Total: 30
+
+Smallest 15 eigenvalues:
+  λ[ 0] = -38.495426
+  λ[ 1] = -33.752492
+  λ[ 2] = -24.527623
+  λ[ 3] = -20.431389
+  λ[ 4] = -20.404024
+  λ[ 5] = -19.504990
+  λ[ 6] = -19.483325
+  λ[ 7] = -13.821416
+  λ[ 8] = -11.200015
+  λ[ 9] = -8.377909
+  λ[10] = -7.492746
+  λ[11] = -7.486249
+  λ[12] = -4.167327
+  λ[13] = -3.708997
+  λ[14] = -3.671346
+
+  Expected zero modes:
+    Normalization: 6
+    Gauge U(5): 25 (but real psi → O(5) = 10)
+    CKM: 4 (if conjecture holds)
+    Total expected: ≥ 10-16
+    Observed near-zero: 0
+
+  Real case: 30 - 6(norm) - 10(O(5)) = 14 physical
+  Complex case: 60 - 6(norm) - 25(U(5)) = 29 physical
+  29 - 25(d^2) = 4 = CKM params
+
+======================================================================
+PART 3: QUARK MASSES
+======================================================================
+Observed quark mass ratios:
+  m_c/m_u = 588
+  m_t/m_u = 79981
+  m_t/m_c = 136.0
+  m_s/m_d = 20.0
+  m_b/m_d = 895
+  m_b/m_s = 44.8
+
+n_S/(n_T * alpha_GUT) = 61.7
+  m_c/m_u = 588  ratio = 9.53
+  m_s/m_d = 20.0  ratio = 0.32
+
+(1/alpha_GUT)^n_S = 69545
+  m_t/m_u = 79981  ratio = 1.150
+  m_b/m_d = 895  ratio = 0.013
+
+Quark mass formula attempt:
+  1st hop (alpha_GUT): 61.7
+  m_c/m_u predicted: 62 vs obs 588
+
+  (1/alpha_GUT)^n_S = 69545
+  × (1+x+x^2) where x=n_T*alpha_GUT = 0.0486
+  = 73092
+  m_t/m_u observed = 79981
+  Ratio: 1.0943
+  With 1+alpha_GUT/4: 73536
+  Ratio: 1.0877
+
+======================================================================
+PART 4: M_Z FROM DELTA-4 POSITION
+======================================================================
+v_H/M_Pl = 2.017e-17
+alpha_GUT^(d/n_T) = 9.221e-05
+alpha_GUT^(n_S) = 1.438e-05
+alpha^(n_S+n_T) = 2.069e-11
+alpha^d = 2.069e-11
+
+alpha^4 = 2.836e-09
+alpha^4 * n_T/n_S = 1.890e-09
+
+v = M_Pl * alpha_GUT^(d/n_T) = 1125793753261263.4 GeV
+Observed: 246.2 GeV
+Ratio: 4572679745171.6631
+M_Z = v*80.4/246.2/cos(theta_W) = 419295447778746.2 GeV
+Observed: 91.1876 GeV
