@@ -117,3 +117,5 @@ Done.
 
   5/5 checks passed
   Time: 521.8s
+
+  Results saved to: /home/user/Dynamic-Resolution-Lattice-Theory-/experiments/../lib/../results/EXP_043_Variational_boundary_5-simplex.txt
