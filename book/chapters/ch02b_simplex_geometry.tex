@@ -134,6 +134,41 @@ The same mathematical object --- $\det(G_h)$ for a triangle of 3 vertices --- op
 
 These are not separate structures. They are the same determinant evaluated at different levels of the simplicial hierarchy.
 
+\subsection{Combinatorial and geometric contributions}
+\label{sec:comb_vs_geom}
+
+The hinge volume $\det(G_h)$ encodes two logically distinct contributions:
+
+\begin{enumerate}
+\item \textbf{Combinatorial contribution:} the number and type of hinges. A simplex has 1 AAA + 6 AAB + 3 ABB = 10 hinges. This counts the \emph{channels} available for interaction. The combinatorial structure depends only on $(n_A, n_B) = (3, 2)$ and is the same for every simplex in every network.
+
+\item \textbf{Geometric contribution:} the actual value of $\det(G_h)$ for each hinge. This depends on the specific $\psi$ vectors at the vertices and varies from hinge to hinge and from simplex to simplex. It \emph{weights} the channels by their area.
+\end{enumerate}
+
+The full hinge content of a sector $i$ is:
+\begin{equation}
+\text{(sector $i$)} = \underbrace{(\text{channel count})_i}_{\text{combinatorial}} \times \underbrace{(\text{geometric weight})_i}_{\det(G_h)\text{-dependent}}.
+\end{equation}
+
+The combinatorial part gives integer channel counts (1, 6, 3). The geometric part gives $\det$-dependent weights that encode the specific state of the network.
+
+\begin{theorem}[Trace conservation]
+\label{thm:trace_conservation}
+For any network with $\operatorname{Tr}(G) = N$ (point democracy: $G_{ii} = 1$ for all $i$), the sum of geometric weights across all sectors is conserved:
+\begin{equation}
+\sum_{\text{sectors}} \Delta_i = 0,
+\end{equation}
+where $\Delta_i$ denotes the geometric contribution to sector $i$ beyond the combinatorial baseline.
+\end{theorem}
+
+\begin{proof}
+The Binet--Cauchy expansion decomposes $\det(G_h)$ into contributions from each sector (Chapter~\ref{ch:couplings}). The total $\det(G_h)$ is fixed by $\operatorname{Tr}(G) = N$ (a property of the Gram matrix with unit diagonal). Redistributing weight among sectors preserves the total: any $\Delta_i > 0$ (absorption) in one sector requires $\Delta_j < 0$ (diffusion) in another, with the sum vanishing identically.
+\end{proof}
+
+\begin{remark}
+This theorem has no physical content --- it is a statement about the algebra of determinants with constrained trace. Its physical significance (that ``errors'' in coupling constants must sum to zero) emerges only after the identification of sectors with forces (Chapter~\ref{ch:geometry}).
+\end{remark}
+
 \subsection{Information flow between simplices}
 
 All information between two adjacent simplices passes through their shared face. The face type determines which hinge types participate:
