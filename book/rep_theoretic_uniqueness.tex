@@ -11,10 +11,16 @@
 
 \begin{document}
 
-\title{The Representation-Theoretic Uniqueness of (2,3):\\Why Physics is Always $\text{SU}(3)\times\text{SU}(2)\times\text{U}(1)$
+\title{The Representation-Theoretic Uniqueness of $(2,3)$:\\
+Why Physics is Always $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$}
 \author{Mingu Jeong\\Independent Researcher}
 \date{April 2026}
 \maketitle
+
+\noindent
+\textbf{MSC 2020:} 22E70 (primary), 81V22, 15B57, 81R05\\
+\textbf{Keywords:} gauge group uniqueness, Standard Model, representation
+theory, grand unification, random matrix theory, division algebras
 
 \begin{abstract}
 We prove two theorems requiring no physical input. First, for any integer $N \geq 5$, the unique decomposition of $\mathbb{C}^N$ into atomic blocks that supports chiral fermions, CP violation, and connected spacetime is $(n_S, n_T) = (3, 2)$, yielding the gauge group $\text{SU}(3)\times\text{SU}(2)\times\text{U}(1)$. This holds regardless of $N$: repeated atomic blocks are rendered physically trivial by swap symmetry, and only one copy each of the atoms $\{2, 3\}$ survives. Second, the coupling constant of this unique structure, $\alpha_\text{GUT} = 6/(25\pi^2)$, is derived independently from three branches of mathematics --- simplex geometry (Binet--Cauchy decomposition), random matrix theory (GUE sine kernel), and number theory (coprimality probability) --- all originating from the algebraic uniqueness of $\mathbb{C}$ among division algebras. Numerical simulations confirm that swap annihilation does not create a spectral gap at rank 5; the distinction between chiral and trivial dimensions is purely representation-theoretic and invisible to spectroscopy. The Standard Model gauge group and its coupling constant are theorems of mathematics, not properties of a particular universe.
@@ -26,7 +32,9 @@ We prove two theorems requiring no physical input. First, for any integer $N \ge
 \section{Introduction}
 %=====================================================================
 
-The Standard Model of particle physics contains 26 free parameters and is built on the gauge group $\text{SU}(3)\times\text{SU}(2)\times\text{U}(1)$. The question ``why this group?'' has motivated decades of research in grand unification, string theory, and mathematical physics.
+The Standard Model of particle physics contains 26 free parameters and is built on the gauge group $\text{SU}(3)\times\text{SU}(2)\times\text{U}(1)$. The question ``why this group?'' has motivated decades of research in
+grand unification \cite{Georgi-Glashow, Pati-Salam}, string theory,
+and mathematical physics.
 
 The DRLT framework proposes that starting from a single axiom --- ``points exist with pairwise relations'' --- the substrate $\mathbb{C}$, the dimension $d = 5$, and all Standard Model parameters can be derived. The present work strengthens the dimensional argument: we show that the conclusion does not depend on $d = 5$ at all. For \emph{any} dimension $N$, the unique physically non-trivial content is $(2, 3)$, and its coupling constant is the mathematical constant $6/(25\pi^2)$.
 
@@ -45,7 +53,10 @@ The DRLT axiom --- ``$N$ points exist with pairwise relations $G_{ij}$ taking va
 \item[\textbf{R4.}] \textbf{Winding} (charge quantization): holonomy admits discrete winding numbers. Requires $\pi_1(\text{phase group}) \cong \mathbb{Z}$.
 \end{enumerate}
 
-By Frobenius, the finite-dimensional associative division algebras over $\mathbb{R}$ are $\{\mathbb{R}, \mathbb{C}, \mathbb{H}\}$ (octonions excluded by non-associativity). $\mathbb{R}$ fails R2 ($\{+1,-1\}$ is discrete). $\mathbb{H}$ fails R3 (non-commutative, determinant ambiguous). $\mathbb{C}$ satisfies all four, with $\pi_1(S^1) = \mathbb{Z}$ (R4).
+By the Frobenius classification \cite{Frobenius, Hurwitz}, the
+finite-dimensional associative division algebras over $\mathbb{R}$ are
+$\{\mathbb{R}, \mathbb{C}, \mathbb{H}\}$ (octonions excluded by
+non-associativity; see \cite{Baez} for a modern treatment). $\mathbb{R}$ fails R2 ($\{+1,-1\}$ is discrete). $\mathbb{H}$ fails R3 (non-commutative, determinant ambiguous). $\mathbb{C}$ satisfies all four, with $\pi_1(S^1) = \mathbb{Z}$ (R4).
 
 \begin{remark}
 $G_{ij} = \langle\psi_i|\psi_j\rangle$ is the unique sesquilinear form on $\mathbb{C}^d$ satisfying R1--R3. Positive semi-definiteness ($\mathbf{c}^\dagger G\,\mathbf{c} = \|\Psi^\dagger\mathbf{c}\|^2 \geq 0$) is a theorem, not an assumption. The Born rule $W = |G|^2/d$ is the unique minimal-degree polynomial $\mathbb{C} \to \mathbb{R}_{\geq 0}$ satisfying real, symmetric, non-negative, and faithful.
@@ -184,14 +195,17 @@ Therefore: $1/\alpha_\text{GUT} = d^2 \times \zeta(2) = 25\pi^2/6$, giving $\alp
 
 \subsection{Path 2: Random matrix theory (GUE)}
 
-$G = \Psi\Psi^\dagger$ with $\Psi \in \mathbb{C}^{N \times d}$ belongs to the GUE ($\beta = 2$), forced by $\mathbb{K} = \mathbb{C}$. The two-point cluster function $Y_2(r) = (\sin(\pi r)/(\pi r))^2$ gives $R_2(r) \approx 2\zeta(2)r^2$ at short distance:
+$G = \Psi\Psi^\dagger$ with $\Psi \in \mathbb{C}^{N \times d}$ belongs
+to the GUE ($\beta = 2$) \cite{Mehta}, forced by
+$\mathbb{K} = \mathbb{C}$. The two-point cluster function $Y_2(r) = (\sin(\pi r)/(\pi r))^2$ gives $R_2(r) \approx 2\zeta(2)r^2$ at short distance:
 \begin{equation}
 \alpha_\text{GUT} = 1/(d^2 \cdot \zeta(2)) = 6/(25\pi^2).
 \end{equation}
 
 \subsection{Path 3: Number theory (coprimality)}
 
-$P(\gcd(a,b) = 1) = 1/\zeta(2) = 6/\pi^2$ (Euler--Ces\`aro). Among $d^2 = 25$ channels, the coprime fraction is $6/\pi^2$:
+$P(\gcd(a,b) = 1) = 1/\zeta(2) = 6/\pi^2$
+(Euler--Ces\`aro; see \cite{Hardy-Wright}, \S18.5). Among $d^2 = 25$ channels, the coprime fraction is $6/\pi^2$:
 \begin{equation}
 \alpha_\text{GUT} = P(\text{coprime})/d^2 = 6/(25\pi^2).
 \end{equation}
@@ -234,11 +248,51 @@ These corrections are the signature of a unified theory: they vanish when gravit
 
 The constants \emph{cannot} be different. $\text{SU}(3)\times\text{SU}(2)\times\text{U}(1)$ is the only non-trivial chiral structure. Its coupling constant $6/(25\pi^2)$ is determined by $\mathbb{C}$. ``Why is there something rather than nothing?'' reduces to: ``Do complex numbers exist?''
 
-\begin{thebibliography}{9}
-\bibitem{DRLT} M.~Jeong, ``A Note on Lattice Geometry in $\mathbb{C}^5$'' (2026).
+\begin{thebibliography}{99}
+
+\bibitem{DRLT} M.~Jeong, ``A Note on Lattice Geometry in
+  $\mathbb{C}^5$,'' preprint (2026).
+
+\bibitem{DRLT-YM} M.~Jeong, ``The Discrete Geometric Origin of the
+  Yang--Mills Mass Gap and the No-Go Theorem for Wightman Axioms,''
+  preprint (2026).
+
+\bibitem{Georgi-Glashow} H.~Georgi and S.~L.~Glashow,
+  ``Unity of All Elementary-Particle Forces,''
+  \emph{Phys.\ Rev.\ Lett.}\ \textbf{32}, 438--441 (1974).
+
+\bibitem{Pati-Salam} J.~C.~Pati and A.~Salam,
+  ``Lepton number as the fourth `color',''
+  \emph{Phys.\ Rev.\ D} \textbf{10}, 275--289 (1974).
+
+\bibitem{Frobenius} F.~G.~Frobenius,
+  ``\"Uber lineare Substitutionen und bilineare Formen,''
+  \emph{J.\ Reine Angew.\ Math.}\ \textbf{84}, 1--63 (1878).
+
+\bibitem{Hurwitz} A.~Hurwitz,
+  ``\"Uber die Composition der quadratischen Formen von beliebig
+  vielen Variablen,'' \emph{Nachr.\ Ges.\ Wiss.\ G\"ottingen},
+  309--316 (1898).
+
+\bibitem{Mehta} M.~L.~Mehta,
+  \emph{Random Matrices}, 3rd ed.\ (Elsevier, Amsterdam, 2004).
+
+\bibitem{Hardy-Wright} G.~H.~Hardy and E.~M.~Wright,
+  \emph{An Introduction to the Theory of Numbers}, 6th ed.\
+  (Oxford University Press, Oxford, 2008).
+
+\bibitem{Weinberg} S.~Weinberg,
+  ``A Model of Leptons,''
+  \emph{Phys.\ Rev.\ Lett.}\ \textbf{19}, 1264--1266 (1967).
+
+\bibitem{Baez} J.~C.~Baez,
+  ``The Octonions,''
+  \emph{Bull.\ Amer.\ Math.\ Soc.}\ \textbf{39}, 145--205 (2002).
+
 \end{thebibliography}
 
 \bigskip
-\noindent\textbf{AI Disclosure.} Developed with assistance from Claude (Anthropic).
+\noindent\textbf{AI Disclosure.} Joint research by Mingu Jeong and
+Claude (Anthropic).
 
 \end{document}

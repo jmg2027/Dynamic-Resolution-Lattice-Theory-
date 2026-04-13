@@ -19,6 +19,11 @@ and the No-Go Theorem for Wightman Axioms}
 \date{April 2026}
 \maketitle
 
+\noindent
+\textbf{MSC 2020:} 81T13 (primary), 83C27, 57Q15, 81V05\\
+\textbf{Keywords:} Yang--Mills mass gap, Regge calculus, simplicial
+complex, color confinement, Wightman axioms, discrete spacetime
+
 \begin{abstract}
 We prove that the Yang--Mills mass gap is a theorem of discrete geometry.
 In the Dynamic Resolution Lattice Theory (DRLT) framework, spacetime is a
@@ -54,11 +59,12 @@ Yang--Mills theory on $\mathbb{R}^4$ has a mass gap $\Delta > 0$.}
 \end{quote}
 
 \noindent
-Lattice QCD provides strong numerical evidence: Monte Carlo simulations
-on finite lattices consistently produce a mass gap, and the result
-survives extrapolation to the continuum limit. But numerical computation
-is not mathematical proof. Decades of effort have produced no
-rigorous proof within the continuum framework.
+Lattice QCD \cite{Wilson, Creutz} provides strong numerical evidence:
+Monte Carlo simulations on finite lattices consistently produce a mass
+gap, and the result survives extrapolation to the continuum limit. But
+numerical computation is not mathematical proof. Decades of effort have
+produced no rigorous proof within the continuum framework of the Wightman
+\cite{Wightman} or Osterwalder--Schrader \cite{OS} axioms.
 
 We present a resolution from a different direction. In the DRLT framework
 \cite{DRLT, DRLT-rep}, spacetime is not a continuum approximated by a
@@ -97,7 +103,8 @@ Section~\ref{sec:discussion} discusses implications.
 
 DRLT begins from one axiom: \emph{$N$ points exist with pairwise
 relations.} The relations take values in an algebra $\mathbb{K}$.
-Four requirements uniquely select $\mathbb{K} = \mathbb{C}$:
+Four requirements uniquely select $\mathbb{K} = \mathbb{C}$
+\cite{Frobenius}:
 
 \begin{enumerate}
 \item[\textbf{R1.}] \textbf{Magnitude} (geometry): $|G_{ij}|$ is
@@ -130,7 +137,8 @@ G \in M_{N \times N}(\mathbb{C}), \qquad
 
 The unique decomposition of $\mathbb{C}^d$ into atomic blocks supporting
 chiral fermions, CP violation, and charge quantization is
-$(n_S, n_T) = (3, 2)$, yielding $d = 5$ \cite{DRLT-rep}. This gives:
+$(n_S, n_T) = (3, 2)$, yielding $d = 5$ \cite{DRLT-rep}
+(cf.\ \cite{Georgi-Glashow} for the original SU(5) GUT). This gives:
 
 \begin{itemize}
 \item Base space: $\mathbb{C}P^4$ (projectivization of
@@ -164,7 +172,7 @@ $\mathbb{C}P^4$. Each 4-simplex $\sigma$ has 5 vertices; each 2-face
 \end{itemize}
 
 \noindent
-The Regge action is:
+The Regge action \cite{Regge} is:
 \begin{equation}
 \boxed{S_R = \sum_{h \in K} A_h\, \delta_h.}
 \label{eq:Regge}
@@ -455,8 +463,9 @@ $\mathrm{SU}(3)$ becomes invisible.
 This is not a technical failure of a particular regularization scheme.
 It is the statement that gauge flux requires a finite area to enclose.
 Shrinking all areas to zero destroys all non-trivial gauge structure.
-The Ambrose--Singer theorem guarantees that trivial holonomies imply
-a flat connection --- there is no Yang--Mills dynamics left.
+The Ambrose--Singer theorem \cite{Ambrose-Singer} guarantees that
+trivial holonomies imply a flat connection --- there is no Yang--Mills
+dynamics left.
 \end{remark}
 
 \begin{theorem}[No-Go]
@@ -593,16 +602,52 @@ It is the recognition that spacetime is a simplicial complex on
 $\mathbb{C}P^4$, that the strong force lives on AAA hinges, and that
 $\binom{3}{3} = 1$ is the entire content of confinement.
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
+
 \bibitem{DRLT} M.~Jeong, ``A Note on Lattice Geometry in
-  $\mathbb{C}^5$'' (2026).
+  $\mathbb{C}^5$,'' preprint (2026).
+
 \bibitem{DRLT-rep} M.~Jeong, ``The Representation-Theoretic Uniqueness
   of $(2,3)$: Why Physics is Always
-  $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$'' (2026).
+  $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$,''
+  preprint (2026).
+
 \bibitem{Clay} A.~Jaffe and E.~Witten, ``Quantum Yang--Mills Theory,''
-  Clay Mathematics Institute Millennium Problem (2000).
+  in \emph{The Millennium Prize Problems} (Clay Mathematics Institute,
+  Cambridge, MA, 2006), pp.~129--152.
+
 \bibitem{Regge} T.~Regge, ``General relativity without coordinates,''
   \emph{Nuovo Cimento} \textbf{19}, 558--571 (1961).
+
+\bibitem{Wilson} K.~G.~Wilson, ``Confinement of quarks,''
+  \emph{Phys.\ Rev.\ D} \textbf{10}, 2445--2459 (1974).
+
+\bibitem{Creutz} M.~Creutz, ``Monte Carlo study of quantized SU(2)
+  gauge theory,'' \emph{Phys.\ Rev.\ D} \textbf{21}, 2308--2315 (1980).
+
+\bibitem{Wightman} A.~S.~Wightman, ``Quantum Field Theory in Terms of
+  Vacuum Expectation Values,'' \emph{Phys.\ Rev.}\ \textbf{101},
+  860--866 (1956).
+
+\bibitem{OS} K.~Osterwalder and R.~Schrader, ``Axioms for Euclidean
+  Green's Functions,'' \emph{Commun.\ Math.\ Phys.}\ \textbf{31},
+  83--112 (1973).
+
+\bibitem{Georgi-Glashow} H.~Georgi and S.~L.~Glashow,
+  ``Unity of All Elementary-Particle Forces,''
+  \emph{Phys.\ Rev.\ Lett.}\ \textbf{32}, 438--441 (1974).
+
+\bibitem{tHooft} G.~'t~Hooft, ``A Planar Diagram Theory for Strong
+  Interactions,'' \emph{Nucl.\ Phys.\ B} \textbf{72}, 461--473 (1974).
+
+\bibitem{Ambrose-Singer} W.~Ambrose and I.~M.~Singer,
+  ``A Theorem on Holonomy,'' \emph{Trans.\ Amer.\ Math.\ Soc.}\
+  \textbf{75}, 428--443 (1953).
+
+\bibitem{Frobenius} F.~G.~Frobenius,
+  ``\"Uber lineare Substitutionen und bilineare Formen,''
+  \emph{J.\ Reine Angew.\ Math.}\ \textbf{84}, 1--63 (1878).
+
 \end{thebibliography}
 
 \bigskip
