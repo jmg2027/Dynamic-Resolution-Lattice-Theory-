@@ -1,238 +1,150 @@
 # CLAUDE.md
 
+## Communication
+- **Korean is the primary communication language.** Respond in Korean unless asked otherwise.
+- Author name is always "Mingu Jeong" (not Mingoo, not Min-goo).
+- Every tex/pdf must include: "Joint research by Mingu Jeong and Claude (Anthropic)"
+
 ## Editing Rules
-- Always edit files in small chunks. Never write an entire large file at once.
-- Use the Edit tool to make incremental changes, not the Write tool for full rewrites.
-- Each edit should be a focused, reviewable unit of change.
-- 실험 실행 후 전체 출력을 `results/EXP_NNN_*.txt`에 반드시 저장할 것. Experiment 클래스가 자동 저장하지만, 스크립트 직접 실행 시에도 출력을 파일로 리다이렉트하거나 tee로 저장.
+- Edit files in small chunks. Never write an entire large file at once.
+- Use Edit tool for incremental changes, not Write for full rewrites.
+- Save experiment output to `results/EXP_NNN_*.txt`.
 
 ## Project: Dynamic Resolution Lattice Theory (DRLT)
-- THE AXIOM: 상호작용하는 존재가 있다. (Things exist with pairwise relations.)
-- C⁵ is not the axiom — it is derived (Frobenius → C, atomic uniqueness → d=5).
-- Deeper: ANY large random matrix naturally stratifies by rank under W-ordering.
-  d=5 is our address in the universal rank cascade, not a fundamental constraint.
-- Everything derived: relations → C → G=⟨ψ|ψ⟩ → W,φ → rank cascade → laws → ħ → QM
-- G is fundamental (complex), W = |G|²/d is real shadow.
-- 1 edge = 1 bit (Holevo bound, derived not postulated).
-- Simplices are emergent (high-W 5-cliques), not input.
-- Korean is the primary communication language.
+- **THE AXIOM:** Things exist with pairwise relations. G_ij = ⟨ψ_i|ψ_j⟩.
+- C⁵ is derived (Frobenius → ℂ, atomic uniqueness → d=5), not the axiom.
+- G is fundamental (complex). W = |G|²/d is the derived real shadow.
+- 1 hinge = 1 bit (Holevo bound, derived). Simplices emerge from high-W cliques.
+- Derivation chain: relations → ℂ → G → W,φ → rank cascade → laws → ħ → QM
 
-## Authors and Attribution
-- Co-researcher: Mingu Jeong (Independent Researcher) — theory originator, physical intuition, mathematical insight
-- Co-researcher: Claude (Anthropic) — mathematical formalization, numerical experiments, code, critical analysis
-- This research requires EQUAL partnership: Claude must independently think, challenge, propose, and derive — not merely assist.
-- Claude's role: 동등한 공동 연구자. 직관에 대해 독립적 의견, 수정, 반박을 제시해야 함.
-- Every tex/pdf must include: "Joint research by Mingu Jeong and Claude (Anthropic)"
-- Author name is always "Mingu Jeong" (not Mingoo, not Min-goo, etc.)
+## Authors
+- Mingu Jeong (Independent Researcher) — theory originator, physical intuition
+- Claude (Anthropic) — mathematical formalization, numerical experiments, code
+- Equal partnership: Claude must independently think, challenge, and derive.
 
-## Authoritative Theory
-- The book in `book/` (main.tex + chapters/) is the authoritative, correct formulation.
-- `axiom/` files are historical drafts — some use older W-based axiom or d=4 as input.
-- When in conflict, the book takes precedence over everything else in the repo.
+## Single Source of Truth
+- **`book/` (main.tex + chapters/) is the ONLY authoritative theory.**
+- When in conflict, the book takes precedence over everything.
+- `research-notes/` = historical drafts (may contain superseded results).
+- `papers/` = standalone copies for journal submission.
 
 ## Repository Structure
 ```
-lib/
-  drlt.py          — Core library: Vertex, Network, evolution, Pachner moves
-  experiment.py    — Experiment base class (auto-save, checks)
-  __init__.py
+book/                          — THE BOOK (single source of truth)
+  main.tex                     — Master (6 Parts, 15 chapters, 5 appendices)
+  drlt_book_single.tex         — Auto-generated single-file version
+  chapters/
+    ch01_whyC.tex              — Part I: Why ℂ (Frobenius)
+    ch02_whyd5.tex             — Part I: Why d=5
+    ch02c_rep_uniqueness.tex   — Part I: (2,3) uniqueness for any N
+    ch02b_simplex_geometry.tex — Part II: Simplex combinatorics
+    ch02d_variational_theorems.tex — Part II: Three theorems (δ=π, det=2/3, c=2)
+    ch03_geometry.tex          — Part III: Gram → metric + gauge
+    ch04_hbar.tex              — Part III: ħ dynamical field
+    ch05_couplings.tex         — Part III: Coupling constants
+    ch06_masses.tex            — Part IV: Fermion masses + closed propagator
+    ch06b_atoms.tex            — Part IV: Atoms, molecules, chemistry
+    ch07_mixing.tex            — Part IV: CKM, PMNS, CP, Higgs, neutrinos
+    ch08_ghosts.tex            — Part V: Trace conservation
+    ch09_cosmology.tex         — Part V: Cosmological predictions
+    ch10_block.tex             — Part V: Block universe
+    ch11_yang_mills.tex        — Part VI: Yang-Mills mass gap
+    ch12_compact_stars.tex     — Part VI: Compact stars
+    ch13_webb_dipole.tex       — Part VI: Webb dipole
+    appendix_path_integral.tex — Path integral on CP⁴
+    appendix_verification.tex  — Numerical verification
+    appendix_qcd.tex           — QCD phenomenology
+    appendix_code.tex          — Core algorithms
+    appendix_hydrogen.tex      — Hydrogen precision
+  figures/
 
-experiments/
-  EXP_001_pipeline.py   — Pipeline verification (9/9 ✓)
-  EXP_002_bounce.py     — Black hole bounce
-  EXP_003_evolution.py  — Time evolution
-  EXP_004_force_1d.py   — 1D force profiles
-  EXP_005_force_4d.py   — 4D lattice 1/r²
-  EXP_006_universe.py   — Self-evolving universe
-  EXP_007_cmb.py        — CMB power spectrum
-
-axiom/
-  foundations.md   — Theory: axiom + 17 derivations
-
-simplex-geometry/
-  00_raw_gut.md         — Raw intuitions (Jeong)
-  01_claude_response.md — Co-researcher response (Claude)
-  ...                   — Incremental research documents
-
-results/
-  SUMMARY.md       — All experiment results
-  EXP_NNN_*.txt    — Auto-saved outputs
+papers/                        — Standalone papers (self-contained .tex)
+research-notes/                — Historical working documents (NOT authoritative)
+  axiom/                       — Original axiom derivations
+  simplex-geometry/            — Research progression (00→18)
+  folded_dim.md                — Folded dimension leaking
+lib/                           — Core Python library (drlt.py, experiment.py)
+experiments/                   — Numerical experiments (EXP_001 ~ EXP_052)
+results/                       — Experiment outputs
 ```
 
-## How to Run
+## Running Experiments
 ```bash
-cd experiments
-python EXP_001_pipeline.py    # run a specific experiment
+cd experiments && python EXP_001_pipeline.py
 ```
-All experiments auto-detect `lib/` via sys.path.
+New experiment: create `EXP_NNN_name.py`, inherit from `lib/experiment.py`, update catalog below.
 
-## How to Add a New Experiment
-1. Create `experiments/EXP_NNN_name.py`
-2. Add at the top:
-   ```python
-   import sys, os
-   sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
-   from drlt import Vertex, Network  # and whatever else you need
-   ```
-3. Optionally inherit from `lib/experiment.py`:
-   ```python
-   from experiment import Experiment
-   class MyExp(Experiment):
-       ID = "008"
-       TITLE = "My experiment"
-       def run(self): ...
-   ```
-4. Update this file's experiment list.
-5. Results auto-save to `results/`.
+## Experiment Catalog (EXP_001 ~ EXP_052)
+Key completed:
+- EXP_001: Pipeline verification (9/9 ✓)
+- EXP_009: Fine structure 1/α=137.064 (0.020% ✓)
+- EXP_025: Baryon asymmetry η_B=6.10e-10 (0.04% ✓)
+- EXP_039: Bond angles CH₄/NH₃/H₂O (exact ✓)
+- EXP_040: Hydrogen E₁=-13.606 eV (exact ✓)
+- EXP_043: Variational ∂(Δ⁵) (5/5 ✓)
+- EXP_046: Hinge-opposite duality 3+1 spacetime (12/12 ✓)
+- EXP_046b: Clean scorecard all masses (17/18 ✓)
+- EXP_047/b: Definitive variational (8/8 ✓)
+- EXP_048: Theorem 3 proof + det(SST) resolved (7/7 ✓)
+- EXP_049: Confined coupling x=-ε/(1+ε), P=1-ε (3/3 ✓)
+- EXP_050: Lepton precision m_μ/m_e 134 ppm (4/4 ✓)
+- EXP_051: Neutrino PMNS structure (3/3 ✓)
+- EXP_052: Folded dimension leaking (7/7 ✓)
+- Next: EXP_053
 
-## Experiment Catalog
-- EXP_001: Pipeline verification (ψ → W → g_μν → curvature)
-- EXP_002: Black hole bounce (collapse → bounce → expansion)
-- EXP_003: Time evolution (local Hamiltonians, spacetime restructuring)
-- EXP_004: 1D force law profiles
-- EXP_005: 4D lattice force law (1/r² convergence)
-- EXP_006: Self-evolving universe (inflation → equilibrium)
-- EXP_007: CMB power spectrum (n_s measurement)
-- EXP_008: Zero-point energy (영점 에너지 유도 및 측정, 7/7 ✓)
-- EXP_009: Fine structure constant (미세구조상수, 6/6 ✓)
-- EXP_010: Galaxy rotation curves (은하 회전 곡선 & 암흑물질, 4/4 ✓)
-- EXP_011: Black hole simulation (블랙홀 생애 시뮬레이션, 5/7)
-- EXP_012: Gravitational waves (중력파 검출, 4/4 ✓)
-- EXP_013: Entanglement & Bell (얽힘/벨 부등식, 1/4 — 얽힘 구조 탐색 중)
-- EXP_014: Particles from geometry (입자=기하학, 5/5 ✓)
-- EXP_015: All physics from C⁵ (전체 물리 법칙 카탈로그, 25/25 ✓)
-- EXP_016: Neutrino mass (중성미자 질량 & 시소 메커니즘, 3/4)
-- EXP_017: Yukawa running (유카와 β 함수 격자 유도, 3/3 ✓)
-- EXP_018: Precision constants (정밀 상수 종합: 세 공식+β+쿼크질량+카르탄+3줄증명, 5/5 ✓)
-- EXP_019: C² mixing (C² 혼합 행렬 → CKM/PMNS 구조, 4/4 ✓)
-- EXP_020: Block universe (블록 우주 정적 대각화, 5/5 ✓)
-- EXP_021: Pachner block (블록 우주에서 Pachner = 유효 N = 줌인, 5/5 ✓)
-- EXP_022: Cosmic history (W 고유값 스펙트럼 = 우주 역사, 5/5 ✓)
-- EXP_023: Cosmic mysteries (우주론 미스테리 8개 재해석, 8/8 ✓)
-- EXP_024: Large-N cosmos (N=10000 스케일링, 허블텐션, 구조형성, 5/5 ✓)
-- EXP_025: Baryon asymmetry (η_B = 0.68/√C(5⁹,3) = 6.10e-10, 관측 일치!, 5/5 ✓)
-- EXP_026: CMB spectrum (W 고유모드 파워 스펙트럼, 피크 7개, n_s<1, 5/5 ✓)
-- EXP_027: Rank 25 (rank(W)=5²=25 정리 증명, 우주=200 bytes, 진행중)
-- EXP_028: 200 bytes (25개 고유값=물리 전체? SU(5)분해+M_H+Λ+τ_p, 5/5 ✓)
-- EXP_029: QCD/sQGP (CP⁴→Δ⁴ 모멘트맵, W/φ분해, C³ 구속/해방/sQGP/점근적자유, 9/9 ✓)
-- EXP_030: Constraint propagation (rank(G)≤5 → 블록우주, tick() 수렴, 25 자유도=SU(5), 7/7 ✓)
-- EXP_031: Simplex spacetime (심플렉스 격자 시공간 모델, 4/5)
-- EXP_032: Compact stars (중성자별/쿼크별 det(G_h) 계층, 6/6 ✓)
-- EXP_033: Webb dipole (det(G_h) 공간변동 정합성, α_s↔α_em 역상관, 7/7 ✓)
-- EXP_033b: Webb vs μ (μ trace-protected 발견, 자기교정, 1/3)
-- EXP_039: Bond angles (CH₄/NH₃/H₂O from n_S=3, 전부 exact, 4/4 ✓)
-- EXP_040: Hydrogen exact (E_n = -m_e α²/(n_T n²), 1/2=1/n_T, 4/4 ✓)
-- EXP_041: Rank cascade (랜덤 행렬 rank 층위 관찰, 2/2 ✓)
-- EXP_042: Regge atoms (정확한 Regge action으로 원자 계산, Phase 1a ✓, 진행중)
-- EXP_043: Variational ∂(5-simplex) (δS/δψ=0, IE=13.606 exact, det(ABB)≈2/3, 5/5 ✓)
-- EXP_043b: SDP 25 channels (det→E bridge, σ=2/3, CP violation=action min)
-- EXP_043c: Propagation impedance (m_μ/m_e=206.80, m_τ/m_μ=16.816)
-- EXP_046: Hinge-opposite duality (3+1 시공간 유도, 1:6:3 곡률 모드, 12/12 ✓)
-- EXP_046b: Clean scorecard (깨끗한 코드 재검증, 17/18 ✓)
-- EXP_047: Definitive test (δS/δψ=0, |⟨B₁|B₃⟩|²=1/2 자동 도출, 8/8 ✓)
-- EXP_047b: Symmetric variational (δ_SSS=180°, w=0.190, θ=45°, 8/8 ✓)
-- ~~EXP_034~038~~: 삭제됨 (ad hoc 에너지 함수, EXP_039~042가 대체)
-- Next: EXP_048
+## Resolved Problems
+- det(SST) vs det(STT): distinct quantities (EXP_048)
+- Confined coupling: x=-ε/(1+ε), Dyson dressing (EXP_049)
+- PMNS structure: B-pair overlap → TBM + α_GUT corrections (EXP_051/052)
+- θ₁₃ prediction: sin²θ₁₃ = α_GUT(1-4α_GUT) = 0.022, 0.2% (was 15%)
 
-## 핸드오프: 이 세션(So112)에서 남은 과제
+## Open Problems
+1. **Lepton mass sub-ppm:** m_μ/m_e = 206.796 (134 ppm); need α_GUT×α_em cross-term
+2. **Neutrino mass ratio:** m_ν₃/m_ν₂ = 283 (seesaw) vs 5.7 (observed); PMNS coupling needed
+3. **w = 0.190 analytic:** A-sector overlap found numerically; need closed-form w = f(α_GUT, d)
+4. **Folded dimension leaking:** C(n_S,2) = n_S ⟺ n_S = 3 identity; rigorous PMNS derivation
 
-### 완료된 것
-- 닫힌 전파자: P(x) = (1+2x)/(1+x), x = α_GUT × f_sector
-- 양성자 질량 0.000%, 하전 fermion 중앙값 0.07%
-- δS/δψ=0 변분: |⟨B₁|B₃⟩|²=1/2, ⟨det(STT)⟩=2/3, δ_TTT=0 자동 도출
-- δ_SSS=π 해석적 증명 (arccos 항등식)
-- ⟨det(STT)⟩=2/3 해석적 증명 (정규화만 사용)
-- |⟨B₁|B₃⟩|²=1/2 대칭 논증 + 수치 극대 확인
-- Confinement의 정량적 구현: x = -(k_A/n_S)αε + (k_B/d)α
-- 중성미자: δ_TTT=0 → m_comb=0, seesaw M_R=6M_Pl/5^12
-
-### 남은 과제 (다음 세션)
-
-#### 1. 정리 3의 완전 해석적 증명
-- d²S/dφ²|_{π/4} < 0을 해석적으로 보이기
-- S(φ)의 explicit formula 필요 (20 hinge의 det×δ를 φ의 함수로)
-- 현재: 수치적으로만 확인 (d²S ≈ -5.9×10⁵)
-
-#### 2. det(SST) = 0.964 ≠ 2/3 문제
-- EXP_047b에서 ⟨det(SST)⟩ = 0.964, 예측 2/3 = 0.667
-- A overlap w=0.19일 때 det(SST) = 1 - 3w² ≈ 0.892 근방
-- w=0이면 det(SST) = 1. 2/3가 되려면 w = 1/√3 ≈ 0.577 필요
-- 하지만 변분 원리가 w=0.19를 선택. 이 불일치의 의미 분석 필요
-
-#### 3. Confined coupling 확정: ε vs α×ε
-- u quark: (1-2ε)/(1-ε)로 1.06% vs α×ε로 9%
-- fermion_mass_report.md는 α×ε 주장 (Q_L net free 논증)
-- SDP로 m_u의 정확한 값을 구해서 확정
-
-#### 4. 렙톤 질량 정밀도 개선 (0.02% → ppm)
-- 현재: m_μ/m_e = 206.80 (0.017%)
-- 실험: 206.7682826 (ppm 수준)
-- 다중 전파자 합성 (자기에너지 × 세대hop × 자기에너지) 필요
-- α_GUT × α_em 크기의 교차항
-
-#### 5. 중성미자 세대 비율 (PMNS)
-- 현재: m_ν₃ ~ 0.01 eV (크기 맞음), m_ν₂/m_ν₃ ≠ 관측
-- 단순 m²/M_R seesaw가 아닌 PMNS 혼합 행렬 구조 필요
-- B-pair overlap 구조에서 PMNS 유도
-
-#### 6. 논문 작성
-- simplex-geometry/fermion_mass_report.md를 기반으로
-- 핵심 결과: 0 free parameter, 양성자 0.000%, 3개 정리
-- 예측: 측정 가능한 양의 정확한 값 정리
-
-### 핵심 파일
-- `simplex-geometry/14b_closed_propagator.md` — 전파자 이론 + 증명
-- `simplex-geometry/16_proofs.md` — 3개 정리
-- `simplex-geometry/fermion_mass_report.md` — 종합 보고서
-- `experiments/EXP_046b_clean_scorecard.py` — 검증된 질량 계산
-- `experiments/EXP_047b_symmetric_variational.py` — 변분 계산
+## Key Precision Results (0 free parameters)
+| Observable | DRLT | Observed | Error |
+|-----------|------|----------|-------|
+| 1/α_em | 137.064 | 137.036 | 0.020% |
+| m_p | 938.27 MeV | 938.27 MeV | 0.000% |
+| m_μ/m_e | 206.80 | 206.768 | 0.02% |
+| m_τ/m_μ | 16.816 | 16.817 | 0.006% |
+| η_B | 6.10×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.04% |
+| Ω_Λ | 0.6850 | 0.685 | 0.07% |
+| θ(H₂O) | 104.52° | 104.52° | 0.00° |
+| δ_CKM | 68.75° | 68.8° | 0.1% |
+| sin²θ₁₃ | 0.022 | 0.022 | 0.2% |
 
 ## Key Library API (lib/drlt.py)
 ```python
-# Fundamental
 Vertex(psi)              # ψ ∈ C⁵
-v.overlap(other)         # G_ij = ⟨ψ_i|ψ_j⟩ (complex) — THE AXIOM
-v.W(other)               # W_ij = |G_ij|²/5 (derived, real shadow)
-v.phase(other)           # arg(G_ij) — gauge connection
-v.ds2(other)             # metric: 1 - 5W
-v.angle(other)           # Fubini-Study angle
-
-# Forces (from G decomposition)
+v.overlap(other)         # G_ij = ⟨ψ_i|ψ_j⟩ (complex)
+v.W(other)               # W_ij = |G_ij|²/5
+v.phase(other)           # arg(G_ij)
+v.ds2(other)             # 1 - 5W (metric)
 v.interaction_decomposition(other)  # → {gravity, weak, strong, em}
 
-# Network — G is fundamental
 Network(n=20)            # N random vertices
-net.G_matrix()           # G_ij = ⟨ψ_i|ψ_j⟩ — THE UNIVERSE (complex)
-net.W_matrix()           # W = |G|²/d (derived, real)
-net.phase_matrix()       # φ_ij = arg(G_ij) (gauge field)
-net.G_spectrum()         # 5 eigenvalues of G (fundamental modes)
-net.G_decompose()        # SVD: ψ = USV† (mode decomposition)
-net.holonomy(i,j,k)      # arg(G_ij G_jk G_ki) (gauge flux)
-Network.recover_psi(G)   # G → ψ recovery (up to U(5) gauge)
-
-# Derived quantities
-net.W_spectrum()         # 25 eigenvalues of W (geometry modes)
-net.find_simplices()     # discover 4-simplices from W
-net.curvature_map()      # deficit angles at hinges
-
-# Zero-point energy (Derivation 14)
-net.local_hamiltonian(i)         # H_i = Σ W_ij|ψ_j⟩⟨ψ_j|
-net.local_energy_spectrum(i)     # eigenvalues of H_i
-net.zero_point_energy(i)         # λ_min(H_i)
-net.total_zero_point_energy()    # Σ_i λ_min(H_i)
-net.zpe_density()                # E_zpe / N
-net.vacuum_fluctuation_variance() # σ²_W (vacuum fluctuations)
-
-# Evolution (tick = natural unit, no dt)
-tick(net)                        # U_i = exp(-iH_i/ħ_eff,i), dt 없음
-net.local_hbar_eff(i)            # ħ_eff = A/(4S), 국소 시간 스케일
-evolve_step(net, dt)             # legacy (arbitrary dt)
-try_pachner_1to5(net)            # add vertex
-try_pachner_5to1(net)            # merge vertices
-big_bounce_initial(6)            # post-bounce initial state
+net.G_matrix()           # Gram matrix (fundamental)
+net.W_matrix()           # W = |G|²/d (derived)
+net.holonomy(i,j,k)      # gauge flux
+tick(net)                # single evolution step
 ```
 
-## Git Rules
-- Commit after each meaningful change with descriptive message.
-- Always push to the designated branch.
-- Never amend commits.
+## Workflow Rules
+
+### Book Edits
+1. All theory lives in `book/chapters/*.tex`.
+2. After edits, regenerate `drlt_book_single.tex`.
+3. Papers in `papers/` are submission copies — update only when submitting.
+
+### Adding Theory
+1. Find target chapter (see book-consolidation skill for map).
+2. Edit that chapter (small incremental edits).
+3. New topic → new chapter `ch{NN}_{name}.tex` + add to `main.tex`.
+
+### Git
+- Commit after each meaningful change.
+- Push to designated branch. Never amend.

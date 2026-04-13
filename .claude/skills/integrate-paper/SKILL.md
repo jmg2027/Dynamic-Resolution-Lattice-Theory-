@@ -1,66 +1,70 @@
 ---
 name: integrate-paper
-description: 루트에 올라온 PDF/TeX 논문 파일을 book/ 디렉토리로 이동하고, 핵심 결과를 책 본문의 적절한 챕터에 통합. "논문 올렸어", "이것도 올렸어", "PDF 올렸어" 등의 요청에 사용.
+description: Move PDF/TeX papers from root to book/ and integrate key results into the appropriate book chapter. Triggered by "논문 올렸어", "이것도 올렸어", "PDF 올렸어", "paper uploaded", etc.
 ---
 
-# DRLT 논문 통합 스킬
+# Paper Integration Skill
 
-루트 디렉토리에 올라온 PDF/TeX 논문 파일을 book/ 디렉토리로 정리하고,
-핵심 내용을 책(book/chapters/)에 통합하는 작업 자동화.
+When a new PDF/TeX paper appears in the repo root, move it to
+`papers/` and integrate its key results into the book.
 
-## 워크플로우
+## Workflow
 
-### 1. 새 파일 감지
+### 1. Detect new files
 ```bash
-git pull origin <current-branch>
-ls *.pdf *.tex 2>/dev/null  # 루트의 새 파일 확인
+ls *.pdf *.tex 2>/dev/null  # check root for new papers
 ```
 
-### 2. 파일 이동
-- `"파일명 with spaces.pdf"` → `book/파일명_underscored.pdf`
-- `"파일명 with spaces.tex"` → `book/파일명_underscored.tex`
-- 공백은 밑줄로 변환
+### 2. Move to papers/
+- `"file name.pdf"` → `papers/file_name.pdf`
+- `"file name.tex"` → `papers/file_name.tex`
+- Replace spaces with underscores
 
-### 3. TeX 내용 분석
-- TeX 파일이 없으면 PDF에서 내용 읽고 TeX 생성
-- TeX 파일이 있으면 읽고 핵심 결과 파악:
-  - 새 예측값 (번호, 공식, 관측값, 오차)
-  - 새 정리/증명
-  - 기존 챕터와의 연결점
+### 3. Analyze content
+Read the paper and identify:
+- New predictions (formula, observed value, error)
+- New theorems/proofs
+- Connection points to existing chapters
 
-### 4. 책 통합 위치 결정
+### 4. Integrate into book
 
-| 내용 유형 | 책 위치 |
-|----------|--------|
-| C의 유일성, 위상 | ch01_whyC.tex |
-| d=5 유도, 원자 차원 | ch02_whyd5.tex |
-| 기하학, 게이지, 힘 개수 | ch03_geometry.tex |
-| ħ, 영점에너지, 정보 | ch04_hbar.tex |
-| 결합상수, Binet-Cauchy | ch05_couplings.tex |
-| 질량, Λ_QCD, 양성자 | ch06_masses.tex |
-| 혼합각, CP, 중성미자 | ch07_mixing.tex |
-| Ghost 합규칙, 오차 분석 | ch08_ghosts.tex |
-| 우주론, 별, 암흑물질 | ch09_cosmology.tex |
-| 블록우주, rank cascade | ch10_block.tex |
-| 경로적분 | appendix_path_integral.tex |
-| 수치 검증 | appendix_verification.tex |
-| QCD, sQGP, KSS | appendix_qcd.tex |
-| 코드 | appendix_code.tex |
+| Content type | Target chapter |
+|-------------|---------------|
+| Why ℂ, topology, phases | `ch01_whyC.tex` |
+| d=5, atomic dimensions | `ch02_whyd5.tex` |
+| (2,3) uniqueness | `ch02c_rep_uniqueness.tex` |
+| Simplex geometry | `ch02b_simplex_geometry.tex` |
+| Variational theorems | `ch02d_variational_theorems.tex` |
+| Gram matrix, metric, gauge | `ch03_geometry.tex` |
+| ħ, Holevo, ZPE | `ch04_hbar.tex` |
+| Coupling constants | `ch05_couplings.tex` |
+| Fermion masses, propagator | `ch06_masses.tex` |
+| Atoms, molecules, angles | `ch06b_atoms.tex` |
+| Mixing, CP, neutrinos | `ch07_mixing.tex` |
+| Trace conservation | `ch08_ghosts.tex` |
+| Cosmology, Ω_Λ, η_B | `ch09_cosmology.tex` |
+| Block universe | `ch10_block.tex` |
+| Yang-Mills mass gap | `ch11_yang_mills.tex` |
+| Compact stars | `ch12_compact_stars.tex` |
+| Webb dipole, α variation | `ch13_webb_dipole.tex` |
 
-### 5. 편집 규칙
-- **청크 단위 편집** — Edit 도구로 작은 단위 삽입
-- **\begin/\end 매칭 검증** 필수
-- **G 기반 공리** 사용 (W 아님, d=4 입력 아님)
-- 기존 내용 삭제하지 않고 **추가만**
-- 교차참조 (`\ref`, `\cite`) 적절히 추가
-- main.tex 참고문헌에 새 문헌 추가 필요시
+### 5. Edit rules
+- **Small chunks only** — use Edit tool, never full rewrite
+- **G-based axiom** (not W-based, not d=4 input)
+- **Add, don't delete** existing content
+- Use book macros: `\CC`, `\RR`, `\CP`, `\agut`, `\nS`, `\nT`
+- Add cross-references (`\ref`, `\cite`) where appropriate
 
-### 6. 커밋 및 푸시
+### 6. Post-integration
 ```bash
-git add <moved files> <modified chapters>
-git commit -m "설명적 메시지"
+# Regenerate single-file version
+cd book && python3 generate_single.py
+# Commit
+git add papers/ book/chapters/*.tex book/drlt_book_single.tex
+git commit -m "Integrate paper: <title>"
 git push -u origin <branch>
 ```
 
-### 7. CLAUDE.md 업데이트 (필요시)
-- 새 실험이 추가되면 실험 카탈로그 갱신
+### 7. Update CLAUDE.md if needed
+- New experiment → update catalog
+- New precision result → update table

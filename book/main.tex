@@ -50,57 +50,76 @@ including $\Omega_\Lambda = 0.6850$.  The theory has zero free parameters.
 \part{Foundation}
 %=====================================================================
 
-% Chapter 1: Why complex numbers
+% Why complex numbers are the unique substrate
 \input{chapters/ch01_whyC}
 
-% Chapter 2: Why dimension 5
+% Why dimension 5 is unique
 \input{chapters/ch02_whyd5}
+
+% Why (2,3) is universal — independent of starting N
+\input{chapters/ch02c_rep_uniqueness}
 
 %=====================================================================
 \part{The Simplex}
 %=====================================================================
 
-% Chapter 3: Geometry of the complex simplex network
+% Pure combinatorial geometry of the 4-simplex network
 \input{chapters/ch02b_simplex_geometry}
+
+% Three rigorous theorems from δS/δψ = 0
+\input{chapters/ch02d_variational_theorems}
 
 %=====================================================================
 \part{Spacetime and Forces}
 %=====================================================================
 
-% Chapter 4: Geometry, gauge, and the shadow theorem
+% Gram matrix → metric + gauge; shadow theorem
 \input{chapters/ch03_geometry}
 
-% Chapter 5: The dynamical Planck constant
+% Holevo bound → ℏ as dynamical field
 \input{chapters/ch04_hbar}
 
-% Chapter 6: Coupling constants from lattice geometry
+% Binet-Cauchy → coupling constants from channel counting
 \input{chapters/ch05_couplings}
 
 %=====================================================================
 \part{Matter}
 %=====================================================================
 
-% Chapter 7: Fermion masses and the closed propagator
+% Fermion masses: impedance + closed propagator (1+2x)/(1+x)
 \input{chapters/ch06_masses}
 
-% Chapter 8: Atoms, molecules, and chemistry
+% Atoms, molecules, bond angles from hinge geometry
 \input{chapters/ch06b_atoms}
 
-% Chapter 9: Mixing, CP violation, and remaining parameters
+% CKM, PMNS, CP violation, Higgs mass, neutrinos
 \input{chapters/ch07_mixing}
 
 %=====================================================================
 \part{Completeness}
 %=====================================================================
 
-% Chapter 10: Topological trace conservation
+% Trace conservation: Σ Δᵢ = 0
 \input{chapters/ch08_ghosts}
 
-% Chapter 11: Cosmological predictions
+% Baryon asymmetry, dark energy, dark matter
 \input{chapters/ch09_cosmology}
 
-% Chapter 12: The block universe
+% Block universe: G encodes everything
 \input{chapters/ch10_block}
+
+%=====================================================================
+\part{Applications}
+%=====================================================================
+
+% Yang-Mills mass gap as theorem of discrete geometry
+\input{chapters/ch11_yang_mills}
+
+% Compact stars: neutron stars, quark stars, C³ safety valve
+\input{chapters/ch12_compact_stars}
+
+% Webb dipole: spatial variation of constants from det(G_h)
+\input{chapters/ch13_webb_dipole}
 
 %=====================================================================
 \appendix
@@ -111,6 +130,7 @@ including $\Omega_\Lambda = 0.6850$.  The theory has zero free parameters.
 \input{chapters/appendix_verification}
 \input{chapters/appendix_qcd}
 \input{chapters/appendix_code}
+\input{chapters/appendix_hydrogen}
 
 \begin{thebibliography}{99}
 \bibitem{Frobenius} F.~G.~Frobenius, ``\"Uber lineare Substitutionen und bilineare Formen,'' J.~Reine Angew.~Math. \textbf{84}, 1--63 (1877).
@@ -127,6 +147,9 @@ including $\Omega_\Lambda = 0.6850$.  The theory has zero free parameters.
 \bibitem{Webb} J.~K.~Webb et al., ``Indications of a Spatial Variation of the Fine Structure Constant,'' Phys.~Rev.~Lett.\ \textbf{107}, 191101 (2011).
 \bibitem{KSS} P.~K.~Kovtun, D.~T.~Son, A.~O.~Starinets, Phys.~Rev.~Lett.\ \textbf{94}, 111601 (2005).
 \bibitem{fulton1993} W.~Fulton, \textit{Introduction to Toric Varieties}, Annals of Mathematics Studies \textbf{131}, Princeton (1993).
+\bibitem{Clay} A.~Jaffe and E.~Witten, ``Quantum Yang--Mills Theory,'' Clay Mathematics Institute Millennium Problem (2000).
+\bibitem{Oppenheimer} J.~R.~Oppenheimer and G.~M.~Volkoff, Phys.~Rev.\ \textbf{55}, 374 (1939).
+\bibitem{TOV} R.~C.~Tolman, Phys.~Rev.\ \textbf{55}, 364 (1939).
 \end{thebibliography}
 
 \bigskip
