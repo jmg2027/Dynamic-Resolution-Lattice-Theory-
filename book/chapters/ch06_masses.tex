@@ -240,9 +240,71 @@ m_e = m_\tau \cdot (\varepsilon\varphi^2)^4 / n_A^2 = 0.49\;\text{MeV} \qquad (\
 
 The distinction between coherent enhancement ($\times n_A$ for the color triplet) and incoherent suppression ($\div n^2$ for singlets) is the standard quantum-mechanical difference, explaining why $m_d > m_u$ despite down being the ``heavier type.''
 
+%---------------------------------------------------------------------
+\subsection{The closed propagator: $(1+2x)/(1+x)$}
+\label{sec:closed_propagator}
+%---------------------------------------------------------------------
+
+The combinatorial formulas above give $\sim 3\%$ median accuracy.  A single closed-form correction --- the \textbf{closed propagator} --- improves all masses to $\sim 0.07\%$ median accuracy.  This is not a perturbative truncation; it is the exact geometric series.
+
+\subsubsection{Derivation from $\delta_\mathrm{SSS} = \pi$}
+
+The SSS deficit angle is exactly $\pi$ (Theorem~\ref{thm:delta_SSS}, Chapter~\ref{ch:variational_theorems}).  The Regge holonomy around a single SSS loop gives the phase factor:
+\begin{equation}
+e^{i\delta_\mathrm{SSS}} = e^{i\pi} = -1.
+\end{equation}
+Each self-energy insertion picks up one factor of $x \equiv \agut \times f_\mathrm{sector}$, and the holonomy provides the alternating sign.  The geometric self-energy series:
+\begin{equation}
+\Sigma = x \cdot 1 + x^2 \cdot (-1) + x^3 \cdot (+1) + \cdots = \frac{x}{1 + x}.
+\end{equation}
+The full propagator (Dyson resummation):
+\begin{equation}
+\label{eq:closed_propagator}
+\boxed{P(x) = 1 + \Sigma = \frac{1 + 2x}{1 + x}.}
+\end{equation}
+This is the closed sum of the alternating geometric series $1 + x - x^2 + x^3 - \cdots$, convergent for $|x| < 1$ (always satisfied since $\agut \approx 0.024$).
+
+\subsubsection{Sector factors}
+
+The parameter $x = \agut \times f_\mathrm{sector}$ depends on how many simplex vertices participate:
+\begin{equation}
+f_\mathrm{sector} = \frac{k}{d}, \qquad k = \text{number of selected vertices.}
+\end{equation}
+\begin{center}
+\begin{tabular}{lcccl}
+\hline
+Particle & $k$ & $f$ & $x$ & Interpretation \\
+\hline
+$e$, $\nu$ (1-vertex) & 1 & $1/5$ & $\agut/5$ & Single vertex pattern \\
+$e$ ($\CC^2$) & 2 & $2/5$ & $2\agut/5$ & Temporal doublet \\
+$p$ ($\CC^3$) & 3 & $3/5$ & $3\agut/5$ & Spatial triplet (proton) \\
+\hline
+\end{tabular}
+\end{center}
+
+For \emph{confined} particles (u quark, bound inside the AAA hinge), the propagator inverts:
+\begin{equation}
+P_\mathrm{conf}(\varepsilon) = \frac{1 - 2\varepsilon}{1 - \varepsilon}, \qquad \varepsilon = \alpha^{2/3}(1+\alpha),
+\end{equation}
+obtained from $P(x)$ by the substitution $\alpha \to -\varepsilon$, $k \to d$ (the entire simplex is the confinement cage).  This explains $m_u < m_d$: stronger confinement $\Rightarrow$ larger correction $\Rightarrow$ more mass reduction.
+
+\subsubsection{Proton mass: 0.000\% error}
+
+The proton ($n_A = 3$ quarks, $k = 3$):
+\begin{align}
+x &= \agut \times \frac{n_A}{d} = \frac{6}{25\pi^2} \times \frac{3}{5} = 0.01459, \\
+P(x) &= \frac{1 + 2(0.01459)}{1 + 0.01459} = \frac{1.02918}{1.01459} = 1.01438, \\
+m_p &= 924.97\;\text{MeV} \times 1.01438 = 938.27\;\text{MeV}.
+\end{align}
+Observed: $938.27\;\text{MeV}$.  Error: $\mathbf{0.000\%}$.
+
+\begin{remark}[Renormalization is automatic]
+In continuum QFT, the Dyson series diverges and requires renormalization (manual subtraction of infinities).  On the simplex lattice, $|x| \ll 1$ guarantees convergence, and the closed form $(1+2x)/(1+x)$ is UV-finite by construction.  The ``renormalization group'' is replaced by a single fraction.
+\end{remark}
+
 \subsection{Complete mass table}
 
-The combinatorial formulas (Sections above) give median accuracy $\sim 3\%$.  Including the $\det(G_h)$ geometric contributions (Chapter~\ref{ch:ghosts}) with the universal correction pattern $\text{Leading} \times (1 + \alpha_\mathrm{GUT} \times f_\mathrm{sector})$, all masses improve to $< 0.2\%$:
+Applying the closed propagator to all fermion masses:
 
 \begin{center}
 \begin{tabular}{lccccl}
@@ -288,13 +350,11 @@ The standard dimensional transmutation formula $\Lambda = M_\text{GUT}\,e^{-2\pi
 
 \subsection{The proton mass}
 
-A proton consists of $n_A = 3$ valence quarks, each contributing $\Lambda_\text{QCD}$ of binding energy. The combinatorial contribution is $3\Lambda_\text{QCD} = 924\;\text{MeV}$. The full topological mass includes the $\det(G_h)$ contribution from the AAA hinge self-interaction:
+A proton consists of $n_A = 3$ valence quarks, each contributing $\Lambda_\text{QCD}$ of binding energy. The combinatorial contribution is $3\Lambda_\text{QCD} = 924.97\;\text{MeV}$. Applying the closed propagator (Section~\ref{sec:closed_propagator}) with $k = n_A = 3$:
 \begin{equation}
-\boxed{m_p = n_A^2 \times \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times \left(1 + \alpha_\text{GUT}\,\frac{n_A}{d}\right) = 937.5\;\text{MeV}.}
+\boxed{m_p = n_A \,\Lambda_\text{QCD} \times \frac{1 + 2\agut\,n_A/d}{1 + \agut\,n_A/d} = 924.97 \times 1.01438 = 938.27\;\text{MeV}.}
 \end{equation}
-Observed: $938.3\;\text{MeV}$ (0.08\%).
-
-The geometric factor $(1 + \alpha_\text{GUT}\,n_A/d) = 1 + 0.0243 \times 3/5 = 1.0146$: one power of $\alpha_\text{GUT}$ for the $\det(G_h)$ self-coupling of the AAA hinge, and $n_A/d = 3/5$ for the spatial fraction of the simplex. This is the same $\alpha_\text{GUT}$ that appears in the baryon asymmetry ($\times(1+\alpha)$) and the water angle ($+0.04^\circ$) --- the universal $\det(G_h)$ contribution at the scale of each calculation.
+Observed: $938.27\;\text{MeV}$ (\textbf{0.000\%} error). The closed propagator replaces the first-order approximation $(1 + \agut\,n_A/d)$ with the exact Dyson resummation, improving from 0.08\% to exact agreement.
 
 \begin{center}
 \begin{tabular}{lccl}
@@ -302,14 +362,14 @@ The geometric factor $(1 + \alpha_\text{GUT}\,n_A/d) = 1 + 0.0243 \times 3/5 = 1
 Quantity & DRLT & Observed & Error \\
 \hline
 $\Lambda_\text{QCD}$ & 308 MeV & 200--340 MeV & in range \\
-$m_p$ (combinatorial) & 924 MeV & 938.3 MeV & 1.5\% \\
-$m_p$ (full topology) & 937.5 MeV & 938.3 MeV & 0.08\% \\
+$m_p$ (combinatorial) & 925 MeV & 938.27 MeV & 1.4\% \\
+$m_p$ (closed propagator) & 938.27 MeV & 938.27 MeV & \textbf{0.000\%} \\
 \hline
 \end{tabular}
 \end{center}
 
 \begin{remark}
-The proton mass is $\sim 100\times$ the sum of its valence quark masses ($m_u + m_u + m_d \approx 9\;\text{MeV}$). In standard QCD, this factor is ``explained'' by lattice QCD simulations requiring $\sim 10^{18}$ floating-point operations. In DRLT, it is $n_A^2 \times \alpha_\text{GUT}^2 \times (1 + \alpha_\text{GUT}\,n_A/d)$: five numbers, all derived from $d = 5$.
+The proton mass is $\sim 100\times$ the sum of its valence quark masses ($m_u + m_u + m_d \approx 9\;\text{MeV}$). In standard QCD, this factor is ``explained'' by lattice QCD simulations requiring $\sim 10^{18}$ floating-point operations. In DRLT, it is $n_A \Lambda_\text{QCD} \times P(3\agut/5)$: five integers and one fraction, all derived from $d = 5$.
 \end{remark}
 
 \subsection{Neutron-proton mass difference}
