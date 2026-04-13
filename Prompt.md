@@ -167,7 +167,7 @@ The screening coefficient σ = det(ABB) / det(AAB):
 
 1. **Chapter 1 (Why ℂ)**: No changes needed.
 1. **Chapter 2 (Why d=5)**: No changes needed. The swap annihilation argument is purely algebraic.
-1. **Chapter 8 (Ghost Sum Rule)**: Correct. The 0⁺ eigenvalues and Tr(G) = N conservation are exact.
+1. **Chapter 8 (Topological Trace Conservation)**: Correct. The 0⁺ eigenvalues and Tr(G) = N conservation are exact. Reframed: det(G_h) contributions are topology, not corrections.
 1. **Chapter 9 (Cosmology)**: Correct.
 1. **Chapter 10 (Block Universe)**: Correct.
 1. **Appendix (QCD from ℂ³)**: Correct. Confinement as ℂ³ saturation is consistent with the AAA triangle closure.
