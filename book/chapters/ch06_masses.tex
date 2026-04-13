@@ -17,6 +17,73 @@ Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_A
 \end{equation}
 This is a standard result of random matrix theory. The overlap is $|\langle\psi|\psi'\rangle|^2$ (already squared, hence not $1/\sqrt{d}$), and the average is over unit vectors (already normalized, hence not $1/d^2$). The 25 modes are independent, so the total suppression is $(1/d)^{d^2} = 1/d^{d^2}$.
 
+%---------------------------------------------------------------------
+\subsection{Three generations from $\partial(\Delta^5)$}
+\label{sec:three_gen}
+%---------------------------------------------------------------------
+
+The combinatorial structure of $\partial(\Delta^5)$ (Chapter~\ref{ch:simplex_geometry}, Section~\ref{sec:boundary_5simplex}) provides an independent derivation of the generation number.
+
+\begin{theorem}[Generation counting from minimal closure]
+\label{thm:gen_count}
+The number of fermion generations is
+\begin{equation}
+N_\mathrm{gen} = \binom{n_B}{n_B - 1} = \binom{3}{2} = 3.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+In $\partial(\Delta^5)$, the three nuclear simplices ($3S + 2T$) each share the full A-triple $\{A_1, A_2, A_3\}$ and contain 2 out of 3 B-vertices. The number of ways to choose 2 from 3 is $\binom{3}{2} = 3$.  Each nuclear simplex has identical $(3,2)$ structure, hence identical fermion content (Theorem~\ref{thm:15}).
+\end{proof}
+
+The derivation chain is purely combinatorial:
+\begin{equation}
+\text{minimal closed $4$-manifold} \;\to\; 6V \;\to\; (3{+}3) \;\to\; \tbinom{3}{2} = 3 \text{ generations}.
+\end{equation}
+
+Each generation is distinguished by its B-pair and associated Gram determinant (Section~\ref{sec:B3_dependence}).  The parameters $\theta$ and $\delta$ of the $B_3$ dependence are determined by the variational principle (Chapter~\ref{ch:block}).
+
+%---------------------------------------------------------------------
+\subsection{Mass as propagation impedance}
+\label{sec:mass_impedance}
+%---------------------------------------------------------------------
+
+Ionization energy (Chapter~\ref{ch:atoms}) is a \emph{local} observable: the energy cost of removing one vertex from a simplex.  Mass, by contrast, is a \emph{global} observable: the resistance a fermion pattern encounters when propagating through the simplex network.
+
+\subsubsection{Lepton mass ratios}
+
+The cost of crossing one generation boundary through an AAAB face is set by the spatial hinge count $n_A$, the temporal efficiency $n_B$, and the electromagnetic coupling $\alpha$:
+\begin{equation}
+\label{eq:mu_e}
+\boxed{\frac{m_\mu}{m_e} = \frac{n_A}{n_B\,\alpha}\left(1 + \frac{\alpha_\mathrm{GUT}}{n_A + 1}\right) = \frac{3}{2\alpha}\left(1 + \frac{\alpha_\mathrm{GUT}}{4}\right) = 206.80.}
+\end{equation}
+Observed: $206.768$ ($0.02\%$).  The ingredients $W_{AB} = \alpha^2/(n_A d)$ and $|\langle B|B_3\rangle|^2 = 1/c = 1/n_B$ have been verified numerically to 6 and 4 digits respectively (Appendix~\ref{app:verification}).  A complete algebraic derivation connecting these ingredients to the impedance formula is in progress; the mathematical structure suggests that a closed-form proof is achievable.
+
+For the second generation boundary, the impedance involves $B_3$'s linear dependence ($|\langle B|B_3\rangle|^2 = 1/c$, from the variational extremum):
+\begin{equation}
+\label{eq:tau_mu}
+\boxed{\frac{m_\tau}{m_\mu} = c^{n_A}\cdot n_B \cdot \left(1 + x + x^2\right) = 16.816, \qquad x = n_B\,\alpha_\mathrm{GUT}.}
+\end{equation}
+Observed: $16.817$ ($0.006\%$).
+
+Combined:
+\begin{equation}
+\label{eq:tau_e}
+\frac{m_\tau}{m_e} = 206.80 \times 16.816 = 3477.6.
+\end{equation}
+Observed: $3477.2$ ($0.01\%$).  Both formulas use zero free parameters.
+
+\begin{remark}[Two hops, two physics]
+The first hop ($e \to \mu$) involves $\alpha$ (electromagnetic, long-range): the impedance is the cost of crossing $n_A$ spatial hinges at coupling $\alpha$.  The second hop ($\mu \to \tau$) involves $c = n_B$ (lattice geometry): the impedance is the geometric attenuation from $B_3$'s linear dependence.  The universal correction $\alpha_\mathrm{GUT} \times (\text{sector ratio})$ appears in both.
+\end{remark}
+
+%---------------------------------------------------------------------
+\subsection{Generations as simplex dimension (alternative view)}
+\label{sec:gen_alt}
+%---------------------------------------------------------------------
+
+An independent perspective on generations uses the simplex dimension $k$:
+
 \subsection{Generations as simplex dimension}
 
 A fermion is a perturbation of the vacuum in the spatial sector $\mathbb{C}^3 \subset \mathbb{C}^5$. The perturbation excites $k$ of the $n_A = 3$ spatial vertices:
