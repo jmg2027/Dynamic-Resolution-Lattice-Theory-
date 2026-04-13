@@ -15,7 +15,7 @@
 \newtheorem{example}[theorem]{Example}
 
 \title{A Note on Lattice Geometry in $\mathbb{C}^5$}
-\author{Mingoo Jeong\\Independent Researcher}
+\author{Mingu Jeong\\Independent Researcher}
 \date{\today}
 
 \begin{document}
@@ -434,6 +434,272 @@ $N$ & Any & $\to \mathbf{5}$ & Universal attractor \\
 
 
 %=====================================================================
+\part{The Simplex Network}
+%=====================================================================
+
+%=====================================================================
+\section{Geometry of the Complex Simplex Network}
+\label{ch:simplex_geometry}
+%=====================================================================
+
+This chapter develops the geometry of the simplex network using only combinatorial and algebraic structures. No physical terminology is used. Physical identifications (which vertex type is ``spatial,'' which force is ``strong,'' etc.) are deferred to Chapter~\ref{ch:geometry}.
+
+\subsection{The simplex}
+
+A 4-simplex $\sigma$ has 5 vertices. Each vertex carries one complex number. The state of a simplex is
+\begin{equation}
+z = (z_0, z_1, z_2, z_3, z_4) \in \mathbb{C}^5.
+\end{equation}
+After projectivization ($z \sim \lambda z$ for $\lambda \in \mathbb{C}^*$), this is a point in $\mathbb{CP}^4$.
+
+\subsection{The network}
+
+$N$ such simplices form a fully connected weighted network. The state of the network is an $N \times 5$ matrix $\Psi$, where row $i$ is the $\mathbb{C}^5$ vector of simplex $i$. The Gram matrix
+\begin{equation}
+G_{ij} = \langle\psi_i|\psi_j\rangle = \sum_{k=0}^{4} \bar{z}_{i,k}\, z_{j,k}
+\end{equation}
+is $N \times N$, Hermitian, positive semidefinite, and has $\text{rank}(G) \leq 5$.
+
+Eigenvalue decomposition of $G$ yields at most 5 significant eigenvalues. The remaining $N - 5$ eigenvalues are $0^+$ (ghosts) or exactly 0. The effective dimension of the network is 5.
+
+\subsection{The (3,2) vertex labeling}
+
+Label 3 vertices as \textbf{A-type} and 2 as \textbf{B-type}: $(A_1, A_2, A_3, B_1, B_2)$. This labeling is the unique non-trivial atomic decomposition of $d = 5$, proven in Chapter~\ref{ch:whyd5}: the only pair of non-repeating (atomic) dimensions summing to 5 is $(3, 2)$.
+
+\begin{definition}[Notation]
+Throughout this chapter: $n_A = 3$, $n_B = 2$, $d = n_A + n_B = 5$.
+\end{definition}
+
+\subsection{Faces}
+
+A \textbf{face} of the simplex is a subset of 4 vertices (a tetrahedron). Two simplices are \emph{adjacent} when they share a face: 4 vertices in common, 1 different.
+
+Each simplex has $\binom{5}{4} = 5$ faces. With the $(3,2)$ labeling, there are exactly two face types:
+
+\begin{center}
+\begin{tabular}{clccl}
+\hline
+Type & Composition & Count & Changed vertex & Neighbor direction \\
+\hline
+AAAB & $\{A_1, A_2, A_3, B_j\}$ & $\binom{3}{3}\binom{2}{1} = 2$ & a B vertex & B-direction \\
+AABB & $\{A_i, A_j, B_1, B_2\}$ & $\binom{3}{2}\binom{2}{2} = 3$ & an A vertex & A-direction \\
+\hline
+\multicolumn{2}{r}{Total} & 5 & & \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{theorem}[Neighbor structure]
+A simplex has 2 B-direction neighbors and 3 A-direction neighbors. The adjacency structure is $2 + 3 = 5$.
+\end{theorem}
+
+\begin{remark}
+The numbers 2 and 3 are not chosen but derived: they are the dimensions of the only non-trivial atomic pair summing to 5.
+\end{remark}
+
+\subsection{Hinges}
+
+\subsubsection{Definition}
+
+Curvature in a simplicial complex lives at codimension-2 surfaces. In 4 dimensions, codimension-2 = dimension 2 = \textbf{triangle}. A triangle formed by 3 vertices of the simplex is called a \textbf{hinge}.
+
+The hinge area is
+\begin{equation}
+A_h = \sqrt{\det(G_h)},
+\end{equation}
+where $G_h$ is the $3 \times 3$ Gram sub-matrix of the 3 hinge vertices.
+
+\begin{theorem}[1 hinge = 1 bit]
+\label{thm:hinge_bit}
+Each hinge carries exactly 1 bit of geometric information: $\det(G_h) > 0$ (non-degenerate, ``exists'') or $\det(G_h) = 0$ (degenerate).
+\end{theorem}
+
+\subsubsection{Hinges per simplex}
+
+A simplex has $\binom{5}{3} = 10$ hinges. With the $(3,2)$ labeling:
+
+\begin{center}
+\begin{tabular}{clc}
+\hline
+Type & Vertices & Count \\
+\hline
+AAA & 3 A-vertices & $\binom{3}{3}\binom{2}{0} = 1$ \\
+AAB & 2 A + 1 B & $\binom{3}{2}\binom{2}{1} = 6$ \\
+ABB & 1 A + 2 B & $\binom{3}{1}\binom{2}{2} = 3$ \\
+BBB & 3 B-vertices & $\binom{2}{3} = 0$ \\
+\hline
+\multicolumn{2}{r}{Total} & 10 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{theorem}[BBB impossibility]
+\label{thm:bbb}
+The BBB hinge does not exist: $\binom{n_B}{3} = \binom{2}{3} = 0$. There are only $n_B = 2$ B-vertices, but a triangle requires 3.
+\end{theorem}
+
+\subsubsection{Hinges per face}
+
+Each face (4 vertices) contains $\binom{4}{3} = 4$ hinges. The hinge content depends on face type:
+
+\begin{center}
+\begin{tabular}{ccccc}
+\hline
+Face type & AAA & AAB & ABB & Total \\
+\hline
+AAAB & 1 & 3 & 0 & 4 \\
+AABB & 0 & 2 & 2 & 4 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{theorem}[Hinge-face duality]
+\label{thm:hinge_face}
+Each of the 10 hinges belongs to exactly 2 of the 5 faces: $5 \times 4 / 2 = 10$.
+\end{theorem}
+
+\begin{corollary}[Information content]
+1 hinge = 1 bit. 1 face = 4 bits. 1 simplex surface = 10 bits.
+\end{corollary}
+
+\subsection{Two scales of the determinant}
+
+The same mathematical object --- $\det(G_h)$ for a triangle of 3 vertices --- operates at two scales:
+
+\begin{enumerate}
+\item \textbf{Network scale} (between simplices): the deficit angle $\delta_h = 2\pi - \sum\theta$ around a hinge shared by adjacent simplices. This measures curvature of the network.
+\item \textbf{Internal scale} (within one simplex): the 10 hinges of a single simplex encode the internal structure. The AAA hinge, the 6 AAB hinges, and the 3 ABB hinges carry different geometric content.
+\end{enumerate}
+
+These are not separate structures. They are the same determinant evaluated at different levels of the simplicial hierarchy.
+
+\subsection{Information flow between simplices}
+
+All information between two adjacent simplices passes through their shared face. The face type determines which hinge types participate:
+
+\begin{itemize}
+\item Through an AAAB face: AAA $\times$ 1 + AAB $\times$ 3 = 4 bits. The AAA hinge participates.
+\item Through an AABB face: AAB $\times$ 2 + ABB $\times$ 2 = 4 bits. No AAA hinge.
+\end{itemize}
+
+There is exactly one channel (the face) connecting adjacent simplices. All signals --- regardless of hinge type --- propagate through this single channel at the same rate. The ratio of B-direction to A-direction lattice densities is
+\begin{equation}
+c = \frac{n_B / d_B}{n_A / d_A} = \frac{2/1}{3/3} = 2,
+\label{eq:c_geometric}
+\end{equation}
+where $d_A = n_A - (n_A - 1) = 1$ and $d_B = n_B - (n_B - 1) = 1$ are the respective codimensions within each sector. (The physical identification of $c$ with the speed of light is made in Chapter~\ref{ch:geometry}.)
+
+\subsection{Vertex selection patterns}
+\label{sec:fermion_combinatorics}
+
+A \textbf{vertex selection} is a subset of the simplex's 5 vertices. Two types of selections are distinguished by their antisymmetry properties.
+
+\subsubsection{1-vertex selections: the $\bar{5}$ pattern}
+
+Selecting 1 vertex from 5: $\binom{5}{1} = 5$ patterns.
+
+Each selected vertex participates in $\binom{4}{2} = 6$ of the 10 hinges (those containing the selected vertex). The hinge composition of each selection --- its \textbf{fingerprint} --- depends on the vertex type:
+
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+Selected & AAA & AAB & ABB & Total hinges & Count \\
+\hline
+A vertex & 1 & 4 & 1 & 6 & 3 \\
+B vertex & 0 & 3 & 3 & 6 & 2 \\
+\hline
+\multicolumn{5}{r}{Total selections} & 5 \\
+\hline
+\end{tabular}
+\end{center}
+
+An A-type selection participates in the AAA hinge. A B-type selection does not.
+
+\subsubsection{2-vertex selections: the $10$ pattern}
+
+Selecting 2 vertices from 5: $\binom{5}{2} = 10$ patterns, antisymmetric under exchange ($\{v_i, v_j\} = -\{v_j, v_i\}$).
+
+\begin{center}
+\begin{tabular}{ccccc}
+\hline
+Pair type & Hinge fingerprint & Count & Involves AAA? \\
+\hline
+AA & AAA $\times$ 1 + AAB $\times$ 2 & $\binom{3}{2} = 3$ & Yes \\
+AB & AAB $\times$ 2 + ABB $\times$ 1 & $3 \times 2 = 6$ & No \\
+BB & ABB $\times$ 3 & $\binom{2}{2} = 1$ & No \\
+\hline
+\multicolumn{3}{r}{Total} & 10 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Total: 15 antisymmetric patterns}
+
+\begin{theorem}[Vertex selection count]
+\label{thm:15}
+The total number of antisymmetric vertex selections is
+\begin{equation}
+\binom{5}{1} + \binom{5}{2} = 5 + 10 = 15.
+\end{equation}
+\end{theorem}
+
+The 1-vertex selection is odd-dimensional (a point) and inherits antisymmetric exchange statistics. The 2-vertex selection is antisymmetric by construction. The symmetric structures (edges, i.e., inner products $G_{ij}$) carry $\binom{5}{2} = 10$ symmetric patterns.
+
+(The physical identification of these 15 antisymmetric patterns with the 15 Weyl fermions of one Standard Model generation, and the 10 symmetric patterns with gauge bosons, is made in Chapter~\ref{ch:geometry}.)
+
+\subsection{The AAA closure condition}
+\label{sec:confinement_geometry}
+
+\begin{theorem}[AAA triangle closure]
+\label{thm:aaa_closure}
+The AAA hinge has 3 A-vertices. For $\det(G_{\text{AAA}}) > 0$, all 3 must be present. Removing any one vertex collapses the triangle: $\det \to 0$, destroying 1 bit of information.
+\end{theorem}
+
+\begin{proof}
+A $3 \times 3$ Gram matrix of rank $\leq 2$ has $\det = 0$. Removing 1 of 3 vertices reduces the triangle to a line segment ($2 \times 2$ sub-matrix embedded in the original space), which has $\det_3 = 0$.
+\end{proof}
+
+\begin{corollary}
+A-type vertices selected from the $\bar{5}$ and $10$ patterns that involve the AAA hinge are bound in triples. They cannot be isolated without destroying geometric information.
+\end{corollary}
+
+\begin{theorem}[BBB non-existence]
+There is no analogous closure condition for B-type vertices: the BBB triangle does not exist ($\binom{2}{3} = 0$). B-type selections are free.
+\end{theorem}
+
+\begin{remark}
+The number 3 (vertices of a triangle) equals $n_A$. This is not a coincidence: triangles are the codimension-2 objects in a space whose dimension is determined by the atomic pair $(n_A, n_B) = (3, 2)$.
+\end{remark}
+
+\subsection{Summary of geometric data}
+
+\begin{center}
+\begin{tabular}{rl}
+\hline
+Quantity & Value \\
+\hline
+Vertices per simplex & 5 \\
+A-vertices & 3 \\
+B-vertices & 2 \\
+Faces per simplex & 5 (= 2 AAAB + 3 AABB) \\
+Hinges per simplex & 10 (= 1 AAA + 6 AAB + 3 ABB) \\
+Hinges per face & 4 \\
+Faces per hinge & 2 \\
+Bits per hinge & 1 \\
+Bits per face & 4 \\
+Bits per simplex & 10 \\
+Antisymmetric selections & 15 (= 5 + 10) \\
+Symmetric selections (edges) & 10 \\
+Lattice density ratio $c$ & 2 \\
+BBB hinges & 0 (impossible) \\
+\hline
+\end{tabular}
+\end{center}
+
+All numbers are determined by $d = 5$ and the atomic pair $(n_A, n_B) = (3, 2)$. No physical input was used.
+
+
+%=====================================================================
 \part{From $\mathbb{C}^5$ to Forces}
 %=====================================================================
 
@@ -520,7 +786,7 @@ Each edge carries \emph{two} data channels from the full inner product $G_{ij} =
 \item $\phi_{ij} = \arg(G_{ij})$: the gauge connection (\textbf{forces}).
 \end{itemize}
 
-Under the causal $(n_S, n_T) = (3, 2)$ split, the 10 edges decompose as:
+Under the causal $(n_A, n_B) = (3, 2)$ split, the 10 edges decompose as:
 
 \begin{center}
 \begin{tabular}{lccl}
@@ -643,28 +909,35 @@ G_{ij} = \underbrace{|G_{ij}|}_{\text{ER (geometry)}} \times \underbrace{e^{i\ph
 \end{equation}
 A wormhole is a region where $W_{ij}$ is large (strong geometric connection) despite spatial separation. Entanglement is a region where $\phi_{ij}$ is correlated despite $W_{ij} \approx 0$. Both are components of the same complex inner product $G_{ij}$. The ER\,=\,EPR conjecture is the statement that $|G_{ij}|$ and $e^{i\phi_{ij}}$ belong to the same number. This is not a conjecture; it is the definition of $\mathbb{C}$.
 
-\subsection{The causal split: $(n_S, n_T) = (3, 2)$}
+\textbf{Ghost channels.} The Gram matrix $G$ has 5 significant eigenvalues and $N - 5$ eigenvalues at $0^+$ (the ghosts of Chapter~\ref{ch:ghosts}). These $0^+$ eigenvalues connect distant simplices through ``almost zero'' hinge determinants: $\det(G_h) = 0^+$ means the hinge exists but carries negligible energy. Phase correlations persist through these ghost channels even when $W \approx 0$. The ghost dimensions are the geometric substrate of entanglement.
+
+\subsection{Physical identification: A = spatial, B = temporal}
+\label{sec:causal_split}
+
+The vertex labels $A$ and $B$ were introduced in Chapter~\ref{ch:simplex_geometry} as neutral combinatorial types. We now identify them physically.
 
 The 5 vertices of the simplex split into spatial and temporal:
 \begin{equation}
-\underbrace{a,\,b,\,c}_{n_S = 3\;\text{(spatial)}} \quad \underbrace{d,\,e}_{n_T = 2\;\text{(temporal)}}
+\underbrace{A_1,\,A_2,\,A_3}_{n_A = 3\;\text{(spatial)}} \quad \underbrace{B_1,\,B_2}_{n_B = 2\;\text{(temporal)}}
 \end{equation}
 
-This split is unique: chirality of the weak force requires $n_T = 2$. Among all $\text{SU}(n)$, only $\text{SU}(2)$ has a pseudo-real fundamental representation ($\mathbf{2} \cong \bar{\mathbf{2}}$ via the antisymmetric tensor $\epsilon_{ab}$), which is the algebraic condition for chiral fermions. This forces the temporal sector to be $\mathbb{C}^2$, and therefore $n_S = d - n_T = 3$.
+This identification follows from the Lorentz signature (Sec.~\ref{sec:Lorentz}): chirality of the weak force requires $n_B = 2$. Among all $\text{SU}(n)$, only $\text{SU}(2)$ has a pseudo-real fundamental representation ($\mathbf{2} \cong \bar{\mathbf{2}}$ via the antisymmetric tensor $\epsilon_{ab}$), which is the algebraic condition for chiral fermions. This forces the temporal sector to be $\mathbb{C}^2$, and therefore $n_A = d - n_B = 3$.
+
+With this identification, the geometric structures from Chapter~\ref{ch:simplex_geometry} acquire physical meaning: AAA hinges become the strong sector, AAB the electromagnetic/weak sector, ABB the weak sector, and the BBB impossibility becomes the absence of a triple-temporal closure condition.
 
 \subsection{Speed of light}
 
 The lattice speed of light is the ratio of temporal to spatial vertex densities per dimension:
 \begin{equation}
-\boxed{c = \frac{n_T / d_T}{n_S / d_S} = \frac{2/1}{3/3} = 2}
+\boxed{c = \frac{n_B / d_B}{n_A / d_A} = \frac{2/1}{3/3} = 2}
 \label{eq:speed_of_light}
 \end{equation}
-where $d_T = 1$ (time has 1 macroscopic dimension) and $d_S = 3$ (space has 3).
+where $d_B = 1$ (time has 1 macroscopic dimension) and $d_A = 3$ (space has 3).
 
 Every factor of $\sqrt{2}$ in the Standard Model --- $m = yv/\sqrt{2}$, the Higgs normalization, etc.\ --- is $\sqrt{c}$. The speed of light is not a fundamental constant but a \emph{lattice ratio}: time has twice the vertex density of space, per dimension.
 
 \begin{remark}
-The constancy of $c$ follows from its being a ratio of integers. It cannot vary, because $n_S = 3$ and $n_T = 2$ are fixed by the uniqueness of $d = 5$ (Theorem~\ref{thm:d5}).
+The constancy of $c$ follows from its being a ratio of integers. It cannot vary, because $n_A = 3$ and $n_B = 2$ are fixed by the uniqueness of $d = 5$ (Theorem~\ref{thm:d5}).
 \end{remark}
 
 \subsubsection{From $c = 2$ to 299{,}792{,}458 m/s}
@@ -679,7 +952,7 @@ where:
 \item $\Delta t = 2\,t_P = 1.078 \times 10^{-43}\;\text{s}$ (temporal lattice spacing $= 2 \times$ Planck time).
 \end{itemize}
 
-The temporal tick is $2\,t_P$ (not $t_P$) because $c = 2$: the temporal lattice is twice as coarse as Planck time. This is the lattice manifestation of $n_T = 2$ --- two temporal vertices per temporal dimension produce a spacing that is $c = 2$ times the ``natural'' (Planck) tick.
+The temporal tick is $2\,t_P$ (not $t_P$) because $c = 2$: the temporal lattice is twice as coarse as Planck time. This is the lattice manifestation of $n_B = 2$ --- two temporal vertices per temporal dimension produce a spacing that is $c = 2$ times the ``natural'' (Planck) tick.
 
 The numerator's 2 and denominator's 2 cancel: $c_\text{SI} = \ell_P/t_P$. This is the definition of Planck units --- but in DRLT, $\ell_P$ and $t_P$ are themselves derived from $\hbar = \sqrt{\det}/(4\ln 2)$ and the Regge action. The number 299{,}792{,}458 encodes the ratio of Planck length to Planck time, which encodes $\hbar$, $G$, and $c = 2$ --- all derived from $d = 5$.
 
@@ -692,7 +965,7 @@ The Regge action per hinge is $S_h/\hbar_h = (4G/c^3)\,\delta_h$. In the DRLT la
 \hline
 Constant & DRLT value & Status & Role \\
 \hline
-$c$ & 2 & \textbf{Derived} & Physics: $(n_T/d_T)/(n_S/d_S)$ \\
+$c$ & 2 & \textbf{Derived} & Physics: $(n_B/d_B)/(n_A/d_A)$ \\
 $\hbar$ & 1 & \textbf{Definition} & Fixes lattice units: $\hbar_h = A_h/(4\ln 2)$ \\
 $G$ & $6.674 \times 10^{-11}$ & \textbf{Unit conversion} & Translates lattice $\leftrightarrow$ SI \\
 \hline
@@ -727,74 +1000,128 @@ where $T_3$ and $Q$ are evaluated in the fundamental $\mathbf{5}$ representation
 
 \subsection{Hinge classification and force hierarchy}
 
-The 10 hinges of the 4-simplex classify by their vertex content:
+\subsubsection{Face-level structure}
+
+Chapter~\ref{ch:simplex_geometry} showed that each face contains 4 hinges. The face type determines which hinge types participate:
+
+\begin{center}
+\begin{tabular}{lcccc}
+\hline
+Face type & AAA & AAB & ABB & Total \\
+\hline
+AAAB face ($\times 2$) & 1 & 3 & 0 & 4 \\
+AABB face ($\times 3$) & 0 & 2 & 2 & 4 \\
+\hline
+\end{tabular}
+\end{center}
+
+Through an AAAB face, the AAA hinge participates: the full A-sector (strong force) is transmitted. Through an AABB face, no AAA hinge is involved: only the mixed sectors (electromagnetic, weak) are active.
+
+\subsubsection{Hinge types}
+
+The 10 hinges of the 4-simplex classify by vertex content (Chapter~\ref{ch:simplex_geometry}, now with physical identification):
 
 \begin{center}
 \begin{tabular}{lccl}
 \hline
 Type & Count & $\det(G_h)$ & Force \\
 \hline
-SSS (3 spatial) & $\binom{3}{3}\binom{2}{0} = 1$ & $> 0$ & Strong \\
-SST (2 spatial, 1 temporal) & $\binom{3}{2}\binom{2}{1} = 6$ & $> 0$ & EM / Weak \\
-STT (1 spatial, 2 temporal) & $\binom{3}{1}\binom{2}{2} = 3$ & $= 0$ always & Classical \\
-TTT (3 temporal) & $\binom{2}{3} = 0$ & --- & Impossible \\
+AAA (3 A-vertices) & $\binom{3}{3}\binom{2}{0} = 1$ & $> 0$ & Strong \\
+AAB (2 A + 1 B) & $\binom{3}{2}\binom{2}{1} = 6$ & $> 0$ & Electromagnetic / Weak \\
+ABB (1 A + 2 B) & $\binom{3}{1}\binom{2}{2} = 3$ & $= 0$ always & Classical ($n_B = 2 < 3$) \\
+BBB (3 B-vertices) & $\binom{2}{3} = 0$ & --- & Impossible \\
 \hline
 \end{tabular}
 \end{center}
 
-The STT hinges have $\det(G_h) = 0$ because $n_T = 2 < 3$: two temporal vertices cannot span a nondegenerate triangle. TTT is impossible since $\binom{2}{3} = 0$.
+The ABB hinges have $\det(G_h) = 0$ because $n_B = 2 < 3$: two temporal vertices cannot span a nondegenerate triangle. BBB is impossible since $\binom{2}{3} = 0$.
 
-This gives a natural force hierarchy: 7 quantum hinges (SSS + SST) mediate the strong and electroweak forces, while STT hinges are classical ($\hbar = 0$). The weak force has no dedicated hinge (TTT $= 0$) and must ``borrow'' from the SST sector, providing a geometric explanation for its weakness.
+This gives a natural force hierarchy: 7 quantum hinges (AAA + AAB) mediate the strong and electroweak forces, while ABB hinges are degenerate ($\hbar \to 0$). The weak force has no dedicated hinge (BBB $= 0$) and must ``borrow'' from the AAB sector, providing a geometric explanation for its weakness.
 
 \subsection{Why exactly four forces}
 
-The number of gauge forces equals the number of ways to distribute 3 hinge vertices into two sectors ($\mathbb{C}^3$ and $\mathbb{C}^2$), excluding the impossible case:
+The number of gauge forces equals the number of ways to distribute 3 hinge vertices into the A-sector ($\mathbb{C}^3$) and B-sector ($\mathbb{C}^2$), excluding the impossible case:
 \begin{equation}
-\text{Gauge forces} = |\{(3,0),\;(2,1),\;(1,2)\}| = 3. \qquad (0,3)\;\text{is forbidden since } n_T = 2 < 3.
+\text{Gauge forces} = |\{(3,0),\;(2,1),\;(1,2)\}| = 3. \qquad (0,3)\;\text{is forbidden since } n_B = 2 < 3.
 \end{equation}
 Gravity adds one more: it operates not \emph{within} a hinge but \emph{between} hinges (the deficit angle $\delta_h$ measures how neighboring hinges are arranged). Total:
 \begin{equation}
-\text{Forces} = \underbrace{\min(3, n_T) + 1}_{\text{gauge + gravity}} = 3 + 1 = 4.
+\text{Forces} = \underbrace{\min(3, n_B) + 1}_{\text{gauge + gravity}} = 3 + 1 = 4.
 \end{equation}
 
-A 5th force is mathematically forbidden: it would require either a 4th hinge type (impossible since $n_T = 2$) or a 2nd geometric level beyond hinges (but hinge-to-hinge is already the simplicial boundary structure, and there is nothing beyond it).
+A 5th force is mathematically forbidden: it would require either a 4th hinge type (impossible since $n_B = 2$) or a 2nd geometric level beyond hinges (but hinge-to-hinge is already the simplicial boundary structure, and there is nothing beyond it).
 
 \begin{center}
 \begin{tabular}{lccl}
 \hline
 Force & Level & Hinge type & Metaphor \\
 \hline
-Strong & within hinge & SSS & The room \\
-EM & within hinge & SST & The glue \\
-Weak & within hinge & STT & The door \\
+Strong & within hinge & AAA & The room \\
+EM & within hinge & AAB & The glue \\
+Weak & within hinge & ABB & The door \\
 Gravity & between hinges & $\det(G_h)$ & The road \\
 \hline
 \end{tabular}
 \end{center}
 
-\subsection{Spin-statistics from index counting}
+\subsection{Fermions and bosons from vertex selection}
+\label{sec:spin_statistics}
 
-The spin of an object is determined by the number of simplex indices it carries:
+Chapter~\ref{ch:simplex_geometry} derived 15 antisymmetric vertex selection patterns purely from combinatorics. We now identify them with the Standard Model fermions.
+
+\subsubsection{The $\bar{5}$: 1-vertex selections}
+
+Selecting 1 vertex from 5 gives $\binom{5}{1} = 5$ patterns. With the physical identification $A$ = spatial, $B$ = temporal:
 
 \begin{center}
 \begin{tabular}{cccl}
 \hline
-Simplex element & Indices & Parity & Physics \\
+Selection & Fingerprint & Count & Standard Model \\
 \hline
-Vertex ($\psi_i$) & 1 (odd) & Fermionic & Quarks, electrons \\
-Edge ($\langle\psi_i|\psi_j\rangle$) & 2 (even) & Bosonic & Photon, gluon, $W/Z$ \\
+A vertex & AAA$\times$1 + AAB$\times$4 + ABB$\times$1 & 3 & $d_R$ (3 colors) \\
+B vertex & AAB$\times$3 + ABB$\times$3 & 2 & $(\nu, e)_L$ doublet \\
+\hline
+\multicolumn{3}{r}{Total} & 5 \\
 \hline
 \end{tabular}
 \end{center}
 
-\textbf{Fermions (1 index):} A vertex carries $\psi_i \in \mathbb{C}^2$ (temporal sector). $\text{SU}(2)$ acts on $\mathbb{C}^2$: spin-$1/2$. Two identical vertices $\psi_i = \psi_j$ merge into one point ($\det = 0$): Pauli exclusion.
+A-type selections participate in the AAA hinge $\to$ confined. B-type selections do not $\to$ free.
 
-\textbf{Bosons (2 indices):} An edge carries $G_{ij} = \langle\psi_i|\psi_j\rangle = \psi_i \otimes \psi_j^*$. In $\text{SU}(2)$: $\frac{1}{2} \otimes \frac{1}{2} = 0 \oplus 1$, giving spin-0 and spin-1. Multiple edges between the same vertices are allowed ($G_{ij}$ is a number, not a slot): Bose statistics.
+\subsubsection{The $10$: 2-vertex selections}
 
-\textbf{Gravity (between hinges):} Gravity is not a particle. It is not a vertex (fermion) or an edge (boson). It is the deficit angle $\delta_h = 2\pi - \sum\theta$ between neighboring hinges --- the geometric arrangement of simplices, not an object living on a simplex. The label ``spin 2'' reflects the 2-dimensional nature of the hinge, but there is no graviton to find: gravity is the arena, not an actor.
+Selecting 2 vertices gives $\binom{5}{2} = 10$ antisymmetric patterns:
 
-\begin{remark}[The spin-statistics theorem in one line]
-Odd indices $\to$ antisymmetric under exchange $\to$ Fermi. Even indices $\to$ symmetric $\to$ Bose. The 40-page proof via Lorentz group $+$ CPT $+$ causality reduces to: \emph{is the index count odd or even?}
+\begin{center}
+\begin{tabular}{cccl}
+\hline
+Pair type & Fingerprint & Count & Standard Model \\
+\hline
+AA & AAA$\times$1 + AAB$\times$2 & $\binom{3}{2} = 3$ & $u_R$ (3 colors) \\
+AB & AAB$\times$2 + ABB$\times$1 & $3 \times 2 = 6$ & $(u, d)_L$ doublet ($3 \times 2$) \\
+BB & ABB$\times$3 & $\binom{2}{2} = 1$ & $e_R$ singlet \\
+\hline
+\multicolumn{3}{r}{Total} & 10 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Total: 15 Weyl fermions per generation}
+
+$\binom{5}{1} + \binom{5}{2} = 5 + 10 = 15$. This is the exact content of one Standard Model generation under $\text{SU}(5)$: $\bar{\mathbf{5}} \oplus \mathbf{10}$.
+
+\textbf{Spin-$1/2$:} The B-sector is $\mathbb{C}^2$. $\text{SU}(2)$ acts on $\mathbb{C}^2$ as the spin-$1/2$ representation. The ``spin'' of a fermion is the dimension of the temporal sector it occupies.
+
+\textbf{Pauli exclusion:} Two identical vertices $\psi_i = \psi_j$ merge into one point ($\det = 0$). The simplex loses a vertex, destroying information. This is Pauli exclusion from geometry.
+
+\subsubsection{Bosons: symmetric structures}
+
+The symmetric structures are edges (inner products $G_{ij} = \langle\psi_i|\psi_j\rangle$), which carry 2 indices. In $\text{SU}(2)$: $\frac{1}{2} \otimes \frac{1}{2} = 0 \oplus 1$, giving spin-0 and spin-1.
+
+\textbf{Gravity} is not a vertex or edge. It is the deficit angle $\delta_h = 2\pi - \sum\theta$ --- the arrangement of simplices around a hinge, not an object on a simplex. The ``spin 2'' label reflects the 2-dimensional nature of the hinge.
+
+\begin{remark}[Spin-statistics in one line]
+1-vertex and 2-vertex selections are antisymmetric $\to$ Fermi. Edges ($G_{ij} = G_{ji}^*$) are Hermitian-symmetric $\to$ Bose.
 \end{remark}
 
 \subsection{Singularity resolution}
@@ -843,6 +1170,7 @@ The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas
 \boxed{\hbar_h = \frac{\sqrt{\det(G_h)}}{4\ln 2} = \frac{A_h}{4\ln 2}}
 \label{eq:hbar}
 \end{equation}
+where $G_h$ is the $3 \times 3$ Gram sub-matrix with entries $\langle\psi_i|\psi_j\rangle$ for the three hinge vertices (not the real shadow $W_h = |G_h|^2/d$). The hinge area $A_h = \sqrt{\det(G_h)}$ is a complex-geometric quantity derived from the fundamental overlap $G$.
 
 The factor $4\ln 2$ ensures that $S/\hbar$ counts information in bits: each hinge contributes $\delta_h/(4\ln 2)$ bits to the action, consistent with $I_\text{hinge} = 1$ bit.
 
@@ -866,10 +1194,10 @@ Unlike standard quantum mechanics where $\hbar = 1.054 \times 10^{-34}\;\text{J}
 \item \textbf{Determined:} it is not a free parameter but a function of the state.
 \end{enumerate}
 
-\subsection{Vacuum: $\hbar = 0$}
+\subsection{The $\hbar \to 0$ limit}
 
-\begin{proposition}[Vacuum is classical]
-If all vertices are in the same state ($\psi_i = e^{i\theta_i}\psi_0$ for all $i$), then $\hbar_h = 0$ for every hinge.
+\begin{proposition}[Aligned limit]
+If all vertices were in the same state ($\psi_i = e^{i\theta_i}\psi_0$ for all $i$), then $\hbar_h = 0$ for every hinge.
 \end{proposition}
 
 \begin{proof}
@@ -882,7 +1210,7 @@ For aligned states, the holonomy $\Phi_h = 0$, giving $\det(G_h) = 1 - 3 + 2 = 0
 Therefore $A_h = 0$ and $\hbar_h = 0$.
 \end{proof}
 
-\textbf{Physical meaning:} The vacuum is \emph{exactly classical}. There are no quantum fluctuations, no zero-point energy, no vacuum catastrophe. The cosmological constant problem is eliminated at its root: $E_\text{vac} = 0$ exactly.
+\textbf{Physical meaning:} Perfect alignment is a mathematical boundary that no physical configuration reaches --- not at the Big Bang, not inside black holes, not at heat death. Every physical state has $\det(G_h) > 0$ and $\hbar_h > 0$. The cosmological constant problem is solved not by $E_\text{vac} = 0$ but by \emph{finiteness}: $N$ vertices produce $N$ bounded modes, so the vacuum energy is strictly positive but cannot diverge. The $10^{122}$ catastrophe of QFT (infinite modes, each contributing $\sim M_\text{Pl}$) simply does not arise.
 
 \subsection{Matter: $\hbar > 0$}
 
@@ -984,7 +1312,7 @@ In the continuum limit, this becomes:
 \end{equation}
 where:
 \begin{itemize}
-\item $c = 2$ is the lattice speed of light (Eq.~\ref{eq:speed_of_light}), derived from $(n_S, n_T) = (3, 2)$.
+\item $c = 2$ is the lattice speed of light (Eq.~\ref{eq:speed_of_light}), derived from $(n_A, n_B) = (3, 2)$.
 \item $G$ is Newton's constant, which in Planck units is $G = \ell_P^2 c^3/\hbar$ --- a unit conversion, not a free parameter.
 \end{itemize}
 
@@ -994,12 +1322,12 @@ Both $c$ and $G$ are determined by the lattice structure. The only dynamical con
 
 The Planck constant measures the \emph{resolution} of spacetime:
 \begin{itemize}
-\item $\hbar = 0$ (vacuum): infinite resolution, perfectly classical, no uncertainty. Like a photograph with infinite pixels --- but nothing to photograph.
+\item $\hbar \to 0$ (near-aligned limit): resolution increases, physics becomes more classical. This limit is approached but never reached --- every physical configuration retains $\hbar > 0$.
 \item $\hbar > 0$ (matter): finite resolution, quantum uncertainty, structure. The higher $\hbar$, the ``blurrier'' the spacetime, the more quantum the physics.
 \item $\hbar \to \infty$: maximally quantum, maximally uncertain. This is the deep interior of a dense matter configuration --- but as shown in Sec.~3.13, compression drives $\psi$ alignment, which drives $\hbar \to 0$, preventing this limit from being reached. Singularities are impossible.
 \end{itemize}
 
-The transition from quantum to classical is not a ``collapse'' or a ``decoherence'' but a geometric fact: as regions of spacetime align ($\psi_i \to \psi_j$), their $\hbar$ decreases continuously to zero. The classical world is the aligned world.
+The transition from quantum to classical is not a ``collapse'' or a ``decoherence'' but a geometric fact: as regions of spacetime align ($\psi_i \to \psi_j$), their $\hbar$ decreases continuously toward zero, though it never reaches it. The classical world is the nearly-aligned world.
 
 \begin{remark}[Why $\hbar$ appears constant in experiments]
 In laboratory settings, the matter configurations are similar across experiments: atoms, molecules, and photons have similar $\psi$ structures. The ``universal'' value $\hbar = 1.054 \times 10^{-34}\;\text{J}\cdot\text{s}$ is the average $\hbar_h$ for typical baryonic matter in the current epoch. It is approximately constant for the same reason that the average temperature of a room is approximately constant --- not because temperature is a fundamental constant, but because the local conditions are similar.
@@ -1021,13 +1349,13 @@ The hinge volume $\det(G_h)$ for a triangle in $\mathbb{C}^5$ lives in the third
 \det(G_h) = \det(\Phi\,\Phi^\dagger).
 \end{equation}
 
-The causal decomposition $\mathbb{C}^5 = V_S \oplus V_T$ (with $\dim V_S = n_S = 3$, $\dim V_T = n_T = 2$) induces a canonical splitting of the exterior power:
+The causal decomposition $\mathbb{C}^5 = V_A \oplus V_B$ (with $\dim V_A = n_A = 3$, $\dim V_B = n_B = 2$) induces a canonical splitting of the exterior power:
 \begin{equation}
-\Lambda^3(\mathbb{C}^5) = \bigoplus_{k=0}^{\min(3,\,n_T)} \Lambda^{3-k}(V_S) \otimes \Lambda^k(V_T).
+\Lambda^3(\mathbb{C}^5) = \bigoplus_{k=0}^{\min(3,\,n_B)} \Lambda^{3-k}(V_A) \otimes \Lambda^k(V_B).
 \label{eq:exterior_split}
 \end{equation}
 
-Since $n_T = 2 < 3$, the sum terminates at $k = 2$: the term $\Lambda^0(V_S) \otimes \Lambda^3(V_T) = 0$ because $\Lambda^3(V_T) = 0$ for a 2-dimensional space. This is the \emph{algebraic origin} of the impossibility of TTT hinges (Sec.~3.12).
+Since $n_B = 2 < 3$, the sum terminates at $k = 2$: the term $\Lambda^0(V_A) \otimes \Lambda^3(V_B) = 0$ because $\Lambda^3(V_B) = 0$ for a 2-dimensional space. This is the \emph{algebraic origin} of the impossibility of BBB hinges (Sec.~3.12).
 
 \subsection{The Binet--Cauchy decomposition with $c$-weighting}
 
@@ -1037,9 +1365,9 @@ By the Binet--Cauchy theorem \cite{BinetCauchy}, $\det(\Phi\Phi^\dagger)$ expand
 \end{equation}
 where $\Phi_I$ is the $3 \times 3$ submatrix formed by columns $I$.
 
-Each column belongs to either $V_S$ (spatial) or $V_T$ (temporal). The temporal columns carry a density weight $\sqrt{c} = \sqrt{2}$ (Sec.~3.9: the temporal vertex density is $c = 2$ times the spatial density per dimension). When a submatrix $\Phi_I$ includes $k$ temporal columns, the squared minor picks up a factor $c^k$:
+Each column belongs to either $V_A$ (spatial) or $V_B$ (temporal). The temporal vertex density is $c = 2$ times the spatial density per dimension (Chapter~\ref{ch:geometry}, Eq.~\ref{eq:speed_of_light}): in the lattice, 2 temporal vertices occupy the same lattice spacing as 1 spatial vertex. A $3 \times 3$ minor containing $k$ temporal columns therefore spans a sub-volume that is $c^k$ times denser than the pure-spatial case. The squared minor inherits this scaling:
 \begin{equation}
-\det(G_h) = \sum_{k=0}^{2} c^k \sum_{\substack{|I_S| = 3-k \\ |I_T| = k}} |\det(\Phi_{I_S \cup I_T})|^2.
+\det(G_h) = \sum_{k=0}^{2} c^k \sum_{\substack{|I_A| = 3-k \\ |I_B| = k}} |\det(\Phi_{I_A \cup I_B})|^2.
 \label{eq:BC_expansion}
 \end{equation}
 
@@ -1049,23 +1377,23 @@ The $c$-weighted channel count for each term:
 
 \noindent\textbf{$k = 0$: Pure spatial --- Strong force.}
 \begin{equation}
-\Lambda^3 V_S \otimes \Lambda^0 V_T: \qquad \underbrace{\binom{3}{3}}_1 \times \underbrace{\binom{2}{0}}_1 \;\text{minors} \times \underbrace{c^0}_1 = \mathbf{1}\;\text{channel}.
+\Lambda^3 V_A \otimes \Lambda^0 V_B: \qquad \underbrace{\binom{3}{3}}_1 \times \underbrace{\binom{2}{0}}_1 \;\text{minors} \times \underbrace{c^0}_1 = \mathbf{1}\;\text{channel}.
 \end{equation}
-All three columns are spatial. This is the unique SSS hinge --- the seat of the strong force.
+All three columns are spatial. This is the unique AAA hinge --- the seat of the strong force.
 
 \bigskip
 
-\noindent\textbf{$k = 1$: Mixed SST --- Electromagnetic force.}
+\noindent\textbf{$k = 1$: Mixed AAB --- Electromagnetic force.}
 \begin{equation}
-\Lambda^2 V_S \otimes \Lambda^1 V_T: \qquad \underbrace{\binom{3}{2}}_3 \times \underbrace{\binom{2}{1}}_2 \;\text{minors} \times \underbrace{c^1}_2 = \mathbf{12}\;\text{channels}.
+\Lambda^2 V_A \otimes \Lambda^1 V_B: \qquad \underbrace{\binom{3}{2}}_3 \times \underbrace{\binom{2}{1}}_2 \;\text{minors} \times \underbrace{c^1}_2 = \mathbf{12}\;\text{channels}.
 \end{equation}
 Two spatial columns and one temporal. The U(1) electromagnetic force connects the spatial and temporal sectors.
 
 \bigskip
 
-\noindent\textbf{$k = 2$: Mixed STT --- Weak force.}
+\noindent\textbf{$k = 2$: Mixed ABB --- Weak force.}
 \begin{equation}
-\Lambda^1 V_S \otimes \Lambda^2 V_T: \qquad \underbrace{\binom{3}{1}}_3 \times \underbrace{\binom{2}{2}}_1 \;\text{minors} \times \underbrace{c^2}_4 = \mathbf{12}\;\text{channels}.
+\Lambda^1 V_A \otimes \Lambda^2 V_B: \qquad \underbrace{\binom{3}{1}}_3 \times \underbrace{\binom{2}{2}}_1 \;\text{minors} \times \underbrace{c^2}_4 = \mathbf{12}\;\text{channels}.
 \end{equation}
 One spatial column and two temporal. The SU(2) weak force is dominated by the temporal sector.
 
@@ -1073,7 +1401,7 @@ One spatial column and two temporal. The SU(2) weak force is dominated by the te
 
 \noindent\textbf{$k = 3$: Pure temporal --- Impossible.}
 \begin{equation}
-\Lambda^0 V_S \otimes \Lambda^3 V_T = 0 \qquad (n_T = 2 < 3).
+\Lambda^0 V_A \otimes \Lambda^3 V_B = 0 \qquad (n_B = 2 < 3).
 \end{equation}
 
 \bigskip
@@ -1087,8 +1415,8 @@ The total $c$-weighted channel count is:
 This equals the rank of the Wishart matrix $W = |\Phi|^2/d$, independently proven in \cite{Wishart}. The gravitational hinge volume decomposes into exactly $d^2$ interaction channels.
 \end{theorem}
 
-\begin{remark}[$c = 2$ is essential]
-If $c = 1$ (no temporal density enhancement): $1 + 6 + 3 = 10 = \binom{5}{3} \neq d^2 = 25$. If $c = 3$: $1 + 18 + 27 = 46 \neq 25$. Only $c = 2$ gives $25 = d^2$. The speed of light is not merely a kinematic ratio; it is the \emph{unique value} that makes the Binet--Cauchy decomposition consistent with the Wishart rank.
+\begin{remark}[Self-consistency check: $c = 2$]
+The value $c = 2$ was already derived in Chapter~\ref{ch:geometry} (Eq.~\ref{eq:speed_of_light}) from the $(n_A, n_B) = (3, 2)$ structure. As an independent consistency check: if $c = 1$, the channel sum gives $1 + 6 + 3 = 10 \neq d^2$; if $c = 3$, it gives $1 + 18 + 27 = 46 \neq d^2$. Only the derived value $c = 2$ yields $1 + 12 + 12 = 25 = d^2$, confirming that the Binet--Cauchy decomposition is self-consistent with the Wishart rank.
 \end{remark}
 
 \begin{remark}[Electroweak geometric identity]
@@ -1099,13 +1427,13 @@ The electromagnetic and weak sectors carry \emph{identical} channel counts: $12 
 
 Each interaction channel propagates on the lattice. What propagates is not a ``field'' obeying a wave equation, but the \emph{deficit angle} $\delta_h$ --- the curvature at a hinge. A hinge at distance $n$ from a source sees the source through a solid angle:
 \begin{equation}
-D(n) = \frac{A_\text{source}}{n^{n_S - 1}} = \frac{1}{n^2} \qquad (n_S = 3).
+D(n) = \frac{A_\text{source}}{n^{n_A - 1}} = \frac{1}{n^2} \qquad (n_A = 3).
 \end{equation}
 
-This is \emph{not} a lattice Green's function (which would be a modified Bessel function from inverting a discrete Laplacian). It is the geometric solid angle in $n_S = 3$ spatial dimensions --- independent of lattice structure, topology, or dynamics. In $n_S$ dimensions, $D(n) = 1/n^{n_S-1}$; our universe has $n_S = 3$, giving $1/n^2$.
+This is \emph{not} a lattice Green's function (which would be a modified Bessel function from inverting a discrete Laplacian). It is the geometric solid angle in $n_A = 3$ spatial dimensions --- independent of lattice structure, topology, or dynamics. In $n_A$ dimensions, $D(n) = 1/n^{n_A-1}$; our universe has $n_A = 3$, giving $1/n^2$.
 
 \begin{remark}[Coulomb's law]
-The potential $V(r) = \int D(n)\,dn \propto 1/n^{n_S-2} = 1/n$ for $n_S = 3$: the Coulomb $1/r$ law. The inverse-square force $F \propto 1/r^2$ and the inverse-square propagator $D(n) = 1/n^2$ are the same geometric fact.
+The potential $V(r) = \int D(n)\,dn \propto 1/n^{n_A-2} = 1/n$ for $n_A = 3$: the Coulomb $1/r$ law. The inverse-square force $F \propto 1/r^2$ and the inverse-square propagator $D(n) = 1/n^2$ are the same geometric fact.
 \end{remark}
 
 The total coupling per channel is the sum over all propagation distances:
@@ -1130,11 +1458,11 @@ The propagation range $N_\text{eff}$ is not a free parameter. It is \emph{derive
 
 \noindent\textbf{Strong force: $N_\text{eff} = 1$ (confinement).}
 
-Propagation requires consuming an independent channel at each hop. For the SSS sector: all 3 vertices are in $\mathbb{C}^3$. The number of independent SSS configurations is $\binom{n_S}{n_S} = 1$.
+Propagation requires consuming an independent channel at each hop. For the AAA sector: all 3 vertices are in $\mathbb{C}^3$. The number of independent AAA configurations is $\binom{n_A}{n_A} = 1$.
 
 \begin{itemize}
-\item \textbf{Hop 1}: the unique SSS triangle $(S_1, S_2, S_3)$ propagates to a neighboring hinge $(S_1', S_2', S_3')$.
-\item \textbf{Hop 2}: would require a \emph{second independent} SSS configuration. But $\binom{3}{3} = 1$: only one exists. Using the same configuration twice produces $\det = 0$ (linear dependence). Propagation stops.
+\item \textbf{Hop 1}: the unique AAA triangle $(A_1, A_2, A_3)$ propagates to a neighboring hinge $(A_1', A_2', A_3')$.
+\item \textbf{Hop 2}: would require a \emph{second independent} AAA configuration. But $\binom{3}{3} = 1$: only one exists. Using the same configuration twice produces $\det = 0$ (linear dependence). Propagation stops.
 \end{itemize}
 
 This is \textbf{confinement}: the strong force exhausts all $\mathbb{C}^3$ degrees of freedom in a single hop. It is a combinatorial fact, not a dynamical phenomenon.
@@ -1148,18 +1476,18 @@ This confinement ($N_\text{eff} = 1$) can be lifted at sufficiently high tempera
 
 \bigskip
 
-\noindent\textbf{Weak force: $N_\text{eff} = n_T = 2$ (rank exhaustion).}
+\noindent\textbf{Weak force: $N_\text{eff} = n_B = 2$ (rank exhaustion).}
 
-The weak force depends on the temporal sector $\mathbb{C}^2$. The temporal Gram matrix $G^T_{ij} = \sum_{a=3}^{4}\psi^*_{i,a}\psi_{j,a}$ has rank at most $n_T = 2$. On the lattice, this means at most $n_T$ successive correlations can remain linearly independent:
+The weak force depends on the temporal sector $\mathbb{C}^2$. The temporal Gram matrix $G^T_{ij} = \sum_{a=3}^{4}\psi^*_{i,a}\psi_{j,a}$ has rank at most $n_B = 2$. On the lattice, this means at most $n_B$ successive correlations can remain linearly independent:
 
 \begin{itemize}
 \item \textbf{Hop 1} ($i \to j$): the first temporal direction is used. The correlation $G^T_{ij}$ is generically nonzero. Independent.
 \item \textbf{Hop 2} ($j \to k$): the second (and last) temporal direction is used. $G^T_{jk}$ is independent of $G^T_{ij}$.
-\item \textbf{Hop 3} ($k \to l$): a third independent temporal direction would be needed, but $\dim V_T = n_T = 2$. The new correlation $G^T_{kl}$ is a linear combination of the previous two --- the force cannot propagate further.
+\item \textbf{Hop 3} ($k \to l$): a third independent temporal direction would be needed, but $\dim V_B = n_B = 2$. The new correlation $G^T_{kl}$ is a linear combination of the previous two --- the force cannot propagate further.
 \end{itemize}
 
 \begin{equation}
-N_\text{eff}^\text{weak} = n_T = 2, \qquad S(2) = 1 + \frac{1}{4} = \frac{5}{4}.
+N_\text{eff}^\text{weak} = n_B = 2, \qquad S(2) = 1 + \frac{1}{4} = \frac{5}{4}.
 \end{equation}
 
 \begin{remark}
@@ -1170,7 +1498,7 @@ This provides a geometric explanation for the short range of the weak force: it 
 
 \noindent\textbf{Electromagnetic force: $N_\text{eff} = \infty$ (no rank exhaustion).}
 
-The electromagnetic U(1) gauge field is the \emph{relative phase} between $V_S$ and $V_T$ (Sec.~\ref{sec:glue}). It does not consume rank within either sector: it couples \emph{across} sectors. Since neither $G^S$ nor $G^T$ is exhausted by U(1) propagation, there is no rank limit on the number of hops.
+The electromagnetic U(1) gauge field is the \emph{relative phase} between $V_A$ and $V_B$ (Sec.~\ref{sec:glue}). It does not consume rank within either sector: it couples \emph{across} sectors. Since neither $G^S$ nor $G^T$ is exhausted by U(1) propagation, there is no rank limit on the number of hops.
 
 \begin{equation}
 N_\text{eff}^\text{EM} = \infty, \qquad S(\infty) = \zeta(2) = \frac{\pi^2}{6}.
@@ -1181,7 +1509,7 @@ N_\text{eff}^\text{EM} = \infty, \qquad S(\infty) = \zeta(2) = \frac{\pi^2}{6}.
 \bigskip
 
 \begin{remark}[Cohomological interpretation]
-In the language of lattice cohomology: $N_\text{eff}$ equals the rank of $H_1(\text{Lattice}_i, \mathbb{Z})$ restricted to the gauge sector's topological support. For SSS: rank$(G^S) = n_S$ saturates in 1 step. For STT: rank$(G^T) = n_T$ saturates in $n_T$ steps. For the cross-sector U(1): no saturation occurs.
+In the language of lattice cohomology: $N_\text{eff}$ equals the rank of $H_1(\text{Lattice}_i, \mathbb{Z})$ restricted to the gauge sector's topological support. For AAA: rank$(G^S) = n_A$ saturates in 1 step. For ABB: rank$(G^T) = n_B$ saturates in $n_B$ steps. For the cross-sector U(1): no saturation occurs.
 \end{remark}
 
 \subsection{The coupling constants}
@@ -1205,23 +1533,23 @@ Applied to the three hinge types:
 \hline
 Force & Hinge & Pure/Mixed & Sector & Representation & $g$ \\
 \hline
-Strong & SSS & Pure ($\mathbb{C}^3$) & SU($n_S$) & Adjoint & $n_S^2 - 1 = 8$ \\
-Weak & STT & Mixed & SU($n_T$) & Fundamental & $n_T = 2$ \\
-EM & SST & Mixed & U(1) over $\mathbb{C}^3$ & Charges & $n_S = 3$ \\
+Strong & AAA & Pure ($\mathbb{C}^3$) & SU($n_A$) & Adjoint & $n_A^2 - 1 = 8$ \\
+Weak & ABB & Mixed & SU($n_B$) & Fundamental & $n_B = 2$ \\
+EM & AAB & Mixed & U(1) over $\mathbb{C}^3$ & Charges & $n_A = 3$ \\
 \hline
 \end{tabular}
 \end{center}
 
-\begin{remark}[Why SSS gets the adjoint]
-SSS is the \emph{only} pure hinge: all 3 vertices come from $\mathbb{C}^3$, with 0 from $\mathbb{C}^2$. A pure hinge sees the full internal rotation group of its sector. In $\mathbb{C}^3$, this is SU(3), with $3^2 - 1 = 8$ generators (the 8 gluons). SST and STT are mixed: they connect the two sectors, so each vertex of the ``other'' sector acts as a single charge, giving the fundamental representation. The self/cross distinction is the geometric origin of why gluons carry color charge (adjoint) while photons do not (singlet coupling to $n_S$ charges).
+\begin{remark}[Why AAA gets the adjoint]
+AAA is the \emph{only} pure hinge: all 3 vertices come from $\mathbb{C}^3$, with 0 from $\mathbb{C}^2$. A pure hinge sees the full internal rotation group of its sector. In $\mathbb{C}^3$, this is SU(3), with $3^2 - 1 = 8$ generators (the 8 gluons). AAB and ABB are mixed: they connect the two sectors, so each vertex of the ``other'' sector acts as a single charge, giving the fundamental representation. The self/cross distinction is the geometric origin of why gluons carry color charge (adjoint) while photons do not (singlet coupling to $n_A$ charges).
 \end{remark}
 
 \begin{theorem}[Coupling constants at $M_Z$]
 \label{thm:couplings}
 \begin{align}
-\frac{1}{\alpha_3(M_Z)} &= 1 \times (n_S^2 - 1) \times S(1) = 1 \times 8 \times 1 = \mathbf{8.0} \label{eq:alpha3} \\
-\frac{1}{\alpha_2(M_Z)} &= 12 \times n_T \times S(n_T) = 12 \times 2 \times \frac{5}{4} = \mathbf{30.0} \label{eq:alpha2} \\
-\frac{1}{\alpha_1(M_Z)} &= 12 \times n_S \times S(\infty) = 12 \times 3 \times \frac{\pi^2}{6} = \mathbf{6\pi^2} \approx 59.22 \label{eq:alpha1}
+\frac{1}{\alpha_3(M_Z)} &= 1 \times (n_A^2 - 1) \times S(1) = 1 \times 8 \times 1 = \mathbf{8.0} \label{eq:alpha3} \\
+\frac{1}{\alpha_2(M_Z)} &= 12 \times n_B \times S(n_B) = 12 \times 2 \times \frac{5}{4} = \mathbf{30.0} \label{eq:alpha2} \\
+\frac{1}{\alpha_1(M_Z)} &= 12 \times n_A \times S(\infty) = 12 \times 3 \times \frac{\pi^2}{6} = \mathbf{6\pi^2} \approx 59.22 \label{eq:alpha1}
 \end{align}
 \end{theorem}
 
@@ -1244,7 +1572,7 @@ The formula $1/\alpha_1 = 6\pi^2$ is exact. It contains no approximation, no tru
 \begin{remark}[Geometric meaning of $6\pi^2$]
 The number $6\pi^2$ has a direct geometric interpretation:
 \begin{itemize}
-\item $6 = d + 1$: the number of vertices of the 4-simplex (equivalently, $\binom{5}{4}$ tetrahedra, or $c \times d_S = 2 \times 3$, the spacetime volume factor).
+\item $6 = d + 1$: the number of vertices of the 4-simplex (equivalently, $\binom{5}{4}$ tetrahedra, or $c \times d_A = 2 \times 3$, the spacetime volume factor).
 \item $\pi^2/6 = \zeta(2)$: Euler's Basel sum, which is the total ``illuminance'' of the inverse-square lattice propagator $\sum_{n=1}^\infty 1/n^2$. Each lattice hop at distance $n$ contributes brightness $1/n^2$; the sum over all distances gives $\pi^2/6$.
 \end{itemize}
 Thus $1/\alpha_1 = (d+1) \times \pi^2 = 6\pi^2$: the EM coupling constant is ``the number of simplex vertices times the total brightness of the lattice.'' More precisely, it is the U(1) flux through $\mathbb{CP}^4$ computed via harmonic analysis on the Fubini--Study metric. The coupling constant is a measure of total lattice illuminance per channel.
@@ -1313,15 +1641,15 @@ The standard RG $\beta$-coefficients $b_1 = 41/10$, $b_2 = -19/6$, $b_3 = -7$ en
 \label{ch:masses}
 %=====================================================================
 
-All 9 charged fermion masses and the electroweak scale are derived from the simplex geometry. The key ingredients are: (i) generations as simplex dimension, (ii) the SSS hinge infrared fixed point for the third generation, (iii) the Pachner recursion golden ratio for inter-generation suppression, and (iv) SU(5) representation theory for inter-type ratios.
+All 9 charged fermion masses and the electroweak scale are derived from the simplex geometry. The key ingredients are: (i) generations as simplex dimension, (ii) the AAA hinge infrared fixed point for the third generation, (iii) the Pachner recursion golden ratio for inter-generation suppression, and (iv) SU(5) representation theory for inter-type ratios.
 
 \subsection{The electroweak scale}
 
-The Higgs vacuum expectation value is set by the tunneling amplitude across all $d^2 = 25$ independent Wishart modes:
+The Higgs vacuum expectation value is set by the tunneling amplitude across all $d^2 = 25$ independent Gram matrix modes:
 \begin{equation}
 \boxed{v_H = \frac{(d+1)\,M_\text{Pl}}{d^{d^2}} = \frac{6\,M_\text{Pl}}{5^{25}} = 245.6\;\text{GeV}}
 \end{equation}
-Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_S = 2 \times 3$ counts the spacetime volume factor. The denominator $d^{d^2} = 5^{25}$ arises from 25 independent Wishart modes, each contributing a tunneling suppression of $1/d$. The suppression is exactly $1/d$ (not $1/d^2$ or $1/\sqrt{d}$) because the tunneling probability between two random states in $\mathbb{C}^d$ is the Haar-averaged overlap:
+Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_A = 2 \times 3$ counts the spacetime volume factor. The denominator $d^{d^2} = 5^{25}$ arises from 25 independent Gram matrix modes (the $d^2$ eigenvalues of $W = |G|^2/d$), each contributing a tunneling suppression of $1/d$. The suppression is exactly $1/d$ (not $1/d^2$ or $1/\sqrt{d}$) because the tunneling probability between two random states in $\mathbb{C}^d$ is the Haar-averaged overlap:
 \begin{equation}
 \langle|\langle\psi|\psi'\rangle|^2\rangle_\text{Haar} = \frac{1}{d}.
 \end{equation}
@@ -1329,11 +1657,11 @@ This is a standard result of random matrix theory. The overlap is $|\langle\psi|
 
 \subsection{Generations as simplex dimension}
 
-A fermion is a perturbation of the vacuum in the spatial sector $\mathbb{C}^3 \subset \mathbb{C}^5$. The perturbation excites $k$ of the $n_S = 3$ spatial vertices:
+A fermion is a perturbation of the vacuum in the spatial sector $\mathbb{C}^3 \subset \mathbb{C}^5$. The perturbation excites $k$ of the $n_A = 3$ spatial vertices:
 \begin{equation}
 k = 1:\;\text{point}, \qquad k = 2:\;\text{edge}, \qquad k = 3:\;\text{triangle}.
 \end{equation}
-Since $k \in \{1, 2, 3\}$, there are exactly $n_S = 3$ \textbf{generations}.
+Since $k \in \{1, 2, 3\}$, there are exactly $n_A = 3$ \textbf{generations}.
 
 The internal structure of the $k$-simplex determines the perturbative character:
 
@@ -1344,14 +1672,14 @@ $k$ & Gen & Edges & Hinges & Character & Mass origin \\
 \hline
 1 & 1st & 0 & 0 & Tree-level & SU(5) representation \\
 2 & 2nd & 1 & 0 & 1-loop & Single propagator correction \\
-3 & 3rd & 3 & 1 (SSS) & Non-perturbative & SSS hinge self-coupling \\
+3 & 3rd & 3 & 1 (AAA) & Non-perturbative & AAA hinge self-coupling \\
 \hline
 \end{tabular}
 \end{center}
 
-\subsection{Third generation: the SSS fixed point}
+\subsection{Third generation: the AAA fixed point}
 
-The $k = 3$ fermion occupies all three spatial vertices, creating an internal SSS hinge --- the unique pure-spatial hinge of the 4-simplex. This hinge provides maximal self-coupling.
+The $k = 3$ fermion occupies all three spatial vertices, creating an internal AAA hinge --- the unique pure-spatial hinge of the 4-simplex. This hinge provides maximal self-coupling.
 
 \subsubsection{Top quark}
 
@@ -1418,9 +1746,9 @@ Each type change (up $\to$ down $\to$ lepton) involves exchanging a spatial vert
 
 The generation suppression factor is:
 \begin{equation}
-\varepsilon = \alpha_\text{GUT}^{n_T/n_S}\,(1 + \alpha_\text{GUT}) = \alpha_\text{GUT}^{2/3}\,(1 + \alpha_\text{GUT}) = 0.0860.
+\varepsilon = \alpha_\text{GUT}^{n_B/n_A}\,(1 + \alpha_\text{GUT}) = \alpha_\text{GUT}^{2/3}\,(1 + \alpha_\text{GUT}) = 0.0860.
 \end{equation}
-Empirical value: 0.0857 (0.3\%). The exponent $n_T/n_S = 2/3$: each generation step de-excites one spatial vertex through $n_T = 2$ SST hinge channels, shared among $n_S = 3$ spatial vertices. The $(1 + \alpha_\text{GUT})$ factor is the 1-loop self-energy correction.
+Empirical value: 0.0857 (0.3\%). The exponent $n_B/n_A = 2/3$: each generation step de-excites one spatial vertex through $n_B = 2$ AAB hinge channels, shared among $n_A = 3$ spatial vertices. The $(1 + \alpha_\text{GUT})$ factor is the 1-loop self-energy correction.
 
 The complete type structure:
 \begin{equation}
@@ -1441,23 +1769,23 @@ m_\mu &= m_\tau \cdot [\varepsilon\varphi^2(1+\varepsilon)]^2 = 103\;\text{MeV} 
 At $k = 1$, no internal structure exists. The mass is determined by the external environment --- the SU(5) representation:
 
 \begin{itemize}
-\item \textbf{Up quark} ($\mathbf{10}$, spatial vertex): fluctuation in $\mathbb{C}^2$ suppresses by $1/n_T^2$:
+\item \textbf{Up quark} ($\mathbf{10}$, spatial vertex): fluctuation in $\mathbb{C}^2$ suppresses by $1/n_B^2$:
 \begin{equation}
-m_u = m_t \cdot \varepsilon^4 / n_T^2 = 2.27\;\text{MeV} \qquad (\text{obs: } 2.16,\; 5\%).
+m_u = m_t \cdot \varepsilon^4 / n_B^2 = 2.27\;\text{MeV} \qquad (\text{obs: } 2.16,\; 5\%).
 \end{equation}
 
-\item \textbf{Down quark} ($\bar{\mathbf{5}}$, color triplet): three colors contribute coherently, enhancing by $n_S$:
+\item \textbf{Down quark} ($\bar{\mathbf{5}}$, color triplet): three colors contribute coherently, enhancing by $n_A$:
 \begin{equation}
-m_d = m_b \cdot (\varepsilon\varphi)^4 \cdot n_S = 4.55\;\text{MeV} \qquad (\text{obs: } 4.67,\; 3\%).
+m_d = m_b \cdot (\varepsilon\varphi)^4 \cdot n_A = 4.55\;\text{MeV} \qquad (\text{obs: } 4.67,\; 3\%).
 \end{equation}
 
-\item \textbf{Electron} ($\bar{\mathbf{5}}$, singlet): fluctuation in $\mathbb{C}^3$ suppresses by $1/n_S^2$:
+\item \textbf{Electron} ($\bar{\mathbf{5}}$, singlet): fluctuation in $\mathbb{C}^3$ suppresses by $1/n_A^2$:
 \begin{equation}
-m_e = m_\tau \cdot (\varepsilon\varphi^2)^4 / n_S^2 = 0.49\;\text{MeV} \qquad (\text{obs: } 0.511,\; 4\%).
+m_e = m_\tau \cdot (\varepsilon\varphi^2)^4 / n_A^2 = 0.49\;\text{MeV} \qquad (\text{obs: } 0.511,\; 4\%).
 \end{equation}
 \end{itemize}
 
-The distinction between coherent enhancement ($\times n_S$ for the color triplet) and incoherent suppression ($\div n^2$ for singlets) is the standard quantum-mechanical difference, explaining why $m_d > m_u$ despite down being the ``heavier type.''
+The distinction between coherent enhancement ($\times n_A$ for the color triplet) and incoherent suppression ($\div n^2$ for singlets) is the standard quantum-mechanical difference, explaining why $m_d > m_u$ despite down being the ``heavier type.''
 
 \subsection{Complete mass table}
 
@@ -1474,14 +1802,14 @@ $m_c$ & 2 & 1.28 GeV & 1.27 & 1\% & $m_t\,\varepsilon^2$ \\
 $m_s$ & 2 & 93 MeV & 93 & $<1\%$ & $m_b\,[\varepsilon\varphi(1+\varepsilon)]^2$ \\
 $m_\mu$ & 2 & 103 MeV & 105.7 & 3\% & $m_\tau\,[\varepsilon\varphi^2(1+\varepsilon)]^2$ \\
 \hline
-$m_u$ & 1 & 2.27 MeV & 2.16 & 5\% & $m_t\,\varepsilon^4/n_T^2$ \\
-$m_d$ & 1 & 4.55 MeV & 4.67 & 3\% & $m_b\,(\varepsilon\varphi)^4\,n_S$ \\
-$m_e$ & 1 & 0.49 MeV & 0.511 & 4\% & $m_\tau\,(\varepsilon\varphi^2)^4/n_S^2$ \\
+$m_u$ & 1 & 2.27 MeV & 2.16 & 5\% & $m_t\,\varepsilon^4/n_B^2$ \\
+$m_d$ & 1 & 4.55 MeV & 4.67 & 3\% & $m_b\,(\varepsilon\varphi)^4\,n_A$ \\
+$m_e$ & 1 & 0.49 MeV & 0.511 & 4\% & $m_\tau\,(\varepsilon\varphi^2)^4/n_A^2$ \\
 \hline
 \end{tabular}
 \end{center}
 
-Median accuracy: 3\%. All 9 masses from 4 building blocks: $v_H$ (from $d$), $\alpha_\text{GUT}$ (from $d^2\zeta(2)$), $\varepsilon$ (from $\alpha_\text{GUT}$ and $n_S/n_T$), and $\varphi$ (from Pachner fixed point). Zero free parameters.
+Median accuracy: 3\%. All 9 masses from 4 building blocks: $v_H$ (from $d$), $\alpha_\text{GUT}$ (from $d^2\zeta(2)$), $\varepsilon$ (from $\alpha_\text{GUT}$ and $n_A/n_B$), and $\varphi$ (from Pachner fixed point). Zero free parameters.
 
 \begin{remark}[Error structure]
 The errors are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the opposite of the coupling constant pattern (Chapter~\ref{ch:couplings}: $\alpha_3$ has the largest error). The physical reason: lower generations have less internal structure ($k = 1$ has no internal edges), making them more susceptible to perturbations from the $N > 5$ ghost remnants. This error pattern is quantified by the Ghost Sum Rule (Chapter~\ref{ch:ghosts}).
@@ -1491,11 +1819,11 @@ The errors are systematically larger for lower generations: 3rd gen $\sim 1\%$, 
 
 The confinement scale $\Lambda_\text{QCD}$ is derived from the same building blocks as the fermion masses:
 \begin{equation}
-\boxed{\Lambda_\text{QCD} = \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times n_S = \frac{245.6}{\sqrt{2}} \times \frac{1}{41.12^2} \times 3 = 308\;\text{MeV}.}
+\boxed{\Lambda_\text{QCD} = \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times n_A = \frac{245.6}{\sqrt{2}} \times \frac{1}{41.12^2} \times 3 = 308\;\text{MeV}.}
 \end{equation}
-Observed: 200--340 MeV (scheme-dependent). The formula reads: the top-quark mass $m_t = v_H/\sqrt{c}$ suppressed by two powers of $\alpha_\text{GUT}$ (one for each vertex of the quark-antiquark string) and multiplied by the number of spatial vertices $n_S = 3$ (the color factor).
+Observed: 200--340 MeV (scheme-dependent). The formula reads: the top-quark mass $m_t = v_H/\sqrt{c}$ suppressed by two powers of $\alpha_\text{GUT}$ (one for each vertex of the quark-antiquark string) and multiplied by the number of spatial vertices $n_A = 3$ (the color factor).
 
-Equivalently: $\Lambda_\text{QCD} = m_b \times \alpha_\text{GUT} \times n_S = 4.22 \times 0.0243 \times 3 = 308\;\text{MeV}$.
+Equivalently: $\Lambda_\text{QCD} = m_b \times \alpha_\text{GUT} \times n_A = 4.22 \times 0.0243 \times 3 = 308\;\text{MeV}$.
 
 \begin{remark}[Ghost protection]
 The standard dimensional transmutation formula $\Lambda = M_\text{GUT}\,e^{-2\pi/(|b_3|\alpha_\text{GUT})} \approx 364\;\text{MeV}$ uses the RG $\beta$-coefficient $b_3 = -7$, which is scheme-dependent and exposed to ghost corrections. The DRLT formula uses $\alpha_\text{GUT} = 6/(25\pi^2)$ directly, which is ghost-invariant (it equals the total Binet--Cauchy channel sum, protected by the trace conservation $\text{Tr}(G) = N$). Ghost contamination of $\Lambda_\text{QCD}$ enters only through $v_H$, at the $\sim 0.25\%$ level.
@@ -1503,13 +1831,13 @@ The standard dimensional transmutation formula $\Lambda = M_\text{GUT}\,e^{-2\pi
 
 \subsection{The proton mass}
 
-A proton consists of $n_S = 3$ valence quarks, each contributing $\Lambda_\text{QCD}$ of binding energy. The leading-order mass is $3\Lambda_\text{QCD} = 924\;\text{MeV}$, which is 1.5\% below the observed value. The deficit is filled by a single 1-loop correction from the SSS hinge self-interaction:
+A proton consists of $n_A = 3$ valence quarks, each contributing $\Lambda_\text{QCD}$ of binding energy. The leading-order mass is $3\Lambda_\text{QCD} = 924\;\text{MeV}$, which is 1.5\% below the observed value. The deficit is filled by a single 1-loop correction from the AAA hinge self-interaction:
 \begin{equation}
-\boxed{m_p = n_S^2 \times \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times \left(1 + \alpha_\text{GUT}\,\frac{n_S}{d}\right) = 937.5\;\text{MeV}.}
+\boxed{m_p = n_A^2 \times \frac{v_H}{\sqrt{c}} \times \alpha_\text{GUT}^2 \times \left(1 + \alpha_\text{GUT}\,\frac{n_A}{d}\right) = 937.5\;\text{MeV}.}
 \end{equation}
 Observed: $938.3\;\text{MeV}$ (0.08\%).
 
-The correction factor $(1 + \alpha_\text{GUT}\,n_S/d) = 1 + 0.0243 \times 3/5 = 1.0146$: one power of $\alpha_\text{GUT}$ for the self-coupling, and $n_S/d = 3/5$ for the spatial fraction of the simplex.
+The correction factor $(1 + \alpha_\text{GUT}\,n_A/d) = 1 + 0.0243 \times 3/5 = 1.0146$: one power of $\alpha_\text{GUT}$ for the self-coupling, and $n_A/d = 3/5$ for the spatial fraction of the simplex.
 
 \begin{center}
 \begin{tabular}{lccl}
@@ -1524,30 +1852,30 @@ $m_p$ (1-loop) & 937.5 MeV & 938.3 MeV & 0.08\% \\
 \end{center}
 
 \begin{remark}
-The proton mass is $\sim 100\times$ the sum of its valence quark masses ($m_u + m_u + m_d \approx 9\;\text{MeV}$). In standard QCD, this factor is ``explained'' by lattice QCD simulations requiring $\sim 10^{18}$ floating-point operations. In DRLT, it is $n_S^2 \times \alpha_\text{GUT}^2 \times (1 + \alpha_\text{GUT}\,n_S/d)$: five numbers, all derived from $d = 5$.
+The proton mass is $\sim 100\times$ the sum of its valence quark masses ($m_u + m_u + m_d \approx 9\;\text{MeV}$). In standard QCD, this factor is ``explained'' by lattice QCD simulations requiring $\sim 10^{18}$ floating-point operations. In DRLT, it is $n_A^2 \times \alpha_\text{GUT}^2 \times (1 + \alpha_\text{GUT}\,n_A/d)$: five numbers, all derived from $d = 5$.
 \end{remark}
 
 \subsection{Neutron-proton mass difference}
 
 The neutron ($udd$) differs from the proton ($uud$) only in its $\mathbb{C}^2$ (isospin) quantum numbers. The mass difference is:
 \begin{equation}
-\boxed{m_n - m_p = (m_d - m_u) \times \frac{n_S\bigl(d - 1 + S(2)/S(\infty)\bigr)}{d^2} = 1.302\;\text{MeV}.}
+\boxed{m_n - m_p = (m_d - m_u) \times \frac{n_A\bigl(d - 1 + S(2)/S(\infty)\bigr)}{d^2} = 1.302\;\text{MeV}.}
 \end{equation}
 Observed: $1.293\;\text{MeV}$ (0.7\%). Each factor:
 \begin{itemize}
 \item $(m_d - m_u) = 2.28\;\text{MeV}$: isospin breaking source ($\mathbb{C}^2$ asymmetry).
-\item $n_S/d^2 = 3/25$: spatial projection normalized by the full simplex.
+\item $n_A/d^2 = 3/25$: spatial projection normalized by the full simplex.
 \item $(d - 1) = 4$: gravitational contribution from 4D spacetime.
-\item $S(2)/S(\infty) = 15/(2\pi^2) = 0.760$: electroweak asymmetry correction, measuring how much the SST $=$ STT $= 12$ channel symmetry is broken.
+\item $S(2)/S(\infty) = 15/(2\pi^2) = 0.760$: electroweak asymmetry correction, measuring how much the AAB $=$ ABB $= 12$ channel symmetry is broken.
 \end{itemize}
 
 \begin{remark}[Why the mass difference is tiny]
-$m_n - m_p \approx 0.14\%$ of $m_p$. This extreme smallness follows from the Binet--Cauchy identity SST $=$ STT $= 12$: the electromagnetic and weak channels have identical channel counts when $c = 2$, so their effects nearly cancel. If $c \neq 2$, the cancellation would fail, and $m_n - m_p$ would be much larger --- potentially destabilizing all nuclei and preventing chemistry.
+$m_n - m_p \approx 0.14\%$ of $m_p$. This extreme smallness follows from the Binet--Cauchy identity AAB $=$ ABB $= 12$: the electromagnetic and weak channels have identical channel counts when $c = 2$, so their effects nearly cancel. If $c \neq 2$, the cancellation would fail, and $m_n - m_p$ would be much larger --- potentially destabilizing all nuclei and preventing chemistry.
 \end{remark}
 
 \subsection{Beta decay as $\mathbb{C}^2$ state flip}
 
-Neutron beta decay $n \to p + e^- + \bar{\nu}_e$ is a $\mathbb{C}^2$ isospin transition: a $d$-quark's temporal state flips to $u$-type, emitting energy through the STT (weak) channels. The $Q$-value:
+Neutron beta decay $n \to p + e^- + \bar{\nu}_e$ is a $\mathbb{C}^2$ isospin transition: a $d$-quark's temporal state flips to $u$-type, emitting energy through the ABB (weak) channels. The $Q$-value:
 \begin{equation}
 Q_\beta = m_n - m_p - m_e = 1.302 - 0.490 = 0.812\;\text{MeV}.
 \end{equation}
@@ -1562,27 +1890,37 @@ The neutrino is a state almost perfectly aligned with the $\mathbb{C}^2$ vacuum:
 \hline
 Property & DRLT origin \\
 \hline
-Electrically neutral & $\mathbb{C}^3$ component $\approx 0$ $\to$ no SST coupling \\
-Only weak interaction & Only STT hinges have nonzero $\det$ \\
+Electrically neutral & $\mathbb{C}^3$ component $\approx 0$ $\to$ no AAB coupling \\
+Only weak interaction & Only ABB hinges have nonzero $\det$ \\
 Nearly massless & Almost aligned with vacuum ($\det \approx 0$) \\
 Left-handed & $\mathbb{C}^2$ has chirality (pseudo-real fundamental) \\
-Three flavors & $n_S = 3$ generations \\
-Oscillates & Small $\mathbb{C}^3$ admixture allows flavor mixing \\
+Three flavors & $n_A = 3$ generations \\
+Oscillates & Hinge-sharing forces flavor rotation (see below) \\
 \hline
 \end{tabular}
 \end{center}
 
+\subsubsection{Neutrino oscillation: the geometric mechanism}
+
+Adjacent simplices share 4 vertices and differ by exactly 1 (the Pachner-adjacent structure). The shared face is a tetrahedron whose triangular hinges \emph{must} have $\det(G_h) > 0$ --- no physical hinge has $\det = 0$.
+
+Consider a beta decay producing a neutrino: a $\mathbb{C}^2$ slot opens in the source simplex. This ``empty'' vertex has near-zero $\mathbb{C}^3$ components, making it a ghost of the temporal sector. But the neighboring simplex shares a hinge with this vertex. For the shared hinge to maintain $\det(G_h) > 0$, the neighbor \emph{must fill the slot} with a nonzero value --- the geometry forbids a true vacancy.
+
+What flavor fills the slot? That is determined by the $\mathbb{C}^3$ admixture of the shared hinge. Each simplex boundary has a different hinge geometry (different $\Phi_I$ submatrices), so the $\mathbb{C}^3$ projection rotates at each crossing. This rotation \emph{is} flavor mixing. The neutrino ``oscillates'' because the geometric constraint $\det > 0$ forces successive simplices to fill the temporal slot with different $\mathbb{C}^3$ admixtures.
+
+No propagating wave function is needed. The oscillation is a boundary condition: the block universe's simplex network has $\det(G_h) > 0$ everywhere, and this single constraint, applied across adjacent simplices, produces the PMNS mixing pattern.
+
 \subsection{Nuclear force as cross-hinges}
 
-Two nucleons (two SSS hinges, 6 quarks total) interact through \emph{cross-hinges}: triangles whose vertices come from both nucleons. The number of cross-hinges is $\binom{6}{3} - 2 = 18$, providing 18 attractive channels. The deuterium binding energy:
+Two nucleons (two AAA hinges, 6 quarks total) interact through \emph{cross-hinges}: triangles whose vertices come from both nucleons. The number of cross-hinges is $\binom{6}{3} - 2 = 18$, providing 18 attractive channels. The deuterium binding energy:
 \begin{equation}
-E_d \sim \Lambda_\text{QCD} \times \alpha_\text{GUT} \times n_T/n_S = 308 \times 0.0243 \times 2/3 \approx 5.0\;\text{MeV}
+E_d \sim \Lambda_\text{QCD} \times \alpha_\text{GUT} \times n_B/n_A = 308 \times 0.0243 \times 2/3 \approx 5.0\;\text{MeV}
 \end{equation}
 (observed: $2.224\;\text{MeV}$, factor $\sim 2\times$ overestimate --- the cross-hinge overlap integral needs refinement).
 
 \subsection{The hydrogen atom}
 
-Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\mathbb{C}^3$) and $\{e\}$ (electron, $\mathbb{C}^2$), forming 1 SSS hinge (nuclear binding) + 3 SST hinges (electromagnetic binding). The ground-state energy:
+Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\mathbb{C}^3$) and $\{e\}$ (electron, $\mathbb{C}^2$), forming 1 AAA hinge (nuclear binding) + 3 AAB hinges (electromagnetic binding). The ground-state energy:
 \begin{equation}
 E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -12.9\;\text{eV}
 \end{equation}
@@ -1593,44 +1931,85 @@ E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -12.9\;\text{eV}
 \label{ch:atoms}
 %=====================================================================
 
-The simplex is the atom. This chapter derives atomic energy levels, molecular bond angles, and the rules of chemistry from the hinge geometry of $\mathbb{C}^5$, with zero free parameters and no Schr\"odinger equation.
+This chapter derives atomic energy levels, molecular bond angles, and the rules of chemistry from the face and hinge geometry of the 4-simplex, with zero free parameters and no Schr\"odinger equation.
 
-\subsection{The hydrogen simplex}
+\subsection{Hydrogen = AAAB face}
 
-Hydrogen is one 4-simplex: 5 vertices $\{S_1, S_2, S_3, T_1, T_2\}$, fully connected.
+Hydrogen is an \textbf{AAAB face} --- a tetrahedron $\{A_1, A_2, A_3, B_1\}$ within the full simplex $\{A_1, A_2, A_3, B_1, B_2\}$.
+
 \begin{itemize}
-\item $S_1, S_2, S_3 \in \mathbb{C}^3$: quarks (proton).
-\item $T_1 \in \mathbb{C}^2$: electron (spinor $(T_1, T_2)$ in the temporal sector).
-\item $T_2 \in \mathbb{C}^2$: the \emph{available slot} --- not vacuum, but where $T_1$ can transition.
+\item $A_1, A_2, A_3$: the proton (3 quarks forming the AAA triangle).
+\item $B_1$: the electron.
+\item $B_2$: the \emph{vacant slot} --- the 5th vertex, outside this tetrahedron.
 \end{itemize}
 
-The 10 hinges decompose as:
+The AAAB face contains 4 hinges (Chapter~\ref{ch:simplex_geometry}):
 \begin{center}
 \begin{tabular}{ccl}
 \hline
 Type & Count & Role \\
 \hline
-SSS & 1 & Proton binding (strong) \\
-SST & $3 + 3$ & Electron--proton coupling (EM) \\
-STT & 3 & $T_1 \leftrightarrow T_2$ hopping (weak/kinetic) \\
+AAA & 1 & Proton binding (strong force) \\
+AAB & 3 & Electron--proton coupling (EM) \\
 \hline
 \end{tabular}
 \end{center}
 
-\subsection{The hydrogen spectrum: $E_n = -m_e\alpha^2/(n_T \times n^2)$}
+The ABB hinges (3 total) lie \emph{outside} the AAAB face --- they involve $B_2$ (the vacant slot). The ionization energy of hydrogen is the cost of destroying the 3 AAB hinges that bind $B_1$ to the AAA core:
+\begin{equation}
+\text{IE}(\text{H}) = 3 \times \det(G_{\text{AAB}}).
+\end{equation}
+
+\subsection{Helium = fully occupied simplex}
+
+Helium occupies \textbf{both} B-vertices: $B_1$ (electron 1) and $B_2$ (electron 2). All 5 faces are active. The simplex is fully occupied --- no vacant slot.
+
+\begin{center}
+\begin{tabular}{ccl}
+\hline
+Type & Count & Role \\
+\hline
+AAA & 1 & Nuclear binding (strong) \\
+AAB & 6 & Electron--nucleus coupling (EM) \\
+ABB & 3 & Electron--electron interaction \\
+\hline
+\end{tabular}
+\end{center}
+
+Maximum number of active hinges = 10. This is why helium is the most stable light element (noble gas): there is nothing to add and nothing wants to leave.
+
+\subsubsection{Helium ionization and screening}
+
+Removing $B_2$ from helium destroys:
+\begin{itemize}
+\item 3 AAB hinges involving $B_2$: energy cost $3 \times \det(G_{\text{AAB}}, Z\!=\!2)$.
+\item 3 ABB hinges ($B_1$--$B_2$ interaction): energy \emph{recovered} $3 \times \det(G_{\text{ABB}})$.
+\end{itemize}
+
+\begin{equation}
+\text{IE}(\text{He}) = 3 \times \det(G_{\text{AAB}}, Z\!=\!2) - 3 \times \det(G_{\text{ABB}}).
+\end{equation}
+
+The screening coefficient $\sigma$ is the ratio of repulsive (ABB) to attractive (AAB) hinge determinants:
+\begin{equation}
+\boxed{\sigma = \frac{\det(G_{\text{ABB}})}{\det(G_{\text{AAB}})} = \frac{n_B}{n_A} = \frac{2}{3}.}
+\end{equation}
+This is derived from the dimension ratio of the hinge types: ABB lives in the $n_B = 2$ dimensional B-sector, while AAB bridges the $n_A = 3$ dimensional A-sector. The ratio $n_B/n_A$ is a geometric constant, not an empirical parameter.
+
+\subsection{The hydrogen spectrum: $E_n = -m_e\alpha^2/(n_B \times n^2)$}
 
 \begin{theorem}[Hydrogen energy levels]
 \begin{equation}
-\boxed{E_n = -\frac{m_e\,\alpha_\text{em}^2}{n_T \times n^2}}
+\boxed{E_n = -\frac{m_e\,\alpha_\text{em}^2}{n_B \times n^2}}
 \end{equation}
-where $m_e$ is the electron mass (Chapter~\ref{ch:masses}), $\alpha_\text{em}$ is the fine structure constant (Chapter~\ref{ch:couplings}), $n_T = 2$ is the temporal sector dimension, and $n = 1, 2, 3, \ldots$ is the principal quantum number.
+where $m_e$ is the electron mass (Chapter~\ref{ch:masses}), $\alpha_\text{em}$ is the fine structure constant (Chapter~\ref{ch:couplings}), $n_B = 2$ is the temporal sector dimension, and $n = 1, 2, 3, \ldots$ is the principal quantum number.
 \end{theorem}
 
 Each factor is derived:
 \begin{itemize}
 \item $m_e$: generation formula from simplex geometry (Sec.~6.7).
-\item $\alpha_\text{em}^2$: two SST hinge couplings (one per S--T transition).
-\item $1/n_T = 1/2$: the electron lives in $\mathbb{C}^2$ with $n_T = 2$ temporal directions. This is \textbf{not} the virial theorem --- it is the dimension of the temporal sector. If $n_T$ were 3, the ground state would be $E_1 = -9.07\;\text{eV}$ instead of $-13.6\;\text{eV}$.
+\item $\alpha_\text{em}^2$: two AAB hinge couplings (one per A--B transition).
+\item $1/n_B = 1/2$: the electron lives in $\mathbb{C}^2$ with $n_B = 2$ temporal directions. This is \textbf{not} the virial theorem --- it is the dimension of the temporal sector. If $n_B$ were 3, the ground state would be $E_1 = -9.07\;\text{eV}$ instead of $-13.6\;\text{eV}$.
 \item $1/n^2$: the lattice propagator $D(n) = 1/n^2$ --- the same inverse-square function that gives the coupling constants via the Basel sum (Chapter~\ref{ch:couplings}). $n$ counts lattice hops from the nuclear simplex.
 \end{itemize}
 
@@ -1638,13 +2017,13 @@ Numerical verification: $E_1 = -13.606\;\text{eV}$ (observed: $-13.606\;\text{eV
 
 \subsection{Spin from $\mathbb{C}^2$}
 
-The electron is not a point with an attached ``spin'' degree of freedom. The electron \emph{is} the $\mathbb{C}^2$ vector $(T_1, T_2)$:
+The electron is not a point with an attached ``spin'' degree of freedom. The electron \emph{is} the $\mathbb{C}^2$ vector $(B_1, B_2)$:
 \begin{equation}
-|e\rangle = \alpha|T_1\rangle + \beta|T_2\rangle, \qquad |\alpha|^2 + |\beta|^2 = 1.
+|e\rangle = \alpha|B_1\rangle + \beta|B_2\rangle, \qquad |\alpha|^2 + |\beta|^2 = 1.
 \end{equation}
-This is a spinor. $\text{SU}(2)$ acts on $\mathbb{C}^2$: this is the spin-$1/2$ representation. The reason the electron has spin $1/2$ is that $n_T = 2$.
+This is a spinor. $\text{SU}(2)$ acts on $\mathbb{C}^2$: this is the spin-$1/2$ representation. The reason the electron has spin $1/2$ is that $n_B = 2$.
 
-Spin up $= (1, 0)$, spin down $= (0, 1)$, superposition $= (\alpha, \beta)$. The magnetic moment is the $T_1 \leftrightarrow T_2$ transition phase. There is nothing rotating.
+Spin up $= (1, 0)$, spin down $= (0, 1)$, superposition $= (\alpha, \beta)$. The magnetic moment is the $B_1 \leftrightarrow B_2$ transition phase. There is nothing rotating.
 
 \subsection{Degeneracies from $\mathbb{C}^5 = \mathbb{C}^2 \oplus \mathbb{C}^3$}
 
@@ -1661,27 +2040,27 @@ $n$ & $l$ values & States & Total & $2n^2$ \\
 \end{tabular}
 \end{center}
 
-The angular momentum quantum number $l$ is the number of $\mathbb{C}^3$ directions the electron occupies: $l = 0$ (pure $\mathbb{C}^2$, $s$-orbital), $l = 1$ (one $\mathbb{C}^3$ direction, $p$-orbital), $l = 2$ (two $\mathbb{C}^3$ directions, $d$-orbital). The factor of 2 is spin ($n_T = 2$). The three $p$-orbitals $(p_x, p_y, p_z)$ correspond to the three spatial vertices $(S_1, S_2, S_3)$.
+The angular momentum quantum number $l$ is the number of $\mathbb{C}^3$ directions the electron occupies: $l = 0$ (pure $\mathbb{C}^2$, $s$-orbital), $l = 1$ (one $\mathbb{C}^3$ direction, $p$-orbital), $l = 2$ (two $\mathbb{C}^3$ directions, $d$-orbital). The factor of 2 is spin ($n_B = 2$). The three $p$-orbitals $(p_x, p_y, p_z)$ correspond to the three spatial vertices $(A_1, A_2, A_3)$.
 
-\subsection{Bond angles from $n_S = 3$}
+\subsection{Bond angles from $n_A = 3$}
 
-Molecular bond angles follow from a single integer: $n_S = 3$.
+Molecular bond angles follow from a single integer: $n_A = 3$.
 
-An atom with 4 electron pairs arranges them to maximize $\det(G_h)$ in $\mathbb{C}^3$. For equivalent pairs, the optimum is the regular tetrahedron: $n_S + 1 = 4$ points in $\mathbb{R}^{n_S}$, with $\cos\theta = -1/n_S$ between any two (a standard result in $n$-dimensional geometry).
+An atom with 4 electron pairs arranges them to maximize $\det(G_h)$ in $\mathbb{C}^3$. For equivalent pairs, the optimum is the regular tetrahedron: $n_A + 1 = 4$ points in $\mathbb{R}^{n_A}$, with $\cos\theta = -1/n_A$ between any two (a standard result in $n$-dimensional geometry).
 
-When $k$ of the 4 pairs are lone (unshared T vertex, $n_S$ connections) and $4-k$ are bonding (shared T vertex, $n_S + 1$ connections), the pairs are \emph{not} equivalent. The lone-pair T vertex connects to fewer simplices, so its $\det(G_h)$ is concentrated --- it occupies a \emph{larger} angular footprint than a bonding pair whose $\det$ is dispersed over more connections. The det-maximizing configuration pushes the bonding pairs closer together. The ratio of effective angular weights is $(n_S + 1)/n_S$, giving:
+When $k$ of the 4 pairs are lone (unshared T vertex, $n_A$ connections) and $4-k$ are bonding (shared T vertex, $n_A + 1$ connections), the pairs are \emph{not} equivalent. The lone-pair T vertex connects to fewer simplices, so its $\det(G_h)$ is concentrated --- it occupies a \emph{larger} angular footprint than a bonding pair whose $\det$ is dispersed over more connections. The det-maximizing configuration pushes the bonding pairs closer together. The ratio of effective angular weights is $(n_A + 1)/n_A$, giving:
 
 \begin{theorem}[Molecular bond angles]
 \begin{align}
-\text{CH}_4 \;(k=0): \quad \cos\theta &= -\frac{1}{n_S} = -\frac{1}{3}, \quad \theta = 109.47^\circ, \\[4pt]
-\text{NH}_3 \;(k=1): \quad \cos\theta &= -\frac{n_S + 1}{n_S^2 + n_S + 1} = -\frac{4}{13}, \quad \theta = 107.92^\circ, \\[4pt]
-\text{H}_2\text{O} \;(k=2): \quad \cos\theta &= -\frac{1}{n_S + 1} = -\frac{1}{4}, \quad \theta = 104.48^\circ.
+\text{CH}_4 \;(k=0): \quad \cos\theta &= -\frac{1}{n_A} = -\frac{1}{3}, \quad \theta = 109.47^\circ, \\[4pt]
+\text{NH}_3 \;(k=1): \quad \cos\theta &= -\frac{n_A + 1}{n_A^2 + n_A + 1} = -\frac{4}{13}, \quad \theta = 107.92^\circ, \\[4pt]
+\text{H}_2\text{O} \;(k=2): \quad \cos\theta &= -\frac{1}{n_A + 1} = -\frac{1}{4}, \quad \theta = 104.48^\circ.
 \end{align}
 \end{theorem}
 
-The hinge correction $\pm 0.04^\circ$ per bond arises from $n_S \neq n_T$ (the S--T asymmetry of the hinge geometry):
+The hinge correction $\pm 0.04^\circ$ per bond arises from $n_A \neq n_B$ (the A--B asymmetry of the hinge geometry):
 \begin{equation}
-\Delta\theta = \alpha_\text{GUT} \times \frac{n_S - n_T}{n_S \times n_T} = \frac{1}{25\pi^2} \approx 0.04^\circ.
+\Delta\theta = \alpha_\text{GUT} \times \frac{n_A - n_B}{n_A \times n_B} = \frac{1}{25\pi^2} \approx 0.04^\circ.
 \end{equation}
 This is gravitational curvature at atomic scale.
 
@@ -1703,7 +2082,7 @@ All three exact. Zero free parameters. One arithmetic operation each.
 The $0.04^\circ$ is a direct readout of gravitational curvature at atomic scale. The VSEPR rule ``lone pairs occupy more space'' is the atomic-scale version of ``mass curves spacetime.'' The same $\det(G_h)$ that governs planetary orbits governs the shape of the water molecule.
 \end{remark}
 
-\subsection{Chemistry as T-vertex accounting}
+\subsection{Chemistry as B-vertex accounting}
 
 Every chemical concept translates to the simplex language:
 
@@ -1712,19 +2091,19 @@ Every chemical concept translates to the simplex language:
 \hline
 Chemical concept & Simplex translation \\
 \hline
-Covalent bond & Shared T vertex between simplices \\
-Lone pair & Unshared T vertex \\
-Octet rule & All T vertices occupied \\
-Acid & Can donate a T vertex \\
-Base & Has a vacant T to accept \\
-Noble gas & All T full; no vacancies \\
-Nuclear force & Shared S vertex between simplices \\
-Beta decay & $S \to T$ vertex transition \\
+Covalent bond & Shared B vertex between simplices \\
+Lone pair & Unshared B vertex \\
+Octet rule & All B vertices occupied \\
+Acid & Can donate a B vertex \\
+Base & Has a vacant B to accept \\
+Noble gas & All B full; no vacancies (simplex fully occupied) \\
+Nuclear force & Shared A vertex between simplices \\
+Beta decay & $A \to B$ vertex transition \\
 \hline
 \end{tabular}
 \end{center}
 
-Chemistry is the accounting of T vertices. Nuclear physics is the accounting of S vertices. The weak force is the exchange desk between them.
+Chemistry is the accounting of B vertices. Nuclear physics is the accounting of A vertices. The weak force is the exchange between them.
 
 \subsection{Why no Schr\"odinger equation}
 
@@ -1773,7 +2152,7 @@ The three angles of the CKM unitarity triangle:
 \alpha &= \pi - \gamma - \beta = 89.0^\circ \qquad (\text{obs: } \sim 89^\circ,\; \sim 0\%).
 \end{align}
 
-The CP phase $\delta_\text{CKM} = \gamma = \pi/\varphi^2$ deserves special attention. It arises from the diagonalization of the down-type mass matrix, whose off-diagonal elements carry a phase $\pi/d = 36^\circ$ (half the pentagon central angle) required by Hermiticity of the Gram sub-matrix. The nonlinear mapping from input phase $\pi/d$ to output phase $\pi/\varphi^2$ through diagonalization has been verified numerically.
+The CP phase $\delta_\text{CKM} = \gamma = \pi/\varphi^2$ deserves special attention. It arises from the diagonalization of the down-type mass matrix, whose off-diagonal elements carry a phase $\pi/d = 36^\circ$ (half the pentagon central angle) required by Hermiticity of the Gram sub-matrix. The nonlinear mapping from input phase $\pi/d$ to output phase $\pi/\varphi^2$ through diagonalization has been verified numerically (EXP\_019, $C^2$ mixing matrix diagonalization).
 
 \begin{remark}
 $\delta_\text{CKM} = \pi/\varphi^2 = 68.75^\circ$ matching $68.8^\circ$ to 0.1\% is the single most precise prediction of DRLT. The probability of this being a coincidence (given $\pi$, $\varphi$, and integers) is $< 10^{-3}$.
@@ -2180,23 +2559,23 @@ Baryon density: $\Omega_b h^2 = \eta_B \times 3.65 \times 10^7 = 0.0224$. Observ
 
 \subsubsection{The cosmological constant problem --- solved}
 
-In standard QFT, the vacuum energy diverges as $\Lambda^4_\text{UV} \sim M_\text{Pl}^4$, exceeding observations by 122 orders of magnitude. In DRLT, the vacuum has $\psi_i = e^{i\theta_i}\psi_0$ (aligned), giving $\det G_h = 0$ for every hinge, hence $\hbar = 0$, hence:
+In standard QFT, the vacuum energy diverges as $\Lambda^4_\text{UV} \sim M_\text{Pl}^4$, exceeding observations by 122 orders of magnitude. In DRLT, no such divergence can occur: the lattice has $N$ finite vertices, each contributing a bounded $\hbar_h = \sqrt{\det(G_h)}/(4\ln 2)$. Since $\det(G_h) > 0$ always --- no physical configuration achieves exact $\psi$ alignment, not at the Big Bang, not in black holes, not at heat death --- the vacuum energy is strictly positive but \emph{finite}:
 \begin{equation}
-E_\text{vac} = 0 \quad\text{(exactly)}.
+0 < E_\text{vac} \ll M_\text{Pl}^4.
 \end{equation}
 
-The observed dark energy is the minimum nonzero $\hbar$ fluctuation over the cosmological horizon:
+The observed dark energy density is set by the minimum $\hbar$ fluctuation over the cosmological horizon:
 \begin{equation}
 \hbar_\text{min} = \frac{1}{N_H}, \qquad N_H = \frac{A_\text{horizon}}{4\ell_P^2} \approx 10^{122}, \qquad \frac{\rho_\Lambda}{\rho_\text{Pl}} \sim 10^{-122}.
 \end{equation}
 
 \subsubsection{Equation of state}
 
-Our universe is not exact rank 1 (which would have $\hbar = 0$ exactly). It occupies the effective rank $\sim 5$ band, where residual eigenvalues are small but nonzero. True vacuum ($w = -1$ exactly) requires complete $\psi$ alignment --- the heat death endpoint, not our epoch:
+Every physical configuration has $\det G_h > 0$, hence $\hbar > 0$, hence nonzero energy density. There is no ``true vacuum'' with $\hbar = 0$ anywhere --- not in our universe, not at any epoch, not even as a theoretical limit. The state $\det G_h = 0$ (perfect $\psi$ alignment) is a mathematical boundary that no physical evolution reaches:
 \begin{equation}
 \boxed{w \approx -1 \quad\text{(high precision, not exact)}.}
 \end{equation}
-The deviation from $-1$ is of order $\varepsilon_0^2 \sim 10^{-5}$. There is no true vacuum anywhere in our universe --- every point has $\det > 0$, $\hbar > 0$.
+The deviation from $-1$ is of order $\varepsilon_0^2 \sim 10^{-5}$. Every point in spacetime has $\det > 0$, $\hbar > 0$.
 
 \begin{remark}[DESI and apparent $w \neq -1$]
 DRLT predicts $w = -1$ at each individual redshift $z$. However, combining data across multiple redshift bins introduces the Wishart eigenvalue non-linearity (Sec.~9.6): the effective equation of state $w_\text{eff}$, fitted to the combined data, can differ from $-1$ even though $w(z) = -1$ at every $z$ individually. This is the same mechanism that produces the Hubble tension. DESI's hint of $w \neq -1$ (via $w_0$-$w_a$ parameterization) is consistent with this:
@@ -2466,8 +2845,8 @@ Region of $G$ & $\text{rank}$ & $\det(G_h)$ & Epoch \\
 Random block & $N$ & large & Big Bang: $\text{SU}(N)$, all forces unified \\
 Rank reduction & $N \to 5$ & decreasing & Swap annihilation: atoms pair and die \\
 Rank-5 plateau & $5$ & moderate & Our era: $\text{SU}(3)\!\times\!\text{SU}(2)\!\times\!\text{U}(1)$ \\
-Further alignment & $5 \to 1$ & small & Far future: $3 \to 2 \to 1 \to 0$ \\
-Diagonal block & $1$ & $0$ & Heat death: $G_{ij} = 1\;\forall(i,j)$, vacuum \\
+Further alignment & $5 \to 1$ & small & Far future: $3 \to 2 \to 1$ (forces fade) \\
+Near-diagonal block & $1$ & $\to 0$ & Late universe: $G_{ij} \to 1$, $\det \to 0$ (never reached) \\
 \hline
 \end{tabular}
 \end{center}
@@ -2553,7 +2932,7 @@ Step & From & To & How \\
 4 & Hinges & $1 + 12 + 12 = 25$ & Binet--Cauchy + $c$-weight \\
 5 & Channels & $\alpha_3, \alpha_2, \alpha_1$ & Basel sum + Gram rank \\
 6 & $\alpha_i + v_H$ & 26 SM parameters & Simplex geometry \\
-7 & $\hbar_h = 0$ (vacuum) & Cosmology (9 observables) & Block universe \\
+7 & $\hbar_h > 0$ (finite) & Cosmology (9 observables) & Block universe \\
 8 & $\text{Tr}(G) = N$ & Ghost Sum Rule ($\Sigma\delta = 0$) & Completeness \\
 \hline
 & \multicolumn{2}{l}{\textbf{Free parameters:}} & \textbf{0} \\
@@ -2625,6 +3004,69 @@ The ``measurement problem'' does not arise. $G$ is static. Nothing collapses. Th
 This theory derived 52 quantitative predictions --- coupling constants, fermion masses, mixing angles, cosmological observables, $\eta/s = 1/(4\pi)$, the proton mass to 0.08\% --- without defining a single observable operator. No position operator $\hat{x}$, no momentum $\hat{p}$, no Hamiltonian postulated as ``the energy operator,'' no eigenvalue-equals-measurement axiom, no Born rule. The local Hamiltonian $H_i = \sum_j W_{ij}|\psi_j\rangle\langle\psi_j|$ was not introduced --- it emerged from the Gram matrix structure.
 
 The question ``is it a particle or a wave?'' does not arise. Each vertex carries a complex number $\psi \in \mathbb{C}^5$. Complex numbers are neither particles nor waves. The question is malformed --- like asking whether the number 3 is red or blue.
+
+\subsection{The simplex network}
+
+This section gives the geometric construction that produces the fully connected weighted network of the preceding chapters.
+
+\subsubsection{Construction}
+
+\begin{enumerate}
+\item Take a 4-simplex $\sigma$: 5 vertices, each carrying $\psi_k \in \mathbb{C}$ ($k = 1, \ldots, 5$). The interior of $\sigma$ is uniform --- all interior points share the same 5 complex values.
+
+\item Place $N$ such simplices $\{\sigma_1, \ldots, \sigma_N\}$ as nodes of a complete graph. Adjacent simplices share a tetrahedron (4 vertices) and differ by exactly 1 vertex (the Pachner-adjacent structure).
+
+\item Inflate each simplex until its boundary is a tangent manifold of its neighbors. Every pair of simplices now shares a codimension-1 face. The connection weight $W_{ij} = |G_{ij}|^2/d$ is determined by the shared face geometry.
+\end{enumerate}
+
+Most weights $W_{ij} \approx 0$, so the network has a sparse effective topology consistent with a 4-dimensional manifold. The underlying structure remains fully connected.
+
+\subsubsection{Information at hinges}
+
+Each hinge $h$ (a triangle: 3 of the 5 vertices) carries exactly 1 bit (Theorem~\ref{thm:holevo}). Information resides at the $\binom{5}{3} = 10$ hinges, not in the simplex interior. One simplex $=$ one discrete cell of spacetime.
+
+The hinge area $A_h = \sqrt{\det(G_h)}$ is at the Planck scale. The temporal vertex density is $c = 2$ times the spatial, so 2 temporal hinges correspond to 1 spatial hinge per unit of the lattice.
+
+\subsubsection{Forces as hinge types}
+
+Each hinge is classified by its vertex composition $(n_S, n_T)$ with $n_S + n_T = 3$:
+
+\begin{center}
+\begin{tabular}{ccll}
+\hline
+Type & $(n_S, n_T)$ & $\det(G_h)$ & Force \\
+\hline
+SSS & $(3,0)$ & $> 0$ & Strong \\
+SST & $(2,1)$ & $> 0$ & Electromagnetic \\
+STT & $(1,2)$ & $= 0$ ($n_T < 3$) & Weak (via SST borrowing) \\
+TTT & $(0,3)$ & --- & Impossible ($n_T = 2 < 3$) \\
+\hline
+\end{tabular}
+\end{center}
+
+Gravity is not a hinge \emph{type} but the deficit angle between hinges (Chapter~\ref{ch:geometry}): the $G_h$ tensor distorts each triangle, and the arrangement of distorted hinges around a common edge determines the curvature.
+
+Electromagnetism is pure phase ($\arg G_{ij}$): no degree of freedom is absorbed at any hinge boundary, so it propagates across all simplices. Gravity and electromagnetism propagate at the same speed $c = 2$ because both are communicated between simplices through the same hinge gradient.
+
+\subsubsection{Confinement from simplex geometry}
+
+At $N_\text{eff} = 1$: a single simplex. The labels $S, S, S, T, T$ are indistinguishable --- the 5 vertices are interchangeable. This is the deconfined phase ($\eta/s = 1/(4\pi)$, Appendix~\ref{app:qcd}).
+
+At $N_\text{eff} \geq 2$: the SSS triangle has all 3 spatial vertices within one simplex. An SSS hinge cannot be shared across a simplex boundary (adjacent simplices share 4 vertices, but the SSS triangle uses 3 spatial vertices, all belonging to one simplex). Therefore $\text{SU}(3)$ color is confined to a single simplex.
+
+At $N_\text{eff} = 2$: the $\text{SU}(2)$ temporal doublet has 2 components. Crossing one simplex boundary consumes both ($\binom{2}{2} = 1$), leaving no residual degree of freedom. Hence $\text{SU}(2)$ is broken.
+
+$\text{U}(1)$ electromagnetism carries only a phase --- it has no simplex-counting constraint and survives at all $N_\text{eff}$.
+
+\subsubsection{Consequences for field-theoretic limits}
+
+The continuous-manifold approximation of the simplex network introduces three artifacts that vanish in the discrete structure:
+
+\begin{enumerate}
+\item \textbf{UV divergences:} Continuous modes $\to$ infinite; simplex modes $\to$ $N$ (finite). No renormalization is needed.
+\item \textbf{Vacuum catastrophe:} $\sum_k \omega_k/2 \to \infty$ over continuous modes; in the network, $N$ bounded hinge areas give a finite vacuum energy.
+\item \textbf{Measurement problem:} A continuous wave function requires a collapse postulate; a simplex carries one discrete value per vertex --- there is nothing to collapse.
+\end{enumerate}
 
 \subsection{The minimal assumption}
 

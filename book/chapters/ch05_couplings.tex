@@ -12,13 +12,13 @@ The hinge volume $\det(G_h)$ for a triangle in $\mathbb{C}^5$ lives in the third
 \det(G_h) = \det(\Phi\,\Phi^\dagger).
 \end{equation}
 
-The causal decomposition $\mathbb{C}^5 = V_S \oplus V_T$ (with $\dim V_S = n_S = 3$, $\dim V_T = n_T = 2$) induces a canonical splitting of the exterior power:
+The causal decomposition $\mathbb{C}^5 = V_A \oplus V_B$ (with $\dim V_A = n_A = 3$, $\dim V_B = n_B = 2$) induces a canonical splitting of the exterior power:
 \begin{equation}
-\Lambda^3(\mathbb{C}^5) = \bigoplus_{k=0}^{\min(3,\,n_T)} \Lambda^{3-k}(V_S) \otimes \Lambda^k(V_T).
+\Lambda^3(\mathbb{C}^5) = \bigoplus_{k=0}^{\min(3,\,n_B)} \Lambda^{3-k}(V_A) \otimes \Lambda^k(V_B).
 \label{eq:exterior_split}
 \end{equation}
 
-Since $n_T = 2 < 3$, the sum terminates at $k = 2$: the term $\Lambda^0(V_S) \otimes \Lambda^3(V_T) = 0$ because $\Lambda^3(V_T) = 0$ for a 2-dimensional space. This is the \emph{algebraic origin} of the impossibility of TTT hinges (Sec.~3.12).
+Since $n_B = 2 < 3$, the sum terminates at $k = 2$: the term $\Lambda^0(V_A) \otimes \Lambda^3(V_B) = 0$ because $\Lambda^3(V_B) = 0$ for a 2-dimensional space. This is the \emph{algebraic origin} of the impossibility of BBB hinges (Sec.~3.12).
 
 \subsection{The Binet--Cauchy decomposition with $c$-weighting}
 
@@ -28,9 +28,9 @@ By the Binet--Cauchy theorem \cite{BinetCauchy}, $\det(\Phi\Phi^\dagger)$ expand
 \end{equation}
 where $\Phi_I$ is the $3 \times 3$ submatrix formed by columns $I$.
 
-Each column belongs to either $V_S$ (spatial) or $V_T$ (temporal). The temporal columns carry a density weight $\sqrt{c} = \sqrt{2}$ (Sec.~3.9: the temporal vertex density is $c = 2$ times the spatial density per dimension). When a submatrix $\Phi_I$ includes $k$ temporal columns, the squared minor picks up a factor $c^k$:
+Each column belongs to either $V_A$ (spatial) or $V_B$ (temporal). The temporal vertex density is $c = 2$ times the spatial density per dimension (Chapter~\ref{ch:geometry}, Eq.~\ref{eq:speed_of_light}): in the lattice, 2 temporal vertices occupy the same lattice spacing as 1 spatial vertex. A $3 \times 3$ minor containing $k$ temporal columns therefore spans a sub-volume that is $c^k$ times denser than the pure-spatial case. The squared minor inherits this scaling:
 \begin{equation}
-\det(G_h) = \sum_{k=0}^{2} c^k \sum_{\substack{|I_S| = 3-k \\ |I_T| = k}} |\det(\Phi_{I_S \cup I_T})|^2.
+\det(G_h) = \sum_{k=0}^{2} c^k \sum_{\substack{|I_A| = 3-k \\ |I_B| = k}} |\det(\Phi_{I_A \cup I_B})|^2.
 \label{eq:BC_expansion}
 \end{equation}
 
@@ -40,23 +40,23 @@ The $c$-weighted channel count for each term:
 
 \noindent\textbf{$k = 0$: Pure spatial --- Strong force.}
 \begin{equation}
-\Lambda^3 V_S \otimes \Lambda^0 V_T: \qquad \underbrace{\binom{3}{3}}_1 \times \underbrace{\binom{2}{0}}_1 \;\text{minors} \times \underbrace{c^0}_1 = \mathbf{1}\;\text{channel}.
+\Lambda^3 V_A \otimes \Lambda^0 V_B: \qquad \underbrace{\binom{3}{3}}_1 \times \underbrace{\binom{2}{0}}_1 \;\text{minors} \times \underbrace{c^0}_1 = \mathbf{1}\;\text{channel}.
 \end{equation}
-All three columns are spatial. This is the unique SSS hinge --- the seat of the strong force.
+All three columns are spatial. This is the unique AAA hinge --- the seat of the strong force.
 
 \bigskip
 
-\noindent\textbf{$k = 1$: Mixed SST --- Electromagnetic force.}
+\noindent\textbf{$k = 1$: Mixed AAB --- Electromagnetic force.}
 \begin{equation}
-\Lambda^2 V_S \otimes \Lambda^1 V_T: \qquad \underbrace{\binom{3}{2}}_3 \times \underbrace{\binom{2}{1}}_2 \;\text{minors} \times \underbrace{c^1}_2 = \mathbf{12}\;\text{channels}.
+\Lambda^2 V_A \otimes \Lambda^1 V_B: \qquad \underbrace{\binom{3}{2}}_3 \times \underbrace{\binom{2}{1}}_2 \;\text{minors} \times \underbrace{c^1}_2 = \mathbf{12}\;\text{channels}.
 \end{equation}
 Two spatial columns and one temporal. The U(1) electromagnetic force connects the spatial and temporal sectors.
 
 \bigskip
 
-\noindent\textbf{$k = 2$: Mixed STT --- Weak force.}
+\noindent\textbf{$k = 2$: Mixed ABB --- Weak force.}
 \begin{equation}
-\Lambda^1 V_S \otimes \Lambda^2 V_T: \qquad \underbrace{\binom{3}{1}}_3 \times \underbrace{\binom{2}{2}}_1 \;\text{minors} \times \underbrace{c^2}_4 = \mathbf{12}\;\text{channels}.
+\Lambda^1 V_A \otimes \Lambda^2 V_B: \qquad \underbrace{\binom{3}{1}}_3 \times \underbrace{\binom{2}{2}}_1 \;\text{minors} \times \underbrace{c^2}_4 = \mathbf{12}\;\text{channels}.
 \end{equation}
 One spatial column and two temporal. The SU(2) weak force is dominated by the temporal sector.
 
@@ -64,7 +64,7 @@ One spatial column and two temporal. The SU(2) weak force is dominated by the te
 
 \noindent\textbf{$k = 3$: Pure temporal --- Impossible.}
 \begin{equation}
-\Lambda^0 V_S \otimes \Lambda^3 V_T = 0 \qquad (n_T = 2 < 3).
+\Lambda^0 V_A \otimes \Lambda^3 V_B = 0 \qquad (n_B = 2 < 3).
 \end{equation}
 
 \bigskip
@@ -78,8 +78,8 @@ The total $c$-weighted channel count is:
 This equals the rank of the Wishart matrix $W = |\Phi|^2/d$, independently proven in \cite{Wishart}. The gravitational hinge volume decomposes into exactly $d^2$ interaction channels.
 \end{theorem}
 
-\begin{remark}[$c = 2$ is essential]
-If $c = 1$ (no temporal density enhancement): $1 + 6 + 3 = 10 = \binom{5}{3} \neq d^2 = 25$. If $c = 3$: $1 + 18 + 27 = 46 \neq 25$. Only $c = 2$ gives $25 = d^2$. The speed of light is not merely a kinematic ratio; it is the \emph{unique value} that makes the Binet--Cauchy decomposition consistent with the Wishart rank.
+\begin{remark}[Self-consistency check: $c = 2$]
+The value $c = 2$ was already derived in Chapter~\ref{ch:geometry} (Eq.~\ref{eq:speed_of_light}) from the $(n_A, n_B) = (3, 2)$ structure. As an independent consistency check: if $c = 1$, the channel sum gives $1 + 6 + 3 = 10 \neq d^2$; if $c = 3$, it gives $1 + 18 + 27 = 46 \neq d^2$. Only the derived value $c = 2$ yields $1 + 12 + 12 = 25 = d^2$, confirming that the Binet--Cauchy decomposition is self-consistent with the Wishart rank.
 \end{remark}
 
 \begin{remark}[Electroweak geometric identity]
@@ -90,13 +90,13 @@ The electromagnetic and weak sectors carry \emph{identical} channel counts: $12 
 
 Each interaction channel propagates on the lattice. What propagates is not a ``field'' obeying a wave equation, but the \emph{deficit angle} $\delta_h$ --- the curvature at a hinge. A hinge at distance $n$ from a source sees the source through a solid angle:
 \begin{equation}
-D(n) = \frac{A_\text{source}}{n^{n_S - 1}} = \frac{1}{n^2} \qquad (n_S = 3).
+D(n) = \frac{A_\text{source}}{n^{n_A - 1}} = \frac{1}{n^2} \qquad (n_A = 3).
 \end{equation}
 
-This is \emph{not} a lattice Green's function (which would be a modified Bessel function from inverting a discrete Laplacian). It is the geometric solid angle in $n_S = 3$ spatial dimensions --- independent of lattice structure, topology, or dynamics. In $n_S$ dimensions, $D(n) = 1/n^{n_S-1}$; our universe has $n_S = 3$, giving $1/n^2$.
+This is \emph{not} a lattice Green's function (which would be a modified Bessel function from inverting a discrete Laplacian). It is the geometric solid angle in $n_A = 3$ spatial dimensions --- independent of lattice structure, topology, or dynamics. In $n_A$ dimensions, $D(n) = 1/n^{n_A-1}$; our universe has $n_A = 3$, giving $1/n^2$.
 
 \begin{remark}[Coulomb's law]
-The potential $V(r) = \int D(n)\,dn \propto 1/n^{n_S-2} = 1/n$ for $n_S = 3$: the Coulomb $1/r$ law. The inverse-square force $F \propto 1/r^2$ and the inverse-square propagator $D(n) = 1/n^2$ are the same geometric fact.
+The potential $V(r) = \int D(n)\,dn \propto 1/n^{n_A-2} = 1/n$ for $n_A = 3$: the Coulomb $1/r$ law. The inverse-square force $F \propto 1/r^2$ and the inverse-square propagator $D(n) = 1/n^2$ are the same geometric fact.
 \end{remark}
 
 The total coupling per channel is the sum over all propagation distances:
@@ -121,11 +121,11 @@ The propagation range $N_\text{eff}$ is not a free parameter. It is \emph{derive
 
 \noindent\textbf{Strong force: $N_\text{eff} = 1$ (confinement).}
 
-Propagation requires consuming an independent channel at each hop. For the SSS sector: all 3 vertices are in $\mathbb{C}^3$. The number of independent SSS configurations is $\binom{n_S}{n_S} = 1$.
+Propagation requires consuming an independent channel at each hop. For the AAA sector: all 3 vertices are in $\mathbb{C}^3$. The number of independent AAA configurations is $\binom{n_A}{n_A} = 1$.
 
 \begin{itemize}
-\item \textbf{Hop 1}: the unique SSS triangle $(S_1, S_2, S_3)$ propagates to a neighboring hinge $(S_1', S_2', S_3')$.
-\item \textbf{Hop 2}: would require a \emph{second independent} SSS configuration. But $\binom{3}{3} = 1$: only one exists. Using the same configuration twice produces $\det = 0$ (linear dependence). Propagation stops.
+\item \textbf{Hop 1}: the unique AAA triangle $(A_1, A_2, A_3)$ propagates to a neighboring hinge $(A_1', A_2', A_3')$.
+\item \textbf{Hop 2}: would require a \emph{second independent} AAA configuration. But $\binom{3}{3} = 1$: only one exists. Using the same configuration twice produces $\det = 0$ (linear dependence). Propagation stops.
 \end{itemize}
 
 This is \textbf{confinement}: the strong force exhausts all $\mathbb{C}^3$ degrees of freedom in a single hop. It is a combinatorial fact, not a dynamical phenomenon.
@@ -139,18 +139,18 @@ This confinement ($N_\text{eff} = 1$) can be lifted at sufficiently high tempera
 
 \bigskip
 
-\noindent\textbf{Weak force: $N_\text{eff} = n_T = 2$ (rank exhaustion).}
+\noindent\textbf{Weak force: $N_\text{eff} = n_B = 2$ (rank exhaustion).}
 
-The weak force depends on the temporal sector $\mathbb{C}^2$. The temporal Gram matrix $G^T_{ij} = \sum_{a=3}^{4}\psi^*_{i,a}\psi_{j,a}$ has rank at most $n_T = 2$. On the lattice, this means at most $n_T$ successive correlations can remain linearly independent:
+The weak force depends on the temporal sector $\mathbb{C}^2$. The temporal Gram matrix $G^T_{ij} = \sum_{a=3}^{4}\psi^*_{i,a}\psi_{j,a}$ has rank at most $n_B = 2$. On the lattice, this means at most $n_B$ successive correlations can remain linearly independent:
 
 \begin{itemize}
 \item \textbf{Hop 1} ($i \to j$): the first temporal direction is used. The correlation $G^T_{ij}$ is generically nonzero. Independent.
 \item \textbf{Hop 2} ($j \to k$): the second (and last) temporal direction is used. $G^T_{jk}$ is independent of $G^T_{ij}$.
-\item \textbf{Hop 3} ($k \to l$): a third independent temporal direction would be needed, but $\dim V_T = n_T = 2$. The new correlation $G^T_{kl}$ is a linear combination of the previous two --- the force cannot propagate further.
+\item \textbf{Hop 3} ($k \to l$): a third independent temporal direction would be needed, but $\dim V_B = n_B = 2$. The new correlation $G^T_{kl}$ is a linear combination of the previous two --- the force cannot propagate further.
 \end{itemize}
 
 \begin{equation}
-N_\text{eff}^\text{weak} = n_T = 2, \qquad S(2) = 1 + \frac{1}{4} = \frac{5}{4}.
+N_\text{eff}^\text{weak} = n_B = 2, \qquad S(2) = 1 + \frac{1}{4} = \frac{5}{4}.
 \end{equation}
 
 \begin{remark}
@@ -161,7 +161,7 @@ This provides a geometric explanation for the short range of the weak force: it 
 
 \noindent\textbf{Electromagnetic force: $N_\text{eff} = \infty$ (no rank exhaustion).}
 
-The electromagnetic U(1) gauge field is the \emph{relative phase} between $V_S$ and $V_T$ (Sec.~\ref{sec:glue}). It does not consume rank within either sector: it couples \emph{across} sectors. Since neither $G^S$ nor $G^T$ is exhausted by U(1) propagation, there is no rank limit on the number of hops.
+The electromagnetic U(1) gauge field is the \emph{relative phase} between $V_A$ and $V_B$ (Sec.~\ref{sec:glue}). It does not consume rank within either sector: it couples \emph{across} sectors. Since neither $G^S$ nor $G^T$ is exhausted by U(1) propagation, there is no rank limit on the number of hops.
 
 \begin{equation}
 N_\text{eff}^\text{EM} = \infty, \qquad S(\infty) = \zeta(2) = \frac{\pi^2}{6}.
@@ -172,7 +172,7 @@ N_\text{eff}^\text{EM} = \infty, \qquad S(\infty) = \zeta(2) = \frac{\pi^2}{6}.
 \bigskip
 
 \begin{remark}[Cohomological interpretation]
-In the language of lattice cohomology: $N_\text{eff}$ equals the rank of $H_1(\text{Lattice}_i, \mathbb{Z})$ restricted to the gauge sector's topological support. For SSS: rank$(G^S) = n_S$ saturates in 1 step. For STT: rank$(G^T) = n_T$ saturates in $n_T$ steps. For the cross-sector U(1): no saturation occurs.
+In the language of lattice cohomology: $N_\text{eff}$ equals the rank of $H_1(\text{Lattice}_i, \mathbb{Z})$ restricted to the gauge sector's topological support. For AAA: rank$(G^S) = n_A$ saturates in 1 step. For ABB: rank$(G^T) = n_B$ saturates in $n_B$ steps. For the cross-sector U(1): no saturation occurs.
 \end{remark}
 
 \subsection{The coupling constants}
@@ -196,23 +196,23 @@ Applied to the three hinge types:
 \hline
 Force & Hinge & Pure/Mixed & Sector & Representation & $g$ \\
 \hline
-Strong & SSS & Pure ($\mathbb{C}^3$) & SU($n_S$) & Adjoint & $n_S^2 - 1 = 8$ \\
-Weak & STT & Mixed & SU($n_T$) & Fundamental & $n_T = 2$ \\
-EM & SST & Mixed & U(1) over $\mathbb{C}^3$ & Charges & $n_S = 3$ \\
+Strong & AAA & Pure ($\mathbb{C}^3$) & SU($n_A$) & Adjoint & $n_A^2 - 1 = 8$ \\
+Weak & ABB & Mixed & SU($n_B$) & Fundamental & $n_B = 2$ \\
+EM & AAB & Mixed & U(1) over $\mathbb{C}^3$ & Charges & $n_A = 3$ \\
 \hline
 \end{tabular}
 \end{center}
 
-\begin{remark}[Why SSS gets the adjoint]
-SSS is the \emph{only} pure hinge: all 3 vertices come from $\mathbb{C}^3$, with 0 from $\mathbb{C}^2$. A pure hinge sees the full internal rotation group of its sector. In $\mathbb{C}^3$, this is SU(3), with $3^2 - 1 = 8$ generators (the 8 gluons). SST and STT are mixed: they connect the two sectors, so each vertex of the ``other'' sector acts as a single charge, giving the fundamental representation. The self/cross distinction is the geometric origin of why gluons carry color charge (adjoint) while photons do not (singlet coupling to $n_S$ charges).
+\begin{remark}[Why AAA gets the adjoint]
+AAA is the \emph{only} pure hinge: all 3 vertices come from $\mathbb{C}^3$, with 0 from $\mathbb{C}^2$. A pure hinge sees the full internal rotation group of its sector. In $\mathbb{C}^3$, this is SU(3), with $3^2 - 1 = 8$ generators (the 8 gluons). AAB and ABB are mixed: they connect the two sectors, so each vertex of the ``other'' sector acts as a single charge, giving the fundamental representation. The self/cross distinction is the geometric origin of why gluons carry color charge (adjoint) while photons do not (singlet coupling to $n_A$ charges).
 \end{remark}
 
 \begin{theorem}[Coupling constants at $M_Z$]
 \label{thm:couplings}
 \begin{align}
-\frac{1}{\alpha_3(M_Z)} &= 1 \times (n_S^2 - 1) \times S(1) = 1 \times 8 \times 1 = \mathbf{8.0} \label{eq:alpha3} \\
-\frac{1}{\alpha_2(M_Z)} &= 12 \times n_T \times S(n_T) = 12 \times 2 \times \frac{5}{4} = \mathbf{30.0} \label{eq:alpha2} \\
-\frac{1}{\alpha_1(M_Z)} &= 12 \times n_S \times S(\infty) = 12 \times 3 \times \frac{\pi^2}{6} = \mathbf{6\pi^2} \approx 59.22 \label{eq:alpha1}
+\frac{1}{\alpha_3(M_Z)} &= 1 \times (n_A^2 - 1) \times S(1) = 1 \times 8 \times 1 = \mathbf{8.0} \label{eq:alpha3} \\
+\frac{1}{\alpha_2(M_Z)} &= 12 \times n_B \times S(n_B) = 12 \times 2 \times \frac{5}{4} = \mathbf{30.0} \label{eq:alpha2} \\
+\frac{1}{\alpha_1(M_Z)} &= 12 \times n_A \times S(\infty) = 12 \times 3 \times \frac{\pi^2}{6} = \mathbf{6\pi^2} \approx 59.22 \label{eq:alpha1}
 \end{align}
 \end{theorem}
 
@@ -235,7 +235,7 @@ The formula $1/\alpha_1 = 6\pi^2$ is exact. It contains no approximation, no tru
 \begin{remark}[Geometric meaning of $6\pi^2$]
 The number $6\pi^2$ has a direct geometric interpretation:
 \begin{itemize}
-\item $6 = d + 1$: the number of vertices of the 4-simplex (equivalently, $\binom{5}{4}$ tetrahedra, or $c \times d_S = 2 \times 3$, the spacetime volume factor).
+\item $6 = d + 1$: the number of vertices of the 4-simplex (equivalently, $\binom{5}{4}$ tetrahedra, or $c \times d_A = 2 \times 3$, the spacetime volume factor).
 \item $\pi^2/6 = \zeta(2)$: Euler's Basel sum, which is the total ``illuminance'' of the inverse-square lattice propagator $\sum_{n=1}^\infty 1/n^2$. Each lattice hop at distance $n$ contributes brightness $1/n^2$; the sum over all distances gives $\pi^2/6$.
 \end{itemize}
 Thus $1/\alpha_1 = (d+1) \times \pi^2 = 6\pi^2$: the EM coupling constant is ``the number of simplex vertices times the total brightness of the lattice.'' More precisely, it is the U(1) flux through $\mathbb{CP}^4$ computed via harmonic analysis on the Fubini--Study metric. The coupling constant is a measure of total lattice illuminance per channel.

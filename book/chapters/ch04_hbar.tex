@@ -32,6 +32,7 @@ The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas
 \boxed{\hbar_h = \frac{\sqrt{\det(G_h)}}{4\ln 2} = \frac{A_h}{4\ln 2}}
 \label{eq:hbar}
 \end{equation}
+where $G_h$ is the $3 \times 3$ Gram sub-matrix with entries $\langle\psi_i|\psi_j\rangle$ for the three hinge vertices (not the real shadow $W_h = |G_h|^2/d$). The hinge area $A_h = \sqrt{\det(G_h)}$ is a complex-geometric quantity derived from the fundamental overlap $G$.
 
 The factor $4\ln 2$ ensures that $S/\hbar$ counts information in bits: each hinge contributes $\delta_h/(4\ln 2)$ bits to the action, consistent with $I_\text{hinge} = 1$ bit.
 
@@ -55,10 +56,10 @@ Unlike standard quantum mechanics where $\hbar = 1.054 \times 10^{-34}\;\text{J}
 \item \textbf{Determined:} it is not a free parameter but a function of the state.
 \end{enumerate}
 
-\subsection{Vacuum: $\hbar = 0$}
+\subsection{The $\hbar \to 0$ limit}
 
-\begin{proposition}[Vacuum is classical]
-If all vertices are in the same state ($\psi_i = e^{i\theta_i}\psi_0$ for all $i$), then $\hbar_h = 0$ for every hinge.
+\begin{proposition}[Aligned limit]
+If all vertices were in the same state ($\psi_i = e^{i\theta_i}\psi_0$ for all $i$), then $\hbar_h = 0$ for every hinge.
 \end{proposition}
 
 \begin{proof}
@@ -71,7 +72,7 @@ For aligned states, the holonomy $\Phi_h = 0$, giving $\det(G_h) = 1 - 3 + 2 = 0
 Therefore $A_h = 0$ and $\hbar_h = 0$.
 \end{proof}
 
-\textbf{Physical meaning:} The vacuum is \emph{exactly classical}. There are no quantum fluctuations, no zero-point energy, no vacuum catastrophe. The cosmological constant problem is eliminated at its root: $E_\text{vac} = 0$ exactly.
+\textbf{Physical meaning:} Perfect alignment is a mathematical boundary that no physical configuration reaches --- not at the Big Bang, not inside black holes, not at heat death. Every physical state has $\det(G_h) > 0$ and $\hbar_h > 0$. The cosmological constant problem is solved not by $E_\text{vac} = 0$ but by \emph{finiteness}: $N$ vertices produce $N$ bounded modes, so the vacuum energy is strictly positive but cannot diverge. The $10^{122}$ catastrophe of QFT (infinite modes, each contributing $\sim M_\text{Pl}$) simply does not arise.
 
 \subsection{Matter: $\hbar > 0$}
 
@@ -173,7 +174,7 @@ In the continuum limit, this becomes:
 \end{equation}
 where:
 \begin{itemize}
-\item $c = 2$ is the lattice speed of light (Eq.~\ref{eq:speed_of_light}), derived from $(n_S, n_T) = (3, 2)$.
+\item $c = 2$ is the lattice speed of light (Eq.~\ref{eq:speed_of_light}), derived from $(n_A, n_B) = (3, 2)$.
 \item $G$ is Newton's constant, which in Planck units is $G = \ell_P^2 c^3/\hbar$ --- a unit conversion, not a free parameter.
 \end{itemize}
 
@@ -183,12 +184,12 @@ Both $c$ and $G$ are determined by the lattice structure. The only dynamical con
 
 The Planck constant measures the \emph{resolution} of spacetime:
 \begin{itemize}
-\item $\hbar = 0$ (vacuum): infinite resolution, perfectly classical, no uncertainty. Like a photograph with infinite pixels --- but nothing to photograph.
+\item $\hbar \to 0$ (near-aligned limit): resolution increases, physics becomes more classical. This limit is approached but never reached --- every physical configuration retains $\hbar > 0$.
 \item $\hbar > 0$ (matter): finite resolution, quantum uncertainty, structure. The higher $\hbar$, the ``blurrier'' the spacetime, the more quantum the physics.
 \item $\hbar \to \infty$: maximally quantum, maximally uncertain. This is the deep interior of a dense matter configuration --- but as shown in Sec.~3.13, compression drives $\psi$ alignment, which drives $\hbar \to 0$, preventing this limit from being reached. Singularities are impossible.
 \end{itemize}
 
-The transition from quantum to classical is not a ``collapse'' or a ``decoherence'' but a geometric fact: as regions of spacetime align ($\psi_i \to \psi_j$), their $\hbar$ decreases continuously to zero. The classical world is the aligned world.
+The transition from quantum to classical is not a ``collapse'' or a ``decoherence'' but a geometric fact: as regions of spacetime align ($\psi_i \to \psi_j$), their $\hbar$ decreases continuously toward zero, though it never reaches it. The classical world is the nearly-aligned world.
 
 \begin{remark}[Why $\hbar$ appears constant in experiments]
 In laboratory settings, the matter configurations are similar across experiments: atoms, molecules, and photons have similar $\psi$ structures. The ``universal'' value $\hbar = 1.054 \times 10^{-34}\;\text{J}\cdot\text{s}$ is the average $\hbar_h$ for typical baryonic matter in the current epoch. It is approximately constant for the same reason that the average temperature of a room is approximately constant --- not because temperature is a fundamental constant, but because the local conditions are similar.
