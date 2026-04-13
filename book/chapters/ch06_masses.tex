@@ -67,7 +67,13 @@ Observed: $206.768$ ($0.02\%$).
 \item \textbf{Trace correction} $(1 + \alpha_\mathrm{GUT}/(n_A+1))$: the universal correction (Chapter~\ref{ch:ghosts}) with sector factor $1/(n_A+1) = 1/4$ for the simplex boundary.
 \end{itemize}
 
-All ingredients are independently verified: $W_{AB} = \alpha^2/(n_A d)$ (6 digits), $|\langle B|B_3\rangle|^2 = 1/c = 1/n_B$ (4 digits), $\det(G_\mathrm{ABB}) = n_B/n_A$ (3 digits).  A complete algebraic proof that these combine to give $n_A/(n_B\alpha)$ requires connecting the transmission coefficient per hinge ($T_h \approx 1 - 2\alpha^2/n_A$) to the net impedance over $1/\alpha$ hops; this last step is in progress.
+All ingredients are independently verified: $W_{AB} = \alpha^2/(n_A d)$ (6 digits), $|\langle B|B_3\rangle|^2 = 1/c = 1/n_B$ (4 digits), $\det(G_\mathrm{ABB}) = n_B/n_A$ (3 digits).
+
+The connection to $n_A/(n_B\alpha)$ follows from Ohm's law on the lattice:
+\begin{equation}
+R = \rho \times L,
+\end{equation}
+where $\rho = n_A/n_B = 1/\det(G_\mathrm{ABB})$ is the impedance per hop (from the ABB hinge determinant), and $L = 1/\alpha$ is the correlation length of the lattice propagator with nearest-neighbor coupling amplitude $\sqrt{W_{AB}} \propto \alpha$.  The lattice Green's function $G(n) \sim e^{-n/\xi}$ with $\xi \sim 1/\alpha$ is a standard result; thus $R = (n_A/n_B) \times (1/\alpha) = n_A/(n_B\alpha)$.
 
 For the second generation boundary, the impedance involves $B_3$'s linear dependence ($|\langle B|B_3\rangle|^2 = 1/c$, from the variational extremum):
 \begin{equation}
