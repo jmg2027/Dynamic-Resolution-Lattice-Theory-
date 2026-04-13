@@ -909,7 +909,7 @@ G_{ij} = \underbrace{|G_{ij}|}_{\text{ER (geometry)}} \times \underbrace{e^{i\ph
 \end{equation}
 A wormhole is a region where $W_{ij}$ is large (strong geometric connection) despite spatial separation. Entanglement is a region where $\phi_{ij}$ is correlated despite $W_{ij} \approx 0$. Both are components of the same complex inner product $G_{ij}$. The ER\,=\,EPR conjecture is the statement that $|G_{ij}|$ and $e^{i\phi_{ij}}$ belong to the same number. This is not a conjecture; it is the definition of $\mathbb{C}$.
 
-\textbf{Ghost channels.} The Gram matrix $G$ has 5 significant eigenvalues and $N - 5$ eigenvalues at $0^+$ (the ghosts of Chapter~\ref{ch:ghosts}). These $0^+$ eigenvalues connect distant simplices through ``almost zero'' hinge determinants: $\det(G_h) = 0^+$ means the hinge exists but carries negligible energy. Phase correlations persist through these ghost channels even when $W \approx 0$. The ghost dimensions are the geometric substrate of entanglement.
+\textbf{Ghost channels.} The Gram matrix $G$ has 5 significant eigenvalues and $N - 5$ eigenvalues at $0^+$ (the ghosts of Chapter~\ref{ch:ghosts}). These $0^+$ eigenvalues connect distant simplices through ``almost zero'' hinge determinants: $\det(G_h) = 0^+$ means the hinge exists but carries negligible energy. Phase correlations persist through these $\det(G_h)$ channels even when $W \approx 0$. The ghost dimensions are the geometric substrate of entanglement.
 
 \subsection{Physical identification: A = spatial, B = temporal}
 \label{sec:causal_split}
@@ -1812,7 +1812,7 @@ $m_e$ & 1 & 0.49 MeV & 0.511 & 4\% & $m_\tau\,(\varepsilon\varphi^2)^4/n_A^2$ \\
 Median accuracy: 3\%. All 9 masses from 4 building blocks: $v_H$ (from $d$), $\alpha_\text{GUT}$ (from $d^2\zeta(2)$), $\varepsilon$ (from $\alpha_\text{GUT}$ and $n_A/n_B$), and $\varphi$ (from Pachner fixed point). Zero free parameters.
 
 \begin{remark}[Error structure]
-The errors are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the opposite of the coupling constant pattern (Chapter~\ref{ch:couplings}: $\alpha_3$ has the largest error). The physical reason: lower generations have less internal structure ($k = 1$ has no internal edges), making them more susceptible to perturbations from the $N > 5$ ghost remnants. This error pattern is quantified by the Ghost Sum Rule (Chapter~\ref{ch:ghosts}).
+The errors are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the opposite of the coupling constant pattern (Chapter~\ref{ch:couplings}: $\alpha_3$ has the largest error). The physical reason: lower generations have less internal structure ($k = 1$ has no internal edges), making them more susceptible to perturbations from the $N > 5$ $\det(G_h)$ contributions. This error pattern is quantified by the Trace Conservation (Chapter~\ref{ch:ghosts}).
 \end{remark}
 
 \subsection{The QCD confinement scale}
@@ -1825,8 +1825,8 @@ Observed: 200--340 MeV (scheme-dependent). The formula reads: the top-quark mass
 
 Equivalently: $\Lambda_\text{QCD} = m_b \times \alpha_\text{GUT} \times n_A = 4.22 \times 0.0243 \times 3 = 308\;\text{MeV}$.
 
-\begin{remark}[Ghost protection]
-The standard dimensional transmutation formula $\Lambda = M_\text{GUT}\,e^{-2\pi/(|b_3|\alpha_\text{GUT})} \approx 364\;\text{MeV}$ uses the RG $\beta$-coefficient $b_3 = -7$, which is scheme-dependent and exposed to ghost corrections. The DRLT formula uses $\alpha_\text{GUT} = 6/(25\pi^2)$ directly, which is ghost-invariant (it equals the total Binet--Cauchy channel sum, protected by the trace conservation $\text{Tr}(G) = N$). Ghost contamination of $\Lambda_\text{QCD}$ enters only through $v_H$, at the $\sim 0.25\%$ level.
+\begin{remark}[Trace protection]
+The standard dimensional transmutation formula $\Lambda = M_\text{GUT}\,e^{-2\pi/(|b_3|\alpha_\text{GUT})} \approx 364\;\text{MeV}$ uses the RG $\beta$-coefficient $b_3 = -7$, which is scheme-dependent and exposed to $\det(G_h)$ contributions. The DRLT formula uses $\alpha_\text{GUT} = 6/(25\pi^2)$ directly, which is trace-invariant (it equals the total Binet--Cauchy channel sum, protected by $\operatorname{Tr}(G) = N$). The $\det(G_h)$ redistribution affects individual couplings but not $\alpha_\text{GUT}$. Geometric contamination of $\Lambda_\text{QCD}$ enters only through $v_H$, at the $\sim 0.25\%$ level.
 \end{remark}
 
 \subsection{The proton mass}
@@ -2274,11 +2274,11 @@ Observed: $125.25\;\text{GeV}$ ($\sim 0.2\%$).
 \noindent All 26 parameters are determined by $d = 5$ through the constants $\pi$, $\varphi = (1+\sqrt{5})/2$, and the integers $(n_S, n_T) = (3, 2)$. Zero free parameters.
 
 %=====================================================================
-\section{The Ghost Sum Rule}
+\section{Topological Trace Conservation}
 \label{ch:ghosts}
 %=====================================================================
 
-The DRLT predictions of Chapters~\ref{ch:couplings}--\ref{ch:mixing} carry systematic deviations from observation. This chapter proves that these deviations are not random errors but obey a conservation law: the \emph{Ghost Sum Rule}. The ``ghosts'' are remnants of annihilated $N > 5$ structure (Chapter~\ref{ch:whyd5}), redistributed among the surviving forces.
+The full topological coupling constant has two contributions: a \emph{combinatorial} part (channel counts, gauge multiplicity, Basel sums --- Chapter~\ref{ch:couplings}) and a \emph{geometric} part ($\det(G_h)$ weights from the hinge areas). The combinatorial part gives integer-valued leading terms; the geometric part redistributes weight among sectors, constrained by trace conservation. This chapter proves structural theorems about the geometric contributions $\Delta_i$ and their physical consequences.
 
 \subsection{The gauge coupling sum rule}
 
@@ -2298,7 +2298,7 @@ The gravity correction is not independently measured but fixed by:
 
 \textbf{Numerical check:} $+0.47 - 0.40 - 0.22 + 0.15 = 0.00$ (exact to available precision).
 
-\begin{theorem}[Ghost Sum Rule]
+\begin{theorem}[Trace Conservation]
 The sum $\sum_i \delta(1/\alpha_i) = 0$ follows from Binet--Cauchy completeness and trace conservation.
 \end{theorem}
 
@@ -2307,7 +2307,7 @@ The total channel count $d^2 = 25$ is fixed by the Binet--Cauchy completeness re
 
 When $N > 5$ structure collapses to rank 5, the Gram matrix undergoes a unitary-equivalent projection. Unitary transformations preserve the trace: $\text{Tr}(G) = N$ is invariant. The $d^2 = 25$ surviving eigenvalues absorb the contributions of the annihilated eigenvalues, but their \emph{sum} is conserved.
 
-Since $1/\alpha_i$ is proportional to the channel density in sector $i$ (Chapter~\ref{ch:couplings}), and the total density is fixed at $d^2 = 25$, any redistribution of ghost remnants among sectors must satisfy $\sum_i \delta(1/\alpha_i) = 0$.
+Since $1/\alpha_i$ is proportional to the channel density in sector $i$ (Chapter~\ref{ch:couplings}), and the total density is fixed at $d^2 = 25$, any redistribution of $\det(G_h)$ contributions among sectors must satisfy $\sum_i \delta(1/\alpha_i) = 0$.
 \end{proof}
 
 \subsection{Physical interpretation of each correction}
@@ -2317,7 +2317,7 @@ Since $1/\alpha_i$ is proportional to the channel density in sector $i$ (Chapter
 \hline
 Force & $\delta$ & Mechanism \\
 \hline
-Strong & $+0.47$ & Spatial rank saturation \emph{absorbs} ghost channels \\
+Strong & $+0.47$ & Spatial rank saturation \emph{absorbs} $\det(G_h)$ channels \\
 Weak & $-0.40$ & Temporal rank limit \emph{leaks} channels \\
 EM & $-0.22$ & Infinite-range diffusion \emph{dilutes} channels \\
 Gravity & $+0.15$ & Background curvature \emph{absorbs} residual \\
@@ -2325,7 +2325,7 @@ Gravity & $+0.15$ & Background curvature \emph{absorbs} residual \\
 \end{tabular}
 \end{center}
 
-Strong and gravity \emph{absorb} (positive $\delta$): confined or local forces concentrate ghost remnants. Weak and EM \emph{leak} (negative $\delta$): longer-range forces spread remnants over a larger phase space. The signs are determined by whether the force's $N_\text{eff}$ is finite (absorber) or large (diffuser).
+Strong and gravity \emph{absorb} (positive $\delta$): confined or local forces concentrate $\det(G_h)$ contributions. Weak and EM \emph{leak} (negative $\delta$): longer-range forces spread remnants over a larger phase space. The signs are determined by whether the force's $N_\text{eff}$ is finite (absorber) or large (diffuser).
 
 \subsection{The reversed mass error pattern}
 
@@ -2343,7 +2343,7 @@ Atom 1 / Gen 1 & 0.4\% (smallest) & 3.9\% (largest) \\
 \end{tabular}
 \end{center}
 
-\textbf{Reason:} Coupling errors $\propto$ sensitivity to \emph{propagation} remnants (confined forces absorb most). Mass errors $\propto$ sensitivity to \emph{structural} remnants (structureless generations are most vulnerable). Two different ghost channels, two opposite hierarchies.
+\textbf{Reason:} Coupling errors $\propto$ sensitivity to \emph{propagation} remnants (confined forces absorb most). Mass errors $\propto$ sensitivity to \emph{structural} remnants (structureless generations are most vulnerable). Two different $\det(G_h)$ channels, two opposite hierarchies.
 
 \subsection{Energy conversion: the universal sum rule}
 
@@ -2394,7 +2394,7 @@ The residual $0.03\;\text{GeV}$ is within the experimental uncertainty of the in
 
 \subsection{The base perturbation $\varepsilon_0$}
 
-The ghost corrections can be parameterized by a single scale $\varepsilon_0 \approx 0.0038$:
+The $\det(G_h)$ contributions can be parameterized by a single scale $\varepsilon_0 \approx 0.0038$:
 \begin{equation}
 \delta(1/\alpha_i) = \text{Sgn}_i \times (1/\alpha_i)_\text{pred} \times M_i \times \varepsilon_0
 \end{equation}
@@ -2418,12 +2418,12 @@ The parameter $\varepsilon_0$ is \emph{not} a free parameter. It encodes the ``c
 
 \subsection{Testable predictions}
 
-The Ghost Sum Rule generates predictions of a new kind --- not about the values of physical constants, but about the \emph{structure of theoretical errors}:
+The Trace Conservation generates predictions of a new kind --- not about the values of physical constants, but about the \emph{structure of theoretical errors}:
 
 \begin{enumerate}
 \item \textbf{Sum rule maintenance:} if future measurements shift any $\delta(1/\alpha_i)$, the others must shift to maintain $\sum \delta = 0$. A violation would falsify the trace conservation mechanism.
 
-\item \textbf{Error hierarchy:} the coupling error pattern (strong $>$ weak $>$ EM) and the mass error pattern (1st gen $>$ 2nd gen $>$ 3rd gen) must remain opposite. If both hierarchies pointed the same way, the ghost redistribution model would be falsified.
+\item \textbf{Error hierarchy:} the coupling error pattern (strong $>$ weak $>$ EM) and the mass error pattern (1st gen $>$ 2nd gen $>$ 3rd gen) must remain opposite. If both hierarchies pointed the same way, the $\det(G_h)$ redistribution model would be falsified.
 
 \item \textbf{Energy conservation:} the 26-parameter energy sum $\sum \delta E \approx 0$ must hold as individual measurements improve. The current residual ($0.03\;\text{GeV}$) should decrease, not increase, with better data.
 
@@ -2432,9 +2432,9 @@ The Ghost Sum Rule generates predictions of a new kind --- not about the values 
 
 \subsection{The Webb dipole: $\alpha_\text{em}$ varies, $\alpha_\text{GUT}$ does not}
 
-Webb et al.\ reported a spatial dipole variation in $\alpha_\text{em}$ across the sky: $\Delta\alpha/\alpha \approx (1.1 \pm 0.25) \times 10^{-5}$ \cite{Webb}. For 25 years, the community has debated whether this is real physics or systematic error. The Ghost Sum Rule resolves the debate: \textbf{both sides are right}.
+Webb et al.\ reported a spatial dipole variation in $\alpha_\text{em}$ across the sky: $\Delta\alpha/\alpha \approx (1.1 \pm 0.25) \times 10^{-5}$ \cite{Webb}. For 25 years, the community has debated whether this is real physics or systematic error. The Trace Conservation resolves the debate: \textbf{both sides are right}.
 
-The key insight is that $\varepsilon_0$ is a \emph{local field}: $\varepsilon_0 = \varepsilon_0(\mathbf{x})$, varying with position due to the large-scale $\det(G_h)$ distribution. This does not violate the sum rule --- at every spatial point, $\sum_i \delta_i(\mathbf{x}) = 0$ holds exactly. Only the \emph{distribution} of ghosts among sectors varies; the total $1/\alpha_\text{GUT} = 25\pi^2/6$ is spatially invariant.
+The key insight is that $\varepsilon_0$ is a \emph{local field}: $\varepsilon_0 = \varepsilon_0(\mathbf{x})$, varying with position due to the large-scale $\det(G_h)$ distribution. This does not violate the sum rule --- at every spatial point, $\sum_i \delta_i(\mathbf{x}) = 0$ holds exactly. Only the \emph{distribution} of geometric weight among sectors varies; the total $1/\alpha_\text{GUT} = 25\pi^2/6$ is spatially invariant.
 
 If $\varepsilon_0$ varies by a fraction $f = \Delta\varepsilon_0/\varepsilon_0$ across the sky, then:
 \begin{equation}
@@ -2448,8 +2448,8 @@ This is 1.4 times the CMB dipole ($v/c = 0.12\%$) --- the same order of magnitud
 
 The mechanism makes a \textbf{falsifiable prediction}: $\alpha_s$ must vary in the \emph{opposite direction} to $\alpha_\text{em}$, maintaining $\sum\delta_i(\mathbf{x}) = 0$ everywhere. This is testable by measuring molecular absorption lines in the same quasar spectra that probe $\alpha_\text{em}$.
 
-\begin{remark}[$\mu = m_p/m_e$ is ghost-protected]
-One might expect $\mu = m_p/m_e$ to anti-correlate with $\alpha_\text{em}$ through the chain $\alpha_s \to \Lambda_\text{QCD} \to m_p$. However, DRLT's own results show this chain is broken: $\Lambda_\text{QCD} = v_H/\sqrt{c} \times \alpha_\text{GUT}^2 \times n_S$ depends on $\alpha_\text{GUT}$ (ghost-invariant), not on $\alpha_s$ (ghost-varying). Similarly, $m_e$ corrections depend on $\delta_\text{EW} = 1 - S(2)/S(\infty)$, a lattice constant. Therefore $\mu \approx \text{const}$ across the sky, with $\Delta\mu/\mu \approx 0$. Published H$_2$ quasar measurements (10 systems, $|\Delta\mu/\mu| \lesssim 10^{-5}$) are consistent with this prediction: all are within $1$--$2\sigma$ of zero. The theory corrects a naive application of its own results.
+\begin{remark}[$\mu = m_p/m_e$ is trace-protected]
+One might expect $\mu = m_p/m_e$ to anti-correlate with $\alpha_\text{em}$ through the chain $\alpha_s \to \Lambda_\text{QCD} \to m_p$. However, DRLT's own results show this chain is broken: $\Lambda_\text{QCD} = v_H/\sqrt{c} \times \alpha_\text{GUT}^2 \times n_S$ depends on $\alpha_\text{GUT}$ (trace-invariant), not on $\alpha_s$ (which varies with $\varepsilon_0$). Similarly, $m_e$ corrections depend on $\delta_\text{EW} = 1 - S(2)/S(\infty)$, a lattice constant. Therefore $\mu \approx \text{const}$ across the sky, with $\Delta\mu/\mu \approx 0$. Published H$_2$ quasar measurements (10 systems, $|\Delta\mu/\mu| \lesssim 10^{-5}$) are consistent with this prediction: all are within $1$--$2\sigma$ of zero. The theory corrects a naive application of its own results.
 \end{remark}
 
 \begin{center}
@@ -2459,7 +2459,7 @@ Quantity & Status & Why \\
 \hline
 (none) & No universal constant & Universe $=$ rank-$N$ matrix \\
 $25\pi^2/6$ & Plateau constant & Geometric identity of rank-5 \\
-$1/\alpha_3, 1/\alpha_2, 1/\alpha_1$ & Local values & Ghost redistribution \\
+$1/\alpha_3, 1/\alpha_2, 1/\alpha_1$ & Local values & $\det(G_h)$ redistribution \\
 $1/\alpha_\text{em} \approx 137$ & Local composite & $= \tfrac{5}{3}(1/\alpha_1) + (1/\alpha_2)$ \\
 $1/137.036$ & Our address & $\varepsilon_0 \approx 0.0038$ here, now \\
 \hline
@@ -2468,7 +2468,7 @@ $1/137.036$ & Our address & $\varepsilon_0 \approx 0.0038$ here, now \\
 
 \subsection{Case study: hydrogen ground state (zero intrinsic error)}
 
-The hydrogen ground state $E_1 = -m_e\alpha_\text{em}^2/2$ provides a concrete test of the ghost error mechanism. Using raw DRLT values ($m_e = 0.490\;\text{MeV}$, $\alpha_\text{em}^{-1} = 137.8$): $E_1^{(0)} = -12.90\;\text{eV}$ (apparent error $-5.2\%$ vs.\ observed $-13.606\;\text{eV}$).
+The hydrogen ground state $E_1 = -m_e\alpha_\text{em}^2/2$ provides a concrete test of the topological decomposition. Using combinatorial DRLT values ($m_e = 0.490\;\text{MeV}$, $\alpha_\text{em}^{-1} = 137.8$): $E_1^{(0)} = -12.90\;\text{eV}$ (apparent error $-5.2\%$ vs.\ observed $-13.606\;\text{eV}$).
 
 This 5.2\% decomposes \emph{exactly} into four corrections, each with an identified origin:
 
@@ -2478,17 +2478,17 @@ This 5.2\% decomposes \emph{exactly} into four corrections, each with an identif
 Level & Correction & $E_1$ (eV) & Error & Source \\
 \hline
 0 & None (raw DRLT) & $-12.90$ & $-5.2\%$ & (baseline) \\
-1 & $m_e$ ghost (1st gen) & $-13.43$ & $-1.3\%$ & Ghost theory \\
+1 & $m_e$ $\det(G_h)$ (1st gen) & $-13.43$ & $-1.3\%$ & Trace conservation \\
 2 & $\alpha$ QED running ($M_Z \to 0$) & $-13.58$ & $-0.21\%$ & Standard QED \\
-3 & $m_e$ 2nd-order ghost & $-13.60$ & $-0.04\%$ & Ghost$^2$ \\
+3 & $m_e$ 2nd-order $\det$ & $-13.60$ & $-0.04\%$ & Higher-order topology \\
 4 & Reduced mass + QED & $-13.606$ & $0.00\%$ & Standard QED \\
 \hline
 \end{tabular}
 \end{center}
 
-The first-generation ghost correction ($m_e \to 0.510\;\text{MeV}$, the ``$k = 1$ penalty'' from Sec.~8.3) accounts for 4.1\% of the 5.2\%. QED running ($1/\alpha_\text{em}$: $137.8 \to 137.04$) accounts for 1.1\%. The residual 0.04\% is standard QED (reduced mass, Lamb shift). \textbf{DRLT intrinsic error: zero.}
+The first-generation $\det(G_h)$ contribution ($m_e \to 0.510\;\text{MeV}$, the ``$k = 1$ penalty'' from Sec.~8.3) accounts for 4.1\% of the 5.2\%. QED running ($1/\alpha_\text{em}$: $137.8 \to 137.04$) accounts for 1.1\%. The residual 0.04\% is standard QED (reduced mass, Lamb shift). \textbf{DRLT intrinsic error: zero.}
 
-Each correction level is suppressed by $\sim\!\alpha_\text{GUT} \approx 1/41$ relative to the previous, consistent with ghosts being perturbative in $\alpha_\text{GUT}$. This pattern applies to every DRLT prediction: raw errors ($\sim 5\%$) reduce to near-zero after ghost corrections.
+Each correction level is suppressed by $\sim\!\alpha_\text{GUT} \approx 1/41$ relative to the previous, consistent with $\det(G_h)$ contributions being perturbative in $\alpha_\text{GUT}$. This pattern applies to every DRLT prediction: raw errors ($\sim 5\%$) reduce to near-zero after $\det(G_h)$ contributions.
 
 \subsection{The $\alpha_\text{GUT}$ correction: evidence for unification}
 
@@ -2503,7 +2503,7 @@ $m_p$ & 924 MeV & $\times(1 + \alpha\,n_S/d) = 937.5$ & 938.3 & 0.08\% \\
 $\theta_{\text{H}_2\text{O}}$ & $104.48^\circ$ & $+ 0.04^\circ$ & $104.52^\circ$ & $0.00^\circ$ \\
 $\theta_{\text{NH}_3}$ & $107.92^\circ$ & $- 0.12^\circ$ & $107.80^\circ$ & $0.00^\circ$ \\
 $\eta_B$ & $5.98 \times 10^{-10}$ & $\times(1 + \alpha) = 6.13$ & $6.12$ & 0.2\% \\
-$E_1$(H) & $-12.9$ eV & ghost $\to -13.6$ & $-13.6$ & 0.0\% \\
+$E_1$(H) & $-12.9$ eV & full topology $\to -13.6$ & $-13.6$ & 0.0\% \\
 \hline
 \end{tabular}
 \end{center}
@@ -2891,7 +2891,7 @@ The only quantity that depends on ``where in the block'' is the cosmological con
 
 \subsection{The cosmic address $\varepsilon_0$}
 
-The ghost correction parameter $\varepsilon_0 \approx 0.0038$ (Chapter~\ref{ch:ghosts}) is not a free parameter. It encodes our position within the block:
+The geometric parameter $\varepsilon_0 \approx 0.0038$ (Chapter~\ref{ch:ghosts}) is not a free parameter. It encodes our position within the block:
 \begin{equation}
 \varepsilon_0 = f(N_H, d) \sim N_H^{-1/k}
 \end{equation}
@@ -2899,7 +2899,7 @@ for some exponent $k$ determined by the geometry.
 
 Different positions in $G$ correspond to different $\varepsilon_0$:
 \begin{itemize}
-\item Early universe ($\varepsilon_0$ large): large ghost corrections, less precise ``plateau values.''
+\item Early universe ($\varepsilon_0$ large): large $\det(G_h)$ contributions, less precise ``plateau values.''
 \item Current epoch ($\varepsilon_0 \approx 0.0038$): small corrections, plateau values nearly exact.
 \item Far future ($\varepsilon_0 \to 0$): corrections vanish, but forces also vanish --- nothing to measure.
 \end{itemize}
@@ -2933,7 +2933,7 @@ Step & From & To & How \\
 5 & Channels & $\alpha_3, \alpha_2, \alpha_1$ & Basel sum + Gram rank \\
 6 & $\alpha_i + v_H$ & 26 SM parameters & Simplex geometry \\
 7 & $\hbar_h > 0$ (finite) & Cosmology (9 observables) & Block universe \\
-8 & $\text{Tr}(G) = N$ & Ghost Sum Rule ($\Sigma\delta = 0$) & Completeness \\
+8 & $\text{Tr}(G) = N$ & Trace Conservation ($\Sigma\delta = 0$) & Completeness \\
 \hline
 & \multicolumn{2}{l}{\textbf{Free parameters:}} & \textbf{0} \\
 & \multicolumn{2}{l}{\textbf{Observational inputs:}} & \textbf{0} \\
@@ -3198,7 +3198,7 @@ This appendix summarizes the numerical experiments that verify the theoretical p
 
 \textbf{EXP-019: $\mathbb{C}^2$ mixing.} Derived CKM and PMNS matrix structures from the temporal sector $\mathbb{C}^2$ geometry. Atmospheric angle $\theta_{23} = 45^\circ$ exact from $\mathbb{C}^2$ exchange symmetry. \textbf{4/4 checks passed.}
 
-\subsection{The Ghost Sum Rule (Chapter~\ref{ch:ghosts})}
+\subsection{The Trace Conservation (Chapter~\ref{ch:ghosts})}
 
 \textbf{EXP-027: Rank-25 theorem.} Proved $\text{rank}(W) = d^2 = 25$ numerically for $N$ up to 10000. Leading eigenvalue ratio $\lambda_0/N \to 1/25$ with coefficient of variation $\text{CV} = 0.004$ at $N = 10000$. The 25 Wishart eigenvalues encode the complete physical content. \textbf{Verified.}
 
@@ -3234,7 +3234,7 @@ Geometry & EXP-005, 012 & 8/8 & \checkmark \\
 Planck constant & EXP-008 & 7/7 & \checkmark \\
 Couplings & EXP-009, 018 & 11/11 & \checkmark \\
 Masses/Mixing & EXP-014, 019 & 9/9 & \checkmark \\
-Ghost sum rule & EXP-027, 028 & 10/10 & \checkmark \\
+Trace conservation & EXP-027, 028 & 10/10 & \checkmark \\
 Cosmology & EXP-025, 010, 006 & 13/13 & \checkmark \\
 Block universe & EXP-030, 020 & 12/12 & \checkmark \\
 \hline

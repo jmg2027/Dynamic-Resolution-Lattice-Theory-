@@ -43,7 +43,7 @@ N_S = 3
 N_T = 2
 D = 5
 ALPHA_EM = 1 / 137.036
-M_E = 0.51100  # MeV (ghost-corrected electron mass)
+M_E = 0.51100  # MeV (full topological electron mass, incl. det(G_h))
 
 
 class EXP_040(Experiment):

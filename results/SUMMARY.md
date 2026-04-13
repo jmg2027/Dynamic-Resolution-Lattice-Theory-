@@ -788,12 +788,12 @@ evolve_step:
 - C³ 컨파인먼트가 safety valve → 중성자별 안정
 
 ### EXP_033: Webb Dipole (7/7 ✓)
-- Ghost 공간변동 정합성 검증
-- Δα/α ≈ 1.1×10⁻⁵ 재현, ghost sum = 0 (exact)
+- det(G_h) 공간변동 정합성 검증
+- Δα/α ≈ 1.1×10⁻⁵ 재현, trace conservation Σ Δᵢ = 0 (exact)
 - α_s ↔ α_em 역상관 예측 (falsifiable)
 
 ### EXP_033b: Webb vs μ (1/3)
-- μ ghost-protected 발견 → 자기교정
+- μ trace-protected 발견 → 자기교정
 - Δα/Δμ 역상관 4/4 같은 부호 → 텐션 (솔직한 결과)
 
 ### EXP_039: Bond Angles (4/4 ✓)
