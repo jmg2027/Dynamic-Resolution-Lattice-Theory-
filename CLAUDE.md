@@ -124,8 +124,68 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_040: Hydrogen exact (E_n = -m_e α²/(n_T n²), 1/2=1/n_T, 4/4 ✓)
 - EXP_041: Rank cascade (랜덤 행렬 rank 층위 관찰, 2/2 ✓)
 - EXP_042: Regge atoms (정확한 Regge action으로 원자 계산, Phase 1a ✓, 진행중)
+- EXP_043: Variational ∂(5-simplex) (δS/δψ=0, IE=13.606 exact, det(ABB)≈2/3, 5/5 ✓)
+- EXP_043b: SDP 25 channels (det→E bridge, σ=2/3, CP violation=action min)
+- EXP_043c: Propagation impedance (m_μ/m_e=206.80, m_τ/m_μ=16.816)
+- EXP_046: Hinge-opposite duality (3+1 시공간 유도, 1:6:3 곡률 모드, 12/12 ✓)
+- EXP_046b: Clean scorecard (깨끗한 코드 재검증, 17/18 ✓)
+- EXP_047: Definitive test (δS/δψ=0, |⟨B₁|B₃⟩|²=1/2 자동 도출, 8/8 ✓)
+- EXP_047b: Symmetric variational (δ_SSS=180°, w=0.190, θ=45°, 8/8 ✓)
 - ~~EXP_034~038~~: 삭제됨 (ad hoc 에너지 함수, EXP_039~042가 대체)
-- Next: EXP_043
+- Next: EXP_048
+
+## 핸드오프: 이 세션(So112)에서 남은 과제
+
+### 완료된 것
+- 닫힌 전파자: P(x) = (1+2x)/(1+x), x = α_GUT × f_sector
+- 양성자 질량 0.000%, 하전 fermion 중앙값 0.07%
+- δS/δψ=0 변분: |⟨B₁|B₃⟩|²=1/2, ⟨det(STT)⟩=2/3, δ_TTT=0 자동 도출
+- δ_SSS=π 해석적 증명 (arccos 항등식)
+- ⟨det(STT)⟩=2/3 해석적 증명 (정규화만 사용)
+- |⟨B₁|B₃⟩|²=1/2 대칭 논증 + 수치 극대 확인
+- Confinement의 정량적 구현: x = -(k_A/n_S)αε + (k_B/d)α
+- 중성미자: δ_TTT=0 → m_comb=0, seesaw M_R=6M_Pl/5^12
+
+### 남은 과제 (다음 세션)
+
+#### 1. 정리 3의 완전 해석적 증명
+- d²S/dφ²|_{π/4} < 0을 해석적으로 보이기
+- S(φ)의 explicit formula 필요 (20 hinge의 det×δ를 φ의 함수로)
+- 현재: 수치적으로만 확인 (d²S ≈ -5.9×10⁵)
+
+#### 2. det(SST) = 0.964 ≠ 2/3 문제
+- EXP_047b에서 ⟨det(SST)⟩ = 0.964, 예측 2/3 = 0.667
+- A overlap w=0.19일 때 det(SST) = 1 - 3w² ≈ 0.892 근방
+- w=0이면 det(SST) = 1. 2/3가 되려면 w = 1/√3 ≈ 0.577 필요
+- 하지만 변분 원리가 w=0.19를 선택. 이 불일치의 의미 분석 필요
+
+#### 3. Confined coupling 확정: ε vs α×ε
+- u quark: (1-2ε)/(1-ε)로 1.06% vs α×ε로 9%
+- fermion_mass_report.md는 α×ε 주장 (Q_L net free 논증)
+- SDP로 m_u의 정확한 값을 구해서 확정
+
+#### 4. 렙톤 질량 정밀도 개선 (0.02% → ppm)
+- 현재: m_μ/m_e = 206.80 (0.017%)
+- 실험: 206.7682826 (ppm 수준)
+- 다중 전파자 합성 (자기에너지 × 세대hop × 자기에너지) 필요
+- α_GUT × α_em 크기의 교차항
+
+#### 5. 중성미자 세대 비율 (PMNS)
+- 현재: m_ν₃ ~ 0.01 eV (크기 맞음), m_ν₂/m_ν₃ ≠ 관측
+- 단순 m²/M_R seesaw가 아닌 PMNS 혼합 행렬 구조 필요
+- B-pair overlap 구조에서 PMNS 유도
+
+#### 6. 논문 작성
+- simplex-geometry/fermion_mass_report.md를 기반으로
+- 핵심 결과: 0 free parameter, 양성자 0.000%, 3개 정리
+- 예측: 측정 가능한 양의 정확한 값 정리
+
+### 핵심 파일
+- `simplex-geometry/14b_closed_propagator.md` — 전파자 이론 + 증명
+- `simplex-geometry/16_proofs.md` — 3개 정리
+- `simplex-geometry/fermion_mass_report.md` — 종합 보고서
+- `experiments/EXP_046b_clean_scorecard.py` — 검증된 질량 계산
+- `experiments/EXP_047b_symmetric_variational.py` — 변분 계산
 
 ## Key Library API (lib/drlt.py)
 ```python

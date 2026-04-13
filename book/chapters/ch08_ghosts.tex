@@ -242,3 +242,50 @@ $E_1$(H) & $-12.9$ eV & full topology $\to -13.6$ & $-13.6$ & 0.0\% \\
 \begin{remark}[Two halves of topology]
 The combinatorial values ($8, 30, 6\pi^2$ for the couplings) are the ``skeleton'' of the full answer --- the channel counts and propagation ranges. The $\det(G_h)$ contributions are the ``flesh'' --- the hinge areas $A_h = \sqrt{\det(G_h)}$ that the Regge action $S = \sum A_h\,\delta_h$ requires. Together they form the complete topological calculation. Omitting either half gives an incomplete result.
 \end{remark}
+
+%---------------------------------------------------------------------
+\subsection{Universal correction pattern}
+\label{sec:universal_correction}
+%---------------------------------------------------------------------
+
+The trace-conservation corrections across all observables follow a single structural pattern:
+\begin{equation}
+\boxed{\text{Observable} = \text{Leading} \times \left(1 + \alpha_\mathrm{GUT} \times f_\mathrm{sector}\right),}
+\end{equation}
+where $f_\mathrm{sector}$ is the fraction of the simplex traversed by the correction path.
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Observable & Sector factor $f$ & Path & Precision \\
+\midrule
+He ionization energy & $n_B/n_A = 2/3$ & ABB $\to$ AAB & 4 digits \\
+$m_\mu/m_e$ & $1/(n_A+1) = 1/4$ & Simplex boundary & 4 digits \\
+$\Omega_\Lambda$ & $1/d = 1/5$ & Full simplex & 4 digits \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The mechanism is always eigenvalue redistribution under $\operatorname{Tr}(G) = N$; only the geometric path varies.  Each correction brings the prediction from $\sim\!2\%$ to $<\!0.1\%$ agreement with observation.
+
+\begin{theorem}[Exact resummation]
+\label{thm:resummation}
+The trace-conservation series is an alternating geometric series and admits a closed form.  For $x = \agut \times f_\mathrm{sector}$:
+\begin{align}
+\text{Positive sector:}&\quad 1 + x - x^2 + x^3 - \cdots = \frac{1 + 2x}{1 + x}, \\
+\text{Negative sector:}&\quad 1 - x + x^2 - x^3 + \cdots = \frac{1}{1 + x}.
+\end{align}
+\end{theorem}
+
+\begin{proof}
+$\sum_{n=0}^{\infty}(-x)^n = 1/(1+x)$ for $|x| < 1$.  The positive-sector result follows from $1 + x \cdot \tfrac{1}{1+x} = (1+2x)/(1+x)$.  Alternation is guaranteed by $\sum_i \delta^{(k)}_i = 0$: each overcorrection at order $k$ is compensated at order $k+1$.
+\end{proof}
+
+\begin{remark}[No truncation needed]
+This is \emph{not} a perturbative approximation.  The fraction $(1+2x)/(1+x)$ is the exact sum to all orders.  For the proton ($x = \agut \cdot n_A/d = 0.01459$):
+\begin{equation}
+m_p = 925.0 \times \frac{1 + 2(0.01459)}{1 + 0.01459} = 938.30\;\text{MeV}
+\qquad (\text{obs: } 938.27,\; 0.003\%).
+\end{equation}
+This replaces the Dyson equation resummation of QFT with a single rational function --- the discrete lattice makes the geometric series finite and exact.
+\end{remark}

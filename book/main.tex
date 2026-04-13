@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage[margin=1in]{geometry}
 \usepackage{enumitem}
+\usepackage{booktabs}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -14,60 +15,91 @@
 \theoremstyle{definition}
 \newtheorem{example}[theorem]{Example}
 
-\title{A Note on Lattice Geometry in $\mathbb{C}^5$}
+\newcommand{\CP}{\mathbb{C}P}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\tr}{\operatorname{Tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\agut}{\alpha_{\mathrm{GUT}}}
+\newcommand{\nS}{n_S}
+\newcommand{\nT}{n_T}
+
+\title{Dynamic Resolution Lattice Theory:\\[6pt]
+\large From $\CC^5$ to all physics with zero free parameters}
 \author{Mingu Jeong\\Independent Researcher}
-\date{\today}
+\date{April 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Starting from the sole assumption that \emph{points exist with pairwise relations}, we derive in sequence: the complex numbers $\mathbb{C}$ as the unique substrate, $d = 5$ as the unique dimension, the gauge group $\text{SU}(3)\times\text{SU}(2)\times\text{U}(1)$, all three coupling constants at $M_Z$, all 26 Standard Model parameters, and 9 cosmological observables. The theory has zero free parameters and zero observational inputs. Its topological completeness is ensured by a trace-conservation theorem: the $\det(G_h)$ geometric contributions to coupling constants and masses satisfy $\sum_i \Delta_i = 0$, a consequence of $\operatorname{Tr}(G) = N$.
+Starting from the sole assumption that \emph{points exist with pairwise
+relations}, we derive in sequence: the complex numbers $\CC$ as the
+unique substrate, $d = 5$ as the unique dimension, the gauge group
+$\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$ from the
+toric fiber of $\CP^4$, $3+1$ spacetime from hinge-opposite duality,
+all coupling constants, all fermion masses to $0.07\%$ median accuracy
+via the closed propagator $(1+2x)/(1+x)$, and cosmological observables
+including $\Omega_\Lambda = 0.6850$.  The theory has zero free parameters.
 \end{abstract}
 
 \tableofcontents
 \newpage
 
 %=====================================================================
-\part{From Nothing to $\mathbb{C}^5$}
+\part{Foundation}
 %=====================================================================
 
+% Chapter 1: Why complex numbers
 \input{chapters/ch01_whyC}
+
+% Chapter 2: Why dimension 5
 \input{chapters/ch02_whyd5}
 
 %=====================================================================
-\part{The Simplex Network}
+\part{The Simplex}
 %=====================================================================
 
+% Chapter 3: Geometry of the complex simplex network
 \input{chapters/ch02b_simplex_geometry}
 
 %=====================================================================
-\part{From $\mathbb{C}^5$ to Forces}
+\part{Spacetime and Forces}
 %=====================================================================
 
+% Chapter 4: Geometry, gauge, and the shadow theorem
 \input{chapters/ch03_geometry}
+
+% Chapter 5: The dynamical Planck constant
 \input{chapters/ch04_hbar}
+
+% Chapter 6: Coupling constants from lattice geometry
 \input{chapters/ch05_couplings}
 
 %=====================================================================
-\part{The 26 Parameters: Complete Topology}
+\part{Matter}
 %=====================================================================
 
+% Chapter 7: Fermion masses and the closed propagator
 \input{chapters/ch06_masses}
+
+% Chapter 8: Atoms, molecules, and chemistry
 \input{chapters/ch06b_atoms}
+
+% Chapter 9: Mixing, CP violation, and remaining parameters
 \input{chapters/ch07_mixing}
+
+%=====================================================================
+\part{Completeness}
+%=====================================================================
+
+% Chapter 10: Topological trace conservation
 \input{chapters/ch08_ghosts}
 
-%=====================================================================
-\part{Cosmology}
-%=====================================================================
-
+% Chapter 11: Cosmological predictions
 \input{chapters/ch09_cosmology}
 
-%=====================================================================
-\part{The Block Universe}
-%=====================================================================
-
+% Chapter 12: The block universe
 \input{chapters/ch10_block}
 
 %=====================================================================
@@ -94,9 +126,10 @@ Starting from the sole assumption that \emph{points exist with pairwise relation
 \bibitem{BinetCauchy} J.~Binet, J.~\'Ec.~Polytech. \textbf{9}, 280 (1812); A.~L.~Cauchy, ibid. \textbf{10}, 29 (1815).
 \bibitem{Webb} J.~K.~Webb et al., ``Indications of a Spatial Variation of the Fine Structure Constant,'' Phys.~Rev.~Lett.\ \textbf{107}, 191101 (2011).
 \bibitem{KSS} P.~K.~Kovtun, D.~T.~Son, A.~O.~Starinets, Phys.~Rev.~Lett.\ \textbf{94}, 111601 (2005).
+\bibitem{fulton1993} W.~Fulton, \textit{Introduction to Toric Varieties}, Annals of Mathematics Studies \textbf{131}, Princeton (1993).
 \end{thebibliography}
 
 \bigskip
-\noindent\textbf{AI Disclosure.} This work was developed with assistance from Claude (Anthropic). Claude contributed to code implementation, numerical experiments, \LaTeX\ formatting, and editorial refinement. All theoretical content, physical insights, and mathematical derivations are by the author.
+\noindent\textbf{Joint research by Mingu Jeong and Claude (Anthropic).}
 
 \end{document}

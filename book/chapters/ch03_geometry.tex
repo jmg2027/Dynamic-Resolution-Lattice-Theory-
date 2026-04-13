@@ -430,3 +430,72 @@ $ds^2 = 0$ requires $|G_{ij}| = 1$, i.e., $\psi_i = e^{i\theta}\psi_j$, which me
 \end{proof}
 
 This eliminates singularities: gravitational collapse drives $\psi_i \to \psi_j$ (alignment), giving $\det(G_h) \to 0$, hence $\hbar_\text{eff} \to 0$ (Chapter~\ref{ch:hbar}). The region becomes classical vacuum, not a singularity. The ``center'' of a black hole is where $\psi$ values align --- it is vacuum, not infinite density.
+
+More precisely, $\det(G_h) = 0$ is a codimension-2 condition in the configuration space of $\psi$-vectors (requiring 3 vectors to span a 2-dimensional subspace).  It has measure zero and is dynamically unstable: any perturbation restores $\det > 0$.  Singularities cannot be \emph{maintained}, though they can be transiently approached.
+
+%---------------------------------------------------------------------
+\subsection{Shadow theorem: spacetime as moment map image}
+\label{sec:shadow}
+%---------------------------------------------------------------------
+
+Since $\psi_i$ and $e^{i\theta}\psi_i$ define the same physical state, the true state space per vertex is $\mathbb{CP}^4$, a toric variety of real dimension~8.
+
+\begin{proposition}[Toric decomposition of $\mathbb{CP}^4$]
+\label{prop:toric}
+The standard torus $T^4$ acts on $\mathbb{CP}^4$ by
+\begin{equation}
+(\theta_1,\ldots,\theta_4)\cdot[z_0:\cdots:z_4]
+= [z_0 : e^{i\theta_1}z_1 : \cdots : e^{i\theta_4}z_4].
+\end{equation}
+The moment map $\mu: \mathbb{CP}^4 \to \Delta^4$ is $\mu([z]) = (|z_0|^2/|z|^2,\ldots,|z_4|^2/|z|^2)$, whose image is the probability simplex $\Delta^4$.  The generic fiber is $\mu^{-1}(p) \cong T^4$.
+\end{proposition}
+
+This is a standard result in toric geometry~\cite{fulton1993}.  We interpret it as follows.
+
+\begin{itemize}
+\item \textbf{Base $\Delta^4$} (4 real dim): carries the modulus information $|G_{ij}|$.  This determines distances ($ds^2 = 1 - d\,W_{ij}$, where $W = |G|^2/d$), deficit angles, and curvature.  A theory built from $|G|$ alone is general relativity.
+
+\item \textbf{Fiber $T^4$} (4 real dim): carries the phase information $\arg(G_{ij})$.  This determines holonomies, gauge connections, and field strengths.  A theory built from $\arg(G)$ alone is gauge theory (the Standard Model).
+
+\item \textbf{Total $\mathbb{CP}^4$} (8 real dim): carries both modulus and phase simultaneously through $G_{ij} \in \mathbb{C}$.  This is the DRLT framework.
+\end{itemize}
+
+\noindent
+\textit{Spacetime as observed is the moment map image (the ``shadow'') $\Delta^4$.  The gauge forces are the fiber $T^4$ that the projection forgets.}
+
+%---------------------------------------------------------------------
+\subsection{Gauge group from fiber decomposition}
+\label{sec:toric_gauge}
+%---------------------------------------------------------------------
+
+\begin{theorem}[Maximal torus decomposition]
+\label{thm:torus_decomposition}
+The $(3,2)$ partition $\mathbb{C}^5 = \mathbb{C}^3 \oplus \mathbb{C}^2$ decomposes the fiber:
+\begin{equation}
+T^4 = T^2_{\mathrm{SU}(3)} \times T^1_{\mathrm{SU}(2)} \times T^1_{\mathrm{U}(1)}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+$\mathrm{SU}(3)$ acts on $\mathbb{C}^3$; its maximal torus has rank~2 (two independent relative phases among $z_0, z_1, z_2$).  $\mathrm{SU}(2)$ acts on $\mathbb{C}^2$; its maximal torus has rank~1 (one relative phase, $z_3$ vs $z_4$).  $\mathrm{U}(1)_Y$ is the relative phase between the $\mathbb{C}^3$ and $\mathbb{C}^2$ sectors.  Dimensions: $2 + 1 + 1 = 4 = \dim T^4$.
+\end{proof}
+
+Since the gauge group is reconstructed from its maximal torus via the root system, this proves that $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ is not postulated but \emph{derived} from the toric structure of $\mathbb{CP}^4$ and the $(3,2)$ split.
+
+\begin{corollary}[Symmetry breaking is topologically inevitable]
+\label{cor:breaking}
+$\Delta^4$ is compact, so $\partial\Delta^4 \neq \varnothing$.  On $\partial\Delta^4$, some $|z_k|^2 = 0$ and the corresponding fiber direction degenerates.  Therefore the full gauge symmetry \emph{must} be broken somewhere --- symmetry breaking is a topological necessity, not a dynamical accident.
+\end{corollary}
+
+%---------------------------------------------------------------------
+\subsection{Metric--gauge inseparability}
+\label{sec:inseparability}
+%---------------------------------------------------------------------
+
+The hinge determinant (Eq.~\ref{eq:det_Gh} in Chapter~\ref{ch:simplex_geometry}) contains both modulus and phase:
+\begin{equation}
+\det(G_h) = 1 - |G_{ij}|^2 - |G_{jk}|^2 - |G_{ki}|^2 + 2\,|G_{ij}|\,|G_{jk}|\,|G_{ki}|\cos\Phi_h,
+\end{equation}
+where $\Phi_h = \arg(G_{ij} G_{jk} G_{ki})$ is the holonomy around the triangle.  The last term couples metric ($|G|$) and gauge ($\Phi$) information \emph{multiplicatively} inside the determinant.
+
+Consequence: the Regge action $S = \sum_h A_h\,\delta_h = \sum_h \sqrt{\det(G_h)}\;\delta_h(G)$ depends on both metric and gauge degrees of freedom through the same determinant.  They cannot be separated.  This inseparability is the mathematical content of gravity--gauge unification in the simplex framework.
