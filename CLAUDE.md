@@ -124,8 +124,15 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_040: Hydrogen exact (E_n = -m_e α²/(n_T n²), 1/2=1/n_T, 4/4 ✓)
 - EXP_041: Rank cascade (랜덤 행렬 rank 층위 관찰, 2/2 ✓)
 - EXP_042: Regge atoms (정확한 Regge action으로 원자 계산, Phase 1a ✓, 진행중)
+- EXP_043: Simplex anatomy + variational + IE (a~k 시리즈, 원자 IE)
+- EXP_044: Simplex atoms (심플렉스 원자 모델)
+- EXP_045: Hydrogen simplex (수소 심플렉스 계산)
+- EXP_046: Simplex mass derivation (닫힌 전파자 (1+2x)/(1+x), 양성자 0.000%, 17/18 ✓)
+- EXP_046b: Clean scorecard (깨끗한 코드 재검증, 17/18 ✓)
+- EXP_047: Definitive test (δS/δψ=0, |⟨B₁|B₃⟩|²=1/2 자동 도출, 6/8)
+- EXP_047b: Symmetric variational (대칭 A배치, 2D scan, 진행중)
 - ~~EXP_034~038~~: 삭제됨 (ad hoc 에너지 함수, EXP_039~042가 대체)
-- Next: EXP_043
+- Next: EXP_048
 
 ## Key Library API (lib/drlt.py)
 ```python
