@@ -128,8 +128,11 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_043b: SDP 25 channels (det→E bridge, σ=2/3, CP violation=action min)
 - EXP_043c: Propagation impedance (m_μ/m_e=206.80, m_τ/m_μ=16.816)
 - EXP_046: Hinge-opposite duality (3+1 시공간 유도, 1:6:3 곡률 모드, 12/12 ✓)
+- EXP_046b: Clean scorecard (깨끗한 코드 재검증, 17/18 ✓)
+- EXP_047: Definitive test (δS/δψ=0, 5/8)
+- EXP_047b: Symmetric variational (δ_SSS=180°, |⟨B₁|B₃⟩|²=1/2, 6/8 ✓)
 - ~~EXP_034~038~~: 삭제됨 (ad hoc 에너지 함수, EXP_039~042가 대체)
-- Next: EXP_047
+- Next: EXP_048
 
 ## Key Library API (lib/drlt.py)
 ```python
