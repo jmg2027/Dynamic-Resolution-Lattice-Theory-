@@ -124,8 +124,12 @@ All experiments auto-detect `lib/` via sys.path.
 - EXP_040: Hydrogen exact (E_n = -m_e α²/(n_T n²), 1/2=1/n_T, 4/4 ✓)
 - EXP_041: Rank cascade (랜덤 행렬 rank 층위 관찰, 2/2 ✓)
 - EXP_042: Regge atoms (정확한 Regge action으로 원자 계산, Phase 1a ✓, 진행중)
+- EXP_043: Variational ∂(5-simplex) (δS/δψ=0, IE=13.606 exact, det(ABB)≈2/3, 5/5 ✓)
+- EXP_043b: SDP 25 channels (det→E bridge, σ=2/3, CP violation=action min)
+- EXP_043c: Propagation impedance (m_μ/m_e=206.80, m_τ/m_μ=16.816)
+- EXP_046: Hinge-opposite duality (3+1 시공간 유도, 1:6:3 곡률 모드, 12/12 ✓)
 - ~~EXP_034~038~~: 삭제됨 (ad hoc 에너지 함수, EXP_039~042가 대체)
-- Next: EXP_043
+- Next: EXP_047
 
 ## Key Library API (lib/drlt.py)
 ```python
