@@ -318,6 +318,53 @@ def extract_25_channels(psi, log=print):
         log(f"    m₃/m₁ = {S3/S1:.4f}")
         log(f"    m₃/m₂ = {S3/S2:.4f}")
 
+    # ─── Propagation Impedance (inter-simplex transmission) ───
+    log(f"\n--- Propagation Impedance ---")
+    log(f"  (face를 통한 전송 계수 = 질량의 진짜 정체)")
+
+    # 각 shared face (4 vertices)의 det = 투과율
+    # 핵 simplex 간: σ₅↔σ₄, σ₅↔σ₃, σ₄↔σ₃
+    nuc_pairs = [
+        ("σ₅↔σ₄ (1st↔2nd)", (0,1,2,3,4), (0,1,2,3,5), (0,1,2,3)),
+        ("σ₅↔σ₃ (1st↔3rd)", (0,1,2,3,4), (0,1,2,4,5), (0,1,2,4)),
+        ("σ₄↔σ₃ (2nd↔3rd)", (0,1,2,3,5), (0,1,2,4,5), (0,1,2,5)),
+    ]
+
+    for name, s1, s2, shared_face in nuc_pairs:
+        # 공유 face (4 vertices)의 4×4 det
+        idx = list(shared_face)
+        det_face = np.linalg.det(G[np.ix_(idx, idx)]).real
+
+        # face 내의 hinge (삼각형) 분석
+        face_hinges = list(combinations(shared_face, 3))
+        aab_count = 0
+        for fh in face_hinges:
+            n_A = sum(1 for v in fh if v < 3)
+            if n_A == 2:
+                aab_count += 1
+
+        # 투과율 = det(face) / det(simplex) 근사
+        det_s1 = np.linalg.det(G[np.ix_(list(s1), list(s1))]).real
+        T = det_face / max(abs(det_s1), 1e-15)
+
+        # impedance = 1/T
+        Z = 1.0 / max(T, 1e-15)
+
+        log(f"\n  {name}:")
+        log(f"    shared face = {shared_face}")
+        log(f"    det(face) = {det_face:.6f}")
+        log(f"    det(simplex₁) = {det_s1:.6f}")
+        log(f"    Transmission T = {T:.6f}")
+        log(f"    Impedance Z = 1/T = {Z:.2f}")
+        log(f"    AAB hinges in face: {aab_count}")
+        log(f"    (1/α_GUT)^{aab_count} = {(1/ALPHA_GUT)**aab_count:.1f}")
+
+    # 세대 간 질량비 = impedance ratio
+    log(f"\n  --- Mass from Impedance ---")
+    log(f"  m ∝ Z (impedance = 전파 저항)")
+    log(f"  이론: m₃/m₁ = (1/α_GUT)^n_S = {(1/ALPHA_GUT)**N_S:.0f}")
+    log(f"  관측: m_t/m_u ≈ 75,000")
+
     # B-pair det도 참고로
     det_12 = 1 - abs(G[3, 4])**2
     det_13 = 1 - abs(G[3, 5])**2
@@ -326,7 +373,6 @@ def extract_25_channels(psi, log=print):
     log(f"    det(B₁B₂) = {det_12:.6f}")
     log(f"    det(B₁B₃) = {det_13:.6f}")
     log(f"    det(B₂B₃) = {det_23:.6f}")
-    log(f"    (1/α_GUT)^{N_S} = {(1/ALPHA_GUT)**N_S:.0f}")
 
     # ─── W 고유값 25개 ───
     log(f"\n--- W Spectrum (25 channels) ---")

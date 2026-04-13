@@ -1,6 +1,6 @@
 ============================================================
   EXP_043b_SDP_25_channels
-  2026-04-13 14:21:57
+  2026-04-13 14:27:03
 ============================================================
 ======================================================================
 EXP_043b: SDP on ∂(5-simplex) — 25 physical channels
@@ -15,16 +15,17 @@ Phase 2: Local refinement (L-BFGS-B)
   Converged: True
 
 Phase 3: Multi-start refinement (10 trials)
-  Trial 2: improved → obj = 12253.938381
-  Trial 5: improved → obj = 12253.938377
-  Trial 8: improved → obj = 12253.938370
+  Trial 1: improved → obj = 12253.938378
+  Trial 3: improved → obj = 12253.938373
+  Trial 5: improved → obj = 12253.938369
+  Trial 6: improved → obj = 12253.938367
 
-Final S = 38.416483
+Final S = 38.416496
 ======================================================================
   25 PHYSICAL CHANNELS from ∂(5-simplex)
 ======================================================================
 
-G eigenvalues: [ 1.99619  1.00983  1.       1.       0.99398 -0.     ]
+G eigenvalues: [1.99619 1.00983 1.      1.      0.99398 0.     ]
 W eigenvalues (top 10): [0.37257 0.20001 0.2     0.2     0.19999 0.02743]
 Tr(G) = 6.000000
 rank(G) = 5
@@ -42,16 +43,16 @@ x_T = 0.95997  (theory: 1/7 = 0.14286)
   → det(ABB) mean = 0.680837  (theory σ = 2/3 = 0.666667)
 
 --- Regge Action ---
-  S = 38.416483
-  S/(8π²) = 0.486550  (χ=2 → should be ≈ 1)
+  S = 38.416496
+  S/(8π²) = 0.486551  (χ=2 → should be ≈ 1)
 
 --- Generation Structure ---
   B₁B₂: ⟨B|B'⟩ = 0.00005+0.00000j,  |⟨B|B'⟩|² = 0.00000,  det = 1.00000
-  B₁B₃: ⟨B|B'⟩ = -0.87634+0.30321j,  |⟨B|B'⟩|² = 0.85991,  det = 0.14009
+  B₁B₃: ⟨B|B'⟩ = -0.87633+0.30325j,  |⟨B|B'⟩|² = 0.85991,  det = 0.14009
   B₂B₃: ⟨B|B'⟩ = 0.12729-0.00718j,  |⟨B|B'⟩|² = 0.01625,  det = 0.98375
 
 --- CKM Parameters ---
-  α = ⟨B₁|B₃⟩ = -0.87634+0.30321j  (|α|=0.92731)
+  α = ⟨B₁|B₃⟩ = -0.87633+0.30325j  (|α|=0.92731)
   β = ⟨B₂|B₃⟩ = 0.12729-0.00718j  (|β|=0.12749)
   θ_Cabibbo = 7.83°  (obs: 13.0°)
   δ_CP = 164.14°  (obs: 68.8°)
@@ -72,35 +73,69 @@ x_T = 0.95997  (theory: 1/7 = 0.14286)
 --- Ionization Energy (Regge action method) ---
   AAAB face hinges (AAB type):
     Σ(1-det) = 0.000107
-    ΔS_face  = Σ A_h δ_h = 9.446746
+    ΔS_face  = Σ A_h δ_h = 9.446742
 
   Method 1 (det/n_T²): IE = 13.61 eV
     Ratio to Rydberg: 1.0000
 
   Method 2 (Regge action):
-    ΔS_face / α² = 177399.1646
+    ΔS_face / α² = 177399.0955
     If IE = m_e × ΔS_face / C, then C = m_e×α²/(2×13.606)
     Expected ΔS ∝ α²: check 1.065027e-04 vs 2α² = 1.065027e-04
     Ratio: 1.0000 (should be ~1.0)
 
 --- Mass Ratios (Regge action per generation) ---
-  1st (σ₅): S = 21.190061
-  2nd (σ₄): S = 18.550863
-  3rd (σ₃): S = 19.544464
+  1st (σ₅): S = 21.190211
+  2nd (σ₄): S = 18.550843
+  3rd (σ₃): S = 19.544480
 
   Mass ratios (m ∝ |S_gen|):
-    m₂/m₁ = 0.8755
+    m₂/m₁ = 0.8754
     m₃/m₁ = 0.9223
     m₃/m₂ = 1.0536
 
+--- Propagation Impedance ---
+  (face를 통한 전송 계수 = 질량의 진짜 정체)
+
+  σ₅↔σ₄ (1st↔2nd):
+    shared face = (0, 1, 2, 3)
+    det(face) = 0.999947
+    det(simplex₁) = 0.999894
+    Transmission T = 1.000053
+    Impedance Z = 1/T = 1.00
+    AAB hinges in face: 3
+    (1/α_GUT)^3 = 69544.9
+
+  σ₅↔σ₃ (1st↔3rd):
+    shared face = (0, 1, 2, 4)
+    det(face) = 0.999947
+    det(simplex₁) = 0.999894
+    Transmission T = 1.000053
+    Impedance Z = 1/T = 1.00
+    AAB hinges in face: 3
+    (1/α_GUT)^3 = 69544.9
+
+  σ₄↔σ₃ (2nd↔3rd):
+    shared face = (0, 1, 2, 5)
+    det(face) = 0.880006
+    det(simplex₁) = 0.015617
+    Transmission T = 56.348351
+    Impedance Z = 1/T = 0.02
+    AAB hinges in face: 3
+    (1/α_GUT)^3 = 69544.9
+
+  --- Mass from Impedance ---
+  m ∝ Z (impedance = 전파 저항)
+  이론: m₃/m₁ = (1/α_GUT)^n_S = 69545
+  관측: m_t/m_u ≈ 75,000
+
   B-pair det (참고):
     det(B₁B₂) = 1.000000
-    det(B₁B₃) = 0.140094
+    det(B₁B₃) = 0.140095
     det(B₂B₃) = 0.983746
-    (1/α_GUT)^3 = 69545
 
 --- W Spectrum (25 channels) ---
-  λ_W[ 0] = 0.372570
+  λ_W[ 0] = 0.372569
   λ_W[ 1] = 0.200006
   λ_W[ 2] = 0.200000
   λ_W[ 3] = 0.200000
@@ -129,4 +164,4 @@ Done.
   [✗] x_S/x_T ≈ 6
 
   3/4 checks passed
-  Time: 18.0s
+  Time: 18.4s
