@@ -153,3 +153,57 @@ u가 더 강하게 구속(ε-결합, f=1)되어 질량이 더 많이 깎임.
 | m_p | 925 | **938.27** | 938.27 | -1.42% | **0.000%** |
 
 중앙값 오차: **1.16% → 0.057%** (20배 개선)
+
+---
+
+## Confinement → Mass: Yukawa coupling의 정체
+
+### m_u < m_d: 40년간 설명이 없던 문제
+
+Standard Model: m_u < m_d → "왜?" → "Yukawa coupling이 그렇게 설정됨" (끝)
+
+DRLT: **Representation → Confinement → Mass**
+
+```
+5̄ (d_R):  1 vertex → AAA에 1개 참여 → 부분 자유 → P(α, 1/3)
+10 (u_R): 2 vertex → AAA에 2개 참여 → 완전 구속 → P(-ε, 1)
+
+더 구속 = ε 결합 (α보다 강함) = 보정이 큼 = 질량 더 깎임
+→ u가 더 가벼움 ✓
+```
+
+### 정량적 검증
+
+```
+m_u/m_d:
+  조합론 수준:  1/(α φ⁴ n_S n_T²) = 1/2.0001 = 0.5000
+  전파자 보정:  P_u/P_d = 0.906/0.992 = 0.9134
+  최종:         0.5000 × 0.9134 = 0.4567
+  관측:                            0.4625
+  오차:                            -1.26%
+```
+
+### 세대별 Confinement 효과
+
+| 세대 | 10 (AA pair) | 5̄ (A vertex) | 차이 | 의미 |
+|------|-------------|-------------|------|------|
+| 3rd (k=3) | 0.9918 | 0.9959 | 0.004 | 작음: AAA 고정점 |
+| 2nd (k=2) | 0.9951 | 0.9802 | 0.015 | 중간: 1-loop 구조 |
+| **1st (k=1)** | **0.9059** | **0.9918** | **0.086** | **큼: 무구조 → confinement 직접 효과** |
+
+1세대에서만 confinement 차이가 극적 (ε vs α). 이것이 m_u < m_d의 기원.
+
+### Yukawa coupling의 정체
+
+```
+Standard Model: 9개 Yukawa coupling = 9개 free parameter
+
+DRLT: 0개 free parameter
+  Yukawa = (1+2x)/(1+x)
+  x는 다음으로 결정:
+    1. SU(5) 표현 (10 vs 5̄) → confined vs free
+    2. 세대 (k = 3,2,1) → 내부 구조 유무
+    3. Simplex (d=5) → sector factor
+
+  Representation → Confinement degree → Propagator → Mass
+```
