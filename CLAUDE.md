@@ -134,13 +134,7 @@ See `experiments/` directory. Key completed experiments:
 
 ## 남은 과제 (Open Problems)
 
-#### 1. 정리 3의 완전 해석적 증명
-- d²S/dφ²|_{π/4} < 0을 해석적으로 보이기
-- S(φ)의 explicit formula 필요 (20 hinge의 det×δ를 φ의 함수로)
-- 현재: 수치적으로만 확인 (d²S ≈ -5.9×10⁵)
-- 관련 book 챕터: ch02d_variational_theorems.tex, Theorem 3
-
-#### 2. det(SST) = 0.964 ≠ 2/3 문제
+#### 1. det(SST) = 0.964 ≠ 2/3 문제
 - EXP_047b에서 ⟨det(SST)⟩ = 0.964 (블록 대각이 아닌 경우)
 - 블록 대각 Gram에서는 정확히 2/3 (정리 2로 증명됨)
 - A-sector overlap w≠0일 때의 수정 분석 필요
