@@ -1,5 +1,10 @@
 # CLAUDE.md
 
+## Session Start
+- **If HANDOFF.md exists, read it FIRST** before doing anything else.
+- It contains the previous session's context, open problems, and next steps.
+- After reading, summarize key points and ask what to work on.
+
 ## Communication
 - **Korean is the primary communication language.** Respond in Korean unless asked otherwise.
 - Author name is always "Mingu Jeong" (not Mingoo, not Min-goo).
