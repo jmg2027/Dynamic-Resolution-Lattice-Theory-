@@ -1,0 +1,179 @@
+% The CLT Boundary: Why Re(s) = 1/2
+% Joint research by Mingu Jeong and Claude (Anthropic)
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The CLT Boundary: Why $\mathrm{Re}(s) = 1/2$\\[6pt]
+  {\large From $\mathbb{C}$ Uniqueness to the Critical Line\\
+  via the Central Limit Theorem}}
+\author{Mingu Jeong \and Claude (Anthropic)}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We show that the critical line $\mathrm{Re}(s) = 1/2$ is the
+convergence/divergence boundary of random Dirichlet series with
+uniform phases.  Since DRLT derives that $\mathbb{C}$ is the unique
+substrate (Frobenius) and the phases from $\mathbb{C}$-valued Gram
+matrices are uniform (EXP\_071b), the critical line arises as a
+Central Limit Theorem consequence: $\sigma = 1/2$ is where the
+random walk fluctuation $\sqrt{N}$ matches the magnitude sum
+$N^{1-\sigma}$.  This is not a proof of RH, but a structural
+explanation for \emph{why $1/2$} and not some other number.
+\end{abstract}
+
+\section{The Chain}
+
+\[
+  \boxed{\mathbb{C} \text{ unique}}
+  \;\xrightarrow{\text{EXP\_071b}}\;
+  \boxed{\theta_k \sim \mathrm{Uniform}[0, 2\pi)}
+  \;\xrightarrow{\text{CLT}}\;
+  \boxed{\mathrm{Re}(s) = \tfrac{1}{2}}
+\]
+
+\section{Random Dirichlet Series}
+
+\begin{definition}[Steinhaus Random Dirichlet Series]
+Let $\theta_k$ be i.i.d.\ uniform on $[0, 2\pi)$.  Define:
+\[
+  \mathcal{D}(\sigma) \;=\; \sum_{k=1}^{\infty}
+  \frac{e^{i\theta_k}}{k^{\sigma}}.
+\]
+\end{definition}
+
+\begin{theorem}[Convergence Boundary; Harper, Halász]
+\label{thm:boundary}
+\begin{enumerate}
+  \item[(i)] For $\sigma > 1/2$: $\mathcal{D}(\sigma)$ converges
+    almost surely.
+  \item[(ii)] For $\sigma \leq 1/2$: $\mathcal{D}(\sigma)$ diverges
+    almost surely.
+  \item[(iii)] The boundary is \emph{sharp} at $\sigma = 1/2$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The partial sum $S_N = \sum_{k=1}^{N} e^{i\theta_k}/k^\sigma$ has:
+\begin{itemize}
+  \item \textbf{Random walk component:}
+    $\sum_{k=1}^{N} e^{i\theta_k}$, with
+    $\bigl|\sum e^{i\theta_k}\bigr| \sim \sqrt{N}$ by CLT
+    (each $e^{i\theta_k}$ has mean 0, variance 1).
+  \item \textbf{Magnitude weighting:}
+    $\sum_{k=1}^{N} 1/k^{2\sigma}$ determines the effective
+    ``step count.''  For $\sigma < 1$:
+    $\sum 1/k^{2\sigma} \sim N^{1-2\sigma}$.
+\end{itemize}
+By the CLT, $|S_N|^2 \approx \sum 1/k^{2\sigma} \sim N^{1-2\sigma}$, so
+$|S_N| \sim N^{(1-2\sigma)/2}$.
+\begin{itemize}
+  \item $\sigma > 1/2$: exponent $(1-2\sigma)/2 < 0$, so $|S_N| \to 0$.
+    Converges.
+  \item $\sigma = 1/2$: $|S_N| \sim (\ln N)^{1/2}$.
+    Diverges logarithmically.
+  \item $\sigma < 1/2$: $|S_N| \sim N^{(1-2\sigma)/2} \to \infty$.
+    Diverges polynomially.
+\end{itemize}
+\end{proof}
+
+\section{Numerical Verification (EXP\_071c)}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{cc}
+\hline
+\textbf{Test} & \textbf{Result} \\
+\hline
+$|S_N| \sim \sqrt{N}$ (CLT) &
+  ratio $= 0.896$, theory $\sqrt{\pi/4} = 0.886$ \\
+Convergence $\sigma > 0.5$ &
+  $\langle|S_{10000}|\rangle = 1.96$ at $\sigma = 0.6$ \\
+Divergence $\sigma = 0.5$ &
+  growth ratio $1.34$ ($N = 10000/100$) \\
+Gram phases $=$ iid uniform &
+  Gram/Random ratio $\approx 1.2$ at all $\sigma$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{What This Says About RH}
+
+\begin{proposition}[Structural Explanation for $1/2$]
+In the DRLT framework:
+\begin{enumerate}
+  \item $\mathbb{C}$ is the unique substrate (Frobenius theorem).
+  \item The Gram matrix $G_{ij} = \langle\psi_i|\psi_j\rangle$ has
+    phases $\arg(G_{ij})$ that are uniformly distributed
+    (EXP\_071b: KS $p = 0.258$, Rayleigh $R = 0.008$).
+  \item The spectral series of $\mathcal{E}_N$ is a random Dirichlet
+    series with these uniform phases.
+  \item The convergence/divergence boundary of this series is
+    $\mathrm{Re}(s) = 1/2$, by the CLT (Theorem~\ref{thm:boundary}).
+\end{enumerate}
+Therefore: $\mathrm{Re}(s) = 1/2$ is the CLT boundary for
+$\mathbb{C}$-valued random walks.
+\end{proposition}
+
+\section{What This Is NOT}
+
+\begin{remark}[Limitations]
+This is \emph{not} a proof of the Riemann Hypothesis.
+\begin{itemize}
+  \item The phases $\theta_k$ from the Gram matrix are i.i.d.\ uniform.
+    The coefficients of $\zeta(s)$ involve the M\"obius function
+    $\mu(n)$, which is multiplicative and far from i.i.d.
+  \item The gap between ``random Dirichlet series'' and
+    ``the specific Dirichlet series $\zeta(s)$'' is precisely
+    what makes RH hard.
+  \item What we provide is a \emph{structural explanation} for
+    why $1/2$ (not $1/3$ or $2/3$) is the natural boundary:
+    it's where $\sqrt{N}$ crosses $N^{1-\sigma}$.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[The Deeper Point]
+The standard approach to RH asks: ``Given $\zeta(s)$, why are
+its zeros on $\mathrm{Re}(s) = 1/2$?''
+
+DRLT inverts the question: ``Why does the number $1/2$ appear at all?''
+Answer: because $\mathbb{C}$ is the unique substrate, the phases are
+uniform, and $1/2$ is the CLT threshold for uniform random walks.
+
+The fact that $\zeta$'s zeros happen to land on this CLT boundary
+is then a consequence of $\zeta$ being a ``structured'' version of
+the random Dirichlet series --- structured by the multiplicative
+structure of the integers, which itself may arise from the lattice
+structure of $\mathcal{E}_N$.
+\end{remark}
+
+\section{Comparison: ℂ vs ℝ vs No Phase}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lccc}
+\hline
+& \textbf{No phase} & \textbf{$\mathbb{R}$ (Rademacher)} & \textbf{$\mathbb{C}$ (Steinhaus)} \\
+\hline
+Phases & none ($\theta = 0$) & $\theta \in \{0, \pi\}$ & $\theta \sim \mathrm{Unif}[0,2\pi)$ \\
+Series & $\sum 1/k^\sigma$ & $\sum \epsilon_k / k^\sigma$ & $\sum e^{i\theta_k}/k^\sigma$ \\
+Boundary & $\sigma = 1$ & $\sigma = 1/2$ & $\sigma = 1/2$ \\
+GUE? & No & No ($\beta = 1$, GOE) & \textbf{Yes ($\beta = 2$)} \\
+$\zeta$ zeros? & No connection & Partial & \textbf{Full (Montgomery--Odlyzko)} \\
+\hline
+\end{tabular}
+\end{center}
+
+Both $\mathbb{R}$ and $\mathbb{C}$ give the $1/2$ boundary,
+but only $\mathbb{C}$ has the GUE structure that connects to the
+\emph{detailed statistics} of $\zeta$ zeros.
+
+\end{document}
