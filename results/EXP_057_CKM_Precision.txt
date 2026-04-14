@@ -1,0 +1,27 @@
+============================================================
+  EXP_057_CKM_Precision
+  2026-04-14 03:10:43
+============================================================
+  sin theta_C (tree)  = 0.227273  (+2.47sigma)
+  sin theta_C (+ Xi)  = 0.225987  (+0.86sigma)
+  Observed            = 0.2253 +/- 0.0008
+
+  delta_CKM = pi/phi^2 = 68.7539 deg  (-0.023sigma)
+  Observed  = 68.8 +/- 2.0 deg
+
+  w = n_S/(d*pi) = 3/(5pi) = 0.190986
+  [✓ PASS] sin theta_C Xi < 1sigma
+  [✓ PASS] Xi improves Cabibbo
+  [✓ PASS] delta_CKM < 0.1sigma
+  [✓ PASS] w = 3/(5pi)
+
+============================================================
+  SUMMARY: EXP_057_CKM_Precision
+============================================================
+  [✓] sin theta_C Xi < 1sigma
+  [✓] Xi improves Cabibbo
+  [✓] delta_CKM < 0.1sigma
+  [✓] w = 3/(5pi)
+
+  4/4 checks passed
+  Time: 0.0s

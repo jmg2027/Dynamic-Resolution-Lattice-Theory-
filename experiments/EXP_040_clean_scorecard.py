@@ -6,17 +6,12 @@ import drlt
 class Exp(Experiment):
     ID, TITLE = "040", "Clean Scorecard"
     def run(self):
-        r_mu_e = drlt.mu_e_ratio()
-        r_tau_mu = drlt.tau_mu_ratio()
-        m_p = drlt.proton_mass()
-        v_H = drlt.electroweak_scale()
-
         obs = [
-            ("v_H (GeV)",    v_H,               246.22,       0.004),
-            ("m_mu/m_e",     r_mu_e,             206.7682838,  1e-7),
-            ("m_tau/m_mu",   r_tau_mu,           16.8170,      0.007),
-            ("m_tau/m_e",    r_mu_e * r_tau_mu,  3477.23,      0.007),
-            ("m_p (MeV)",    m_p,                938.272,      1e-5),
+            ("v_H (GeV)",  drlt.electroweak_scale(), 246.22,      0.004),
+            ("m_mu/m_e",   drlt.mu_e_ratio(),        206.7682838, 1e-7),
+            ("m_tau/m_mu",  drlt.tau_mu_ratio(),      16.8170,     0.007),
+            ("m_tau/m_e",   drlt.mu_e_ratio()*drlt.tau_mu_ratio(), 3477.23, 0.007),
+            ("m_p (MeV)",  drlt.proton_mass(),        938.272,     1e-5),
         ]
 
         self.log(f"  {'Observable':>14} {'DRLT':>14} {'Observed':>14} {'Error':>10}")

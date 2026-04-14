@@ -11,18 +11,13 @@ class Exp(Experiment):
         self.log(f"  N_gen = C(n_S, n_T) = C({drlt.N_S},{drlt.N_T}) = {n_gen}")
 
         # C(n,2) = n uniqueness proof
-        self.log(f"\n  C(n,2) = n(n-1)/2 = n")
-        self.log(f"  => (n-1)/2 = 1 => n = 3  QED")
+        self.log(f"\n  C(n,2) = n(n-1)/2 = n  =>  n = 3  QED")
         solutions = [n for n in range(1, 100) if comb(n, 2) == n]
         self.log(f"  Solutions in n=1..99: {solutions}")
         self.check("C(n,2)=n unique solution is n=3", solutions == [3])
 
-        # Physical meaning
-        self.log(f"\n  Physical meaning:")
-        self.log(f"    n_gen = C(3,2) = 3 = n_S")
-        self.log(f"    'Number of generations = number of spatial dimensions'")
-        self.log(f"    This is WHY there are exactly 3 generations.")
-
+        self.log(f"\n  n_gen = C(3,2) = 3 = n_S")
+        self.log(f"  'Number of generations = number of spatial dimensions'")
         self.check("n_gen = 3", n_gen == 3)
         self.check("n_gen = n_S", n_gen == drlt.N_S)
 

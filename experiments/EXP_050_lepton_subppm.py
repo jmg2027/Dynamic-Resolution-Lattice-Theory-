@@ -13,18 +13,12 @@ class Exp(Experiment):
         self.log(f"  m_mu/m_e (DRLT) = {r:.10f}")
         self.log(f"  m_mu/m_e (obs)  = {obs:.10f}")
         self.log(f"  Error = {err*1e9:+.1f} ppb = {err*1e6:+.4f} ppm")
-        self.log(f"\n  Xi correction chain:")
-        self.log(f"    Xi = alpha_em/(1-alpha) + alpha/(d^2-1) + alpha_em^2")
-        self.log(f"       = {drlt.XI:.6e}")
-        self.log(f"    alpha_GUT = {drlt.ALPHA_GUT:.6f}")
+        self.log(f"  Xi = {drlt.XI:.6e}, alpha_GUT = {drlt.ALPHA_GUT:.6f}")
 
-        # Show improvement stages
-        r0 = drlt.N_S / (drlt.N_T * drlt.ALPHA_EM)
         r_bare = drlt.mu_e_ratio(with_xi=False)
         self.log(f"\n  Progression:")
-        self.log(f"    Base r0         = {r0:.4f}   err = {(r0-obs)/obs*1e4:+.1f} ppm")
-        self.log(f"    + 1st order     = {r_bare:.4f}   err = {(r_bare-obs)/obs*1e6:+.1f} ppm")
-        self.log(f"    + Xi chain      = {r:.10f}   err = {err*1e9:+.1f} ppb")
+        self.log(f"    Without Xi = {r_bare:.4f}   err = {(r_bare-obs)/obs*1e6:+.1f} ppm")
+        self.log(f"    With Xi    = {r:.10f}   err = {err*1e9:+.1f} ppb")
 
         self.check("Sub-ppm achieved", abs(err) < 1e-6)
         self.check("Sub-ppb level (< 100 ppb)", abs(err) < 100e-9)
