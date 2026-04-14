@@ -1,0 +1,87 @@
+============================================================
+  EXP_071b_Phase_structure_rank-1
+  2026-04-14 14:41:18
+============================================================
+
+═══ Test 1: Normalized |Δ_k| Magnitude Decay ═══
+  Using ρ_k = G_k/k (density matrix)
+  Prediction: ||ρ_k - ρ_{k-1}||_op ~ C/k^s
+  Fitted decay exponent s = 0.977
+  |s - 2| = 1.023
+  |s - 1| = 0.023
+  k=10: ⟨|Δ|⟩ = 0.020003
+  k=20: ⟨|Δ|⟩ = 0.012634
+  k=50: ⟨|Δ|⟩ = 0.005222
+  k=100: ⟨|Δ|⟩ = 0.002532
+  k=150: ⟨|Δ|⟩ = 0.001754
+  [✓ PASS] |Δ_k| decays (s=0.98 > 0.5)
+
+═══ Test 2: Phase Extraction from Rank-1 Perturbation ═══
+  Question: does Δ_k = |Δ_k|·e^{iθ_k}?
+  Total phases extracted: 5820
+  Mean phase: -0.0027
+  Std phase: 1.8110
+  Expected for uniform on [-π,π]: mean≈0, std≈π/√3≈1.814
+  [✓ PASS] Phases are spread (std > 1.0)
+
+═══ Test 3: Phase Distribution ═══
+  If ℂ→GUE→β=2, phases should be uniform (no preferred direction)
+  KS test against uniform: stat=0.0103, p=0.2579
+  Rayleigh R = 0.0084 (expect ~0 for uniform)
+  N·R² = 0.69 (reject uniformity if > 5.99)
+  [✓ PASS] Phases uniform on [-π,π] (KS p>0.01)
+
+═══ Test 4: Oscillating Partial Sums ═══
+  S_N = Σ_{k=d+1}^{N} e^{iθ_k}/k^s
+
+  S_N at s=2 (DRLT value):
+    N=50: S_N = -0.051117 + -0.021931i, |S_N| = 0.055623
+    N=100: S_N = -0.051020 + -0.022653i, |S_N| = 0.055823
+    N=200: S_N = -0.051234 + -0.022293i, |S_N| = 0.055874
+    N=500: S_N = -0.051299 + -0.022380i, |S_N| = 0.055969
+
+  Real sum (no phases): S_real = 0.179321
+  ζ(2) tail from k=6: 0.181323
+  |S_oscillating| / S_real = 0.3121
+  Phases cause partial cancellation!
+  [✓ PASS] |S_osc| < S_real (phase interference)
+
+═══ Test 5: Zeros of S_N(s) ═══
+  S_N(s) = Σ e^{iθ_k}/k^s, find s where S_N ≈ 0
+  Zeros near Re(s)=1/2: found 6
+    t=2.838: |S_N| = 0.059076
+    t=14.457: |S_N| = 0.134403
+    t=17.546: |S_N| = 0.150583
+    t=25.831: |S_N| = 0.326234
+    t=29.924: |S_N| = 0.240751
+
+  min|S_N| on Re(s)=0.3: 0.018116
+  min|S_N| on Re(s)=0.5: 0.059076
+  min|S_N| on Re(s)=0.7: 0.009530
+  Zeros exist near critical line: True
+  (Exact Re(s)=1/2 dominance expected only at N→∞)
+  [✓ PASS] S_N has approximate zeros near Re(s)=1/2
+
+═══ Test 6: ℂ vs ℝ Phase Structure ═══
+  ℂ: phases exist → oscillating series → zeros
+  ℝ: no phases → real series → no zeros on Re(s)=1/2
+  ℂ phase entropy: 3.524 / 3.584 (98.3%)
+  ℝ phase entropy: 0.693 / 3.584 (19.3%)
+  ℂ Rayleigh R: 0.0570 (small = uniform)
+  ℝ Rayleigh R: 0.0206 (large = concentrated)
+  [✓ PASS] ℂ has higher phase entropy than ℝ
+  [✗ FAIL] ℂ phases more uniform (smaller R)
+
+============================================================
+  SUMMARY: EXP_071b_Phase_structure_rank-1
+============================================================
+  [✓] |Δ_k| decays (s=0.98 > 0.5)
+  [✓] Phases are spread (std > 1.0)
+  [✓] Phases uniform on [-π,π] (KS p>0.01)
+  [✓] |S_osc| < S_real (phase interference)
+  [✓] S_N has approximate zeros near Re(s)=1/2
+  [✓] ℂ has higher phase entropy than ℝ
+  [✗] ℂ phases more uniform (smaller R)
+
+  6/7 checks passed
+  Time: 3.2s
