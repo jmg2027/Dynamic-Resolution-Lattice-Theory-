@@ -87,9 +87,17 @@ class MyExperiment(Experiment):
 
 ### 결과 파일
 ```
-{PREFIX}_{NNN}_{Title}.txt
+EXP_{PREFIX}_{NNN}_{Title}.txt
 ```
 실험 실행 시 자동 생성. Title은 실험 TITLE에서 파생.
+
+### 결과 저장 경로 (자동 감지)
+`lib/experiment.py`가 결과 저장 경로를 자동 결정:
+1. 클래스에 `RESULTS_DIR` 속성 → 그것 사용
+2. 실험 파일이 `{sub-project}/experiments/`에 있으면 → `{sub-project}/results/`
+3. 위 두 조건 해당 없으면 → root `results/` (fallback)
+
+**수동 RESULTS_DIR 설정 불필요.** `{sub-project}/experiments/`에 넣기만 하면 됨.
 
 ### 새 sub-project 생성 시
 1. 2-3자 prefix 결정 (기존과 충돌 없이)
