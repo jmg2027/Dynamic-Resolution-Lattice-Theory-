@@ -312,4 +312,73 @@ In QFT, one first defines the vacuum, then places particles on it.  In DRLT, the
 \begin{remark}[Confinement from solution non-existence]
 Why can't a free quark exist?  A single A-vertex cannot form a hinge ($\det$ requires 3 vertices).  Therefore $S = 0$, $\hbar = 0$: no spacetime.  A free quark is not ``confined'' by a force --- it simply has no solution with $S > 0$.  The minimum non-trivial solution requires 3 A-vertices $=$ a baryon.
 \end{remark}
+
+%---------------------------------------------------------------------
+\subsection{Flat vacuum and deficit angles on $\partial(\Delta^5)$}
+\label{sec:flat_vacuum}
+%---------------------------------------------------------------------
+
+The boundary $\partial(\Delta^5)$ of the 5-simplex has 6 vertices, $\binom{6}{3}=20$ hinges (triangles), and $\binom{6}{5}=6$ four-simplices.  Each hinge lies in exactly 3 four-simplices.  The dihedral angle at a hinge $\{a,b,c\}$ in a four-simplex $S = \{v_1,\ldots,v_5\}$ with opposite vertices $\{d,e\} = S \setminus \{a,b,c\}$ is:
+\begin{equation}
+\cos\theta_{de} = \frac{-(G^{-1}_S)_{de}}{\sqrt{(G^{-1}_S)_{dd}\,(G^{-1}_S)_{ee}}},
+\end{equation}
+where $G_S$ is the $5 \times 5$ Gram submatrix of $S$.
+
+\begin{theorem}[Flat vacuum]
+\label{thm:flat_vacuum}
+The equiangular tight frame (ETF) with $G_{ij} = -1/d$ for $i \ne j$ satisfies:
+\begin{equation}
+\delta_h = 0 \quad \forall h, \qquad S_{\mathrm{Regge}} = 0.
+\end{equation}
+\end{theorem}
+\begin{proof}
+For the ETF, $G_S = \frac{d+1}{d}\,I - \frac{1}{d}\,J$, where $J$ is the all-ones matrix.  By Sherman--Morrison inversion:
+\begin{equation}
+G_S^{-1} = \frac{d}{d+1}(I + J).
+\end{equation}
+Hence $(G^{-1}_S)_{de} = d/(d+1)$ for $d \ne e$ and $(G^{-1}_S)_{dd} = 2d/(d+1)$.  Thus:
+\begin{equation}
+\cos\theta = \frac{-d/(d+1)}{\sqrt{(2d/(d+1))^2}} = -\frac{1}{2}, \qquad \theta = \frac{2\pi}{3}.
+\end{equation}
+Since each hinge has 3 dihedral angles: $\delta_h = 2\pi - 3 \times \frac{2\pi}{3} = 0$.  Therefore $S = \sum_h \sqrt{\det(G_h)}\,\delta_h = 0$.  The vacuum is exactly flat (EXP-067, verified to $10^{-15}$).
+\end{proof}
+
+\begin{theorem}[Deficit angle of the confined AAA hinge]
+\label{thm:delta_AAA}
+For any hydrogen-like solution with orthogonal A-vertices and B-vertices in the temporal sector $\mathbb{C}^2$:
+\begin{equation}
+\boxed{\delta(\mathrm{AAA}) = \pi.}
+\end{equation}
+This is exact and independent of the coupling $\varepsilon$ and the 6th vertex phase $\varphi$.
+\end{theorem}
+\begin{proof}
+With $G_{A_i A_j} = \delta_{ij}$, the A-block decouples and the dihedral angle at the AAA hinge $\{A_1,A_2,A_3\}$ in four-simplex $S_k = \{0,\ldots,5\}\setminus\{k\}$ reduces to $\cos\theta = G_{B_a B_b}$ where $\{B_a,B_b\}$ are the two non-A vertices of $S_k$.
+
+The three four-simplices containing the AAA hinge exclude vertices 3, 4, 5 respectively.  With $B_1 \perp B_2$ (orthogonal temporal basis) and $X = \cos\varphi\,B_1 + \sin\varphi\,B_2$:
+\begin{align}
+G_{B_1 B_2} &= 0, & \theta_1 &= \pi/2, \\
+G_{B_1 X} &= \cos\varphi, & \theta_2 &= \varphi, \\
+G_{B_2 X} &= \sin\varphi, & \theta_3 &= \pi/2 - \varphi.
+\end{align}
+Sum: $\theta_1 + \theta_2 + \theta_3 = \pi/2 + \varphi + (\pi/2 - \varphi) = \pi$.  Therefore $\delta = 2\pi - \pi = \pi$.
+\end{proof}
+
+\begin{remark}[The 20-hinge structure of hydrogen]
+EXP-067 computes all 20 deficit angles for $\varepsilon = \alpha/\sqrt{n_A}$:
+\begin{center}
+\begin{tabular}{lcccc}
+\hline
+Type & Count & $\det(G_h)$ & $\delta$ & Role \\
+\hline
+AAA & 1 & 1 & $\pi$ & Nuclear curvature \\
+AAB (AAAB face) & 3 & $1-2\varepsilon^2$ & $\approx \pi$ & EM binding \\
+AAB (other) & 6 & 1 & $0$ or $\pi$ & Background \\
+ABB ($B_1 B_2$) & 3 & $\approx 1$ & $0$ & Flat (orthogonal B's) \\
+ABB ($B_1 X$) & 3 & 3/4 & $\pi$ & Temporal curvature \\
+ABB ($B_2 X$) & 3 & 1/4 & $\pi$ & Temporal curvature \\
+BBB & 1 & $\approx 0$ & 0 & Degenerate \\
+\hline
+\end{tabular}
+\end{center}
+The total Regge action $S_H \approx 34.88$ is dominated by hinges with $\delta = \pi$.  The vacuum has $S = 0$, so the atom creates curvature: matter $\Leftrightarrow$ nonzero deficit angle.
 \end{remark}
