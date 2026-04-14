@@ -45,8 +45,11 @@ rh-connection/     — Riemann Hypothesis connection (separate branch)
   experiments/     — RH experiments
   lib/rh_core.py   — RH-specific library
 
-atoms/             — Atomic physics, periodic table (planned)
+atoms/             — Atomic physics, periodic table (EXP_076-079)
   CLAUDE.md        — Atoms-specific context
+  HANDOFF.md       — Atoms handoff (open problems, next steps)
+  experiments/     — Atoms experiments
+  results/         — Atoms outputs
 ```
 
 ### Shared Infrastructure
@@ -63,6 +66,8 @@ results/           — Legacy + sub-project results (mirrored)
 3. **이론은 항상 book/에 통합.** sub-project는 작업 공간일 뿐.
 4. **sub-project CLAUDE.md에는 해당 분야 context만.** Agent가 필요한 것만 읽으면 됨.
 5. **EXP 번호는 전역 순차.** sub-project 간 충돌 방지.
+6. **각 sub-project는 자체 HANDOFF.md 관리.** Root HANDOFF는 요약만.
+7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
 
 ---
 

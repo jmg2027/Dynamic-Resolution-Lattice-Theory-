@@ -1,63 +1,70 @@
 # Atomic Physics Sub-Project
 
-> 원자, 주기율표, 화학 — δS/δψ=0 에서 유도.
-> **금지:** Z_eff, Slater rules, Aufbau 가정, orbital labels (ℓ).
-> **원칙:** Regge action S = Σ √det(G_h) × δ_h 의 변분만 사용.
+> **순수 심플렉스 기하학에서 원자 구조를 유도.**
+> 기존 화학/물리 프레임(Z_eff, Slater, orbital, Aufbau) 일체 사용 금지.
+> Regge action과 Gram determinant만으로 주기율표를 설명.
 
-## Scope
-- 이온화 에너지 (IE) for Z=1-36+
-- 원자 구조 (shell emergence from geometry)
-- 분자 결합각 (이미 exact: CH₄, NH₃, H₂O)
-- 주기율표 패턴 (noble gas 안정성, alkali 불안정성)
+## 핵심 원칙
+1. **δS/δψ = 0 만 사용.** S = Σ_h √det(G_h) × δ_h
+2. **screening은 기하학.** σ = 1 - n_X/(geometric dimension) 형태만 허용
+3. **"orbital"은 결과.** 심플렉스 기하에서 shell/subshell이 자연스럽게 나와야 함
+4. **pair correction은 Basel.** Δ_pair = 3/π² = neutrino와 동일 물리
 
-## Current Results
+## 발견된 Screening Constants (전부 d=5에서 유도)
 
-| Atom | IE (DRLT) | IE (obs) | Error | Method |
-|------|-----------|----------|-------|--------|
-| H | 13.606 eV | 13.598 | 0.06% | Exact (ch10) |
-| He | 24.565 eV | 24.587 | 0.089% | Channel analysis (EXP_070) |
-| Li | 5.315 eV | 5.392 | -1.4% | Screening rule σ=7/8 |
-| Be+ | — | 9.323 | — | Not yet solved |
+| 상수 | 값 | 공식 | 기하학적 의미 |
+|------|-----|------|-------------|
+| σ_1s→outer | 7/8 | 1-n_S/(d²-1) | adjoint SU(5) trace |
+| σ_same_s | 0.597 | 1/n_T+c²α | BBB channel budget |
+| σ_2s→2p | 17/20 | 1-n_S/(d(d-1)) | antisymmetric rep |
+| σ_3s→3p | 9/10 | 1-n_T/(d(d-1)) | sector alternation |
+| σ_same_p(n=2) | 3/4 | n_S/(d-1) | spatial fraction |
+| σ_same_p(n=3) | 2/3 | n_T/n_S | sector ratio |
+| Δ_pair | 0.304 | n_S/π² | 2× neutrino T₂₃ |
+| σ_core(p≥3) | →1 | 1-n_T/(d²+(p-2.7)d) | Wishart + period |
 
-## ∂(Δ⁵) Engine
-
-6 vertices in ℂ⁵:
+## 공통 분모 구조
 ```
-A₁=[0,0,1,0,0]  A₂=[0,0,0,1,0]  A₃=[0,0,0,0,1]  ← confined (orthogonal)
-B₁=[t₁,0,ε,ε,ε]                                    ← electron 1
-B₂=[0,t₂,ε₂,ε₂,ε₂]                                ← electron 2 (or vacant)
-X=[cosφ,sinφ,0,0,0]                                 ← temporal completion
-```
-
-- 20 hinges = C(6,3)
-- Hinge types: AAA(1), AAB(9), ABB(9), BBB(1)
-- Regge action: S = Σ_h √det(G_h) × δ_h
-- IE = S(atom) - S(ion)
-
-## Key Formulas
-```
-H:  IE = Z²Ry / (1 + Z²α²)     (exact, 3 AAB hinges)
-He: IE = 2Ry(1 - c²α_GUT)      (channel budget correction)
-σ_inner = 1 - n_S/(d²-1) = 7/8  (screening, needs derivation)
+d²-1 = 24  → adjoint SU(5): σ_1s, Ξ_confined
+d(d-1) = 20 → antisymmetric: σ_ns→np
+d-1 = 4    → spacetime: σ_same_p
+π²         → Basel propagator: Δ_pair
 ```
 
-## Open Problems
-1. **He variational:** Reproduce 24.565 eV from δS/δψ=0
-2. **Shell structure:** Does 변분이 inner/outer electron 구분을 자연스럽게 만드나?
-3. **σ=7/8 유도:** trace conservation에서 증명
-4. **Period 2:** Be-Ne, IE pattern
-5. **ε leaking → 원자 상호작용 최소 단위**
+## 현재 정밀도
+
+### Period 1-2 (H-Ne): 전부 <3%
+| Z | Sym | IE(DRLT) | IE(obs) | Error |
+|---|-----|----------|---------|-------|
+| 1 | H | 13.606 | 13.598 | +0.1% |
+| 2 | He | 24.565 | 24.587 | -0.1% |
+| 3 | Li | 5.315 | 5.392 | -1.4% |
+| 4 | Be | 9.291 | 9.323 | -0.3% |
+| 5 | B | 8.172 | 8.298 | -1.5% |
+| 6 | C | 11.021 | 11.260 | -2.1% |
+| 7 | N | 14.295 | 14.534 | -1.6% |
+| 8 | O | 13.552 | 13.618 | -0.5% |
+| 9 | F | 17.159 | 17.423 | -1.5% |
+| 10 | Ne | 21.192 | 21.565 | -1.7% |
+
+### Period 3 (Na-Ar): 전부 <10%
+### Period 4+ (K-Og): 58% within 30%, d/f-block 개선 필요
+
+### Z=1-118 전체: 15 (<5%), 41 (<15%), 68 (<30%)
 
 ## Experiment Map
 ```
-EXP_076: He variational solution (planned)
-EXP_077: Li variational + shell structure (planned)
-EXP_078: Period 2 scan (planned)
+EXP_076: He-Li AAB ratio=2(exact), screening σ=7/8 (4/4 ✓)
+EXP_077: Period 2 screening decomposition (3/3 ✓)
+EXP_078: Period 2 complete, 8/8 <3% (3/3 ✓)
+EXP_079: Full periodic Z=1-118, 68/118 <30% (exploratory)
+Next: EXP_080
 ```
+
+## Open Problems → HANDOFF.md 참조
 
 ## Key References
 - book/chapters/ch10_atoms.tex — 원자 이론 (6 theorems)
-- experiments/EXP_069_variational_boundary.py — 변분 engine
+- experiments/EXP_069_variational_boundary.py — ∂(Δ⁵) engine
 - experiments/EXP_070_helium_ionization.py — He channel analysis
-- atoms/scripts/periodic_scan.py — periodic scanner
 - standard-model/correction_recipes.md — 보정 패턴
