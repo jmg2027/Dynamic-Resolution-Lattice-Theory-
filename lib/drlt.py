@@ -631,8 +631,8 @@ def focc_spectrum() -> list:
     ]
 
 def higgs_mass() -> float:
-    """m_H = v_H × (1+α_GUT)/c ≈ 125.8 GeV (ch21, f=1/2 on AABB face)."""
-    return electroweak_scale() * (1 + ALPHA_GUT) / C_LATTICE
+    """m_H = v_H(1+α)(1-α/d)/c ≈ 125.3 GeV (ch21, face BC + embedding)."""
+    return electroweak_scale() * (1 + ALPHA_GUT) * (1 - ALPHA_GUT / D) / C_LATTICE
 
 def su5_representations() -> dict:
     """
