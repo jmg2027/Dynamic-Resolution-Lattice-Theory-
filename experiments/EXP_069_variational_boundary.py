@@ -226,7 +226,7 @@ def params_from_psi_b(psi_b):
 # ═══════════════════════════════════════════════════════════
 
 class Exp(Experiment):
-    ID, TITLE = "067", "Variational dS-dpsi on boundary-Delta5"
+    ID, TITLE = "069", "Variational dS-dpsi on boundary-Delta5"
 
     def run(self):
         alpha = drlt.ALPHA_EM

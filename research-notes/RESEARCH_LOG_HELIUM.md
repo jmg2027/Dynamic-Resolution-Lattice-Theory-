@@ -8,8 +8,8 @@ On ∂(Δ⁵) with 6 vertices {A₁,A₂,A₃,B₁,B₂,X} ∈ ℂ⁵:
 - δS/δψ = 0  (variational equation)
 
 **Known exact results:**
-- Vacuum: ETF, G_ij = -1/5, δ=0, S=0 (PROVEN, EXP_067)
-- δ(AAA) = π (PROVEN, ch05 Thm 1, EXP_067)
+- Vacuum: ETF, G_ij = -1/5, δ=0, S=0 (PROVEN, EXP_069)
+- δ(AAA) = π (PROVEN, ch05 Thm 1, EXP_069)
 - ⟨det⟩_ABB = 2/3 = n_B/n_A (PROVEN, ch05 Thm 2)
 - IE(H) = m_e α²/2 = 13.606 eV (EXACT, from Σ(1-det)_AAB = 2α²)
 - IE(Z) = Z²Ry/(1+Z²α²) for hydrogen-like (EXACT, Z=1-5)
@@ -60,7 +60,7 @@ Status: OPEN. Hypothesis: 4α_GUT = (d²-1)/(d²ζ(2)).
 
 ## Session Log
 
-### Session 2026-04-14 (EXP_067)
+### Session 2026-04-14 (EXP_069)
 
 **New results:**
 1. Vacuum is EXACTLY flat: δ=0, S=0 on ETF (proved analytically + numerically)
@@ -89,9 +89,9 @@ ABB hinges {Aᵢ,B₁,X}: det = 3/4, δ = π
 ABB hinges {Aᵢ,B₂,X}: det = 1/4, δ = π  
 These have LARGE (1-det) but were IGNORED in all 8 previous attempts.
 
-**Next:** EXP_068 — systematic test of 5 energy functionals.
+**Next:** EXP_070 — systematic test of 5 energy functionals.
 
-### Session 2026-04-14 (EXP_068) — BREAKTHROUGH
+### Session 2026-04-14 (EXP_070) — BREAKTHROUGH
 
 **F1 = Σ(1-det) over ALL 20 hinges is the correct functional (up to correction).**
 
@@ -122,7 +122,7 @@ IE(He) = 2Ry × correction
 - The ζ(2) = π²/6 factor is the Basel sum from the coupling constant chain
 - Total: a fraction (d²-1)/(d²ζ(2)) = 24/(25π²/6) "leaks" from binding
 
-**Face decomposition (EXP_068 Part E):**
+**Face decomposition (EXP_070 Part E):**
 ```
 Face miss=B₂: ΔS = +0.0715  (ionization face)
 Face miss=X:  ΔS = −0.0513  (X compensates)

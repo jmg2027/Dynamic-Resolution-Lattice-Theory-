@@ -22,7 +22,7 @@ import numpy as np
 from itertools import combinations
 
 # ── Import engine from EXP_067 ──
-from EXP_067_variational_boundary import (
+from EXP_069_variational_boundary import (
     build_G, hinge_det, dihedral_angle, deficit_angle,
     regge_action, regge_action_decomposed,
     ALL_HINGES, ALL_SIMPLICES,
@@ -91,7 +91,7 @@ def compute_all_functionals(G):
 
 
 class Exp(Experiment):
-    ID, TITLE = "068", "Helium Ionization Functionals"
+    ID, TITLE = "070", "Helium Ionization Functionals"
 
     def run(self):
         alpha = drlt.ALPHA_EM
