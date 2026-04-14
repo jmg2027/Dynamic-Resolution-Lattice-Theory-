@@ -36,22 +36,22 @@ book/                          — THE BOOK (single source of truth)
   chapters/
     ch01_whyC.tex              — Part I: Why ℂ (Frobenius)
     ch02_whyd5.tex             — Part I: Why d=5
-    ch02c_rep_uniqueness.tex   — Part I: (2,3) uniqueness for any N
-    ch02b_simplex_geometry.tex — Part II: Simplex combinatorics
-    ch02d_variational_theorems.tex — Part II: Three theorems (δ=π, det=2/3, c=2)
-    ch03_geometry.tex          — Part III: Gram → metric + gauge
-    ch04_hbar.tex              — Part III: ħ dynamical field
-    ch05_couplings.tex         — Part III: Coupling constants
-    ch06_masses.tex            — Part IV: Fermion masses + closed propagator
-    ch06b_atoms.tex            — Part IV: Atoms, molecules, chemistry
-    ch07_mixing.tex            — Part IV: CKM, PMNS, CP, Higgs, neutrinos
-    ch08_ghosts.tex            — Part V: Trace conservation
-    ch09_cosmology.tex         — Part V: Cosmological predictions
-    ch10_block.tex             — Part V: Block universe
-    ch11_yang_mills.tex        — Part VI: Yang-Mills mass gap
-    ch12_compact_stars.tex     — Part VI: Compact stars
-    ch13_webb_dipole.tex       — Part VI: Webb dipole
-    appendix_path_integral.tex — Path integral on CP⁴
+    ch03_rep_uniqueness.tex    — Part I: (2,3) uniqueness for any N
+    ch04_simplex_geometry.tex  — Part II: Simplex combinatorics
+    ch05_variational_theorems.tex — Part II: Three theorems (δ=π, det=2/3, c=2)
+    ch06_geometry.tex          — Part III: Gram → metric + gauge
+    ch07_hbar.tex              — Part III: ħ dynamical field
+    ch08_couplings.tex         — Part III: Coupling constants
+    ch09_masses.tex            — Part IV: Fermion masses + Ξ correction
+    ch10_atoms.tex             — Part IV: Atoms, molecules, chemistry
+    ch11_mixing.tex            — Part IV: CKM, PMNS, CP, neutrinos, w=3/(5π)
+    ch12_ghosts.tex            — Part V: Trace conservation
+    ch13_cosmology.tex         — Part V: Cosmological predictions
+    ch14_block.tex             — Part V: Block universe
+    ch15_yang_mills.tex        — Part VI: Yang-Mills mass gap
+    ch16_compact_stars.tex     — Part VI: Compact stars
+    ch17_webb_dipole.tex       — Part VI: Webb dipole
+    appendix_path_integral.tex — Path integral on CP⁴ + YM/EH emergence
     appendix_verification.tex  — Numerical verification
     appendix_qcd.tex           — QCD phenomenology
     appendix_code.tex          — Core algorithms
