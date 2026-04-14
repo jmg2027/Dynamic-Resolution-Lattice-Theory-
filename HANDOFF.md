@@ -1,32 +1,30 @@
-# Session Handoff — 2026-04-14
+# Session Handoff — 2026-04-14 (Session 2)
 
 ## Branch
-`claude/zeta-physical-parameter-wO8tH` (pushed, up to date)
+`main` (all merged)
 
 ## What Was Done This Session
 
-### 1. ζ(s) as Physical Parameter (EXP_067, 9/9 ✓)
-- **s = rank(G^AA) − 1 = 2** is algebraic (from (3,2) split), not topological
-- **N_eff ↔ s duality**: varying range ↔ varying effective dimension
-- **Two complementary β mechanisms**:
-  - (A) dS/dN = 1/N² → strong force (asymptotic freedom)
-  - (B) dS/ds = ζ'(2) ≈ −0.938 → EM (anti-screening)
-- **Sector weight w_i = n_{s_i}/d** DERIVED from trace decomposition
-- **b₂ = −3.163 vs SM −3.167 → 0.11%** (derived, not fit)
+### 1. Higgs Quartic λ Derived (EXP_071, 10/10 ✓)
+- **Face-level Binet-Cauchy**: Λ⁴(ℂ⁵) = AAAB(4) + AABB(12) = 16 channels
+- **Occupation fraction**: f_occ(AABB) = 1/2 = 1/c (self-dual)
+- **Scalar vertex dressing**: V(x) = 1+2x (numerator only, no loop)
+- **Result**: λ = (1+α_GUT)²/(2c²), m_H = 125.9 GeV (+0.51%)
+- Key insight: scalars use vertex factor, fermions use propagator P(x)
 
-### 2. Paper 4 Written (`papers/paper4_zeta_beta.tex`)
-6 sections: Intro, Dimension parameter, Two mechanisms, Sector weight theorem, β matching, Discussion.
+### 2. Embedding Correction (EXP_072, 7/7 ✓)
+- AABB face = 4/5 simplex vertices → α_eff = α(d-1)/d
+- Missing vertex leaks α/d of coupling
+- **Corrected**: m_H = v_H(1+α)(1-α/d)/c = **125.28 GeV** (+0.02%, +0.15σ)
+- λ = (1+α)²(1-α/d)²/(2c²) = 0.1299
+- **Evolution: 3.2% → 0.51% → 0.02%**
 
-### 3. Helium Merged (from review-handoff-atoms branch)
-- EXP_069: δS/δψ = 0 on ∂(Δ⁵) — flat vacuum + δ(AAA)=π
-- EXP_070: IE(He) = 2Ry(1 − c²α_GUT) = 24.565 eV (0.089%)
-- ch10_atoms.tex updated with helium theorem
-
-### 4. Book & Repo Consolidated
-- ch08_couplings.tex: 3 new subsections (duality, dual mechanisms, sector weight)
-- appendix_verification.tex: 18 experiments, 104/104 checks
-- CLAUDE.md: catalog → EXP_070, precision table updated
-- rh_exploration.md moved to research-notes/
+### 3. Book & Repo Updated
+- ch21_occupation_fraction.tex: quartic theorem + embedding correction
+- ch11_mixing.tex: formula + parameter table updated
+- lib/drlt.py: higgs_mass() updated
+- appendix_verification.tex: 20 experiments, 121/121 checks
+- CLAUDE.md: catalog, precision table, resolved problems
 
 ## Current Precision Results (0 free parameters)
 
@@ -34,6 +32,8 @@
 |-----------|------|----------|-------|
 | 1/α_em | 137.036 | 137.036 | 0.0004% |
 | m_μ/m_e | 206.7682837 | 206.7682838 | 0.7 ppb |
+| m_H | 125.28 GeV | 125.25 GeV | **+0.02%** |
+| λ (quartic) | 0.1299 | 0.1294 | +0.38% |
 | b₂ (1-loop β) | −3.163 | −3.167 | 0.11% |
 | IE(He) | 24.565 eV | 24.587 eV | 0.089% |
 | sin²θ₁₃ | 0.0220 | 0.0220 | −0.07σ |
@@ -41,43 +41,30 @@
 
 ## Open Problems (Priority Order)
 
-### 1. Higgs mass (3% gap) — HIGHEST PRIORITY
-m_H = 121 vs 125 GeV. The quartic coupling λ derivation is incomplete.
-Approach: derive λ from the same Binet-Cauchy channel budget that gives the gauge couplings.
+### 1. Δm_np geometric factor (+11%)
+Neutron-proton mass difference has combinatorial overcount.
+Need correct geometric form for isospin breaking.
 
 ### 2. 1/α₂ weak scale (18.2 vs 29.6)
 RGE running from M_GUT to M_Z not yet implemented.
-Now that the β-function structure is derived (EXP_067), this should be tractable.
+β-function structure derived in EXP_067.
 
 ### 3. Neutrino ratio (35% gap)
 Democratic seesaw gives 3.73 vs observed 5.71.
 Higher-order T-matrix corrections needed.
 
-### 4. Δm_np geometric factor (+11%)
-Neutron-proton mass difference has a combinatorial overcount.
-Need correct geometric form for the isospin breaking mechanism.
-
-### 5. 1st gen quark masses
+### 4. 1st gen quark masses
 Ξ correction improves leptons but degrades m_u, m_d.
-Need confined-specific Ξ formula for QCD-scale corrections.
-
-## RH Connection (Exploration, Not Paper-Ready)
-See `research-notes/rh_exploration.md`.
-Key chain: ℂ unique → β=2 → GUE → d=5 → ζ(2) → s=2.
-Missing bridge: Z_N(s) definition for finite Gram matrices.
-Status: raw intuitions, needs formalization.
+Need confined-specific Ξ formula.
 
 ## Next Experiment
-EXP_071 (available).
+EXP_073 (available).
 
 ## File Map
 ```
-papers/paper4_zeta_beta.tex         ← NEW this session
-book/chapters/ch08_couplings.tex    ← 3 new subsections
-book/chapters/ch10_atoms.tex        ← helium theorem (merged)
-experiments/EXP_067_zeta_spectral_dim.py  ← 9/9
-experiments/EXP_069_variational_boundary.py  ← 6/6 (merged)
-experiments/EXP_070_helium_ionization.py     ← 5/5 (merged)
-research-notes/rh_exploration.md    ← moved from root
-research-notes/RESEARCH_LOG_HELIUM.md  ← merged
+experiments/EXP_071_higgs_quartic.py       ← 10/10 ✓
+experiments/EXP_072_higgs_embedding.py     ← 7/7 ✓
+book/chapters/ch21_occupation_fraction.tex ← quartic theorem + embedding
+book/chapters/ch11_mixing.tex              ← updated formula + table
+lib/drlt.py                                ← higgs_mass() corrected
 ```
