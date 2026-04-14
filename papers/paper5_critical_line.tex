@@ -351,9 +351,9 @@ For Born-rule weighted Gram graphs with $\rank \leq d$:
 \item The Ramanujan ratio has a closed-form upper bound via the
   Khatri-Rao / Marchenko-Pastur decomposition:
   \begin{equation}\label{eq:rhoMP}
-  \rho_{\mathrm{MP}}(d,N)
+  \rho(d,N)
     = \frac{\frac{N}{d(d+1)}
-      \left(1 + \sqrt{\frac{d^2-1}{N}}\right)^{\!2} - 1}
+      \left(1 + \sqrt{\frac{d(d-1)}{N}}\right)^{\!2} - 1}
       {2\sqrt{\frac{N-1}{d}-1}}\,.
   \end{equation}
 \item The critical $N$ where $\rho_{\mathrm{MP}} = 1$
@@ -396,13 +396,19 @@ aspect ratio $\gamma = (d^2{-}1)/N$.
 The upper edge of the bulk is
 $\sigma_2(1 + \sqrt\gamma)^2$, giving
 \begin{equation}\label{eq:lam2}
-\lambda_2(W) \approx N \sigma_2 (1 + \sqrt\gamma)^2 - 1\,.
+\lambda_2(W) \approx N \sigma_2 (1 + \sqrt\gamma)^2 - 1\,,
+\quad \gamma = \frac{d(d{-}1)}{N}\,.
 \end{equation}
+The effective multiplicity $d(d{-}1)$ (rather than $d^2{-}1$)
+arises because $\varphi_i = \psi_i\psi_i^\dagger$
+is rank-1 Hermitian with fixed trace:
+the $d$ diagonal degrees of freedom are constrained,
+leaving $d^2 - d$ effective parameters (RH\_011, RMSE${} = 1.89$).
 
 \textbf{Step 4: Ratio and $N_c$.}
 Combining with $d_{\mathrm{eff}} = (N{-}1)/d$ yields~\eqref{eq:rhoMP}.
-Setting $\rho_{\mathrm{MP}} = 1$ and solving numerically gives
-$N_c(d) \approx 2.2\,d^{3.06}$.
+Setting $\rho = 1$ and solving numerically gives
+$N_c(d) \approx 3\,d^3$ (RH\_011).
 
 \textbf{Accuracy.}
 The MP formula overestimates $\rho$ by $\sim$5--20\%

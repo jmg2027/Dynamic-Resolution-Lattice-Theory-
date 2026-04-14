@@ -95,6 +95,7 @@ rh-connection/
 | RH_008 | Born-Ramanujan proof | 3/5 | Var exact, ||Z||~N^{0.82}, A(N) resolved |
 | RH_009 | Marchenko-Pastur | 5/5 | KR decomp, MP formula, N_c≈2.2d³ |
 | RH_010 | Segre correction | 3/5 | r_eff=d(d+1)/2, N_c(corr)≈2.8d³ |
+| RH_011 | Segre dimension | 4/4 | **p_eff=d(d-1)**, RMSE=1.89, 4.1% median |
 
 ## Key Precision Results
 
