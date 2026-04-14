@@ -31,7 +31,7 @@
 ## Repository Structure
 ```
 book/                          — THE BOOK (single source of truth)
-  main.tex                     — Master (6 Parts, 15 chapters, 5 appendices)
+  main.tex                     — Master (6 Parts, 20 chapters, 2 appendices)
   drlt_book_single.tex         — Auto-generated single-file version
   chapters/
     ch01_whyC.tex              — Part I: Why ℂ (Frobenius)
@@ -51,11 +51,11 @@ book/                          — THE BOOK (single source of truth)
     ch15_yang_mills.tex        — Part VI: Yang-Mills mass gap
     ch16_compact_stars.tex     — Part VI: Compact stars
     ch17_webb_dipole.tex       — Part VI: Webb dipole
-    appendix_path_integral.tex — Path integral on CP⁴ + YM/EH emergence
-    appendix_verification.tex  — Numerical verification
-    appendix_qcd.tex           — QCD phenomenology
+    ch18_path_integral.tex     — Part VI: Path integral + YM/EH emergence
+    ch19_qcd.tex               — Part VI: QCD phenomenology, KSS bound
+    ch20_hydrogen.tex          — Part VI: Hydrogen precision, 4-level decomposition
+    appendix_verification.tex  — Numerical verification compendium
     appendix_code.tex          — Core algorithms
-    appendix_hydrogen.tex      — Hydrogen precision
   figures/
 
 papers/                        — Standalone papers (self-contained .tex)
@@ -64,7 +64,7 @@ research-notes/                — Historical working documents (NOT authoritati
   simplex-geometry/            — Research progression (00→18)
   folded_dim.md                — Folded dimension leaking
 lib/                           — Core Python library (drlt.py, experiment.py)
-experiments/                   — Numerical experiments (EXP_001 ~ EXP_052)
+experiments/                   — Numerical experiments (EXP_001 ~ EXP_060)
 results/                       — Experiment outputs
 ```
 
@@ -74,7 +74,7 @@ cd experiments && python EXP_001_pipeline.py
 ```
 New experiment: create `EXP_NNN_name.py`, inherit from `lib/experiment.py`, update catalog below.
 
-## Experiment Catalog (EXP_001 ~ EXP_052)
+## Experiment Catalog (EXP_001 ~ EXP_060)
 Key completed:
 - EXP_001: Pipeline verification (9/9 ✓)
 - EXP_009: Fine structure 1/α=137.064 (0.020% ✓)
@@ -101,7 +101,7 @@ Key completed:
 - EXP_060: Absolute masses Ξ correction 8/12 improved (8/12 ✓)
 - EXP_061: n-p mass diff geometric factor issue (diagnostic)
 - EXP_062: Remaining observables 1/α_em 0.0004% (5/5 ✓)
-- Next: EXP_063
+- Next: EXP_061
 
 ## Resolved Problems
 - det(SST) vs det(STT): distinct quantities (EXP_048)
