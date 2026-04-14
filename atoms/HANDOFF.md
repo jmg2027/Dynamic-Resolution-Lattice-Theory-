@@ -1,12 +1,13 @@
-# Atoms Handoff — 2026-04-14 (Session 2)
+# Atoms Handoff — 2026-04-14 (Session 3)
 
 ## 현재 상태
 - Period 1-2 (Z=1-10): **전부 <3%**, screening 공식 확립
-- Period 3 (Z=11-18): p-block **<6%**, s-block ~9%
-- Period 4 (Z=19-36): p-block **<2.5%**, d-block <12%, median 4.7%
-- Period 5 (Z=37-54): p-block **<10%**, d-block <8%, median 3.0%
-- Period 6-7 (Z=55-118): median 20-35%, σ_core 기울기 보정 필요
-- **Z=1-118 전체: 36(<5%), 62(<15%), 93(<30%), median 12.9%**
+- Period 3 (Z=11-18): p-block **<6%**, s-block ~7%, median 4.9%
+- Period 4 (Z=19-36): p-block **<3.5%**, d-block <10%, median 3.9%
+- Period 5 (Z=37-54): p-block **<6%**, d-block <11%, median 2.8%
+- Period 6 (Z=55-86): median **12.1%** (was 20.6%)
+- Period 7 (Z=87-118): median **12.4%** (was 35.0%)
+- **Z=1-118 전체: 46(<5%), 92(<15%), 115(<30%), median 7.4%**
 
 ## 이번 세션에서 한 일
 1. **ATM_018**: σ_core offset = (d²+n_T)/(d·n_T) = 27/10 = 2.7 도출
@@ -17,6 +18,11 @@
    - d/f 전자가 α_GUT만큼 screening 누출
    - Period 4 p-block: +34% → +2.3% (Ga)
    - Median: 17.2% → 12.9%
+3. **ATM_020**: Layered shell screening model
+   - σ(k→n) = 1-n_X/(d²-1+(n-k-1)·d(d+1))
+   - Period 6: 20.6% → 12.1%, Period 7: 35.0% → 12.4%
+   - La: -2.6%, Ba: +1.2%, U: -2.1%
+   - Median: 12.9% → **7.4%**
 
 ## 핵심 발견
 
@@ -31,6 +37,16 @@
 - d/f 전자 subshell이 정확히 α_GUT = 6/(d²π²)만큼 screening 누출
 - gauge coupling과 동일한 물리!
 - 기하학: d/f는 outer p-electron에서 거의 완전한 core지만, α_GUT만큼 "보인다"
+
+### Layered shell screening (ATM_020)
+```
+σ(k→n) = 1 - n_X(k,n) / (d²-1 + (n-k-1)·d(d+1))
+  d²-1 = 24  (adjoint, base denominator)
+  d(d+1) = 30 (symmetric rep, gap increment)
+  n_X = n_S if (k+n) even, n_T if (k+n) odd
+  Period 2: σ_core = S_1S = 7/8 (hardcoded, single simplex)
+```
+σ_eff(p): 0.875, 0.922, 0.936, 0.947, 0.957, 0.965 for p=2..7
 
 ### σ_same_p = n_T/(n_T+1) = 2/3 for p≥3
 - Period 2: single simplex → n_S/(n_S+1) = 3/4 (spatial sector)
@@ -52,13 +68,10 @@
 
 ## Open Problems (우선순위)
 
-### 1. σ_core(p) 기울기 보정 (Period 6-7)
-현재: σ_core = 1-4/(23+10p) → p≥5에서 기울기 부족.
-관측: alkali σ_obs가 모델보다 빠르게 1에 접근.
-- p=5: model 0.945 vs obs 0.951 (Rb)
-- p=6: model 0.952 vs obs 0.959 (Cs)
-- p=7: model 0.957 vs obs 0.967 (Fr)
-힌트: layered screening (shell별 다른 σ) 필요. 또는 p² 항?
+### 1. d-block late elements (Ni, Cu, Ag) regression
+ATM_020의 layered model에서 d-block 후반 원소가 악화 (Ni +16%, Cu +21%).
+σ_shell(p-1,p)=0.917이 d-shell filling 후반에서 너무 낮음.
+힌트: σ_d가 n_d(채워진 수)에 의존? 또는 n_d≥5일 때 σ_df로 전환?
 
 ### 2. Period 3 s-block (Na, Mg)
 현재: Na -9.4%, Mg -8.0%. σ_core(3) = 0.925 vs alkali σ_obs = 0.916.
@@ -87,11 +100,12 @@ atoms/
     ATM_017_full_periodic.py       ← Z=1-118 (baseline)
     ATM_018_sigma_core_derivation.py ← 6/6 ✓ (σ_core 도출)
     ATM_019_pblock_precision.py    ← 5/5 ✓ (σ_df, σ_same_p)
+    ATM_020_layered_screening.py   ← 4/4 ✓ (layered, median 7.4%)
   results/
   scripts/
     periodic_scan.py  ← 기존 scanner
   figures/
 ```
 
-## 다음 실험: ATM_020
-방향: σ_core(p) 기울기 보정. Layered shell screening 또는 p² correction.
+## 다음 실험: ATM_021
+방향: d-block late elements regression 해결. σ_d filling 의존성.

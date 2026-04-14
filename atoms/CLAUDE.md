@@ -51,11 +51,13 @@ d²π² = 25π²      → GUT coupling: σ_df = 1-6/(d²π²)
 | 9 | F | 17.159 | 17.423 | -1.5% |
 | 10 | Ne | 21.192 | 21.565 | -1.7% |
 
-### Period 3 (Na-Ar): p-block <6%, s-block ~9%
-### Period 4 (K-Kr): p-block <2.5%, d-block <12%, s-block ~10%
-### Period 5 (Rb-Xe): p-block <10%, d-block <8%, median 3.0%
+### Period 3 (Na-Ar): p-block <6%, s-block ~7%
+### Period 4 (K-Kr): p-block <3.5%, d-block <10%, median 3.9%
+### Period 5 (Rb-Xe): p-block <6%, d-block <11%, median 2.8%
+### Period 6 (Cs-Rn): median 12.1% (was 20.6%)
+### Period 7 (Fr-Og): median 12.4% (was 35.0%)
 
-### Z=1-118 전체 (ATM_019): 36 (<5%), 62 (<15%), 93 (<30%), median 12.9%
+### Z=1-118 전체 (ATM_020): 46 (<5%), 92 (<15%), 115 (<30%), **median 7.4%**
 
 ## Experiment Map
 ```
@@ -65,7 +67,8 @@ ATM_016: Period 2 complete, 8/8 <3% (3/3 ✓)
 ATM_017: Full periodic Z=1-118, 68/118 <30% (exploratory)
 ATM_018: σ_core = 27/10 identification, structural bug fix (6/6 ✓)
 ATM_019: σ_df=1-α_GUT, σ_same_p=2/3, 93/118 <30% (5/5 ✓)
-Next: ATM_020
+ATM_020: Layered shell screening, 115/118 <30%, median 7.4% (4/4 ✓)
+Next: ATM_021
 ```
 
 ## Open Problems → HANDOFF.md 참조
