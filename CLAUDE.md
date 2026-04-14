@@ -64,7 +64,7 @@ research-notes/                — Historical working documents (NOT authoritati
   simplex-geometry/            — Research progression (00→18)
   folded_dim.md                — Folded dimension leaking
 lib/                           — Core Python library (drlt.py, experiment.py)
-experiments/                   — Numerical experiments (EXP_001 ~ EXP_060)
+experiments/                   — Numerical experiments (EXP_001 ~ EXP_044)
 results/                       — Experiment outputs
 ```
 
@@ -101,7 +101,7 @@ Key completed:
 - EXP_060: Absolute masses Ξ correction 8/12 improved (8/12 ✓)
 - EXP_061: n-p mass diff geometric factor issue (diagnostic)
 - EXP_062: Remaining observables 1/α_em 0.0004% (5/5 ✓)
-- Next: EXP_061
+- Next: EXP_045
 
 ## Resolved Problems
 - det(SST) vs det(STT): distinct quantities (EXP_048)

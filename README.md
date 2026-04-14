@@ -51,7 +51,7 @@ papers/             — 3-tier publication strategy
 
 research-notes/     — Historical working documents (not authoritative)
 lib/                — Core Python library (drlt.py, experiment.py)
-experiments/        — Numerical experiments (EXP_001 ~ EXP_060)
+experiments/        — Numerical experiments (EXP_001 ~ EXP_044)
 results/            — Experiment outputs + EXPERIMENT_REPORT.md
 ```
 
