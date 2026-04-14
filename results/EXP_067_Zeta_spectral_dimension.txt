@@ -1,0 +1,181 @@
+============================================================
+  EXP_067_Zeta_spectral_dimension
+  2026-04-14 11:37:06
+============================================================
+
+=======================================================
+  TEST 1: Heat-kernel spectral dimension
+=======================================================
+
+  N = 40:
+    Gram eigenvalues (top 7): [11.71  9.29  7.82  7.13  4.04  0.    0.  ]
+    Significant Gram eigenvalues: 5  (= rank ≤ 5)
+    Laplacian: λ_min=-0.0000, λ_max=1.1519, gap=0.7065
+         σ     d_s   s_eff
+      0.01    0.02   -0.98
+      0.05    0.10   -0.90
+      0.10    0.20   -0.80
+      0.50    0.97   -0.03
+      1.00    1.88    0.88
+      5.00    2.05    1.05
+
+  N = 80:
+    Gram eigenvalues (top 7): [22.38 18.8  15.69 12.16 10.98  0.    0.  ]
+    Significant Gram eigenvalues: 5  (= rank ≤ 5)
+    Laplacian: λ_min=0.0000, λ_max=1.0819, gap=0.6951
+         σ     d_s   s_eff
+      0.01    0.02   -0.98
+      0.05    0.10   -0.90
+      0.10    0.20   -0.80
+      0.50    0.99   -0.01
+      1.00    1.94    0.94
+      5.00    3.38    2.38
+
+  N = 150:
+    Gram eigenvalues (top 7): [37.07 32.81 29.89 26.24 23.99  0.    0.  ]
+    Significant Gram eigenvalues: 5  (= rank ≤ 5)
+    Laplacian: λ_min=0.0000, λ_max=1.0397, gap=0.7391
+         σ     d_s   s_eff
+      0.01    0.02   -0.98
+      0.05    0.10   -0.90
+      0.10    0.20   -0.80
+      0.50    0.99   -0.01
+      1.00    1.97    0.97
+      5.00    4.90    3.90
+
+  Interpretation:
+    d_s(σ→0) → large: UV regime, all N modes
+    d_s(σ~1) → O(1):  effective pre-geometric dim
+    d_s(σ→∞) → 0:     IR, finite graph mixing
+    n_A=3 is ALGEBRAIC (Binet-Cauchy), not d_s
+  [✓ PASS] Test 1: heat-kernel d_s measured
+
+=======================================================
+  TEST 2: Gram rank IS the dimension parameter
+=======================================================
+
+  N = 20:
+    rank(G)    = 5  (max 5)
+    rank(G^AA) = 3  (max 3)
+    rank(G^BB) = 2  (max 2)
+    G    top 6: [7.32 4.23 3.92 2.71 1.82 0.  ]
+    G^AA top 4: [5.55 3.15 2.21 0.  ]
+    G^BB top 3: [5.66 3.43 0.  ]
+    Tr check: 10.9 + 9.1 = 20.0 = Tr(G) = 20.0
+
+  N = 50:
+    rank(G)    = 5  (max 5)
+    rank(G^AA) = 3  (max 3)
+    rank(G^BB) = 2  (max 2)
+    G    top 6: [13.88 10.65  9.89  8.17  7.41  0.  ]
+    G^AA top 4: [11.47  9.14  7.94  0.  ]
+    G^BB top 3: [11.96  9.49  0.  ]
+    Tr check: 28.6 + 21.4 = 50.0 = Tr(G) = 50.0
+
+  N = 150:
+    rank(G)    = 5  (max 5)
+    rank(G^AA) = 3  (max 3)
+    rank(G^BB) = 2  (max 2)
+    G    top 6: [37.37 33.53 30.2  26.85 22.05  0.  ]
+    G^AA top 4: [33.4  30.64 23.47  0.  ]
+    G^BB top 3: [32.96 29.52  0.  ]
+    Tr check: 87.5 + 62.5 = 150.0 = Tr(G) = 150.0
+
+  ═══════════════════════════════════════════
+  Key result:
+    s = rank(G^AA) - 1 = 3 - 1 = 2
+    D(n) = 1/n^s = 1/n²  (solid angle in rank-3)
+    This is an ALGEBRAIC fact, not topological.
+    rank is discrete → s is locked to integer.
+    Continuous s requires EFFECTIVE rank change
+    (folded dim leaking, see Test 3).
+  ═══════════════════════════════════════════
+  [✓ PASS] Test 2: rank(G^AA)=3=n_A, rank(G^BB)=2=n_B
+
+=======================================================
+  TEST 3: Folded dimension leaking → ε correction
+=======================================================
+
+  ζ(2)  = π²/6 = 1.644934
+  ζ'(2) = -Σ ln(n)/n² = -0.937423
+
+  ε source                       ε      ζ(2-ε)      δ(1/α)   % shift
+  ─────────────────────────────────────────────────────────────────
+  α_GUT                    0.02432    1.668335    0.022795    1.386%
+  α_GUT/3 (SST)            0.00811    1.652599    0.007598    0.462%
+  2α_GUT/3 (STT)           0.01621    1.660399    0.015197    0.924%
+
+  At ε = α_GUT:
+    Log correction = 0.022795
+    This is the 'missing' RG logarithm!
+    ζ'(2) ≈ -0.938: each unit of ε shifts
+    the coupling by ~0.94 per channel
+  [✓ PASS] Test 3: ζ'(2) ≈ -0.938 (log running origin)
+
+=======================================================
+  TEST 4: Zeta-eta ratio — continuous dim counter
+=======================================================
+
+      s   ζ/η ratio   n_T,eff   d_eff  interpretation      
+  ────────────────────────────────────────────────────────────
+   1.01    144.7701  144.7701    2.01  near-critical (2D)  
+   1.50      3.4142    3.4142    2.50  fractal (2.5D)      
+   1.90      2.1546    2.1546    2.90  pre-leaking         
+   1.95      2.0731    2.0731    2.95  small leaking       
+   2.00      2.0000    2.0000    3.00  OUR UNIVERSE         ◄
+   2.05      1.9341    1.9341    3.05  anti-leaking        
+   2.10      1.8745    1.8745    3.10  post-leaking        
+   2.50      1.5469    1.5469    3.50  3.5D space          
+   3.00      1.3333    1.3333    4.00  4D space            
+   4.00      1.1429    1.1429    5.00  5D space (all)      
+
+  At s=2: ζ(2)/η(2) = 2.0000000000
+  n_T = 2
+  Direct: (π²/6)/(π²/12) = 2.0000000000
+
+  With leaking (s = 2 - α_GUT = 1.9757):
+    ζ/η = 2.034584
+    Δ(n_T) = 0.034584
+    The (3,2) split leaks by 1.729%
+  [✓ PASS] Test 4: ζ(2)/η(2) = 2 = n_T exactly
+
+=======================================================
+  TEST 5: N_eff ↔ s duality
+=======================================================
+
+   N_eff    S(N_eff)        s*   d*_eff       force
+  ──────────────────────────────────────────────────
+       1    1.000000   37.7503   38.750      strong
+       2    1.250000    2.7884    3.788        weak
+       3    1.361111    2.4512    3.451           —
+       5    1.463611    2.2442    3.244           —
+      10    1.549768    2.1138    3.114           —
+      50    1.625133    2.0216    3.022           —
+     500    1.642936    2.0021    3.002           —
+       ∞    1.644934    2.0000    3.000          EM
+
+  Strong force: N_eff=1 ↔ s*=37.8
+    → d*_eff = 38.8: 'infinite dim'
+    → Only nearest-neighbor: UV extreme
+  Weak force: N_eff=2 ↔ s*=2.7884
+    → d*_eff = 3.788
+
+  Duality interpretation:
+    Varying N_eff at s=2 ↔ varying s at N_eff=∞
+    'Range cutoff' ↔ 'effective dimension change'
+    Both describe the same coupling running
+    s parametrizes HOW the lattice propagates,
+    N_eff parametrizes HOW FAR it propagates
+  [✓ PASS] Test 5: s*(N_eff) is monotonically decreasing
+
+============================================================
+  SUMMARY: EXP_067_Zeta_spectral_dimension
+============================================================
+  [✓] Test 1: heat-kernel d_s measured
+  [✓] Test 2: rank(G^AA)=3=n_A, rank(G^BB)=2=n_B
+  [✓] Test 3: ζ'(2) ≈ -0.938 (log running origin)
+  [✓] Test 4: ζ(2)/η(2) = 2 = n_T exactly
+  [✓] Test 5: s*(N_eff) is monotonically decreasing
+
+  5/5 checks passed
+  Time: 0.0s
