@@ -1,4 +1,0 @@
-  File "<string>", line 151
-    print(f'''
-          ^
-SyntaxError: unterminated triple-quoted string literal (detected at line 162)
