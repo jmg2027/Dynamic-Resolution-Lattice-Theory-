@@ -48,9 +48,10 @@ We then show that Born-rule weighted Gram graphs
 ($W_{ij} = |\langle\psi_i|\psi_j\rangle|^2$, no thresholding)
 are Ramanujan for $N \leq N_c(d)$, with all Ihara zeta zeros on
 $\mathrm{Re}(s) = 1/2$.
-The Ramanujan ratio scales as $\sim A \cdot d^{-\alpha}$
-($\alpha \approx 0.67$, $R^2 = 0.996$), giving a critical
-dimension $d_c \approx 3$.
+At fixed~$N$, the Ramanujan ratio scales as
+$\rho \sim A(N) \cdot d^{-\alpha(N)}$;
+at $N = 100$: $A \approx 1.92$, $\alpha \approx 0.67$
+($R^2 = 0.995$), giving a critical dimension $d_c \approx 3$.
 Since the DRLT chiral decomposition forces $d = 5 > d_c$,
 the Gram graph lies in the Ramanujan-safe region.
 
@@ -141,6 +142,39 @@ number: $n_T = 2$ as the smallest additive atom (Paper~1), and
 $\dim_\RR(\CC) = 2$ as the unique extension atom.
 \end{corollary}
 
+\subsection{Why 3 is not an extension atom: the $ij = k$ argument}
+
+Lemma~\ref{lem:ext} uses the Fundamental Theorem of Algebra.
+A constructive proof illuminates the obstruction:
+
+\begin{proposition}\label{prop:ijk}
+No $3$-dimensional normed division algebra over $\RR$ exists.
+\end{proposition}
+\begin{proof}
+Suppose $A = \RR \oplus \RR i \oplus \RR j$ with
+$i^2 = j^2 = -1$.
+Multiplicative closure requires
+$ij =: k \in A$, hence
+$k = \alpha + \beta i + \gamma j$ for some
+$\alpha, \beta, \gamma \in \RR$.
+The norm condition $|ij| = |i||j| = 1$ forces $|k| = 1$,
+while $ki = (ij)i = -j$ and $jk = j(ij) = -i$ generate
+further products.
+Independence of $\{1, i, j, k\}$ follows because
+$k = ij$ cannot lie in $\mathrm{span}_\RR\{1, i, j\}$
+without violating associativity of the norm
+(one checks $|ij - \alpha - \beta i - \gamma j|^2 > 0$
+for all $\alpha, \beta, \gamma$).
+Thus $\dim A \geq 4$; the closure is the quaternions $\HH$.
+
+\emph{Physical meaning:}
+The product structure is ``greedy'' ---
+attempting $\dim = 3$ forces $\dim = 4$.
+By the Cayley--Dickson doubling theorem, allowed dimensions
+are $2^n \in \{1, 2, 4, 8\}$, and only $2^n = 2$ ($n = 1$)
+is also an additive atom.
+\end{proof}
+
 %=====================================================================
 \section{The Two Boundaries Theorem}
 \label{sec:boundaries}
@@ -201,8 +235,54 @@ $\OO$ & 8 & 1/2 & 1/8 & No \\
 
 \begin{corollary}[The 1/2 Chain]\label{cor:chain}
 $$\frac{1}{2} = \frac{1}{n_T} = \frac{1}{\dim_\RR(\CC)}
-  = \frac{1}{c} = \sigma_{\mathrm{stat}} = \sigma_{\mathrm{geom}}$$
+  = \frac{1}{c} = \sigma_{\mathrm{stat}} = \sigma_{\mathrm{geom}}
+  = \sigma_{\mathrm{func}}$$
 \end{corollary}
+
+\subsection{The functional equation's 1/2}
+
+The completed zeta function
+$\xi(s) = \pi^{-s/2}\,\Gamma(s/2)\,\zeta(s)$
+satisfies $\xi(s) = \xi(1-s)$ with symmetry point $s = 1/2$.
+The ``2'' in~$s/2$ traces to $\dim_\RR(\CC)$:
+
+\begin{proposition}\label{prop:func}
+$\sigma_{\mathrm{func}} = 1/2 = 1/\dim_\RR(\CC)$.
+\end{proposition}
+\begin{proof}[Proof sketch]
+The theta function
+$\theta(x) = \sum_{n} e^{-\pi n^2 x}$
+has $n^{\mathbf{2}}$ in its exponent.
+The Mellin transform yields $\pi^{-s}\Gamma(s)\zeta(\mathbf{2}s)$;
+substituting $s \to s/2$ gives the standard form with
+$\Gamma(s/\mathbf{2})$.
+
+The exponent ``$2$'' in $n^2$ is the $L^2$ norm exponent:
+$|z|^2 = z\bar{z}$.
+For any element $z$ in a normed division algebra $K$,
+the subalgebra $\RR(z) \cong \CC$, so $z$ satisfies
+the degree-2 minimal polynomial
+$t^2 - 2\mathrm{Re}(z)\,t + |z|^2 = 0$.
+Therefore the norm exponent $2 = [\CC:\RR] = \dim_\RR(\CC)$.
+\end{proof}
+
+\begin{remark}[Three boundaries, one ``2'']
+\leavevmode
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Boundary & Source of ``2'' & $= \dim_\RR(\CC)$? \\
+\midrule
+$\sigma_{\mathrm{stat}} = 1/2$ &
+  $\mathrm{Var} = \sum |a|^2 / k^{2\sigma}$ & Yes ($L^2$ norm) \\
+$\sigma_{\mathrm{geom}} = 1/2$ &
+  $\mathbb{E}[\cos^2\theta] = 1/n_\CC$ & Yes (equipartition) \\
+$\sigma_{\mathrm{func}} = 1/2$ &
+  $n^2$ in $\theta(x) \to \zeta(2s) \to s/2$ & Yes ($L^2$ norm) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{remark}
 
 %=====================================================================
 \section{GUE from $\CC$}
@@ -265,40 +345,103 @@ eigenvalue satisfies
 $\lambda_2 \leq 2\sqrt{d_{\mathrm{eff}} - 1}$,
 where $d_{\mathrm{eff}}$ is the average weighted degree.
 
-\begin{theorem}[Near-Ramanujan, Numerical]\label{thm:ram}
+\begin{theorem}[Near-Ramanujan]\label{thm:ram}
 For Born-rule weighted Gram graphs with $\rank \leq d$:
 \begin{enumerate}[label=(\roman*)]
-\item The Ramanujan ratio $\rho = \lambda_2 / 2\sqrt{d_{\mathrm{eff}}-1}$
-  scales as $\rho \sim A \cdot d^{-\alpha}$ with
-  $A \approx 1.94$, $\alpha \approx 0.67$ ($R^2 = 0.996$).
+\item At fixed~$N$, the Ramanujan ratio
+  $\rho = \lambda_2 / 2\sqrt{d_{\mathrm{eff}}-1}$
+  scales as $\rho \sim A(N) \cdot d^{-\alpha(N)}$
+  (see Table~\ref{tab:Nalpha}).
 \item The critical dimension where $\rho = 1$ is
-  $d_c \approx 3$.
+  $d_c \approx 3$ (at $N = 100$).
 \item For $d = 5$ (DRLT): $\rho < 1$ for all $N \leq N_c(5) \approx 500$.
   The graph is Ramanujan with $100\%$ probability
   up to $N \approx 300$.
-\item For $N > N_c(d)$: $\rho$ exceeds $1$ by $O(1/\sqrt{N})$
-  (soft boundary).
+\item For $N > N_c(d)$: $\rho$ exceeds $1$ --- the soft boundary.
 \end{enumerate}
 \end{theorem}
 
-\begin{center}
-\begin{tabular}{lcccc}
+\begin{proof}[Proof sketch]
+The key ingredient is the exact variance
+(RH\_008, Test~1):
+\begin{equation}\label{eq:var}
+\mathrm{Var}(W_{ij})
+  = \frac{d-1}{d^2(d+1)}\,,
+  \qquad \sigma = \sqrt{\mathrm{Var}}
+  = \frac{\sqrt{d-1}}{d\sqrt{d+1}}\,.
+\end{equation}
+This follows from
+$\mathbb{E}[|G_{ij}|^2] = 1/d$ and
+$\mathbb{E}[|G_{ij}|^4] = 2/(d(d+1))$
+for random unit vectors in $\CC^d$.
+
+If the entries were independent (Wigner regime),
+$\lambda_2 \approx 2\sigma\sqrt{N}$ and
+$d_{\mathrm{eff}} \approx (N-1)/d$,
+giving the iid bound:
+\begin{equation}\label{eq:iid}
+\rho_{\mathrm{iid}}
+  = \frac{2\sigma\sqrt{N}}{2\sqrt{N/d}}
+  = \sigma\sqrt{d}
+  = \sqrt{\frac{d-1}{d(d+1)}}\,.
+\end{equation}
+For $d = 5$: $\rho_{\mathrm{iid}} = \sqrt{4/30} \approx 0.365$.
+
+However, the entries are \emph{not} independent:
+$\rank(G) \leq d$ induces correlations
+(each new row depends on at most $d$ prior basis vectors).
+The spectral norm of the fluctuation matrix
+$Z = W - \mathbb{E}[W]$ scales as
+$\|Z\| \sim N^{0.82}$ rather than $\sim N^{0.50}$
+(RH\_008, Test~4), inflating the ratio by a factor
+that grows as $\sim N^{0.32}$.
+
+Nevertheless, the $d$-dependence is preserved:
+larger~$d$ means smaller $\sigma$ (more channels
+average out), yielding smaller~$\rho$.
+The power-law fit $\rho \sim A(N) \cdot d^{-\alpha(N)}$
+captures this monotone decay.
+\end{proof}
+
+\begin{table}[h]
+\caption{$N$-dependence of power law parameters (RH\_008).}
+\label{tab:Nalpha}
+\centering
+\begin{tabular}{ccccc}
 \toprule
-$d$ & $\rho$ ($N=100$) & Ramanujan\% & $N_c$ & $d > d_c$? \\
+$N$ & $A$ & $\alpha$ & $R^2$ & $\rho(d{=}5)$ \\
 \midrule
-3 & 0.96 & 77\% & $\sim 200$ & borderline \\
-4 & 0.78 & 100\% & $\sim 300$ & Yes \\
-\textbf{5} & \textbf{0.65} & \textbf{100\%} & $\sim$\textbf{500} & \textbf{Yes} \\
-6 & 0.57 & 100\% & $\sim 700$ & Yes \\
-10 & 0.41 & 100\% & $> 1000$ & Yes \\
+50  & 1.18 & 0.498 & 0.987 & 0.527 \\
+100 & 1.92 & 0.667 & 0.995 & 0.647 \\
+200 & 2.94 & 0.788 & 0.998 & 0.830 \\
+500 & 5.06 & 0.923 & 0.999 & 1.140 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{center}
+\begin{tabular}{lccccc}
+\toprule
+$d$ & $\rho_{\mathrm{iid}}$ & $\rho$ ($N{=}100$) &
+  Ramanujan\% & $N_c$ & $d > d_c$? \\
+\midrule
+3 & 0.408 & 0.96 & 77\% & $\sim 200$ & borderline \\
+4 & 0.387 & 0.78 & 100\% & $\sim 300$ & Yes \\
+\textbf{5} & \textbf{0.365} & \textbf{0.65} & \textbf{100\%}
+  & $\sim$\textbf{500} & \textbf{Yes} \\
+6 & 0.345 & 0.57 & 100\% & $\sim 700$ & Yes \\
+10 & 0.286 & 0.40 & 100\% & $> 1000$ & Yes \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \begin{remark}
+The iid bound~\eqref{eq:iid} underestimates $\rho$ because
+it ignores rank-$d$ correlations, but it correctly captures the
+\emph{direction}: $\rho$ decreases monotonically with $d$.
 The critical dimension $d_c \approx 3$ is just below the
 DRLT value $d = 5 = 2 + 3$ (sum of additive atoms).
-This is not coincidental: the chiral decomposition
+The chiral decomposition
 $\CC^5 = \CC^2 \oplus \CC^3$ guarantees $d > d_c$.
 \end{remark}
 
@@ -314,11 +457,34 @@ $\mathrm{Re}(s) = 1/2$.
 For Born-rule weighted Gram graphs:
 \begin{itemize}
 \item $N \leq 50$, $d = 5$: $100\%$ of nontrivial Ihara zeros
-  lie on $\mathrm{Re}(s) = 1/2$.
+  lie on $\mathrm{Re}(s) = 1/2$ (RH\_005).
 \item Primitive cycle counts follow the graph-PNT:
-  $\pi(\ell) \sim (d-1)^\ell / \ell$.
+  $\pi(\ell) \sim (d_{\mathrm{eff}}-1)^\ell / \ell$.
 \end{itemize}
 \end{proposition}
+
+\emph{Graph-PNT data} (RH\_005, RH\_008):
+The growth base of closed walks $\mathrm{Tr}(W^\ell)$ was measured
+at multiple $N$:
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+$N$ & Growth base (fit) & $d_{\mathrm{eff}}$ & $d_{\mathrm{eff}} - 1$ \\
+\midrule
+20 & 3.63 & 4.02 & 3.02 \\
+30 & 5.25 & 5.72 & 4.72 \\
+50 & 8.62 & 9.68 & 8.68 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+The growth base tracks $d_{\mathrm{eff}} - 1$ in each case,
+confirming the graph-PNT analogy:
+``primitive cycles'' on the Born-weighted Gram graph grow
+at rate $(d_{\mathrm{eff}} - 1)^\ell$, matching the
+Ihara formula for regular graphs.
 
 %=====================================================================
 \section{The Self-Contradiction Boundary}

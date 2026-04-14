@@ -92,6 +92,7 @@ rh-connection/
 | 071e | Ihara zeta | 5/5 | 100% Ramanujan N≤30 (thresholded) |
 | 071f | Born weight | 4/5 | 100% Ramanujan N≤200 (Born rule) |
 | 071g | d-dependence | 5/5 | ratio~1.94·d^{-0.67}, d_c≈3 |
+| RH_008 | Born-Ramanujan proof | 3/5 | Var exact, ||Z||~N^{0.82}, A(N) resolved |
 
 ## Key Precision Results
 
@@ -106,7 +107,10 @@ rh-connection/
 | σ_geom(ℂ) | 0.4999 (theory 0.5000) | RH_004 |
 | Ramanujan d_c | ≈ 3 (d=5 safe) | RH_007 |
 | N_c(d=5) | ≈ 500 | RH_007 |
-| ratio fit | 1.94·d^{-0.67}, R²=0.996 | RH_007 |
+| ratio fit (N=100) | 1.92·d^{-0.667}, R²=0.995 | RH_008 |
+| ratio fit (N=200) | 2.94·d^{-0.788}, R²=0.998 | RH_008 |
+| Var(W_ij) | (d-1)/(d²(d+1)), <0.3% | RH_008 |
+| ||Z|| exponent | 0.821 (Wigner: 0.500) | RH_008 |
 
 ## Resolved Problems
 1. ~~왜 1/2인가~~ → CLT (보편) + dim_ℝ(ℂ)=2 (Doubly Irreducible)
@@ -130,7 +134,7 @@ python RH_004_two_boundaries.py
 python RH_006_born_weight_ramanujan.py
 python RH_007_d_dependence.py
 ```
-Next: RH_008
+Next: RH_009
 
 ## Paper
 `../papers/paper5_critical_line.tex` — 전체 결과 포함

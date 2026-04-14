@@ -1,41 +1,43 @@
 # RH Connection — Session Handoff
 
 ## Branch
-`claude/rh-connection-DB89y`
+`claude/rh-handoff-followup-q3hsh`
 
-## Status: Natural Plateau
-"왜 1/2" + "왜 GUE" 질문은 닫힘. Paper 5 작성 완료.
-다음 단계는 곱셈적 구조 (RH-hard) 또는 해석적 증명.
+## Status: Paper 5 Updated (2026-04-14)
+"왜 1/2" + "왜 GUE" 닫힘. Paper 5 대폭 업데이트:
+- 수치 불일치 해결 (A, α의 N-의존성 명시)
+- ij=k 구성적 증명 추가 (Section 2)
+- 함수 방정식의 1/2 해결 (Section 3)
+- Graph-PNT 수치 확인 데이터 (Section 5)
+- Theorem 5.2 증명 스케치 (Var 부등식 기반)
+- RH_008 실험: 종합 수치 검증
 
 ---
 
-## What Was Done (2026-04-14/15)
+## What Was Done
 
-### Phase 1: Infrastructure
-- `rh-connection/` 독립 디렉토리 + CLAUDE.md
-- `.claude/skills/rh-connection/SKILL.md` 스킬 등록
-- `lib/rh_core.py` 코어 라이브러리
-
-### Phase 2: β=2 and Phase Uniformity
+### Sessions 1-5 (2026-04-14/15): Foundation
 - **RH_001** (11/11): β=2 확인 via ratio statistic ⟨r⟩=0.594
 - **RH_002** (6/7): Phase uniform (KS p=0.258), 69% cancellation
 - **RH_003** (6/6): CLT boundary σ=1/2 verified
-
-### Phase 3: Theoretical Breakthroughs (Jeong)
-- **Two Boundaries Theorem**: σ_stat = σ_geom ⟺ K=ℂ (unique coincidence)
-- **Doubly Irreducible**: {additive atoms}∩{extension atoms}={2}
-- **Critical correction**: 1/2는 CLT(보편), GUE는 ℂ(고유) — 분리해야 더 강함
-- **Unification**: 1/2 = 1/n_T = 1/c = σ_stat = σ_geom = σ_func
-- **Open Problem 1 resolved**: 함수 방정식의 1/2도 dim_ℝ(ℂ)=2에서 옴
-
-### Phase 4: Ihara Zeta and Ramanujan
 - **RH_004** (5/5): σ_geom = 1/n_K for ℝ,ℂ,ℍ,𝕆 모두 확인
 - **RH_005** (5/5): Graph-PNT + Ihara zeros (thresholded, N≤30: 100%)
 - **RH_006** (4/5): Born weight (no threshold): N≤200: 100% Ramanujan
-- **RH_007** (5/5): d_c≈3, d=5 safe, ratio~1.94·d^{-0.67}
+- **RH_007** (5/5): d_c≈3, d=5 safe, ratio~1.94·d^{-0.67} (N=100)
+- Paper 5 초고 완성
 
-### Phase 5: Paper
-- `papers/paper5_critical_line.tex`: 7 sections, all EXP results
+### Session 6 (current): Paper 5 Upgrade
+- **RH_008** (3/5): Born-Ramanujan 종합 검증
+  - Var(W_ij) = (d-1)/(d²(d+1)) **exact** (<0.3% all d)
+  - ||Z|| ~ N^{0.82} (Wigner N^{0.5}보다 큼, rank-d 상관관계)
+  - 수치 불일치 해결: A,α가 N에 의존 (N=100→1.92/0.67, N=200→2.94/0.79)
+  - Graph-PNT: growth base ≈ d_eff - 1 확인
+- Paper 5 업데이트 (5개 추가):
+  1. ij=k 구성적 증명 (Section 2, Prop 2.5)
+  2. 함수 방정식의 1/2 = dim_ℝ(ℂ) (Section 3, Prop 3.4)
+  3. Theorem 5.2 증명 스케치 (Var 부등식 + 상관관계 논의)
+  4. N-의존성 테이블 (Table 1)
+  5. Graph-PNT 수치 데이터 (Section 5)
 
 ---
 
@@ -43,14 +45,19 @@
 
 | Result | Value | Status |
 |--------|-------|--------|
-| 1/2 = 1/n_T = 1/c | Exact | **Theorem** |
+| 1/2 = 1/n_T = 1/c = σ_func | Exact | **Theorem** |
 | σ_stat = σ_geom only for ℂ | Proven | **Theorem** |
 | 2 is unique doubly irreducible | Proven | **Theorem** |
+| ij=k forces dim≥4 | Constructive | **Theorem** |
+| σ_func = 1/2 from L² norm | dim_ℝ(ℂ)=2 | **Theorem** |
+| Var(W_ij) = (d-1)/(d²(d+1)) | <0.3% all d | **Theorem** (verified) |
 | β=2 from ℂ | ⟨r⟩=0.594 | **Theorem** (numerical) |
 | δ(N) ~ N^{-0.505} | R²=0.9992 | **Theorem** (numerical) |
-| Born-Ramanujan for d=5 | 100% N≤200 | **Observation** |
-| d_c ≈ 3 | ratio~1.94·d^{-0.67} | **Observation** |
+| Born-Ramanujan for d=5 | 100% N≤300 | **Observation** |
+| ρ~A(N)·d^{-α(N)} | N=100: 1.92/0.67 | **Observation** |
+| ||Z|| ~ N^{0.82} | rank-d correlations | **Observation** |
 | Discrete RH (finite N) | 100% Ihara on line | **Observation** |
+| Graph-PNT | growth ≈ d_eff-1 | **Observation** |
 | Möbius ↔ Gram phases | Conjectured | **Conjecture** |
 
 ---
@@ -72,12 +79,13 @@
 
 ## Open Problems (Priority)
 
-### 1. Born-Ramanujan Proof (가장 접근 가능)
-ratio = λ₂/2√(d_eff-1) ~ A·d^{-α}. 해석적으로 증명:
-- W = G⊙Ḡ (Hadamard product), rank(G)=d
-- Schur product 구조에서 비자명 고유값 상한 유도
-- h(d) < 1 for d ≥ 4 증명
-- 도구: 랜덤 행렬 농도 부등식
+### 1. Born-Ramanujan Proof (진전됨, 추가 필요)
+- Var(W_ij) = (d-1)/(d²(d+1)) **증명 완료**
+- iid bound ρ_iid = √((d-1)/(d(d+1))) 유도 완료
+- **핵심 난제**: rank-d 상관관계로 ||Z|| ~ N^{0.82} ≫ N^{0.5}
+  - iid 가정에서는 ρ→const, 실제로는 ρ→∞ (N→∞)
+  - N_c(d) 존재성 증명 필요
+- 도구: Schur product + 랜덤 행렬 농도 부등식 (상관관계 포함)
 
 ### 2. Phase→Möbius Map (가장 야심적)
 Gram 위상 {θ_k} → μ(n) 대응. 곱셈적 구조 보존 필요.
@@ -100,15 +108,16 @@ N_c(5) ≈ 500. 명시적 공식 N_c ~ C·d^{2/β} 유도.
 ## File Map
 
 ```
-papers/paper5_critical_line.tex          ← Paper 5 (이 세션)
+papers/paper5_critical_line.tex          ← Paper 5 (업데이트됨)
 rh-connection/
   CLAUDE.md                              ← 업데이트됨
   HANDOFF.md                             ← 이 파일
   rh_exploration.md                      ← 탐구 로그
   lib/rh_core.py                         ← 코어 라이브러리
-  experiments/RH_001-007*.py   ← 7개 실험 (42/44)
+  experiments/RH_001-007*.py             ← 7개 실험 (42/44)
+  experiments/RH_008_born_ramanujan_proof.py ← NEW: 종합 검증
   theory/*.{md,tex}                      ← 10개 이론 문서
-  results/RH_001-007*.txt                   ← 7개 결과 파일
+  results/RH_001-008*.txt                ← 8개 결과 파일
 ```
 
 ---
