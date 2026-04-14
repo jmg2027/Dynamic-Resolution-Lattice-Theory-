@@ -74,7 +74,7 @@ cd experiments && python EXP_001_pipeline.py
 ```
 New experiment: create `EXP_NNN_name.py`, inherit from `lib/experiment.py`, update catalog below.
 
-## Experiment Catalog (EXP_001 ~ EXP_067)
+## Experiment Catalog (EXP_001 ~ EXP_070)
 Key completed:
 - EXP_001: Pipeline verification (9/9 ✓)
 - EXP_009: Fine structure 1/α=137.064 (0.020% ✓)
@@ -102,7 +102,9 @@ Key completed:
 - EXP_061: n-p mass diff geometric factor issue (diagnostic)
 - EXP_062: Remaining observables 1/α_em 0.0004% (5/5 ✓)
 - EXP_067: Zeta spectral dim, sector weight, β matching (9/9 ✓)
-- Next: EXP_068
+- EXP_069: δS/δψ=0 on ∂(Δ⁵) — flat vacuum + δ(AAA)=π (6/6 ✓)
+- EXP_070: Helium IE = 2Ry(1-c²α_GUT) = 24.565 eV, 0.089% (5/5 ✓)
+- Next: EXP_071
 
 ## Resolved Problems
 - det(SST) vs det(STT): distinct quantities (EXP_048)
@@ -138,6 +140,7 @@ Key completed:
 | sin²θ₁₂ | 0.3070 | 0.307 | **+0.002σ** |
 | sin θ_C | 0.2263 | 0.2253 | **+0.86σ** |
 | b₂ (1-loop β) | -3.163 | -3.167 | **0.11%** |
+| IE(He) | 24.565 eV | 24.587 eV | 0.089% |
 
 ## Key Library API (lib/drlt.py)
 ```python
