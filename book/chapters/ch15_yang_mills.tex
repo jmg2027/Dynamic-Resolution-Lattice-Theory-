@@ -223,6 +223,30 @@ is therefore $\Delta = 1/\xi > 0$ in lattice units. The remainder of
 this paper computes the \emph{value} of this gap from the Regge action.
 \end{remark}
 
+%---------------------------------------------------------------------
+\subsubsection{Confinement as solution non-existence}
+\label{sec:confinement_solution}
+%---------------------------------------------------------------------
+
+The rank-saturation argument above is combinatorial.  We now give a variational reformulation that is arguably deeper.
+
+\begin{theorem}[Free quarks have no non-trivial solution]
+\label{thm:confinement_variational}
+A configuration containing an isolated A-vertex (not part of any AAA triangle) satisfies $\delta S/\delta\psi = 0$ only trivially, with $S = 0$.
+\end{theorem}
+
+\begin{proof}
+The Regge action is $S = \sum_h A_h\,\delta_h$ where $A_h = \sqrt{\det(G_h)}$.  A hinge requires 3 vertices.  An isolated A-vertex participates in no complete hinge (all hinges require 3 vertices from the simplex).  Therefore $S = 0$.  With $S = 0$, the dynamical Planck constant $\hbar = A_h/(4\ln 2) = 0$: no spacetime, no time evolution, no observation.
+
+Similarly, a pair of A-vertices (e.g.\ a diquark $ud$) has $\binom{2}{3} = 0$ hinges, so $S = 0$.
+
+The minimum configuration with $S > 0$ is 3 A-vertices forming one AAA hinge: $\det(G_h^{\mathrm{AAA}}) > 0$ (Lemma~\ref{lem:det}).  This is a baryon.
+\end{proof}
+
+\begin{remark}[Confinement is not a force]
+In the standard picture, quarks are ``confined'' by a linearly rising potential.  In DRLT, confinement is not a dynamical effect but a \emph{structural} one: a free quark does not have $S > 0$, and therefore does not have spacetime.  It is not that the quark ``cannot escape'' --- it is that the quark, by itself, has no arena in which to exist.
+\end{remark}
+
 %=====================================================================
 \subsection{The Mass Gap}
 \label{sec:massgap}

@@ -277,4 +277,39 @@ Agreement & --- & $0.00^\circ$ \\
 \end{tabular}
 \end{center}
 The chemist's ``electromagnetic repulsion between electron pairs'' is the physicist's ``hinge tension in the 4-simplex.''  They are the same mathematics in different languages.  The ``force'' is the name we give to the gradient of a determinant when we forget that the determinant is the fundamental object.
+
+%---------------------------------------------------------------------
+\subsection{Hydrogen as an analytic solution of $\delta S/\delta\psi = 0$}
+\label{sec:hydrogen_analytic}
+%---------------------------------------------------------------------
+
+The vacuum solution (Theorem~\ref{thm:vacuum}) has $|G_{ij}| = 1/d$ for all pairs: no structure, no matter.  Hydrogen is the simplest \emph{symmetry-broken} solution.
+
+\begin{theorem}[Hydrogen analytic solution]
+\label{thm:hydrogen_solution}
+On $\partial(\Delta^5)$, the hydrogen solution of $\delta S/\delta\psi = 0$ is:
+\begin{align}
+|G_{A_i, A_j}| &= 0 \quad (i \ne j) &&\text{quarks orthogonal (confined)}, \\
+|G_{A_i, B_1}| &= \frac{\alpha_{\mathrm{em}}}{\sqrt{n_A}} &&\text{electron--nucleus EM coupling}, \\
+|G_{\mathrm{rest}}| &= \frac{1}{d} &&\text{vacuum level}.
+\end{align}
+The AAAB face ($\{A_1, A_2, A_3, B_1\}$, missing $B_2$) has:
+\begin{align}
+\det(G_h^{\mathrm{AAA}}) &= 1, \\
+\det(G_h^{\mathrm{AAB}}) &= 1 - \frac{2\alpha^2}{n_A}, \\
+\sum_{\mathrm{AAB}} (1 - \det) &= \frac{6\alpha^2}{n_A} = 2\alpha^2.
+\end{align}
+The ionisation energy is:
+\begin{equation}
+\boxed{\mathrm{IE}(\mathrm{H}) = \frac{m_e c^2}{2 n_T} \times 2\alpha^2 = \frac{m_e\,\alpha^2}{2} = 13.606\;\mathrm{eV}.}
+\end{equation}
+\end{theorem}
+
+\begin{remark}[Atoms as solutions, not configurations]
+In QFT, one first defines the vacuum, then places particles on it.  In DRLT, the atom IS a solution of $\delta S/\delta\psi = 0$.  The vacuum is the maximally symmetric solution; hydrogen is a symmetry-broken solution where one face acquires an AAAB pattern.  The electron is not ``placed'' --- it is a pattern that \emph{appears} in the solution.  Different solutions $=$ different atoms.
+\end{remark}
+
+\begin{remark}[Confinement from solution non-existence]
+Why can't a free quark exist?  A single A-vertex cannot form a hinge ($\det$ requires 3 vertices).  Therefore $S = 0$, $\hbar = 0$: no spacetime.  A free quark is not ``confined'' by a force --- it simply has no solution with $S > 0$.  The minimum non-trivial solution requires 3 A-vertices $=$ a baryon.
+\end{remark}
 \end{remark}

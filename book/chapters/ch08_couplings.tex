@@ -329,3 +329,20 @@ Asymptotic freedom is $N_\text{eff} \to 1$: at the highest energies (shortest di
 \begin{remark}[No $\beta$-functions needed]
 The standard RG $\beta$-coefficients $b_1 = 41/10$, $b_2 = -19/6$, $b_3 = -7$ encode how couplings change with energy. In DRLT, this information is already contained in the $N_\text{eff}$ dependence: the partial Basel sum $S(N)$ grows from $S(1) = 1$ to $S(\infty) = \pi^2/6$ at different rates depending on the force's rank structure. The $\beta$-function is the \emph{derivative} of $S(N)$ with respect to $\ln\mu$, which is $1/N_\text{eff}^2$ --- automatically encoding asymptotic freedom (strong), slow running (weak), and anti-screening (EM).
 \end{remark}
+
+\begin{remark}[The vacuum holonomy and alternating series]
+\label{rem:zeta_eta}
+The vacuum solution (Theorem~\ref{thm:vacuum}) has holonomy $\Phi_h = \pi$ at every hinge.  When the EM propagator $D(n) = 1/n^2$ picks up this phase at each hop, the effective propagator becomes:
+\begin{equation}
+D_\text{eff}(n) = \frac{1}{n^2}\,e^{in\pi} = \frac{(-1)^n}{n^2}.
+\end{equation}
+The sum over all hops is the Dirichlet eta function:
+\begin{equation}
+\eta(2) = \sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n^2} = \frac{\pi^2}{12}.
+\end{equation}
+The ratio of the full Basel sum to the alternating sum is:
+\begin{equation}
+\boxed{\frac{\zeta(2)}{\eta(2)} = \frac{\pi^2/6}{\pi^2/12} = 2 = n_T.}
+\end{equation}
+The temporal dimension count $n_T = 2$ emerges as the ratio of non-alternating to alternating propagator sums.  This is not a numerical coincidence: the identity $\zeta(s)/\eta(s) = 2^s/(2^s - 2)$ gives $\zeta(2)/\eta(2) = 4/2 = 2$ for $s = 2$ (= $n_A - 1 = $ spatial propagator exponent), and the Dirichlet eta arises \emph{because} the vacuum holonomy is $\pi$.
+\end{remark}

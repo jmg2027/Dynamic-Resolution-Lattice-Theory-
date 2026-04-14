@@ -350,3 +350,42 @@ These three results, together with the combinatorial mass formulas of
 Chapter~\ref{ch:masses}, yield all charged fermion masses to a median
 accuracy of $0.07\%$ and the proton mass to $0.000\%$---with zero
 free parameters.
+
+%---------------------------------------------------------------------
+\subsection{The analytic vacuum solution}
+\label{sec:vacuum_solution}
+%---------------------------------------------------------------------
+
+The variational equation $\delta S/\delta\psi = 0$ on $\partial(\Delta^5)$ (6 vertices, 20 hinges) admits an exact analytic solution: the \emph{vacuum}.
+
+\begin{theorem}[Vacuum solution]
+\label{thm:vacuum}
+The maximally symmetric stationary point of the Regge action on $\partial(\Delta^5)$ is the equiangular configuration:
+\begin{equation}
+|G_{ij}| = \frac{1}{d} \quad \forall\; i \ne j, \qquad \Phi_h = \pi \quad \forall\;\text{hinges}.
+\end{equation}
+This saturates the Welch bound $|G_{ij}|^2 \ge (N-d)/(d(N-1)) = 1/d^2$ for $N = d+1 = 6$ equiangular lines in $\CC^d$.
+
+The hinge determinant is:
+\begin{equation}
+\boxed{\det(G_h)_{\mathrm{vacuum}} = \frac{(d+1)^2(d-2)}{d^3} = \frac{108}{125} = 0.864.}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+With $|G_{ij}| = 1/d$ and $\Phi_h = \pi$:
+\begin{equation}
+\det(G_h) = 1 - \frac{3}{d^2} + \frac{2}{d^3}\cos\pi = 1 - \frac{3}{d^2} - \frac{2}{d^3} = \frac{d^3 - 3d - 2}{d^3}.
+\end{equation}
+The numerator factors: $d^3 - 3d - 2 = (d+1)^2(d-2)$.  For $d = 5$: $36 \times 3 / 125 = 108/125$.
+\end{proof}
+
+\begin{remark}[Factorisation is physics]
+$(d+1)^2 = 36$: the square of the number of simplex vertices ($d+1 = 6$).  $(d-2) = 3 = n_S$: the spatial dimension.  The vacuum determinant encodes both the simplex structure and the spatial sector.
+\end{remark}
+
+\begin{corollary}[Vacuum energy]
+Since $\det(G_h) = 108/125 > 0$, the dynamical Planck constant $\hbar_h = \sqrt{\det}/(4\ln 2) > 0$ everywhere.  The vacuum has nonzero energy density.  This is the geometric origin of dark energy ($\Omega_\Lambda > 0$, Chapter~\ref{ch:cosmology}).
+\end{corollary}
+
+Physical interpretation: the vacuum is not ``empty space.'' It is a fully occupied simplex network where all vertices are democratically equivalent ($|G_{ij}| = 1/d$).  Matter is a \emph{pattern} within this network---a local region where $\delta S/\delta\psi = 0$ is satisfied by a symmetry-broken configuration.

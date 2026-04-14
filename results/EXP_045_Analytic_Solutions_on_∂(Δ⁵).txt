@@ -1,0 +1,40 @@
+============================================================
+  EXP_045_Analytic_Solutions_on_∂(Δ⁵)
+  2026-04-14 07:35:37
+============================================================
+=== 1. Vacuum: |G_ij|=1/d, Φ=π ===
+det(G_h) = (d+1)²(d-2)/d³ = 0.864000
+  [✓ PASS] det = 108/125
+  [✓ PASS] det = 0.864
+
+=== 2. Hydrogen: IE = m_e α²/2 ===
+|G_AB| = α/√n_S = 0.004213
+Σ(1-det)_AAB = 0.00010650
+IE = 13.606 eV (obs: 13.598)
+  [✓ PASS] IE(H) ≈ 13.6 eV
+
+=== 3. Confinement ===
+1 quark: C(1,3)=0 hinges → S=0 → ħ=0
+2 quarks: C(2,3)=0 hinges → S=0 → ħ=0
+3 quarks: C(3,3)=1 hinge → S>0 → baryon ✓
+  [✓ PASS] Free quark: no hinge
+  [✓ PASS] Diquark: no hinge
+  [✓ PASS] Baryon: 1 hinge
+
+=== 4. ζ(2)/η(2) = n_T ===
+ζ(2)/η(2) = 2.0 = n_T = 2
+  [✓ PASS] ζ(2)/η(2) = 2 = n_T
+
+============================================================
+  SUMMARY: EXP_045_Analytic_Solutions_on_∂(Δ⁵)
+============================================================
+  [✓] det = 108/125
+  [✓] det = 0.864
+  [✓] IE(H) ≈ 13.6 eV
+  [✓] Free quark: no hinge
+  [✓] Diquark: no hinge
+  [✓] Baryon: 1 hinge
+  [✓] ζ(2)/η(2) = 2 = n_T
+
+  7/7 checks passed
+  Time: 0.0s
