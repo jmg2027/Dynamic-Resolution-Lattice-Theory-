@@ -16,19 +16,23 @@
 |------|-----|------|-------------|
 | σ_1s→outer | 7/8 | 1-n_S/(d²-1) | adjoint SU(5) trace |
 | σ_same_s | 0.597 | 1/n_T+c²α | BBB channel budget |
-| σ_2s→2p | 17/20 | 1-n_S/(d(d-1)) | antisymmetric rep |
-| σ_3s→3p | 9/10 | 1-n_T/(d(d-1)) | sector alternation |
-| σ_same_p(n=2) | 3/4 | n_S/(d-1) | spatial fraction |
-| σ_same_p(n=3) | 2/3 | n_T/n_S | sector ratio |
+| σ_ns→np(even) | 17/20 | 1-n_S/(d(d-1)) | antisymmetric, spatial |
+| σ_ns→np(odd) | 9/10 | 1-n_T/(d(d-1)) | antisymmetric, temporal |
+| σ_same_p(p=2) | 3/4 | n_S/(n_S+1) | single simplex, spatial |
+| σ_same_p(p≥3) | 2/3 | n_T/(n_T+1) | multi-simplex, temporal |
+| σ_df→p | 0.976 | 1-α_GUT | **NEW** d/f leaks α_GUT |
 | Δ_pair | 0.304 | n_S/π² | 2× neutrino T₂₃ |
-| σ_core(p≥3) | →1 | 1-n_T/(d²+(p-2.7)d) | Wishart + period |
+| σ_core offset | 27/10 | (d²+n_T)/(d·n_T) | **NEW** pure DRLT |
+| σ_core(p≥3) | →1 | 1-n_T²/[d²(n_T-1)+n_T(pd-1)] | Wishart + period |
 
 ## 공통 분모 구조
 ```
-d²-1 = 24  → adjoint SU(5): σ_1s, Ξ_confined
-d(d-1) = 20 → antisymmetric: σ_ns→np
-d-1 = 4    → spacetime: σ_same_p
-π²         → Basel propagator: Δ_pair
+d²-1 = 24        → adjoint SU(5): σ_1s, Ξ_confined
+d(d-1) = 20      → antisymmetric: σ_ns→np
+n_X+1 = 3 or 4   → same-subshell: σ_same_p
+d²π² = 25π²      → GUT coupling: σ_df = 1-6/(d²π²)
+(d²+n_T)/(d·n_T) → σ_core offset = 27/10
+π²               → Basel propagator: Δ_pair
 ```
 
 ## 현재 정밀도
@@ -47,10 +51,11 @@ d-1 = 4    → spacetime: σ_same_p
 | 9 | F | 17.159 | 17.423 | -1.5% |
 | 10 | Ne | 21.192 | 21.565 | -1.7% |
 
-### Period 3 (Na-Ar): 전부 <10%
-### Period 4+ (K-Og): 58% within 30%, d/f-block 개선 필요
+### Period 3 (Na-Ar): p-block <6%, s-block ~9%
+### Period 4 (K-Kr): p-block <2.5%, d-block <12%, s-block ~10%
+### Period 5 (Rb-Xe): p-block <10%, d-block <8%, median 3.0%
 
-### Z=1-118 전체: 15 (<5%), 41 (<15%), 68 (<30%)
+### Z=1-118 전체 (ATM_019): 36 (<5%), 62 (<15%), 93 (<30%), median 12.9%
 
 ## Experiment Map
 ```
@@ -58,7 +63,9 @@ ATM_014: He-Li AAB ratio=2(exact), screening σ=7/8 (4/4 ✓)
 ATM_015: Period 2 screening decomposition (3/3 ✓)
 ATM_016: Period 2 complete, 8/8 <3% (3/3 ✓)
 ATM_017: Full periodic Z=1-118, 68/118 <30% (exploratory)
-Next: ATM_018
+ATM_018: σ_core = 27/10 identification, structural bug fix (6/6 ✓)
+ATM_019: σ_df=1-α_GUT, σ_same_p=2/3, 93/118 <30% (5/5 ✓)
+Next: ATM_020
 ```
 
 ## Open Problems → HANDOFF.md 참조

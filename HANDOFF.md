@@ -10,7 +10,9 @@ All 5 SM open problems resolved (SM_020-024).
 See `standard-model/CLAUDE.md` for details.
 
 ### atoms/ — ACTIVE
-Z=1-118 periodic table. Period 1-2 <3%, full table 58% within 30%.
+Z=1-118 periodic table. Period 1-2 <3%, **Period 4 p-block <2.5%**.
+Full table: 36(<5%), 62(<15%), 93(<30%), **median 12.9%**.
+Key findings: σ_core offset = 27/10 (pure DRLT), σ_df = 1-α_GUT.
 **See `atoms/HANDOFF.md` for detailed status and open problems.**
 
 ### rh-connection/ — MERGED, natural plateau
@@ -33,6 +35,7 @@ Z=1-118 periodic table. Period 1-2 <3%, full table 58% within 30%.
 | IE(He) | 24.565 eV | 24.587 | 0.089% |
 | IE(Be) | 9.29 eV | 9.32 | -0.3% |
 | Period 2 | 8/8 | <3% | all |
+| Period 4 p-block | 6/6 | <2.5% | all |
 
 ## Next Available Experiment
-ATM_018 (atoms/)
+ATM_020 (atoms/)
