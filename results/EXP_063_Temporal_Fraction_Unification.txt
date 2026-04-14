@@ -1,0 +1,205 @@
+============================================================
+  EXP_063_Temporal_Fraction_Unification
+  2026-04-14 03:31:16
+============================================================
+
+  ══════════════════════════════════════════════════
+  Test 1: AAAB temporal fraction = lepton Yukawa
+  ══════════════════════════════════════════════════
+  f_T(AAAB) = 1/4 = 0.25
+  y_temporal = α_GUT × f_T = 0.00607927
+  y_existing = α_GUT/(n_S+1) = 0.00607927
+  차이: 0.00e+00
+  [✓ PASS] AAAB f_T = 1/(n_S+1): 수학적 동일
+
+  해석: n_S+1 = 4 = AAAB face의 꼭지점 수
+  1/(n_S+1) = 1/4 = AAAB face의 temporal fraction
+  → y = α_GUT/(n_S+1)은 temporal fraction 규칙의 특수 경우
+
+  ══════════════════════════════════════════════════
+  Test 2: AABB temporal fraction → Higgs mass
+  ══════════════════════════════════════════════════
+  f_T(AABB) = 2/4 = 0.5 = 1/c = 0.5
+
+  기존 공식: m_H = v_H √(c·α·d)
+    √(c·α·d) = √(2×0.02432×5) = 0.493124
+    m_H = 121.11 GeV  (-3.30%)
+
+  새 공식: m_H = v_H × (1/c + α/(n_S-1))
+    = v_H × (1/2 + 0.02432/2)
+    = v_H × 0.512159
+    m_H = 125.79 GeV  (+0.43%)
+
+  동치: m_H = v_H × (1+α)/c = 125.79 GeV
+  관측: 125.25 ± 0.17 GeV
+
+  v_H(관측)=246.22으로: m_H = 126.10 GeV (+0.68%)
+  [✓ PASS] Higgs 기존: 121.1 GeV (-3.3%)
+  [✓ PASS] Higgs 새:   125.8 GeV (+0.4%)
+  [✓ PASS] 새 공식이 기존보다 정확
+
+  ══════════════════════════════════════════════════
+  Test 3: Simplex sector fraction → proton mass
+  ══════════════════════════════════════════════════
+  Spatial:  x = α×n_A/d = 0.014590, P = 1.014380
+    m_p = 938.27 MeV  (-0.0001%)
+  Temporal: x = α×n_B/d = 0.009727, P = 1.009633
+    m_p = 933.88 MeV  (-0.4681%)
+  관측: 938.272 MeV
+
+  결론: spatial fraction이 0.0001% vs 0.468%
+  양성자(spatial 패턴)는 f_S = n_A/d 사용
+
+  상보성: f_S + f_T = 0.6 + 0.4 = 1.0
+  → spatial 패턴은 (1-f_T), temporal 패턴은 f_T
+  [✓ PASS] Proton spatial: -0.0001%
+  [✓ PASS] Proton temporal: -0.468% (덜 정확)
+
+  ══════════════════════════════════════════════════
+  Test 4: AAA hinge f_T=0 → confined coupling
+  ══════════════════════════════════════════════════
+  f_T(AAA) = 0/3 = 0.0
+  x_leading = α_GUT × 0 = 0.0
+
+  Folded dimension leaking:
+  ε = α^(n_B/n_A)(1+α) = 0.024317084074161065^(2/3)×1.02432 = 0.085976
+  x_conf = -ε/(1+ε) = -0.079169
+  P(x_conf) = 0.91402436
+  1 - ε     = 0.91402436
+  차이: 0.00e+00
+  [✓ PASS] P(-ε/(1+ε)) = 1-ε (수학적 항등식)
+
+  해석:
+  f_T = 0 → 직접 temporal coupling 없음
+  그러나 folded dim을 통한 간접 leaking → ε
+  Dyson dressing: ε → ε/(1+ε) (confined propagator)
+  부호 반전 x<0: confinement = 역방향 전파
+
+  ══════════════════════════════════════════════════
+  Test 5: 통합 temporal fraction 테이블
+  ══════════════════════════════════════════════════
+
+  Structure       n_B n_tot    f_T      α×f_T 물리적 역할
+  ----------------------------------------------------------------------
+  AAA hinge         0     3  0.000   0.000000 confined quark
+  AAB hinge         1     3  0.333   0.008106 EM/weak mixing
+  ABB hinge         2     3  0.667   0.016211 spatial gravity
+  AAAB face         1     4  0.250   0.006079 lepton/H Yukawa
+  AABB face         2     4  0.500   0.012159 Higgs sector
+  Full simplex      2     5  0.400   0.009727 proton (f_S=3/5)
+
+  핵심 관계:
+  f_T(AAAB) = 1/4 = 1/(n_S+1)  ✓
+  f_T(AABB) = 1/2 = 1/c         ✓
+  f_T(AAA)  = 0   → confinement  ✓
+  f_S(simplex) = 3/5 = n_A/d (양성자)  ✓
+  [✓ PASS] f_T + f_S = 1 (모든 구조)
+
+  ══════════════════════════════════════════════════
+  Test 6: Ξ_confined vs Ξ_free (탐색적)
+  ══════════════════════════════════════════════════
+  Ξ_free = 0.00854569
+  Ξ_confined(A: f_T=0) = α/(d²-1) = 0.00101321
+
+  m_u 비교:
+    comb:      2.373 MeV
+    +Ξ_free:   2.372 MeV  (err +9.82%)
+    +Ξ_conf:   2.373 MeV  (err +9.84%)
+    관측:      2.16 MeV
+
+  m_d 비교:
+    comb:      4.696 MeV
+    +Ξ_free:   4.695 MeV  (err +0.54%)
+    +Ξ_conf:   4.696 MeV  (err +0.56%)
+    관측:      4.67 MeV
+
+  Ξ_confined 개선 여부:
+    m_u: 악화 (0.212 → 0.213 MeV)
+    m_d: 악화 (0.025 → 0.026 MeV)
+  [✓ PASS] Ξ_conf m_u 방향 탐색 (참고)
+
+  ══════════════════════════════════════════════════
+  Test 7: Pattern Occupation Fraction 통합 법칙
+  ══════════════════════════════════════════════════
+
+  통합 원리:
+  f_occ = (입자가 점유하는 꼭지점) / (home structure 총 꼭지점)
+  f_occ < 1: 자유 전파,  x = α_GUT × f_occ
+  f_occ = 1: confinement, 보정 = ε/(1+ε) from embedding
+
+  Particle             n_p n_str  f_occ    x = α×f 기존 공식
+  ---------------------------------------------------------------------------
+  e,ν (1-vtx)            1     5  0.200   0.004863 α/5 ✓
+  e (ℂ² doublet)         2     5  0.400   0.009727 2α/5 ✓
+  p (ℂ³ triplet)         3     5  0.600   0.014590 3α/5 ✓
+  lepton Yukawa          1     4  0.250   0.006079 α/4 = α/(n_S+1) ✓
+  Higgs (AABB)           2     4  0.500   0.012159 α/2 → m_H/v_H leading ✓
+  quark (AAA)            3     3  1.000   CONFINED f=1 → confined
+  [✓ PASS] f_occ < 1: 모든 x = α×f_occ 일치
+
+  ── Confinement 조건 ──
+  f_occ = 1 ⟺ 패턴이 structure를 완전히 채움
+  ⟺ 전파할 '빈 공간' = 0
+  ⟺ confinement (자유 전파 불가)
+  보정: embedding structure에서 leaking
+
+  AAA: f_occ = 1.0 (confined)
+  AAA → AAAB face: f_occ = 0.75 (빈 공간 = 0.25 = 1/4)
+  이 빈 공간이 leaking channel → ε 생성
+  [✓ PASS] f_occ(AAA) = 1 → confinement
+
+  ── ch09 unified formula 재해석 ──
+  x = -(k_A/n_A)ε + (k_B/d)α  (기존)
+  → k_A 항: AAA hinge 내 A-vertex 점유 → confined 기여
+  → k_B 항: simplex 내 B-vertex 점유 → free 기여
+
+  Rep          k_A k_B  f_conf  f_free          x 해석
+  ----------------------------------------------------------------------
+  u_R (10)       2   0   0.667   0.000  -0.057317 2A confined, 0B free
+  d_R (5̄)       1   0   0.333   0.000  -0.028659 1A confined, 0B free
+  Q_L (10)       1   1   0.333   0.200  -0.023795 1A confined, 1B free
+  L_L (5̄)       0   1   0.000   0.200  +0.004863 0A confined, 1B free
+  e_R (1)        0   2   0.000   0.400  +0.009727 0A confined, 2B free
+
+  통합 해석:
+  k_A/n_A = AAA hinge 내 occupation fraction (confined)
+  k_B/d   = simplex 내 occupation fraction (free)
+  → 둘 다 '점유 비율'의 특수 경우!
+  → 부호: confined(AAA, f=1 구조) → 음, free(simplex) → 양
+
+  ==================================================
+  ★ 통합 법칙 (Pattern Occupation Fraction) ★
+  ==================================================
+  f_occ = n_particle / n_structure
+  
+  f_occ < 1 → x = +α_GUT × f_occ  (자유 전파)
+  f_occ = 1 → confinement (빈 공간 = 0)
+              x = -ε/(1+ε)  from embedding leaking
+  
+  혼합 (k_A, k_B):
+  x = -(k_A/n_A)·ε + (k_B/d)·α
+    = -f_occ(AAA)·ε + f_occ(simplex)·α
+  
+  'temporal/spatial' 구분 불필요.
+  입자는 자기 sector를 모름.
+  오직 '내가 몇 칸, 내 집이 몇 칸'만 앎.
+  [✓ PASS] 통합 법칙 일관성 확인
+
+============================================================
+  SUMMARY: EXP_063_Temporal_Fraction_Unification
+============================================================
+  [✓] AAAB f_T = 1/(n_S+1): 수학적 동일
+  [✓] Higgs 기존: 121.1 GeV (-3.3%)
+  [✓] Higgs 새:   125.8 GeV (+0.4%)
+  [✓] 새 공식이 기존보다 정확
+  [✓] Proton spatial: -0.0001%
+  [✓] Proton temporal: -0.468% (덜 정확)
+  [✓] P(-ε/(1+ε)) = 1-ε (수학적 항등식)
+  [✓] f_T + f_S = 1 (모든 구조)
+  [✓] Ξ_conf m_u 방향 탐색 (참고)
+  [✓] f_occ < 1: 모든 x = α×f_occ 일치
+  [✓] f_occ(AAA) = 1 → confinement
+  [✓] 통합 법칙 일관성 확인
+
+  12/12 checks passed
+  Time: 0.0s

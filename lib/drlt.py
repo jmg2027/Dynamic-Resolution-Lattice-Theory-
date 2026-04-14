@@ -345,6 +345,65 @@ def weinberg_angle() -> float:
 
 
 # ═══════════════════════════════════════════════════════════════
+#  PATTERN OCCUPATION FRACTION (ch21: f_occ unification)
+#  One rule governs all couplings: x = α_GUT × f_occ
+# ═══════════════════════════════════════════════════════════════
+
+def f_occ(n_pattern: int, n_structure: int) -> float:
+    """f_occ = n_p / n_str — pattern occupation fraction (ch21)."""
+    return n_pattern / n_structure
+
+def coupling_x(f: float) -> float:
+    """
+    Universal coupling law (ch21):
+      f < 1 (free):     x = +α_GUT × f
+      f = 1 (confined): x = -ε/(1+ε) where ε = α^(2/3)(1+α)
+    """
+    if f >= 1.0:
+        eps = ALPHA_GUT**(2/3) * (1 + ALPHA_GUT)
+        return -eps / (1 + eps)
+    return ALPHA_GUT * f
+
+def closed_propagator(x: float) -> float:
+    """P(x) = (1+2x)/(1+x) — exact Dyson resummation (ch09/ch21)."""
+    return (1 + 2*x) / (1 + x)
+
+def focc_spectrum() -> list:
+    """
+    All discrete f_occ values on d=5 simplex with (3,2) partition (ch21).
+    Returns list of (f, multiplicity, level, description).
+    """
+    return [
+        (1/5, 5,  'matter',  '∧¹(ℂ⁵) = 5̄'),
+        (1/4, 10, 'yukawa',  'face 1-vertex'),
+        (1/3, 10, 'gauge',   'hinge 1-vertex'),
+        (2/5, 10, 'matter',  '∧²(ℂ⁵) = 10'),
+        (1/2, 50, 'higgs',   'self-dual (Higgs)'),
+        (3/5, 10, 'matter',  '∧³(ℂ⁵) = 10̄'),
+        (2/3, 10, 'gauge',   'hinge 2-vertex'),
+        (3/4, 10, 'yukawa',  'face 3-vertex'),
+        (4/5, 5,  'matter',  '∧⁴(ℂ⁵) = 5'),
+        (1.0, 26, 'confined','full occupation'),
+    ]
+
+def higgs_mass() -> float:
+    """m_H = v_H × (1+α_GUT)/c ≈ 125.8 GeV (ch21, f=1/2 on AABB face)."""
+    return electroweak_scale() * (1 + ALPHA_GUT) / C_LATTICE
+
+def su5_representations() -> dict:
+    """
+    SU(5) representations from ∧ᵏ(ℂ⁵) (ch21).
+    Hodge duality ∧ᵏ ↔ ∧^(d-k) = CPT symmetry.
+    """
+    return {
+        1: {'dim': comb(D,1), 'rep': '5̄',  'f': 1/D, 'content': 'd_R^c, L'},
+        2: {'dim': comb(D,2), 'rep': '10', 'f': 2/D, 'content': 'u_R^c, Q_L, e_R^c'},
+        3: {'dim': comb(D,3), 'rep': '10̄', 'f': 3/D, 'content': 'CPT of ∧²'},
+        4: {'dim': comb(D,4), 'rep': '5',  'f': 4/D, 'content': 'CPT of ∧¹'},
+    }
+
+
+# ═══════════════════════════════════════════════════════════════
 #  FERMION MASSES (ch09: from simplex impedance + Ξ correction)
 # ═══════════════════════════════════════════════════════════════
 
