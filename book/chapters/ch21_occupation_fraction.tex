@@ -316,13 +316,22 @@ V(x_H) = 1 + 2x_H = 1 + \agut.
 
 \begin{theorem}[Higgs quartic coupling]
 \label{thm:higgs_quartic}
+The bare face-level coupling is $\sqrt{2\lambda_0} = f_\mathrm{occ}\,V(x_H) = (1+\agut)/c$.  However, the AABB face occupies only $4$ of $5$ simplex vertices.  The missing vertex leaks coupling $\agut/d$ out of the face, giving the \textbf{simplex embedding correction}:
 \begin{equation}
-\boxed{\sqrt{2\lambda} = f_\mathrm{occ} \times V(x_H) = \frac{1 + \agut}{c},
+\boxed{\sqrt{2\lambda} = \frac{(1 + \agut)(1 - \agut/d)}{c},
 \qquad
-\lambda = \frac{(1 + \agut)^2}{2c^2} \approx 0.1312.}
+\lambda = \frac{(1 + \agut)^2(1 - \agut/d)^2}{2c^2} \approx 0.1299.}
 \end{equation}
-The Higgs mass follows: $m_H = v_H\sqrt{2\lambda} = v_H(1+\agut)/c \approx 125.9\;\mathrm{GeV}$, in $0.5\%$ agreement with the observed $125.25 \pm 0.17\;\mathrm{GeV}$.
+The Higgs mass follows:
+\begin{equation}
+m_H = v_H\,\frac{(1+\agut)(1-\agut/d)}{c} \approx 125.28\;\mathrm{GeV},
+\end{equation}
+in $+0.02\%$ ($+0.15\sigma$) agreement with the observed $125.25 \pm 0.17\;\mathrm{GeV}$.
 \end{theorem}
+
+\begin{remark}[Embedding correction]
+To leading order, $(1+\agut)(1-\agut/d) = 1 + \agut(d-1)/d + O(\agut^2)$.  The face sees an \emph{effective coupling} $\agut^\mathrm{eff} = \agut\,(d-1)/d = 4\agut/5$: only the fraction of $\agut$ supported by the face's vertices.  The full $\agut$ is recovered only on the full simplex.
+\end{remark}
 
 \begin{remark}[Hierarchy of Binet--Cauchy levels]
 The simplex geometry assigns a distinct physical role to each exterior power:
