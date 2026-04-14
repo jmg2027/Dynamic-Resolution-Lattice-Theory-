@@ -7,9 +7,9 @@
 | Observable | DRLT | Observed | Error |
 |-----------|------|----------|-------|
 | η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
-| Ω_Λ | 0.6817 | 0.685 | 0.5% |
+| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
 | w | -1.0 | ~-1 | exact |
-| DM/baryon | 5.50 | ~5.4 | ~2% |
+| DM/baryon | 5.43 | ~5.4 | ~0.6% |
 | Webb dipole | consistent | — | qualitative |
 
 ## Experiment Map
