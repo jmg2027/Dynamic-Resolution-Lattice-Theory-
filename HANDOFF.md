@@ -14,7 +14,7 @@ Z=1-118 periodic table. Period 1-2 <3%, full table 58% within 30%.
 **See `atoms/HANDOFF.md` for detailed status and open problems.**
 
 ### cosmology/ — STABLE ✓
-3 experiments (COS_001-003), 8/8 checks passed. η_B 0.5%, Ω_Λ 0.5%.
+3 experiments (COS_001-003), 8/8 checks passed. η_B 0.5%, Ω_Λ **0.0008%**.
 **See `cosmology/HANDOFF.md` for future work directions.**
 
 ### rh-connection/ — MERGED, natural plateau
@@ -35,7 +35,7 @@ Z=1-118 periodic table. Period 1-2 <3%, full table 58% within 30%.
 | m_μ/m_e | 206.7682837 | 206.7682838 | 0.7 ppb |
 | 1/α_em | 137.036 | 137.036 | 0.0004% |
 | η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
-| Ω_Λ | 0.6817 | 0.685 | 0.5% |
+| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
 | IE(He) | 24.565 eV | 24.587 | 0.089% |
 | IE(Be) | 9.29 eV | 9.32 | -0.3% |
 | Period 2 | 8/8 | <3% | all |

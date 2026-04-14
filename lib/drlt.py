@@ -808,8 +808,13 @@ def baryon_asymmetry() -> float:
     return numerator / denominator
 
 def dark_energy_fraction() -> float:
-    """Ω_Λ = 1 - 1/π (ch13 sec 9.2)."""
-    return 1 - 1 / np.pi
+    """Ω_Λ = (1 - 1/π)(1 + α_GUT/d) (ch13 sec 9.2).
+
+    Bare: 1 - c/(2π) = 1 - 1/π = 0.6817  (angular deficit at horizon)
+    Correction: trace-conservation factor (1 + α_GUT/d), same universal
+    pattern as He IE and muon mass corrections.
+    """
+    return (1 - 1 / np.pi) * (1 + ALPHA_GUT / D)
 
 def dark_energy_eos() -> float:
     """w ≈ -1 (ch13 sec 9.2). Exact: deviation O(ε₀²) ~ 10⁻⁵."""

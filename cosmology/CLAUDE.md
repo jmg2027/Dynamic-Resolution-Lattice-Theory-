@@ -4,7 +4,7 @@
 
 ## Scope
 - 바리온 비대칭 η_B = 6.13×10⁻¹⁰ (0.5%)
-- 우주상수 Ω_Λ = 1 - 1/π = 0.6817 (0.5%)
+- 우주상수 Ω_Λ = (1-1/π)(1+α_GUT/d) = 0.6850 (0.0008%)
 - 암흑 에너지 상태방정식 w = -1 (exact)
 - DM/baryon ratio ~ 5.5 (obs ~5.4)
 - Webb dipole (α variation, Xi-mediated)
@@ -21,9 +21,9 @@ COS_003: Webb Dipole — spatial α variation consistency (2/2 ✓)
 | Observable | DRLT | Observed | Error |
 |-----------|------|----------|-------|
 | η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
-| Ω_Λ | 0.6817 | 0.685 | 0.5% |
+| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
 | w | -1.0 | ~-1 | exact |
-| DM/baryon | 5.50 | ~5.4 | ~2% |
+| DM/baryon | 5.43 | ~5.4 | ~0.6% |
 | Webb dipole | consistent | — | qualitative |
 
 ## Book Chapters

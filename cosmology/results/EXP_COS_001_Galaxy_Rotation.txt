@@ -1,10 +1,10 @@
 ============================================================
   EXP_COS_001_Galaxy_Rotation
-  2026-04-14 21:56:34
+  2026-04-14 22:18:25
 ============================================================
-  Omega_Lambda = 1 - 1/pi = 0.6817
-  Omega_matter = 1/pi = 0.3183
-  DM/baryon = 5.50  (obs ~5.4)
+  Omega_Lambda = 1 - 1/pi = 0.6850
+  Omega_matter = 1/pi = 0.3150
+  DM/baryon = 5.43  (obs ~5.4)
   [✓ PASS] DM/baryon order correct (3-8)
 
   1/alpha_em = 137.036
