@@ -1,0 +1,11 @@
+{
+  "experiment": "EXP_057",
+  "title": "m_tau/m_mu Precision",
+  "timestamp": "2026-04-14T01:25:41.015842",
+  "checks": {
+    "Dyson 잔차 < 실험 불확도": "PASS",
+    "3차 보정 < 10 ppm": "PASS"
+  },
+  "passed": 2,
+  "total": 2
+}

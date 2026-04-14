@@ -1,0 +1,242 @@
+============================================================
+  EXP_064_Combinatorial_Census
+  2026-04-14 03:36:09
+============================================================
+
+  ═══════════════════════════════════════════════════════
+  Part 1: Sub-structures of (3,2)-simplex
+  ═══════════════════════════════════════════════════════
+
+  Simplex: 3A + 2B = 5 vertices
+  Sub-structure = k-vertex subset (k = 2..5)
+
+  Type         (a,b)     Count              Formula   k
+  -------------------------------------------------------
+  --- k = 2 (edge) ---
+  BB           (0,2)         1        C(3,0)×C(2,2)   2
+  AB           (1,1)         6        C(3,1)×C(2,1)   2
+  AA           (2,0)         3        C(3,2)×C(2,0)   2
+                            10 = C(5,2)
+  --- k = 3 (hinge) ---
+  ABB          (1,2)         3        C(3,1)×C(2,2)   3
+  AAB          (2,1)         6        C(3,2)×C(2,1)   3
+  AAA          (3,0)         1        C(3,3)×C(2,0)   3
+                            10 = C(5,3)
+  --- k = 4 (face) ---
+  AABB         (2,2)         3        C(3,2)×C(2,2)   4
+  AAAB         (3,1)         2        C(3,3)×C(2,1)   4
+                             5 = C(5,4)
+  --- k = 5 (simplex) ---
+  AAABB        (3,2)         1        C(3,3)×C(2,2)   5
+                             1 = C(5,5)
+
+  총 sub-structure 수: 26
+  (= C(5,2)+C(5,3)+C(5,4)+C(5,5) = 10+10+5+1 = 26)
+  [✓ PASS] Sub-structure 전수: 26
+
+  ═══════════════════════════════════════════════════════
+  Part 2: 모든 (structure, pattern) 쌍
+  ═══════════════════════════════════════════════════════
+
+  Structure (a,b) 위에 pattern (pA,pB) 배치
+  f_occ = (pA+pB) / (a+b)
+
+  총 (structure, pattern) 쌍: 46
+
+  Str    Pat    k pA pB  f_occ #str #pat  mult
+  ------------------------------------------------
+  AAABB  B      5  0  1 0.2000    1    2     2
+  AAABB  A      5  1  0 0.2000    1    3     3
+  AABB   B      4  0  1 0.2500    3    2     6
+  AABB   A      4  1  0 0.2500    3    2     6
+  AAAB   B      4  0  1 0.2500    2    1     2
+  AAAB   A      4  1  0 0.2500    2    3     6
+  ABB    B      3  0  1 0.3333    3    2     6
+  ABB    A      3  1  0 0.3333    3    1     3
+  AAB    B      3  0  1 0.3333    6    1     6
+  AAB    A      3  1  0 0.3333    6    2    12
+  AAA    A      3  1  0 0.3333    1    3     3
+  AAABB  BB     5  0  2 0.4000    1    1     1
+  AAABB  AB     5  1  1 0.4000    1    6     6
+  AAABB  AA     5  2  0 0.4000    1    3     3
+  BB     B      2  0  1 0.5000    1    2     2
+  AB     B      2  0  1 0.5000    6    1     6
+  AB     A      2  1  0 0.5000    6    1     6
+  AA     A      2  1  0 0.5000    3    2     6
+  AABB   BB     4  0  2 0.5000    3    1     3
+  AABB   AB     4  1  1 0.5000    3    4    12
+  AABB   AA     4  2  0 0.5000    3    1     3
+  AAAB   AB     4  1  1 0.5000    2    3     6
+  AAAB   AA     4  2  0 0.5000    2    3     6
+  AAABB  ABB    5  1  2 0.6000    1    3     3
+  AAABB  AAB    5  2  1 0.6000    1    6     6
+  AAABB  AAA    5  3  0 0.6000    1    1     1
+  ABB    BB     3  0  2 0.6667    3    1     3
+  ABB    AB     3  1  1 0.6667    3    2     6
+  AAB    AB     3  1  1 0.6667    6    2    12
+  AAB    AA     3  2  0 0.6667    6    1     6
+  AAA    AA     3  2  0 0.6667    1    3     3
+  AABB   ABB    4  1  2 0.7500    3    2     6
+  AABB   AAB    4  2  1 0.7500    3    2     6
+  AAAB   AAB    4  2  1 0.7500    2    3     6
+  AAAB   AAA    4  3  0 0.7500    2    1     2
+  AAABB  AABB   5  2  2 0.8000    1    3     3
+  AAABB  AAAB   5  3  1 0.8000    1    2     2
+  BB     BB     2  0  2 1.0000    1    1     1
+  AB     AB     2  1  1 1.0000    6    1     6
+  AA     AA     2  2  0 1.0000    3    1     3
+  ABB    ABB    3  1  2 1.0000    3    1     3
+  AAB    AAB    3  2  1 1.0000    6    1     6
+  AAA    AAA    3  3  0 1.0000    1    1     1
+  AABB   AABB   4  2  2 1.0000    3    1     3
+  AAAB   AAAB   4  3  1 1.0000    2    1     2
+  AAABB  AAABB  5  3  2 1.0000    1    1     1
+  [✓ PASS] (structure, pattern) 쌍 전수 열거
+
+  ═══════════════════════════════════════════════════════
+  Part 3: f_occ 스펙트럼 (고유값별 분류)
+  ═══════════════════════════════════════════════════════
+
+  고유 f_occ 값: 10개
+
+  f_occ           값      x=α×f     P(x)  총 mult    실현 방법 수
+  ------------------------------------------------------------
+  1/5        0.2000   0.004863 1.004840       5          2
+  1/4        0.2500   0.006079 1.006043      20          4
+  1/3        0.3333   0.008106 1.008041      30          5
+  2/5        0.4000   0.009727 1.009633      10          3
+  1/2        0.5000   0.012159 1.012012      50          9
+  3/5        0.6000   0.014590 1.014380      10          3
+  2/3        0.6667   0.016211 1.015953      30          5
+  3/4        0.7500   0.018238 1.017911      20          4
+  4/5        0.8000   0.019454 1.019082       5          2
+  1          1.0000   0.024317 CONFINED      26          9
+
+  ── 기하학이 결정하는 이산 스펙트럼 ──
+  가능한 결합상수: 10개 이산값
+  연속 파라미터 없음: 모든 x가 유리수 × α_GUT
+  [✓ PASS] 이산 스펙트럼: 10개 f_occ
+
+  f_occ = 1 (confinement) 실현:
+    BB 위 BB: mult = 1 (1 struct × 1 pat)
+    AB 위 AB: mult = 6 (6 struct × 1 pat)
+    AA 위 AA: mult = 3 (3 struct × 1 pat)
+    ABB 위 ABB: mult = 3 (3 struct × 1 pat)
+    AAB 위 AAB: mult = 6 (6 struct × 1 pat)
+    AAA 위 AAA: mult = 1 (1 struct × 1 pat)
+    AABB 위 AABB: mult = 3 (3 struct × 1 pat)
+    AAAB 위 AAAB: mult = 2 (2 struct × 1 pat)
+    AAABB 위 AAABB: mult = 1 (1 struct × 1 pat)
+  confinement 총 다중도: 26
+
+  ═══════════════════════════════════════════════════════
+  Part 4: 구조 심층 분석
+  ═══════════════════════════════════════════════════════
+
+  ── 각 f_occ의 (pA, pB) 분해 ──
+  같은 f_occ라도 A-pattern과 B-pattern이 다를 수 있음
+
+  f_occ = 1/5 (0.2000):
+    (0A,1B): mult=  2  via AAABB(1×2)
+    (1A,0B): mult=  3  via AAABB(1×3)
+
+  f_occ = 1/4 (0.2500):
+    (0A,1B): mult=  8  via AABB(3×2), AAAB(2×1)
+    (1A,0B): mult= 12  via AABB(3×2), AAAB(2×3)
+
+  f_occ = 1/3 (0.3333):
+    (0A,1B): mult= 12  via ABB(3×2), AAB(6×1)
+    (1A,0B): mult= 18  via ABB(3×1), AAB(6×2), AAA(1×3)
+
+  f_occ = 2/5 (0.4000):
+    (0A,2B): mult=  1  via AAABB(1×1)
+    (1A,1B): mult=  6  via AAABB(1×6)
+    (2A,0B): mult=  3  via AAABB(1×3)
+
+  f_occ = 1/2 (0.5000):
+    (0A,1B): mult=  8  via BB(1×2), AB(6×1)
+    (0A,2B): mult=  3  via AABB(3×1)
+    (1A,0B): mult= 12  via AB(6×1), AA(3×2)
+    (1A,1B): mult= 18  via AABB(3×4), AAAB(2×3)
+    (2A,0B): mult=  9  via AABB(3×1), AAAB(2×3)
+
+  f_occ = 3/5 (0.6000):
+    (1A,2B): mult=  3  via AAABB(1×3)
+    (2A,1B): mult=  6  via AAABB(1×6)
+    (3A,0B): mult=  1  via AAABB(1×1)
+
+  f_occ = 2/3 (0.6667):
+    (0A,2B): mult=  3  via ABB(3×1)
+    (1A,1B): mult= 18  via ABB(3×2), AAB(6×2)
+    (2A,0B): mult=  9  via AAB(6×1), AAA(1×3)
+
+  f_occ = 3/4 (0.7500):
+    (1A,2B): mult=  6  via AABB(3×2)
+    (2A,1B): mult= 12  via AABB(3×2), AAAB(2×3)
+    (3A,0B): mult=  2  via AAAB(2×1)
+
+  f_occ = 4/5 (0.8000):
+    (2A,2B): mult=  3  via AAABB(1×3)
+    (3A,1B): mult=  2  via AAABB(1×2)
+
+  ── Confinement (f_occ = 1) 상세 ──
+    BB ← BB: 0A+2B 완전 점유, mult=1
+    AB ← AB: 1A+1B 완전 점유, mult=6
+    AA ← AA: 2A+0B 완전 점유, mult=3
+    ABB ← ABB: 1A+2B 완전 점유, mult=3
+    AAB ← AAB: 2A+1B 완전 점유, mult=6
+    AAA ← AAA: 3A+0B 완전 점유, mult=1
+    AABB ← AABB: 2A+2B 완전 점유, mult=3
+    AAAB ← AAAB: 3A+1B 완전 점유, mult=2
+    AAABB ← AAABB: 3A+2B 완전 점유, mult=1
+
+  ── Multiplicity 요약 ──
+  f_occ     총 mult   free 다중도  conf 여부
+  ----------------------------------------
+  1/5            5          5     free
+  1/4           20         20     free
+  1/3           30         30     free
+  2/5           10         10     free
+  1/2           50         50     free
+  3/5           10         10     free
+  2/3           30         30     free
+  3/4           20         20     free
+  4/5            5          5     free
+  1             26         26     CONF
+
+  Free 총: 180,  Confined 총: 26
+  전체:    206
+  [✓ PASS] Free 다중도 = 180
+  [✓ PASS] Confined 다중도 = 26
+
+  ── 대칭성: f ↔ (1-f) 쌍 ──
+  1/5 ↔ 4/5: mult 5 ↔ 5
+  1/4 ↔ 3/4: mult 20 ↔ 20
+  1/3 ↔ 2/3: mult 30 ↔ 30
+  2/5 ↔ 3/5: mult 10 ↔ 10
+  1/2 (self-dual): mult 50
+
+  =======================================================
+  ★ 기하학적 스펙트럼 최종 요약 ★
+  =======================================================
+  d=5, (3,2) simplex에서 가능한 f_occ:
+  ['1/5', '1/4', '1/3', '2/5', '1/2', '3/5', '2/3', '3/4', '4/5', '1']
+  총 10개 이산값
+  이 중 f<1: 9개 (자유 전파)
+  f=1: 1개 (confinement)
+  각 f_occ의 x = α×f → P(x) = (1+2x)/(1+x)
+  → 기하학이 허용하는 결합상수의 완전한 목록
+  [✓ PASS] 기하학적 스펙트럼 완전 열거
+
+============================================================
+  SUMMARY: EXP_064_Combinatorial_Census
+============================================================
+  [✓] Sub-structure 전수: 26
+  [✓] (structure, pattern) 쌍 전수 열거
+  [✓] 이산 스펙트럼: 10개 f_occ
+  [✓] Free 다중도 = 180
+  [✓] Confined 다중도 = 26
+  [✓] 기하학적 스펙트럼 완전 열거
+
+  6/6 checks passed
+  Time: 0.0s

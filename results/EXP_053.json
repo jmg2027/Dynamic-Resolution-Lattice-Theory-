@@ -1,0 +1,13 @@
+{
+  "experiment": "EXP_053",
+  "title": "Lepton Mass sub-ppm",
+  "timestamp": "2026-04-14T01:11:55.269491",
+  "checks": {
+    "δ₁: 26 ppm 도달": "PASS",
+    "δ₁+δ₂: 2 ppm 도달": "PASS",
+    "δ₁+δ₂+δ₃: sub-100 ppb": "PASS",
+    "m_τ/m_μ 오차 < 0.01%": "PASS"
+  },
+  "passed": 4,
+  "total": 4
+}

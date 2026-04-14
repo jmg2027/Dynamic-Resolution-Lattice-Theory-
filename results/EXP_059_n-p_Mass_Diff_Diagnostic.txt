@@ -1,0 +1,27 @@
+============================================================
+  EXP_059_n-p_Mass_Diff_Diagnostic
+  2026-04-14 03:10:43
+============================================================
+  alpha_GUT = 0.024317, Xi = 8.545689e-03
+  m_d - m_u = 2.51 MeV (PDG)
+  Geometric factor (current) = 0.571189
+  Dm_np (current) = 1.4337 MeV  (obs 1.2934)
+  Error: +10.85%
+
+  Required geom factor: 0.515299
+  Ratio current/required: 1.1085
+  With Xi: 1.4214 MeV  (+9.90%)
+
+  Conclusion: +11% overcount in geometric factor.
+  Xi correction is secondary (0.85%).
+  [✓ PASS] Geometric factor overcount ~11%
+  [✓ PASS] Xi correction < 1%
+
+============================================================
+  SUMMARY: EXP_059_n-p_Mass_Diff_Diagnostic
+============================================================
+  [✓] Geometric factor overcount ~11%
+  [✓] Xi correction < 1%
+
+  2/2 checks passed
+  Time: 0.0s
