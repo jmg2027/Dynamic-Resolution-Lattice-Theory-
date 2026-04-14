@@ -112,7 +112,8 @@ Key completed:
 - EXP_070: Helium IE = 2Ry(1-c²α_GUT) = 24.565 eV, 0.089% (5/5 ✓)
 - EXP_071: Higgs quartic λ = (1+α_GUT)²/(2c²), m_H=125.9 GeV +0.51% (10/10 ✓)
 - EXP_072: Embedding correction α/d, m_H=125.28 GeV +0.02% +0.15σ (7/7 ✓)
-- Next: EXP_073
+- EXP_073: n-p mass diff S₂/S∞→(1-S₂/S∞), Δm=1.275 MeV -1.5% (7/7 ✓)
+- Next: EXP_074
 
 ## Resolved Problems
 - det(SST) vs det(STT): distinct quantities (EXP_048)
@@ -126,10 +127,11 @@ Key completed:
 - **CKM precision:** sin θ_C +2.47σ → +0.86σ via Ξ chain (EXP_059)
 - **1/α_em precision:** 0.020% → 0.0004% via same Ξ (EXP_062)
 - **Higgs quartic:** λ from face-level BC + embedding; 3.2%→0.51%→**0.02%** (EXP_071/072)
+- **Δm_np:** S₂/S∞ → (1-S₂/S∞) = EM excess; +11%→**-1.5%** (EXP_073)
 
 ## Open Problems
 1. ~~**Higgs mass:**~~ RESOLVED — m_H = 125.28 GeV (+0.02%, +0.15σ) via embedding α/d
-2. **Δm_np geometric factor:** +11% overcount; need correct combinatorial form
+2. ~~**Δm_np:**~~ RESOLVED — 1.275 MeV (-1.5%) via EM excess fraction (EXP_073)
 3. **1/α₂ (weak):** 18.2 vs 29.6; RGE running not yet included
 4. **Neutrino ratio quantitative:** 3.73 vs 5.71 (35% gap); higher-order T-matrix needed
 5. **1st gen quark masses:** Ξ correction degrades m_u, m_d; need confined-specific Ξ
