@@ -45,6 +45,7 @@
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
 | `predictions/` | `PRD_` | NOT STARTED | — | 미측정 예측 (JUNO 등) |
 | `quantum-gravity/` | `QG_` | NOT STARTED | — | 시공간 창발, holographic |
+| `gram-algebra/` | `GMA_` | NOT STARTED | — | DRLT 고유 수학 언어 |
 
 ### Sub-Project 필수 구조
 ```
