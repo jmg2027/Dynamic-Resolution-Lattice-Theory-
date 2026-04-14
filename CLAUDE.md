@@ -35,24 +35,27 @@
 
 ### Sub-Projects (각 분야별 독립 작업 공간)
 ```
-standard-model/    — SM couplings, masses, mixing (EXP_071-075)
-  CLAUDE.md        — SM-specific context, correction recipes
+foundations/        — 심플렉스 기하, 변분 정리, f_occ (legacy EXP_018-029,063-066)
+  CLAUDE.md        — 핵심 정리 목록, legacy 실험 참조
+
+standard-model/    — SM couplings, masses, mixing (EXP_071-075 + legacy 004-067)
+  CLAUDE.md        — SM context, correction recipes
   experiments/     — SM experiments
-  results/         — SM outputs
 
-rh-connection/     — Riemann Hypothesis connection (EXP_071-071g)
-  CLAUDE.md        — RH-specific context
-  HANDOFF.md       — RH handoff (open problems)
-  experiments/     — RH experiments (7 experiments, 42/44)
+rh-connection/     — Riemann Hypothesis (EXP_071-071g)
+  CLAUDE.md        — RH context (Doubly Irreducible, Two Boundaries)
+  HANDOFF.md       — open problems (Born-Ramanujan proof)
+  experiments/     — 7 experiments (42/44)
   lib/rh_core.py   — RH-specific library
-  theory/          — RH theory documents (10 files)
-  results/         — RH experiment outputs
+  theory/          — 10 theory documents
 
-atoms/             — Atomic physics, periodic table (EXP_076-079)
-  CLAUDE.md        — Atoms-specific context
-  HANDOFF.md       — Atoms handoff (open problems, next steps)
-  experiments/     — Atoms experiments
-  results/         — Atoms outputs
+atoms/             — Atomic physics, periodic table (EXP_076-079 + legacy 019-070)
+  CLAUDE.md        — screening constants, 원칙
+  HANDOFF.md       — open problems (σ_core, d/f-block)
+  experiments/     — atoms experiments
+
+cosmology/         — 바리온 비대칭, Ω_Λ, Webb dipole (legacy EXP_005,012,017)
+  CLAUDE.md        — cosmology results
 ```
 
 ### Shared Infrastructure
@@ -71,8 +74,18 @@ results/           — Legacy + sub-project results (mirrored)
 5. **EXP 번호는 전역 순차.** sub-project 간 충돌 방지.
 6. **각 sub-project는 자체 HANDOFF.md 관리.** Root HANDOFF는 요약만.
 7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
-8. **papers/는 root에 유지.** 저널 투고용 standalone .tex. sub-project에 복사하지 않음.
+8. **papers/는 root에 유지.** sub-project CLAUDE.md에서 참조만.
 9. **results/는 sub-project 안에만.** root results/는 legacy(EXP_001-070).
+10. **legacy experiments는 이동하지 않음.** sub-project CLAUDE.md에서 목록으로 참조.
+
+### Paper Classification
+| Paper | Sub-Project | Topic |
+|-------|------------|-------|
+| paper1 | foundations | chiral decomposition (why ℂ, d=5) |
+| paper2 | foundations | Frobenius → gauge group |
+| paper3 | standard-model | zero-parameter predictions |
+| paper4 | standard-model | zeta spectral dim, β-function |
+| paper5 | rh-connection | Born-rule Gram graphs, critical line |
 
 ---
 

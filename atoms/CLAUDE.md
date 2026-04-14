@@ -63,8 +63,23 @@ Next: EXP_080
 
 ## Open Problems → HANDOFF.md 참조
 
+## Related Legacy Experiments (root experiments/)
+```
+EXP_019: All elements scan
+EXP_020: Simplex atoms
+EXP_021: Hydrogen simplex
+EXP_023: Bond angles CH₄/NH₃/H₂O (exact ✓)
+EXP_024: Clean scorecard
+EXP_025: Hydrogen exact
+EXP_045: Analytic solutions on ∂(Δ⁵)
+EXP_046: Hydrogen variational
+EXP_047: Helium analytic
+EXP_048: Lithium analytic
+EXP_049: Exact closed-form IE
+EXP_069: Variational boundary (6/6 ✓)
+EXP_070: Helium ionization (5/5 ✓)
+```
+
 ## Key References
 - book/chapters/ch10_atoms.tex — 원자 이론 (6 theorems)
-- experiments/EXP_069_variational_boundary.py — ∂(Δ⁵) engine
-- experiments/EXP_070_helium_ionization.py — He channel analysis
 - standard-model/correction_recipes.md — 보정 패턴

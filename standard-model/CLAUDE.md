@@ -37,5 +37,25 @@ EXP_074: Neutrino ratio T₂₃ Basel correction (5/5)
 EXP_075: Confined Ξ for quarks (7/7)
 ```
 
+## Related Legacy Experiments (root experiments/)
+```
+EXP_004: Fine structure constant
+EXP_009: Precision constants (1/α_em, sin²θ_W)
+EXP_013: 200 bytes = all physics
+EXP_030: Confined coupling
+EXP_031-034: Lepton precision (μ/e, sub-ppm)
+EXP_035: Convergence series
+EXP_036-040: Neutrino ratio, PMNS, τ/μ
+EXP_041: CKM precision
+EXP_042-044: Absolute masses, n-p diff, remaining
+EXP_067: Zeta spectral dimension, β matching
+```
+
+## Related Papers (root papers/)
+```
+paper3_zero_parameter_predictions.tex
+paper4_zeta_beta.tex
+```
+
 ## Authoritative Source
 All theory → `book/chapters/`. This directory is working space.
