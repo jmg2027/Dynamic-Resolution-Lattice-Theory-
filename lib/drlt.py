@@ -199,6 +199,78 @@ class Simplex:
         return {"SSS": C_SSS, "SST": C_SST, "STT": C_STT,
                 "total": total, "check_d2": total == D**2}
 
+    def hinge_binet_cauchy(self, triangle: tuple) -> dict:
+        """
+        Decompose ONE hinge's det(G_h) into k=0,1,2 channels (ch08).
+
+        Φ = 3×5 matrix (rows = hinge vertices, cols = ψ components).
+        For each of C(5,3)=10 column subsets I:
+          k = number of temporal columns in I (from {0,1})
+          channel contribution = c^k × |det(Φ_I)|²
+
+        Returns: {'k0': float, 'k1': float, 'k2': float,
+                  'total': float, 'det_check': float}
+        """
+        i, j, k_v = triangle
+        Phi = self.gram.psi[np.array([i, j, k_v]), :]  # 3×5
+
+        spatial_cols = [2, 3, 4]   # V_A indices
+        temporal_cols = [0, 1]     # V_B indices
+
+        # Raw Binet-Cauchy: det(ΦΦ†) = Σ|det(Φ_I)|² (no weighting)
+        raw = {'k0': 0.0, 'k1': 0.0, 'k2': 0.0}
+        for col_subset in combinations(range(D), 3):
+            minor = Phi[:, list(col_subset)]
+            det_sq = float(np.abs(np.linalg.det(minor))**2)
+            n_temp = sum(1 for c in col_subset if c in temporal_cols)
+            raw[f'k{min(n_temp,2)}'] += det_sq
+
+        raw_total = raw['k0'] + raw['k1'] + raw['k2']
+        det_direct = self.hinge_det(triangle)
+
+        # c-weighted channels (for coupling constant derivation)
+        weighted = {
+            'k0': raw['k0'] * C_LATTICE**0,
+            'k1': raw['k1'] * C_LATTICE**1,
+            'k2': raw['k2'] * C_LATTICE**2,
+        }
+
+        return {
+            'raw_k0': raw['k0'], 'raw_k1': raw['k1'], 'raw_k2': raw['k2'],
+            'raw_total': raw_total,
+            'weighted_k0': weighted['k0'], 'weighted_k1': weighted['k1'],
+            'weighted_k2': weighted['k2'],
+            'det_check': det_direct,
+            'consistent': abs(raw_total - det_direct) < 1e-8,
+        }
+
+    def coupling_from_geometry(self) -> dict:
+        """
+        Coupling constants from actual Gram matrix geometry (ch08).
+
+        Sum k=0 channels over ALL 10 hinges → strong coupling
+        Sum k=1 channels over ALL 10 hinges → EM coupling
+        Sum k=2 channels over ALL 10 hinges → weak coupling
+        """
+        total_k0 = 0.0
+        total_k1 = 0.0
+        total_k2 = 0.0
+        for tri in self.hinges:
+            bc = self.hinge_binet_cauchy(tri)
+            total_k0 += bc['weighted_k0']
+            total_k1 += bc['weighted_k1']
+            total_k2 += bc['weighted_k2']
+        total = total_k0 + total_k1 + total_k2
+        return {
+            'strong_k0': total_k0,
+            'em_k1': total_k1,
+            'weak_k2': total_k2,
+            'total': total,
+            'ratio_k0': total_k0 / total if total > 0 else 0,
+            'ratio_k1': total_k1 / total if total > 0 else 0,
+            'ratio_k2': total_k2 / total if total > 0 else 0,
+        }
+
     def deficit_angle(self, hinge: tuple) -> float:
         """
         δ_h = 2π - Σ dihedral angles at hinge (ch06 sec 3.7).
