@@ -1,0 +1,94 @@
+============================================================
+  EXP_RH_020_Ihara_Mobius_map
+  2026-04-14 21:20:42
+============================================================
+
+═══ Test 1: Ihara Determinant ═══
+  1/Z(u) ∝ det(I - uW + u²(D-I))
+  N=15, d=5, d_eff=2.54
+
+      u |       det(M(u))
+  ------+----------------
+   0.00 |      1.0000e+00
+   0.10 |      1.1785e+00
+   0.20 |      1.8604e+00
+   0.30 |      3.6544e+00
+   0.50 |      1.6705e+01
+
+  Ramanujan radius: |u| = 1/√(d_eff-1) = 0.8068
+  [✓ PASS] Ihara det computed
+
+═══ Test 2: Ihara Zeros ═══
+  Top eigenvalues of W: ['2.64', '0.93', '0.62', '0.42', '0.25', '0.02', '-0.05', '-0.19']
+  Ihara zeros on |u|=1/√(d_eff-1): 28/30 (93%)
+  (Complex eigenvalues → zeros exactly on circle)
+  [✓ PASS] Ihara zeros computed
+
+═══ Test 3: Graph Möbius Coefficients ═══
+  1/Z(u) = Σ μ_graph(n) u^n
+
+  First 15 coefficients of 1/Z(u):
+  (normalized W, d_eff=1.85)
+    μ_graph( 0) =      +1.0000
+    μ_graph( 1) =      +0.0000
+    μ_graph( 2) =      -1.0708
+    μ_graph( 3) =      -0.3445
+    μ_graph( 4) =      +0.1395
+    μ_graph( 5) =      +0.2071
+    μ_graph( 6) =      +0.1135
+    μ_graph( 7) =      -0.0106
+    μ_graph( 8) =      -0.0221
+    μ_graph( 9) =      -0.0105
+    μ_graph(10) =      -0.0029
+    μ_graph(11) =      +0.0006
+    μ_graph(12) =      +0.0014
+    μ_graph(13) =      +0.0031
+    μ_graph(14) =      -0.0197
+
+  Sign pattern: --+++----+++
+  |coefficients| decay rate: 0.1497
+  [✓ PASS] Graph Möbius coefficients extracted
+
+═══ Test 4: μ_graph vs μ(n) Statistics ═══
+  μ(n) for n=1..15: [np.int64(1), np.int64(-1), np.int64(-1), np.int64(0), np.int64(-1), np.int64(1), np.int64(-1), np.int64(0), np.int64(0), np.int64(1), np.int64(-1), np.int64(0), np.int64(-1), np.int64(1), np.int64(1)]
+  μ_graph(n) (normalized): ['+1.000', '+0.000', '-1.071', '-0.345', '+0.139', '+0.207', '+0.113', '-0.011', '-0.022', '-0.010', '-0.003', '+0.001', '+0.001', '+0.003', '-0.020']
+
+  Sign agreement: 4/9 (44%)
+
+  Averaging over 30 Gram graphs:
+  ⟨μ_graph(n)⟩ (averaged):
+    n= 0: ⟨μ_G⟩= +1.0000  μ(n)=+0
+    n= 1: ⟨μ_G⟩= -0.0000  μ(n)=+1
+    n= 2: ⟨μ_G⟩= -0.9492  μ(n)=-1
+    n= 3: ⟨μ_G⟩= -0.3548  μ(n)=-1
+    n= 4: ⟨μ_G⟩= -0.0283  μ(n)=+0
+    n= 5: ⟨μ_G⟩= +0.1887  μ(n)=-1
+    n= 6: ⟨μ_G⟩= +0.1723  μ(n)=+1
+    n= 7: ⟨μ_G⟩= +0.0097  μ(n)=-1
+    n= 8: ⟨μ_G⟩= -0.0146  μ(n)=+0
+    n= 9: ⟨μ_G⟩= -0.0167  μ(n)=+0
+    n=10: ⟨μ_G⟩= -0.0089  μ(n)=+1
+    n=11: ⟨μ_G⟩= +0.0008  μ(n)=-1
+  [✓ PASS] Comparison computed
+
+═══ Test 5: μ_graph Convergence with d ═══
+
+  μ(1..8) = [np.int64(1), np.int64(-1), np.int64(-1), np.int64(0), np.int64(-1), np.int64(1), np.int64(-1), np.int64(0)]
+  d= 5: ⟨μ_G⟩ = [-0.000 -0.903 -0.353 -0.066 +0.165 +0.166 +0.022 -0.007]
+  d= 8: ⟨μ_G⟩ = [-0.000 -0.991 -0.341 -0.017 +0.190 +0.187 +0.015 -0.015]
+  d=10: ⟨μ_G⟩ = [-0.000 -0.982 -0.343 -0.037 +0.193 +0.199 +0.013 -0.014]
+  d=15: ⟨μ_G⟩ = [-0.000 -1.024 -0.336 -0.003 +0.203 +0.203 +0.008 -0.018]
+  d=20: ⟨μ_G⟩ = [-0.000 -1.011 -0.320 +0.034 +0.171 +0.162 +0.002 -0.021]
+  [✓ PASS] d-dependence explored
+
+============================================================
+  SUMMARY: EXP_RH_020_Ihara_Mobius_map
+============================================================
+  [✓] Ihara det computed
+  [✓] Ihara zeros computed
+  [✓] Graph Möbius coefficients extracted
+  [✓] Comparison computed
+  [✓] d-dependence explored
+
+  5/5 checks passed
+  Time: 0.1s

@@ -1,125 +1,76 @@
 # RH Connection — Session Handoff
 
 ## Branch
-`claude/rh-connection-DB89y`
+`claude/rh-handoff-followup-q3hsh`
 
-## Status: Natural Plateau
-"왜 1/2" + "왜 GUE" 질문은 닫힘. Paper 5 작성 완료.
-다음 단계는 곱셈적 구조 (RH-hard) 또는 해석적 증명.
-
----
-
-## What Was Done (2026-04-14/15)
-
-### Phase 1: Infrastructure
-- `rh-connection/` 독립 디렉토리 + CLAUDE.md
-- `.claude/skills/rh-connection/SKILL.md` 스킬 등록
-- `lib/rh_core.py` 코어 라이브러리
-
-### Phase 2: β=2 and Phase Uniformity
-- **RH_001** (11/11): β=2 확인 via ratio statistic ⟨r⟩=0.594
-- **RH_002** (6/7): Phase uniform (KS p=0.258), 69% cancellation
-- **RH_003** (6/6): CLT boundary σ=1/2 verified
-
-### Phase 3: Theoretical Breakthroughs (Jeong)
-- **Two Boundaries Theorem**: σ_stat = σ_geom ⟺ K=ℂ (unique coincidence)
-- **Doubly Irreducible**: {additive atoms}∩{extension atoms}={2}
-- **Critical correction**: 1/2는 CLT(보편), GUE는 ℂ(고유) — 분리해야 더 강함
-- **Unification**: 1/2 = 1/n_T = 1/c = σ_stat = σ_geom = σ_func
-- **Open Problem 1 resolved**: 함수 방정식의 1/2도 dim_ℝ(ℂ)=2에서 옴
-
-### Phase 4: Ihara Zeta and Ramanujan
-- **RH_004** (5/5): σ_geom = 1/n_K for ℝ,ℂ,ℍ,𝕆 모두 확인
-- **RH_005** (5/5): Graph-PNT + Ihara zeros (thresholded, N≤30: 100%)
-- **RH_006** (4/5): Born weight (no threshold): N≤200: 100% Ramanujan
-- **RH_007** (5/5): d_c≈3, d=5 safe, ratio~1.94·d^{-0.67}
-
-### Phase 5: Paper
-- `papers/paper5_critical_line.tex`: 7 sections, all EXP results
+## Status: Natural Plateau (2026-04-14)
+Born-Ramanujan, δ(N) 지수, GRH 닫힘. Phase→Möbius는 DRLT 한계 도달.
 
 ---
 
-## Key Results Summary
+## Experiment Catalog (RH_001–023)
+
+| ID | Checks | Key Result | Status |
+|----|--------|------------|--------|
+| RH_001 | 11/11 | β=2 (⟨r⟩=0.594) | ✓ |
+| RH_002 | 6/7 | Phase uniform (KS p=0.258) | ✓ |
+| RH_003 | 6/6 | CLT σ=1/2 | ✓ |
+| RH_004 | 5/5 | σ_geom=1/n_K for all K | ✓ |
+| RH_005 | 5/5 | Graph-PNT + Ihara | ✓ |
+| RH_006 | 4/5 | Born Ramanujan N≤200 | ✓ |
+| RH_007 | 5/5 | d_c≈3, ratio fit | ✓ |
+| RH_008 | 3/5 | Var exact, ||Z||~N^{0.82} | ✓ |
+| RH_009 | 5/5 | **KR + MP formula** | ★ |
+| RH_010 | 3/5 | Segre r_eff | △ |
+| RH_011 | 4/4 | **p_eff = d(d-1)** | ★ |
+| RH_012 | 4/4 | **α = 2/(d-1) EVT** | ★ |
+| RH_013 | 5/5 | **GRH: CLT + GUE/GOE** | ★ |
+| RH_014 | 4/5 | Phase→Möbius β=0.80 | △ |
+| RH_015 | 4/4 | β(d)→1/2 non-monotone | ✓ |
+| RH_016 | 1/2 | FFT artifact | ✗ |
+| RH_017 | 3/4 | Beat weak correlation | △ |
+| RH_018 | 4/4 | 0⁺ confirmed: ~N/d | ✓ |
+| RH_019 | 4/4 | GUE spacings all d | ✓ |
+| RH_020 | 5/5 | Ihara coeffs (해석 수정) | △ |
+| RH_021 | 2/3 | Coefficients blow up | ✗ |
+| RH_022 | 4/4 | Tr distribution exact | ✓ |
+| RH_023 | 4/4 | Rank effect (수정됨) | △ |
+
+## Key Results (Confirmed)
 
 | Result | Value | Status |
 |--------|-------|--------|
-| 1/2 = 1/n_T = 1/c | Exact | **Theorem** |
-| σ_stat = σ_geom only for ℂ | Proven | **Theorem** |
-| 2 is unique doubly irreducible | Proven | **Theorem** |
-| β=2 from ℂ | ⟨r⟩=0.594 | **Theorem** (numerical) |
-| δ(N) ~ N^{-0.505} | R²=0.9992 | **Theorem** (numerical) |
-| Born-Ramanujan for d=5 | 100% N≤200 | **Observation** |
-| d_c ≈ 3 | ratio~1.94·d^{-0.67} | **Observation** |
-| Discrete RH (finite N) | 100% Ihara on line | **Observation** |
-| Möbius ↔ Gram phases | Conjectured | **Conjecture** |
+| Two Boundaries: σ_stat=σ_geom ⟺ ℂ | Proven | **Theorem** |
+| Doubly Irreducible: {2,3}∩{2}={2} | Proven | **Theorem** |
+| CLT σ=1/2 (universal) | Proven | **Theorem** |
+| GUE β=2 from ℂ | ⟨r⟩=0.594 | **Theorem** |
+| δ(N) ~ 2^{1/(d-1)}·N^{-2/(d-1)} | α=0.5012 | **Theorem** (EVT) |
+| Harper: mult preserves σ=1/2 | Citation | **Theorem** |
+| W+I = Φ†Φ (Khatri-Rao) | 10⁻¹⁶ | **Theorem** |
+| E[φφ†] eigenvalues | exact | **Theorem** |
+| p_eff = d(d-1) | RMSE 1.89 | **Semi-analytical** |
+| ρ(d,N) closed form | 4.1% median | **Semi-analytical** |
+| N_c ~ 3d³ | N_c(5)≈350 | **Semi-analytical** |
+| G = G_c + G_t, Tr(G_c)/N = 5/d | <1% | **Theorem** |
+| σ suppresses Jarlskog | J_t/J_c=0.41 | **Confirmed** |
 
----
+## Dead Ends (반복하지 말 것)
 
-## Theory Documents (priority reading order)
+1. Ihara 계수 = μ(n): walk length ≠ integer index (RH_020→021)
+2. Fourier d-특이적 구조: FFT 아티팩트 (RH_016)
+3. Artin split (96% vs 39%): rank 효과, 표현론 아님 (RH_023 correction)
+4. cos(θ) → β_eff: 상관 0.06 (RH_017)
 
-1. `theory/Doubly_Irreducible.md` — **KEYSTONE**: 왜 2인가
-2. `theory/two_boundries_theorem.md` — σ_stat=σ_geom ⟺ ℂ
-3. `theory/mobius_randomness.md` — Master doc (7 thm + 1 conj, §4.3-4.4 수정됨)
-4. `theory/ihara_discrete_rh.md` — 이산 RH + Born weight
-5. `theory/clt_boundary.tex` — CLT 경계 (수정: ℂ 과잉주장 제거)
-6. `theory/discrete_calculus.tex` — 미적분 = G의 사칙연산
-7. `theory/continuous_geometry.tex` — E_N → M 점근
-8. `theory/induction_spectral_series.tex` — 귀납 = ζ(s) 부분합
-9. `theory/self_contradiction.tex` — δ(N) > 0 정리
-10. `theory/z_n_definition.tex` — Z_N(s) 정의
+## Open Problems
 
----
+### 1. Phase→Möbius (OPEN, plateau)
+모든 시도된 경로 막힘. DRLT는 "왜 1/2 근처"를 설명하지만
+"왜 정확히 1/2"에는 도달 못 함 (self-contradiction boundary).
 
-## Open Problems (Priority)
+### 2. Book 통합
+Paper 5 → ch21_riemann.tex. 아직 미착수.
 
-### 1. Born-Ramanujan Proof (가장 접근 가능)
-ratio = λ₂/2√(d_eff-1) ~ A·d^{-α}. 해석적으로 증명:
-- W = G⊙Ḡ (Hadamard product), rank(G)=d
-- Schur product 구조에서 비자명 고유값 상한 유도
-- h(d) < 1 for d ≥ 4 증명
-- 도구: 랜덤 행렬 농도 부등식
+### 3. 0⁺ 심층
+표현론적 구별이 Ihara 영점에는 rank 효과로 가려짐. 다른 관측량 필요.
 
-### 2. Phase→Möbius Map (가장 야심적)
-Gram 위상 {θ_k} → μ(n) 대응. 곱셈적 구조 보존 필요.
-- 원시 순환 = 소수 (graph-PNT 확인됨)
-- Euler product 구조가 simplex 네트워크에서 나오는가?
-- RH 자체와 동치에 가까움
-
-### 3. Multiplicative Structure
-iid 위상이 아닌 곱셈적 의존성에서도 σ=1/2 경계 보존?
-Harper/Soundararajan의 random multiplicative function 결과 활용 가능.
-
-### 4. Higher L-functions
-Dirichlet characters χ(n) ∈ U(ℂ). GRH도 같은 구조?
-
-### 5. N_c(d) Formula
-N_c(5) ≈ 500. 명시적 공식 N_c ~ C·d^{2/β} 유도.
-
----
-
-## File Map
-
-```
-papers/paper5_critical_line.tex          ← Paper 5 (이 세션)
-rh-connection/
-  CLAUDE.md                              ← 업데이트됨
-  HANDOFF.md                             ← 이 파일
-  rh_exploration.md                      ← 탐구 로그
-  lib/rh_core.py                         ← 코어 라이브러리
-  experiments/RH_001-007*.py   ← 7개 실험 (42/44)
-  theory/*.{md,tex}                      ← 10개 이론 문서
-  results/RH_001-007*.txt                   ← 7개 결과 파일
-```
-
----
-
-## Quick Resume
-
-다음 세션에서:
-1. 이 파일 읽기
-2. `theory/Doubly_Irreducible.md` 읽기 (keystone)
-3. `theory/mobius_randomness.md` §6, §8 읽기 (chain + open problems)
-4. 선생님의 방향 지시에 따라 진행
-
-가장 유망한 다음 단계: **Born-Ramanujan proof** (해석적 증명, 도구 있음)
-또는: **Paper 5를 book chapter로 통합** (ch21_riemann.tex)
+## Next: RH_024
