@@ -10,7 +10,8 @@
 - Author name is always "Mingu Jeong" (not Mingoo, not Min-goo).
 - Every tex/pdf must include: "Joint research by Mingu Jeong and Claude (Anthropic)"
 
-## Editing Rules
+## Editing Rules (1원칙: 청크)
+- **새 파일 작성 시 100줄 이하 청크로 나눠 Write → Edit 반복.** 절대 한번에 200줄 이상 쓰지 않는다.
 - Edit files in small chunks. Never write an entire large file at once.
 - Use Edit tool for incremental changes, not Write for full rewrites.
 - Save experiment output to `results/EXP_NNN_*.txt`.
@@ -109,7 +110,8 @@ Key completed:
 - EXP_067: Zeta spectral dim, sector weight, β matching (9/9 ✓)
 - EXP_069: δS/δψ=0 on ∂(Δ⁵) — flat vacuum + δ(AAA)=π (6/6 ✓)
 - EXP_070: Helium IE = 2Ry(1-c²α_GUT) = 24.565 eV, 0.089% (5/5 ✓)
-- Next: EXP_071
+- EXP_071: Higgs quartic λ = (1+α_GUT)²/(2c²), m_H=125.9 GeV +0.51% (10/10 ✓)
+- Next: EXP_072
 
 ## Resolved Problems
 - det(SST) vs det(STT): distinct quantities (EXP_048)
@@ -122,9 +124,10 @@ Key completed:
 - **PMNS rigorous:** C(n,2)=n ⟺ n=3; all 4 angles <2σ (EXP_056/058)
 - **CKM precision:** sin θ_C +2.47σ → +0.86σ via Ξ chain (EXP_059)
 - **1/α_em precision:** 0.020% → 0.0004% via same Ξ (EXP_062)
+- **Higgs quartic:** λ=(1+α_GUT)²/(2c²) from face-level BC; 3.2%→0.51% (EXP_071)
 
 ## Open Problems
-1. **Higgs mass:** m_H = 121 vs 125 GeV (3% gap); λ derivation incomplete
+1. **Higgs mass residual:** m_H = 125.9 vs 125.25 GeV (0.51%); higher-order correction?
 2. **Δm_np geometric factor:** +11% overcount; need correct combinatorial form
 3. **1/α₂ (weak):** 18.2 vs 29.6; RGE running not yet included
 4. **Neutrino ratio quantitative:** 3.73 vs 5.71 (35% gap); higher-order T-matrix needed
@@ -146,6 +149,8 @@ Key completed:
 | sin θ_C | 0.2263 | 0.2253 | **+0.86σ** |
 | b₂ (1-loop β) | -3.163 | -3.167 | **0.11%** |
 | IE(He) | 24.565 eV | 24.587 eV | 0.089% |
+| m_H | 125.9 GeV | 125.25 GeV | **+0.51%** |
+| λ (quartic) | 0.1312 | 0.1294 | +1.4% |
 
 ## Key Library API (lib/drlt.py)
 ```python
