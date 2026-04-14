@@ -1,0 +1,221 @@
+% Discrete Calculus and Differential Forms on the Gram Matrix
+% Joint research by Mingu Jeong and Claude (Anthropic)
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{array}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Discrete Calculus and Differential Forms\\
+  on the Gram Matrix\\[6pt]
+  {\large Calculus as Addition and Subtraction on $G_{ij}$}}
+\author{Mingu Jeong \and Claude (Anthropic)}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We show that the three pillars of calculus --- differentiation,
+integration, and the Laplacian --- reduce to addition and
+subtraction of Gram matrix entries $G_{ij} = \langle\psi_i|\psi_j\rangle$.
+No limits, no infinitesimals, no $\varepsilon$-$\delta$.
+The fundamental theorem of calculus becomes a telescoping sum.
+Differential forms (grad, curl, div) and Stokes' theorem
+are arithmetic identities on the Gram structure.
+The $\mathbb{C}^2 \oplus \mathbb{C}^3$ decomposition
+splits vector calculus into spacetime propagation (grad, div on
+$\mathbb{C}^2$) and gauge rotation (curl on $\mathbb{C}^3$).
+\end{abstract}
+
+\section{Distance from the Gram Matrix}
+
+For two vertices $i, j$ in $\mathcal{E}_N$, the natural distance is:
+\[
+  d_{ij}^2 \;=\; |\psi_i - \psi_j|^2
+  \;=\; 2\bigl(1 - \mathrm{Re}(G_{ij})\bigr).
+\]
+This is a subtraction on $G$.
+
+\section{The Three Pillars of Calculus}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{>{\raggedright}p{3cm}|c|c}
+\textbf{Continuous} & \textbf{Gram (discrete)} & \textbf{Operation} \\
+\hline
+$\dfrac{df}{dx}$ &
+  $\dfrac{f_i - f_j}{\sqrt{2(1 - \mathrm{Re}(G_{ij}))}}$ &
+  Subtraction on $G$ \\[8pt]
+$\displaystyle\int f\,dx$ &
+  $\dfrac{1}{N}\displaystyle\sum_{i=1}^{N} f_i$ &
+  Addition of $f$ \\[8pt]
+$\Delta f$ &
+  $f_i - \displaystyle\sum_j G_{ij}\, f_j$ &
+  $(I - G)$ applied to $f$ \\
+\end{tabular}
+\end{center}
+
+\begin{definition}[Discrete derivative]
+For a function $f: V_N \to \mathbb{C}$ and an edge $(i,j)$:
+\[
+  (\nabla f)_{ij} \;=\;
+  \frac{f_i - f_j}{\sqrt{2(1 - \mathrm{Re}(G_{ij}))}}.
+\]
+Numerator: subtraction of function values.
+Denominator: subtraction from $G$.
+No limits.
+\end{definition}
+
+\begin{definition}[Discrete integral]
+\[
+  \int_{\mathcal{E}_N} f \;:=\;
+  \frac{1}{N} \sum_{i=1}^{N} f_i.
+\]
+Just addition.
+\end{definition}
+
+\begin{definition}[Graph Laplacian]
+\[
+  (Lf)_i \;=\; f_i - \sum_{j} G_{ij}\, f_j.
+\]
+``Value at $i$'' minus ``$G$-weighted average of neighbors.''
+In the limit $N \to \infty$, this converges to the
+Laplace--Beltrami operator $\Delta f$ on the manifold $M$
+(proven theorem: spectral convergence).
+\end{definition}
+
+\begin{proposition}[Fundamental Theorem as Telescoping Sum]
+The discrete fundamental theorem of calculus:
+\[
+  \sum_{k=1}^{M} (f_{k+1} - f_k) \;=\; f_{M+1} - f_1.
+\]
+No limits, no infinitesimals. An arithmetic identity.
+
+The continuous version $\int_a^b f'(x)\,dx = f(b) - f(a)$
+is the $N \to \infty$ idealization of this telescoping sum.
+\end{proposition}
+
+\section{Differential Forms on the Gram Matrix}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{c|c|c}
+\textbf{Continuous} & \textbf{Gram (discrete)} & \textbf{Domain} \\
+\hline
+0-form (scalar field) & $f_i$ & vertices \\
+1-form (vector field) & $\omega_{ij}$ & edges \\
+2-form (flux) & $\alpha_{ijk}$ & triangles \\
+\end{tabular}
+\end{center}
+
+\begin{remark}
+The triangle $(i,j,k)$ corresponds to the $3 \times 3$
+sub-Gram matrix $G^{(ijk)}$. Its determinant $\det(G^{(ijk)})$
+is the ``volume squared'' of the triangle.
+The geometry of the space where curl acts comes directly from $G$.
+\end{remark}
+
+\subsection{Gradient (0-form $\to$ 1-form)}
+
+\[
+  (\mathrm{grad}\, f)_{ij} \;=\; f_j - f_i.
+\]
+Subtraction on edges.
+
+\subsection{Curl (1-form $\to$ 2-form)}
+
+\[
+  (\mathrm{curl}\, \omega)_{ijk} \;=\;
+  \omega_{ij} + \omega_{jk} + \omega_{ki}.
+\]
+Addition around triangles. Note: in DRLT, the holonomy
+$\Phi_{ijk} = \arg(G_{ij} \cdot G_{jk} \cdot G_{ki})$
+is exactly the curl of the gauge connection (the phase of $G$).
+
+\subsection{Divergence (1-form $\to$ 0-form)}
+
+\[
+  (\mathrm{div}\, \omega)_i \;=\;
+  \sum_j G_{ij}\, \omega_{ij}.
+\]
+$G$-weighted sum of incoming flows. Addition.
+
+\section{The Two Fundamental Identities}
+
+\begin{theorem}[$\mathrm{curl}(\mathrm{grad}\,f) = 0$]
+In the continuous case, this requires proof.
+In the discrete case, it is an arithmetic identity:
+\[
+  (f_j - f_i) + (f_k - f_j) + (f_i - f_k) = 0.
+\]
+Telescoping sum. Three subtractions that cancel.
+\end{theorem}
+
+\begin{theorem}[$\mathrm{div}(\mathrm{curl}\,\omega) = 0$]
+Also an arithmetic identity in the discrete case.
+This is $\partial^2 = 0$: ``the boundary of a boundary is empty''
+is the cancellation law of addition and subtraction.
+\end{theorem}
+
+\begin{corollary}[$\partial^2 = 0$ is arithmetic]
+The topological identity ``the boundary of a boundary vanishes''
+--- which in the continuous theory requires the full machinery
+of de Rham cohomology --- is, in the Gram framework, a
+consequence of $a - b + b - c + c - a = 0$.
+\end{corollary}
+
+\section{Stokes' Theorem as Telescoping}
+
+\begin{theorem}[Discrete Stokes]
+\[
+  \oint_{\partial S} \omega \;=\;
+  \sum_{\text{triangles } \in S} (\mathrm{curl}\,\omega)_{ijk}.
+\]
+In the continuous case: $\int_{\partial S} \omega = \int_S d\omega$,
+a deep theorem. In the discrete case: internal edges appear
+twice with opposite orientations and cancel. Telescoping.
+\end{theorem}
+
+\section{The $(3,2)$ Decomposition of Vector Calculus}
+
+The $\mathbb{C}^5 = \mathbb{C}^2 \oplus \mathbb{C}^3$
+decomposition splits the 1-form $\omega_{ij}$ into:
+\begin{itemize}
+  \item $\mathbb{C}^2$ component: spacetime propagation.
+    grad and div act here.
+  \item $\mathbb{C}^3$ component: gauge rotation.
+    The ``internal'' part of curl acts here.
+\end{itemize}
+
+\begin{proposition}
+Vector calculus structure reflects the $(3,2)$ separation:
+\[
+  \omega_{ij} \;=\; \omega_{ij}^{(\mathbb{C}^2)}
+  \;+\; \omega_{ij}^{(\mathbb{C}^3)}.
+\]
+The spacetime derivative (grad, div) operates on the
+$\mathbb{C}^2$ sector; the gauge field strength (curl)
+operates on the $\mathbb{C}^3$ sector.
+This is why electromagnetism has $\vec{E}$ and $\vec{B}$
+(grad and curl of $A_\mu$) living in different sectors.
+\end{proposition}
+
+\section{Summary}
+
+\begin{quote}
+Calculus is the $N \to \infty$ idealization of addition and
+subtraction on $G_{ij}$. The $\varepsilon$-$\delta$ formalism,
+limits, and infinitesimals are artifacts of the idealization.
+The Gram matrix makes them unnecessary.
+
+And since $N \to \infty$ requires $\mathrm{Tr}(G) \to \infty$,
+which violates the axiom, calculus ``working perfectly'' is
+the self-contradiction boundary of $\mathcal{E}_N$.
+\end{quote}
+
+\end{document}

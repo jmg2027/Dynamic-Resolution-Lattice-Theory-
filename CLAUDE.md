@@ -40,10 +40,13 @@ standard-model/    — SM couplings, masses, mixing (EXP_071-075)
   experiments/     — SM experiments
   results/         — SM outputs
 
-rh-connection/     — Riemann Hypothesis connection (separate branch)
+rh-connection/     — Riemann Hypothesis connection (EXP_071-071g)
   CLAUDE.md        — RH-specific context
-  experiments/     — RH experiments
+  HANDOFF.md       — RH handoff (open problems)
+  experiments/     — RH experiments (7 experiments, 42/44)
   lib/rh_core.py   — RH-specific library
+  theory/          — RH theory documents (10 files)
+  results/         — RH experiment outputs
 
 atoms/             — Atomic physics, periodic table (EXP_076-079)
   CLAUDE.md        — Atoms-specific context
@@ -68,6 +71,8 @@ results/           — Legacy + sub-project results (mirrored)
 5. **EXP 번호는 전역 순차.** sub-project 간 충돌 방지.
 6. **각 sub-project는 자체 HANDOFF.md 관리.** Root HANDOFF는 요약만.
 7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
+8. **papers/는 root에 유지.** 저널 투고용 standalone .tex. sub-project에 복사하지 않음.
+9. **results/는 sub-project 안에만.** root results/는 legacy(EXP_001-070).
 
 ---
 
@@ -105,8 +110,9 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 ## Experiment Catalog
 **Legacy (root experiments/, EXP_001-070):** See appendix_verification.tex
 **SM (standard-model/, EXP_071-075):** See standard-model/CLAUDE.md
-**RH (rh-connection/, EXP_071-071d):** See rh-connection/CLAUDE.md
-**Next available: EXP_076**
+**RH (rh-connection/, EXP_071-071g):** See rh-connection/CLAUDE.md
+**Atoms (atoms/, EXP_076-079):** See atoms/CLAUDE.md
+**Next available: EXP_080**
 
 ## Resolved Problems (All 5 original open problems closed)
 1. ~~Higgs mass~~ → +0.02% via face BC + embedding (EXP_071/072)

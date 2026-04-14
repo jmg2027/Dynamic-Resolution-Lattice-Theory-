@@ -13,8 +13,9 @@ See `standard-model/CLAUDE.md` for details.
 Z=1-118 periodic table. Period 1-2 <3%, full table 58% within 30%.
 **See `atoms/HANDOFF.md` for detailed status and open problems.**
 
-### rh-connection/ — PAUSED (separate branch)
-Riemann Hypothesis connection. See `rh-connection/CLAUDE.md`.
+### rh-connection/ — MERGED, natural plateau
+"왜 1/2" + "왜 GUE" 닫힘. Paper 5 완료. 7 experiments (42/44 checks).
+**See `rh-connection/HANDOFF.md` for open problems (Born-Ramanujan proof 등).**
 
 ## Handoff 관리 규칙
 - **각 sub-project는 자체 HANDOFF.md를 관리.**
