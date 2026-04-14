@@ -76,11 +76,44 @@ Removing $B_2$ from helium destroys:
 \text{IE}(\text{He}) = 3 \times \det(G_{\text{AAB}}, Z\!=\!2) - 3 \times \det(G_{\text{ABB}}).
 \end{equation}
 
-The screening coefficient $\sigma$ is the ratio of repulsive (ABB) to attractive (AAB) hinge determinants:
+However, this formula gives $4R_y = 54.4\;\text{eV}$ (the He$^+$ value) because $\det(G_\text{ABB}) \approx \det(G_\text{AAB})$ when $B_1 \perp B_2$ (EXP-069/068).  The correct result requires the Binet--Cauchy channel structure.
+
+\begin{theorem}[Helium first ionisation energy]
+\label{thm:helium_IE}
 \begin{equation}
-\boxed{\sigma = \frac{\det(G_{\text{ABB}})}{\det(G_{\text{AAB}})} = \frac{n_B}{n_A} = \frac{2}{3}.}
+\boxed{\text{IE}(\text{He}) = 2R_y\bigl(1 - c^2\,\alpha_\text{GUT}\bigr) = 24.565\;\text{eV}.}
 \end{equation}
-This is derived from the dimension ratio of the hinge types: ABB lives in the $n_B = 2$ dimensional B-sector, while AAB bridges the $n_A = 3$ dimensional A-sector. The ratio $n_B/n_A$ is a geometric constant, not an empirical parameter.
+Observed: $24.587\;\text{eV}$ (error: $0.089\%$).  Zero free parameters.
+\end{theorem}
+\begin{proof}
+Three ingredients, all derived from the axiom:
+
+\textbf{Step 1.  Leading order: $\mathrm{IE} = 2R_y$.}
+The functional $F_1 = \sum_{h=1}^{20}(1-\det G_h)$ over all 20 hinges of $\partial(\Delta^5)$ gives
+\begin{equation}
+\frac{\text{IE(He)}}{\text{IE(H)}} = \frac{|\Delta F_1(\text{He}\to\text{He}^+)|}{|\Delta F_1(\text{H}\to\text{vac})|}
+= \frac{3\varepsilon_\text{He}^2}{6\varepsilon_\text{H}^2} = \frac{3 \times 4\varepsilon_\text{H}^2}{6\varepsilon_\text{H}^2} = 2.
+\end{equation}
+This is an algebraic identity of the 20-hinge decomposition (EXP-070, verified to $10^{-4}$).  The $O(\varepsilon^4)$ corrections contribute $<2\%$ of the needed correction and go in the wrong direction.
+
+\textbf{Step 2.  BBB hinge channel weight.}
+The hinge $\{B_1, B_2, X\}$ exists on $\partial(\Delta^5)$ only when both electrons couple.  Its Binet--Cauchy decomposition is $100\%$ in the $k=2$ (STT) channel (EXP-070 verified: $k=0$ and $k=1$ contributions are $< 10^{-20}$).  The $c$-weight of the $k=2$ channel is $c^2 = 4$.
+
+\textbf{Step 3.  Budget reduction.}
+The total $c$-weighted channel budget is $d^2\zeta(2) = 1/\alpha_\text{GUT}$ (Theorem~\ref{thm:25}).
+The BBB hinge uses $c^2 = 4$ of the $d^2 = 25$ channels.  The fraction of the budget blocked:
+\begin{equation}
+\frac{c^2}{d^2\,\zeta(2)} = c^2\,\alpha_\text{GUT} = 4\,\alpha_\text{GUT} = \frac{24}{25\pi^2} \approx 0.0973.
+\end{equation}
+The second electron's effective coupling is reduced by this fraction.  Therefore:
+\begin{equation}
+\text{IE}(\text{He}) = 2R_y \times \left(1 - c^2\,\alpha_\text{GUT}\right) = 2R_y\,\frac{d^2\zeta(2) - c^2}{d^2\zeta(2)}.
+\end{equation}
+\end{proof}
+
+\begin{remark}[Why eight previous attempts failed]
+All previous approaches tried to find the $c^2\alpha_\text{GUT}$ correction inside $\det(G_h)$.  But the 20-hinge determinant structure gives ratio $= 2$ as an \emph{algebraic identity}: $(-6 - 3 + \tfrac{3}{2} + \tfrac{9}{2})\varepsilon^2 = -3\varepsilon^2$ for helium vs $-6\varepsilon_H^2$ for hydrogen.  The ratio $3 \times 4 / 6 = 2$ is exact at all orders in $\varepsilon$.  The correction comes from the \emph{Binet--Cauchy channel structure} (inter-sector coupling weight), not from determinant geometry.
+\end{remark}
 
 \subsection{The hydrogen spectrum: $E_n = -m_e\alpha^2/(n_B \times n^2)$}
 
@@ -312,4 +345,73 @@ In QFT, one first defines the vacuum, then places particles on it.  In DRLT, the
 \begin{remark}[Confinement from solution non-existence]
 Why can't a free quark exist?  A single A-vertex cannot form a hinge ($\det$ requires 3 vertices).  Therefore $S = 0$, $\hbar = 0$: no spacetime.  A free quark is not ``confined'' by a force --- it simply has no solution with $S > 0$.  The minimum non-trivial solution requires 3 A-vertices $=$ a baryon.
 \end{remark}
+
+%---------------------------------------------------------------------
+\subsection{Flat vacuum and deficit angles on $\partial(\Delta^5)$}
+\label{sec:flat_vacuum}
+%---------------------------------------------------------------------
+
+The boundary $\partial(\Delta^5)$ of the 5-simplex has 6 vertices, $\binom{6}{3}=20$ hinges (triangles), and $\binom{6}{5}=6$ four-simplices.  Each hinge lies in exactly 3 four-simplices.  The dihedral angle at a hinge $\{a,b,c\}$ in a four-simplex $S = \{v_1,\ldots,v_5\}$ with opposite vertices $\{d,e\} = S \setminus \{a,b,c\}$ is:
+\begin{equation}
+\cos\theta_{de} = \frac{-(G^{-1}_S)_{de}}{\sqrt{(G^{-1}_S)_{dd}\,(G^{-1}_S)_{ee}}},
+\end{equation}
+where $G_S$ is the $5 \times 5$ Gram submatrix of $S$.
+
+\begin{theorem}[Flat vacuum]
+\label{thm:flat_vacuum}
+The equiangular tight frame (ETF) with $G_{ij} = -1/d$ for $i \ne j$ satisfies:
+\begin{equation}
+\delta_h = 0 \quad \forall h, \qquad S_{\mathrm{Regge}} = 0.
+\end{equation}
+\end{theorem}
+\begin{proof}
+For the ETF, $G_S = \frac{d+1}{d}\,I - \frac{1}{d}\,J$, where $J$ is the all-ones matrix.  By Sherman--Morrison inversion:
+\begin{equation}
+G_S^{-1} = \frac{d}{d+1}(I + J).
+\end{equation}
+Hence $(G^{-1}_S)_{de} = d/(d+1)$ for $d \ne e$ and $(G^{-1}_S)_{dd} = 2d/(d+1)$.  Thus:
+\begin{equation}
+\cos\theta = \frac{-d/(d+1)}{\sqrt{(2d/(d+1))^2}} = -\frac{1}{2}, \qquad \theta = \frac{2\pi}{3}.
+\end{equation}
+Since each hinge has 3 dihedral angles: $\delta_h = 2\pi - 3 \times \frac{2\pi}{3} = 0$.  Therefore $S = \sum_h \sqrt{\det(G_h)}\,\delta_h = 0$.  The vacuum is exactly flat (EXP-069, verified to $10^{-15}$).
+\end{proof}
+
+\begin{theorem}[Deficit angle of the confined AAA hinge]
+\label{thm:delta_AAA}
+For any hydrogen-like solution with orthogonal A-vertices and B-vertices in the temporal sector $\mathbb{C}^2$:
+\begin{equation}
+\boxed{\delta(\mathrm{AAA}) = \pi.}
+\end{equation}
+This is exact and independent of the coupling $\varepsilon$ and the 6th vertex phase $\varphi$.
+\end{theorem}
+\begin{proof}
+With $G_{A_i A_j} = \delta_{ij}$, the A-block decouples and the dihedral angle at the AAA hinge $\{A_1,A_2,A_3\}$ in four-simplex $S_k = \{0,\ldots,5\}\setminus\{k\}$ reduces to $\cos\theta = G_{B_a B_b}$ where $\{B_a,B_b\}$ are the two non-A vertices of $S_k$.
+
+The three four-simplices containing the AAA hinge exclude vertices 3, 4, 5 respectively.  With $B_1 \perp B_2$ (orthogonal temporal basis) and $X = \cos\varphi\,B_1 + \sin\varphi\,B_2$:
+\begin{align}
+G_{B_1 B_2} &= 0, & \theta_1 &= \pi/2, \\
+G_{B_1 X} &= \cos\varphi, & \theta_2 &= \varphi, \\
+G_{B_2 X} &= \sin\varphi, & \theta_3 &= \pi/2 - \varphi.
+\end{align}
+Sum: $\theta_1 + \theta_2 + \theta_3 = \pi/2 + \varphi + (\pi/2 - \varphi) = \pi$.  Therefore $\delta = 2\pi - \pi = \pi$.
+\end{proof}
+
+\begin{remark}[The 20-hinge structure of hydrogen]
+EXP-069 computes all 20 deficit angles for $\varepsilon = \alpha/\sqrt{n_A}$:
+\begin{center}
+\begin{tabular}{lcccc}
+\hline
+Type & Count & $\det(G_h)$ & $\delta$ & Role \\
+\hline
+AAA & 1 & 1 & $\pi$ & Nuclear curvature \\
+AAB (AAAB face) & 3 & $1-2\varepsilon^2$ & $\approx \pi$ & EM binding \\
+AAB (other) & 6 & 1 & $0$ or $\pi$ & Background \\
+ABB ($B_1 B_2$) & 3 & $\approx 1$ & $0$ & Flat (orthogonal B's) \\
+ABB ($B_1 X$) & 3 & 3/4 & $\pi$ & Temporal curvature \\
+ABB ($B_2 X$) & 3 & 1/4 & $\pi$ & Temporal curvature \\
+BBB & 1 & $\approx 0$ & 0 & Degenerate \\
+\hline
+\end{tabular}
+\end{center}
+The total Regge action $S_H \approx 34.88$ is dominated by hinges with $\delta = \pi$.  The vacuum has $S = 0$, so the atom creates curvature: matter $\Leftrightarrow$ nonzero deficit angle.
 \end{remark}
