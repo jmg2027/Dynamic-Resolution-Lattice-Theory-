@@ -5,9 +5,9 @@
 - Period 3 (Z=11-18): p-block **<6%**, s-block ~7%, median 4.9%
 - Period 4 (Z=19-36): p-block **<3.5%**, d-block <10%, median 3.9%
 - Period 5 (Z=37-54): p-block **<6%**, d-block <11%, median 2.8%
-- Period 6 (Z=55-86): median **12.1%** (was 20.6%)
-- Period 7 (Z=87-118): median **12.4%** (was 35.0%)
-- **Z=1-118 전체: 46(<5%), 92(<15%), 115(<30%), median 7.4%**
+- Period 6 (Z=55-86): median **5.8%** (was 12.1%)
+- Period 7 (Z=87-118): median **3.1%** (was 12.4%)
+- **Z=1-118: 71(<5%), 108(<15%), 118(<30%=100%), median 3.8%**
 
 ## 이번 세션에서 한 일
 1. **ATM_018**: σ_core offset = (d²+n_T)/(d·n_T) = 27/10 = 2.7 도출
@@ -23,6 +23,11 @@
    - Period 6: 20.6% → 12.1%, Period 7: 35.0% → 12.4%
    - La: -2.6%, Ba: +1.2%, U: -2.1%
    - Median: 12.9% → **7.4%**
+4. **ATM_021**: Subshell filling fraction
+   - σ(n_fill) = σ_shell + (n/N_max)×(σ_df - σ_shell)
+   - f-block: Yb +23%→+0.4%, Gd +7%→+0.2%
+   - Period 7: 12.4% → 3.1%, actinides 거의 전부 <5%
+   - **Median: 7.4% → 3.8%, 118/118 <30%**
 
 ## 핵심 발견
 
@@ -101,11 +106,12 @@ atoms/
     ATM_018_sigma_core_derivation.py ← 6/6 ✓ (σ_core 도출)
     ATM_019_pblock_precision.py    ← 5/5 ✓ (σ_df, σ_same_p)
     ATM_020_layered_screening.py   ← 4/4 ✓ (layered, median 7.4%)
+    ATM_021_filling_fraction.py    ← 4/4 ✓ (filling, median 3.8%)
   results/
   scripts/
     periodic_scan.py  ← 기존 scanner
   figures/
 ```
 
-## 다음 실험: ATM_021
-방향: d-block late elements regression 해결. σ_d filling 의존성.
+## 다음 실험: ATM_022
+방향: d-block late elements (Ni +16%, Cu +21%, Ag +19%) 해결.

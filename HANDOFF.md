@@ -10,9 +10,9 @@ All 5 SM open problems resolved (SM_020-024).
 See `standard-model/CLAUDE.md` for details.
 
 ### atoms/ — ACTIVE
-Z=1-118 periodic table. Period 1-2 <3%, **Period 4 p-block <2.5%**.
-Full table: 36(<5%), 62(<15%), 93(<30%), **median 12.9%**.
-Key findings: σ_core offset = 27/10 (pure DRLT), σ_df = 1-α_GUT.
+Z=1-118 periodic table from 0 free parameters.
+**118/118 <30% (100%), 71(<5%), median 3.8%.**
+Key: layered shell screening, filling fraction, σ_df = 1-α_GUT.
 **See `atoms/HANDOFF.md` for detailed status and open problems.**
 
 ### rh-connection/ — MERGED, natural plateau
