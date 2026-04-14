@@ -33,31 +33,43 @@
 - `papers/` = standalone copies for journal submission.
 - `research-notes/` = historical drafts (may be superseded).
 
-### Sub-Projects (각 분야별 독립 작업 공간)
-```
-foundations/        — 심플렉스 기하, 변분 정리, f_occ
-standard-model/    — SM couplings, masses, mixing angles
-atoms/             — 원자 물리, 주기율표, 분자
-cosmology/         — 바리온 비대칭, 암흑 에너지, Webb dipole
-rh-connection/     — Riemann Hypothesis 연결
+### Sub-Project Hierarchy (필수 구조)
 
-nuclear/           — [미시작] 핵 결합 에너지, magic numbers
-predictions/       — [미시작] 아직 측정 안 된 예측 모음
-quantum-gravity/   — [미시작] 시공간 창발, holographic, path integral
+모든 sub-project는 아래 구조를 따른다:
 ```
-각 sub-project는 자체 CLAUDE.md (+ HANDOFF.md)를 포함.
+{sub-project}/
+  CLAUDE.md          — 분야 context, 상수, 실험 목록 (필수)
+  HANDOFF.md         — 상태, open problems, 다음 단계 (필수)
+  experiments/       — EXP_NNN_*.py 실험 파일
+  results/           — 실험 출력 (.txt, .json, .csv)
+  theory/            — 이론 문서 (.tex, .md) (선택)
+  lib/               — 분야별 전용 라이브러리 (선택)
+```
 
-### Shared Infrastructure
+**8개 Sub-Projects:**
+
+| Directory | Status | Experiments | 영역 |
+|-----------|--------|-------------|------|
+| `foundations/` | STABLE | 10 (EXP_018-066) | 심플렉스 기하, 변분 정리, f_occ |
+| `standard-model/` | CLOSED ✓ | 24 (EXP_004-075) | SM couplings, masses, mixing |
+| `atoms/` | **ACTIVE** | 17 (EXP_019-079) | 원자 물리, 주기율표 |
+| `cosmology/` | STABLE | 3 (EXP_005-017) | η_B, Ω_Λ, Webb dipole |
+| `rh-connection/` | PLATEAU | 7 (EXP_071-071g) | Riemann Hypothesis |
+| `nuclear/` | NOT STARTED | — | 핵 결합, magic numbers |
+| `predictions/` | NOT STARTED | — | 미측정 예측 (JUNO 등) |
+| `quantum-gravity/` | NOT STARTED | — | 시공간 창발, holographic |
+
+**Shared (root level):**
 ```
-book/              — THE BOOK (20 chapters + 2 appendices)
+book/              — THE BOOK (단일 진실 소스, 20장 + 2부록)
 lib/               — Core library (drlt.py, experiment.py)
-papers/            — 저널 투고용 standalone .tex (paper1-5)
-results/           — Meta files only (SUMMARY.md, REPORT.md)
+papers/            — 저널 투고용 standalone .tex (5편)
+.claude/skills/    — Agent skills (atoms, standard-model, rh-connection 등)
 ```
 
 ### Organization Rules
-1. **새 연구 방향 = 새 sub-project directory.** 자체 CLAUDE.md 포함.
-2. **실험은 sub-project 안에서 관리.** root에 실험 파일 두지 않음.
+1. **새 연구 방향 = 새 sub-project directory.** CLAUDE.md + HANDOFF.md 필수.
+2. **실험/결과는 sub-project 안에서만.** root에 실험 파일 두지 않음.
 3. **이론은 항상 book/에 통합.** sub-project는 작업 공간일 뿐.
 4. **sub-project CLAUDE.md에는 해당 분야 context만.** Agent가 필요한 것만 읽으면 됨.
 5. **EXP 번호는 전역 순차.** sub-project 간 충돌 방지.
@@ -109,10 +121,15 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 | η_B | 6.10×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.04% |
 
 ## Experiment Catalog
-**Legacy (root experiments/, EXP_001-070):** See appendix_verification.tex
-**SM (standard-model/, EXP_071-075):** See standard-model/CLAUDE.md
-**RH (rh-connection/, EXP_071-071g):** See rh-connection/CLAUDE.md
-**Atoms (atoms/, EXP_076-079):** See atoms/CLAUDE.md
+각 sub-project CLAUDE.md에 상세 목록 있음.
+| Sub-Project | EXP 범위 | 실험 수 |
+|-------------|----------|---------|
+| foundations/ | 018-066 | 10 |
+| standard-model/ | 004-075 | 24 |
+| atoms/ | 019-079 | 17 |
+| cosmology/ | 005-017 | 3 |
+| rh-connection/ | 071-071g | 7 |
+| **Total** | | **61** |
 **Next available: EXP_080**
 
 ## Resolved Problems (All 5 original open problems closed)
