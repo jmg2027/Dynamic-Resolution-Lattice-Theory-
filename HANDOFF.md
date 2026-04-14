@@ -6,7 +6,7 @@
 ## Sub-Project Status
 
 ### standard-model/ — CLOSED ✓
-All 5 SM open problems resolved (EXP_071-075).
+All 5 SM open problems resolved (SM_020-024).
 See `standard-model/CLAUDE.md` for details.
 
 ### atoms/ — ACTIVE
@@ -35,4 +35,4 @@ Z=1-118 periodic table. Period 1-2 <3%, full table 58% within 30%.
 | Period 2 | 8/8 | <3% | all |
 
 ## Next Available Experiment
-EXP_080 (atoms/)
+ATM_018 (atoms/)

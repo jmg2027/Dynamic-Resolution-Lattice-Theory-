@@ -12,7 +12,7 @@ Phase 2: SDP-style 최적화로 m_u 정밀값 계산
 Phase 3: 물리적 논증 — 왜 ε 인가
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from experiment import Experiment
 

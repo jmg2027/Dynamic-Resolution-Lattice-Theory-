@@ -8,7 +8,7 @@ Corrected: √(2λ) = (1+α_GUT)/c × (1-α_GUT/d)
 Result: m_H = 125.28 GeV (+0.02%, +0.15σ)
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from math import comb
 from experiment import Experiment

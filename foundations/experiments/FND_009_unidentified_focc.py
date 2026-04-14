@@ -7,7 +7,7 @@ EXP_064에서 발견된 10개 이산 f_occ 중
 표준모형 대입이 아닌 기하학적 구조에서 출발.
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from math import comb
 from fractions import Fraction

@@ -7,7 +7,7 @@ B₁B₂: C² 직교, B₃ = (cos θ, sin θ) in C²
 → 2D scan + 정밀 최적화로 δS/δψ = 0의 정확한 해.
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from itertools import combinations
 from experiment import Experiment

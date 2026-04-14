@@ -10,7 +10,7 @@ Physics: AAB=ABB=12 channels, but EM(S∞) > weak(S₂).
 Net isospin breaking ∝ (1-S₂/S∞), not S₂/S∞.
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from experiment import Experiment
 

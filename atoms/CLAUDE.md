@@ -54,30 +54,30 @@ d-1 = 4    → spacetime: σ_same_p
 
 ## Experiment Map
 ```
-EXP_076: He-Li AAB ratio=2(exact), screening σ=7/8 (4/4 ✓)
-EXP_077: Period 2 screening decomposition (3/3 ✓)
-EXP_078: Period 2 complete, 8/8 <3% (3/3 ✓)
-EXP_079: Full periodic Z=1-118, 68/118 <30% (exploratory)
-Next: EXP_080
+ATM_014: He-Li AAB ratio=2(exact), screening σ=7/8 (4/4 ✓)
+ATM_015: Period 2 screening decomposition (3/3 ✓)
+ATM_016: Period 2 complete, 8/8 <3% (3/3 ✓)
+ATM_017: Full periodic Z=1-118, 68/118 <30% (exploratory)
+Next: ATM_018
 ```
 
 ## Open Problems → HANDOFF.md 참조
 
 ## Related Legacy Experiments (root experiments/)
 ```
-EXP_019: All elements scan
-EXP_020: Simplex atoms
-EXP_021: Hydrogen simplex
-EXP_023: Bond angles CH₄/NH₃/H₂O (exact ✓)
-EXP_024: Clean scorecard
-EXP_025: Hydrogen exact
-EXP_045: Analytic solutions on ∂(Δ⁵)
-EXP_046: Hydrogen variational
-EXP_047: Helium analytic
-EXP_048: Lithium analytic
-EXP_049: Exact closed-form IE
-EXP_069: Variational boundary (6/6 ✓)
-EXP_070: Helium ionization (5/5 ✓)
+ATM_001: All elements scan
+ATM_002: Simplex atoms
+ATM_003: Hydrogen simplex
+ATM_004: Bond angles CH₄/NH₃/H₂O (exact ✓)
+ATM_005: Clean scorecard
+ATM_006: Hydrogen exact
+ATM_007: Analytic solutions on ∂(Δ⁵)
+ATM_008: Hydrogen variational
+ATM_009: Helium analytic
+ATM_010: Lithium analytic
+ATM_011: Exact closed-form IE
+ATM_012: Variational boundary (6/6 ✓)
+ATM_013: Helium ionization (5/5 ✓)
 ```
 
 ## Key References

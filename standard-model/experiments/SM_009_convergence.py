@@ -7,7 +7,7 @@ Tr(G) = N 이 보장하는 교대 수렴급수:
   → 급수의 수렴값과 닫힌 형태 도출
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from experiment import Experiment
 

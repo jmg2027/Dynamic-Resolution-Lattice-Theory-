@@ -8,7 +8,7 @@ EXP_064의 다중도에서 발견:
 순수 조합론에서 SU(5) GUT이 나타나는지 엄밀하게 검증.
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from math import comb
 from fractions import Fraction

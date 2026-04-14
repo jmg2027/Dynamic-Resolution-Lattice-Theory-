@@ -8,7 +8,7 @@ Joint research by Mingu Jeong and Claude (Anthropic)
 핵심 테스트: Higgs mass 3.3% gap → 0.4% 개선
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from experiment import Experiment
 

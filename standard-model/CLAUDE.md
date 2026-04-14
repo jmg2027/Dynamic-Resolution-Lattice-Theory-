@@ -10,7 +10,7 @@
 - Higgs sector (v_H, m_H, λ)
 - n-p mass difference, beta decay
 
-## Key Results (this sub-project, EXP_071-075)
+## Key Results (this sub-project, SM_020-075)
 
 | Observable | DRLT | Observed | Error | EXP |
 |-----------|------|----------|-------|-----|
@@ -30,25 +30,25 @@
 
 ## Experiment Map
 ```
-EXP_071: Higgs quartic λ from face-level BC (10/10)
-EXP_072: Higgs embedding correction α/d (7/7)
-EXP_073: n-p mass diff EM excess (7/7)
-EXP_074: Neutrino ratio T₂₃ Basel correction (5/5)
-EXP_075: Confined Ξ for quarks (7/7)
+SM_020: Higgs quartic λ from face-level BC (10/10)
+SM_021: Higgs embedding correction α/d (7/7)
+SM_022: n-p mass diff EM excess (7/7)
+SM_023: Neutrino ratio T₂₃ Basel correction (5/5)
+SM_024: Confined Ξ for quarks (7/7)
 ```
 
 ## Related Legacy Experiments (root experiments/)
 ```
-EXP_004: Fine structure constant
-EXP_009: Precision constants (1/α_em, sin²θ_W)
-EXP_013: 200 bytes = all physics
-EXP_030: Confined coupling
-EXP_031-034: Lepton precision (μ/e, sub-ppm)
-EXP_035: Convergence series
-EXP_036-040: Neutrino ratio, PMNS, τ/μ
-EXP_041: CKM precision
-EXP_042-044: Absolute masses, n-p diff, remaining
-EXP_067: Zeta spectral dimension, β matching
+SM_001: Fine structure constant
+SM_002: Precision constants (1/α_em, sin²θ_W)
+SM_003: 200 bytes = all physics
+SM_004: Confined coupling
+SM_005-008: Lepton precision (μ/e, sub-ppm)
+SM_009: Convergence series
+SM_010-014: Neutrino ratio, PMNS, τ/μ
+SM_015: CKM precision
+SM_016-018: Absolute masses, n-p diff, remaining
+SM_019: Zeta spectral dimension, β matching
 ```
 
 ## Related Papers (root papers/)

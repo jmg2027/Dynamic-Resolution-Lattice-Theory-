@@ -24,7 +24,7 @@ Joint research by Mingu Jeong and Claude (Anthropic)
 """
 
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "EXP_042_regge_atoms"))
 
 import numpy as np

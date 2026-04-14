@@ -17,9 +17,9 @@
 - `lib/rh_core.py` 코어 라이브러리
 
 ### Phase 2: β=2 and Phase Uniformity
-- **EXP_071** (11/11): β=2 확인 via ratio statistic ⟨r⟩=0.594
-- **EXP_071b** (6/7): Phase uniform (KS p=0.258), 69% cancellation
-- **EXP_071c** (6/6): CLT boundary σ=1/2 verified
+- **RH_001** (11/11): β=2 확인 via ratio statistic ⟨r⟩=0.594
+- **RH_002** (6/7): Phase uniform (KS p=0.258), 69% cancellation
+- **RH_003** (6/6): CLT boundary σ=1/2 verified
 
 ### Phase 3: Theoretical Breakthroughs (Jeong)
 - **Two Boundaries Theorem**: σ_stat = σ_geom ⟺ K=ℂ (unique coincidence)
@@ -29,10 +29,10 @@
 - **Open Problem 1 resolved**: 함수 방정식의 1/2도 dim_ℝ(ℂ)=2에서 옴
 
 ### Phase 4: Ihara Zeta and Ramanujan
-- **EXP_071d** (5/5): σ_geom = 1/n_K for ℝ,ℂ,ℍ,𝕆 모두 확인
-- **EXP_071e** (5/5): Graph-PNT + Ihara zeros (thresholded, N≤30: 100%)
-- **EXP_071f** (4/5): Born weight (no threshold): N≤200: 100% Ramanujan
-- **EXP_071g** (5/5): d_c≈3, d=5 safe, ratio~1.94·d^{-0.67}
+- **RH_004** (5/5): σ_geom = 1/n_K for ℝ,ℂ,ℍ,𝕆 모두 확인
+- **RH_005** (5/5): Graph-PNT + Ihara zeros (thresholded, N≤30: 100%)
+- **RH_006** (4/5): Born weight (no threshold): N≤200: 100% Ramanujan
+- **RH_007** (5/5): d_c≈3, d=5 safe, ratio~1.94·d^{-0.67}
 
 ### Phase 5: Paper
 - `papers/paper5_critical_line.tex`: 7 sections, all EXP results
@@ -106,9 +106,9 @@ rh-connection/
   HANDOFF.md                             ← 이 파일
   rh_exploration.md                      ← 탐구 로그
   lib/rh_core.py                         ← 코어 라이브러리
-  experiments/EXP_071{,b,c,d,e,f,g}.py   ← 7개 실험 (42/44)
+  experiments/RH_001-007*.py   ← 7개 실험 (42/44)
   theory/*.{md,tex}                      ← 10개 이론 문서
-  results/EXP_071*.txt                   ← 7개 결과 파일
+  results/RH_001-007*.txt                   ← 7개 결과 파일
 ```
 
 ---

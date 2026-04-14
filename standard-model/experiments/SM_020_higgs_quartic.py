@@ -11,7 +11,7 @@ Joint research by Mingu Jeong and Claude (Anthropic)
 - Vertex dressing (1+2x), NOT propagator P(x)=(1+2x)/(1+x)
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from math import comb
 from experiment import Experiment

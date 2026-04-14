@@ -7,7 +7,7 @@ Basel propagator corrects B-pair overlap via spatial sector.
 Result: m₃/m₂ = 5.71 (+0.04%), from 35% gap.
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from experiment import Experiment
 

@@ -7,7 +7,7 @@ Block universe 정신: 섭동 없이, Regge action의 extremum에서
 Joint research by Mingu Jeong and Claude (Anthropic)
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 
 import numpy as np
 from scipy.optimize import minimize

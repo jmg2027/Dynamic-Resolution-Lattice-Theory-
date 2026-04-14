@@ -10,9 +10,9 @@
 
 ## Related Legacy Experiments (root experiments/)
 ```
-EXP_005: Galaxy rotation
-EXP_012: Baryon asymmetry η_B (0.04% ✓)
-EXP_017: Webb dipole consistency
+COS_001: Galaxy rotation
+COS_002: Baryon asymmetry η_B (0.04% ✓)
+COS_003: Webb dipole consistency
 ```
 
 ## Book Chapters

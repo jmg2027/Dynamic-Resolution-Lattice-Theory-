@@ -13,16 +13,16 @@
 
 ## Related Legacy Experiments (root experiments/)
 ```
-EXP_018: Variational ∂(Δ⁵)
-EXP_022: Hinge-opposite duality → 3+1 spacetime (12/12 ✓)
-EXP_026: Definitive variational (8/8 ✓)
-EXP_027: Symmetric variational (8/8 ✓)
-EXP_028: Rank cascade
-EXP_029: Theorem 3 proof + det(SST) (7/7 ✓)
-EXP_063: Temporal fraction / occupation fraction (7/7 ✓)
-EXP_064: Combinatorial census (complete)
-EXP_065: Unidentified f_occ values
-EXP_066: SU(5) emergence from f_occ
+FND_001: Variational ∂(Δ⁵)
+FND_002: Hinge-opposite duality → 3+1 spacetime (12/12 ✓)
+FND_003: Definitive variational (8/8 ✓)
+FND_004: Symmetric variational (8/8 ✓)
+FND_005: Rank cascade
+FND_006: Theorem 3 proof + det(SST) (7/7 ✓)
+FND_007: Temporal fraction / occupation fraction (7/7 ✓)
+FND_008: Combinatorial census (complete)
+FND_009: Unidentified f_occ values
+FND_010: SU(5) emergence from f_occ
 ```
 
 ## Related Papers (root papers/)

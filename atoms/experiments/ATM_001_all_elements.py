@@ -10,7 +10,7 @@ det 값에 어떻게 나타나는가?
 """
 
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 
 import numpy as np
 from itertools import combinations

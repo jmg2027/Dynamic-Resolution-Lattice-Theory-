@@ -16,5 +16,5 @@
 3. **Inflation**: Regge action → inflationary potential?
 4. **CMB**: 심플렉스 구조의 CMB 각상관 함수 예측?
 
-## Experiments: 3 (EXP_005, 012, 017)
+## Experiments: 3 (COS_001-003)
 ## Book: Part V (ch13-14), ch17

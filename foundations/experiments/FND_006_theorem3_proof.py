@@ -9,7 +9,7 @@ Phase 4: det(SST) = 1-w² 해결 (SST ≠ STT, 혼동 정리)
 Phase 5: Confined coupling ε 분석
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from itertools import combinations
 from experiment import Experiment

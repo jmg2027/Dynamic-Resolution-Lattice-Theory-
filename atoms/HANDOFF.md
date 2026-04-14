@@ -6,10 +6,10 @@
 - Period 4+ (Z=19-118): **58% within 30%**, d/f-block 정밀화 필요
 
 ## 이번 세션에서 한 일
-1. **EXP_076**: AAB binding ratio=2.0(exact), σ=7/8 확인
-2. **EXP_077**: σ 분해 — σ_same_s, σ_2s→2p, σ_same_p 발견
-3. **EXP_078**: Period 2 complete (8/8 <3%), σ_same=1/n_T+c²α 발견
-4. **EXP_079**: Z=1-118 전체 스캔, d/f-block unified screening
+1. **ATM_014**: AAB binding ratio=2.0(exact), σ=7/8 확인
+2. **ATM_015**: σ 분해 — σ_same_s, σ_2s→2p, σ_same_p 발견
+3. **ATM_016**: Period 2 complete (8/8 <3%), σ_same=1/n_T+c²α 발견
+4. **ATM_017**: Z=1-118 전체 스캔, d/f-block unified screening
 
 ## 핵심 발견
 - **σ_same_s = 1/n_T + c²α_GUT** — He correction과 동일 물리 (BBB channel)
@@ -66,14 +66,14 @@ atoms/
   CLAUDE.md          ← 프로젝트 개요, screening constants
   HANDOFF.md         ← 이 파일
   experiments/
-    EXP_076_he_variational.py      ← 4/4 ✓
-    EXP_077_screening_analysis.py  ← 3/3 ✓
-    EXP_078_period2_complete.py    ← 3/3 ✓
-    EXP_079_full_periodic.py       ← Z=1-118
+    ATM_014_he_variational.py      ← 4/4 ✓
+    ATM_015_screening_analysis.py  ← 3/3 ✓
+    ATM_016_period2_complete.py    ← 3/3 ✓
+    ATM_017_full_periodic.py       ← Z=1-118
   results/            ← IE_scan CSV, summary
   scripts/
     periodic_scan.py  ← 기존 scanner (참고용)
   figures/
 ```
 
-## 다음 실험: EXP_080
+## 다음 실험: ATM_018

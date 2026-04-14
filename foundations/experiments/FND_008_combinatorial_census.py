@@ -7,7 +7,7 @@ Joint research by Mingu Jeong and Claude (Anthropic)
 표준모형 참조 없이, 기하학만으로 무엇이 나오는지 확인.
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from math import comb
 from experiment import Experiment

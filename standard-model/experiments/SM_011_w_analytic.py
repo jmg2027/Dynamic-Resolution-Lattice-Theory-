@@ -14,7 +14,7 @@ Joint research by Mingu Jeong and Claude (Anthropic)
   4. 닫힌 형태 후보 비교 → w = n_S/(dπ) = 3/(5π) 발견
 """
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "lib"))
 import numpy as np
 from itertools import combinations
 from experiment import Experiment

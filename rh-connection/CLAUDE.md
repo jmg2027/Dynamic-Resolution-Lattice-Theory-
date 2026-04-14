@@ -54,13 +54,13 @@ rh-connection/
 │   ├── __init__.py
 │   └── rh_core.py         ← GUE 분석, spectral gap, ratio statistic
 ├── experiments/
-│   ├── EXP_071_rh_chain.py          ← 11/11 ✓ (β=2, δ(N), chain)
-│   ├── EXP_071b_phase_structure.py  ← 6/7  ✓ (phase uniform, interference)
-│   ├── EXP_071c_clt_boundary.py     ← 6/6  ✓ (CLT σ=1/2)
-│   ├── EXP_071d_two_boundaries.py   ← 5/5  ✓ (σ_stat=σ_geom for ℂ only)
-│   ├── EXP_071e_ihara_zeta.py       ← 5/5  ✓ (graph-PNT, Ihara zeros)
-│   ├── EXP_071f_born_weight_ramanujan.py ← 4/5 ✓ (Born > thresholded)
-│   └── EXP_071g_d_dependence.py     ← 5/5  ✓ (d_c≈3, N_c vs d)
+│   ├── RH_001_rh_chain.py          ← 11/11 ✓ (β=2, δ(N), chain)
+│   ├── RH_002_phase_structure.py  ← 6/7  ✓ (phase uniform, interference)
+│   ├── RH_003_clt_boundary.py     ← 6/6  ✓ (CLT σ=1/2)
+│   ├── RH_004_two_boundaries.py   ← 5/5  ✓ (σ_stat=σ_geom for ℂ only)
+│   ├── RH_005_ihara_zeta.py       ← 5/5  ✓ (graph-PNT, Ihara zeros)
+│   ├── RH_006_born_weight_ramanujan.py ← 4/5 ✓ (Born > thresholded)
+│   └── RH_007_d_dependence.py     ← 5/5  ✓ (d_c≈3, N_c vs d)
 ├── theory/
 │   ├── Doubly_Irreducible.md         ← KEYSTONE: 왜 2인가
 │   ├── two_boundries_theorem.md      ← σ_stat=σ_geom ⟺ K=ℂ
@@ -97,20 +97,20 @@ rh-connection/
 
 | Quantity | Value | Source |
 |----------|-------|--------|
-| β from ℂ⁵ | ⟨r⟩ = 0.594 ± 0.002 (GUE: 0.603) | EXP_071 |
-| β from ℝ⁵ | ⟨r⟩ = 0.526 ± 0.002 (GOE: 0.536) | EXP_071 |
-| δ(N) exponent | 0.505 (R²=0.9992) | EXP_071 |
-| Phase uniformity | KS p=0.258, R=0.008 | EXP_071b |
-| Phase entropy ℂ/ℝ | 98.3% / 19.3% | EXP_071b |
-| CLT ratio | 0.896 (theory √(π/4)=0.886) | EXP_071c |
-| σ_geom(ℂ) | 0.4999 (theory 0.5000) | EXP_071d |
-| Ramanujan d_c | ≈ 3 (d=5 safe) | EXP_071g |
-| N_c(d=5) | ≈ 500 | EXP_071g |
-| ratio fit | 1.94·d^{-0.67}, R²=0.996 | EXP_071g |
+| β from ℂ⁵ | ⟨r⟩ = 0.594 ± 0.002 (GUE: 0.603) | RH_001 |
+| β from ℝ⁵ | ⟨r⟩ = 0.526 ± 0.002 (GOE: 0.536) | RH_001 |
+| δ(N) exponent | 0.505 (R²=0.9992) | RH_001 |
+| Phase uniformity | KS p=0.258, R=0.008 | RH_002 |
+| Phase entropy ℂ/ℝ | 98.3% / 19.3% | RH_002 |
+| CLT ratio | 0.896 (theory √(π/4)=0.886) | RH_003 |
+| σ_geom(ℂ) | 0.4999 (theory 0.5000) | RH_004 |
+| Ramanujan d_c | ≈ 3 (d=5 safe) | RH_007 |
+| N_c(d=5) | ≈ 500 | RH_007 |
+| ratio fit | 1.94·d^{-0.67}, R²=0.996 | RH_007 |
 
 ## Resolved Problems
 1. ~~왜 1/2인가~~ → CLT (보편) + dim_ℝ(ℂ)=2 (Doubly Irreducible)
-2. ~~왜 GUE인가~~ → ℂ→β=2 (EXP_071)
+2. ~~왜 GUE인가~~ → ℂ→β=2 (RH_001)
 3. ~~함수 방정식의 1/2~~ → n²의 "2" = dim_ℝ(ℂ) (Doubly_Irreducible.md)
 4. ~~σ_stat=σ_geom 일치~~ → 유일하게 K=ℂ (Two Boundaries Theorem)
 5. ~~"1/2 = ℂ에서 온다" 과잉주장~~ → 수정됨: 1/2는 CLT(보편), GUE는 ℂ(고유)
@@ -125,12 +125,12 @@ rh-connection/
 ## Running Experiments
 ```bash
 cd rh-connection/experiments
-python EXP_071_rh_chain.py
-python EXP_071d_two_boundaries.py
-python EXP_071f_born_weight_ramanujan.py
-python EXP_071g_d_dependence.py
+python RH_001_rh_chain.py
+python RH_004_two_boundaries.py
+python RH_006_born_weight_ramanujan.py
+python RH_007_d_dependence.py
 ```
-Next available: EXP_071h
+Next: RH_008
 
 ## Paper
 `../papers/paper5_critical_line.tex` — 전체 결과 포함
