@@ -35,48 +35,36 @@
 
 ### Sub-Projects (각 분야별 독립 작업 공간)
 ```
-foundations/        — 심플렉스 기하, 변분 정리, f_occ (legacy EXP_018-029,063-066)
-  CLAUDE.md        — 핵심 정리 목록, legacy 실험 참조
+foundations/        — 심플렉스 기하, 변분 정리, f_occ
+standard-model/    — SM couplings, masses, mixing angles
+atoms/             — 원자 물리, 주기율표, 분자
+cosmology/         — 바리온 비대칭, 암흑 에너지, Webb dipole
+rh-connection/     — Riemann Hypothesis 연결
 
-standard-model/    — SM couplings, masses, mixing (EXP_071-075 + legacy 004-067)
-  CLAUDE.md        — SM context, correction recipes
-  experiments/     — SM experiments
-
-rh-connection/     — Riemann Hypothesis (EXP_071-071g)
-  CLAUDE.md        — RH context (Doubly Irreducible, Two Boundaries)
-  HANDOFF.md       — open problems (Born-Ramanujan proof)
-  experiments/     — 7 experiments (42/44)
-  lib/rh_core.py   — RH-specific library
-  theory/          — 10 theory documents
-
-atoms/             — Atomic physics, periodic table (EXP_076-079 + legacy 019-070)
-  CLAUDE.md        — screening constants, 원칙
-  HANDOFF.md       — open problems (σ_core, d/f-block)
-  experiments/     — atoms experiments
-
-cosmology/         — 바리온 비대칭, Ω_Λ, Webb dipole (legacy EXP_005,012,017)
-  CLAUDE.md        — cosmology results
+nuclear/           — [미시작] 핵 결합 에너지, magic numbers
+predictions/       — [미시작] 아직 측정 안 된 예측 모음
+quantum-gravity/   — [미시작] 시공간 창발, holographic, path integral
 ```
+각 sub-project는 자체 CLAUDE.md (+ HANDOFF.md)를 포함.
 
 ### Shared Infrastructure
 ```
 book/              — THE BOOK (20 chapters + 2 appendices)
 lib/               — Core library (drlt.py, experiment.py)
-experiments/       — Legacy experiments (EXP_001 ~ EXP_070)
-results/           — Legacy + sub-project results (mirrored)
+papers/            — 저널 투고용 standalone .tex (paper1-5)
+results/           — Meta files only (SUMMARY.md, REPORT.md)
 ```
 
 ### Organization Rules
 1. **새 연구 방향 = 새 sub-project directory.** 자체 CLAUDE.md 포함.
-2. **실험은 sub-project 안에서 관리.** root experiments/는 legacy.
+2. **실험은 sub-project 안에서 관리.** root에 실험 파일 두지 않음.
 3. **이론은 항상 book/에 통합.** sub-project는 작업 공간일 뿐.
 4. **sub-project CLAUDE.md에는 해당 분야 context만.** Agent가 필요한 것만 읽으면 됨.
 5. **EXP 번호는 전역 순차.** sub-project 간 충돌 방지.
 6. **각 sub-project는 자체 HANDOFF.md 관리.** Root HANDOFF는 요약만.
 7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
-8. **papers/는 root에 유지.** sub-project CLAUDE.md에서 참조만.
-9. **results/는 sub-project 안에만.** root results/는 legacy(EXP_001-070).
-10. **legacy experiments는 이동하지 않음.** sub-project CLAUDE.md에서 목록으로 참조.
+8. **papers/는 root에 유지.** 저널 투고용. sub-project에서 참조만.
+9. **results/는 sub-project 안에만.** root results/는 meta(SUMMARY, REPORT)만.
 
 ### Paper Classification
 | Paper | Sub-Project | Topic |
