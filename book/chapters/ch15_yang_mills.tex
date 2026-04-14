@@ -257,6 +257,42 @@ That five independent arguments yield the same conclusion---from combinatorics, 
 Confinement need not be \emph{proved}.  It need not even be \emph{stated}.  A free quark is not a solution of $\delta S/\delta\psi = 0$.  It was never a candidate.
 \end{remark}
 
+%---------------------------------------------------------------------
+\subsubsection{The Navier--Stokes parallel}
+\label{sec:navier_stokes}
+%---------------------------------------------------------------------
+
+The Yang--Mills mass gap and the Navier--Stokes blow-up problem share a common structure.
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+& Yang--Mills & Navier--Stokes \\
+\hline
+Question & $\Delta > 0$ on $\RR^4$? & No blow-up on $\RR^3$? \\
+Status & 50 years open & 50 years open \\
+On the lattice & $\det > 0 \Rightarrow \Delta > 0$ & $\det \in (0,1],\;\tr = N$ $\Rightarrow$ bounded \\
+Continuum limit & $\det \to 0$, gap vanishes & bounds lost, blow-up ``possible'' \\
+Resolution & \multicolumn{2}{c}{The continuum is the approximation, not the lattice.} \\
+\hline
+\end{tabular}
+\end{center}
+
+In DRLT, a ``fluid'' is the macroscopic gradient flow of $\det(G_h)$ across the simplex network.  The discrete structure enforces:
+\begin{enumerate}
+\item $\det(G_h) \in (0, 1]$ (Cauchy--Schwarz),
+\item $\tr(G) = N$ (normalisation conservation),
+\item $\Phi_h \in (-\pi, \pi]$ (bounded holonomy),
+\item ``velocity'' $= \nabla W \le c = 2$ (lattice speed).
+\end{enumerate}
+Finite sums of bounded quantities cannot diverge.  Blow-up is impossible on the discrete structure and only ``becomes possible'' when the continuum limit discards the bounds.
+
+The minimum viscosity $\eta/s = 1/(4\pi)$ (Appendix~\ref{app:qcd}) is the lattice's intrinsic flow resistance---the geometric constant that governs all discrete gradient flows.
+
+\begin{remark}[Two millennium problems, one answer]
+Both the Yang--Mills mass gap and the Navier--Stokes regularity problem ask: ``Prove property $X$ on $\RR^n$.''  Both are open because $\RR^n$ lacks the bounds that the discrete structure provides for free.  The answer to both is not a proof on $\RR^n$ but the recognition that $\RR^n$ is an approximation that does not preserve the relevant bounds.
+\end{remark}
+
 %=====================================================================
 \subsection{The Mass Gap}
 \label{sec:massgap}
