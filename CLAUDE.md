@@ -132,7 +132,7 @@ Key completed:
 ## Open Problems
 1. ~~**Higgs mass:**~~ RESOLVED — m_H = 125.28 GeV (+0.02%, +0.15σ) via embedding α/d
 2. ~~**Δm_np:**~~ RESOLVED — 1.275 MeV (-1.5%) via EM excess fraction (EXP_073)
-3. **1/α₂ (weak):** 18.2 vs 29.6; RGE running not yet included
+3. ~~**1/α₂ (weak):**~~ NOT A PROBLEM — ch08 gives 12×2×S(2)=30→29.6 (0%). Old formula had spurious S∞ division.
 4. **Neutrino ratio quantitative:** 3.73 vs 5.71 (35% gap); higher-order T-matrix needed
 5. **1st gen quark masses:** Ξ correction degrades m_u, m_d; need confined-specific Ξ
 
