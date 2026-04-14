@@ -243,8 +243,18 @@ Similarly, a pair of A-vertices (e.g.\ a diquark $ud$) has $\binom{2}{3} = 0$ hi
 The minimum configuration with $S > 0$ is 3 A-vertices forming one AAA hinge: $\det(G_h^{\mathrm{AAA}}) > 0$ (Lemma~\ref{lem:det}).  This is a baryon.
 \end{proof}
 
-\begin{remark}[Confinement is not a force]
-In the standard picture, quarks are ``confined'' by a linearly rising potential.  In DRLT, confinement is not a dynamical effect but a \emph{structural} one: a free quark does not have $S > 0$, and therefore does not have spacetime.  It is not that the quark ``cannot escape'' --- it is that the quark, by itself, has no arena in which to exist.
+\begin{remark}[Confinement is not a force --- five proofs of the same fact]
+In the standard picture, quarks are ``confined'' by a linearly rising potential.  In DRLT, confinement is not a dynamical effect but a \emph{structural} one, admitting at least five independent formulations:
+\begin{enumerate}
+\item \textbf{Combinatorial:} $\binom{3}{3} = 1$ --- only one AAA configuration exists per patch, exhausted in a single hop.
+\item \textbf{Rank:} The $\CC^3$ spatial Gram matrix has rank $n_S = 3$, saturated by one AAA hinge.  No second independent configuration exists.
+\item \textbf{Variational:} A free quark ($< 3$ A-vertices) forms no hinge, so $S = 0$ and $\hbar = 0$.  No non-trivial solution of $\delta S/\delta\psi = 0$ exists.
+\item \textbf{Underdetermination:} At $N_\text{eff} = 1$, any AAA configuration is a solution.  There is no ``unconfined'' solution to compare against---the free state is \emph{undefined}, not forbidden.
+\item \textbf{Topological:} $\text{BBB} = \binom{n_T}{3} = \binom{2}{3} = 0$.  A purely temporal closure is impossible; spatial vertices are always required.
+\end{enumerate}
+That five independent arguments yield the same conclusion---from combinatorics, linear algebra, variational calculus, solution theory, and topology---is the strongest evidence that confinement is not an assumption but a theorem.
+
+Confinement need not be \emph{proved}.  It need not even be \emph{stated}.  A free quark is not a solution of $\delta S/\delta\psi = 0$.  It was never a candidate.
 \end{remark}
 
 %=====================================================================

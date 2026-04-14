@@ -344,5 +344,13 @@ The ratio of the full Basel sum to the alternating sum is:
 \begin{equation}
 \boxed{\frac{\zeta(2)}{\eta(2)} = \frac{\pi^2/6}{\pi^2/12} = 2 = n_T.}
 \end{equation}
-The temporal dimension count $n_T = 2$ emerges as the ratio of non-alternating to alternating propagator sums.  This is not a numerical coincidence: the identity $\zeta(s)/\eta(s) = 2^s/(2^s - 2)$ gives $\zeta(2)/\eta(2) = 4/2 = 2$ for $s = 2$ (= $n_A - 1 = $ spatial propagator exponent), and the Dirichlet eta arises \emph{because} the vacuum holonomy is $\pi$.
+The temporal dimension count $n_T = 2$ emerges as the ratio of non-alternating to alternating propagator sums.  This is not a numerical coincidence.  The physical origin is:
+
+\begin{enumerate}
+\item The vacuum holonomy $\Phi_h = \pi = \delta_{\mathrm{SSS}}$ (Theorem~\ref{thm:vacuum}) causes each hop to pick up a phase $e^{i\pi} = -1$.
+\item ``Phase ignored'' (modulus) propagation sums to $\zeta(2)$; ``phase included'' propagation sums to $\eta(2)$.
+\item The $\CC^2$ temporal sector has two directions $B_1, B_2$ separated by phase $\pi$.  ``Ignoring phase'' merges both directions; ``including phase'' selects one.  The ratio = number of directions $= n_T$.
+\end{enumerate}
+
+The general identity $\zeta(s)/\eta(s) = 2^s/(2^s - 2)$ gives $\zeta(2)/\eta(2) = 4/2 = 2$ for $s = 2 = n_A - 1$.
 \end{remark}
