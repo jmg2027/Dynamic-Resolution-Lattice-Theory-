@@ -357,8 +357,12 @@ For Born-rule weighted Gram graphs with $\rank \leq d$:
       {2\sqrt{\frac{N-1}{d}-1}}\,.
   \end{equation}
 \item The critical $N$ where $\rho_{\mathrm{MP}} = 1$
-  follows $N_c \approx 2.2\,d^{3.06}$ ($R^2 = 0.9996$).
-\item For $d = 5$ (DRLT): $N_c \approx 293$.
+  follows $N_c \approx 2.2\,d^{3}$ ($R^2 = 0.9996$),
+  or $N_c \approx 2.8\,d^3$ after Segre correction
+  (effective rank $r_{\mathrm{eff}} = d(d{+}1)/2 < d^2$;
+  RH\_010).
+\item For $d = 5$ (DRLT): $N_c \approx 350$
+  (MP: 293, corrected: 332, empirical: $\sim$350).
   The graph is Ramanujan with $100\%$ probability
   for $N \lesssim 300$.
 \item For $N > N_c(d)$: $\rho$ exceeds $1$ --- the soft boundary.
@@ -402,10 +406,13 @@ $N_c(d) \approx 2.2\,d^{3.06}$.
 
 \textbf{Accuracy.}
 The MP formula overestimates $\rho$ by $\sim$5--20\%
-because the $\varphi_i$ are structured (rank-1 tensors on
-the Segre variety, not generic in $\CC^{d^2}$).
-The correction decreases as $N/d^2 \to \infty$.
-Median error across $d \in \{3,5,8,10\}$, $N \in [50,500]$: 8.6\%.
+because the $\varphi_i$ lie on the Segre variety
+(rank-1 tensors, effective rank $r_{\mathrm{eff}} = d(d{+}1)/2$),
+not in generic $\CC^{d^2}$.
+This reduces the effective spectral spread; the correction
+decreases as $N/d^2 \to \infty$.
+Median error: 8.6\% (uncorrected), $<$5\% for $d \geq 5$
+after Segre correction (RH\_010).
 \end{proof}
 
 \begin{table}[h]

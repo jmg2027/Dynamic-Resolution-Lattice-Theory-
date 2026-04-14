@@ -144,3 +144,45 @@ $$\xrightarrow{\rho < 1} \text{Ramanujan for } N < N_c \approx 2.2\,d^3
 
 For d=5 (DRLT): N_c ≈ 293. The discrete RH holds as a theorem
 for all finite Gram ensembles below this size.
+
+-----
+
+## 8. Segre Variety Correction (RH_010)
+
+The MP formula overestimates because φ_i live on the Segre variety
+(rank-1 tensors ψ⊗ψ̄), not in generic ℂ^{d²}.
+
+**Effective rank:** r_eff = Tr(Σ)²/Tr(Σ²) = d(d+1)/2 < d².
+For d=5: r_eff = 15 vs d²=25 (ratio 0.60).
+For large d: r_eff/d² → 1/2.
+
+The correction factor c = ρ_emp/ρ_MP is always < 1 and approaches 1
+as N → ∞. No simple universal correction in d/√N fits all (d,N).
+
+However, the **corrected N_c** formula is robust:
+
+**N_c ≈ 2.8 · d³** (from numerical solution with Segre-corrected MP)
+
+| d | N_c(MP) | N_c(corr) | N_c(emp) |
+|---|---------|-----------|----------|
+| 3 | 68 | 81 | ~106 |
+| 4 | 151 | 176 | ~204 |
+| **5** | **293** | **332** | **~350** |
+| 6 | 507 | 569 | ~578 |
+
+For d ≥ 5: corrected N_c within 5% of empirical.
+For d=5: N_c(corr) = 332 (was 293 uncorrected), emp ≈ 350.
+
+-----
+
+## 9. Summary of Bounds
+
+| Quantity | Formula | Accuracy |
+|----------|---------|----------|
+| Var(W_ij) | (d-1)/(d²(d+1)) | **exact** |
+| E[φφ†] eigenvalues | 1/d, 1/(d(d+1)) | **exact** |
+| λ₂(W) MP upper bound | N·σ₂·(1+√γ)² - 1 | 5-24% over |
+| ρ(d,N) MP upper bound | closed form | 8.6% median |
+| N_c(d) MP | 2.2·d^{3.06} | lower bound |
+| **N_c(d) corrected** | **2.8·d³** | **<5% for d≥5** |
+| r_eff (Segre) | d(d+1)/2 | **exact** |

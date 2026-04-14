@@ -94,6 +94,7 @@ rh-connection/
 | 071g | d-dependence | 5/5 | ratio~1.94·d^{-0.67}, d_c≈3 |
 | RH_008 | Born-Ramanujan proof | 3/5 | Var exact, ||Z||~N^{0.82}, A(N) resolved |
 | RH_009 | Marchenko-Pastur | 5/5 | KR decomp, MP formula, N_c≈2.2d³ |
+| RH_010 | Segre correction | 3/5 | r_eff=d(d+1)/2, N_c(corr)≈2.8d³ |
 
 ## Key Precision Results
 
@@ -135,7 +136,7 @@ python RH_004_two_boundaries.py
 python RH_006_born_weight_ramanujan.py
 python RH_007_d_dependence.py
 ```
-Next: RH_010
+Next: RH_011
 
 ## Paper
 `../papers/paper5_critical_line.tex` — 전체 결과 포함
