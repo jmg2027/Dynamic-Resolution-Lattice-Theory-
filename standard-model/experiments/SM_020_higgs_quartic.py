@@ -30,7 +30,7 @@ def P(x):
 
 
 class HiggsQuartic(Experiment):
-    ID = "071"
+    ID = "SM_020"
     TITLE = "Higgs Quartic Coupling"
 
     def run(self):

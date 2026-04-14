@@ -22,7 +22,7 @@ m_err = 0.17
 
 
 class HiggsEmbedding(Experiment):
-    ID = "072"
+    ID = "SM_021"
     TITLE = "Higgs Embedding Correction"
 
     def run(self):

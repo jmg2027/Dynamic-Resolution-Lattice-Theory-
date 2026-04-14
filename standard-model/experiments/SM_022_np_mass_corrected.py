@@ -28,7 +28,7 @@ dm_drlt = md_drlt - mu_drlt  # 2.505 MeV
 
 
 class NeutronProton(Experiment):
-    ID = "073"
+    ID = "SM_022"
     TITLE = "n-p Mass Diff Corrected"
 
     def run(self):

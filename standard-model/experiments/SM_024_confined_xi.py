@@ -19,7 +19,7 @@ eps = a**(N_T/N_S) * (1 + a)  # confinement coupling
 
 
 class ConfinedXi(Experiment):
-    ID = "075"
+    ID = "SM_024"
     TITLE = "Confined Xi Correction"
 
     def run(self):

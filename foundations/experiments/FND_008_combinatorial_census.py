@@ -22,7 +22,7 @@ def P(x):
 
 
 class CombinatorialCensus(Experiment):
-    ID = "064"
+    ID = "FND_008"
     TITLE = "Combinatorial Census"
 
     def run(self):

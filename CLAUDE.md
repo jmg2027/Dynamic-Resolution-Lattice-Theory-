@@ -33,50 +33,83 @@
 - `papers/` = standalone copies for journal submission.
 - `research-notes/` = historical drafts (may be superseded).
 
-### Sub-Project Hierarchy (필수 구조)
+### Sub-Projects (각 분야별 독립 작업 공간)
 
-모든 sub-project는 아래 구조를 따른다:
+| Directory | Prefix | Status | Experiments | 영역 |
+|-----------|--------|--------|-------------|------|
+| `foundations/` | `FND_` | STABLE | 10 (FND_001-010) | 심플렉스 기하, 변분, f_occ |
+| `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
+| `atoms/` | `ATM_` | **ACTIVE** | 17 (ATM_001-017) | 원자, 주기율표 |
+| `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
+| `rh-connection/` | `RH_` | PLATEAU | 7 (RH_001-007) | Riemann Hypothesis |
+| `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
+| `predictions/` | `PRD_` | NOT STARTED | — | 미측정 예측 (JUNO 등) |
+| `quantum-gravity/` | `QG_` | NOT STARTED | — | 시공간 창발, holographic |
+
+### Sub-Project 필수 구조
 ```
 {sub-project}/
   CLAUDE.md          — 분야 context, 상수, 실험 목록 (필수)
   HANDOFF.md         — 상태, open problems, 다음 단계 (필수)
-  experiments/       — EXP_NNN_*.py 실험 파일
-  results/           — 실험 출력 (.txt, .json, .csv)
-  theory/            — 이론 문서 (.tex, .md) (선택)
+  experiments/       — {PREFIX}_NNN_name.py (필수)
+  results/           — 실험 출력 (필수)
+  theory/            — 이론 문서 .tex/.md (선택)
   lib/               — 분야별 전용 라이브러리 (선택)
 ```
 
-**8개 Sub-Projects:**
-
-| Directory | Status | Experiments | 영역 |
-|-----------|--------|-------------|------|
-| `foundations/` | STABLE | 10 (EXP_018-066) | 심플렉스 기하, 변분 정리, f_occ |
-| `standard-model/` | CLOSED ✓ | 24 (EXP_004-075) | SM couplings, masses, mixing |
-| `atoms/` | **ACTIVE** | 17 (EXP_019-079) | 원자 물리, 주기율표 |
-| `cosmology/` | STABLE | 3 (EXP_005-017) | η_B, Ω_Λ, Webb dipole |
-| `rh-connection/` | PLATEAU | 7 (EXP_071-071g) | Riemann Hypothesis |
-| `nuclear/` | NOT STARTED | — | 핵 결합, magic numbers |
-| `predictions/` | NOT STARTED | — | 미측정 예측 (JUNO 등) |
-| `quantum-gravity/` | NOT STARTED | — | 시공간 창발, holographic |
-
-**Shared (root level):**
+### Shared Infrastructure
 ```
-book/              — THE BOOK (단일 진실 소스, 20장 + 2부록)
+book/              — THE BOOK (20 chapters + 2 appendices)
 lib/               — Core library (drlt.py, experiment.py)
 papers/            — 저널 투고용 standalone .tex (5편)
-.claude/skills/    — Agent skills (atoms, standard-model, rh-connection 등)
+.claude/skills/    — Agent skills
 ```
 
-### Organization Rules
+---
+
+## Naming Rules
+
+### 실험 파일
+```
+{PREFIX}_{NNN}_{description}.py
+```
+- **PREFIX**: sub-project별 고유 (FND, SM, ATM, COS, RH, NUC, PRD, QG)
+- **NNN**: sub-project 내 순차 번호 (001부터)
+- **description**: snake_case, 실험 내용 요약
+- 예: `ATM_014_he_variational.py`, `SM_020_higgs_quartic.py`
+
+### 실험 클래스 내부 ID
+```python
+class MyExperiment(Experiment):
+    ID = "ATM_014"        # PREFIX_NNN
+    TITLE = "He Variational Solution"
+```
+
+### 결과 파일
+```
+{PREFIX}_{NNN}_{Title}.txt
+```
+실험 실행 시 자동 생성. Title은 실험 TITLE에서 파생.
+
+### 새 sub-project 생성 시
+1. 2-3자 prefix 결정 (기존과 충돌 없이)
+2. `{name}/CLAUDE.md` + `{name}/HANDOFF.md` 생성
+3. `{name}/experiments/` + `{name}/results/` 디렉토리 생성
+4. root CLAUDE.md 테이블에 추가
+5. `.claude/skills/{name}/SKILL.md` 생성 (선택)
+
+---
+
+## Organization Rules
 1. **새 연구 방향 = 새 sub-project directory.** CLAUDE.md + HANDOFF.md 필수.
 2. **실험/결과는 sub-project 안에서만.** root에 실험 파일 두지 않음.
 3. **이론은 항상 book/에 통합.** sub-project는 작업 공간일 뿐.
 4. **sub-project CLAUDE.md에는 해당 분야 context만.** Agent가 필요한 것만 읽으면 됨.
-5. **EXP 번호는 전역 순차.** sub-project 간 충돌 방지.
+5. **실험 번호는 sub-project 내 순차.** prefix로 소속 구분.
 6. **각 sub-project는 자체 HANDOFF.md 관리.** Root HANDOFF는 요약만.
 7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
 8. **papers/는 root에 유지.** 저널 투고용. sub-project에서 참조만.
-9. **results/는 sub-project 안에만.** root results/는 meta(SUMMARY, REPORT)만.
+9. **results/는 sub-project 안에만.** root results/는 meta만.
 
 ### Paper Classification
 | Paper | Sub-Project | Topic |
@@ -120,24 +153,12 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 | ν m₃/m₂ | 5.712 | 5.71 | **+0.04%** |
 | η_B | 6.10×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.04% |
 
-## Experiment Catalog
-각 sub-project CLAUDE.md에 상세 목록 있음.
-| Sub-Project | EXP 범위 | 실험 수 |
-|-------------|----------|---------|
-| foundations/ | 018-066 | 10 |
-| standard-model/ | 004-075 | 24 |
-| atoms/ | 019-079 | 17 |
-| cosmology/ | 005-017 | 3 |
-| rh-connection/ | 071-071g | 7 |
-| **Total** | | **61** |
-**Next available: EXP_080**
-
-## Resolved Problems (All 5 original open problems closed)
-1. ~~Higgs mass~~ → +0.02% via face BC + embedding (EXP_071/072)
-2. ~~Δm_np~~ → -1.5% via EM excess fraction (EXP_073)
+## Resolved Problems (All 5 original SM open problems closed)
+1. ~~Higgs mass~~ → +0.02% via face BC + embedding (SM_020/021)
+2. ~~Δm_np~~ → -1.5% via EM excess fraction (SM_022)
 3. ~~1/α₂~~ → phantom problem (ch08 already solved)
-4. ~~Neutrino ratio~~ → +0.04% via T₂₃ Basel correction (EXP_074)
-5. ~~1st gen quarks~~ → Ξ_confined = α/(d²-1) only (EXP_075)
+4. ~~Neutrino ratio~~ → +0.04% via T₂₃ Basel correction (SM_023)
+5. ~~1st gen quarks~~ → Ξ_confined = α/(d²-1) only (SM_024)
 
 ## Workflow Rules
 
@@ -147,9 +168,10 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 3. Papers in `papers/` — update only when submitting.
 
 ### New Research Direction
-1. Create `{topic}/` directory with own CLAUDE.md.
-2. Put experiments, results, theory documents inside.
-3. Once results are solid, integrate into book.
+1. Create `{topic}/` directory with CLAUDE.md + HANDOFF.md.
+2. Choose unique 2-3 char prefix. Add to root CLAUDE.md table.
+3. Put experiments, results, theory documents inside.
+4. Once results are solid, integrate into book.
 
 ### Git
 - Commit after each meaningful change.

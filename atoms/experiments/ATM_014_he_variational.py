@@ -63,7 +63,7 @@ def F_by_type(G):
 
 
 class HeLi(Experiment):
-    ID = "076"
+    ID = "ATM_014"
     TITLE = "He-Li Ionization Geometry"
 
     def run(self):

@@ -34,7 +34,7 @@ from drlt import (D, N_S, N_T, ALPHA_GUT, ZETA_2,
 
 
 class ZetaSpectralDim(Experiment):
-    ID = "067"
+    ID = "SM_019"
     TITLE = "Zeta spectral dimension"
 
     def run(self):

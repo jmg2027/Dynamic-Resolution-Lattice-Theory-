@@ -101,7 +101,7 @@ SYM = ['','H','He','Li','Be','B','C','N','O','F','Ne',
 'Rg','Cn','Nh','Fl','Mc','Lv','Ts','Og']
 
 class FullPeriodic(Experiment):
-    ID = "079"
+    ID = "ATM_017"
     TITLE = "Full Periodic Table Z=1-118"
     def run(self):
         self.log(f"\n  Z=1-118 (0 free parameters)")

@@ -91,7 +91,7 @@ def compute_all_functionals(G):
 
 
 class Exp(Experiment):
-    ID, TITLE = "070", "Helium Ionization Functionals"
+    ID = "ATM_013", "Helium Ionization Functionals"
 
     def run(self):
         alpha = drlt.ALPHA_EM

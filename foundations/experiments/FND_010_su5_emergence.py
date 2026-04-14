@@ -19,7 +19,7 @@ D = 5; N_A = 3; N_B = 2
 
 
 class SU5Emergence(Experiment):
-    ID = "066"
+    ID = "FND_010"
     TITLE = "SU5 Emergence from f_occ"
 
     def run(self):

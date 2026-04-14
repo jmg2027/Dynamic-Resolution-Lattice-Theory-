@@ -6,7 +6,7 @@ import numpy as np
 from itertools import combinations
 
 class Exp(Experiment):
-    ID, TITLE = "045", "Analytic Solutions on ∂(Δ⁵)"
+    ID = "ATM_007", "Analytic Solutions on ∂(Δ⁵)"
     def run(self):
         d = drlt.D
         alpha = drlt.ALPHA_EM

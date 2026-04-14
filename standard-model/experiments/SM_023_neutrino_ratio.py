@@ -28,7 +28,7 @@ def seesaw_ratio(t23):
 
 
 class NeutrinoRatio(Experiment):
-    ID = "074"
+    ID = "SM_023"
     TITLE = "Neutrino Ratio Basel Correction"
 
     def run(self):

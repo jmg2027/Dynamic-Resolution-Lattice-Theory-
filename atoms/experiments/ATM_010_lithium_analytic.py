@@ -4,7 +4,7 @@ from experiment import Experiment
 import drlt, numpy as np
 
 class Exp(Experiment):
-    ID, TITLE = "048", "Lithium Analytic Solution"
+    ID = "ATM_010", "Lithium Analytic Solution"
     def run(self):
         Ry = 13.606
         a = drlt.ALPHA_GUT

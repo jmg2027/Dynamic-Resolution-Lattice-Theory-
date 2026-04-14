@@ -5,7 +5,7 @@ import drlt
 import numpy as np
 
 class Exp(Experiment):
-    ID, TITLE = "047", "Helium Analytic Solution"
+    ID = "ATM_009", "Helium Analytic Solution"
     def run(self):
         Ry = 13.606  # eV
         a = drlt.ALPHA_GUT

@@ -4,7 +4,7 @@ from experiment import Experiment
 import drlt, numpy as np
 
 class Exp(Experiment):
-    ID, TITLE = "049", "Exact Closed-Form IE"
+    ID = "ATM_011", "Exact Closed-Form IE"
     def run(self):
         Ry = 13.606
         a = drlt.ALPHA_EM

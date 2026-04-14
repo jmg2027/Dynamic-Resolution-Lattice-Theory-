@@ -6,7 +6,7 @@ import numpy as np
 from itertools import combinations
 
 class Exp(Experiment):
-    ID, TITLE = "046", "Hydrogen Variational Solution"
+    ID = "ATM_008", "Hydrogen Variational Solution"
     def run(self):
         D, N = 5, 6
         alpha = drlt.ALPHA_EM
