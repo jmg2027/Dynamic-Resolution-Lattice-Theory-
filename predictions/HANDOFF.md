@@ -1,6 +1,6 @@
 # Testable Predictions — Handoff
 
-## Status: ACTIVE (7 experiments, 36/36 checks)
+## Status: ACTIVE (8 experiments, 42/43 checks)
 
 ## Completed Experiments
 | ID | Title | Checks | Key Result |
@@ -12,6 +12,7 @@
 | PRD_005 | Prediction catalog | 4/4 | 12 retrodictions, 7 testable predictions |
 | PRD_006 | θ_QCD sin(π/12) | 7/7 | ★ SUPERSEDED by PRD_007 ★ |
 | PRD_007 | θ_QCD rigorous | 9/9 | Berry phase 구조 해명 |
+| PRD_008 | Variational θ | 3/4 | 단일 심플렉스로는 불충분 |
 
 ## Key Findings — θ_QCD
 PRD_007에서 밝혀진 구조:
@@ -28,8 +29,15 @@ PRD_007에서 밝혀진 구조:
    - bound (1.8×10⁻¹⁰)의 0.16배 → 안전
 4. **PRD_006의 sin(π/12) 계수는 폐기** (사후 끼워맞춤)
 
+## Critical Finding (PRD_008)
+**Regge action은 S₃ 대칭을 강제하지 않는다.**
+- 단일 심플렉스 최적화 → Φ_SSS = π/2 (mixing 최대화)
+- S₃ 대칭은 공리에서 부과 (Frobenius + chirality)
+- θ ~ α⁶은 **진공 평균** ⟨Φ_SSS⟩의 성질
+- 단일 심플렉스에서는 Φ = O(1) (PRD_007 일관)
+
 ## Open Problems
-1. **θ_QCD 정밀 계수** — 변분해의 명시적 구성으로 상쇄 차수 증명 필요
+1. **θ_QCD 정밀 계수** — 다중 심플렉스 진공 또는 S₃-제약 섭동론 필요
 2. Proton decay lifetime 계산
 3. Neutron star max mass (simplex EOS)
 4. 1/α_s tension (~5.5%)
