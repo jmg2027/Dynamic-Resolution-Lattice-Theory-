@@ -12,13 +12,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'lib'))
 from experiment import Experiment
 import drlt
 
-RESULTS = os.path.join(os.path.dirname(__file__), '..', 'results')
-
 
 class BaryonAsymmetry(Experiment):
     ID = "COS_002"
     TITLE = "Baryon Asymmetry & Cosmology"
-    RESULTS_DIR = RESULTS
 
     def run(self):
         eta = drlt.baryon_asymmetry()

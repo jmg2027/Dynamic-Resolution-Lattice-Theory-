@@ -12,13 +12,10 @@ from experiment import Experiment
 import drlt
 import numpy as np
 
-RESULTS = os.path.join(os.path.dirname(__file__), '..', 'results')
-
 
 class WebbDipole(Experiment):
     ID = "COS_003"
     TITLE = "Webb Dipole Consistency"
-    RESULTS_DIR = RESULTS
 
     def run(self):
         inv_a = drlt.inv_alpha_em_corrected()

@@ -11,13 +11,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'lib'))
 from experiment import Experiment
 import drlt
 
-RESULTS = os.path.join(os.path.dirname(__file__), '..', 'results')
-
 
 class GalaxyRotation(Experiment):
     ID = "COS_001"
     TITLE = "Galaxy Rotation"
-    RESULTS_DIR = RESULTS
 
     def run(self):
         OmL = drlt.dark_energy_fraction()
