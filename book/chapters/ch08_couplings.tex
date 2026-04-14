@@ -354,3 +354,58 @@ The temporal dimension count $n_T = 2$ emerges as the ratio of non-alternating t
 
 The general identity $\zeta(s)/\eta(s) = 2^s/(2^s - 2)$ gives $\zeta(2)/\eta(2) = 4/2 = 2$ for $s = 2 = n_A - 1$.
 \end{remark}
+
+\subsection{The $N_\text{eff} \leftrightarrow s$ duality}
+\label{sec:Neff_s_duality}
+
+The parameter $s = n_A - 1 = 2$ in the propagator $D(n) = 1/n^s$ equals $\mathrm{rank}(G^{AA}) - 1$ and is therefore \emph{algebraic}: locked to an integer by the $(3,2)$ split.  But an alternative view treats $s$ as a continuously variable parameter via the following duality.
+
+For each $N_\text{eff}$, define the \emph{dual exponent} $s^*(N_\text{eff})$ by
+\begin{equation}
+\zeta(s^*) = S(N_\text{eff},\, 2) = \sum_{n=1}^{N_\text{eff}} \frac{1}{n^2}.
+\end{equation}
+Since $\zeta(s)$ is strictly decreasing for $s > 1$, this mapping is well-defined.  The strong force ($N_\text{eff} = 1$, $S = 1$) maps to $s^* \to \infty$; the EM force ($N_\text{eff} = \infty$, $S = \pi^2/6$) maps to $s^* = 2$ exactly.  \emph{Varying $N_\text{eff}$ at fixed $s = 2$ is dual to varying $s$ at fixed $N_\text{eff} = \infty$.}
+
+\subsection{Two complementary running mechanisms}
+\label{sec:dual_mechanisms}
+
+The coupling~\eqref{eq:partial_Basel} depends on both $N_\text{eff}$ and $s$.  Two independent derivatives generate the running:
+
+\medskip\noindent\textbf{Mechanism~(A): $N_\text{eff}$-derivative.}
+At fixed $s = 2$: $\partial S / \partial N = 1/N^2$.  This is large for $N_\text{eff} = 1$ (strong) and vanishes for $N_\text{eff} = \infty$ (EM).  It encodes asymptotic freedom.
+
+\medskip\noindent\textbf{Mechanism~(B): $s$-derivative.}
+At fixed $N_\text{eff}$: $\sigma_i \equiv -\partial S/\partial s |_{s=2} = \sum_{n=1}^{N_\text{eff}} \ln(n)/n^2$.  This vanishes for $N_\text{eff} = 1$ (since $\ln 1 = 0$) and saturates at $-\zeta'(2) \approx 0.938$ for $N_\text{eff} = \infty$.  It encodes anti-screening.
+
+\medskip
+The two mechanisms are \emph{structurally complementary}: the strong force has $\beta^{(A)} \neq 0$, $\beta^{(B)} = 0$; the EM force has $\beta^{(A)} = 0$, $\beta^{(B)} \neq 0$; the weak force receives contributions from both.  This on/off pattern is a direct consequence of the Binet--Cauchy sector structure.
+
+The logarithmic running of QFT arises from $\zeta'(2)$:
+\begin{equation}
+\zeta(2 - \epsilon) = \frac{\pi^2}{6} + 0.938\,\epsilon + O(\epsilon^2).
+\end{equation}
+The coefficient $-\zeta'(2) = \sum \ln(n)/n^2$ generates the $\ln(\mu)$ dependence without loop integrals.
+
+\subsection{Sector weight and $\beta$-function matching}
+\label{sec:sector_weight}
+
+Each $\beta$-coefficient acquires a \emph{sector weight} $w_i = n_{s_i}/d$, where $s_i$ is the sector in which force $i$ propagates.
+
+\begin{proof}[Derivation]
+By point democracy ($G_{ii} = 1$) and the $(3,2)$ split:
+\begin{equation}
+\frac{\mathrm{Tr}(G^{AA})}{N} = \frac{n_A}{d} = \frac{3}{5}, \qquad \frac{\mathrm{Tr}(G^{BB})}{N} = \frac{n_B}{d} = \frac{2}{5}.
+\end{equation}
+The running rate of force $i$ is proportional to the Gram eigenvalue weight in its sector, which is $n_{s_i}/d$.  The Binet--Cauchy assignments are: SSS, SST $\to V_A$ ($w = 3/5$); STT $\to V_B$ ($w = 2/5$).
+\end{proof}
+
+The full $\beta$-coefficient is $\beta_i = \mathcal{C}_i g_i (a/N_i^2 + b\,\sigma_i)\,w_i$.  Fixing $a$ from $b_3 = -7$ and $b$ from $b_1 = 41/10$:
+\begin{equation}
+a = -\frac{35}{24}, \qquad b = \frac{41}{216\,(-\zeta'(2))}.
+\end{equation}
+
+The predicted weak-force coefficient is:
+\begin{equation}
+\boxed{b_2^{\mathrm{pred}} = -\frac{7}{2} + \frac{41\,\ln 2}{90\,(-\zeta'(2))} = -3.163.}
+\end{equation}
+The SM value is $b_2 = -19/6 = -3.167$, a discrepancy of $0.11\%$.  The sector weight $w_2 = n_B/n_A = 2/3$ (relative to spatial forces) is derived, not fit.
