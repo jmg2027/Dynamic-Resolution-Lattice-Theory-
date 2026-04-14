@@ -43,7 +43,7 @@
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
 | `rh-connection/` | `RH_` | PLATEAU | 7 (RH_001-007) | Riemann Hypothesis |
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
-| `predictions/` | `PRD_` | NOT STARTED | — | 미측정 예측 (JUNO 등) |
+| `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
 | `quantum-gravity/` | `QG_` | NOT STARTED | — | 시공간 창발, holographic |
 
 ### Sub-Project 필수 구조
@@ -117,7 +117,7 @@ EXP_{PREFIX}_{NNN}_{Title}.txt
 6. **각 sub-project는 자체 HANDOFF.md 관리.** Root HANDOFF는 요약만.
 7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
 8. **papers/는 root에 유지.** 저널 투고용. sub-project에서 참조만.
-9. **results/는 sub-project 안에만.** root results/는 meta만.
+9. **results/는 sub-project 안에만.** root results/에는 REPORT, SUMMARY, 카탈로그만. 실험 EXP_*.txt는 절대 root results/에 넣지 않음.
 
 ### Paper Classification
 | Paper | Sub-Project | Topic |

@@ -40,5 +40,10 @@ Z=1-118 periodic table. Period 1-2 <3%, full table 58% within 30%.
 | IE(Be) | 9.29 eV | 9.32 | -0.3% |
 | Period 2 | 8/8 | <3% | all |
 
+### predictions/ — ACTIVE
+5 experiments (PRD_001-005). 25/25 checks passed.
+ν mass ratio, Higgs mass, θ_QCD, N_gen=3, full catalog.
+**See `predictions/HANDOFF.md` for details.**
+
 ## Next Available Experiment
-ATM_018 (atoms/), COS_004 (cosmology/)
+ATM_018 (atoms/), COS_004 (cosmology/), PRD_009 (predictions/)
