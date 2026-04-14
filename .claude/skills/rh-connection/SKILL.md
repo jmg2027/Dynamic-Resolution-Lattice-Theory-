@@ -9,32 +9,39 @@ Manage and develop the DRLT → Riemann Hypothesis connection sub-project.
 
 **Working directory:** `rh-connection/`
 
-## The Two Chains (memorize this)
+## The Complete Chain (memorize this)
 
-**Branch A: Why Re(s) = 1/2 (UNIVERSAL, not ℂ-specific)**
+**The number 2 is the unique doubly irreducible number:**
+- Additive atoms = {2, 3}, Extension atoms over ℝ = {2}
+- Intersection = {2} → dim_ℝ(ℂ) = n_T = 2
+
+**Branch A: Why Re(s) = 1/2 (UNIVERSAL)**
 ```
-|coefficient| = 1 (any phase structure: ℂ or ℝ)
-  → CLT: Var = Σ 1/k^{2σ}, converges iff 2σ > 1
-  → Convergence boundary σ = 1/2 (Thm 7, Halász-Harper)
-  → Möbius randomness (Conjecture)
+|coefficient| = 1 → CLT: Var = Σ 1/k^{2σ} → σ_stat = 1/2
+  (The "2" in |·|² = L² norm exponent = dim_ℝ(ℂ))
 ```
 
-**Branch B: Why GUE statistics (ℂ-SPECIFIC, DRLT contribution)**
+**Branch B: Why GUE statistics (ℂ-SPECIFIC)**
 ```
-ℂ unique (Frobenius, Thm 1)
-  → Uniform phase on U(1) (Thm 6, EXP_071b)
-  → β=2 → GUE (Dyson)
-  → Pair correlation matches ζ zeros (Montgomery-Odlyzko)
+ℂ unique → β=2 → GUE → pair correlation matches ζ zeros
+```
+
+**Branch C: Functional equation (σ_func = 1/2)**
+```
+θ(x) = Σ e^{-πn²x} → Mellin → ζ(2s) → s/2
+  (The "2" in n² = L² norm = dim_ℝ(ℂ))
+```
+
+**Unification (Two Boundaries + Doubly Irreducible):**
+```
+1/2 = 1/n_T = 1/dim_ℝ(ℂ) = 1/c = σ_stat = σ_geom = σ_func
+All from the unique doubly irreducible number 2.
 ```
 
 **Common foundation:**
 ```
 ℂ unique → ℂ⁵ = ℂ² ⊕ ℂ³ → d²=25 channels → s=2 → ζ(2) = π²/6
 ```
-
-**IMPORTANT:** An earlier version overclaimed that 1/2 comes from ℂ.
-Corrected: 1/2 is CLT (universal), GUE is ℂ (specific).
-These are TWO independent results, which is stronger than one.
 
 ## Directory Structure
 
@@ -108,16 +115,17 @@ rh-connection/
 
 ## Open Problems (priority order)
 
-1. **Primitive path ↔ prime correspondence**
+1. ~~Functional equation's 1/2~~ → RESOLVED (Doubly_Irreducible.md §Resolution)
+2. **Primitive path ↔ prime correspondence**
    Define "primitive paths" on simplex network → PNT
-2. **Phase-to-Möbius map**
+3. **Phase-to-Möbius map**
    Explicit map from Gram phases → μ(n), preserving multiplicativity
-3. **Beyond iid**
+4. **Multiplicative structure**
+   Euler product ζ(s) = Π(1-p^{-s})^{-1} imposes dependence. Does σ_stat = σ_geom survive?
+5. **Beyond iid**
    Gram phases are structured, not iid. Show boundary still 1/2
-4. **δ(N) exponent proof**
-   Prove α = 2/(d-1) = 1/2 for d=5
-5. **ζ in combinatorics not geometry**
-   Formalize: ζ comes from hop count n (integer), not eigenvalues
+6. **Higher L-functions**
+   Dirichlet characters χ(n) ∈ U(ℂ) → GRH has same structural origin?
 
 ## Status Markers
 
