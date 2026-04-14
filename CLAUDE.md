@@ -44,7 +44,7 @@
 | `rh-connection/` | `RH_` | PLATEAU | 7 (RH_001-007) | Riemann Hypothesis |
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
 | `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
-| `quantum-gravity/` | `QG_` | NOT STARTED | — | 시공간 창발, holographic |
+| `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
 
 ### Sub-Project 필수 구조
 ```

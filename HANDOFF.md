@@ -41,9 +41,14 @@ Z=1-118 periodic table. Period 1-2 <3%, full table 58% within 30%.
 | Period 2 | 8/8 | <3% | all |
 
 ### predictions/ — ACTIVE
-5 experiments (PRD_001-005). 25/25 checks passed.
-ν mass ratio, Higgs mass, θ_QCD, N_gen=3, full catalog.
+8 experiments (PRD_001-008). 42/43 checks passed.
+θ_QCD best candidate: J×α⁴ ≈ 2.86×10⁻¹¹ (PRD_007).
 **See `predictions/HANDOFF.md` for details.**
 
+### quantum-gravity/ — ACTIVE
+6 experiments (QG_001-006). Area cancellation (exact), S_BH = A/4 (derived),
+graviton spin-2, singularity instability, Hawking temp, vacuum energy.
+**See `quantum-gravity/HANDOFF.md` for details.**
+
 ## Next Available Experiment
-ATM_018 (atoms/), COS_004 (cosmology/), PRD_009 (predictions/)
+ATM_018 (atoms/), COS_004 (cosmology/), PRD_009 (predictions/), QG_007 (quantum-gravity/)
