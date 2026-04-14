@@ -62,3 +62,86 @@ The path integral is a polynomial function of the geometric weights --- making i
 \begin{remark}
 Standard approaches to quantum gravity (loop quantum gravity, causal dynamical triangulations, spin foams) introduce the path integral as a quantization procedure applied to a classical action. Here the path integral is \emph{derived}: the area cancellation is forced by $\hbar_h \propto A_h$, which itself is forced by the dimensionlessness of the axiom. The path integral is not quantization of gravity --- it is gravity.
 \end{remark}
+
+%=====================================================================
+\subsection{Emergence of Yang--Mills and Einstein--Hilbert}
+\label{sec:emergence_YM_EH}
+%=====================================================================
+
+The action $S = \sum_h A_h\,\delta_h$ is exact on the simplicial complex.  We now show that its Taylor expansion around a locally flat configuration recovers both $\text{Tr}(F_{\mu\nu}F^{\mu\nu})$ and the Ricci scalar~$R$ as leading-order terms.
+
+\subsubsection{Gauge field strength from holonomy expansion}
+
+Recall that the phase $\phi_{ij} = \arg(G_{ij})$ is the lattice gauge connection (Sec.~\ref{sec:gauge_connection}).  The holonomy around a triangle $h = (i,j,k)$ is:
+\begin{equation}
+\Phi_h = \phi_{ij} + \phi_{jk} + \phi_{ki} = \arg(G_{ij}\,G_{jk}\,G_{ki}).
+\end{equation}
+
+In the continuum limit, identify the lattice connection $\phi_{ij} \approx a\,A_\mu(x)\,\hat{e}^\mu_{ij}$ where $a$ is the lattice spacing and $\hat{e}_{ij}$ is the edge direction.  Then the holonomy around a triangle with area $\sigma^{\mu\nu}$ becomes:
+\begin{equation}
+\Phi_h \approx \frac{1}{2}\,F_{\mu\nu}\,\sigma^{\mu\nu}_h + O(a^3),
+\end{equation}
+where $F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu + [A_\mu, A_\nu]$ is the gauge field strength tensor.  This is the non-Abelian Stokes theorem applied to the lattice.
+
+The gauge part of $\det(G_h)$ (Eq.~\ref{eq:det_Gh} in Chapter~\ref{ch:simplex_geometry}) contains the term $2|G_{ij}||G_{jk}||G_{ki}|\cos\Phi_h$.  Expanding for small $\Phi_h$:
+\begin{equation}
+\cos\Phi_h = 1 - \frac{\Phi_h^2}{2} + O(\Phi_h^4) = 1 - \frac{1}{8}(F_{\mu\nu}\,\sigma^{\mu\nu})^2 + \cdots.
+\end{equation}
+
+Substituting into the Regge action and summing over hinges:
+\begin{equation}
+\sum_h A_h\,\delta_h \supset -\sum_h A_h \cdot \frac{1}{8}(F_{\mu\nu}\,\sigma^{\mu\nu}_h)^2.
+\end{equation}
+
+In the continuum limit, $A_h \approx a^2$ (triangle area in lattice units) and $\sigma^{\mu\nu}_h \approx a^2\,\hat{\sigma}^{\mu\nu}$.  The sum over hinges becomes an integral, and:
+\begin{equation}
+\boxed{\sum_h A_h\,\delta_h \;\supset\; -\frac{1}{4g^2}\int \text{Tr}(F_{\mu\nu}\,F^{\mu\nu})\,\sqrt{g}\;d^4x}
+\end{equation}
+where $1/g^2 = \mathcal{C} \times g_i \times S(N_\text{eff})$ is the DRLT coupling constant derived in Chapter~\ref{ch:couplings}.
+
+\subsubsection{Three gauge sectors from $(3,2)$}
+
+The $(3,2)$ decomposition of $\mathbb{C}^5$ splits the holonomy $\Phi_h$ according to hinge type.  The phase $\phi_{ij}$ decomposes into SU(3), SU(2), and U(1) components:
+\begin{equation}
+\phi_{ij} = \phi^{(3)}_{ij} + \phi^{(2)}_{ij} + \phi^{(1)}_{ij}.
+\end{equation}
+
+Each hinge type selects the relevant gauge sector:
+\begin{align}
+\text{AAA hinges:} &\quad \Phi^{(3)}_h \;\to\; \frac{1}{4\alpha_3}\int\text{Tr}(F^{(3)}_{\mu\nu}F^{(3)\mu\nu})\,\sqrt{g}\;d^4x \qquad (\text{QCD}), \\
+\text{ABB hinges:} &\quad \Phi^{(2)}_h \;\to\; \frac{1}{4\alpha_2}\int\text{Tr}(F^{(2)}_{\mu\nu}F^{(2)\mu\nu})\,\sqrt{g}\;d^4x \qquad (\text{weak}), \\
+\text{AAB hinges:} &\quad \Phi^{(1)}_h \;\to\; \frac{1}{4\alpha_1}\int F^{(1)}_{\mu\nu}F^{(1)\mu\nu}\,\sqrt{g}\;d^4x \qquad (\text{QED}).
+\end{align}
+
+The coupling constants $\alpha_i$ are those derived in Chapter~\ref{ch:couplings}: $1/\alpha_3 = 8$, $1/\alpha_2 = 30$, $1/\alpha_1 = 6\pi^2$.  No new parameters are introduced.
+
+\subsubsection{Einstein--Hilbert from deficit angle expansion}
+
+The gravitational content of the Regge action is the modulus part.  The deficit angle $\delta_h = 2\pi - \sum_\sigma \theta_\sigma$ measures the deviation from flatness (zero curvature).  For a locally flat region, $\delta_h \approx 0$; for a curved region, $\delta_h \ne 0$.
+
+By the Gauss--Bonnet theorem on each dual 2-cell:
+\begin{equation}
+A_h\,\delta_h = \int_{\text{dual cell of }h} K\;dA
+\end{equation}
+where $K$ is the Gaussian curvature.  Summing over all hinges:
+\begin{equation}
+\sum_h A_h\,\delta_h = \sum_h\int_{\text{dual}} K\;dA \;\xrightarrow{\;a \to 0\;}\; \frac{1}{16\pi G}\int_M R\,\sqrt{g}\;d^4x.
+\end{equation}
+
+This is Regge's original result.  The gravitational constant $G$ is determined by the normalisation:
+\begin{equation}
+G = \frac{1}{16\pi}\cdot\frac{a^2}{A_\text{Pl}} = \frac{\ell_\text{Pl}^2}{16\pi\,\hbar}.
+\end{equation}
+
+\subsubsection{The total emergent action}
+
+Combining the gauge and gravitational sectors:
+\begin{equation}
+\boxed{S = \sum_h A_h\,\delta_h \;\xrightarrow{\;a \to 0\;}\; \int_M\!\left[\frac{R}{16\pi G} - \sum_{i=1}^{3}\frac{1}{4\alpha_i}\,\text{Tr}(F^{(i)}_{\mu\nu}F^{(i)\mu\nu})\right]\sqrt{g}\;d^4x.}
+\end{equation}
+
+This is the Standard Model + General Relativity action, derived from a single object: the hinge determinant $\det(G_h)$.  The gravitational and gauge terms are not independent --- they are the modulus and phase expansions of the same $\det(G_h)$ (Sec.~\ref{sec:inseparability}).
+
+\begin{remark}[Why the standard physicist sees ``two theories'']
+A physicist trained on continuum QFT separates the Regge action into a metric part ($R\sqrt{g}$) and a gauge part ($\text{Tr}(F^2)\sqrt{g}$), obtaining ``GR + Standard Model.''  This separation is an artifact of the continuum limit.  In the discrete theory, both are encoded in a single $3 \times 3$ determinant per hinge.  The perceived separation of gravity and gauge forces is the first ``illusion'' of the continuum approximation.
+\end{remark}

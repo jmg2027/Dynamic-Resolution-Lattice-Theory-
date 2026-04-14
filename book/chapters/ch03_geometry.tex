@@ -499,3 +499,62 @@ The hinge determinant (Eq.~\ref{eq:det_Gh} in Chapter~\ref{ch:simplex_geometry})
 where $\Phi_h = \arg(G_{ij} G_{jk} G_{ki})$ is the holonomy around the triangle.  The last term couples metric ($|G|$) and gauge ($\Phi$) information \emph{multiplicatively} inside the determinant.
 
 Consequence: the Regge action $S = \sum_h A_h\,\delta_h = \sum_h \sqrt{\det(G_h)}\;\delta_h(G)$ depends on both metric and gauge degrees of freedom through the same determinant.  They cannot be separated.  This inseparability is the mathematical content of gravity--gauge unification in the simplex framework.
+
+%---------------------------------------------------------------------
+\subsection{Emergent continuous spacetime: the coarse-graining limit}
+\label{sec:emergent_spacetime}
+%---------------------------------------------------------------------
+
+We now prove that the discrete Gram-matrix network produces a smooth 4-dimensional Lorentzian manifold $(M, g_{\mu\nu})$ in the macroscopic limit.  The argument has three steps: (i) construct the coarse-graining map, (ii) show the ADM decomposition emerges from the $(3,2)$ split, and (iii) invoke the Regge--Cheeger--M\"uller--Schrader convergence theorem.
+
+\subsubsection{Step 1: Coarse-graining construction}
+
+Partition $N$ vertices into $M$ cells $\{B_\alpha\}_{\alpha=1}^M$, each containing $k = N/M$ vertices.  Define the \emph{block-averaged state} for cell $\alpha$:
+\begin{equation}
+\bar{\psi}_\alpha = \frac{1}{\|\sum_{i \in B_\alpha}\psi_i\|}\sum_{i \in B_\alpha}\psi_i \in \mathbb{C}^5, \qquad \|\bar{\psi}_\alpha\| = 1.
+\end{equation}
+The coarse-grained Gram matrix is $\bar{G}_{\alpha\beta} = \langle\bar{\psi}_\alpha|\bar{\psi}_\beta\rangle$.  This inherits all properties of $G$: Hermiticity, positive semi-definiteness, unit diagonal, and $\mathrm{rank} \le 5$.  The cells become the vertices of a \emph{coarser} simplicial complex on $\mathbb{CP}^4$.
+
+As $k \to \infty$ with $M$ fixed, the block averages $\bar{\psi}_\alpha$ converge (by the law of large numbers on $\mathbb{CP}^4$) to smooth functions $\psi: M \to \mathbb{CP}^4$, and $\bar{G}_{\alpha\beta} \to G(x_\alpha, x_\beta)$ becomes a smooth kernel.
+
+\subsubsection{Step 2: ADM decomposition from $(3,2)$}
+
+The $(3,2)$ split $\mathbb{C}^5 = \mathbb{C}^3 \oplus \mathbb{C}^2$ decomposes the Fubini--Study metric.  Write $\psi = (\psi_A, \psi_B)$ with $\psi_A \in \mathbb{C}^3$, $\psi_B \in \mathbb{C}^2$.  The coarse-grained overlap splits:
+\begin{equation}
+\bar{G}_{\alpha\beta} = \underbrace{\langle\bar{\psi}_{A,\alpha}|\bar{\psi}_{A,\beta}\rangle}_{G^{AA}} + \underbrace{\langle\bar{\psi}_{B,\alpha}|\bar{\psi}_{B,\beta}\rangle}_{G^{BB}}.
+\end{equation}
+
+Define the spatial 3-metric, lapse, and shift:
+\begin{align}
+h_{ij}(x) &= \delta_{ij} - n_A\,W^{AA}_{ij}(x) \qquad (3\text{-metric, from the }\mathbb{C}^3\text{ sector}), \\
+N^2(x) &= 1 - n_B\,W^{BB}(x) \qquad (\text{lapse, from the }\mathbb{C}^2\text{ sector}), \\
+N^i(x) &= c \cdot W^{AB,i}(x) \qquad (\text{shift, from the cross-sector}).
+\end{align}
+
+This is the ADM decomposition $ds^2 = -N^2\,dt^2 + h_{ij}(dx^i + N^i\,dt)(dx^j + N^j\,dt)$, with $3+1$ signature guaranteed by the asymmetric dimensions $n_A \ne n_B$.  The Lorentz signature is not assumed; it is a consequence of the chiral decomposition $3 \ne 2$.
+
+\subsubsection{Step 3: Convergence to Einstein's equations}
+
+\begin{theorem}[Regge--Cheeger--M\"uller--Schrader convergence]
+\label{thm:regge_convergence}
+Let $\{\mathcal{T}_k\}$ be a sequence of simplicial complexes on $\mathbb{CP}^4$ with mesh $\epsilon_k \to 0$ that Hausdorff-converges to a smooth Riemannian manifold $(M, g)$.  Then the Regge action converges:
+\begin{equation}
+\sum_{h \in \mathcal{T}_k} A_h\,\delta_h \;\xrightarrow{\;\epsilon_k \to 0\;}\; \frac{1}{16\pi G}\int_M R\,\sqrt{g}\;d^4x.
+\end{equation}
+\end{theorem}
+
+In the DRLT context, the Gram-matrix network \emph{is} a simplicial complex on $\mathbb{CP}^4$ (by the rank-5 constraint).  The coarse-graining of Step~1 provides the sequence $\{\mathcal{T}_k\}$.  Convergence follows from:
+
+\begin{enumerate}
+\item Each hinge area $A_h = \sqrt{\det(G_h)}$ is a smooth function of the edge lengths $|G_{ij}|$.  As $\epsilon_k \to 0$, the edge lengths approach the Fubini--Study geodesic distances, which are smooth.
+
+\item Each deficit angle $\delta_h = 2\pi - \sum_\sigma \theta_\sigma$ approaches the integrated Gaussian curvature over the dual 2-cell.  This is Regge's original result (1961).
+
+\item The product $A_h\,\delta_h$ is the discrete analog of $R\,\sqrt{g}\,d^4x$ restricted to the dual cell of hinge $h$.  Summing over all hinges tiles $M$.
+\end{enumerate}
+
+\begin{remark}[What ``continuous spacetime'' actually is]
+In the DRLT framework, continuous spacetime is not a pre-existing arena.  It is a \emph{coarse-grained description}: a smoothed version of the Gram-matrix network, valid when $N \gg 1$ and the observer cannot resolve individual vertices.  The relation to the discrete network is analogous to the relation between thermodynamics and statistical mechanics: the temperature field $T(x)$ is not fundamental, but emerges as the block average of microscopic energies.  Similarly, $g_{\mu\nu}(x)$ is not fundamental, but emerges as the block average of $G_{ij}$.
+
+The key difference from other discrete approaches (lattice QCD, causal dynamical triangulations) is that the lattice is not \emph{imposed} as a regularisation device and then removed.  The Gram-matrix network is the \emph{physical reality}; the smooth manifold is the approximation.
+\end{remark}
