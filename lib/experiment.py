@@ -89,8 +89,9 @@ class Experiment:
 
     def _save_results(self, tag: str):
         """Save all output to results/EXP_NNN_name.txt"""
-        os.makedirs(RESULTS_DIR, exist_ok=True)
-        path = os.path.join(RESULTS_DIR, f"{tag}.txt")
+        results_dir = getattr(self, 'RESULTS_DIR', RESULTS_DIR)
+        os.makedirs(results_dir, exist_ok=True)
+        path = os.path.join(results_dir, f"{tag}.txt")
         with open(path, "w") as f:
             f.write("\n".join(self._log_lines))
         self.log(f"\n  Results saved to: {path}")
