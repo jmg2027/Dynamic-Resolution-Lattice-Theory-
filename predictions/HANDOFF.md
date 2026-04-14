@@ -1,25 +1,31 @@
 # Testable Predictions — Handoff
 
-## Status: NOT STARTED
-이론 검증의 핵심. 가장 urgent한 것부터 정리 필요.
+## Status: ACTIVE (5 experiments, 25/25 checks)
 
-## Urgent (2025-2027 검증 가능)
-1. **ν mass ratio**: m₃/m₂ = 5.712 → JUNO (2025-2026)
-2. **m_H precision**: 125.28 GeV → HL-LHC (2029+, σ~0.05 GeV)
-3. **θ_QCD**: α_GUT⁶ ≈ 2×10⁻¹⁰ → nEDM experiments
+## Completed Experiments
+| ID | Title | Checks | Key Result |
+|----|-------|--------|-----------|
+| PRD_001 | ν mass ratio JUNO | 7/7 | m₃/m₂=5.712, JUNO에서 TBM과 81σ 분리 |
+| PRD_002 | Higgs mass HL-LHC | 4/4 | 125.28 GeV, HL-LHC ±0.05 GeV |
+| PRD_003 | θ_QCD nEDM | 5/5 | α⁶≈2.07×10⁻¹⁰, bound 근처 tension |
+| PRD_004 | N_gen = 3 | 5/5 | C(3,2)=3, 4세대 불가 |
+| PRD_005 | Prediction catalog | 4/4 | 12 retrodictions, 7 testable predictions |
 
-## Medium-term
-4. **4세대 없음**: C(n_B,n_B-1)=2 → exactly 3 generations
-5. **Proton decay lifetime**: SU(5) structure but different mechanism
-6. **Neutron star EOS**: simplex → max mass prediction
+## Key Findings
+- **θ_QCD tension**: DRLT 예측 2.07×10⁻¹⁰ vs bound 1.8×10⁻¹⁰ (ratio 1.15)
+  → 차세대 nEDM에서 직접 검증/반증 가능
+- **가장 urgent**: JUNO ν mass ratio (2025-27)
+- **17개 SM free parameters** 모두 d=5에서 유도
 
-## Long-term / Mathematical
-7. **Born-Ramanujan proof**: d≥4 → Ramanujan for W-graphs
-8. **N_c(d) formula**: finite Gram graph Ramanujan bound
+## Open Problems
+1. Proton decay lifetime 계산 (SU(5) 구조이지만 mechanism 다름)
+2. Neutron star max mass (simplex EOS)
+3. 1/α_s tension (~5.5%) — running correction 필요?
+4. sin²θ_W tension (~0.8%) — 2-loop effect?
 
-## Format
-각 예측에 대해:
-- DRLT 값 (exact formula)
-- 현재 관측값 ± 오차
-- 예상 측정 시점
-- 구별력 (다른 이론과 어떻게 다른가)
+## Next Available Experiment
+PRD_006
+
+## Infrastructure Changes
+- `lib/experiment.py`: results를 sub-project results/에 저장하도록 수정
+- root CLAUDE.md 규칙 9 강화: root results/는 REPORT/SUMMARY만

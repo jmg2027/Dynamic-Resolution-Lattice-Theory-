@@ -88,9 +88,18 @@ class Experiment:
         self.log(f"  [{status}] {name}")
 
     def _save_results(self, tag: str):
-        """Save all output to results/EXP_NNN_name.txt"""
-        os.makedirs(RESULTS_DIR, exist_ok=True)
-        path = os.path.join(RESULTS_DIR, f"{tag}.txt")
+        """Save output to the sub-project's results/ directory."""
+        # Locate results/ relative to the calling experiment file
+        caller = sys.modules[self.__class__.__module__]
+        caller_dir = os.path.dirname(os.path.abspath(caller.__file__))
+        # Go up from experiments/ to sub-project root, then into results/
+        subproj_results = os.path.join(caller_dir, "..", "results")
+        if os.path.isdir(os.path.join(caller_dir, "..")):
+            results_dir = subproj_results
+        else:
+            results_dir = RESULTS_DIR
+        os.makedirs(results_dir, exist_ok=True)
+        path = os.path.join(results_dir, f"{tag}.txt")
         with open(path, "w") as f:
             f.write("\n".join(self._log_lines))
         self.log(f"\n  Results saved to: {path}")
