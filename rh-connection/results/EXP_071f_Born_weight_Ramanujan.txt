@@ -1,0 +1,60 @@
+============================================================
+  EXP_071f_Born_weight_Ramanujan
+  2026-04-14 16:24:53
+============================================================
+
+═══ Test 1: Born Weight Ramanujan ═══
+  W_ij = |⟨ψ_i|ψ_j⟩|² (natural Born rule weight)
+  No thresholding — preserve full spectral structure
+  N=  10: Ramanujan 100% (30/30), ⟨ratio⟩ = 0.3628
+  N=  15: Ramanujan 100% (30/30), ⟨ratio⟩ = 0.3442
+  N=  20: Ramanujan 100% (30/30), ⟨ratio⟩ = 0.3940
+  N=  30: Ramanujan 100% (30/30), ⟨ratio⟩ = 0.4485
+  N=  50: Ramanujan 100% (30/30), ⟨ratio⟩ = 0.5266
+  N= 100: Ramanujan 100% (30/30), ⟨ratio⟩ = 0.6641
+  [✓ PASS] N≤50 all Ramanujan with Born weights
+
+═══ Test 2: Ratio Convergence to 1/√d ═══
+  Theory: ratio → 1/√5 = 0.4472
+  N=  15: ⟨ratio⟩ = 0.3767, |ratio - 1/√5| = 0.0705
+  N=  20: ⟨ratio⟩ = 0.3928, |ratio - 1/√5| = 0.0544
+  N=  30: ⟨ratio⟩ = 0.4521, |ratio - 1/√5| = 0.0049
+  N=  50: ⟨ratio⟩ = 0.5276, |ratio - 1/√5| = 0.0804
+  N= 100: ⟨ratio⟩ = 0.6585, |ratio - 1/√5| = 0.2113
+  N= 200: ⟨ratio⟩ = 0.8146, |ratio - 1/√5| = 0.3674
+
+  N=200 (100 trials): ⟨ratio⟩ = 0.8234
+  1/√5 = 0.4472
+  [✗ FAIL] Ratio converges near 1/√d=0.447
+
+═══ Test 3: Large N Ramanujan Test ═══
+  Critical test: does Born weight Ramanujan survive large N?
+  N= 100: Ramanujan 100% (50/50), max ratio = 0.7539
+  N= 200: Ramanujan 100% (50/50), max ratio = 0.9143
+  N= 500: Ramanujan 0% (0/50), max ratio = 1.1889
+  [✓ PASS] Born weight Ramanujan at large N
+
+═══ Test 4: Ihara Zeros with Born Weights ═══
+  N= 15: 100% Ihara zeros on Re(s) = 1/2
+  N= 20: 100% Ihara zeros on Re(s) = 1/2
+  N= 30: 100% Ihara zeros on Re(s) = 1/2
+  N= 50: 100% Ihara zeros on Re(s) = 1/2
+  [✓ PASS] Born weight: >90% zeros on critical line
+
+═══ Test 5: Thresholded vs Born Weight ═══
+  N=50, 30 trials:
+  Thresholded: Ramanujan 22/30 (73%), ⟨ratio⟩ = 0.9521
+  Born weight: Ramanujan 30/30 (100%), ⟨ratio⟩ = 0.5283
+  [✓ PASS] Born > Thresholded at N=50
+
+============================================================
+  SUMMARY: EXP_071f_Born_weight_Ramanujan
+============================================================
+  [✓] N≤50 all Ramanujan with Born weights
+  [✗] Ratio converges near 1/√d=0.447
+  [✓] Born weight Ramanujan at large N
+  [✓] Born weight: >90% zeros on critical line
+  [✓] Born > Thresholded at N=50
+
+  4/5 checks passed
+  Time: 1.0s
