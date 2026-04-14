@@ -177,3 +177,11 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 - Commit after each meaningful change.
 - Push to designated branch. Never amend.
 - Sub-projects can use feature branches.
+
+### Theoretical Assist Request (표준 워크플로우)
+Claude가 이론적 돌파가 필요할 때:
+1. **현재 상태 요약**: 무엇이 증명되었고, 무엇이 막혔는가.
+2. **구체적 질문**: 정확한 부등식, 추측, 또는 물리적 직관이 필요한 지점.
+3. **시도한 접근**: 실패한 경로와 왜 실패했는지.
+4. **필요한 도구**: 어떤 종류의 힌트가 도움이 될지 (부등식? 물리적 해석? 새 관점?).
+선생님이 방향을 주면 Claude가 형식화 + 수치 검증을 즉시 수행.

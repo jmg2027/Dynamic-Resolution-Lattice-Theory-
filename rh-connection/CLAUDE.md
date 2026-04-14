@@ -93,6 +93,7 @@ rh-connection/
 | 071f | Born weight | 4/5 | 100% Ramanujan N≤200 (Born rule) |
 | 071g | d-dependence | 5/5 | ratio~1.94·d^{-0.67}, d_c≈3 |
 | RH_008 | Born-Ramanujan proof | 3/5 | Var exact, ||Z||~N^{0.82}, A(N) resolved |
+| RH_009 | Marchenko-Pastur | 5/5 | KR decomp, MP formula, N_c≈2.2d³ |
 
 ## Key Precision Results
 
@@ -134,7 +135,7 @@ python RH_004_two_boundaries.py
 python RH_006_born_weight_ramanujan.py
 python RH_007_d_dependence.py
 ```
-Next: RH_009
+Next: RH_010
 
 ## Paper
 `../papers/paper5_critical_line.tex` — 전체 결과 포함

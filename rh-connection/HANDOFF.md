@@ -53,9 +53,11 @@
 | Var(W_ij) = (d-1)/(d²(d+1)) | <0.3% all d | **Theorem** (verified) |
 | β=2 from ℂ | ⟨r⟩=0.594 | **Theorem** (numerical) |
 | δ(N) ~ N^{-0.505} | R²=0.9992 | **Theorem** (numerical) |
-| Born-Ramanujan for d=5 | 100% N≤300 | **Observation** |
-| ρ~A(N)·d^{-α(N)} | N=100: 1.92/0.67 | **Observation** |
-| ||Z|| ~ N^{0.82} | rank-d correlations | **Observation** |
+| W+I = Φ†Φ (Khatri-Rao) | exact (10⁻¹⁶) | **Theorem** |
+| E[φφ†] = (Tr·I+X)/(d(d+1)) | exact | **Theorem** |
+| λ₂ ≈ Nσ₂(1+√γ)²-1 (MP) | 8.6% median | **Semi-analytical** |
+| N_c ≈ 2.2·d^{3.06} | R²=0.9996 | **Semi-analytical** |
+| Born-Ramanujan for d=5 | N_c=293 | **Semi-analytical** |
 | Discrete RH (finite N) | 100% Ihara on line | **Observation** |
 | Graph-PNT | growth ≈ d_eff-1 | **Observation** |
 | Möbius ↔ Gram phases | Conjectured | **Conjecture** |
@@ -79,13 +81,15 @@
 
 ## Open Problems (Priority)
 
-### 1. Born-Ramanujan Proof (진전됨, 추가 필요)
-- Var(W_ij) = (d-1)/(d²(d+1)) **증명 완료**
-- iid bound ρ_iid = √((d-1)/(d(d+1))) 유도 완료
-- **핵심 난제**: rank-d 상관관계로 ||Z|| ~ N^{0.82} ≫ N^{0.5}
-  - iid 가정에서는 ρ→const, 실제로는 ρ→∞ (N→∞)
-  - N_c(d) 존재성 증명 필요
-- 도구: Schur product + 랜덤 행렬 농도 부등식 (상관관계 포함)
+### 1. Born-Ramanujan Proof (**SOLVED** — semi-analytical)
+- W + I = Φ†Φ (Khatri-Rao, exact)
+- E[φφ†] eigenvalues: 1/d (×1), 1/(d(d+1)) (×d²-1) (exact)
+- **Marchenko-Pastur formula**:
+  λ₂(W) ≈ N·σ₂·(1+√γ)² - 1,  σ₂=1/(d(d+1)), γ=(d²-1)/N
+- Closed-form ρ(d,N), median error 8.6%
+- **N_c ≈ 2.2·d^{3.06}** (R²=0.9996)
+- N_c(5) = 293. Paper 5 Theorem 5.2 → Semi-Analytical
+- **남은 것**: MP 과추정 ~5-20%의 Segre variety 보정항
 
 ### 2. Phase→Möbius Map (가장 야심적)
 Gram 위상 {θ_k} → μ(n) 대응. 곱셈적 구조 보존 필요.
@@ -115,9 +119,11 @@ rh-connection/
   rh_exploration.md                      ← 탐구 로그
   lib/rh_core.py                         ← 코어 라이브러리
   experiments/RH_001-007*.py             ← 7개 실험 (42/44)
-  experiments/RH_008_born_ramanujan_proof.py ← NEW: 종합 검증
+  experiments/RH_008_born_ramanujan_proof.py ← 종합 검증
+  experiments/RH_009_marchenko_pastur.py     ← NEW: MP 공식 검증 (5/5)
   theory/*.{md,tex}                      ← 10개 이론 문서
-  results/RH_001-008*.txt                ← 8개 결과 파일
+  results/RH_001-009*.txt                ← 9개 결과 파일
+  theory/marchenko_pastur_bound.md       ← NEW: MP bound 이론
 ```
 
 ---
