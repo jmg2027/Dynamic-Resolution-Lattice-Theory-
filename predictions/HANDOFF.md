@@ -1,6 +1,6 @@
 # Testable Predictions — Handoff
 
-## Status: ACTIVE (5 experiments, 25/25 checks)
+## Status: ACTIVE (6 experiments, 32/32 checks)
 
 ## Completed Experiments
 | ID | Title | Checks | Key Result |
@@ -10,10 +10,13 @@
 | PRD_003 | θ_QCD nEDM | 5/5 | α⁶≈2.07×10⁻¹⁰, bound 근처 tension |
 | PRD_004 | N_gen = 3 | 5/5 | C(3,2)=3, 4세대 불가 |
 | PRD_005 | Prediction catalog | 4/4 | 12 retrodictions, 7 testable predictions |
+| PRD_006 | θ_QCD precision | 7/7 | α⁶sin(π/12) = 5.35×10⁻¹¹, tension 해소 |
 
 ## Key Findings
-- **θ_QCD tension**: DRLT 예측 2.07×10⁻¹⁰ vs bound 1.8×10⁻¹⁰ (ratio 1.15)
-  → 차세대 nEDM에서 직접 검증/반증 가능
+- **θ_QCD tension 해소**: PRD_006에서 정밀 유도
+  - 구 공식: θ ~ α⁶ ≈ 2.07×10⁻¹⁰ (bound 초과)
+  - **신 공식: θ = α⁶ sin(π/12) = 5.35×10⁻¹¹** (bound의 0.30배)
+  - sin(π/12) = SU(5) 위상 양자 (PMNS δ와 동일 기원)
 - **가장 urgent**: JUNO ν mass ratio (2025-27)
 - **17개 SM free parameters** 모두 d=5에서 유도
 
@@ -24,7 +27,7 @@
 4. sin²θ_W tension (~0.8%) — 2-loop effect?
 
 ## Next Available Experiment
-PRD_006
+PRD_007
 
 ## Infrastructure Changes
 - `lib/experiment.py`: results를 sub-project results/에 저장하도록 수정
