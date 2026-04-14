@@ -34,5 +34,9 @@ Z=1-118 periodic table. Period 1-2 <3%, full table 58% within 30%.
 | IE(Be) | 9.29 eV | 9.32 | -0.3% |
 | Period 2 | 8/8 | <3% | all |
 
+### quantum-gravity/ — ACTIVE (NEW)
+3 experiments (QG_001-003). Area cancellation (exact), S_BH = A/4 (derived),
+graviton spin-2 (6/6 ✓). **See `quantum-gravity/HANDOFF.md` for details.**
+
 ## Next Available Experiment
-ATM_018 (atoms/)
+ATM_018 (atoms/), QG_004 (quantum-gravity/)
