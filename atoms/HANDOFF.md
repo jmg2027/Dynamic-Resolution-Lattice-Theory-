@@ -7,7 +7,7 @@
 - Period 5 (Z=37-54): p-block **<6%**, d-block <11%, median 2.8%
 - Period 6 (Z=55-86): median **5.8%** (was 12.1%)
 - Period 7 (Z=87-118): median **3.1%** (was 12.4%)
-- **Z=1-118: 71(<5%), 108(<15%), 118(<30%=100%), median 3.8%**
+- **Z=1-118: 76(<5%), 111(<15%), 118(<30%=100%), median 3.5%**
 
 ## 이번 세션에서 한 일
 1. **ATM_018**: σ_core offset = (d²+n_T)/(d·n_T) = 27/10 = 2.7 도출
@@ -28,6 +28,10 @@
    - f-block: Yb +23%→+0.4%, Gd +7%→+0.2%
    - Period 7: 12.4% → 3.1%, actinides 거의 전부 <5%
    - **Median: 7.4% → 3.8%, 118/118 <30%**
+5. **ATM_022**: d-block pair correction
+   - Δ_d = Δ_pair × (n_d - d)/d for 6 ≤ n_d ≤ 9
+   - Ni +16%→+3.3%, Cu +21%→+3.6%, Ag +19%→+4.8%
+   - **Median: 3.8% → 3.5%**
 
 ## 핵심 발견
 
@@ -107,11 +111,12 @@ atoms/
     ATM_019_pblock_precision.py    ← 5/5 ✓ (σ_df, σ_same_p)
     ATM_020_layered_screening.py   ← 4/4 ✓ (layered, median 7.4%)
     ATM_021_filling_fraction.py    ← 4/4 ✓ (filling, median 3.8%)
+    ATM_022_dpair_correction.py    ← 4/4 ✓ (d-pair, median 3.5%)
   results/
   scripts/
     periodic_scan.py  ← 기존 scanner
   figures/
 ```
 
-## 다음 실험: ATM_022
-방향: d-block late elements (Ni +16%, Cu +21%, Ag +19%) 해결.
+## 다음 실험: ATM_023
+방향: 남은 10% 초과 원소들 개별 분석 (Bi, Mc-Og, Lu, Lr, Hg).
