@@ -282,3 +282,59 @@ The Standard Model gauge group and matter content are derived, not postulated:
 \text{relations exist} \;\xrightarrow{\text{Frobenius}}\; \CC \;\xrightarrow{\text{atomic}}\; d = 5 \;\xrightarrow{(3,2)}\; \wedge^k(\CC^5) \;\xrightarrow{\text{branching}}\; \text{SU}(3) \times \text{SU}(2) \times \text{U}(1).
 \end{equation}
 Each arrow is a mathematical theorem, not a physical assumption.  The ``unreasonable effectiveness'' of SU(5) in particle physics is explained: it is the exterior algebra of the unique chiral dimension.
+
+% =====================================================================
+\subsection{Higgs quartic coupling from face-level Binet--Cauchy}
+\label{sec:higgs_quartic}
+% =====================================================================
+
+The gauge couplings arise from the \emph{hinge-level} Binet--Cauchy decomposition $\Lambda^3(\CC^5)$ (Chapter~\ref{ch:couplings}).  The Higgs quartic coupling $\lambda$ arises from the \emph{face-level} decomposition $\Lambda^4(\CC^5)$.
+
+\subsubsection{Face-level channel count}
+
+For a 4-vertex face in $\CC^5$, the exterior power splits as
+\begin{equation}
+\Lambda^4(\CC^5) = \bigoplus_{k=0}^{\min(4,\,n_B)} \Lambda^{4-k}(V_A) \otimes \Lambda^k(V_B).
+\end{equation}
+Since $\dim V_A = 3$ and $\dim V_B = 2$, only $k = 1$ and $k = 2$ survive:
+\begin{align}
+k = 1\;(\text{AAAB}):&\quad \tbinom{3}{3}\tbinom{2}{1}\times c^1 = 1 \times 2 \times 2 = \mathbf{4}\;\text{channels}, \\
+k = 2\;(\text{AABB}):&\quad \tbinom{3}{2}\tbinom{2}{2}\times c^2 = 3 \times 1 \times 4 = \mathbf{12}\;\text{channels}.
+\end{align}
+Total: $4 + 12 = 16$ face channels.  The AABB sector carries $12/16 = 3/4$ of the face budget.
+
+\subsubsection{Vertex dressing for scalars}
+
+The Higgs field lives on the AABB face with $f_\mathrm{occ} = 1/2 = 1/c$ (the self-dual point).  The coupling parameter is $x_H = \agut \times f_\mathrm{occ} = \agut/2$.
+
+For \emph{fermion} masses, the relevant quantity is the closed propagator $P(x) = (1+2x)/(1+x)$, which includes the loop normalisation $1/(1+x)$.  For the Higgs \emph{quartic coupling}, no closed loop is needed: the potential $V(H) = \lambda|H|^4$ is a vertex factor evaluated at a single face.  The scalar vertex dressing is therefore the \emph{numerator} alone:
+\begin{equation}
+V(x_H) = 1 + 2x_H = 1 + \agut.
+\end{equation}
+
+\subsubsection{The quartic coupling}
+
+\begin{theorem}[Higgs quartic coupling]
+\label{thm:higgs_quartic}
+\begin{equation}
+\boxed{\sqrt{2\lambda} = f_\mathrm{occ} \times V(x_H) = \frac{1 + \agut}{c},
+\qquad
+\lambda = \frac{(1 + \agut)^2}{2c^2} \approx 0.1312.}
+\end{equation}
+The Higgs mass follows: $m_H = v_H\sqrt{2\lambda} = v_H(1+\agut)/c \approx 125.9\;\mathrm{GeV}$, in $0.5\%$ agreement with the observed $125.25 \pm 0.17\;\mathrm{GeV}$.
+\end{theorem}
+
+\begin{remark}[Hierarchy of Binet--Cauchy levels]
+The simplex geometry assigns a distinct physical role to each exterior power:
+\begin{center}
+\begin{tabular}{ccll}
+\hline
+$k$ & Structure & BC channels & Physical quantity \\
+\hline
+3 & Hinge & $1+12+12=25=d^2$ & Gauge couplings $1/\alpha_i$ \\
+4 & Face  & $4+12=16$         & Scalar coupling $\lambda$ \\
+5 & Simplex & $12$ (single)   & $\det(G)$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{remark}
