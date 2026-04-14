@@ -92,11 +92,12 @@ rh-connection/
 5. Record results and update documents
 
 ### When user asks "RH 해줘" or similar:
-1. Read HANDOFF.md for latest session context
-2. Read `rh-connection/rh_exploration.md` for history
-3. Identify the most promising open problem
-4. Work on it (experiment + theory)
-5. Update all documents
+1. Read `rh-connection/HANDOFF.md` for latest session context
+2. Read `rh-connection/CLAUDE.md` for full status
+3. Read `theory/Doubly_Irreducible.md` (keystone)
+4. Identify the most promising open problem
+5. Work on it (experiment + theory)
+6. Update HANDOFF.md when done
 
 ## Key Numerical Results (reference)
 
@@ -105,13 +106,14 @@ rh-connection/
 | β=2 from ℂ | ⟨r⟩=0.594 (GUE=0.603) | EXP_071 |
 | ℂ vs ℝ | ℂ→GUE, ℝ→GOE | EXP_071 |
 | δ(N) scaling | 1.12·N^{-0.505}, R²=0.9992 | EXP_071 |
-| δ(N) > 0 | All 1250 trials | EXP_071 |
 | Phase uniform | KS p=0.258, R=0.008 | EXP_071b |
 | Phase entropy | ℂ=98.3%, ℝ=19.3% | EXP_071b |
-| 69% cancellation | |S_osc|/S_real=0.31 | EXP_071b |
 | CLT |S_N|~√N | ratio=0.896 (theory 0.886) | EXP_071c |
-| σ=1/2 boundary | transition at σ≈0.5 | EXP_071c |
-| Gram≈Random | same boundary | EXP_071c |
+| σ_geom(ℂ)=0.5 | exact within 0.05% | EXP_071d |
+| Graph-PNT | C/C_theory=1.14 | EXP_071e |
+| Born Ramanujan | 100% N≤200 (d=5) | EXP_071f |
+| d_c ≈ 3 | ratio~1.94·d^{-0.67} | EXP_071g |
+| N_c(5) ≈ 500 | ratio→1.135 asymptotic | EXP_071g |
 
 ## Open Problems (priority order)
 
@@ -139,12 +141,19 @@ Always maintain these distinctions:
 
 ```bash
 cd rh-connection/experiments
-python EXP_071_rh_chain.py      # 11/11
-python EXP_071b_phase_structure.py  # 6/7
-python EXP_071c_clt_boundary.py     # 6/6
+python EXP_071_rh_chain.py               # 11/11
+python EXP_071b_phase_structure.py       # 6/7
+python EXP_071c_clt_boundary.py          # 6/6
+python EXP_071d_two_boundaries.py        # 5/5
+python EXP_071e_ihara_zeta.py            # 5/5
+python EXP_071f_born_weight_ramanujan.py # 4/5
+python EXP_071g_d_dependence.py          # 5/5
 ```
 
-Next available: EXP_071d
+Total: 42/44 checks passed. Next available: EXP_071h
+
+## Paper
+`papers/paper5_critical_line.tex` — full results
 
 ## Edit Rules
 
