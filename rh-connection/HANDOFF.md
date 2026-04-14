@@ -67,6 +67,8 @@
 | **λ₂ ≈ Nσ₂(1+√(d(d-1)/N))²-1** | 4.1% median | **Semi-analytical** |
 | **N_c ~ 3d³** | N_c(5)≈350 | **Semi-analytical** |
 | Born-Ramanujan for d=5 | N_c=293 | **Semi-analytical** |
+| **δ(N) ~ 2^{1/(d-1)}·N^{-2/(d-1)}** | α=0.5012 (d=5) | **Theorem** (EVT) |
+| **N_c analytical** | quadratic closed form | **Semi-analytical** |
 | Discrete RH (finite N) | 100% Ihara on line | **Observation** |
 | Graph-PNT | growth ≈ d_eff-1 | **Observation** |
 | Möbius ↔ Gram phases | Conjectured | **Conjecture** |
@@ -112,8 +114,12 @@ Harper/Soundararajan의 random multiplicative function 결과 활용 가능.
 ### 4. Higher L-functions
 Dirichlet characters χ(n) ∈ U(ℂ). GRH도 같은 구조?
 
-### 5. N_c(d) Formula
-N_c(5) ≈ 500. 명시적 공식 N_c ~ C·d^{2/β} 유도.
+### ~~5. N_c(d) Formula~~ (**CLOSED** — RH_011/012)
+N_c = d·[(d+1)+√((d+1)(d+2-2√(d-1)))-√(d-1)]² (closed form)
+N_c(5) = 340 (2.6% of numerical 331). Exponent ~d³.
+
+### 6. δ(N) Exponent (**CLOSED** — RH_012)
+α = 2/(d-1) from EVT of Beta(1,d-1). d=5: α=1/2 (0.2% error).
 
 ---
 

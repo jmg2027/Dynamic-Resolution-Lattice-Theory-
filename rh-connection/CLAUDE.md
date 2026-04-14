@@ -137,7 +137,9 @@ python RH_004_two_boundaries.py
 python RH_006_born_weight_ramanujan.py
 python RH_007_d_dependence.py
 ```
-Next: RH_011
+| RH_012 | Resolution exponent | 4/4 | **α=2/(d-1)** exact, N_c quadratic |
+
+Next: RH_013
 
 ## Paper
 `../papers/paper5_critical_line.tex` — 전체 결과 포함

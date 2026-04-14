@@ -514,12 +514,23 @@ For the Gram ensemble $\mathcal{E}_N$ with $\Tr(G) = N$:
 \item The resolution limit
   $\delta(N) = 1 - \max_{i \neq j} |G_{ij}|^2 > 0$
   for all finite $N$.
-\item $\delta(N) = \Theta(N^{-1/2})$ ($R^2 = 0.9992$,
-  EXP\_071).
+\item $\delta(N) \sim 2^{1/(d-1)} \cdot N^{-2/(d-1)}$.
+  For $d = 5$: $\delta(N) \sim 2^{1/4} N^{-1/2}$
+  ($R^2 = 0.9999$, RH\_012).
 \item $\delta(N) = 0$ requires $N = \infty$, which violates
   $\Tr(G) = N < \infty$.
 \end{enumerate}
 \end{theorem}
+
+\begin{proof}[Proof of (ii)]
+Each overlap $|G_{ij}|^2 \sim \mathrm{Beta}(1, d{-}1)$ for
+random unit vectors in $\CC^d$ (RH\_012, KS $p > 0.25$).
+The maximum of $M = \binom{N}{2}$ iid $\mathrm{Beta}(1,d{-}1)$
+variables satisfies $\max \approx 1 - M^{-1/(d-1)}$ by
+extreme value theory.
+Since $M \approx N^2/2$:
+$$\delta(N) \approx (N^2/2)^{-1/(d-1)} = 2^{1/(d-1)} \cdot N^{-2/(d-1)}\,.$$
+\end{proof}
 
 This creates a three-level picture:
 
