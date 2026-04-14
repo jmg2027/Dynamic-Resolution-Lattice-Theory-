@@ -83,6 +83,18 @@ Ihara 영점에는 영향하지 않음 (rank 효과). 다른 관측량이 필요
 "수학 자체가 유한 정밀도의 한계" — DRLT의 self-contradiction boundary는 한 모델의 한계이지,
 수학 기초론의 도구(증명 이론, 구성주의)가 아님. RH 독립성 증명에는 다른 접근 필요.
 
+## Long-Term Direction: DRLT 고유의 수학 언어
+기존 수학 분야(랜덤 행렬론, 표현론, 해석적 정수론 등)를 빌려 쓰고 있지만,
+DRLT를 **올바르게** 표현하고 계산하는 완전히 맞는 기존 수학이 없다는 느낌.
+예시:
+- Gram 행렬은 랜덤 행렬이면서 동시에 유한 rank 제약 → MP가 근사일 뿐
+- Ihara 제타는 그래프 이론이지만 Born weight는 연속 → 이산/연속 사이
+- 표현론적 구별이 스펙트럼에 안 나타남 → 관측량이 없음
+- Phase→Möbius는 walk length와 integer 사이의 번역이 부재
+
+DRLT만의 수학 — 유한 Gram 앙상블 위의 해석학 — 을 개발하는 것이
+다음 단계의 근본적 과제일 수 있음.
+
 ## Next Experiment
 RH_024 (available).
 
