@@ -9,21 +9,32 @@ Manage and develop the DRLT → Riemann Hypothesis connection sub-project.
 
 **Working directory:** `rh-connection/`
 
-## The Chain (memorize this)
+## The Two Chains (memorize this)
 
+**Branch A: Why Re(s) = 1/2 (UNIVERSAL, not ℂ-specific)**
+```
+|coefficient| = 1 (any phase structure: ℂ or ℝ)
+  → CLT: Var = Σ 1/k^{2σ}, converges iff 2σ > 1
+  → Convergence boundary σ = 1/2 (Thm 7, Halász-Harper)
+  → Möbius randomness (Conjecture)
+```
+
+**Branch B: Why GUE statistics (ℂ-SPECIFIC, DRLT contribution)**
 ```
 ℂ unique (Frobenius, Thm 1)
   → Uniform phase on U(1) (Thm 6, EXP_071b)
-  → β=2, GUE (Dyson)
-  → ℂ⁵ = ℂ² ⊕ ℂ³ unique (Thm 2)
-  → d²=25 channels (Thm 3)
-  → s=2 from ℂ² sector (Thm 4)
-  → Propagator = Σ 1/n² = ζ(2) (Thm 3)
-  → Integer n from combinatorial hops
-  → Oscillatory sum Σ e^{iθ}/n^s
-  → Convergence boundary Re(s)=1/2 (CLT, Thm 7)
-  → Möbius randomness as consequence (Conjecture)
+  → β=2 → GUE (Dyson)
+  → Pair correlation matches ζ zeros (Montgomery-Odlyzko)
 ```
+
+**Common foundation:**
+```
+ℂ unique → ℂ⁵ = ℂ² ⊕ ℂ³ → d²=25 channels → s=2 → ζ(2) = π²/6
+```
+
+**IMPORTANT:** An earlier version overclaimed that 1/2 comes from ℂ.
+Corrected: 1/2 is CLT (universal), GUE is ℂ (specific).
+These are TWO independent results, which is stronger than one.
 
 ## Directory Structure
 

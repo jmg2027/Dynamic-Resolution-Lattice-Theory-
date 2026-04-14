@@ -127,7 +127,36 @@ The partial sum S_N = Σ e^{iθ_k}/k^σ is a random walk in ℂ with step sizes 
 - If σ = 1/2: Σ 1/k = log N → variance grows logarithmically
 - If σ < 1/2: Σ 1/k^{2σ} diverges → S_N diverges
 
-The critical exponent σ = 1/2 is determined by the **quadratic** nature of variance (|e^{iθ}|² = 1), which is itself a consequence of the Born rule |z|² — derived from ℂ in Theorem (Paper 2, §4).
+The critical exponent σ = 1/2 is determined by the condition Σ 1/k^{2σ} < ∞, i.e., 2σ > 1. This depends **only** on |coefficient|² = 1, not on the phase distribution.
+
+**Important correction:** The 1/2 boundary is NOT specific to ℂ. The Rademacher series Σ ε_k/k^σ (with ε_k ∈ {-1, +1} uniform) has the same a.s. convergence boundary at σ = 1/2. The CLT argument requires only |coefficient| = 1, which holds for both ℂ (Steinhaus, S¹) and ℝ (Rademacher, ±1).
+
+### 4.4 What ℂ Actually Adds: GUE, Not 1/2
+
+The distinction between ℂ and ℝ is not in the convergence boundary but in the **fine structure** of the zeros:
+
+|                    | ℝ (Rademacher, ±1) | ℂ (Steinhaus, S¹) |
+|--------------------|--------------------|--------------------|
+| σ = 1/2 boundary   | ✓ (CLT)            | ✓ (CLT)            |
+| Level repulsion β  | β = 1 (GOE)        | **β = 2 (GUE)**    |
+| Pair correlation    | GOE sine kernel    | **GUE sine kernel** |
+| ζ zero statistics?  | No match           | **Match (Montgomery-Odlyzko)** |
+
+Montgomery-Odlyzko showed that ζ zeros have GUE (not GOE) pair correlation. DRLT explains **why GUE**: ℂ is the unique substrate → β = 2 → GUE is forced.
+
+**Summary of the corrected chain:**
+
+```
+Why Re(s) = 1/2:
+  |coefficient| = 1 → CLT → σ = 1/2
+  (Universal: holds for both ℂ and ℝ)
+
+Why GUE statistics:
+  ℂ unique → β = 2 → GUE → pair correlation
+  (ℂ-specific: ℝ gives GOE, which doesn't match ζ)
+```
+
+These are two independent results. The first is universal, the second is the specific DRLT contribution.
 
 -----
 
@@ -162,26 +191,47 @@ The Gram matrix ensemble over ℂ⁵ generates, via the propagator channel struc
 
 -----
 
-## 6. The Complete Chain
+## 6. The Complete Chain (Two Independent Branches)
+
+**Branch A: Why Re(s) = 1/2 (universal, not ℂ-specific)**
+
+```
+Phase structure exists (any non-trivial phase: ℂ or ℝ)
+  → Oscillatory Dirichlet series Σ a_n/n^s with |a_n| = 1
+  → CLT: Var = Σ 1/k^{2σ}
+  → Convergence boundary σ = 1/2 (Theorem 7)
+  → Möbius randomness principle (Conjecture, Section 5)
+```
+
+**Branch B: Why GUE statistics (ℂ-specific, DRLT contribution)**
 
 ```
 ℂ unique (Theorem 1)
   → Uniform phase on U(1) (Theorem 6)
-  → β = 2, GUE (standard)
+  → β = 2 → GUE (Dyson)
+  → Pair correlation = GUE sine kernel
+  → Matches ζ zero statistics (Montgomery-Odlyzko)
+```
+
+**Common foundation:**
+
+```
+ℂ unique (Theorem 1)
   → ℂ⁵ = ℂ² ⊕ ℂ³ unique (Theorem 2)
   → d² = 25 channels (Theorem 3)
   → s = 2 from ℂ² sector (Theorem 4)
   → Propagator = Σ 1/n² = ζ(2) (Theorem 3)
   → Integer n from combinatorial hops (Section 3.2)
-  → Oscillatory sum Σ e^{iθ}/n^s (Section 4.1)
-  → Convergence boundary Re(s) = 1/2 (Theorem 7)
-  → Möbius randomness as consequence (Conjecture, Section 5)
-  → RH as structural shadow of ℂ-uniformity (Interpretation)
 ```
 
 **Theorems:** 1 → 6, including Theorem 7 (known, not ours).
 **Conjecture:** Section 5.3 — the map from Gram phases to μ(n).
-**Interpretation:** RH is not a property of ζ(s) alone, but a consequence of ℂ being the unique substrate. The 1/2 boundary is the Central Limit Theorem applied to ℂ-uniform phases over integer-indexed channels.
+
+**What DRLT answers:**
+- "Why GUE?" → ℂ uniqueness forces β = 2 (Branch B). This is new; no previous framework explains it.
+- "Why 1/2?" → CLT with |coeff| = 1 (Branch A). This is universal and not ℂ-specific.
+
+**Open:** Is it a coincidence that the CLT boundary (Branch A) and the GUE pair correlation scale (Branch B) share the same value 1/2? This question becomes visible only after separating the two branches.
 
 -----
 

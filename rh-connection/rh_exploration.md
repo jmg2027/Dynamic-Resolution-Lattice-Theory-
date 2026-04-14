@@ -253,17 +253,25 @@ If deviation is O(1/√N), at N = 10¹³ the deviation is ~10⁻⁷, below compu
 
 **Meta-conclusion:** ζ appears ONLY in the combinatorial propagator sum Σ1/n^s, not in any continuous structure of the Gram matrix. The integer n (hop count) is the essential ingredient.
 
-### A.2 Key Positive Discovery: Phase Uniformity → 1/2 Boundary
+### A.2 Key Positive Discovery: Two Independent Results
 
-**Chain:**
+**CORRECTION (Jeong):** An earlier version claimed “1/2 is from ℂ via Born rule.” This is overclaiming — ℝ (Rademacher, ±1) also gives the 1/2 boundary. The CLT depends on |coeff|=1, not on the phase distribution.
 
-1. ℂ unique → phase θ_k uniform on (-π,π] (Theorem 6, EXP_071b confirmed)
-1. Oscillatory Dirichlet series Σ e^{iθ}/n^s with uniform θ
-1. Convergence boundary = Re(s) = 1/2 (Halász-Harper, known theorem)
-1. This is the CLT: Var = Σ1/k^{2σ}, critical at σ = 1/2
-1. Born rule |z|² (from ℂ) makes variance quadratic → determines the exponent
+**Corrected chain — two independent branches:**
 
-**Möbius connection:** RH ⟺ Σμ(n)/n^s converges for Re(s)>1/2. “Why μ(n) looks random” is open. Our answer: ℂ forces uniform phase → pseudo-randomness is structural, not accidental.
+**Branch A (universal):** Why σ = 1/2?
+1. Any phase with |a_k| = 1 → oscillatory Dirichlet series
+1. CLT: Var = Σ 1/k^{2σ}, converges iff 2σ > 1
+1. Boundary = σ = 1/2 (Halász-Harper). ℂ NOT required.
+
+**Branch B (ℂ-specific):** Why GUE?
+1. ℂ unique → uniform phase → β = 2 → GUE
+1. GUE pair correlation = ζ zero pair correlation (Montgomery-Odlyzko)
+1. ℝ gives GOE (β=1), which does NOT match ζ.
+
+**Möbius connection:** RH ⟺ Σμ(n)/n^s converges for Re(s)>1/2. “Why μ(n) looks random” is open.
+
+**New open question:** Why do the CLT boundary (Branch A) and GUE pair correlation scale (Branch B) share the value 1/2?
 
 ### A.3 Updated Status of Approaches
 
