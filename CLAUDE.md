@@ -114,7 +114,8 @@ Key completed:
 - EXP_072: Embedding correction α/d, m_H=125.28 GeV +0.02% +0.15σ (7/7 ✓)
 - EXP_073: n-p mass diff S₂/S∞→(1-S₂/S∞), Δm=1.275 MeV -1.5% (7/7 ✓)
 - EXP_074: Neutrino ratio T₂₃=1/2+3/(2π²), m₃/m₂=5.71 +0.04% (5/5 ✓)
-- Next: EXP_075
+- EXP_075: Confined Ξ = α/(d²-1) only, m_u/m_d preserved (7/7 ✓)
+- Next: EXP_076
 
 ## Resolved Problems
 - det(SST) vs det(STT): distinct quantities (EXP_048)
@@ -135,7 +136,7 @@ Key completed:
 2. ~~**Δm_np:**~~ RESOLVED — 1.275 MeV (-1.5%) via EM excess fraction (EXP_073)
 3. ~~**1/α₂ (weak):**~~ NOT A PROBLEM — ch08 gives 12×2×S(2)=30→29.6 (0%). Old formula had spurious S∞ division.
 4. ~~**Neutrino ratio:**~~ RESOLVED — T₂₃=1/2+3/(2π²), m₃/m₂=5.71 (+0.04%) via Basel correction (EXP_074)
-5. **1st gen quark masses:** Ξ correction degrades m_u, m_d; need confined-specific Ξ
+5. ~~**1st gen quark masses:**~~ RESOLVED — Ξ_confined = α/(d²-1) only; EM terms vanish (f_T=0) (EXP_075)
 
 ## Key Precision Results (0 free parameters)
 | Observable | DRLT | Observed | Error |
