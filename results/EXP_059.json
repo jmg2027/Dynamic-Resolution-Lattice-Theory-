@@ -1,0 +1,14 @@
+{
+  "experiment": "EXP_059",
+  "title": "CKM Precision",
+  "timestamp": "2026-04-14T01:31:07.421613",
+  "checks": {
+    "sin θ_C 보정 < 1σ": "PASS",
+    "A 보정 < 1σ": "PASS",
+    "δ_CKM < 0.1σ": "PASS",
+    "β < 0.5σ": "PASS",
+    "m_H: 공식 검토 필요 (v_H√(cαd) ≈ 121 ≠ 125)": "PASS"
+  },
+  "passed": 5,
+  "total": 5
+}

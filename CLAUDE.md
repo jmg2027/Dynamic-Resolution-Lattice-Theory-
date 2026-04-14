@@ -90,32 +90,52 @@ Key completed:
 - EXP_050: Lepton precision m_μ/m_e 134 ppm (4/4 ✓)
 - EXP_051: Neutrino PMNS structure (3/3 ✓)
 - EXP_052: Folded dimension leaking (7/7 ✓)
-- Next: EXP_053
+- EXP_053: Lepton mass 26 ppm → sub-ppb via 3-step Ξ chain (3/3 ✓)
+- EXP_053b: Convergent series + closed form (99.99997% ✓)
+- EXP_054: Neutrino ratio democratic seesaw 283→3.73 (3/3 ✓)
+- EXP_055: w = 3/(5π) analytic closed form (3/3 ✓)
+- EXP_056: Rigorous PMNS C(n,2)=n uniqueness (4/4 ✓)
+- EXP_057: m_τ/m_μ hop series 55→5 ppm (3/3 ✓)
+- EXP_058: PMNS precision all 4 angles <2σ (5/5 ✓)
+- EXP_059: CKM precision sin θ_C +0.86σ (4/5 ✓, Higgs marginal)
+- EXP_060: Absolute masses Ξ correction 8/12 improved (8/12 ✓)
+- EXP_061: n-p mass diff geometric factor issue (diagnostic)
+- EXP_062: Remaining observables 1/α_em 0.0004% (5/5 ✓)
+- Next: EXP_063
 
 ## Resolved Problems
 - det(SST) vs det(STT): distinct quantities (EXP_048)
 - Confined coupling: x=-ε/(1+ε), Dyson dressing (EXP_049)
 - PMNS structure: B-pair overlap → TBM + α_GUT corrections (EXP_051/052)
 - θ₁₃ prediction: sin²θ₁₃ = α_GUT(1-4α_GUT) = 0.022, 0.2% (was 15%)
+- **Lepton mass sub-ppb:** Ξ = α_em/(1-α)+α/(d²-1)+α_em² → 0.7 ppb (EXP_053/053b)
+- **Neutrino ratio:** Democratic seesaw D×T⁻¹×D → 283→3.73 (EXP_054)
+- **w closed form:** w = 3/(5π) = n_S/(d·π) (EXP_055)
+- **PMNS rigorous:** C(n,2)=n ⟺ n=3; all 4 angles <2σ (EXP_056/058)
+- **CKM precision:** sin θ_C +2.47σ → +0.86σ via Ξ chain (EXP_059)
+- **1/α_em precision:** 0.020% → 0.0004% via same Ξ (EXP_062)
 
 ## Open Problems
-1. **Lepton mass sub-ppm:** m_μ/m_e = 206.796 (134 ppm); need α_GUT×α_em cross-term
-2. **Neutrino mass ratio:** m_ν₃/m_ν₂ = 283 (seesaw) vs 5.7 (observed); PMNS coupling needed
-3. **w = 0.190 analytic:** A-sector overlap found numerically; need closed-form w = f(α_GUT, d)
-4. **Folded dimension leaking:** C(n_S,2) = n_S ⟺ n_S = 3 identity; rigorous PMNS derivation
+1. **Higgs mass:** m_H = 121 vs 125 GeV (3% gap); λ derivation incomplete
+2. **Δm_np geometric factor:** +11% overcount; need correct combinatorial form
+3. **1/α₂ (weak):** 18.2 vs 29.6; RGE running not yet included
+4. **Neutrino ratio quantitative:** 3.73 vs 5.71 (35% gap); higher-order T-matrix needed
+5. **1st gen quark masses:** Ξ correction degrades m_u, m_d; need confined-specific Ξ
 
 ## Key Precision Results (0 free parameters)
 | Observable | DRLT | Observed | Error |
 |-----------|------|----------|-------|
-| 1/α_em | 137.064 | 137.036 | 0.020% |
+| 1/α_em | 137.036 | 137.036 | **0.0004%** |
 | m_p | 938.27 MeV | 938.27 MeV | 0.000% |
-| m_μ/m_e | 206.80 | 206.768 | 0.02% |
-| m_τ/m_μ | 16.816 | 16.817 | 0.006% |
+| m_μ/m_e | 206.7682837 | 206.7682838 | **0.7 ppb** |
+| m_τ/m_μ | 16.8169 | 16.8170 | **5 ppm** |
 | η_B | 6.10×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.04% |
 | Ω_Λ | 0.6850 | 0.685 | 0.07% |
 | θ(H₂O) | 104.52° | 104.52° | 0.00° |
 | δ_CKM | 68.75° | 68.8° | 0.1% |
-| sin²θ₁₃ | 0.022 | 0.022 | 0.2% |
+| sin²θ₁₃ | 0.0220 | 0.0220 | **-0.07σ** |
+| sin²θ₁₂ | 0.3070 | 0.307 | **+0.002σ** |
+| sin θ_C | 0.2263 | 0.2253 | **+0.86σ** |
 
 ## Key Library API (lib/drlt.py)
 ```python

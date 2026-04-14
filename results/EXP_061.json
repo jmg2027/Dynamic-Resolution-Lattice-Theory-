@@ -1,0 +1,11 @@
+{
+  "experiment": "EXP_061",
+  "title": "Neutron-Proton Mass Difference",
+  "timestamp": "2026-04-14T01:33:17.797498",
+  "checks": {
+    "PDG 쿼크+기존 기하 < 5%": "FAIL",
+    "PDG 쿼크+Ξ < 5%": "FAIL"
+  },
+  "passed": 0,
+  "total": 2
+}
