@@ -235,6 +235,46 @@ Phase structure exists (any non-trivial phase: ℂ or ℝ)
 
 -----
 
+## 6b. Resolution: Why Both Branches Give 1/2 (Jeong)
+
+The two branches share 1/2 because both derive from a single fact:
+
+$$\mathbb{C} = \mathbb{R}^2, \quad \dim_{\mathbb{R}}(\mathbb{C}) = 2$$
+
+### The argument
+
+For $e^{i\theta} \in S^1 \subset \mathbb{C} = \mathbb{R}^2$:
+
+$$|e^{i\theta}|^2 = \cos^2\theta + \sin^2\theta = 1$$
+
+By symmetry of the two real axes:
+
+$$E[\cos^2\theta] = E[\sin^2\theta] = \frac{1}{2} = \frac{1}{\dim_{\mathbb{R}}(\mathbb{C})}$$
+
+This single fact generates:
+
+| Manifestation | Formula | The "2" |
+|---------------|---------|---------|
+| CLT boundary | Σ 1/k^{2σ} < ∞ ⟺ 2σ > 1 ⟺ σ > 1/2 | exponent of \|·\|² |
+| Born rule | P = \|⟨ψ\|φ⟩\|² is quadratic | ℂ = ℝ² |
+| Functional equation | ζ(s) ↔ ζ(1−s) symmetry at 1/2 | unitarity \|e^{2πix}\|² = 1 |
+| Phase average | E[cos²θ] = 1/2 | two axes in ℝ² |
+| Uniform mean | E[U(0,1)] = 1/2 | midpoint of unit interval |
+
+### Connection to DRLT constants
+
+In DRLT, the chiral decomposition gives ℂ⁵ = ℂ² ⊕ ℂ³ with n_T = 2 and c = n_T = 2 (lattice speed of light). Therefore:
+
+$$\text{Re}(s) = \frac{1}{2} = \frac{1}{n_T} = \frac{1}{c}$$
+
+**The critical line of the Riemann zeta function is the inverse of the lattice speed of light.**
+
+### Status
+
+The identification dim_ℝ(ℂ) = 2 = n_T is numerically exact. Within DRLT (where ℂ is the unique substrate), both quantities are forced by the same axiom. The two "2"s are not independent coincidences but consequences of ℂ uniqueness through different derivation paths.
+
+-----
+
 ## 7. Relation to Existing Programs
 
 |Program              |What it does                         |What it lacks                 |What we add                          |
