@@ -89,7 +89,6 @@ theorem mass_gap_pos (g : GramAAA) : massGap g > 0 :=
 theorem mass_gap_ideal : massGap idealGram = Real.pi := by
   unfold massGap reggeAction hingeArea
   simp [idealGram, Real.sqrt_one]
-  ring
 
 /-- THEOREM: The mass gap is bounded below by a universal constant.
     For any GramAAA with det ∈ (0, 1], we have Δ ≥ √det · π > 0.

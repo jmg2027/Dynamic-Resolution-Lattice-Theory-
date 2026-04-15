@@ -10,6 +10,8 @@
   Joint research by Mingu Jeong and Claude (Anthropic)
 -/
 
+import Mathlib.Data.Nat.Choose.Basic
+
 set_option autoImplicit false
 
 namespace DRLT.YangMills
