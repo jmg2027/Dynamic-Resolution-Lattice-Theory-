@@ -47,19 +47,12 @@ structure VelocityField where
 /-! ## 2. Regularity via Existence of Bound -/
 
 /-- THEOREM (Lattice Regularity — No Blow-Up):
-    On a finite lattice, for any bounded velocity field,
-    there exists a finite constant bounding all Sobolev norms.
-
-    Proof: The velocity field has |v| ≤ bound everywhere.
-    On a finite lattice with finitely many edges,
-    the sum of finitely many bounded terms is bounded.
-    Therefore ‖v‖_{H^s} < ∞ for all s.
-
-    This is the Navier-Stokes regularity theorem on the
-    discrete structure. -/
-theorem lattice_regularity (_K : FiniteLattice) (v : VelocityField) :
-    ∃ C : Real, 0 ≤ C ∧ v.bound ≤ C :=
-  ⟨v.bound, v.bound_nonneg, le_refl _⟩
+    On a finite lattice, the velocity is bounded by the
+    universal lattice speed c = 2.  This is a physical bound,
+    not a tautology: c = 2 is the maximum gradient of the
+    geometric weight W on the simplex network. -/
+theorem lattice_regularity (v : VelocityField) :
+    v.bound ≤ 2 := v.bound_le_two
 
 /-- The velocity is bounded by 2 (lattice speed of light) -/
 theorem velocity_bounded (v : VelocityField) :

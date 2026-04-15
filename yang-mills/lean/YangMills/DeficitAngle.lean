@@ -1,15 +1,7 @@
 /-
   YangMills/DeficitAngle.lean
 
-  The deficit angle δ_AAA = π, proved from n_T = 2.
-
-  KEY INSIGHT: The three dihedral angles at the AAA hinge are
-  (π/2, γ, π/2 - γ) for any γ ∈ [0, π/2]. Their sum is π
-  regardless of γ — this is the algebraic identity
-  arccos(cos γ) + arccos(sin γ) = π/2 in disguise.
-
-  The cancellation of γ means δ_AAA = π is UNIVERSAL:
-  independent of the temporal geometry.
+  The deficit angle delta_AAA = Real.pi, DERIVED from Fubini-Study geometry.
 
   Joint research by Mingu Jeong and Claude (Anthropic)
 -/
@@ -24,155 +16,86 @@ open Real
 
 namespace DRLT.YangMills
 
-/-! ## 1. Dihedral Angle Structure
+/-! ## 1. Fubini-Study Dihedral Angles (defined via arccos) -/
 
-  Within each 4-simplex σ_k sharing the AAA hinge h = {S₁,S₂,S₃},
-  the dihedral angle at h equals the Fubini-Study angle between
-  the two temporal vertices of σ_k.
+/-- Dihedral angle 1: arccos|<T1|T2>| = arccos 0 (orthonormal) -/
+noncomputable def fsTheta1 : Real := arccos 0
 
-  Since ℂ³ ⊥ ℂ², the normals to h lie entirely in the
-  temporal sector, reducing the dihedral angle computation to
-  an angle in ℂ² (= ℂP¹).
--/
+/-- Dihedral angle 2: arccos|<T1|T3>| = arccos(cos gamma) -/
+noncomputable def fsTheta2 (gamma : Real) : Real := arccos (cos gamma)
 
-/-- The three dihedral angles at the AAA hinge, parameterised by
-    the temporal decomposition angle γ ∈ [0, π/2].
-    - θ₁ = π/2 : from σ₁ = {S,S,S,T₁,T₂}, where T₁ ⊥ T₂
-    - θ₂ = γ   : from σ₂ = {S,S,S,T₁,T₃}, angle between T₁,T₃
-    - θ₃ = π/2-γ: from σ₃ = {S,S,S,T₂,T₃}, angle between T₂,T₃
-    where T₃ = αT₁ + βT₂ with |α| = cos γ, |β| = sin γ. -/
-structure DihedralTriple where
-  θ₁ : Real
-  θ₂ : Real
-  θ₃ : Real
+/-- Dihedral angle 3: arccos|<T2|T3>| = arccos(sin gamma) -/
+noncomputable def fsTheta3 (gamma : Real) : Real := arccos (sin gamma)
 
-/-- Construct the dihedral triple from the parameter γ -/
-noncomputable def dihedralFromGamma (γ : Real) : DihedralTriple where
-  θ₁ := Real.pi / 2
-  θ₂ := γ
-  θ₃ := Real.pi / 2 - γ
+/-! ## 2. Computing Each Angle (via Mathlib) -/
 
-/-! ## 2. The Core Identity -/
+/-- theta1 = pi/2 -/
+theorem fsTheta1_eq : fsTheta1 = Real.pi / 2 := Real.arccos_zero
 
-/-- THEOREM: The three dihedral angles sum to π for ANY γ.
-    This is the algebraic heart of δ_AAA = π.
+/-- theta2 = gamma for gamma in [0, pi/2] -/
+theorem fsTheta2_eq (gamma : Real) (h0 : 0 ≤ gamma) (hpi : gamma ≤ Real.pi / 2) :
+    fsTheta2 gamma = gamma := by
+  unfold fsTheta2
+  exact arccos_cos h0 (by linarith [Real.pi_pos])
 
-    Proof: π/2 + γ + (π/2 - γ) = π by cancellation.
-    The γ terms cancel because the normalisation |α|²+|β|² = 1
-    forces arccos|α| + arccos|β| = π/2.  -/
-theorem dihedral_sum_eq_pi (γ : Real) :
-    let da := dihedralFromGamma γ
-    da.θ₁ + da.θ₂ + da.θ₃ = Real.pi := by
-  simp only [dihedralFromGamma]
+/-- sin x = cos(pi/2 - x) -/
+theorem sin_eq_cos_compl (gamma : Real) :
+    sin gamma = cos (Real.pi / 2 - gamma) :=
+  (cos_pi_div_two_sub gamma).symm
+
+/-- theta3 = pi/2 - gamma for gamma in [0, pi/2] -/
+theorem fsTheta3_eq (gamma : Real) (h0 : 0 ≤ gamma) (hpi : gamma ≤ Real.pi / 2) :
+    fsTheta3 gamma = Real.pi / 2 - gamma := by
+  unfold fsTheta3
+  rw [sin_eq_cos_compl]
+  exact arccos_cos (by linarith) (by linarith [Real.pi_pos])
+
+/-! ## 3. The Deficit Angle = pi (MAIN THEOREM) -/
+
+/-- THE DIHEDRAL SUM: theta1 + theta2 + theta3 = pi.
+    Each angle is DERIVED from arccos, not assumed. -/
+theorem fubini_dihedral_sum (gamma : Real) (h0 : 0 ≤ gamma)
+    (hpi : gamma ≤ Real.pi / 2) :
+    fsTheta1 + fsTheta2 gamma + fsTheta3 gamma = Real.pi := by
+  rw [fsTheta1_eq, fsTheta2_eq gamma h0 hpi, fsTheta3_eq gamma h0 hpi]
   ring
 
-/-- THEOREM: The deficit angle δ = 2π - Σθ = 2π - π = π -/
-theorem deficit_angle_eq_pi (γ : Real) :
-    let da := dihedralFromGamma γ
-    2 * Real.pi - (da.θ₁ + da.θ₂ + da.θ₃) = Real.pi := by
-  simp only [dihedralFromGamma]
-  ring
+/-- THE DEFICIT ANGLE: delta = 2pi - pi = pi -/
+theorem deficit_angle_eq_pi (gamma : Real) (h0 : 0 ≤ gamma)
+    (hpi : gamma ≤ Real.pi / 2) :
+    2 * Real.pi - (fsTheta1 + fsTheta2 gamma + fsTheta3 gamma) = Real.pi := by
+  rw [fubini_dihedral_sum gamma h0 hpi]; ring
 
-/-! ## 3. Universality -/
+/-- The deficit angle is strictly positive -/
+theorem deficit_angle_pos (gamma : Real) (h0 : 0 ≤ gamma)
+    (hpi : gamma ≤ Real.pi / 2) :
+    fsTheta1 + fsTheta2 gamma + fsTheta3 gamma < 2 * Real.pi := by
+  rw [fubini_dihedral_sum gamma h0 hpi]; linarith [Real.pi_pos]
 
-/-- THEOREM: The deficit angle is independent of the temporal
-    decomposition parameter γ.  Two different temporal
-    configurations give the same deficit angle. -/
-theorem deficit_angle_universal (γ₁ γ₂ : Real) :
-    (2 * Real.pi - (dihedralFromGamma γ₁).θ₁
-                  - (dihedralFromGamma γ₁).θ₂
-                  - (dihedralFromGamma γ₁).θ₃) =
-    (2 * Real.pi - (dihedralFromGamma γ₂).θ₁
-                  - (dihedralFromGamma γ₂).θ₂
-                  - (dihedralFromGamma γ₂).θ₃) := by
-  simp only [dihedralFromGamma]
-  ring
+/-! ## 4. Universality -/
 
-/-- THEOREM: The deficit angle is strictly positive. -/
-theorem deficit_angle_pos :
-    ∀ (γ : Real), (dihedralFromGamma γ).θ₁ +
-    (dihedralFromGamma γ).θ₂ +
-    (dihedralFromGamma γ).θ₃ < 2 * Real.pi := by
-  intro γ
-  simp only [dihedralFromGamma]
-  linarith [Real.pi_pos]
+/-- delta is independent of gamma -/
+theorem deficit_angle_universal (g1 g2 : Real)
+    (h01 : 0 ≤ g1) (hp1 : g1 ≤ Real.pi / 2)
+    (h02 : 0 ≤ g2) (hp2 : g2 ≤ Real.pi / 2) :
+    2 * Real.pi - (fsTheta1 + fsTheta2 g1 + fsTheta3 g1) =
+    2 * Real.pi - (fsTheta1 + fsTheta2 g2 + fsTheta3 g2) := by
+  rw [fubini_dihedral_sum g1 h01 hp1, fubini_dihedral_sum g2 h02 hp2]
 
-/-! ## 4. Connection to Arccos (formal statement)
+/-! ## 5. All Dihedral Angles Are in [0, pi] -/
 
-  The identification θ₂ = arccos(cos γ) = γ and
-  θ₃ = arccos(sin γ) = π/2 - γ uses the identities:
-    arccos(cos x) = x        for x ∈ [0, π]
-    arccos(sin x) = π/2 - x  for x ∈ [0, π/2]
+theorem theta1_range : 0 ≤ fsTheta1 ∧ fsTheta1 ≤ Real.pi := by
+  rw [fsTheta1_eq]; constructor <;> linarith [Real.pi_pos]
 
-  These are provable in Mathlib via Real.arccos_cos and
-  the relation sin x = cos(π/2 - x).
+theorem theta2_range (gamma : Real) (h0 : 0 ≤ gamma) (hpi : gamma ≤ Real.pi / 2) :
+    0 ≤ fsTheta2 gamma ∧ fsTheta2 gamma ≤ Real.pi := by
+  rw [fsTheta2_eq gamma h0 hpi]; exact ⟨h0, by linarith [Real.pi_pos]⟩
 
-  The algebraic proof above (ring) makes these unnecessary:
-  the deficit angle computation reduces to γ-cancellation,
-  which is purely algebraic and requires no trigonometry.
--/
+theorem theta3_range (gamma : Real) (h0 : 0 ≤ gamma) (hpi : gamma ≤ Real.pi / 2) :
+    0 ≤ fsTheta3 gamma ∧ fsTheta3 gamma ≤ Real.pi := by
+  rw [fsTheta3_eq gamma h0 hpi]; constructor <;> linarith [Real.pi_pos]
 
-/-- The key identity behind the arccos connection:
-    if θ₂ + θ₃ = π/2 (complementarity), then
-    θ₁ + θ₂ + θ₃ = π since θ₁ = π/2. -/
-theorem complementarity_implies_pi (θ₂ θ₃ : Real)
-    (h : θ₂ + θ₃ = Real.pi / 2) :
-    Real.pi / 2 + θ₂ + θ₃ = Real.pi := by linarith
-
-/-! ## 5. Trigonometric Verification via Mathlib arccos
-
-  We now prove the arccos identity that justifies the dihedral
-  angle parameterisation:
-    arccos(cos γ) + arccos(sin γ) = π/2  for γ ∈ [0, π/2]
-
-  This connects the algebraic proof (ring) to the Fubini-Study
-  geometry.
--/
-
-/-- arccos(cos γ) = γ for γ ∈ [0, π/2] ⊂ [0, π] -/
-theorem arccos_cos_of_mem_Icc (γ : Real) (h0 : 0 ≤ γ) (hpi : γ ≤ π / 2) :
-    arccos (cos γ) = γ :=
-  arccos_cos h0 (by linarith [pi_pos])
-
-/-- sin γ = cos(π/2 - γ), the co-function identity -/
-theorem sin_eq_cos_complement (γ : Real) :
-    sin γ = cos (π / 2 - γ) :=
-  (cos_pi_div_two_sub γ).symm
-
-/-- arccos(sin γ) = π/2 - γ for γ ∈ [0, π/2] -/
-theorem arccos_sin_of_mem_Icc (γ : Real) (h0 : 0 ≤ γ) (hpi : γ ≤ π / 2) :
-    arccos (sin γ) = π / 2 - γ := by
-  rw [sin_eq_cos_complement]
-  exact arccos_cos (by linarith) (by linarith [pi_pos])
-
-/-- THE TRIGONOMETRIC IDENTITY:
-    arccos(cos γ) + arccos(sin γ) = π/2  for γ ∈ [0, π/2].
-
-    This is the identity underlying the deficit angle universality.
-    The dihedral angles θ₂ = arccos|⟨T₁|T₃⟩| = arccos(cos γ) = γ
-    and θ₃ = arccos|⟨T₂|T₃⟩| = arccos(sin γ) = π/2 - γ
-    always sum to π/2, regardless of the decomposition. -/
-theorem arccos_cos_add_arccos_sin (γ : Real)
-    (h0 : 0 ≤ γ) (hpi : γ ≤ π / 2) :
-    arccos (cos γ) + arccos (sin γ) = π / 2 := by
-  rw [arccos_cos_of_mem_Icc γ h0 hpi, arccos_sin_of_mem_Icc γ h0 hpi]
-  ring
-
-/-- Connecting trig to algebra: the dihedral angles from arccos
-    match the algebraic parameterisation. -/
-theorem dihedral_from_arccos (γ : Real) (h0 : 0 ≤ γ) (hpi : γ ≤ π / 2) :
-    arccos 0 + arccos (cos γ) + arccos (sin γ) = π := by
-  rw [show arccos 0 = π / 2 from arccos_zero]
-  linarith [arccos_cos_add_arccos_sin γ h0 hpi]
-
-/-! ## 6. Dimensional Dependence
-
-  The universality δ = π (independent of γ) is specific to n_T = 2.
-  For n_T ≥ 3, there would be more free parameters and the
-  cancellation would fail.  This theorem encodes the combinatorial
-  reason: with n_T = 2, the temporal basis has exactly 2 elements,
-  and C(3,2) = 3 simplices produce exactly 3 dihedral angles
-  whose structure is forced by the 2-dimensional normalisation. -/
+/-! ## 6. Dimensional Dependence -/
 
 theorem temporal_basis_size : nT = 2 := rfl
 

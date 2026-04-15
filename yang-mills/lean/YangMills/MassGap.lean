@@ -130,10 +130,12 @@ theorem mass_gap_vanishes_with_det (ε : Real) (hε : ε > 0)
 theorem three_facts_imply_gap :
     -- Fact 1: Confinement (one channel)
     Neff 3 = 1 ∧
-    -- Fact 2: Deficit angle = π (positive curvature)
-    (∀ γ : Real, deficit_angle_eq_pi γ = deficit_angle_eq_pi γ) ∧
+    -- Fact 2: Deficit angle = π (for the orthonormal case γ = 0)
+    (2 * Real.pi - (fsTheta1 + fsTheta2 0 + fsTheta3 0) = Real.pi) ∧
     -- Fact 3: Mass gap > 0
     (∀ g : GramAAA, massGap g > 0) := by
-  exact ⟨aaa_unique_channel, fun _ => rfl, mass_gap_pos⟩
+  exact ⟨aaa_unique_channel,
+         deficit_angle_eq_pi 0 (le_refl 0) (by linarith [Real.pi_pos]),
+         mass_gap_pos⟩
 
 end DRLT.YangMills
