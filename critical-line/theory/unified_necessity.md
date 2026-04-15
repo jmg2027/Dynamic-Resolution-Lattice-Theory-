@@ -136,6 +136,40 @@ satisfying completeness.
 
 ---
 
+## The Zeta Spectrum: Three Values of s from One Number
+
+The propagator sum Σ 1/n^s evaluated at three points,
+all determined by dim_ℝ(ℂ) = 2:
+
+```
+s = 2 = dim_ℝ(ℂ)        → ζ(2) = π²/6     (converges)
+  × 1/2                     → coupling constants
+s = 1 = dim_ℝ(ℂ)/2      → ζ(1) = ∞        (pole)
+  × 1/2                     → prime density ~ 1/ln(n)
+s = 1/2 = 1/dim_ℝ(ℂ)    → ζ(s) = 0        (zeros)
+                             → critical line Re(s) = 1/2
+```
+
+The three special values form a **geometric sequence**
+with ratio 1/2 = 1/dim_ℝ(ℂ):
+
+| s | Expression | ζ(s) | Physics/Math |
+|---|------------|------|-------------|
+| 2 | dim_ℝ(ℂ) | π²/6 | α_GUT = 1/(d²·ζ(2)) |
+| 1 | dim_ℝ(ℂ)/2 | ∞ (pole) | π(x) ~ x/ln(x) |
+| 1/2 | 1/dim_ℝ(ℂ) | 0 (zeros) | Vieta: \|u\|² = 1/q |
+
+**One number (2) controls the entire zeta landscape:**
+- WHERE it converges (s > 1)
+- WHERE it has zeros (Re(s) = 1/2)
+- WHAT it evaluates to (π²/6)
+
+This 2 is the unique doubly irreducible number (Core.lean),
+the real dimension of ℂ (Frobenius), the temporal sector n_T,
+the lattice speed of light c, and the GUE parameter β.
+
+---
+
 ## Lean Verification
 
 All components machine-verified (0 sorry across files):
