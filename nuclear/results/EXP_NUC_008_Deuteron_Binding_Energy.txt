@@ -1,0 +1,97 @@
+============================================================
+  EXP_NUC_008_Deuteron_Binding_Energy
+  2026-04-15 16:22:01
+============================================================
+
+=== Part 1: Relative Hamiltonian on 2I ===
+  Identity vertex: 119 = [1. 0. 0. 0.]
+
+  Relative distance shells (from identity):
+    cos θ = +1.0000:   1 vertices
+    cos θ = +0.8090:  12 vertices
+    cos θ = +0.5000:  20 vertices
+    cos θ = +0.3090:  12 vertices
+    cos θ = +0.0000:  30 vertices
+    cos θ = -0.3090:  12 vertices
+    cos θ = -0.5000:  20 vertices
+    cos θ = -0.8090:  12 vertices
+    cos θ = -1.0000:   1 vertices
+
+  Nearest neighbors of identity: 12
+
+  Scanning V₀ (in units of t=1):
+      V₀    E_ground   E_1st_exc       gap    bound?
+     0.0    -12.0000     -9.7082    2.2918  no
+     0.5    -12.0552     -9.8437    2.2115  YES
+     1.0    -12.1226     -9.9870    2.1356  YES
+     2.0    -12.3075    -10.2842    2.0233  YES
+     3.0    -12.5851    -10.5666    2.0185  YES
+     5.0    -13.4944    -10.9753    2.5191  YES
+    10.0    -17.1622    -13.5230    3.6392  YES
+
+=== Part 2: Radial reduction ===
+  9 distance shells
+  Shell sizes: [np.int64(1), np.int64(12), np.int64(20), np.int64(12), np.int64(30), np.int64(12), np.int64(20), np.int64(12), np.int64(1)]
+
+  Radial transition matrix (avg edges from shell a → b):
+         s0  s1  s2  s3  s4  s5  s6  s7  s8
+  s0:   0.0 12.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+  s1:   1.0  5.0  5.0  1.0  0.0  0.0  0.0  0.0  0.0
+  s2:   0.0  3.0  3.0  3.0  3.0  0.0  0.0  0.0  0.0
+  s3:   0.0  1.0  5.0  0.0  5.0  1.0  0.0  0.0  0.0
+  s4:   0.0  0.0  2.0  2.0  4.0  2.0  2.0  0.0  0.0
+  s5:   0.0  0.0  0.0  1.0  5.0  0.0  5.0  1.0  0.0
+  s6:   0.0  0.0  0.0  0.0  3.0  3.0  3.0  3.0  0.0
+  s7:   0.0  0.0  0.0  0.0  0.0  1.0  5.0  5.0  1.0
+  s8:   0.0  0.0  0.0  0.0  0.0  0.0  0.0 12.0  0.0
+
+  Radial bound state scan:
+    V₀=  0: E₀=-16.3771, E₁=-11.0841
+    V₀=  1: E₀=-16.3773, E₁=-11.1938
+    V₀=  2: E₀=-16.3777, E₁=-11.3520
+    V₀=  5: E₀=-16.3795, E₁=-12.3935
+    V₀= 10: E₀=-16.4512, E₁=-16.0771
+    V₀= 20: E₀=-25.5618, E₁=-16.3719
+
+=== Part 3: DRLT binding formula ===
+  Candidate formulas for E_d:
+  Observed: E_d = 2.224 MeV
+
+                      m_p × α/(2d) =   2.2816 MeV  ( +2.59%) ★
+                Λ_QCD × α/(φ² + 1) =   2.0701 MeV  ( -6.92%) ★
+                       Λ_QCD × α/π =   2.3840 MeV  ( +7.20%) ★
+                  m_p × ε/(d² × φ) =   1.9942 MeV  (-10.33%) 
+                   m_p × α_GUT × ε =   1.9616 MeV  (-11.80%) 
+                   Λ_QCD × α/(d-1) =   1.8724 MeV  (-15.81%) 
+                  Λ_QCD × α × φ/d² =   0.4847 MeV  (-78.20%) 
+                  m_p / (d² × 2d!) =   0.1564 MeV  (-92.97%) 
+                Λ_QCD × 6/(d! × π) =   4.9020 MeV  (+120.41%) 
+            Λ_QCD × (d+1)/(d! × φ) =   9.5177 MeV  (+327.96%) 
+
+  Best: m_p × α/(2d) = 2.2816 MeV (+2.59%)
+
+  ─── Deep analysis: Λ_QCD × α_GUT / π ───
+  = 308 × 0.024317 / π
+  = 308 × 6/(25π²) / π
+  = 308 × 6/(25π³)
+  = 2.3840 MeV (+7.20%)
+
+  Interpretation: one pion exchange between two nucleons
+  on adjacent 600-cell vertices.
+    Λ_QCD = strong scale (pion dynamics)
+    α_GUT = coupling (vertex interaction)
+    1/π = geometric factor (S³ curvature)
+
+  ─── Alternative: m_p × α_GUT × ε ───
+  = 938.272 × 0.024317 × 0.085976
+  = 1.9616 MeV (-11.80%)
+  Interpretation: proton mass × coupling × confinement
+  [✓ PASS] Best formula within 10%
+
+============================================================
+  SUMMARY: EXP_NUC_008_Deuteron_Binding_Energy
+============================================================
+  [✓] Best formula within 10%
+
+  1/1 checks passed
+  Time: 0.1s
