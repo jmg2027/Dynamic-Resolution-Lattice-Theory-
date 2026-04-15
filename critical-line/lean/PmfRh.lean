@@ -12,3 +12,4 @@ import PmfRh.SpectralFlow
 import PmfRh.UnifiedNecessity
 import PmfRh.HodgeAlgebraic
 import PmfRh.SolveCheck
+import PmfRh.BSDPoincare
