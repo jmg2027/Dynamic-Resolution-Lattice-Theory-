@@ -59,6 +59,7 @@
 | `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
 | `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
+| `discrete-harmonic/` | `DHA_` | **ACTIVE** | 5 (DHA_001-005) | 이산 조화해석학, 스펙트럼, S₅ 표현론 |
 
 ### Sub-Project 필수 구조
 ```
