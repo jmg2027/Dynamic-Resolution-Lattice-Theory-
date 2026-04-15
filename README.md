@@ -31,7 +31,7 @@ Points with relations
 | η_B (baryon) | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
 | θ(H₂O) | 104.52° | 104.52° | 0.00° |
 | δ_CKM | 68.75° | 68.8° | 0.1% |
-| Ω_Λ | 0.6850 | 0.685 | 0.07% |
+| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
 | sin²θ₁₃ | 0.0220 | 0.0220 | **-0.07σ** |
 | sin²θ₁₂ | 0.3070 | 0.307 | **+0.002σ** |
 | sin θ_C | 0.2263 | 0.2253 | **+0.86σ** |
@@ -41,13 +41,16 @@ Points with relations
 
 ```
 book/               — THE BOOK: single source of truth for all theory
-  main.tex          — Master file (6 Parts, 20 chapters, 2 appendices)
-  chapters/         — ch01-ch20 + appendix_verification, appendix_code
+  main.tex          — Master file (6 Parts, 21 chapters, 2 appendices)
+  chapters/         — ch01-ch21 + appendix_verification, appendix_code
 
-papers/             — 3-tier publication strategy
-  paper1_chiral_decomposition.tex    — Pure math (no physics language)
+papers/             — Standalone journal submissions (6 papers)
+  paper1_chiral_decomposition.tex    — Pure math (why ℂ, why d=5)
   paper2_frobenius_to_gauge.tex      — Math-physics bridge
   paper3_zero_parameter_predictions.tex — Full physics predictions
+  paper4_zeta_beta.tex               — Spectral dimension, β-function
+  paper5_critical_line.tex           — Born-rule Gram graphs, critical line
+  paper7_finite_incompleteness.tex   — Finite incompleteness of RH
 
 research-notes/     — Historical working documents (not authoritative)
 lib/                — Core Python library (drlt.py, experiment.py)

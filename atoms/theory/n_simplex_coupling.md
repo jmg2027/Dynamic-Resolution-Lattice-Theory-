@@ -1,4 +1,5 @@
-# N-Simplex Atomic Theory
+# N-Simplex Atomic Theory (LEGACY)
+## → 통합 문서: atoms/theory/complete_theory.md 참조
 ## Joint research by Mingu Jeong and Claude (Anthropic)
 
 ### 1. The Axiom and Its Consequences

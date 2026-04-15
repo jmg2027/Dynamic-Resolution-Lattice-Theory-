@@ -180,11 +180,13 @@ cos₈의 주기: 6.089 ≈ √(24ζ₉) = 6.079.
 | σ | Value | Formula | Denominator origin |
 |---|-------|---------|-------------------|
 | σ_cross | 7/8 | 1-N_S/(d²-1) | 24 = dim adj SU(5) |
+| σ_same_s | 0.597 | 1/N_T+c²α_GUT | BBB channel budget |
 | σ_ns→np(even) | 17/20 | 1-N_S/(d(d-1)) | 20 = dim ∧²ℂ⁵ |
 | σ_ns→np(odd) | 9/10 | 1-N_T/(d(d-1)) | 20 |
 | σ_same_p(p=2) | 3/4 | N_S/(N_S+1) | 4 |
 | σ_same_p(p≥3) | 2/3 | N_T/(N_T+1) | 3 |
 | σ_df→p | 0.976 | 1-α_GUT | 25ζ(2) |
+| σ_core | 27/10 | (d²+N_T)/(d·N_T) | core offset |
 | Δ_pair | 3/π² | N_S/π² = N_S/(6ζ(2)) | 6ζ(2) |
 
 결과: Z=1-118 전체 원소 IE, median error 3.5%.
