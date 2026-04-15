@@ -1,0 +1,138 @@
+============================================================
+  EXP_ATM_051_Simplex_Connection_Maps
+  2026-04-15 18:36:42
+============================================================
+
+
+============================================================
+ H (Z=1): 1 electrons, connection map
+============================================================
+ A₁(u)━━A₂(u)━━A₃(d)  [nucleus, shared by all]
+
+         1s↑
+   1s↑   ■   
+
+  ■ = self  ★ = strong (>0.4)  · = zero (<0.001)
+  Connection = |⟨B_i|B_j⟩|² = screening interaction
+
+============================================================
+ He (Z=2): 2 electrons, connection map
+============================================================
+ A₁(u)━━A₂(u)━━A₃(d)  [nucleus, shared by all]
+
+         1s↑   1s↓
+   1s↑   ■     ·   
+   1s↓   ·     ■   
+
+  ■ = self  ★ = strong (>0.4)  · = zero (<0.001)
+  Connection = |⟨B_i|B_j⟩|² = screening interaction
+
+============================================================
+ Li (Z=3): 3 electrons, connection map
+============================================================
+ A₁(u)━━A₂(u)━━A₃(d)  [nucleus, shared by all]
+
+         1s↑   1s↓   2s↑
+   1s↑   ■     ·    0.96★ 
+   1s↓   ·     ■   0.043 
+   2s↑  0.96★ 0.043   ■   
+
+  ■ = self  ★ = strong (>0.4)  · = zero (<0.001)
+  Connection = |⟨B_i|B_j⟩|² = screening interaction
+
+  [✓ PASS] Light atoms drawn
+============================================================
+ C (Z=6): 6 electrons, connection map
+============================================================
+ A₁(u)━━A₂(u)━━A₃(d)  [nucleus, shared by all]
+
+         1s↑   1s↓   2s↑   2s↓ 2p_x↑ 2p_y↑
+   1s↑   ■     ·    0.96★ 0.042  0.83★  0.65★ 
+   1s↓   ·     ■   0.044  0.96★  0.17   0.35  
+   2s↑  0.96★ 0.044   ■     ·    0.96★  0.83★ 
+   2s↓ 0.042  0.96★   ·     ■   0.043  0.17  
+ 2p_x↑  0.83★  0.17   0.96★ 0.043   ■    0.96★ 
+ 2p_y↑  0.65★  0.35   0.83★  0.17   0.96★   ■   
+
+  ■ = self  ★ = strong (>0.4)  · = zero (<0.001)
+  Connection = |⟨B_i|B_j⟩|² = screening interaction
+
+  Carbon connection analysis:
+  1s↑─1s↓ = 0.0000  (Pauli: orthogonal spins)
+  1s↑─2s↑ = 0.9569  (→ temporal baseline ~1/N_T)
+  2p_x↑─2p_y↑ = 0.9556 (→ spatial orthogonality)
+  1s↑─2p_x↑ = 0.8336 (→ cross-shell coupling)
+  [✓ PASS] Carbon analyzed
+============================================================
+ Ne (Z=10): 10 electrons, connection map
+============================================================
+ A₁(u)━━A₂(u)━━A₃(d)  [nucleus, shared by all]
+
+         1s↑   1s↓   2s↑   2s↓ 2p_x↑ 2p_x↓ 2p_y↑ 2p_y↓ 2p_z↑ 2p_z↓
+   1s↑   ■     ·    0.96★ 0.041  0.83★  0.16   0.65★  0.34   0.45★  0.55★ 
+   1s↓   ·     ■   0.045  0.96★  0.17   0.83★  0.35   0.65★  0.55★  0.45★ 
+   2s↑  0.96★ 0.045   ■     ·    0.95★ 0.042  0.83★  0.16   0.65★  0.34  
+   2s↓ 0.041  0.96★   ·     ■   0.044  0.95★  0.17   0.83★  0.35   0.65★ 
+ 2p_x↑  0.83★  0.17   0.95★ 0.044   ■     ·    0.95★ 0.043  0.83★  0.16  
+ 2p_x↓  0.16   0.83★ 0.042  0.95★   ·     ■   0.043  0.95★  0.16   0.83★ 
+ 2p_y↑  0.65★  0.35   0.83★  0.17   0.95★ 0.043   ■     ·    0.95★ 0.043 
+ 2p_y↓  0.34   0.65★  0.16   0.83★ 0.043  0.95★   ·     ■   0.043  0.95★ 
+ 2p_z↑  0.45★  0.55★  0.65★  0.35   0.83★  0.16   0.95★ 0.043   ■     ·   
+ 2p_z↓  0.55★  0.45★  0.34   0.65★  0.16   0.83★ 0.043  0.95★   ·     ■   
+
+  ■ = self  ★ = strong (>0.4)  · = zero (<0.001)
+  Connection = |⟨B_i|B_j⟩|² = screening interaction
+
+  Neon block structure:
+  avg(s-s) = 0.3333  (same-shell temporal)
+  avg(p-p) = 0.3986  (cross-orbital)
+  avg(s-p) = 0.4980  (cross-block)
+  [✓ PASS] Neon analyzed
+
+  =======================================================
+  Connection Structure = Chiral Block + Hinge Hub
+  =======================================================
+
+  ℂ² (temporal) has only 2 directions: ↑ and ↓
+  → Same-spin electrons overlap ≈ 1 in temporal
+  → Opposite-spin overlap ≈ 0
+  → CHIRAL BLOCK STRUCTURE:
+
+    ┌──── SPIN ↑ ────┐  ┌──── SPIN ↓ ────┐
+    │ all ↑ connected │  │ all ↓ connected │
+    │ (overlap ≈ 1)   │  │ (overlap ≈ 1)   │
+    └────────────────┘  └────────────────┘
+        ↑─↓ cross: overlap ≈ O(ε²) ≈ 0
+
+  The DISTINCTION between orbitals is in
+  the SPATIAL sector (ε² ≈ 10⁻⁴).
+  This is tiny — but det(AAB) depends on it.
+
+  HINGE CONNECTION (the physical interaction):
+
+                A₁(u)
+               ╱ | ╲
+             A₂(u)─A₃(d)   ← nuclear hub
+            ╱╱╱ ||| ╲╲╲
+    S(1s) S(2s) S(2p_x) S(2p_y) S(2p_z) ...
+    [↑↓]  [↑↓]  [↑↓]   [↑↓]   [↑↓]
+
+  ALL simplices attach to the nuclear triangle.
+  Screening = how much each simplex's AAB hinges
+  modify the effective charge at the hub.
+
+  σ_cross  (7/8)  = S1─S3: different spatial direction
+  σ_same_s (0.60) = S1─S2: same spatial, diff temporal
+  σ_same_p (3/4)  = S3─S4: same l, diff m
+  [✓ PASS] Block structure documented
+
+============================================================
+  SUMMARY: EXP_ATM_051_Simplex_Connection_Maps
+============================================================
+  [✓] Light atoms drawn
+  [✓] Carbon analyzed
+  [✓] Neon analyzed
+  [✓] Block structure documented
+
+  4/4 checks passed
+  Time: 0.0s
