@@ -503,6 +503,54 @@ confirming the graph-PNT analogy:
 at rate $(d_{\mathrm{eff}} - 1)^\ell$, matching the
 Ihara formula for regular graphs.
 
+\subsection{The Vieta identity: why Re$(s) = 1/2$ is algebraic}
+
+The preceding proposition stated the discrete RH as a
+\emph{numerical observation}.  We now prove it algebraically.
+
+\begin{theorem}[Algebraic Critical Line]\label{thm:vieta}
+For any $(q+1)$-regular graph with adjacency eigenvalue $\lambda$
+satisfying $|\lambda| \leq 2\sqrt{q}$ (Ramanujan bound),
+every nontrivial Ihara zero lies \textbf{exactly} on
+$\mathrm{Re}(s) = 1/2$.  The proof is purely algebraic:
+no limits, no analysis.
+\end{theorem}
+
+\begin{proof}
+The Ihara zeros satisfy the quadratic
+$qu^2 - \lambda u + 1 = 0$.
+By Vieta's formulas: $u_1 u_2 = 1/q$.
+Since $|\lambda| \leq 2\sqrt{q}$, the discriminant
+$\Delta = \lambda^2 - 4q \leq 0$, so $u_2 = \bar{u}_1$.
+Then $|u_1|^2 = u_1 \bar{u}_1 = u_1 u_2 = 1/q$,
+giving $|u| = q^{-1/2}$.
+Under $u = q^{-s}$:
+$\mathrm{Re}(s) = -\log|u|/\log q = \tfrac{1}{2}$.
+\end{proof}
+
+\begin{remark}[The $\lambda$-cancellation]
+The norm computation
+$|u|^2 = \frac{\lambda^2 + (4q - \lambda^2)}{4q^2} = \frac{1}{q}$
+shows that \textbf{$\lambda$ cancels completely}.
+The position $\mathrm{Re}(s) = 1/2$ does not depend on
+\emph{which} eigenvalue we consider --- only that it satisfies
+the Ramanujan bound.  This is why all nontrivial zeros
+lie at the same $\mathrm{Re}(s)$.
+\end{remark}
+
+\begin{remark}[Density, not position]
+For $K_N$ (the complete graph on $N$ vertices),
+$q = N-2$ and $\lambda = -1$ (multiplicity $N-1$).
+Since $|-1| \leq 2\sqrt{N-2}$ for $N \geq 3$,
+$K_N$ is always Ramanujan with $2(N-1)$ zeros
+at $\mathrm{Re}(s) = 1/2$.
+As $N$ grows, only the \emph{number} of zeros increases;
+their \emph{position} is fixed at $1/2$ from the start.
+The finite-to-infinite transition for RH is therefore
+a \textbf{density transition}, not a position transition
+(RH\_047, $8/8$ checks, Lean-verified).
+\end{remark}
+
 %=====================================================================
 \section{The Self-Contradiction Boundary}
 \label{sec:boundary}
