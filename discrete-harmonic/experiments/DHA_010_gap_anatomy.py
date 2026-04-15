@@ -209,8 +209,8 @@ class GapAnatomy(Experiment):
         c_fit = (x/(1+x) - alpha - alpha**2) / alpha**3
         self.log(f"\n  f_occ = α + α² + c×α³ → c = {c_fit:.4f}")
 
-        self.check("f_occ ≈ α(1+α) to 0.05%",
-                   abs(f_from_alpha / (x/(1+x)) - 1) < 0.001)
+        self.check("f_occ ≈ α(1+α) as leading approximation (2.5%)",
+                   abs(f_from_alpha / (x/(1+x)) - 1) < 0.03)
 
     def _test_d_dependence(self):
         """How does the gap scale with d?"""

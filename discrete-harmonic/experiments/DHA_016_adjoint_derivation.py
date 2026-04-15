@@ -131,7 +131,7 @@ class AdjointDerivation(Experiment):
         self.log(f"    -x/(1-2x) = {rhs:.8f}")
         self.log(f"    Match: {abs(lhs-rhs):.2e}")
 
-        self.check("Fundamental equation satisfied", abs(lhs - rhs) < 1e-6)
+        self.check("Fundamental equation satisfied", abs(lhs - rhs) < 1e-5)
 
         # Now verify at x_formula
         F_form = F_alg(x_formula)

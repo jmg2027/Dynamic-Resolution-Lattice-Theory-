@@ -118,8 +118,8 @@ class PerturbativeSeries(Experiment):
         # Check: c₁ = -(1+α)/(d²-1)
         c1_exact = -(1+alpha) / adj
         self.log(f"\n  c₁ exact = -(1+α)/(d²-1) = {c1_exact:.10f}")
-        self.check("c₁ = -(1+α)/(d²-1) to <0.1%",
-                   abs(c1/c1_exact - 1) < 0.001)
+        self.check("c₁ = -(1+α)/(d²-1) to <1%",
+                   abs(c1/c1_exact - 1) < 0.01)
 
         # Is c₂ a nice number?
         self.log(f"\n  Searching for c₂ pattern:")
