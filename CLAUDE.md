@@ -52,7 +52,7 @@
 |-----------|--------|--------|-------------|------|
 | `foundations/` | `FND_` | STABLE | 10 (FND_001-010) | 심플렉스 기하, 변분, f_occ |
 | `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
-| `atoms/` | `ATM_` | **ACTIVE** | 25 (ATM_001-025) | 원자, 주기율표 |
+| `atoms/` | `ATM_` | **ACTIVE** | 30 (ATM_001-030) | 원자, 주기율표, N-simplex manifold |
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
 | `critical-line/` | `RH_` | **ACTIVE** | 25 (RH_001-025) | 임계선, RH, GRH, L-함수, Lean |
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |

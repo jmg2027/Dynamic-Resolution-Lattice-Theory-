@@ -1,92 +1,95 @@
 # Atoms Handoff — 2026-04-15
 
-## 돌파구: N=4 Flat Manifold → alpha_GUT (0.1%)
+## 핵심 결과: f_occ(ε²) = α_GUT on N=4 Flat Manifold (0.10%)
 
-### 핵심 결과
-N=4 flat manifold (delta(AAA)=0)에서 Regge action maximum이 결정하는 eps에서:
+### 도출 체인
 ```
-eps^2/(1+eps^2) = alpha_GUT    (0.10% 일치)
-eps^2 = alpha_GUT + alpha_GUT^2  (0.047% 일치)
+QM 독립성 → orthogonal B vectors → dihedral = π/2
+→ N_flat = 4 → δ(AAA) = 0 (strong sector decouples)
+→ ∂S_boundary/∂ε = 0 (초월적 방정식)
+→ ε² = 0.02490 (bare coupling)
+→ f_occ(ε²) = ε²/(1+ε²) = 0.02429 = α_GUT ± 0.10%
 ```
-이것은 **f_occ (occupation fraction) 변환** — DRLT 전체에서 반복되는 구조.
 
-### 물리적 그림
-- N개 simplex가 AAAB 면을 공유
-- delta(AAA) = 2pi - N*pi/2 (dihedral = pi/2 from orthogonal B vectors)
-- **N=4: flat (delta=0) = GUT scale (asymptotic freedom)**
-- N=2: curved (delta=pi) = IR scale (confinement)
-- Coupling "runs" with N (topology = energy scale)
+### N-simplex manifold 구조
+| N | δ(AAA)/π | ε_max | ε² | f_occ | f_occ/α_GUT |
+|---|----------|-------|-----|-------|-------------|
+| 2 | 1.0 | 0.1041 | 0.01084 | 0.01072 | 0.441 |
+| 3 | 0.5 | 0.1344 | 0.01807 | 0.01775 | 0.730 |
+| **4** | **0.0** | **0.1578** | **0.02490** | **0.02429** | **0.999** |
+| 5 | -0.5 | 0.1765 | 0.03116 | 0.03022 | 1.243 |
 
-### 수치 검증
-| N | eps_max | eps^2 | eps^2/alpha_GUT | delta(AAA)/pi |
-|---|---------|-------|-----------------|---------------|
-| 2 | 0.1041 | 0.01084 | 0.446 | 1.0 |
-| 3 | 0.1344 | 0.01807 | 0.743 | 0.5 |
-| **4** | **0.1578** | **0.02490** | **1.024** | **0.0** |
-| 5 | 0.1765 | 0.03116 | 1.282 | -0.5 |
+### Exact Analytical Formulas
+```
+cos(θ_AABt) = ε / √(1-2ε²)          [대수적, exact]
+cos(θ_ABet) = -ε² / (1-2ε²)         [대수적, exact]
+det(AABe) = 1 - 2ε²                  [대수적, exact]
+det(ABet) = 1 - ε²                   [대수적, exact]
+S(ε,N) = S_shared(N) + 3N[f₁(ε)+f₂(ε)]  [초월적, closed-form]
+S(0,N) = (7N+8)π                     [산술적, exact]
+```
 
-### Manifold 구조
-- S_total(eps→0) = (7N+8)*pi
-- N=2: 22pi, N=3: 29pi, N=4: 36pi (7pi 간격)
-- 22 = d^2 - N_S = 25 - 3
+### 대칭 manifold (B₃ = -B₂)
+- δ(AAA) = π (exact), δ(AABe) = π (exact) — 물질 섹터 rigid
+- δ(AABt), δ(ABet)만 ε-의존 — 게이지 섹터만 동적
+- 22 = d² - N_S = 25 - 3 (hinge count = channel count - frozen spatial DOF)
 
 ---
 
-## 미해결 (다음 단계)
+## 실패한 접근 (반복 금지)
 
-### 1. 0.1% 잔차의 원인
-- Regge action의 O(eps^4) 보정?
-- 시간 B 벡터의 위상 배치 (N-th roots of unity)?
-- 해석적 유도로 exact formula 확인 필요
+### ✗ Channel-weighted Regge action
+c^k 또는 c^{2k} 가중치로 hinge 면적 수정 → α_GUT 매치 악화.
+**Standard (unweighted) Regge action이 최선.** 채널은 action과 별도로 세야 함.
 
-### 2. 왜 N=4인가?
-- Orthogonal B → dihedral=pi/2 → N_flat=2pi/(pi/2)=4
-- 4 = 2*N_T? d-1? 추가 정당화 필요
-- QM independence → orthogonal → N=4 → alpha_GUT (도출 체인)
+### ✗ Lagrange multiplier R(G) = r₀
+R_SSS에 topological floor (1/22) 존재. 아무 ε에서나 target hit 가능 (단조함수).
+Constraint approach는 self-consistent하지 않음.
 
-### 3. N=2,3에서의 coupling
-- N=2 (IR): eps^2=0.011 → alpha_strong(IR)?
-- N=3 (intermediate): eps^2=0.018 → 어떤 scale?
+### ✗ Full variational (ε, η, φ₂) optimization
+Global max: (ε=0.099, η=0, φ₂=0.484π). α와 무관한 값.
 
-### 4. ATM_025의 delta(AAA)=pi 수정
-- 기존: phi3=pi/4로 주장 → 실제로 delta=1.25pi (틀림)
-- 수정: phi3=-pi/2 (B3=-B2, time reversal)로 해야 delta=pi
-- 대칭 manifold: det(S1)=det(S2), theta1=theta2=pi/2
+### ✗ A 벡터 temporal leakage
+η ≈ 0.476에서 R=α_GUT 달성하지만, action extremum 아님. 파라미터 튜닝.
 
 ---
 
-## 실험 진행 이력
+## 미해결 문제 (우선순위)
 
-### ATM_026: Dihedral angles vs epsilon (6/6 pass)
-- 대칭 manifold (B3=-B2) 발견
-- delta(AAA)=pi, delta(AABe)=pi exact (물질 섹터 rigid)
-- delta(AABt), delta(ABet)만 eps-의존 (게이지 섹터 동적)
-- S_total = 22pi (exact), R_SSS = 1/22
+### 1. N=2 → 수소 물리
+eps²(N=2) = 0.01084 ≈ (3/2)α_em (1%). N=2 manifold 기하 → IE(H) = Ry 메커니즘.
 
-### ATM_027: Free A vectors (4/5 pass)
-- A 벡터에 temporal leakage(eta) 추가
-- R_SSS = alpha_GUT at eta~0.476 (가능하나 action extremum 아님)
-- 파라미터 튜닝일 뿐, 자기 결정적이지 않음
+### 2. 0.1% 잔차
+ε²-α_GUT(1+α_GUT) = 1.2×10⁻⁵. 초월적 방정식이므로 exact 대수적 항등식 불가능.
+Higher-order geometric correction 또는 manifold refinement 필요.
 
-### ATM_028: Full variational (4/4 pass)
-- (eps, eta, phi2) 3D 최적화
-- Global max: eps=0.099, eta=0, phi2=0.484pi
-- Action extremum은 alpha를 직접 주지 않음
+### 3. Screening from manifold
+8개 screening 상수의 manifold 기하학적 도출. 현재는 현상론적.
 
-### ATM_029: N-simplex manifold (6/6 pass) ★★★
-- **N=4 flat에서 eps^2/(1+eps^2) = alpha_GUT (0.1%)**
-- S = (7N+8)*pi 선형 스케일링
-- N=2→4 curvature 감소 = running coupling
+---
+
+## Screening Constants (기존, 유지)
+```
+σ_cross = 1-n_S/(d²-1) = 7/8
+σ_same_s = 1/n_T + c²α_GUT = 0.597
+σ_ns→np(even) = 1-n_S/(d(d-1)) = 17/20
+σ_ns→np(odd)  = 1-n_T/(d(d-1)) = 9/10
+σ_same_p(p=2) = n_S/(n_S+1) = 3/4
+σ_same_p(p≥3) = n_T/(n_T+1) = 2/3
+σ_df→p = 1-α_GUT = 0.976
+Δ_pair = n_S/π² = 3/π²
+```
 
 ## Experiment Map
 ```
-ATM_014-022: Screening model (median 3.5%)
-ATM_023: 폐기
-ATM_024: Delta^4 single (5/5)
-ATM_025: 2-simplex manifold (3/4)
-ATM_026: Dihedral vs epsilon (6/6)
-ATM_027: Free A vectors (4/5)
-ATM_028: Full variational (4/4)
+ATM_014-022: Screening model (median 3.5%, 유지)
+ATM_023: 폐기 (틀린 기하)
+ATM_024: Δ⁴ single (5/5)
+ATM_025: 2-simplex manifold (3/4, phi3 수정 필요)
+ATM_026: Dihedral vs epsilon (6/6, 대칭 manifold 발견)
+ATM_027: Free A vectors (4/5, 실패 기록)
+ATM_028: Full variational (4/4, 실패 기록)
 ATM_029: N-simplex manifold (6/6) ★ BREAKTHROUGH
-Next: ATM_030
+ATM_030: Analytic action (4/4, exact formulas)
+Next: ATM_031
 ```
