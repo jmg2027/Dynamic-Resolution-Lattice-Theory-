@@ -2,15 +2,11 @@
 
 ## 핵심 결과: Born-Screening Duality at d=5 ★★★
 
-### 최신 세션 (ATM_035-038 + ch10 업데이트)
-- **ATM_035**: IE 개선 median 3.5%→**3.1%**, <5% 76→**81**. DEEP_PAIR + f14-pair.
-- **ATM_036-037**: Born gap ≈ σ_cross 발견. sin(2φ)=8/9 → μ=7/9 → 7/8 EXACT.
-- **ATM_038**: ★★★ **Born-Screening 정리**: 3개 screening 상수 독립 유도, d=5 유일성.
-  - σ_cross = 2μ/(1+μ) = 7/8 EXACT
-  - σ_sp_odd = (1+μ)/2 + 1/(N_S²dN_T) = 9/10 EXACT
-  - σ_sp_even = (1+μ)/2 - μ/(dN_T²) = 17/20 EXACT
-  - Uniqueness: 2d²-13d+15=0 → d=5 only integer
-- **ch10**: 418→705줄, 6→19 정리. Born-Screening + IE table 추가.
+### 최신 세션 (ATM_035-039 + ch10 업데이트)
+- **ATM_035**: IE 개선: DEEP_PAIR + f14-pair + Period 6/7 분기 + n_p=1 onset.
+- **ATM_036-038**: ★★★ Born-Screening 정리 (3개 상수 EXACT, d=5 유일성).
+- **ATM_039**: 종합 스코어카드 median **2.8%**, <5% **84/118**, >10% **6개만**.
+- **ch10**: 705줄, 19 정리. Born-Screening + IE table 추가.
 
 ### 이전 세션 (ATM_032-034)
 - **ATM_032**: N=2 정류 방정식, ε²(N=2)≈(3/2)α_em (-0.98%). 5/5.
@@ -131,5 +127,6 @@ ATM_035: Complete-shell pair (4/4) ★ median 3.5→3.1%, <5% 76→81
 ATM_036: Born screening exploratory (4/4) gap≈σ_cross
 ATM_037: Born phase constraint (5/5) sin(2φ)=8/9→7/8
 ATM_038: Born screening exact (7/7) ★★★ 3 constants, d=5 unique
-Next: ATM_039
+ATM_039: Periodic scorecard (4/4) ★ median 2.8%, 84/118 <5%
+Next: ATM_040
 ```
