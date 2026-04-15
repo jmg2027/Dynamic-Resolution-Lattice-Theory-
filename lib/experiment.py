@@ -4,9 +4,13 @@ DRLT Experiment Runner Framework
 Provides base class for all experiments.
 Auto-numbers, auto-saves results, prints summary.
 
+Results are saved to the sub-project's results/ directory automatically.
+If the experiment is in {sub-project}/experiments/, results go to
+{sub-project}/results/. Fallback: root results/ for legacy experiments.
+
 Usage:
     class MyExperiment(Experiment):
-        ID = "008"
+        ID = "ATM_014"
         TITLE = "My cool experiment"
 
         def run(self):
@@ -17,6 +21,7 @@ Usage:
         MyExperiment().execute()
 """
 
+import inspect
 import os
 import sys
 import time
@@ -24,7 +29,7 @@ from datetime import datetime
 from io import StringIO
 
 
-RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
+ROOT_RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 
 
 class Experiment:
@@ -87,10 +92,34 @@ class Experiment:
         status = "✓ PASS" if condition else "✗ FAIL"
         self.log(f"  [{status}] {name}")
 
+    def _get_results_dir(self):
+        """Auto-detect results dir from experiment file location.
+
+        Priority:
+          1. Explicit RESULTS_DIR class attribute on the subclass
+          2. {sub-project}/results/ if experiment is in {sub-project}/experiments/
+          3. Root results/ as fallback
+        """
+        # 1. Explicit override
+        cls_rd = self.__class__.__dict__.get('RESULTS_DIR')
+        if cls_rd is not None:
+            return cls_rd
+        # 2. Auto-detect: experiment in {sub-project}/experiments/ → ../results/
+        try:
+            exp_file = inspect.getfile(self.__class__)
+            exp_dir = os.path.dirname(os.path.abspath(exp_file))
+            if os.path.basename(exp_dir) == 'experiments':
+                return os.path.join(os.path.dirname(exp_dir), 'results')
+        except (TypeError, OSError):
+            pass
+        # 3. Fallback
+        return ROOT_RESULTS_DIR
+
     def _save_results(self, tag: str):
-        """Save all output to results/EXP_NNN_name.txt"""
-        os.makedirs(RESULTS_DIR, exist_ok=True)
-        path = os.path.join(RESULTS_DIR, f"{tag}.txt")
+        """Save results to the auto-detected sub-project results/ dir."""
+        results_dir = self._get_results_dir()
+        os.makedirs(results_dir, exist_ok=True)
+        path = os.path.join(results_dir, f"{tag}.txt")
         with open(path, "w") as f:
             f.write("\n".join(self._log_lines))
         self.log(f"\n  Results saved to: {path}")

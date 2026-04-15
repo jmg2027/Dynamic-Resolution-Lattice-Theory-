@@ -1,8 +1,10 @@
 ============================================================
-  EXP_033_Webb_Dipole_Consistency
-  2026-04-14 03:10:42
+  EXP_COS_003_Webb_Dipole_Consistency
+  2026-04-14 22:18:26
 ============================================================
-  1/alpha_em = 137.036, alpha_GUT = 0.024317, Xi = 8.545689e-03
+  1/alpha_em = 137.036
+  alpha_GUT  = 0.024317
+  Xi         = 8.545689e-03
 
   Webb observed: Da/a = 1.1e-05
   Required f = Da/a / a_GUT = 4.5236e-04
@@ -12,10 +14,10 @@
   1/alpha_GUT = 41.1234 (spatially invariant)
   [✓ PASS] alpha_GUT is structural constant
 
-  Prediction: Da_em and Dmu must have OPPOSITE signs.
+  Prediction: Da_em and D_mu must have OPPOSITE signs.
 
 ============================================================
-  SUMMARY: EXP_033_Webb_Dipole_Consistency
+  SUMMARY: EXP_COS_003_Webb_Dipole_Consistency
 ============================================================
   [✓] Da_em amplitude consistent with Xi mediation
   [✓] alpha_GUT is structural constant

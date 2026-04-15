@@ -1,25 +1,47 @@
 # Testable Predictions — Handoff
 
-## Status: NOT STARTED
-이론 검증의 핵심. 가장 urgent한 것부터 정리 필요.
+## Status: ACTIVE (8 experiments, 42/43 checks)
 
-## Urgent (2025-2027 검증 가능)
-1. **ν mass ratio**: m₃/m₂ = 5.712 → JUNO (2025-2026)
-2. **m_H precision**: 125.28 GeV → HL-LHC (2029+, σ~0.05 GeV)
-3. **θ_QCD**: α_GUT⁶ ≈ 2×10⁻¹⁰ → nEDM experiments
+## Completed Experiments
+| ID | Title | Checks | Key Result |
+|----|-------|--------|-----------|
+| PRD_001 | ν mass ratio JUNO | 7/7 | m₃/m₂=5.712, JUNO에서 TBM과 81σ 분리 |
+| PRD_002 | Higgs mass HL-LHC | 4/4 | 125.28 GeV, HL-LHC ±0.05 GeV |
+| PRD_003 | θ_QCD nEDM | 5/5 | J×α⁴ ≈ 2.9×10⁻¹¹ best candidate |
+| PRD_004 | N_gen = 3 | 5/5 | C(3,2)=3, 4세대 불가 |
+| PRD_005 | Prediction catalog | 4/4 | 12 retrodictions, 7 testable predictions |
+| PRD_006 | θ_QCD sin(π/12) | 7/7 | ★ SUPERSEDED by PRD_007 ★ |
+| PRD_007 | θ_QCD rigorous | 9/9 | Berry phase 구조 해명 |
+| PRD_008 | Variational θ | 3/4 | 단일 심플렉스로는 불충분 |
 
-## Medium-term
-4. **4세대 없음**: C(n_B,n_B-1)=2 → exactly 3 generations
-5. **Proton decay lifetime**: SU(5) structure but different mechanism
-6. **Neutron star EOS**: simplex → max mass prediction
+## Key Findings — θ_QCD
+PRD_007에서 밝혀진 구조:
+1. **θ_bare = SSS holonomy = Berry phase (α에 무관!)**
+   - CKM parameterization으로 계산: Φ ≈ -0.103 rad
+   - 이것은 O(10⁻¹), O(α⁶)이 아님
+   - δ=0 → Φ=0 (CP 보존이면 holonomy 없음) ✓
+2. **θ_phys = θ_bare + arg(det Y_u Y_d)**
+   - 둘 다 같은 Gram matrix에서 유래 → 변분원리가 상쇄 강제
+   - 잔여의 정확한 차수와 계수 = OPEN PROBLEM
+3. **최선 후보: θ_phys = J_CKM × α⁴ ≈ 2.86×10⁻¹¹**
+   - J = 8.18×10⁻⁵ (DRLT Jarlskog invariant)
+   - α⁴ = 3.50×10⁻⁷
+   - bound (1.8×10⁻¹⁰)의 0.16배 → 안전
+4. **PRD_006의 sin(π/12) 계수는 폐기** (사후 끼워맞춤)
 
-## Long-term / Mathematical
-7. **Born-Ramanujan proof**: d≥4 → Ramanujan for W-graphs
-8. **N_c(d) formula**: finite Gram graph Ramanujan bound
+## Critical Finding (PRD_008)
+**Regge action은 S₃ 대칭을 강제하지 않는다.**
+- 단일 심플렉스 최적화 → Φ_SSS = π/2 (mixing 최대화)
+- S₃ 대칭은 공리에서 부과 (Frobenius + chirality)
+- θ ~ α⁶은 **진공 평균** ⟨Φ_SSS⟩의 성질
+- 단일 심플렉스에서는 Φ = O(1) (PRD_007 일관)
 
-## Format
-각 예측에 대해:
-- DRLT 값 (exact formula)
-- 현재 관측값 ± 오차
-- 예상 측정 시점
-- 구별력 (다른 이론과 어떻게 다른가)
+## Open Problems
+1. **θ_QCD 정밀 계수** — 다중 심플렉스 진공 또는 S₃-제약 섭동론 필요
+2. Proton decay lifetime 계산
+3. Neutron star max mass (simplex EOS)
+4. 1/α_s tension (~5.5%)
+5. sin²θ_W tension (~0.8%)
+
+## Next Available Experiment
+PRD_008

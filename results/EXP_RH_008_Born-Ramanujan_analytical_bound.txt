@@ -1,0 +1,101 @@
+============================================================
+  EXP_RH_008_Born-Ramanujan_analytical_bound
+  2026-04-14 17:40:45
+============================================================
+
+═══ Test 1: Var(W_ij) = (d-1)/(d²(d+1)) ═══
+
+    d |     Var(emp) |  Var(theory) |  rel err
+  ----+--------------+--------------+---------
+    3 | 5.559633e-02 | 5.555556e-02 |    0.1%
+    4 | 3.753564e-02 | 3.750000e-02 |    0.1%
+    5 | 2.666405e-02 | 2.666667e-02 |    0.0%
+    6 | 1.978817e-02 | 1.984127e-02 |    0.3%
+    8 | 1.213337e-02 | 1.215278e-02 |    0.2%
+   10 | 8.165426e-03 | 8.181818e-03 |    0.2%
+   15 | 3.893210e-03 | 3.888889e-03 |    0.1%
+   20 | 2.262376e-03 | 2.261905e-03 |    0.0%
+  [✓ PASS] Var formula matches (all d, <5% error)
+
+═══ Test 2: Spectral Norm of Z = W - E[W] ═══
+  Wigner prediction: ||Z|| ≈ 2σ√N,  σ = √(Var(W_ij))
+  d=5, σ = 0.163299
+
+      N |  ||Z|| emp |       2σ√N |  ratio
+  ------+------------+------------+-------
+     30 |     2.2771 |     1.7889 |  1.273
+     50 |     3.3955 |     2.3094 |  1.470
+    100 |     5.8865 |     3.2660 |  1.802
+    200 |    10.5847 |     4.6188 |  2.292
+    500 |    22.8467 |     7.3030 |  3.128
+  [✗ FAIL] Spectral norm scales as ~√N
+
+═══ Test 3: Power Law Fit at Multiple N ═══
+  Fit: ratio = A · d^{-α} at fixed N
+
+      N |      A |      α |     R² |  ρ(d=5)
+  ------+--------+--------+--------+--------
+     50 |   1.18 |  0.498 | 0.9874 |  0.5274
+    100 |   1.92 |  0.667 | 0.9954 |  0.6466
+    200 |   2.94 |  0.788 | 0.9980 |  0.8298
+    500 |   5.06 |  0.923 | 0.9987 |  1.1398
+  [✗ FAIL] All N: R² > 0.99
+
+═══ Test 4: ρ(d,N) Table and Analytical Bound ═══
+  iid bound: ρ_iid = √((d-1)/(d(d+1)))
+  Actual: larger due to rank-d correlations
+  Fit: ρ(N) = a + b·N^γ to find N_c(d)
+    d |   ρ_iid |     N=50 |    N=100 |    N=200 |    N=500
+  ----+---------+----------+----------+----------+---------
+    3 |  0.4082 |   0.7304 |   0.9611 |   1.2618 |   1.8678
+    4 |  0.3873 |   0.6047 |   0.7778 |   0.9871 |   1.4005
+    5 |  0.3651 |   0.5266 |   0.6641 |   0.8209 |   1.1388
+    6 |  0.3450 |   0.4650 |   0.5679 |   0.7000 |   0.9501
+    8 |  0.3118 |   0.4041 |   0.4692 |   0.5585 |   0.7263
+   10 |  0.2860 |   0.3591 |   0.4016 |   0.4711 |   0.5899
+   15 |  0.2415 |   0.2979 |   0.3181 |   0.3475 |   0.4165
+   20 |  0.2127 |   0.2748 |   0.2703 |   0.2866 |   0.3303
+
+  Spectral norm exponent: ||Z|| ~ N^β
+  d=5: ||Z|| ~ N^{0.821} (Wigner would be 0.500)
+  Rank-d correlations inflate exponent by 0.321
+  [✓ PASS] ||Z|| exponent > 0.5 (correlations present)
+
+═══ Test 5: Graph-PNT Verification ═══
+  Closed walks of length ℓ: Tr(A^ℓ)
+  Graph-PNT: Tr(A^ℓ) ~ d_eff^ℓ + ℓ·(d_eff-1)^ℓ
+  Primitive cycles ~ (d_eff-1)^ℓ / ℓ
+
+  N=20:
+    ℓ=2: ⟨Tr(W^ℓ)⟩ = 2.49e+01
+    ℓ=3: ⟨Tr(W^ℓ)⟩ = 5.95e+01
+    ℓ=4: ⟨Tr(W^ℓ)⟩ = 2.59e+02
+    ℓ=5: ⟨Tr(W^ℓ)⟩ = 1.08e+03
+    avg growth base: 3.63, d_eff = 4.02, d_eff-1 = 3.02
+
+  N=30:
+    ℓ=2: ⟨Tr(W^ℓ)⟩ = 5.78e+01
+    ℓ=3: ⟨Tr(W^ℓ)⟩ = 2.17e+02
+    ℓ=4: ⟨Tr(W^ℓ)⟩ = 1.24e+03
+    ℓ=5: ⟨Tr(W^ℓ)⟩ = 7.77e+03
+    avg growth base: 5.25, d_eff = 5.72, d_eff-1 = 4.72
+
+  N=50:
+    ℓ=2: ⟨Tr(W^ℓ)⟩ = 1.62e+02
+    ℓ=3: ⟨Tr(W^ℓ)⟩ = 1.06e+03
+    ℓ=4: ⟨Tr(W^ℓ)⟩ = 1.03e+04
+    ℓ=5: ⟨Tr(W^ℓ)⟩ = 9.89e+04
+    avg growth base: 8.62, d_eff = 9.68, d_eff-1 = 8.68
+  [✓ PASS] Graph-PNT: growth base order d_eff
+
+============================================================
+  SUMMARY: EXP_RH_008_Born-Ramanujan_analytical_bound
+============================================================
+  [✓] Var formula matches (all d, <5% error)
+  [✗] Spectral norm scales as ~√N
+  [✗] All N: R² > 0.99
+  [✓] ||Z|| exponent > 0.5 (correlations present)
+  [✓] Graph-PNT: growth base order d_eff
+
+  3/5 checks passed
+  Time: 10.6s

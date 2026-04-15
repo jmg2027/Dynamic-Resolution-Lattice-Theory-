@@ -1,0 +1,59 @@
+============================================================
+  EXP_RH_024_Chiral_projection_Born-Ramanujan
+  2026-04-15 07:54:48
+============================================================
+
+═══ Test 1: Chiral Projection Structure ═══
+
+  d_ind |   ⟨||π₅ψ||²⟩ |  5/d_ind | rank(G_c) |  Tr(G_c)/N
+  ------+--------------+----------+-----------+-----------
+      5 |      1.00000 |  1.00000 |         5 |    1.00000
+      7 |      0.69836 |  0.71429 |         5 |    0.69836
+      9 |      0.58387 |  0.55556 |         5 |    0.58387
+     11 |      0.46093 |  0.45455 |         5 |    0.46093
+     15 |      0.30434 |  0.33333 |         5 |    0.30434
+     21 |      0.22417 |  0.23810 |         5 |    0.22417
+  [✓ PASS] Projection structure mapped
+
+═══ Test 2: Khatri-Rao for G_c ═══
+  φ_c = π₅ψ ⊗ conj(π₅ψ) ∈ ℂ^25
+  d_ind=11, N=30
+  max|W_c - Φ_c†Φ_c| = 2.22e-16
+  (KR still exact for projected vectors)
+  diag(W_c): mean=0.23924, expected (5/d_ind)²=0.20661
+  [✓ PASS] KR holds for chiral projection
+
+═══ Test 3: ρ_chiral vs d_ind ═══
+  Key: as d_ind grows, projection captures less norm
+
+  d_ind |   ⟨ρ_c⟩ |  5/d_ind |   d_eff |  Ram%
+  ------+---------+----------+---------+------
+      5 |  0.5305 |   1.0000 |    9.78 | 100%
+      7 |  0.4184 |   0.7143 |    4.98 | 100%
+      9 |  0.3786 |   0.5556 |    2.99 | 100%
+     11 |  0.3627 |   0.4545 |    2.00 | 100%
+     15 |  0.9813 |   0.3333 |    1.10 |  64%
+     21 |  1.0834 |   0.2381 |    0.57 |  32%
+  [✓ PASS] ρ_chiral measured for all d_ind
+
+═══ Test 4: N_c(d_ind) for Chiral Projection ═══
+
+  d_ind | N_c(chiral) | N_c(rank5) |  ratio
+  ------+-------------+------------+-------
+      5 |         343 |        350 |   0.98
+      7 |         723 |        350 |   2.07
+      9 |        1231 |        350 |   3.52
+     11 |        1875 |        350 |   5.36
+     15 |        1999 |        350 |   5.71
+  [✓ PASS] N_c(chiral) computed
+
+============================================================
+  SUMMARY: EXP_RH_024_Chiral_projection_Born-Ramanujan
+============================================================
+  [✓] Projection structure mapped
+  [✓] KR holds for chiral projection
+  [✓] ρ_chiral measured for all d_ind
+  [✓] N_c(chiral) computed
+
+  4/4 checks passed
+  Time: 198.8s

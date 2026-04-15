@@ -28,6 +28,20 @@
 - Cosmology: Ω_Λ from trace conservation (ch13)
 - Yang-Mills: mass gap from confinement (ch15)
 
-## Status: NOT STARTED
-Book chapters (ch06,14,15,18) provide the framework.
-Needs dedicated experiments and theory development.
+## Experiments
+```
+QG_001: Regge action emergence — area cancellation, EH action, YM holonomy
+QG_002: Bekenstein-Hawking entropy — 1 hinge = 1 bit, S = A/(4ℓ_P²)
+QG_003: Graviton propagator — spin-2 from W_ij fluctuation spectrum
+```
+
+## Key Results
+- Area cancellation: S_h/ℏ_h = 4ln2·δ_h (exact, machine precision)
+- UV finite: |S_h/ℏ_h| < 4ln2·2π (bounded per hinge)
+- Scale-free: S/ℏ invariant under rescaling
+- Gravity-gauge split: ~73% gravity, ~27% gauge (at extremum)
+- Holonomy ratio ABB/AAA ≈ 4.3 (theory: α₃/α₂ = 3.75)
+- Bekenstein-Hawking: S/A = 1/4 from ℏ_h = A_h/(4ln2) (exact, not put in by hand)
+
+## Status: ACTIVE
+Initial 3 experiments completed. Framework established.

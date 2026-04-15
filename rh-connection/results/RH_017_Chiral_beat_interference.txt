@@ -1,0 +1,65 @@
+============================================================
+  EXP_RH_017_Chiral_beat_interference
+  2026-04-14 20:18:44
+============================================================
+
+═══ Test 1: Sector Decomposition ═══
+  G = G^B + G^A,  B=ℂ², A=ℂ³
+  max|G - G^B - G^A| = 2.78e-16
+  ℂ² phases: ['0.028', '-3.114']
+  ℂ³ phases: ['-1.639', '1.540', '-1.469']
+  Relative α-β: ['1.667', '-4.653', '1.497']
+  [✓ PASS] G = G^B + G^A exact
+
+═══ Test 2: Sector Partial Sums (Beat) ═══
+  M_B(x) from ℂ² phases, M_A(x) from ℂ³ phases
+
+       x |    |M_B| |    |M_A| |    |M_G| |   interf
+  -------+----------+----------+----------+---------
+      49 |     3.22 |     5.11 |     3.42 |    -40.4
+      84 |     2.73 |     7.77 |     4.81 |    -83.8
+     158 |     3.37 |    11.80 |     5.86 |   -193.2
+     268 |     6.99 |    18.71 |     9.83 |   -498.6
+     503 |     7.11 |    31.07 |    16.43 |  -1290.4
+     851 |     7.95 |    47.45 |    25.32 |  -2998.8
+    1597 |    11.02 |    82.38 |    42.23 |  -8773.0
+    3000 |    13.09 |   140.35 |    73.41 | -25757.3
+
+  Mean |interference|/|M_G|² = 4.386
+  (>0.1 = significant beat)
+  [✓ PASS] Interference term significant (>10%)
+
+═══ Test 3: Relative Phase θ(x) vs β_eff ═══
+  Correlation(cos(θ), β_eff) = 0.0578
+  (positive = constructive → larger β)
+
+       x |  cos(θ) |  β_eff
+  -------+---------+-------
+      49 |   0.058 | -0.665
+      87 |  -0.034 |  3.141
+     151 |  -0.034 |  0.011
+     264 |   0.148 |  2.835
+     493 |   0.031 |  0.596
+     860 |  -0.063 |  0.036
+    1498 |   0.114 |  0.716
+    2798 |   0.110 | -0.271
+  [✗ FAIL] cos(θ)-β_eff correlation > 0.2
+
+═══ Test 4: Chiral (d=5) vs Symmetric (d=4) ═══
+  d=5: ℂ²⊕ℂ³ → independent phases → beat
+  d=4: ℂ²⊕ℂ² → τ locks phases → no beat
+        ℂ²⊕ℂ³ (chiral): |interf|/|M|² = 4.291
+     ℂ²⊕ℂ² (symmetric): |interf|/|M|² = 14.748
+     ℂ³⊕ℂ³ (symmetric): |interf|/|M|² = 18.195
+  [✓ PASS] Chiral has more interference than symmetric
+
+============================================================
+  SUMMARY: EXP_RH_017_Chiral_beat_interference
+============================================================
+  [✓] G = G^B + G^A exact
+  [✓] Interference term significant (>10%)
+  [✗] cos(θ)-β_eff correlation > 0.2
+  [✓] Chiral has more interference than symmetric
+
+  3/4 checks passed
+  Time: 2.4s

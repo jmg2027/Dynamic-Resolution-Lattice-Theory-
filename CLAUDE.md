@@ -39,12 +39,13 @@
 |-----------|--------|--------|-------------|------|
 | `foundations/` | `FND_` | STABLE | 10 (FND_001-010) | 심플렉스 기하, 변분, f_occ |
 | `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
-| `atoms/` | `ATM_` | **ACTIVE** | 17 (ATM_001-017) | 원자, 주기율표 |
+| `atoms/` | `ATM_` | **ACTIVE** | 25 (ATM_001-025) | 원자, 주기율표 |
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
-| `rh-connection/` | `RH_` | PLATEAU | 7 (RH_001-007) | Riemann Hypothesis |
+| `rh-connection/` | `RH_` | PLATEAU | 23 (RH_001-023) | Riemann Hypothesis |
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
-| `predictions/` | `PRD_` | NOT STARTED | — | 미측정 예측 (JUNO 등) |
-| `quantum-gravity/` | `QG_` | NOT STARTED | — | 시공간 창발, holographic |
+| `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
+| `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
+| `gram-algebra/` | `GMA_` | NOT STARTED | — | DRLT 고유 수학 언어 |
 
 ### Sub-Project 필수 구조
 ```
@@ -87,9 +88,17 @@ class MyExperiment(Experiment):
 
 ### 결과 파일
 ```
-{PREFIX}_{NNN}_{Title}.txt
+EXP_{PREFIX}_{NNN}_{Title}.txt
 ```
 실험 실행 시 자동 생성. Title은 실험 TITLE에서 파생.
+
+### 결과 저장 경로 (자동 감지)
+`lib/experiment.py`가 결과 저장 경로를 자동 결정:
+1. 클래스에 `RESULTS_DIR` 속성 → 그것 사용
+2. 실험 파일이 `{sub-project}/experiments/`에 있으면 → `{sub-project}/results/`
+3. 위 두 조건 해당 없으면 → root `results/` (fallback)
+
+**수동 RESULTS_DIR 설정 불필요.** `{sub-project}/experiments/`에 넣기만 하면 됨.
 
 ### 새 sub-project 생성 시
 1. 2-3자 prefix 결정 (기존과 충돌 없이)
@@ -109,7 +118,7 @@ class MyExperiment(Experiment):
 6. **각 sub-project는 자체 HANDOFF.md 관리.** Root HANDOFF는 요약만.
 7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
 8. **papers/는 root에 유지.** 저널 투고용. sub-project에서 참조만.
-9. **results/는 sub-project 안에만.** root results/는 meta만.
+9. **results/는 sub-project 안에만.** root results/에는 REPORT, SUMMARY, 카탈로그만. 실험 EXP_*.txt는 절대 root results/에 넣지 않음.
 
 ### Paper Classification
 | Paper | Sub-Project | Topic |
@@ -151,7 +160,8 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 | m_H | 125.28 GeV | 125.25 GeV | **+0.02%** |
 | sin²θ₁₃ | 0.0220 | 0.0220 | **-0.07σ** |
 | ν m₃/m₂ | 5.712 | 5.71 | **+0.04%** |
-| η_B | 6.10×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.04% |
+| η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
+| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
 
 ## Resolved Problems (All 5 original SM open problems closed)
 1. ~~Higgs mass~~ → +0.02% via face BC + embedding (SM_020/021)
@@ -177,3 +187,11 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 - Commit after each meaningful change.
 - Push to designated branch. Never amend.
 - Sub-projects can use feature branches.
+
+### Theoretical Assist Request (표준 워크플로우)
+Claude가 이론적 돌파가 필요할 때:
+1. **현재 상태 요약**: 무엇이 증명되었고, 무엇이 막혔는가.
+2. **구체적 질문**: 정확한 부등식, 추측, 또는 물리적 직관이 필요한 지점.
+3. **시도한 접근**: 실패한 경로와 왜 실패했는지.
+4. **필요한 도구**: 어떤 종류의 힌트가 도움이 될지 (부등식? 물리적 해석? 새 관점?).
+선생님이 방향을 주면 Claude가 형식화 + 수치 검증을 즉시 수행.

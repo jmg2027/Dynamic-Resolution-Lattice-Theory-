@@ -1,4 +1,4 @@
-# Folded Dimension Leaking: A Unified Principle
+# Trace Redistribution via Representation-Theoretic Channels
 
 **For: Coding agent (EXP design and verification)**
 **Prerequisite: ∂(5-simplex) geometry, (3,2) split, Regge action**
@@ -7,27 +7,29 @@
 
 ## 1. Setup
 
-### 1.1 Eigenvalue structure of ℂ^N
+### 1.1 Eigenvalue structure of ℂ^d (d > 5)
 
-N points with ψ_i ∈ ℂ^N. Gram matrix G_ij = ⟨ψ_i|ψ_j⟩. After swap annihilation, the eigenvalue spectrum has three regions:
-
-```
-Region I:   λ₁ ... λ₅         "Real universe"    (rank 5, (3,2) split)
-Region II:  λ₆ ... λ_{d_ind}  "Folded dimensions" (size ~ α_GUT per channel)
-Region III: λ_{d_ind+1} ... λ_N  "Dead"           (exactly 0)
-```
-
-Region II eigenvalues are the 0⁺ eigenvalues. They are NOT zero — they carry residual weight from Tr(G) = N conservation. Their magnitude per channel is:
+N points with ψ_i ∈ ℂ^d. Gram matrix G_ij = ⟨ψ_i|ψ_j⟩. After swap annihilation (τ-symmetrization of repeated atomic blocks), the eigenvalue spectrum has three regions:
 
 ```
-α_GUT = 6/(25π²) ≈ 0.0243
+Region I:   λ₁ ... λ₅           chiral (2,3) content
+Region II:  λ₆ ... λ_{d_ind}    swap-trivial content
+Region III: λ_{d_ind+1} ... λ_N  exactly 0 (hard wall)
 ```
 
-### 1.2 Where do 0⁺ eigenvalues live?
+**Critical point (Paper 1, ch03):** For generic unit vectors, Region I and Region II eigenvalues are **spectrally indistinguishable**:
 
-The 0⁺ eigenvalues are concentrated in the ℂ² (T-sector) direction of ℂ⁵. This is because swap annihilation preferentially kills the SMALLER subspace (ℂ² has fewer independent directions than ℂ³).
+```
+λ₁ ≈ λ₂ ≈ ... ≈ λ_{d_ind} ≈ N/d_ind   (all same order!)
+```
 
-**Consequence:** Hinge types with more temporal (T) vertices have stronger coupling to the 0⁺ region.
+The relative gap between λ₅ and λ₆ is O(1/√N), vanishing at large N. The distinction between Regions I and II is **purely representation-theoretic**: Region I supports chiral (complex) representations; Region II is swap-symmetric and supports only vector-like (self-conjugate) representations.
+
+### 1.2 Trace redistribution, not eigenvalue leaking
+
+The trace is conserved: Tr(G) = Σλ_k = N. The d² = 25 Binet-Cauchy channels of ∧³(ℂ⁵) distribute this trace. The representation-theoretically trivial channels carry a trace fraction determined by α_GUT = 6/(25π²) — this is a **geometric/combinatorial** constant (Paper 2, three independent proofs), NOT an eigenvalue magnitude.
+
+**Consequence:** Hinge types with more temporal (T) vertices overlap more strongly with the swap-trivial representation content, because the swap acts on paired atomic blocks and ℂ² (temporal, dim 2) has fewer independent directions than ℂ³ (spatial, dim 3).
 
 -----
 
@@ -41,9 +43,9 @@ For a hinge (triangle) with n_A spatial vertices and n_B temporal vertices (n_A 
 f_T = n_B / 3
 ```
 
-### Definition 2.2 (0⁺ coupling)
+### Definition 2.2 (Trace redistribution fraction)
 
-The coupling strength between a hinge type and the folded dimension region:
+The fraction of trace carried by representation-theoretically trivial channels for each hinge type:
 
 ```
 κ(hinge) = f_T × α_GUT = (n_B / 3) × α_GUT
@@ -60,7 +62,7 @@ The coupling strength between a hinge type and the folded dimension region:
 
 ### Theorem 2.2 (Deficit angle modification)
 
-The bare deficit angle on ∂(5-simplex) is δ_bare = π for all hinges. The 0⁺ leaking modifies this:
+The bare deficit angle on ∂(5-simplex) is δ_bare = π for all hinges. Trace redistribution across trivial channels modifies this:
 
 ```
 δ_SSS = π × (1 - 0)          = π        (unchanged)
@@ -69,9 +71,9 @@ The bare deficit angle on ∂(5-simplex) is δ_bare = π for all hinges. The 0�
 δ_TTT = 0                     (EXACT: resonant cancellation)
 ```
 
-**Why TTT = 0 exactly:** TTT vertices are entirely in ℂ². The 0⁺ eigenvalues are also in ℂ². Same sector → resonant cancellation, not perturbative suppression.
+**Why TTT = 0 exactly:** TTT vertices are entirely in ℂ². The swap-trivial representation content also lies in ℂ² (the smaller atomic block). The representation-theoretic overlap is complete → exact cancellation, not perturbative suppression.
 
-For SSS, SST, STT: vertices have ℂ³ components that are orthogonal to the 0⁺ region. Cancellation is partial, proportional to the temporal fraction.
+For SSS, SST, STT: vertices have ℂ³ components that are representation-theoretically orthogonal to the swap-trivial sector. Cancellation is partial, proportional to the temporal fraction.
 
 -----
 
@@ -79,10 +81,10 @@ For SSS, SST, STT: vertices have ℂ³ components that are orthogonal to the 0�
 
 ### Theorem 3.1 (Indirect SSS coupling)
 
-SSS has zero direct coupling (f_T = 0). But at second order, SSS couples to 0⁺ via an intermediate SST hop:
+SSS has zero direct coupling to the trivial sector (f_T = 0). But at second order, SSS couples via an intermediate SST hop:
 
 ```
-SSS → SST (1 hop, coupling α) → 0⁺ (coupling α_GUT/3)
+SSS → SST (1 hop, coupling α) → trivial sector (coupling α_GUT/3)
 
 κ²_SSS = α_GUT × (α_GUT/3) = α_GUT²/3 ≈ 1.97 × 10⁻⁴
 ```
@@ -107,16 +109,16 @@ This gives:
 - det(SSS) = 1 (orthogonal A vertices)
 - Mass gap: Δ = √det × δ = 1 × π > 0
 - N_eff = C(3,3) = 1 → confined to 1 hop
-- 0⁺ region CANNOT reach SSS (leading order) → confinement is robust
+- Trivial sector CANNOT reach SSS (leading order) → confinement is robust
 
-**This is why the strong force is “strong”: the folded dimensions cannot interfere with it.**
+**This is why the strong force is “strong”: the swap-trivial channels cannot redistribute trace away from pure-spatial hinges.**
 
 ### 4.2 SST (κ = α_GUT/3): Electromagnetic
 
 - 6 SST hinges per simplex (most numerous)
 - δ_SST = π(1 - α_GUT/3) ≈ 178.5°
 - N_eff = C(3,2)C(2,1) = 6 → long range (ξ = 1/α)
-- The small 0⁺ coupling (α_GUT/3) is the ORIGIN of EM coupling corrections
+- The trace redistribution fraction (α_GUT/3) is the ORIGIN of EM coupling corrections
 
 **EXP task:** Verify that the running of α_em is captured by κ_SST = α_GUT/3.
 
@@ -127,19 +129,19 @@ This gives:
 - This determines: screening σ = n_T/n_S, impedance ρ = n_S/n_T
 - All fermion masses derive from STT structure
 
-The 0⁺ coupling 2α_GUT/3 appears directly in the Trace correction:
+The trace redistribution fraction 2α_GUT/3 appears directly in the Trace correction:
 
 ```
 He IE:     error/α_GUT = -0.6666 = -n_T/n_S = -2/3 = -2κ_STT/α_GUT
 ```
 
-**This is the same 2/3.** The He IE correction IS the STT 0⁺ coupling.
+**This is the same 2/3.** The He IE correction IS the STT trace redistribution fraction.
 
 ### 4.4 TTT (κ = α_GUT, resonant): Neutrino physics
 
 - δ_TTT = 0 exactly → neutrino tree-level mass = 0
 - But TTT is NOT invisible. It connects to the real universe via STT channels.
-- This “leaking through STT” gives neutrinos their tiny mass and determines PMNS mixing.
+- This trace redistribution through STT channels gives neutrinos their tiny mass and determines PMNS mixing.
 
 -----
 
@@ -149,13 +151,13 @@ He IE:     error/α_GUT = -0.6666 = -n_T/n_S = -2/3 = -2κ_STT/α_GUT
 
 ```
 TTT hinge (δ=0, flat, "neutrino lives here")
-  ↕ leaking via STT channels
+  ↕ trace redistribution via STT channels
 STT hinges (δ≠0, curved, "connects to charged sector")
   ↕ 
 SSS/SST (charged lepton masses, well-defined generations)
 ```
 
-Neutrino mass eigenstates ≠ flavor eigenstates because the STT leaking connects ALL generations simultaneously.
+Neutrino mass eigenstates ≠ flavor eigenstates because the STT trace redistribution connects ALL generations simultaneously.
 
 ### 5.2 STT channel counting
 
@@ -250,7 +252,7 @@ Observed: 0.0220. Error: 0.2%.
 
 The correction has two parts:
 
-- α_GUT: 0⁺ leaking opens a small channel between ν_e and ν₃
+- α_GUT: trace redistribution opens a small channel between ν_e and ν₃
 - (1 - 4α_GUT): second-order suppression from the (n_S+1) = 4-face boundary
 
 ### 5.6 δ_CP (CP violation phase)
@@ -290,14 +292,14 @@ All deviations from TBM are Trace corrections proportional to α_GUT:
 
 ## 7. Unified table
 
-|Hinge|T-fraction|0⁺ coupling     |Physical effect            |Key formula          |
-|-----|----------|----------------|---------------------------|---------------------|
+|Hinge|T-fraction|Trace fraction κ |Physical effect            |Key formula          |
+|-----|----------|-----------------|---------------------------|---------------------|
 |SSS  |0/3       |0 (+ α²_GUT/3)  |Confinement (nearly immune)|Δ = √det × π > 0     |
-|SST  |1/3       |α_GUT/3         |EM coupling correction     |sector factor f = 2/3|
-|STT  |2/3       |2α_GUT/3        |Screening σ, all masses    |⟨det⟩ = 2/3          |
-|TTT  |3/3       |α_GUT (resonant)|ν massless + PMNS          |δ_TTT = 0            |
+|SST  |1/3       |α_GUT/3          |EM coupling correction     |sector factor f = 2/3|
+|STT  |2/3       |2α_GUT/3         |Screening σ, all masses    |⟨det⟩ = 2/3          |
+|TTT  |3/3       |α_GUT (resonant) |ν massless + PMNS          |δ_TTT = 0            |
 
-**One principle:** κ = (temporal fraction) × α_GUT.
+**One principle:** κ = (temporal fraction) × α_GUT. This is a representation-theoretic channel fraction, not an eigenvalue magnitude.
 
 -----
 
@@ -372,9 +374,15 @@ This identity simultaneously explains:
 It is the deepest structural result of the theory.
 
 + 확실:  부호가 마이너스인 이유 = Tr 보존.
-       0⁺가 Tr을 빼앗아가므로 현실 sector가 줄어듦.
+       표현론적으로 자명한 채널이 Tr을 나눠가지므로 키랄 sector의 몫이 줄어듦.
        det이 큰 세대(σ₅)가 더 많이 빼앗김.
        ∴ sin²θ₁₂ < 1/3.
+
++ 중요 (2026-04-14 수정):
+       λ₆...λ_{d_ind}은 "작은 고유값"이 아님!
+       λ₆ ≈ λ₅ ≈ N/d_ind (spectrally indistinguishable, Paper 1 & ch03 확인).
+       α_GUT = 6/(25π²)은 고유값 크기가 아니라 기하학적 상수 (채널 분배 비율).
+       보정은 "작은 고유값이 새어나옴"이 아니라 "자명 채널이 trace를 나눠 가짐".
 
 미완:  정확한 계수 (왜 -α_GUT이고 -α_GUT/9가 아닌지).
        이건 STT 채널의 가중 방식을 정확히 정의해야 나옴.
