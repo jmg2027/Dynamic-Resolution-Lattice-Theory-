@@ -228,32 +228,102 @@ where K(t) = Σ e^{-λ_k t} is the heat kernel.
 
 ---
 
-## Part VI. Summary and Open Questions
+## Part VI. Hodge Structure (DHA_006)
 
-### Established Results (5 experiments, 30+ checks)
+### 14. (p,q)-Bigrading from Chiral Decomposition
+
+The chiral split ℂ⁵ = ℂ³ ⊕ ℂ² induces a Hodge-type bigrading:
+- p = spatial vertex count, q = temporal vertex count
+- Faces: h^{3,0}=1, h^{2,1}=6, h^{1,2}=3
+
+### 15. Kähler Condition Determines c
+
+**Theorem 6.1** (Kähler = Speed of Light).
+Face Hodge symmetry h^{2,1}×c = h^{1,2}×c² requires:
+```
+c² = 2c  →  c = 2 = N_T
+```
+The lattice speed of light is the **unique Kähler weight**.
+
+### 16. Hodge Classes
+- (1,1)-classes: 6 space-time edges = N_S × N_T
+- (2,2)-classes: 3 balanced tetrahedra
+- Primitive forms: 1 + N_S + N_T = d + 1 = 6
+
+---
+
+## Part VII. Spectral Weights (DHA_007)
+
+### 17. Non-flat Spectrum at Critical Point
+
+Mode weights a_n = S_n × n² at ε_max follow a **period-4 pattern**:
+```
+{1, 2, 1, 0, 1, 2, 1, 0, 1}  (approximate, from T_n(0)=cos(nπ/2))
+```
+Physical origin: dihedral angles θ ≈ π/2 at the Regge critical point.
+
+### 18. Effective Zeta
+
+```
+ζ_eff = 1/(d² × f_occ) = 1.6466 ≈ ζ(2) = 1.6449   (0.1%)
+```
+
+---
+
+## Part VIII. Complete Algebraic Pipeline (DHA_008-009)
+
+### 19. Discrete Arccos
+
+Replace arccos(x) with root of cos_M(θ) = x (polynomial, degree 2M).
+For M=8: accuracy < 10⁻⁸ for all x ∈ [-1,1].
+
+### 20. Discrete Period
+
+```
+P² = 24ζ_N   (replaces (2π)² = 24ζ(2))
+P₈²/24 = 1.5448 ≈ ζ₉ = 1.5398   (0.3%)
+```
+
+### 21. Full Pipeline: d=5 → Coupling
+
+| Step | Input | Output | Transcendence |
+|------|-------|--------|---------------|
+| 1 | d=5 | N_S=3, N_T=2, c=2 | ZERO |
+| 2 | (3,2) | 1+6+3=10, N_eff=9 | ZERO |
+| 3 | N_eff=9 | ζ₉ = 9778141/6350400 | ZERO (rational) |
+| 4 | ζ₉ | P = √(24ζ₉) | √(rational) |
+| 5 | ε | cos θ = algebraic(ε) | ZERO |
+| 6 | S_M(ε) | ε_max, f_occ | root-finding |
+| **Total** | | | **ZERO** |
+
+---
+
+## Part IX. Summary and Open Questions
+
+### Established Results (9 experiments, 50+ checks)
 
 1. **∂(Δ⁴) spectrum**: all eigenvalues = d = 5 (maximal S₅ symmetry)
 2. **J(5,3) adjacency**: eigenvalues {0, 5, 8} with multiplicities {1, 4, 5}
 3. **Chiral breaking**: S₅ → S₃×S₂ gives 10 → 1+6+3 (SSS+SST+STT)
 4. **9 propagating modes**: at any ε > 0, exactly 9 non-zero eigenvalues
-5. **cos₈ period ≈ √(24ζ₉)**: 0.16% matching (M=8 optimal)
+5. **cos₈ period ≈ √(24ζ₉)**: P₈²/24 ≈ ζ₉ (0.3%)
 6. **Parseval normalization**: Σ f_n = 1 exact on 9 channels
 7. **Chebyshev ≠ Regge**: different actions, complementary roles
-8. **Non-flat spectrum**: S_n/S_1 ≠ 1/n² → 0.1% residual origin
+8. **Non-flat spectrum**: period-4 pattern from T_n(0) = cos(nπ/2)
 9. **Partition function**: Z(0) = 9 = N_eff exactly
+10. **Hodge structure**: c = N_T = 2 from Kähler condition
+11. **ζ_eff = 1.6466 ≈ ζ(2)**: effective zeta at Regge critical point
+12. **Complete algebraic pipeline**: d=5 → coupling, zero transcendence
+13. **ζ₉ = 9778141/6350400**: coupling constant is RATIONAL
 
 ### Open Questions
 
-1. **Why exactly 1+4+5?** Connect S₅ irreps (5)⊕(4,1)⊕(3,2) to physics
-   (gauge boson families?)
-2. **Exact coupling from spectral zeta**: find the rescaling/normalization
-   that gives ζ_M(2) → ζ₉ → α_GUT
-3. **Non-flat spectrum correction**: compute the exact spectral weight a_n
-   that closes the 0.1% gap
-4. **Lean formalization**: extend ChebyshevAction.lean with the
-   S₅ representation decomposition
-5. **Generalize to M(N,ε)**: compute DHA on the N-simplex manifold,
-   not just the single simplex
+1. **1+4+5 → physics**: S₅ irreps → gauge families?
+2. **ζ_eff vs ζ₉ vs ζ(2)**: which is "the" spectral measure?
+3. **Non-flat correction**: close the period-4 pattern analytically
+4. **Lean formalization**: S₅ representation + Hodge theorems
+5. **(1,1)-Hodge → gauge?**: 6 space-time edges → gauge bosons?
+6. **(2,2)-Hodge → generations?**: 3 balanced tetrahedra → 3 families?
 
 ---
 

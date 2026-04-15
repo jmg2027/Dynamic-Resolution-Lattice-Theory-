@@ -65,11 +65,15 @@ dim ∂(Δ⁵): vertices=5, edges=10, faces=10, tetra=5
 
 ## Experiment Map
 ```
-DHA_001: Combinatorial Laplacian eigenvalues on ∂(Δ⁵)
-DHA_002: S₅ character decomposition of dihedral angles
-DHA_003: Finite Fourier transform — cos_N vs √(24ζ_N)
-DHA_004: Algebraic Regge action (arccos-free)
-DHA_005: Spectral zeta function ζ_Δ(s)
+DHA_001: Combinatorial Laplacian eigenvalues on ∂(Δ⁴)    (8/8)
+DHA_002: S₅→S₃×S₂ chiral breaking, channel decomposition (12/12)
+DHA_003: Finite Fourier transform — cos_N vs √(24ζ_N)    (3/5)
+DHA_004: Algebraic Regge action (arccos-free)              (2/5)
+DHA_005: Spectral zeta function ζ_Δ(s)                    (5/5)
+DHA_006: Hodge decomposition, c=N_T from Kähler           (6/7)
+DHA_007: Spectral weight extraction, period-4 pattern      (3/4)
+DHA_008: Discrete arccos, π-free Regge action              (2/4)
+DHA_009: Complete algebraic pipeline d=5→coupling          (9/9)
 ```
 
 ## References
