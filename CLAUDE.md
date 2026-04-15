@@ -41,11 +41,10 @@
 | `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
 | `atoms/` | `ATM_` | **ACTIVE** | 25 (ATM_001-025) | 원자, 주기율표 |
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
-| `rh-connection/` | `RH_` | PLATEAU | 23 (RH_001-023) | Riemann Hypothesis |
+| `critical-line/` | `RH_` | **ACTIVE** | 25 (RH_001-025) | 임계선, RH, GRH, L-함수, Lean |
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
 | `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
-| `gram-algebra/` | `GMA_` | NOT STARTED | — | DRLT 고유 수학 언어 |
 
 ### Sub-Project 필수 구조
 ```
