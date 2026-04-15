@@ -1,0 +1,112 @@
+============================================================
+  EXP_RH_037_Second_eigenvalue_structure
+  2026-04-15 10:47:21
+============================================================
+
+=== Test 1: Full spectrum ===
+
+  K_6 (30 edges):
+    eigenvalue | multiplicity | note
+  -------------+--------------+-----
+        4.0000 |            1 | lambda_1 = q
+        1.0000 |           10 | lambda_2 = 1
+       -0.5000 |           10 | 
+       -1.0000 |            9 | lambda = -1
+
+  K_8 (56 edges):
+    eigenvalue | multiplicity | note
+  -------------+--------------+-----
+        6.0000 |            1 | lambda_1 = q
+        1.0000 |           21 | lambda_2 = 1
+       -0.5000 |           14 | 
+       -1.0000 |           20 | lambda = -1
+
+  K_10 (90 edges):
+    eigenvalue | multiplicity | note
+  -------------+--------------+-----
+        8.0000 |            1 | lambda_1 = q
+        1.0000 |           36 | lambda_2 = 1
+       -0.5000 |           18 | 
+       -1.0000 |           35 | lambda = -1
+
+  K_12 (132 edges):
+    eigenvalue | multiplicity | note
+  -------------+--------------+-----
+       10.0000 |            1 | lambda_1 = q
+        1.0000 |           55 | lambda_2 = 1
+       -0.5000 |           22 | 
+       -1.0000 |           54 | lambda = -1
+  [✓ PASS] Full spectrum computed
+
+=== Test 2: Multiplicity of lambda = 1 ===
+
+     N |  n_edges |  mult(1) | mult(-1) |  mult(q) | mult(-q)
+  -----+----------+----------+----------+----------+---------
+     4 |       12 |        3 |        2 |        1 |        0
+     5 |       20 |        6 |        5 |        1 |        0
+     6 |       30 |       10 |        9 |        1 |        0
+     7 |       42 |       15 |       14 |        1 |        0
+     8 |       56 |       21 |       20 |        1 |        0
+     9 |       72 |       28 |       27 |        1 |        0
+    10 |       90 |       36 |       35 |        1 |        0
+    11 |      110 |       45 |       44 |        1 |        0
+    12 |      132 |       55 |       54 |        1 |        0
+    13 |      156 |       66 |       65 |        1 |        0
+    14 |      182 |       78 |       77 |        1 |        0
+    15 |      210 |       91 |       90 |        1 |        0
+
+  Look for pattern: mult(1) = f(N)
+  [✓ PASS] Multiplicity scaling measured
+
+=== Test 3: Eigenspace of lambda = 1 ===
+  K_8: 21 eigenvectors with lambda ~ 1
+
+  First eigenvector (lambda=1):
+  Active edges (26/56):
+    edge (0, 1): v = -0.6124
+    edge (0, 2): v = 0.1021
+    edge (0, 3): v = 0.1021
+    edge (0, 4): v = 0.1021
+    edge (0, 5): v = 0.1021
+    edge (0, 6): v = 0.1021
+    edge (0, 7): v = 0.1021
+    edge (1, 0): v = 0.6124
+    edge (1, 2): v = -0.1021
+    edge (1, 3): v = -0.1021
+    ... (16 more)
+
+  Vertex-projected sum:
+    vertex 0: sum = 0.0000
+    vertex 1: sum = -0.0000
+    vertex 2: sum = 0.0000
+    vertex 3: sum = 0.0000
+    vertex 4: sum = -0.0000
+    vertex 5: sum = -0.0000
+    vertex 6: sum = 0.0000
+    vertex 7: sum = -0.0000
+  [✓ PASS] Eigenspace identified
+
+=== Test 4: lambda_2 for other graphs ===
+
+  K_8: lam1=6.00, lam2=1.00, lam3=1.00
+
+  K_10: lam1=8.00, lam2=1.00, lam3=1.00
+
+  C_8 (cycle): lam1=1.0000, lam2=1.0000, lam3=0.7071
+
+  C_10 (cycle): lam1=1.0000, lam2=1.0000, lam3=0.8090
+
+  Petersen: lam1=2.0000, lam2=1.0000, lam3=1.0000
+  (Petersen is 3-regular Ramanujan: bound = 2*sqrt(2) = 2.8284)
+  [✓ PASS] Graph comparison done
+
+============================================================
+  SUMMARY: EXP_RH_037_Second_eigenvalue_structure
+============================================================
+  [✓] Full spectrum computed
+  [✓] Multiplicity scaling measured
+  [✓] Eigenspace identified
+  [✓] Graph comparison done
+
+  4/4 checks passed
+  Time: 0.0s
