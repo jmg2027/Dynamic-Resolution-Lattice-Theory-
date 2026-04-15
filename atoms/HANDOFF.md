@@ -1,12 +1,21 @@
 # Atoms Handoff — 2026-04-15
 
-## 핵심 결과: f_occ(ε²) = α_GUT on N=4 Flat Manifold (0.001% with ζ₉)
+## 핵심 결과: Born-Screening Duality at d=5 ★★★
 
-### 이번 세션 (ATM_032-034 + ch10 업데이트)
-- **ATM_032**: N=2 정류 방정식 유도. ε²(N=2) = 0.01084 ≈ (3/2)α_em (-0.98%). 5/5 PASS.
-- **ATM_033**: σ_same_s = 1/N_T + c²α_GUT 기하학적 유도 완성. BBB=100% STT. 5/5 PASS.
-- **ATM_034**: ζ₉ 물리적 의미. SSS=0 on N=4, 9=C(5,3)-1, cos₈ 주기≈√(24ζ₉). 4/4 PASS.
-- **ch10 업데이트**: 418→629줄, 6→16 정리. N-simplex manifold 전체 결과 통합.
+### 최신 세션 (ATM_035-038 + ch10 업데이트)
+- **ATM_035**: IE 개선 median 3.5%→**3.1%**, <5% 76→**81**. DEEP_PAIR + f14-pair.
+- **ATM_036-037**: Born gap ≈ σ_cross 발견. sin(2φ)=8/9 → μ=7/9 → 7/8 EXACT.
+- **ATM_038**: ★★★ **Born-Screening 정리**: 3개 screening 상수 독립 유도, d=5 유일성.
+  - σ_cross = 2μ/(1+μ) = 7/8 EXACT
+  - σ_sp_odd = (1+μ)/2 + 1/(N_S²dN_T) = 9/10 EXACT
+  - σ_sp_even = (1+μ)/2 - μ/(dN_T²) = 17/20 EXACT
+  - Uniqueness: 2d²-13d+15=0 → d=5 only integer
+- **ch10**: 418→705줄, 6→19 정리. Born-Screening + IE table 추가.
+
+### 이전 세션 (ATM_032-034)
+- **ATM_032**: N=2 정류 방정식, ε²(N=2)≈(3/2)α_em (-0.98%). 5/5.
+- **ATM_033**: σ_same_s = 1/N_T + c²α_GUT 기하학적 유도. 5/5.
+- **ATM_034**: ζ₉ 물리: SSS=0 on N=4, 9 채널, 0.001%. 4/4.
 
 ### 이전 세션 성과
 - atoms/theory/complete_theory.md: 통합 이론 문서 (330줄, 18섹션)
@@ -118,5 +127,9 @@ ATM_031: Finite zeta cosine (4/4, ζ₉ self-consistency)
 ATM_032: N=2 hydrogen mechanism (5/5) ★ N=2 stationarity
 ATM_033: Screening from manifold (5/5) ★ σ_same_s geometric
 ATM_034: Zeta-9 physical meaning (4/4) ★ SSS decoupling
-Next: ATM_035
+ATM_035: Complete-shell pair (4/4) ★ median 3.5→3.1%, <5% 76→81
+ATM_036: Born screening exploratory (4/4) gap≈σ_cross
+ATM_037: Born phase constraint (5/5) sin(2φ)=8/9→7/8
+ATM_038: Born screening exact (7/7) ★★★ 3 constants, d=5 unique
+Next: ATM_039
 ```

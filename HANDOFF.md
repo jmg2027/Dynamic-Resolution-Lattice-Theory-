@@ -69,7 +69,7 @@
 |-----------|--------|-------------|
 | foundations/ | STABLE | 10 |
 | standard-model/ | CLOSED ✓ | 24 |
-| atoms/ | **ACTIVE** | 31 (ATM_001-031) |
+| atoms/ | **ACTIVE** | 38 (ATM_001-038) |
 | cosmology/ | STABLE ✓ | 3 |
 | critical-line/ | **ACTIVE** | 46 (RH_001-046) |
 | predictions/ | ACTIVE | 8 |
@@ -79,23 +79,19 @@
 
 ## Open Problems (Priority Order)
 
-### 1. N=2 → 수소 IE 메커니즘 (atoms/)
-eps²(N=2) ≈ (3/2)α_em (1%). 이 관계의 정확한 기하학적 유도.
-
-### 2. Screening constants from manifold (atoms/)
-8개 screening 상수가 아직 현상론적. manifold에서 변분적 유도 필요.
-
-### 3. 이산 조화해석학 on simplex
-cos를 유한 구조로 완전 대체. 0.001% 잔차의 열쇠.
+### ~~1. N=2 → 수소 IE 메커니즘~~ ✅ ATM_032
+### ~~2. Screening from manifold~~ ✅ ATM_033 + ATM_038 (Born duality)
+### ~~3. ζ₉ 물리적 의미~~ ✅ ATM_034
+### ~~6. Book ch10 업데이트~~ ✅ 705줄, 19 정리
 
 ### 4. Nuclear magic numbers (nuclear/)
-600-cell (120 vertices) → Z=120 한계. simplex 닫힘 → 2,8,20,28,50,82,126.
+600-cell (120 vertices) → Z=120 한계. **선생님 별도 진행 중.**
 
 ### 5. Phase→Möbius (critical-line/)
-"왜 정확히 1/2" — 대수적 접근. 별도 연구 중.
+"왜 정확히 1/2" — Spectral Flow (RH_047-048) 머지 완료.
 
-### 6. Book ch10 업데이트
-N-simplex manifold 결과를 ch10_atoms.tex에 통합.
+### NEW: μ² ≈ σ_same_s gap (1.3%)
+대수적(49/81) vs 초월적(1/2+24/25π²). ζ₉으로 0.17%. 완전 해결 미정.
 
 ## Unresolved
 - ζ₉ vs ζ(∞): 물리적으로 어느 것이 "맞는" 전파자인가?
@@ -112,7 +108,7 @@ Ry = α²m_e/N_T,  N_T = 2
 ```
 
 ## Next Available Experiment
-ATM_032, RH_047, COS_004, PRD_009, QG_007
+ATM_039, RH_049, COS_004, PRD_009, QG_007
 
 ## File Map (this session, key files)
 ```
