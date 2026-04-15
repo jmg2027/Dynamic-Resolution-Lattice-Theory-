@@ -45,7 +45,7 @@
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
 | `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
-| `gram-algebra/` | `GMA_` | NOT STARTED | — | DRLT 고유 수학 언어 |
+| `yang-mills/` | `YM_` | **ACTIVE** | 0 | 질량 갭, NS 정칙성, Lean 4 형식화 |
 
 ### Sub-Project 필수 구조
 ```
@@ -119,6 +119,7 @@ EXP_{PREFIX}_{NNN}_{Title}.txt
 7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
 8. **papers/는 root에 유지.** 저널 투고용. sub-project에서 참조만.
 9. **results/는 sub-project 안에만.** root results/에는 REPORT, SUMMARY, 카탈로그만. 실험 EXP_*.txt는 절대 root results/에 넣지 않음.
+10. **수학은 물리가 이끈다.** 수학적 개발이 필요하면 해당 물리 sub-project 안에서 수행. 다른 분야(atoms, QG 등)에서 수학이 필요하면 그 sub-project 안에서 theory/ + lean/ 구성.
 
 ### Paper Classification
 | Paper | Sub-Project | Topic |
