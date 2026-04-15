@@ -22,3 +22,4 @@ import PmfRh.DetFormula
 import PmfRh.NSRegularity
 import PmfRh.VietaChain
 import PmfRh.QuantifierAnalysis
+import PmfRh.MillenniumBridges
