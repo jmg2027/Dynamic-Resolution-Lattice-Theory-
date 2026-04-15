@@ -22,7 +22,7 @@ Nothing exists outside $G$. There is no background space in which $G$ is embedde
 
 The block universe is not a philosophical choice --- it is a mathematical consequence of $\text{rank}(G) \leq 5$.
 
-Consider $N$ vertices with $\psi_i \in \mathbb{C}^5$. The Gram matrix $G$ has $N^2$ complex entries but only $5N$ real parameters (the components of the $\psi_i$). For $N \gg 5$, $G$ is massively over-determined: any single row of $G$ (the inner products of one vertex with all others) constrains all remaining $\psi_j$ up to a $\text{U}(5)$ gauge freedom.
+Consider $N$ vertices with $\psi_i \in \CC^5$. The Gram matrix $G$ has $N^2$ complex entries but only $5N$ real parameters (the components of the $\psi_i$). For $N \gg 5$, $G$ is massively over-determined: any single row of $G$ (the inner products of one vertex with all others) constrains all remaining $\psi_j$ up to a $\text{U}(5)$ gauge freedom.
 
 Concretely: given a single reference state $\psi_0$ and the $N - 1$ inner products $\{G_{0j}\}_{j=1}^{N-1}$, the rank-5 constraint propagates to determine the \emph{entire} configuration $\{\psi_j\}$ (up to unitary equivalence). The number of free real parameters is:
 \begin{equation}
@@ -122,7 +122,7 @@ The coupling constants \emph{approach} their geometric plateau values ($8, 30, 6
 
 \begin{equation}
 \boxed{
-\text{Points} \;\xrightarrow{\text{Frobenius}}\; \mathbb{C}
+\text{Points} \;\xrightarrow{\text{Frobenius}}\; \CC
 \;\xrightarrow{\text{Atomic}}\; d = 5
 \;\xrightarrow{\text{Causal}}\; 3\!+\!2\!+\!1
 \;\xrightarrow{\Lambda^3}\; 25
@@ -138,9 +138,9 @@ The coupling constants \emph{approach} their geometric plateau values ($8, 30, 6
 Step & From & To & How \\
 \hline
 0 & Nothing & Points with relations & (minimal assumption) \\
-1 & Relations & $\mathbb{C}$ & Frobenius + phase + det \\
-2 & $\mathbb{C}^N$ & $d = 5$ & Atomic uniqueness + swap \\
-3 & $\mathbb{C}^5$ & SU(3)$\times$SU(2)$\times$U(1), $c\!=\!2$ & Chirality + density \\
+1 & Relations & $\CC$ & Frobenius + phase + det \\
+2 & $\CC^N$ & $d = 5$ & Atomic uniqueness + swap \\
+3 & $\CC^5$ & SU(3)$\times$SU(2)$\times$U(1), $c\!=\!2$ & Chirality + density \\
 4 & Hinges & $1 + 12 + 12 = 25$ & Binet--Cauchy + $c$-weight \\
 5 & Channels & $\alpha_3, \alpha_2, \alpha_1$ & Basel sum + Gram rank \\
 6 & $\alpha_i + v_H$ & 26 SM parameters & Simplex geometry \\
@@ -157,9 +157,9 @@ Step & From & To & How \\
 
 \subsection{The representation cascade}
 
-The derivation chain above starts from ``points with relations'' and arrives at $\mathbb{C}^5$. But there is a deeper way to see this --- one that does not require $d = 5$ at all.
+The derivation chain above starts from ``points with relations'' and arrives at $\CC^5$. But there is a deeper way to see this --- one that does not require $d = 5$ at all.
 
-\textbf{One matrix, one algebra.} Take $N$ points carrying vectors in $\mathbb{C}^{d_0}$ for any $d_0 \gg 5$. The Gram matrix $G$ is $N \times N$, rank $\leq d_0$. No constraint is imposed. The Uniqueness Theorem (Sec.~\ref{thm:d5}) proves: for \emph{any} $d_0 \geq 5$, the unique chiral, CP-violating, connected structure is $(n_S, n_T) = (3, 2)$.
+\textbf{One matrix, one algebra.} Take $N$ points carrying vectors in $\CC^{d_0}$ for any $d_0 \gg 5$. The Gram matrix $G$ is $N \times N$, rank $\leq d_0$. No constraint is imposed. The Uniqueness Theorem (Sec.~\ref{thm:d5}) proves: for \emph{any} $d_0 \geq 5$, the unique chiral, CP-violating, connected structure is $(n_S, n_T) = (3, 2)$.
 
 \textbf{No spectral gap at rank 5.} Numerical simulations confirm that swap annihilation creates no eigenvalue gap at rank 5. The chiral eigenvalues $\lambda_1, \ldots, \lambda_5$ and the trivial (swap-symmetric) eigenvalues $\lambda_6, \ldots, \lambda_{d_\text{indep}}$ merge into a continuous spectrum at large $N$, with the gap closing as $\sim 1/\sqrt{N}$. The true spectral gap is at rank $d_\text{indep}$ (independent dimensions after swap), where $\lambda_{d_\text{indep}+1} = 0$ exactly.
 
@@ -181,16 +181,16 @@ Present & $\sim 10^{80}$ & $\sim 0$ & Purely representation-theoretic \\
 
 GUT symmetry breaking is not a phase transition requiring a Higgs potential. It is the inevitable fading of spectral visibility as $N_\text{eff}$ grows past $\sim 1500$. The $(2,3)$ structure was always there; it merely became invisible to spectroscopy.
 
-\textbf{Only $(2,3)$ supports observers.} $\{3\}$ alone: no time. $\{2\}$ alone: no space. $\{2,2\}$: swap-symmetric, no chirality. $\{3,3\}$: same. $\{2,3\}$: space $+$ time $+$ U(1) glue $+$ chirality $+$ charge quantization. This is the unique configuration. It exists in the representation theory of $\mathbb{C}^N$ for \emph{any} $N \geq 5$.
+\textbf{Only $(2,3)$ supports observers.} $\{3\}$ alone: no time. $\{2\}$ alone: no space. $\{2,2\}$: swap-symmetric, no chirality. $\{3,3\}$: same. $\{2,3\}$: space $+$ time $+$ U(1) glue $+$ chirality $+$ charge quantization. This is the unique configuration. It exists in the representation theory of $\CC^N$ for \emph{any} $N \geq 5$.
 
 This resolves three foundational puzzles:
 
 \begin{enumerate}
-\item \textbf{The anthropic principle dissolves.} The constants \emph{cannot} be different. $(2,3)$ is the unique chiral structure of $\mathbb{C}$, and $\alpha_\text{GUT} = 6/(25\pi^2)$ is its coupling constant. The question ``why these constants?'' reduces to ``do complex numbers exist?''
+\item \textbf{The anthropic principle dissolves.} The constants \emph{cannot} be different. $(2,3)$ is the unique chiral structure of $\CC$, and $\alpha_\text{GUT} = 6/(25\pi^2)$ is its coupling constant. The question ``why these constants?'' reduces to ``do complex numbers exist?''
 
-\item \textbf{Fine-tuning dissolves.} The constants are not tuned. They are theorems: $1/\alpha_1 = 6\pi^2$, $\sin^2\theta_W = 3/8$, $v_H = 6M_\text{Pl}/5^{25}$. These follow from $(2,3)$, which follows from $\mathbb{C}$.
+\item \textbf{Fine-tuning dissolves.} The constants are not tuned. They are theorems: $1/\alpha_1 = 6\pi^2$, $\sin^2\theta_W = 3/8$, $v_H = 6M_\text{Pl}/5^{25}$. These follow from $(2,3)$, which follows from $\CC$.
 
-\item \textbf{Cosmic necessity dissolves.} ``Why something rather than nothing?'' $\to$ ``Does $\mathbb{C}$ have a unique chiral structure?'' Yes. That structure is $(2,3)$, and it determines all of physics.
+\item \textbf{Cosmic necessity dissolves.} ``Why something rather than nothing?'' $\to$ ``Does $\CC$ have a unique chiral structure?'' Yes. That structure is $(2,3)$, and it determines all of physics.
 \end{enumerate}
 
 The parameter $\varepsilon_0 \approx 0.0038$ measures the spectral gap at our epoch --- how far $N_\text{eff}$ has grown past $N_\text{cross} \approx 1500$. It is an address within the $(2,3)$ structure, not a free parameter.
@@ -215,7 +215,7 @@ The ``measurement problem'' does not arise. $G$ is static. Nothing collapses. Th
 
 This theory derived 52 quantitative predictions --- coupling constants, fermion masses, mixing angles, cosmological observables, $\eta/s = 1/(4\pi)$, the proton mass to 0.08\% --- without defining a single observable operator. No position operator $\hat{x}$, no momentum $\hat{p}$, no Hamiltonian postulated as ``the energy operator,'' no eigenvalue-equals-measurement axiom, no Born rule. The local Hamiltonian $H_i = \sum_j W_{ij}|\psi_j\rangle\langle\psi_j|$ was not introduced --- it emerged from the Gram matrix structure.
 
-The question ``is it a particle or a wave?'' does not arise. Each vertex carries a complex number $\psi \in \mathbb{C}^5$. Complex numbers are neither particles nor waves. The question is malformed --- like asking whether the number 3 is red or blue.
+The question ``is it a particle or a wave?'' does not arise. Each vertex carries a complex number $\psi \in \CC^5$. Complex numbers are neither particles nor waves. The question is malformed --- like asking whether the number 3 is red or blue.
 
 \subsection{The simplex network}
 
@@ -224,7 +224,7 @@ This section gives the geometric construction that produces the fully connected 
 \subsubsection{Construction}
 
 \begin{enumerate}
-\item Take a 4-simplex $\sigma$: 5 vertices, each carrying $\psi_k \in \mathbb{C}$ ($k = 1, \ldots, 5$). The interior of $\sigma$ is uniform --- all interior points share the same 5 complex values.
+\item Take a 4-simplex $\sigma$: 5 vertices, each carrying $\psi_k \in \CC$ ($k = 1, \ldots, 5$). The interior of $\sigma$ is uniform --- all interior points share the same 5 complex values.
 
 \item Place $N$ such simplices $\{\sigma_1, \ldots, \sigma_N\}$ as nodes of a complete graph. Adjacent simplices share a tetrahedron (4 vertices) and differ by exactly 1 vertex (the Pachner-adjacent structure).
 
@@ -292,7 +292,7 @@ The results of this work follow from a single mathematical fact: \emph{complex n
 
 For any $d$ large enough, the rank stratification contains a band at effective rank 5. In that band, the Binet--Cauchy decomposition gives $1 + 12 + 12 = 25$ channels, the Basel sum gives $1/\alpha_1 = 6\pi^2$, the causal split gives $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$, and all 52 predictions follow.
 
-No physics was assumed. No spacetime, no forces, no particles, no quantum mechanics, no relativity. Only $\mathbb{C}$ and the inner product.
+No physics was assumed. No spacetime, no forces, no particles, no quantum mechanics, no relativity. Only $\CC$ and the inner product.
 
 %---------------------------------------------------------------------
 \subsection{Variational principle on $\partial(\Delta^5)$}
@@ -306,7 +306,7 @@ The block universe is not constructed step by step.  It is a single extremum of 
 
 \subsubsection{Degrees of freedom}
 
-Six vertices in $\mathbb{C}^5$ give $60$ real parameters.  Normalization ($|{\psi_k}|^2 = 1$, 6 constraints) and global $U(5)$ gauge (25~parameters) leave $60 - 6 - 25 = 29$ physical degrees of freedom.  Numerically, the variational equations appear to determine 4 additional parameters (the CKM mixing angles and CP phase), leaving
+Six vertices in $\CC^5$ give $60$ real parameters.  Normalization ($|{\psi_k}|^2 = 1$, 6 constraints) and global $U(5)$ gauge (25~parameters) leave $60 - 6 - 25 = 29$ physical degrees of freedom.  Numerically, the variational equations appear to determine 4 additional parameters (the CKM mixing angles and CP phase), leaving
 \begin{equation}
 29 - 4 = 25 = d^2
 \end{equation}

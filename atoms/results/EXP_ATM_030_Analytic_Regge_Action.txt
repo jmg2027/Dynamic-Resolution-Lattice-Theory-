@@ -1,0 +1,128 @@
+============================================================
+  EXP_ATM_030_Analytic_Regge_Action
+  2026-04-15 10:21:41
+============================================================
+
+  ============================================================
+  Test 1: Analytic vs Numerical Regge Action
+  ============================================================
+
+       eps     S_analytic    S_numerical         diff
+    0.0100   113.21332185   113.21332185     0.00e+00
+    0.0384   113.49967747   113.49967747     1.42e-14
+    0.0668   113.72321091   113.72321091     1.42e-14
+    0.0953   113.88520826   113.88520826     2.84e-14
+    0.1237   113.98665641   113.98665641     2.84e-14
+    0.1521   114.02826630   114.02826630     5.68e-14
+    0.1805   114.01048768   114.01048768     2.84e-14
+    0.2089   113.93351547   113.93351547     1.42e-14
+    0.2374   113.79728745   113.79728745     1.42e-14
+    0.2658   113.60147116   113.60147116     2.84e-14
+    0.2942   113.34543699   113.34543699     4.26e-14
+    0.3226   113.02821037   113.02821037     5.68e-14
+    0.3511   112.64839128   112.64839128     1.42e-14
+    0.3795   112.20401686   112.20401686     4.26e-14
+    0.4079   111.69231911   111.69231911     4.26e-14
+    0.4363   111.10927083   111.10927083     2.84e-14
+    0.4647   110.44866001   110.44866001     4.26e-14
+    0.4932   109.69996009   109.69996009     2.84e-14
+    0.5216   108.84241890   108.84241890     5.68e-14
+    0.5500   107.82177943   107.82177943     0.00e+00
+
+  Max difference: 5.68e-14
+  [✓ PASS] Analytic = Numerical
+
+  ============================================================
+  Test 2: High-precision action maximum
+  ============================================================
+
+  eps_max = 0.157786905188473
+  x = eps^2 = 0.024896707448956
+  S_max    = 114.029451762478999
+  S_max/pi = 36.296701812115
+
+  dS/deps(eps_max) = -1.165209e-06
+
+  Root of dS/deps = 0:
+    eps = 0.157786889318721
+    x = eps^2 = 0.024896702440878
+
+  alpha_GUT = 0.024317084074161
+  x / alpha_GUT = 1.023835849930
+  (x - alpha_GUT) / alpha_GUT = 2.383585%
+  [✓ PASS] Maximum found
+
+  ============================================================
+  Test 3: Series expansion (arithmetic structure)
+  ============================================================
+
+  Exact series coefficients:
+  S(0) = 36*pi = 113.097336
+  a_1 = 12 (from dihedral angle expansion)
+  a_2 = -12*(1 + 3pi/4) = -40.274334
+
+  Verification at eps=0.001:
+    S(exact)  = 113.1092952689
+    S(approx) = 113.1092952549
+    diff = 1.40e-08
+
+  Leading-order maximum: eps ≈ 0.148978
+  eps^2(LO) = 0.022195
+  Exact eps_max = 0.157787
+
+  Exact LO formula: eps = 2/(4+3pi)
+    = 0.1489782554
+    eps^2 = 0.0221945206
+    vs alpha_GUT = 0.0243170841
+    ratio = 0.912713
+  [✓ PASS] Series expansion computed
+
+  ============================================================
+  Test 4: Connection to alpha_GUT
+  ============================================================
+
+  x = eps^2 = 0.024896702440878
+  alpha_GUT = 0.024317084074161
+
+  x = alpha + c2*alpha^2 + c3*alpha^3 + ...
+    c2 = 0.980210 (close to 1?)
+    c3 = 0.0000
+    c4 = 0.00
+    Residual after c2: 0.00e+00
+
+  === INTERPRETATION ===
+  The action maximum gives a TRANSCENDENTAL equation
+  involving arccos. The solution eps^2 is NOT algebraic.
+
+  However, eps^2 = alpha_GUT(1 + alpha_GUT + O(alpha^2))
+  suggests the action maximum 'knows about' alpha_GUT
+  through the channel structure embedded in the geometry.
+
+  Key exact results:
+    cos(theta_AABt) = eps/sqrt(1-2eps^2)
+    cos(theta_ABet) = -eps^2/(1-2eps^2)
+    det(ABet) = 1 - eps^2
+    S = 12[f1(eps) + f2(eps)]  (closed form)
+
+  Leading-order: eps^2 ≈ 4/(4+3pi)^2 = 0.02219452
+  This is 0.9127 * alpha_GUT
+
+  The 2.4% proximity of eps^2 to alpha_GUT arises from
+  4/(4+3pi)^2 ≈ 6/(25*pi^2) because
+    (4+3pi)^2 ≈ 25*pi^2*4/6 = 100*pi^2/6
+
+  (4+3pi)^2 = 180.224663
+  100*pi^2/6 = 164.493407
+  Ratio = 1.095635
+  [✓ PASS] Alpha connection analyzed
+
+============================================================
+  SUMMARY: EXP_ATM_030_Analytic_Regge_Action
+============================================================
+  [✓] Analytic = Numerical
+  [✓] Maximum found
+  [✓] Series expansion computed
+  [✓] Alpha connection analyzed
+
+  4/4 checks passed
+  Time: 0.0s

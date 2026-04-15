@@ -1,52 +1,112 @@
 # Atoms Handoff — 2026-04-15 (Final)
 
-## 두 가지 성과
+## 핵심 결과: f_occ(ε²) = α_GUT on N=4 Flat Manifold (0.001% with ζ₉)
 
-### A. Screening Model (ATM_018-022): median 3.5%
-- 8개 screening 상수로 Z=1-118 전부 30% 이내
-- 76(<5%), 111(<15%), 118(<30%), median 3.5%
-- 패턴 매칭이지만 manifold 해석 있음
+### 이번 세션 추가 성과
+- atoms/theory/complete_theory.md: 통합 이론 문서 (330줄, 18섹션)
+- atoms/theory/integer_catalog.md: 모든 정수 출처 (수비학 0)
+- atoms/theory/epsilon0_derivation.md: ε₀ = (l_Pl/R_H)^{6/151} 엄밀 유도
+- papers/paper6_simplex_coupling.tex: 논문 작성 완료 (433줄)
+- Ry = α²m_e/N_T: Rydberg의 1/2 = 1/N_T (시간 차원 수)
 
-### B. Manifold Variational (ATM_024-025): δ(AAA) = π
-- 올바른 기하: Δ⁴ (5꼭짓점, 3A+2B)
-- 2-simplex gauge 연결 → δ(AAA) = π 정확히 도출
-- IE(H) = Ry, IE(He) = 2Ry(1-4α_GUT)
-- Li manifold: 4 simplices, screening = temporal 겹침
-
-## Screening Constants (manifold 해석 포함)
+### 도출 체인
 ```
-Cross-pair (다른 심플렉스 쌍 → 공유 AAB 힌지):
-  σ_cross = 1-n_S/(d²-1) = 7/8 = 0.875
-
-Same-pair (같은 심플렉스 → Binet-Cauchy):
-  σ_same_s = 1/n_T + c²α_GUT = 0.597
-
-Subshell:
-  σ_ns→np(even) = 1-n_S/(d(d-1)) = 17/20
-  σ_ns→np(odd)  = 1-n_T/(d(d-1)) = 9/10
-  σ_same_p(p=2) = n_S/(n_S+1) = 3/4
-  σ_same_p(p≥3) = n_T/(n_T+1) = 2/3
-  σ_df→p = 1-α_GUT = 0.976
-  Δ_pair = n_S/π² = 3/π²
+QM 독립성 → orthogonal B vectors → dihedral = π/2
+→ N_flat = 4 → δ(AAA) = 0 (strong sector decouples)
+→ ∂S_boundary/∂ε = 0 (초월적 방정식)
+→ ε² = 0.02490 (bare coupling)
+→ f_occ(ε²) = ε²/(1+ε²) = 0.02429 = α_GUT ± 0.10%
 ```
 
-## 근본적 미해결: S_total
-- Regge action → 기하학 (δ, shell 구조)
-- Gram matrix → coupling (α, σ)
-- 둘을 통합하는 S_total = S_Regge + S_matter 미정립
-- 이것이 있으면 변분에서 screening이 도출 가능
+### N-simplex manifold 구조
+| N | δ(AAA)/π | ε_max | ε² | f_occ | f_occ/α_GUT |
+|---|----------|-------|-----|-------|-------------|
+| 2 | 1.0 | 0.1041 | 0.01084 | 0.01072 | 0.441 |
+| 3 | 0.5 | 0.1344 | 0.01807 | 0.01775 | 0.730 |
+| **4** | **0.0** | **0.1578** | **0.02490** | **0.02429** | **0.999** |
+| 5 | -0.5 | 0.1765 | 0.03116 | 0.03022 | 1.243 |
+
+### Exact Analytical Formulas
+```
+cos(θ_AABt) = ε / √(1-2ε²)          [대수적, exact]
+cos(θ_ABet) = -ε² / (1-2ε²)         [대수적, exact]
+det(AABe) = 1 - 2ε²                  [대수적, exact]
+det(ABet) = 1 - ε²                   [대수적, exact]
+S(ε,N) = S_shared(N) + 3N[f₁(ε)+f₂(ε)]  [초월적, closed-form]
+S(0,N) = (7N+8)π                     [산술적, exact]
+```
+
+### 대칭 manifold (B₃ = -B₂)
+- δ(AAA) = π (exact), δ(AABe) = π (exact) — 물질 섹터 rigid
+- δ(AABt), δ(ABet)만 ε-의존 — 게이지 섹터만 동적
+- 22 = d² - N_S = 25 - 3 (hinge count = channel count - frozen spatial DOF)
+
+---
+
+## 실패한 접근 (반복 금지)
+
+### ✗ Channel-weighted Regge action
+c^k 또는 c^{2k} 가중치로 hinge 면적 수정 → α_GUT 매치 악화.
+**Standard (unweighted) Regge action이 최선.** 채널은 action과 별도로 세야 함.
+
+### ✗ Lagrange multiplier R(G) = r₀
+R_SSS에 topological floor (1/22) 존재. 아무 ε에서나 target hit 가능 (단조함수).
+Constraint approach는 self-consistent하지 않음.
+
+### ✗ Full variational (ε, η, φ₂) optimization
+Global max: (ε=0.099, η=0, φ₂=0.484π). α와 무관한 값.
+
+### ✗ A 벡터 temporal leakage
+η ≈ 0.476에서 R=α_GUT 달성하지만, action extremum 아님. 파라미터 튜닝.
+
+---
+
+## 미해결 문제 (우선순위)
+
+### 1. N=2 → 수소 물리
+eps²(N=2) = 0.01084 ≈ (3/2)α_em (1%). N=2 manifold 기하 → IE(H) = Ry 메커니즘.
+
+### 2. 0.1% → 0.001%: 유한 ζ 절단 (ζ₉ self-consistency)
+기본 방정식: cos(F(x)) = -x/(1-2x), F는 순수 대수적, cos만 초월적.
+S = 2πB(ε) - T(ε) 분해에서 B'/β = 1 exactly.
+
+전파자 ζ(2)를 유한 합으로 절단하면:
+- N→∞ (exact π²/6): gap = 0.104%
+- **N=9: gap = 0.001%** ← self-consistent!
+- 9 = C(5,3)-1 = 10-1 = 비-SSS Binet-Cauchy 채널 수 (SST:6+STT:3)
+- N=4 flat에서 SSS decouple → 9 mixed 채널만 전파자에 기여
+- ζ₉(2) = Σ₁⁹ 1/n², α₉ = 1/(25ζ₉), period₉ = √(24ζ₉)
+- 이 period로 Regge max → f_occ = α₉ to 0.001%
+
+핵심 질문: ζ₉ vs ζ(∞) 중 어느 것이 "맞는" 전파자인가?
+
+### 3. Screening from manifold
+8개 screening 상수의 manifold 기하학적 도출. 현재는 현상론적.
+
+---
+
+## Screening Constants (기존, 유지)
+```
+σ_cross = 1-n_S/(d²-1) = 7/8
+σ_same_s = 1/n_T + c²α_GUT = 0.597
+σ_ns→np(even) = 1-n_S/(d(d-1)) = 17/20
+σ_ns→np(odd)  = 1-n_T/(d(d-1)) = 9/10
+σ_same_p(p=2) = n_S/(n_S+1) = 3/4
+σ_same_p(p≥3) = n_T/(n_T+1) = 2/3
+σ_df→p = 1-α_GUT = 0.976
+Δ_pair = n_S/π² = 3/π²
+```
 
 ## Experiment Map
 ```
-ATM_014-016: He, screening analysis, Period 2 complete
-ATM_017: Full periodic baseline (26.1%)
-ATM_018: σ_core = 27/10 (6/6 ✓)
-ATM_019: σ_df = 1-α_GUT (5/5 ✓)
-ATM_020: Layered shell (4/4 ✓, 7.4%)
-ATM_021: Filling fraction (4/4 ✓, 3.8%)
-ATM_022: d-pair (4/4 ✓, 3.5%)
+ATM_014-022: Screening model (median 3.5%, 유지)
 ATM_023: 폐기 (틀린 기하)
-ATM_024: Δ⁴ single (5/5 ✓, δ=3π/2)
-ATM_025: 2-simplex manifold (3/4 ✓, δ=π!!!)
-Next: ATM_026
+ATM_024: Δ⁴ single (5/5)
+ATM_025: 2-simplex manifold (3/4, phi3 수정 필요)
+ATM_026: Dihedral vs epsilon (6/6, 대칭 manifold 발견)
+ATM_027: Free A vectors (4/5, 실패 기록)
+ATM_028: Full variational (4/4, 실패 기록)
+ATM_029: N-simplex manifold (6/6) ★ BREAKTHROUGH
+ATM_030: Analytic action (4/4, exact formulas)
+Next: ATM_031
 ```

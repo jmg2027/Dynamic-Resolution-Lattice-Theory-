@@ -7,14 +7,14 @@ This chapter contains the central quantitative result: all three Standard Model 
 
 \subsection{Exterior algebra of the hinge}
 
-The hinge volume $\det(G_h)$ for a triangle in $\mathbb{C}^5$ lives in the third exterior power $\Lambda^3(\mathbb{C}^5)$. Concretely, if $\Phi$ is the $3 \times 5$ matrix whose rows are the three vertex vectors $\psi_i, \psi_j, \psi_k$, then:
+The hinge volume $\det(G_h)$ for a triangle in $\CC^5$ lives in the third exterior power $\Lambda^3(\CC^5)$. Concretely, if $\Phi$ is the $3 \times 5$ matrix whose rows are the three vertex vectors $\psi_i, \psi_j, \psi_k$, then:
 \begin{equation}
 \det(G_h) = \det(\Phi\,\Phi^\dagger).
 \end{equation}
 
-The causal decomposition $\mathbb{C}^5 = V_A \oplus V_B$ (with $\dim V_A = n_A = 3$, $\dim V_B = n_B = 2$) induces a canonical splitting of the exterior power:
+The causal decomposition $\CC^5 = V_A \oplus V_B$ (with $\dim V_A = n_A = 3$, $\dim V_B = n_B = 2$) induces a canonical splitting of the exterior power:
 \begin{equation}
-\Lambda^3(\mathbb{C}^5) = \bigoplus_{k=0}^{\min(3,\,n_B)} \Lambda^{3-k}(V_A) \otimes \Lambda^k(V_B).
+\Lambda^3(\CC^5) = \bigoplus_{k=0}^{\min(3,\,n_B)} \Lambda^{3-k}(V_A) \otimes \Lambda^k(V_B).
 \label{eq:exterior_split}
 \end{equation}
 
@@ -121,27 +121,27 @@ The propagation range $N_\text{eff}$ is not a free parameter. It is \emph{derive
 
 \noindent\textbf{Strong force: $N_\text{eff} = 1$ (confinement).}
 
-Propagation requires consuming an independent channel at each hop. For the AAA sector: all 3 vertices are in $\mathbb{C}^3$. The number of independent AAA configurations is $\binom{n_A}{n_A} = 1$.
+Propagation requires consuming an independent channel at each hop. For the AAA sector: all 3 vertices are in $\CC^3$. The number of independent AAA configurations is $\binom{n_A}{n_A} = 1$.
 
 \begin{itemize}
 \item \textbf{Hop 1}: the unique AAA triangle $(A_1, A_2, A_3)$ propagates to a neighboring hinge $(A_1', A_2', A_3')$.
 \item \textbf{Hop 2}: would require a \emph{second independent} AAA configuration. But $\binom{3}{3} = 1$: only one exists. Using the same configuration twice produces $\det = 0$ (linear dependence). Propagation stops.
 \end{itemize}
 
-This is \textbf{confinement}: the strong force exhausts all $\mathbb{C}^3$ degrees of freedom in a single hop. It is a combinatorial fact, not a dynamical phenomenon.
+This is \textbf{confinement}: the strong force exhausts all $\CC^3$ degrees of freedom in a single hop. It is a combinatorial fact, not a dynamical phenomenon.
 \begin{equation}
 N_\text{eff}^\text{strong} = 1, \qquad S(1) = 1.
 \end{equation}
 
 \begin{remark}
-This confinement ($N_\text{eff} = 1$) can be lifted at sufficiently high temperature, when the $\mathbb{C}^3$ boundary dissolves and all $d^2 = 25$ channels activate. The resulting strongly-coupled quark-gluon plasma (sQGP) has $\eta/s = 1/(4\pi)$ --- the KSS bound, derived from $c = 2$ and $2\pi$. See Appendix~\ref{app:qcd}.
+This confinement ($N_\text{eff} = 1$) can be lifted at sufficiently high temperature, when the $\CC^3$ boundary dissolves and all $d^2 = 25$ channels activate. The resulting strongly-coupled quark-gluon plasma (sQGP) has $\eta/s = 1/(4\pi)$ --- the KSS bound, derived from $c = 2$ and $2\pi$. See Appendix~\ref{app:qcd}.
 \end{remark}
 
 \bigskip
 
 \noindent\textbf{Weak force: $N_\text{eff} = n_B = 2$ (rank exhaustion).}
 
-The weak force depends on the temporal sector $\mathbb{C}^2$. The temporal Gram matrix $G^T_{ij} = \sum_{a=3}^{4}\psi^*_{i,a}\psi_{j,a}$ has rank at most $n_B = 2$. On the lattice, this means at most $n_B$ successive correlations can remain linearly independent:
+The weak force depends on the temporal sector $\CC^2$. The temporal Gram matrix $G^T_{ij} = \sum_{a=3}^{4}\psi^*_{i,a}\psi_{j,a}$ has rank at most $n_B = 2$. On the lattice, this means at most $n_B$ successive correlations can remain linearly independent:
 
 \begin{itemize}
 \item \textbf{Hop 1} ($i \to j$): the first temporal direction is used. The correlation $G^T_{ij}$ is generically nonzero. Independent.
@@ -196,15 +196,15 @@ Applied to the three hinge types:
 \hline
 Force & Hinge & Pure/Mixed & Sector & Representation & $g$ \\
 \hline
-Strong & AAA & Pure ($\mathbb{C}^3$) & SU($n_A$) & Adjoint & $n_A^2 - 1 = 8$ \\
+Strong & AAA & Pure ($\CC^3$) & SU($n_A$) & Adjoint & $n_A^2 - 1 = 8$ \\
 Weak & ABB & Mixed & SU($n_B$) & Fundamental & $n_B = 2$ \\
-EM & AAB & Mixed & U(1) over $\mathbb{C}^3$ & Charges & $n_A = 3$ \\
+EM & AAB & Mixed & U(1) over $\CC^3$ & Charges & $n_A = 3$ \\
 \hline
 \end{tabular}
 \end{center}
 
 \begin{remark}[Why AAA gets the adjoint]
-AAA is the \emph{only} pure hinge: all 3 vertices come from $\mathbb{C}^3$, with 0 from $\mathbb{C}^2$. A pure hinge sees the full internal rotation group of its sector. In $\mathbb{C}^3$, this is SU(3), with $3^2 - 1 = 8$ generators (the 8 gluons). AAB and ABB are mixed: they connect the two sectors, so each vertex of the ``other'' sector acts as a single charge, giving the fundamental representation. The self/cross distinction is the geometric origin of why gluons carry color charge (adjoint) while photons do not (singlet coupling to $n_A$ charges).
+AAA is the \emph{only} pure hinge: all 3 vertices come from $\CC^3$, with 0 from $\CC^2$. A pure hinge sees the full internal rotation group of its sector. In $\CC^3$, this is SU(3), with $3^2 - 1 = 8$ generators (the 8 gluons). AAB and ABB are mixed: they connect the two sectors, so each vertex of the ``other'' sector acts as a single charge, giving the fundamental representation. The self/cross distinction is the geometric origin of why gluons carry color charge (adjoint) while photons do not (singlet coupling to $n_A$ charges).
 \end{remark}
 
 \begin{theorem}[Coupling constants at $M_Z$]
@@ -299,17 +299,17 @@ At the unification scale, all forces see $N_\text{eff} = \infty$ (no confinement
 \boxed{\frac{1}{\alpha_\text{GUT}} = d^2 \times \zeta(2) = \frac{25\pi^2}{6} \approx 41.12.}
 \end{equation}
 
-This result can be derived by three independent paths, all originating from $\mathbb{K} = \mathbb{C}$:
+This result can be derived by three independent paths, all originating from $\mathbb{K} = \CC$:
 
 \begin{enumerate}
 \item \textbf{Simplex geometry} (this section): Binet--Cauchy channels ($d^2 = 25$) $\times$ Basel propagator ($\zeta(2) = \pi^2/6$).
 
-\item \textbf{Random matrix theory}: $G = \Psi\Psi^\dagger$ belongs to the GUE ($\beta = 2$, forced by $\mathbb{C}$). The sine kernel two-point cluster function $Y_2(r) = (\sin\pi r/\pi r)^2$ gives $R_2(r) \approx 2\zeta(2)r^2$ at short distance: $\alpha_\text{GUT} = 1/(d^2 \zeta(2))$.
+\item \textbf{Random matrix theory}: $G = \Psi\Psi^\dagger$ belongs to the GUE ($\beta = 2$, forced by $\CC$). The sine kernel two-point cluster function $Y_2(r) = (\sin\pi r/\pi r)^2$ gives $R_2(r) \approx 2\zeta(2)r^2$ at short distance: $\alpha_\text{GUT} = 1/(d^2 \zeta(2))$.
 
 \item \textbf{Number theory}: $P(\gcd(a,b) = 1) = 1/\zeta(2) = 6/\pi^2$ (Euler--Ces\`aro coprimality). Among $d^2$ channels, the coprime fraction is $6/\pi^2$: $\alpha_\text{GUT} = P(\text{coprime})/d^2 = 6/(25\pi^2)$.
 \end{enumerate}
 
-Three branches of mathematics --- geometry, analysis, number theory --- converge on the same constant because they all originate from $\mathbb{C}$. $\alpha_\text{GUT} = 6/(25\pi^2)$ is a theorem, not a measurement.
+Three branches of mathematics --- geometry, analysis, number theory --- converge on the same constant because they all originate from $\CC$. $\alpha_\text{GUT} = 6/(25\pi^2)$ is a theorem, not a measurement.
 
 \subsection{Running as lattice range}
 

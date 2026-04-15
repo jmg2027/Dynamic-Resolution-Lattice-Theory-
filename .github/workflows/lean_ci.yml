@@ -1,0 +1,23 @@
+name: Lean CI
+
+on:
+  push:
+    paths:
+      - 'critical-line/lean/**'
+  pull_request:
+    paths:
+      - 'critical-line/lean/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: critical-line/lean
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          build-args: ''

@@ -10,7 +10,7 @@ The DRLT framework extends beyond particle physics. This chapter derives 9 cosmo
 The three Sakharov conditions for baryogenesis are automatically satisfied in DRLT:
 \begin{enumerate}
 \item \textbf{B violation:} SU(5) unification allows $B$-violating processes via $X, Y$ exchange.
-\item \textbf{C and CP violation:} $\psi \in \mathbb{C}^5$ guarantees $G \neq G^*$ with probability 1 for random states. CP violation is structural, not parametric.
+\item \textbf{C and CP violation:} $\psi \in \CC^5$ guarantees $G \neq G^*$ with probability 1 for random states. CP violation is structural, not parametric.
 \item \textbf{Non-equilibrium:} Confinement propagation on the lattice is non-thermal (discrete Pachner moves).
 \end{enumerate}
 
@@ -142,7 +142,7 @@ At the MOND acceleration scale $a_0 \approx 1.2 \times 10^{-10}\;\text{m/s}^2$, 
 
 \subsubsection{Dark-to-baryon ratio}
 
-Each baryon is a simplex with $d = 5$ vertices in $\mathbb{C}^5$. Of these, $n_S = 3$ are confined quarks (acting as 1 effective unit due to confinement) and $n_T = 2$ are free temporal vertices. The simplex contributes $d$ ZPE units to the gravitational field, of which 1 is the baryon itself. The remaining $d - 1 = 4$ are ``dark'' (no EM coupling). The color sector adds $1/n_S$ from the residual strong-field ZPE outside the confinement radius:
+Each baryon is a simplex with $d = 5$ vertices in $\CC^5$. Of these, $n_S = 3$ are confined quarks (acting as 1 effective unit due to confinement) and $n_T = 2$ are free temporal vertices. The simplex contributes $d$ ZPE units to the gravitational field, of which 1 is the baryon itself. The remaining $d - 1 = 4$ are ``dark'' (no EM coupling). The color sector adds $1/n_S$ from the residual strong-field ZPE outside the confinement radius:
 \begin{equation}
 \frac{\Omega_c}{\Omega_b} = d + \frac{1}{n_S} = 5 + \frac{1}{3} = 5.33.
 \end{equation}
@@ -198,12 +198,12 @@ As matter is compressed, $\psi$ vectors align, $\det(G_h)$ drops, and the effect
 
 \subsubsection{Neutron star stability}
 
-In neutron matter, quarks are confined to $\mathbb{C}^3 \subset \mathbb{C}^5$ (Chapter~\ref{ch:couplings}, Sec.~\ref{sec:Neff}: $N_\text{eff} = 1$). This confinement imposes a \textbf{floor} on $\det(G_h)$: the $\mathbb{C}^3$ boundary prevents complete $\psi$ alignment because the temporal sector $\mathbb{C}^2$ remains decoupled. Therefore:
+In neutron matter, quarks are confined to $\CC^3 \subset \CC^5$ (Chapter~\ref{ch:couplings}, Sec.~\ref{sec:Neff}: $N_\text{eff} = 1$). This confinement imposes a \textbf{floor} on $\det(G_h)$: the $\CC^3$ boundary prevents complete $\psi$ alignment because the temporal sector $\CC^2$ remains decoupled. Therefore:
 \begin{equation}
-\det(G_h) \geq \det_\text{min}(\mathbb{C}^3) > 0 \quad\Rightarrow\quad \hbar_\text{eff} > 0 \quad\Rightarrow\quad P_\text{deg} > 0 \quad\Rightarrow\quad \textbf{stable.}
+\det(G_h) \geq \det_\text{min}(\CC^3) > 0 \quad\Rightarrow\quad \hbar_\text{eff} > 0 \quad\Rightarrow\quad P_\text{deg} > 0 \quad\Rightarrow\quad \textbf{stable.}
 \end{equation}
 
-The maximum neutron star mass is reached when central density approaches $\sim 5\rho_0$ (the $\mathbb{C}^3$ saturation density $n_S \cdot \rho_0 = 3\rho_0$ plus a margin for the Fermi pressure competition):
+The maximum neutron star mass is reached when central density approaches $\sim 5\rho_0$ (the $\CC^3$ saturation density $n_S \cdot \rho_0 = 3\rho_0$ plus a margin for the Fermi pressure competition):
 \begin{equation}
 M_\text{max} \approx 2.0\text{--}2.3\;M_\odot
 \end{equation}
@@ -216,7 +216,7 @@ A self-gravitating sphere of deconfined quark matter (pure quark star) is unstab
 \end{theorem}
 
 \begin{proof}
-Deconfinement removes the $\mathbb{C}^3$ boundary, opening all $d^2 = 25$ channels and eliminating the $\det$ floor. The positive feedback loop:
+Deconfinement removes the $\CC^3$ boundary, opening all $d^2 = 25$ channels and eliminating the $\det$ floor. The positive feedback loop:
 \begin{equation}
 \text{deconfinement} \to \det\!\downarrow \to \hbar\!\downarrow \to P_\text{deg}\!\downarrow \to \text{compression} \to \psi\text{ aligns} \to \det\!\downarrow\!\downarrow \to \cdots \to \det \to 0^+
 \end{equation}
@@ -232,7 +232,7 @@ A quark core can exist stably if enclosed by a neutron matter shell:
 The shell provides the external $\det$ floor. The quark core is a perfect fluid ($\eta/s = 1/(4\pi)$, Appendix~\ref{app:qcd}) enclosed in a viscous neutron shell. This configuration requires $M \gtrsim 2\,M_\odot$.
 
 \begin{remark}
-The $\mathbb{C}^3$ boundary plays a dual role: in particle physics, it is color confinement; in astrophysics, it is the structural element that prevents gravitational collapse. \emph{Confinement saves stars.}
+The $\CC^3$ boundary plays a dual role: in particle physics, it is color confinement; in astrophysics, it is the structural element that prevents gravitational collapse. \emph{Confinement saves stars.}
 \end{remark}
 
 \subsection{Proton lifetime}

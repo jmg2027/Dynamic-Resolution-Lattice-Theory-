@@ -4,51 +4,49 @@
 `claude/critical-line-unification-jA2nL`
 
 ## Status: ACTIVE (2026-04-15)
-rh-connection + gram-algebra 통합 완료. 7개 따름정리 로드맵 진행 중.
 
-**이전:** rh-connection (PLATEAU) + gram-algebra (NOT STARTED) → critical-line/ 통합
+### Phase 1: 완료
+- C1 GRH, C2 ℍ-valued, C3 SU(2)/SU(3), C5 보편성 — 전부 형식화 + Lean
+- C4 Yang-Mills: 선생님 별도
+
+### Phase 2: Phase Ihara 탐사 (RH_027-033)
+- Phase Ihara zeta 정의, complex weights 200x 집중
+- **Dead end 발견:** 위상 인수분해는 λ₀ 실수에서 오는 trivial 결과
+- **교훈:** 연속 도구(고유값, 위상) → trivial. 정수 도구 → 진짜 구조
+
+### Phase 3: 정수 카운팅 돌파 (RH_034-036) ★
+- Graph-PNT: π(n) = q^n/n to 10⁻⁴
+- ρ/(N-2) = 1/d: 물리 차원이 소수 밀도 결정
+- 1/2 = "반분 연산" (정수), 0.5(실수)가 아님
+- Additive foundation: 원형 논증 없는 체계
 
 ---
 
-## Experiment Catalog (RH_001–025)
+## Experiment Catalog (RH_001–036)
 
 | ID | Checks | Key Result | Status |
 |----|--------|------------|--------|
-| RH_001 | 11/11 | β=2 (⟨r⟩=0.594) | Done |
-| RH_002 | 6/7 | Phase uniform (KS p=0.258) | Done |
-| RH_003 | 6/6 | CLT σ=1/2 | Done |
-| RH_004 | 5/5 | σ_geom=1/n_K for all K | Done |
-| RH_005 | 5/5 | Graph-PNT + Ihara | Done |
-| RH_006 | 4/5 | Born Ramanujan N≤200 | Done |
-| RH_007 | 5/5 | d_c≈3, ratio fit | Done |
-| RH_008 | 3/5 | Var exact, ‖Z‖~N^{0.82} | Done |
-| RH_009 | 5/5 | KR + MP formula | Done |
-| RH_010 | 3/5 | Segre r_eff | Done |
-| RH_011 | 4/4 | p_eff = d(d-1) | Done |
-| RH_012 | 4/4 | α = 2/(d-1) EVT | Done |
-| RH_013 | 5/5 | GRH: CLT + GUE/GOE | Done |
-| RH_014 | 4/5 | Phase→Mobius β=0.80 | Partial |
-| RH_015 | 4/4 | β(d)→1/2 non-monotone | Done |
-| RH_016 | 1/2 | FFT artifact | Dead end |
-| RH_017 | 3/4 | Beat weak correlation | Partial |
-| RH_018 | 4/4 | 0⁺ confirmed: ~N/d | Done |
-| RH_019 | 4/4 | GUE spacings all d | Done |
-| RH_020 | 5/5 | Ihara coeffs (해석 수정) | Partial |
-| RH_021 | 2/3 | Coefficients blow up | Dead end |
-| RH_022 | 4/4 | Tr distribution exact | Done |
-| RH_023 | 4/4 | Rank effect (수정됨) | Partial |
-| RH_024 | — | Chiral projection | Done |
-| RH_025 | 3/3 | δ(N) proof levels (ex-GMA_001) | Done |
+| RH_001-025 | (이전 세션) | Two Boundaries, GUE, Ihara, δ(N) | Done |
+| RH_026 | 9/9 | ℍ 3가지 장애물 | Done |
+| RH_027 | 5/5 | Phase Ihara, 위상 소거 75% | Done |
+| RH_028 | 4/6 | σ=1/2 곱셈 보존, 위상 뭉침 | Done |
+| RH_029 | 4/4 | 영점 |u|~1 (단위원) | Done |
+| RH_030 | 3/4 | 비호소 1.87x (BUT trivial 가능) | Partial |
+| RH_031 | 4/4 | (2,3) Z=40.71 통계적 유의 | Done |
+| RH_032 | 4/4 | λ₀ 실수 → trivial 메커니즘 | Dead end |
+| RH_033 | 3/4 | rank 무관, 사영자 trace | Done |
+| RH_034 | 4/4 | **PNT 10⁻⁴, 나눗셈 구조** | ★ |
+| RH_035 | 2/2 | **ρ/(N-2)=1/d, PNT 모든 그래프** | ★ |
+| RH_036 | 4/4 | **1/2 = 반분, Ramanujan = 1/dim** | ★ |
 
-## Lean 4 Status
-23 theorems, 0 sorry. `lean/PmfRh/` 모듈.
+## Lean: 51 theorems, 0 sorry
 
-## Dead Ends (반복하지 말 것)
-1. Ihara 계수 = μ(n): walk length ≠ integer index (RH_020→021)
-2. Fourier d-특이적 구조: FFT artifact (RH_016)
-3. Artin split: rank 효과, 표현론 아님 (RH_023)
-4. cos(θ) → β_eff: 상관 0.06 (RH_017)
+## Dead Ends (전체)
+1-4: (이전 세션과 동일)
+5: (2,3) 위상 인수분해 → λ₀ 실수 trivial (RH_032)
+6: gcd 고유값 가설 → coprime이 더 높음 (RH_033)
+7: 일반 위상 상관 → trace 위상 전부 ~0 (RH_032)
 
-## Roadmap: 7 Corollaries (see theory/roadmap.md)
+## Open: λ₂ 다중도, 가중 PNT, finite→infinite 전이
 
-## Next: RH_026
+## Next: RH_037

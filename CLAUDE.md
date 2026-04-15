@@ -19,6 +19,19 @@
 - ℂ⁵ is derived (Frobenius → ℂ, atomic → d=5), not the axiom.
 - Derivation chain: relations → ℂ → G → W,φ → rank cascade → laws → ħ → QM
 
+## Theoretical Integrity (핵심 원칙)
+- **기존 물리/화학을 억지로 대입하지 말 것.** 결과가 안 맞으면 안 맞는 것이다.
+- DRLT 공리에서 자연스럽게 도출되지 않는 구조를 외부에서 가져와 끼워맞추지 않는다.
+- 수치가 관측값과 다르면 솔직하게 인정하고, 빠진 물리를 찾는다.
+- "맞추기 위해" 파라미터를 도입하면 0-parameter 이론이 아니다.
+
+## Algebraic Priority (대수적 우선 원칙)
+- **DRLT의 결과는 세기(counting)에서 나온다.** 연속 변분(extremize S)이 아니라 조합론/정수론/대수학에서.
+- 미적분은 결과를 **검증**하는 도구이지, 원리를 **발견**하는 도구가 아니다.
+- 막혔을 때: 연속적 접근(action 변분, gradient) 대신 이산적 구조(channel counting, hinge 위상, 표현론)를 먼저 확인.
+- 교훈 사례: ATM_026-028 (연속 변분 3회 실패) → ATM_029 (위상 counting으로 α_GUT 도출)
+- 패턴: d²=25(산술) → α_GUT(물리), ζ(2)(정수론) → 전파자(해석학), f_occ(대수) → coupling(물리)
+
 ## Authors
 - Mingu Jeong (Independent Researcher) — theory originator, physical intuition
 - Claude (Anthropic) — mathematical formalization, numerical experiments, code
@@ -39,12 +52,13 @@
 |-----------|--------|--------|-------------|------|
 | `foundations/` | `FND_` | STABLE | 10 (FND_001-010) | 심플렉스 기하, 변분, f_occ |
 | `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
-| `atoms/` | `ATM_` | **ACTIVE** | 25 (ATM_001-025) | 원자, 주기율표 |
+| `atoms/` | `ATM_` | **ACTIVE** | 31 (ATM_001-031) | 원자, 주기율표, N-simplex manifold |
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
-| `critical-line/` | `RH_` | **ACTIVE** | 25 (RH_001-025) | 임계선, RH, GRH, L-함수, Lean |
+| `critical-line/` | `RH_` | **ACTIVE** | 46 (RH_001-046) | 임계선, RH, GRH, L-함수, Lean |
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
 | `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
+| `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
 
 ### Sub-Project 필수 구조
 ```

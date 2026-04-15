@@ -7,7 +7,7 @@ In standard physics, $\hbar$ is a universal constant. In DRLT, it is a \emph{loc
 
 \subsection{Information capacity of a hinge}
 
-A hinge (triangle) $\{i, j, k\}$ in $\mathbb{C}^5$ carries three edges, each encoding a complex inner product $G_{ij}$. The question is: how much \emph{classical information} can be extracted from the quantum state of this triangle?
+A hinge (triangle) $\{i, j, k\}$ in $\CC^5$ carries three edges, each encoding a complex inner product $G_{ij}$. The question is: how much \emph{classical information} can be extracted from the quantum state of this triangle?
 
 \begin{theorem}[Holevo bound applied to hinges]
 \label{thm:holevo}
@@ -15,9 +15,9 @@ The maximum classical information extractable from a hinge is 1 bit.
 \end{theorem}
 
 \begin{proof}
-Each edge carries one complex number $G_{ij} \in \mathbb{C}$. By the Holevo bound \cite{Holevo}, the maximum classical information extractable from a quantum state in $\mathbb{C}^d$ through a single measurement is $\log_2 d$ bits.
+Each edge carries one complex number $G_{ij} \in \CC$. By the Holevo bound \cite{Holevo}, the maximum classical information extractable from a quantum state in $\CC^d$ through a single measurement is $\log_2 d$ bits.
 
-A hinge spans 3 vertices in $\mathbb{C}^5$. The effective dimension of the hinge subspace is 3. The accessible information from the Gram sub-matrix $G_h$ (a single $3\times 3$ Hermitian matrix) has a geometrically accessible component encoded in the single real number $\det(G_h)$, yielding:
+A hinge spans 3 vertices in $\CC^5$. The effective dimension of the hinge subspace is 3. The accessible information from the Gram sub-matrix $G_h$ (a single $3\times 3$ Hermitian matrix) has a geometrically accessible component encoded in the single real number $\det(G_h)$, yielding:
 \begin{equation}
 I_\text{hinge} = 1\;\text{bit}.
 \end{equation}
@@ -27,7 +27,7 @@ Alternatively: the hinge has 3 edges carrying 3 independent real magnitudes $|G_
 
 \subsection{Derivation of $\hbar_h$}
 
-The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas in $\mathbb{CP}^4$ units). The axiom itself is dimensionless: $\psi \in \mathbb{C}^5$ with $\|\psi\| = 1$ introduces no length, time, or energy scale. For the path integral $Z = \int D\psi\; e^{iS/\hbar}$ to be well-defined, $S/\hbar$ must be dimensionless. Since $S$ has units of area (from the hinge areas $A_h$), $\hbar$ must also have units of area. Moreover, $\hbar$ must be \emph{local} (each hinge contributes independently to the action) and \emph{intrinsic} (determined by the state, not by an external scale). The unique local quantity with units of area available at a hinge is $A_h = \sqrt{\det(G_h)}$ itself. Therefore $\hbar \propto A$ is \emph{forced} by the dimensionlessness of the axiom --- it is the only consistent choice. We define:
+The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas in $\mathbb{CP}^4$ units). The axiom itself is dimensionless: $\psi \in \CC^5$ with $\|\psi\| = 1$ introduces no length, time, or energy scale. For the path integral $Z = \int D\psi\; e^{iS/\hbar}$ to be well-defined, $S/\hbar$ must be dimensionless. Since $S$ has units of area (from the hinge areas $A_h$), $\hbar$ must also have units of area. Moreover, $\hbar$ must be \emph{local} (each hinge contributes independently to the action) and \emph{intrinsic} (determined by the state, not by an external scale). The unique local quantity with units of area available at a hinge is $A_h = \sqrt{\det(G_h)}$ itself. Therefore $\hbar \propto A$ is \emph{forced} by the dimensionlessness of the axiom --- it is the only consistent choice. We define:
 
 \begin{equation}
 \boxed{\hbar_h = \frac{\sqrt{\det(G_h)}}{4\ln 2} = \frac{A_h}{4\ln 2}}
@@ -102,7 +102,7 @@ For any connected network with $N \geq 7$, the minimum eigenvalue $\lambda_{\min
 \end{proposition}
 
 \begin{proof}
-$\lambda_{\min} = 0$ requires a state $|\phi\rangle$ with $H_i|\phi\rangle = 0$, i.e., $\sum_j W_{ij}|\langle\phi|\psi_j\rangle|^2 = 0$. Since $W_{ij} > 0$ for all connected pairs, this requires $\langle\phi|\psi_j\rangle = 0$ for all $j \neq i$. But $|\phi\rangle \in \mathbb{C}^5$ can be orthogonal to at most 4 independent vectors. For $N \geq 7$ (more than $d + 1 = 6$ vertices), no single state can be orthogonal to all neighbors.
+$\lambda_{\min} = 0$ requires a state $|\phi\rangle$ with $H_i|\phi\rangle = 0$, i.e., $\sum_j W_{ij}|\langle\phi|\psi_j\rangle|^2 = 0$. Since $W_{ij} > 0$ for all connected pairs, this requires $\langle\phi|\psi_j\rangle = 0$ for all $j \neq i$. But $|\phi\rangle \in \CC^5$ can be orthogonal to at most 4 independent vectors. For $N \geq 7$ (more than $d + 1 = 6$ vertices), no single state can be orthogonal to all neighbors.
 \end{proof}
 
 The total zero-point energy of the lattice is:

@@ -1,30 +1,51 @@
 # Session Handoff — 2026-04-15
 
 ## Branch
-`claude/lambda-arithmetic-explanation-RRNvq` (pushed, ahead of main by ~50 commits)
+`claude/lagrange-coupling-constraint-QOiOy` (pushed, up to date)
 
 ## What Was Done This Session
 
-### 1. λ 산술: Region I vs Region II 엄밀 규명
-- **시나리오 A 확정**: 모든 비영 고유값은 ≈ N/d (같은 크기). 거대한 갭 없음.
-- **시나리오 B(folded_dim.md의 "0⁺ eigenvalue") 폐기**: 고유값 크기가 아닌 표현론적 구별.
-- **핵심 정리**: Region I과 II의 차이 = 구조군 표현환에서 복소 기약표현의 존재 여부 (ρ ≇ ρ̄ vs ρ ≅ ρ̄).
-- `foundations/theory/chiral_vs_trivial.md` 신규 작성 (정의-보조정리-정리 형식).
-- `research-notes/folded_dim.md` 수정: "eigenvalue leaking" → "trace redistribution".
+### 1. N=4 Flat Manifold → α_GUT (ATM_026-031) ★★★
+- **f_occ(ε²) = α_GUT to 0.10%** (0-parameter, N=4 flat manifold)
+- **ζ₉ self-consistency to 0.001%** (9 = non-SSS channels = C(5,3)-1)
+- Exact analytical formulas: cos(θ_AABt) = ε/√(1-2ε²) etc.
+- Fundamental equation: cos(F(x)) = -x/(1-2x), F algebraic, cos only transcendence
+- S(0,N) = (7N+8)π, δ(AAA) = (4-N)π/2
 
-### 2. 6개 브랜치 통합 + 일관성 감사
-머지 완료:
-- `cosmology` (2회): Ω_Λ trace-correction (0.5%→0.0008%), DM/baryon 5.43
-- `predictions`: PRD_001-008, θ_QCD = J×α⁴ ≈ 2.86×10⁻¹¹
-- `quantum-gravity`: QG_001-006
-- `rh-connection` (2회): RH_008-024, Lean 4 (23 theorems, 0 sorry), gram-algebra/
-- `atoms`: ATM_018-025, screening 3.5%, manifold δ(AAA)=π
+### 2. ε₀ = (l_Pl/R_H)^{6/151} (0.2σ)
+- 151 = d³+d²+1 = gauge-invariant modes (holonomy 125 + Gram 25 + existence 1)
+- 6 = d+1 = simplex vertices
+- ε₀² ~ 10⁻⁵ → dark energy w = -1+ε₀²
+- Mᵢ weights: M₃=55/4, M₂=7/2, M₁=1 (all integer-derived)
 
-일관성 감사:
-- η_B: 6.10→6.13×10⁻¹⁰ 수정 (CLAUDE.md, README.md)
-- Ω_Λ: 정밀도 표 추가 + 0.6817→0.6850 업데이트
-- paper5: "Joint research" attribution 추가
-- predictions/CLAUDE.md: θ_QCD 공식 수정, PRD_007-008 추가
+### 3. Rydberg = α²m_e/N_T
+- 1/2 in Ry is 1/N_T (temporal dimension count, not QM normalization)
+- eps²(N=2) ≈ (N_S/N_T)α_em = (3/2)α (1%)
+
+### 4. Algebraic Priority Principle
+- Formalized in book ch01 §1.9 (Definition, Proposition, Table)
+- CLAUDE.md에 실용 가이드 추가
+- "Calculus verifies; algebra discovers"
+
+### 5. Complete Theory Document
+- atoms/theory/complete_theory.md (330줄, 18섹션)
+- atoms/theory/integer_catalog.md (모든 정수의 출처)
+- atoms/theory/epsilon0_derivation.md (ε₀ 엄밀 유도)
+
+### 6. Paper 6: "Coupling Constants from Simplex Counting"
+- papers/paper6_simplex_coupling.tex (433줄, 7섹션)
+- Paper 5 (수론) → Paper 6 (기하+정수론) → Paper 7 (논리)
+
+### 7. Branch Integration
+- yang-mills (Lean ~58 thms, Chebyshev action) 머지 완료
+- critical-line (RH_027-046, ζ(2) unification, Paper 7) 머지 완료
+
+### 8. Full Consistency Audit
+- 3 CRITICAL + 3 ERROR + 2 WARNING 수정
+- README Ω_Λ 0.07%→0.0008%, paper3 m_μ/m_e 206.80→206.7682837
+- 131× \mathbb{C}→\CC 매크로 통일
+- drlt_book_single.tex 생성 (7728줄, ~184쪽)
+- root 고아 파일 5개 삭제, critical-line skill 업데이트
 
 ## Current Precision Results (0 free parameters)
 
@@ -36,61 +57,71 @@
 | m_H | 125.28 GeV | 125.25 GeV | +0.02% |
 | sin²θ₁₃ | 0.0220 | 0.0220 | -0.07σ |
 | η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
-| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
-| IE(H) | 13.606 eV | 13.598 eV | +0.1% |
-| IE(He) | 24.565 eV | 24.587 eV | -0.09% |
-| δ(AAA) | π | π (book) | exact |
+| Ω_Λ | 0.6850 | 0.685 | 0.0008% |
+| f_occ(ε²) N=4 | 0.02429 | α_GUT=0.02432 | 0.10% |
+| f_occ with ζ₉ | 0.02598 | α₉=0.02598 | 0.001% |
+| ε₀ | 0.003793 | 0.003715±0.000338 | 0.2σ |
 | Z=1-118 median | 3.5% | — | screening |
 
 ## Sub-Project Status
 
-| Directory | Status | Experiments | Key |
-|-----------|--------|-------------|-----|
-| foundations/ | STABLE | 10 | + `theory/chiral_vs_trivial.md` (NEW) |
-| standard-model/ | CLOSED ✓ | 24 | 5 open problems all resolved |
-| atoms/ | **ACTIVE** | 25 | 3.5% median, manifold δ=π |
-| cosmology/ | STABLE ✓ | 3 | Ω_Λ 0.0008% |
-| rh-connection/ | PLATEAU | 24 | Lean 23 thms, Phase→Möbius open |
-| predictions/ | **ACTIVE** | 8 | θ_QCD = J×α⁴ |
-| quantum-gravity/ | **ACTIVE** | 6 | S_BH, graviton, vacuum energy |
-| gram-algebra/ | **ACTIVE** | 1 | Lean 4 + PMF/RMS/MSUA |
-| nuclear/ | NOT STARTED | 0 | — |
+| Directory | Status | Experiments |
+|-----------|--------|-------------|
+| foundations/ | STABLE | 10 |
+| standard-model/ | CLOSED ✓ | 24 |
+| atoms/ | **ACTIVE** | 31 (ATM_001-031) |
+| cosmology/ | STABLE ✓ | 3 |
+| critical-line/ | **ACTIVE** | 46 (RH_001-046) |
+| predictions/ | ACTIVE | 8 |
+| quantum-gravity/ | ACTIVE | 6 |
+| yang-mills/ | ACTIVE | 0 (Lean ~58 thms) |
+| nuclear/ | NOT STARTED | 0 |
 
 ## Open Problems (Priority Order)
 
-### 1. S_total = S_Regge + S_matter (atoms/)
-Regge action만으로 coupling α 결정 불가. Binet-Cauchy 채널을 action에 통합 필요.
+### 1. N=2 → 수소 IE 메커니즘 (atoms/)
+eps²(N=2) ≈ (3/2)α_em (1%). 이 관계의 정확한 기하학적 유도.
 
-### 2. Phase→Möbius Map (rh-connection/)
-"왜 1/2 근처" 설명됨, "왜 정확히 1/2"은 미해결. 자연 plateau.
+### 2. Screening constants from manifold (atoms/)
+8개 screening 상수가 아직 현상론적. manifold에서 변분적 유도 필요.
 
-### 3. Gram→ζ(s) Connection (gram-algebra/)
-Gram spectral zeta Z_G(s)와 Riemann ζ(s) 연결. 새 수학 필요.
+### 3. 이산 조화해석학 on simplex
+cos를 유한 구조로 완전 대체. 0.001% 잔차의 열쇠.
 
-### 4. Book 통합
-Paper 5 → ch21_riemann.tex. 미착수.
+### 4. Nuclear magic numbers (nuclear/)
+600-cell (120 vertices) → Z=120 한계. simplex 닫힘 → 2,8,20,28,50,82,126.
 
-## Unresolved from This Session
-- \mathbb{C} vs \CC 매크로 혼용 (163회 raw) — style only, 보류
-- drlt_book_single.tex 부재 — 생성 필요
+### 5. Phase→Möbius (critical-line/)
+"왜 정확히 1/2" — 대수적 접근. 별도 연구 중.
 
-## Handoff 관리 규칙
-- **각 sub-project는 자체 HANDOFF.md를 관리.**
-- Root HANDOFF.md는 전체 상태 요약만.
-- 세션 시작 시: root HANDOFF 읽고, 작업할 sub-project의 HANDOFF 읽기.
+### 6. Book ch10 업데이트
+N-simplex manifold 결과를 ch10_atoms.tex에 통합.
+
+## Unresolved
+- ζ₉ vs ζ(∞): 물리적으로 어느 것이 "맞는" 전파자인가?
+- Leading-order eps=2N/(π(8+N)) 부정확 (higher-order 필요)
+- Chebyshev action은 단조감소 (maximum 없음) — Regge와 다른 물리
+
+## Key Formulas
+```
+cos(F(x)) = -x/(1-2x),  F(x) = (1-2√x)√(1-x)/(√x(1-2x)√(1-3x))
+S(ε,N) = (1+3√(1-2ε²))·(4-N)π/2 + 3N[f₁+f₂]
+S(0,N) = (7N+8)π,  N_flat = 4
+ε₀ = (l_Pl/R_H)^{6/151},  151 = d³+d²+1
+Ry = α²m_e/N_T,  N_T = 2
+```
 
 ## Next Available Experiment
-ATM_026, COS_004, PRD_009, QG_007, RH_025, GMA_002
+ATM_032, RH_047, COS_004, PRD_009, QG_007
 
-## File Map (this session)
+## File Map (this session, key files)
 ```
-foundations/theory/chiral_vs_trivial.md    ← NEW: Region I vs II 엄밀 구별 (정리 형식)
-research-notes/folded_dim.md               ← FIXED: "0⁺ leaking" → "trace redistribution"
-CLAUDE.md                                  ← UPDATED: η_B, Ω_Λ, experiment counts
-README.md                                  ← UPDATED: η_B
-papers/paper5_critical_line.tex            ← UPDATED: attribution added
-predictions/CLAUDE.md                      ← UPDATED: PRD_007-008, θ_QCD corrected
-cosmology/CLAUDE.md                        ← UPDATED: DM/baryon 5.43
-lib/drlt.py                                ← UPDATED: Ω_Λ trace-correction
-lib/experiment.py                          ← UPDATED: auto-detect results dir
+atoms/experiments/ATM_026-031_*.py      ← 6 new experiments
+atoms/theory/complete_theory.md         ← 통합 이론 문서 (330줄)
+atoms/theory/integer_catalog.md         ← 정수 카탈로그
+atoms/theory/epsilon0_derivation.md     ← ε₀ 엄밀 유도
+papers/paper6_simplex_coupling.tex      ← NEW paper (433줄)
+book/chapters/ch01_whyC.tex             ← +§1.9 Algebraic Priority
+book/drlt_book_single.tex               ← 단일 파일 (7728줄)
+.claude/skills/critical-line/SKILL.md   ← UPDATED (RH naming)
 ```
