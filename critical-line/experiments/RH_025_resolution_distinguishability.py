@@ -1,6 +1,7 @@
 """
-GMA_001: Resolution Distinguishability — "Meaning = Morphism" Test
+RH_025: Resolution Distinguishability — "Meaning = Morphism" Test
 ===================================================================
+(Originally GMA_001, renumbered after gram-algebra → critical-line merge)
 
 Theorem 1: At resolution N, some configurations are indistinguishable.
 At resolution N' > N, they become distinguishable.
@@ -23,7 +24,7 @@ from drlt import D
 
 
 class ResolutionDistinguishability(Experiment):
-    ID = "GMA_001"
+    ID = "RH_025"
     TITLE = "Resolution distinguishability"
 
     def run(self):

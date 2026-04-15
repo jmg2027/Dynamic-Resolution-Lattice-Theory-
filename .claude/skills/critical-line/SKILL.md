@@ -1,13 +1,13 @@
 ---
-name: rh-connection
-description: "Explore and develop the DRLT → Riemann Hypothesis connection. Triggered by: 'RH', 'Riemann', '리만', 'zeta', '제타', 'critical line', '임계선', 'Möbius', '뫼비우스', 'phase uniformity', '위상 균일', 'CLT boundary'."
+name: critical-line
+description: "Explore and develop the DRLT → critical line connection (RH, GRH, L-functions, Yang-Mills). Triggered by: 'RH', 'Riemann', '리만', 'zeta', '제타', 'critical line', '임계선', 'Möbius', '뫼비우스', 'phase uniformity', '위상 균일', 'CLT boundary', 'GRH', 'L-function', 'Yang-Mills', 'Lean', 'PMF'."
 ---
 
-# RH Connection Skill
+# Critical Line Skill
 
-Manage and develop the DRLT → Riemann Hypothesis connection sub-project.
+Manage the unified critical-line sub-project (formerly rh-connection + gram-algebra).
 
-**Working directory:** `rh-connection/`
+**Working directory:** `critical-line/`
 
 ## The Complete Chain (memorize this)
 
@@ -46,7 +46,7 @@ All from the unique doubly irreducible number 2.
 ## Directory Structure
 
 ```
-rh-connection/
+critical-line/
 ├── CLAUDE.md                  — Sub-project instructions
 ├── rh_exploration.md          — Living exploration log
 ├── lib/
@@ -78,7 +78,7 @@ rh-connection/
 ## Workflow
 
 ### When user uploads a new document about RH:
-1. Move to `rh-connection/theory/` (or appropriate subdir)
+1. Move to `critical-line/theory/` (or appropriate subdir)
 2. Read and identify: new theorems, new conjectures, new open problems
 3. Update `rh_exploration.md` with new findings
 4. If numerically testable → create EXP_071x experiment
@@ -88,12 +88,12 @@ rh-connection/
 1. Read `theory/mobius_randomness.md` Section 8 (Open Problems)
 2. Read `rh_exploration.md` for latest status
 3. Design experiment or formal analysis
-4. Run in `rh-connection/experiments/`
+4. Run in `critical-line/experiments/`
 5. Record results and update documents
 
 ### When user asks "RH 해줘" or similar:
-1. Read `rh-connection/HANDOFF.md` for latest session context
-2. Read `rh-connection/CLAUDE.md` for full status
+1. Read `critical-line/HANDOFF.md` for latest session context
+2. Read `critical-line/CLAUDE.md` for full status
 3. Read `theory/Doubly_Irreducible.md` (keystone)
 4. Identify the most promising open problem
 5. Work on it (experiment + theory)
@@ -140,7 +140,7 @@ Always maintain these distinctions:
 ## Running Experiments
 
 ```bash
-cd rh-connection/experiments
+cd critical-line/experiments
 python EXP_071_rh_chain.py               # 11/11
 python EXP_071b_phase_structure.py       # 6/7
 python EXP_071c_clt_boundary.py          # 6/6
