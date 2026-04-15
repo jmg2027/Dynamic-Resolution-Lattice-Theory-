@@ -1,13 +1,18 @@
-# Atoms Handoff — 2026-04-14 (Session 3)
+# Atoms Handoff — 2026-04-15
 
-## 현재 상태
-- Period 1-2 (Z=1-10): **전부 <3%**, screening 공식 확립
-- Period 3 (Z=11-18): p-block **<6%**, s-block ~7%, median 4.9%
-- Period 4 (Z=19-36): p-block **<3.5%**, d-block <10%, median 3.9%
-- Period 5 (Z=37-54): p-block **<6%**, d-block <11%, median 2.8%
-- Period 6 (Z=55-86): median **5.8%** (was 12.1%)
-- Period 7 (Z=87-118): median **3.1%** (was 12.4%)
-- **Z=1-118: 76(<5%), 111(<15%), 118(<30%=100%), median 3.5%**
+## 현재 상태 — 두 층위
+
+### 수치 모델 (screening constants, ATM_018-022)
+- Z=1-118: 76(<5%), 111(<15%), 118(<30%=100%), **median 3.5%**
+- 하지만 이것은 **패턴 매칭**이지 변분 도출이 아님 (아래 참조)
+
+### 변분 풀이 시도 (ATM_023-024)
+- ATM_023: **틀린 기하** (6꼭짓점 ∂(Δ⁵)) 사용 → 무의미한 결과
+- ATM_024: **올바른 기하** (5꼭짓점 Δ⁴) 사용 → 중요한 발견:
+  - S 최대점: ε ≈ 0.059 (α/√3 ≈ 0.004가 아님)
+  - He: 두 전자 동일 coupling, screening 미출현
+  - **δ(AAA) = 3π/2 (단일 심플렉스) vs 책의 δ(AAA) = π**
+  - **결론: 단일 심플렉스로는 수소조차 불가. Manifold 필요.**
 
 ## 이번 세션에서 한 일
 1. **ATM_018**: σ_core offset = (d²+n_T)/(d·n_T) = 27/10 = 2.7 도출
@@ -112,11 +117,27 @@ atoms/
     ATM_020_layered_screening.py   ← 4/4 ✓ (layered, median 7.4%)
     ATM_021_filling_fraction.py    ← 4/4 ✓ (filling, median 3.8%)
     ATM_022_dpair_correction.py    ← 4/4 ✓ (d-pair, median 3.5%)
+    ATM_023_variational_truth.py   ← 5/5 (틀린 기하! 6꼭짓점)
+    ATM_024_correct_geometry.py    ← 5/5 ✓ (올바른 Δ⁴, 중요 발견)
   results/
   scripts/
     periodic_scan.py  ← 기존 scanner
   figures/
 ```
 
-## 다음 실험: ATM_023
-방향: 남은 10% 초과 원소들 개별 분석 (Bi, Mc-Og, Lu, Lr, Hg).
+## 근본적 미해결 문제
+
+### 단일 심플렉스 vs Manifold
+ATM_024가 밝힌 핵심: **단일 Δ⁴의 Regge action으로는 원자를 기술할 수 없다.**
+- δ(AAA) = 2π - π/2 = 3π/2 (단일) vs δ(AAA) = π (책)
+- 책의 δ = π는 **여러 심플렉스가 힌지를 공유**할 때만 가능
+- 수소조차도 simplicial manifold가 필요
+
+### Screening의 지위
+ATM_018-022의 screening 상수 (7/8, 1-α_GUT 등)는:
+- 관측값에서 DRLT 상수를 **패턴 매칭**한 것
+- δS/δψ=0에서 **유도되지 않았음**
+- 수치적으로 잘 맞지만 (median 3.5%) 이론적 근거 불충분
+
+## 다음 실험: ATM_025
+방향: 최소 manifold (2개 심플렉스 sharing AAA face)에서 δ(AAA)=π가 나오는지 확인.
