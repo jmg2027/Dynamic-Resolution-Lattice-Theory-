@@ -59,9 +59,19 @@ Global max: (ε=0.099, η=0, φ₂=0.484π). α와 무관한 값.
 ### 1. N=2 → 수소 물리
 eps²(N=2) = 0.01084 ≈ (3/2)α_em (1%). N=2 manifold 기하 → IE(H) = Ry 메커니즘.
 
-### 2. 0.1% 잔차
-ε²-α_GUT(1+α_GUT) = 1.2×10⁻⁵. 초월적 방정식이므로 exact 대수적 항등식 불가능.
-Higher-order geometric correction 또는 manifold refinement 필요.
+### 2. 0.1% → 0.001%: 유한 ζ 절단 (ζ₉ self-consistency)
+기본 방정식: cos(F(x)) = -x/(1-2x), F는 순수 대수적, cos만 초월적.
+S = 2πB(ε) - T(ε) 분해에서 B'/β = 1 exactly.
+
+전파자 ζ(2)를 유한 합으로 절단하면:
+- N→∞ (exact π²/6): gap = 0.104%
+- **N=9: gap = 0.001%** ← self-consistent!
+- 9 = C(5,3)-1 = 10-1 = 비-SSS Binet-Cauchy 채널 수 (SST:6+STT:3)
+- N=4 flat에서 SSS decouple → 9 mixed 채널만 전파자에 기여
+- ζ₉(2) = Σ₁⁹ 1/n², α₉ = 1/(25ζ₉), period₉ = √(24ζ₉)
+- 이 period로 Regge max → f_occ = α₉ to 0.001%
+
+핵심 질문: ζ₉ vs ζ(∞) 중 어느 것이 "맞는" 전파자인가?
 
 ### 3. Screening from manifold
 8개 screening 상수의 manifold 기하학적 도출. 현재는 현상론적.
