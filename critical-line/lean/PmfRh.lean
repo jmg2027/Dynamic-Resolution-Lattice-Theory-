@@ -14,3 +14,4 @@ import PmfRh.HodgeAlgebraic
 import PmfRh.SolveCheck
 import PmfRh.BSDPoincare
 import PmfRh.KnowledgeBound
+import PmfRh.SpectralComplexity
