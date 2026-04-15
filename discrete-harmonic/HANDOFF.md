@@ -1,6 +1,6 @@
 # DHA Handoff — 2026-04-15
 
-## Status: ACTIVE (5 experiments complete)
+## Status: ACTIVE (6 experiments complete)
 
 ## Branch
 `claude/discrete-harmonic-analysis-aZ9cj`
@@ -56,15 +56,26 @@
 - **S₅ irrep 물리**: 1+4+5 분해 → 게이지 보손 분류?
 - **SSS isolation**: ε>0에서 SSS 고유벡터가 분리 → confinement의 스펙트럼 해석
 
+### DHA_006: Hodge Decomposition (6/7 ✓) ★★★
+- **Chiral (3,2) → (p,q)-bigrading = 호지 분해!**
+- Face Hodge 대칭: h^{2,1}×c = h^{1,2}×c² = 12
+- **c² = 2c → c = 2 = N_T: Kähler 조건이 광속을 결정!**
+- (1,1)-Hodge 클래스 = 6 시공 변 = N_S×N_T
+- (2,2)-Hodge 클래스 = 3 사면체 (3세대?)
+- 원시 형식: 1+N_S+N_T = d+1 = 6
+- 호지 추측: 유한 복체에서 자명하게 참
+
 ## Open Problems
 1. S₅ irreps (5)⊕(4,1)⊕(3,2) → 물리적 해석 (게이지 구조?)
 2. ζ_M(2) → ζ₉ 연결 (정규화/재스케일링?)
 3. 비평탄 스펙트럼 보정 → 0.001% 정밀도 달성
 4. M(N,ε) 매니폴드 위의 DHA 확장
 5. Lean 형식화: S₅ 표현 분해 정리
+6. ★ (1,1)-Hodge 6개 → 게이지 보손? (2,2)-Hodge 3개 → 3세대?
+7. ★ h^{p,q}≠h^{q,p} 비대칭 (p>N_T) → 물리적 해석
 
 ## Next Experiment
-DHA_006
+DHA_007
 
 ## File Map
 ```
@@ -77,8 +88,9 @@ discrete-harmonic/
     DHA_003_finite_fourier_theory.py     ← cos-ζ 쌍대성
     DHA_004_algebraic_regge.py           ← 대수적 Regge action
     DHA_005_spectral_zeta.py             ← 스펙트럼 제타함수
+    DHA_006_hodge_decomposition.py      ← ★ 호지 분해, c=N_T 유도
   results/
-    EXP_DHA_001-005_*.txt               ← 실험 결과
+    EXP_DHA_001-006_*.txt               ← 실험 결과
   theory/
     dha_foundations.md                    ← 통합 이론 문서
   lean/                                  ← Lean 형식화 (미시작)
