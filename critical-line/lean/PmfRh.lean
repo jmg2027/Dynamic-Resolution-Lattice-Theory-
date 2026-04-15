@@ -16,3 +16,4 @@ import PmfRh.BSDPoincare
 import PmfRh.KnowledgeBound
 import PmfRh.SpectralComplexity
 import PmfRh.ConjectureStrength
+import PmfRh.ProofAlgebra
