@@ -57,4 +57,5 @@ import YangMills.LinearIndepDet
 import YangMills.PhysicalGram
 import YangMills.Hadamard
 import YangMills.NoGo
+import YangMills.ChebyshevAction
 import YangMills.LatticeRegularity
