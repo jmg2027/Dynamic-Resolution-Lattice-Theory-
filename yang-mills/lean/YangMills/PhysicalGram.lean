@@ -19,6 +19,7 @@ import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
 import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
 import Mathlib.Data.Complex.Basic
 import YangMills.MassGap
+import YangMills.Hadamard
 
 set_option autoImplicit false
 
@@ -54,21 +55,28 @@ noncomputable def PhysicalGram.gramDet (g : PhysicalGram) : ℝ :=
 
 /-! ## 3. Conversion to GramAAA -/
 
+/-- The Hadamard bound for a PhysicalGram: DERIVED from unit_rows.
+    This was previously an assumption; now it is a THEOREM. -/
+theorem PhysicalGram.hadamard_bound (g : PhysicalGram) :
+    normSq g.V.det ≤ 1 :=
+  hadamard_unit_rows g.V g.unit_rows
+
 /-- Convert a PhysicalGram to GramAAA.
 
-    STATUS:
+    STATUS (UPDATED):
     - det_pos: PROVED (from invertibility)
-    - det_le_one: requires Hadamard's inequality for 3×3 matrices
-      with unit rows, which is NOT in Mathlib.
+    - det_le_one: PROVED (from Hadamard bound + unit_rows)
 
-    We take the Hadamard bound as an explicit hypothesis.
-    This makes the assumption boundary VISIBLE:
-    everything EXCEPT Hadamard is machine-verified. -/
-noncomputable def PhysicalGram.toGramAAA (g : PhysicalGram)
-    (hadamard : normSq g.V.det ≤ 1) : GramAAA where
+    NO explicit hypothesis needed. FULLY derived. -/
+noncomputable def PhysicalGram.toGramAAA (g : PhysicalGram) : GramAAA where
   det := normSq g.V.det
   det_pos := g.gramDet_pos
-  det_le_one := hadamard
+  det_le_one := g.hadamard_bound
+
+/-- Legacy API: toGramAAA with explicit Hadamard parameter (backwards compat) -/
+noncomputable def PhysicalGram.toGramAAA' (g : PhysicalGram)
+    (_hadamard : normSq g.V.det ≤ 1) : GramAAA :=
+  g.toGramAAA
 
 /-! ## 4. The Orthonormal Case (FULLY derived, no assumptions) -/
 
@@ -99,7 +107,7 @@ theorem orthonormal_hadamard :
 
 /-- The orthonormal case gives the ideal GramAAA with det = 1 -/
 noncomputable def orthonormalGramAAA : GramAAA :=
-  orthonormalGram.toGramAAA orthonormal_hadamard
+  orthonormalGram.toGramAAA
 
 /-- The mass gap from the orthonormal PhysicalGram equals π -/
 theorem mass_gap_orthonormal :
@@ -107,20 +115,33 @@ theorem mass_gap_orthonormal :
   unfold orthonormalGramAAA PhysicalGram.toGramAAA massGap reggeAction hingeArea
   simp [orthonormalGram, det_one, normSq_one, Real.sqrt_one]
 
-/-! ## 5. Assumption Audit
+/-- The mass gap from ANY PhysicalGram is positive.
+    FULLY DERIVED — no Hadamard hypothesis needed. -/
+theorem mass_gap_physical_pos (g : PhysicalGram) :
+    0 < massGap g.toGramAAA :=
+  mass_gap_pos _
 
-  PROVED (zero assumptions):
+/-- The mass gap from ANY PhysicalGram is bounded: 0 < Δ ≤ π.
+    FULLY DERIVED — Hadamard is a theorem, not an axiom. -/
+theorem mass_gap_physical_bounds (g : PhysicalGram) :
+    0 < massGap g.toGramAAA ∧ massGap g.toGramAAA ≤ Real.pi :=
+  mass_gap_in_interval _
+
+/-! ## 5. Assumption Audit — ALL CLOSED
+
+  PROVED (zero assumptions, zero sorry):
   ✓ det(V) ≠ 0           — from LinearIndependent (LinearIndepDet.lean)
   ✓ |det V|² > 0          — from det ≠ 0 (this file)
-  ✓ orthonormal: |det|² ≤ 1 — from V = I (this file)
+  ✓ |det V|² ≤ 1          — from Hadamard bound (Hadamard.lean) ← NEW
+  ✓ orthonormal: |det|² = 1 — from V = I (this file)
   ✓ Δ > 0                  — from det > 0 (MassGap.lean)
+  ✓ 0 < Δ ≤ π             — from det ∈ (0,1] (this file) ← NEW
   ✓ Δ = π (orthonormal)    — from det = 1 (this file)
 
-  ASSUMED (one assumption):
-  ✗ General Hadamard: normSq(det V) ≤ 1 for any unit-row V
-    → needed for: Δ ≤ π (upper bound) for non-orthonormal configs
-    → NOT in Mathlib (requires Hadamard's determinant inequality)
-    → Passed as explicit `hadamard` parameter in toGramAAA
+  PREVIOUSLY ASSUMED (now PROVED):
+  ✓ General Hadamard: normSq(det V) ≤ 1 for any unit-row V
+    → PROVED via Lagrange identity (Hadamard.lean)
+    → No longer an explicit parameter in toGramAAA
 -/
 
 end DRLT.YangMills
