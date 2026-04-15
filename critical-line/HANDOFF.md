@@ -1,7 +1,7 @@
 # Critical Line — Session Handoff
 
 ## Branch
-`claude/critical-line-unification-jA2nL`
+`claude/critical-line-finite-infinite-24nke`
 
 ## Status: ACTIVE (2026-04-15)
 
@@ -38,8 +38,20 @@
 | RH_034 | 4/4 | **PNT 10⁻⁴, 나눗셈 구조** | ★ |
 | RH_035 | 2/2 | **ρ/(N-2)=1/d, PNT 모든 그래프** | ★ |
 | RH_036 | 4/4 | **1/2 = 반분, Ramanujan = 1/dim** | ★ |
+| RH_037-046 | (이전 세션) | K_N spectrum, Z[i] PNT, Chebyshev, μ, u→s | Done |
+| RH_047 | 8/8 | **Spectral Flow: Vieta, 100% Ramanujan, density** | ★★ |
+| RH_048 | 6/6 | **Born-Ramanujan: PSD bound, breaks at k≥6 degenerate** | ★ |
+| RH_049 | 5/5 | **Euler product: π(ℓ)=q^ℓ/ℓ, unique factorization exact** | ★★ |
+| RH_050 | 2/5 | **GUE in eigenvalue space, Poisson in s-plane** | ★★★ |
 
-## Lean: 51 theorems, 0 sorry
+### Phase 4: Spectral Flow (RH_047) ★★
+- **Vieta identity**: |u|² = 1/q EXACT (algebraic, not analytic)
+- **λ-independent**: Re(s) = 1/2 regardless of eigenvalue
+- **Born-weighted Gram 100% Ramanujan**: deviation = 0 for all N, all trials
+- **Spectral Flow Theorem**: finite→infinite is DENSITY transition, not position
+- **Lean SpectralFlow.lean**: 11 theorems, 0 sorry
+
+## Lean: ~62 theorems, 0 sorry (11 new in SpectralFlow.lean)
 
 ## Dead Ends (전체)
 1-4: (이전 세션과 동일)
@@ -47,6 +59,15 @@
 6: gcd 고유값 가설 → coprime이 더 높음 (RH_033)
 7: 일반 위상 상관 → trace 위상 전부 ~0 (RH_032)
 
-## Open: λ₂ 다중도, 가중 PNT, finite→infinite 전이
+## Open Problems
+1. **GUE in s-plane**: Ihara 맵이 비선형이라 GUE 파괴. 올바른 unfolding?
+2. **Euler product convergence**: ℓ≤2 항 + 절단 오차 정량화
+3. **Hilbert-Pólya operator**: Gram 고유값이 GUE → 어떤 자기수반 연산자?
+4. **Born-Ramanujan proof**: concentration inequality로 랜덤 벡터 증명
 
-## Next: RH_037
+## Key Insight (RH_050)
+GUE는 고유값 공간에 살지, s-평면에 살지 않는다.
+ζ(s) 영점이 GUE인 것은 영점=고유값이기 때문 (Hilbert-Pólya).
+그래프에서는 고유값→GUE, Ihara 영점→Poisson (비선형 맵이 파괴).
+
+## Next: RH_051

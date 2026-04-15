@@ -67,6 +67,12 @@ The CP-violating phase arises from holonomy in $\CC^5$; the suppression factor $
 
 \textbf{EXP-070: Helium ionization functionals.}  Systematic scan of 5 energy functionals for He. Key results: $F_1 = \Sigma(1-\det)$ gives ratio $\text{IE}(\text{He})/\text{IE}(\text{H}) = 2.001$ (algebraic identity); BBB hinge is 100\% in $k=2$ STT channel; $\Xi$-corrected formula $\text{IE}(\text{He}) = 2\,\text{Ry}\,(1 - c^2\,\alpha_\text{GUT}) = 24.565\;\text{eV}$ vs observed $24.587\;\text{eV}$ ($0.089\%$). \textbf{5/5 checks passed.}
 
+\subsection{Critical Line (Chapter~\ref{ch:yang_mills}, Paper~5)}
+
+\textbf{RH\_047: Spectral Flow.}  Vieta identity for the Ihara quadratic $qu^2 - \lambda u + 1 = 0$: the root product $u_1 u_2 = 1/q$ combined with the Ramanujan condition $|\lambda| \leq 2\sqrt{q}$ gives $|u|^2 = 1/q$ \emph{exactly} (the $\lambda$ cancels algebraically).  Hence $\mathrm{Re}(s) = 1/2$ for every finite $K_N$ ($N \geq 3$).  Zero count $= 2(N-1)$ confirmed; density growth rate $\sim N^{1.1}$.  Born-weighted Gram: $100\%$ Ramanujan (200 trials per $N$, deviation $= 0$).  Lean~4: 11 theorems, 0~sorry.  \textbf{8/8 checks passed.}
+
+\textbf{RH\_048: Born-Ramanujan bounds.}  PSD structure proves $|\lambda_{\min}(W)| \leq 1$ (negative eigenvalues always Ramanujan).  Adversarial tests: two orthogonal blocks of $k$ identical vectors hit the Ramanujan boundary at $k = 5$ ($N = 10$) and violate it at $k \geq 6$, but random configurations have ratio $R \approx 0.3$ (far below~1).  Key conclusion: $\mathrm{Re}(s) = 1/2$ is algebraic (Vieta) and does not depend on Born-Ramanujan.  \textbf{6/6 checks passed.}
+
 \subsection{Summary}
 
 \begin{center}
@@ -84,8 +90,9 @@ Cosmology & EXP-025, 010, 006 & 13/13 & \checkmark \\
 Block universe & EXP-030, 020 & 12/12 & \checkmark \\
 $\partial(\Delta^5)$ variational & EXP-043, 069, 070 & 16/16 & \checkmark \\
 Higgs quartic $\lambda$ & EXP-071, 072 & 17/17 & \checkmark \\
+Critical line & RH\_047, 048 & 14/14 & \checkmark \\
 \hline
-\textbf{Total} & \textbf{20 experiments} & \textbf{121/121} & \checkmark \\
+\textbf{Total} & \textbf{22 experiments} & \textbf{135/135} & \checkmark \\
 \hline
 \end{tabular}
 \end{center}
