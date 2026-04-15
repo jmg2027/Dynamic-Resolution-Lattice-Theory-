@@ -30,3 +30,4 @@ import PmfRh.TaniyamaShimura
 import PmfRh.Langlands
 import PmfRh.Collatz
 import PmfRh.GoldbachTwin
+import PmfRh.SelfReferenceCollapse
