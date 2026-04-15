@@ -15,6 +15,7 @@
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse
 import YangMills.Basic
 
 set_option autoImplicit false
@@ -118,7 +119,53 @@ theorem complementarity_implies_pi (θ₂ θ₃ : Real)
     (h : θ₂ + θ₃ = Real.pi / 2) :
     Real.pi / 2 + θ₂ + θ₃ = Real.pi := by linarith
 
-/-! ## 5. Dimensional Dependence
+/-! ## 5. Trigonometric Verification via Mathlib arccos
+
+  We now prove the arccos identity that justifies the dihedral
+  angle parameterisation:
+    arccos(cos γ) + arccos(sin γ) = π/2  for γ ∈ [0, π/2]
+
+  This connects the algebraic proof (ring) to the Fubini-Study
+  geometry.
+-/
+
+/-- arccos(cos γ) = γ for γ ∈ [0, π/2] ⊂ [0, π] -/
+theorem arccos_cos_of_mem_Icc (γ : Real) (h0 : 0 ≤ γ) (hpi : γ ≤ π / 2) :
+    arccos (cos γ) = γ :=
+  arccos_cos h0 (by linarith [pi_pos])
+
+/-- sin γ = cos(π/2 - γ), the co-function identity -/
+theorem sin_eq_cos_complement (γ : Real) :
+    sin γ = cos (π / 2 - γ) :=
+  (cos_pi_div_two_sub γ).symm
+
+/-- arccos(sin γ) = π/2 - γ for γ ∈ [0, π/2] -/
+theorem arccos_sin_of_mem_Icc (γ : Real) (h0 : 0 ≤ γ) (hpi : γ ≤ π / 2) :
+    arccos (sin γ) = π / 2 - γ := by
+  rw [sin_eq_cos_complement]
+  exact arccos_cos (by linarith) (by linarith [pi_pos])
+
+/-- THE TRIGONOMETRIC IDENTITY:
+    arccos(cos γ) + arccos(sin γ) = π/2  for γ ∈ [0, π/2].
+
+    This is the identity underlying the deficit angle universality.
+    The dihedral angles θ₂ = arccos|⟨T₁|T₃⟩| = arccos(cos γ) = γ
+    and θ₃ = arccos|⟨T₂|T₃⟩| = arccos(sin γ) = π/2 - γ
+    always sum to π/2, regardless of the decomposition. -/
+theorem arccos_cos_add_arccos_sin (γ : Real)
+    (h0 : 0 ≤ γ) (hpi : γ ≤ π / 2) :
+    arccos (cos γ) + arccos (sin γ) = π / 2 := by
+  rw [arccos_cos_of_mem_Icc γ h0 hpi, arccos_sin_of_mem_Icc γ h0 hpi]
+  ring
+
+/-- Connecting trig to algebra: the dihedral angles from arccos
+    match the algebraic parameterisation. -/
+theorem dihedral_from_arccos (γ : Real) (h0 : 0 ≤ γ) (hpi : γ ≤ π / 2) :
+    arccos 0 + arccos (cos γ) + arccos (sin γ) = π := by
+  rw [show arccos 0 = π / 2 from arccos_zero]
+  linarith [arccos_cos_add_arccos_sin γ h0 hpi]
+
+/-! ## 6. Dimensional Dependence
 
   The universality δ = π (independent of γ) is specific to n_T = 2.
   For n_T ≥ 3, there would be more free parameters and the

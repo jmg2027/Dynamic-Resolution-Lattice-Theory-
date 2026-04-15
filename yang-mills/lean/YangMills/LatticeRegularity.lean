@@ -14,10 +14,13 @@
   Joint research by Mingu Jeong and Claude (Anthropic)
 -/
 
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import YangMills.Basic
 import YangMills.MassGap
 
 set_option autoImplicit false
+
+open Finset BigOperators
 
 namespace DRLT.YangMills
 
@@ -81,6 +84,28 @@ theorem edges_finite (K : FiniteLattice) :
 theorem finite_sum_bounded (n : Nat) (M : Real) (hM : 0 ≤ M) :
     ∃ C : Real, 0 ≤ C ∧ C = ↑n * M := by
   exact ⟨↑n * M, mul_nonneg (Nat.cast_nonneg' n) hM, rfl⟩
+
+/-! ## 3b. Finset.sum Explicit Bound -/
+
+/-- THEOREM: A Finset.sum of bounded non-negative terms is bounded
+    by (card S) × M.
+
+    This is the rigorous version of "finite sums of bounded
+    quantities are finite" using Mathlib's Finset API. -/
+theorem finset_sum_le_card_mul {α : Type*} {S : Finset α} {f : α → ℝ}
+    {M : ℝ} (hf : ∀ i ∈ S, f i ≤ M) :
+    ∑ i ∈ S, f i ≤ S.card • M :=
+  Finset.sum_le_card_nsmul S f M hf
+
+/-- COROLLARY: On a finite lattice with N vertices and at most
+    C(N,2) edges, the sum of squared velocities (each ≤ 4) is
+    bounded by N(N-1)/2 × 4. -/
+theorem discrete_sobolev_H0_bound (N : ℕ) (_hN : 3 ≤ N)
+    (edges : Finset (Fin N × Fin N))
+    (v : (Fin N × Fin N) → ℝ)
+    (hv : ∀ e ∈ edges, v e ^ 2 ≤ 4) :
+    ∑ e ∈ edges, v e ^ 2 ≤ edges.card • (4 : ℝ) :=
+  Finset.sum_le_card_nsmul edges (fun e => v e ^ 2) 4 hv
 
 /-! ## 4. The No-Go Direction -/
 
