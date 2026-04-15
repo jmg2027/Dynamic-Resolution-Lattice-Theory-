@@ -26,3 +26,4 @@ import PmfRh.MillenniumBridges
 import PmfRh.SevenValues
 import PmfRh.NSRiccati
 import PmfRh.BridgeDetails
+import PmfRh.TaniyamaShimura
