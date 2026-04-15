@@ -223,3 +223,58 @@ Over $\mathbb{R}$: $\psi^* = \psi$. Every particle is its own antiparticle. No m
 Over $\mathbb{H}$: $(\psi_1 \psi_2)^* \neq \psi^*_1 \psi^*_2$ (non-commutative conjugation). CPT is broken at the algebraic level. Physics is inconsistent.
 Over $\mathbb{C}$: conjugation is involutive ($\psi^{**} = \psi$), commutative ($(\psi_1\psi_2)^* = \psi^*_1\psi^*_2$), and distinct from identity ($\psi^* \neq \psi$ for $\text{Im}(\psi) \neq 0$). This is the unique algebra supporting matter-antimatter asymmetry with consistent CPT.
 \end{remark}
+
+\subsection{The algebraic priority principle}
+\label{sec:algebraic_priority}
+
+This chapter has derived the continuous structures of physics --- gauge symmetry, the Born rule, CPT invariance --- from discrete algebraic input: the Frobenius classification, fundamental group computations, and polynomial degree arguments. No differential equation was solved; no action was extremized; no integral was evaluated. The continuous structures \emph{emerged} from algebraic constraints.
+
+This pattern persists throughout the theory and deserves explicit articulation.
+
+\begin{definition}[Algebraic priority]
+\label{def:algebraic_priority}
+A physical quantity $\alpha$ is said to be \emph{algebraically determined} if it can be expressed as a function of:
+\begin{enumerate}
+\item combinatorial data (dimensions, ranks, channel counts),
+\item number-theoretic constants ($\zeta(s)$, $\pi$, Euler products), and
+\item algebraic operations (determinants, traces, representation-theoretic multiplicities),
+\end{enumerate}
+without reference to the extremization of any continuous functional.
+\end{definition}
+
+\begin{proposition}[Algebraic determination of coupling constants]
+\label{prop:alpha_algebraic}
+The GUT coupling constant
+\begin{equation}
+\alpha_{\mathrm{GUT}} = \frac{6}{d^2 \pi^2} = \frac{1}{d^2\,\zeta(2)}
+\end{equation}
+is algebraically determined. The numerator $6$ counts the independent spatial $3$-minors weighted by the lattice speed $c = 2$; the denominator $d^2 = 25$ counts the total channels in $\Lambda^3(\mathbb{C}^d)$; and $\zeta(2) = \pi^2/6$ is the Basel propagator arising from the sum over hinge pairs.
+\end{proposition}
+
+The proposition illustrates a broader pattern that recurs throughout the theory:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Algebraic input} & \textbf{Operation} & \textbf{Analytic output} \\
+\midrule
+Frobenius classification & elimination & $\mathbb{K} = \mathbb{C}$ (field) \\
+$\pi_1(S^1) = \mathbb{Z}$ & winding number & charge quantization \\
+$\binom{d}{3} = 10$ minors & Binet--Cauchy identity & $\det(G_h) = \sum|\det \Phi_I|^2$ \\
+$d^2 = 25$ channels & channel counting & $\alpha_{\mathrm{GUT}}$ \\
+$\zeta(2) = \pi^2/6$ & Basel sum & propagator correction \\
+$N_{\mathrm{flat}} = 4$ simplices & hinge topology & asymptotic freedom \\
+$f_{\mathrm{occ}}(x) = x/(1+x)$ & occupation fraction & coupling at flat manifold \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}[Calculus verifies; algebra discovers]
+A na\"ive approach to determining coupling constants is to define a continuous action $S[\psi]$ and seek its extrema via $\delta S/\delta\psi = 0$. While this can \emph{verify} known results, the foundational constants of the theory are not determined this way. The coupling $\alpha_{\mathrm{GUT}} = 6/(d^2\pi^2)$ follows from the channel count $d^2 = 25$ and the Basel sum $\zeta(2)$, both of which are arithmetic facts about the integers and the simplex dimension. Extremizing the Regge action on a simplicial manifold yields a critical value $\varepsilon^2 \approx \alpha_{\mathrm{GUT}}$ at the flat manifold (Sec.~\ref{ch:atoms}), confirming the algebraic result, but the action extremum does not \emph{produce} the coupling --- it inherits it from the underlying combinatorial structure.
+
+This is analogous to the relationship between number theory and complex analysis in pure mathematics: the Riemann zeta function $\zeta(s)$ is defined by an Euler product over primes (arithmetic), analytically continued to the complex plane (analysis), and its non-trivial zeros control prime distribution (back to arithmetic). The analytic machinery serves the algebraic content, not the reverse.
+\end{remark}
+
+\begin{remark}[Practical consequence]
+When a derivation in subsequent chapters appears stuck --- when continuous variation fails to produce a clean result --- the resolution is typically found by returning to the discrete structure: counting channels, identifying representation-theoretic multiplicities, or recognizing number-theoretic identities. The pattern ``count first, compute after'' is not merely a heuristic; it reflects the theory's algebraic foundation.
+\end{remark}

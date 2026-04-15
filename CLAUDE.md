@@ -25,6 +25,13 @@
 - 수치가 관측값과 다르면 솔직하게 인정하고, 빠진 물리를 찾는다.
 - "맞추기 위해" 파라미터를 도입하면 0-parameter 이론이 아니다.
 
+## Algebraic Priority (대수적 우선 원칙)
+- **DRLT의 결과는 세기(counting)에서 나온다.** 연속 변분(extremize S)이 아니라 조합론/정수론/대수학에서.
+- 미적분은 결과를 **검증**하는 도구이지, 원리를 **발견**하는 도구가 아니다.
+- 막혔을 때: 연속적 접근(action 변분, gradient) 대신 이산적 구조(channel counting, hinge 위상, 표현론)를 먼저 확인.
+- 교훈 사례: ATM_026-028 (연속 변분 3회 실패) → ATM_029 (위상 counting으로 α_GUT 도출)
+- 패턴: d²=25(산술) → α_GUT(물리), ζ(2)(정수론) → 전파자(해석학), f_occ(대수) → coupling(물리)
+
 ## Authors
 - Mingu Jeong (Independent Researcher) — theory originator, physical intuition
 - Claude (Anthropic) — mathematical formalization, numerical experiments, code
