@@ -9,25 +9,25 @@
 All 5 SM open problems resolved (SM_020-024).
 
 ### atoms/ — ACTIVE (25 experiments)
-118 elements median 3.5% (screening model, ATM_018-022).
-Manifold variational: δ(AAA) = π 정확히 도출 (ATM_025).
-S_total = S_Regge + S_matter 통합 작용 미정립 — 핵심 open problem.
-**See `atoms/HANDOFF.md` for detailed open problems.**
+118 elements median 3.5% (screening model). Manifold δ(AAA) = π 도출.
+Open: S_total = S_Regge + S_matter.
 
 ### cosmology/ — STABLE ✓
-3 experiments (COS_001-003), 8/8 checks. η_B 0.5%, Ω_Λ **0.0008%**, DM/baryon 0.6%.
+3 experiments, 8/8 checks. η_B 0.5%, Ω_Λ **0.0008%**, DM/baryon 0.6%.
 
-### rh-connection/ — PLATEAU (23 experiments)
-Born-Ramanujan CLOSED. GRH CLOSED. Phase→Möbius at natural plateau.
+### rh-connection/ — PLATEAU (24 experiments)
+Born-Ramanujan CLOSED. GRH CLOSED. Gap 3 (chiral projection) CLOSED.
+Phase→Möbius at natural plateau. Lean 4: 23 theorems, 0 sorry.
 
 ### predictions/ — ACTIVE (8 experiments)
-42/43 checks. θ_QCD best candidate: J×α⁴ ≈ 2.86×10⁻¹¹.
+42/43 checks. θ_QCD: J×α⁴ ≈ 2.86×10⁻¹¹.
 
 ### quantum-gravity/ — ACTIVE (6 experiments)
 Area cancellation, S_BH, graviton, singularity, Hawking, vacuum energy.
 
-### gram-algebra/ — NOT STARTED
-DRLT 고유 수학 언어 개발.
+### gram-algebra/ — ACTIVE (1 experiment + Lean)
+GMA_001: "Meaning = Morphism". PMF/RMS/MSUA framework.
+Lean 4: 5 modules, 23 theorems, 0 sorry. τ-breaking = α_GUT explained.
 
 ## Key Precision Results (0 free parameters)
 
@@ -51,4 +51,4 @@ DRLT 고유 수학 언어 개발.
 - 세션 시작 시: root HANDOFF 읽고, 작업할 sub-project의 HANDOFF 읽기.
 
 ## Next Available Experiment
-ATM_026, COS_004, PRD_009, QG_007, RH_024, GMA_001
+ATM_026, COS_004, PRD_009, QG_007, RH_025, GMA_002
