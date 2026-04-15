@@ -18,3 +18,4 @@ import PmfRh.SpectralComplexity
 import PmfRh.ConjectureStrength
 import PmfRh.ProofAlgebra
 import PmfRh.YMMassGap
+import PmfRh.DetFormula
