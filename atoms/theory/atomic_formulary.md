@@ -129,8 +129,11 @@ All from the same Gram matrix:
 | F electron affinity | +2% | BBB hinge |
 | Z_max = 168 | prediction | Hadamard |
 
-Remaining ~1-3%: higher-order hinge corrections,
-all within the framework. No external physics.
+Remaining ~3%:
+- Core screening structure (s-block sign flip, relativistic elements)
+- Measurement uncertainty (Period 7 superheavy)
+- NOT higher-order ε⁴ (these are < 0.01%)
+- Improvement path: direct variational δS/δψ = 0 on multi-simplex
 
 ---
 

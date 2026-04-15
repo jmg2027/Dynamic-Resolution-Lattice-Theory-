@@ -27,4 +27,9 @@
 9. Adjoint resummation f = 24α/(24+α+α²)
 10. Z_max = 168 (Hadamard bound)
 
-## Experiments: ATM_001-055
+## Residual ~3%
+- Core screening: layered σ model은 leading order.
+  s-block 알칼리 부호 반전, 상대론적 원소(Hg 등) 미해결.
+- 측정 불확도: Period 7 초중량 원소 참조값 불확실.
+- Self-consistent 반복이 leading order를 넘어서지만 (61/118 개선),
+  σ 함수 자체의 구조가 한계. 더 정밀한 σ = 변분 직접 풀이 필요.
