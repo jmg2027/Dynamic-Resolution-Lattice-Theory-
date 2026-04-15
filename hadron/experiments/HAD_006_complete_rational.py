@@ -136,9 +136,14 @@ class HAD006(Experiment):
 
         # Vector masses: m_V² = m_PS² + Δ²
         vec = {}
-        for name, m_ps in ps.items():
-            v_name = {'π': 'ρ', 'K': 'K*', 'η': 'ω', "η'": 'φ',
-                      'D': 'D*', 'B': 'B*',
+        # ω partner = π (NOT η!), φ partner = ss̄
+        ps_for_vec = dict(ps)
+        ps_for_vec['ω_ps'] = ps['π']  # ω is isoscalar light = same as ρ
+        ps_for_vec['φ_ps'] = np.sqrt(n_eff * 2*m_s * Lambda)  # ss̄
+
+        for name, m_ps in ps_for_vec.items():
+            v_name = {'π': 'ρ', 'K': 'K*', 'ω_ps': 'ω', 'φ_ps': 'φ',
+                      'D': 'D*',
                       'η_c': 'J/ψ', 'η_b': 'Υ'}.get(name)
             if v_name:
                 vec[v_name] = np.sqrt(m_ps**2 + Delta**2)
@@ -182,9 +187,9 @@ class HAD006(Experiment):
         m_p_base = N_S * Lambda * P_proton  # 938.27 MeV
 
         delta_N = Lambda * (d**2 - 1) / d**2  # 295.7 MeV
-        # Strange baryon shift: m_s with adjoint correction
-        # Each s quark replaces a light quark: adds m_s + Λ×α_gut
-        m_s_shift = m_s + Lambda * alpha_gut * (d - 1)
+        # Strange baryon shift = Λ × G_nn² (Born probability!)
+        # Same Gram overlap as nuclear saturation binding
+        m_s_shift = Lambda * (PHI/2)**2  # = Λ × (3+√5)/8 ≈ 201 MeV
 
         baryons = [
             ('p',  938.3, 0, 0, False),   # uud, J=1/2
