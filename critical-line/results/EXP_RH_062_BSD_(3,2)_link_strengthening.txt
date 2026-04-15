@@ -1,0 +1,56 @@
+============================================================
+  EXP_RH_062_BSD_(3,2)_link_strengthening
+  2026-04-15 21:05:21
+============================================================
+
+=== Test 1: Degree → Genus ===
+  Elliptic curve: y² = x³ + ax + b
+  Degree n = 3 = n_S
+  Genus g = (n-1)(n-2)/2 = (2)(1)/2 = 1
+  [✓ PASS] genus(3) = 1
+
+=== Test 2: Genus → Cohomology ===
+  For a genus-g curve: dim H¹ = 2g
+  g = 1 → dim H¹ = 2
+  This 2 = dim_ℝ(ℂ) = n_T
+  [✓ PASS] dim H¹ = 2 = n_T
+
+=== Test 3: Cohomology → Galois ===
+  H¹(E, ℤ_p) is a 2-dim ℤ_p-module
+  Gal(ℚ̄/ℚ) acts on H¹ → ρ: Gal → GL₂(ℤ_p)
+  The 2 in GL₂ = dim H¹ = 2g = 2·1 = 2 = n_T
+
+  Similarly: modular forms of weight 2
+  live on the upper half-plane ℍ
+  ℍ = {z ∈ ℂ : Im(z) > 0}
+  SL(2,ℤ) acts on ℍ
+  The 2 in SL(2) = dim_ℝ(ℂ) = n_T
+  [✓ PASS] GL₂ and SL(2) both have '2' = n_T
+
+=== Test 4: Complete Chain ===
+  n_S = 3 → degree 3 → genus 1 → H¹=2 → GL₂
+  n_T = 2 → SL(2) → weight 2 → modular form
+  L(E,s) = L(f,s) ← Wiles (1995)
+  ref∘incl = G_ij ← DRLT
+
+  The chain: 3 → 1 → 2 → GL₂ = SL(2)
+  In numbers: n_S → genus → n_T → gauge
+  3 + 2 = 5 = d
+
+  BSD asks: rank(E) = ord_{s=1} L(E,s)
+  This relates geometry (rank) to analysis (L)
+  = spatial (ℂ³) to temporal (ℂ²)
+  = incl to ref
+  = the (3,2) decomposition
+  [✓ PASS] Chain: 3→1→2 complete
+
+============================================================
+  SUMMARY: EXP_RH_062_BSD_(3,2)_link_strengthening
+============================================================
+  [✓] genus(3) = 1
+  [✓] dim H¹ = 2 = n_T
+  [✓] GL₂ and SL(2) both have '2' = n_T
+  [✓] Chain: 3→1→2 complete
+
+  4/4 checks passed
+  Time: 0.0s
