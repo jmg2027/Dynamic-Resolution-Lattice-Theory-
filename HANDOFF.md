@@ -1,51 +1,48 @@
 # Session Handoff — 2026-04-15
 
 ## Branch
-`claude/lagrange-coupling-constraint-QOiOy` (pushed, up to date)
+`claude/implement-600-cell-e2zgQ` (pushed, up to date)
 
 ## What Was Done This Session
 
-### 1. N=4 Flat Manifold → α_GUT (ATM_026-031) ★★★
-- **f_occ(ε²) = α_GUT to 0.10%** (0-parameter, N=4 flat manifold)
-- **ζ₉ self-consistency to 0.001%** (9 = non-SSS channels = C(5,3)-1)
-- Exact analytical formulas: cos(θ_AABt) = ε/√(1-2ε²) etc.
-- Fundamental equation: cos(F(x)) = -x/(1-2x), F algebraic, cos only transcendence
-- S(0,N) = (7N+8)π, δ(AAA) = (4-N)π/2
+### 1. Nuclear Magic Numbers from 600-Cell (NUC_001-003) ★★★
+- **All 7 magic numbers (2,8,20,28,50,82,126) derived from d=5**
+- Sym²(Vₙ) = HO shell (n-1): EXACT for all n (representation theory)
+- Closed formula: M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
+- 126 = d! + (d+1) = 120 + 6
 
-### 2. ε₀ = (l_Pl/R_H)^{6/151} (0.2σ)
-- 151 = d³+d²+1 = gauge-invariant modes (holonomy 125 + Gram 25 + existence 1)
-- 6 = d+1 = simplex vertices
-- ε₀² ~ 10⁻⁵ → dark energy w = -1+ε₀²
-- Mᵢ weights: M₃=55/4, M₂=7/2, M₁=1 (all integer-derived)
+### 2. Rigorous Foundations (NUC_004-007) ★★★
+- **8 theorems proven** (A through H):
+  - Thm A: 600-cell uniqueness in ℝ⁴
+  - Thm B: Exact eigenvalue formula λ_n = 12sin(nπ/5)/(n sin(π/5))
+  - Thm C: Sym²(Vₙ) = HO shell
+  - Thm D: Magic number formula
+  - Thm E: Cayley SU(2) gauge flatness (spin-orbit = 0 from pure geometry)
+  - Thm F: Graph L·S breaks gauge flatness
+  - Thm G: κ = N_T = 2 gives {2,8,28,50,82}
+  - Thm H: sign(κ) > 0 from ε > 0
 
-### 3. Rydberg = α²m_e/N_T
-- 1/2 in Ry is 1/N_T (temporal dimension count, not QM normalization)
-- eps²(N=2) ≈ (N_S/N_T)α_em = (3/2)α (1%)
+### 3. Deuteron Binding Energy (NUC_008, 011, 012) ★★
+- **E_d = m_p × x/(1+2x) = 2.271 MeV (+2.1%)**
+- f_pair = 1/(2d) DERIVED from cells_per_edge = d = 5
+- Dyson resummation P(x) = (1+2x)/(1+x) from yang-mills branch
 
-### 4. Algebraic Priority Principle
-- Formalized in book ch01 §1.9 (Definition, Proposition, Table)
-- CLAUDE.md에 실용 가이드 추가
-- "Calculus verifies; algebra discovers"
+### 4. Nuclear Radius (NUC_009) ★★
+- **r₀ = (d+1)ℏc/m_p = 1.262 fm (+0.95%)**
+- A^{1/3} law from S³ packing of d! = 120 vertices
 
-### 5. Complete Theory Document
-- atoms/theory/complete_theory.md (330줄, 18섹션)
-- atoms/theory/integer_catalog.md (모든 정수의 출처)
-- atoms/theory/epsilon0_derivation.md (ε₀ 엄밀 유도)
+### 5. BW Mass Formula (NUC_010, 013-015) ★★
+- **a_V = 16.0 MeV (+3%)** from Gram identity: 12G₁²+20G₂²+12G₃²=14=2(d+N_T)
+- **a_S = 18.0 MeV (+7%)** from 600-cell cap surface counting (was 9.1, -46%)
+- **a_C = 0.685 MeV (-3.6%)** from 3αℏc/(5r₀)
+- B/A(²⁰⁸Pb) = 7.90 MeV (+0.4%)
+- B/A saturation = 8.96 MeV (~5%)
 
-### 6. Paper 6: "Coupling Constants from Simplex Counting"
-- papers/paper6_simplex_coupling.tex (433줄, 7섹션)
-- Paper 5 (수론) → Paper 6 (기하+정수론) → Paper 7 (논리)
-
-### 7. Branch Integration
-- yang-mills (Lean ~58 thms, Chebyshev action) 머지 완료
-- critical-line (RH_027-046, ζ(2) unification, Paper 7) 머지 완료
-
-### 8. Full Consistency Audit
-- 3 CRITICAL + 3 ERROR + 2 WARNING 수정
-- README Ω_Λ 0.07%→0.0008%, paper3 m_μ/m_e 206.80→206.7682837
-- 131× \mathbb{C}→\CC 매크로 통일
-- drlt_book_single.tex 생성 (7728줄, ~184쪽)
-- root 고아 파일 5개 삭제, critical-line skill 업데이트
+### 6. Key Discoveries
+- **Gauge flatness**: pure 600-cell Cayley graph has zero spin-orbit (NUC_005)
+- **Three mechanisms**: geometry(Sym²)→HO, dynamics(L·S)→SO, arithmetic(d!+d+1)→126
+- **Atoms lesson**: Gram² (Born probability) determines nuclear binding, not spectral filling
+- **Gram identity**: 12(φ/2)² + 20(1/2)² + 12(1/(2φ))² = 14 exactly
 
 ## Current Precision Results (0 free parameters)
 
@@ -58,9 +55,12 @@
 | sin²θ₁₃ | 0.0220 | 0.0220 | -0.07σ |
 | η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
 | Ω_Λ | 0.6850 | 0.685 | 0.0008% |
-| f_occ(ε²) N=4 | 0.02429 | α_GUT=0.02432 | 0.10% |
-| f_occ with ζ₉ | 0.02598 | α₉=0.02598 | 0.001% |
-| ε₀ | 0.003793 | 0.003715±0.000338 | 0.2σ |
+| Magic numbers | 2,8,20,28,50,82,126 | same | **7/7 exact** |
+| E_d (deuteron) | 2.271 MeV | 2.224 MeV | +2.1% |
+| r₀ (nuc. radius) | 1.262 fm | 1.25 fm | +0.95% |
+| a_V (volume) | 16.0 MeV | 15.5 MeV | +3% |
+| a_S (surface) | 18.0 MeV | 16.8 MeV | +7% |
+| a_C (Coulomb) | 0.685 MeV | 0.71 MeV | -3.6% |
 | Z=1-118 median | 3.5% | — | screening |
 
 ## Sub-Project Status
@@ -69,59 +69,61 @@
 |-----------|--------|-------------|
 | foundations/ | STABLE | 10 |
 | standard-model/ | CLOSED ✓ | 24 |
-| atoms/ | **ACTIVE** | 31 (ATM_001-031) |
+| atoms/ | **ACTIVE** | 31+ (ATM_001-047 in branch) |
 | cosmology/ | STABLE ✓ | 3 |
-| critical-line/ | **ACTIVE** | 46 (RH_001-046) |
+| critical-line/ | **ACTIVE** | 46+ (RH_001-052 in branch) |
+| **nuclear/** | **CLOSED ✓** | **15 (NUC_001-015)** |
 | predictions/ | ACTIVE | 8 |
 | quantum-gravity/ | ACTIVE | 6 |
 | yang-mills/ | ACTIVE | 0 (Lean ~58 thms) |
-| nuclear/ | NOT STARTED | 0 |
+| discrete-harmonic/ | ACTIVE (branch) | 18 (DHA_001-018) |
 
 ## Open Problems (Priority Order)
 
-### 1. N=2 → 수소 IE 메커니즘 (atoms/)
-eps²(N=2) ≈ (3/2)α_em (1%). 이 관계의 정확한 기하학적 유도.
+### 1. Nuclear precision (nuclear/)
+- Light nuclei B/A (A<20): shell model needed, ⁴He -68%
+- a_A (asymmetry): isospin + Fermi energy on 600-cell
+- E_d 2% residual: D-wave admixture
 
-### 2. Screening constants from manifold (atoms/)
-8개 screening 상수가 아직 현상론적. manifold에서 변분적 유도 필요.
+### 2. ζ₉ vs ζ(∞) (atoms/DHA)
+Which is the "correct" propagator? N=9 gives 0.001%, N=∞ gives 0.1%.
 
-### 3. 이산 조화해석학 on simplex
-cos를 유한 구조로 완전 대체. 0.001% 잔차의 열쇠.
+### 3. N=2 → hydrogen IE (atoms/)
+eps²(N=2) ≈ (3/2)α_em (1%). Geometric derivation needed.
 
-### 4. Nuclear magic numbers (nuclear/)
-600-cell (120 vertices) → Z=120 한계. simplex 닫힘 → 2,8,20,28,50,82,126.
+### 4. θ_QCD precision (predictions/)
+Best candidate: J_CKM × α⁴ ≈ 2.86×10⁻¹¹. Multi-simplex vacuum needed.
 
-### 5. Phase→Möbius (critical-line/)
-"왜 정확히 1/2" — 대수적 접근. 별도 연구 중.
+### 5. 1/α_s tension (predictions/)
+~5.5% discrepancy. Higher-order correction?
 
-### 6. Book ch10 업데이트
-N-simplex manifold 결과를 ch10_atoms.tex에 통합.
-
-## Unresolved
-- ζ₉ vs ζ(∞): 물리적으로 어느 것이 "맞는" 전파자인가?
-- Leading-order eps=2N/(π(8+N)) 부정확 (higher-order 필요)
-- Chebyshev action은 단조감소 (maximum 없음) — Regge와 다른 물리
+## Unresolved from This Session
+- NUC_013 spectral filling FAILED (RMS 119%) — binding ≠ eigenvalue filling
+- Extended Gram model (2nd+3rd neighbors) diverges for large A without kinetic subtraction
+- a_A (asymmetry coefficient) still ~50% off — needs Fermi energy on 600-cell
+- Light nuclei (⁴He, ¹²C) binding severely underestimated by smooth Gram model
 
 ## Key Formulas
 ```
-cos(F(x)) = -x/(1-2x),  F(x) = (1-2√x)√(1-x)/(√x(1-2x)√(1-3x))
-S(ε,N) = (1+3√(1-2ε²))·(4-N)π/2 + 3N[f₁+f₂]
-S(0,N) = (7N+8)π,  N_flat = 4
-ε₀ = (l_Pl/R_H)^{6/151},  151 = d³+d²+1
-Ry = α²m_e/N_T,  N_T = 2
+Magic: M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
+Eigenvalue: λ_n = 12 sin(nπ/5) / (n sin(π/5))
+Deuteron: E_d = m_p × x/(1+2x), x = α_GUT/(2d), f_pair = 1/(2 × cells_per_edge)
+Radius: r₀ = (d+1) × ℏc/m_p
+Coulomb: a_C = 3α_em ℏc / (5r₀)
+Volume: a_V = 7 × E_edge (from 12G₁²+20G₂²+12G₃² = 14 = 2(d+N_T))
+Spin-orbit: κ = N_T = 2, sign from ε > 0
+Saturation: B/A = (coord/2) × E_edge × G_nn²
 ```
 
 ## Next Available Experiment
-ATM_032, RH_047, COS_004, PRD_009, QG_007
+NUC_016, ATM_048 (in atoms branch), RH_053 (in CL branch)
 
-## File Map (this session, key files)
+## File Map (this session)
 ```
-atoms/experiments/ATM_026-031_*.py      ← 6 new experiments
-atoms/theory/complete_theory.md         ← 통합 이론 문서 (330줄)
-atoms/theory/integer_catalog.md         ← 정수 카탈로그
-atoms/theory/epsilon0_derivation.md     ← ε₀ 엄밀 유도
-papers/paper6_simplex_coupling.tex      ← NEW paper (433줄)
-book/chapters/ch01_whyC.tex             ← +§1.9 Algebraic Priority
-book/drlt_book_single.tex               ← 단일 파일 (7728줄)
-.claude/skills/critical-line/SKILL.md   ← UPDATED (RH naming)
+nuclear/experiments/NUC_001-015_*.py       ← 15 experiments
+nuclear/results/EXP_NUC_001-015_*.txt      ← all results
+nuclear/theory/magic_numbers_600cell.md    ← complete theory (Steps 1-9, 8 theorems)
+nuclear/HANDOFF.md                         ← CLOSED status
+nuclear/CLAUDE.md                          ← updated scope + results
+CLAUDE.md                                  ← precision table + resolved problems updated
 ```
