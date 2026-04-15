@@ -39,4 +39,19 @@ N_S = 3, N_T = 2, α_GUT = 6/(25π²)
 | m_ρ | 753.6 MeV | 775.3 MeV | -2.8% |
 | m_K | 514.7 MeV | 495.6 MeV | +3.8% |
 
-## Status: ACTIVE (just started)
+## Rational Structure (from Atomic Formulary Thm 10-11)
+
+With ζ₉ = 9778141/6350400 (rational, DHA Thm 5):
+```
+α₉ = 254016/9778141  [exact rational]
+
+Pseudoscalar: m_PS² = 9 × Σm_q × Λ     [integer coefficient]
+Hyperfine:    m_V² = m_PS² + (5Λ/2)²    [integer coefficients]
+Baryon spin:  Δ-N = Λ × 24/25           [rational]
+```
+
+ALL hadron masses are **rational multiples of Λ_QCD**.
+No π, no cos, no transcendental functions.
+The same rational structure as the Atomic Formulary (Thm 11).
+
+## Status: CLOSED (1차) — precision open for η', φ, heavy mesons

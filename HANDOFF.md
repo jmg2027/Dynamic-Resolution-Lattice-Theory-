@@ -5,44 +5,37 @@
 
 ## What Was Done This Session
 
-### 1. Nuclear Magic Numbers from 600-Cell (NUC_001-003) ★★★
-- **All 7 magic numbers (2,8,20,28,50,82,126) derived from d=5**
-- Sym²(Vₙ) = HO shell (n-1): EXACT for all n (representation theory)
-- Closed formula: M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
-- 126 = d! + (d+1) = 120 + 6
+### 1. Nuclear Physics — CLOSED ★★★ (NUC_001-015, 15 experiments)
+- **Magic numbers 7/7 exact** from 600-cell Sym²(2I)
+  - Formula: M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
+  - 8 theorems (A-H) proven
+- **Deuteron E_d = 2.271 MeV (+2.1%)** from Dyson P(x)=(1+2x)/(1+x)
+  - f_pair = 1/(2d) DERIVED from cells_per_edge = d = 5
+- **Nuclear radius r₀ = 1.262 fm (+0.95%)** from (d+1)ℏc/m_p
+- **BW coefficients**: a_V +3%, a_S +7%, a_C -3.6% from 600-cell Gram
+  - Gram identity: 12G₁² + 20G₂² + 12G₃² = 14 = 2(d+N_T) EXACT
+- **Gauge flatness discovery** (NUC_005): pure Cayley graph has SO=0
+- **Three mechanisms**: geometry→HO(2,8,20), dynamics→SO(28,50,82), arithmetic→126
+- **Spin-orbit**: κ = N_T = 2, sign from ε > 0
 
-### 2. Rigorous Foundations (NUC_004-007) ★★★
-- **8 theorems proven** (A through H):
-  - Thm A: 600-cell uniqueness in ℝ⁴
-  - Thm B: Exact eigenvalue formula λ_n = 12sin(nπ/5)/(n sin(π/5))
-  - Thm C: Sym²(Vₙ) = HO shell
-  - Thm D: Magic number formula
-  - Thm E: Cayley SU(2) gauge flatness (spin-orbit = 0 from pure geometry)
-  - Thm F: Graph L·S breaks gauge flatness
-  - Thm G: κ = N_T = 2 gives {2,8,28,50,82}
-  - Thm H: sign(κ) > 0 from ε > 0
+### 2. Hadron Spectroscopy — CLOSED ★★★ (HAD_001-005, 5 experiments)
+- **m_π = 137.6 MeV (+0.2%)** from GMOR with n_eff = C(5,3)-1 = 9
+- **m_ω = 782.1 MeV (-0.07%)** from unified hyperfine formula
+- **m_J/ψ = 3081.6 MeV (-0.5%)**, m_Υ = 9430.5 MeV (-0.3%)
+- **Unified formula**: m_V² = m_PS² + (dΛ/N_T)², Δ = 770 MeV, **RMS 1.8%**
+- **Δ-N = 295.7 MeV (+0.6%)** from Λ × (d²-1)/d² = Λ × 24/25
+- **Method discovery**: "그림만 그리고 관찰" → det(G) 패턴 → RMS 35%→1.8%
 
-### 3. Deuteron Binding Energy (NUC_008, 011, 012) ★★
-- **E_d = m_p × x/(1+2x) = 2.271 MeV (+2.1%)**
-- f_pair = 1/(2d) DERIVED from cells_per_edge = d = 5
-- Dyson resummation P(x) = (1+2x)/(1+x) from yang-mills branch
+### 3. Cross-Branch Math Integration
+- **yang-mills**: closed propagator P(x) → deuteron Dyson resummation
+- **DHA**: channel counting (n_eff=9) → pion GMOR
+- **atoms**: Gram overlap (σ_cross=7/8) → kaon correction, Born probability → B/A
+- **critical-line**: Ihara zeta, spectral flow → nuclear spectral analysis
 
-### 4. Nuclear Radius (NUC_009) ★★
-- **r₀ = (d+1)ℏc/m_p = 1.262 fm (+0.95%)**
-- A^{1/3} law from S³ packing of d! = 120 vertices
-
-### 5. BW Mass Formula (NUC_010, 013-015) ★★
-- **a_V = 16.0 MeV (+3%)** from Gram identity: 12G₁²+20G₂²+12G₃²=14=2(d+N_T)
-- **a_S = 18.0 MeV (+7%)** from 600-cell cap surface counting (was 9.1, -46%)
-- **a_C = 0.685 MeV (-3.6%)** from 3αℏc/(5r₀)
-- B/A(²⁰⁸Pb) = 7.90 MeV (+0.4%)
-- B/A saturation = 8.96 MeV (~5%)
-
-### 6. Key Discoveries
-- **Gauge flatness**: pure 600-cell Cayley graph has zero spin-orbit (NUC_005)
-- **Three mechanisms**: geometry(Sym²)→HO, dynamics(L·S)→SO, arithmetic(d!+d+1)→126
-- **Atoms lesson**: Gram² (Born probability) determines nuclear binding, not spectral filling
-- **Gram identity**: 12(φ/2)² + 20(1/2)² + 12(1/(2φ))² = 14 exactly
+### 4. Atoms Branch Discoveries (observed, not done here)
+- **ATM_054**: Self-consistent algebraic solver BEATS screening (median 1.33% vs 1.58%)
+- **Atomic Formulary**: 13 theorems, all rational with ζ₉
+- **Rational variational equation**: ε² = 24α_eff/(24-23α_eff+α_eff²) — no transcendence!
 
 ## Current Precision Results (0 free parameters)
 
@@ -61,7 +54,10 @@
 | a_V (volume) | 16.0 MeV | 15.5 MeV | +3% |
 | a_S (surface) | 18.0 MeV | 16.8 MeV | +7% |
 | a_C (Coulomb) | 0.685 MeV | 0.71 MeV | -3.6% |
-| Z=1-118 median | 3.5% | — | screening |
+| m_π (pion) | 137.6 MeV | 137.3 MeV | +0.2% |
+| m_ω (omega) | 782.1 MeV | 782.7 MeV | -0.07% |
+| m_J/ψ | 3081.6 MeV | 3096.9 MeV | -0.5% |
+| Δ-N split | 295.7 MeV | 294 MeV | +0.6% |
 
 ## Sub-Project Status
 
@@ -69,61 +65,71 @@
 |-----------|--------|-------------|
 | foundations/ | STABLE | 10 |
 | standard-model/ | CLOSED ✓ | 24 |
-| atoms/ | **ACTIVE** | 31+ (ATM_001-047 in branch) |
+| atoms/ | **ACTIVE** | 54 (ATM_001-054, branch) |
 | cosmology/ | STABLE ✓ | 3 |
-| critical-line/ | **ACTIVE** | 46+ (RH_001-052 in branch) |
-| **nuclear/** | **CLOSED ✓** | **15 (NUC_001-015)** |
+| critical-line/ | **ACTIVE** | 52 (RH_001-052, branch) |
+| **nuclear/** | **CLOSED ✓** | **15** |
+| **hadron/** | **CLOSED ✓** | **5** |
 | predictions/ | ACTIVE | 8 |
 | quantum-gravity/ | ACTIVE | 6 |
 | yang-mills/ | ACTIVE | 0 (Lean ~58 thms) |
-| discrete-harmonic/ | ACTIVE (branch) | 18 (DHA_001-018) |
+| discrete-harmonic/ | ACTIVE (branch) | 18 |
 
 ## Open Problems (Priority Order)
 
-### 1. Nuclear precision (nuclear/)
-- Light nuclei B/A (A<20): shell model needed, ⁴He -68%
-- a_A (asymmetry): isospin + Fermi energy on 600-cell
-- E_d 2% residual: D-wave admixture
+### 1. Atoms: self-consistent solver → full periodic table (atoms/ branch)
+ATM_054 SC solver beats screening (median 1.33% vs 1.58%).
+Run on all 118 elements. Target: median < 1%.
 
-### 2. ζ₉ vs ζ(∞) (atoms/DHA)
-Which is the "correct" propagator? N=9 gives 0.001%, N=∞ gives 0.1%.
+### 2. ζ₉ vs ζ(∞): which propagator? (atoms/DHA)
+N=9 gives 0.001%, N=∞ gives 0.1%. Physical answer needed.
 
-### 3. N=2 → hydrogen IE (atoms/)
-eps²(N=2) ≈ (3/2)α_em (1%). Geometric derivation needed.
+### 3. θ_QCD precision coefficient (predictions/)
+Best: J_CKM × α⁴ ≈ 2.86×10⁻¹¹. Multi-simplex vacuum needed.
 
-### 4. θ_QCD precision (predictions/)
-Best candidate: J_CKM × α⁴ ≈ 2.86×10⁻¹¹. Multi-simplex vacuum needed.
+### 4. Hadron: η/η' mixing, φ, heavy meson absolute masses (hadron/)
+η' -22%, φ +3.4%. Flavor mixing angle from Gram off-diagonal.
 
-### 5. 1/α_s tension (predictions/)
-~5.5% discrepancy. Higher-order correction?
+### 5. Nuclear: light nuclei B/A, asymmetry coefficient (nuclear/)
+⁴He -68%. Shell model needed for A < 20.
+
+### 6. Book integration: nuclear + hadron chapters
+NUC + HAD results → ch15-16 or new chapters.
 
 ## Unresolved from This Session
 - NUC_013 spectral filling FAILED (RMS 119%) — binding ≠ eigenvalue filling
-- Extended Gram model (2nd+3rd neighbors) diverges for large A without kinetic subtraction
-- a_A (asymmetry coefficient) still ~50% off — needs Fermi energy on 600-cell
-- Light nuclei (⁴He, ¹²C) binding severely underestimated by smooth Gram model
+- Extended Gram (2nd+3rd neighbor) diverges without kinetic subtraction
+- HAD_003 corrections made K WORSE (-8.5%) before finding √σ fix
+- η' mass still -22% (needs proper flavor mixing)
+- a_A (asymmetry) coefficient still ~50% off
 
-## Key Formulas
+## Key Formulas Discovered This Session
 ```
-Magic: M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
-Eigenvalue: λ_n = 12 sin(nπ/5) / (n sin(π/5))
-Deuteron: E_d = m_p × x/(1+2x), x = α_GUT/(2d), f_pair = 1/(2 × cells_per_edge)
-Radius: r₀ = (d+1) × ℏc/m_p
-Coulomb: a_C = 3α_em ℏc / (5r₀)
-Volume: a_V = 7 × E_edge (from 12G₁²+20G₂²+12G₃² = 14 = 2(d+N_T))
-Spin-orbit: κ = N_T = 2, sign from ε > 0
-Saturation: B/A = (coord/2) × E_edge × G_nn²
+Magic:       M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
+Eigenvalue:  λ_n = 12 sin(nπ/5) / (n sin(π/5))
+Deuteron:    E_d = m_p × x/(1+2x),  x = α/(2d),  f = 1/(2×cells_per_edge)
+Radius:      r₀ = (d+1) × ℏc/m_p
+Volume:      12G₁² + 20G₂² + 12G₃² = 14 = 2(d+N_T)  [EXACT identity]
+Pion:        m_π² = n_eff × Σm_q × Λ_QCD,  n_eff = C(5,3)-1 = 9
+Hyperfine:   m_V² = m_PS² + (dΛ/N_T)²,  Δ = 770 MeV
+Baryon spin: Δ-N = Λ × (d²-1)/d² = Λ × 24/25
+Saturation:  B/A = (coord/2) × E_edge × G_nn²
 ```
 
-## Next Available Experiment
-NUC_016, ATM_048 (in atoms branch), RH_053 (in CL branch)
+## Next Available Experiments
+NUC_016, HAD_006, ATM_055 (in atoms branch)
 
 ## File Map (this session)
 ```
-nuclear/experiments/NUC_001-015_*.py       ← 15 experiments
-nuclear/results/EXP_NUC_001-015_*.txt      ← all results
-nuclear/theory/magic_numbers_600cell.md    ← complete theory (Steps 1-9, 8 theorems)
-nuclear/HANDOFF.md                         ← CLOSED status
-nuclear/CLAUDE.md                          ← updated scope + results
-CLAUDE.md                                  ← precision table + resolved problems updated
+nuclear/experiments/NUC_001-015_*.py       ← 15 nuclear experiments
+nuclear/results/EXP_NUC_001-015_*.txt      ← all nuclear results
+nuclear/theory/magic_numbers_600cell.md    ← theory (9 steps, 8 theorems)
+nuclear/HANDOFF.md                         ← CLOSED
+nuclear/CLAUDE.md                          ← updated
+hadron/experiments/HAD_001-005_*.py        ← 5 hadron experiments
+hadron/results/EXP_HAD_001-005_*.txt       ← all hadron results
+hadron/HANDOFF.md                          ← CLOSED
+hadron/CLAUDE.md                           ← created
+CLAUDE.md                                  ← 17 precision results, 10 resolved
+HANDOFF.md                                 ← this file
 ```
