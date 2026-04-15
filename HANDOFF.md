@@ -1,30 +1,48 @@
 # Session Handoff — 2026-04-15
 
 ## Branch
-`claude/lambda-arithmetic-explanation-RRNvq` (pushed, ahead of main by ~50 commits)
+`claude/critical-line-unification-jA2nL` (pushed, up to date)
 
 ## What Was Done This Session
 
-### 1. λ 산술: Region I vs Region II 엄밀 규명
-- **시나리오 A 확정**: 모든 비영 고유값은 ≈ N/d (같은 크기). 거대한 갭 없음.
-- **시나리오 B(folded_dim.md의 "0⁺ eigenvalue") 폐기**: 고유값 크기가 아닌 표현론적 구별.
-- **핵심 정리**: Region I과 II의 차이 = 구조군 표현환에서 복소 기약표현의 존재 여부 (ρ ≇ ρ̄ vs ρ ≅ ρ̄).
-- `foundations/theory/chiral_vs_trivial.md` 신규 작성 (정의-보조정리-정리 형식).
-- `research-notes/folded_dim.md` 수정: "eigenvalue leaking" → "trace redistribution".
+### 1. 디렉토리 통합: rh-connection + gram-algebra → critical-line/
+- 93 파일 통합, GMA_001 → RH_025 리넘버링
+- Lean 4 증명 흡수 (23→51 theorems)
+- Skill, CLAUDE.md, HANDOFF.md 전부 업데이트
+- Rule 10 추가: "수학은 물리가 이끈다"
 
-### 2. 6개 브랜치 통합 + 일관성 감사
-머지 완료:
-- `cosmology` (2회): Ω_Λ trace-correction (0.5%→0.0008%), DM/baryon 5.43
-- `predictions`: PRD_001-008, θ_QCD = J×α⁴ ≈ 2.86×10⁻¹¹
-- `quantum-gravity`: QG_001-006
-- `rh-connection` (2회): RH_008-024, Lean 4 (23 theorems, 0 sorry), gram-algebra/
-- `atoms`: ATM_018-025, screening 3.5%, manifold δ(AAA)=π
+### 2. 7개 따름정리 (C1-C5 완료, C4 별도, C6-C7 보류)
+- **C1 GRH**: `theory/grh_corollary.md` + `lean/PmfRh/GRH.lean` (8 thms)
+- **C2 ℍ-valued**: RH_026 (9/9) + `theory/quaternion_dirichlet.md` + `lean/PmfRh/Quaternion.lean` (10 thms)
+- **C3 SU(2)/SU(3)**: `theory/gauge_asymmetry.md` — doubly vs singly irreducible
+- **C5 보편성**: `theory/universality.md` — Chicken McNugget 정리
+- C4 Yang-Mills: 선생님 별도 진행
 
-일관성 감사:
-- η_B: 6.10→6.13×10⁻¹⁰ 수정 (CLAUDE.md, README.md)
-- Ω_Λ: 정밀도 표 추가 + 0.6817→0.6850 업데이트
-- paper5: "Joint research" attribution 추가
-- predictions/CLAUDE.md: θ_QCD 공식 수정, PRD_007-008 추가
+### 3. Lean 4: 51 theorems, 0 sorry, 전체 빌드 성공
+- PMF_RH.lean 마지막 sorry 제거 (limit_from_resolution)
+- GRH.lean (8 thms): 모든 L-함수의 임계선 통일
+- Quaternion.lean (10 thms): ℍ의 3가지 장애물
+- elan + Lean 자동 설치 (session-start.sh)
+
+### 4. Phase Ihara 탐사 (RH_027-033)
+- **Phase Ihara zeta** 정의: complex G_{ij} 가중치 (Born |G|²가 아닌 원래 내적)
+- 복소 가중치가 영점 200x 집중 (RH_027)
+- 비호소 쌍 위상 상관 1.87x (RH_030) — BUT:
+- (2,3) 완벽 인수분해 → **trivial: λ₀가 실수** (RH_032)
+- gcd 고유값 가설 → **실패** (coprime이 더 높음, RH_033)
+- **결론: 연속 도구(고유값, 위상)는 trivial 결과만 줌**
+
+### 5. 정수 카운팅 돌파 (RH_034-036) ★
+- **Graph-PNT**: π(n) = q^n/n to 10^{-4} 정밀도 (RH_034)
+- **ρ/(N-2) ≈ 1/d**: 물리 차원 d가 소수 밀도 결정 (RH_035)
+- **나눗셈 구조**: π(gcd) | π(n) 정수 나눗셈 (RH_034)
+- **Additive foundation**: 원형 논증 없는 5단계 논리 체계 (theory/)
+- **1/2 = "반분 연산"**: 0.5(실수)가 아니라 "2로 나누기"(정수)
+
+### 6. 방법론적 통찰
+- **덧셈이 근본, 곱셈이 창발**: DRLT 공리(덧셈적) → Euler product(곱셈적)
+- **연속은 이산의 그림자**: 연속 도구 → trivial, 정수 도구 → 진짜 구조
+- **피타고라스가 맞았다**: 만물은 수(정수)
 
 ## Current Precision Results (0 free parameters)
 
@@ -36,61 +54,106 @@
 | m_H | 125.28 GeV | 125.25 GeV | +0.02% |
 | sin²θ₁₃ | 0.0220 | 0.0220 | -0.07σ |
 | η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
-| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
-| IE(H) | 13.606 eV | 13.598 eV | +0.1% |
-| IE(He) | 24.565 eV | 24.587 eV | -0.09% |
-| δ(AAA) | π | π (book) | exact |
-| Z=1-118 median | 3.5% | — | screening |
+| Ω_Λ | 0.6850 | 0.685 | 0.0008% |
+| Graph-PNT | π(n)=q^n/n | exact | **10⁻⁴** |
+| ρ/(N-2) | 1/d | 1/5.0 | **exact** |
 
 ## Sub-Project Status
 
 | Directory | Status | Experiments | Key |
 |-----------|--------|-------------|-----|
-| foundations/ | STABLE | 10 | + `theory/chiral_vs_trivial.md` (NEW) |
-| standard-model/ | CLOSED ✓ | 24 | 5 open problems all resolved |
-| atoms/ | **ACTIVE** | 25 | 3.5% median, manifold δ=π |
-| cosmology/ | STABLE ✓ | 3 | Ω_Λ 0.0008% |
-| rh-connection/ | PLATEAU | 24 | Lean 23 thms, Phase→Möbius open |
-| predictions/ | **ACTIVE** | 8 | θ_QCD = J×α⁴ |
-| quantum-gravity/ | **ACTIVE** | 6 | S_BH, graviton, vacuum energy |
-| gram-algebra/ | **ACTIVE** | 1 | Lean 4 + PMF/RMS/MSUA |
+| foundations/ | STABLE | 10 | chiral_vs_trivial.md |
+| standard-model/ | CLOSED ✓ | 24 | 5 problems resolved |
+| atoms/ | **ACTIVE** | 25 | S_total 미해결 |
+| cosmology/ | STABLE | 3 | Ω_Λ 0.0008% |
+| **critical-line/** | **ACTIVE** | **36** | Phase Ihara + integer counts |
+| predictions/ | ACTIVE | 8 | θ_QCD = J×α⁴ |
+| quantum-gravity/ | ACTIVE | 6 | holographic |
 | nuclear/ | NOT STARTED | 0 | — |
+
+## Lean 4 Status (critical-line/lean/)
+
+| File | Theorems | Sorry | Status |
+|------|----------|-------|--------|
+| Core.lean | 5 | 0 | Done |
+| ThreeLayers.lean | 6 | 0 | Done |
+| RefIncl.lean | 7 | 0 | Done |
+| Limit.lean | 1 | 0 | Done (Mathlib) |
+| ResolutionExponent.lean | 4 | 0 | Done |
+| PMF_RH.lean | 10 | 0 | Done (sorry removed!) |
+| GRH.lean | 8 | 0 | NEW |
+| Quaternion.lean | 10 | 0 | NEW |
+| **Total** | **51** | **0** | **Verified** |
+
+## Dead Ends (반복하지 말 것)
+
+| # | 시도 | 결과 | 교훈 |
+|---|------|------|------|
+| 1 | Ihara 계수 = μ(n) | walk length ≠ integer | 연속 번역 없음 |
+| 2 | Fourier d-특이적 | FFT artifact | RH_016 |
+| 3 | Artin split | rank 효과 | 표현론 아님 |
+| 4 | cos(θ) → β_eff | 상관 0.06 | RH_017 |
+| 5 | (2,3) 위상 인수분해 | λ₀가 실수 → trivial | **연속이 이산을 가림** |
+| 6 | gcd 고유값 가설 | coprime이 더 높음 | **스펙트럼 ≠ 정수론** |
+| 7 | 일반 위상 상관 | trace 위상 전부 ~0 | **λ₀ 실수 때문** |
 
 ## Open Problems (Priority Order)
 
-### 1. S_total = S_Regge + S_matter (atoms/)
-Regge action만으로 coupling α 결정 불가. Binet-Cauchy 채널을 action에 통합 필요.
+### 1. finite N → infinite N (Self-Contradiction Boundary)
+Graph-PNT는 finite N에서 증명됨. Classical PNT(N→∞)와의 연결이 핵심.
+δ(N) > 0 for finite N, δ→0 requires N→∞ = axiom violation.
+**Status:** 형식화 완료 (additive_foundation.md), 전이 미해결.
 
-### 2. Phase→Möbius Map (rh-connection/)
-"왜 1/2 근처" 설명됨, "왜 정확히 1/2"은 미해결. 자연 plateau.
+### 2. K_N NB 행렬의 λ₂ = 1 다중도
+λ₁ = N-2, λ₂ = 1. 오차의 실제 스케일링은 λ₂에서 옴.
+다중도가 N에 어떻게 의존하는지 분석 필요.
 
-### 3. Gram→ζ(s) Connection (gram-algebra/)
-Gram spectral zeta Z_G(s)와 Riemann ζ(s) 연결. 새 수학 필요.
+### 3. 가중 Gram 그래프의 Ramanujan bound
+Born weight |G_{ij}|²를 쓰면 ρ ≈ (N-2)/d.
+이 가중 그래프에서 Ramanujan bound의 정확한 형태는?
 
-### 4. Book 통합
-Paper 5 → ch21_riemann.tex. 미착수.
+### 4. Phase→Möbius (PLATEAU → 방향 전환)
+연속 도구 실패 확인. 정수 카운팅(π(n))이 올바른 방향.
+다음: π(n)의 나눗셈 구조를 엄밀히 증명, Gram 가중치의 영향 분석.
 
-## Unresolved from This Session
-- \mathbb{C} vs \CC 매크로 혼용 (163회 raw) — style only, 보류
-- drlt_book_single.tex 부재 — 생성 필요
+### 5. Book 통합
+critical-line/ 결과 → ch21_riemann.tex. 미착수.
 
-## Handoff 관리 규칙
-- **각 sub-project는 자체 HANDOFF.md를 관리.**
-- Root HANDOFF.md는 전체 상태 요약만.
-- 세션 시작 시: root HANDOFF 읽고, 작업할 sub-project의 HANDOFF 읽기.
+## Next Experiments
+RH_037부터. 후보:
+- λ₂ = 1의 다중도 분석
+- 가중 Gram graph에서 integer count PNT
+- π(n) 나눗셈 구조의 엄밀 증명
 
-## Next Available Experiment
-ATM_026, COS_004, PRD_009, QG_007, RH_025, GMA_002
-
-## File Map (this session)
+## File Map (이번 세션)
 ```
-foundations/theory/chiral_vs_trivial.md    ← NEW: Region I vs II 엄밀 구별 (정리 형식)
-research-notes/folded_dim.md               ← FIXED: "0⁺ leaking" → "trace redistribution"
-CLAUDE.md                                  ← UPDATED: η_B, Ω_Λ, experiment counts
-README.md                                  ← UPDATED: η_B
-papers/paper5_critical_line.tex            ← UPDATED: attribution added
-predictions/CLAUDE.md                      ← UPDATED: PRD_007-008, θ_QCD corrected
-cosmology/CLAUDE.md                        ← UPDATED: DM/baryon 5.43
-lib/drlt.py                                ← UPDATED: Ω_Λ trace-correction
-lib/experiment.py                          ← UPDATED: auto-detect results dir
+critical-line/                            ← rh-connection + gram-algebra 통합
+  experiments/RH_026_quaternion_dirichlet.py    ← 9/9, ℍ 3가지 장애물
+  experiments/RH_027_phase_ihara.py            ← 5/5, Phase Ihara 정의
+  experiments/RH_028_multiplicative_dependence.py ← 4/6, σ=1/2 보존
+  experiments/RH_029_critical_circle.py        ← 4/4, 영점 |u|~1
+  experiments/RH_030_cycle_factorization.py    ← 3/4, 비호소 1.87x
+  experiments/RH_031_factorization_scaling.py  ← 4/4, Z=40.71
+  experiments/RH_032_trace_identity.py         ← 4/4, λ₀ 실수 → trivial
+  experiments/RH_033_algebraic_gcd.py          ← 3/4, rank 무관
+  experiments/RH_034_integer_counts.py         ← 4/4, PNT 10⁻⁴ ★
+  experiments/RH_035_pnt_nontriviality.py      ← 2/2, ρ/(N-2)=1/d ★
+  experiments/RH_036_halving_structure.py       ← 4/4, 1/2 = 반분
+
+  theory/grh_corollary.md         ← C1: 모든 L-함수의 임계선
+  theory/quaternion_dirichlet.md  ← C2: ℍ 장애물 3가지
+  theory/gauge_asymmetry.md       ← C3: SU(2)/SU(3) 비대칭
+  theory/universality.md          ← C5: Chicken McNugget
+  theory/phase_ihara.md           ← RH_027-030 정리
+  theory/additive_foundation.md   ← 원형 논증 없는 PNT 체계 ★
+  theory/roadmap.md               ← 7개 따름정리 진행 상황
+
+  lean/PmfRh/GRH.lean            ← 8 thms, 0 sorry
+  lean/PmfRh/Quaternion.lean     ← 10 thms, 0 sorry
+  lean/PmfRh/PMF_RH.lean         ← sorry 제거됨
+
+papers/paper5_critical_line.tex   ← §7.5 quaternion obstruction 추가
+scripts/setup-lean.sh             ← Lean+Mathlib 자동 설치
+.claude/hooks/session-start.sh    ← elan 자동 설치 추가
+.github/workflows/lean_ci.yml    ← Lean CI (repo root로 이동)
 ```
