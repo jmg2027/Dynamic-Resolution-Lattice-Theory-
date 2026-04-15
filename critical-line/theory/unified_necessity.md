@@ -182,6 +182,40 @@ All components machine-verified (0 sorry across files):
 
 ---
 
+## The Hurwitz Tower: Why the Sequence Stops
+
+The geometric sequence s = 2·(1/2)^n IS the Hurwitz division
+algebra tower:
+
+| n | dim_ℝ(K) | K | s = 1/dim | σ_stat | σ_geom | Match? |
+|---|----------|---|-----------|--------|--------|--------|
+| 0 | 1 | ℝ | 1 | 1/2 | 1 | ✗ (ordered) |
+| 1 | 2 | **ℂ** | **1/2** | **1/2** | **1/2** | **✓ UNIQUE** |
+| 2 | 4 | ℍ | 1/4 | 1/2 | 1/4 | ✗ (non-commutative) |
+| 3 | 8 | 𝕆 | 1/8 | 1/2 | 1/8 | ✗ (non-associative) |
+
+Dimensions ×2: 1 → 2 → 4 → 8.
+Critical positions ÷2: 1 → 1/2 → 1/4 → 1/8.
+
+At each step, a structural property is LOST:
+- ℝ→ℂ: ordering (ℂ has no total order)
+- ℂ→ℍ: commutativity → Euler product fails → no L-functions
+- ℍ→𝕆: associativity → no matrix representation → no QM
+
+Hurwitz theorem (1898): no division algebras beyond 𝕆.
+The sequence STOPS at n = 3 (dim = 8).
+
+**ℂ is the unique fixed point: σ_stat = σ_geom = 1/2.**
+
+The entire zeta landscape lives on this tower:
+- s = 2 (above the tower): ζ(2) = π²/6, physics
+- s = 1 (ℝ boundary): pole, prime density
+- s = 1/2 (ℂ boundary): zeros, RH — THE ONLY MATCH
+- s = 1/4 (ℍ boundary): unreachable, non-commutative
+- s = 1/8 (𝕆 boundary): unreachable, non-associative
+
+---
+
 ## CLOSED: UMGF Open Problem 2 — Is MSUA's "3" the same as CKM's "3"?
 
 **Answer: YES.** The bridge is the Bargmann invariant.
