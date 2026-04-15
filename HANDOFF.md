@@ -59,7 +59,11 @@
 ## Open Problems (Priority Order)
 
 ### 1. S_total = S_Regge + S_matter (atoms/)
-Regge action만으로 coupling α 결정 불가. Binet-Cauchy 채널을 action에 통합 필요.
+Regge action만으로 coupling alpha 결정 불가. Lagrange multiplier 접근 시도:
+- R(epsilon) ~ 12/13, epsilon에 거의 무관 → 12/25 도달 불가
+- SSS leakage = epsilon^2/(1-2epsilon^2) exact 도출
+- **빠진 퍼즐: deficit angle delta(AAB), delta(ABB)의 epsilon 의존성**
+- 다음: dihedral angle을 epsilon 함수로 계산하면 두 독립 방정식 확보 가능
 
 ### 2. Phase→Möbius Map (rh-connection/)
 "왜 1/2 근처" 설명됨, "왜 정확히 1/2"은 미해결. 자연 plateau.

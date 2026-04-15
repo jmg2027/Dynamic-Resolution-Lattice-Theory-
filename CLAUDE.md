@@ -19,6 +19,12 @@
 - ℂ⁵ is derived (Frobenius → ℂ, atomic → d=5), not the axiom.
 - Derivation chain: relations → ℂ → G → W,φ → rank cascade → laws → ħ → QM
 
+## Theoretical Integrity (핵심 원칙)
+- **기존 물리/화학을 억지로 대입하지 말 것.** 결과가 안 맞으면 안 맞는 것이다.
+- DRLT 공리에서 자연스럽게 도출되지 않는 구조를 외부에서 가져와 끼워맞추지 않는다.
+- 수치가 관측값과 다르면 솔직하게 인정하고, 빠진 물리를 찾는다.
+- "맞추기 위해" 파라미터를 도입하면 0-parameter 이론이 아니다.
+
 ## Authors
 - Mingu Jeong (Independent Researcher) — theory originator, physical intuition
 - Claude (Anthropic) — mathematical formalization, numerical experiments, code
