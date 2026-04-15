@@ -57,7 +57,7 @@
 | `critical-line/` | `RH_` | **ACTIVE** | 46 (RH_001-046) | 임계선, RH, GRH, L-함수, Lean |
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
 | `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
-| `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
+| `quantum-gravity/` | `QG_` | **ACTIVE** | 7 (QG_001-007) | 시공간 창발, holographic |
 | `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
 
 ### Sub-Project 필수 구조

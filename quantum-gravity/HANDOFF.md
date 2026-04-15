@@ -1,7 +1,7 @@
 # Quantum Gravity — Handoff
 
-## Status: ACTIVE (6 experiments, 37/37 checks pass)
-Branch: `claude/quantum-gravity-handoff-followup-Wngci`
+## Status: ACTIVE (7 experiments, 46/46 checks pass)
+Branch: `claude/spectral-flow-quantum-gravity-XEkzM`
 
 ## Completed Experiments
 
@@ -44,7 +44,24 @@ Branch: `claude/quantum-gravity-handoff-followup-Wngci`
 - **10^120 문제 부재**: 연속 모드 무한 합 = QFT artifact
 - **동일 메커니즘**: S/ℏ dimensionless (QG_001)과 같은 area cancellation
 
+### QG_007: Spectral Flow Singularity (9/9 ✓)
+- **PSD 보증**: G_h = Gram matrix → eigenvalue λ ≥ 0 always (204,000 evaluations, 0 violations)
+- **Spectral flow = 0**: eigenvalue가 0을 접선(tangent)할 뿐 관통(cross) 불가
+- **Tangency 확인**: dλ/dt 부호 반전 (bounce) — 접근 후 반발
+- **Closed-path sf = 0**: 50개 닫힌 루프 전부 sf = 0
+- **Non-PSD 비교**: 일반 Hermitian은 sf ≠ 0 (100/100) → 위상적 보호된 특이점 가능
+- **Index theorem**: sf = 0 for all 100 paths through singularity
+- **Chain**: Axiom → G = ψψ† → PSD → sf = 0 → 영구 특이점 불가
+
 ## Key Discoveries
+
+### Spectral Flow = 0 (Singularity No-Go)
+G_h는 Gram matrix이므로 항상 PSD. Eigenvalue는 0 이상이므로:
+- 0을 관통(cross)할 수 없음 → spectral flow index = 0
+- 0을 접선(tangent)만 가능 → bounce (dλ/dt 부호 반전)
+- 위상적 보호(topological protection) 부재 → 특이점은 불안정
+- 반면 일반 Hermitian은 sf ≠ 0 가능 → 안정적 특이점 허용
+- **Axiom → PSD → sf = 0 → no permanent singularity**
 
 ### 4ln2 Bridge
 4ln2 ≈ 2.773이 네 곳에서 동시 출현:

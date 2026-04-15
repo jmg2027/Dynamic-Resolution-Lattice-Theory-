@@ -33,6 +33,10 @@
 QG_001: Regge action emergence — area cancellation, EH action, YM holonomy
 QG_002: Bekenstein-Hawking entropy — 1 hinge = 1 bit, S = A/(4ℓ_P²)
 QG_003: Graviton propagator — spin-2 from W_ij fluctuation spectrum
+QG_004: Singularity instability — det(G_h)=0 codimension-2, perturbation restores
+QG_005: Hawking temperature — T_H = 1/(8πGM) from S=A/4
+QG_006: Vacuum energy finiteness — E = N_h/(8ln2), area cancellation
+QG_007: Spectral flow singularity — sf(G_h)=0 from PSD, no topological protection
 ```
 
 ## Key Results
@@ -42,6 +46,7 @@ QG_003: Graviton propagator — spin-2 from W_ij fluctuation spectrum
 - Gravity-gauge split: ~73% gravity, ~27% gauge (at extremum)
 - Holonomy ratio ABB/AAA ≈ 4.3 (theory: α₃/α₂ = 3.75)
 - Bekenstein-Hawking: S/A = 1/4 from ℏ_h = A_h/(4ln2) (exact, not put in by hand)
+- Spectral flow: sf(G_h) = 0 (PSD → no zero-crossing → singularity unstable)
 
 ## Status: ACTIVE
-Initial 3 experiments completed. Framework established.
+7 experiments completed. Spectral flow singularity theorem established.
