@@ -118,6 +118,7 @@ EXP_{PREFIX}_{NNN}_{Title}.txt
 7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
 8. **papers/는 root에 유지.** 저널 투고용. sub-project에서 참조만.
 9. **results/는 sub-project 안에만.** root results/에는 REPORT, SUMMARY, 카탈로그만. 실험 EXP_*.txt는 절대 root results/에 넣지 않음.
+10. **수학은 물리가 이끈다.** 수학적 개발이 필요하면 해당 물리 sub-project 안에서 수행. `critical-line/`은 RH/GRH/L-함수 전용. 다른 분야(atoms, QG 등)에서 수학이 필요하면 그 sub-project 안에서 theory/ + lean/ 구성.
 
 ### Paper Classification
 | Paper | Sub-Project | Topic |
@@ -126,7 +127,7 @@ EXP_{PREFIX}_{NNN}_{Title}.txt
 | paper2 | foundations | Frobenius → gauge group |
 | paper3 | standard-model | zero-parameter predictions |
 | paper4 | standard-model | zeta spectral dim, β-function |
-| paper5 | rh-connection | Born-rule Gram graphs, critical line |
+| paper5 | critical-line | Born-rule Gram graphs, critical line |
 
 ---
 
