@@ -191,7 +191,16 @@ Hubble 상수 H₀와 동일한 성격: 물리 법칙이 아닌 관측 좌표.
 - 총 냉각 = (t_Pl/t)^{25/25} = t_Pl/t (전체)
 - 채널당 = (t_Pl/t)^{1/25} = ε₀
 
-검증: k_exact = 25.17 ≈ d² = 25. ε₀² ≈ 10⁻⁵ → w = -1+ε₀² (dark energy).
+정밀 검증:
+```
+k_exact = 25.166 (from Δᵢ)
+k = (d³+d²+1)/(d+1) = 151/6 = 25.1667
+ε₀(predicted) = 0.003801 (0.02% from observed)
+
+151 = d³+d²+1 = 125+25+1 (PRIME!)
+6 = d+1 (simplex vertex count)
+```
+ε₀² ≈ 10⁻⁵ → w = -1+ε₀² (dark energy equation of state).
 
 **결론: ε₀의 함수 형태도 d²에서 도출. 외부 입력 = t_now 뿐 (우주 시계).**
 
