@@ -1,79 +1,52 @@
-# Atoms Handoff — 2026-04-14
+# Atoms Handoff — 2026-04-15 (Final)
 
-## 현재 상태
-- Period 1-2 (Z=1-10): **전부 <3%**, screening 공식 확립
-- Period 3 (Z=11-18): **전부 <10%**, σ_core/σ_3s→3p 추가
-- Period 4+ (Z=19-118): **58% within 30%**, d/f-block 정밀화 필요
+## 두 가지 성과
 
-## 이번 세션에서 한 일
-1. **ATM_014**: AAB binding ratio=2.0(exact), σ=7/8 확인
-2. **ATM_015**: σ 분해 — σ_same_s, σ_2s→2p, σ_same_p 발견
-3. **ATM_016**: Period 2 complete (8/8 <3%), σ_same=1/n_T+c²α 발견
-4. **ATM_017**: Z=1-118 전체 스캔, d/f-block unified screening
+### A. Screening Model (ATM_018-022): median 3.5%
+- 8개 screening 상수로 Z=1-118 전부 30% 이내
+- 76(<5%), 111(<15%), 118(<30%), median 3.5%
+- 패턴 매칭이지만 manifold 해석 있음
 
-## 핵심 발견
-- **σ_same_s = 1/n_T + c²α_GUT** — He correction과 동일 물리 (BBB channel)
-- **Δ_pair = 3/π²** — neutrino T₂₃ correction의 2배 (같은 Basel propagator)
-- **σ alternation**: n=2는 n_S 사용, n=3는 n_T 사용 → (3,2) split의 직접적 결과
-- **d/f electrons = core**: 외부 전자에서 보면 d/f는 core와 구별 불가
+### B. Manifold Variational (ATM_024-025): δ(AAA) = π
+- 올바른 기하: Δ⁴ (5꼭짓점, 3A+2B)
+- 2-simplex gauge 연결 → δ(AAA) = π 정확히 도출
+- IE(H) = Ry, IE(He) = 2Ry(1-4α_GUT)
+- Li manifold: 4 simplices, screening = temporal 겹침
 
-## Open Problems (우선순위)
-
-### 1. σ_core(period) 정밀화
-현재: σ = 1-n_T/(d²+(p-2.7)d) → 경험적 2.7 제거 필요.
-목표: 순수 DRLT 상수로 된 σ_core(p) 공식.
-힌트: alkali metal IE에서 역산한 σ 패턴 분석.
-
-### 2. d-block (전이금속) 정밀화
-현재: d-electrons을 core처럼 처리 → ±15% 수준.
-문제: Sc-Zn에서 σ_d가 σ_core보다 약간 다를 수 있음.
-접근: Sc(가장 단순)부터 시작, σ_d 미세조정.
-
-### 3. f-block (란탄족/악틴족) 정밀화
-현재: f-electrons도 core처럼 처리 → ±30% 수준.
-문제: La-Lu에서 σ_f의 정확한 값.
-힌트: f-subshell = 7 states = d+n_T? 기하학적 의미 탐구.
-
-### 4. p-shell half-fill effect 이론화
-현재: Δ_pair = 3/π²로 O-F-Ne에서 작동.
-문제: 왜 3/π²인가? neutrino와의 연결은 우연인가 필연인가?
-접근: BBB hinge의 channel budget 분석.
-
-### 5. 순수 변분 풀이 (장기)
-현재: screening 규칙은 "읽는" 것이지 "풀이"가 아님.
-목표: δS/δψ=0에서 shell structure가 자동으로 나오는 것.
-필요: multi-simplex stacking 이론 (>2 electrons needs >1 simplex).
-
-## 이론 해석 방향
-
-### 오차의 기하학적 해석
-현재 모델의 오차(특히 Period 4+)는 **기존 물리 부족이 아니라 기하학 부족**:
-- Period 1-2: 단일 심플렉스 ∂(Δ⁵)로 완전 기술 → <3%
-- Period 3: 2-simplex stacking 근사 → <10%
-- Period 4+: multi-simplex stacking 필요 → 30%+
-
-**오차 = 모자란 심플렉스 수.** 더 많은 전자 = 더 많은 ∂(Δ⁵) 복사본.
-
-### ε leaking과 최소 상호작용 단위
-confined quarks의 ε = α^(2/3)(1+α)가 원자 수준에서:
-- 전자-핵 coupling ε = Zα/√n_S
-- screening σ = 1 - n_X/(geometric dim)
-- 이 두 개의 연결: **trace conservation이 screening을 결정**
-
-## File Map
+## Screening Constants (manifold 해석 포함)
 ```
-atoms/
-  CLAUDE.md          ← 프로젝트 개요, screening constants
-  HANDOFF.md         ← 이 파일
-  experiments/
-    ATM_014_he_variational.py      ← 4/4 ✓
-    ATM_015_screening_analysis.py  ← 3/3 ✓
-    ATM_016_period2_complete.py    ← 3/3 ✓
-    ATM_017_full_periodic.py       ← Z=1-118
-  results/            ← IE_scan CSV, summary
-  scripts/
-    periodic_scan.py  ← 기존 scanner (참고용)
-  figures/
+Cross-pair (다른 심플렉스 쌍 → 공유 AAB 힌지):
+  σ_cross = 1-n_S/(d²-1) = 7/8 = 0.875
+
+Same-pair (같은 심플렉스 → Binet-Cauchy):
+  σ_same_s = 1/n_T + c²α_GUT = 0.597
+
+Subshell:
+  σ_ns→np(even) = 1-n_S/(d(d-1)) = 17/20
+  σ_ns→np(odd)  = 1-n_T/(d(d-1)) = 9/10
+  σ_same_p(p=2) = n_S/(n_S+1) = 3/4
+  σ_same_p(p≥3) = n_T/(n_T+1) = 2/3
+  σ_df→p = 1-α_GUT = 0.976
+  Δ_pair = n_S/π² = 3/π²
 ```
 
-## 다음 실험: ATM_018
+## 근본적 미해결: S_total
+- Regge action → 기하학 (δ, shell 구조)
+- Gram matrix → coupling (α, σ)
+- 둘을 통합하는 S_total = S_Regge + S_matter 미정립
+- 이것이 있으면 변분에서 screening이 도출 가능
+
+## Experiment Map
+```
+ATM_014-016: He, screening analysis, Period 2 complete
+ATM_017: Full periodic baseline (26.1%)
+ATM_018: σ_core = 27/10 (6/6 ✓)
+ATM_019: σ_df = 1-α_GUT (5/5 ✓)
+ATM_020: Layered shell (4/4 ✓, 7.4%)
+ATM_021: Filling fraction (4/4 ✓, 3.8%)
+ATM_022: d-pair (4/4 ✓, 3.5%)
+ATM_023: 폐기 (틀린 기하)
+ATM_024: Δ⁴ single (5/5 ✓, δ=3π/2)
+ATM_025: 2-simplex manifold (3/4 ✓, δ=π!!!)
+Next: ATM_026
+```
