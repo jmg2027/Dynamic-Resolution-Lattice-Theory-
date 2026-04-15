@@ -11,7 +11,7 @@ The Higgs vacuum expectation value is set by the tunneling amplitude across all 
 \begin{equation}
 \boxed{v_H = \frac{(d+1)\,M_\text{Pl}}{d^{d^2}} = \frac{6\,M_\text{Pl}}{5^{25}} = 245.6\;\text{GeV}}
 \end{equation}
-Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_A = 2 \times 3$ counts the spacetime volume factor. The denominator $d^{d^2} = 5^{25}$ arises from 25 independent Gram matrix modes (the $d^2$ eigenvalues of $W = |G|^2/d$), each contributing a tunneling suppression of $1/d$. The suppression is exactly $1/d$ (not $1/d^2$ or $1/\sqrt{d}$) because the tunneling probability between two random states in $\mathbb{C}^d$ is the Haar-averaged overlap:
+Observed: $246.22\;\text{GeV}$ (0.25\%). The numerator $d + 1 = 6 = c \times d_A = 2 \times 3$ counts the spacetime volume factor. The denominator $d^{d^2} = 5^{25}$ arises from 25 independent Gram matrix modes (the $d^2$ eigenvalues of $W = |G|^2/d$), each contributing a tunneling suppression of $1/d$. The suppression is exactly $1/d$ (not $1/d^2$ or $1/\sqrt{d}$) because the tunneling probability between two random states in $\CC^d$ is the Haar-averaged overlap:
 \begin{equation}
 \langle|\langle\psi|\psi'\rangle|^2\rangle_\text{Haar} = \frac{1}{d}.
 \end{equation}
@@ -151,7 +151,7 @@ An independent perspective on generations uses the simplex dimension $k$:
 
 \subsection{Generations as simplex dimension}
 
-A fermion is a perturbation of the vacuum in the spatial sector $\mathbb{C}^3 \subset \mathbb{C}^5$. The perturbation excites $k$ of the $n_A = 3$ spatial vertices:
+A fermion is a perturbation of the vacuum in the spatial sector $\CC^3 \subset \CC^5$. The perturbation excites $k$ of the $n_A = 3$ spatial vertices:
 \begin{equation}
 k = 1:\;\text{point}, \qquad k = 2:\;\text{edge}, \qquad k = 3:\;\text{triangle}.
 \end{equation}
@@ -263,7 +263,7 @@ m_\mu &= m_\tau \cdot [\varepsilon\varphi^2(1+\varepsilon)]^2 = 103\;\text{MeV} 
 At $k = 1$, no internal structure exists. The mass is determined by the external environment --- the SU(5) representation:
 
 \begin{itemize}
-\item \textbf{Up quark} ($\mathbf{10}$, spatial vertex): fluctuation in $\mathbb{C}^2$ suppresses by $1/n_B^2$:
+\item \textbf{Up quark} ($\mathbf{10}$, spatial vertex): fluctuation in $\CC^2$ suppresses by $1/n_B^2$:
 \begin{equation}
 m_u = m_t \cdot \varepsilon^4 / n_B^2 = 2.27\;\text{MeV} \qquad (\text{obs: } 2.16,\; 5\%).
 \end{equation}
@@ -273,7 +273,7 @@ m_u = m_t \cdot \varepsilon^4 / n_B^2 = 2.27\;\text{MeV} \qquad (\text{obs: } 2.
 m_d = m_b \cdot (\varepsilon\varphi)^4 \cdot n_A = 4.55\;\text{MeV} \qquad (\text{obs: } 4.67,\; 3\%).
 \end{equation}
 
-\item \textbf{Electron} ($\bar{\mathbf{5}}$, singlet): fluctuation in $\mathbb{C}^3$ suppresses by $1/n_A^2$:
+\item \textbf{Electron} ($\bar{\mathbf{5}}$, singlet): fluctuation in $\CC^3$ suppresses by $1/n_A^2$:
 \begin{equation}
 m_e = m_\tau \cdot (\varepsilon\varphi^2)^4 / n_A^2 = 0.49\;\text{MeV} \qquad (\text{obs: } 0.511,\; 4\%).
 \end{equation}
@@ -438,13 +438,13 @@ The proton mass is $\sim 100\times$ the sum of its valence quark masses ($m_u + 
 
 \subsection{Neutron-proton mass difference}
 
-The neutron ($udd$) differs from the proton ($uud$) only in its $\mathbb{C}^2$ (isospin) quantum numbers. The mass difference is:
+The neutron ($udd$) differs from the proton ($uud$) only in its $\CC^2$ (isospin) quantum numbers. The mass difference is:
 \begin{equation}
 \boxed{m_n - m_p = (m_d - m_u) \times \frac{n_A\bigl(d - S(2)/S(\infty)\bigr)}{d^2} = 1.275\;\text{MeV}.}
 \end{equation}
 Observed: $1.293\;\text{MeV}$ ($-1.5\%$). Each factor:
 \begin{itemize}
-\item $(m_d - m_u) = 2.505\;\text{MeV}$: isospin breaking source ($\mathbb{C}^2$ asymmetry), from the mass table above ($m_d = 4.661$, $m_u = 2.156$).
+\item $(m_d - m_u) = 2.505\;\text{MeV}$: isospin breaking source ($\CC^2$ asymmetry), from the mass table above ($m_d = 4.661$, $m_u = 2.156$).
 \item $n_A/d^2 = 3/25$: spatial projection normalized by the full simplex.
 \item $(d - 1) = 4$: gravitational contribution from 4D spacetime.
 \item $1 - S(2)/S(\infty) = 1 - 15/(2\pi^2) = 0.240$: the \textbf{EM excess fraction} --- the fraction of EM coupling that the weak force \emph{does not} compensate. Since AAB $=$ ABB $= 12$ channels, the forces \emph{nearly} cancel; the residual is proportional to the propagation range mismatch $[S(\infty) - S(2)]/S(\infty)$.
@@ -454,27 +454,27 @@ Observed: $1.293\;\text{MeV}$ ($-1.5\%$). Each factor:
 $m_n - m_p \approx 0.14\%$ of $m_p$. This extreme smallness follows from the Binet--Cauchy identity AAB $=$ ABB $= 12$: the electromagnetic and weak channels have identical channel counts when $c = 2$, so their effects nearly cancel. If $c \neq 2$, the cancellation would fail, and $m_n - m_p$ would be much larger --- potentially destabilizing all nuclei and preventing chemistry.
 \end{remark}
 
-\subsection{Beta decay as $\mathbb{C}^2$ state flip}
+\subsection{Beta decay as $\CC^2$ state flip}
 
-Neutron beta decay $n \to p + e^- + \bar{\nu}_e$ is a $\mathbb{C}^2$ isospin transition: a $d$-quark's temporal state flips to $u$-type, emitting energy through the ABB (weak) channels. The $Q$-value:
+Neutron beta decay $n \to p + e^- + \bar{\nu}_e$ is a $\CC^2$ isospin transition: a $d$-quark's temporal state flips to $u$-type, emitting energy through the ABB (weak) channels. The $Q$-value:
 \begin{equation}
 Q_\beta = m_n - m_p - m_e = 1.302 - 0.511 = 0.791\;\text{MeV}.
 \end{equation}
 Observed: $0.782\;\text{MeV}$ (1.2\%). The neutron lifetime $\tau_n \approx 880\;\text{s}$ is long because the weak rate is suppressed relative to the strong rate by $\sim(1/15)^2 \times Q^5$ (channel count ratio squared times phase space).
 
-\subsection{The neutrino as $\mathbb{C}^2$ ghost}
+\subsection{The neutrino as $\CC^2$ ghost}
 
-The neutrino is a state almost perfectly aligned with the $\mathbb{C}^2$ vacuum: $\psi_\nu \approx (0, 0, 0, 1, 0) \in \mathbb{C}^5$. Its $\mathbb{C}^3$ components are nearly zero. This single fact explains all neutrino properties:
+The neutrino is a state almost perfectly aligned with the $\CC^2$ vacuum: $\psi_\nu \approx (0, 0, 0, 1, 0) \in \CC^5$. Its $\CC^3$ components are nearly zero. This single fact explains all neutrino properties:
 
 \begin{center}
 \begin{tabular}{ll}
 \hline
 Property & DRLT origin \\
 \hline
-Electrically neutral & $\mathbb{C}^3$ component $\approx 0$ $\to$ no AAB coupling \\
+Electrically neutral & $\CC^3$ component $\approx 0$ $\to$ no AAB coupling \\
 Only weak interaction & Only ABB hinges have nonzero $\det$ \\
 Nearly massless & Almost aligned with vacuum ($\det \approx 0$) \\
-Left-handed & $\mathbb{C}^2$ has chirality (pseudo-real fundamental) \\
+Left-handed & $\CC^2$ has chirality (pseudo-real fundamental) \\
 Three flavors & $n_A = 3$ generations \\
 Oscillates & Hinge-sharing forces flavor rotation (see below) \\
 \hline
@@ -485,9 +485,9 @@ Oscillates & Hinge-sharing forces flavor rotation (see below) \\
 
 Adjacent simplices share 4 vertices and differ by exactly 1 (the Pachner-adjacent structure). The shared face is a tetrahedron whose triangular hinges \emph{must} have $\det(G_h) > 0$ --- no physical hinge has $\det = 0$.
 
-Consider a beta decay producing a neutrino: a $\mathbb{C}^2$ slot opens in the source simplex. This ``empty'' vertex has near-zero $\mathbb{C}^3$ components, making it a ghost of the temporal sector. But the neighboring simplex shares a hinge with this vertex. For the shared hinge to maintain $\det(G_h) > 0$, the neighbor \emph{must fill the slot} with a nonzero value --- the geometry forbids a true vacancy.
+Consider a beta decay producing a neutrino: a $\CC^2$ slot opens in the source simplex. This ``empty'' vertex has near-zero $\CC^3$ components, making it a ghost of the temporal sector. But the neighboring simplex shares a hinge with this vertex. For the shared hinge to maintain $\det(G_h) > 0$, the neighbor \emph{must fill the slot} with a nonzero value --- the geometry forbids a true vacancy.
 
-What flavor fills the slot? That is determined by the $\mathbb{C}^3$ admixture of the shared hinge. Each simplex boundary has a different hinge geometry (different $\Phi_I$ submatrices), so the $\mathbb{C}^3$ projection rotates at each crossing. This rotation \emph{is} flavor mixing. The neutrino ``oscillates'' because the geometric constraint $\det > 0$ forces successive simplices to fill the temporal slot with different $\mathbb{C}^3$ admixtures.
+What flavor fills the slot? That is determined by the $\CC^3$ admixture of the shared hinge. Each simplex boundary has a different hinge geometry (different $\Phi_I$ submatrices), so the $\CC^3$ projection rotates at each crossing. This rotation \emph{is} flavor mixing. The neutrino ``oscillates'' because the geometric constraint $\det > 0$ forces successive simplices to fill the temporal slot with different $\CC^3$ admixtures.
 
 No propagating wave function is needed. The oscillation is a boundary condition: the block universe's simplex network has $\det(G_h) > 0$ everywhere, and this single constraint, applied across adjacent simplices, produces the PMNS mixing pattern.
 
@@ -501,8 +501,8 @@ E_d \sim \Lambda_\text{QCD} \times \alpha_\text{GUT} \times n_B/n_A = 308 \times
 
 \subsection{The hydrogen atom}
 
-Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\mathbb{C}^3$) and $\{e\}$ (electron, $\mathbb{C}^2$), forming 1 AAA hinge (nuclear binding) + 3 AAB hinges (electromagnetic binding). Using the full topological values ($m_e = 0.511\;\text{MeV}$ including the $\det(G_h)$ contribution, $\alpha_\text{em}^{-1} = 137.036$ after QED running):
+Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\CC^3$) and $\{e\}$ (electron, $\CC^2$), forming 1 AAA hinge (nuclear binding) + 3 AAB hinges (electromagnetic binding). Using the full topological values ($m_e = 0.511\;\text{MeV}$ including the $\det(G_h)$ contribution, $\alpha_\text{em}^{-1} = 137.036$ after QED running):
 \begin{equation}
 E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -13.606\;\text{eV}
 \end{equation}
-(observed: $-13.606\;\text{eV}$, exact agreement). Using only the combinatorial values ($m_e = 0.490\;\text{MeV}$, $\alpha_\text{em}^{-1} = 137.8$) gives $-12.9\;\text{eV}$ --- the missing 5.2\% is the $\det(G_h)$ geometric contribution to $m_e$ and $\alpha$, which is part of the topology, not an error (Chapter~\ref{ch:ghosts}). The atom exists because U(1) --- the relative phase between $\mathbb{C}^3$ and $\mathbb{C}^2$ --- binds the electron to the proton. Without this glue (Chapter~\ref{ch:whyC}), atoms could not form.
+(observed: $-13.606\;\text{eV}$, exact agreement). Using only the combinatorial values ($m_e = 0.490\;\text{MeV}$, $\alpha_\text{em}^{-1} = 137.8$) gives $-12.9\;\text{eV}$ --- the missing 5.2\% is the $\det(G_h)$ geometric contribution to $m_e$ and $\alpha$, which is part of the topology, not an error (Chapter~\ref{ch:ghosts}). The atom exists because U(1) --- the relative phase between $\CC^3$ and $\CC^2$ --- binds the electron to the proton. Without this glue (Chapter~\ref{ch:whyC}), atoms could not form.

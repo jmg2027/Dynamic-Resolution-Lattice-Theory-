@@ -3,7 +3,7 @@
 \label{ch:geometry}
 %=====================================================================
 
-Chapters~\ref{ch:whyC}--\ref{ch:whyd5} established $\psi_i \in \mathbb{C}^5$ with $\|\psi_i\| = 1$. We now extract the full content of general relativity and the Standard Model gauge structure from the Gram matrix $G_{ij} = \langle\psi_i|\psi_j\rangle$.
+Chapters~\ref{ch:whyC}--\ref{ch:whyd5} established $\psi_i \in \CC^5$ with $\|\psi_i\| = 1$. We now extract the full content of general relativity and the Standard Model gauge structure from the Gram matrix $G_{ij} = \langle\psi_i|\psi_j\rangle$.
 
 \subsection{The Gram matrix and its properties}
 
@@ -16,7 +16,7 @@ This $N \times N$ matrix has the following properties, all of which are \emph{th
 
 \begin{enumerate}[label=(\alph*)]
 \item \textbf{Hermitian:} $G^\dagger = G$, since $G_{ji} = G^*_{ij}$.
-\item \textbf{Positive semidefinite:} $\mathbf{c}^\dagger G\,\mathbf{c} = \|\Psi^\dagger\mathbf{c}\|^2 \geq 0$ for all $\mathbf{c} \in \mathbb{C}^N$.
+\item \textbf{Positive semidefinite:} $\mathbf{c}^\dagger G\,\mathbf{c} = \|\Psi^\dagger\mathbf{c}\|^2 \geq 0$ for all $\mathbf{c} \in \CC^N$.
 \item \textbf{Rank $\leq 5$:} $G = \Psi\Psi^\dagger$ where $\Psi$ is $N \times 5$, so $\text{rank}(G) \leq 5$.
 \item \textbf{Unit diagonal:} $G_{ii} = \|\psi_i\|^2 = 1$ (point democracy).
 \item \textbf{Bounded:} $|G_{ij}| \leq 1$ (Cauchy--Schwarz).
@@ -189,12 +189,12 @@ The polar decomposition $G_{ij} = |G_{ij}|\,e^{i\phi_{ij}}$ separates each eleme
 \underbrace{|G_{ij}|^2/d = W_{ij}}_{\text{geometry (distance)}} \qquad \underbrace{\phi_{ij} = \arg(G_{ij})}_{\text{gauge (correlation)}}
 \end{equation}
 
-``Locality'' is defined by $W$: two vertices are ``far apart'' when $W_{ij} \approx 0$. But $G_{ij} \neq 0$ for generic $\psi$ in $\mathbb{C}^5$, regardless of $W_{ij}$. The phase $\phi_{ij}$ persists even when the magnitude vanishes. This is entanglement:
+``Locality'' is defined by $W$: two vertices are ``far apart'' when $W_{ij} \approx 0$. But $G_{ij} \neq 0$ for generic $\psi$ in $\CC^5$, regardless of $W_{ij}$. The phase $\phi_{ij}$ persists even when the magnitude vanishes. This is entanglement:
 \begin{equation}
 \text{Entanglement} = \phi_{ij} \neq 0 \quad\text{while}\quad W_{ij} \approx 0.
 \end{equation}
 
-\textbf{Bell violation.} Bell's theorem proves that no \emph{local} hidden-variable model can reproduce quantum correlations. In DRLT, ``local'' means ``depends only on $W$,'' which discards $\phi$. A local model sets $\phi_{ij} = 0$, losing the phase correlations that $G$ carries. Including $\phi$ (i.e., using the full $G$, not just $W$) reproduces the quantum correlations. Bell's inequality is violated because $G \in \mathbb{C}$, not $\mathbb{R}$.
+\textbf{Bell violation.} Bell's theorem proves that no \emph{local} hidden-variable model can reproduce quantum correlations. In DRLT, ``local'' means ``depends only on $W$,'' which discards $\phi$. A local model sets $\phi_{ij} = 0$, losing the phase correlations that $G$ carries. Including $\phi$ (i.e., using the full $G$, not just $W$) reproduces the quantum correlations. Bell's inequality is violated because $G \in \CC$, not $\mathbb{R}$.
 
 \textbf{No-signaling.} $W_{ij}$ carries energy and information (it is the magnitude of the interaction). $\phi_{ij}$ carries correlation (it is the relative phase). These are independent components of the same complex number. When $W_{ij} \approx 0$: no signal can propagate (no energy transfer), but correlation persists (phase is nonzero). No-signaling and entanglement coexist because magnitude and phase are independent.
 
@@ -202,7 +202,7 @@ The polar decomposition $G_{ij} = |G_{ij}|\,e^{i\phi_{ij}}$ separates each eleme
 \begin{equation}
 G_{ij} = \underbrace{|G_{ij}|}_{\text{ER (geometry)}} \times \underbrace{e^{i\phi_{ij}}}_{\text{EPR (entanglement)}}
 \end{equation}
-A wormhole is a region where $W_{ij}$ is large (strong geometric connection) despite spatial separation. Entanglement is a region where $\phi_{ij}$ is correlated despite $W_{ij} \approx 0$. Both are components of the same complex inner product $G_{ij}$. The ER\,=\,EPR conjecture is the statement that $|G_{ij}|$ and $e^{i\phi_{ij}}$ belong to the same number. This is not a conjecture; it is the definition of $\mathbb{C}$.
+A wormhole is a region where $W_{ij}$ is large (strong geometric connection) despite spatial separation. Entanglement is a region where $\phi_{ij}$ is correlated despite $W_{ij} \approx 0$. Both are components of the same complex inner product $G_{ij}$. The ER\,=\,EPR conjecture is the statement that $|G_{ij}|$ and $e^{i\phi_{ij}}$ belong to the same number. This is not a conjecture; it is the definition of $\CC$.
 
 \textbf{Ghost channels.} The Gram matrix $G$ has 5 significant eigenvalues and $N - 5$ eigenvalues at $0^+$ (the ghost dimensions). These $0^+$ eigenvalues connect distant simplices through ``almost zero'' hinge determinants: $\det(G_h) = 0^+$ means the hinge exists but carries negligible energy. Phase correlations persist through these ghost channels even when $W \approx 0$. The ghost dimensions are the geometric substrate of entanglement. (These 0$^+$ eigenvalues are distinct from the $\det(G_h)$ geometric contributions to coupling constants discussed in Chapter~\ref{ch:ghosts}.)
 
@@ -216,7 +216,7 @@ The 5 vertices of the simplex split into spatial and temporal:
 \underbrace{A_1,\,A_2,\,A_3}_{n_A = 3\;\text{(spatial)}} \quad \underbrace{B_1,\,B_2}_{n_B = 2\;\text{(temporal)}}
 \end{equation}
 
-This identification follows from the Lorentz signature (Sec.~\ref{sec:Lorentz}): chirality of the weak force requires $n_B = 2$. Among all $\text{SU}(n)$, only $\text{SU}(2)$ has a pseudo-real fundamental representation ($\mathbf{2} \cong \bar{\mathbf{2}}$ via the antisymmetric tensor $\epsilon_{ab}$), which is the algebraic condition for chiral fermions. This forces the temporal sector to be $\mathbb{C}^2$, and therefore $n_A = d - n_B = 3$.
+This identification follows from the Lorentz signature (Sec.~\ref{sec:Lorentz}): chirality of the weak force requires $n_B = 2$. Among all $\text{SU}(n)$, only $\text{SU}(2)$ has a pseudo-real fundamental representation ($\mathbf{2} \cong \bar{\mathbf{2}}$ via the antisymmetric tensor $\epsilon_{ab}$), which is the algebraic condition for chiral fermions. This forces the temporal sector to be $\CC^2$, and therefore $n_A = d - n_B = 3$.
 
 With this identification, the geometric structures from Chapter~\ref{ch:simplex_geometry} acquire physical meaning: AAA hinges become the strong sector, AAB the electromagnetic/weak sector, ABB the weak sector, and the BBB impossibility becomes the absence of a triple-temporal closure condition.
 
@@ -267,22 +267,22 @@ $G$ & $6.674 \times 10^{-11}$ & \textbf{Unit conversion} & Translates lattice $\
 \end{tabular}
 \end{center}
 
-$c = 2$ has physical content (the spacetime structure of $\mathbb{C}^5$). $\hbar = 1$ is a choice of units (it defines what ``1 lattice area'' means). $G$ encodes how large SI units (meters, kilograms, seconds) are compared to the lattice --- it is the statement that humans are $\sim\!10^{20}$ times larger than atoms, which are $\sim\!10^{15}$ times larger than the Planck scale. The ``weakness'' of gravity ($G \sim 10^{-11}$ in SI) is not a physical fact but a unit artifact: $G = 1$ in lattice units.
+$c = 2$ has physical content (the spacetime structure of $\CC^5$). $\hbar = 1$ is a choice of units (it defines what ``1 lattice area'' means). $G$ encodes how large SI units (meters, kilograms, seconds) are compared to the lattice --- it is the statement that humans are $\sim\!10^{20}$ times larger than atoms, which are $\sim\!10^{15}$ times larger than the Planck scale. The ``weakness'' of gravity ($G \sim 10^{-11}$ in SI) is not a physical fact but a unit artifact: $G = 1$ in lattice units.
 
 \textbf{Independent fundamental constants: zero.} $c$ is derived, $\hbar$ is definitional, $G$ is a unit conversion. The universe has no free parameters.
 
 \subsection{Gauge group from chirality}
 
-The full symmetry of $\mathbb{C}^5$ is $\text{SU}(5)$. The causal split breaks this:
+The full symmetry of $\CC^5$ is $\text{SU}(5)$. The causal split breaks this:
 \begin{equation}
 \text{SU}(5) \;\to\; \text{SU}(3) \times \text{SU}(2) \times \text{U}(1)
 \end{equation}
 
 This is the Georgi--Glashow decomposition \cite{GeorgiGlashow}, but here it follows from the axiom rather than being postulated. The three factors are:
 \begin{itemize}
-\item $\text{SU}(3)$: internal rotations of $\mathbb{C}^3$ (strong force, color),
-\item $\text{SU}(2)$: internal rotations of $\mathbb{C}^2$ (weak force, isospin),
-\item $\text{U}(1)$: relative phase between $\mathbb{C}^3$ and $\mathbb{C}^2$ (electromagnetic force).
+\item $\text{SU}(3)$: internal rotations of $\CC^3$ (strong force, color),
+\item $\text{SU}(2)$: internal rotations of $\CC^2$ (weak force, isospin),
+\item $\text{U}(1)$: relative phase between $\CC^3$ and $\CC^2$ (electromagnetic force).
 \end{itemize}
 
 \subsection{Weinberg angle}
@@ -291,7 +291,7 @@ In $\text{SU}(5)$, the weak mixing angle at the unification scale is fixed by th
 \begin{equation}
 \sin^2\theta_W = \frac{\tr(T_3^2)}{\tr(Q^2)} = \frac{3}{8}
 \end{equation}
-where $T_3$ and $Q$ are evaluated in the fundamental $\mathbf{5}$ representation. This is the standard Georgi--Glashow result, but here it is a consequence of $\mathbb{C}^5 = \mathbb{C}^3 \oplus \mathbb{C}^2$.
+where $T_3$ and $Q$ are evaluated in the fundamental $\mathbf{5}$ representation. This is the standard Georgi--Glashow result, but here it is a consequence of $\CC^5 = \CC^3 \oplus \CC^2$.
 
 \subsection{Hinge classification and force hierarchy}
 
@@ -335,7 +335,7 @@ This gives a natural force hierarchy: 7 quantum hinges (AAA + AAB) mediate the s
 
 \subsection{Why exactly four forces}
 
-The number of gauge forces equals the number of ways to distribute 3 hinge vertices into the A-sector ($\mathbb{C}^3$) and B-sector ($\mathbb{C}^2$), excluding the impossible case:
+The number of gauge forces equals the number of ways to distribute 3 hinge vertices into the A-sector ($\CC^3$) and B-sector ($\CC^2$), excluding the impossible case:
 \begin{equation}
 \text{Gauge forces} = |\{(3,0),\;(2,1),\;(1,2)\}| = 3. \qquad (0,3)\;\text{is forbidden since } n_B = 2 < 3.
 \end{equation}
@@ -405,7 +405,7 @@ BB & ABB$\times$3 & $\binom{2}{2} = 1$ & $e_R$ singlet \\
 
 $\binom{5}{1} + \binom{5}{2} = 5 + 10 = 15$. This is the exact content of one Standard Model generation under $\text{SU}(5)$: $\bar{\mathbf{5}} \oplus \mathbf{10}$.
 
-\textbf{Spin-$1/2$:} The B-sector is $\mathbb{C}^2$. $\text{SU}(2)$ acts on $\mathbb{C}^2$ as the spin-$1/2$ representation. The ``spin'' of a fermion is the dimension of the temporal sector it occupies.
+\textbf{Spin-$1/2$:} The B-sector is $\CC^2$. $\text{SU}(2)$ acts on $\CC^2$ as the spin-$1/2$ representation. The ``spin'' of a fermion is the dimension of the temporal sector it occupies.
 
 \textbf{Pauli exclusion:} Two identical vertices $\psi_i = \psi_j$ merge into one point ($\det = 0$). The simplex loses a vertex, destroying information. This is Pauli exclusion from geometry.
 
@@ -457,7 +457,7 @@ This is a standard result in toric geometry~\cite{fulton1993}.  We interpret it 
 
 \item \textbf{Fiber $T^4$} (4 real dim): carries the phase information $\arg(G_{ij})$.  This determines holonomies, gauge connections, and field strengths.  A theory built from $\arg(G)$ alone is gauge theory (the Standard Model).
 
-\item \textbf{Total $\mathbb{CP}^4$} (8 real dim): carries both modulus and phase simultaneously through $G_{ij} \in \mathbb{C}$.  This is the DRLT framework.
+\item \textbf{Total $\mathbb{CP}^4$} (8 real dim): carries both modulus and phase simultaneously through $G_{ij} \in \CC$.  This is the DRLT framework.
 \end{itemize}
 
 \noindent
@@ -470,14 +470,14 @@ This is a standard result in toric geometry~\cite{fulton1993}.  We interpret it 
 
 \begin{theorem}[Maximal torus decomposition]
 \label{thm:torus_decomposition}
-The $(3,2)$ partition $\mathbb{C}^5 = \mathbb{C}^3 \oplus \mathbb{C}^2$ decomposes the fiber:
+The $(3,2)$ partition $\CC^5 = \CC^3 \oplus \CC^2$ decomposes the fiber:
 \begin{equation}
 T^4 = T^2_{\mathrm{SU}(3)} \times T^1_{\mathrm{SU}(2)} \times T^1_{\mathrm{U}(1)}.
 \end{equation}
 \end{theorem}
 
 \begin{proof}
-$\mathrm{SU}(3)$ acts on $\mathbb{C}^3$; its maximal torus has rank~2 (two independent relative phases among $z_0, z_1, z_2$).  $\mathrm{SU}(2)$ acts on $\mathbb{C}^2$; its maximal torus has rank~1 (one relative phase, $z_3$ vs $z_4$).  $\mathrm{U}(1)_Y$ is the relative phase between the $\mathbb{C}^3$ and $\mathbb{C}^2$ sectors.  Dimensions: $2 + 1 + 1 = 4 = \dim T^4$.
+$\mathrm{SU}(3)$ acts on $\CC^3$; its maximal torus has rank~2 (two independent relative phases among $z_0, z_1, z_2$).  $\mathrm{SU}(2)$ acts on $\CC^2$; its maximal torus has rank~1 (one relative phase, $z_3$ vs $z_4$).  $\mathrm{U}(1)_Y$ is the relative phase between the $\CC^3$ and $\CC^2$ sectors.  Dimensions: $2 + 1 + 1 = 4 = \dim T^4$.
 \end{proof}
 
 Since the gauge group is reconstructed from its maximal torus via the root system, this proves that $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ is not postulated but \emph{derived} from the toric structure of $\mathbb{CP}^4$ and the $(3,2)$ split.
@@ -511,7 +511,7 @@ We now prove that the discrete Gram-matrix network produces a smooth 4-dimension
 
 Partition $N$ vertices into $M$ cells $\{B_\alpha\}_{\alpha=1}^M$, each containing $k = N/M$ vertices.  Define the \emph{block-averaged state} for cell $\alpha$:
 \begin{equation}
-\bar{\psi}_\alpha = \frac{1}{\|\sum_{i \in B_\alpha}\psi_i\|}\sum_{i \in B_\alpha}\psi_i \in \mathbb{C}^5, \qquad \|\bar{\psi}_\alpha\| = 1.
+\bar{\psi}_\alpha = \frac{1}{\|\sum_{i \in B_\alpha}\psi_i\|}\sum_{i \in B_\alpha}\psi_i \in \CC^5, \qquad \|\bar{\psi}_\alpha\| = 1.
 \end{equation}
 The coarse-grained Gram matrix is $\bar{G}_{\alpha\beta} = \langle\bar{\psi}_\alpha|\bar{\psi}_\beta\rangle$.  This inherits all properties of $G$: Hermiticity, positive semi-definiteness, unit diagonal, and $\mathrm{rank} \le 5$.  The cells become the vertices of a \emph{coarser} simplicial complex on $\mathbb{CP}^4$.
 
@@ -519,15 +519,15 @@ As $k \to \infty$ with $M$ fixed, the block averages $\bar{\psi}_\alpha$ converg
 
 \subsubsection{Step 2: ADM decomposition from $(3,2)$}
 
-The $(3,2)$ split $\mathbb{C}^5 = \mathbb{C}^3 \oplus \mathbb{C}^2$ decomposes the Fubini--Study metric.  Write $\psi = (\psi_A, \psi_B)$ with $\psi_A \in \mathbb{C}^3$, $\psi_B \in \mathbb{C}^2$.  The coarse-grained overlap splits:
+The $(3,2)$ split $\CC^5 = \CC^3 \oplus \CC^2$ decomposes the Fubini--Study metric.  Write $\psi = (\psi_A, \psi_B)$ with $\psi_A \in \CC^3$, $\psi_B \in \CC^2$.  The coarse-grained overlap splits:
 \begin{equation}
 \bar{G}_{\alpha\beta} = \underbrace{\langle\bar{\psi}_{A,\alpha}|\bar{\psi}_{A,\beta}\rangle}_{G^{AA}} + \underbrace{\langle\bar{\psi}_{B,\alpha}|\bar{\psi}_{B,\beta}\rangle}_{G^{BB}}.
 \end{equation}
 
 Define the spatial 3-metric, lapse, and shift:
 \begin{align}
-h_{ij}(x) &= \delta_{ij} - n_A\,W^{AA}_{ij}(x) \qquad (3\text{-metric, from the }\mathbb{C}^3\text{ sector}), \\
-N^2(x) &= 1 - n_B\,W^{BB}(x) \qquad (\text{lapse, from the }\mathbb{C}^2\text{ sector}), \\
+h_{ij}(x) &= \delta_{ij} - n_A\,W^{AA}_{ij}(x) \qquad (3\text{-metric, from the }\CC^3\text{ sector}), \\
+N^2(x) &= 1 - n_B\,W^{BB}(x) \qquad (\text{lapse, from the }\CC^2\text{ sector}), \\
 N^i(x) &= c \cdot W^{AB,i}(x) \qquad (\text{shift, from the cross-sector}).
 \end{align}
 

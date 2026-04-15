@@ -9,13 +9,13 @@ This chapter develops the geometry of the simplex network using only combinatori
 
 A 4-simplex $\sigma$ has 5 vertices. Each vertex carries one complex number. The state of a simplex is
 \begin{equation}
-z = (z_0, z_1, z_2, z_3, z_4) \in \mathbb{C}^5.
+z = (z_0, z_1, z_2, z_3, z_4) \in \CC^5.
 \end{equation}
-After projectivization ($z \sim \lambda z$ for $\lambda \in \mathbb{C}^*$), this is a point in $\mathbb{CP}^4$.
+After projectivization ($z \sim \lambda z$ for $\lambda \in \CC^*$), this is a point in $\mathbb{CP}^4$.
 
 \subsection{The network}
 
-$N$ such simplices form a fully connected weighted network. The state of the network is an $N \times 5$ matrix $\Psi$, where row $i$ is the $\mathbb{C}^5$ vector of simplex $i$. The Gram matrix
+$N$ such simplices form a fully connected weighted network. The state of the network is an $N \times 5$ matrix $\Psi$, where row $i$ is the $\CC^5$ vector of simplex $i$. The Gram matrix
 \begin{equation}
 G_{ij} = \langle\psi_i|\psi_j\rangle = \sum_{k=0}^{4} \bar{z}_{i,k}\, z_{j,k}
 \end{equation}
@@ -416,7 +416,7 @@ In contrast to the single-simplex case (where $BBB = 0$), the global $\partial(\
 
 \begin{theorem}[TTT flatness]
 \label{thm:ttt}
-Let the A-vertices carry the standard basis of $\mathbb{C}^3$ (embedded in $\mathbb{C}^5$).  Then the deficit angle at the BBB hinge $\{B_1, B_2, B_3\}$ is exactly zero:
+Let the A-vertices carry the standard basis of $\CC^3$ (embedded in $\CC^5$).  Then the deficit angle at the BBB hinge $\{B_1, B_2, B_3\}$ is exactly zero:
 \begin{equation}
 \delta_{BBB} = 2\pi - (\theta_0 + \theta_1 + \theta_2) = 0.
 \end{equation}
@@ -445,7 +445,7 @@ corresponding to ``complete folding'' --- maximal curvature.  This is the geomet
 \label{sec:B3_dependence}
 %---------------------------------------------------------------------
 
-In the (3,3) partition, the three B-vertices live in a 2-dimensional subspace $\mathbb{C}^2 \subset \mathbb{C}^5$.  Since $\dim(\mathbb{C}^2) = 2$:
+In the (3,3) partition, the three B-vertices live in a 2-dimensional subspace $\CC^2 \subset \CC^5$.  Since $\dim(\CC^2) = 2$:
 
 \begin{proposition}[$B_3$ dependence]
 \label{prop:B3}
@@ -454,7 +454,7 @@ $B_3 = \alpha\, B_1 + \beta\, B_2$ with $|\alpha|^2 + |\beta|^2 = 1$.  The third
 
 This has two consequences:
 \begin{enumerate}
-\item \textbf{Exclusion principle.}  No more than $\dim(\mathbb{C}^2) = 2$ independent B-vertices can exist within a single network.  A ``third independent B-vector'' would require $\dim \geq 3$, contradicting the (3,2) partition.
+\item \textbf{Exclusion principle.}  No more than $\dim(\CC^2) = 2$ independent B-vertices can exist within a single network.  A ``third independent B-vector'' would require $\dim \geq 3$, contradicting the (3,2) partition.
 
 \item \textbf{Generation distinguishability.}  The three nuclear simplices $(\sigma_3, \sigma_4, \sigma_5)$ have identical $(3,2)$ structure but different B-pair Gram determinants:
 \begin{align}
