@@ -69,7 +69,7 @@
 |-----------|--------|-------------|
 | foundations/ | STABLE | 10 |
 | standard-model/ | CLOSED ✓ | 24 |
-| atoms/ | **ACTIVE** | 38 (ATM_001-038) |
+| atoms/ | **CLOSED ✓** | 55 (ATM_001-055) |
 | cosmology/ | STABLE ✓ | 3 |
 | critical-line/ | **ACTIVE** | 46 (RH_001-046) |
 | predictions/ | ACTIVE | 8 |
