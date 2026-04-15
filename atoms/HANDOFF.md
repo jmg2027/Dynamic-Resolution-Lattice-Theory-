@@ -139,5 +139,5 @@ ATM_018-022의 screening 상수 (7/8, 1-α_GUT 등)는:
 - δS/δψ=0에서 **유도되지 않았음**
 - 수치적으로 잘 맞지만 (median 3.5%) 이론적 근거 불충분
 
-## 다음 실험: ATM_025
-방향: 최소 manifold (2개 심플렉스 sharing AAA face)에서 δ(AAA)=π가 나오는지 확인.
+## 다음 실험: ATM_026
+방향: Li manifold에서 φ₃ 최적화 + Binet-Cauchy 보정으로 정확한 IE(Li) 도출.
