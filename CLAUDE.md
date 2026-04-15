@@ -56,6 +56,7 @@
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
 | `critical-line/` | `RH_` | **ACTIVE** | 46 (RH_001-046) | 임계선, RH, GRH, L-함수, Lean |
 | `nuclear/` | `NUC_` | **CLOSED** ✓ | 15 (NUC_001-015) | magic numbers, 600-cell, binding |
+| `hadron/` | `HAD_` | **CLOSED** ✓ | 5 (HAD_001-005) | meson/baryon spectrum, hyperfine |
 | `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
 | `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
@@ -182,6 +183,10 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 | a_V (volume) | 16.0 MeV | 15.5 MeV | **+3%** |
 | a_S (surface) | 18.0 MeV | 16.8 MeV | **+7%** |
 | a_C (Coulomb) | 0.685 MeV | 0.71 MeV | **-3.6%** |
+| m_π (pion) | 137.6 MeV | 137.3 MeV | **+0.2%** |
+| m_ω (omega) | 782.1 MeV | 782.7 MeV | **-0.07%** |
+| m_J/ψ | 3081.6 MeV | 3096.9 MeV | **-0.5%** |
+| Δ-N split | 295.7 MeV | 294 MeV | **+0.6%** |
 
 ## Resolved Problems (All 5 original SM open problems closed + nuclear)
 1. ~~Higgs mass~~ → +0.02% via face BC + embedding (SM_020/021)
@@ -193,6 +198,7 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 7. ~~Deuteron binding~~ → +2.1% via Dyson P(x)=(1+2x)/(1+x) + f=1/(2d) counting (NUC_012)
 8. ~~Nuclear radius~~ → +0.95% via r₀=(d+1)ℏc/m_p (NUC_009)
 9. ~~BW coefficients~~ → a_V +3%, a_S +7%, a_C -3.6% from 600-cell Gram (NUC_015)
+10. ~~Hadron spectrum~~ → m_π +0.2%, m_V²=m_PS²+(dΛ/N_T)² RMS 1.8% (HAD_005)
 
 ## Workflow Rules
 
