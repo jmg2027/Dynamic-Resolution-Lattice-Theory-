@@ -152,10 +152,14 @@ def compute_IE_v2(Z):
         inner = nn * sc + n_df * S_DF + n_ss * sigma_sp(p)
         same = max(0, n_p - 1) * sigma_same_p(p)
         if n_p > 3:
-            same += D_PAIR
-        # NEW: deep-core pair for Period 6-7 p-block, n_p ≥ 3
-        # (half-fill and beyond: pairing of deep d10+f14 adds screening)
-        if p >= 6 and n_p >= 3:
+            if p == 6:
+                same += DEEP_PAIR          # Period 6: DEEP replaces D
+            elif p >= 7:
+                same += D_PAIR + DEEP_PAIR  # Period 7+: both (deeper)
+            else:
+                same += D_PAIR              # Period 2-5: original
+        # Deep-core half-fill (n_p=3) for Period 6-7
+        if p >= 6 and n_p == 3:
             inner += DEEP_PAIR
 
     Ze = Z - inner - same
