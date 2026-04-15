@@ -191,6 +191,91 @@ magic numbers are determined by the combinatorial structure of the
 
 DRLT candidate: C_ls = (d+1)/d = 6/5 = 1.200 (within the optimal range).
 
+## Step 7: Exact Eigenvalue Formula (NUC_005)
+
+The adjacency eigenvalues have the closed form:
+
+> **λ_n = 12 sin(nπ/5) / (n sin(π/5))**
+
+This follows from the Weyl character formula for SU(2) spin j=(n-1)/2
+evaluated on the 2I conjugacy class at half-angle θ = π/5.
+
+| n | sin(nπ/5)/sin(π/5) | λ_n |
+|---|---------------------|-----|
+| 1 | 1 | 12 |
+| 2 | φ | 6φ ≈ 9.708 |
+| 3 | φ | 4φ ≈ 6.472 |
+| 4 | 1 | 3 |
+| 5 | 0 | 0 |
+| 6 | -1 | -2 |
+
+## Step 8: Gauge Flatness (NUC_005)
+
+The SU(2) gauge field on the 600-cell Cayley graph is **flat**:
+
+> D^{1/2}(g_i⁻¹g_j) · D^{1/2}(g_j⁻¹g_k) · D^{1/2}(g_k⁻¹g_i) = I
+
+for all triangles (i,j,k). This means pure Cayley geometry gives
+spin-orbit = 0. The gauge transformation W_i = D^{1/2}(g_i)
+removes all spin coupling.
+
+**Implication**: the HO structure (Sym², magic 2,8,20) is GEOMETRIC,
+while spin-orbit (magic 28,50,82) requires DYNAMICS.
+
+## Step 9: Spin-Orbit from Graph L·S (NUC_006, NUC_007)
+
+The spin-orbit coupling arises from the **graph angular momentum**:
+
+> L_μ = x_ν p_ρ - x_ρ p_ν  (μ,ν,ρ cyclic; first 3 of 4 coordinates)
+
+where p is the graph finite-difference momentum. The L·S operator:
+
+> H_ls = Σ_{μ=1}^{N_S} L_μ ⊗ (σ_μ/2)
+
+breaks the gauge flatness because L is defined in the **lab frame**
+(ℝ³ projection), not the local SU(2) frame.
+
+### Coupling strength: κ = N_T = 2
+
+At κ = N_T = 2, the graph L·S reproduces **{2, 8, 28, 50, 82}** (5/7).
+
+The derivation: d = N_S + N_T = 3 + 2 = 5. The spin-orbit bridges
+spatial (L, N_S = 3 components) and temporal (S, N_T = 2 channels).
+The coupling strength = number of temporal bridges = N_T = 2.
+
+### Sign: κ > 0 from confinement (ε > 0)
+
+The confinement parameter ε = α_GUT^{2/3}(1+α_GUT) = 0.086 > 0.
+The confined propagator P = 1-ε creates an attractive nuclear well.
+The surface gradient couples to spin via the tensor force,
+giving **j = l+1/2 ALWAYS more bound** than j = l-1/2.
+
+## Complete Theorem List
+
+| Theorem | Statement | Source |
+|---------|-----------|--------|
+| **A** | 600-cell is unique maximal simplicial in ℝ⁴ | NUC_004 |
+| **B** | λ_n = 12sin(nπ/5)/(n sin(π/5)) | NUC_005 |
+| **C** | Sym²(Vₙ) = HO shell (n-1) | NUC_003 |
+| **D** | M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3) | NUC_004 |
+| **E** | Cayley SU(2) gauge is flat | NUC_005 |
+| **F** | Graph L·S breaks gauge flatness | NUC_006 |
+| **G** | κ = N_T = 2 gives {2,8,28,50,82} | NUC_007 |
+| **H** | sign(κ) > 0 from ε > 0 | NUC_007 |
+
+## Three Independent Mechanisms
+
+```
+d = 5 (DRLT axiom)
+  │
+  ├── GEOMETRY (Sym²)  → HO magic: 2, 8, 20
+  │
+  ├── DYNAMICS (L·S)   → SO magic: 28, 50, 82
+  │     κ = N_T = 2, sign from ε > 0
+  │
+  └── ARITHMETIC (d!+d+1) → cap magic: 126
+```
+
 ## Experimental Predictions
 
 1. **No new magic numbers beyond 126** (within the 600-cell framework)
