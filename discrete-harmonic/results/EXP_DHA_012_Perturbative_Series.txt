@@ -1,0 +1,108 @@
+============================================================
+  EXP_DHA_012_Perturbative_Series
+  2026-04-15 14:22:36
+============================================================
+
+  === Test 1: High-Precision Critical Point ===
+
+  ε_max  = 0.157786864447623
+  x = ε² = 0.024896694592213
+  f_occ  = 0.024291906417084
+  α_GUT  = 0.024317084074161
+  f/α    = 0.998964610353755
+  1-f/α  = 1.035389646245499e-03
+
+  === Test 2: Perturbative Coefficients ===
+
+  f_occ/α = 0.998964610353755
+
+  c₁ = (f/α - 1)/α = -0.0425786925
+  -1/24 = -0.0416666667
+  -(1+α)/24 = -0.0426798785
+
+  After removing 1-loop:
+  residual = 2.460547589120884e-06
+  c₂ = residual/α² = 0.0041611060
+  c₂ × 24 = 0.099867
+  c₂ × 24² = 2.396797
+
+  After removing 2-loop:
+  residual = 0.000000000000000e+00
+  c₃ = residual/α³ = 0.000000
+  c₃ × 24 = 0.000000
+
+  ==================================================
+  PERTURBATIVE SERIES: f_occ = α × Σ c_n α^n
+  ==================================================
+  c₀ = 1                  (tree)
+  c₁ = -0.04257869     (1-loop)
+  c₂ = 0.00416111      (2-loop)
+  c₃ = 0.0000         (3-loop)
+  ==================================================
+
+  c₁ exact = -(1+α)/(d²-1) = -0.0426798785
+  [✗ FAIL] c₁ = -(1+α)/(d²-1) to <0.1%
+
+  Searching for c₂ pattern:
+    c₂ = 0.00416111
+    1/(d²-1)² = 0.00173611
+    c₂/[1/(d²-1)²] = 2.3968
+    c₂ × (d²-1) = 0.099867
+    k₂ = c₂×(d²-1)² = 2.3968
+    c₁² = 0.00181295
+    c₂/c₁² = 2.295219
+
+  === Test 3: β-function Connection ===
+
+  SU(5) β-function coefficients:
+    b₀ = 11d/3 = 18.3333 = 55/3
+    dim(adj) = d²-1 = 24
+    b₀/(d²-1) = 0.763889
+
+  Our 1-loop: c₁ = -1/(d²-1) = -0.041667
+  β-function: -b₀/(2π) = -2.917841
+  Ratio: c₁ / [-b₀/(2π)] = 0.014280
+
+  b₀/adj = 11d/(3(d²-1)) = 0.763889
+  For d=5: = 55/72 = 0.763889
+
+  Key observation:
+  The 1-loop correction -α²/(d²-1) has the factor 1/(d²-1)
+  This is 1/dim(adj SU(5)) = 1/24
+  Each gauge boson contributes -α²/24²... no,
+  it's -α²/24 TOTAL = each boson contributes -α²/24
+  divided by... hmm, no. The total is -α²/24.
+  = 1 loop diagram with adj gluon in the loop.
+  [✓ PASS] 1-loop coefficient involves d²-1 = dim(adj)
+
+  === Test 4: Candidate Closed Forms ===
+
+  Formula                  | Value          | Error vs f_occ
+  ------------------------------------------------------------------
+  α/(1+α/24)                 | 0.024292470655 | 2.32e-05 ★
+  α/(1+α/(d²-1))             | 0.024292470655 | 2.32e-05 ★
+  α(1-α/24)                  | 0.024292445717 | 2.22e-05 ★
+  α(1-α(1+α)/24)             | 0.024291846584 | 2.46e-06 ★
+  α/(1+α(1+α)/24)            | 0.024291872749 | 1.39e-06 ★
+  α·24/(24+α)                | 0.024292470655 | 2.32e-05 ★
+  α·24/(24+α+α²)             | 0.024291872749 | 1.39e-06 ★
+
+  Resummed: α/(1+α(1+α)/(d²-1)) = 0.024291872749
+  Error: 1.39e-06
+  Perturbative: α(1-α(1+α)/(d²-1)) = 0.024291846584
+  Error: 2.46e-06
+
+  Perturbative error: 2.46e-06
+  Resummed error:     1.39e-06
+  Winner: resummed
+  [✓ PASS] Best formula matches to <0.001%
+
+============================================================
+  SUMMARY: EXP_DHA_012_Perturbative_Series
+============================================================
+  [✗] c₁ = -(1+α)/(d²-1) to <0.1%
+  [✓] 1-loop coefficient involves d²-1 = dim(adj)
+  [✓] Best formula matches to <0.001%
+
+  2/3 checks passed
+  Time: 0.0s
