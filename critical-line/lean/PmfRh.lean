@@ -21,3 +21,4 @@ import PmfRh.YMMassGap
 import PmfRh.DetFormula
 import PmfRh.NSRegularity
 import PmfRh.VietaChain
+import PmfRh.QuantifierAnalysis
