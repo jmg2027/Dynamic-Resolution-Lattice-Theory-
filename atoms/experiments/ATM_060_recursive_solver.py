@@ -62,48 +62,48 @@ def gram_det_AAB(eps):
     return 1 - 2*eps**2
 
 
-def residual_Z(Z, inner_electrons, new_n, new_l):
+def residual_Z(Z, inner_electrons, new_n, new_l, new_m=0):
     """Effective Z from Gram matrix hinge counting.
 
-    σ-free: count AAB hinges coupled by inner electron,
-    divide by total gauge budget. This IS σ but computed
-    from the Gram matrix, not from a table.
-
-    Budgets (from representation theory of the simplex):
-      Cross-shell (different n): d²-1 = 24 (adjoint)
-      Same-shell s→p:           d(d-1) = 20 (antisymmetric)
-      Same-subshell:            N_X+1 (occupancy)
+    σ-free: computed from Gram matrix structure, not from table.
+    Each pair interaction determined by hinge overlap geometry.
     """
     total_screening = 0.0
-    for n_j, l_j, eps_j, zeff_j in inner_electrons:
-        # How many AAB hinges does electron j couple to?
-        if l_j == 0:
-            n_coupled = N_S  # s: isotropic, 3 directions
-        elif l_j == 1:
-            n_coupled = 1    # p: 1 direction
-        else:
-            n_coupled = min(l_j, N_S)
+    for entry in inner_electrons:
+        n_j, l_j = entry[0], entry[1]
+        m_j = entry[4] if len(entry) > 4 else 0
 
-        # What's the gauge budget for this pair?
         if n_j != new_n:
-            # Different shell → adjoint budget
+            # Different shell → adjoint budget = d²-1
+            n_coupled = N_S if l_j == 0 else 1
             budget = D**2 - 1  # = 24
+            sigma = 1 - n_coupled / budget
+
         elif l_j != new_l:
             # Same shell, different subshell → antisymmetric
+            nx = N_S if (n_j + new_n) % 2 == 0 else N_T
             budget = D * (D-1)  # = 20
-        else:
-            # Same subshell → BBB channel budget
-            # From He: e-e interaction = BBB = STT channel
-            # Budget = 1/N_T (temporal) + c²α (BBB)
-            # σ_same = 1/N_T + c²α ≈ 0.597
-            # Gram basis: 2 B-vertices in ℂ², each blocks 1/N_T
-            # + BBB hinge correction c² × α_GUT
-            sigma = 1.0/N_T + (N_T**2) * ALPHA_GUT
-            total_screening += sigma
-            continue  # skip the general formula below
+            sigma = 1 - nx / budget
 
-        # Screening = 1 - coupled/budget
-        sigma = 1 - n_coupled / budget
+        elif l_j == 0:
+            # Same s-subshell → BBB temporal + channel
+            sigma = 1.0/N_T + (N_T**2) * ALPHA_GUT
+
+        else:
+            # Same p/d/f subshell → depends on DIRECTION (m)
+            if m_j == new_m:
+                # SAME orbital (same direction), opposite spin
+                # Strong screening: like s-same (BBB)
+                sigma = 1.0/N_T + (N_T**2) * ALPHA_GUT
+            else:
+                # DIFFERENT orbital (orthogonal directions)
+                # Weak screening: spatial overlap = 0
+                # Only temporal part contributes: N_X/(N_X+1)
+                if new_l == 1:
+                    sigma = N_S / (N_S + 1)  # 3/4
+                else:
+                    sigma = N_T / (N_T + 1)  # 2/3
+
         total_screening += sigma
 
     return max(0.01, Z - total_screening)
@@ -133,18 +133,21 @@ def solve_recursive(Z):
             break
         remaining -= count
 
-        # Add electrons ONE AT A TIME (each sees all previous)
+        # Add electrons ONE AT A TIME with (n,l,eps,Z_eff,m)
+        n_orb = 2*l+1
         for i in range(count):
-            Z_eff_i = residual_Z(Z, electrons, n, l)
+            # Hund's rule: fill each m once (↑), then pair (↓)
+            m_i = i % n_orb if i < n_orb else (i - n_orb) % n_orb
+            Z_eff_i = residual_Z(Z, electrons, n, l, m_i)
             eps_i = Z_eff_i * ALPHA / np.sqrt(N_S)
-            electrons.append((n, l, eps_i, Z_eff_i))
+            electrons.append((n, l, eps_i, Z_eff_i, m_i))
 
     # IE = last electron's contribution
     if not electrons:
         return 0.0, []
 
     last = electrons[-1]
-    n_last, l_last, eps_last, zeff_last = last
+    n_last, l_last, eps_last, zeff_last = last[0], last[1], last[2], last[3]
 
     # IE from AAB hinge sum
     if l_last == 0:
@@ -219,9 +222,11 @@ class RecursiveSolver(Experiment):
         IE_Li, electrons = solve_recursive(3)
 
         self.log(f"\n  Recursive construction:")
-        for n, l, eps, zeff in electrons:
+        for e in electrons:
+            n, l, eps, zeff = e[0], e[1], e[2], e[3]
+            m = e[4] if len(e) > 4 else 0
             sub = 'spdf'[l]
-            self.log(f"    {n}{sub}: ε={eps:.6f}, Z_eff={zeff:.4f}")
+            self.log(f"    {n}{sub}_m{m}: ε={eps:.6f}, Z_eff={zeff:.4f}")
 
         self.log(f"\n  IE(Li) = {IE_Li:.4f} eV")
         self.log(f"  Observed: {IE_OBS[3]:.4f} eV")
@@ -242,7 +247,7 @@ class RecursiveSolver(Experiment):
             obs = IE_OBS[Z]
             err = (IE-obs)/obs*100
             errs.append(abs(err))
-            zeff = elecs[-1][3] if elecs else 0
+            zeff = elecs[-1][3] if (elecs and len(elecs[-1]) > 3) else 0
             self.log(f"  {Z:3d} {SYM[Z]:>3} {IE:8.3f} {obs:8.3f}"
                      f" {err:+8.2f}% {zeff:6.3f}")
 
@@ -266,7 +271,7 @@ class RecursiveSolver(Experiment):
                 continue
             err = (IE-obs)/obs*100
             errs.append(abs(err))
-            zeff = elecs[-1][3] if elecs else 0
+            zeff = elecs[-1][3] if (elecs and len(elecs[-1]) > 3) else 0
             self.log(f"  {Z:3d} {SYM[Z]:>3} {IE:8.3f} {obs:8.3f}"
                      f" {err:+8.2f}% {zeff:6.3f}")
 
