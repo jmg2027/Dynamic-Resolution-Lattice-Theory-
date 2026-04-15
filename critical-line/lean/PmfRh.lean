@@ -27,3 +27,4 @@ import PmfRh.SevenValues
 import PmfRh.NSRiccati
 import PmfRh.BridgeDetails
 import PmfRh.TaniyamaShimura
+import PmfRh.Langlands
