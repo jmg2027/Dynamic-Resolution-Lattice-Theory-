@@ -1,6 +1,6 @@
 ============================================================
   EXP_RH_052_Galois_obstruction_and_DRLT_completeness
-  2026-04-15 17:12:56
+  2026-04-15 18:37:06
 ============================================================
 
 === Test 1: S₅/(S₃×S₂) = C(5,3) = Hinges ===
@@ -165,4 +165,4 @@
   [✓] Completeness-solvability trade-off established
 
   6/6 checks passed
-  Time: 0.0s
+  Time: 0.2s

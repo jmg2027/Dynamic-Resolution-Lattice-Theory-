@@ -136,6 +136,40 @@ satisfying completeness.
 
 ---
 
+## The Zeta Spectrum: Three Values of s from One Number
+
+The propagator sum Σ 1/n^s evaluated at three points,
+all determined by dim_ℝ(ℂ) = 2:
+
+```
+s = 2 = dim_ℝ(ℂ)        → ζ(2) = π²/6     (converges)
+  × 1/2                     → coupling constants
+s = 1 = dim_ℝ(ℂ)/2      → ζ(1) = ∞        (pole)
+  × 1/2                     → prime density ~ 1/ln(n)
+s = 1/2 = 1/dim_ℝ(ℂ)    → ζ(s) = 0        (zeros)
+                             → critical line Re(s) = 1/2
+```
+
+The three special values form a **geometric sequence**
+with ratio 1/2 = 1/dim_ℝ(ℂ):
+
+| s | Expression | ζ(s) | Physics/Math |
+|---|------------|------|-------------|
+| 2 | dim_ℝ(ℂ) | π²/6 | α_GUT = 1/(d²·ζ(2)) |
+| 1 | dim_ℝ(ℂ)/2 | ∞ (pole) | π(x) ~ x/ln(x) |
+| 1/2 | 1/dim_ℝ(ℂ) | 0 (zeros) | Vieta: \|u\|² = 1/q |
+
+**One number (2) controls the entire zeta landscape:**
+- WHERE it converges (s > 1)
+- WHERE it has zeros (Re(s) = 1/2)
+- WHAT it evaluates to (π²/6)
+
+This 2 is the unique doubly irreducible number (Core.lean),
+the real dimension of ℂ (Frobenius), the temporal sector n_T,
+the lattice speed of light c, and the GUE parameter β.
+
+---
+
 ## Lean Verification
 
 All components machine-verified (0 sorry across files):
@@ -145,6 +179,40 @@ All components machine-verified (0 sorry across files):
 - `FiniteLimit.lean`: PMF level hierarchy
 - `SpectralFlow.lean`: Vieta → Re(s)=1/2
 - `UnifiedNecessity.lean`: Galois + completeness-solvability
+
+---
+
+## The Hurwitz Tower: Why the Sequence Stops
+
+The geometric sequence s = 2·(1/2)^n IS the Hurwitz division
+algebra tower:
+
+| n | dim_ℝ(K) | K | s = 1/dim | σ_stat | σ_geom | Match? |
+|---|----------|---|-----------|--------|--------|--------|
+| 0 | 1 | ℝ | 1 | 1/2 | 1 | ✗ (ordered) |
+| 1 | 2 | **ℂ** | **1/2** | **1/2** | **1/2** | **✓ UNIQUE** |
+| 2 | 4 | ℍ | 1/4 | 1/2 | 1/4 | ✗ (non-commutative) |
+| 3 | 8 | 𝕆 | 1/8 | 1/2 | 1/8 | ✗ (non-associative) |
+
+Dimensions ×2: 1 → 2 → 4 → 8.
+Critical positions ÷2: 1 → 1/2 → 1/4 → 1/8.
+
+At each step, a structural property is LOST:
+- ℝ→ℂ: ordering (ℂ has no total order)
+- ℂ→ℍ: commutativity → Euler product fails → no L-functions
+- ℍ→𝕆: associativity → no matrix representation → no QM
+
+Hurwitz theorem (1898): no division algebras beyond 𝕆.
+The sequence STOPS at n = 3 (dim = 8).
+
+**ℂ is the unique fixed point: σ_stat = σ_geom = 1/2.**
+
+The entire zeta landscape lives on this tower:
+- s = 2 (above the tower): ζ(2) = π²/6, physics
+- s = 1 (ℝ boundary): pole, prime density
+- s = 1/2 (ℂ boundary): zeros, RH — THE ONLY MATCH
+- s = 1/4 (ℍ boundary): unreachable, non-commutative
+- s = 1/8 (𝕆 boundary): unreachable, non-associative
 
 ---
 
