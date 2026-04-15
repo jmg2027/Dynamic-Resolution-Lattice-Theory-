@@ -161,6 +161,9 @@ def compute_IE_v2(Z):
         # Deep-core half-fill (n_p=3) for Period 6-7
         if p >= 6 and n_p == 3:
             inner += DEEP_PAIR
+        # First p-electron (n_p=1) in Period 6: temporal pair onset
+        if p == 6 and n_p == 1:
+            inner += D_PAIR / N_T   # = 0.152
 
     Ze = Z - inner - same
     return max(0.01, Ze)**2 * Ry / n**2
