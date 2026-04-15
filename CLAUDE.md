@@ -54,7 +54,7 @@
 | `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
 | `atoms/` | `ATM_` | **ACTIVE** | 31 (ATM_001-031) | 원자, 주기율표, N-simplex manifold |
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
-| `critical-line/` | `RH_` | **ACTIVE** | 25 (RH_001-025) | 임계선, RH, GRH, L-함수, Lean |
+| `critical-line/` | `RH_` | **ACTIVE** | 46 (RH_001-046) | 임계선, RH, GRH, L-함수, Lean |
 | `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
 | `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
