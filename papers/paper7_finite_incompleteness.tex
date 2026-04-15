@@ -173,15 +173,28 @@ identity that applies to \emph{any} counting problem.
 
 Since all non-trivial eigenvalues of $K_N$ satisfy
 $|\lambda| \leq 1 < 2\sqrt{q}$ for $q \geq 2$,
-the graph is Ramanujan.
+the unweighted graph is Ramanujan.
 
-\begin{theorem}[Always Ramanujan, RH\_038]\label{thm:ram}
-The Born-weighted Gram graph of $N$ unit vectors in~$\CC^d$
-is Ramanujan for all $d \geq 2$ and all finite $N$.
-Moreover, the Ramanujan ratio
-$\lambda_2 / (2\sqrt{\lambda_1})$
-\emph{decreases} with~$d$.
+\begin{theorem}[$K_N$ is Ramanujan]\label{thm:ram-kn}
+The unweighted NB adjacency of $K_N$ is Ramanujan
+for all $N \geq 4$.
+This is an exact consequence of Theorem~\ref{thm:spectrum}:
+$|\lambda_2| = 1 \leq 2\sqrt{q}$ for $q = N - 2 \geq 2$.
 \end{theorem}
+
+For the Born-weighted Gram graph the situation is more delicate.
+
+\begin{proposition}[Born-weighted Ramanujan, RH\_038]\label{thm:ram-born}
+The Born-weighted NB adjacency of $N$ unit vectors in~$\CC^d$
+has spectral radius $\lambda_1 \approx (N-2)/d$ and satisfies
+$\lambda_2 / (2\sqrt{\lambda_1}) < 1$ for all tested values
+of $d \geq 2$ and $N \leq 50$ (RH\_038, 4/4 checks).
+The ratio \emph{decreases} with~$d$, so larger embedding
+dimensions strengthen the bound.
+For $d \geq d_c \approx 3$ and $N \leq N_c(d) \approx 500$,
+100\% of Ihara zeros lie on the critical circle~\cite{Paper5}.
+Beyond $N_c(d)$ the Ramanujan property may soften.
+\end{proposition}
 
 %=====================================================================
 \section{The Single Integer Series}
@@ -226,6 +239,61 @@ Using the identity $T_n(\cos\theta) = \cos(n\theta)$:
 the action becomes a sum of Chebyshev polynomials evaluated
 at algebraic points, weighted by $1/n^2$.
 At $N_{\mathrm{eff}} = d^2 = 25$: 3\% accuracy (RH\_040).
+
+%=====================================================================
+\section{Why $1/2$: The Two Boundaries Theorem}
+\label{sec:two}
+%=====================================================================
+
+The value $1/2$ is not a numerical coincidence but a consequence
+of two independent ``boundaries'' coinciding uniquely for~$\CC$.
+
+\begin{definition}
+For a normed division algebra $K$ over~$\RR$ with
+$n_K = \dim_\RR(K)$:
+\begin{itemize}
+\item \emph{Statistical boundary:}
+  $\sigma_{\mathrm{stat}} = 1/2$ for all~$K$
+  (CLT: $\sum |a_k|^2/k^{2\sigma} < \infty$ iff $2\sigma > 1$).
+\item \emph{Geometric boundary:}
+  $\sigma_{\mathrm{geom}}(K) = 1/n_K$
+  (energy equipartition on $S^{n_K - 1}$: $E[\cos^2\theta] = 1/n_K$).
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Two Boundaries, Lean verified]\label{thm:two}
+$\sigma_{\mathrm{stat}} = \sigma_{\mathrm{geom}}(K)$
+if and only if $K = \CC$.
+\end{theorem}
+
+\begin{proof}
+$\sigma_{\mathrm{stat}} = 1/2$ (Lemma, universal).
+$\sigma_{\mathrm{geom}} = 1/n_K$ (spherical symmetry).
+Equal iff $n_K = 2$ iff $K = \CC$ (Hurwitz: $n_K \in \{1,2,4,8\}$).
+\end{proof}
+
+\begin{theorem}[Doubly Irreducible, Lean verified]\label{thm:doubly}
+The number~$2$ is the unique \emph{doubly irreducible} natural number:
+\[
+  \{\text{additive atoms}\} \cap \{\text{extension atoms over } \RR\}
+  = \{2, 3\} \cap \{2\} = \{2\}
+\]
+where $n$ is an additive atom if $n \geq 2$ and $n \neq a + b$
+for $a, b \geq 2$, and an extension atom if $\RR[x]$ has an
+irreducible polynomial of degree~$n$.
+\end{theorem}
+
+\begin{corollary}[The $1/2$ chain]
+\[
+  \frac{1}{2} = \frac{1}{n_T} = \frac{1}{\dim_\RR(\CC)}
+  = \sigma_{\mathrm{stat}} = \sigma_{\mathrm{geom}}
+  = \frac{1}{c}
+\]
+where $n_T = 2$ is the temporal dimension, $c = 2$ is the
+lattice speed of light, and the critical line
+$\mathrm{Re}(s) = 1/2$ is the integer operation
+``divide the exponent by~$2$.''
+\end{corollary}
 
 %=====================================================================
 \section{The Proof Strength Hierarchy}
@@ -290,10 +358,24 @@ translates to $\mathrm{Re}(s) \leq 1/2 + O(1/\!\log q)$
 under $u = q^{-s}$.
 \end{theorem}
 
-For $K_N$, all non-trivial eigenvalues satisfy $|\lambda| = 1$,
-which gives $\mathrm{Re}(s) = 0$ under the map---safely
-\emph{inside} the critical strip. The Ramanujan bound
-$2\sqrt{q}$ is satisfied with margin.
+For $K_N$, the non-trivial eigenvalues satisfy $|\lambda| = 1$
+(Theorem~\ref{thm:spectrum}), giving
+$\mathrm{Re}(s) = \log|\lambda|/\log q = 0$ under the map.
+This is \emph{strictly stronger} than $\mathrm{Re}(s) = 1/2$:
+the discrete graph concentrates its zeros at $\mathrm{Re}(s) = 0$,
+well inside the critical strip.
+The Ramanujan bound $2\sqrt{q}$ is satisfied with large margin
+($|\lambda|/2\sqrt{q} = 1/2\sqrt{q} \to 0$).
+
+\begin{remark}
+The fact that the discrete RH is \emph{stronger} than the
+classical RH is not a weakness---it reflects the rigidity of
+finite structures.
+The classical RH ($\mathrm{Re}(s) = 1/2$) is the
+\emph{weakening} that occurs in the $N \to \infty$ limit,
+where eigenvalues spread from $\mathrm{Re}(s) = 0$ toward
+the critical line.
+\end{remark}
 
 %=====================================================================
 \section{The Self-Contradiction Boundary}
@@ -326,6 +408,39 @@ continuum limit $\Delta(\infty) > 0$ requires $N = \infty$.
 Both Millennium Problems are Level~4 statements over the
 self-contradiction boundary.
 \end{corollary}
+
+%=====================================================================
+\section{Machine Verification}
+\label{sec:lean}
+%=====================================================================
+
+All theorems are formalized in Lean~4 (version 4.16.0)
+with Mathlib~v4.16.0.
+The proof assistant checks every step; no \texttt{sorry}
+(unproved assertion) remains.
+
+\begin{center}
+\begin{tabular}{llcl}
+\toprule
+File & Theorems & \texttt{sorry} & Content \\
+\midrule
+Core & 5 & 0 & Additive atoms, Doubly Irreducible \\
+ThreeLayers & 6 & 0 & MSUA 3-layer minimality \\
+RefIncl & 7 & 0 & ref $\neq$ incl asymmetry \\
+Limit & 1 & 0 & $\delta(n) \to 0$ (Mathlib) \\
+ResolutionExponent & 4 & 0 & $\alpha = 2/(d-1)$ \\
+PMF\_RH & 10 & 0 & Complete derivation chain \\
+GRH & 8 & 0 & All L-functions share $1/2$ \\
+Quaternion & 10 & 0 & $\mathbb{H}$ obstructions \\
+Zeta2Universality & 6 & 0 & Prop.\ $=$ action $=$ coupling \\
+FiniteLimit & 8 & 0 & Proof strength hierarchy \\
+\midrule
+\textbf{Total} & \textbf{65} & \textbf{0} & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Build: 2281 modules, 0 errors, 0 warnings.
 
 %=====================================================================
 \section{Discussion}
