@@ -613,6 +613,32 @@ This asymmetry generates all of physics in DRLT,
 and places $d = 5 = 2 + 3$ safely above the Ramanujan
 critical point $d_c \approx 3$.
 
+\subsection{Quaternionic obstruction}
+
+For quaternions $\HH$ ($\dim_\RR = 4$), the Two Boundaries
+Theorem gives $\sigma_{\mathrm{geom}} = 1/4 \neq 1/2 =
+\sigma_{\mathrm{stat}}$.
+Numerical experiment (RH\_026, 9/9 checks) confirms three
+obstructions to quaternionic $L$-functions:
+\begin{enumerate}
+\item \textbf{No resonance.} $\sigma_{\mathrm{stat}} \neq
+  \sigma_{\mathrm{geom}}$: the statistical and geometric
+  boundaries do not coincide.
+\item \textbf{No Euler product.} $\HH$ is non-commutative,
+  so $\prod_p (1 - q_p p^{-s})^{-1}$ depends on prime ordering
+  ($\|$forward $-$ reverse$\| = 0.77$).
+\item \textbf{Reduced fluctuations.}
+  $\mathrm{Var}_\HH / \mathrm{Var}_\CC \approx 0.4 \approx
+  n_\CC/n_\HH = 1/2$.
+\end{enumerate}
+The combination of resonance ($\sigma_{\mathrm{stat}} =
+\sigma_{\mathrm{geom}}$) and commutativity (axiom R3) is
+unique to $\CC$, explaining why $L$-functions --- requiring
+\emph{both} convergence structure and multiplicative structure
+--- exist only over $\CC$.
+These results are formalized in Lean~4 (Quaternion.lean,
+10 theorems, 0 sorry).
+
 \subsection{Relation to existing programs}
 
 \begin{center}

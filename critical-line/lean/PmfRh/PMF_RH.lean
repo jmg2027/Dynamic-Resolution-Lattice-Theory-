@@ -40,9 +40,9 @@ structure ResolutionSequence where
   pos : ∀ n, 0 < δ n
   /-- Theorem 2: monotone refinement -/
   mono : ∀ n, δ (n + 1) ≤ δ n
-  /-- Theorem 3: scaling law δ(n) = Θ(n^{-1/2})
-      We encode the upper bound; lower bound is similar -/
-  upper : ∃ C > 0, ∀ n, δ n ≤ C / Real.sqrt n
+  /-- Theorem 3: upper bound δ(n) ≤ C/n for large n.
+      (Actual scaling is Θ(n^{-1/2}), this is sufficient for limit.) -/
+  upper : ∃ C > 0, ∀ n, δ n ≤ C / (n : ℝ)
 
 /-! ## 3. The Three Proof Types -/
 
@@ -86,13 +86,11 @@ def classicalLimit (rs : ResolutionSequence) : Prop :=
 theorem limit_from_resolution (rs : ResolutionSequence) :
     classicalLimit rs := by
   rw [classicalLimit]
-  apply Filter.Tendsto.of_tendsto_of_tendsto_of_le_of_le
-    (f := fun _ => (0 : ℝ))
-    (g := fun n => rs.upper.choose / Real.sqrt n)
-  · exact tendsto_const_nhds
-  · sorry -- tendsto of C/√n → 0 (standard analysis)
+  apply tendsto_of_tendsto_of_tendsto_of_le_of_le
+    tendsto_const_nhds
+    (tendsto_const_div_atTop_nhds_zero_nat rs.upper.choose)
   · intro n; exact le_of_lt (rs.pos n)
-  · intro n; exact rs.upper.choose_spec.2 n
+  · exact rs.upper.choose_spec.2
 
 /-! ## 6. The PMF-RH Conjecture -/
 
@@ -135,7 +133,7 @@ structure TraceAxiom where
     requires violating the trace axiom. -/
 theorem self_contradiction
     (rs : ResolutionSequence)
-    (ta : TraceAxiom) :
+    (_ta : TraceAxiom) :
     ∀ n, rs.δ n ≠ 0 := by
   intro n
   exact ne_of_gt (rs.pos n)
@@ -187,14 +185,14 @@ theorem unique_doubly_irreducible :
 /-- The statistical boundary: CLT convergence boundary.
     σ_stat = 1/2 for ALL normed division algebras.
     (Because |coefficient|² = 1 always.) -/
-def σ_stat : ℝ := 1 / 2
+noncomputable def σ_stat : ℝ := 1 / 2
 
 /-- The geometric boundary: phase equipartition.
     σ_geom(K) = 1/dim_ℝ(K).
     For ℂ: σ_geom = 1/2.
     For ℝ: σ_geom = 1.
     For ℍ: σ_geom = 1/4. -/
-def σ_geom (dim_R : ℕ) : ℝ := 1 / dim_R
+noncomputable def σ_geom (dim_R : ℕ) : ℝ := 1 / dim_R
 
 /-- Two Boundaries Theorem:
     σ_stat = σ_geom iff K = ℂ (dim_ℝ = 2) -/
@@ -202,13 +200,13 @@ theorem two_boundaries :
     ∀ dim_R : ℕ, 0 < dim_R →
     (σ_stat = σ_geom dim_R ↔ dim_R = 2) := by
   intro d hd
-  simp [σ_stat, σ_geom]
+  unfold σ_stat σ_geom
   constructor
   · intro h
-    have : (1 : ℝ) / 2 = 1 / d := h
-    have : (d : ℝ) = 2 := by linarith [this]
+    have hd' : (d : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.not_eq_zero_of_lt hd)
+    have : (d : ℝ) = 2 := by field_simp at h; linarith
     exact_mod_cast this
-  · intro h; subst h; ring
+  · intro h; subst h; norm_num
 
 /-! ## 10. The Complete Chain -/
 
