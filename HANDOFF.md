@@ -58,12 +58,11 @@
 
 ## Open Problems (Priority Order)
 
-### 1. S_total = S_Regge + S_matter (atoms/)
-Regge action만으로 coupling alpha 결정 불가. Lagrange multiplier 접근 시도:
-- R(epsilon) ~ 12/13, epsilon에 거의 무관 → 12/25 도달 불가
-- SSS leakage = epsilon^2/(1-2epsilon^2) exact 도출
-- **빠진 퍼즐: deficit angle delta(AAB), delta(ABB)의 epsilon 의존성**
-- 다음: dihedral angle을 epsilon 함수로 계산하면 두 독립 방정식 확보 가능
+### 1. alpha_GUT from N=4 flat manifold (atoms/) ★★★
+**돌파구 (ATM_029)**: N=4 flat manifold에서 Regge action maximum이 결정:
+- eps^2/(1+eps^2) = alpha_GUT (0.10% 일치, 0-parameter)
+- f_occ 변환 = DRLT의 반복 구조
+- 미해결: 0.1% 잔차 원인, N=4의 정당화, 해석적 유도
 
 ### 2. Phase→Möbius Map (rh-connection/)
 "왜 1/2 근처" 설명됨, "왜 정확히 1/2"은 미해결. 자연 plateau.
