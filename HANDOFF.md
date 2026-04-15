@@ -57,19 +57,34 @@ Multiple approaches tried, all with instructive negative results:
 
 ## Open Problems (Priority Order)
 
-### 1. Phase→Möbius Map (OPEN, 자연 plateau)
-RH 자체와 동치에 가까움. 이 세션에서 시도한 모든 경로가 막힘:
-- 직접 구성 (d개 위상 재활용): 불완전 상쇄 (β=0.80)
-- Ihara 계수: walk length ≠ integer index
-- Artin 분해: rank 효과이지 표현론이 아님
-- 결론: DRLT는 "왜 1/2 근처"를 설명하지만 "왜 정확히 1/2"은 설명 못 함
+### Gap 3 → Priority 1: G_chiral Born-Ramanujan 재검증 (중)
+rank=5 가정 틀렸으므로 G_chiral = π₅Gπ₅†에 대해 재검증.
+기존 KR+MP+p_eff=d(d-1) 공식이 chiral projection에서도 유효한지.
 
-### 2. Book 통합 (기계적 작업)
-Paper 5 → ch21_riemann.tex. 아직 미착수.
+### Priority 2: δ(N) 지수 α = 2/(d-1) Lean 증명 (중)
+RH_012에서 수치 확인됨 (0.2% d=5). EVT Beta(1,d-1) 증명을 Lean 추가.
 
-### 3. 0⁺ 구조의 심층 분석
-정리 2 (표현론적 구별)는 이론적으로 증명되었으나,
-Ihara 영점에는 영향하지 않음 (rank 효과). 다른 관측량이 필요.
+### Priority 3: τ-breaking 크기 = α_GUT 유도 (중-상)
+Papers 1+2 연결. τ-대칭 깨짐이 왜 α_GUT = 6/(25π²) 크기인지.
+
+### Gap 1 → Priority 4: Gram spectral zeta 정의 (상)
+Gram 행렬의 스펙트럴 제타 Z_G(s)를 엄밀 정의. ζ(2)만 등장하는
+현재 상태에서 일반 s에서의 연결로 확장. **새 수학 필요**.
+
+### Gap 2 → Priority 5: Montgomery gap (최상, 40년 미해결)
+ℂ → β=2 → GUE (증명됨) + GUE ≈ ζ zeros (관찰) → ℂ → ζ zeros.
+M-O가 관찰이지 증명이 아니므로 이 간극을 닫는 것은 우리만의 문제가 아님.
+
+## 이 작업의 위치
+
+| | Rodgers-Tao (2020) | 이 작업 |
+|--|---|---|
+| 접근 | ζ 내부의 해석학 | ζ 외부의 구조론 |
+| 결과 | Λ ≥ 0 (RH가 경계적) | "왜 1/2인가" + 이산 RH |
+| 기계 검증 | 없음 | **19개 sorry 0** |
+| RH와의 거리 | 한 걸음 (Λ=0이면 RH) | 다른 각도 (이산→연속 간극) |
+
+"얼마나 가까운가" (Tao) vs **"왜 거기인가" (이 작업)** — 다른 종류의 기여.
 
 ## Unresolved from This Session
 
