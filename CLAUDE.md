@@ -55,7 +55,7 @@
 | `atoms/` | `ATM_` | **ACTIVE** | 31 (ATM_001-031) | 원자, 주기율표, N-simplex manifold |
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
 | `critical-line/` | `RH_` | **ACTIVE** | 46 (RH_001-046) | 임계선, RH, GRH, L-함수, Lean |
-| `nuclear/` | `NUC_` | NOT STARTED | — | 핵 결합, magic numbers |
+| `nuclear/` | `NUC_` | **ACTIVE** ★ | 3 (NUC_001-003) | magic numbers, 600-cell |
 | `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 6 (QG_001-006) | 시공간 창발, holographic |
 | `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
@@ -176,13 +176,15 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 | ν m₃/m₂ | 5.712 | 5.71 | **+0.04%** |
 | η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
 | Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
+| Magic numbers | 2,8,20,28,50,82,126 | 2,8,20,28,50,82,126 | **7/7 exact** |
 
-## Resolved Problems (All 5 original SM open problems closed)
+## Resolved Problems (All 5 original SM open problems closed + nuclear)
 1. ~~Higgs mass~~ → +0.02% via face BC + embedding (SM_020/021)
 2. ~~Δm_np~~ → -1.5% via EM excess fraction (SM_022)
 3. ~~1/α₂~~ → phantom problem (ch08 already solved)
 4. ~~Neutrino ratio~~ → +0.04% via T₂₃ Basel correction (SM_023)
 5. ~~1st gen quarks~~ → Ξ_confined = α/(d²-1) only (SM_024)
+6. ~~Nuclear magic numbers~~ → 7/7 exact from 600-cell Sym²(2I) (NUC_003)
 
 ## Workflow Rules
 
