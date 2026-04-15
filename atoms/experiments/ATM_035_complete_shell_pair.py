@@ -123,6 +123,9 @@ def compute_IE_v2(Z):
         inner = nn * sc + n_f * sf + S_SS
         if n_extra_d > 0:
             inner += n_extra_d * sigma_shell(p - 1, p)
+            # f14-complete pair correction at f→d boundary
+            # Complete f-shell pairing pushes d-electron outward
+            inner += D_PAIR
         same = 0
 
     # d-block Period 6-7 (same as ATM_022, NO d-pair)
