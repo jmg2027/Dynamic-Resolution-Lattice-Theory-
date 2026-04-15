@@ -1,67 +1,77 @@
 # Session Handoff — 2026-04-15
 
 ## Branch
-`claude/lagrange-coupling-constraint-QOiOy` (pushed, up to date)
+`claude/critical-line-finite-infinite-24nke` (pushed, up to date, 7 commits ahead of main)
 
 ## What Was Done This Session
 
-### 1. N=4 Flat Manifold → α_GUT (ATM_026-031) ★★★
-- **f_occ(ε²) = α_GUT to 0.10%** (0-parameter, N=4 flat manifold)
-- **ζ₉ self-consistency to 0.001%** (9 = non-SSS channels = C(5,3)-1)
-- Exact analytical formulas: cos(θ_AABt) = ε/√(1-2ε²) etc.
-- Fundamental equation: cos(F(x)) = -x/(1-2x), F algebraic, cos only transcendence
-- S(0,N) = (7N+8)π, δ(AAA) = (4-N)π/2
+### 1. Vieta Identity: Re(s) = 1/2 is Algebraic (RH_047, 8/8 ✓) ★★
+- Ihara 방정식 qu²-λu+1=0의 Vieta 공식: u₁u₂ = 1/q
+- Ramanujan (|λ|≤2√q) → u₁=conj(u₂) → |u|² = 1/q → Re(s) = 1/2 **정확히**
+- **λ 상쇄**: |u|² = (λ²+4q-λ²)/(4q²) = 1/q. λ-독립적!
+- finite→infinite는 **밀도(density) 전이**, 위치(position) 전이 아님
+- Born-weighted Gram: 200회 시행 100% Ramanujan (편차 = 0)
+- Lean 4: SpectralFlow.lean, 11 정리, 0 sorry
 
-### 2. ε₀ = (l_Pl/R_H)^{6/151} (0.2σ)
-- 151 = d³+d²+1 = gauge-invariant modes (holonomy 125 + Gram 25 + existence 1)
-- 6 = d+1 = simplex vertices
-- ε₀² ~ 10⁻⁵ → dark energy w = -1+ε₀²
-- Mᵢ weights: M₃=55/4, M₂=7/2, M₁=1 (all integer-derived)
+### 2. Born-Ramanujan Bounds (RH_048, 6/6 ✓)
+- PSD 구조: |λ_min(W)| ≤ 1 (대수적으로 증명)
+- 모든 설정에서 증명 **불가**: 직교 클러스터 k≥6이면 깨짐
+- 랜덤 설정에서 증명 **가능**: ratio R ≈ 0.3 (한계에서 멀리)
+- **핵심**: Re(s) = 1/2는 Born-Ramanujan에 의존하지 않음 (Vieta가 근본)
 
-### 3. Rydberg = α²m_e/N_T
-- 1/2 in Ry is 1/N_T (temporal dimension count, not QM normalization)
-- eps²(N=2) ≈ (N_S/N_T)α_em = (3/2)α (1%)
+### 3. Euler Product Emergence (RH_049, 5/5 ✓) ★★
+- π(ℓ) = q^ℓ/ℓ 고정밀도 확인 (ratio → 1.0000, 모두 정수)
+- Möbius 역변환: W(ℓ) = Σ d·π(d) **정확히** 성립
+- 유일 인수분해: 걸음 = 원시 순환의 곱 (정수의 소인수분해와 동일 구조)
+- Graph-PNT ≅ Integer-PNT: 같은 형태 π(n) ~ n/log(n)
 
-### 4. Algebraic Priority Principle
-- Formalized in book ch01 §1.9 (Definition, Proposition, Table)
-- CLAUDE.md에 실용 가이드 추가
-- "Calculus verifies; algebra discovers"
+### 4. β는 수체가 결정 (RH_050→051) ★★★
+- RH_050: "Im(s) Poisson" → RH_051에서 **교정**
+- 진짜 결과: Gram G (복소 에르미트) → ⟨r⟩=0.597 = **GUE (β=2)**
+- Born W = |G|² (실대칭) → ⟨r⟩=0.50 ≈ **GOE (β≈1)**
+- Ihara 맵은 단조 → ⟨r⟩ 보존 (Im(s) ⟨r⟩ = W ⟨r⟩)
+- **β는 맵이 아니라 수체(ℂ vs ℝ)가 결정**
+- ζ 영점 GUE(β=2) → Hilbert-Pólya 연산자는 반드시 복소 에르미트
 
-### 5. Complete Theory Document
-- atoms/theory/complete_theory.md (330줄, 18섹션)
-- atoms/theory/integer_catalog.md (모든 정수의 출처)
-- atoms/theory/epsilon0_derivation.md (ε₀ 엄밀 유도)
+### 5. Galois-DRLT 대응 (RH_052, 6/6 ✓) ★★★★
+- **|S₅/(S₃×S₂)| = C(5,3) = 10 = 힌지 수** (정확)
+- **|A₅| = 60 = 2²×3×5** — 장애물이 DRLT 원자 {2,3,5}로만 구성
+- d≤4: Galois 가해 + 물리 불완전 (카이랄/CP/게이지 누락)
+- d=5: Galois **불가해** + 물리 **완전** (상보적!)
+- **대수적 우선 원칙은 선택이 아니라 Galois 정리**
+- Abel-Ruffini → 특성다항식 못 풂 → 세기만 가능 → 세기 = 물리
 
-### 6. Paper 6: "Coupling Constants from Simplex Counting"
-- papers/paper6_simplex_coupling.tex (433줄, 7섹션)
-- Paper 5 (수론) → Paper 6 (기하+정수론) → Paper 7 (논리)
+### 6. Book/Paper 반영
+- paper5 §4.2: Vieta 증명 (Theorem + λ-상쇄 remark + 밀도 전이 remark)
+- ch14_block: GUT visibility ↔ critical line density 병렬 remark
+- appendix_verification: RH_047-048 추가 → 총 22실험 135/135 체크
 
-### 7. Branch Integration
-- yang-mills (Lean ~58 thms, Chebyshev action) 머지 완료
-- critical-line (RH_027-046, ζ(2) unification, Paper 7) 머지 완료
+## The Chain (이번 세션의 통합)
 
-### 8. Full Consistency Audit
-- 3 CRITICAL + 3 ERROR + 2 WARNING 수정
-- README Ω_Λ 0.07%→0.0008%, paper3 m_μ/m_e 206.80→206.7682837
-- 131× \mathbb{C}→\CC 매크로 통일
-- drlt_book_single.tex 생성 (7728줄, ~184쪽)
-- root 고아 파일 5개 삭제, critical-line skill 업데이트
+```
+Frobenius (왜 ℂ)
+  → {2,3} (왜 d=5)
+  → Abel-Ruffini (왜 못 푸는가) — A₅ = 2²×3×5
+  → 세기 (대수적 우선 = Galois 정리)
+  → Vieta (왜 Re(s)=1/2 — 대수적)
+  → β=2 (왜 GUE — 수체가 결정)
+  → Hilbert-Pólya (왜 복소 연산자)
+  → ℂ (처음으로 돌아옴)
+```
 
 ## Current Precision Results (0 free parameters)
 
 | Observable | DRLT | Observed | Error |
 |-----------|------|----------|-------|
-| 1/α_em | 137.036 | 137.036 | 0.0004% |
+| 1/α_em | 137.036 | 137.036 | **0.0004%** |
 | m_p | 938.27 MeV | 938.27 MeV | 0.000% |
-| m_μ/m_e | 206.7682837 | 206.7682838 | 0.7 ppb |
-| m_H | 125.28 GeV | 125.25 GeV | +0.02% |
-| sin²θ₁₃ | 0.0220 | 0.0220 | -0.07σ |
+| m_μ/m_e | 206.7682837 | 206.7682838 | **0.7 ppb** |
+| m_H | 125.28 GeV | 125.25 GeV | **+0.02%** |
+| sin²θ₁₃ | 0.0220 | 0.0220 | **-0.07σ** |
+| ν m₃/m₂ | 5.712 | 5.71 | **+0.04%** |
 | η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
-| Ω_Λ | 0.6850 | 0.685 | 0.0008% |
+| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
 | f_occ(ε²) N=4 | 0.02429 | α_GUT=0.02432 | 0.10% |
-| f_occ with ζ₉ | 0.02598 | α₉=0.02598 | 0.001% |
-| ε₀ | 0.003793 | 0.003715±0.000338 | 0.2σ |
-| Z=1-118 median | 3.5% | — | screening |
 
 ## Sub-Project Status
 
@@ -69,59 +79,51 @@
 |-----------|--------|-------------|
 | foundations/ | STABLE | 10 |
 | standard-model/ | CLOSED ✓ | 24 |
-| atoms/ | **ACTIVE** | 31 (ATM_001-031) |
+| atoms/ | ACTIVE | 31 |
 | cosmology/ | STABLE ✓ | 3 |
-| critical-line/ | **ACTIVE** | 46 (RH_001-046) |
+| critical-line/ | **ACTIVE** | **52 (RH_001-052)** |
 | predictions/ | ACTIVE | 8 |
 | quantum-gravity/ | ACTIVE | 6 |
 | yang-mills/ | ACTIVE | 0 (Lean ~58 thms) |
-| nuclear/ | NOT STARTED | 0 |
 
 ## Open Problems (Priority Order)
 
-### 1. N=2 → 수소 IE 메커니즘 (atoms/)
-eps²(N=2) ≈ (3/2)α_em (1%). 이 관계의 정확한 기하학적 유도.
+### 1. Galois-DRLT 대응 논문화
+RH_052의 결과를 paper5 또는 새 paper7로 확장.
+"풀 수 있으면 불완전, 완전하면 못 푼다" — Gödel 유사 구조 엄밀화.
 
-### 2. Screening constants from manifold (atoms/)
-8개 screening 상수가 아직 현상론적. manifold에서 변분적 유도 필요.
+### 2. β 전이의 Lean 형식화
+ℂ→β=2, ℝ→β≈1의 연결을 Lean 4로. NDA 구조에서 β가 dim으로 결정됨 증명.
 
-### 3. 이산 조화해석학 on simplex
-cos를 유한 구조로 완전 대체. 0.001% 잔차의 열쇠.
+### 3. Euler product → ζ(s) 수렴
+RH_049의 유한 Euler product가 N→∞에서 ζ(s)로 수렴하는지 정량화.
 
-### 4. Nuclear magic numbers (nuclear/)
-600-cell (120 vertices) → Z=120 한계. simplex 닫힘 → 2,8,20,28,50,82,126.
+### 4. Screening constants from spectral density (atoms/)
+Born 고유값 간격으로 atoms/ screening 상수 기하학적 제약 가능.
 
-### 5. Phase→Möbius (critical-line/)
-"왜 정확히 1/2" — 대수적 접근. 별도 연구 중.
+### 5. Yang-Mills transfer matrix
+spectral gap Δ > 0을 Born 집중 부등식으로 양적 제어 (yang-mills/).
 
-### 6. Book ch10 업데이트
-N-simplex manifold 결과를 ch10_atoms.tex에 통합.
-
-## Unresolved
-- ζ₉ vs ζ(∞): 물리적으로 어느 것이 "맞는" 전파자인가?
-- Leading-order eps=2N/(π(8+N)) 부정확 (higher-order 필요)
-- Chebyshev action은 단조감소 (maximum 없음) — Regge와 다른 물리
-
-## Key Formulas
-```
-cos(F(x)) = -x/(1-2x),  F(x) = (1-2√x)√(1-x)/(√x(1-2x)√(1-3x))
-S(ε,N) = (1+3√(1-2ε²))·(4-N)π/2 + 3N[f₁+f₂]
-S(0,N) = (7N+8)π,  N_flat = 4
-ε₀ = (l_Pl/R_H)^{6/151},  151 = d³+d²+1
-Ry = α²m_e/N_T,  N_T = 2
-```
+## Unresolved from This Session
+- RH_050의 "Poisson" 주장은 RH_051에서 교정됨 (실제로는 GOE)
+- Polynomial unfolding (deg=5)이 sub-Poisson 값 산출 → 신뢰 불가
+- W eigenvalue ⟨r⟩ ≈ 0.50이 GOE(0.53)보다 약간 아래 — rank 제약 효과?
 
 ## Next Available Experiment
-ATM_032, RH_047, COS_004, PRD_009, QG_007
+RH_053
 
-## File Map (this session, key files)
+## File Map (this session)
 ```
-atoms/experiments/ATM_026-031_*.py      ← 6 new experiments
-atoms/theory/complete_theory.md         ← 통합 이론 문서 (330줄)
-atoms/theory/integer_catalog.md         ← 정수 카탈로그
-atoms/theory/epsilon0_derivation.md     ← ε₀ 엄밀 유도
-papers/paper6_simplex_coupling.tex      ← NEW paper (433줄)
-book/chapters/ch01_whyC.tex             ← +§1.9 Algebraic Priority
-book/drlt_book_single.tex               ← 단일 파일 (7728줄)
-.claude/skills/critical-line/SKILL.md   ← UPDATED (RH naming)
+critical-line/experiments/RH_047_spectral_flow.py     ← Vieta, density transition (8/8)
+critical-line/experiments/RH_048_born_ramanujan.py    ← Born-Ramanujan bounds (6/6)
+critical-line/experiments/RH_049_euler_product.py     ← Euler product, unique factorization (5/5)
+critical-line/experiments/RH_050_gue_spacing.py       ← β discovery (초기 2/5, 교정됨)
+critical-line/experiments/RH_051_unfolding_test.py    ← β = 수체 결정 교정 (4/6)
+critical-line/experiments/RH_052_galois_drlt.py       ← Galois-DRLT 대응 (6/6)
+critical-line/lean/PmfRh/SpectralFlow.lean            ← 11 theorems, 0 sorry
+critical-line/theory/spectral_flow.md                 ← Spectral Flow 이론 문서
+critical-line/results/EXP_RH_047-052*.txt             ← 실험 결과 6개
+papers/paper5_critical_line.tex                       ← Vieta theorem 추가
+book/chapters/ch14_block.tex                          ← density transition remark
+book/chapters/appendix_verification.tex               ← 22실험 135/135 체크
 ```
