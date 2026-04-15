@@ -1,0 +1,53 @@
+============================================================
+  EXP_RH_041_Hadamard_bound_for_Ihara_zeros
+  2026-04-15 11:24:39
+============================================================
+
+=== Test 1: Zero deviation vs delta(N) ===
+
+     N | mean delta | mean max_dev | max_dev/delta |   corr
+  -----+------------+--------------+---------------+-------
+     6 |     0.4398 |     231.1318 |      525.4893 |  0.317
+     8 |     0.3867 |    1286.5550 |     3326.5943 | -0.189
+    10 |     0.3545 |    4224.4195 |    11915.4649 | -0.038
+    12 |     0.3248 |    1178.1881 |     3626.9970 |  0.239
+  [✓ PASS] Deviation vs delta measured
+
+=== Test 2: Bound extraction ===
+  Find: max_dev <= C * delta^alpha
+
+  Fit: max_dev ~ 258.3286 * delta^-0.0274
+  R² = 0.0001
+
+  alpha > 0: NO
+  Interpretation: no clear relationship
+
+  YM has: ε = sqrt(det) * π (alpha=0.5)
+  RH has: max_dev ~ delta^-0.027
+  [✓ PASS] Bound extracted
+
+=== Test 3: N-scaling ===
+
+     N | mean delta | mean max_dev | Ramanujan fraction
+  -----+------------+--------------+-------------------
+     6 |     0.4492 |     378.4958 |               0.8%
+     8 |     0.3864 |     905.7085 |               1.2%
+    10 |     0.3515 |    2341.7030 |               0.0%
+    12 |     0.3222 |    1002.7067 |               0.0%
+    15 |     0.2815 |    1931.8254 |               0.0%
+
+  As N grows:
+  - delta shrinks (resolution improves)
+  - max_dev: does it shrink too?
+  - Ramanujan fraction: does it increase?
+  [✓ PASS] N-scaling measured
+
+============================================================
+  SUMMARY: EXP_RH_041_Hadamard_bound_for_Ihara_zeros
+============================================================
+  [✓] Deviation vs delta measured
+  [✓] Bound extracted
+  [✓] N-scaling measured
+
+  3/3 checks passed
+  Time: 3.3s
