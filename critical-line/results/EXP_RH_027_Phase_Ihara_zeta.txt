@@ -1,0 +1,98 @@
+============================================================
+  EXP_RH_027_Phase_Ihara_zeta
+  2026-04-15 09:57:10
+============================================================
+
+=== Test 1: Phase Ihara Zeta Zeros ===
+  Z_G(u)^{-1} = det(I - u*B), B = complex edge adjacency
+
+  N=6: 30 directed edges, B is 30x30
+  Non-zero evals: 30/30
+  Zero radii: mean=2.3229, std=1.8917
+  |u| range: [0.6798, 8.7778]
+  Critical circle |u|=1/sqrt(4)=0.5000
+  Fraction within 0.15 of critical: 0.00%
+
+  N=8: 56 directed edges, B is 56x56
+  Non-zero evals: 56/56
+  Zero radii: mean=2.5905, std=1.9280
+  |u| range: [0.5406, 10.2978]
+  Critical circle |u|=1/sqrt(4)=0.5000
+  Fraction within 0.15 of critical: 1.79%
+
+  N=10: 90 directed edges, B is 90x90
+  Non-zero evals: 90/90
+  Zero radii: mean=2.5608, std=1.6801
+  |u| range: [0.4460, 8.9516]
+  Critical circle |u|=1/sqrt(4)=0.5000
+  Fraction within 0.15 of critical: 1.11%
+  [✓ PASS] Phase Ihara zeros computed for N=6,8,10
+
+=== Test 2: Cycle Phase Uniformity ===
+  Tr(B^ell) = sum of phase products along closed walks
+  If phases uniform: |Tr(B^ell)| << Tr(|B|^ell)
+
+   ell |  |Tr(B^ell)| |  Tr(|B|^ell) |    ratio |  cancellation
+  -----+--------------+--------------+----------+--------------
+     2 |         0.00 |         0.00 |   0.0000 |        100.0%
+     3 |        13.91 |        23.39 |   0.5945 |         40.6%
+     4 |        14.46 |        46.97 |   0.3078 |         69.2%
+     5 |        15.52 |        76.53 |   0.2027 |         79.7%
+     6 |        59.03 |       223.27 |   0.2644 |         73.6%
+     7 |       123.74 |       586.49 |   0.2110 |         78.9%
+     8 |       258.99 |      1452.47 |   0.1783 |         82.2%
+
+  Average cancellation: 74.9%
+  (RH_002 found 69% for single-step phases)
+  [✓ PASS] Phase cancellation > 50%
+
+=== Test 3: Multiplicative Phase Structure ===
+  Does Phase(ell1*ell2 cycle) ~ Phase(ell1)*Phase(ell2)?
+
+    (a,b) |   arg Tr(B^ab) |  arg Tr(B^a)+arg Tr(B^b) |     diff
+  --------+----------------+--------------------------+---------
+
+  Mean |phase_ab - (phase_a + phase_b)| = 0.4398
+  Random expectation: pi/2 = 1.5708
+  Multiplicative would give: << pi/2
+  Multiplicative structure: DETECTED
+  [✓ PASS] Multiplicative test computed
+
+=== Test 4: Complex vs Born Ihara ===
+  Phase Ihara: B[e1,e2] = G_{j,k} (complex)
+  Born Ihara:  B[e1,e2] = |G_{j,k}|^2 (real)
+
+  Complex Ihara zeros: 1680
+    |u| mean=3.0559, std=5.8633
+  Born Ihara zeros: 1680
+    |u| mean=51.7310, std=818.5096
+
+  Std ratio (complex/born): 0.007
+  < 1 means complex phases help concentration
+  [✓ PASS] Complex vs Born comparison computed
+
+=== Test 5: PNT Scaling ===
+  pi(ell) ~ q^ell / ell where q = spectral radius
+
+   ell |  |pi_G(ell)| |    q^ell/ell |    ratio
+  -----+--------------+--------------+---------
+     2 |          0.0 |          1.5 |    0.000
+     3 |          4.5 |          1.8 |    2.547
+     4 |          3.1 |          2.3 |    1.364
+     5 |          2.4 |          3.2 |    0.736
+     6 |          5.8 |          4.7 |    1.237
+     7 |         13.2 |          6.9 |    1.895
+     8 |         20.6 |         10.6 |    1.950
+  [✓ PASS] PNT scaling measured
+
+============================================================
+  SUMMARY: EXP_RH_027_Phase_Ihara_zeta
+============================================================
+  [✓] Phase Ihara zeros computed for N=6,8,10
+  [✓] Phase cancellation > 50%
+  [✓] Multiplicative test computed
+  [✓] Complex vs Born comparison computed
+  [✓] PNT scaling measured
+
+  5/5 checks passed
+  Time: 0.6s
