@@ -1,7 +1,7 @@
 # Critical Line — Session Handoff
 
 ## Branch
-`claude/critical-line-unification-jA2nL`
+`claude/critical-line-finite-infinite-24nke`
 
 ## Status: ACTIVE (2026-04-15)
 
@@ -38,8 +38,17 @@
 | RH_034 | 4/4 | **PNT 10⁻⁴, 나눗셈 구조** | ★ |
 | RH_035 | 2/2 | **ρ/(N-2)=1/d, PNT 모든 그래프** | ★ |
 | RH_036 | 4/4 | **1/2 = 반분, Ramanujan = 1/dim** | ★ |
+| RH_037-046 | (이전 세션) | K_N spectrum, Z[i] PNT, Chebyshev, μ, u→s | Done |
+| RH_047 | 8/8 | **Spectral Flow: Vieta, 100% Ramanujan, density** | ★★ |
 
-## Lean: 51 theorems, 0 sorry
+### Phase 4: Spectral Flow (RH_047) ★★
+- **Vieta identity**: |u|² = 1/q EXACT (algebraic, not analytic)
+- **λ-independent**: Re(s) = 1/2 regardless of eigenvalue
+- **Born-weighted Gram 100% Ramanujan**: deviation = 0 for all N, all trials
+- **Spectral Flow Theorem**: finite→infinite is DENSITY transition, not position
+- **Lean SpectralFlow.lean**: 11 theorems, 0 sorry
+
+## Lean: ~62 theorems, 0 sorry (11 new in SpectralFlow.lean)
 
 ## Dead Ends (전체)
 1-4: (이전 세션과 동일)
@@ -47,6 +56,6 @@
 6: gcd 고유값 가설 → coprime이 더 높음 (RH_033)
 7: 일반 위상 상관 → trace 위상 전부 ~0 (RH_032)
 
-## Open: λ₂ 다중도, 가중 PNT, finite→infinite 전이
+## Open: λ₂ 다중도, 가중 PNT, Euler product emergence
 
-## Next: RH_037
+## Next: RH_048
