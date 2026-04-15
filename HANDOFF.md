@@ -85,6 +85,7 @@ Frobenius (왜 ℂ)
 | predictions/ | ACTIVE | 8 |
 | quantum-gravity/ | ACTIVE | 6 |
 | yang-mills/ | ACTIVE | 0 (Lean ~58 thms) |
+| discrete-harmonic/ | **ACTIVE** | **15 (DHA_001-015)** |
 
 ## Open Problems (Priority Order)
 
