@@ -16,7 +16,7 @@
 
 /-- The resolution exponent for dimension d.
     α(d) = 2/(d-1) for d ≥ 2. -/
-def resolutionExponent (d : Nat) (h : 2 ≤ d) : Nat × Nat :=
+def resolutionExponent (d : Nat) (_h : 2 ≤ d) : Nat × Nat :=
   (2, d - 1)  -- represents the fraction 2/(d-1)
 
 /-- For d = 5: the exponent is 2/4 = 1/2 -/

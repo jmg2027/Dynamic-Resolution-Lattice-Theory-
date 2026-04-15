@@ -15,13 +15,13 @@ import PmfRh.GRH
 
 /-! ## 1. The Three Obstructions -/
 
-/-- Obstruction 1: σ_stat ≠ σ_geom for ℍ.
-    Already proved in GRH.lean as quaternion_no_coincidence. -/
+-- Obstruction 1: σ_stat ≠ σ_geom for ℍ.
+-- Already proved in GRH.lean as quaternion_no_coincidence.
 
-/-- Obstruction 2: ℍ is non-commutative.
-    Euler product Π(1 - q_p · p^{-s})^{-1} depends on prime ordering.
-    We model this as: for a non-commutative algebra,
-    product of n elements depends on permutation. -/
+-- Obstruction 2: ℍ is non-commutative.
+-- Euler product Π(1 - q_p · p^{-s})^{-1} depends on prime ordering.
+-- We model this as: for a non-commutative algebra,
+-- product of n elements depends on permutation.
 
 /-- Commutativity predicate for NDA -/
 def NDA.isCommutative : NDA → Prop
@@ -49,11 +49,9 @@ theorem H_no_euler : ¬hasEulerProduct .H := id
 
 /-! ## 2. The Variance Ratio -/
 
-/-- Obstruction 3: The variance of |S_N|² is proportional to 1/n_K.
-    For ℂ (n_K=2): Var ∝ 1/2.
-    For ℍ (n_K=4): Var ∝ 1/4.
-    Ratio Var(ℍ)/Var(ℂ) = (1/4)/(1/2) = 1/2.
-    RH_026 measures ≈ 0.4, consistent with 0.5. -/
+-- Obstruction 3: The variance of |S_N|² is proportional to 1/n_K.
+-- For ℂ (n_K=2): Var ∝ 1/2.  For ℍ (n_K=4): Var ∝ 1/4.
+-- Ratio Var(ℍ)/Var(ℂ) = (1/4)/(1/2) = 1/2. RH_026 measures ≈ 0.4.
 
 /-- The variance scale factor: 1/n_K (encoded as pair) -/
 def varianceScale (K : NDA) : Nat × Nat := (1, K.dim)

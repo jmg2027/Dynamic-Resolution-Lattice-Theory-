@@ -124,7 +124,8 @@ theorem universality (lf1 lf2 : LFunctionCoeffAlg)
 /-- Contrapositive: if K ≠ ℂ, the critical line does NOT coincide -/
 theorem no_universality_outside_C (K : NDA) (hK : K ≠ .C) :
     σ_stat_nat ≠ σ_geom_nat K := by
-  rwa [two_boundaries_nat]
+  intro h
+  exact hK ((two_boundaries_nat K).mp h)
 
 /-! ## Summary
 
