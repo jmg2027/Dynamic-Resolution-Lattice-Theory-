@@ -25,3 +25,4 @@ import PmfRh.QuantifierAnalysis
 import PmfRh.MillenniumBridges
 import PmfRh.SevenValues
 import PmfRh.NSRiccati
+import PmfRh.BridgeDetails
