@@ -1,6 +1,6 @@
 # Testable Predictions — Handoff
 
-## Status: ACTIVE (8 experiments, 42/43 checks)
+## Status: ACTIVE (9 experiments, 53/54 checks)
 
 ## Completed Experiments
 | ID | Title | Checks | Key Result |
@@ -13,6 +13,7 @@
 | PRD_006 | θ_QCD sin(π/12) | 7/7 | ★ SUPERSEDED by PRD_007 ★ |
 | PRD_007 | θ_QCD rigorous | 9/9 | Berry phase 구조 해명 |
 | PRD_008 | Variational θ | 3/4 | 단일 심플렉스로는 불충분 |
+| PRD_009 | Berry spectral flow | 11/11 | ★ Berry phase = U(1) spectral flow |
 
 ## Key Findings — θ_QCD
 PRD_007에서 밝혀진 구조:
@@ -36,6 +37,21 @@ PRD_007에서 밝혀진 구조:
 - θ ~ α⁶은 **진공 평균** ⟨Φ_SSS⟩의 성질
 - 단일 심플렉스에서는 Φ = O(1) (PRD_007 일관)
 
+## Key Findings — Berry = Spectral Flow (PRD_009)
+PRD_009에서 밝혀진 구조:
+1. **arg(G₀₁G₁₂G₂₀) ≡ Pancharatnam Berry phase** (차이 = 0, 정확)
+   - PRD_007이 '이미 암묵적으로 사용 중'이었던 구조
+2. **Chern number = 0** (total Berry phase ≈ 10⁻⁸ rad)
+   - 개별 고유상태: ±1.087 rad (큰 Berry phase, 서로 상쇄)
+   - spectral flow = 0 → 위상학적으로 보호된 상쇄
+3. **Index theorem 구조**:
+   - θ_bare = Berry(SSS) = U(1) spectral flow of Gram matrix
+   - arg(detY) = Berry(mass) = U(1) spectral flow of Yukawa sector
+   - θ_phys = 전체 U(1) spectral flow의 잔여
+   - S₃ 대칭 → tree-level 상쇄, 잔여 = J × α⁴
+4. **왜 U(1)?**: θ는 위상 = U(1) 원소. Non-abelian → Wilczek-Zee.
+   det(Yukawa)의 위상이므로 U(1) 사영.
+
 ## Open Problems
 1. **θ_QCD 정밀 계수** — 다중 심플렉스 진공 또는 S₃-제약 섭동론 필요
 2. Proton decay lifetime 계산
@@ -44,4 +60,4 @@ PRD_007에서 밝혀진 구조:
 5. sin²θ_W tension (~0.8%)
 
 ## Next Available Experiment
-PRD_008
+PRD_010
