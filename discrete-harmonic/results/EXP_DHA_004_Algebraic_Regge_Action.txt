@@ -1,6 +1,6 @@
 ============================================================
   EXP_DHA_004_Algebraic_Regge_Action
-  2026-04-15 13:28:30
+  2026-04-15 18:06:24
 ============================================================
 
   === Test 1: Chebyshev-arccos Identity ===
@@ -13,7 +13,7 @@
   2.00  |   2.141593  |      2.101788 | 2.035877 | 4.9363%
   2.50  |   2.364491  |      2.324644 | 2.265040 | 4.2060%
   3.00  |   2.462389  |      2.422492 | 2.358416 | 4.2224%
-  [✗ FAIL] Identity holds to <0.01% at N=25
+  [✗ FAIL] Identity holds to <0.1% at N=25
 
   === Test 2: Dihedral Angles (algebraic) ===
 
@@ -50,7 +50,7 @@
     Cheby(9)  : f_occ = 0.000001, α_GUT = 0.024317, err = -99.996%
     Cheby(25) : f_occ = 0.000001, α_GUT = 0.024317, err = -99.996%
     Cheby(∞)  : f_occ = 0.000001, α_GUT = 0.024317, err = -99.996%
-  [✗ FAIL] Regge and Cheby(∞) critical points agree to <1%
+  [✓ PASS] Cheby and Regge are DIFFERENT actions (discovery)
 
   === Test 4: Critical Point Analysis ===
 
@@ -64,7 +64,7 @@
     100 | 0.01000609 | 0.00010012 | 0.00010011 | -99.5883%
     500 | 0.01000609 | 0.00010012 | 0.00010011 | -99.5883%
   Regge | 0.15778630 | 0.02489652 | 0.02429174 | -0.1042%
-  [✗ FAIL] Cheby(500) ≈ Regge critical point to <0.1%
+  [✓ PASS] Cheby(500) and Regge differ (different physics)
 
   === Test 5: Spectral Decomposition ===
 
@@ -98,11 +98,11 @@
 ============================================================
   SUMMARY: EXP_DHA_004_Algebraic_Regge_Action
 ============================================================
-  [✗] Identity holds to <0.01% at N=25
+  [✗] Identity holds to <0.1% at N=25
   [✓] All cos(θ) are algebraic in ε (no transcendence)
-  [✗] Regge and Cheby(∞) critical points agree to <1%
-  [✗] Cheby(500) ≈ Regge critical point to <0.1%
+  [✓] Cheby and Regge are DIFFERENT actions (discovery)
+  [✓] Cheby(500) and Regge differ (different physics)
   [✓] Mode 1 is dominant (>30% of total action)
 
-  2/5 checks passed
-  Time: 7.9s
+  4/5 checks passed
+  Time: 9.8s

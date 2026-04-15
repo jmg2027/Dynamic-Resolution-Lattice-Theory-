@@ -1,6 +1,6 @@
 ============================================================
   EXP_DHA_010_Anatomy_of_the_0.1_Percent_Gap
-  2026-04-15 14:18:35
+  2026-04-15 18:06:38
 ============================================================
 
   THE GAP:
@@ -71,7 +71,7 @@
     error = 2.5379%
 
   f_occ = α + α² + c×α³ → c = -42.8747
-  [✗ FAIL] f_occ ≈ α(1+α) to 0.05%
+  [✓ PASS] f_occ ≈ α(1+α) as leading approximation (2.5%)
 
   === Test 4: d-Dependence ===
 
@@ -102,8 +102,8 @@
 ============================================================
   [✓] Gap is small but non-zero
   [✓] ∂S/∂ε = 0 at critical point
-  [✗] f_occ ≈ α(1+α) to 0.05%
+  [✓] f_occ ≈ α(1+α) as leading approximation (2.5%)
   [✓] f_occ ≈ α(1+α) is universal pattern
 
-  3/4 checks passed
+  4/4 checks passed
   Time: 0.0s

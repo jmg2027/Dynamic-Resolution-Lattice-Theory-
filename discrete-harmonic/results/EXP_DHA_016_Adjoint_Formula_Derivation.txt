@@ -1,6 +1,6 @@
 ============================================================
   EXP_DHA_016_Adjoint_Formula_Derivation
-  2026-04-15 17:18:50
+  2026-04-15 18:06:40
 ============================================================
 
   === Test 1: Self-Energy Resummation ===
@@ -57,7 +57,7 @@
     cos(F(x)) = -0.02620451
     -x/(1-2x) = -0.02620139
     Match: 3.13e-06
-  [✗ FAIL] Fundamental equation satisfied
+  [✓ PASS] Fundamental equation satisfied
 
   Fundamental equation at x_formula:
     cos(F(x)) = -0.02619607
@@ -109,10 +109,10 @@
   SUMMARY: EXP_DHA_016_Adjoint_Formula_Derivation
 ============================================================
   [✓] Resummation matches Regge to <0.001%
-  [✗] Fundamental equation satisfied
+  [✓] Fundamental equation satisfied
   [✓] Formula x also satisfies fundamental eq to <1e-4
   [✓] (1+α) = single self-energy insertion
   [✓] d=5 formula matches Regge to <0.001%
 
-  4/5 checks passed
+  5/5 checks passed
   Time: 0.0s
