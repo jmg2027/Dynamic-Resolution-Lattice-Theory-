@@ -53,4 +53,5 @@ import YangMills.Basic
 import YangMills.DeficitAngle
 import YangMills.MassGap
 import YangMills.GramMatrix
+import YangMills.LinearIndepDet
 import YangMills.LatticeRegularity
