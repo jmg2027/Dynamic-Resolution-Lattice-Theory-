@@ -44,6 +44,15 @@
 - **연속은 이산의 그림자**: 연속 도구 → trivial, 정수 도구 → 진짜 구조
 - **피타고라스가 맞았다**: 만물은 수(정수)
 
+### 7. 3-Session Unification: All π from Σ 1/n² ★★★
+- Propagator (critical-line) = ζ(2) = Σ 1/n²
+- Chebyshev action (atoms) = Σ (1-T_n(x))/n² → ζ(2)
+- Coupling (SM) = 1/(d²·ζ(2))
+- **π는 입력이 아니라 정수 합의 출력**
+- RH_039: ℤ[i] Gram → PNT 성립 (초월수 불필요)
+- RH_040: Chebyshev action 검증, N=25(=d²) hops → 3% 정확도
+- `theory/zeta2_unification.md`
+
 ## Current Precision Results (0 free parameters)
 
 | Observable | DRLT | Observed | Error |
