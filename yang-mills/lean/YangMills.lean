@@ -59,3 +59,4 @@ import YangMills.Hadamard
 import YangMills.NoGo
 import YangMills.ChebyshevAction
 import YangMills.LatticeRegularity
+import YangMills.MainTheorem

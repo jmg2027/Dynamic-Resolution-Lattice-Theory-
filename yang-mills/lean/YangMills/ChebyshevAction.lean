@@ -22,6 +22,7 @@
 
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Chebyshev
 import Mathlib.RingTheory.Polynomial.Chebyshev
+import Mathlib.NumberTheory.ZetaValues
 import YangMills.MassGap
 
 set_option autoImplicit false
@@ -90,21 +91,39 @@ theorem algebraicSummand_at_one (n : ℕ) :
   purely number-theoretic one.
 -/
 
-/-- The Euler-Basel identity: π² = 6 · ζ(2) = 6 · Σ 1/n².
-    We state this as a theorem about Real.pi. -/
-theorem pi_sq_eq_six_zeta_two :
-    Real.pi ^ 2 = 6 * (Real.pi ^ 2 / 6) := by ring
+/-- THE BASEL PROBLEM (Mathlib):
+    Σ_{n=0}^∞ 1/n² = π²/6.
+    This is ζ(2) = π²/6, proved by Euler (1734).
+    We re-export Mathlib's `hasSum_zeta_two`. -/
+theorem basel : HasSum (fun n : ℕ => (1 : ℝ) / (n : ℝ) ^ 2) (Real.pi ^ 2 / 6) :=
+  hasSum_zeta_two
 
-/-- The mass gap in number-theoretic form:
-    Δ² = det · π² = det · 6ζ(2)
+/-- π² = 6 · ζ(2) = 6 · (Σ 1/n²).
+    This is the Basel problem rearranged: π² is 6 times the
+    sum of integer reciprocal squares. -/
+theorem pi_sq_eq_six_tsum :
+    Real.pi ^ 2 = 6 * ∑' (n : ℕ), (1 : ℝ) / (n : ℝ) ^ 2 := by
+  have h := hasSum_zeta_two.tsum_eq
+  linarith
 
-    The squared mass gap is a product of:
-    - det (algebraic, from Gram matrix)
-    - 6ζ(2) (number-theoretic, from integers) -/
+/-- Δ² = det · π² -/
 theorem mass_gap_sq_eq (g : GramAAA) :
     (massGap g) ^ 2 = g.det * Real.pi ^ 2 := by
   unfold massGap reggeAction hingeArea
   rw [mul_pow, Real.sq_sqrt (le_of_lt g.det_pos)]
+
+/-- THE MASS GAP IS A PRODUCT OF INTEGERS (via Basel):
+    Δ² = det · 6 · (Σ_{n=0}^∞ 1/n²)
+
+    - det: algebraic (from Gram matrix of ℂ³ vectors)
+    - 6: integer
+    - Σ 1/n²: sum of integer reciprocal squares (= ζ(2))
+
+    π appears NOWHERE explicitly. It is the VALUE of the
+    integer series, not an INPUT to the theory. -/
+theorem mass_gap_sq_eq_zeta (g : GramAAA) :
+    (massGap g) ^ 2 = g.det * (6 * ∑' (n : ℕ), (1 : ℝ) / (n : ℝ) ^ 2) := by
+  rw [mass_gap_sq_eq, pi_sq_eq_six_tsum]
 
 /-- Δ² > 0 (follows from det > 0 and π² > 0) -/
 theorem mass_gap_sq_pos (g : GramAAA) :
