@@ -145,7 +145,7 @@ structure LeanFromDRLT where
     P n = true → ∃ m, P m = true
 
 theorem lean_from_drlt : LeanFromDRLT where
-  types_from_existence := ⟨2, le_refl 2⟩
+  types_from_existence := ⟨2, by omega⟩
   extensionality := fun P Q h => by funext i j; exact h i j
   finite_choice := fun P n h => ⟨n, h⟩
 
@@ -167,9 +167,15 @@ theorem lean_from_drlt : LeanFromDRLT where
     This is C(3,3) = 1: exactly ONE way to form a triangle
     from 3 vertices. One axiom system. -/
 
+-- C(n, k) locally for small values
+private def choose3 : Nat → Nat → Nat
+  | _, 0 => 1
+  | 0, _ + 1 => 0
+  | n + 1, k + 1 => choose3 n k + choose3 n (k + 1)
+
 theorem three_is_nS : drltComponentCount = 3 := rfl
 theorem three_is_min_cycle : 3 = 3 := rfl
-theorem one_triangle : binom 3 3 = 1 := by native_decide
+theorem one_triangle : choose3 3 3 = 1 := by native_decide
 
 /-! ## The Full Picture -/
 
@@ -200,17 +206,17 @@ structure FoundationTheorem where
   drlt_components : Nat
   lean_axioms : Nat
   both_equal_nS : drlt_components = 3 ∧ lean_axioms = 3
-  min_cycle : binom 3 3 = 1
+  min_cycle : choose3 3 3 = 1
   -- The axiom itself
   axiom_statement : Axiom0
   -- Derives ℂ
-  substrate : ∀ k : NDA, k.isValid = true → k = NDA.C
+  substrate : ∀ k : Substrate, k.isValid = true → k = Substrate.C
   -- Derives {2, 3}
   atoms : ∀ n, isAdditiveAtom n ↔ (n = 2 ∨ n = 3)
   -- Derives d = 5
   dimension : 2 + 3 = 5
 
-theorem foundation : FoundationTheorem where
+def foundation : FoundationTheorem where
   drlt_components := 3
   lean_axioms := 3
   both_equal_nS := ⟨rfl, rfl⟩

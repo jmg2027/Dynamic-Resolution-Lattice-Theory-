@@ -8,8 +8,8 @@
 
   Derivation chain:
     Step 0: Entities exist (N ≥ 2)
-    Step 1: Relations need a number system (NDA)
-    Step 2: Frobenius: {ℝ, ℂ, ℍ, 𝕆} are all NDAs over ℝ
+    Step 1: Relations need a number system (Substrate)
+    Step 2: Frobenius: {ℝ, ℂ, ℍ, 𝕆} are all Substrates over ℝ
     Step 3: Associativity required → exclude 𝕆
     Step 4: Nontrivial conjugation → exclude ℝ
     Step 5: Commutativity → exclude ℍ
@@ -38,30 +38,30 @@ structure Axiom0 where
   entities_exist : 2 ≤ N
 
 /-- The axiom is satisfiable. -/
-theorem axiom0_exists : Axiom0 where
+def axiom0_exists : Axiom0 where
   N := 2
-  entities_exist := le_refl 2
+  entities_exist := by omega
 
 /-! ## Step 1: Relations need a number system -/
 
-/-- The relation G_ij lives in some normed division algebra 𝕂/ℝ.
-    Why NDA?
-    - Normed: |G_ij| defined → probabilities (Born rule)
-    - Division: G_ij/G_kl defined → ratios
-    - Algebra: G_ij + G_kl and G_ij · G_kl defined → interference -/
+-- The relation G_ij lives in some normed division algebra 𝕂/ℝ.
+-- Why Substrate?
+-- - Normed: |G_ij| defined → probabilities (Born rule)
+-- - Division: G_ij/G_kl defined → ratios
+-- - Algebra: G_ij + G_kl and G_ij · G_kl defined → interference
 
 /-! ## Step 2: Frobenius classification -/
 
 /-- Frobenius (1878) + Hurwitz (1898):
     The ONLY normed division algebras over ℝ are: -/
-inductive NDA where
+inductive Substrate where
   | R   -- ℝ: dim 1, commutative, associative, trivial conjugation
   | C   -- ℂ: dim 2, commutative, associative, nontrivial conjugation
   | H   -- ℍ: dim 4, non-commutative, associative, nontrivial conjugation
   | O   -- 𝕆: dim 8, non-commutative, non-associative, nontrivial conjugation
   deriving DecidableEq
 
-def NDA.dimR : NDA → Nat
+def Substrate.dimR : Substrate → Nat
   | .R => 1
   | .C => 2
   | .H => 4
@@ -72,7 +72,7 @@ def NDA.dimR : NDA → Nat
 /-- Filter 1 (Associativity):
     Spectral theorem requires (AB)C = A(BC).
     𝕆 is non-associative → excluded. -/
-def NDA.isAssociative : NDA → Bool
+def Substrate.isAssociative : Substrate → Bool
   | .R => true
   | .C => true
   | .H => true
@@ -82,7 +82,7 @@ def NDA.isAssociative : NDA → Bool
     G_ij = Ḡ_ji requires z̄ ≠ z for some z.
     ℝ has only z̄ = z → Hermitian collapses to symmetric.
     No phase → no interference → no physics. -/
-def NDA.hasConjugation : NDA → Bool
+def Substrate.hasConjugation : Substrate → Bool
   | .R => false
   | .C => true
   | .H => true
@@ -92,51 +92,51 @@ def NDA.hasConjugation : NDA → Bool
     G_ij must be a SCALAR, not a matrix.
     ℍ: ab ≠ ba → G_ij · G_jk order-dependent.
     Euler products need commutative coefficients. -/
-def NDA.isCommutative : NDA → Bool
+def Substrate.isCommutative : Substrate → Bool
   | .R => true
   | .C => true
   | .H => false
   | .O => false
 
-/-- An NDA is a valid substrate for G_ij iff
+/-- An Substrate is a valid substrate for G_ij iff
     associative ∧ has conjugation ∧ commutative. -/
-def NDA.isValid (k : NDA) : Bool :=
+def Substrate.isValid (k : Substrate) : Bool :=
   k.isAssociative && k.hasConjugation && k.isCommutative
 
 /-! ## The Uniqueness Theorem -/
 
 /-- Step 3: 𝕆 fails associativity. -/
-theorem O_excluded : NDA.O.isValid = false := by native_decide
+theorem O_excluded : Substrate.O.isValid = false := by native_decide
 
 /-- Step 4: ℝ fails conjugation. -/
-theorem R_excluded : NDA.R.isValid = false := by native_decide
+theorem R_excluded : Substrate.R.isValid = false := by native_decide
 
 /-- Step 5: ℍ fails commutativity. -/
-theorem H_excluded : NDA.H.isValid = false := by native_decide
+theorem H_excluded : Substrate.H.isValid = false := by native_decide
 
 /-- ℂ passes all three filters. -/
-theorem C_valid : NDA.C.isValid = true := by native_decide
+theorem C_valid : Substrate.C.isValid = true := by native_decide
 
 /-- THE UNIQUENESS THEOREM: ℂ is the ONLY valid substrate.
     Frobenius gives {ℝ, ℂ, ℍ, 𝕆}.
     Associativity kills 𝕆. Conjugation kills ℝ. Commutativity kills ℍ.
     Survivor: ℂ alone. -/
-theorem substrate_unique (k : NDA) (h : k.isValid = true) :
-    k = NDA.C := by
-  cases k <;> simp_all [NDA.isValid, NDA.isAssociative,
-    NDA.hasConjugation, NDA.isCommutative]
+theorem substrate_unique (k : Substrate) (h : k.isValid = true) :
+    k = Substrate.C := by
+  cases k <;> simp_all [Substrate.isValid, Substrate.isAssociative,
+    Substrate.hasConjugation, Substrate.isCommutative]
 
 /-! ## Step 6: ℂ → dim_ℝ(ℂ) = 2 -/
 
 /-- From ℂ uniqueness: dim_ℝ(ℂ) = 2.
     This is n_T, the temporal atom. -/
-theorem dimR_of_C : NDA.C.dimR = 2 := by native_decide
+theorem dimR_of_C : Substrate.C.dimR = 2 := by native_decide
 
 /-- 2 is the unique doubly irreducible number (from Core.lean).
     Additive atom ∩ Extension atom = {2}.
     So the substrate determines the FIRST atom. -/
 theorem substrate_gives_nT :
-    NDA.C.dimR = 2 ∧ isDoublyIrreducible 2 := by
+    Substrate.C.dimR = 2 ∧ isDoublyIrreducible 2 := by
   constructor
   · native_decide
   · exact (unique_doubly_irreducible 2).mpr rfl
@@ -155,7 +155,7 @@ theorem atoms_are_2_3 : ∀ n, isAdditiveAtom n ↔ (n = 2 ∨ n = 3) :=
 /-- The substrate ℂ gives n_T = 2.
     The additive atoms give {2, 3}, so n_S = 3.
     The total dimension d = n_T + n_S = 2 + 3 = 5. -/
-theorem d_from_axiom : NDA.C.dimR + 3 = 5 := by native_decide
+theorem d_from_axiom : Substrate.C.dimR + 3 = 5 := by native_decide
 
 /-- d = 5 is the unique chiral decomposition (from ChiralChannels.lean). -/
 theorem d_unique : ∀ c : ChiralDecomp,
@@ -183,9 +183,9 @@ structure DerivationChain where
   -- Step 0: Axiom
   axiom_satisfiable : Axiom0
   -- Step 2-5: ℂ uniqueness
-  frobenius_filter : ∀ k : NDA, k.isValid = true → k = NDA.C
+  frobenius_filter : ∀ k : Substrate, k.isValid = true → k = Substrate.C
   -- Step 6: n_T
-  nT_from_substrate : NDA.C.dimR = 2
+  nT_from_substrate : Substrate.C.dimR = 2
   -- Step 7: atoms
   atoms_from_N : ∀ n, isAdditiveAtom n ↔ (n = 2 ∨ n = 3)
   -- Step 8: d = 5
@@ -195,7 +195,7 @@ structure DerivationChain where
     (c.a = 2 ∧ c.b = 3) ∨ (c.a = 3 ∧ c.b = 2)
 
 /-- The complete derivation chain is PROVED (not assumed). -/
-theorem derivation_chain : DerivationChain where
+def derivation_chain : DerivationChain where
   axiom_satisfiable := axiom0_exists
   frobenius_filter := substrate_unique
   nT_from_substrate := by native_decide
@@ -208,10 +208,10 @@ theorem derivation_chain : DerivationChain where
   ASSUMED (Lean's type theory):
   - Natural number arithmetic (Nat)
   - Propositional logic (∧, ∨, ¬, →, ↔)
-  - Inductive types (NDA with 4 constructors)
+  - Inductive types (Substrate with 4 constructors)
 
   ASSUMED (external mathematics, encoded as definitions):
-  - Frobenius theorem: NDA/ℝ = {ℝ, ℂ, ℍ, 𝕆}
+  - Frobenius theorem: Substrate/ℝ = {ℝ, ℂ, ℍ, 𝕆}
     (this is the ONLY external fact; everything else is derived)
 
   PROVED (machine-verified, 0 sorry):

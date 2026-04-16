@@ -112,7 +112,7 @@ def faltings       : MathProblem := ⟨1, 2, 1, true⟩
 def cfsg           : MathProblem := ⟨1, 2, 1, true⟩
 def flt            : MathProblem := ⟨1, 2, 1, true⟩
 def modularity     : MathProblem := ⟨1, 2, 1, true⟩
-def catalan        : MathProblem := ⟨0, 2, 1, true⟩
+def catalanProb        : MathProblem := ⟨0, 2, 1, true⟩
 def serre          : MathProblem := ⟨1, 2, 1, true⟩
 def spherePacking  : MathProblem := ⟨1, 2, 1, true⟩
 
@@ -120,7 +120,7 @@ def spherePacking  : MathProblem := ⟨1, 2, 1, true⟩
 
 def greenTao       : MathProblem := ⟨0, 3, 2, true⟩   -- solved!
 def zhangGaps      : MathProblem := ⟨0, 3, 2, true⟩   -- solved!
-def goldbach       : MathProblem := ⟨0, 3, 2, false⟩
+def goldbachProb       : MathProblem := ⟨0, 3, 2, false⟩
 def twinPrimesP    : MathProblem := ⟨0, 3, 2, false⟩
 def abcConj        : MathProblem := ⟨1, 3, 2, false⟩
 
@@ -151,14 +151,14 @@ theorem l_derived_l2 :
     cfsg.derivedL = cfsg.l ∧
     flt.derivedL = flt.l ∧
     modularity.derivedL = modularity.l ∧
-    catalan.derivedL = catalan.l ∧
+    catalanProb.derivedL = catalanProb.l ∧
     serre.derivedL = serre.l ∧
     spherePacking.derivedL = spherePacking.l := by native_decide
 
 theorem l_derived_l3 :
     greenTao.derivedL = greenTao.l ∧
     zhangGaps.derivedL = zhangGaps.l ∧
-    goldbach.derivedL = goldbach.l ∧
+    goldbachProb.derivedL = goldbachProb.l ∧
     twinPrimesP.derivedL = twinPrimesP.l ∧
     abcConj.derivedL = abcConj.l := by native_decide
 
@@ -181,7 +181,7 @@ theorem l_le2_solved :
     pnt.isSolved = true ∧ weil.isSolved = true ∧
     faltings.isSolved = true ∧ cfsg.isSolved = true ∧
     flt.isSolved = true ∧ modularity.isSolved = true ∧
-    catalan.isSolved = true ∧ serre.isSolved = true ∧
+    catalanProb.isSolved = true ∧ serre.isSolved = true ∧
     spherePacking.isSolved = true := by native_decide
 
 /-- All l = 4 problems are open. -/

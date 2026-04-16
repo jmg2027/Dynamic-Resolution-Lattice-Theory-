@@ -1,6 +1,6 @@
 ============================================================
   EXP_RH_079_DRLT_self-verification_system
-  2026-04-16 06:37:57
+  2026-04-16 07:02:38
 ============================================================
 
 === Test 1: Dependency Graph ===
@@ -70,10 +70,10 @@
 
                             File | Theorems
   -------------------------------+---------
-                           Axiom |       12
+                           Axiom |       10
                      BSDPoincare |       13
                    BridgeDetails |       21
-                  ChiralChannels |       15
+                  ChiralChannels |       14
                       ChoiceAndN |       13
                          Collatz |       26
               ConjectureStrength |       11
@@ -81,7 +81,7 @@
                       DRLTPrimes |       17
                       DetFormula |       22
                      FiniteLimit |        9
-                      Foundation |       11
+                      Foundation |       10
                              GRH |        8
                     GoldbachTwin |       10
                   HodgeAlgebraic |       12
@@ -118,14 +118,14 @@
                       VietaChain |       12
                        YMMassGap |       15
                Zeta2Universality |        6
-                           TOTAL |      582
-  [✓ PASS] Total theorems: 582
+                           TOTAL |      578
+  [✓ PASS] Total theorems: 578
 
 === Test 4: Tactic Classification ===
 
   Tactic usage:
       native_decide:  617 ████████████████████████████████████████
-              omega:   91 ████████████████████████████████████████
+              omega:   93 ████████████████████████████████████████
                 rfl:   87 ████████████████████████████████████████
                simp:   78 ████████████████████████████████████████
              decide:    0 
@@ -167,8 +167,8 @@
   ║  DRLT VERIFICATION MANIFEST           ║
   ║                                       ║
   ║  Lean files:      49                  ║
-  ║  Total lines:    8233                 ║
-  ║  Theorems:       582                  ║
+  ║  Total lines:    8242                 ║
+  ║  Theorems:       578                  ║
   ║  Sorry:            0                  ║
   ║  Sorry rate:      0.0%               ║
   ║                                       ║
@@ -181,7 +181,7 @@
 ============================================================
   [✓] Dependency graph acyclic
   [✓] Zero sorry in all files
-  [✓] Total theorems: 582
+  [✓] Total theorems: 578
   [✓] Tactic distribution measured
   [✓] md↔Lean mapping: 15/15
   [✓] Verification manifest generated

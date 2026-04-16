@@ -70,16 +70,16 @@ def Conjecture.confidence (c : Conjecture) : Nat × Nat :=
 def riemannHypothesis : Conjecture :=
   ⟨"RH", 10000000000000, 4, true⟩  -- 10^13 zeros checked
 
-def goldbach : Conjecture :=
+def conjGoldbach : Conjecture :=
   ⟨"Goldbach", 4000000000000000000, 3, true⟩  -- 4×10^18
 
-def twinPrimes : Conjecture :=
+def conjTwinPrimes : Conjecture :=
   ⟨"Twin Primes", 1000000000000000000, 3, true⟩  -- 10^18
 
-def collatz : Conjecture :=
+def conjCollatz : Conjecture :=
   ⟨"Collatz", 100000000000000000000, 4, true⟩  -- ~10^20
 
-def pneqnp : Conjecture :=
+def conjPneqnp : Conjecture :=
   ⟨"P≠NP", 1000, 4, true⟩  -- qualitative (50 years, ~1000 algorithms tried)
 
 /-! ## 4. Key Theorems -/
@@ -87,19 +87,19 @@ def pneqnp : Conjecture :=
 /-- All famous conjectures have evidence. -/
 theorem all_have_evidence :
     riemannHypothesis.hasEvidence = true ∧
-    goldbach.hasEvidence = true ∧
-    twinPrimes.hasEvidence = true ∧
-    collatz.hasEvidence = true ∧
-    pneqnp.hasEvidence = true := by
+    conjGoldbach.hasEvidence = true ∧
+    conjTwinPrimes.hasEvidence = true ∧
+    conjCollatz.hasEvidence = true ∧
+    conjPneqnp.hasEvidence = true := by
   native_decide
 
 /-- All famous conjectures are structurally open (l > 2). -/
 theorem all_structurally_open :
     riemannHypothesis.structurallyOpen = true ∧
-    goldbach.structurallyOpen = true ∧
-    twinPrimes.structurallyOpen = true ∧
-    collatz.structurallyOpen = true ∧
-    pneqnp.structurallyOpen = true := by
+    conjGoldbach.structurallyOpen = true ∧
+    conjTwinPrimes.structurallyOpen = true ∧
+    conjCollatz.structurallyOpen = true ∧
+    conjPneqnp.structurallyOpen = true := by
   native_decide
 
 /-- WHY conjectures exist:

@@ -35,7 +35,7 @@ structure ChiralDecomp where
   sum_d : a + b = 5
 
 /-- Existence: (2, 3) is a chiral decomposition. -/
-theorem chiral_exists : ChiralDecomp where
+def chiral_exists : ChiralDecomp where
   a := 2
   b := 3
   atom_a := Or.inl rfl
