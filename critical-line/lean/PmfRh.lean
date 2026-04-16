@@ -46,3 +46,4 @@ import PmfRh.SkeletonFiltration
 import PmfRh.ChiralChannels
 import PmfRh.Axiom
 import PmfRh.Foundation
+import PmfRh.FrobeniusAlgebraic
