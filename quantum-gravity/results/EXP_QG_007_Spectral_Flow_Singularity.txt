@@ -1,0 +1,151 @@
+============================================================
+  EXP_QG_007_Spectral_Flow_Singularity
+  2026-04-16 08:50:10
+============================================================
+Spectral flow interpretation of singularity instability
+  G_h = Gram matrix → PSD → eigenvalues ≥ 0
+  → spectral flow through 0 is always 0
+  → no topological protection for singularities
+
+============================================================
+Step 1: PSD guarantee — eigenvalues ≥ 0 along all paths
+============================================================
+  G_h is a principal submatrix of Gram(ψ) = ψψ†
+  Gram matrices are always PSD → eigenvalues ≥ 0
+  Verifying numerically over 200 random paths...
+  Paths tested: 200
+  Steps per path: 50
+  Total hinge evaluations: 204000
+  Global minimum eigenvalue: 6.03e-03
+  PSD violations (λ < -1e-12): 0
+  [✓ PASS] PSD guarantee: all eigenvalues ≥ 0
+
+============================================================
+Step 2: Spectral flow through singularity = 0
+============================================================
+  Path: generic(A) → singular(S) → generic(B)
+  Track λ_min of G_{012} along the path
+
+  Path: 401 steps
+  λ_min at start (A):      0.296499
+  λ_min at singularity (S): 0.000000e+00
+  λ_min at end (B):         0.460247
+  Global minimum: 0.000000e+00 at step 200
+  λ_0: sf = 0, touches = 1
+  λ_1: sf = 0, touches = 0
+  λ_2: sf = 0, touches = 0
+
+  Total spectral flow: 0
+  Total touches of zero: 1
+  [✓ PASS] Spectral flow through singularity = 0
+  [✓ PASS] λ_min touches 0 near singularity
+
+============================================================
+Step 3: Tangency at zero — bounce, not crossing
+============================================================
+  Since λ ≥ 0 always, λ = 0 must be a local minimum
+  → dλ/dt changes sign at the zero (bounce)
+  → eigenvalue approaches 0, touches, rebounds
+
+  Minimum λ = 0.000000e+00 at step 500
+  dλ/dt before minimum: -4.136325e-02 (should be < 0)
+  dλ/dt after minimum:  4.982187e-02 (should be > 0)
+  Sign change: True
+  All λ ≥ 0: True
+  → Tangency confirmed: eigenvalue bounces at zero
+  [✓ PASS] Tangency: dλ/dt sign change at minimum (bounce)
+  [✓ PASS] All eigenvalues non-negative along path
+
+============================================================
+Step 4: Closed-path spectral flow = 0
+============================================================
+  For a closed loop A → B → C → A, spectral flow must be 0
+  This is trivially true for PSD (sf=0 on ANY path)
+  But let's verify on multiple closed loops
+  Closed loops tested: 50
+  Waypoints per loop: 4
+  All spectral flows = 0: True
+  [✓ PASS] Closed-path spectral flow = 0 for all loops
+
+============================================================
+Step 5: Non-PSD comparison — spectral flow ≠ 0
+============================================================
+  If G were generic Hermitian (not Gram), eigenvalues
+  could go negative, crossing zero → sf ≠ 0
+  → topological protection → stable singularities
+  This does NOT happen in DRLT because G = ψψ†.
+
+  Non-PSD trials: 100
+  Paths with zero-crossing: 100
+  Paths with nonzero spectral flow: 100
+  → Generic Hermitian CAN have sf ≠ 0
+  → PSD (Gram) CANNOT → singularities are unprotected
+  [✓ PASS] Non-PSD: eigenvalue zero-crossings exist
+  [✓ PASS] Non-PSD: nonzero spectral flow detected
+
+============================================================
+Step 6: Index theorem — sf = 0 from PSD
+============================================================
+  Atiyah-Patodi-Singer: spectral flow is a topological invariant
+  For PSD operators: sf = 0 identically (no crossings possible)
+  Proof: λ_a(t) ≥ 0 ∀t → zero is a boundary, not interior
+  → crossings are replaced by tangencies (bounces)
+
+  Paths through singularity: 100
+  All spectral flows = 0: True
+  Total zero-touches: 100
+  → sf(G_h) = 0: no topological charge at singularities
+  [✓ PASS] Index theorem: sf = 0 for all paths through singularity
+
+============================================================
+Step 7: Physical interpretation
+============================================================
+
+  SPECTRAL FLOW AND SINGULARITY INSTABILITY
+  ─────────────────────────────────────────
+
+  1. G_h = ⟨ψ_i|ψ_j⟩ restricted to hinge {i,j,k}
+     → Gram matrix → PSD → eigenvalues λ_a ≥ 0
+
+  2. Singularity ↔ det(G_h) = 0 ↔ some λ_a = 0
+     → A_h = √det = 0 → ℏ_h = A_h/(4ln2) = 0
+
+  3. Spectral flow = net # of eigenvalue zero-crossings
+     For PSD: eigenvalues can touch 0 but never go negative
+     → sf(G_h) = 0 for ANY path in configuration space
+
+  4. COMPARISON with generic Hermitian (non-DRLT):
+     Eigenvalues CAN cross zero → sf ≠ 0 possible
+     Nonzero sf = topological invariant = PROTECTED singularity
+     This is why GR singularities can be stable!
+
+  5. DRLT RESOLUTION:
+     G = ψψ† forces PSD → sf = 0 always
+     → No topological charge protects singularities
+     → Singularities are dynamically unstable (QG_004)
+     → Black holes have finite lifetime, no information loss
+
+  6. THE AXIOM CONNECTION:
+     'Things exist with pairwise relations' → G_ij = ⟨ψ_i|ψ_j⟩
+     The inner-product structure FORCES PSD
+     → PSD FORCES sf = 0
+     → sf = 0 FORCES singularity instability
+     → The axiom itself forbids permanent singularities
+
+  CHAIN: Axiom → G = ψψ† → PSD → sf = 0 → no stable singularity
+
+============================================================
+  SUMMARY: EXP_QG_007_Spectral_Flow_Singularity
+============================================================
+  [✓] PSD guarantee: all eigenvalues ≥ 0
+  [✓] Spectral flow through singularity = 0
+  [✓] λ_min touches 0 near singularity
+  [✓] Tangency: dλ/dt sign change at minimum (bounce)
+  [✓] All eigenvalues non-negative along path
+  [✓] Closed-path spectral flow = 0 for all loops
+  [✓] Non-PSD: eigenvalue zero-crossings exist
+  [✓] Non-PSD: nonzero spectral flow detected
+  [✓] Index theorem: sf = 0 for all paths through singularity
+
+  9/9 checks passed
+  Time: 4.9s

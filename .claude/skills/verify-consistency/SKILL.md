@@ -46,7 +46,7 @@ d = 5
 n_S = n_A = 3
 n_T = n_B = 2
 c = 2 = n_T                       (lattice speed of light)
-ε = α^{2/3}(1+α) = 0.08597...    (confinement parameter)
+ε = α^{2/3}(1+α) = 0.08597...    (confinement parameter; book rounds to 0.0860)
 φ = golden ratio = (1+√5)/2 = 1.618...
 ```
 

@@ -1,0 +1,47 @@
+============================================================
+  EXP_HAD_007_Gram_Algorithm
+  2026-04-15 20:05:09
+============================================================
+
+=== Part 1: Calibrate energy scale from proton ===
+  Vacuum simplex: 5 vertices, 10 hinges
+  S_vacuum = 0.003832
+  Gram matrix (5×5):
+    +1.0000 +0.0000 +0.0000 +0.0146 +0.0146
+    +0.0000 +1.0000 +0.0000 +0.0146 +0.0146
+    +0.0000 +0.0000 +1.0000 +0.0146 +0.0146
+    +0.0146 +0.0146 +0.0146 +1.0000 +0.0006
+    +0.0146 +0.0146 +0.0146 +0.0006 +1.0000
+
+  Proton: S = 0.012857, ΔS = 0.009025
+  E_scale = m_p / |ΔS| = 103960.4 MeV
+
+=== Part 2: Variational meson — δS/δψ = 0 ===
+  Optimizing meson and baryon configurations...
+  Fixed: A₁A₂A₃ (3 orthogonal quarks in ℂ³)
+  Optimize: additional vertices on the simplex
+
+  PION (2 extra vertices):
+    v0: ε=1.0000 (spatial 100.0%)
+    v1: ε=1.0000 (spatial 100.0%)
+    S_opt = 7.00000000, ΔS = 7.00000000
+    m = 727722.5 MeV (obs 137.3, err +529923.7%)
+
+  RHO (2 extra, vector):
+    v0: ε=1.0000 (spatial 100.0%)
+    v1: ε=1.0000 (spatial 100.0%)
+    S_opt = 7.00000000, ΔS = 7.00000000
+    m = 727722.5 MeV (obs 775.3, err +93763.3%)
+
+  MESON (1 extra vertex):
+    v0: ε=1.0000 (spatial 100.0%)
+    S_opt = 2.00000000, ΔS = 2.00000000
+    m = 207920.7 MeV (obs 137.3, err +151335.3%)
+
+  Proton: ΔS = 0.00383217 (calibrated)
+  m_p = 938.3 MeV
+
+============================================================
+  SUMMARY: EXP_HAD_007_Gram_Algorithm
+============================================================
+  Time: 34.0s

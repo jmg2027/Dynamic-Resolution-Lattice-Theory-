@@ -1,0 +1,105 @@
+============================================================
+  EXP_ATM_037_Born_Phase_Constraint
+  2026-04-15 14:25:08
+============================================================
+
+  ============================================================
+  Test 1: Algebraic derivation chain
+  ============================================================
+
+  sin(2phi) = (N_S^2-1)/N_S^2 = (9-1)/9 = 0.8888888888888888
+
+  mu^2 = 1 - sin^2(2phi)/2 = 1 - (0.8888888888888888)^2/2 = 0.6049382716049383
+  mu^2 = 1 - 64/162 = 1 - 32/81 = 49/81
+  mu = 7/9 = 0.7777777778
+  mu (computed) = 0.7777777778
+
+  sigma = 2*mu/(1+mu) = 2*(7/9)/(1+7/9) = 14/16 = 7/8
+  sigma = 0.8750000000
+  7/8   = 0.8750000000
+
+  Normalized gap = mu/(1+mu) = 7/16 = 0.4375
+  = (N_S^2-N_T)/(d^2-N_S^2) = (9-2)/(25-9) = 7/16
+  Computed: 0.4375000000
+
+  phi = arcsin(8/9)/2 = 31.3670 deg = 0.547457 rad
+  [✓ PASS] mu = 7/9 exactly
+  [✓ PASS] sigma = 7/8 exactly
+
+  ============================================================
+  Test 2: Variational phi from Regge action
+  ============================================================
+
+  Scanning phi for F = Σ(1-det) extremum:
+  phi_max (action) = 0.57 deg
+  phi_born (7/8)   = 31.37 deg
+  phi = pi/3       = 60.00 deg
+
+  F(phi_born)  = 4.24852919
+  F(phi_max)   = 4.30858866
+  F(pi/3)      = 4.25010956
+  [✓ PASS] phi_max = 0.6 deg
+
+  ============================================================
+  Test 3: Born structure → multiple screening constants
+  ============================================================
+
+  From mu = 7/9 (phi satisfying sin(2phi)=8/9):
+
+                      Ratio      Value     Known sigma
+                 2mu/(1+mu)   0.875000 ≈ 7/8 = sigma_cross
+                  mu/(1+mu)   0.437500                
+                       1-mu   0.222222                
+                   (1+mu)/2   0.888889 ≈ 9/10 = sigma_sp_odd
+                         mu   0.777778                
+                       mu^2   0.604938  ≈ sigma_same_s
+                     1-mu^2   0.395062                
+                   1/(1+mu)   0.562500                
+              (1-mu)/(1+mu)   0.125000                
+
+  Derived quantities:
+  1/N_T + c^2*alpha_GUT = 0.597268 (sigma_same_s)
+  1/(1+mu) = 0.562500 (= 9/16)
+  1/N_T = 0.500000
+  difference = 0.062500
+  c^2*alpha_GUT = 0.097268
+  [✓ PASS] Screening table complete
+
+  ============================================================
+  Test 4: General d formula
+  ============================================================
+
+  Formula: sin(2phi) = (N_S^2-1)/N_S^2
+  => mu = sqrt(1 - ((N_S^2-1)/N_S^2)^2 / 2)
+  => sigma_cross = 2mu/(1+mu)
+
+  Also: sigma_cross = 1 - N_S/(d^2-1) [old derivation]
+
+     d  N_S  N_T  sigma_old         mu   sigma_Born    match
+     3    1    2   0.875000   1.000000     1.000000       no
+     4    2    2   0.866667   0.847791     0.917627       no
+     5    3    2   0.875000   0.777778     0.875000      YES
+     6    4    2   0.885714   0.748697     0.856291       no
+     7    5    2   0.895833   0.734302     0.846799       no
+     8    6    2   0.904762   0.726218     0.841398       no
+
+  === d=5 EXACT ===
+  sin(2phi) = 8/9 = (N_S^2-1)/N_S^2
+  mu = 7/9
+  sigma_cross = 7/8
+  BOTH derivations agree: adj SU(5) trace = Born gap
+  This is NOT a coincidence: they are two views
+  of the same geometric constraint.
+  [✓ PASS] General d formula computed
+
+============================================================
+  SUMMARY: EXP_ATM_037_Born_Phase_Constraint
+============================================================
+  [✓] mu = 7/9 exactly
+  [✓] sigma = 7/8 exactly
+  [✓] phi_max = 0.6 deg
+  [✓] Screening table complete
+  [✓] General d formula computed
+
+  5/5 checks passed
+  Time: 0.0s

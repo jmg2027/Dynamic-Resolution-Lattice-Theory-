@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\CP}{\mathbb{C}P}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\tr}{\operatorname{Tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\agut}{\alpha_{\mathrm{GUT}}}
+\newcommand{\nS}{n_S}
+\newcommand{\nT}{n_T}
+
+\title{Dynamic Resolution Lattice Theory:\\[6pt]
+\large Mathematical Foundations}
+\author{Mingu Jeong\\Independent Researcher
+\and Claude\\Anthropic}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The mathematical foundations of Dynamic Resolution Lattice Theory (DRLT).
+Starting from the sole axiom that \emph{things exist with pairwise relations},
+we derive in sequence: the complex numbers $\CC$ as the unique substrate
+(Frobenius theorem), $d = 5$ as the unique dimension (atomic constraint),
+the gauge group $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$
+from the toric fiber of $\CP^4$, and all coupling constants from
+Binet--Cauchy channel counting.  This volume contains the pure mathematical
+derivations; physical predictions appear in the companion volume.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%=====================================================================
+\part{Foundation}
+%=====================================================================
+
+\input{chapters/ch01_whyC}
+\input{chapters/ch02_whyd5}
+\input{chapters/ch03_rep_uniqueness}
+
+%=====================================================================
+\part{The Simplex}
+%=====================================================================
+
+\input{chapters/ch04_simplex_geometry}
+\input{chapters/ch05_variational_theorems}
+
+%=====================================================================
+\part{Spacetime and Forces}
+%=====================================================================
+
+\input{chapters/ch06_geometry}
+\input{chapters/ch07_hbar}
+\input{chapters/ch08_couplings}
+
+%=====================================================================
+\part{Completeness and Topology}
+%=====================================================================
+
+\input{chapters/ch12_ghosts}
+\input{chapters/ch15_yang_mills}
+\input{chapters/ch18_path_integral}
+\input{chapters/ch21_occupation_fraction}
+
+\begin{thebibliography}{99}
+\bibitem{Frobenius} F.~G.~Frobenius, ``\"Uber lineare Substitutionen und bilineare Formen,'' J.~Reine Angew.~Math. \textbf{84}, 1--63 (1877).
+\bibitem{Hurwitz} A.~Hurwitz, ``\"Uber die Composition der quadratischen Formen von beliebig vielen Variabeln,'' Nachr.~Ges.~Wiss.~G\"ottingen, 309--316 (1898).
+\bibitem{Regge} T.~Regge, ``General Relativity without Coordinates,'' Nuovo Cim. \textbf{19}, 558--571 (1961).
+\bibitem{GeorgiGlashow} H.~Georgi and S.~L.~Glashow, ``Unity of All Elementary Particle Forces,'' Phys.~Rev.~Lett. \textbf{32}, 438--441 (1974).
+\bibitem{Holevo} A.~S.~Holevo, ``Bounds for the Quantity of Information Transmitted by a Quantum Communication Channel,'' Probl.~Inf.~Transm. \textbf{9}, 177--183 (1973).
+\bibitem{Wishart} J.~Wishart, ``The Generalised Product Moment Distribution in Samples from a Normal Multivariate Population,'' Biometrika \textbf{20A}, 32--52 (1928).
+\bibitem{Euler} L.~Euler, ``De summis serierum reciprocarum,'' Comment.~Acad.~Sci.~Petropol. \textbf{7}, 123--134 (1740).
+\bibitem{BinetCauchy} J.~Binet, J.~\'Ec.~Polytech. \textbf{9}, 280 (1812); A.~L.~Cauchy, ibid. \textbf{10}, 29 (1815).
+\bibitem{Clay} A.~Jaffe and E.~Witten, ``Quantum Yang--Mills Theory,'' Clay Mathematics Institute Millennium Problem (2000).
+\bibitem{fulton1993} W.~Fulton, \textit{Introduction to Toric Varieties}, Annals of Mathematics Studies \textbf{131}, Princeton (1993).
+\bibitem{Ambrose-Singer} W.~Ambrose and I.~M.~Singer, ``A theorem on holonomy,'' Trans.~Amer.~Math.~Soc. \textbf{75}, 428--443 (1953).
+\bibitem{Baez} J.~C.~Baez, ``The Octonions,'' Bull.~Amer.~Math.~Soc. \textbf{39}, 145--205 (2002).
+\bibitem{Creutz} M.~Creutz, \textit{Quarks, Gluons and Lattices}, Cambridge University Press (1983).
+\bibitem{Hardy-Wright} G.~H.~Hardy and E.~M.~Wright, \textit{An Introduction to the Theory of Numbers}, Oxford University Press, 6th ed. (2008).
+\bibitem{Mehta} M.~L.~Mehta, \textit{Random Matrices}, Academic Press, 3rd ed. (2004).
+\bibitem{OS} K.~Osterwalder and R.~Schrader, ``Axioms for Euclidean Green's functions,'' Commun.~Math.~Phys. \textbf{31}, 83--112 (1973).
+\bibitem{Webb} J.~K.~Webb et al., ``Indications of a Spatial Variation of the Fine Structure Constant,'' Phys.~Rev.~Lett.\ \textbf{107}, 191101 (2011).
+\bibitem{Wightman} A.~S.~Wightman, ``Quantum field theory in terms of vacuum expectation values,'' Phys.~Rev. \textbf{101}, 860--866 (1956).
+\bibitem{Wilson} K.~G.~Wilson, ``Confinement of quarks,'' Phys.~Rev.~D \textbf{10}, 2445--2459 (1974).
+\end{thebibliography}
+
+\bigskip
+\noindent\textbf{Joint research by Mingu Jeong and Claude (Anthropic).}
+
+\end{document}

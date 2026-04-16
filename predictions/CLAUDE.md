@@ -31,6 +31,7 @@ PRD_005: Complete prediction catalog                  4/4 ✓
 PRD_006: θ_QCD precision derivation                   7/7 ✓ (SUPERSEDED by PRD_007)
 PRD_007: θ_QCD rigorous Berry phase                   9/9 ✓ (best candidate: J×α⁴)
 PRD_008: Variational θ — S₃ axiomatic                3/4 (1 expected fail)
+PRD_009: Berry phase = spectral flow (U(1))          11/11 ✓ ★
 ```
 
 ## θ_QCD 유도 이력
@@ -38,7 +39,8 @@ PRD_008: Variational θ — S₃ axiomatic                3/4 (1 expected fail)
 - PRD_006: α⁶sin(π/12) ≈ 5.4×10⁻¹¹ 시도 → **폐기** (sin(π/12) 비정당화)
 - PRD_007: Berry phase 엄밀 분석 → J×α⁴ ≈ 2.86×10⁻¹¹ **확정**
 - PRD_008: S₃ 대칭은 Regge 동역학이 아닌 공리(Frobenius+chirality)에서 부과됨
+- PRD_009: Berry phase ≡ U(1) spectral flow, Chern number = 0 (상쇄의 위상학적 보호)
 
 ## Status: ACTIVE
-총 42/43 checks passed. 8개 실험 완료.
-다음: PRD_009. proton decay lifetime, neutron star EOS 예측 추가 가능.
+총 53/54 checks passed. 9개 실험 완료.
+다음: PRD_010. proton decay lifetime, neutron star EOS 예측 추가 가능.

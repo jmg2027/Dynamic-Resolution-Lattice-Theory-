@@ -1,0 +1,59 @@
+============================================================
+  EXP_NUC_010_DRLT_Mass_Formula
+  2026-04-15 16:25:56
+============================================================
+
+=== Part 1: DRLT coefficients from d=5 ===
+  DRLT coefficients (0 free parameters):
+    E_d = m_p α/(2d) = 2.282 MeV (deuteron unit)
+
+    a_V = 6 × E_d         = 13.69 MeV  (obs: ~15.5)
+    a_S = (d-1) × E_d     = 9.13 MeV  (obs: ~16.8)
+    a_C = 3αℏc/(5r₀)      = 0.685 MeV (obs: ~0.71)
+    a_A = d × E_d          = 11.41 MeV  (obs: ~23.3)
+    δ₀  = a_V              = 13.69 MeV  (obs: ~12)
+
+   Coeff      DRLT       Obs     Error
+     a_V     13.69     15.50    -11.7%
+     a_S      9.13     16.80    -45.7%
+     a_C      0.68      0.71     -3.6%
+     a_A     11.41     23.30    -51.0%
+      δ₀     13.69     12.00    +14.1%
+
+=== Part 2: Comparison with data ===
+     Nucleus     A     Z  B/A pred   B/A obs       err
+                 2     1     6.446     1.112   +479.7%
+                 4     2     9.436     7.074    +33.4%
+                12     6     9.285     7.680    +20.9%
+                16     8     9.331     7.976    +17.0%
+                40    20     9.173     8.551     +7.3%
+                56    26     9.201     8.790     +4.7%
+                90    40     8.880     8.710     +2.0%
+               120    50     8.699     8.505     +2.3%
+               208    82     7.953     7.868     +1.1%
+
+  RMS B/A error: 160.6%
+  [✗ FAIL] RMS B/A error < 30%
+
+=== Part 3: Magic number peaks ===
+  Doubly-magic nuclei (enhanced binding):
+       ⁴He (Z=  2, N=  2): Z✓ N✓ ★ DOUBLY MAGIC
+       ¹⁶O (Z=  8, N=  8): Z✓ N✓ ★ DOUBLY MAGIC
+      ⁴⁰Ca (Z= 20, N= 20): Z✓ N✓ ★ DOUBLY MAGIC
+      ⁴⁸Ca (Z= 20, N= 28): Z✓ N✓ ★ DOUBLY MAGIC
+      ⁵⁶Ni (Z= 28, N= 28): Z✓ N✓ ★ DOUBLY MAGIC
+     ¹³²Sn (Z= 50, N= 82): Z✓ N✓ ★ DOUBLY MAGIC
+     ²⁰⁸Pb (Z= 82, N=126): Z✓ N✓ ★ DOUBLY MAGIC
+
+  The 600-cell shell closures at magic numbers
+  create extra binding (shell gap energy).
+  This is the analog of the pairing/shell correction
+  in the empirical mass formula.
+
+============================================================
+  SUMMARY: EXP_NUC_010_DRLT_Mass_Formula
+============================================================
+  [✗] RMS B/A error < 30%
+
+  0/1 checks passed
+  Time: 0.0s

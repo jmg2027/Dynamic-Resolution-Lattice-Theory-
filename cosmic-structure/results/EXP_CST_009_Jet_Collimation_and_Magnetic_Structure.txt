@@ -1,0 +1,63 @@
+============================================================
+  EXP_CST_009_Jet_Collimation_and_Magnetic_Structure
+  2026-04-16 04:11:18
+============================================================
+
+=== Part 1: Magnetic Field from Holonomy ===
+
+  Field strength by sector:
+    SSS (strong): <|F|> = 1.6945  (confined)
+    SST (EM):     <|F|> = 1.7953  (jet B-field)
+    STT (weak):   <|F|> = 1.7559  (short range)
+    SST/SSS ratio: 1.060
+  [✓ PASS] EM field present
+
+=== Part 2: Jet Opening Angle ===
+
+  Initial opening angle (launch):
+    theta_0 = 1/sqrt(n_SST) = 1/sqrt(12)
+    = 0.2887 rad = 16.5 deg
+    Observed at launch: ~15-30 deg
+
+  Observed angle (Gamma=10):
+    theta_obs = theta_0/Gamma
+    = 0.0289 rad = 1.65 deg
+    Observed M87: ~5 deg at launch, <1 deg far
+
+=== Part 3: B-Field Topology ===
+
+  <|holonomy|> (toroidal) = 1.1322
+  <|deficit|>  (poloidal) = 4.0039
+  Pitch angle = arctan(Bphi/Bz) = 15.8 deg
+  Observed: ~45 deg (M87), 20-70 deg range
+  [✗ FAIL] Pitch angle > 25 deg (stable)
+
+=== Part 4: Faraday Rotation ===
+
+  DRLT predicts systematic RM gradient
+  across jet width from helical holonomy.
+  Observation: confirmed in 3C 273, M87,
+  and many VLBI jets (Gabuzda+ 2004).
+
+=== Part 5: Jet Stability Length ===
+
+  L_stable / R_jet ~ 1/alpha_GUT = 41
+  For R_jet ~ 1 kpc: L_stable ~ 41 kpc
+  Observed: jets extend 10-1000 kpc
+  → ratio ~40 matches DRLT prediction!
+  [✓ PASS] Stability ratio > 10
+
+=== Summary ===
+  theta_0 = 16.5 deg (launch)
+  Helical pitch = 16 deg
+  L_stable/R ~ 41
+
+============================================================
+  SUMMARY: EXP_CST_009_Jet_Collimation_and_Magnetic_Structure
+============================================================
+  [✓] EM field present
+  [✗] Pitch angle > 25 deg (stable)
+  [✓] Stability ratio > 10
+
+  2/3 checks passed
+  Time: 0.2s

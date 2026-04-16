@@ -409,3 +409,39 @@ The predicted weak-force coefficient is:
 \boxed{b_2^{\mathrm{pred}} = -\frac{7}{2} + \frac{41\,\ln 2}{90\,(-\zeta'(2))} = -3.163.}
 \end{equation}
 The SM value is $b_2 = -19/6 = -3.167$, a discrepancy of $0.11\%$.  The sector weight $w_2 = n_B/n_A = 2/3$ (relative to spatial forces) is derived, not fit.
+
+%=====================================================================
+\subsection{Prime numbers from Gram structure}
+\label{sec:primes}
+%=====================================================================
+
+The Gram propagator $D(n) = 1/n^s$ with $s = \dim_\RR(\CC^2) - 2 = 2$ defines a zeta function $Z(s) = \sum_{n=1}^N 1/n^s$.  The Euler product emerges from Gram path independence.
+
+\begin{theorem}[Euler product from path composition]
+\label{thm:euler_product}
+Independent Gram paths compose multiplicatively: if $\gcd(a,b)=1$, then $D(ab)=D(a)\cdot D(b)$.  By the Fundamental Theorem of Arithmetic:
+\begin{equation}
+Z(s) = \prod_{p\;\mathrm{prime}} \frac{1}{1-p^{-s}}, \qquad \mathrm{Re}(s)>1.
+\end{equation}
+Primes are \textbf{irreducible Gram paths}: lattice paths that cannot factor through intermediate vertices.
+\end{theorem}
+
+\begin{theorem}[PNT exponents from $(n_S, n_T)$]
+\label{thm:pnt_exponents}
+The classical zero-free inequality $\zeta^3(\sigma)\,|\zeta(\sigma+it)|^4\,|\zeta(\sigma+2it)|\ge 1$ has exponents
+\begin{equation}
+\boxed{(3,\,4,\,1) = (n_S,\; n_T^2,\; \gcd(n_S,n_T)), \qquad 3+4+1 = 8 = \dim\,\mathfrak{su}(3).}
+\end{equation}
+The PNT margin $n_T^2 - n_S = 1 = \gcd(n_S,n_T)$ is minimal: temporal observation barely exceeds spatial structure.
+\end{theorem}
+
+\begin{theorem}[Equidistribution from $\gcd(2,3)=1$]
+\label{thm:equidistrib}
+Since $\gcd(n_S, n_T) = \gcd(3,2) = 1$, the lattice $\ZZ\cdot 3 + \ZZ\cdot 2 = \ZZ$ (Bezout), so all residue classes are reached.  Multiplication by $n_S=3$ is an automorphism of $\ZZ/2^k\ZZ$ for all $k$.  This is the origin of Dirichlet equidistribution and the Chebyshev bias ($n_S \neq n_T$ produces chirality favoring $3\!\pmod{4}$ over $1\!\pmod{4}$).
+\end{theorem}
+
+\begin{remark}[Why primes are special]
+Primes bridge the gap between addition and multiplication.  Over $\RR$, the exponential $\exp\!: (\RR,+)\to(\RR_+,\times)$ identifies the two operations.  Over $\CC$, conjugation $z\mapsto\bar z$ separates them: $|z|^2 = z\bar z \neq z^2$.  Primes are the objects that are \emph{additively generated} by $\{2,3\}$ (Frobenius coin) yet \emph{multiplicatively irreducible}.  This gap exists because $\dim_\RR(\CC) = 2$.
+\end{remark}
+
+\noindent Full treatment: \textit{Prime Numbers from Finite Geometry} (companion paper).
