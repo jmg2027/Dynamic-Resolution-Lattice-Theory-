@@ -718,3 +718,92 @@ The screening constants of the previous sections are the \emph{leading-order} so
 with $Z_\text{eff}(k) = Z - \sum_{j \neq k} \sigma(j \to k)$, iterated to convergence.  This improves Period~2 from $1.5\%$ to $0.5\%$ median, and 61/118 elements globally.  The correction is $\alpha/(d^2\!-\!1) = \alpha/24$: one loop of the adjoint SU$(5)$ gauge boson.
 
 The remaining $\sim 3\%$ residual is within measurement uncertainty for most elements.  Higher-order hinge corrections (det nonlinearity for heavy elements) are contained within the framework but not yet extracted.
+
+%---------------------------------------------------------------------
+\subsection{Screening from wedge product algebra}
+\label{sec:wedge_screening}
+%---------------------------------------------------------------------
+
+The screening constants derived in earlier sections can be unified through the \emph{wedge product} on $\bigwedge^2(\CC^5)$.
+
+\begin{definition}[Edge decomposition]
+The 10 edges of $\Delta^4$ form the basis of $\bigwedge^2(\CC^5)$.
+Under $\CC^5 = \CC^3_S \oplus \CC^2_T$ they split as:
+\[
+\underbrace{\bigwedge^2(\CC^3)}_{SS,\;3}
+\;\oplus\;
+\underbrace{\CC^3 \otimes \CC^2}_{ST,\;6}
+\;\oplus\;
+\underbrace{\bigwedge^2(\CC^2)}_{TT,\;1}
+\;=\; 10.
+\]
+This is the SU$(5)$ antisymmetric representation $\mathbf{10} = \bigwedge^2(\mathbf{5})$.
+\end{definition}
+
+\begin{theorem}[Wedge product channel count]
+\label{thm:wedge_count}
+The wedge product $\bigwedge^2 \otimes \bigwedge^2 \to \bigwedge^4 \cong (\CC^5)^*$ has exactly $\binom{d+1}{4} = 15$ nonzero products out of $\binom{10}{2} = 45$ pairs.  Each vertex receives exactly $\binom{d-1}{2} = 3$ contributions.
+\end{theorem}
+
+\begin{proof}
+$e_{ij} \wedge e_{kl} \neq 0$ iff $\{i,j\} \cap \{k,l\} = \varnothing$.  Choose 4 from $d=5$ indices, partition into $2{+}2$ in $3$ ways: $\binom{5}{4} \times 3 = 15$.  By symmetry, each of 5 vertices is the ``missing'' index equally often: $15/5 = 3$.
+\end{proof}
+
+The nonzero products sort by type:
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Pair & Nonzero & Target & Physical \\
+\hline
+$SS \wedge SS$ & $0$ & --- & same-shell blocked \\
+$SS \wedge ST$ & $6$ & $T$ only & cross-shell screening \\
+$SS \wedge TT$ & $3$ & $S$ only & SSS = strong channel \\
+$ST \wedge ST$ & $6$ & $S$ only & $p$-orbital screening \\
+$ST \wedge TT$ & $0$ & --- & blocked \\
+\hline
+Total & $15$ & & $15/45 = 1/n_S$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{theorem}[Screening from channel counting]
+\label{thm:sigma_wedge}
+\leavevmode
+\begin{enumerate}
+\item \textbf{Cross-shell} ($SS \wedge ST \neq 0$, direct channel):
+$\sigma_\text{cross} = 1 - n_S/(d^2\!-\!1) = 7/8$.
+
+\item \textbf{Same $p$-subshell} ($SS \wedge SS = 0$, indirect path):
+$\sigma_\text{same,p} = n_S/(n_S\!+\!1) = 3/4$.
+
+\item \textbf{Same $d$-subshell} (temporal indirect):
+$\sigma_\text{same,d} = n_T/(n_T\!+\!1) = 2/3$.
+\end{enumerate}
+\end{theorem}
+
+The physical content: cross-shell screening is strong ($\sigma = 7/8$) because $SS \wedge ST \neq 0$ provides a \emph{direct} wedge channel.  Same-shell screening is weaker ($\sigma = 3/4$) because $SS \wedge SS = 0$ forces an \emph{indirect} two-step path.
+
+\begin{theorem}[Todd budget identity]
+The Todd class correction at the $h^3$ (tetrahedron) level uses budget $= \binom{d+1}{4} = 15$.  This equals the number of nonzero wedge products (Theorem~\ref{thm:wedge_count}):
+\[
+\delta(h^3) = \frac{\sigma_0^2 \cdot c_1 \cdot \alpha_\text{GUT}}{\binom{d+1}{4}}
+= \frac{\sigma_0^2 \cdot 6 \cdot \alpha_\text{GUT}}{15}.
+\]
+\end{theorem}
+
+\noindent\textbf{Hodge duality.}
+The Hodge star $\star\!: \bigwedge^3 \to \bigwedge^2$ maps hinges to edges with $S \leftrightarrow T$ reversal:
+SSS$\,(1) \leftrightarrow$ TT$\,(1)$; \ SST$\,(6) \leftrightarrow$ ST$\,(6)$; \ STT$\,(3) \leftrightarrow$ SS$\,(3)$.
+
+\smallskip\noindent\textbf{Adjacency eigenvalues.}
+The shared-vertex adjacency matrix of the 10 edges has eigenvalues $18 \times 1$, $3 \times 4$, $0 \times 5$:
+\[
+10 = 1 + 4 + 5 = (\text{trivial}) + (\dim\CC\mathrm{P}^4) + (\dim\CC^5).
+\]
+Under SU$(3) \times$SU$(2) \times$U$(1)$:
+SSS$(1) \sim (\mathbf{1},\mathbf{1})$, \
+SST$(6) \sim (\bar{\mathbf{3}},\mathbf{2})$, \
+STT$(3) \sim (\mathbf{3},\mathbf{1})$.
+
+\smallskip\noindent\textbf{Remark} (Mingu Jeong).
+$H^*(\CC\mathrm{P}^4) = \CC[x]/x^5$ has 5 classes, not 10.  The 10 edges are the face classification of $\Delta^4$ under the $(3,2)$ split, which equals $\bigwedge^2(\CC^5)$.  These are hinge types, not Hodge classes.

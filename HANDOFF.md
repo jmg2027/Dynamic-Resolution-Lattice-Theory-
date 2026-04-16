@@ -1,123 +1,79 @@
-# Session Handoff — 2026-04-15
+# Session Handoff — 2026-04-16
 
 ## Branch
-`claude/lagrange-coupling-constraint-QOiOy` (pushed, up to date)
+`claude/atoms-handoff-continue-1MLk8` (pushed, up to date)
 
 ## What Was Done This Session
 
-### 1. N=4 Flat Manifold → α_GUT (ATM_026-031) ★★★
-- **f_occ(ε²) = α_GUT to 0.10%** (0-parameter, N=4 flat manifold)
-- **ζ₉ self-consistency to 0.001%** (9 = non-SSS channels = C(5,3)-1)
-- Exact analytical formulas: cos(θ_AABt) = ε/√(1-2ε²) etc.
-- Fundamental equation: cos(F(x)) = -x/(1-2x), F algebraic, cos only transcendence
-- S(0,N) = (7N+8)π, δ(AAA) = (4-N)π/2
+### 1. ATM_063: Hodge-Todd Composite Class Solver ★★
+- Uniform same-p screening (σ=3/4 for all p-electrons): O/F/Ne fix
+- Todd h¹ cross-shell: Li at **376 ppm** (0.038%)
+- Distributed Todd (N_T/N_inner scaling): median **1734 ppm** (0.17%)
+- z_eff diagnostic: Todd h¹ explains 97.4% of Li's error
 
-### 2. ε₀ = (l_Pl/R_H)^{6/151} (0.2σ)
-- 151 = d³+d²+1 = gauge-invariant modes (holonomy 125 + Gram 25 + existence 1)
-- 6 = d+1 = simplex vertices
-- ε₀² ~ 10⁻⁵ → dark energy w = -1+ε₀²
-- Mᵢ weights: M₃=55/4, M₂=7/2, M₁=1 (all integer-derived)
+### 2. ATM_064: Hinge Algebra ★★★
+- Adjacency matrix eigenvalues: **18**(×1), **3**(×4), **0**(×5)
+- **10 = 1 + 4 + 5**: trivial + dim(ℂP⁴) + dim(ℂ⁵)
+- SU(3)×SU(2)×U(1) decomposition: SSS↔(1,1), SST↔(3̄,2), STT↔(3,1)
 
-### 3. Rydberg = α²m_e/N_T
-- 1/2 in Ry is 1/N_T (temporal dimension count, not QM normalization)
-- eps²(N=2) ≈ (N_S/N_T)α_em = (3/2)α (1%)
+### 3. ATM_065: Wedge Product Structure ★★★
+- ∧²⊗∧² → ∧⁴ ≅ 5̄: exactly **15/45 nonzero** (1/3 = 1/N_S)
+- Hodge duality SSS↔TT, SST↔ST, STT↔SS (S↔T flip)
+- Each vertex receives exactly 3 contributions (democratic)
 
-### 4. Algebraic Priority Principle
-- Formalized in book ch01 §1.9 (Definition, Proposition, Table)
-- CLAUDE.md에 실용 가이드 추가
-- "Calculus verifies; algebra discovers"
+### 4. ATM_066: Screening from Wedge Product ★★★★
+- **SS∧SS = 0** → same-shell screening is INDIRECT → σ_same < σ_cross
+- σ_cross = 1 − N_S/(d²−1) = 7/8 (direct wedge, adjoint budget)
+- σ_same_p = N_S/(N_S+1) = 3/4 (indirect, closed channel)
+- **C(d+1,4) = 15 = nonzero wedge count = Todd h³ budget**
+- ALL screening constants from ∧²(ℂ⁵) wedge counting — 0 free parameters
 
-### 5. Complete Theory Document
-- atoms/theory/complete_theory.md (330줄, 18섹션)
-- atoms/theory/integer_catalog.md (모든 정수의 출처)
-- atoms/theory/epsilon0_derivation.md (ε₀ 엄밀 유도)
+### 5. Theory Documents
+- `atoms/theory/wedge_screening.md` — 4 formal theorems + physical interpretation
+- `atoms/theory/todd_correction.md` — Updated with h³ composite classes
+- `book/chapters/ch10_atoms.tex` — New §10.X: wedge product screening
 
-### 6. Paper 6: "Coupling Constants from Simplex Counting"
-- papers/paper6_simplex_coupling.tex (433줄, 7섹션)
-- Paper 5 (수론) → Paper 6 (기하+정수론) → Paper 7 (논리)
-
-### 7. Branch Integration
-- yang-mills (Lean ~58 thms, Chebyshev action) 머지 완료
-- critical-line (RH_027-046, ζ(2) unification, Paper 7) 머지 완료
-
-### 8. Full Consistency Audit
-- 3 CRITICAL + 3 ERROR + 2 WARNING 수정
-- README Ω_Λ 0.07%→0.0008%, paper3 m_μ/m_e 206.80→206.7682837
-- 131× \mathbb{C}→\CC 매크로 통일
-- drlt_book_single.tex 생성 (7728줄, ~184쪽)
-- root 고아 파일 5개 삭제, critical-line skill 업데이트
+### Key Correction (Mingu Jeong)
+- H*(ℂP⁴) = ℂ[x]/x⁵ has **5** classes, not 10
+- 10 = C(5,3) = ∧²(ℂ⁵) = face classification, not Hodge classes
+- The "hinge algebra" is SU(5) 10-rep, not ℂP⁴ cohomology
 
 ## Current Precision Results (0 free parameters)
 
 | Observable | DRLT | Observed | Error |
 |-----------|------|----------|-------|
 | 1/α_em | 137.036 | 137.036 | 0.0004% |
-| m_p | 938.27 MeV | 938.27 MeV | 0.000% |
 | m_μ/m_e | 206.7682837 | 206.7682838 | 0.7 ppb |
 | m_H | 125.28 GeV | 125.25 GeV | +0.02% |
-| sin²θ₁₃ | 0.0220 | 0.0220 | -0.07σ |
-| η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
 | Ω_Λ | 0.6850 | 0.685 | 0.0008% |
-| f_occ(ε²) N=4 | 0.02429 | α_GUT=0.02432 | 0.10% |
-| f_occ with ζ₉ | 0.02598 | α₉=0.02598 | 0.001% |
-| ε₀ | 0.003793 | 0.003715±0.000338 | 0.2σ |
-| Z=1-118 median | 3.5% | — | screening |
+| IE(Li) | 5.394 | 5.392 | **376 ppm** ★ |
+| IE(P2 median) | — | — | **1734 ppm** |
+| IE(Z=1-118) | — | — | 3.5% median |
 
-## Sub-Project Status
+## Open Problems
 
-| Directory | Status | Experiments |
-|-----------|--------|-------------|
-| foundations/ | STABLE | 10 |
-| standard-model/ | CLOSED ✓ | 24 |
-| atoms/ | **CLOSED ✓** | 55 (ATM_001-055) |
-| cosmology/ | STABLE ✓ | 3 |
-| critical-line/ | **ACTIVE** | 46 (RH_001-046) |
-| predictions/ | ACTIVE | 8 |
-| quantum-gravity/ | ACTIVE | 6 |
-| yang-mills/ | ACTIVE | 0 (Lean ~58 thms) |
-| nuclear/ | NOT STARTED | 0 |
+### 1. 100 ppm for all Period 2
+h³ overlap corrections (δ_jk per inner-pair) needed.
+6 pair types identified but not all algebraically derived.
 
-## Open Problems (Priority Order)
+### 2. Hinge multiplication table → observables algebra
+10×10 structure constants c_{ij}^k computed (ATM_064).
+Is this a known algebra? (Lie? Jordan? SU(5) adjoint?)
 
-### ~~1. N=2 → 수소 IE 메커니즘~~ ✅ ATM_032
-### ~~2. Screening from manifold~~ ✅ ATM_033 + ATM_038 (Born duality)
-### ~~3. ζ₉ 물리적 의미~~ ✅ ATM_034
-### ~~6. Book ch10 업데이트~~ ✅ 705줄, 19 정리
+### 3. ∧²(ℂ⁵) → full periodic table
+Extend wedge-product screening to Period 3+ and d/f-block.
+Test if Todd distributed formula works universally.
 
-### 4. Nuclear magic numbers (nuclear/)
-600-cell (120 vertices) → Z=120 한계. **선생님 별도 진행 중.**
-
-### 5. Phase→Möbius (critical-line/)
-"왜 정확히 1/2" — Spectral Flow (RH_047-048) 머지 완료.
-
-### NEW: μ² ≈ σ_same_s gap (1.3%)
-대수적(49/81) vs 초월적(1/2+24/25π²). ζ₉으로 0.17%. 완전 해결 미정.
-
-## Unresolved
-- ζ₉ vs ζ(∞): 물리적으로 어느 것이 "맞는" 전파자인가?
-- Leading-order eps=2N/(π(8+N)) 부정확 (higher-order 필요)
-- Chebyshev action은 단조감소 (maximum 없음) — Regge와 다른 물리
-
-## Key Formulas
+## File Map (this session)
 ```
-cos(F(x)) = -x/(1-2x),  F(x) = (1-2√x)√(1-x)/(√x(1-2x)√(1-3x))
-S(ε,N) = (1+3√(1-2ε²))·(4-N)π/2 + 3N[f₁+f₂]
-S(0,N) = (7N+8)π,  N_flat = 4
-ε₀ = (l_Pl/R_H)^{6/151},  151 = d³+d²+1
-Ry = α²m_e/N_T,  N_T = 2
+atoms/experiments/ATM_063_hodge_todd_solver.py   ← Todd solver, 1734 ppm
+atoms/experiments/ATM_064_hinge_algebra.py       ← Eigenvalues 18,3,0
+atoms/experiments/ATM_065_hinge_algebra_II.py    ← Wedge product 15/45
+atoms/experiments/ATM_066_screening_from_wedge.py ← σ from wedge counting
+atoms/theory/wedge_screening.md                  ← 4 theorems + physics
+atoms/theory/todd_correction.md                  ← Updated h³ theory
+book/chapters/ch10_atoms.tex                     ← +§10.X wedge screening
 ```
 
 ## Next Available Experiment
-ATM_039, RH_049, COS_004, PRD_009, QG_007
-
-## File Map (this session, key files)
-```
-atoms/experiments/ATM_026-031_*.py      ← 6 new experiments
-atoms/theory/complete_theory.md         ← 통합 이론 문서 (330줄)
-atoms/theory/integer_catalog.md         ← 정수 카탈로그
-atoms/theory/epsilon0_derivation.md     ← ε₀ 엄밀 유도
-papers/paper6_simplex_coupling.tex      ← NEW paper (433줄)
-book/chapters/ch01_whyC.tex             ← +§1.9 Algebraic Priority
-book/drlt_book_single.tex               ← 단일 파일 (7728줄)
-.claude/skills/critical-line/SKILL.md   ← UPDATED (RH naming)
-```
+ATM_067
