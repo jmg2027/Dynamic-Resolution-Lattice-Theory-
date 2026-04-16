@@ -83,3 +83,45 @@ This replaces the σ table with algebraic geometry.
 - Neutrino mixing (SM_023): T₂₃ from h^{1,1}→h^{0,0} leakage
 - Dark energy (ε₀): soft boundary between Hodge sectors
 - Nuclear magic numbers (NUC): h^{1,1} = nuclear binding channel
+
+---
+
+## Born-Oppenheimer from ℂ⁵ = ℂ³ ⊕ ℂ²
+
+The Born-Oppenheimer approximation (1927) is NOT an approximation.
+It is the orthogonal decomposition ℂ⁵ = ℂ³(nuclear) ⊕ ℂ²(electronic).
+
+Nuclear mass enters IE only through the cross-term m_e/m_nuc ~ 10⁻⁴.
+Even 60% error in nuclear mass → 0.001% IE effect.
+This is why BO works so well: orthogonal sectors barely interact.
+
+The 5×5 Gram matrix is exact by ℂ⁵ dimension constraint:
+  12 quarks → 3 directions (ℂ³ saturated)
+  Z encodes quark overlap count, not individual quarks.
+
+---
+
+## Error Sources by Hodge Class
+
+| Class | Contribution | Error source | Size |
+|-------|-------------|-------------|------|
+| h⁰⁰ (nuclear) | reduced mass | nuclear approx | <0.001% |
+| h¹¹ (EM) | Z_eff, screening | recursive precision | ~1% |
+| h²² (weak) | pair, BBB | D_PAIR inclusion | 0-17% |
+
+The 10-18% errors in Rb, Hg, Fr, Lr are from h¹¹ and h²²,
+NOT from nuclear structure (h⁰⁰).
+
+---
+
+## Hop Structure (Mingu Jeong)
+
+n_S^1 = 3 (space: 1 hop, C(3,3)=1 saturated)
+n_T^2 = 4 (time: 2 hops, round-trip = observation)
+1^N = 1   (identity)
+
+Every ² in physics = round-trip = ref∘incl = |⟨ψ|φ⟩|².
+IE = Z_eff² × Ry/n² : all squares from temporal round-trip.
+
+Hodge connection: h⁰⁰ c⁰=1^N, h¹¹ c¹=n_S^1, h²² c²=n_T^2.
+Weighted: 1+12+12 = 25 = d².
