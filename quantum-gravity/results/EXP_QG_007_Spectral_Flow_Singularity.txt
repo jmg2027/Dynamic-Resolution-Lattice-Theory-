@@ -1,6 +1,6 @@
 ============================================================
   EXP_QG_007_Spectral_Flow_Singularity
-  2026-04-15 14:27:56
+  2026-04-16 08:50:10
 ============================================================
 Spectral flow interpretation of singularity instability
   G_h = Gram matrix → PSD → eigenvalues ≥ 0
@@ -148,4 +148,4 @@ Step 7: Physical interpretation
   [✓] Index theorem: sf = 0 for all paths through singularity
 
   9/9 checks passed
-  Time: 5.0s
+  Time: 4.9s
