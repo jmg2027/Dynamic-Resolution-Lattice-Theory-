@@ -60,6 +60,7 @@
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 7 (QG_001-007) | 시공간 창발, holographic |
 | `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
 | `discrete-harmonic/` | `DHA_` | **ACTIVE** | 19 (DHA_001-019) | 이산 조화해석학, 스펙트럼, S₅ 표현론 |
+| `drlt-elements/` | `ELM_` | **PLANNED** | 0 | 원론: Entity→Logic→Nat→Arith→Bridge |
 
 ### Sub-Project 필수 구조
 ```
