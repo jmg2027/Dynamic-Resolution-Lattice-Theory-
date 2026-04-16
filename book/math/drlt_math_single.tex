@@ -420,7 +420,7 @@ When $a = b$: the complement map $\tau: V_S \mapsto V_S^\perp$ is a well-defined
 The fixed locus $\mathcal{G}^\tau = \{V_S : V_S = V_S^\perp\} = \text{U}(a)/\text{O}(a)$ is non-empty for all $a \geq 1$.
 
 \textbf{Step 4.}
-Entropy maximization drives the system toward $\mathcal{G}^\tau$ (the maximally disordered symmetric configuration). Once there, $V_S \cong V_T$, freezing is symmetric, $\hbar$ is constant. No physics.
+Entropy maximization drives the system toward $\mathcal{G}^\tau$ (the maximally disordered symmetric configuration). Once there, $V_S \cong V_T$, freezing is symmetric, the effective Planck constant $\hbar$ (defined in Chapter~\ref{ch:hbar}) is constant. No physics.
 
 For $a \neq b$: no involution $\Rightarrow$ no attractor $\Rightarrow$ asymmetric dynamics is forced.
 \end{proof}
@@ -608,7 +608,7 @@ For any integer $N \geq 5$, the unique atomic decomposition of $\CC^N$ supportin
 \end{theorem}
 
 \begin{proof}
-\textbf{Step 1:} Atoms are $\{2, 3\}$. (Lemma 2.1.)
+\textbf{Step 1:} Atoms are $\{2, 3\}$. (The additive atoms lemma, Chapter~\ref{ch:whyd5}.)
 
 \textbf{Step 2:} Any $N$ decomposes into atoms ($N = 2a + 3b$).
 
@@ -1743,7 +1743,7 @@ Expanding the determinant:
 \det(G_h) = 1 - |G_{ij}|^2 - |G_{jk}|^2 - |G_{ki}|^2 + 2|G_{ij}||G_{jk}||G_{ki}|\cos\Phi_h
 \label{eq:detGh}
 \end{equation}
-where $\Phi_h = \phi_{ij} + \phi_{jk} + \phi_{ki}$ is the \emph{holonomy} around the triangle --- the gauge-invariant lattice field strength (Sec.~\ref{sec:holonomy}).
+where $\Phi_h = \phi_{ij} + \phi_{jk} + \phi_{ki}$ is the \emph{holonomy phase} around the triangle --- the gauge-invariant lattice field strength, defined formally in Section~\ref{sec:holonomy} below.
 
 The dihedral angle at hinge $h$ is computed from the two tetrahedra sharing $h$, and the deficit angle $\delta_h = 2\pi - \sum_{\sigma \ni h} \theta_\sigma$ measures curvature. The Regge action is:
 \begin{equation}
@@ -2188,11 +2188,12 @@ The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas
 \boxed{\hbar_h = \frac{\sqrt{\det(G_h)}}{4\ln 2} = \frac{A_h}{4\ln 2}}
 \label{eq:hbar}
 \end{equation}
-where $G_h$ is the $3 \times 3$ Gram sub-matrix with entries $\langle\psi_i|\psi_j\rangle$ for the three hinge vertices (not the real shadow $W_h = |G_h|^2/d$). The hinge area $A_h = \sqrt{\det(G_h)}$ is a complex-geometric quantity derived from the fundamental overlap $G$.
+where $G_h$ is the $3 \times 3$ Gram sub-matrix with entries $\langle\psi_i|\psi_j\rangle$ for the three hinge vertices (not the real shadow $W_h = |G_h|^2/d$). The hinge area $A_h = \sqrt{\det(G_h)}$ is a complex-geometric quantity derived from the fundamental overlap $G$. The factor $4\ln 2$ arises from the Holevo bound on a single hinge (Remark~\ref{rem:4ln2} below).
 
 The factor $4\ln 2$ ensures that $S/\hbar$ counts information in bits: each hinge contributes $\delta_h/(4\ln 2)$ bits to the action, consistent with $I_\text{hinge} = 1$ bit.
 
 \begin{remark}[Origin of the factor $4\ln 2$]
+\label{rem:4ln2}
 The factor decomposes as:
 \begin{itemize}
 \item $\ln 2$: conversion from nats to bits ($1\;\text{bit} = \ln 2\;\text{nats}$).

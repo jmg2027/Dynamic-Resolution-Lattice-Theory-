@@ -33,11 +33,12 @@ The Regge action $S = \sum_h A_h\,\delta_h$ is dimensionless (angles times areas
 \boxed{\hbar_h = \frac{\sqrt{\det(G_h)}}{4\ln 2} = \frac{A_h}{4\ln 2}}
 \label{eq:hbar}
 \end{equation}
-where $G_h$ is the $3 \times 3$ Gram sub-matrix with entries $\langle\psi_i|\psi_j\rangle$ for the three hinge vertices (not the real shadow $W_h = |G_h|^2/d$). The hinge area $A_h = \sqrt{\det(G_h)}$ is a complex-geometric quantity derived from the fundamental overlap $G$.
+where $G_h$ is the $3 \times 3$ Gram sub-matrix with entries $\langle\psi_i|\psi_j\rangle$ for the three hinge vertices (not the real shadow $W_h = |G_h|^2/d$). The hinge area $A_h = \sqrt{\det(G_h)}$ is a complex-geometric quantity derived from the fundamental overlap $G$. The factor $4\ln 2$ arises from the Holevo bound on a single hinge (Remark~\ref{rem:4ln2} below).
 
 The factor $4\ln 2$ ensures that $S/\hbar$ counts information in bits: each hinge contributes $\delta_h/(4\ln 2)$ bits to the action, consistent with $I_\text{hinge} = 1$ bit.
 
 \begin{remark}[Origin of the factor $4\ln 2$]
+\label{rem:4ln2}
 The factor decomposes as:
 \begin{itemize}
 \item $\ln 2$: conversion from nats to bits ($1\;\text{bit} = \ln 2\;\text{nats}$).

@@ -22,7 +22,7 @@ This is a standard result of random matrix theory. The overlap is $|\langle\psi|
 \label{sec:three_gen}
 %---------------------------------------------------------------------
 
-The combinatorial structure of $\partial(\Delta^5)$ (Chapter~\ref{ch:simplex_geometry}, Section~\ref{sec:boundary_5simplex}) provides an independent derivation of the generation number.
+The combinatorial structure of $\partial(\Delta^5)$ (the simplex geometry chapter of \textit{Mathematical Foundations}) provides an independent derivation of the generation number.
 
 \begin{theorem}[Generation counting from minimal closure]
 \label{thm:gen_count}
@@ -33,7 +33,7 @@ N_\mathrm{gen} = \binom{n_B}{n_B - 1} = \binom{3}{2} = 3.
 \end{theorem}
 
 \begin{proof}
-In $\partial(\Delta^5)$, the three nuclear simplices ($3S + 2T$) each share the full A-triple $\{A_1, A_2, A_3\}$ and contain 2 out of 3 B-vertices. The number of ways to choose 2 from 3 is $\binom{3}{2} = 3$.  Each nuclear simplex has identical $(3,2)$ structure, hence identical fermion content (Theorem~\ref{thm:15}).
+In $\partial(\Delta^5)$, the three nuclear simplices ($3S + 2T$) each share the full A-triple $\{A_1, A_2, A_3\}$ and contain 2 out of 3 B-vertices. The number of ways to choose 2 from 3 is $\binom{3}{2} = 3$.  Each nuclear simplex has identical $(3,2)$ structure, hence identical fermion content (the generation theorem of \textit{Mathematical Foundations}).
 \end{proof}
 
 The derivation chain is purely combinatorial:
@@ -41,7 +41,7 @@ The derivation chain is purely combinatorial:
 \text{minimal closed $4$-manifold} \;\to\; 6V \;\to\; (3{+}3) \;\to\; \tbinom{3}{2} = 3 \text{ generations}.
 \end{equation}
 
-Each generation is distinguished by its B-pair and associated Gram determinant (Section~\ref{sec:B3_dependence}).  The parameters $\theta$ and $\delta$ of the $B_3$ dependence are determined by the variational principle (Chapter~\ref{ch:block}).
+Each generation is distinguished by its B-pair and associated Gram determinant (the $B_3$ dependence analysis, \textit{Mathematical Foundations}).  The parameters $\theta$ and $\delta$ of the $B_3$ dependence are determined by the variational principle (Chapter~\ref{ch:block}).
 
 %---------------------------------------------------------------------
 \subsection{Mass as propagation impedance}
@@ -60,11 +60,11 @@ The impedance decomposes into two factors:
 Observed: $206.768$ ($0.02\%$).
 
 \begin{itemize}
-\item \textbf{Simplex impedance} $n_A/n_B = 3/2$: the structural resistance of a single ABB hinge.  This equals $1/\det(G_\mathrm{ABB})_\mathrm{mean}$, verified numerically: $\det(G_\mathrm{ABB}) = 0.681 \approx 2/3 = n_B/n_A$ (Section~\ref{sec:boundary_5simplex}).
+\item \textbf{Simplex impedance} $n_A/n_B = 3/2$: the structural resistance of a single ABB hinge.  This equals $1/\det(G_\mathrm{ABB})_\mathrm{mean}$, verified numerically: $\det(G_\mathrm{ABB}) = 0.681 \approx 2/3 = n_B/n_A$ (from the $\partial(\Delta^5)$ boundary analysis, \textit{Mathematical Foundations}).
 
 \item \textbf{Pattern extent} $1/\alpha$: the electron pattern spans $\sim 1/\alpha$ lattice hops (the Bohr radius in lattice units).  The single-simplex impedance $n_A/n_B$ is amplified over this extent when comparing to the muon.
 
-\item \textbf{Trace correction} $(1 + \alpha_\mathrm{GUT}/(n_A+1))$: the universal correction (Chapter~\ref{ch:ghosts}) with sector factor $1/(n_A+1) = 1/4$ for the simplex boundary.
+\item \textbf{Trace correction} $(1 + \alpha_\mathrm{GUT}/(n_A+1))$: the universal correction (the trace conservation chapter of \textit{Mathematical Foundations}) with sector factor $1/(n_A+1) = 1/4$ for the simplex boundary.
 \end{itemize}
 
 All ingredients are independently verified: $W_{AB} = \alpha^2/(n_A d)$ (6 digits), $|\langle B|B_3\rangle|^2 = 1/c = 1/n_B$ (4 digits), $\det(G_\mathrm{ABB}) = n_B/n_A$ (3 digits).
@@ -115,7 +115,7 @@ The leading-order formulas above achieve $0.02\%$ for $m_\mu/m_e$ and $0.006\%$ 
 The three terms have distinct origins:
 \begin{itemize}
 \item $\alpha_\mathrm{em}/(1 - \agut)$: 1-loop EM $\times$ all-order GUT resummation,
-\item $\agut/(d^2 - 1)$: SSS indirect coupling (Theorem~\ref{thm:trace_conservation}),
+\item $\agut/(d^2 - 1)$: SSS indirect coupling (the trace conservation theorem of \textit{Mathematical Foundations}),
 \item $\alpha_\mathrm{em}^2$: 2-loop electromagnetic self-energy.
 \end{itemize}
 \end{definition}
@@ -124,7 +124,7 @@ The corrected lepton mass ratio is:
 \begin{equation}
 \boxed{\frac{m_\mu}{m_e}\bigg|_{\Xi} = \frac{n_A}{n_B\,\alpha_\mathrm{em}} \cdot \frac{1}{1 - y} \cdot (1 - \agut\,\Xi) = 206.7682837.}
 \end{equation}
-Observed: $206.7682838$.  Error: $\mathbf{0.7\;\text{ppb}}$ (parts per billion).  The convergence is super-geometric: the three correction stages contribute $-182$ ppm, $-25$ ppm, $-1.3$ ppm, with residual ratio $0.125 \to 0.050 \to 0.0005$.
+Observed: $206.7682838$.  Error: $\mathbf{0.48\;\text{ppb}}$ (parts per billion).  The convergence is super-geometric: the three correction stages contribute $-182$ ppm, $-25$ ppm, $-1.3$ ppm, with residual ratio $0.125 \to 0.050 \to 0.0005$.
 
 The same $\Xi$ applies to the fine structure constant:
 \begin{equation}
@@ -181,7 +181,7 @@ The top Yukawa renormalization group equation has an infrared quasi-fixed point 
 \begin{equation}
 m_t = \frac{y^*_t \cdot v_H}{\sqrt{c}} = \frac{245.6}{\sqrt{2}} = 173.7\;\text{GeV}.
 \end{equation}
-Observed: $172.76\;\text{GeV}$ (0.5\%). The $\sqrt{c}$ (conventionally written $\sqrt{2}$) is the lattice speed of light from Eq.~(\ref{eq:speed_of_light}).
+Observed: $172.76\;\text{GeV}$ (0.5\%). The $\sqrt{c}$ (conventionally written $\sqrt{2}$) is the lattice speed of light $c = n_T = 2$ (derived in the geometry chapter of \textit{Mathematical Foundations}).
 
 \subsubsection{Bottom quark}
 
@@ -214,7 +214,7 @@ A Pachner $1 \to 5$ move adds one vertex to a simplex. This produces the recursi
 
 Each term has a unique geometric origin:
 \begin{itemize}
-\item \textbf{The ``$1$''}: one new vertex $=$ one new independent hinge $=$ 1 bit of information (Holevo bound, Chapter~\ref{ch:hbar}). This is the minimum topological change; adding 2 vertices would be two successive Pachner moves, not one. The Holevo bound fixes this term.
+\item \textbf{The ``$1$''}: one new vertex $=$ one new independent hinge $=$ 1 bit of information (the Holevo bound; see the Planck constant chapter of \textit{Mathematical Foundations}). This is the minimum topological change; adding 2 vertices would be two successive Pachner moves, not one. The Holevo bound fixes this term.
 \item \textbf{The ``$1/\hbar_\text{old}$''}: the Pachner move is a scale change (subdivision). At the new, finer resolution, the old $\hbar$ contributes its \emph{inverse}: finer resolution $=$ smaller area per hinge $=$ $1/\hbar_\text{old}$. This is the self-similar structure of the resolution cascade.
 \end{itemize}
 
@@ -290,7 +290,7 @@ The combinatorial formulas above give $\sim 3\%$ median accuracy.  A single clos
 
 \subsubsection{Derivation from $\delta_\mathrm{SSS} = \pi$}
 
-The SSS deficit angle is exactly $\pi$ (Theorem~\ref{thm:delta_SSS}, Chapter~\ref{ch:variational_theorems}).  The Regge holonomy around a single SSS loop gives the phase factor:
+The SSS deficit angle is exactly $\pi$ (by the confined-hinge theorem; see also Theorem~\ref{thm:delta_AAA} in Section~\ref{sec:flat_vacuum} of Chapter~\ref{ch:atoms}).  The Regge holonomy around a single SSS loop gives the phase factor:
 \begin{equation}
 e^{i\delta_\mathrm{SSS}} = e^{i\pi} = -1.
 \end{equation}
@@ -392,10 +392,10 @@ $m_p$ & --- & 925.0 MeV & 938.5 MeV & 938.3 & 0.02\% \\
 \end{tabular}
 \end{center}
 
-Median accuracy: 0.06\% (full topology), versus 1.0\% (combinatorial only).  The $\det(G_h)$ correction follows a systematic pattern (Chapter~\ref{ch:ghosts}): spatial paths ($QCD$) reduce mass, temporal paths ($EW$) increase mass.  All 11 masses and 5 mass ratios pass at the $< 0.5\%$ level (16/16 checks, EXP-046).
+Median accuracy: 0.06\% (full topology), versus 1.0\% (combinatorial only).  The $\det(G_h)$ correction follows a systematic pattern (the trace conservation chapter of \textit{Mathematical Foundations}): spatial paths ($QCD$) reduce mass, temporal paths ($EW$) increase mass.  All 11 masses and 5 mass ratios pass at the $< 0.5\%$ level (16/16 checks, EXP-046).
 
 \begin{remark}[Generation-dependent $\det(G_h)$ contributions]
-The combinatorial values above carry $\det(G_h)$ geometric contributions (Chapter~\ref{ch:ghosts}) that are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the \emph{opposite} of the coupling constant pattern (Chapter~\ref{ch:couplings}: the strong force has the largest $\Delta_i$). The topological reason: lower generations have less internal structure ($k = 1$ has no internal edges), making their $\det(G_h)$ weights larger. This complementary pattern is a consequence of trace conservation (Chapter~\ref{ch:ghosts}).
+The combinatorial values above carry $\det(G_h)$ geometric contributions (the trace conservation chapter of \textit{Mathematical Foundations}) that are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the \emph{opposite} of the coupling constant pattern (the couplings chapter of \textit{Mathematical Foundations}: the strong force has the largest $\Delta_i$). The topological reason: lower generations have less internal structure ($k = 1$ has no internal edges), making their $\det(G_h)$ weights larger. This complementary pattern is a consequence of trace conservation.
 \end{remark}
 
 \subsection{The QCD confinement scale}
@@ -505,4 +505,4 @@ Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\CC^3$) and $\{e\}$ (electr
 \begin{equation}
 E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -13.606\;\text{eV}
 \end{equation}
-(observed: $-13.606\;\text{eV}$, exact agreement). Using only the combinatorial values ($m_e = 0.490\;\text{MeV}$, $\alpha_\text{em}^{-1} = 137.8$) gives $-12.9\;\text{eV}$ --- the missing 5.2\% is the $\det(G_h)$ geometric contribution to $m_e$ and $\alpha$, which is part of the topology, not an error (Chapter~\ref{ch:ghosts}). The atom exists because U(1) --- the relative phase between $\CC^3$ and $\CC^2$ --- binds the electron to the proton. Without this glue (Chapter~\ref{ch:whyC}), atoms could not form.
+(observed: $-13.606\;\text{eV}$, exact agreement). Using only the combinatorial values ($m_e = 0.490\;\text{MeV}$, $\alpha_\text{em}^{-1} = 137.8$) gives $-12.9\;\text{eV}$ --- the missing 5.2\% is the $\det(G_h)$ geometric contribution to $m_e$ and $\alpha$, which is part of the topology, not an error (the trace conservation chapter of \textit{Mathematical Foundations}). The atom exists because U(1) --- the relative phase between $\CC^3$ and $\CC^2$ --- binds the electron to the proton. Without this glue (the $\CC$ uniqueness argument of \textit{Mathematical Foundations}), atoms could not form.
