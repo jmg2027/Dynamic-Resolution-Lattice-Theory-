@@ -33,3 +33,4 @@ import PmfRh.GoldbachTwin
 import PmfRh.SelfReferenceCollapse
 import PmfRh.MassProofs
 import PmfRh.Translation
+import PmfRh.ProofDecomposition
