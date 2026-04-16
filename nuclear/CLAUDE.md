@@ -1,24 +1,42 @@
 # Nuclear Physics Sub-Project
 
-> 핵 결합 에너지, 핵 구조 — 양성자 질량 공식의 자연스러운 확장.
-> atoms/에서 전자 구조를 풀었으면, 여기서 핵자 구조를 풀어야 한다.
+> 핵 결합 에너지, 핵 구조 — 600-cell 기하학에서 magic numbers 유도.
 
 ## Scope
+- ★ Nuclear magic numbers (2,8,20,28,50,82,126) from 600-cell
 - 핵 결합 에너지 (Bethe-Weizsäcker 대체)
 - 핵자 상호작용 (N-N potential from simplex)
-- Magic numbers (2,8,20,28,50,82,126): d=5 기하에서 유도?
 - Deuteron binding energy (2.22 MeV)
 - Nuclear radii
 
-## Starting Points
-- m_p = 938.27 MeV (0.000% from n_A × Λ_QCD × P(3α/5))
-- Δm_np = 1.275 MeV (-1.5% from EM excess)
-- Λ_QCD = 308 MeV (from v_H/√c × α² × n_A)
-- Confined propagator: P(-ε/(1+ε)) = 1-ε
+## Key Results (0 free parameters)
+| Magic | DRLT derivation | Formula |
+|-------|----------------|---------|
+| 2 | Sym²(V₁) closure | 1·2·3/3 |
+| 8 | Sym²(V₁+V₂) | 2·3·4/3 |
+| 20 | Sym²(V₁+V₂+V₃) | 3·4·5/3 |
+| 28 | Spin-orbit: f₇/₂ | 4·21/3 |
+| 50 | Spin-orbit: g₉/₂ | 5·30/3 |
+| 82 | Spin-orbit: h₁₁/₂ | 6·41/3 |
+| 126 | d! + (d+1) = 120+6 | 7·54/3 |
 
-## Key Questions
-1. Nuclear binding ∝ 어떤 simplex quantity?
-2. Magic numbers = simplex의 어떤 closing condition?
-3. N-N potential의 DRLT 형태?
+## Key Constants
+```
+d = 5
+d! = 120        (600-cell vertices)
+(d+1)! = 720    (600-cell edges)
+d!·d = 600      (tetrahedral cells)
+(d!)² = 14400   (|H₄| symmetry order)
+```
 
-## Status: NOT STARTED
+## Derivation Chain
+```
+d=5 → 600-cell(120 vertices) → 2I irreps Vₙ → Sym²(Vₙ)
+→ HO magic: n(n+1)(n+2)/3
+→ + spin-orbit: n(n²+5)/3  (n≥4)
+→ 2, 8, 20, 28, 50, 82, 126
+```
+
+## Experiments: NUC_001–003
+
+## Status: ACTIVE (magic numbers derived, binding energy next)

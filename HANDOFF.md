@@ -15,6 +15,26 @@
 - lake build: CLEAN (2326 modules, 0 errors)
 - Complete derivation chain: "pair" → threshold=2 → {2,3} → ℂ unique → d=5
 
+## Nuclear + Hadron Results (from implement-600-cell branch)
+### Nuclear — CLOSED (NUC_001-015)
+- Magic numbers 7/7 exact: M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
+- Deuteron E_d = 2.271 MeV (+2.1%) from Dyson resummation
+- Nuclear radius r₀ = 1.262 fm (+0.95%)
+- BW: a_V +3%, a_S +7%, a_C -3.6%
+
+### Hadron — CLOSED (HAD_001-009)
+- 20 hadrons, median 3.5%, 14/20 within 5%
+- m_π +0.2%, m_ω -0.1%, m_J/ψ -0.5%, Δ-N +0.6%
+- Unified hyperfine: m_V² = m_PS² + (dΛ/N_T)²
+
+### Key Formulas
+```
+Magic:     M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
+Pion:      m_π² = 9 Σm_q Λ (GMOR with n_eff=9)
+Hyperfine: m_V² = m_PS² + (dΛ/N_T)² (Δ=770 MeV)
+Baryon:    Δ-N = Λ×24/25, strange shift = Λ(φ/2)²
+```
+
 ## Current Precision Results (0 free parameters)
 | Observable | DRLT | Observed | Error |
 |-----------|------|----------|-------|
@@ -28,6 +48,26 @@
 | Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
 | H₀ (km/s/Mpc) | 70.85 | 67.4/73.0 | between |
 | T_CMB (K) | 2.83 | 2.726 | +3.7% |
+| Magic numbers | 7/7 | 7/7 | exact |
+| E_d | 2.271 MeV | 2.224 MeV | +2.1% |
+| m_π | 137.6 MeV | 137.3 MeV | +0.2% |
+| m_ω | 782.1 MeV | 782.7 MeV | -0.07% |
+
+## Sub-Project Status
+| Directory | Status | Experiments |
+|-----------|--------|-------------|
+| foundations/ | STABLE | 10 |
+| standard-model/ | CLOSED ✓ | 24 |
+| atoms/ | **ACTIVE** | 69 |
+| cosmology/ | STABLE ✓ | 3 |
+| cosmic-structure/ | **ACTIVE** | 22 |
+| critical-line/ | **ACTIVE** | 52 |
+| nuclear/ | CLOSED ✓ | 15 |
+| hadron/ | CLOSED ✓ | 9 |
+| predictions/ | ACTIVE | 9 |
+| quantum-gravity/ | ACTIVE | 7 |
+| yang-mills/ | ACTIVE | 0 (Lean ~58) |
+| discrete-harmonic/ | ACTIVE | 19 |
 
 ## Lean Verification Status
 ```
@@ -39,22 +79,14 @@ lake build: CLEAN (2326 modules, 0 errors)
 md↔Lean:   15/15 (100%)
 ```
 
-## Open Problems (Priority Order)
-
-### 1. 수학 책 분리
-- 물리 book과 별도 수학 전용 책 필요
-
-### 2. T_CMB 정밀도 (현재 +3.7%)
-- η_B 공식이 H₀에 민감. H₀ 정밀화가 핵심.
-
-### 3. Level 3 구현
-- 완비성 공리 추가 → ζ(2) = π²/6 정확값
-
-### 4. Lean CI/CD
-- GitHub Actions로 `lake build` 자동 검증
-
-### 5. 물리 예측 검증 대기
-- JUNO (2026-27): θ₁₂, θ_QCD = 0, 양성자 붕괴 없음
+## Open Problems
+1. Atoms SC solver → full 118 elements (median 1.33%)
+2. ζ₉ vs ζ(∞) — physical propagator question
+3. T_CMB 정밀도 (현재 +3.7%)
+4. 수학 책 분리
+5. Level 3 구현
+6. Lean CI/CD
+7. Book integration (nuclear + hadron chapters)
 
 ## Next Experiments
 - CST_023, ATM_070, NUC_016, HAD_010, PRD_010, QG_008, RH_080

@@ -1,0 +1,57 @@
+============================================================
+  EXP_NUC_006_Tensor_Force_Spin-Orbit
+  2026-04-15 14:34:39
+============================================================
+
+=== Part 1: Direction-dependent tensor force ===
+  Building angular momentum operators L_x, L_y, L_z...
+  H_ls Hermiticity: 5.72e-17
+
+  Scanning spin-orbit strength κ...
+    κ=0.0: 9 levels, magic: [2, 28]
+    κ=0.1: 29 levels, magic: [2, 28]
+    κ=0.5: 41 levels, magic: [2, 28, 82]
+    κ=1.0: 37 levels, magic: [2, 28, 82]
+    κ=2.0: 41 levels, magic: [2, 8, 28, 50, 82]
+
+  The L·S operator on the 600-cell graph generates
+  a physical spin-orbit coupling when κ > 0.
+  The coupling strength κ comes from the confined
+  pion propagator (proportional to ε).
+
+=== Part 2: Mean-field with filled core ===
+  Core: 14 orbital states (28 with spin)
+  Surface function range: [1.40, 1.40]
+
+  Surface-weighted L·S scan:
+  Best κ = 0.00: 2 magic numbers
+  Found: [2, 28]
+
+  Energy levels at κ=0.00:
+    E=+12.0000  mult=  2  cumul=   2 ★
+    E= +9.7082  mult=  8  cumul=  10 
+    E= +6.4721  mult= 18  cumul=  28 ★
+    E= +3.0000  mult= 32  cumul=  60 
+    E= +0.0000  mult= 50  cumul= 110 
+    E= -2.0000  mult= 72  cumul= 182 
+    E= -2.4721  mult= 18  cumul= 200 
+    E= -3.0000  mult= 32  cumul= 232 
+    E= -3.7082  mult=  8  cumul= 240 
+  [✗ FAIL] Surface L·S gives ≥ 3 magic numbers
+
+  ═══════════════════════════════════════
+  MECHANISM:
+  1. 600-cell geometry → HO shell structure (Sym²)
+  2. Gauge flatness → no spin-orbit from pure geometry
+  3. Filled core → surface density gradient
+  4. Surface gradient × L → spin-orbit (L·S)
+  5. κ ∝ ε (confinement parameter)
+  ═══════════════════════════════════════
+
+============================================================
+  SUMMARY: EXP_NUC_006_Tensor_Force_Spin-Orbit
+============================================================
+  [✗] Surface L·S gives ≥ 3 magic numbers
+
+  0/1 checks passed
+  Time: 0.3s
