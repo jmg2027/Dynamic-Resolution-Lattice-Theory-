@@ -9,11 +9,8 @@
 - Author: "Mingu Jeong" (not Mingoo, not Min-goo).
 - Every tex/pdf: "Joint research by Mingu Jeong and Claude (Anthropic)"
 
-## Editing Rules (1원칙: 청크) — HOOK 강제
-- **Write/Edit 모두 80줄 한도.** PreToolUse hook이 80줄 초과를 자동 차단한다.
-- 큰 파일 = Write(첫 80줄) → Edit(다음 80줄) → Edit(다음 80줄) 반복.
-- 단일 .tex 생성 등 대량 파일은 Bash(cat)로 조합 후 Write.
-- Edit은 incremental changes 전용. Write로 전체 파일을 덮어쓰지 않는다.
+## Editing
+- **80줄 한도 hook 강제.** 대량 파일은 Bash(cat)로 조합.
 
 ## The Axiom
 - **Things exist with pairwise relations.** G_ij = ⟨ψ_i|ψ_j⟩.
@@ -85,82 +82,19 @@ papers/            — 저널 투고용 standalone .tex (5편)
 
 ---
 
-## Naming Rules
-
-### 실험 파일
-```
-{PREFIX}_{NNN}_{description}.py
-```
-- **PREFIX**: sub-project별 고유 (FND, SM, ATM, COS, RH, NUC, PRD, QG)
-- **NNN**: sub-project 내 순차 번호 (001부터)
-- **description**: snake_case, 실험 내용 요약
-- 예: `ATM_014_he_variational.py`, `SM_020_higgs_quartic.py`
-
-### 실험 클래스 내부 ID
-```python
-class MyExperiment(Experiment):
-    ID = "ATM_014"        # PREFIX_NNN
-    TITLE = "He Variational Solution"
-```
-
-### 결과 파일
-```
-EXP_{PREFIX}_{NNN}_{Title}.txt
-```
-실험 실행 시 자동 생성. Title은 실험 TITLE에서 파생.
-
-### 결과 저장 경로 (자동 감지)
-`lib/experiment.py`가 결과 저장 경로를 자동 결정:
-1. 클래스에 `RESULTS_DIR` 속성 → 그것 사용
-2. 실험 파일이 `{sub-project}/experiments/`에 있으면 → `{sub-project}/results/`
-3. 위 두 조건 해당 없으면 → root `results/` (fallback)
-
-**수동 RESULTS_DIR 설정 불필요.** `{sub-project}/experiments/`에 넣기만 하면 됨.
-
-### 새 sub-project 생성 시
-1. 2-3자 prefix 결정 (기존과 충돌 없이)
-2. `{name}/CLAUDE.md` + `{name}/HANDOFF.md` 생성
-3. `{name}/experiments/` + `{name}/results/` 디렉토리 생성
-4. root CLAUDE.md 테이블에 추가
-5. `.claude/skills/{name}/SKILL.md` 생성 (선택)
+## Naming
+- 실험: `{PREFIX}_{NNN}_{desc}.py` (sub-project/experiments/ 안)
+- 결과: `EXP_{PREFIX}_{NNN}_{Title}.txt` (자동 생성, sub-project/results/)
+- 새 sub-project: prefix + CLAUDE.md + HANDOFF.md + experiments/ + results/
 
 ---
 
-## Organization Rules
-1. **새 연구 방향 = 새 sub-project directory.** CLAUDE.md + HANDOFF.md 필수.
-2. **실험/결과는 sub-project 안에서만.** root에 실험 파일 두지 않음.
-3. **이론은 항상 book/에 통합.** sub-project는 작업 공간일 뿐.
-4. **sub-project CLAUDE.md에는 해당 분야 context만.** Agent가 필요한 것만 읽으면 됨.
-5. **실험 번호는 sub-project 내 순차.** prefix로 소속 구분.
-6. **각 sub-project는 자체 HANDOFF.md 관리.** Root HANDOFF는 요약만.
-7. **세션 시작:** root HANDOFF → 작업 sub-project HANDOFF 순서로 읽기.
-8. **papers/는 root에 유지.** 저널 투고용. sub-project에서 참조만.
-9. **results/는 sub-project 안에만.** root results/에는 REPORT, SUMMARY, 카탈로그만. 실험 EXP_*.txt는 절대 root results/에 넣지 않음.
-10. **수학은 물리가 이끈다.** 수학적 개발이 필요하면 해당 물리 sub-project 안에서 수행. `critical-line/`은 RH/GRH/L-함수 전용. 다른 분야(atoms, QG 등)에서 수학이 필요하면 그 sub-project 안에서 theory/ + lean/ 구성.
-
-### Paper Classification
-| Paper | Sub-Project | Topic |
-|-------|------------|-------|
-| paper1 | foundations | chiral decomposition (why ℂ, d=5) |
-| paper2 | foundations | Frobenius → gauge group |
-| paper3 | standard-model | zero-parameter predictions |
-| paper4 | standard-model | zeta spectral dim, β-function |
-| paper5 | critical-line | Born-rule Gram graphs, critical line |
-| prime | critical-line | Prime numbers from finite geometry (Euler product, PNT, equidistribution) |
+## Organization
+- 실험/결과는 sub-project 안에서만. root results/에 EXP_*.txt 금지.
+- 이론은 book/에 통합. sub-project는 작업 공간.
+- 세션 시작: root HANDOFF → sub-project HANDOFF 순서로 읽기.
 
 ---
-
-## Book Structure
-```
-book/chapters/
-  ch01-03: Part I   — Foundations (why ℂ, why d=5, uniqueness)
-  ch04-05: Part II  — Simplex Geometry (combinatorics, theorems)
-  ch06-08: Part III — Physics Emergence (metric, ħ, couplings)
-  ch09-11: Part IV  — Matter (masses, atoms, mixing)
-  ch12-14: Part V   — Completeness (ghosts, cosmology, block)
-  ch15-20: Part VI  — Applications (YM, stars, QCD, hydrogen)
-  ch21:    Appendix  — Occupation fraction + Higgs quartic
-```
 
 ## Key Constants
 ```
@@ -175,7 +109,7 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 |-----------|------|----------|-------|
 | 1/α_em | 137.036 | 137.036 | **0.0004%** |
 | m_p | 938.27 MeV | 938.27 MeV | 0.000% |
-| m_μ/m_e | 206.7682837 | 206.7682838 | **0.7 ppb** |
+| m_μ/m_e | 206.7682837 | 206.7682838 | **0.48 ppb** |
 | m_H | 125.28 GeV | 125.25 GeV | **+0.02%** |
 | sin²θ₁₃ | 0.0220 | 0.0220 | **-0.07σ** |
 | ν m₃/m₂ | 5.712 | 5.71 | **+0.04%** |
@@ -192,40 +126,6 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 | m_J/ψ | 3081.6 MeV | 3096.9 MeV | **-0.5%** |
 | Δ-N split | 295.7 MeV | 294 MeV | **+0.6%** |
 
-## Resolved Problems (All 5 original SM open problems closed + nuclear)
-1. ~~Higgs mass~~ → +0.02% via face BC + embedding (SM_020/021)
-2. ~~Δm_np~~ → -1.5% via EM excess fraction (SM_022)
-3. ~~1/α₂~~ → phantom problem (ch08 already solved)
-4. ~~Neutrino ratio~~ → +0.04% via T₂₃ Basel correction (SM_023)
-5. ~~1st gen quarks~~ → Ξ_confined = α/(d²-1) only (SM_024)
-6. ~~Nuclear magic numbers~~ → 7/7 exact from 600-cell Sym²(2I) (NUC_003)
-7. ~~Deuteron binding~~ → +2.1% via Dyson P(x)=(1+2x)/(1+x) + f=1/(2d) counting (NUC_012)
-8. ~~Nuclear radius~~ → +0.95% via r₀=(d+1)ℏc/m_p (NUC_009)
-9. ~~BW coefficients~~ → a_V +3%, a_S +7%, a_C -3.6% from 600-cell Gram (NUC_015)
-10. ~~Hadron spectrum~~ → m_π +0.2%, m_V²=m_PS²+(dΛ/N_T)² RMS 1.8% (HAD_005)
-
-## Workflow Rules
-
-### Book Edits
-1. All theory → `book/chapters/*.tex`. Small incremental edits.
-2. After edits, regenerate `drlt_book_single.tex`.
-3. Papers in `papers/` — update only when submitting.
-
-### New Research Direction
-1. Create `{topic}/` directory with CLAUDE.md + HANDOFF.md.
-2. Choose unique 2-3 char prefix. Add to root CLAUDE.md table.
-3. Put experiments, results, theory documents inside.
-4. Once results are solid, integrate into book.
-
-### Git
-- Commit after each meaningful change.
-- Push to designated branch. Never amend.
-- Sub-projects can use feature branches.
-
-### Theoretical Assist Request (표준 워크플로우)
-Claude가 이론적 돌파가 필요할 때:
-1. **현재 상태 요약**: 무엇이 증명되었고, 무엇이 막혔는가.
-2. **구체적 질문**: 정확한 부등식, 추측, 또는 물리적 직관이 필요한 지점.
-3. **시도한 접근**: 실패한 경로와 왜 실패했는지.
-4. **필요한 도구**: 어떤 종류의 힌트가 도움이 될지 (부등식? 물리적 해석? 새 관점?).
-선생님이 방향을 주면 Claude가 형식화 + 수치 검증을 즉시 수행.
+## Workflow
+- book/ 편집 후 math/ + physics/ 동기화 + single .tex 재생성.
+- 의미 있는 변경마다 commit. 절대 amend 안 함.
