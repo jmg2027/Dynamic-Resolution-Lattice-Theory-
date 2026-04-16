@@ -1,0 +1,59 @@
+============================================================
+  EXP_CST_004_Structure_Growth_Factor
+  2026-04-16 04:05:48
+============================================================
+
+=== DRLT Parameters ===
+
+  Om = 0.31499,  OL = 0.68501
+  w  = -1 (exact)
+  sigma_8 = 0.7935
+
+=== Growth Index gamma ===
+
+  DRLT: w=-1 exactly => gamma = 6/11 = 0.5455
+  Modified gravity (DGP): gamma = 11/16 = 0.6875
+  DRLT prediction is TESTABLE: gamma != 6/11
+  would falsify DRLT (requires w != -1).
+
+=== f(z)*sigma_8(z) Predictions ===
+
+  z        f*sig8      obs    err    sigma
+  --------------------------------------
+  0.02      0.423    0.428  0.048    -0.10
+  0.15      0.449    0.490  0.145    -0.28
+  0.38      0.466    0.497  0.045    -0.69
+  0.51      0.464    0.459  0.038    +0.13
+  0.61      0.459    0.436  0.034    +0.67
+  0.70      0.452    0.473  0.041    -0.51
+  0.85      0.438    0.315  0.095    +1.30
+  1.48      0.368    0.462  0.045    -2.08
+  [✓ PASS] f*sig8: 7/8 within 2sig
+
+=== Approximation Check ===
+
+  f(z) ~ Om(z)^gamma,  gamma = 6/11
+  z=0.0: Om(z)=0.3150  f_approx=0.5325  f_exact=0.5271  diff=0.0054
+  z=0.3: Om(z)=0.5026  f_approx=0.6871  f_exact=0.6847  diff=0.0024
+  z=0.5: Om(z)=0.6081  f_approx=0.7624  f_exact=0.7610  diff=0.0014
+  z=1.0: Om(z)=0.7863  f_approx=0.8771  f_exact=0.8767  diff=0.0003
+  z=2.0: Om(z)=0.9255  f_approx=0.9586  f_exact=0.9586  diff=0.0000
+  [✓ PASS] gamma=6/11 approx <1% at z=0
+
+=== z=0 Prediction ===
+  f(0)     = 0.5271
+  f*sig8(0)= 0.4183
+  Observed = 0.428 +/- 0.048 (6dF)
+
+=== Summary ===
+  gamma = 6/11 = 0.5455 (DRLT: w=-1 exact)
+  f*sig8(0) = 0.4183
+
+============================================================
+  SUMMARY: EXP_CST_004_Structure_Growth_Factor
+============================================================
+  [✓] f*sig8: 7/8 within 2sig
+  [✓] gamma=6/11 approx <1% at z=0
+
+  2/2 checks passed
+  Time: 0.9s

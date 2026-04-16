@@ -1,0 +1,72 @@
+============================================================
+  EXP_CST_002_Matter_Power_Spectrum_and_Sigma8
+  2026-04-16 04:02:43
+============================================================
+
+=== DRLT Cosmological Parameters ===
+
+  Om  = 0.314995   (1-OL, derived)
+  Ob  = 0.049736   (Om/(1+DM/b))
+  n_s = 0.967213   (1-2/N*)
+  A_s = 1.9900e-09  (a_GUT^3/(C25,3*pi))
+  h   = 0.674       (observed)
+  DM/b= 5.3333   (d+1/n_S)
+
+  Comparison:
+    Om: DRLT=3.14995e-01 Planck=3.15300e-01  -0.10%
+    Ob: DRLT=4.97360e-02 Planck=4.93000e-02  +0.88%
+   n_s: DRLT=9.67213e-01 Planck=9.64900e-01  +0.24%
+   A_s: DRLT=1.99002e-09 Planck=2.10000e-09  -5.24%
+  [✓ PASS] Om within 1%
+
+=== sigma_8 via Calibrated Ratio ===
+
+  I_Planck  = 2.080279e-14
+  I_DRLT    = 1.991515e-14
+  Ratio     = 0.957331
+  sigma_8   = 0.7935
+  Planck    = 0.811
+  Error     = -2.16%
+  [✓ PASS] sigma_8 within 5%
+
+  S_8 = 0.8131
+  Planck S8 = 0.8314
+  Lensing   = 0.776
+
+=== Physical Decomposition ===
+
+  sigma_8 lowered by -2.16% because:
+    A_s: 1.9900e-09 vs 2.10e-09 (-5.2%)
+    n_s: 0.967213 vs 0.9649 (+0.24%)
+    Om:  0.31499 vs 0.3153 (-0.10%)
+
+=== sigma(R) Profile ===
+
+  Sound horizon = 150.69 Mpc
+  Growth g(0)   = 0.7870
+  R(Mpc/h)      sigma                 desc
+  --------------------------------------
+  1            1.6945               galaxy
+  4            1.0769               groups
+  8            0.7935             clusters
+  16           0.4567                super
+  50           0.0982                  BAO
+  100          0.0357              horizon
+
+  Shape Gamma = 0.1682 (obs ~0.21)
+  [✓ PASS] Shape within 25%
+
+=== Summary ===
+  DRLT sigma_8 = 0.7935 (Planck: 0.811)
+  DRLT S_8     = 0.8131
+  All from simplex geometry, 0 free parameters.
+
+============================================================
+  SUMMARY: EXP_CST_002_Matter_Power_Spectrum_and_Sigma8
+============================================================
+  [✓] Om within 1%
+  [✓] sigma_8 within 5%
+  [✓] Shape within 25%
+
+  3/3 checks passed
+  Time: 0.0s

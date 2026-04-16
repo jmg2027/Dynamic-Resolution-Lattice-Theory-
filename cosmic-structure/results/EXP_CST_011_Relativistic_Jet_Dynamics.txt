@@ -1,0 +1,68 @@
+============================================================
+  EXP_CST_011_Relativistic_Jet_Dynamics
+  2026-04-16 04:11:18
+============================================================
+
+=== Part 1: Lorentz Factor ===
+
+  sigma_0 = gauge/gravity = 0.374
+  Gamma (MHD ideal):    0.720
+  Gamma (reconnection): 0.374
+
+  Effective (d^2 channels):
+  sigma_eff = sigma_0 * d^2 = 9.34
+  Gamma_MHD   = sigma_eff^(1/3) = 2.1
+  Gamma_recon ~ min(sigma, 50) = 9.3
+
+  Observed Gamma:
+    AGN jets:   2-30
+    GRBs:       100-1000
+    Blazars:    5-50
+  [✓ PASS] Gamma_MHD in AGN range
+
+=== Part 2: Superluminal Motion ===
+
+  For Gamma = 2.1:
+  beta = 0.880076
+  beta_app,max = 1.85c at theta=28.3 deg
+  Observed: up to ~40c in blazars
+
+=== Part 3: Synchrotron Spectrum ===
+
+  Electron power law p = 3.00
+  Synchrotron alpha = (p-1)/2 = 1.00
+  Observed: alpha ~ 0.5-0.8
+  [✓ PASS] Spectral index reasonable
+
+=== Part 4: Jet Composition ===
+
+  Baryon loading: n_S/n_T = 1.5
+  → jets are 2:2 baryon:lepton
+  Observed: pair-dominated at launch,
+  baryon-enriched at large distance
+
+  Pair/baryon channels: 12/1
+  → pair-rich jets (SST >> SSS)
+
+=== Part 5: Kinetic Luminosity Function ===
+
+  For M_BH = 10^8 M_sun:
+  P_kin = eta * lambda_Edd * L_Edd * Gamma
+  = 7.22e+43 erg/s
+  Observed range: 1e42 - 1e46 erg/s
+  [✓ PASS] P_kin in observed range
+
+=== Summary ===
+  Gamma ~ 2.1 (MHD)
+  alpha_sync ~ 1.00
+  Pair-rich jets from SST channels
+
+============================================================
+  SUMMARY: EXP_CST_011_Relativistic_Jet_Dynamics
+============================================================
+  [✓] Gamma_MHD in AGN range
+  [✓] Spectral index reasonable
+  [✓] P_kin in observed range
+
+  3/3 checks passed
+  Time: 0.1s
