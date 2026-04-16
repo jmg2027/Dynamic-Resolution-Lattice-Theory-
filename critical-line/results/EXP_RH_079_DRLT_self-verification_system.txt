@@ -1,6 +1,6 @@
 ============================================================
   EXP_RH_079_DRLT_self-verification_system
-  2026-04-16 06:13:56
+  2026-04-16 06:19:45
 ============================================================
 
 === Test 1: Dependency Graph ===
@@ -8,6 +8,7 @@
   BSDPoincare ← UnifiedNecessity, HodgeAlgebraic
   Basic (root)
   BridgeDetails ← MillenniumBridges
+  ChiralChannels ← Core
   ChoiceAndN ← NProperties
   Collatz ← UnifiedNecessity
   ConjectureStrength ← SpectralComplexity
@@ -52,14 +53,14 @@
   YMMassGap ← SpectralComplexity, HodgeAlgebraic
   Zeta2Universality ← GRH
 
-  Files: 46
+  Files: 47
   Acyclic: True
   [✓ PASS] Dependency graph acyclic
 
 === Test 2: Sorry Scan ===
 
 
-  Total files scanned: 46
+  Total files scanned: 47
   Total actual sorry: 0
   [✓ PASS] Zero sorry in all files
 
@@ -69,6 +70,7 @@
   -------------------------------+---------
                      BSDPoincare |       13
                    BridgeDetails |       21
+                  ChiralChannels |       15
                       ChoiceAndN |       13
                          Collatz |       26
               ConjectureStrength |       11
@@ -112,16 +114,16 @@
                       VietaChain |       12
                        YMMassGap |       15
                Zeta2Universality |        6
-                           TOTAL |      544
-  [✓ PASS] Total theorems: 544
+                           TOTAL |      559
+  [✓ PASS] Total theorems: 559
 
 === Test 4: Tactic Classification ===
 
   Tactic usage:
-      native_decide:  582 ████████████████████████████████████████
-              omega:   86 ████████████████████████████████████████
+      native_decide:  605 ████████████████████████████████████████
+              omega:   88 ████████████████████████████████████████
+                rfl:   81 ████████████████████████████████████████
                simp:   78 ████████████████████████████████████████
-                rfl:   78 ████████████████████████████████████████
              decide:    0 
               other:    0 
 
@@ -144,23 +146,25 @@
   Thm  17 | Theorem 17 (Self-ref collapse) |        self_reference_collapse |     SelfReferenceCollapse |     ✓
   Thm  18 | Theorem 18 (Spectral complexity) |             discrete_tractable |        SpectralComplexity |     ✓
   Thm   2 |       Theorem 2 (doubly irred) |      unique_doubly_irreducible |                      Core |     ✓
+  Thm   3 |              Theorem 3 (ℂ²⊕ℂ³) |                   chiral_split |            ChiralChannels |     ✓
   Thm   5 |     Theorem 5 (Two Boundaries) |             two_boundaries_nat |                       GRH |     ✓
   Thm   6 |        Theorem 6 (Min cycle=3) |                  cp_transition |               BSDPoincare |     ✓
+  Thm   7 |        Theorem 7 (25 channels) |                   weighted_sum |            ChiralChannels |     ✓
   Thm   8 |              Theorem 8 (α_GUT) |                alpha_gut_value |         Zeta2Universality |     ✓
   Thm   9 | Theorem 9 (Self-contradiction) |            level4_above_level3 |               FiniteLimit |     ✓
 
-  Mapped: 13/13
+  Mapped: 15/15
   md theorems found: 18
-  [✓ PASS] md↔Lean mapping: 13/13
+  [✓ PASS] md↔Lean mapping: 15/15
 
 === Test 6: Verification Manifest ===
 
   ╔═══════════════════════════════════════╗
   ║  DRLT VERIFICATION MANIFEST           ║
   ║                                       ║
-  ║  Lean files:      46                  ║
-  ║  Total lines:    7563                 ║
-  ║  Theorems:       544                  ║
+  ║  Lean files:      47                  ║
+  ║  Total lines:    7751                 ║
+  ║  Theorems:       559                  ║
   ║  Sorry:            0                  ║
   ║  Sorry rate:      0.0%               ║
   ║                                       ║
@@ -173,9 +177,9 @@
 ============================================================
   [✓] Dependency graph acyclic
   [✓] Zero sorry in all files
-  [✓] Total theorems: 544
+  [✓] Total theorems: 559
   [✓] Tactic distribution measured
-  [✓] md↔Lean mapping: 13/13
+  [✓] md↔Lean mapping: 15/15
   [✓] Verification manifest generated
 
   6/6 checks passed
