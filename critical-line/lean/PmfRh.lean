@@ -48,3 +48,4 @@ import PmfRh.Axiom
 import PmfRh.Foundation
 import PmfRh.FrobeniusAlgebraic
 import PmfRh.SelfClosure
+import PmfRh.Genesis
