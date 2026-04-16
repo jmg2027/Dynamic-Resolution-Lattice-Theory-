@@ -13,14 +13,14 @@
 - 인프라: chunk-guard hook, CLAUDE.md 43% 절약, README 압축
 
 ## Lean Status
-Files: 65 | Theorems: ~770 | Sorry: 0 | Build: CLEAN
+Files: 65+7 | Theorems: ~770+26 | Sorry: 0 | Build: CLEAN
 
 ## 로드맵 (수학적 의존 순서)
 
-### Step 1. 원론 (drlt-elements/) — 최우선
-Entity.point → Eq → Logic → Nat → Arith → Order → Bridge
-- Phase 1: prelude 5파일 ~315줄, 택틱 없음
-- Phase 2: Bridge (import Init, iso 증명, @[implemented_by])
+### Step 1. 원론 (drlt-elements/) — ✅ 완료
+7파일 422줄 26정리 0sorry. Phase 1(prelude) + Phase 2(Bridge)
+- Phase 1: Entity→Eq→Logic→Nat→Arithmetic→Order (0 tactics)
+- Phase 2: Bridge (DRLT.add=Nat.add, DRLT.mul=Nat.mul)
 - 스펙: `drlt-elements/docs/spec.md`
 
 ### Step 2. Paper 1 형식화
