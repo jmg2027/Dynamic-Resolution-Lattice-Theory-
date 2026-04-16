@@ -5,35 +5,42 @@
 
 ## Integrated Branches
 1. `claude/cosmic-structure-research-ZsMGj` — CST_001-022 (우주 거대구조, H₀, T_CMB)
-2. `claude/atoms-handoff-continue-1MLk8` — ATM_060-069, RH_047-048 (원자, wedge screening)
+2. `claude/atoms-handoff-continue-1MLk8` — ATM_060-069, RH_047-048, Lean SpectralFlow
 3. `claude/implement-600-cell-e2zgQ` — NUC_001-015, HAD_001-009 (핵, 하드론)
 4. `claude/berry-phase-spectral-flow-5fgVK` — PRD_009 (Berry phase)
 5. `claude/spectral-flow-quantum-gravity-XEkzM` — QG_007 (spectral flow singularity)
 
-## Previous Session: Lean Formalization (critical-line branch)
-- Lean codebase: 56 files, 708 theorems, 0 sorry
-- lake build: CLEAN (2326 modules, 0 errors)
-- Complete derivation chain: "pair" → threshold=2 → {2,3} → ℂ unique → d=5
+## What Was Merged
 
-## Nuclear + Hadron Results (from implement-600-cell branch)
-### Nuclear — CLOSED (NUC_001-015)
-- Magic numbers 7/7 exact: M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
-- Deuteron E_d = 2.271 MeV (+2.1%) from Dyson resummation
-- Nuclear radius r₀ = 1.262 fm (+0.95%)
-- BW: a_V +3%, a_S +7%, a_C -3.6%
+### Atoms (ATM_060-069)
+- ATM_060: Recursive σ-free solver — Li-N all <1.5%
+- ATM_063: Hodge-Todd composite class solver — median 1734 ppm
+- ATM_064: Hinge algebra — eigenvalues 18,3,0
+- ATM_065-066: Wedge product on ∧²(ℂ⁵) → screening from counting
+- ATM_067-069: Budget scan, element portraits, balance-corrected solver
+- book/chapters/ch10_atoms.tex: N-simplex manifold, fundamental equation, α_GUT
 
-### Hadron — CLOSED (HAD_001-009)
-- 20 hadrons, median 3.5%, 14/20 within 5%
-- m_π +0.2%, m_ω -0.1%, m_J/ψ -0.5%, Δ-N +0.6%
-- Unified hyperfine: m_V² = m_PS² + (dΛ/N_T)²
+### Critical Line (RH_047-048)
+- RH_047: Spectral Flow — Vieta ⟹ Re(s)=1/2, density transition
+- RH_048: Born-Ramanujan bounds — PSD structure proves bounds
+- SpectralFlow.lean: 11 theorems, 0 sorry
 
-### Key Formulas
-```
-Magic:     M(n) = max(n(n+1)(n+2)/3, n(n²+5)/3)
-Pion:      m_π² = 9 Σm_q Λ (GMOR with n_eff=9)
-Hyperfine: m_V² = m_PS² + (dΛ/N_T)² (Δ=770 MeV)
-Baryon:    Δ-N = Λ×24/25, strange shift = Λ(φ/2)²
-```
+### Cosmic Structure (CST_001-022)
+- H₀ = 70.85 km/s/Mpc (between CMB 67.4 and SH0ES 73.0)
+- T_CMB = 2.83K (+3.7%), BBN, master prediction catalog (36 predictions)
+- |A₅|=60 → P≠NP → holography chain
+
+### Nuclear (NUC_001-015) — CLOSED
+- Magic numbers 7/7 exact, E_d +2.1%, r₀ +0.95%
+
+### Hadron (HAD_001-009) — CLOSED
+- 20 hadrons median 3.5%, m_π +0.2%, unified hyperfine
+
+### Predictions (PRD_009)
+- Berry phase = U(1) spectral flow (11/11 checks)
+
+### Quantum Gravity (QG_007)
+- Spectral flow singularity — sf(G_h)=0 proves no permanent singularities
 
 ## Current Precision Results (0 free parameters)
 | Observable | DRLT | Observed | Error |
@@ -51,7 +58,6 @@ Baryon:    Δ-N = Λ×24/25, strange shift = Λ(φ/2)²
 | Magic numbers | 7/7 | 7/7 | exact |
 | E_d | 2.271 MeV | 2.224 MeV | +2.1% |
 | m_π | 137.6 MeV | 137.3 MeV | +0.2% |
-| m_ω | 782.1 MeV | 782.7 MeV | -0.07% |
 
 ## Sub-Project Status
 | Directory | Status | Experiments |
@@ -76,17 +82,14 @@ Lines:     ~9,200
 Theorems:  708
 Sorry:     0
 lake build: CLEAN (2326 modules, 0 errors)
-md↔Lean:   15/15 (100%)
 ```
 
 ## Open Problems
-1. Atoms SC solver → full 118 elements (median 1.33%)
-2. ζ₉ vs ζ(∞) — physical propagator question
-3. T_CMB 정밀도 (현재 +3.7%)
-4. 수학 책 분리
-5. Level 3 구현
-6. Lean CI/CD
-7. Book integration (nuclear + hadron chapters)
+1. T_CMB 정밀도 (+3.7%)
+2. 수학 책 분리
+3. Level 3 구현
+4. Book integration (nuclear + hadron + cosmic-structure chapters)
+5. ζ₉ vs ζ(∞) physical propagator question
 
 ## Next Experiments
 - CST_023, ATM_070, NUC_016, HAD_010, PRD_010, QG_008, RH_080

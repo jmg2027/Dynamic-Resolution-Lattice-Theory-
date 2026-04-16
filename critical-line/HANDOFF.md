@@ -80,9 +80,18 @@ Basic, Core, Limit, PMF_RH, ResolutionExponent, ThreeLayers (roots)
 
 | ID | Checks | Key Result | Status |
 |----|--------|------------|--------|
-| RH_001-050 | (이전) | Two Boundaries, GUE, Vieta, Spectral Flow | Done |
-| RH_051-078 | (이전) | Lean formalization (46 files) | Done |
-| RH_079 | **6/6** | **Self-verification: 544 thms, 0 sorry, DAG** | ★★★ |
+| RH_001-046 | (이전) | Two Boundaries, GUE, Vieta, Spectral Flow | Done |
+| RH_047 | 8/8 | **Spectral Flow: Vieta, 100% Ramanujan, density** | ★★ |
+| RH_048 | 6/6 | **Born-Ramanujan bounds, PSD structure** | ★★ |
+| RH_051-078 | (이전) | Lean formalization (46→56 files) | Done |
+| RH_079 | **6/6** | **Self-verification: 708 thms, 0 sorry, DAG** | ★★★ |
+
+### Phase 4: Spectral Flow (RH_047) ★★
+- **Vieta identity**: |u|² = 1/q EXACT (algebraic, not analytic)
+- **λ-independent**: Re(s) = 1/2 regardless of eigenvalue
+- **Born-weighted Gram 100% Ramanujan**: deviation = 0 for all N, all trials
+- **Spectral Flow Theorem**: finite→infinite is DENSITY transition, not position
+- **Lean SpectralFlow.lean**: 11 theorems, 0 sorry
 
 ### Papers
 | Paper | Topic | Status |
@@ -105,3 +114,5 @@ Basic, Core, Limit, PMF_RH, ResolutionExponent, ThreeLayers (roots)
 N은 DRLT 공리에서 결정 불가능 (ZFC의 CH와 유사).
 N의 하한은 골격 여과(skeleton filtration) 차수.
 DRLT rational field = ℤ[1/30], 30 = 2×3×5 = n_T×n_S×d.
+
+## Next: RH_080

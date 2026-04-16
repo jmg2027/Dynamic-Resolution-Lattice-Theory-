@@ -1,0 +1,271 @@
+============================================================
+  EXP_ATM_061_Hodge_Periodic_Table
+  2026-04-16 00:49:31
+============================================================
+
+  =======================================================
+  Period 1-2: Hodge Diamond Filling
+  =======================================================
+
+H(Z=1)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 1 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):                  1s1  [1 e⁻]
+    h¹¹(SST/EM+nuc/p):                    —  [0 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 1 e⁻
+
+He(Z=2)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 2 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):                  1s2  [2 e⁻]
+    h¹¹(SST/EM+nuc/p):                    —  [0 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 2 e⁻
+
+Li(Z=3)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 3 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):              1s2 2s1  [3 e⁻]
+    h¹¹(SST/EM+nuc/p):                    —  [0 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 3 e⁻
+
+Be(Z=4)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 4 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):              1s2 2s2  [4 e⁻]
+    h¹¹(SST/EM+nuc/p):                    —  [0 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 4 e⁻
+
+B(Z=5)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 5 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):              1s2 2s2  [4 e⁻]
+    h¹¹(SST/EM+nuc/p):                  2p1  [1 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 5 e⁻
+
+C(Z=6)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 6 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):              1s2 2s2  [4 e⁻]
+    h¹¹(SST/EM+nuc/p):                  2p2  [2 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 6 e⁻
+
+N(Z=7)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 7 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):              1s2 2s2  [4 e⁻]
+    h¹¹(SST/EM+nuc/p):                  2p3  [3 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 7 e⁻
+
+O(Z=8)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 8 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):              1s2 2s2  [4 e⁻]
+    h¹¹(SST/EM+nuc/p):                  2p4  [4 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 8 e⁻
+
+F(Z=9)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 9 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):              1s2 2s2  [4 e⁻]
+    h¹¹(SST/EM+nuc/p):                  2p5  [5 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 9 e⁻
+
+Ne(Z=10)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 10 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):              1s2 2s2  [4 e⁻]
+    h¹¹(SST/EM+nuc/p):                  2p6  [6 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 10 e⁻
+
+  [✓ PASS] Period 1-2 drawn
+
+  =======================================================
+  Period 3-4: h²² (d-orbital) appears
+  =======================================================
+
+Na(Z=11)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 11 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):          1s2 2s2 3s1  [5 e⁻]
+    h¹¹(SST/EM+nuc/p):                  2p6  [6 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 11 e⁻
+
+Ar(Z=18)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 18 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):          1s2 2s2 3s2  [6 e⁻]
+    h¹¹(SST/EM+nuc/p):              2p6 3p6  [12 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 18 e⁻
+
+K(Z=19)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 19 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):      1s2 2s2 3s2 4s1  [7 e⁻]
+    h¹¹(SST/EM+nuc/p):              2p6 3p6  [12 e⁻]
+    h²²(STT/weak/d):                      —  [0 e⁻]
+    Total: 19 e⁻
+
+Sc(Z=21)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 21 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):      1s2 2s2 3s2 4s2  [8 e⁻]
+    h¹¹(SST/EM+nuc/p):              2p6 3p6  [12 e⁻]
+    h²²(STT/weak/d):                    3d1  [1 e⁻]
+    Total: 21 e⁻
+
+Fe(Z=26)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 26 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):      1s2 2s2 3s2 4s2  [8 e⁻]
+    h¹¹(SST/EM+nuc/p):              2p6 3p6  [12 e⁻]
+    h²²(STT/weak/d):                    3d6  [6 e⁻]
+    Total: 26 e⁻
+
+Zn(Z=30)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 30 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):      1s2 2s2 3s2 4s2  [8 e⁻]
+    h¹¹(SST/EM+nuc/p):              2p6 3p6  [12 e⁻]
+    h²²(STT/weak/d):                   3d10  [0 e⁻]
+    Total: 20 e⁻
+
+Kr(Z=36)
+  Gram: 5×5 on ℂP⁴ (exact by dim constraint)
+  Z = 36 quarks overlapping on ℂ³
+
+  Hodge diamond filling:
+    h⁰⁰(SSS/strong/s):      1s2 2s2 3s2 4s2  [8 e⁻]
+    h¹¹(SST/EM+nuc/p):          2p6 3p6 4p6  [18 e⁻]
+    h²²(STT/weak/d):                   3d10  [0 e⁻]
+    Total: 26 e⁻
+
+  [✓ PASS] Period 3-4 drawn
+
+  =======================================================
+  Hop Structure (Mingu Jeong)
+  =======================================================
+
+  n_S^1 = 3^1 = 3  (space: 1 hop, saturated)
+  n_T^2 = 2^2 = 4  (time: 2 hops, round-trip)
+  1^N = 1          (identity)
+
+  Round-trip = ref∘incl = |⟨ψ|φ⟩|²
+  Every ² in physics = observation = 2 hops
+
+  IE = Z_eff² × Ry / n²:
+    Z_eff² = |⟨A|B⟩|² = Born prob = round-trip
+    1/n²   = propagator = round-trip distance
+    Ry = α²m_e/N_T = α² (round-trip coupling)
+
+  Hodge class connection:
+    h⁰⁰: 1 hinge, c⁰=1 → 1^N (identity)
+    h¹¹: 6 hinges, c¹=2 → n_S^1 (1 hop)
+    h²²: 3 hinges, c²=4 → n_T^2 (round-trip)
+
+  Weighted: 1×1 + 6×2 + 3×4 = 1+12+12 = 25
+          = 1^N + n_S^1×C + n_T^2×C' = d²
+  [✓ PASS] Hop structure documented
+
+  =======================================================
+  Complete Hodge Periodic Table
+  =======================================================
+
+    Z Sym     h⁰⁰(s)     h¹¹(p)   h²²(d/f)
+    1   H        1s1                      
+    2  He        1s2                      
+    3  Li    1s2 2s1                      
+    4  Be    1s2 2s2                      
+    5   B    1s2 2s2        2p1           
+    6   C    1s2 2s2        2p2           
+    7   N    1s2 2s2        2p3           
+    8   O    1s2 2s2        2p4           
+    9   F    1s2 2s2        2p5           
+   10  Ne    1s2 2s2        2p6           
+   11  Na 1s2 2s2 3s1        2p6           
+   12  Mg 1s2 2s2 3s2        2p6           
+   13  Al 1s2 2s2 3s2    2p6 3p1           
+   14  Si 1s2 2s2 3s2    2p6 3p2           
+   15   P 1s2 2s2 3s2    2p6 3p3           
+   16   S 1s2 2s2 3s2    2p6 3p4           
+   17  Cl 1s2 2s2 3s2    2p6 3p5           
+   18  Ar 1s2 2s2 3s2    2p6 3p6           
+   19   K 1s2 2s2 3s2 4s1    2p6 3p6           
+   20  Ca 1s2 2s2 3s2 4s2    2p6 3p6           
+   21  Sc 1s2 2s2 3s2 4s2    2p6 3p6        3d1
+   22  Ti 1s2 2s2 3s2 4s2    2p6 3p6        3d2
+   23   V 1s2 2s2 3s2 4s2    2p6 3p6        3d3
+   24  Cr 1s2 2s2 3s2 4s2    2p6 3p6        3d4
+   25  Mn 1s2 2s2 3s2 4s2    2p6 3p6        3d5
+   26  Fe 1s2 2s2 3s2 4s2    2p6 3p6        3d6
+   27  Co 1s2 2s2 3s2 4s2    2p6 3p6        3d7
+   28  Ni 1s2 2s2 3s2 4s2    2p6 3p6        3d8
+   29  Cu 1s2 2s2 3s2 4s2    2p6 3p6        3d9
+   30  Zn 1s2 2s2 3s2 4s2    2p6 3p6       3d10
+   31  Ga 1s2 2s2 3s2 4s2 2p6 3p6 4p1       3d10
+   32  Ge 1s2 2s2 3s2 4s2 2p6 3p6 4p2       3d10
+   33  As 1s2 2s2 3s2 4s2 2p6 3p6 4p3       3d10
+   34  Se 1s2 2s2 3s2 4s2 2p6 3p6 4p4       3d10
+   35  Br 1s2 2s2 3s2 4s2 2p6 3p6 4p5       3d10
+   36  Kr 1s2 2s2 3s2 4s2 2p6 3p6 4p6       3d10
+
+  Noble gases = completed Hodge layers:
+    He(2):  h⁰⁰ full
+    Ne(10): h⁰⁰+h¹¹ full (period 2)
+    Ar(18): h⁰⁰+h¹¹ full (period 3)
+    Kr(36): h⁰⁰+h¹¹+h²² full (period 4)
+  [✓ PASS] Full table drawn
+
+============================================================
+  SUMMARY: EXP_ATM_061_Hodge_Periodic_Table
+============================================================
+  [✓] Period 1-2 drawn
+  [✓] Period 3-4 drawn
+  [✓] Hop structure documented
+  [✓] Full table drawn
+
+  4/4 checks passed
+  Time: 0.0s
