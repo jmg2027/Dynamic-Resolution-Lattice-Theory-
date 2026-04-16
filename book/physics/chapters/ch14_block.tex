@@ -67,7 +67,7 @@ This is not a narrative; it is a \emph{description of different regions of the s
 
 \subsection{The atom death sequence}
 
-The dimensional atoms annihilate in order of size (Chapter~\ref{ch:whyd5}). Larger atoms have stronger self-coupling and freeze faster:
+The dimensional atoms annihilate in order of size (Chapter~2 of \textit{Mathematical Foundations}). Larger atoms have stronger self-coupling and freeze faster:
 
 \begin{equation}
 \text{SU}(N) \;\xrightarrow{\text{fast}}\; \text{SU}(3) \times \text{SU}(2) \times \text{U}(1) \;\xrightarrow{\text{slow}}\; \text{U}(1) \;\xrightarrow{\text{very slow}}\; 1
@@ -103,7 +103,7 @@ The only quantity that depends on ``where in the block'' is the cosmological con
 
 \subsection{The cosmic address $\varepsilon_0$}
 
-The geometric parameter $\varepsilon_0 \approx 0.0038$ (Chapter~\ref{ch:ghosts}) is not a free parameter. It encodes our position within the block:
+The geometric parameter $\varepsilon_0 \approx 0.0038$ (the trace conservation chapter of \textit{Mathematical Foundations}) is not a free parameter. It encodes our position within the block:
 \begin{equation}
 \varepsilon_0 = f(N_H, d) \sim N_H^{-1/k}
 \end{equation}
@@ -159,7 +159,7 @@ Step & From & To & How \\
 
 The derivation chain above starts from ``points with relations'' and arrives at $\CC^5$. But there is a deeper way to see this --- one that does not require $d = 5$ at all.
 
-\textbf{One matrix, one algebra.} Take $N$ points carrying vectors in $\CC^{d_0}$ for any $d_0 \gg 5$. The Gram matrix $G$ is $N \times N$, rank $\leq d_0$. No constraint is imposed. The Uniqueness Theorem (Sec.~\ref{thm:d5}) proves: for \emph{any} $d_0 \geq 5$, the unique chiral, CP-violating, connected structure is $(n_S, n_T) = (3, 2)$.
+\textbf{One matrix, one algebra.} Take $N$ points carrying vectors in $\CC^{d_0}$ for any $d_0 \gg 5$. The Gram matrix $G$ is $N \times N$, rank $\leq d_0$. No constraint is imposed. The Uniqueness Theorem (\textit{Mathematical Foundations}, Chapter~2) proves: for \emph{any} $d_0 \geq 5$, the unique chiral, CP-violating, connected structure is $(n_S, n_T) = (3, 2)$.
 
 \textbf{No spectral gap at rank 5.} Numerical simulations confirm that swap annihilation creates no eigenvalue gap at rank 5. The chiral eigenvalues $\lambda_1, \ldots, \lambda_5$ and the trivial (swap-symmetric) eigenvalues $\lambda_6, \ldots, \lambda_{d_\text{indep}}$ merge into a continuous spectrum at large $N$, with the gap closing as $\sim 1/\sqrt{N}$. The true spectral gap is at rank $d_\text{indep}$ (independent dimensions after swap), where $\lambda_{d_\text{indep}+1} = 0$ exactly.
 
@@ -247,7 +247,7 @@ Most weights $W_{ij} \approx 0$, so the network has a sparse effective topology 
 
 \subsubsection{Information at hinges}
 
-Each hinge $h$ (a triangle: 3 of the 5 vertices) carries exactly 1 bit (Theorem~\ref{thm:holevo}). Information resides at the $\binom{5}{3} = 10$ hinges, not in the simplex interior. One simplex $=$ one discrete cell of spacetime.
+Each hinge $h$ (a triangle: 3 of the 5 vertices) carries exactly 1 bit (the Holevo theorem of \textit{Mathematical Foundations}). Information resides at the $\binom{5}{3} = 10$ hinges, not in the simplex interior. One simplex $=$ one discrete cell of spacetime.
 
 The hinge area $A_h = \sqrt{\det(G_h)}$ is at the Planck scale. The temporal vertex density is $c = 2$ times the spatial, so 2 temporal hinges correspond to 1 spatial hinge per unit of the lattice.
 
@@ -268,13 +268,13 @@ TTT & $(0,3)$ & --- & Impossible ($n_T = 2 < 3$) \\
 \end{tabular}
 \end{center}
 
-Gravity is not a hinge \emph{type} but the deficit angle between hinges (Chapter~\ref{ch:geometry}): the $G_h$ tensor distorts each triangle, and the arrangement of distorted hinges around a common edge determines the curvature.
+Gravity is not a hinge \emph{type} but the deficit angle between hinges (the geometry chapter of \textit{Mathematical Foundations}): the $G_h$ tensor distorts each triangle, and the arrangement of distorted hinges around a common edge determines the curvature.
 
 Electromagnetism is pure phase ($\arg G_{ij}$): no degree of freedom is absorbed at any hinge boundary, so it propagates across all simplices. Gravity and electromagnetism propagate at the same speed $c = 2$ because both are communicated between simplices through the same hinge gradient.
 
 \subsubsection{Confinement from simplex geometry}
 
-At $N_\text{eff} = 1$: a single simplex. The labels $S, S, S, T, T$ are indistinguishable --- the 5 vertices are interchangeable. This is the deconfined phase ($\eta/s = 1/(4\pi)$, Appendix~\ref{app:qcd}).
+At $N_\text{eff} = 1$: a single simplex. The labels $S, S, S, T, T$ are indistinguishable --- the 5 vertices are interchangeable. This is the deconfined phase ($\eta/s = 1/(4\pi)$, see QCD chapter).
 
 At $N_\text{eff} \geq 2$: the SSS triangle has all 3 spatial vertices within one simplex. An SSS hinge cannot be shared across a simplex boundary (adjacent simplices share 4 vertices, but the SSS triangle uses 3 spatial vertices, all belonging to one simplex). Therefore $\text{SU}(3)$ color is confined to a single simplex.
 

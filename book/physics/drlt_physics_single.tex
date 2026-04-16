@@ -75,7 +75,7 @@ This is a standard result of random matrix theory. The overlap is $|\langle\psi|
 \label{sec:three_gen}
 %---------------------------------------------------------------------
 
-The combinatorial structure of $\partial(\Delta^5)$ (Chapter~\ref{ch:simplex_geometry}, Section~\ref{sec:boundary_5simplex}) provides an independent derivation of the generation number.
+The combinatorial structure of $\partial(\Delta^5)$ (the simplex geometry chapter of \textit{Mathematical Foundations}) provides an independent derivation of the generation number.
 
 \begin{theorem}[Generation counting from minimal closure]
 \label{thm:gen_count}
@@ -86,7 +86,7 @@ N_\mathrm{gen} = \binom{n_B}{n_B - 1} = \binom{3}{2} = 3.
 \end{theorem}
 
 \begin{proof}
-In $\partial(\Delta^5)$, the three nuclear simplices ($3S + 2T$) each share the full A-triple $\{A_1, A_2, A_3\}$ and contain 2 out of 3 B-vertices. The number of ways to choose 2 from 3 is $\binom{3}{2} = 3$.  Each nuclear simplex has identical $(3,2)$ structure, hence identical fermion content (Theorem~\ref{thm:15}).
+In $\partial(\Delta^5)$, the three nuclear simplices ($3S + 2T$) each share the full A-triple $\{A_1, A_2, A_3\}$ and contain 2 out of 3 B-vertices. The number of ways to choose 2 from 3 is $\binom{3}{2} = 3$.  Each nuclear simplex has identical $(3,2)$ structure, hence identical fermion content (the generation theorem of \textit{Mathematical Foundations}).
 \end{proof}
 
 The derivation chain is purely combinatorial:
@@ -94,7 +94,7 @@ The derivation chain is purely combinatorial:
 \text{minimal closed $4$-manifold} \;\to\; 6V \;\to\; (3{+}3) \;\to\; \tbinom{3}{2} = 3 \text{ generations}.
 \end{equation}
 
-Each generation is distinguished by its B-pair and associated Gram determinant (Section~\ref{sec:B3_dependence}).  The parameters $\theta$ and $\delta$ of the $B_3$ dependence are determined by the variational principle (Chapter~\ref{ch:block}).
+Each generation is distinguished by its B-pair and associated Gram determinant (the $B_3$ dependence analysis, \textit{Mathematical Foundations}).  The parameters $\theta$ and $\delta$ of the $B_3$ dependence are determined by the variational principle (Chapter~\ref{ch:block}).
 
 %---------------------------------------------------------------------
 \subsection{Mass as propagation impedance}
@@ -113,11 +113,11 @@ The impedance decomposes into two factors:
 Observed: $206.768$ ($0.02\%$).
 
 \begin{itemize}
-\item \textbf{Simplex impedance} $n_A/n_B = 3/2$: the structural resistance of a single ABB hinge.  This equals $1/\det(G_\mathrm{ABB})_\mathrm{mean}$, verified numerically: $\det(G_\mathrm{ABB}) = 0.681 \approx 2/3 = n_B/n_A$ (Section~\ref{sec:boundary_5simplex}).
+\item \textbf{Simplex impedance} $n_A/n_B = 3/2$: the structural resistance of a single ABB hinge.  This equals $1/\det(G_\mathrm{ABB})_\mathrm{mean}$, verified numerically: $\det(G_\mathrm{ABB}) = 0.681 \approx 2/3 = n_B/n_A$ (from the $\partial(\Delta^5)$ boundary analysis, \textit{Mathematical Foundations}).
 
 \item \textbf{Pattern extent} $1/\alpha$: the electron pattern spans $\sim 1/\alpha$ lattice hops (the Bohr radius in lattice units).  The single-simplex impedance $n_A/n_B$ is amplified over this extent when comparing to the muon.
 
-\item \textbf{Trace correction} $(1 + \alpha_\mathrm{GUT}/(n_A+1))$: the universal correction (Chapter~\ref{ch:ghosts}) with sector factor $1/(n_A+1) = 1/4$ for the simplex boundary.
+\item \textbf{Trace correction} $(1 + \alpha_\mathrm{GUT}/(n_A+1))$: the universal correction (the trace conservation chapter of \textit{Mathematical Foundations}) with sector factor $1/(n_A+1) = 1/4$ for the simplex boundary.
 \end{itemize}
 
 All ingredients are independently verified: $W_{AB} = \alpha^2/(n_A d)$ (6 digits), $|\langle B|B_3\rangle|^2 = 1/c = 1/n_B$ (4 digits), $\det(G_\mathrm{ABB}) = n_B/n_A$ (3 digits).
@@ -168,7 +168,7 @@ The leading-order formulas above achieve $0.02\%$ for $m_\mu/m_e$ and $0.006\%$ 
 The three terms have distinct origins:
 \begin{itemize}
 \item $\alpha_\mathrm{em}/(1 - \agut)$: 1-loop EM $\times$ all-order GUT resummation,
-\item $\agut/(d^2 - 1)$: SSS indirect coupling (Theorem~\ref{thm:trace_conservation}),
+\item $\agut/(d^2 - 1)$: SSS indirect coupling (the trace conservation theorem of \textit{Mathematical Foundations}),
 \item $\alpha_\mathrm{em}^2$: 2-loop electromagnetic self-energy.
 \end{itemize}
 \end{definition}
@@ -234,7 +234,7 @@ The top Yukawa renormalization group equation has an infrared quasi-fixed point 
 \begin{equation}
 m_t = \frac{y^*_t \cdot v_H}{\sqrt{c}} = \frac{245.6}{\sqrt{2}} = 173.7\;\text{GeV}.
 \end{equation}
-Observed: $172.76\;\text{GeV}$ (0.5\%). The $\sqrt{c}$ (conventionally written $\sqrt{2}$) is the lattice speed of light from Eq.~(\ref{eq:speed_of_light}).
+Observed: $172.76\;\text{GeV}$ (0.5\%). The $\sqrt{c}$ (conventionally written $\sqrt{2}$) is the lattice speed of light $c = n_T = 2$ (derived in the geometry chapter of \textit{Mathematical Foundations}).
 
 \subsubsection{Bottom quark}
 
@@ -267,7 +267,7 @@ A Pachner $1 \to 5$ move adds one vertex to a simplex. This produces the recursi
 
 Each term has a unique geometric origin:
 \begin{itemize}
-\item \textbf{The ``$1$''}: one new vertex $=$ one new independent hinge $=$ 1 bit of information (Holevo bound, Chapter~\ref{ch:hbar}). This is the minimum topological change; adding 2 vertices would be two successive Pachner moves, not one. The Holevo bound fixes this term.
+\item \textbf{The ``$1$''}: one new vertex $=$ one new independent hinge $=$ 1 bit of information (the Holevo bound; see the Planck constant chapter of \textit{Mathematical Foundations}). This is the minimum topological change; adding 2 vertices would be two successive Pachner moves, not one. The Holevo bound fixes this term.
 \item \textbf{The ``$1/\hbar_\text{old}$''}: the Pachner move is a scale change (subdivision). At the new, finer resolution, the old $\hbar$ contributes its \emph{inverse}: finer resolution $=$ smaller area per hinge $=$ $1/\hbar_\text{old}$. This is the self-similar structure of the resolution cascade.
 \end{itemize}
 
@@ -343,7 +343,7 @@ The combinatorial formulas above give $\sim 3\%$ median accuracy.  A single clos
 
 \subsubsection{Derivation from $\delta_\mathrm{SSS} = \pi$}
 
-The SSS deficit angle is exactly $\pi$ (Theorem~\ref{thm:delta_SSS}, Chapter~\ref{ch:variational_theorems}).  The Regge holonomy around a single SSS loop gives the phase factor:
+The SSS deficit angle is exactly $\pi$ (by the confined-hinge theorem; see also Theorem~\ref{thm:delta_AAA} in Section~\ref{sec:flat_vacuum} of Chapter~\ref{ch:atoms}).  The Regge holonomy around a single SSS loop gives the phase factor:
 \begin{equation}
 e^{i\delta_\mathrm{SSS}} = e^{i\pi} = -1.
 \end{equation}
@@ -445,10 +445,10 @@ $m_p$ & --- & 925.0 MeV & 938.5 MeV & 938.3 & 0.02\% \\
 \end{tabular}
 \end{center}
 
-Median accuracy: 0.06\% (full topology), versus 1.0\% (combinatorial only).  The $\det(G_h)$ correction follows a systematic pattern (Chapter~\ref{ch:ghosts}): spatial paths ($QCD$) reduce mass, temporal paths ($EW$) increase mass.  All 11 masses and 5 mass ratios pass at the $< 0.5\%$ level (16/16 checks, EXP-046).
+Median accuracy: 0.06\% (full topology), versus 1.0\% (combinatorial only).  The $\det(G_h)$ correction follows a systematic pattern (the trace conservation chapter of \textit{Mathematical Foundations}): spatial paths ($QCD$) reduce mass, temporal paths ($EW$) increase mass.  All 11 masses and 5 mass ratios pass at the $< 0.5\%$ level (16/16 checks, EXP-046).
 
 \begin{remark}[Generation-dependent $\det(G_h)$ contributions]
-The combinatorial values above carry $\det(G_h)$ geometric contributions (Chapter~\ref{ch:ghosts}) that are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the \emph{opposite} of the coupling constant pattern (Chapter~\ref{ch:couplings}: the strong force has the largest $\Delta_i$). The topological reason: lower generations have less internal structure ($k = 1$ has no internal edges), making their $\det(G_h)$ weights larger. This complementary pattern is a consequence of trace conservation (Chapter~\ref{ch:ghosts}).
+The combinatorial values above carry $\det(G_h)$ geometric contributions (the trace conservation chapter of \textit{Mathematical Foundations}) that are systematically larger for lower generations: 3rd gen $\sim 1\%$, 2nd gen $\sim 2\%$, 1st gen $\sim 4\%$. This is the \emph{opposite} of the coupling constant pattern (the couplings chapter of \textit{Mathematical Foundations}: the strong force has the largest $\Delta_i$). The topological reason: lower generations have less internal structure ($k = 1$ has no internal edges), making their $\det(G_h)$ weights larger. This complementary pattern is a consequence of trace conservation.
 \end{remark}
 
 \subsection{The QCD confinement scale}
@@ -558,7 +558,7 @@ Hydrogen has 4 vertices: $\{u_1, u_2, d\}$ (proton, $\CC^3$) and $\{e\}$ (electr
 \begin{equation}
 E_1 = -\frac{m_e\,\alpha_\text{em}^2}{2} = -13.606\;\text{eV}
 \end{equation}
-(observed: $-13.606\;\text{eV}$, exact agreement). Using only the combinatorial values ($m_e = 0.490\;\text{MeV}$, $\alpha_\text{em}^{-1} = 137.8$) gives $-12.9\;\text{eV}$ --- the missing 5.2\% is the $\det(G_h)$ geometric contribution to $m_e$ and $\alpha$, which is part of the topology, not an error (Chapter~\ref{ch:ghosts}). The atom exists because U(1) --- the relative phase between $\CC^3$ and $\CC^2$ --- binds the electron to the proton. Without this glue (Chapter~\ref{ch:whyC}), atoms could not form.
+(observed: $-13.606\;\text{eV}$, exact agreement). Using only the combinatorial values ($m_e = 0.490\;\text{MeV}$, $\alpha_\text{em}^{-1} = 137.8$) gives $-12.9\;\text{eV}$ --- the missing 5.2\% is the $\det(G_h)$ geometric contribution to $m_e$ and $\alpha$, which is part of the topology, not an error (the trace conservation chapter of \textit{Mathematical Foundations}). The atom exists because U(1) --- the relative phase between $\CC^3$ and $\CC^2$ --- binds the electron to the proton. Without this glue (the $\CC$ uniqueness argument of \textit{Mathematical Foundations}), atoms could not form.
 
 %=====================================================================
 \section{Atoms, Molecules, and Chemistry from the Simplex}
@@ -577,7 +577,7 @@ Hydrogen is an \textbf{AAAB face} --- a tetrahedron $\{A_1, A_2, A_3, B_1\}$ wit
 \item $B_2$: the \emph{vacant slot} --- the 5th vertex, outside this tetrahedron.
 \end{itemize}
 
-The AAAB face contains 4 hinges (Chapter~\ref{ch:simplex_geometry}):
+The AAAB face contains 4 hinges (the simplex geometry chapter of \textit{Mathematical Foundations}):
 \begin{center}
 \begin{tabular}{ccl}
 \hline
@@ -605,7 +605,7 @@ The ionization energy is obtained by converting to physical units via the discre
 Observed: $13.606\;\text{eV}$ (exact to displayed precision).  The factor $1/n_B^2 = 1/4$ is the square of the lattice speed of light; $1/n_B = 1/2$ is the ``$1/2$'' of the Rydberg formula $E_n = -m_e\alpha^2/(2n^2)$, now derived from the (3,2) partition rather than postulated.
 
 \begin{remark}
-The screening coefficient $\sigma = n_B/n_A = 2/3$ (Eq.~\ref{eq:sigma}) is independently confirmed by direct Gram matrix computation: the mean $\det(G_\mathrm{ABB})$ over all ABB hinges in the $\partial(\Delta^5)$ variational solution is $0.681 \approx 2/3$ (Appendix~\ref{app:verification}).
+The screening coefficient $\sigma = n_B/n_A = 2/3$ is independently confirmed by direct Gram matrix computation: the mean $\det(G_\mathrm{ABB})$ over all ABB hinges in the $\partial(\Delta^5)$ variational solution is $0.681 \approx 2/3$ (Appendix~\ref{app:verification}).
 \end{remark}
 
 \subsection{Helium = fully occupied simplex}
@@ -662,7 +662,7 @@ This is an algebraic identity of the 20-hinge decomposition (EXP-070, verified t
 The hinge $\{B_1, B_2, X\}$ exists on $\partial(\Delta^5)$ only when both electrons couple.  Its Binet--Cauchy decomposition is $100\%$ in the $k=2$ (STT) channel (EXP-070 verified: $k=0$ and $k=1$ contributions are $< 10^{-20}$).  The $c$-weight of the $k=2$ channel is $c^2 = 4$.
 
 \textbf{Step 3.  Budget reduction.}
-The total $c$-weighted channel budget is $d^2\zeta(2) = 1/\alpha_\text{GUT}$ (Theorem~\ref{thm:25}).
+The total $c$-weighted channel budget is $d^2\zeta(2) = 1/\alpha_\text{GUT}$ (the channel budget theorem of \textit{Mathematical Foundations}).
 The BBB hinge uses $c^2 = 4$ of the $d^2 = 25$ channels.  The fraction of the budget blocked:
 \begin{equation}
 \frac{c^2}{d^2\,\zeta(2)} = c^2\,\alpha_\text{GUT} = 4\,\alpha_\text{GUT} = \frac{24}{25\pi^2} \approx 0.0973.
@@ -683,7 +683,7 @@ All previous approaches tried to find the $c^2\alpha_\text{GUT}$ correction insi
 \begin{equation}
 \boxed{E_n = -\frac{m_e\,\alpha_\text{em}^2}{n_B \times n^2}}
 \end{equation}
-where $m_e$ is the electron mass (Chapter~\ref{ch:masses}), $\alpha_\text{em}$ is the fine structure constant (Chapter~\ref{ch:couplings}), $n_B = 2$ is the temporal sector dimension, and $n = 1, 2, 3, \ldots$ is the principal quantum number.
+where $m_e$ is the electron mass (Chapter~\ref{ch:masses}), $\alpha_\text{em}$ is the fine structure constant (the couplings chapter of \textit{Mathematical Foundations}), $n_B = 2$ is the temporal sector dimension, and $n = 1, 2, 3, \ldots$ is the principal quantum number.
 \end{theorem}
 
 Each factor is derived:
@@ -691,7 +691,7 @@ Each factor is derived:
 \item $m_e$: generation formula from simplex geometry (Sec.~6.7).
 \item $\alpha_\text{em}^2$: two AAB hinge couplings (one per A--B transition).
 \item $1/n_B = 1/2$: the electron lives in $\CC^2$ with $n_B = 2$ temporal directions. This is \textbf{not} the virial theorem --- it is the dimension of the temporal sector. If $n_B$ were 3, the ground state would be $E_1 = -9.07\;\text{eV}$ instead of $-13.6\;\text{eV}$.
-\item $1/n^2$: the lattice propagator $D(n) = 1/n^2$ --- the same inverse-square function that gives the coupling constants via the Basel sum (Chapter~\ref{ch:couplings}). $n$ counts lattice hops from the nuclear simplex.
+\item $1/n^2$: the lattice propagator $D(n) = 1/n^2$ --- the same inverse-square function that gives the coupling constants via the Basel sum (the couplings chapter of \textit{Mathematical Foundations}). $n$ counts lattice hops from the nuclear simplex.
 \end{itemize}
 
 Numerical verification: $E_1 = -13.606\;\text{eV}$ (observed: $-13.606\;\text{eV}$, error: $0.00\%$). Lyman-$\alpha$: $\lambda = 121.52\;\text{nm}$ (observed: $121.57\;\text{nm}$, $0.04\%$). Balmer-$\alpha$: $\lambda = 656.19\;\text{nm}$ (observed: $656.28\;\text{nm}$, $0.01\%$).
@@ -803,7 +803,7 @@ Chemists compute bond angles via the VSEPR model: electron pairs repel via the C
 
 \subsubsection{Step 1: Lattice propagator gives $1/r$}
 
-In Chapter~\ref{ch:couplings}, the AAB (electromagnetic) channel propagates with $D(n) = 1/n^2$ in $n_A = 3$ spatial dimensions, and $N_\text{eff} = \infty$ (no rank exhaustion).  The lattice potential at distance $n$ is the cumulative propagator:
+In the couplings chapter of \textit{Mathematical Foundations}, the AAB (electromagnetic) channel propagates with $D(n) = 1/n^2$ in $n_A = 3$ spatial dimensions, and $N_\text{eff} = \infty$ (no rank exhaustion).  The lattice potential at distance $n$ is the cumulative propagator:
 \begin{equation}
 V_\text{lattice}(n) = \sum_{m=n}^{\infty} D(m) = \sum_{m=n}^{\infty}\frac{1}{m^2}.
 \end{equation}
@@ -872,13 +872,14 @@ Agreement & --- & $0.00^\circ$ \\
 \end{tabular}
 \end{center}
 The chemist's ``electromagnetic repulsion between electron pairs'' is the physicist's ``hinge tension in the 4-simplex.''  They are the same mathematics in different languages.  The ``force'' is the name we give to the gradient of a determinant when we forget that the determinant is the fundamental object.
+\end{remark}
 
 %---------------------------------------------------------------------
 \subsection{Hydrogen as an analytic solution of $\delta S/\delta\psi = 0$}
 \label{sec:hydrogen_analytic}
 %---------------------------------------------------------------------
 
-The vacuum solution (Theorem~\ref{thm:vacuum}) has $|G_{ij}| = 1/d$ for all pairs: no structure, no matter.  Hydrogen is the simplest \emph{symmetry-broken} solution.
+The vacuum solution (the vacuum theorem of \textit{Mathematical Foundations}) has $|G_{ij}| = 1/d$ for all pairs: no structure, no matter.  Hydrogen is the simplest \emph{symmetry-broken} solution.
 
 \begin{theorem}[Hydrogen analytic solution]
 \label{thm:hydrogen_solution}
@@ -1430,7 +1431,7 @@ This is tribimaximal mixing (TBM), now derived from channel counting rather than
 \begin{equation}
 \sin^2\theta_{23} = \frac{1}{c} + c\,\agut = \frac{1}{2} + 2\agut = 0.549.
 \end{equation}
-Observed: $0.546$ (0.5\%). The $B_1 \leftrightarrow B_2$ exchange symmetry of Theorem~\ref{thm:overlap} is slightly broken by $\agut$, giving $c = 2$ independent temporal channels each contributing $+\agut$.
+Observed: $0.546$ (0.5\%). The $B_1 \leftrightarrow B_2$ exchange symmetry of the B-vertex overlap theorem (\textit{Mathematical Foundations}) is slightly broken by $\agut$, giving $c = 2$ independent temporal channels each contributing $+\agut$.
 
 \subsubsection{Solar angle}
 \begin{equation}
@@ -1479,7 +1480,7 @@ The Higgs boson mass is determined by the self-coupling at the electroweak scale
 \begin{equation}
 m_H = v_H\,\frac{(1+\alpha_\text{GUT})(1-\alpha_\text{GUT}/d)}{c} \approx 125.28\;\text{GeV}.
 \end{equation}
-Observed: $125.25 \pm 0.17\;\text{GeV}$ ($+0.02\%$, $+0.15\sigma$).  The quartic coupling $\lambda \approx 0.1299$ is derived from the face-level Binet--Cauchy decomposition with simplex embedding correction (Section~\ref{sec:higgs_quartic}).
+Observed: $125.25 \pm 0.17\;\text{GeV}$ ($+0.02\%$, $+0.15\sigma$).  The quartic coupling $\lambda \approx 0.1299$ is derived from the face-level Binet--Cauchy decomposition with simplex embedding correction (the Higgs quartic section of \textit{Mathematical Foundations}).
 
 \subsection{Complete parameter table}
 
@@ -1489,7 +1490,7 @@ Observed: $125.25 \pm 0.17\;\text{GeV}$ ($+0.02\%$, $+0.15\sigma$).  The quartic
 \hline
 \# & Parameter & DRLT & Observed & Formula \\
 \hline
-\multicolumn{5}{l}{\emph{Gauge couplings (Chapter~\ref{ch:couplings})}} \\
+\multicolumn{5}{l}{\emph{Gauge couplings (couplings chapter, \textit{Math.\ Found.})}} \\
 1 & $1/\alpha_3$ & 8.0 & 8.47 & $(n_S^2-1) \times S(1)$ \\
 2 & $1/\alpha_2$ & 30.0 & 29.6 & $12\,n_T \times S(2)$ \\
 3 & $1/\alpha_1$ & 59.2 & 59.0 & $6\pi^2$ \\
@@ -1540,7 +1541,7 @@ Observed: $125.25 \pm 0.17\;\text{GeV}$ ($+0.02\%$, $+0.15\sigma$).  The quartic
 \label{sec:ckm_geometry}
 %---------------------------------------------------------------------
 
-In $\partial(\Delta^5)$, the third B-vertex satisfies $B_3 = \alpha B_1 + \beta B_2$ with $|\alpha|^2 + |\beta|^2 = 1$ (Section~\ref{sec:B3_dependence}).  Setting $\alpha = \cos\theta\,e^{i\delta_1}$, $\beta = \sin\theta\,e^{i\delta_2}$:
+In $\partial(\Delta^5)$, the third B-vertex satisfies $B_3 = \alpha B_1 + \beta B_2$ with $|\alpha|^2 + |\beta|^2 = 1$ (the $B_3$ dependence section of \textit{Mathematical Foundations}).  Setting $\alpha = \cos\theta\,e^{i\delta_1}$, $\beta = \sin\theta\,e^{i\delta_2}$:
 
 \begin{itemize}
 \item $\theta = \arctan(|\beta|/|\alpha|)$: the Cabibbo-like mixing angle.
@@ -1599,11 +1600,11 @@ This gives $m_{\nu_3}/m_{\nu_2} \approx 3.7$, a structural improvement from 283 
 \label{sec:w_closed}
 %---------------------------------------------------------------------
 
-The variational parameter $w$ (Sec.~\ref{sec:B3_dependence}) has the closed form:
+The variational parameter $w$ (the $B_3$ dependence section of \textit{Mathematical Foundations}) has the closed form:
 \begin{equation}
 \boxed{w = \frac{n_A}{d\,\pi} = \frac{3}{5\pi} \approx 0.19099.}
 \end{equation}
-Numerical value from Regge action extremisation: $0.19028$ ($0.37\%$ discrepancy).  The formula combines the spatial ratio $n_A/d$ with the topological phase factor $1/\pi$ from the U(1) winding (Chapter~\ref{ch:whyC}).
+Numerical value from Regge action extremisation: $0.19028$ ($0.37\%$ discrepancy).  The formula combines the spatial ratio $n_A/d$ with the topological phase factor $1/\pi$ from the U(1) winding (Chapter~1 of \textit{Mathematical Foundations}).
 
 %=====================================================================
 \part{Cosmology}
@@ -1614,7 +1615,7 @@ Numerical value from Regge action extremisation: $0.19028$ ($0.37\%$ discrepancy
 \label{ch:cosmology}
 %=====================================================================
 
-The DRLT framework extends beyond particle physics. This chapter derives 9 cosmological observables from $d = 5$ with zero free parameters: baryon asymmetry, dark energy (density, equation of state, fraction), dark matter ratio, inflationary parameters, the proton lifetime, and the strong CP angle. All were derived in Chapters~\ref{ch:couplings}--\ref{ch:mixing}; here we collect the cosmological implications.
+The DRLT framework extends beyond particle physics. This chapter derives 9 cosmological observables from $d = 5$ with zero free parameters: baryon asymmetry, dark energy (density, equation of state, fraction), dark matter ratio, inflationary parameters, the proton lifetime, and the strong CP angle. All were derived in the preceding chapters (couplings through mixing); here we collect the cosmological implications.
 
 \subsection{Baryon asymmetry}
 
@@ -1678,7 +1679,7 @@ These are distinguishable. If individual-$z$ measurements confirm $w(z) = -1$ bu
 
 \subsubsection{Dark energy fraction}
 
-The cosmological horizon is the surface where the recession velocity equals the lattice speed of light $c = 2$ (Eq.~\ref{eq:speed_of_light}). At this surface, the deficit angle is:
+The cosmological horizon is the surface where the recession velocity equals the lattice speed of light $c = 2$ (derived in the geometry chapter of \textit{Mathematical Foundations}). At this surface, the deficit angle is:
 \begin{equation}
 \delta_\text{horizon} = 2\pi - \sum\theta = 2\pi - c = 2\pi - 2.
 \end{equation}
@@ -1690,7 +1691,7 @@ The dark energy fraction is this deficit normalized by the full angle:
 \end{equation}
 The factor $1/\pi$ is not numerology: it is $c/(2\pi) = 2/(2\pi)$, where $c = 2$ is derived from $(n_S, n_T) = (3, 2)$ and $2\pi$ is the full circle.
 
-Including the universal trace-conservation correction (Chapter~\ref{ch:ghosts}) with sector factor $1/d$:
+Including the universal trace-conservation correction (the trace conservation chapter of \textit{Mathematical Foundations}) with sector factor $1/d$:
 \begin{equation}
 \boxed{\Omega_\Lambda = \left(1 - \frac{1}{\pi}\right)\!\left(1 + \frac{\alpha_\mathrm{GUT}}{d}\right) = 0.6817 \times 1.00486 = 0.6850.}
 \end{equation}
@@ -1699,7 +1700,7 @@ Observed: $0.685$ ($0.001\%$).  The correction $\alpha_\mathrm{GUT}/d = \alpha_\
 \subsection{Our position in $\Delta^4$}
 \label{sec:our_position}
 
-The moment map (Chapter~\ref{ch:geometry}, Section~\ref{sec:shadow}) assigns each vertex a position in $\Delta^4$ via $x_k = |z_k|^2/|z|^2$.  The lattice density condition $c^2 = 4$ fixes the sector weights:
+The moment map (the geometry chapter of \textit{Mathematical Foundations}) assigns each vertex a position in $\Delta^4$ via $x_k = |z_k|^2/|z|^2$.  The lattice density condition $c^2 = 4$ fixes the sector weights:
 \begin{equation}
 x_S = \frac{6}{7}, \qquad x_T = \frac{1}{7}, \qquad \frac{x_S}{x_T} = n_A \cdot n_B = 6.
 \end{equation}
@@ -1709,7 +1710,7 @@ The hierarchy problem is a geometric statement: $|x_3 - x_4| \ll x_T$, i.e.\ our
 
 \subsubsection{Identity: vacuum zero-point energy}
 
-In DRLT, every vertex has a local Hamiltonian $H_i = \sum_j W_{ij}|\psi_j\rangle\langle\psi_j|$ with a strictly positive minimum eigenvalue (Chapter~\ref{ch:hbar}). This zero-point energy (ZPE) exists for all vertices, including vacuum vertices --- vertices that are not part of any baryonic structure but still carry energy through their $W_{ij} > 0$ connections.
+In DRLT, every vertex has a local Hamiltonian $H_i = \sum_j W_{ij}|\psi_j\rangle\langle\psi_j|$ with a strictly positive minimum eigenvalue (the Planck constant chapter of \textit{Mathematical Foundations}). This zero-point energy (ZPE) exists for all vertices, including vacuum vertices --- vertices that are not part of any baryonic structure but still carry energy through their $W_{ij} > 0$ connections.
 
 \textbf{Dark matter is not a new particle. It is the gravitational effect of the spacetime lattice's own zero-point energy.}
 
@@ -1738,7 +1739,7 @@ M_\text{eff}(r) = M_\text{vis}(r) + M_\text{ZPE}(r), \qquad M_\text{ZPE}(r) = \s
 
 \subsubsection{Flat rotation curves}
 
-At large $r$, visible matter density drops exponentially ($\rho_\text{vis} \to 0$). The vacuum vertex ZPE contribution at distance $r$ from the galactic center is not an assumption but a consequence of the lattice propagator (Chapter~\ref{ch:couplings}): each vacuum vertex's gravitational coupling to the center falls as the solid angle $D(r) = 1/r^{n_S - 1} = 1/r^2$ (the same $1/r^2$ that gives the coupling constants and the Coulomb law). Therefore:
+At large $r$, visible matter density drops exponentially ($\rho_\text{vis} \to 0$). The vacuum vertex ZPE contribution at distance $r$ from the galactic center is not an assumption but a consequence of the lattice propagator (the couplings chapter of \textit{Mathematical Foundations}): each vacuum vertex's gravitational coupling to the center falls as the solid angle $D(r) = 1/r^{n_S - 1} = 1/r^2$ (the same $1/r^2$ that gives the coupling constants and the Coulomb law). Therefore:
 \begin{equation}
 \rho_\text{ZPE}(r) \propto D(r) = \frac{1}{r^2}
 \end{equation}
@@ -1766,7 +1767,7 @@ DRLT dark matter is: gravitationally interacting (through $W_{ij}$), electricall
 \textbf{Prediction:} Direct detection experiments will never find dark matter particles, because dark matter is not a particle --- it is the zero-point energy of spacetime itself.
 
 \begin{remark}
-The same lattice geometry that explains dark matter also explains why the quark-gluon plasma produced in heavy-ion collisions behaves as a nearly perfect fluid: the rank constraint $\text{rank}(G) \leq 5$ forces all momentum transfer through hinge bottlenecks, giving $\eta/s = 1/(4\pi)$ with zero free parameters. See Appendix~\ref{app:qcd}.
+The same lattice geometry that explains dark matter also explains why the quark-gluon plasma produced in heavy-ion collisions behaves as a nearly perfect fluid: the rank constraint $\text{rank}(G) \leq 5$ forces all momentum transfer through hinge bottlenecks, giving $\eta/s = 1/(4\pi)$ with zero free parameters. See the QCD chapter.
 \end{remark}
 
 \subsection{Inflation}
@@ -1801,7 +1802,7 @@ This is structurally enforced: $ds^2 = 0$ requires $\psi_i = e^{i\theta}\psi_j$ 
 
 \subsection{Compact stars: confinement saves stars}
 
-The dynamical Planck constant $\hbar_\text{eff} \propto \sqrt{\det(G_h)}$ (Chapter~\ref{ch:hbar}) modifies the equation of state of dense matter. The DRLT degeneracy pressure is:
+The dynamical Planck constant $\hbar_\text{eff} \propto \sqrt{\det(G_h)}$ (the Planck constant chapter of \textit{Mathematical Foundations}) modifies the equation of state of dense matter. The DRLT degeneracy pressure is:
 \begin{equation}
 P_\text{deg}^\text{DRLT} = \det(G_h) \times P_\text{deg}^\text{standard}.
 \end{equation}
@@ -1809,7 +1810,7 @@ As matter is compressed, $\psi$ vectors align, $\det(G_h)$ drops, and the effect
 
 \subsubsection{Neutron star stability}
 
-In neutron matter, quarks are confined to $\CC^3 \subset \CC^5$ (Chapter~\ref{ch:couplings}, Sec.~\ref{sec:Neff}: $N_\text{eff} = 1$). This confinement imposes a \textbf{floor} on $\det(G_h)$: the $\CC^3$ boundary prevents complete $\psi$ alignment because the temporal sector $\CC^2$ remains decoupled. Therefore:
+In neutron matter, quarks are confined to $\CC^3 \subset \CC^5$ (the couplings chapter of \textit{Mathematical Foundations}, $N_\text{eff} = 1$). This confinement imposes a \textbf{floor} on $\det(G_h)$: the $\CC^3$ boundary prevents complete $\psi$ alignment because the temporal sector $\CC^2$ remains decoupled. Therefore:
 \begin{equation}
 \det(G_h) \geq \det_\text{min}(\CC^3) > 0 \quad\Rightarrow\quad \hbar_\text{eff} > 0 \quad\Rightarrow\quad P_\text{deg} > 0 \quad\Rightarrow\quad \textbf{stable.}
 \end{equation}
@@ -1840,7 +1841,7 @@ A quark core can exist stably if enclosed by a neutron matter shell:
 \begin{equation}
 \text{Hybrid star} = \underbrace{\text{Neutron shell}}_{\det > \det_\text{min},\; P > 0} + \underbrace{\text{Quark core}}_{\det \to 0^+,\;\eta/s = 1/(4\pi)}
 \end{equation}
-The shell provides the external $\det$ floor. The quark core is a perfect fluid ($\eta/s = 1/(4\pi)$, Appendix~\ref{app:qcd}) enclosed in a viscous neutron shell. This configuration requires $M \gtrsim 2\,M_\odot$.
+The shell provides the external $\det$ floor. The quark core is a perfect fluid ($\eta/s = 1/(4\pi)$, see QCD chapter) enclosed in a viscous neutron shell. This configuration requires $M \gtrsim 2\,M_\odot$.
 
 \begin{remark}
 The $\CC^3$ boundary plays a dual role: in particle physics, it is color confinement; in astrophysics, it is the structural element that prevents gravitational collapse. \emph{Confinement saves stars.}
@@ -1953,7 +1954,7 @@ This is not a narrative; it is a \emph{description of different regions of the s
 
 \subsection{The atom death sequence}
 
-The dimensional atoms annihilate in order of size (Chapter~\ref{ch:whyd5}). Larger atoms have stronger self-coupling and freeze faster:
+The dimensional atoms annihilate in order of size (Chapter~2 of \textit{Mathematical Foundations}). Larger atoms have stronger self-coupling and freeze faster:
 
 \begin{equation}
 \text{SU}(N) \;\xrightarrow{\text{fast}}\; \text{SU}(3) \times \text{SU}(2) \times \text{U}(1) \;\xrightarrow{\text{slow}}\; \text{U}(1) \;\xrightarrow{\text{very slow}}\; 1
@@ -1989,7 +1990,7 @@ The only quantity that depends on ``where in the block'' is the cosmological con
 
 \subsection{The cosmic address $\varepsilon_0$}
 
-The geometric parameter $\varepsilon_0 \approx 0.0038$ (Chapter~\ref{ch:ghosts}) is not a free parameter. It encodes our position within the block:
+The geometric parameter $\varepsilon_0 \approx 0.0038$ (the trace conservation chapter of \textit{Mathematical Foundations}) is not a free parameter. It encodes our position within the block:
 \begin{equation}
 \varepsilon_0 = f(N_H, d) \sim N_H^{-1/k}
 \end{equation}
@@ -2045,7 +2046,7 @@ Step & From & To & How \\
 
 The derivation chain above starts from ``points with relations'' and arrives at $\CC^5$. But there is a deeper way to see this --- one that does not require $d = 5$ at all.
 
-\textbf{One matrix, one algebra.} Take $N$ points carrying vectors in $\CC^{d_0}$ for any $d_0 \gg 5$. The Gram matrix $G$ is $N \times N$, rank $\leq d_0$. No constraint is imposed. The Uniqueness Theorem (Sec.~\ref{thm:d5}) proves: for \emph{any} $d_0 \geq 5$, the unique chiral, CP-violating, connected structure is $(n_S, n_T) = (3, 2)$.
+\textbf{One matrix, one algebra.} Take $N$ points carrying vectors in $\CC^{d_0}$ for any $d_0 \gg 5$. The Gram matrix $G$ is $N \times N$, rank $\leq d_0$. No constraint is imposed. The Uniqueness Theorem (\textit{Mathematical Foundations}, Chapter~2) proves: for \emph{any} $d_0 \geq 5$, the unique chiral, CP-violating, connected structure is $(n_S, n_T) = (3, 2)$.
 
 \textbf{No spectral gap at rank 5.} Numerical simulations confirm that swap annihilation creates no eigenvalue gap at rank 5. The chiral eigenvalues $\lambda_1, \ldots, \lambda_5$ and the trivial (swap-symmetric) eigenvalues $\lambda_6, \ldots, \lambda_{d_\text{indep}}$ merge into a continuous spectrum at large $N$, with the gap closing as $\sim 1/\sqrt{N}$. The true spectral gap is at rank $d_\text{indep}$ (independent dimensions after swap), where $\lambda_{d_\text{indep}+1} = 0$ exactly.
 
@@ -2133,7 +2134,7 @@ Most weights $W_{ij} \approx 0$, so the network has a sparse effective topology 
 
 \subsubsection{Information at hinges}
 
-Each hinge $h$ (a triangle: 3 of the 5 vertices) carries exactly 1 bit (Theorem~\ref{thm:holevo}). Information resides at the $\binom{5}{3} = 10$ hinges, not in the simplex interior. One simplex $=$ one discrete cell of spacetime.
+Each hinge $h$ (a triangle: 3 of the 5 vertices) carries exactly 1 bit (the Holevo theorem of \textit{Mathematical Foundations}). Information resides at the $\binom{5}{3} = 10$ hinges, not in the simplex interior. One simplex $=$ one discrete cell of spacetime.
 
 The hinge area $A_h = \sqrt{\det(G_h)}$ is at the Planck scale. The temporal vertex density is $c = 2$ times the spatial, so 2 temporal hinges correspond to 1 spatial hinge per unit of the lattice.
 
@@ -2154,13 +2155,13 @@ TTT & $(0,3)$ & --- & Impossible ($n_T = 2 < 3$) \\
 \end{tabular}
 \end{center}
 
-Gravity is not a hinge \emph{type} but the deficit angle between hinges (Chapter~\ref{ch:geometry}): the $G_h$ tensor distorts each triangle, and the arrangement of distorted hinges around a common edge determines the curvature.
+Gravity is not a hinge \emph{type} but the deficit angle between hinges (the geometry chapter of \textit{Mathematical Foundations}): the $G_h$ tensor distorts each triangle, and the arrangement of distorted hinges around a common edge determines the curvature.
 
 Electromagnetism is pure phase ($\arg G_{ij}$): no degree of freedom is absorbed at any hinge boundary, so it propagates across all simplices. Gravity and electromagnetism propagate at the same speed $c = 2$ because both are communicated between simplices through the same hinge gradient.
 
 \subsubsection{Confinement from simplex geometry}
 
-At $N_\text{eff} = 1$: a single simplex. The labels $S, S, S, T, T$ are indistinguishable --- the 5 vertices are interchangeable. This is the deconfined phase ($\eta/s = 1/(4\pi)$, Appendix~\ref{app:qcd}).
+At $N_\text{eff} = 1$: a single simplex. The labels $S, S, S, T, T$ are indistinguishable --- the 5 vertices are interchangeable. This is the deconfined phase ($\eta/s = 1/(4\pi)$, see QCD chapter).
 
 At $N_\text{eff} \geq 2$: the SSS triangle has all 3 spatial vertices within one simplex. An SSS hinge cannot be shared across a simplex boundary (adjacent simplices share 4 vertices, but the SSS triangle uses 3 spatial vertices, all belonging to one simplex). Therefore $\text{SU}(3)$ color is confined to a single simplex.
 
@@ -2842,7 +2843,7 @@ In DRLT, asymptotic freedom is equivalent to Pachner coarse-graining: at lower r
 
 \subsection{Deconfinement: $\CC^3 \to \CC^5$}
 
-At temperature $T > T_c$, thermal fluctuations overwhelm the spatial rank constraint. The $\CC^3$ boundary dissolves: quarks and gluons access the full $\CC^5$ simplex, including the temporal sector $\CC^2$. All $d^2 = 25$ Binet--Cauchy channels (Chapter~\ref{ch:couplings}) activate simultaneously.
+At temperature $T > T_c$, thermal fluctuations overwhelm the spatial rank constraint. The $\CC^3$ boundary dissolves: quarks and gluons access the full $\CC^5$ simplex, including the temporal sector $\CC^2$. All $d^2 = 25$ Binet--Cauchy channels (the couplings chapter of \textit{Mathematical Foundations}) activate simultaneously.
 
 The order parameter is the Polyakov loop analogue:
 \begin{equation}
@@ -2854,7 +2855,7 @@ which transitions from $\langle L\rangle \approx n_S/d = 3/5$ (confined) to $\la
 
 \subsection{Entropy density from the Holevo bound}
 
-Each hinge carries 1 bit of classical information (Holevo bound, Chapter~\ref{ch:hbar}, Theorem 4.1). In the sQGP, all $d^2 = 25$ channels are active, so the hinge is at maximum local information capacity. The entropy per unit hinge area in natural units:
+Each hinge carries 1 bit of classical information (the Holevo bound; see the Planck constant chapter of \textit{Mathematical Foundations}). In the sQGP, all $d^2 = 25$ channels are active, so the hinge is at maximum local information capacity. The entropy per unit hinge area in natural units:
 \begin{equation}
 s = \frac{S}{A} = \frac{1\;\text{bit}}{A_h} \qquad\Rightarrow\qquad S = A_h.
 \end{equation}
@@ -2865,8 +2866,8 @@ Momentum transfer between adjacent 4-simplices occurs \emph{only} through shared
 
 The maximum rate at which a gauge fluctuation can traverse a hinge is limited by two derived quantities:
 \begin{itemize}
-\item $c = 2$: the lattice propagation speed (Chapter~\ref{ch:geometry}, Eq.~\ref{eq:speed_of_light}), derived from $(n_S, n_T) = (3, 2)$.
-\item $2\pi$: one complete $\text{U}(1)$ phase rotation --- the circumference of $S^1$, forced by $\mathbb{K} = \CC$ (Chapter~\ref{ch:whyC}).
+\item $c = 2$: the lattice propagation speed (the geometry chapter of \textit{Mathematical Foundations}), derived from $(n_S, n_T) = (3, 2)$.
+\item $2\pi$: one complete $\text{U}(1)$ phase rotation --- the circumference of $S^1$, forced by $\mathbb{K} = \CC$ (Chapter~1 of \textit{Mathematical Foundations}).
 \end{itemize}
 
 The total phase throughput of the hinge is $c \times 2\pi = 4\pi$. Shear viscosity is cross-section divided by phase throughput:
@@ -2888,8 +2889,8 @@ This is the Kovtun--Son--Starinets (KSS) bound, derived here with:
 \item Zero free parameters.
 \item No AdS/CFT correspondence.
 \item No extra spatial dimension ($\CC^5$ is the \emph{internal} space, not a 5th spatial direction).
-\item $c = 2$: derived from vertex counting (Chapter~\ref{ch:geometry}).
-\item $2\pi$: from $\text{U}(1) = S^1$ topology (Chapter~\ref{ch:whyC}).
+\item $c = 2$: derived from vertex counting (the geometry chapter of \textit{Mathematical Foundations}).
+\item $2\pi$: from $\text{U}(1) = S^1$ topology (Chapter~1 of \textit{Mathematical Foundations}).
 \end{itemize}
 
 \subsection{Why sQGP is a nearly perfect fluid}
@@ -2940,7 +2941,7 @@ AdS/CFT & & DRLT \\
 \hline
 AdS$_5$ (5D spacetime) & $=$ & $\CC^5$ (internal space, $d = 5$) \\
 Black hole horizon & $=$ & $\det(G_h) \to 0^+$ boundary \\
-Hawking temperature & $=$ & $\hbar_\text{eff} \to 0^+$ (Chapter~\ref{ch:hbar}) \\
+Hawking temperature & $=$ & $\hbar_\text{eff} \to 0^+$ (Planck constant ch., \textit{Math.\ Found.}) \\
 Strong coupling ($\lambda \to \infty$) & $=$ & All $d^2 = 25$ channels active \\
 Horizon area & $=$ & Hinge area $A_h$ \\
 Bekenstein--Hawking entropy & $=$ & 1 bit per hinge (Holevo) \\
@@ -2950,7 +2951,7 @@ Bekenstein--Hawking entropy & $=$ & 1 bit per hinge (Holevo) \\
 
 \subsubsection{The black hole horizon IS the sQGP}
 
-In DRLT, a black hole horizon is a surface where $\det(G_h) \to 0^+$: vertices are nearly aligned ($\psi_i \approx e^{i\theta}\psi_j$), $\hbar_\text{eff} \to 0$, and the region transitions from quantum to classical (Chapter~\ref{ch:hbar}). The sQGP is a state where the full $\CC^5$ is active and energy density is extreme, driving $\det(G_h)$ toward uniformity and then toward zero.
+In DRLT, a black hole horizon is a surface where $\det(G_h) \to 0^+$: vertices are nearly aligned ($\psi_i \approx e^{i\theta}\psi_j$), $\hbar_\text{eff} \to 0$, and the region transitions from quantum to classical (the Planck constant chapter of \textit{Mathematical Foundations}). The sQGP is a state where the full $\CC^5$ is active and energy density is extreme, driving $\det(G_h)$ toward uniformity and then toward zero.
 
 These are the \emph{same geometric state}:
 
@@ -2990,7 +2991,7 @@ The cause is irrelevant. The Gram matrix cannot distinguish gravity from collisi
 AdS/CFT did not know \emph{why} 5 dimensions work. The standard justification is mathematical: the conformal group $\text{SO}(4,2)$ of 4D CFT is the isometry group of AdS$_5$. In DRLT, the deeper reason is:
 
 \begin{enumerate}
-\item The internal space is $\CC^d$ with $d = 5$ (derived, Chapter~\ref{ch:whyd5}).
+\item The internal space is $\CC^d$ with $d = 5$ (derived in Chapter~2 of \textit{Mathematical Foundations}).
 \item A black hole horizon in $\CC^5$ has $\det(G_h) \to 0^+$, which is geometrically identical to the sQGP state.
 \item Computing $\eta/s$ on this surface gives $1/(c \times 2\pi) = 1/(4\pi)$ by hinge area cancellation.
 \item AdS/CFT reproduces this because it is (unknowingly) computing on the same $d = 5$ geometry.
@@ -3164,7 +3165,7 @@ Level & Contribution & $E_1$ (eV) & Residual & Source \\
 
 \subsubsection{Errors as physics}
 
-This decomposition demonstrates a key property of DRLT: \textbf{the apparent ``errors'' of the combinatorial predictions are the $\det(G_h)$ geometric part of the topology.} The trace conservation theorem (Chapter~\ref{ch:ghosts}) determines the structure and magnitude of these contributions. The hydrogen ground state is a concrete case study where the full topology is verified to 5 significant figures.
+This decomposition demonstrates a key property of DRLT: \textbf{the apparent ``errors'' of the combinatorial predictions are the $\det(G_h)$ geometric part of the topology.} The trace conservation theorem (\textit{Mathematical Foundations}) determines the structure and magnitude of these contributions. The hydrogen ground state is a concrete case study where the full topology is verified to 5 significant figures.
 
 \subsubsection{Hierarchy of topological contributions}
 
@@ -3236,21 +3237,21 @@ The hydrogen ground state energy, computed from zero free parameters via $d = 5$
 
 This appendix summarizes the numerical experiments that verify the theoretical predictions of the preceding chapters. All experiments use the same core library implementing $N$ vertices with $\psi_i \in \CC^5$ and $G_{ij} = \langle\psi_i|\psi_j\rangle$. No fitting or parameter adjustment is performed.
 
-\subsection{Foundations (Chapters~\ref{ch:whyC}--\ref{ch:whyd5})}
+\subsection{Foundations (Chapters~1--2 of \textit{Mathematical Foundations})}
 
 \textbf{EXP-001: Pipeline verification.} $N = 20$ random vertices in $\CC^5$. Verified: $W_{ii} = 1/d$ (self-weight), $W_{ij} = W_{ji}$ (symmetry), $ds^2 > 0$ for all distinct pairs (positive metric), deficit angles $\delta_h$ with correct sign structure (flat, positive, and negative curvature configurations). \textbf{9/9 checks passed.}
 
-\subsection{Geometry and Gauge (Chapter~\ref{ch:geometry})}
+\subsection{Geometry and Gauge (\textit{Math.~Foundations}, Ch.~6)}
 
 \textbf{EXP-005: 4D lattice force law.} $N = 375$ vertices on a $3 \times 5^3$ lattice. Measured gravitational force profile: $F(r) \propto r^{-0.81}$ (converging to $r^{-2}$ for larger lattice size). Weak force falls faster than gravity, consistent with $N_\text{eff} = 2$ rank saturation. \textbf{Correct force hierarchy confirmed.}
 
 \textbf{EXP-012: Gravitational waves.} Binary system of $N = 20$ vertices. Measured $W_{AB}$ shift from 0.130 to 0.154 during inspiral. Detector signal shows $W$-field modulation at correct frequency. Graviton polarization degrees of freedom: $d(d-3)/2 = 2$ (exact). \textbf{4/4 checks passed.}
 
-\subsection{The Dynamical Planck Constant (Chapter~\ref{ch:hbar})}
+\subsection{The Dynamical Planck Constant (\textit{Math.~Foundations}, Ch.~7)}
 
 \textbf{EXP-008: Zero-point energy.} Networks of $N = 10$--$100$ vertices. Confirmed $\lambda_\text{min}(H_i) > 0$ for all configurations. Total ZPE scales as $N\langle W\rangle$, with exactly $N$ modes (no UV divergence). Casimir-like force between boundaries verified through $W$-spectrum modification. \textbf{7/7 checks passed.}
 
-\subsection{Coupling Constants (Chapter~\ref{ch:couplings})}
+\subsection{Coupling Constants (\textit{Math.~Foundations}, Ch.~8)}
 
 \textbf{EXP-009: Fine structure constant.} Full RG running from $1/\alpha_\text{GUT} = 25\pi^2/6 \approx 41.12$ at $M_\text{GUT} = M_\text{Pl}/3125$ through 1-loop SM $\beta$-functions plus QED vacuum polarization:
 \begin{equation}
@@ -3266,7 +3267,7 @@ This appendix summarizes the numerical experiments that verify the theoretical p
 
 \textbf{EXP-019: $\CC^2$ mixing.} Derived CKM and PMNS matrix structures from the temporal sector $\CC^2$ geometry. Atmospheric angle $\theta_{23} = 45^\circ$ exact from $\CC^2$ exchange symmetry. \textbf{4/4 checks passed.}
 
-\subsection{Topological Trace Conservation (Chapter~\ref{ch:ghosts})}
+\subsection{Topological Trace Conservation (\textit{Math.~Foundations}, Ch.~12)}
 
 \textbf{EXP-027: Rank-25 theorem.} Proved $\text{rank}(W) = d^2 = 25$ numerically for $N$ up to 10000. Leading eigenvalue ratio $\lambda_0/N \to 1/25$ with coefficient of variation $\text{CV} = 0.004$ at $N = 10000$. The 25 Wishart eigenvalues encode the complete physical content. \textbf{Verified.}
 
@@ -3298,7 +3299,7 @@ The CP-violating phase arises from holonomy in $\CC^5$; the suppression factor $
 
 \textbf{EXP-070: Helium ionization functionals.}  Systematic scan of 5 energy functionals for He. Key results: $F_1 = \Sigma(1-\det)$ gives ratio $\text{IE}(\text{He})/\text{IE}(\text{H}) = 2.001$ (algebraic identity); BBB hinge is 100\% in $k=2$ STT channel; $\Xi$-corrected formula $\text{IE}(\text{He}) = 2\,\text{Ry}\,(1 - c^2\,\alpha_\text{GUT}) = 24.565\;\text{eV}$ vs observed $24.587\;\text{eV}$ ($0.089\%$). \textbf{5/5 checks passed.}
 
-\subsection{Critical Line (Chapter~\ref{ch:yang_mills}, Paper~5)}
+\subsection{Critical Line (\textit{Math.~Foundations}, Ch.~15; Paper~5)}
 
 \textbf{RH\_047: Spectral Flow.}  Vieta identity for the Ihara quadratic $qu^2 - \lambda u + 1 = 0$: the root product $u_1 u_2 = 1/q$ combined with the Ramanujan condition $|\lambda| \leq 2\sqrt{q}$ gives $|u|^2 = 1/q$ \emph{exactly} (the $\lambda$ cancels algebraically).  Hence $\mathrm{Re}(s) = 1/2$ for every finite $K_N$ ($N \geq 3$).  Zero count $= 2(N-1)$ confirmed; density growth rate $\sim N^{1.1}$.  Born-weighted Gram: $100\%$ Ramanujan (200 trials per $N$, deviation $= 0$).  Lean~4: 11 theorems, 0~sorry.  \textbf{8/8 checks passed.}
 

@@ -5,21 +5,21 @@
 
 This appendix summarizes the numerical experiments that verify the theoretical predictions of the preceding chapters. All experiments use the same core library implementing $N$ vertices with $\psi_i \in \CC^5$ and $G_{ij} = \langle\psi_i|\psi_j\rangle$. No fitting or parameter adjustment is performed.
 
-\subsection{Foundations (Chapters~\ref{ch:whyC}--\ref{ch:whyd5})}
+\subsection{Foundations (Chapters~1--2 of \textit{Mathematical Foundations})}
 
 \textbf{EXP-001: Pipeline verification.} $N = 20$ random vertices in $\CC^5$. Verified: $W_{ii} = 1/d$ (self-weight), $W_{ij} = W_{ji}$ (symmetry), $ds^2 > 0$ for all distinct pairs (positive metric), deficit angles $\delta_h$ with correct sign structure (flat, positive, and negative curvature configurations). \textbf{9/9 checks passed.}
 
-\subsection{Geometry and Gauge (Chapter~\ref{ch:geometry})}
+\subsection{Geometry and Gauge (\textit{Math.~Foundations}, Ch.~6)}
 
 \textbf{EXP-005: 4D lattice force law.} $N = 375$ vertices on a $3 \times 5^3$ lattice. Measured gravitational force profile: $F(r) \propto r^{-0.81}$ (converging to $r^{-2}$ for larger lattice size). Weak force falls faster than gravity, consistent with $N_\text{eff} = 2$ rank saturation. \textbf{Correct force hierarchy confirmed.}
 
 \textbf{EXP-012: Gravitational waves.} Binary system of $N = 20$ vertices. Measured $W_{AB}$ shift from 0.130 to 0.154 during inspiral. Detector signal shows $W$-field modulation at correct frequency. Graviton polarization degrees of freedom: $d(d-3)/2 = 2$ (exact). \textbf{4/4 checks passed.}
 
-\subsection{The Dynamical Planck Constant (Chapter~\ref{ch:hbar})}
+\subsection{The Dynamical Planck Constant (\textit{Math.~Foundations}, Ch.~7)}
 
 \textbf{EXP-008: Zero-point energy.} Networks of $N = 10$--$100$ vertices. Confirmed $\lambda_\text{min}(H_i) > 0$ for all configurations. Total ZPE scales as $N\langle W\rangle$, with exactly $N$ modes (no UV divergence). Casimir-like force between boundaries verified through $W$-spectrum modification. \textbf{7/7 checks passed.}
 
-\subsection{Coupling Constants (Chapter~\ref{ch:couplings})}
+\subsection{Coupling Constants (\textit{Math.~Foundations}, Ch.~8)}
 
 \textbf{EXP-009: Fine structure constant.} Full RG running from $1/\alpha_\text{GUT} = 25\pi^2/6 \approx 41.12$ at $M_\text{GUT} = M_\text{Pl}/3125$ through 1-loop SM $\beta$-functions plus QED vacuum polarization:
 \begin{equation}
@@ -35,7 +35,7 @@ This appendix summarizes the numerical experiments that verify the theoretical p
 
 \textbf{EXP-019: $\CC^2$ mixing.} Derived CKM and PMNS matrix structures from the temporal sector $\CC^2$ geometry. Atmospheric angle $\theta_{23} = 45^\circ$ exact from $\CC^2$ exchange symmetry. \textbf{4/4 checks passed.}
 
-\subsection{Topological Trace Conservation (Chapter~\ref{ch:ghosts})}
+\subsection{Topological Trace Conservation (\textit{Math.~Foundations}, Ch.~12)}
 
 \textbf{EXP-027: Rank-25 theorem.} Proved $\text{rank}(W) = d^2 = 25$ numerically for $N$ up to 10000. Leading eigenvalue ratio $\lambda_0/N \to 1/25$ with coefficient of variation $\text{CV} = 0.004$ at $N = 10000$. The 25 Wishart eigenvalues encode the complete physical content. \textbf{Verified.}
 
@@ -67,7 +67,7 @@ The CP-violating phase arises from holonomy in $\CC^5$; the suppression factor $
 
 \textbf{EXP-070: Helium ionization functionals.}  Systematic scan of 5 energy functionals for He. Key results: $F_1 = \Sigma(1-\det)$ gives ratio $\text{IE}(\text{He})/\text{IE}(\text{H}) = 2.001$ (algebraic identity); BBB hinge is 100\% in $k=2$ STT channel; $\Xi$-corrected formula $\text{IE}(\text{He}) = 2\,\text{Ry}\,(1 - c^2\,\alpha_\text{GUT}) = 24.565\;\text{eV}$ vs observed $24.587\;\text{eV}$ ($0.089\%$). \textbf{5/5 checks passed.}
 
-\subsection{Critical Line (Chapter~\ref{ch:yang_mills}, Paper~5)}
+\subsection{Critical Line (\textit{Math.~Foundations}, Ch.~15; Paper~5)}
 
 \textbf{RH\_047: Spectral Flow.}  Vieta identity for the Ihara quadratic $qu^2 - \lambda u + 1 = 0$: the root product $u_1 u_2 = 1/q$ combined with the Ramanujan condition $|\lambda| \leq 2\sqrt{q}$ gives $|u|^2 = 1/q$ \emph{exactly} (the $\lambda$ cancels algebraically).  Hence $\mathrm{Re}(s) = 1/2$ for every finite $K_N$ ($N \geq 3$).  Zero count $= 2(N-1)$ confirmed; density growth rate $\sim N^{1.1}$.  Born-weighted Gram: $100\%$ Ramanujan (200 trials per $N$, deviation $= 0$).  Lean~4: 11 theorems, 0~sorry.  \textbf{8/8 checks passed.}
 
