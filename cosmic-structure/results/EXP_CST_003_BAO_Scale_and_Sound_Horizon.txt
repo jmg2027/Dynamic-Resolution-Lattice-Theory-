@@ -1,0 +1,51 @@
+============================================================
+  EXP_CST_003_BAO_Scale_and_Sound_Horizon
+  2026-04-16 04:07:01
+============================================================
+
+=== DRLT Parameters ===
+
+  Om=0.31499  Ob=0.04974  h=0.674
+  om_h2=0.14309  ob_h2=0.02259
+
+=== Sound Horizon r_d ===
+
+  z_eq  = 3445
+  z_drag = 1021
+
+  r_d (numerical) = 148.99 Mpc
+  r_d (EH approx) = 150.69 Mpc
+  r_d (Planck)    = 147.09 ± 0.26 Mpc
+  Error (num)     = +1.29%
+  [✓ PASS] r_d within 5% of Planck
+
+=== BAO Observables ===
+
+  z         D_V/r_d    D_M/r_d    D_H/r_d
+  ------------------------------------
+  0.15         4.26       4.32      27.67  (obs:4.47 -1.2sig)
+  0.38         9.92      10.29      24.27  (obs:10.23 -1.8sig)
+  0.51        12.66      13.32      22.44  (obs:13.36 -3.3sig)
+  0.70        16.14      17.35      19.98  (obs:17.86 -5.2sig)
+  1.48        25.60      29.83      12.74  (obs:30.69 -6.4sig)
+  2.33        30.94      38.67       8.50  (obs:37.60 -6.1sig)
+  [✗ FAIL] BAO: 2/6 within 2sig
+
+=== Angular BAO ===
+
+  theta_BAO = r_d/D_M(z*) = 0.6157 deg
+  Planck    = 0.5955 deg
+  Error     = +3.39%
+
+=== Summary ===
+  r_d = 148.99 Mpc (Planck: 147.09)
+  All from DRLT Om, Ob — 0 free parameters.
+
+============================================================
+  SUMMARY: EXP_CST_003_BAO_Scale_and_Sound_Horizon
+============================================================
+  [✓] r_d within 5% of Planck
+  [✗] BAO: 2/6 within 2sig
+
+  1/2 checks passed
+  Time: 0.0s

@@ -1,0 +1,138 @@
+============================================================
+  EXP_CST_015_Horizon_Information_and_CMB_Temperature
+  2026-04-16 06:01:27
+============================================================
+
+=== Part 1: N_H=88 ↔ 10^61 Connection ===
+
+  H_0 = (d+1)/d^88 × M_Pl × n_T/n_S
+  → M_Pl/H_0 = d^88/(d+1) × n_S/n_T
+             = 5^88/6 × 3/2
+
+  R_Hubble / l_Planck = c/H_0 / l_Pl
+    = M_Pl / H_0 = 8.0779e+60
+    = 8.0779e+60 hops
+
+  log10(N_hops) = 60.91
+  Expected:       ~61
+  [✓ PASS] N_hops ~ 10^61
+
+  === THE ALGEBRAIC MECHANISM ===
+  d^N_H = 5^88 = 10^61.5
+  (d+1)/n_S×n_T = 6/(3×2) = 1
+  → N_hops = d^88 × n_S / ((d+1)×n_T)
+           = 5^88 / 4
+           = 10^60.9
+
+  So 88 generates 61 via:
+  88 × log10(5) = 61.51 ≈ 61.5
+  The 'missing' 0.5 is log10(n_S/(d+1)n_T)
+  = log10(3/12) = -0.60
+
+=== Part 2: Horizon Information ===
+
+  Hubble radius: R_H = 8.0779e+60 l_Pl
+  Horizon area:  A_H = 4πR² = 8.1999e+122 l_Pl²
+  BH entropy:    S = A/4 = 2.0500e+122 nats
+  Information:   I = S/ln2 = 2.9575e+122 bits
+  log10(I) = 122.5
+
+  This IS an observable!
+  The cosmic horizon contains 2.96e+122 bits
+  = 2.96e+122 hinges on the boundary.
+
+  From DRLT: I = π d^(2N_H) n_S²/((d+1)² n_T²)
+  = π × 5^176 × 9 / (36 × 4)
+  = 2.0500e+122
+  Direct: 2.9575e+122
+  Match: 0.16 dex
+  [✓ PASS] Horizon information consistent
+
+=== Part 3: Hierarchy Transitions ===
+
+  Three hierarchies and their generators:
+
+  N_EW  = d²          = 25
+    → v_H/M_Pl = (d+1)/d^25 ~ 10^-17
+    Generator: Binet-Cauchy channels
+    Physics: EW symmetry breaking
+
+  N_*   = d²n_T+dn_S-d+1 = 61
+    → inflation e-folds = 61
+    Generator: temporal sweep + spatial path
+    Physics: primordial fluctuations
+
+  N_H   = d²n_S+dn_T+n_S = 88
+    → R_H/l_Pl ~ 10^61
+    Generator: spatial sweep + temporal path
+    Physics: cosmic horizon size
+
+  TRANSITION MECHANISM:
+  N_EW → N_*: add n_T temporal sweeps (+36=36)
+  N_* → N_H:  swap S↔T role (+27)
+
+  N_* and N_H are DUAL:
+    N_* = d²·n_T + d·n_S - (d-1)
+    N_H = d²·n_S + d·n_T + n_S
+  Under n_S ↔ n_T exchange: inflation ↔ expansion
+  This is the (3,2) ↔ (2,3) duality!
+
+=== Part 4: CMB Temperature ===
+
+  T_Planck = 1.417e+32 K
+  v_H/M_Pl = 2.0133e-17
+  (v_H/M_Pl)² = 4.0532e-34
+  T_base = T_Pl × (v_H/M_Pl)² = 0.0574 K
+  Observed T_CMB = 2.7255 K
+  Correction needed: f = 47.454
+
+  Correction candidates:
+  Formula                     f     T(K)      err
+  --------------------------------------------
+  × d                    5.0000   0.2872   -89.46%
+  × d(1-α)               4.8784   0.2802   -89.72%
+  × d(1-1/d²)            4.8000   0.2757   -89.88%
+  × (d²-1)/d             4.8000   0.2757   -89.88%
+
+  Best: T_CMB = T_Pl × (v_H/M_Pl)² × (d²-1)/d
+  = 0.2757 K
+  Observed: 2.7255 K
+  Error: -89.88%
+
+  Physical meaning of (d²-1)/d = 24/5:
+    d²-1 = 24 = dim(adjoint SU(5))
+    d = 5 = fundamental dimension
+    → T_CMB counts adjoint DOF per dimension
+  [✗ FAIL] T_CMB within 5%
+
+=== Part 5: Cosmic Information Budget ===
+
+  Horizon: 2.958e+122 bits
+  Photons:  3.827e+87
+  Baryons:  2.345e+78
+  eta_B:    6.128e-10
+
+  Bits/baryon = 1.26e+44
+  log10(bits/baryon) = 44.1
+  DRLT: 10 hinges/simplex × horizon = 7.0e+43
+  [✓ PASS] Horizon info > 10^120 bits
+
+=== Summary ===
+
+  N_H = 88 GENERATES 10^61 via d^88:
+    88 × log10(5) = 61.5 ≈ log10(R_H/l_Pl)
+  Horizon information: 2.96e+122 bits
+  T_CMB = T_Pl(v_H/M_Pl)²(d²-1)/d = 0.2757 K
+  Hierarchies: 25 → 61 → 88 (EW → inflation → Hubble)
+  Transition: (3,2)↔(2,3) duality swaps N_*↔N_H
+
+============================================================
+  SUMMARY: EXP_CST_015_Horizon_Information_and_CMB_Temperature
+============================================================
+  [✓] N_hops ~ 10^61
+  [✓] Horizon information consistent
+  [✗] T_CMB within 5%
+  [✓] Horizon info > 10^120 bits
+
+  3/4 checks passed
+  Time: 0.0s
