@@ -52,12 +52,13 @@
 |-----------|--------|--------|-------------|------|
 | `foundations/` | `FND_` | STABLE | 10 (FND_001-010) | 심플렉스 기하, 변분, f_occ |
 | `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
-| `atoms/` | `ATM_` | CLOSED ✓ | 55 (ATM_001-055) | 원자, 주기율표, SC solver, formulary |
+| `atoms/` | `ATM_` | **ACTIVE** | 70 (ATM_001-069+) | 원자, 주기율표, wedge screening |
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
-| `critical-line/` | `RH_` | **ACTIVE** | 52 (RH_001-052) | 임계선, RH, GRH, L-함수, Galois, Lean |
+| `cosmic-structure/` | `CST_` | **ACTIVE** | 22 (CST_001-022) | LSS, BH jets, H₀, T_CMB, BBN |
+| `critical-line/` | `RH_` | **ACTIVE** | 79 (RH_001-079) | 임계선, RH, GRH, L-함수, Galois, Lean |
 | `nuclear/` | `NUC_` | **CLOSED** ✓ | 15 (NUC_001-015) | magic numbers, 600-cell, binding |
 | `hadron/` | `HAD_` | **CLOSED** ✓ | 9 (HAD_001-009) | meson/baryon spectrum, hyperfine |
-| `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-008) | 미측정 예측 (JUNO, θ_QCD 등) |
+| `predictions/` | `PRD_` | **ACTIVE** | 9 (PRD_001-009) | 미측정 예측 (JUNO, θ_QCD, Berry phase) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 7 (QG_001-007) | 시공간 창발, holographic |
 | `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
 | `discrete-harmonic/` | `DHA_` | **ACTIVE** | 19 (DHA_001-019) | 이산 조화해석학, 스펙트럼, S₅ 표현론 |
