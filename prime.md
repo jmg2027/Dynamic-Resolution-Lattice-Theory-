@@ -60,7 +60,7 @@ for Re(s) > 1.
 
 *Proof.* Standard. Each n has a unique factorization n = p₁^{a₁}···p_k^{a_k} (FTA). By Theorem I.1, D(n) = ∏D(pᵢ^{aᵢ}). Summing over all n and using geometric series for each prime gives the product. The convergence condition Re(s) > 1 follows from comparison with ∫₁^∞ x^{-s} dx.
 
-The DRLT contribution: **why is factorization unique?** Because Gram paths compose without interference when gcd = 1 (Theorem I.1). If factorization were not unique, there would exist two distinct decompositions of the same path, contradicting the deterministic composition of Gram matrix entries. ∎
+The DRLT interpretation: **unique factorization corresponds to** independent Gram path composition. When gcd(a,b) = 1, paths of length a and b compose without interference (no shared intermediate vectors). If two distinct decompositions of the same path existed, the Gram entries would give two distinct values for the same ⟨ψ_i|ψ_j⟩ — contradicting the well-definedness of the inner product. ∎
 
 ### Corollary I.1 (Primes are infinite)
 
@@ -78,9 +78,7 @@ Primes are **irreducible Gram paths**: lattice paths that cannot be decomposed i
 
 The propagator exponent is s = 2, determined by the temporal sector ℂ² of ℂ⁵ = ℂ² ⊕ ℂ³.
 
-*Proof (Path A: Sector dimension).* The Born-rule observable is |G_ij|² (Theorem 4 of companion). The propagator in the ℂ² sector has dimensionality dim_ℝ(ℂ²) = 4. In a space of real dimension D, the solid-angle propagator scales as 1/r^{D-2}. For D = 4: s = D - 2 = 2. ∎
-
-*Proof (Path B: Algebraic rank).* The AAA sector has rank(G^{AAA}) = C(3,3) = 1 for any N (verified numerically). The mixed-sector rank is rank(G^{AB}) = 3. The propagator exponent is s = rank(G^{AB}) - 1 = 2. ∎
+*Proof.* The Born-rule observable is |G_ij|² (Theorem 4 of companion). The propagator in the ℂ² sector has real dimensionality dim_ℝ(ℂ²) = 4. In a space of real dimension D, the solid-angle propagator scales as 1/r^{D-2}. For D = dim_ℝ(ℂ²) = 4: s = D - 2 = 2 = dim_ℝ(ℂ). ∎
 
 ### Corollary II.1
 
