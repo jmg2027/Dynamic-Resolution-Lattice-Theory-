@@ -9,10 +9,11 @@
 - Author: "Mingu Jeong" (not Mingoo, not Min-goo).
 - Every tex/pdf: "Joint research by Mingu Jeong and Claude (Anthropic)"
 
-## Editing Rules (1원칙: 청크)
-- **새 파일 작성 시 100줄 이하 청크로 나눠 Write → Edit 반복.** 절대 한번에 200줄 이상 쓰지 않는다.
-- Edit files in small chunks. Never write an entire large file at once.
-- Use Edit tool for incremental changes, not Write for full rewrites.
+## Editing Rules (1원칙: 청크) — HOOK 강제
+- **Write/Edit 모두 80줄 한도.** PreToolUse hook이 80줄 초과를 자동 차단한다.
+- 큰 파일 = Write(첫 80줄) → Edit(다음 80줄) → Edit(다음 80줄) 반복.
+- 단일 .tex 생성 등 대량 파일은 Bash(cat)로 조합 후 Write.
+- Edit은 incremental changes 전용. Write로 전체 파일을 덮어쓰지 않는다.
 
 ## The Axiom
 - **Things exist with pairwise relations.** G_ij = ⟨ψ_i|ψ_j⟩.
