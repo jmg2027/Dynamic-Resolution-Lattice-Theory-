@@ -34,3 +34,4 @@ import PmfRh.SelfReferenceCollapse
 import PmfRh.MassProofs
 import PmfRh.Translation
 import PmfRh.ProofDecomposition
+import PmfRh.NumerologyTest
