@@ -70,14 +70,16 @@ def mu(Z):
 
 
 def solve(Z, todd_cross=False, todd_same=False, uniform_p=False,
-          anti_todd_same=False):
+          anti_todd_same=False, todd_distributed=0):
     """Per-electron recursive solver.
 
     Modes:
       uniform_p: same-p/d ALL use σ=N_S/(N_S+1), no m-dependent BBB
-      todd_cross: h¹ Todd → REDUCE cross-shell σ (less screening)
+      todd_cross: h¹ Todd per-pair (full strength)
+      todd_distributed: 1 = cross only, 2 = cross+same-diff
+        per-pair correction = todd_h1(σ) × N_T / N_inner
       todd_same: h³ Todd → REDUCE same-subshell σ
-      anti_todd_same: h³ Todd → INCREASE same-subshell σ (more screening)
+      anti_todd_same: h³ Todd → INCREASE same-subshell σ
     """
     order = []
     for n in range(1, 8):
@@ -98,6 +100,7 @@ def solve(Z, todd_cross=False, todd_same=False, uniform_p=False,
         for i in range(count):
             m_i = i % n_orb if i < n_orb else (i - n_orb) % n_orb
 
+            n_inner = len(electrons)  # for distributed Todd
             screening = 0.0
             for e in electrons:
                 nj, lj, _, mj = e
@@ -106,13 +109,17 @@ def solve(Z, todd_cross=False, todd_same=False, uniform_p=False,
                     # Cross-shell: h¹ sector
                     nc = N_S if lj == 0 else 1
                     sigma = 1 - nc / (D**2 - 1)
-                    if todd_cross:
+                    if todd_distributed >= 1 and n_inner > 0:
+                        sigma -= todd_h1(sigma) * N_T / n_inner
+                    elif todd_cross:
                         sigma -= todd_h1(sigma)
 
                 elif lj != l:
                     # Same shell, diff subshell
                     nx = N_S if (nj + n) % 2 == 0 else N_T
                     sigma = 1 - nx / (D * (D - 1))
+                    if todd_distributed >= 2 and n_inner > 0:
+                        sigma -= todd_h1(sigma) * N_T / n_inner
 
                 elif lj == 0:
                     # Same s-subshell: BBB channel
@@ -177,7 +184,7 @@ class HodgeToddSolver(Experiment):
         self.test2_baseline()
         self.test3_uniform_p()
         self.test4_uniform_plus_todd()
-        self.test5_hybrid()
+        self.test5_distributed()
         self.test6_summary()
         self.test7_zeff_diagnostic()
 
@@ -242,13 +249,14 @@ class HodgeToddSolver(Experiment):
         self._run_p2(tc=True, ts=False, up=True, ats=False,
                      label="C:+h¹")
 
-    def test5_hybrid(self):
-        """h¹ reduces cross, h³ increases same (anti-Todd)."""
+    def test5_distributed(self):
+        """Todd h¹ distributed: per-pair = δ × N_T/N_inner."""
         self.log(f"\n  {'='*55}")
-        self.log(f"  D: h¹↓cross + h³↑same (opposing Todd)")
+        self.log(f"  E: Distributed Todd (cross+same-diff)")
         self.log(f"  {'='*55}")
-        self._run_p2(tc=True, ts=False, up=True, ats=True,
-                     label="D:h¹↓h³↑")
+        self.log(f"  Per-pair = δ_Todd × N_T/N_inner")
+        self._run_p2(tc=False, ts=False, up=True, ats=False,
+                     td=2, label="E:dist")
 
     def test6_summary(self):
         """Summary comparison table."""
@@ -257,12 +265,10 @@ class HodgeToddSolver(Experiment):
         self.log(f"  {'='*55}")
 
         configs = [
-            ("B:unif", dict(todd_cross=False, todd_same=False,
-                            uniform_p=True, anti_todd_same=False)),
-            ("C:+h¹", dict(todd_cross=True, todd_same=False,
-                           uniform_p=True, anti_todd_same=False)),
-            ("D:h¹↓h³↑", dict(todd_cross=True, todd_same=False,
-                              uniform_p=True, anti_todd_same=True)),
+            ("B:unif", dict(uniform_p=True)),
+            ("C:+h¹", dict(todd_cross=True, uniform_p=True)),
+            ("E:dist", dict(uniform_p=True,
+                            todd_distributed=2)),
         ]
         labels = [c[0] for c in configs]
         self.log(f"\n  {'Z':>3} {'Sym':>3}"
@@ -291,13 +297,13 @@ class HodgeToddSolver(Experiment):
         self.check(f"Best P2 median {best_med:.0f} ppm",
                    best_med < 10000)
 
-    def _run_p2(self, tc, ts, up, label, ats=False):
+    def _run_p2(self, tc, ts, up, label, ats=False, td=False):
         """Run Period 2 with given flags."""
         self.log(f"\n  {'Z':>3} {'Sym':>3} {'IE':>9} {'Obs':>9}"
                  f" {'ppm':>8} {'Z_eff':>7}")
         errs = []
         for Z in range(3, 11):
-            IE, elecs = solve(Z, tc, ts, up, ats)
+            IE, elecs = solve(Z, tc, ts, up, ats, td)
             obs = IE_OBS[Z]
             ppm = (IE - obs)/obs * 1e6
             errs.append(abs(ppm))
