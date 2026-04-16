@@ -56,7 +56,7 @@
 | `critical-line/` | `RH_` | **ACTIVE** | 79 (RH_001-079) | 임계선, RH, GRH, L-함수, Galois, Lean |
 | `nuclear/` | `NUC_` | **CLOSED** ✓ | 15 (NUC_001-015) | magic numbers, 600-cell, binding |
 | `hadron/` | `HAD_` | **CLOSED** ✓ | 9 (HAD_001-009) | meson/baryon spectrum, hyperfine |
-| `predictions/` | `PRD_` | **ACTIVE** | 9 (PRD_001-009) | 미측정 예측 (JUNO, θ_QCD, Berry phase) |
+| `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-009) | 미측정 예측 (JUNO, θ_QCD, Berry phase) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 7 (QG_001-007) | 시공간 창발, holographic |
 | `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
 | `discrete-harmonic/` | `DHA_` | **ACTIVE** | 19 (DHA_001-019) | 이산 조화해석학, 스펙트럼, S₅ 표현론 |
