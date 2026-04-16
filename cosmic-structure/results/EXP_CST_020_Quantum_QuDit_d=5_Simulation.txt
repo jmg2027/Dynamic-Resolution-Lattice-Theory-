@@ -1,0 +1,77 @@
+============================================================
+  EXP_CST_020_Quantum_QuDit_d=5_Simulation
+  2026-04-16 07:43:42
+============================================================
+
+=== Part 1: QuDit State Space ===
+
+  d = 5 (5-level qudit)
+  Hilbert space dim = d = 5
+  For N qudits: dim = d^N
+  Gram matrix: G_ij = <psi_i|psi_j>
+  N_states = 5 (one simplex)
+
+=== Part 2: Z₂-Symmetric Tomography ===
+
+  Z₂ tomography: 3 measurements/state
+  (parity eigenbasis: ceil(d/2) = 3)
+
+=== Part 3: A₅-Symmetric Tomography ===
+
+  |S₅| = 120
+  |A₅| = 60
+  A₅ tomography: 60.0 measurements/state
+  (need to distinguish 60 orbits)
+
+=== Part 4: NP/P Ratio ===
+
+  Z₂ measurements:  3.0
+  A₅ measurements:  60.0
+  Ratio A₅/Z₂:     20.0
+  Expected |A₅|/2:  30.0
+  Error:            -33.3%
+  [✓ PASS] Ratio within factor 3 of 30
+
+=== Part 5: Entanglement Entropy ===
+
+  Entanglement entropy (2-qudit, d=5):
+    S(generic/A₅) = 1.634 bits
+    S(Z₂ symm)    = 1.655 bits
+    Ratio          = 0.988
+    log₂(d)        = 2.322 (max)
+  [✗ FAIL] Generic entropy > Z₂ entropy
+
+=== Part 6: Circuit Depth Estimate ===
+
+  Circuit depth for d=5 qudit:
+    Z₂ (P-like):      5 gates
+    Full tomography:   24 gates
+    A₅ orbit search:   60 gates
+    A₅/Z₂ ratio:       12
+    Expected:           30.0 = |A₅|/2
+
+  Gate ratio ≈ 12x
+  → A₅ tomography is 12× harder than Z₂
+  → full complexity is 60/24 = 2.5× the parameter count
+  [✓ PASS] A₅ needs more gates than Z₂
+
+=== Summary ===
+
+  d=5 qudit system simulated (200 trials)
+  Tomography ratio A₅/Z₂ = 20.0
+  Entanglement: generic/Z₂ = 0.99
+  Circuit depth ratio = 12
+
+  EXPERIMENTAL PROPOSAL:
+  Use trapped-ion or photonic d=5 qudits
+  to measure tomography scaling directly.
+
+============================================================
+  SUMMARY: EXP_CST_020_Quantum_QuDit_d=5_Simulation
+============================================================
+  [✓] Ratio within factor 3 of 30
+  [✗] Generic entropy > Z₂ entropy
+  [✓] A₅ needs more gates than Z₂
+
+  2/3 checks passed
+  Time: 0.6s
