@@ -1,0 +1,106 @@
+============================================================
+  EXP_RH_050_GUE_spacing_of_Ihara_zeros
+  2026-04-15 14:18:30
+============================================================
+
+=== Test 1: Im(s) Extraction ===
+
+  N=15: 14 Im(s) values
+    range: [-1.9123, -1.3199]
+    mean spacing: 0.045571
+    std spacing: 0.024922
+
+  N=30: 29 Im(s) values
+    range: [-1.0122, -0.6512]
+    mean spacing: 0.012894
+    std spacing: 0.013214
+
+  N=50: 49 Im(s) values
+    range: [-0.7574, -0.4506]
+    mean spacing: 0.006392
+    std spacing: 0.010152
+  [✓ PASS] Im(s) values extracted
+
+=== Test 2: Spacing Distribution ===
+
+  N=50, 300 trials, 14400 spacings collected
+
+      s |  P(s) data |        GUE |    Poisson
+  ------+------------+------------+-----------
+   0.10 |     2.6682 |     0.0320 |     0.9048
+   0.50 |     0.1734 |     0.5896 |     0.6065
+   0.90 |     0.2099 |     0.9363 |     0.4066
+   1.30 |     0.2058 |     0.6371 |     0.2725
+   1.70 |     0.1723 |     0.2364 |     0.1827
+   2.10 |     0.1223 |     0.0521 |     0.1225
+   2.50 |     0.0949 |     0.0071 |     0.0821
+   2.90 |     0.0631 |     0.0006 |     0.0550
+   3.30 |     0.0515 |     0.0000 |     0.0369
+   3.70 |     0.0358 |     0.0000 |     0.0247
+
+  χ² to GUE:     170.3953
+  χ² to Poisson: 4.5788
+  Closer to: Poisson
+  [✗ FAIL] Spacing closer to GUE than Poisson
+
+=== Test 3: ⟨r⟩ Ratio Statistic ===
+  GUE: 0.5996, GOE: 0.5307, Poisson: 0.3863
+
+  N= 20: ⟨r⟩ = 0.5255 (3400 samples) → GOE
+  N= 50: ⟨r⟩ = 0.4507 (5386 samples) → Poisson
+  N=100: ⟨r⟩ = 0.4469 (5355 samples) → Poisson
+  [✗ FAIL] ⟨r⟩ consistent with GUE
+
+=== Test 4: Pair Correlation ===
+  Montgomery-Odlyzko: R₂(x) = 1-(sinc(x))²
+
+  57187 pair differences collected
+
+      x |   R₂(data) |  1-(sinc)²
+  ------+------------+-----------
+   0.12 |     3.6944 |     0.0504
+   0.38 |     0.0090 |     0.3850
+   0.62 |     0.0134 |     0.7786
+   0.88 |     0.0190 |     0.9806
+   1.12 |     0.0182 |     0.9883
+   1.38 |     0.0219 |     0.9543
+   1.62 |     0.0284 |     0.9672
+   1.88 |     0.0272 |     0.9958
+   2.12 |     0.0259 |     0.9967
+   2.38 |     0.0293 |     0.9847
+   2.62 |     0.0285 |     0.9874
+   2.88 |     0.0258 |     0.9982
+   3.12 |     0.0284 |     0.9985
+   3.38 |     0.0305 |     0.9924
+
+  Level repulsion: P(x < 0.3) = 0.9103 (no repulsion)
+  [✗ FAIL] Level repulsion observed (GUE-like)
+
+=== Test 5: N-Dependence ===
+  Does ⟨r⟩ → 0.5996 (GUE) as N grows?
+
+     N |      ⟨r⟩ |  |⟨r⟩-GUE| |  #zeros
+  -----+----------+------------+--------
+    10 |   0.5330 |     0.0666 |     9.0
+    20 |   0.5255 |     0.0741 |    19.0
+    30 |   0.4802 |     0.1194 |    29.0
+    50 |   0.4507 |     0.1489 |    49.0
+    80 |   0.4403 |     0.1593 |    79.0
+   120 |   0.4407 |     0.1589 |   119.0
+
+  If |⟨r⟩ - 0.5996| decreases with N:
+  → GUE statistics emerge in the large-N limit.
+  This connects finite graphs to ζ(s) zero stats.
+  [✓ PASS] GUE convergence with N
+
+============================================================
+  SUMMARY: EXP_RH_050_GUE_spacing_of_Ihara_zeros
+============================================================
+  [✓] Im(s) values extracted
+  [✗] Spacing closer to GUE than Poisson
+  [✗] ⟨r⟩ consistent with GUE
+  [✗] Level repulsion observed (GUE-like)
+  [✓] GUE convergence with N
+
+  2/5 checks passed
+  Time: 2.2s

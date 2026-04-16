@@ -10,6 +10,8 @@
 import Mathlib.Analysis.SpecificLimits.Basic
 import Mathlib.Topology.Order.Basic
 
+namespace PMF
+
 /-! ## 1. The Morphism Hierarchy (PMF Axioms) -/
 
 /-- A PMF level: objects at level n are morphisms between level-(n-1) objects.
@@ -239,3 +241,4 @@ structure CriticalLineDerivation where
   /-- It equals 1/2 -/
   is_half : critical_line = 1 / 2
 
+end PMF

@@ -1,0 +1,88 @@
+============================================================
+  EXP_DHA_011_Adjoint_Correction_Formula
+  2026-04-15 18:06:11
+============================================================
+
+  ╔═══════════════════════════════════════════════╗
+  ║  CANDIDATE: f_occ = α(1 - α(1+α)/(d²-1))   ║
+  ╚═══════════════════════════════════════════════╝
+
+  === Test 1: d=5 Precision Test ===
+
+  α = 6/(d²π²) = 0.024317084074
+  d²-1 = 24 = dim(adj SU(d))
+  α(1+α)/(d²-1) = 0.001037850194
+
+  f_formula = α(1 - α(1+α)/(d²-1))
+            = 0.024291846584
+  f_occ     = 0.024291900416
+  Δ = f_formula - f_occ = -5.3832e-08
+  Δ/f_occ = -0.000222%
+  [✓ PASS] f_occ = α(1 - α(1+α)/(d²-1)) to <0.01%
+
+  === Test 2: Physical Decomposition ===
+
+  f_occ = α - α²(1+α)/(d²-1)
+        = α - α²/(d²-1) - α³/(d²-1)
+
+  Term 1: α = 0.0243170841  (tree level)
+  Term 2: -α²/(d²-1) = -0.0000246384  (1-loop)
+  Term 3: -α³/(d²-1) = -0.0000005991  (mixed)
+  Sum   : 0.0242918466
+  f_occ : 0.0242919004
+
+  d²-1 = 24
+  = dim(adj SU(5)) = 5²-1
+  = dim(∧²ℂ⁵) + dim(S²ℂ⁵) - 1 = 10+15-1
+  This is the NUMBER OF GAUGE BOSONS in SU(5)!
+
+  === Test 3: Higher-Order Corrections ===
+
+  Residual after 1-loop: 5.3832e-08
+  Residual/α⁴ = 0.1540
+  Next correction: c₂ = 0.0037
+  c₂ × (d²-1) = 0.0899
+
+  === Test 4: Physical Interpretation ===
+
+  THE FORMULA:
+  f_occ = α_GUT × [1 - α_GUT(1+α_GUT)/(d²-1)]
+
+  INTERPRETATION:
+  • Tree level: f_occ = α (occupation fraction = coupling)
+  • 1-loop correction: -α²/(d²-1)
+    = negative self-energy in the adjoint representation
+    = 24 gauge bosons each contribute -α²/24
+  • The (1+α) factor: dressed propagator 1/(1-α) ≈ 1+α
+
+  WHY 0.1%:
+  gap/α = α(1+α)/(d²-1) = 0.001038
+  ≈ α/24 = 0.001013
+  ≈ 0.001 = 0.1%  ✓
+
+  === Test 5: Inverse Check ===
+
+  From f_occ = 0.0242919004:
+  α ≈ f + f²/24 + f³/24 = 0.0243170850
+  α_GUT =                  0.0243170841
+  Error: 0.0000%
+  [✓ PASS] Inverse recovery: α from f_occ to <0.01%
+
+  === Test 6: ζ_eff Formula ===
+
+  ζ_eff = ζ(2) / (1 - α(1+α)/(d²-1))
+        = 1.6449340668 / 0.9989621498
+        = 1.6466430356
+  ζ_eff = 1.6466393866
+  Error: 0.000222%
+  [✓ PASS] ζ_eff = ζ(2)/(1-α(1+α)/(d²-1)) to <0.01%
+
+============================================================
+  SUMMARY: EXP_DHA_011_Adjoint_Correction_Formula
+============================================================
+  [✓] f_occ = α(1 - α(1+α)/(d²-1)) to <0.01%
+  [✓] Inverse recovery: α from f_occ to <0.01%
+  [✓] ζ_eff = ζ(2)/(1-α(1+α)/(d²-1)) to <0.01%
+
+  3/3 checks passed
+  Time: 0.0s

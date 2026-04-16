@@ -1,0 +1,116 @@
+============================================================
+  EXP_DHA_002_Chiral_Symmetry_Breaking
+  2026-04-15 18:05:56
+============================================================
+
+  === Test 1: Face Classification under S₃×S₂ ===
+
+  SSS: 1 faces — [(0, 1, 2)]
+  SST: 6 faces — [(0, 1, 3), (0, 1, 4), (0, 2, 3), (0, 2, 4), (1, 2, 3), (1, 2, 4)]
+  STT: 3 faces — [(0, 3, 4), (1, 3, 4), (2, 3, 4)]
+  [✓ PASS] |SSS| = C(3,3)×C(2,0) = 1
+  [✓ PASS] |SST| = C(3,2)×C(2,1) = 6
+  [✓ PASS] |STT| = C(3,1)×C(2,2) = 3
+  [✓ PASS] 1+6+3 = 10 = C(5,3)
+
+  === Test 2: S₅ Characters on C(5,3) ===
+
+  Cycle type | Class size | χ(faces)
+  ------------------------------------------
+  (1, 1, 1, 1, 1)       |      1     |  10
+  (2, 1, 1, 1)       |     10     |  4
+  (2, 2, 1)       |     15     |  2
+  (3, 1, 1)       |     20     |  1
+  (3, 2)       |     20     |  1
+  (4, 1)       |     30     |  0
+  (5,)       |     24     |  0
+
+  |S₅| = 120
+  Σ χ²/|S₅| = 1.0000
+  Burnside orbit count: 1.0000
+  [✓ PASS] Burnside: 1 orbit (S₅ transitive on faces)
+
+  === Test 3: Chiral Projection Operators ===
+
+  P_SSS: rank 1, Tr = 1
+  P_SST: rank 6, Tr = 6
+  P_STT: rank 3, Tr = 3
+
+  S₃×S₂ orbit structure:
+  SSS: S₃×S₂-invariant = True
+  [✓ PASS] SSS is S₃×S₂-invariant
+  SST: S₃×S₂-invariant = True
+  [✓ PASS] SST is S₃×S₂-invariant
+  STT: S₃×S₂-invariant = True
+  [✓ PASS] STT is S₃×S₂-invariant
+
+  === Test 4: Gram-Weighted Laplacian ===
+
+
+  ε = 0.000000:
+    Face weights by channel:
+      SSS: det(G) = 1.000000 (×1)
+      SST: det(G) = 1.000000 (×6)
+      STT: det(G) = 1.000000 (×3)
+    Δ eigenvalues: [('-0.0000', 1), ('5.0000', 4), ('8.0000', 5)]
+
+  ε = 0.050000:
+    Face weights by channel:
+      SSS: det(G) = 1.000000 (×1)
+      SST: det(G) = 0.995000 (×6)
+      STT: det(G) = 0.997500 (×3)
+    Δ eigenvalues: [('0.0000', 1), ('4.9875', 1), ('4.9883', 2), ('4.9908', 1), ('7.9729', 2), ('7.9867', 1), ('7.9888', 2)]
+
+  ε = 0.100000:
+    Face weights by channel:
+      SSS: det(G) = 1.000000 (×1)
+      SST: det(G) = 0.980000 (×6)
+      STT: det(G) = 0.990000 (×3)
+    Δ eigenvalues: [('0.0000', 1), ('4.9497', 1), ('4.9529', 2), ('4.9632', 1), ('7.8916', 2), ('7.9468', 1), ('7.9552', 2)]
+
+  ε = 0.157787:
+    Face weights by channel:
+      SSS: det(G) = 1.000000 (×1)
+      SST: det(G) = 0.950207 (×6)
+      STT: det(G) = 0.975103 (×3)
+    Δ eigenvalues: [('-0.0000', 1), ('4.8734', 1), ('4.8813', 2), ('4.9078', 1), ('7.7301', 2), ('7.8677', 1), ('7.8890', 2)]
+  [✓ PASS] ε=0 → all eigenvalues degenerate (S₅ symmetric)
+  [✓ PASS] ε>0 → eigenvalue splitting (chiral breaking)
+
+  === Test 5: Channel Weights → Coupling ===
+
+  Unweighted: 1 + 6 + 3 = 10
+  c^k weighted: 1×1 + 6×2 + 3×4 = 25
+  [✓ PASS] c^k weighted sum = d² = 25
+
+  α_GUT = 6/(d²π²) = 0.024317
+  Non-SSS = 9 propagating channels
+  ζ₉ = Σ₁⁹ 1/n² = 1.539768
+  α₉ = 1/(d²ζ₉) = 0.025978
+  α₉/α_GUT - 1 = 6.830%
+  [✓ PASS] 9 = C(5,3)-1 = non-SSS channels
+
+  Representation structure:
+    SSS (1): trivial₃ ⊗ trivial₂
+    SST (6): C(3,2)×C(2,1) = Λ²(std₃) ⊗ std₂
+    STT (3): std₃ ⊗ Λ²(std₂)=trivial₂
+  Total dim: 1 + 3×2 + 3×1 = 1 + 6 + 3 = 10 ✓
+
+============================================================
+  SUMMARY: EXP_DHA_002_Chiral_Symmetry_Breaking
+============================================================
+  [✓] |SSS| = C(3,3)×C(2,0) = 1
+  [✓] |SST| = C(3,2)×C(2,1) = 6
+  [✓] |STT| = C(3,1)×C(2,2) = 3
+  [✓] 1+6+3 = 10 = C(5,3)
+  [✓] Burnside: 1 orbit (S₅ transitive on faces)
+  [✓] SSS is S₃×S₂-invariant
+  [✓] SST is S₃×S₂-invariant
+  [✓] STT is S₃×S₂-invariant
+  [✓] ε=0 → all eigenvalues degenerate (S₅ symmetric)
+  [✓] ε>0 → eigenvalue splitting (chiral breaking)
+  [✓] c^k weighted sum = d² = 25
+  [✓] 9 = C(5,3)-1 = non-SSS channels
+
+  12/12 checks passed
+  Time: 0.0s

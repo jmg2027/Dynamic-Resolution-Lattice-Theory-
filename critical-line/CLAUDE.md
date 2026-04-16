@@ -100,7 +100,10 @@ critical-line/
 | RH_024 | Chiral Born-Ramanujan | — | Chiral projection |
 | RH_025 | Resolution distinguishability | 3/3 | δ(N) proof levels (ex-GMA_001) |
 
-**Next: RH_026**
+| RH_026-046 | Various | Spectrum, PNT, ℤ[i], Chebyshev, μ, u→s | Done |
+| RH_047 | 8/8 | **Spectral Flow: Vieta⟹Re(s)=1/2, density transition** | ★★ |
+
+**Next: RH_048**
 
 ## Proof Hierarchy (from gram-algebra/MSUA)
 

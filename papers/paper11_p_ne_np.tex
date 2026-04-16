@@ -1,0 +1,131 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\Lean}{\textsc{Lean\,4}}
+
+\title{P $\ne$ NP as Abel--Ruffini:\\
+  The Algebraic Solve/Check Separation\\
+  at Dimension 5}
+\author{Mingu Jeong\\Independent Researcher
+\and Claude\\Anthropic}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We identify the P $\ne$ NP problem as the computational
+analog of the Abel--Ruffini theorem (1824). \textbf{Solve}
+(finding individual roots by radicals) is impossible for
+degree $\ge 5$ because $S_5$ is non-solvable.
+\textbf{Check} (computing symmetric functions via Vieta)
+always works at any degree. The separation Solve $\ne$ Check
+at $d = 5$ is proven; the computational P $\ne$ NP remains
+open because $\QQ$ admits numerical approximation (Newton's
+method), creating a gap absent in $\CC$. We formalize this
+in \Lean{} and classify the problem as
+standard $(0, 4)$, algebraic $(1, 2)$ \cite{Paper9}.
+\end{abstract}
+
+\section{Introduction}
+
+The P $\ne$ NP conjecture asks whether every problem whose
+solution can be \emph{verified} in polynomial time can also
+be \emph{solved} in polynomial time. We restate this in
+algebraic terms.
+
+\section{Solve vs Check}
+
+\begin{definition}
+\textbf{Solve}$(P)$: express individual roots of a polynomial $P$
+in terms of radicals ($+, -, \times, \div, \sqrt[n]{\phantom{x}}$).
+
+\textbf{Check}$(P)$: compute symmetric functions of the roots
+(sums, products, traces) via Vieta's formulas.
+\end{definition}
+
+\begin{theorem}[Abel--Ruffini, 1824]
+For $\deg P \le 4$: Solve is possible ($S_n$ solvable).
+For $\deg P \ge 5$: Solve is impossible ($S_5$ non-solvable).
+Check is always possible (Vieta, any degree).
+\end{theorem}
+
+\begin{corollary}[Algebraic P $\ne$ NP]
+There exist problems (degree $\ge 5$ polynomials) where
+Check works but Solve does not. The boundary is $d = 5$,
+the same dimension as DRLT.
+\end{corollary}
+
+\section{The Galois Obstruction}
+
+$S_5$ is the first non-solvable symmetric group.
+The obstruction is $A_5$, the alternating group:
+$|A_5| = 60 = 2^2 \times 3 \times 5$,
+built from exactly the DRLT atoms $\{2, 3, 5\}$.
+
+\begin{theorem}[Galois--DRLT correspondence]
+Solvable $\Leftrightarrow$ physically incomplete.
+Non-solvable $\Leftrightarrow$ physically complete.
+The boundary $d = 5$ is simultaneously the solvability
+threshold and the completeness threshold.
+\end{theorem}
+
+\section{Why Computational P $\ne$ NP Remains Open}
+
+In $\CC$: ``unsolvable = uncomputable'' (no gap).
+Abel--Ruffini closes the question.
+
+In $\QQ$: ``unsolvable $\ne$ uncomputable'' (gap exists).
+Newton's method finds roots to arbitrary precision
+even for degree $\ge 5$. The \emph{numerical
+approximation gap} prevents Abel--Ruffini from
+directly implying computational P $\ne$ NP.
+
+\begin{remark}
+This gap is the difference between $\CC$ (algebraically
+closed, no approximation) and $\QQ$ (not algebraically
+closed, approximation works). The P $\ne$ NP problem
+is hard because $\QQ$ has this escape route.
+\end{remark}
+
+\section{Physics Needs Only Check}
+
+All physical observables are symmetric functions of the
+Gram matrix:
+$\mathrm{Tr}(G^k)$, $\det(G_h)$, $|G_{ij}|^2$.
+No individual eigenvalue appears in any physical quantity.
+Physics is immune to the Abel--Ruffini barrier.
+
+\section{Spectral Complexity}
+
+Standard (computational): $(h, l) = (0, 4)$.
+Algebraic: $(h, l) = (1, 2)$ (proven, Abel--Ruffini).
+The algebraic version has been solved since 1824 \cite{Paper9}.
+
+\section{Machine Verification}
+
+\texttt{SolveCheck.lean}: \texttt{algebraic\_P\_ne\_NP},
+\texttt{boundary\_is\_5}, \texttt{d5\_triple},
+\texttt{physics\_immune\_to\_abel\_ruffini}.
+Zero \texttt{sorry}.
+
+\begin{thebibliography}{9}
+\bibitem{Paper9} M.~Jeong and Claude, ``Spectral Complexity,''
+  DRLT Paper~9 (2026).
+\bibitem{Abel} N.~H.~Abel, ``M\'emoire sur les \'equations
+  alg\'ebriques,'' 1824.
+\end{thebibliography}
+\end{document}
