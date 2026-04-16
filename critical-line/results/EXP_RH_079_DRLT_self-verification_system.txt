@@ -1,6 +1,6 @@
 ============================================================
   EXP_RH_079_DRLT_self-verification_system
-  2026-04-16 08:11:06
+  2026-04-16 08:17:44
 ============================================================
 
 === Test 1: Dependency Graph ===
@@ -31,6 +31,7 @@
   Limit (root)
   MassProofs ← SelfReferenceCollapse, HodgeAlgebraic
   MillenniumBridges ← VietaChain, DetFormula, NSRegularity, HodgeAlgebraic, SolveCheck, BSDPoincare
+  Multiverse ← AlternateThresholds
   NLowerBound ← ChoiceAndN
   NProperties ← DRLTPrimes, DetFormula
   NSRegularity ← SpectralComplexity, YMMassGap
@@ -61,14 +62,14 @@
   YMMassGap ← SpectralComplexity, HodgeAlgebraic
   Zeta2Universality ← GRH
 
-  Files: 55
+  Files: 56
   Acyclic: True
   [✓ PASS] Dependency graph acyclic
 
 === Test 2: Sorry Scan ===
 
 
-  Total files scanned: 55
+  Total files scanned: 56
   Total actual sorry: 0
   [✓ PASS] Zero sorry in all files
 
@@ -101,6 +102,7 @@
                            Limit |        1
                       MassProofs |       18
                MillenniumBridges |        8
+                      Multiverse |       26
                      NLowerBound |       17
                      NProperties |       14
                     NSRegularity |        9
@@ -130,15 +132,15 @@
                       VietaChain |       12
                        YMMassGap |       15
                Zeta2Universality |        6
-                           TOTAL |      682
-  [✓ PASS] Total theorems: 682
+                           TOTAL |      708
+  [✓ PASS] Total theorems: 708
 
 === Test 4: Tactic Classification ===
 
   Tactic usage:
-      native_decide:  717 ████████████████████████████████████████
+      native_decide:  752 ████████████████████████████████████████
               omega:  145 ████████████████████████████████████████
-                rfl:  117 ████████████████████████████████████████
+                rfl:  119 ████████████████████████████████████████
                simp:   79 ████████████████████████████████████████
              decide:    0 
               other:    0 
@@ -178,9 +180,9 @@
   ╔═══════════════════════════════════════╗
   ║  DRLT VERIFICATION MANIFEST           ║
   ║                                       ║
-  ║  Lean files:      55                  ║
-  ║  Total lines:    9670                 ║
-  ║  Theorems:       682                  ║
+  ║  Lean files:      56                  ║
+  ║  Total lines:    9895                 ║
+  ║  Theorems:       708                  ║
   ║  Sorry:            0                  ║
   ║  Sorry rate:      0.0%               ║
   ║                                       ║
@@ -193,7 +195,7 @@
 ============================================================
   [✓] Dependency graph acyclic
   [✓] Zero sorry in all files
-  [✓] Total theorems: 682
+  [✓] Total theorems: 708
   [✓] Tactic distribution measured
   [✓] md↔Lean mapping: 15/15
   [✓] Verification manifest generated
