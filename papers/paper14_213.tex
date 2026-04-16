@@ -249,3 +249,65 @@ All theorems are machine-verified in Lean 4
 Lattice-Theory-/213/}.
 
 \end{document}
+
+% ═══ 추가 섹션: 다항식 동정 + 커플링 ═══
+
+\section{Polynomial Identification}
+
+\begin{theorem}
+$\mathrm{Expr}/{\approx} \;\cong\; \mathbb{N}[x, y]$
+where $x = [e_2]$, $y = [e_3]$.
+\end{theorem}
+
+\begin{proof}
+The normal form of an expression is a sorted list
+of monomials $x^p y^q$.
+This is exactly the representation of an element
+of the free commutative semiring on two generators.
+The three intrinsic axioms (A8, A9, A12) are the
+axioms of a commutative semiring with zero.
+\end{proof}
+
+\begin{definition}
+The \emph{symmetric invariants} under the swap
+$\sigma: x \leftrightarrow y$ are the elementary
+symmetric polynomials:
+$\sigma_1 = x + y$ and $\sigma_2 = xy$.
+\end{definition}
+
+Under $\mathrm{eval}(x, y) = (2, 3)$:
+$\sigma_1 = 5$, $\sigma_2 = 6$, $\sigma_1^2 = 25$.
+
+\section{Quotient Classification}
+
+Each additional relation on $\mathbb{N}[x, y]$
+defines an ideal and hence a quotient algebra.
+\begin{center}
+\begin{tabular}{lll}
+\hline
+Relation & Quotient & Structure \\
+\hline
+none & $\mathbb{N}[x,y]$ & free semiring \\
+$x+x = x$ & Boolean polynomials & lattice \\
+$x+x = 0$ & $\mathbb{F}_2[x,y]$ & char 2 \\
+$(x{-}2, y{-}3)$ & $\mathbb{N}$ via eval & DRLT \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Coupling Constant}
+
+\begin{theorem}
+Under $\mathrm{eval}(2, 3)$,
+\[
+  \alpha_{\mathrm{GUT}}
+  = \frac{1}{\sigma_1^2 \cdot \zeta(2)}
+  = \frac{6}{25\pi^2}.
+\]
+\end{theorem}
+
+The numerator $6$ equals $\sigma_2$ under
+$\mathrm{eval}(2, 3)$.
+This coincidence is specific to this evaluation point
+and does not hold for other choices of $(x, y)$.
+
