@@ -1,10 +1,11 @@
 ============================================================
   EXP_RH_079_DRLT_self-verification_system
-  2026-04-16 07:57:49
+  2026-04-16 08:05:02
 ============================================================
 
 === Test 1: Dependency Graph ===
 
+  Ascent ← TransfiniteCardinals
   Axiom ← Core, ChiralChannels
   BSDPoincare ← UnifiedNecessity, HodgeAlgebraic
   Basic (root)
@@ -59,14 +60,14 @@
   YMMassGap ← SpectralComplexity, HodgeAlgebraic
   Zeta2Universality ← GRH
 
-  Files: 53
+  Files: 54
   Acyclic: True
   [✓ PASS] Dependency graph acyclic
 
 === Test 2: Sorry Scan ===
 
 
-  Total files scanned: 53
+  Total files scanned: 54
   Total actual sorry: 0
   [✓ PASS] Zero sorry in all files
 
@@ -74,6 +75,7 @@
 
                             File | Theorems
   -------------------------------+---------
+                          Ascent |       12
                            Axiom |       10
                      BSDPoincare |       13
                    BridgeDetails |       21
@@ -126,15 +128,15 @@
                       VietaChain |       12
                        YMMassGap |       15
                Zeta2Universality |        6
-                           TOTAL |      647
-  [✓ PASS] Total theorems: 647
+                           TOTAL |      659
+  [✓ PASS] Total theorems: 659
 
 === Test 4: Tactic Classification ===
 
   Tactic usage:
-      native_decide:  675 ████████████████████████████████████████
-              omega:  128 ████████████████████████████████████████
-                rfl:  107 ████████████████████████████████████████
+      native_decide:  696 ████████████████████████████████████████
+              omega:  129 ████████████████████████████████████████
+                rfl:  113 ████████████████████████████████████████
                simp:   79 ████████████████████████████████████████
              decide:    0 
               other:    0 
@@ -174,9 +176,9 @@
   ╔═══════════════════════════════════════╗
   ║  DRLT VERIFICATION MANIFEST           ║
   ║                                       ║
-  ║  Lean files:      53                  ║
-  ║  Total lines:    9168                 ║
-  ║  Theorems:       647                  ║
+  ║  Lean files:      54                  ║
+  ║  Total lines:    9422                 ║
+  ║  Theorems:       659                  ║
   ║  Sorry:            0                  ║
   ║  Sorry rate:      0.0%               ║
   ║                                       ║
@@ -189,7 +191,7 @@
 ============================================================
   [✓] Dependency graph acyclic
   [✓] Zero sorry in all files
-  [✓] Total theorems: 647
+  [✓] Total theorems: 659
   [✓] Tactic distribution measured
   [✓] md↔Lean mapping: 15/15
   [✓] Verification manifest generated
