@@ -145,6 +145,7 @@ EXP_{PREFIX}_{NNN}_{Title}.txt
 | paper3 | standard-model | zero-parameter predictions |
 | paper4 | standard-model | zeta spectral dim, β-function |
 | paper5 | critical-line | Born-rule Gram graphs, critical line |
+| prime | critical-line | Prime numbers from finite geometry (Euler product, PNT, equidistribution) |
 
 ---
 
