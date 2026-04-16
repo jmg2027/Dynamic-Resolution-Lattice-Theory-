@@ -1,6 +1,6 @@
-# Atoms Sub-Project — CLOSED
+# Atoms Sub-Project — ACTIVE
 
-## Status: CLOSED ✓ (55 experiments, 10 theorems)
+## Status: ACTIVE (69 experiments, 10 theorems)
 
 ## Final Results
 - **IE median: 2.9%** (118 elements, 0 free parameters)

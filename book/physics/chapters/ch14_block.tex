@@ -1,0 +1,337 @@
+%=====================================================================
+\section{The Block Universe}
+\label{ch:block}
+%=====================================================================
+
+This final chapter addresses the nature of time, initial conditions, and the ultimate structure of the universe in DRLT. The conclusion is radical but unavoidable: the universe is not a process. It is a matrix.
+
+\subsection{The universe is $G$}
+
+The Gram matrix $G_{ij} = \langle\psi_i|\psi_j\rangle$ for all $N$ points contains \emph{all} physical information:
+\begin{itemize}
+\item Geometry (distances, curvature) from $|G_{ij}|$,
+\item Forces (gauge connections, field strengths) from $\arg(G_{ij})$,
+\item Matter (deviations from vacuum) from $\det(G_h) > 0$,
+\item Quantum mechanics ($\hbar_h$) from hinge areas,
+\item Coupling constants from the Binet--Cauchy decomposition.
+\end{itemize}
+
+Nothing exists outside $G$. There is no background space in which $G$ is embedded, no external time in which $G$ evolves, no observer outside $G$ who reads it. $G$ is the universe, complete and self-contained.
+
+\subsection{Constraint propagation: the block is forced}
+
+The block universe is not a philosophical choice --- it is a mathematical consequence of $\text{rank}(G) \leq 5$.
+
+Consider $N$ vertices with $\psi_i \in \CC^5$. The Gram matrix $G$ has $N^2$ complex entries but only $5N$ real parameters (the components of the $\psi_i$). For $N \gg 5$, $G$ is massively over-determined: any single row of $G$ (the inner products of one vertex with all others) constrains all remaining $\psi_j$ up to a $\text{U}(5)$ gauge freedom.
+
+Concretely: given a single reference state $\psi_0$ and the $N - 1$ inner products $\{G_{0j}\}_{j=1}^{N-1}$, the rank-5 constraint propagates to determine the \emph{entire} configuration $\{\psi_j\}$ (up to unitary equivalence). The number of free real parameters is:
+\begin{equation}
+\text{DOF} = 2d \cdot N - d^2 = 10N - 25
+\end{equation}
+where $d^2 = 25$ is subtracted for the $\text{U}(5)$ gauge freedom. For the physical content (the $d^2 = 25$ Wishart eigenvalues), only 25 real numbers encode all of physics.
+
+Numerical verification confirms this: starting from a random $N$-vertex network, iterating the local evolution $U_i = e^{-iH_i/\hbar_{\text{eff},i}}$ converges to a $W$-invariant fixed point within $\sim 30$ iterations. The block universe is the unique self-consistent solution --- it does not evolve because there is nothing else it could be.
+
+\subsection{Time as gradient}
+
+There is no time variable in DRLT. The action $S = \sum_h A_h\,\delta_h$ contains no $t$. The Gram matrix $G$ is static.
+
+What we experience as time is the \emph{gradient direction} of $\det(G_h)$ across the lattice:
+\begin{equation}
+\text{``time''} = \text{direction of decreasing } \det(G_h) = \text{direction of increasing alignment}.
+\end{equation}
+
+In the direction of increasing $\det(G_h)$: vertices are more random, $\hbar$ is larger, physics is more quantum --- this is the ``past'' (toward the Big Bang). In the direction of decreasing $\det(G_h)$: vertices align, $\hbar$ decreases, physics becomes classical --- this is the ``future'' (toward heat death).
+
+The second law of thermodynamics is the statement that we read $G$ in the direction of increasing alignment (decreasing $\det(G_h)$, increasing entropy).
+
+\subsection{Cosmic history as diagonalization}
+
+The entire history of the universe is encoded in the structure of $G$:
+
+\begin{center}
+\begin{tabular}{lcll}
+\hline
+Region of $G$ & $\text{rank}$ & $\det(G_h)$ & Epoch \\
+\hline
+Random block & $N$ & large & Big Bang: $\text{SU}(N)$, all forces unified \\
+Rank reduction & $N \to 5$ & decreasing & Swap annihilation: atoms pair and die \\
+Rank-5 plateau & $5$ & moderate & Our era: $\text{SU}(3)\!\times\!\text{SU}(2)\!\times\!\text{U}(1)$ \\
+Further alignment & $5 \to 1$ & small & Far future: $3 \to 2 \to 1$ (forces fade) \\
+Near-diagonal block & $1$ & $\to 0$ & Late universe: $G_{ij} \to 1$, $\det \to 0$ (never reached) \\
+\hline
+\end{tabular}
+\end{center}
+
+This is not a narrative; it is a \emph{description of different regions of the same matrix}. The Big Bang and heat death coexist in $G$, just as the first and last pages of a book coexist in the book.
+
+\subsection{The atom death sequence}
+
+The dimensional atoms annihilate in order of size (Chapter~\ref{ch:whyd5}). Larger atoms have stronger self-coupling and freeze faster:
+
+\begin{equation}
+\text{SU}(N) \;\xrightarrow{\text{fast}}\; \text{SU}(3) \times \text{SU}(2) \times \text{U}(1) \;\xrightarrow{\text{slow}}\; \text{U}(1) \;\xrightarrow{\text{very slow}}\; 1
+\end{equation}
+
+\begin{center}
+\begin{tabular}{cccl}
+\hline
+Atom & $N_\text{eff}$ & Freezing rate & Status \\
+\hline
+3 (strong) & 1 & Fastest & Confined (frozen, locally active) \\
+2 (weak) & 2 & Medium & Broken (EW transition complete) \\
+1 (EM) & $\infty$ & Slowest & Active (last survivor) \\
+0 & --- & --- & Vacuum (end state) \\
+\hline
+\end{tabular}
+\end{center}
+
+We live in the era where atom 3 is confined, atom 2 is broken, and atom 1 is still active. This is not a special time --- it is the \emph{only} era with interesting physics, because:
+\begin{itemize}
+\item Before the rank-5 plateau: too hot, no stable structures.
+\item After atom 1 dies: too cold, no interactions.
+\item On the plateau: chemistry, biology, observers.
+\end{itemize}
+
+\subsection{No initial conditions}
+
+A block universe has no ``initial'' state. The matrix $G$ simply \emph{is}. The question ``what were the initial conditions?'' is like asking ``what is on page zero of a book?'' --- the question is malformed.
+
+All physical quantities derived in this work --- coupling constants, masses, mixing angles --- are properties of the \emph{rank-5 plateau}, independent of what $G$ looks like in the random block or the diagonal block. They depend on $(n_S, n_T) = (3, 2)$ and $c = 2$, which are structural constants of the plateau, not initial conditions.
+
+The only quantity that depends on ``where in the block'' is the cosmological constant $\Lambda \sim 1/N_H$, which encodes the size of the plateau relative to the total matrix. This is an \emph{address}, not a parameter.
+
+\subsection{The cosmic address $\varepsilon_0$}
+
+The geometric parameter $\varepsilon_0 \approx 0.0038$ (Chapter~\ref{ch:ghosts}) is not a free parameter. It encodes our position within the block:
+\begin{equation}
+\varepsilon_0 = f(N_H, d) \sim N_H^{-1/k}
+\end{equation}
+for some exponent $k$ determined by the geometry.
+
+Different positions in $G$ correspond to different $\varepsilon_0$:
+\begin{itemize}
+\item Early universe ($\varepsilon_0$ large): large $\det(G_h)$ contributions, combinatorial values less dominant.
+\item Current epoch ($\varepsilon_0 \approx 0.0038$): small geometric contributions, combinatorial values nearly exact.
+\item Far future ($\varepsilon_0 \to 0$): geometric contributions vanish, but forces also vanish --- nothing to measure.
+\end{itemize}
+
+The coupling constants \emph{approach} their geometric plateau values ($8, 30, 6\pi^2$) as $\varepsilon_0 \to 0$, but never reach them exactly because the forces themselves fade. \textbf{Perfect physics is unobservable}: by the time the universe is clean enough to display exact values, there is nothing left to observe them.
+
+\subsection{The complete chain: zero to universe}
+
+\begin{equation}
+\boxed{
+\text{Points} \;\xrightarrow{\text{Frobenius}}\; \CC
+\;\xrightarrow{\text{Atomic}}\; d = 5
+\;\xrightarrow{\text{Causal}}\; 3\!+\!2\!+\!1
+\;\xrightarrow{\Lambda^3}\; 25
+\;\xrightarrow{\text{Basel}}\; \alpha_i
+\;\xrightarrow{\text{Simplex}}\; \text{SM}
+\;\xrightarrow{\text{Block}}\; \text{Universe}
+}
+\end{equation}
+
+\begin{center}
+\begin{tabular}{rlll}
+\hline
+Step & From & To & How \\
+\hline
+0 & Nothing & Points with relations & (minimal assumption) \\
+1 & Relations & $\CC$ & Frobenius + phase + det \\
+2 & $\CC^N$ & $d = 5$ & Atomic uniqueness + swap \\
+3 & $\CC^5$ & SU(3)$\times$SU(2)$\times$U(1), $c\!=\!2$ & Chirality + density \\
+4 & Hinges & $1 + 12 + 12 = 25$ & Binet--Cauchy + $c$-weight \\
+5 & Channels & $\alpha_3, \alpha_2, \alpha_1$ & Basel sum + Gram rank \\
+6 & $\alpha_i + v_H$ & 26 SM parameters & Simplex geometry \\
+7 & $\hbar_h > 0$ (finite) & Cosmology (9 observables) & Block universe \\
+8 & $\tr(G) = N$ & Trace conservation ($\Sigma\Delta = 0$) & Completeness \\
+\hline
+& \multicolumn{2}{l}{\textbf{Free parameters:}} & \textbf{0} \\
+& \multicolumn{2}{l}{\textbf{Observational inputs:}} & \textbf{0} \\
+& \multicolumn{2}{l}{\textbf{Predictions:}} & \textbf{35+} \\
+& \multicolumn{2}{l}{\textbf{Error structure:}} & \textbf{predicted (sum rule)} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{The representation cascade}
+
+The derivation chain above starts from ``points with relations'' and arrives at $\CC^5$. But there is a deeper way to see this --- one that does not require $d = 5$ at all.
+
+\textbf{One matrix, one algebra.} Take $N$ points carrying vectors in $\CC^{d_0}$ for any $d_0 \gg 5$. The Gram matrix $G$ is $N \times N$, rank $\leq d_0$. No constraint is imposed. The Uniqueness Theorem (Sec.~\ref{thm:d5}) proves: for \emph{any} $d_0 \geq 5$, the unique chiral, CP-violating, connected structure is $(n_S, n_T) = (3, 2)$.
+
+\textbf{No spectral gap at rank 5.} Numerical simulations confirm that swap annihilation creates no eigenvalue gap at rank 5. The chiral eigenvalues $\lambda_1, \ldots, \lambda_5$ and the trivial (swap-symmetric) eigenvalues $\lambda_6, \ldots, \lambda_{d_\text{indep}}$ merge into a continuous spectrum at large $N$, with the gap closing as $\sim 1/\sqrt{N}$. The true spectral gap is at rank $d_\text{indep}$ (independent dimensions after swap), where $\lambda_{d_\text{indep}+1} = 0$ exactly.
+
+The $(2,3)$ structure is not a \emph{spectral} feature --- it is a \emph{representation-theoretic} feature. The Standard Model gauge group is encoded in the algebra of the surviving atomic pair, not in eigenvalue magnitudes. Physics is algebraic, not spectral.
+
+\textbf{The spectral visibility transition.} What changes with $N$ is not the $(2,3)$ structure (which is always present) but its \emph{spectral visibility}:
+
+\begin{center}
+\begin{tabular}{cccl}
+\hline
+Epoch & $N_\text{eff}$ & Spectral gap & Visibility \\
+\hline
+Big Bang & $\sim 1$ & $\sim 100\%$ & Spectral: forces identical in eigenvalue spectrum \\
+GUT scale & $\sim 1500$ & $\sim \alpha_\text{GUT}$ & Transition: spectral distinction fading \\
+Present & $\sim 10^{80}$ & $\sim 0$ & Purely representation-theoretic \\
+\hline
+\end{tabular}
+\end{center}
+
+GUT symmetry breaking is not a phase transition requiring a Higgs potential. It is the inevitable fading of spectral visibility as $N_\text{eff}$ grows past $\sim 1500$. The $(2,3)$ structure was always there; it merely became invisible to spectroscopy.
+
+\begin{remark}[Density transitions]
+This spectral-visibility fading parallels the critical line:
+for the Ihara zeta of $K_N$, all nontrivial zeros lie at
+$\mathrm{Re}(s) = 1/2$ \emph{exactly} (by the Vieta identity
+$|u|^2 = 1/q$, which is algebraic and $\lambda$-independent).
+As $N$ grows, only the \emph{number} of zeros increases;
+their position never changes.  The finite-to-infinite
+transition for RH is a density transition, not a position
+transition --- just as GUT breaking is a visibility transition,
+not a structural one.
+\end{remark}
+
+\textbf{Only $(2,3)$ supports observers.} $\{3\}$ alone: no time. $\{2\}$ alone: no space. $\{2,2\}$: swap-symmetric, no chirality. $\{3,3\}$: same. $\{2,3\}$: space $+$ time $+$ U(1) glue $+$ chirality $+$ charge quantization. This is the unique configuration. It exists in the representation theory of $\CC^N$ for \emph{any} $N \geq 5$.
+
+This resolves three foundational puzzles:
+
+\begin{enumerate}
+\item \textbf{The anthropic principle dissolves.} The constants \emph{cannot} be different. $(2,3)$ is the unique chiral structure of $\CC$, and $\alpha_\text{GUT} = 6/(25\pi^2)$ is its coupling constant. The question ``why these constants?'' reduces to ``do complex numbers exist?''
+
+\item \textbf{Fine-tuning dissolves.} The constants are not tuned. They are theorems: $1/\alpha_1 = 6\pi^2$, $\sin^2\theta_W = 3/8$, $v_H = 6M_\text{Pl}/5^{25}$. These follow from $(2,3)$, which follows from $\CC$.
+
+\item \textbf{Cosmic necessity dissolves.} ``Why something rather than nothing?'' $\to$ ``Does $\CC$ have a unique chiral structure?'' Yes. That structure is $(2,3)$, and it determines all of physics.
+\end{enumerate}
+
+The parameter $\varepsilon_0 \approx 0.0038$ measures the spectral gap at our epoch --- how far $N_\text{eff}$ has grown past $N_\text{cross} \approx 1500$. It is an address within the $(2,3)$ structure, not a free parameter.
+
+\subsection{Measurement is reading $G$}
+
+In standard quantum mechanics, measurement requires a separate axiom (the Born rule or the projection postulate). In DRLT, no measurement axiom exists or is needed.
+
+\textbf{Microscopic measurement} $=$ the inner product $G_{ij} = \langle\psi_i|\psi_j\rangle$ between two vertices. This is the same operation as spatial displacement (comparing two points) and temporal evolution (comparing two states). There is no distinction between ``interaction'' and ``measurement'' --- both are $G_{ij}$.
+
+\textbf{Macroscopic ``collapse''} is a consequence of large $N$. An apparatus with $\sim\!10^{23}$ vertices has $\sim\!10^{23}$ phases relative to the measured system. Their sum:
+\begin{equation}
+\sum_{j=1}^{N_\text{app}} G_{sj} = \sum_{j} |G_{sj}|\,e^{i\phi_{sj}} \;\xrightarrow{N \to \infty}\; O(1/\sqrt{N}) \quad\text{(non-aligned phases cancel)}
+\end{equation}
+Only the component of $\psi_s$ aligned with the apparatus eigenstates survives. This is projection --- not as a postulate, but as the law of large numbers applied to phases.
+
+\begin{remark}
+The ``measurement problem'' does not arise. $G$ is static. Nothing collapses. The appearance of collapse is what reading a static matrix looks like when the reader is part of the matrix.
+\end{remark}
+
+\subsection{No observables, no wave-particle duality}
+
+This theory derived 52 quantitative predictions --- coupling constants, fermion masses, mixing angles, cosmological observables, $\eta/s = 1/(4\pi)$, the proton mass to 0.08\% --- without defining a single observable operator. No position operator $\hat{x}$, no momentum $\hat{p}$, no Hamiltonian postulated as ``the energy operator,'' no eigenvalue-equals-measurement axiom, no Born rule. The local Hamiltonian $H_i = \sum_j W_{ij}|\psi_j\rangle\langle\psi_j|$ was not introduced --- it emerged from the Gram matrix structure.
+
+The question ``is it a particle or a wave?'' does not arise. Each vertex carries a complex number $\psi \in \CC^5$. Complex numbers are neither particles nor waves. The question is malformed --- like asking whether the number 3 is red or blue.
+
+\subsection{The simplex network}
+
+This section gives the geometric construction that produces the fully connected weighted network of the preceding chapters.
+
+\subsubsection{Construction}
+
+\begin{enumerate}
+\item Take a 4-simplex $\sigma$: 5 vertices, each carrying $\psi_k \in \CC$ ($k = 1, \ldots, 5$). The interior of $\sigma$ is uniform --- all interior points share the same 5 complex values.
+
+\item Place $N$ such simplices $\{\sigma_1, \ldots, \sigma_N\}$ as nodes of a complete graph. Adjacent simplices share a tetrahedron (4 vertices) and differ by exactly 1 vertex (the Pachner-adjacent structure).
+
+\item Inflate each simplex until its boundary is a tangent manifold of its neighbors. Every pair of simplices now shares a codimension-1 face. The connection weight $W_{ij} = |G_{ij}|^2/d$ is determined by the shared face geometry.
+\end{enumerate}
+
+Most weights $W_{ij} \approx 0$, so the network has a sparse effective topology consistent with a 4-dimensional manifold. The underlying structure remains fully connected.
+
+\subsubsection{Information at hinges}
+
+Each hinge $h$ (a triangle: 3 of the 5 vertices) carries exactly 1 bit (Theorem~\ref{thm:holevo}). Information resides at the $\binom{5}{3} = 10$ hinges, not in the simplex interior. One simplex $=$ one discrete cell of spacetime.
+
+The hinge area $A_h = \sqrt{\det(G_h)}$ is at the Planck scale. The temporal vertex density is $c = 2$ times the spatial, so 2 temporal hinges correspond to 1 spatial hinge per unit of the lattice.
+
+\subsubsection{Forces as hinge types}
+
+Each hinge is classified by its vertex composition $(n_S, n_T)$ with $n_S + n_T = 3$:
+
+\begin{center}
+\begin{tabular}{ccll}
+\hline
+Type & $(n_S, n_T)$ & $\det(G_h)$ & Force \\
+\hline
+SSS & $(3,0)$ & $> 0$ & Strong \\
+SST & $(2,1)$ & $> 0$ & Electromagnetic \\
+STT & $(1,2)$ & $= 0$ ($n_T < 3$) & Weak (via SST borrowing) \\
+TTT & $(0,3)$ & --- & Impossible ($n_T = 2 < 3$) \\
+\hline
+\end{tabular}
+\end{center}
+
+Gravity is not a hinge \emph{type} but the deficit angle between hinges (Chapter~\ref{ch:geometry}): the $G_h$ tensor distorts each triangle, and the arrangement of distorted hinges around a common edge determines the curvature.
+
+Electromagnetism is pure phase ($\arg G_{ij}$): no degree of freedom is absorbed at any hinge boundary, so it propagates across all simplices. Gravity and electromagnetism propagate at the same speed $c = 2$ because both are communicated between simplices through the same hinge gradient.
+
+\subsubsection{Confinement from simplex geometry}
+
+At $N_\text{eff} = 1$: a single simplex. The labels $S, S, S, T, T$ are indistinguishable --- the 5 vertices are interchangeable. This is the deconfined phase ($\eta/s = 1/(4\pi)$, Appendix~\ref{app:qcd}).
+
+At $N_\text{eff} \geq 2$: the SSS triangle has all 3 spatial vertices within one simplex. An SSS hinge cannot be shared across a simplex boundary (adjacent simplices share 4 vertices, but the SSS triangle uses 3 spatial vertices, all belonging to one simplex). Therefore $\text{SU}(3)$ color is confined to a single simplex.
+
+At $N_\text{eff} = 2$: the $\text{SU}(2)$ temporal doublet has 2 components. Crossing one simplex boundary consumes both ($\binom{2}{2} = 1$), leaving no residual degree of freedom. Hence $\text{SU}(2)$ is broken.
+
+$\text{U}(1)$ electromagnetism carries only a phase --- it has no simplex-counting constraint and survives at all $N_\text{eff}$.
+
+\subsubsection{Consequences for field-theoretic limits}
+
+The continuous-manifold approximation of the simplex network introduces three artifacts that vanish in the discrete structure:
+
+\begin{enumerate}
+\item \textbf{UV divergences:} Continuous modes $\to$ infinite; simplex modes $\to$ $N$ (finite). No renormalization is needed.
+\item \textbf{Vacuum catastrophe:} $\sum_k \omega_k/2 \to \infty$ over continuous modes; in the network, $N$ bounded hinge areas give a finite vacuum energy.
+\item \textbf{Measurement problem:} A continuous wave function requires a collapse postulate; a simplex carries one discrete value per vertex --- there is nothing to collapse.
+\end{enumerate}
+
+\subsection{The minimal assumption}
+
+The results of this work follow from a single mathematical fact: \emph{complex numbers exist}. Given sufficiently many complex numbers $\{z_\alpha\}$ assigned to any combinatorial structure, one can compute the Gram matrix $G_{ij} = \sum_\alpha z^*_{i,\alpha}\,z_{j,\alpha}$. This matrix:
+\begin{enumerate}
+\item is Hermitian ($G^\dagger = G$),
+\item is positive semidefinite ($\mathbf{c}^\dagger G\,\mathbf{c} \geq 0$),
+\item has finite rank ($\text{rank}(G) \leq d$ where $d$ is the number of components per vertex),
+\item stratifies by effective rank when sorted by $\det(G_h)$.
+\end{enumerate}
+
+For any $d$ large enough, the rank stratification contains a band at effective rank 5. In that band, the Binet--Cauchy decomposition gives $1 + 12 + 12 = 25$ channels, the Basel sum gives $1/\alpha_1 = 6\pi^2$, the causal split gives $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$, and all 52 predictions follow.
+
+No physics was assumed. No spacetime, no forces, no particles, no quantum mechanics, no relativity. Only $\CC$ and the inner product.
+
+%---------------------------------------------------------------------
+\subsection{Variational principle on $\partial(\Delta^5)$}
+\label{sec:variational}
+%---------------------------------------------------------------------
+
+The block universe is not constructed step by step.  It is a single extremum of the Regge action:
+\begin{equation}
+\frac{\delta S}{\delta\psi_k} = 0, \qquad S = \sum_{h=1}^{20} \sqrt{\det(G_h)}\,\delta_h, \qquad k = 1,\ldots,6.
+\end{equation}
+
+\subsubsection{Degrees of freedom}
+
+Six vertices in $\CC^5$ give $60$ real parameters.  Normalization ($|{\psi_k}|^2 = 1$, 6 constraints) and global $U(5)$ gauge (25~parameters) leave $60 - 6 - 25 = 29$ physical degrees of freedom.  Numerically, the variational equations appear to determine 4 additional parameters (the CKM mixing angles and CP phase), leaving
+\begin{equation}
+29 - 4 = 25 = d^2
+\end{equation}
+undetermined parameters, coinciding with the maximal rank of $W = |G|^2/d$.  A rigorous proof that the Hessian of $S$ at the extremum has exactly 4 non-gauge zero modes is an important open problem; numerical evidence (from the $60\times60$ Hessian eigenvalue spectrum) is consistent with this counting.
+
+\subsubsection{Singularity instability}
+
+$\det(G_h) = 0$ requires three $\psi$-vectors to span a 2-dimensional subspace --- a codimension-2 condition (measure zero).  At such a configuration, trace conservation ($\operatorname{Tr}(G) = N$) ensures that any perturbation restores $\det > 0$.  Singularities are dynamically \emph{unstable}: they can be transiently approached but not maintained.
+
+\bigskip
+
+\noindent\textbf{Theorem} (Existence of physics). \emph{Let $\{z_{i,a}\}$ be $N \times d$ complex numbers with $N \gg d \gg 5$, drawn from any distribution with finite variance. Let $G_{ij} = \sum_a z^*_{i,a}\,z_{j,a}$. Then with probability $1$, $G$ contains a region of effective rank $5$ whose geometric properties reproduce the Standard Model and general relativity.}
+
+\bigskip
+
+\noindent The proof is the content of this book.

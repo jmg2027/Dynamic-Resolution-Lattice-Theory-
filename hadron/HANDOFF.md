@@ -1,6 +1,6 @@
 # Hadron Spectroscopy — Handoff
 
-## Status: CLOSED (1차) ★★★ — 5 Experiments
+## Status: CLOSED (1차) ★★★ — 9 Experiments
 
 ## Key Results (0 free parameters)
 
@@ -54,6 +54,10 @@ d=5 → n_eff=C(5,3)-1=9 → GMOR: m_PS²=9×Σm_q×Λ → m_π +0.2%
 | HAD_003 | Corrected spectrum | K +0.9%, η_c -5.9% |
 | HAD_004 | Draw hadrons | det(G) pattern discovery |
 | HAD_005 | Unified mass | m_V²=m_PS²+Δ², RMS 1.8% ★★★ |
+| HAD_006 | Complete rational spectrum | median 3.5%, 14/20 within 5% |
+| HAD_007 | Pure Gram algorithm | theoretical insight on limits |
+| HAD_008 | Condensate Gram | condensate, GMOR, hyperfine from ONE matrix |
+| HAD_009 | A-vertex recoil | median 3.5%→1.9%, Ω⁻ +9.9%→-0.2% ★★★ |
 
 ## Open (정밀화)
 1. η/η' mixing angle from Gram off-diagonal
@@ -61,4 +65,4 @@ d=5 → n_eff=C(5,3)-1=9 → GMOR: m_PS²=9×Σm_q×Λ → m_π +0.2%
 3. Baryon octet masses (Σ, Ξ, Ω) systematic
 4. Heavy meson absolute masses (D, B)
 
-## Next: HAD_006
+## Next: HAD_010

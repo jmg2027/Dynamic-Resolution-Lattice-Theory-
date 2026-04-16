@@ -1,0 +1,112 @@
+%=====================================================================
+\section{Core Algorithms}
+\label{app:code}
+%=====================================================================
+
+This appendix provides pseudocode for the key algorithms implementing DRLT. The full implementation is available in \texttt{lib/drlt.py}.
+
+\subsection{Fundamental operations}
+
+\begin{verbatim}
+VERTEX(psi):
+    Store psi in C^5, normalize: psi <- psi / ||psi||
+
+OVERLAP(v_i, v_j):
+    return sum(conj(psi_i[a]) * psi_j[a], a=0..4)   # G_ij in C
+
+W(v_i, v_j):
+    return |OVERLAP(v_i, v_j)|^2 / 5                 # real shadow
+
+PHASE(v_i, v_j):
+    return arg(OVERLAP(v_i, v_j))                     # gauge connection
+
+DS2(v_i, v_j):
+    return 1 - 5 * W(v_i, v_j)                       # metric
+\end{verbatim}
+
+\subsection{Network and Gram matrix}
+
+\begin{verbatim}
+NETWORK(N):
+    vertices <- [VERTEX(random_C5()) for i in 1..N]
+
+G_MATRIX(net):
+    G[i,j] <- OVERLAP(vertices[i], vertices[j])      # N x N complex
+    # Properties: Hermitian, PSD, rank <= 5, unit diagonal
+
+W_MATRIX(net):
+    return |G|^2 / 5                                  # N x N real
+
+HOLONOMY(net, i, j, k):
+    return arg(G[i,j] * G[j,k] * G[k,i])            # gauge flux
+\end{verbatim}
+
+\subsection{Four forces from one inner product}
+
+\begin{verbatim}
+INTERACTION_DECOMPOSITION(v_i, v_j):
+    o_full <- OVERLAP(v_i, v_j)                       # full C^5
+    o_S <- sum(conj(psi_i[a]) * psi_j[a], a=0..2)    # spatial C^3
+    o_T <- sum(conj(psi_i[a]) * psi_j[a], a=3..4)    # temporal C^2
+
+    gravity  <- |o_full|^2 / 5      # all d components
+    strong   <- |o_S|^2 / 3         # SU(3) sector
+    weak     <- |o_T|^2 / 2         # SU(2) sector
+    em_phase <- arg(o_T) - arg(o_S) # U(1) relative phase
+
+    return {gravity, strong, weak, em_phase}
+\end{verbatim}
+
+\subsection{Local evolution (tick)}
+
+\begin{verbatim}
+TICK(net):
+    for each vertex i:
+        # Local Hamiltonian
+        H_i <- sum(W[i,j] * |psi_j><psi_j|, j != i)  # 5x5 Hermitian
+
+        # Local effective Planck constant
+        hbar_i <- LOCAL_HBAR_EFF(net, i)
+
+        # Unitary evolution (one information bit)
+        U_i <- matrix_exp(-i * H_i / hbar_i)
+        psi_i <- U_i * psi_i
+        psi_i <- psi_i / ||psi_i||                     # re-normalize
+
+LOCAL_HBAR_EFF(net, i):
+    A <- mean(DS2(v_i, v_j) for j != i)               # local area
+    S <- binary_entropy(W[i,:])                        # local entropy
+    return A / (4 * S)                                 # area per bit
+\end{verbatim}
+
+\subsection{Pachner moves}
+
+\begin{verbatim}
+PACHNER_1TO5(net):
+    # Add vertex: resolution increase
+    if network_diversity(net) > threshold:
+        psi_new <- random perturbation of random existing vertex
+        add VERTEX(psi_new) to net
+
+PACHNER_5TO1(net):
+    # Merge vertices: resolution decrease
+    find pair (i,j) with W[i,j] > merge_threshold
+    if found:
+        psi_merged <- (psi_i + psi_j) / ||psi_i + psi_j||
+        replace (i,j) with single VERTEX(psi_merged)
+\end{verbatim}
+
+\subsection{Simplex discovery}
+
+\begin{verbatim}
+FIND_SIMPLICES(net, w_threshold=0.1):
+    simplices <- []
+    for each 5-subset {a,b,c,d,e} of vertices:
+        if min(W[i,j] for all pairs in subset) > w_threshold:
+            simplices.append({a,b,c,d,e})   # emergent 4-simplex
+    return simplices
+\end{verbatim}
+
+\begin{remark}
+The entire physical content of DRLT is encoded in \texttt{OVERLAP}: a single inner product in $\CC^5$. Every other operation --- metric, forces, evolution, topology change --- is derived from this one function.
+\end{remark}

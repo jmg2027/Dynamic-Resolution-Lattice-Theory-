@@ -52,7 +52,7 @@
 |-----------|--------|--------|-------------|------|
 | `foundations/` | `FND_` | STABLE | 10 (FND_001-010) | 심플렉스 기하, 변분, f_occ |
 | `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
-| `atoms/` | `ATM_` | **ACTIVE** | 70 (ATM_001-069+) | 원자, 주기율표, wedge screening |
+| `atoms/` | `ATM_` | **ACTIVE** | 69 (ATM_001-069) | 원자, 주기율표, wedge screening |
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
 | `cosmic-structure/` | `CST_` | **ACTIVE** | 22 (CST_001-022) | LSS, BH jets, H₀, T_CMB, BBN |
 | `critical-line/` | `RH_` | **ACTIVE** | 79 (RH_001-079) | 임계선, RH, GRH, L-함수, Galois, Lean |
@@ -164,7 +164,7 @@ book/chapters/
 ```
 α_GUT = 6/(25π²) ≈ 0.02433    d = 5       c = 2
 n_S = 3    n_T = 2              φ = (1+√5)/2
-ε = α^(2/3)(1+α) ≈ 0.0860     v_H ≈ 245.8 GeV
+ε = α^(2/3)(1+α) ≈ 0.0860     v_H ≈ 245.6 GeV
 S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 ```
 
