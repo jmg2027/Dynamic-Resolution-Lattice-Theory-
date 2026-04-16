@@ -1,0 +1,93 @@
+============================================================
+  EXP_CST_016_BBN_Light_Element_Abundances
+  2026-04-16 06:03:12
+============================================================
+
+=== DRLT BBN Parameters ===
+
+  eta_B  = 6.1281e-10
+  Ob     = 0.049736
+  h      = 0.7085
+  Ob*h^2 = 0.024968
+  eta_10 = eta_B × 10^10 = 6.128
+
+  Planck: Ob*h^2 = 0.02237
+  Planck: eta = 6.12e-10
+  [✓ PASS] eta_B within 1% of Planck
+
+=== Part 1: He-4 (Y_p) ===
+
+  N_eff = n_S = 3 (exact from DRLT)
+  T_freeze = 0.700 MeV
+  n/p (freeze) = 0.1576
+  n/p (BBN)    = 0.1284
+  Y_p (base)   = 0.2276
+  Y_p (corr)   = 0.2279
+  Observed:      0.2449 ± 0.004
+  Deviation:     -4.26σ
+  [✗ FAIL] Y_p within 2σ
+
+=== Part 2: Deuterium D/H ===
+
+  D/H = 2.58 × (6.0/eta_10)^1.6
+      = 2.494 × 10^-5
+  Observed: 2.527 × 10^-5 ± 0.030
+  Deviation: -1.09σ
+  [✓ PASS] D/H within 2σ
+
+=== Part 3: He-3/H ===
+
+  He-3/H = 1.027e-05
+  Observed: 1.1e-05 ± 2.0e-06
+  Deviation: -0.4σ
+
+=== Part 4: Li-7/H ===
+
+  Li-7/H (BBN) = 4.882e-10
+  Observed:      1.6e-10 ± 3.0e-11
+  Ratio BBN/obs: 3.1×
+
+  THE LITHIUM PROBLEM:
+  Standard BBN over-predicts Li by factor ~3.
+  DRLT prediction: factor 3.1×
+
+  Possible DRLT resolution:
+  Simplex confinement (ch15) modifies nuclear
+  reaction rates at T ~ 0.1 MeV via the
+  det(G_h) dependence of ℏ_h.
+  When det → det_min(Li-7 pathway),
+  the reaction is suppressed.
+
+=== Part 5: N_eff = n_S = 3 (exact) ===
+
+  N_eff(bare DRLT) = n_S = 3
+  N_eff(+correction) = n_S(1+α·n_T/d)
+    = 3×(1+0.0243×2/5)
+    = 3.0292
+  Standard Model:  3.044
+  Observed:        2.99 ± 0.17
+  Deviation:       +0.23σ
+  [✓ PASS] N_eff within 1σ
+
+=== Summary Table ===
+
+  Element              DRLT     Observed     Status
+  ----------------------------------------------
+  Y_p (He-4)         0.2279       0.2449       -4.3σ
+  D/H ×10^5           2.494        2.527       -1.1σ
+  He3/H ×10^5         1.027          1.1       -0.4σ
+  Li7/H ×10^10         4.88          1.6  (Li prob)
+  N_eff               3.029         2.99      +0.23σ
+
+  All from DRLT: eta_B, N_eff, Ob from simplex.
+
+============================================================
+  SUMMARY: EXP_CST_016_BBN_Light_Element_Abundances
+============================================================
+  [✓] eta_B within 1% of Planck
+  [✗] Y_p within 2σ
+  [✓] D/H within 2σ
+  [✓] N_eff within 1σ
+
+  3/4 checks passed
+  Time: 0.0s
