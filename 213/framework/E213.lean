@@ -9,3 +9,4 @@ import E213.FiniteSpaces
 import E213.Translate
 import E213.Closure
 import E213.Pigeonhole
+import E213.Decompose
