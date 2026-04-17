@@ -7,7 +7,7 @@
 ## Communication
 - **Korean is the primary language.** Respond in Korean unless asked otherwise.
 - Author: "Mingu Jeong" (not Mingoo, not Min-goo).
-- Every tex/pdf: "Joint research by Mingu Jeong and Claude (Anthropic)"
+- Every tex/pdf: Author "Mingu Jeong" only. Claude in Acknowledgments.
 
 ## Editing
 - **80줄 한도 hook 강제.** 대량 파일은 Bash(cat)로 조합.
@@ -130,3 +130,8 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 ## Workflow
 - book/ 편집 후 math/ + physics/ 동기화 + single .tex 재생성.
 - 의미 있는 변경마다 commit. 절대 amend 안 함.
+
+## Paper Authorship Rule
+- **Author: "Mingu Jeong" only.** Claude는 저자가 아니라 도구.
+- **Acknowledgments에 기재:** "This work was developed in dialogue with Claude (Anthropic)."
+- `\author{...Claude...}` 금지. arXiv desk reject 사유.
