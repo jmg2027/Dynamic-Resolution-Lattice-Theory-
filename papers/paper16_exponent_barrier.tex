@@ -100,12 +100,12 @@ Global solutions exist iff $\alpha/(1-\beta) \leq 1$,
 i.e., $\alpha + \beta \leq 1$.
 \end{proof}
 
-\begin{theorem}[Scaling-forced gap]\label{thm:nogo}
-The NS scaling symmetry
-$v \mapsto \lambda v$, $x \mapsto x/\lambda$,
-$t \mapsto t/\lambda^2$ forces
-$\alpha + \beta = 3/2$ for any scaling-compatible
-energy-type estimate.
+\begin{theorem}[Scaling constraint]\label{thm:nogo}
+The NS scaling symmetry forces any scaling-compatible
+energy-type estimate to satisfy
+$\alpha + 3\beta = 3$.
+On this line, $\alpha + \beta = 3 - 2\beta$,
+which ranges over $[1, 3]$ for $\beta \in [0, 1]$.
 \end{theorem}
 
 \begin{proof}
@@ -122,31 +122,23 @@ $|S| \leq C \Omega^\alpha P^\beta$ requires
 \begin{equation}\label{eq:scaling}
 \alpha + 3\beta = 3.
 \end{equation}
-On this constraint line,
-$\alpha + \beta = 3 - 2\beta$,
-which is minimized at $\beta = 1$, $\alpha = 0$,
-giving $\alpha + \beta = 1$. However,
-$\beta = 1$ requires absorbing $P^1$ via Young,
-which costs the full dissipation budget $\nu P$.
-The resulting inequality
-$d\Omega/dt \leq (C - 2\nu)P$
-closes only if $C < 2\nu$, forcing $C$
-to depend on $\nu$ and violating the
-energy-type condition.
-
-For Gagliardo--Nirenberg interpolation between
-$L^2$ and $\dot{H}^1$ with parameter $\theta \in (0,1)$:
-$\|\omega\|_{L^3}^3 \leq C
-\|\omega\|_{L^2}^{3(1-\theta)}
-\|\nabla\omega\|_{L^2}^{3\theta}$,
-giving $\alpha = 3(1-\theta)/2$, $\beta = 3\theta/2$.
-The constraint \eqref{eq:scaling} then reads
-$3(1-\theta)/2 + 9\theta/2 = 3$, i.e., $\theta = 1/2$.
-This yields $\alpha = \beta = 3/4$,
-hence $\alpha + \beta = 3/2 > 1$.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}[Effective gap]\label{cor:gap}
+The boundary point $\beta = 1$, $\alpha = 0$
+gives $\alpha + \beta = 1$ but fails: absorbing
+$P^1$ via Young costs the full dissipation
+budget $\nu P$, requiring $C < 2\nu$
+($C$ depends on $\nu$, violating the
+energy-type condition).
+The Gagliardo--Nirenberg interpolation
+$\|\omega\|_{L^3}^3 \leq C
+\|\omega\|_{L^2}^{3/2} \|\nabla\omega\|_{L^2}^{3/2}$
+selects $\alpha = \beta = 3/4$ (the unique point
+on \eqref{eq:scaling} achievable by $L^2$--$H^1$
+interpolation), giving $\alpha + \beta = 3/2$.
+The gap is $3/2 - 1 = 1/2$.
+\end{corollary}
 The gap $1/2 = 3/2 - 1$ is a structural invariant
 of 3D Navier--Stokes.
 \end{corollary}
@@ -200,23 +192,21 @@ region $\{|\omega| > M\}$, then
 $|S| \leq C_M \Omega$, i.e., $\alpha = 1, \beta = 0$,
 $\alpha + \beta = 1$. Full reduction: $\Delta = 1/2$.
 
-\emph{Direction coherence} ($\Delta = 1/4$):
-If $\xi$ is H\"older-$1/2$ (weaker than Lipschitz),
-the stretching bound improves to
-$|S| \leq C \Omega^{5/8} P^{5/8}$
-(interpolation between the uncontrolled $3/4 + 3/4$
-and the fully controlled $1 + 0$, at the midpoint).
-Hence $\alpha + \beta = 5/4$, $\Delta = 1/4$.
+\emph{Direction coherence} ($\Delta \approx 1/4$, heuristic):
+If $\xi$ has H\"older regularity between $0$ (uncontrolled)
+and $1$ (Lipschitz = full alignment), the stretching
+exponent interpolates between $3/2$ and $1$.
+The midpoint regularity $C^{1/2}$ gives
+$\alpha + \beta \approx 5/4$, hence $\Delta \approx 1/4$.
+This is a heuristic interpolation, not a sharp bound.
 
-\emph{Phase cancellation} ($\Delta = 1/4$):
-For random-phase Fourier modes, the trilinear sum
-$S = \sum e^{i(\phi_k + \phi_p - \phi_q)}(\ldots)$
-has variance $O(N)$ versus mean $O(N^{3/2})$ for
-coherent phases. The ratio gives an effective
-reduction by $N^{-1/2}$ in the stretching constant.
-In terms of Sobolev exponents, this corresponds to
-$\Delta = 1/4$ (half the alignment reduction,
-since phase controls magnitude but not direction).
+\emph{Phase cancellation} ($\Delta \approx 1/4$, heuristic):
+For Fourier modes with random phases, the trilinear
+sum $S$ has variance $O(N)$ versus mean $O(N^{3/2})$
+for coherent phases (by the central limit theorem).
+The effective reduction $N^{-1/2}$ in the stretching
+constant corresponds heuristically to $\Delta \approx 1/4$.
+This is a probabilistic estimate, not a deterministic bound.
 \end{proof}
 
 \begin{corollary}\label{cor:unique}
@@ -246,19 +236,19 @@ and is independent of the method.
 $\nabla\omega \in L^\infty$, hence $\omega \in H^{3/2+\varepsilon}$.
 Gap from $H^1$: $1/2 + \varepsilon$.
 
-(2) Cancellation: the vortex stretching decomposes as
+(2) Cancellation (heuristic): the vortex stretching
+decomposes as
 $S = \sum_i \lambda_i \int |\omega \cdot e_i|^2 dx$
-where $\lambda_i$ are eigenvalues of the strain $S_{ij}$
-and $e_i$ are eigenvectors.
-Incompressibility gives $\lambda_1 + \lambda_2 + \lambda_3 = 0$,
-so at least one $\lambda_i < 0$ (compression).
-Exploiting this cancellation requires controlling
-the partition $\cos^2\theta_i = |\omega \cdot e_i|^2/|\omega|^2$,
-which needs $\nabla e_i \in L^2$, i.e., $S \in H^1$,
-hence $v \in H^2$. Gap from $H^1$: $1$.
-The incompressibility constraint eliminates one
-degree of freedom ($\lambda_3 = -\lambda_1 - \lambda_2$),
-reducing the effective gap to $1/2$.
+with eigenvalues satisfying
+$\lambda_1 + \lambda_2 + \lambda_3 = 0$ (incompressibility).
+Exploiting the cancellation requires controlling
+$\cos^2\theta_i$, which needs $v \in H^2$ (gap $1$).
+The constraint $\mathrm{Tr}(S) = 0$ reduces the
+effective degrees of freedom from $3$ to $2$,
+suggesting an effective gap of $1/2$.
+This reduction is heuristic; a rigorous derivation
+would require quantitative control of the
+eigenvalue--vorticity alignment.
 
 (3) ESS criterion \cite{ess2003}: $L^3 \hookrightarrow H^{1/2}$.
 Gap from $L^2$: $1/2$.
@@ -267,21 +257,15 @@ Gap from $L^2$: $1/2$.
 embedding $H^{1/2} \hookrightarrow L^3$. Gap: $1/2$.
 \end{proof}
 
-\section{Regularity Under Restriction}
-
-\begin{theorem}\label{thm:restrict}
+\begin{remark}[Finite-dimensional regularity]
 For finite Galerkin truncation ($N$ modes),
-the gap vanishes and global regularity holds.
-The gap $1/2$ is an infinite-dimensional phenomenon.
-\end{theorem}
-
-\begin{proof}
-On a finite-dimensional space, all norms are equivalent.
-$\|f\|_{L^\infty} \leq C(N) \|f\|_{L^2}$.
-Energy conservation bounds $\|v\|_{L^2}$, hence
-all norms. The constant $C(N) \to \infty$ as
-$N \to \infty$; the gap reappears in the limit.
-\end{proof}
+the gap vanishes: all norms are equivalent on
+finite-dimensional spaces, so
+$\|f\|_{L^\infty} \leq C(N) \|f\|_{L^2}$
+and energy conservation gives global regularity.
+The constant $C(N) \to \infty$ as $N \to \infty$;
+the gap $1/2$ is an infinite-dimensional phenomenon.
+\end{remark}
 
 \section{Discussion}
 
