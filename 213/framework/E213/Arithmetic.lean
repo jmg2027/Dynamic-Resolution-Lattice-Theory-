@@ -1,76 +1,74 @@
 import E213.Axiom
 
 /-
-  구분의 산술: +와 ×.
+  구분의 산술: ×, +, =. (이 순서가 근본적.)
 
-  + = 구분. 둘을 비교하여 관계 생성.
-  × = 합성. +를 모든 쌍에 분배 (= relify).
-
-  a+b 정의 → a≠b 판정 필요 → ab 관계 생성 필요 → 이것이 +.
-  자기참조: + 없이 ≠ 불가, ≠ 없이 + 불가.
-  해결: 3개에서 동시에. 세 +가 서로를 검증.
+  × = 비교(섞음). 가장 기본. 둘을 섞어 다름을 드러냄.
+  + = 합성. ×의 결과들을 모음. × 이후에만 의미 있음.
+  = = 판정. ×의 차이를 현재 해상도에서 무시. 가장 나중.
+  순서: × → + → =. (표준의 = → + → × 와 정반대.)
 -/
 
--- + = rel: 이항 비교. 관계 하나 생성.
--- × = relify: +를 triple 전체에 분배. 새 triple 생성.
+-- ═══ × = rel: 가장 기본 ═══
+-- a × b = rel a b. 비교. 다름을 만들고 드러냄.
+-- 쌍 하나만 있어도 × 가능. 독립적.
 
--- ═══ +의 조건 ═══
+-- ═══ + = 결과 모음 ═══
+-- ×의 결과 세 개를 triple로 묶음.
+-- relify = (모든 쌍에 ×) then (결과를 triple로 +).
+-- × 없이 +할 대상이 없음. × 에 의존.
 
--- a + b가 유의미 ↔ a+b가 다른 관계와 구분됨.
--- n=2: a+b 하나뿐. 구분 대상 없음. 무의미한 +.
--- n=3: a+b, a+c, b+c 셋. 서로 구분됨. 유의미한 +.
-
--- ═══ ×의 정의 ═══
-
--- × {a,b,c} = {a+b, a+c, b+c}.
--- +를 모든 쌍에 적용. 이것이 relify.
--- 일반 분배법칙 a×(b+c) = ab+ac 의 원형.
-
--- 형식 확인: relify = + 세 번.
-theorem product_is_three_sums (rel : α → α → α) (t : Triple α) :
+theorem relify_is_mul_then_add (rel : α → α → α) (t : Triple α) :
     relify rel t = ⟨rel t.x t.y, rel t.x t.z, rel t.y t.z⟩ := rfl
 
--- ═══ ×의 닫힘 ═══
+-- ═══ = = 해상도 의존 판정 ═══
+-- ×로 차이를 봤는데, 현재 chain level에서 무시 가능이면 =.
+-- chain 더 돌리면(해상도↑) = 이 깨질 수 있음.
+-- chain 덜 돌리면(해상도↓) 더 많은 것이 =.
 
--- × 입력: Triple α. 출력: Triple α. 닫힘.
--- n=2: + 한 번 → α 하나. Pair α → α. 열림.
--- n=4: + 여섯 번 → 6개. Quad α → ???. 열림.
--- Triple만 닫힘. C(3,2) = 3.
+-- = 이 ×에 의존: "같다"의 기준 = 해상도 = ×의 반복 횟수.
+-- 표준 수학은 해상도를 ∞로 고정 → = 이 공리처럼 보임.
+-- 213: 해상도가 변수. = 은 파생.
 
--- ═══ + 와 × 의 독립성 ═══
+-- ═══ chain에서의 역할 ═══
 
--- +: 쌍 하나를 비교 (미시).
--- ×: 모든 쌍을 비교 (거시).
--- +의 결과를 모아야 ×. ×를 분해해야 +.
--- 환원 불가. 독립.
+-- chain k = (×후+)^k.
+-- 매 단계: × (비교) → + (합성) → 다음 level.
+-- = 은 각 level에서 "여기서 멈춰도 되는가" 판정.
 
--- ═══ 체인 = ×의 반복 ═══
-
-theorem chain_0 (rel : α → α → α) (t : Triple α) :
+theorem lv0 (rel : α → α → α) (t : Triple α) :
     chain rel t 0 = t := rfl
-
-theorem chain_1 (rel : α → α → α) (t : Triple α) :
+theorem lv1 (rel : α → α → α) (t : Triple α) :
     chain rel t 1 = relify rel t := rfl
-
-theorem chain_2 (rel : α → α → α) (t : Triple α) :
+theorem lv2 (rel : α → α → α) (t : Triple α) :
     chain rel t 2 = relify rel (relify rel t) := rfl
 
--- chain k = ×^k. +의 k중 분배. 매 단계 구조 보존.
+-- ═══ ×의 닫힘 (Triple만) ═══
+-- 2개: × 한 번 → 1개. 닫히지 않음.
+-- 3개: × 세 번 → 3개 = triple. 닫힘!
+-- 4개: × 여섯 번 → 6개. 닫히지 않음.
+
+-- ═══ 분배법칙 = ×와 +의 관계 ═══
+-- relify = ×를 triple에 분배 후 +로 묶음.
+-- 표준: a × (b + c) = a×b + a×c.
+-- 213: ×{a,b,c} = +(a×b, a×c, b×c).
+-- ×가 내용, +가 형식. ×가 먼저, +가 나중.
 
 -- ═══ 의미론적 소인수분해 ═══
--- +: 구분 (수평). ×: 합성 (수직). 이 둘이 소인수.
--- 분배법칙: ×후+ = +후×. relify 후 선택 = 선택 후 rel.
+-- × = 원소. 더 분해 불가.
+-- + = ×의 합성. 분해하면 ×.
+-- = = ×+의 해상도 판정. 분해하면 ×와 +.
+-- 근본 순서: × ≺ + ≺ =.
 
--- ═══ 정리 ═══
-
-structure ArithmeticTheorem where
-  sum_is_rel : ∀ (rel : Nat → Nat → Nat) (t : Triple Nat),
+-- ═══ 요약 ═══
+structure OpOrder where
+  mul_is_rel : ∀ (rel : Nat → Nat → Nat) (t : Triple Nat),
     relify rel t = ⟨rel t.x t.y, rel t.x t.z, rel t.y t.z⟩
-  product_closed : pairs 3 = 3
-  chain_unfold : ∀ (rel : Nat → Nat → Nat) (t : Triple Nat),
+  closed_at_3 : pairs 3 = 3
+  chain_is_iter : ∀ (rel : Nat → Nat → Nat) (t : Triple Nat),
     chain rel t 1 = relify rel t
 
-theorem arithmetic : ArithmeticTheorem where
-  sum_is_rel := fun _ _ => rfl
-  product_closed := by native_decide
-  chain_unfold := fun _ _ => rfl
+theorem op_order : OpOrder where
+  mul_is_rel := fun _ _ => rfl
+  closed_at_3 := by native_decide
+  chain_is_iter := fun _ _ => rfl
