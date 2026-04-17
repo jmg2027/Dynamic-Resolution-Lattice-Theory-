@@ -218,29 +218,6 @@ $s \mapsto 1-s$, with fixed point $1/2 = 1/2$.
 Whether this numerical coincidence reflects a deeper
 structural connection remains an open question.
 
-\begin{thebibliography}{99}
-\bibitem{ess2003}
-L.~Escauriaza, G.~A.~Seregin, V.~\v{S}ver\'ak,
-$L_{3,\infty}$-solutions of Navier--Stokes equations
-and backward uniqueness,
-\textit{Uspekhi Mat.\ Nauk} \textbf{58} (2003), 3--44.
-\bibitem{leray1934} J.~Leray,
-Sur le mouvement d'un liquide visqueux emplissant l'espace,
-\textit{Acta Math.} \textbf{63} (1934), 193--248.
-\bibitem{bkm1984} J.~T.~Beale, T.~Kato, A.~Majda,
-Remarks on the breakdown of smooth solutions for the
-3-D Euler equations,
-\textit{Comm.\ Math.\ Phys.} \textbf{94} (1984), 61--66.
-\bibitem{tao2016} T.~Tao,
-Finite time blowup for an averaged three-dimensional
-Navier--Stokes equation,
-\textit{J.\ Amer.\ Math.\ Soc.} \textbf{29} (2016), 601--674.
-\end{thebibliography}
-
-\end{document}
-
-% ═══ 추가: §5 가능한 모든 제약 상태 ═══
-
 \section{Exhaustive Classification of Constraints}
 
 We classify all known structural constraints on the
@@ -333,9 +310,6 @@ All other paths require combining multiple constraints.
 This suggests that a proof of NS regularity will likely
 involve establishing geometric control of vortex stretching.
 \end{remark}
-
-\begin{thebibliography}{99}
-
 
 \section{All Four Escape Routes Hit the Same Barrier}
 
@@ -455,6 +429,60 @@ Whether this is a structural connection or a
 numerical coincidence is unknown.
 \end{remark}
 
+\section{Regularity Under State Space Restriction}
+
+The exponent gap $1/2$ is an obstruction in the full
+space $H^3(\mathbb{T}^3)$. We show that restricting
+the state space eliminates this gap.
+
+\begin{theorem}[Galerkin regularity]\label{thm:galerkin}
+For each finite $N$, the Galerkin truncation $v^N$
+is globally regular. All norms are equivalent on
+the finite-dimensional mode space, so the Sobolev
+gap vanishes.
+\end{theorem}
+
+\begin{proof}
+Standard. On a space of dimension $O(N^3)$,
+$\|f\|_{L^\infty} \leq C(N) \|f\|_{L^2}$.
+The ODE system is globally Lipschitz on bounded sets.
+Energy conservation bounds the set. \end{proof}
+
+\begin{remark}
+The constant $C(N) \to \infty$ as $N \to \infty$.
+The gap reappears in the limit. This is the
+fundamental difference between finite-dimensional
+regularity (trivial) and infinite-dimensional
+regularity (open).
+\end{remark}
+
+\begin{theorem}[Restriction hierarchy]\label{thm:restrict}
+$\quad$
+
+\begin{center}
+\begin{tabular}{llc}
+\hline
+Restriction & Gap & Status \\
+\hline
+None ($H^3(\mathbb{T}^3)$) & $1/2$ & open \\
+Finite modes ($|k| \leq K$) & $0$ & regular \\
+Unit correlation ($|G_{ij}| \leq 1$) & $1/2$ & open \\
+PSD Gram $+$ finite modes & $0$ & regular \\
+\hline
+\end{tabular}
+\end{center}
+\end{theorem}
+
+\begin{remark}
+Theorem~\ref{thm:restrict} shows that the
+Millennium Problem is sensitive to the
+\emph{infinite-dimensional} character of the
+state space. Every finite-dimensional restriction
+yields regularity. The gap $1/2$ is an
+infinite-dimensional phenomenon.
+\end{remark}
+
+\begin{thebibliography}{99}
 \bibitem{cf1993}
 P.~Constantin, C.~Fefferman,
 Direction of vorticity and the problem of global regularity
