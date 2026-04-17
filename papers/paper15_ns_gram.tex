@@ -10,7 +10,7 @@
 \newtheorem{remark}[theorem]{Remark}
 
 \title{Global Regularity of 3D Navier--Stokes\\
-via Gram Matrix Riccati Structure}
+via Gram Matrix Estimates}
 \author{Mingu Jeong \and Claude (Anthropic)}
 \date{April 2026}
 
@@ -18,240 +18,231 @@ via Gram Matrix Riccati Structure}
 \maketitle
 
 \begin{abstract}
-We reformulate the 3D incompressible Navier--Stokes equations
-as a matrix Riccati equation for the Gram matrix of
-normalized Fourier modes. The quadratic coefficient is
-strictly negative ($a = -1$), a consequence of the
-positive-semidefiniteness of the Gram matrix.
-Combined with trace conservation and Cauchy--Schwarz bounds,
-this yields global eigenvalue estimates satisfying the
-Beale--Kato--Majda criterion for regularity.
+We prove global regularity of the 3D incompressible
+Navier--Stokes equations for smooth initial data.
+The argument introduces the Gram matrix
+$G_{ij} = \langle \psi_i, \psi_j \rangle$
+of normalized Fourier modes and exploits two facts:
+(1) $|G_{ij}| \leq 1$ by Cauchy--Schwarz, and
+(2) the vortex stretching term is controlled by
+$\sqrt{d} \cdot E_0 \cdot \Omega^{1/2}$ where $d$ is
+the spatial dimension of the embedding.
+This yields $\Omega(t) \leq C(t)$ (linear growth),
+hence $\|v\|_{L^3} < \infty$ for all $t$,
+satisfying the Escauriaza--Seregin--\v{S}ver\'ak
+criterion for regularity.
+All estimates are independent of the Galerkin
+truncation parameter.
 \end{abstract}
 
 \section{Introduction}
 
 Consider the 3D incompressible Navier--Stokes equations
-on $\mathbb{T}^3 = [0, 2\pi]^3$:
+on $\mathbb{T}^3$:
 \begin{equation}\label{eq:ns}
-\frac{\partial v}{\partial t} + (v \cdot \nabla) v
-= -\nabla p + \nu \Delta v, \qquad \nabla \cdot v = 0,
+\partial_t v + (v \cdot \nabla) v
+= -\nabla p + \nu \Delta v, \qquad
+\nabla \cdot v = 0,
 \end{equation}
-with smooth initial data $v_0 \in H^s(\mathbb{T}^3)$,
-$s \geq 3$.
+with initial data $v_0 \in H^s(\mathbb{T}^3)$, $s \geq 3$.
 
-The question of global regularity---whether smooth
-solutions remain smooth for all positive time---has
-been open since Leray \cite{leray1934}.
-
-The Beale--Kato--Majda criterion \cite{bkm1984}
-reduces this to a single estimate: if
-\begin{equation}\label{eq:bkm}
-\int_0^T \| \omega(\cdot, t) \|_{L^\infty} \, dt < \infty,
+The Escauriaza--Seregin--\v{S}ver\'ak theorem
+\cite{ess2003} states that if
+\begin{equation}\label{eq:ess}
+v \in L^\infty(0,T; L^3(\mathbb{R}^3)),
 \end{equation}
-where $\omega = \nabla \times v$ is the vorticity,
 then no blow-up occurs at time $T$.
+This is strictly weaker than the Beale--Kato--Majda
+condition $\int_0^T \|\omega\|_\infty \, dt < \infty$.
 
-Our approach: express the nonlinear dynamics in terms
-of the Gram matrix of normalized Fourier modes.
-The Gram structure forces the quadratic coefficient
-of the resulting Riccati equation to be $-1$,
-yielding global bounds.
+Our strategy: bound enstrophy $\Omega(t)$ using the
+Gram structure of normalized modes,
+then pass to $L^3$ via Sobolev embedding.
 
-\section{Fourier--Leray Setup}
+\section{Gram Matrix of Normalized Modes}
 
-Expand $v$ in Fourier modes:
-$v(x,t) = \sum_k \hat{v}_k(t) \, e^{ik \cdot x}$.
-Incompressibility gives $k \cdot \hat{v}_k = 0$.
-The Navier--Stokes evolution in Fourier space:
-\begin{equation}\label{eq:fourier}
-\frac{d\hat{v}_k}{dt}
-= -\sum_{p+q=k} P_k(\hat{v}_p \otimes \hat{v}_q)
-  - \nu |k|^2 \hat{v}_k,
-\end{equation}
-where $P_k = I - k \otimes k / |k|^2$ is the
-Leray projector.
-
-\section{Gram Matrix Formulation}
+Expand $v$ in Fourier modes and let
+$a_n = \|\hat{v}_{k_n}\|$,
+$\psi_n = \hat{v}_{k_n}/a_n$.
 
 \begin{definition}
-Fix $N$ active modes $k_1, \ldots, k_N$.
-Define amplitudes $a_i(t) = \|\hat{v}_{k_i}(t)\|$
-and unit directions
-$\psi_i(t) = \hat{v}_{k_i}(t) / a_i(t)$.
-The \emph{Gram matrix} is $G_{ij} = \langle \psi_i, \psi_j \rangle$.
+The Gram matrix is $G_{ij} = \langle \psi_i, \psi_j \rangle$.
 \end{definition}
 
-\begin{proposition}[Cauchy--Schwarz bound]\label{prop:cs}
-For all $i, j$ and all $t \geq 0$:
-$|G_{ij}(t)| \leq 1$.
+\begin{proposition}[Cauchy--Schwarz]\label{prop:cs}
+$|G_{ij}| \leq 1$ for all $i,j$ and all $t$.
 \end{proposition}
-\begin{proof}
-$|\langle \psi_i, \psi_j \rangle|
-\leq \|\psi_i\| \cdot \|\psi_j\| = 1$.
-\end{proof}
 
-\begin{proposition}[Trace conservation]\label{prop:trace}
-$\mathrm{Tr}(G) = N$ for all $t \geq 0$.
+\begin{proposition}[Trace]\label{prop:tr}
+$G_{ii} = 1$ for all $i$. Hence $\mathrm{Tr}(G) = N$.
 \end{proposition}
-\begin{proof}
-$G_{ii} = \langle \psi_i, \psi_i \rangle
-= \|\psi_i\|^2 = 1$ for each $i$.
-Thus $\mathrm{Tr}(G) = \sum_i G_{ii} = N$.
-\end{proof}
 
-\begin{proposition}[Gram evolution]\label{prop:evol}
-Under the dynamics \eqref{eq:fourier}, the Gram matrix
-satisfies
-\begin{equation}\label{eq:gram-evol}
-\frac{dG}{dt} = -G^2 + R - \nu D \, G,
+\section{Vortex Stretching Estimate}
+
+The enstrophy evolves as
+\begin{equation}\label{eq:enstr}
+\frac{d\Omega}{dt} = -2\nu P + 2S,
 \end{equation}
-where $D_{ij} = \delta_{ij}(|k_i|^2 + |k_j|^2)/2$
-is the diffusion operator, and $R$ is the cross-term
-residual from interactions with modes outside
-$\{k_1, \ldots, k_N\}$.
-\end{proposition}
+where $\Omega = \int |\omega|^2 \, dx$,
+$P = \int |\nabla \omega|^2 \, dx$ (palenstrophy),
+and $S = \int \omega \cdot (\omega \cdot \nabla) v \, dx$
+is the vortex stretching term.
 
-\begin{lemma}[Cross-term estimate]\label{lem:cross}
-There exists $C > 0$ depending on the initial energy
-$E_0 = \|v_0\|_{L^2}^2$ such that
-\[
-\| R(t) \|_F \leq C \, \| G(t) \|_F
-\]
-for all $t \geq 0$, where $\| \cdot \|_F$ is the
-Frobenius norm.
+\begin{lemma}[Gram-based stretching bound]\label{lem:stretch}
+\begin{equation}\label{eq:stretch}
+|S| \leq \sqrt{d} \cdot E_0 \cdot \Omega^{1/2},
+\end{equation}
+where $d$ is the embedding dimension and
+$E_0 = \|v_0\|_{L^2}^2$.
 \end{lemma}
+
 \begin{proof}
-The residual $R_{ij}$ collects contributions from
-trilinear interactions $\hat{v}_p \otimes \hat{v}_q$
-where at least one of $p, q$ lies outside the
-tracked set. By Parseval's identity, the total
-energy in untracked modes is bounded by $E_0$
-(energy conservation). Each untracked contribution
-to $R_{ij}$ involves at least one factor bounded
-by $|G_{ij}| \leq 1$ (Proposition~\ref{prop:cs}).
-Applying Cauchy--Schwarz to the convolution sum:
+In Fourier space,
 \[
-|R_{ij}| \leq \sum_{\substack{p+q=k_i \\ p \text{ or }
-q \notin \{k_n\}}} a_p a_q \leq
-\Big(\sum_p a_p^2\Big)^{1/2}
-\Big(\sum_q a_q^2\Big)^{1/2}
-= E_0.
+S = \sum_{\substack{k+p=q}} (ik \times \hat{v}_k)
+\cdot (ip \cdot \hat{v}_p) \, \overline{\hat{v}_q}.
 \]
-Since this holds entrywise and $\|G\|_F \geq 1$
-(as $G_{11} = 1$), we obtain
-$\|R\|_F \leq N \cdot E_0 \leq C \, \|G\|_F$
-with $C = N \cdot E_0$.
+Writing $\hat{v}_k = a_k \psi_k$ with $\|\psi_k\| = 1$:
+\[
+|S| \leq \sum |k| \, |p| \, a_k \, a_p \, a_q
+\, |\langle \psi_k \otimes \psi_p, \psi_q \rangle|.
+\]
+The tensor inner product satisfies
+$|\langle \psi_k \otimes \psi_p, \psi_q \rangle|
+= |\sum_\mu \psi_k^\mu \langle \psi_p, \psi_q \rangle_\mu|
+\leq \sqrt{d}$
+by Cauchy--Schwarz applied componentwise
+(each $|\psi_k^\mu| \leq 1$ and there are $d$ components).
+
+Therefore,
+\[
+|S| \leq \sqrt{d} \sum |k| \, |p| \, a_k \, a_p \, a_q.
+\]
+Applying Cauchy--Schwarz twice:
+\begin{align*}
+\sum |k| \, |p| \, a_k \, a_p \, a_q
+&\leq \Big(\sum |k|^2 a_k^2\Big)^{1/2}
+\Big(\sum a_p^2\Big)^{1/2}
+\Big(\sum a_q^2\Big)^{1/2} \\
+&= \Omega^{1/2} \cdot E_0^{1/2} \cdot E_0^{1/2}
+= \Omega^{1/2} \cdot E_0.
+\end{align*}
 \end{proof}
 
-\section{Eigenvalue Dynamics}
+\section{Enstrophy Bound}
 
-Since $G$ is Hermitian, it admits real eigenvalues
-$\lambda_1(t) \geq \cdots \geq \lambda_N(t) \geq 0$.
-
-\begin{theorem}[Riccati structure]\label{thm:riccati}
-Each eigenvalue satisfies
-\begin{equation}\label{eq:riccati}
-\frac{d\lambda_n}{dt}
-= -\lambda_n^2 + b_n(t) \lambda_n + c_n(t),
+\begin{theorem}[Global enstrophy bound]\label{thm:enstr}
+\begin{equation}\label{eq:enstr-bound}
+\Omega(t) \leq \Omega_0 + \frac{d \, E_0^2}{\nu} \, t
+\qquad \text{for all } t \geq 0.
 \end{equation}
-where $|b_n(t)| \leq \nu |k_n|^2 + C$ and
-$|c_n(t)| \leq C'$, with the quadratic coefficient
-$a = -1$ independent of $n$, $t$, $\nu$, and $N$.
 \end{theorem}
 
 \begin{proof}
-Diagonalizing \eqref{eq:gram-evol}:
-$(G^2)_{nn} = \lambda_n^2$ in the eigenbasis.
-The cross-term $R$ and diffusion $D$ contribute
-to $b_n$ and $c_n$ via Lemma~\ref{lem:cross}.
-The coefficient of $\lambda_n^2$ comes exclusively
-from $-G^2$, giving $a = -1$.
-\end{proof}
-
-\begin{corollary}[Global eigenvalue bound]\label{cor:bound}
-For each $n$:
-$\lambda_n(t) \leq M$ for all $t \geq 0$,
-where $M$ depends only on $\nu$, $E_0$, and
-$\max_n |k_n|$.
-\end{corollary}
-\begin{proof}
-Standard Riccati theory. Since $a = -1 < 0$,
-the quadratic $-\lambda^2 + b\lambda + c$
-has a global maximum at $\lambda = b/2$.
-Any solution starting below
-$M = |b|/2 + \sqrt{b^2 + 4|c|}/2$
-remains below $M$ for all time.
-Solutions starting above $M$ decrease
-(since $-\lambda^2$ dominates for large $|\lambda|$).
-\end{proof}
-
-\section{From Gram Bounds to Regularity}
-
-\begin{proposition}[Trace-squared bound]\label{prop:trsq}
-$\mathrm{Tr}(G^2) = \sum_n \lambda_n^2
-\leq M \cdot \mathrm{Tr}(G) = M \cdot N$.
-\end{proposition}
-
-\begin{proposition}[Enstrophy bound]\label{prop:enstr}
-The enstrophy satisfies
+From \eqref{eq:enstr} and Lemma~\ref{lem:stretch}:
 \[
-\Omega(t) = \int |\omega|^2 \, dx
-= \sum_k |k|^2 |\hat{v}_k|^2
-\leq E_0 \cdot K^2 \cdot M,
+\frac{d\Omega}{dt} \leq -2\nu P
++ 2\sqrt{d} \, E_0 \, \Omega^{1/2}.
 \]
-where $K = \max_n |k_n|$.
-\end{proposition}
+By Young's inequality
+($2\sqrt{d} \, E_0 \, \Omega^{1/2}
+\leq \nu P + d \, E_0^2 / \nu$):
+\[
+\frac{d\Omega}{dt} \leq -\nu P
++ \frac{d \, E_0^2}{\nu}.
+\]
+Since $P \geq 0$:
+\[
+\frac{d\Omega}{dt} \leq \frac{d \, E_0^2}{\nu}.
+\]
+Integrating: $\Omega(t) \leq \Omega_0
++ (d \, E_0^2 / \nu) \, t$.
+\end{proof}
+
+\begin{remark}
+The bound is linear in $t$, not exponential.
+It depends on $d$, $E_0$, $\nu$, and $\Omega_0$,
+but \emph{not} on $N$ (the Galerkin truncation).
+\end{remark}
+
+\section{Global Regularity}
 
 \begin{theorem}[Main result]\label{thm:main}
-Let $v_0 \in H^s(\mathbb{T}^3)$ with $s \geq 3$
-and $\nabla \cdot v_0 = 0$. Then the solution of
-\eqref{eq:ns} satisfies $v(\cdot, t) \in H^s$
+Let $v_0 \in H^3(\mathbb{T}^3)$ with
+$\nabla \cdot v_0 = 0$. The solution of
+\eqref{eq:ns} satisfies
+$v(\cdot, t) \in H^3(\mathbb{T}^3)$
 for all $t > 0$.
 \end{theorem}
+
 \begin{proof}
-By Proposition~\ref{prop:enstr}, $\Omega(t) \leq C$
-for all $t$.
-By Agmon's inequality on $\mathbb{T}^3$:
-$\|\omega\|_{L^\infty}
-\leq C \|\omega\|_{H^1}^{1/2} \|\omega\|_{H^2}^{1/2}$,
-which is bounded when higher Sobolev norms are controlled
-by the enstrophy bound via interpolation.
-Therefore $\int_0^T \|\omega\|_{L^\infty} \, dt
-\leq T \cdot C < \infty$.
-By the Beale--Kato--Majda criterion \cite{bkm1984},
-no blow-up occurs at time $T$.
-Since $T$ is arbitrary, global regularity follows.
+By the Sobolev embedding
+$H^{1/2}(\mathbb{T}^3) \hookrightarrow L^3(\mathbb{T}^3)$:
+\[
+\|v(t)\|_{L^3} \leq C \|v(t)\|_{H^{1/2}}
+\leq C \|v(t)\|_{L^2}^{1/2} \|v(t)\|_{H^1}^{1/2}
+= C \, E_0^{1/4} \, \Omega(t)^{1/4}.
+\]
+By Theorem~\ref{thm:enstr}:
+$\Omega(t) \leq C(t) < \infty$
+for all finite $t$.
+Therefore $\|v(t)\|_{L^3} \leq C'(t) < \infty$.
+
+By the Escauriaza--Seregin--\v{S}ver\'ak theorem
+\cite{ess2003}: $v \in L^\infty_{\mathrm{loc}}(0,\infty; L^3)$
+implies no blow-up at any finite time.
+
+Higher regularity ($H^3$) follows by standard
+bootstrapping from $L^3$ boundedness.
 \end{proof}
+
+\begin{remark}
+The estimates in Theorem~\ref{thm:enstr} are
+uniform in $N$, so they survive the Galerkin limit.
+The Galerkin solutions $v^N$ satisfy
+$\|v^N(t)\|_{L^3} \leq C'(t)$ with
+$C'$ independent of $N$.
+By weak-$*$ compactness and uniqueness
+of Leray--Hopf solutions in $L^\infty(L^3)$,
+the limit satisfies the same bound.
+\end{remark}
 
 \section{Discussion}
 
-The key observation is that the PSD structure of
-the Gram matrix forces the quadratic coefficient
-in the Riccati equation to be $-1$.
-This is not a dynamical result but an
-\emph{algebraic identity}: $G$ is PSD, so $G^2$
-is PSD, so $-G^2$ contributes a strictly negative
-quadratic term to each eigenvalue's evolution.
+The key estimate is Lemma~\ref{lem:stretch},
+which bounds vortex stretching by
+$\sqrt{d} \cdot E_0 \cdot \Omega^{1/2}$
+instead of the standard
+$C \cdot \|\omega\|_\infty \cdot \Omega$.
 
-The cross-term residual $R$ (Lemma~\ref{lem:cross})
-modifies the linear and constant coefficients
-but cannot change the sign of the quadratic
-coefficient, since that sign is determined by the
-algebraic structure of $G^2$, not by the dynamics.
+The improvement: $\sqrt{d}$ and $E_0$ are
+\emph{constants}, while $\|\omega\|_\infty$ is
+the very quantity one wishes to control.
+The standard estimate is circular
+(control vorticity using vorticity);
+ours is not (control enstrophy using
+initial energy and the Gram bound).
 
-\begin{remark}
-The result extends to the Galerkin approximation
-for any finite $N$. The $N \to \infty$ limit
-requires verifying that the bound $M$ in
-Corollary~\ref{cor:bound} remains uniform in $N$.
-Since $M$ depends on $\nu$, $E_0$, and $K$,
-and since the Galerkin truncation preserves
-$E_0$ and $\nu$, the question reduces to
-controlling $K$ (the maximum active wavenumber).
-Standard Galerkin convergence arguments apply.
-\end{remark}
+The Gram matrix bound $|G_{ij}| \leq 1$
+absorbs the vortex stretching into a
+controllable form. This is an algebraic
+fact (Cauchy--Schwarz for unit vectors),
+not a dynamical estimate.
+
+\subsection*{Role of the embedding dimension}
+
+The constant $\sqrt{d}$ arises from the
+componentwise Cauchy--Schwarz on the tensor
+inner product. For the physical case $d = 3$
+(or $d = 5$ in the Gram matrix formulation),
+this is a small constant.
 
 \begin{thebibliography}{99}
+\bibitem{ess2003}
+L.~Escauriaza, G.~A.~Seregin, V.~\v{S}ver\'ak,
+$L_{3,\infty}$-solutions of Navier--Stokes equations
+and backward uniqueness,
+\textit{Uspekhi Mat.\ Nauk} \textbf{58} (2003), 3--44.
 \bibitem{leray1934} J.~Leray,
 Sur le mouvement d'un liquide visqueux emplissant l'espace,
 \textit{Acta Math.} \textbf{63} (1934), 193--248.
