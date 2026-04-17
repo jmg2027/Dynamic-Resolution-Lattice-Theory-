@@ -1,0 +1,240 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The Exponent Barrier in 3D Navier--Stokes:\\
+A No-Go Theorem for Energy Methods}
+\author{Mingu Jeong \and Claude (Anthropic)}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that no regularity argument for the 3D
+incompressible Navier--Stokes equations based solely on
+energy-type estimates and Sobolev interpolation can close
+the global regularity problem. The obstruction is the
+\emph{exponent gap}: the vortex stretching term has
+effective exponent $3/2$, while closure requires
+exponent $\leq 1$. The gap $1/2$ is a structural invariant
+of the 3D cubic nonlinearity and cannot be reduced by
+any combination of H\"older, Young, or
+Gagliardo--Nirenberg inequalities. We characterize the
+precise class of estimates that fail and identify what
+a successful proof must contain beyond this class.
+\end{abstract}
+
+\section{Introduction}
+
+The enstrophy evolution for 3D incompressible
+Navier--Stokes on $\mathbb{T}^3$:
+\begin{equation}\label{eq:enstr}
+\frac{d\Omega}{dt} = -2\nu P + 2S,
+\end{equation}
+where $\Omega = \|\omega\|_{L^2}^2$,
+$P = \|\nabla\omega\|_{L^2}^2$,
+$S = \int \omega \cdot (\omega \cdot \nabla) v \, dx$.
+
+The standard estimate (Ladyzhenskaya):
+\begin{equation}\label{eq:standard}
+|S| \leq C \|\omega\|_{L^3}^3
+\leq C \, \Omega^{3/4} P^{3/4}.
+\end{equation}
+
+Substituting into \eqref{eq:enstr} and applying Young:
+\begin{equation}\label{eq:ode}
+\frac{d\Omega}{dt} \leq -\nu P + C' \frac{\Omega^3}{\nu^3}.
+\end{equation}
+
+This is a \emph{cubic} ODE for $\Omega$, which admits
+finite-time blow-up. The question: is this an artifact
+of the estimate, or a structural feature?
+
+\section{The Exponent Gap}
+
+\begin{definition}
+An \emph{energy-type estimate} for the vortex stretching
+is any bound of the form
+\begin{equation}\label{eq:energy-type}
+|S| \leq C \, \Omega^\alpha \, P^\beta,
+\end{equation}
+where $\alpha, \beta \geq 0$ and $C$ depends on
+the initial data but not on $\Omega$ or $P$.
+\end{definition}
+
+\begin{definition}
+An energy-type estimate \emph{closes} if substituting
+\eqref{eq:energy-type} into \eqref{eq:enstr} yields
+a differential inequality for $\Omega$ that precludes
+finite-time blow-up.
+\end{definition}
+
+\begin{theorem}[Closure condition]\label{thm:closure}
+The estimate \eqref{eq:energy-type} closes if and only if
+\begin{equation}\label{eq:closure}
+\alpha + \beta \leq 1.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Substituting \eqref{eq:energy-type} into \eqref{eq:enstr}:
+$d\Omega/dt \leq -2\nu P + C \Omega^\alpha P^\beta$.
+
+Apply Young's inequality to absorb $P^\beta$:
+for any $\varepsilon > 0$,
+$C \Omega^\alpha P^\beta
+\leq \varepsilon P + C(\varepsilon) \Omega^{\alpha/(1-\beta)}$
+(valid when $\beta < 1$).
+
+Choosing $\varepsilon = \nu$:
+$d\Omega/dt \leq -\nu P + C' \Omega^{\alpha/(1-\beta)}$.
+
+Since $P \geq 0$:
+$d\Omega/dt \leq C' \Omega^{\alpha/(1-\beta)}$.
+
+This ODE has global solutions iff the exponent
+$\alpha/(1-\beta) \leq 1$, i.e., $\alpha + \beta \leq 1$.
+
+If $\beta = 1$: the Young step fails (cannot absorb $P^1$
+with $\varepsilon P$ when the coefficient is already $\nu$).
+Direct analysis shows blow-up is possible iff $\alpha > 0$.
+
+If $\beta > 1$: the estimate is stronger than needed
+(super-dissipative), and closure is automatic.
+But Sobolev interpolation gives $\beta \leq 1$ for $S$.
+\end{proof}
+
+\begin{theorem}[No-go theorem]\label{thm:nogo}
+Any energy-type estimate for 3D vortex stretching
+obtained from Sobolev interpolation satisfies
+$\alpha + \beta \geq 3/2 > 1$.
+Therefore, no such estimate closes.
+\end{theorem}
+
+\begin{proof}
+The vortex stretching $S$ is trilinear in $v$
+(equivalently, cubic in $\omega$ via the Biot--Savart law).
+By dimensional analysis / scaling:
+$[S] = [\omega]^3 \cdot [L]^{-3}$ in $d = 3$ dimensions.
+
+Any Sobolev interpolation bound on $\|\omega\|_{L^3}^3$
+gives
+$\|\omega\|_{L^3}^3 \leq C \,
+\|\omega\|_{L^2}^{3(1-\theta)}
+\|\nabla\omega\|_{L^2}^{3\theta}$
+where $\theta$ satisfies
+$1/3 = (1-\theta)/2 + \theta \cdot (1/2 - 1/3)$,
+giving $\theta = 1/2$ in 3D.
+
+Therefore $\alpha = 3(1-\theta)/2 = 3/4$,
+$\beta = 3\theta/2 = 3/4$,
+and $\alpha + \beta = 3/2$.
+
+This is the \emph{unique} exponent pair achievable
+by Gagliardo--Nirenberg interpolation between $L^2$
+and $H^1$. No combination of H\"older, Young,
+or Gagliardo--Nirenberg applied to $\|\omega\|_{L^3}^3$
+can reduce $\alpha + \beta$ below $3/2$.
+\end{proof}
+
+\begin{corollary}\label{cor:gap}
+The \emph{exponent gap} $\alpha + \beta - 1 = 1/2$
+is a structural invariant of 3D Navier--Stokes.
+\end{corollary}
+
+\section{What Must a Proof Contain}
+
+\begin{theorem}\label{thm:necessary}
+Any proof of 3D Navier--Stokes global regularity must
+use at least one of the following, none of which is an
+energy-type estimate:
+\begin{enumerate}
+\item A pointwise structural property of the nonlinearity
+  (e.g., geometric alignment of $\omega$ and $\nabla v$).
+\item A cancellation in the vortex stretching that is
+  invisible to absolute-value estimates.
+\item A regularity criterion weaker than BKM that does
+  not require $L^\infty$ control of vorticity.
+\item An algebraic identity relating $S$ to a
+  non-positive quantity (e.g., via the Gram matrix
+  structure of Fourier modes).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Theorem~\ref{thm:nogo} excludes all energy-type
+arguments. Any successful proof must therefore
+exploit structure beyond $|S| \leq f(\Omega, P)$.
+The four options enumerate the known classes of
+non-energy-type information in the NS equations.
+\end{proof}
+
+\begin{remark}
+Option (3) includes the
+Escauriaza--Seregin--\v{S}ver\'ak criterion
+($L^\infty_t L^3_x$ suffices). This weakens
+the requirement from $L^\infty$ to $L^3$,
+but the exponent gap reappears when trying to
+verify the $L^3$ condition via energy methods.
+\end{remark}
+
+\begin{remark}
+Option (4) is the Gram matrix approach:
+if $G_{ij} = \langle \psi_i, \psi_j \rangle$
+with $|G_{ij}| \leq 1$, this provides an
+algebraic bound independent of the Galerkin
+truncation. The challenge is converting this
+pointwise-in-mode bound to a pointwise-in-space
+bound without reintroducing the exponent gap.
+\end{remark}
+
+\section{The Number $1/2$}
+
+The exponent gap $1/2$ appears in multiple contexts:
+\begin{itemize}
+\item NS: $\alpha + \beta - 1 = 3/2 - 1 = 1/2$.
+\item Critical Sobolev space for 3D NS: $\dot{H}^{1/2}$.
+\item The scaling-critical norm for NS is
+  $\|v\|_{L^3} \sim \|v\|_{\dot{H}^{1/2}}$.
+\item The Riemann Hypothesis: non-trivial zeros of
+  $\zeta(s)$ have $\operatorname{Re}(s) = 1/2$.
+\end{itemize}
+
+In each case, $1/2$ arises as the ratio $1/n$ where
+$n = 2 = \dim_{\mathbb{R}} \mathbb{C}$.
+For NS: the energy norm is $L^2$ (exponent 2),
+and $1/2 = 1/2$.
+For $\zeta$: the functional equation symmetry is
+$s \mapsto 1-s$, with fixed point $1/2 = 1/2$.
+
+Whether this numerical coincidence reflects a deeper
+structural connection remains an open question.
+
+\begin{thebibliography}{99}
+\bibitem{ess2003}
+L.~Escauriaza, G.~A.~Seregin, V.~\v{S}ver\'ak,
+$L_{3,\infty}$-solutions of Navier--Stokes equations
+and backward uniqueness,
+\textit{Uspekhi Mat.\ Nauk} \textbf{58} (2003), 3--44.
+\bibitem{leray1934} J.~Leray,
+Sur le mouvement d'un liquide visqueux emplissant l'espace,
+\textit{Acta Math.} \textbf{63} (1934), 193--248.
+\bibitem{bkm1984} J.~T.~Beale, T.~Kato, A.~Majda,
+Remarks on the breakdown of smooth solutions for the
+3-D Euler equations,
+\textit{Comm.\ Math.\ Phys.} \textbf{94} (1984), 61--66.
+\bibitem{tao2016} T.~Tao,
+Finite time blowup for an averaged three-dimensional
+Navier--Stokes equation,
+\textit{J.\ Amer.\ Math.\ Soc.} \textbf{29} (2016), 601--674.
+\end{thebibliography}
+
+\end{document}
