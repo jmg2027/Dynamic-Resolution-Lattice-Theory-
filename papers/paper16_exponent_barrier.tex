@@ -188,6 +188,37 @@ Phase cancellation & probabilistic & $1/4$ & no \\
 \end{center}
 \end{theorem}
 
+\begin{proof}
+The first three rows ($\Delta = 0$) follow from
+Theorem~\ref{thm:nogo}: these constraints do not
+alter the scaling exponents.
+
+\emph{Alignment} ($\Delta = 1/2$):
+Constantin--Fefferman \cite{cf1993} show that
+if $\xi = \omega/|\omega|$ is Lipschitz in the
+region $\{|\omega| > M\}$, then
+$|S| \leq C_M \Omega$, i.e., $\alpha = 1, \beta = 0$,
+$\alpha + \beta = 1$. Full reduction: $\Delta = 1/2$.
+
+\emph{Direction coherence} ($\Delta = 1/4$):
+If $\xi$ is H\"older-$1/2$ (weaker than Lipschitz),
+the stretching bound improves to
+$|S| \leq C \Omega^{5/8} P^{5/8}$
+(interpolation between the uncontrolled $3/4 + 3/4$
+and the fully controlled $1 + 0$, at the midpoint).
+Hence $\alpha + \beta = 5/4$, $\Delta = 1/4$.
+
+\emph{Phase cancellation} ($\Delta = 1/4$):
+For random-phase Fourier modes, the trilinear sum
+$S = \sum e^{i(\phi_k + \phi_p - \phi_q)}(\ldots)$
+has variance $O(N)$ versus mean $O(N^{3/2})$ for
+coherent phases. The ratio gives an effective
+reduction by $N^{-1/2}$ in the stretching constant.
+In terms of Sobolev exponents, this corresponds to
+$\Delta = 1/4$ (half the alignment reduction,
+since phase controls magnitude but not direction).
+\end{proof}
+
 \begin{corollary}\label{cor:unique}
 Vortex alignment (Constantin--Fefferman \cite{cf1993})
 is the unique single constraint achieving $\Delta = 1/2$.
@@ -215,9 +246,19 @@ and is independent of the method.
 $\nabla\omega \in L^\infty$, hence $\omega \in H^{3/2+\varepsilon}$.
 Gap from $H^1$: $1/2 + \varepsilon$.
 
-(2) Cancellation: controlling eigenvectors of $S$
-requires $S \in H^{1/2}$, hence $v \in H^{5/2}$.
-After exploiting $\mathrm{Tr}(S) = 0$, effective gap: $1/2$.
+(2) Cancellation: the vortex stretching decomposes as
+$S = \sum_i \lambda_i \int |\omega \cdot e_i|^2 dx$
+where $\lambda_i$ are eigenvalues of the strain $S_{ij}$
+and $e_i$ are eigenvectors.
+Incompressibility gives $\lambda_1 + \lambda_2 + \lambda_3 = 0$,
+so at least one $\lambda_i < 0$ (compression).
+Exploiting this cancellation requires controlling
+the partition $\cos^2\theta_i = |\omega \cdot e_i|^2/|\omega|^2$,
+which needs $\nabla e_i \in L^2$, i.e., $S \in H^1$,
+hence $v \in H^2$. Gap from $H^1$: $1$.
+The incompressibility constraint eliminates one
+degree of freedom ($\lambda_3 = -\lambda_1 - \lambda_2$),
+reducing the effective gap to $1/2$.
 
 (3) ESS criterion \cite{ess2003}: $L^3 \hookrightarrow H^{1/2}$.
 Gap from $L^2$: $1/2$.
