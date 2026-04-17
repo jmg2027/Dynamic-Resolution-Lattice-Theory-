@@ -109,57 +109,41 @@ energy-type estimate.
 \end{theorem}
 
 \begin{proof}
-Under the NS scaling,
-$\Omega \mapsto \lambda^{2+d} \Omega$ and
-$P \mapsto \lambda^{4+d} P$ in $d$ dimensions.
-The stretching scales as
-$S \mapsto \lambda^{3(1+d/3)} S$.
-For an energy-type estimate to be scaling-invariant:
-$\alpha(2+d) + \beta(4+d) = 3 + d$.
-In $d = 3$: $5\alpha + 7\beta = 6$.
-Combined with the Gagliardo--Nirenberg optimal
-$\alpha = \beta$ (symmetric stretching): $\alpha = \beta = 1/2$.
-Wait --- let us redo this carefully.
+The vortex stretching $S$ is trilinear in $\omega$.
+Under the NS scaling
+$v \mapsto \lambda v$, $x \mapsto x/\lambda$,
+the quantities transform as
+$\Omega \mapsto \lambda \, \Omega$,
+$P \mapsto \lambda^3 P$, and
+$S \mapsto \lambda^3 S$
+(accounting for $dx \mapsto \lambda^{-3} dx$).
+A scaling-compatible estimate
+$|S| \leq C \Omega^\alpha P^\beta$ requires
+\begin{equation}\label{eq:scaling}
+\alpha + 3\beta = 3.
+\end{equation}
+On this constraint line,
+$\alpha + \beta = 3 - 2\beta$,
+which is minimized at $\beta = 1$, $\alpha = 0$,
+giving $\alpha + \beta = 1$. However,
+$\beta = 1$ requires absorbing $P^1$ via Young,
+which costs the full dissipation budget $\nu P$.
+The resulting inequality
+$d\Omega/dt \leq (C - 2\nu)P$
+closes only if $C < 2\nu$, forcing $C$
+to depend on $\nu$ and violating the
+energy-type condition.
 
-The vortex stretching is trilinear in $\omega$
-(via Biot--Savart). Under scaling $\omega \mapsto \lambda^2 \omega$,
-$\nabla \omega \mapsto \lambda^3 \nabla\omega$:
-$S \mapsto \lambda^6 S$ (three factors of $\omega$, one $\nabla$).
-$\Omega^\alpha \mapsto \lambda^{4\alpha} \Omega^\alpha$ and
-$P^\beta \mapsto \lambda^{6\beta} P^\beta$.
-Scaling balance: $4\alpha + 6\beta = 6$,
-i.e., $2\alpha + 3\beta = 3$.
-
-The optimal (minimizing $\alpha + \beta$ subject to
-$2\alpha + 3\beta = 3$, $\alpha, \beta \geq 0$):
-minimize $\alpha + \beta$ on the line
-$\alpha = (3 - 3\beta)/2$.
-Then $\alpha + \beta = 3/2 - \beta/2$.
-Minimum at $\beta = 1$ (boundary):
-$\alpha + \beta = 1$. But $\beta = 1$ means
-$P^1$ appears, requiring $\varepsilon = \nu$ in Young
-with no room. Direct check: $\alpha = 0, \beta = 1$
-gives $|S| \leq C P$; then
-$d\Omega/dt \leq (C - 2\nu)P$.
-Closes iff $C < 2\nu$. This requires
-$C$ to depend on $\nu$ --- violating
-the energy-type definition (constant $C$).
-
-For physically realizable estimates
-(Gagliardo--Nirenberg, i.e., interpolation between
-$L^2$ and $\dot{H}^1$):
-$\theta \in (0, 1)$ gives
-$\alpha = 3(1-\theta)/2$, $\beta = 3\theta/2$.
-Check: $2\alpha + 3\beta = 3(1-\theta) + 9\theta/2
-= 3 + 3\theta/2$. For this to equal $3$:
-$\theta = 0$, giving $\alpha = 3/2, \beta = 0$.
-But $\theta = 0$ means no gradient information.
-The standard $L^3$ interpolation gives $\theta = 1/2$:
-$\alpha = 3/4, \beta = 3/4$, $\alpha + \beta = 3/2$.
-
-In summary: the constraint $2\alpha + 3\beta = 3$
-forces $\alpha + \beta \geq 3/2$ whenever
-$\beta \leq 3/4$ (the interpolation range).
+For Gagliardo--Nirenberg interpolation between
+$L^2$ and $\dot{H}^1$ with parameter $\theta \in (0,1)$:
+$\|\omega\|_{L^3}^3 \leq C
+\|\omega\|_{L^2}^{3(1-\theta)}
+\|\nabla\omega\|_{L^2}^{3\theta}$,
+giving $\alpha = 3(1-\theta)/2$, $\beta = 3\theta/2$.
+The constraint \eqref{eq:scaling} then reads
+$3(1-\theta)/2 + 9\theta/2 = 3$, i.e., $\theta = 1/2$.
+This yields $\alpha = \beta = 3/4$,
+hence $\alpha + \beta = 3/2 > 1$.
 \end{proof}
 
 \begin{corollary}
