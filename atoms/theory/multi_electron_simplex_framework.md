@@ -574,3 +574,249 @@ ch09 의 m_e 유도 체인 확인 필요.
 
 **저자:** Mingu Jeong (intuition + challenge) +
 Claude (formalization).
+
+---
+
+# §11. 핵 구조의 정확한 취급 (Mingu 지적 2026-04-18)
+
+**이전 §3 의 "3 A = 공유 nucleus" 접근의 문제점:**
+
+H 에서는 literal 맞음 — 1 proton = 3 quarks = AAA triangle.
+하지만 He 부터는 틀림:
+- He nucleus: 2 proton + 2 neutron = 4 nucleons = **12 quarks**
+- Li nucleus: 3 p + 4 n = 7 nucleons = **21 quarks**
+- U nucleus: 92 p + 146 n = 238 nucleons = **714 quarks**
+
+"3 A 공유" 는 이 모든 quark 들을 하나의 AAA 로 뭉개는 **coarse-graining**.
+Derivation 아니라 approximation.  이 점을 명시하지 않은 이전 §3 은 실수.
+
+## §11.1 정확한 다중 스케일 그림
+
+DRLT 의 올바른 계산은 **두 층위** 로 나뉨:
+
+### Layer N (Nuclear): 600-cell geometry
+- nuclear/ sub-project 가 이미 다룸
+- 각 nucleon = 1 ∂Δ⁴ (3 A_quarks + 2 B_internal)
+- Z protons + N neutrons = Z+N nucleon 들이 600-cell 내에 배치
+- Nuclear magic numbers (2,8,20,28,50,82,126) 가 이 구조에서 유도
+- **이미 검증:** NUC_003 Magic 7/7 exact
+
+### Layer A (Atomic): electron-nucleus coupling
+- 각 electron 은 ψ_e ∈ ℂ⁵
+- Electron 이 전체 nucleus 구조와 interact
+- **진정한 질문:** electron 이 "어떤 A-vertices 를 보나?"
+
+### Layer A 의 올바른 서술 (3 가지 가능성)
+
+**(A1) 각 quark 와 개별 interact:**
+- N_quark = 3·(Z+N) vertices
+- 각 electron 이 모든 quark 와 edge
+- Gram matrix: (N_quark + N_electron) × (N_quark + N_electron)
+- 매우 크고 복잡.  H 에서도 이미 3+1=4 vertex 이므로 일관성 있음.
+
+**(A2) 각 nucleon 과 interact:**
+- Nucleus 를 Z+N 개 "점" 으로 coarse-grain (각 nucleon = 1 점)
+- 각 electron 이 각 nucleon 과 edge
+- Nuclear internal quark 구조는 Layer N 에서 별도 처리
+- 중간 스케일.
+
+**(A3) 전체 nucleus 를 1 center 로 coarse-grain:**
+- 현재 ch10 + §3 의 approach
+- H 에서 literal, He+ 부터 approximation
+- 가장 간단하나 Z 의존성 잘못 나올 수 있음
+
+## §11.2 각 가능성의 테스트
+
+이 세 가지 중 **어느 것이 올바른 DRLT 인지** 는 H, He 의 정확한 도출을
+어떻게 재현하는지로 판정:
+
+- **H (Z=1, N=0):** 3 quark = 3 A.  세 picture 모두 동일 (A1=A2=A3).
+- **He (Z=2, N=2):** 4 nucleons, 12 quarks.
+  - A1: 12 A-vertices (모든 quark), electron 이 12 edge 생성
+  - A2: 4 nucleon-vertices, electron 이 4 edge
+  - A3: 1 nucleus (3 A), electron 이 3 edge
+  - IE(He) = 24.565 eV 재현 하는 picture 가 승
+
+### ch10 의 암묵적 가정
+
+ch10 의 IE(He) = 2 R_y (1 − c²α_GUT) 공식은 picture A3 에 해당.
+공식이 관측 (0.02%) 과 일치 → A3 이 올바른 **effective theory**.
+하지만 왜 A3 이 맞는가의 **1st principles derivation** 은 없음.
+
+가능성: **Coarse-graining 이 정확히 올바른 경우가 있다.** 구체적으로
+nucleus 가 rigid AAA 처럼 행동하는 한계 (atomic 스케일에서).
+Electron 파장 » 핵 크기 일 때 (R_Bohr ≈ 10⁵ × R_nucleus), electron
+은 nucleus 내부 구조 못 resolve.  즉 **long-wavelength approximation**.
+
+## §11.3 Proton vs Neutron — 명시적 구분
+
+**Proton** (uud): up-up-down
+- 3 quark 의 전하: (+2/3) + (+2/3) + (−1/3) = **+1**
+- AAA triangle with specific quark composition
+
+**Neutron** (udd): up-down-down
+- 3 quark 의 전하: (+2/3) + (−1/3) + (−1/3) = **0**
+- 역시 AAA triangle 이지만 **다른 quark 조성**
+
+**DRLT 관점에서 둘의 차이:**
+
+| 속성 | Proton | Neutron |
+|------|--------|---------|
+| Quark 조성 | uud | udd |
+| 전하 | +1 | 0 |
+| Spin | 1/2 | 1/2 |
+| Mass (실험) | 938.27 MeV | 939.57 MeV |
+| Mass (DRLT, ch09) | 938.27 | 939.55 (+0.1%) |
+| Free stability | 안정 | 불안정 (τ ≈ 15분) |
+
+Electron 과의 coupling:
+- **Proton**: EM coupling (Coulomb, α) + strong residual (negligible at atomic scale)
+- **Neutron**: EM coupling ≈ 0 (neutral).  단, **magnetic moment** 는 non-zero
+  (quark 수준에서 전하 비대칭).  또한 weak coupling (β decay)
+
+**따라서 atomic IE 계산에서:**
+- Protons: electron 의 binding 에 직접 기여 (EM hinges)
+- Neutrons: IE 에 거의 영향 없음 (**isotope shift** 가 10⁻⁶ 수준)
+
+이걸 simplex picture 로:
+- Proton = AAA triangle with uud
+- Neutron = AAA triangle with udd
+- 서로 다른 타입의 AAA 이므로 electron 의 AAB hinge 가
+  proton-AAA 과 neutron-AAA 에서 **다른 det 값** 을 가짐
+- Specifically, neutron-AAB det 의 EM 기여 ≈ 0, proton-AAB 는 non-zero
+
+## §11.4 수정된 원자 picture (정확 버전)
+
+**원자 $\mathcal{A}_{Z,N}$ (Z protons, N neutrons, Z electrons):**
+
+Vertex 집합:
+- **Quark vertices (nuclear):** $3(Z+N)$ AAA-type
+  - $3Z$ = proton quarks (uud × Z)
+  - $3N$ = neutron quarks (udd × N)
+- **Electron vertices:** Z B-type
+- **Optional vacuum B:** 각 unpaired orbital 당 1 추가 B_vac
+
+총 $N_{\text{tot}} = 3(Z+N) + Z + [\text{vacuum count}]$.
+
+### H (Z=1, N=0):
+- 3 quark (uud) + 1 electron + 1 vacuum = 5 vertices
+- **정확히 ∂Δ⁴** (H 에서 coarse-graining 과 literal picture 일치)
+- 이게 ch10 의 AAAB face
+
+### He (Z=2, N=2):
+- 12 quark (2 proton = 6 uud + 2 neutron = 6 udd) + 2 electron = 14 vertices
+- **NOT ∂Δ⁴** — 훨씬 큼
+- 하지만 atomic scale 에서 electron 파장 » nucleus 크기 →
+  long-wavelength limit 에서 12 quark 가 effective 3 A 처럼 보임
+- ch10 의 "fully occupied simplex" 는 이 long-wavelength approximation
+
+### Li (Z=3, N=4):
+- 21 quark (3 p + 4 n) + 3 electron
+- $N_{\text{tot}} = 21 + 3 = 24$ vertices
+- 각 electron 이 21 quark 와 interact
+
+## §11.5 올바른 계산 절차 (수정)
+
+**Step 1. 진짜 DRLT 계산 (full):**
+- All $3(Z+N) + Z$ vertices
+- Each hinge enumerated
+- Regge action over all hinges
+- $O(N^3)$ hinges total, O(N^5) tetrahedra
+
+**Step 2. Long-wavelength reduction (justified):**
+- Electron 파장 $\lambda_e \sim \alpha^{-1} a_0 \gg R_{\text{nuc}}$
+- Electron 이 nucleus internal quark 구조 resolve 못함
+- Coarse-graining:
+  - Z proton → effective 3 A with total charge +Z
+  - N neutron → contributes nuclear mass only (isotope shift)
+- Effective picture: **3 A with "charge" Z, mass M_nuc**
+
+**Step 3. Atomic scale 계산 (effective):**
+- ε_o ← Zα/√n_A (Z 가 명시적)
+- 이게 ch10 의 ε = Zα/√3 에 해당
+- 이 picture 에서 multi-electron framework (§3) 적용 가능
+
+**Step 4. Isotope correction (proper):**
+- Neutron N 수가 달라지면 nuclear mass 변 → reduced mass 보정
+- μ = M_nuc·m_e / (M_nuc + m_e), IE ∝ μ
+- 이는 ch10 공식에서 이미 암묵 포함 (m_e → μ 로 replace)
+- Neutron 의 EM 기여는 isotope-dependent shift 로 finite 하나 작음 (10⁻⁶)
+
+## §11.6 어느 picture 가 정답인가 — 계층적 판정
+
+두 질문:
+1. **Atomic IE 는 어느 layer 에서 도출되는가?**
+2. **각 layer 의 유효 범위는?**
+
+### 1차 판정 (통상 정밀도 ≤ 0.1%):
+- **Picture A3 (3A = effective nucleus) 가 충분**
+- Long-wavelength argument 으로 justify
+- ch10 의 13.606 eV (H) 와 24.565 eV (He) 는 이 picture
+- **multi-electron framework (§3-§10) 가 여기 작용**
+
+### 2차 판정 (precision > 0.1%, 예: QED 수준 수 ppm):
+- Nuclear volume effect: Picture A2 필요 (각 nucleon 구분)
+- Hyperfine splitting: 각 quark spin 고려 (Picture A1)
+- Parity violation 에서 weak current: Z-specific
+
+### Roadmap:
+- **Stage 1-2 (H, Li):** Picture A3 (coarse nucleus) OK
+- **Stage 3 (Period 2):** Picture A3 에서 2-3% precision 목표
+- **Stage 4 (precision):** Picture A2 (nucleon-level) 필요해질 가능성
+- **Stage 5 (QED effects):** Picture A1 + radiative corrections
+
+## §11.7 명시적 Gram matrix for He (정확 버전)
+
+작업 가능한 예시로 He (picture A1, 모든 quark 명시):
+
+Vertices (14 total):
+- u₁, u₂, d₁ (proton 1's 3 quarks)
+- u₃, u₄, d₂ (proton 2's 3 quarks)
+- u₅, d₃, d₄ (neutron 1's 3 quarks)
+- u₆, d₅, d₆ (neutron 2's 3 quarks)
+- e₁, e₂ (2 electrons)
+
+Gram 14×14 matrix:
+- **Intra-nucleon blocks** (3×3 each): 각 nucleon 의 quark-quark overlap
+  - Proton: uud, specific SU(3) color + flavor structure
+  - Neutron: udd, 동일하나 다른 flavor 조합
+- **Inter-nucleon blocks** (3×3): nucleon 간 quark overlap
+  - Strong residual (pion exchange): short-range, attractive
+  - Reflected in |⟨u_i | u_j⟩| for quarks in different nucleons
+- **Nucleon-electron blocks** (3×1 each): quark-electron overlap
+  - Proton quark → electron: EM attractive (charge +2/3 or -1/3)
+  - Neutron quark → electron: net EM cancels out per nucleon
+- **Electron-electron blocks** (2×2): Pauli orthogonality (≈ 0)
+
+전체 Gram matrix rank ≤ 5 (ℂ⁵ 안에 모든 ψ 가 살아 있음).
+14 vertex 가 5-dim 안에 있으므로 **매우 rank-deficient** — 많은
+linear dependence.
+
+이 dependence 가 바로 nuclear binding (nucleon 끼리 어떻게 묶이나)
++ atomic binding (electron 이 어떻게 bound) 의 기하학적 표현.
+
+## §11.8 요약: 이론의 정확한 상태
+
+- **H (Z=1, N=0):** 5 vertex (3 quark + 1 e + 1 vac) = literal ∂Δ⁴.
+  Picture A1=A2=A3.  IE = 13.606 exact. ✓
+
+- **He (Z=2, N=2):** 14 vertex full / 4 nucleon reduced / 5 vertex
+  ultra-coarse.  현재 ch10 은 5-vertex approximation 사용.
+  IE = 24.565 eV 정확 (0.02%) — long-wavelength 이 성공적.
+
+- **Li (Z=3, N=4):** 24 vertex full / 7 nucleon reduced.
+  Atomic IE 는 picture A3 에서 2-simplex framework (§3) 적용해
+  derive 시도.  **이게 다음 단계**.
+
+- **Picture A3 의 유효성:** electron 파장 » nucleus 크기 →
+  nucleus internal quark 구조 못 보이니 effective 3A 로 coarse-grain
+  가능.  **이게 왜 ch10 의 간단한 공식이 작동하는지의 설명.**
+
+- **더 정밀 계산:** Picture A2 or A1 으로 내려가야.  이는 atomic
+  scale + nuclear scale 의 **join** — 현재 프로젝트에서 진행 중인
+  작업 아닐 것으로 추정.
+
+**따라서 현재 multi-electron framework (§1-§10) 는 picture A3 에서
+유효하며, 실제로 "3A 공유" 는 long-wavelength approximation 의
+명시적 사용.  이것이 derivation 이 아니라 effective theory 임을
+정직 기재.**
