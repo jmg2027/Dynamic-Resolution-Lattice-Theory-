@@ -15,7 +15,7 @@ Living document. Each gap tagged with:
 | G2 | Level 5 family canonical d | open | Parameter | useful | G4 | — |
 | G3 | Level 6 ↔ 1-4 일반 map | open | Structural | cosmetic | — | Plücker at each n 체크 |
 | G4 | ε₀ 제1원리 도출 | **refined** | Parameter | useful | G-M_i | FND_034: α_GUT/(2π) refuted at 2.6% |
-| G-M_i | M_i 기하 유도 | **refuted (direct)** | Parameter | decisive | 다른 기하 구조 | FND_035: Σ√det 경로 기각. Book 값은 fit. |
+| G-M_i | M_i 기하 유도 | **refuted (direct+deficit)** | Parameter | decisive | 깊은 수학 | FND_035+036: 모든 hinge-level route 기각. Book 값 fit 확정. |
 | N1 | Regge S_var=56.79, S_sym=41.94 | refined | Numerical | useful | — | S ≠ 1/α_GUT. 무슨 identity인지? |
 | N2 | (1/4)^4 ≈ ε₀ (지수 4) | open | Numerical | cosmetic | G4 | — |
 | N3 | δ_AAA = π 재현 | **closed** | Numerical | — | — | FND_004 재현 확인 완료 |
@@ -24,6 +24,24 @@ Living document. Each gap tagged with:
 | T2 | 1-param Regge δ_AAA | closed | Tested | — | — | FND_019 wrong family |
 | E1 | EXP-047b (δ_AAA=π 원본) | **closed** | External | — | — | = FND_004, 확인됨 |
 | E2 | ch10 f_occ theorem 정밀도 | open | External | useful | — | 수치 크로스체크 |
+
+## Updates (FND_036, 2026-04-18)
+
+- **Regge deficit 루트도 REFUTED**. 9가지 aggregate 시도, 최저
+  total deviation **198.3%** (1/Σa). 깔끔한 기하 derivation 없음.
+  - 테스트한 후보: Σa, Σδ, Σ(aδ), 평균, c^k 가중, 1/Σ.
+  - 흥미로운 발견:
+    - AAA dihedral = π/4 (입력 θ와 수치 일치)
+    - AAB dihedral = π/2 (블록 orthogonal 필연)
+    - ABB dihedral = 1.4103 rad
+    - M/gauge ≈ {55/32, 7/4, 1/3}: Strong·Weak 근사 일치(1.8%)
+      but EM 다름. 깔끔한 rational 패턴 없음.
+- **강한 결론**: (3,2) hinge 기하의 **직접적** 측정으로는 book M_i
+  유도 불가. Book 값은 관측 Δ_i에서 역산된 fit value로 확정.
+- **심각성 확대**: "0 free parameter" 주장에 숨은 자리 확정 3개.
+  - 수학이 정말로 익어야 풀릴 문제. Schubert/Fulton-MacPherson /
+    Binet-Cauchy exponents 같은 **더 깊은 구조** 필요.
+  - 현재 도구로는 접근 불가 → Phase A' 일시 중단.
 
 ## Updates (FND_035, 2026-04-18)
 

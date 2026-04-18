@@ -80,7 +80,26 @@ foundations/ 쪽에서는 FND 파이썬 실험만 관리.
 - **Routes 남은 것**: Regge deficit-based weight, Binet-Cauchy exponent
   조합 (c^k·C(n_A,3−k)·C(n_B,k)), S(N) Langlands 조합.
 
-## Experiments: 35 (FND_001-035)
+## Recent (FND_036, 2026-04-18)
+
+**Phase A2' continuation: Regge deficit-based M_i 루트도 REFUTED.**
+- 9가지 루트 테스트: Σa, Σδ, Σaδ, 평균, c^k 가중, 1/Σ, …
+- 최저 total deviation 198.3% (1/Σa, still 너무 큼).
+- Dihedral 정밀값: AAA=π/4, AAB=π/2(블록 orthogonal), ABB=1.4103.
+- **최종 결론**: (3,2) hinge 기하 직접 측정으로 book M_i 유도 불가.
+- Book의 M_i = {13.75, 1.0, 3.5}는 **fit value 확정**. "0 parameter"
+  주장에 실제로는 3 자리 숨어있음.
+- Phase A' **일시 중단**. Schubert/FM/Binet-Cauchy exponent 같은
+  더 깊은 수학 구조가 필요. 현 도구 한계 도달.
+
+## 사용자 가설 검증 결과
+- 가설: "물리 오차 ≈ 수학이 덜 익은 탓" → **강화됨 (확정)**
+- 구체 증거: FND_034(ε₀ identity 2.6% off) + FND_035(M_i 직접 refuted)
+  + FND_036(deficit 모든 루트 refuted).
+- 핵물리 a_V, a_S, a_C의 3-7% 오차는 M_i-유사 fit의 직접 결과일
+  가능성 가장 높음. 수학이 성숙할 때까지 이 오차 못 줄임.
+
+## Experiments: 36 (FND_001-036)
 ## Papers: paper1, paper2
 ## Book: Part I (ch01-03), Part II (ch04-05, ch08), ch21
 ## 상세: `notes/FORMAL_FOUNDATION.md` (DAG), `notes/GAPS_REGISTER.md` (열린 문제)
