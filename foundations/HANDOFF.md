@@ -66,7 +66,21 @@ foundations/ 쪽에서는 FND 파이썬 실험만 관리.
 - **결론**: G4는 blocking이 아님. 진짜 decisive는 **G-M_i 기하 가중치**.
 - **다음 실험**: FND_035 (Binet-Cauchy canonical weights M_i).
 
-## Experiments: 34 (FND_001-034)
+## Recent (FND_035, 2026-04-18)
+
+**Phase A2 roadmap (G-M_i 기하 가중치) - FND_035 outcome:**
+- M_i = Σ√det(G_h) per class 직접접근 **REFUTED**.
+- 기하 Σvol: {AAA=0.95, AAB=5.89, ABB=2.12} vs Book {13.75, 1.0, 3.5}
+  → 순서 **완전 반대**, 기하 단순 접근 불가.
+- Empirical back-fit: M_weak=3.51✓, M_EM=0.98✓, M_strong=15.46 (book 13.75)
+  → **Book의 M_i는 관측 Δ_i에서 역산된 fit value**.
+- 심각한 의미: 책의 "0 free parameter" 주장에 **숨은 3 자리** (M_S, M_W, M_EM).
+- **핵물리 3-7% 오차의 진짜 원인 추정**: M_i가 derive 안된 fit이면,
+  a_V, a_S, a_C도 비슷한 fit 성격 있을 수 있음.
+- **Routes 남은 것**: Regge deficit-based weight, Binet-Cauchy exponent
+  조합 (c^k·C(n_A,3−k)·C(n_B,k)), S(N) Langlands 조합.
+
+## Experiments: 35 (FND_001-035)
 ## Papers: paper1, paper2
 ## Book: Part I (ch01-03), Part II (ch04-05, ch08), ch21
 ## 상세: `notes/FORMAL_FOUNDATION.md` (DAG), `notes/GAPS_REGISTER.md` (열린 문제)

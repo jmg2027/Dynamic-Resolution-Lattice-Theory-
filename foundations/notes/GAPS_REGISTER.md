@@ -15,6 +15,7 @@ Living document. Each gap tagged with:
 | G2 | Level 5 family canonical d | open | Parameter | useful | G4 | — |
 | G3 | Level 6 ↔ 1-4 일반 map | open | Structural | cosmetic | — | Plücker at each n 체크 |
 | G4 | ε₀ 제1원리 도출 | **refined** | Parameter | useful | G-M_i | FND_034: α_GUT/(2π) refuted at 2.6% |
+| G-M_i | M_i 기하 유도 | **refuted (direct)** | Parameter | decisive | 다른 기하 구조 | FND_035: Σ√det 경로 기각. Book 값은 fit. |
 | N1 | Regge S_var=56.79, S_sym=41.94 | refined | Numerical | useful | — | S ≠ 1/α_GUT. 무슨 identity인지? |
 | N2 | (1/4)^4 ≈ ε₀ (지수 4) | open | Numerical | cosmetic | G4 | — |
 | N3 | δ_AAA = π 재현 | **closed** | Numerical | — | — | FND_004 재현 확인 완료 |
@@ -23,6 +24,26 @@ Living document. Each gap tagged with:
 | T2 | 1-param Regge δ_AAA | closed | Tested | — | — | FND_019 wrong family |
 | E1 | EXP-047b (δ_AAA=π 원본) | **closed** | External | — | — | = FND_004, 확인됨 |
 | E2 | ch10 f_occ theorem 정밀도 | open | External | useful | — | 수치 크로스체크 |
+
+## Updates (FND_035, 2026-04-18)
+
+- **G-M_i 직접접근 REFUTED**: M_i = Σ√det(G_h) per class 안 맞음.
+  - 기하: Σvol(AAA)=0.951, Σvol(AAB)=5.890, Σvol(ABB)=2.121
+    (per-hinge avg: {0.95, 0.98, 0.71})
+  - Book M_i: {13.75, 1.0, 3.5} → 순서가 **완전 반대**
+  - w vs w₀ 차이 무관 (M_i는 topology 의존, 변분 세부 아님)
+- **Empirical extraction matches book** (빈 자리 메우기):
+  - Strong: 0.47/(8·0.0038) = 15.46 vs 13.75 (12%)
+  - Weak: 0.40/(30·0.0038) = 3.51 vs 3.5 ✓ (perfect)
+  - EM: 0.22/(59.22·0.0038) = 0.978 vs 1.0 (2%)
+- **의미 deep**: Book M_i 는 관측 Δ_i 에서 역산된 **fit value**.
+  "M_i는 (n_A, n_B) topology에서 결정되는 기하 가중치"라는 ch12
+  주장은 aspirational이고 실제 유도는 없음. 0-parameter 주장에
+  숨은 자리 3개 (M_Strong, M_Weak, M_EM).
+- **다음 route**: Regge deficit-based weight `a·(2π−Σθ)` per class,
+  또는 Binet-Cauchy exponent 조합 (c^k·C(n_A,3−k)·C(n_B,k)).
+- **Priority 재평가**: G-M_i는 decisive지만 직접 경로 닫힘.
+  순수 수학 더 익어야 풀릴 수준. 다른 gap과 순서 조정 필요.
 
 ## Updates (FND_034, 2026-04-18)
 
