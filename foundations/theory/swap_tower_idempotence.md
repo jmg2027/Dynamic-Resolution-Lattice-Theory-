@@ -92,12 +92,21 @@ simplex tower 위의 operadic monad `T` 의 1-level slice.
   `tower_decreases_to_five` : 비증가 + equality iff fixed.
   => T 반복은 절대 정체되지 않고 유한 step 내 고정점 도달.
   이는 monad μ : T² → T 의 **strict idempotence** on orbit closure.
-  Weak (∞-categorical coherence) 버전은 여전히 탐구 대상.
 
-- **OT-3 (Physical 해석.)** 열려 있음.
-  `O(log d)` 수렴 (FND_038 Check 4) 이 β-function 이나 RG scale
-  hierarchy 와 대응하는가?  현재는 순수 이산 구조로, 연속
-  대응은 미탐구.
+- **OT-2' (Weak coherence).**  열려 있음 (DRLT 내부 질문).
+  Strict version 은 `dim` 레벨에서 동작.  AliveDim → AliveDim
+  함자로 승격해 Gr(3,5) 값 tower 를 다루려면 ∞-categorical
+  coherence (associator, pentagon) 가 필요한지?  이는 공리에서
+  자연스럽게 나올 수 있는 범주론적 구조 질문.
+
+- **~~OT-3 (Physical 해석.)~~** ❌ **DROPPED (speculative, not derived).**
+  이전 버전: "Tower 의 `O(log d)` 수렴이 β-function / RG flow 와
+  대응하는가?"  이는 DRLT 공리에서 유도되지 않는 외부 물리 개념의
+  억지 대입 (CLAUDE.md "Theoretical Integrity" 위반).  Tower 의
+  `O(log d)` 는 순수 Nat counting 사실이고, 이미 완결적이다.  RG
+  flow 용어로 재포장해도 설명력이 늘지 않음.  Pattern match
+  ≠ derivation.  진짜 물리적 해석이 필요하다면 DRLT 공리에서
+  자연스럽게 나와야 함 — 지금은 그런 유도 경로가 없음.
 
 - **OT-4 (Dead sector).** ✅ **CLOSED (structural).**
   `DeadDim` (a=0 ∨ b=0) 형식화:
