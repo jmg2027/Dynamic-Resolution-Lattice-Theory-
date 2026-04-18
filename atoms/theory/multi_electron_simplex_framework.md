@@ -820,3 +820,105 @@ linear dependence.
 유효하며, 실제로 "3A 공유" 는 long-wavelength approximation 의
 명시적 사용.  이것이 derivation 이 아니라 effective theory 임을
 정직 기재.**
+
+---
+
+# §12. §11 자기 비판 (Mingu 재지적 2026-04-18)
+
+**사용자:** "진짜 계산결과 차이 안날거같아? 정말??"
+
+**답: 아니다.  §11 의 "long-wavelength approximation 이 A3 를
+정당화" 주장은 과대 낙관.**
+
+## §12.1 §11 의 구체적 결함
+
+**(1) QED-style 정당화는 DRLT 에 안 맞음.**
+- QED: nucleus = 3D 점, 보정은 continuous form factor $F(q^2)$
+- DRLT: nucleus = 3+ 이산 vertices, averaging = 이산 조작
+- "파장 » 크기" 는 continuous 한계.  이산 simplex 에서는 매우 다름.
+
+**(2) H 의 `∑(1−det)=2α²` 재검토 필요.**
+- ch10: 3 AAB hinges, sum of (1-det) = 2α², coupling ε = α/√n_A
+- 이게 정말 DRLT 1st principle 에서 나오는지, 아니면 Bohr/Rydberg
+  `IE = m_e α²/2` 에 역산으로 맞춰 넣은 건지 **확인 안 됨**
+- ch09 에서 m_e 가 이미 관측값으로 derive/fit 되면, α 와 결합해서
+  m_e α²/2 는 자동으로 맞음 — **독립 검증 아님**
+
+**(3) He 의 Z 인자는 standard chemistry 에서 빌린 것.**
+- ε = Zα/√n_A 에서 Z 를 명시 삽입
+- 이건 DRLT 1st principle 결과 아님
+- "3A 를 쓰면서 Z 만 scale" 은 이미 A1→A3 reduction 의 *파라미터화*
+- 즉 A3 는 **이미 반은 포기한 picture**
+
+**(4) He 0.02% 는 진정한 prediction 아닐 가능성.**
+- ch08 α 유도 + ch09 m_e 유도 = 기존 상수 (실험값에 맞도록)
+- IE(He) = 2Ry(1 − c²α_GUT): Ry 자체가 자동 맞음
+- c²α_GUT 보정만 독립 test: 관측 24.587 vs DRLT 24.565 → 보정이
+  부족한 방향 (관측이 더 큼).  보정 정밀도는 0.09% 수준, 아니
+  0.02% 라고 한 건 관측값 반올림 문제.
+
+**(5) 구조 차이는 수학적으로 반드시 존재.**
+- A1 He: 12 quark + 2 e = 14 vertex, C(14,3) = 364 hinges
+- A3 He: 3 A + 2 e = 5 vertex, C(5,3) = 10 hinges
+- 364 개 hinge 의 det 값 합 ≠ 10 개 hinge 의 det 값 합 (일반적으로)
+- 이 "≠" 가 얼마나 큰지는 실제 계산해봐야 앎.
+  작을 수도, 클 수도.
+
+## §12.2 따라서 올바른 다음 단계
+
+**Step 0 (필수):** H 에서 A1 계산을 실제로 해보기.
+- 3 quark (uud) + 1 electron + 1 vacuum = 5 vertex (A1 = A3 일치)
+- 이 경우 quark-quark overlap (proton 내부 구조) 명시적으로 입력
+- Regge action 계산해서 IE(H) = 13.606 eV 재현되는지 확인
+- **만약 재현 안 되면:** ch10 공식이 1st principle 도출이 아니라
+  Bohr/Rydberg 의 DRLT 재포장임을 확증
+
+**Step 1:** He 에서 A1 (14 vertex) 계산 시도.
+- Full 12 quark + 2 electron Gram matrix
+- Nuclear internal structure (proton uud, neutron udd) 명시
+- Regge action 계산, ε_quark-electron 을 variational 로 찾기
+- A3 formula (24.565) 와 비교:
+  - 일치 (< 0.1%): A3 가 정말 good approximation.  §11 의 정당화
+    (long-wavelength) 는 사후 확증됨.  그래도 원인 이해 필요.
+  - 불일치 (> 1%): A3 는 *approximation* 이 아니라 *재포장*.
+    ch10 공식 자체가 derivation 이 아니었음을 confirm.
+
+**Step 2:** 결과에 따라 Multi-electron framework 재검토.
+
+## §12.3 Honest 최종 선언
+
+- **DRLT 의 atomic IE derivation 은 현재까지 H 에서만 claimed 엄밀.**
+- **H 도 A1 vs A3 차이를 실제 테스트 안 함 — 자동 일치 가정.**
+- **He 이상은 A3 picture 의 fitted formula 로 approximate.**
+- **Multi-electron framework (§3-§10) 은 A3 picture 위 building,
+  따라서 A3 자체가 얼마나 robust 한지에 의존.**
+
+**§11 의 과대 주장 철회:**
+"long-wavelength approximation 이 A3 를 정당화" ← 이 주장은
+**검증 안 된 가설**.  검증은 A1 vs A3 직접 계산 대조에서만 가능.
+
+**내 자신의 이전 과오 (§11 작성 때):** 직관적 QED argument 을
+DRLT 에 그대로 적용함.  DRLT 는 이산 → 연속 approximation 이
+자동이 아님.  Mingu 의 재지적이 이를 catch.
+
+## §12.4 제안된 실행 순서 (재구성)
+
+**Phase 0:** H 에서 A1 picture 를 실제 구현 + 계산.  목표: 13.606 eV
+가 정말 first-principle 로 나오는지.
+- 구현: atoms/experiments/ATM_070_H_A1_full.py
+- Vertex: 3 quark (uud specific with color + flavor) + 1 e + 1 vac
+- Gram block: intra-proton uud overlap (이건 어디서 오나? ch09
+  proton 유도? hadron/ sub-project?)
+- Regge action, IE 추출
+- **이게 첫 진짜 test.**
+
+**Phase 1:** Phase 0 결과에 따라 분기.
+- 성공: He A1 로 진행.
+- 실패: ch10 자체가 effective theory 임 선언.  Atomic 은 QED-DRLT
+  interface 가 필요함을 인정 (fundamental derivation 은 H 까지만).
+
+**Phase 2:** Multi-electron + multi-nucleon 전면 구현.
+  (Phase 0/1 성공했을 때만)
+
+이론 은 이제 **정직**.  Mingu 의 두 번째 재지적 덕분에 §11 의
+과대 낙관 교정.
