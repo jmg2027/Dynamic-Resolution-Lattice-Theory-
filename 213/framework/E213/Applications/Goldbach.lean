@@ -174,3 +174,57 @@ def Lens.primality : Lens Bool :=
 -- 213 framework 의 진단:
 --   "렌즈는 충분. 하지만 그 렌즈 위 의 Nat 구조 가 Goldbach 를
 --    자동 증명 하지 못함. 이건 Nat 구조 의 특성 (소수 불규칙성)."
+
+-- ═══ 진짜 시도: Framework 전체 동원 ═══
+
+-- Weak Goldbach (Helfgott 2013): odd > 5 = 3 primes.
+def WeakGoldbach : Prop :=
+  ∀ n : Nat, 7 ≤ n → n % 2 = 1 →
+    ∃ p q r : Nat, isPrime p = true ∧ isPrime q = true ∧
+                    isPrime r = true ∧ p + q + r = n
+
+-- Strong Goldbach 가 Weak 를 함의.
+theorem strong_implies_weak : Goldbach → WeakGoldbach := by
+  intro hg n h7 hodd
+  -- n odd ≥ 7. n - 3 짝수 ≥ 4.
+  have h4 : 4 ≤ n - 3 := by omega
+  have h_ev : (n - 3) % 2 = 0 := by omega
+  -- Strong 적용.
+  obtain ⟨p, q, hp, hq, hpq⟩ := hg (n - 3) h4 h_ev
+  -- n = p + q + 3.
+  refine ⟨p, q, 3, hp, hq, ?_, ?_⟩
+  · decide  -- isPrime 3 = true
+  · omega
+
+-- ═══ 213 framework 가 실제 증명한 것 ═══
+
+-- 1. Goldbach statement 의 formal encoding (0 sorry).
+-- 2. Goldbach → WeakGoldbach reduction (증명 완료).
+-- 3. Finite verification up to 100.
+-- 4. Lens analysis (depth 는 respect).
+-- 5. Category 진단.
+
+-- ═══ Contrapositive direction ═══
+
+-- ¬WeakGoldbach → ¬Goldbach (contrapositive of above).
+theorem not_weak_implies_not_strong :
+    ¬ WeakGoldbach → ¬ Goldbach :=
+  fun h hg => h (strong_implies_weak hg)
+
+-- Weak 가 증명됨 (Helfgott) → strong 의 약 단서.
+-- (Strong 의 반례 없으면 일관성 있음.)
+
+-- ═══ 결론 ═══
+
+-- 213 framework 가 실제 증명 (0 sorry):
+--   (a) Goldbach encoding.
+--   (b) Strong → Weak reduction.
+--   (c) Contrapositive.
+--   (d) 유한 검증.
+--   (e) Category 분석.
+--
+-- 실제 증명 불가 (수학사):
+--   Strong Goldbach 자체 (arithmetic content).
+--
+-- 213 이 제공 하지 못하는 것 = arithmetic breakthrough.
+-- 213 이 제공 하는 것 = 전체 infrastructure + reduction + 진단.
