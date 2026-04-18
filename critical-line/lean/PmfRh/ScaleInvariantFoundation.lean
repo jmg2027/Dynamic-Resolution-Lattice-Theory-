@@ -14,7 +14,7 @@
   Joint research by Mingu Jeong and Claude (Anthropic)
 -/
 
-import Mathlib.Data.Nat.Basic
+import Mathlib.Data.Nat.Defs
 import Mathlib.Tactic
 
 set_option autoImplicit false
@@ -64,13 +64,13 @@ theorem irreducible_mod (a b : Nat) : Irreducible (a % 2, b % 2) := by
 
 /-- swap2 and swap3 commute: applying both in either order
     gives same result (a - 2, b - 2). -/
-theorem swap_commute (a b : Nat) (ha : a ≥ 2) (hb : b ≥ 2) :
+theorem swap_commute (a b : Nat) :
     swap2 (swap3 (a, b)) = swap3 (swap2 (a, b)) := by
   simp [swap2, swap3]
 
-/-- Local confluence: from (a, b) with a ≥ 2 and b ≥ 2,
-    both one-step rewrites converge to (a-2, b-2). -/
-theorem local_confluence (a b : Nat) (ha : a ≥ 2) (hb : b ≥ 2) :
+/-- Local confluence: from (a, b), both one-step rewrites
+    converge to (a-2, b-2). -/
+theorem local_confluence (a b : Nat) :
     swap3 (swap2 (a, b)) = (a - 2, b - 2) ∧
     swap2 (swap3 (a, b)) = (a - 2, b - 2) := by
   constructor
@@ -156,9 +156,9 @@ theorem four_no_alive :
 theorem nine_not_unique :
     ¬ (∃! ab : Nat × Nat, IsAtomicDecomp 9 ab.1 ab.2) := by
   intro ⟨x, _, hx⟩
-  have h1 : x = (3, 1) := hx (3, 1) nine_has_two_decomps.1
-  have h2 : x = (0, 3) := hx (0, 3) nine_has_two_decomps.2
-  rw [h1] at h2
+  have h1 : (3, 1) = x := hx (3, 1) nine_has_two_decomps.1
+  have h2 : (0, 3) = x := hx (0, 3) nine_has_two_decomps.2
+  rw [← h1] at h2
   simp at h2
 
 /-! ## Summary: the three-pronged characterization of n+1 = 5 -/
@@ -173,16 +173,65 @@ theorem simplex_five_characterization :
     (∃! ab : Nat × Nat, IsAtomicDecomp 5 ab.1 ab.2) :=
   ⟨five_has_alive, five_unique_decomp⟩
 
-/-! ## Open for future: full uniqueness of v = 5
+/-! ## Full uniqueness: ∀v ≥ 6, multiple decompositions exist -/
 
-  A complete theorem:
-    "For all v, if v admits a unique alive decomposition, then v = 5"
-  requires case analysis over all v < 10 and number-theoretic argument
-  that v ≥ 6 always has multiple decompositions (from gcd(2,3) = 1
-  and Bezout-like reasoning).
-  
-  Current state: three key cases verified (v=4 dead, v=5 unique alive,
-  v=9 ambiguous). Full forall-v proof deferred.
--/
+/-- KEY LEMMA (Bezout-style): if n = 2a + 3b with a ≥ 3, then also
+    n = 2(a-3) + 3(b+2). Two distinct decompositions. -/
+theorem multi_decomp_of_large_a (n a b : Nat) (h : IsAtomicDecomp n a b)
+    (ha : a ≥ 3) : IsAtomicDecomp n (a - 3) (b + 2) := by
+  unfold IsAtomicDecomp at h ⊢
+  omega
+
+/-- KEY LEMMA: if n = 2a + 3b with b ≥ 2, then also n = 2(a+3) + 3(b-2). -/
+theorem multi_decomp_of_large_b (n a b : Nat) (h : IsAtomicDecomp n a b)
+    (hb : b ≥ 2) : IsAtomicDecomp n (a + 3) (b - 2) := by
+  unfold IsAtomicDecomp at h ⊢
+  omega
+
+/-- If n ≥ 6 has an alive decomposition, it has ambiguous decomposition. -/
+theorem alive_ge_six_has_ambiguity (n : Nat) (hn : n ≥ 6)
+    (h : ∃ a b, IsAtomicDecomp n a b ∧ IsAlive a b) :
+    ¬ (∃! ab : Nat × Nat, IsAtomicDecomp n ab.1 ab.2) := by
+  obtain ⟨a, b, hd, ha_mod, hb_mod⟩ := h
+  rintro ⟨x, _, hx⟩
+  by_cases hb3 : b ≥ 2
+  · -- b ≥ 2: shift gives (a+3, b-2)
+    have hd2 := multi_decomp_of_large_b n a b hd hb3
+    have e1 : (a, b) = x := hx (a, b) hd
+    have e2 : (a + 3, b - 2) = x := hx (a + 3, b - 2) hd2
+    rw [← e1] at e2
+    -- e2 : (a + 3, b - 2) = (a, b)  which needs a+3 = a, contradiction
+    have : a + 3 = a := congr_arg Prod.fst e2
+    omega
+  · -- b < 2, so b = 1 (odd). Need a ≥ 3
+    have hb_eq : b = 1 := by omega
+    have ha3 : a ≥ 3 := by
+      unfold IsAtomicDecomp at hd
+      rw [hb_eq] at hd
+      omega
+    have hd3 := multi_decomp_of_large_a n a b hd ha3
+    have e1 : (a, b) = x := hx (a, b) hd
+    have e2 : (a - 3, b + 2) = x := hx (a - 3, b + 2) hd3
+    rw [← e1] at e2
+    -- (a-3, b+2) = (a, b)  needs b+2 = b, contradiction
+    have : b + 2 = b := congr_arg Prod.snd e2
+    omega
+
+/-- MAIN THEOREM: n = 5 is THE UNIQUE natural number with
+    (unique alive decomposition). -/
+theorem n_equals_five (n : Nat)
+    (h_alive : ∃ ab : Nat × Nat, IsAtomicDecomp n ab.1 ab.2 ∧ IsAlive ab.1 ab.2)
+    (h_uniq : ∃! ab : Nat × Nat, IsAtomicDecomp n ab.1 ab.2) :
+    n = 5 := by
+  obtain ⟨⟨a, b⟩, hd, ha, hb⟩ := h_alive
+  by_contra hne
+  by_cases hlt : n < 5
+  · -- Small n: check each fails alive condition
+    unfold IsAtomicDecomp at hd
+    interval_cases n <;> omega
+  · -- n ≥ 6 (since n ≠ 5)
+    push_neg at hlt
+    have hn6 : n ≥ 6 := by omega
+    exact alive_ge_six_has_ambiguity n hn6 ⟨a, b, hd, ha, hb⟩ h_uniq
 
 end DRLT.Foundation
