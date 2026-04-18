@@ -23,6 +23,7 @@ import E213.Meta.Infinity
 import E213.Meta.Category
 import E213.Meta.AxiomFactory
 import E213.Meta.LimitsOfMeta
+import E213.Meta.RuleHierarchy
 import E213.Applications.DRLT_Attempt
 import E213.Applications.ARFM
 import E213.Applications.SignedSymbol
