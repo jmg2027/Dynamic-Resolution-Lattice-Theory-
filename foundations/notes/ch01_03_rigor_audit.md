@@ -1382,3 +1382,88 @@ Framework P1-P5 적용, 순수수학 (critical-line, YM, DHA, ELM, 213) 제외.
 - predictions 미래 실험 대기 (passive verification)
 - atoms/ 의 residual 3% 를 줄이는 self-consistency 개선
 - NUC RMS B/A 30% gap 해결 (algebraic hinge 접근)
+
+---
+
+# atoms/ 중대 재평가 (2026-04-18) — Mingu 지적
+
+**이전 audit 에서 "MASSIVE SUCCESS" 로 기록한 atoms/ 118 elements
+IE median 2.9% 를 재검증한 결과 문제 발견.**
+
+## 발견된 사실
+
+### ATM_056 (Hydrogen σ-free) ✓ 진짜 DRLT
+- 순수 simplex Regge variational
+- IE(H) = 13.6057 eV **정확** (0 free params)
+- 방법: `ψ → G → hinge det → IE`, NO σ constants
+
+### ATM_058 (Multi-electron σ-free) ✗ **대실패**
+- Li: 예측 11,307 eV, 관측 5.392 eV → **오차 +209,602%** (5 orders of magnitude)
+- C: 예측 11,410 eV, 관측 9.323 eV → +122,287%
+- B: +81,868%
+- **자기 고백:** "For >3 electrons, single simplex is insufficient.
+  Multi-simplex solver needed (future work)."
+
+### ATM_055 "CLOSED 2.9%" — **Pattern fit**
+- 실제 방법: self-consistent algebraic equations 에 **σ constants 사용**
+- `σ_1s→outer = 7/8 = 1 - n_S/(d²-1)`
+- `σ_same_s = 0.597 = 1/n_T + c²α`
+- `σ_ns→np(even) = 17/20 = 1 - n_S/(d(d-1))`
+- 등등 10+ screening constants
+- 이들은 "derivation" 이 아니라 **관측된 Z_eff 패턴에 맞춘 DRLT-flavored fits**
+
+## CLAUDE.md 원칙 위반
+
+atoms/CLAUDE.md 자체가 명시:
+> "기존 화학/물리 프레임(Z_eff, Slater, orbital, Aufbau) 일체 사용 금지.
+>  Regge action과 Gram determinant만으로 주기율표를 설명."
+
+실제는:
+- `IE = Z_eff² × Ry / n²` (Slater 공식) 사용 (Thm 7)
+- `Z_eff = Z - σ` (screening) 사용
+- σ 값들을 DRLT 패턴과 match 하되, **원자별 simplex 네트워크로부터 유도 X**
+
+즉 "Regge action + Gram det" 이 아니라 "Z_eff/Slater framework 의 DRLT 언어 포장".
+
+## 정직한 status
+
+| 범위 | 진짜 DRLT | Pattern fit |
+|------|-----------|-------------|
+| H | IE 13.606 exact ✓ | — |
+| He | IE 24.565 0.02% ✓ | — |
+| Li, Be, ..., 118 elements | ATM_058 시도 → **5 orders of magnitude 실패** | σ_recipe → median 2.9% |
+| Bond angles | ch10 exact 0.00° ✓ | — |
+
+**진짜 DRLT 가 작동하는 범위: H, He (2-vertex 시스템).**
+나머지는 multi-simplex solver 가 없어서 σ_recipe 로 후퇴.
+
+## 이전 audit overclaim 교정
+
+- 이전: "atoms/ MASSIVE SUCCESS 118 elements median 2.9% 0-param"
+- **정정:** "H/He 는 exact DRLT derivation 이나 Li+ 는 σ_recipe pattern fit.
+  자칭 0-param 이나 실제로 σ constants 가 fit parameter.
+  multi-simplex solver (N+1 vertex simplicial complex Regge variation) 은
+  미구현, future work."
+
+## 연구 gap
+
+**G-ATM: Multi-simplex atom solver** (open)
+- 각 원자 Z → (Z+1)-vertex simplicial complex
+- 각 electron = 1 vertex in ℂ⁵ (fold 필요: N > 5)
+- Regge action S = Σ_h A_h δ_h on 전체 복합체
+- δS/δψ_k = 0 → 각 electron coupling ε_k 동시 해결
+- IE = ΔS (atom) - ΔS (ion)
+- 이게 작동하면 **정말로 0-param**, σ 불필요
+
+ATM_058 이 시도했으나 **6-vertex 제약 + vacuum 처리 불명확** 으로 실패.
+
+## Summary
+
+**atoms/ 는 Pattern fit (Slater-type framework) 이지 pure DRLT 아님.**
+H, He 는 DRLT 진짜 작동.  Multi-electron 은 simplex native 계산 미구현,
+σ_recipe 로 후퇴.  이전 "MASSIVE SUCCESS" 레이블 **철회 필요**.
+
+**음직한 다음 연구:**
+- G-ATM gap 해결: multi-simplex Regge variational 구현
+- 성공하면 118 element 2.9% → 직접 유도 0-param 진짜
+- 실패하면 DRLT 는 H/He 에서 멈추고 나머지는 effective theory (honest)

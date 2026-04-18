@@ -108,7 +108,7 @@ FND_NNN 이 refuted 라 하면:
 | **appendix_code** | ⨯ | — |
 | — | — | — |
 | **foundations/** (FND_001–041) | ✓ (내부 일부) | Core Lean 검증; FND_038/039/040/041 이 audit 결과 |
-| **atoms/** (ATM_001–069) | ✓ deep (W71) | 69 exp + 10 thm, 118 elements IE median 2.9%, <5%:71%, <10%:95%, 0-param — massive success |
+| **atoms/** (ATM_001–069) | ✓ deep (W71+RETRACTED) | **재평가 2026-04-18**: H/He pure DRLT ✓, 나머지 Li+ 는 σ_recipe pattern fit (ATM_058 5 orders magnitude 실패). 이전 "massive success" 레이블 철회. G-ATM multi-simplex solver open. |
 | **standard-model/** (SM_001–024) | ✓ deep (W68) | CLOSED 확증; SM_020-024 modern 0.02-1.5%; Self-correction Ξ_conf 내재 |
 | **cosmology/** (COS_001–003) | brief ✓ | ch13 backup, Ω_Λ/w/η_B/DM 3/3 + 3/3 + 2/2 |
 | **cosmic-structure/** (CST_001–022) | ✓ deep (W67) | 58/68 (85%), LSS 세부 일부 미완, H₀ 70.85 between CMB/SH0ES |

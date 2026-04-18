@@ -101,6 +101,23 @@ Lean 검증 또는 고전 정리:
   (M_i 기하 유도) 모두 특정 naive 가설 refuted.  Regge + cosmology
   프로그램 자체는 작동.  이건 세부 튜닝 missing, 프로그램 결함 아님.
 
+### 3f. Multi-electron atoms (G-ATM, critical gap — Mingu 지적 2026-04-18)
+- **이전 overclaim:** atoms/ sub-project 가 118 elements IE median
+  2.9% 로 "massive success" 평가.
+- **재평가 결과:** H, He 만 pure DRLT derivation (ch10 정리, ATM_056
+  σ-free Regge variational = 13.606 eV exact).  Li 이상은 σ_recipe
+  (`σ_1s=7/8`, `σ_same_s=0.597` 등) 로 Z_eff framework 를 DRLT
+  언어로 재포장한 **pattern fit**.
+- **증거:** ATM_058 (σ-free multi-electron variational 시도) 이
+  Li 에서 **+209,602% 실패** (예측 11307 vs 관측 5.392 eV).
+  자기 고백: "single simplex insufficient, multi-simplex solver needed
+  (future work)".
+- **CLAUDE.md 원칙 위반:** atoms/ 는 "기존 Z_eff/Slater 금지" 를
+  명시했으나 실제로 `IE = Z_eff² Ry/n²` + σ fits 로 후퇴.
+- **진짜 gap:** (Z+1)-vertex simplicial complex 위 Regge action
+  변분 solver 구현 미완.  성공 시 118 elements 진짜 0-param.
+  실패 시 DRLT 는 H/He 에서 멈추고 나머지 effective theory (정직).
+
 ---
 
 ## 4. 외부 수학 결과 사용 (Lean 외 classical)
