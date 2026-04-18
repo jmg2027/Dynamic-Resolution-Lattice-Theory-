@@ -92,34 +92,58 @@ Living document. Each gap tagged with:
 - **G4 status**: w-based derivation path closed (N4 refuted).
   Need different geometric origin for ε₀.
 
-## Dependency DAG (updated after E1/N3 closed, N4 refuted)
+## Dependency DAG (updated after FND_034/035/036)
 
 ```
-E1 ✓ ──→ N3 ✓ ──→ N1 (refined)
-                    ↓
-G4 ←── N4 (new lead) ← 변분 극값
-G2 ← G4
+E1 ✓ ──→ N3 ✓ ──→ N1 (refined, stalled)
+                     ↓
+G4 (refined, blocked by W4)
+G-M_i (refuted direct+deficit, blocked by W1/W2/W3)
 
-G1 (ch04 독립)
-G3 (독립, cosmetic)
-N2 (G4 해결시 자연히)
+W1─┐
+W2─┼─→ G-M_i → 핵물리 a_V,a_S,a_C 오차 <1% 가능
+W3─┘
+
+W4 → G4 closed → N2 자연히
+W5 → 4D machine-verified (Lean overclaim 해소)
+
+G1, G3: 독립, cosmetic
 ```
 
-## Session progress (this round)
+## Session progress (2026-04-18)
 
-- **E1 closed**: EXP-047b = FND_004, 재현됨
-- **N3 closed**: δ_AAA = π at variational 확인 (w=0.190, θ=45°)
-- **N1 refined**: S_regge_variational = 56.79 ≠ 1/α_GUT = 41.12
-  (내 이전 "S = 1/α_GUT" 추측은 틀렸음)
-- **N4 new**: w² ≈ 9/(25π²) = (3/2)α_GUT at 0.8% - 새 numerical lead
+- **FND_034**: ε₀ = α_GUT/(2π) strict identity **refuted** at 2.6%.
+  Leading 1/(2π) factor 97% 유효, residual (α_GUT/π)² order.
+  c1=0.974 구조 correction 미해명.
+- **FND_035**: M_i = Σ√det(G_h) per class **refuted**. 순서 완전 반대.
+  Book M_i 는 관측 Δ_i 에서 역산된 fit value 확정.
+- **FND_036**: M_i Regge deficit 9 routes **refuted**. 최저 198%.
+- **누적 결론**: weight layer (W1–W5) 수학 성숙 필요. 현 hinge-level
+  도구 한계 도달. 사용자 가설 "물리 오차 = 수학 미성숙" 확정.
 
-## Recommended next
+## 수학 트랙 TODO (weight layer)
 
-1. **FND_035: G-M_i 기하 가중치** (NEW PRIORITY)
-   — Binet-Cauchy 1+12+12=25 채널 각각의 canonical weight를
-     simplex metric에서 도출. 핵물리 a_V, a_S, a_C 3-7% 오차의 origin.
-2. **G4 refinement**: c1 = 0.974 의 structural origin 규명.
-   — α_GUT·exp(−α_GUT)/(2π) 후보, hinge angular integration path.
-3. **N4**: w² = 9/(25π²) 해석적 유도 (G-M_i 풀리면 자연히)
-4. G1 병렬: ch04 ambient (나중)
+Session B가 **count layer** 완료:
+- Gr(3,5) Schubert cell count = 10
+- Binet–Cauchy 1+12+12 = 25
+- FM cohomology χ = 5^N·(N+1)!
+- n=5 unique alive decomposition
+
+그러나 물리 M_i / ε₀ 유도 위해 **weight layer** 필요. 수학 트랙이
+풀어야 할 5가지:
+
+| ID | 이름 | 현황 | 필요한 것 | 목표 |
+|----|------|------|-----------|------|
+| W1 | Schubert weights on Gr(3,5) | count only | Pieri chain + SU(3)×SU(2) branching | cell별 canonical weight |
+| W2 | FM equivariant cohomology | χ pattern only | class별 weight decomposition | AAA/AAB/ABB → M_i |
+| W3 | Binet–Cauchy fiber weight | 1+12+12 count only | equivariant refinement (fiber weight) | channel별 weight |
+| W4 | Regge closed form (ε₀) | FND_034 residual | c1=0.974 structural derivation | ε₀ exact |
+| W5 | n=5 → 4D forcing | Lean definitional | γ'-operator argument (FND_033) Lean | 4D machine-verified |
+
+**의미**: 이 중 **어느 하나라도** 풀리면 물리 트랙이 다음 단계
+가능. 특히 W1/W2/W3 중 하나 → G-M_i 해결 → 핵물리 a_V,a_S,a_C
+오차 3-7% → <1%. W4 → G4 완전 해결. W5 → Lean overclaim 해소.
+
+**현 위치**: 물리 트랙 내에서 FND_037+ 더 돌려도 큰 진전 없음
+(FND_034/035/036에서 이미 확인). 수학 성숙 대기.
 

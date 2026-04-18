@@ -4,8 +4,27 @@
 **수학-물리 브릿지 (Derivation Chain).** 공리→ℂ→d=5→Gram→물리의 대수적 뼈대.
 순수 수학도 순수 물리도 아닌 유도 사슬 자체. `CLAUDE.md` 참조.
 
-## Status: ACTIVE (Session B 확장 진행 중)
-Core (FND_001–010) STABLE, Session B 확장 (FND_011–033)은 진행 중.
+## Status: ACTIVE (수학 성숙 대기)
+Core (FND_001–010) STABLE. Session B 확장 (FND_011–033) 진행.
+FND_034–036 (이 세션): weight layer 필요성 확정 → 수학 트랙으로 넘김.
+
+## 수학 트랙 TODO (weight layer — 한눈 요약)
+
+물리 M_i / ε₀ 유도 위해 수학 트랙이 풀어야 할 5가지:
+
+- **W1**: Schubert weights on Gr(3,5) — Pieri chain + SU(3)×SU(2) branching
+- **W2**: FM equivariant cohomology — class별 weight decomposition
+- **W3**: Binet–Cauchy fiber weight — 1+12+12 count 너머
+- **W4**: Regge closed form (ε₀) — c1=0.974 구조 derivation
+- **W5**: n=5 → 4D forcing — γ'-operator argument Lean
+
+**어느 하나라도** 풀리면 물리 트랙 다음 단계 가능:
+- W1/W2/W3 → G-M_i 해결 → 핵물리 a_V,a_S,a_C 3-7% → <1%
+- W4 → G4 완전 해결 → ε₀ exact
+- W5 → Lean overclaim 해소 → 4D machine-verified
+
+세부 + DAG: `notes/GAPS_REGISTER.md ## 수학 트랙 TODO`.
+현 상태: FND_037+ 돌려도 진전 없음 (hinge-level 도구 한계 도달).
 
 ## Completed (Core, FND_001–010)
 - Frobenius → ℂ uniqueness (ch01, paper1)
