@@ -44,6 +44,7 @@ E213/OS/Inference.lean                 — 연역/귀납/귀추 재명명. Reach
 E213/OS/Provability.lean               — 4분류 (Provable/Refutable/Independent/Respects).
 E213/OS/Logic.lean                     — Propositional logic (Bool 렌즈, implication).
 E213/OS/Set.lean                       — Naive set theory (atomSet 렌즈, cons-list).
+E213/OS/Topology.lean                  — 3점 위상공간 + 위상동형 (Lens kernel 구조).
 E213/Meta/SelfReference.lean           — Raw 자기 encoding (id' 단사). Gödel 원천.
 E213/Meta/Paradoxes.lean               — Russell 회피 (no self-membership). Cantor.
 E213/Applications/DRLT_Attempt.lean    — ★ Stage 5 시도. 결과: 직접 환원 불가.
