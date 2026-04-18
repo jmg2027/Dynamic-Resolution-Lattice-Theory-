@@ -16,6 +16,7 @@ import E213.OS.Provability
 import E213.OS.Logic
 import E213.OS.Set
 import E213.OS.Topology
+import E213.OS.Algebra
 import E213.Meta.SelfReference
 import E213.Meta.Paradoxes
 import E213.Meta.Infinity
