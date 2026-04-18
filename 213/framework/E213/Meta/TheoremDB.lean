@@ -536,3 +536,55 @@ def theoremDB_v4 : List TheoremEntry := theoremDB_v3 ++ [
 ]
 
 example : theoremDB_v4.length = 75 := by decide
+
+-- ═══ DB v5: CrossChain + StreamAnalysis (v4 → v5, 33 추가) ═══
+
+def theoremDB_v5 : List TheoremEntry := theoremDB_v4 ++ [
+  -- CrossChain (CC_001-018 = 76-93).
+  ⟨76, "Peano zero = a₀", 5, .decided, .provable, "CrossChain"⟩,
+  ⟨77, "Logic ⊤ = a₀", 5, .decided, .provable, "CrossChain"⟩,
+  ⟨78, "Set ∅ = a₀", 5, .decided, .provable, "CrossChain"⟩,
+  ⟨79, "Algebra 0 = a₀", 5, .decided, .provable, "CrossChain"⟩,
+  ⟨80, "SST +1 = a₀", 5, .decided, .provable, "CrossChain"⟩,
+  ⟨81, "Logic ⊥ = b₀", 5, .decided, .provable, "CrossChain"⟩,
+  ⟨82, "Algebra 1 = b₀", 5, .decided, .provable, "CrossChain"⟩,
+  ⟨83, "SST -1 = b₀", 5, .decided, .provable, "CrossChain"⟩,
+  ⟨84, "Logic ab₀ = false", 6, .decided, .provable, "CrossChain"⟩,
+  ⟨85, "Algebra ab₀ = 1", 6, .decided, .provable, "CrossChain"⟩,
+  ⟨86, "SST ab₀ = 2", 6, .decided, .provable, "CrossChain"⟩,
+  ⟨87, "Nat213 reachable", 6, .decided, .provable, "CrossChain"⟩,
+  ⟨88, "Prop213.imp tru tru non-reach", 6, .decided, .provable,
+   "CrossChain"⟩,
+  ⟨89, "Peano→Logic bridge", 6, .decided, .provable, "CrossChain"⟩,
+  ⟨90, "Logic→Set bridge", 6, .decided, .provable, "CrossChain"⟩,
+  ⟨91, "Algebra→SST bridge", 7, .decided, .provable, "CrossChain"⟩,
+  ⟨92, "a₀ universal reachable", 3, .decided, .provable, "CrossChain"⟩,
+  ⟨93, "rel a₀ a₀ universal non-reach", 3, .decided, .provable,
+   "CrossChain"⟩,
+  -- StreamAnalysis (SA_001-015 = 94-108).
+  ⟨94, "zero ≠ ones", 11, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨95, "zero ≠ half", 11, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨96, "half ≠ ones", 11, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨97, "shift 0 = id", 11, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨98, "zero shift", 11, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨99, "ones shift", 11, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨100, "stream ext", 11, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨101, "stream neg def", 12, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨102, "double neg stream", 12, .decided, .provable,
+   "StreamAnalysis"⟩,
+  ⟨103, "zero.neg = ones", 12, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨104, "half.neg ptwise", 12, .decided, .provable,
+   "StreamAnalysis"⟩,
+  ⟨105, "dyadic 1 zero", 13, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨106, "dyadic 1 half", 13, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨107, "dyadic 1 ones", 13, .decided, .provable, "StreamAnalysis"⟩,
+  ⟨108, "dyadic 1 half=ones", 13, .decided, .provable,
+   "StreamAnalysis"⟩
+]
+
+example : theoremDB_v5.length = 108 := by decide
+
+def theoremDB_v5.maxDifficulty : Nat :=
+  theoremDB_v5.foldl (fun acc e => max acc e.difficulty) 0
+
+example : theoremDB_v5.maxDifficulty = 14 := by decide
