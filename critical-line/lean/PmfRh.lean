@@ -66,3 +66,4 @@ import PmfRh.ScaleInvariantFoundation
 import PmfRh.DimensionBridge
 import PmfRh.BinetCauchy
 import PmfRh.ScaleConfluence
+import PmfRh.GrassmannianData
