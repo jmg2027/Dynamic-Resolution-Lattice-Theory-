@@ -42,37 +42,39 @@
 - **결과:** ch02 Swap Theorem 의 수학적 알맹이가 Lean 에서 실제로
   증명됨, 0 sorry.  Book ↔ Lean 대응 완성.
 
-### W2: Born rule "minimal polynomial" 증명 간결함
+### W2: Born rule "minimal polynomial" ✅ **CLOSED** (this session)
 - **위치:** ch01 Thm (Born rule as algebraic necessity)
-- **문장:** "any polynomial in z and z̄ that is real, non-negative must
-  contain factor zz̄" → "minimal is zz̄, degree 2"
-- **문제:** (Re z)², (Im z)² 같은 degree-2 다항식도 real/non-neg/faithful
-  이지만 대칭성 (phase invariance) 이 결여.  "minimal" 만으로 zz̄ 를
-  유일하게 선택하려면 phase-invariance (f(e^{iθ}z) = f(z)) 도 필요.
-- **영향:** 결과는 맞지만 proof 가 한 단계 건너뜀.  "phase invariant +
-  degree-minimal" 로 재기술하면 엄밀.
+- **이전:** "any polynomial in z and z̄ that is real, non-negative
+  must contain factor zz̄" 로 한 단계 건너뜀.  Phase-invariance 누락.
+- **수정:** 조건 5 "Phase-invariant: f(e^{iθ}z) = f(z)" 추가.
+  증명을 $(u,v) = (\Re z, \Im z)$ 에 대한 실수 이차형으로 전개하고,
+  (3)+(4) 이 양정치 이차형을 강제, (5) 가 회전대칭을 강제 ⇒
+  $f_2 = A(u^2+v^2) = A|z|^2$ 로 유일 결정.  별도 Remark 로 "왜
+  phase invariance 인가" (gauge 변환 독립성) 설명 추가.
 
-### W3: R2 연속성 — 물리 가정 명시 필요
+### W3: R2 연속성 — 물리 가정 명시 ✅ **CLOSED** (this session)
 - **위치:** ch01 R2 (Phase)
-- **문장:** "unit-norm elements form a connected Lie group"
-- **문제:** 왜 *연속* 인가?  수학적 필요조건이 아니라 "smooth gauge field
-  정의를 원한다" 는 물리 선택.
-- **현재:** Remark 에 "부분적 관찰의 결정론적 구조" 로 언급되나,
-  R2 자체가 물리 input 임을 명시하는 게 정직.
+- **수정:** R2 에 Parenthetical 추가 — "Physics input: continuity
+  은 gauge 연결 $A = -i\,d\log G$ 의 미분가능성 요청 (Yang-Mills
+  field strength $F = dA + A\wedge A$ 정의 가능).  R1–R4 중 순수
+  수학적이지 않은 유일한 단계."
 
-### W4: R3 의 Regge forward-reference
+### W4: R3 의 Regge forward-reference ✅ **CLOSED** (this session)
 - **위치:** ch01 R3 (Determinant)
-- **문장:** "becomes the hinge area in Regge calculus"
-- **문제:** 이 시점에 Regge 는 아직 도출 안 됨.
-- **수정:** 순수 대수적 motivation ("signed real-valued determinant 가
-  매트릭스 이론에서 필요") 으로 충분.  Regge 언급은 forward-looking
-  remark 로 분리.
+- **수정:** 주 motivation 을 순수 대수로 ("$\sum_\sigma \mathrm{sgn}(\sigma)
+  \prod_i G_{i,\sigma(i)}$ 는 non-commutative algebra 위에서 factor
+  순서에 의존 → 잘 정의 안 됨; Dieudonné det 은 존재하지만 sign
+  잃음").  Regge 언급은 parenthetical "(Anticipating Ch.\ref{ch:atoms})"
+  로 명시적 분리, R3 의 정의에 속하지 않음을 밝힘.
 
-### W5: Swap case (b) 는 field theory
-- **위치:** ch02 Thm 2.1 Case (b) "Spontaneous ℤ₂ breaking... 도메인 월"
-- **문제:** 수학 증명이 아니라 QFT 논변.
-- **수정:** "물리 ensemble average" 를 별도 Remark 로 분리.
-  수학적 주장은 Case (a) 의 rep 이론적 사실 (W1 해결 후) 만.
+### W5: Swap case (b) 는 field theory ✅ **CLOSED** (this session)
+- **위치:** ch02 Thm 2.1
+- **수정:** Theorem statement 을 "Swap Automorphism: algebraic content"
+  로 재기술 — 알맹이는 "σ-fixed 쌍은 vector-like" (Lean 검증 완료,
+  W1 결과).  Case (b) (spontaneous breaking + 도메인 월) 는 별도
+  Remark 로 분리하고 "field-theoretic 논변이지 algebraic 증명이 아님"
+  을 명시.  Mathematical content 과 physics consistency check 를
+  의식적으로 구분.
 
 ---
 
@@ -99,9 +101,16 @@ ch01/ch02 의 **핵심 주장은 엄밀**:
 **약점 W1 은 이번 세션에서 실제 증명으로 교체됨.**  `RepPair`, `swap`,
 `sigma_invariant_iff_vector_like` 로 book ↔ Lean 대응 완성.
 
-W2–W5 는 서술 명료성 문제 — 결과는 맞으나 proof flow 나 assumption
-분리가 느슨.  주요 개선: (i) Born rule 에 phase-invariance 명시,
-(ii) R3 을 순수 대수로 재기술, (iii) Swap case (b) 를 Remark 로 분리.
+W2–W5 도 모두 이번 세션에서 닫힘 (book/chapters/ + book/math/chapters/
+동기 편집):
+- W2: Born rule 에 phase-invariance 추가 (5-조건 정리, 새 증명)
+- W3: R2 연속성을 "physics input" 으로 명시
+- W4: R3 motivation 을 순수 대수로 재기술 (Regge 는 forward ref)
+- W5: Swap Theorem statement 를 algebraic content 로 재기술,
+       case (b) 는 Physics Remark 로 분리
+
+**결과: W1–W5 모두 닫힘.** ch01/ch02 의 수학 코어가 서술 수준과
+Lean 형식화 수준 모두에서 엄밀해짐.
 
 ---
 

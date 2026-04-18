@@ -22,9 +22,9 @@ For the relation matrix $G = (G_{ij})$ to encode a universe with geometry and fo
 \begin{enumerate}[label=\textbf{R\arabic*.}, leftmargin=2cm]
 \item \textbf{Magnitude} (Geometry). $G_{ij}$ must have a well-defined absolute value $|G_{ij}|$ encoding the ``distance'' or ``similarity'' between points $i$ and $j$. This requires $\mathbb{K}$ to be a \emph{normed} algebra.
 
-\item \textbf{Phase} (Gauge forces). $G_{ij}$ must have a continuous phase $\arg(G_{ij})$ encoding the gauge connection between $i$ and $j$. A universe with magnitude only has geometry but no forces --- no electromagnetism, no nuclear interactions, nothing to make matter interact. This requires the unit-norm elements of $\mathbb{K}$ to form a \emph{connected Lie group}.
+\item \textbf{Phase} (Gauge forces). $G_{ij}$ must have a continuous phase $\arg(G_{ij})$ encoding the gauge connection between $i$ and $j$. A universe with magnitude only has geometry but no forces --- no electromagnetism, no nuclear interactions, nothing to make matter interact. This requires the unit-norm elements of $\mathbb{K}$ to form a \emph{connected Lie group}.  (\emph{Physics input:} the continuity assumption encodes the requirement that gauge fields admit a covariantly differentiable connection $A = -i\,d\log G$; over a discrete phase group the parallel transport is not smooth and no Yang--Mills field strength $F = dA + A \wedge A$ is defined.  This is the one step in R1--R4 that is not purely mathematical.)
 
-\item \textbf{Determinant} (Gravity). For any subset of points forming a simplex, the ``volume'' $\det(G_h)$ must be well-defined as a single real number. This volume becomes the hinge area in Regge calculus, encoding spacetime curvature. This requires $\mathbb{K}$ to be \emph{commutative}: $G_{ij} G_{kl} = G_{kl} G_{ij}$.
+\item \textbf{Determinant} (Matrix volumes). For any square submatrix of $G$, the determinant $\det(G_h)$ must be well-defined as a single signed real number. Over a non-commutative algebra, the expression $\sum_\sigma \mathrm{sgn}(\sigma)\prod_i G_{i,\sigma(i)}$ is not invariant under the order of factors, so $\det$ is ill-defined; the Dieudonn\'e determinant resolves existence but maps to $\mathbb{R}_{\geq 0}/\mathbb{K}^\times$, losing sign. This requires $\mathbb{K}$ to be \emph{commutative}: $G_{ij} G_{kl} = G_{kl} G_{ij}$.  (Anticipating Ch.~\ref{ch:atoms}: $\det(G_h)$ becomes the hinge volume of the Regge calculus, and its sign carries the deficit angle — but this is a later application, not part of the definition of R3.)
 
 \item \textbf{Winding} (Charge quantization). The holonomy $\Phi = \arg(G_{ij} G_{jk} G_{ki})$ around a closed loop must admit discrete winding numbers, so that charges are quantized (electrons have charge exactly $-1$, not $-0.997$). This requires $\pi_1(\text{phase group}) \cong \mathbb{Z}$.
 \end{enumerate}
@@ -141,16 +141,25 @@ The relation $G_{ij} \in \mathbb{C}$ immediately raises a question: how do we ex
 The unique polynomial map $f: \mathbb{C} \to \mathbb{R}_{\geq 0}$ of minimal degree satisfying:
 \begin{enumerate}
 \item Real-valued: $f(z) \in \mathbb{R}$,
-\item Symmetric: $f(G_{ij}) = f(G_{ji})$,
+\item Hermitian-symmetric: $f(\bar z) = f(z)$ (so $f(G_{ij}) = f(G_{ji})$ for Hermitian $G$),
 \item Non-negative: $f(z) \geq 0$,
 \item Faithful: $f(z) = 0 \Leftrightarrow z = 0$,
+\item Phase-invariant: $f(e^{i\theta}\,z) = f(z)$ for all $\theta \in \mathbb{R}$.
 \end{enumerate}
 is $f(z) = z\bar{z} = |z|^2$.
 \end{theorem}
 
 \begin{proof}
-Any polynomial in $z$ alone is complex-valued (violates 1). Any polynomial in $z$ and $\bar{z}$ that is real and non-negative must contain the factor $z\bar{z}$ (since $\text{Re}(z)$ and $\text{Im}(z)$ can be negative). The minimal such polynomial is $z\bar{z} = |z|^2$, of degree 2.
+Write $u = \mathrm{Re}(z)$, $v = \mathrm{Im}(z)$ and regard $f$ as a real polynomial in $(u,v)$.  Reality (1) plus Hermitian symmetry (2) reduce $f$ to even powers and cross-terms with real coefficients.  Non-negativity (3) + faithfulness (4) at degree 2 force a positive-definite real quadratic:
+\[
+  f_2(u,v) = A\,u^2 + B\,uv + C\,v^2, \qquad A, C > 0,\ B^2 < 4AC.
+\]
+Phase invariance (5) requires $f_2$ to be rotationally symmetric in $(u,v)$: writing $z' = e^{i\theta}z$ produces $(u',v') = R_\theta(u,v)$, and only forms proportional to $u^2 + v^2$ are $R_\theta$-invariant for all $\theta$. Hence $B = 0$ and $A = C$, giving $f_2 = A(u^2+v^2) = A |z|^2$.  Degree-$0$ polynomials are constant (violate 4) and degree-$1$ real polynomials in $(u,v)$ are not non-negative globally (violate 3), so degree $2$ is the minimum.  Normalizing $A = 1$ yields $f(z) = z\bar z = |z|^2$.
 \end{proof}
+
+\begin{remark}[Why phase invariance]
+$G_{ij} = e^{i\phi_i}\langle\psi_i|\psi_j\rangle\,e^{-i\phi_j}$ under a gauge transformation $\psi_k \mapsto e^{i\phi_k}\psi_k$.  The observable $f(G_{ij})$ must be independent of the arbitrary reference phases, forcing condition (5).  Dropping (5) admits quadratic forms like $A u^2 + C v^2$ with $A \neq C$ which are positive-definite but pick out a preferred phase direction --- not a physically meaningful observable.
+\end{remark}
 
 Therefore:
 \begin{equation}
