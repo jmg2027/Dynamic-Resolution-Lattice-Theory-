@@ -485,3 +485,88 @@ Summary table vs 본문 수치 불일치 (W21/W22) 와 ad-hoc N_* 공식 (W25)
 **분류:** 0-param 예측이 rigorous + heuristic 혼합으로 도출됨.
 중력·cosmology big picture 작동.  W21–W30 은 narrow 서술/수치
 정리 (refuted 없음).
+
+---
+
+# ch05 감사 (2026-04-18, 이어서) — Three Variational Theorems on ∂(Δ⁵)
+
+**Framework:** `audit_framework.md` P1–P5.
+
+## P1. Big picture
+
+**Three Theorems + Vacuum Solution** (모두 ∂(Δ⁵) 6-vertex 위에서):
+
+1. **Thm 1 (AAA deficit):** `δ_AAA = π` independent of φ — confinement
+   보편성 + alternating propagator sign → self-energy 수렴
+2. **Thm 2 (Mean ABB det):** `⟨det(G_h)⟩_ABB = n_B/n_A = 2/3`
+   independent of φ — screening 보편 상수 → lepton 질량비
+3. **Thm 3 (Variational overlap):** `|⟨B₁|B₃⟩|² = cos²(π/4) = 1/2`
+   → lattice speed of light `c = 2 = n_B`
+4. **Vacuum Thm:** `det(G_h)_vac = (d+1)²(d−2)/d³ = 108/125`
+   (Welch bound saturation)
+
+**Downstream 의존:**
+- Thm 1 → 수렴 propagator `P(x) = (1+2x)/(1+x)` (ch08, ch09)
+- Thm 2 → `m_μ/m_e = ρ/α = 3/(2α) = 206.80` (ch09, 0.02%)
+- Thm 3 → `c = 2` (ch06, ch13 Ω_Λ = 1−1/π ← c/(2π))
+- Vacuum → dark energy 기하 기원 (ch13 Ω_Λ > 0)
+
+## P2. 3-layer breakdown
+
+| Claim | Layer | 근거 |
+|-------|-------|------|
+| **Thm 1** `δ_AAA = π` | **Rigorous** | 3-step proof: block factorization + B-sector arccos + identity `arccos(sinφ) = π/2 − φ` |
+| **Thm 2** `⟨det⟩_ABB = 2/3` | **Rigorous** | Block factorization (A×B) + 9 ABB hinges × Pythagoras `sin²+cos²=1` |
+| **Thm 3 Part 1** (stationary at π/4) | **Rigorous** | 교환 대칭 `B₁↔B₂` → `S(φ) = S(π/2−φ)` → `S'(π/4) = 0` |
+| **Thm 3 Part 2** (maximum) | **Derived + numerical** | `d²S/dφ²|_{π/4} = −20.08 < 0` (EXP-047b, 수치) — closed-form 없음 |
+| **Thm 3 conclusion** `c = 2 = n_B` | **Rigorous** | Part 1 + 치환 |
+| **Vacuum Thm** | **Rigorous** | Welch bound 포화 + algebraic factor `(d+1)²(d−2)` |
+| **Universality (φ 무관)** | **Rigorous** | Pythagoras identity |
+
+## P3. Cross-check
+
+| Claim | Book | Lean | 실험 |
+|-------|------|------|------|
+| `δ_AAA = π` | ch05 Thm 1 | — | FND_003/004 (variational) |
+| `⟨det⟩_ABB = 2/3` | ch05 Thm 2 | — | FND_003/004 + EXP-043 |
+| `|⟨B₁|B₃⟩|² = 1/2` | ch05 Thm 3 | — | EXP-047b (d²S 수치) |
+| Vacuum `108/125` | ch05 Thm vacuum | — | — |
+| `m_μ/m_e = 206.80` (corollary) | ch09 (downstream) | — | key precision table |
+
+**관찰:** 모든 proof 는 algebraic (Thm 3 Part 2 만 수치).  Lean 커버
+없음 — 이는 결과 `δ = π`, `⟨det⟩ = 2/3`, `c = 2`, `det_vac = 108/125`
+같은 구체 수 — 충분히 formalize 가능하나 아직 안 됨.
+
+## P4. Refuted scope
+
+본문 직접 refuted 없음.  Thm 3 Part 2 수치 `−20.08` 은 구체 값
+(not refuted, 수치 의존).  Vacuum 해는 maximally symmetric saturation —
+이 외의 non-symmetric 해는 다른 구조이고 본 장 범위 아님.
+
+## W31–W32 (ch05 약점, narrow)
+
+### W31: Thm 3 Part 2 의 maximality proof 는 수치
+- `d²S/dφ²|_{π/4} = −20.08` 은 EXP-047b 에서 numerical.  대수적
+  proof (closed-form expression + sign 결정) 은 없음.
+- 영향: 실제 stationary 가 maximum 임을 prove 하려면 수치 의존.
+  결과 (`c = 2`) 자체는 Part 1 (stationary) + 수치 확인으로 충분.
+- **권고:** `d²S/dφ²` 의 explicit 공식 추가 or Lean 형식화.
+
+### W32: "EXP-047b" 실험 번호 mapping
+- 본문 "(EXP-047b)" 인용되나 현재 FND_NNN 체계와 대응 불명확.
+- `appendix_verification.tex: EXP-043` 은 "Variational ∂(Δ⁵)" 로 존재.
+  EXP-047b 는 별도 실험 — FND_001–004 중 하나?
+- **권고:** EXP-xxx ↔ FND_NNN 매핑표 추가.
+
+## P5. One-line summary (ch05)
+
+**ch05 는 DRLT 의 variational backbone.**  세 주 정리 (δ_AAA = π,
+⟨det⟩_ABB = 2/3, |⟨B₁|B₃⟩|² = 1/2) 모두 6-vertex ∂(Δ⁵) 위에서 algebraic
+proof 제공.  `φ` 무관 universality 가 Pythagoras + 교환 대칭에서 나옴.
+Downstream 결과 (`m_μ/m_e = 206.80` 0.02%, `c = 2`, Ω_Λ = 1−1/π) 가
+이 장의 결과를 직접 사용.  **놀랍게 rigorous** — Thm 3 Part 2 의
+second-derivative maximality 만 수치 의존 (narrow W31).  Vacuum Thm
+은 Welch bound + `(d+1)²(d−2)` 인수분해로 정확.
+
+**분류:** Near-fully Rigorous with narrow numerical step (W31).
+중력·질량·속도-of-light 기초를 제공하는 핵심 장.

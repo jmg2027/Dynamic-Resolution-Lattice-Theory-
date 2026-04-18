@@ -85,7 +85,7 @@ FND_NNN 이 refuted 라 하면:
 | **book ch02** (Why d=5) | ✓ (W1–W5) | atoms={2,3} + alive d=5 Lean 검증; σ-inv↔VL formalized |
 | **book ch03** (rep uniqueness) | ✓ (W6–W15) | α_GUT = 1/(d²ζ(2)) rigorous (Path 1=Path 3 via Euler); Path 2 heuristic |
 | **book ch04** (simplex geometry) | ⨯ | — |
-| **book ch05** (variational) | ⨯ | — |
+| **book ch05** (variational) | ✓ (W31–W32) | 3 정리 모두 algebraic proof (δ_AAA=π, ⟨det⟩_ABB=2/3, c=2), Vacuum det=108/125; Thm 3 Part 2 maximality만 수치 |
 | **book ch06** (geometry) | ✓ (W16–W20) | Regge action + 4 forces + toric rigorous; Lorentz/ADM/LLN은 narrow heuristic sub-step (중력이 가장 많이 derive된 sector의 중심장) |
 | **book ch07** (ℏ) | ⨯ | — |
 | **book ch08** (couplings) | 부분 (FND_040 sync) | α_GUT three paths honest scope 반영됨 |
