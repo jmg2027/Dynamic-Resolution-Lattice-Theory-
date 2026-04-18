@@ -86,7 +86,7 @@ FND_NNN 이 refuted 라 하면:
 | **book ch03** (rep uniqueness) | ✓ (W6–W15) | α_GUT = 1/(d²ζ(2)) rigorous (Path 1=Path 3 via Euler); Path 2 heuristic |
 | **book ch04** (simplex geometry) | ⨯ | — |
 | **book ch05** (variational) | ⨯ | — |
-| **book ch06** (geometry) | ⨯ (spot-checked) | Regge action + 이산 Einstein: big picture rigorous |
+| **book ch06** (geometry) | ✓ (W16–W20) | Regge action + 4 forces + toric rigorous; Lorentz/ADM/LLN은 narrow heuristic sub-step (중력이 가장 많이 derive된 sector의 중심장) |
 | **book ch07** (ℏ) | ⨯ | — |
 | **book ch08** (couplings) | 부분 (FND_040 sync) | α_GUT three paths honest scope 반영됨 |
 | **book ch09** (masses) | ⨯ | — |
