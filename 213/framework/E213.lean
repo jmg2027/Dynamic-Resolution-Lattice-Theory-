@@ -47,3 +47,4 @@ import E213.Meta.StreamSolver
 import E213.Meta.Cardinality
 import E213.Meta.FiniteOrigin
 import E213.Meta.Unbounded
+import E213.Meta.SingularPoint
