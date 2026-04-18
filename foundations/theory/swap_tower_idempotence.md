@@ -61,6 +61,35 @@ tower 는 여전히 유한한 이산 함수 — 무한적 구조가 숨어있지
 
 ---
 
+## 2b. Scope clarification (FND_039, 4/4 ✓)
+
+**Tower 구조는 atom-INDEPENDENT:**
+임의의 coprime (p, q) atoms 에 대해:
+- (a, b) = (1, 1) 이 유일 alive 고정점 — atom 과 무관
+- 고정점 dim = p + q — atom 에 따라 다름
+- 엄밀 감소 off fixed pt — 모든 (p, q) 에서 성립
+
+**따라서 d = 5 는 tower 가 DERIVE 하지 않는다.**
+d = 5 가 나오는 이유는:
+1. atoms = {2, 3} (ch01 Frobenius + ch02 additive atom 정리,
+   PmfRh/Core.lean `additive_atoms`)
+2. 이 atoms 위에서 tower 의 고정점 = (1, 1)
+3. dim = 2 + 3 = 5
+
+즉 tower 는 **"atoms={2,3} → d=5"** 의 연결고리이지,
+**"→ atoms={2,3} → d=5"** 의 원천 아님.  Atom 선택이 선행함.
+
+이는 Path A/B/C 의 관계를 명확히 함:
+- Path A (ch02): atoms={2,3} + alive + unique decomp ⇒ d=5
+- Path B (FND_033): γ' operator + unique-decomp criterion ⇒ d=5
+- Path C (FND_038): atoms={2,3} + tower fixed pt (1,1) ⇒ d=5
+
+모두 atoms={2,3} 를 GIVEN 으로 사용.  "Why atoms={2,3}?" 은
+ch01 (Frobenius: 오직 ℂ) + ch02 (ℕ≥2 의 가법 atom 은 {2,3})
+에서 이미 해결된 선행 단계.
+
+---
+
 ## 3. 왜 중요한가
 
 1. **Algebraic priority 준수.** T 의 고정점은 연속 변분/피팅이

@@ -69,7 +69,8 @@ FND_034: B — ε₀ = α_GUT/(2π) (★ REFUTED: 2.6% gap)
 FND_035: B — M_i direct geometric (★ REFUTED)
 FND_036: B — Regge deficit M_i (★ REFUTED)
 FND_037: M — W3 Schubert T-weight (★ REFUTED)
-FND_038: M — Swap tower = operadic idempotence (9/9 ✓)
+FND_038: M — Swap tower = 유한 반복 고정점 (12/12 ✓, Lean 17 thm)
+FND_039: M — Tower atom-dependency scope (4/4 ✓, atom-INDEP)
 ```
 
 ## Related Papers (root papers/)
