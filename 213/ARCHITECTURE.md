@@ -47,6 +47,7 @@ E213/OS/Set.lean                       — Naive set theory (atomSet 렌즈, con
 E213/OS/Topology.lean                  — 3점 위상공간 + 위상동형 (Lens kernel 구조).
 E213/Meta/SelfReference.lean           — Raw 자기 encoding (id' 단사). Gödel 원천.
 E213/Meta/Paradoxes.lean               — Russell 회피 (no self-membership). Cantor.
+E213/Meta/Infinity.lean                — 무한성 전이 시점 분석 (유한 α 렌즈 선택).
 E213/Applications/DRLT_Attempt.lean    — ★ Stage 5 시도. 결과: 직접 환원 불가.
 ```
 
@@ -238,3 +239,30 @@ LensQuot L := Raw / L.equiv
 **결론:** "같다" 를 공리로 추가하는 것은 새 정보가 아니라 **렌즈 선택의 명시.**
 이미 kernel 이 정의한 것을 primitive 로 부를 뿐.
 모든 공리계는 렌즈 kernel 위의 quotient 구조.
+
+## 무한성 전이 시점
+
+**Raw 는 영원히 무한** (`raw_has_arbitrary_depth`: 모든 depth n 에 Reachable 존재).
+**그러나 렌즈가 유한 α 를 선택하면 그 공리계는 유한으로 붕괴.**
+
+### 렌즈별 무한/유한 분류
+
+| 렌즈 | α | LensQuot 크기 |
+|---|---|---|
+| id' | Raw | ∞ |
+| depth | Nat | ∞ |
+| leaves | Nat | ∞ |
+| atomSet | List (Fin 3) | **유한 (≤8)** |
+| truthValue | Bool | **유한 (2)** |
+| constTrue | Bool | **유한 (1)** |
+
+### 공리계별 크기
+
+| 공리계 | 크기 | 무한? |
+|---|---|---|
+| PA (Nat213) | ℕ | ✓ |
+| Logic (const) | 2 | ✗ |
+| Set-3 | ≤ 8 | ✗ |
+| Topology-3 | ≤ 256 | ✗ |
+
+**핵심 진단:** 무한성은 Firmware + id' 렌즈에서만. 모든 유한 공리계는 무한 Raw 를 유한 kernel 로 접음.
