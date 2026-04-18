@@ -18,13 +18,23 @@ Living document. Each gap tagged with:
 | N1 | Regge S_var=56.79, S_sym=41.94 | refined | Numerical | useful | — | S ≠ 1/α_GUT. 무슨 identity인지? |
 | N2 | (1/4)^4 ≈ ε₀ (지수 4) | open | Numerical | cosmetic | G4 | — |
 | N3 | δ_AAA = π 재현 | **closed** | Numerical | — | — | FND_004 재현 확인 완료 |
-| N4 | w² ≈ (3/2)α_GUT = 9/(25π²) | **new** | Numerical | useful | — | 변분 극값 해석 유도 |
+| N4 | w² ≈ (3/2)α_GUT = 9/(25π²) | **refuted** | Numerical | — | — | 0.4% off, gap > 수렴 정밀도 |
 | T1 | "2.4% = α_GUT universal" | closed | Tested | — | — | 기각됨 (FND_014) |
 | T2 | 1-param Regge δ_AAA | closed | Tested | — | — | FND_019 wrong family |
 | E1 | EXP-047b (δ_AAA=π 원본) | **closed** | External | — | — | = FND_004, 확인됨 |
 | E2 | ch10 f_occ theorem 정밀도 | open | External | useful | — | 수치 크로스체크 |
 
-## Dependency DAG (updated after E1/N3 closed)
+## Updates (FND_021)
+
+- **N4 refuted**: w* (Brent, tol 1e-14) = 0.190264 vs 3/(5π) = 0.190986.
+  Gap 0.38% > convergence tol → w² ≠ 9/(25π²) exactly.
+  S(w*) > S(3/(5π)) detectably.
+- **Coincidence**: gap ≈ ε₀ = 0.0038 itself. Could suggest
+  w* = (3/(5π))(1-ε₀), but this is numerical loop, not proof.
+- **G4 status**: w-based derivation path closed (N4 refuted).
+  Need different geometric origin for ε₀.
+
+## Dependency DAG (updated after E1/N3 closed, N4 refuted)
 
 ```
 E1 ✓ ──→ N3 ✓ ──→ N1 (refined)
