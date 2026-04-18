@@ -1,0 +1,576 @@
+# Multi-Electron Atoms in DRLT — Theoretical Framework
+
+**Status:** Theory draft 2026-04-18 (Mingu's challenge).
+**Goal:** "심플렉스 네트워크 그려서 선따라 찍찍 계산" 을 정확히 구현
+        하기 위한 이론 정립.  공리에서 직접 IE 까지 — σ_recipe 없이.
+
+**Outline:**
+- §1. 기존 정립된 base: H + He (ch10)
+- §2. ATM_058 가 왜 실패했나
+- §3. 새 framework: shared-A multi-simplex network
+- §4. 일반 원자의 simplex 그래프
+- §5. 계산 절차 (선따라 찍찍)
+- §6. Screening 의 기하학적 기원
+- §7. IE 추출 공식
+- §8. 검증 계획
+
+---
+
+## §1. 기존 정립된 base (ch10)
+
+### 1.1 Hydrogen = AAAB tetrahedron
+
+ch10 의 H 그림:
+```
+                      A₃ (q3, spatial)
+                      /\
+                     /  \
+                    /    \
+                   /      \
+                  /        \
+                A₁----------A₂   (3 A = proton's 3 quarks)
+                  \   /\   /
+                   \ /  \ /
+                    X    X       (3 AAB hinges = electron-proton EM bonds)
+                   / \  / \
+                  /   \/   \
+                 /    /\    \
+                /    /  \    \
+               /    /    \    \
+              -----+      +-----
+                   B₁              ← electron
+                   
+              [B₂ vacant slot — outside this tetrahedron]
+```
+
+- **4 vertices:** {A₁, A₂, A₃, B₁} = AAAB face (4-element subset of ∂Δ⁴ vertex set)
+- **Hinges (triangles) within:** AAA (1) + AAB (3) = 4 hinges
+- **B₂ outside:** vacant 5th vertex
+
+**IE 공식** (ch10 Thm):
+$$\sum_{h \in \text{AAB}} (1 - \det G_h) = 2\alpha^2$$
+$$\boxed{\text{IE}(H) = \frac{m_e c^2 \cdot 2\alpha^2}{n_B^2} = \frac{m_e \alpha^2}{2} = 13.606\;\text{eV}}$$
+
+ε = α/√n_A = α/√3 (electron-proton coupling).
+
+### 1.2 Helium = fully-occupied ∂Δ⁴
+
+```
+                      A₃
+                      /\
+                     /  \
+                    /    \
+                   /      \
+                  /        \
+                A₁----------A₂
+                /\          /\
+               /  \        /  \
+              B₂   \      /   B₁    ← BOTH B = electrons
+                \   \    /   /
+                 \   \  /   /
+                  \   \/   /
+                   \  /\  /
+                    \/  \/
+                    /----\
+```
+
+- **5 vertices:** {A₁, A₂, A₃, B₁, B₂} = full ∂Δ⁴
+- **Hinges:** AAA (1) + AAB (6) + ABB (3) = 10
+- **모든 5 face active** (AAAB ×2 + AABB ×3)
+
+$$\boxed{\text{IE}(He) = 2R_y(1 - c^2 \alpha_{GUT}) = 24.565\;\text{eV (0.02\%)}}$$
+
+여기까지가 진짜 DRLT — 한 simplex 안에서 모든 게 됨.
+
+---
+
+## §2. ATM_058 가 왜 실패했나 (진단)
+
+ATM_058 의 approach:
+- 6 vertices = 3 A (고정) + 3 electrons + 1 vacuum
+- **한 개의 ∂Δ⁵ 안에** 모든 것 넣음
+- 각 electron 에 독립 ε_k 부여하고 simultaneous variation
+
+실패 원인 (Li: 예측 11307 eV vs 관측 5.392 eV, +209,602% error):
+
+**문제 1: n_B = 2 per simplex 위반**
+- DRLT 공리: 각 ∂Δ⁴ simplex 는 3 A + 2 B 로 (3,2) decomposition
+- 3 electron 을 한 simplex B-slot 에 넣으면 B-count = 3 > n_B = 2
+- 이는 **simplex 구조 자체를 깨뜨림** (atom 은 이제 "∂Δ⁵ 의 한 가짓수" 가 아님)
+
+**문제 2: "shell" 개념 부재**
+- 1s² 과 2s¹ 은 물리적으로 다른 spatial distribution 이어야 함
+- ATM_058 은 3 electron 을 "같은 공간" 에 몰아넣음 → 모두 nucleus 근방
+- 결과: 모든 ε_k 가 ~α 규모 → 예측 IE ~ Z²·Ry 수준 (매우 큼)
+
+**문제 3: 계산 방법은 맞지만 구조가 틀림**
+- `ψ → G → hinge det → IE` 자체는 올바름
+- 문제는 ψ 를 어떻게 **배치** 하느냐
+
+**결론:** ATM_058 은 "계산 방법 (Regge variational) 은 맞으나
+**simplex 네트워크 구조** 를 잘못 그림".
+
+---
+
+## §3. 새 framework: Shared-A Multi-Simplex Network
+
+### 3.1 핵심 원칙
+
+**"원자 = 공유된 3 A-vertices + 여러 simplex"**
+
+모든 electron-쌍 이 한 ∂Δ⁴ simplex 를 형성.  모든 simplex 는
+같은 3 A-vertices (= nucleus 의 3 quark structure) 를 공유.
+
+각 simplex 는 독립 ε (coupling) 을 가짐:
+- 내부 shell (nucleus 가까움): ε 크다 (강한 binding)
+- 외부 shell (멀다): ε 작다 (약한 binding)
+
+### 3.2 Shell = simplex 배당
+
+각 **orbital pair** = 1 simplex (3 A + 2 B).
+Unpaired electron = simplex with 1 B_e + 1 B_vac.
+
+| Orbital | Simplex count | Electron count |
+|---------|---------------|----------------|
+| 1s | 1 | 0, 1, 2 |
+| 2s | 1 | 0, 1, 2 |
+| 2p_x, 2p_y, 2p_z | 3 | 0-6 |
+| 3s | 1 | 0, 1, 2 |
+| 3p | 3 | 0-6 |
+| 3d | 5 | 0-10 |
+| ... | ... | ... |
+
+**원자 = ∑ simplices (각 orbital 마다 하나)**
+
+### 3.3 원자별 그림
+
+**H (Z=1):** 1s¹
+```
+   3A ---+--- 1s simplex: 3A + B₁_e + B₂_vac
+```
+= 전통적 AAAB face (ch10).
+
+**He (Z=2):** 1s²
+```
+   3A ---+--- 1s simplex: 3A + B₁_e + B₂_e
+```
+= 전통적 full ∂Δ⁴ (ch10).
+
+**Li (Z=3):** 1s² 2s¹
+```
+   3A ---+--- 1s simplex: 3A + B₁_e + B₂_e    (ε_1s ≈ α/√n_A, 강)
+         |
+         +--- 2s simplex: 3A + B₃_e + B_vac   (ε_2s ≈ α/? , 약)
+```
+**핵심:** 두 simplex 가 3 A 를 공유 (nucleus 가 공통).  B-vertices
+는 모두 독립.  각 simplex 의 ε 가 독립 변수.
+
+**Be (Z=4):** 1s² 2s²
+```
+   3A ---+--- 1s simplex: 3A + B₁_e + B₂_e
+         +--- 2s simplex: 3A + B₃_e + B₄_e
+```
+
+**B (Z=5):** 1s² 2s² 2p¹
+```
+   3A ---+--- 1s simplex: 3A + B₁_e + B₂_e
+         +--- 2s simplex: 3A + B₃_e + B₄_e
+         +--- 2p_x simplex: 3A + B₅_e + B_vac
+```
+
+**C (Z=6):** 1s² 2s² 2p²  (Hund's rule → 2개 2p 에 1개씩)
+```
+   3A ---+--- 1s simplex
+         +--- 2s simplex
+         +--- 2p_x simplex: 3A + B_e + B_vac
+         +--- 2p_y simplex: 3A + B_e + B_vac
+```
+= 4 simplices, 총 vertex = 3 + 2·4 = 11.
+
+**Ne (Z=10):** 1s² 2s² 2p⁶
+```
+   3A ---+--- 1s simplex     (2 e⁻)
+         +--- 2s simplex     (2 e⁻)
+         +--- 2p_x simplex   (2 e⁻)
+         +--- 2p_y simplex   (2 e⁻)
+         +--- 2p_z simplex   (2 e⁻)
+```
+= 5 simplices, 3 + 10 = 13 vertices.
+
+### 3.4 왜 "3 A 공유" 가 맞는가
+
+세 가지 논리:
+
+**(a) Nucleus 의 유일성:** 각 원자는 **하나의** nucleus 를 가짐.
+A₁A₂A₃ = 3 quarks of proton/nucleus.  모든 electron 이 같은
+nucleus 를 느낌 → A 는 공유.
+
+**(b) Spatial 3D 의 공유:** n_S = 3 공간 방향은 원자 전체가 공유.
+각 electron 의 "공간적 위치" 가 다를 수 있으나, 공간 축 자체는 동일.
+→ A₁, A₂, A₃ 는 **공간 축** 을 정의하고 모든 simplex 공유.
+
+**(c) 각 simplex = 한 orbital:** Aufbau 에서 각 orbital 은
+독립적 wave function ψ_orbital.  DRLT 에서 각 simplex 가 자기 ε 를
+가짐 = 각 orbital 의 binding energy.
+
+### 3.5 Simplex 사이 hinge?
+
+**중요 질문:** 두 simplex 사이에 hinge (cross-shell triangle) 가
+있는가?
+
+두 simplex 가 3 A 를 공유하므로, 예를 들어:
+- Simplex 1 (1s): {A₁, A₂, A₃, B_1s¹, B_1s²}
+- Simplex 2 (2s): {A₁, A₂, A₃, B_2s¹, B_2s²}
+
+이 두 집합의 합집합: {A₁, A₂, A₃, B_1s¹, B_1s², B_2s¹, B_2s²} = 7 vertices.
+
+이 7-vertex 집합에서 만들 수 있는 triangle 중 일부:
+- {A₁, A₂, A₃}: 완전 A, 하나. (공유되는 AAA hinge)
+- {A_i, A_j, B_1s}: AAB, 3·2 = 6개 (1s 기여)
+- {A_i, A_j, B_2s}: AAB, 3·2 = 6개 (2s 기여)
+- {A_i, B_1s, B_2s}: **ABB with mixed B** — **cross-shell!**
+- {B_1s, B_2s, B_2s'}: BBB, 대부분 degenerate
+
+**Cross-shell ABB** = 다른 shell 의 B-vertices 가 만드는 hinge.
+이게 **screening 의 기하학적 origin** (§6 참고).
+
+---
+
+## §4. 일반 원자의 simplex 그래프
+
+### 4.1 표기법
+
+원자 = 그래프 $\mathcal{A}_Z$:
+- **Vertices:** $\{A_1, A_2, A_3\} \cup \{B_{ok}\}_{o,k}$ where
+  $o$ = orbital index, $k \in \{1, 2\}$ = intra-orbital index
+- **Simplices:** 각 orbital $o$ → one ∂Δ⁴ simplex
+  $\sigma_o = \{A_1, A_2, A_3, B_{o,1}, B_{o,2}\}$
+- **Edges:** 모든 vertex 쌍 (fully connected; Gram matrix 가 모든 쌍 정의)
+
+### 4.2 전체 Gram matrix
+
+$N_{\text{tot}} = 3 + 2 N_{\text{orb}}$ vertices.
+Gram matrix $G \in \mathbb{C}^{N_{\text{tot}} \times N_{\text{tot}}}$:
+
+- **AA block:** 3×3, 고정 (n_S = 3 spatial).  Values from ch05 variational:
+  $|A_i \cdot A_j| = $ determined by symmetric n_S=3 frame.
+- **AB blocks (per orbital):** 3×2, each orbital has own coupling ε_o.
+  $\langle A_i | B_{o,k} \rangle = \varepsilon_o / \sqrt{n_A}$ (가정; 정확한 공식 §5).
+- **BB within orbital:** 2×2 for each orbital.
+  $\langle B_{o,1} | B_{o,2} \rangle = $ Pauli-suppressed (orthogonal?).
+- **BB cross-orbital:** 2×2 for each orbital pair.
+  $\langle B_{o,k} | B_{o',k'} \rangle = $ **orbital overlap** (small, related to screening).
+
+### 4.3 Rank constraint
+
+전체 Gram matrix G 는 ψ_i ∈ ℂ⁵ 이므로 rank(G) ≤ 5.
+$N_{\text{tot}} > 5$ 일 때 (즉 Z ≥ 3 원자): G 는 rank-deficient.
+이는 **실제 수학적 제약** — 3 + 2 N_orb ≤ 5 는 N_orb ≤ 1 일 때만.
+N_orb ≥ 2 (Li 부터) 는 rank 제약 → fold / identification 필요.
+
+**이것이 ATM_058 의 숨겨진 문제:** 6-vertex 시스템도 이미 rank-5 제약
+아래 있었지만, 모든 ψ 를 독립적으로 취급.
+
+**정직한 처리:** ℂ⁵ 안에서 최적 배치 찾는 variational.  일부 overlap
+이 필연적 (rank deficit).  이게 exactly **Pauli exclusion 의
+기하학적 원천**.
+
+---
+
+## §5. 계산 절차 — "선 따라 찍찍"
+
+### Step 0. 입력
+- 원자 번호 Z → electron configuration (Aufbau): 1s^{n₁s} 2s^{n₂s}
+  2p^{n₂p} 3s^{n₃s} 3p^{n₃p} 4s^{n₄s} 3d^{n₃d} ...
+- Orbital 목록 $\{o_1, o_2, \ldots, o_{N_{\text{orb}}}\}$
+- 각 orbital 의 occupation $n_o$ ∈ {0, 1, 2}
+
+### Step 1. Vertex 배치 (그림 그리기)
+
+- 3 A-vertices: ∂Δ⁴ 의 standard symmetric 위치 (ch05 에서 고정)
+- 각 orbital $o$ 마다 2 B-vertices: $B_{o,1}, B_{o,2}$
+  - Occupation $n_o = 2$: 둘 다 electron
+  - $n_o = 1$: 하나는 electron, 하나는 vacuum
+  - $n_o = 0$: 둘 다 vacuum (simplex 존재하나 inactive)
+
+### Step 2. ψ vector 파라미터화
+
+**A-vertices** (spatial frame, fixed):
+$$A_1 = |e_1\rangle, A_2 = |e_2\rangle, A_3 = |e_3\rangle$$
+(standard basis of ℂ³ sub-block)
+
+**B-vertices** (orbital-specific):
+각 orbital $o$ 에는 coupling parameter $\varepsilon_o$.
+$$B_{o,k} = \varepsilon_o \hat{n}_o^{(k)} + \sqrt{1 - \varepsilon_o^2} |e_{4+k \mod 2}\rangle$$
+where $\hat{n}_o^{(k)}$ is a unit vector in the A-subspace (specific
+to orbital, e.g. 2p_x 는 x-direction).
+
+- $\varepsilon_o = 0$: B 가 순수 temporal ($\mathbb{C}^2$)
+- $\varepsilon_o = 1$: B 가 순수 spatial (A 근처)
+- Small $\varepsilon_o$: 약한 binding (far electron)
+- Large $\varepsilon_o$: 강한 binding (close electron)
+
+### Step 3. Gram matrix 구성
+
+$G_{ij} = \langle \psi_i | \psi_j \rangle$ for all vertex pairs.
+$N_{\text{tot}} \times N_{\text{tot}}$ matrix.
+
+### Step 4. Hinge 열거 (선 따라 찍찍)
+
+모든 triangle (i,j,k) 가 hinge.  Classify:
+
+- **AAA (1):** {A₁, A₂, A₃}.  구조 공통, 변하지 않음.
+- **AAB (intra-orbital):** {A_i, A_j, B_{o,k}} for each orbital $o$.
+  총 3·2·$N_{\text{orb}}$ = 6·$N_{\text{orb}}$ hinges.
+- **ABB (intra-orbital):** {A_i, B_{o,1}, B_{o,2}} for each $o$.
+  총 3·$N_{\text{orb}}$.
+- **ABB (cross-orbital):** {A_i, B_{o,k}, B_{o',k'}} for $o \ne o'$.
+  이것이 **cross-shell coupling**, screening 의 기원.
+- **BBB (intra-orbital):** {B_{o,1}, B_{o,2}, B_{o,?}} — B only 2 개
+  per orbital 이므로 하나의 orbital 안에서 BBB 불가능.
+- **BBB (cross-orbital):** 다른 orbital B 들로 만든 triangle.
+  대부분 degenerate (∵ rank ≤ 2 in temporal sector? 아니면 ≤ 2 in
+  some sub-block).  계산 필요.
+
+### Step 5. Hinge 별 det(G_h) + deficit angle
+
+각 hinge $h$:
+$$A_h = \sqrt{\det(G_h)}$$
+$$\delta_h = 2\pi - \sum_{\sigma \supset h} \theta_\sigma$$
+
+여기서 $\sigma$ 는 $h$ 를 포함하는 simplex (tetrahedron 이상).
+Intra-orbital hinges: 해당 simplex 만 기여 → $\delta_h$ 단순.
+Cross-orbital hinges: 여러 simplex 가 공유하는 $h$ 는 각각 기여.
+
+### Step 6. Regge action
+
+$$S_{\text{total}} = \sum_{h} A_h \, \delta_h$$
+
+**변수:** orbital 별 coupling $\{\varepsilon_o\}_{o}$
+(전체 $N_{\text{orb}}$ 개의 independent parameter).
+
+### Step 7. Variational extremum
+
+$\delta S / \delta \varepsilon_o = 0$ for all $o$:
+$$\left. \frac{\partial S}{\partial \varepsilon_o} \right|_{\varepsilon^*} = 0$$
+
+Numerical: scipy.optimize 로 $\varepsilon^*$ 찾기.
+중요: 안장점 vs 최대 vs 최소 check.
+
+### Step 8. IE 추출
+
+$$\text{IE}(Z) = E_{\text{ion}}(Z-1) - E(Z)$$
+$$E(Z) = S(\text{atom with } Z \text{ electrons, } \varepsilon^*)$$
+$$E_{\text{ion}}(Z-1) = S(\text{highest orbital 1 electron 제거, re-optimize})$$
+
+**Normalization:** $S$ 가 dimensionless.  에너지로 변환:
+$$E = S \times \frac{m_e c^2}{n_B^2}$$
+(H 의 공식 $IE(H) = m_e c^2 \cdot 2\alpha^2 / n_B^2$ 에서
+$S = 2\alpha^2$ 이면 맞음.)
+
+---
+
+## §6. Screening 의 기하학적 기원 (σ 없이 나오는 이유)
+
+### 6.1 주장
+
+"Screening constants 는 cross-orbital ABB hinge 의 det 값에서
+자동으로 나온다.  별도 fit 필요 없음."
+
+### 6.2 직관
+
+Inner electron (1s) 이 nucleus 에 가까움 → ε_1s 크다.
+Outer electron (2s) 이 nucleus 에서 멀음 → ε_2s 작다.
+**Cross-shell ABB** {A_i, B_1s, B_2s} 의 det 은:
+- $|A_i|^2 = 1$
+- $|B_{1s}|^2 = 1$, $|B_{2s}|^2 = 1$
+- $|\langle A_i | B_{1s} \rangle| = \varepsilon_{1s}/\sqrt{n_A}$
+- $|\langle A_i | B_{2s} \rangle| = \varepsilon_{2s}/\sqrt{n_A}$
+- $|\langle B_{1s} | B_{2s} \rangle| = $ **cross-orbital overlap**
+
+Cross-orbital overlap $\langle B_{1s} | B_{2s} \rangle$ 은 두
+orbital 의 spatial extent 차이 를 반영.  Pauli orthogonality 에
+가깝지만 (0 에 근접), small non-zero 값을 가짐.
+
+### 6.3 구체 예측: σ_1s = ?
+
+Z=3 (Li) 에서 외부 (2s) electron 이 느끼는 effective coupling:
+
+S 에 ε_2s 로 미분:
+$$\frac{\partial S}{\partial \varepsilon_{2s}} = \sum_h \left(\frac{\partial A_h}{\partial \varepsilon_{2s}} \delta_h + A_h \frac{\partial \delta_h}{\partial \varepsilon_{2s}}\right) = 0$$
+
+Intra-2s hinges: ε_2s 에만 의존.
+Cross-shell hinges: ε_1s, ε_2s, cross-overlap 모두에 의존.
+
+Variational extremum 에서 효과적으로:
+$$\varepsilon_{2s}^* = \varepsilon_0^{(2s)} \cdot (1 - \sigma_{\text{geom}})$$
+
+여기 $\sigma_{\text{geom}}$ 은 **cross-shell hinge 의 기하학적 효과**
+로부터 나오는 값.  Fit 아니라 variational 결과.
+
+### 6.4 atoms/CLAUDE.md 의 σ_recipe 가 맞을 가능성
+
+기존 σ_recipe (예: σ_1s = 7/8 = 1 - n_S/(d²-1)) 이 **이 geometric
+variational 결과** 의 **닫힌 형태 근사일 가능성** 이 있음.
+구체적으로:
+- $n_S/(d^2-1) = 3/24 = 1/8$ = spatial dimension / adjoint dimension
+- 이는 **SU(5) adjoint rep 의 spatial 비율**
+- Cross-shell hinge variational 에서 자연스럽게 나올 수 있음
+
+**확인 필요:** cross-shell ABB hinge 의 det 을 extremize 하면 정말
+σ_1s = 7/8 이 나오는가?  이게 검증되면 atoms/ 의 σ_recipe 는
+"fit" 이 아니라 "geometric variational 결과의 닫힌 형태" 로 승격됨.
+
+### 6.5 현재 상태
+
+**가설:** σ_recipe 는 geometric variational 의 shortcut 이다.
+**증명:** 직접 variational 계산 후 σ_recipe 값과 match 확인 필요.
+**만약 match:** atoms/ 복권.  σ 값 이 derivation 의 공식 축약.
+**만약 mismatch:** σ_recipe 는 여전히 fit.  새 solver 필요.
+
+---
+
+## §7. IE 추출 공식 — 구체 버전
+
+### 7.1 H 재검증 (sanity check)
+
+H 의 Regge:
+- 1 simplex (1s), occupation (1, 0)
+- ε_1s = α/√n_A = α/√3 (ch10 기성)
+- 3 AAB hinges within simplex, 1 AAA, 3 ABB with vacuum
+
+Compute:
+$$S_H = S_{AAA} + 3 \cdot S_{AAB}(\varepsilon_{1s}) + 3 \cdot S_{ABB,\text{vac}}(\varepsilon_{1s})$$
+
+AAB 기여: $\sum (1 - \det) = 2\alpha^2$.
+$S_H - S_H^+ = 2\alpha^2 \cdot \delta_h$ (deficit angle 보정).
+$\text{IE}(H) = S \cdot m_e c^2 / n_B^2 = 13.606$ eV ✓.
+
+### 7.2 He sanity check
+
+He: 1 simplex (1s), occupation (2, 0).
+추가 ABB (intra-orbital, B_1, B_2 가 both electrons) hinges 활성화.
+
+Compute similarly.  IE(He) = 24.565 eV should drop out.
+
+### 7.3 Li 진짜 예측 (no σ)
+
+Li: 2 simplices (1s 2s), occupation (2, 1) + (1, 0).
+- ε_1s: 내부, 강함.  Variational 에서 nucleus 가까이.
+- ε_2s: 외부, 약함.  Variational 에서 멀게 배치.
+- Cross-shell ABB hinges: ε_1s · ε_2s · cos(angle) 꼴 기여.
+
+Extremize S(ε_1s, ε_2s).  두 orbital 독립 최적화.
+
+**핵심:** ε_2s 의 최적값이 "내부 shell 존재" 때문에 작게 나와야 함.
+이게 기하학적 screening.
+
+$$\text{IE}(Li) = S(Li) - S(Li^+) = [\text{2s simplex 기여}]$$
+$$= \varepsilon_{2s}^{*2} \times [\text{hinge sum}] \times \frac{m_e c^2}{n_B^2}$$
+
+**관측 5.392 eV** 와 비교.  만약 맞으면 σ_recipe 불필요.
+
+### 7.4 일반 공식
+
+$$\text{IE}(Z) = \left[ S(\varepsilon^*(Z)) - S(\varepsilon^*(Z-1)) \right] \cdot \frac{m_e c^2}{n_B^2}$$
+
+Where $\varepsilon^*(Z)$ is the variational minimum (or stationary
+point) over all orbital couplings, with proper occupation for atom Z.
+
+---
+
+## §8. 검증 계획 (단계별)
+
+### Stage 1: Sanity (H + He)
+- 새 framework 의 single-simplex version 이 ch10 결과와 동일한지 확인
+- H: 13.606 eV exact 재현
+- He: 24.565 eV (0.02%) 재현
+- **이 단계 통과 없으면 아무것도 못 함**
+
+### Stage 2: Li (첫 multi-simplex)
+- 2 simplex (1s + 2s), 3 A 공유
+- ε_1s, ε_2s 독립 variation
+- 예측 IE(Li) 를 관측 5.392 eV 와 비교
+- σ_recipe 은 **사용 안 함** — pure geometric variational
+
+**세 가지 가능한 결과:**
+1. **IE(Li) ≈ 5.39 eV (within 5%)**: 이론 승리.  σ_recipe 는
+   이 framework 의 약식 표현.
+2. **IE(Li) ≈ 5.39 × (1 + const)**: 근접하나 체계적 오차.
+   Cross-shell coupling 공식 refine 필요.
+3. **IE(Li) 가 관측과 orders of magnitude 차이:** framework 자체
+   재검토.  Shell 개념 자체가 DRLT 에 없을 수도 (더 근본적인 구조
+   필요).
+
+### Stage 3: Period 2 (Be ~ Ne)
+Li 성공 시 Be, B, C, N, O, F, Ne 예측.
+관측값과 비교, median % error 계산.
+atoms/ 의 기존 2.9% median (with σ_recipe) 과 비교:
+- 새 framework (no σ) 가 ≤ 2.9% → 승.
+- > 10% → σ_recipe 가 더 나은 approximation.
+
+### Stage 4: Period 3+
+성공 시 Na~Ar, K+, etc.  118 elements full scan.
+
+### Stage 5: σ_recipe 의 정체 규명
+Stage 2-4 결과 비교:
+- 만약 σ_recipe 가 variational 의 근사였으면 → 형식 증명 가능
+- 만약 서로 다른 값이면 → σ_recipe 의 origin 을 다시 찾기
+
+---
+
+## §9. 주요 open questions
+
+### Q1. Cross-orbital overlap ⟨B_{1s} | B_{2s}⟩ = ?
+기본값 0 (orthogonal) 아니면 어떤 기하적 값?
+
+**가설:** Pauli exclusion 은 ℂ² 내에서의 orthogonality 요구.
+하지만 ℂ² 에는 2 차원밖에 없으므로 orthogonal B 는 2 개까지만.
+3 번째 B (Li's 2s) 는 1s²B 들과 **exactly orthogonal 불가**.
+**비직교도 가 곧 screening**.
+
+### Q2. A-vertex 의 정확한 구조
+ch05 에서 ∂Δ⁵ 의 3 A-vertices 는 특정 symmetric frame.
+Multi-orbital 에서 같은 A-frame 이 각 simplex 에서 사용.
+ε_o 로 변하는 것은 B-vertex 의 A-coupling 만.
+
+### Q3. "Orbital" 의 DRLT 정의
+현재 framework 는 Aufbau 의 orbital 순서 (1s, 2s, 2p, 3s, ...) 를
+**external input** 으로 사용.  DRLT 공리에서 이 순서를 derive
+가능한가?
+
+**가능 후보:** Orbital ordering 이 simplex tower (FND_038) 의
+level 에서 나올 가능성.  Level 0 = 1s, Level 1 = 2s+2p 등.
+
+### Q4. ε_o 의 parametrization
+현재:
+$$B_{o,k} = \varepsilon_o \hat{n}_o^{(k)} + \sqrt{1-\varepsilon_o^2} \hat{t}$$
+$\hat{n}_o^{(k)}$ 는 orbital 별 방향, $\hat{t}$ 는 temporal.
+구체적인 각 orbital 방향은 어떻게 정해지나?  2p_x, 2p_y, 2p_z 는
+{x, y, z} 방향이어야 한다 — orbital 의 공간 symmetry 에서.
+
+### Q5. IE normalization
+$\text{IE} = S \times m_e c^2 / n_B^2$ 이 H 에서 맞음.
+일반 atom 에서 이 factor 가 여전히 맞는가?  m_e 는 어디서 오는가?
+ch09 의 m_e 유도 체인 확인 필요.
+
+---
+
+## §10. 정리 (다음 단계)
+
+**이론은 세워짐.** 요약:
+1. 원자 = 3 A-vertices 공유 + orbital-별 ∂Δ⁴ simplex 모임
+2. 각 simplex = (3 A, 2 B) with orbital-별 독립 ε_o
+3. 전체 Regge action $S = \sum_h A_h \delta_h$ over cross-orbital
+   hinges 포함
+4. ε_o 들을 동시 variation → $\varepsilon_o^*$
+5. IE = ΔS (atom vs ion) × $m_e c^2 / n_B^2$
+
+**σ_recipe 없이** 작동 가능성 존재.  검증은 Stage 1-5.
+
+**다음 작업:** Stage 1 implementation (single-simplex Li check 부터는
+아니지만, H 의 새 framework 에서의 재도출).  실험 번호: **ATM_070**
+으로 시작 (기존 ATM_056 σ-free H 와 구별).
+
+**저자:** Mingu Jeong (intuition + challenge) +
+Claude (formalization).
