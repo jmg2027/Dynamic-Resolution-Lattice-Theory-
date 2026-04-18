@@ -6,3 +6,4 @@ import E213.Hypervisor.Numbers
 import E213.Hypervisor.Enumeration
 import E213.Hypervisor.NumberComparison
 import E213.Hypervisor.Fold
+import E213.Hypervisor.FoldInjective
