@@ -121,6 +121,46 @@ example : ∀ x ∈ levelUpTo 1, Reachable x := by decide
 -- ARCHITECTURE.md의 "Level 0: a, b, a/b (3개)"는 2 atoms seed.
 -- 같은 재귀 구조, 다른 초기 조건.
 
+-- ═══ 일반 증명: expandOne의 Reachable 보존 ═══
+
+-- expandOne은 Reachable 리스트를 Reachable 리스트로 보낸다.
+theorem expandOne_preserves_reachable (L : List Raw)
+    (hL : ∀ x ∈ L, Reachable x) :
+    ∀ y ∈ expandOne L, Reachable y := by
+  intro y hy
+  simp [expandOne, List.mem_flatMap, List.mem_filterMap] at hy
+  obtain ⟨x, hx, z, hz, hcond⟩ := hy
+  split at hcond
+  · next hne =>
+    rw [Option.some_inj] at hcond
+    rw [← hcond]
+    exact reachable_slash (hL x hx) (hL z hz) hne
+  · exact (Option.noConfusion hcond)
+
+-- levelUpTo n의 모든 원소는 Reachable.
+theorem levelUpTo_reachable : ∀ (n : Nat), ∀ x ∈ levelUpTo n, Reachable x
+  | 0, x, hx => by
+    simp [levelUpTo] at hx
+    rcases hx with rfl | rfl | rfl
+    · exact .atom 0
+    · exact .atom 1
+    · exact .atom 2
+  | n + 1, x, hx => by
+    simp [levelUpTo, List.mem_dedup, List.mem_append] at hx
+    rcases hx with h | h
+    · exact levelUpTo_reachable n x h
+    · exact expandOne_preserves_reachable _ (levelUpTo_reachable n) x h
+
+-- 자동 따름정리: 이제 Level n의 Reachable을 모두 인스턴스화.
+example (n : Nat) : ∀ x ∈ levelUpTo n, Reachable x :=
+  levelUpTo_reachable n
+
+-- Level 2 count (decide). 예상: 9 + (9×8 - 6 L1 중복) = 9 + 66 = 75.
+example : (levelUpTo 2).length = 75 := by decide
+
+-- Level 2도 모두 Reachable (levelUpTo_reachable에서 자동).
+example : ∀ x ∈ levelUpTo 2, Reachable x := levelUpTo_reachable 2
+
 -- ═══ 요약 ═══
 -- 1. Reachable ↔ wellFormed (구문적 판정).
 -- 2. Reachable은 DecidablePred.
