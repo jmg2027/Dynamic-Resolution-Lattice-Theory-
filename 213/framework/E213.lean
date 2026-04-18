@@ -43,3 +43,4 @@ import E213.Meta.Patterns
 import E213.Meta.CrossChain
 import E213.Meta.CategoryFunctor
 import E213.Meta.ProblemSolver
+import E213.Meta.StreamSolver
