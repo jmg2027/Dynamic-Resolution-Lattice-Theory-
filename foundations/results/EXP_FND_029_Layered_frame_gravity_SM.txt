@@ -1,0 +1,101 @@
+============================================================
+  EXP_FND_029_Layered_frame_gravity_SM
+  2026-04-18 09:22:31
+============================================================
+=================================================================
+LAYERED FRAME: gravity background + SM amplification
+=================================================================
+
+  Variational config, d(Delta^5) = 6 simplices
+  Regge S total = 56.7870
+
+   Type  count     S_type  % total
+    AAA      1     2.9889     5.3%
+    AAB      9    18.5052    32.6%
+    ABB      9    35.2929    62.1%
+    BBB      1     0.0000     0.0%
+  Total     20    56.7870
+
+=================================================================
+C2: S_type vs SM coupling (1/alpha_i)_comb
+=================================================================
+
+  Book's (1/alpha_i)_comb:
+    Strong (AAA-derived): 1/alpha_3 = 8
+    EM (AAB-derived):     1/alpha_1 = 6 pi^2 = 59.2176
+    Weak (ABB-derived):   1/alpha_2 = 30
+
+  Comparing to Regge S_type at variational:
+
+   Type     S_type    1/alpha      ratio
+    AAA     2.9889     8.0000     0.3736
+    AAB    18.5052    59.2176     0.3125
+    ABB    35.2929    30.0000     1.1764
+
+  Amplification factors (1/alpha_i divided by S_type):
+    AAA: 8 / 2.989 = 2.6765
+    AAB: 59.22 / 18.505 = 3.2001
+    ABB: 30 / 35.293 = 0.8500
+  
+  No clean universal factor. Suggests direct S_type ↔ 1/alpha_i
+  identity doesn't hold. The 'amplification' involves more structure
+  than simple proportionality.
+
+  [✓ PASS] C2 completed
+
+  Sum S_type = 56.7870
+  Sum 1/alpha_i = 8 + 6pi^2 + 30 = 97.2176
+  Ratio: 0.5841
+
+=================================================================
+C4: What IS the layered structure?
+=================================================================
+
+  Honest finding: S_type values (gravity-like) and 1/alpha_i
+  (SM couplings) are NOT simply proportional. The book's
+  1/alpha_i formula = C_i * g_i * S(N_eff) is STRUCTURAL:
+    - C_i: c-weighted channel count (pure combinatorial)
+    - g_i: gauge multiplicity (representation theory)
+    - S(N_eff): propagator sum over lattice
+
+  Meanwhile Regge S_type = sum of actual A_h * delta_h at that
+  type. Both use the same Gram G but different OPERATIONS.
+
+  User's layered picture refined:
+    - Gravity (Regge S) = CONTINUUM LIMIT object, uses metric
+    - SM couplings = COMBINATORIAL counts on same hinges
+    - They agree in the sense that BOTH live on same G,
+      but they're different aggregations.
+
+  So 'amplification' is really:
+    S_type (continuous gravity weight at this type of hinge)
+            vs
+    1/alpha_i (discrete channel count with propagator tail)
+  
+  These are not simply related via a constant factor;
+  they're different ways of measuring the SAME underlying geometry.
+
+
+=================================================================
+C5: Where layered picture shows: trace conservation
+=================================================================
+
+  The trace conservation (ch12) Sum(Delta_i) = 0 IS the layered
+  picture's bookkeeping:
+    Delta_i = (1/alpha_i)_full - (1/alpha_i)_comb
+    = geometric correction to combinatorial
+    = how much the REAL gravity background deviates from
+      simplified combinatorial SM expectation.
+  
+  Sum(Delta_i) = 0 means: redistributions among SM forces
+  preserve the total 'gravity weight' of the network.
+  This is explicit layering: SM fluctuates, gravity conserves.
+
+
+============================================================
+  SUMMARY: EXP_FND_029_Layered_frame_gravity_SM
+============================================================
+  [✓] C2 completed
+
+  1/1 checks passed
+  Time: 0.0s

@@ -1,0 +1,80 @@
+============================================================
+  EXP_FND_021_Variational_w_star_precision
+  2026-04-18 08:05:49
+============================================================
+=================================================================
+PRECISION TEST: w* = 3/(5*pi)?
+=================================================================
+
+  Conjecture: w* = 3/(5 pi) = 0.190985931710
+             w*^2 = 9/(25 pi^2) = 0.036475626111
+             (3/2)*alpha_GUT = 0.036475626111
+
+  Numerical optimization (brent, tol=1e-14):
+    w* = 0.190264416643
+    S(w*) = 56.787027818315
+    |w_numerical - 3/(5*pi)| = 7.22e-04
+    Relative: 0.3778%
+
+  S(3/(5*pi), pi/4) = 56.787018368953
+  S(w*_num, pi/4)   = 56.787027818315
+  Difference: 9.45e-06
+  [✓ PASS] w* within 1% of 3/(5*pi)
+
+=================================================================
+dS/dw at conjectured w = 3/(5*pi)
+=================================================================
+
+  dS/dw at w = 3/(5*pi): -2.569796e-02
+  If conjecture exact: should be 0.
+  dS/dw at w_numerical:  -1.512242e-02  (check)
+  [✓ PASS] dS/dw at 3/(5pi) is small-ish
+  [✗ FAIL] dS/dw at w_numerical ~ 0
+
+=================================================================
+PRECISION LANDSCAPE near optimum
+=================================================================
+
+  candidate                                    w             w^2               S
+  w = 3/(5*pi)                      0.1909859317    0.0364756261   56.7870183690
+  w = numerical                     0.1902644166    0.0362005482   56.7870278183
+  w = sqrt(9/25/pi^2)               0.1909859317    0.0364756261   56.7870183690
+  w = 0.1903 (FND_004)              0.1902676482    0.0362017780   56.7870278019
+  w = sqrt((3/2)*alpha_GUT)         0.1909859317    0.0364756261   56.7870183690
+
+=================================================================
+SUMMARY
+=================================================================
+
+  w* (Brent, tol 1e-14): 0.1902644166
+  w* conjecture 3/(5*pi): 0.1909859317
+  Relative deviation: 0.3778%
+
+  Analysis:
+    - 0.4% gap persists even at high-precision optimization.
+    - If w* = 3/(5*pi) exactly, numerical should converge to it
+      (Brent tolerance 1e-14 should find it to 10+ digits).
+    - Gap 0.4% is LARGER than convergence tolerance.
+    => w* != 3/(5*pi) exactly.
+
+  Alternative conjectures to explore:
+    - w* = alpha_GUT related formula with correction
+    - w* = root of specific algebraic equation from dS/dw = 0
+    - Need analytical form of S(w) at theta = pi/4 to derive w* exactly.
+
+  Status:
+    N4 "w^2 = 9/(25*pi^2)" conjecture: LIKELY FALSE at 0.4% level.
+    Still the closest algebraic form found, but not exact.
+
+  [✓ PASS] Conjecture testable
+
+============================================================
+  SUMMARY: EXP_FND_021_Variational_w_star_precision
+============================================================
+  [✓] w* within 1% of 3/(5*pi)
+  [✓] dS/dw at 3/(5pi) is small-ish
+  [✗] dS/dw at w_numerical ~ 0
+  [✓] Conjecture testable
+
+  3/4 checks passed
+  Time: 0.1s

@@ -1,0 +1,81 @@
+============================================================
+  EXP_FND_033_gamma_prime_4D_forced
+  2026-04-18 10:12:49
+============================================================
+=================================================================
+γ' : swap annihilation on simplex vertex count
+=================================================================
+
+  Q: which n-simplex has vertex count (n+1) that SURVIVES swap?
+
+  For n-simplex Δⁿ: vertex count = n+1
+  Decompose n+1 = 2a + 3b with atoms {2, 3}
+  Alive iff: (a mod 2, b mod 2) = (1, 1)
+    — one 2-atom + one 3-atom survive, no alone-atom collapse
+
+  Scan n = 1 to 15:
+
+    n  n+1 (verts)                        decomps      survive     status
+  --- ------------ ------------------------------ ------------ ----------
+    1            2                          (1,0)        (1,0)       dead
+    2            3                          (0,1)        (0,1)       dead
+    3            4                          (2,0)        (0,0)       dead
+    4            5                          (1,1)        (1,1)      ALIVE
+    5            6                   (3,0), (0,2) (1,0), (0,0)       dead
+    6            7                          (2,1)        (0,1)       dead
+    7            8                   (4,0), (1,2) (0,0), (1,0)       dead
+    8            9                   (3,1), (0,3) (1,1), (0,1)      ALIVE
+    9           10                   (5,0), (2,2) (1,0), (0,0)       dead
+   10           11                   (4,1), (1,3) (0,1), (1,1)      ALIVE
+   11           12            (6,0), (3,2), (0,4) (0,0), (1,0), (0,0)       dead
+   12           13                   (5,1), (2,3) (1,1), (0,1)      ALIVE
+   13           14            (7,0), (4,2), (1,4) (1,0), (0,0), (1,0)       dead
+   14           15            (6,1), (3,3), (0,5) (0,1), (1,1), (0,1)      ALIVE
+   15           16            (8,0), (5,2), (2,4) (0,0), (1,0), (0,0)       dead
+
+  Alive n: [4, 8, 10, 12, 14]
+  [✓ PASS] n = 4 is alive
+  [✗ FAIL] Only n = 4 alive in range [1, 15]
+
+=================================================================
+UNIQUENESS: no alive n beyond 4
+=================================================================
+
+  Alive n in [5, 99]: [8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98]
+  [✗ FAIL] n = 4 UNIQUELY alive (no n > 4)
+
+  THEOREM: n + 1 = 5 is the UNIQUE alive vertex count.
+
+  Proof:
+    Decompose n+1 = 2a + 3b with a, b >= 0.
+    Survive iff (a mod 2, b mod 2) = (1, 1).
+    So a = 2k+1 and b = 2m+1 for some k, m >= 0.
+    Then n + 1 = 2(2k+1) + 3(2m+1) = 4k + 6m + 5.
+    So n + 1 = 5 + 4k + 6m.
+    
+    For (k, m) = (0, 0): n+1 = 5. Smallest, UNIQUE alive.
+    For (k, m) != (0, 0): n+1 > 5, but also has OTHER decompositions.
+    
+    Example: n+1 = 9 = 2(3)+3(1). But also 9 = 2(0)+3(3).
+      (a,b)=(3,1): survive = (1,1) ALIVE (k=1, m=0)
+      (a,b)=(0,3): survive = (0,1) alone 3, DEAD
+    So n+1 = 9 has a decomposition that's alive!
+
+  Wait — my uniqueness test above should have caught this.
+  Let me recheck...
+
+
+  Detailed check n+1 = 9:
+    (a, b) = (3, 1), survive = (1, 1)
+    (a, b) = (0, 3), survive = (0, 1)
+  => n+1 = 9 IS alive (n = 8)
+
+============================================================
+  SUMMARY: EXP_FND_033_gamma_prime_4D_forced
+============================================================
+  [✓] n = 4 is alive
+  [✗] Only n = 4 alive in range [1, 15]
+  [✗] n = 4 UNIQUELY alive (no n > 4)
+
+  1/3 checks passed
+  Time: 0.0s
