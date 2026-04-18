@@ -46,6 +46,7 @@ E213/OS/Logic.lean                     — Propositional logic (Bool 렌즈, imp
 E213/OS/Set.lean                       — Naive set theory (atomSet 렌즈, cons-list).
 E213/Meta/SelfReference.lean           — Raw 자기 encoding (id' 단사). Gödel 원천.
 E213/Meta/Paradoxes.lean               — Russell 회피 (no self-membership). Cantor.
+E213/Applications/DRLT_Attempt.lean    — ★ Stage 5 시도. 결과: 직접 환원 불가.
 ```
 
 ## 원칙
