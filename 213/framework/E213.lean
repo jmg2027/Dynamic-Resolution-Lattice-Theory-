@@ -34,3 +34,5 @@ import E213.Goldbach.Structure
 import E213.Negation
 import E213.Coordinates
 import E213.ConstructiveGap
+import E213.Architecture
+import E213.LayerCheck
