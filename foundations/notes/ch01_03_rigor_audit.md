@@ -163,3 +163,74 @@ modules).
 
 이들은 수학 내용은 그대로이고 **서술 정리** 만 필요.  시간 나면
 book 편집 세션에서 한 번에.  지금은 W1 (Lean 핵심) 해결이 우선.
+
+---
+
+# ch03 감사 (2026-04-18, 이어서)
+
+**Scope:** `book/chapters/ch03_rep_uniqueness.tex` — (2,3) 의 rep
+이론적 유일성, α_GUT 의 세 경로, 함의.
+
+## 요약
+
+**엄밀한 부분 (A):**
+- ch01/ch02 결론 재진술 (atoms = {2,3}, swap annihilates, uniqueness)
+- Binet–Cauchy 1+12+12 = 25 (Path 1, Lean `BinetCauchy.lean` 검증)
+- GUE β=2 (Path 2, well-known RMT 결과)
+- Euler P(coprime) = 6/π² (Path 3, 고전)
+
+**약점 W6–W15 (식별):**
+
+### W13 (critical) ✅ **CLOSED** (this session)
+- **위치:** ch03 "det(G_h) contributions identified"
+- **문제:** "universal ~2.4% correction throughout DRLT" 주장이
+  FND\_013 에서 refuted (cherry-picked) 으로 판명났는데, ch03 는
+  아직 established fact 처럼 서술.
+- **수정:** 섹션 제목을 "scope and honest limits" 로 변경.
+  Universal 가설이 FND\_013 에서 refuted 임을 명시.
+  Established (trace 보존) / per-quantity (m_p, θ_H2O, η_B) /
+  open conjecture (unified 메커니즘) 세 층으로 분리.
+  새 Remark "Open: a unified-correction mechanism" 에 현재 상태
+  정직 기록.
+
+### W14: "Unified theory" claim
+- **위치:** "These corrections are the signature of a unified theory"
+- **수정:** W13 수정의 일부로 Open Remark 로 재배치.
+  Conjecture 임을 명시 (theorem 아님).
+
+### W6–W12 (margin, 수정 보류)
+- **W6** "dissolves" corollary: ch02 동일 패턴, ch02 세션에서 이미 개선.
+  ch03 은 단순 반복 — 수정 불필요.
+- **W7** "no rank-5 emerges" 수치 실험: 구체 실험 링크 없음.
+  (개선 여지: FND 번호 추가)
+- **W8** "SSS ≈ 1" 근사 표기: Binet–Cauchy 는 **exact** 이지만 여기선
+  numerical 실험 맥락이라 ≈ 는 정당.
+- **W9** "N_cross ≈ 1500 = GUT scale": speculative, "may correspond"
+  으로 이미 hedged.  추가 제한 필요성 낮음.
+- **W10** "Path 2 GUE → α_GUT": "normalized short-distance level
+  repulsion coefficient" 정의 모호.  ref 보강 여지.
+- **W11** "Path 3 coprime fraction → α_GUT": "d²=25 채널 중 coprime"
+  의 구체 정의 불명.  formalization 필요.
+- **W12** "GUE-Coupling Correspondence" 정리: precise statement 없음.
+
+W6–W12 는 수정은 큰 리소스 (새 정의 + 실험 or ref) 필요.  현재는
+**"universal 2.4% 는 refuted" 정직 수정 (W13) + 도움말 remark (W14)**
+만 적용.  W10–W12 는 차후 별도 세션에서 α_GUT 경로들을 정리할 때 처리.
+
+## 크로스체크 (ch03 claims ↔ Lean)
+
+| Book 주장 | Lean | 상태 |
+|-----------|------|------|
+| atoms = {2,3} | `Core.lean: additive_atoms` | ✓ |
+| 1 + 12 + 12 = 25 (Binet–Cauchy) | `BinetCauchy.lean` | ✓ |
+| (2,3) 유일 alive | `ChiralChannels.lean: chiral_split` | ✓ |
+| σ-inv → vector-like | `SwapAnnihilation.lean: sigma_invariant_iff_vector_like` | ✓ (W1 에서 닫힘) |
+| α_GUT = 6/(25π²) 수식 | (algebraic derivation, no Lean 필요) | ✓ (조합) |
+| "universal 2.4%" 보정 | (refuted, FND\_013) | ✓ W13 에서 수정 |
+
+## 결론 (ch03)
+
+수학 코어는 엄밀 (atoms, Binet–Cauchy, rep uniqueness 모두 Lean
+검증됨 또는 classical).  W13 의 "universal 2.4%" overclaim 은
+이번 세션에서 honest scope 로 수정.  W14 도 같이 조정됨.
+W6–W12 는 margin (수정 여지 있으나 진행 리소스 대비 우선순위 낮음).

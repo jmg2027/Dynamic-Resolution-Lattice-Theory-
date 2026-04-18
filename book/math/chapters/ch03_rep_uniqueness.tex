@@ -193,12 +193,14 @@ $\agut = 6/(25\pi^2)$ is a theorem, not a measurement.
 
 ``Breaking'' is a misnomer. The chiral structure $(2,3)$ exists at all $N$. What changes with $N_\text{eff}$ is its spectral visibility. GUT breaking is inevitable (N$_\text{eff}$ always crosses $\sim$1500), mechanism-free, and irreversible.
 
-\subsubsection{The $\det(G_h)$ contributions identified}
+\subsubsection{The $\det(G_h)$ contributions: scope and honest limits}
 
-The $\sim$2.4\% $\det(G_h)$ geometric contributions throughout DRLT --- in the proton mass, water bond angle, baryon asymmetry, and coupling constants --- are now identified as contributions from $\lambda_6, \ldots, \lambda_{d_\text{indep}}$: spectrally indistinguishable from $\lambda_1, \ldots, \lambda_5$ but representation-theoretically trivial.
+One might hope that a \emph{single} universal correction of magnitude $\alpha_{\mathrm{GUT}}\approx 2.4\%$ would appear in every DRLT observable (proton mass, water bond angle, baryon asymmetry, coupling constants, \ldots), interpretable as the contribution of the trivial eigenvalues $\lambda_6,\ldots,\lambda_{d_\text{indep}}$.  The ``universal $\alpha_{\mathrm{GUT}}$'' hypothesis was tested directly in experiment FND\_013 (\texttt{foundations/experiments/FND\_013\_alpha\_gut\_universal.py}).  \textbf{Result: refuted.}  The selection of quantities admitting a clean $+\alpha_{\mathrm{GUT}}$ correction was cherry-picked; other observables with comparable geometric character do not fit the pattern.  An audit (FND\_014) documents this negative outcome.
 
-The trace conservation $\sum_i \Delta_i = 0$ follows from $\tr(G) = N$, which holds regardless of how many dimensions are trivial. The same $\agut$ contribution appears in:
-
+What \emph{is} established:
+\begin{itemize}
+\item Trace conservation $\sum_i \Delta_i = 0$ follows from $\tr(G) = N$ regardless of how many eigen-directions are representation-theoretically trivial.
+\item For \emph{specific} quantities, an $\alpha_{\mathrm{GUT}}$-scale geometric correction from trivial eigenvalues is present and consistent with observation:
 \begin{center}
 \begin{tabular}{lccl}
 \hline
@@ -210,8 +212,12 @@ $\eta_B$ & $5.98 \times 10^{-10}$ & $6.13 \times 10^{-10}$ & 0.2\% \\
 \hline
 \end{tabular}
 \end{center}
+These are per-quantity results, not instances of a general law.
+\end{itemize}
 
-These corrections are the signature of a unified theory: they vanish when gravity (the $\det$ contribution) is included alongside quantum mechanics.
+\begin{remark}[Open: a unified-correction mechanism]
+The hypothesis that these corrections arise from a common $\det(G_h)$ / trivial-eigenvalue source when gravity is consistently coupled to QM remains a \emph{conjecture}, not a theorem.  FND\_013/014 rule out the naive universal version; a derived version (with clean per-quantity weights) is open.
+\end{remark}
 
 \subsubsection{No anthropic principle}
 
