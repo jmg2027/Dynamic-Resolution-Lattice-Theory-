@@ -21,3 +21,6 @@ import E213.Goldbach.Prediction
 import E213.Goldbach.ProofLocal
 import E213.Goldbach.ProofAttempt
 import E213.Goldbach.FillGap
+import E213.Goldbach.Count
+import E213.Goldbach.VaughanWitness
+import E213.Goldbach.RHBridge
