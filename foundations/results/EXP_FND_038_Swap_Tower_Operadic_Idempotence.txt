@@ -1,6 +1,6 @@
 ============================================================
   EXP_FND_038_Swap_Tower_Operadic_Idempotence
-  2026-04-18 16:02:34
+  2026-04-18 16:33:25
 ============================================================
 =================================================================
 SWAP TOWER = OPERADIC IDEMPOTENCE
@@ -135,6 +135,54 @@ THEOREM (Swap Tower = Operadic Idempotence)
     σ of ch02 / SwapAnnihilation.lean is the 1-level
     slice of an operadic monad T on simplex towers.
 
+=================================================================
+CHECK 8 (OT-2): Strict decrease off fixed point d=5
+=================================================================
+
+     d  T(d)  T(d) < d?  fixed?
+     5     5      False    True
+     7     5       True   False
+     8     5       True   False
+    10     5       True   False
+    11     7       True   False
+    12     7       True   False
+    15     9       True   False
+    20    11       True   False
+    30    15       True   False
+    50    25       True   False
+   100    51       True   False
+   200   101       True   False
+  [✓ PASS] Strict decrease off d=5 (OT-2 in Lean: tower_strict_off_five)
+
+=================================================================
+CHECK 9 (OT-4): Dead sector (a=0 or b=0)
+=================================================================
+
+  Dead = only one atom present. Tower stays in dead sector.
+  Dead tower output ≠ 5 (cannot produce alive fixed point).
+
+     (a,b)   dim  T_dead   = 5?
+    (2, 0)     4       2  False
+    (3, 0)     6       4  False
+    (5, 0)    10       6  False
+   (10, 0)    20      10  False
+    (0, 2)     6       3  False
+    (0, 3)     9       6  False
+    (0, 5)    15       9  False
+   (0, 10)    30      15  False
+  [✓ PASS] Dead sector output ≠ 5 (OT-4: dead_tower_ne_five)
+
+=================================================================
+CHECK 10 (OT-4 honesty): alive/dead dims can COINCIDE
+=================================================================
+
+  alive (a=3, b=1): dim = 2·3 + 3·1 = 9
+  dead  (a=0, b=3): dim = 2·0 + 3·3 = 9
+  => same dim 9, different decomposition.
+  The distinction is STRUCTURAL (which atoms present),
+  not dimensional.  Matches book 'v≥6 ambiguity'.
+  [✓ PASS] alive/dead dim coincidence documented (Lean: ∃-theorem)
+
 ============================================================
   SUMMARY: EXP_FND_038_Swap_Tower_Operadic_Idempotence
 ============================================================
@@ -147,6 +195,9 @@ THEOREM (Swap Tower = Operadic Idempotence)
   [✓] T ∘ T^∞ = T^∞ on alive sector
   [✓] FM formula well-defined at n=5 fixed pt
   [✓] Pairwise σ = 1-step T restriction (consistent)
+  [✓] Strict decrease off d=5 (OT-2 in Lean: tower_strict_off_five)
+  [✓] Dead sector output ≠ 5 (OT-4: dead_tower_ne_five)
+  [✓] alive/dead dim coincidence documented (Lean: ∃-theorem)
 
-  9/9 checks passed
+  12/12 checks passed
   Time: 0.0s

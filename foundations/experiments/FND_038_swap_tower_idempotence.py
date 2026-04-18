@@ -233,6 +233,65 @@ class EXP_FND_038(Experiment):
         self.log("    σ of ch02 / SwapAnnihilation.lean is the 1-level")
         self.log("    slice of an operadic monad T on simplex towers.")
 
+        # Check 8: OT-2 strict decrease off fixed point
+        self.log("")
+        self.log("=" * 65)
+        self.log("CHECK 8 (OT-2): Strict decrease off fixed point d=5")
+        self.log("=" * 65)
+        self.log("")
+        self.log(f"  {'d':>4} {'T(d)':>5} {'T(d) < d?':>10} {'fixed?':>7}")
+        strict_holds = True
+        for d in [5, 7, 8, 10, 11, 12, 15, 20, 30, 50, 100, 200]:
+            ab = minimal_alive_decomp(d)
+            if ab is None:
+                continue
+            t = tower_step(d)
+            is_fixed = (t == d)
+            strict_ok = (is_fixed and d == 5) or (t < d)
+            if not strict_ok:
+                strict_holds = False
+            self.log(f"  {d:>4} {t:>5} {str(t < d):>10} {str(is_fixed):>7}")
+        self.check("Strict decrease off d=5 (OT-2 in Lean: tower_strict_off_five)",
+                   strict_holds)
+
+        # Check 9: OT-4 dead sector
+        self.log("")
+        self.log("=" * 65)
+        self.log("CHECK 9 (OT-4): Dead sector (a=0 or b=0)")
+        self.log("=" * 65)
+        self.log("")
+        self.log("  Dead = only one atom present. Tower stays in dead sector.")
+        self.log("  Dead tower output ≠ 5 (cannot produce alive fixed point).")
+        self.log("")
+        self.log(f"  {'(a,b)':>8} {'dim':>5} {'T_dead':>7} {'= 5?':>6}")
+        dead_ne_five = True
+        for (a, b) in [(2, 0), (3, 0), (5, 0), (10, 0),
+                       (0, 2), (0, 3), (0, 5), (0, 10)]:
+            dim = 2 * a + 3 * b
+            tdead = d_indep(a, b)
+            if tdead == 5:
+                dead_ne_five = False
+            self.log(f"  {str((a, b)):>8} {dim:>5} {tdead:>7}"
+                     f" {str(tdead == 5):>6}")
+        self.check("Dead sector output ≠ 5 (OT-4: dead_tower_ne_five)",
+                   dead_ne_five)
+
+        # Check 10: alive (3,1) and dead (0,3) share dim=9 (honest negative)
+        self.log("")
+        self.log("=" * 65)
+        self.log("CHECK 10 (OT-4 honesty): alive/dead dims can COINCIDE")
+        self.log("=" * 65)
+        self.log("")
+        self.log("  alive (a=3, b=1): dim = 2·3 + 3·1 = 9")
+        self.log("  dead  (a=0, b=3): dim = 2·0 + 3·3 = 9")
+        self.log("  => same dim 9, different decomposition.")
+        self.log("  The distinction is STRUCTURAL (which atoms present),")
+        self.log("  not dimensional.  Matches book 'v≥6 ambiguity'.")
+        alive_dim = 2 * 3 + 3 * 1
+        dead_dim = 2 * 0 + 3 * 3
+        self.check("alive/dead dim coincidence documented (Lean: ∃-theorem)",
+                   alive_dim == dead_dim == 9)
+
 
 if __name__ == "__main__":
     EXP_FND_038().execute()

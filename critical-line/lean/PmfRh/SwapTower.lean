@@ -168,4 +168,105 @@ theorem fixed_point_unique_dim (x y : AliveDim)
     (hx : IsFixed x) (hy : IsFixed y) : x.dim = y.dim := by
   rw [fixed_implies_five x hx, fixed_implies_five y hy]
 
+/-! ## 10. Strict decrease off the fixed point (OT-2) -/
+
+/-- Off the fixed point, tower STRICTLY decreases.
+    This is the monad-idempotence content of T: iterations
+    cannot stall; every orbit terminates at the fixed point
+    after finitely many steps. -/
+theorem tower_strict_off_five (x : AliveDim) (h : 5 < x.dim) :
+    towerStep x < x.dim := by
+  have := x.ha; have := x.hb
+  have hdim : x.dim = 2 * x.a + 3 * x.b := rfl
+  rw [hdim] at h
+  show 2 * ((x.a + 1) / 2) + 3 * ((x.b + 1) / 2) < 2 * x.a + 3 * x.b
+  omega
+
+/-- IsFixed x ⟺ x.dim = 5  (full characterization of fixed points). -/
+theorem fixed_iff_five (x : AliveDim) : IsFixed x ↔ x.dim = 5 := by
+  constructor
+  · exact fixed_implies_five x
+  · intro h
+    unfold IsFixed
+    rw [tower_eq_five_at_five x h, h]
+
+/-- Tower is non-increasing, with equality exactly at the fixed
+    point: T(x) ≤ dim(x), and T(x) = dim(x) ↔ dim(x) = 5. -/
+theorem tower_decreases_to_five (x : AliveDim) :
+    towerStep x ≤ x.dim ∧ (towerStep x = x.dim ↔ x.dim = 5) := by
+  have h5 : 5 ≤ x.dim := alive_ge_five x
+  refine ⟨?_, ?_⟩
+  · rcases Nat.lt_or_ge 5 x.dim with h | h
+    · exact Nat.le_of_lt (tower_strict_off_five x h)
+    · have heq : x.dim = 5 := Nat.le_antisymm h h5
+      rw [tower_eq_five_at_five x heq, heq]; exact Nat.le_refl 5
+  · constructor
+    · intro heq
+      rcases Nat.lt_or_ge 5 x.dim with h | h
+      · exact absurd heq (Nat.ne_of_lt (tower_strict_off_five x h))
+      · exact Nat.le_antisymm h h5
+    · intro heq
+      rw [tower_eq_five_at_five x heq, heq]
+
+/-! ## 11. Dead sector (OT-4) -/
+
+/-- A DEAD simplex dimension: one atom is missing (a = 0 or b = 0),
+    so no chiral (both-atoms) decomposition exists.  This is the
+    FND_012 "dead" branch (no alive (3,2) pair). -/
+structure DeadDim where
+  a : Nat
+  b : Nat
+  missing : a = 0 ∨ b = 0
+  nontrivial : 1 ≤ a + b
+
+@[simp] def DeadDim.dim (x : DeadDim) : Nat := 2 * x.a + 3 * x.b
+
+/-- Same d_indep formula, restricted to dead sector. -/
+def deadTowerStep (x : DeadDim) : Nat :=
+  2 * ((x.a + 1) / 2) + 3 * ((x.b + 1) / 2)
+
+/-- A dead dim never has dim = 5 (alive barrier). -/
+theorem dead_dim_ne_five (x : DeadDim) : x.dim ≠ 5 := by
+  have hm := x.missing
+  have hn := x.nontrivial
+  show 2 * x.a + 3 * x.b ≠ 5
+  rcases hm with ha | hb
+  · rw [ha]; omega
+  · rw [hb]; omega
+
+/-- Dead sector CLOSED under T: missing atom stays missing. -/
+theorem dead_sector_closed (x : DeadDim) :
+    (x.a = 0 → deadTowerStep x = 3 * ((x.b + 1) / 2)) ∧
+    (x.b = 0 → deadTowerStep x = 2 * ((x.a + 1) / 2)) := by
+  refine ⟨?_, ?_⟩
+  · intro ha
+    show 2 * ((x.a + 1) / 2) + 3 * ((x.b + 1) / 2) = 3 * ((x.b + 1) / 2)
+    rw [ha]; omega
+  · intro hb
+    show 2 * ((x.a + 1) / 2) + 3 * ((x.b + 1) / 2) = 2 * ((x.a + 1) / 2)
+    rw [hb]; omega
+
+/-- Dead tower output is NEVER 5 (so dead ↛ alive). -/
+theorem dead_tower_ne_five (x : DeadDim) : deadTowerStep x ≠ 5 := by
+  have hm := x.missing
+  show 2 * ((x.a + 1) / 2) + 3 * ((x.b + 1) / 2) ≠ 5
+  rcases hm with ha | hb
+  · rw [ha]; omega
+  · rw [hb]; omega
+
+/-- Honest counter-claim: alive and dead dimensions can COINCIDE
+    as bare numbers (e.g. alive (a=3, b=1) and dead (a=0, b=3) both
+    give dim = 9).  The distinction is STRUCTURAL (which atoms are
+    present), not dimensional.  This is why chirality requires the
+    (3,2) alive decomposition — the dim value alone is ambiguous
+    from v ≥ 6 onward (matches foundation FND's v≥6 ambiguity). -/
+theorem alive_dead_dims_can_coincide :
+    ∃ (x : AliveDim) (y : DeadDim), x.dim = y.dim := by
+  refine ⟨⟨3, 1, ?_, ?_⟩, ⟨0, 3, ?_, ?_⟩, ?_⟩
+  · omega
+  · omega
+  · exact Or.inl rfl
+  · omega
+  · rfl
+
 end DRLT.Foundation.SwapTower
