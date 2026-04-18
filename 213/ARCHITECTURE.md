@@ -38,6 +38,8 @@ E213/Hypervisor/Fold.lean              — 수의 일반 규칙 = catamorphism.
 E213/Hypervisor/FoldInjective.lean     — comm h → 단사 불가 (정보 손실).
 E213/Hypervisor/Lens.lean              — 렌즈 구조체 + 합성 (카탈로그).
 E213/OS/Peano.lean                     — PA 공리계 (depth 렌즈 위). 0 sorry.
+E213/OS/Equality.lean                  — = 환원 체인 (OS→Hypervisor→¬Firmware).
+E213/OS/Inference.lean                 — 연역/귀납/귀추 재명명. Reachable 성질.
 ```
 
 ## 원칙
@@ -106,3 +108,19 @@ Nat213.succ n = rel (atom 1) n.toRaw
 - 덧셈 정의 + `zero_add`, `succ_add`, `add_zero`, `toNat_add`.
 
 **의미:** PA 전체가 / 로부터 자연스럽게 도출. 다른 공리계 (집합론, 논리)도 렌즈 선택 바꾸면 같은 방식.
+
+### = 의 환원 (정직한 계층)
+- Firmware: `=` 없음. `≠`만.
+- Hardware (Lean): `DecidableEq Raw` 제공.
+- Hypervisor: `Raw.equiv := (· = ·)` 명시 노출.
+- OS (Peano): `m = n ↔ m.toRaw ≡ n.toRaw ↔ ¬(m.toRaw ≠ n.toRaw)`.
+- 결론: Peano의 `=`는 Firmware `≠`의 부정. Hardware에서 빌림.
+
+### 추론 규칙 (이미 존재하는 정리의 재명명)
+| 추론 | 방향 | 213 구현 |
+|---|---|---|
+| 연역 | 전제 → 결론 | `Reachable.step` |
+| 귀납 | 사례 → 일반 | `Reachable.rec` |
+| 귀추 | 결과 → 원인 | `can_recover` + 단사성 |
+
+**"논리"는 / 의 그림자.** 추가 엔진 없이 공리 한 줄로 세 추론 모두 내장.

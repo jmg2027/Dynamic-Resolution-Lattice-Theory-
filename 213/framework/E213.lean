@@ -9,3 +9,5 @@ import E213.Hypervisor.Fold
 import E213.Hypervisor.FoldInjective
 import E213.Hypervisor.Lens
 import E213.OS.Peano
+import E213.OS.Equality
+import E213.OS.Inference
