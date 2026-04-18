@@ -21,7 +21,9 @@ Layer 4: Application         — (재구축 필요.) 응용.
 ## SSOT
 
 ```
-E213/Firmware/RawAxiomV3.lean  — 유일한 소스. 공리 + Level 0,1,2.
+E213/Firmware/RawAxiomV3.lean  — 공리 + Level 0,1,2.
+E213/Firmware/Properties.lean  — / 의 9가지 성질.
+E213/Firmware/Reachable.lean   — Reachable 특성화 + 판정 + 열거.
 ```
 
 ## 원칙
@@ -37,6 +39,11 @@ E213/Firmware/RawAxiomV3.lean  — 유일한 소스. 공리 + Level 0,1,2.
 - depth 단조: depth(x/y) > depth(x), depth(y).
 - 단사: x/y = a/b → x=a, y=b.
 - 원자 ≠ 관계: atom ≠ rel.
+- **특성화**: Reachable x ↔ wellFormed x (모든 rel 노드 좌우 서로 다름).
+- **판정 가능**: Reachable은 DecidablePred (구문 검사로 결정).
+- **유령 없음**: rel x x는 Raw에 있지만 ¬ Reachable (rel x x).
+- **부분구조 닫힘**: Reachable (rel x y) → Reachable x, Reachable y, x ≠ y.
+- **열거 가능**: levelUpTo n 이 Level n까지의 모든 객체를 계산.
 
 ## 자연 전개
 
