@@ -50,6 +50,7 @@ E213/Meta/SelfReference.lean           — Raw 자기 encoding (id' 단사). Gö
 E213/Meta/Paradoxes.lean               — Russell 회피 (no self-membership). Cantor.
 E213/Meta/Infinity.lean                — 무한성 전이 시점 분석 (유한 α 렌즈 선택).
 E213/Meta/Category.lean                — Lens 범주 (preorder + product + extrema).
+E213/Meta/AxiomFactory.lean            — ★★★ 공리계 메타-구조. 모든 공리계가 인스턴스.
 E213/Applications/DRLT_Attempt.lean    — ★ Stage 5 시도. 결과: 직접 환원 불가.
 E213/Applications/ARFM.lean            — ★★ Anti-Reflexive Free Magma — 213 고유 대수.
 E213/Applications/SignedSymbol.lean    — ★★★ Signed Symbol Theory — 새 렌즈 → 새 공리계.
