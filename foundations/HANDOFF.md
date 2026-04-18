@@ -118,7 +118,21 @@ foundations/ 쪽에서는 FND 파이썬 실험만 관리.
 - 핵물리 a_V, a_S, a_C의 3-7% 오차는 M_i-유사 fit의 직접 결과일
   가능성 가장 높음. 수학이 성숙할 때까지 이 오차 못 줄임.
 
-## Experiments: 36 (FND_001-036)
+## Recent (FND_037, 2026-04-18) — W3 공략 시도
+
+**W3 (Binet–Cauchy fiber weight) 직접 Schubert T-weight 접근 REFUTED**.
+- 10 candidate routes (Σ|w|², N, 1/N², N·c^k, etc.) 모두 실패
+- 최저 total deviation 118% (1/N²)
+- 핵심 문제: AAA=singlet이라 |w|²=0 → normalize 깨짐
+- M_i rank {AAA>ABB>AAB} vs |w|² rank {AAB>ABB>AAA}: **반대**
+- Λ³(V_A⊕V_B) 분해는 확인 (1+6+3=10, c-weighted 1+12+12=25)
+- 다음 접근: Chern class integrals, Fubini-Study metric measure
+
+**누적 M_i 공략 현황**: FND_035 (직접 Σ√det), FND_036 (9 Regge routes),
+FND_037 (Schubert T-weight 10 routes) — 모두 refuted. **M_i는 단순
+hinge-level / group-theory 공식으로 안 나옴.** W3 직접 경로 전부 닫힘.
+
+## Experiments: 37 (FND_001-037)
 ## Papers: paper1, paper2
 ## Book: Part I (ch01-03), Part II (ch04-05, ch08), ch21
 ## 상세: `notes/FORMAL_FOUNDATION.md` (DAG), `notes/GAPS_REGISTER.md` (열린 문제)

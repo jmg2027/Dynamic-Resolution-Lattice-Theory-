@@ -92,6 +92,23 @@ Living document. Each gap tagged with:
 - **G4 status**: w-based derivation path closed (N4 refuted).
   Need different geometric origin for ε₀.
 
+## Updates (FND_037, 2026-04-18)
+
+- **W3 Schubert T-weight 접근도 REFUTED**. AAA=singlet(|w|²=0)이라
+  normalize 깨짐. 10가지 route (Σ|w|², Σ|wA|², Σ|wB|², N, 1/N,
+  N², 1/N², N·c^k, (Σ|wA|²+1), 1/(Σ|w|²+ε)) 모두 실패.
+  최저 total deviation 118% (1/N²).
+- 발견: 가중치 rank {AAB > ABB > AAA}는 M_i rank {AAA > ABB > AAB}
+  와 **반대**. M ∝ 1/|w|² 질적 경향은 있지만 AAA가 |w|²=0이라
+  단순 역수 안됨.
+- Λ³(V_A⊕V_B) SU(3)×SU(2) 분해:
+  - Λ³(V_A) = (1,1) trivial singlet, dim 1 → AAA
+  - Λ²(V_A)⊗Λ¹(V_B) = (3̄, 2), dim 6 → AAB
+  - Λ¹(V_A)⊗Λ²(V_B) = (3, 1), dim 3 → ABB
+- Casimir C_2도 3·3̄에서 같은 값 → 구별 안됨.
+- **W3 직접 경로 전부 닫힘**. equivariant Chern class integral,
+  Fubini-Study metric induced measure 등 더 깊은 접근 필요.
+
 ## Dependency DAG (updated after FND_034/035/036)
 
 ```
@@ -136,7 +153,7 @@ Session B가 **count layer** 완료:
 |----|------|------|-----------|------|
 | W1 | Schubert weights on Gr(3,5) | count only | Pieri chain + SU(3)×SU(2) branching | cell별 canonical weight |
 | W2 | FM equivariant cohomology | χ pattern only | class별 weight decomposition | AAA/AAB/ABB → M_i |
-| W3 | Binet–Cauchy fiber weight | 1+12+12 count only | equivariant refinement (fiber weight) | channel별 weight |
+| W3 | Binet–Cauchy fiber weight | FND_037: T-weight refuted (118%) | Chern class integrals / FS measure | channel별 weight |
 | W4 | Regge closed form (ε₀) | FND_034 residual | c1=0.974 structural derivation | ε₀ exact |
 | W5 | n=5 → 4D forcing | Lean definitional | γ'-operator argument (FND_033) Lean | 4D machine-verified |
 
