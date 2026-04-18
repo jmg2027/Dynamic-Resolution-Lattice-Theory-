@@ -52,6 +52,7 @@ E213/Meta/Infinity.lean                — 무한성 전이 시점 분석 (유�
 E213/Meta/Category.lean                — Lens 범주 (preorder + product + extrema).
 E213/Applications/DRLT_Attempt.lean    — ★ Stage 5 시도. 결과: 직접 환원 불가.
 E213/Applications/ARFM.lean            — ★★ Anti-Reflexive Free Magma — 213 고유 대수.
+E213/Applications/SignedSymbol.lean    — ★★★ Signed Symbol Theory — 새 렌즈 → 새 공리계.
 ```
 
 ## 원칙
