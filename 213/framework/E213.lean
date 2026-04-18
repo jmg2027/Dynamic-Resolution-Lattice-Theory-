@@ -19,4 +19,5 @@ import E213.OS.Topology
 import E213.Meta.SelfReference
 import E213.Meta.Paradoxes
 import E213.Meta.Infinity
+import E213.Meta.Category
 import E213.Applications.DRLT_Attempt
