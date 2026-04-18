@@ -101,6 +101,7 @@ Because $n = 5$ is unique solution to "one of each atom, unique decomp".
 | FND_038 | Swap tower idempotence | (A) verified | 12/12, Lean 17 thm, 0 sorry |
 | FND_039 | Tower atom-dependency | (A) scope | 4/4, atom-INDEP, d=5 from {2,3} |
 | FND_040 | α_GUT 3 paths structural | (A) audit | 4/4, Path1≡Path3 via Euler, Path2 heuristic |
+| FND_041 | GUE sine kernel verify | (A) check | 2/2, π²/3=2ζ(2) confirmed; α_GUT step still heuristic |
 
 ## Three Claims (consolidated)
 
