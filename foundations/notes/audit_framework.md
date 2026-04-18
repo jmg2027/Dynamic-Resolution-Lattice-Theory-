@@ -108,18 +108,18 @@ FND_NNN 이 refuted 라 하면:
 | **appendix_code** | ⨯ | — |
 | — | — | — |
 | **foundations/** (FND_001–041) | ✓ (내부 일부) | Core Lean 검증; FND_038/039/040/041 이 audit 결과 |
-| **atoms/** (ATM_001–069) | brief (W71) | ch10/ch20 backup, IE(H)/IE(He) 광범위 |
-| **standard-model/** (SM_001–024) | brief (W68) | CLOSED status 재검증 필요 |
+| **atoms/** (ATM_001–069) | ✓ deep (W71) | 69 exp + 10 thm, 118 elements IE median 2.9%, <5%:71%, <10%:95%, 0-param — massive success |
+| **standard-model/** (SM_001–024) | ✓ deep (W68) | CLOSED 확증; SM_020-024 modern 0.02-1.5%; Self-correction Ξ_conf 내재 |
 | **cosmology/** (COS_001–003) | brief ✓ | ch13 backup, Ω_Λ/w/η_B/DM 3/3 + 3/3 + 2/2 |
-| **cosmic-structure/** (CST_001–022) | brief (W67) | inflation A_s/n_s/r, BBN, active |
-| **critical-line/** (RH_001–079) | ⨯ | ACTIVE, RH_047 ★★ spectral flow |
-| **nuclear/** (NUC_001–015) | brief (W69) | magic 7/7 exact, liquid drop few% |
-| **hadron/** (HAD_001–009) | brief (W70) | meson/baryon mass 0.1-0.5% |
-| **predictions/** (PRD_001–009) | brief | testable future 예측 |
-| **quantum-gravity/** (QG_001–007) | brief (W72) | ch06/ch07 연결 |
-| **yang-mills/** (Lean ~58 thms) | brief (W57) | Clay millennium; deep audit 필요 |
-| **discrete-harmonic/** (DHA_001–019) | brief (W73) | S_5 표현론, spectral |
-| **drlt-elements/** (ELM Lean) | brief (W74) | foundational Lean |
+| **cosmic-structure/** (CST_001–022) | ✓ deep (W67) | 58/68 (85%), LSS 세부 일부 미완, H₀ 70.85 between CMB/SH0ES |
+| **critical-line/** (RH_001–079) | ⨯ (순수수학) | 이번 감사 범위 밖 |
+| **nuclear/** (NUC_001–015) | ✓ deep (W69) | Magic 7/7 exact, E_d 2.1%; NUC_010 RMS B/A ✗; CLOSED (1차) honest |
+| **hadron/** (HAD_001–009) | ✓ deep (W70) | m_π +0.2%, Δ-N +0.6% 강; m_ρ/K 2-4%, HAD_005 bug — CLOSED 약간 overclaim |
+| **predictions/** (PRD_001–009) | ✓ deep | 7 falsifiable 2025-35, 53/54 ✓; Self-correction (PRD_006 → PRD_007) |
+| **quantum-gravity/** (QG_001–007) | brief ✓ (W72) | ch06/07/14/18 와 overlap, 탐색 단계 |
+| **yang-mills/** (Lean ~58 thms) | ⨯ (순수수학) | Clay millennium; deep-audit 보류 |
+| **discrete-harmonic/** (DHA_001–019) | ⨯ (순수수학) | S_5 표현론, spectral |
+| **drlt-elements/** (ELM Lean) | ⨯ (순수수학) | foundational Lean |
 | — | — | — |
 | **papers/** (5 papers) | ⨯ | — |
 | **lib/drlt.py** | ⨯ | — |

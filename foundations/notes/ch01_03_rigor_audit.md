@@ -1244,3 +1244,141 @@ Framework P1–P5 를 각 sub-project 에 brief 적용.  상세 감사는 별도
 향후 세션 우선순위.  현재 문서는 pass-level overview 제공.
 
 **W67–W74:** 각 sub-project 개별 deep-audit 는 별도 세션 필요.
+
+---
+
+# Physics sub-projects deep-audit (2026-04-18)
+
+Framework P1-P5 적용, 순수수학 (critical-line, YM, DHA, ELM, 213) 제외.
+
+## standard-model/ (SM_001-024) — CLOSED ✓ **재검증됨**
+
+**P1 Big picture:** SM gauge couplings + masses + mixing, 24 experiments.
+**Key recent (SM_020-024):** m_H 0.02%, Δm_np -1.5%, ν m₃/m₂ +0.04%,
+  u/d quark 0.17-0.19%, Confined Ξ rule (self-correction).
+**P2:**
+- Rigorous: 모든 SM_020-024 각 7-10/10 pass
+- Self-correction: SM_024 가 "Ξ_free" (naive) refute → "Ξ_conf = α/(d²-1) only"
+**P3:** ch08/09/11 backup.  Key precision table 의 m_μ/m_e, sin²θ₁₃ 등 실증.
+**P4 Refuted:** Ξ_free 는 SM_024 에서 refuted (honest self-correction).
+**P5:** CLOSED 주장 실증됨.  Self-correction (Ξ_confined) 흔적이 honest scope 유지.
+
+## nuclear/ (NUC_001-015) — **CLOSED (1차)** — 일부 세부 미완
+
+**P1:** 핵 magic numbers + binding energy, 15 experiments.
+**Key:** Magic 7/7 exact, E_d 2.1%, r₀ 0.95%, a_V 3%, a_S 7%, a_C -3.6%.
+**P2:**
+- Rigorous: Magic 7/7 (NUC_003), deuteron 2.1% (NUC_008), f-vector (NUC_012)
+- **Partial fail:** NUC_010 RMS B/A error > 30% (0/1 실패),
+  NUC_009 RMS radius error > 10% (1/2), NUC_014 det(pair) (1/2)
+**P3:** 600-cell geometry (120 vertices, 720 edges, 600 cells).
+**P4 Refuted:** naive RMS B/A fit — 구체적 hinge algebra 여지.
+**P5:** Magic numbers 결정적 결과.  RMS binding 세부는 "1차 CLOSED" 로
+  honest 표기.  CLOSED 주장 약간 완화하되 strong core 유지.
+
+## hadron/ (HAD_001-009) — CLOSED 약간 overclaim
+
+**P1:** Meson/baryon spectrum, 9 experiments.
+**Key:** m_π +0.2%, Δ-N +0.6%, m_ρ -2.8%, m_K +3.8%, m_J/ψ -0.5%.
+**P2:**
+- Rigorous: m_π, Δ-N, m_ω, m_J/ψ 모두 < 1%
+- Mixed: m_ρ 2.8%, m_K 3.8% (moderate)
+- **Issues:** HAD_005 KeyError (implementation bug), HAD_008 condensate scale ✗
+**P3:** ch19 QCD backup.
+**P4 Refuted:** None of the theoretical claims, but HAD_005 code bug +
+  HAD_008 condensate null test indicate incomplete unification.
+**P5:** m_π, Δ-N 강력.  "CLOSED" 주장은 sub-detail (vector meson,
+  condensate) 감안하면 약간 overclaim.  "CLOSED (0.5-1%)" 로 격하 적절.
+
+## atoms/ (ATM_001-069) — ACTIVE **massive success**
+
+**P1:** 118 elements ionization energies + bond angles + radii, 69 exp + 10 thms.
+**Key:** IE median 2.9%, <5%: 71%, <10%: 95% (118 elements, **0 free param**);
+  Period 2: 0.5%; bond angles CH₄/NH₃/H₂O exact 0.00°; H-H bond +1.3%; F EA +2%.
+**Categorization (69 exp):**
+- A (001-015): H/He exact 해, 기본
+- B (016-023): Period 2, screening constants
+- C (024-034): Manifold, variational, phase
+- D (035-049): Periodic 완성, Aufbau, fermion placement
+- E (050-069): 자체일관 solver, hodge, wedge, balanced
+**P2:**
+- Rigorous: 10 theorems (formalized), screening constants 기하 유도,
+  Period 2 self-consistent 0.5%
+- **Achievement:** 118 elements IE median 2.9% = key precision 급
+**P3:** ch10 + ch20 backup, ATM 전 영역.
+**P4 Refuted:** 과정에서 많은 naive fits refuted and replaced by
+  self-consistent equations.
+**P5:** DRLT 의 **가장 인상적 대규모 예측** — 118개 원자, 0 param,
+  median 2.9%.  기존 Z_eff/Slater/Aufbau 완전 배제하고 Regge +
+  Gram + 기하 screening 만으로.
+
+## predictions/ (PRD_001-009) — ACTIVE **7 testable**
+
+**P1:** 미측정 falsifiable 예측, 9 experiments, 53/54 checks.
+**Key predictions (미래 실험):**
+1. ν m₃/m₂ = 5.712 (JUNO 2025-27)
+2. m_H = 125.28 (HL-LHC 2029+, 0.02%)
+3. **θ_QCD = J×α⁴ ≈ 2.86×10⁻¹¹** (nEDM next-gen 2027-30)
+4. N_gen exactly 3 (FCC 2035+)
+5. λ_H = 0.1299 (di-Higgs 2030+)
+6. δ_CKM = 68.75° (LHCb/Belle II 2025-28)
+7. **w(z) = -1 exactly** (DESI/Euclid 2025-28)
+**P2:**
+- Self-correction trail: PRD_003 (J×α⁴ 초기) → PRD_006 sin(π/12)
+  가설 → **폐기** → PRD_007 Berry phase 엄밀 → J×α⁴ 확정
+- PRD_009 11/11 ★ Berry = U(1) spectral flow, Chern = 0
+**P3:** 미래 실험 대기.
+**P4 Refuted:** PRD_006 sin(π/12) 가설 (honest self-correction).
+**P5:** DRLT 의 **예측력 weapon**.  7개 구체 falsifiable 예측,
+  2025-2035 실험으로 검증 예정.  이게 DRLT "verification" 의 진짜 test.
+
+## cosmic-structure/ (CST_001-022) — ACTIVE 58/68 (85%)
+
+**P1:** LSS + BH jets + cosmological parameters + information/complexity.
+**Key:** r=0.003, w=-1, γ=6/11, H₀=70.85 (between CMB & SH0ES),
+  σ₈ -2.2%, T_CMB 2.83K +3.7%, η_jet ≤ 27%.
+**P2:**
+- 4 parts × 22 exp = 58/68 checks (85% pass rate)
+- Good: CST_001 inflation 5/5, CST_002 σ₈ 3/3, CST_013 H₀ 3/3,
+  CST_019 |A₅|=60 holography 6/6, CST_022 Hubble info lag 3/3
+- Partial: CST_003 BAO 1/2, CST_005 web 2/3, CST_016 BBN 3/4
+**P3:** ch13 cosmology + ch16 compact stars 와 연결.
+**P4:** CST_018 master catalog 에서 일부 refined.
+**P5:** 광범위 cosmological 예측 (BBN, BAO, inflation, H_0).
+  85% pass rate 로 건강하나 LSS (BAO, halo) 일부 세부 tuning 미완.
+
+## quantum-gravity/ (QG_001-007) — ACTIVE 연결 중심
+
+**P1:** 시공간 창발, holographic bound, path integral
+**Key questions:** BH entropy from hinge counting, AdS/CFT analogue,
+  graviton as simplex excitation.
+**P2:** 대부분 ch06 (Regge) + ch07 (ℏ) + ch14 (block) + ch18 (path integral)
+  의 심화 탐구.  구체 numerical 예측은 제한적.
+**P3:** 본 sub-project 는 **book chapters 와 강한 overlap** —
+  deep-audit 은 book audit 으로 대체 가능.
+**P5:** DRLT 의 야심 있는 확장.  현재 7 experiments 는 탐색 단계.
+
+---
+
+## Physics sub-projects 총평 (정직)
+
+| Sub-project | Status claim | 실제 | Note |
+|-------------|--------------|------|------|
+| standard-model | CLOSED ✓ | CLOSED 확증 | Self-correction (Ξ) 내재 |
+| nuclear | CLOSED (1차) ★★★ | Partial CLOSED | Magic 7/7 ✓, RMS B/A 미완 |
+| hadron | CLOSED ✓ | 약간 overclaim | m_π/Δ-N 강, m_ρ/K 2-4%, bugs |
+| atoms | ACTIVE | **Massive success** | 118 elements median 2.9% 0-param |
+| predictions | ACTIVE | **DRLT 예측력 weapon** | 7 falsifiable 2025-35 |
+| cosmic-structure | ACTIVE | 85% pass | LSS 세부 tuning 미완 |
+| quantum-gravity | ACTIVE | book 과 overlap | 탐색 단계 |
+
+**핵심 관찰:**
+- atoms/ 의 118 elements × 2.9% median 은 DRLT 의 가장 인상적 실증
+- predictions/ 의 7 falsifiable = DRLT 의 진짜 test
+- "CLOSED" 주장은 SM 는 강, NUC 는 1차 (세부 open), HAD 는 약간 over
+- 순수수학 (YM, RH) 은 deep-audit 별도 세션, physics 는 이번에 정리 완료
+
+**다음 연구 방향 (자연스러운):**
+- predictions 미래 실험 대기 (passive verification)
+- atoms/ 의 residual 3% 를 줄이는 self-consistency 개선
+- NUC RMS B/A 30% gap 해결 (algebraic hinge 접근)
