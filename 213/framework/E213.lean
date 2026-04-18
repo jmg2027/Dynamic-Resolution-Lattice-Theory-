@@ -13,3 +13,7 @@ import E213.Decompose
 import E213.EpsilonDelta
 import E213.Infinities
 import E213.Meaning
+import E213.Goldbach.Statement
+import E213.Goldbach.Verify
+import E213.Goldbach.Atoms
+import E213.Goldbach.Barrier
