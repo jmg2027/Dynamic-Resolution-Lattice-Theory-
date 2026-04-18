@@ -36,3 +36,4 @@ import E213.Applications.RealLenses
 import E213.Applications.CayleyDickson
 import E213.Meta.ProblemFramework
 import E213.Meta.TheoremDB
+import E213.Meta.Patterns
