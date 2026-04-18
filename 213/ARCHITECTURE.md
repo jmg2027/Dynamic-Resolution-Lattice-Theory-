@@ -30,7 +30,6 @@ Layer 4: Application         — 여러 렌즈 결합 도메인.
 E213/Firmware/RawAxiomV3.lean          — 공리 + Level 0,1,2.
 E213/Firmware/Properties.lean          — / 의 9가지 성질.
 E213/Firmware/Reachable.lean           — Reachable 특성화 + 판정 + 열거.
-E213/Hypervisor/Equiv.lean             — ≡ 동치관계 + slash congruence.
 E213/Hypervisor/Numbers.lean           — depth/leaves/nodes 정의 + 관계.
 E213/Hypervisor/Enumeration.lean       — 번호는 라벨, 구조가 본질.
 E213/Hypervisor/NumberComparison.lean  — 세 수의 성질 비교.
@@ -38,6 +37,7 @@ E213/Hypervisor/Fold.lean              — 수의 일반 규칙 = catamorphism.
 E213/Hypervisor/FoldInjective.lean     — comm h → 단사 불가 (정보 손실).
 E213/Hypervisor/Lens.lean              — 렌즈 구조체 + 합성 (카탈로그).
 E213/Hypervisor/LensKernel.lean        — 등호 = kernel. 순환 해결.
+E213/Hypervisor/Quotient.lean          — "= 공리 추가" = Lens quotient 실험.
 E213/OS/Peano.lean                     — PA 공리계 (depth 렌즈 위). 0 sorry.
 E213/OS/Equality.lean                  — = 환원 체인 (OS→Hypervisor→¬Firmware).
 E213/OS/Inference.lean                 — 연역/귀납/귀추 재명명. Reachable 성질.
@@ -218,5 +218,21 @@ Firmware 전제    ¬ (m.toRaw ≠ n.toRaw)
 
 **같은 바닥 (/), 다른 Lens, 다른 등호.**
 
-이전 Equiv.lean 의 `Raw.equiv := (· = ·)` 는 `Lens.id'.equiv` 의 특수 경우로 재해석.
+이전 Equiv.lean 은 `Lens.id'.equiv` 의 특수 경우였음. **삭제됨** (중복).
 다른 Lens 는 kernel 이 근본적으로 다름.
+
+### 실험: "= 공리 추가" = Lens Quotient
+
+```
+LensQuot L := Raw / L.equiv
+```
+
+각 렌즈 → 다른 quotient → 다른 공리계:
+- `LensQuot Lens.id'` ≃ Raw (완전 구별, 아무 정보 손실 없음).
+- `LensQuot Lens.depth` ≃ Nat (수의 공리계 = PA).
+- `LensQuot Lens.atomSet` ≃ Finset (Fin 3) (집합 공리계).
+- `LensQuot Lens.constTrue` ≃ Unit (자명 공리계).
+
+**결론:** "같다" 를 공리로 추가하는 것은 새 정보가 아니라 **렌즈 선택의 명시.**
+이미 kernel 이 정의한 것을 primitive 로 부를 뿐.
+모든 공리계는 렌즈 kernel 위의 quotient 구조.

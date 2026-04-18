@@ -1,7 +1,6 @@
 import E213.Firmware.RawAxiomV3
 import E213.Firmware.Properties
 import E213.Firmware.Reachable
-import E213.Hypervisor.Equiv
 import E213.Hypervisor.Numbers
 import E213.Hypervisor.Enumeration
 import E213.Hypervisor.NumberComparison
@@ -9,6 +8,7 @@ import E213.Hypervisor.Fold
 import E213.Hypervisor.FoldInjective
 import E213.Hypervisor.Lens
 import E213.Hypervisor.LensKernel
+import E213.Hypervisor.Quotient
 import E213.OS.Peano
 import E213.OS.Equality
 import E213.OS.Inference
