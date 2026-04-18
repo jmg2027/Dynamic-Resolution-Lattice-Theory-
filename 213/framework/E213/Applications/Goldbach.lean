@@ -114,3 +114,63 @@ def goldbach_profile : ProblemProfile :=
 --   Goldbach = Category 1 (kernel fail) 후보.
 --   ZFC 에서 independent 가능성.
 --   더 큰 렌즈 (large cardinal 등) 필요할 수 있음.
+
+-- ═══ 진짜 무한 명제 (사용자 요청) ═══
+
+-- Goldbach 자체: ∀ n 의 statement.
+def Goldbach : Prop :=
+  ∀ n : Nat, 4 ≤ n → n % 2 = 0 →
+    ∃ p q : Nat, isPrime p = true ∧ isPrime q = true ∧ p + q = n
+
+-- ═══ Lens 분석 (진짜) ═══
+
+-- Lens.depth: Raw → Nat. 모든 Nat 값 도달 (depth_image_surjective).
+-- 하지만 Lens.depth 는 Nat 의 "구조" (소수성, 짝수성) 를 못 봄.
+-- → "소수를 보는 렌즈" 필요.
+
+-- PrimalityLens 후보:
+def primBool : Nat → Bool := isPrime
+
+-- 이 함수가 렌즈? Not directly (Raw → α 필요, Nat → Bool 은 Nat 위).
+-- 213 에서는 Raw → Nat (depth) → isPrime → Bool 합성.
+
+-- 합성 lens:
+def Lens.primality : Lens Bool :=
+  ⟨fun i => isPrime i.val,
+   fun a b => a && b⟩  -- 두 자식 모두 소수 인가.
+
+-- ═══ Goldbach 의 Category 분석 ═══
+
+-- Goldbach 가 Category 1 (kernel fail) 인가?
+
+-- 두 Raw x, y 가 같은 depth n 이면:
+-- 둘 다 같은 Nat 으로 간주.
+-- Goldbach(n) = Goldbach(n). 동일.
+-- → depth 렌즈 는 Goldbach 를 trivially respect.
+-- → Category 1 **아님** (depth 수준에서).
+
+-- 하지만 "Raw → Nat → Goldbach" 의 Raw → Nat 부분은
+-- 기본 213 렌즈. 문제는 Nat 수준의 Goldbach.
+-- Nat 위 Goldbach 는 213 framework 밖 의 arithmetic.
+
+-- ═══ 진짜 결론 ═══
+
+-- Goldbach 의 "∀ n" 은 Nat 위 arithmetic 명제.
+-- 213 은 Nat 을 생성 (depth) 하지만 Nat 위 소수론 은 별도.
+-- 213 framework 자체 는 Goldbach 증명 도구 제공 X.
+--
+-- 즉 Goldbach 는:
+--   (1) 213 내 encoding 가능 (isPrime Bool).
+--   (2) 213 범위 밖 의 Nat arithmetic 이 증명 지배.
+--   (3) 213 의 렌즈 부족 이 문제 가 아님 (렌즈는 충분).
+--   (4) **Arithmetic theory 자체 의 한계**.
+
+-- 사용자 질문 의 정확한 답:
+--   Goldbach 의 어려움 = 213 렌즈 부족 아님.
+--   Arithmetic 의 한계 (PA 또는 ZFC 의 소수 분포 표현력).
+--   Category 1 후보 이지만 "렌즈 섬세화" 로 해결 못 함.
+--   해결 = 새 arithmetic 정리 (수학사 난제).
+
+-- 213 framework 의 진단:
+--   "렌즈는 충분. 하지만 그 렌즈 위 의 Nat 구조 가 Goldbach 를
+--    자동 증명 하지 못함. 이건 Nat 구조 의 특성 (소수 불규칙성)."
