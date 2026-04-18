@@ -37,6 +37,7 @@ E213/Hypervisor/NumberComparison.lean  — 세 수의 성질 비교.
 E213/Hypervisor/Fold.lean              — 수의 일반 규칙 = catamorphism.
 E213/Hypervisor/FoldInjective.lean     — comm h → 단사 불가 (정보 손실).
 E213/Hypervisor/Lens.lean              — 렌즈 구조체 + 합성 (카탈로그).
+E213/OS/Peano.lean                     — PA 공리계 (depth 렌즈 위). 0 sorry.
 ```
 
 ## 원칙
@@ -83,3 +84,25 @@ Level 0만 C(3,2) = 3 = 자기유지.
 
 **정리:** α가 `Nat` (commutative 연산으로) 이면 유한 pair 합성으로도 단사 불가.
 단사는 `Lens.id'` (= 객체 그 자체) 뿐.
+
+## OS: Peano Arithmetic (첫 공리계)
+
+**렌즈 선택:** `Lens.depth` — α=Nat, g=0, h=1+max.
+
+**인코딩:**
+```
+Nat213.zero   = atom 0
+Nat213.succ n = rel (atom 1) n.toRaw
+```
+
+**증명된 것 (0 sorry):**
+- Peano P1: `0 ≠ succ n` (Nat213 + Raw 양쪽).
+- Peano P2: `succ` 단사 (Nat213 + Raw 양쪽).
+- Peano P3: 귀납법.
+- `toRaw` 단사 (Nat213 → Raw 충실 임베딩).
+- `toRaw`는 항상 Reachable.
+- `depth_eq_toNat`: `n.toRaw.depth = n.toNat` (표준 ℕ와 일치).
+- `toNat` 단사 → Nat213 ≃ Nat bijection.
+- 덧셈 정의 + `zero_add`, `succ_add`, `add_zero`, `toNat_add`.
+
+**의미:** PA 전체가 / 로부터 자연스럽게 도출. 다른 공리계 (집합론, 논리)도 렌즈 선택 바꾸면 같은 방식.
