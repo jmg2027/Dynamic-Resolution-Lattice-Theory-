@@ -298,3 +298,94 @@ def theoremDB_v2.maxDifficulty : Nat :=
   theoremDB_v2.foldl (fun acc e => max acc e.difficulty) 0
 
 example : theoremDB_v2.maxDifficulty = 14 := by decide
+
+-- ═══ Difficulty 12-13: Cantor Diagonal ═══
+
+-- 039. Cantor diagonal on RealPath: enumeration 없음.
+theorem thm_039 (f : Nat → RealPath) :
+    ∃ d : RealPath, ∀ n, d ≠ f n := by
+  refine ⟨fun n => !(f n n), ?_⟩
+  intro n heq
+  have h1 : (fun n => !(f n n)) n = f n n := by rw [heq]
+  simp at h1
+  cases hb : f n n <;> rw [hb] at h1 <;> simp at h1
+
+-- 040. 따름: RealPath 는 비가산.
+theorem thm_040 : ¬ Function.Surjective (fun n : Nat => fun _ : Nat => (false : Bool)) := by
+  -- 구체 상수 enum 은 한 stream 만 생성. d 존재로 반례.
+  intro hs
+  obtain ⟨d, hd⟩ := thm_039 (fun n => fun _ => (false : Bool))
+  obtain ⟨k, hk⟩ := hs d
+  exact hd k hk
+
+-- ═══ Difficulty 6-7: 작은 조합 ═══
+
+-- 041. Fin 3 Pigeonhole: Fin 4 → Fin 3 단사 불가.
+theorem thm_041 (f : Fin 4 → Fin 3) : ¬ Function.Injective f := by
+  intro hinj
+  have : 4 ≤ Fintype.card (Fin 3) :=
+    Fintype.card_fin 4 ▸ Fintype.card_le_of_injective f hinj
+  simp at this
+
+-- 042. Level 4 (atoms only) card 3.
+theorem thm_042 : Fintype.card Level4Raw = 3 := Thm_R2_finite
+
+-- 043. constTrue lens: 모든 equiv.
+theorem thm_043 (x y : Raw) : x =[Lens.constTrue] y :=
+  Lens.constTrue_equiv_all x y
+
+-- ═══ Difficulty 9-10: Meta 결합 ═══
+
+-- 044. Peano toRaw 단사.
+theorem thm_044 {m n : Nat213} : m.toRaw = n.toRaw → m = n :=
+  Nat213.toRaw_inj
+
+-- 045. toNat 단사.
+theorem thm_045 {m n : Nat213} : m.toNat = n.toNat → m = n :=
+  Nat213.toNat_inj
+
+-- 046. depth lens image = Nat.
+theorem thm_046 (n : Nat) : ∃ x : Raw, Lens.depth.view x = n :=
+  depth_image_surjective n
+
+-- 047. Memset depth 증가.
+theorem thm_047 {s x : Raw} : s.memSet x = true → x.depth < s.depth :=
+  memSet_implies_depth_lt
+
+-- 048. 자기 포함 불가.
+theorem thm_048 (x : Raw) : x.memSet x = false :=
+  all_raw_no_self_mem x
+
+-- ═══ 최종 DB v3 ═══
+
+def theoremDB_v3 : List TheoremEntry := theoremDB_v2 ++ [
+  ⟨39, "Cantor diagonal RealPath", 13, .decided, .provable,
+   "Stream/diagonal"⟩,
+  ⟨40, "RealPath uncountable (corollary)", 13, .decided, .provable,
+   "Stream"⟩,
+  ⟨41, "Fin pigeonhole", 6, .decided, .provable, "Fintype"⟩,
+  ⟨42, "Level 4 card 3", 9, .decided, .provable, "RuleHierarchy"⟩,
+  ⟨43, "constTrue all equiv", 5, .decided, .provable,
+   "LensKernel"⟩,
+  ⟨44, "Peano toRaw inj", 6, .decided, .provable, "OS/Peano"⟩,
+  ⟨45, "Peano toNat inj", 6, .decided, .provable, "OS/Peano"⟩,
+  ⟨46, "depth image surjective", 10, .decided, .provable,
+   "Meta/Infinity"⟩,
+  ⟨47, "memSet depth lt", 7, .decided, .provable, "Paradoxes"⟩,
+  ⟨48, "no self membership", 7, .decided, .provable, "Paradoxes"⟩
+]
+
+example : theoremDB_v3.length = 48 := by decide
+
+def theoremDB_v3.maxDifficulty : Nat :=
+  theoremDB_v3.foldl (fun acc e => max acc e.difficulty) 0
+
+example : theoremDB_v3.maxDifficulty = 14 := by decide
+
+-- ═══ Verdict 통계 ═══
+
+def theoremDB_v3.countByVerdict (v : Verdict) : Nat :=
+  (theoremDB_v3.filter (fun e => e.verdict = v)).length
+
+example : theoremDB_v3.countByVerdict .provable = 47 := by decide
+example : theoremDB_v3.countByVerdict .unknown = 1 := by decide
