@@ -84,41 +84,42 @@ FND_NNN 이 refuted 라 하면:
 | **book ch01** (Why ℂ) | ✓ (W1–W5) | Frobenius + π₁ rigorous; R2 연속성은 acknowledged 물리 input |
 | **book ch02** (Why d=5) | ✓ (W1–W5) | atoms={2,3} + alive d=5 Lean 검증; σ-inv↔VL formalized |
 | **book ch03** (rep uniqueness) | ✓ (W6–W15) | α_GUT = 1/(d²ζ(2)) rigorous (Path 1=Path 3 via Euler); Path 2 heuristic |
-| **book ch04** (simplex geometry) | ⨯ | — |
+| **book ch04** (simplex geometry) | ✓ (W36–W37) | 조합 기하 rigorous (15 edges, AAA/AAB/ABB 분류, TTT theorem, B₃ dep) |
 | **book ch05** (variational) | ✓ (W31–W32) | 3 정리 모두 algebraic proof (δ_AAA=π, ⟨det⟩_ABB=2/3, c=2), Vacuum det=108/125; Thm 3 Part 2 maximality만 수치 |
 | **book ch06** (geometry) | ✓ (W16–W20) | Regge action + 4 forces + toric rigorous; Lorentz/ADM/LLN은 narrow heuristic sub-step (중력이 가장 많이 derive된 sector의 중심장) |
-| **book ch07** (ℏ) | ⨯ | — |
-| **book ch08** (couplings) | 부분 (FND_040 sync) | α_GUT three paths honest scope 반영됨 |
-| **book ch09** (masses) | ⨯ | — |
-| **book ch10** (atoms) | ⨯ | — |
-| **book ch11** (mixing) | ⨯ | — |
-| **book ch12** (ghosts) | ⨯ (spot-checked) | ε₀, M_i fit; big frame ok |
+| **book ch07** (ℏ) | ✓ (W33–W35) | ℏ_h=A_h/(4ln2) from Holevo+dim analysis; aligned/matter/ZPE>0 rigorous; path integral postulate 물리 input |
+| **book ch08** (couplings) | ✓ (W38–W40) | α_GUT=6/(25π²) rigorous; β-function/prime 구조 일부 heuristic; Path 2 GUE heuristic |
+| **book ch09** (masses) | ✓ (W41–W44) | P(x)=(1+2x)/(1+x) + impedance 3/2 rigorous; m_μ/m_e=206.7682837 (0.48 ppb); v_H/m_τ 구조 heuristic |
+| **book ch10** (atoms) | ✓ (W45–W48) | IE(H)=13.606 exact, IE(He)=24.565 (0.02%), 34 theorems, ATM 69 실험 backup |
+| **book ch11** (mixing) | ✓ (W49–W51) | w=3/(5π) closed form, sin²θ₁₃ -0.07σ, CKM Wolfenstein heuristic |
+| **book ch12** (ghosts) | ✓ (W52–W54) | Σ Δ_i=0 rigorous, energy sum 0.01%; ε₀/M_i는 fit (G-D6/G-M_i open) |
 | **book ch13** (cosmology) | ✓ (W21–W30) | 9+ 0-param 예측 (Ω_Λ 0.001%, η_B 0.2%, DM/baryon 0.4%, n_s 0.2%, r/w falsifiable); DM/MOND/Hubble tension은 heuristic |
-| **book ch14** (block) | ⨯ | — |
-| **book ch15** (Yang-Mills) | ⨯ | — |
-| **book ch16** (compact stars) | ⨯ | — |
-| **book ch17** (Webb dipole) | ⨯ | — |
-| **book ch18** (path integral) | ⨯ | — |
-| **book ch19** (QCD) | ⨯ | — |
-| **book ch20** (hydrogen) | ⨯ | — |
-| **book ch21** (occupation fraction) | ⨯ | — |
-| **book ch22** (213) | ⨯ | — |
+| **book ch14** (block) | ✓ (W55–W56) | 해석 장, philosophical framework; 수학 정리 적으나 ε₀(x) via Webb 연결 |
+| **book ch15** (Yang-Mills) | 부분 (W57) | 1050줄 18 theorems; Lean 58 thms — **deep-audit 필요** |
+| **book ch16** (compact stars) | ✓ (W58–W59) | NS M_max 2.08 match, 쿼크성 instability, η/s=1/(4π) rigorous |
+| **book ch17** (Webb dipole) | ✓ (W60) | trace conservation → α_em varies, α_GUT invariant; COS_003 2/2 |
+| **book ch18** (path integral) | ✓ (W61) | 유한 이산 sum, UV-finite; ch07 ℏ 의존 |
+| **book ch19** (QCD) | ✓ (W62) | confinement + Λ_QCD + η/s 재종합; HAD 9 + NUC 15 backup |
+| **book ch20** (hydrogen) | ✓ (W63) | H atom complete — IE/spectrum/Rydberg; ATM 실험 |
+| **book ch21** (occupation fraction) | ✓ (W64) | f_occ → λ_H → m_H 125.28 (0.02%); FND_008-010 census |
+| **book ch22** (213) | ✓ (W65) | 1줄 axiom, 9 properties Lean (0 sorry); R1-R4 이전 단계 |
+| **appendix** | ✓ (W66) | EXP-NNN ↔ FND_NNN mapping hygiene 필요 |
 | **appendix_verification** | ⨯ | — |
 | **appendix_code** | ⨯ | — |
 | — | — | — |
 | **foundations/** (FND_001–041) | ✓ (내부 일부) | Core Lean 검증; FND_038/039/040/041 이 audit 결과 |
-| **atoms/** (ATM_001–069) | ⨯ | — |
-| **standard-model/** (SM_001–024) | ⨯ | CLOSED ✓ 표시 있음, 검증 필요 |
-| **cosmology/** (COS_001–003) | ⨯ (spot-checked) | STABLE, Ω_Λ/w/η_B 0-param |
-| **cosmic-structure/** (CST_001–022) | ⨯ | ACTIVE |
+| **atoms/** (ATM_001–069) | brief (W71) | ch10/ch20 backup, IE(H)/IE(He) 광범위 |
+| **standard-model/** (SM_001–024) | brief (W68) | CLOSED status 재검증 필요 |
+| **cosmology/** (COS_001–003) | brief ✓ | ch13 backup, Ω_Λ/w/η_B/DM 3/3 + 3/3 + 2/2 |
+| **cosmic-structure/** (CST_001–022) | brief (W67) | inflation A_s/n_s/r, BBN, active |
 | **critical-line/** (RH_001–079) | ⨯ | ACTIVE, RH_047 ★★ spectral flow |
-| **nuclear/** (NUC_001–015) | ⨯ | CLOSED ✓ 표시 |
-| **hadron/** (HAD_001–009) | ⨯ | CLOSED ✓ 표시 |
-| **predictions/** (PRD_001–009) | ⨯ | ACTIVE |
-| **quantum-gravity/** (QG_001–007) | ⨯ | ACTIVE |
-| **yang-mills/** (Lean ~58 thms) | ⨯ | ACTIVE |
-| **discrete-harmonic/** (DHA_001–019) | ⨯ | ACTIVE |
-| **drlt-elements/** (ELM Lean) | ⨯ | ACTIVE |
+| **nuclear/** (NUC_001–015) | brief (W69) | magic 7/7 exact, liquid drop few% |
+| **hadron/** (HAD_001–009) | brief (W70) | meson/baryon mass 0.1-0.5% |
+| **predictions/** (PRD_001–009) | brief | testable future 예측 |
+| **quantum-gravity/** (QG_001–007) | brief (W72) | ch06/ch07 연결 |
+| **yang-mills/** (Lean ~58 thms) | brief (W57) | Clay millennium; deep audit 필요 |
+| **discrete-harmonic/** (DHA_001–019) | brief (W73) | S_5 표현론, spectral |
+| **drlt-elements/** (ELM Lean) | brief (W74) | foundational Lean |
 | — | — | — |
 | **papers/** (5 papers) | ⨯ | — |
 | **lib/drlt.py** | ⨯ | — |
