@@ -1,5 +1,5 @@
-import E213.Axiom
-import E213.Closure
+import E213.Firmware.Axiom
+import E213.Firmware.Closure
 
 /-
   Layer 2: 집합론 on 213 Firmware.

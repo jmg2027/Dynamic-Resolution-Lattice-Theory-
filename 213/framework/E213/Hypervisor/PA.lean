@@ -1,6 +1,6 @@
-import E213.Axiom
-import E213.Closure
-import E213.Translate
+import E213.Firmware.Axiom
+import E213.Firmware.Closure
+import E213.Translation.Translate
 
 /-
   Layer 2: PA (Peano Arithmetic) on 213 Firmware.
