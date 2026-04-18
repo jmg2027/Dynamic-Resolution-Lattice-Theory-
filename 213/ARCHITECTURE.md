@@ -124,3 +124,45 @@ Nat213.succ n = rel (atom 1) n.toRaw
 | 귀추 | 결과 → 원인 | `can_recover` + 단사성 |
 
 **"논리"는 / 의 그림자.** 추가 엔진 없이 공리 한 줄로 세 추론 모두 내장.
+
+## 논리적 정합성 (체인의 엄밀한 의미)
+
+### 환원 체인 (각 단계 0 sorry, 양방향 동치)
+
+```
+OS Peano         m = n
+                   ↕  Nat213.eq_iff_toRaw_equiv   [iff, 증명됨]
+Hypervisor       m.toRaw ≡ n.toRaw
+                   ↕  Raw.equiv_iff_not_ne        [iff, 증명됨]
+Firmware 전제    ¬ (m.toRaw ≠ n.toRaw)
+```
+
+**이 체인이 의미하는 것:**
+
+1. **논리적 정합성 ✓** — 각 화살표가 `iff` (양방향 동치)로 Lean에서 증명됨. OS의 `=`는 Firmware `≠`의 부정과 동등.
+
+2. **213 공리는 `=`를 사용하지 않음** — 공리 한 줄 `def slash (x y : Raw) (h : x ≠ y) : Raw`는 `≠`만 요구. 213 자체 definiendum에 `=` 없음.
+
+3. **그러나 Lean의 `Eq`에 의존** — `x ≠ y := x = y → False`. 엄밀히 말하면 Firmware도 Lean의 `Eq`를 전제. 이건 Hardware (Layer 0) 선택의 일부.
+
+4. **완전히 순수한 "213만의 `=`"는 불가능** — `=` 개념을 말하려면 바깥 meta-level (여기선 Lean)이 필요. 이건 bootstrap 문제 (논리를 논리로 말하기). 정직하게 인정.
+
+### 실용적 결론
+
+| 질문 | 답 |
+|---|---|
+| 체인이 논리적으로 정합한가? | **네**, 모든 단계 iff로 증명. |
+| 213 공리가 `=`를 도입하는가? | **아니오**, `≠`만. |
+| 213이 `=` 없이 살 수 있는가? | **Firmware는 가능**, OS 이상은 meta-level 필요. |
+| OS의 `=`가 어디서 오는가? | **Firmware `≠`의 부정**. Hardware가 매개. |
+
+### 계층별 `=`의 지위
+
+| Layer | `=` 존재? | 사용 방식 |
+|---|---|---|
+| 0. Hardware (Lean) | ✓ primitive | `Eq` 타입 (meta-level). |
+| 1. Firmware (/, ≠) | ✗ (내부엔 없음) | `≠`의 전제로만 `Eq` 참조. |
+| 2. Hypervisor (렌즈) | ✓ 명시 도입 | `Raw.equiv := (· = ·)`. |
+| 3. OS (Peano 등) | ✓ 사용 | 환원 체인으로 Firmware에 연결. |
+
+**핵심:** `/` 한 줄이 공리. `=`는 그 공리 밖에서 빌리되, 체인으로 `≠` 전제와 연결 → 전체가 정합.
