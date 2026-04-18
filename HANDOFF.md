@@ -1,17 +1,50 @@
-# Session Handoff — 2026-04-18 (extended)
+# Session Handoff — 2026-04-18 (multi-session merge)
 
-## Branch
-`claude/tail-eigenvalues-explanation-0ynQx` (pushed, 35+ commits)
+Main branch reflects TWO parallel sessions merged:
 
-## Session Arc
+1. **Session A** (213 framework, v3 SSOT): `claude/integrate-langlands-drlt-proofs-R2I9d`
+2. **Session B** (foundation Lean formalization): `claude/tail-eigenvalues-explanation-0ynQx`
 
-Started with: 비판자의 "꼬리 eigenvalue" 질문
-Ended with: Foundation formalized in Lean (94 thms, 0 sorry)
+---
 
-## Major deliverables (this session)
+## Session A: 213 Framework v3 SSOT
 
-### FND Experiments 011–033 (23 new experiments)
+### What Was Done
+213 Framework: 전면 재설계 3회 → v3 SSOT. 1파일. 공리 한 줄.
 
+### 최종 공리 (RawAxiomV3.lean)
+```lean
+def slash (x y : Raw) (h : x ≠ y) : Raw := .rel x y
+```
+- `a/a` = 타입 거부. exception/none 아님.
+- `=` 은 213 안에 없음. `≠` 만 있음 (전제조건).
+- `Reachable`: 도달 가능한 Raw만 진짜.
+
+### 증명된 성질 (Properties.lean, 0 sorry)
+1. grows, can_recover, same_inputs, diff_inputs
+2. atom ≠ rel, Reachable 성질
+
+### 파일 구조
+```
+213/framework/
+├── E213.lean                       ← import 2줄
+├── E213/Firmware/RawAxiomV3.lean   ← SSOT. 공리+Level 0,1,2.
+├── Properties.lean                 ← 9성질 증명
+└── [기타 support]
+```
+
+---
+
+## Session B: Foundation Lean Formalization
+
+### Branch
+`claude/tail-eigenvalues-explanation-0ynQx` (36+ commits)
+
+### Session Arc
+Started: 비판자의 "꼬리 eigenvalue" 질문
+Ended: Foundation formalized in Lean (94 thms, 0 sorry)
+
+### FND Experiments 011–033 (23 new)
 Arithmetic / combinatorial / geometric exploration:
 - FND_011: FM cohomology of Gr(3,5), χ = 5^N·(N+1)! pattern
 - FND_012: Swap involution formalized
@@ -32,9 +65,7 @@ Arithmetic / combinatorial / geometric exploration:
 - FND_032: Claim 2' scale-inv ⟺ confluence
 - FND_033: γ' refined, 4D forced via unique-decomp criterion
 
-
 ### Lean formalization (5 new files, 94 thms, 0 sorry)
-
 ```
 critical-line/lean/PmfRh/
 ├── ScaleInvariantFoundation.lean   20  (n=5 arithmetic)
@@ -46,75 +77,50 @@ critical-line/lean/PmfRh/
 
 Full build: `lake build` SUCCESS (2724 modules).
 
-### Documents
-
+### Documents (Session B)
 - `foundations/notes/FORMAL_FOUNDATION.md` — living doc, FND DAG + status
 - `foundations/theory/scale_invariant_foundation.tex` — LaTeX draft
-- Updated this HANDOFF
 
-## Status Summary
+### Status Summary (Session B)
 
-### (A) Verified / Proven
-- n = 5 uniqueness (arithmetic, Lean)
+**(A) Verified / Proven:**
+- n = 5 uniqueness (Lean)
 - Bezout-style ∀v ≥ 6 ambiguity (Lean)
 - Binet-Cauchy 1+12+12 = 25 (Lean)
-- c = 2 unique value matching d² (Lean)
 - Claim 2' under SN hypothesis (Lean)
 - FM pattern 5^N·(N+1)! for N=1..5 (Lean)
-- Einstein analog map well-defined (Python)
-- det(G_h) values at symmetric config (Python)
 
-### (B) Partial / Conjecture
-- ε₀ ≈ α_GUT/(2π) at 2% (not exact)
-- Tensor tower Schur-Weyl (generic tool)
-- Contact codim ↔ N_eff pattern match
-
-### Refuted
+**Refuted (honest negatives):**
 - FND_013: "2.4% = α_GUT universal" (cherry-picked)
 - FND_019: 1-param Regge scan (wrong family)
 - FND_021: w² = 9/(25π²) (0.4% gap)
 - FND_025–026: Gravity Λ^k / shape-only formula
 
-### Open Gaps (carried)
+**Open Gaps:**
 - G-D2: Gravity location in Binet-Cauchy
 - G-D3: Gravity combinatorial formula
 - G-D6: ε₀ functional form f(N_H, d)
-- G-M_i: geometric weights 13.75, 3.5, 1.0
+- G-M_i: geometric weights
 - G-N1: Regge S_var = 56.79 meaning
 
-## Key realization this session
-
-**Scope precision**: Lean verifies arithmetic backbone + abstract
-structure. Geometric (Schubert, FM, γ on simplicial) and physical
+### Key realization (Session B)
+Lean verifies arithmetic backbone + abstract structure.
+Geometric (Schubert, FM, γ on simplicial) and physical
 (4D spacetime interpretation) remain in prose/LaTeX layers.
 
-"4D is machine-verified" is OVERCLAIM.
-"n=5 uniqueness machine-verified, atoms {2,3} premise" is ACCURATE.
+"4D machine-verified" = OVERCLAIM.
+"n=5 uniqueness machine-verified, atoms {2,3} premise" = ACCURATE.
 
-## Reviewer feedback incorporated
+---
 
-Throughout session, external reviewer (via user) corrected:
-1. (A)/(B)/missing classification for grand picture
-2. "Two independent routes" → "same atoms premise, different routes"
-3. Uniqueness condition motivated as theory well-definedness
-4. Lean scope precision (n=5 vs 4D)
-5. Direction priorities (formal paper > exploration)
+## Lean totals (combined)
+- Session A adds 213 framework files (0 sorry, v3 SSOT)
+- Session B adds 5 foundation files (94 thms, 0 sorry)
+- PmfRh import resolved: both sets present
 
 ## Next session candidates
-
-1. **ε₀ functional form** (G-D6) — open gap, now with stronger base
-2. **Atomic/molecular applications** — same ε₀ bottleneck
-3. **Formal paper submission prep** — LaTeX → journal format
-4. **More Lean**: operad / Fulton-MacPherson abstract structure
-5. **Branch consolidation**: 35+ commits, PR review
-
-## Lean totals
-
-- Files: 66 (base) + 5 (new foundation) = 71
-- Theorems: ~770 + 94 = ~864
-- Sorry: 0
-
-## Earlier open problems (carried from 2026-04-16)
-1. DRLT 원론 (drlt-elements/)
-2. θ_QCD bare value > nEDM 한계
-3. T_CMB +3.7%
+1. ε₀ functional form (G-D6) — open gap
+2. Atomic/molecular applications
+3. Formal paper submission prep
+4. More Lean: operadic / FM abstract
+5. Branch consolidation
