@@ -1,15 +1,25 @@
 /-
   PmfRh/ScaleInvariantFoundation.lean
 
-  Formalization of DRLT scale-invariant foundation.
-  See foundations/theory/scale_invariant_foundation.tex
-  and experiments FND_030, FND_033.
+  Formalization SCOPE (precise):
 
-  Main results:
-    1. Claim 1': swap annihilation rewriting confluent (Newman)
-    2. Path A (ch02): unique d with alive atomic decomposition is d=5
-    3. Path B (γ'): same uniqueness on simplex vertex count n+1
-    4. Claim 3: 4-simplex forced (n=4)
+  PREMISES (NOT proven here; taken as axioms):
+    - Atoms = {2, 3} (from ch02, based on SU(n)-theoretic argument).
+    - ℂ as value algebra (from ch01 Frobenius; not even touched here).
+
+  PROVEN HERE (machine-verified):
+    - Claim 1' Confluence of swap rewriting.
+    - n = 5 is THE UNIQUE integer with (alive + unique decomposition).
+
+  INTERPRETATIONS (NOT proven here; require separate argument):
+    - n = 5 = vertex count of 4-simplex (ch04 geometric claim).
+    - n = 4 simplicial dimension = 4D spacetime (physical claim).
+
+  So: we verify n = 5's uniqueness as an arithmetic theorem,
+  conditional on atoms being {2, 3}. Translation from "n = 5"
+  to "4-simplex structure" and "4D spacetime" is NOT machine-
+  verified; it depends on ch04 geometric content and physical
+  interpretation that sits outside this file.
 
   Joint research by Mingu Jeong and Claude (Anthropic)
 -/

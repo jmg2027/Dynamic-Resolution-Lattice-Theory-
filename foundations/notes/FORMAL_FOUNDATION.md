@@ -159,4 +159,28 @@ test unique+alive → n=5 only solution (theorem)"
 Same math, honest narrative.
 
 ---
-*Last updated: FND_033b*
+## Lean formalization scope (precise positioning)
+
+File: `critical-line/lean/PmfRh/ScaleInvariantFoundation.lean`
+(20 theorems, 0 sorry, compiles vs Mathlib v4.16).
+
+Covers **exactly one thing**:
+
+| Layer | Status in Lean |
+|---|---|
+| ℂ uniqueness (Frobenius) | PREMISE (not in file) |
+| Atomic pair {2,3} | PREMISE (hard-coded in definitions) |
+| **n = 5 uniqueness (alive + unique decomp)** | **PROVEN** |
+| n+1 = 5 = 4-simplex vertex count | INTERPRETATION (not Lean) |
+| n = 4 → 4D spacetime | INTERPRETATION (not Lean) |
+
+**Precise statement**: "n = 5 uniqueness is machine-verified.
+Translation n = 5 → 4-simplex → 4D is separate interpretation
+chain, relying on ch04 (geometry) and physical claims."
+
+Do NOT overclaim as "4D is machine-verified". Lean verified
+the arithmetic theorem CONDITIONAL on atoms = {2, 3}; the
+simplicial/physical interpretation sits outside its scope.
+
+---
+*Last updated: Lean scope clarification*
