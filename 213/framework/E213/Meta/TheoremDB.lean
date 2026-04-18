@@ -188,3 +188,113 @@ def theoremDB.maxDifficulty : Nat :=
 -- 검증.
 example : theoremDB.count = 23 := by decide
 example : theoremDB.maxDifficulty = 10 := by decide
+
+-- ═══ Difficulty 8: Applications (ARFM, SST) ═══
+
+-- 024. ARFM anti-reflexive.
+theorem thm_024 (x : Raw) : ¬ Reachable (.rel x x) :=
+  arfm_anti_reflexive x
+
+-- 025. SST antisymmetry.
+theorem thm_025 (x y : Raw) :
+    Lens.signed.view (Raw.rel x y) = - Lens.signed.view (Raw.rel y x) :=
+  sst_antisym x y
+
+-- 026. SST self-cancel.
+theorem thm_026 (x : Raw) : Lens.signed.view (Raw.rel x x) = 0 :=
+  sst_self_cancel x
+
+-- 027. Z3 group computation.
+theorem thm_027 : Lens.Z3.view (Raw.rel a₀ b₀) = ⟨1, by decide⟩ :=
+  by decide
+
+-- 028. Raw ∞ depth (모든 n 에 존재).
+theorem thm_028 (n : Nat) : ∃ x, Reachable x ∧ x.depth = n :=
+  raw_has_arbitrary_depth n
+
+-- ═══ Difficulty 11-14: Stream / Continuum ═══
+
+-- 029. RealPath 존재 (trivial).
+theorem thm_029 : ∃ r : RealPath, True := ⟨fun _ => false, trivial⟩
+
+-- 030. r_ones ≡ r_half under firstBit lens.
+theorem thm_030 : StreamLens.firstBit.equiv r_ones r_half := by
+  unfold StreamLens.equiv StreamLens.firstBit
+  simp [r_ones, r_half]
+
+-- 031. 그러나 prefixN 2 에서는 다름.
+theorem thm_031 : ¬ (StreamLens.prefixN 2).equiv r_ones r_half := by
+  unfold StreamLens.equiv StreamLens.prefixN
+  simp [r_ones, r_half, List.range]
+  decide
+
+-- 032. RH 명제 존재 (unknown verdict).
+theorem thm_032 : Prop := RH_stream
+
+-- ═══ Category 구조 ═══
+
+-- 033. Lens refines reflexivity.
+theorem thm_033 {α : Type} (L : Lens α) : L.refines L :=
+  Lens.refines_refl L
+
+-- 034. Pair refines left.
+theorem thm_034 {α β : Type} (L : Lens α) (M : Lens β) :
+    (L.pair M).refines L :=
+  Lens.pair_refines_left L M
+
+-- 035. Pair universal.
+theorem thm_035 {α β γ : Type} (L : Lens α) (M : Lens β) (N : Lens γ)
+    (hL : N.refines L) (hM : N.refines M) :
+    N.refines (L.pair M) :=
+  Lens.pair_universal L M N hL hM
+
+-- ═══ AxiomaticSystem 인스턴스 (Meta) ═══
+
+-- 036. PA profile 은 full.
+theorem thm_036 : profile_PA = AxiomProfile.full := rfl
+
+-- 037. Russell profile 은 R5 off.
+theorem thm_037 : profile_Russell.r5 = false := rfl
+
+-- 038. activeCount: PA=6, Russell=5, empty=0.
+theorem thm_038 :
+    profile_PA.activeCount = 6 ∧
+    profile_Russell.activeCount = 5 ∧
+    AxiomProfile.empty.activeCount = 0 := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
+-- ═══ 확장 DB ═══
+
+def theoremDB_v2 : List TheoremEntry := theoremDB ++ [
+  ⟨24, "ARFM anti-refl", 8, .decided, .provable,
+   "Applications/ARFM"⟩,
+  ⟨25, "SST antisym", 8, .decided, .provable,
+   "Applications/SignedSymbol"⟩,
+  ⟨26, "SST self-cancel", 8, .decided, .provable,
+   "Applications/SignedSymbol"⟩,
+  ⟨27, "Z3 group computation", 7, .decided, .provable,
+   "OS/Algebra"⟩,
+  ⟨28, "Raw ∞ depth", 10, .decided, .provable,
+   "Meta/Infinity"⟩,
+  ⟨29, "RealPath exists", 11, .decided, .provable, "Stream"⟩,
+  ⟨30, "firstBit lens equiv", 11, .decided, .provable,
+   "RealLenses"⟩,
+  ⟨31, "prefix lens diff", 11, .decided, .provable,
+   "RealLenses"⟩,
+  ⟨32, "RH stream statement", 14, .unknown, .unknown,
+   "RiemannPosition"⟩,
+  ⟨33, "lens refl", 4, .decided, .provable, "Category"⟩,
+  ⟨34, "pair refines left", 5, .decided, .provable, "Category"⟩,
+  ⟨35, "pair universal", 6, .decided, .provable, "Category"⟩,
+  ⟨36, "PA profile full", 8, .decided, .provable, "AxiomAxisMap"⟩,
+  ⟨37, "Russell R5 off", 8, .decided, .provable, "AxiomAxisMap"⟩,
+  ⟨38, "profile counts", 8, .decided, .provable, "AxiomAxisMap"⟩
+]
+
+example : theoremDB_v2.length = 38 := by decide
+
+-- 최고 Difficulty.
+def theoremDB_v2.maxDifficulty : Nat :=
+  theoremDB_v2.foldl (fun acc e => max acc e.difficulty) 0
+
+example : theoremDB_v2.maxDifficulty = 14 := by decide
