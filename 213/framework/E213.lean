@@ -11,9 +11,9 @@ import E213.Firmware.PairInTriple
 import E213.Translation.Translate
 import E213.Translation.EpsilonDelta
 import E213.Translation.Decompose
-import E213.Translation.ConstructiveGap
+import E213.Meta.ConstructiveGap
 import E213.Translation.LevelReduction
-import E213.Translation.GoldbachFromObj
+import E213.OS.GoldbachFromObj
 import E213.Translation.Simplex
 import E213.Translation.CayleyDickson
 -- Layer 2: Hypervisor
