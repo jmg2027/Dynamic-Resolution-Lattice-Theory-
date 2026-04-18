@@ -41,6 +41,7 @@ import E213.Meta.LeapAnalysis
 import E213.Meta.LensSearch
 import E213.Meta.LensConstraints
 import E213.Meta.LensHomeo
+import E213.Meta.LensTaxonomy
 import E213.Applications.NumberTheory
 import E213.Applications.HomeoExamples
 import E213.Meta.ProblemFramework
