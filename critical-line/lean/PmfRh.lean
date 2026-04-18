@@ -62,3 +62,5 @@ import PmfRh.LocalLanglands
 import PmfRh.SelbergEigenvalue
 import PmfRh.GeometricLanglands
 import PmfRh.LanglandsUnification
+import PmfRh.SwapAnnihilation
+import PmfRh.Paper1

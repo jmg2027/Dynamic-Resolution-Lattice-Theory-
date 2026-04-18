@@ -7,7 +7,7 @@
 ## Communication
 - **Korean is the primary language.** Respond in Korean unless asked otherwise.
 - Author: "Mingu Jeong" (not Mingoo, not Min-goo).
-- Every tex/pdf: "Joint research by Mingu Jeong and Claude (Anthropic)"
+- Every tex/pdf: Author "Mingu Jeong" only. Claude in Acknowledgments.
 
 ## Editing
 - **80줄 한도 hook 강제.** 대량 파일은 Bash(cat)로 조합.
@@ -56,11 +56,11 @@
 | `critical-line/` | `RH_` | **ACTIVE** | 79 (RH_001-079) | 임계선, RH, GRH, L-함수, Galois, Lean |
 | `nuclear/` | `NUC_` | **CLOSED** ✓ | 15 (NUC_001-015) | magic numbers, 600-cell, binding |
 | `hadron/` | `HAD_` | **CLOSED** ✓ | 9 (HAD_001-009) | meson/baryon spectrum, hyperfine |
-| `predictions/` | `PRD_` | **ACTIVE** | 9 (PRD_001-009) | 미측정 예측 (JUNO, θ_QCD, Berry phase) |
+| `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-009) | 미측정 예측 (JUNO, θ_QCD, Berry phase) |
 | `quantum-gravity/` | `QG_` | **ACTIVE** | 7 (QG_001-007) | 시공간 창발, holographic |
 | `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
 | `discrete-harmonic/` | `DHA_` | **ACTIVE** | 19 (DHA_001-019) | 이산 조화해석학, 스펙트럼, S₅ 표현론 |
-| `drlt-elements/` | `ELM_` | **PLANNED** | 0 | 원론: Entity→Logic→Nat→Arith→Bridge |
+| `drlt-elements/` | `ELM_` | **ACTIVE** | 0 (Lean 7파일 26thm) | 원론: Entity→Eq→Logic→Nat→Arith→Order→Bridge |
 
 ### Sub-Project 필수 구조
 ```
@@ -130,3 +130,8 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 ## Workflow
 - book/ 편집 후 math/ + physics/ 동기화 + single .tex 재생성.
 - 의미 있는 변경마다 commit. 절대 amend 안 함.
+
+## Paper Authorship Rule
+- **Author: "Mingu Jeong" only.** Claude는 저자가 아니라 도구.
+- **Acknowledgments에 기재:** "This work was developed in dialogue with Claude (Anthropic)."
+- `\author{...Claude...}` 금지. arXiv desk reject 사유.

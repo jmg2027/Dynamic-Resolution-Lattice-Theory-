@@ -1,0 +1,10 @@
+name = "ns-nogo"
+version = "0.1.0"
+keywords = ["math", "pde", "navier-stokes"]
+
+[leanOptions]
+pp.unicode.fun = true
+autoImplicit = false
+
+[[lean_lib]]
+name = "NSNoGo"
