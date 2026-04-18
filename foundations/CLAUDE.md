@@ -65,6 +65,11 @@ FND_030: M — Swap confluence (a,b) Church–Rosser
 FND_031: M — Refinement operators 고정점 → 4-simplex
 FND_032: M — Claim 2': scale-invariance ⟺ confluence
 FND_033: M — γ' operator forces 4D (unique-decomp)
+FND_034: B — ε₀ = α_GUT/(2π) (★ REFUTED: 2.6% gap)
+FND_035: B — M_i direct geometric (★ REFUTED)
+FND_036: B — Regge deficit M_i (★ REFUTED)
+FND_037: M — W3 Schubert T-weight (★ REFUTED)
+FND_038: M — Swap tower = operadic idempotence (9/9 ✓)
 ```
 
 ## Related Papers (root papers/)

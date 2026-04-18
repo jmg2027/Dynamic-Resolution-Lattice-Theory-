@@ -94,6 +94,11 @@ Because $n = 5$ is unique solution to "one of each atom, unique decomp".
 | FND_031 | γ independent route | (A) proven | ch04 Thm 4.11 |
 | FND_032 | Scale-inv ⟺ confluence | (A) sketch | Part C proof |
 | FND_033 | γ' forces n=4 | (A) with uniq | refined criterion |
+| FND_034 | ε₀ = α_GUT/(2π) | refuted | 2.6% gap |
+| FND_035 | M_i direct geometric | refuted | no clean formula |
+| FND_036 | Regge deficit M_i | refuted | honest negative |
+| FND_037 | W3 Schubert T-weight | refuted | honest negative |
+| FND_038 | Swap tower idempotence | (A) verified | 9/9, unique fix pt d=5 |
 
 ## Three Claims (consolidated)
 
