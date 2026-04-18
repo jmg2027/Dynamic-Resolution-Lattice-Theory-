@@ -71,6 +71,7 @@ FND_036: B — Regge deficit M_i (★ REFUTED)
 FND_037: M — W3 Schubert T-weight (★ REFUTED)
 FND_038: M — Swap tower = 유한 반복 고정점 (12/12 ✓, Lean 17 thm)
 FND_039: M — Tower atom-dependency scope (4/4 ✓, atom-INDEP)
+FND_040: M — α_GUT three paths structural correspondence (4/4 ✓)
 ```
 
 ## Related Papers (root papers/)
