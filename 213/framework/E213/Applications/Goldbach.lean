@@ -228,3 +228,53 @@ theorem not_weak_implies_not_strong :
 --
 -- 213 이 제공 하지 못하는 것 = arithmetic breakthrough.
 -- 213 이 제공 하는 것 = 전체 infrastructure + reduction + 진단.
+
+-- ═══ "Arithmetic Content" 의 정확한 정의 ═══
+
+-- 사용자 요청: 정의.
+-- 내가 막연히 쓴 용어 → 정확히 formalize.
+
+-- (1) Nat = Lens.depth 의 image (countable).
+-- (2) Arithmetic predicate: ℕ → Prop (DecidablePred).
+-- (3) Arithmetic content: 이 predicate 의 truth 정보.
+
+structure ArithmeticContent where
+  φ : Nat → Prop
+  dec : DecidablePred φ
+
+-- Goldbach 가 arithmetic content:
+def goldbach_content : ArithmeticContent :=
+  { φ := fun n =>
+      4 ≤ n → n % 2 = 0 →
+      ∃ p q : Nat, isPrime p = true ∧ isPrime q = true ∧ p + q = n
+    dec := Classical.decPred _ }
+
+-- 각 predicate 에 대해 "provable in S" 가 arithmetic content 의 핵심.
+
+-- ═══ Content 와 Framework 의 관계 (정확히) ═══
+
+-- 213 이 제공:
+--   (a) Nat 생성 (depth).
+--   (b) Predicate encoding (ArithmeticContent).
+--   (c) 특정 predicate 의 decidability.
+--   (d) Lens/framework 분석.
+
+-- 213 이 제공 하지 **않는** 것:
+--   ∀ predicate, 그 predicate 가 provable/refutable 한지.
+--   이건 Gödel 불완전성 의 213 버전.
+--   **하지만 이건 framework 부족 이 아니라 수학 자체 의 한계**.
+
+-- ═══ 결론: "Arithmetic content 한계" 의 정확한 의미 ═══
+
+-- "Goldbach 의 arithmetic content 가 ZFC 에서 결정 안 됨" =
+--   ZFC 의 공리 로부터 Goldbach 의 진리값 을 도출 할 수 없음.
+--   이건 ZFC 의 expressiveness 한계.
+--   213 framework 와 독립.
+
+-- 213 은 "어느 공리계에서 어느 predicate 가 결정 되는지" 진단 가능.
+-- 하지만 "모든 predicate 진리값 결정" 은 Gödel 에 의해 불가.
+
+-- 정확한 정의:
+--   arithmetic content = Nat 위 predicates 의 진리값.
+--   content limit = 특정 공리계 의 Nat predicate 결정 범위.
+--   Goldbach 의 content = ZFC 에서 미결정 (추측).
