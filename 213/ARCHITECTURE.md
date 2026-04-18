@@ -37,6 +37,7 @@ E213/Hypervisor/NumberComparison.lean  — 세 수의 성질 비교.
 E213/Hypervisor/Fold.lean              — 수의 일반 규칙 = catamorphism.
 E213/Hypervisor/FoldInjective.lean     — comm h → 단사 불가 (정보 손실).
 E213/Hypervisor/Lens.lean              — 렌즈 구조체 + 합성 (카탈로그).
+E213/Hypervisor/LensKernel.lean        — 등호 = kernel. 순환 해결.
 E213/OS/Peano.lean                     — PA 공리계 (depth 렌즈 위). 0 sorry.
 E213/OS/Equality.lean                  — = 환원 체인 (OS→Hypervisor→¬Firmware).
 E213/OS/Inference.lean                 — 연역/귀납/귀추 재명명. Reachable 성질.
@@ -166,3 +167,51 @@ Firmware 전제    ¬ (m.toRaw ≠ n.toRaw)
 | 3. OS (Peano 등) | ✓ 사용 | 환원 체인으로 Firmware에 연결. |
 
 **핵심:** `/` 한 줄이 공리. `=`는 그 공리 밖에서 빌리되, 체인으로 `≠` 전제와 연결 → 전체가 정합.
+
+## 등호의 진짜 출처: Lens Kernel
+
+이전 환원 체인은 Lean의 `Eq`를 매개로 가정했지만, **더 근본적인 답**:
+
+```
+=_L  :=  ker(L.view)  =  { (x, y) : L.view x = L.view y }
+```
+
+**두 Raw가 같은 Lens 값을 가지면, 그 Lens 위의 이론에서 "같다."**
+
+### 동치관계 세 성질이 공짜 (Lean == 에서 빌린 게 아님)
+
+| 성질 | 출처 |
+|---|---|
+| 반사 | `L.view x = L.view x` — 자명 |
+| 대칭 | `Eq.symm` 일반 사실 |
+| 추이 | `Eq.trans` 일반 사실 |
+
+**함수 kernel이 자동 동치관계**라는 수학 일반 구조에서 공짜. 정리 9의 순환 해결.
+
+### 다른 Lens = 다른 "같다"
+
+| 공리계 | Lens | "같다"의 의미 |
+|---|---|---|
+| PA | depth | 깊이가 같은 트리 |
+| 논리 | Bool | 진리값이 같은 트리 |
+| 집합론 | List Raw | 부분집합이 같은 트리 |
+| 기하 | (depth, leaves) pair | 두 값 모두 같은 트리 |
+| 항등 | id' (α=Raw) | 자기 자신만 같음 (대각선) |
+| 상수 | constTrue | 모두 같음 (전체 Raw²) |
+
+### Kernel 거칠기 순서 (증명)
+
+- `Lens.id_refines_all`: `id'` 가 가장 섬세 (모든 Lens 위에).
+- `Lens.refines_constTrue`: `constTrue` 가 가장 거침 (모든 Lens 아래).
+- 중간은 α의 크기와 h의 commutativity에 따라 결정.
+
+### 왜 수학 분야마다 "같다"의 뜻이 다른가
+
+**위상**: homeomorphism = 위상 구조 보존 렌즈의 kernel.
+**대수**: isomorphism = 연산 구조 보존 렌즈의 kernel.
+**집합**: bijection = 원소 집합 렌즈의 kernel.
+
+**같은 바닥 (/), 다른 Lens, 다른 등호.**
+
+이전 Equiv.lean 의 `Raw.equiv := (· = ·)` 는 `Lens.id'.equiv` 의 특수 경우로 재해석.
+다른 Lens 는 kernel 이 근본적으로 다름.
