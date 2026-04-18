@@ -32,3 +32,5 @@ import E213.Goldbach.VinogradovBridge
 import E213.Goldbach.AlmostToAll
 import E213.Goldbach.Structure
 import E213.Negation
+import E213.Coordinates
+import E213.ConstructiveGap
