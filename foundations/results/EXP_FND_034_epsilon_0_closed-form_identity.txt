@@ -1,0 +1,118 @@
+============================================================
+  EXP_FND_034_epsilon_0_closed-form_identity
+  2026-04-18 14:58:09
+============================================================
+=================================================================
+FND_034: ε₀ = α_GUT/(2π) identity test
+=================================================================
+
+  α_GUT = 6/(25π²) = 0.024317084074
+  ε₀ conj = α_GUT/(2π) = 3/(25π³) = 0.003870184132
+  w₀ = 3/(5π) = 0.190985931710
+  w₀² = 9/(25π²) = (3/2)α_GUT = 0.036475626111
+
+=================================================================
+Route 1: w* via Brent minimization
+=================================================================
+
+  w* (Brent, bracket 0.1/0.2/0.3) = 0.19026441664311
+  w*² = 0.03620054824054
+  FND_021 reported = 0.1902676482
+  w₀ = 3/(5π)      = 0.19098593171027
+  |w* − w₀|        = 7.215e-04
+  (w₀ − w*)/w₀     = 0.0037778441
+  [✓ PASS] w* matches FND_021
+
+=================================================================
+Route 2: Identity A — w*² = (3/2)α_GUT · (1 − 2ε₀_eff)
+=================================================================
+
+  A = (3/2)α_GUT = 0.03647562611124
+  w*²/A = 0.99245858399082
+  ε₀_eff = (1 − w*²/A)/2 = 0.003770708005
+  ε₀ conjecture = 0.003870184132
+  deviation: -2.5703%
+  [✗ FAIL] ε₀_eff ≈ α_GUT/(2π) at 2%
+
+=================================================================
+Route 3: Identity B — w*² = (3/2)α_GUT · (1 − α_GUT/π)
+=================================================================
+
+  (3/2)α_GUT·(1 − α_GUT/π) = 0.03619329133248
+  w*² actual              = 0.03620054824054
+  residual (B)            = +7.26e-06
+  residual / w*²          = +2.00e-04
+  (α_GUT/π)² = 5.9913e-05
+  [✓ PASS] Identity B residual < (α_GUT/π)²
+
+=================================================================
+Route 4: candidate closed forms for w*²
+=================================================================
+
+  candidate                                            pred       Δ vs w*²
+  (3/2)α_GUT                                 0.036475626111     +2.751e-04
+  (3/2)α_GUT·(1 − 2·α_GUT/(2π))              0.036193291332     -7.257e-06
+  (3/2)α_GUT·(1 − α_GUT/π)² (sq)             0.035913141929     -2.874e-04
+  (3/2)α_GUT·exp(−α_GUT/π)                   0.036194381206     -6.167e-06
+  (3/2)α_GUT − (3/2)α_GUT²/π                 0.036193291332     -7.257e-06
+  (3/2)α_GUT·(1 − ε₀·2)                      0.036193291332     -7.257e-06
+  (3/2)α_GUT·cos(α_GUT/π)                    0.036474533429     +2.740e-04
+
+  Best match: (3/2)α_GUT·exp(−α_GUT/π) (|Δ| = 6.17e-06)
+  [✗ FAIL] Some candidate matches within 1e-6
+
+=================================================================
+Route 5: residual structure — fit ε₀_eff to α_GUT powers
+=================================================================
+
+  x = α_GUT/π = 0.007740368264
+  (1 − w*²/A) / x = 0.9742967973  (leading-order coefficient)
+  Expected if ε₀ = α_GUT/(2π) leading: c1 = 1 (→ 2ε₀ = α_GUT/π)
+  After subtracting leading (y − x)/x² = -3.320669
+  (if exact 2ε₀: should be ~0; non-zero → higher-order)
+  [✗ FAIL] Leading coefficient within 0.5% of 1
+
+=================================================================
+SUMMARY (honest verdict)
+=================================================================
+
+  Conjecture tested: ε₀ = α_GUT/(2π) = 3/(25π³) ≈ 0.003870
+
+  High-precision results (bracket 0.1/0.2/0.3, tol 1e-14):
+    w*                        = 0.190264416643
+    w*²                       = 0.036200548241
+    (w₀ − w*)/w₀              = 0.00377784
+    ε₀_eff via Identity A     = 0.00377071
+    α_GUT/(2π) conjecture     = 0.00387018
+    deviation                 = -2.5703%
+
+  Leading-order coefficient:  c1 = 2ε₀/(α_GUT/π) = 0.974297
+    (exact α_GUT/(2π) requires c1 = 1.0)
+
+  Identity B residual: +7.257e-06 (order (α_GUT/π)² = 6.0e-05)
+
+  VERDICT: ε₀ = α_GUT/(2π) is REFUTED as exact identity at 2.6%.
+    Correct statement: ε₀ has leading-order form α_GUT/(2π) but
+    carries O(few%) structural correction of currently unknown origin.
+    Identity B (w*² = (3/2)α_GUT·(1−α_GUT/π)) holds at residual
+    ~O(α_GUT²/π²), suggesting a Taylor-style expansion in α_GUT/π.
+
+  Status of G4 (updated):
+    — PARTIALLY CLOSED: leading 1/(2π) factor validated (~97%)
+    — OPEN: 2.6% structural correction needs derivation
+    — Conjecture "ε₀ = α_GUT/(2π) exact" ruled out numerically
+    — Next step: derive coefficient c1 = 0.974 from hinge geometry
+      or find alternative closed form (e.g. α_GUT·exp(−α_GUT)/(2π)?)
+
+
+============================================================
+  SUMMARY: EXP_FND_034_epsilon_0_closed-form_identity
+============================================================
+  [✓] w* matches FND_021
+  [✗] ε₀_eff ≈ α_GUT/(2π) at 2%
+  [✓] Identity B residual < (α_GUT/π)²
+  [✗] Some candidate matches within 1e-6
+  [✗] Leading coefficient within 0.5% of 1
+
+  2/5 checks passed
+  Time: 0.1s

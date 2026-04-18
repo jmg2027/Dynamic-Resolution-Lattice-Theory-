@@ -48,7 +48,7 @@
 
 | Directory | Prefix | Status | Experiments | 영역 |
 |-----------|--------|--------|-------------|------|
-| `foundations/` | `FND_` | **ACTIVE** | 33 (FND_001-033) | 유도 사슬 (수학-물리 브릿지): 심플렉스 기하, 변분, f_occ, Grassmannian, Binet–Cauchy, confluence |
+| `foundations/` | `FND_` | **ACTIVE** | 34 (FND_001-034) | 유도 사슬 (수학-물리 브릿지): 심플렉스 기하, 변분, f_occ, Grassmannian, Binet–Cauchy, confluence |
 | `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
 | `atoms/` | `ATM_` | **ACTIVE** | 69 (ATM_001-069) | 원자, 주기율표, wedge screening |
 | `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |

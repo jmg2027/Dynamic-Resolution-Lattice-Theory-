@@ -53,7 +53,20 @@ foundations/ 쪽에서는 FND 파이썬 실험만 관리.
 4. **ε₀ 함수형태 (G-D6)**: FND_015 추측 확장
 5. **중력 위치/공식 (G-D2, G-D3)**: Binet–Cauchy 재검
 
-## Experiments: 33 (FND_001-033)
+## Recent (FND_034, 2026-04-18)
+
+**Phase A1 roadmap (G4 "ε₀ closed form") - FND_034 outcome:**
+- High-precision variational: w* = 0.19026442 (Brent, tol 1e-14)
+- ε₀_eff = (1 − w*²/(3/2·α_GUT))/2 = **0.003778**
+- α_GUT/(2π) conjecture = 0.003870 → **deviation -2.57%**
+- **FND_015의 "2% 일치" 우연이었음. 정확한 identity REFUTED.**
+- 살아남은 구조: Identity B `w*² = (3/2)α_GUT·(1 − α_GUT/π)`
+  residual +7.26e-6 (order (α_GUT/π)² = 6e-5). 1/(2π) leading coefficient
+  97% 유효. 잔차 2.6% 구조 correction c1=0.974 설명 대기.
+- **결론**: G4는 blocking이 아님. 진짜 decisive는 **G-M_i 기하 가중치**.
+- **다음 실험**: FND_035 (Binet-Cauchy canonical weights M_i).
+
+## Experiments: 34 (FND_001-034)
 ## Papers: paper1, paper2
 ## Book: Part I (ch01-03), Part II (ch04-05, ch08), ch21
 ## 상세: `notes/FORMAL_FOUNDATION.md` (DAG), `notes/GAPS_REGISTER.md` (열린 문제)
