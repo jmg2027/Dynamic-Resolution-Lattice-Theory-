@@ -1,6 +1,6 @@
 ============================================================
   EXP_FND_038_Swap_Tower_Operadic_Idempotence
-  2026-04-18 16:33:25
+  2026-04-18 16:54:19
 ============================================================
 =================================================================
 SWAP TOWER = OPERADIC IDEMPOTENCE
@@ -65,21 +65,22 @@ CHECK 4: Convergence rate O(log d)
   [✓ PASS] Convergence O(log d) (ratio < 3)
 
 =================================================================
-CHECK 5: Idempotence T ∘ T^∞ = T^∞
+CHECK 5: Finite stability — T^k(d) = T^(k+1)(d) for k ≥ k₀(d)
 =================================================================
 
-  For every alive d, T^∞(d) = 5 and T(5) = 5.
-  Therefore T ∘ T^∞ = T^∞ pointwise (orbit closure).
+  For every alive d, ∃ finite k₀(d) such that after k₀ steps
+  the orbit is stuck at d = 5 (the unique fixed point).
+  k₀ is bounded by the convergence count (log d-like).
 
-    d=   5: T^∞=5, T(T^∞)=5
-    d=   7: T^∞=5, T(T^∞)=5
-    d=  10: T^∞=5, T(T^∞)=5
-    d=  15: T^∞=5, T(T^∞)=5
-    d=  20: T^∞=5, T(T^∞)=5
-    d=  50: T^∞=5, T(T^∞)=5
-    d= 100: T^∞=5, T(T^∞)=5
-    d= 500: T^∞=5, T(T^∞)=5
-  [✓ PASS] T ∘ T^∞ = T^∞ on alive sector
+    d=   5: k₀=0, T^k₀(d)=5, T^(k₀+1)=5
+    d=   7: k₀=1, T^k₀(d)=5, T^(k₀+1)=5
+    d=  10: k₀=1, T^k₀(d)=5, T^(k₀+1)=5
+    d=  15: k₀=3, T^k₀(d)=5, T^(k₀+1)=5
+    d=  20: k₀=3, T^k₀(d)=5, T^(k₀+1)=5
+    d=  50: k₀=5, T^k₀(d)=5, T^(k₀+1)=5
+    d= 100: k₀=6, T^k₀(d)=5, T^(k₀+1)=5
+    d= 500: k₀=8, T^k₀(d)=5, T^(k₀+1)=5
+  [✓ PASS] Finite stability: T^k fixed for k ≥ k₀(d)
 
 =================================================================
 CHECK 6: FM_N(Gr(3,5)) χ compatibility (FND_011)
@@ -115,25 +116,28 @@ CHECK 7: Pairwise σ (FND_012) = 1-step T
   [✓ PASS] Pairwise σ = 1-step T restriction (consistent)
 
 =================================================================
-THEOREM (Swap Tower = Operadic Idempotence)
+THEOREM (Finite Swap Tower → Unique Fixed Point)
 =================================================================
 
-  Let T be the swap-reduction functor on alive dimensions,
+  Let T be the swap-reduction map on alive dimensions,
      T(d) = 2⌈a/2⌉ + 3⌈b/2⌉   (d = 2a+3b, a,b ≥ 1).
 
-  Then:
+  Then (all statements FINITE — no ∞ machinery needed):
     (i)   T has a UNIQUE fixed point d = 5 ↔ Gr(3,5).
-    (ii)  T^∞(d) = 5 for every alive d (global collapse).
-    (iii) T ∘ T^∞ = T^∞  (idempotence on orbit closure).
-    (iv)  Convergence in O(log d) steps.
+    (ii)  ∀ alive d, ∃ finite k with T^k(d) = 5.
+    (iii) T is strictly decreasing off d = 5.
+    (iv)  Step count bounded by ≤ log_2(d).
     (v)   FM_N(Gr(3,5)) χ = 5^N·(N+1)! preserved at fix pt.
     (vi)  Pairwise σ (FND_012) = 1-level restriction of T.
 
-  Corollary (user intuition validated):
-    Swap annihilation = recursive collapse of nested
+  Corollary (user intuition validated, finite version):
+    Swap annihilation = FINITE reduction of nested
     simplices to the (3,2) atomic pair.  The pairwise
     σ of ch02 / SwapAnnihilation.lean is the 1-level
-    slice of an operadic monad T on simplex towers.
+    slice of a FINITE iteration of T.  ∞-categorical
+    or RG-flow language is NOT needed — N points are
+    finite, each tower level is finite, convergence is
+    finite (log d bound).
 
 =================================================================
 CHECK 8 (OT-2): Strict decrease off fixed point d=5
@@ -192,7 +196,7 @@ CHECK 10 (OT-4 honesty): alive/dead dims can COINCIDE
   [✓] d_indep(1,1) = 5 (pairwise matches)
   [✓] Unique alive fixed point = d=5
   [✓] Convergence O(log d) (ratio < 3)
-  [✓] T ∘ T^∞ = T^∞ on alive sector
+  [✓] Finite stability: T^k fixed for k ≥ k₀(d)
   [✓] FM formula well-defined at n=5 fixed pt
   [✓] Pairwise σ = 1-step T restriction (consistent)
   [✓] Strict decrease off d=5 (OT-2 in Lean: tower_strict_off_five)

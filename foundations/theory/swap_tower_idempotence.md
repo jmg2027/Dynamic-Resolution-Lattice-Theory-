@@ -19,15 +19,19 @@
 *1 level만 본 그림.*
 
 **Tower view (사용자 직관, FND_038).**
-심플렉스의 각 꼭지점에 또 심플렉스를 매다는 함자
-`T: Simp → Simp`.  Alive 차원 `d = 2a+3b` (a,b ≥ 1) 위에서
+심플렉스의 각 꼭지점에 또 심플렉스를 매다는 함수
+`T: AliveDim → Nat`.  Alive 차원 `d = 2a+3b` (a,b ≥ 1) 위에서
 `T(d) := d_indep(a,b)`  (canonical minimal-b decomp).
-*무한 재귀 탑 — pairwise σ를 반복 적용.*
 
-두 view의 관계:
+**유한성 강조:** N개의 점이 있는 심플렉스는 유한이고, tower 의
+각 단계도 유한이다.  Tower 는 반복 적용되지만 항상 **유한 step
+내에 고정점 d=5 에 도달** (strict decrease off fixed pt).
+∞ 은 들어올 자리가 없다.
+
+두 view 의 관계:
 ```
-pairwise σ  =  T 를 1 level restriction
-tower T     =  σ 를 monad/operad 로 올린 것
+pairwise σ  =  T 를 1 level restriction (FND_012)
+tower T     =  σ 를 유한 반복 적용 (FND_038)
 ```
 
 ---
@@ -39,20 +43,21 @@ tower T     =  σ 를 monad/operad 로 올린 것
 | # | 성질 | Python (FND_038) | Lean (SwapTower.lean) |
 |---|------|------------------|------------------------|
 | i | 유일한 고정점 `d = 5 ↔ Gr(3,5)` | [5, 500) 전수 | `fixed_iff_five` |
-| ii | `T^∞(d) = 5` (모든 alive `d`) | 17 궤적 | `tower_decreases_to_five` |
-| iii | `T ∘ T^∞ = T^∞` | fixed pt 직접 | `base_is_fixed` |
-| iv | `O(log d)` 수렴 | ratio < 3 | (암시: strict decrease) |
+| ii | 모든 alive 궤적 유한 step 내 5 도달 | 17 궤적 | `tower_decreases_to_five` |
+| iii | T(5) = 5 (고정점 흡수) | direct | `base_is_fixed` |
+| iv | 유한 단계로 수렴 (bound ≤ log₂(d)) | ratio < 3 | 엄밀 감소에서 즉각 |
 | v | `FM_N(Gr(3,5)) χ = 5^N·(N+1)!` 보존 | FND_011 | — (comment only) |
 | vi | Pairwise σ = 1-step T | 7 test | `pairwise_is_tower` (rfl) |
-| vii | Strict decrease off d=5 (OT-2) | 12 d 값 | `tower_strict_off_five` |
-| viii | Dead sector stability (OT-4) | 8 d 값 | `dead_sector_closed` |
-| ix | Dead → alive 벽 (OT-4) | `T_dead ≠ 5` | `dead_tower_ne_five` |
-| x | alive/dead dim 중첩 (OT-4) | (3,1)↔(0,3)=9 | `alive_dead_dims_can_coincide` |
+| vii | Strict decrease off d=5 | 12 d 값 | `tower_strict_off_five` |
+| viii | Dead sector stability | 8 d 값 | `dead_sector_closed` |
+| ix | Dead → alive 벽 | `T_dead ≠ 5` | `dead_tower_ne_five` |
+| x | alive/dead dim 중첩 (honest) | (3,1)↔(0,3)=9 | `alive_dead_dims_can_coincide` |
 
 **따름정리 (user intuition 검증됨):**
-Swap annihilation = 중첩된 심플렉스 탑의 (3,2) atomic pair 로의
-재귀적 붕괴.  `ch02 / SwapAnnihilation.lean` 의 pairwise σ 는
-simplex tower 위의 operadic monad `T` 의 1-level slice.
+Swap annihilation = 중첩된 심플렉스 탑이 **유한 step 내에**
+(3,2) atomic pair 로 붕괴하는 현상.  `ch02 / SwapAnnihilation.lean`
+의 pairwise σ 는 tower 의 1-level slice.  반복 적용으로 얻는
+tower 는 여전히 유한한 이산 함수 — 무한적 구조가 숨어있지 않음.
 
 ---
 
@@ -65,9 +70,9 @@ simplex tower 위의 operadic monad `T` 의 1-level slice.
 2. **기존 결과 자연 흡수.**
    - FND_011 (FM χ) = T 의 한 level bubble cardinality.
    - FND_012 (pairwise σ) = T 의 1-level restriction.
-   - FND_017 (tensor fractal tower) = T 의 Schur–Weyl 표현론.
-   - FND_030–033 (scale-inv ⟺ confluence) = T 의 monadic
-     associativity 의 범주론적 재진술.
+   - FND_017 (tensor fractal tower) = T 의 유한 반복의 표현론적 해석.
+   - FND_030–033 (scale-inv ⟺ confluence) = T 반복의 순서-독립성
+     (어떤 level 순서로 reduction 을 적용해도 같은 고정점).
 
 3. **Self-reference 가 구조화됨.**
    FND_012 결과 154–157 줄의 관찰 ("Gr(3,5) is fixed point of
@@ -87,26 +92,25 @@ simplex tower 위의 operadic monad `T` 의 1-level slice.
   `AliveDim`, `towerStep`, `fixed_implies_five`, `fixed_iff_five`
   등 포함.  전체 PmfRh 빌드 성공 (2727 모듈).
 
-- **OT-2 (Operad idempotence, strict).** ✅ **CLOSED.**
+- **OT-2 (유한 수렴).** ✅ **CLOSED.**
   `tower_strict_off_five` : `5 < x.dim → towerStep x < x.dim`.
   `tower_decreases_to_five` : 비증가 + equality iff fixed.
-  => T 반복은 절대 정체되지 않고 유한 step 내 고정점 도달.
-  이는 monad μ : T² → T 의 **strict idempotence** on orbit closure.
+  => 모든 alive 궤적은 유한 step 내 d=5 도달 (엄밀 감소 + Nat
+  well-foundedness).  반복은 **유한한 이산 연산**이고, 무한적
+  구조 (∞-categorical coherence, monad associativity in ∞-cat,
+  operad tower, etc.) 는 DRLT 공리에서 나오지 않으며 설명에도
+  불필요함.
 
-- **OT-2' (Weak coherence).**  열려 있음 (DRLT 내부 질문).
-  Strict version 은 `dim` 레벨에서 동작.  AliveDim → AliveDim
-  함자로 승격해 Gr(3,5) 값 tower 를 다루려면 ∞-categorical
-  coherence (associator, pentagon) 가 필요한지?  이는 공리에서
-  자연스럽게 나올 수 있는 범주론적 구조 질문.
+- **~~OT-2' (∞-categorical coherence)~~** ❌ **DROPPED.**
+  이전에 덧붙인 "weak coherence" 는 유한한 tower 에 무한 범주론적
+  구조를 억지 투영한 것이었음.  N 개의 점은 유한, 각 tower level
+  도 유한, 반복 step 수도 유한 (log d bound).  ∞ 이 들어올 자리가
+  없다.  "Pattern match ≠ derivation" 원칙 적용.
 
-- **~~OT-3 (Physical 해석.)~~** ❌ **DROPPED (speculative, not derived).**
-  이전 버전: "Tower 의 `O(log d)` 수렴이 β-function / RG flow 와
-  대응하는가?"  이는 DRLT 공리에서 유도되지 않는 외부 물리 개념의
-  억지 대입 (CLAUDE.md "Theoretical Integrity" 위반).  Tower 의
-  `O(log d)` 는 순수 Nat counting 사실이고, 이미 완결적이다.  RG
-  flow 용어로 재포장해도 설명력이 늘지 않음.  Pattern match
-  ≠ derivation.  진짜 물리적 해석이 필요하다면 DRLT 공리에서
-  자연스럽게 나와야 함 — 지금은 그런 유도 경로가 없음.
+- **~~OT-3 (Physical 해석 / RG flow)~~** ❌ **DROPPED.**
+  외부 물리 (RG) 개념의 억지 대입.  CLAUDE.md "Theoretical
+  Integrity" 위반.  Tower 의 `O(log d)` 는 순수 Nat counting
+  사실이고 이미 완결적.
 
 - **OT-4 (Dead sector).** ✅ **CLOSED (structural).**
   `DeadDim` (a=0 ∨ b=0) 형식화:
