@@ -43,6 +43,7 @@ E213/OS/Equality.lean                  — = 환원 체인 (OS→Hypervisor→¬
 E213/OS/Inference.lean                 — 연역/귀납/귀추 재명명. Reachable 성질.
 E213/OS/Provability.lean               — 4분류 (Provable/Refutable/Independent/Respects).
 E213/OS/Logic.lean                     — Propositional logic (Bool 렌즈, implication).
+E213/OS/Set.lean                       — Naive set theory (atomSet 렌즈, cons-list).
 ```
 
 ## 원칙
