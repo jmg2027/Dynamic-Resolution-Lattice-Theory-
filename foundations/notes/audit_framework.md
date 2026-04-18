@@ -93,7 +93,7 @@ FND_NNN 이 refuted 라 하면:
 | **book ch10** (atoms) | ⨯ | — |
 | **book ch11** (mixing) | ⨯ | — |
 | **book ch12** (ghosts) | ⨯ (spot-checked) | ε₀, M_i fit; big frame ok |
-| **book ch13** (cosmology) | ⨯ (spot-checked) | Ω_Λ, w, η_B 0-param 예측 rigorous |
+| **book ch13** (cosmology) | ✓ (W21–W30) | 9+ 0-param 예측 (Ω_Λ 0.001%, η_B 0.2%, DM/baryon 0.4%, n_s 0.2%, r/w falsifiable); DM/MOND/Hubble tension은 heuristic |
 | **book ch14** (block) | ⨯ | — |
 | **book ch15** (Yang-Mills) | ⨯ | — |
 | **book ch16** (compact stars) | ⨯ | — |

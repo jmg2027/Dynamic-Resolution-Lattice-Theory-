@@ -357,3 +357,131 @@ LLN 명시 — 모두 서술 정교화로 개선 가능 (refuted 없음).  FND_0
 
 **분류:** Mostly Rigorous with narrow heuristic sub-steps (W16–W20).
 중력이 "가장 많이 derive 된 sector" 라는 판정의 근거.
+
+---
+
+# ch13 감사 (2026-04-18, 이어서) — Cosmological Predictions
+
+**Framework:** `audit_framework.md` P1–P5 적용.
+
+## P1. Big picture
+
+9+ 우주론 관측량 (주장: 모두 **0 free parameters**):
+
+| Quantity | DRLT 공식 | DRLT 값 | 관측 | 오차 |
+|----------|-----------|---------|------|------|
+| `η_B` | `(c/n_S)(1+α)/√C(d^{cd-1}, n_S)` | 6.13×10⁻¹⁰ | 6.12×10⁻¹⁰ | 0.2% |
+| `Ω_Λ` | `(1−1/π)(1+α/d)` | 0.6850 | 0.685 | 0.001% |
+| `w` | `−1` (정확) | −1 | −1.03±0.03 | testable |
+| `Ω_c/Ω_b` | `d + 1/n_S` | 5.33 | 5.36 | 0.4% |
+| `n_s` | `1 − 2/N_*` | 0.967 | 0.9649 | 0.2% |
+| `r` | `12/N_*²` | 0.003 | <0.036 | testable |
+| `ρ_Λ/ρ_Pl` | `~1/N_H` | 10⁻¹²² | ~10⁻¹²² | order |
+| `τ_p` | `M_GUT⁴/(α²m_p⁵)` | 10³⁴·¹ yr | >10³⁴ | testable |
+| `M_NS^max` | ~2.0–2.3 M☉ | 2.0–2.3 | 2.08 | 0–10% |
+| `η/s` (QGP core) | `1/(4π)` | 0.0796 | ~0.08 | exact |
+| Quark star | unstable (theorem) | — | unobserved | consistent |
+
+**Big picture judgment:** 놀라운 정밀도 (Ω_Λ 0.001%, η_B 0.2%).  DRLT
+의 "중력 쪽이 더 많이 derive" 라는 §7 결론의 실증.  여러 falsifiable
+예측 (r, w, τ_p, quark star) 존재.
+
+## P2. 3-layer breakdown
+
+| Claim | Layer | 근거 / 의존 |
+|-------|-------|------------|
+| `Ω_Λ = (1−1/π)(1+α/d)` 공식 | **Rigorous** | 기하 (deficit angle @ horizon) + 보편 α/d 보정 |
+| `Ω_c/Ω_b = d + 1/n_S` | **Rigorous** | ZPE count (d 베텍스 중 1=baryon, +1/n_S 강-외부) |
+| `w = −1` exact | **Rigorous** | `det(G_h) > 0` 보편 → `ℏ > 0` |
+| `ρ_Λ/ρ_Pl ~ 10⁻¹²²` | **Rigorous** | `1/N_H`, N_H = cosmological horizon area |
+| `η_B` 공식 | **Rigorous (차원 분석)** | 조합 (c/n_S × √C(d^9, n_S)) |
+| Sakharov 조건 만족 | **Rigorous (정성)** | SU(5) B-violation + ℂ CP + 이산 non-eq |
+| `n_s = 1−2/N_*`, `r = 12/N_*²` | **Derived via Starobinsky** | f(R) = R + βR² 에서 standard slow-roll |
+| `N_* = (d² − log_d(c·d_S))·ln d ≈ 61` | **Heuristic** | 공식 구성 ad-hoc, d_S 표기 불명 |
+| DM = vacuum ZPE | **Heuristic** | 물리 해석, specific 5.33 은 argument sketch |
+| `ρ_ZPE ∝ 1/r²` → flat rotation | **Heuristic** | lattice propagator → galactic profile 점프 |
+| MOND `a_0` | **Heuristic** | "lattice resolution" 정성적 |
+| Hubble tension | **Heuristic** | Wishart nonlinearity qualitative |
+| `τ_p` 공식 | **Derived (체인)** | `M_GUT = M_Pl/d^d` 가정 + standard τ_p 공식 |
+| Compact star $M_{max}$ = 2.0–2.3 | **Heuristic** | `ρ ≈ 5ρ_0 = n_S·ρ_0 + margin` — margin 미정 |
+| Quark star instability (Thm) | **Rigorous (정성)** | deconfinement → positive feedback → 붕괴 |
+
+## P3. Cross-check
+
+| Claim | Book | Lean | 실험 |
+|-------|------|------|------|
+| `Ω_Λ`, `w`, `η_B` | ch13 | — | COS_002 (3/3 ✓) |
+| DM/baryon = 5.33 | ch13 | — | COS_001 (3/3 ✓) |
+| `n_s`, `r`, A_s | ch13 | — | CST_001 |
+| Ch13 의존 | ch06 (c=2, Regge), ch07 (ℏ), ch08 (α_GUT), ch12 (ε₀) | — | — |
+
+**관찰:** 수치 예측은 모두 COS/CST 실험에서 검증.  Lean 커버 없음 —
+모든 예측이 numerical.
+
+## P4. Refuted scope
+
+- ch13 본문 직접 refuted 없음.
+- 간접 의존: `w − (−1) ~ ε₀²` 는 ε₀ (G-D6, open functional form) 에 의존.
+- Starobinsky β 는 ch13 에서 유도되지 않고 `f(R) = R + βR²` 로 가정.
+
+## W21–W30 (ch13 약점, narrow)
+
+### W21: η_B 수치 불일치 (table vs text)
+- 본문: `η_B = 6.13×10⁻¹⁰` (α 보정 포함, 0.2%)
+- Summary table: `5.98×10⁻¹⁰` (보정 없음, 2.3%)
+- 둘 중 무엇이 공식 예측인지 모호.  Table 는 base 공식, text 는
+  full 공식으로 각주 추가 필요.
+
+### W22: Ω_Λ 오차 불일치 (table vs text)
+- 본문: `0.001%` (0.6850 vs 0.685)
+- Summary table: `0.5%` (0.682 vs 0.685)
+- 0.682 은 보정 없는 base, 0.6850 은 보정 포함.
+  둘 중 표준 예측을 명시 필요.
+
+### W23: η_B 조합 공식 `C(5^9, n_S)` 유도
+- `5^9 = d^{cd−1}` 에서 `cd−1 = 9` 를 "3 generations × 3 types" 로
+  해석.  "3 types" 는 명시적 identification (up/down/electron) 이라
+  공식 정당화가 필요.
+
+### W24: `c radians at horizon`
+- `deficit_horizon = 2π − c` 에서 `c = 2` 가 "angular range that
+  light covers before horizon" 이라는 주장.  `c` (lattice speed) 가
+  왜 angular measure 인지 명시 필요.
+
+### W25: N_* inflation 공식
+- `N_* = (d² − log_d(c·d_S)) × ln(d)` — `d_S` 표기 불명 (= n_S?).
+  Formula 구성이 ad-hoc.
+
+### W26: Starobinsky β 유도 없음
+- `f(R) = R(1 + βℓ_P²·R)` 가 "Regge 극한 결과" 로 주장되나 β 자체의
+  값/유도는 없음.  `n_s, r` 은 β 독립이라 영향 없음.
+
+### W27: `M_GUT = M_Pl/d^d` 가정
+- 근거 미서술.  `d^d = 5^5 = 3125`, `M_Pl/3125 ≈ 3.2×10^15 GeV` (text
+  는 3.9×10^15 — 10^19/3125 ≈ 3.2 와 다름.  M_Pl = 1.22×10^19 이면
+  3.9 가 맞음).  유도 + 숫자 일관성 점검 필요.
+
+### W28: MOND `a_0` quantitative 없음
+- 정성적 해석만.  구체 값 `1.2×10⁻¹⁰ m/s²` 는 관측 값 인용만.
+
+### W29: Compact star `M_max` margin
+- `ρ ≈ 5ρ_0 = 3ρ_0 + margin` — "margin" 이 무엇인지 specific 유도 없음.
+
+### W30: Hubble tension 정량화
+- "Wishart spectrum nonlinear" 로 정성적.  DRLT 예측 `H_0^{early} vs H_0^{late}`
+  의 정확한 비율 / `Δ H_0` 숫자 없음.
+
+## P5. One-line summary (ch13)
+
+**ch13 은 DRLT 의 9+ 우주론 0-param 예측을 모은 장.**  대부분
+(Ω_Λ 0.001%, η_B 0.2%, DM/baryon 0.4%, n_s 0.2%) 가 관측과 놀랍게
+일치.  Falsifiable 예측 (r = 0.003, w = −1 exactly, quark star
+unstable, τ_p ~ 10³⁴ yr) 존재.  Rigorous 부분 (Ω_Λ, Ω_c/Ω_b, w) 과
+heuristic 부분 (DM 이 vacuum ZPE, MOND, Hubble tension) 혼재.
+Summary table vs 본문 수치 불일치 (W21/W22) 와 ad-hoc N_* 공식 (W25)
+같은 서술 정리 이슈.  **중력이 가장 많이 derive 된 sector** 라는
+판정을 COS_001–003 실험이 실증.
+
+**분류:** 0-param 예측이 rigorous + heuristic 혼합으로 도출됨.
+중력·cosmology big picture 작동.  W21–W30 은 narrow 서술/수치
+정리 (refuted 없음).
