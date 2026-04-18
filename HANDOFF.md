@@ -1,91 +1,60 @@
-# Session Handoff — 2026-04-18 (cont.)
+# Session Handoff — 2026-04-18 (v3)
 
 ## Branch
-`claude/continue-handoff-213-fC38X` (로컬. 아직 push 안 함.)
-이전 base: `claude/integrate-langlands-drlt-proofs-R2I9d` (PR #22 merged).
+`claude/continue-handoff-213-fC38X` (pushed, latest: `655bf49`).
 
-## What Was Done This Session
+## 최종 상태 (전체 13파일, 0 sorry, lake build clean)
 
-### Priority 1 완료: Reachable 위의 정리들
-- 새 파일: `213/framework/E213/Firmware/Reachable.lean` (129줄).
-- E213.lean에 import 추가.
-- ARCHITECTURE.md 성질 섹션 갱신.
+### Firmware (3)
+- `RawAxiomV3.lean`: 공리 한 줄. `def slash (x y : Raw) (h : x ≠ y) : Raw := .rel x y`.
+- `Properties.lean`: / 의 9가지 성질.
+- `Reachable.lean`: wellFormed 특성화 + DecidablePred + levelUpTo.
 
-### 증명된 것 (0 sorry)
-1. **`Raw.wellFormed`**: 구문적 well-formed 판정.
-   - atom 이면 True.
-   - rel x y 이면 x ≠ y ∧ 재귀.
-2. **특성화**: `Reachable x ↔ Raw.wellFormed x`.
-   - `reachable_of_wellFormed`: wellFormed → Reachable (Raw 재귀).
-   - `wellFormed_of_reachable`: Reachable → wellFormed (Reachable 귀납).
-3. **판정 가능**: `instance : DecidablePred Reachable`.
-4. **유령 없음**: `no_self_rel_reachable: ¬ Reachable (rel x x)`.
-5. **필연 ≠**: `reachable_rel_ne: Reachable (rel x y) → x ≠ y`.
-6. **부분구조 닫힘**: `reachable_left`, `reachable_right`.
-7. **slash 닫힘**: `reachable_slash` = `Reachable.step`.
+### Hypervisor (7)
+- `Equiv.lean`: `Raw.equiv := (· = ·)` (legacy, LensKernel로 대체 가능).
+- `Numbers.lean`: depth/leaves/nodes + distinctSubtrees.
+- `Enumeration.lean`: 번호 = 라벨, 구조 = 본질.
+- `NumberComparison.lean`: 세 수의 성질 비교.
+- `Fold.lean`: catamorphism — 수의 일반 규칙.
+- `FoldInjective.lean`: comm h → 단사 불가 (정보 손실 정리).
+- `Lens.lean`: Lens (g, h) 구조체 + pair 합성 + 카탈로그.
+- `LensKernel.lean`: 등호 = ker(L.view). 순환 해결.
 
-### 계산 확인 (decide)
-- `Reachable ab₀`, `Reachable aab₀` — True.
-- `¬ Reachable (rel a₀ a₀)`, `¬ Reachable (rel ab₀ ab₀)` — True.
+### OS (3)
+- `Peano.lean`: PA 5공리 + Nat213 + 덧셈. 0 sorry.
+- `Equality.lean`: = 환원 체인 (OS → Hypervisor → ¬Firmware).
+- `Inference.lean`: 연역/귀납/귀추 재명명.
 
-### Level 열거
-- `expandOne : List Raw → List Raw`: 서로 다른 쌍에 slash 적용.
-- `levelUpTo : Nat → List Raw`: 3 atom seed에서 n단계 자연 전개.
-- Level 0: 3개 (atoms).
-- Level 1: 9개 (3 atoms + 6 ordered rels).
-- 주의: ARCHITECTURE.md의 "3, 5, 12"는 2 atom seed 기준. 다른 초기조건.
+## 사용자 확정 목표 (2026-04-18)
 
-### 빌드
-- `lake build` 성공. 3파일 모두 clean.
+1. **환원**: 모든 수학 체계를 213 엔진으로 돌아가게.
+2. **투명성**: 213 수준에서 내부 구조가 보임.
+3. **분류**: 증명 가능/불가능/미결정/모름이 **어떤 렌즈 구조**에서 나오는지.
 
-## 파일 구조
-```
-213/framework/
-├── E213.lean                       ← import 3줄
-├── E213/Firmware/RawAxiomV3.lean   ← SSOT. 공리. (112줄)
-├── E213/Firmware/Properties.lean   ← 9 성질. (127줄)
-├── E213/Firmware/Reachable.lean    ← ★신규. 특성화+판정+열거. (129줄)
-├── lakefile.toml
-└── lean-toolchain
-213/ARCHITECTURE.md                 ← v3 아키텍처 (성질 섹션 갱신)
-213/CORE.md                         ← 213의 본질 (변경 없음)
-```
+## 다음 우선순위
 
-## Open Problems (Priority)
-
-### 1. ~~Reachable 위의 정리들~~ ✓ 이번 세션에 완료.
-Level n 카운트 공식은 미증명. levelUpTo로 계산은 가능.
-- |levelUpTo 0| = 3, |levelUpTo 1| = 9. Level 2 이상 decide 미확인.
-
-### 2. Hypervisor 재구축 (미착수)
-v3 위에 `==` (isTrivial) 정의. 등호의 세 성질 증명.
-PA, 집합론을 v3 위에 올리기.
-
-### 3. 이전 발견의 v3 재형식화 (미착수)
-(alg, chain) 좌표, 증명 모양, 비용 예측을 v3 위에서 다시.
-
-### 4. 자연 전개 자동화 (부분 완료)
-levelUpTo 구현됨. 남은 것:
-- Level 2, 3의 정확한 count.
-- 성장 패턴 공식 (2 atoms vs 3 atoms seed).
-- `expandOne_preserves_reachable` 증명.
-
-## Unresolved from This Session
-- `levelUpTo 2` decide 비용 미확인.
-- ARCHITECTURE.md "3,5,12" 수열은 2 atoms seed. 구현은 3 atoms.
-
-## Next Steps (제안)
-1. `expandOne_preserves_reachable`: Reachable 보존 증명.
-2. levelUpTo count 공식 증명.
-3. Hypervisor 시작: isTrivial, equivalence 정의.
-
-## File Map
-```
-213/framework/E213/Firmware/Reachable.lean  ← 신규 (129줄)
-213/framework/E213.lean                     ← import 추가
-213/ARCHITECTURE.md                         ← 성질 섹션 갱신
-```
+1. **OS/Provability.lean** ★: 증명 가능성 분류기.
+   - `RespectsLens`, `Provable`, `Refutable`, `Independent`.
+   - Gödel 독립성의 렌즈 버전.
+2. **OS/Logic.lean**: Bool 렌즈 위 propositional logic.
+3. **OS/Set.lean**: List Raw 렌즈 위 set theory.
+4. **Meta/Encoding.lean**: Raw의 자기 encoding (Gödel number 213 버전).
 
 ## Key Insight
-`/` 하나. `a/a` 불가. `Reachable`만 존재.
-이번 세션: Reachable이 **판정 가능**. "진짜 존재"가 계산 문제가 됨.
+- `/` 한 줄 공리 + ≠ 전제 → PA 자동 도출.
+- 등호 = Lens kernel (함수 kernel의 일반 사실에서 공짜).
+- 다른 렌즈 = 다른 공리계 = 다른 "같다".
+- 증명 불가능성의 213 버전: 렌즈의 kernel이 φ를 존중 안 함.
+
+## 파일 맵
+```
+213/
+├── ARCHITECTURE.md              ← 계층 + 논리 정합성 + Lens Kernel
+├── CORE.md                      ← 213 본질 (변경 없음)
+├── RESEARCH_VISION.md           ← ★ 세 목표와 roadmap (다음 세션)
+└── framework/
+    ├── E213.lean                ← import 13줄
+    ├── E213/Firmware/           (3파일)
+    ├── E213/Hypervisor/         (7파일)
+    └── E213/OS/                 (3파일)
+```
