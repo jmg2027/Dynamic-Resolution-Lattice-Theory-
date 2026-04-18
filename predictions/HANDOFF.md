@@ -1,6 +1,6 @@
 # Testable Predictions — Handoff
 
-## Status: ACTIVE (9 experiments, 53/54 checks)
+## Status: ACTIVE (8 experiments, 48/49 checks; PRD_006 superseded by PRD_007)
 
 ## Completed Experiments
 | ID | Title | Checks | Key Result |
