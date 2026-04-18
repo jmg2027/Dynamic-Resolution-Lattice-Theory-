@@ -34,9 +34,9 @@ def isConsistent (t : Triple Bool) : Bool :=
 
 -- 일관적 비교 수 = 5.
 theorem consistent_is_5 :
-    (List.range 8).filter (fun i =>
-      isConsistent ⟨i/4%2 == 1, i/2%2 == 1, i%2 == 1⟩)
-    |>.length = 5 := by native_decide
+    ((List.range 8).filter (fun i =>
+      isConsistent (Triple.mk (i/4%2 == 1) (i/2%2 == 1) (i%2 == 1)))).length = 5 := by
+  native_decide
 
 -- 5 = Bell(3) = {x,y,z}의 분할 수.
 -- 5 = d (DRLT 차원).
@@ -66,9 +66,8 @@ structure MathTranslation where
     chain rel (chain rel t m) n = chain rel t (m + n)
   dist : ∀ (rel : Nat → Nat → Nat) (t : Triple Nat),
     relify rel t = ⟨rel t.x t.y, rel t.x t.z, rel t.y t.z⟩
-  bell : (List.range 8).filter (fun i =>
-    isConsistent ⟨i/4%2 == 1, i/2%2 == 1, i%2 == 1⟩)
-    |>.length = 5
+  bell : ((List.range 8).filter (fun i =>
+    isConsistent (Triple.mk (i/4%2 == 1) (i/2%2 == 1) (i%2 == 1)))).length = 5
 
 theorem math : MathTranslation where
   nat := fun rel t m => chain_add rel t m

@@ -10,7 +10,10 @@ import Init
 
 -- Triple: 3개를 묶는 구조.
 structure Triple (α : Type) where
-  x : α; y : α; z : α
+  x : α
+  y : α
+  z : α
+  deriving DecidableEq, Repr
 
 -- relify: triple 내부를 쌍별 비교 → 새 triple.
 def relify (rel : α → α → α) (t : Triple α) : Triple α :=
