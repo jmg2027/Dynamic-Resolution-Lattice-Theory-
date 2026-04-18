@@ -23,15 +23,22 @@ User 직관 ("N점 → N심플렉스 → 각 꼭지점에 또 심플렉스…") 
 - OT-2' (∞-categorical), OT-3 (RG flow) — 드랍 (speculative)
 
 ## 세션 시작 시 읽을 것 (우선순위)
-1. `foundations/notes/FORMAL_FOUNDATION.md` — FND DAG + 상태 (FND_039 까지)
-2. `foundations/theory/swap_tower_idempotence.md` — tower 결과 완전판
-3. `foundations/CLAUDE.md` — 실험 목록 + key theorems
+1. **`foundations/notes/audit_framework.md`** — 체계적 감사 프로토콜 + 전체 tracker (**반드시 먼저**)
+2. `foundations/notes/non_derived_summary.md` — 공리에서 유도 안 된 것들 (정정 반영)
+3. `foundations/notes/ch01_03_rigor_audit.md` — ch01/02/03 감사 기록
+4. `foundations/notes/FORMAL_FOUNDATION.md` — FND DAG + 상태 (FND_041 까지)
+5. `foundations/theory/swap_tower_idempotence.md` — tower 결과 완전판
+6. `foundations/CLAUDE.md` — 실험 목록 + key theorems
 
-## 다음 후보 (진행 중)
-- **ch01/ch02 수학적 엄밀성 감사** (사용자 요청, 착수만 됨)
-  - ch01 (Frobenius → ℂ): 강점 + 약점 (R2 continuity, Born rule "minimal")
-  - ch02 (d=5): 약점은 "σ-invariance → vector-like reps" 가 SwapAnnihilation.lean 에서 `True.intro` 껍데기
-  - 해야 할 일: 감사 문서 + SwapAnnihilation 보강 (실제 rep pair + bijection)
+## 다음 후보 (체계적 감사 진행)
+- 완료: ch01, ch02, ch03 (W1–W15 closed)
+- 우선순위 (audit_framework.md §다음 감사 우선순위):
+  1. **ch06 (geometry) + ch13 (cosmology)** — 중력·cosmology big picture rigor
+  2. **ch05 (variational) + ch07 (ℏ)** — 변분·ℏ 유도
+  3. **ch08 (couplings)** 전체
+  4. **ch09/10/11** (masses, atoms, mixing)
+  5. **cosmology/, cosmic-structure/** sub-project 전체
+  6. **standard-model/, nuclear/, hadron/** CLOSED status 재검증
 
 ## 이전 세션 결과 (consolidated)
 - **213 v3 SSOT** (`RawAxiomV3.lean`, `Properties.lean`, 0 sorry) — 메인에 머지됨
