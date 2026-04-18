@@ -1,0 +1,122 @@
+============================================================
+  EXP_FND_037_W3_Schubert_T-weights_per_class
+  2026-04-18 15:45:33
+============================================================
+=================================================================
+FND_037: Schubert/Plücker T-weights per hinge class
+=================================================================
+
+  Book M_i: Strong(AAA)=13.75, EM(AAB)=1.0, Weak(ABB)=3.5
+
+=================================================================
+Per-coord weight table
+=================================================================
+
+  subset          class wA=(x,y,z)/3           wB     |w|²
+  (0, 1, 2)       AAA   (0.0, 0.0, 0.0)         0   0.0000
+  (0, 1, 3)       AAB   (0.3333333333333333, 0.3333333333333333, -0.6666666666666666)    1   1.6667
+  (0, 1, 4)       AAB   (0.3333333333333333, 0.3333333333333333, -0.6666666666666666)   -1   1.6667
+  (0, 2, 3)       AAB   (0.3333333333333333, -0.6666666666666666, 0.3333333333333333)    1   1.6667
+  (0, 2, 4)       AAB   (0.3333333333333333, -0.6666666666666666, 0.3333333333333333)   -1   1.6667
+  (0, 3, 4)       ABB   (0.6666666666666666, -0.3333333333333333, -0.3333333333333333)    0   0.6667
+  (1, 2, 3)       AAB   (-0.6666666666666666, 0.3333333333333333, 0.3333333333333333)    1   1.6667
+  (1, 2, 4)       AAB   (-0.6666666666666666, 0.3333333333333333, 0.3333333333333333)   -1   1.6667
+  (1, 3, 4)       ABB   (-0.3333333333333333, 0.6666666666666666, -0.3333333333333333)    0   0.6667
+  (2, 3, 4)       ABB   (-0.3333333333333333, -0.3333333333333333, 0.6666666666666666)    0   0.6667
+
+=================================================================
+Per-class aggregates
+=================================================================
+
+  class    N      Σ|w|²     Σ|wA|²     Σ|wB|²   Σ|wA|²/N
+  AAA      1     0.0000     0.0000     0.0000     0.0000
+  AAB      6    10.0000     4.0000     6.0000     0.6667
+  ABB      3     2.0000     2.0000     0.0000     0.6667
+
+=================================================================
+Candidate M_i formulas
+=================================================================
+
+  --- Σ|w|² (norm AAA→13.75) ---
+    AAA: pred=  0.0000  book= 13.75  dev= -100.0%
+    AAB: pred=  0.0000  book=  1.00  dev= -100.0%
+    ABB: pred=  0.0000  book=  3.50  dev= -100.0%
+
+  --- Σ|wA|² (norm AAA→13.75) ---
+    AAA: pred=  0.0000  book= 13.75  dev= -100.0%
+    AAB: pred=  0.0000  book=  1.00  dev= -100.0%
+    ABB: pred=  0.0000  book=  3.50  dev= -100.0%
+
+  --- Σ|wB|² (norm AAA→13.75) ---
+    AAA: pred=  0.0000  book= 13.75  dev= -100.0%
+    AAB: pred=  0.0000  book=  1.00  dev= -100.0%
+    ABB: pred=  0.0000  book=  3.50  dev= -100.0%
+
+  --- (Σ|wA|² + 1) (norm AAA→13.75) ---
+    AAA: pred= 13.7500  book= 13.75  dev=   +0.0%
+    AAB: pred= 68.7500  book=  1.00  dev=+6775.0%
+    ABB: pred= 41.2500  book=  3.50  dev=+1078.6%
+
+  --- 1/(Σ|w|²+ε) (norm AAA→13.75) ---
+    AAA: pred= 13.7500  book= 13.75  dev=   +0.0%
+    AAB: pred=  0.0137  book=  1.00  dev=  -98.6%
+    ABB: pred=  0.0684  book=  3.50  dev=  -98.0%
+
+  --- N·c^k (c-weighted count per class) (norm AAA→13.75) ---
+    AAA: pred= 13.7500  book= 13.75  dev=   +0.0%
+    AAB: pred=165.0000  book=  1.00  dev=+16400.0%
+    ABB: pred=165.0000  book=  3.50  dev=+4614.3%
+
+  --- N (plain hinge count) (norm AAA→13.75) ---
+    AAA: pred= 13.7500  book= 13.75  dev=   +0.0%
+    AAB: pred= 82.5000  book=  1.00  dev=+8150.0%
+    ABB: pred= 41.2500  book=  3.50  dev=+1078.6%
+
+  --- 1/N (norm AAA→13.75) ---
+    AAA: pred= 13.7500  book= 13.75  dev=   +0.0%
+    AAB: pred=  2.2917  book=  1.00  dev= +129.2%
+    ABB: pred=  4.5833  book=  3.50  dev=  +31.0%
+
+  --- N² (square hinge count) (norm AAA→13.75) ---
+    AAA: pred= 13.7500  book= 13.75  dev=   +0.0%
+    AAB: pred=495.0000  book=  1.00  dev=+49400.0%
+    ABB: pred=123.7500  book=  3.50  dev=+3435.7%
+
+  --- 1/N² (norm AAA→13.75) ---
+    AAA: pred= 13.7500  book= 13.75  dev=   +0.0%
+    AAB: pred=  0.3819  book=  1.00  dev=  -61.8%
+    ABB: pred=  1.5278  book=  3.50  dev=  -56.3%
+
+  BEST: 1/N², total % dev = 118.15%
+  [✗ FAIL] Best route total dev < 5%
+  [✗ FAIL] Best route total dev < 50%
+
+=================================================================
+SUMMARY
+=================================================================
+
+  Schubert/Plücker T-weights tested as source of M_i.
+
+  Per-class weight magnitudes computed on Gr(3,5) for SU(3)×SU(2):
+    AAA: wA=(0,0,0) (singlet), wB∈{0,±2}
+    AAB: wA ≠ 0, wB∈{±1}
+    ABB: wA ≠ 0, wB=0 (B-pair sums to 0)
+
+  Best candidate: 1/N² (tot dev 118.15%)
+
+  Verdict:
+    If < 5% match → W3 closed (book M_i derives from T-weights).
+    If > 50% → Schubert/weight approach fails, need deeper route:
+      - Dolbeault cohomology weights
+      - Equivariant Chern class integrals
+      - Fubini-Study metric-induced measure on Gr(3,5)
+
+
+============================================================
+  SUMMARY: EXP_FND_037_W3_Schubert_T-weights_per_class
+============================================================
+  [✗] Best route total dev < 5%
+  [✗] Best route total dev < 50%
+
+  0/2 checks passed
+  Time: 0.0s
