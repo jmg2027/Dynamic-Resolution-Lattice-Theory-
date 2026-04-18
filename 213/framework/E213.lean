@@ -45,3 +45,4 @@ import E213.Meta.CategoryFunctor
 import E213.Meta.ProblemSolver
 import E213.Meta.StreamSolver
 import E213.Meta.Cardinality
+import E213.Meta.FiniteOrigin
