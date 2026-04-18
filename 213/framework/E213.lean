@@ -37,6 +37,7 @@ import E213.Applications.CayleyDickson
 import E213.Applications.StreamAnalysis
 import E213.Applications.Goldbach
 import E213.Applications.ArithmeticZoo
+import E213.Meta.LeapAnalysis
 import E213.Applications.NumberTheory
 import E213.Applications.HomeoExamples
 import E213.Meta.ProblemFramework
