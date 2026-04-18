@@ -161,26 +161,46 @@ Same math, honest narrative.
 ---
 ## Lean formalization scope (precise positioning)
 
-File: `critical-line/lean/PmfRh/ScaleInvariantFoundation.lean`
-(20 theorems, 0 sorry, compiles vs Mathlib v4.16).
+Five Lean files under `critical-line/lean/PmfRh/`:
 
-Covers **exactly one thing**:
+| File | Theorems | Role |
+|---|---|---|
+| `ScaleInvariantFoundation.lean` | 20 | n=5 arithmetic, Newman confluence |
+| `DimensionBridge.lean` | 9 | n=5 → 4-simplex → 4D chain |
+| `BinetCauchy.lean` | 29 | 1+12+12=25 channels, gauge multiplicities |
+| `ScaleConfluence.lean` | 9 | Claim 2' abstract (confluence ⟺ unique normals) |
+| `GrassmannianData.lean` | 27 | Gr(3,5) Schubert, FM pattern, ch04 bridge |
+
+**Total: 94 theorems/defs, 0 sorry, lake build SUCCESS.**
+
+Covers **arithmetic + bridges**:
 
 | Layer | Status in Lean |
 |---|---|
-| ℂ uniqueness (Frobenius) | PREMISE (not in file) |
+| ℂ uniqueness (Frobenius) | PREMISE (not in Lean files) |
 | Atomic pair {2,3} | PREMISE (hard-coded in definitions) |
 | **n = 5 uniqueness (alive + unique decomp)** | **PROVEN** |
-| n+1 = 5 = 4-simplex vertex count | INTERPRETATION (not Lean) |
-| n = 4 → 4D spacetime | INTERPRETATION (not Lean) |
+| **Bezout-style ∀v ≥ 6 ambiguous** | **PROVEN** |
+| **Binet-Cauchy 1+12+12 = 25** | **PROVEN** (channels arithmetic) |
+| **Gauge multiplicities (8, 2, 3)** | **PROVEN** |
+| **Claim 2' confluence ⟺ unique normals** | **PROVEN** (under SN hypothesis) |
+| **FM_N = 5^N·(N+1)! for N=1..5** | **PROVEN** (arithmetic) |
+| **∂(Δ⁵) f-vector palindromic** | **PROVEN** |
+| n+1 = 5 = 4-simplex vertex count | DEFINITIONAL |
+| n = 4 → 4D spacetime | DRLT CONVENTION |
+| Grassmannian/Plücker as algebraic geometry | NOT in Lean |
+| Wishart rank theorem | NOT in Lean |
+| ζ(2) = π²/6 (analysis) | NOT in Lean |
+| γ on simplicial complexes (geometric) | NOT in Lean |
 
-**Precise statement**: "n = 5 uniqueness is machine-verified.
-Translation n = 5 → 4-simplex → 4D is separate interpretation
-chain, relying on ch04 (geometry) and physical claims."
+**Precise statement**: 
+"Arithmetic backbone is machine-verified (given atoms = {2, 3}).
+Geometric/physical interpretation (Schubert, FM, spacetime) is 
+outside Lean; numerical values match between layers."
 
-Do NOT overclaim as "4D is machine-verified". Lean verified
-the arithmetic theorem CONDITIONAL on atoms = {2, 3}; the
-simplicial/physical interpretation sits outside its scope.
+Do NOT overclaim as "DRLT is machine-verified". Lean verified
+the arithmetic + abstract rewriting; algebraic geometry and 
+physics interpretation remain in prose + LaTeX drafts.
 
 ---
-*Last updated: Lean scope clarification*
+*Last updated: all five Lean files + full session consistency check*

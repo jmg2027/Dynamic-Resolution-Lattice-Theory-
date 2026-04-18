@@ -1,89 +1,120 @@
-# Session Handoff — 2026-04-18
+# Session Handoff — 2026-04-18 (extended)
 
 ## Branch
-`claude/tail-eigenvalues-explanation-0ynQx` (pushed)
+`claude/tail-eigenvalues-explanation-0ynQx` (pushed, 35+ commits)
 
-## Session Goal
-비판자의 "꼬리 eigenvalue" 질문 → Schubert/FM 기하학 정식화 →
-α_GUT 수비학 반박 → ε₀ 도출 시도 → 기하학적 1원칙 적용.
+## Session Arc
 
-## Honest Classification (A)/(B)/Missing
+Started with: 비판자의 "꼬리 eigenvalue" 질문
+Ended with: Foundation formalized in Lean (94 thms, 0 sorry)
 
-### (A) 단단한 결과 — 증거 있고 재현 가능
+## Major deliverables (this session)
 
-| # | 결과 | 실험 | 증거 |
-|---|---|---|---|
-| 1 | $\chi(\text{FM}_1(\Gr(3,5))) = 10$ = ch04 hinges | FND_011 | Gaussian binomial 직접 계산 |
-| 2 | $\chi(\text{FM}_2(\Gr(3,5))) = 150 = 6 \times 25$ | FND_011 | Blow-up 공식 |
-| 3 | Middle Betti $b_{12}(\text{FM}_2) = 24$ = SU(5) adjoint | FND_011 | 계산 결과 |
-| 4 | $\int \sigma_1^{12}$ on $\Gr^2 = 25 = d^2$ | FND_011 | Plücker 교차 |
-| 5 | Swap involution formal definition | FND_012 | $d_\text{indep} = 2\lceil a/2\rceil + 3\lceil b/2\rceil$ |
-| 6 | det(G_h) at symmetric ∂(Δ⁵): (1, 1, 3/4, 0) | FND_016 | 기하 직접 계산 |
-| 7 | Regge action at symmetric = 41.94 | FND_018 | 직접 dihedral 계산 |
-| 8 | Tensor Schur-Weyl: 25 = 15 + 10 | FND_017 | GL(5) irrep 분해 |
+### FND Experiments 011–033 (23 new experiments)
 
-
-### (B) 시도 중 — 수학 언어 붙였지만 내재 motivation 부족
-
-| # | 시도 | 문제 |
-|---|---|---|
-| 1 | ε₀ = α_GUT/(2π) | 2% 일치, but no derivation (FND_015) |
-| 2 | ε₀ = (1/4)^4 | 3% 일치, 지수 4 unmotivated (FND_016) |
-| 3 | Clifford $\Lambda(\mathbb{C}^5) = 32$ | 자동 (2^5), DRLT가 Clifford 곱셈 요구하는지 미확인 |
-| 4 | Tensor tower (C^5)^⊗n | Schur-Weyl은 generic tool, DRLT 특이성 없음 |
-| 5 | "2.4% = α_GUT 구조적" | 순환 정의 제거 후 통계 유의 안 나옴 (FND_014) |
-| 6 | δ_AAA = π 변분 유도 | 내 2D 파람에서 재현 안 됨 (FND_019) |
-
-### Missing — Grand picture 책임지려면 필요
-
-1. **Level 간 functor 명시**
-   - Gr(3,5) → ∂(Δ⁵) → FM_N의 환원 map
-   - Clifford → tensor tower의 antisymmetrizer
-2. **Swap involution 내재성**
-   - ch02 정의가 d=5 attractor를 "결과"로 주는지 "가정"으로 내장하는지
-3. **EXP-047b 복원**
-   - 책의 δ_AAA = π 변분 유도 원본 확인
-4. **FM compactification type 명시**
-   - Real FM? Complex FM? With marked points? Stable map?
-5. **ε₀의 제1원리 도출**
-   - 현재까지 모든 시도 numerical matching 수준
+Arithmetic / combinatorial / geometric exploration:
+- FND_011: FM cohomology of Gr(3,5), χ = 5^N·(N+1)! pattern
+- FND_012: Swap involution formalized
+- FND_013→014: "2.4% = α_GUT" hypothesis + honest rebuttal
+- FND_015: ε₀ = α/(2π) conjecture (unresolved)
+- FND_016: Direct geometric det(G_h) computation
+- FND_017: Tensor fractal tower (Schur-Weyl)
+- FND_018–019: Regge action variational + scan
+- FND_020: Level functor maps (Plücker + FM)
+- FND_021: N4 conjecture refuted at 0.4%
+- FND_022–023: N_eff non-uniformity, contact codim patterns
+- FND_024–026: 4-sector framework + gravity location negatives
+- FND_027: Einstein analog formal
+- FND_028: Frame verification (6/8 informative fails)
+- FND_029: Layered frame, 5/16 AAB observation
+- FND_030: (a,b) Church-Rosser confluence
+- FND_031: γ independent route → 4-simplex forced
+- FND_032: Claim 2' scale-inv ⟺ confluence
+- FND_033: γ' refined, 4D forced via unique-decomp criterion
 
 
-## Experiments This Session
+### Lean formalization (5 new files, 94 thms, 0 sorry)
 
-| ID | Title | Status | Key Result |
-|---|---|---|---|
-| FND_011 | FM cohomology Gr(3,5) | ✓ 12/12 | $\chi(\text{FM}_N) = 5^N(N+1)!$ |
-| FND_012 | Swap involution formalized | ✓ 12/12 | d=5 attractor (caveat) |
-| FND_013 | 2.4% perturbative consistency | ⚠ 7/7 but overclaimed | Superseded by FND_014 |
-| FND_014 | Honest critical review of FND_013 | ✓ 3/5 | Two-route match strong, empirical test weak |
-| FND_015 | ε₀ = α/(2π) conjecture | ⚠ 5/5 | 2% fit, not derivation |
-| FND_016 | Geometric det(G_h) from simplex | ✓ 5/5 | (1, 1, 3/4, 0) rigorous |
-| FND_017 | Tensor fractal tower | ✓ 9/9 | 25 = 15+10 (Sym+Λ) |
-| FND_018 | Regge action direct compute | ⚠ 1/3 | S=41.94 suggestive |
-| FND_019 | Variational Regge scan | ✓ 1/1 | δ_AAA=π unreachable in 2D param |
+```
+critical-line/lean/PmfRh/
+├── ScaleInvariantFoundation.lean   20  (n=5 arithmetic)
+├── DimensionBridge.lean              9  (n=5 → 4D chain)
+├── BinetCauchy.lean                 29  (1+12+12=25)
+├── ScaleConfluence.lean               9  (Claim 2' abstract)
+└── GrassmannianData.lean             27  (Gr(3,5) + FM)
+```
 
-## Key Open Questions for Next Session
+Full build: `lake build` SUCCESS (2724 modules).
 
-1. **EXP-047b 찾기**: 책의 δ_AAA=π 유도 어디?
-2. **Full 2-param Regge scan**: (θ_2, θ_3) 자유로 δ_AAA=π 찾고 S 값 확인
-3. **Level functor 작성**: ch04 내 Gr(3,5) ↔ simplex 동일시 명시
-4. **ch02 swap 정의 재검토**: d=5 fixed point이 내재적인지 정의 내장인지
-5. **FM compactification type 결정**: Fulton-MacPherson (algebraic) vs 다른 variant
+### Documents
 
-## Infrastructure
-- Lean: 65 files, ~770 theorems, 0 sorry (unchanged)
-- Commits this session: 9 (FND_011 through FND_019 + analyses)
+- `foundations/notes/FORMAL_FOUNDATION.md` — living doc, FND DAG + status
+- `foundations/theory/scale_invariant_foundation.tex` — LaTeX draft
+- Updated this HANDOFF
 
-## Earlier Open Problems (from 2026-04-16 HANDOFF, still pending)
-1. DRLT 원론 구현 (drlt-elements/)
-2. 이론적 엄밀성 갭 15개
-3. θ_QCD bare value > nEDM 한계
-4. T_CMB +3.7%
+## Status Summary
 
-## Meta-Lesson from This Session
-- 수학 언어를 붙이는 것과 도출하는 것은 다름
-- 7-level grand picture를 예쁘게 정렬하면 자기검정 타이밍
-- Functor 없는 level list는 grand picture가 아님
-- Numerical matching은 증명이 아니라 suspicion
-- ε₀ 도출 실패 = 진짜 open gap, 가릴 필요 없음
+### (A) Verified / Proven
+- n = 5 uniqueness (arithmetic, Lean)
+- Bezout-style ∀v ≥ 6 ambiguity (Lean)
+- Binet-Cauchy 1+12+12 = 25 (Lean)
+- c = 2 unique value matching d² (Lean)
+- Claim 2' under SN hypothesis (Lean)
+- FM pattern 5^N·(N+1)! for N=1..5 (Lean)
+- Einstein analog map well-defined (Python)
+- det(G_h) values at symmetric config (Python)
+
+### (B) Partial / Conjecture
+- ε₀ ≈ α_GUT/(2π) at 2% (not exact)
+- Tensor tower Schur-Weyl (generic tool)
+- Contact codim ↔ N_eff pattern match
+
+### Refuted
+- FND_013: "2.4% = α_GUT universal" (cherry-picked)
+- FND_019: 1-param Regge scan (wrong family)
+- FND_021: w² = 9/(25π²) (0.4% gap)
+- FND_025–026: Gravity Λ^k / shape-only formula
+
+### Open Gaps (carried)
+- G-D2: Gravity location in Binet-Cauchy
+- G-D3: Gravity combinatorial formula
+- G-D6: ε₀ functional form f(N_H, d)
+- G-M_i: geometric weights 13.75, 3.5, 1.0
+- G-N1: Regge S_var = 56.79 meaning
+
+## Key realization this session
+
+**Scope precision**: Lean verifies arithmetic backbone + abstract
+structure. Geometric (Schubert, FM, γ on simplicial) and physical
+(4D spacetime interpretation) remain in prose/LaTeX layers.
+
+"4D is machine-verified" is OVERCLAIM.
+"n=5 uniqueness machine-verified, atoms {2,3} premise" is ACCURATE.
+
+## Reviewer feedback incorporated
+
+Throughout session, external reviewer (via user) corrected:
+1. (A)/(B)/missing classification for grand picture
+2. "Two independent routes" → "same atoms premise, different routes"
+3. Uniqueness condition motivated as theory well-definedness
+4. Lean scope precision (n=5 vs 4D)
+5. Direction priorities (formal paper > exploration)
+
+## Next session candidates
+
+1. **ε₀ functional form** (G-D6) — open gap, now with stronger base
+2. **Atomic/molecular applications** — same ε₀ bottleneck
+3. **Formal paper submission prep** — LaTeX → journal format
+4. **More Lean**: operad / Fulton-MacPherson abstract structure
+5. **Branch consolidation**: 35+ commits, PR review
+
+## Lean totals
+
+- Files: 66 (base) + 5 (new foundation) = 71
+- Theorems: ~770 + 94 = ~864
+- Sorry: 0
+
+## Earlier open problems (carried from 2026-04-16)
+1. DRLT 원론 (drlt-elements/)
+2. θ_QCD bare value > nEDM 한계
+3. T_CMB +3.7%
