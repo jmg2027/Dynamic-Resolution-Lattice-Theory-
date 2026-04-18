@@ -13,3 +13,4 @@ import E213.OS.Peano
 import E213.OS.Equality
 import E213.OS.Inference
 import E213.OS.Provability
+import E213.OS.Logic
