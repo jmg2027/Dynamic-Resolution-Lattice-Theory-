@@ -588,3 +588,38 @@ def theoremDB_v5.maxDifficulty : Nat :=
   theoremDB_v5.foldl (fun acc e => max acc e.difficulty) 0
 
 example : theoremDB_v5.maxDifficulty = 14 := by decide
+
+-- ═══ DB v6: NumberTheory + Homeo + CategoryFunctor ═══
+
+def theoremDB_v6 : List TheoremEntry := theoremDB_v5 ++ [
+  ⟨109, "Z3 mul 1*2=2", 7, .decided, .provable, "NumberTheory"⟩,
+  ⟨110, "Z3 mul 2*2=1", 7, .decided, .provable, "NumberTheory"⟩,
+  ⟨111, "Fermat little Z3", 8, .decided, .provable, "NumberTheory"⟩,
+  ⟨112, "Wilson Z3", 8, .decided, .provable, "NumberTheory"⟩,
+  ⟨113, "Z3 inverse exists", 8, .decided, .provable, "NumberTheory"⟩,
+  ⟨114, "Z3 distributive", 8, .decided, .provable, "NumberTheory"⟩,
+  ⟨115, "swap01 bijective", 7, .decided, .provable, "HomeoExamples"⟩,
+  ⟨116, "discrete self homeo", 5, .decided, .provable,
+   "HomeoExamples"⟩,
+  ⟨117, "trivial self homeo", 5, .decided, .provable,
+   "HomeoExamples"⟩,
+  ⟨118, "any self homeo", 5, .decided, .provable, "HomeoExamples"⟩,
+  ⟨119, "homeo refl", 5, .decided, .provable, "HomeoExamples"⟩,
+  ⟨120, "id functor obj", 5, .decided, .provable,
+   "CategoryFunctor"⟩,
+  ⟨121, "id functor morph", 5, .decided, .provable,
+   "CategoryFunctor"⟩,
+  ⟨122, "pair functor morph", 7, .decided, .provable,
+   "CategoryFunctor"⟩,
+  ⟨123, "pair comm nat trans", 8, .decided, .provable,
+   "CategoryFunctor"⟩,
+  ⟨124, "3-pair refines L", 8, .decided, .provable,
+   "CategoryFunctor"⟩
+]
+
+example : theoremDB_v6.length = 124 := by decide
+
+def theoremDB_v6.maxDifficulty : Nat :=
+  theoremDB_v6.foldl (fun acc e => max acc e.difficulty) 0
+
+example : theoremDB_v6.maxDifficulty = 14 := by decide

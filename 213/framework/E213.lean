@@ -35,7 +35,10 @@ import E213.Applications.RiemannPosition
 import E213.Applications.RealLenses
 import E213.Applications.CayleyDickson
 import E213.Applications.StreamAnalysis
+import E213.Applications.NumberTheory
+import E213.Applications.HomeoExamples
 import E213.Meta.ProblemFramework
 import E213.Meta.TheoremDB
 import E213.Meta.Patterns
 import E213.Meta.CrossChain
+import E213.Meta.CategoryFunctor
