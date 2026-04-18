@@ -51,6 +51,7 @@ E213/Meta/Paradoxes.lean               — Russell 회피 (no self-membership). 
 E213/Meta/Infinity.lean                — 무한성 전이 시점 분석 (유한 α 렌즈 선택).
 E213/Meta/Category.lean                — Lens 범주 (preorder + product + extrema).
 E213/Applications/DRLT_Attempt.lean    — ★ Stage 5 시도. 결과: 직접 환원 불가.
+E213/Applications/ARFM.lean            — ★★ Anti-Reflexive Free Magma — 213 고유 대수.
 ```
 
 ## 원칙
