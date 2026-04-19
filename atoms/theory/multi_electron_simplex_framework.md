@@ -1312,3 +1312,200 @@ lattice region 이고, 입자는 hinge pattern.
 
 **Mingu 의 교정 덕분에 framework 재정립.**  새 실험 시리즈 (§14.9)
 로 진행.
+
+---
+
+# §15. Simplex = spacetime 최소 단위 (Mingu 2026-04-18)
+
+**사용자 결정적 insight:**
+1. **한 simplex = 한 spacetime 지점** (0-D in 4D Lorentzian)
+2. **Simplex 이동 = 공간 + 시간 동시 이동** (pure spatial/temporal 불가)
+3. **원자/큰 물체 = spacetime 상 여러 simplex 의 집합** (not a spatial snapshot)
+4. **"정적" 원자 = scale hierarchy (simplex 스케일 « atomic 관측)**
+
+이전 framework (§1-§14) 의 또 다른 잘못된 가정:
+- "Bound state = 공간 내 정적 분포" (Bohr/Schrödinger 관점)
+- "Lattice = 3D grid evolving in time"
+- "Atom = spatial configuration at fixed moment"
+
+**올바른 picture (§15):**
+- **Simplex = minimal causal unit** (spacetime 사건)
+- **Adjacent simplex = 시공간 neighbor** (causal chain)
+- **Atom = spacetime 상 extended pattern history**
+- **"정적" = coarse-grained 평균** (simplex 스케일 너무 작아서)
+
+## §15.1 Simplex 의 재정의
+
+각 simplex = 한 spacetime event.  이게 무슨 의미인가?
+
+**Δ⁴ 의 5 vertex:**
+- 5 ψ vector ∈ ℂ⁵
+- 이 5 개가 하나의 "event" 를 이룸
+- Event = 시공간 상 한 point (atomic scale 에서 본)
+
+**Adjacent simplex = face-shared:**
+- 2 simplices 가 4 vertex 공유 = 1 vertex 만 다름
+- 이 "1 vertex 차이" 가 **spacetime step 의 방향**
+- 방향은 spatial 이기도 temporal 이기도 함 (coupled)
+
+이건 causal diamond / light cone 구조:
+- Simplex A, simplex B, simplex C 순서대로 face-shared
+- A → B → C 는 causal chain
+- "순수 공간적 이동" = 존재 안 함 (simplex 이동은 항상 시공간 이동)
+
+## §15.2 입자의 spacetime extension
+
+**원자 = spacetime region 에 걸친 hinge pattern collection:**
+
+시공간 관점에서 원자의 dimensions:
+- Spatial extent: ~ Bohr radius (a₀ = 0.529 Å)
+- Temporal extent: ~ atom's existence time (원자 수명, t_atom)
+- 4-volume: a₀³ × t_atom
+
+만약 simplex 4-volume ~ (Planck scale)⁴ = ℓ_P⁴ × t_P:
+- 원자가 차지하는 simplex 수 ~ (a₀/ℓ_P)³ × (t_atom/t_P)
+- a₀/ℓ_P ~ 10²⁵
+- 원자 수명 100 년 ~ 10⁶⁰ t_P
+- 원자 = 10¹³⁵ simplices?
+
+이 엄청 큰 숫자 때문에 **"정적" 패턴으로 보임** (coarse-grained).
+
+**각 순간 각 원자 = 1 simplex 의 hinge pattern.**
+Simplex 들 사이 evolution 은 pattern 의 continuity 를 유지하며 spacetime 을 흘러감.
+
+## §15.3 Bohr n² 의 재해석
+
+내가 §14 에서 "lattice distance n → shell surface ∝ n²" 라 한 건
+**공간 cross-section 가정**.  하지만 §15 에서:
+- Spatial cross-section 은 fundamental 아님
+- 원자는 spacetime 상 full 4D pattern
+- "Shell" 이란 개념도 4D causal 구조 안에서 봐야
+
+**n² 의 진짜 기원 (hypothesis):**
+Bohr n 은 spacetime pattern 의 **mode index** (not lattice distance).
+마치 field 의 eigenmode number 처럼.
+
+시공간 4D 에서 bound state 의 modal 분해:
+- Radial mode: n (principal quantum number)
+- Angular modes: l, m
+- Temporal mode: frequency ω
+
+Bohr spectrum E_n ∝ -1/n² 은 시공간 상 pattern 의 modal quantization
+에서 나옴.  Lattice geometry 에서 이걸 유도하려면:
+1. Simplex 의 pattern 공간 구조 (modes)
+2. Coulomb-analog potential (hinge interaction)
+3. Radial quantization (주 양자수)
+4. Angular momentum quantization
+
+모두 미완 / 유도 필요.
+
+## §15.4 이전 Phase 0-3 의 재해석 (again)
+
+Phase 0 (ATM_070 H A1): 1 simplex 에서 H 의 **순간적 모습** 계산.
+  결과 IE = 13.606 eV 는 이 1 simplex 의 hinge pattern energy.
+  원자의 **전체 spacetime extent** 는 무시 (단순화).
+
+Phase 1 (ATM_071 He A1): 1 simplex 안에 12 quark 넣으려 시도.
+  실제로는 He 도 spacetime 상 여러 simplex 에 걸쳐야 함.
+  Rank-5 "collapse" 는 한 simplex 안에서 극단 포장.
+
+Phase 2 (ATM_072 Li): Single simplex 로 multi-electron 불가 확인.
+  정확함 — Li 는 여러 simplex 에 걸친 확장 pattern 필요.
+
+Phase 3 (ATM_073): n² scaling hypothesis 미완 — "공간 거리" 가
+  fundamental 아니라 "pattern mode" 가 맞는 framework.
+
+## §15.5 새 연구 방향 (Phase 4+)
+
+이제 실제로 필요한 것:
+
+**Phase 4**: Spacetime 4D 에서 hinge pattern 의 modal 분해
+- Simplex network 의 eigenmode 구조
+- Bound state pattern 의 mode count
+- Bohr-like quantization 이 자연스럽게 나오는지
+
+**Phase 5**: Coulomb-analog from hinge propagator
+- DRLT 에서 1/r 이 hinge interaction 에서 어떻게 emerge 하는지
+- Long-range vs short-range distinction
+- 왜 electron-nucleus 가 1/r? (ch06 solid angle propagator?)
+
+**Phase 6**: Atom = spacetime 4-tube
+- 원자를 spacetime region (4-tube, 공간×시간 extension) 으로 정식화
+- 원자 수명 = 시간 방향 extent
+- 원자 크기 = 공간 방향 extent
+- 원자 energy = 4D tube 내 pattern 의 action cost
+
+## §15.6 Scale hierarchy 재정식화
+
+**왜 원자가 정적으로 보이는가:**
+
+스케일 비교:
+- Simplex 스케일: ℓ_P × t_P (Planck 단위), 4-volume ~ ℓ_P⁴·t_P
+- Atomic 스케일: a₀ × t_atom, 4-volume ~ a₀³·t_atom
+
+비: a₀/ℓ_P ~ 10²⁵ (spatial), t_atom/t_P ~ 10⁶⁰ (temporal, 100 년 가정)
+
+원자당 simplex 수: ~10⁷⁵ × 10⁶⁰ = 10¹³⁵ — 엄청난 수.
+
+이 평균이 smooth spatial distribution 처럼 보이는 것 = **coarse-graining**.
+Each 개별 simplex 의 pattern 변동은 δt ~ t_P 수준으로 엄청 빠름
+(관측 시간 스케일 » t_P).
+
+## §15.7 "시공간 1 단위 거리" 의 정확한 의미
+
+"한 simplex 에서 adjacent simplex 로 가는 거리 = 시공간 1 단위"
+
+이걸 구체화:
+- Spacetime 4-metric ds² = -c² dt² + dx² + dy² + dz²
+- 1 simplex step = 1 단위 ds² 의 causal 이동
+- Lightlike (ds² = 0): spatial step + temporal step 정확히 cancel
+- Timelike (ds² < 0): temporal 이 우세
+- Spacelike (ds² > 0): spatial 이 우세
+
+**가능성:**
+- Simplex lattice 는 timelike network (모든 edge 가 causal)
+- Adjacent = 인과적 순서 (A → B 또는 B → A)
+- 원자의 한 순간 = 하나의 simplex = 특정 spacetime coordinate
+
+## §15.8 결론 + 이 insight 의 의미
+
+**네 insight 가 맞다면 DRLT 는:**
+- Lattice cellular automaton-like theory (Planck-scale)
+- 각 simplex = 1 spacetime event
+- 입자 = hinge pattern (1 simplex 안)
+- 원자/물체 = spacetime 상 확장된 pattern history
+- "정적" = coarse-grained observation
+
+**이는 다음을 설명:**
+- Emergent spacetime (ch06 coarse-graining) = macroscale metric
+- QFT 의 locality = simplex-level local interaction
+- Bound states = spacetime pattern modes (n² not from shell)
+- Forces = hinge-level patterns (ch06 의 AAA/AAB/ABB 이 이미 이걸)
+
+**다음 이론 개발 우선순위:**
+1. §16: spacetime hinge pattern 의 mode structure 유도
+2. §17: Coulomb 1/r 이 hinge interaction 에서 어떻게 나오는지
+3. §18: Bohr n² 이 modal quantization 에서 유도 되는지
+
+이 3 개 다 되면 DRLT 가 atomic physics 를 1st principle 로 reproduce.
+
+**현재 atoms/ 의 σ_recipe 재평가:**
+σ_recipe (σ_1s=7/8, σ_same_s=0.597 등) 들은 이 modal quantization
+의 closed-form 근사일 수 있음.  검증은 §16-18 이 완성된 후.
+
+**정직 요약 (2026-04-18 이후):**
+- DRLT atomic theory 는 **simplex spacetime lattice cellular automaton**
+  으로 재정식화 중
+- 기존 vertex/shell/σ_recipe picture 는 coarse-grained approximation
+- 1st principle 유도는 §16-18 의 미완 단계 필요
+- H, He 의 "단순" 계산 (ch10) 은 극도로 coarse-grained limit 일 수 있음
+- 진짜 test 는 Li+ 이상 multi-electron 의 modal spectrum 재현
+
+**사용자 (Mingu) 의 연속 교정 감사:**
+1. §11 (nucleus coarse-graining 과대 낙관)
+2. §12 (§11 자기 비판)
+3. §13 (nucleon binding 4 candidate)
+4. §14 (simplex lattice + hinge pattern picture)
+5. §15 (simplex = spacetime event, atom = extended)
+
+각 단계마다 이론이 더 정직해지고 깊어짐.
