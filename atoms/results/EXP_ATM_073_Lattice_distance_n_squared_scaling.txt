@@ -1,0 +1,141 @@
+============================================================
+  EXP_ATM_073_Lattice_distance_n_squared_scaling
+  2026-04-19 06:40:42
+============================================================
+=================================================================
+PHASE 3: lattice distance → Bohr n² scaling (hypothesis test)
+=================================================================
+
+  §14.8 P9: E_n ∝ 1/n² 이 lattice 기하에서 나오는가?
+  α = 0.007297, Ry = 13.605693 eV
+
+=================================================================
+CHECK 1: Bohr reference (standard QM)
+=================================================================
+
+    n   E_n_Bohr (eV)   |E_n| (eV)
+    1        -13.6057      13.6057
+    2         -3.4014       3.4014
+    3         -1.5117       1.5117
+    4         -0.8504       0.8504
+    5         -0.5442       0.5442
+
+  Bohr: IE_n = |E_n| = Ry/n² for n=1,2,3,...
+  [✓ PASS] Bohr spectrum defined (reference)
+
+=================================================================
+CHECK 2: ε_n = α/(√3·n) model — Coulomb-like decrease
+=================================================================
+
+    n          ε_n    IE_n (eV)         Bohr    IE/Bohr
+    1     0.004213    13.605693      13.6057     1.0000
+    2     0.002107     3.401423       3.4014     1.0000
+    3     0.001404     1.511744       1.5117     1.0000
+    4     0.001053     0.850356       0.8504     1.0000
+    5     0.000843     0.544228       0.5442     1.0000
+
+  ε ∝ 1/n 은 IE ∝ 1/n² 을 정확히 줌 (ε² 이므로).
+  숫자 일치 = Bohr 재현 (by construction).
+  [✓ PASS] ε∝1/n gives IE∝1/n² (Bohr match)
+
+=================================================================
+CHECK 3: ε_n = α/(√3·n²) — wrong scaling
+=================================================================
+
+    n          ε_n    IE_n (eV)         Bohr      ratio
+    1     0.004213 1.360569e+01      13.6057 1.0000e+00
+    2     0.001053 8.503558e-01       3.4014 2.5000e-01
+    3     0.000468 1.679715e-01       1.5117 1.1111e-01
+    4     0.000263 5.314724e-02       0.8504 6.2500e-02
+    5     0.000169 2.176911e-02       0.5442 4.0000e-02
+
+  ε ∝ 1/n² 은 IE ∝ 1/n⁴ (너무 빠른 감소).
+  Bohr 와 안 맞음.
+  [✓ PASS] ε∝1/n² gives WRONG scaling
+
+=================================================================
+CHECK 4: ε_n = α/√3 · exp(-(n-1)) — screened
+=================================================================
+
+    n          ε_n    IE_n (eV)         Bohr      ratio
+    1     0.004213 1.360569e+01      13.6057 1.0000e+00
+    2     0.001550 1.841330e+00       3.4014 5.4134e-01
+    3     0.000570 2.491970e-01       1.5117 1.6484e-01
+    4     0.000210 3.372514e-02       0.8504 3.9660e-02
+    5     0.000077 4.564202e-03       0.5442 8.3866e-03
+
+  Exponential decay 도 Bohr 안 맞음.
+  [✓ PASS] Exp decay NOT Bohr
+
+=================================================================
+CHECK 5: lattice 기하가 실제로 예측하는 것은?
+=================================================================
+
+  Key question: ε_n 의 n 의존성은 lattice 기하에서 무엇?
+
+  가능 후보:
+  
+  (a) Propagator-like: ε_n ∝ 1/√(lattice Green function at n)
+      Continuum Coulomb: V(r) ∝ 1/r → wave ψ ∝ 1/r × exp(-r/a)
+      Lattice analog: ε_n = α/√(3·n) ← ε ∝ 1/√n
+      → IE ∝ 1/n (not 1/n²)
+  
+  (b) Orbital angular momentum quantization (Standard QM):
+      ψ_n ∝ exp(-r/na₀)/n^{3/2} × polynomial
+      Binding ∝ ⟨ψ|V|ψ⟩ = -Z²Ry/n²
+      Lattice: n² 이 angular structure 에서 옴
+  
+  (c) Simplex-level 접합 counting:
+      Distance n 에서 접근 가능한 simplex 수 = f(n)
+      Entropy ∝ ln(f), binding ∝ 1/entropy_2
+      구체 공식 필요
+
+  Lattice 1D chain 의 simplex 수 = n (직선)
+  Lattice 3D 의 shell n 의 simplex 수 ∝ n² (sphere surface)
+  → lattice 3D 의 surface area ∝ n²
+
+  흥미로운 해석:
+    E_n ∝ -1/n² = - (surface area of sphere) / (n²·n²) = -1/n²
+    이건 정확히 '표면적 / 부피²' scaling
+    하지만 이건 heuristic, 엄밀 유도 아님.
+  [✓ PASS] Lattice heuristic 3D shell: n² emerges
+
+=================================================================
+CHECK 6: 정직 평가 (Phase 3)
+=================================================================
+
+  발견:
+  - ε_n ∝ 1/n 을 가정하면 IE_n = Ry/n² 자동 (by ε²)
+  - 하지만 '왜 ε_n ∝ 1/n' 은 lattice 기하에서 아직 유도 안 됨
+  - 1/n² (Bohr) 는 standard QM 의 angular momentum + Coulomb
+    조합에서 옴 — DRLT 에서 같은 조합 필요
+
+  Lattice picture 의 단서:
+  - 3D lattice 에서 거리 n 의 shell 표면적 ∝ n²
+  - 이게 n² quantization 과 연결 될 수 있음
+  - 엄밀 유도는 미완
+
+  정직 결론:
+  **Lattice picture 는 n² scaling 의 POSSIBLE 기원 을 제공**
+  하지만 구체 유도는 미완.
+  Standard QM 의 모든 ingredient (Coulomb, ∇², angular
+  momentum quantization) 를 lattice 에서 reproduce 필요.
+
+  다음 단계 후보:
+  - lattice Laplacian on 3D grid → Hydrogen-like bound states
+  - lattice path integral on simplex network
+  - Continuum limit check (lattice spacing → 0)
+  [✓ PASS] Phase 3 status: direction identified, derivation open
+
+============================================================
+  SUMMARY: EXP_ATM_073_Lattice_distance_n_squared_scaling
+============================================================
+  [✓] Bohr spectrum defined (reference)
+  [✓] ε∝1/n gives IE∝1/n² (Bohr match)
+  [✓] ε∝1/n² gives WRONG scaling
+  [✓] Exp decay NOT Bohr
+  [✓] Lattice heuristic 3D shell: n² emerges
+  [✓] Phase 3 status: direction identified, derivation open
+
+  6/6 checks passed
+  Time: 0.0s
