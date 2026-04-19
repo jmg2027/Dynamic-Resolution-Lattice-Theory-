@@ -233,23 +233,44 @@ for some `g i : Fin N` (witness extracted via `Classical.choose`
 applied to the existential). Injectivity of `g` follows from
 pairwise distinctness of `f`. Lemma 5.2 contradicts. ∎
 
-**Corollary 5.4.** Non-vacuity requires `N ≥ k`. Arities `k = 0, 1`
-are structurally degenerate: `k = 0` yields constants; `k = 1` gives
-only a unary chain (`object i, rel(object i), rel(rel(object i)), …`),
-which has no branching structure. The minimal non-degenerate,
-non-vacuous choice is `(N, k) = (2, 2)`.
+**Corollary 5.4.** Non-vacuity requires `N ≥ k`. The remaining
+arities `k = 0, 1` are degenerate in the following precise senses:
+- `k = 0`: `rel` takes no arguments, so `rel : RawN0`; every Reachable
+  term is either a base object or `rel` itself — a finite system.
+  The Reachable set fails to embed any non-trivial branching
+  relation structure.
+- `k = 1`: `rel : RawN1 → RawN1`; Reachable terms form a sequence
+  `object i, rel(object i), rel(rel(object i)), …` linearly ordered
+  by depth. The resulting binary "relation structure" is the
+  singleton relation `rel` of arity `1`, carrying no information
+  about distinct related objects.
+
+Call an arity *degenerate* iff either of these conditions holds;
+*non-degenerate* iff `k ≥ 2`. The minimal non-degenerate, non-vacuous
+signature is therefore `(N, k) = (2, 2)`.
 
 This is the signature of Definition 1.1.
 
 ---
 
-## 6. An arithmetic atomicity result
+## 6. Atomicity
 
-We now establish a standalone arithmetic theorem, whose relevance to
-§1–5 is motivational (discussed in Remark 6.5).
+In §1–5 the axiom produced `Raw`, the swap automorphism
+`Aut(Raw) ≅ ℤ/2`, the Lens framework, and the forced signature
+`(Fin 2, binary)`. We now derive the unique vertex count admitting a
+canonical atomic partition.
 
-**Setup.** Fix the atom set `A = {2, 3}` and consider decompositions
-of `n ∈ ℕ` as `n = 2a + 3b` with `(a, b) ∈ ℕ²`.
+The atomicity argument uses three components — a lower bound on atom
+size, the atom set itself, and an "alive" predicate — each of which
+is grounded in the primitive. The grounding is audited component-
+wise in Remark 6.6 (after the main theorem is stated and proved).
+Proposition 6.5 below provides the arithmetic characterization of
+the atom set.
+
+**Setup.** Given the atom set `A = {2, 3}` (justified arithmetically
+by Proposition 6.5 and grounded in the primitive by Remark 6.6),
+consider decompositions of `n ∈ ℕ` as `n = 2a + 3b` with
+`(a, b) ∈ ℕ²`.
 
 **Definition 6.1 (Alive).** A decomposition `(a, b)` is *alive* iff
 `a` and `b` are both odd.
@@ -296,7 +317,7 @@ to a 2-part one: take `a := n_1` and `b := n_2 + ⋯ + n_k`; then
 - `n = 4`: `4 = 2 + 2`. Decomposable.
 - `n ≥ 5`: `n = 2 + (n - 2)` with `n - 2 ≥ 3 ≥ 2`. Decomposable. ∎
 
-Call `n` *non-decomposable* (in the sense above) iff `n ∈ {2, 3}`.
+We henceforth call `n` *non-decomposable* iff `n ∈ {2, 3}`.
 
 **Remark 6.6 (Status of the atom hypothesis).** With Proposition 6.5
 in hand, we can break the atom hypothesis into parts and locate
@@ -423,26 +444,43 @@ is invariant under every partition-preserving bijection, then `W` is
 block-constant.
 
 *Proof.* We show two pairs in the same block-pair class have equal
-`W`-values. `S_3` acts transitively on `V_A` and on ordered pairs of
-distinct elements of `V_A`; `S_2` does likewise on `V_B`. Extend to
-partition-preserving bijections of `V` by acting as identity on the
-opposite block.
+`W`-values. Given `σ ∈ S_3` on `V_A`, extend to a partition-
+preserving bijection `σ̂` of `V` by acting as identity on `V_B`;
+analogously for `τ ∈ S_2` on `V_B`. Then `σ̂`, `τ̂`, and their
+compositions are partition-preserving bijections, so `W` is invariant
+under them.
 
-— For class `AAdiag`: given `(i, i), (i', i')` with `i, i' ∈ V_A`,
-there is `σ ∈ S_3` with `σ i = i'`; invariance gives
-`W i i = W (σ i) (σ i) = W i' i'`.
+*Class `AAdiag`.* Given `(i, i), (i', i')` with `i, i' ∈ V_A`: pick
+`σ ∈ S_3` with `σ(i) = i'` (transitivity of `S_3` on `V_A`). Then
+`W i i = W (σ̂ i) (σ̂ i) = W i' i'`.
 
-— For class `AAoff`: `S_3` acts transitively on ordered pairs
-`(i, j)` with `i ≠ j ∈ V_A` (there are `3 · 2 = 6` such pairs, and
-`|S_3| = 6`).
+*Class `AAoff`.* Given `(i, j), (i', j')` both with `i ≠ j ∈ V_A`
+and `i' ≠ j' ∈ V_A`: `S_3` acts transitively on the `6` ordered
+distinct pairs in `V_A` (|ordered distinct pairs| = `3·2 = 6 = |S_3|`;
+the action is free on distinct pairs, hence transitive). Pick `σ`
+with `σ(i) = i', σ(j) = j'`; then `W i j = W i' j'` by invariance.
 
-— For class `AB`: `S_3 × S_2` acts transitively on `V_A × V_B`
-(|product| = 6, `|S_3 × S_2| = 12`, each orbit has size dividing 12;
-transitive action verified directly).
+*Class `AB`.* Given `(i, j), (i', j')` with `i, i' ∈ V_A`,
+`j, j' ∈ V_B`: by transitivity of `S_3` on `V_A`, pick `σ ∈ S_3` with
+`σ(i) = i'`. By transitivity of `S_2` on `V_B`, pick `τ ∈ S_2` with
+`τ(j) = j'`. Then the composite `σ̂ ∘ τ̂` sends `(i, j) ↦ (i', j')`,
+so `W i j = W i' j'`.
 
-— Classes `BA`, `BBdiag`, `BBoff`: symmetric arguments.
+*Class `BA`.* Symmetric to `AB`: swap the roles of `σ` and `τ`.
+Given `(i, j), (i', j')` with `i, i' ∈ V_B`, `j, j' ∈ V_A`: pick
+`τ ∈ S_2` with `τ(i) = i'` and `σ ∈ S_3` with `σ(j) = j'`; the
+composite sends `(i, j) ↦ (i', j')`.
 
-Thus `W` factors through `classify`, i.e. is block-constant. ∎
+*Class `BBdiag`.* Given `(i, i), (i', i')` with `i, i' ∈ V_B`: pick
+`τ ∈ S_2` with `τ(i) = i'` (transitivity of `S_2` on `V_B`). Then
+`W i i = W i' i'`.
+
+*Class `BBoff`.* `V_B = {3, 4}`; the only ordered distinct pairs are
+`(3, 4)` and `(4, 3)`. The non-identity `τ ∈ S_2` swaps them, giving
+`W 3 4 = W 4 3`.
+
+In every class, `W` is constant. Hence `W` factors through
+`classify`. ∎
 
 ---
 
@@ -463,10 +501,11 @@ We comment on these assumptions in Remark 8.5.
 `Aut_ℝ(K)` denote the group of `ℝ`-algebra automorphisms of `K`
 (i.e., ring automorphisms fixing `ℝ ⊆ K` pointwise).
 
-**Definition 8.2 (Aut-equivariance).** A Lens `L : Lens K` is
-*Aut-equivariant* iff there is a group homomorphism
-`ρ : Aut(Raw) → Aut_ℝ(K)` such that, for every `τ ∈ Aut(Raw)` and
-every `x : Raw`,
+**Definition 8.2 (Aut-equivariance).** Let `L : Lens α` (Definition
+4.1) with codomain type `α := K` (so `L.objValue : Fin 2 → K` and
+`L.combine : K → K → K`). `L` is *Aut-equivariant* iff there is a
+group homomorphism `ρ : Aut(Raw) → Aut_ℝ(K)` such that, for every
+`τ ∈ Aut(Raw)` and every `x : Raw`,
 ```
   L.view (τ x) = ρ(τ) (L.view x).
 ```
@@ -476,30 +515,32 @@ induced `ρ` of Definition 8.2 is a group *isomorphism*
 `Aut(Raw) ≅ Aut_ℝ(K)` (not merely an injection).
 
 **Theorem 8.4 (Faithful codomain in `𝒞`).** Let `K ∈ 𝒞`. If `K` admits
-a nontrivial Aut-faithful Lens, then `K ≅ ℂ` as `ℝ`-algebras.
+an Aut-faithful Lens, then `K ≅ ℂ` as `ℝ`-algebras.
 
 *Proof.*
 
-(i) *Classification of `𝒞`.* Every `K ∈ 𝒞` is a finite field extension
-of `ℝ`: commutativity + unital + division ⟹ `K` is a field, and
-finite-dim over `ℝ` ⟹ `K` is algebraic over `ℝ`. The irreducible
-polynomials over `ℝ` have degree `1` or `2` (by the fundamental
-theorem of algebra applied to `ℝ[x]`), so `[K : ℝ] ∈ \{1, 2\}`.
-Hence `K ≅ ℝ` or `K ≅ ℂ`. (This is the commutative case of
-Frobenius's theorem.)
+(i) *Classification of `𝒞`.* Every `K ∈ 𝒞` is a finite field
+extension of `ℝ`: commutativity + unital + division ⟹ `K` is a
+field, and finite-dim over `ℝ` ⟹ `K` is algebraic over `ℝ`. The
+irreducible polynomials over `ℝ` have degree `1` or `2` (by the
+fundamental theorem of algebra applied to `ℝ[x]`), so
+`[K : ℝ] ∈ {1, 2}`. Hence `K ≅ ℝ` or `K ≅ ℂ`. (This is the
+commutative case of Frobenius's theorem.)
 
 (ii) *Computation of `Aut_ℝ(K)`.*
-- `Aut_ℝ(ℝ) = {id}` (trivial).
-- `Aut_ℝ(ℂ) = {id, conjugation} ≅ ℤ/2` (by the theorem of the
-  primitive element or direct computation).
+- `Aut_ℝ(ℝ) = {id}`: any `ℝ`-linear ring endomorphism of `ℝ` is
+  determined by its value on `1`, which must be `1`.
+- `Aut_ℝ(ℂ)`: any `σ ∈ Aut_ℝ(ℂ)` is determined by `σ(i)`, since
+  `ℂ = ℝ(i)` as an `ℝ`-algebra. From `σ(i)² = σ(i²) = σ(-1) = -1`,
+  we get `σ(i) = ±i`. Hence `Aut_ℝ(ℂ) = {id, conjugation} ≅ ℤ/2`.
 
 (iii) *Faithfulness.* `Aut(Raw) ≅ ℤ/2` (Theorem 3.6). Aut-faithfulness
-requires `Aut(Raw) ≅ Aut_ℝ(K)`.
-- `K = ℝ`: `Aut_ℝ(ℝ) ≅ 1 ≠ ℤ/2`, so no `ρ` can be an isomorphism.
-  Not faithful.
-- `K = ℂ`: `Aut_ℝ(ℂ) ≅ ℤ/2`. The unique nontrivial homomorphism
-  `ρ : ℤ/2 → ℤ/2` is the identity isomorphism; it lifts `swap` to
-  conjugation on `ℂ`. Faithful.
+(Definition 8.3) requires a group isomorphism
+`ρ : Aut(Raw) → Aut_ℝ(K)`.
+- `K = ℝ`: `|Aut_ℝ(ℝ)| = 1 ≠ 2 = |Aut(Raw)|`. No isomorphism exists;
+  no Aut-faithful Lens to `ℝ`.
+- `K = ℂ`: `|Aut_ℝ(ℂ)| = 2 = |Aut(Raw)|`. The unique group isomorphism
+  `ρ : ℤ/2 → ℤ/2` sends `swap ↦ conjugation`.
 
 Therefore `K ≅ ℂ`. ∎
 
