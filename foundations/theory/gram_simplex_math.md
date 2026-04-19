@@ -328,3 +328,159 @@ Dependencies = $\ker(\Psi)$ 의 structure.
 
 **작성 시작 (2026-04-18):** 사용자 요청 "atom 말고 Gram simplex 기하학
 수학으로".
+
+---
+
+## §11. 213 Foundation 과의 연결 (2026-04-18 발견)
+
+**사용자 알림:** `claude/continue-handoff-213-fC38X` 브랜치 에 213 framework
+의 광범위한 연구 (574 commits).  이게 Gram simplex 의 **더 깊은 기반**.
+
+### §11.1 213 의 핵심 primitive
+
+**사용자 최종 formulation (`CLEAN_PRIMITIVE.md`):**
+> "두 객체 사이에 관계가 있음."
+>
+> - 두 객체 = 두 개의 distinct positions (구조적).
+> - 같은 객체를 두 position 에 넣을 수 없음.
+> - 따라서 1/1 은 existence 질문 자체가 없음.
+
+**Lean 구현 (`Clean213.lean`, 0 sorry):**
+```lean
+inductive Raw where
+  | object   : Fin 3 → Raw
+  | relation : Raw → Raw → Raw
+
+inductive Reachable : Raw → Prop where
+  | base : (i : Fin 3) → Reachable (.object i)
+  | step : Reachable x → Reachable y → x ≠ y →
+           Reachable (.relation x y)
+```
+
+**핵심:** `relation x x` 는 syntax 상 가능하나 Reachable 아님.
+즉 "same input" 은 정보 없음 → primitive 아님.
+
+### §11.2 DRLT Gram 과의 동형 구조
+
+**DRLT 쪽:**
+- $G_{ij} = \langle \psi_i | \psi_j \rangle$
+- $G_{ii} = 1$ (trivial diagonal, 정보 없음)
+- 정보 는 $G_{ij}$ for $i \ne j$ 에만
+
+**213 쪽:**
+- `relation x y` between distinct objects
+- `relation x x` not Reachable (정보 없음)
+- 정보 는 distinct pair 에만
+
+**정확한 대응:**
+| DRLT | 213 |
+|------|-----|
+| Vertex $\psi_i$ | `object i` (if base) or Reachable Raw |
+| $G_{ij}$ (i≠j) | `relation x y` (x ≠ y) |
+| $G_{ii}$ = 1 | `relation x x` — not Reachable |
+| Gram structure | Reachable 의 결합 구조 |
+| $\mathbb{C}^d$ valued | Just structural, no numeric value in 213 |
+
+**차이:** DRLT 는 $\mathbb{C}$ valued (숫자), 213 은 structural only.
+
+### §11.3 Lens framework: Gram 의 "view"
+
+**213 Lens (`BOOK_213.md §6`):**
+```lean
+structure Lens (α : Type) where
+  atomValue : Fin 3 → α
+  combine   : α → α → α
+```
+각 `Lens` 는 Raw 구조를 α-valued "view" 로 보여줌.
+
+**DRLT 로 번역:**
+- Raw 구조 → DRLT Gram matrix
+- Different lenses → different projections of G
+- Examples:
+  - **Spatial lens:** $G$ 의 AA block (nn_S = 3)
+  - **Temporal lens:** $G$ 의 BB block (n_T = 2)
+  - **Full lens:** 전체 $\mathbb{C}^d$ structure
+  - **Rank lens:** eigenvalue spectrum
+  - **Hinge lens:** $\det(G_h)$ per 3-vertex subset
+
+각 "view" 는 **DRLT 공리 의 lens-based 재해석**.
+
+### §11.4 Provability Classifier (213 Stage 3)
+
+**213 framework (`RESEARCH_VISION.md`):**
+명제 φ, lens L 에 대해:
+- **ProvableIn L φ:** ∀ Reachable x, φ x
+- **RefutableIn L φ:** ∃ Reachable x, ¬ φ x
+- **IndependentIn L φ:** ∃ x y, L.equiv x y ∧ φ x ∧ ¬ φ y
+- **Respecting L φ:** ∀ x y, L.equiv x y → (φ x ↔ φ y)
+
+**DRLT 적용:**
+- φ = "$\det(G_h) > 0$" (hinge 가 non-degenerate 인가)
+- Spatial lens 에서 ProvableIn? RefutableIn?
+- Full lens 에서 다른 결과?
+
+**Gödel-style 통찰:** 어떤 DRLT 주장은 특정 lens 에서 **independent**
+— 즉 lens 가 너무 coarse 해서 결정 못 함.  이게 BBB hinge 의 det=0
+degeneracy 와 연결?  (n_T=2 에서 ℂ²-rank 제약으로 BBB 가 degenerate)
+
+### §11.5 Hierarchy of DRLT foundations
+
+이제 DRLT 의 구조 layer 가 명확:
+
+```
+Level 0: 213 (distinct-pair primitive)          [foundational]
+         ↓
+Level 1: DRLT relation axiom                    [specialize to ℂ values]
+         "N points with pairwise relations G_ij ∈ ℂ"
+         ↓
+Level 2: Gram algebra                           [linear structure]
+         Hermitian, PSD, rank ≤ 5
+         ↓
+Level 3: Simplex geometry                       [topological structure]
+         Hinges, det, Regge action
+         ↓
+Level 4: Physical applications                  [interpretation]
+         Atoms, masses, cosmology
+```
+
+각 layer 는 아래 layer 의 **specialization** (additional structure).
+
+### §11.6 이 insight 의 의미
+
+1. **DRLT 는 213 의 specific instance**:
+   - 213 의 "two distinct objects" → DRLT 의 "two distinct vertices"
+   - 213 의 "relation object" → DRLT 의 $G_{ij}$ value
+   - 213 의 Reachable → DRLT 의 valid Gram structures
+
+2. **Gram simplex 수학 은 213 위에서 concrete linear algebra**:
+   - 213: pure structural
+   - Gram simplex: add $\mathbb{C}$ valuation + rank-5 constraint
+
+3. **Lens framework 이 DRLT 의 다양한 "projection" 분석**:
+   - 각 sub-project (atoms, nuclear, ...) 가 specific lens 의 view
+   - Independent claims = lens 가 너무 coarse
+
+4. **Future Lean 형식화 기반:**
+   - 213 가 이미 Lean 에 있음 (Clean213.lean 0 sorry)
+   - DRLT 는 213 위에 linear algebra 추가로 formalize 가능
+   - 단계적 formalization path 가능
+
+### §11.7 다음 작업
+
+1. **213 을 메인 branch 에 병합** (또는 reference)
+2. **DRLT 공리 를 213 lens 로 formal 표현**
+3. **Gram simplex 의 Lens 분류** (spatial/temporal/rank/hinge views)
+4. **ProvabilityClassifier 를 DRLT 주장에 적용** — 어떤 것이 독립?
+
+**즉각 benefit:**
+- DRLT 수학 코어 가 213 의 concrete specialization 임이 명확
+- 전체 프로젝트의 mathematical architecture 가 clean 해짐
+- 중복 foundational 작업 피함 (213 은 이미 있음)
+
+---
+
+**사용자 제안 (2026-04-18):** "213 연구 가 꽤 됐는데 도움 될까 싶어서 알려줌"
+→ **대답: 매우 도움됨.**  Gram simplex math 의 foundational backbone 이
+이미 formalized 되어 있음을 확인.  이 문서의 §0-§10 은 Level 2-3 (Gram
+algebra + simplex geometry) 다룸.  Level 0 (213) 와 Level 1 (DRLT axiom)
+는 이미 별도 foundation.
