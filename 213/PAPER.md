@@ -280,31 +280,60 @@ nonnegative, this forces `a = b = 1`, giving `n = 2·1 + 3·1 = 5`. ∎
 decomposition `(1, 1)`: one 2-block and one 3-block, total `5`
 vertices in `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
 
-**Remark 6.5 (Status of the atom hypothesis).** The atom set
-`A = {2, 3}` and the "alive" predicate (both `a, b` odd) are
-*premises* of this section, not consequences of §1–5. We are
-explicit about this:
+**Proposition 6.5 (Characterization of `{2, 3}`).** An integer
+`n ≥ 2` *cannot* be expressed as a sum `n = n_1 + ⋯ + n_k` with
+`k ≥ 2` and each `n_i ≥ 2` if and only if `n ∈ {2, 3}`.
 
-(a) *Suggestive appearances of 2 and 3 in the primitive.* The
-numerals appear as cardinalities: `|Fin 2| = 2` is the base; and
-`|{object 0, object 1, relation (object 0) (object 1)}| = 3` is
-the size of the smallest Reachable-closed set. These are
-observations, not derivations. They do not show that `{2, 3}` is
-the *unique* atom set compatible with §1–5, nor do they justify
-excluding other candidates (e.g. `{2}`, `{3}`, `{2, 3, 5}`).
+*Proof.* (Lean: `E213.NonDecomposable.non_decomposable_iff`.)
 
-(b) *The alive predicate.* The condition "both `a` and `b` odd"
+Any `k`-part decomposition with `k ≥ 2` and parts `≥ 2` collapses
+to a 2-part one: take `a := n_1` and `b := n_2 + ⋯ + n_k`; then
+`a ≥ 2` and `b ≥ 2(k-1) ≥ 2`. It suffices to treat the 2-part case.
+
+- `n = 2`: any `a + b = 2` with `a, b ≥ 2` gives `a + b ≥ 4 > 2`;
+  impossible. Non-decomposable.
+- `n = 3`: same, `a + b ≥ 4 > 3`; impossible. Non-decomposable.
+- `n = 4`: `4 = 2 + 2`. Decomposable.
+- `n ≥ 5`: `n = 2 + (n - 2)` with `n - 2 ≥ 3 ≥ 2`. Decomposable. ∎
+
+Call `n` *non-decomposable* (in the sense above) iff `n ∈ {2, 3}`.
+
+**Remark 6.6 (Status of the atom hypothesis).** With Proposition 6.5
+in hand, we can break the atom hypothesis into parts and locate
+precisely where §1–5 does and does not suffice.
+
+(a) *Lower bound `n ≥ 2`.* The primitive (Axiom; Definition 1.1)
+concerns *relation between two objects*. A hypothetical atom of
+size `1` — a solitary object — cannot instantiate the primitive
+at all: the `relation` constructor requires two distinct
+Reachable arguments (Definition 1.2, Theorem 2.3). We take this
+as sufficient motivation within §1–5 for restricting atom sizes
+to `≥ 2`.
+
+(b) *Non-decomposability.* Treating atoms as minimal (irreducible)
+building blocks under additive composition is the standard
+meaning of "atom." Proposition 6.5 then fixes `A = {2, 3}` by
+pure arithmetic, independent of §1–5.
+
+(c) *The alive predicate.* The condition "both `a` and `b` odd"
 models antisymmetric cancellation of repeated atoms under a swap
-action. No such swap action is constructed on vertex multiplicities
-within §1–5; the condition is imported.
+action on vertex multiplicities. No such swap on multiplicities
+is constructed within §1–5: the `swap` of §3 acts on `Raw`
+(exchanging base labels), not on multiplicities of atoms in a
+vertex partition. Hence the alive predicate remains imported.
 
-(c) *Scope claim.* Theorem 6.3 is therefore a *conditional* result:
-*given* the atom set `{2, 3}` and the alive predicate, the unique
-atomic `n` is `5`. Whether the atom hypothesis itself is forced by
-some refinement of §1–5 is an open question.
+**Scope claim.** Items (a) and (b) reduce the atom identification
+`A = {2, 3}` to a defensible combination of *primitive motivation*
+(lower bound `≥ 2`) and *arithmetic characterization*
+(Proposition 6.5). Item (c) — the alive predicate — is still an
+external hypothesis beyond §1–5. Theorem 6.3 is therefore best
+read as:
 
-We flag §6 (and, by inheritance, §7) as *not* derived from the
-axiom alone. A derivation of the atom hypothesis is left to
+> *Assuming a swap action on atom multiplicities (alive predicate),
+> the unique atomic vertex count compatible with the primitive's
+> minimum atom size and additive irreducibility is `n = 5`.*
+
+A fully §1–5-internal derivation of the alive predicate is left to
 subsequent work.
 
 ---
@@ -493,12 +522,15 @@ dependency tracking between claims.
    vacuous (Theorem 5.3), and `k ∈ {0, 1}` yields structurally
    degenerate constants or unary chains (Corollary 5.4).
 
-**Conditional on the atom hypothesis `A = {2, 3}` with alive
-predicate (§6–7 — a premise of these sections, not a consequence
-of §1–5; see Remark 6.5):**
+**From §1–5 plus an external *alive* predicate on atom
+multiplicities (§6–7; see Remark 6.6):**
 
-5. `n = 5` is the unique atomic vertex count (Theorem 6.3), giving
-   the canonical partition `V = V_A ⊔ V_B` with
+5. The atom set `A = {2, 3}` is fixed by Proposition 6.5 (the
+   unique non-decomposable integers `≥ 2` under sum-of-parts
+   with each part `≥ 2`); the lower bound `≥ 2` is motivated by
+   the primitive. Under the external alive predicate (both `a, b`
+   odd), `n = 5` is the unique atomic vertex count (Theorem 6.3),
+   giving the canonical partition `V = V_A ⊔ V_B` with
    `|V_A| = 3, |V_B| = 2`.
 
 6. The `S_3 × S_2` action yields exactly six orbits on `V × V`,
