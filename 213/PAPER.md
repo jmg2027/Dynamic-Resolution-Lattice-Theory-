@@ -310,23 +310,21 @@ Reachable arguments (Definition 1.2, Theorem 2.3). We take this
 as sufficient motivation within §1–5 for restricting atom sizes
 to `≥ 2`.
 
-(b) *Atom identification `{2, 3}` from the primitive.* The axiom
-directly names two structural sizes:
-
-- **Input pair.** Two objects, the axiom's "two objects." Size `2`.
-- **First closure.** The input pair together with the relation
-  object the axiom asserts to exist. Size `2 + 1 = 3`.
-
-These are the *only* sizes mentioned by the axiom itself: the
-primitive does not specify any structure of size `4, 5, …`
-directly — larger sizes arise only from iterated applications of
-the primitive. Hence the atom set is read off the axiom:
+(b) *Atom identification `A = {2, 3}`.* The principled derivation
+is arithmetic. By Proposition 6.5, the non-decomposable integers
+`≥ 2` — those that cannot be written as a sum of `k ≥ 2` parts
+each `≥ 2` — are exactly `{2, 3}`. This is the standard meaning of
+"atom" (irreducible under the composition in question) and it is
+independent of §1–5. Combined with (a), the atom set is fixed as
 `A = {2, 3}`.
+(Lean: `E213.NonDecomposable.non_decomposable_iff`.)
 
-Proposition 6.5 confirms this identification from an independent
-direction: `{2, 3}` is exactly the set of non-decomposable integers
-`≥ 2` under additive composition with parts `≥ 2`. The
-primitive-structural and arithmetic characterizations coincide.
+An informal parallel: the same two sizes occur as natural
+cardinalities in the primitive data — the input pair (`|{o_0, o_1}|
+= 2`) and the first closure under a single relation application
+(`|{o_0, o_1, relation o_0 o_1}| = 3`). This observation is
+consistent with Proposition 6.5 but is not used to derive it; it is
+recorded for intuition.
 (Lean: `E213.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
 
 (c) *The alive predicate is Raw-intrinsic.* The condition "both
@@ -362,9 +360,11 @@ primitive:
 
 - (a) *Lower bound `≥ 2`*: the axiom's "two objects" rules out
   atoms of size `1`.
-- (b) *Atom set `{2, 3}`*: read off the axiom, which names exactly
-  the sizes `2` (input pair) and `3` (first closure); Proposition
-  6.5 confirms these arithmetically.
+- (b) *Atom set `{2, 3}`*: by Proposition 6.5, the non-decomposable
+  integers `≥ 2` are exactly `{2, 3}` — the standard "atom as
+  irreducible" identification, independent of §1–5. (The same two
+  sizes occur as natural cardinalities of the input pair and first
+  closure; this is recorded as a parallel intuition.)
 - (c) *Alive predicate*: Raw's rule `x ≠ y` applied at the
   multiplicity level, as above.
 
@@ -560,13 +560,12 @@ dependency tracking between claims.
 **From the axiom together with §6–7 (all three components of the
 atom hypothesis now Raw-intrinsic; see Remark 6.6):**
 
-5. The atom set `A = {2, 3}` is read off the primitive (the axiom
-   names sizes `2` (input pair) and `3` (first closure);
-   Proposition 6.5 confirms these are the only non-decomposable
-   integers `≥ 2`). The alive predicate is Raw's distinctness rule
-   at the multiplicity level (pair cancellation under structural
-   equivalence). Together, `n = 5` is the unique atomic vertex
-   count (Theorem 6.3), giving the canonical partition
+5. The atom set `A = {2, 3}` is fixed by Proposition 6.5
+   (non-decomposable integers `≥ 2`) combined with the primitive
+   lower bound `≥ 2`. The alive predicate is Raw's distinctness
+   rule at the multiplicity level (pair cancellation under
+   structural equivalence). Together, `n = 5` is the unique atomic
+   vertex count (Theorem 6.3), giving the canonical partition
    `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
 
 6. The `S_3 × S_2` action yields exactly six orbits on `V × V`,
