@@ -8,11 +8,14 @@ Given two objects, there exists a relation object between them.
 ## Formal statement
 
 `Raw` is an inductive type with two constructors:
-- `object : Fin 3 → Raw`: base objects (labeled by Fin 3).
+- `object : Fin 2 → Raw`: base objects (two of them, from the axiom's "two").
 - `relation : Raw → Raw → Raw`: binary relation object between two Raw.
 
 The axiom's "two" is captured by `Reachable` derivation:
 a relation object is Reachable only from two distinct Reachable objects.
+
+The third entity (a relation object) is not postulated — it is produced
+by applying `relation` to the two base objects. See `third_object_exists`.
 
 ## Consequences
 
@@ -24,14 +27,14 @@ a relation object is Reachable only from two distinct Reachable objects.
 -- ═══ Section 1: Primitive Type ═══
 
 inductive Raw where
-  | object   : Fin 3 → Raw
+  | object   : Fin 2 → Raw
   | relation : Raw → Raw → Raw
   deriving DecidableEq, Repr
 
 -- ═══ Section 2: Reachable (axiom derivation) ═══
 
 inductive Reachable : Raw → Prop where
-  | base : (i : Fin 3) → Reachable (.object i)
+  | base : (i : Fin 2) → Reachable (.object i)
   | step : Reachable x → Reachable y → x ≠ y →
            Reachable (.relation x y)
 
@@ -106,7 +109,7 @@ theorem relation_depth_gt {x y : Raw} (h : x ≠ y) :
 -- ═══ Section 7: Lens ═══
 
 structure Lens (α : Type) where
-  objValue : Fin 3 → α
+  objValue : Fin 2 → α
   combine  : α → α → α
 
 def Lens.view {α : Type} (L : Lens α) : Raw → α
@@ -174,15 +177,26 @@ theorem Lens.refines_trans {α β γ : Type}
     L.refines M → M.refines N → L.refines N :=
   fun h1 h2 x y h => h2 x y (h1 x y h)
 
--- ═══ Section 12: Examples ═══
+-- ═══ Section 12: Third object (derived, not axiomatic) ═══
 
+/-- The two base objects. -/
 def o0 : Raw := .object 0
 def o1 : Raw := .object 1
-def o2 : Raw := .object 2
+
+/-- The third entity: the relation object produced from the two base objects.
+    This is a *consequence* of the axiom, not a postulate. -/
+def o01 : Raw := .relation o0 o1
+
+/-- Three distinct Reachable objects exist: `o0`, `o1`, `o01`.
+    Thus "three" is derived from the axiom's "two" plus one application of
+    `relation`, rather than being hardwired into the base index type. -/
+theorem three_objects_exist :
+    Reachable o0 ∧ Reachable o1 ∧ Reachable o01 ∧
+    o0 ≠ o1 ∧ o0 ≠ o01 ∧ o1 ≠ o01 := by
+  refine ⟨.base 0, .base 1, .step (.base 0) (.base 1) ?_, ?_, ?_, ?_⟩ <;> decide
 
 example : Reachable o0 := .base 0
-example : Reachable (.relation o0 o1) :=
-  .step (.base 0) (.base 1) (by decide)
+example : Reachable o01 := .step (.base 0) (.base 1) (by decide)
 example : ¬ Reachable (.relation o0 o0) :=
   no_self_relation_reachable o0
 
