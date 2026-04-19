@@ -495,7 +495,7 @@ canonical Lens compatible with `Aut(Raw)`.
             commutative, with multiplicative identity, and
             a division algebra (every nonzero element is invertible)}.
 ```
-We comment on these assumptions in Remark 8.5.
+We comment on these assumptions in Remark 8.6.
 
 **Definition 8.1 (Algebra automorphism).** For `K ∈ 𝒞`, let
 `Aut_ℝ(K)` denote the group of `ℝ`-algebra automorphisms of `K`
@@ -544,23 +544,34 @@ commutative case of Frobenius's theorem.)
 
 Therefore `K ≅ ℂ`. ∎
 
-**Remark 8.5 (On the class `𝒞`).** The four conditions defining `𝒞`
-each exclude alternative codomains:
+**Corollary 8.5 (ℍ excluded by commutativity).** Dropping
+commutativity from `𝒞` admits `ℍ` (quaternions), a finite-dim
+unital division `ℝ`-algebra. However, `Aut_ℝ(ℍ) ≅ SO(3)` is a
+connected Lie group of dimension `3`, and `|Aut(Raw)| = 2 ≠
+|SO(3)|`. No group isomorphism `Aut(Raw) ≅ Aut_ℝ(ℍ)` exists;
+hence `ℍ` admits no Aut-faithful Lens.
+
+*Remark.* The commutativity condition in `𝒞` is therefore the
+decisive constraint separating `ℂ` from `ℍ`. The other conditions
+in `𝒞` (finite-dim, unital, division) serve to isolate
+well-behaved target algebras; the `ℂ`-versus-`ℍ` choice, specifically,
+is made by requiring commutativity, which aligns `Aut_ℝ(K)` with
+the discrete `Aut(Raw) ≅ ℤ/2`.
+
+**Remark 8.6 (On the remaining conditions in `𝒞`).** Corollary 8.5
+has addressed the commutativity condition. The remaining three:
 - *Finite-dim*: excludes infinite-dimensional ℝ-algebras (e.g.,
   function algebras, formal power series). Needed to invoke the
-  classification step (i).
-- *Commutative*: excludes `ℍ` (quaternions), for which
-  `Aut_ℝ(ℍ) ≅ SO(3) ⊋ ℤ/2`, yielding a strict embedding not an
-  isomorphism.
+  classification step (i) in Theorem 8.4.
 - *Unital + division*: excludes split algebras like `ℝ ⊕ ℝ`
   (which has zero divisors) and para-algebras without unit.
 
-Each condition is necessary for the conclusion. A mathematician may
-view Theorem 8.4 as: within the classical category of ℝ-fields,
-`ℂ` is the unique object with automorphism group matching
-`Aut(Raw) ≅ ℤ/2`.
+Each condition is necessary for the conclusion. Theorem 8.4 may be
+read as: within the classical category of finite-dim commutative
+unital ℝ-division algebras, `ℂ` is the unique object with
+automorphism group matching `Aut(Raw) ≅ ℤ/2`.
 
-**Remark 8.6 (Relation to Hurwitz–Frobenius).** The theorems of
+**Remark 8.7 (Relation to Hurwitz–Frobenius).** The theorems of
 Frobenius (finite-dim associative ℝ-division algebras are `ℝ, ℂ, ℍ`)
 and Hurwitz (ℝ-composition algebras are `ℝ, ℂ, ℍ, 𝕆`) play no
 external role here. Step (i) of the proof uses only the commutative
