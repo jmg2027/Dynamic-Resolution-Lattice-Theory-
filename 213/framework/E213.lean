@@ -47,6 +47,7 @@ import E213.Meta.MetaTaxonomy
 import E213.Meta.ContinuumHypothesis
 import E213.Meta.ZFC_Compatibility
 import E213.Meta.ZFC_Proof
+import E213.Meta.SelfConsistency
 import E213.Applications.NumberTheory
 import E213.Applications.HomeoExamples
 import E213.Meta.ProblemFramework
