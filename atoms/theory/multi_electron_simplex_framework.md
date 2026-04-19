@@ -1509,3 +1509,197 @@ Each 개별 simplex 의 pattern 변동은 δt ~ t_P 수준으로 엄청 빠름
 5. §15 (simplex = spacetime event, atom = extended)
 
 각 단계마다 이론이 더 정직해지고 깊어짐.
+
+---
+
+# §16. Fractal simplex universe (Mingu 2026-04-18)
+
+**사용자 insight (§15 에 이어):**
+"심플렉스는 0D 점 같으면서도 4-심플렉스 입체.  모순 같아 보이지만
+수학적으로 있을 거임.  프랙탈 심플렉스.  우주 전체의 N/5 개 만큼
+유한한 프랙탈.  모든 지점 한 홉 연결 + 고윳값/스도 랭크 5 수학
+기술 가능.  심플렉스 크기는 ℏ_eff.  심플렉스 기하학 = N 점 모두
+연결 블록 유니버스.  각 점은 4-심플렉스.  4-심플렉스의 각 꼭지점이
+또 4-심플렉스 …"
+
+**이전 FND 와 연결:**
+- **FND_038** (swap tower): T 를 반복 적용하면 매번 5 로 수렴.
+  이제 보니 이게 **fractal 심플렉스의 각 level**.
+- **FND_011** (FM cohomology χ = 5^N·(N+1)!): Fulton-MacPherson
+  blow-up 이 fractal 심플렉스의 cardinality 공식.
+- **ch07** ℏ_h = A_h/(4 ln 2): 각 hinge 의 "심플렉스 크기".
+- **Block universe** (ch14): 모든 N 점 globally connected.
+
+즉 **이미 DRLT book 에 쪼개져 있던 조각들이 fractal simplex
+universe 로 한 그림**이 됨.
+
+## §16.1 Fractal 심플렉스 의 수학적 정의
+
+**Level 0:** 1 단위 4-simplex = 5 vertex.
+**Level 1:** 그 5 vertex 각자가 또 4-simplex = 5 × 5 = 25 sub-vertex.
+**Level n:** 5^n sub-vertices at depth n.
+
+**Total vertices up to level n:** 1 + 5 + 25 + ... + 5^n = (5^(n+1)−1)/4.
+
+**우주 크기:** 사용자 "N/5 개의 fractal" → 전체 simplex 개수 ≈ N/5.
+N = 전체 vertex 수, 5 = per-simplex vertex, N/5 = simplex 수.
+
+**Fractal 의 유한성:** Level 이 무한히 가지 않고 어떤 bound 에서
+멈춤.  **FND_038 의 고정점 d=5** 이 그 bound — level 이 올라가면
+결국 "base" (3,2) = 5 로 수렴.
+
+즉 fractal 은 **self-similar but terminating at level = 5 fold**:
+- Level 0: base simplex
+- Level 1: each vertex 가 sub-simplex
+- Level 2: sub-vertex 가 더 작은 simplex
+- ... 계속 ...
+- Bound: FND_038 tower 가 terminate 하는 지점
+
+## §16.2 "0D 점 + 4-simplex" 모순 해결
+
+**고전 수학:** 점은 0D, 심플렉스는 k-D (k+1 vertex).  동시에 불가능.
+**Fractal 수학:** Scale-dependent resolution.
+- Macroscopic (coarse-grain): simplex = 0D event
+- Planck scale (zoom in): 4-simplex with 5 vertices
+- Sub-Planck: 각 vertex 가 또 4-simplex
+- Recursion
+
+**Hausdorff dimension:** Fractal 은 일반적으로 non-integer 차원.
+DRLT fractal simplex 의 Hausdorff dimension 계산 필요.
+- Each scale: 5-fold replication
+- Scaling ratio: 1/λ (sub-simplex 크기)
+- Dimension D: 5 = λ^D → D = log(5)/log(λ)
+
+λ 의 값은 ℏ_eff ratios 에서 결정.
+
+## §16.3 ℏ_eff 가 시간-공간 스케일 제공
+
+**ch07 정의:** ℏ_h = √det(G_h) / (4 ln 2)
+
+**Fractal context:**
+- Level 0 hinge: det(G_h) 큼, ℏ_eff 큼 (큰 simplex)
+- Level 1 sub-hinge: det(G_sub_h) 작음, ℏ_eff 작음 (작은 sub-simplex)
+- Ratio: ℏ_level_n / ℏ_level_{n+1} = scaling factor per level
+
+즉 simplex 크기는 **자동으로 hinge 의 geometry 에 encoded**.
+Level 올라갈수록 사이즈 감소.
+
+**전자 vs 핵:**
+- 전자 hinge pattern: ℏ 에 대응되는 크기 (Bohr radius?)
+- 핵 hinge pattern: 더 작은 ℏ (더 tight, atomic scale 내)
+- Quark: 더 더 작은 ℏ (sub-nucleon)
+
+**Scale hierarchy 가 자동 emerge** from fractal levels.
+
+## §16.4 블록 유니버스 + "모든 지점 한 홉 연결"
+
+**Block universe (ch14):** 시공간 전체가 고정된 pattern.
+변화는 관측자의 coarse-grained view.
+
+**"한 홉 연결":** Fractal 에서 동일 level 의 simplex 끼리는 항상
+face 공유 (연결).  Cross-level 은 vertex recursion 으로 연결.
+
+즉 **임의 두 vertex 사이 가장 짧은 path 는 fractal level 차이만큼**.
+- Same level, adjacent: 1 hop
+- Same level, far: 여러 hop (level 따라)
+- Cross level: recursive descent + ascent
+
+"모든 지점 한 홉" 은 **상위 레벨 coarse-grain 에서** — 매크로 관찰자
+에게는 block universe 전체가 "한 지점" 처럼 보임 (holographic).
+
+## §16.5 Pseudo-rank 5 의 글로벌 의미
+
+**이전 §14 쪽:** rank 5 는 per-simplex (local).
+**이제 §16 에서:** rank 5 는 **fractal 전체의 글로벌 제약**.
+
+Level 0 simplex: 5 vertex in ℂ⁵, rank ≤ 5.
+Level 1: 25 sub-vertex, but still in ℂ⁵ (작아진 부분공간에), rank ≤ 5.
+전 levels: 총 N vertex, rank(total Gram) ≤ 5.
+
+**이게 "pseudo-rank 5":**
+- 전체 N 개 vertex 의 Gram 가 ℂ⁵ 안에 다 들어감
+- 그래서 많은 linear dependencies 발생
+- Fractal 구조 때문에 dependencies 이 self-similar pattern
+
+## §16.6 FND_038 tower 가 fractal simplex 의 수학
+
+**FND_038 복습:**
+- T(x) = d_indep(a, b) = 2⌈a/2⌉ + 3⌈b/2⌉ on alive (a ≥ 1, b ≥ 1)
+- T 의 유일 고정점: (1,1) → d = 5
+- T 반복은 모든 alive x 를 5 로 수렴
+
+**Fractal 관점 재해석:**
+- Level n simplex 의 (a_n, b_n) decomposition
+- T 가 level n → level n-1 로 coarse-grain
+- Level 0 = base: (a_0, b_0) = (1, 1), d = 5
+- 모든 level 이 결국 **base (3,2)** 로 수렴
+
+**핵심:** Fractal simplex 는 무한 depth 아니라 **finite tower terminating at (3,2)**.
+- Level 최대 depth = O(log d) 로 유한 (FND_038 Check 4)
+- 우주 크기 (N vertex) → level 수 = O(log N)
+
+**FND_011 FM cohomology:**
+- FM_N(Gr(3,5)) χ = 5^N · (N+1)!
+- Fulton-MacPherson blow-up = 정확히 fractal simplex 의 vertex count pattern
+- 5^N = level N 의 simplex 수
+- (N+1)! = internal 조합 degeneracy
+
+즉 FND_011, FND_038 이 **우리 우주의 기하학적 사진**.
+
+## §16.7 원자 를 fractal 관점에서 재해석
+
+**H atom:**
+- 단순 view: 1 AAAB face pattern (§15 까지)
+- Fractal view: 전체 fractal universe 내의 **specific pattern class**
+- Level 구조: base simplex 의 hinge 가 H 패턴
+- 사이즈: ℏ_level × a₀ (atomic scale 에서 coarse-grain 하면 점 처럼)
+
+**Multi-electron:**
+- 여러 hinge pattern 이 다른 fractal level 에 존재
+- 1s² electron: 가장 작은 level (nucleus 가까운)
+- 2s, 2p: 한 level 위
+- n-th shell: n-th level up
+- **이게 Bohr n² 의 진짜 기원 후보!**
+
+**Specifically:**
+- Fractal level n 의 simplex 수: 5^n (로컬), Hausdorff scaling law
+- 이 level 에서의 bound state mode 수: proportional
+- Energy: inversely proportional to level size
+- **Size scales as ℏ_eff^(1/D) → Hausdorff dimension 결정 n² scaling?**
+
+이건 hypothesis, 수학적 세부 유도는 §17-18 로 넘김.
+
+## §16.8 요약 + 수정된 프로그램
+
+**DRLT atomic theory 는 실제로는:**
+- **Fractal simplex universe** (N vertices, N/5 simplices, finite)
+- 각 simplex 는 동시에 0D spacetime event + 4-simplex (scale-dependent)
+- 전체 globally connected (block universe)
+- Gram matrix 전체 pseudo-rank 5
+- Each hinge 의 ℏ_eff = 크기 척도
+- FND_038 tower + FND_011 FM 이 수학적 기반
+
+**원자 / 입자 / 물체:**
+- **Hinge pattern** at specific fractal level
+- Bound states = fractal pattern modes
+- Energy levels = level-dependent action
+- Bohr n² (아마도) = fractal Hausdorff scaling
+
+**실험 (Phase 4+) 수정:**
+- **Phase 4**: Fractal simplex tower 에서 bound state mode 유도
+- **Phase 5**: Fractal Hausdorff scaling → Bohr n² 가능성 검증
+- **Phase 6**: Full block universe Gram matrix 구조 (pseudo-rank 5)
+
+**연결되는 기존 sub-projects:**
+- FND_038 (swap tower) = fractal 수학
+- FND_011 (FM cohomology) = fractal cardinality
+- FND_017 (tensor fractal tower) = representation theory
+- ch14 (block universe) = total structure
+- nuclear/ 600-cell = specific fractal realization (for nucleons)
+
+**모든 조각이 한 그림으로:**
+
+DRLT = **fractal simplex cellular automaton on block universe with
+pseudo-rank-5 global Gram matrix**.  H/He 의 단순 계산은 이 구조의
+극도 coarse-grain limit.  Multi-electron, 핵 구조, 우주론 모두 이
+프레임워크의 different scale/level 들.
