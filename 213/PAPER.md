@@ -310,10 +310,24 @@ Reachable arguments (Definition 1.2, Theorem 2.3). We take this
 as sufficient motivation within §1–5 for restricting atom sizes
 to `≥ 2`.
 
-(b) *Non-decomposability.* Treating atoms as minimal (irreducible)
-building blocks under additive composition is the standard
-meaning of "atom." Proposition 6.5 then fixes `A = {2, 3}` by
-pure arithmetic, independent of §1–5.
+(b) *Atom identification `{2, 3}` from the primitive.* The axiom
+directly names two structural sizes:
+
+- **Input pair.** Two objects, the axiom's "two objects." Size `2`.
+- **First closure.** The input pair together with the relation
+  object the axiom asserts to exist. Size `2 + 1 = 3`.
+
+These are the *only* sizes mentioned by the axiom itself: the
+primitive does not specify any structure of size `4, 5, …`
+directly — larger sizes arise only from iterated applications of
+the primitive. Hence the atom set is read off the axiom:
+`A = {2, 3}`.
+
+Proposition 6.5 confirms this identification from an independent
+direction: `{2, 3}` is exactly the set of non-decomposable integers
+`≥ 2` under additive composition with parts `≥ 2`. The
+primitive-structural and arithmetic characterizations coincide.
+(Lean: `E213.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
 
 (c) *The alive predicate is Raw-intrinsic.* The condition "both
 `a` and `b` odd" is *not* an external hypothesis: it is Raw's
@@ -343,13 +357,19 @@ not an axiom of `∧` but a formal expression of "two structurally
 identical inputs cancel." Raw's `x ≠ y` is the same principle in
 its primitive form, of which exterior algebra is a concrete model.
 
-**Scope claim (revised).** All three components — (a) lower bound,
-(b) non-decomposability, (c) alive predicate — are now grounded in
-the primitive: (a) by the axiom's "two objects" requirement,
-(b) by Proposition 6.5 (arithmetic), (c) by Raw's distinctness
-rule at the multiplicity level. Theorem 6.3 (Atomicity → `n = 5`)
-follows as a consequence of the axiom alone, modulo the (standard)
-identification of "atom" with "additively irreducible" in (b).
+**Scope claim (revised).** All three components are grounded in the
+primitive:
+
+- (a) *Lower bound `≥ 2`*: the axiom's "two objects" rules out
+  atoms of size `1`.
+- (b) *Atom set `{2, 3}`*: read off the axiom, which names exactly
+  the sizes `2` (input pair) and `3` (first closure); Proposition
+  6.5 confirms these arithmetically.
+- (c) *Alive predicate*: Raw's rule `x ≠ y` applied at the
+  multiplicity level, as above.
+
+Theorem 6.3 (Atomicity → `n = 5`) follows from the axiom alone.
+No external hypothesis is imported in §6.
 
 ---
 
@@ -537,16 +557,17 @@ dependency tracking between claims.
    vacuous (Theorem 5.3), and `k ∈ {0, 1}` yields structurally
    degenerate constants or unary chains (Corollary 5.4).
 
-**From the axiom together with §6–7 (alive predicate now Raw-
-intrinsic; see Remark 6.6(c)):**
+**From the axiom together with §6–7 (all three components of the
+atom hypothesis now Raw-intrinsic; see Remark 6.6):**
 
-5. The atom set `A = {2, 3}` is fixed by Proposition 6.5 (the
-   unique non-decomposable integers `≥ 2`). The alive predicate
-   is Raw's distinctness rule at the multiplicity level (pair
-   cancellation under structural equivalence). Together,
-   `n = 5` is the unique atomic vertex count (Theorem 6.3),
-   giving the canonical partition `V = V_A ⊔ V_B` with
-   `|V_A| = 3, |V_B| = 2`.
+5. The atom set `A = {2, 3}` is read off the primitive (the axiom
+   names sizes `2` (input pair) and `3` (first closure);
+   Proposition 6.5 confirms these are the only non-decomposable
+   integers `≥ 2`). The alive predicate is Raw's distinctness rule
+   at the multiplicity level (pair cancellation under structural
+   equivalence). Together, `n = 5` is the unique atomic vertex
+   count (Theorem 6.3), giving the canonical partition
+   `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
 
 6. The `S_3 × S_2` action yields exactly six orbits on `V × V`,
    with `3 + 6 + 6 + 6 + 2 + 2 = 25 = |V|²`, and invariance under

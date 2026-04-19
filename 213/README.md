@@ -27,7 +27,8 @@ framework/
 │   ├── Pigeonhole.lean             -- Fin k → Fin N injection bound
 │   ├── ArityForcingGeneral.lean    -- (N < k) vacuous, arbitrary N, k
 │   ├── Atomicity.lean              -- n = 5 uniquely atomic
-│   ├── NonDecomposable.lean        -- atom set {2, 3} characterization
+│   ├── NonDecomposable.lean        -- {2, 3} as non-decomposable ≥ 2
+│   ├── PrimitiveSizes.lean         -- {2, 3} read off the axiom
 │   ├── AliveFromDistinctness.lean  -- alive predicate from Raw's x ≠ y
 │   └── Simplex.lean                -- (3,2) partition, block invariance
 ├── lakefile.toml
