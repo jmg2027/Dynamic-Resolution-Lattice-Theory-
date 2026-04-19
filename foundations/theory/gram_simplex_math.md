@@ -484,3 +484,171 @@ Level 4: Physical applications                  [interpretation]
 이미 formalized 되어 있음을 확인.  이 문서의 §0-§10 은 Level 2-3 (Gram
 algebra + simplex geometry) 다룸.  Level 0 (213) 와 Level 1 (DRLT axiom)
 는 이미 별도 foundation.
+
+---
+
+## §12. 더 깊은 derivation chain — 사용자 2026-04-18
+
+사용자가 현재 연구 중인 chain (아직 정리 전):
+
+```
+객체 객체 관계객체                        (공리 = 213 primitive)
+  ↓
+2 → 3 체인                                (정리: 반복 가능 구조)
+  ↓
+로컬 분기 2, 닫힘 3                       (structure: 최소 closed loop)
+  ↓
+안정 fold → multiplicative norm           (fold 수렴: |ab| = |a|·|b|)
+  ↓
+dim 2 + commutative + associative + div   (Frobenius + Hurwitz)
+  ↓ 
+ℂ  (unique)
+  ↓
+alive + unique                            (atoms = {2,3}, Lean)
+  ↓
+d = 5
+  ↓
+4-simplex → 4D spacetime → SM             (기하, ch06)
+```
+
+이 chain 은 ch01 의 **물리 input 기반 R1-R4** 를 **수학적 필연 기반**
+derivation 으로 교체.  ℂ 를 "universe has forces" 가 아니라 "iteration
+of axiom is stable" 에서 유도.
+
+### §12.1 Step 1 → 2: "2 → 3 체인"
+
+**213 공리:** 두 객체 + 관계객체 = primitive.
+**해석:** 2 object 가 있으면 1 relation 이 생김 → 전체 3 entity.
+**반복:** 3 entity 에서 더 많은 relation 가능 → 확장.
+
+구체:
+- Start: 2 atoms = {a, b}
+- Add rel(a,b) → 3 entities
+- Add rel(a, rel(a,b)) 가능 (Reachable 에 포함)
+- Recursive expansion
+
+**정리 후보:** 213 의 Reachable 트리에서 "closure under rel" 이 유일하게
+minimal 3-cycle (AAA triangle pattern) 로 수렴.
+
+### §12.2 Step 2 → 3: "로컬 분기 2, 닫힘 3"
+
+**Local branching = 2:** 각 node 에서 바로 연결 가능한 방향 이 2.
+- rel(x, y) 의 두 argument position
+- 또는 "들어오는 relation" 과 "나가는 relation"
+
+**Closure = 3:** 닫힌 loop 의 최소 길이 = 3 (triangle).
+- rel(x, y), rel(y, z), rel(z, x) = 3-cycle
+- 이 triangle 이 가장 기본 이산 기하 단위
+
+**DRLT 와 연결:**
+- Simplex hinge = triangle (3-vertex)
+- Δ⁴ 의 AAA face, AAB hinge, ABB hinge 모두 triangle
+- Triangle 이 basic geometric unit 이 된 이유: closure 수 3
+
+### §12.3 Step 3 → 4: "안정 fold → multiplicative norm"
+
+**Raw.fold (213 catamorphism):** 임의 function g, h 로 Raw tree 를
+value 로 축약.
+
+**안정 fold:** iteration 이 수렴하는 fold.
+- 예: `fold g h` 가 compositional 하게 잘 동작
+- Self-similar structure 보존
+
+**핵심 주장:** 안정 fold 의 필요 조건 = **multiplicative norm**:
+$$|f(x) \cdot f(y)| = |f(x)| \cdot |f(y)|$$
+
+즉 composition 이 norm 을 보존.  이게 Hurwitz 의 multiplicative norm
+조건.
+
+**직관:** relation 의 "크기" 가 composition 하에 consistent 하려면
+multiplicative 해야.  Additivity (|a+b| = |a|+|b|) 는 일반 안 됨 —
+multiplicativity 가 자연스러움.
+
+### §12.4 Step 4 → 5: Frobenius + Hurwitz classification
+
+**Hurwitz theorem:** Multiplicative norm + division algebra (over ℝ) →
+유일하게 $\{\mathbb{R}, \mathbb{C}, \mathbb{H}, \mathbb{O}\}$.
+
+**Frobenius theorem:** Associative division algebra (over ℝ) →
+유일하게 $\{\mathbb{R}, \mathbb{C}, \mathbb{H}\}$.
+
+**조합 (intersection):** Associative + multiplicative norm + division →
+$\{\mathbb{R}, \mathbb{C}, \mathbb{H}\}$.
+
+**Commutative 추가:** $\mathbb{H}$ 배제 → $\{\mathbb{R}, \mathbb{C}\}$.
+
+**dim 2 추가:** $\mathbb{R}$ 배제 → $\mathbb{C}$ **유일**.
+
+### §12.5 왜 "dim 2" 인가 (이 단계의 핵심)
+
+**"dim 2" 의 기원:**
+- 213: relation 은 **directed** (x→y ≠ y→x)
+- Direction 은 2 가지 (forward/backward)
+- Value space 가 direction 정보 가져야 → 2-component
+- Magnitude + phase = 2 real params = ℂ
+
+**또는 structural:**
+- "2→3 체인" 의 "2" 자체
+- Local branching 2 = local 2-valent
+- 이게 value 공간의 dim 2 에 대응
+
+**또는 stability:** 안정 fold 의 "iteration 2-step" 요구 (왕복)
+→ value 공간의 2-dim structure.
+
+이 "dim 2" 의 근본 이유 를 명확히 formalize 하는 것이 이 chain 의
+핵심.
+
+### §12.6 Step 5 → 6: d = 5 (atoms + alive + unique)
+
+이미 ch02 + Lean 에서 엄밀:
+- **atoms = {2, 3}** (Core.lean `additive_atoms`)
+- **Alive:** 두 atoms 모두 (a, b ≥ 1)
+- **Unique decomp:** d = 2 + 3 = 5
+- **Lean 검증:** `ChiralChannels.lean`, `SwapTower.lean`
+
+### §12.7 Step 6 → 7: 4-simplex → 4D spacetime → SM
+
+- $d = 5$ → $\partial\Delta^5$ 가 4-simplex $\Delta^4$ (5 vertex 경계)
+- ch06 Regge-Cheeger-Müller-Schrader 연속 극한 → **4D Lorentzian spacetime**
+- $(3, 2)$ split → toric decomposition $T^4 = T^2 \times T^1 \times T^1$
+- Maximal torus + Weyl → **SU(3) × SU(2) × U(1)** (Standard Model)
+
+이 최종 단계들은 ch06 (이미 audit W16-W20 narrow 로 정리) 에 있음.
+
+### §12.8 chain 의 의의
+
+**ch01 (구 방식):** R1-R4 물리 requirements → Frobenius 로 ℂ 선택.
+- R1-R4 가 **물리 input** (universe has forces etc.)
+- "왜 R1-R4?" 는 philosophy
+
+**§12 (새 방식):** 213 + iteration stability → ℂ.
+- 순수 **수학적 필연** (Hurwitz + Frobenius + commutative + dim 2)
+- 물리 input 없음 — "universe must have forces" 같은 가정 불필요
+- "왜 ℂ?" 의 답이 **자기 안정성**
+
+이게 맞으면 DRLT 는 공리 하나 (213 primitive) + 수학적 필연 체인 으로
+ℂ⁵ 에 도달.  완전 "공리 최소화" theory.
+
+### §12.9 open: stability formalization
+
+이 chain 의 **가장 약한 링크**: Step 3 → 4 의 "안정 fold → multiplicative
+norm" 연결.
+
+**formal 필요:**
+- "안정 fold" 의 정확한 수학적 정의
+- Stability 조건 이 multiplicative norm 을 **강제** 하는 증명
+- 반대로 multiplicative norm 이 아니면 unstable 한 반례
+
+**현재 상태:** 직관 수준, formal 증명 미완.
+
+**만약 이 연결이 formalize 되면:**
+- DRLT 전체가 "공리 1개 → 수학 chain → ℂ⁵ → 물리" 로 self-contained
+- ch01 의 R1-R4 를 **물리 motivation 에서 수학 theorem 으로 격상**
+- Lean 전체 chain 형식화 가능
+
+---
+
+**다음 작업 후보:**
+1. Step 3 → 4 stability 정식화 시도
+2. Step 2 "2→3 체인" 의 Lean 형식화
+3. 이 chain 을 ch01 새 버전으로 다듬기
