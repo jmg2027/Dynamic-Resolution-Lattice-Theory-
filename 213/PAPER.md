@@ -280,24 +280,32 @@ nonnegative, this forces `a = b = 1`, giving `n = 2·1 + 3·1 = 5`. ∎
 decomposition `(1, 1)`: one 2-block and one 3-block, total `5`
 vertices in `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
 
-**Remark 6.5 (Connection to §1–5, motivational).** The atom set
-`{2, 3}` arises naturally from the primitive data of §1–5:
+**Remark 6.5 (Status of the atom hypothesis).** The atom set
+`A = {2, 3}` and the "alive" predicate (both `a, b` odd) are
+*premises* of this section, not consequences of §1–5. We are
+explicit about this:
 
-- `2`: the cardinality of the base set `Fin 2`.
-- `3`: the cardinality of the *first closure* under a single
-  relation application,
-  `|{object 0, object 1, relation (object 0) (object 1)}| = 3`.
+(a) *Suggestive appearances of 2 and 3 in the primitive.* The
+numerals appear as cardinalities: `|Fin 2| = 2` is the base; and
+`|{object 0, object 1, relation (object 0) (object 1)}| = 3` is
+the size of the smallest Reachable-closed set. These are
+observations, not derivations. They do not show that `{2, 3}` is
+the *unique* atom set compatible with §1–5, nor do they justify
+excluding other candidates (e.g. `{2}`, `{3}`, `{2, 3, 5}`).
 
-These are the two minimal counts structurally present in the
-primitive. The "alive" condition (both `a, b` odd) captures
-non-cancellation under a swap action on repeated atoms: even
-multiplicities annihilate in antisymmetric tensor constructions,
-odd ones survive. The arithmetic theorem above is therefore
-suggestive — not a theorem of §1–5 — and we flag it as such.
+(b) *The alive predicate.* The condition "both `a` and `b` odd"
+models antisymmetric cancellation of repeated atoms under a swap
+action. No such swap action is constructed on vertex multiplicities
+within §1–5; the condition is imported.
 
-This paper does *not* claim that the 5-vertex structure is forced by
-§1–5 alone; §6 is an independent arithmetic fact whose hypotheses
-are motivated but not derived.
+(c) *Scope claim.* Theorem 6.3 is therefore a *conditional* result:
+*given* the atom set `{2, 3}` and the alive predicate, the unique
+atomic `n` is `5`. Whether the atom hypothesis itself is forced by
+some refinement of §1–5 is an open question.
+
+We flag §6 (and, by inheritance, §7) as *not* derived from the
+axiom alone. A derivation of the atom hypothesis is left to
+subsequent work.
 
 ---
 
@@ -485,8 +493,9 @@ dependency tracking between claims.
    vacuous (Theorem 5.3), and `k ∈ {0, 1}` yields structurally
    degenerate constants or unary chains (Corollary 5.4).
 
-**From the arithmetic setup with atoms `{2, 3}` (§6–7), motivated
-but not forced by §1–5:**
+**Conditional on the atom hypothesis `A = {2, 3}` with alive
+predicate (§6–7 — a premise of these sections, not a consequence
+of §1–5; see Remark 6.5):**
 
 5. `n = 5` is the unique atomic vertex count (Theorem 6.3), giving
    the canonical partition `V = V_A ⊔ V_B` with
