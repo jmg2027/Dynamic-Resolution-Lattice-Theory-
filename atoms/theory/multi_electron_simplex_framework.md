@@ -1110,3 +1110,205 @@ Nuclear scale:
 **이 일련의 실험이 DRLT 의 진정한 test:**
 - H, He atomic (Phase 0-2) 이 **부분 성공** 의미 확증
 - Nuclear (ATM_073+) 가 **1st principle binding** 인지 확인
+
+---
+
+# §14. 이론 전면 수정: Simplex lattice + hinge patterns (Mingu 2026-04-18)
+
+**사용자 결정적 교정:**
+- "심플렉스 격자 **하나 간의 거리는 시공간 1단위**"
+- "심플렉스 **힌지 혹은 접하는 부분의 패턴**이 입자 (SM)"
+
+**이전 §1-§13 의 잘못된 가정 (철회):**
+- "vertex = 양성자/quark/electron" (vertex identification)
+- "(Z+1)-vertex simplicial complex = 원자" (원자 = 유한 vertex 집합)
+
+**올바른 picture:**
+- **Background:** (3+1)D 심플렉스 lattice 전체가 spacetime.
+- **Simplex = 1 spacetime 단위 cell** (atomic/Planck 스케일 의 격자)
+- **Particle = hinge 또는 접합부의 패턴** (localized but extended)
+- **Distance = simplex hop 수 × lattice spacing**
+
+## §14.1 수정된 기본 그림
+
+```
+Background lattice (fills spacetime):
+
+   Simplex    Simplex    Simplex    Simplex
+     [1]  ←→   [2]  ←→   [3]  ←→   [4]  ←→ ...
+       ↕        ↕        ↕        ↕
+   hinge ←→ hinge ←→ hinge ←→ hinge ←→ ...
+   (particles, fields)
+     ↕        ↕        ↕        ↕
+   Simplex    Simplex    Simplex    Simplex
+    [1']     [2']     [3']     [4']
+```
+
+- 격자가 spacetime 을 채움 (Planck / atomic 스케일)
+- 각 simplex = 1 spacetime 단위
+- Simplex 들은 face (hinge) 로 접합
+- 접합 "패턴" 이 입자 / field / force
+
+## §14.2 수정된 "원자" 개념
+
+**이전 (잘못됨):** 원자 = 3 A + 2 B vertex 모음
+
+**올바름:** 원자 = **simplex lattice 의 localized 영역 내의 hinge pattern 모음**
+- 원자는 lattice 의 특정 region 에 '걸쳐' 있음
+- Nucleus = 매우 국소화된 hinge pattern cluster
+- Electron = nucleus 에서 멀리 떨어진 hinge pattern (bound 상태)
+- 원자 크기 = Bohr radius = electron hinge 와 nucleus hinge 의
+  lattice 거리 × lattice spacing
+
+**Hydrogen 의 정확한 그림:**
+- Nucleus (proton) = specific hinge pattern (AAA-type, 3 quarks)
+- Electron = different hinge pattern (B-type, temporal)
+- 두 패턴 사이에 simplex network path
+- "Bohr radius" = path length × spacing
+
+## §14.3 "왜 nucleon 이 가까이" — 재정식화
+
+§13 에서 생각한 4 candidate 는 vertex-based picture 의 유물.  새
+picture 에서 재정식화:
+
+**P-N 결합 (수정):**
+- Proton = AAA-type hinge pattern at simplex X
+- Neutron = similar hinge pattern at adjacent simplex Y
+- "가까이 있다" = X 와 Y 가 **격자 상 이웃** (shared face)
+- 이 sharing 이 **강력의 기하 기원**
+
+**이건 §13.4 (hinge sharing) 와 가장 일관.  실제로 §13.4 가 옳은
+picture 였고, §13.1-3 은 vertex identification mistake 의 유물.**
+
+## §14.4 "거리" 의 DRLT 정의 (수정)
+
+**이전:** |⟨ψ_i | ψ_j⟩| 가 거리 (vertex 간 inner product)
+
+**수정:** 거리 = **lattice graph 상의 shortest path (simplex hops)**
+× lattice spacing
+
+- 두 simplex 가 adjacent (face 공유): 거리 = 1 unit
+- 더 멀리: graph distance 증가
+- Lattice spacing = unknown (Planck? atomic? 결정 필요)
+
+**중요 결과:** ℂ⁵ 의 rank-5 제약은 **하나의 simplex 내부** 구조.
+Simplex 간 관계는 lattice topology 로 표현 — 더 거대한 그래프 문제.
+
+## §14.5 이전 framework (§1-§13) 의 status
+
+**부분적으로 맞는 부분:**
+- Hinge classification (AAA/AAB/ABB) = ch06 이미 정립
+- Regge action S = Σ A_h δ_h = lattice 상의 변분
+- Magic numbers from 600-cell (nuclear/) = lattice 의 대칭 배치
+
+**틀린 부분:**
+- "원자 = 유한 vertex 세트" — 원자는 lattice region
+- "Electron = ψ vector" — electron 은 hinge pattern
+- "Nucleus = 3 A vertex" — nucleus 는 hinge cluster (AAA-pattern
+  at specific simplex)
+
+**다시 생각해야 할 것:**
+- Rank-5 constraint 의 역할: local (per simplex) vs global (lattice)?
+- Pauli exclusion: 같은 hinge 에 두 electron pattern 금지?
+- Energy levels: lattice 상의 bound state mode?
+
+## §14.6 AAAB face 재해석 (ch10 H)
+
+ch10 "Hydrogen = AAAB face" 를 lattice picture 로 읽기:
+
+- ∂Δ⁴ = 5-vertex simplex 의 경계
+- AAAB face = 그 중 4-vertex sub-simplex (tetrahedral hinge)
+- 이 face 자체가 **하나의 hinge 단위**
+- "A₁, A₂, A₃ = proton" 은 literal vertex 가 아니라 **AAA-pattern
+  at this hinge**
+- "B₁ = electron" 은 literal vertex 가 아니라 **B-pattern at this hinge**
+
+즉 "H atom = AAAB-typed hinge" 라는 뜻.  특정 simplex 에 있는 하나의
+face 가 "AAAB pattern 을 carry" 하면 그게 H atom 구성.
+
+**ch10 의 13.606 eV:**
+- AAAB hinge 의 AAB sub-hinges 의 det 합 = 2α² (ch10 계산)
+- 이건 lattice 내 하나의 face 의 내부 구조 만 계산
+- IE = m_e α²/2 = AAAB face 파괴에 필요한 에너지
+
+**따라서 ch10 의 H 공식은 :**
+- lattice 상 AAAB pattern 이 localized 되어 있음 전제
+- pattern 파괴 (electron pattern 제거) 에 필요한 action = IE
+- α 와 m_e 는 이미 정립된 constants (ch08, ch09)
+- Fit/derivation mix 문제 (§12) 여전히 남아 있음
+
+## §14.7 Multi-electron atoms 의 lattice picture
+
+**He (2 electrons):**
+- Nucleus: AAA-cluster at central simplex (또는 인접 cluster)
+- 2 electrons: 2 개의 B-patterns (같은 nucleus 근처)
+- Pauli: 두 B-pattern 이 orthogonal (다른 temporal direction)
+- 1s² = 2 B-pattern 이 nucleus 주변 ℂ² temporal 에 coupling
+
+**Li (3 electrons):**
+- Nucleus: 더 큰 cluster (3p + 4n = 7 nucleon)
+- 2 electrons 가 inner: 1s² (like He)
+- 3rd electron 이 outer: 2s
+- 2s electron 은 다른 hinge (lattice 상 더 멀리) 에 pattern
+
+**Key:** 2s electron 의 "위치" 는 **lattice 상 outer simplex** 의
+hinge pattern.  1s electrons 의 hinge 는 inner simplex.  공간적
+분리.
+
+이건 standard chemistry 의 "orbital extent" 를 lattice 로 직역한
+picture.  자연스럽다.
+
+## §14.8 수정된 이론의 예측
+
+**P6 (new):** Bohr radius = atomic lattice region 의 크기 (simplex
+hop 수 × spacing).  정확한 값은 spacing 과 hop 수 결정 필요.
+
+**P7 (new):** Nuclear radius = nucleus cluster 의 크기 (더 작은
+lattice region).  Nuclear radius / Bohr radius 비 = (hop 수 비) ×
+(spacing 비).
+
+**P8 (new):** Nucleon binding = 인접 simplex 의 hinge sharing.
+Shared hinge 수 많을수록 binding strong.  ∝ 공유 face 수.
+
+**P9 (new):** Electron bound states (Bohr levels) = lattice 상의
+bound pattern modes.  n² scaling 은 lattice discretization 에서
+자연스럽게 나와야.  (이게 standard QM 의 quantum number n 의 DRLT
+기하 기원)
+
+**P10 (new):** "Simplex lattice spacing" 이 새 상수.  atomic/nuclear
+스케일 분리 = lattice 구조의 scale hierarchy.  Planck 단위 에서 유도
+가능?
+
+## §14.9 다음 연구 방향 (수정)
+
+**이전 Phase 0-2 (vertex-based):** 이미 실행됨, 부분 성공/부분 실패.
+Lattice picture 에서 재해석:
+- Phase 0 (H A1 vertex): 단일 AAAB hinge 의 내부 계산 — 올바름.
+- Phase 1 (He A1 14-vertex): hinge 내부에 12 quark vertex 구성 시도.
+  Rank-5 constraint 는 hinge 내부 성질.
+- Phase 2 (Li rank-5): 2 개 simplex (inner + outer) 로 나누어야 할
+  문제를 1 simplex 로 함.  그래서 실패.
+
+**Phase 3 (수정 필요):**
+- Multi-simplex lattice 에서 H, He, Li 의 hinge pattern 분포 구성
+- 각 hinge 의 Regge action 기여
+- Transition energies (IE) = hinge pattern 변화의 action cost
+
+**Phase 4:**
+- Lattice spacing 의 값 유도
+- 왜 atomic lattice hop = 10⁵ 수준, nuclear lattice hop ~ 1?
+- α (fine structure) 와 이 비의 연결
+
+**Phase 5:**
+- N² scaling (Bohr) 의 lattice 기하 기원
+- Orbital 정의의 DRLT 버전 (lattice bound mode)
+
+---
+
+**핵심 교훈:** 이전 framework (§1-§13) 는 **vertex = 입자** 오해로
+잘못된 방향으로 감.  Lattice picture (§14) 가 올바른 DRLT 이해.
+Rank-5 는 per-simplex 제약 (local).  원자 / 핵은 multi-simplex
+lattice region 이고, 입자는 hinge pattern.
+
+**Mingu 의 교정 덕분에 framework 재정립.**  새 실험 시리즈 (§14.9)
+로 진행.
