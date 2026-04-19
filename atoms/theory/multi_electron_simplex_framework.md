@@ -922,3 +922,191 @@ DRLT 에 그대로 적용함.  DRLT 는 이산 → 연속 approximation 이
 
 이론 은 이제 **정직**.  Mingu 의 두 번째 재지적 덕분에 §11 의
 과대 낙관 교정.
+
+---
+
+# §13. 왜 nucleon들이 서로 가까이 있을 수 있는가? (Mingu 질문 2026-04-18)
+
+**Standard physics 답:** Residual strong force (quark-level 강한
+상호작용의 파생), meson exchange (특히 π-meson), range ~ 1 fm.
+
+**DRLT 에서는 무엇인가?**  이 질문의 답은 공리 (ψ ∈ ℂ⁵, G = ⟨ψ|ψ⟩)
+에서 자연스럽게 나와야 함.  세 가지 후보 메커니즘:
+
+## §13.1 Candidate (1): Rank-5 forced overlap
+
+**핵심:** ℂ⁵ 은 5 차원.  2 nucleon = 6 quark vector.  6 vector 가
+5 차원에 들어가려면 **반드시 linear dependent**.
+
+**정리 (이미 ATM_071 에서 확인):**
+N_nucleons × 3 quarks > 5 이면 (즉 N ≥ 2), 모든 quark 를 독립으로
+배치 불가.  적어도 **일부 nucleon 의 quark 가 다른 nucleon 의 quark
+와 non-trivial overlap 을 가져야 함**.
+
+**"가까이 있다" 의 DRLT 해석:**
+- 표준 물리 "거리 작음" ↔ DRLT "Gram overlap |⟨q_i|q_j⟩| 큼"
+- Nucleons at same position in ℝ³ ↔ quark vectors 가 동일 방향
+- Nucleons at 1 fm ↔ 특정 overlap 값
+
+**정량적 추정:**
+Nuclear binding range ~ 1 fm.  Atomic scale = Bohr radius a₀ ~ 10⁵ fm.
+"Far" (atomic): overlap 거의 0.  "Close" (nuclear): overlap 유의.
+
+Rank-5 constraint 만으로는 **overlap 얼마여야 하는지** 결정 못 함.
+이건 dynamics (§13.2) 가 결정.
+
+## §13.2 Candidate (2): Regge action equilibrium
+
+**Mechanism:**
+- Overlap 너무 작음 → rank violated (불가능)
+- Overlap 너무 큼 → quark 가 겹쳐 구별 불가 (Pauli 위반)
+- 중간 equilibrium → Regge action extremum
+
+**구체 시나리오 (2 nucleons):**
+- 2 nucleon 의 6 quark vectors 가 rank-5 제약 아래 배치
+- Regge action S(overlap) = Σ A_h δ_h 를 nucleon-nucleon overlap α 로 미분
+- δS/δα = 0 의 α* 가 equilibrium overlap = nuclear binding distance
+
+**이 메커니즘의 예측:**
+- Nuclear binding energy ~ 일반 Regge scale
+- 특정 geometry 에서 saturation (binding per nucleon ≈ constant 8 MeV)
+- Overlap 과 binding 의 관계가 nuclear 공식을 줘야
+
+**열린 문제:** 이 mechanism 을 **구체 수치 계산** 으로 검증.
+Nuclear/ sub-project 가 magic numbers 를 주나 binding energy 의
+DRLT 1st-principle 은 아직 (partial, NUC_010 RMS B/A > 30% 미완).
+
+## §13.3 Candidate (3): 600-cell geometry
+
+**nuclear/ sub-project 의 approach:**
+- 600-cell (regular 4-polytope with 120 vertices in ℝ⁴)
+- 각 nucleon = 특정 vertex or cell
+- Magic numbers (2, 8, 20, 28, 50, 82, 126) 은 600-cell 의 shell
+  구조 (Sym²(Vₙ) 분해) 에서 자동 유도 — NUC_003 7/7 exact ✓
+
+**역할:**
+- Rank-5 (candidate 1) + Regge (candidate 2) 가 ABSTRACT constraint
+- 600-cell 은 CONCRETE 실현 — 어떤 배치가 실제로 realize 되는가
+- 즉 "overlap 있어야 한다" + "action 최소화" → "600-cell topology"
+
+**의문:** 600-cell 은 4D 이지 ℂ⁵ 아님.  어떻게 연결?
+- 가능 해석: ℂ⁵ ⊃ ℝ⁴ (600-cell 의 ambient space) 에 nucleon vertex 배치
+- 또는: 600-cell 의 120 vertices 가 ℂ⁵ 의 rank-5 구조 아래 허용된
+  symmetric 배치의 maximum
+
+## §13.4 Candidate (4): Hinge sharing (topological binding)
+
+**새 관점:** 두 nucleon 이 서로 다른 3 vertex 세트이면서, **같은
+triangle (hinge) 를 공유** 하면?
+
+Concretely:
+- Nucleon 1: {q₁, q₂, q₃} (3 quarks)
+- Nucleon 2: {q₄, q₅, q₆} (3 quarks)
+- 별도 6 vertex: 5 차원 에 안 들어감 (rank 위반)
+
+만약 q₃ ≡ q₄ (identification):
+- 공유 vertex 하나
+- 전체 vertex = 5 (= q₁, q₂, q₃=q₄, q₅, q₆)
+- **rank 5 에 정확히 들어감** ✓
+- Shared vertex = **bond**
+
+또는 q₂ ≡ q₄, q₃ ≡ q₅:
+- 공유 edge (2 vertex 동일)
+- 전체 vertex = 4
+- Rank 4 만 필요
+
+또는 q₁ ≡ q₄, q₂ ≡ q₅, q₃ ≡ q₆:
+- 두 nucleon 이 identical
+- 3 vertex 만 있음
+- **완전 merger** = nucleon 구별 불가
+
+**흥미로운 해석:**
+- Deuteron (pn): 1 공유 vertex ↔ loose binding (2.22 MeV)
+- Alpha (2p+2n=He): 4 nucleon 공유 많음 ↔ tight binding (~28 MeV)
+- 더 많은 공유 ↔ 더 강한 bond
+
+**이 picture 는 standard physics 와 다른 예측:**
+- Standard: meson exchange, π-π 교환
+- DRLT hinge sharing: topological identification
+- 두 picture 가 같은 empirical 결과 주면 DRLT 옳음 가능
+
+## §13.5 네 가지 후보의 결합 (proposal)
+
+**제안:** 4 가지가 서로 다른 레벨에서 작동:
+- (1) **Rank-5 constraint** = existence of binding (불가피성)
+- (2) **Regge action** = equilibrium overlap (dynamics)
+- (3) **600-cell** = symmetric realization (statics, magic numbers)
+- (4) **Hinge sharing** = topological bond (connectivity)
+
+(1)+(2) = **이론적 기반**: nucleon 이 반드시 겹치고, 겹침 양은
+        variational.
+(3) = **symmetric solution**: 특정 배치가 variational 으로 선택됨.
+(4) = **topological reading**: 배치를 graph/simplicial complex 관점
+      으로 해석.
+
+**핵심 가설:** Nucleon binding 은 이 4 요소의 emergent 결과.
+Standard meson-exchange picture 와 다름.
+
+## §13.6 예측 및 검증 가능성
+
+**DRLT 가 옳다면:**
+
+**P1.** Nuclear binding 은 rank-5 의 기하학적 귀결.  범위는 ℂ⁵ 의
+geometry (Bohr radius, atomic scale) 와 다른 scale (nuclear scale).
+두 scale 의 비는 **α 로 유도 가능** (Bohr a₀ = ℏ/(m_e α c), nuclear
+radius ~ ℏ/(m_p c)).
+
+**P2.** Nucleon-nucleon potential 의 short-range 성격 (meson exchange
+range ~ 1 fm) 은 DRLT 에서 **rank-5 saturation** 으로 해석.
+Beyond rank-5: no more nucleons fit → "repulsive core" at very short
+distance (standard's ~ 0.5 fm core).
+
+**P3.** Magic numbers 는 600-cell shell closure.  이미 NUC_003 에서
+7/7 exact 로 확증.
+
+**P4.** Saturation density (ρ ≈ 0.17 nucleons/fm³) 는 ℂ⁵ 의 "최대
+허용 nucleon 밀도" = 600-cell 기하에서 도출 가능?
+
+**P5.** 전자가 nucleus 를 "하나의 점" 으로 보는 이유는 long-wavelength
+(standard)  **아니라** rank-5 bound state 의 내부 구조가 전자
+ℂ² temporal 에 영향 안 미치기 때문.
+
+## §13.7 Atomic scale 과의 연결
+
+**중요:** 이 메커니즘이 맞으면, "rank-5 forced overlap" 이 nuclear
+에서도, atomic 에서도 같이 작동.
+
+Atomic scale:
+- Electron + nucleus (3 A effective) = 4 vertices + more
+- Electron 이 nucleus 근처 (bound) ↔ electron 의 ψ 가 A 방향과 overlap
+- "가깝다" 의 DRLT 정의 = overlap 양
+
+Nuclear scale:
+- Nucleons 끼리 overlap (rank-5 forced)
+- Quark-quark overlap 이 nuclear binding
+
+즉 DRLT 에서 **"거리" 는 ℂ⁵ overlap 의 geometric 반영**.  3D 공간의
+거리는 이 overlap 의 coarse-graining.
+
+이게 "emergent spacetime" (ch06 coarse-graining) 의 또 다른 증거.
+
+## §13.8 구체적 test 제안
+
+**ATM_073 (Deuteron):** 2 nucleon 에서 시작.
+- 6 quark vertex in ℂ⁵, rank ≤ 5
+- 최소 1 dependency — 이 dependency 가 binding
+- Regge action 변분으로 equilibrium overlap 결정
+- Binding energy 2.22 MeV 와 비교 (NUC_008 이 부분적 확인)
+
+**ATM_074 (He nucleus):** 4 nucleon
+- 12 quark vertex in ℂ⁵, rank 5 → 7 dependencies
+- 600-cell 4-cell 배치 (symmetric)
+- Binding energy ≈ 28 MeV 와 비교
+
+**ATM_075 (Atomic vs nuclear scale separation):**
+- Rank-5 overlap "1 fm ↔ atomic ↔ nuclear" 의 경계 유도
+- α 가 두 scale 분리의 이론적 이유인지 확인
+
+**이 일련의 실험이 DRLT 의 진정한 test:**
+- H, He atomic (Phase 0-2) 이 **부분 성공** 의미 확증
+- Nuclear (ATM_073+) 가 **1st principle binding** 인지 확인
