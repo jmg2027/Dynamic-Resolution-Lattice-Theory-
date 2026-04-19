@@ -101,22 +101,45 @@ Lean 검증 또는 고전 정리:
   (M_i 기하 유도) 모두 특정 naive 가설 refuted.  Regge + cosmology
   프로그램 자체는 작동.  이건 세부 튜닝 missing, 프로그램 결함 아님.
 
-### 3f. Multi-electron atoms (G-ATM, critical gap — Mingu 지적 2026-04-18)
-- **이전 overclaim:** atoms/ sub-project 가 118 elements IE median
-  2.9% 로 "massive success" 평가.
-- **재평가 결과:** H, He 만 pure DRLT derivation (ch10 정리, ATM_056
-  σ-free Regge variational = 13.606 eV exact).  Li 이상은 σ_recipe
-  (`σ_1s=7/8`, `σ_same_s=0.597` 등) 로 Z_eff framework 를 DRLT
-  언어로 재포장한 **pattern fit**.
-- **증거:** ATM_058 (σ-free multi-electron variational 시도) 이
-  Li 에서 **+209,602% 실패** (예측 11307 vs 관측 5.392 eV).
-  자기 고백: "single simplex insufficient, multi-simplex solver needed
-  (future work)".
-- **CLAUDE.md 원칙 위반:** atoms/ 는 "기존 Z_eff/Slater 금지" 를
-  명시했으나 실제로 `IE = Z_eff² Ry/n²` + σ fits 로 후퇴.
-- **진짜 gap:** (Z+1)-vertex simplicial complex 위 Regge action
-  변분 solver 구현 미완.  성공 시 118 elements 진짜 0-param.
-  실패 시 DRLT 는 H/He 에서 멈추고 나머지 effective theory (정직).
+### 3f. Multi-electron atoms (G-ATM) — Phase 0-2 결과 (2026-04-18)
+
+**Mingu 지적 + 실제 구현 (ATM_070/071/072) 으로 결론됨:**
+
+**Phase 0 (ATM_070 H A1 5-vertex):**
+- 3 quark (uud, orthogonal) + e + vac = 5 vertex
+- g=0 (orthogonal quark) 가정 시 IE(H) = 13.606 eV 정확
+- g 는 DRLT 1st principle 아니라 **암묵 가정**
+
+**Phase 1 (ATM_071 He A1 14-vertex):**
+- 12 quark + 2 e = 14 vertex Gram
+- **Rank-5 가 자동 enforcement** (rank ≤ 5 confirmed)
+- **Flavor-blind A1 이 rank-5 로 인해 A3 로 자동 collapse**
+- ch10 `IE(He) = 2Ry(1-c²α_GUT)` = Bohr Z²Ry × DRLT correction
+  (즉 first-principle DRLT 아님, Bohr+correction hybrid)
+- **발견:** Shell structure (1s² ⊂ ℂ² temporal) 가 rank-5 로부터
+  자동 emerge
+
+**Phase 2 (ATM_072 Li outer electron):**
+- Rank-5 + Pauli 가 shell structure 일부 강제 ✓
+- **BUT outer (2s) electron 의 IE 자동 도출 불가**
+- 어떤 ε₃ 도 관측 5.39 eV 를 주지 않음
+- **n² scaling (Bohr) 이 DRLT 에서 어디서 오는지 불명**
+
+**최종 결론:**
+- DRLT 가 **approximately** 작동: H (exact), He (Bohr + 0.09% correction)
+- Li+ 이상: rank-5 + Pauli 로 shell structure 는 emerge 하나
+  energy levels 자동 안 나옴
+- atoms/ σ_recipe 은 이 gap 을 **empirically 채운 pattern match**
+- CLAUDE.md "Z_eff/Slater 금지" 원칙 위반 확정
+
+**Open questions (deep):**
+- n² scaling 의 DRLT 기하 기원?
+- Multi-shell energy spacing 공식?
+- FND_038 simplex tower ↔ shell quantum number 연결?
+
+**네 원래 직관 정확했음:** atoms/ 는 정말 Z_eff/Slater 의 DRLT 재포장.
+Rank-5 가 shell structure 만 주고, energy 는 별도 input 필요.
+진짜 first-principle atomic 은 H, He 까지만.
 
 ---
 
