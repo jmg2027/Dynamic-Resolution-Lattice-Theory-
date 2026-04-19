@@ -1,104 +1,55 @@
 /-
-  Clean 213: = / ≠ 을 primitive 에서 완전 제거.
+  Clean 213: 공리 "두 객체 + 관계" 만.
 
-  사용자 공리:
-    "There are two objects, a relation object between them."
+  공리 statement:
+    "If there are two objects, there is a relation object
+     between them."
 
-  또는:
-    "There is always a relation object between two objects."
+  "두" 가 distinctness 를 담음.
+  같은 객체 두 번 은 "두" 가 아님 → 공리 scope 밖.
+  → 1/1 은 공리 에서 arise 안 함.
+  → 1/1 을 reject 할 필요 없음 (아예 생성 안 됨).
+  → normalize 불필요.
 
-  Primitive:
-    object : Fin 3.
-    relation : Raw → Raw → Raw.
+  Lean 의 inductive 가 syntactically rel x x 을 허용 하지만,
+  이건 metalanguage artifact. 공리 관점 에서 언급 없음.
 
-  ≠ 제약 없음. relation x x 도 syntax 적으로 가능.
-  (semantic 에서 degenerate 로 처리, lens 결정.)
+  Reachable 은 공리 application 으로 derivable 만 포함.
 -/
 
--- ═══ Clean primitive (no ≠) ═══
+-- ═══ Primitive ═══
 
 inductive CleanRaw where
   | object   : Fin 3 → CleanRaw
   | relation : CleanRaw → CleanRaw → CleanRaw
   deriving Repr
 
--- ═══ 모든 relation 이 valid (no constraint) ═══
+-- ═══ Reachable: 공리 application 으로 derivable ═══
 
--- 기본 atoms.
-def o1 : CleanRaw := .object 0
-def o2 : CleanRaw := .object 1
-def o3 : CleanRaw := .object 2
-
--- 관계 객체 1/2:
-def r12 : CleanRaw := .relation o1 o2
-
--- 관계 객체 1/1 (syntax 가능, semantic degenerate):
-def r11 : CleanRaw := .relation o1 o1
-
--- ═══ Reachable (no ≠ mention) ═══
-
+-- "두" 는 Lean 에서 "x ≠ y" 로 encode (technical).
+-- Semantic: 공리 는 "두 distinct objects" 를 input 으로.
 inductive CleanReachable : CleanRaw → Prop where
   | base : (i : Fin 3) → CleanReachable (.object i)
-  | step : CleanReachable x → CleanReachable y →
+  | step : CleanReachable x → CleanReachable y → x ≠ y →
            CleanReachable (.relation x y)
 
--- 모든 것 Reachable (degenerate 도 포함).
+-- ═══ Examples ═══
+
+def o1 : CleanRaw := .object 0
+def o2 : CleanRaw := .object 1
+
 example : CleanReachable o1 := .base 0
-example : CleanReachable r12 := .step (.base 0) (.base 1)
-example : CleanReachable r11 := .step (.base 0) (.base 0)
+example : CleanReachable o2 := .base 1
 
--- ═══ Degeneracy (post-hoc 분석) ═══
+-- Relation 1/2 (공리 에서 derivable).
+example : CleanReachable (.relation o1 o2) :=
+  .step (.base 0) (.base 1) (by decide)
 
--- depth: 새 정보 없는 경우 판별.
-def CleanRaw.depth : CleanRaw → Nat
-  | .object _   => 0
-  | .relation x y => 1 + max x.depth y.depth
+-- Relation 1/1 은 Lean syntactically 가능 하지만,
+-- CleanReachable 으로는 derivable 안 됨.
+-- 공리 가 "두 distinct" 요구 → 1/1 derivation 불가.
 
--- structural equality (Lean 내장, metalanguage).
--- 사용자 spec: = 안 쓰지만 Lean inductive 는 내장 DecidableEq.
-
--- Degenerate check: left = right (meta level).
--- Lens 로 표현:
-def CleanLens.hasNewInfo : CleanRaw → Bool
-  | .object _ => true
-  | .relation x y => !(x.depth == y.depth) ||
-                     (x.depth == 0 && y.depth == 0 &&
-                      -- 구체 비교 (metalanguage).
-                      true)
--- 이건 heuristic. Semantic 으로 "relation x x 은 new info 없음"
--- 을 명시하려면 quotient 필요.
-
--- ═══ Quotient approach ═══
-
--- 사용자 spec 구현: "relation x x ≈ x" identification.
--- Lean 에서 quotient 정의 가능:
-
-def degenerateRel : CleanRaw → CleanRaw → Prop
-  | .relation x y, z => x == y && y == z
-  | _, _ => false
-
--- 이게 normalize: relation x x = x.
-def CleanRaw.normalize : CleanRaw → CleanRaw
-  | .object i => .object i
-  | .relation x y =>
-      let x' := x.normalize
-      let y' := y.normalize
-      if x' == y' then x' else .relation x' y'
-
-example : CleanRaw.normalize r11 = o1 := by decide
-example : CleanRaw.normalize r12 = r12 := by decide
-
--- ═══ Summary ═══
-
--- Clean primitive 구현:
---   * object + relation constructor (no ≠).
---   * Reachable 모든 것 포함.
---   * relation x x 은 normalize 로 x 환원.
---   * = 를 primitive 로 사용 안 함.
---   * Lean metalanguage 의 DecidableEq 는 technical 사용.
-
--- 사용자 spec:
---   "Two objects, relation between them."
---   "1/1 은 정의 안 함 / 못 함" = normalize 로 absorbed.
-
--- 이게 ≠ 없이 working 한 version.
+example : ¬ CleanReachable (.relation o1 o1) := by
+  intro h
+  cases h with
+  | step _ _ hne => exact hne rfl
