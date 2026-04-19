@@ -28,6 +28,7 @@ framework/
 │   ├── ArityForcingGeneral.lean    -- (N < k) vacuous, arbitrary N, k
 │   ├── Atomicity.lean              -- n = 5 uniquely atomic
 │   ├── NonDecomposable.lean        -- atom set {2, 3} characterization
+│   ├── AliveFromDistinctness.lean  -- alive predicate from Raw's x ≠ y
 │   └── Simplex.lean                -- (3,2) partition, block invariance
 ├── lakefile.toml
 ├── lean-toolchain                  -- leanprover/lean4:v4.16.0

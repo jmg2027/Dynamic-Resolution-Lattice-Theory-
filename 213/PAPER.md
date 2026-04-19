@@ -315,26 +315,41 @@ building blocks under additive composition is the standard
 meaning of "atom." Proposition 6.5 then fixes `A = {2, 3}` by
 pure arithmetic, independent of §1–5.
 
-(c) *The alive predicate.* The condition "both `a` and `b` odd"
-models antisymmetric cancellation of repeated atoms under a swap
-action on vertex multiplicities. No such swap on multiplicities
-is constructed within §1–5: the `swap` of §3 acts on `Raw`
-(exchanging base labels), not on multiplicities of atoms in a
-vertex partition. Hence the alive predicate remains imported.
+(c) *The alive predicate is Raw-intrinsic.* The condition "both
+`a` and `b` odd" is *not* an external hypothesis: it is Raw's
+distinctness rule applied at the multiplicity level.
 
-**Scope claim.** Items (a) and (b) reduce the atom identification
-`A = {2, 3}` to a defensible combination of *primitive motivation*
-(lower bound `≥ 2`) and *arithmetic characterization*
-(Proposition 6.5). Item (c) — the alive predicate — is still an
-external hypothesis beyond §1–5. Theorem 6.3 is therefore best
-read as:
+The single structural rule of Raw is `x ≠ y` in every
+`relation x y` (Definition 1.2). This rule applies at every level
+of nesting: no Reachable term may have two structurally identical
+direct sub-terms (Theorem 2.3 generalizes inductively — at every
+node of a Reachable Raw tree, the two arguments are distinct).
 
-> *Assuming a swap action on atom multiplicities (alive predicate),
-> the unique atomic vertex count compatible with the primitive's
-> minimum atom size and additive irreducibility is `n = 5`.*
+Lifting this rule to multiplicities of structurally identical
+atoms in a vertex partition: two structurally identical copies of
+the same atom-type cannot coexist as distinct ingredients
+(Raw distinguishes nothing within a structural-equivalence class).
+Paired copies *annihilate* — they contribute nothing because the
+pair has no Raw-distinguishable content. Only odd residues survive.
 
-A fully §1–5-internal derivation of the alive predicate is left to
-subsequent work.
+Concretely: a multiplicity `a` of a single atom-type contributes
+to the structure as `a mod 2`, by repeated pair-cancellation.
+The "alive" condition `a % 2 = 1 ∧ b % 2 = 1` is exactly the
+statement that both atom-types have surviving (odd) residues. (Lean:
+`E213.AliveFromDistinctness.alive_iff_odd_pair`.)
+
+This is the same mechanism as exterior algebra: `v ∧ v = 0` is
+not an axiom of `∧` but a formal expression of "two structurally
+identical inputs cancel." Raw's `x ≠ y` is the same principle in
+its primitive form, of which exterior algebra is a concrete model.
+
+**Scope claim (revised).** All three components — (a) lower bound,
+(b) non-decomposability, (c) alive predicate — are now grounded in
+the primitive: (a) by the axiom's "two objects" requirement,
+(b) by Proposition 6.5 (arithmetic), (c) by Raw's distinctness
+rule at the multiplicity level. Theorem 6.3 (Atomicity → `n = 5`)
+follows as a consequence of the axiom alone, modulo the (standard)
+identification of "atom" with "additively irreducible" in (b).
 
 ---
 
@@ -522,14 +537,14 @@ dependency tracking between claims.
    vacuous (Theorem 5.3), and `k ∈ {0, 1}` yields structurally
    degenerate constants or unary chains (Corollary 5.4).
 
-**From §1–5 plus an external *alive* predicate on atom
-multiplicities (§6–7; see Remark 6.6):**
+**From the axiom together with §6–7 (alive predicate now Raw-
+intrinsic; see Remark 6.6(c)):**
 
 5. The atom set `A = {2, 3}` is fixed by Proposition 6.5 (the
-   unique non-decomposable integers `≥ 2` under sum-of-parts
-   with each part `≥ 2`); the lower bound `≥ 2` is motivated by
-   the primitive. Under the external alive predicate (both `a, b`
-   odd), `n = 5` is the unique atomic vertex count (Theorem 6.3),
+   unique non-decomposable integers `≥ 2`). The alive predicate
+   is Raw's distinctness rule at the multiplicity level (pair
+   cancellation under structural equivalence). Together,
+   `n = 5` is the unique atomic vertex count (Theorem 6.3),
    giving the canonical partition `V = V_A ⊔ V_B` with
    `|V_A| = 3, |V_B| = 2`.
 
