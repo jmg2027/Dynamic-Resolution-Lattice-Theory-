@@ -44,13 +44,15 @@ def Raw.wellFormed : Raw → Prop
   | .object _     => True
   | .relation x y => x ≠ y ∧ x.wellFormed ∧ y.wellFormed
 
-instance : DecidablePred Raw.wellFormed := by
-  intro x
-  induction x with
-  | object _ => exact isTrue trivial
-  | relation a b iha ihb =>
-    simp [Raw.wellFormed]
-    exact instDecidableAnd
+/-- Structural-recursive decidability (avoids `Raw.rec` in code gen). -/
+def Raw.decWF : (x : Raw) → Decidable x.wellFormed
+  | .object _     => .isTrue trivial
+  | .relation a b =>
+      have _ha := Raw.decWF a
+      have _hb := Raw.decWF b
+      show Decidable (a ≠ b ∧ a.wellFormed ∧ b.wellFormed) from inferInstance
+
+instance : DecidablePred Raw.wellFormed := Raw.decWF
 
 -- ═══ Section 4: Characterization ═══
 
@@ -102,7 +104,7 @@ def Raw.depth : Raw → Nat
   | .object _     => 0
   | .relation x y => 1 + max x.depth y.depth
 
-theorem relation_depth_gt {x y : Raw} (h : x ≠ y) :
+theorem relation_depth_gt {x y : Raw} (_ : x ≠ y) :
     (Raw.relation x y).depth > x.depth := by
   simp [Raw.depth]; omega
 
@@ -131,7 +133,9 @@ theorem lens_depth_eq_raw_depth (x : Raw) :
     Lens.depth.view x = x.depth := by
   induction x with
   | object _ => rfl
-  | relation a b iha ihb => simp [Lens.view, Lens.depth, Raw.depth, iha, ihb]
+  | relation a b iha ihb =>
+      show 1 + max (Lens.depth.view a) (Lens.depth.view b) = 1 + max a.depth b.depth
+      rw [iha, ihb]
 
 -- ═══ Section 9: Kernel (equivalence) ═══
 
@@ -159,10 +163,10 @@ theorem pair_view {α β : Type} (L : Lens α) (M : Lens β) (x : Raw) :
   induction x with
   | object _ => rfl
   | relation a b iha ihb =>
-    show (L.combine ((L.pair M).view a).1 ((L.pair M).view b).1,
-          M.combine ((L.pair M).view a).2 ((L.pair M).view b).2)
-         = _
-    rw [iha, ihb]
+      show (L.combine ((L.pair M).view a).1 ((L.pair M).view b).1,
+            M.combine ((L.pair M).view a).2 ((L.pair M).view b).2)
+           = (L.combine (L.view a) (L.view b), M.combine (M.view a) (M.view b))
+      rw [iha, ihb]
 
 -- ═══ Section 11: Refines ═══
 
