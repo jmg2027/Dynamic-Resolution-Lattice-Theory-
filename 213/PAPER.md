@@ -484,18 +484,38 @@ In every class, `W` is constant. Hence `W` factors through
 
 ---
 
-## 8. Codomain forcing for faithful Lenses
+## 8. Aut-faithful Lens existence
 
-We now study, within a specified class of codomains, which admit a
-canonical Lens compatible with `Aut(Raw)`.
+We ask: when does the structure of §1–7 admit a Lens whose
+automorphism behavior matches that of `Raw` itself? We do not
+presuppose any specific target algebra; the conditions below are
+imposed independently, and the existence and uniqueness of a
+satisfying codomain are derived as a theorem. The identification of
+this codomain with a familiar algebra is recorded only after the
+derivation.
 
-**Class `𝒞`.** Fix the class of codomains
-```
-  𝒞 = {K : K is a finite-dimensional ℝ-algebra,
-            commutative, with multiplicative identity, and
-            a division algebra (every nonzero element is invertible)}.
-```
-We comment on these assumptions in Remark 8.6.
+**Conditions on the codomain `K`.** We seek `K` carrying enough
+structure to support the Lens framework with a meaningful
+automorphism action. The minimal natural setting is an `ℝ`-algebra
+satisfying:
+
+- **(C1) Finite-dimensional over `ℝ`.** Lens values are determined
+  inductively from `Fin 2` base data and a binary `combine`; an
+  infinite-dimensional codomain would carry strictly more
+  information than `Raw` provides.
+- **(C2) Commutative.** The axiom names "two objects" symmetrically
+  (the pair, not the ordered tuple). `Raw`'s `relation` constructor
+  is syntactically ordered, but the axiom is not. Commutativity of
+  `combine` is the value-level reflection of the axiom's symmetric
+  reading.
+- **(C3) Unital.** A multiplicative identity is the standard
+  algebraic baseline; without it, classical structure theorems are
+  not available in their usual form.
+- **(C4) Division algebra.** Every nonzero element invertible — a
+  Lens value cannot vanish without the corresponding Raw term being
+  absent.
+
+Call this class `𝒞`.
 
 **Definition 8.1 (Algebra automorphism).** For `K ∈ 𝒞`, let
 `Aut_ℝ(K)` denote the group of `ℝ`-algebra automorphisms of `K`
@@ -514,69 +534,72 @@ group homomorphism `ρ : Aut(Raw) → Aut_ℝ(K)` such that, for every
 induced `ρ` of Definition 8.2 is a group *isomorphism*
 `Aut(Raw) ≅ Aut_ℝ(K)` (not merely an injection).
 
-**Theorem 8.4 (Faithful codomain in `𝒞`).** Let `K ∈ 𝒞`. If `K` admits
-an Aut-faithful Lens, then `K ≅ ℂ` as `ℝ`-algebras.
+**Theorem 8.4 (Existence and uniqueness in `𝒞`).** Within `𝒞`:
+
+1. (Classification.) Up to `ℝ`-algebra isomorphism, `𝒞` contains
+   exactly two elements: a one-dimensional one (call it `K_1`) and
+   a two-dimensional one (call it `K_2`).
+2. (Aut groups.) `|Aut_ℝ(K_1)| = 1` and `|Aut_ℝ(K_2)| = 2`.
+3. (Faithful codomain.) Combined with `Aut(Raw) ≅ ℤ/2`
+   (Theorem 3.6), exactly `K_2` admits an Aut-faithful Lens.
 
 *Proof.*
 
-(i) *Classification of `𝒞`.* Every `K ∈ 𝒞` is a finite field
-extension of `ℝ`: commutativity + unital + division ⟹ `K` is a
-field, and finite-dim over `ℝ` ⟹ `K` is algebraic over `ℝ`. The
-irreducible polynomials over `ℝ` have degree `1` or `2` (by the
-fundamental theorem of algebra applied to `ℝ[x]`), so
-`[K : ℝ] ∈ {1, 2}`. Hence `K ≅ ℝ` or `K ≅ ℂ`. (This is the
-commutative case of Frobenius's theorem.)
+(1) Every `K ∈ 𝒞` is a finite field extension of `ℝ`: (C2)+(C3)+(C4)
+make `K` a field, and (C1) makes it algebraic over `ℝ`. Irreducible
+polynomials over `ℝ` have degree `1` or `2` (fundamental theorem of
+algebra applied to `ℝ[x]`), so `[K : ℝ] ∈ {1, 2}`. There is exactly
+one isomorphism class at each dimension: dim `1` gives `ℝ` itself;
+dim `2` gives the unique `ℝ`-algebra obtained by adjoining a root
+of any monic irreducible quadratic (e.g. `x² + 1`).
 
-(ii) *Computation of `Aut_ℝ(K)`.*
-- `Aut_ℝ(ℝ) = {id}`: any `ℝ`-linear ring endomorphism of `ℝ` is
-  determined by its value on `1`, which must be `1`.
-- `Aut_ℝ(ℂ)`: any `σ ∈ Aut_ℝ(ℂ)` is determined by `σ(i)`, since
-  `ℂ = ℝ(i)` as an `ℝ`-algebra. From `σ(i)² = σ(i²) = σ(-1) = -1`,
-  we get `σ(i) = ±i`. Hence `Aut_ℝ(ℂ) = {id, conjugation} ≅ ℤ/2`.
+(2) For `K_1` (dim `1`): any `ℝ`-algebra endomorphism is determined
+by its value on `1`, which must be `1`. So `Aut_ℝ(K_1) = {id}`.
+For `K_2` (dim `2`): write `K_2 = ℝ[α]` with `α² = -1`. Any
+`σ ∈ Aut_ℝ(K_2)` is determined by `σ(α)`. From
+`σ(α)² = σ(α²) = -1` we get `σ(α) = ±α`. So `|Aut_ℝ(K_2)| = 2`.
 
-(iii) *Faithfulness.* `Aut(Raw) ≅ ℤ/2` (Theorem 3.6). Aut-faithfulness
-(Definition 8.3) requires a group isomorphism
-`ρ : Aut(Raw) → Aut_ℝ(K)`.
-- `K = ℝ`: `|Aut_ℝ(ℝ)| = 1 ≠ 2 = |Aut(Raw)|`. No isomorphism exists;
-  no Aut-faithful Lens to `ℝ`.
-- `K = ℂ`: `|Aut_ℝ(ℂ)| = 2 = |Aut(Raw)|`. The unique group isomorphism
-  `ρ : ℤ/2 → ℤ/2` sends `swap ↦ conjugation`.
+(3) Aut-faithfulness (Definition 8.3) requires
+`|Aut(Raw)| = |Aut_ℝ(K)|`. By Theorem 3.6, `|Aut(Raw)| = 2`. From
+(2), this matches only `K_2`; for `K_2` the unique nontrivial
+group isomorphism `ρ : ℤ/2 → ℤ/2` lifts `swap` to the nontrivial
+element of `Aut_ℝ(K_2)`. ∎
 
-Therefore `K ≅ ℂ`. ∎
+**Corollary 8.5 (Identification).** The two-dimensional `K_2 ∈ 𝒞`
+of Theorem 8.4 is, by direct construction, the field of complex
+numbers. Adjoining a root `α` of `x² + 1` to `ℝ` gives `ℝ[α]` with
+`α² = -1`, which is the standard presentation of `ℂ` with `α = i`.
+The nontrivial element of `Aut_ℝ(K_2)` is then complex conjugation
+`i ↦ -i`. The unique Aut-faithful codomain in `𝒞` is therefore the
+field `ℂ`, with `swap` lifted to conjugation.
 
-**Corollary 8.5 (ℍ excluded by commutativity).** Dropping
-commutativity from `𝒞` admits `ℍ` (quaternions), a finite-dim
-unital division `ℝ`-algebra. However, `Aut_ℝ(ℍ) ≅ SO(3)` is a
-connected Lie group of dimension `3`, and `|Aut(Raw)| = 2 ≠
-|SO(3)|`. No group isomorphism `Aut(Raw) ≅ Aut_ℝ(ℍ)` exists;
-hence `ℍ` admits no Aut-faithful Lens.
+**Corollary 8.6 (Non-commutative case excludes ℍ).** Dropping (C2)
+from `𝒞` admits the quaternions `ℍ`, a finite-dim unital division
+`ℝ`-algebra. However, `Aut_ℝ(ℍ) ≅ SO(3)` is a connected Lie group
+of dimension `3`, and `|Aut(Raw)| = 2 ≠ |SO(3)|`. No group
+isomorphism `Aut(Raw) ≅ Aut_ℝ(ℍ)` exists; hence `ℍ` admits no
+Aut-faithful Lens. The commutativity condition (C2) is therefore
+the decisive constraint separating the unique faithful codomain
+`K_2` from `ℍ`.
 
-*Remark.* The commutativity condition in `𝒞` is therefore the
-decisive constraint separating `ℂ` from `ℍ`. The other conditions
-in `𝒞` (finite-dim, unital, division) serve to isolate
-well-behaved target algebras; the `ℂ`-versus-`ℍ` choice, specifically,
-is made by requiring commutativity, which aligns `Aut_ℝ(K)` with
-the discrete `Aut(Raw) ≅ ℤ/2`.
+**Remark 8.7 (On the remaining conditions in `𝒞`).** Corollary 8.6
+has addressed (C2). The remaining conditions:
+- *(C1) Finite-dim*: excludes infinite-dimensional `ℝ`-algebras
+  (e.g., function algebras, formal power series). Needed to invoke
+  the classification step (1) in Theorem 8.4.
+- *(C3) Unital + (C4) Division*: exclude split algebras like
+  `ℝ ⊕ ℝ` (which has zero divisors) and para-algebras without unit.
 
-**Remark 8.6 (On the remaining conditions in `𝒞`).** Corollary 8.5
-has addressed the commutativity condition. The remaining three:
-- *Finite-dim*: excludes infinite-dimensional ℝ-algebras (e.g.,
-  function algebras, formal power series). Needed to invoke the
-  classification step (i) in Theorem 8.4.
-- *Unital + division*: excludes split algebras like `ℝ ⊕ ℝ`
-  (which has zero divisors) and para-algebras without unit.
+Each (C1)–(C4) is necessary for the existence-and-uniqueness
+conclusion of Theorem 8.4.
 
-Each condition is necessary for the conclusion. Theorem 8.4 may be
-read as: within the classical category of finite-dim commutative
-unital ℝ-division algebras, `ℂ` is the unique object with
-automorphism group matching `Aut(Raw) ≅ ℤ/2`.
-
-**Remark 8.7 (Relation to Hurwitz–Frobenius).** The theorems of
-Frobenius (finite-dim associative ℝ-division algebras are `ℝ, ℂ, ℍ`)
-and Hurwitz (ℝ-composition algebras are `ℝ, ℂ, ℍ, 𝕆`) play no
-external role here. Step (i) of the proof uses only the commutative
-fragment of Frobenius (which reduces to Gelfand–Mazur). The wider
-classification is of independent interest but not used.
+**Remark 8.8 (Relation to Hurwitz–Frobenius).** The theorems of
+Frobenius (finite-dim associative `ℝ`-division algebras are
+`ℝ, ℂ, ℍ`) and Hurwitz (`ℝ`-composition algebras are
+`ℝ, ℂ, ℍ, 𝕆`) play no external role here. Step (1) of the proof
+uses only the commutative fragment of Frobenius (which reduces to
+the elementary classification of finite `ℝ`-field extensions via
+the fundamental theorem of algebra).
 
 ---
 
@@ -624,12 +647,14 @@ atom hypothesis now Raw-intrinsic; see Remark 6.6):**
    with `3 + 6 + 6 + 6 + 2 + 2 = 25 = |V|²`, and invariance under
    this action is equivalent to block-constancy (Theorems 7.5–7.6).
 
-**Within the class of finite-dim commutative unital ℝ-division
-algebras (§8):**
+**Within the class `𝒞` of codomains satisfying (C1)–(C4) of §8:**
 
-7. The unique such algebra admitting an Aut-faithful Lens — one
-   whose induced action on the codomain matches `Aut(Raw) ≅ ℤ/2`
-   exactly — is `ℂ` (Theorem 8.4).
+7. There exists a unique element `K_2 ∈ 𝒞` (up to ℝ-algebra
+   isomorphism) admitting an Aut-faithful Lens — one whose induced
+   action matches `Aut(Raw) ≅ ℤ/2` exactly. By direct construction,
+   this `K_2` is the field of complex numbers `ℂ` (Theorem 8.4 +
+   Corollary 8.5). The non-commutative case (relaxing (C2)) admits
+   `ℍ` but yields no Aut-faithful Lens (Corollary 8.6).
 
 This is the minimal system defined by "there is a relation."
 
