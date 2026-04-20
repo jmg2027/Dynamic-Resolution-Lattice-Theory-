@@ -527,4 +527,58 @@ theorem Raw.fold_signed_swap (r : Raw) :
       = - Raw.fold (1 : Int) (-1) (· + ·) r :=
   Tree.fold_signed_swap r.val r.property
 
+-- ═══ General hom-swap: for any conj : α → α such that
+-- conj ba = bb, conj bb = ba, conj distributes over c, and c is
+-- commutative, fold-swap equals conj-fold.  Consumers instantiate
+-- for their own codomain (e.g. ℤ[i] with conj = complex conj). ═══
+
+private theorem Tree.fold_swap_hom {α : Type}
+    (ba bb : α) (c : α → α → α) (conj : α → α)
+    (h_ba : conj ba = bb) (h_bb : conj bb = ba)
+    (h_dist : ∀ u v, conj (c u v) = c (conj u) (conj v))
+    (h_comm : ∀ u v, c u v = c v u) :
+    ∀ t : Tree, t.canonical = true →
+    Tree.fold ba bb c (Tree.swap t) = conj (Tree.fold ba bb c t) := by
+  intro t h
+  induction t with
+  | a => exact h_ba.symm
+  | b => exact h_bb.symm
+  | slash x y ihx ihy =>
+      simp only [Tree.canonical, Bool.and_eq_true] at h
+      obtain ⟨⟨hx, hy⟩, hcmp_raw⟩ := h
+      have hcmp_lt : Tree.cmp x y = .lt := by
+        match hm : Tree.cmp x y with
+        | .lt => rfl
+        | .eq => rw [hm] at hcmp_raw; cases hcmp_raw
+        | .gt => rw [hm] at hcmp_raw; cases hcmp_raw
+      have ihx' := ihx hx
+      have ihy' := ihy hy
+      simp only [Tree.swap]
+      split <;> rename_i hcmp_inner
+      · show c (Tree.fold ba bb c (Tree.swap x)) (Tree.fold ba bb c (Tree.swap y))
+             = conj (c (Tree.fold ba bb c x) (Tree.fold ba bb c y))
+        rw [ihx', ihy', h_dist]
+      · show c (Tree.fold ba bb c (Tree.swap y)) (Tree.fold ba bb c (Tree.swap x))
+             = conj (c (Tree.fold ba bb c x) (Tree.fold ba bb c y))
+        rw [ihx', ihy', h_dist, h_comm]
+      · exfalso
+        have hsxy : Tree.swap x = Tree.swap y :=
+          (Tree.cmp_eq_iff _ _).mp hcmp_inner
+        have hxy : x = y := by
+          have := congrArg Tree.swap hsxy
+          rw [Tree.swap_swap x hx, Tree.swap_swap y hy] at this
+          exact this
+        rw [hxy] at hcmp_lt
+        have := (Tree.cmp_eq_iff y y).mpr rfl
+        rw [this] at hcmp_lt
+        cases hcmp_lt
+
+theorem Raw.fold_swap_hom {α : Type}
+    (ba bb : α) (c : α → α → α) (conj : α → α)
+    (h_ba : conj ba = bb) (h_bb : conj bb = ba)
+    (h_dist : ∀ u v, conj (c u v) = c (conj u) (conj v))
+    (h_comm : ∀ u v, c u v = c v u) (r : Raw) :
+    Raw.fold ba bb c (Raw.swap r) = conj (Raw.fold ba bb c r) :=
+  Tree.fold_swap_hom ba bb c conj h_ba h_bb h_dist h_comm r.val r.property
+
 end E213.Firmware

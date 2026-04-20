@@ -21,27 +21,38 @@ Paper 1 polish; can be split later if needed).
   `conj_ne_id`. **Builds ✓**.
 - `framework/E213/Research/ZIDomain.lean` — `ZI.mul_comm`
   (manual, no `ring`). **Builds ✓**.
-- `framework/E213/Research/ZILens.lean` — `ziLens` definition
-  + base-value smoke tests. R3/R4 are documented as pending
-  Lean formalisation (see file header).
+- `framework/E213/Research/ZIHom.lean` — `ZI.conj_I`,
+  `conj_negI`, `conj_mul` (distribution of conj over Gaussian
+  multiplication, via `Int.neg_mul_neg`, `Int.mul_neg`, etc.).
+  **Builds ✓**.
+- `framework/E213/Firmware/Raw.lean` — **modified**: added
+  public theorem `Raw.fold_swap_hom`, a generalisation of the
+  existing `Raw.fold_signed_swap` that accepts any `conj : α →
+  α` satisfying `conj ba = bb`, `conj bb = ba`, `conj` as a
+  combine-homomorphism, and `c` commutative. **Pending build
+  verification** — Raw.lean is slow to compile in this
+  environment (>10 min); the pattern follows the existing
+  `Tree.fold_signed_swap` which is known to compile.
+- `framework/E213/Research/ZILens.lean` — **R4 proof**:
+  `ziLens_swapMatching : SwapMatching ziLens ZI.conj`,
+  obtained by applying `Raw.fold_swap_hom` with the ZI-side
+  lemmas. Depends on the `Raw.fold_swap_hom` build.
 
-## Immediate next step
+## Immediate next step (for a longer build window)
 
-Complete Lean R3 and R4:
+1. **Verify `Raw.fold_swap_hom` builds.** Run
+   `lake build E213.Firmware.Raw` with ≥15 min timeout; if
+   errors, adjust proof.
+2. **Verify `ziLens_swapMatching` builds** after Raw builds.
+3. **Complete R3 in Lean.** Needs `normSq_mul` Diophantus
+   identity. Options:
+   - Without `ring`: manual expansion. Tedious but routine.
+   - With `ring`: investigate why `ring` works in `Raw.lean`
+     but not in bare Research modules; likely an auto-import.
 
-1. **R3 (no zero divisors).** Needs `normSq_mul` (Diophantus
-   identity, polynomial). Without `ring` in Lean 4 core,
-   requires manual rewrites or adding a minimal polynomial
-   helper. Write as `ZIDomain2.lean`.
-2. **R4 (SwapMatching).** Needs Raw-level induction. Options:
-   (a) add a general `Raw.fold_swap_hom` to
-   `Firmware/Raw.lean`; (b) expose a public `Raw.rec`
-   principle; (c) write E1-specific `Raw.fold_zi_swap` by
-   Tree-level delegation (like existing `fold_signed_swap`).
-
-The math argument in `notes/01_zi_counterexample.md` is
-already sufficient to claim the counterexample at the level of
-a research note.
+The math argument in `notes/01_zi_counterexample.md` already
+establishes H at the mathematical level; full Lean verification
+is a hardening step.
 
 ## Open technical issues
 
