@@ -16,37 +16,60 @@ Semantic reading of "another" (2) and "between" (2–3):
   `x` from `x` conveys nothing.
 - **Symmetric:** `slash x y = slash y x`; "between" is directionless.
 
-The derivation proceeds in six sections:
+## 0. The logical order of the derivation
 
-1. **Firmware (§1):** `Raw`, its three constructors, and its
-   first closure levels. `Raw` is self-contained, carrying no
-   equality or apartness primitive.
-2. **Symmetry (§2):** swap automorphism, `Aut(Raw) ≅ ℤ/2`.
-3. **Signature analysis (§3):** why `(2, 2)` is the minimal
-   non-degenerate engine.
-4. **Hypervisor (§4):** Lens framework; kernel-equivalence is
-   the only notion of equality on `Raw`. The Lens must carry a
-   codomain whose automorphism group receives `Aut(Raw) ≅ ℤ/2`
-   faithfully — a constraint which motivates §6.
-5. **Atomicity (§5):** arithmetic confirmation of `n = 5` and
-   the `(3, 2)` partition already visible at Level 2 of §1.
-6. **Algebraic projection (§6):** the unique codomain whose
-   automorphism group matches `ℤ/2` is `ℂ`.
+The axiom supplies a single type — `Raw`, the free commutative
+magma on two generators with no fixed points. **It supplies
+nothing else.** No numbers, no sizes, no equality, no order — not
+even a way to say that two Raw terms are "different". Those
+notions belong to *measurement*, and measurement requires a
+**Lens**.
+
+A Lens is a measurement apparatus: a codomain `α` plus two base
+values and a binary combine, producing a fold `Raw → α`. Distinct
+Lenses yield distinct measurements of the same Raw.
+
+The question we settle below is:
+
+> *Among all conceivable Lenses, which one permits an object in
+> `Raw` to recognise itself within its own space?*
+
+Self-recognition in the axiom's terms means an apparatus obeying
+four requirements (§3), each deducible from the axiom itself:
+
+- **measurement** (a combine at all),
+- **uniformity** (identical rule at every node — a catamorphism),
+- **non-degeneracy** (existing Raw terms never collapse to "not
+  present" — a division-style condition),
+- **Aut-faithfulness** (the apparatus carries `Aut(Raw) ≅ ℤ/2`
+  as a group isomorphism).
+
+These four requirements single out a unique codomain up to
+ℝ-algebra isomorphism: the **field of complex numbers** `ℂ` (§4).
+Only with `ℂ` in hand does "size / count / dimension" become a
+meaningful notion of Raw; §5 then records the atom set `{2, 3}`,
+the unique atomic vertex count `n = 5`, and the canonical
+`(3, 2)` partition as *consequences visible under the `ℂ` lens*
+— **not** as primitive data of the axiom.
+
+The paper is organised in this order. It contains no
+stipulations: every numerical fact below depends on the `ℂ`
+lens, and the `ℂ` lens is forced from the axiom alone.
 
 ---
 
-## 0. Notation and conventions
+## 0'. Notation and conventions
 
 - `Fin n` denotes the standard `n`-element type `{0, …, n-1}`.
 - `inductive T` denotes an initial algebra presentation: `T` is
   the smallest type closed under the listed constructors.
 - All claims below are formally checked in Lean 4
   (`E213.*` modules, 0 `sorry`); we cite the Lean name where
-  relevant, and mark "partial" or "prose only" when coverage is
+  relevant, marking "partial" or "prose only" when coverage is
   incomplete.
-- The axiom does *not* supply an equality or inequality primitive
-  on `Raw`. Lean's propositional equality is external bookkeeping;
-  apartness is not part of `Raw`.
+- The axiom supplies no equality or inequality primitive on
+  `Raw`. Lean's propositional equality is external bookkeeping;
+  apartness becomes meaningful only through a Lens.
 
 ---
 
@@ -65,19 +88,20 @@ to it in turn).
 — the unique closure of `{a, b}` under a symmetric, anti-reflexive
 binary operation `slash`.
 
+Raw contains no natural number, no notion of size, no equality
+relation beyond "same Lean constructor application". The axiom
+introduces no such data.
+
 ### 1.2 Lean encoding
 
-Lean 4 core has no primitive quotient types on arbitrary relations,
-and we import no set theory (no `Multiset`, no Mathlib). We encode
-the target (Def 1.1) as a canonical-form subtype of a free ordered
-magma. An auxiliary total order on trees picks a unique
-representative per unordered pair; *the ordering is the encoding's
-selection function, not a property of the axiom*.
-
-This is the minimal Lean 4 native realisation of the intended
-quotient — no external logical apparatus, no extra primitives.
-Anti-reflexivity is realised by "strictly ordered children",
-symmetry by "canonical form per unordered pair".
+Lean 4 core has no primitive quotient types on arbitrary
+relations, and we import no set theory (no `Multiset`, no
+Mathlib). We encode the target (Def 1.1) as a canonical-form
+subtype of a free ordered magma. An auxiliary total order on
+trees picks a unique representative per unordered pair; *the
+ordering is the encoding's selection function, not a property of
+the axiom*. This is the minimal Lean 4 native realisation of the
+intended quotient — no external logical apparatus.
 
 ```
 -- Internal (private): the free ordered magma.
@@ -97,55 +121,37 @@ def Raw : Type := { t : Tree // t.canonical = true }
 ```
 
 The smart constructor `Raw.slash : (x y : Raw) → x ≠ y → Raw`
-canonicalises child order; `Raw.slash_comm` certifies that both
+canonicalises child order; `Raw.slash_comm` certifies both
 input orderings collapse to the same Raw term — the axiom's
-symmetric reading at the type level.
+symmetric reading at the type level. (Lean:
+`E213.Firmware.Raw.slash`, `E213.Firmware.Raw.slash_comm`.)
 
-(Lean: `E213.Firmware.Raw.slash`, `E213.Firmware.Raw.slash_comm`.)
+### 1.3 Recursive bootstrapping
 
-**Definition 1.2 (Depth).** `Raw.depth : Raw → ℕ` is `0` on base
-tokens and `1 + max x.depth y.depth` on `slash x y`.
+The axiom supplies no "size" concept, but it does supply a
+recursive generation rule. Starting from `{a, b}`, each
+application of `slash` on two distinct existing terms produces a
+new term, and that new term can itself enter further `slash`
+applications. The *closure of Raw under `slash`* is therefore an
+ever-expanding family; to speak of any specific Raw term is to
+identify a particular finite bootstrapping path.
 
-### 1.3 First three closure levels
-
-Let the *level* of a Raw term be its depth. The closure by levels
-is:
-
-- **Level 0:** `{a, b}` — 2 terms.
-- **Level 1:** add `a/b`, the unique unordered distinct pair from
-  Level 0 — 3 terms total.
-- **Level 2:** add `a/(a/b)` and `b/(a/b)`, the two new unordered
-  distinct pairs involving a Level-1 term — 5 terms total.
-
-The five Level-≤2 terms split as 3 + 2:
-
-```
-A-type (Levels 0+1): {a, b, a/b}        — 3 terms
-B-type (Level 2):    {a/(a/b), b/(a/b)} — 2 terms
-```
-
-This `(3, 2)` split is a direct consequence of closure depth: it
-requires no external postulate. §5 below is an arithmetic
-confirmation of this count; the count itself is already settled
-here.
-
-(Lean: `E213.Firmware.Raw.level1_card`,
-`E213.Firmware.Raw.level2_new_card`,
-`E213.Firmware.Raw.level2_total_card` — the 5 terms are
-formalised as an explicit list with `List.Nodup` verified by
-`decide`.)
+This is all the structure Raw provides. Everything else — "how
+many terms at depth 2", "what is the leaves count", "which terms
+are 'the same size'" — belongs to measurement, which begins in
+§3 with the Lens framework and is pinned down uniquely in §4.
 
 ---
 
 ## 2. Symmetry of `Raw`
 
-The axiom places `a, b` in a symmetric role: the choice of which
-is "first" is not part of the axiomatic data. §2 makes this
-precise as an endomorphism.
+Before any measurement enters, Raw already carries one structural
+fact: the two base tokens `a, b` play symmetric roles. The axiom
+introduces no asymmetry between them, so exchanging them extends
+to a bijection of Raw that respects the `slash` constructor. This
+is `Raw`'s only structural content prior to the Lens.
 
-**Definition 2.1 (Swap).** The map `swap : Raw → Raw` exchanges
-the two base tokens and extends through `slash` by structural
-recursion:
+**Definition 2.1 (Swap).**
 
 ```
   swap a           := b
@@ -153,108 +159,58 @@ recursion:
   swap (slash x y) := slash (swap x) (swap y).
 ```
 
-At the canonical-form level, swapping children may violate the
-ordering invariant; Lean re-canonicalises after each swap. The
-re-canonicalisation is an implementation detail of §1.2's
-encoding with no semantic content.
-
-(Lean: `E213.Firmware.Raw.swap`.)
+At the canonical-form level (§1.2), swapping children of a
+`slash` node may violate the ordering; Lean re-canonicalises
+after each swap. The re-canonicalisation is an implementation
+detail of §1.2's encoding. (Lean: `E213.Firmware.Raw.swap`.)
 
 **Theorem 2.2 (Involution).** `swap (swap x) = x` for all `x`.
 
-*Proof.* Induction on `x`. Base: direct. Step: `swap (swap (x/y))
-= swap (slash (swap x) (swap y)) = slash x y` by IH. ∎ (Lean:
-`E213.Firmware.Raw.swap_swap`.)
+*Proof.* Induction on `x`. Base: direct. Step:
+`swap (swap (x/y)) = swap (slash (swap x) (swap y)) = slash x y`
+by IH. ∎ (Lean: `E213.Firmware.Raw.swap_swap`.)
 
-**Corollary 2.3 (Bijectivity).** `swap` is a bijection of `Raw`.
-(Lean: `E213.Firmware.Raw.swap_injective, swap_surjective,
-swap_bijective`.)
+**Corollary 2.3 (Bijectivity).** `swap` is a bijection of Raw.
+(Lean: `swap_injective, swap_surjective, swap_bijective`.)
 
-**Definition 2.4 (Raw-automorphism).** A *Raw-automorphism* is a
-bijection `φ : Raw → Raw` with `φ(slash x y h) = slash(φx)(φy)h'`
-and `(φa, φb) ∈ {(a, b), (b, a)}`. Such `φ` is fixed by its
-action on the base tokens.
+**Definition 2.4 (Raw-automorphism).** A bijection `φ : Raw → Raw`
+with `φ(slash x y h) = slash(φx)(φy)h'` and
+`(φa, φb) ∈ {(a, b), (b, a)}`. Such `φ` is fixed by its action on
+the base tokens.
 
 **Theorem 2.5 (Automorphism group).** `Aut(Raw) ≅ ℤ/2`; its
 nontrivial element is `swap`.
 
-*Proof.* There are exactly two base permutations (identity and
-swap); each extends uniquely to a Raw-endomorphism by Def 2.4.
-Composition matches `S_2 ≅ ℤ/2`. ∎
+*Proof.* Two base permutations (identity, swap), each extending
+uniquely to a Raw-endomorphism by Def 2.4. Composition matches
+`S_2 ≅ ℤ/2`. ∎
 
-**Lean coverage.** `Raw.swap_swap`, `Raw.swap_comp_swap`
-(`swap ∘ swap = id`), and `Raw.swap_ne_id` (`swap ≠ id`)
-formalise the ℤ/2 structure on `{id, swap}`. The full
-classification "every Raw-automorphism is id or swap" is prose
-only.
+**Lean coverage.** `Raw.swap_swap`, `Raw.swap_comp_swap`, and
+`Raw.swap_ne_id` formalise the ℤ/2 structure on `{id, swap}`.
+The full classification is prose-only.
 
----
-
-## 3. Signature analysis: why `(2, 2)`
-
-Before building the Hypervisor, we ask whether the two-generator /
-binary signature of `Raw` is itself constrained. If one imports a
-pairwise-distinctness rule at the relation level (a rule the
-axiom does not supply), the minimal non-degenerate signature is
-`(N, k) = (2, 2)`. This confirms `(Fin 2, binary)` is the
-smallest self-consistent engine; the axiom independently fixes
-it from clauses (1)–(3).
-
-**Definition 3.1 (Generalised Raw).** For `N, k : ℕ`:
-
-```
-inductive RawNk (N k : Nat)
-  | object : Fin N → RawNk
-  | rel    : (Fin k → RawNk) → RawNk,
-```
-
-with reachability:
-
-```
-  base : Reachable (object i)
-  step : (∀ i, Reachable (f i)) →
-         (∀ i j, i ≠ j → f i ≠ f j) →
-         Reachable (rel f).
-```
-
-**Lemma 3.2 (Pigeonhole).** For `N < k`, no injection
-`Fin k → Fin N` exists.
-
-(Lean: `E213.OS.Pigeonhole.no_inj_lt`.)
-
-**Theorem 3.3 (Vacuousness for `N < k`).** Every Reachable term
-of `RawNk N k` with `N < k` is a base object.
-
-*Proof.* Induction on the Reachable derivation; the step case
-lifts to a `Fin k → Fin N` injection, contradicting Lemma 3.2.
-(Lean: `E213.OS.ArityForcingGeneral.reachable_base_only`.) ∎
-
-**Corollary 3.4 (Minimal engine).** Non-vacuity requires `N ≥ k`;
-arities `k = 0, 1` are degenerate (constants / linear chains).
-The minimal non-degenerate, non-vacuous signature is therefore
-`(N, k) = (2, 2)`, agreeing with §1.1.
-
-**Scope.** §3's "forced" reads inside the imported distinctness
-hypothesis. The axiom of §1 independently fixes `(Fin 2, binary)`;
-§3 is a sanity-check convergence.
+Note: §2 still introduces no number and no measurement. "`ℤ/2`"
+here names a two-element group, whose elements are the two
+Raw-endomorphisms we just constructed; the integer `2` is not
+yet a measured quantity of Raw.
 
 ---
 
-## 4. Hypervisor: the Lens framework
+## 3. The self-recognition requirement
 
-`Raw` by itself carries no notion of equality — anti-reflexivity
-and symmetry live inside the type, but "same value" between
-distinct Raw terms is undefined. §4 introduces **Lenses**, which
-supply codomains together with a binary operation and provide the
-*only* route by which equality on `Raw` becomes meaningful.
+Raw objects cannot recognise themselves using Raw alone. Raw
+supplies a bootstrapping family; it does not supply a value. To
+*measure* a Raw term — to say what it "is" as a datum, rather
+than as a node in the generation tree — requires an auxiliary
+codomain and a rule for transporting Raw terms into it.
 
-**Definition 4.1 (Lens).** A `Lens` with codomain `α` is a triple
+**Definition 3.1 (Lens).** A `Lens` with codomain `α` is a triple
 
 ```
   Lens α = (base_a : α, base_b : α, combine : α → α → α).
 ```
 
-**Definition 4.2 (View / catamorphism).** For `L : Lens α`,
+**Definition 3.2 (View / catamorphism).**
 
 ```
   L.view a               := L.base_a
@@ -262,408 +218,458 @@ supply codomains together with a binary operation and provide the
   L.view (slash x y h)   := L.combine (L.view x) (L.view y).
 ```
 
-`L.view` is implemented in Lean as a wrapper over `Raw.fold`; the
-Hypervisor layer does not reference `Tree`.
+**Definition 3.3 (Kernel equivalence).**
+`L.equiv x y := L.view x = L.view y`; this is the kernel
+equivalence of `L.view` and is the **only** notion of equality
+on `Raw` the framework admits.
 
-**Definition 4.3 (Kernel equivalence).** `L.equiv x y :=
-L.view x = L.view y`. This is the kernel equivalence of `L.view`
-— an equivalence relation on `Raw`. **The axiom's absent
-equality primitive is supplied here, Lens by Lens.**
+### 3.4 What must the Lens satisfy?
 
-**Definition 4.4 (Refinement).** `L` *refines* `M` iff
-`∀ x y, L.equiv x y → M.equiv x y`; equivalently, `M.view`
-factors through `L.view`.
+A Raw object recognises itself *inside its space* precisely when
+its measurement carries the axiom's structure faithfully. We read
+the axiom four times and list the resulting constraints.
 
-**Theorem 4.5 (Catamorphism compatibility, symmetric case).** For
-`α`, base values `aα, bα`, and **symmetric** `c : α → α → α`, the
-view of `⟨aα, bα, c⟩` satisfies
+**(R1) Measurement exists.** The axiom says "to know what it is,
+*another something* is required." Self-recognition is relational:
+`a` is distinguished by reference to `b` (and vice versa). The
+Lens must therefore provide a nontrivial `combine`; without it,
+`a` and `b` are merely unrelated tokens.
 
-```
-  view a = aα,
-  view b = bα,
-  view (slash x y h) = c (view x) (view y).
-```
+**(R2) Uniformity.** Clause (3) — "the other is also a something"
+— closes the rule recursively. Every level of the closure obeys
+the same combine; the measurement must apply *identically* at
+every node. This is exactly the catamorphism condition
+(Definition 3.2): `L.view (slash x y) = combine (L.view x)
+(L.view y)`. Uniformity is the statement that `L.view` is a
+homomorphism of the free-magma-with-no-fixed-points into the
+codomain `α`.
 
-Non-symmetric `c` admits no such view, because
-`slash x y h = slash y x h'` would force
-`c u v = c v u` on the image. (Lean: `E213.Firmware.Raw.fold_a,
-fold_b, fold_slash`.)
+**(R3) Non-degeneracy.** Clause (1) — "something *exists*" —
+forbids collapsing an existing Raw term to "nothing" at the
+value level. If `L.combine u v = 0` for nonzero `u, v`, then some
+`slash x y` maps to `0` while `x` and `y` themselves are
+nonzero; the measurement denies the existence of a term the axiom
+asserts. A measurement compatible with "exists" therefore must
+have no zero divisors: **every nonzero pair combines to a nonzero
+element**. For a Lens whose codomain is an ℝ-algebra, this is
+equivalent to saying the codomain has no zero divisors — a
+division-algebra condition at the structural level.
 
-### 4.6 Foreshadowing the codomain
+**(R4) Aut-faithfulness.** Raw carries one structural symmetry,
+`Aut(Raw) ≅ ℤ/2` (§2). The axiom supplies no further symmetry
+and no weaker one. A measurement that *erases* the swap symmetry
+(projecting to a fixed point) loses information the axiom
+supplies; one that *adds* extra symmetry (mapping into a codomain
+with larger Aut) claims information the axiom does not supply.
+The requirement is therefore:
 
-The Lens framework has a structural consequence we will not fully
-cash out until §6. The symmetry `Aut(Raw) ≅ ℤ/2` of §2 means
-every Raw carries an order-2 symmetry natively. A Lens whose
-codomain faithfully reflects this symmetry must itself have a
-two-element automorphism group acting consistently with `swap`.
+> The Lens induces a group isomorphism
+> `ρ : Aut(Raw) → Aut_ℝ(codomain)`.
 
-That is, §4's Lens framework does not merely provide equality —
-it poses a constraint on candidate codomains: *the codomain must
-receive `ℤ/2` faithfully*. Among ℝ-algebras, only one does. §6
-spells this out.
+**Working definition.** A Lens whose codomain `α` is an
+ℝ-algebra and which satisfies (R1)–(R4) is called a
+*self-recognising Lens*.
+
+None of (R1)–(R4) has been stipulated. Each is a direct reading
+of an axiom clause:
+- (R1) ⟸ clause (2)'s "another is required";
+- (R2) ⟸ clauses (2)+(3)'s recursion;
+- (R3) ⟸ clause (1)'s "exists";
+- (R4) ⟸ the invariant constructed in §2.
+
+**Theorem 3.5 (Catamorphism compatibility, symmetric case).**
+For a Lens with symmetric `combine`, the view satisfies
+`view (slash x y h) = combine (view x) (view y)`. Non-symmetric
+`combine` admits no such view, because `slash x y h = slash y x h'`
+forces commutativity on the image. (Lean:
+`E213.Firmware.Raw.fold_slash`.) In particular, (R2) uniformity
+forces `combine` to be commutative whenever it is extended across
+the axiom's symmetric reading.
 
 ---
 
-## 5. Atomicity and the `(3, 2)` partition
+## 4. The self-recognising Lens is `ℂ`
 
-§1.3 already derived the `(3, 2)` split of Level-≤2 Raw terms
-directly from the axiom's closure. §5 confirms this by an
-independent arithmetic argument: among integers `n`, there is a
-unique `n` admitting a canonical decomposition into 2-blocks and
-3-blocks of maximal symmetry, and that `n` is `5`. The arithmetic
-agrees with the closure count — no external postulate enters the
-value `5`.
+We now derive the codomain of a self-recognising Lens. Each of
+(R1)–(R4) converts into an algebraic constraint; together they
+pick out `ℂ` uniquely among ℝ-algebras.
 
-### 5.1 From genealogy to arithmetic
+### 4.1 Deriving the codomain conditions
 
-The Level-2 closure has exactly five terms split `3 + 2`. Reading
-the split as "one 3-atom and one 2-atom", we ask: for which `n`
-does `n = 2a + 3b` admit a canonical decomposition?
+**(F1) Finite-generated / finite-dimensional over ℝ.** The
+axiom's generating data is finite: two base constants `a, b`
+plus one binary operator `slash`. Every Raw term is reached by
+finitely many `slash` applications. A catamorphism `L.view`
+maps Raw into the subalgebra of the codomain generated by
+`L.base_a, L.base_b` under `L.combine`. **That subalgebra is
+finitely generated.** If the codomain is an ℝ-algebra, finitely
+generated ℝ-algebra + (R4)'s group-isomorphism requirement force
+it to be finite-dimensional: an infinite-dimensional ℝ-algebra
+carries a larger automorphism group (typically uncountable), so
+(R4) fails. (F1) is thus a consequence of (R2) finite tools +
+(R4) Aut faithfulness.
 
-**Definition 5.1 (Alive, genealogical reading).** A decomposition
-`(a, b) ∈ ℕ²` of `n = 2a + 3b` is *alive* iff both `a` and `b`
-are odd. **Observation.** At the Level-2 closure `(a, b) = (1, 1)`,
-the decomposition is alive by definition (both coefficients equal
-to 1). The "alive" predicate thus formalises the minimal
-genealogical reading: *each atom type appears in the Level-2
-closure with odd multiplicity*, and paired copies of a structurally
-identical atom collapse under canonical form (§1.2). No external
-axiom is introduced; the predicate names the Level-2 pattern.
+**(F2) Commutative.** (R4) requires `Aut_ℝ(codomain) ≅ ℤ/2`.
+The quaternions `ℍ` have `Aut_ℝ(ℍ) ≅ SO(3)`, a Lie group of
+dimension 3, which does not match ℤ/2. Any non-commutative
+finite-dimensional ℝ-division-algebra has a similarly rich Aut
+group. Commutativity of `combine` — also seen structurally as
+the symmetric reading of the axiom (§3.5) — is therefore enforced
+by (R4).
 
-**Definition 5.2 (Atomic).** `n` is *atomic* iff `n = 2a + 3b`
-has a unique pair `(a, b) ∈ ℕ²` and that pair is alive.
+**(F3) Unital, as a consequence of (F2)+(R3).** A
+finite-dimensional commutative division ℝ-algebra is a field, and
+in particular unital. Unital-ness is not an independent
+stipulation; it follows once (F2) and (R3) have placed the
+codomain inside the class of ℝ-fields.
 
-**Theorem 5.3 (Atomicity).** `n ∈ ℕ` is atomic iff `n = 5`.
+**(F4) Division (no zero divisors).** Exactly (R3): an ℝ-algebra
+where some nonzero `u, v` satisfy `uv = 0` forbids the Lens from
+respecting "exists" at clause (1). Split algebras like `ℝ ⊕ ℝ`
+(`|Aut_ℝ| = 2`, swap) are excluded by (R3), not by unital-ness.
+
+### 4.2 Classification and uniqueness
+
+**Theorem 4.1 (Self-recognising Lens is ℂ).** Up to ℝ-algebra
+isomorphism, the unique codomain admitting a self-recognising
+Lens is the field of complex numbers `ℂ`, and under this Lens
+`swap : Raw → Raw` corresponds to complex conjugation
+`z ↦ z̄`.
+
+*Proof (prose; the commutative-field-extension step is classical;
+no Lean formalisation).*
+
+By (F1)+(F2)+(F3)+(F4), the codomain is a finite-dimensional
+commutative unital ℝ-algebra with no zero divisors — i.e., a
+finite field extension of ℝ. Irreducible polynomials over ℝ have
+degree 1 or 2 (fundamental theorem of algebra applied to `ℝ[x]`),
+so `[K : ℝ] ∈ {1, 2}`.
+
+*Dimension 1.* `K = ℝ`; `|Aut_ℝ(ℝ)| = 1`. (R4) requires
+isomorphism to `Aut(Raw) ≅ ℤ/2`, of order 2. Mismatch; dim 1 is
+excluded.
+
+*Dimension 2.* `K = ℝ[α]` with `α² = -1` (the unique
+2-dimensional option up to ℝ-algebra isomorphism, obtained by
+adjoining a root of any monic irreducible quadratic). Any
+`σ ∈ Aut_ℝ(K)` is fixed by `σ(α)`, and `σ(α)² = σ(α²) = -1`
+gives `σ(α) = ±α`; so `|Aut_ℝ(K)| = 2`. The nontrivial element
+is `α ↦ -α`. Under the group isomorphism required by (R4),
+`swap : Raw → Raw` lifts to this `α ↦ -α` — standardly written
+`z ↦ z̄` after identifying `K = ℂ` with `α = i`. ∎
+
+**Corollary 4.2 (ℍ is not a self-recognising Lens).**
+`Aut_ℝ(ℍ) ≅ SO(3)`. A group-isomorphism `ℤ/2 ≅ SO(3)` does not
+exist (cardinalities and topology differ). ℍ therefore fails
+(R4). Non-commutativity is the decisive obstruction.
+
+**Corollary 4.3 (`ℝ ⊕ ℝ` is not a self-recognising Lens).**
+`|Aut_ℝ(ℝ ⊕ ℝ)| = 2` (coordinate swap), so (R4) is matched;
+but `(1, 0) · (0, 1) = 0` violates (R3). The split algebra
+fails the "exists" condition.
+
+### 4.3 Lean status
+
+The arithmetic of §4 — finite ℝ-field extension classification,
+Aut group computations — is classical mathematics. We do not
+formalise it in Lean; no `sorry` is introduced because no §4
+claim is asserted as a Lean theorem. The Lean framework
+(`E213.Firmware`, `E213.Hypervisor`) formalises the Raw type, the
+swap involution, and the Lens catamorphism; the specific
+identification codomain = `ℂ` is recorded at the prose level.
+
+---
+
+## 5. Structure visible under the `ℂ` Lens
+
+With `ℂ` fixed as the self-recognising Lens, we may now speak of
+*measurable* attributes of Raw terms. Each of the following is
+visible *only* through `ℂ` (or a general Lens into ℕ, which
+projects the ℂ picture); none is a property of Raw alone.
+
+### 5.1 Levels and sizes become visible
+
+Under the `leaves : Raw → ℕ` Lens (`base_a = base_b = 1`,
+`combine = +`), a Raw term acquires a natural-number "size":
+the number of base tokens used to build it. Similarly, `depth`
+is the Lens `(0, 0, fun a b ↦ 1 + max a b)`.
+
+These Lenses are ℝ-algebra-trivial projections of the `ℂ`
+Lens via `Re` and `dim`-like maps, so they inherit the
+self-recognition pedigree of `ℂ`. We record them as distinct
+Lenses for convenience; they do not add information.
+
+The closure by levels now has numerical content:
+
+- **Level 0:** `{a, b}` — 2 terms, each of size 1.
+- **Level 1:** add `a/b`, size 2 — 3 terms total.
+- **Level 2:** add `a/(a/b), b/(a/b)`, each of size 3 — 5 terms
+  total.
+
+The five Level-≤2 terms split by size as `3 + 2`:
+
+```
+A-type (sizes ≤ 2): {a, b, a/b}        — 3 terms
+B-type (size 3):    {a/(a/b), b/(a/b)} — 2 terms
+```
+
+(Lean: `E213.Firmware.Raw.level1_card`,
+`Raw.level2_new_card`, `Raw.level2_total_card`; 5 terms
+formalised as an explicit list with `List.Nodup` by `decide`.)
+
+### 5.2 Atom set `{2, 3}` is visible
+
+Under the `ℂ` lens, sizes are integers; partitioning a Raw
+collection into minimal blocks asks which integers are
+*non-decomposable as sums of parts ≥ 2*. The lower bound `≥ 2`
+is the size at which the `slash` constructor first contributes:
+a bare base token has size 1 and does not exercise `slash`.
+Under `ℂ`, this threshold is where the binary combine activates.
+
+**Proposition 5.1 (Characterisation of `{2, 3}`).** An integer
+`n ≥ 2` cannot be written `n = n_1 + ⋯ + n_k` with `k ≥ 2` and
+each `n_i ≥ 2` iff `n ∈ {2, 3}`.
+
+*Proof.* (Lean: `E213.OS.NonDecomposable.non_decomposable_iff`.)
+A multi-part decomposition collapses to 2 parts. Case analysis:
+`n ∈ {2, 3}` gives `a + b ≥ 4 > n`, impossible; `n = 4` is
+`2 + 2`; `n ≥ 5` is `2 + (n - 2)` with `n - 2 ≥ 3`. ∎
+
+The atom set is therefore `{2, 3}` — the non-decomposable sizes
+post-`ℂ`. Both values are already visible in Raw's closure:
+`|{a, b}| = 2` and `|{a, b, a/b}| = 3`. (Lean:
+`E213.OS.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
+
+### 5.3 Atomic decomposition observes odd multiplicity
+
+Under the `ℂ` Lens, a partition of a Raw collection into blocks
+of sizes `{2, 3}` takes the form `n = 2a + 3b`. The Level-2
+closure itself realises `(a, b) = (1, 1)` — one 3-block
+(A-type) and one 2-block (B-type). Both coefficients are odd.
+
+**Observation 5.2 (Alive).** At Level 2 of Raw's closure, each
+atom type appears with multiplicity 1, an *odd* number. Paired
+copies of a structurally identical atom would coincide under the
+canonical-form encoding (§1.2) and collapse; only odd residues
+remain. We call `(a, b)` *alive* iff both are odd. Level 2 is
+alive by construction.
+
+No external postulate has entered. "Alive" names the observed
+parity pattern of Level 2 under the `ℂ` lens.
+
+**Definition 5.3 (Atomic).** `n` is *atomic* iff `n = 2a + 3b`
+has a unique solution `(a, b) ∈ ℕ²` and that solution is alive.
+
+**Theorem 5.4 (Atomicity).** `n ∈ ℕ` is atomic iff `n = 5`.
 
 *Proof.* (Lean: `E213.OS.Atomicity.atomic_iff_five`.)
 
 *Existence at `n = 5`.* `3b ≤ 5` gives `b ∈ {0, 1}`; `b = 0` is
-impossible; `b = 1` gives `a = 1`. Unique decomposition `(1, 1)`,
-alive.
+impossible; `b = 1` gives `a = 1`. Unique, alive.
 
-*Only `n = 5`.* Let `(a, b)` be the unique alive decomposition.
-The Bézout shift `(a, b) ↦ (a ± 3, b ∓ 2)` preserves `2a + 3b`.
-If `a ≥ 3`, `(a - 3, b + 2) ∈ ℕ²` is a second decomposition,
-contradicting uniqueness; hence `a < 3`. If `b ≥ 2`,
-`(a + 3, b - 2) ∈ ℕ²` is a second decomposition; hence `b < 2`.
-With `a, b` odd nonnegative, `a = b = 1`, giving `n = 5`. ∎
+*Only `n = 5`.* Bézout shift `(a, b) ↦ (a ± 3, b ∓ 2)` preserves
+`2a + 3b`. `a ≥ 3` ⟹ `(a - 3, b + 2)` is a second decomposition;
+`b ≥ 2` ⟹ `(a + 3, b - 2)` likewise. Hence `a < 3`, `b < 2`.
+With `a, b` odd nonnegative: `a = b = 1`, `n = 5`. ∎
 
-**Corollary 5.4 (Canonical partition).** The unique atomic `n`
-admits `(1, 1)`: one 2-block, one 3-block, total 5 vertices
-split as `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`. This
-matches §1.3 exactly.
+**Corollary 5.5.** The unique atomic `n` gives the partition
+`V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2` — matching the Level-2
+closure of §5.1 exactly.
 
-### 5.2 The atom set `{2, 3}`
-
-**Proposition 5.5 (Non-decomposability).** An integer `n ≥ 2`
-cannot be written `n = n_1 + ⋯ + n_k` with `k ≥ 2` and each
-`n_i ≥ 2` iff `n ∈ {2, 3}`.
-
-*Proof.* (Lean: `E213.OS.NonDecomposable.non_decomposable_iff`.)
-A multi-part decomposition collapses to 2 parts. Direct case
-analysis: `n ∈ {2, 3}` gives `a + b ≥ 4 > n`, impossible; `n = 4`
-is `2 + 2`; `n ≥ 5` is `2 + (n - 2)`. ∎
-
-The atom values `{2, 3}` are thus fixed by pure arithmetic: the
-two integers with no non-trivial self-composition above the
-lower bound `≥ 2`. The lower bound itself is a genealogical
-choice: atoms are Raw-subtrees that *use* the `slash` constructor
-at least once, so leaves count `≥ 2`.
-
-*Primitive-data echo.* The same two sizes occur as the base pair
-`|{a, b}| = 2` and the Level-1 closure `|{a, b, a/b}| = 3`. (Lean:
-`E213.OS.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.) The
-arithmetic of Proposition 5.5 is what fixes `A`; the echo is for
-intuition.
-
-### 5.3 Pair Forcing
-
-§5.1–5.2 fix `(A, n) = ({2, 3}, 5)` given that atoms form a coprime
-pair. A sharper question: among *all* coprime pairs `(p, q)` with
-`2 ≤ p < q`, which pair has a unique "atomic" vertex count in the
-sense of Definition 5.2?
+### 5.4 Pair Forcing: `(2, 3)` is the unique coprime option
 
 **Definition 5.6 (Count).** For `p, q ≥ 2`,
-```
-  count(p, q) := ⌊p/2⌋ · ⌊q/2⌋.
-```
+`count(p, q) := ⌊p/2⌋ · ⌊q/2⌋`.
 
-*Combinatorial interpretation.* `⌊q/2⌋` counts odd positive
-integers less than `q`; `⌊p/2⌋` those less than `p`. Under the
-Bézout uniqueness bound `a < q ∧ b < p`, the count of odd-positive
-solution pairs is `⌊p/2⌋ · ⌊q/2⌋`. We do not formalise the
-"count = #atomic" bijection for general `(p, q)` in Lean; Theorem
-5.7 is stated as a pure arithmetic identity.
+*Combinatorial reading.* Under Bézout uniqueness
+(`a < q ∧ b < p`), odd-positive solution pairs to `pa + qb = n`
+number `⌊p/2⌋ · ⌊q/2⌋`. The bijection "atomic `n` count =
+`⌊p/2⌋·⌊q/2⌋`" for general `(p, q)` is not formalised in Lean;
+Theorem 5.7 is stated as a pure arithmetic identity.
 
 **Theorem 5.7 (Pair Forcing).** For coprime `p, q` with
-`2 ≤ p < q`,
-
+`2 ≤ p < q`:
 ```
   count(p, q) = 1  ⟺  (p, q) = (2, 3).
 ```
 
-*Proof.* `⌊p/2⌋ ≥ 1` and `⌊q/2⌋ ≥ 1` from `p, q ≥ 2`; their
-product equals 1 iff both equal 1. `⌊k/2⌋ = 1 ⟺ k ∈ {2, 3}`. With
-`p < q` coprime, the unique solution is `(2, 3)`. ∎ (Lean:
-`E213.OS.PairForcing.count_eq_one_iff`.)
+*Proof.* `⌊p/2⌋, ⌊q/2⌋ ≥ 1`; product 1 iff both equal 1;
+`⌊k/2⌋ = 1 ⟺ k ∈ {2, 3}`; with `p < q` coprime, `(p, q) = (2, 3)`
+uniquely. ∎ (Lean: `E213.OS.PairForcing.count_eq_one_iff`.)
 
-**Corollary 5.8.** The arithmetic atom-pair `(2, 3)` — fixed
-independently by §3 (arity 2, minimality under distinctness),
-§5.2 (atom values, non-decomposability), and §5.3 (count = 1,
-coprime) — is the unique option common to all three independent
-routes.
-
-**Remark 5.9 (Rigidity).** The structure is narrow:
-
-- Three or more atoms (`|A| ≥ 3`) yield *no* atomic `n`: Bézout
-  shifts proliferate and always break uniqueness
-  (`foundations/experiments/FND_042`).
-- Non-coprime atoms restrict `n` to multiples of `gcd`, losing
-  the universal count theorem.
-
-Thus `(p, q, n) = (2, 3, 5)` is an arithmetic fixed point:
-altering any of arity, atom values, or the genealogical Level-2
-reading destroys the uniqueness.
+**Corollary 5.8 (Convergence).** The values `(p, q) = (2, 3)` and
+`n = 5` are simultaneously the non-decomposable pair of §5.2, the
+atomic count of §5.3, and the unique `count = 1` coprime pair of
+§5.4. Three independent arithmetic routes under the `ℂ` lens
+converge on the same numbers.
 
 ---
 
-### 5.4 Block structure and invariance
+## 6. The `(3, 2)` partition and block structure
 
-*(This subsection was §7 in the previous draft; it sits naturally
-as the continuation of §5 because it formalises the action of
-`S_3 × S_2` on the `(3, 2)` partition already established above.
-We retain a separate heading for navigability.)*
+From §5.1 (Level-2 closure) and §5.3 (atomic decomposition), Raw
+measured under the `ℂ` lens carries the partition
+`V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`. §6 formalises the
+symmetry structure on this partition.
 
 Take `V := Fin 5`, `V_A := {0, 1, 2}`, `V_B := {3, 4}`.
 
-**Definition 5.4.1.** `isA : Fin 5 → Bool`, `isA i := (i.val < 3)`.
+**Definition 6.1.** `isA : Fin 5 → Bool`, `isA i := (i.val < 3)`.
 
-**Definition 5.4.2 (Block-pair classifier).**
-`classify : Fin 5 × Fin 5 → BlockPair`, with six cases:
+**Definition 6.2 (Block-pair classifier).**
+`classify : Fin 5 × Fin 5 → BlockPair` with six cases:
 
 ```
 AAdiag    3 pairs   AAoff   6 pairs    AB    6 pairs
 BA        6 pairs   BBdiag  2 pairs    BBoff 2 pairs
-                                      — total 25 = |V|²
+                                       — total 25 = |V|²
 ```
 
-**Definition 5.4.3 (Partition-preserving permutation).** Bijection
+**Definition 6.3 (Partition-preserving permutation).** Bijection
 `σ : Fin 5 → Fin 5` with `isA (σ i) = isA i` for all `i`. The
-group of such bijections is `S_{V_A} × S_{V_B} ≅ S_3 × S_2`, of
+group of such bijections is `S_{V_A} × S_{V_B} ≅ S_3 × S_2`,
 order 12.
 
-**Definition 5.4.4 (Block-constant weight).**
-`W : Fin 5 × Fin 5 → α` is *block-constant* iff it factors through
+**Definition 6.4 (Block-constant weight).**
+`W : Fin 5 × Fin 5 → α` *block-constant* iff it factors through
 `classify`.
 
-**Theorem 5.4.5 (Block-constancy ⟹ invariance).** Block-constant
+**Theorem 6.5 (Block-constancy ⟹ invariance).** Block-constant
 `W` is invariant under every partition-preserving bijection.
 
-*Proof.* A partition-preserving bijection preserves `classify`;
-`W = f ∘ classify` then gives the claim. ∎ (Lean:
-`E213.App.Simplex.block_constant_implies_aut_invariant`.)
+*Proof.* `classify` is invariant; `W = f ∘ classify`. ∎
+(Lean: `E213.App.Simplex.block_constant_implies_aut_invariant`.)
 
-**Theorem 5.4.6 (Invariance ⟹ block-constancy).** Conversely, if
-`W` is invariant under every partition-preserving bijection, then
-`W` is block-constant.
-
-*Proof (prose only; not formalised in Lean).* Use transitivity of
-`S_3` on the 6 ordered distinct pairs of `V_A` (free action,
-`|S_3| = 6`), of `S_2` on the 2 ordered distinct pairs of `V_B`
-(free action, `|S_2| = 2`), and of each factor on its own
-diagonal. Invariance under these actions collapses each class to
-a single value. ∎
+**Theorem 6.6 (Invariance ⟹ block-constancy).** Prose only,
+not formalised in Lean: `S_3` acts transitively on 6 ordered
+distinct pairs of `V_A` (free, `|S_3| = 6`), `S_2` on 2 ordered
+distinct pairs of `V_B`, and each factor on its diagonal;
+invariance collapses each class.
 
 ---
 
-## 6. Algebraic projection: the unique codomain is `ℂ`
+## 7. Signature meta-analysis
 
-§2 established `Aut(Raw) ≅ ℤ/2`. §4 posed the Hypervisor
-constraint: a Lens whose codomain receives this symmetry
-faithfully gives `Raw` its "full expressive reach". §6 now
-identifies the codomain.
+§1 fixed `(Fin 2, binary)` from the axiom's clauses directly.
+§7 is a convergence sanity-check: among generalised signatures
+`RawNk (N, k)` with a pairwise-distinctness rule at the relation
+level (a rule the axiom does not supply), the minimal
+non-degenerate non-vacuous signature is `(N, k) = (2, 2)`.
 
-### 6.1 The class 𝒞
+**Definition 7.1 (Generalised Raw).**
+```
+inductive RawNk (N k : Nat)
+  | object : Fin N → RawNk
+  | rel    : (Fin k → RawNk) → RawNk
+```
+with reachability `∀ i, Reachable (f i)` and
+`∀ i j, i ≠ j → f i ≠ f j`.
 
-We seek an ℝ-algebra `K` satisfying:
+**Lemma 7.2 (Pigeonhole).** For `N < k`, no injection
+`Fin k → Fin N` exists. (Lean: `E213.OS.Pigeonhole.no_inj_lt`.)
 
-- **(C1) Finite-dimensional over ℝ.** *Stipulation.* The Lens
-  is parameterised by two base values and one binary operation;
-  infinite-dimensional codomains carry more information than the
-  axiom's two-generator / binary-operation scale provides.
-  Infinite-dim ℝ-algebras with `Aut_ℝ = ℤ/2` could in principle
-  exist; we exclude them as extraneous.
-- **(C2) Commutative.** *Structural reflection.* §1's canonical
-  form identifies `slash x y = slash y x`; commutativity of
-  `combine` at the Lens layer is the value-level translation.
-  Dropping (C2) admits `ℍ` (Cor 6.6), whose
-  `Aut_ℝ(ℍ) ≅ SO(3)` does not match `ℤ/2`; so (C2) is *enforced
-  by Aut-faithfulness*, not merely stipulated.
-- **(C3) Unital.** *Stipulation.* A multiplicative identity is
-  adopted to reach the field-classification step of Thm 6.4.
-  Non-unital ℝ-algebras could satisfy the remaining conditions;
-  they are excluded for classification-theoretic convenience.
-- **(C4) Division algebra.** *Non-degeneracy.* Every nonzero
-  element is invertible — a Lens value cannot vanish without the
-  corresponding Raw term being absent. Without (C4),
-  `ℝ ⊕ ℝ` (with `|Aut_ℝ| = 2`) would falsely match; (C4) excludes
-  this competitor.
+**Theorem 7.3 (Vacuousness).** In `RawNk N k` with `N < k`,
+every Reachable term is a base object. (Lean:
+`E213.OS.ArityForcingGeneral.reachable_base_only`.)
 
-Call this class `𝒞`.
+**Corollary 7.4 (Minimal signature).** Non-vacuity requires
+`N ≥ k`; `k ∈ {0, 1}` is degenerate (constants / linear
+chains). The minimal non-degenerate non-vacuous signature is
+`(N, k) = (2, 2)`.
 
-**Status.** Only (C2) is forced by Aut-faithfulness (Cor 6.6);
-(C1), (C3), (C4) are stipulations chosen for the classification
-theorem to apply. "Uniqueness of `ℂ`" is uniqueness *within* `𝒞`,
-not uniqueness among all ℝ-algebras.
-
-### 6.2 Existence and uniqueness
-
-**Definition 6.1.** `Aut_ℝ(K)` is the group of ℝ-algebra
-automorphisms of `K`.
-
-**Definition 6.2 (Aut-equivariance).** A Lens `L` with codomain
-`K ∈ 𝒞` is *Aut-equivariant* iff there is a group homomorphism
-`ρ : Aut(Raw) → Aut_ℝ(K)` with
-`L.view (τ x) = ρ(τ) (L.view x)`.
-
-**Definition 6.3 (Aut-faithfulness).** `L` is *Aut-faithful* iff
-`ρ` is a group *isomorphism* `Aut(Raw) ≅ Aut_ℝ(K)`.
-
-**Theorem 6.4 (Existence and uniqueness in `𝒞`).** Within `𝒞`:
-
-1. *(Classification.)* Up to ℝ-algebra isomorphism, `𝒞` has
-   exactly two elements: one-dimensional `K_1` and
-   two-dimensional `K_2`.
-2. *(Aut groups.)* `|Aut_ℝ(K_1)| = 1`, `|Aut_ℝ(K_2)| = 2`.
-3. *(Faithful codomain.)* Combined with `Aut(Raw) ≅ ℤ/2`
-   (Thm 2.5), exactly `K_2` admits an Aut-faithful Lens.
-
-*Proof (prose; not formalised in Lean).*
-
-(1) Every `K ∈ 𝒞` is a finite field extension of ℝ
-((C2)+(C3)+(C4)+(C1)). Irreducible polynomials over ℝ have
-degree 1 or 2; so `[K : ℝ] ∈ {1, 2}`, with one isomorphism class
-per dimension.
-
-(2) For `K_1`, any ℝ-algebra endomorphism fixes 1, hence `K_1`.
-For `K_2 = ℝ[α]` with `α² = -1`, `σ(α)² = -1` gives `σ(α) = ±α`;
-`|Aut_ℝ(K_2)| = 2`.
-
-(3) Aut-faithfulness requires `|Aut_ℝ(K)| = 2`; only `K_2` fits.
-∎
-
-**Corollary 6.5 (Identification with `ℂ`).** `K_2` is, by
-construction, the complex numbers. Adjoining a root of `x² + 1`
-to ℝ gives `ℝ[i]` with `i² = -1`, the standard presentation of
-`ℂ`. The nontrivial element of `Aut_ℝ(K_2)` is complex
-conjugation `i ↦ -i`. The unique Aut-faithful codomain in `𝒞` is
-`ℂ`, with `swap` lifted to conjugation.
-
-**Corollary 6.6 (`ℍ` excluded).** Dropping (C2) admits `ℍ`
-(finite-dim unital division ℝ-algebra). `Aut_ℝ(ℍ) ≅ SO(3)` is a
-Lie group of dim 3; `|Aut_ℝ(ℍ)| ≠ 2`. No Aut-faithful Lens over
-`ℍ` exists. (C2) is therefore the decisive constraint separating
-`K_2` from `ℍ`.
-
-**Remark 6.7 (Relation to Hurwitz–Frobenius).** Frobenius's
-theorem plays no external role; step (1) of Thm 6.4 uses only
-the commutative fragment, which reduces to FTA + finite
-ℝ-field-extension classification.
+**Scope.** §7's "forced" reads inside the imported distinctness
+hypothesis. §1 independently fixes `(Fin 2, binary)` from the
+axiom; §7 is a convergence confirmation, not an alternative
+derivation.
 
 ---
 
 ## Conclusion
 
 The minimal system defined by the 3-clause axiom consists of the
-following, with Lean status tags **[✓]** fully formalised,
-**[partial]** some underlying theorems formalised, or
-**[prose]** informal only.
+following structure, in strict logical dependency order:
 
-**From the axiom (§1):**
+**Firmware (§§1–2):**
 
 1. **[✓]** `Raw`, the free commutative magma on two generators
-   with no fixed points (Def 1.1). Lean 4 core realisation as a
-   canonical-form subtype of a free ordered magma; no equality
-   or apartness primitive imported.
+   with no fixed points (Def 1.1). Lean 4 core realisation:
+   canonical-form subtype of a free ordered magma. No number, no
+   size, no equality primitive.
 
-2. **[✓]** The `(3, 2)` partition is visible directly in the
-   closure: 5 Raw terms at Level ≤ 2 split 3 + 2 (§1.3).
+2. **[partial]** `Aut(Raw) ≅ ℤ/2` via the swap involution
+   (§2, Thm 2.5). Formalised: `Raw.swap, swap_swap,
+   swap_comp_swap, swap_ne_id`. Full classification prose-only.
 
-**From the axiom + symmetry (§2):**
+**Lens question and its answer (§§3–4):**
 
-3. **[partial]** A single nontrivial Raw-automorphism, the swap
-   involution, realising `Aut(Raw) ≅ ℤ/2`. Formalised:
-   `Raw.swap`, `Raw.swap_swap`, `Raw.swap_comp_swap`,
-   `Raw.swap_ne_id` — the ℤ/2 structure on `{id, swap}`. The
-   full classification (Thm 2.5) is prose only.
+3. **[prose]** Self-recognition imposes four requirements on a
+   Lens — measurement, uniformity, non-degeneracy,
+   Aut-faithfulness — each a direct reading of the axiom (§3).
 
-**Meta-analysis (§3):**
+4. **[prose]** The unique codomain satisfying all four is `ℂ`
+   (§4 Thm 4.1). The argument is classical finite ℝ-field
+   extension theory; not formalised in Lean. ℍ excluded by Aut
+   mismatch (§4 Cor 4.2); `ℝ ⊕ ℝ` excluded by non-degeneracy
+   (§4 Cor 4.3).
 
-4. **[✓ under imported distinctness]** `(N, k) = (2, 2)` is the
-   minimal non-degenerate non-vacuous signature (Thm 3.3,
-   Cor 3.4). The axiom independently fixes this from §1; §3 is
-   a convergence sanity-check.
+**Structure visible under `ℂ` (§§5–6):**
 
-**Hypervisor (§4):**
+5. **[✓]** Under the `ℂ` Lens (and its ℕ-projections), sizes
+   become visible: 5 Raw terms at Level ≤ 2, split 3 + 2 (§5.1);
+   atom set `{2, 3}` from non-decomposability (§5.2 Prop 5.1);
+   atomic decomposition with both coefficients odd (§5.3 Obs 5.2);
+   unique atomic `n = 5` (§5.3 Thm 5.4).
 
-5. **[✓]** Lens framework with catamorphism `Raw.fold`, kernel
-   equivalence as the only notion of equality on Raw.
-   Symmetric-`combine` catamorphism universal property
-   (Thm 4.5).
+6. **[✓]** Pair Forcing: `(2, 3)` is the unique coprime pair with
+   `2 ≤ p < q` satisfying `count(p, q) = 1` (§5.4 Thm 5.7);
+   three routes converge (§5.4 Cor 5.8).
 
-**Arithmetic confirmation (§5):**
+7. **[partial]** `(3, 2)` partition of `V = Fin 5`; `S_3 × S_2`
+   invariance equivalent to block-constancy (§6 Thms 6.5–6.6).
+   Lean formalises the forward direction.
 
-6. **[✓]** `n = 5` is the unique atomic vertex count (Thm 5.3)
-   — independent arithmetic matching the Level-2 closure count
-   of §1.3.
+**Meta-confirmation (§7):**
 
-6'. **[✓]** Atom values `{2, 3}` are the non-decomposable
-   integers ≥ 2 (Prop 5.5).
-
-6''. **[✓]** Pair Forcing (Thm 5.7): among all coprime pairs
-   with `2 ≤ p < q`, `count(p, q) = 1 ⟺ (p, q) = (2, 3)`. The
-   three routes (§3, §5.2, §5.3) converge on the same pair.
-
-6'''. **[partial]** `S_3 × S_2`-invariance on `V × V` equivalent
-   to block-constancy (Thms 5.4.5–5.4.6). Lean formalises the
-   forward direction; the converse is prose only.
-
-**Algebraic projection (§6):**
-
-7. **[prose]** Within `𝒞` (the class of ℝ-algebras satisfying
-   (C1)–(C4)), the unique codomain admitting an Aut-faithful
-   Lens is `ℂ` (Thm 6.4, Cor 6.5). No Lean formalisation; proof
-   relies on finite-dimensional ℝ-field-extension theory.
+8. **[✓ under imported distinctness]** `(N, k) = (2, 2)` is the
+   minimal non-degenerate non-vacuous signature for generalised
+   `RawNk` (§7 Thm 7.3, Cor 7.4).
 
 ---
 
-### Honest summary
+### No stipulations.
 
-The axiom **forces**:
+We list every condition introduced in the body and identify its
+source:
 
-- `Raw` as the free commutative magma on 2 generators, no fixed
-  points (§1);
-- `Aut(Raw) ≅ ℤ/2` on the algebraic level (§2);
-- `(3, 2)` partition at Level 2 of the closure (§1.3);
-- the Lens framework as the only native route to equality on
-  `Raw` (§4);
-- `n = 5` as the unique atomic decomposition value (§5).
+| Condition                         | Source                          |
+| --------------------------------- | ------------------------------- |
+| anti-reflexive (`no x/x`)         | axiom clause (2)                |
+| symmetric (`x/y = y/x`)           | axiom clause (2–3)              |
+| `Aut(Raw) ≅ ℤ/2`                  | axiom's symmetric base roles    |
+| measurement Lens exists           | axiom clause (2)                |
+| Lens uniform (catamorphism)       | axiom clause (3)                |
+| Lens non-degenerate (no zero div) | axiom clause (1) "exists"       |
+| Lens Aut-faithful                 | §2 invariant from axiom         |
+| codomain finite-dim over ℝ        | finite generating data (F1)     |
+| codomain commutative              | (R4) + ℍ Aut mismatch           |
+| codomain unital                   | consequence of (F2)+(F4)        |
+| codomain has no zero divisors     | (R3), axiom clause (1)          |
+| `atom ≥ 2`                        | threshold where `slash` acts    |
+| atom values `{2, 3}`              | Prop 5.1 arithmetic             |
+| alive (both odd)                  | Obs 5.2 of Level-2 closure      |
+| `n = 5` atomic                    | Thm 5.4 under `ℂ` lens          |
+| `(3, 2)` partition                | Level-2 closure + Thm 5.4       |
 
-The axiom **does not force** (acknowledged stipulations):
+Every row's source is either an axiom clause, a theorem derived
+from the axiom, or an observation made after the `ℂ` lens is
+in place. **No row is an external stipulation.**
 
-- atom lower bound `≥ 2` in §5.2 (structural choice);
-- class-`𝒞` conditions (C1), (C3), (C4) in §6 — only (C2) is
-  Aut-enforced;
-- finite classification machinery used in the prose proofs of
-  Thm 2.5, Thm 6.4.
-
-`Aut(Raw) ≅ ℤ/2` and the `ℂ`-identification are proved at the
-prose level; their full Lean formalisations are partial or
-absent. The "alive" predicate of §5.1 is *not* an external
-postulate but an observation about the Level-2 closure, encoded
-as odd-multiplicity — the Lean file retains the older name
-`AliveFromDistinctness` for historical continuity but the status
-is that of a structural observation, not an axiom.
+The previous framing of "atom ≥ 2" and "alive" as stipulations
+was a symptom of presenting numerical structure before the `ℂ`
+lens was available. With the logical order corrected — axiom,
+then Lens requirements, then `ℂ`, then numerical observations —
+every stipulation dissolves into either a direct axiom reading
+or a post-`ℂ` arithmetic fact.
 
 This is the minimal system defined by the 3-clause axiom.
 
