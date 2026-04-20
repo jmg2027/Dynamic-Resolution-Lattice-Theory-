@@ -49,8 +49,10 @@ constraints arise:
 - **(R4)** swap matches exactly one nontrivial involution on
   the codomain (Raw carries `Aut(Raw) ≅ ℤ/2` as a structural
   invariant);
-- **(R5)** minimal continuous distinguishing codomain — all
-  Raw terms project to distinct values of a connected ℝ-algebra.
+- **(R5)** distinguishing + tree-metric continuity — different
+  Raw terms project to different values, and Raw terms sharing
+  deeper common tree structure project to closer values; the
+  minimal codomain supporting both is `ℝ`.
 
 None of these is postulated; each is read off Raw as a space
 (§§1–2). The axiom creates the space; the space's internal
@@ -301,14 +303,26 @@ language** (the conventional algebraic shorthand).
 
 (Lean: `E213.Meta.LensCatalog.SwapMatching`.)
 
-**(R5) Minimal continuous distinguishing codomain.**
+**(R5) Distinguishing + continuity in the tree metric.**
 
-- *Raw language:* different Raw terms project to different
-  values in `α` (injectivity of `view`); `α` is the smallest
-  connected / continuous codomain on which this is possible.
-- *Algebra (post-construction):* the injectivity requirement
-  picks out a continuous ℝ-algebra; the minimality clause
-  identifies it with `ℝ`.
+The *tree metric* on Raw is the Raw-native notion of closeness:
+two Raw terms are "close" when they share a long common tree
+structure (equivalently: they agree on all subterms down to a
+large depth, and differ only below that). Terms that share
+deeper common structure are closer. This metric uses only Raw's
+inductive shape; no external notion of "distance" is imported.
+
+- *Raw language:*
+  - (distinguishing) different Raw terms project to different
+    values in `α`;
+  - (continuity) Raw terms that are arbitrarily close in the
+    tree metric project to codomain values that are arbitrarily
+    close in `α`;
+  - (minimality) `α` is the smallest codomain on which both
+    conditions are jointly satisfiable.
+- *Algebra (post-construction):* `view` is injective and
+  continuous with respect to the tree metric on Raw and a
+  metric/topology on `α`. The minimal such `α` is `ℝ`.
 
 (Lean: `E213.Meta.LensCatalog.Distinguishing` captures the
 injectivity half. The continuity / minimality clause of R5 is
@@ -397,11 +411,11 @@ Lens must respect. §4 translates them into algebraic conditions
 on the codomain and shows the resulting class is singleton. The
 natural sub-structure is two-step:
 
-- **R1, R2, R3, R5 together force the continuous base `ℝ`.** R1
-  supplies the binary operation; R2 requires a homomorphism; R3
-  prohibits zero divisors; R5 forces a connected / continuous
-  codomain distinguishing all Raw terms. The minimal continuous
-  ℝ-algebra with no zero divisors is the field `ℝ`.
+- **R1, R2, R3, R5 together force the base `ℝ`.** R1 supplies
+  the binary operation; R2 requires a homomorphism; R3 prohibits
+  zero divisors; R5 requires injectivity plus the tree-metric
+  continuity described in §3.2. The minimal codomain on which
+  all four conditions are jointly satisfiable is the field `ℝ`.
 - **R4 extends `ℝ` to `ℂ`.** `Aut_ℝ(ℝ) = {id}` is trivial; R4
   requires a nontrivial involution, which `ℝ` cannot supply. The
   minimal extension carrying exactly one nontrivial involution
@@ -767,7 +781,7 @@ source:
 | R3: non-vanishing                 | Raw's term-level distinctness   |
 | R4: swap matches one involution   | §2 Aut(Raw) invariant of space  |
 | R5: distinguishing + continuous   | Raw's term-level distinguishability |
-| codomain = `ℝ` (from R1+R2+R3+R5) | minimal continuous no-zero-div  |
+| codomain = `ℝ` (from R1+R2+R3+R5) | minimal tree-metric-continuous  |
 | codomain = `ℂ` (from + R4)        | minimal extension with ℤ/2 aut  |
 | `atom ≥ 2`                        | threshold where `slash` acts    |
 | atom values `{2, 3}`              | Prop 5.1 arithmetic             |
