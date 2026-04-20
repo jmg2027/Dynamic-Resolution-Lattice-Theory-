@@ -404,8 +404,10 @@ is
 ```
   count(p, q) := ⌊p/2⌋ · ⌊q/2⌋.
 ```
-It counts pairs `(a, b)` of odd positive integers with `a < q` and
-`b < p` — the atomic decompositions under Bézout uniqueness.
+It counts decomposition pairs `(a, b)` of odd positive integers with
+`a < q` (contributing `⌊q/2⌋` odd values) and `b < p` (contributing
+`⌊p/2⌋` odd values) — the atomic decompositions under Bézout
+uniqueness.
 
 **Theorem 6.7.2 (Pair Forcing).** For coprime `p, q` with
 `2 ≤ p < q`,
@@ -685,6 +687,14 @@ atom hypothesis now Raw-intrinsic; see Remark 6.6):**
    structural equivalence). Together, `n = 5` is the unique atomic
    vertex count (Theorem 6.3), giving the canonical partition
    `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
+
+5'. Equivalently and more sharply (Theorem 6.7.2, Pair Forcing):
+   among all coprime pairs `(p, q)` with `2 ≤ p < q`, the unique
+   pair admitting a unique atomic vertex count is `(p, q) = (2, 3)`,
+   for which that count is `n = 5`. The single condition
+   `count(p, q) := ⌊p/2⌋ · ⌊q/2⌋ = 1` simultaneously forces arity
+   `2`, atom values `{2, 3}`, and vertex count `5` — no separate
+   hypothesis is required.
 
 6. The `S_3 × S_2` action yields exactly six orbits on `V × V`,
    with `3 + 6 + 6 + 6 + 2 + 2 = 25 = |V|²`, and invariance under

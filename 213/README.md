@@ -30,6 +30,7 @@ framework/
 │   ├── NonDecomposable.lean        -- {2, 3} as non-decomposable ≥ 2
 │   ├── PrimitiveSizes.lean         -- {2, 3} read off the axiom
 │   ├── AliveFromDistinctness.lean  -- alive predicate from Raw's x ≠ y
+│   ├── PairForcing.lean            -- (p,q)=(2,3) uniquely forces n=5
 │   └── Simplex.lean                -- (3,2) partition, block invariance
 ├── lakefile.toml
 ├── lean-toolchain                  -- leanprover/lean4:v4.16.0
