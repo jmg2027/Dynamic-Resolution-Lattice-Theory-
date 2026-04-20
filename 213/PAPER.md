@@ -49,18 +49,20 @@ constraints arise:
 - **(R4)** swap matches exactly one nontrivial involution on
   the codomain (Raw carries `Aut(Raw) ≅ ℤ/2` as a structural
   invariant);
-- **(R5)** distinguishing + tree-metric continuity — different
-  Raw terms project to different values, and Raw terms sharing
-  deeper common tree structure project to closer values; the
-  minimal codomain supporting both is `ℝ`.
+- **(R5)** reception of infinite structural branches — every
+  non-terminating generation-rule trajectory in `R` corresponds
+  to a uniquely determined state in the codomain (no crash); the
+  minimal codomain receiving all such branches is `ℝ`.
 
 None of these is postulated; each is read off Raw as a space
 (§§1–2). The axiom creates the space; the space's internal
 geometry enforces the Lens conditions.
 
-R1+R2+R3+R5 fix the codomain's base ring: the minimal
-continuous no-zero-divisor ℝ-algebra is **`ℝ`**. R4 then adjoins
-the unique nontrivial involution: the minimal extension of `ℝ`
+R1+R2+R3+R5 fix the base codomain: the minimal `ℝ`-algebra
+admitting a commutative no-zero-divisor combine and receiving
+every infinite structural branch of `R` is **`ℝ`** itself
+(Cauchy-complete, no zero divisors, unital). R4 then adjoins the
+unique nontrivial involution: the minimal extension of `ℝ`
 carrying one involution is **`ℂ = ℝ[i]`**, with the involution
 realised as complex conjugation. Thus `ℂ` is the unique
 self-recognising codomain (§4).
@@ -303,46 +305,50 @@ language** (the conventional algebraic shorthand).
 
 (Lean: `E213.Meta.LensCatalog.SwapMatching`.)
 
-**(R5) Distinguishing + continuity in the tree metric.**
+**(R5) Reception of infinite structural branches.**
 
-The *tree metric* on Raw is the Raw-native notion of closeness:
-two Raw terms are "close" when they share a long common tree
-structure (equivalently: they agree on all subterms down to a
-large depth, and differ only below that). Terms that share
-deeper common structure are closer. This metric uses only Raw's
-inductive shape; no external notion of "distance" is imported.
+In system `R` one may consider a *non-terminating structural
+branch*: an endless sequence of generation-rule applications
+extending a term indefinitely. Such branches do not themselves
+produce R-terms (every R-term is finite), but they are
+well-defined trajectories inside `R`.
 
-- *Raw language:*
-  - (distinguishing) different Raw terms project to different
-    values in `α`;
-  - (continuity) Raw terms that are arbitrarily close in the
-    tree metric project to codomain values that are arbitrarily
-    close in `α`;
-  - (minimality) `α` is the smallest codomain on which both
-    conditions are jointly satisfiable.
-- *Algebra (post-construction):* `view` is injective and
-  continuous with respect to the tree metric on Raw and a
-  metric/topology on `α`. The minimal such `α` is `ℝ`.
+- *R language:* every non-terminating structural branch of `R`
+  must correspond to a **uniquely determined** state in `α` under
+  the observation rule. The observation apparatus does not crash
+  — no branch runs out of states to project into.
+- *Algebra (post-construction):* the codomain is Cauchy-complete
+  with respect to the natural convergence notion on branches
+  (terms sharing deeper common structure are closer). Combined
+  with R1–R3, the minimal such codomain is `ℝ`.
 
 (Lean: `E213.Meta.LensCatalog.Distinguishing` captures the
-injectivity half. The continuity / minimality clause of R5 is
-not expressible in Lean 4 core; the identification with `ℝ` is
-recorded at the prose level.)
+injectivity corollary of R5. The completeness / infinite-branch
+clause is not expressible in Lean 4 core; the identification
+with `ℝ` is recorded at the prose level.)
 
 **Summary.** R1, R2 are built into the Lens structure and its
 view function (Def 3.1). R3–R5 are predicates on Lenses,
-formalised in `E213.Meta.LensCatalog`.
+formalised in `E213.Meta.LensCatalog`. The five constraints
+correspond to four absolute conditions on system `O`:
 
-- (R1) ⟵ Raw's constructor signature (`slash : Raw² → Raw`);
-- (R2) ⟵ Raw's free-inductive generation;
-- (R3) ⟵ Raw's term-level distinctness;
-- (R4) ⟵ `Aut(Raw) ≅ ℤ/2` (§2 invariant);
-- (R5) ⟵ Raw's term-level distinguishability + continuity.
+- **Condition 1 (R1, R2):** syntactic preservation — `O`
+  mirrors R's `slash` by a combine rule `∗`, and R's equivalence
+  rule forces `∗` to be commutative.
+- **Condition 2 (R3):** validity preservation — what is
+  validly generated in `R` never becomes "destroyed" in `O`.
+- **Condition 3 (R4):** internalisation of swap — `O` carries
+  a nontrivial involution `μ` matching R's symbol-exchange `m`.
+- **Condition 4 (R5):** reception of infinite branches — every
+  non-terminating structural branch of `R` has a uniquely
+  determined corresponding state in `O`.
 
-**Working definition.** A Lens satisfying R1–R5 is called a
-*self-recognising Lens*. §4 shows R1–R4 force the codomain to
-be an ℝ-algebra with the prescribed swap involution, and R5
-pins down the ℝ-algebra to `ℂ`.
+Each condition is read off the system `R` itself; none is an
+external postulate.
+
+**Working definition.** A Lens satisfying all four conditions is
+called a *self-recognising Lens*. §4 shows Conditions 1, 2, 4
+fix the base codomain as `ℝ` and Condition 3 extends it to `ℂ`.
 
 **Theorem 3.5 (Catamorphism compatibility, symmetric case).**
 For a Lens with symmetric `combine`, the view satisfies
@@ -413,9 +419,11 @@ natural sub-structure is two-step:
 
 - **R1, R2, R3, R5 together force the base `ℝ`.** R1 supplies
   the binary operation; R2 requires a homomorphism; R3 prohibits
-  zero divisors; R5 requires injectivity plus the tree-metric
-  continuity described in §3.2. The minimal codomain on which
-  all four conditions are jointly satisfiable is the field `ℝ`.
+  zero divisors; R5 requires the codomain to receive every
+  non-terminating structural branch of `R` with a uniquely
+  determined state (no crash). The minimal codomain on which all
+  four conditions are jointly satisfiable is the Cauchy-complete
+  field `ℝ`.
 - **R4 extends `ℝ` to `ℂ`.** `Aut_ℝ(ℝ) = {id}` is trivial; R4
   requires a nontrivial involution, which `ℝ` cannot supply. The
   minimal extension carrying exactly one nontrivial involution
@@ -781,7 +789,7 @@ source:
 | R3: non-vanishing                 | Raw's term-level distinctness   |
 | R4: swap matches one involution   | §2 Aut(Raw) invariant of space  |
 | R5: distinguishing + continuous   | Raw's term-level distinguishability |
-| codomain = `ℝ` (from R1+R2+R3+R5) | minimal tree-metric-continuous  |
+| codomain = `ℝ` (from R1+R2+R3+R5) | minimal Cauchy-complete no-zero-div |
 | codomain = `ℂ` (from + R4)        | minimal extension with ℤ/2 aut  |
 | `atom ≥ 2`                        | threshold where `slash` acts    |
 | atom values `{2, 3}`              | Prop 5.1 arithmetic             |
