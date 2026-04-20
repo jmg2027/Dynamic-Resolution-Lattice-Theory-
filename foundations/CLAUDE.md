@@ -65,6 +65,14 @@ FND_030: M — Swap confluence (a,b) Church–Rosser
 FND_031: M — Refinement operators 고정점 → 4-simplex
 FND_032: M — Claim 2': scale-invariance ⟺ confluence
 FND_033: M — γ' operator forces 4D (unique-decomp)
+FND_034: B — ε₀ = α_GUT/(2π) (★ REFUTED: 2.6% gap)
+FND_035: B — M_i direct geometric (★ REFUTED)
+FND_036: B — Regge deficit M_i (★ REFUTED)
+FND_037: M — W3 Schubert T-weight (★ REFUTED)
+FND_038: M — Swap tower = 유한 반복 고정점 (12/12 ✓, Lean 17 thm)
+FND_039: M — Tower atom-dependency scope (4/4 ✓, atom-INDEP)
+FND_040: M — α_GUT three paths structural correspondence (4/4 ✓)
+FND_041: M — GUE sine kernel r² coeff numerical check (2/2 ✓, Path 2 heuristic)
 ```
 
 ## Related Papers (root papers/)

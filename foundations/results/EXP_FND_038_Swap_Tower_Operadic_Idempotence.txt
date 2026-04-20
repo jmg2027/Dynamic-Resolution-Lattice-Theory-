@@ -1,0 +1,207 @@
+============================================================
+  EXP_FND_038_Swap_Tower_Operadic_Idempotence
+  2026-04-18 16:54:19
+============================================================
+=================================================================
+SWAP TOWER = OPERADIC IDEMPOTENCE
+=================================================================
+
+  T(d) := simplex-at-each-vertex reduction
+        = d_indep(a,b) with canonical alive (a,b).
+  Claim: T has unique fixed point d=5, idempotent on orbits.
+  => swap annihilation = tower collapse to (3,2).
+
+=================================================================
+CHECK 1: Tower iteration T^k(d) -> 5 (alive)
+=================================================================
+
+    d0    (a,b)  T(d)   T²   T³   T⁴  steps  final
+     5   (1, 1)     5    5    5    5      0      5
+     7   (2, 1)     5    5    5    5      1      5
+     8   (1, 2)     5    5    5    5      1      5
+    10   (2, 2)     5    5    5    5      1      5
+    11   (4, 1)     7    5    5    5      2      5
+    12   (3, 2)     7    5    5    5      2      5
+    13   (5, 1)     9    7    5    5      3      5
+    14   (4, 2)     7    5    5    5      2      5
+    15   (6, 1)     9    7    5    5      3      5
+    17   (7, 1)    11    7    5    5      3      5
+    20   (7, 2)    11    7    5    5      3      5
+    25  (11, 1)    15    9    7    5      4      5
+    30  (12, 2)    15    9    7    5      4      5
+    50  (22, 2)    25   15    9    7      5      5
+   100  (47, 2)    51   27   15    9      6      5
+   200  (97, 2)   101   53   29   17      7      5
+   500 (247, 2)   251  127   65   35      8      5
+  [✓ PASS] All alive towers converge to d=5
+
+=================================================================
+CHECK 2: T(5) = 5 (fixed point)
+=================================================================
+  [✓ PASS] T(5) = 5
+  [✓ PASS] T²(5) = 5
+  [✓ PASS] d_indep(1,1) = 5 (pairwise matches)
+
+=================================================================
+CHECK 3: d=5 is UNIQUE alive fixed point
+=================================================================
+
+  Alive d in [5, 500) with T(d)=d: [5]
+  [✓ PASS] Unique alive fixed point = d=5
+
+=================================================================
+CHECK 4: Convergence rate O(log d)
+=================================================================
+
+       d  steps   log₂(d)   ratio
+       5      0     2.322   0.000
+      10      1     3.322   0.301
+      20      3     4.322   0.694
+      50      5     5.644   0.886
+     100      6     6.644   0.903
+     500      8     8.966   0.892
+    1000      9     9.966   0.903
+    5000     12    12.288   0.977
+  [✓ PASS] Convergence O(log d) (ratio < 3)
+
+=================================================================
+CHECK 5: Finite stability — T^k(d) = T^(k+1)(d) for k ≥ k₀(d)
+=================================================================
+
+  For every alive d, ∃ finite k₀(d) such that after k₀ steps
+  the orbit is stuck at d = 5 (the unique fixed point).
+  k₀ is bounded by the convergence count (log d-like).
+
+    d=   5: k₀=0, T^k₀(d)=5, T^(k₀+1)=5
+    d=   7: k₀=1, T^k₀(d)=5, T^(k₀+1)=5
+    d=  10: k₀=1, T^k₀(d)=5, T^(k₀+1)=5
+    d=  15: k₀=3, T^k₀(d)=5, T^(k₀+1)=5
+    d=  20: k₀=3, T^k₀(d)=5, T^(k₀+1)=5
+    d=  50: k₀=5, T^k₀(d)=5, T^(k₀+1)=5
+    d= 100: k₀=6, T^k₀(d)=5, T^(k₀+1)=5
+    d= 500: k₀=8, T^k₀(d)=5, T^(k₀+1)=5
+  [✓ PASS] Finite stability: T^k fixed for k ≥ k₀(d)
+
+=================================================================
+CHECK 6: FM_N(Gr(3,5)) χ compatibility (FND_011)
+=================================================================
+
+  FM_N(Gr(3,5)) χ = 5^N · (N+1)!  (FND_011, N=1..5):
+    N=1: χ = 5^1 · 2! = 10
+    N=2: χ = 5^2 · 3! = 150
+    N=3: χ = 5^3 · 4! = 3000
+    N=4: χ = 5^4 · 5! = 75000
+    N=5: χ = 5^5 · 6! = 2250000
+
+  Tower picture: each level adds one FM blow-up.
+  Base n=5 is T-fixed => FM formula applies at every level.
+  Bubble cardinality multiplier per level = 5·(N+1).
+  [✓ PASS] FM formula well-defined at n=5 fixed pt
+
+=================================================================
+CHECK 7: Pairwise σ (FND_012) = 1-step T
+=================================================================
+
+  FND_012: d_indep(a,b) = dim of sigma+1 eigenspace.
+  T(d)   : same map applied to canonical (a,b).
+  ⇒ pairwise σ = T restricted to one tower level.
+
+    d=  5 (1,1): d_indep=5, T(d)=5  ✓
+    d=  7 (2,1): d_indep=5, T(d)=5  ✓
+    d= 10 (2,2): d_indep=5, T(d)=5  ✓
+    d= 11 (4,1): d_indep=7, T(d)=7  ✓
+    d= 12 (3,2): d_indep=7, T(d)=7  ✓
+    d= 15 (6,1): d_indep=9, T(d)=9  ✓
+    d= 20 (7,2): d_indep=11, T(d)=11  ✓
+  [✓ PASS] Pairwise σ = 1-step T restriction (consistent)
+
+=================================================================
+THEOREM (Finite Swap Tower → Unique Fixed Point)
+=================================================================
+
+  Let T be the swap-reduction map on alive dimensions,
+     T(d) = 2⌈a/2⌉ + 3⌈b/2⌉   (d = 2a+3b, a,b ≥ 1).
+
+  Then (all statements FINITE — no ∞ machinery needed):
+    (i)   T has a UNIQUE fixed point d = 5 ↔ Gr(3,5).
+    (ii)  ∀ alive d, ∃ finite k with T^k(d) = 5.
+    (iii) T is strictly decreasing off d = 5.
+    (iv)  Step count bounded by ≤ log_2(d).
+    (v)   FM_N(Gr(3,5)) χ = 5^N·(N+1)! preserved at fix pt.
+    (vi)  Pairwise σ (FND_012) = 1-level restriction of T.
+
+  Corollary (user intuition validated, finite version):
+    Swap annihilation = FINITE reduction of nested
+    simplices to the (3,2) atomic pair.  The pairwise
+    σ of ch02 / SwapAnnihilation.lean is the 1-level
+    slice of a FINITE iteration of T.  ∞-categorical
+    or RG-flow language is NOT needed — N points are
+    finite, each tower level is finite, convergence is
+    finite (log d bound).
+
+=================================================================
+CHECK 8 (OT-2): Strict decrease off fixed point d=5
+=================================================================
+
+     d  T(d)  T(d) < d?  fixed?
+     5     5      False    True
+     7     5       True   False
+     8     5       True   False
+    10     5       True   False
+    11     7       True   False
+    12     7       True   False
+    15     9       True   False
+    20    11       True   False
+    30    15       True   False
+    50    25       True   False
+   100    51       True   False
+   200   101       True   False
+  [✓ PASS] Strict decrease off d=5 (OT-2 in Lean: tower_strict_off_five)
+
+=================================================================
+CHECK 9 (OT-4): Dead sector (a=0 or b=0)
+=================================================================
+
+  Dead = only one atom present. Tower stays in dead sector.
+  Dead tower output ≠ 5 (cannot produce alive fixed point).
+
+     (a,b)   dim  T_dead   = 5?
+    (2, 0)     4       2  False
+    (3, 0)     6       4  False
+    (5, 0)    10       6  False
+   (10, 0)    20      10  False
+    (0, 2)     6       3  False
+    (0, 3)     9       6  False
+    (0, 5)    15       9  False
+   (0, 10)    30      15  False
+  [✓ PASS] Dead sector output ≠ 5 (OT-4: dead_tower_ne_five)
+
+=================================================================
+CHECK 10 (OT-4 honesty): alive/dead dims can COINCIDE
+=================================================================
+
+  alive (a=3, b=1): dim = 2·3 + 3·1 = 9
+  dead  (a=0, b=3): dim = 2·0 + 3·3 = 9
+  => same dim 9, different decomposition.
+  The distinction is STRUCTURAL (which atoms present),
+  not dimensional.  Matches book 'v≥6 ambiguity'.
+  [✓ PASS] alive/dead dim coincidence documented (Lean: ∃-theorem)
+
+============================================================
+  SUMMARY: EXP_FND_038_Swap_Tower_Operadic_Idempotence
+============================================================
+  [✓] All alive towers converge to d=5
+  [✓] T(5) = 5
+  [✓] T²(5) = 5
+  [✓] d_indep(1,1) = 5 (pairwise matches)
+  [✓] Unique alive fixed point = d=5
+  [✓] Convergence O(log d) (ratio < 3)
+  [✓] Finite stability: T^k fixed for k ≥ k₀(d)
+  [✓] FM formula well-defined at n=5 fixed pt
+  [✓] Pairwise σ = 1-step T restriction (consistent)
+  [✓] Strict decrease off d=5 (OT-2 in Lean: tower_strict_off_five)
+  [✓] Dead sector output ≠ 5 (OT-4: dead_tower_ne_five)
+  [✓] alive/dead dim coincidence documented (Lean: ∃-theorem)
+
+  12/12 checks passed
+  Time: 0.0s

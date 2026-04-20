@@ -1,126 +1,114 @@
-# Session Handoff — 2026-04-18 (multi-session merge)
+# Session Handoff — 2026-04-20
 
-Main branch reflects TWO parallel sessions merged:
+## Current branch
+`claude/review-simplex-swap-y2z6O` — all recent 213 work pushed.
 
-1. **Session A** (213 framework, v3 SSOT): `claude/integrate-langlands-drlt-proofs-R2I9d`
-2. **Session B** (foundation Lean formalization): `claude/tail-eigenvalues-explanation-0ynQx`
+## Last session summary (R1-R5 + Lens catalogue)
 
----
+### 213 paper: final logical structure
 
-## Session A: 213 Framework v3 SSOT
+**Axiom** (3 clauses) →
+**System R** (생성 공간, R-internal 규칙 1-4) →
+**System O** (관찰 시스템, Cond 1-4) →
+**`ℂ` 유일** (Cond 1,2,4 → ℝ / +Cond 3 → ℂ) →
+**post-`ℂ` observations**: `(2, 3, 5)` + `(3, 2)` partition.
 
-### What Was Done
-213 Framework: 전면 재설계 3회 → v3 SSOT. 1파일. 공리 한 줄.
+**Paper (`213/PAPER.md`, ~800 lines):**
+- §1 Firmware: Raw type (free commutative magma, no fixed points)
+- §2 Symmetry of Raw: `Aut(Raw) ≅ ℤ/2` (numbers-free)
+- §3 Self-recognition: System R syntax + System O absolute
+  conditions 1-4 (R-internal vocabulary only)
+- §4 `ℂ` uniqueness: Cond 1+2+4 → ℝ, +Cond 3 → ℂ
+- §5 Structure under ℂ: atoms, n=5, Pair Forcing, (3,2) partition
+- §6 Block structure + S_3 × S_2 invariance
+- §7 Signature meta-confirmation
+- Conclusion: "No stipulations" — 모든 조건이 structural / R-internal
+  또는 post-ℂ observation.
 
-### 최종 공리 (RawAxiomV3.lean)
-```lean
-def slash (x y : Raw) (h : x ≠ y) : Raw := .rel x y
+### 213 Lean framework (5-layer, 0 sorry)
+
 ```
-- `a/a` = 타입 거부. exception/none 아님.
-- `=` 은 213 안에 없음. `≠` 만 있음 (전제조건).
-- `Reachable`: 도달 가능한 Raw만 진짜.
-
-### 증명된 성질 (Properties.lean, 0 sorry)
-1. grows, can_recover, same_inputs, diff_inputs
-2. atom ≠ rel, Reachable 성질
-
-### 파일 구조
-```
-213/framework/
-├── E213.lean                       ← import 2줄
-├── E213/Firmware/RawAxiomV3.lean   ← SSOT. 공리+Level 0,1,2.
-├── Properties.lean                 ← 9성질 증명
-└── [기타 support]
-```
-
----
-
-## Session B: Foundation Lean Formalization
-
-### Branch
-`claude/tail-eigenvalues-explanation-0ynQx` (36+ commits)
-
-### Session Arc
-Started: 비판자의 "꼬리 eigenvalue" 질문
-Ended: Foundation formalized in Lean (94 thms, 0 sorry)
-
-### FND Experiments 011–033 (23 new)
-Arithmetic / combinatorial / geometric exploration:
-- FND_011: FM cohomology of Gr(3,5), χ = 5^N·(N+1)! pattern
-- FND_012: Swap involution formalized
-- FND_013→014: "2.4% = α_GUT" hypothesis + honest rebuttal
-- FND_015: ε₀ = α/(2π) conjecture (unresolved)
-- FND_016: Direct geometric det(G_h) computation
-- FND_017: Tensor fractal tower (Schur-Weyl)
-- FND_018–019: Regge action variational + scan
-- FND_020: Level functor maps (Plücker + FM)
-- FND_021: N4 conjecture refuted at 0.4%
-- FND_022–023: N_eff non-uniformity, contact codim patterns
-- FND_024–026: 4-sector framework + gravity location negatives
-- FND_027: Einstein analog formal
-- FND_028: Frame verification (6/8 informative fails)
-- FND_029: Layered frame, 5/16 AAB observation
-- FND_030: (a,b) Church-Rosser confluence
-- FND_031: γ independent route → 4-simplex forced
-- FND_032: Claim 2' scale-inv ⟺ confluence
-- FND_033: γ' refined, 4D forced via unique-decomp criterion
-
-### Lean formalization (5 new files, 94 thms, 0 sorry)
-```
-critical-line/lean/PmfRh/
-├── ScaleInvariantFoundation.lean   20  (n=5 arithmetic)
-├── DimensionBridge.lean              9  (n=5 → 4D chain)
-├── BinetCauchy.lean                 29  (1+12+12=25)
-├── ScaleConfluence.lean               9  (Claim 2' abstract)
-└── GrassmannianData.lean             27  (Gr(3,5) + FM)
+E213/
+  Firmware/Raw.lean           -- Raw canonical subtype, API
+  Hypervisor/Lens.lean        -- Lens structure + view + kernel
+  OS/*.lean                   -- Pigeonhole, ArityForcing,
+                                 NonDecomposable, Atomicity, ...
+  App/Simplex.lean            -- (3,2) partition block invariance
+  Meta/LensCatalog.lean       -- swap-blind/visible lenses,
+                                 NonVanishing/SwapMatching/
+                                 Distinguishing predicates
 ```
 
-Full build: `lake build` SUCCESS (2724 modules).
+## 세션 시작 시 읽을 것
 
-### Documents (Session B)
-- `foundations/notes/FORMAL_FOUNDATION.md` — living doc, FND DAG + status
-- `foundations/theory/scale_invariant_foundation.tex` — LaTeX draft
+1. **`213/PAPER.md`** — 현재 paper 의 최종 구조
+2. **`213/framework/E213/Meta/LensCatalog.lean`** — 현재 Lens 예시
+   (depth, leaves, signedLens)
+3. **`213/README.md`** — 디렉토리 트리 + layering 규칙
+4. `foundations/theory/closed_derivation_chain.md` — 15-step
+   closed chain (물리 응용 관점)
 
-### Status Summary (Session B)
+## 다음 작업: Hypervisor 확장 — 렌즈 카탈로그 늘리기
 
-**(A) Verified / Proven:**
-- n = 5 uniqueness (Lean)
-- Bezout-style ∀v ≥ 6 ambiguity (Lean)
-- Binet-Cauchy 1+12+12 = 25 (Lean)
-- Claim 2' under SN hypothesis (Lean)
-- FM pattern 5^N·(N+1)! for N=1..5 (Lean)
+### 목적
+각 Lens 는 Raw 에서 서로 다른 수학적 구조를 추출.  현재 카탈로그
+소수: depth, leaves (swap-blind), signedLens (swap-visible).
+**Lens 를 더 추가해서 "어떤 lens 가 어떤 수학을 만드는지"
+스펙트럼 명시화.**
 
-**Refuted (honest negatives):**
-- FND_013: "2.4% = α_GUT universal" (cherry-picked)
-- FND_019: 1-param Regge scan (wrong family)
-- FND_021: w² = 9/(25π²) (0.4% gap)
-- FND_025–026: Gravity Λ^k / shape-only formula
+### 후보 Lens
 
-**Open Gaps:**
-- G-D2: Gravity location in Binet-Cauchy
-- G-D3: Gravity combinatorial formula
-- G-D6: ε₀ functional form f(N_H, d)
-- G-M_i: geometric weights
-- G-N1: Regge S_var = 56.79 meaning
+1. **Bool Lens** — α = Bool, combine = AND / OR / XOR
+   - 각각이 어떤 논리 체계 (propositional logic fragment) 추출?
+   - XOR: swap ↔ XOR 1, swap-visible as ℤ/2-valued
 
-### Key realization (Session B)
-Lean verifies arithmetic backbone + abstract structure.
-Geometric (Schubert, FM, γ on simplicial) and physical
-(4D spacetime interpretation) remain in prose/LaTeX layers.
+2. **Natural Lens 확장** — depth, leaves 외
+   - 분기 수 counter, 특정 패턴 counter
+   - PA 의 다른 fragment 와의 관계
 
-"4D machine-verified" = OVERCLAIM.
-"n=5 uniqueness machine-verified, atoms {2,3} premise" = ACCURATE.
+3. **List/Multiset Lens** — α = List Raw, combine = concat/merge
+   - Raw term → 구성 요소 multiset
+   - quasi-ZF-style set theory emerge?
 
----
+4. **Path Lens** — α = String / Path, combine = 경로 기록
+   - Tree-logic / modal-logic fragment
 
-## Lean totals (combined)
-- Session A adds 213 framework files (0 sorry, v3 SSOT)
-- Session B adds 5 foundation files (94 thms, 0 sorry)
-- PmfRh import resolved: both sets present
+5. **Non-commutative Lens** — α = 2×2 Matrix 등
+   - combine 비가환 → Cond 1 실패, non-self-recognising
+   - 대조 예시로 유효
 
-## Next session candidates
-1. ε₀ functional form (G-D6) — open gap
-2. Atomic/molecular applications
-3. Formal paper submission prep
-4. More Lean: operadic / FM abstract
-5. Branch consolidation
+6. **Quaternion-style Lens** — Aut = SO(3)
+   - Cond 3 실패 (ℤ/2 matching 불가)
+   - ℍ 가 왜 self-recognising 이 아닌지 실례
+
+### 작업 방향
+
+각 Lens 에 대해 Lean 형식화:
+- Lens 정의
+- Cond 1-4 (NonVanishing / SwapMatching / Distinguishing +
+  commutativity 체크) 중 만족/실패
+- swap-blind / swap-visible / self-recognising 분류
+- 관련 수학적 구조 명시
+
+**디렉토리:** `E213/Meta/LensCatalog.lean` 확장 or 개별 파일
+(`E213/Meta/BoolLens.lean`, `Meta/PathLens.lean` 등).
+
+**PAPER §3.6 (Lens catalogue) 확장:**
+- 스펙트럼 표: Lens | codomain | Cond 1-4 status | extracted math
+- 자기인식 Lens (ℂ) 는 유일; 다른 Lens 는 다른 용도로 유효
+
+## 현 상태 요약
+
+- `213/framework`: `lake build` ✓, **0 sorry**, 12 Lean 파일
+- `213/PAPER.md` ~800 줄, 모든 Lean ref 유효 (19개 검증)
+- 공리 → Raw → R/O → ℂ → (2,3,5) 논리 체인 완성
+- Stipulation 0 개 (모든 조건이 structural / R-internal)
+
+## 장기 과제 (물리 응용, 별도 브랜치 후보)
+
+`foundations/notes/rework_classification.md` 참조:
+- atoms/ Z≥3: σ_recipe → fractal simplex framework rebuild
+- ch11 CKM: Wolfenstein closed form
+- ch12 ghosts: ε₀/M_i Step 13 reformulation
+- ch15 YM: mass gap as discrete hinge spectrum
+- ℂ 로부터 d=5, 4-simplex, SM+gravity 체인 일관성 재검토

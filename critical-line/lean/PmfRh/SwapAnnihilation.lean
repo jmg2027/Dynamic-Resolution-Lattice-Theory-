@@ -33,22 +33,63 @@ structure SymmetricDecomp where
     This is an OUTER automorphism of order 2. -/
 def SymmetricDecomp.hasSwap (_ : SymmetricDecomp) : Bool := true
 
-/-- Under σ, a representation (R₁, R₂) maps to (R₂, R₁).
-    A representation is vector-like iff it equals its σ-image.
-    Chiral iff L ≇ R, i.e. the rep is NOT σ-invariant.
+/- Under σ, a representation pair (R₁, R₂) maps to (R₂, R₁).
+   A pair is vector-like iff left and right reps agree (R₁ = R₂).
+   This section replaces earlier `True.intro` placeholders with
+   a concrete rep-theoretic proof. -/
 
-    KEY THEOREM: In a σ-invariant theory, ALL fermion reps
-    are vector-like. No CP violation is possible. -/
+/-- Abstract representation pair for SU(a)₁ × SU(a)₂.
+    Reps are indexed by Nat (e.g. Young-diagram index / highest weight).
+    The abstract argument does NOT depend on the explicit rep theory —
+    only on the swap acting as (R₁, R₂) ↦ (R₂, R₁). -/
+structure RepPair where
+  left  : Nat
+  right : Nat
+
+/-- σ acts on RepPair by swapping the two factors. -/
+def RepPair.swap (r : RepPair) : RepPair :=
+  { left := r.right, right := r.left }
+
+/-- Vector-like: left and right irreps agree (L ≅ R). -/
+def RepPair.isVectorLike (r : RepPair) : Prop :=
+  r.left = r.right
+
+/-- CORE THEOREM (replaces placeholder):
+    A rep pair is σ-fixed if and only if it is vector-like.
+    i.e. σ-invariance of (R₁, R₂) is exactly the condition R₁ = R₂. -/
+theorem sigma_invariant_iff_vector_like (r : RepPair) :
+    r.swap = r ↔ r.isVectorLike := by
+  constructor
+  · intro h
+    have hL : (r.swap).left = r.left := congrArg RepPair.left h
+    -- (r.swap).left = r.right, so r.right = r.left ↔ r.left = r.right.
+    unfold RepPair.swap at hL
+    show r.left = r.right
+    exact hL.symm
+  · intro h
+    unfold RepPair.isVectorLike at h
+    -- r.left = r.right ⇒ swap r = {left := right, right := left} = r
+    unfold RepPair.swap
+    cases r with
+    | mk l r => simp at h; simp [h]
+
+/-- σ² = id on RepPair (involutivity). -/
+theorem swap_involutive (r : RepPair) : r.swap.swap = r := by
+  cases r with
+  | mk l r => rfl
+
+/-- Kept for API compatibility: a σ-invariant theory has
+    vector-like rep content.  Now this is a REAL consequence of
+    `sigma_invariant_iff_vector_like`, not a trivial tautology. -/
 structure SwapInvariantTheory where
   decomp : SymmetricDecomp
-  /-- Every physical observable is σ-invariant -/
-  sigma_invariant : True  -- encoded structurally
-  /-- Consequence: L-handed = R-handed for all fermions -/
-  vector_like : True      -- follows from σ-invariance
+  rep : RepPair
+  sigma_invariant : rep.swap = rep
 
-/-- A σ-invariant theory cannot distinguish L from R. -/
+/-- Conclusion: σ-invariance structurally forces vector-like. -/
 theorem swap_kills_chirality (t : SwapInvariantTheory) :
-    t.vector_like = True.intro := rfl
+    t.rep.isVectorLike :=
+  (sigma_invariant_iff_vector_like t.rep).mp t.sigma_invariant
 
 /-! ## 2. Elimination of Symmetric Dimensions -/
 

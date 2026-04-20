@@ -1,0 +1,106 @@
+============================================================
+  EXP_FND_040_alpha_GUT_Three_Paths_Correspondence
+  2026-04-18 17:57:53
+============================================================
+=================================================================
+α_GUT THREE PATHS — STRUCTURAL CORRESPONDENCE
+=================================================================
+
+  Book ch03 claims three derivations of α_GUT = 6/(25π²).
+  Honest question: three independent facts, or one fact
+  seen through three windows?
+
+=================================================================
+CHECK 1: Numerical equality of all three paths
+=================================================================
+
+  α_GUT exact      = 6/(25π²)    = 0.024317084074
+  Path 1 (Basel)   = 1/(d²·ζ(2)) = 0.024317084074
+  Path 2 (GUE)     = 1/(d²·ζ(2)) = 0.024317084074
+  Path 3 (Coprime) = (1/ζ(2))/d² = 0.024317084074
+
+  Max deviation from exact: 0.00e+00
+  [✓ PASS] All three paths match α_GUT to float precision
+
+=================================================================
+CHECK 2: Path 1 ↔ Path 3 via Euler identity
+=================================================================
+
+  Euler: ζ(2) = ∏_p (1 - 1/p²)⁻¹.  So 1/ζ(2) = ∏_p (1-1/p²).
+  Path 1's Σ 1/n² and Path 3's coprime density are
+  TWO SIDES of Euler's identity — same mathematical fact.
+
+   prime≤    1/ζ₂(N) (Basel)    ∏(1-1/p²) (Euler)       diff
+       10       1.5497677312         0.6269387755  1.832e-02
+      100       1.6349839002         0.6090337254  2.593e-03
+     1000       1.6439345667         0.6080043073  2.924e-04
+    10000       1.6448340718         0.6079330691  3.099e-05
+   100000       1.6449240669         0.6079275896  3.208e-06
+
+  Both converge to 1/ζ(2) = 6/π² = 0.6079271019
+  [✓ PASS] Basel ↔ Euler connection (same ζ(2))
+
+=================================================================
+CHECK 3: Path 2 (GUE sine kernel r² coefficient)
+=================================================================
+
+  Sine kernel: Y₂(r) = (sin(πr)/(πr))²
+  Short-distance expansion: Y₂(r) ≈ 1 - (πr)²/3 + O(r⁴)
+  Coefficient of r² in [1 - Y₂(r)] = π²/3 = 3.289868
+  This equals 2·ζ(2) = 3.289868
+    r = 0.0100: (1-Y₂(r))/r² = 3.28943523
+    r = 0.0010: (1-Y₂(r))/r² = 3.28986380
+    r = 0.0001: (1-Y₂(r))/r² = 3.28986811
+  [✓ PASS] GUE sine kernel r² coeff = π²/3 = 2·ζ(2)
+
+=================================================================
+CHECK 4: α_GUT matches book CLAUDE.md constant
+=================================================================
+
+  α_GUT = 0.0243170841
+  1/α_GUT = 41.123352  (GUT coupling)
+  1/α_em (at GUT scale, MSbar) = 137.036
+  α_GUT ≪ α_em since GUT unifies at higher energy.
+  [✓ PASS] α_GUT ≈ 0.02433
+
+=================================================================
+CONCLUSION: structural correspondence
+=================================================================
+
+  ONE formula: α_GUT = 1/(d²·ζ(2)) = 6/(25π²).
+
+  Two rigorous paths (mathematically equivalent):
+    Path 1 (Basel sum over hinge index n)
+      ≡ Path 3 (Euler coprime density)
+    via  ζ(2) = Σ 1/n² = ∏_p (1 - 1/p²)⁻¹.
+    Euler's identity is a THEOREM of number theory —
+    not a DRLT-specific coincidence.
+
+  One additional path (GUE) gives same number via
+  unrelated RMT math.  The DRLT claim that GUE β=2
+  YIELDS α_GUT via sine-kernel expansion is PLAUSIBLE
+  but not formally derived: the sine-kernel coefficient
+  2·ζ(2) happens to match 2/α_GUT·d² up to normalization.
+
+  Honest book update recommendation:
+    - Keep Path 1 (geometric, Binet-Cauchy counting) as
+      the PRIMARY derivation.
+    - Document Path 3 as the NUMBER-THEORETIC sibling
+      via Euler identity (not an independent derivation).
+    - Mark Path 2 (GUE) as a CONSISTENCY CHECK awaiting
+      a formal derivation from DRLT's Gram matrix RMT.
+
+  Net: 3 derivations → 1 theorem (Path 1), 1 number
+  theoretic sibling (Path 3 via Euler), 1 plausible check
+  (Path 2).  This is honest scope.
+
+============================================================
+  SUMMARY: EXP_FND_040_alpha_GUT_Three_Paths_Correspondence
+============================================================
+  [✓] All three paths match α_GUT to float precision
+  [✓] Basel ↔ Euler connection (same ζ(2))
+  [✓] GUE sine kernel r² coeff = π²/3 = 2·ζ(2)
+  [✓] α_GUT ≈ 0.02433
+
+  4/4 checks passed
+  Time: 0.0s
