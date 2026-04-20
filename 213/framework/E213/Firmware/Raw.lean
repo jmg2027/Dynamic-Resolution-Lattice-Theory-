@@ -504,11 +504,11 @@ private theorem Tree.fold_signed_swap :
       · -- .lt branch
         show Tree.fold _ _ _ (Tree.swap x) + Tree.fold _ _ _ (Tree.swap y)
              = -(Tree.fold _ _ _ x + Tree.fold _ _ _ y)
-        rw [ihx', ihy']; ring
+        rw [ihx', ihy', Int.neg_add]
       · -- .gt branch
         show Tree.fold _ _ _ (Tree.swap y) + Tree.fold _ _ _ (Tree.swap x)
              = -(Tree.fold _ _ _ x + Tree.fold _ _ _ y)
-        rw [ihx', ihy']; ring
+        rw [ihx', ihy', Int.neg_add, Int.add_comm]
       · -- .eq branch is unreachable on canonical input
         exfalso
         have hsxy : Tree.swap x = Tree.swap y :=

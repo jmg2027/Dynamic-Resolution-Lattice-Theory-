@@ -41,14 +41,23 @@ Paper 1 polish; can be split later if needed).
 ## Immediate next step (for a longer build window)
 
 1. **Verify `Raw.fold_swap_hom` builds.** Run
-   `lake build E213.Firmware.Raw` with ≥15 min timeout; if
-   errors, adjust proof.
+   `lake build E213.Firmware.Raw` with ≥15 min timeout.  In
+   this session, Raw.lean's full compile repeatedly timed out
+   at ~10 min wall time (Lean v4.16.0 on this host is slow on
+   the existing 580-line proof bundle); the new helper
+   follows the existing `Tree.fold_signed_swap` pattern
+   verbatim.  As part of the build attempt, the two original
+   uses of the `ring` tactic in `Tree.fold_signed_swap` were
+   replaced with explicit `Int.neg_add` rewrites (`ring`
+   appears to be unavailable in this Lean 4 core build); this
+   change is included in the commit.
 2. **Verify `ziLens_swapMatching` builds** after Raw builds.
 3. **Complete R3 in Lean.** Needs `normSq_mul` Diophantus
-   identity. Options:
-   - Without `ring`: manual expansion. Tedious but routine.
-   - With `ring`: investigate why `ring` works in `Raw.lean`
-     but not in bare Research modules; likely an auto-import.
+   identity.  Without `ring` in core, this requires manual
+   expansion; a no-`ring` proof sketch is in
+   `notes/01_zi_counterexample.md`.  Alternatively, route
+   around `normSq_mul` by direct integral-domain case
+   analysis on `(u.re, u.im)`/`(v.re, v.im)`.
 
 The math argument in `notes/01_zi_counterexample.md` already
 establishes H at the mathematical level; full Lean verification
