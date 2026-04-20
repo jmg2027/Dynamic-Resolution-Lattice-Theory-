@@ -55,9 +55,10 @@ Reading "another" (clause 2) and "between" (clause 2–3) semantically:
   `x` from `x` reveals nothing.
 - **Symmetric:** `slash x y = slash y x`; "between" is directionless.
 
-The target firmware is therefore the **free commutative magma on
-2 generators with no fixed points** — the unique closure of
-`{a, b}` under a symmetric, anti-reflexive binary operation.
+**Definition 1.1 (Raw, target).** The target firmware is the
+**free commutative magma on 2 generators with no fixed points** —
+the unique closure of `{a, b}` under a symmetric, anti-reflexive
+binary operation `slash`.
 
 ### 1.2 Lean emulation: canonical-form subtype
 
@@ -116,6 +117,11 @@ B-type (Level  2):   {a/(a/b), b/(a/b)} — 2 terms
 
 The (3, 2) partition of §7 emerges from the axiom alone at Level 2,
 without invoking the alive postulate of §6.6(c). See Remark 7.0.
+(Lean: `E213.Firmware.Raw.level1_card`,
+`E213.Firmware.Raw.level2_new_card`,
+`E213.Firmware.Raw.level2_total_card` —
+the 5 terms at depth ≤ 2 are formalised as an explicit list with
+`Nodup` verified by `decide`.)
 
 **Definition 1.2 (Depth).** A structural-recursive height measure:
 
@@ -132,13 +138,16 @@ A function on Raw, not a predicate; uses no equality.
 
 ## 2. (Removed.)
 
-The former §2 contained `Reachable ↔ wellFormed` and a "no
-self-relation" clause, all of which relied on the apartness
-side-condition `x ≠ y` that the axiom does not supply. Under
-the present formulation every Raw term is automatically
-"reachable" and "well-formed"; `slash x x` is a legitimate Raw
-term. Any semantic exclusion or identification belongs to a
-specific Lens (§4), not to Raw itself.
+The former §2 contained `Reachable ↔ wellFormed` and related
+machinery that presupposed an apartness primitive `x ≠ y` at the
+level of Raw. The present formulation places the anti-reflexive
+and symmetric readings of the axiom *inside* the Raw type itself
+(via the canonical-form subtype of §1.2): `slash x x` is
+excluded by `Tree.cmp x x = .eq ≠ .lt`, and the smart constructor
+`Raw.slash` takes an explicit `h : x ≠ y` hypothesis. The
+previous "Reachable" predicate is therefore redundant — being a
+Raw term already implies "reachable" and "well-formed" under the
+new encoding.
 
 Section numbers §3–§8 are retained; internal cross-references
 formerly pointing to §2 are now pointers to §1 or to the Lens
@@ -188,8 +197,11 @@ the recursive clause then fixes `φ` on every `slash` term.
 **Theorem 3.5 (Automorphism group).** `Aut(Raw) ≅ ℤ/2`. Its
 nontrivial element is `swap`.
 
-*Proof.* By Definition 3.4, an automorphism is determined by a
-choice of permutation of `{a, b}`. There are two such choices:
+*Proof.* (Lean formalization partial: `Raw.swap`, `Raw.swap_swap`
+establish the involution; the Theorem 3.5 statement `Aut(Raw) ≅
+ℤ/2` itself is proved here at the prose level only.)
+By Definition 3.4, an automorphism is determined by a choice of
+permutation of `{a, b}`. There are two such choices:
 identity and swap. Both preserve `slash` by construction.
 Composition matches composition of the underlying permutations
 of `{a, b}`, which is `S_2 ≅ ℤ/2`. ∎
@@ -482,15 +494,19 @@ form a coprime pair. A sharper question is: among *all* coprime
 pairs `(p, q)` with `2 ≤ p < q`, which admit a unique atomic
 vertex count?
 
-**Definition 6.7.1.** For `p, q ≥ 2`, the *atomic candidate count*
-is
+**Definition 6.7.1.** For `p, q ≥ 2`, define
 ```
   count(p, q) := ⌊p/2⌋ · ⌊q/2⌋.
 ```
-It counts decomposition pairs `(a, b)` of odd positive integers with
-`a < q` (contributing `⌊q/2⌋` odd values) and `b < p` (contributing
-`⌊p/2⌋` odd values) — the atomic decompositions under Bézout
-uniqueness.
+
+**Combinatorial interpretation (motivation, not a theorem).**
+The integer `⌊q/2⌋` is the number of odd positive integers less
+than `q`, and `⌊p/2⌋` the number less than `p`. Under the Bézout
+uniqueness bound `a < q ∧ b < p`, the count of odd-positive pairs
+`(a, b)` is therefore `⌊p/2⌋ · ⌊q/2⌋`. We do not formalise the
+equality "count of atomic `n`'s = `⌊p/2⌋ · ⌊q/2⌋`" for general
+`(p, q)` in Lean; it is not needed for Theorem 6.7.2, which is
+stated purely as the arithmetic identity below.
 
 **Theorem 6.7.2 (Pair Forcing).** For coprime `p, q` with
 `2 ≤ p < q`,
@@ -502,12 +518,16 @@ product equals `1` iff both equal `1`. Now `⌊k/2⌋ = 1 ⟺ k ∈ {2, 3}`.
 Combined with `p < q` and coprimality, the unique solution is
 `(p, q) = (2, 3)`. ∎ (Lean: `E213.OS.PairForcing.count_eq_one_iff`.)
 
-**Corollary 6.7.3.** The three components of §6 — the arity
-constraint `|A| = 2` (§5 Pigeonhole), the atom values `A = {2, 3}`
-(Prop 6.5), and the unique atomic vertex count `n = 5` (Thm 6.3) —
-are **simultaneously forced** by the single condition
-`count(p, q) = 1`. No separate choice is made; the closed-form
-arithmetic fact selects `(p, q, n) = (2, 3, 5)` uniquely.
+**Corollary 6.7.3 (Narrative consolidation).** The arithmetic
+atom-pair `(2, 3)` — the values stipulated separately in §5
+(atom set size 2, by Pigeonhole plus choice of minimality) and
+§6.5 (atom values, by non-decomposability) — coincides with the
+unique coprime pair `(p, q)` with `2 ≤ p < q` satisfying
+`count(p, q) = 1`. The Pair Forcing theorem does *not* by itself
+replace §5 or §6.5 (each argument uses distinct hypotheses);
+rather, Cor 6.7.3 says that the three independent routes
+converge on the same pair, which is then the unique option
+common to all of them.
 
 **Remark 6.7.4 (no-generalization).** The pair structure is rigid:
 - Three or more atoms (`|A| ≥ 3`) yield *no* atomic `n`: Bézout
@@ -589,8 +609,9 @@ Since `W = f ∘ classify`, the conclusion follows. ∎
 is invariant under every partition-preserving bijection, then `W` is
 block-constant.
 
-*Proof.* We show two pairs in the same block-pair class have equal
-`W`-values. Given `σ ∈ S_3` on `V_A`, extend to a partition-
+*Proof (prose only; Lean formalization not provided).* We show
+two pairs in the same block-pair class have equal `W`-values.
+Given `σ ∈ S_3` on `V_A`, extend to a partition-
 preserving bijection `σ̂` of `V` by acting as identity on `V_B`;
 analogously for `τ ∈ S_2` on `V_B`. Then `σ̂`, `τ̂`, and their
 compositions are partition-preserving bijections, so `W` is invariant
@@ -751,72 +772,94 @@ the fundamental theorem of algebra).
 
 ## Conclusion
 
-The minimal system defined by the axiom
+The minimal system defined by the 3-clause axiom of §0 consists
+of the following structure, presented here with precise
+dependency tracking between claims. For each item we mark the
+Lean formalisation status: **[✓]** fully proved; **[prose]**
+informal proof only; **[partial]** some of the underlying
+theorems proved, full statement informal.
 
-> *there exists a relation object between two objects*
+**From the axiom (§1–3):**
 
-consists of the following structure, presented here with precise
-dependency tracking between claims.
+1. **[✓]** A free commutative magma on two generators with no
+   fixed points, emulated in Lean as the canonical-form subtype
+   `Raw` of a free ordered magma (Definition 1.1). The two base
+   tokens `a, b` plus the symmetric, anti-reflexive operator
+   `slash` implement the three axiom clauses. No equality or
+   apartness primitive is part of the axiom; the Lean encoding
+   uses Lean's own propositional equality as external
+   bookkeeping.
 
-**From the axiom alone (§1–5):**
+2. **[partial]** A single nontrivial Raw-automorphism (the swap
+   involution): `Raw.swap` and its involution `Raw.swap_swap` are
+   formalised (Lean: `E213.Firmware.Raw.swap_swap`). The statement
+   `Aut(Raw) ≅ ℤ/2` of Theorem 3.5 itself is informal.
 
-1. A free inductive type `Raw` with three constructors — two base
-   tokens `a, b` and one binary operator `slash` — implementing
-   the three clauses of the axiom (Definition 1.1). Every term
-   built from the three constructors is a Raw term; there is no
-   separate reachability / well-formedness predicate, and no
-   equality or apartness primitive.
-
-2. A single nontrivial Raw-automorphism (the swap involution),
-   yielding `Aut(Raw) ≅ ℤ/2` (Theorem 3.5).
-
-3. A Lens/catamorphism framework: every triple
+3. **[✓]** A Lens/catamorphism framework: every triple
    `(base_a, base_b, combine)` determines a unique
-   `view : Raw → α` (Theorem 4.5), with kernel-equivalence and
-   refinement as natural operations. Equality on Raw becomes
-   available as a Lens kernel; apartness is the negation of a
-   Lens kernel and is thus Lens-dependent.
+   `view : Raw → α` via `Raw.fold` (Theorem 4.5), with
+   kernel-equivalence and refinement as natural operations.
+   Equality on Raw becomes available as a Lens kernel; apartness
+   is the negation of a Lens kernel and is thus Lens-dependent.
 
-4. The signature `(Fin 2, binary)` is the axiom's own signature
-   ("two objects", "relation between"). The generalized
-   signatures `RawNk` (Definition 5.1) are analyzed as a meta-
-   comparison: with a pairwise-distinctness constraint on
-   relation arguments, `N < k` is vacuous (Theorem 5.3) and
-   `k ∈ {0, 1}` is degenerate (Corollary 5.4). This isolates
-   `(N, k) = (2, 2)` as the minimal non-degenerate, non-vacuous
-   signature under that distinctness constraint.
+4. **[✓ subject to the §5 hypothesis]** The generalized
+   signatures `RawNk` (Definition 5.1), **with a stipulated
+   pairwise-distinctness constraint on relation arguments that
+   the Raw axiom itself does not provide**, vacuously restrict to
+   bases when `N < k` (Theorem 5.3) and to degenerate constants
+   or chains when `k ∈ {0, 1}` (Corollary 5.4). Under the added
+   constraint, `(N, k) = (2, 2)` is the minimal non-degenerate
+   non-vacuous signature. The axiom does not force (2, 2) on its
+   own; §5 imports the distinctness stipulation, and the word
+   "forced" should be read inside §5's hypothesis, not outside.
 
 **From the axiom together with §6–7 (with the antisymmetric-
 multiplicity principle of §6.6(c) adjoined):**
 
-5. The atom set `A = {2, 3}` is fixed by Proposition 6.5
+5. **[✓]** The atom set `A = {2, 3}` is fixed by Proposition 6.5
    (non-decomposable integers `≥ 2`) combined with the structural
    choice `atoms ≥ 2` (§6.6(a)). The alive predicate is the
-   antisymmetric-multiplicity principle (§6.6(c)) — postulated,
+   antisymmetric-multiplicity principle (§6.6(c)) — *postulated*,
    not derived from the axiom. Together, `n = 5` is the unique
    atomic vertex count (Theorem 6.3), giving the canonical
    partition `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
 
-5'. Equivalently and more sharply (Theorem 6.7.2, Pair Forcing):
-   among all coprime pairs `(p, q)` with `2 ≤ p < q`, the unique
-   pair admitting a unique atomic vertex count is `(p, q) = (2, 3)`,
-   for which that count is `n = 5`. The single condition
-   `count(p, q) := ⌊p/2⌋ · ⌊q/2⌋ = 1` simultaneously forces arity
-   `2`, atom values `{2, 3}`, and vertex count `5` — no separate
-   hypothesis is required.
+5'. **[✓]** The arithmetic sharpening of §6.7 (Theorem 6.7.2,
+   Pair Forcing): among all coprime pairs `(p, q)` with
+   `2 ≤ p < q`, the unique pair satisfying `count(p, q) = 1` is
+   `(p, q) = (2, 3)`. This does *not* by itself replace §5 or
+   §6.5 — each argument uses distinct hypotheses; Cor 6.7.3
+   merely says the three arguments converge on the same pair.
 
-6. The `S_3 × S_2` action yields exactly six orbits on `V × V`,
-   with `3 + 6 + 6 + 6 + 2 + 2 = 25 = |V|²`, and invariance under
-   this action is equivalent to block-constancy (Theorems 7.5–7.6).
+6. **[partial]** The `S_3 × S_2` action yields exactly six orbits
+   on `V × V`, and invariance under this action is equivalent to
+   block-constancy (Theorems 7.5–7.6). Lean formalizes the forward
+   direction (7.5); the converse (7.6) is prose only.
 
 **Within the class `𝒞` of codomains satisfying (C1)–(C4) of §8:**
 
-7. There exists a unique element `K_2 ∈ 𝒞` (up to ℝ-algebra
-   isomorphism) admitting an Aut-faithful Lens — one whose induced
-   action matches `Aut(Raw) ≅ ℤ/2` exactly. By direct construction,
-   this `K_2` is the field of complex numbers `ℂ` (Theorem 8.4 +
-   Corollary 8.5). The non-commutative case (relaxing (C2)) admits
-   `ℍ` but yields no Aut-faithful Lens (Corollary 8.6).
+7. **[prose]** There exists a unique element `K_2 ∈ 𝒞` (up to
+   ℝ-algebra isomorphism) admitting an Aut-faithful Lens — one
+   whose induced action matches `Aut(Raw) ≅ ℤ/2` exactly. By
+   direct construction, this `K_2` is the field of complex
+   numbers `ℂ` (Theorem 8.4 + Corollary 8.5). The non-commutative
+   case (relaxing (C2)) admits `ℍ` but yields no Aut-faithful
+   Lens (Corollary 8.6). §8 is entirely prose; no Lean
+   formalization of Theorem 8.4 or its corollaries is provided.
+
+---
+
+**Honest summary.** The axiom forces: the free commutative magma
+on 2 generators with no fixed points (§1); its catamorphism /
+Lens framework (§4); and, as an arithmetic sharpening, the
+unique coprime pair `(p, q) = (2, 3)` with `count(p, q) = 1`
+(§6.7). The *choice* of (i) minimality among generalized
+signatures (§5), (ii) the antisymmetric-multiplicity postulate
+for the alive condition (§6.6(c)), and (iii) the class-`𝒞`
+conditions (C1)–(C4) (§8) are each acknowledged as additional
+structural stipulations, not derivations from the axiom alone.
+`Aut(Raw) ≅ ℤ/2` and the ℂ-identification are proved at the
+prose level; their Lean formalizations are partial and deferred.
 
 This is the minimal system defined by "there is a relation."
 
