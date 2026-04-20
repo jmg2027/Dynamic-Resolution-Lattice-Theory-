@@ -12,7 +12,7 @@ A formal investigation of what structure follows from the single
 Clauses (1) + (3) give at least two somethings; clause (2) is the
 primitive *distinction* operation, applied recursively. The
 framework is split into **firmware** (the Raw type, §1) and
-**hypervisor** (the Lens layer, §3+), with equality/inequality
+**hypervisor** (the Lens layer, §4+), with equality/inequality
 arising only at the hypervisor level.
 
 ## Contents
