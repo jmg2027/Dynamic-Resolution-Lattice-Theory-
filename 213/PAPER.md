@@ -22,8 +22,9 @@ realised as complex conjugation. Once the `ℂ` lens is fixed, the
 atom set `{2, 3}`, the unique atomic vertex count `n = 5`, and the
 canonical `(3, 2)` partition follow as post-`ℂ` observations.
 Core theorems are machine-verified in Lean 4 (`E213` modules, 0
-`sorry`); the remaining classical-algebra step (classification of
-finite ℝ-field extensions) is cited.
+`sorry`); the remaining classical-algebra step (classification
+of finite ℝ-field extensions) is argued at the prose level and
+relies on standard results.
 
 ---
 
@@ -78,8 +79,10 @@ constraints arise:
   invariant);
 - **(R5)** reception of infinite structural branches — every
   non-terminating generation-rule trajectory in `R` corresponds
-  to a uniquely determined state in the codomain (no crash); the
-  minimal codomain receiving all such branches is `ℝ`.
+  to a uniquely determined state in the codomain (no crash).
+  Combined with R1–R3, this forces Cauchy-completeness in the
+  codomain; we argue (§4) that the minimal codomain compatible
+  with R1–R3+R5 is `ℝ`.
 
 None of these is postulated; each is read off Raw as a space
 (§§1–2). The axiom creates the space; the space's internal
@@ -111,10 +114,12 @@ lens, and the `ℂ` lens is forced from the axiom alone.
 - `Fin n` denotes the standard `n`-element type `{0, …, n-1}`.
 - `inductive T` denotes an initial algebra presentation: `T` is
   the smallest type closed under the listed constructors.
-- All claims below are formally checked in Lean 4
-  (`E213.*` modules, 0 `sorry`); we cite the Lean name where
-  relevant, marking "partial" or "prose only" when coverage is
-  incomplete.
+- Claims below are supported by a Lean 4 formalisation in the
+  `E213.*` modules (0 `sorry`, Lean 4 core only, no Mathlib). We
+  cite the relevant Lean name when a claim is fully formalised,
+  mark a claim **[partial]** when only part of it is formalised,
+  and mark it **[prose only]** when the formalisation is outside
+  the scope of this paper.
 - The axiom supplies no equality or inequality primitive on
   `Raw`. Lean's propositional equality is external bookkeeping;
   apartness becomes meaningful only through a Lens.
@@ -269,10 +274,12 @@ does not correspond to the space the observer is in.
 
 §3 formalises the Lens structure and records the five structural
 constraints Raw-as-a-space imposes on any self-recognising Lens
-(R1–R5, §3.2). The constraints are *structural consequences of
-Raw's properties*; each is given in both Raw language (the
-language the axiom uses) and the standard algebra shorthand.
-Full derivation from Raw alone is possible but deferred.
+(R1–R5, §3.2). The constraints are *motivated by Raw's
+structure*; each is given in both Raw language (the language the
+axiom uses) and in standard algebraic shorthand. Where a
+constraint is fully captured by a Lean predicate or theorem we
+say so; the identifications of the codomain as `ℝ` (R5) and then
+as `ℂ` (R1–R5 jointly) are argued at the prose level in §4.
 
 ### 3.1 The Lens framework
 
@@ -322,15 +329,17 @@ language** (the conventional algebraic shorthand).
 
 **(R4) Swap matches exactly one nontrivial involution.**
 
-- *Raw language:* on the codomain `α` there is a function
-  `conj : α → α` such that
+- *Raw language:* on the codomain `α` there is **exactly one**
+  nontrivial ℝ-algebra automorphism `conj : α → α`, and it
+  satisfies
   - `conj (conj u) = u` for every `u`,
-  - `conj ≠ id`,
   - `view (swap r) = conj (view r)` for every `r`.
-  The condition names the unique self-correspondence on `α`
-  that matches `Raw.swap`.
-- *Algebra:* `Aut(Raw) ≅ Aut_ℝ(α)` as groups
-  (the induced group homomorphism is an isomorphism).
+  In other words, the Raw-level involution `swap` has a unique
+  codomain-side counterpart, and that counterpart is itself an
+  involution.
+- *Algebra:* the induced map `Aut(Raw) → Aut_ℝ(α)`,
+  `φ ↦ (view r ↦ view (φ r))`, is a group isomorphism; hence
+  `Aut_ℝ(α) ≅ ℤ/2`.
 
 (Lean: `E213.Meta.LensCatalog.SwapMatching`.)
 
@@ -356,10 +365,15 @@ injectivity corollary of R5. The completeness / infinite-branch
 clause is not expressible in Lean 4 core; the identification
 with `ℝ` is recorded at the prose level.)
 
-**Summary.** R1, R2 are built into the Lens structure and its
-view function (Def 3.1). R3–R5 are predicates on Lenses,
-formalised in `E213.Meta.LensCatalog`. The five constraints
-correspond to four absolute conditions on system `O`:
+**Summary.** R1 is built into the Lens structure (Def 3.1
+already equips `α` with a binary `combine`). R2 is the recursion
+clause of Def 3.1 on its own, and Thm 3.2 further shows that for
+this recursion to descend from `Tree` to `Raw` the combine must
+be commutative — so R2's full content, including commutativity,
+is intrinsic to Lenses on `Raw`. R3, R4, and R5 are genuine
+predicates on Lenses, formalised (fully or in part) in
+`E213.Meta.LensCatalog`. The five constraints correspond to four
+absolute conditions on system `O`:
 
 - **Condition 1 (R1, R2):** syntactic preservation — `O`
   mirrors R's `slash` by a combine rule `∗`, and R's equivalence
@@ -463,15 +477,19 @@ natural sub-structure is two-step:
 
 **(F1) Finite-generated / finite-dimensional over ℝ.** Raw is
 generated from two base tokens `a, b` plus the single binary
-operator `slash`. A catamorphism `L.view`
-maps Raw into the subalgebra of the codomain generated by
-`L.base_a, L.base_b` under `L.combine`. **That subalgebra is
-finitely generated.** If the codomain is an ℝ-algebra, finitely
-generated ℝ-algebra + (R4)'s group-isomorphism requirement force
-it to be finite-dimensional: an infinite-dimensional ℝ-algebra
-carries a larger automorphism group (typically uncountable), so
-(R4) fails. (F1) is thus a consequence of (R2) finite tools +
-(R4) Aut faithfulness.
+operator `slash`. A catamorphism `L.view` maps Raw into the
+ℝ-subalgebra of the codomain generated by `L.base_a, L.base_b`
+under `L.combine`. **That subalgebra is finitely generated as
+an ℝ-algebra.** We further restrict to the finite-*dimensional*
+case, motivated by (R4): the group isomorphism
+`Aut(Raw) ≅ Aut_ℝ(α)` required by (R4) forces `Aut_ℝ(α) ≅ ℤ/2`,
+a finite group of order 2; natural infinite-dimensional
+ℝ-algebras (polynomial rings, power series rings, function
+algebras) have much larger Aut groups, inconsistent with
+`ℤ/2`. A general classification of infinite-dimensional
+ℝ-algebras with `Aut_ℝ ≅ ℤ/2` lies outside this paper; we
+proceed with the finite-dimensional restriction as an
+assumption motivated, but not mechanically forced, by (R4).
 
 **(F2) Commutative.** (R4) requires `Aut_ℝ(codomain) ≅ ℤ/2`.
 The quaternions `ℍ` have `Aut_ℝ(ℍ) ≅ SO(3)`, a Lie group of
@@ -558,10 +576,12 @@ Under the `leaves : Raw → ℕ` Lens (`base_a = base_b = 1`,
 the number of base tokens used to build it. Similarly, `depth`
 is the Lens `(0, 0, fun a b ↦ 1 + max a b)`.
 
-These Lenses are ℝ-algebra-trivial projections of the `ℂ`
-Lens via `Re` and `dim`-like maps, so they inherit the
-self-recognition pedigree of `ℂ`. We record them as distinct
-Lenses for convenience; they do not add information.
+`leaves` and `depth` are swap-blind lenses in the sense of §3.3
+(they identify `base_a = base_b`); they are not themselves
+self-recognising, but they fold Raw into ℕ in a way compatible
+with the ℂ lens at the level of size counts. We use them as
+numerical bookkeeping tools alongside `ℂ`; they carry no
+information about `swap` but faithfully report sizes and depths.
 
 The closure by levels now has numerical content:
 
@@ -611,15 +631,23 @@ of sizes `{2, 3}` takes the form `n = 2a + 3b`. The Level-2
 closure itself realises `(a, b) = (1, 1)` — one 3-block
 (A-type) and one 2-block (B-type). Both coefficients are odd.
 
-**Observation 5.2 (Alive).** At Level 2 of Raw's closure, each
-atom type appears with multiplicity 1, an *odd* number. Paired
-copies of a structurally identical atom would coincide under the
-canonical-form encoding (§1.2) and collapse; only odd residues
-remain. We call `(a, b)` *alive* iff both are odd. Level 2 is
-alive by construction.
+**Observation 5.2 (Alive).** At Level 2 of Raw's closure, the
+block decomposition realises `(a, b) = (1, 1)`: one 2-block
+(V_B) and one 3-block (V_A). Both multiplicities are *odd*.
+The canonical-form encoding (§1.2) identifies
+`slash (x, y) ∼ slash (y, x)`, so in the Raw-internal bookkeeping
+of block copies, structurally-paired duplicates contribute
+trivially; the odd part of a multiplicity is what the encoding
+retains as distinct content. We lift this pattern to a criterion
+on general `(a, b) ∈ ℕ²`: call `(a, b)` **alive** iff both `a`
+and `b` are odd. Level 2 is alive by inspection.
 
-No external postulate has entered. "Alive" names the observed
-parity pattern of Level 2 under the `ℂ` lens.
+No external numerical postulate has entered. "Alive" is the
+parity pattern observed at Level 2 under the `ℂ` lens; a full
+bridge theorem from Raw's primitive constructors to the parity
+rule is not formalised (see `E213.OS.Alive`), but the criterion
+is consistent with §1.2's canonical-form encoding and with the
+Level-2 datum.
 
 **Definition 5.3 (Atomic).** `n` is *atomic* iff `n = 2a + 3b`
 has a unique solution `(a, b) ∈ ℕ²` and that solution is alive.
@@ -766,18 +794,24 @@ following structure, in strict logical dependency order:
 
 **Lens question and its answer (§§3–4):**
 
-3. **[prose]** Self-recognition of a Raw term from within the
-   space imposes four structural constraints on any Lens —
-   binary combine, uniformity, non-degeneracy, Aut-faithfulness.
-   Each constraint is read off Raw as a space (its constructor,
-   its free generation, its term distinctness, its invariant),
-   not off the axiom clauses (§3.2).
+3. **[partial]** Self-recognition of a Raw term from within the
+   space imposes five structural constraints on any Lens
+   (R1–R5, §3.2) — binary combine, recursive faithfulness,
+   non-vanishing, swap-involution matching, and reception of
+   infinite branches. These collapse to four absolute conditions
+   on the codomain (Cond 1–4, §3.2). Each constraint is read off
+   Raw as a space (its constructor, its free generation, its
+   term distinctness, its symmetry invariant, and its
+   non-terminating generation rule), not off the axiom clauses
+   directly. R3–R5 are formalised as Lens predicates in
+   `E213.Meta.LensCatalog`; R1, R2 are built into the Lens
+   definition (Def 3.1) and Thm 3.2.
 
-4. **[prose]** The unique codomain satisfying all four is `ℂ`
-   (§4 Thm 4.1). The argument is classical finite ℝ-field
-   extension theory; not formalised in Lean. ℍ excluded by Aut
-   mismatch (§4 Cor 4.2); `ℝ ⊕ ℝ` excluded by non-degeneracy
-   (§4 Cor 4.3).
+4. **[prose]** The unique codomain satisfying all four conditions
+   is `ℂ` (§4 Thm 4.1). The argument is classical finite
+   ℝ-field extension theory; not formalised in Lean. `ℍ` is
+   excluded by Aut mismatch (§4 Cor 4.2); `ℝ ⊕ ℝ` is excluded by
+   non-vanishing (§4 Cor 4.3).
 
 **Structure visible under `ℂ` (§§5–6):**
 
