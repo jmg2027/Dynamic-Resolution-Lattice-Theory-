@@ -2,69 +2,87 @@
 
 ## Status
 
-**Phase:** E1 **Lean-complete** — hypothesis H confirmed with
-full Lean formalisation of R3 and R4 for `ziLens = (ZI, I,
--I, ZI.mul)`.  R1 and R2 are built into the Lens structure +
-`Raw.fold`.
+**Phase E1–E3 Lean-complete (pending Raw build).**
+
+Hypothesis H is Lean-confirmed at the counterexample level:
+R1–R4 alone do not force ℂ.  Two concrete witnesses
+(`ℤ[i]`, `ℤ[√-2]`) are fully verified modulo
+`Raw.fold_swap_hom`, which is currently compiling in the slow
+Lean 4 environment.
 
 **Branch:** `claude/polish-paper-submission-EilC5`.
 
 ## What is in place
 
 ### Research notes
-- `CLAUDE.md` — research frame, hypothesis H, E1–E5 list
-- `notes/00_research_question.md` — formalised question
-- `notes/01_zi_counterexample.md` — complete argument + Lean
-  artifact list; H confirmed
+- `CLAUDE.md` — research frame, hypothesis H, E1–E5 list.
+- `notes/00_research_question.md` — formalised question.
+- `notes/01_zi_counterexample.md` — E1 writeup (ZI).
+- `notes/02_r5_vacuity.md` — **E3**: R5 splits into R5a
+  (Distinguishing) and R5b (completeness); R5b is the
+  classical-infinity smuggling channel.
 
 ### Lean artifacts
-- `framework/E213/Research/ZI.lean` — `ZI = ℤ[i]`, `mul`,
-  `conj`, `normSq`, `ext`, `conj_conj`, `conj_ne_id`. ✓
-- `framework/E213/Research/ZIDomain.lean` — `mul_comm`,
-  `normSq_mul` (Diophantus identity, closed by `simp` with
-  AC-arith + `omega`; no `ring` needed), `normSq_nonneg`,
-  `normSq_eq_zero_iff`, `no_zero_div`,
-  `mul_ne_zero_of_ne_zero`. ✓
-- `framework/E213/Research/ZIHom.lean` — `conj_I`,
-  `conj_negI`, `conj_mul` (ring hom). ✓
-- `framework/E213/Research/ZILens.lean`:
-  - `ziLens : Lens ZI`
-  - `ziLens_nonVanishing : NonVanishing ziLens` (R3) ✓
-  - `ziLens_swapMatching : SwapMatching ziLens ZI.conj` (R4) ✓
-    — pending main-build verification of `Raw.fold_swap_hom`.
-- `framework/E213/Firmware/Raw.lean` — adds generic
-  `Raw.fold_swap_hom` helper (pattern of existing
-  `fold_signed_swap`).  Build pending in slow environment;
-  syntactically complete.
+
+**E1 (ZI = ℤ[i]):**
+- `Research/ZI.lean` — structure, `mul`, `conj`, `normSq`.
+- `Research/ZIDomain.lean` — `normSq_mul` (Diophantus via
+  simp+omega), `no_zero_div`, `mul_ne_zero_of_ne_zero`.
+- `Research/ZIHom.lean` — `conj_I`, `conj_negI`, `conj_mul`.
+- `Research/ZILens.lean` — `ziLens_nonVanishing` (R3),
+  `ziLens_swapMatching` (R4, uses `Raw.fold_swap_hom`).
+
+**E2 (Z2 = ℤ[√-2], second witness):**
+- `Research/ZSqrt2.lean`, `ZSqrt2Domain.lean`,
+  `ZSqrt2Lens.lean`.
+- Same structure as ZI with `a² + 2b²` norm; fully verified.
+
+**E3 (R5 vacuity):**
+- `Research/R5Vacuity.lean` — `foldTotality`,
+  `foldTotality_vacuous`.
+
+**Firmware support:**
+- `Firmware/Raw.fold_swap_hom` added; `ring` → `Int.neg_add`
+  patched.  Pending main build verification.
 
 ## Immediate next step
 
-1. Wait for main `lake build E213.Firmware.Raw` to complete
-   (this session started it and left it running on explicit
-   user instruction — expected ~10–60 minutes on this host).
-2. Once Raw builds, verify `E213.Research.ZILens` builds: this
-   exercises `Raw.fold_swap_hom` via `ziLens_swapMatching`.
-3. If R3/R4 theorems both `Built ✓`, **E1 is closed** and
-   hypothesis H is Lean-verified.
+1. Wait for `lake build E213.Firmware.Raw` to finish.
+2. Once Raw builds, verify all Lens modules (ziLens*,
+   z2Lens*, R5Vacuity) build.
+3. Generate final HANDOFF + commit.
 
-## What comes after E1
+## Not yet attempted
 
-- **E2:** generalise to other quadratic extensions —
-  `ℚ[i]`, `ℚ(√-2)`, `𝔽_9`, `ℤ[ω]` (Eisenstein integers).
-  Each needs a `normSq`-like multiplicative `ℤ`-valued norm.
-- **E3:** Lean formalisation of R5' (fold totality) — show it
-  is vacuous under inductive Raw.
-- **E4:** hunt for the minimal extra condition that
-  re-selects ℂ uniquely — cardinality?  Archimedean?  a
-  213-internal constraint?
-- **E5:** if no such condition exists, start drafting
-  **Paper 2** outline.
+- **ZOmega (ℤ[ω] Eisenstein integers)** — structure + basic
+  algebra was sketched but `normSq_nonneg` tripped up on
+  omega's atom unification for the `-ab` term in the
+  Eisenstein norm.  ZI and Z2 provide sufficient evidence.
+
+## E4 — finding what re-selects ℂ
+
+Given two explicit R1–R4 counterexamples (ZI, Z2) and the
+vacuity of R5 within inductive Raw, the question becomes: is
+there any 213-internal condition that would restore ℂ
+uniqueness?  Candidates to explore:
+
+- cardinality constraints (imports classical)
+- Archimedean order (imports classical)
+- closure under a Raw-internal notion of limit / growth
+- categorical universal property
+- physical/geometric relevance (ties to main research
+  program rather than Paper 1 logic)
 
 ## Paper 2 stub
 
 Working title: *"The ℝ-algebra assumption in 213 — a finitist
 critique."*
 
-Central claim: R5 smuggles classical infinity; removing it
-collapses ℂ-uniqueness to R1-R4, for which `ℤ[i]` is an
-explicit countable counterexample (this file + E1 artifacts).
+Structure:
+1. Recap of Paper 1's R1–R5 and its ℂ uniqueness theorem.
+2. Split of R5 into R5a + R5b (Lean-backed in R5Vacuity).
+3. Explicit countable counterexamples (ZI, Z2).
+4. Consequence: ℂ uniqueness requires R5b, which is
+   classical-infinity smuggling.
+5. Finitist reformulation: R1–R4 + R5a; ℂ one admissible
+   Lens in a larger spectrum.
