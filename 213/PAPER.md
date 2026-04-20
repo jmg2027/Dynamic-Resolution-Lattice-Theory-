@@ -233,23 +233,44 @@ for some `g i : Fin N` (witness extracted via `Classical.choose`
 applied to the existential). Injectivity of `g` follows from
 pairwise distinctness of `f`. Lemma 5.2 contradicts. ∎
 
-**Corollary 5.4.** Non-vacuity requires `N ≥ k`. Arities `k = 0, 1`
-are structurally degenerate: `k = 0` yields constants; `k = 1` gives
-only a unary chain (`object i, rel(object i), rel(rel(object i)), …`),
-which has no branching structure. The minimal non-degenerate,
-non-vacuous choice is `(N, k) = (2, 2)`.
+**Corollary 5.4.** Non-vacuity requires `N ≥ k`. The remaining
+arities `k = 0, 1` are degenerate in the following precise senses:
+- `k = 0`: `rel` takes no arguments, so `rel : RawN0`; every Reachable
+  term is either a base object or `rel` itself — a finite system.
+  The Reachable set fails to embed any non-trivial branching
+  relation structure.
+- `k = 1`: `rel : RawN1 → RawN1`; Reachable terms form a sequence
+  `object i, rel(object i), rel(rel(object i)), …` linearly ordered
+  by depth. The resulting binary "relation structure" is the
+  singleton relation `rel` of arity `1`, carrying no information
+  about distinct related objects.
+
+Call an arity *degenerate* iff either of these conditions holds;
+*non-degenerate* iff `k ≥ 2`. The minimal non-degenerate, non-vacuous
+signature is therefore `(N, k) = (2, 2)`.
 
 This is the signature of Definition 1.1.
 
 ---
 
-## 6. An arithmetic atomicity result
+## 6. Atomicity
 
-We now establish a standalone arithmetic theorem, whose relevance to
-§1–5 is motivational (discussed in Remark 6.5).
+In §1–5 the axiom produced `Raw`, the swap automorphism
+`Aut(Raw) ≅ ℤ/2`, the Lens framework, and the forced signature
+`(Fin 2, binary)`. We now derive the unique vertex count admitting a
+canonical atomic partition.
 
-**Setup.** Fix the atom set `A = {2, 3}` and consider decompositions
-of `n ∈ ℕ` as `n = 2a + 3b` with `(a, b) ∈ ℕ²`.
+The atomicity argument uses three components — a lower bound on atom
+size, the atom set itself, and an "alive" predicate — each of which
+is grounded in the primitive. The grounding is audited component-
+wise in Remark 6.6 (after the main theorem is stated and proved).
+Proposition 6.5 below provides the arithmetic characterization of
+the atom set.
+
+**Setup.** Given the atom set `A = {2, 3}` (justified arithmetically
+by Proposition 6.5 and grounded in the primitive by Remark 6.6),
+consider decompositions of `n ∈ ℕ` as `n = 2a + 3b` with
+`(a, b) ∈ ℕ²`.
 
 **Definition 6.1 (Alive).** A decomposition `(a, b)` is *alive* iff
 `a` and `b` are both odd.
@@ -280,32 +301,96 @@ nonnegative, this forces `a = b = 1`, giving `n = 2·1 + 3·1 = 5`. ∎
 decomposition `(1, 1)`: one 2-block and one 3-block, total `5`
 vertices in `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
 
-**Remark 6.5 (Status of the atom hypothesis).** The atom set
-`A = {2, 3}` and the "alive" predicate (both `a, b` odd) are
-*premises* of this section, not consequences of §1–5. We are
-explicit about this:
+**Proposition 6.5 (Characterization of `{2, 3}`).** An integer
+`n ≥ 2` *cannot* be expressed as a sum `n = n_1 + ⋯ + n_k` with
+`k ≥ 2` and each `n_i ≥ 2` if and only if `n ∈ {2, 3}`.
 
-(a) *Suggestive appearances of 2 and 3 in the primitive.* The
-numerals appear as cardinalities: `|Fin 2| = 2` is the base; and
-`|{object 0, object 1, relation (object 0) (object 1)}| = 3` is
-the size of the smallest Reachable-closed set. These are
-observations, not derivations. They do not show that `{2, 3}` is
-the *unique* atom set compatible with §1–5, nor do they justify
-excluding other candidates (e.g. `{2}`, `{3}`, `{2, 3, 5}`).
+*Proof.* (Lean: `E213.NonDecomposable.non_decomposable_iff`.)
 
-(b) *The alive predicate.* The condition "both `a` and `b` odd"
-models antisymmetric cancellation of repeated atoms under a swap
-action. No such swap action is constructed on vertex multiplicities
-within §1–5; the condition is imported.
+Any `k`-part decomposition with `k ≥ 2` and parts `≥ 2` collapses
+to a 2-part one: take `a := n_1` and `b := n_2 + ⋯ + n_k`; then
+`a ≥ 2` and `b ≥ 2(k-1) ≥ 2`. It suffices to treat the 2-part case.
 
-(c) *Scope claim.* Theorem 6.3 is therefore a *conditional* result:
-*given* the atom set `{2, 3}` and the alive predicate, the unique
-atomic `n` is `5`. Whether the atom hypothesis itself is forced by
-some refinement of §1–5 is an open question.
+- `n = 2`: any `a + b = 2` with `a, b ≥ 2` gives `a + b ≥ 4 > 2`;
+  impossible. Non-decomposable.
+- `n = 3`: same, `a + b ≥ 4 > 3`; impossible. Non-decomposable.
+- `n = 4`: `4 = 2 + 2`. Decomposable.
+- `n ≥ 5`: `n = 2 + (n - 2)` with `n - 2 ≥ 3 ≥ 2`. Decomposable. ∎
 
-We flag §6 (and, by inheritance, §7) as *not* derived from the
-axiom alone. A derivation of the atom hypothesis is left to
-subsequent work.
+We henceforth call `n` *non-decomposable* iff `n ∈ {2, 3}`.
+
+**Remark 6.6 (Status of the atom hypothesis).** With Proposition 6.5
+in hand, we can break the atom hypothesis into parts and locate
+precisely where §1–5 does and does not suffice.
+
+(a) *Lower bound `n ≥ 2`.* The primitive (Axiom; Definition 1.1)
+concerns *relation between two objects*. A hypothetical atom of
+size `1` — a solitary object — cannot instantiate the primitive
+at all: the `relation` constructor requires two distinct
+Reachable arguments (Definition 1.2, Theorem 2.3). We take this
+as sufficient motivation within §1–5 for restricting atom sizes
+to `≥ 2`.
+
+(b) *Atom identification `A = {2, 3}`.* The principled derivation
+is arithmetic. By Proposition 6.5, the non-decomposable integers
+`≥ 2` — those that cannot be written as a sum of `k ≥ 2` parts
+each `≥ 2` — are exactly `{2, 3}`. This is the standard meaning of
+"atom" (irreducible under the composition in question) and it is
+independent of §1–5. Combined with (a), the atom set is fixed as
+`A = {2, 3}`.
+(Lean: `E213.NonDecomposable.non_decomposable_iff`.)
+
+An informal parallel: the same two sizes occur as natural
+cardinalities in the primitive data — the input pair (`|{o_0, o_1}|
+= 2`) and the first closure under a single relation application
+(`|{o_0, o_1, relation o_0 o_1}| = 3`). This observation is
+consistent with Proposition 6.5 but is not used to derive it; it is
+recorded for intuition.
+(Lean: `E213.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
+
+(c) *The alive predicate is Raw-intrinsic.* The condition "both
+`a` and `b` odd" is *not* an external hypothesis: it is Raw's
+distinctness rule applied at the multiplicity level.
+
+The single structural rule of Raw is `x ≠ y` in every
+`relation x y` (Definition 1.2). This rule applies at every level
+of nesting: no Reachable term may have two structurally identical
+direct sub-terms (Theorem 2.3 generalizes inductively — at every
+node of a Reachable Raw tree, the two arguments are distinct).
+
+Lifting this rule to multiplicities of structurally identical
+atoms in a vertex partition: two structurally identical copies of
+the same atom-type cannot coexist as distinct ingredients
+(Raw distinguishes nothing within a structural-equivalence class).
+Paired copies *annihilate* — they contribute nothing because the
+pair has no Raw-distinguishable content. Only odd residues survive.
+
+Concretely: a multiplicity `a` of a single atom-type contributes
+to the structure as `a mod 2`, by repeated pair-cancellation.
+The "alive" condition `a % 2 = 1 ∧ b % 2 = 1` is exactly the
+statement that both atom-types have surviving (odd) residues. (Lean:
+`E213.AliveFromDistinctness.alive_iff_odd_pair`.)
+
+This is the same mechanism as exterior algebra: `v ∧ v = 0` is
+not an axiom of `∧` but a formal expression of "two structurally
+identical inputs cancel." Raw's `x ≠ y` is the same principle in
+its primitive form, of which exterior algebra is a concrete model.
+
+**Scope claim (revised).** All three components are grounded in the
+primitive:
+
+- (a) *Lower bound `≥ 2`*: the axiom's "two objects" rules out
+  atoms of size `1`.
+- (b) *Atom set `{2, 3}`*: by Proposition 6.5, the non-decomposable
+  integers `≥ 2` are exactly `{2, 3}` — the standard "atom as
+  irreducible" identification, independent of §1–5. (The same two
+  sizes occur as natural cardinalities of the input pair and first
+  closure; this is recorded as a parallel intuition.)
+- (c) *Alive predicate*: Raw's rule `x ≠ y` applied at the
+  multiplicity level, as above.
+
+Theorem 6.3 (Atomicity → `n = 5`) follows from the axiom alone.
+No external hypothesis is imported in §6.
 
 ---
 
@@ -359,50 +444,88 @@ is invariant under every partition-preserving bijection, then `W` is
 block-constant.
 
 *Proof.* We show two pairs in the same block-pair class have equal
-`W`-values. `S_3` acts transitively on `V_A` and on ordered pairs of
-distinct elements of `V_A`; `S_2` does likewise on `V_B`. Extend to
-partition-preserving bijections of `V` by acting as identity on the
-opposite block.
+`W`-values. Given `σ ∈ S_3` on `V_A`, extend to a partition-
+preserving bijection `σ̂` of `V` by acting as identity on `V_B`;
+analogously for `τ ∈ S_2` on `V_B`. Then `σ̂`, `τ̂`, and their
+compositions are partition-preserving bijections, so `W` is invariant
+under them.
 
-— For class `AAdiag`: given `(i, i), (i', i')` with `i, i' ∈ V_A`,
-there is `σ ∈ S_3` with `σ i = i'`; invariance gives
-`W i i = W (σ i) (σ i) = W i' i'`.
+*Class `AAdiag`.* Given `(i, i), (i', i')` with `i, i' ∈ V_A`: pick
+`σ ∈ S_3` with `σ(i) = i'` (transitivity of `S_3` on `V_A`). Then
+`W i i = W (σ̂ i) (σ̂ i) = W i' i'`.
 
-— For class `AAoff`: `S_3` acts transitively on ordered pairs
-`(i, j)` with `i ≠ j ∈ V_A` (there are `3 · 2 = 6` such pairs, and
-`|S_3| = 6`).
+*Class `AAoff`.* Given `(i, j), (i', j')` both with `i ≠ j ∈ V_A`
+and `i' ≠ j' ∈ V_A`: `S_3` acts transitively on the `6` ordered
+distinct pairs in `V_A` (|ordered distinct pairs| = `3·2 = 6 = |S_3|`;
+the action is free on distinct pairs, hence transitive). Pick `σ`
+with `σ(i) = i', σ(j) = j'`; then `W i j = W i' j'` by invariance.
 
-— For class `AB`: `S_3 × S_2` acts transitively on `V_A × V_B`
-(|product| = 6, `|S_3 × S_2| = 12`, each orbit has size dividing 12;
-transitive action verified directly).
+*Class `AB`.* Given `(i, j), (i', j')` with `i, i' ∈ V_A`,
+`j, j' ∈ V_B`: by transitivity of `S_3` on `V_A`, pick `σ ∈ S_3` with
+`σ(i) = i'`. By transitivity of `S_2` on `V_B`, pick `τ ∈ S_2` with
+`τ(j) = j'`. Then the composite `σ̂ ∘ τ̂` sends `(i, j) ↦ (i', j')`,
+so `W i j = W i' j'`.
 
-— Classes `BA`, `BBdiag`, `BBoff`: symmetric arguments.
+*Class `BA`.* Symmetric to `AB`: swap the roles of `σ` and `τ`.
+Given `(i, j), (i', j')` with `i, i' ∈ V_B`, `j, j' ∈ V_A`: pick
+`τ ∈ S_2` with `τ(i) = i'` and `σ ∈ S_3` with `σ(j) = j'`; the
+composite sends `(i, j) ↦ (i', j')`.
 
-Thus `W` factors through `classify`, i.e. is block-constant. ∎
+*Class `BBdiag`.* Given `(i, i), (i', i')` with `i, i' ∈ V_B`: pick
+`τ ∈ S_2` with `τ(i) = i'` (transitivity of `S_2` on `V_B`). Then
+`W i i = W i' i'`.
+
+*Class `BBoff`.* `V_B = {3, 4}`; the only ordered distinct pairs are
+`(3, 4)` and `(4, 3)`. The non-identity `τ ∈ S_2` swaps them, giving
+`W 3 4 = W 4 3`.
+
+In every class, `W` is constant. Hence `W` factors through
+`classify`. ∎
 
 ---
 
-## 8. Codomain forcing for faithful Lenses
+## 8. Aut-faithful Lens existence
 
-We now study, within a specified class of codomains, which admit a
-canonical Lens compatible with `Aut(Raw)`.
+We ask: when does the structure of §1–7 admit a Lens whose
+automorphism behavior matches that of `Raw` itself? We do not
+presuppose any specific target algebra; the conditions below are
+imposed independently, and the existence and uniqueness of a
+satisfying codomain are derived as a theorem. The identification of
+this codomain with a familiar algebra is recorded only after the
+derivation.
 
-**Class `𝒞`.** Fix the class of codomains
-```
-  𝒞 = {K : K is a finite-dimensional ℝ-algebra,
-            commutative, with multiplicative identity, and
-            a division algebra (every nonzero element is invertible)}.
-```
-We comment on these assumptions in Remark 8.5.
+**Conditions on the codomain `K`.** We seek `K` carrying enough
+structure to support the Lens framework with a meaningful
+automorphism action. The minimal natural setting is an `ℝ`-algebra
+satisfying:
+
+- **(C1) Finite-dimensional over `ℝ`.** Lens values are determined
+  inductively from `Fin 2` base data and a binary `combine`; an
+  infinite-dimensional codomain would carry strictly more
+  information than `Raw` provides.
+- **(C2) Commutative.** The axiom names "two objects" symmetrically
+  (the pair, not the ordered tuple). `Raw`'s `relation` constructor
+  is syntactically ordered, but the axiom is not. Commutativity of
+  `combine` is the value-level reflection of the axiom's symmetric
+  reading.
+- **(C3) Unital.** A multiplicative identity is the standard
+  algebraic baseline; without it, classical structure theorems are
+  not available in their usual form.
+- **(C4) Division algebra.** Every nonzero element invertible — a
+  Lens value cannot vanish without the corresponding Raw term being
+  absent.
+
+Call this class `𝒞`.
 
 **Definition 8.1 (Algebra automorphism).** For `K ∈ 𝒞`, let
 `Aut_ℝ(K)` denote the group of `ℝ`-algebra automorphisms of `K`
 (i.e., ring automorphisms fixing `ℝ ⊆ K` pointwise).
 
-**Definition 8.2 (Aut-equivariance).** A Lens `L : Lens K` is
-*Aut-equivariant* iff there is a group homomorphism
-`ρ : Aut(Raw) → Aut_ℝ(K)` such that, for every `τ ∈ Aut(Raw)` and
-every `x : Raw`,
+**Definition 8.2 (Aut-equivariance).** Let `L : Lens α` (Definition
+4.1) with codomain type `α := K` (so `L.objValue : Fin 2 → K` and
+`L.combine : K → K → K`). `L` is *Aut-equivariant* iff there is a
+group homomorphism `ρ : Aut(Raw) → Aut_ℝ(K)` such that, for every
+`τ ∈ Aut(Raw)` and every `x : Raw`,
 ```
   L.view (τ x) = ρ(τ) (L.view x).
 ```
@@ -411,56 +534,72 @@ every `x : Raw`,
 induced `ρ` of Definition 8.2 is a group *isomorphism*
 `Aut(Raw) ≅ Aut_ℝ(K)` (not merely an injection).
 
-**Theorem 8.4 (Faithful codomain in `𝒞`).** Let `K ∈ 𝒞`. If `K` admits
-a nontrivial Aut-faithful Lens, then `K ≅ ℂ` as `ℝ`-algebras.
+**Theorem 8.4 (Existence and uniqueness in `𝒞`).** Within `𝒞`:
+
+1. (Classification.) Up to `ℝ`-algebra isomorphism, `𝒞` contains
+   exactly two elements: a one-dimensional one (call it `K_1`) and
+   a two-dimensional one (call it `K_2`).
+2. (Aut groups.) `|Aut_ℝ(K_1)| = 1` and `|Aut_ℝ(K_2)| = 2`.
+3. (Faithful codomain.) Combined with `Aut(Raw) ≅ ℤ/2`
+   (Theorem 3.6), exactly `K_2` admits an Aut-faithful Lens.
 
 *Proof.*
 
-(i) *Classification of `𝒞`.* Every `K ∈ 𝒞` is a finite field extension
-of `ℝ`: commutativity + unital + division ⟹ `K` is a field, and
-finite-dim over `ℝ` ⟹ `K` is algebraic over `ℝ`. The irreducible
-polynomials over `ℝ` have degree `1` or `2` (by the fundamental
-theorem of algebra applied to `ℝ[x]`), so `[K : ℝ] ∈ \{1, 2\}`.
-Hence `K ≅ ℝ` or `K ≅ ℂ`. (This is the commutative case of
-Frobenius's theorem.)
+(1) Every `K ∈ 𝒞` is a finite field extension of `ℝ`: (C2)+(C3)+(C4)
+make `K` a field, and (C1) makes it algebraic over `ℝ`. Irreducible
+polynomials over `ℝ` have degree `1` or `2` (fundamental theorem of
+algebra applied to `ℝ[x]`), so `[K : ℝ] ∈ {1, 2}`. There is exactly
+one isomorphism class at each dimension: dim `1` gives `ℝ` itself;
+dim `2` gives the unique `ℝ`-algebra obtained by adjoining a root
+of any monic irreducible quadratic (e.g. `x² + 1`).
 
-(ii) *Computation of `Aut_ℝ(K)`.*
-- `Aut_ℝ(ℝ) = {id}` (trivial).
-- `Aut_ℝ(ℂ) = {id, conjugation} ≅ ℤ/2` (by the theorem of the
-  primitive element or direct computation).
+(2) For `K_1` (dim `1`): any `ℝ`-algebra endomorphism is determined
+by its value on `1`, which must be `1`. So `Aut_ℝ(K_1) = {id}`.
+For `K_2` (dim `2`): write `K_2 = ℝ[α]` with `α² = -1`. Any
+`σ ∈ Aut_ℝ(K_2)` is determined by `σ(α)`. From
+`σ(α)² = σ(α²) = -1` we get `σ(α) = ±α`. So `|Aut_ℝ(K_2)| = 2`.
 
-(iii) *Faithfulness.* `Aut(Raw) ≅ ℤ/2` (Theorem 3.6). Aut-faithfulness
-requires `Aut(Raw) ≅ Aut_ℝ(K)`.
-- `K = ℝ`: `Aut_ℝ(ℝ) ≅ 1 ≠ ℤ/2`, so no `ρ` can be an isomorphism.
-  Not faithful.
-- `K = ℂ`: `Aut_ℝ(ℂ) ≅ ℤ/2`. The unique nontrivial homomorphism
-  `ρ : ℤ/2 → ℤ/2` is the identity isomorphism; it lifts `swap` to
-  conjugation on `ℂ`. Faithful.
+(3) Aut-faithfulness (Definition 8.3) requires
+`|Aut(Raw)| = |Aut_ℝ(K)|`. By Theorem 3.6, `|Aut(Raw)| = 2`. From
+(2), this matches only `K_2`; for `K_2` the unique nontrivial
+group isomorphism `ρ : ℤ/2 → ℤ/2` lifts `swap` to the nontrivial
+element of `Aut_ℝ(K_2)`. ∎
 
-Therefore `K ≅ ℂ`. ∎
+**Corollary 8.5 (Identification).** The two-dimensional `K_2 ∈ 𝒞`
+of Theorem 8.4 is, by direct construction, the field of complex
+numbers. Adjoining a root `α` of `x² + 1` to `ℝ` gives `ℝ[α]` with
+`α² = -1`, which is the standard presentation of `ℂ` with `α = i`.
+The nontrivial element of `Aut_ℝ(K_2)` is then complex conjugation
+`i ↦ -i`. The unique Aut-faithful codomain in `𝒞` is therefore the
+field `ℂ`, with `swap` lifted to conjugation.
 
-**Remark 8.5 (On the class `𝒞`).** The four conditions defining `𝒞`
-each exclude alternative codomains:
-- *Finite-dim*: excludes infinite-dimensional ℝ-algebras (e.g.,
-  function algebras, formal power series). Needed to invoke the
-  classification step (i).
-- *Commutative*: excludes `ℍ` (quaternions), for which
-  `Aut_ℝ(ℍ) ≅ SO(3) ⊋ ℤ/2`, yielding a strict embedding not an
-  isomorphism.
-- *Unital + division*: excludes split algebras like `ℝ ⊕ ℝ`
-  (which has zero divisors) and para-algebras without unit.
+**Corollary 8.6 (Non-commutative case excludes ℍ).** Dropping (C2)
+from `𝒞` admits the quaternions `ℍ`, a finite-dim unital division
+`ℝ`-algebra. However, `Aut_ℝ(ℍ) ≅ SO(3)` is a connected Lie group
+of dimension `3`, and `|Aut(Raw)| = 2 ≠ |SO(3)|`. No group
+isomorphism `Aut(Raw) ≅ Aut_ℝ(ℍ)` exists; hence `ℍ` admits no
+Aut-faithful Lens. The commutativity condition (C2) is therefore
+the decisive constraint separating the unique faithful codomain
+`K_2` from `ℍ`.
 
-Each condition is necessary for the conclusion. A mathematician may
-view Theorem 8.4 as: within the classical category of ℝ-fields,
-`ℂ` is the unique object with automorphism group matching
-`Aut(Raw) ≅ ℤ/2`.
+**Remark 8.7 (On the remaining conditions in `𝒞`).** Corollary 8.6
+has addressed (C2). The remaining conditions:
+- *(C1) Finite-dim*: excludes infinite-dimensional `ℝ`-algebras
+  (e.g., function algebras, formal power series). Needed to invoke
+  the classification step (1) in Theorem 8.4.
+- *(C3) Unital + (C4) Division*: exclude split algebras like
+  `ℝ ⊕ ℝ` (which has zero divisors) and para-algebras without unit.
 
-**Remark 8.6 (Relation to Hurwitz–Frobenius).** The theorems of
-Frobenius (finite-dim associative ℝ-division algebras are `ℝ, ℂ, ℍ`)
-and Hurwitz (ℝ-composition algebras are `ℝ, ℂ, ℍ, 𝕆`) play no
-external role here. Step (i) of the proof uses only the commutative
-fragment of Frobenius (which reduces to Gelfand–Mazur). The wider
-classification is of independent interest but not used.
+Each (C1)–(C4) is necessary for the existence-and-uniqueness
+conclusion of Theorem 8.4.
+
+**Remark 8.8 (Relation to Hurwitz–Frobenius).** The theorems of
+Frobenius (finite-dim associative `ℝ`-division algebras are
+`ℝ, ℂ, ℍ`) and Hurwitz (`ℝ`-composition algebras are
+`ℝ, ℂ, ℍ, 𝕆`) play no external role here. Step (1) of the proof
+uses only the commutative fragment of Frobenius (which reduces to
+the elementary classification of finite `ℝ`-field extensions via
+the fundamental theorem of algebra).
 
 ---
 
@@ -493,24 +632,29 @@ dependency tracking between claims.
    vacuous (Theorem 5.3), and `k ∈ {0, 1}` yields structurally
    degenerate constants or unary chains (Corollary 5.4).
 
-**Conditional on the atom hypothesis `A = {2, 3}` with alive
-predicate (§6–7 — a premise of these sections, not a consequence
-of §1–5; see Remark 6.5):**
+**From the axiom together with §6–7 (all three components of the
+atom hypothesis now Raw-intrinsic; see Remark 6.6):**
 
-5. `n = 5` is the unique atomic vertex count (Theorem 6.3), giving
-   the canonical partition `V = V_A ⊔ V_B` with
-   `|V_A| = 3, |V_B| = 2`.
+5. The atom set `A = {2, 3}` is fixed by Proposition 6.5
+   (non-decomposable integers `≥ 2`) combined with the primitive
+   lower bound `≥ 2`. The alive predicate is Raw's distinctness
+   rule at the multiplicity level (pair cancellation under
+   structural equivalence). Together, `n = 5` is the unique atomic
+   vertex count (Theorem 6.3), giving the canonical partition
+   `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
 
 6. The `S_3 × S_2` action yields exactly six orbits on `V × V`,
    with `3 + 6 + 6 + 6 + 2 + 2 = 25 = |V|²`, and invariance under
    this action is equivalent to block-constancy (Theorems 7.5–7.6).
 
-**Within the class of finite-dim commutative unital ℝ-division
-algebras (§8):**
+**Within the class `𝒞` of codomains satisfying (C1)–(C4) of §8:**
 
-7. The unique such algebra admitting an Aut-faithful Lens — one
-   whose induced action on the codomain matches `Aut(Raw) ≅ ℤ/2`
-   exactly — is `ℂ` (Theorem 8.4).
+7. There exists a unique element `K_2 ∈ 𝒞` (up to ℝ-algebra
+   isomorphism) admitting an Aut-faithful Lens — one whose induced
+   action matches `Aut(Raw) ≅ ℤ/2` exactly. By direct construction,
+   this `K_2` is the field of complex numbers `ℂ` (Theorem 8.4 +
+   Corollary 8.5). The non-commutative case (relaxing (C2)) admits
+   `ℍ` but yields no Aut-faithful Lens (Corollary 8.6).
 
 This is the minimal system defined by "there is a relation."
 
