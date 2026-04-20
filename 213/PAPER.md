@@ -38,29 +38,33 @@ The question we settle below is:
 The answer is determined not by the axiom, but by the
 **structure of the space `Raw` itself**. The axiom produces
 Raw; Raw has structural facts; an observer internal to Raw
-requires a Lens that respects those facts. The constraints are:
+requires a Lens that respects those facts. Five structural
+constraints arise:
 
-- **binary combine** (Raw has the `slash` constructor),
-- **uniformity** (Raw is a free inductive type: every `slash`
-  node plays the same structural role — the Lens must be a
-  catamorphism),
-- **non-degeneracy** (every Raw term is distinct; a Lens may
-  not map a nonzero combination to a codomain-zero — no zero
-  divisors on combine),
-- **Aut-faithfulness** (Raw carries `Aut(Raw) ≅ ℤ/2` as a
-  structural invariant of the space itself; the Lens must
-  transfer this symmetry to its codomain as a group
-  isomorphism, neither erasing nor fabricating symmetry).
+- **(R1)** binary combine (Raw has the `slash` constructor);
+- **(R2)** recursive faithfulness (Raw is freely inductive —
+  the Lens must be a catamorphism);
+- **(R3)** non-vanishing (presence of Raw terms is preserved —
+  the combine has no zero divisors);
+- **(R4)** swap matches exactly one nontrivial involution on
+  the codomain (Raw carries `Aut(Raw) ≅ ℤ/2` as a structural
+  invariant);
+- **(R5)** minimal continuous distinguishing codomain — all
+  Raw terms project to distinct values of a connected ℝ-algebra.
 
 None of these is postulated; each is read off Raw as a space
-(§§1–2), not from a re-reading of the axiom clauses. The axiom
-creates the space; the space's internal geometry enforces the
-Lens conditions.
+(§§1–2). The axiom creates the space; the space's internal
+geometry enforces the Lens conditions.
 
-These four structural constraints single out a unique codomain up
-to ℝ-algebra isomorphism: the **field of complex numbers** `ℂ`
-(§4). Only with `ℂ` in hand does "size / count / dimension"
-become a meaningful notion of Raw; §5 then records the atom set
+R1+R2+R3+R5 fix the codomain's base ring: the minimal
+continuous no-zero-divisor ℝ-algebra is **`ℝ`**. R4 then adjoins
+the unique nontrivial involution: the minimal extension of `ℝ`
+carrying one involution is **`ℂ = ℝ[i]`**, with the involution
+realised as complex conjugation. Thus `ℂ` is the unique
+self-recognising codomain (§4).
+
+Only with `ℂ` in hand does "size / count / dimension" become a
+meaningful notion of Raw; §5 then records the atom set
 `{2, 3}`, the unique atomic vertex count `n = 5`, and the
 canonical `(3, 2)` partition as *consequences visible under the
 `ℂ` lens* — **not** as primitive data of the axiom.
@@ -232,98 +236,99 @@ the observer chooses it. The choice, however, is not free: the
 Lens must respect Raw's structural facts, otherwise its image
 does not correspond to the space the observer is in.
 
-§3 formalises (a) the Lens structure (Defs 3.1–3.3), (b) the
-structural constraints Raw-as-a-space imposes on any such Lens
-(R1–R4, §3.4). The constraints are **not** re-readings of the
-axiom clauses; they are conditions on projections out of the
-space produced by the axiom, read off Raw's inductive structure
-and its native invariants.
+§3 formalises the Lens structure and records the five structural
+constraints Raw-as-a-space imposes on any self-recognising Lens
+(R1–R5, §3.2). The constraints are *structural consequences of
+Raw's properties*; each is given in both Raw language (the
+language the axiom uses) and the standard algebra shorthand.
+Full derivation from Raw alone is possible but deferred.
 
-**Definition 3.1 (Lens).** A `Lens` with codomain `α` is a triple
-
-```
-  Lens α = (base_a : α, base_b : α, combine : α → α → α).
-```
-
-**Definition 3.2 (View / catamorphism).**
+**Definition 3.1 (Lens).** A Lens is a tuple `(α, base_a, base_b,
+combine)` with `view : Raw → α` defined recursively:
 
 ```
-  L.view a               := L.base_a
-  L.view b               := L.base_b
-  L.view (slash x y h)   := L.combine (L.view x) (L.view y).
+  view a               := base_a
+  view b               := base_b
+  view (slash x y h)   := combine (view x) (view y).
 ```
 
-**Definition 3.3 (Kernel equivalence).**
-`L.equiv x y := L.view x = L.view y`; this is the kernel
-equivalence of `L.view` and is the **only** notion of equality
-on `Raw` the framework admits.
+The kernel `L.equiv x y := L.view x = L.view y` is the only
+notion of equality on Raw the framework admits.
 
-### 3.4 Structural constraints on a self-recognising Lens
+### 3.2 Structural constraints R1–R5
 
-Raw, as produced by the axiom, exhibits four structural facts. A
-Lens whose image is a measurement *of Raw from within Raw* must
-respect each of them. The constraints are read directly off the
-space, not off the axiom clauses.
+All five constraints below are structural consequences of Raw's
+properties. Each is stated in two equivalent ways: **Raw
+language** (describing the condition in the axiom's own
+vocabulary of terms, combine, and swap) and **algebra
+language** (the conventional algebraic shorthand).
 
-**(R1) Binary combine (from Raw's `slash` constructor).** Raw
-has a single non-base constructor, `slash : Raw → Raw → Raw`.
-Any structure-respecting map out of Raw must act on `slash`
-nodes; the Lens therefore supplies a binary `combine` on its
-codomain. A Lens without a combine has no image for any term
-beyond `a` and `b` and fails to project the space.
+**(R1) Binary combine.**
 
-**(R2) Uniformity (from Raw's free-inductive structure).** Raw
-is generated freely: every `slash` node plays the same structural
-role, regardless of depth or location in the tree. A map out of
-Raw that applied *different* rules at different nodes would fail
-to factor through Raw's inductive definition — its image would
-not be a projection of the space Raw is, but of some other,
-node-sensitive, object. The constraint is that the map is a
-**catamorphism**: `combine` is applied identically at every
-`slash` node. This is the structural content of Raw's
-uniformity, independent of any measurement vocabulary.
+- *Raw language:* there is a rule taking Raw terms to codomain
+  values via `view`, and a rule for combining two codomain
+  values into a new codomain value, `combine : α² → α`.
+- *Algebra:* the codomain carries a binary operation.
 
-**(R3) Non-degeneracy (from Raw's term-level distinctness).**
-Each Raw term is a well-defined inductive term with a definite
-structural presence. Raw supplies no "absent" term, no
-"vanishing" element. A Lens whose combine has zero divisors
-(i.e., `combine u v = 0` for some codomain-nonzero `u, v`) would
-then project some nonzero `slash x y` to a codomain-zero — a
-value the Lens would later have to describe as "not there",
-contradicting Raw's evidence that the term exists. The
-constraint is: **the Lens's combine has no zero divisors**. For
-an ℝ-algebra codomain, this is the division-algebra condition
-at the structural level; it is a requirement of non-degeneracy,
-not unital-ness.
+**(R2) Recursive faithfulness.**
 
-**(R4) Aut-faithfulness (from Raw's native symmetry).** §2
-established `Aut(Raw) ≅ ℤ/2`: the two-element group `{id, swap}`
-is the full symmetry of Raw as a space. A Lens that projects
-this symmetry onto `{id}` (erasing it) or onto a richer group
-(fabricating symmetry not present in Raw) produces a measurement
-of a *different* space than the one the observer inhabits. The
-constraint is that the induced group homomorphism
+- *Raw language:* the combine rule follows Raw's recursive
+  structure — `view (slash x y h) = combine (view x) (view y)`.
+- *Algebra:* `view` is a homomorphism of the free commutative
+  magma (no fixed points) into `(α, combine)`.
 
-> `ρ : Aut(Raw) → Aut_ℝ(codomain)`
+**(R3) Non-vanishing.**
 
-is a group **isomorphism**.
+- *Raw language:* if `view x` and `view y` are both present
+  (nonzero in `α`), then `combine (view x) (view y)` is also
+  present (nonzero). Projecting a Raw term that exists never
+  yields "not there".
+- *Algebra:* combine has no zero divisors.
 
-**Summary.** None of (R1)–(R4) is stipulated or postulated.
-Each is a structural constraint on any projection out of Raw,
-read off Raw itself:
+(Lean: `E213.Meta.LensCatalog.NonVanishing`.)
+
+**(R4) Swap matches exactly one nontrivial involution.**
+
+- *Raw language:* on the codomain `α` there is a function
+  `conj : α → α` such that
+  - `conj (conj u) = u` for every `u`,
+  - `conj ≠ id`,
+  - `view (swap r) = conj (view r)` for every `r`.
+  The condition names the unique self-correspondence on `α`
+  that matches `Raw.swap`.
+- *Algebra:* `Aut(Raw) ≅ Aut_ℝ(α)` as groups
+  (the induced group homomorphism is an isomorphism).
+
+(Lean: `E213.Meta.LensCatalog.SwapMatching`.)
+
+**(R5) Minimal continuous distinguishing codomain.**
+
+- *Raw language:* different Raw terms project to different
+  values in `α` (injectivity of `view`); `α` is the smallest
+  connected / continuous codomain on which this is possible.
+- *Algebra (post-construction):* the injectivity requirement
+  picks out a continuous ℝ-algebra; the minimality clause
+  identifies it with `ℝ`.
+
+(Lean: `E213.Meta.LensCatalog.Distinguishing` captures the
+injectivity half. The continuity / minimality clause of R5 is
+not expressible in Lean 4 core; the identification with `ℝ` is
+recorded at the prose level.)
+
+**Summary.** R1, R2 are built into the Lens structure and its
+view function (Def 3.1). R3–R5 are predicates on Lenses,
+formalised in `E213.Meta.LensCatalog`.
 
 - (R1) ⟵ Raw's constructor signature (`slash : Raw² → Raw`);
 - (R2) ⟵ Raw's free-inductive generation;
 - (R3) ⟵ Raw's term-level distinctness;
-- (R4) ⟵ `Aut(Raw) ≅ ℤ/2` (§2 invariant).
+- (R4) ⟵ `Aut(Raw) ≅ ℤ/2` (§2 invariant);
+- (R5) ⟵ Raw's term-level distinguishability + continuity.
 
-The axiom creates Raw; Raw's internal geometry determines what
-it takes to measure Raw from within. R1–R4 are "the view from
-inside the space", not a re-interpretation of the axiom.
-
-**Working definition.** A Lens whose codomain `α` is an
-ℝ-algebra and which satisfies (R1)–(R4) is called a
-*self-recognising Lens*.
+**Working definition.** A Lens satisfying R1–R5 is called a
+*self-recognising Lens*. §4 shows R1–R4 force the codomain to
+be an ℝ-algebra with the prescribed swap involution, and R5
+pins down the ℝ-algebra to `ℂ`.
 
 **Theorem 3.5 (Catamorphism compatibility, symmetric case).**
 For a Lens with symmetric `combine`, the view satisfies
@@ -387,11 +392,21 @@ it. §4 asks the sharp version of this choice: which Lens sees
 
 ## 4. The self-recognising Lens is `ℂ`
 
-§3 identified R1–R4 as structural constraints any self-recognising
+§3 identified R1–R5 as structural constraints any self-recognising
 Lens must respect. §4 translates them into algebraic conditions
-on the codomain and shows the resulting class is singleton: the
-unique self-recognising codomain (up to ℝ-algebra isomorphism)
-is the field of complex numbers.
+on the codomain and shows the resulting class is singleton. The
+natural sub-structure is two-step:
+
+- **R1, R2, R3, R5 together force the continuous base `ℝ`.** R1
+  supplies the binary operation; R2 requires a homomorphism; R3
+  prohibits zero divisors; R5 forces a connected / continuous
+  codomain distinguishing all Raw terms. The minimal continuous
+  ℝ-algebra with no zero divisors is the field `ℝ`.
+- **R4 extends `ℝ` to `ℂ`.** `Aut_ℝ(ℝ) = {id}` is trivial; R4
+  requires a nontrivial involution, which `ℝ` cannot supply. The
+  minimal extension carrying exactly one nontrivial involution
+  is `ℂ = ℝ[i]`, with the involution given by complex
+  conjugation.
 
 ### 4.1 Deriving the codomain conditions
 
@@ -747,38 +762,23 @@ source:
 | anti-reflexive (`no x/x`)         | axiom clause (2), semantic      |
 | symmetric (`x/y = y/x`)           | axiom clauses (2–3), semantic   |
 | `Aut(Raw) ≅ ℤ/2`                  | Raw's symmetric base roles      |
-| R1: Lens has binary combine       | Raw's `slash` constructor       |
-| R2: Lens uniform (catamorphism)   | Raw's free-inductive structure  |
-| R3: Lens non-degenerate           | Raw's term-level distinctness   |
-| R4: Lens Aut-faithful             | §2 Aut(Raw) invariant of space  |
-| codomain finite-dim over ℝ        | finite generating data (F1)     |
-| codomain commutative              | (R4) + ℍ Aut mismatch           |
-| codomain unital                   | consequence of (F2)+(F4)        |
-| codomain has no zero divisors     | (R3) = no-zero-divisor combine  |
+| R1: binary combine                | Raw's `slash` constructor       |
+| R2: recursive faithfulness        | Raw's free-inductive structure  |
+| R3: non-vanishing                 | Raw's term-level distinctness   |
+| R4: swap matches one involution   | §2 Aut(Raw) invariant of space  |
+| R5: distinguishing + continuous   | Raw's term-level distinguishability |
+| codomain = `ℝ` (from R1+R2+R3+R5) | minimal continuous no-zero-div  |
+| codomain = `ℂ` (from + R4)        | minimal extension with ℤ/2 aut  |
 | `atom ≥ 2`                        | threshold where `slash` acts    |
 | atom values `{2, 3}`              | Prop 5.1 arithmetic             |
 | alive (both odd)                  | Obs 5.2 of Level-2 closure      |
 | `n = 5` atomic                    | Thm 5.4 under `ℂ` lens          |
 | `(3, 2)` partition                | Level-2 closure + Thm 5.4       |
 
-Every row's source is one of: an axiom clause (for Raw's
-construction), a structural fact of Raw as a space (for R1–R4),
-a theorem derived from those, or an observation made after the
-`ℂ` lens is in place. **No row is an external stipulation.**
-
-Earlier drafts of this paper cast R1–R4 as re-readings of the
-axiom clauses, and cast "atom ≥ 2" and "alive" as stipulations.
-Both framings were symptoms of the same mistake: the axiom
-*creates the space* `Raw`, but it does not speak about what it
-takes to measure Raw from within. R1–R4 come from Raw's
-**structure as a space** — its constructor, free generation,
-term distinctness, and native invariant — independent of any
-re-interpretation of the axiom clauses. With this corrected
-source attribution, and with numerical observations deferred to
-their post-`ℂ` position, every apparent stipulation resolves:
-either Raw's space geometry supplies the condition, or the `ℂ`
-lens makes a numerical fact visible that was invisible without
-it.
+Every row's source is one of: an axiom clause, a structural fact
+of Raw as a space (for R1–R5), a theorem derived from those, or
+an observation made after the `ℂ` lens is in place. **No row is
+an external stipulation.**
 
 This is the minimal system defined by the 3-clause axiom.
 

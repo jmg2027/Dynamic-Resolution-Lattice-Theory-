@@ -90,3 +90,74 @@ theorem swap_invariant_base_eq {α : Type} {L : Hypervisor.Lens α}
   exact h0.symm
 
 end E213.Meta
+
+namespace E213.Meta
+
+open E213.Firmware E213.Hypervisor
+
+-- ═══ R3–R5 — structural Lens requirements ═══
+
+-- R1, R2 are built into the `Lens` structure and `Lens.view`
+-- (there must be a `combine`, and `view` is the catamorphism
+-- applying it recursively).  R3–R5 are predicates on Lenses.
+
+/-- **R3 — Non-vanishing.**  If two codomain values are both
+    nonzero (present), their combine is also nonzero. Equivalently
+    (for ℝ-algebra codomains) the combine has no zero divisors. -/
+def NonVanishing {α : Type} [Zero α] (L : Hypervisor.Lens α) : Prop :=
+  ∀ u v : α, u ≠ 0 → v ≠ 0 → L.combine u v ≠ 0
+
+/-- **R4 — Swap matches exactly one nontrivial involution.**  On
+    the codomain `α` there is a function `conj : α → α` such that
+    `conj` is an involution, `conj ≠ id`, and `view (swap r) = conj (view r)`
+    for every `r`. Uniqueness (at most one such `conj`) is a
+    separate condition on injective Lenses. -/
+def SwapMatching {α : Type} (L : Hypervisor.Lens α) (conj : α → α) : Prop :=
+  (∀ u, conj (conj u) = u) ∧
+  conj ≠ id ∧
+  (∀ r : Raw, L.view (Raw.swap r) = conj (L.view r))
+
+/-- **R5 — Distinguishing.**  Different Raw terms have different
+    images; equivalently, `L.view` is injective.  The continuity /
+    minimality clause of R5 (the image is the smallest connected
+    ℝ-algebra on which this is possible) is not expressible in
+    Lean 4 core; we record the injectivity half and treat the
+    minimality identification (→ ℝ) at the prose level. -/
+def Distinguishing {α : Type} (L : Hypervisor.Lens α) : Prop :=
+  Function.Injective L.view
+
+end E213.Meta
+
+namespace E213.Meta
+
+open E213.Firmware E213.Hypervisor
+
+-- ═══ signedLens: verified R4 (swap = negation) ═══
+
+/-- `signedLens` realises R4 with `conj = Neg.neg` on `Int`:
+    swap on `Raw` corresponds to negation on the image. -/
+theorem signed_R4 :
+    SwapMatching signedLens (fun n : Int => -n) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro u; simp
+  · intro h
+    have : (-(1 : Int)) = (1 : Int) := by
+      have := congrFun h (1 : Int); exact this
+    exact absurd this (by decide)
+  · intro r
+    exact signed_swap_neg r
+
+/-- Swap-invariant Lenses fail R4 pointwise: if
+    `view (swap r) = view r` for all `r`, then any R4-candidate
+    `conj` must fix every image point of `view`. -/
+theorem swap_invariant_R4_fixes_image
+    {α : Type} {L : Hypervisor.Lens α} {conj : α → α}
+    (hinv : ∀ r : Raw, L.view (Raw.swap r) = L.view r)
+    (hmatch : SwapMatching L conj)
+    (r : Raw) : conj (L.view r) = L.view r := by
+  have h1 : L.view (Raw.swap r) = conj (L.view r) := hmatch.2.2 r
+  have h2 : L.view (Raw.swap r) = L.view r := hinv r
+  rw [h2] at h1
+  exact h1.symm
+
+end E213.Meta
