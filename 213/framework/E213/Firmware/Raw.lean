@@ -288,51 +288,8 @@ theorem Raw.swap_swap (r : Raw) : Raw.swap (Raw.swap r) = r := by
   apply Subtype.ext
   exact Tree.swap_swap r.val r.property
 
-end E213.Firmware
 
 
-namespace E213.Firmware
-
--- ═══ Level-≤2 enumeration (backing §1.3 of PAPER) ═══
-
-/-- Level 0+1 terms. -/
-def Raw.level1_set : List Raw :=
-  [Raw.a, Raw.b, Raw.slash Raw.a Raw.b (by decide)]
-
-/-- Level-2 additions (only). -/
-def Raw.level2_new : List Raw :=
-  [Raw.slash Raw.a (Raw.slash Raw.a Raw.b (by decide)) (by decide),
-   Raw.slash Raw.b (Raw.slash Raw.a Raw.b (by decide)) (by decide)]
-
--- Counts.
-theorem Raw.level1_card : Raw.level1_set.length = 3 := rfl
-theorem Raw.level2_new_card : Raw.level2_new.length = 2 := rfl
-theorem Raw.level2_total_card :
-    (Raw.level1_set ++ Raw.level2_new).length = 5 := rfl
-
--- The combined list has no duplicates (all 5 distinct).
-example : (Raw.level1_set ++ Raw.level2_new).Nodup := by decide
-
-end E213.Firmware
-
-
-namespace E213.Firmware
-
--- ═══ Thm 3.3 — swap bijectivity ═══
-
-theorem Raw.swap_injective : Function.Injective Raw.swap := by
-  intro x y h
-  have := congrArg Raw.swap h
-  rw [Raw.swap_swap, Raw.swap_swap] at this
-  exact this
-
-theorem Raw.swap_surjective : Function.Surjective Raw.swap :=
-  fun y => ⟨Raw.swap y, Raw.swap_swap y⟩
-
-theorem Raw.swap_bijective : Function.Bijective Raw.swap :=
-  ⟨Raw.swap_injective, Raw.swap_surjective⟩
-
-end E213.Firmware
 
 
 namespace E213.Firmware
@@ -365,25 +322,6 @@ theorem Raw.fold_slash {α : Type}
 end E213.Firmware
 
 
-namespace E213.Firmware
-
--- ═══ Thm 3.5 — ℤ/2 structure on {id, swap} ═══
-
-/-- `swap ∘ swap = id`: the subgroup `{id, swap}` of the bijection
-    monoid of `Raw` is isomorphic to `ℤ/2` (via order-2 element). -/
-theorem Raw.swap_comp_swap : Raw.swap ∘ Raw.swap = id := by
-  funext r
-  exact Raw.swap_swap r
-
-/-- `swap` is not the identity: `swap Raw.a = Raw.b ≠ Raw.a`. -/
-theorem Raw.swap_ne_id : Raw.swap ≠ id := by
-  intro h
-  have : Raw.swap Raw.a = id Raw.a := by rw [h]
-  simp [Raw.swap_a] at this
-  -- Raw.a ≠ Raw.b
-  exact absurd this (by decide)
-
-end E213.Firmware
 
 
 namespace E213.Firmware

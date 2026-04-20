@@ -9,6 +9,8 @@
 --   App        : E213/App/*.lean
 
 import E213.Firmware.Raw
+import E213.Firmware.RawSwap
+import E213.Firmware.RawLevels
 import E213.Hypervisor.Lens
 import E213.OS.Pigeonhole
 import E213.OS.ArityForcing
