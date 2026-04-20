@@ -39,6 +39,8 @@ construction lives inside Lean 4 core.
   primitive.
 -/
 
+namespace E213.Clean213
+
 -- ═══ Internal: free ordered magma (pre-canonical) ═══
 
 inductive Tree : Type
@@ -101,11 +103,16 @@ example : (Raw.ab).val.canonical = true := rfl
 example : (Raw.a_ab).val.canonical = true := rfl
 example : (Raw.b_ab).val.canonical = true := rfl
 
--- The five Level-≤2 Raw terms are distinct.
-example : Raw.a ≠ Raw.b := by decide
-example : Raw.a ≠ Raw.ab := by decide
-example : Raw.b ≠ Raw.ab := by decide
+-- All C(5, 2) = 10 pairs of the Level-≤2 Raw terms are distinct.
+example : Raw.a ≠ Raw.b    := by decide
+example : Raw.a ≠ Raw.ab   := by decide
+example : Raw.a ≠ Raw.a_ab := by decide
+example : Raw.a ≠ Raw.b_ab := by decide
+example : Raw.b ≠ Raw.ab   := by decide
+example : Raw.b ≠ Raw.a_ab := by decide
+example : Raw.b ≠ Raw.b_ab := by decide
 example : Raw.ab ≠ Raw.a_ab := by decide
+example : Raw.ab ≠ Raw.b_ab := by decide
 example : Raw.a_ab ≠ Raw.b_ab := by decide
 
 -- ═══ Helper lemmas for the smart slash constructor ═══
@@ -230,3 +237,5 @@ theorem Lens.equiv_refl {α} (L : Lens α) (x : Raw) : L.equiv x x := rfl
 theorem Lens.equiv_symm {α} (L : Lens α) {x y : Raw} : L.equiv x y → L.equiv y x := Eq.symm
 theorem Lens.equiv_trans {α} (L : Lens α) {x y z : Raw} :
     L.equiv x y → L.equiv y z → L.equiv x z := Eq.trans
+
+end E213.Clean213

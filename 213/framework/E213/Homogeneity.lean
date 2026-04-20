@@ -12,6 +12,8 @@ This file defines swap at the `Tree` level with re-canonicalization,
 then lifts to `Raw`.
 -/
 
+namespace E213.Clean213
+
 /-- Swap on the internal Tree.  After exchanging children by the
     recursive swap, re-order so the smaller child comes first. -/
 def Tree.swap : Tree → Tree
@@ -41,3 +43,5 @@ theorem Lens.swapInvariant_base_eq {α : Type} {L : Lens α}
   have h0 := h .a
   simp [Lens.viewTree, Tree.swap] at h0
   exact h0.symm
+
+end E213.Clean213

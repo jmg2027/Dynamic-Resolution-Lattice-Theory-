@@ -30,8 +30,10 @@ built with `lake build`.
 framework/
 ├── E213.lean                       -- library entry
 ├── E213/
-│   ├── Clean213.lean               -- Raw (a/b/slash), Lens (hypervisor)
-│   ├── Homogeneity.lean            -- swap automorphism, Aut(Raw) ≅ ℤ/2
+│   ├── Clean213.lean               -- Tree, canonical form, Raw subtype,
+│   │                                    smart slash + symmetry, Lens
+│   ├── Homogeneity.lean            -- swap with re-canonicalization,
+│   │                                    Aut(Raw) ≅ ℤ/2
 │   ├── ArityForcing.lean           -- (N=2, k=3) vacuous
 │   ├── Pigeonhole.lean             -- Fin k → Fin N injection bound
 │   ├── ArityForcingGeneral.lean    -- (N < k) vacuous, arbitrary N, k
@@ -53,7 +55,17 @@ cd framework
 lake build
 ```
 
-No Mathlib dependency; core Lean 4 only.
+No Mathlib dependency; core Lean 4 only. The firmware
+(`Clean213.lean`) emulates a **free commutative magma on 2
+generators with no fixed points** via a canonical-form subtype
+of a free ordered magma. The ordering is an implementation
+artifact needed because core Lean lacks primitive quotients; no
+set theory (`Multiset`, ZFC-style sets) is imported.
+
+Level-by-level closure:
+- Level 0: `{a, b}` — 2 terms
+- Level 1: `+ a/b` — 3 terms
+- Level 2: `+ a/(a/b), b/(a/b)` — 5 terms, (3, 2) partition
 
 ## Scope
 

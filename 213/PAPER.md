@@ -41,39 +41,81 @@ We separate the treatment into two layers:
 
 ## 1. Firmware: the primitive type
 
-**Definition 1.1 (Raw).** `Raw` is the inductive type with three
-constructors:
+### 1.1 Target structure
+
+The axiom's clauses (1)–(3) together specify:
+- two initial "somethings" `a, b`;
+- a binary *distinction* operator `slash` that takes two (necessarily
+  distinct, by clause (2)) somethings and produces a new something;
+- recursion (clause (3)): the output of `slash` is again a
+  something, so `slash` applies to it in turn.
+
+Reading "another" (clause 2) and "between" (clause 2–3) semantically:
+- **Anti-reflexive:** `slash x x` is *not* a valid term; distinguishing
+  `x` from `x` reveals nothing.
+- **Symmetric:** `slash x y = slash y x`; "between" is directionless.
+
+The target firmware is therefore the **free commutative magma on
+2 generators with no fixed points** — the unique closure of
+`{a, b}` under a symmetric, anti-reflexive binary operation.
+
+### 1.2 Lean emulation: canonical-form subtype
+
+Lean 4's core calculus of inductive constructions does not have
+primitive quotient types on arbitrary relations, and we import no
+set theory (no `Multiset`, no Mathlib). We therefore *emulate* the
+free-commutative-magma-without-fixed-points by a canonical-form
+subtype of the free (ordered) magma. An auxiliary total order on
+trees selects a unique representative per unordered pair. **The
+ordering is an implementation artifact of the Lean encoding; it
+does not exist in the axiom.**
 
 ```
-inductive Raw
-  | a     : Raw
-  | b     : Raw
-  | slash : Raw → Raw → Raw
+-- Internal: the free ordered magma.
+inductive Tree
+  | a     : Tree
+  | b     : Tree
+  | slash : Tree → Tree → Tree
+
+-- Structural lex compare (a < b < slash; within slash, lex on
+-- children). Serves only to pick canonical representatives.
+def Tree.cmp : Tree → Tree → Ordering
+
+-- A Tree is canonical iff every slash node has strictly ordered
+-- children. Strict ordering implies distinctness, realising
+-- anti-reflexivity.
+def Tree.canonical : Tree → Bool
+
+-- Raw: the canonical subtype.
+def Raw : Type := { t : Tree // t.canonical = true }
 ```
 
-Clause (1) of the axiom gives `a`; clause (2) names a distinguishing
-partner, supplied by `b` and the `slash` operator; clause (3) makes
-the partner itself a Raw, so the rule applies recursively — encoded
-as the recursive type of `slash`. We often write `x/y` for
-`slash x y`.
+The smart constructor `Raw.slash : (x y : Raw) → x ≠ y → Raw`
+orders the children so the result is canonical; the associated
+theorem `Raw.slash_comm (h : x ≠ y) : Raw.slash x y h = Raw.slash
+y x (Ne.symm h)` certifies that both input orderings collapse to
+the same Raw term — the symmetric reading of the axiom.
 
-**Remark (why three constructors).** A single base constructor
-would give no "partner" to which clauses (2)–(3) apply. Two base
-constants plus one binary operation are the minimum realizing all
-three clauses non-trivially. Names `a` and `b` are syntactic
-tokens; the axiom does not claim they are "different" beyond the
-purely structural Lean fact that distinct constructor applications
-yield distinct terms.
+(Lean: `E213.Clean213.Raw.slash`, `E213.Clean213.Raw.slash_comm`.)
 
-**Remark (no Reachable / wellFormed predicate).** Earlier drafts
-used a `Reachable` predicate with an apartness side-condition
-`x ≠ y`. With the three-clause axiom, no such side-condition is
-available: every term built from `a`, `b`, and `slash` is a Raw
-term. "Reachable" and "well-formed" collapse to "is a term of
-type `Raw`"; we omit them. In particular, self-distinctions
-`x/x` are legitimate Raw terms, and their interpretation —
-trivial, zero, or meaningful — is decided Lens by Lens, not at
-the firmware layer.
+### 1.3 The first three levels
+
+Let the *depth* of a Raw term be its tree depth. The closure by
+levels is:
+
+- **Level 0**: `{a, b}` — 2 terms.
+- **Level 1**: add `a/b` (the sole unordered distinct pair from
+  Level 0) — 3 terms.
+- **Level 2**: add `a/(a/b)` and `b/(a/b)` (the two new unordered
+  distinct pairs involving a Level-1 term) — 5 terms.
+
+```
+A-type (Levels 0+1): {a, b, a/b}        — 3 terms
+B-type (Level  2):   {a/(a/b), b/(a/b)} — 2 terms
+```
+
+The (3, 2) partition of §7 emerges from the axiom alone at Level 2,
+without invoking the alive postulate of §6.6(c). See Remark 7.0.
 
 **Definition 1.2 (Depth).** A structural-recursive height measure:
 
@@ -115,7 +157,13 @@ layer (§4), as appropriate.
 ```
 
 The rule simply exchanges the two base tokens and extends through
-`slash` by structural recursion.
+`slash` by structural recursion. At the canonical-form level
+(§1.2), swapping children of a `slash` node may violate the
+ordering invariant, so the Lean implementation re-canonicalizes
+(re-orders children) after the swap. The re-canonicalization is
+an implementation artifact of the canonical-form emulation and
+has no semantic content beyond preserving `t.canonical = true`.
+(Lean: `E213.Clean213.Tree.swap`.)
 
 **Theorem 3.2 (Involution).** `swap (swap x) = x` for all `x : Raw`.
 
@@ -377,13 +425,22 @@ Proposition 6.5 but is not used to derive it; it is recorded for
 intuition.
 (Lean: `E213.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
 
-(c) *The alive predicate is a structural principle, not a Raw
-consequence.* The condition "both `a` and `b` odd" states that
-pairs of structurally identical atom-copies annihilate, leaving
-the multiplicity `a mod 2`. The axiom of §1 supplies Raw and its
-constructors; it does *not* supply such a pair-cancellation rule.
-The rule is an additional structural principle, adjoined to the
-arithmetic of §6 as an independent postulate.
+(c) *The alive predicate is a structural principle — used here as
+an independent confirmation, not the sole route.* The condition
+"both `a` and `b` odd" states that pairs of structurally identical
+atom-copies annihilate, leaving the multiplicity `a mod 2`. The
+axiom of §1 supplies Raw and its constructors; it does *not*
+supply such a pair-cancellation rule as a theorem. We retain the
+alive condition as a postulate in this section's arithmetic.
+
+**Note (route via §1.3 avoids the postulate).** The (3, 2)
+vertex-count partition is *already* derived in §1.3 from the
+Level-2 closure of the free-commutative-magma-without-fixed-points.
+That route does not use the alive postulate at all. The Level-2
+closure gives 5 Raw terms split 3+2; Theorem 6.3 then *confirms*
+the arithmetic uniqueness of `n = 5` from a different direction.
+Readers who regard the alive postulate as philosophically
+suspicious may drop §6 entirely and rely on §1.3 + §7.
 
 (The former versions of this paper attempted to derive the alive
 predicate from a "Raw distinctness rule `x ≠ y`". The present
@@ -465,6 +522,24 @@ axiom's only self-consistent numerical consequence.
 ---
 
 ## 7. Block structure and invariance
+
+**Remark 7.0 (The partition comes from the firmware).** §1.3
+already derived, from the axiom alone, the Level-2 closure
+of the free-commutative-magma-without-fixed-points:
+
+```
+A-type: {a, b, a/b}        — 3 terms
+B-type: {a/(a/b), b/(a/b)} — 2 terms
+```
+
+This (3, 2) partition is *not* an external choice — it is the
+arithmetic of closure depths. The present section treats the
+partition abstractly as `V := V_A ⊔ V_B` with `|V_A| = 3,
+|V_B| = 2`, independent of the particular Raw terms realising
+the parts. The alive postulate of §6.6(c) is not needed for the
+partition itself; it is retained only for the arithmetic
+atomicity theorem (Theorem 6.3), which gives an independent
+confirmation that `n = 5` is the unique atomic vertex count.
 
 Take `V := Fin 5` with the canonical partition
 `V_A := {0, 1, 2}, V_B := {3, 4}`.
