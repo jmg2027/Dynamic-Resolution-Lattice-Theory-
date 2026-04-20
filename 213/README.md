@@ -2,9 +2,18 @@
 
 **The minimal system of binary relations.**
 
-A formal investigation of what structure follows from the single axiom:
+A formal investigation of what structure follows from the single
+3-clause axiom:
 
-> *There exists a relation object between two objects.*
+> 1. *Something exists.*
+> 2. *To know what it is, another something is required.*
+> 3. *That other something is also a something.*
+
+Clauses (1) + (3) give at least two somethings; clause (2) is the
+primitive *distinction* operation, applied recursively. The
+framework is split into **firmware** (the raw type, §1) and
+**hypervisor** (the Lens layer, §4+), with equality/inequality
+arising only at the hypervisor level.
 
 ## Contents
 
@@ -21,7 +30,7 @@ built with `lake build`.
 framework/
 ├── E213.lean                       -- library entry
 ├── E213/
-│   ├── Clean213.lean               -- Raw, Reachable, Lens, basics
+│   ├── Clean213.lean               -- Raw (a/b/slash), Lens (hypervisor)
 │   ├── Homogeneity.lean            -- swap automorphism, Aut(Raw) ≅ ℤ/2
 │   ├── ArityForcing.lean           -- (N=2, k=3) vacuous
 │   ├── Pigeonhole.lean             -- Fin k → Fin N injection bound

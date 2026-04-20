@@ -1,9 +1,26 @@
 # The Minimal System of Binary Relations
 
-**Axiom.** *There exists a relation object between two objects.*
+**Axiom.**
 
-We take this as the sole axiom of what follows and derive the resulting
-structure.
+1. *Something exists.*
+2. *To know what it is, another something is required.*
+3. *That other something is also a something.*
+
+Clauses (1)–(2) name an existing "something" and a distinguishing
+partner; (3) closes the rule recursively. We take this as the sole
+axiom. Clauses (1) + (3) give at least two somethings; clause (2)
+is the primitive *distinction*, applied recursively.
+
+We separate the treatment into two layers:
+
+- **Firmware (§1).** The raw type `Raw` and its three constructors,
+  implementing the three axiom clauses as a free inductive type.
+  No equality, inequality, ordering, or subtree-identification is
+  available at this layer.
+- **Hypervisor (§4 and beyond).** Each `Lens L : Raw → α` carries
+  a codomain with its own notion of equality; `L.equiv x y :=
+  L.view x = L.view y` is the kernel-equivalence. "Same/different"
+  on Raw is thus Lens-relative.
 
 ---
 
@@ -11,176 +28,171 @@ structure.
 
 - `Fin n` denotes the standard `n`-element type `{0, 1, …, n-1}`.
 - `inductive T` denotes an initial algebra presentation: `T` is the
-  smallest type closed under the listed constructors. Equivalently,
-  `T` is the free algebra over its signature.
-- `Raw.x` and `x.y` are type-theoretic dot notation; no semantic content.
-- "Function equality" throughout means definitional/propositional
-  equality of terms, not any quotient.
-- All claims below are formally checked in Lean 4 (`E213.*` modules,
-  0 `sorry`); we cite the Lean name where relevant.
-- The axiom does *not* supply an equality or inequality primitive on
-  objects. Propositional equality is Lean's external bookkeeping,
-  used only for case analysis; apartness is not part of Raw's
-  inductive structure (see §1.2).
+  smallest type closed under the listed constructors.
+- All claims below are formally checked in Lean 4 (`E213.*`
+  modules, 0 `sorry`); we cite the Lean name where relevant.
+- The axiom does *not* supply an equality or inequality primitive
+  on Raw. Lean's propositional equality is external bookkeeping,
+  used only for case analysis (which inductive constructor a term
+  begins with). Apartness is not part of Raw; any appeal to it
+  belongs to a Lens.
 
 ---
 
-## 1. Primitive type
+## 1. Firmware: the primitive type
 
-**Definition 1.1 (Raw).** `Raw` is the inductive type with two
+**Definition 1.1 (Raw).** `Raw` is the inductive type with three
 constructors:
 
 ```
 inductive Raw
-  | object   : Fin 2 → Raw
-  | relation : Raw → Raw → Raw
+  | a     : Raw
+  | b     : Raw
+  | slash : Raw → Raw → Raw
 ```
 
-The base constructor `object` enumerates the two objects required by
-the axiom; the second constructor `relation` realizes the axiom's
-"relation object between two objects."
+Clause (1) of the axiom gives `a`; clause (2) names a distinguishing
+partner, supplied by `b` and the `slash` operator; clause (3) makes
+the partner itself a Raw, so the rule applies recursively — encoded
+as the recursive type of `slash`. We often write `x/y` for
+`slash x y`.
 
-**Definition 1.2 (Reachable).** The inductive predicate
-`Reachable : Raw → Prop` is
+**Remark (why three constructors).** A single base constructor
+would give no "partner" to which clauses (2)–(3) apply. Two base
+constants plus one binary operation are the minimum realizing all
+three clauses non-trivially. Names `a` and `b` are syntactic
+tokens; the axiom does not claim they are "different" beyond the
+purely structural Lean fact that distinct constructor applications
+yield distinct terms.
+
+**Remark (no Reachable / wellFormed predicate).** Earlier drafts
+used a `Reachable` predicate with an apartness side-condition
+`x ≠ y`. With the three-clause axiom, no such side-condition is
+available: every term built from `a`, `b`, and `slash` is a Raw
+term. "Reachable" and "well-formed" collapse to "is a term of
+type `Raw`"; we omit them. In particular, self-distinctions
+`x/x` are legitimate Raw terms, and their interpretation —
+trivial, zero, or meaningful — is decided Lens by Lens, not at
+the firmware layer.
+
+**Definition 1.2 (Depth).** A structural-recursive height measure:
 
 ```
-  base : (i : Fin 2) → Reachable (object i)
-  step : Reachable x → Reachable y →
-         Reachable (relation x y).
+Raw.depth : Raw → Nat
+  | a         => 0
+  | b         => 0
+  | slash x y => 1 + max x.depth y.depth.
 ```
 
-The axiom supplies no equality or inequality on objects; we therefore
-do *not* impose `x ≠ y` in the step constructor. Under this
-presentation, every Raw term is Reachable. Equality/inequality become
-available only through a `Lens` (§4): the kernel of a Lens `L` gives
-`L.equiv x y := L.view x = L.view y`, and its negation is
-lens-dependent.
-
-**Definition 1.3 (Well-formedness).**
-
-```
-Raw.wellFormed : Raw → Prop
-  | object _     => True
-  | relation x y => x.wellFormed ∧ y.wellFormed.
-```
-
-(In the present axiom, `wellFormed` coincides with `Reachable` and
-with "is a Raw term"; we retain the predicate as an explicit target
-for structural recursion.)
+A function on Raw, not a predicate; uses no equality.
 
 ---
 
-## 2. Characterization and decidability
+## 2. (Removed.)
 
-**Theorem 2.1.** `Reachable x ↔ x.wellFormed`.
+The former §2 contained `Reachable ↔ wellFormed` and a "no
+self-relation" clause, all of which relied on the apartness
+side-condition `x ≠ y` that the axiom does not supply. Under
+the present formulation every Raw term is automatically
+"reachable" and "well-formed"; `slash x x` is a legitimate Raw
+term. Any semantic exclusion or identification belongs to a
+specific Lens (§4), not to Raw itself.
 
-*Proof.* (Lean: `E213.Clean213.reachable_iff_wellFormed`.)
-
-(⇒) By induction on the Reachable derivation. Base: `wellFormed
-(object i) = True`, immediate. Step: from induction hypotheses
-`x.wellFormed, y.wellFormed`, conclude `(relation x y).wellFormed =
-x.wellFormed ∧ y.wellFormed`.
-
-(⇐) By induction on the structure of `x`. Base `object i`: apply
-`Reachable.base i`. Relation `relation x y`: destructure, apply
-induction hypotheses on `x`, `y`, then `Reachable.step`. ∎
-
-**Corollary 2.2 (Decidability).** `Reachable` is decidable on `Raw`.
-
-*Proof.* `wellFormed` is decidable by structural recursion; combine
-via Theorem 2.1. (Lean's `DecidableEq Raw`, derived from the
-inductive signature, is used only externally for case analysis.) ∎
-
-**Theorem 2.3 (Relation inversion).**
-`Reachable (relation x y) → Reachable x ∧ Reachable y`.
-
-*Proof.* Reduce to well-formedness; destructure. ∎
-
-*Remark.* Under the present axiom (no ≠ constraint on `relation`),
-self-relations `relation x x` are Reachable. Excluding self-loops
-would require a distinctness primitive, which the axiom does not
-supply; any exclusion of that form belongs to a particular Lens
-(§4), not to the axiom.
+Section numbers §3–§8 are retained; internal cross-references
+formerly pointing to §2 are now pointers to §1 or to the Lens
+layer (§4), as appropriate.
 
 ---
 
 ## 3. The swap automorphism
 
-**Definition 3.1 (Swap).** Let `flip : Fin 2 → Fin 2` be the
-non-identity permutation. Define `swap : Raw → Raw` by
+**Definition 3.1 (Swap).** Define `swap : Raw → Raw` by
 
 ```
-  swap (object i)     := object (flip i)
-  swap (relation x y) := relation (swap x) (swap y).
+  swap a         := b
+  swap b         := a
+  swap (slash x y) := slash (swap x) (swap y).
 ```
+
+The rule simply exchanges the two base tokens and extends through
+`slash` by structural recursion.
 
 **Theorem 3.2 (Involution).** `swap (swap x) = x` for all `x : Raw`.
 
-*Proof.* By induction on `x`, using `flip ∘ flip = id`. ∎
+*Proof.* By induction on `x`. Base cases `a, b`: direct. Step:
+`swap (swap (x/y)) = swap (swap x / swap y) = swap (swap x) / swap
+(swap y) = x/y` by IH. ∎
 
 **Corollary 3.3 (Bijectivity).** `swap` is a bijection on `Raw`.
 
-**Theorem 3.4 (Reachable-preservation).** `Reachable x → Reachable (swap x)`.
-
-*Proof.* By induction on the Reachable derivation. Base: use
-`flip213 : Fin 2 → Fin 2`. Step: apply `Reachable.step` to the
-swapped sub-terms via the induction hypotheses. ∎
-
-**Definition 3.5 (Raw-automorphism).** A *Raw-automorphism* is a
-bijection `φ : Raw → Raw` satisfying, for some permutation
-`σ : Fin 2 → Fin 2`,
+**Definition 3.4 (Raw-automorphism).** A *Raw-automorphism* is a
+bijection `φ : Raw → Raw` satisfying
 
 ```
-  φ (object i)     = object (σ i),
-  φ (relation x y) = relation (φ x) (φ y).
+  φ (slash x y) = slash (φ x) (φ y)
 ```
 
-Such `φ` is uniquely determined by `σ`: by induction on `Raw`, the
-value of `φ` on any term is fixed by `σ` and the recursive clause.
+and either `(φ a = a ∧ φ b = b)` or `(φ a = b ∧ φ b = a)`. Such
+`φ` is uniquely determined by its action on the two base tokens;
+the recursive clause then fixes `φ` on every `slash` term.
 
-**Theorem 3.6 (Automorphism group).** The group `Aut(Raw)` of
-Raw-automorphisms is isomorphic to the symmetric group `S_{Fin 2}`,
-hence to `ℤ/2`. Its nontrivial element is `swap`.
+**Theorem 3.5 (Automorphism group).** `Aut(Raw) ≅ ℤ/2`. Its
+nontrivial element is `swap`.
 
-*Proof.* The map `σ ↦ φ_σ` (with `φ_σ` built recursively from `σ`)
-is a bijection `Perm(Fin 2) → Aut(Raw)`: injectivity follows from
-`φ_σ (object i) = object (σ i)`, surjectivity from Definition 3.5.
-One checks `φ_{σ∘σ'} = φ_σ ∘ φ_{σ'}`, so the bijection is a group
-isomorphism. `Perm(Fin 2) = S_2 ≅ ℤ/2`; its non-identity is the flip,
-inducing `swap`. ∎
+*Proof.* By Definition 3.4, an automorphism is determined by a
+choice of permutation of `{a, b}`. There are two such choices:
+identity and swap. Both preserve `slash` by construction.
+Composition matches composition of the underlying permutations
+of `{a, b}`, which is `S_2 ≅ ℤ/2`. ∎
 
 ---
 
-## 4. Lens framework
+## 4. Hypervisor: the Lens framework
 
-**Definition 4.1 (Lens).** A `Lens` with codomain type `α` is a pair
-
-```
-  Lens α = (objValue : Fin 2 → α, combine : α → α → α).
-```
-
-**Definition 4.2 (Catamorphism).** The `view` of a Lens `L : Lens α` is
+**Definition 4.1 (Lens).** A `Lens` with codomain type `α` is a
+triple
 
 ```
-  L.view (object i)     := L.objValue i
-  L.view (relation x y) := L.combine (L.view x) (L.view y).
+  Lens α = (base_a : α, base_b : α, combine : α → α → α).
+```
+
+**Definition 4.2 (Catamorphism).** The `view` of a Lens
+`L : Lens α` is
+
+```
+  L.view a         := L.base_a
+  L.view b         := L.base_b
+  L.view (slash x y) := L.combine (L.view x) (L.view y).
 ```
 
 **Definition 4.3 (Kernel equivalence).** For `L : Lens α`, define
 `L.equiv x y := L.view x = L.view y`. This is reflexive, symmetric,
-and transitive; it is the kernel equivalence of `L.view`.
+and transitive; it is the kernel equivalence of `L.view`. The
+axiom's absent equality primitive is supplied here, Lens-by-Lens.
 
-**Definition 4.4 (Refinement).** `L` refines `M` (written `L.refines M`)
-iff `∀ x y, L.equiv x y → M.equiv x y`, i.e. `M.view` factors
-through `L.view`.
+**Definition 4.4 (Refinement).** `L` refines `M` (written
+`L.refines M`) iff `∀ x y, L.equiv x y → M.equiv x y`, i.e.
+`M.view` factors through `L.view`.
 
-**Theorem 4.5 (Catamorphism universality).** For any `α`, `b : Fin 2 → α`,
-`c : α → α → α`, there exists a unique `φ : Raw → α` with
-`φ (object i) = b i` and `φ (relation x y) = c (φ x) (φ y)`. This `φ`
-is `view` of the Lens `(b, c)`.
+**Theorem 4.5 (Catamorphism universality).** For any `α`, `aα, bα :
+α`, `c : α → α → α`, there exists a unique `φ : Raw → α` with
+`φ a = aα`, `φ b = bα`, and `φ (slash x y) = c (φ x) (φ y)`. This
+`φ` is `view` of the Lens `⟨aα, bα, c⟩`.
 
 *Proof.* Existence by the inductive definition; uniqueness by
 induction on `Raw`. ∎
+
+**Remark (symmetry, self-distinction, and the Lens).** The axiom
+does not distinguish "the pair (x, y)" from "the pair (y, x)": any
+such distinction would require an ordering primitive the axiom
+lacks. At the firmware layer `slash x y` and `slash y x` are
+distinct Raw terms (distinct inductive constructor applications),
+but this distinctness carries no semantic weight. A Lens with
+*commutative* `combine` quotients them, recovering symmetric
+"between." Similarly, `slash x x` is a Raw term whose image is
+`L.combine (L.view x) (L.view x)`; whether that is trivial,
+zero, idempotent, or something else is entirely the Lens's
+responsibility.
 
 ---
 
@@ -339,14 +351,14 @@ in hand, we can break the atom hypothesis into parts and locate
 precisely where §1–5 does and does not suffice.
 
 (a) *Lower bound `n ≥ 2`.* "Atom" here means a Raw-subtree used as
-a partition block; its size is its leaves count. A bare `object i`
-has leaves `1` and does not exercise the `relation` constructor at
-all. Excluding such atoms amounts to asking that every partition
-block involves at least one relation application, i.e. leaves `≥ 2`.
-This is a structural choice, not an axiomatic consequence: a
-`relation x x` self-loop has leaves `2` and is Reachable under the
-present axiom. The choice is made to keep the partition analysis
-non-degenerate.
+a partition block; its size is its leaves count. A bare base token
+(`a` or `b`) has leaves `1` and does not exercise the `slash`
+constructor at all. Excluding such atoms amounts to asking that
+every partition block involves at least one `slash` application,
+i.e. leaves `≥ 2`. This is a structural choice, not an axiomatic
+consequence: a self-distinction `x/x` has leaves `2` and is a
+Raw term under the present axiom. The choice is made to keep the
+partition analysis non-degenerate.
 
 (b) *Atom identification `A = {2, 3}`.* The principled derivation
 is arithmetic. By Proposition 6.5, the non-decomposable integers
@@ -358,11 +370,11 @@ independent of §1–5. Combined with (a), the atom set is fixed as
 (Lean: `E213.NonDecomposable.non_decomposable_iff`.)
 
 An informal parallel: the same two sizes occur as natural
-cardinalities in the primitive data — the input pair (`|{o_0, o_1}|
-= 2`) and the first closure under a single relation application
-(`|{o_0, o_1, relation o_0 o_1}| = 3`). This observation is
-consistent with Proposition 6.5 but is not used to derive it; it is
-recorded for intuition.
+cardinalities in the primitive data — the base pair (`|{a, b}| =
+2`) and the first closure under a single `slash` application
+(`|{a, b, a/b}| = 3`). This observation is consistent with
+Proposition 6.5 but is not used to derive it; it is recorded for
+intuition.
 (Lean: `E213.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
 
 (c) *The alive predicate is a structural principle, not a Raw
@@ -375,9 +387,9 @@ arithmetic of §6 as an independent postulate.
 
 (The former versions of this paper attempted to derive the alive
 predicate from a "Raw distinctness rule `x ≠ y`". The present
-axiom contains no such rule (see Definition 1.2): apartness is
-not a Raw primitive, and appeals to it at the multiplicity level
-are not valid. We accordingly mark this step as a postulate.)
+axiom contains no such rule (§1): apartness is not a Raw
+primitive, and appeals to it at the multiplicity level are not
+valid. We accordingly mark this step as a postulate.)
 
 The formal content of (c) is the equivalence
 `alive(a, b) ⟺ a % 2 = 1 ∧ b % 2 = 1` (a definitional
@@ -599,7 +611,7 @@ induced `ρ` of Definition 8.2 is a group *isomorphism*
    a two-dimensional one (call it `K_2`).
 2. (Aut groups.) `|Aut_ℝ(K_1)| = 1` and `|Aut_ℝ(K_2)| = 2`.
 3. (Faithful codomain.) Combined with `Aut(Raw) ≅ ℤ/2`
-   (Theorem 3.6), exactly `K_2` admits an Aut-faithful Lens.
+   (Theorem 3.5), exactly `K_2` admits an Aut-faithful Lens.
 
 *Proof.*
 
@@ -618,7 +630,7 @@ For `K_2` (dim `2`): write `K_2 = ℝ[α]` with `α² = -1`. Any
 `σ(α)² = σ(α²) = -1` we get `σ(α) = ±α`. So `|Aut_ℝ(K_2)| = 2`.
 
 (3) Aut-faithfulness (Definition 8.3) requires
-`|Aut(Raw)| = |Aut_ℝ(K)|`. By Theorem 3.6, `|Aut(Raw)| = 2`. From
+`|Aut(Raw)| = |Aut_ℝ(K)|`. By Theorem 3.5, `|Aut(Raw)| = 2`. From
 (2), this matches only `K_2`; for `K_2` the unique nontrivial
 group isomorphism `ρ : ℤ/2 → ℤ/2` lifts `swap` to the nontrivial
 element of `Aut_ℝ(K_2)`. ∎
@@ -672,17 +684,18 @@ dependency tracking between claims.
 
 **From the axiom alone (§1–5):**
 
-1. A free inductive type `Raw` with constructors
-   `object : Fin 2 → Raw` and `relation : Raw → Raw → Raw`;
-   the `Reachable` predicate (Definition 1.2) coincides with
-   "is a Raw term" (Theorem 2.1). No equality/inequality primitive
-   is imposed on Raw.
+1. A free inductive type `Raw` with three constructors — two base
+   tokens `a, b` and one binary operator `slash` — implementing
+   the three clauses of the axiom (Definition 1.1). Every term
+   built from the three constructors is a Raw term; there is no
+   separate reachability / well-formedness predicate, and no
+   equality or apartness primitive.
 
 2. A single nontrivial Raw-automorphism (the swap involution),
-   yielding `Aut(Raw) ≅ ℤ/2` (Theorem 3.6).
+   yielding `Aut(Raw) ≅ ℤ/2` (Theorem 3.5).
 
-3. A Lens/catamorphism framework: every pair
-   `(b : Fin 2 → α, c : α → α → α)` determines a unique
+3. A Lens/catamorphism framework: every triple
+   `(base_a, base_b, combine)` determines a unique
    `view : Raw → α` (Theorem 4.5), with kernel-equivalence and
    refinement as natural operations. Equality on Raw becomes
    available as a Lens kernel; apartness is the negation of a
