@@ -1,4 +1,4 @@
-import E213.Pigeonhole
+import E213.OS.Pigeonhole
 
 /-!
 # Arity Forcing (general N): for any `k` and any base `Fin N` with
@@ -8,11 +8,11 @@ We parameterize `Raw` by both base size `N` and relation arity `k`,
 and prove that whenever `N < k`, the step constructor can never fire
 (every Reachable term reduces to a base object via pigeonhole).
 
-This generalizes `E213.ArityForcing` (which handled `N = 2, k = 3`)
-to arbitrary `N, k` with `N < k`, using `E213.Pigeonhole.no_inj_lt`.
+This generalizes `E213.OS.ArityForcing` (which handled `N = 2, k = 3`)
+to arbitrary `N, k` with `N < k`, using `E213.OS.Pigeonhole.no_inj_lt`.
 -/
 
-namespace E213.ArityForcingGeneral
+namespace E213.OS.ArityForcingGeneral
 
 /-- Raw with base `Fin N` and relation arity `k` (encoded as functions
     `Fin k → RawNk`). -/
@@ -46,7 +46,7 @@ theorem reachable_base_only {N k : Nat} (h : N < k) :
         apply hne i j hij
         rw [hg i, hg j, heq]
       -- Pigeonhole: N < k + g injective ⟹ False.
-      exact E213.Pigeonhole.no_inj_lt h g g_inj
+      exact E213.OS.Pigeonhole.no_inj_lt h g g_inj
 
 /-- Corollary: no rel-term is ever Reachable when `N < k`. -/
 theorem no_reachable_rel {N k : Nat} (h : N < k)
@@ -60,4 +60,4 @@ theorem no_reachable_rel {N k : Nat} (h : N < k)
 -- `(k = 2, N = 2)` is the unique minimal non-degenerate, non-vacuous
 -- choice.
 
-end E213.ArityForcingGeneral
+end E213.OS.ArityForcingGeneral

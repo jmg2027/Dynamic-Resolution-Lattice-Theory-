@@ -1,4 +1,4 @@
-import E213.Clean213
+
 
 /-!
 # Arity Forcing: `k = 2` is the unique non-degenerate, non-vacuous choice
@@ -19,7 +19,7 @@ verbatim to any `k ≥ 3` by the same pigeonhole. Arity 0/1 degeneracy
 is evident from the signatures themselves (no need for Lean proof).
 -/
 
-namespace E213.ArityForcing
+namespace E213.OS.ArityForcing
 
 /-- Arity-3 analog of `Raw`. -/
 inductive Raw3 where
@@ -69,4 +69,4 @@ theorem no_reachable_rel3 (x y z : Raw3) : ¬ Reachable3 (.rel3 x y z) := by
 -- tree structure) and non-vacuous (arity ≥ 3 produces no Reachable
 -- relation at all).
 
-end E213.ArityForcing
+end E213.OS.ArityForcing

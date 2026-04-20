@@ -28,25 +28,39 @@ built with `lake build`.
 
 ```
 framework/
-├── E213.lean                       -- library entry
+├── E213.lean                           -- library entry (layered imports)
 ├── E213/
-│   ├── Clean213.lean               -- Tree, canonical form, Raw subtype,
-│   │                                    smart slash + symmetry, Lens
-│   ├── Homogeneity.lean            -- swap with re-canonicalization,
-│   │                                    Aut(Raw) ≅ ℤ/2
-│   ├── ArityForcing.lean           -- (N=2, k=3) vacuous
-│   ├── Pigeonhole.lean             -- Fin k → Fin N injection bound
-│   ├── ArityForcingGeneral.lean    -- (N < k) vacuous, arbitrary N, k
-│   ├── Atomicity.lean              -- n = 5 uniquely atomic
-│   ├── NonDecomposable.lean        -- {2, 3} as non-decomposable ≥ 2
-│   ├── PrimitiveSizes.lean         -- {2, 3} read off the axiom
-│   ├── AliveFromDistinctness.lean  -- alive as antisymmetric-multiplicity postulate
-│   ├── PairForcing.lean            -- (p,q)=(2,3) uniquely forces n=5
-│   └── Simplex.lean                -- (3,2) partition, block invariance
+│   ├── Firmware/                       -- layer 1: raw primitive
+│   │   └── Raw.lean                    -- Raw API (Tree internal/private),
+│   │                                      Raw.a/b, smart slash + slash_comm,
+│   │                                      Raw.fold catamorphism
+│   ├── Hypervisor/                     -- layer 2: lens (uses Firmware API)
+│   │   └── Lens.lean                   -- Lens + view + equiv + refines
+│   ├── OS/                             -- layer 3: algorithms / theorems
+│   │   ├── Pigeonhole.lean             -- Fin injection bound
+│   │   ├── ArityForcing.lean           -- (N=2, k=3) vacuous
+│   │   ├── ArityForcingGeneral.lean    -- (N < k) vacuous
+│   │   ├── NonDecomposable.lean        -- {2, 3} characterization
+│   │   ├── PrimitiveSizes.lean         -- {2, 3} from axiom
+│   │   ├── Alive.lean                  -- antisymmetric-multiplicity postulate
+│   │   ├── Atomicity.lean              -- n = 5 via Bézout
+│   │   └── PairForcing.lean            -- (p,q)=(2,3) uniqueness
+│   └── App/                            -- layer 4: applications
+│       └── Simplex.lean                -- (3,2) partition, block invariance
 ├── lakefile.toml
-├── lean-toolchain                  -- leanprover/lean4:v4.16.0
+├── lean-toolchain                      -- leanprover/lean4:v4.16.0
 └── lake-manifest.json
 ```
+
+**Layering rule.** Each layer imports only the public API of layers
+below it. In particular:
+
+- `Firmware` hides the internal `Tree` representation
+  (`private inductive`); consumers see `Raw` + its smart
+  constructors + `Raw.fold` catamorphism.
+- `Hypervisor` implements `Lens.view` via `Raw.fold` — no Tree
+  access.
+- `OS` and `App` build on Hypervisor / earlier OS modules.
 
 ## Build
 

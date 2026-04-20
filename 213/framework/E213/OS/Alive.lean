@@ -23,7 +23,7 @@ inequality primitive on objects, `x ≠ y` is no longer part of Raw's
 inductive structure (see `Clean213.lean`), and that appeal is retired.)
 -/
 
-namespace E213.AliveFromDistinctness
+namespace E213.OS.Alive
 
 /-- Surviving residue of a multiplicity under the antisymmetry
     principle: each pair of structurally identical copies annihilates. -/
@@ -42,4 +42,4 @@ theorem alive_iff_odd_pair (a b : Nat) :
     BothSurvive a b ↔ a % 2 = 1 ∧ b % 2 = 1 := by
   unfold BothSurvive Survives residue; exact Iff.rfl
 
-end E213.AliveFromDistinctness
+end E213.OS.Alive

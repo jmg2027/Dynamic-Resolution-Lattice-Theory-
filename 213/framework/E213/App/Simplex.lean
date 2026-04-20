@@ -1,4 +1,4 @@
-import E213.Atomicity
+import E213.OS.Atomicity
 
 /-!
 # 4-simplex structure: 5 vertices, (3,2) partition, Aut-invariant weights
@@ -15,7 +15,7 @@ transposition argument; we provide the setup + the easy direction
 here.
 -/
 
-namespace E213.Simplex
+namespace E213.App.Simplex
 
 /-- The (3, 2) partition: V_A = {0, 1, 2}, V_B = {3, 4}. -/
 def isA (i : Fin 5) : Bool := i.val < 3
@@ -67,4 +67,4 @@ theorem block_constant_implies_aut_invariant {α : Type}
     ⟨fun h => hinj i j h, fun h => h ▸ rfl⟩
   simp [classify, hi, hj, heq]
 
-end E213.Simplex
+end E213.App.Simplex

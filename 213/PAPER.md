@@ -96,7 +96,7 @@ theorem `Raw.slash_comm (h : x ≠ y) : Raw.slash x y h = Raw.slash
 y x (Ne.symm h)` certifies that both input orderings collapse to
 the same Raw term — the symmetric reading of the axiom.
 
-(Lean: `E213.Clean213.Raw.slash`, `E213.Clean213.Raw.slash_comm`.)
+(Lean: `E213.Firmware.Raw.slash`, `E213.Firmware.Raw.slash_comm`.)
 
 ### 1.3 The first three levels
 
@@ -163,7 +163,7 @@ ordering invariant, so the Lean implementation re-canonicalizes
 (re-orders children) after the swap. The re-canonicalization is
 an implementation artifact of the canonical-form emulation and
 has no semantic content beyond preserving `t.canonical = true`.
-(Lean: `E213.Clean213.Tree.swap`.)
+(Lean: `E213.Firmware.Raw.swap (future)`.)
 
 **Theorem 3.2 (Involution).** `swap (swap x) = x` for all `x : Raw`.
 
@@ -278,7 +278,7 @@ with Reachable predicate
 **Lemma 5.2 (Pigeonhole).** For `N < k`, there is no injection
 `Fin k → Fin N`.
 
-*Proof.* (Lean: `E213.Pigeonhole.no_inj_lt`.) It suffices to show
+*Proof.* (Lean: `E213.OS.Pigeonhole.no_inj_lt`.) It suffices to show
 no injection `g : Fin (N+1) → Fin N` exists; a larger `k > N` gives
 one by restriction. Induct on `N`.
 
@@ -355,7 +355,7 @@ pair `(a, b) ∈ ℕ²` with `n = 2a + 3b`, and that pair is alive.
 
 **Theorem 6.3 (Atomicity).** `n ∈ ℕ` is atomic iff `n = 5`.
 
-*Proof.* (Lean: `E213.Atomicity.atomic_iff_five`.)
+*Proof.* (Lean: `E213.OS.Atomicity.atomic_iff_five`.)
 
 *`⇐` (Existence at `n = 5`).* From `3b ≤ 5` we get `b ∈ {0, 1}`;
 `b = 0` gives `2a = 5`, impossible; `b = 1` gives `a = 1`. So the
@@ -380,7 +380,7 @@ vertices in `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
 `n ≥ 2` *cannot* be expressed as a sum `n = n_1 + ⋯ + n_k` with
 `k ≥ 2` and each `n_i ≥ 2` if and only if `n ∈ {2, 3}`.
 
-*Proof.* (Lean: `E213.NonDecomposable.non_decomposable_iff`.)
+*Proof.* (Lean: `E213.OS.NonDecomposable.non_decomposable_iff`.)
 
 Any `k`-part decomposition with `k ≥ 2` and parts `≥ 2` collapses
 to a 2-part one: take `a := n_1` and `b := n_2 + ⋯ + n_k`; then
@@ -415,7 +415,7 @@ each `≥ 2` — are exactly `{2, 3}`. This is the standard meaning of
 "atom" (irreducible under the composition in question) and it is
 independent of §1–5. Combined with (a), the atom set is fixed as
 `A = {2, 3}`.
-(Lean: `E213.NonDecomposable.non_decomposable_iff`.)
+(Lean: `E213.OS.NonDecomposable.non_decomposable_iff`.)
 
 An informal parallel: the same two sizes occur as natural
 cardinalities in the primitive data — the base pair (`|{a, b}| =
@@ -423,7 +423,7 @@ cardinalities in the primitive data — the base pair (`|{a, b}| =
 (`|{a, b, a/b}| = 3`). This observation is consistent with
 Proposition 6.5 but is not used to derive it; it is recorded for
 intuition.
-(Lean: `E213.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
+(Lean: `E213.OS.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
 
 (c) *The alive predicate is a structural principle — used here as
 an independent confirmation, not the sole route.* The condition
@@ -450,7 +450,7 @@ valid. We accordingly mark this step as a postulate.)
 
 The formal content of (c) is the equivalence
 `alive(a, b) ⟺ a % 2 = 1 ∧ b % 2 = 1` (a definitional
-rephrasing, Lean: `E213.AliveFromDistinctness.alive_iff_odd_pair`);
+rephrasing, Lean: `E213.OS.Alive.alive_iff_odd_pair`);
 the *motivation* is the exterior-algebra pattern `v ∧ v = 0`,
 which is the standard concrete realization of antisymmetric
 multiplicity.
@@ -499,7 +499,7 @@ uniqueness.
 *Proof.* Both `⌊p/2⌋ ≥ 1` and `⌊q/2⌋ ≥ 1` (from `p, q ≥ 2`). Their
 product equals `1` iff both equal `1`. Now `⌊k/2⌋ = 1 ⟺ k ∈ {2, 3}`.
 Combined with `p < q` and coprimality, the unique solution is
-`(p, q) = (2, 3)`. ∎ (Lean: `E213.PairForcing.count_eq_one_iff`.)
+`(p, q) = (2, 3)`. ∎ (Lean: `E213.OS.PairForcing.count_eq_one_iff`.)
 
 **Corollary 6.7.3.** The three components of §6 — the arity
 constraint `|A| = 2` (§5 Pigeonhole), the atom values `A = {2, 3}`
@@ -579,7 +579,7 @@ block-constant then `W` is invariant under every partition-
 preserving bijection: for every such `σ` and all `i, j`,
 `W (σ i) (σ j) = W i j`.
 
-*Proof.* (Lean: `E213.Simplex.block_constant_implies_aut_invariant`.)
+*Proof.* (Lean: `E213.App.Simplex.block_constant_implies_aut_invariant`.)
 For bijective partition-preserving `σ`, both `isA (σ i) = isA i` and
 `σ i = σ j ↔ i = j` hold. Hence `classify (σ i) (σ j) = classify i j`.
 Since `W = f ∘ classify`, the conclusion follows. ∎
