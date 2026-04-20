@@ -11,17 +11,20 @@ Given two objects, there exists a relation object between them.
 - `object : Fin 2 → Raw`: base objects (two of them, from the axiom's "two").
 - `relation : Raw → Raw → Raw`: binary relation object between two Raw.
 
-The axiom's "two" is captured by `Reachable` derivation:
-a relation object is Reachable only from two distinct Reachable objects.
-
-The third entity (a relation object) is not postulated — it is produced
-by applying `relation` to the two base objects. See `third_object_exists`.
+The axiom does not supply any notion of equality or inequality on
+objects. We therefore do *not* constrain `relation x y` by `x ≠ y`:
+such a constraint would import a distinctness primitive that the
+axiom does not provide. The third entity (a relation object) is
+produced by applying `relation` to the two base objects — see
+`third_object_exists`.
 
 ## Consequences
 
-- Identity (=) is not a primitive.
-- Apartness (≠) is used only as Lean's technical encoding of "two".
-- `relation x x` (same-input case) is not Reachable (axiom scope).
+- Identity (=) is not an axiomatic primitive. Lean's propositional
+  equality is used externally (for bookkeeping of inductive case
+  analysis), never as a structural rule of `Raw`.
+- `Reachable` is the inductive predicate of "terms built from the
+  two constructors"; equivalently, every Raw term is Reachable.
 -/
 
 -- ═══ Section 1: Primitive Type ═══
@@ -35,22 +38,21 @@ inductive Raw where
 
 inductive Reachable : Raw → Prop where
   | base : (i : Fin 2) → Reachable (.object i)
-  | step : Reachable x → Reachable y → x ≠ y →
-           Reachable (.relation x y)
+  | step : Reachable x → Reachable y → Reachable (.relation x y)
 
 -- ═══ Section 3: Well-formedness ═══
 
 def Raw.wellFormed : Raw → Prop
   | .object _     => True
-  | .relation x y => x ≠ y ∧ x.wellFormed ∧ y.wellFormed
+  | .relation x y => x.wellFormed ∧ y.wellFormed
 
-/-- Structural-recursive decidability (avoids `Raw.rec` in code gen). -/
+/-- Structural-recursive decidability. -/
 def Raw.decWF : (x : Raw) → Decidable x.wellFormed
   | .object _     => .isTrue trivial
   | .relation a b =>
       have _ha := Raw.decWF a
       have _hb := Raw.decWF b
-      show Decidable (a ≠ b ∧ a.wellFormed ∧ b.wellFormed) from inferInstance
+      show Decidable (a.wellFormed ∧ b.wellFormed) from inferInstance
 
 instance : DecidablePred Raw.wellFormed := Raw.decWF
 
@@ -60,17 +62,16 @@ theorem reachable_of_wellFormed :
     ∀ x : Raw, x.wellFormed → Reachable x
   | .object i,   _ => .base i
   | .relation a b, h =>
-      let ⟨hne, ha, hb⟩ := h
+      let ⟨ha, hb⟩ := h
       .step (reachable_of_wellFormed a ha)
             (reachable_of_wellFormed b hb)
-            hne
 
 theorem wellFormed_of_reachable {x : Raw} :
     Reachable x → x.wellFormed := by
   intro h
   induction h with
   | base _ => exact trivial
-  | step _ _ hne ihx ihy => exact ⟨hne, ihx, ihy⟩
+  | step _ _ ihx ihy => exact ⟨ihx, ihy⟩
 
 theorem reachable_iff_wellFormed (x : Raw) :
     Reachable x ↔ x.wellFormed :=
@@ -85,17 +86,13 @@ theorem relation_injective {a b c d : Raw} :
     Raw.relation a b = Raw.relation c d → a = c ∧ b = d := by
   intro h; injection h with h1 h2; exact ⟨h1, h2⟩
 
-theorem no_self_relation_reachable (x : Raw) :
-    ¬ Reachable (.relation x x) := by
-  rw [reachable_iff_wellFormed]
-  simp [Raw.wellFormed]
-
+/-- Every Reachable relation term has two Reachable sub-terms. -/
 theorem reachable_relation_inv {x y : Raw} :
-    Reachable (.relation x y) → Reachable x ∧ Reachable y ∧ x ≠ y := by
+    Reachable (.relation x y) → Reachable x ∧ Reachable y := by
   intro h
   rw [reachable_iff_wellFormed] at h
-  obtain ⟨hne, hx, hy⟩ := h
-  refine ⟨?_, ?_, hne⟩
+  obtain ⟨hx, hy⟩ := h
+  refine ⟨?_, ?_⟩
   all_goals rw [reachable_iff_wellFormed]; assumption
 
 -- ═══ Section 6: Depth ═══
@@ -104,7 +101,7 @@ def Raw.depth : Raw → Nat
   | .object _     => 0
   | .relation x y => 1 + max x.depth y.depth
 
-theorem relation_depth_gt {x y : Raw} (_ : x ≠ y) :
+theorem relation_depth_gt_left {x y : Raw} :
     (Raw.relation x y).depth > x.depth := by
   simp [Raw.depth]; omega
 
@@ -188,20 +185,17 @@ def o0 : Raw := .object 0
 def o1 : Raw := .object 1
 
 /-- The third entity: the relation object produced from the two base objects.
-    This is a *consequence* of the axiom, not a postulate. -/
+    A consequence of the axiom, not a postulate. -/
 def o01 : Raw := .relation o0 o1
 
-/-- Three distinct Reachable objects exist: `o0`, `o1`, `o01`.
-    Thus "three" is derived from the axiom's "two" plus one application of
-    `relation`, rather than being hardwired into the base index type. -/
+/-- Three Reachable Raw terms: `o0`, `o1`, `o01`.  "Three" is derived
+    from the axiom's "two" base objects plus one application of
+    `relation`. -/
 theorem three_objects_exist :
-    Reachable o0 ∧ Reachable o1 ∧ Reachable o01 ∧
-    o0 ≠ o1 ∧ o0 ≠ o01 ∧ o1 ≠ o01 := by
-  refine ⟨.base 0, .base 1, .step (.base 0) (.base 1) ?_, ?_, ?_, ?_⟩ <;> decide
+    Reachable o0 ∧ Reachable o1 ∧ Reachable o01 := by
+  refine ⟨.base 0, .base 1, .step (.base 0) (.base 1)⟩
 
 example : Reachable o0 := .base 0
-example : Reachable o01 := .step (.base 0) (.base 1) (by decide)
-example : ¬ Reachable (.relation o0 o0) :=
-  no_self_relation_reachable o0
+example : Reachable o01 := .step (.base 0) (.base 1)
 
 -- ═══ End of formal foundation ═══

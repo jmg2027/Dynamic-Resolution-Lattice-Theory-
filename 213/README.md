@@ -29,7 +29,7 @@ framework/
 │   ├── Atomicity.lean              -- n = 5 uniquely atomic
 │   ├── NonDecomposable.lean        -- {2, 3} as non-decomposable ≥ 2
 │   ├── PrimitiveSizes.lean         -- {2, 3} read off the axiom
-│   ├── AliveFromDistinctness.lean  -- alive predicate from Raw's x ≠ y
+│   ├── AliveFromDistinctness.lean  -- alive as antisymmetric-multiplicity postulate
 │   ├── PairForcing.lean            -- (p,q)=(2,3) uniquely forces n=5
 │   └── Simplex.lean                -- (3,2) partition, block invariance
 ├── lakefile.toml

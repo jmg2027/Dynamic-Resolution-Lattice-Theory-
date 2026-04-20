@@ -18,6 +18,10 @@ structure.
   equality of terms, not any quotient.
 - All claims below are formally checked in Lean 4 (`E213.*` modules,
   0 `sorry`); we cite the Lean name where relevant.
+- The axiom does *not* supply an equality or inequality primitive on
+  objects. Propositional equality is Lean's external bookkeeping,
+  used only for case analysis; apartness is not part of Raw's
+  inductive structure (see §1.2).
 
 ---
 
@@ -41,22 +45,28 @@ the axiom; the second constructor `relation` realizes the axiom's
 
 ```
   base : (i : Fin 2) → Reachable (object i)
-  step : Reachable x → Reachable y → x ≠ y →
+  step : Reachable x → Reachable y →
          Reachable (relation x y).
 ```
 
-The apartness `x ≠ y` is a technical encoding of the axiom's "two":
-the step constructor fires only from *two* Reachable arguments, not
-one repeated. No negation primitive is introduced at the axiomatic
-level; `≠` is purely Lean's bookkeeping of "two distinct."
+The axiom supplies no equality or inequality on objects; we therefore
+do *not* impose `x ≠ y` in the step constructor. Under this
+presentation, every Raw term is Reachable. Equality/inequality become
+available only through a `Lens` (§4): the kernel of a Lens `L` gives
+`L.equiv x y := L.view x = L.view y`, and its negation is
+lens-dependent.
 
 **Definition 1.3 (Well-formedness).**
 
 ```
 Raw.wellFormed : Raw → Prop
   | object _     => True
-  | relation x y => x ≠ y ∧ x.wellFormed ∧ y.wellFormed.
+  | relation x y => x.wellFormed ∧ y.wellFormed.
 ```
+
+(In the present axiom, `wellFormed` coincides with `Reachable` and
+with "is a Raw term"; we retain the predicate as an explicit target
+for structural recursion.)
 
 ---
 
@@ -67,32 +77,30 @@ Raw.wellFormed : Raw → Prop
 *Proof.* (Lean: `E213.Clean213.reachable_iff_wellFormed`.)
 
 (⇒) By induction on the Reachable derivation. Base: `wellFormed
-(object i) = True`, immediate. Step: from `Reachable x`, `Reachable
-y`, `x ≠ y` with induction hypotheses `x.wellFormed, y.wellFormed`,
-conclude `(relation x y).wellFormed = x ≠ y ∧ x.wellFormed ∧
-y.wellFormed` using the three hypotheses.
+(object i) = True`, immediate. Step: from induction hypotheses
+`x.wellFormed, y.wellFormed`, conclude `(relation x y).wellFormed =
+x.wellFormed ∧ y.wellFormed`.
 
 (⇐) By induction on the structure of `x`. Base `object i`: apply
-`Reachable.base i`. Relation `relation x y` with hypothesis
-`x ≠ y ∧ x.wellFormed ∧ y.wellFormed`: destructure, apply induction
-hypotheses on `x`, `y`, then `Reachable.step`. ∎
+`Reachable.base i`. Relation `relation x y`: destructure, apply
+induction hypotheses on `x`, `y`, then `Reachable.step`. ∎
 
 **Corollary 2.2 (Decidability).** `Reachable` is decidable on `Raw`.
 
-*Proof.* `Raw` has decidable equality (derived from its finite
-signature and `DecidableEq (Fin 2)`); `wellFormed` is decidable by
-structural recursion; combine via Theorem 2.1. ∎
+*Proof.* `wellFormed` is decidable by structural recursion; combine
+via Theorem 2.1. (Lean's `DecidableEq Raw`, derived from the
+inductive signature, is used only externally for case analysis.) ∎
 
-**Theorem 2.3 (No self-relation).** For every `x : Raw`,
-`¬ Reachable (relation x x)`.
-
-*Proof.* By Theorem 2.1 this reduces to `¬ (x ≠ x ∧ ...)`, which
-is immediate from `x = x`. ∎
-
-**Theorem 2.4 (Relation inversion).**
-`Reachable (relation x y) → Reachable x ∧ Reachable y ∧ x ≠ y`.
+**Theorem 2.3 (Relation inversion).**
+`Reachable (relation x y) → Reachable x ∧ Reachable y`.
 
 *Proof.* Reduce to well-formedness; destructure. ∎
+
+*Remark.* Under the present axiom (no ≠ constraint on `relation`),
+self-relations `relation x x` are Reachable. Excluding self-loops
+would require a distinctness primitive, which the axiom does not
+supply; any exclusion of that form belongs to a particular Lens
+(§4), not to the axiom.
 
 ---
 
@@ -114,8 +122,9 @@ non-identity permutation. Define `swap : Raw → Raw` by
 
 **Theorem 3.4 (Reachable-preservation).** `Reachable x → Reachable (swap x)`.
 
-*Proof.* By induction on the Reachable derivation; the step case
-uses Corollary 3.3 to propagate the apartness hypothesis. ∎
+*Proof.* By induction on the Reachable derivation. Base: use
+`flip213 : Fin 2 → Fin 2`. Step: apply `Reachable.step` to the
+swapped sub-terms via the induction hypotheses. ∎
 
 **Definition 3.5 (Raw-automorphism).** A *Raw-automorphism* is a
 bijection `φ : Raw → Raw` satisfying, for some permutation
@@ -175,10 +184,16 @@ induction on `Raw`. ∎
 
 ---
 
-## 5. Signature forcing (arity and base size)
+## 5. Signature forcing (meta-analysis under a distinctness constraint)
 
-We examine whether the signature `(Fin 2, binary relation)` is
-forced by non-vacuity.
+The axiom of §1 already fixes the signature as `(Fin 2, binary)`
+("two objects", "relation between"). This section provides a
+*meta-comparison*: if we *additionally* require the relation
+constructor to take pairwise-distinct arguments (a distinctness
+constraint that the axiom itself does not supply), then `(2, 2)`
+is the minimal non-vacuous such signature. The constraint is
+adopted here for comparison only; our Raw (Definition 1.1) has
+no such constraint.
 
 **Definition 5.1 (Generalized Raw).** For `N, k : ℕ`, define
 
@@ -323,13 +338,15 @@ We henceforth call `n` *non-decomposable* iff `n ∈ {2, 3}`.
 in hand, we can break the atom hypothesis into parts and locate
 precisely where §1–5 does and does not suffice.
 
-(a) *Lower bound `n ≥ 2`.* The primitive (Axiom; Definition 1.1)
-concerns *relation between two objects*. A hypothetical atom of
-size `1` — a solitary object — cannot instantiate the primitive
-at all: the `relation` constructor requires two distinct
-Reachable arguments (Definition 1.2, Theorem 2.3). We take this
-as sufficient motivation within §1–5 for restricting atom sizes
-to `≥ 2`.
+(a) *Lower bound `n ≥ 2`.* "Atom" here means a Raw-subtree used as
+a partition block; its size is its leaves count. A bare `object i`
+has leaves `1` and does not exercise the `relation` constructor at
+all. Excluding such atoms amounts to asking that every partition
+block involves at least one relation application, i.e. leaves `≥ 2`.
+This is a structural choice, not an axiomatic consequence: a
+`relation x x` self-loop has leaves `2` and is Reachable under the
+present axiom. The choice is made to keep the partition analysis
+non-degenerate.
 
 (b) *Atom identification `A = {2, 3}`.* The principled derivation
 is arithmetic. By Proposition 6.5, the non-decomposable integers
@@ -348,49 +365,45 @@ consistent with Proposition 6.5 but is not used to derive it; it is
 recorded for intuition.
 (Lean: `E213.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
 
-(c) *The alive predicate is Raw-intrinsic.* The condition "both
-`a` and `b` odd" is *not* an external hypothesis: it is Raw's
-distinctness rule applied at the multiplicity level.
+(c) *The alive predicate is a structural principle, not a Raw
+consequence.* The condition "both `a` and `b` odd" states that
+pairs of structurally identical atom-copies annihilate, leaving
+the multiplicity `a mod 2`. The axiom of §1 supplies Raw and its
+constructors; it does *not* supply such a pair-cancellation rule.
+The rule is an additional structural principle, adjoined to the
+arithmetic of §6 as an independent postulate.
 
-The single structural rule of Raw is `x ≠ y` in every
-`relation x y` (Definition 1.2). This rule applies at every level
-of nesting: no Reachable term may have two structurally identical
-direct sub-terms (Theorem 2.3 generalizes inductively — at every
-node of a Reachable Raw tree, the two arguments are distinct).
+(The former versions of this paper attempted to derive the alive
+predicate from a "Raw distinctness rule `x ≠ y`". The present
+axiom contains no such rule (see Definition 1.2): apartness is
+not a Raw primitive, and appeals to it at the multiplicity level
+are not valid. We accordingly mark this step as a postulate.)
 
-Lifting this rule to multiplicities of structurally identical
-atoms in a vertex partition: two structurally identical copies of
-the same atom-type cannot coexist as distinct ingredients
-(Raw distinguishes nothing within a structural-equivalence class).
-Paired copies *annihilate* — they contribute nothing because the
-pair has no Raw-distinguishable content. Only odd residues survive.
+The formal content of (c) is the equivalence
+`alive(a, b) ⟺ a % 2 = 1 ∧ b % 2 = 1` (a definitional
+rephrasing, Lean: `E213.AliveFromDistinctness.alive_iff_odd_pair`);
+the *motivation* is the exterior-algebra pattern `v ∧ v = 0`,
+which is the standard concrete realization of antisymmetric
+multiplicity.
 
-Concretely: a multiplicity `a` of a single atom-type contributes
-to the structure as `a mod 2`, by repeated pair-cancellation.
-The "alive" condition `a % 2 = 1 ∧ b % 2 = 1` is exactly the
-statement that both atom-types have surviving (odd) residues. (Lean:
-`E213.AliveFromDistinctness.alive_iff_odd_pair`.)
+**Scope claim (honest).**
 
-This is the same mechanism as exterior algebra: `v ∧ v = 0` is
-not an axiom of `∧` but a formal expression of "two structurally
-identical inputs cancel." Raw's `x ≠ y` is the same principle in
-its primitive form, of which exterior algebra is a concrete model.
+- (a) *Lower bound `≥ 2`*: a structural choice to exclude the
+  degenerate "bare object" atoms; no appeal to `≠` is made.
+- (b) *Atom set `{2, 3}`*: derived from the axiom via Proposition
+  6.5 (non-decomposable integers ≥ 2) and sharpened by §6.7
+  (Pair Forcing) — this is the one fully Raw-intrinsic component.
+- (c) *Alive predicate*: postulated as an antisymmetric-multiplicity
+  principle; not derivable from the axiom alone.
 
-**Scope claim (revised).** All three components are grounded in the
-primitive:
+Theorem 6.3 therefore depends on (c) as an additional structural
+principle beyond the axiom. The arithmetic sharpening (§6.7)
+isolates the numerical rigidity independently of (c).
 
-- (a) *Lower bound `≥ 2`*: the axiom's "two objects" rules out
-  atoms of size `1`.
-- (b) *Atom set `{2, 3}`*: by Proposition 6.5, the non-decomposable
-  integers `≥ 2` are exactly `{2, 3}` — the standard "atom as
-  irreducible" identification, independent of §1–5. (The same two
-  sizes occur as natural cardinalities of the input pair and first
-  closure; this is recorded as a parallel intuition.)
-- (c) *Alive predicate*: Raw's rule `x ≠ y` applied at the
-  multiplicity level, as above.
-
-Theorem 6.3 (Atomicity → `n = 5`) follows from the axiom alone.
-No external hypothesis is imported in §6.
+Theorem 6.3 (Atomicity → `n = 5`) follows from the axiom *together
+with* the antisymmetric-multiplicity principle (c). The arithmetic
+sharpening §6.7 relies only on the axiom's numerical structure;
+(c) is isolated to the "alive" clause of Definition 6.2.
 
 ### 6.7 Pair Forcing Theorem (unification of §5 and §6)
 
@@ -432,7 +445,7 @@ arithmetic fact selects `(p, q, n) = (2, 3, 5)` uniquely.
 - Non-coprime atoms restrict `n` to multiples of `gcd`, losing the
   universal count theorem.
 - Weakening the alive condition (non-odd multiplicities) contradicts
-  Raw distinctness (§6.6(c)).
+  the antisymmetric-multiplicity postulate (§6.6(c)).
 
 Thus `(p, q, n) = (2, 3, 5)` is an **arithmetic fixed point** — the
 axiom's only self-consistent numerical consequence.
@@ -660,9 +673,10 @@ dependency tracking between claims.
 **From the axiom alone (§1–5):**
 
 1. A free inductive type `Raw` with constructors
-   `object : Fin 2 → Raw` and `relation : Raw → Raw → Raw`,
-   together with a Reachable predicate carving out well-formed
-   terms and excluding self-relations (Theorem 2.3).
+   `object : Fin 2 → Raw` and `relation : Raw → Raw → Raw`;
+   the `Reachable` predicate (Definition 1.2) coincides with
+   "is a Raw term" (Theorem 2.1). No equality/inequality primitive
+   is imposed on Raw.
 
 2. A single nontrivial Raw-automorphism (the swap involution),
    yielding `Aut(Raw) ≅ ℤ/2` (Theorem 3.6).
@@ -670,23 +684,29 @@ dependency tracking between claims.
 3. A Lens/catamorphism framework: every pair
    `(b : Fin 2 → α, c : α → α → α)` determines a unique
    `view : Raw → α` (Theorem 4.5), with kernel-equivalence and
-   refinement as natural operations.
+   refinement as natural operations. Equality on Raw becomes
+   available as a Lens kernel; apartness is the negation of a
+   Lens kernel and is thus Lens-dependent.
 
-4. The signature `(Fin 2, binary)` is the unique minimal
-   non-degenerate, non-vacuous signature: `N < k` makes the system
-   vacuous (Theorem 5.3), and `k ∈ {0, 1}` yields structurally
-   degenerate constants or unary chains (Corollary 5.4).
+4. The signature `(Fin 2, binary)` is the axiom's own signature
+   ("two objects", "relation between"). The generalized
+   signatures `RawNk` (Definition 5.1) are analyzed as a meta-
+   comparison: with a pairwise-distinctness constraint on
+   relation arguments, `N < k` is vacuous (Theorem 5.3) and
+   `k ∈ {0, 1}` is degenerate (Corollary 5.4). This isolates
+   `(N, k) = (2, 2)` as the minimal non-degenerate, non-vacuous
+   signature under that distinctness constraint.
 
-**From the axiom together with §6–7 (all three components of the
-atom hypothesis now Raw-intrinsic; see Remark 6.6):**
+**From the axiom together with §6–7 (with the antisymmetric-
+multiplicity principle of §6.6(c) adjoined):**
 
 5. The atom set `A = {2, 3}` is fixed by Proposition 6.5
-   (non-decomposable integers `≥ 2`) combined with the primitive
-   lower bound `≥ 2`. The alive predicate is Raw's distinctness
-   rule at the multiplicity level (pair cancellation under
-   structural equivalence). Together, `n = 5` is the unique atomic
-   vertex count (Theorem 6.3), giving the canonical partition
-   `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
+   (non-decomposable integers `≥ 2`) combined with the structural
+   choice `atoms ≥ 2` (§6.6(a)). The alive predicate is the
+   antisymmetric-multiplicity principle (§6.6(c)) — postulated,
+   not derived from the axiom. Together, `n = 5` is the unique
+   atomic vertex count (Theorem 6.3), giving the canonical
+   partition `V = V_A ⊔ V_B` with `|V_A| = 3, |V_B| = 2`.
 
 5'. Equivalently and more sharply (Theorem 6.7.2, Pair Forcing):
    among all coprime pairs `(p, q)` with `2 ≤ p < q`, the unique

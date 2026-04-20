@@ -49,11 +49,9 @@ theorem Reachable.swap {x : Raw} (h : Reachable x) :
   | base i =>
       show Reachable (Raw.swap (.object i))
       exact .base (flip213 i)
-  | @step x y _ _ hne ihx ihy =>
+  | @step x y _ _ ihx ihy =>
       show Reachable (.relation (Raw.swap x) (Raw.swap y))
-      refine .step ihx ihy ?_
-      intro h_eq
-      exact hne (Raw.swap_injective h_eq)
+      exact .step ihx ihy
 
 /-- A Lens is swap-invariant if its view agrees on x and swap(x). -/
 def Lens.SwapInvariant {α : Type} (L : Lens α) : Prop :=
