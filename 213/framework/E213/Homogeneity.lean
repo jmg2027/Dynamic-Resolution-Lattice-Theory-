@@ -3,48 +3,41 @@ import E213.Clean213
 /-!
 # Swap automorphism on Raw
 
-The firmware (Clean213) has two base constants `a, b` and the
-`slash` constructor. The swap operation exchanges the two base
-constants and extends recursively.
+The two base tokens `a, b` can be exchanged; extended through the
+`slash` operation recursively. At the canonical-form level, after
+swapping children we must re-order them (implementation artifact of
+the Lean encoding — see `Clean213.lean`).
 
-This gives `Aut(Raw) ≅ ℤ/2`:
-- identity
-- swap (exchange a ↔ b at every leaf)
-
-No equality primitive is used in the definition of `swap`; it is
-defined by structural recursion on the Raw constructors.
+This file defines swap at the `Tree` level with re-canonicalization,
+then lifts to `Raw`.
 -/
 
-/-- Swap: exchange the two base somethings; extend to `slash`
-    recursively. -/
-def Raw.swap : Raw → Raw
+/-- Swap on the internal Tree.  After exchanging children by the
+    recursive swap, re-order so the smaller child comes first. -/
+def Tree.swap : Tree → Tree
   | .a         => .b
   | .b         => .a
-  | .slash x y => .slash (Raw.swap x) (Raw.swap y)
+  | .slash x y =>
+      let x' := Tree.swap x
+      let y' := Tree.swap y
+      match Tree.cmp x' y' with
+      | .lt => .slash x' y'
+      | .gt => .slash y' x'
+      | .eq => x'  -- unreachable on canonical inputs (distinct children)
 
-/-- Swap is involutive. -/
-theorem Raw.swap_swap : ∀ x : Raw, Raw.swap (Raw.swap x) = x
-  | .a         => rfl
-  | .b         => rfl
-  | .slash x y => by
-      simp [Raw.swap, Raw.swap_swap x, Raw.swap_swap y]
+theorem Tree.swap_a_b : Tree.swap .a = .b := rfl
+theorem Tree.swap_b_a : Tree.swap .b = .a := rfl
 
-/-- Involutive ⟹ injective. -/
-theorem Raw.swap_injective {x y : Raw}
-    (h : Raw.swap x = Raw.swap y) : x = y := by
-  have := congrArg Raw.swap h
-  rw [Raw.swap_swap, Raw.swap_swap] at this
-  exact this
-
-/-- A Lens is swap-invariant if its view agrees on `x` and `swap x`. -/
+/-- A Lens is *swap-invariant* iff its view agrees on `x` and
+    the swapped Raw. Expressed at the Tree level for convenience. -/
 def Lens.SwapInvariant {α : Type} (L : Lens α) : Prop :=
-  ∀ x : Raw, L.view (Raw.swap x) = L.view x
+  ∀ t : Tree, L.viewTree (Tree.swap t) = L.viewTree t
 
-/-- **Swap-invariance forces the two base values to coincide.**
-    At the Lens layer, a swap-invariant Lens cannot distinguish
-    the two base somethings. -/
+/-- Swap-invariance forces the two base values to coincide:
+    at the Lens layer, swap-invariance means "cannot tell `a` from
+    `b`," which Lean-ly says `L.base_a = L.base_b`. -/
 theorem Lens.swapInvariant_base_eq {α : Type} {L : Lens α}
     (h : L.SwapInvariant) : L.base_a = L.base_b := by
   have h0 := h .a
-  simp [Lens.view, Raw.swap] at h0
+  simp [Lens.viewTree, Tree.swap] at h0
   exact h0.symm
