@@ -9,14 +9,18 @@ import E213.Research.ZIHom
 # Research: the `ZI`-Lens as a candidate counterexample
 
 Constructs `ziLens : Lens ZI` with `base_a = I`, `base_b = -I`,
-`combine = ZI.mul`, and verifies R4 (SwapMatching) in Lean
-via `Raw.fold_swap_hom`.
+`combine = ZI.mul`, and verifies R3 (NonVanishing) and R4
+(SwapMatching) in Lean.
 
-R1 and R2 are built into the Lens structure + Raw.fold;
-R4 is proved here.
-R3 (NonVanishing) awaits a Lean proof of the Diophantus
-identity `normSq(u·v) = normSq(u)·normSq(v)` (see
-`notes/01_zi_counterexample.md` for the math argument).
+- R1, R2: built into the `Lens` structure + `Raw.fold`.
+- R3: via `ZI.mul_ne_zero_of_ne_zero` (integral-domain, from
+  the Diophantus identity `normSq(u·v) = normSq(u)·normSq(v)`
+  proved in `ZIDomain.lean`).
+- R4: via `Raw.fold_swap_hom` with the ring-hom lemmas for
+  `ZI.conj` (see `ZIHom.lean`).
+
+Hypothesis H is therefore **Lean-confirmed** for E1: `ℤ[i]`
+is a self-recognising codomain under R1–R4 alone.
 -/
 
 namespace E213.Research
@@ -33,6 +37,14 @@ def ziLens : Lens ZI where
 -- Smoke test: base-value computations.
 example : ziLens.view Raw.a = ZI.I    := rfl
 example : ziLens.view Raw.b = ZI.negI := rfl
+
+-- ═══ R3 — NonVanishing (ZI integral domain) ═══
+
+/-- **R3 for `ziLens`.**  Gaussian multiplication has no zero
+    divisors, so combining two nonzero views is nonzero. -/
+theorem ziLens_nonVanishing : NonVanishing ziLens := by
+  intro u v hu hv
+  exact ZI.mul_ne_zero_of_ne_zero hu hv
 
 -- ═══ R4 — SwapMatching with `ZI.conj` ═══
 

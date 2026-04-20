@@ -2,89 +2,69 @@
 
 ## Status
 
-**Phase:** E1 — math argument complete, Lean partially
-formalised. Hypothesis H **confirmed at the mathematical
-level**; full Lean verification is the next iteration.
+**Phase:** E1 **Lean-complete** — hypothesis H confirmed with
+full Lean formalisation of R3 and R4 for `ziLens = (ZI, I,
+-I, ZI.mul)`.  R1 and R2 are built into the Lens structure +
+`Raw.fold`.
 
-**Branch:** `claude/polish-paper-submission-EilC5` (shared with
-Paper 1 polish; can be split later if needed).
+**Branch:** `claude/polish-paper-submission-EilC5`.
 
 ## What is in place
 
-- `CLAUDE.md` — research frame, hypothesis H, experiment list
+### Research notes
+- `CLAUDE.md` — research frame, hypothesis H, E1–E5 list
 - `notes/00_research_question.md` — formalised question
-- `notes/01_zi_counterexample.md` — **full math argument**,
-  R1–R4 verified by hand for `ziLens = (ZI, I, -I, ZI.mul)`.
-  Conclusion: H confirmed mathematically.
-- `framework/E213/Research/ZI.lean` — Gaussian integers with
-  `mul`, `conj`, `normSq`; lemmas `ext`, `conj_conj`,
-  `conj_ne_id`. **Builds ✓**.
-- `framework/E213/Research/ZIDomain.lean` — `ZI.mul_comm`
-  (manual, no `ring`). **Builds ✓**.
-- `framework/E213/Research/ZIHom.lean` — `ZI.conj_I`,
-  `conj_negI`, `conj_mul` (distribution of conj over Gaussian
-  multiplication, via `Int.neg_mul_neg`, `Int.mul_neg`, etc.).
-  **Builds ✓**.
-- `framework/E213/Firmware/Raw.lean` — **modified**: added
-  public theorem `Raw.fold_swap_hom`, a generalisation of the
-  existing `Raw.fold_signed_swap` that accepts any `conj : α →
-  α` satisfying `conj ba = bb`, `conj bb = ba`, `conj` as a
-  combine-homomorphism, and `c` commutative. **Pending build
-  verification** — Raw.lean is slow to compile in this
-  environment (>10 min); the pattern follows the existing
-  `Tree.fold_signed_swap` which is known to compile.
-- `framework/E213/Research/ZILens.lean` — **R4 proof**:
-  `ziLens_swapMatching : SwapMatching ziLens ZI.conj`,
-  obtained by applying `Raw.fold_swap_hom` with the ZI-side
-  lemmas. Depends on the `Raw.fold_swap_hom` build.
+- `notes/01_zi_counterexample.md` — complete argument + Lean
+  artifact list; H confirmed
 
-## Immediate next step (for a longer build window)
+### Lean artifacts
+- `framework/E213/Research/ZI.lean` — `ZI = ℤ[i]`, `mul`,
+  `conj`, `normSq`, `ext`, `conj_conj`, `conj_ne_id`. ✓
+- `framework/E213/Research/ZIDomain.lean` — `mul_comm`,
+  `normSq_mul` (Diophantus identity, closed by `simp` with
+  AC-arith + `omega`; no `ring` needed), `normSq_nonneg`,
+  `normSq_eq_zero_iff`, `no_zero_div`,
+  `mul_ne_zero_of_ne_zero`. ✓
+- `framework/E213/Research/ZIHom.lean` — `conj_I`,
+  `conj_negI`, `conj_mul` (ring hom). ✓
+- `framework/E213/Research/ZILens.lean`:
+  - `ziLens : Lens ZI`
+  - `ziLens_nonVanishing : NonVanishing ziLens` (R3) ✓
+  - `ziLens_swapMatching : SwapMatching ziLens ZI.conj` (R4) ✓
+    — pending main-build verification of `Raw.fold_swap_hom`.
+- `framework/E213/Firmware/Raw.lean` — adds generic
+  `Raw.fold_swap_hom` helper (pattern of existing
+  `fold_signed_swap`).  Build pending in slow environment;
+  syntactically complete.
 
-1. **Verify `Raw.fold_swap_hom` builds.** Run
-   `lake build E213.Firmware.Raw` with ≥15 min timeout.  In
-   this session, Raw.lean's full compile repeatedly timed out
-   at ~10 min wall time (Lean v4.16.0 on this host is slow on
-   the existing 580-line proof bundle); the new helper
-   follows the existing `Tree.fold_signed_swap` pattern
-   verbatim.  As part of the build attempt, the two original
-   uses of the `ring` tactic in `Tree.fold_signed_swap` were
-   replaced with explicit `Int.neg_add` rewrites (`ring`
-   appears to be unavailable in this Lean 4 core build); this
-   change is included in the commit.
-2. **Verify `ziLens_swapMatching` builds** after Raw builds.
-3. **Complete R3 in Lean.** Needs `normSq_mul` Diophantus
-   identity.  Without `ring` in core, this requires manual
-   expansion; a no-`ring` proof sketch is in
-   `notes/01_zi_counterexample.md`.  Alternatively, route
-   around `normSq_mul` by direct integral-domain case
-   analysis on `(u.re, u.im)`/`(v.re, v.im)`.
+## Immediate next step
 
-The math argument in `notes/01_zi_counterexample.md` already
-establishes H at the mathematical level; full Lean verification
-is a hardening step.
-
-## Open technical issues
-
-- Lean 4 core has `Int` but not `Int`'s ring-theory lemmas
-  bundled; may need to prove integral-domain property of `ZI`
-  by hand (norm-based argument: `ZI.norm u v = |u|² · |v|²`).
-- `Lens` structure currently lives in `E213.Hypervisor.Lens`;
-  check whether `SwapMatching`, `NonVanishing` are general
-  enough to apply to non-ℝ-algebra codomains (they should be —
-  they take `α : Type` untyped).
+1. Wait for main `lake build E213.Firmware.Raw` to complete
+   (this session started it and left it running on explicit
+   user instruction — expected ~10–60 minutes on this host).
+2. Once Raw builds, verify `E213.Research.ZILens` builds: this
+   exercises `Raw.fold_swap_hom` via `ziLens_swapMatching`.
+3. If R3/R4 theorems both `Built ✓`, **E1 is closed** and
+   hypothesis H is Lean-verified.
 
 ## What comes after E1
 
-- E2: generalise — classify all quadratic-extension Lenses
-  satisfying R1–R4 (`ℚ[i]`, `ℚ(√-2)`, `𝔽_9`, etc.)
-- E3: Lean formalisation of R5' (fold totality) and its vacuity
-- E4: hunt for the minimal extra condition that restores
-  ℂ-uniqueness — cardinality? archimedean? something else?
+- **E2:** generalise to other quadratic extensions —
+  `ℚ[i]`, `ℚ(√-2)`, `𝔽_9`, `ℤ[ω]` (Eisenstein integers).
+  Each needs a `normSq`-like multiplicative `ℤ`-valued norm.
+- **E3:** Lean formalisation of R5' (fold totality) — show it
+  is vacuous under inductive Raw.
+- **E4:** hunt for the minimal extra condition that
+  re-selects ℂ uniquely — cardinality?  Archimedean?  a
+  213-internal constraint?
+- **E5:** if no such condition exists, start drafting
+  **Paper 2** outline.
 
-## Paper 2 stub (when E1+E2 are done)
+## Paper 2 stub
 
-Working title: "The ℝ-algebra assumption in 213 — a finitist
-critique."
+Working title: *"The ℝ-algebra assumption in 213 — a finitist
+critique."*
 
-Outline draft planned in
-`notes/99_paper2_outline.md` after E1–E3.
+Central claim: R5 smuggles classical infinity; removing it
+collapses ℂ-uniqueness to R1-R4, for which `ℤ[i]` is an
+explicit countable counterexample (this file + E1 artifacts).

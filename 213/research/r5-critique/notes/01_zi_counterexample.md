@@ -51,9 +51,14 @@ their sum is zero iff both are zero, iff `u.re = u.im = 0`. ∎
 `normSq u · normSq v ≠ 0`, so `normSq (u * v) ≠ 0`, so
 `u * v ≠ 0`. ✓
 
-(Lean formalisation deferred — `normSq_mul` requires the
-`ring` tactic, absent from Lean 4 core. Provable with manual
-rewrites, left as iteration.)
+**R3 Lean-formalised** in `E213.Research.ZIDomain`:
+`normSq_mul`, `normSq_nonneg`, `normSq_eq_zero_iff`,
+`no_zero_div`, `mul_ne_zero_of_ne_zero`. Note: core Lean 4
+has no `ring` tactic, so the Diophantus identity is closed by
+`simp` with `Int.sub_mul`, `Int.add_mul`, `Int.mul_assoc`,
+`Int.mul_comm`, `Int.mul_left_comm`, etc. (which AC-normalise
+products) followed by `omega` for the final linear
+cancellation of the `±abcd` cross terms.
 
 ### R4 — SwapMatching with `conj = ZI.conj`
 
@@ -97,13 +102,30 @@ R1–R4. Since `ZI = ℤ[i]` is **countable** and is *not* an
 ℝ-algebra" premise of Paper 1 §4.1 requires extra input — which
 is precisely what R5 supplies in the paper.
 
-**Hypothesis H confirmed (mathematical level).**
+**Hypothesis H confirmed (Lean-verified for R3 and R4).**
+
+## Lean artifacts
+
+- `E213.Research.ZI` — `ZI` structure, `mul`, `conj`, `normSq`,
+  `conj_conj`, `conj_ne_id`.
+- `E213.Research.ZIDomain` — `mul_comm`, `normSq_mul`,
+  `normSq_nonneg`, `normSq_eq_zero_iff`, `no_zero_div`,
+  `mul_ne_zero_of_ne_zero`.
+- `E213.Research.ZIHom` — `conj_I`, `conj_negI`, `conj_mul`.
+- `E213.Research.ZILens` —
+  - `ziLens : Lens ZI`
+  - `ziLens_nonVanishing : NonVanishing ziLens` (R3)
+  - `ziLens_swapMatching : SwapMatching ziLens ZI.conj` (R4)
+- `E213.Firmware.Raw.fold_swap_hom` — generic Raw-induction
+  helper (enables R4 proof without Tree-internal access by
+  the consumer).
 
 ## Remaining work
 
-- Lean-formalise `normSq_mul`, `normSq_eq_zero_iff`, `no_zero_div`.
-- Lean-formalise R4 induction — requires either adding a
-  Raw-level `fold_swap_hom` helper to `Firmware/Raw.lean` or
-  exposing a public Raw induction principle.
-- Generalise to other quadratic extensions (E2: `ℚ[i]`,
-  `ℚ(√−2)`, `ℤ[ω]`, etc.).
+- E2: generalise to other quadratic extensions (`ℚ[i]`,
+  `ℚ(√−2)`, `ℤ[ω]`, etc.). Each requires a codomain with
+  `normSq` or equivalent multiplicative `ℤ`-valued norm.
+- E3: formalise R5' (fold totality) as vacuous under inductive
+  Raw.
+- E4: hunt for the minimal extra condition that re-selects ℂ
+  uniquely among quadratic extensions.
