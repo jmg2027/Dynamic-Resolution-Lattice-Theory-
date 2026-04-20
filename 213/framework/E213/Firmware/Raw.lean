@@ -314,3 +314,73 @@ theorem Raw.level2_total_card :
 example : (Raw.level1_set ++ Raw.level2_new).Nodup := by decide
 
 end E213.Firmware
+
+
+namespace E213.Firmware
+
+-- ═══ Thm 3.3 — swap bijectivity ═══
+
+theorem Raw.swap_injective : Function.Injective Raw.swap := by
+  intro x y h
+  have := congrArg Raw.swap h
+  rw [Raw.swap_swap, Raw.swap_swap] at this
+  exact this
+
+theorem Raw.swap_surjective : Function.Surjective Raw.swap :=
+  fun y => ⟨Raw.swap y, Raw.swap_swap y⟩
+
+theorem Raw.swap_bijective : Function.Bijective Raw.swap :=
+  ⟨Raw.swap_injective, Raw.swap_surjective⟩
+
+end E213.Firmware
+
+
+namespace E213.Firmware
+
+-- ═══ Thm 4.5 — catamorphism compatibility with slash ═══
+
+theorem Raw.fold_a {α : Type} (ba bb : α) (c : α → α → α) :
+    Raw.fold ba bb c Raw.a = ba := rfl
+
+theorem Raw.fold_b {α : Type} (ba bb : α) (c : α → α → α) :
+    Raw.fold ba bb c Raw.b = bb := rfl
+
+/-- **Catamorphism compatibility with `slash`, for symmetric
+    `combine`.**  Because `Raw.slash` canonicalises the order of
+    its children (the Lean-artifact ordering of §1.2), the
+    homomorphism equation for `Raw.fold` holds on `slash` exactly
+    when `combine` is symmetric.  This matches the axiom's
+    "between" requirement from §1.1. -/
+theorem Raw.fold_slash {α : Type}
+    (ba bb : α) (c : α → α → α)
+    (hsym : ∀ u v : α, c u v = c v u)
+    (x y : Raw) (h : x ≠ y) :
+    Raw.fold ba bb c (Raw.slash x y h)
+      = c (Raw.fold ba bb c x) (Raw.fold ba bb c y) := by
+  unfold Raw.slash Raw.fold
+  split <;> rename_i hc
+  all_goals simp [Tree.fold]
+  exact hsym _ _
+
+end E213.Firmware
+
+
+namespace E213.Firmware
+
+-- ═══ Thm 3.5 — ℤ/2 structure on {id, swap} ═══
+
+/-- `swap ∘ swap = id`: the subgroup `{id, swap}` of the bijection
+    monoid of `Raw` is isomorphic to `ℤ/2` (via order-2 element). -/
+theorem Raw.swap_comp_swap : Raw.swap ∘ Raw.swap = id := by
+  funext r
+  exact Raw.swap_swap r
+
+/-- `swap` is not the identity: `swap Raw.a = Raw.b ≠ Raw.a`. -/
+theorem Raw.swap_ne_id : Raw.swap ≠ id := by
+  intro h
+  have : Raw.swap Raw.a = id Raw.a := by rw [h]
+  simp [Raw.swap_a] at this
+  -- Raw.a ≠ Raw.b
+  exact absurd this (by decide)
+
+end E213.Firmware

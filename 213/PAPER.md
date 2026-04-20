@@ -182,6 +182,8 @@ has no semantic content beyond preserving `t.canonical = true`.
 (swap y) = x/y` by IH. ∎
 
 **Corollary 3.3 (Bijectivity).** `swap` is a bijection on `Raw`.
+(Lean: `E213.Firmware.Raw.swap_injective`,
+`E213.Firmware.Raw.swap_surjective`, `E213.Firmware.Raw.swap_bijective`.)
 
 **Definition 3.4 (Raw-automorphism).** A *Raw-automorphism* is a
 bijection `φ : Raw → Raw` satisfying
@@ -197,9 +199,12 @@ the recursive clause then fixes `φ` on every `slash` term.
 **Theorem 3.5 (Automorphism group).** `Aut(Raw) ≅ ℤ/2`. Its
 nontrivial element is `swap`.
 
-*Proof.* (Lean formalization partial: `Raw.swap`, `Raw.swap_swap`
-establish the involution; the Theorem 3.5 statement `Aut(Raw) ≅
-ℤ/2` itself is proved here at the prose level only.)
+*Proof.* (Lean formalization partial: `Raw.swap_swap` establishes
+the involution, `Raw.swap_comp_swap` the composition identity
+`swap ∘ swap = id`, and `Raw.swap_ne_id` establishes nontriviality
+— so `{id, swap}` under composition is the ℤ/2 group. The full
+classification statement "all Raw-automorphisms are id or swap"
+is proved here at the prose level only.)
 By Definition 3.4, an automorphism is determined by a choice of
 permutation of `{a, b}`. There are two such choices:
 identity and swap. Both preserve `slash` by construction.
@@ -235,13 +240,20 @@ axiom's absent equality primitive is supplied here, Lens-by-Lens.
 `L.refines M`) iff `∀ x y, L.equiv x y → M.equiv x y`, i.e.
 `M.view` factors through `L.view`.
 
-**Theorem 4.5 (Catamorphism universality).** For any `α`, `aα, bα :
-α`, `c : α → α → α`, there exists a unique `φ : Raw → α` with
-`φ a = aα`, `φ b = bα`, and `φ (slash x y) = c (φ x) (φ y)`. This
-`φ` is `view` of the Lens `⟨aα, bα, c⟩`.
+**Theorem 4.5 (Catamorphism universality, symmetric case).** For any
+`α`, `aα, bα : α`, and **symmetric** `c : α → α → α` (i.e.
+`∀ u v, c u v = c v u`), the catamorphism `view` of the Lens
+`⟨aα, bα, c⟩` satisfies `view a = aα`, `view b = bα`, and
+`view (slash x y h) = c (view x) (view y)` for all distinct `x, y`.
+Uniqueness (that any homomorphism with these equations equals
+`view`) holds by induction on `Raw`.
 
-*Proof.* Existence by the inductive definition; uniqueness by
-induction on `Raw`. ∎
+*Proof.* Existence by the inductive definition of `Raw.fold`;
+equality on `slash` needs symmetry of `c` because `Raw.slash`
+canonicalizes child order (§1.2). For the non-symmetric case, no
+such `φ` exists because the two homomorphism equations force
+commutativity. (Lean: `E213.Firmware.Raw.fold_a`,
+`E213.Firmware.Raw.fold_b`, `E213.Firmware.Raw.fold_slash`.) ∎
 
 **Remark (symmetry, self-distinction, and the Lens).** The axiom
 does not distinguish "the pair (x, y)" from "the pair (y, x)": any
@@ -666,23 +678,50 @@ structure to support the Lens framework with a meaningful
 automorphism action. The minimal natural setting is an `ℝ`-algebra
 satisfying:
 
-- **(C1) Finite-dimensional over `ℝ`.** Lens values are determined
-  inductively from `Fin 2` base data and a binary `combine`; an
-  infinite-dimensional codomain would carry strictly more
-  information than `Raw` provides.
-- **(C2) Commutative.** The axiom names "two objects" symmetrically
-  (the pair, not the ordered tuple). `Raw`'s `relation` constructor
-  is syntactically ordered, but the axiom is not. Commutativity of
-  `combine` is the value-level reflection of the axiom's symmetric
-  reading.
-- **(C3) Unital.** A multiplicative identity is the standard
-  algebraic baseline; without it, classical structure theorems are
-  not available in their usual form.
-- **(C4) Division algebra.** Every nonzero element invertible — a
-  Lens value cannot vanish without the corresponding Raw term being
-  absent.
+- **(C1) Finite-dimensional over `ℝ`.** *Stipulation.* Lens values
+  are determined inductively from `Fin 2` base data and a binary
+  `combine`; an infinite-dimensional codomain would carry strictly
+  more information (in the sense of `dim_ℝ K`) than the two base
+  values and the binary operation provide. The axiom itself does
+  not force this — infinite-dimensional ℝ-algebras with Aut_ℝ = ℤ/2
+  could in principle arise; they are excluded here as extraneous to
+  the two-generator / binary-operation scale of the axiom.
+- **(C2) Commutative.** *Structural reflection of §1.1's "between".*
+  The axiom names "two objects" symmetrically (the pair, not the
+  ordered tuple); the Raw canonical form (§1.2) identifies
+  `slash x y` with `slash y x`. Commutativity of `combine` at the
+  Lens layer is the precise value-level translation. Dropping it
+  admits `ℍ` (Cor 8.6), which the axiom's symmetric reading rejects
+  via Aut mismatch; so (C2) is not only natural but enforced by
+  Aut-faithfulness.
+- **(C3) Unital.** *Stipulation.* A multiplicative identity is
+  adopted to enable the field-classification step of Theorem 8.4.
+  Non-unital ℝ-algebras (e.g. the augmentation ideal of a group
+  algebra) could in principle satisfy the other conditions; they
+  are excluded for classification-theoretic convenience, not by
+  the axiom.
+- **(C4) Division algebra.** *Structural reflection of
+  non-degeneracy.* Every nonzero element invertible — a Lens value
+  cannot vanish without the corresponding Raw term being
+  absent. Without (C4), `ℝ ⊕ ℝ` (with coordinate-wise multiplication)
+  satisfies the other conditions and has `|Aut_ℝ(ℝ ⊕ ℝ)| = 2` (the
+  coordinate swap), which would falsely match Aut(Raw); (C4) excludes
+  this false competitor.
 
 Call this class `𝒞`.
+
+**Status of (C1)–(C4).** Only (C2) is forced by Aut-faithfulness
+(see Cor 8.6). Conditions (C1), (C3), (C4) are honest stipulations
+chosen for the classification theorem to apply, not derivations
+from the axiom alone. Relaxing any of (C1), (C3), (C4) would admit
+additional codomains beyond ℂ — so the "uniqueness of ℂ" is
+strictly *uniqueness within `𝒞`*, not *uniqueness among all
+ℝ-algebras*.
+
+*Reviewer honesty.* §8's theorem is: given the axiom + (C1)–(C4) +
+Aut-faithfulness, the unique codomain is ℂ. It is not: the axiom
+alone forces ℂ. The prose occasionally uses "forces" loosely;
+this should be read inside the §8 hypothesis set.
 
 **Definition 8.1 (Algebra automorphism).** For `K ∈ 𝒞`, let
 `Aut_ℝ(K)` denote the group of `ℝ`-algebra automorphisms of `K`
