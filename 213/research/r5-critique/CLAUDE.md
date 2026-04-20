@@ -15,15 +15,18 @@ justify the "α is an ℝ-algebra" assumption used in §4.
   Assumption in 213: A Finitist Critique") and the `book/`
   program.
 
-## Central hypothesis H
+## Central hypothesis H — **confirmed** (E1–E3 done)
 
 1. R5 is the bridge that makes "α is an ℝ-algebra" tenable in
    §4.1. Without R5, R1–R4 do **not** uniquely pick ℂ.
 2. Concrete witnesses: countable quadratic Galois extensions
-   such as `ℤ[i]`, `ℚ[i]`, `ℚ(√-2)` satisfy R1–R4.
+   such as `ℤ[i]`, `ℚ[i]`, `ℤ[√-2]` satisfy R1–R4.  **E1
+   (ZI) and E2 (Z2) are Lean-verified.**
 3. Therefore the paper's "ℂ uniqueness" is valid only in a
-   classical-infinity frame; under a finitist R5' (fold
-   totality), the uniqueness collapses.
+   classical-infinity frame; under a finitist R5' (R5a
+   Distinguishing only), the uniqueness collapses.  **E3
+   confirms R5b (completeness half) is vacuous within
+   inductive Raw.**
 
 ## Experiments
 
