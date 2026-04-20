@@ -392,6 +392,49 @@ primitive:
 Theorem 6.3 (Atomicity → `n = 5`) follows from the axiom alone.
 No external hypothesis is imported in §6.
 
+### 6.7 Pair Forcing Theorem (unification of §5 and §6)
+
+Proposition 6.5 fixes the atom set to `{2, 3}` *given* that atoms
+form a coprime pair. A sharper question is: among *all* coprime
+pairs `(p, q)` with `2 ≤ p < q`, which admit a unique atomic
+vertex count?
+
+**Definition 6.7.1.** For `p, q ≥ 2`, the *atomic candidate count*
+is
+```
+  count(p, q) := ⌊p/2⌋ · ⌊q/2⌋.
+```
+It counts pairs `(a, b)` of odd positive integers with `a < q` and
+`b < p` — the atomic decompositions under Bézout uniqueness.
+
+**Theorem 6.7.2 (Pair Forcing).** For coprime `p, q` with
+`2 ≤ p < q`,
+```
+  count(p, q) = 1  ⟺  (p, q) = (2, 3).
+```
+*Proof.* Both `⌊p/2⌋ ≥ 1` and `⌊q/2⌋ ≥ 1` (from `p, q ≥ 2`). Their
+product equals `1` iff both equal `1`. Now `⌊k/2⌋ = 1 ⟺ k ∈ {2, 3}`.
+Combined with `p < q` and coprimality, the unique solution is
+`(p, q) = (2, 3)`. ∎ (Lean: `E213.PairForcing.count_eq_one_iff`.)
+
+**Corollary 6.7.3.** The three components of §6 — the arity
+constraint `|A| = 2` (§5 Pigeonhole), the atom values `A = {2, 3}`
+(Prop 6.5), and the unique atomic vertex count `n = 5` (Thm 6.3) —
+are **simultaneously forced** by the single condition
+`count(p, q) = 1`. No separate choice is made; the closed-form
+arithmetic fact selects `(p, q, n) = (2, 3, 5)` uniquely.
+
+**Remark 6.7.4 (no-generalization).** The pair structure is rigid:
+- Three or more atoms (`|A| ≥ 3`) yield *no* atomic `n`: Bézout
+  shifts proliferate and always break uniqueness.
+- Non-coprime atoms restrict `n` to multiples of `gcd`, losing the
+  universal count theorem.
+- Weakening the alive condition (non-odd multiplicities) contradicts
+  Raw distinctness (§6.6(c)).
+
+Thus `(p, q, n) = (2, 3, 5)` is an **arithmetic fixed point** — the
+axiom's only self-consistent numerical consequence.
+
 ---
 
 ## 7. Block structure and invariance

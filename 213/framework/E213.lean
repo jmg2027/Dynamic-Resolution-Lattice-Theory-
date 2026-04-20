@@ -8,3 +8,4 @@ import E213.Simplex
 import E213.ArityForcing
 import E213.Pigeonhole
 import E213.ArityForcingGeneral
+import E213.PairForcing
