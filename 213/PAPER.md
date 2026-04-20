@@ -163,7 +163,8 @@ ordering invariant, so the Lean implementation re-canonicalizes
 (re-orders children) after the swap. The re-canonicalization is
 an implementation artifact of the canonical-form emulation and
 has no semantic content beyond preserving `t.canonical = true`.
-(Lean: `E213.Firmware.Raw.swap (future)`.)
+(Lean: `E213.Firmware.Raw.swap`, `E213.Firmware.Raw.swap_a`,
+`E213.Firmware.Raw.swap_b`, `E213.Firmware.Raw.swap_swap`.)
 
 **Theorem 3.2 (Involution).** `swap (swap x) = x` for all `x : Raw`.
 

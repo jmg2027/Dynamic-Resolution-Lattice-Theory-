@@ -189,3 +189,103 @@ example : Raw.fold (0 : Nat) 1 (· + ·) Raw.a = 0 := rfl
 example : Raw.fold (0 : Nat) 1 (· + ·) Raw.b = 1 := rfl
 
 end E213.Firmware
+
+
+namespace E213.Firmware
+
+-- ═══ Public API: swap automorphism ═══
+
+/-- Internal swap with on-the-fly canonicalization.  Base tokens
+    exchange; `slash` nodes re-order children after recursive swap
+    to preserve the canonical-form invariant. -/
+private def Tree.swap : Tree → Tree
+  | .a         => .b
+  | .b         => .a
+  | .slash x y =>
+      let x' := Tree.swap x
+      let y' := Tree.swap y
+      match Tree.cmp x' y' with
+      | .lt => .slash x' y'
+      | .gt => .slash y' x'
+      | .eq => x'  -- unreachable on canonical inputs
+
+/-- Swap preserves the canonical invariant: re-ordering children
+    after the recursive swap ensures the output is canonical. -/
+private theorem Tree.swap_canonical :
+    ∀ t : Tree, t.canonical = true → (Tree.swap t).canonical = true := by
+  intro t h
+  induction t with
+  | a => decide
+  | b => decide
+  | slash x y ihx ihy =>
+      simp only [Tree.canonical, Bool.and_eq_true] at h
+      obtain ⟨⟨hx, hy⟩, _⟩ := h
+      have ihx' := ihx hx
+      have ihy' := ihy hy
+      simp only [Tree.swap]
+      split <;> rename_i hcmp
+      · simp only [Tree.canonical, Bool.and_eq_true, ihx', ihy', true_and]
+        rw [hcmp]
+      · simp only [Tree.canonical, Bool.and_eq_true, ihx', ihy', true_and]
+        rw [(Tree.cmp_gt_iff_lt_swap _ _).mp hcmp]
+      · exact ihx'
+
+/-- Swap on Raw: exchanges the two base somethings, extended
+    through `slash` by structural recursion. -/
+def Raw.swap (r : Raw) : Raw :=
+  ⟨Tree.swap r.val, Tree.swap_canonical r.val r.property⟩
+
+theorem Raw.swap_a : Raw.swap Raw.a = Raw.b := rfl
+theorem Raw.swap_b : Raw.swap Raw.b = Raw.a := rfl
+
+end E213.Firmware
+
+
+namespace E213.Firmware
+
+-- swap is involutive (Theorem 3.2 of PAPER).
+private theorem Tree.swap_swap : ∀ t : Tree,
+    (t.canonical = true) → Tree.swap (Tree.swap t) = t := by
+  intro t ht
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash x y ihx ihy =>
+      simp only [Tree.canonical, Bool.and_eq_true] at ht
+      obtain ⟨⟨hx, hy⟩, hlt_raw⟩ := ht
+      have hlt : Tree.cmp x y = .lt := by
+        match hmatch : Tree.cmp x y with
+        | .lt => rfl
+        | .eq => rw [hmatch] at hlt_raw; cases hlt_raw
+        | .gt => rw [hmatch] at hlt_raw; cases hlt_raw
+      have ihx' := ihx hx
+      have ihy' := ihy hy
+      simp only [Tree.swap]
+      -- Inner match on cmp (swap x) (swap y): three cases
+      split <;> rename_i hcmp_inner
+      · -- inner .lt: Tree.swap (slash (swap x) (swap y))
+        -- = match cmp (swap(swap x)) (swap(swap y))
+        -- = match cmp x y = .lt (by hlt + ihx' + ihy')
+        simp only [Tree.swap, ihx', ihy', hlt]
+      · -- inner .gt: similar but outer is slash (swap y) (swap x)
+        simp only [Tree.swap, ihx', ihy']
+        -- cmp y x = swap of cmp x y = swap .lt = .gt
+        have : Tree.cmp y x = .gt := by
+          have := Tree.cmp_swap x y
+          rw [hlt] at this; simp [Ordering.swap] at this; exact this.symm
+        rw [this]
+      · -- inner .eq: cmp (swap x) (swap y) = .eq → swap x = swap y → x = y
+        -- But cmp x y = .lt ⟹ x ≠ y (by cmp_eq_iff), swap injective via ihx',ihy' ⟹ contradiction
+        exfalso
+        have hxy : Tree.swap x = Tree.swap y := (Tree.cmp_eq_iff _ _).mp hcmp_inner
+        -- Apply swap again: swap(swap x) = swap(swap y) → x = y
+        have : x = y := by rw [← ihx', ← ihy', hxy]
+        rw [this] at hlt
+        rw [show Tree.cmp y y = .eq from (Tree.cmp_eq_iff _ _).mpr rfl] at hlt
+        cases hlt
+
+theorem Raw.swap_swap (r : Raw) : Raw.swap (Raw.swap r) = r := by
+  apply Subtype.ext
+  exact Tree.swap_swap r.val r.property
+
+end E213.Firmware
