@@ -45,8 +45,11 @@ framework/
 │   │   ├── Alive.lean                  -- antisymmetric-multiplicity postulate
 │   │   ├── Atomicity.lean              -- n = 5 via Bézout
 │   │   └── PairForcing.lean            -- (p,q)=(2,3) uniqueness
-│   └── App/                            -- layer 4: applications
-│       └── Simplex.lean                -- (3,2) partition, block invariance
+│   ├── App/                            -- layer 4: applications
+│   │   └── Simplex.lean                -- (3,2) partition, block invariance
+│   └── Meta/                           -- layer 5: meta/lens catalogue
+│       └── LensCatalog.lean            -- swap-blind vs swap-visible lenses,
+│                                          signed-lens (swap = negation)
 ├── lakefile.toml
 ├── lean-toolchain                      -- leanprover/lean4:v4.16.0
 └── lake-manifest.json

@@ -19,3 +19,4 @@ import E213.OS.Alive
 import E213.OS.Atomicity
 import E213.OS.PairForcing
 import E213.App.Simplex
+import E213.Meta.LensCatalog

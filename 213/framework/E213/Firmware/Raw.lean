@@ -384,3 +384,147 @@ theorem Raw.swap_ne_id : Raw.swap ≠ id := by
   exact absurd this (by decide)
 
 end E213.Firmware
+
+
+namespace E213.Firmware
+
+-- ═══ Swap behaviour on depth / leaves ═══
+
+/-- Swap preserves `Tree.depth` (since canonicalisation only
+    reorders children, and `depth` uses `max` which is symmetric). -/
+private theorem Tree.swap_depth :
+    ∀ t : Tree, t.canonical = true → (Tree.swap t).depth = t.depth := by
+  intro t h
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash x y ihx ihy =>
+      simp only [Tree.canonical, Bool.and_eq_true] at h
+      obtain ⟨⟨hx, hy⟩, _⟩ := h
+      have ihx' := ihx hx
+      have ihy' := ihy hy
+      simp only [Tree.swap]
+      split
+      all_goals simp only [Tree.depth, ihx', ihy', Nat.max_comm]
+
+theorem Raw.swap_depth (r : Raw) : (Raw.swap r).depth = r.depth :=
+  Tree.swap_depth r.val r.property
+
+/-- Internal `leaves` on Tree; reproduced here for swap lemma. -/
+private def Tree.leaves : Tree → Nat
+  | .a         => 1
+  | .b         => 1
+  | .slash x y => x.leaves + y.leaves
+
+private theorem Tree.swap_leaves :
+    ∀ t : Tree, t.canonical = true → (Tree.swap t).leaves = t.leaves := by
+  intro t h
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash x y ihx ihy =>
+      simp only [Tree.canonical, Bool.and_eq_true] at h
+      obtain ⟨⟨hx, hy⟩, _⟩ := h
+      have ihx' := ihx hx
+      have ihy' := ihy hy
+      simp only [Tree.swap]
+      split
+      all_goals simp only [Tree.leaves, ihx', ihy', Nat.add_comm]
+
+def Raw.leaves (r : Raw) : Nat := r.val.leaves
+
+theorem Raw.swap_leaves (r : Raw) : (Raw.swap r).leaves = r.leaves :=
+  Tree.swap_leaves r.val r.property
+
+end E213.Firmware
+
+
+namespace E213.Firmware
+
+-- ═══ fold = depth / leaves bridges (Meta layer 에서 사용) ═══
+
+private theorem Tree.fold_eq_depth : ∀ t : Tree,
+    Tree.fold 0 0 (fun a b => 1 + max a b) t = t.depth := by
+  intro t
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash x y ihx ihy =>
+      show (1 + max (Tree.fold 0 0 _ x) (Tree.fold 0 0 _ y))
+           = 1 + max x.depth y.depth
+      rw [ihx, ihy]
+
+theorem Raw.fold_eq_depth (r : Raw) :
+    Raw.fold 0 0 (fun a b => 1 + max a b) r = r.depth :=
+  Tree.fold_eq_depth r.val
+
+private theorem Tree.fold_eq_leaves : ∀ t : Tree,
+    Tree.fold 1 1 (· + ·) t = t.leaves := by
+  intro t
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash x y ihx ihy =>
+      show (Tree.fold 1 1 _ x + Tree.fold 1 1 _ y) = x.leaves + y.leaves
+      rw [ihx, ihy]
+
+theorem Raw.fold_eq_leaves (r : Raw) :
+    Raw.fold 1 1 (· + ·) r = r.leaves :=
+  Tree.fold_eq_leaves r.val
+
+end E213.Firmware
+
+
+namespace E213.Firmware
+
+-- ═══ Signed lens-style identity (Meta 에서 사용) ═══
+
+/-- Tree-level: `fold 1 -1 (+) (swap t) = -fold 1 -1 (+) t` on
+    canonical `t`. The signed Lens realises swap as negation. -/
+private theorem Tree.fold_signed_swap :
+    ∀ t : Tree, t.canonical = true →
+    Tree.fold (1 : Int) (-1) (· + ·) (Tree.swap t)
+      = - Tree.fold (1 : Int) (-1) (· + ·) t := by
+  intro t h
+  induction t with
+  | a => decide
+  | b => decide
+  | slash x y ihx ihy =>
+      simp only [Tree.canonical, Bool.and_eq_true] at h
+      obtain ⟨⟨hx, hy⟩, hcmp_raw⟩ := h
+      have hcmp_lt : Tree.cmp x y = .lt := by
+        match hm : Tree.cmp x y with
+        | .lt => rfl
+        | .eq => rw [hm] at hcmp_raw; cases hcmp_raw
+        | .gt => rw [hm] at hcmp_raw; cases hcmp_raw
+      have ihx' := ihx hx
+      have ihy' := ihy hy
+      simp only [Tree.swap]
+      split <;> rename_i hcmp_inner
+      · -- .lt branch
+        show Tree.fold _ _ _ (Tree.swap x) + Tree.fold _ _ _ (Tree.swap y)
+             = -(Tree.fold _ _ _ x + Tree.fold _ _ _ y)
+        rw [ihx', ihy']; ring
+      · -- .gt branch
+        show Tree.fold _ _ _ (Tree.swap y) + Tree.fold _ _ _ (Tree.swap x)
+             = -(Tree.fold _ _ _ x + Tree.fold _ _ _ y)
+        rw [ihx', ihy']; ring
+      · -- .eq branch is unreachable on canonical input
+        exfalso
+        have hsxy : Tree.swap x = Tree.swap y :=
+          (Tree.cmp_eq_iff _ _).mp hcmp_inner
+        have hxy : x = y := by
+          have := congrArg Tree.swap hsxy
+          rw [Tree.swap_swap x hx, Tree.swap_swap y hy] at this
+          exact this
+        rw [hxy] at hcmp_lt
+        have := (Tree.cmp_eq_iff y y).mpr rfl
+        rw [this] at hcmp_lt
+        cases hcmp_lt
+
+theorem Raw.fold_signed_swap (r : Raw) :
+    Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap r)
+      = - Raw.fold (1 : Int) (-1) (· + ·) r :=
+  Tree.fold_signed_swap r.val r.property
+
+end E213.Firmware

@@ -178,21 +178,29 @@ with `φ(slash x y h) = slash(φx)(φy)h'` and
 `(φa, φb) ∈ {(a, b), (b, a)}`. Such `φ` is fixed by its action on
 the base tokens.
 
-**Theorem 2.5 (Automorphism group).** `Aut(Raw) ≅ ℤ/2`; its
-nontrivial element is `swap`.
+**Theorem 2.5 (Automorphism structure).** `swap` is the unique
+nontrivial Raw-automorphism; together with the identity, the set
+`{id, swap}` forms a two-element group under composition.
 
-*Proof.* Two base permutations (identity, swap), each extending
-uniquely to a Raw-endomorphism by Def 2.4. Composition matches
-`S_2 ≅ ℤ/2`. ∎
+*Proof.* By Def 2.4 an automorphism is determined by a base
+permutation; there are exactly two. Involutivity (Thm 2.2) and
+`swap ≠ id` ensure the two elements are distinct. Composition
+closes the set and matches symmetric-group composition on two
+letters. ∎
+
+**Numbers-free statement.** The theorem above speaks of "two
+elements" (identity and swap) and "a two-element group". We do
+not yet measure Raw at any numerical level; "two" here counts
+*Raw-endomorphisms we just constructed*, not Raw terms. Naming
+this group `ℤ/2` is convenient shorthand — the structure is
+Raw-intrinsic and requires no Lens. The name `ℤ/2` acquires its
+quantitative content (order-2 cyclic group) once a Lens is
+chosen (§3–§4).
 
 **Lean coverage.** `Raw.swap_swap`, `Raw.swap_comp_swap`, and
-`Raw.swap_ne_id` formalise the ℤ/2 structure on `{id, swap}`.
-The full classification is prose-only.
-
-Note: §2 still introduces no number and no measurement. "`ℤ/2`"
-here names a two-element group, whose elements are the two
-Raw-endomorphisms we just constructed; the integer `2` is not
-yet a measured quantity of Raw.
+`Raw.swap_ne_id` together formalise the algebraic content of
+Thm 2.5 on `{id, swap}`. The full classification "every
+Raw-automorphism is `id` or `swap`" is prose-only.
 
 ---
 
@@ -285,6 +293,55 @@ forces commutativity on the image. (Lean:
 `E213.Firmware.Raw.fold_slash`.) In particular, (R2) uniformity
 forces `combine` to be commutative whenever it is extended across
 the axiom's symmetric reading.
+
+### 3.6 Lens catalogue — free choice, divergent mathematics
+
+Any Lens whose combine satisfies (R2)'s uniformity is admissible;
+different choices extract different mathematics from the same
+Raw. The Lens's visibility of `swap` partitions the catalogue:
+
+**Swap-blind lenses** identify `base_a = base_b`; consequently
+`L.view (swap r) = L.view r` for every `r`. The ℤ/2 symmetry
+of §2 disappears in the image. Examples:
+
+- `Lens.depth : Raw → ℕ` with `⟨0, 0, (a, b) ↦ 1 + max a b⟩` —
+  a height function. (Lean: `E213.Meta.LensCatalog.
+  depth_swap_invariant`.)
+- `Lens.leaves : Raw → ℕ` with `⟨1, 1, +⟩` — a size function.
+  (Lean: `E213.Meta.LensCatalog.leaves_swap_invariant`.)
+
+Extracting Peano arithmetic or any swap-agnostic counting theory
+from Raw proceeds through lenses of this kind; the Lens is a
+functor from Raw's bootstrapping into ℕ-valued measurement.
+
+**Swap-visible lenses** have `base_a ≠ base_b`; `swap` then acts
+nontrivially on the image. The canonical example within Lean 4
+core (without complex numbers) is the ℤ-valued "signed" Lens
+`⟨1, -1, +⟩`, under which `swap` becomes negation:
+
+```
+  signedLens.view (swap r) = - signedLens.view r
+```
+
+(Lean: `E213.Meta.LensCatalog.signedLens`, `signed_swap_neg`.)
+
+This is the integer-level analogue of the ℂ-Lens of §4, where
+`swap` lifts to complex conjugation.
+
+**Characterisation.** The swap-blind / swap-visible distinction
+corresponds exactly to the base values:
+
+```
+  (∀ r, L.view (swap r) = L.view r)  ⟹  L.base_a = L.base_b.
+```
+
+(Lean: `E213.Meta.LensCatalog.swap_invariant_base_eq`.)
+
+The free choice of Lens is thus the free choice of *which
+aspects of Raw to resolve*: a single-valued base erases the
+axiomatic `a ↔ b` asymmetry, while a two-valued base preserves
+it. §4 asks the sharp version of this choice: which Lens sees
+`Raw` as completely as the axiom permits?
 
 ---
 
