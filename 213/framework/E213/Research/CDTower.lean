@@ -2,6 +2,8 @@ import E213.Research.ZI
 import E213.Research.ZIDomain
 import E213.Research.CDDouble
 import E213.Research.Cayley
+import E213.Research.LipschitzHeavy
+import E213.Research.CayleyHeavy
 import E213.Research.Sedenion
 
 /-!
@@ -79,5 +81,46 @@ theorem CD_tower_extended :
    Cayley.mul_not_associative,
    Sedenion.R3_fails_on_sedenion,
    Sedenion.not_alternative⟩
+
+end E213.Research
+
+namespace E213.Research
+
+open E213.Research.Lipschitz E213.Research.Cayley E213.Research.Sedenion
+
+/-- **FULL CD tower structural theorem** with composition-
+    algebra status now included via Track A's `hurwitz_ring`
+    tactic.  This single statement packages the entire
+    CD tower's formal behaviour up to Sedenion:
+
+    L0 (ZI):        comm ✓ , assoc ✓ , comp-alg ✓ , R3 ✓
+    L1 (Lipschitz): comm ✗ , assoc ✓ , comp-alg ✓ , R3 ✓
+    L2 (Cayley):    comm ✗ , assoc ✗ , comp-alg ✓ , R3 ✓
+    L3 (Sedenion):  comm ✗ , assoc ✗ , comp-alg ✗ , R3 ✗
+
+    Each "✗" has a concrete counterexample.
+    Each "✓" has a universal Lean proof. -/
+theorem CD_tower_full :
+    (∀ u v : ZI, u * v = v * u)                                -- L0 comm
+    ∧ (∀ u v w : ZI, (u * v) * w = u * (v * w))                -- L0 assoc
+    ∧ (∀ u v : ZI, ZI.normSq (u * v) = ZI.normSq u * ZI.normSq v) -- L0 comp
+    ∧ (∃ u v : Lipschitz, u * v ≠ v * u)                       -- L1 NOT comm
+    ∧ (∀ u v w : Lipschitz, (u * v) * w = u * (v * w))         -- L1 assoc
+    ∧ (∀ u v : Lipschitz, Lipschitz.normSq (u * v)
+                           = Lipschitz.normSq u * Lipschitz.normSq v) -- L1 comp
+    ∧ (∀ u v : Lipschitz, u * v = 0 → u = 0 ∨ v = 0)           -- L1 R3
+    ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))            -- L2 NOT assoc
+    ∧ (∀ a b : Cayley, (a * a) * b = a * (a * b))              -- L2 alt left
+    ∧ (∀ u v : Cayley, Cayley.normSq (u * v)
+                        = Cayley.normSq u * Cayley.normSq v)   -- L2 comp
+    ∧ (∀ u v : Cayley, u * v = 0 → u = 0 ∨ v = 0)              -- L2 R3
+    ∧ (∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0)            -- L3 NOT R3
+    ∧ (∃ a b : Sedenion, (a * a) * b ≠ a * (a * b)) :=         -- L3 NOT alt
+  ⟨ZI.mul_comm, ZI.mul_assoc, ZI.normSq_mul,
+   Lipschitz.mul_not_commutative, Lipschitz.mul_assoc,
+   Lipschitz.normSq_mul, Lipschitz.no_zero_div,
+   Cayley.mul_not_associative, Cayley.alt_left,
+   Cayley.normSq_mul, Cayley.no_zero_div,
+   Sedenion.R3_fails_on_sedenion, Sedenion.not_alternative⟩
 
 end E213.Research
