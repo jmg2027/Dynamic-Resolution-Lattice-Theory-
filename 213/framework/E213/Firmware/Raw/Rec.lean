@@ -2,14 +2,20 @@ import E213.Firmware.Raw.Swap
 import E213.Firmware.Raw.Slash
 
 /-!
-# Firmware.Raw.Rec: `@[eliminator] Raw.rec`
+# Firmware.Raw.Rec: `@[elab_as_elim] Raw.rec`
 
 Custom induction principle for Raw that destructures a canonical
 Raw term through three cases — `a`, `b`, `slash x y h ihx ihy` —
 with no Tree-level exposure required at use-sites.
 
 Introduced in Phase C3.  Raw-level induction is the intended
-way to reason about Raw values in Hypervisor / OS / App.
+way to reason about Raw values in Hypervisor / OS / App; client
+code writes `induction r using Raw.rec with | a | b | slash …`.
+
+Note: Lean 4 core has `@[elab_as_elim]` but not `@[eliminator]`
+(the latter is Mathlib only); `using Raw.rec` is therefore
+required — plain `induction r` falls back to the default
+`Subtype.mk` eliminator.
 -/
 
 namespace E213.Firmware
