@@ -1,5 +1,6 @@
 import E213.Firmware.Raw
 import E213.Infinity.Pair
+import E213.Infinity.Countable
 import E213.Prelude
 
 /-!

@@ -57,6 +57,7 @@ import E213.Infinity.Countable
 import E213.Infinity.Pair
 import E213.Infinity.Godel
 import E213.Infinity.Tower
+import E213.Infinity.LensCardinality
 
 -- Research (r5-critique)
 import E213.Research.IntHelpers
@@ -74,4 +75,6 @@ import E213.Research.ZSqrt
 import E213.Research.ZSqrtDomain
 import E213.Research.ZSqrtInstance
 import E213.Research.ZSqrtProduct
+import E213.Research.ZIArith
+import E213.Research.CDDouble
 import E213.Research.R5Vacuity
