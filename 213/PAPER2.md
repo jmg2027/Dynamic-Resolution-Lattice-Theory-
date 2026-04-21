@@ -46,6 +46,8 @@ identifies five structural constraints R1–R5 on L:
 - **R3** — non-vanishing: `combine` has no zero divisors.
 - **R4** — swap matches exactly one nontrivial `ℝ`-algebra
   automorphism `conj : α → α` with `conj² = id`, `conj ≠ id`.
+  (Paper 1's R4 presupposes the codomain carries `ℝ`-algebra
+  structure; we return to this point in §3 and §5.)
 - **R5** — reception of infinite structural branches: every
   non-terminating Raw trajectory has a unique state in `α`.
 
@@ -94,17 +96,21 @@ supplied by the three-clause axiom.
 
 Within `inductive Raw` (the Lean 4 encoding of the axiom),
 R5b's universal reduces to `∀ _ ∈ ∅, P` — vacuously true.
-This is formalised as:
+The underlying observation (every Raw term has a determined
+Lens image) is formalised as:
 
 ```lean
-theorem E213.Research.R5Vacuity.foldTotality_vacuous :
-    ∀ L : Lens α, ∀ r : Raw, ∃ a : α, L.view r = a :=
-  fun L r => ⟨L.view r, rfl⟩
+theorem E213.Research.R5Vacuity.foldTotality
+    {α : Type} (L : Lens α) (r : Raw) : ∃ a : α, L.view r = a :=
+  ⟨L.view r, rfl⟩
 ```
 
-In other words, R5b **cannot be stated non-trivially** over
-the axiom's type. Stating it requires importing a coinductive
-/ classical ambient.
+and the corollary `foldTotality_vacuous : ∀ L r, ∃ a, …`
+delegates directly to it.  The proof term is trivial because
+`L.view` is total by construction (a catamorphism on an
+inductive type).  In other words, R5b **cannot be stated
+non-trivially** over the axiom's type: stating it requires
+importing a coinductive / classical ambient.
 
 ### 2.3 Where R5b enters Paper 1 §4
 
@@ -138,13 +144,23 @@ a Lens (R5a holds) without containing `ℝ`.
 
 If R5b is the sole source of the `ℝ`-algebra premise, then
 removing it should admit codomains that are not
-`ℝ`-algebras.  We exhibit four families.
+`ℝ`-algebras.  We exhibit three concrete witnesses plus a
+parametric family covering a countable infinity of further
+examples.
+
+The R4 condition used here is Paper 1 R4 *with the
+`ℝ`-algebra premise stripped*: our `R4Codomain` class
+(`E213.Meta.SelfRecognising`) requires `conj` to be a ring
+automorphism of order 2 (involution, non-identity,
+distributing over `combine`, matching `Raw.swap`) without
+demanding that `α` be an `ℝ`-algebra.  This is the weakest
+R4 that survives removal of R5b.
 
 ### 3.1 Three concrete witnesses
 
 Each is a `structure … where re : Int; im : Int`, with
 custom `mul`, `conj`, `normSq`, satisfying R1–R4 via a
-`R4Codomain` instance in `E213.Meta.SelfRecognising`.
+`R4Codomain` instance.
 
 | Codomain | Norm | Instance |
 |---|---|---|
@@ -193,8 +209,11 @@ on top of Lean 4 core (no Mathlib):
   synthesises the 13-field `R4Codomain` instance from a
   naming-convention spec.
 - `E213.Research.IntHelpers` — shared `a·a` lemmas.
-- `E213.Meta.SelfRecognising` — 4-tier typeclass chain
-  `R12Codomain → R3Codomain → R4Codomain`.
+- `E213.Meta.SelfRecognising` — 3-tier typeclass chain
+  `R12Codomain → R3Codomain → R4Codomain` (each extending
+  the previous via Lean 4 `extends`), with generic
+  `specLens_nonVanishing` (R3) and `specLens_swapMatching`
+  (R4) theorems proved once per tier.
 
 Each new instance is two ingredients: a domain file (~50–95
 lines of arithmetic proofs, mostly `quad_norm`) and a
@@ -386,8 +405,9 @@ This work was developed in dialogue with Claude (Anthropic).
 All mathematical content was verified by the author. The
 Lean 4 formalisation of the counterexamples
 (`E213.Research.{ZI,Z2,ZOmega,ZSqrt}*` modules + the
-`E213.Tactic.{QuadNorm,DeriveR4Codomain,IntSquare}` custom
-tactics) is by the author, pure Lean 4 core (no Mathlib),
+`E213.Tactic.{QuadNorm,DeriveR4Codomain,IntSquare,VerifyR4}`
+custom tactics + the `E213.Meta.SelfRecognising` typeclass
+hierarchy) is by the author, pure Lean 4 core (no Mathlib),
 0 `sorry`, 0 axioms beyond Paper 1's three clauses.
 
 ## Code availability
@@ -401,8 +421,18 @@ No external dependencies beyond Lean 4 core (v4.16.0).
 
 ## Cross-references
 
-- Paper 1: `213/PAPER.md`
-- Research notes: `213/research/r5-critique/notes/*`
-- Lean artifacts: `213/framework/E213/Research/*`,
-  `213/framework/E213/Tactic/*`,
-  `213/framework/E213/Meta/SelfRecognising.lean`
+- **Companion paper:** `213/PAPER.md` (Paper 1).
+- **Research notes:** `213/research/r5-critique/notes/` —
+  `00_research_question.md`, `01_zi_counterexample.md`,
+  `02_r5_vacuity.md`, `03_e4_restoring_c.md`,
+  `04_refactor_plan.md`, `99_paper2_outline.md`.
+- **Lean counterexamples:**
+  `213/framework/E213/Research/{ZI,ZIDomain,ZIInstance,
+  ZSqrt2,ZSqrt2Domain,Z2Instance,ZOmega,ZOmegaDomain,
+  ZOmegaInstance,ZSqrt,ZSqrtDomain,ZSqrtInstance,
+  R5Vacuity,IntHelpers}.lean`.
+- **Lean tactics:** `213/framework/E213/Tactic/{QuadNorm,
+  IntSquare,DeriveR4Codomain,VerifyR4}.lean` (+ tests
+  under `Tactic/Test/`).
+- **Lean spec class:**
+  `213/framework/E213/Meta/SelfRecognising.lean`.
