@@ -49,3 +49,31 @@ theorem tower_2_3 : ¬ ∃ f : L2 → L3, Function.Surjective f :=
   cantor_general
 
 end E213.Infinity
+
+namespace E213.Infinity
+
+open E213.Firmware
+
+/-- Layer-4 abbreviation. -/
+abbrev L4 : Type := L3 → Bool
+
+/-- Layer-5 abbreviation. -/
+abbrev L5 : Type := L4 → Bool
+
+/-- **Layer 3 → Layer 4**: fourth rung. -/
+theorem tower_3_4 : ¬ ∃ f : L3 → L4, Function.Surjective f :=
+  cantor_general
+
+/-- **Layer 4 → Layer 5**: fifth rung. -/
+theorem tower_4_5 : ¬ ∃ f : L4 → L5, Function.Surjective f :=
+  cantor_general
+
+/-- **Generic recursion**: the Cantor tower is unbounded.
+    For every `X : Type`, the function space `X → Bool`
+    has no surjection from `X`.  Since each layer
+    `L(k+1) = L(k) → Bool`, this iterates indefinitely. -/
+theorem tower_unbounded {X : Type} :
+    ¬ ∃ f : X → (X → Bool), Function.Surjective f :=
+  cantor_general
+
+end E213.Infinity
