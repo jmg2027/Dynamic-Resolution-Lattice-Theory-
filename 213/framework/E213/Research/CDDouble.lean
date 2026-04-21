@@ -309,3 +309,42 @@ theorem assoc_I_I_J : (I' * I') * J = I' * (I' * J) := by decide
 theorem assoc_J_I_J : (J * I') * J = J * (I' * J) := by decide
 
 end E213.Research.Lipschitz
+
+namespace E213.Research.Lipschitz
+
+open E213.Research.ZI
+
+/-- Lipschitz norm-squared: `u.re.normSq + u.im.normSq`. -/
+def normSq (u : Lipschitz) : Int := u.re.normSq + u.im.normSq
+
+/-- `|1|² = 1` (with `1 = ⟨⟨1,0⟩, 0⟩`). -/
+theorem normSq_one : normSq ⟨⟨1, 0⟩, 0⟩ = 1 := by decide
+
+/-- `|i|² = 1`. -/
+theorem normSq_I : normSq I' = 1 := by decide
+
+/-- `|j|² = 1`. -/
+theorem normSq_J : normSq J = 1 := by decide
+
+/-- `|i·j|² = |k|² = 1`. -/
+theorem normSq_K : normSq (I' * J) = 1 := by decide
+
+/-- `|1+i|² = 2`. -/
+theorem normSq_one_plus_I : normSq (⟨⟨1, 0⟩, 0⟩ + I') = 2 := by decide
+
+/-- `|-u|² = |u|²`. -/
+theorem normSq_neg (u : Lipschitz) : normSq (-u) = normSq u := by
+  show (-u).re.normSq + (-u).im.normSq = u.re.normSq + u.im.normSq
+  unfold ZI.normSq
+  show (-u.re).re * (-u.re).re + (-u.re).im * (-u.re).im +
+       ((-u.im).re * (-u.im).re + (-u.im).im * (-u.im).im)
+     = u.re.re * u.re.re + u.re.im * u.re.im +
+       (u.im.re * u.im.re + u.im.im * u.im.im)
+  rw [show (-u.re).re = -u.re.re from rfl,
+      show (-u.re).im = -u.re.im from rfl,
+      show (-u.im).re = -u.im.re from rfl,
+      show (-u.im).im = -u.im.im from rfl,
+      Int.neg_mul_neg, Int.neg_mul_neg,
+      Int.neg_mul_neg, Int.neg_mul_neg]
+
+end E213.Research.Lipschitz
