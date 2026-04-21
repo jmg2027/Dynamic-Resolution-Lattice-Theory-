@@ -368,3 +368,11 @@ theorem normSq_mul_sum_basis :
       = normSq (⟨⟨1, 0⟩, 0⟩ + I') * normSq J := by decide
 
 end E213.Research.Lipschitz
+
+/-
+**Lipschitz universal norm multiplicativity** `|uv|² =
+|u|² · |v|²` (Hurwitz identity) is an 8-variable Int-
+polynomial identity with ~100 terms on each side.  Beyond
+`quad_norm`'s current 2-factor normalisation + omega stack.
+A dedicated tactic extension is deferred.
+-/
