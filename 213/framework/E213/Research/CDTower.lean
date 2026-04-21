@@ -48,3 +48,36 @@ theorem CD_tower_drops :
    Sedenion.R3_fails_on_sedenion⟩
 
 end E213.Research
+
+namespace E213.Research
+
+open E213.Research.Lipschitz E213.Research.Cayley E213.Research.Sedenion
+
+/-- **Extended CD tower drop pattern** — adds the
+    alternativity axiom drop at layer 3.  Shows the full
+    structural ladder:
+
+    L0: R2 ✓, R3 ✓, assoc ✓, alt ✓ — ZI
+    L1: R2 ✗, R3 ✓, assoc ✓, alt ✓ — Lipschitz
+    L2: R2 ✗, R3 ✓, assoc ✗, alt ✓ — Cayley
+    L3: R2 ✗, R3 ✗, assoc ✗, alt ✗ — Sedenion
+
+    Each layer drops exactly one axiom class from above. -/
+theorem CD_tower_extended :
+    -- L0 is commutative
+    (∀ u v : ZI, u * v = v * u)
+    -- L1 is non-commutative
+    ∧ (∃ u v : Lipschitz, u * v ≠ v * u)
+    -- L2 is non-associative
+    ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))
+    -- L3 has zero divisors
+    ∧ (∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0)
+    -- L3 is non-alternative
+    ∧ (∃ a b : Sedenion, (a * a) * b ≠ a * (a * b)) :=
+  ⟨ZI.mul_comm,
+   Lipschitz.mul_not_commutative,
+   Cayley.mul_not_associative,
+   Sedenion.R3_fails_on_sedenion,
+   Sedenion.not_alternative⟩
+
+end E213.Research
