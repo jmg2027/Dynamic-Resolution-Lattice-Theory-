@@ -20,7 +20,7 @@ from the axiom alone.
 (Former versions of this file appealed to "Raw's rule `x ≠ y`" as a
 distinctness source. Since the axiom provides no equality or
 inequality primitive on objects, `x ≠ y` is no longer part of Raw's
-inductive structure (see `Clean213.lean`), and that appeal is retired.)
+inductive structure, and that appeal is retired.)
 -/
 
 namespace E213.OS.Alive

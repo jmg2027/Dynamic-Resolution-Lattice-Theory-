@@ -1,114 +1,181 @@
-# Session Handoff — 2026-04-20
+# Session Handoff — 2026-04-21
 
-## Current branch
-`claude/review-simplex-swap-y2z6O` — all recent 213 work pushed.
+## Branch
+`claude/polish-paper-submission-EilC5` (pushed, up to date with origin)
 
-## Last session summary (R1-R5 + Lens catalogue)
+## What Was Done This Session
 
-### 213 paper: final logical structure
+### 1. Phase C3 — `Raw.rec` custom eliminator (commit `8457ae9`)
+- Added `@[elab_as_elim] Raw.rec` (Lean 4 core; not Mathlib's
+  `@[eliminator]`).
+- Internal `Raw.recAux` recurses on the underlying `Tree`, re-assembling
+  `Raw.slash x y h` at the slash branch — consumers never touch `Tree`.
+- Client syntax: `induction r using Raw.rec with | a | b | slash x y h ihx ihy`.
 
-**Axiom** (3 clauses) →
-**System R** (생성 공간, R-internal 규칙 1-4) →
-**System O** (관찰 시스템, Cond 1-4) →
-**`ℂ` 유일** (Cond 1,2,4 → ℝ / +Cond 3 → ℂ) →
-**post-`ℂ` observations**: `(2, 3, 5)` + `(3, 2)` partition.
+### 2. Phase D — Split `Raw.lean` for incremental builds (`d7d3deb`, `9e49bdc`)
+- Monolithic 577-line `Firmware/Raw.lean` (~60 min full rebuild) split into
+  **9 topical sub-modules** under `Firmware/Raw/` (~seconds per module).
+- `Tree` scaffolding moved from file-local `private` into sub-namespace
+  `E213.Firmware.Internal` — accessible across Firmware sub-files but
+  hidden from `open E213.Firmware`.
+- Case parameters renamed `a_case/b_case/slash_case → a/b/slash` for
+  cleaner `induction … using Raw.rec with | a | b | slash …` syntax.
 
-**Paper (`213/PAPER.md`, ~800 lines):**
-- §1 Firmware: Raw type (free commutative magma, no fixed points)
-- §2 Symmetry of Raw: `Aut(Raw) ≅ ℤ/2` (numbers-free)
-- §3 Self-recognition: System R syntax + System O absolute
-  conditions 1-4 (R-internal vocabulary only)
-- §4 `ℂ` uniqueness: Cond 1+2+4 → ℝ, +Cond 3 → ℂ
-- §5 Structure under ℂ: atoms, n=5, Pair Forcing, (3,2) partition
-- §6 Block structure + S_3 × S_2 invariance
-- §7 Signature meta-confirmation
-- Conclusion: "No stipulations" — 모든 조건이 structural / R-internal
-  또는 post-ℂ observation.
+### 3. BoolLens — swap-blind + R4-failing counter-examples (`5901eed`)
+- `boolAndLens`, `boolOrLens` — swap-blind (both bases `true`; view is
+  constantly `true`).
+- `boolXorLens` — swap-visible (`a=true, b=false, combine=xor`) but
+  **formally fails R4**: `boolXorLens_not_homomorphism` proves
+  `¬ ∀ u v, !(xor u v) = xor (!u) (!v)`.
+- Reinforces paper's claim that R4 (homomorphism + matching involution)
+  is a strong restriction — swap-visibility alone is not enough.
 
-### 213 Lean framework (5-layer, 0 sorry)
+### 4. Prelude shim (`5901eed`)
+- New `E213/Prelude.lean` defines `Function.Injective/Surjective/Bijective`.
+  Lean 4 core does NOT provide these; old monolithic `Raw.lean` compiled
+  against a stale cache, and Phase D's split exposed the missing dep.
+
+### 5. Phase C1 — `quad_extension D` parametric macro (`aa0ed89`)
+- Command-level macro: `quad_extension 11` registers
+  `R4Codomain (ZSqrt 11)` in one line.
+- Rejects `D = 0` with informative error (`ℤ[√0] = ℤ` has no nontrivial
+  involution so R4 fails).
+- Pure convenience wrapper around existing parametric `ZSqrt.R4_of_pos`.
+
+### 6. Three latent bugs surfaced by C1 and fixed (`85a2eb1`)
+- **VerifyR4**: `mkApp (mkConst R4Codomain) α` left `[Zero α]`
+  instance-binder unfilled → `synthInstance?` silently failed on
+  parametric types.  Fix: explicit `Zero α` synth + `mkAppOptM`.
+- **DeriveR4Codomain hygiene**: quoted `(instance : E213.Meta.R4Codomain $α)`
+  triggered `R4Codomain✝` hygienic renaming.  Fix: `mkIdent` bypass.
+- **DeriveR4Codomain name**: `` `conj ++ `I `` produced hierarchical
+  `conj.I` instead of flat `conj_I`.  Fix: `Name.mkSimple s!"conj_{…}"`.
+
+### 7. Documentation audit + refresh (`ea6a33c`, `b1d5a70`)
+- Explore-agent audit of `PAPER.md` + `PAPER2.md` + `research/r5-critique/`
+  + `README.md` + all code comments.
+- **Papers verified clean** — all mathematical claims accurate against
+  current code.
+- Fixed 5 stale doc items: README directory tree, removed `Clean213.lean`
+  references (README + `OS/Alive.lean`), corrected `Rec.lean` header
+  (`@[elab_as_elim]`, not `@[eliminator]`).
+
+## R4Codomain Witnesses (0 sorry, 0 axiom, `lake build` ✓)
+
+| Witness | Source | Method |
+|--------|--------|--------|
+| `ZI` (Gaussian) | static | `derive_r4_codomain ZI with_bases I negI` |
+| `Z2` (ℤ[√-2]) | static | `derive_r4_codomain Z2 with_bases I negI` |
+| `ZOmega` (Eisenstein) | static | `derive_r4_codomain ZOmega with_bases Omega Omega2` |
+| `ZSqrt 3` | parametric | `ZSqrt.R4_of_pos (by decide)` |
+| `ZSqrt 5` | parametric | `ZSqrt.R4_of_pos (by decide)` |
+| `ZSqrt 7` | parametric | `ZSqrt.R4_of_pos (by decide)` |
+| `ZSqrt 11` | macro | `quad_extension 11` |
+| `ZSqrt 13` | macro | `quad_extension 13` |
+| `ZSqrt 17` | macro | `quad_extension 17` |
+
+All 9 pass `#verify_r4` after the C2 + bugfix stack.  Arbitrary
+`ZSqrt N` for positive `N : Nat` is a one-line `quad_extension N`
+away.
+
+## Phases — all complete
+
+- **Phase A** ✓ IntHelpers + `quad_norm` macro
+- **Phase B** ✓ `derive_r4_codomain` + `int_square`
+- **Phase C variant** ✓ Parametric `ZSqrt D` family
+- **Phase C1** ✓ `quad_extension D` macro
+- **Phase C2** ✓ `#verify_r4` diagnostic
+- **Phase C3** ✓ `@[elab_as_elim] Raw.rec`
+- **Phase D** ✓ Raw.lean split (9 sub-modules, incremental)
+
+## Open Problems (priority order)
+
+### 1. Lens catalogue breadth
+Only Bool + Int + swap-blind (depth/leaves) are catalogued.
+Candidates open: `PathLens` (string/list), `MatrixLens`
+(non-commutative counter-example), ℤ/2 parity lens (formalise
+R4 failure), `QuaternionLens` (Cond 3 failure as SO(3)
+counter-example).  Follow the BoolLens pattern; new file per
+Lens in `Meta/`.
+
+### 2. Paper 2 finalisation
+`213/PAPER2.md` is 427 lines, rigor-passed (commit `825eb2d`),
+but still markdown.  Arxiv submission would need tex conversion
++ bibliography + author info.  On hold pending user decision.
+
+### 3. `PAPER.md` §3.6 (Lens catalogue) update
+Add table row for `boolAndLens/boolOrLens` (swap-blind) and
+`boolXorLens` (R4-fail) with `boolXorLens_not_homomorphism` as
+the Lean witness.  Minor.
+
+### 4. Parametric extensions beyond ℤ[√-D]
+`quad_extension` is limited to quadratic imaginary extensions.
+Biquadratic / cubic extensions deferred (Phase C1+ speculative).
+
+## Unresolved from This Session
+
+Nothing abandoned.  The only dead-end was my first attempt at the
+`#verify_r4` fix (`Meta.mkAppM \`Zero` alone) which left the
+instance-binder underspecified — documented as part of the third
+bugfix in commit `85a2eb1`.
+
+## Next Work
+
+Framework + paper both in stable landed state.  User-directed
+priorities (no single obvious next step):
+- Broadening: Lens catalogue (Open Problem #1).
+- Submitting: Paper 2 finalisation (Open Problem #2).
+- Polishing: PAPER.md §3.6 refresh (Open Problem #3).
+
+## File Map (this session arc)
+
+### New files
+```
+213/framework/E213/Prelude.lean                         ← Function shim
+213/framework/E213/Firmware/Raw/Core.lean               ← Tree + Raw
+213/framework/E213/Firmware/Raw/Cmp.lean                ← cmp lemmas
+213/framework/E213/Firmware/Raw/Slash.lean              ← slash + depth
+213/framework/E213/Firmware/Raw/Fold.lean               ← catamorphism
+213/framework/E213/Firmware/Raw/Swap.lean               ← swap + helpers
+213/framework/E213/Firmware/Raw/Levels.lean             ← swap_{depth,leaves}
+213/framework/E213/Firmware/Raw/Signed.lean             ← fold_signed_swap
+213/framework/E213/Firmware/Raw/Hom.lean                ← fold_swap_hom
+213/framework/E213/Firmware/Raw/Rec.lean                ← Raw.rec eliminator
+213/framework/E213/Meta/BoolLens.lean                   ← AND/OR + XOR(R4-fail)
+213/framework/E213/Meta/RawInductionDemo.lean           ← Raw.rec test
+213/framework/E213/Tactic/QuadExtension.lean            ← quad_extension D
+213/framework/E213/Tactic/Test/QuadExtensionTest.lean   ← macro test
+```
+
+### Modified files
+```
+213/framework/E213/Firmware/Raw.lean               ← now pure re-export shim
+213/framework/E213/Firmware/RawSwap.lean           ← + import Prelude
+213/framework/E213/Meta/LensCatalog.lean           ← + import Prelude
+213/framework/E213/OS/Alive.lean                   ← Clean213 ref removed
+213/framework/E213/Tactic/DeriveR4Codomain.lean    ← hygiene + name fixes
+213/framework/E213/Tactic/VerifyR4.lean            ← Zero binder + mkAppOptM
+213/framework/E213.lean                            ← + Prelude/BoolLens/QuadExt
+213/README.md                                      ← directory tree refresh
+HANDOFF.md                                         ← (this file)
+```
+
+## Commit Policy
+
+- Author: Mingu Jeong only.  Claude in Acknowledgments.
+- All session work on `claude/polish-paper-submission-EilC5`.
+- 0 sorry, 0 axiom — enforced by `lake build` success.
+
+## Session commits (chronological)
 
 ```
-E213/
-  Firmware/Raw.lean           -- Raw canonical subtype, API
-  Hypervisor/Lens.lean        -- Lens structure + view + kernel
-  OS/*.lean                   -- Pigeonhole, ArityForcing,
-                                 NonDecomposable, Atomicity, ...
-  App/Simplex.lean            -- (3,2) partition block invariance
-  Meta/LensCatalog.lean       -- swap-blind/visible lenses,
-                                 NonVanishing/SwapMatching/
-                                 Distinguishing predicates
+8457ae9  Phase C3: @[eliminator] Raw.rec for clean Raw induction
+d7d3deb  Phase D: split Raw.lean into sub-modules
+9e49bdc  Raw.rec: rename case params to a/b/slash
+dcdb021  HANDOFF: Phase C3 + D completion (superseded by this file)
+5901eed  Lens catalogue: BoolLens + Prelude shim
+aa0ed89  Phase C1: quad_extension D parametric macro
+85a2eb1  Bugfix: #verify_r4 + derive_r4_codomain (3 latent bugs)
+ea6a33c  Docs: refresh stale claims (audit pass)
+b1d5a70  README: directory-tree + Clean213 + BoolLens fixes
 ```
-
-## 세션 시작 시 읽을 것
-
-1. **`213/PAPER.md`** — 현재 paper 의 최종 구조
-2. **`213/framework/E213/Meta/LensCatalog.lean`** — 현재 Lens 예시
-   (depth, leaves, signedLens)
-3. **`213/README.md`** — 디렉토리 트리 + layering 규칙
-4. `foundations/theory/closed_derivation_chain.md` — 15-step
-   closed chain (물리 응용 관점)
-
-## 다음 작업: Hypervisor 확장 — 렌즈 카탈로그 늘리기
-
-### 목적
-각 Lens 는 Raw 에서 서로 다른 수학적 구조를 추출.  현재 카탈로그
-소수: depth, leaves (swap-blind), signedLens (swap-visible).
-**Lens 를 더 추가해서 "어떤 lens 가 어떤 수학을 만드는지"
-스펙트럼 명시화.**
-
-### 후보 Lens
-
-1. **Bool Lens** — α = Bool, combine = AND / OR / XOR
-   - 각각이 어떤 논리 체계 (propositional logic fragment) 추출?
-   - XOR: swap ↔ XOR 1, swap-visible as ℤ/2-valued
-
-2. **Natural Lens 확장** — depth, leaves 외
-   - 분기 수 counter, 특정 패턴 counter
-   - PA 의 다른 fragment 와의 관계
-
-3. **List/Multiset Lens** — α = List Raw, combine = concat/merge
-   - Raw term → 구성 요소 multiset
-   - quasi-ZF-style set theory emerge?
-
-4. **Path Lens** — α = String / Path, combine = 경로 기록
-   - Tree-logic / modal-logic fragment
-
-5. **Non-commutative Lens** — α = 2×2 Matrix 등
-   - combine 비가환 → Cond 1 실패, non-self-recognising
-   - 대조 예시로 유효
-
-6. **Quaternion-style Lens** — Aut = SO(3)
-   - Cond 3 실패 (ℤ/2 matching 불가)
-   - ℍ 가 왜 self-recognising 이 아닌지 실례
-
-### 작업 방향
-
-각 Lens 에 대해 Lean 형식화:
-- Lens 정의
-- Cond 1-4 (NonVanishing / SwapMatching / Distinguishing +
-  commutativity 체크) 중 만족/실패
-- swap-blind / swap-visible / self-recognising 분류
-- 관련 수학적 구조 명시
-
-**디렉토리:** `E213/Meta/LensCatalog.lean` 확장 or 개별 파일
-(`E213/Meta/BoolLens.lean`, `Meta/PathLens.lean` 등).
-
-**PAPER §3.6 (Lens catalogue) 확장:**
-- 스펙트럼 표: Lens | codomain | Cond 1-4 status | extracted math
-- 자기인식 Lens (ℂ) 는 유일; 다른 Lens 는 다른 용도로 유효
-
-## 현 상태 요약
-
-- `213/framework`: `lake build` ✓, **0 sorry**, 12 Lean 파일
-- `213/PAPER.md` ~800 줄, 모든 Lean ref 유효 (19개 검증)
-- 공리 → Raw → R/O → ℂ → (2,3,5) 논리 체인 완성
-- Stipulation 0 개 (모든 조건이 structural / R-internal)
-
-## 장기 과제 (물리 응용, 별도 브랜치 후보)
-
-`foundations/notes/rework_classification.md` 참조:
-- atoms/ Z≥3: σ_recipe → fractal simplex framework rebuild
-- ch11 CKM: Wolfenstein closed form
-- ch12 ghosts: ε₀/M_i Step 13 reformulation
-- ch15 YM: mass gap as discrete hinge spectrum
-- ℂ 로부터 d=5, 4-simplex, SM+gravity 체인 일관성 재검토
