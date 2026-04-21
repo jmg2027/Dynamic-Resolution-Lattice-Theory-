@@ -1,102 +1,74 @@
-# Session Handoff — 2026-04-21
+# Session Handoff — 2026-04-21 (final)
 
 ## Branch
-`claude/math-theory-research-OFgZu` (pushed, up to date
-with origin, multiple commits).
+`claude/math-theory-research-OFgZu` (pushed, 22 commits).
 
-## Sessions completed this arc
+## Commits (chronological)
 
-1. **R1–R5 independence catalogue** (commit `f9e5724`)
-   — added 4 Lenses + 5 characterisation theorems + 1
-   R4-holds-R3-fails witness + PAPER.md §3.3 table.
+```
+f9e5724  Lens catalogue: R1-R5 independence witnesses
+8477440  infinity-as-lens: open track + session-1 results
+9afc294  Sigma2 Raw -> Nat injective (Godel numbering)
+d7f5bfc  Sigma4 / Sigma7 / CD session 1
+26b46d3  Session 2 extension: ZZ surj + BoolSpace + CD note
+1554977  ZIArith helpers (conj_add etc)
+be86afe  Lipschitz conj_mul_anti (anti-distributivity)
+adab4de  BTower signedLens non-injective
+42db083  Session 3 notes + HANDOFF
+2c29364  CDDouble layer 2 (Cayley) structure
+feb5f16  Cayley non-comm + non-assoc + generator R3
+9bd26a8  Sedenion structure
+bb09f6e  Session 4 notes
+b39b4cf  Sedenion R3 fail (Moreno zero divisor)
+da76078  Sedenion non-comm + non-assoc + M generator
+93fa7d9  Main HANDOFF refresh
+b4b9f63  Session 5 notes
+a78e137  CDTower one-theorem summary
+b1ec316  ZI.mul_assoc + Lipschitz generator R3
+1e9e39b  Lipschitz Hamilton / Q8 relations
+b49ad01  Cayley basis squaring identities
+2a6857d  Chain uncountable + R5b reframing
+9cacaaa  Tower extended to 5 rungs + generic
+047c4fa  Cayley alternativity witnesses
+```
 
-2. **infinity-as-lens track opened** (commit `8477440`)
-   — research subdir + thesis + roadmap + notes +
-   Σ3/Σ5/Σ6 Lean.
-
-3. **Σ2 Raw → ℕ injection** (commit `9afc294`)
-   — Pair + Gödel numbering, `raw_equipotent_nat`.
-
-4. **Σ4/Σ7 + CD session 1** (commit `d7f5bfc`)
-   — Lens-image cardinality data + `sigma7_*` summary +
-   Lipschitz non-commutativity witness.
-
-5. **ℤ-surj + BoolSpace + CD anti-dist deferral**
-   (commit `26b46d3`) — signedLens onto ℤ, ℕ→Raw→Bool
-   injection, CD anti-dist attempted (deferred at first).
-
-6. **ZIArith extensions** (commit `1554977`) — ZI
-   conj_add/conj_sub/neg_mul/mul_neg helpers.
-
-7. **Anti-distributivity proved!** (commit `be86afe`)
-   — `Lipschitz.conj_mul_anti` formalised after
-   adding `ZI.neg_neg`.
-
-8. **signedLens non-injective** (commit `adab4de`)
-   — explicit fiber-over-0 two-Raw witness.
-
-9. **Notes refresh** (commit `42db083`).
-
-10. **Cayley layer 2 structure** (commit `2c29364`).
-
-11. **Cayley non-commutativity + non-associativity**
-    (commit `feb5f16`) — both formal via `decide`.
-
-12. **Sedenion layer 3 structure** (commit `9bd26a8`).
-
-13. **Session 4 notes** (commit `bb09f6e`).
-
-## Formal status
+## Formal status (sessions 1–end of continuous run)
 
 0 sorry, 0 axiom, Mathlib-free, `lake build` ✓.
 
-### Σ-roadmap — all formal
-- Σ2 Raw → ℕ injective (Gödel numbering).
-- Σ3 ℕ → Raw injective (rawTower).
-- Σ4 Lens-image cardinality spectrum.
-- Σ5 Cantor on Raw.
-- Σ6 Cantor tower 3 rungs.
-- Σ7 summary theorem.
+### Σ-roadmap — complete
+Σ2 Σ3 Σ4 Σ5 Σ6 Σ7 + BTower + BoolSpace + Chain.
 
-### CD tower — all 4 layers structurally verified
-- L0 ZI : full R4Codomain.
-- L1 Lipschitz : mul, conj, conj_conj, conj_ne_id,
-  mul_not_commutative, **conj_mul_anti**.
-- L2 Cayley : mul, conj, conj_conj, conj_ne_id,
-  mul_not_commutative, **mul_not_associative**,
-  generator-nonzero + pairwise-nonzero.
-- L3 Sedenion : **R3 fails via Moreno zero divisor**
-  `(e_3 + e_10)(e_6 - e_15) = 0`.
+### CD tower — 4 layers fully structurally distinguished
+Layer 0 (ZI)        : full R4Codomain, mul_assoc.
+Layer 1 (Lipschitz) : non-comm, anti-dist, Q_8 relations.
+Layer 2 (Cayley)    : non-comm, non-assoc, alternative
+                      (basis-level), no zero div (generator-level).
+Layer 3 (Sedenion)  : non-comm, non-assoc, R3 FAILS.
 
-### Lens catalogue — R1–R5 independence
-ParityLens, PathLens, MaxLens, ZMod6Lens, ZSqrtProduct
-each fail exactly one (or two) R-conditions; PAPER.md
-§3.3 has 8-row witness table.
+One-theorem summary: `CDTower.CD_tower_drops`.
+
+### R1–R5 Lens independence
+ParityLens, PathLens, MaxLens, ZMod6Lens, ZSqrtProduct —
+each fails specific R-conditions; PAPER.md §3.3 table
+summarises; `sigma7_cardinality_is_lens_output` packages.
 
 ## Deferred
 
+- Lipschitz universal associativity (12-var polynomial,
+  needs stronger tactic).
 - Lipschitz norm multiplicativity (Hurwitz identity).
-- Lipschitz universal associativity.
-- Cayley universal R3 (octonion no-zero-div theorem).
-- CD functorial wrapping `R4Codomain A → (structure on A × A)`.
-- Meta Σ7 writeup (syntactic vs observed infinity).
+- Cayley universal alternativity (Bruck-Kleinfeld thm).
+- Sedenion alternativity failure witness.
+- Cayley universal R3 (octonion no-zero-div).
+- Generic `CDDouble` functor over R4Codomain.
 
-## Commit Policy
-
-- Author: Mingu Jeong only. Claude in Acknowledgments.
-- All session work on `claude/math-theory-research-OFgZu`.
+## Author / licence policy
+- Author: Mingu Jeong only.  Claude in Acknowledgments.
 - 0 sorry, 0 axiom — enforced by `lake build`.
 
-## Next Session Priorities
-
-User-directed.  Plausible continuations:
-1. Sedenion zero-divisor formalisation (CD layer 3 R3 fail).
-2. Lipschitz associativity / norm multiplicativity via
-   tactic extension.
-3. Reverse the r5-critique framing (R5b as Raw-internal
-   Cantor reachability rather than "classical infinity
-   smuggle") — now well-supported by Σ2+3+5+6.
-4. New tracks outside infinity-as-lens.
-
-See `213/research/infinity-as-lens/HANDOFF.md` for track-
-specific state.
+## Track-specific HANDOFFs
+- `213/research/infinity-as-lens/HANDOFF.md` — Σ series + CD.
+- `213/research/r5-critique/HANDOFF.md` — original r5 critique
+  (now superseded by `notes/12_r5b_reframing.md` in the
+  infinity-as-lens track).
