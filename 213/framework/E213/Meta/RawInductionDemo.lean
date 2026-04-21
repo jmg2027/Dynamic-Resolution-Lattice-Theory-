@@ -23,24 +23,25 @@ open E213.Firmware E213.Hypervisor
 
 /-- Demo: swap realises negation on the signed Lens,
     re-proved via `Raw.rec` (no Tree access).  Base cases
-    exercise `induction`; slash case delegates to the
-    homomorphism theorem. -/
+    exercise `induction … using Raw.rec`; slash case
+    delegates to the homomorphism theorem. -/
 theorem raw_fold_signed_swap_demo (r : Raw) :
     Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap r)
       = - Raw.fold (1 : Int) (-1) (· + ·) r := by
-  induction r with
-  | a =>
+  induction r using Raw.rec with
+  | a_case =>
       show Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap Raw.a)
          = - Raw.fold (1 : Int) (-1) (· + ·) Raw.a
       rw [Raw.swap_a, Raw.fold_a, Raw.fold_b]
-  | b =>
+  | b_case =>
       show Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap Raw.b)
          = - Raw.fold (1 : Int) (-1) (· + ·) Raw.b
-      rw [Raw.swap_b, Raw.fold_a, Raw.fold_b]
-  | slash x y h _ihx _ihy =>
+      rw [Raw.swap_b, Raw.fold_a, Raw.fold_b]; decide
+  | slash_case x y h _ihx _ihy =>
       exact Raw.fold_swap_hom (1 : Int) (-1) (· + ·) (fun n => -n)
         (by decide) (by decide)
-        (fun u v => by omega) (fun u v => by omega)
+        (fun u v => by show -(u + v) = -u + -v; omega)
+        (fun u v => by show u + v = v + u; omega)
         (Raw.slash x y h)
 
 end E213.Meta
