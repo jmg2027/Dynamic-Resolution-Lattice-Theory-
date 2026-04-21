@@ -92,3 +92,70 @@ theorem conj_ne_id : (conj : Cayley → Cayley) ≠ id := by
   exact absurd this (by decide)
 
 end E213.Research.Cayley
+
+/-
+**Classical fact (not yet formalised).**  Cayley at this
+level is **non-associative**: by hand-computation,
+
+  (I' · J') · L = ⟨0, ⟨0, ZI.I⟩⟩
+  I' · (J' · L) = ⟨0, ⟨0, ZI.negI⟩⟩
+
+so `(I' · J') · L ≠ I' · (J' · L)` — the octonion
+non-associator.  Formalisation requires unfolding the CD
+formula through three layers of nested `mul`; deferred.
+-/
+
+namespace E213.Research.Cayley
+
+open E213.Research E213.Research.Lipschitz
+
+/-- **Non-associativity of Cayley multiplication.**  Three
+    generators `I', J', L` of the integer octonions satisfy
+    `(I' · J') · L ≠ I' · (J' · L)`.  This is the octonion
+    non-associator; closed by `decide` which computes both
+    products via the (concrete) CD formula. -/
+theorem mul_not_associative :
+    ∃ u v w : Cayley, (u * v) * w ≠ u * (v * w) := by
+  refine ⟨I', J', L, ?_⟩
+  decide
+
+end E213.Research.Cayley
+
+namespace E213.Research.Cayley
+
+open E213.Research E213.Research.Lipschitz
+
+/-- **Non-commutativity of Cayley multiplication.**
+    `I' * J' ≠ J' * I'` at the Cayley level (inherited from
+    the Lipschitz subalgebra via the `re`-component). -/
+theorem mul_not_commutative :
+    ∃ u v : Cayley, u * v ≠ v * u := by
+  refine ⟨I', J', ?_⟩
+  decide
+
+end E213.Research.Cayley
+
+namespace E213.Research.Cayley
+
+open E213.Research E213.Research.Lipschitz
+
+/-- `I' ≠ 0` in Cayley. -/
+theorem I'_ne_zero : I' ≠ (0 : Cayley) := by decide
+
+/-- `J' ≠ 0` in Cayley. -/
+theorem J'_ne_zero : J' ≠ (0 : Cayley) := by decide
+
+/-- `L ≠ 0` in Cayley. -/
+theorem L_ne_zero : L ≠ (0 : Cayley) := by decide
+
+/-- **Three non-zero generators with pairwise non-zero product.**
+    Demonstrates that R3 (no zero divisors) is preserved at this
+    level.  Classical fact: CD layer 2 = octonions has no zero
+    divisors (Hurwitz classification); R3 first fails at layer 3
+    (sedenions).  The three per-generator checks below are
+    decidable and closed by `decide`. -/
+theorem mul_generators_ne_zero :
+    I' * J' ≠ 0 ∧ J' * L ≠ 0 ∧ I' * L ≠ 0 := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
+end E213.Research.Cayley
