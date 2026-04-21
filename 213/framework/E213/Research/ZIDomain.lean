@@ -1,4 +1,9 @@
 import E213.Research.ZI
+import E213.Research.IntHelpers
+import E213.Tactic.QuadNorm
+
+open E213.Research.IntHelpers
+open E213.Tactic
 
 /-!
 # Research: `ZI` integral-domain properties
@@ -25,31 +30,12 @@ theorem normSq_mul (u v : ZI) :
   show (u.re*v.re - u.im*v.im)*(u.re*v.re - u.im*v.im)
      + (u.re*v.im + u.im*v.re)*(u.re*v.im + u.im*v.re)
      = (u.re*u.re + u.im*u.im) * (v.re*v.re + v.im*v.im)
-  simp only [Int.sub_mul, Int.mul_sub, Int.add_mul, Int.mul_add,
-             Int.mul_assoc, Int.mul_comm, Int.mul_left_comm,
-             Int.sub_eq_add_neg, Int.neg_mul, Int.mul_neg,
-             Int.neg_neg]
-  omega
-
-/-- Helper: `0 ≤ a*a` for integer `a`. -/
-private theorem int_mul_self_nonneg (a : Int) : 0 ≤ a * a := by
-  by_cases h : 0 ≤ a
-  · exact Int.mul_nonneg h h
-  · have h' : 0 ≤ -a := by omega
-    have eq : (-a) * (-a) = a * a := by
-      rw [Int.neg_mul, Int.mul_neg, Int.neg_neg]
-    rw [← eq]; exact Int.mul_nonneg h' h'
-
-/-- Helper: `a*a = 0 ↔ a = 0` for integer `a`. -/
-private theorem int_mul_self_eq_zero {a : Int} : a * a = 0 ↔ a = 0 := by
-  refine ⟨?_, fun h => by rw [h]; simp⟩
-  intro h
-  rcases Int.mul_eq_zero.mp h with h' | h' <;> exact h'
+  quad_norm
 
 theorem normSq_nonneg (u : ZI) : 0 ≤ u.normSq := by
   show 0 ≤ u.re * u.re + u.im * u.im
-  have h1 := int_mul_self_nonneg u.re
-  have h2 := int_mul_self_nonneg u.im
+  have h1 := IntHelpers.mul_self_nonneg u.re
+  have h2 := IntHelpers.mul_self_nonneg u.im
   omega
 
 end E213.Research.ZI
@@ -59,14 +45,14 @@ namespace E213.Research.ZI
 theorem normSq_eq_zero_iff (u : ZI) : u.normSq = 0 ↔ u = 0 := by
   refine ⟨?_, ?_⟩
   · intro h
-    have h1 := int_mul_self_nonneg u.re
-    have h2 := int_mul_self_nonneg u.im
+    have h1 := IntHelpers.mul_self_nonneg u.re
+    have h2 := IntHelpers.mul_self_nonneg u.im
     have h_eq : u.re * u.re + u.im * u.im = 0 := h
     have hre : u.re * u.re = 0 := by omega
     have him : u.im * u.im = 0 := by omega
     apply ext
-    · exact int_mul_self_eq_zero.mp hre
-    · exact int_mul_self_eq_zero.mp him
+    · exact IntHelpers.mul_self_eq_zero.mp hre
+    · exact IntHelpers.mul_self_eq_zero.mp him
   · rintro rfl
     show (0 : Int) * 0 + 0 * 0 = 0
     simp

@@ -1,4 +1,9 @@
 import E213.Research.ZSqrt2
+import E213.Research.IntHelpers
+import E213.Tactic.QuadNorm
+
+open E213.Research.IntHelpers
+open E213.Tactic
 
 /-!
 # Research: `ℤ[√-2]` integral domain + conj ring homomorphism
@@ -18,17 +23,13 @@ theorem mul_comm (u v : Z2) : u * v = v * u := by
   · show u.re * v.im + u.im * v.re = v.re * u.im + v.im * u.re
     rw [Int.mul_comm u.re v.im, Int.mul_comm u.im v.re, Int.add_comm]
 
-/-- `|uv|² = |u|²·|v|²` in `ℤ[√-2]`. Same simp+omega tactic. -/
+/-- `|uv|² = |u|²·|v|²` in `ℤ[√-2]`. -/
 theorem normSq_mul (u v : Z2) :
     (u * v).normSq = u.normSq * v.normSq := by
   show (u.re*v.re - 2*(u.im*v.im))*(u.re*v.re - 2*(u.im*v.im))
      + 2*((u.re*v.im + u.im*v.re)*(u.re*v.im + u.im*v.re))
      = (u.re*u.re + 2*(u.im*u.im)) * (v.re*v.re + 2*(v.im*v.im))
-  simp only [Int.sub_mul, Int.mul_sub, Int.add_mul, Int.mul_add,
-             Int.mul_assoc, Int.mul_comm, Int.mul_left_comm,
-             Int.sub_eq_add_neg, Int.neg_mul, Int.mul_neg,
-             Int.neg_neg]
-  omega
+  quad_norm
 
 /-- `conj` distributes over multiplication in `ℤ[√-2]`. -/
 theorem conj_mul (u v : Z2) : conj (u * v) = conj u * conj v := by
@@ -50,36 +51,23 @@ end E213.Research.Z2
 
 namespace E213.Research.Z2
 
-private theorem int_mul_self_nonneg (a : Int) : 0 ≤ a * a := by
-  by_cases h : 0 ≤ a
-  · exact Int.mul_nonneg h h
-  · have h' : 0 ≤ -a := by omega
-    have eq : (-a) * (-a) = a * a := by
-      rw [Int.neg_mul, Int.mul_neg, Int.neg_neg]
-    rw [← eq]; exact Int.mul_nonneg h' h'
-
-private theorem int_mul_self_eq_zero {a : Int} : a * a = 0 ↔ a = 0 := by
-  refine ⟨?_, fun h => by rw [h]; simp⟩
-  intro h
-  rcases Int.mul_eq_zero.mp h with h' | h' <;> exact h'
-
 theorem normSq_nonneg (u : Z2) : 0 ≤ u.normSq := by
   show 0 ≤ u.re * u.re + 2 * (u.im * u.im)
-  have h1 := int_mul_self_nonneg u.re
-  have h2 := int_mul_self_nonneg u.im
+  have h1 := IntHelpers.mul_self_nonneg u.re
+  have h2 := IntHelpers.mul_self_nonneg u.im
   omega
 
 theorem normSq_eq_zero_iff (u : Z2) : u.normSq = 0 ↔ u = 0 := by
   refine ⟨?_, ?_⟩
   · intro h
-    have h1 := int_mul_self_nonneg u.re
-    have h2 := int_mul_self_nonneg u.im
+    have h1 := IntHelpers.mul_self_nonneg u.re
+    have h2 := IntHelpers.mul_self_nonneg u.im
     have h_eq : u.re * u.re + 2 * (u.im * u.im) = 0 := h
     have hre : u.re * u.re = 0 := by omega
     have him : u.im * u.im = 0 := by omega
     apply ext
-    · exact int_mul_self_eq_zero.mp hre
-    · exact int_mul_self_eq_zero.mp him
+    · exact IntHelpers.mul_self_eq_zero.mp hre
+    · exact IntHelpers.mul_self_eq_zero.mp him
   · rintro rfl
     show (0 : Int) * 0 + 2 * (0 * 0) = 0
     simp
