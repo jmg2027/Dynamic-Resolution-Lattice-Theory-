@@ -289,3 +289,23 @@ theorem K_mul_J : (I' * J) * J = -I' := by decide
 theorem I_mul_K : I' * (I' * J) = -J := by decide
 
 end E213.Research.Lipschitz
+
+namespace E213.Research.Lipschitz
+
+-- ═══ Associativity at quaternion basis triples ═══
+-- Lipschitz IS associative (quaternion associativity);
+-- universal proof deferred.  Basis-level instances via `decide`.
+
+/-- `(i·j)·k = i·(j·k)` where `k := i·j`. -/
+theorem assoc_I_J_K : (I' * J) * (I' * J) = I' * (J * (I' * J)) := by decide
+
+/-- `(i·j)·i = i·(j·i)`. -/
+theorem assoc_I_J_I : (I' * J) * I' = I' * (J * I') := by decide
+
+/-- `(i·i)·j = i·(i·j)`. -/
+theorem assoc_I_I_J : (I' * I') * J = I' * (I' * J) := by decide
+
+/-- `(j·i)·j = j·(i·j)`. -/
+theorem assoc_J_I_J : (J * I') * J = J * (I' * J) := by decide
+
+end E213.Research.Lipschitz
