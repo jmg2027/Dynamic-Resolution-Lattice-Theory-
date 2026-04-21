@@ -1,6 +1,7 @@
 import E213.Research.ZIArith
 import E213.Research.CDDouble
 import E213.Research.Cayley
+import E213.Research.Sedenion
 
 /-!
 # Tactic: `hurwitz_ring`
@@ -42,10 +43,17 @@ componentwise-Int via iterated CD doubling).
 namespace E213.Tactic
 
 scoped macro "hurwitz_ring" : tactic => `(tactic|
-  ((try apply E213.Research.Cayley.ext) <;>
+  ((try apply E213.Research.Sedenion.ext) <;>
+   (try apply E213.Research.Cayley.ext) <;>
    (try apply E213.Research.Lipschitz.ext) <;>
    (try apply E213.Research.ZI.ext) <;>
    simp only [
+     E213.Research.Sedenion.mul_re, E213.Research.Sedenion.mul_im,
+     E213.Research.Sedenion.conj_re, E213.Research.Sedenion.conj_im,
+     E213.Research.Sedenion.add_re, E213.Research.Sedenion.add_im,
+     E213.Research.Sedenion.sub_re, E213.Research.Sedenion.sub_im,
+     E213.Research.Sedenion.neg_re, E213.Research.Sedenion.neg_im,
+     E213.Research.Sedenion.zero_re, E213.Research.Sedenion.zero_im,
      E213.Research.Cayley.mul_re, E213.Research.Cayley.mul_im,
      E213.Research.Cayley.conj_re, E213.Research.Cayley.conj_im,
      E213.Research.Cayley.add_re, E213.Research.Cayley.add_im,

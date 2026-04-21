@@ -191,3 +191,34 @@ theorem not_alternative :
   ⟨zd_left, zd_right, alt_fails_at_zd⟩
 
 end E213.Research.Sedenion
+
+namespace E213.Research.Sedenion
+
+open E213.Research.Cayley
+
+-- ═══ Conjugation at Sedenion level ═══
+
+/-- CD conjugation for Sedenion. -/
+def conj (u : Sedenion) : Sedenion := ⟨u.re.conj, -u.im⟩
+
+-- ═══ Projection simp lemmas for hurwitz_ring ═══
+
+theorem mul_re (u v : Sedenion) :
+    (u * v).re = u.re * v.re - v.im.conj * u.im := rfl
+
+theorem mul_im (u v : Sedenion) :
+    (u * v).im = v.im * u.re + u.im * v.re.conj := rfl
+
+theorem conj_re (u : Sedenion) : (conj u).re = u.re.conj := rfl
+theorem conj_im (u : Sedenion) : (conj u).im = -u.im := rfl
+
+theorem add_re (u v : Sedenion) : (u + v).re = u.re + v.re := rfl
+theorem add_im (u v : Sedenion) : (u + v).im = u.im + v.im := rfl
+theorem neg_re (u : Sedenion) : (-u).re = -u.re := rfl
+theorem neg_im (u : Sedenion) : (-u).im = -u.im := rfl
+theorem sub_re (u v : Sedenion) : (u - v).re = u.re - v.re := rfl
+theorem sub_im (u v : Sedenion) : (u - v).im = u.im - v.im := rfl
+theorem zero_re : (0 : Sedenion).re = 0 := rfl
+theorem zero_im : (0 : Sedenion).im = 0 := rfl
+
+end E213.Research.Sedenion
