@@ -1,4 +1,5 @@
 import E213.Firmware.Raw
+import E213.Prelude
 
 /-!
 # Firmware: swap bijectivity (public API only)
