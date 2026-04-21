@@ -51,6 +51,11 @@ import E213.Tactic.DeriveR4Codomain
 import E213.Tactic.VerifyR4
 import E213.Tactic.QuadExtension
 
+-- Infinity (infinity-as-lens research track)
+import E213.Infinity.Cantor
+import E213.Infinity.Countable
+import E213.Infinity.Tower
+
 -- Research (r5-critique)
 import E213.Research.IntHelpers
 import E213.Research.ZI
