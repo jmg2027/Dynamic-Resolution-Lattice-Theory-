@@ -239,3 +239,53 @@ theorem mul_generators_ne_zero :
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
 end E213.Research.Lipschitz
+
+namespace E213.Research.Lipschitz
+
+/-- **Hamilton's identity** at the Lipschitz level: `(ij)² = -1`.
+    Since `i · j = k` (via `I_mul_J`), this computes the square
+    of the derived third generator and confirms it equals
+    `-1_Lipschitz`. -/
+theorem K_squared : (I' * J) * (I' * J) = ⟨⟨-1, 0⟩, 0⟩ := by decide
+
+/-- Equivalently: `i · j · j = -i` (one of the four-group
+    identities on the quaternion generators). -/
+theorem I_J_J : I' * (J * J) = -I' := by decide
+
+/-- `j² = -1`. -/
+theorem J_squared : J * J = ⟨⟨-1, 0⟩, 0⟩ := by decide
+
+/-- `i² = -1`. -/
+theorem I_squared : I' * I' = ⟨⟨-1, 0⟩, 0⟩ := by decide
+
+end E213.Research.Lipschitz
+
+namespace E213.Research.Lipschitz
+
+-- ═══ Quaternion group Q_8 relations ═══
+-- `K := I' * J` is the derived third generator (quaternion k).
+-- Q₈ relations verify the classical Hamilton table; each
+-- closed by `decide`.
+
+/-- `k := i·j`. -/
+def K : Lipschitz := I' * J
+
+-- Check specific Q₈ relations via decide.
+
+/-- `j · k = i`. -/
+theorem J_mul_K : J * (I' * J) = I' := by decide
+
+/-- `k · i = j`. -/
+theorem K_mul_I : (I' * J) * I' = J := by decide
+
+/-- `j · i = -k`.  (Distinct from `J_mul_I` above which shows
+    the same product = `⟨0, negI⟩` directly.) -/
+theorem J_mul_I_eq_neg_K : J * I' = -(I' * J) := by decide
+
+/-- `k · j = -i`. -/
+theorem K_mul_J : (I' * J) * J = -I' := by decide
+
+/-- `i · k = -j`. -/
+theorem I_mul_K : I' * (I' * J) = -J := by decide
+
+end E213.Research.Lipschitz
