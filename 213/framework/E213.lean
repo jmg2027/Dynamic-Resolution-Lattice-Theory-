@@ -44,6 +44,7 @@ import E213.Tactic.QuadNorm
 import E213.Tactic.IntSquare
 import E213.Tactic.DeriveR4Codomain
 import E213.Tactic.VerifyR4
+import E213.Tactic.QuadExtension
 
 -- Research (r5-critique)
 import E213.Research.IntHelpers
