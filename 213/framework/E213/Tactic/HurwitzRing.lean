@@ -3,6 +3,7 @@ import E213.Research.CDDouble
 import E213.Research.Cayley
 import E213.Research.Sedenion
 import E213.Research.Trigintaduonion
+import E213.Research.Pathion
 
 /-!
 # Tactic: `hurwitz_ring`
@@ -44,12 +45,19 @@ componentwise-Int via iterated CD doubling).
 namespace E213.Tactic
 
 scoped macro "hurwitz_ring" : tactic => `(tactic|
-  ((try apply E213.Research.Trigintaduonion.ext) <;>
+  ((try apply E213.Research.Pathion.ext) <;>
+   (try apply E213.Research.Trigintaduonion.ext) <;>
    (try apply E213.Research.Sedenion.ext) <;>
    (try apply E213.Research.Cayley.ext) <;>
    (try apply E213.Research.Lipschitz.ext) <;>
    (try apply E213.Research.ZI.ext) <;>
    simp only [
+     E213.Research.Pathion.mul_re, E213.Research.Pathion.mul_im,
+     E213.Research.Pathion.conj_re, E213.Research.Pathion.conj_im,
+     E213.Research.Pathion.add_re, E213.Research.Pathion.add_im,
+     E213.Research.Pathion.sub_re, E213.Research.Pathion.sub_im,
+     E213.Research.Pathion.neg_re, E213.Research.Pathion.neg_im,
+     E213.Research.Pathion.zero_re, E213.Research.Pathion.zero_im,
      E213.Research.Trigintaduonion.mul_re, E213.Research.Trigintaduonion.mul_im,
      E213.Research.Trigintaduonion.conj_re, E213.Research.Trigintaduonion.conj_im,
      E213.Research.Trigintaduonion.add_re, E213.Research.Trigintaduonion.add_im,

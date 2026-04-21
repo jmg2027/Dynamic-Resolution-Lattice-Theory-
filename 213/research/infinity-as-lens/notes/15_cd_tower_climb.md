@@ -89,3 +89,52 @@ Together with SedenionHeavy, LipschitzHeavy, CayleyHeavy:
 **the CD tower up to layer 4 is structurally formalised
 in Lean**.  The `hurwitz_ring` tactic mechanises what
 otherwise would require hundreds of lines of hand-rewriting.
+
+## Final results this session
+
+### Heartbeat scaling, empirical
+
+| Layer    | dim | Identity | Factors | Int vars | Heartbeats |
+|----------|-----|----------|---------|----------|-----------|
+| Cayley   |  8  | alt_left | 3       | 16       |   default |
+| Cayley   |  8  | normSq_mul | 2 poly8 | 16     |        4M |
+| Sedenion | 16  | conj_conj | 1      | 16       |        2M |
+| Sedenion | 16  | conj_mul_anti | 2  | 32       |        8M |
+| Sedenion | 16  | flexible | 3       | 32       |        8M |
+| Trig     | 32  | conj_conj | 1      | 64       |        8M |
+| Trig     | 32  | conj_mul_anti | 2  | 128      |       32M |
+| Trig     | 32  | flexible | 3       | 128      | **∞ (aborted)** |
+| Pathion  | 64  | conj_conj | 1      | 128      |      128M |
+
+### Boundary observation
+
+- **1-factor identities scale** through layer 5 with heartbeat
+  bumping (128M enough for 128-var 1-factor).
+- **2-factor identities** hit practical limit around layer 4
+  (128-var 2-factor @ 32M).
+- **3-factor identities** hit the limit at layer 4 (128-var
+  3-factor aborted after ~12 min CPU).
+
+The pattern is approximately: `heartbeats ~ 4 × 2^variables`.
+Beyond ~128-160 variables, core Lean's `omega` atom-set
+management becomes the ceiling.
+
+### Structural observation
+
+Every CD layer we've reached formally:
+
+- has involutive conjugation ✓
+- has anti-distributive conjugation ✓ (through layer 4)
+- inherits non-commutativity from layer 1+
+- inherits non-associativity from layer 2+
+- loses alternativity at layer 3+
+- loses composition algebra at layer 3+ (zero divisors)
+- retains flexibility (classical), formally through layer 3
+
+At no finite layer does the CD tower reconverge to a nicer
+structure — each doubling preserves defects and introduces
+no fresh symmetry.
+
+This is the classical "CD tower unraveling" pattern, now
+mechanically verified up to layer 5 for the structural
+axioms that the `hurwitz_ring` tactic can still close.

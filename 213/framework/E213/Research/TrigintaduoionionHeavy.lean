@@ -32,3 +32,13 @@ theorem conj_mul_anti (u v : Trigintaduonion) :
   hurwitz_ring
 
 end E213.Research.Trigintaduonion
+
+/-
+**Trigintaduonion flexibility** `(a·b)·a = a·(b·a)` is a
+128-Int-var 3-factor polynomial identity.  Attempted with
+`set_option maxHeartbeats 128000000` but ~12 minutes of CPU
+did not complete — at or past the `hurwitz_ring` + omega
+practical ceiling.  Classically flexibility holds at all CD
+layers (consequence of CD structure); obstruction here is
+tactic cost, not truth.  Deferred.
+-/

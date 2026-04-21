@@ -86,6 +86,8 @@ import E213.Research.CayleyHeavy
 import E213.Research.SedenionHeavy
 import E213.Research.Trigintaduonion
 import E213.Research.TrigintaduoionionHeavy
+import E213.Research.Pathion
+import E213.Research.PathionHeavy
 import E213.Research.LipschitzLens
 import E213.Research.Cayley
 import E213.Research.Sedenion
