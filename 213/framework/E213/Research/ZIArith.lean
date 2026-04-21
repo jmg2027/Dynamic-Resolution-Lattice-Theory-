@@ -56,3 +56,31 @@ theorem add_comm (u v : ZI) : u + v = v + u := by
   · show u.im + v.im = v.im + u.im; omega
 
 end E213.Research.ZI
+
+namespace E213.Research.ZI
+
+-- Conj compatibility with add/sub.
+
+theorem conj_add (u v : ZI) : (u + v).conj = u.conj + v.conj := by
+  apply ext
+  · show u.re + v.re = u.re + v.re; rfl
+  · show -(u.im + v.im) = -u.im + -v.im; omega
+
+theorem conj_sub (u v : ZI) : (u - v).conj = u.conj - v.conj := by
+  apply ext
+  · show u.re - v.re = u.re - v.re; rfl
+  · show -(u.im - v.im) = -u.im - -v.im; omega
+
+-- ZI neg/mul distributivity (needed in CD proof).
+
+theorem neg_mul (u v : ZI) : (-u) * v = -(u * v) := by
+  apply ext
+  · show -u.re * v.re - -u.im * v.im = -(u.re * v.re - u.im * v.im)
+    rw [Int.neg_mul, Int.neg_mul]; omega
+  · show -u.re * v.im + -u.im * v.re = -(u.re * v.im + u.im * v.re)
+    rw [Int.neg_mul, Int.neg_mul]; omega
+
+theorem mul_neg (u v : ZI) : u * (-v) = -(u * v) := by
+  rw [mul_comm, neg_mul, mul_comm v u]
+
+end E213.Research.ZI
