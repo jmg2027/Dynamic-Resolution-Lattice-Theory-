@@ -58,6 +58,8 @@ import E213.Infinity.Pair
 import E213.Infinity.Godel
 import E213.Infinity.Tower
 import E213.Infinity.LensCardinality
+import E213.Infinity.BTower
+import E213.Infinity.BoolSpace
 
 -- Research (r5-critique)
 import E213.Research.IntHelpers

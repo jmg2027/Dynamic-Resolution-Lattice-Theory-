@@ -155,3 +155,18 @@ theorem mul_not_commutative : ∃ u v : Lipschitz, u * v ≠ v * u := by
   exact absurd this (by decide)
 
 end E213.Research.Lipschitz
+
+/-
+**CD signature (deferred).**  `conj (u · v) = conj v · conj u`
+— the reversed-order anti-distributivity that characterises
+CD algebras (vs. Lens R4's same-order `conj_dist`).  The
+proof is a four-coordinate polynomial identity in 8 Int
+variables.  Lean 4 core's `quad_norm` tactic normalises
+2-factor products cleanly but needs extension to 4-factor
+products for this identity.  Deferred to a future
+session with an expanded tactic.
+
+Norm multiplicativity `|uv|² = |u|² · |v|²` on Lipschitz
+(Hurwitz identity) is the same-size identity and similarly
+deferred.
+-/
