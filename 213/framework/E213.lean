@@ -54,6 +54,8 @@ import E213.Tactic.QuadExtension
 -- Infinity (infinity-as-lens research track)
 import E213.Infinity.Cantor
 import E213.Infinity.Countable
+import E213.Infinity.Pair
+import E213.Infinity.Godel
 import E213.Infinity.Tower
 
 -- Research (r5-critique)
