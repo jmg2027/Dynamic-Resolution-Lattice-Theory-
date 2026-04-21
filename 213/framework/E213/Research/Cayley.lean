@@ -159,3 +159,20 @@ theorem mul_generators_ne_zero :
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
 end E213.Research.Cayley
+
+namespace E213.Research.Cayley
+
+/-- `L² = -1` at Cayley level. -/
+theorem L_squared : L * L = ⟨⟨⟨-1, 0⟩, 0⟩, 0⟩ := by decide
+
+/-- `I'² = -1` at Cayley (inherited). -/
+theorem I'_squared : I' * I' = ⟨⟨⟨-1, 0⟩, 0⟩, 0⟩ := by decide
+
+/-- `J'² = -1` at Cayley (inherited). -/
+theorem J'_squared : J' * J' = ⟨⟨⟨-1, 0⟩, 0⟩, 0⟩ := by decide
+
+/-- `I' * J' * L ≠ L * (I' * J')`.  Basis triple product
+    non-commuting, octonion-flavor. -/
+theorem I'_J'_L_ne_comm : (I' * J') * L ≠ L * (I' * J') := by decide
+
+end E213.Research.Cayley
