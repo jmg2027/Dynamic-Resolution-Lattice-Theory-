@@ -48,14 +48,25 @@ def elabVerifyR4 : CommandElab := fun stx => do
       let αSort ← inferType αExpr
       unless αSort.isType do
         throwError "expected a type, got {αExpr} : {αSort}"
-      let clsName : Name := `E213.Meta.R4Codomain
-      let clsExpr := mkApp (mkConst clsName) αExpr
-      let result ← synthInstance? clsExpr
-      match result with
-      | some _ =>
-        logInfo m!"✓ R4Codomain {αExpr} admitted"
+      -- Synthesise `[Zero α]` explicitly, then apply R4Codomain
+      -- to both `α` and that instance argument.  Without the
+      -- explicit Zero, `synthInstance?` would leave the
+      -- instance-binder slot as a metavariable and silently
+      -- fail on parametric types like `ZSqrt D`.
+      let zeroCls ← Meta.mkAppM `Zero #[αExpr]
+      let zeroInst? ← synthInstance? zeroCls
+      match zeroInst? with
       | none =>
-        throwError m!"✗ R4Codomain {αExpr} : no instance found"
+          throwError m!"✗ R4Codomain {αExpr} : no `Zero {αExpr}` instance"
+      | some zeroInst =>
+          let clsExpr ← Meta.mkAppOptM
+              `E213.Meta.R4Codomain #[some αExpr, some zeroInst]
+          let result ← synthInstance? clsExpr
+          match result with
+          | some _ =>
+            logInfo m!"✓ R4Codomain {αExpr} admitted"
+          | none =>
+            throwError m!"✗ R4Codomain {αExpr} : no instance found"
   | _ => throwUnsupportedSyntax
 
 end E213.Tactic

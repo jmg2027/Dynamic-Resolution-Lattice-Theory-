@@ -79,9 +79,17 @@ def elabDeriveR4 : CommandElab := fun stx => do
     let cConj  := mk `conj_conj
     let cNeId  := mk `conj_ne_id
     let cMul   := mk `conj_mul
-    let cSwapA := mk (`conj ++ b1.getId)
-    let cSwapB := mk (`conj ++ b2.getId)
-    let cmd ← `(instance : E213.Meta.R4Codomain $α where
+    -- Single-identifier name `conj_I` — `Name.append` would
+    -- produce the hierarchical `conj.I` which is a distinct
+    -- (and unbound) lookup target.
+    let cSwapA := mk (Name.mkSimple s!"conj_{b1.getId}")
+    let cSwapB := mk (Name.mkSimple s!"conj_{b2.getId}")
+    -- `mkIdent` bypasses macro hygiene; the quoted
+    -- `E213.Meta.R4Codomain` would otherwise be rewritten to
+    -- `E213.Meta.R4Codomain✝` (an inaccessible daggered copy)
+    -- and fail to resolve at the client site.
+    let r4Id := mkIdent `E213.Meta.R4Codomain
+    let cmd ← `(instance : $r4Id $α where
                   base_a          := $baseA
                   base_b          := $baseB
                   combine         := $mul
