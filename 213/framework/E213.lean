@@ -79,4 +79,5 @@ import E213.Research.ZSqrtInstance
 import E213.Research.ZSqrtProduct
 import E213.Research.ZIArith
 import E213.Research.CDDouble
+import E213.Research.Cayley
 import E213.Research.R5Vacuity

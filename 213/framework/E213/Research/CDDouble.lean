@@ -196,3 +196,20 @@ theorem conj_mul_anti (u v : Lipschitz) :
       omega
 
 end E213.Research.Lipschitz
+
+namespace E213.Research.Lipschitz
+
+open E213.Research.ZI
+
+-- ═══ Lipschitz Add/Neg/Sub (for CD layer 2) ═══
+
+instance : Add Lipschitz := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+instance : Neg Lipschitz := ⟨fun u => ⟨-u.re, -u.im⟩⟩
+instance : Sub Lipschitz := ⟨fun u v => u + (-v)⟩
+
+theorem add_re (u v : Lipschitz) : (u + v).re = u.re + v.re := rfl
+theorem add_im (u v : Lipschitz) : (u + v).im = u.im + v.im := rfl
+theorem neg_re (u : Lipschitz) : (-u).re = -u.re := rfl
+theorem neg_im (u : Lipschitz) : (-u).im = -u.im := rfl
+
+end E213.Research.Lipschitz
