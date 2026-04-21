@@ -29,15 +29,15 @@ theorem raw_fold_signed_swap_demo (r : Raw) :
     Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap r)
       = - Raw.fold (1 : Int) (-1) (· + ·) r := by
   induction r using Raw.rec with
-  | a_case =>
+  | a =>
       show Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap Raw.a)
          = - Raw.fold (1 : Int) (-1) (· + ·) Raw.a
       rw [Raw.swap_a, Raw.fold_a, Raw.fold_b]
-  | b_case =>
+  | b =>
       show Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap Raw.b)
          = - Raw.fold (1 : Int) (-1) (· + ·) Raw.b
       rw [Raw.swap_b, Raw.fold_a, Raw.fold_b]; decide
-  | slash_case x y h _ihx _ihy =>
+  | slash x y h _ihx _ihy =>
       exact Raw.fold_swap_hom (1 : Int) (-1) (· + ·) (fun n => -n)
         (by decide) (by decide)
         (fun u v => by show -(u + v) = -u + -v; omega)
