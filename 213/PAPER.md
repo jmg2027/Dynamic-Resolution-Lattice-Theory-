@@ -451,6 +451,33 @@ axiomatic `a ↔ b` asymmetry, while a two-valued base preserves
 it. §4 asks the sharp version of this choice: which Lens sees
 `Raw` as completely as the axiom permits?
 
+**Failure witnesses — the R1–R5 conditions are independent.**
+The Lean catalogue under `E213.Meta.*Lens` pins down that
+R1 (combine exists), R2 (commutativity), R3 (no zero divisors),
+R4 (swap-matching involution), and R5 (injectivity) are all
+strict: each has at least one concrete Lens that satisfies the
+others but fails exactly that condition. R4's three failure
+mechanisms are qualitatively distinct.
+
+| Lens | Codomain | Fails | Mechanism | Lean |
+|------|----------|-------|-----------|------|
+| `pathLens` | `List Bool` | R2 | combine = append is not commutative | `Meta.PathLens.pathLens_combine_not_commutative` |
+| `zmod6Lens` | `ℕ` | R3 | `combine 2 3 = 6 mod 6 = 0` | `Meta.ZMod6Lens.zmod6Lens_R3_fails` |
+| `zSqrtProdLens D₁ D₂` | `ZSqrt D₁ × ZSqrt D₂` | R3 | product ring has zero divisors; R4 still holds | `Research.zSqrtProdLens_R3_fails` + `_R4` |
+| `boolXorLens` | `Bool` | R4 | no list-hom conj distributes over xor | `Meta.BoolLens.boolXorLens_not_homomorphism` |
+| `parityLens` | `Bool` | R4, R5 | swap-blind forces `conj = id`; finite codomain | `Meta.ParityLens.parityLens_R4_fails`, `_not_injective` |
+| `maxLens` | `ℕ` | R4, R5 | idempotent combine: swap-flipped base vs swap-fixed composite force incompatible `conj` values | `Meta.MaxLens.maxLens_R4_fails`, `_not_injective` |
+| `signedLens` | `ℤ` | (none of R1–R4) | `conj = neg` witnesses R4 with 0-parameter proof | `Meta.LensCatalog.signed_R4` |
+| `ZSqrt D, D > 0` | `ℤ[√-D]` | (none of R1–R4) | full R4Codomain instance via `R4_of_pos` | `Research.ZSqrt.R4_of_pos` |
+
+The `zSqrtProdLens` row is the sharpest data point: R4 alone —
+even with a full ring-theoretic involution distributing over
+combine — cannot exclude zero divisors. R3 is an independent
+constraint, not a consequence of R1 + R2 + R4. (Further
+structural theorems — e.g. `swap_invariant_iff_base_eq_of_comm`,
+`R4_conj_unique_of_surjective`, `R3_view_nonVanishing` — are
+collected in `Meta.LensCharacterisation`.)
+
 ---
 
 ## 4. The self-recognising Lens is `ℂ`
