@@ -80,6 +80,7 @@ import E213.Research.ZSqrtInstance
 import E213.Research.ZSqrtProduct
 import E213.Research.ZIArith
 import E213.Research.CDDouble
+import E213.Research.LipschitzLens
 import E213.Research.Cayley
 import E213.Research.Sedenion
 import E213.Research.CDTower
