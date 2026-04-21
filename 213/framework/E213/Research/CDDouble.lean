@@ -213,3 +213,29 @@ theorem neg_re (u : Lipschitz) : (-u).re = -u.re := rfl
 theorem neg_im (u : Lipschitz) : (-u).im = -u.im := rfl
 
 end E213.Research.Lipschitz
+
+/-
+**Lipschitz universal associativity** `(u·v)·w = u·(v·w)` is a
+12-variable polynomial identity over `Int`.  `quad_norm`'s
+simp-set plus `omega` handles 6-variable ZI associativity, but
+the 12-variable Lipschitz case has cross-terms beyond the
+per-variable scope of `omega`'s linear decision procedure.  A
+dedicated "tri-factor" tactic would close it.  Deferred.
+-/
+
+namespace E213.Research.Lipschitz
+
+/-- `I' ≠ 0` in Lipschitz. -/
+theorem I'_ne_zero : I' ≠ (0 : Lipschitz) := by decide
+
+/-- `J ≠ 0` in Lipschitz. -/
+theorem J_ne_zero : J ≠ (0 : Lipschitz) := by decide
+
+/-- **Generator products are non-zero in Lipschitz.**  Pairwise
+    R3 at the generator level; full universal R3 (Hurwitz thm)
+    is deferred (norm-multiplicativity). -/
+theorem mul_generators_ne_zero :
+    I' * J ≠ 0 ∧ J * I' ≠ 0 ∧ I' * I' ≠ 0 ∧ J * J ≠ 0 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
+
+end E213.Research.Lipschitz

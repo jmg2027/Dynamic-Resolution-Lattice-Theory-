@@ -92,3 +92,20 @@ theorem sub_neg_neg (u v : ZI) : u - (-(-v)) = u - v := by
   rw [neg_neg]
 
 end E213.Research.ZI
+
+namespace E213.Research.ZI
+
+open E213.Tactic
+
+/-- **ZI multiplication is associative.**  Polynomial identity
+    in 6 Int variables, closed by `quad_norm`. -/
+theorem mul_assoc (u v w : ZI) : (u * v) * w = u * (v * w) := by
+  apply ext
+  · show (u.re * v.re - u.im * v.im) * w.re - (u.re * v.im + u.im * v.re) * w.im
+       = u.re * (v.re * w.re - v.im * w.im) - u.im * (v.re * w.im + v.im * w.re)
+    quad_norm
+  · show (u.re * v.re - u.im * v.im) * w.im + (u.re * v.im + u.im * v.re) * w.re
+       = u.re * (v.re * w.im + v.im * w.re) + u.im * (v.re * w.re - v.im * w.im)
+    quad_norm
+
+end E213.Research.ZI
