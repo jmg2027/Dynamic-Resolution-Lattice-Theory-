@@ -82,3 +82,64 @@ ladder across the first four CD layers:
   Cayley     R2 ✗   R3 ✓   assoc ✗  (non_associative formal)
   Sedenion   R2 ✗   R3 ✗   assoc ✗  (R3 fail deferred)
 -/
+
+namespace E213.Research.Sedenion
+
+open E213.Research E213.Research.Cayley
+
+instance : Add Sedenion := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+instance : Neg Sedenion := ⟨fun u => ⟨-u.re, -u.im⟩⟩
+instance : Sub Sedenion := ⟨fun u v => u + (-v)⟩
+
+-- Standard CD basis elements.  Encoding:
+--   Bit 0 → ZI.im,  Bit 1 → Lipschitz.im outer,
+--   Bit 2 → Cayley.im,  Bit 3 → Sedenion.im.
+
+/-- `e_3 = ij` lifted three CD layers. -/
+def e3  : Sedenion := ⟨⟨⟨0, ⟨0, 1⟩⟩, 0⟩, 0⟩
+
+/-- `e_6`. -/
+def e6  : Sedenion := ⟨⟨0, ⟨0, ⟨1, 0⟩⟩⟩, 0⟩
+
+/-- `e_10`. -/
+def e10 : Sedenion := ⟨0, ⟨⟨0, ⟨1, 0⟩⟩, 0⟩⟩
+
+/-- `e_15`. -/
+def e15 : Sedenion := ⟨0, ⟨0, ⟨0, ⟨0, 1⟩⟩⟩⟩
+
+/-- `e_3 + e_10` — one side of a classical sedenion zero
+    divisor pair. -/
+def zd_left : Sedenion := e3 + e10
+
+/-- `e_6 - e_15` — other side. -/
+def zd_right : Sedenion := e6 - e15
+
+end E213.Research.Sedenion
+
+namespace E213.Research.Sedenion
+
+open E213.Research E213.Research.Cayley
+
+/-- **Moreno's sedenion zero divisor** (1998).
+    `(e_3 + e_10) · (e_6 - e_15) = 0` in the standard
+    CD-basis encoding.  Closed by `decide` which unfolds
+    the four-level CD multiplication on concrete basis
+    vectors. -/
+theorem zd_product_zero :
+    zd_left * zd_right = (0 : Sedenion) := by decide
+
+/-- `zd_left` is nonzero. -/
+theorem zd_left_ne_zero : zd_left ≠ (0 : Sedenion) := by decide
+
+/-- `zd_right` is nonzero. -/
+theorem zd_right_ne_zero : zd_right ≠ (0 : Sedenion) := by decide
+
+/-- **R3 (NonVanishing) FAILS on Sedenion.**  Explicit
+    zero-divisor pair: `zd_left * zd_right = 0` with both
+    factors non-zero. -/
+theorem R3_fails_on_sedenion :
+    ∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0 :=
+  ⟨zd_left, zd_right, zd_left_ne_zero, zd_right_ne_zero,
+   zd_product_zero⟩
+
+end E213.Research.Sedenion
