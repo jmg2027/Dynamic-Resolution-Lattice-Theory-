@@ -95,3 +95,34 @@ theorem signedLens_unbounded_below :
   exact ⟨r, by rw [hr]; exact Int.le_refl _⟩
 
 end E213.Infinity
+
+namespace E213.Infinity
+
+open E213.Firmware E213.Firmware.Internal E213.Hypervisor E213.Meta
+
+-- ═══ signedLens non-injective witness ═══
+
+/-- Two distinct Raw terms with the same signedLens view:
+    `a / (b / (a / b))` has view `1 + (-1 + 0) = 0`, and
+    `b / (a / (a / b))` has view `-1 + (1 + 0) = 0`.  They
+    are distinct as Raws (different `Tree`-val). -/
+def signedLens_kernel_witness_pos : Raw :=
+  Raw.slash Raw.a
+    (Raw.slash Raw.b (Raw.slash Raw.a Raw.b (by decide)) (by decide))
+    (by decide)
+
+def signedLens_kernel_witness_neg : Raw :=
+  Raw.slash Raw.b
+    (Raw.slash Raw.a (Raw.slash Raw.a Raw.b (by decide)) (by decide))
+    (by decide)
+
+theorem signedLens_not_injective :
+    ¬ Function.Injective signedLens.view := by
+  intro hinj
+  have hview : signedLens.view signedLens_kernel_witness_pos
+             = signedLens.view signedLens_kernel_witness_neg := by rfl
+  have heq : signedLens_kernel_witness_pos
+           = signedLens_kernel_witness_neg := hinj hview
+  exact absurd (congrArg Subtype.val heq) (by decide)
+
+end E213.Infinity
