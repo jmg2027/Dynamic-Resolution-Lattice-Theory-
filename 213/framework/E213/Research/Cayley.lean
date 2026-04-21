@@ -199,3 +199,41 @@ theorem alt_L_L_I : (L * L) * I' = L * (L * I') := by decide
 theorem alt_right_I_J_J : I' * (J' * J') = (I' * J') * J' := by decide
 
 end E213.Research.Cayley
+
+namespace E213.Research.Cayley
+
+open E213.Research.Lipschitz
+
+-- ═══ Cayley Add/Neg/Sub (needed for hurwitz_ring) ═══
+
+instance : Add Cayley := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+instance : Neg Cayley := ⟨fun u => ⟨-u.re, -u.im⟩⟩
+instance : Sub Cayley := ⟨fun u v => u + (-v)⟩
+
+-- ═══ Projection simp lemmas ═══
+
+theorem mul_re (u v : Cayley) :
+    (u * v).re = u.re * v.re - v.im.conj * u.im := rfl
+
+theorem mul_im (u v : Cayley) :
+    (u * v).im = v.im * u.re + u.im * v.re.conj := rfl
+
+theorem conj_re (u : Cayley) : (conj u).re = u.re.conj := rfl
+
+theorem conj_im (u : Cayley) : (conj u).im = -u.im := rfl
+
+theorem add_re (u v : Cayley) : (u + v).re = u.re + v.re := rfl
+theorem add_im (u v : Cayley) : (u + v).im = u.im + v.im := rfl
+theorem neg_re (u : Cayley) : (-u).re = -u.re := rfl
+theorem neg_im (u : Cayley) : (-u).im = -u.im := rfl
+theorem zero_re : (0 : Cayley).re = 0 := rfl
+theorem zero_im : (0 : Cayley).im = 0 := rfl
+
+end E213.Research.Cayley
+
+namespace E213.Research.Cayley
+
+theorem sub_re (u v : Cayley) : (u - v).re = u.re - v.re := rfl
+theorem sub_im (u v : Cayley) : (u - v).im = u.im - v.im := rfl
+
+end E213.Research.Cayley

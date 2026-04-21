@@ -50,6 +50,7 @@ import E213.Tactic.IntSquare
 import E213.Tactic.DeriveR4Codomain
 import E213.Tactic.VerifyR4
 import E213.Tactic.QuadExtension
+import E213.Tactic.HurwitzRing
 
 -- Infinity (infinity-as-lens research track)
 import E213.Infinity.Cantor
@@ -80,6 +81,8 @@ import E213.Research.ZSqrtInstance
 import E213.Research.ZSqrtProduct
 import E213.Research.ZIArith
 import E213.Research.CDDouble
+import E213.Research.LipschitzHeavy
+import E213.Research.CayleyHeavy
 import E213.Research.LipschitzLens
 import E213.Research.Cayley
 import E213.Research.Sedenion

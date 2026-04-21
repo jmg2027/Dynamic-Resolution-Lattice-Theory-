@@ -376,3 +376,41 @@ polynomial identity with ~100 terms on each side.  Beyond
 `quad_norm`'s current 2-factor normalisation + omega stack.
 A dedicated tactic extension is deferred.
 -/
+
+namespace E213.Research.Lipschitz
+
+open E213.Research E213.Research.ZI
+
+-- ═══ Projection simp lemmas for hurwitz_ring tactic ═══
+
+/-- `.re` of `Lipschitz` multiplication. -/
+theorem mul_re (u v : Lipschitz) :
+    (u * v).re = u.re * v.re - v.im.conj * u.im := rfl
+
+/-- `.im` of `Lipschitz` multiplication. -/
+theorem mul_im (u v : Lipschitz) :
+    (u * v).im = v.im * u.re + u.im * v.re.conj := rfl
+
+/-- `.re` of `Lipschitz` conjugation. -/
+theorem conj_re (u : Lipschitz) : (conj u).re = u.re.conj := rfl
+
+/-- `.im` of `Lipschitz` conjugation. -/
+theorem conj_im (u : Lipschitz) : (conj u).im = -u.im := rfl
+
+/-- `.re` of Lipschitz `0`. -/
+theorem zero_re : (0 : Lipschitz).re = 0 := rfl
+
+/-- `.im` of Lipschitz `0`. -/
+theorem zero_im : (0 : Lipschitz).im = 0 := rfl
+
+end E213.Research.Lipschitz
+
+namespace E213.Research.Lipschitz
+
+open E213.Research.ZI
+
+theorem sub_re (u v : Lipschitz) : (u - v).re = u.re - v.re := rfl
+
+theorem sub_im (u v : Lipschitz) : (u - v).im = u.im - v.im := rfl
+
+end E213.Research.Lipschitz

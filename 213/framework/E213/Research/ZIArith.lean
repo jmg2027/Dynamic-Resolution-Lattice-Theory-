@@ -109,3 +109,35 @@ theorem mul_assoc (u v w : ZI) : (u * v) * w = u * (v * w) := by
     quad_norm
 
 end E213.Research.ZI
+
+namespace E213.Research.ZI
+
+-- ═══ Projection simp lemmas for tactic (hurwitz_ring) ═══
+
+/-- `.re` projection of `ZI` multiplication. -/
+theorem mul_re (u v : ZI) :
+    (u * v).re = u.re * v.re - u.im * v.im := rfl
+
+/-- `.im` projection of `ZI` multiplication. -/
+theorem mul_im (u v : ZI) :
+    (u * v).im = u.re * v.im + u.im * v.re := rfl
+
+/-- `.re` projection of ZI conjugation. -/
+theorem conj_re (u : ZI) : u.conj.re = u.re := rfl
+
+/-- `.im` projection of ZI conjugation. -/
+theorem conj_im (u : ZI) : u.conj.im = -u.im := rfl
+
+/-- `.re` of `ZI.I`. -/
+theorem I_re : (ZI.I).re = 0 := rfl
+
+/-- `.im` of `ZI.I`. -/
+theorem I_im : (ZI.I).im = 1 := rfl
+
+/-- `.re` of `ZI.negI`. -/
+theorem negI_re : (ZI.negI).re = 0 := rfl
+
+/-- `.im` of `ZI.negI`. -/
+theorem negI_im : (ZI.negI).im = -1 := rfl
+
+end E213.Research.ZI
