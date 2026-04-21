@@ -36,6 +36,7 @@ import E213.App.Simplex
 -- Meta
 import E213.Meta.LensCatalog
 import E213.Meta.SelfRecognising
+import E213.Meta.RawInductionDemo
 
 -- Tactic
 import E213.Tactic.QuadNorm

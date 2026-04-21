@@ -519,4 +519,58 @@ theorem Raw.fold_swap_hom {α : Type}
     Raw.fold ba bb c (Raw.swap r) = conj (Raw.fold ba bb c r) :=
   Tree.fold_swap_hom ba bb c conj h_ba h_bb h_dist h_comm r.val r.property
 
+-- ═══ Raw induction principle (phase C3) ═══
+
+private def Raw.recAux {motive : Raw → Sort u}
+    (a_case : motive Raw.a)
+    (b_case : motive Raw.b)
+    (slash_case : ∀ (x y : Raw) (h : x ≠ y),
+                  motive x → motive y →
+                  motive (Raw.slash x y h)) :
+    ∀ (t : Tree) (hcanon : t.canonical = true), motive ⟨t, hcanon⟩ := by
+  intro t
+  induction t with
+  | a => intro _; exact a_case
+  | b => intro _; exact b_case
+  | slash x y ihx ihy =>
+      intro hcanon
+      simp only [Tree.canonical, Bool.and_eq_true] at hcanon
+      obtain ⟨⟨hx, hy⟩, hcmp_raw⟩ := hcanon
+      have hcmp : Tree.cmp x y = .lt := by
+        match hm : Tree.cmp x y with
+        | .lt => rfl
+        | .eq => rw [hm] at hcmp_raw; cases hcmp_raw
+        | .gt => rw [hm] at hcmp_raw; cases hcmp_raw
+      let x' : Raw := ⟨x, hx⟩
+      let y' : Raw := ⟨y, hy⟩
+      have hne : x' ≠ y' := by
+        intro heq
+        have hxy : x = y := congrArg Subtype.val heq
+        rw [hxy] at hcmp
+        rw [(Tree.cmp_eq_iff y y).mpr rfl] at hcmp
+        cases hcmp
+      have heq : (⟨.slash x y, by
+        simp [Tree.canonical, hx, hy, hcmp]⟩ : Raw)
+        = Raw.slash x' y' hne := by
+        show (⟨.slash x y, _⟩ : Raw) = Raw.slash ⟨x, hx⟩ ⟨y, hy⟩ hne
+        unfold Raw.slash
+        split <;> rename_i hc
+        · rfl
+        · show _ = _
+          rw [hcmp] at hc; cases hc
+        · rw [hcmp] at hc; cases hc
+      rw [show (⟨Tree.slash x y, hcanon⟩ : Raw)
+             = Raw.slash x' y' hne from heq]
+      exact slash_case x' y' hne (ihx hx) (ihy hy)
+
+@[eliminator]
+def Raw.rec {motive : Raw → Sort u}
+    (a_case : motive Raw.a)
+    (b_case : motive Raw.b)
+    (slash_case : ∀ (x y : Raw) (h : x ≠ y),
+                  motive x → motive y →
+                  motive (Raw.slash x y h))
+    (r : Raw) : motive r :=
+  Raw.recAux a_case b_case slash_case r.val r.property
+
 end E213.Firmware
