@@ -83,4 +83,12 @@ theorem neg_mul (u v : ZI) : (-u) * v = -(u * v) := by
 theorem mul_neg (u v : ZI) : u * (-v) = -(u * v) := by
   rw [mul_comm, neg_mul, mul_comm v u]
 
+theorem neg_neg (u : ZI) : -(-u) = u := by
+  apply ext
+  · show -(-u.re) = u.re; omega
+  · show -(-u.im) = u.im; omega
+
+theorem sub_neg_neg (u v : ZI) : u - (-(-v)) = u - v := by
+  rw [neg_neg]
+
 end E213.Research.ZI

@@ -157,15 +157,42 @@ theorem mul_not_commutative : ∃ u v : Lipschitz, u * v ≠ v * u := by
 
 end E213.Research.Lipschitz
 
-/-
-**CD signature (deferred).**  The anti-distributivity
-`conj(u·v) = conj v · conj u` — characterising CD algebras
-vs. Lens R4's same-order `conj_dist` — is a four-coordinate
-polynomial identity in 8 Int variables after full unfolding.
-`quad_norm` (2-factor) normalises 2-factor products but the
-goal after Lean's kernel unfolding has nested multiplications
-that need a more powerful tactic to close uniformly.  Noted
-as structural fact; formal proof deferred to a session with
-an extended arithmetic tactic or a staged ZI-level rewrite
-chain.
--/
+namespace E213.Research.Lipschitz
+
+open E213.Research E213.Research.ZI
+
+/-- **Anti-distributivity of `conj` over `mul`** — the CD
+    signature: `conj(u·v) = conj v · conj u` with *reversed*
+    factor order, in contrast to Lens R4's same-order
+    `conj_dist`.  The two agree iff the codomain is
+    commutative (then `conj v · conj u = conj u · conj v`).
+
+    Proof: each Lipschitz component is a ZI identity.  The re
+    component uses `conj_sub/conj_mul/conj_conj/conj_neg/neg_mul/
+    mul_neg/neg_neg/mul_comm`.  The im component similarly via
+    `conj_conj/neg_mul` plus Int arithmetic. -/
+theorem conj_mul_anti (u v : Lipschitz) :
+    Lipschitz.conj (u * v) = Lipschitz.conj v * Lipschitz.conj u := by
+  apply ext
+  · show (u.re * v.re - v.im.conj * u.im).conj
+         = v.re.conj * u.re.conj - (-u.im).conj * (-v.im)
+    rw [ZI.conj_sub, ZI.conj_mul, ZI.conj_mul, ZI.conj_conj,
+        ZI.conj_neg, ZI.neg_mul, ZI.mul_neg, ZI.neg_neg,
+        ZI.mul_comm u.re.conj v.re.conj,
+        ZI.mul_comm v.im u.im.conj]
+  · show -(v.im * u.re + u.im * v.re.conj)
+         = (-u.im) * v.re.conj + (-v.im) * (u.re.conj).conj
+    rw [ZI.conj_conj, ZI.neg_mul, ZI.neg_mul]
+    apply ZI.ext
+    · show -(v.im.re * u.re.re - v.im.im * u.re.im +
+              (u.im.re * v.re.re - u.im.im * (-v.re.im)))
+           = -(u.im.re * v.re.re - u.im.im * (-v.re.im))
+             + -(v.im.re * u.re.re - v.im.im * u.re.im)
+      omega
+    · show -(v.im.re * u.re.im + v.im.im * u.re.re +
+              (u.im.re * (-v.re.im) + u.im.im * v.re.re))
+           = -(u.im.re * (-v.re.im) + u.im.im * v.re.re)
+             + -(v.im.re * u.re.im + v.im.im * u.re.re)
+      omega
+
+end E213.Research.Lipschitz
