@@ -1,60 +1,66 @@
 # infinity-as-lens — HANDOFF
 
-## Status (session 2 complete)
+## Status (sessions 1–3 complete)
 
-**All Σ-roadmap targets formally proved** plus extensions:
-`signedLens` full ℤ-surjectivity, explicit `ℕ → (Raw → Bool)`
-injection, CD session 1 (non-commutativity witness).
+All originally-roadmapped Σ targets formally proved in
+Lean 4 core, plus substantial CD layer 1 closure.
 
 0 sorry, 0 axiom, Mathlib-free, `lake build` ✓.
 
-## Lean (framework/E213/)
+## Proved (Lean)
 
-### `Infinity/`
-- `Cantor.lean` — Σ5 `cantor_general` + `cantor_raw_bool`.
-- `Countable.lean` — Σ3 `rawTower`, `rawTower_injective`,
-  `raw_at_least_countable`.
-- `Pair.lean` — `pair x y = 2^(x+y) + y`, `pair_injective`.
-- `Godel.lean` — Σ2 `Tree.toNat`, `Raw.toNat_injective`,
-  `raw_at_most_countable`, `raw_equipotent_nat`.
-- `Tower.lean` — Σ6 three rungs (`tower_0_1`..`tower_2_3`).
-- `LensCardinality.lean` — Σ4 image characterisations +
-  Σ7 `sigma7_cardinality_is_lens_output`.
-- `BTower.lean` — `bTree`, `signedLens_surjective` (onto all ℤ).
-- `BoolSpace.lean` — `nToRawBool`, `boolSpace_at_least_countable`,
-  `cantor_gap_witnessed`.
+### Σ-series
+| Id | File | Statement |
+|----|------|-----------|
+| Σ2 | `Infinity/Godel.lean` | `raw_at_most_countable` |
+| Σ3 | `Infinity/Countable.lean` | `raw_at_least_countable` |
+| Σ4 | `Infinity/LensCardinality.lean` | image witnesses leaves/depth/signed/bool-family |
+| Σ5 | `Infinity/Cantor.lean` | `cantor_raw_bool`, `cantor_general` |
+| Σ6 | `Infinity/Tower.lean` | `tower_0_1`/`_1_2`/`_2_3` |
+| Σ7 | `Infinity/LensCardinality.lean` | `sigma7_cardinality_is_lens_output` |
 
-### `Research/`
-- `ZIArith.lean` — Add/Neg/Sub instances on ZI.
-- `CDDouble.lean` — `Lipschitz` CD-doubled ZI, `mul`, `conj`,
-  `conj_conj`, `conj_ne_id`, `mul_not_commutative`.
+### Extensions
+- `Infinity/BTower.lean`: `signedLens_surjective` onto all
+  `ℤ`, `signedLens_not_injective`.
+- `Infinity/BoolSpace.lean`: `nToRawBool` injection, `cantor_gap_witnessed`.
 
-## Notes (research/infinity-as-lens/notes/)
+### CD layer 1
+- `Research/ZIArith.lean`: ZI `Add/Neg/Sub` + `conj_add/conj_sub/
+  neg_mul/mul_neg/neg_neg`.
+- `Research/CDDouble.lean`:
+  - `Lipschitz` structure, `mul`, `conj`.
+  - `conj_conj`, `conj_ne_id`.
+  - `I_mul_J = (0, i)`, `J_mul_I = (0, -i)`, `mul_not_commutative`.
+  - **`conj_mul_anti : conj(u·v) = conj v · conj u`** (CD
+    signature anti-distributivity, reversed-order).
+
+## Prose (research/infinity-as-lens/notes/)
 
 - `00_thesis.md` — Mingu's claim.
 - `01_roadmap.md` — Σ series plan.
 - `02_claude_assessment.md` — Claude's opinion.
 - `03_cayley_dickson.md` — CD tower design.
-- `04_results_session1.md` — Σ3/5/6 writeup.
-- `05_sigma2_formalized.md` — Σ2 writeup.
-- `06_sigma7_meta.md` — Σ7 meta claim.
+- `04_results_session1.md` — Σ3/5/6.
+- `05_sigma2_formalized.md` — Σ2.
+- `06_sigma7_meta.md` — Σ7 meta.
 - `07_cd_session.md` — CD session 1 writeup.
-- `08_session2_extension.md` — b-tower + BoolSpace + CD note.
+- `08_session2_extension.md` — ℤ-surj + BoolSpace + CD defer.
+- `09_session3_closures.md` — anti-dist + non-injective.
 
 ## Deferred
 
-- **Anti-distributivity** `conj(u·v) = conj v · conj u` for
-  Lipschitz — needs 4-factor `quad_norm` extension.
-- **Norm multiplicativity** `|uv|² = |u|² · |v|²` for
-  Lipschitz — 8-variable polynomial identity.
-- **Cayley octonion** CD layer 2.
-- **Sedenion** CD layer 3 (first R3 failure).
-- **`signedLens` non-injectivity** witness (fiber over 0).
-- **Meta-level Σ7** writeup distinguishing potential
-  infinity (Raw-intrinsic) from completed infinity
-  (Lens-output).
+- **Lipschitz norm multiplicativity** `|uv|² = |u|² · |v|²`
+  (8-var Int polynomial identity; beyond current `quad_norm`).
+- **CD layer 2**: `Cayley := CDDouble Lipschitz`.  Requires
+  Lipschitz `Add/Neg/Sub` supplement.  Octonions are
+  non-associative — first CD layer where associativity
+  fails.
+- **CD layer 3**: sedenions.  First CD layer with zero
+  divisors (R3 fails).
+- **Meta-level Σ7**: prose writeup distinguishing syntactic-
+  finite axiom from observation-side cardinality stack.
 
 ## No paper intent
 
-Track remains purely research-oriented.  Purpose: formal
-self-understanding of the Raw/Lens framework.
+Track remains research-only.  Purpose: formal
+self-understanding of Raw/Lens framework.
