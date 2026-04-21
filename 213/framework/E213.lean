@@ -54,4 +54,7 @@ import E213.Research.Z2Instance
 import E213.Research.ZOmega
 import E213.Research.ZOmegaDomain
 import E213.Research.ZOmegaInstance
+import E213.Research.ZSqrt
+import E213.Research.ZSqrtDomain
+import E213.Research.ZSqrtInstance
 import E213.Research.R5Vacuity
