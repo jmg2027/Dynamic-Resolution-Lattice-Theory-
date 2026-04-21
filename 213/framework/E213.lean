@@ -84,6 +84,8 @@ import E213.Research.CDDouble
 import E213.Research.LipschitzHeavy
 import E213.Research.CayleyHeavy
 import E213.Research.SedenionHeavy
+import E213.Research.Trigintaduonion
+import E213.Research.TrigintaduoionionHeavy
 import E213.Research.LipschitzLens
 import E213.Research.Cayley
 import E213.Research.Sedenion
