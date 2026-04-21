@@ -31,7 +31,7 @@ All originally-roadmapped Σ targets formal.  Plus:
 | `ZIArith.lean` | ZI Add/Neg/Sub + conj_add/sub/neg/neg_neg + neg_mul/mul_neg |
 | `CDDouble.lean` | Lipschitz (= CD layer 1): mul, conj, conj_conj, conj_ne_id, mul_not_commutative, **conj_mul_anti** (anti-distributivity), Add/Neg/Sub |
 | `Cayley.lean` | Layer 2: mul, conj, conj_conj, conj_ne_id, **mul_not_commutative + mul_not_associative** (via decide), Add/Neg/Sub |
-| `Sedenion.lean` | Layer 3 structure only |
+| `Sedenion.lean` | Layer 3 + **R3_fails_on_sedenion** (Moreno zero divisor via `decide`) |
 
 ## Prose (research/infinity-as-lens/notes/)
 
@@ -49,11 +49,10 @@ All originally-roadmapped Σ targets formal.  Plus:
 
 ## Deferred
 
-- **Sedenion R3-fail** — concrete zero divisor witness.  Requires
-  CD-basis mapping work.
 - **Lipschitz norm multiplicativity** — `|uv|² = |u|²·|v|²`,
   8-var polynomial identity; beyond current `quad_norm`.
 - **Lipschitz mul_assoc** — universal quaternion associativity.
+- **Cayley universal R3** — octonion no-zero-div (Hurwitz thm).
 - **CD `Functor`** — a `CDDouble : R4Codomain A → (X, Mul X,
   Inv X)` generic construction.
 - **Meta-level Σ7** writeup distinguishing potential vs completed

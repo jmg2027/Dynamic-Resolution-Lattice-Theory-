@@ -58,14 +58,15 @@ with origin, multiple commits).
 - Σ6 Cantor tower 3 rungs.
 - Σ7 summary theorem.
 
-### CD tower — layers 0–2 instrumented
+### CD tower — all 4 layers structurally verified
 - L0 ZI : full R4Codomain.
 - L1 Lipschitz : mul, conj, conj_conj, conj_ne_id,
   mul_not_commutative, **conj_mul_anti**.
 - L2 Cayley : mul, conj, conj_conj, conj_ne_id,
   mul_not_commutative, **mul_not_associative**,
-  generator-nonzero + pairwise-nonzero checks.
-- L3 Sedenion : structure only.
+  generator-nonzero + pairwise-nonzero.
+- L3 Sedenion : **R3 fails via Moreno zero divisor**
+  `(e_3 + e_10)(e_6 - e_15) = 0`.
 
 ### Lens catalogue — R1–R5 independence
 ParityLens, PathLens, MaxLens, ZMod6Lens, ZSqrtProduct
@@ -74,9 +75,9 @@ each fail exactly one (or two) R-conditions; PAPER.md
 
 ## Deferred
 
-- Sedenion R3-failure witness (specific zero divisor).
 - Lipschitz norm multiplicativity (Hurwitz identity).
 - Lipschitz universal associativity.
+- Cayley universal R3 (octonion no-zero-div theorem).
 - CD functorial wrapping `R4Codomain A → (structure on A × A)`.
 - Meta Σ7 writeup (syntactic vs observed infinity).
 
