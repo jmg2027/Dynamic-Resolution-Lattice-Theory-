@@ -143,3 +143,26 @@ theorem R3_fails_on_sedenion :
    zd_product_zero⟩
 
 end E213.Research.Sedenion
+
+namespace E213.Research.Sedenion
+
+/-- Generators at sedenion level: Cayley generators lifted. -/
+def I' : Sedenion := ⟨E213.Research.Cayley.I', 0⟩
+def J' : Sedenion := ⟨E213.Research.Cayley.J', 0⟩
+def L' : Sedenion := ⟨E213.Research.Cayley.L, 0⟩
+/-- New generator at sedenion level (the "M" imaginary). -/
+def M  : Sedenion := ⟨0, ⟨⟨⟨1, 0⟩, 0⟩, 0⟩⟩
+
+/-- **Sedenion multiplication is not commutative**
+    (inherited via Cayley I'/J'). -/
+theorem mul_not_commutative :
+    ∃ u v : Sedenion, u * v ≠ v * u := by
+  refine ⟨I', J', ?_⟩; decide
+
+/-- **Sedenion multiplication is not associative**
+    (inherited via Cayley I', J', L). -/
+theorem mul_not_associative :
+    ∃ u v w : Sedenion, (u * v) * w ≠ u * (v * w) := by
+  refine ⟨I', J', L', ?_⟩; decide
+
+end E213.Research.Sedenion
