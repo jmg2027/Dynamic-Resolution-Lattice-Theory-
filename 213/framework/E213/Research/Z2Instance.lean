@@ -3,26 +3,25 @@ import E213.Research.ZSqrt2
 import E213.Research.ZSqrt2Domain
 
 /-!
-# Research: `Z2 = ℤ[√-2]` as `SelfRecognisingCodomain` instance
+# Research: `Z2 = ℤ[√-2]` as `R4Codomain` instance
 
-Identical pattern to `ZIInstance`; this demonstrates that the
-spec/instance separation makes the second R1–R4 witness a
-3-line declaration once the domain-level proofs are in.
+Same pattern as `ZIInstance` — adding a new R1–R4 witness is
+now a single `instance R4Codomain α` declaration.
 -/
 
 namespace E213.Research
 
 open E213.Meta E213.Research.Z2
 
-instance : SelfRecognisingCodomain Z2 where
+instance : R4Codomain Z2 where
   base_a := Z2.I
   base_b := Z2.negI
   combine := Z2.mul
-  conj := Z2.conj
+  combine_comm := mul_comm
   base_a_ne_zero := by intro h; cases h
   base_b_ne_zero := by intro h; cases h
-  combine_comm := mul_comm
   no_zero_div := no_zero_div
+  conj := Z2.conj
   conj_involution := conj_conj
   conj_ne_id := conj_ne_id
   conj_dist := conj_mul
