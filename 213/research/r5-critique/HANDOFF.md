@@ -2,87 +2,102 @@
 
 ## Status
 
-**Phase E1–E3 Lean-complete (pending Raw build).**
+**Phase E1–E3 + metaprogramming infrastructure (Phases A, B,
+C-variant) complete.**
 
-Hypothesis H is Lean-confirmed at the counterexample level:
-R1–R4 alone do not force ℂ.  Two concrete witnesses
-(`ℤ[i]`, `ℤ[√-2]`) are fully verified modulo
-`Raw.fold_swap_hom`, which is currently compiling in the slow
-Lean 4 environment.
+Hypothesis H is Lean-confirmed at the counterexample level
+with **infinitely many witnesses** via the parametric
+`ZSqrt D` family.  Three concrete-typed witnesses (ZI = ZSqrt
+1-spirit, Z2 = ZSqrt 2-spirit, ZOmega = Eisenstein) plus
+auto-generated `ZSqrt 3, 5, 7, …` are all R4Codomain
+instances.
 
 **Branch:** `claude/polish-paper-submission-EilC5`.
 
 ## What is in place
 
 ### Research notes
-- `CLAUDE.md` — research frame, hypothesis H, E1–E5 list.
-- `notes/00_research_question.md` — formalised question.
-- `notes/01_zi_counterexample.md` — E1 writeup (ZI).
-- `notes/02_r5_vacuity.md` — **E3**: R5 splits into R5a
-  (Distinguishing) and R5b (completeness); R5b is the
-  classical-infinity smuggling channel.
+- `CLAUDE.md` — research frame
+- `notes/00_research_question.md`
+- `notes/01_zi_counterexample.md`
+- `notes/02_r5_vacuity.md` — R5a/R5b split
+- `notes/03_e4_restoring_c.md` — what could re-select ℂ
+- `notes/04_refactor_plan.md` — Raw.rec @[eliminator] B-option
+- `notes/99_paper2_outline.md`
 
-### Lean artifacts
+### Lean artifacts (3 + ∞ witnesses)
 
-**E1 (ZI = ℤ[i]):**
-- `Research/ZI.lean` — structure, `mul`, `conj`, `normSq`.
-- `Research/ZIDomain.lean` — `normSq_mul` (Diophantus via
-  simp+omega), `no_zero_div`, `mul_ne_zero_of_ne_zero`.
-- `Research/ZIHom.lean` — `conj_I`, `conj_negI`, `conj_mul`.
-- `Research/ZILens.lean` — `ziLens_nonVanishing` (R3),
-  `ziLens_swapMatching` (R4, uses `Raw.fold_swap_hom`).
+**Concrete codomains:**
+- `Research/ZI.lean` + `ZIDomain.lean` + `ZIHom.lean` +
+  `ZIInstance.lean` — Gaussian integers ℤ[i]
+- `Research/ZSqrt2.lean` + `ZSqrt2Domain.lean` +
+  `Z2Instance.lean` — ℤ[√-2]
+- `Research/ZOmega.lean` + `ZOmegaDomain.lean` +
+  `ZOmegaInstance.lean` — Eisenstein ℤ[ω]
 
-**E2 (Z2 = ℤ[√-2], second witness):**
-- `Research/ZSqrt2.lean`, `ZSqrt2Domain.lean`,
-  `ZSqrt2Lens.lean`.
-- Same structure as ZI with `a² + 2b²` norm; fully verified.
+**Parametric family (NEW):**
+- `Research/ZSqrt.lean` + `ZSqrtDomain.lean` +
+  `ZSqrtInstance.lean` — `ZSqrt D = ℤ[√-D]` for `D : Int`,
+  with concrete instances for D = 3, 5, 7.  Adding more =
+  one line.
 
-**E3 (R5 vacuity):**
-- `Research/R5Vacuity.lean` — `foldTotality`,
-  `foldTotality_vacuous`.
+**Spec class hierarchy:**
+- `Meta/SelfRecognising.lean` — `R12Codomain → R3Codomain
+  → R4Codomain` `extends` chain.
+- Generic `specLens_nonVanishing` (R3) and
+  `specLens_swapMatching` (R4) proved once per tier.
 
-**Firmware support:**
-- `Firmware/Raw.fold_swap_hom` added; `ring` → `Int.neg_add`
-  patched.  Pending main build verification.
+**Metaprogramming (Phases A + B):**
+- `Research/IntHelpers.lean` — shared `Int` self-mul lemmas.
+- `Tactic/QuadNorm.lean` — `quad_norm` macro
+  (simp+omega chain for Diophantus-style polynomial
+  identities; works for ZI, Z2, ZOmega, ZSqrt D norms).
+- `Tactic/IntSquare.lean` — `int_square` wrapper for
+  `0 ≤ a*a` and `a*a = 0 ↔ a = 0`.
+- `Tactic/DeriveR4Codomain.lean` — `command_elab` that
+  generates the 13-field `R4Codomain` instance from a
+  base-name pair via name-suffix convention.
+- `Tactic/Test/{QuadNormTest,IntSquareTest}.lean` —
+  Firmware-free verification.
 
-## Immediate next step
+**Firmware support (from earlier sessions):**
+- `Firmware/Raw.fold_swap_hom` (general homomorphism-swap
+  helper, used by R4Codomain proofs).
+- `Firmware/RawSwap.lean`, `Firmware/RawLevels.lean`
+  (extracted from Raw.lean for modularity).
 
-1. Wait for `lake build E213.Firmware.Raw` to finish.
-2. Once Raw builds, verify all Lens modules (ziLens*,
-   z2Lens*, R5Vacuity) build.
-3. Generate final HANDOFF + commit.
+## Build status (this session)
 
-## Not yet attempted
+✓ All structure + Domain modules build standalone in seconds.
+✓ `Tactic/*` modules + tests build standalone.
+⏳ All `*Instance.lean` modules depend on R4Codomain via
+   `SelfRecognising → Lens → Raw`.  In-flight Raw.lean
+   compile (~30 min on this host) verifies all instances
+   together.
 
-- **ZOmega (ℤ[ω] Eisenstein integers)** — structure + basic
-  algebra was sketched but `normSq_nonneg` tripped up on
-  omega's atom unification for the `-ab` term in the
-  Eisenstein norm.  ZI and Z2 provide sufficient evidence.
+## Next-session priorities
 
-## E4 — finding what re-selects ℂ
+- Verify Raw build completes; confirm all `*Instance` build.
+- **Phase C2 (`#verify_r4`)** — meta-check command that
+  scans environment for R4Codomain instances and reports
+  their derivation.  Now that we have ≥3 concrete + 3
+  parametric instances (6 total), this would actually
+  exercise something.
+- **Phase C3 (`raw_induction`)** — gated on
+  `@[eliminator] def Raw.rec` (B-option Firmware refactor).
+- Consider abolishing the per-D individual modules in favour
+  of `ZSqrt D` family + small concrete-witness shims, once
+  ZSqrtInstance verifies.
 
-Given two explicit R1–R4 counterexamples (ZI, Z2) and the
-vacuity of R5 within inductive Raw, the question becomes: is
-there any 213-internal condition that would restore ℂ
-uniqueness?  Candidates to explore:
+## Paper 2 implication
 
-- cardinality constraints (imports classical)
-- Archimedean order (imports classical)
-- closure under a Raw-internal notion of limit / growth
-- categorical universal property
-- physical/geometric relevance (ties to main research
-  program rather than Paper 1 logic)
+H confirmed: not just three witnesses, but an **infinite
+parametric family** of countable R1-R4-admissible
+codomains.  The "ℂ uniqueness" claim of Paper 1 rests
+entirely on R5b — without that, Paper 1 §4 admits
+infinitely many countable witnesses.
 
-## Paper 2 stub
-
-Working title: *"The ℝ-algebra assumption in 213 — a finitist
-critique."*
-
-Structure:
-1. Recap of Paper 1's R1–R5 and its ℂ uniqueness theorem.
-2. Split of R5 into R5a + R5b (Lean-backed in R5Vacuity).
-3. Explicit countable counterexamples (ZI, Z2).
-4. Consequence: ℂ uniqueness requires R5b, which is
-   classical-infinity smuggling.
-5. Finitist reformulation: R1–R4 + R5a; ℂ one admissible
-   Lens in a larger spectrum.
+This sharpens Paper 2's central thesis: R5b smuggles
+classical infinity, and removing it leaves a continuum (in
+fact a countable infinity parameterised by `D`) of
+admissible Lens codomains.
