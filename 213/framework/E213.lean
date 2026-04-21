@@ -36,6 +36,11 @@ import E213.App.Simplex
 -- Meta
 import E213.Meta.LensCatalog
 import E213.Meta.BoolLens
+import E213.Meta.ParityLens
+import E213.Meta.PathLens
+import E213.Meta.MaxLens
+import E213.Meta.ZMod6Lens
+import E213.Meta.LensCharacterisation
 import E213.Meta.SelfRecognising
 import E213.Meta.RawInductionDemo
 
@@ -61,4 +66,5 @@ import E213.Research.ZOmegaInstance
 import E213.Research.ZSqrt
 import E213.Research.ZSqrtDomain
 import E213.Research.ZSqrtInstance
+import E213.Research.ZSqrtProduct
 import E213.Research.R5Vacuity
