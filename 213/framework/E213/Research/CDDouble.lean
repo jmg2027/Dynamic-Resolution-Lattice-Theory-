@@ -348,3 +348,23 @@ theorem normSq_neg (u : Lipschitz) : normSq (-u) = normSq u := by
       Int.neg_mul_neg, Int.neg_mul_neg]
 
 end E213.Research.Lipschitz
+
+namespace E213.Research.Lipschitz
+
+open E213.Research.ZI E213.Tactic
+
+/-- `|I' * J|² = |I'|² * |J|²` at concrete basis.  Sanity
+    check before attempting the universal identity. -/
+theorem normSq_mul_I_J :
+    normSq (I' * J) = normSq I' * normSq J := by decide
+
+/-- `|I'²|² = |I'|² * |I'|² = 1`. -/
+theorem normSq_mul_I_I :
+    normSq (I' * I') = normSq I' * normSq I' := by decide
+
+/-- `|(1+I') * J|² = |1+I'|² * |J|² = 2 * 1 = 2`. -/
+theorem normSq_mul_sum_basis :
+    normSq ((⟨⟨1, 0⟩, 0⟩ + I') * J)
+      = normSq (⟨⟨1, 0⟩, 0⟩ + I') * normSq J := by decide
+
+end E213.Research.Lipschitz
