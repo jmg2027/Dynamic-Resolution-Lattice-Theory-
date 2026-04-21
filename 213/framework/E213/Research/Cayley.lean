@@ -176,3 +176,26 @@ theorem J'_squared : J' * J' = ⟨⟨⟨-1, 0⟩, 0⟩, 0⟩ := by decide
 theorem I'_J'_L_ne_comm : (I' * J') * L ≠ L * (I' * J') := by decide
 
 end E213.Research.Cayley
+
+namespace E213.Research.Cayley
+
+-- ═══ Alternativity evidence ═══
+-- Octonions are classically an alternative algebra:
+-- (a*a)*b = a*(a*b) holds universally.
+-- Non-associativity + alternativity is the defining flavour.
+-- Full universal alternativity is beyond `decide`; specific
+-- basis-triple instances verified below.
+
+/-- Alternativity at `(I', J')`: `(I'·I')·J' = I'·(I'·J')`. -/
+theorem alt_I_I_J : (I' * I') * J' = I' * (I' * J') := by decide
+
+/-- Alternativity at `(J', I')`: `(J'·J')·I' = J'·(J'·I')`. -/
+theorem alt_J_J_I : (J' * J') * I' = J' * (J' * I') := by decide
+
+/-- Alternativity at `(L, I')`: `(L·L)·I' = L·(L·I')`. -/
+theorem alt_L_L_I : (L * L) * I' = L * (L * I') := by decide
+
+/-- Right alternativity at `(I', J')`: `I'·(J'·J') = (I'·J')·J'`. -/
+theorem alt_right_I_J_J : I' * (J' * J') = (I' * J') * J' := by decide
+
+end E213.Research.Cayley
