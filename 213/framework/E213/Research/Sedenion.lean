@@ -166,3 +166,28 @@ theorem mul_not_associative :
   refine ⟨I', J', L', ?_⟩; decide
 
 end E213.Research.Sedenion
+
+namespace E213.Research.Sedenion
+
+-- ═══ Alternativity failure at Sedenion level ═══
+-- Octonions (CD layer 2) are classically alternative.
+-- Sedenions (CD layer 3) are *not* — second structural
+-- drop at layer 3 (along with R3 failure).
+
+/-- Alternativity holds at basis `(e_3, e_3, e_6)`. -/
+theorem alt_holds_at_basis :
+    (e3 * e3) * e6 = e3 * (e3 * e6) := by decide
+
+/-- **Alternativity FAILS at `(zd_left, zd_left, zd_right)`**.
+    RHS = 0 since `zd_left · zd_right = 0`.  LHS non-zero;
+    hence the two differ.  Closed by `decide`. -/
+theorem alt_fails_at_zd :
+    (zd_left * zd_left) * zd_right ≠ zd_left * (zd_left * zd_right) := by
+  decide
+
+/-- **Sedenion is NOT alternative.**  Existential wrap. -/
+theorem not_alternative :
+    ∃ a b : Sedenion, (a * a) * b ≠ a * (a * b) :=
+  ⟨zd_left, zd_right, alt_fails_at_zd⟩
+
+end E213.Research.Sedenion
