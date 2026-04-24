@@ -69,3 +69,28 @@ theorem swapLens_injective : Function.Injective swapLens.view := by
   exact Raw.swap_injective hxy
 
 end E213.Research.SwapLens
+
+namespace E213.Research.SwapLens
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.IdentityLens
+
+/-- idLens 와 swapLens 는 refines-equivalent.  둘 다 injective
+    이므로 InjectiveLensClass.lean 의 injective_equiv 로부터. -/
+theorem idLens_swapLens_refines_equiv :
+    idLens.refines swapLens ∧ swapLens.refines idLens := by
+  constructor
+  · intro x y hxy
+    show swapLens.view x = swapLens.view y
+    rw [swapLens_view_eq_swap, swapLens_view_eq_swap]
+    have h : idLens.view x = idLens.view y := hxy
+    rw [idLens_is_id, idLens_is_id] at h
+    rw [h]
+  · intro x y hxy
+    show idLens.view x = idLens.view y
+    rw [idLens_is_id, idLens_is_id]
+    have h : swapLens.view x = swapLens.view y := hxy
+    rw [swapLens_view_eq_swap, swapLens_view_eq_swap] at h
+    exact Raw.swap_injective h
+
+end E213.Research.SwapLens
