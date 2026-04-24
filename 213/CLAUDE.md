@@ -123,6 +123,8 @@ fudge 없이 derive 가능한가?  안 되면 **speculative 격리**.
 ## 파일 지도
 
 - **`AXIOM.md` — 공리 씨앗 문서 (최상위 기준).**
+- **`ORIGIN.md` — 이론의 원본 프롬프트 chain (2026-04-24 고정).**
+  공리의 형태가 "왜 이것인가" 의심될 때 먼저 참조.
 - `NOTATION.md` — 표기 규약.
 - `IMPLEMENTATION.md` — Raw + Firmware 구현 감사 연구.
   안전장치가 공리 추가가 아님을 엄밀 분석.
