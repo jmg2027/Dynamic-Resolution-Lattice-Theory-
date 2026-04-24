@@ -71,9 +71,43 @@ theorem divides_refines (m k : Nat) (hmk : k ∣ m) :
 
 end E213.Research.LeavesModNat
 
-/-! ## Converse direction
+namespace E213.Research.LeavesModNat
 
-The "only if" direction (`(leavesModNat m).refines (leavesModNat k)`
-→ `k ∣ m`) 은 leaves_surjective_pos 로 m+1 vs 1 witness 구성하여
-증명 가능하나, Nat.mod 의 case split 증명이 기술적.  향후 작업.
--/
+open E213.Firmware E213.Hypervisor
+
+/-- Converse (k ≥ 2): mod m refines mod k ⟹ k ∣ m.  Witness는
+    leaves = m+1 (존재 — leaves_surjective_pos) vs leaves = 1
+    (= Raw.a). -/
+theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
+    (hrefines : (leavesModNat m).refines (leavesModNat k)) :
+    k ∣ m := by
+  obtain ⟨r, hr⟩ := E213.Infinity.leaves_surjective_pos (m + 1) (by omega)
+  have h_leaves_a : Lens.leaves.view Raw.a = 1 := rfl
+  -- mod m 에서 Raw.a 와 r 은 같음 (둘 다 leaves ≡ 1 mod m)
+  have hm_eq : (leavesModNat m).view Raw.a = (leavesModNat m).view r := by
+    rw [leavesModNat_view_eq, leavesModNat_view_eq, h_leaves_a, hr]
+    show 1 % m = (m + 1) % m
+    rw [Nat.add_mod_left, Nat.mod_eq_of_lt (by omega)]
+  -- refines 로 mod k 에서도 같음
+  have hk_eq : (leavesModNat k).view Raw.a = (leavesModNat k).view r :=
+    hrefines Raw.a r hm_eq
+  rw [leavesModNat_view_eq, leavesModNat_view_eq, h_leaves_a, hr] at hk_eq
+  -- hk_eq : 1 % k = (m + 1) % k
+  -- k ≥ 2 → 1 % k = 1
+  rw [Nat.mod_eq_of_lt (show 1 < k from hk)] at hk_eq
+  -- hk_eq : 1 = (m + 1) % k
+  -- (m + 1) % k = (m % k + 1) % k
+  have hstep : (m + 1) % k = (m % k + 1) % k := by
+    rw [Nat.add_mod, Nat.mod_eq_of_lt (show (1 : Nat) < k from hk)]
+  rw [hstep] at hk_eq
+  -- hk_eq : 1 = (m % k + 1) % k
+  have hmk : m % k < k := Nat.mod_lt _ (by omega)
+  have hm_zero : m % k = 0 := by
+    by_cases h : m % k + 1 < k
+    · rw [Nat.mod_eq_of_lt h] at hk_eq; omega
+    · have h_eq : m % k + 1 = k := by omega
+      rw [h_eq, Nat.mod_self] at hk_eq
+      exact absurd hk_eq (by decide)
+  exact Nat.dvd_of_mod_eq_zero hm_zero
+
+end E213.Research.LeavesModNat
