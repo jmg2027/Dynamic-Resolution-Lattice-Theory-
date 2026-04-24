@@ -71,14 +71,25 @@ Lean 정리:
 즉 네 범주 = 대수 구조의 **근본 갈림길**.  Lens 는 이
 갈림길 중 **정확히 하나** 를 선택.
 
-## §5. 다른 범주가 더 있는가
+## §5. 다른 범주
 
+- **Involution**: `sq (sq v) = v` 이지만 `sq v ≠ v`.  
+  즉 sq 가 non-trivial 대합 (non-constant, non-identity).
+  구체 witness: `negSqLens : Lens Bool` with
+  `combine u v := if u = v then !u else true` 에서
+  `sq v = !v`.  Lean: `Research/NegSqLens.lean`.
+  이는 4분류 어디에도 속하지 않음 — Collapse 도 Idempotent
+  도 아님이 기계 검증됨.
 - **Nilpotent**: `v² = 0` 이지만 `v ≠ 0`.  dual numbers 의 ε
   (F2CDTower 의 `ε * ε = 0`).  Multiply 의 degenerate
   sub-case (codomain 에 nil 원소 존재).
 - **Partial**: sq 가 일부 v 에서 미정의 (note 34 §4 정정본).
 
-본질은 위 네 가지 + special case.
+본질은 네 가지 + special case들.  **완전 분류는 codomain α
+의 구조에 의존** — α 의 가능한 α → α 함수 공간 크기가
+결정적.  α = Bool 은 4 가능 sq (const T, const F, id, not)
+가 각각 Collapse T, Collapse F, Idempotent, Involution 에
+대응.
 
 ## §6. 다음
 
