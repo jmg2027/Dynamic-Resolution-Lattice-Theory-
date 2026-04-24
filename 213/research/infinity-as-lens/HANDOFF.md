@@ -210,3 +210,56 @@ Note 34 (Lens = totalization) 의 Q34.1-4 + Note 37 Q37.1-2
 ## No paper intent
 
 Track remains research-only.
+
+## Session 2026-04-24 — Note 41-45 arc 추가 (선택/메타 + mod lattice)
+
+### 추가 Lean
+
+- **`FoldStructured.lean`** — function-쪽 특성화 (Lens view = fold-
+  structured).  `lens_expressible_iff_fold_structured` iff.
+- **`DepthParityNotFold.lean`** — depth parity 함수 fold-structured
+  아님 (NoDepthParity 의 function 측).
+- **`ABLens.lean`** — (a-count, b-count) Lens.  abLens ⊏ leaves.
+- **`LeavesMod3.lean`, `LeavesModNat.lean`** — mod m family 통합
+  form.  divides_refines + converse + gcd/lcm bounds.
+- **`Mod2Mod3Incomparable.lean`** — mod 2 ∥ mod 3 (coprime).
+- **`ModLensCRT.lean`** — prodLens(L_2, L_3) ≈ L_6 (CRT in Lens).
+- **`RawACharLens.lean`** — Raw.a characteristic = Lens Bool.
+- **`SlashCharNotFold.lean`** — specific slash characteristic ≠ Lens.
+
+### 추가 notes
+
+- **41, 42** — kernel space 구조, dual 특성화.
+- **43** — leaf/slash 관측 가능성 비대칭.
+- **44** — **선택과 메타의 해소**.  AC = Lens specification,
+  모든 메타가 Lens 인스턴스로 내려옴.  Arc 의 핵심 meta 발견.
+- **45** — mod m family = divisibility sublattice.  Meet = lcm,
+  Join = gcd.
+
+### 핵심 발견 (추가)
+
+- Lens view = fold-structured function (iff 정리).
+- Lens kernel = slash-congruence (positive + negative).
+- Leaf/slash 관측 가능성 비대칭 (leaf identity ✓, slash identity ✗).
+- **선택 = Lens specification**.  AC 필요 없음 — 모든 choice 는
+  구체 Lens 명시로 환원.  "abstract 존재" 의 자리가 213 에 없음.
+- **메타 일반 해소**: 전통적 "메타" 개념들 (AC, observer,
+  universe hierarchy, Tarski truth, ...) 전부 Lens 인스턴스로
+  내려옴.  213 의 self-containment.
+- Mod m family 가 divisibility lattice 와 isomorphic sublattice.
+  Meet = lcm, Join = gcd, bounds 확인.  CRT 가 Lens lattice 로
+  실현.
+
+### 남은 open 질문 (총정리)
+
+- **Q37.3 일반 Q**: Quotient Lens 로 임의 pair 의 join.
+  Raw.toNat canonical picking 으로 constructive 가능 (note 44).
+  구현 heavy.
+- **Join = gcd 의 least 방향**: Bezout chain 필요.
+- **swap_slash**: Tree.cmp case 전개.  기술적.
+- **Lens kernel 공간 cardinality**: countable? 𝔠?  미답.
+- **Meta-213 hierarchy**: Lens on Lens 의 concrete construction.
+  자연 combine 부재.
+- **Physics chapter 감사**: 별도 디렉토리로.  framework 준비 완료.
+
+0 sorry, 0 axiom, Mathlib-free 유지.
