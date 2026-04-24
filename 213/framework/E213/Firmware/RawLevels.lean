@@ -12,11 +12,13 @@ namespace E213.Firmware
 
 -- ═══ Level-≤2 enumeration ═══
 
-/-- Level 0+1 terms: `{a, b, a/b}`. -/
+/-- Level-≤1 witnesses: the Raw terms `a`, `b`, `a/b`
+    (a `List Raw`, not a ZFC set; order is the enumeration
+    Lens choice, not axiomatic). -/
 def Raw.level1_set : List Raw :=
   [Raw.a, Raw.b, Raw.slash Raw.a Raw.b (by decide)]
 
-/-- Level-2 additions: `{a/(a/b), b/(a/b)}`. -/
+/-- Level-2 additions: the Raw terms `a/(a/b)`, `b/(a/b)`. -/
 def Raw.level2_new : List Raw :=
   [Raw.slash Raw.a (Raw.slash Raw.a Raw.b (by decide)) (by decide),
    Raw.slash Raw.b (Raw.slash Raw.a Raw.b (by decide)) (by decide)]

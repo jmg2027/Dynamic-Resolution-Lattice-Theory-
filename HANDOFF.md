@@ -1,8 +1,46 @@
-# Session Handoff — 2026-04-21 (final, comprehensive)
+# Session Handoff — 2026-04-24 (philosophy-consolidation arc)
+
+## Latest arc (2026-04-24): session-level trap catalogue
+
+Added durable docs to stop Claude from re-making the same
+foundational mistakes across sessions (each mistake cost
+~1 h previously):
+
+- `213/CLAUDE.md` — DO / DO-NOT list.  **Read first** in any
+  213-adjacent session.
+- `213/NOTATION.md` — ZFC-artifact-free notation conventions.
+- `213/research/infinity-as-lens/notes/17_existence_mode_lens.md`
+  — existence mode ("already there" vs "being generated") is
+  a Lens output.  "Don't care" is provable.
+- `.../18_complete_graph_lens_base.md` — K_n as lowest-
+  commitment geometric Lens; connects DRLT `G_ij` axiom to 213.
+- `.../19_lens_not_functor.md` — Lens is pre-categorical.
+  **Never call Lens a functor.**
+- `.../20_bridge_search_infrastructure.md` — Lens catalogue
+  as quantitative bridge-search infrastructure.
+
+Bias patches applied to PAPER.md (line 423 Lens-is-functor,
+`{a, b}` set-literals at 141/185/615/623/651), README.md
+(line 111), `framework/E213/Firmware/RawLevels.lean` (comments
+15, 19), and CD "functor" wording in notes 03/10/11/13 +
+infinity-as-lens HANDOFF.  No Lean structure changed; comments
+only.  `lake build` expected clean.
+
+New sessions should load in order:
+1. `HANDOFF.md` (this)
+2. `213/CLAUDE.md`
+3. `213/NOTATION.md`
+4. `213/research/infinity-as-lens/{CLAUDE.md, HANDOFF.md}`
+5. notes 17–20 before working on philosophy / foundation.
 
 ## Branch
+`claude/lean-infinity-explanation-QqnSp` (current arc).
+Prior arc on `claude/math-theory-research-OFgZu`.
+
+## Prior arc (2026-04-21)
+
 `claude/math-theory-research-OFgZu` (pushed to origin).
-42 commits on this branch beyond `main`.
+42 commits on that branch beyond `main`.
 
 ## Formal status
 0 sorry, 0 axiom, Mathlib-free.  `lake build` ✓ from a clean

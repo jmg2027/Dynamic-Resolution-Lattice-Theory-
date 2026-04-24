@@ -81,5 +81,8 @@ forever) but R1–R3 drop one by one as one climbs.
   quaternion-norm-type identity).
 - Lipschitz norm multiplicativity (Hurwitz identity,
   8-variable polynomial).
-- CD full characterisation as a "functor" `R4Codomain A →
-  (structure, maybe not R4Codomain, on A × A)`.
+- CD full characterisation as a **doubling construction**
+  `R4Codomain A → (structure, maybe not R4Codomain, on A × A)`.
+  (Earlier drafts called this a "functor"; we now avoid the
+  word when Raw-Lens machinery is nearby — see
+  `notes/19_lens_not_functor.md`.)

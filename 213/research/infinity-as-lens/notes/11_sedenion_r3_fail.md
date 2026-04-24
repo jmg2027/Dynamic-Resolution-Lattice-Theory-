@@ -97,5 +97,7 @@ hierarchy.
 - Lipschitz norm multiplicativity (Hurwitz four-square
   identity).
 - Cayley universal R3 (octonion no-zero-div, Hurwitz thm).
-- CD Functor wrapper: generic `CDDouble : A → A × A`
-  construction on arbitrary involution rings.
+- CD doubling wrapper: generic `CDDouble : A → A × A`
+  construction on arbitrary involution rings.  (Earlier
+  wording used "Functor"; dropped to avoid confusion with
+  Lens — see `notes/19_lens_not_functor.md`.)

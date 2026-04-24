@@ -60,7 +60,11 @@ multiplicative on `|(a,b)·(c,d)|²`.
 ## Lean opportunity
 
 Define `CDDouble : R4Codomain A → R4Codomain (A × A)` as
-a functorial construction.  Instantiate on ZI to get
+a typeclass-level doubling construction.  (In standard
+category theory this is functorial; we avoid the word
+"functor" in Raw-adjacent contexts to preserve the
+Lens ≠ Functor distinction — see `notes/19_lens_not_functor.md`.)
+Instantiate on ZI to get
 Hurwitz integers (ℍ-flavored ℤ-lattice) as R4Codomain.
 Iterate once more for integer octonions.
 

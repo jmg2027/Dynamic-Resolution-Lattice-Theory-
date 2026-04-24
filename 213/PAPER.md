@@ -138,8 +138,11 @@ to it in turn).
 
 **Definition 1.1 (Raw, target).** The target firmware is the
 **free commutative magma on two generators with no fixed points**
-— the unique closure of `{a, b}` under a symmetric, anti-reflexive
-binary operation `slash`.
+— the unique closure under a symmetric, anti-reflexive binary
+operation `slash`, starting from the two primitive distinctions
+`a` and `b`.  (Set-literal notation `{a, b}` is deliberately
+avoided here; see `NOTATION.md` — the Raw axiom does not assume
+ZFC membership or element-collection structure.)
 
 Raw contains no natural number, no notion of size, no equality
 relation beyond "same Lean constructor application". The axiom
@@ -182,12 +185,14 @@ symmetric reading at the type level. (Lean:
 ### 1.3 Recursive bootstrapping
 
 The axiom supplies no "size" concept, but it does supply a
-recursive generation rule. Starting from `{a, b}`, each
-application of `slash` on two distinct existing terms produces a
-new term, and that new term can itself enter further `slash`
-applications. The *closure of Raw under `slash`* is therefore an
-ever-expanding family; to speak of any specific Raw term is to
-identify a particular finite bootstrapping path.
+recursive generation rule. Starting from `a` and `b`, each
+application of `slash` on two distinct Raw terms produces a
+new Raw term, and that new term can itself enter further
+`slash` applications.  To speak of any specific Raw term is
+to identify a particular finite bootstrapping path.  (Whether
+the totality of reachable Raw terms is a "completed collection"
+or a "family being generated" is not judged by the axiom; see
+`notes/17_existence_mode_lens.md`.)
 
 This is all the structure Raw provides. Everything else — "how
 many terms at depth 2", "what is the leaves count", "which terms
@@ -419,8 +424,12 @@ of §2 disappears in the image. Examples:
   (Lean: `E213.Meta.LensCatalog.leaves_swap_invariant`.)
 
 Extracting Peano arithmetic or any swap-agnostic counting theory
-from Raw proceeds through lenses of this kind; the Lens is a
-functor from Raw's bootstrapping into ℕ-valued measurement.
+from Raw proceeds through lenses of this kind.  (The Lens is
+*not* a functor: Raw has no category structure prior to a Lens
+choice, so any functorial reading would presuppose some other
+Lens.  The fold here is a catamorphism-style observation, which
+is what §3 defined a Lens to be; see `notes/19_lens_not_functor.md`
+for the full pre-categorical argument.)
 
 **Swap-visible lenses** have `base_a ≠ base_b`; `swap` then acts
 nontrivially on the image. The canonical example within Lean 4
@@ -612,7 +621,7 @@ information about `swap` but faithfully report sizes and depths.
 
 The closure by levels now has numerical content:
 
-- **Level 0:** `{a, b}` — 2 terms, each of size 1.
+- **Level 0:** two witnesses `a, b`, each of size 1 — 2 terms.
 - **Level 1:** add `a/b`, size 2 — 3 terms total.
 - **Level 2:** add `a/(a/b), b/(a/b)`, each of size 3 — 5 terms
   total.
@@ -620,8 +629,8 @@ The closure by levels now has numerical content:
 The five Level-≤2 terms split by size as `3 + 2`:
 
 ```
-A-type (sizes ≤ 2): {a, b, a/b}        — 3 terms
-B-type (size 3):    {a/(a/b), b/(a/b)} — 2 terms
+A-type (sizes ≤ 2) witnesses:  a, b, a/b          -- 3 terms
+B-type (size 3) witnesses:     a/(a/b), b/(a/b)   -- 2 terms
 ```
 
 (Lean: `E213.Firmware.Raw.level1_card`,
@@ -647,9 +656,13 @@ A multi-part decomposition collapses to 2 parts. Case analysis:
 `2 + 2`; `n ≥ 5` is `2 + (n - 2)` with `n - 2 ≥ 3`. ∎
 
 The atom set is therefore `{2, 3}` — the non-decomposable sizes
-post-`ℂ`. Both values are already visible in Raw's closure:
-`|{a, b}| = 2` and `|{a, b, a/b}| = 3`. (Lean:
+post-`ℂ`.  Both values are already visible in Raw's closure:
+the Level-0 witness list `a, b` has length 2, and the
+Level-≤1 witness list `a, b, a/b` has length 3.  (Lean:
 `E213.OS.PrimitiveSizes.primitive_sizes_eq_nondecomposable`.)
+Integer-set notation `{2, 3}` is acceptable here because `ℂ` has
+already been applied — `2` and `3` are Lens-image values, not
+Raw-level objects.
 
 ### 5.3 Atomic decomposition observes odd multiplicity
 

@@ -107,10 +107,12 @@ of a free ordered magma.  The ordering is an implementation
 artifact needed because core Lean lacks primitive quotients; no
 set theory (`Multiset`, ZFC-style sets) is imported.
 
-Level-by-level closure:
-- Level 0: `{a, b}` — 2 terms
+Level-by-level closure (Raw-level witnesses, not ZFC sets):
+- Level 0: two primitive distinctions `a, b` — 2 terms
 - Level 1: `+ a/b` — 3 terms
 - Level 2: `+ a/(a/b), b/(a/b)` — 5 terms, (3, 2) partition
+
+See `NOTATION.md` for the notation convention.
 
 ## Scope
 

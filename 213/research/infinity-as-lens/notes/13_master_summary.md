@@ -105,7 +105,9 @@ hand rewrites for CD anti-dist) suffice.
 - Lipschitz norm multiplicativity (Hurwitz).
 - Cayley universal alternativity (Bruck-Kleinfeld).
 - Cayley universal R3 (octonion no-zero-div).
-- Generic `CDDouble` functor over typeclass.
+- Generic `CDDouble` doubling construction over typeclass.
+  (Not "functor": Lens ≠ Functor convention, see
+  `notes/19_lens_not_functor.md`.)
 
 ## Status
 
