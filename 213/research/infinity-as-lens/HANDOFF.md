@@ -299,6 +299,10 @@ Classical.choice, LEM, native_decide 등 일체.  추가 필요가
 - `Research/ParityXorJoin.lean`: 비-mod family join 예시.
   parityLens ⊔ boolXorLens = const, leaves ⊔ boolXor = const.
   `refine_*_implies_const` 귀결.
+- `Research/LeavesDepthJoin.lean`: **비-mod non-trivial join**
+  첫 예시.  leaves ⊔ depth ≠ const.  small invariant 로
+  {Raw.a, Raw.b} class 과 나머지 분리 증명.  Raw.a class 정확히
+  {r : small r}.
 
 **해결된 open problem**:
 - Join = gcd 일반 m, k: 완전 해결.
@@ -310,15 +314,15 @@ Classical.choice, LEM, native_decide 등 일체.  추가 필요가
 
 ### 남은 open 질문 (최종)
 
-- **Non-trivial non-mod join** 예시: 지금까지 본 비-mod pair
-  는 전부 universal (= constLens).  Non-constant non-mod join
-  예시 발견/부재 미확인.  Candidate: leaves + depth (incomparable),
-  구조 분석 미완.
+- **leaves + depth 의 class 구조 전체**: ≥ 2 classes 확정
+  ({base} vs non-base).  정확한 class 개수 / 구조는 미완
+  (complex: depth-leaves lattice).
 - **Lens kernel 공간 exact cardinality** (ℵ₀ vs 𝔠): open
   conjecture.
 - **Meta-213 hierarchy** (Lens on Lens): natural combine 부재.
 - **Physics chapter 감사**: framework 완비, 대기.
 - **Q37.3 arbitrary Lens**: Raw.toNat 기반 일반 Quot 구성.
-  mod family + parity/boolXor 는 완료.  전체 solve 는 open.
+  mod family + parity/boolXor/leaves-bool pair 는 완료.
+  임의 Lens 쌍은 각 pair-별 분석 필요.
 
 0 sorry, 0 axiom, Mathlib-free 유지.
