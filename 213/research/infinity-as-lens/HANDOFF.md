@@ -67,6 +67,49 @@ All originally-roadmapped Σ targets formal.  Plus:
 (초안 단계 notes 18, 20, 21, 22 는 stale/superseded 되어 삭제.
 대응 내용은 28 에 흡수.)
 
+## Session 2026-04-24 — Note 34-40 arc 확장
+
+### 추가 Lean 파일
+
+- **`LensFactoring.lean`** — refines 의 general sufficient
+  condition (factoring).
+- **`LeavesDepthIncomparable.lean`** — Lens.leaves ∥ Lens.depth
+  (양방향 witness).
+- **`ProdBelowId.lean`** — prodLens(leaves, depth) ⊏ idLens
+  엄격.
+- **`ParityXorIncomparable.lean`** — parityLens ∥ boolXorLens.
+- **`LeafLens.lean`** — 새 Bool Lens "is leaf?",
+  Lens.leaves ⊏ leafLens + leafLens ∥ parityLens.
+- **`LensMorphism.lean`** — IsLensMorphism h + factoring
+  through morphism.
+- **`NegSqLens.lean`** — 5번째 diagonal 범주 (Involution).
+- **`BoolSqClassification.lean`** — Bool Lens sq 의 완전 분류
+  (정확히 4 범주).
+- **`IdempotentConstancy.lean`** — Idempotent + swap-blind →
+  constant view.
+- **`NoDepthParity.lean`** — depth parity 는 Lens kernel 이
+  아님 (부정적 결과).
+- **`InjectiveLensClass.lean`** — 모든 injective Lens 는
+  동치 class (idLens 가 대표).
+
+### 추가 notes
+
+- **39_refines_catalogue.md** — 구체 Lens 간 refines 관계 +
+  factoring lemma.
+- **40_arc_synthesis.md** — arc 전체 synthesis.
+
+### 확장된 발견
+
+- Bool Lens sq 는 정확히 4 종류 (Collapse T, Collapse F,
+  Idempotent, Involution).  codomain 의 self-function 공간
+  크기가 분류의 upper bound.
+- Raw 의 congruence (slash-compatible equivalence) 가 Lens
+  kernel 의 정의; 모든 함수적 equivalence 가 congruence 는
+  아님 (예: depth parity).
+- Injective Lens 는 단일 equivalence class (⊥ = idLens).
+- refines preorder 는 진정한 poset (total order 아님): 여러
+  incomparable 관계 기록.
+
 ## Session 2026-04-24 — Note 34-38 arc (Lens totalization + refines lattice)
 
 Note 34 (Lens = totalization) 의 Q34.1-4 + Note 37 Q37.1-2
