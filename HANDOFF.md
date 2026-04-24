@@ -48,10 +48,31 @@
   kernel 과 동치; 모든 equivalence 가 congruence 는 아님
   (depth parity 가 반례).
 
+### Arc 확장 (Note 41-42 + 추가 Lean)
+
+통합 특성화 framework 완성:
+
+- **Kernel 관점** (`KernelCongruence.lean`): 모든 Lens kernel 은
+  slash-congruence.  + NoDepthParity 로 strict subset 확인.
+- **Function 관점** (`FoldStructured.lean`): Lens view = fold-
+  structured function.  `lens_expressible_iff_fold_structured`
+  이 iff 통합.
+- **Concrete 연결** (`DepthParityNotFold.lean`): depth parity
+  함수가 fold-structured 아님 — 두 관점 동치성 실제 적용.
+
+추가 Lens 카탈로그:
+- `ABLens.lean` — (a-count, b-count) Lens. abLens ⊏ leaves.
+- `LeavesMod3.lean`, `Mod2Mod3Incomparable.lean` — mod m 계열
+  countable 무한 Lens kernels 중 antichain.
+- `SwapSlash.lean` — Raw.swap injectivity + surjectivity.
+
+Notes 40 (arc synthesis), 41 (kernel space 구조), 42 (dual
+특성화).
+
 ### Branch 상태
 
-Lean: 약 13 + 기존 ~90 = 100여 파일, 모두 0 sorry/0 axiom.
-Commits: 20+ 새로 추가.
+Lean: ~26 추가 파일, 모두 0 sorry/0 axiom.
+Commits: 30+ 누적.
 `claude/lean-infinity-explanation-QqnSp` 에 모두 push.
 
 ---
