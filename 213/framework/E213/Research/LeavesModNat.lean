@@ -111,3 +111,35 @@ theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
   exact Nat.dvd_of_mod_eq_zero hm_zero
 
 end E213.Research.LeavesModNat
+
+namespace E213.Research.LeavesModNat
+
+open E213.Firmware E213.Hypervisor
+
+/-- L_gcd(m, k) 는 L_m, L_k 양쪽의 upper bound (refines 관점).
+    divides_refines 의 직접 귀결. -/
+theorem gcd_upper_bound (m k : Nat) :
+    (leavesModNat m).refines (leavesModNat (Nat.gcd m k)) ∧
+    (leavesModNat k).refines (leavesModNat (Nat.gcd m k)) :=
+  ⟨divides_refines m (Nat.gcd m k) (Nat.gcd_dvd_left m k),
+   divides_refines k (Nat.gcd m k) (Nat.gcd_dvd_right m k)⟩
+
+/-- L_lcm(m, k) 는 L_m, L_k 양쪽의 lower bound (refines 관점).
+    divides_refines 의 귀결. -/
+theorem lcm_lower_bound (m k : Nat) :
+    (leavesModNat (Nat.lcm m k)).refines (leavesModNat m) ∧
+    (leavesModNat (Nat.lcm m k)).refines (leavesModNat k) :=
+  ⟨divides_refines (Nat.lcm m k) m (Nat.dvd_lcm_left m k),
+   divides_refines (Nat.lcm m k) k (Nat.dvd_lcm_right m k)⟩
+
+/-! ## Converse (least upper bound / greatest lower bound) 방향
+
+**Least upper bound** (gcd is least upper bound): 임의의 N 이
+L_m, L_k 에 의해 refine 되면, N 은 L_gcd 에 의해 refine 됨.
+Bezout chain 필요 — 향후 작업.
+
+**Greatest lower bound** (lcm is greatest lower bound): 유사.
+prodLens = meet 의 universal property 로부터 간접 도출 가능.
+-/
+
+end E213.Research.LeavesModNat
