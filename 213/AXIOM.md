@@ -167,26 +167,39 @@ fudge를 슬쩍 넘길 수 있지만 기계는 안 된다.
 이것이 213이 Mathlib-free + 0 sorry + 0 axiom 제약 아래에서
 운영되는 이유다.  공리는 계약서, 기계 검증은 감사관.
 
-### §5.2.1 외부 공리 추가 절대 금지 (강한 서약)
+### §5.2.1 외부 공리 추가는 **이론 전체 폐기 조건** (Falsifiability)
 
-**Classical.choice, LEM (law of excluded middle), Choice
-principles, Quotient 이외의 axiom 등 외부 공리 추가는 절대
-불가**.
+**어떠한 외부 공리 추가도 213 에서 절대 필요로 하지 않아야 한다**
+— Classical.choice, LEM, Quot.sound 를 넘는 공리, native_decide
+의 `Lean.ofReduceBool` 등 일체.
 
-- Lean 4 core 는 수많은 axiom 을 기본 제공 (Classical,
-  propext, Quot.sound 등).  이들 중 **덧붙이는 사용** 도 금지.
-- `Lean.ofReduceBool` (native_decide 가 도입) 도 금지.
-- 어떤 정리가 외부 공리 없이 증명 불가능하다면, 그 정리는
-  **213 안에서 derive 불가능** — 이론을 축소하거나 포기.
-- "Classical 쓰면 쉬워진다" 는 유혹 일체 거부.  쉬워지는
-  게 아니라 fudge 가 숨는 것.
+이는 단순한 권장이 아니라 **falsifiability 기준**:
 
-이 규칙은 **이론 폐기 기준**.  Classical / axiom 도입이
-필요하다는 결론이 나오면 해당 영역은 폐기 (retract).  Lean
-대안이 존재하지 않으면 그 부분은 213 의 바깥으로 간주.
+- 213 의 모든 정리와 구성은 Lean 4 core + Raw 공리만으로
+  derive 가능해야 한다.
+- 어떤 결과가 추가 공리 없이는 **절대** 증명 / 구성 불가능
+  하다고 밝혀지면 (예: 여러 세션 탐구 후에도 막힘), 이는
+  **213 이론 전체가 falsify 된 것**.  해당 결과만 폐기가
+  아니라 이론 자체 폐기.
 
-이 규칙은 CLAUDE.md 의 "derive, not reconcile" 의 최강
-엄격 version.  절대 완화되지 않는다.
+이 엄격성은 §1 의 "공리는 잔여물" 선언의 직접 귀결:
+
+- 잔여물이 아니면 공리가 아니다.
+- "여기 하나만 더 공리 추가하면 전부 잘 됨" 은 Raw 가 "최소
+  잔여물" 이 아님을 시사.
+- 따라서 공리 추가 필요 = Raw 공리가 잘못된 것 = 이론 폐기.
+
+**운영 쪽**:
+
+- "Classical 쓰면 쉽다" 유혹 일체 거부.  쉬워지는 게 아니라
+  fudge 가 숨는 것.
+- 막히는 결과는 단순히 "open" 으로 남기되, open 이 **영구적
+  벽** 인지 **일시적 난관** 인지 감별.  영구적 벽이면 이론
+  실패.
+- Lean 검증은 이 falsifiability 의 **기계적 감사관**.
+
+이 규칙은 Mingu 의 확정 선언 (2026-04-24).  절대 완화되지
+않으며, 위반되면 전체 이론이 재평가된다.
 
 ### §5.3 경험적 예측
 

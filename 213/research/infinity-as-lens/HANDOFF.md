@@ -253,26 +253,28 @@ Track remains research-only.
 ### 추가 해결 (이번 arc 말미)
 
 - **swap_slash**: `Firmware/Raw/SwapSlash.lean`.  Raw.swap 과
-  Raw.slash 의 완전 호환.  canonical form 의 case analysis
-  로 Lean 증명.  Raw.swap = Raw 의 involutive automorphism
-  확정.
+  Raw.slash 의 완전 호환.  Canonical form case analysis.
 - **swapLens**: `Research/SwapLens.lean`.  Raw.swap 이 Lens
-  의 view 인 구성.  idLens 와 refinement-equivalent
-  (둘 다 injective class).
-- **Join = gcd (specific case)**: `Research/ModJoinExample.lean`.
-  L_4 + L_6 → L_2 (= L_gcd(4,6)) **완전 Lean 증명**.
-  Bezout chain 기법 (+6 then -4 = +2) 으로 induction.
-  일반 m, k 로 확장 패턴 확립.
+  의 view 인 구성.  idLens 와 refinement-equivalent.
+- **Join = gcd (gcd = 2)**: `Research/ModJoinExample.lean`.
+  L_4 + L_6 → L_2 완전 Lean 증명.  +6 then -4 = +2 chain.
+- **Join = gcd (coprime, gcd = 1)**: `Research/ModJoinCoprime.lean`.
+  L_2 + L_3 → constant 완전 Lean 증명.  +3 then -2 = +1 chain.
 - **Q37.3 partial**: `Research/JoinEquiv.lean`.
-  - JoinEquiv L M inductive (5 constructors).
+  - JoinEquiv L M inductive (5 constructors + slash_cong).
   - slash-congruence built-in.
-  - `JoinEquiv_is_least` universal property.
-  - Join 이 **relation level** 에서 Lean 검증.
-  - Concrete Lens via Quot 은 well-definedness 이슈로 미완.
+  - `JoinEquiv_is_least` universal property — refines preorder
+    의 Join 이 **relation level** 에서 Lean 검증.
+  - Concrete Lens via Quot 은 Classical.choice 필요 →
+    **AXIOM §5.2.1 에 의해 폐기**.  universal property 만 유지.
 - **Kernel cardinality bounds**: note 47.  ℵ₀ ≤ x ≤ 𝔠 확정,
   exact value open.
-- **Q37.3 partial 분석**: note 48.  concrete Lens 구성의
-  근본 장애 (class rep 비일관) 분석.
+- **Q37.3 partial 분석**: note 48.  concrete Lens 의 근본 장애.
+
+### AXIOM §5.2.1 신설 (2026-04-24)
+
+**외부 axiom 추가 절대 금지** — Classical, LEM, native_decide 등
+일체.  필요하다는 결론 나오면 해당 영역 폐기.  Mingu 확정.
 
 ### 남은 open 질문 (최종)
 

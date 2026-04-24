@@ -71,21 +71,25 @@ Lens들이다.
 0 sorry + 0 axiom 제약을 두는 이유다.  공리는 계약서이고,
 기계 검증은 감사관이다.
 
-### 외부 공리 추가 절대 금지 (강한 서약)
+### 외부 공리 추가는 이론 전체 폐기 조건 (Falsifiability)
 
-AXIOM.md §5.2.1 에 기록된 강한 rule:
+AXIOM.md §5.2.1 의 **falsifiability 기준**:
 
-- **Classical.choice, LEM, Quot.sound 이외의 axiom,
-  native_decide 의 `Lean.ofReduceBool` 등 모든 외부 axiom
-  추가 금지.**
-- "Classical 쓰면 쉽다" 유혹 거부.  Classical 도입이 필요하다는
-  결론이 나오면 **그 영역은 폐기**.
-- 이는 이론 폐기 기준 — Mingu 의 확정 사항 (2026-04-24).
+- 213 의 모든 결과는 Lean 4 core + Raw 공리 만으로 derive
+  가능해야 함.
+- **어떤 결과가 공리 추가 없이 절대 불가능** 하다고 밝혀지면,
+  **213 이론 전체 폐기**.  해당 결과만 포기가 아님.
+- 이는 Raw 공리가 "최소 잔여물" 이라는 §1 선언의 직접 귀결:
+  공리 추가가 정말 필요하면 Raw 가 최소가 아니었던 것.
 
-현실 implication: 어떤 heavy 정리가 Classical 없이 증명 못
-되면, 그 정리는 213 내부에서 **없는 것** 으로 간주.  Universal
-property (relation level) 정도로 만족하고 concrete construction
-은 포기.
+운영 원칙:
+
+- Classical, LEM, native_decide 등 외부 axiom 추가 일절 금지.
+- 막히는 결과는 "open" 으로 두되, **영구적 벽 vs 일시적 난관**
+  감별.  영구적 벽이면 이론 실패 선언.
+- Lean 검증 = falsifiability 의 기계적 감사관.
+
+Mingu 확정 (2026-04-24).  절대 완화 안 됨.
 
 ### "뭔가"의 지위는 open
 

@@ -39,13 +39,26 @@ Class [C] 가 multiple Raw-representatives 를 가질 때, diagonal
 (u = v) 과 off-diagonal (u ≠ v) 이 혼재.  Combine 이 두 경우
 에서 다른 값을 내면 well-definedness 깨짐.
 
-해결 방법:
-1. **Canonical rep 선택**: 각 class 에서 Raw.toNat 최소값 선택.
-   그러면 class 안에서 일관된 "diagonal/off-diagonal" 판정
-   가능.  하지만 Raw.toNat 이 Internal 의존 — 추상 위반.
-2. **JoinEquiv 의 추가 relation**: "slash(u, v) ~ 적절한 fallback"
-   을 constructor 로 강제.  어떤 fallback 이 자연스러운지 불명.
-3. **Different 기본 Lens**: 다른 codomain 선택.
+**중요**: AXIOM.md §5.2.1 에 의해 Classical.choice 등 외부
+공리 추가는 이론 전체 폐기 조건.  따라서 아래 접근들 중
+외부 공리 필요한 것은 **절대 사용 불가**:
+
+해결 시도 (constructive only):
+1. **Canonical rep 선택 via Raw.toNat**: Raw.toNat 은 Internal
+   의존이나 public API (Σ2 Godel).  사용 가능.  Decidable class
+   membership 이 필요한데 JoinEquiv 가 inductive 라서 일반 case
+   decidable 보장 안 됨.
+2. **Specific Lens case 별 직접 구성**: 각 (L, M) pair 의
+   join 을 알려진 Lens 로 identify (L_2 + L_3 = constLens,
+   L_4 + L_6 = L_2 등).  각각 constructive.  **일반 case 는
+   별도 작업**.
+3. **Decidable-kernel hypothesis**: 덧붙인 hypothesis 가 있는
+   경우만 Quot Lens 구성.  일반 case 는 "decidability 없으면
+   construction 없음" — open 으로.
+
+**현재 상태**: 일반 "every slash-congruence → some Lens" 은
+open.  이것이 **절대 불가능** (즉 Classical 필수) 하다는 증명은
+없음.  따라서 213 falsified 아님 — 단순 open problem.
 
 ## 실질적 충분성
 
