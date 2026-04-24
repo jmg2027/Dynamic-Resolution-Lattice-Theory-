@@ -32,19 +32,29 @@ boolXorLens.view r 2 케이스:
 - T (a odd): ofM direct to Raw.a
 - F (a even): chain ofM to Raw.b + ofL via leaves=1
 
-## 남은 것
+## 비-mod non-trivial join 발견 (2026-04-24)
 
-**비-mod 이면서 non-constant join** 예시 필요.  현재 발견한
-비-mod pair 는 모두 universal.  이는 parity-like 정보
-("mod 2" 의 변주) 가 서로 "coprime" 이기 때문.
+**`Research/LeavesDepthJoin.lean`**:
+- `leaves_depth_join_not_universal`: JoinEquiv Lens.leaves
+  Lens.depth 는 Raw.a 와 Raw.slash Raw.a Raw.b 를 분리.
+- 즉 **leaves ⊔ depth ≠ constLens** — 비-mod family 에도
+  non-trivial (non-universal) join 존재.
 
-가능한 non-trivial case:
-- abLens + 무엇?: abLens 가 refines preorder 에서 많은 것
-  아래 있어 incomparable pair 찾기 어려움.
-- Non-Bool-valued 정보와 Bool-valued 의 결합: leaves +
-  parityLens = parityLens (leaves refines parity).
-- 완전 다른 structure 의 Lens: depth-based? (depthLens 는
-  아직 catalogue 미정리).
+핵심 invariant: `small r := leaves r = 1`.  small 은 JoinEquiv
+하에 preserved (leaves-equiv, depth-equiv 모두 small/¬small
+를 mix 하지 않음, slash_cong output 항상 ¬small).
+
+Raw.a 는 small (leaves=1), Raw.slash Raw.a Raw.b 는 ¬small
+(leaves=2).  따라서 JoinEquiv 분리.
+
+## 일반 패턴
+
+비-mod family 에서 join 이:
+- Universal (constLens): parity + boolXor, leaves + boolXor.
+  두 Lens 의 정보가 "coprime" 해서 chain 으로 모든 Raw 연결.
+- Non-universal: leaves + depth.  두 Lens 둘 다 counts (leaves,
+  depth 값 범위) 정보를 가져, "small" 같은 invariant 존재.
+  따라서 classes 분리 유지.
 
 ## 의의
 
