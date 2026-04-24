@@ -1,5 +1,6 @@
 import E213.Hypervisor.Lens
 import E213.Research.LensFactoring
+import E213.Infinity.LensCardinality
 
 /-!
 # Research.LeavesModNat: leaves mod m 의 divisibility → refinement
@@ -69,3 +70,10 @@ theorem divides_refines (m k : Nat) (hmk : k ∣ m) :
   exact this.symm
 
 end E213.Research.LeavesModNat
+
+/-! ## Converse direction
+
+The "only if" direction (`(leavesModNat m).refines (leavesModNat k)`
+→ `k ∣ m`) 은 leaves_surjective_pos 로 m+1 vs 1 witness 구성하여
+증명 가능하나, Nat.mod 의 case split 증명이 기술적.  향후 작업.
+-/
