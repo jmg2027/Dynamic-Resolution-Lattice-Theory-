@@ -110,3 +110,31 @@ theorem mod_4_6_step_2k {α : Type} (N : Lens α)
       exact step1.trans step2
 
 end E213.Research.ModJoinExample
+
+namespace E213.Research.ModJoinExample
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.LeavesModNat
+
+/-- **L_4 + L_6 → L_2 완성**.  refines preorder 에서
+    Join(L_4, L_6) = L_2 = L_gcd(4,6) 의 least direction. -/
+theorem mod_4_6_refines_parity {α : Type} (N : Lens α)
+    (h4 : (leavesModNat 4).refines N)
+    (h6 : (leavesModNat 6).refines N) :
+    (leavesModNat 2).refines N := by
+  intro r r' h_parity
+  have hp : Lens.leaves.view r % 2 = Lens.leaves.view r' % 2 := by
+    have : (leavesModNat 2).view r = (leavesModNat 2).view r' := h_parity
+    rw [leavesModNat_view_eq, leavesModNat_view_eq] at this
+    exact this
+  rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
+  · obtain ⟨k, hk⟩ : ∃ k, Lens.leaves.view r' = Lens.leaves.view r + 2 * k := by
+      refine ⟨(Lens.leaves.view r' - Lens.leaves.view r) / 2, ?_⟩
+      omega
+    exact mod_4_6_step_2k N h4 h6 r k r' hk
+  · obtain ⟨k, hk⟩ : ∃ k, Lens.leaves.view r = Lens.leaves.view r' + 2 * k := by
+      refine ⟨(Lens.leaves.view r - Lens.leaves.view r') / 2, ?_⟩
+      omega
+    exact (mod_4_6_step_2k N h4 h6 r' k r hk).symm
+
+end E213.Research.ModJoinExample
