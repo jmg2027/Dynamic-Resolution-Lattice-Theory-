@@ -36,13 +36,15 @@
 
 ## ✗ 미해결 (heavy 하거나 open conjecture)
 
-### Q37.3 일반 Quotient Lens
+### Q37.3 일반 Quotient Lens — ✓ mod family 해결
 
 - 임의 Lens L 에 대해 Raw / L.equiv 의 canonical Lens 구성.
-- Constructive 가능 (Raw.toNat minimum representative, note 44).
-- 구현 heavy — subtype 또는 Quot 기반 + well-definedness
-  verification.
-- **상태**: 이론적 접근 명확, 구현 여유 필요.
+- **Mod family 에서는 완전 해결** (note 51,
+  `Research/ModJoinEquivGCD.lean`): L_gcd 가 JoinEquiv L_m L_k
+  의 concrete Lens realization.  `gcd_equiv_joinEquiv` 양방향.
+- 일반 Lens L, M 밖에 대해서는 여전히 open (Raw.toNat 기반
+  approach).
+- **상태**: mod family 완결, 일반 case 는 future work.
 
 ### Lens kernel 공간 Cardinality
 

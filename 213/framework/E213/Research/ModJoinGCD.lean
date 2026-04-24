@@ -1,5 +1,6 @@
 import E213.Research.ModJoinBezout
 import E213.Research.ModJoinEuclidean
+import E213.Research.JoinEquiv
 
 /-!
 # Research.ModJoinGCD: 일반 join = gcd (임의 m, k ≥ 2)
@@ -53,6 +54,8 @@ private theorem gcd_succ_self (k : Nat) (hk : k ≥ 2) :
   rw [h2, Nat.gcd_rec]
   rw [Nat.mod_one]
   rfl
+
+end E213.Research.ModJoinGCD
 
 namespace E213.Research.ModJoinGCD
 
@@ -117,6 +120,8 @@ theorem join_refines_gcd {α : Type} (N : Lens α) (m k : Nat)
     rw [Nat.gcd_comm]
     exact join_refines_gcd_sorted N (k + m) k m (Nat.le_refl _) hkm hk hm hLk hLm
 
+end E213.Research.ModJoinGCD
+
 namespace E213.Research.ModJoinGCD
 
 open E213.Firmware E213.Hypervisor
@@ -147,5 +152,30 @@ example {α : Type} (N : Lens α)
   apply this r r'
   show (leavesModNat 1).view r = (leavesModNat 1).view r'
   rw [leavesModNat_view_eq, leavesModNat_view_eq, Nat.mod_one, Nat.mod_one]
+
+end E213.Research.ModJoinGCD
+
+namespace E213.Research.ModJoinGCD
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.LeavesModNat E213.Research.JoinEquiv
+
+/-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k 는 L_gcd
+    의 equivalence 에 포함.  `JoinEquiv_is_least` + `gcd_upper_bound`
+    의 직접 귀결. -/
+theorem joinEquiv_subset_gcd (m k : Nat)
+    (x y : Raw)
+    (h : JoinEquiv (leavesModNat m) (leavesModNat k) x y) :
+    (leavesModNat (Nat.gcd m k)).equiv x y := by
+  have hsym : ∀ u v, (leavesModNat (Nat.gcd m k)).combine u v
+                       = (leavesModNat (Nat.gcd m k)).combine v u := by
+    intro u v
+    show (u + v) % Nat.gcd m k = (v + u) % Nat.gcd m k
+    rw [Nat.add_comm]
+  have hLm_gcd : (leavesModNat m).refines (leavesModNat (Nat.gcd m k)) :=
+    (gcd_upper_bound m k).1
+  have hLk_gcd : (leavesModNat k).refines (leavesModNat (Nat.gcd m k)) :=
+    (gcd_upper_bound m k).2
+  exact JoinEquiv_is_least _ _ _ hsym hLm_gcd hLk_gcd x y h
 
 end E213.Research.ModJoinGCD
