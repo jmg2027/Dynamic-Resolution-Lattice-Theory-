@@ -125,4 +125,32 @@ theorem leaves_depth_join_not_universal :
   have := (small_invariant _ _ h).mp (by unfold small; rfl)
   exact not_small_slash _ _ _ this
 
+/-- Raw.a 와 Raw.b 는 JoinEquiv 로 연결 (same leaves = 1). -/
+theorem joinEquiv_a_b :
+    JoinEquiv Lens.leaves Lens.depth Raw.a Raw.b := by
+  apply JoinEquiv.ofL
+  show Lens.leaves.view Raw.a = Lens.leaves.view Raw.b
+  rfl
+
+/-- small r → JoinEquiv r Raw.a (class of Raw.a 는 {Raw.a, Raw.b}
+    를 포함). -/
+theorem small_joinEquiv_a (r : Raw) (hs : small r) :
+    JoinEquiv Lens.leaves Lens.depth r Raw.a := by
+  apply JoinEquiv.ofL
+  show Lens.leaves.view r = Lens.leaves.view Raw.a
+  rw [leaves_of_small hs]
+  rfl
+
+/-- **Raw.a 의 class = {r : small r}**: leaves+depth JoinEquiv class
+    of Raw.a 는 정확히 base Raws.  따라서 join 은 ≥ 2 non-trivial
+    classes 를 가짐. -/
+theorem class_of_a_iff_small (r : Raw) :
+    JoinEquiv Lens.leaves Lens.depth Raw.a r ↔ small r := by
+  constructor
+  · intro h
+    have := (small_invariant _ _ h).mp (by unfold small; rfl)
+    exact this
+  · intro hs
+    exact JoinEquiv.symm (small_joinEquiv_a r hs)
+
 end E213.Research.LeavesDepthJoin
