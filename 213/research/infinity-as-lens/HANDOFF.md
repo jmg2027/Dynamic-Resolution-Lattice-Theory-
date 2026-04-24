@@ -250,13 +250,27 @@ Track remains research-only.
   Meet = lcm, Join = gcd, bounds 확인.  CRT 가 Lens lattice 로
   실현.
 
-### 남은 open 질문 (총정리)
+### 추가 해결 (이번 arc 말미)
 
-- **Q37.3 일반 Q**: Quotient Lens 로 임의 pair 의 join.
-  Raw.toNat canonical picking 으로 constructive 가능 (note 44).
+- **swap_slash**: `Firmware/Raw/SwapSlash.lean`.  Raw.swap 과
+  Raw.slash 의 완전 호환.  canonical form 의 case analysis
+  로 Lean 증명.  Raw.swap = Raw 의 involutive automorphism
+  확정.
+- **swapLens**: `Research/SwapLens.lean`.  Raw.swap 이 Lens
+  의 view 인 구성.  idLens 와 refinement-equivalent
+  (둘 다 injective class).
+- **Join = gcd (specific case)**: `Research/ModJoinExample.lean`.
+  L_4 + L_6 → L_2 (= L_gcd(4,6)) **완전 Lean 증명**.
+  Bezout chain 기법 (+6 then -4 = +2) 으로 induction.
+  일반 m, k 로 확장 패턴 확립.
+
+### 남은 open 질문
+
+- **Q37.3 일반 Q**: Quotient Lens 로 임의 Lens pair 의 join.
+  Raw.toNat canonical picking 으로 constructive 가능.
   구현 heavy.
-- **Join = gcd 의 least 방향**: Bezout chain 필요.
-- **swap_slash**: Tree.cmp case 전개.  기술적.
+- **Join = gcd 의 일반 m, k 방향**: 위 specific case 를
+  generic m, k 로 확장.  Bezout coefficient 계산 필요.
 - **Lens kernel 공간 cardinality**: countable? 𝔠?  미답.
 - **Meta-213 hierarchy**: Lens on Lens 의 concrete construction.
   자연 combine 부재.
