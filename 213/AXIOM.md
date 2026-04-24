@@ -204,8 +204,25 @@ fudge를 슬쩍 넘길 수 있지만 기계는 안 된다.
 
 `framework/E213/Firmware/` 의 현재 Raw 구현 (2 원소 a, b +
 이항 slash, anti-reflexive, commutative) 은 이 공리의
-후보 기계 표현이다.  **Step 2** 에서 이 공리와 대조하여
-충실성을 점검하고, 필요 시 수정한다.
+충실한 기계 표현으로 감사됨 (2026-04-24, `AUDIT_Lean.md`).
+
+**Encoding 주의**: Lean 4 core 에는 primitive quotient 가
+없으므로, Raw 는 `{t : Tree // t.canonical = true}` 의
+subtype 으로 구현된다.  Internal 의 `Tree.cmp` (ordering)
+는 canonical form 선택을 위한 **encoding artifact** 이지
+공리가 아니다.  공리에는 어떠한 순서도 없다.
+
+도출로 **자동 따라나오는** 것 (공리에 추가 commitment 아님):
+- `Raw.swap` (a ↔ b automorphism) — 공리 1 "a 와 b 는 같지
+  않음 외의 어떤 관계도 없음" 으로부터의 첫 derivation.
+- `Raw.fold` (catamorphism) — inductive type 의 표준
+  eliminator wrapper, 모든 Lens 를 만드는 도구.
+
+현재 Firmware 에 있으나 **Hypervisor 층으로 이전되어야**
+할 것 (Lens-layer bleed):
+- `Raw.depth`, `Raw.leaves`, `Raw.fold_eq_*`, `Raw.fold_signed_swap`,
+  `Raw.fold_swap_hom` — 특정 Lens 의 observable / bridge 정리.
+  (`AUDIT_Lean.md` 권고 3.)
 
 ### §7.2 PAPER.md (Paper 1)
 
@@ -234,6 +251,10 @@ fudge 없이 derive 가능한지 감사된다.  **Step 4** 에서
 
 - 2026-04-24: 최초 작성.  Session "claude/lean-infinity-
   explanation-QqnSp" 의 공리 framing 을 반영.
+- 2026-04-24 (2nd): §7.1 보강.  `AUDIT_Lean.md` 의 권고 1,
+  2 적용 — Lean encoding 의 ordering 은 artifact, swap 및
+  fold 는 자동 도출, depth/leaves/bridge 정리는 Hypervisor
+  이전 대상.
 
 ## Author & licence
 
