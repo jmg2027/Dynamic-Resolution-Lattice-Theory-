@@ -51,3 +51,67 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
   exact (hLm _ _ h_r_w).trans (hLk _ _ h_w_r')
 
 end E213.Research.ModJoinBezout
+
+namespace E213.Research.ModJoinBezout
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.LeavesModNat
+
+/-- Same leaves → same N-view via arbitrary L_k. -/
+private theorem same_leaves_N {α : Type} (N : Lens α) (k : Nat) (hk : k ≥ 2)
+    (hLk : (leavesModNat k).refines N) (r r' : Raw)
+    (hr : Lens.leaves.view r = Lens.leaves.view r') :
+    N.view r = N.view r' := by
+  apply hLk
+  show (leavesModNat k).view r = (leavesModNat k).view r'
+  rw [leavesModNat_view_eq, leavesModNat_view_eq, hr]
+
+/-- +n step via iterated +1 (chain_step_sub with m-k=1). -/
+theorem consecutive_step_plus_n {α : Type} (N : Lens α) (m k : Nat)
+    (hk : k ≥ 2) (hmk : m = k + 1)
+    (hLm : (leavesModNat m).refines N)
+    (hLk : (leavesModNat k).refines N)
+    (r : Raw) (n : Nat) :
+    ∀ r', Lens.leaves.view r' = Lens.leaves.view r + n →
+        N.view r = N.view r' := by
+  induction n with
+  | zero =>
+      intro r' hr'
+      apply same_leaves_N N k hk hLk
+      omega
+  | succ n ih =>
+      intro r' hr'
+      have h_r_ge := leaves_ge_one r
+      obtain ⟨r'', hr''⟩ :=
+        E213.Infinity.leaves_surjective_pos
+          (Lens.leaves.view r + n) (by omega)
+      have step1 : N.view r = N.view r'' := ih r'' hr''
+      have step2 : N.view r'' = N.view r' := by
+        apply chain_step_sub N m k hk (by omega) hLm hLk r'' r'
+        omega
+      exact step1.trans step2
+
+end E213.Research.ModJoinBezout
+
+namespace E213.Research.ModJoinBezout
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.LeavesModNat
+
+/-- **Consecutive coprime → Join = constLens**.
+    L_{k+1}.refines N ∧ L_k.refines N → N 은 constant. -/
+theorem consecutive_refines_const {α : Type} (N : Lens α) (m k : Nat)
+    (hk : k ≥ 2) (hmk : m = k + 1)
+    (hLm : (leavesModNat m).refines N)
+    (hLk : (leavesModNat k).refines N) :
+    ∀ r r' : Raw, N.view r = N.view r' := by
+  intro r r'
+  rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
+  · have heq : Lens.leaves.view r' = Lens.leaves.view r
+              + (Lens.leaves.view r' - Lens.leaves.view r) := by omega
+    exact consecutive_step_plus_n N m k hk hmk hLm hLk r _ r' heq
+  · have heq : Lens.leaves.view r = Lens.leaves.view r'
+              + (Lens.leaves.view r - Lens.leaves.view r') := by omega
+    exact (consecutive_step_plus_n N m k hk hmk hLm hLk r' _ r heq).symm
+
+end E213.Research.ModJoinBezout
