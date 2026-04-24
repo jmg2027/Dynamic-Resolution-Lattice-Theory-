@@ -67,3 +67,20 @@ theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
       exact step1.trans step2
 
 end E213.Research.ModJoinEuclidean
+
+namespace E213.Research.ModJoinEuclidean
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.LeavesModNat E213.Research.ModJoinBezout
+
+/-! ## Euclidean step 은 heavy
+
+`L_m + L_k → L_{m-k}` 의 완전 증명은 divisibility arithmetic
+이 필요 (given a % d = b % d → d ∣ (a - b) for Nat).  Lean core
+에 직접 lemma 없고 Nat.div_add_mod + 수동 manipulation 필요.
+
+현재 step_plus_nd 로 +n(m-k) chain 은 확보.  "leaves mod (m-k)
+기준 equal → chain 존재" 의 형식화는 향후 작업.
+-/
+
+end E213.Research.ModJoinEuclidean
