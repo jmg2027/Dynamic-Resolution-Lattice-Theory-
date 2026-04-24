@@ -97,6 +97,15 @@ Lens들이다.
 - **Existence mode don't care.**  Platonic / stepwise 구분은
   Lens 출력이지 공리 성질 아님.
   →  `notes/17_existence_mode_lens.md`.
+- **`E213.Firmware.Internal` namespace `open` 은 Firmware
+  내부 모듈 외 금지.**  Internal 은 encoding scaffolding
+  (`Tree`, `Tree.cmp`, `Tree.canonical` 등) 전용.  User
+  code 에서 `open Internal` 은 Raw 추상 위반.  → `AUDIT_Lean.md`
+  §5.2(D).
+- **`Raw.fold` / `Raw.rec` 는 `combine` 대칭 / slash 대칭
+  처리를 user 책임으로 둔다.**  비대칭 Lens 는 encoding
+  artifact 를 출력에 leak.  각 파일 doc-string 의 WARNING
+  참조.  →  `AUDIT_Lean.md` §5.2(A), (B).
 
 ## 물리 chapter 감사 기준
 

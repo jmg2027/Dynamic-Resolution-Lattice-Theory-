@@ -135,6 +135,20 @@ is not.
 Reserve `∈` for Lens-image side only.  For Raw-level
 membership use Lean's typing judgement `x : Raw`.
 
+## On `.val` accessor (Lean encoding)
+
+Raw 는 subtype 이므로 `r.val : Tree` 접근이 가능하다.
+`.val` 은 encoding 층 (canonical form 의 underlying
+Tree) 을 드러낸다.  원칙:
+
+- `.val` 은 **Firmware 내부 증명** 에서만 사용.
+- **Lens semantics 에는 사용 금지.**  Lens 관측은 항상
+  `Lens.view` / `Raw.fold` 를 거친다.
+- User code 에 `r.val.depth`, `r.val.cmp` 등이 보이면
+  encoding artifact 의 Lens 층 leak.  교정 대상.
+
+이는 `AUDIT_Lean.md` §5.2(C) 권고의 반영.
+
 ## Enforcement
 
 - PR review: any occurrence of `{a`, `{b`, `∈ Raw`, or

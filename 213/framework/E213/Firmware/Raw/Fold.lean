@@ -9,6 +9,15 @@ are thin wrappers around this.  `Raw.fold_slash` ties the
 homomorphism to the axiom's symmetric "between" when the
 combine is symmetric.
 
+**WARNING — axiom compliance (AXIOM.md §3)**: `Raw.fold` 는
+type 수준에서 `combine` 의 대칭성을 요구하지 않는다.  그러나
+비대칭 `combine` 을 쓰면 결과는 Tree 의 canonical ordering
+(= encoding artifact, 공리가 아님) 에 의존한다.  이런 Lens
+는 공리를 위반한 **silent leak**.  모든 `Raw.fold` 사용처는
+`combine` 이 대칭 (∀ u v, combine u v = combine v u) 임을
+확인해야 한다.  `fold_slash` 정리가 이 대칭성 가정을 이미
+문서화한다.  `AUDIT_Lean.md` §5.2(A).
+
 Extracted from monolithic `Raw.lean` (Phase D).
 -/
 
