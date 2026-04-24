@@ -117,20 +117,46 @@ structure PartialLens (α : Type) where
 가 codomain 으로 **보존**.  diagonal 경계를 그리지 **않는**
 Lens.
 
-### 관찰
+### 정정: diagonal hit 은 view 단사성에 의해 결정
 
-`PartialLens` 의 `view : Raw → α` 는 항상 정의됨 (Raw 에서
-는 diagonal 에 닿을 수 없으므로 `h : x ≠ y` 보장).  따라서
-Raw-input 에 대해선 `PartialLens` 와 기존 `Lens` 가 구별되
-지 않는다.
+초고에서 "`view : Raw → α` 는 항상 정의됨 (Raw 에 diagonal
+없음)" 이라 했으나 이는 부정확.  Raw 수준에서 `h : x ≠ y`
+이어도 **non-injective Lens** 에서는 `view x = view y` 가능
+→ `combine (view x) (view y) = combine v v` 호출 → diagonal
+hit.
 
-**차이는 codomain 내부 행동에서만 드러남**.  α 값을 독립적
-으로 조작 (α × α 를 combine 호출) 하려 할 때 비로소 diagonal
-이 관찰되고, 거기서 경계 유무가 갈린다.
+따라서 PartialLens.view 의 totality 는 L 의 **injectivity** 에
+의존:
 
-결론: **"경계 없는 Lens" 는 codomain 외부에서는 존재**, Raw
-→ α 관측점에서는 기존 Lens 와 같다.  경계는 **codomain 내
-부의 현상**.
+- **injective L**: `x ≠ y ⇒ view x ≠ view y` → combine 은
+  off-diagonal 만 호출 → diagonal 값 무관.
+- **non-injective L**: view-collision 쌍 `(x, y)` 의
+  `slash x y h` 에서 `combine v v` 가 실제로 hit → diagonal
+  값이 view 출력에 직접 반영.
+
+### Lean 형식화: `Research/DiagonalIrrelevance.lean`
+
+두 정리로 분리:
+
+1. `diagonal_irrelevant`: `Function.Injective L.view` +
+   off-diagonal 일치 + combine 대칭 → `L.view = L'.view`
+   on all Raw.  (diagonal 값은 ghost.)
+2. `diagonal_reached_of_collision`: `view x = view y` (with
+   `x ≠ y`) → `view (slash x y h) = combine v v` 에 직접
+   의존.  (diagonal 값이 실제 관측.)
+
+둘 합쳐: **diagonal 값의 관측 가능성 = L 의 non-injectivity**.
+
+### 해석
+
+"경계 없는 Lens" 를 구하려면 Lens 가 Raw → α 단사여야 함.
+Raw 는 ℕ-equipotent (Σ2) 이므로 |α| ≥ ℕ 필요 조건.  유한
+codomain Lens (parityLens, F9Lens 등) 는 **반드시** non-
+injective → diagonal 관측 불가피.
+
+즉 대부분의 "실용" Lens (codomain 이 유한 구조) 는 구조
+상 경계를 그릴 수밖에 없다.  경계 회피는 codomain 을
+Raw-크기로 확장했을 때만 가능.
 
 ---
 
@@ -178,9 +204,10 @@ h) = combine (view x) (view y)` 가 X = f(X) 의 구체 형태.
   escalate / multiply) 가 **대수적으로 meaningful 한 분류**
   인가, 아니면 우연한 예시?  각 범주를 공리적으로 특성화
   가능?
-- **Q34.2**: `PartialLens` 를 Lean 에 형식화하고 `Lens` 와
-  Raw-input 상 동등성 정리 가능?  (rigor 로 §4 의 결론을
-  기계 검증.)
+- **Q34.2 [해결]**: `DiagonalIrrelevance.lean` 의 두 정리가
+  §4 의 정정본을 기계 검증.  diagonal 관측 가능성 = non-
+  injectivity.  `PartialLens` 자체를 Lean 화하지는 않았지만,
+  그 주장 내용은 두 정리로 대체됨.
 - **Q34.3**: 유형 3 의 "Lens on Lens" 를 구체적으로 만들어
   보면 Meta-213 의 어떤 구조가 드러나는가?
 - **Q34.4**: 유형 5 의 self-encoding Lens — Raw 원소 `r` 에
@@ -191,6 +218,11 @@ h) = combine (view x) (view y)` 가 X = f(X) 의 구체 형태.
 
 ## 변경 이력
 
-- 2026-04-24: Lens combine 의 totality 가 Raw 공리 외부의
-  경계 데이터임을 관찰.  diagonal 거동 4분류.  PartialLens
-  개념 스케치.  5 유형을 Lens 언어로 표현.
+- 2026-04-24 (draft): Lens combine 의 totality 가 Raw 공리
+  외부의 경계 데이터임을 관찰.  diagonal 거동 4분류.
+  PartialLens 개념 스케치.  5 유형을 Lens 언어로 표현.
+- 2026-04-24 (revision): §4 정정.  PartialLens.view totality
+  는 L 의 injectivity 에 의존 — 초고의 "항상 정의됨" 주장
+  틀림.  `Research/DiagonalIrrelevance.lean` 에
+  `diagonal_irrelevant` + `diagonal_reached_of_collision`
+  두 정리로 기계 검증.  Q34.2 해결.
