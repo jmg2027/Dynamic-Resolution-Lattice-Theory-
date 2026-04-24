@@ -285,11 +285,30 @@ Classical.choice, LEM, native_decide 등 일체.  추가 필요가
 **증명된** 경우 → 213 전체 폐기.  "아직 발견 못 함" 은 falsify
 조건 아님 (단순 open).  Mingu 확정.
 
+### Session 5 추가 (2026-04-24)
+
+**새 Lean 파일들**:
+- `Research/ModJoinEuclidean.lean`: `euclidean_step` 완성 —
+  L_m + L_k → L_{m-k} (m > k ≥ 2, m - k ≥ 2).
+- `Research/ModJoinGCD.lean`: **일반 `join_refines_gcd`** —
+  임의 m, k ≥ 2 에서 L_m + L_k → L_{gcd m k}.  Strong induction
+  on m + k, Euclidean subtraction iterate (Bezout 우회).
+- `Research/ModJoinEquivGCD.lean`: **`gcd_equiv_joinEquiv`** —
+  L_gcd.equiv ↔ JoinEquiv L_m L_k on Raw × Raw.  즉 **L_gcd 가
+  mod family 내 JoinEquiv 의 concrete Lens realization**.
+
+**해결된 open problem**:
+- Join = gcd 일반 m, k: 완전 해결.
+- Q37.3 concrete Quot Lens: mod family 한정 완전 해결.
+
+**새 notes**: 49 (Euclidean step), 50 (일반 join = gcd), 51
+(mod family concrete Quot Lens).
+
 ### 남은 open 질문 (최종)
 
-- **Join = gcd 의 일반 m, k 방향**: Bezout coefficient 일반화.
-- **Q37.3 concrete Lens**: Classical choice 또는 canonical
-  picking 도구 필요.
+- **Q37.3 concrete Lens 일반 case**: 비-mod family Lens pair
+  (e.g. parityLens + boolXorLens 등).  각 pair 별 또는 general
+  Raw.toNat approach.
 - **Lens kernel 공간 exact cardinality** (ℵ₀ vs 𝔠): open
   conjecture.
 - **Meta-213 hierarchy** (Lens on Lens): natural combine 부재.
