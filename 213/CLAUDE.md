@@ -124,6 +124,9 @@ fudge 없이 derive 가능한가?  안 되면 **speculative 격리**.
 
 - **`AXIOM.md` — 공리 씨앗 문서 (최상위 기준).**
 - `NOTATION.md` — 표기 규약.
+- `IMPLEMENTATION.md` — Raw + Firmware 구현 감사 연구.
+  안전장치가 공리 추가가 아님을 엄밀 분석.
+- `AUDIT_Lean.md` — Lean × AXIOM 대조 감사.
 - `PAPER.md` — Paper 1 (분할 예정).
 - `PAPER2.md` — r5-critique.
 - `research/infinity-as-lens/` — 세부 노트들.
