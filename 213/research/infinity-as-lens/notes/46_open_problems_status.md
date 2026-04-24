@@ -24,14 +24,15 @@
 
 ## 부분 해결 / 프레임워크 있음
 
-### Join = gcd (일반 m, k)
+### Join = gcd (일반 m, k) — ✓ 해결
 
-- Bezout chain 패턴은 확립 (mod 4/6 예시).
-- **Euclidean step (`ModJoinEuclidean.euclidean_step`) 형식화
-  완료** (note 49): m > k ≥ 2, m - k ≥ 2 → L_m + L_k → L_{m-k}.
-- 일반 m, k 의 uniform induction (strong rec on m+k) 은
-  iteration bookkeeping 필요 — 아직 미완.
-- **상태**: 한 step 완결, 전체 iteration 미완.
+- Bezout chain 패턴 확립 (mod 4/6 예시).
+- Euclidean step (note 49): m > k ≥ 2, m - k ≥ 2 → L_m + L_k
+  → L_{m-k}.
+- **일반 `join_refines_gcd` 완료** (note 50,
+  `Research/ModJoinGCD.lean`): 임의 m, k ≥ 2 에 대해
+  L_m + L_k → L_{gcd m k}.  Strong induction on m + k.
+- **상태**: 완전 해결.  mod family = Nat.gcd lattice 확정.
 
 ## ✗ 미해결 (heavy 하거나 open conjecture)
 
