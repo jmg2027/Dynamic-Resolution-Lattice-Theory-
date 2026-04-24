@@ -71,6 +71,22 @@ Lens들이다.
 0 sorry + 0 axiom 제약을 두는 이유다.  공리는 계약서이고,
 기계 검증은 감사관이다.
 
+### 외부 공리 추가 절대 금지 (강한 서약)
+
+AXIOM.md §5.2.1 에 기록된 강한 rule:
+
+- **Classical.choice, LEM, Quot.sound 이외의 axiom,
+  native_decide 의 `Lean.ofReduceBool` 등 모든 외부 axiom
+  추가 금지.**
+- "Classical 쓰면 쉽다" 유혹 거부.  Classical 도입이 필요하다는
+  결론이 나오면 **그 영역은 폐기**.
+- 이는 이론 폐기 기준 — Mingu 의 확정 사항 (2026-04-24).
+
+현실 implication: 어떤 heavy 정리가 Classical 없이 증명 못
+되면, 그 정리는 213 내부에서 **없는 것** 으로 간주.  Universal
+property (relation level) 정도로 만족하고 concrete construction
+은 포기.
+
 ### "뭔가"의 지위는 open
 
 "뭔가"라고 말하는 순간부터 Lens인가? 그럴 수 있다.

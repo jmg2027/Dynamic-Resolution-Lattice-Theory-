@@ -167,6 +167,27 @@ fudge를 슬쩍 넘길 수 있지만 기계는 안 된다.
 이것이 213이 Mathlib-free + 0 sorry + 0 axiom 제약 아래에서
 운영되는 이유다.  공리는 계약서, 기계 검증은 감사관.
 
+### §5.2.1 외부 공리 추가 절대 금지 (강한 서약)
+
+**Classical.choice, LEM (law of excluded middle), Choice
+principles, Quotient 이외의 axiom 등 외부 공리 추가는 절대
+불가**.
+
+- Lean 4 core 는 수많은 axiom 을 기본 제공 (Classical,
+  propext, Quot.sound 등).  이들 중 **덧붙이는 사용** 도 금지.
+- `Lean.ofReduceBool` (native_decide 가 도입) 도 금지.
+- 어떤 정리가 외부 공리 없이 증명 불가능하다면, 그 정리는
+  **213 안에서 derive 불가능** — 이론을 축소하거나 포기.
+- "Classical 쓰면 쉬워진다" 는 유혹 일체 거부.  쉬워지는
+  게 아니라 fudge 가 숨는 것.
+
+이 규칙은 **이론 폐기 기준**.  Classical / axiom 도입이
+필요하다는 결론이 나오면 해당 영역은 폐기 (retract).  Lean
+대안이 존재하지 않으면 그 부분은 213 의 바깥으로 간주.
+
+이 규칙은 CLAUDE.md 의 "derive, not reconcile" 의 최강
+엄격 version.  절대 완화되지 않는다.
+
 ### §5.3 경험적 예측
 
 이 공리로부터 단일 Lens (물리적 관측자 Lens) 를 식별하여
