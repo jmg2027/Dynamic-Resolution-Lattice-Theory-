@@ -255,26 +255,35 @@ Track remains research-only.
 - **swap_slash**: `Firmware/Raw/SwapSlash.lean`.  Raw.swap 과
   Raw.slash 의 완전 호환.  Canonical form case analysis.
 - **swapLens**: `Research/SwapLens.lean`.  Raw.swap 이 Lens
-  의 view 인 구성.  idLens 와 refinement-equivalent.
+  의 view 인 구성.
 - **Join = gcd (gcd = 2)**: `Research/ModJoinExample.lean`.
-  L_4 + L_6 → L_2 완전 Lean 증명.  +6 then -4 = +2 chain.
-- **Join = gcd (coprime, gcd = 1)**: `Research/ModJoinCoprime.lean`.
-  L_2 + L_3 → constant 완전 Lean 증명.  +3 then -2 = +1 chain.
-- **Q37.3 partial**: `Research/JoinEquiv.lean`.
-  - JoinEquiv L M inductive (5 constructors + slash_cong).
-  - slash-congruence built-in.
-  - `JoinEquiv_is_least` universal property — refines preorder
-    의 Join 이 **relation level** 에서 Lean 검증.
-  - Concrete Lens via Quot 은 Classical.choice 필요 →
-    **AXIOM §5.2.1 에 의해 폐기**.  universal property 만 유지.
-- **Kernel cardinality bounds**: note 47.  ℵ₀ ≤ x ≤ 𝔠 확정,
-  exact value open.
-- **Q37.3 partial 분석**: note 48.  concrete Lens 의 근본 장애.
+  L_4 + L_6 → L_2 완전 Lean 증명.
+- **Join = gcd (coprime, gcd = 1, specific)**:
+  `Research/ModJoinCoprime.lean`.  L_2 + L_3 → constant 완전
+  Lean 증명.
+- **Bezout chain parametric lemma**: `Research/ModJoinBezout.lean`.
+  - `chain_step_sub`: L_m + L_k → +(m-k) step.
+  - `consecutive_refines_const`: m = k+1 → constant (general
+    for any k ≥ 2).
+- **step_plus_nd iteration**: `Research/ModJoinEuclidean.lean`.
+  +n(m-k) chain iteration.  Full Euclidean step 은 Nat
+  divisibility arithmetic 때문에 defer.
+- **Q37.3 universal property**: `Research/JoinEquiv.lean`.
+  - JoinEquiv inductive (slash_cong constructor 포함).
+  - `JoinEquiv_is_least` universal property — relation level
+    에서 Join 확정.
+  - Concrete Lens via Quot 은 미완.  **Classical.choice 필요
+    한지는 미증명** — AXIOM §5.2.1 falsification 이 아직 성립
+    안 함.  단순 open problem.
+- **Kernel cardinality bounds**: note 47.  ℵ₀ ≤ x ≤ 𝔠.
+- **Q37.3 partial 분석**: note 48.
 
 ### AXIOM §5.2.1 신설 (2026-04-24)
 
-**외부 axiom 추가 절대 금지** — Classical, LEM, native_decide 등
-일체.  필요하다는 결론 나오면 해당 영역 폐기.  Mingu 확정.
+**외부 axiom 추가는 이론 전체 폐기 조건** (falsifiability).
+Classical.choice, LEM, native_decide 등 일체.  추가 필요가
+**증명된** 경우 → 213 전체 폐기.  "아직 발견 못 함" 은 falsify
+조건 아님 (단순 open).  Mingu 확정.
 
 ### 남은 open 질문 (최종)
 
