@@ -1,6 +1,62 @@
 # Session Handoff — 2026-04-24 (philosophy-consolidation arc)
 
-## Latest arc (2026-04-24): session-level trap catalogue
+## Latest arc (2026-04-24): Note 32-40 — Lens 세계의 구조
+
+**Scope**: Note 31-33 의 자기지시 5 유형을 Lens 언어로 번역
+한 후 (Note 34 §5), Lens 구조 자체를 깊게 탐구.  Lens 세계에
+자연스럽고 풍부한 대수적/순서적 구조를 Lean 으로 확인.
+
+### 새 Research Lean 파일 (13개)
+
+- `RawInitiality.lean` — Raw = initial Lens-algebra (Note 32).
+- `DiagonalIrrelevance.lean` — diagonal 관측 = non-injectivity.
+- `DiagonalClassification.lean` — diagonal 4 분류.
+- `NegSqLens.lean`, `BoolSqClassification.lean` — 5번째 class
+  (Involution) + Bool Lens sq 완전 분류.
+- `IdentityLens.lean` — idLens + Yoneda-dual.
+- `RawMatchingLens.lean` — Raw-matching Lens → identity view.
+- `LensLattice.lean` — refines preorder top/bottom.
+- `LensMeet.lean` — meet = product.
+- `LensFactoring.lean`, `LensMorphism.lean` — refinement
+  증명 도구.
+- `LeavesRefinesParity.lean`, `LeavesDepthIncomparable.lean`,
+  `ProdBelowId.lean`, `ParityXorIncomparable.lean`,
+  `LeafLens.lean` — 구체 catalogue refines witness.
+- `NoDepthParity.lean` — depth parity 는 Lens kernel 이 아님
+  (negative 결과).
+- `InjectiveLensClass.lean` — injective Lens 는 단일 class.
+- `IdempotentConstancy.lean` — Idempotent + swap-blind →
+  constant view.
+- `SwapInvariantKernel.lean` — Raw.swap 과 Lens kernel 관계.
+
+### 새 notes (32-40)
+
+- 32 initial algebra → 33 자기지시 5 유형 → 34 totalization →
+  35 4분류 → 36 idLens + Yoneda → 37 refines preorder →
+  38 meet = product → 39 catalogue + factoring → 40 synthesis.
+
+### 핵심 발견
+
+- Raw 는 initial Lens-algebra (universal property).
+- Lens 의 diagonal 거동 = Raw 공리의 anti-reflexivity 의 외부화.
+  Bool Lens 에서 정확히 4 분류 (Collapse T/F, Idempotent,
+  Involution).
+- Lens refines preorder = meet-semilattice.  ⊥ = idLens,
+  ⊤ = constLens, meet = prodLens.
+- Injective Lens 는 단일 equivalence class.
+- Raw 의 congruence (slash-compatible equivalence) 가 Lens
+  kernel 과 동치; 모든 equivalence 가 congruence 는 아님
+  (depth parity 가 반례).
+
+### Branch 상태
+
+Lean: 약 13 + 기존 ~90 = 100여 파일, 모두 0 sorry/0 axiom.
+Commits: 20+ 새로 추가.
+`claude/lean-infinity-explanation-QqnSp` 에 모두 push.
+
+---
+
+## Prior arc (2026-04-24): session-level trap catalogue
 
 Added durable docs to stop Claude from re-making the same
 foundational mistakes across sessions (each mistake cost
