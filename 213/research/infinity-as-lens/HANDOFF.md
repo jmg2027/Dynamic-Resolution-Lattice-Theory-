@@ -98,15 +98,31 @@ All originally-roadmapped Σ targets formal.  Plus:
   factoring lemma.
 - **40_arc_synthesis.md** — arc 전체 synthesis.
 
+### 추가 Lean (최종)
+
+- **`RawMatchingLens.lean`** — Raw-matching Lens → identity
+  view 일반화 (idLens 의 diagonal 자유).
+- **`SwapInvariantKernel.lean`** — swap-invariant Lens 는
+  swap-orbit 을 한 class 로 묶음.
+- **`KernelCongruence.lean`** — **Lens kernel = slash-
+  congruence** (positive characterization).  `NoDepthParity`
+  의 정확한 positive dual.
+
 ### 확장된 발견
 
 - Bool Lens sq 는 정확히 4 종류 (Collapse T, Collapse F,
   Idempotent, Involution).  codomain 의 self-function 공간
   크기가 분류의 upper bound.
-- Raw 의 congruence (slash-compatible equivalence) 가 Lens
-  kernel 의 정의; 모든 함수적 equivalence 가 congruence 는
-  아님 (예: depth parity).
+- **Lens kernel 의 정확한 특성화**:
+  - Positive: 모든 Lens kernel 은 slash-congruence
+    (`KernelCongruence.lean`).
+  - Negative: 모든 equivalence 가 congruence 는 아님
+    (`NoDepthParity.lean`: depth parity 반례).
+  - 결론: Lens kernel 의 공간 = Raw 의 slash-congruence 공간
+    (equivalence 공간의 strict subset).
 - Injective Lens 는 단일 equivalence class (⊥ = idLens).
+- Raw-matching Lens (Raw.slash 와 일치하는 combine) 는 모두
+  view = id.  diagonal 은 자유.
 - refines preorder 는 진정한 poset (total order 아님): 여러
   incomparable 관계 기록.
 
