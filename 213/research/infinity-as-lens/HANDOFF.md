@@ -296,22 +296,29 @@ Classical.choice, LEM, native_decide 등 일체.  추가 필요가
 - `Research/ModJoinEquivGCD.lean`: **`gcd_equiv_joinEquiv`** —
   L_gcd.equiv ↔ JoinEquiv L_m L_k on Raw × Raw.  즉 **L_gcd 가
   mod family 내 JoinEquiv 의 concrete Lens realization**.
+- `Research/ParityXorJoin.lean`: 비-mod family join 예시.
+  parityLens ⊔ boolXorLens = const, leaves ⊔ boolXor = const.
+  `refine_*_implies_const` 귀결.
 
 **해결된 open problem**:
 - Join = gcd 일반 m, k: 완전 해결.
 - Q37.3 concrete Quot Lens: mod family 한정 완전 해결.
+- 비-mod family 첫 concrete join 예시들.
 
 **새 notes**: 49 (Euclidean step), 50 (일반 join = gcd), 51
-(mod family concrete Quot Lens).
+(mod family concrete Quot Lens), 52 (비-mod family joins).
 
 ### 남은 open 질문 (최종)
 
-- **Q37.3 concrete Lens 일반 case**: 비-mod family Lens pair
-  (e.g. parityLens + boolXorLens 등).  각 pair 별 또는 general
-  Raw.toNat approach.
+- **Non-trivial non-mod join** 예시: 지금까지 본 비-mod pair
+  는 전부 universal (= constLens).  Non-constant non-mod join
+  예시 발견/부재 미확인.  Candidate: leaves + depth (incomparable),
+  구조 분석 미완.
 - **Lens kernel 공간 exact cardinality** (ℵ₀ vs 𝔠): open
   conjecture.
 - **Meta-213 hierarchy** (Lens on Lens): natural combine 부재.
 - **Physics chapter 감사**: framework 완비, 대기.
+- **Q37.3 arbitrary Lens**: Raw.toNat 기반 일반 Quot 구성.
+  mod family + parity/boolXor 는 완료.  전체 solve 는 open.
 
 0 sorry, 0 axiom, Mathlib-free 유지.
