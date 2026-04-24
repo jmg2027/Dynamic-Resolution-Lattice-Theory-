@@ -27,10 +27,11 @@
 ### Join = gcd (일반 m, k)
 
 - Bezout chain 패턴은 확립 (mod 4/6 예시).
-- 일반 m, k 확장은 Bezout 계수 계산 + generic induction 필요.
-- Nat.xgcd 부재 (Mathlib) → 각 specific (m, k) pair 마다
-  증명 반복 또는 커스텀 Bezout 구현.
-- **상태**: pattern 확립, generic 미완.
+- **Euclidean step (`ModJoinEuclidean.euclidean_step`) 형식화
+  완료** (note 49): m > k ≥ 2, m - k ≥ 2 → L_m + L_k → L_{m-k}.
+- 일반 m, k 의 uniform induction (strong rec on m+k) 은
+  iteration bookkeeping 필요 — 아직 미완.
+- **상태**: 한 step 완결, 전체 iteration 미완.
 
 ## ✗ 미해결 (heavy 하거나 open conjecture)
 

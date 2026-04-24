@@ -73,14 +73,48 @@ namespace E213.Research.ModJoinEuclidean
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.ModJoinBezout
 
-/-! ## Euclidean step 은 heavy
-
-`L_m + L_k → L_{m-k}` 의 완전 증명은 divisibility arithmetic
-이 필요 (given a % d = b % d → d ∣ (a - b) for Nat).  Lean core
-에 직접 lemma 없고 Nat.div_add_mod + 수동 manipulation 필요.
-
-현재 step_plus_nd 로 +n(m-k) chain 은 확보.  "leaves mod (m-k)
-기준 equal → chain 존재" 의 형식화는 향후 작업.
--/
+/-- **Euclidean step**: m > k ≥ 2, m - k ≥ 2 인 경우
+    L_m + L_k → L_{m-k}. -/
+theorem euclidean_step {α : Type} (N : Lens α) (m k : Nat)
+    (hk : k ≥ 2) (hmk : m > k) (hdiff : m - k ≥ 2)
+    (hLm : (leavesModNat m).refines N)
+    (hLk : (leavesModNat k).refines N) :
+    (leavesModNat (m - k)).refines N := by
+  intro r r' h_equiv
+  have h_mod : Lens.leaves.view r % (m - k)
+                 = Lens.leaves.view r' % (m - k) := by
+    have : (leavesModNat (m - k)).view r
+             = (leavesModNat (m - k)).view r' := h_equiv
+    rw [leavesModNat_view_eq, leavesModNat_view_eq] at this
+    exact this
+  have hd_pos : m - k > 0 := by omega
+  have key : ∀ (a b : Nat), a % (m - k) = b % (m - k) → b ≤ a →
+             a = b + ((a - b) / (m - k)) * (m - k) := by
+    intro a b hmod hab
+    have h1 := Nat.div_add_mod a (m - k)
+    have h2 := Nat.div_add_mod b (m - k)
+    have hb_le_a_div : b / (m - k) ≤ a / (m - k) := by
+      have hamod := Nat.mod_lt a hd_pos
+      have hbmod := Nat.mod_lt b hd_pos
+      by_cases hle : b / (m - k) ≤ a / (m - k)
+      · exact hle
+      · exfalso
+        have hlt : a / (m - k) < b / (m - k) := Nat.lt_of_not_le hle
+        have hgt : b / (m - k) ≥ a / (m - k) + 1 := hlt
+        have hmul_ge : (m - k) * (a / (m - k) + 1) ≤ (m - k) * (b / (m - k)) :=
+          Nat.mul_le_mul_left _ hgt
+        have hexp : (m - k) * (a / (m - k) + 1)
+                      = (m - k) * (a / (m - k)) + (m - k) :=
+          Nat.mul_succ (m - k) (a / (m - k))
+        omega
+    have hsub : a - b = (m - k) * (a / (m - k) - b / (m - k)) := by
+      rw [Nat.mul_sub_left_distrib]; omega
+    rw [hsub, Nat.mul_div_cancel_left _ hd_pos, Nat.mul_comm]
+    omega
+  rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
+  · exact step_plus_nd N m k hk hmk hLm hLk r _ r'
+      (key _ _ h_mod.symm hle)
+  · exact (step_plus_nd N m k hk hmk hLm hLk r' _ r
+      (key _ _ h_mod hle)).symm
 
 end E213.Research.ModJoinEuclidean
