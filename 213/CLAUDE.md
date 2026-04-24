@@ -109,16 +109,18 @@ Lens들이다.
 
 ## 물리 chapter 감사 기준
 
-그 chapter의 결과가 Paper 1 §1 + 명시적 Lens 성질로부터
+그 chapter의 결과가 **AXIOM.md + 명시적 Lens 성질** 로부터
 fudge 없이 derive 가능한가?  안 되면 **speculative 격리**.
 
-## Paper 1 분할 계획
+## Paper 1, 2 삭제됨 (2026-04-24)
 
-- 기초 논문: 공리 부분 (구분·재귀 발생 그 자체).
-- 별도 논문: R1–R5 + ℂ 도출 (첫 Lens-property derivation).
-- 현재 Paper 1이 두 가지를 섞고 있어 derivation 방향이
-  흐려진다.  분리하면 "213 → Lens → 물리"의 계층이 시각적
-  으로 강제된다.
+이전 `213/PAPER.md` (R1-R5 → ℂ 도출) 및 `213/PAPER2.md`
+(r5-critique) 는 삭제됨.  이유: 두 문서 모두 **특정 시점의
+derivation 시도** 였고, arc 진행 중 프레이밍이 낡음.
+`notes/30_bool_is_liar_paradox.md` 가 이 삭제 배경 기록.
+
+현재 **AXIOM.md 가 유일한 공리 문서**.  derivation 은 notes/
+에서 자유롭게 탐구 (판정 프레임 없이).
 
 ## 파일 지도
 
@@ -129,8 +131,6 @@ fudge 없이 derive 가능한가?  안 되면 **speculative 격리**.
 - `IMPLEMENTATION.md` — Raw + Firmware 구현 감사 연구.
   안전장치가 공리 추가가 아님을 엄밀 분석.
 - `AUDIT_Lean.md` — Lean × AXIOM 대조 감사.
-- `PAPER.md` — Paper 1 (분할 예정).
-- `PAPER2.md` — r5-critique.
 - `research/infinity-as-lens/` — 세부 노트들.
 - `framework/E213/` — Lean 4 core 형식화.
 - 루트 `../HANDOFF.md` — 세션 아크 연속성.

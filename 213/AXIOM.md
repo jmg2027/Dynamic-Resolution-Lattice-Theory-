@@ -224,12 +224,15 @@ subtype 으로 구현된다.  Internal 의 `Tree.cmp` (ordering)
   `Raw.fold_swap_hom` — 특정 Lens 의 observable / bridge 정리.
   (`AUDIT_Lean.md` 권고 3.)
 
-### §7.2 PAPER.md (Paper 1)
+### §7.2 Paper 1, 2 삭제 (2026-04-24)
 
-Paper 1 의 §1 (공리 부분) 은 이 문서의 초기 판본이다.
-이 문서가 작성된 이상 Paper 1 §1 은 이 문서를 인용하거나
-이 문서로 대체된다.  Paper 1 의 R1–R5 + ℂ 도출 부분은
-별도 논문 (첫 Lens-property derivation) 으로 분리한다.
+이전 `213/PAPER.md` (R1-R5 → ℂ 도출) 및 `213/PAPER2.md`
+(r5-critique) 는 삭제됨.  AXIOM.md 가 **유일한 공리 문서**
+로 남는다.  derivation 은 notes/ 에서 자유 탐구.
+
+배경: notes/30_bool_is_liar_paradox.md.  Paper 1 의 R1-R5
+판정 게임이 self-reference loop (Bool) 의 한 instance 임이
+드러나 frame 자체에서 물러남.
 
 ### §7.3 ch22 (book/chapters/ch22_213.tex)
 
