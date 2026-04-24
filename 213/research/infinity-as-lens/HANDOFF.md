@@ -263,17 +263,25 @@ Track remains research-only.
   L_4 + L_6 → L_2 (= L_gcd(4,6)) **완전 Lean 증명**.
   Bezout chain 기법 (+6 then -4 = +2) 으로 induction.
   일반 m, k 로 확장 패턴 확립.
+- **Q37.3 partial**: `Research/JoinEquiv.lean`.
+  - JoinEquiv L M inductive (5 constructors).
+  - slash-congruence built-in.
+  - `JoinEquiv_is_least` universal property.
+  - Join 이 **relation level** 에서 Lean 검증.
+  - Concrete Lens via Quot 은 well-definedness 이슈로 미완.
+- **Kernel cardinality bounds**: note 47.  ℵ₀ ≤ x ≤ 𝔠 확정,
+  exact value open.
+- **Q37.3 partial 분석**: note 48.  concrete Lens 구성의
+  근본 장애 (class rep 비일관) 분석.
 
-### 남은 open 질문
+### 남은 open 질문 (최종)
 
-- **Q37.3 일반 Q**: Quotient Lens 로 임의 Lens pair 의 join.
-  Raw.toNat canonical picking 으로 constructive 가능.
-  구현 heavy.
-- **Join = gcd 의 일반 m, k 방향**: 위 specific case 를
-  generic m, k 로 확장.  Bezout coefficient 계산 필요.
-- **Lens kernel 공간 cardinality**: countable? 𝔠?  미답.
-- **Meta-213 hierarchy**: Lens on Lens 의 concrete construction.
-  자연 combine 부재.
-- **Physics chapter 감사**: 별도 디렉토리로.  framework 준비 완료.
+- **Join = gcd 의 일반 m, k 방향**: Bezout coefficient 일반화.
+- **Q37.3 concrete Lens**: Classical choice 또는 canonical
+  picking 도구 필요.
+- **Lens kernel 공간 exact cardinality** (ℵ₀ vs 𝔠): open
+  conjecture.
+- **Meta-213 hierarchy** (Lens on Lens): natural combine 부재.
+- **Physics chapter 감사**: framework 완비, 대기.
 
 0 sorry, 0 axiom, Mathlib-free 유지.
