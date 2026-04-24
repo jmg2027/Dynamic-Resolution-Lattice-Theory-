@@ -67,7 +67,61 @@ All originally-roadmapped Σ targets formal.  Plus:
 (초안 단계 notes 18, 20, 21, 22 는 stale/superseded 되어 삭제.
 대응 내용은 28 에 흡수.)
 
-## Session 2026-04-24 — Philosophy consolidation arc
+## Session 2026-04-24 — Note 34-38 arc (Lens totalization + refines lattice)
+
+Note 34 (Lens = totalization) 의 Q34.1-4 + Note 37 Q37.1-2
+전부 Lean 으로 기록.  Lens 세계의 구조 명시화:
+
+### 새 Lean 파일 (framework/E213/Research/)
+
+- **`DiagonalIrrelevance.lean`** — Q34.2.  diagonal 관측
+  가능성 = L 의 non-injectivity.  두 정리.
+- **`DiagonalClassification.lean`** — Q34.1.  sq 함수 + 4
+  분류 (collapse/idempotent/escalate/multiply) 상호 배타성
+  + Bool / Nat / F9 Lens 분류.
+- **`IdentityLens.lean`** — Q34.3, Q34.4.  `idLens : Lens Raw`
+  (view = id) + `Raw.eval` Yoneda-dual.  injective Lens
+  witness.
+- **`LensLattice.lean`** — refines preorder 의 top/bottom.
+  idLens ⊥, constLens e ⊤.  injective ↔ refines idLens.
+- **`LensMeet.lean`** — Q37.1.  prodLens = meet (greatest
+  lower bound) + universal property.
+- **`LeavesRefinesParity.lean`** — Q37.2 첫 witness.
+  Lens.leaves ⊏ parityLens (strict refinement).
+
+### 새 notes
+
+- **32_raw_as_initial_algebra.md** (prior session) —
+  Lens.view_unique + Lens.initiality.
+- **33_hierarchy_equation_observer.md** — 5 유형 = 경계 +
+  자기지시.
+- **34_lens_as_totalization.md** — diagonal 이 경계.  Q34.1-4
+  제기.
+- **35_diagonal_classification.md** — Q34.1 답.
+- **36_identity_lens_yoneda.md** — Q34.3/4 답.
+- **37_refines_preorder.md** — Lens 세계의 preorder 구조.
+- **38_lens_meet.md** — Q37.1 답 (product = meet).
+
+### 핵심 발견
+
+- Lens 는 Raw 공리의 anti-reflexivity 를 codomain 에서 푸는
+  totalization 행위.  diagonal 선택 = 경계 선언.
+- diagonal 관측 가능성 = L 의 non-injectivity.
+- 4 분류 = 대수 구조의 근본 갈림길 (𝔽₂ / semilattice /
+  group / ring), 상호 배타.
+- Lens refines preorder = meet-semilattice.  ⊥ = idLens,
+  ⊤ = constLens, meet = product.  Join 은 quotient 필요
+  (Q37.3, 열림).
+
+### 남은 열린 질문
+
+- **Q37.3**: quotient Lens = join.  Quot 필요 → 별도 arc.
+- **Meta-213 의 hierarchy** (Note 33 유형 3) Lean 화 —
+  Lens on Lens 의 구체 구성.
+- 물리 관측자 Lens (Note 33 유형 5) — 디렉토리 격리 후
+  별도 탐구.
+
+## Session 2026-04-24 — Philosophy consolidation arc (prior)
 
 - **Root docs added**: `213/CLAUDE.md` (DO/DO-NOT list,
   trap catalogue), `213/NOTATION.md` (ZFC-artifact-free
