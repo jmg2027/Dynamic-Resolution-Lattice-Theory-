@@ -51,20 +51,21 @@ All originally-roadmapped Σ targets formal.  Plus:
 - `13_master_summary.md` — mid-arc consolidation.
 - `14_track_a_complete.md` — `hurwitz_ring` tactic breakthrough.
 - `15_cd_tower_climb.md` — heartbeat scaling + layers 4–5.
-- **`17_existence_mode_lens.md`** (2026-04-24) — existence
-  mode ("Raw already exists" vs "Raw is being generated")
-  is a Lens output, not an axiom property.  **"Don't care"
-  is provable.**
-- **`18_complete_graph_lens_base.md`** (2026-04-24) — K_n
-  complete graph as the lowest-commitment geometric Lens.
-  Connects DRLT's `G_ij = ⟨ψ_i|ψ_j⟩` axiom to 213's
-  Raw axiom.
-- **`19_lens_not_functor.md`** (2026-04-24) — Lens is
-  **pre-categorical**.  Patch trail for "functor" wording
-  across PAPER.md + prior notes.
-- **`20_bridge_search_infrastructure.md`** (2026-04-24) —
-  Lens catalogue as quantitative bridge-search tool
-  (R-profile + refinement lattice).
+- **`17_existence_mode_lens.md`** — existence mode is Lens
+  output (don't care provable).
+- **`19_lens_not_functor.md`** — Lens is pre-categorical.
+- **`23_backward_lens_chain.md`** — Backward chain 구조.
+- **`24_backward_trace_catalogue.md`** — 구체 Lens backward.
+- **`25_backward_trace_extensions.md`** — Bool atlas + CD
+  tower depth + 유한 compound.
+- **`26_cd_bool_crossing.md`** — CD × Bool 교차점
+  = CD-over-𝔽₂ (= dual numbers).
+- **`27_r1_r5_uniqueness_hole.md`** — Paper 1 §4 의 ℝ-algebra
+  은밀 가정 식별, 𝔽₉ 반례.
+- **`28_backward_arc_summary.md`** — 이 arc 전체 통합 요약.
+
+(초안 단계 notes 18, 20, 21, 22 는 stale/superseded 되어 삭제.
+대응 내용은 28 에 흡수.)
 
 ## Session 2026-04-24 — Philosophy consolidation arc
 

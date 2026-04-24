@@ -74,21 +74,24 @@ swap-blind 케이스 `(F, F, combine)` 와 `(T, T, combine)`:
 | (T,T) | OR | 항상 T |
 | (T,T) | XOR | 항상 F (꺾임) |
 
-### §1.4 핵심 발견: 의미있는 Lens 는 **몇 개 안 된다**
+### §1.4 의미있는 Bool Lens: 기존 Lean 카탈로그 기준
 
-실질적 정보 수송하는 Bool Lens (R5 distinguishing) 는:
+실제 Lean 의 Meta/*Lens.lean 에 네 가지가 있다:
 
-1. **parityLens** = `(F, T, XOR)` — leaves 카운트 패리티.
-2. **boolAndLens** = `(T, T, AND)` — 모두 T (swap-blind 극한).
-3. **boolOrLens** = `(F, F, OR)` — 모두 F (swap-blind 극한).
+| Lens          | base_a, base_b | combine | swap 거동   | image |
+|---------------|----------------|---------|-------------|-------|
+| `boolAndLens` | T, T           | AND     | swap-blind  | {T}   |
+| `boolOrLens`  | T, T           | OR      | swap-blind  | {T}   |
+| `parityLens`  | T, T           | XOR     | swap-blind  | {T,F} |
+| `boolXorLens` | T, F           | XOR     | swap-flip   | {T,F} |
 
-나머지는 이 셋의 swap-flip 대응.  즉 **실질 유니크 Bool Lens
-≈ 3 개**.  깊이 1 에서 Raw 로부터 끌어낼 수 있는 정보는 이
-셋 한정.
+네 가지가 Raw 의 다른 관측 성질 포착:
+- boolAnd/Or: 존재만 기록 (swap-blind 극한).
+- parity: leaves 패리티 (swap-invariant 비자명 정보).
+- boolXor: swap 이 view 를 뒤집음 (swap-visible).
 
-**원형 Lens 단 1 개 가설** 기각: Bool 층에 **세 가지 다른
-정보 모드** (패리티, 항상-T, 항상-F) 가 존재.  이는 Raw 의
-내재 성질을 반영 (R4 swap symmetry 의 세 가능 반응).
+**Bool 층은 예상보다 풍부**.  깊이 1 에서 Raw 로부터 추출
+가능한 정보 모드가 네 개 이상 (swap-flip 대응까지 세면 여덟).
 
 ---
 

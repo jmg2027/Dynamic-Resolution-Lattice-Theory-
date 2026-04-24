@@ -12,12 +12,13 @@ foundational mistakes across sessions (each mistake cost
 - `213/research/infinity-as-lens/notes/17_existence_mode_lens.md`
   — existence mode ("already there" vs "being generated") is
   a Lens output.  "Don't care" is provable.
-- `.../18_complete_graph_lens_base.md` — K_n as lowest-
-  commitment geometric Lens; connects DRLT `G_ij` axiom to 213.
 - `.../19_lens_not_functor.md` — Lens is pre-categorical.
   **Never call Lens a functor.**
-- `.../20_bridge_search_infrastructure.md` — Lens catalogue
-  as quantitative bridge-search infrastructure.
+- `.../23–28` — Backward Lens chain arc (2026-04-24).
+  `28_backward_arc_summary.md` 가 전체 통합 요약.
+  핵심 발견: Bool = Raw 원형 Lens, CD construction 이
+  base-independent, 𝔽₉ 가 R1-R5 반례 (Paper 1 §4 ℝ-algebra
+  은밀 가정 식별).
 
 Bias patches applied to PAPER.md (line 423 Lens-is-functor,
 `{a, b}` set-literals at 141/185/615/623/651), README.md
