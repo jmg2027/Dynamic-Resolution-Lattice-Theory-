@@ -142,3 +142,84 @@ theorem pointwise_limit_match {ι : Type} (F : ι → (α : Type) × Lens α)
   exact limitClass_eq_tail (F i).2 xs (la.data i) n hn
 
 end E213.Research.LensCauchy
+
+namespace E213.Research.LensCauchy
+
+open E213.Firmware E213.Hypervisor E213.Research.UniversalQuotLens
+
+/-- **Tail congruence**: sequence xs 의 tail 부터 시작 하는
+    minimum slash-cong.  모든 tail elements (xs m, xs k) for m, k
+    ≥ N 가 single class 로 collapse. -/
+inductive TailCong (xs : Nat → Raw) (N : Nat) : Raw → Raw → Prop where
+  | tail_eq (m k : Nat) (hm : m ≥ N) (hk : k ≥ N) :
+      TailCong xs N (xs m) (xs k)
+  | refl (r : Raw) : TailCong xs N r r
+  | symm : TailCong xs N r r' → TailCong xs N r' r
+  | trans :
+      TailCong xs N r r' → TailCong xs N r' r'' → TailCong xs N r r''
+  | slash_cong (hxy : x ≠ y) (hx'y' : x' ≠ y') :
+      TailCong xs N x x' → TailCong xs N y y' →
+      TailCong xs N (Raw.slash x y hxy) (Raw.slash x' y' hx'y')
+
+/-- TailCong 은 slash-cong (slash_cong constructor 직접). -/
+theorem tailCong_slash_cong (xs : Nat → Raw) (N : Nat)
+    (x x' y y' : Raw) (hxy : x ≠ y) (hx'y' : x' ≠ y')
+    (hxx' : TailCong xs N x x') (hyy' : TailCong xs N y y') :
+    TailCong xs N (Raw.slash x y hxy) (Raw.slash x' y' hx'y') :=
+  TailCong.slash_cong hxy hx'y' hxx' hyy'
+
+/-- **Limit Lens**: TailCong 의 universalLens 가 sequence 의 limit
+    Lens.  Q37.3 + Cauchy completeness 의 통합. -/
+def limitLens (xs : Nat → Raw) (N : Nat) : Lens (Raw → Prop) :=
+  universalLens (TailCong xs N)
+
+/-- **Limit Lens 의 kernel = TailCong**.  universalLens 의 직접
+    귀결. -/
+theorem limitLens_kernel (xs : Nat → Raw) (N : Nat) (r r' : Raw) :
+    (limitLens xs N).view r = (limitLens xs N).view r'
+      ↔ TailCong xs N r r' := by
+  apply universalLens_kernel_eq_E
+  · exact fun x => TailCong.refl x
+  · exact fun _ _ h => TailCong.symm h
+  · exact fun _ _ _ h1 h2 => TailCong.trans h1 h2
+  · exact fun _ _ _ _ hxy hx'y' h1 h2 =>
+      TailCong.slash_cong hxy hx'y' h1 h2
+
+/-- **Tail collapse**: 모든 tail elements (xs m, xs k) (m, k ≥ N)
+    가 limitLens 에서 single class.  Cauchy completeness 의 핵심
+    표현. -/
+theorem limitLens_tail_collapse (xs : Nat → Raw) (N : Nat)
+    (m k : Nat) (hm : m ≥ N) (hk : k ≥ N) :
+    (limitLens xs N).view (xs m) = (limitLens xs N).view (xs k) :=
+  (limitLens_kernel xs N (xs m) (xs k)).mpr (TailCong.tail_eq m k hm hk)
+
+/-- TailCong ⊆ N.equiv (helper for universal property). -/
+private theorem tailCong_implies_equiv {α : Type} (N : Lens α)
+    (hNsym : ∀ u v, N.combine u v = N.combine v u)
+    (xs : Nat → Raw) (M : Nat)
+    (hCollapse : ∀ m k, m ≥ M → k ≥ M → N.equiv (xs m) (xs k))
+    (r r' : Raw) (h : TailCong xs M r r') :
+    N.equiv r r' := by
+  induction h with
+  | tail_eq m k hm hk => exact hCollapse m k hm hk
+  | refl x => exact rfl
+  | symm _ ih => exact ih.symm
+  | trans _ _ ih1 ih2 => exact ih1.trans ih2
+  | slash_cong hxy hx'y' _ _ ih1 ih2 =>
+      exact E213.Research.KernelCongruence.Lens.equiv_slash_congruence
+        N hNsym _ _ _ _ hxy hx'y' ih1 ih2
+
+/-- **limitLens 의 universal property (least tail-collapsing Lens)**:
+    임의 Lens N (combine sym) 가 tail 을 collapse 하면, limitLens 가
+    N 을 refine.  즉 limitLens 가 가장 finer 한 tail-collapsing
+    Lens — Cauchy seq 의 limit Lens 의 universal characterization. -/
+theorem limitLens_is_least {α : Type} (N : Lens α)
+    (hNsym : ∀ u v, N.combine u v = N.combine v u)
+    (xs : Nat → Raw) (M : Nat)
+    (hCollapse : ∀ m k, m ≥ M → k ≥ M → N.equiv (xs m) (xs k)) :
+    (limitLens xs M).refines N := by
+  intro r r' h
+  have hTC : TailCong xs M r r' := (limitLens_kernel xs M r r').mp h
+  exact tailCong_implies_equiv N hNsym xs M hCollapse r r' hTC
+
+end E213.Research.LensCauchy
