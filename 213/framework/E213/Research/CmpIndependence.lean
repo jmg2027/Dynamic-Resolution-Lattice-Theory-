@@ -311,3 +311,30 @@ noncomputable def transport (cmp1 cmp2 : Tree → Tree → Ordering)
     r
 
 end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- transport of RawBy.a. -/
+theorem transport_a (cmp1 cmp2 : Tree → Tree → Ordering)
+    (h1 : CmpProps cmp1) (h2 : CmpProps cmp2) :
+    transport cmp1 cmp2 h1 h2 (RawBy.a cmp1) = RawBy.a cmp2 := rfl
+
+/-- transport of RawBy.b. -/
+theorem transport_b (cmp1 cmp2 : Tree → Tree → Ordering)
+    (h1 : CmpProps cmp1) (h2 : CmpProps cmp2) :
+    transport cmp1 cmp2 h1 h2 (RawBy.b cmp1) = RawBy.b cmp2 := rfl
+
+end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+-- transport_slash (recursion equation) 은 noncomputable rec 의
+-- definitional reduction 가 명시 적 generation 안 됨 → rfl 안
+-- 통과.  Manual reduction 또는 다른 induction 도구 필요 (Phase
+-- 3.5).  현재 transport_a, transport_b 의 reduction 만 establish.
+
+end E213.Research.CmpIndependence
