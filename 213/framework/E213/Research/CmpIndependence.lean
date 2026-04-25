@@ -207,3 +207,107 @@ theorem RawBy.slash_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
     (fun heq => hxy (Subtype.ext heq))
 
 end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- canonicalBy slash 의 lt 추출. -/
+theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
+    {x y : Tree} (h : canonicalBy cmp (.slash x y) = true) :
+    cmp x y = .lt := by
+  unfold canonicalBy at h
+  rw [Bool.and_eq_true] at h
+  obtain ⟨_, hlt_raw⟩ := h
+  match hm : cmp x y with
+  | .lt => rfl
+  | .eq => rw [hm] at hlt_raw; cases hlt_raw
+  | .gt => rw [hm] at hlt_raw; cases hlt_raw
+
+end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- **RawBy.recAux**: structural recursion on Tree, canonical
+    form re-assembled via cmp-parameterized RawBy.slash. -/
+private noncomputable def RawBy.recAux {cmp : Tree → Tree → Ordering}
+    (hP : CmpProps cmp)
+    {motive : RawBy cmp → Sort u}
+    (a_case : motive (RawBy.a cmp))
+    (b_case : motive (RawBy.b cmp))
+    (slash_case : ∀ (x y : RawBy cmp) (hxy : x ≠ y),
+                  motive x → motive y →
+                  motive (RawBy.slash cmp hP x y hxy)) :
+    ∀ (t : Tree) (hcanon : canonicalBy cmp t = true),
+        motive ⟨t, hcanon⟩ := by
+  intro t
+  induction t with
+  | a => intro _; exact a_case
+  | b => intro _; exact b_case
+  | slash x y ihx ihy =>
+      intro hcanon
+      have hc := hcanon
+      unfold canonicalBy at hc
+      rw [Bool.and_eq_true, Bool.and_eq_true] at hc
+      obtain ⟨⟨hx, hy⟩, _⟩ := hc
+      have hcmp := canonicalBy_slash_lt hcanon
+      let x' : RawBy cmp := ⟨x, hx⟩
+      let y' : RawBy cmp := ⟨y, hy⟩
+      have hne : x' ≠ y' := by
+        intro heq
+        have hxy : x = y := congrArg Subtype.val heq
+        rw [hxy] at hcmp
+        rw [(hP.eq_iff y y).mpr rfl] at hcmp
+        cases hcmp
+      have heq : (⟨.slash x y, hcanon⟩ : RawBy cmp) =
+                  RawBy.slash cmp hP x' y' hne := by
+        apply Subtype.ext
+        rw [RawBy_slash_val]
+        unfold slashTree
+        rw [hcmp]
+      rw [heq]
+      exact slash_case x' y' hne (ihx hx) (ihy hy)
+
+/-- **Custom RawBy eliminator** (cmp-parameterized). -/
+@[elab_as_elim]
+noncomputable def RawBy.rec {cmp : Tree → Tree → Ordering}
+    (hP : CmpProps cmp)
+    {motive : RawBy cmp → Sort u}
+    (a_case : motive (RawBy.a cmp))
+    (b_case : motive (RawBy.b cmp))
+    (slash_case : ∀ (x y : RawBy cmp) (hxy : x ≠ y),
+                  motive x → motive y →
+                  motive (RawBy.slash cmp hP x y hxy))
+    (r : RawBy cmp) : motive r :=
+  RawBy.recAux hP a_case b_case slash_case r.val r.property
+
+end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- DecidableEq on RawBy. -/
+instance (cmp : Tree → Tree → Ordering) : DecidableEq (RawBy cmp) :=
+  fun x y => by
+    rcases decEq x.val y.val with hne | heq
+    · exact .isFalse (fun h => hne (congrArg Subtype.val h))
+    · exact .isTrue (Subtype.ext heq)
+
+/-- **Transport**: RawBy cmp1 → RawBy cmp2 via RawBy.rec.
+    Mingu hint: "변환 자체 가 Lens" — base+slash 를 cmp2 의
+    constructor 로 하는 fold. -/
+noncomputable def transport (cmp1 cmp2 : Tree → Tree → Ordering)
+    (h1 : CmpProps cmp1) (h2 : CmpProps cmp2)
+    (r : RawBy cmp1) : RawBy cmp2 :=
+  RawBy.rec h1 (motive := fun _ => RawBy cmp2)
+    (RawBy.a cmp2)
+    (RawBy.b cmp2)
+    (fun _ _ _ ih_x ih_y =>
+      if hne : ih_x ≠ ih_y then RawBy.slash cmp2 h2 ih_x ih_y hne
+      else RawBy.a cmp2)
+    r
+
+end E213.Research.CmpIndependence
