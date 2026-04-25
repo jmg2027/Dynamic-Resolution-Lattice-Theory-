@@ -285,6 +285,29 @@ theorem canonicalAndMap_slash (x y : Raw) (h : x ≠ y) :
       = (canonicalAndMap x ∧ canonicalAndMap y) :=
   @universalMorphism_slash Prop propAsDistinguishingAnd x y h
 
+/-- Or-based Prop instance — dual to And. -/
+def propAsDistinguishingOr : HasDistinguishing Prop where
+  a := True
+  b := False
+  distinct := true_ne_false
+  combine := Or
+  combine_sym := fun P Q => propext ⟨Or.symm, Or.symm⟩
+
+/-- Or-based universal morphism. -/
+def canonicalOrMap : Raw → Prop :=
+  @universalMorphism Prop propAsDistinguishingOr
+
+theorem canonicalOrMap_a : canonicalOrMap Raw.a = True :=
+  @universalMorphism_a Prop propAsDistinguishingOr
+
+theorem canonicalOrMap_b : canonicalOrMap Raw.b = False :=
+  @universalMorphism_b Prop propAsDistinguishingOr
+
+theorem canonicalOrMap_slash (x y : Raw) (h : x ≠ y) :
+    canonicalOrMap (Raw.slash x y h)
+      = (canonicalOrMap x ∨ canonicalOrMap y) :=
+  @universalMorphism_slash Prop propAsDistinguishingOr x y h
+
 /-- canonicalIffMap (slash x y h) = (canonicalIffMap x ↔ canonicalIffMap y). -/
 theorem canonicalIffMap_slash (x y : Raw) (h : x ≠ y) :
     canonicalIffMap (Raw.slash x y h)

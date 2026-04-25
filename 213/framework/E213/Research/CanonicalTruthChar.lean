@@ -230,3 +230,61 @@ theorem canonicalAndMap_iff_eq_a (r : Raw) :
           omega)
 
 end E213.Research.CanonicalTruthChar
+
+namespace E213.Research.CanonicalTruthChar
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### Or-based characterization: r ≠ Raw.b iff canonicalOrMap
+
+Or 가 And 의 dual.  T ∨ F = T, F ∨ F = F.  Hypothesis:
+`canonicalOrMap r ↔ r ≠ Raw.b` (= ∃ a leaf in r). -/
+
+/-- Helper: Raw.slash 의 결과 가 Raw.b 와 다름 — depth-based. -/
+private theorem slash_ne_b_via_depth (x y : Raw) (h : x ≠ y) :
+    Raw.slash x y h ≠ Raw.b := by
+  intro heq
+  have hview := congrArg Lens.depth.view heq
+  have hslash : Lens.depth.view (Raw.slash x y h)
+                = 1 + max (Lens.depth.view x) (Lens.depth.view y) := by
+    apply Raw.fold_slash
+    intro u v
+    show 1 + max u v = 1 + max v u
+    rw [Nat.max_comm]
+  rw [hslash] at hview
+  have h_b : Lens.depth.view Raw.b = 0 := rfl
+  rw [h_b] at hview
+  omega
+
+theorem canonicalOrMap_iff_ne_b (r : Raw) :
+    canonicalOrMap r ↔ r ≠ Raw.b := by
+  induction r using Raw.rec with
+  | a =>
+      rw [canonicalOrMap_a]
+      constructor
+      · intro _ heq; exact absurd heq (by decide)
+      · intro _; trivial
+  | b =>
+      rw [canonicalOrMap_b]
+      constructor
+      · intro h; exact absurd h (fun e => e)
+      · intro hne; exact absurd rfl hne
+  | slash x y h ihx ihy =>
+      rw [canonicalOrMap_slash x y h]
+      constructor
+      · intro _ hslash_eq_b
+        exact slash_ne_b_via_depth x y h hslash_eq_b
+      · intro _
+        -- (slash x y h) ≠ b → 적어도 하나 의 branch 가 ≠ b → IH 로 canonicalOrMap.
+        -- x ≠ y 이므로 둘 다 동시 에 b 가 부재.  적어도 하나 가 ≠ b.
+        by_cases hx : x = Raw.b
+        · -- x = b, then y ≠ b (since x ≠ y).
+          have hy_ne_b : y ≠ Raw.b := by
+            intro heq; rw [heq] at h; exact h hx
+          right
+          exact ihy.mpr hy_ne_b
+        · left
+          exact ihx.mpr hx
+
+end E213.Research.CanonicalTruthChar
