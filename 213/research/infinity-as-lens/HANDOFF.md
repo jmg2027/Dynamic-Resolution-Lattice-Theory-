@@ -312,6 +312,20 @@ Classical.choice, LEM, native_decide 등 일체.  추가 필요가
 **새 notes**: 49 (Euclidean step), 50 (일반 join = gcd), 51
 (mod family concrete Quot Lens), 52 (비-mod family joins).
 
+### Session 5 라운드 4 (2026-04-25, lattice operations 확장)
+
+- `Research/JoinLens.lean`: concrete binary join + universal property.
+- `Research/IndexedJoinLens.lean`: indexed family 의 join + meet.
+  - `iJoinLens`, `iJoinLens_is_least`.
+  - `iProdLens`, `iProdLens_view`, `iProdLens_refines_each`.
+- `Research/ChoiceResolved.lean`: Choice = Lens spec formal.
+- Note 60 (complete lattice), 61 (Choice resolved), 62 (synthesis),
+  63 (ZFC reduce), 64 (indexed join).
+
+**Lattice operations 완전 catalogue**:
+- ⊥ (idLens), ⊤ (constLens), meet (prodLens), binary join
+  (joinLens), indexed meet (iProdLens), indexed join (iJoinLens).
+
 ### Session 5 라운드 3 (2026-04-25, 통찰 기반 reframe)
 
 Mingu 통찰:
