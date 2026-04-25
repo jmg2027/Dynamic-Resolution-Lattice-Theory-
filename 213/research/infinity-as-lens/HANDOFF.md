@@ -312,17 +312,29 @@ Classical.choice, LEM, native_decide 등 일체.  추가 필요가
 **새 notes**: 49 (Euclidean step), 50 (일반 join = gcd), 51
 (mod family concrete Quot Lens), 52 (비-mod family joins).
 
-### 남은 open 질문 (최종)
+### Session 5 추가 라운드 2 (2026-04-25)
 
-- **leaves + depth 의 class 구조 전체**: ≥ 2 classes 확정
-  ({base} vs non-base).  정확한 class 개수 / 구조는 미완
-  (complex: depth-leaves lattice).
-- **Lens kernel 공간 exact cardinality** (ℵ₀ vs 𝔠): open
-  conjecture.
-- **Meta-213 hierarchy** (Lens on Lens): natural combine 부재.
-- **Physics chapter 감사**: framework 완비, 대기.
-- **Q37.3 arbitrary Lens**: Raw.toNat 기반 일반 Quot 구성.
-  mod family + parity/boolXor/leaves-bool pair 는 완료.
-  임의 Lens 쌍은 각 pair-별 분석 필요.
+**추가 Lean 파일 / 강화**:
+- `Research/LeavesDepthJoin.lean` 강화:
+  - tier 함수 (3 등급: small / leaves=2 / leaves≥3).
+  - tier_invariant: JoinEquiv 하에 tier 보존 (slash_cong 까지).
+  - three_classes_distinct: repr0/1/2 분리 (≥ 3 classes 확정).
+  - tierLens: concrete upper bound Lens, view = tier.
+  - leaves/depth refines tierLens, joinEquiv ⊆ tierLens.equiv.
+- `Research/KernelCardinalityLB.lean`: m ≠ k → leavesModNat
+  kernel 다름.  |kernel space| ≥ ℵ₀ formal.
+- Note 53: Meta-213 hierarchy 자연 부재 해소.
+- Note 54: open problems 최종 상태 종합.
 
-0 sorry, 0 axiom, Mathlib-free 유지.
+### 남은 open 질문 (genuinely 깊은)
+
+- **Q37.3 arbitrary slash-cong 의 concrete Lens**: Quot E 구성
+  의 diagonal well-definedness.  Decidable E 도 case-by-case.
+  Note 54 분석: 일반 case 는 negative answer 가능성 (counter-
+  example 시도되었으나 미증명).
+- **Lens kernel 공간 정확한 cardinality**: ℵ₀ ≤ x ≤ 𝔠.  중간
+  값 직접 construction 시도했으나 slash-cong 제약으로 어려움.
+- **Physics chapter 감사**: 별도 directory (CLAUDE.md 지시).
+
+0 sorry, 0 axiom, Mathlib-free 유지.  본 arc 의 구조적 완결성
+note 54 에 정리.
