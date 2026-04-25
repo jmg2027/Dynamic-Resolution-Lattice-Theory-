@@ -24,7 +24,7 @@ verified in Lean 4 core.
 The central thesis is that **213 is the semantic atom**: any
 entity carrying meaning (in the sense of being distinguishable
 from others) is an instance of the framework.  We support this
-thesis with a multifaceted formal evidence comprising 13
+thesis with a multifaceted formal evidence comprising fifteen
 components, including (1) a strict-minimum proof showing that
 every clause of the axiom is essential, (2) a categorical
 universal property establishing `Raw` as the initial object in
@@ -125,9 +125,9 @@ mathematical consequence.  §5 reduces ZFC's commitment axioms.
 on √2 (algebraic), ℤ_p (number-theoretic), e (transcendental
 via Σ 1/k!), and π/2 (transcendental via Wallis product).
 §8 closes with the falsifiability discussion.  §9 presents the
-*semantic atom thesis*: a 13-component synthesis showing that
-any entity carrying meaning is necessarily an instance of the
-framework.
+*semantic atom thesis*: a fifteen-component synthesis showing
+that any entity carrying meaning is necessarily an instance of
+the framework.
 
 ---
 
@@ -302,12 +302,16 @@ def Lens.refines {α β} (L : Lens α) (M : Lens β) : Prop :=
   ∀ x y : Raw, L.equiv x y → M.equiv x y
 ```
 
-The refines relation is a preorder.  Its quotient (Lens
-refines-equivalence) is in bijection with the set of
-slash-congruences on `Raw`.  The preorder forms a meet-
-semilattice (`LensMeet.lean`); the bottom is `idLens` (the
-finest Lens, distinguishing every Raw) and the top is
-`constLens` (the coarsest Lens, making no distinctions).
+The refines relation is a preorder.  Each Lens has a *canonical
+form* under refines-equivalence: by `LensCanonicalForm.lean`,
+every `Lens` (with commutative combine) is refines-equivalent
+to `universalLens L.equiv`, the `universalLens` built from its
+own kernel.  This identifies the refines-equivalence classes
+with the slash-congruences on `Raw` (one direction:
+universalLens; other direction: `lens_canonical_universal`).
+The preorder forms a meet-semilattice (`LensMeet.lean`); the
+bottom is `idLens` (the finest, distinguishing every Raw) and
+the top is `constLens` (the coarsest, making no distinctions).
 
 ### §3.4 Lens catalogue
 
@@ -318,18 +322,21 @@ range:
   `⟨1, 1, (·+·)⟩`.
 - `Lens.depth : Lens Nat` — tree depth:
   `⟨0, 0, λ a b ↦ 1 + max a b⟩`.
-- `parityLens : Lens Bool` — leaf-count parity.
-- `boolXorLens : Lens Bool` — XOR fold.
+- `parityLens : Lens Bool` — `⟨true, true, xor⟩`; view = `true`
+  iff leaf count is *odd*.
 - `abLens : Lens (Nat × Nat)` — pair (a-count, b-count).
 - `leavesModNat m : Lens Nat` — `Lens.leaves` post-composed
   with `(· % m)` (countably many distinct kernels for m ≥ 2).
 
-The Bool-valued Lenses admit a complete diagonal
-classification: `BoolSqClassification.lean` shows that any Bool
-Lens belongs to exactly one of four classes (Collapse-True,
-Collapse-False, Idempotent, Involution), with `parityLens`
-exemplifying Involution and `Lens.leaves` exemplifying neither
-diagonal collapse nor idempotency.
+The `Bool`-valued Lenses admit a complete diagonal
+classification (`BoolSqClassification.lean`): any `Lens Bool`
+falls into exactly one of four classes — Collapse-True
+(`combine x x = true`), Collapse-False (`combine x x = false`),
+Idempotent (`combine x x = x`), or NegSq (`combine x x = ¬x`).
+For example, `parityLens` (with `combine = xor`) belongs to
+**Collapse-False**, since `xor x x = false` for both Bool
+values; an instance of NegSq is given by `negSqLens`
+(`NegSqLens.lean`).
 
 ---
 
@@ -428,16 +435,24 @@ exactly `E`:
 def universalLens (E : Raw → Raw → Prop) : Lens (Raw → Prop)
 
 theorem universalLens_kernel_eq_E
-    (E : Raw → Raw → Prop) (hrefl, hsymm, htrans, hslash : ...)
+    (E : Raw → Raw → Prop)
+    (hrefl  : ∀ r, E r r)
+    (hsymm  : ∀ r r', E r r' → E r' r)
+    (htrans : ∀ r r' r'', E r r' → E r' r'' → E r r'')
+    (hslash : ∀ x x' y y' (h : x ≠ y) (h' : x' ≠ y'),
+              E x x' → E y y' → E (Raw.slash x y h) (Raw.slash x' y' h'))
     (r r' : Raw) :
     (universalLens E).view r = (universalLens E).view r' ↔ E r r'
 ```
 
+That is, the four hypotheses on `E` are exactly the equivalence
+laws plus slash-compatibility (i.e., `E` is a slash-congruence).
+
 `Research/ChoiceResolved.lean` packages this as the formal
-statement that "Choice is Lens specification": any equivalence
-relation that respects slash arises as the kernel of a concrete
-Lens, so no external choice function is needed to select
-representatives.  All proofs use only `[propext]`; no
+statement that "Choice is Lens specification": any
+slash-congruence arises as the kernel of a concrete Lens, so no
+external choice function is needed to select representatives.
+All proofs use only `[propext]` and `[Quot.sound]`; no
 `Classical.choice` is invoked.
 
 ### §5.2 Power set: constructive subset, not full P(X)
@@ -476,11 +491,13 @@ any external Infinity axiom.
 
 A central observation: **cardinality is not an intrinsic property
 of `Raw` alone, but of the (Raw, Lens) pair.**  `Raw` itself is
-countable (one explicit Nat-indexing exists).  But the space of
-Lens kernels is uncountable (any subset of the `slash`-congruence
-space).  Hence the framework supports both countable and
-uncountable cardinalities without committing to either as
-axiomatic.
+countable (one explicit Nat-indexing exists, `Godel.lean`).
+The space of Lens kernels is at least countably infinite
+(`KernelCardinalityLB.lean`: an injection of `Nat` into the
+kernel space, via the `leavesModNat m : m ≥ 2` family).  An
+uncountable lower bound for the kernel space is left as future
+work.  In any case, the framework supports both countable and
+larger cardinalities without committing to either as axiomatic.
 
 ### §5.5 Comprehension → distinguishing-closed subtype
 
@@ -493,14 +510,23 @@ condition* on `P`.
 
 ### §5.6 Coproduct → Prism dual
 
-The categorical coproduct (sum type) is committed to as an
-axiom in ZFC (effectively via the unordered pair axiom).  In 213,
-`Research/Prism.lean` realizes the coproduct as the *categorical
-dual of Lens* — Lens accesses a product, Prism accesses a
-coproduct case (with `preview : Raw → Option α` and
-`review : α → Raw`).  Concrete instances `aPrism, bPrism` and
-the disjointness theorem `caseElement_disjoint` formalize the
-universal property of the coproduct.
+In ZFC the disjoint sum (categorical coproduct) is encoded
+indirectly via the Pair and Union axioms; the structure is
+not primitive.  In 213, `Research/Prism.lean` realizes the
+coproduct as the *categorical dual of Lens* — Lens accesses a
+product, Prism accesses a coproduct case (with `preview :
+Raw → Option α` and `review : α → Raw`).  Concrete instances
+`aPrism`, `bPrism` and the disjointness theorem
+`caseElement_disjoint` formalize the universal property of the
+coproduct.
+
+The Sum-type instance `sumHasDistinguishing` itself is provided
+in `Research/SumInstance.lean` with a priority-based combine
+(left-preference on mixed cases).  This is a deliberately
+*ad-hoc* choice for the mixed case — there is no categorically
+natural commutative combine on `Sum α β` — and the framework
+records this asymmetry as a *limit of self-naturality* rather
+than a derivable structure (see §8.3).
 
 ---
 
@@ -606,7 +632,10 @@ cut entirely within the framework.
 ### §7.3 ℤ_p number-theoretic — Padic
 
 `Research/Padic.lean` realizes the p-adic integers ℤ_p as a
-sub-tower of the leaves-mod-Nat family.  For prime p, the family
+sub-tower of the leaves-mod-Nat family.  For any base `p ≥ 2`
+(when prime, this is precisely ℤ_p; for general `p ≥ 2` the
+construction yields a tower decomposable via CRT into ℤ_q for
+the prime factors of `p`), the family
 `padicFamily p k = leavesModNat (p^(k+1))` indexes the
 characteristic mod-p^k projections.  The factorial sequence is
 family-Cauchy with respect to this tower, producing the
@@ -647,29 +676,49 @@ wallisNum (n+1) = wallisNum n * 4 * (n+1)^2
 wallisDen (n+1) = wallisDen n * (2n+1) * (2n+3)
 ```
 
-The lower invariant `3 * wallisNum n ≥ 4 * wallisDen n` (W_n
-≥ 4/3, n ≥ 1) is straightforward.  The upper invariant
-`wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n` (W_n ≤ 2 -
-1/(2n+1)) requires the polynomial identity `(4k+1)*4(k+1)^2 +
-1 = (4k+5)*(2k+1)^2`, which is closed in Lean 4 core via the
-**Flat-Monomial Strategy**: after expansion, generalize `K :=
-k*k` and `M := k*(k*k)` and dispatch with `omega`.  Lean 4 core
-lacks `ring`, but the identity is degree-3 in `k` and falls to
-omega after the two generalizations.
+Two algebraic invariants are required:
 
-Together these establish π/2 ∈ (1, 2) Dedekind cuts:
-`m/k ≥ 2` ⇒ orderProj true; `m/k ≤ 1` ⇒ orderProj false (n ≥ 1).
+- **Lower** (W_n ≥ 4/3, for n ≥ 1):
+  `3 * wallisNum n ≥ 4 * wallisDen n`.  Inductive step uses the
+  polynomial inequality `(2k+1)(2k+3) ≤ 4(k+1)²` (degree 2 in k),
+  closed in Lean 4 core by the same expansion-and-`omega` strategy
+  as below.
+- **Upper** (W_n ≤ 2 − 1/(2n+1)):
+  `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`.  Inductive step
+  uses the polynomial identity
+  `(4k+1) · 4(k+1)² + 1 = (4k+5) · (2k+1)²` (degree 3 in k),
+  closed via the **Flat-Monomial Strategy**: after expansion,
+  generalize `K := k*k` and `M := k*(k*k)` to atoms and
+  dispatch with `omega`.  Lean 4 core lacks `ring`, so this
+  rewrite-and-omega approach is the substitute.
+
+Together these establish two Dedekind cuts at concrete
+thresholds: `m/k ≥ 2` ⇒ `orderProj m k = true` for all n;
+`m/k ≤ 1` ⇒ `orderProj m k = false` from n ≥ 1.  For
+intermediate thresholds in `(1, 2)` the cut value is the
+correct one (true if `m/k > π/2`, false otherwise) but its
+formal proof requires the LEM-bound general closure (§6.4),
+hence is not claimed within the framework.
 
 ### §7.6 Significance
 
-The four examples show that the framework supports algebraic,
-number-theoretic, and transcendental irrationals on equal
-footing.  The critical observation is that **no external ℝ or
-ℤ_p is invoked**: each irrational appears as a sequence of
-Raw elements observed via abLens + orderProj (or leavesModNat
-for the profinite case), with the limit class arising
-internally via universalLens.  The framework is a self-contained
-generator of irrational Dedekind cuts.
+The four examples show that the framework supports algebraic
+(Pell), number-theoretic (Padic), and transcendental
+(Euler/Wallis) irrationals on equal footing.  No external ℝ or
+ℤ_p is invoked: each irrational appears as a sequence of `Raw`
+elements observed via `abLens + orderProj` (or `leavesModNat`
+for the profinite case), with limit-class data residing in the
+Lens output rather than as new Raw terms.
+
+A sober scope clarification: each transcendental is established
+as a Dedekind cut at *explicit* `(m, k)` thresholds — for
+example, `e ∈ (2, 3)` and `π/2 ∈ (1, 2)` — not as the cut at
+*every* rational threshold.  The general `∀ (m, k)` closure
+would require LEM (§6.4) and is therefore not claimed.  What
+the framework does internally is exhibit each irrational as a
+Raw sequence whose specific cuts are mechanically verified;
+the limit object is then named "the cut" by convention
+(externally to the framework).
 
 ---
 
@@ -768,36 +817,51 @@ The thesis decomposes into two clauses:
    layer reduces `Raw` to a syntactic carrier without
    semantics.
 
-### §9.2 Thirteen formal components
+### §9.2 Fifteen formal components
 
-The thesis is supported by 13 components, each formalized in
-Lean 4 core with all axioms ≤ `[propext, Quot.sound]`:
+The thesis is supported by the following components, each
+formalized in Lean 4 core with all axioms ≤ `[propext,
+Quot.sound]`:
 
 1. **Strict minimum** (`AxiomMinimality.lean`, 4 cases).
 2. **Distinguishing-framework abstraction** (`HasDistinguishing`
    typeclass).
-3. **Universal property** (`raw_initial`: ∃! morphism Raw → α).
+3. **Universal property** (`raw_initial`: ∃ + uniqueness for
+   morphism Raw → α).
 4. **Self-application via `Prop`** (4 connectives: Xor, Iff,
-   And, Or).
+   And, Or, with explicit characterizations).
 5. **Function-level boundary** (`exists_non_lens_expressible`).
-6. **Lens canonical form** (`lens_canonical_universal`: any
-   Lens equivalent to its kernel's universal Lens).
+6. **Lens canonical form** (`lens_canonical_universal`: every
+   Lens is refines-equivalent to its kernel's universal Lens).
 7. **Reach catalogue** (5 instances: Bool, Fin 3, Nat, Int,
-   Raw — finite × infinite × surjective × non-surjective).
-8. **Categorical structure** (`DistMorphism` category, binary
-   product, exponential).
+   Raw — finite × infinite × surjective × non-surjective
+   coverage).
+8. **Categorical structure** (`DistMorphism` category with id,
+   composition, associativity, neutrality laws).
 9. **Recursive self-application** (`LensOnLens`: `Lens α` is a
-   `HasDistinguishing` instance, recursive tower
-   `Lens^n α` for all n).
-10. **Image minimum** (universalMorphism's image is the
-    minimum distinguishing-closed subset).
-11. **Type-constructor closure** (Pair, Function space).
-12. **Cross-instance functoriality** (Bool ↔ Prop morphisms
-    commute under `boolToProp`, all four connectives).
-13. **Coproduct (Prism dual)** + **sub-instance** + **reflection**
-    (typeclass ↔ Lens reflection theorem).
+   `HasDistinguishing` instance; the recursive tower
+   `Lens^n α` is exhibited for `n = 1, 2, 3, 4`).
+10. **Image minimum** (`image_minimum_property`: universalMorphism's
+    image is the minimum distinguishing-closed subset of α).
+11. **Type-constructor closure (product)** (`PairInstance`:
+    binary product `α × β` is an instance, with components-wise
+    universal-morphism splitting).
+12. **Type-constructor closure (function)** (`FunctionSpace`:
+    `α → β` is an instance with `Inhabited α`).
+13. **Cross-instance functoriality** (Bool ↔ Prop morphisms
+    commute under `boolToProp`, for all four connectives).
+14. **Coproduct (Prism dual)** (`Prism` + `SumInstance`:
+    coproduct accessor, plus a Sum-type instance with priority-
+    based combine).
+15. **Reflection** (`UniversalReflection`: every `HasDistinguishing`
+    instance presents as a `Lens` whose `view` is the
+    `universalMorphism`).
 
-The 13 components together establish that the framework is
+(The earlier `SubtypeInstance` realizing the Comprehension axiom
+in degenerate combine form is included in the framework but, as
+explained in §8.3, awaits a meaningful slash-based combine.)
+
+The components together establish that the framework is
 self-cover-closed: every direction in which one might exit the
 framework — into metalanguage, into arbitrary subsets, into
 recursive Lens hierarchies, into coproducts — is itself an
@@ -813,7 +877,7 @@ internal instance of the framework.
 | Boundary explicit | absent (arbitrary P(X)) | ✓ `exists_non_lens` |
 | Self-application | absent (metalanguage split) | ✓ Prop + Lens-on-Lens |
 | Categorical structure | external (Set category) | ✓ `DistMorphism` |
-| Coproduct universal | axiom (Sum) | ✓ `Prism` (dual) |
+| Coproduct universal | encoded via Pair + Union | ✓ `Prism` (dual) |
 | Comprehension | axiom | ✓ `Subtype` (with closure) |
 
 The contrast is structural: ZFC takes the existence of arbitrary
@@ -841,7 +905,8 @@ remains an instance of the framework.
 
 ### §9.5 Sober limits
 
-The 13 components do not constitute an *absolute* completeness
+The fifteen components do not constitute an *absolute*
+completeness
 proof in any philosophical sense — that would require a
 metatheoretic statement outside the framework.  What they
 establish is a **mathematically rich self-cover**: the
