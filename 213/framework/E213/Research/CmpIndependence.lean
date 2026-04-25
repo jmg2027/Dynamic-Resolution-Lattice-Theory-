@@ -332,9 +332,27 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
--- transport_slash (recursion equation) 은 noncomputable rec 의
--- definitional reduction 가 명시 적 generation 안 됨 → rfl 안
--- 통과.  Manual reduction 또는 다른 induction 도구 필요 (Phase
--- 3.5).  현재 transport_a, transport_b 의 reduction 만 establish.
+-- transport_slash 의 manual reduction 은 noncomputable rec 의
+-- internal Eq.mpr / cast / Subtype.ext 의 orchestration 필요.
+-- Subtype.ext 강등 + recAux Tree-level reduction + Eq.mpr 정리.
+-- Phase 3.5 의 진행 — concrete attempt 는 별도.
+
+end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+-- recAux_slash 보조 정리 (Phase 3.5): RawBy.recAux 가 Tree.slash
+-- 입력 시 어떤 형태로 reduce 되는지 명시 — Mingu hint #2.
+-- 도전: noncomputable rec 의 reduction 이 자동 부재 라서, manual
+-- Eq.mpr / cast 정리 필요.  실제 obstacle (예상):
+-- A. Tree.rec.{u} universe.
+-- B. (RawBy.slash _).val 의 match 분기.
+-- C. (RawBy.slash _).property 의 proof.
+-- D. rw [heq] 의 Eq.mpr.
+-- E. let-zeta 부재.
+-- 이 부분 의 manual orchestration 이 transport_slash 의 마지막
+-- 닫음.  추가 simp [Eq.mpr, cast] 가 도움 될 가능성.
 
 end E213.Research.CmpIndependence
