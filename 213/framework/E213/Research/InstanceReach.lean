@@ -132,3 +132,51 @@ theorem image_closed_under_distinct_combine (α : Type) [d : HasDistinguishing �
   ⟨Raw.slash rx ry h, universalMorphism_slash α rx ry h⟩
 
 end E213.Research.InstanceReach
+
+namespace E213.Research.InstanceReach
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### Infinite surjective: Nat with addition
+
+Bool 이 finite surjective.  Fin 3 (constant combine) 이 finite
+non-surjective.  Nat with addition: **infinite surjective** —
+모든 Nat 가 image, carrier 무한.
+
+`a := 0`, `b := 1`, `combine := (· + ·)`.  combine_sym 자명
+(`Nat.add_comm`).
+
+Witness: r n := slash (r (n-1)) Raw.b _ for n ≥ 1, r 0 := Raw.a.
+universalMorphism = n by induction. -/
+
+instance natHasDistinguishing : HasDistinguishing Nat where
+  a := 0
+  b := 1
+  distinct := by decide
+  combine := (· + ·)
+  combine_sym := Nat.add_comm
+
+end E213.Research.InstanceReach
+
+namespace E213.Research.InstanceReach
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-- Concrete witnesses for small Nat values — Raw.a, Raw.b cover
+    {0, 1}, slash 가 더 큰 element generate. -/
+theorem nat_image_zero : ∃ r : Raw, universalMorphism Nat r = 0 :=
+  ⟨Raw.a, universalMorphism_a Nat⟩
+
+theorem nat_image_one : ∃ r : Raw, universalMorphism Nat r = 1 :=
+  ⟨Raw.b, universalMorphism_b Nat⟩
+
+/-- 0 + 1 = 1 via slash a b. -/
+theorem nat_image_via_slash_ab :
+    universalMorphism Nat (Raw.slash Raw.a Raw.b (by decide)) = 1 := by
+  rw [universalMorphism_slash Nat Raw.a Raw.b (by decide)]
+  rw [universalMorphism_a Nat, universalMorphism_b Nat]
+  rfl
+
+end E213.Research.InstanceReach
