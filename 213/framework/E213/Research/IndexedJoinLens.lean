@@ -91,3 +91,61 @@ theorem iJoinLens_is_least {ι : Type} {γ : Type}
   exact ijoin_implies_N F N hNsym hAll r r' hJE
 
 end E213.Research.IndexedJoinLens
+
+namespace E213.Research.IndexedJoinLens
+
+open E213.Firmware E213.Hypervisor
+
+/-- **Indexed product Lens (meet)**: 임의 family `{L_i}` 의
+    concrete meet — codomain 은 dependent function space.
+    각 (F i).2 의 view 가 component 로 추출. -/
+def iProdLens {ι : Type} (F : ι → (α : Type) × Lens α) :
+    Lens ((i : ι) → (F i).1) where
+  base_a := fun i => (F i).2.base_a
+  base_b := fun i => (F i).2.base_b
+  combine := fun f g i => (F i).2.combine (f i) (g i)
+
+/-- iProdLens.view 가 pointwise application — 각 L_i 의 combine
+    sym 가정 필요. -/
+theorem iProdLens_view {ι : Type} (F : ι → (α : Type) × Lens α)
+    (hAllSym : ∀ i (u v : (F i).1),
+                (F i).2.combine u v = (F i).2.combine v u)
+    (r : Raw) :
+    (iProdLens F).view r = fun i => (F i).2.view r := by
+  induction r using Raw.rec with
+  | a => rfl
+  | b => rfl
+  | slash x y h ihx ihy =>
+      have hsym : ∀ u v : ((i : ι) → (F i).1),
+          (iProdLens F).combine u v = (iProdLens F).combine v u := by
+        intro u v; funext i
+        exact hAllSym i (u i) (v i)
+      have hfs : (iProdLens F).view (Raw.slash x y h)
+                  = (iProdLens F).combine
+                      ((iProdLens F).view x) ((iProdLens F).view y) := by
+        apply Raw.fold_slash _ _ _ hsym
+      rw [hfs, ihx, ihy]
+      funext i
+      have hL_fs : (F i).2.view (Raw.slash x y h)
+                    = (F i).2.combine ((F i).2.view x) ((F i).2.view y) := by
+        apply Raw.fold_slash _ _ _ (hAllSym i)
+      rw [hL_fs]
+      rfl
+
+/-- iProdLens 가 각 L_i 를 refine — lower bound. -/
+theorem iProdLens_refines_each {ι : Type} (F : ι → (α : Type) × Lens α)
+    (hAllSym : ∀ i (u v : (F i).1),
+                (F i).2.combine u v = (F i).2.combine v u)
+    (i : ι) :
+    (iProdLens F).refines (F i).2 := by
+  intro r r' h
+  show (F i).2.view r = (F i).2.view r'
+  have h1 : (iProdLens F).view r = fun j => (F j).2.view r :=
+    iProdLens_view F hAllSym r
+  have h2 : (iProdLens F).view r' = fun j => (F j).2.view r' :=
+    iProdLens_view F hAllSym r'
+  have hview : (iProdLens F).view r = (iProdLens F).view r' := h
+  rw [h1, h2] at hview
+  exact congrFun hview i
+
+end E213.Research.IndexedJoinLens
