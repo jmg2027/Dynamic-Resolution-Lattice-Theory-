@@ -112,7 +112,21 @@ open.  미래 작업.
 Q37.3 (Quotient Lens) 으로 전환.  Cardinality 없이도
 constructive 가능.
 
+## §7. Q37.3 일반 해결 후 reframing (2026-04-25)
+
+`UniversalQuotLens.universalLens E` 로 임의 slash-cong E 가
+concrete Lens 의 kernel 임이 증명됨 (note 55).
+
+따라서 **|Lens kernel 공간| = |Raw 위 slash-cong 공간|**.
+
+문제가 reduce: "Raw 위 slash-cong 의 cardinality 가 ℵ₀ vs 𝔠?"
+
+이 문제는 universal algebra 영역.  본 arc 에서는 미해결 으로
+남기고, 별도 작업 시 number theory + algebra 도구로 접근.
+
 ## 변경 이력
 
 - 2026-04-24: cardinality bounds 정리, 양 방향 후보 argument,
   open conjecture 확립.  Q37.3 로 전환 결정.
+- 2026-04-25: Q37.3 일반 해결 후 reframing (kernel space =
+  slash-cong space).  Cardinality 자체는 여전히 open.
