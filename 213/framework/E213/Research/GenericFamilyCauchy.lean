@@ -131,3 +131,50 @@ theorem profinite_factorial_is_GFCauchy
       E213.Research.ProfiniteSeq.factorial_eventually_zero_mod (m+1) (by omega) l (by omega)]
 
 end E213.Research.GenericFamilyCauchy
+
+namespace E213.Research.GenericFamilyCauchy
+
+open E213.Firmware E213.Hypervisor
+
+/-- **ProjectionLens**: F 가 fold-compatible 인 경우 single
+    Lens (ι → β) 구성. -/
+def projectionLens {α β ι : Type} (L : Lens α) (F : ι → α → β)
+    (combine_β : ι → β → β → β) :
+    Lens (ι → β) where
+  base_a := fun i => F i L.base_a
+  base_b := fun i => F i L.base_b
+  combine f g := fun i => combine_β i (f i) (g i)
+
+/-- ProjectionLens 의 view 가 pointwise (fold-compat 가정 하).  -/
+theorem projectionLens_view {α β ι : Type} (L : Lens α) (F : ι → α → β)
+    (combine_β : ι → β → β → β)
+    (hLsym : ∀ u v, L.combine u v = L.combine v u)
+    (hβsym : ∀ i u v, combine_β i u v = combine_β i v u)
+    (compat : ∀ i u v, F i (L.combine u v) = combine_β i (F i u) (F i v))
+    (r : Raw) :
+    (projectionLens L F combine_β).view r = fun i => F i (L.view r) := by
+  induction r using Raw.rec with
+  | a => rfl
+  | b => rfl
+  | slash x y h ihx ihy =>
+      have hLproj_sym : ∀ u v : ι → β,
+          (projectionLens L F combine_β).combine u v
+            = (projectionLens L F combine_β).combine v u := by
+        intro u v; funext i
+        exact hβsym i (u i) (v i)
+      have hfsP : (projectionLens L F combine_β).view (Raw.slash x y h)
+                    = (projectionLens L F combine_β).combine
+                        ((projectionLens L F combine_β).view x)
+                        ((projectionLens L F combine_β).view y) := by
+        apply Raw.fold_slash _ _ _ hLproj_sym
+      have hfsL : L.view (Raw.slash x y h)
+                    = L.combine (L.view x) (L.view y) := by
+        apply Raw.fold_slash _ _ _ hLsym
+      rw [hfsP, ihx, ihy]
+      funext i
+      show combine_β i (F i (L.view x)) (F i (L.view y))
+           = F i (L.view (Raw.slash x y h))
+      rw [hfsL]
+      exact (compat i (L.view x) (L.view y)).symm
+
+end E213.Research.GenericFamilyCauchy
