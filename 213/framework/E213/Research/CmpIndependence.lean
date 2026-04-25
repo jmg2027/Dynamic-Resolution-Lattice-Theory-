@@ -104,4 +104,42 @@ theorem RawBy_Tree_cmp_iff (t : Tree) :
     canonicalBy Tree.cmp t = true ↔ t.canonical = true := by
   rw [canonicalBy_Tree_cmp]
 
+/-- **Polymorphic constructors**: RawBy cmp 의 base 와 slash. -/
+def RawBy.a (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.a, rfl⟩
+def RawBy.b (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.b, rfl⟩
+
+end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- **Polymorphic slash**: RawBy cmp 의 slash 가 cmp 으로
+    canonicalize.  Original Raw.slash 의 generalization. -/
+def RawBy.slash (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
+    (x y : RawBy cmp) (hxy : x ≠ y) : RawBy cmp :=
+  match hc : cmp x.val y.val with
+  | .lt => ⟨.slash x.val y.val, by
+      unfold canonicalBy
+      rw [x.property, y.property, hc]
+      rfl⟩
+  | .gt =>
+      have hyx : cmp y.val x.val = .lt := by
+        have := h.swap x.val y.val
+        rw [hc] at this
+        cases hyx_val : cmp y.val x.val with
+        | lt => rfl
+        | eq => rw [hyx_val] at this; cases this
+        | gt => rw [hyx_val] at this; cases this
+      ⟨.slash y.val x.val, by
+        unfold canonicalBy
+        rw [x.property, y.property, hyx]
+        rfl⟩
+  | .eq =>
+      have hxy_val : x.val = y.val := (h.eq_iff x.val y.val).mp hc
+      absurd (Subtype.ext hxy_val) hxy
+
+-- Polymorphic slash_comm 은 dependent match 의 추가 도구 필요
+-- (Phase 2.5).  RawBy.slash 자체 가 polymorphic 으로 정의 됨이 Phase 2 의 결과.
+
 end E213.Research.CmpIndependence
