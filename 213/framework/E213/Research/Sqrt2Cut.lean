@@ -42,7 +42,7 @@ private theorem nat_le_iff_sq_le (a b : Nat) : a ≤ b ↔ a * a ≤ b * b := by
     · exfalso
       have hab : a > b := Nat.lt_of_not_le hba
       have hapos : 0 < a := by omega
-      have h1 : b * a < a * a := (Nat.mul_lt_mul_right hapos).mpr hab
+      have h1 : b * a < a * a := Nat.mul_lt_mul_of_pos_right hab hapos
       have h2 : b * b ≤ b * a := Nat.mul_le_mul_left b (Nat.le_of_lt hab)
       have h3 : b * b < a * a := Nat.lt_of_le_of_lt h2 h1
       omega
