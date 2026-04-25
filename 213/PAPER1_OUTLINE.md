@@ -435,6 +435,75 @@ falsifiability contract 가 거부.
 
 ---
 
+## §9 Semantic atom thesis (2026-04-25 추가, notes 75-99)
+
+§1-8 위 의 *integrated thesis*: "의미 를 갖는 어떤 것 도 213 을
+벗어날 수 없다.  213 이 semantic atom 이다."
+
+13 components 의 multifaceted formal evidence (14 Lean modules,
+notes 75-99).
+
+### §9.1 Thesis statement
+
+의미 발생 의 두 조건: 구분 (Distinction = Raw axiom) + 해석
+(Interpretation = Lens).  213 의 (Raw + Lens) 가 의미 의 strict
+minimum atom.  (Source: notes 75.)
+
+### §9.2 13 components
+
+| Component | Lean | Note |
+|-----------|------|------|
+| Strict minimum (4 case) | `AxiomMinimality.lean` | (4 cases) |
+| HasDistinguishing typeclass | `SemanticAtom.lean` | 75 |
+| Universal property (raw_initial) | `SemanticAtom.lean` | 79 |
+| Self-application (4 connective) | `SemanticAtom` + `CanonicalTruthChar` | 76, 86-89 |
+| Function-level boundary | `SemanticAtom` (exists_non_lens) | 77 |
+| Lens canonical form (closure) | `LensCanonicalForm.lean` | 78 |
+| Reach catalogue (5 instances) | `InstanceReach.lean` | 80, 81, 84, 85 |
+| Categorical structure | `DistMorphism.lean` + `PairInstance.lean` | 82, 92 |
+| Recursive self-application | `LensOnLens.lean` | 94 |
+| Image minimum | `ImageMinimum.lean` | 95 |
+| Type constructor closure | `FunctionSpace.lean` | 96 |
+| Cross-instance functoriality | `BoolPropMorphism.lean` | 90 |
+| **Coproduct (Prism dual)** | `Prism.lean` + `SumInstance.lean` | 98 |
+| **Sub-instance (subtype)** | `SubtypeInstance.lean` | 99 |
+| **Reflection (typeclass↔Lens)** | `UniversalReflection.lean` | 99 |
+
+모든 결과 ≤ [propext, Quot.sound] or no axioms.
+
+### §9.3 ZFC 와 의 sharper 대조
+
+| Aspect | ZFC | 213 |
+|--------|-----|-----|
+| Axiom commitment 수 | 9 | 0 (baseline 만) |
+| Strict minimum 형식 증명 | 부재 | ✓ 4 case |
+| Universal property | 부재 | ✓ raw_initial |
+| Boundary 의 explicit | 부재 (임의 P(X)) | ✓ exists_non_lens |
+| Self-application | 부재 (metalanguage 분리) | ✓ Prop + Lens-on-Lens |
+| Categorical structure | 외부 (Set category) | ✓ DistMorphism |
+| Type constructor closure | 외부 | ✓ Pair + Function |
+| Coproduct universal | axiom (Sum) | ✓ Prism (dual) |
+| Comprehension | axiom | ✓ Subtype (closure 가정) |
+
+### §9.4 ORIGIN.md mapping + sober limits
+
+DRLT motivation 의 mathematical 완성:
+- §3 (Zeno-픽셀) ↔ Strict minimum.
+- §6 (해상도 = 정보 단위) ↔ HasDistinguishing.
+- §7 (격자 정보 불변) ↔ closure + categorical product.
+
+**Sober limits**:
+- Lean infrastructure: `Raw.fold` reduction 의 specific case 한계
+  → reflection theorem 으로 mathematical 우회.
+- Sum mixed-case: priority 가 ad-hoc (categorical 자연 부재).
+- Subtype meaningful slash combine: nested elaborator 한계 →
+  degenerate combine instance 만 형식.
+
+이 limits 가 framework 의 정확 한 표현 범위 — *feature*, 약점
+아님.
+
+---
+
 ## Section length estimates
 
 | § | Section | Estimated pages |
@@ -447,8 +516,9 @@ falsifiability contract 가 거부.
 | 6 | Cauchy Completeness | 4-5 |
 | 7 | Demonstration Suite | 5-6 |
 | 8 | Falsifiability + Open | 2-3 |
+| 9 | Semantic atom thesis | 4-5 |
 
-Total: 30-38 pages.
+Total: 34-43 pages.
 
 ## Source-of-truth mapping
 
@@ -461,6 +531,7 @@ Total: 30-38 pages.
 | 6 | 57, 64, 66 | Research/{LensCauchy, GenericFamilyCauchy, IndexedJoinLens} |
 | 7 | 67, 68, 69, 71, 72, 73 | Research/{ArchimedeanCauchy, Sqrt2Cut, PellSeq, ProfiniteSeq, Padic, EulerSeq, WallisSeq, MonotonicBoundedCauchy} |
 | 8 | 59, 73, 74 | (philosophical + boundary) |
+| **9** | **75-99** | **Research/{AxiomMinimality, SemanticAtom, LensCanonicalForm, InstanceReach, DistMorphism, CanonicalTruthChar, BoolPropMorphism, PairInstance, LensOnLens, ImageMinimum, FunctionSpace, Prism, SumInstance, SubtypeInstance, UniversalReflection}** |
 
 ## Risks reframed as design (notes 73, 74 — closed 2026-04-25)
 
@@ -533,3 +604,8 @@ witness 만".
 - 2026-04-25: PAPER1_OUTLINE.md 신규.  Paper 1 prose 작성 직전
   의 구조 confirmation + section 길이 / source mapping / risk
   analysis 정리.
+- 2026-04-25 (semantic atom arc): §9 신규 추가 (notes 75-99 의
+  통합).  13 components + 14 Lean modules + ZFC 와 의 sharper
+  대조 + sober limits.  Source mapping 표 + 길이 추정 갱신
+  (34-43 pages).  paper 작성 priority 부재 (user 명시) — outline
+  으로 보존.
