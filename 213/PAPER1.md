@@ -548,7 +548,7 @@ def EventuallyClass (L : Lens α) (xs : Nat → Raw) (c : α) : Prop :=
 ```
 
 The two conditions are equivalent
-(`LensCauchy_iff_eventually_class`).  The limit class `c` is
+(`cauchy_iff_eventually_class`).  The limit class `c` is
 unique (`eventually_class_unique`).
 
 ### §6.2 Family-Cauchy and the unified GFCauchy
@@ -578,17 +578,41 @@ functions rather than as new Raw terms.
 ### §6.4 Monotonic-bounded propagation
 
 `Research/MonotonicBoundedCauchy.lean` provides constructive
-helpers for monotonic ab-sequences: given `ab.view (xs n).1 *
-(xs (n+1)).2 ≤ ...` (cross-multiplied monotonicity) and
-positive denominators, `orderProj_false_propagates` shows that
-once `orderProj m k` is `false` at some `N₀`, it stays `false`
-for all `i ≥ N₀`.  This converts specific witnesses into tail
-Cauchy properties without invoking LEM.
+helpers for *monotonically increasing ab-sequences*.  Defining
 
-The general `∀ (m, k), ∃ N` statement requires LEM (it is
-LEM-equivalent for monotonic Bool sequences) and is therefore
-*deliberately not claimed* — see §8.4 for the closed-boundary
-discussion.
+```
+def IsAbMonotonic (xs : Nat → Raw) : Prop :=
+  ∀ n, (abLens.view (xs n)).1 * (abLens.view (xs (n+1))).2
+       ≤ (abLens.view (xs (n+1))).1 * (abLens.view (xs n)).2
+
+def IsAbPositiveB (xs : Nat → Raw) : Prop :=
+  ∀ n, 1 ≤ (abLens.view (xs n)).2
+```
+
+(cross-multiplied monotonicity and positive denominators), the
+key propagation theorem is:
+
+```
+theorem orderProj_false_propagates (xs : Nat → Raw)
+    (hmono : IsAbMonotonic xs) (hpos : IsAbPositiveB xs)
+    (m k N : Nat)
+    (hN : orderProj m k (abLens.view (xs N)) = false)
+    (i : Nat) (hi : i ≥ N) :
+    orderProj m k (abLens.view (xs i)) = false
+```
+
+Once `orderProj m k` becomes `false` at some `N₀`, it stays
+`false` for all `i ≥ N₀`.  This converts a single false-witness
+into a tail-Cauchy property at that `(m, k)`, without invoking
+LEM.  Both Euler and Wallis seqs satisfy `IsAbMonotonic` and
+`IsAbPositiveB` (`euler_isAbMonotonic`,
+`wallis_isAbMonotonic`, etc).
+
+The general `∀ (m, k), ∃ N` statement (the "all cuts at once"
+closure) requires LEM for monotonic Bool sequences (one would
+need to case-split on whether `orderProj m k` is ever false) and
+is therefore *deliberately not claimed* — see §8.3 for the
+closed-boundary discussion.
 
 ---
 
@@ -889,19 +913,28 @@ specifications.
 
 ### §9.4 Connection to ORIGIN
 
-The thesis is the mathematical completion of the physical
-intuition chain in `ORIGIN.md`:
+`ORIGIN.md` records the original prompt chain that motivated
+the framework — a sequence of physical intuitions about the
+impossibility of singular points, the necessity of resolution
+covariance, and the invariance of lattice information.  The
+present formal results may be read as an *interpretive*
+mathematical counterpart to that chain (informal correspondence,
+not formal derivation):
 
-- §3 (Zeno-pixel paradox) ↔ Strict minimum of Raw.
-- §6 (resolution = unit of information) ↔ HasDistinguishing
-  abstraction.
-- §7 (lattice information invariant) ↔ Closure + categorical
-  product.
+- §3 (Zeno-pixel paradox: the law-stability requires a minimum
+  pixel) ↔ Raw axiom's strict minimality (§2.5).
+- §6 (resolution = unit of information; introduction of `h_eff`)
+  ↔ `HasDistinguishing` abstraction (§9.2 item 2).
+- §7 (lattice-unit information invariant under any
+  resolution choice) ↔ Closure + categorical product (§9.2
+  items 6, 11).
 
-DRLT's name (Dynamic Resolution Lattice Theory) refers
-directly to the resolution-invariance of the framework's
-self-application: any sub-system or quotient of the framework
-remains an instance of the framework.
+The framework's name DRLT (*Dynamic Resolution Lattice Theory*)
+records this physical motivation; the present paper formalizes
+the resulting mathematical structure as 213.  We emphasize that
+the ORIGIN correspondence is *interpretive*: the formal results
+of §§2–9 stand independently of any particular physical
+reading.
 
 ### §9.5 Sober limits
 
