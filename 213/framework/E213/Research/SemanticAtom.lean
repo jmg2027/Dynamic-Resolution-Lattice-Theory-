@@ -254,6 +254,20 @@ def propAsDistinguishingIff : HasDistinguishing Prop where
 def canonicalIffMap : Raw → Prop :=
   @universalMorphism Prop propAsDistinguishingIff
 
+/-- canonicalIffMap a = True. -/
+theorem canonicalIffMap_a : canonicalIffMap Raw.a = True :=
+  @universalMorphism_a Prop propAsDistinguishingIff
+
+/-- canonicalIffMap b = False. -/
+theorem canonicalIffMap_b : canonicalIffMap Raw.b = False :=
+  @universalMorphism_b Prop propAsDistinguishingIff
+
+/-- canonicalIffMap (slash x y h) = (canonicalIffMap x ↔ canonicalIffMap y). -/
+theorem canonicalIffMap_slash (x y : Raw) (h : x ≠ y) :
+    canonicalIffMap (Raw.slash x y h)
+      = (canonicalIffMap x ↔ canonicalIffMap y) :=
+  @universalMorphism_slash Prop propAsDistinguishingIff x y h
+
 end E213.Research.SemanticAtom
 
 namespace E213.Research.SemanticAtom

@@ -153,3 +153,34 @@ theorem canonicalTruthMap_ne_canonicalIffMap :
   exact canonicalTruthMap_ne_canonicalIffMap_witness (congrFun heq _)
 
 end E213.Research.CanonicalTruthChar
+
+namespace E213.Research.CanonicalTruthChar
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### Iff alternative characterization (b-count parity) -/
+
+/-- Iff (P ↔ Q) ↔ Bool equality on (b₁ = true), (b₂ = true). -/
+theorem iff_iff_bool_eq (P Q : Prop) (b₁ b₂ : Bool)
+    (hP : P ↔ (b₁ = true)) (hQ : Q ↔ (b₂ = true)) :
+    (P ↔ Q) ↔ (decide (b₁ = b₂) = true) := by
+  cases b₁ <;> cases b₂ <;> simp [hP, hQ]
+
+/-- **canonicalIffMap characterization**: `canonicalIffMap r ↔
+    iffBoolLens.view r = true`.  Iff XNOR fold 의 algebraic
+    content. -/
+theorem canonicalIffMap_iff_iffBoolLens (r : Raw) :
+    canonicalIffMap r ↔ iffBoolLens.view r = true := by
+  induction r using Raw.rec with
+  | a =>
+      rw [canonicalIffMap_a, iffBoolLens_a]
+      simp
+  | b =>
+      rw [canonicalIffMap_b, iffBoolLens_b]
+      simp
+  | slash x y h ihx ihy =>
+      rw [canonicalIffMap_slash x y h, iffBoolLens_slash x y h]
+      exact iff_iff_bool_eq _ _ _ _ ihx ihy
+
+end E213.Research.CanonicalTruthChar
