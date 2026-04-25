@@ -80,3 +80,71 @@ theorem universalMorphism_pair_commute (α β : Type)
       rfl
 
 end E213.Research.PairInstance
+
+namespace E213.Research.PairInstance
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### Pair forget projections (categorical projection morphisms)
+
+`α × β → α` 와 `α × β → β` 가 distinguishing-framework category
+의 *projection* — categorical product 의 universal property 의
+일부.
+
+`DistMorphism` 의 typeclass synthesis 부재 라 직접 record 형식.
+-/
+
+/-- pair forget projection α × β → α 의 properties. -/
+theorem pair_forget_first_a (α β : Type)
+    [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] :
+    Prod.fst (pairHasDistinguishing α β).a = d_α.a := rfl
+
+theorem pair_forget_first_b (α β : Type)
+    [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] :
+    Prod.fst (pairHasDistinguishing α β).b = d_α.b := rfl
+
+theorem pair_forget_first_combine (α β : Type)
+    [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (p q : α × β) :
+    Prod.fst ((pairHasDistinguishing α β).combine p q)
+      = d_α.combine (Prod.fst p) (Prod.fst q) := rfl
+
+theorem pair_forget_second_a (α β : Type)
+    [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] :
+    Prod.snd (pairHasDistinguishing α β).a = d_β.a := rfl
+
+theorem pair_forget_second_b (α β : Type)
+    [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] :
+    Prod.snd (pairHasDistinguishing α β).b = d_β.b := rfl
+
+theorem pair_forget_second_combine (α β : Type)
+    [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (p q : α × β) :
+    Prod.snd ((pairHasDistinguishing α β).combine p q)
+      = d_β.combine (Prod.snd p) (Prod.snd q) := rfl
+
+end E213.Research.PairInstance
+
+namespace E213.Research.PairInstance
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### Universal property 와 forget 의 결합
+
+universalMorphism (α × β) 의 first/second projection 이 components
+별 universalMorphism — categorical product 의 universal property
+의 직접 귀결. -/
+
+theorem universalMorphism_first (α β : Type)
+    [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (r : Raw) :
+    Prod.fst (@universalMorphism (α × β) (pairHasDistinguishing α β) r)
+      = universalMorphism α r := by
+  rw [universalMorphism_pair_commute]
+
+theorem universalMorphism_second (α β : Type)
+    [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (r : Raw) :
+    Prod.snd (@universalMorphism (α × β) (pairHasDistinguishing α β) r)
+      = universalMorphism β r := by
+  rw [universalMorphism_pair_commute]
+
+end E213.Research.PairInstance
