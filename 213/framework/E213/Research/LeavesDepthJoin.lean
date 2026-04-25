@@ -390,6 +390,44 @@ end E213.Research.LeavesDepthJoin
 
 namespace E213.Research.LeavesDepthJoin
 
+open E213.Firmware E213.Hypervisor
+
+/-- **tierLens**: leaves 와 depth 의 공통 upper bound (concrete).
+    view = tier r ∈ {0, 1, 2}. -/
+def tierLens : Lens Nat where
+  base_a := 0
+  base_b := 0
+  combine := fun u v => if u = 0 ∧ v = 0 then 1 else 2
+
+private theorem tierLens_combine_sym (u v : Nat) :
+    tierLens.combine u v = tierLens.combine v u := by
+  show (if u = 0 ∧ v = 0 then 1 else 2)
+       = (if v = 0 ∧ u = 0 then 1 else 2)
+  by_cases hu : u = 0
+  · by_cases hv : v = 0
+    · simp [hu, hv]
+    · simp [hu, hv]
+  · simp [hu]
+
+/-- tierLens.view = tier function.  Bool-style representation Nat 으로. -/
+theorem tierLens_view_eq_tier (r : Raw) : tierLens.view r = tier r := by
+  induction r using Raw.rec with
+  | a => unfold tier tierLens; show 0 = (if Lens.leaves.view Raw.a = 1 then 0 else _); rfl
+  | b => unfold tier tierLens; show 0 = (if Lens.leaves.view Raw.b = 1 then 0 else _); rfl
+  | slash x y h ihx ihy =>
+      have hfs : tierLens.view (Raw.slash x y h)
+                   = tierLens.combine (tierLens.view x) (tierLens.view y) := by
+        apply Raw.fold_slash
+        intro u v; exact tierLens_combine_sym u v
+      rw [hfs, ihx, ihy, tier_slash]
+      show (if tier x = 0 ∧ tier y = 0 then 1 else 2)
+           = (if tier x = 0 ∧ tier y = 0 then 1 else 2)
+      rfl
+
+end E213.Research.LeavesDepthJoin
+
+namespace E213.Research.LeavesDepthJoin
+
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
 /-- 구체 Raws: tier 0, 1, 2 의 대표. -/
@@ -451,5 +489,44 @@ theorem three_classes_distinct :
     have := tier_invariant _ _ h
     rw [repr0_tier, repr2_tier] at this
     exact absurd this (by decide)
+
+end E213.Research.LeavesDepthJoin
+
+namespace E213.Research.LeavesDepthJoin
+
+open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
+
+/-- **leaves refines tierLens** (tierLens 가 leaves 의 upper bound). -/
+theorem leaves_refines_tierLens : Lens.leaves.refines tierLens := by
+  intro r r' h
+  show tierLens.view r = tierLens.view r'
+  rw [tierLens_view_eq_tier, tierLens_view_eq_tier]
+  exact tier_eq_of_leaves_eq r r' h
+
+/-- **depth refines tierLens** (tierLens 가 depth 의 upper bound). -/
+theorem depth_refines_tierLens : Lens.depth.refines tierLens := by
+  intro r r' h
+  show tierLens.view r = tierLens.view r'
+  rw [tierLens_view_eq_tier, tierLens_view_eq_tier]
+  exact tier_eq_of_depth_eq r r' h
+
+/-- **tierLens.view 는 정확히 3 값** (0, 1, 2 모두 hit). -/
+theorem tierLens_three_values :
+    tierLens.view repr0 = 0 ∧
+    tierLens.view repr1 = 1 ∧
+    tierLens.view repr2 = 2 := by
+  refine ⟨?_, ?_, ?_⟩
+  · rw [tierLens_view_eq_tier]; exact repr0_tier
+  · rw [tierLens_view_eq_tier]; exact repr1_tier
+  · rw [tierLens_view_eq_tier]; exact repr2_tier
+
+/-- **JoinEquiv leaves depth ⊆ tierLens.equiv** (universal property
+    의 직접 귀결: tierLens 가 upper bound). -/
+theorem joinEquiv_subset_tierLens (r r' : Raw)
+    (h : JoinEquiv Lens.leaves Lens.depth r r') :
+    tierLens.equiv r r' := by
+  show tierLens.view r = tierLens.view r'
+  rw [tierLens_view_eq_tier, tierLens_view_eq_tier]
+  exact tier_invariant r r' h
 
 end E213.Research.LeavesDepthJoin
