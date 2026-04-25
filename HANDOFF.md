@@ -1,4 +1,4 @@
-# Session Handoff — 2026-04-25 (semantic atom arc)
+# Session Handoff — 2026-04-25 (semantic atom 9-direction synthesis)
 
 ## Status
 
@@ -6,89 +6,85 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 All Lean modules build clean (`lake build` ✓).  0 sorry, 0
 external axioms (only `propext` + `Quot.sound` baseline).
 
-## Latest arc — Semantic atom + AxiomMinimality 4 case + Prop instance
+## Latest arc — 의미 atom thesis 의 9 direction formal evidence
 
-### Formal Lean 결과
+Mingu thesis: "의미 를 갖는 어떤 것 도 213 을 벗어날 수 없다.
+213 이 semantic atom 이다."
 
-**`Research/AxiomMinimality.lean` 확장 (4 case)**:
-- NoB (b 제거): rawA_trivial.
-- NoA (a 제거): rawB_trivial.
-- NoSlash (slash 제거): rawAB_only_two (static 2-element).
-- NoDistinct (distinctness 제거): self_pairing_exists (degenerate).
-- 모두 axiom 부재 또는 [propext] only.
+이 thesis 의 multifaceted formal evidence 가 9 direction 으로
+정리.  `notes/83_semantic_atom_synthesis.md` 에 통합 표.
 
-**`Research/SemanticAtom.lean` (신규)**:
-- `HasDistinguishing` typeclass — distinguishing-framework abstraction.
-- Raw instance.
-- `universalMorphism α [HasDistinguishing α] : Raw → α` via fold.
-- `lensToHasDistinguishing` (partial functoriality).
-- `propAsDistinguishing` + `canonicalTruthMap` (Xor-based Prop instance).
-- `propAsDistinguishingIff` + `canonicalIffMap` (Iff alternative).
-- 모두 [propext] only.
+### Lean 결과 (notes 75-82, 모두 [propext, Quot.sound] only)
 
-### Documentation arc
+1. **`AxiomMinimality.lean`** (4 case): a/b/slash/distinctness
+   제거 시 framework collapse — strict minimum 의 직접 증명.
+2. **`SemanticAtom.lean`** (hub):
+   - `HasDistinguishing` typeclass — 의미 framework 의 abstraction.
+   - `universalMorphism` — fold-derived Raw → α.
+   - `universalMorphism_unique`, `raw_initial` — universal property.
+   - `propAsDistinguishing`, `canonicalTruthMap` — Prop instance.
+   - `IsLensExpressible`, `exists_non_lens_expressible` — boundary.
+3. **`LensCanonicalForm.lean`**:
+   - `refinesEquiv`, `lens_canonical_universal` — Lens closure.
+   - `lens_canonical_idempotent` — fixed-point.
+4. **`InstanceReach.lean`**:
+   - `fin3HasDistinguishing` + `fin3_image_strict` — non-surj witness.
+   - `boolHasDistinguishing` + `bool_image_surjective` — surj witness.
+   - `image_contains_a/b`, `image_closed_under_distinct_combine`.
+   - `natHasDistinguishing` + `nat_image_zero/one`.
+5. **`DistMorphism.lean`**:
+   - `DistMorphism α β` structure.
+   - `id`, `comp`, `comp_assoc`, `id_comp`, `comp_id` — category
+     laws (모두 axiom 부재).
 
-**Notes 신규**:
-- 73: monotonic propagation (constructive Cauchy fragment).
-- 74: constructive subset framing.
-- 75: semantic atom thesis (의미 + 존재 의 atom 의 conceptual
-  formulation, ORIGIN chain 연결).
-- 76: Prop instance + Iff alternative + sober limits 명시.
+### 9 Direction synthesis (notes/83)
 
-**AXIOM.md 업데이트**:
-- §1.1 Formal core: Raw axiom 의 strict minimum + distinguishing
-  framework hub.
-- §1.2 Conceptual extension: 의미 atom framing 의 interpretive
-  reading 으로 명시.  formal core 와 의 분리 명시.
+| # | Direction | Note |
+|---|-----------|------|
+| 1 | Strict minimum | (4 case in AxiomMinimality) |
+| 2 | HasDistinguishing abstraction | 75 |
+| 3 | Universal morphism | 79 |
+| 4 | Universal property (raw_initial) | 79 |
+| 5 | Self-application (Prop) | 76 |
+| 6 | Function boundary | 77 |
+| 7 | Lens closure (canonical form) | 78 |
+| 8 | Carrier vs reach | 80, 81 |
+| 9 | Categorical structure | 82 |
 
-**README.md / CLAUDE.md**: thesis 통합 + sober tone 으로 정리.
+이 9 direction 이 의미 atom thesis 의 evidence 의 *complete*
+set.  더 깊이 진행 시 incremental returns.
 
-### Sober calibration
+## Documentation 갱신
 
-처음 작성 시 marketing tone ("Ultimate Ouroboros", "Self-cover
-의 mechanical proof" 등) 으로 over-claim.  이후 검토 후 sober
-calibration:
-- Note 76: limits 명시 ("모든 Prop 을 cover 하지 않음", "Lean
-  의 logic 을 213 안 에 imbed 하지 않음", "Tarski-style truth
-  predicate 의 mechanical proof 가 아님").
-- AXIOM.md: §1.1 (formal core) 와 §1.2 (philosophical extension)
-  의 분리 명시.
-- Documentation tone 차분 화.
-
-Formal Lean 결과 자체 는 strong (모두 [propext] only or no
-axioms) — 단지 marketing 표현 만 sober.
-
-## Paper 1 readiness
-
-- ✅ ZFC reduction (Choice via universalLens, etc.).
-- ✅ Cauchy completeness (LensCauchy + GFCauchy).
-- ✅ cmp-independence (RawBy_bijection).
-- ✅ Demonstration suite: rational / √2 / ℤ_p / e / π/2.
-- ✅ AxiomMinimality 4 case (Raw 의 strict minimum).
-- ✅ SemanticAtom hub (HasDistinguishing typeclass + universalMorphism).
-- ✅ Prop instance (Xor + Iff alternatives).
-
-Paper 1 prose 진입 가능 — `213/PAPER1_OUTLINE.md` 가 outline.
-Note: paper 작성 자체 는 user 가 priority 가 아님 (research
-self-contained 이 우선).
+- `213/AXIOM.md` §1.1 (formal core) + §1.2 (philosophical
+  extension) 분리.
+- `213/CLAUDE.md` thesis 통합.
+- `213/README.md` central thesis + framework establishments.
+- `notes/83_semantic_atom_synthesis.md` master synthesis.
 
 ## File map (current)
 
-- Root docs: `README.md`, `AXIOM.md` (§1.1/§1.2 분리), `ORIGIN.md`,
-  `CLAUDE.md`, `NOTATION.md`, `IMPLEMENTATION.md`, `AUDIT_Lean.md`,
+- Root docs: `README.md`, `AXIOM.md`, `ORIGIN.md`, `CLAUDE.md`,
+  `NOTATION.md`, `IMPLEMENTATION.md`, `AUDIT_Lean.md`,
   `PAPER1_OUTLINE.md` (in `213/`).
-- Notes: `213/research/infinity-as-lens/notes/` (57 files,
-  numbered 00-76 with gaps where superseded).
+- Notes: `213/research/infinity-as-lens/notes/` (60 files,
+  numbered 00-83 with gaps where superseded).
 - Lean: `213/framework/E213/` (Firmware → Hypervisor → OS → App
   → Meta → Tactic → Infinity → Research).
-- R5 sub-track: `213/research/r5-critique/` +
-  `213/framework/E213/Research/CayleyDickson/`.
+  - Research/ root: 65+ files.
+  - Research/CayleyDickson/: 29 files (R5 sub-track, paper 2
+    candidate).
 
 ## Open work
 
-- Conceptual extension (§1.2) 의 더 sharp formal expression 가능
-  한지 검토 (예: NoDepthParity 같은 negative results 의 의미
-  atom thesis 와 의 직접 mapping).
-- Tarski / Russell / Gödel parallel 의 formal 시도 (별도 arc 가
-  자연스러움).
-- r5-critique → Paper 2 candidate (별도 arc).
+- Catalogue 더 (Int, infinite carrier 의 다른 instance 들).
+- Nat surjective 완전 증명 (firmware 의 Raw inequality lemmas
+  필요).
+- Functor / coproduct 등 의 categorical concept 추가.
+- r5-critique → 별도 arc.
+
+## Note: paper 작성
+
+User 명시: paper 1 / 2 작성 이 priority 부재.  `PAPER1_OUTLINE.md`
+는 outline 으로 보존, 실제 paper prose 작성 부재.  연구 의
+self-contained depth 가 priority.
