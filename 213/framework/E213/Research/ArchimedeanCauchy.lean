@@ -285,3 +285,38 @@ theorem half_seq_cut (xs : Nat → Raw)
   rw [Nat.one_mul]
 
 end E213.Research.ArchimedeanCauchy
+
+namespace E213.Research.ArchimedeanCauchy
+
+open E213.Firmware E213.Hypervisor
+
+/-- **Cut equivalence**: 두 OrderCauchyData 가 같은 Dedekind cut →
+    같은 ℝ-element. -/
+def CutEquiv {xs ys : Nat → Raw}
+    (cdx : OrderCauchyData xs) (cdy : OrderCauchyData ys) : Prop :=
+  ∀ m k, cdx.cut m k = cdy.cut m k
+
+theorem CutEquiv.refl {xs : Nat → Raw} (cd : OrderCauchyData xs) :
+    CutEquiv cd cd := fun _ _ => rfl
+
+theorem CutEquiv.symm {xs ys : Nat → Raw}
+    {cdx : OrderCauchyData xs} {cdy : OrderCauchyData ys}
+    (h : CutEquiv cdx cdy) : CutEquiv cdy cdx :=
+  fun m k => (h m k).symm
+
+theorem CutEquiv.trans {xs ys zs : Nat → Raw}
+    {cdx : OrderCauchyData xs} {cdy : OrderCauchyData ys}
+    {cdz : OrderCauchyData zs}
+    (hxy : CutEquiv cdx cdy) (hyz : CutEquiv cdy cdz) : CutEquiv cdx cdz :=
+  fun m k => (hxy m k).trans (hyz m k)
+
+/-- **ℝ-element type**: Dedekind cut 자체.
+    각 (m, k) 에 대한 일관된 Bool decision. -/
+abbrev RealCut : Type := Nat → Nat → Bool
+
+/-- OrderCauchyData 에서 RealCut 추출. -/
+def OrderCauchyData.toRealCut {xs : Nat → Raw}
+    (cd : OrderCauchyData xs) : RealCut :=
+  cd.cut
+
+end E213.Research.ArchimedeanCauchy
