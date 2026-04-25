@@ -212,3 +212,40 @@ theorem ratio_one_below_cut_eq_diagonal (xs ys : Nat → Raw)
   rw [hcdx, hcdy]
 
 end E213.Research.ArchimedeanCauchy
+
+namespace E213.Research.ArchimedeanCauchy
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.ABLens
+
+/-- **General rational p/q sequence**: (a, b) = (p*(n+1), q*(n+1))
+    의 orderProj 가 n-independent. -/
+theorem rational_seq_orderProj_const (p q m k : Nat) (n : Nat) (hn : n ≥ 1) :
+    orderProj m k (p * n, q * n) = decide (p * k ≤ q * m) := by
+  unfold orderProj
+  show decide (p * n * k ≤ q * n * m) = decide (p * k ≤ q * m)
+  have hrw1 : p * n * k = (p * k) * n := by
+    rw [Nat.mul_assoc, Nat.mul_comm n k, ← Nat.mul_assoc]
+  have hrw2 : q * n * m = (q * m) * n := by
+    rw [Nat.mul_assoc, Nat.mul_comm n m, ← Nat.mul_assoc]
+  rw [hrw1, hrw2]
+  by_cases hpq : p * k ≤ q * m
+  · have : (p * k) * n ≤ (q * m) * n := Nat.mul_le_mul_right n hpq
+    simp [hpq, this]
+  · have : ¬ (p * k) * n ≤ (q * m) * n := by
+      intro h'
+      apply hpq
+      have h'' : n * (p * k) ≤ n * (q * m) := by
+        rw [Nat.mul_comm n (p*k), Nat.mul_comm n (q*m)]; exact h'
+      exact Nat.le_of_mul_le_mul_left h'' hn
+    simp [hpq, this]
+
+/-- **General rational p/q seq 의 Dedekind cut = "ratio p/q"**.
+    Constant sequence (p*(n+1), q*(n+1)) 의 cut = decide (p*k ≤ q*m). -/
+theorem rational_seq_cut (p q : Nat) (xs : Nat → Raw)
+    (h : ∀ n, abLens.view (xs n) = (p * (n+1), q * (n+1))) (m k : Nat) :
+    orderProj m k (abLens.view (xs 0)) = decide (p * k ≤ q * m) := by
+  rw [h 0]
+  exact rational_seq_orderProj_const p q m k 1 (by omega)
+
+end E213.Research.ArchimedeanCauchy
