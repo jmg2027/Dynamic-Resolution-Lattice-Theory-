@@ -152,4 +152,20 @@ theorem universalLens_recovers (α : Type) (M : Lens α)
     exact E213.Research.KernelCongruence.Lens.equiv_slash_congruence
       M hMsym x x' y y' hxy hx'y' hxx' hyy'
 
+/-- **Idempotence**: universalLens 를 두 번 적용 해도 같은 kernel.
+    universalLens 가 normalization 임의 직접 표현. -/
+theorem universalLens_idempotent (α : Type) (M : Lens α)
+    (r r' : Raw) :
+    (universalLens (universalLens M.equiv).equiv).view r
+       = (universalLens (universalLens M.equiv).equiv).view r'
+    ↔ (universalLens M.equiv).view r = (universalLens M.equiv).view r' := by
+  apply universalLens_kernel_eq_E
+  · intro x; rfl
+  · intro x y h; exact h.symm
+  · intro x y z h1 h2; exact h1.trans h2
+  · intro x x' y y' hxy hx'y' hxx' hyy'
+    exact E213.Research.KernelCongruence.Lens.equiv_slash_congruence
+      (universalLens M.equiv) (universalLens_combine_sym M.equiv)
+      x x' y y' hxy hx'y' hxx' hyy'
+
 end E213.Research.UniversalQuotLens
