@@ -148,4 +148,18 @@ theorem iProdLens_refines_each {ι : Type} (F : ι → (α : Type) × Lens α)
   rw [h1, h2] at hview
   exact congrFun hview i
 
+/-- **iProdLens universal property (greatest lower bound)**: 모든
+    (F i).2 를 refine 하는 L 은 iProdLens F 도 refine. -/
+theorem iProdLens_is_greatest {ι : Type} {α : Type}
+    (F : ι → (β : Type) × Lens β) (L : Lens α)
+    (hAllSym : ∀ i (u v : (F i).1),
+                (F i).2.combine u v = (F i).2.combine v u)
+    (hAll : ∀ i, L.refines (F i).2) :
+    L.refines (iProdLens F) := by
+  intro r r' h
+  show (iProdLens F).view r = (iProdLens F).view r'
+  rw [iProdLens_view F hAllSym r, iProdLens_view F hAllSym r']
+  funext i
+  exact hAll i r r' h
+
 end E213.Research.IndexedJoinLens
