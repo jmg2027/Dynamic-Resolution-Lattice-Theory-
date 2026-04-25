@@ -249,3 +249,39 @@ theorem rational_seq_cut (p q : Nat) (xs : Nat → Raw)
   exact rational_seq_orderProj_const p q m k 1 (by omega)
 
 end E213.Research.ArchimedeanCauchy
+
+namespace E213.Research.ArchimedeanCauchy
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.ABLens
+
+/-- **Half sequence (a = n+1, b = 2*(n+1))**: ratio 1/2. -/
+theorem half_seq_orderCauchy (xs : Nat → Raw)
+    (h : ∀ n, abLens.view (xs n) = (n + 1, 2 * (n + 1))) :
+    isOrderCauchy xs := by
+  intro m k _
+  refine ⟨0, ?_⟩
+  intro i j _ _
+  rw [h i, h j]
+  have hi := rational_seq_orderProj_const 1 2 m k (i+1) (by omega)
+  have hj := rational_seq_orderProj_const 1 2 m k (j+1) (by omega)
+  show orderProj m k (i + 1, 2 * (i + 1))
+       = orderProj m k (j + 1, 2 * (j + 1))
+  have hri : (i + 1, 2 * (i + 1)) = (1 * (i + 1), 2 * (i + 1)) := by
+    rw [Nat.one_mul]
+  have hrj : (j + 1, 2 * (j + 1)) = (1 * (j + 1), 2 * (j + 1)) := by
+    rw [Nat.one_mul]
+  rw [hri, hrj, hi, hj]
+
+/-- **Half-seq cut = ratio 1/2**: orderProj at xs 0 = decide (k ≤ 2m). -/
+theorem half_seq_cut (xs : Nat → Raw)
+    (h : ∀ n, abLens.view (xs n) = (n + 1, 2 * (n + 1)))
+    (m k : Nat) :
+    orderProj m k (abLens.view (xs 0)) = decide (k ≤ 2 * m) := by
+  rw [h 0]
+  have h_eq : (0 + 1, 2 * (0 + 1)) = (1 * 1, 2 * 1) := by simp
+  rw [h_eq, rational_seq_orderProj_const 1 2 m k 1 (by omega)]
+  show decide (1 * k ≤ 2 * m) = decide (k ≤ 2 * m)
+  rw [Nat.one_mul]
+
+end E213.Research.ArchimedeanCauchy
