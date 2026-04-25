@@ -1,5 +1,6 @@
 import E213.Research.PellSeq
 import E213.Research.ArchimedeanCauchy
+import E213.Research.MonotonicBoundedCauchy
 
 /-!
 # Research.EulerSeq: e (Euler) Dedekind cut via Σ 1/k!
@@ -228,5 +229,40 @@ theorem euler_orderCauchy_at_concrete (m k : Nat) (hk : k ≥ 1)
         euler_orderProj_above_3 m k h3km q]
   · rw [euler_orderProj_below_2 m k hk hm2k p hp,
         euler_orderProj_below_2 m k hk hm2k q hq]
+
+end E213.Research.EulerSeq
+
+namespace E213.Research.EulerSeq
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Research.MonotonicBoundedCauchy
+
+/-! ### Monotonicity instance (for MonotonicBoundedCauchy) -/
+
+/-- Euler Raw sequence as `Nat → Raw` (Subtype → Raw projection). -/
+def eulerRawSeq : Nat → Raw := fun n => (eulerRaw n).val
+
+/-- Euler seq is ab-monotonic (S_n < S_{n+1}).
+    a_n * d_{n+1} = (n+1) * a_n * d_n ≤ (n+1) * a_n * d_n + d_n = a_{n+1} * d_n. -/
+theorem euler_isAbMonotonic : IsAbMonotonic eulerRawSeq := by
+  intro n
+  show (abLens.view (eulerRaw n).val).1 * (abLens.view (eulerRaw (n+1)).val).2
+       ≤ (abLens.view (eulerRaw (n+1)).val).1 * (abLens.view (eulerRaw n).val).2
+  rw [eulerRaw_view, eulerRaw_view]
+  show eulerNum n * eulerDen (n+1) ≤ eulerNum (n+1) * eulerDen n
+  show eulerNum n * ((n+1) * eulerDen n) ≤ ((n+1) * eulerNum n + 1) * eulerDen n
+  have h1 : eulerNum n * ((n+1) * eulerDen n) = (n+1) * eulerNum n * eulerDen n := by
+    rw [← Nat.mul_assoc, Nat.mul_comm (eulerNum n) (n+1)]
+  rw [h1]
+  -- Goal: (n+1) * eulerNum n * eulerDen n ≤ ((n+1) * eulerNum n + 1) * eulerDen n
+  exact Nat.mul_le_mul_right (eulerDen n) (Nat.le_add_right _ 1)
+
+/-- Euler seq has positive denominators. -/
+theorem euler_isAbPositiveB : IsAbPositiveB eulerRawSeq := by
+  intro n
+  show 1 ≤ (abLens.view (eulerRaw n).val).2
+  rw [eulerRaw_view]
+  exact eulerDen_pos n
 
 end E213.Research.EulerSeq

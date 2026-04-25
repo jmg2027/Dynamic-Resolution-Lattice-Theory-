@@ -212,11 +212,21 @@ note 61.)
 → Classical.choice 부재.  "선택" 은 framework 안 Lens
 specification 으로 환원.
 
-### §5.2 Power set → Lens kernel space
+### §5.2 Power set: constructive subset, not full P(X)
 
-Lens kernel 은 Raw 위 slash-congruence subset.  Lens 들 의
-refines preorder 가 자체 의 lattice 구조 — power set axiom 없이
-"모든 부분 분류" 가 framework 안.
+(Reference: `NoDepthParity.lean`, note 74.)
+
+ZFC P(X) 는 X 의 **임의** 부분집합 commit (LEM 자동 dispatch).
+213 은 이 commitment 거부 — Lens kernel = **slash-congruence
+만** (fold-structured).
+
+`NoDepthParity.lean` 의 negative 결과: 임의 binary relation
+(e.g., depth parity) ≠ Lens kernel.  → 213 의 표현 범위 가
+ZFC 의 P(X) 보다 strict.
+
+이는 약점 이 아니라 **design choice** — falsifiability
+contract 의 직접 귀결.  213 안 Lens lattice 가 자체 의 자연
+부분 분류 로서 충분, 임의성 commitment 부재.
 
 ### §5.3 Infinity → unbounded depth Raw
 
@@ -335,13 +345,33 @@ factorial seq Cauchy.
 **Cuts**: m/k ≥ 2 → orderProj true; m/k ≤ 1 → orderProj false
 (n ≥ 1).
 
-### §7.6 Suite significance
+### §7.6 Constructive boundary (notes 73, 74)
 
-- 알고리즘 algebraic (Pell), number-theoretic (Padic),
-  transcendental (Euler/Wallis) 모두 동일 framework (Lens +
-  Cauchy) 위 .
+(`Research/MonotonicBoundedCauchy.lean`.)
+
+각 demonstration 은 **explicit (m, k) cuts** 를 형식 화.  임의
+(m, k) 의 자동 closure (`∀ m k, ∃ N, …`) 는 LEM 필요 — 213 의
+falsifiability contract 가 거부.
+
+- `IsAbMonotonic`, `IsAbPositiveB` instance: Euler / Wallis
+  monotonic 확인.
+- `orderProj_false_propagates`, `orderCauchy_from_false_witness`,
+  `orderCauchy_from_true_forever` — constructive helpers, [propext,
+  Quot.sound] only.
+- 각 cut 은 explicit Bool witness — "Cauchy real" 의 정확 한
+  표현.
+
+이는 ZFC 의 임의 Dedekind cut 보다 strict subset (note 74 의
+§5.2 framing 과 통합).  **constructive boundary 가 framework
+의 정확 한 표현 범위**.
+
+### §7.7 Suite significance
+
+- algebraic (Pell), number-theoretic (Padic), transcendental
+  (Euler/Wallis) 모두 동일 framework (Lens + Cauchy + explicit
+  cuts) 위 .
 - 외부 ℝ / ℤ_p 부재.  213 framework 가 self-contained
-  irrational generator.
+  irrational generator (각 결과 가 explicit witness).
 
 
 ---
@@ -371,14 +401,23 @@ factorial seq Cauchy.
      transcendental).
 - ✅ 0 sorry / 0 external axioms (propext + Quot.sound 만).
 
-### §8.4 Open work + Paper 2 candidate
+### §8.4 Closed boundary + open work
 
-**Paper 1 후속**:
-- Specific (m, k) cut 처리 의 자동화 / 더 일반적 Cauchy
-  characterization.
-- π via Wallis 의 full Cauchy proof (현재 individual instances
-  만).
-- e via Stirling 의 full Cauchy proof (같은 상황).
+**Closed boundary** (notes 73, 74 — LEM 부재 하 framework 의
+정확 한 표현 범위):
+- 임의 (m, k) 의 자동 cut closure 는 LEM 필요 → 213 의
+  contract 가 거부.  **boundary 식별 = 결과**.
+- ZFC 의 임의 P(X) 가 213 의 Lens kernel space 보다 strict
+  larger (LEM 자동 commitment 차이).
+- 213 의 표현 범위 = constructive Cauchy / Lens kernel /
+  universalLens 까지.
+
+**진짜 open work**:
+- 각 demonstration 의 cut sharpening (e.g., Euler m/k ≤ 5/2,
+  Wallis m/k ≤ 4/3 등 tighter bounds).
+- Lens family catalogue 확장 (새 Lens kernel instances).
+- Power set 의 strict subset 관계 의 추가 형식 lemma
+  (Lens kernel ≠ 임의 binary relation).
 
 **Paper 2 candidate** (`research/r5-critique/`):
 - ℝ-algebra 가정 의 비판.  CD tower (Cayley, Sedenion, etc.)
@@ -416,25 +455,65 @@ Total: 30-38 pages.
 | § | Notes | Lean modules |
 |---|-------|--------------|
 | 2 | AXIOM.md, IMPLEMENTATION.md §3 | Firmware/Raw/* |
-| 3 | 32, 36-42 (notes), 45 | Hypervisor/Lens.lean, Research/{LensLattice, LensMeet, LensFactoring, LensMorphism, FoldStructured, KernelCongruence} |
+| 3 | 36-42 (notes), 45 | Hypervisor/Lens.lean, Research/{LensLattice, LensMeet, LensFactoring, LensMorphism, FoldStructured, KernelCongruence} |
 | 4 | 70 | Research/CmpIndependence.lean |
-| 5 | 44, 55, 61, 63 | Research/{UniversalQuotLens, ChoiceResolved} + Infinity/* |
+| 5 | 44, 55, 61, 63, 74 | Research/{UniversalQuotLens, ChoiceResolved, NoDepthParity} + Infinity/* |
 | 6 | 57, 64, 66 | Research/{LensCauchy, GenericFamilyCauchy, IndexedJoinLens} |
-| 7 | 67, 68, 69, 71, 72 | Research/{ArchimedeanCauchy, Sqrt2Cut, PellSeq, ProfiniteSeq, Padic, EulerSeq, WallisSeq} |
-| 8 | 59 | (philosophical) |
+| 7 | 67, 68, 69, 71, 72, 73 | Research/{ArchimedeanCauchy, Sqrt2Cut, PellSeq, ProfiniteSeq, Padic, EulerSeq, WallisSeq, MonotonicBoundedCauchy} |
+| 8 | 59, 73, 74 | (philosophical + boundary) |
 
-## Key risks / weak points (자기검증)
+## Risks reframed as design (notes 73, 74 — closed 2026-04-25)
 
-1. **§5.2 Power set reduction** — 가장 약한 reduction.  Raw +
-   Lens kernel space 의 자체 lattice 가 정말 "power set" 의
-   대체 인지 추가 분석 필요.
-2. **§7 transcendental cuts 의 incompleteness** — e, π/2 는
-   specific concrete cuts (m/k ≥ 3, m/k ≤ 2 등) 만 처리.
-   임의 (m, k) cut 의 일반 처리 는 더 깊은 analytic machinery
-   필요 (현재 framework 안 처리 가능 한지 미검증).
-3. **§8.4 open work 가 너무 많으면 paper 1 의 closure 인상 약화**
-   — 우선 Paper 1 자체 결과 가 self-contained 임 강조 후
-   future work 섹션 분리.
+이전 outline 의 세 risk 가 사실 동일 한 design choice 로 통합
+가능 — **"213 은 ZFC 의 임의성 commitment 거부, constructive
+subset 만 다룸"**.  세 risk 모두 falsifiability contract 의
+직접 귀결.
+
+### Risk 1 (재해석) — Power set reduction
+
+이전: "Raw + Lens kernel 이 power set 의 대체 인지 약함".
+
+재해석: 213 의 Lens kernel = slash-congruence 만 (NoDepthParity
+가 negative 결과: 임의 binary relation ≠ Lens kernel).  ZFC
+P(X) 의 임의성 commitment 거부.
+
+→ §5.2 framing: "Lens kernel space 가 P(X) 의 대체" 가 아니라
+"P(X) 의 LEM-자동 commitment 부재 한 constructive subset".
+
+### Risk 2 (재해석) — transcendental cuts incompleteness
+
+이전: "e, π/2 의 specific cuts 만 처리, 임의 (m, k) closure 미검증".
+
+재해석 (`MonotonicBoundedCauchy.lean` + note 73): 임의 (m, k)
+자동 closure 는 LEM 필요 ("∀ n, true" vs "∃ n, false" case
+split).  213 의 falsifiability contract 가 이를 거부.
+
+→ §7 framing: 각 (m, k) 의 explicit witness 만 제공.  Pell /
+Euler / Wallis 의 specific cuts 가 framework 의 정확 한 표현
+범위.  "임의" 자동 closure 부재 = feature, ZFC 의 임의 Dedekind
+cut 와 strict subset.
+
+### Risk 3 (재해석) — open work scope
+
+이전: "open work 가 많으면 closure 인상 약화".
+
+재해석: Risk 1, 2 가 closed (LEM 부재 하 boundary 확인) 되었
+으므로 §8.4 의 open work 도 정리.  진짜 open 은:
+- Cut sharpening (e.g., Euler m/k ≤ 5/2).
+- Lens family catalogue 확장.
+- Power set 의 strict subset 관계 의 추가 형식 lemma.
+
+이전 의 "임의 (m, k) closure" 등 은 **closed boundary** —
+LEM 없이 불가능 함이 확인 됨, 213 의 정확 한 표현 범위 식별.
+
+### 통합 framing 의 가치
+
+세 risk → 하나의 falsifiability-귀결.  Paper 1 의 §1
+introduction 에서 이 framing 을 핵심 메시지 의 일부 로 명시:
+"213 은 ZFC 의 LEM-자동 commitment 거부, constructive Lens-side
+witness 만".
+
+(Source: notes 73, 74.)
 
 ## Writing strategy
 

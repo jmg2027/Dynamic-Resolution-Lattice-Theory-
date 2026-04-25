@@ -1,5 +1,6 @@
 import E213.Research.PellSeq
 import E213.Research.ArchimedeanCauchy
+import E213.Research.MonotonicBoundedCauchy
 
 /-!
 # Research.WallisSeq: π/2 Dedekind cut via Wallis product
@@ -450,5 +451,60 @@ theorem wallis_orderCauchy_at_concrete (m k : Nat) (hk : k ≥ 1)
         wallis_orderProj_above_2 m k h2km q]
   · rw [wallis_orderProj_below_1 m k hk hmk p hp,
         wallis_orderProj_below_1 m k hk hmk q hq]
+
+end E213.Research.WallisSeq
+
+namespace E213.Research.WallisSeq
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Research.MonotonicBoundedCauchy
+
+/-! ### Monotonicity instance (for MonotonicBoundedCauchy) -/
+
+/-- Wallis Raw sequence as `Nat → Raw`. -/
+def wallisRawSeq : Nat → Raw := fun n => (wallisRaw n).val
+
+/-- Wallis seq is ab-monotonic (W_n ≤ W_{n+1}).  Same key inequality
+    `(2k+1)(2k+3) ≤ 4(k+1)²` as in `wallis_lower_inv`. -/
+theorem wallis_isAbMonotonic : IsAbMonotonic wallisRawSeq := by
+  intro n
+  show (abLens.view (wallisRaw n).val).1 * (abLens.view (wallisRaw (n+1)).val).2
+       ≤ (abLens.view (wallisRaw (n+1)).val).1 * (abLens.view (wallisRaw n).val).2
+  rw [wallisRaw_view, wallisRaw_view]
+  show wallisNum n * wallisDen (n+1) ≤ wallisNum (n+1) * wallisDen n
+  show wallisNum n * (wallisDen n * ((2 * n + 1) * (2 * n + 3)))
+       ≤ wallisNum n * (4 * (n + 1) * (n + 1)) * wallisDen n
+  -- Goal: N * (D * P) ≤ (N * Q) * D where P = (2n+1)(2n+3), Q = 4(n+1)².
+  -- Since P ≤ Q (poly identity), N * D * P ≤ N * D * Q = (N * Q) * D.
+  have hkk : (2 * n + 1) * (2 * n + 3) ≤ 4 * (n + 1) * (n + 1) := by
+    have eL_h1 : 4 * (n + 1) * (n + 1)
+               = 4 * n * n + 4 * n * 1 + (4 * 1 * n + 4 * 1 * 1) := by
+      rw [Nat.mul_add 4 n 1, Nat.add_mul, Nat.mul_add, Nat.mul_add]
+    have eR_h1 : (2 * n + 1) * (2 * n + 3)
+               = 2 * n * (2 * n) + 2 * n * 3 + (1 * (2 * n) + 1 * 3) := by
+      rw [Nat.add_mul, Nat.mul_add, Nat.mul_add]
+    have e_kk_4 : 4 * n * n = 4 * (n * n) := by rw [Nat.mul_assoc]
+    have e_kk_2 : 2 * n * (2 * n) = 4 * (n * n) := by
+      rw [Nat.mul_mul_mul_comm]
+    rw [eL_h1, eR_h1, e_kk_4, e_kk_2]
+    omega
+  -- N * (D * P) = N * D * P ≤ N * D * Q = (N * Q) * D  (= goal RHS reassoc).
+  have hLHS : wallisNum n * (wallisDen n * ((2 * n + 1) * (2 * n + 3)))
+              = wallisNum n * wallisDen n * ((2 * n + 1) * (2 * n + 3)) :=
+    (Nat.mul_assoc _ _ _).symm
+  have hRHS : wallisNum n * (4 * (n + 1) * (n + 1)) * wallisDen n
+              = wallisNum n * wallisDen n * (4 * (n + 1) * (n + 1)) := by
+    rw [Nat.mul_assoc, Nat.mul_comm (4 * (n + 1) * (n + 1)) (wallisDen n),
+        ← Nat.mul_assoc]
+  rw [hLHS, hRHS]
+  exact Nat.mul_le_mul_left (wallisNum n * wallisDen n) hkk
+
+/-- Wallis seq has positive denominators. -/
+theorem wallis_isAbPositiveB : IsAbPositiveB wallisRawSeq := by
+  intro n
+  show 1 ≤ (abLens.view (wallisRaw n).val).2
+  rw [wallisRaw_view]
+  exact wallisDen_pos n
 
 end E213.Research.WallisSeq
