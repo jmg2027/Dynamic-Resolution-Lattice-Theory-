@@ -1,5 +1,5 @@
-import E213.Research.ZI
-import E213.Research.ZIDomain
+import E213.Research.CayleyDickson.ZI
+import E213.Research.CayleyDickson.ZIDomain
 
 /-!
 # Research: ZI ring-arithmetic supplement

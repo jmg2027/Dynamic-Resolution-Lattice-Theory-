@@ -1,9 +1,9 @@
-import E213.Research.ZIArith
-import E213.Research.CDDouble
-import E213.Research.Cayley
-import E213.Research.Sedenion
-import E213.Research.Trigintaduonion
-import E213.Research.Pathion
+import E213.Research.CayleyDickson.ZIArith
+import E213.Research.CayleyDickson.CDDouble
+import E213.Research.CayleyDickson.Cayley
+import E213.Research.CayleyDickson.Sedenion
+import E213.Research.CayleyDickson.Trigintaduonion
+import E213.Research.CayleyDickson.Pathion
 
 /-!
 # Tactic: `hurwitz_ring`

@@ -1,6 +1,6 @@
 import E213.Meta.SelfRecognising
-import E213.Research.ZOmega
-import E213.Research.ZOmegaDomain
+import E213.Research.CayleyDickson.ZOmega
+import E213.Research.CayleyDickson.ZOmegaDomain
 import E213.Tactic.DeriveR4Codomain
 
 /-!

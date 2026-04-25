@@ -1,6 +1,6 @@
 import E213.Meta.SelfRecognising
-import E213.Research.ZSqrt2
-import E213.Research.ZSqrt2Domain
+import E213.Research.CayleyDickson.ZSqrt2
+import E213.Research.CayleyDickson.ZSqrt2Domain
 import E213.Tactic.DeriveR4Codomain
 
 /-!

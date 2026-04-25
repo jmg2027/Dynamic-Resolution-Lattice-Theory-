@@ -1,6 +1,6 @@
-import E213.Research.Sedenion
+import E213.Research.CayleyDickson.Sedenion
 import E213.Research.IntHelpers
-import E213.Research.CayleyHeavy
+import E213.Research.CayleyDickson.CayleyHeavy
 import E213.Tactic.HurwitzRing
 
 /-!

@@ -1,6 +1,6 @@
-import E213.Research.Cayley
+import E213.Research.CayleyDickson.Cayley
 import E213.Research.IntHelpers
-import E213.Research.LipschitzHeavy
+import E213.Research.CayleyDickson.LipschitzHeavy
 import E213.Tactic.HurwitzRing
 
 namespace E213.Research.Cayley

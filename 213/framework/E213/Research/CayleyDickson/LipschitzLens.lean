@@ -1,7 +1,7 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
 import E213.Meta.LensCatalog
-import E213.Research.CDDouble
+import E213.Research.CayleyDickson.CDDouble
 import E213.Prelude
 
 /-!

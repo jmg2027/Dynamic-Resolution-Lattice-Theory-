@@ -1,8 +1,8 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
 import E213.Meta.LensCatalog
-import E213.Research.ZSqrt
-import E213.Research.ZSqrtDomain
+import E213.Research.CayleyDickson.ZSqrt
+import E213.Research.CayleyDickson.ZSqrtDomain
 import E213.Prelude
 
 /-!

@@ -1,4 +1,4 @@
-import E213.Research.CDDouble
+import E213.Research.CayleyDickson.CDDouble
 
 /-!
 # Research: Cayley–Dickson layer 2 — integer octonions

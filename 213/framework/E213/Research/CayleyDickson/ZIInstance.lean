@@ -1,7 +1,7 @@
 import E213.Meta.SelfRecognising
-import E213.Research.ZI
-import E213.Research.ZIDomain
-import E213.Research.ZIHom
+import E213.Research.CayleyDickson.ZI
+import E213.Research.CayleyDickson.ZIDomain
+import E213.Research.CayleyDickson.ZIHom
 import E213.Tactic.DeriveR4Codomain
 
 /-!

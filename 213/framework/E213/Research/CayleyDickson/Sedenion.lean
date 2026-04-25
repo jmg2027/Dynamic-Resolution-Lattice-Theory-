@@ -1,4 +1,4 @@
-import E213.Research.Cayley
+import E213.Research.CayleyDickson.Cayley
 
 /-!
 # Research: Cayley–Dickson layer 3 — integer sedenions

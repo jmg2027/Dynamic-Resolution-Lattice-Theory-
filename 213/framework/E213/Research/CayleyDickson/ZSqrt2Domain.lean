@@ -1,4 +1,4 @@
-import E213.Research.ZSqrt2
+import E213.Research.CayleyDickson.ZSqrt2
 import E213.Research.IntHelpers
 import E213.Tactic.QuadNorm
 

@@ -1,4 +1,4 @@
-import E213.Research.Trigintaduonion
+import E213.Research.CayleyDickson.Trigintaduonion
 
 /-!
 # Research: Cayley–Dickson layer 5 — integer pathions

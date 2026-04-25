@@ -1,6 +1,6 @@
 import E213.Meta.SelfRecognising
-import E213.Research.ZSqrt
-import E213.Research.ZSqrtDomain
+import E213.Research.CayleyDickson.ZSqrt
+import E213.Research.CayleyDickson.ZSqrtDomain
 
 /-!
 # Research: `ZSqrt D = ℤ[√-D]` `R4Codomain` instances

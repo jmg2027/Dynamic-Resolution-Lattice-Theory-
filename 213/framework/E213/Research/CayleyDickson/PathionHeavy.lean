@@ -1,4 +1,4 @@
-import E213.Research.Pathion
+import E213.Research.CayleyDickson.Pathion
 import E213.Tactic.HurwitzRing
 
 /-!

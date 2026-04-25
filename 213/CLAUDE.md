@@ -127,6 +127,30 @@ Mingu 확정 (2026-04-24).  절대 완화 안 됨.
   artifact 를 출력에 leak.  각 파일 doc-string 의 WARNING
   참조.  →  `AUDIT_Lean.md` §5.2(A), (B).
 
+## 정리 규칙 (organization)
+
+문서·파일·디렉토리 의 정리 는 다음 원칙 을 따른다.  쌓이고
+난 후 가 아니라 **새 파일 만들 때 마다** 의식한다.
+
+- **Deprecated 는 삭제**.  superseded 된 문서·코드 는 보존
+  하지 말고 지운다 (git history 에 남는다).  "역사적 기록" 가치
+  로 살려두면 그 자체 가 noise.
+- **파일 너무 많으면 안 됨**.  비슷한 주제 small fragments 는
+  하나로 통합.  예: 같은 arc 의 notes 5 개 → 1 개 synthesis note.
+- **파일 하나 너무 길면 안 됨**.  한 파일 이 자연스럽게 두
+  주제 로 갈리면 분리.  Lean: 80 줄 hook 이 강제.
+- **디렉토리 하나 에 entry 너무 많으면 안 됨** (50+ 개 면
+  sub-dir 검토).  너무 적어도 안 됨 (3 개 이하 면 부모 로 통합).
+- **디렉토리 너무 깊거나 너무 많아도 안 됨**.  depth 3-4 단
+  이내 권장.  "그냥 거기 있으니까" 만들지 말 것.
+- **자연스러운 순서 로 읽힐 수 있도록 정렬**.  notes 의 NN_
+  prefix, Lean 모듈 의 layer 구조 (Firmware → Hypervisor →
+  Research) 모두 reading order 가 자연스럽게 흐르도록.
+- **새 파일 만들기 보다 기존 파일 갱신 우선**.  관련 내용 있는
+  파일 이 이미 있으면 거기 에 append/edit 한다.
+
+위 규칙 을 어기는 정리 는 정리 가 아니라 누적.
+
 ## 물리 chapter 감사 기준
 
 그 chapter의 결과가 **AXIOM.md + 명시적 Lens 성질** 로부터

@@ -1,4 +1,4 @@
-import E213.Research.CDDouble
+import E213.Research.CayleyDickson.CDDouble
 import E213.Research.IntHelpers
 import E213.Tactic.HurwitzRing
 

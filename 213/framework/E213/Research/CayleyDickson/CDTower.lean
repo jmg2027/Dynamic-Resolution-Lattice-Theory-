@@ -1,10 +1,10 @@
-import E213.Research.ZI
-import E213.Research.ZIDomain
-import E213.Research.CDDouble
-import E213.Research.Cayley
-import E213.Research.LipschitzHeavy
-import E213.Research.CayleyHeavy
-import E213.Research.Sedenion
+import E213.Research.CayleyDickson.ZI
+import E213.Research.CayleyDickson.ZIDomain
+import E213.Research.CayleyDickson.CDDouble
+import E213.Research.CayleyDickson.Cayley
+import E213.Research.CayleyDickson.LipschitzHeavy
+import E213.Research.CayleyDickson.CayleyHeavy
+import E213.Research.CayleyDickson.Sedenion
 
 /-!
 # Research: Cayley–Dickson tower — unified structural summary

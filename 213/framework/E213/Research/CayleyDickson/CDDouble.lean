@@ -1,7 +1,7 @@
-import E213.Research.ZI
-import E213.Research.ZIDomain
-import E213.Research.ZIHom
-import E213.Research.ZIArith
+import E213.Research.CayleyDickson.ZI
+import E213.Research.CayleyDickson.ZIDomain
+import E213.Research.CayleyDickson.ZIHom
+import E213.Research.CayleyDickson.ZIArith
 
 /-!
 # Research: Cayley–Dickson doubling of ZI → Lipschitz integers

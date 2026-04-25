@@ -1,4 +1,4 @@
-import E213.Research.Sedenion
+import E213.Research.CayleyDickson.Sedenion
 
 /-!
 # Research: Cayley–Dickson layer 4 — integer trigintaduonions

@@ -1,5 +1,5 @@
-import E213.Research.Trigintaduonion
-import E213.Research.SedenionHeavy
+import E213.Research.CayleyDickson.Trigintaduonion
+import E213.Research.CayleyDickson.SedenionHeavy
 import E213.Tactic.HurwitzRing
 
 /-!
