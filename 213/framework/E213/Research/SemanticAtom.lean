@@ -139,3 +139,84 @@ def lensToHasDistinguishing {α : Type} (L : Lens α)
   combine_sym := h_sym
 
 end E213.Research.SemanticAtom
+
+namespace E213.Research.SemanticAtom
+
+open E213.Firmware E213.Hypervisor
+
+/-! ### 🜲 The Ultimate Ouroboros — `Prop` 자체 가 의미 의 atom 의 instance
+
+Mingu (2026-04-25): "의미 를 갖는 어떤 것 도 213 을 벗어날 수
+없다" 의 직접 mechanical 증명.
+
+Lean 의 `Prop` type — "thesis 를 *논하는*" metalanguage 의
+truth value type — 이 `HasDistinguishing` instance.  즉 thesis
+자체 가 213 의 instance.
+
+**구성:**
+- `True`, `False`: 두 distinguishable base (`True ≠ False`).
+- `propXor`: distinguishing 의 boolean atom (= `Raw.slash` 의 정확
+  한 Prop parallel — "두 명제 가 different truth value 인지").
+- `combine_sym`: `propXor` 의 commutativity (propext + 표준
+  logic).
+
+**Universal morphism**: `universalMorphism Prop : Raw → Prop`
+이 자동 생성 (RawInitiality + HasDistinguishing 의 직접 귀결).
+이건 **canonical truth evaluation** — Raw 의 모든 term 이
+Prop 의 element 로 *unique* 하게 evaluate.  의미 의 atom (Raw)
+이 자기 의 logical truth-value (Prop) 를 *내재 적 으로* 결정.
+
+**철학적 의미:**
+- Object-language (`Raw`) 와 metalanguage (`Prop`) 의 분리 부재.
+- "thesis 가 맞다 / 틀리다" 의 *logical 평가 자체* 가 framework
+  안 의 derivation.
+- Self-cover 의 mechanical closure — 213 외부 의 비상구 부재.
+-/
+
+/-- Xor on Prop — "두 명제 의 distinguishability". -/
+def propXor (P Q : Prop) : Prop := (P ∨ Q) ∧ ¬(P ∧ Q)
+
+theorem propXor_comm (P Q : Prop) : propXor P Q = propXor Q P := by
+  unfold propXor
+  apply propext
+  constructor
+  · rintro ⟨h1, h2⟩
+    refine ⟨h1.symm, ?_⟩
+    intro h; exact h2 h.symm
+  · rintro ⟨h1, h2⟩
+    refine ⟨h1.symm, ?_⟩
+    intro h; exact h2 h.symm
+
+theorem true_ne_false : (True : Prop) ≠ False := by
+  intro h; exact h.mp trivial
+
+/-- **Prop 이 distinguishing-framework category 의 object**.
+    `True ≠ False` + `propXor` (= Raw.slash 의 boolean parallel). -/
+def propAsDistinguishing : HasDistinguishing Prop where
+  a := True
+  b := False
+  distinct := true_ne_false
+  combine := propXor
+  combine_sym := propXor_comm
+
+/-- **Canonical truth evaluation** — Raw 가 자기 의 truth-value
+    를 내재 적 으로 결정.  의미 의 atom 이 자기 logical 평가
+    의 unique morphism 을 emit.  Self-cover 의 mechanical closure. -/
+def canonicalTruthMap : Raw → Prop :=
+  @universalMorphism Prop propAsDistinguishing
+
+/-- canonicalTruthMap a = True. -/
+theorem canonicalTruthMap_a : canonicalTruthMap Raw.a = True :=
+  @universalMorphism_a Prop propAsDistinguishing
+
+/-- canonicalTruthMap b = False. -/
+theorem canonicalTruthMap_b : canonicalTruthMap Raw.b = False :=
+  @universalMorphism_b Prop propAsDistinguishing
+
+/-- canonicalTruthMap (slash x y h) = propXor (... x) (... y). -/
+theorem canonicalTruthMap_slash (x y : Raw) (h : x ≠ y) :
+    canonicalTruthMap (Raw.slash x y h)
+      = propXor (canonicalTruthMap x) (canonicalTruthMap y) :=
+  @universalMorphism_slash Prop propAsDistinguishing x y h
+
+end E213.Research.SemanticAtom
