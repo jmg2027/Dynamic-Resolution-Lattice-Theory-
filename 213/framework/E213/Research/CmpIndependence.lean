@@ -139,7 +139,45 @@ def RawBy.slash (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
       have hxy_val : x.val = y.val := (h.eq_iff x.val y.val).mp hc
       absurd (Subtype.ext hxy_val) hxy
 
--- Polymorphic slash_comm 은 dependent match 의 추가 도구 필요
--- (Phase 2.5).  RawBy.slash 자체 가 polymorphic 으로 정의 됨이 Phase 2 의 결과.
+/-- **Tree-level slash helper**: cmp 으로 canonicalize 한 Tree slash.
+    RawBy.slash 의 underlying val 을 추출 한 helper. -/
+def slashTree (cmp : Tree → Tree → Ordering) (x y : Tree) : Tree :=
+  match cmp x y with
+  | .lt => .slash x y
+  | .gt => .slash y x
+  | .eq => .slash x y
+
+/-- slashTree 가 commutative (CmpProps 만 사용). -/
+theorem slashTree_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
+    (x y : Tree) (hxy : x ≠ y) :
+    slashTree cmp x y = slashTree cmp y x := by
+  have hsw := h.swap x y
+  unfold slashTree
+  cases hxy_cmp : cmp x y with
+  | lt =>
+      have hyx_cmp : cmp y x = .gt := by
+        rw [hxy_cmp] at hsw
+        cases hyx_val : cmp y x with
+        | lt => rw [hyx_val] at hsw; cases hsw
+        | eq => rw [hyx_val] at hsw; cases hsw
+        | gt => rfl
+      rw [hyx_cmp]
+  | eq =>
+      have hxy_val : x = y := (h.eq_iff x y).mp hxy_cmp
+      exact absurd hxy_val hxy
+  | gt =>
+      have hyx_cmp : cmp y x = .lt := by
+        rw [hxy_cmp] at hsw
+        cases hyx_val : cmp y x with
+        | lt => rfl
+        | eq => rw [hyx_val] at hsw; cases hsw
+        | gt => rw [hyx_val] at hsw; cases hsw
+      rw [hyx_cmp]
+
+-- RawBy.slash 의 commutativity: dependent match 우회 위해 별도
+-- helper 와 split 도구 필요 — Phase 2.5 의 추가 작업.
+-- slashTree_comm 가 Tree-level commutativity 보장 — RawBy.slash
+-- 의 val 도 같은 결과 (definitionally) 이지만 Lean 에서 명시 적
+-- 통합 은 추가 작업.
 
 end E213.Research.CmpIndependence
