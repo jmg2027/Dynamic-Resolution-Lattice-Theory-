@@ -221,8 +221,8 @@ theorem Raw.slash_comm (x y : Raw) (h : x ≠ y) :
 ### §2.4 Catamorphism and induction principle
 
 For each algebra `(α, base_a, base_b, combine)` with `combine`
-commutative, the catamorphism `Raw.fold` produces the unique
-homomorphism `Raw → α`:
+commutative, the catamorphism `Raw.fold` produces a homomorphism
+`Raw → α`:
 
 ```
 def Raw.fold {α : Type} (base_a base_b : α)
@@ -238,6 +238,25 @@ theorem Raw.fold_slash {α} (ba bb : α) (c : α → α → α)
     (Raw.slash x y h).fold ba bb c
       = c (x.fold ba bb c) (y.fold ba bb c)
 ```
+
+`Lens.view_unique` (in `Research/RawInitiality.lean`) shows that
+this homomorphism is *unique* under the same hypotheses:
+
+```
+theorem Lens.view_unique {α} (L : Lens α)
+    (hsym : ∀ u v, L.combine u v = L.combine v u)
+    (f : Raw → α)
+    (ha : f Raw.a = L.base_a)
+    (hb : f Raw.b = L.base_b)
+    (hslash : ∀ x y h, f (Raw.slash x y h)
+                       = L.combine (f x) (f y)) :
+    ∀ r, f r = L.view r
+```
+
+Combined existence + uniqueness gives `Lens.initiality`: `Raw`
+is the *initial object* in the category of commutative
+Raw-algebras (objects = Lenses with symmetric combine; morphisms
+= `Raw → α` homomorphisms).
 
 A custom eliminator `Raw.rec` allows induction directly on the
 `Raw.a / Raw.b / Raw.slash` constructors without exposing the
@@ -599,12 +618,32 @@ by a Lens `L : Lens α` and a post-processing family
 
 ### §6.3 Universal limit Lens
 
-The limit of a family-Cauchy sequence is captured Lens-side via
-`universalLens` applied to the limit slash-congruence.  No new
-Raw element is created; the limit is purely an output-level
-artifact.  This is the **Cauchy completeness without external
-ℝ** statement: the framework's reach is closed under sequential
-limits, with the limits residing as `Lens`-output decision
+For a family-Cauchy sequence, the limit is captured by an
+`OrderCauchyData`-style record (`ArchimedeanCauchy.lean`) that
+packages the explicit `N` witnesses for each `(m, k)`:
+
+```
+structure OrderCauchyData (xs : Nat → Raw) where
+  N : Nat → Nat → Nat
+  cauchy : ∀ m k i j, k ≥ 1 → i ≥ N m k → j ≥ N m k →
+    orderProj m k (abLens.view (xs i))
+      = orderProj m k (abLens.view (xs j))
+
+def OrderCauchyData.cut {xs} (cd : OrderCauchyData xs)
+    (m k : Nat) : Bool :=
+  orderProj m k (abLens.view (xs (cd.N m k)))
+```
+
+The `cut` function is the limit's Dedekind decision: a
+`Nat → Nat → Bool` indexed by the rational threshold `m/k`.
+At a more abstract level, the slash-congruence
+`∀ x y. (∀ (m, k). cd.cut m k = orderProj m k (abLens.view x))
+↔ same of y` arises as the kernel of a `universalLens` (§5.1).
+
+No new Raw element is created; the limit data resides at the
+Lens-output level.  This is the **Cauchy completeness without
+external ℝ** statement: the framework's reach is closed under
+sequential limits, with the limit residing as `Lens`-output decision
 functions rather than as new Raw terms.
 
 ### §6.4 Monotonic-bounded propagation
