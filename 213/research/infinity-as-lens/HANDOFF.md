@@ -312,6 +312,32 @@ Classical.choice, LEM, native_decide 등 일체.  추가 필요가
 **새 notes**: 49 (Euclidean step), 50 (일반 join = gcd), 51
 (mod family concrete Quot Lens), 52 (비-mod family joins).
 
+### Session 5 라운드 3 (2026-04-25, 통찰 기반 reframe)
+
+Mingu 통찰:
+- 잔여물 = 생성 규칙 (단일 본성).
+- 한계 = Lens 한계 (213 자체 한계 부재).
+- 자기-기술 가능성 = 213 의 정의 적 귀결.
+
+**적용 결과**:
+- `Research/UniversalQuotLens.lean` 강화:
+  - `universalLens_recovers`: 임의 Lens M 의 kernel 복원
+    (universalLens M.equiv 가 M 과 같은 kernel).
+  - `universalLens_idempotent`: 두 번 적용 = 한 번 (canonical
+    normalization).
+- `Research/AxiomMinimality.lean`: Raw.b 제거 시 single
+  element 만 생성 → axiom minimum 성 formal demonstration.
+- Note 56: 잔여물-생성 통일.
+- Note 57: 한계 = Lens 한계 reframing.
+- Note 58: "213한다" demonstration master list.
+- Note 59: Raw axiom minimum 성.
+
+**중요한 reframe**:
+- "open problems" 들 이 213 한계 가 아니라 외부 Lens (ZFC,
+  category theory, size comparison) 한계.
+- 213-natural 로 봤을 때 그 질문 들 이 ill-formed 이거나 trivial.
+- 진짜 work = "각 Lens 가 어떤 한계 부과 하는지" mapping.
+
 ### Session 5 추가 라운드 2 (2026-04-25)
 
 **추가 Lean 파일 / 강화**:
