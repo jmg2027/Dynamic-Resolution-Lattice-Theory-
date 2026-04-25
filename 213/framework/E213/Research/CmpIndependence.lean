@@ -174,10 +174,36 @@ theorem slashTree_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
         | gt => rw [hyx_val] at hsw; cases hsw
       rw [hyx_cmp]
 
--- RawBy.slash 의 commutativity: dependent match 우회 위해 별도
--- helper 와 split 도구 필요 — Phase 2.5 의 추가 작업.
--- slashTree_comm 가 Tree-level commutativity 보장 — RawBy.slash
--- 의 val 도 같은 결과 (definitionally) 이지만 Lean 에서 명시 적
--- 통합 은 추가 작업.
+/-- RawBy.slash 의 val = slashTree.  Tree-level 등치 — 모든 cases. -/
+theorem RawBy_slash_val (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
+    (x y : RawBy cmp) (hxy : x ≠ y) :
+    (RawBy.slash cmp h x y hxy).val = slashTree cmp x.val y.val := by
+  unfold RawBy.slash slashTree
+  split
+  · rename_i hc
+    show x.val.slash y.val = (match cmp x.val y.val with
+      | .lt => x.val.slash y.val
+      | .gt => y.val.slash x.val
+      | .eq => x.val.slash y.val)
+    rw [hc]
+  · rename_i hc
+    show y.val.slash x.val = (match cmp x.val y.val with
+      | .lt => x.val.slash y.val
+      | .gt => y.val.slash x.val
+      | .eq => x.val.slash y.val)
+    rw [hc]
+  · rename_i hc
+    have hxy_val : x.val = y.val := (h.eq_iff x.val y.val).mp hc
+    exact absurd (Subtype.ext hxy_val) hxy
+
+/-- **Polymorphic RawBy.slash_comm**: Subtype.ext 로 val 비교 →
+    slashTree_comm 적용. -/
+theorem RawBy.slash_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
+    (x y : RawBy cmp) (hxy : x ≠ y) :
+    RawBy.slash cmp h x y hxy = RawBy.slash cmp h y x (Ne.symm hxy) := by
+  apply Subtype.ext
+  rw [RawBy_slash_val, RawBy_slash_val]
+  exact slashTree_comm cmp h x.val y.val
+    (fun heq => hxy (Subtype.ext heq))
 
 end E213.Research.CmpIndependence
