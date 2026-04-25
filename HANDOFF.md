@@ -1,4 +1,4 @@
-# Session Handoff — 2026-04-25
+# Session Handoff — 2026-04-25 (semantic atom arc)
 
 ## Status
 
@@ -6,52 +6,79 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 All Lean modules build clean (`lake build` ✓).  0 sorry, 0
 external axioms (only `propext` + `Quot.sound` baseline).
 
-## Latest arc — Cauchy completeness + transcendental demos
+## Latest arc — Semantic atom + AxiomMinimality 4 case + Prop instance
 
-Cauchy/limit framework + concrete irrationals fully formalized.
+### Formal Lean 결과
 
-### New Research Lean modules
+**`Research/AxiomMinimality.lean` 확장 (4 case)**:
+- NoB (b 제거): rawA_trivial.
+- NoA (a 제거): rawB_trivial.
+- NoSlash (slash 제거): rawAB_only_two (static 2-element).
+- NoDistinct (distinctness 제거): self_pairing_exists (degenerate).
+- 모두 axiom 부재 또는 [propext] only.
 
-- `LensCauchy.lean`, `GenericFamilyCauchy.lean` — Cauchy
-  framework over Lens projections (LensCauchy + GFCauchy
-  unification).
-- `UniversalQuotLens.lean`, `ChoiceResolved.lean` — Q37.3 general
-  + "choice = Lens specification" formal.
-- `ArchimedeanCauchy.lean`, `Sqrt2Cut.lean`, `PellSeq.lean` —
-  ℝ-Dedekind cut + √2 algebraic instance.
-- `ProfiniteSeq.lean`, `Padic.lean` — Ẑ profinite + ℤ_p sub-tower.
-- `EulerSeq.lean`, `WallisSeq.lean` — e + π/2 transcendental
-  Cauchy demonstrations.
-- `CmpIndependence.lean` — encoding-artifact independence meta
-  theorem (RawBy_bijection : RawBy cmp1 ≃ RawBy cmp2).
+**`Research/SemanticAtom.lean` (신규)**:
+- `HasDistinguishing` typeclass — distinguishing-framework abstraction.
+- Raw instance.
+- `universalMorphism α [HasDistinguishing α] : Raw → α` via fold.
+- `lensToHasDistinguishing` (partial functoriality).
+- `propAsDistinguishing` + `canonicalTruthMap` (Xor-based Prop instance).
+- `propAsDistinguishingIff` + `canonicalIffMap` (Iff alternative).
+- 모두 [propext] only.
 
-### Repository cleanup (this session)
+### Documentation arc
 
-- 13 superseded notes deleted (23-27, 31-35, 46-48 — already
-  absorbed by 28, 40, 54 synthesis notes).
-- 29 R5-critique Lean modules moved to
-  `framework/E213/Research/CayleyDickson/` sub-dir.
-- `213/CLAUDE.md` "정리 규칙" added.
-- `213/README.md` rewritten to reflect current framing.
-- `213/PAPER1_OUTLINE.md` written (Paper 1 prose 전 구상).
+**Notes 신규**:
+- 73: monotonic propagation (constructive Cauchy fragment).
+- 74: constructive subset framing.
+- 75: semantic atom thesis (의미 + 존재 의 atom 의 conceptual
+  formulation, ORIGIN chain 연결).
+- 76: Prop instance + Iff alternative + sober limits 명시.
 
-### Paper 1 readiness
+**AXIOM.md 업데이트**:
+- §1.1 Formal core: Raw axiom 의 strict minimum + distinguishing
+  framework hub.
+- §1.2 Conceptual extension: 의미 atom framing 의 interpretive
+  reading 으로 명시.  formal core 와 의 분리 명시.
+
+**README.md / CLAUDE.md**: thesis 통합 + sober tone 으로 정리.
+
+### Sober calibration
+
+처음 작성 시 marketing tone ("Ultimate Ouroboros", "Self-cover
+의 mechanical proof" 등) 으로 over-claim.  이후 검토 후 sober
+calibration:
+- Note 76: limits 명시 ("모든 Prop 을 cover 하지 않음", "Lean
+  의 logic 을 213 안 에 imbed 하지 않음", "Tarski-style truth
+  predicate 의 mechanical proof 가 아님").
+- AXIOM.md: §1.1 (formal core) 와 §1.2 (philosophical extension)
+  의 분리 명시.
+- Documentation tone 차분 화.
+
+Formal Lean 결과 자체 는 strong (모두 [propext] only or no
+axioms) — 단지 marketing 표현 만 sober.
+
+## Paper 1 readiness
 
 - ✅ ZFC reduction (Choice via universalLens, etc.).
 - ✅ Cauchy completeness (LensCauchy + GFCauchy).
-- ✅ cmp-independence (RawBy_bijection, [propext] only).
+- ✅ cmp-independence (RawBy_bijection).
 - ✅ Demonstration suite: rational / √2 / ℤ_p / e / π/2.
+- ✅ AxiomMinimality 4 case (Raw 의 strict minimum).
+- ✅ SemanticAtom hub (HasDistinguishing typeclass + universalMorphism).
+- ✅ Prop instance (Xor + Iff alternatives).
 
-Paper 1 prose 진입 준비 완료.  See `213/PAPER1_OUTLINE.md` for
-the planned section structure.
+Paper 1 prose 진입 가능 — `213/PAPER1_OUTLINE.md` 가 outline.
+Note: paper 작성 자체 는 user 가 priority 가 아님 (research
+self-contained 이 우선).
 
-## File map (updated)
+## File map (current)
 
-- Root docs: `README.md`, `AXIOM.md`, `ORIGIN.md`, `CLAUDE.md`,
-  `NOTATION.md`, `IMPLEMENTATION.md`, `AUDIT_Lean.md`,
+- Root docs: `README.md`, `AXIOM.md` (§1.1/§1.2 분리), `ORIGIN.md`,
+  `CLAUDE.md`, `NOTATION.md`, `IMPLEMENTATION.md`, `AUDIT_Lean.md`,
   `PAPER1_OUTLINE.md` (in `213/`).
-- Notes: `213/research/infinity-as-lens/notes/` (55 files,
-  numbered 00-72 with gaps where superseded).
+- Notes: `213/research/infinity-as-lens/notes/` (57 files,
+  numbered 00-76 with gaps where superseded).
 - Lean: `213/framework/E213/` (Firmware → Hypervisor → OS → App
   → Meta → Tactic → Infinity → Research).
 - R5 sub-track: `213/research/r5-critique/` +
@@ -59,9 +86,9 @@ the planned section structure.
 
 ## Open work
 
-- Paper 1 prose writeup (next session — outline ready).
-- Optional: Lean formalization of π via Wallis / e via partial
-  sums concrete cuts (currently demonstrated via individual
-  bounds; full cut characterization requires more analytic
-  machinery).
-- r5-critique sub-track → Paper 2 candidate (separate arc).
+- Conceptual extension (§1.2) 의 더 sharp formal expression 가능
+  한지 검토 (예: NoDepthParity 같은 negative results 의 의미
+  atom thesis 와 의 직접 mapping).
+- Tarski / Russell / Gödel parallel 의 formal 시도 (별도 arc 가
+  자연스러움).
+- r5-critique → Paper 2 candidate (별도 arc).

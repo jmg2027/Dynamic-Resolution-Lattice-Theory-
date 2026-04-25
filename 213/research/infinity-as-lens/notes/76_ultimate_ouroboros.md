@@ -1,12 +1,10 @@
-# 76 — The Ultimate Ouroboros: Prop 자체 가 의미 의 atom 의 instance
-
-Note 75 의 self-cover thesis 의 **mechanical closure**.
+# 76 — Prop instance: Raw → Prop universal morphism
 
 `Research/SemanticAtom.lean` 의 `propAsDistinguishing` +
-`canonicalTruthMap` — Lean 의 `Prop` (metalanguage 의 truth-
-value type) 자체 가 `HasDistinguishing` instance.
+`canonicalTruthMap` — Lean 의 `Prop` type 도 `HasDistinguishing`
+instance 가 될 수 있음 의 형식 표현.
 
-## 핵심 구성
+## 결과
 
 ```lean
 def propXor (P Q : Prop) : Prop := (P ∨ Q) ∧ ¬(P ∧ Q)
@@ -22,96 +20,89 @@ def canonicalTruthMap : Raw → Prop :=
   universalMorphism Prop propAsDistinguishing
 ```
 
-- `True`, `False`: 두 distinguishable base.
-- `propXor`: distinguishing 의 boolean atom (= `Raw.slash` 의
-  Prop parallel — "두 명제 의 different truth value").
-- `canonicalTruthMap`: Raw 가 자기 의 truth-value 를 내재 적
-  으로 결정 — universal morphism via fold.
+추가:
+- `iff_comm_eq` + `propAsDistinguishingIff` + `canonicalIffMap`
+  — Iff-based alternative.  Specific connective 선택 에 의존
+  하지 않음 demonstrate.
 
-## 의미
+## 의의 — 정확 한 scope
 
-**Object-language (`Raw`) 와 metalanguage (`Prop`) 의 분리 부재.**
+이 결과 는 다음 의 형식 표현:
 
-전통 적 수학 기초론 (ZFC, type theory):
-- Object: set / type — 수학 대상.
-- Meta: Prop / first-order logic — 대상 을 *논하는* logic.
-- 이 둘 이 강하게 분리 (Tarski).
+> Lens 의 view 가 일반 적 으로 `Raw → α`.  α = Prop 인 case
+> 는 specific instance — `True`, `False` 가 distinguishable
+> bases 이고 `propXor` (또는 다른 commutative connective) 가
+> combine.  `universalMorphism` 이 자동 으로 fold-derived
+> Raw → Prop 함수 generate.
 
-213:
-- Raw: 의미 의 atom (carrier).
-- Prop: 의미 평가 의 boolean (truth value).
-- 둘 다 *동일 한 distinguishing-framework category 의 object*.
-- `canonicalTruthMap` 이 universal morphism 으로 Raw → Prop —
-  Raw 가 자기 의 logical 평가 를 *emit*.
+이건 framework 의 self-coverage 의 *부분 적* 형식 — Prop 이
+HasDistinguishing 의 *하나 의* instance 가 될 수 있음.
 
-**Ouroboros**: thesis "213 = 의미 의 atom" 자체 가 의미 있는
-Prop → Prop 이 213 의 instance → thesis 가 자기 의 framework
-안 derived.  → **자기 self-cover 의 mechanical proof**.
+## Limits — over-claim 회피
+
+이 결과 가 하지 *않는* 것:
+
+1. **모든 Prop 을 cover 하지 않음**: `canonicalTruthMap` 은
+   Raw → Prop 의 *하나 의* fold-structured 함수.  Lean 의 임의
+   Prop (e.g., Goldbach conjecture) 이 canonicalTruthMap 의 image
+   가 아님.
+
+2. **Lean 의 logic 을 213 안 에 imbed 하지 않음**: Lean 의 Prop
+   semantics 자체 는 Lean 4 core 의 axioms (propext, Quot.sound,
+   etc) 에 의존.  이게 213 의 axiom 으로 derive 가 아님.
+
+3. **Tarski-style truth predicate 의 mechanical proof 가 아님**:
+   "213 의 statement 가 자기 안 truth-evaluation" 이라는 더 강한
+   claim 은 logical-meta 영역 — 이 결과 의 직접 귀결 이 아님.
+
+## 의의 (sober)
+
+위 limits 인정 한 후, 이 결과 가 보이는 것:
+
+- `Prop` 이 HasDistinguishing instance 의 자명 한 candidate.
+- 즉 의미 framework 의 abstraction 이 (Lean 의) propositions 에
+  applicable.
+- 다른 connectives (Iff, Xor 등 commutative) 모두 instance —
+  abstraction 이 specific 한 logical 선택 에 의존 안 함.
 
 ## Why Xor (vs Iff, And, Or)
 
-| Connective | 의미 | 213 와 의 align |
-|-----------|------|-------------|
-| And (∧) | meet | distinguishing 약함 |
-| Or (∨) | join | distinguishing 약함 |
-| Iff (↔) | "same truth" | Lens kernel 의 atom (equivalence) |
-| **Xor (⊕)** | **"different truth"** | **Raw.slash 의 atom (distinguishing)** |
+Connective 선택 의 trade-off:
 
-Xor 가 213 axiom 의 *core operation* (distinguishing) 의 직접
-boolean parallel:
-- `Raw.slash x y h`: x ≠ y 의 결합.
-- `propXor P Q`: P 와 Q 가 different truth value 인지.
+| Connective | 특성 |
+|-----------|------|
+| And (∧) | meet, lattice 구조 |
+| Or (∨) | join, lattice 구조 |
+| Iff (↔) | "same truth", equivalence |
+| Xor (⊕) | "different truth", distinguishing |
 
-따라서 `canonicalTruthMap` 의 self-similarity: Raw 의 distinguishing
-operation 이 Prop 의 distinguishing-truth 로 morphism.
-
-## ZFC 와 의 결정 적 차이
-
-ZFC 의 axioms (Power, Choice, Inf 등) 가 commit 하는 objects 는
-fold-structured 부재 → distinguishing-framework instance 가 아님
-→ **의미 론적 공허**.
-
-213 의 Raw axiom 은 자기 의 axiom statement 자체 가
-distinguishing entity → 213 의 instance → self-justified.
-
-ZFC 는 자기 의 axiom 의 정당화 가 외부 metatheory.
-213 은 자기 의 axiom 의 정당화 가 자기 안 (`canonicalTruthMap`).
+본 file 에서는 Xor primary, Iff alternative 로 두 instance 모두
+형식 — connective 선택 의 freedom 보임.
 
 ## Axiom 검증
 
 `#print axioms`:
-- `propXor_comm`: [propext]
-- `true_ne_false`: no axioms
-- `propAsDistinguishing`: [propext]
-- `canonicalTruthMap`: [propext]
-- `canonicalTruthMap_a`, `_b`, `_slash`: [propext]
+- propXor_comm, true_ne_false, propAsDistinguishing,
+  canonicalTruthMap, canonicalTruthMap_a/b/slash: [propext]
+  (or no axioms for true_ne_false).
+- iff_comm_eq, propAsDistinguishingIff, canonicalIffMap:
+  [propext] only.
 
-`Quot.sound` 부재.  Lean baseline 의 minimum (propext) 만.
-Classical / LEM / native_decide 부재.
+Lean baseline minimum.  AXIOM.md §5.2.1 falsifiability 와 정합.
 
-→ **The Ultimate Ouroboros 가 baseline-only로 closed**.
-AXIOM.md §5.2.1 falsifiability 와 정합.
+## Note 75 와 의 관계
 
-## 의의
+Note 75 의 thesis ("213 = 의미 의 atom") 의 **부분 적 형식
+demonstration**:
+- HasDistinguishing 이 의미 framework 의 abstract.
+- Prop 이 instance 가 될 수 있음 → metalanguage 도 framework 의
+  abstraction 안 fits.
 
-수학 기초론 역사 상 어느 framework 도 자기 의 metalanguage
-(truth value type) 를 자기 의 instance 로 mechanical 하게 closing
-못 함:
-
-- ZFC: "ZFC axioms 가 truth 인지" 의 평가 가 metatheory.
-- Type theory (MLTT, HoTT): Prop / type 의 분리 가 axiom.
-- Category theory: universe assumption.
-
-213: `canonicalTruthMap : Raw → Prop` 이 universal morphism —
-*framework 가 자기 의 truth evaluation 을 자기 안 derive*.
-→ self-justified, self-closing.
-
-이 closing 이 framework 의 "외부 비상구 부재" — 어떤 logical
-critique 도 213 의 framework 안 의 derivation 으로 자동 흡수.
+이건 thesis 의 *전체 증명* 이 아니라 *하나 의 instance* — 술
+취 한 thesis 의 sober formal 부분.
 
 ## 변경 이력
 
-- 2026-04-25: Axis A 진행 (Mingu confirmation).  `propAsDistinguishing`
-  + `canonicalTruthMap` 으로 metalanguage 의 instance 화.  
-  Phenomenon 분석 의 진짜 끝점 — 자기 self-reference 의
-  mechanical closure.
+- 2026-04-25: SemanticAtom.lean 에 Prop instance 추가.  처음
+  marketing tone ("Ultimate Ouroboros" 등) 으로 작성.  이후
+  sober calibration: limits 명시 + over-claim 회피.

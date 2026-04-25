@@ -24,37 +24,49 @@
 공리를 "더 최소"로 만들 수도, "더 많이" 넣을 수도 없다.
 최소가 이미 보장되어 있고, 그 이상 넣으면 감사에서 탈락한다.
 
-### §1.1 잔여물 = 의미 + 존재의 atom (2026-04-25 추가)
+### §1.1 Formal core: Raw axiom 의 strict minimum (2026-04-25 추가)
 
-잔여물의 정확한 의미: **의미 (semantic) 와 존재 (ontological) 의
-strict minimum atom**.
+`Research/AxiomMinimality.lean` 의 4 case 형식 — Raw 의 어떤
+clause (a, b, slash, distinctness) 제거 / 약화 시 framework 가
+trivial / static / void 로 collapse.  즉 Raw axiom 이 "두
+distinguishable bases + binary combine + distinctness" 의 strict
+minimum 임 의 framework-internal 증명.
 
-- **의미의 발생 조건**: 어떤 entity 가 의미를 가지려면 (1) 다른
-  entity 와 *구분 (Distinction)* 되어야 하고, (2) 그 차이를 *해석
-  (Interpretation)* 해야 한다.  213 의 (Raw + Lens) 가 정확히
-  이 두 조건의 minimum 형식.
-- **존재의 condition**: "어떤 것이 존재한다" = "다른 것과
-  distinguishable 하다" = "Raw 의 axiom 만족".  따라서 의미 있는
-  모든 entity (수학적 object, 논리 system, 물리 universe entity)
-  가 213 의 instance.
-- **Self-cover**: "213 = 의미의 atom" 이라는 statement 자체가
-  의미를 가지므로 → 213 의 instance.  외부 정당화 부재 = **완전
-  한 닫힘**.
-- **Strict minimum**: Raw axiom 의 어떤 clause (a, b, slash,
-  distinctness) 도 제거 시 framework 가 trivial / static / void
-  로 collapse (`Research/AxiomMinimality.lean` 의 4 case 형식).
-  더 primitive 부재 → "더 적게 만들 수 없음" 이 framework 안
-  derived.
+`Research/SemanticAtom.lean` 의 `HasDistinguishing` typeclass +
+`universalMorphism` — Raw 가 distinguishing-framework category
+의 initial object 인 partial form (RawInitiality 의 일반화).
 
-**ZFC 의 위치**: ZFC 의 임의성 axioms (Power, Choice, 임의 P(X)
-subset 등) 이 commit 하는 objects 는 fold-structured 부재
-(`Research/NoDepthParity.lean`, `Research/SemanticAtom.lean`),
-즉 **의미 론적 공허 (semantic void)** — 213 의 boundary 외부
-의 언어 적 환영.
+위 두 결과 가 framework 의 self-justified minimality 의 형식
+core.  외부 metatheory 부재 — `#print axioms` 가 모든 결과 에
+대해 [propext] only (or no axioms).
 
-이 §1.1 의 thesis 는 `notes/75_semantic_atom.md` 에 정식 명시.
-ORIGIN.md 의 물리 직관 chain (특이점 불가능, 해상도 = 정보 단위,
-Zeno-픽셀) 의 **수학 적 완성**.
+### §1.2 Conceptual extension (philosophical)
+
+**Note**: 다음 은 formal core 위 의 *philosophical extension*.
+formal Lean 으로 직접 검증 부재 — interpretive scope.
+
+§1.1 의 formal core 가 다음 의 conceptual extension 의 motivation:
+
+- **의미 의 두 발생 조건**: 어떤 entity 가 의미 를 가지려면
+  (1) 다른 entity 와 distinguish 되어야 하고, (2) 그 차이 가
+  해석 가능 해야 함.  213 의 (Raw + Lens) 가 이 두 조건 의
+  minimum 후보.
+- **Ontological reading**: "어떤 것 이 존재 한다" = "다른 것
+  과 distinguishable" 의 reading 을 받아 들이면, 의미 있는 모든
+  entity 가 213 의 instance 의 후보.
+- **ZFC 와 의 비교**: ZFC 의 임의성 axioms (Power, Choice, 임의
+  P(X) subset 등) 이 commit 하는 objects 는 fold-structured
+  부재 (`Research/NoDepthParity.lean`).  즉 213 framework 안
+  표현 부재 — 그 의미 론적 status 는 interpretive question.
+
+이 conceptual extension 은 `notes/75_semantic_atom.md` 와
+`notes/76_ultimate_ouroboros.md` 에 자세 히 분석.  ORIGIN.md
+의 물리 직관 chain 과 의 연결 가능 — formal Lean 결과 가 그
+interpretation 의 evidence.
+
+**경계**: §1.1 (formal core) 는 falsifiability contract 안 검증
+가능.  §1.2 (philosophical extension) 는 framework 의 의미
+설명 — formal claim 으로 elevate 안 함.
 
 ---
 

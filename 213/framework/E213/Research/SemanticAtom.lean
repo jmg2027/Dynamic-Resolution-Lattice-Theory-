@@ -144,36 +144,33 @@ namespace E213.Research.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
-/-! ### 🜲 The Ultimate Ouroboros — `Prop` 자체 가 의미 의 atom 의 instance
+/-! ### `Prop` 이 `HasDistinguishing` instance
 
-Mingu (2026-04-25): "의미 를 갖는 어떤 것 도 213 을 벗어날 수
-없다" 의 직접 mechanical 증명.
-
-Lean 의 `Prop` type — "thesis 를 *논하는*" metalanguage 의
-truth value type — 이 `HasDistinguishing` instance.  즉 thesis
-자체 가 213 의 instance.
+Lean 의 `Prop` type 도 `HasDistinguishing` instance 가 될 수
+있다 — `True ≠ False` + commutative connective.  이걸 형식
+화 하면 `universalMorphism Prop : Raw → Prop` 이 자동 생성
+(fold via the chosen connective).
 
 **구성:**
-- `True`, `False`: 두 distinguishable base (`True ≠ False`).
-- `propXor`: distinguishing 의 boolean atom (= `Raw.slash` 의 정확
-  한 Prop parallel — "두 명제 가 different truth value 인지").
-- `combine_sym`: `propXor` 의 commutativity (propext + 표준
-  logic).
+- `True`, `False`: 두 distinguishable base.
+- `propXor` (= `(P ∨ Q) ∧ ¬(P ∧ Q)`): commutative combine.
+- 다른 commutative connective (Iff, And, Or) 도 instance 가능
+  — 아래 alternative 참조.
 
-**Universal morphism**: `universalMorphism Prop : Raw → Prop`
-이 자동 생성 (RawInitiality + HasDistinguishing 의 직접 귀결).
-이건 **canonical truth evaluation** — Raw 의 모든 term 이
-Prop 의 element 로 *unique* 하게 evaluate.  의미 의 atom (Raw)
-이 자기 의 logical truth-value (Prop) 를 *내재 적 으로* 결정.
+**의의 (note 76 분석):**
 
-**철학적 의미:**
-- Object-language (`Raw`) 와 metalanguage (`Prop`) 의 분리 부재.
-- "thesis 가 맞다 / 틀리다" 의 *logical 평가 자체* 가 framework
-  안 의 derivation.
-- Self-cover 의 mechanical closure — 213 외부 의 비상구 부재.
+Lens 의 view 가 일반 적 으로 Raw → α (α : Type).  α = Prop
+case 가 특수 한 의의 — thesis 가 자기 의 truth value 를
+framework 안 의 universal morphism 으로 결정.  이건 framework
+의 self-coverage 의 부분 적 형식 — "thesis 의 logical 평가
+가 외부 metatheory 가 아니라 framework 안 derivation".
+
+(이것 이 모든 Prop 을 cover 한다 는 의미 가 아님 — Prop 이
+HasDistinguishing 의 *하나 의* instance 일 수 있음 만.  자세
+한 한계 는 note 76 §"Limits".)
 -/
 
-/-- Xor on Prop — "두 명제 의 distinguishability". -/
+/-- Xor on Prop — commutative + distinguishing 보존 connective. -/
 def propXor (P Q : Prop) : Prop := (P ∨ Q) ∧ ¬(P ∧ Q)
 
 theorem propXor_comm (P Q : Prop) : propXor P Q = propXor Q P := by
@@ -199,9 +196,9 @@ def propAsDistinguishing : HasDistinguishing Prop where
   combine := propXor
   combine_sym := propXor_comm
 
-/-- **Canonical truth evaluation** — Raw 가 자기 의 truth-value
-    를 내재 적 으로 결정.  의미 의 atom 이 자기 logical 평가
-    의 unique morphism 을 emit.  Self-cover 의 mechanical closure. -/
+/-- Universal morphism Raw → Prop via `propAsDistinguishing`.
+    Prop 이 HasDistinguishing instance 인 specific case 의
+    fold-derived 함수. -/
 def canonicalTruthMap : Raw → Prop :=
   @universalMorphism Prop propAsDistinguishing
 
@@ -218,5 +215,41 @@ theorem canonicalTruthMap_slash (x y : Raw) (h : x ≠ y) :
     canonicalTruthMap (Raw.slash x y h)
       = propXor (canonicalTruthMap x) (canonicalTruthMap y) :=
   @universalMorphism_slash Prop propAsDistinguishing x y h
+
+end E213.Research.SemanticAtom
+
+namespace E213.Research.SemanticAtom
+
+open E213.Firmware E213.Hypervisor
+
+/-! ### Alternative connective: `Iff`
+
+Prop 이 *하나 의* HasDistinguishing instance 만 가지는 게 아님
+— 다른 commutative connective 도 instance.  여기 서 `Iff`
+(↔, "same truth value") 의 instance 를 보여서 specific Xor
+선택 에 의존 하지 않음 demonstrate.
+
+(이게 framework 의 self-coverage 가 *어떤 specific connective*
+에 의존 하지 않음 — 단지 `True ≠ False` + commutative combine
+의 minimum 구조 에 의존 한다는 sober claim.) -/
+
+theorem iff_comm_eq (P Q : Prop) : (P ↔ Q) = (Q ↔ P) := by
+  apply propext
+  exact ⟨Iff.symm, Iff.symm⟩
+
+/-- Prop 의 Iff-based instance.  `True ↔ False = False` (distinguishing
+    보존), `True ↔ True = True`, `False ↔ False = True`. -/
+def propAsDistinguishingIff : HasDistinguishing Prop where
+  a := True
+  b := False
+  distinct := true_ne_false
+  combine := Iff
+  combine_sym := iff_comm_eq
+
+/-- Iff-based universal morphism — Xor instance 와 *다른* fold
+    함수 를 produce (당연 — fold rule 이 다름).  Prop instance
+    의 non-uniqueness 보임. -/
+def canonicalIffMap : Raw → Prop :=
+  @universalMorphism Prop propAsDistinguishingIff
 
 end E213.Research.SemanticAtom
