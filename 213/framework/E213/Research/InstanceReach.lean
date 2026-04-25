@@ -76,3 +76,59 @@ theorem fin3_image_strict :
   · rw [h] at hr; exact absurd hr (by decide)
 
 end E213.Research.InstanceReach
+
+namespace E213.Research.InstanceReach
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### Dual: Bool instance 가 surjective
+
+`Fin 3` 가 non-surjective 의 witness.  `Bool` 은 *항상* surjective
+— a, b 의 두 base 만 으로 carrier 전체 커버.  reach = carrier
+의 instance 의 example. -/
+
+instance boolHasDistinguishing : HasDistinguishing Bool where
+  a := true
+  b := false
+  distinct := by decide
+  combine := and
+  combine_sym := Bool.and_comm
+
+/-- Bool instance 의 universalMorphism 이 surjective. -/
+theorem bool_image_surjective :
+    ∀ b : Bool, ∃ r : Raw, universalMorphism Bool r = b := by
+  intro b
+  cases b with
+  | true => exact ⟨Raw.a, universalMorphism_a Bool⟩
+  | false => exact ⟨Raw.b, universalMorphism_b Bool⟩
+
+end E213.Research.InstanceReach
+
+namespace E213.Research.InstanceReach
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### Image 의 minimum 성질 (closure under bases) -/
+
+/-- Image 가 항상 d.a 를 포함. -/
+theorem image_contains_a (α : Type) [d : HasDistinguishing α] :
+    ∃ r : Raw, universalMorphism α r = d.a :=
+  ⟨Raw.a, universalMorphism_a α⟩
+
+/-- Image 가 항상 d.b 를 포함. -/
+theorem image_contains_b (α : Type) [d : HasDistinguishing α] :
+    ∃ r : Raw, universalMorphism α r = d.b :=
+  ⟨Raw.b, universalMorphism_b α⟩
+
+/-- Distinct image elements 의 combine 도 image — Raw.slash 의
+    direct application. -/
+theorem image_closed_under_distinct_combine (α : Type) [d : HasDistinguishing α]
+    (rx ry : Raw) (h : rx ≠ ry) :
+    ∃ r : Raw,
+      universalMorphism α r
+        = d.combine (universalMorphism α rx) (universalMorphism α ry) :=
+  ⟨Raw.slash rx ry h, universalMorphism_slash α rx ry h⟩
+
+end E213.Research.InstanceReach
