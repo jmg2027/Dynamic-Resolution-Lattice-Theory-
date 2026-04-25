@@ -976,31 +976,42 @@ reading.
 
 ### §9.5 Sober limits
 
-The fifteen components do not constitute an *absolute*
-completeness
-proof in any philosophical sense — that would require a
-metatheoretic statement outside the framework.  What they
-establish is a **mathematically rich self-cover**: the
-framework absorbs every structural extension we attempted into
-its own instance language.
+The fifteen components do not amount to an *absolute*
+completeness proof in any philosophical sense — such a proof
+would require a metatheoretic statement outside the framework.
+What they establish is that the structural extensions we
+specifically tested are absorbed into the framework's instance
+language, and that the few cases that resisted absorption did
+so for identifiable reasons.
 
 Specific limits:
 
-- The `Raw.fold` reduction is occasionally interrupted by Lean's
-  evaluator on deep terms.  We sidestep this with the reflection
-  theorem `universalAsLens` (`UniversalReflection.lean`), which
-  re-presents a typeclass instance as a `Lens` data record
-  whose `view` equals `universalMorphism`.
-- The Sum-type combine has no categorically natural choice in
-  the mixed case; we use a priority-based variant that yields
-  a valid (if ad-hoc) instance.
-- Subtype's `combine_sym` proof under `slash`-based combine
-  encounters the nested-Subtype elaborator boundary; a
-  degenerate combine variant carries the proof.
+- The `Raw.fold` reduction is occasionally not unfolded by
+  Lean's elaborator on deep nested terms (this is an
+  *implementation* limitation of Lean's evaluator, not a
+  foundational constraint).  When this prevents a direct
+  reduction-based proof, the reflection theorem
+  `universalAsLens` (`UniversalReflection.lean`) sidesteps the
+  issue by re-presenting the typeclass instance as a `Lens`
+  data record whose `view` definitionally equals
+  `universalMorphism`.
+- The Sum-type combine has no categorically natural commutative
+  choice in the mixed case; we use a priority-based variant
+  (`SumInstance.lean`) that yields a valid (if ad-hoc)
+  `HasDistinguishing` instance.
+- Subtype's `combine_sym` proof under a `slash`-based combine
+  meets the nested-Subtype elaborator boundary; a degenerate
+  constant combine carries the proof in the present version
+  (`SubtypeInstance.lean`).
+- The general `∀ (m, k), ∃ N` Cauchy closure for monotonic
+  Bool sequences is LEM-equivalent and is therefore not claimed
+  (§6.4, §8.3).
 
-These boundaries align exactly with the framework's deliberate
-refusal to import LEM-style commitments.  They are *features*
-of the falsifiability contract, not symptoms of inadequacy.
+The first three are infrastructural; the fourth is the
+framework's deliberate refusal of an LEM-style commitment.
+None of the four breaks the falsifiability contract: each is
+either sidestepped (reflection) or scoped (deliberately not
+claimed).
 
 ---
 
