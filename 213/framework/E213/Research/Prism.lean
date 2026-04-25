@@ -89,3 +89,41 @@ theorem bPrism_b : bPrism.preview Raw.b = some () := by
   rw [if_pos rfl]
 
 end E213.Research.Prism
+
+namespace E213.Research.Prism
+
+open E213.Firmware E213.Hypervisor
+
+/-! ### Prism 의 disjointness (categorical universal property)
+
+두 다른 target 의 case prism 이 mutually exclusive — coproduct
+의 disjoint property 의 직접 형식.
+
+이게 Prism 의 *Coproduct accessor* 의 structural evidence —
+categorical sum 의 strict disjointness. -/
+
+theorem caseElement_disjoint (target1 target2 : Raw) (h : target1 ≠ target2)
+    (r : Raw) :
+    ¬ ((caseElement target1).preview r = some () ∧
+       (caseElement target2).preview r = some ()) := by
+  intro ⟨h1, h2⟩
+  unfold caseElement at h1 h2
+  show False
+  -- preview r = if r = target then some () else none.
+  by_cases ht1 : r = target1
+  · -- r = target1.
+    by_cases ht2 : r = target2
+    · -- r = target2 도.  target1 = target2 contradiction.
+      rw [← ht1, ht2] at h
+      exact h rfl
+    · -- r ≠ target2 → preview target2 r = none → contradicts h2.
+      simp [ht2] at h2
+  · -- r ≠ target1 → preview target1 r = none → contradicts h1.
+    simp [ht1] at h1
+
+/-- Specific instance: aPrism 과 bPrism 의 disjointness. -/
+theorem aPrism_bPrism_disjoint (r : Raw) :
+    ¬ (aPrism.preview r = some () ∧ bPrism.preview r = some ()) :=
+  caseElement_disjoint Raw.a Raw.b (by decide) r
+
+end E213.Research.Prism
