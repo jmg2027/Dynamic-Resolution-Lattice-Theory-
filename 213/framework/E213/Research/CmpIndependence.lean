@@ -356,3 +356,91 @@ open E213.Firmware E213.Firmware.Internal
 -- 닫음.  추가 simp [Eq.mpr, cast] 가 도움 될 가능성.
 
 end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+-- Phase 3.5 alternative path: 직접 Tree-level transportTree 정의.
+-- noncomputable RawBy.rec 의 reduction 회피.
+
+/-- **Tree-level transport**: canonicalize Tree under cmp2.
+    Computable, inductively defined on Tree. -/
+def transportTree (cmp2 : Tree → Tree → Ordering) : Tree → Tree
+  | .a => .a
+  | .b => .b
+  | .slash x y => slashTree cmp2 (transportTree cmp2 x) (transportTree cmp2 y)
+
+end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- transportTree reductions (computable, automatic). -/
+theorem transportTree_a (cmp2 : Tree → Tree → Ordering) :
+    transportTree cmp2 .a = .a := rfl
+
+theorem transportTree_b (cmp2 : Tree → Tree → Ordering) :
+    transportTree cmp2 .b = .b := rfl
+
+theorem transportTree_slash (cmp2 : Tree → Tree → Ordering) (x y : Tree) :
+    transportTree cmp2 (.slash x y)
+      = slashTree cmp2 (transportTree cmp2 x) (transportTree cmp2 y) := rfl
+
+end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- slashTree commutativity 의 핵심 산물: canonical input 의 result. -/
+theorem slashTree_canonical_input {cmp : Tree → Tree → Ordering}
+    (h : CmpProps cmp) (s u : Tree) (hsu : cmp s u = .lt) :
+    slashTree cmp s u = .slash s u := by
+  unfold slashTree; rw [hsu]
+
+/-- slashTree of {a, b} = canonical .slash result. -/
+theorem slashTree_of_pair_eq {cmp : Tree → Tree → Ordering}
+    (h : CmpProps cmp) (s u p q : Tree) (hsu : cmp s u = .lt)
+    (hpair : (p = s ∧ q = u) ∨ (p = u ∧ q = s)) :
+    slashTree cmp p q = .slash s u := by
+  rcases hpair with ⟨hp, hq⟩ | ⟨hp, hq⟩
+  · rw [hp, hq]; exact slashTree_canonical_input h s u hsu
+  · rw [hp, hq]
+    have hus : cmp u s = .gt := by
+      have hsw := h.swap s u
+      rw [hsu] at hsw
+      cases hus_val : cmp u s with
+      | lt => rw [hus_val] at hsw; cases hsw
+      | eq => rw [hus_val] at hsw; cases hsw
+      | gt => rfl
+    unfold slashTree
+    rw [hus]
+
+end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- **Round-trip on canonical (roadmap)**: f(g(t)) = t for
+    canonical-by-cmp2 t.  f := transportTree cmp2, g := cmp1.
+
+    Skeleton (formal proof: future work):
+    1. .a, .b base: trivial reductions.
+    2. .slash s u (canonical-by-cmp2, cmp2 s u = .lt):
+       a. g(.slash s u) = slashTree cmp1 (g s) (g u).
+          이 = .slash p q with cmp1 p q = .lt (canonical under cmp1).
+       b. f(.slash p q) = slashTree cmp2 (f p) (f q).
+       c. By IH: f(g s) = s, f(g u) = u.
+       d. {f p, f q} = {s, u} (since (p, q) is permutation of
+          (g s, g u), and f∘g 의 IH 적용).
+       e. slashTree cmp2 of {s, u} = .slash s u (canonical, cmp2
+          s u = .lt).
+
+    이 5 단계 의 case work + cmp swap orchestration 이 substantial —
+    1+ session 추가 work.  현재 Phase 3.5 의 stub. -/
+private theorem transportTree_roundtrip_stub : True := trivial
+
+end E213.Research.CmpIndependence
