@@ -424,23 +424,154 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
-/-- **Round-trip on canonical (roadmap)**: f(g(t)) = t for
-    canonical-by-cmp2 t.  f := transportTree cmp2, g := cmp1.
+/-- **Round-trip on canonical**: f(g(t)) = t for canonical-by-cmp2 t.
+    f := transportTree cmp2, g := transportTree cmp1.
+    핑계 없는 cases noodge. -/
+theorem transportTree_roundtrip
+    (cmp1 cmp2 : Tree → Tree → Ordering)
+    (h1 : CmpProps cmp1) (h2 : CmpProps cmp2)
+    (t : Tree) (hcanon : canonicalBy cmp2 t = true) :
+    transportTree cmp2 (transportTree cmp1 t) = t := by
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash s u ihs ihu =>
+      have hsu : cmp2 s u = .lt := canonicalBy_slash_lt hcanon
+      unfold canonicalBy at hcanon
+      rw [Bool.and_eq_true, Bool.and_eq_true] at hcanon
+      obtain ⟨⟨hcs, hcu⟩, _⟩ := hcanon
+      have ihs' := ihs hcs
+      have ihu' := ihu hcu
+      rw [transportTree_slash]
+      cases hcmp1 : cmp1 (transportTree cmp1 s) (transportTree cmp1 u) with
+      | lt =>
+          have h_st : slashTree cmp1 (transportTree cmp1 s)
+                        (transportTree cmp1 u)
+                    = .slash (transportTree cmp1 s) (transportTree cmp1 u) := by
+            unfold slashTree; rw [hcmp1]
+          rw [h_st, transportTree_slash, ihs', ihu']
+          unfold slashTree; rw [hsu]
+      | gt =>
+          have h_st : slashTree cmp1 (transportTree cmp1 s)
+                        (transportTree cmp1 u)
+                    = .slash (transportTree cmp1 u) (transportTree cmp1 s) := by
+            unfold slashTree; rw [hcmp1]
+          rw [h_st, transportTree_slash, ihs', ihu']
+          have hus : cmp2 u s = .gt := by
+            have hsw := h2.swap s u
+            rw [hsu] at hsw
+            cases hus_val : cmp2 u s with
+            | lt => rw [hus_val] at hsw; cases hsw
+            | eq => rw [hus_val] at hsw; cases hsw
+            | gt => rfl
+          unfold slashTree; rw [hus]
+      | eq =>
+          have hpq : transportTree cmp1 s = transportTree cmp1 u :=
+            (h1.eq_iff _ _).mp hcmp1
+          have hsu_eq : s = u := by
+            have := ihs'
+            rw [hpq] at this
+            rw [ihu'] at this
+            exact this.symm
+          rw [hsu_eq] at hsu
+          rw [(h2.eq_iff u u).mpr rfl] at hsu
+          cases hsu
 
-    Skeleton (formal proof: future work):
-    1. .a, .b base: trivial reductions.
-    2. .slash s u (canonical-by-cmp2, cmp2 s u = .lt):
-       a. g(.slash s u) = slashTree cmp1 (g s) (g u).
-          이 = .slash p q with cmp1 p q = .lt (canonical under cmp1).
-       b. f(.slash p q) = slashTree cmp2 (f p) (f q).
-       c. By IH: f(g s) = s, f(g u) = u.
-       d. {f p, f q} = {s, u} (since (p, q) is permutation of
-          (g s, g u), and f∘g 의 IH 적용).
-       e. slashTree cmp2 of {s, u} = .slash s u (canonical, cmp2
-          s u = .lt).
+end E213.Research.CmpIndependence
 
-    이 5 단계 의 case work + cmp swap orchestration 이 substantial —
-    1+ session 추가 work.  현재 Phase 3.5 의 stub. -/
-private theorem transportTree_roundtrip_stub : True := trivial
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- transportTree 가 canonical-by-cmp1 → canonical-by-cmp2.
+    g∘f = id 의 symmetric application 으로 injectivity 도출. -/
+theorem transportTree_canonical
+    (cmp1 cmp2 : Tree → Tree → Ordering)
+    (h1 : CmpProps cmp1) (h2 : CmpProps cmp2)
+    (t : Tree) (hcanon1 : canonicalBy cmp1 t = true) :
+    canonicalBy cmp2 (transportTree cmp2 t) = true := by
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash s u ihs ihu =>
+      have hsu1 : cmp1 s u = .lt := canonicalBy_slash_lt hcanon1
+      unfold canonicalBy at hcanon1
+      rw [Bool.and_eq_true, Bool.and_eq_true] at hcanon1
+      obtain ⟨⟨hcs, hcu⟩, _⟩ := hcanon1
+      have ihs' := ihs hcs
+      have ihu' := ihu hcu
+      -- transportTree cmp2 s, u canonical-by-cmp2 (IH).
+      -- f s ≠ f u: by g∘f = id.
+      have hsu_ne : s ≠ u := by
+        intro heq
+        rw [heq] at hsu1
+        rw [(h1.eq_iff u u).mpr rfl] at hsu1
+        cases hsu1
+      have hfs_ne : transportTree cmp2 s ≠ transportTree cmp2 u := by
+        intro hfeq
+        -- By transportTree_roundtrip cmp2 cmp1: g(f s) = s, g(f u) = u.
+        have hgs := transportTree_roundtrip cmp2 cmp1 h2 h1 s hcs
+        have hgu := transportTree_roundtrip cmp2 cmp1 h2 h1 u hcu
+        rw [hfeq] at hgs
+        rw [hgu] at hgs
+        exact hsu_ne hgs.symm
+      rw [transportTree_slash]
+      -- slashTree cmp2 (f s) (f u) canonical (children canonical, order from cmp2).
+      unfold slashTree
+      cases hcmp2 : cmp2 (transportTree cmp2 s) (transportTree cmp2 u) with
+      | lt =>
+          unfold canonicalBy
+          rw [ihs', ihu', hcmp2]
+          rfl
+      | eq =>
+          have : transportTree cmp2 s = transportTree cmp2 u :=
+            (h2.eq_iff _ _).mp hcmp2
+          exact absurd this hfs_ne
+      | gt =>
+          unfold canonicalBy
+          rw [ihs', ihu']
+          have hus : cmp2 (transportTree cmp2 u) (transportTree cmp2 s) = .lt := by
+            have hsw := h2.swap (transportTree cmp2 s) (transportTree cmp2 u)
+            rw [hcmp2] at hsw
+            cases hus_val : cmp2 (transportTree cmp2 u) (transportTree cmp2 s) with
+            | lt => rfl
+            | eq => rw [hus_val] at hsw; cases hsw
+            | gt => rw [hus_val] at hsw; cases hsw
+          rw [hus]
+          rfl
+
+end E213.Research.CmpIndependence
+
+namespace E213.Research.CmpIndependence
+
+open E213.Firmware E213.Firmware.Internal
+
+/-- **Forward bijection**: RawBy cmp1 → RawBy cmp2 via transportTree. -/
+def transportRawBy (cmp1 cmp2 : Tree → Tree → Ordering)
+    (h1 : CmpProps cmp1) (h2 : CmpProps cmp2)
+    (r : RawBy cmp1) : RawBy cmp2 :=
+  ⟨transportTree cmp2 r.val,
+   transportTree_canonical cmp1 cmp2 h1 h2 r.val r.property⟩
+
+/-- **Bijection theorem**: transportRawBy 가 inverse 와 함께 bijection.
+    f∘g = id, g∘f = id. -/
+theorem transportRawBy_roundtrip
+    (cmp1 cmp2 : Tree → Tree → Ordering)
+    (h1 : CmpProps cmp1) (h2 : CmpProps cmp2)
+    (r : RawBy cmp2) :
+    transportRawBy cmp1 cmp2 h1 h2
+      (transportRawBy cmp2 cmp1 h2 h1 r) = r := by
+  apply Subtype.ext
+  show transportTree cmp2 (transportTree cmp1 r.val) = r.val
+  exact transportTree_roundtrip cmp1 cmp2 h1 h2 r.val r.property
+
+/-- **Final**: RawBy cmp1 ≃ RawBy cmp2 (inverse via roundtrip).
+    cmp-independence meta theorem 의 형식 closing. -/
+theorem RawBy_bijection (cmp1 cmp2 : Tree → Tree → Ordering)
+    (h1 : CmpProps cmp1) (h2 : CmpProps cmp2) :
+    ∀ (r : RawBy cmp2),
+        transportRawBy cmp1 cmp2 h1 h2
+          (transportRawBy cmp2 cmp1 h2 h1 r) = r :=
+  transportRawBy_roundtrip cmp1 cmp2 h1 h2
 
 end E213.Research.CmpIndependence
