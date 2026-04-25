@@ -14,21 +14,22 @@ Partial products:
 
 `wallisNum`, `wallisDen` 정수 recursion.
 
-## 불변량
+## 불변량 (모두 closed)
 
 - **Monotonic**: `wallisNum n * wallisDen (n+1) < wallisNum (n+1) * wallisDen n`.
   W_n strictly increasing.
 - **Lower** (n ≥ 1): `3 * wallisNum n ≥ 4 * wallisDen n`.
   (W_n ≥ 4/3 > 1 from n=1.)
-- **Upper** (deferred): `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`.
-  (W_n ≤ 2 - 1/(2n+1) < 2.)  Polynomial identity
-  `(4k+1)*4(k+1)² + 1 = (4k+5)*(2k+1)²` (degree-3 in k) needs
-  flat-monomial normalization layer in Lean 4 core (no `ring`).
-  See note 72 for strategy.
+- **Upper**: `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`
+  (W_n ≤ 2 - 1/(2n+1) < 2).  Polynomial identity
+  `(4k+1)*4(k+1)² + 1 = (4k+5)*(2k+1)²` (degree-3 in k) closed
+  via **Flat-Monomial Strategy**: `K := k*k`, `M := k*(k*k)`
+  two-generalize + `Nat.mul_mul_mul_comm` + omega (Mingu 제안,
+  note 72).  Lean 4 core only — `ring` 부재.
 
-따라서 현재 단계 demonstration:
+따라서 W_n ∈ (1, 2) Dedekind cut 양쪽 fully demonstrated:
 - m/k ≤ 1 → orderProj false (n ≥ 1).  [closed]
-- m/k ≥ 2 → orderProj true.  [pending upper invariant]
+- m/k ≥ 2 → orderProj true (∀ n).  [closed]
 
 ## 의의
 
@@ -251,5 +252,203 @@ theorem wallis_orderProj_below_1 (m k : Nat) (hk : k ≥ 1) (hmk : m ≤ k)
   have h43 : 4 ≤ 3 :=
     Nat.le_of_mul_le_mul_left h_swap (by omega : 0 < wallisDen n * k)
   omega
+
+end E213.Research.WallisSeq
+
+namespace E213.Research.WallisSeq
+
+open E213.Firmware E213.Hypervisor
+
+/-! ### Upper invariant via Flat-Monomial Strategy -/
+
+/-- **Polynomial identity**: `(4k+1) · 4(k+1)² + 1 = (4k+5) · (2k+1)²`.
+
+    Lean 4 core 에서 ring 없이 close — flat-monomial normalization
+    + two-generalize (`K := k*k`, `M := k*(k*k)`) + omega.
+    Note 72 의 strategy 의 minimal instance. -/
+theorem wallis_poly_identity (k : Nat) :
+    (4 * k + 1) * (4 * (k + 1) * (k + 1)) + 1
+      = (4 * k + 5) * ((2 * k + 1) * (2 * k + 1)) := by
+  have h_kp1_sq : (k + 1) * (k + 1) = k * k + 2 * k + 1 := by
+    rw [Nat.mul_add (k+1) k 1, Nat.mul_one, Nat.add_mul k 1 k, Nat.one_mul]
+    omega
+  have h_2kp1_sq : (2 * k + 1) * (2 * k + 1) = 4 * (k * k) + 4 * k + 1 := by
+    rw [Nat.mul_add (2*k+1) (2*k) 1, Nat.mul_one,
+        Nat.add_mul (2*k) 1 (2*k), Nat.one_mul]
+    rw [show 2 * k * (2 * k) = 4 * (k * k) from Nat.mul_mul_mul_comm 2 k 2 k]
+    omega
+  rw [show 4 * (k+1) * (k+1) = 4 * ((k+1) * (k+1)) from Nat.mul_assoc _ _ _]
+  rw [h_kp1_sq, h_2kp1_sq]
+  rw [show 4 * (k*k + 2*k + 1) = 4*(k*k) + 8*k + 4 by
+        rw [Nat.mul_add, Nat.mul_add]; omega]
+  have hLHS : (4*k + 1) * (4*(k*k) + 8*k + 4)
+            = 16*(k*(k*k)) + 32*(k*k) + 16*k + 4*(k*k) + 8*k + 4 := by
+    rw [Nat.add_mul (4*k) 1, Nat.one_mul]
+    rw [Nat.mul_add (4*k) (4*(k*k) + 8*k) 4]
+    rw [Nat.mul_add (4*k) (4*(k*k)) (8*k)]
+    rw [show 4*k*(4*(k*k)) = 16*(k*(k*k)) from Nat.mul_mul_mul_comm 4 k 4 (k*k)]
+    rw [show 4*k*(8*k) = 32*(k*k) from Nat.mul_mul_mul_comm 4 k 8 k]
+    rw [show 4*k*4 = 16*k from by rw [Nat.mul_comm (4*k) 4, ← Nat.mul_assoc]]
+    omega
+  have hRHS : (4*k + 5) * (4*(k*k) + 4*k + 1)
+            = 16*(k*(k*k)) + 16*(k*k) + 4*k + 20*(k*k) + 20*k + 5 := by
+    rw [Nat.add_mul (4*k) 5]
+    rw [Nat.mul_add (4*k) (4*(k*k) + 4*k) 1, Nat.mul_add (4*k) (4*(k*k)) (4*k)]
+    rw [Nat.mul_add 5 (4*(k*k) + 4*k) 1, Nat.mul_add 5 (4*(k*k)) (4*k)]
+    rw [Nat.mul_one (4*k), Nat.mul_one 5]
+    rw [show 4*k*(4*(k*k)) = 16*(k*(k*k)) from Nat.mul_mul_mul_comm 4 k 4 (k*k)]
+    rw [show 4*k*(4*k) = 16*(k*k) from Nat.mul_mul_mul_comm 4 k 4 k]
+    rw [show 5*(4*(k*k)) = 20*(k*k) by rw [← Nat.mul_assoc]]
+    rw [show (5:Nat)*(4*k) = 20*k by rw [← Nat.mul_assoc]]
+    omega
+  rw [hLHS, hRHS]
+  generalize k * (k * k) = M
+  generalize k * k = K
+  omega
+
+end E213.Research.WallisSeq
+
+namespace E213.Research.WallisSeq
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+
+/-- **Upper invariant**: `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`.
+    (W_n ≤ 2 - 1/(2n+1) < 2.)
+
+    Strategy: IH multiplied by 4(k+1)², chain via `wallis_poly_identity`,
+    then cancel (2k+1) at the end via `Nat.le_of_mul_le_mul_left`. -/
+theorem wallis_upper_inv (n : Nat) :
+    wallisNum n * (2 * n + 1) ≤ (4 * n + 1) * wallisDen n := by
+  induction n with
+  | zero => decide
+  | succ k ih =>
+      show (wallisNum k * (4 * (k+1) * (k+1))) * (2*k + 3)
+            ≤ (4*k + 5) * (wallisDen k * ((2*k+1) * (2*k+3)))
+      -- Abstract via generalize.  Naming: N=W_k, D=D_k, P=4(k+1)², Q=2k+1,
+      -- R=2k+3, S=4k+5, T=4k+1.
+      have h_poly : (4*k + 1) * (4 * (k+1) * (k+1)) + 1
+                  = (4*k + 5) * ((2*k+1) * (2*k+1)) := wallis_poly_identity k
+      have hQ_pos : 0 < 2*k + 1 := by omega
+      generalize hP : 4 * (k+1) * (k+1) = P at *
+      generalize hQ : 2*k + 1 = Q at *
+      generalize hR : 2*k + 3 = R at *
+      generalize hS : 4*k + 5 = S at *
+      generalize hT : 4*k + 1 = T at *
+      generalize hN : wallisNum k = N at *
+      generalize hD : wallisDen k = D at *
+      -- Now: ih : N * Q ≤ T * D.  h_poly : T * P + 1 = S * (Q * Q).
+      -- Goal: N * P * R ≤ S * (D * (Q * R)).  hQ_pos : 0 < Q.
+      have h_poly_le : T * P ≤ S * Q * Q := by
+        have hsq : S * (Q * Q) = S * Q * Q := (Nat.mul_assoc _ _ _).symm
+        omega
+      have h1 : N * Q * P ≤ T * D * P := Nat.mul_le_mul_right P ih
+      have h2 : T * D * P = D * (T * P) := by
+        rw [Nat.mul_comm T D, Nat.mul_assoc]
+      have h3 : D * (T * P) ≤ D * (S * Q * Q) := Nat.mul_le_mul_left D h_poly_le
+      have h4 : N * Q * P ≤ D * (S * Q * Q) := by
+        rw [h2] at h1; exact Nat.le_trans h1 h3
+      have h5 : N * Q * P * R ≤ D * (S * Q * Q) * R :=
+        Nat.mul_le_mul_right R h4
+      have hLHS_assoc : N * Q * P * R = N * P * R * Q := by
+        have e1 : N * Q * P = N * P * Q := by
+          rw [Nat.mul_assoc N Q P, Nat.mul_comm Q P, ← Nat.mul_assoc]
+        rw [e1]
+        rw [Nat.mul_assoc (N*P) Q R, Nat.mul_comm Q R, ← Nat.mul_assoc]
+      have hRHS_assoc : D * (S * Q * Q) * R = S * D * Q * R * Q := by
+        have e2 : D * (S * Q * Q) = S * D * Q * Q := by
+          rw [← Nat.mul_assoc D (S*Q) Q, ← Nat.mul_assoc D S Q, Nat.mul_comm D S]
+        rw [e2]
+        rw [Nat.mul_assoc (S*D*Q) Q R, Nat.mul_comm Q R, ← Nat.mul_assoc]
+      rw [hLHS_assoc, hRHS_assoc] at h5
+      have h6 : Q * (N * P * R) ≤ Q * (S * D * Q * R) := by
+        rw [Nat.mul_comm Q (N * P * R), Nat.mul_comm Q (S * D * Q * R)]
+        exact h5
+      have h7 : N * P * R ≤ S * D * Q * R :=
+        Nat.le_of_mul_le_mul_left h6 hQ_pos
+      have hRHS_goal : S * (D * (Q * R)) = S * D * Q * R := by
+        rw [← Nat.mul_assoc, ← Nat.mul_assoc]
+      rw [hRHS_goal]
+      exact h7
+
+end E213.Research.WallisSeq
+
+namespace E213.Research.WallisSeq
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+
+/-- **Cut above 2**: m/k ≥ 2 (2k ≤ m) → orderProj true (∀ n).
+    Upper inv: a_n * (2n+1) ≤ (4n+1) * d_n.  (4n+1) ≤ 2(2n+1) so
+    a_n * (2n+1) ≤ 2 * (2n+1) * d_n, cancel (2n+1): a_n ≤ 2 d_n.
+    Then a_n * k ≤ 2 d_n * k = d_n * (2k) ≤ d_n * m. -/
+theorem wallis_orderProj_above_2 (m k : Nat) (h2km : 2 * k ≤ m) (n : Nat) :
+    orderProj m k (abLens.view (wallisRaw n).val) = true := by
+  rw [wallisRaw_view]
+  unfold orderProj
+  show decide (wallisNum n * k ≤ wallisDen n * m) = true
+  rw [decide_eq_true_iff]
+  -- From upper inv: W_n * (2n+1) ≤ (4n+1) * D_n.
+  -- (4n+1) ≤ 2*(2n+1) - 1, so W_n * (2n+1) ≤ (2*(2n+1) - 1) * D_n < 2*(2n+1)*D_n.
+  -- Hence W_n * (2n+1) ≤ 2 * D_n * (2n+1) - D_n.
+  -- Cancel (2n+1): W_n ≤ 2 * D_n (with strict, or ≤ - 1, but use ≤ form).
+  -- Cleaner: from W_n * (2n+1) ≤ (4n+1)*D_n ≤ 2(2n+1)*D_n - D_n, so
+  -- W_n * (2n+1) < 2*(2n+1)*D_n, which cancels (2n+1) > 0: W_n < 2*D_n.
+  -- For Nat: W_n + 1 ≤ 2 * D_n, hence W_n ≤ 2 * D_n.
+  have hu := wallis_upper_inv n
+  have h_2n1_pos : 0 < 2*n + 1 := by omega
+  -- (4n+1) = 2*(2n+1) - 1, so (4n+1) * D_n + D_n = 2 * (2n+1) * D_n.
+  have h_eq : (4*n + 1) * wallisDen n + wallisDen n
+              = 2 * (2*n + 1) * wallisDen n := by
+    have h_e : 2 * (2*n + 1) = (4*n + 1) + 1 := by omega
+    rw [h_e, Nat.add_mul (4*n + 1) 1 (wallisDen n), Nat.one_mul]
+  -- So W_n * (2n+1) + D_n ≤ 2 * (2n+1) * D_n.
+  have h1 : wallisNum n * (2*n + 1) + wallisDen n ≤ 2 * (2*n + 1) * wallisDen n := by
+    rw [← h_eq]
+    exact Nat.add_le_add_right hu (wallisDen n)
+  -- Hence W_n * (2n+1) ≤ 2 * D_n * (2n+1).
+  have h2 : wallisNum n * (2*n+1) ≤ 2 * wallisDen n * (2*n+1) := by
+    have hdpos : 1 ≤ wallisDen n := wallisDen_pos n
+    have h_RHS : 2 * (2*n+1) * wallisDen n = 2 * wallisDen n * (2*n+1) := by
+      rw [Nat.mul_assoc, Nat.mul_comm (2*n+1) (wallisDen n), ← Nat.mul_assoc]
+    rw [h_RHS] at h1
+    omega
+  -- Cancel (2n+1): W_n ≤ 2 * D_n.
+  have h3 : (2*n+1) * wallisNum n ≤ (2*n+1) * (2 * wallisDen n) := by
+    rw [Nat.mul_comm (2*n+1) (wallisNum n), Nat.mul_comm (2*n+1) (2 * wallisDen n)]
+    exact h2
+  have h4 : wallisNum n ≤ 2 * wallisDen n :=
+    Nat.le_of_mul_le_mul_left h3 h_2n1_pos
+  -- Now goal: W_n * k ≤ D_n * m.  W_n * k ≤ 2 * D_n * k = D_n * (2*k) ≤ D_n * m.
+  have h5 : wallisNum n * k ≤ 2 * wallisDen n * k := Nat.mul_le_mul_right k h4
+  have h6 : 2 * wallisDen n * k = wallisDen n * (2 * k) := by
+    rw [Nat.mul_comm 2 (wallisDen n), Nat.mul_assoc]
+  rw [h6] at h5
+  have h7 : wallisDen n * (2 * k) ≤ wallisDen n * m :=
+    Nat.mul_le_mul_left (wallisDen n) h2km
+  exact Nat.le_trans h5 h7
+
+end E213.Research.WallisSeq
+
+namespace E213.Research.WallisSeq
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+
+/-- **Order Cauchy** at thresholds m/k ≥ 2 ∨ m/k ≤ 1.
+    Other thresholds in (1, 2) — fine-grained analysis would need
+    convergence rate to π/2 ≈ 1.5708. -/
+theorem wallis_orderCauchy_at_concrete (m k : Nat) (hk : k ≥ 1)
+    (hcase : 2 * k ≤ m ∨ m ≤ k) :
+    ∃ N, ∀ p q, p ≥ N → q ≥ N →
+      orderProj m k (abLens.view (wallisRaw p).val)
+        = orderProj m k (abLens.view (wallisRaw q).val) := by
+  refine ⟨1, ?_⟩
+  intro p q hp hq
+  rcases hcase with h2km | hmk
+  · rw [wallis_orderProj_above_2 m k h2km p,
+        wallis_orderProj_above_2 m k h2km q]
+  · rw [wallis_orderProj_below_1 m k hk hmk p hp,
+        wallis_orderProj_below_1 m k hk hmk q hq]
 
 end E213.Research.WallisSeq

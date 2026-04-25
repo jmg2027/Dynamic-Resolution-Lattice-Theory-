@@ -21,16 +21,22 @@ Pell template (algebraic invariant + abLens witness + orderProj
 - **Monotonic**: W_n < W_{n+1}.  Closed (poly diff = 1).
 - **Lower inv** (n ≥ 1): `3 * wallisNum n ≥ 4 * wallisDen n`
   (W_n ≥ 4/3 > 1).  Closed.
-- **Upper inv** (deferred): `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`
+- **Upper inv**: `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`
   (W_n ≤ 2 - 1/(2n+1) < 2).  Polynomial identity
   `(4k+1) * 4(k+1)² + 1 = (4k+5) * (2k+1)²` 가 degree-3 in k.
-  Lean 4 core 에서 ring 없이 close 하려면 flat-monomial
-  normalization 필요.  현재 deferred.
-- **Cut closed**: m/k ≤ 1 → orderProj false (n ≥ 1).
+  **Closed** via Flat-Monomial Strategy (Mingu 제안):
+  `K := k*k`, `M := k*(k*k)` two-generalize +
+  `Nat.mul_mul_mul_comm` + omega.  Lean 4 core, ring 없이.
+  `wallis_poly_identity` 형식 lemma 로 분리.
+- **Cuts** (양쪽 closed):
+  - m/k ≥ 2: orderProj true (∀ n).  IH * 4(k+1)² → poly chain
+    → (2k+1) cancel via `Nat.le_of_mul_le_mul_left`.
+  - m/k ≤ 1: orderProj false (n ≥ 1).  Lower inv chain.
+- π/2 ∈ (1, 2) Dedekind cut **fully demonstrated**.
 
-## Flat-Monomial Strategy (Mingu 제안, future work)
+## Flat-Monomial Strategy (Mingu 제안, **executed**)
 
-Upper invariant 의 polynomial identity 처리 전략:
+Upper invariant 의 polynomial identity 처리 전략 (실행됨):
 
 1. **Local algebraic-hygiene set**: `Nat.mul_assoc`, `Nat.mul_comm`,
    `Nat.add_mul`, `Nat.mul_add` 만으로 mini "ring-sub-set" 구성.
@@ -75,5 +81,10 @@ Wallis upper invariant 는 별도 follow-up 으로 close 예정 —
 
 ## 변경 이력
 
-- 2026-04-25: EulerSeq + WallisSeq.  e ∈ (2, 3) closed.
+- 2026-04-25: EulerSeq + WallisSeq 초안.  e ∈ (2, 3) closed.
   W_n monotonic + ≥ 4/3 + below-1 cut closed.  Upper deferred.
+- 2026-04-25 후속: Wallis upper invariant **closed** via
+  Flat-Monomial Strategy.  `wallis_poly_identity`,
+  `wallis_upper_inv`, `wallis_orderProj_above_2`,
+  `wallis_orderCauchy_at_concrete` 모두 propext+Quot.sound only.
+  π/2 ∈ (1, 2) Dedekind cut full demonstration.
