@@ -516,12 +516,17 @@ larger cardinalities without committing to either as axiomatic.
 
 ### §5.5 Comprehension → distinguishing-closed subtype
 
-`Research/SubtypeInstance.lean` realizes the Axiom of
-Comprehension's 213-side analog: for any predicate `P : Raw → Prop`
-that is closed under the distinguishing operation, the subtype
-`{r : Raw // P r}` carries a `HasDistinguishing` instance (§9).
-ZFC's *arbitrary* subset commitment is replaced by the *closure
-condition* on `P`.
+`Research/SubtypeInstance.lean` realizes the 213-side analog of
+Comprehension: for any predicate `P : Raw → Prop` containing
+both `Raw.a` and `Raw.b`, the subtype `{r : Raw // P r}`
+carries a `HasDistinguishing` instance.  The instance currently
+uses a *degenerate* combine (constantly returning `⟨Raw.a, h_a⟩`)
+because the meaningful slash-based combine encounters a
+nested-Subtype elaboration limit (§8.3); supplying a
+non-degenerate combine would additionally require `P` to be
+closed under `Raw.slash` for distinct arguments.  Even in this
+weakened form, ZFC's *arbitrary* subset commitment is replaced
+by an explicit closure precondition.
 
 ### §5.6 Coproduct → Prism dual
 
@@ -820,8 +825,10 @@ commitments.
 
 - Sharpening individual cut bounds (e.g., e ≤ 5/2, π/2 ≤ 4/3).
 - Additional Lens catalogue entries.
-- Integration of the r5-critique sub-track (a separate arc on
-  the ℝ-algebra assumption used by an earlier paper draft).
+- Integration of the r5-critique sub-track
+  (`213/research/r5-critique/`): a separate arc analysing the
+  ℝ-algebra assumption used by an earlier abandoned paper draft
+  (`papers/paper14_213.tex`).  This is a Paper 2 candidate.
 
 ### §8.5 Acknowledgments
 
@@ -838,23 +845,33 @@ re-derived rather than accepted on authority.
 
 ### §9.1 The thesis
 
-The framework's central claim, beyond the formal results of
-§§2-7, is that **213 is the semantic atom**: any entity carrying
-*meaning* — in the sense of being distinguishable from others —
-necessarily satisfies the Raw axiom and admits a Lens
-observation.
+The framework's central claim, beyond the individual formal
+results of §§2-7, is the following.  Reading "an entity carries
+meaning" as "the entity sits in a type with at least two
+distinguishable elements observed by some commutative
+operation", the framework expresses such entities exactly via
+the `(HasDistinguishing α, universalMorphism Raw α)` pair.
 
-The thesis decomposes into two clauses:
+The thesis decomposes into two clauses, each *formally
+verified* in scope:
 
-1. **Genesis of meaning** has two minimal conditions:
-   *distinction* (the entity differs from at least one other
-   thing) and *interpretation* (the difference is observed via
-   some lens).  These two conditions correspond exactly to
-   `Raw` and `Lens`.
+1. **Genesis of meaning** has two minimal data: *distinction*
+   (the existence of at least two unequal elements with a
+   commutative binary operation) and *interpretation* (a
+   homomorphism out of `Raw` into the entity's carrier).  These
+   correspond exactly to a `HasDistinguishing` instance and the
+   induced `universalMorphism : Raw → α`.
 2. **Strict minimality**: removing any clause of the Raw axiom
-   collapses the framework (§2.5), and stripping the Lens
-   layer reduces `Raw` to a syntactic carrier without
-   semantics.
+   collapses the framework (§2.5).  The Lens layer is the
+   minimal additional structure for non-trivial observation
+   (an empty Lens collection reduces `Raw` to a syntactic
+   carrier with no meaningful homomorphism out).
+
+The interpretive claim — that *all* "meaningful" entities, in
+the broadest pre-formal sense, fall under the framework — is
+not a Lean theorem.  It is a philosophical reading of the
+formal results, supported by the wide range of `HasDistinguishing`
+instances exhibited in §§5, 7, and 9.2.
 
 ### §9.2 Fifteen formal components
 
@@ -900,11 +917,17 @@ Quot.sound]`:
 in degenerate combine form is included in the framework but, as
 explained in §8.3, awaits a meaningful slash-based combine.)
 
-The components together establish that the framework is
-self-cover-closed: every direction in which one might exit the
-framework — into metalanguage, into arbitrary subsets, into
-recursive Lens hierarchies, into coproducts — is itself an
-internal instance of the framework.
+Taken together the components establish that the framework
+absorbs the structural extensions we attempted: a particular
+metalanguage truth-value type (`Prop` with one of four
+connectives) becomes a `HasDistinguishing` instance; the
+recursive `Lens^n α` tower yields instances at every level;
+binary product, function space, and Sum/Coproduct each fit the
+abstraction.  This does not prove that *every* conceivable
+extension fits — only that the extensions we tried did fit, and
+that the few that resisted (§8.3) failed for identifiable
+infrastructural reasons (Lean elaborator, LEM gap), not for
+mathematical ones.
 
 ### §9.3 ZFC contrast
 
