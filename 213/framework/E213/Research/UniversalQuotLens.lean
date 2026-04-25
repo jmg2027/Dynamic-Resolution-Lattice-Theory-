@@ -1,4 +1,5 @@
 import E213.Hypervisor.Lens
+import E213.Research.KernelCongruence
 
 /-!
 # Research.UniversalQuotLens: Q37.3 의 일반 해결
@@ -128,5 +129,27 @@ theorem universalLens_kernel_eq_E
     constructor
     · intro hrs; exact htrans _ _ _ (hsymm _ _ hrr') hrs
     · intro hr's; exact htrans _ _ _ hrr' hr's
+
+end E213.Research.UniversalQuotLens
+
+namespace E213.Research.UniversalQuotLens
+
+open E213.Firmware E213.Hypervisor
+
+/-- **Canonical form 정리**: 임의 Lens M 에 대해, universalLens
+    M.equiv 의 kernel = M 의 kernel.  즉 universalLens 가 모든
+    Lens 의 canonical form. -/
+theorem universalLens_recovers (α : Type) (M : Lens α)
+    (hMsym : ∀ u v, M.combine u v = M.combine v u)
+    (r r' : Raw) :
+    (universalLens M.equiv).view r = (universalLens M.equiv).view r'
+      ↔ M.view r = M.view r' := by
+  apply universalLens_kernel_eq_E
+  · intro x; rfl
+  · intro x y h; exact h.symm
+  · intro x y z h1 h2; exact h1.trans h2
+  · intro x x' y y' hxy hx'y' hxx' hyy'
+    exact E213.Research.KernelCongruence.Lens.equiv_slash_congruence
+      M hMsym x x' y y' hxy hx'y' hxx' hyy'
 
 end E213.Research.UniversalQuotLens
