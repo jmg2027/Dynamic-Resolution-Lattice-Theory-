@@ -18,6 +18,13 @@
 213의 공리는 "세상의 근본"에 대한 주장이 아니다.
 **뭔가를 가리키려는 순간 피할 수 없이 남는 최소 잔여물**이다.
 
+이 잔여물 의 정확 한 의미: **의미 + 존재 의 atom**.  의미 있는
+모든 entity (수학적 object, 논리 system, 물리 universe entity)
+가 213 의 instance.  자기 self-cover (thesis 자체 가 instance)
++ 외부 정당화 부재 = 완전 한 닫힘.  자세 한 분석 은
+`research/infinity-as-lens/notes/75_semantic_atom.md` + `AXIOM.md`
+§1.1 + `Research/{AxiomMinimality, SemanticAtom}.lean`.
+
 - "a와 b"를 쓰는 순간 "와"도 뭔가다.
 - "a, b"를 쓰는 순간 ","도 뭔가다.  그 ","가 일반적인지
   절대적인지도 모른다 — 또 하나의 뭔가.

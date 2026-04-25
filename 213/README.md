@@ -17,8 +17,23 @@ is the primitive *distinction* operation, applied recursively
 (`Raw.slash x y` with `x ≠ y`).  No equality, no order, no set
 theory pre-imposed — those arise as Lens-level outputs.
 
+## Central thesis
+
+> 213 = **의미 + 존재 의 atom** (semantic & ontological atom).
+>
+> 의미 를 갖는 어떤 것 도 213 을 벗어날 수 없다.  더 원초 적
+> 부재 (`Research/AxiomMinimality.lean` 의 4 case).  Statement
+> 자체 가 의미 → 213 의 instance → 완전 한 self-cover.  자세
+> 한 분석: `notes/75_semantic_atom.md`, `AXIOM.md` §1.1.
+
 ## What the framework establishes
 
+- **Semantic atom hub** (`Research/SemanticAtom.lean`).
+  `HasDistinguishing` typeclass — Raw 가 distinguishing-framework
+  category 의 initial object.
+- **Strict minimum** (`Research/AxiomMinimality.lean`, 4 cases).
+  Raw axiom 의 어떤 clause (a, b, slash, distinctness) 도 제거 시
+  framework 가 trivial / static / void 로 collapse.
 - **Encoding-artifact independence** (`Research/CmpIndependence.lean`).
   Two different total orders on the underlying `Tree` give the
   same Raw up to isomorphism — the encoding choice has no
