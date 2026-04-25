@@ -178,3 +178,24 @@ theorem projectionLens_view {α β ι : Type} (L : Lens α) (F : ι → α → �
       exact (compat i (L.view x) (L.view y)).symm
 
 end E213.Research.GenericFamilyCauchy
+
+namespace E213.Research.GenericFamilyCauchy
+
+open E213.Firmware E213.Hypervisor
+
+/-- **Mod family projectionLens**: leaves + mod 가 fold-compatible
+    → single fold-structured Lens (Nat → Nat). -/
+def leavesModAllLens : Lens (Nat → Nat) :=
+  projectionLens Lens.leaves
+    (fun (m : Nat) (n : Nat) => n % (m + 1))
+    (fun (m : Nat) (a b : Nat) => (a + b) % (m + 1))
+
+/-- leavesModAllLens.view r 의 m-th 컴포넌트 = leaves r % (m+1). -/
+theorem leavesModAllLens_view (r : Raw) :
+    leavesModAllLens.view r = fun m => Lens.leaves.view r % (m + 1) := by
+  apply projectionLens_view
+  · intro u v; exact Nat.add_comm u v
+  · intro _ u v; rw [Nat.add_comm u v]
+  · intro m u v; exact Nat.add_mod u v (m + 1)
+
+end E213.Research.GenericFamilyCauchy
