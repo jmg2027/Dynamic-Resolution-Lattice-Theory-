@@ -304,3 +304,56 @@ theorem exists_non_lens_expressible :
   exact E213.Research.DepthParityNotFold.depthParityFn_not_fold_structured
 
 end E213.Research.SemanticAtom
+
+namespace E213.Research.SemanticAtom
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.RawInitiality
+
+/-! ### Universal property of `HasDistinguishing` category
+
+`Lens.initiality` (RawInitiality.lean) 의 HasDistinguishing-level
+재진술.  Raw 가 distinguishing-framework category 의 *initial
+object* 의 명시 적 ∃! statement. -/
+
+/-- **Universal morphism uniqueness**: HasDistinguishing α 의
+    instance 에 대해, distinguishing-preserving 함수 Raw → α
+    가 정확히 `universalMorphism α`. -/
+theorem universalMorphism_unique (α : Type) [d : HasDistinguishing α]
+    (f : Raw → α)
+    (ha : f Raw.a = d.a)
+    (hb : f Raw.b = d.b)
+    (hslash : ∀ (x y : Raw) (h : x ≠ y),
+              f (Raw.slash x y h) = d.combine (f x) (f y)) :
+    ∀ r : Raw, f r = universalMorphism α r := by
+  intro r
+  exact Lens.view_unique
+    (⟨d.a, d.b, d.combine⟩ : Lens α) d.combine_sym f ha hb hslash r
+
+/-- **Raw 가 HasDistinguishing-category 의 initial object**:
+    임의 instance α 에 대해, distinguishing-preserving 함수
+    Raw → α 가 *unique 하게* 존재 (= `universalMorphism α`).
+    이게 "213 axiom 이 모든 의미 framework 의 minimum" 의
+    categorical 명시.  (∃! Lean 4 core syntax 부재, explicit
+    existence + uniqueness conjunction 형식.) -/
+theorem raw_initial (α : Type) [d : HasDistinguishing α] :
+    ∃ f : Raw → α,
+      (f Raw.a = d.a) ∧
+      (f Raw.b = d.b) ∧
+      (∀ (x y : Raw) (h : x ≠ y),
+        f (Raw.slash x y h) = d.combine (f x) (f y)) ∧
+      (∀ g : Raw → α,
+        g Raw.a = d.a →
+        g Raw.b = d.b →
+        (∀ (x y : Raw) (h : x ≠ y),
+          g (Raw.slash x y h) = d.combine (g x) (g y)) →
+        g = f) := by
+  refine ⟨universalMorphism α, ?_, ?_, ?_, ?_⟩
+  · exact universalMorphism_a α
+  · exact universalMorphism_b α
+  · intro x y h; exact universalMorphism_slash α x y h
+  · intro g hga hgb hgslash
+    funext r
+    exact universalMorphism_unique α g hga hgb hgslash r
+
+end E213.Research.SemanticAtom
