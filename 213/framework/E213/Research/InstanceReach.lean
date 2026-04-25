@@ -180,3 +180,124 @@ theorem nat_image_via_slash_ab :
   rfl
 
 end E213.Research.InstanceReach
+
+namespace E213.Research.InstanceReach
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### Nat surjective: 완전 증명
+
+`natHasDistinguishing` 가 surjective — ∀ n : Nat, ∃ r : Raw,
+universalMorphism Nat r = n.
+
+Witness construction: induction on n.
+- n = 0: r = Raw.a.
+- n ≥ 1: r n := Raw.slash (Raw.a) (witness for n-1 ≥ 1) + base
+  case Raw.b for n = 1.
+
+Trick: induction with strong invariant — r n ≠ Raw.a for n ≥ 1
++ universalMorphism r n = n.  Then slash Raw.a (r n) (a ≠ rn).
+-/
+
+/-- Helper: Raw.slash 의 결과 가 Raw.a 와 다름 (depth-based proof). -/
+private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
+    Raw.slash x y h ≠ Raw.a := by
+  intro heq
+  have hview := congrArg Lens.depth.view heq
+  have hslash : Lens.depth.view (Raw.slash x y h)
+                = 1 + max (Lens.depth.view x) (Lens.depth.view y) := by
+    apply Raw.fold_slash
+    intro u v
+    show 1 + max u v = 1 + max v u
+    rw [Nat.max_comm]
+  rw [hslash] at hview
+  show False
+  have h_a : Lens.depth.view Raw.a = 0 := rfl
+  rw [h_a] at hview
+  omega
+
+end E213.Research.InstanceReach
+
+namespace E213.Research.InstanceReach
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### natWitness construction note
+
+각 Nat n 의 explicit Raw witness:
+- r 0 := Raw.a (universalMorphism = 0).
+- r (n+1) := slash Raw.b (r n) (proof Raw.b ≠ r n).
+  → universalMorphism = 1 + n.
+Need: ∀ n, r n ≠ Raw.b.  By induction:
+- r 0 = Raw.a ≠ Raw.b (decide).
+- r (n+1) = slash _ _ _ ≠ Raw.b (slash_ne_b 로 proof).
+-/
+
+/-- Helper: Raw.slash 의 결과 가 Raw.b 와 다름. -/
+private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
+    Raw.slash x y h ≠ Raw.b := by
+  intro heq
+  have hview := congrArg Lens.depth.view heq
+  have hslash : Lens.depth.view (Raw.slash x y h)
+                = 1 + max (Lens.depth.view x) (Lens.depth.view y) := by
+    apply Raw.fold_slash
+    intro u v
+    show 1 + max u v = 1 + max v u
+    rw [Nat.max_comm]
+  rw [hslash] at hview
+  show False
+  have h_b : Lens.depth.view Raw.b = 0 := rfl
+  rw [h_b] at hview
+  omega
+
+end E213.Research.InstanceReach
+
+namespace E213.Research.InstanceReach
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-- Helper: combined `r ≠ Raw.b` for both Raw.a and slash forms. -/
+private theorem natWitness_ne_b_helper (r : Raw)
+    (h : r = Raw.a ∨ ∃ x y h', r = Raw.slash x y h') :
+    r ≠ Raw.b := by
+  rcases h with hra | ⟨x, y, h', hsl⟩
+  · subst hra; decide
+  · subst hsl; exact slash_ne_b x y h'
+
+end E213.Research.InstanceReach
+
+namespace E213.Research.InstanceReach
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-- **Nat surjective with form invariant**: 모든 n 에 대해 explicit
+    Raw witness 의 form 도 동시에 induct (form invariant 가 induction
+    step 에서 사용). -/
+theorem nat_surjective_with_form : ∀ n : Nat, ∃ r : Raw,
+    universalMorphism Nat r = n ∧
+    (r = Raw.a ∨ ∃ x y h, r = Raw.slash x y h) := by
+  intro n
+  induction n with
+  | zero => exact ⟨Raw.a, universalMorphism_a Nat, Or.inl rfl⟩
+  | succ n ih =>
+      obtain ⟨r, hr_view, hr_form⟩ := ih
+      have h_ne : r ≠ Raw.b := natWitness_ne_b_helper r hr_form
+      have h_b_ne_r : Raw.b ≠ r := Ne.symm h_ne
+      refine ⟨Raw.slash Raw.b r h_b_ne_r, ?_, Or.inr ⟨Raw.b, r, h_b_ne_r, rfl⟩⟩
+      rw [universalMorphism_slash Nat Raw.b r h_b_ne_r,
+          universalMorphism_b Nat, hr_view]
+      show 1 + n = n + 1
+      exact Nat.add_comm 1 n
+
+/-- **Main result**: Nat instance 의 universalMorphism 이 surjective. -/
+theorem nat_image_surjective :
+    ∀ n : Nat, ∃ r : Raw, universalMorphism Nat r = n := by
+  intro n
+  obtain ⟨r, hview, _⟩ := nat_surjective_with_form n
+  exact ⟨r, hview⟩
+
+end E213.Research.InstanceReach
