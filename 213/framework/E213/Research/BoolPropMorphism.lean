@@ -137,3 +137,106 @@ theorem universalMorphism_commute_xor (r : Raw) :
       rw [h1, h2, boolToProp_xor, ihx, ihy]
 
 end E213.Research.BoolPropMorphism
+
+namespace E213.Research.BoolPropMorphism
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+open E213.Research.InstanceReach
+
+/-! ### Or, Iff connective pairs 의 functoriality -/
+
+/-- Bool with or combine instance. -/
+def boolOrHasDistinguishing : HasDistinguishing Bool where
+  a := true
+  b := false
+  distinct := by decide
+  combine := Bool.or
+  combine_sym := Bool.or_comm
+
+/-- boolToProp 가 or combine 보존. -/
+theorem boolToProp_or (x y : Bool) :
+    boolToProp (Bool.or x y) = (boolToProp x ∨ boolToProp y) := by
+  unfold boolToProp
+  cases x <;> cases y <;> simp
+
+/-- **Functorial commutativity (Or pair)**. -/
+theorem universalMorphism_commute_or (r : Raw) :
+    @universalMorphism Prop propAsDistinguishingOr r
+      = boolToProp (@universalMorphism Bool boolOrHasDistinguishing r) := by
+  induction r using Raw.rec with
+  | a =>
+      have h1 : @universalMorphism Prop propAsDistinguishingOr Raw.a = True :=
+        @universalMorphism_a Prop propAsDistinguishingOr
+      have h2 : @universalMorphism Bool boolOrHasDistinguishing Raw.a = true :=
+        @universalMorphism_a Bool boolOrHasDistinguishing
+      rw [h1, h2, boolToProp_true]
+  | b =>
+      have h1 : @universalMorphism Prop propAsDistinguishingOr Raw.b = False :=
+        @universalMorphism_b Prop propAsDistinguishingOr
+      have h2 : @universalMorphism Bool boolOrHasDistinguishing Raw.b = false :=
+        @universalMorphism_b Bool boolOrHasDistinguishing
+      rw [h1, h2, boolToProp_false]
+  | slash x y h ihx ihy =>
+      have h1 : @universalMorphism Prop propAsDistinguishingOr (Raw.slash x y h)
+                = ((@universalMorphism Prop propAsDistinguishingOr x) ∨
+                   (@universalMorphism Prop propAsDistinguishingOr y)) :=
+        @universalMorphism_slash Prop propAsDistinguishingOr x y h
+      have h2 : @universalMorphism Bool boolOrHasDistinguishing (Raw.slash x y h)
+                = Bool.or (@universalMorphism Bool boolOrHasDistinguishing x)
+                          (@universalMorphism Bool boolOrHasDistinguishing y) :=
+        @universalMorphism_slash Bool boolOrHasDistinguishing x y h
+      rw [h1, h2, boolToProp_or, ihx, ihy]
+
+end E213.Research.BoolPropMorphism
+
+namespace E213.Research.BoolPropMorphism
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+open E213.Research.InstanceReach
+
+/-- Bool with beq (= equality on Bool) combine instance. -/
+def boolIffHasDistinguishing : HasDistinguishing Bool where
+  a := true
+  b := false
+  distinct := by decide
+  combine := fun x y => decide (x = y)
+  combine_sym := by intros x y; cases x <;> cases y <;> rfl
+
+/-- boolToProp 가 Iff combine 보존. -/
+theorem boolToProp_iff (x y : Bool) :
+    boolToProp (decide (x = y)) = (boolToProp x ↔ boolToProp y) := by
+  unfold boolToProp
+  cases x <;> cases y <;> simp
+
+/-- **Functorial commutativity (Iff pair)**. -/
+theorem universalMorphism_commute_iff (r : Raw) :
+    @universalMorphism Prop propAsDistinguishingIff r
+      = boolToProp (@universalMorphism Bool boolIffHasDistinguishing r) := by
+  induction r using Raw.rec with
+  | a =>
+      have h1 : @universalMorphism Prop propAsDistinguishingIff Raw.a = True :=
+        @universalMorphism_a Prop propAsDistinguishingIff
+      have h2 : @universalMorphism Bool boolIffHasDistinguishing Raw.a = true :=
+        @universalMorphism_a Bool boolIffHasDistinguishing
+      rw [h1, h2, boolToProp_true]
+  | b =>
+      have h1 : @universalMorphism Prop propAsDistinguishingIff Raw.b = False :=
+        @universalMorphism_b Prop propAsDistinguishingIff
+      have h2 : @universalMorphism Bool boolIffHasDistinguishing Raw.b = false :=
+        @universalMorphism_b Bool boolIffHasDistinguishing
+      rw [h1, h2, boolToProp_false]
+  | slash x y h ihx ihy =>
+      have h1 : @universalMorphism Prop propAsDistinguishingIff (Raw.slash x y h)
+                = ((@universalMorphism Prop propAsDistinguishingIff x) ↔
+                   (@universalMorphism Prop propAsDistinguishingIff y)) :=
+        @universalMorphism_slash Prop propAsDistinguishingIff x y h
+      have h2 : @universalMorphism Bool boolIffHasDistinguishing (Raw.slash x y h)
+                = decide
+                    ((@universalMorphism Bool boolIffHasDistinguishing x)
+                     = (@universalMorphism Bool boolIffHasDistinguishing y)) :=
+        @universalMorphism_slash Bool boolIffHasDistinguishing x y h
+      rw [h1, h2, boolToProp_iff, ihx, ihy]
+
+end E213.Research.BoolPropMorphism
