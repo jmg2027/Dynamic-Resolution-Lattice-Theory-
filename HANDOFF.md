@@ -1,4 +1,4 @@
-# Session Handoff — 2026-04-25 (semantic atom 17-direction)
+# Session Handoff — 2026-04-25 (mid-arc synthesis)
 
 ## Status
 
@@ -6,90 +6,81 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 All Lean modules build clean (`lake build` ✓).  0 sorry, 0
 external axioms (only `propext` + `Quot.sound` baseline).
 
-## Current arc — 의미 atom thesis 의 17 direction
+**Mid-arc synthesis**: `notes/93_mid_arc_synthesis.md` 가 현재 arc
+의 19 direction synthesis.
 
-Mingu thesis: "의미 를 갖는 어떤 것 도 213 을 벗어날 수 없다.
-213 이 semantic atom 이다."
+## Current arc — 의미 atom thesis 의 19 direction
 
-이 thesis 의 multifaceted formal evidence 가 17 direction (notes
-75-90 + 91 synthesis).
+Mingu thesis (2026-04-25): "의미 를 갖는 어떤 것 도 213 을
+벗어날 수 없다.  213 이 semantic atom 이다."
 
-### Lean modules (7 신규 in this arc)
+이 thesis 의 multifaceted formal evidence 가 19 direction (notes
+75-93) + 8 Lean modules.
 
-1. **`AxiomMinimality.lean`** (4 case): Raw axiom 의 어떤 clause
-   제거 시 framework collapse.
-2. **`SemanticAtom.lean`** (hub):
-   - `HasDistinguishing` typeclass.
-   - `universalMorphism` + `raw_initial` (universal property).
-   - 4 Prop instances: Xor (`canonicalTruthMap`), Iff
-     (`canonicalIffMap`), And (`canonicalAndMap`), Or
-     (`canonicalOrMap`).
-   - `IsLensExpressible` + `exists_non_lens_expressible` (boundary).
-3. **`LensCanonicalForm.lean`**:
-   - `refinesEquiv`, `lens_canonical_universal` (closure).
-4. **`InstanceReach.lean`**:
-   - 5 instance catalogue: Bool, Fin 3, Nat, Int, Raw.
-   - Image properties + surjective/non-surjective dichotomy.
-5. **`DistMorphism.lean`**:
-   - Category structure (id, comp, laws — 모두 axiom 부재).
-6. **`CanonicalTruthChar.lean`**:
-   - 4 connective characterizations:
-     - canonicalTruthMap ↔ a-count parity.
-     - canonicalIffMap ↔ b-count parity.
-     - canonicalAndMap ↔ r = Raw.a.
-     - canonicalOrMap ↔ r ≠ Raw.b.
-   - canonicalTruthMap ≠ canonicalIffMap (specific witness).
-7. **`BoolPropMorphism.lean`**:
-   - `boolToProp : Bool → Prop`.
-   - `universalMorphism_commute` (functorial commutativity).
+### 8 Lean modules (이번 arc)
 
-### Notes 75-91
+1. **`AxiomMinimality.lean`** (4 case): a/b/slash/distinctness 제거
+   시 framework collapse.
+2. **`SemanticAtom.lean`** (hub): HasDistinguishing typeclass +
+   universalMorphism + raw_initial + 4 Prop instances + boundary.
+3. **`LensCanonicalForm.lean`**: refinesEquiv + canonical form.
+4. **`InstanceReach.lean`**: 5-instance catalogue 의 reach dichotomy.
+5. **`DistMorphism.lean`**: category structure (id, comp, laws —
+   axiom 부재).
+6. **`CanonicalTruthChar.lean`**: 4 connective characterizations.
+7. **`BoolPropMorphism.lean`**: 4 connective pair functoriality.
+8. **`PairInstance.lean`**: categorical binary product.
 
-| Notes | 주제 |
-|-------|------|
-| 75 | Conceptual thesis (semantic atom). |
-| 76 | Self-application (Prop Xor instance). |
-| 77 | Function boundary. |
-| 78 | Lens closure. |
-| 79 | Universal property. |
-| 80, 81, 84, 85 | Reach catalogue (5 instances). |
-| 82 | Categorical structure (DistMorphism). |
-| 83 | (Initial 9-direction synthesis.) |
-| 86 | canonicalTruthMap = a-count parity. |
-| 87 | canonicalTruthMap ≠ canonicalIffMap. |
-| 88 | canonicalAndMap = r = Raw.a (degenerate). |
-| 89 | canonicalOrMap = r ≠ Raw.b (dual). |
-| 90 | Bool ↔ Prop functorial commutativity. |
-| **91** | **Master synthesis (17 direction).** |
+### 19 direction summary
 
-### Documentation status
+| 그룹 | Direction | Notes |
+|-----|-----------|-------|
+| Foundation | strict minimum (4) | (AxiomMinimality) |
+| | HasDistinguishing | 75 |
+| Universal | universal morphism + property | 79 |
+| Self-application | 4 Prop instances (Xor, Iff, And, Or) | 76, 87, 88, 89 |
+| Boundary | function-level + Lens-level | 77, 78 |
+| Reach | 5-instance dichotomy | 80, 81, 84, 85 |
+| Categorical | DistMorphism + product | 82, 92 |
+| Characterization | 4 connective invariants | 86, 87 |
+| Functoriality | cross-instance commutativity | 90 |
+| Synthesis | mid-arc | 93 |
 
-- `213/AXIOM.md` §1.1 (formal core) + §1.2 (philosophical
-  extension) 분리.
+### Documentation
+
+- `213/AXIOM.md` §1.1 (formal core) + §1.2 (philosophical) 분리.
 - `213/CLAUDE.md` thesis 통합.
-- `213/README.md` central thesis + framework establishments.
-- `213/research/infinity-as-lens/notes/91` master synthesis.
+- `213/README.md` central thesis.
+- `notes/93_mid_arc_synthesis.md` master synthesis.
 
-## File map (current)
+## File counts
 
-- Root docs: `README.md`, `AXIOM.md`, `ORIGIN.md`, `CLAUDE.md`,
-  `NOTATION.md`, `IMPLEMENTATION.md`, `AUDIT_Lean.md`,
-  `PAPER1_OUTLINE.md` (in `213/`).
-- Notes: `213/research/infinity-as-lens/notes/` (62 files,
-  numbered 00-91 with gaps where superseded).
-- Lean: `213/framework/E213/` (Firmware → Hypervisor → OS → App
-  → Meta → Tactic → Infinity → Research).
-  - Research/ root: 70+ files.
-  - Research/CayleyDickson/: 29 files (R5 sub-track).
+- Lean Research: 71 files in root + 29 in CayleyDickson sub-dir.
+- Notes: 64 files (00-93 with gaps).
 
-## User priority
+## User priority (확인 됨)
 
-paper 1 / 2 작성 priority 부재 (2026-04-25 명시).  연구 의
-self-contained depth 가 priority.  PAPER1_OUTLINE.md 는 outline
-으로 보존 — actual prose writing 부재.
+paper 작성 priority 부재.  연구 의 self-contained depth 가
+priority.  PAPER1_OUTLINE.md 는 outline 으로 보존.
 
-## Open work
+## Phenomenon 의 끝점 평가 (sober)
 
-- Catalogue 더 (Lens-on-Lens, function space).
-- Cross-instance morphisms (Iff, Xor, Or pair commute statements).
-- r5-critique → 별도 arc (Paper 2 candidate).
+**Mathematically complete picture** 도달:
+- Foundation, universal property, self-application, boundary,
+  reach, categorical structure, characterization, functoriality
+  — 모두 cover.
+
+**남은 work** (incremental returns):
+- Lens-on-Lens (note 53 thesis 의 formal — 까다로움).
+- Function space instance (commutative combine 의 design 필요).
+- 다른 negative results (depth parity 외 의 non-fold-structured).
+- Catalogue 확장 (incremental).
+
+이번 arc 가 phenomenon 의 자연 stopping point — 더 진행 시
+incremental.  HANDOFF + synthesis 완료.
+
+## Next session 권장
+
+- 새 thesis 또는 axis 가 발견 되면 진행.
+- 또는 r5-critique sub-track (Paper 2 candidate) 진입.
+- 또는 IMPLEMENTATION.md / AUDIT_Lean.md polishing.
