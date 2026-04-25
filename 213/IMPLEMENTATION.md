@@ -322,16 +322,22 @@ Raw 에 대한 올바른 관측이 아니지만, 이는 **user 의 Lens 선택
 - ValidLens 술어 / 대칭 combine 요구가 "cmp 선택에 불변인
   Lens" 의 정확한 특성화임이 드러난다.
 
-**현재 상태**: 형식화 없음.  대신 다음이 간접 증거:
-- `Raw.slash_comm` 증명이 cmp 의 `swap` 속성만 사용.
-- `fold_slash` 의 `hsym` 전제가 cmp 에 의존하지 않는 결과를
-  보장.
-- Firmware 의 모든 public 정리가 오직 위 두 정리를 통해서만
-  cmp 를 참조.
+**현재 상태**: **형식화 완료** (`Research/CmpIndependence.lean`).
 
-**Future session 과제**: 이 meta-theorem 을 Lean 으로 형식화.
-`variable (cmp₁ cmp₂ : Tree → Tree → Ordering)` 로
-parameterize 하고 transport 함수 작성.  대략 1-2 세션.
+- Phase 1: `CmpProps` (eq_iff + swap) 추상화, `canonicalBy` /
+  `RawBy` 가 임의 cmp 에 대해 정의됨.
+- Phase 2-2.5: polymorphic `RawBy.slash` + `RawBy.slash_comm`
+  (slashTree commutativity 를 통해 Raw-level 에서 swap-invariance).
+- Phase 3-3.5: `transportTree` (computable Tree-level fold) 와
+  `transportRawBy` 가 양방향 정의되고, `RawBy_bijection` 으로
+  RawBy cmp₁ ≃ RawBy cmp₂ 이 형식 증명됨.
+
+`#print axioms RawBy_bijection`: [propext] only — Classical.choice
+부재.  AXIOM §5.2.1 falsifiability 유지.
+
+따라서 Firmware 의 cmp 선택은 **수학적 결과 에 영향 없음** 이
+기계 검증되었고, cmp 는 encoding 의 outside 선택이라는 분류 (β)
+가 형식적으로 입증.
 
 ---
 
@@ -436,11 +442,16 @@ emulator** 이다.  구현 장치를 분류하면:
 
 ### §7.3 미해결 과제
 
-- (future) cmp-independence meta-theorem 형식화 (§5).
+- ~~cmp-independence meta-theorem 형식화 (§5)~~ — **완료**
+  (CmpIndependence.lean, 2026-04-25).
 - (future) ValidLens 술어 도입 (§4 E).
 - (short-term) Lens-layer bleed 이전 — Raw.depth,
   Raw.leaves 등을 Hypervisor 로 (§4 없는 번호, AUDIT_Lean
   §3 권고 3).
+- (extension, completed) p-adic ℤ_p sub-tower 형식화
+  (`Research/Padic.lean`, note 71): leavesModNat sub-family
+  + factorial seq instance.  ZFC reduction scope 가 number-
+  theoretic limit 영역 까지 확장.
 
 이 과제들은 모두 **안전장치의 강화** 이지 공리의 변경이
 아니다.
