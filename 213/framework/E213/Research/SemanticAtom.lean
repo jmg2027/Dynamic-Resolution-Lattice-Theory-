@@ -1,6 +1,8 @@
 import E213.Hypervisor.Lens
 import E213.Research.RawInitiality
 import E213.Research.AxiomMinimality
+import E213.Research.FoldStructured
+import E213.Research.DepthParityNotFold
 
 /-!
 # Research.SemanticAtom: 213 = 의미 의 atom (formal hub)
@@ -251,5 +253,54 @@ def propAsDistinguishingIff : HasDistinguishing Prop where
     의 non-uniqueness 보임. -/
 def canonicalIffMap : Raw → Prop :=
   @universalMorphism Prop propAsDistinguishingIff
+
+end E213.Research.SemanticAtom
+
+namespace E213.Research.SemanticAtom
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.FoldStructured
+
+/-! ### Negative direction: Lens-expressibility 의 boundary
+
+§1.1 (formal core) 의 dual.  `HasDistinguishing` typeclass 가
+"의미 framework 의 abstraction" 의 positive form 이라면, 다음
+은 negative form: **framework 안 표현 부재 한 함수 의 존재**.
+
+이미 `Research/{NoDepthParity, DepthParityNotFold,
+SlashCharNotFold}.lean` 에 specific instance 들 형식 화 됨.
+여기 서 통합 statement 명시 — Lens-expressibility 가 자명 하지
+않은 boundary (모든 Raw → α 함수 가 Lens-expressible 인 게
+아님).
+
+Note 77 의 통합 분석. -/
+
+/-- **Lens-expressible** 의 정확 한 정의: f 가 어떤 Lens L 의
+    view (with combine 의 swap-symmetry 가정). -/
+def IsLensExpressible {α : Type} (f : Raw → α) : Prop :=
+  ∃ L : Lens α, (∀ u v, L.combine u v = L.combine v u) ∧
+                (∀ r, L.view r = f r)
+
+/-- IsLensExpressible ↔ FoldStructured.  FoldStructured.lean
+    의 결과 의 wrapping. -/
+theorem isLensExpressible_iff_foldStructured {α : Type} (f : Raw → α) :
+    IsLensExpressible f ↔ FoldStructured f := by
+  unfold IsLensExpressible
+  constructor
+  · rintro ⟨L, hsym, hview⟩
+    have h : L.view = f := funext hview
+    rw [← h]
+    exact lens_view_fold_structured L hsym
+  · intro hfs
+    obtain ⟨L, hsym, hview⟩ := fold_structured_lens_expressible f hfs
+    exact ⟨L, hsym, fun r => congrFun hview r⟩
+
+/-- **Negative existence**: ∃ f : Raw → Bool, f 가 Lens-expressible
+    이 아님.  의미 atom thesis 의 boundary 의 직접 evidence. -/
+theorem exists_non_lens_expressible :
+    ∃ f : Raw → Bool, ¬ IsLensExpressible f := by
+  refine ⟨E213.Research.DepthParityNotFold.depthParityFn, ?_⟩
+  rw [isLensExpressible_iff_foldStructured]
+  exact E213.Research.DepthParityNotFold.depthParityFn_not_fold_structured
 
 end E213.Research.SemanticAtom

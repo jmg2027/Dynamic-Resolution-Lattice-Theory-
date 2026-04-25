@@ -32,13 +32,20 @@ trivial / static / void 로 collapse.  즉 Raw axiom 이 "두
 distinguishable bases + binary combine + distinctness" 의 strict
 minimum 임 의 framework-internal 증명.
 
-`Research/SemanticAtom.lean` 의 `HasDistinguishing` typeclass +
-`universalMorphism` — Raw 가 distinguishing-framework category
-의 initial object 인 partial form (RawInitiality 의 일반화).
+`Research/SemanticAtom.lean` 의 결과:
+- `HasDistinguishing` typeclass + `universalMorphism` — Raw 가
+  distinguishing-framework category 의 initial object 인 partial
+  form (RawInitiality 의 일반화).
+- `IsLensExpressible` 정의 + `exists_non_lens_expressible` — 모든
+  Raw → α 함수 가 Lens-expressible 이 아님 (boundary 의 non-
+  trivial).  Witness: depth parity (`DepthParityNotFold`).
+- `Prop` 의 instance (Xor + Iff alternatives) — metalanguage 의
+  truth-value type 도 distinguishing framework 의 instance 가
+  될 수 있음.
 
-위 두 결과 가 framework 의 self-justified minimality 의 형식
-core.  외부 metatheory 부재 — `#print axioms` 가 모든 결과 에
-대해 [propext] only (or no axioms).
+위 결과 들 이 framework 의 self-justified core.  외부 metatheory
+부재 — `#print axioms` 가 모든 결과 에 대해 [propext, Quot.sound]
+or no axioms.
 
 ### §1.2 Conceptual extension (philosophical)
 
