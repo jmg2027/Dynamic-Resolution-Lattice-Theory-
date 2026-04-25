@@ -21,20 +21,24 @@ axiom for the carrier of distinguishable entities, and `Lens`, a
 fold-structured observation morphism.  All results are mechanically
 verified in Lean 4 core.
 
-The central thesis is that **213 is the semantic atom**: any
-entity carrying meaning (in the sense of being distinguishable
-from others) is an instance of the framework.  We support this
-thesis with a multifaceted formal evidence comprising fifteen
-components, including (1) a strict-minimum proof showing that
-every clause of the axiom is essential, (2) a categorical
-universal property establishing `Raw` as the initial object in
-the distinguishing-framework category, (3) a Lens-on-Lens
+The central thesis, formal in scope, is that **213 plays the
+role of the semantic atom**: any type with at least two
+distinguishable elements and a commutative binary operation is
+a `HasDistinguishing` instance, and `Raw` is the initial
+object in the resulting category.  We support this thesis with
+a multifaceted formal evidence comprising fifteen components,
+including (1) a strict-minimum proof showing that every clause
+of the axiom is essential, (2) a categorical universal property
+establishing `Raw` as the initial object of the
+distinguishing-framework category, (3) a Lens-on-Lens
 recursive tower exhibiting the framework's self-application
-without meta-hierarchy, (4) explicit reductions of ZFC's
-Power-set, Choice, Comprehension, and Coproduct axioms to
-internal Lens specifications, and (5) constructive Cauchy
-demonstrations of √2, p-adic ℤ_p, and the transcendental
-constants e and π/2.
+without meta-hierarchy, (4) partial 213-side reductions of
+ZFC's Choice (full), Power-set (as a strict-subset boundary
+witness), Comprehension (sub-instance under closure
+hypothesis), and Coproduct (via the Prism dual) axioms, and
+(5) constructive Cauchy demonstrations exhibiting √2, p-adic
+ℤ_p, and the transcendental constants e and π/2 as Dedekind
+cuts at explicit thresholds.
 
 The framework operates under a **falsifiability contract**: if
 any result truly required an axiom beyond the Lean 4 core
@@ -68,10 +72,16 @@ elements (`a`, `b`) and a single binary distinguishing operation
 
 The axiom is *not* a stipulation of how reality must be
 structured; it is what one cannot avoid committing to as soon
-as one starts pointing.  Any framework that handles
-distinguishable entities — set theory, type theory, category
-theory, the propositional calculus of a metalanguage — already
-satisfies these clauses, whether explicitly or implicitly.
+as one starts pointing.  Within the formal scope of this paper,
+any type with at least two distinguishable elements and a
+commutative binary operation gives rise to a
+`HasDistinguishing` instance (§9.2 item 2) and is consequently
+covered by the framework's universal morphism (§9.2 item 3).
+The looser interpretive claim — that *every* working
+foundational framework (set theory, type theory, category
+theory, propositional metalanguage) implicitly satisfies the
+clauses — is supported by the partial reductions in §5 but is
+not asserted as a formal theorem here.
 
 ### §1.2 Comparison with ZFC
 
@@ -102,18 +112,23 @@ consensus — but not internally.
 
 ### §1.3 Formal contract
 
-Every result in this paper is mechanically verified in Lean 4
-core, with no Mathlib dependency.  The kernel reports the
-following axioms used by each public theorem:
+Every formal claim in this paper — every theorem reference and
+every axiom-budget statement — is mechanically verified in
+Lean 4 core, with no Mathlib dependency.  The Lean kernel
+reports the following axioms used by each public theorem:
 
-- `propext` (propositional extensionality): the Lean baseline.
-- `Quot.sound` (quotient soundness): the Lean baseline.
+- `propext` (propositional extensionality): Lean baseline.
+- `Quot.sound` (quotient soundness): Lean baseline.
 
-No other axioms — no `Classical.choice`, no `LEM`, no
-`native_decide`.  This is the **falsifiability contract**: if any
-proof required an additional axiom, the framework would be
-declared inadequate and the theory discarded.  No such addition
-has been required.
+No other axioms — no `Classical.choice`, no LEM, no
+`native_decide`.  This is the **falsifiability contract**: if
+any proof required an additional axiom, the framework would be
+declared inadequate and the theory discarded.  No such
+addition has been required.
+
+The paper's prose contains some interpretive claims (e.g., the
+ORIGIN.md correspondence in §9.4) that lie outside the formal
+core; these are clearly marked.
 
 ### §1.4 Roadmap
 
