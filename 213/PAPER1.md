@@ -472,22 +472,34 @@ All proofs use only `[propext]` and `[Quot.sound]`; no
 
 ### §5.2 Power set: constructive subset, not full P(X)
 
-The set of Lens kernels on `Raw` forms a meet-semilattice via
-the refines preorder.  This space is *not* the full power set
-of `Raw → Raw → Prop`: only slash-congruences arise as Lens
-kernels (`KernelCongruence.lean`).  `Research/NoDepthParity.lean`
-exhibits a binary relation on `Raw` (depth-parity equality) that
-is *not* a slash-congruence and therefore not a Lens kernel.
+Lens kernels are not arbitrary equivalence relations on `Raw`;
+they are *slash-congruences* — equivalence relations preserved
+by `Raw.slash` for distinct arguments
+(`KernelCongruence.Lens.equiv_slash_congruence`).  Conversely,
+`Research/NoDepthParity.lean` shows that depth-parity equality
+on `Raw` is not a slash-congruence, hence not a Lens kernel:
 
-Combined with the boundary witness
-`Research/SemanticAtom.exists_non_lens_expressible`, this
-establishes that:
+```
+theorem NoDepthParity.depthParity_ker_not_slash_cong : ...
+```
 
-**213 commits to a strictly smaller structure than ZFC's
-power set** — it represents only those subsets that are
-*expressible* via fold-structured observations.  This is not a
-weakness; it is the framework's deliberate refusal to commit
-to LEM-dispatchable arbitrary subsets.
+(See `Research/DepthParityNotFold.lean` for the function-level
+version: depth-parity-as-Bool is not fold-structured.)
+
+This is wrapped at the function level in `SemanticAtom.lean`:
+
+```
+theorem exists_non_lens_expressible :
+    ∃ f : Raw → Bool, ¬ IsLensExpressible f
+```
+
+Together: the Lens-kernel space is *strictly smaller* than the
+full power set of `Raw → Raw → Prop`, with depth parity as the
+explicit witness of strict inclusion.  This is not a deficiency
+but the framework's deliberate scope: it represents the
+fold-structured (i.e., distinguishing-coherent) subsets of
+`Raw`, refusing to commit to arbitrary LEM-dispatchable
+subsets.
 
 ### §5.3 Infinity → unbounded depth Raw
 
@@ -1015,23 +1027,46 @@ claimed).
 
 ---
 
-## References (placeholder)
+## References
 
-Internal sources:
-- `213/AXIOM.md` (axiom seed document).
-- `213/IMPLEMENTATION.md` (Raw + Firmware audit).
-- `213/AUDIT_Lean.md` (Lean × AXIOM correspondence).
-- `213/ORIGIN.md` (physical intuition chain, frozen 2026-04-24).
-- `213/research/infinity-as-lens/notes/` (numbered analysis
-  notes 00-99).
-- `213/framework/E213/` (Lean 4 formalization).
+The proofs in this paper depend on no external sources beyond
+Lean 4 core.  References below are pointers to the development
+artifacts (where every theorem mentioned is recorded) and to
+the surrounding mathematical and historical context.
 
-External (not invoked within proofs, but informing motivation):
-- Standard set theory ZFC (Zermelo-Fraenkel + Choice).
-- Mac Lane, Moerdijk: *Sheaves in Geometry and Logic* (for
-  comparisons with category-theoretic foundations).
-- Bishop: *Foundations of Constructive Analysis* (for
-  comparisons with constructive cuts).
+### Repository artifacts (primary sources)
+
+- `213/AXIOM.md` — axiom seed document.
+- `213/IMPLEMENTATION.md` — Raw + Firmware audit.
+- `213/AUDIT_Lean.md` — Lean ↔ axiom correspondence.
+- `213/ORIGIN.md` — original physical-intuition chain
+  (frozen 2026-04-24).
+- `213/PAPER1_OUTLINE.md` — this paper's structural outline.
+- `213/research/infinity-as-lens/notes/` — numbered analysis
+  notes 00-99.
+- `213/framework/E213/` — Lean 4 formalization (no Mathlib
+  dependency).
+
+### Tools
+
+- de Moura, L., Ullrich, S. (2021). *The Lean 4 Theorem Prover
+  and Programming Language*. CADE-28.
+
+### Comparable foundations (informational only; not invoked in
+proofs)
+
+- ZFC: Zermelo-Fraenkel set theory with Choice.
+- Mac Lane, S., Moerdijk, I. (1992). *Sheaves in Geometry and
+  Logic*.  Categorical foundations.
+- Bishop, E. (1967). *Foundations of Constructive Analysis*.
+  Cauchy-real construction.
+- Univalent Foundations Program (2013). *Homotopy Type Theory*.
+  Type-theoretic foundations with univalence.
+
+### Related framework artifact (separate arc)
+
+- `papers/paper14_213.tex` — earlier abandoned 3-element
+  framing.  Superseded by the present paper.
 
 ---
 
