@@ -323,18 +323,22 @@ Classical.choice, LEM, native_decide 등 일체.  추가 필요가
   - leaves/depth refines tierLens, joinEquiv ⊆ tierLens.equiv.
 - `Research/KernelCardinalityLB.lean`: m ≠ k → leavesModNat
   kernel 다름.  |kernel space| ≥ ℵ₀ formal.
+- `Research/UniversalQuotLens.lean`: **Q37.3 일반 해결**.
+  임의 slash-cong E 에 대해 universalLens E : Lens (Raw → Prop)
+  의 kernel = E.  Codomain (Raw → Prop) 의 자유로 well-
+  definedness 우회.  funext + propext (Lean 4 core baseline).
 - Note 53: Meta-213 hierarchy 자연 부재 해소.
 - Note 54: open problems 최종 상태 종합.
+- Note 55: Q37.3 일반 해결 정리.
 
 ### 남은 open 질문 (genuinely 깊은)
 
-- **Q37.3 arbitrary slash-cong 의 concrete Lens**: Quot E 구성
-  의 diagonal well-definedness.  Decidable E 도 case-by-case.
-  Note 54 분석: 일반 case 는 negative answer 가능성 (counter-
-  example 시도되었으나 미증명).
-- **Lens kernel 공간 정확한 cardinality**: ℵ₀ ≤ x ≤ 𝔠.  중간
-  값 직접 construction 시도했으나 slash-cong 제약으로 어려움.
+- **Lens kernel 공간 정확한 cardinality**: ℵ₀ ≤ x ≤ 𝔠.
+  Universal lens 로 모든 slash-cong 이 Lens 라는 것은 확정.
+  따라서 |kernel space| = |slash-cong space|.  정확한 값
+  (countable vs continuum) 은 open.
 - **Physics chapter 감사**: 별도 directory (CLAUDE.md 지시).
 
-0 sorry, 0 axiom, Mathlib-free 유지.  본 arc 의 구조적 완결성
-note 54 에 정리.
+0 sorry, 0 external axiom, Mathlib-free 유지.  본 arc 의
+구조적 완결성 + Q37.3 일반 해결.  남은 cardinality 와 physics
+는 본 arc 와 분리된 별도 영역.
