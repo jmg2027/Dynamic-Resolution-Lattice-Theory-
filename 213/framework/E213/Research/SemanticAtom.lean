@@ -262,6 +262,29 @@ theorem canonicalIffMap_a : canonicalIffMap Raw.a = True :=
 theorem canonicalIffMap_b : canonicalIffMap Raw.b = False :=
   @universalMorphism_b Prop propAsDistinguishingIff
 
+/-- And-based Prop instance — degenerate combine (T ∧ F = F). -/
+def propAsDistinguishingAnd : HasDistinguishing Prop where
+  a := True
+  b := False
+  distinct := true_ne_false
+  combine := And
+  combine_sym := fun P Q => propext ⟨And.symm, And.symm⟩
+
+/-- And-based universal morphism. -/
+def canonicalAndMap : Raw → Prop :=
+  @universalMorphism Prop propAsDistinguishingAnd
+
+theorem canonicalAndMap_a : canonicalAndMap Raw.a = True :=
+  @universalMorphism_a Prop propAsDistinguishingAnd
+
+theorem canonicalAndMap_b : canonicalAndMap Raw.b = False :=
+  @universalMorphism_b Prop propAsDistinguishingAnd
+
+theorem canonicalAndMap_slash (x y : Raw) (h : x ≠ y) :
+    canonicalAndMap (Raw.slash x y h)
+      = (canonicalAndMap x ∧ canonicalAndMap y) :=
+  @universalMorphism_slash Prop propAsDistinguishingAnd x y h
+
 /-- canonicalIffMap (slash x y h) = (canonicalIffMap x ↔ canonicalIffMap y). -/
 theorem canonicalIffMap_slash (x y : Raw) (h : x ≠ y) :
     canonicalIffMap (Raw.slash x y h)

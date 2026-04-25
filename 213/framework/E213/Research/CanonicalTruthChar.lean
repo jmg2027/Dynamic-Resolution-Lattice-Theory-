@@ -184,3 +184,49 @@ theorem canonicalIffMap_iff_iffBoolLens (r : Raw) :
       exact iff_iff_bool_eq _ _ _ _ ihx ihy
 
 end E213.Research.CanonicalTruthChar
+
+namespace E213.Research.CanonicalTruthChar
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### And-based characterization: r = Raw.a iff canonicalAndMap
+
+And combine 가 매우 약 — T ∧ F = F.  대부분 r 에 대해 결과 가
+False.  Hypothesis: `canonicalAndMap r ↔ r = Raw.a`. -/
+
+theorem canonicalAndMap_iff_eq_a (r : Raw) :
+    canonicalAndMap r ↔ r = Raw.a := by
+  induction r using Raw.rec with
+  | a =>
+      rw [canonicalAndMap_a]
+      simp
+  | b =>
+      rw [canonicalAndMap_b]
+      constructor
+      · intro h; exact absurd h (fun e => e)
+      · intro heq; exact absurd heq (by decide)
+  | slash x y h ihx ihy =>
+      rw [canonicalAndMap_slash x y h]
+      constructor
+      · rintro ⟨hx_and, hy_and⟩
+        have hx_eq : x = Raw.a := ihx.mp hx_and
+        have hy_eq : y = Raw.a := ihy.mp hy_and
+        rw [hx_eq, hy_eq] at h
+        exact absurd rfl h
+      · intro heq
+        exact absurd heq (fun e => by
+          -- Raw.slash x y h ≠ Raw.a (depth-based).
+          have hview := congrArg Lens.depth.view e
+          have hslash : Lens.depth.view (Raw.slash x y h)
+                        = 1 + max (Lens.depth.view x) (Lens.depth.view y) := by
+            apply Raw.fold_slash
+            intro u v
+            show 1 + max u v = 1 + max v u
+            rw [Nat.max_comm]
+          rw [hslash] at hview
+          have h_a : Lens.depth.view Raw.a = 0 := rfl
+          rw [h_a] at hview
+          omega)
+
+end E213.Research.CanonicalTruthChar
