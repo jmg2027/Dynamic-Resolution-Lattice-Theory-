@@ -1,4 +1,5 @@
 import E213.Research.UniversalQuotLens
+import E213.Research.IndexedJoinLens
 
 /-!
 # Research.LensCauchy: 213 의 Cauchy completeness 환원
@@ -120,5 +121,24 @@ structure LimitAssignment {ι : Type} (F : ι → (α : Type) × Lens α)
 def LimitAssignment.limit {ι : Type} {F : ι → (α : Type) × Lens α}
     {xs : Nat → Raw} (la : LimitAssignment F xs) (i : ι) : (F i).1 :=
   limitClass (la.data i)
+
+end E213.Research.LensCauchy
+
+namespace E213.Research.LensCauchy
+
+open E213.Firmware E213.Hypervisor E213.Research.IndexedJoinLens
+
+/-- **Pointwise limit match**: family-Cauchy seq 의 limit
+    assignment 가 iProdLens F 의 view 와 pointwise 일치. -/
+theorem pointwise_limit_match {ι : Type} (F : ι → (α : Type) × Lens α)
+    (xs : Nat → Raw)
+    (hAllSym : ∀ i (u v : (F i).1),
+                (F i).2.combine u v = (F i).2.combine v u)
+    (la : LimitAssignment F xs) (i : ι) :
+    ∃ N, ∀ n, n ≥ N → (iProdLens F).view (xs n) i = la.limit i := by
+  refine ⟨(la.data i).N, ?_⟩
+  intro n hn
+  rw [iProdLens_view F hAllSym (xs n)]
+  exact limitClass_eq_tail (F i).2 xs (la.data i) n hn
 
 end E213.Research.LensCauchy
