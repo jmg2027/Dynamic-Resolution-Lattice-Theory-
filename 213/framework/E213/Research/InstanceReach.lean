@@ -301,3 +301,52 @@ theorem nat_image_surjective :
   exact ⟨r, hview⟩
 
 end E213.Research.InstanceReach
+
+namespace E213.Research.InstanceReach
+
+open E213.Firmware E213.Hypervisor
+open E213.Research.SemanticAtom
+
+/-! ### Int with addition: infinite non-surjective
+
+Bool finite surj, Fin 3 finite non-surj, Nat infinite surj.
+Int with addition: **infinite non-surjective** — Nat ⊊ Int 의
+positive part 만 reach, negative numbers unreachable (combine
+= + 가 항상 비감 소).
+
+이게 infinite 의 cardinality 가 surjective 부재 의 explicit
+witness — image 가 *strict* infinite subset. -/
+
+instance intHasDistinguishing : HasDistinguishing Int where
+  a := 0
+  b := 1
+  distinct := by decide
+  combine := (· + ·)
+  combine_sym := Int.add_comm
+
+/-- Image 의 forward closure: universalMorphism Int 의 결과 가
+    항상 ≥ 0. -/
+theorem int_image_nonneg (r : Raw) : 0 ≤ universalMorphism Int r := by
+  induction r using Raw.rec with
+  | a =>
+      rw [universalMorphism_a Int]
+      exact Int.le_refl 0
+  | b =>
+      rw [universalMorphism_b Int]
+      decide
+  | slash x y h ihx ihy =>
+      rw [universalMorphism_slash Int x y h]
+      exact Int.add_nonneg ihx ihy
+
+/-- **Image 의 strict subset (infinite case)**: -1 ∈ Int 가
+    universalMorphism 의 image 외부.  infinite carrier 의 non-
+    surjective witness. -/
+theorem int_image_strict :
+    ∃ x : Int, ¬ ∃ r : Raw, universalMorphism Int r = x := by
+  refine ⟨-1, ?_⟩
+  intro ⟨r, hr⟩
+  have h_nonneg : 0 ≤ universalMorphism Int r := int_image_nonneg r
+  rw [hr] at h_nonneg
+  exact absurd h_nonneg (by decide)
+
+end E213.Research.InstanceReach
