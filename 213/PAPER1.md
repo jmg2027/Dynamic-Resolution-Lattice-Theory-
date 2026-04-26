@@ -218,6 +218,20 @@ theorem Raw.slash_comm (x y : Raw) (h : x ≠ y) :
     Raw.slash x y h = Raw.slash y x h.symm
 ```
 
+The first few `Raw` levels (`Firmware/RawLevels.lean`) are:
+
+| Level | Raw terms                              | count |
+|-------|----------------------------------------|-------|
+| 0     | `Raw.a`, `Raw.b`                       |  2    |
+| 1     | + `Raw.slash a b _`                    |  3    |
+| 2     | + `slash a (slash a b)`, `slash b (slash a b)` | 5 |
+
+Higher levels grow combinatorially.  Each new term is the
+`Raw.slash` of two distinct existing terms; canonicalization
+ensures only one representative per directionless pair.  The
+counts (2, 3, 5, …) match the `(3, 2)` partition motif used in
+the early Simplex application (`App/Simplex.lean`).
+
 ### §2.4 Catamorphism and induction principle
 
 For each algebra `(α, base_a, base_b, combine)` with `combine`
@@ -371,6 +385,19 @@ For example, `parityLens` (with `combine = xor`) belongs to
 **Collapse-False**, since `xor x x = false` for both Bool
 values; an instance of NegSq is given by `negSqLens`
 (`NegSqLens.lean`).
+
+Sample views on the level-0 and level-1 `Raw` terms:
+
+|              | `Raw.a` | `Raw.b` | `slash a b` |
+|--------------|---------|---------|-------------|
+| `Lens.leaves`| 1       | 1       | 2           |
+| `Lens.depth` | 0       | 0       | 1           |
+| `parityLens` | true    | true    | false       |
+| `abLens`     | (1, 0)  | (0, 1)  | (1, 1)      |
+
+The catalogue exhibits the framework's range: a single Lens
+typically extracts one specific structural feature (leaf count,
+depth, parity, ratio, etc.).
 
 ---
 
