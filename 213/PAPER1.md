@@ -584,6 +584,15 @@ representative selection across a countable family of
 equivalence classes is built from `universalLens` without an
 external choice principle.
 
+`Research/FamilyJoin.lean` provides the dual construction:
+`FamilyJoinEquiv E` is the smallest equivalence relation
+closed under slash and containing every `E_i`, defined as an
+inductive Prop.  `universalLens (FamilyJoinEquiv E)` realises
+this as a single Lens (`familyJoinLens E`), with universal
+property `familyJoin_contains`: each `E_i` refines into the
+family join.  Together with `FamilyMeet`, this establishes
+the slash-congruence space as a *complete lattice*.
+
 **Example.**  Define the Lens
 `boolXor : Lens Bool := ⟨false, true, xor⟩` and let `E_Xor` be
 its kernel:
@@ -1230,6 +1239,7 @@ or a subset of `[propext, Quot.sound]`).
 | §7.2 | √2 irrationality (descent) | `Sqrt2Irrational` · `sqrt2_irrational`, `mul_self_mod_two` | propext, Quot.sound |
 | §5.5 | Subtype slash-based combine (closed) | `SubtypeInstanceClosed` · `SlashClosed`, `subtypeHasDistinguishingClosed` | propext |
 | §5.1 | Family meet (countable Choice analog) | `FamilyMeet` · `familyMeet`, `familyMeet_kernel_eq` | propext, Quot.sound |
+| §5.1 | Family join (complete lattice dual) | `FamilyJoin` · `FamilyJoinEquiv`, `familyJoinLens_kernel`, `familyJoin_contains` | propext, Quot.sound |
 | §6.4 | Constructive modulus typeclass | `HasModulus` · `HasModulus`, `isOrderCauchy_of_hasModulus` | none |
 | §7.2 | Pell HasModulus instance | `PellHasModulus` · `pellHasModulus`, `pell_isOrderCauchy` | propext, Quot.sound |
 
