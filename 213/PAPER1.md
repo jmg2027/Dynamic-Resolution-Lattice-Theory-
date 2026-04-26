@@ -16,11 +16,12 @@ are mechanically verified.
 ## Abstract
 
 We present **213**, a foundational system consisting of two
-layers: a 3-clause inductive type `Raw` carrying the primitive
-distinguishing operation, and a fold-structured observation
-record `Lens` representing homomorphisms out of `Raw`.  Every
-result reported in this paper is mechanically verified in Lean
-4 core, with axiom budget bounded by `[propext, Quot.sound]`.
+layers: an inductive type `Raw` with two primitive elements
+`a`, `b` and a binary operation `slash` on distinct arguments,
+together with a fold-structured observation record `Lens`
+representing homomorphisms out of `Raw`.  Every result reported
+in this paper is mechanically verified in Lean 4 core, with
+axiom budget bounded by `[propext, Quot.sound]`.
 
 The development establishes: (i) strict minimality of the Raw
 axiom (each clause is essential, formalized in
@@ -53,9 +54,14 @@ required.
 ### §1.1 The framework
 
 The system **213** consists of two layers.  The *Raw* layer is
-an inductive type with three clauses: two primitive elements
-`a`, `b`, and a binary operation `slash : Raw → Raw → Raw`
-defined on distinct arguments.  The *Lens* layer specifies
+an inductive type with three constructors — two primitive
+elements `a`, `b`, and a binary operation
+`slash : (x y : Raw) (h : x ≠ y) → Raw` — together with the
+distinctness precondition `h : x ≠ y` carried by `slash`.  We
+sometimes refer to the four-tuple (a, b, slash, distinctness)
+as the *axiom's clauses*; the strict-minimality argument of
+§2.5 treats distinctness as the fourth dimension and shows
+each of the four to be essential.  The *Lens* layer specifies
 homomorphisms out of `Raw` into arbitrary types, parameterized
 by a triple `(base_a, base_b, combine)` with commutative
 `combine`.
@@ -63,11 +69,10 @@ by a triple `(base_a, base_b, combine)` with commutative
 Two design decisions distinguish 213 from set-theoretic
 foundations:
 
-(a) `slash` is undefined on equal arguments (the constructor
-takes a proof `x ≠ y`).  Distinguishing is therefore
-*primitive*: equality is not a defined relation between
-pre-existing entities, but a precondition for the combining
-operation.
+(a) `slash` is undefined on equal arguments.  Distinguishing
+is therefore *primitive*: equality is not a defined relation
+between pre-existing entities, but a precondition for the
+combining operation.
 
 (b) The framework commits to no collection axioms (Power-set,
 Choice, Infinity).  In their stead, the *Lens* layer specifies
@@ -75,10 +80,10 @@ internal observations, and the universal construction
 `universalLens` (§5.1) realizes any slash-congruence on `Raw`
 as a Lens kernel without external choice.
 
-Section §2.5 proves that each clause of the Raw axiom is
-essential: removing any one collapses the framework to a
-trivial structure.  This *strict-minimality* result is internal
-to the framework and uses no axiom beyond `propext`.
+Section §2.5 proves that each of the four clauses is essential:
+removing any one collapses the framework to a trivial structure.
+This *strict-minimality* result is internal to the framework
+and uses no axiom beyond `propext`.
 
 ### §1.2 Position relative to ZFC
 
@@ -241,10 +246,12 @@ theorem Lens.view_unique {α} (L : Lens α)
     ∀ r, f r = L.view r
 ```
 
-Combined existence + uniqueness gives `Lens.initiality`: `Raw`
-is the *initial object* in the category of commutative
-Raw-algebras (objects = Lenses with symmetric combine; morphisms
-= `Raw → α` homomorphisms).
+Combined existence + uniqueness gives `Lens.initiality`:
+in the category of commutative `Raw`-algebras (objects =
+triples `(α, base_a, base_b, combine)` with `combine`
+commutative; morphisms = algebra-preserving maps), `Raw` is the
+*initial object*: there is a unique morphism `Raw → α` to every
+object `α`.
 
 A custom eliminator `Raw.rec` allows induction directly on the
 `Raw.a / Raw.b / Raw.slash` constructors without exposing the
@@ -327,12 +334,15 @@ The refines relation is a preorder.  Each Lens has a *canonical
 form* under refines-equivalence: by `LensCanonicalForm.lean`,
 every `Lens` (with commutative combine) is refines-equivalent
 to `universalLens L.equiv`, the `universalLens` built from its
-own kernel.  This identifies the refines-equivalence classes
-with the slash-congruences on `Raw` (one direction:
-universalLens; other direction: `lens_canonical_universal`).
-The preorder forms a meet-semilattice (`LensMeet.lean`); the
-bottom is `idLens` (the finest, distinguishing every Raw) and
-the top is `constLens` (the coarsest, making no distinctions).
+own kernel.  Together with §5.1 this identifies the
+refines-equivalence classes of Lenses with the slash-congruences
+on `Raw`: the assignment `L ↦ Lens.equiv L` is right-inverse
+to `E ↦ universalLens E` (modulo refines-equivalence), with
+`lens_canonical_universal` providing the corresponding
+left-inverse direction.  The preorder forms a meet-semilattice
+(`LensMeet.lean`); its finest element is `idLens`
+(distinguishing every Raw) and its coarsest is `constLens`
+(making no distinctions).
 
 ### §3.4 Examples
 
@@ -511,26 +521,28 @@ slash-congruence arises as the kernel of an explicit Lens; no
 choice function is needed to select representatives.  The
 construction uses only `[propext, Quot.sound]`.
 
-**Example.**  Let `E_Xor` be the kernel of the Bool-valued
-universal morphism with the Xor combine — that is, the relation
-`E_Xor r r' := boolXor.view r = boolXor.view r'`, where
-`boolXor` is the Lens `⟨false, true, xor⟩`.  This relation is a
-slash-congruence (the four hypotheses follow from equational
-properties of `=` on `Bool`), and `universalLens E_Xor` produces
-a Lens of type `Lens (Raw → Prop)` whose kernel is exactly
-`E_Xor`.  No representative is selected: the indicator function
-`λ r. E_Xor r ·` plays the role of the Choice-side selector.
+**Example.**  Define the Lens
+`boolXor : Lens Bool := ⟨false, true, xor⟩` and let `E_Xor` be
+its kernel:
+```
+E_Xor r r' := boolXor.view r = boolXor.view r'.
+```
+`E_Xor` is a slash-congruence (the four hypotheses follow from
+equational properties of `=` on `Bool`), and
+`universalLens E_Xor` produces a Lens of type
+`Lens (Raw → Prop)` whose kernel is exactly `E_Xor`
+(`universalLens_kernel_eq_E`).  No representative is selected:
+the indicator function `λ r. E_Xor r ·` plays the role of the
+Choice-side selector.
 
 ### §5.2 Power set — boundary witness
 
 The Lens kernels form a strict subset of the binary relations
 on `Raw`.  `Research/NoDepthParity.lean` exhibits an explicit
-witness: depth-parity equality on `Raw` is not a slash-congruence,
-hence not a Lens kernel.
-
-```
-theorem NoDepthParity.depthParity_ker_not_slash_cong : ...
-```
+witness: depth-parity equality on `Raw` is not a slash-congruence
+(the full statement is in the module
+`NoDepthParity.depthParity_ker_not_slash_cong`), hence not a
+Lens kernel.
 
 The function-level analogue, in `Research/DepthParityNotFold.lean`
 and packaged in `SemanticAtom.lean`, is
@@ -555,14 +567,16 @@ without an external Infinity axiom.  `Infinity/Cantor.lean`
 further proves a Cantor-style result `cantor_general` for
 `Raw → Bool`.
 
-### §5.4 Cardinality
+### §5.4 Cardinality of the Lens-kernel space
 
-Cardinality is a property of the pair (Raw, Lens), not of
-`Raw` alone.  `Raw` is countable (`Godel.lean`).  The Lens
-kernel space is at least countably infinite
-(`KernelCardinalityLB.lean`: the family `leavesModNat m`,
-`m ≥ 2`, gives an injection of `Nat` into the kernel space).
-An uncountable lower bound for the kernel space is open.
+Beyond the type-theoretic cardinality of `Raw` itself (which is
+countable, `Godel.lean`), the framework supports a second
+cardinality notion: the size of the space of Lens kernels — the
+number of distinct slash-congruences expressible by Lenses on
+`Raw`.  This number is at least countably infinite:
+`KernelCardinalityLB.lean` exhibits the family
+`leavesModNat m`, `m ≥ 2`, giving an injection of `Nat` into
+the kernel space.  An uncountable lower bound is open.
 
 ### §5.5 Comprehension — distinguishing-closed subtype
 
@@ -655,9 +669,14 @@ def OrderCauchyData.cut {xs} (cd : OrderCauchyData xs)
 
 The `cut` function is the limit's Dedekind decision: a
 `Nat → Nat → Bool` indexed by the rational threshold `m/k`.
-At a more abstract level, the slash-congruence
-`∀ x y. (∀ (m, k). cd.cut m k = orderProj m k (abLens.view x))
-↔ same of y` arises as the kernel of a `universalLens` (§5.1).
+At a more abstract level, the equivalence relation
+```
+E_cd x y := ∀ (m k : Nat),
+              orderProj m k (abLens.view x)
+                = orderProj m k (abLens.view y)
+```
+on `Raw` is a slash-congruence and arises as the kernel of a
+`universalLens` (§5.1).
 
 The limit is a `Nat → Nat → Bool` decision function on the
 rational thresholds; no new `Raw` element is introduced.
@@ -812,10 +831,12 @@ theorem euler_lower_inv (hn : n ≥ 2) :
 These yield two Dedekind cuts at concrete thresholds:
 `m/k ≥ 3` ⇒ `orderProj m k = true` for all `n` (always above e);
 `m/k ≤ 2` ⇒ `orderProj m k = false` from `n ≥ 2` (always below).
-Threshold values `m/k ∈ (2, 3)` (strictly between 2 and 3) get
-the correct cut value but their proof would require the LEM-bound
-general closure (§6.4); they are not asserted within the
-framework.
+Individual thresholds `m/k ∈ (2, 3)` may in principle be closed
+case-by-case via the propagation theorem of §6.4 (a single
+false-witness suffices).  What the framework does *not* claim
+is the all-thresholds-at-once statement
+`∀ (m, k) ∈ (2, 3), ∃ N, ...`, which would require the
+LEM-bound closure.
 
 ### §7.5 π/2 transcendental — Wallis product
 
