@@ -56,37 +56,42 @@ peer-review revision + final scrub.  No physics references.
 PAPER1.md Appendix A 가 component → declaration mapping 의 single
 source of truth.
 
-## Next-research candidates (sober, ranked)
+## Post-cleanup arc (2026-04-26 후속)
 
-1. **Subtype slash-based combine via reflection refactor**
-   (PAPER1.md §8.2 third closed boundary).  Lean elaborator
-   boundary 의 infrastructural fix.
+User directive ("암거나 하셈 재밌는거 나올거같은거" + ROI
+ranked angle 들 구체 안내) 후 6 fronts 진행:
 
-2. **NoDepthParity 일반화** via image_minimum_property
-   (§5.2 boundary 의 sharper form).  어떤 함수 family 가
-   not-fold-structured 인지 의 더 넓은 분류.
+| # | Module | 결과 | Commit |
+|---|--------|------|--------|
+| 1 | `LensOnLensImage` | Lens-on-Lens tower collapse — image = {constTrueLens, constFalseLens}, factorizes through universalMorphism Bool | 8a41f03 |
+| 2 | `Sqrt2Irrational` | √2 irrationality via 2-adic descent (PAPER1 §7.2 input fact 격상) | 9d0bc1b |
+| 3 | `notes/A1_kernel_cardinality_investigation.md` | Lens-kernel cardinality A 조사 — 3 angle 다 collapse, status open | 9d0bc1b |
+| 4 | `SumNotCoproduct` | Sum α β with priority combine 이 DistMorphism 의 coproduct 아님 (formal negative result) | 1243f01 |
+| 5 | `SubtypeInstanceClosed` | SlashClosed typeclass + slash-based combine (§8.2 third boundary 해소) | b41714e |
+| 6 | `FamilyMeet` | arbitrary-index family meet via universalLens (countable Choice 의 213-internal counterpart) | 2724ecb |
+| 7 | `HasModulus` | Bishop-style constructive Cauchy modulus typeclass (LEM 우회 infrastructure) | 7eeafe0 |
 
-3. **Sum-type combine canonicity 의 formal open question**
-   (§5.6, §9.4).  "어떤 commutative combine 도 canonical 이
-   아님" 의 형식 statement + 시도.
+Lean build 전체 clean, 모두 ≤ [propext, Quot.sound] (또는 less).
 
-4. **Lens-on-Lens 의 universal morphism algebraic
-   characterization** (§9.2 item 9).  `lensUniversalMorphism :
-   Raw → Lens Bool` 의 image structure.
+PAPER1 §5.1 (FamilyMeet), §5.5 (SubtypeInstanceClosed),
+§5.6 (SumNotCoproduct), §6.4 (HasModulus), §7.2
+(Sqrt2Irrational), §8.2 (closed boundary 갱신), Appendix A
+(7 신규 entries) 모두 갱신.
 
-5. **Cauchy 일반 closure** (§6.4, §8.2): LEM 없 이 어디 까 지
-   가능 한지 의 sharper boundary.  Weakened form
-   (decidable-thresholds-only) 가 가능 할 수 있음.
+## Open axes (continuation)
 
-새 axis 후보:
-
-- **Lens 의 Galois 구조**: Lens.refines 의 closure / 체인 의
-  분류 — Lattice 이론 connection.
-- **Type-theoretic comparison**: 213 의 `HasDistinguishing` 와
-  HoTT 의 `Identity` type / Mathlib 의 `Setoid` 의 정확 한 관계.
+- **A continuation**: Lens-kernel cardinality uncountable
+  lower bound — 3 simple angle 다 fail, sophisticated
+  machinery 필요 (recursive Lens^n α, kernel 위 직접
+  Cantor, Sum/Product 자유 결합).
+- **B continuation**: HasModulus instances (Pell, Euler,
+  Wallis) — Pell 은 y_n ≥ n bound 으 로 closed form 가능
+  estimated; Euler/Wallis 는 irrationality 격상 후.
+- **C(1)**: Zorn-on-Lens-kernel-preorder.
+- **C(2)**: Canonical form as internal choice function
+  meta-statement.
 
 ## User priority
 
-직전 directive: "정리 + 다음 연구 준비".  Cleanup 완료, next
-research 의 axis 결정 사용자 입력 대기.
+next axis 결정 사용자 입력 대기.
 
