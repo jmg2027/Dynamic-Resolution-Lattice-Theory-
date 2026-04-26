@@ -126,3 +126,38 @@ real-coordinate Lens (Nat → Bool) families.
 - (b) prime descent 의 일반화 가능 성.
 - (c) 무리수 의 *modular impossibility* 본질 의 명시 화.
 - (d) framework 의 Cauchy structure 와 의 connection 의 sharper.
+
+## Observations (2026-04-26)
+
+`Sqrt5IrrationalPure` 추가 + `PrimeDescentObservations` 의
+boundary 실험 결과:
+
+**Observation 1**: descent template 이 prime p (= 2, 3, 5)
+모두 작동 — robustness 확인.
+
+**Observation 2**: sqrt4 = 2 rational, descent 실패 — sqrt4
+의 squaring kernel = {0, 2} mod 4 (not trivial).  Concrete witness:
+`sqrt4_rational : ∃ m k, k ≥ 1 ∧ m² = 4·k²` (m=2, k=1).
+
+**Observation 3**: descent 가 *exactly squarefree* N 에 대 해
+작동.  Non-squarefree → factor out square first.
+
+**Observation 4 (transcendental e/π/2)**: prime descent *불가능*.
+e 는 polynomial equation 의 root 가 아 님 — descent 의 starting
+equation 자체 부재.  Hermite proof (factorial bound + Cauchy
+analysis) 는 *별 도 path* — series convergence rate, not modular
+structure.
+
+## 정직 한 평가 of "Universal Prime Lens"
+
+- *Algebraic squarefree* fragment 에 대 해 universal.
+- *Algebraic non-squarefree* 는 reducible to squarefree.
+- *Transcendental* 은 *외 부 path* (analytic Cauchy).
+
+Honest naming: "**Universal Squarefree-Algebraic Descent Lens**"
++ "*Analytic Cauchy Lens* (separate)".  두 layer 명시.
+
+framework 의 *complete* description: 두 layer 결합 = 모든
+infrastructure-internal real number 의 representation.  Adele-style
+structure 가 가능 하 지 만, archimedean place (analytic) 는
+*algebraic* 이 아 닌 *별 도 의 valuation*.
