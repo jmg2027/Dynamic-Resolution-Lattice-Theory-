@@ -1050,6 +1050,58 @@ Quot.sound]`:
 in degenerate combine form is included in the framework but, as
 explained in §8.3, awaits a meaningful slash-based combine.)
 
+#### Axiom verification table
+
+Each component below is mapped to a representative Lean
+declaration in the development.  The "Axioms" column reports the
+output of `#print axioms` for that declaration, which is either
+empty or a subset of the Lean 4 core baseline `[propext,
+Quot.sound]`:
+
+| # | Component | Module · Declaration | Axioms |
+|---|-----------|----------------------|--------|
+| 1 | Strict minimum (no a) | `AxiomMinimality` · `rawA_trivial` | none |
+| 1 | Strict minimum (no b) | `AxiomMinimality` · `rawB_trivial` | none |
+| 1 | Strict minimum (no slash) | `AxiomMinimality` · `rawAB_only_two`, `rawAB_card_eq_two` | none |
+| 1 | Strict minimum (no distinct) | `AxiomMinimality` · `self_pairing_exists` | none |
+| 2 | Distinguishing-framework abstraction | `SemanticAtom` · `HasDistinguishing` (typeclass) | none |
+| 3 | Universal property (existence) | `SemanticAtom` · `universalMorphism`, `universalMorphism_a/_b/_slash` | propext, Quot.sound |
+| 3 | Universal property (uniqueness) | `SemanticAtom` · `universalMorphism_unique` | propext, Quot.sound |
+| 3 | Initiality bundled | `SemanticAtom` · `raw_initial` | propext, Quot.sound |
+| 4 | Self-application (Xor) | `SemanticAtom` · `propAsDistinguishing`, `canonicalTruthMap_slash` | propext, Quot.sound |
+| 4 | Self-application (Iff) | `SemanticAtom` · `propAsDistinguishingIff`, `canonicalIffMap_slash` | propext, Quot.sound |
+| 4 | Self-application (And) | `SemanticAtom` · `propAsDistinguishingAnd`, `canonicalAndMap_slash` | propext, Quot.sound |
+| 4 | Self-application (Or) | `SemanticAtom` · `propAsDistinguishingOr`, `canonicalOrMap_slash` | propext, Quot.sound |
+| 5 | Function-level boundary | `SemanticAtom` · `exists_non_lens_expressible` | propext, Quot.sound |
+| 6 | Lens canonical form | `LensCanonicalForm` · `lens_canonical_universal`, `lens_canonical_idempotent` | propext, Quot.sound |
+| 7 | Reach (Bool surjective) | `InstanceReach` · `bool_image_surjective` | propext, Quot.sound |
+| 7 | Reach (Fin 3 strict) | `InstanceReach` · `fin3_image_in_01`, `fin3_image_strict` | propext, Quot.sound |
+| 7 | Reach (Nat surjective) | `InstanceReach` · `nat_image_surjective` | propext, Quot.sound |
+| 7 | Reach (Int strict) | `InstanceReach` · `int_image_nonneg`, `int_image_strict` | propext, Quot.sound |
+| 7 | Reach (Raw identity) | `InstanceReach` · (Raw self-instance lemmas) | propext, Quot.sound |
+| 8 | Categorical identity & associativity | `DistMorphism` · `id`, `comp`, `comp_assoc`, `id_comp`, `comp_id` | propext, Quot.sound |
+| 9 | Recursive self-application (Lens Bool) | `LensOnLens` · `lensBoolHasDistinguishing` | propext, Quot.sound |
+| 9 | Recursive self-application (generic) | `LensOnLens` · `lensHasDistinguishing` | propext, Quot.sound |
+| 9 | Tower n=1..4 | `LensOnLens` · `levelOne`–`levelFour` | propext, Quot.sound |
+| 10 | Image minimum closure | `ImageMinimum` · `image_minimum_property` | propext, Quot.sound |
+| 11 | Product instance | `PairInstance` · `pairHasDistinguishing`, `universalMorphism_pair_commute` | propext, Quot.sound |
+| 11 | Product projections commute | `PairInstance` · `universalMorphism_first/_second` | propext, Quot.sound |
+| 12 | Function-space instance | `FunctionSpace` · `funHasDistinguishing` | propext, Quot.sound |
+| 12 | Function-space morphism | `FunctionSpace` · `funUniversalMorphism`, `boolFunUniversal` | propext, Quot.sound |
+| 13 | Cross-instance (And) | `BoolPropMorphism` · `boolToProp_and`, `universalMorphism_commute` | propext, Quot.sound |
+| 13 | Cross-instance (Or) | `BoolPropMorphism` · `boolToProp_or`, `universalMorphism_commute_or` | propext, Quot.sound |
+| 13 | Cross-instance (Xor) | `BoolPropMorphism` · `boolToProp_xor`, `universalMorphism_commute_xor` | propext, Quot.sound |
+| 13 | Cross-instance (Iff) | `BoolPropMorphism` · `boolToProp_iff`, `universalMorphism_commute_iff` | propext, Quot.sound |
+| 14 | Coproduct accessor (Prism) | `Prism` · `aPrism`, `bPrism`, `aPrism_bPrism_disjoint`, `caseElement_disjoint` | propext, Quot.sound |
+| 14 | Sum-type instance | `SumInstance` · `sumHasDistinguishing`, `sumCombine_comm` | propext, Quot.sound |
+| 15 | Reflection (typeclass→Lens) | `UniversalReflection` · `universalAsLens`, `universalAsLens_view` | propext, Quot.sound |
+
+The baseline `propext` (propositional extensionality) and
+`Quot.sound` (quotient soundness) are part of Lean 4 core's
+trusted kernel.  No further axiom — no Classical, no choice,
+no LEM, no native_decide — is invoked anywhere in the
+development.
+
 Taken together the components establish that the framework
 absorbs the structural extensions we attempted: a particular
 metalanguage truth-value type (`Prop` with one of four
