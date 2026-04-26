@@ -43,4 +43,12 @@ theorem equiv_trans (r r' r'' : Real213) :
   have hi2 : i ≥ N2 := Nat.le_trans (Nat.le_max_right N1 N2) hi
   exact (h1N i hi1).trans (h2N i hi2)
 
+/-- Real213 의 Setoid instance — Equivalence properties 의 typeclass form. -/
+instance setoid : Setoid Real213 where
+  r := Real213.equiv
+  iseqv :=
+    { refl := equiv_refl
+      symm := fun {x y} => equiv_symm x y
+      trans := fun {x y z} => equiv_trans x y z }
+
 end E213.Research.Real213
