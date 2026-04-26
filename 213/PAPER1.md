@@ -857,9 +857,15 @@ strictly below √2.  The remaining case `m^2 = 2 k^2` is
 vacuous for `k ≥ 1`: this is the irrationality of √2,
 formalised within the framework as
 `Sqrt2Irrational.sqrt2_irrational` (Lean 4 core, 2-adic
-descent, `[propext, Quot.sound]` only).  Hence √2 appears as
-a Dedekind cut at every rational threshold via the
-Pell-sequence approach.
+descent).  Hence √2 appears as a Dedekind cut at every
+rational threshold via the Pell-sequence approach.
+
+`Research/PellHasModulus.lean` packages this into a
+`HasModulus pellRawSeq` instance with the explicit modulus
+`N(m, k) := if 2k² < m² then k else 0`, deriving
+`pell_isOrderCauchy` (the all-(m, k) Cauchy property)
+without LEM.  This is the first concrete instance of the
+constructive modulus typeclass §6.4.
 
 ### §7.3 ℤ_p number-theoretic — Padic
 
@@ -1225,6 +1231,7 @@ or a subset of `[propext, Quot.sound]`).
 | §5.5 | Subtype slash-based combine (closed) | `SubtypeInstanceClosed` · `SlashClosed`, `subtypeHasDistinguishingClosed` | propext |
 | §5.1 | Family meet (countable Choice analog) | `FamilyMeet` · `familyMeet`, `familyMeet_kernel_eq` | propext, Quot.sound |
 | §6.4 | Constructive modulus typeclass | `HasModulus` · `HasModulus`, `isOrderCauchy_of_hasModulus` | none |
+| §7.2 | Pell HasModulus instance | `PellHasModulus` · `pellHasModulus`, `pell_isOrderCauchy` | propext, Quot.sound |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
