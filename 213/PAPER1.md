@@ -53,14 +53,14 @@ The system **213** consists of two layers.  The *Raw* layer is
 an inductive type with three constructors — two primitive
 elements `a`, `b`, and a binary operation
 `slash : (x y : Raw) (h : x ≠ y) → Raw` — together with the
-distinctness precondition `h : x ≠ y` carried by `slash`.  We
-sometimes refer to the four-tuple (a, b, slash, distinctness)
-as the *axiom's clauses*; the strict-minimality argument of
-§2.5 treats distinctness as the fourth dimension and shows
-each of the four to be essential.  The *Lens* layer specifies
-homomorphisms out of `Raw` into arbitrary types, parameterized
-by a triple `(base_a, base_b, combine)` with commutative
-`combine`.
+distinctness precondition `h : x ≠ y` carried by `slash`.
+The four-tuple (a, b, slash, distinctness) — three constructors
+plus the precondition — constitutes the *clauses* of the
+axiom; the strict-minimality argument of §2.5 treats each as
+an independent dimension and shows each to be essential.  The
+*Lens* layer specifies homomorphisms out of `Raw` into
+arbitrary types, parameterized by a triple
+`(base_a, base_b, combine)` with commutative `combine`.
 
 Two design decisions distinguish 213 from set-theoretic
 foundations:
@@ -161,14 +161,11 @@ Mathlib dependency is incurred.
 
 Comparable minimal axiomatizations of mathematics include ZF
 without Choice, NF (Quine), Aczel's CZF, and Feferman's
-predicative systems.  Each of these takes set-formation as
-primitive and varies the collection axioms.  213 differs by
-making the *distinguishing operation* primitive instead of
-set-formation: the basic act is `slash` on distinct arguments,
-not `{x : P(x)}`.  Whether the resulting framework is
-expressively comparable to (a fragment of) any of the above is
-left as an open question; the demonstrations of §7 exhibit
-non-trivial Cauchy-side reach without engaging the comparison.
+predicative systems.  Each takes set-formation as primitive
+and varies the collection axioms.  213 makes the
+*distinguishing operation* primitive instead: the basic act
+is `slash` on distinct arguments, not `{x : P(x)}`.
+Expressive comparison with these systems is open.
 
 ### §1.5 Roadmap
 
@@ -661,11 +658,9 @@ two primitive elements.
 
 The Sum-type instance `sumHasDistinguishing` of
 `Research/SumInstance.lean` uses a priority-based combine
-(left-preference on mixed cases).  No commutative combine
-canonical in the same sense as the `Pair`-side construction
-(§9.2 item 11) is known to us on `Sum α β`; the priority
-variant is recorded as an admitted asymmetry rather than a
-canonical construction (see §8.2).
+(left-preference on mixed cases).  This is one valid
+`HasDistinguishing` instance on `Sum α β`; canonicity of the
+choice is open (§8.2).
 
 ---
 
@@ -1025,13 +1020,10 @@ kernel.
 
 ## §9 The semantic-atom reading
 
-This section collects the results of §§2-8 into a single
-reading: 213 plays the role of a *semantic atom* for
-distinguishing-based structures.  The formal scope of this
-reading is stated as (1)-(3) in §9.1.  A broader extension of
-the reading, suggested by the range of instances exhibited
-throughout the paper, is recorded explicitly but not
-formalized as a theorem.
+This section collects the results of §§2-8 into the reading
+that 213 plays the role of a *semantic atom* for
+distinguishing-based structures.  §9.1 states the formal scope
+as (1)-(3).
 
 ### §9.1 Formal scope
 
@@ -1053,17 +1045,13 @@ The reading "213 is the semantic atom" denotes (1)-(3): in any
 distinguishable type, `Raw` is the unique source of
 homomorphisms compatible with the instance data.
 
-A broader reading — that every framework treated as a
-type with two distinguishable elements and a commutative
-binary operation falls under (1)-(3) — is supported by the
-instances exhibited in §§5, 7, and Appendix A: the four `Prop`
-connectives (Xor, Iff, And, Or), binary products `α × β`,
-function spaces `α → β`, the recursive tower `Lens^n α`, the
-Sum/Prism counterpart, and Bool, Fin 3, Nat, Int.  This
-broader reading is not formalized as a Lean theorem in the
-present development: no statement quantifies over "all
-frameworks".  The formal scope of the semantic-atom reading
-is fixed at (1)-(3).
+The instances exhibited in §§5, 7, and Appendix A — the four
+`Prop` connectives (Xor, Iff, And, Or), binary products
+`α × β`, function spaces `α → β`, the recursive tower
+`Lens^n α`, the Sum/Prism counterpart, and Bool, Fin 3, Nat,
+Int — each fall under (1)-(3).  No Lean statement quantifies
+over "all frameworks"; the formal scope of the reading is
+fixed at (1)-(3) on each `HasDistinguishing` instance.
 
 ### §9.2 Components
 
@@ -1133,9 +1121,8 @@ structural, not evaluative.
 `ORIGIN.md` records the prompt chain that motivated the
 framework — physical intuitions about the impossibility of
 singular points, resolution covariance, and lattice-information
-invariance.  The present formal results admit an interpretive
-reading along this chain (informal correspondence, not formal
-derivation):
+invariance.  An informal correspondence with the formal results
+of this paper (not a formal derivation):
 
 - §3 (Zeno-pixel paradox) ↔ Raw axiom's strict minimality
   (§2.5).
@@ -1148,24 +1135,19 @@ The framework's name DRLT (*Dynamic Resolution Lattice
 Theory*) records this physical motivation.  The formal results
 of §§2-9 stand independently of the reading.
 
-### §9.5 Limits of the reading
+### §9.5 Limits
 
-The fifteen components do not constitute an absolute
-completeness proof.  Such a proof would require a metatheoretic
-statement outside the framework, which is not given here.
-
-Specific limits:
+The fifteen components state what holds within the framework.
+Four specific limits remain:
 
 - **Raw.fold reduction** is not always unfolded by Lean's
   elaborator on deep nested terms.  The reflection theorem
   `universalAsLens` sidesteps this by re-presenting an
   instance as a `Lens` whose `view` definitionally equals
   `universalMorphism`.
-- **Sum-type combine**: no commutative combine canonical in
-  the same sense as the `Pair`-side construction is known to
-  us on `Sum α β`; the priority-based variant in
-  `SumInstance.lean` is recorded without a canonicity claim
-  (§5.6).
+- **Sum-type combine**: the priority-based variant in
+  `SumInstance.lean` is one valid instance; canonicity of the
+  combine choice on `Sum α β` is open (§5.6).
 - **Subtype `combine_sym`** under a slash-based combine meets
   the nested-Subtype elaborator boundary; the present version
   uses a degenerate combine.
