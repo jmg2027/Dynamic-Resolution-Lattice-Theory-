@@ -551,6 +551,28 @@ external choice function is needed to select representatives.
 All proofs use only `[propext]` and `[Quot.sound]`; no
 `Classical.choice` is invoked.
 
+#### Worked example: parity congruence
+
+A concrete instance: take `E := λ r r'. depth r ≡ depth r' (mod 2)`
+restricted to slash-congruence-closed shapes (depth-parity on
+itself fails the slash compatibility, as §5.2 records; the
+correct depth-parity Lens is built differently).  As a
+genuinely usable example, take instead the kernel `E` on a
+depth-3 sub-language that does satisfy the four hypotheses:
+
+```
+E := λ r r'. (universalMorphism Bool r) = (universalMorphism Bool r')
+```
+
+i.e., the kernel of the Bool universal morphism (with the Xor
+combine).  All four hypotheses (`hrefl, hsymm, htrans, hslash`)
+are immediate from the equational structure of `=` on `Bool`,
+and `universalLens E` recovers a Lens whose `view` lands in
+`Raw → Prop` and whose kernel is exactly this Bool-equivalence.
+The construction goes through *without* picking representatives:
+`universalLens` is built via the canonical `λ r. E r ·` indicator
+function rather than a Choice-style selector.
+
 ### §5.2 Power set: constructive subset, not full P(X)
 
 Lens kernels are not arbitrary equivalence relations on `Raw`;
