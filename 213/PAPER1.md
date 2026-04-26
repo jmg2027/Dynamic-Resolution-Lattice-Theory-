@@ -1301,6 +1301,9 @@ or a subset of `[propext, Quot.sound]`).
 | §7.4 | Per-b upper instances | `EulerGenericPure` · `e_lt_9_3`, `e_lt_11_4` | **none** |
 | §7.4 | Transcendental Cut discriminator (unified) | `EulerGenericPure` · `e_partial_gt_a_b`, `e_partial_lt_a_b`, `e_partial_neq_a_b` | **none** |
 | §7.4 | TCD per-b applications | `EulerGenericPure` · `e_neq_a_third`, `e_neq_a_quarter` | **none** |
+| §5.4 | KernelSpace type definition | `KernelSpace` · `KernelSpace`, `fromLens`, `toLens` | propext |
+| §6 | Real213 type (Cauchy real, framework-internal) | `Real213` · `Real213`, `Real213.equiv` | **none** |
+| §9.2 | Every HasDistinguishing α is Lens-codomain | `UniversalLensClaim` · `every_distinguishing_is_lens_codomain` | **none** |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
