@@ -117,16 +117,16 @@ includes the decidability of equality on `Raw`
 (`RefinesPreorder`), the equivalence properties of `Lens.equiv`
 (`LensEquivProperties`), the `HasModulus → isOrderCauchy`
 implication (`HasModulus`), the `parityLens` Collapse-False
-witness (`ParityLensCollapseFalse`), and concrete numeric
+witness (`ParityLensCollapseFalse`), concrete numeric
 verifications such as the sharper Euler bounds at specific n
-(`EulerSharperKernelFree`).  A second tier depends on
-`propext` only (no `Quot.sound`), including the omega-free
-√2 irrationality proof (`Sqrt2IrrationalKernelFree`) — the
-`Quot.sound` dependency in the original `Sqrt2Irrational`
-came purely from the `omega` tactic's internal reflection
-machinery, which is removable via manual descent.  See
-`KernelFreeAudit.lean` and Appendix A for the complete
-tabulation.
+(`EulerSharperKernelFree`), and — through a custom Nat library
+that avoids every propext-using lemma in Lean's standard
+toolkit — the **complete proof of √2 irrationality**
+(`Sqrt2IrrationalPure.sqrt2_irrational`, depending on *zero
+axioms*).  A second tier depends on `propext` only (no
+`Quot.sound`), including the omega-free intermediate version
+(`Sqrt2IrrationalKernelFree`).  See `KernelFreeAudit.lean`,
+`PureNat.lean`, and Appendix A for the complete tabulation.
 
 This bound is taken as a *contract*: see §8 for the
 falsifiability statement and its operational consequences.
@@ -1285,6 +1285,8 @@ or a subset of `[propext, Quot.sound]`).
 | §7.2 | √2 irrationality (kernel-free, Quot.sound 부재) | `Sqrt2IrrationalKernelFree` · `sqrt2_irrational`, `mul_self_mod_two`, `descent_step` | propext |
 | §7.4 | Euler sharper at n=3, n=4 (axiom-free) | `EulerSharperKernelFree` · `euler_sharper_lower_n3`, `_n4` | none |
 | §7.5 | Wallis sharper at n=2, n=3 (axiom-free) | `WallisSharperKernelFree` · `wallis_sharper_n2`, `_n3` | none |
+| §1.3 | Custom axiom-free Nat library | `PureNat` · `mul_assoc`, `add_mul`, `mul_mul_mul_comm`, `isEven_self_mul`, `even_sq`, `odd_sq` | none |
+| §7.2 | √2 irrationality (truly axiom-free, propext 까 지 제거) | `Sqrt2IrrationalPure` · `sqrt2_irrational`, `sqrt2_no_rational_aux`, `descent_step` | **none** |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
