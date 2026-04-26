@@ -1293,6 +1293,8 @@ or a subset of `[propext, Quot.sound]`).
 | §7 | mod-5 descent infrastructure (axiom-free) | `PureNatMod5` · `mod5`, `nat_quintichotomy`, `five_mul_r_sq`, `mod5_self_mul_zero` | **none** |
 | §7 | Descent boundary observations | `PrimeDescentObservations` · `sqrt4_rational`, `sqrt4_not_irrational`, `sqrt16_rational` | **none** |
 | §7.4 | Euler bounds (axiom-free, omega-free) | `EulerCombinatorialPure` · `euler_upper_pure`, `euler_lower_pure`, `euler_in_open_2_3` | **none** |
+| §7.4 | e > 8/3 strict (sharper, axiom-free) | `EulerSharperPure` · `euler_sharper_8_3_pure`, `eulerDen_pos_pure` | **none** |
+| §7.4 | e ≠ a/3 partial sum (Hermite-style, propext only) | `EulerSharperPure` · `e_partial_neq_third_a` | propext |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
