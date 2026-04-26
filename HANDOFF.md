@@ -70,6 +70,7 @@ ranked angle 들 구체 안내) 후 6 fronts 진행:
 | 5 | `SubtypeInstanceClosed` | SlashClosed typeclass + slash-based combine (§8.2 third boundary 해소) | b41714e |
 | 6 | `FamilyMeet` | arbitrary-index family meet via universalLens (countable Choice 의 213-internal counterpart) | 2724ecb |
 | 7 | `HasModulus` | Bishop-style constructive Cauchy modulus typeclass (LEM 우회 infrastructure) | 7eeafe0 |
+| 8 | `PellHasModulus` | Pell sequence 가 first concrete HasModulus instance — pell_isOrderCauchy LEM 없 이 close | e1b3c37 |
 
 Lean build 전체 clean, 모두 ≤ [propext, Quot.sound] (또는 less).
 
@@ -84,9 +85,9 @@ PAPER1 §5.1 (FamilyMeet), §5.5 (SubtypeInstanceClosed),
   lower bound — 3 simple angle 다 fail, sophisticated
   machinery 필요 (recursive Lens^n α, kernel 위 직접
   Cantor, Sum/Product 자유 결합).
-- **B continuation**: HasModulus instances (Pell, Euler,
-  Wallis) — Pell 은 y_n ≥ n bound 으 로 closed form 가능
-  estimated; Euler/Wallis 는 irrationality 격상 후.
+- **B continuation**: HasModulus instances 추가 — Pell ✓
+  (8a41f03), Euler/Wallis 는 irrationality 격상 후 (e/π/2
+  의 internal irrationality proof 가 별 도 큰 작업).
 - **C(1)**: Zorn-on-Lens-kernel-preorder.
 - **C(2)**: Canonical form as internal choice function
   meta-statement.
