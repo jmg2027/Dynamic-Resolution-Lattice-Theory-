@@ -655,8 +655,15 @@ two primitive elements.
 The Sum-type instance `sumHasDistinguishing` of
 `Research/SumInstance.lean` uses a priority-based combine
 (left-preference on mixed cases).  This is one valid
-`HasDistinguishing` instance on `Sum α β`; canonicity of the
-choice is open (§8.2).
+`HasDistinguishing` instance on `Sum α β`; the priority
+combine fails the coproduct universal property in
+DistMorphism: with `α = β = γ = Bool` and the xor combine,
+`f = g = id` are both algebra morphisms, yet no mediating
+morphism `h : Sum Bool Bool → Bool` simultaneously satisfies
+`h ∘ inl = id`, `h ∘ inr = id`, and `combine`-preservation
+(`SumNotCoproduct.sum_not_coproduct_xor`).  The combine
+choice is therefore non-canonical, not merely
+under-determined (§8.2).
 
 ---
 
@@ -1126,8 +1133,11 @@ Four specific limits remain:
   instance as a `Lens` whose `view` definitionally equals
   `universalMorphism`.
 - **Sum-type combine**: the priority-based variant in
-  `SumInstance.lean` is one valid instance; canonicity of the
-  combine choice on `Sum α β` is open (§5.6).
+  `SumInstance.lean` is one valid instance, but it fails the
+  DistMorphism coproduct universal property
+  (`SumNotCoproduct.sum_not_coproduct_xor`).  The combine
+  choice is non-canonical; canonicity is decided in the
+  negative (§5.6).
 - **Subtype `combine_sym`** under a slash-based combine meets
   the nested-Subtype elaborator boundary; the present version
   uses a degenerate combine.
@@ -1183,7 +1193,9 @@ or a subset of `[propext, Quot.sound]`).
 | 13 | Cross-instance (Iff) | `BoolPropMorphism` · `boolToProp_iff`, `universalMorphism_commute_iff` | propext, Quot.sound |
 | 14 | Coproduct accessor (Prism) | `Prism` · `aPrism`, `bPrism`, `aPrism_bPrism_disjoint`, `caseElement_disjoint` | propext, Quot.sound |
 | 14 | Sum-type instance | `SumInstance` · `sumHasDistinguishing`, `sumCombine_comm` | propext, Quot.sound |
+| 14 | Sum-type non-coproduct | `SumNotCoproduct` · `sum_not_coproduct_xor` | propext |
 | 15 | Reflection (typeclass→Lens) | `UniversalReflection` · `universalAsLens`, `universalAsLens_view` | propext, Quot.sound |
+| §7.2 | √2 irrationality (descent) | `Sqrt2Irrational` · `sqrt2_irrational`, `mul_self_mod_two` | propext, Quot.sound |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
