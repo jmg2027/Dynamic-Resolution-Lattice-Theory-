@@ -37,11 +37,12 @@ holds with margin 1/k.
 
 | # | Milestone | Status | Notes |
 |---|-----------|--------|-------|
-| B1 | Addition | pending | sequence-wise + modulus.N max combine |
+| B0 | Real213StrictPos subtype (E2 의 해결책) | ✓ done | `Real213StrictPos.lean` |
+| B1 | Addition (StrictPos 위) | **wall** | modulus combination proof 미완성 (E2 참조) |
 | B2 | Negation | pending | Raw 의 a/b swap 활용? abLens-internal swap |
 | B3 | Multiplication | pending | bounded sequence 의 product modulus |
 | B4 | Division (with positivity) | pending | r ≠ 0 의 *modulus* 형식 |
-| B5 | equiv 의 algebraic 호환 | pending | `r ~ r' → r + s ~ r' + s` 등 |
+| B5 | equiv 의 algebraic 호환 (le 부 분) | partial | `Real213OrderExtra.lean` (le_of_equiv, equiv_of_le_le) |
 
 **B 의 핵심**: addition 의 modulus 가 *sum* 의 modulus 가 *각각의
 modulus 의 max* (or +1 보 정).  Bishop §1.2 의 standard result.
