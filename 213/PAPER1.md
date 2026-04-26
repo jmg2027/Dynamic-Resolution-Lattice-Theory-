@@ -1284,6 +1284,7 @@ or a subset of `[propext, Quot.sound]`).
 | §1.3 | Kernel-free fragment audit | `KernelFreeAudit` (documentation) | none |
 | §7.2 | √2 irrationality (kernel-free, Quot.sound 부재) | `Sqrt2IrrationalKernelFree` · `sqrt2_irrational`, `mul_self_mod_two`, `descent_step` | propext |
 | §7.4 | Euler sharper at n=3, n=4 (axiom-free) | `EulerSharperKernelFree` · `euler_sharper_lower_n3`, `_n4` | none |
+| §7.5 | Wallis sharper at n=2, n=3 (axiom-free) | `WallisSharperKernelFree` · `wallis_sharper_n2`, `_n3` | none |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.

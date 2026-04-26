@@ -1,6 +1,6 @@
 import E213.Research.HasModulus
 import E213.Research.PellSeq
-import E213.Research.Sqrt2Irrational
+import E213.Research.Sqrt2IrrationalKernelFree
 
 /-!
 # Research.PellHasModulus: Pell sequence 의 HasModulus instance
@@ -30,7 +30,7 @@ open E213.Research.ABLens
 open E213.Research.ArchimedeanCauchy
 open E213.Research.HasModulusNS
 open E213.Research.PellSeq
-open E213.Research.Sqrt2Irrational
+open E213.Research.Sqrt2IrrationalKernelFree
 
 /-- Pell sequence as `Nat → Raw`. -/
 def pellRawSeq : Nat → Raw := fun n => (pellRaw n).val
@@ -49,7 +49,7 @@ open E213.Research.ArchimedeanCauchy
 open E213.Research.HasModulusNS
 open E213.Research.PellSeq
 open E213.Research.Sqrt2Cut
-open E213.Research.Sqrt2Irrational
+open E213.Research.Sqrt2IrrationalKernelFree
 
 /-- Cauchy stability at (m, k) — 3-case 분석. -/
 theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
@@ -66,19 +66,20 @@ theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
       intro n hn
       rw [pellRaw_view]
       have hyn : pellY n ≥ k := by
-        have := pellY_lb n
-        omega
+        have hlb := pellY_lb n  -- pellY n ≥ n + 2
+        have h1 : k ≤ k + 2 := Nat.le_add_right k 2
+        have h2 : k + 2 ≤ n + 2 := Nat.add_le_add_right hn 2
+        exact Nat.le_trans (Nat.le_trans h1 h2) hlb
       have hyn_sq : k * k ≤ pellY n * pellY n := Nat.mul_le_mul hyn hyn
       exact pell_orderProj_above (pellX n) (pellY n) m k
         (pell_invariant n) h hyn_sq
     rw [above i hi, above j hj]
   · -- ¬ (2k² < m²) → m² ≤ 2k².  m² = 2k² 는 불가 (sqrt2_irrational).
-    have hle : m * m ≤ 2 * k * k := by omega
+    have hle : m * m ≤ 2 * k * k := Nat.le_of_not_lt h
     have hne : m * m ≠ 2 * k * k := by
-      have := sqrt2_irrational k hk m
-      have h2 : 2 * (k * k) = 2 * k * k := by
-        rw [Nat.mul_assoc]
-      omega
+      intro heq
+      have h2 : 2 * (k * k) = 2 * k * k := by rw [Nat.mul_assoc]
+      exact sqrt2_irrational k hk m (heq.trans h2.symm)
     have hbelow : m * m < 2 * k * k := Nat.lt_of_le_of_ne hle hne
     rw [pellRaw_cut_below m k hk hbelow i,
         pellRaw_cut_below m k hk hbelow j]

@@ -18,7 +18,7 @@ open E213.Research.ABLens
 open E213.Research.ArchimedeanCauchy
 open E213.Research.HasModulusNS
 
-/-- Diagonal sequence 의 HasModulus instance. -/
+/-- Diagonal sequence 의 HasModulus instance.  omega 부재. -/
 def diagonalHasModulus (xs : Nat → Raw)
     (h : ∀ n, abLens.view (xs n) = (n + 1, n + 1)) :
     HasModulus xs where
@@ -26,7 +26,7 @@ def diagonalHasModulus (xs : Nat → Raw)
   cauchy_at := by
     intro m k _ i j _ _
     rw [h i, h j]
-    rw [diagonal_seq_orderProj_const m k (i+1) (by omega),
-        diagonal_seq_orderProj_const m k (j+1) (by omega)]
+    rw [diagonal_seq_orderProj_const m k (i+1) (Nat.succ_le_succ (Nat.zero_le _)),
+        diagonal_seq_orderProj_const m k (j+1) (Nat.succ_le_succ (Nat.zero_le _))]
 
 end E213.Research.DiagonalHasModulus
