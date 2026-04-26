@@ -571,6 +571,19 @@ slash-congruence arises as the kernel of an explicit Lens; no
 choice function is needed to select representatives.  The
 construction uses only `[propext, Quot.sound]`.
 
+`Research/FamilyMeet.lean` extends the construction to
+arbitrary index types: for any family `⟨E_i⟩_{i ∈ I}` of
+slash-congruences indexed by an arbitrary type `I` (in
+particular `I = Nat` for the countable case), the meet
+`familyMeet E := λ r r'. ∀ i, E_i r r'` is itself a
+slash-congruence, and `universalLens (familyMeet E)` realises
+this meet as a single Lens kernel
+(`familyMeet_kernel_eq`).  This subsumes the role of
+*countable Choice* in the framework: simultaneous
+representative selection across a countable family of
+equivalence classes is built from `universalLens` without an
+external choice principle.
+
 **Example.**  Define the Lens
 `boolXor : Lens Bool := ⟨false, true, xor⟩` and let `E_Xor` be
 its kernel:
@@ -1200,6 +1213,7 @@ or a subset of `[propext, Quot.sound]`).
 | 15 | Reflection (typeclass→Lens) | `UniversalReflection` · `universalAsLens`, `universalAsLens_view` | propext, Quot.sound |
 | §7.2 | √2 irrationality (descent) | `Sqrt2Irrational` · `sqrt2_irrational`, `mul_self_mod_two` | propext, Quot.sound |
 | §5.5 | Subtype slash-based combine (closed) | `SubtypeInstanceClosed` · `SlashClosed`, `subtypeHasDistinguishingClosed` | propext |
+| §5.1 | Family meet (countable Choice analog) | `FamilyMeet` · `familyMeet`, `familyMeet_kernel_eq` | propext, Quot.sound |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
