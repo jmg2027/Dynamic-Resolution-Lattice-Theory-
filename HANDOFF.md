@@ -1,132 +1,92 @@
-# Session Handoff — 2026-04-26 (PAPER1.md dry-formal rewrite 완료)
+# Session Handoff — 2026-04-26 (213 sub-project: arc closed, repo cleaned)
 
 ## Status
 
 Branch: `claude/lean-infinity-explanation-QqnSp`.
-All Lean modules build clean.  0 sorry, 0 external axioms (only
-`propext` + `Quot.sound` baseline).
-PAPER1.md (~1190 줄) 14 review rounds + meta-review-driven
-dry-formal rewrite 완료.  table → Appendix A 분리, §1
-defensive 톤 제거, §5 "Reductions" → "ZFC commitments —
-213-side counterparts", §1.3 와 §8.1 의 redundancy 정리, §9
-가 §1 의 elaboration 으로 framing.
+Lean: 0 sorry, 0 external axioms (only `propext` + `Quot.sound`).
 
-## User directive (2026-04-25)
+**PAPER1.md** (~1180 줄) — Lean 4 core formalization paper,
+preprint-ready.  14 review rounds + dry-formal rewrite +
+peer-review revision + final scrub.  No physics references.
 
-> "Mathematically complete picture 대신 complete semantic 213
-> proof 를 확인할 때까지 아무리 오래 걸리고 에포트가 많이 들더라도
-> 멈추지 말 것."
+**Repository cleanup** (2026-04-26): 80 stale files deleted.
+- 77 superseded notes (kept 5: 17, 19, 30, 75, 76 per CLAUDE.md
+  mandate).
+- `PAPER1_OUTLINE.md` (paper exists).
+- `research/infinity-as-lens/` arc files (CLAUDE.md, HANDOFF.md;
+  arc concluded).
+- `research/r5-critique/` sub-track (Paper 2 deleted upstream;
+  no Lean dependency in this branch).
+- `research/infinity-as-lens/notes/` → `research/notes/` 평탄화.
 
-## Current arc — semantic atom thesis 의 21 direction + 11 Lean modules
+## 213 final state
 
-### 11 Lean modules (이번 arc)
+```
+213/
+  AXIOM.md              — axiom seed
+  PAPER1.md             — formalization paper (preprint-ready)
+  AUDIT_Lean.md
+  IMPLEMENTATION.md
+  NOTATION.md
+  ORIGIN.md             — physical-intuition chain (frozen)
+  CLAUDE.md             — session guide
+  README.md
+  research/notes/       — 5 reference notes
+  framework/E213/       — Lean 4 core formalization
+```
 
-1. `AxiomMinimality.lean` — strict minimum 4 case.
-2. `SemanticAtom.lean` — hub: HasDistinguishing typeclass +
-   universalMorphism + raw_initial + 4 Prop instances + boundary.
-3. `LensCanonicalForm.lean` — Lens canonical form (closure).
-4. `InstanceReach.lean` — 5-instance reach catalogue (Bool, Fin 3,
-   Nat, Int, Raw).
-5. `DistMorphism.lean` — distinguishing-framework category (id,
-   comp, laws).
-6. `CanonicalTruthChar.lean` — 4 connective characterizations
-   (Xor: a-parity, Iff: b-parity, And: r=a, Or: r≠b).
-7. `BoolPropMorphism.lean` — 4 cross-instance functorial commute.
-8. `PairInstance.lean` — categorical binary product.
-9. `LensOnLens.lean` — Lens 자체 가 instance + recursive tower
-   (Lens^n α).
-10. `ImageMinimum.lean` — universalMorphism image 가 minimum
-    distinguishing-closed subset.
-11. `FunctionSpace.lean` — categorical exponential (α → β).
+## Lean modules — semantic-atom arc (≤ [propext, Quot.sound])
 
-모두 ≤ [propext, Quot.sound] or no axioms.
+- `AxiomMinimality` · 4-case strict minimum
+- `SemanticAtom` · HasDistinguishing typeclass + universalMorphism + raw_initial + 4 Prop instances + boundary
+- `LensCanonicalForm` · refines-equivalence canonical form
+- `InstanceReach` · 5-instance reach catalogue (Bool, Fin 3, Nat, Int, Raw)
+- `DistMorphism` · category structure
+- `CanonicalTruthChar` · 4 connective characterizations
+- `BoolPropMorphism` · cross-instance functoriality
+- `PairInstance` · binary product
+- `LensOnLens` · recursive Lens^n α tower
+- `ImageMinimum` · image minimum closure
+- `FunctionSpace` · categorical exponential
+- `Prism` · coproduct counterpart
+- `SumInstance` · Sum-type instance (priority combine)
+- `SubtypeInstance` · degenerate combine on closed subtype
+- `UniversalReflection` · typeclass↔Lens reflection
 
-### Complete semantic proof 의 components (current state)
+PAPER1.md Appendix A 가 component → declaration mapping 의 single
+source of truth.
 
-✓ Strict minimum (4 case).
-✓ Universal property (∃ + uniqueness).
-✓ Self-application (4 Prop instances).
-✓ Boundary (exists_non_lens).
-✓ Closure (lens_canonical_universal).
-✓ Reach (image_minimum_property).
-✓ Categorical structure (Pair, FunctionSpace, DistMorphism).
-✓ Recursive self-application (lensHasDistinguishing tower).
-✓ Type constructor closure (Pair, Lens, Function space).
+## Next-research candidates (sober, ranked)
 
-### Notes 75-97 (24 notes)
+1. **Subtype slash-based combine via reflection refactor**
+   (PAPER1.md §8.2 third closed boundary).  Lean elaborator
+   boundary 의 infrastructural fix.
 
-- 75-79: foundational thesis + universal property.
-- 80-85: instance catalogue + reach dichotomy.
-- 86-89: 4 connective characterizations + Iff/Xor distinct.
-- 90-92: cross-instance morphisms + categorical product.
-- 93: mid-arc synthesis (19 direction).
-- 94-96: Lens-on-Lens + image minimum + function space.
-- 97: complete proof components synthesis (21 direction).
+2. **NoDepthParity 일반화** via image_minimum_property
+   (§5.2 boundary 의 sharper form).  어떤 함수 family 가
+   not-fold-structured 인지 의 더 넓은 분류.
 
-## Open work + limits (sober)
+3. **Sum-type combine canonicity 의 formal open question**
+   (§5.6, §9.4).  "어떤 commutative combine 도 canonical 이
+   아님" 의 형식 statement + 시도.
 
-### Lean infrastructure limits
+4. **Lens-on-Lens 의 universal morphism algebraic
+   characterization** (§9.2 item 9).  `lensUniversalMorphism :
+   Raw → Lens Bool` 의 image structure.
 
-- **Raw.fold reduction**: 일부 specific function (e.g.,
-  `decide (depth ≥ 2)`) 의 fold-structure analysis 가 Lean 의
-  noncomputable Raw.fold 의 reduction 한계 봉착.
-- **DistMorphism typeclass synthesis**: multiple Prop instances
-  의 default 부재 — explicit `@` 사용 필요.
+5. **Cauchy 일반 closure** (§6.4, §8.2): LEM 없 이 어디 까 지
+   가능 한지 의 sharper boundary.  Weakened form
+   (decidable-thresholds-only) 가 가능 할 수 있음.
 
-### Skipped axes (design problem)
+새 axis 후보:
 
-- **Sum type / coproduct**: combine 의 자연 한 정의 부재 (degenerate
-  만 가능).
-- **Subtype instance**: distinguishing-closed predicate 의 가정
-  필요 — 일반 form 어려움.
-
-### Future axes
-
-- NoDepthParity 의 일반화 via image_minimum_property.
-- Lens-on-Lens 의 universal morphism 의 specific algebraic
-  characterization.
-- r5-critique sub-track (Paper 2 candidate, 별도 arc).
-
-## File map
-
-- Lean Research: 73 files in root (11 신규 in this arc).
-- Notes: 65 files (00-97 with gaps).
-- CayleyDickson sub-dir: 29 files (R5 sub-track).
+- **Lens 의 Galois 구조**: Lens.refines 의 closure / 체인 의
+  분류 — Lattice 이론 connection.
+- **Type-theoretic comparison**: 213 의 `HasDistinguishing` 와
+  HoTT 의 `Identity` type / Mathlib 의 `Setoid` 의 정확 한 관계.
 
 ## User priority
 
-paper 1 / 2 작성 priority 부재 (2026-04-25 명시).  연구 의
-self-contained depth 가 priority.
+직전 directive: "정리 + 다음 연구 준비".  Cleanup 완료, next
+research 의 axis 결정 사용자 입력 대기.
 
-## "Complete semantic proof" 의 evaluation (sober)
-
-Mathematically rich picture 도달.  21 direction + 11 Lean modules
-+ all baseline axioms.  하지만 *philosophical/absolute* sense 의
-"complete proof" — formal 영역 외부 일 수 있음.  framework 의
-limits (sum type, decidability, Raw.fold reduction 등) 가 boundary.
-
-User directive 인정: 멈추지 말 것.  새 axis 발견 시 계속 진행
-가능.
-
-## PAPER1.md 14 review rounds (2026-04-25 → 26)
-
-| Round | 변경 | Commit |
-|-------|------|--------|
-| 1 | sober calibration (factual) | 8810c20 |
-| 2 | theorem name + ORIGIN mapping | a13e44d |
-| 3 | abstract + §1 sober | 7e6e370 |
-| 4 | §9 + §5.5 + §8.4 sober | 92fd862 |
-| 5 | §9.5 sober calibration of limits | 42dcdaa |
-| 6 | §5.2 sharper boundary + Refs | fd0ca1d |
-| 7 | §2.4 initiality + §6.3 OrderCauchy | 21b0650 |
-| 8 | §7 worked examples (concrete tables) | 96fa1d0 |
-| 9 | §2.3 Raw levels + §3.4 Lens views | 9281d64 |
-| 10 | §6.3 grammar + §8.3 §9.5 일관성 | 318af29 |
-| 11 | §9.2 axiom verification table | 8e37e20 |
-| 12 | §4.4 transport worked example + §4.5 sig | a49fe7d |
-| 13 | §5.1 universalLens 의 worked example | c3695ed |
-| 14 | final consistency pass + HANDOFF | (this) |
-
-추가 round 가 marginal return — stop point 도달.  paper 의 sober
-final state 는 §9.2 의 axiom verification table 로 fully
-auditable.

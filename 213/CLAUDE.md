@@ -112,7 +112,7 @@ Mingu 확정 (2026-04-24).  절대 완화 안 됨.
 
 - **Lens ≠ functor.**  Functor는 카테고리 구조 선행 전제.
   Raw에는 morphism 없음.  "functor"를 Lens에 붙이는 순간
-  카테고리 이론 묵시 수입.  →  `notes/19_lens_not_functor.md`.
+  카테고리 이론 묵시 수입.  →  `research/notes/19_lens_not_functor.md`.
 - **"관측자", "공간", "인식", "구조", "관계"** 같은 단어는
   213 공리 설명에 사용 금지.  이 단어들은 derive 결과이지
   전제가 아님.
@@ -123,7 +123,7 @@ Mingu 확정 (2026-04-24).  절대 완화 안 됨.
   countable/uncountable 말할 수 없음.
 - **Existence mode don't care.**  Platonic / stepwise 구분은
   Lens 출력이지 공리 성질 아님.
-  →  `notes/17_existence_mode_lens.md`.
+  →  `research/notes/17_existence_mode_lens.md`.
 - **`E213.Firmware.Internal` namespace `open` 은 Firmware
   내부 모듈 외 금지.**  Internal 은 encoding scaffolding
   (`Tree`, `Tree.cmp`, `Tree.canonical` 등) 전용.  User
@@ -170,19 +170,24 @@ fudge 없이 derive 가능한가?  안 되면 **speculative 격리**.
 derivation 시도** 였고, arc 진행 중 프레이밍이 낡음.
 `notes/30_bool_is_liar_paradox.md` 가 이 삭제 배경 기록.
 
-현재 **AXIOM.md 가 유일한 공리 문서**.  derivation 은 notes/
-에서 자유롭게 탐구 (판정 프레임 없이).
+현재 **AXIOM.md 가 유일한 공리 문서**, **PAPER1.md 가 유일한
+formal paper** (R1-R5 도출 없이, Raw + Lens 의 foundational
+formalization).  derivation 은 `research/notes/` 에서 자유롭게
+탐구 (판정 프레임 없이).
 
 ## 파일 지도
 
 - **`AXIOM.md` — 공리 씨앗 문서 (최상위 기준).**
+- **`PAPER1.md` — Lean 4 core 형식화 의 paper form.**  최종 stop
+  point (2026-04-26).  PAPER1.md 의 §9 + Appendix A 가 semantic
+  atom thesis 의 formal core.
 - **`ORIGIN.md` — 이론의 원본 프롬프트 chain (2026-04-24 고정).**
-  공리의 형태가 "왜 이것인가" 의심될 때 먼저 참조.
+  공리의 형태가 "왜 이것인가" 의심될 때 먼저 참조.  PAPER1.md
+  본문 에는 physics motivation 부재.
 - `NOTATION.md` — 표기 규약.
 - `IMPLEMENTATION.md` — Raw + Firmware 구현 감사 연구.
-  안전장치가 공리 추가가 아님을 엄밀 분석.
 - `AUDIT_Lean.md` — Lean × AXIOM 대조 감사.
-- `research/infinity-as-lens/` — 세부 노트들.
+- `research/notes/` — 5 reference notes (17, 19, 30, 75, 76).
 - `framework/E213/` — Lean 4 core 형식화.
 - 루트 `../HANDOFF.md` — 세션 아크 연속성.
 
