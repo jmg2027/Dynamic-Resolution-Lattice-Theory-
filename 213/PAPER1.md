@@ -1295,6 +1295,8 @@ or a subset of `[propext, Quot.sound]`).
 | §7.4 | Euler bounds (axiom-free, omega-free) | `EulerCombinatorialPure` · `euler_upper_pure`, `euler_lower_pure`, `euler_in_open_2_3` | **none** |
 | §7.4 | e > 8/3 strict (sharper, axiom-free) | `EulerSharperPure` · `euler_sharper_8_3_pure`, `eulerDen_pos_pure` | **none** |
 | §7.4 | e ≠ a/3 partial sum (Hermite-style, propext only) | `EulerSharperPure` · `e_partial_neq_third_a` | propext |
+| §7.4 | Generic Euler lower bound (meta-algorithm) | `EulerGenericPure` · `euler_lower_generic`, `euler_lower_step` | **none** |
+| §7.4 | Per-b instances via meta-algorithm | `EulerGenericPure` · `e_gt_8_3`, `e_gt_10_4`, `e_gt_13_5`, `e_gt_19_7` | **none** |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
