@@ -1255,6 +1255,9 @@ or a subset of `[propext, Quot.sound]`).
 | §7.5 | Wallis π/2 > 64/45 sharper | `WallisSharper` · `wallis_sharper_lower`, `poly_ineq` | none |
 | §3.3 | idLens kernel = equality | `IdLensKernelEq` · `idLens_equiv_eq` | none |
 | §3.4 | parityLens Collapse-False explicit | `ParityLensCollapseFalse` · `parityLens_collapse_false` | none |
+| §3.3 | Refines preorder explicit | `RefinesPreorder` · `refines_refl`, `refines_trans` | none |
+| §3.3 | constLens total kernel | `ConstLensTotalKernel` · `constLens_equiv_total` | none |
+| §3.2 | Lens.equiv equivalence properties | `LensEquivProperties` · `lens_equiv_refl`, `lens_equiv_symm`, `lens_equiv_trans` | none |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
