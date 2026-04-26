@@ -824,9 +824,12 @@ theorem pell_orderProj_below (x y m k : Nat)
 
 The two lemmas cover rational thresholds strictly above and
 strictly below √2.  The remaining case `m^2 = 2 k^2` is
-vacuous for `k ≥ 1` (the irrationality of √2; treated as an
-input fact).  Hence √2 appears as a Dedekind cut at every
-rational threshold via the Pell-sequence approach.
+vacuous for `k ≥ 1`: this is the irrationality of √2,
+formalised within the framework as
+`Sqrt2Irrational.sqrt2_irrational` (Lean 4 core, 2-adic
+descent, `[propext, Quot.sound]` only).  Hence √2 appears as
+a Dedekind cut at every rational threshold via the
+Pell-sequence approach.
 
 ### §7.3 ℤ_p number-theoretic — Padic
 
