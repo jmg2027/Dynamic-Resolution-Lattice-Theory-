@@ -2,14 +2,10 @@
 
 **Author**: Mingu Jeong (Independent Researcher)
 
-**Acknowledgment**: This work was developed in dialogue with
-Claude (Anthropic), which contributed Lean formalization,
-derivation exploration, and prose drafting.  All formal results
-are mechanically verified.
-
 **Status**: Lean 4 core formalization (no Mathlib).  0 sorry,
 0 external axioms beyond the Lean baseline (`propext`,
-`Quot.sound`).
+`Quot.sound`).  Acknowledgments and contributor attributions
+appear in §8.4.
 
 ---
 
@@ -87,8 +83,7 @@ and uses no axiom beyond `propext`.
 
 ### §1.2 Position relative to ZFC
 
-We do not claim 213 supersedes or replaces ZFC.  The two
-systems differ in *what is taken as axiomatic*:
+213 and ZFC differ in what is taken as axiomatic:
 
 - ZFC posits the existence of certain collections (subsets,
   choice functions, inductive sets) and develops mathematics
@@ -97,13 +92,14 @@ systems differ in *what is taken as axiomatic*:
   develops corresponding structures as `Lens` specifications
   whose existence is constructed rather than postulated.
 
-The reductions exhibited in §5 are *partial*: full reduction of
+§5 exhibits the 213-side counterparts: full reduction of
 Choice (§5.1), an explicit boundary witness for Power-set
 (§5.2), unbounded-depth `Raw` in place of an Infinity axiom
 (§5.3), Comprehension as a distinguishing-closed `Subtype`
 under closure precondition (§5.5), and Coproduct via the
-`Prism` dual (§5.6).  None of these reductions appeals to an
-external set-theoretic argument; each is mechanically verified.
+`Prism` counterpart (§5.6).  Each is mechanically verified
+within the framework, with no appeal to external
+set-theoretic arguments.
 
 ### §1.3 Verification and contract
 
@@ -120,7 +116,61 @@ A small number of prose passages contain interpretive material
 that lies outside the formal core (notably the historical
 correspondence in §9.4); these are explicitly marked.
 
-### §1.4 Roadmap
+### §1.4 Related work
+
+Constructive analysis (Bishop, 1967) develops mathematics
+around the requirement that every existence claim be
+witnessed.  The treatment of Cauchy completeness in §§6-7 is
+constructive in the Bishop sense: each cut is given by an
+explicit witness `N`, never by an existence claim resting on
+LEM.  The framework's *contract* (§8.1) — "an axiom beyond the
+baseline triggers theory discard" — is a strict form of the
+constructivist commitment.  Bishop's work assumes ℝ as a
+Cauchy-completion of ℚ; the present framework constructs cuts
+internally as `Lens`-output `Bool` decisions, without ℝ.
+
+Homotopy Type Theory (UFP, 2013) extends Martin-Löf type
+theory with the univalence axiom and higher inductive types.
+HoTT shares with 213 the type-theoretic standpoint and the
+treatment of equality as structure rather than as a pre-given
+relation.  The two systems differ in scope: HoTT axiomatizes
+identity-type behaviour (univalence) and is intended as a
+foundation for synthetic homotopy theory; 213 axiomatizes only
+the distinguishing operation and is intended as a substrate
+for the algebra of distinctions.  213 uses neither univalence
+nor `Quot.mk` beyond the `Quot.sound` baseline.
+
+Lawvere's Elementary Theory of the Category of Sets (ETCS,
+1964) replaces ZFC's element-membership axioms with categorical
+axioms about the category of sets.  213 follows the same
+spirit at the Raw + Lens level: collection axioms (Power-set,
+Choice, Infinity) become internal Lens specifications (§5).
+Where ETCS axiomatizes a complete topos, 213 axiomatizes only
+the initial Raw-algebra and treats further structure as
+Lens-derivable.
+
+The Calculus of Inductive Constructions (Coq) and Lean's own
+core type theory both support inductive types at the
+foundational level.  213 uses Lean 4's inductive `Tree` type
+together with a canonical-form `Subtype`.  Mathlib's hierarchy
+of algebraic structures (groups, rings, etc.) builds on this
+inductive backbone; 213's `HasDistinguishing` typeclass
+(§9.1) plays an analogous role at the level of
+distinguishability rather than algebraic structure.  No
+Mathlib dependency is incurred.
+
+Comparable minimal axiomatizations of mathematics include ZF
+without Choice, NF (Quine), Aczel's CZF, and Feferman's
+predicative systems.  Each of these takes set-formation as
+primitive and varies the collection axioms.  213 differs by
+making the *distinguishing operation* primitive instead of
+set-formation: the basic act is `slash` on distinct arguments,
+not `{x : P(x)}`.  Whether the resulting framework is
+expressively comparable to (a fragment of) any of the above is
+left as an open question; the demonstrations of §7 exhibit
+non-trivial Cauchy-side reach without engaging the comparison.
+
+### §1.5 Roadmap
 
 §2 introduces the Raw axiom and its Lean implementation.  §3
 defines `Lens`.  §4 establishes that the canonical-form total
@@ -210,6 +260,12 @@ The first few `Raw` levels (`Firmware/RawLevels.lean`) are:
 Higher levels grow combinatorially.  Each new term is the
 `Raw.slash` of two distinct existing terms; canonicalization
 ensures one representative per directionless pair.
+
+Equality on `Raw` is decidable: it reduces to equality of the
+underlying canonical-form `Tree`, which is decidable as a
+finite inductive type.  The `slash` precondition `x ≠ y` is
+therefore constructive — a witness can be produced by the
+elaborator.
 
 ### §2.4 Catamorphism and induction principle
 
@@ -334,12 +390,13 @@ The refines relation is a preorder.  Each Lens has a *canonical
 form* under refines-equivalence: by `LensCanonicalForm.lean`,
 every `Lens` (with commutative combine) is refines-equivalent
 to `universalLens L.equiv`, the `universalLens` built from its
-own kernel.  Together with §5.1 this identifies the
-refines-equivalence classes of Lenses with the slash-congruences
-on `Raw`: the assignment `L ↦ Lens.equiv L` is right-inverse
-to `E ↦ universalLens E` (modulo refines-equivalence), with
-`lens_canonical_universal` providing the corresponding
-left-inverse direction.  The preorder forms a meet-semilattice
+own kernel.  Together with `universalLens_kernel_eq_E` (§5.1)
+this identifies the refines-equivalence classes of Lenses with
+the slash-congruences on `Raw`.  The two directions are:
+`lens_canonical_universal` gives `universalLens (Lens.equiv L)
+≈ L` (modulo refines-equivalence); `universalLens_kernel_eq_E`
+gives `Lens.equiv (universalLens E) = E` for any
+slash-congruence `E`.  The preorder forms a meet-semilattice
 (`LensMeet.lean`); its finest element is `idLens`
 (distinguishing every Raw) and its coarsest is `constLens`
 (making no distinctions).
@@ -348,9 +405,9 @@ left-inverse direction.  The preorder forms a meet-semilattice
 
 Concrete Lenses used in §6–§7:
 
-- `Lens.leaves : Lens Nat`,  triple `⟨1, 1, (·+·)⟩` — the leaf
+- `Lens.leaves : Lens Nat`, triple `⟨1, 1, (·+·)⟩` — the leaf
   count.
-- `Lens.depth : Lens Nat`,  triple `⟨0, 0, λ a b ↦ 1 + max a b⟩`.
+- `Lens.depth : Lens Nat`, triple `⟨0, 0, λ a b ↦ 1 + max a b⟩`.
 - `parityLens : Lens Bool`,  triple `⟨true, true, xor⟩` —
   `view r = true` iff the leaf count of `r` is odd.
 - `abLens : Lens (Nat × Nat)` — the pair of `a`- and `b`-counts;
@@ -485,10 +542,10 @@ framework depends on it.
 
 ## §5 ZFC commitments — 213-side counterparts
 
-We do not claim full reduction of all ZFC commitments.  This
-section exhibits the 213-side counterpart for each: full
-reduction where one is available, an explicit boundary witness
-where one is not.
+For each principal ZFC commitment, this section exhibits the
+213-side counterpart: full reduction where available, an
+explicit boundary witness where the commitment lies outside the
+framework's reach.
 
 ### §5.1 Choice — full reduction
 
@@ -591,20 +648,24 @@ this weakened form, the construction replaces ZFC's
 arbitrary-subset commitment with an explicit closure
 precondition.
 
-### §5.6 Coproduct — Prism dual
+### §5.6 Coproduct — Prism counterpart
 
-`Research/Prism.lean` introduces `Prism α`, the categorical
-dual of `Lens`, with operations `preview : Raw → Option α` and
-`review : α → Raw`.  Concrete instances `aPrism`, `bPrism` and
-the disjointness theorem `caseElement_disjoint` formalize the
-coproduct on the two primitive elements.
+`Research/Prism.lean` introduces `Prism α`, the 213-internal
+coproduct counterpart of `Lens` (within the framework: `Lens`
+records data for a homomorphism *into* a type, while `Prism`
+records data for case-extraction *from* `Raw`).  It carries
+operations `preview : Raw → Option α` and `review : α → Raw`.
+Concrete instances `aPrism`, `bPrism` and the disjointness
+theorem `caseElement_disjoint` formalize the coproduct on the
+two primitive elements.
 
 The Sum-type instance `sumHasDistinguishing` of
 `Research/SumInstance.lean` uses a priority-based combine
-(left-preference on mixed cases).  We know of no
-categorically natural commutative combine on `Sum α β`; the
-priority variant is recorded as an admitted asymmetry rather
-than a canonical construction (see §8.2).
+(left-preference on mixed cases).  No commutative combine
+canonical in the same sense as the `Pair`-side construction
+(§9.2 item 11) is known to us on `Sum α β`; the priority
+variant is recorded as an admitted asymmetry rather than a
+canonical construction (see §8.2).
 
 ---
 
@@ -770,13 +831,11 @@ theorem pell_orderProj_below (x y m k : Nat)
     orderProj m k (x, y) = false
 ```
 
-The two lemmas cover the rational thresholds strictly above and
-strictly below √2.  The remaining case `m^2 = 2 k^2` cannot
-occur for `k ≥ 1` (this is the irrationality of √2 — proved
-externally; the framework merely *uses* the impossibility) and
-is therefore vacuous.  Hence `√2` appears as a Dedekind cut at
-every rational threshold via the Pell-sequence approach,
-entirely within the framework.
+The two lemmas cover rational thresholds strictly above and
+strictly below √2.  The remaining case `m^2 = 2 k^2` is
+vacuous for `k ≥ 1` (the irrationality of √2; treated as an
+input fact).  Hence √2 appears as a Dedekind cut at every
+rational threshold via the Pell-sequence approach.
 
 ### §7.3 ℤ_p number-theoretic — Padic
 
@@ -877,11 +936,13 @@ Two algebraic invariants are required:
 
 Together these establish two Dedekind cuts at concrete
 thresholds: `m/k ≥ 2` ⇒ `orderProj m k = true` for all n;
-`m/k ≤ 1` ⇒ `orderProj m k = false` from n ≥ 1.  For
-intermediate thresholds in `(1, 2)` the cut value is the
-correct one (true if `m/k > π/2`, false otherwise) but its
-formal proof requires the LEM-bound general closure (§6.4),
-hence is not claimed within the framework.
+`m/k ≤ 1` ⇒ `orderProj m k = false` from n ≥ 1.  Individual
+intermediate thresholds in `(1, 2)` may in principle be closed
+case-by-case via the propagation theorem of §6.4 (a single
+false-witness suffices).  What the framework does *not* claim
+is the all-thresholds-at-once statement
+`∀ (m, k) ∈ (1, 2), ∃ N, ...`, which would require the
+LEM-bound closure.
 
 ### §7.6 Scope
 
@@ -964,12 +1025,13 @@ kernel.
 
 ## §9 The semantic-atom reading
 
-§§2-8 establish the formal core of the framework.  This section
-collects those results into a single reading: that 213 plays
-the role of a *semantic atom* for distinguishing-based
-structures.  The reading has a precise formal scope, given
-below; a broader interpretive claim is recorded separately and
-not asserted as a theorem.
+This section collects the results of §§2-8 into a single
+reading: 213 plays the role of a *semantic atom* for
+distinguishing-based structures.  The formal scope of this
+reading is stated as (1)-(3) in §9.1.  A broader extension of
+the reading, suggested by the range of instances exhibited
+throughout the paper, is recorded explicitly but not
+formalized as a theorem.
 
 ### §9.1 Formal scope
 
@@ -991,14 +1053,17 @@ The reading "213 is the semantic atom" denotes (1)-(3): in any
 distinguishable type, `Raw` is the unique source of
 homomorphisms compatible with the instance data.
 
-The looser reading — that *every* working framework is a
-distinguishable type, hence that 213 sits beneath every such
-framework — is a philosophical claim, not a theorem.  The
-range of instances exhibited in §§5, 7 and Appendix A
-(four `Prop` connectives, products, function spaces,
-recursive `Lens^n α` towers, Sum/Prism, Bool, Fin 3, Nat,
-Int) supports this reading by example, but no Lean statement
-quantifies over "all frameworks".
+A broader reading — that every framework treated as a
+type with two distinguishable elements and a commutative
+binary operation falls under (1)-(3) — is supported by the
+instances exhibited in §§5, 7, and Appendix A: the four `Prop`
+connectives (Xor, Iff, And, Or), binary products `α × β`,
+function spaces `α → β`, the recursive tower `Lens^n α`, the
+Sum/Prism counterpart, and Bool, Fin 3, Nat, Int.  This
+broader reading is not formalized as a Lean theorem in the
+present development: no statement quantifies over "all
+frameworks".  The formal scope of the semantic-atom reading
+is fixed at (1)-(3).
 
 ### §9.2 Components
 
@@ -1096,9 +1161,11 @@ Specific limits:
   `universalAsLens` sidesteps this by re-presenting an
   instance as a `Lens` whose `view` definitionally equals
   `universalMorphism`.
-- **Sum-type combine** has no canonical commutative choice in
-  the mixed case; the priority-based variant in
-  `SumInstance.lean` is admitted as ad-hoc.
+- **Sum-type combine**: no commutative combine canonical in
+  the same sense as the `Pair`-side construction is known to
+  us on `Sum α β`; the priority-based variant in
+  `SumInstance.lean` is recorded without a canonicity claim
+  (§5.6).
 - **Subtype `combine_sym`** under a slash-based combine meets
   the nested-Subtype elaborator boundary; the present version
   uses a degenerate combine.
