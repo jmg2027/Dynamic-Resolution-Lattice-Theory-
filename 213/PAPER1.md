@@ -1261,6 +1261,7 @@ or a subset of `[propext, Quot.sound]`).
 | §3.4 | isLeafLens (leaf indicator) | `IsLeafLens` · `isLeafLens`, `isLeafLens_combine_sym` | none |
 | §6.4 | HasModulus N-monotonicity | `HasModulusBoundsExtra` · `cauchy_at_larger_N` | none |
 | §9.2.15 | universalMorphism factor unfold | `UniversalMorphismFactor` · `constComposite_a_unfold`, `_b_unfold` | propext, Quot.sound |
+| §5.4 | Distinct kernels witness | `FourDistinctKernels` · `id_neq_leaves` | propext |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
