@@ -1,0 +1,45 @@
+import E213.Research.Real213CutSum
+import E213.Research.Real213CutSumTest
+
+/-!
+# Research.Real213CutBisection: bisection (cutHalf, cutMid) — IVT support
+
+Half: c/2 ≤ m/k iff c ≤ 2m/k.
+Mid: (x+y)/2 cut.
+
+## 의의
+
+IVT bisection algorithm 의 substrate.  Real213 위 의 root finding.
+-/
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- **cutHalf**: c/2 cut. -/
+def cutHalf (c : Nat → Nat → Bool) : Nat → Nat → Bool :=
+  fun m k => c (2*m) k
+
+/-- **cutMid**: (cx+cy)/2 midpoint cut. -/
+def cutMid (cx cy : Nat → Nat → Bool) : Nat → Nat → Bool :=
+  cutHalf (cutSum cx cy)
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- midpoint of (1, 1) is 1: cut at (1, 1) true. -/
+example : cutMid (constCut 1 1) (constCut 1 1) 1 1 = true := by decide
+
+/-- midpoint of (1, 1) is 1, NOT ≤ 0/1. -/
+example : cutMid (constCut 1 1) (constCut 1 1) 0 1 = false := by decide
+
+/-- midpoint of (0, 2) is 1, ≤ 1/1. -/
+example : cutMid (constCut 0 1) (constCut 2 1) 1 1 = true := by decide
+
+/-- cutHalf 의 idempotent-on-zero: 0/2 = 0. -/
+example : cutHalf (constCut 0 1) 0 1 = true := by decide
+
+end E213.Research.Real213CutSum
