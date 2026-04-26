@@ -112,10 +112,6 @@ component-to-axiom map appears in Appendix A.
 This bound is taken as a *contract*: see §8 for the
 falsifiability statement and its operational consequences.
 
-A small number of prose passages contain interpretive material
-that lies outside the formal core (notably the historical
-correspondence in §9.4); these are explicitly marked.
-
 ### §1.4 Related work
 
 Constructive analysis (Bishop, 1967) develops mathematics
@@ -1116,26 +1112,7 @@ only the distinguishing operation and constructs corresponding
 internal structures as Lens specifications.  The comparison is
 structural, not evaluative.
 
-### §9.4 ORIGIN correspondence (interpretive)
-
-`ORIGIN.md` records the prompt chain that motivated the
-framework — physical intuitions about the impossibility of
-singular points, resolution covariance, and lattice-information
-invariance.  An informal correspondence with the formal results
-of this paper (not a formal derivation):
-
-- §3 (Zeno-pixel paradox) ↔ Raw axiom's strict minimality
-  (§2.5).
-- §6 (resolution = unit of information) ↔ `HasDistinguishing`
-  abstraction.
-- §7 (lattice-unit information invariant under resolution
-  choice) ↔ closure + categorical product (§9.2 items 6, 11).
-
-The framework's name DRLT (*Dynamic Resolution Lattice
-Theory*) records this physical motivation.  The formal results
-of §§2-9 stand independently of the reading.
-
-### §9.5 Limits
+### §9.4 Limits
 
 The fifteen components state what holds within the framework.
 Four specific limits remain:
@@ -1225,8 +1202,6 @@ the surrounding mathematical and historical context.
 - `213/AXIOM.md` — axiom seed document.
 - `213/IMPLEMENTATION.md` — Raw + Firmware audit.
 - `213/AUDIT_Lean.md` — Lean ↔ axiom correspondence.
-- `213/ORIGIN.md` — original physical-intuition chain
-  (frozen 2026-04-24).
 - `213/PAPER1_OUTLINE.md` — this paper's structural outline.
 - `213/research/infinity-as-lens/notes/` — numbered analysis
   notes 00-99.
