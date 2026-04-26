@@ -793,6 +793,16 @@ The general statement `∀ (m, k), ∃ N` (the "all cuts" closure)
 requires LEM on monotonic Bool sequences and is *deliberately
 not claimed*; see §8.2.
 
+`Research/HasModulus.lean` introduces a constructive
+modulus typeclass `HasModulus xs` carrying the explicit `N :
+Nat → Nat → Nat` as data, in the Bishop-constructive style.
+The implication `HasModulus xs → isOrderCauchy xs`
+(`isOrderCauchy_of_hasModulus`) is axiom-free.  Sequences
+supplied with a `HasModulus` instance therefore close their
+all-(m, k) Cauchy property without any LEM appeal; specific
+instances for Pell, Euler, Wallis are future work and require
+explicit closed-form modulus formulas.
+
 ---
 
 ## §7 Demonstrations
@@ -1214,6 +1224,7 @@ or a subset of `[propext, Quot.sound]`).
 | §7.2 | √2 irrationality (descent) | `Sqrt2Irrational` · `sqrt2_irrational`, `mul_self_mod_two` | propext, Quot.sound |
 | §5.5 | Subtype slash-based combine (closed) | `SubtypeInstanceClosed` · `SlashClosed`, `subtypeHasDistinguishingClosed` | propext |
 | §5.1 | Family meet (countable Choice analog) | `FamilyMeet` · `familyMeet`, `familyMeet_kernel_eq` | propext, Quot.sound |
+| §6.4 | Constructive modulus typeclass | `HasModulus` · `HasModulus`, `isOrderCauchy_of_hasModulus` | none |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
