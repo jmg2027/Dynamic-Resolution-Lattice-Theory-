@@ -72,6 +72,26 @@ ranked angle 들 구체 안내) 후 6 fronts 진행:
 | 7 | `HasModulus` | Bishop-style constructive Cauchy modulus typeclass (LEM 우회 infrastructure) | 7eeafe0 |
 | 8 | `PellHasModulus` | Pell sequence 가 first concrete HasModulus instance — pell_isOrderCauchy LEM 없 이 close | e1b3c37 |
 | 9 | `FamilyJoin` | arbitrary-index slash-congruence join — slash-congruence space 가 complete lattice 임을 형식 화 완결 | 8d156bb |
+| M1 | `RawDecEq` | DecidableEq Raw (no axioms) | 3611126 |
+| M2 | `DiagonalHasModulus` | Diagonal sequence HasModulus instance | 3611126 |
+| M3 | `LensOnLensImageGeneric` | Generic Lens-on-Lens factorization through α | 3611126 |
+| M4 | `CanonicalChoice` | canonical-form trichotomy (constructive choice) | 3611126 |
+| M5 | `RefinesChain` | idLens → leaves → parity → constLens 4-step chain | 3611126 |
+| M6 | `LensOnLensImageLevel2` | 2-level Lens-on-Lens collapse | 3e23a4b |
+| M7 | `EulerSharper` | e > 5/2 strict bound (n ≥ 3) | 3e23a4b |
+| M8 | `SumNotCoproductGeneric` | Sum non-coproduct also for AND combine | 3e23a4b |
+| M9 | `LensTowerLevel3` | 3-level Lens tower collapse | 3e23a4b |
+| M10 | `KernelCorresp` | Kernel ↔ slash-cong bijection meta-theorem | 3e23a4b |
+| M11 | `WallisSharper` | π/2 > 64/45 strict bound (n ≥ 2) | 9ea6d28 |
+| M12 | `IdLensKernelEq` | idLens kernel = (=) explicit | ecb9aee |
+| M14 | `ParityLensCollapseFalse` | parityLens xor x x = false explicit | ecb9aee |
+| M16 | `RefinesPreorder` | refines reflexivity + transitivity | 856d4dd |
+| M17 | `ConstLensTotalKernel` | constLens 의 kernel = total relation | 856d4dd |
+| M18 | `LensEquivProperties` | Lens.equiv 의 equivalence properties | 856d4dd |
+| M19 | `IsLeafLens` | Leaf-indicator Lens (Collapse-False) | 049a428 |
+| M20 | `HasModulusBoundsExtra` | HasModulus N-monotonicity | 049a428 |
+| M21 | `UniversalMorphismFactor` | universalMorphism factor unfold | 049a428 |
+| M22 | `FourDistinctKernels` | idLens vs leaves explicit distinct kernels | 8af664f |
 
 Lean build 전체 clean, 모두 ≤ [propext, Quot.sound] (또는 less).
 
