@@ -1258,6 +1258,9 @@ or a subset of `[propext, Quot.sound]`).
 | §3.3 | Refines preorder explicit | `RefinesPreorder` · `refines_refl`, `refines_trans` | none |
 | §3.3 | constLens total kernel | `ConstLensTotalKernel` · `constLens_equiv_total` | none |
 | §3.2 | Lens.equiv equivalence properties | `LensEquivProperties` · `lens_equiv_refl`, `lens_equiv_symm`, `lens_equiv_trans` | none |
+| §3.4 | isLeafLens (leaf indicator) | `IsLeafLens` · `isLeafLens`, `isLeafLens_combine_sym` | none |
+| §6.4 | HasModulus N-monotonicity | `HasModulusBoundsExtra` · `cauchy_at_larger_N` | none |
+| §9.2.15 | universalMorphism factor unfold | `UniversalMorphismFactor` · `constComposite_a_unfold`, `_b_unfold` | propext, Quot.sound |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
