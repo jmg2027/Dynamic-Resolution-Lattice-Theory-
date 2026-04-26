@@ -4,6 +4,10 @@
 
 Branch: `claude/lean-infinity-explanation-QqnSp`.
 Lean: 0 sorry, 0 external axioms (only `propext` + `Quot.sound`).
+**극한의 순수성 arc**: PureNat 위 zero-axiom subset 으 로
+sqrt2/sqrt3 irrationality 둘 다 verified — Lean 을 *순수 type
+checker* 로만 사용.  방법 의 진작 + 무리수 일반화 통찰 (note
+B1).
 
 **PAPER1.md** (~1180 줄) — Lean 4 core formalization paper,
 preprint-ready.  14 review rounds + dry-formal rewrite +
