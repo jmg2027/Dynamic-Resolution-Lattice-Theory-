@@ -1297,6 +1297,10 @@ or a subset of `[propext, Quot.sound]`).
 | §7.4 | e ≠ a/3 partial sum (Hermite-style, propext only) | `EulerSharperPure` · `e_partial_neq_third_a` | propext |
 | §7.4 | Generic Euler lower bound (meta-algorithm) | `EulerGenericPure` · `euler_lower_generic`, `euler_lower_step` | **none** |
 | §7.4 | Per-b instances via meta-algorithm | `EulerGenericPure` · `e_gt_8_3`, `e_gt_10_4`, `e_gt_13_5`, `e_gt_19_7` | **none** |
+| §7.4 | Generic Euler upper bound (meta-algorithm) | `EulerGenericPure` · `euler_upper_generic`, `euler_upper_step` | **none** |
+| §7.4 | Per-b upper instances | `EulerGenericPure` · `e_lt_9_3`, `e_lt_11_4` | **none** |
+| §7.4 | Transcendental Cut discriminator (unified) | `EulerGenericPure` · `e_partial_gt_a_b`, `e_partial_lt_a_b`, `e_partial_neq_a_b` | **none** |
+| §7.4 | TCD per-b applications | `EulerGenericPure` · `e_neq_a_third`, `e_neq_a_quarter` | **none** |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
