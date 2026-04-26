@@ -469,7 +469,42 @@ theorem RawBy_bijection (cmp1 cmp2 : Tree → Tree → Ordering)
         (transportRawBy cmp2 cmp1 h2 h1 r) = r
 ```
 
-### §4.4 Significance
+### §4.4 Worked example
+
+Consider the Raw element `r = a / (a / b)` (i.e., the slash of
+`a` with the slash of `a` and `b`).  Under the lexicographic
+`Tree.cmp`, the canonical encoding orders the children
+ascendingly, so the canonical Tree is
+
+```
+slash a (slash a b)         (under cmp = Tree.cmp)
+```
+
+Under `cmpRev` (the reversal of `Tree.cmp`), the same Raw
+element receives the canonical Tree with the children of every
+`slash` node in the opposite order:
+
+```
+slash (slash b a) a         (under cmp = cmpRev Tree.cmp)
+```
+
+The two encodings are visibly different at the Tree level, yet
+`transportTree` swaps the children at each `slash` node and
+re-canonicalizes:
+
+```
+transportTree cmpRev (slash a (slash a b))
+  = slashTree cmpRev (transportTree cmpRev a)
+                     (transportTree cmpRev (slash a b))
+  = slash (slash b a) a
+```
+
+Applying `transportTree Tree.cmp` again returns to the original.
+The `transportTree_roundtrip` theorem proves this for all
+canonical Trees, and `RawBy_bijection` lifts the result to the
+Raw subtypes.
+
+### §4.5 Significance
 
 `RawBy_bijection` depends only on `[propext]`; no `Classical.choice`
 or other axiom is required.  The implication is that the cmp
