@@ -1242,6 +1242,11 @@ or a subset of `[propext, Quot.sound]`).
 | §5.1 | Family join (complete lattice dual) | `FamilyJoin` · `FamilyJoinEquiv`, `familyJoinLens_kernel`, `familyJoin_contains` | propext, Quot.sound |
 | §6.4 | Constructive modulus typeclass | `HasModulus` · `HasModulus`, `isOrderCauchy_of_hasModulus` | none |
 | §7.2 | Pell HasModulus instance | `PellHasModulus` · `pellHasModulus`, `pell_isOrderCauchy` | propext, Quot.sound |
+| §7.1 | Diagonal HasModulus instance | `DiagonalHasModulus` · `diagonalHasModulus` | propext, Quot.sound |
+| §2.3 | Decidable Raw equality | `RawDecEq` · `instDecidableEqRaw` | none |
+| §9.2.9 | Generic Lens-on-Lens collapse | `LensOnLensImageGeneric` · `lensUniversalMorphism_factors_generic`, `constComposite_*` | propext, Quot.sound |
+| §4.5 | Canonical form as choice | `CanonicalChoice` · `canonical_trichotomy` | propext |
+| §3.3 | Refines chain witness | `RefinesChain` · `refines_chain` | propext, Quot.sound |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
