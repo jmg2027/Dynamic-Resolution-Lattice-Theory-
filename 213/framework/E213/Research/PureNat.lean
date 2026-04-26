@@ -101,7 +101,7 @@ theorem isEven_sq_of_even (k : Nat) : isEven ((2 * k) * (2 * k)) = true := by
   rw [even_sq]; exact isEven_two_mul (2 * (k * k))
 
 /-- Helper: reassociation. -/
-private theorem reassoc4 (a b c d : Nat) :
+theorem reassoc4 (a b c d : Nat) :
     a + b + (c + d) = a + (b + c) + d := by
   rw [Nat.add_assoc a b (c + d), ← Nat.add_assoc b c d, ← Nat.add_assoc a (b+c) d]
 

@@ -1287,6 +1287,8 @@ or a subset of `[propext, Quot.sound]`).
 | §7.5 | Wallis sharper at n=2, n=3 (axiom-free) | `WallisSharperKernelFree` · `wallis_sharper_n2`, `_n3` | none |
 | §1.3 | Custom axiom-free Nat library | `PureNat` · `mul_assoc`, `add_mul`, `mul_mul_mul_comm`, `isEven_self_mul`, `even_sq`, `odd_sq` | none |
 | §7.2 | √2 irrationality (truly axiom-free, propext 까 지 제거) | `Sqrt2IrrationalPure` · `sqrt2_irrational`, `sqrt2_no_rational_aux`, `descent_step` | **none** |
+| §7 | √3 irrationality (axiom-free, prime-3 descent) | `Sqrt3IrrationalPure` · `sqrt3_irrational`, `sqrt3_no_rational_aux` | **none** |
+| §7 | mod-3 descent infrastructure (axiom-free) | `PureNatMod3` · `mod3`, `nat_trichotomy`, `three_mul_sq`, `mod3_self_mul_zero` | **none** |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
