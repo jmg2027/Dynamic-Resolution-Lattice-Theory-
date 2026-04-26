@@ -23,8 +23,8 @@ constructive analysis 의 full program** 을 framework-internal 형식
 | A1 | Real213 type 정의 | ✓ done | `Real213.lean` |
 | A2 | equivalence (refl/symm/trans) + Setoid | ✓ done | `Real213Equiv.lean` |
 | A3 | Constant embedding (Raw → Real213) | ✓ done | `Real213Const.lean` |
-| A4 | Order (le, lt) — Bishop-style | pending | — |
-| A5 | Constructive sign / positivity | pending | — |
+| A4 | Order (le, lt) — Bishop-style | ✓ done | `Real213Order.lean` |
+| A5 | Constructive sign / positivity | ✓ done | `Real213Sign.lean` |
 
 **A4 의 challenge**: order proxy = orderProj m k 의 정확 한 사용.
 le 의 전형 적 정의: ∀ k ≥ 1, ∃ N, ∀ i ≥ N, projection inequality
