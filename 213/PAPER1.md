@@ -109,6 +109,17 @@ kernel against an explicit axiom budget.  The output of
 Quot.sound]` (the Lean 4 core baseline).  A full
 component-to-axiom map appears in Appendix A.
 
+A non-trivial fragment of the development is *strictly
+axiom-free*: theorems that depend on neither `propext` nor
+`Quot.sound` (verified by Lean as a pure type-checker).  This
+includes the decidability of equality on `Raw`
+(`RawDecEq`), the preorder properties of `Lens.refines`
+(`RefinesPreorder`), the equivalence properties of `Lens.equiv`
+(`LensEquivProperties`), the `HasModulus → isOrderCauchy`
+implication (`HasModulus`), and the `parityLens` Collapse-False
+witness (`ParityLensCollapseFalse`).  See `KernelFreeAudit.lean`
+and Appendix A for the complete tabulation.
+
 This bound is taken as a *contract*: see §8 for the
 falsifiability statement and its operational consequences.
 
@@ -1262,6 +1273,7 @@ or a subset of `[propext, Quot.sound]`).
 | §6.4 | HasModulus N-monotonicity | `HasModulusBoundsExtra` · `cauchy_at_larger_N` | none |
 | §9.2.15 | universalMorphism factor unfold | `UniversalMorphismFactor` · `constComposite_a_unfold`, `_b_unfold` | propext, Quot.sound |
 | §5.4 | Distinct kernels witness | `FourDistinctKernels` · `id_neq_leaves` | propext |
+| §1.3 | Kernel-free fragment audit | `KernelFreeAudit` (documentation) | none |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
