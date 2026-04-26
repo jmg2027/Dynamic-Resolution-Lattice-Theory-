@@ -71,6 +71,7 @@ ranked angle 들 구체 안내) 후 6 fronts 진행:
 | 6 | `FamilyMeet` | arbitrary-index family meet via universalLens (countable Choice 의 213-internal counterpart) | 2724ecb |
 | 7 | `HasModulus` | Bishop-style constructive Cauchy modulus typeclass (LEM 우회 infrastructure) | 7eeafe0 |
 | 8 | `PellHasModulus` | Pell sequence 가 first concrete HasModulus instance — pell_isOrderCauchy LEM 없 이 close | e1b3c37 |
+| 9 | `FamilyJoin` | arbitrary-index slash-congruence join — slash-congruence space 가 complete lattice 임을 형식 화 완결 | 8d156bb |
 
 Lean build 전체 clean, 모두 ≤ [propext, Quot.sound] (또는 less).
 
