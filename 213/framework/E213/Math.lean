@@ -28,6 +28,8 @@ import E213.Research.Real213CutInv
 import E213.Research.Real213CutAlgebraStruct
 import E213.Research.Real213CutPow
 import E213.Research.Real213CutPoly
+import E213.Research.Real213CutGeomSeries
+import E213.Research.Real213CutExp
 
 /-!
 # E213.Math: 213-native real analysis library (root entry)
