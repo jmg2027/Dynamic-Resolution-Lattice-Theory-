@@ -45,14 +45,74 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
+/-- Max over j ∈ [0, K] of f i j. -/
+def maxRangeRow (f : Nat → Nat → Nat) (i : Nat) : Nat → Nat
+  | 0 => f i 0
+  | k+1 => max (f i (k+1)) (maxRangeRow f i k)
+
 /-- Max over (i, j) ∈ [0, M] × [0, K]. -/
 def maxRange (f : Nat → Nat → Nat) (M K : Nat) : Nat :=
   match M with
   | 0 => maxRangeRow f 0 K
   | M+1 => max (maxRangeRow f (M+1) K) (maxRange f M K)
-where
-  maxRangeRow (f : Nat → Nat → Nat) (i : Nat) : Nat → Nat
-    | 0 => f i 0
-    | k+1 => max (f i (k+1)) (maxRangeRow f i k)
+
+/-- maxRangeRow 의 upper bound property. -/
+theorem maxRangeRow_ge (f : Nat → Nat → Nat) (i K j : Nat) (hj : j ≤ K) :
+    f i j ≤ maxRangeRow f i K := by
+  induction K with
+  | zero =>
+    have : j = 0 := Nat.le_zero.mp hj
+    subst this
+    exact Nat.le_refl _
+  | succ k ih =>
+    rcases Nat.eq_or_lt_of_le hj with heq | hlt
+    · subst heq
+      show f i (k+1) ≤ max (f i (k+1)) (maxRangeRow f i k)
+      exact Nat.le_max_left _ _
+    · have hjk : j ≤ k := Nat.lt_succ_iff.mp hlt
+      show f i j ≤ max (f i (k+1)) (maxRangeRow f i k)
+      exact Nat.le_trans (ih hjk) (Nat.le_max_right _ _)
+
+/-- maxRange 의 upper bound property. -/
+theorem maxRange_ge (f : Nat → Nat → Nat) (M K i j : Nat)
+    (hi : i ≤ M) (hj : j ≤ K) : f i j ≤ maxRange f M K := by
+  induction M with
+  | zero =>
+    have : i = 0 := Nat.le_zero.mp hi
+    subst this
+    show f 0 j ≤ maxRangeRow f 0 K
+    exact maxRangeRow_ge f 0 K j hj
+  | succ k ih =>
+    rcases Nat.eq_or_lt_of_le hi with heq | hlt
+    · subst heq
+      show f (k+1) j ≤ max (maxRangeRow f (k+1) K) (maxRange f k K)
+      exact Nat.le_trans (maxRangeRow_ge f (k+1) K j hj) (Nat.le_max_left _ _)
+    · have hik : i ≤ k := Nat.lt_succ_iff.mp hlt
+      show f i j ≤ max (maxRangeRow f (k+1) K) (maxRange f k K)
+      exact Nat.le_trans (ih hik) (Nat.le_max_right _ _)
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- **LDD composition closure**: f ∘ g LDD if f, g 모두 LDD. -/
+def composeLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (lf : LocallyDeterminedData f) (lg : LocallyDeterminedData g) :
+    LocallyDeterminedData (f ∘ g) where
+  N := fun m k => maxRange lg.N (lf.N m k) (lf.N m k)
+  prop := by
+    intro m k cx cy hagree
+    show f (g cx) m k = f (g cy) m k
+    apply lf.prop
+    intro m' k' hm' hk'
+    apply lg.prop
+    intro m'' k'' hm'' hk''
+    apply hagree
+    · exact Nat.le_trans hm''
+        (maxRange_ge lg.N (lf.N m k) (lf.N m k) m' k' hm' hk')
+    · exact Nat.le_trans hk''
+        (maxRange_ge lg.N (lf.N m k) (lf.N m k) m' k' hm' hk')
 
 end E213.Research.Real213CutSum
