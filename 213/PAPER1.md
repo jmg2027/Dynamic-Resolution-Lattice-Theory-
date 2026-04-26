@@ -4,170 +4,147 @@
 
 **Acknowledgment**: This work was developed in dialogue with
 Claude (Anthropic), which contributed Lean formalization,
-derivation exploration, and prose drafting.  All results were
-mechanically verified.
+derivation exploration, and prose drafting.  All formal results
+are mechanically verified.
 
 **Status**: Lean 4 core formalization (no Mathlib).  0 sorry,
-0 external axioms beyond Lean baseline (`propext` + `Quot.sound`).
+0 external axioms beyond the Lean baseline (`propext`,
+`Quot.sound`).
 
 ---
 
 ## Abstract
 
-We present **213**, a foundational system for mathematics whose
-axiom is the minimal residue of the act of distinguishing things.
-The framework consists of two layers: `Raw`, a 3-clause inductive
-axiom for the carrier of distinguishable entities, and `Lens`, a
-fold-structured observation morphism.  All results are mechanically
-verified in Lean 4 core.
+We present **213**, a foundational system consisting of two
+layers: a 3-clause inductive type `Raw` carrying the primitive
+distinguishing operation, and a fold-structured observation
+record `Lens` representing homomorphisms out of `Raw`.  Every
+result reported in this paper is mechanically verified in Lean
+4 core, with axiom budget bounded by `[propext, Quot.sound]`.
 
-The central thesis, formal in scope, is that **213 plays the
-role of the semantic atom**: any type with at least two
-distinguishable elements and a commutative binary operation is
-a `HasDistinguishing` instance, and `Raw` is the initial
-object in the resulting category.  We support this thesis with
-a multifaceted formal evidence comprising fifteen components,
-including (1) a strict-minimum proof showing that every clause
-of the axiom is essential, (2) a categorical universal property
-establishing `Raw` as the initial object of the
-distinguishing-framework category, (3) a Lens-on-Lens
-recursive tower exhibiting the framework's self-application
-without meta-hierarchy, (4) partial 213-side reductions of
-ZFC's Choice (full), Power-set (as a strict-subset boundary
-witness), Comprehension (sub-instance under closure
-hypothesis), and Coproduct (via the Prism dual) axioms, and
-(5) constructive Cauchy demonstrations exhibiting √2, p-adic
-ℤ_p, and the transcendental constants e and π/2 as Dedekind
-cuts at explicit thresholds.
+The development establishes: (i) strict minimality of the Raw
+axiom (each clause is essential, formalized in
+`AxiomMinimality.lean`); (ii) initiality of `Raw` in the
+category of commutative `Raw`-algebras (`raw_initial`); (iii)
+encoding-artifact independence of the canonical-form
+comparison (`RawBy_bijection`); (iv) 213-side counterparts of
+several ZFC commitments — full reduction of Choice via
+`universalLens`, an explicit boundary witness for Power-set
+(depth parity is not a Lens kernel), Comprehension as
+distinguishing-closed `Subtype`, and Coproduct via `Prism`;
+(v) Cauchy completeness exhibited on √2 (Pell), the p-adic
+integers ℤ_p (mod-tower), and the transcendentals e (Euler
+partial sums) and π/2 (Wallis product), each at explicit
+rational thresholds; and (vi) a fifteen-component formal
+package supporting the *semantic atom* reading: any type with
+two distinguishable elements and a commutative binary operation
+is a `HasDistinguishing` instance, with `universalMorphism :
+Raw → α` the induced unique homomorphism.
 
-The framework operates under a **falsifiability contract**: if
-any result truly required an axiom beyond the Lean 4 core
-baseline, the entire theory would be discarded.  No such
-addition has been required.
+The framework operates under a falsifiability contract: should
+any result genuinely require an axiom beyond the Lean baseline,
+the theory is to be discarded.  No such addition has been
+required.
 
 ---
 
 ## §1 Introduction
 
-### §1.1 The minimal-residue thesis
+### §1.1 The framework
 
-The 213 axiom is not a claim about the foundations of the world.
-It is the **minimal residue** that remains when one tries to
-point at anything at all.
+The system **213** consists of two layers.  The *Raw* layer is
+an inductive type with three clauses: two primitive elements
+`a`, `b`, and a binary operation `slash : Raw → Raw → Raw`
+defined on distinct arguments.  The *Lens* layer specifies
+homomorphisms out of `Raw` into arbitrary types, parameterized
+by a triple `(base_a, base_b, combine)` with commutative
+`combine`.
 
-Consider what it takes to refer to a single entity.  In isolation,
-no reference is possible: an entity that does not differ from
-anything else cannot be singled out.  Reference therefore requires
-*at least two* somethings.  But the moment one writes "a and b"
-on paper, the connective "and" itself becomes a third something
-demanding clarification.  Writing "a, b" makes the comma a
-something.  Stipulating that the comma is "general" rather than
-"absolute" introduces yet another something.
+Two design decisions distinguish 213 from set-theoretic
+foundations:
 
-This recursion is not avoidable.  Any notation introduces
-separators that themselves need distinction.  213 records this
-recursion at its **minimum** form: two primitive distinct
-elements (`a`, `b`) and a single binary distinguishing operation
-(`slash`) that combines two unequal terms into a new one.
+(a) `slash` is undefined on equal arguments (the constructor
+takes a proof `x ≠ y`).  Distinguishing is therefore
+*primitive*: equality is not a defined relation between
+pre-existing entities, but a precondition for the combining
+operation.
 
-The axiom is *not* a stipulation of how reality must be
-structured; it is what one cannot avoid committing to as soon
-as one starts pointing.  Within the formal scope of this paper,
-any type with at least two distinguishable elements and a
-commutative binary operation gives rise to a
-`HasDistinguishing` instance (§9.2 item 2) and is consequently
-covered by the framework's universal morphism (§9.2 item 3).
-The looser interpretive claim — that *every* working
-foundational framework (set theory, type theory, category
-theory, propositional metalanguage) implicitly satisfies the
-clauses — is supported by the partial reductions in §5 but is
-not asserted as a formal theorem here.
+(b) The framework commits to no collection axioms (Power-set,
+Choice, Infinity).  In their stead, the *Lens* layer specifies
+internal observations, and the universal construction
+`universalLens` (§5.1) realizes any slash-congruence on `Raw`
+as a Lens kernel without external choice.
 
-### §1.2 Comparison with ZFC
+Section §2.5 proves that each clause of the Raw axiom is
+essential: removing any one collapses the framework to a
+trivial structure.  This *strict-minimality* result is internal
+to the framework and uses no axiom beyond `propext`.
 
-ZFC takes the existence of arbitrary collections as axiomatic.
-The Power-set axiom commits to all subsets of a given set; the
-Axiom of Choice commits to a choice function on any family; the
-Axiom of Infinity commits to an inductive set.  Each of these
-is an *ontological commitment* — a stipulation that certain
-collections exist regardless of whether they can be exhibited.
+### §1.2 Position relative to ZFC
 
-213 makes no such commitment.  Its three clauses say only that
-distinguishable somethings together with a distinguishing
-operation form the minimum framework for reference.  Power-set,
-Choice, and Infinity arise instead as **internal Lens
-specifications**, not as extra axioms (§5).  The Lens kernel of
-any concrete `Lens` in the framework is precisely a
-slash-congruence (a Raw-internal equivalence relation
-compatible with the binary distinguishing operation), which
-allows arbitrary slash-congruences to be realized as Lens
-kernels via a uniform construction (`universalLens`).
+We do not claim 213 supersedes or replaces ZFC.  The two
+systems differ in *what is taken as axiomatic*:
 
-The key difference is that 213's axiom is *self-justified*:
-the strict minimality of its clauses is itself a theorem of
-the framework (`AxiomMinimality.lean`, §2.5), proved without
-appeal to any external metatheory.  ZFC's axioms are justified
-externally — by intuition, model-theoretic argument, or
-consensus — but not internally.
+- ZFC posits the existence of certain collections (subsets,
+  choice functions, inductive sets) and develops mathematics
+  inside them.
+- 213 posits only the primitive distinguishing operation, and
+  develops corresponding structures as `Lens` specifications
+  whose existence is constructed rather than postulated.
 
-### §1.3 Formal contract
+The reductions exhibited in §5 are *partial*: full reduction of
+Choice (§5.1), an explicit boundary witness for Power-set
+(§5.2), unbounded-depth `Raw` in place of an Infinity axiom
+(§5.3), Comprehension as a distinguishing-closed `Subtype`
+under closure precondition (§5.5), and Coproduct via the
+`Prism` dual (§5.6).  None of these reductions appeals to an
+external set-theoretic argument; each is mechanically verified.
 
-Every formal claim in this paper — every theorem reference and
-every axiom-budget statement — is mechanically verified in
-Lean 4 core, with no Mathlib dependency.  The Lean kernel
-reports the following axioms used by each public theorem:
+### §1.3 Verification and contract
 
-- `propext` (propositional extensionality): Lean baseline.
-- `Quot.sound` (quotient soundness): Lean baseline.
+Every theorem cited in this paper is verified by the Lean 4
+kernel against an explicit axiom budget.  The output of
+`#print axioms` for each theorem is bounded by `[propext,
+Quot.sound]` (the Lean 4 core baseline).  A full
+component-to-axiom map appears in Appendix A.
 
-No other axioms — no `Classical.choice`, no LEM, no
-`native_decide`.  This is the **falsifiability contract**: if
-any proof required an additional axiom, the framework would be
-declared inadequate and the theory discarded.  No such
-addition has been required.
+This bound is taken as a *contract*: see §8 for the
+falsifiability statement and its operational consequences.
 
-The paper's prose contains some interpretive claims (e.g., the
-ORIGIN.md correspondence in §9.4) that lie outside the formal
-core; these are clearly marked.
+A small number of prose passages contain interpretive material
+that lies outside the formal core (notably the historical
+correspondence in §9.4); these are explicitly marked.
 
 ### §1.4 Roadmap
 
 §2 introduces the Raw axiom and its Lean implementation.  §3
-defines Lens.  §4 establishes that the encoding choice (the
-underlying total order on the canonical-form Tree) has no
-mathematical consequence.  §5 reduces ZFC's commitment axioms.
-§6 develops Cauchy completeness.  §7 demonstrates the framework
-on √2 (algebraic), ℤ_p (number-theoretic), e (transcendental
-via Σ 1/k!), and π/2 (transcendental via Wallis product).
-§8 closes with the falsifiability discussion.  §9 presents the
-*semantic atom thesis*: a fifteen-component synthesis showing
-that any entity carrying meaning is necessarily an instance of
-the framework.
+defines `Lens`.  §4 establishes that the canonical-form total
+order is an encoding artifact.  §5 develops the 213-side
+counterparts of the ZFC commitment axioms.  §6 develops Cauchy
+completeness in the Lens-output setting.  §7 exhibits four
+concrete demonstrations: √2 (Pell), the p-adic integers ℤ_p
+(mod-tower), e (Euler partial sums), and π/2 (Wallis product).
+§8 states the falsifiability contract and the closed
+boundaries.  §9 collects the formal results into the *semantic
+atom* reading and discusses its scope.  Appendix A maps each
+component to its Lean declaration and reported axioms.
 
 ---
 
 ## §2 The Raw Axiom
 
-### §2.1 The 3-clause axiom (verbatim)
+### §2.1 The axiom
 
-From `AXIOM.md`:
-
-> 1. *Something exists.*
-> 2. *To know what it is, another something is required.*
-> 3. *That other something is also a something.*
-
-Clauses (1) and (3) together yield at least two distinct
-somethings, denoted `a` and `b`.  Clause (2) is the primitive
-*distinction* operation, applied recursively: given two unequal
-somethings `x` and `y`, they can be combined into a new
-something `slash x y`.  The axiom does not stipulate equality,
-order, or any set-theoretic structure; those arise only at the
-Lens level (§3).
+Two primitive distinct elements `a` and `b`, and a binary
+operation `slash` defined on distinct arguments, are postulated.
+Equality, order, and any further structure are not postulated;
+they are introduced at the Lens layer (§3).  The axiom seed
+document `AXIOM.md` records the three-sentence informal
+statement; `Firmware/Raw.lean` realizes it as an inductive type.
 
 ### §2.2 Tree encoding
 
-For mechanical verification we encode the carrier as a free
-tree:
+The carrier is realized as a free binary tree
 
 ```
 inductive Tree : Type
@@ -176,11 +153,9 @@ inductive Tree : Type
   | slash : Tree → Tree → Tree
 ```
 
-This `Tree` lives in an internal namespace
-`E213.Firmware.Internal` and is not exposed to consumers of the
-framework.  A canonical form selects one representative from
-each equivalence class under the directionless interpretation
-of `slash`:
+inside the internal namespace `E213.Firmware.Internal`.  A
+canonical-form predicate selects one representative per
+directionless equivalence class:
 
 ```
 def Tree.canonical : Tree → Bool
@@ -190,10 +165,11 @@ def Tree.canonical : Tree → Bool
                        && (Tree.cmp x y = .lt)
 ```
 
-The lexicographic comparison `Tree.cmp` orders the two children
-of a `slash` so that the *smaller* always appears first.  This
-is an implementation choice; §4 proves that any other
-`CmpProps`-satisfying total order yields an isomorphic Raw type.
+The lexicographic comparison `Tree.cmp` orders the children of
+a `slash` so that the smaller appears first.  §4 establishes
+that the choice of comparison is an encoding artifact: any
+`CmpProps`-satisfying total order yields an isomorphic Raw
+type.
 
 ### §2.3 The Raw subtype
 
@@ -228,9 +204,7 @@ The first few `Raw` levels (`Firmware/RawLevels.lean`) are:
 
 Higher levels grow combinatorially.  Each new term is the
 `Raw.slash` of two distinct existing terms; canonicalization
-ensures only one representative per directionless pair.  The
-counts (2, 3, 5, …) match the `(3, 2)` partition motif used in
-the early Simplex application (`App/Simplex.lean`).
+ensures one representative per directionless pair.
 
 ### §2.4 Catamorphism and induction principle
 
@@ -288,19 +262,18 @@ is essential.  Removing any one of them collapses the framework:
 | `slash`        | static two-element type (`NoSlash.rawAB_only_two`) |
 | distinctness   | self-pairing possible — distinguishing collapses (`NoDistinct.self_pairing_exists`) |
 
-All four results are mechanically verified with no axioms
-beyond Lean's reflexive equality (the first three) or `propext`
-(the fourth).  This is the **strict-minimum** part of the
-self-justification: the axiom cannot be made smaller while
-retaining the ability to distinguish.
+All four results are mechanically verified.  The first three
+require no axioms; the fourth requires only `propext`.  Hence
+the axiom cannot be reduced further without losing the
+distinguishing operation.
 
 ---
 
-## §3 Lens — Observation as Folded View
+## §3 Lens
 
-### §3.1 The Lens structure
+### §3.1 Definition
 
-A *Lens* records the data for a homomorphism out of `Raw`:
+A *Lens* on a type `α` records the data of a `Raw`-algebra:
 
 ```
 structure Lens (α : Type) where
@@ -312,10 +285,10 @@ def Lens.view {α} (L : Lens α) (r : Raw) : α :=
   r.fold L.base_a L.base_b L.combine
 ```
 
-The `view` function is the homomorphism produced by `Raw.fold`
-applied to the data.  When `L.combine` is commutative, the
-`view` respects `Raw.slash_comm` and the resulting Raw → α map
-is well-defined on canonical forms.
+When `L.combine` is commutative, `view` is well-defined on
+canonical forms (it respects `Raw.slash_comm`) and is the
+unique `Raw → α` homomorphism extending `(L.base_a, L.base_b,
+L.combine)` (Theorem `Lens.view_unique`, §2.4).
 
 ### §3.2 Lens kernel and slash-congruences
 
@@ -361,30 +334,28 @@ The preorder forms a meet-semilattice (`LensMeet.lean`); the
 bottom is `idLens` (the finest, distinguishing every Raw) and
 the top is `constLens` (the coarsest, making no distinctions).
 
-### §3.4 Lens catalogue
+### §3.4 Examples
 
-Selected concrete Lenses establish the framework's expressive
-range:
+Concrete Lenses used in §6–§7:
 
-- `Lens.leaves : Lens Nat` — counts leaf occurrences:
-  `⟨1, 1, (·+·)⟩`.
-- `Lens.depth : Lens Nat` — tree depth:
-  `⟨0, 0, λ a b ↦ 1 + max a b⟩`.
-- `parityLens : Lens Bool` — `⟨true, true, xor⟩`; view = `true`
-  iff leaf count is *odd*.
-- `abLens : Lens (Nat × Nat)` — pair (a-count, b-count).
-- `leavesModNat m : Lens Nat` — `Lens.leaves` post-composed
-  with `(· % m)` (countably many distinct kernels for m ≥ 2).
+- `Lens.leaves : Lens Nat`,  triple `⟨1, 1, (·+·)⟩` — the leaf
+  count.
+- `Lens.depth : Lens Nat`,  triple `⟨0, 0, λ a b ↦ 1 + max a b⟩`.
+- `parityLens : Lens Bool`,  triple `⟨true, true, xor⟩` —
+  `view r = true` iff the leaf count of `r` is odd.
+- `abLens : Lens (Nat × Nat)` — the pair of `a`- and `b`-counts;
+  used in the Cauchy framework of §6 and the demonstrations of
+  §7.
+- `leavesModNat m : Lens Nat`, the post-composition of
+  `Lens.leaves` with `(· % m)`; the family `m ≥ 2` exhibits
+  countably many distinct kernels (used in §7.3 for ℤ_p).
 
-The `Bool`-valued Lenses admit a complete diagonal
-classification (`BoolSqClassification.lean`): any `Lens Bool`
-falls into exactly one of four classes — Collapse-True
-(`combine x x = true`), Collapse-False (`combine x x = false`),
-Idempotent (`combine x x = x`), or NegSq (`combine x x = ¬x`).
-For example, `parityLens` (with `combine = xor`) belongs to
-**Collapse-False**, since `xor x x = false` for both Bool
-values; an instance of NegSq is given by `negSqLens`
-(`NegSqLens.lean`).
+`BoolSqClassification.lean` proves that every `Lens Bool` falls
+into exactly one of four classes by the value of `combine x x`:
+*Collapse-True* (`= true`), *Collapse-False* (`= false`),
+*Idempotent* (`= x`), or *NegSq* (`= ¬x`).  For example,
+`parityLens` is Collapse-False (`xor x x = false`), and
+`negSqLens` (`NegSqLens.lean`) realizes the NegSq class.
 
 Sample views on the level-0 and level-1 `Raw` terms:
 
@@ -395,27 +366,22 @@ Sample views on the level-0 and level-1 `Raw` terms:
 | `parityLens` | true    | true    | false       |
 | `abLens`     | (1, 0)  | (0, 1)  | (1, 1)      |
 
-The catalogue exhibits the framework's range: a single Lens
-typically extracts one specific structural feature (leaf count,
-depth, parity, ratio, etc.).
-
 ---
 
-## §4 Encoding-Artifact Independence
+## §4 Encoding-artifact independence
 
-### §4.1 The cmp choice problem
+### §4.1 Statement
 
-`Tree.cmp` is the lexicographic comparison used to canonicalize
-the children of a `slash` node.  This choice is an
-*implementation artifact*: any other total order on `Tree` could
-have been used.  A natural question is whether the choice
-affects mathematical results.
+The canonical-form predicate of §2.2 fixes one comparison
+`Tree.cmp`.  Any other comparison satisfying the same
+structural properties yields a Raw type isomorphic to the
+original; the choice of comparison has no mathematical content.
+This section makes the statement precise.
 
-### §4.2 CmpProps abstraction
+### §4.2 CmpProps
 
-`Research/CmpIndependence.lean` introduces an abstraction
-capturing the minimal structural requirements of a comparison
-function:
+`Research/CmpIndependence.lean` axiomatizes the structural
+content of a comparison:
 
 ```
 structure CmpProps (cmp : Tree → Tree → Ordering) : Prop where
@@ -469,59 +435,52 @@ theorem RawBy_bijection (cmp1 cmp2 : Tree → Tree → Ordering)
         (transportRawBy cmp2 cmp1 h2 h1 r) = r
 ```
 
-### §4.4 Worked example
+### §4.4 Example
 
-Consider the Raw element `r = a / (a / b)` (i.e., the slash of
-`a` with the slash of `a` and `b`).  Under the lexicographic
-`Tree.cmp`, the canonical encoding orders the children
-ascendingly, so the canonical Tree is
+Take the Raw element `r = a / (a / b)`.  Under `Tree.cmp`, the
+canonical encoding orders the children ascendingly:
 
 ```
-slash a (slash a b)         (under cmp = Tree.cmp)
+slash a (slash a b)         (cmp = Tree.cmp)
 ```
 
-Under `cmpRev` (the reversal of `Tree.cmp`), the same Raw
-element receives the canonical Tree with the children of every
-`slash` node in the opposite order:
+Under `cmpRev := λ x y. (Tree.cmp x y).swap`, the same Raw
+element receives the canonical encoding
 
 ```
-slash (slash b a) a         (under cmp = cmpRev Tree.cmp)
+slash (slash b a) a         (cmp = cmpRev)
 ```
 
-The two encodings are visibly different at the Tree level, yet
-`transportTree` swaps the children at each `slash` node and
-re-canonicalizes:
+with the children of each `slash` node reversed.  The map
+`transportTree` swaps children at each node and re-canonicalizes:
 
 ```
 transportTree cmpRev (slash a (slash a b))
-  = slashTree cmpRev (transportTree cmpRev a)
-                     (transportTree cmpRev (slash a b))
   = slash (slash b a) a
 ```
 
-Applying `transportTree Tree.cmp` again returns to the original.
-The `transportTree_roundtrip` theorem proves this for all
-canonical Trees, and `RawBy_bijection` lifts the result to the
-Raw subtypes.
+Applying `transportTree Tree.cmp` returns the original.  The
+roundtrip theorem proves this for all canonical Trees;
+`RawBy_bijection` lifts the result to the subtypes.
 
-### §4.5 Significance
+### §4.5 Remark
 
-`RawBy_bijection` depends only on `[propext]`; no `Classical.choice`
-or other axiom is required.  The implication is that the cmp
-choice is a true *encoding artifact*: any two valid orderings
-yield isomorphic Raw types, so no mathematical result depends
-on the choice.  This formalizes the design intent of `AXIOM.md`
-§3 classification (β): "encoding artifact, no mathematical
-content".
+`RawBy_bijection` is proved using only `[propext]`.  No
+`Classical.choice` is required.  Consequently, the choice of
+`Tree.cmp` is an encoding artifact in the sense of `AXIOM.md`
+§3 (classification β): no mathematical statement of the
+framework depends on it.
 
 ---
 
-## §5 ZFC Reductions
+## §5 ZFC commitments — 213-side counterparts
 
-The 213 framework reduces several ZFC commitment axioms to
-internal Lens specifications, requiring no external axioms.
+We do not claim full reduction of all ZFC commitments.  This
+section exhibits the 213-side counterpart for each: full
+reduction where one is available, an explicit boundary witness
+where one is not.
 
-### §5.1 Choice → Lens specification
+### §5.1 Choice — full reduction
 
 `Research/UniversalQuotLens.lean` constructs, for any
 slash-congruence `E` on `Raw`, a concrete Lens whose kernel is
@@ -541,138 +500,114 @@ theorem universalLens_kernel_eq_E
     (universalLens E).view r = (universalLens E).view r' ↔ E r r'
 ```
 
-That is, the four hypotheses on `E` are exactly the equivalence
-laws plus slash-compatibility (i.e., `E` is a slash-congruence).
+The four hypotheses on `E` are the equivalence laws together
+with slash-compatibility — i.e., `E` is a slash-congruence.
+Conversely, every Lens kernel is a slash-congruence
+(`Lens.equiv_slash_congruence`).  Hence the slash-congruences
+are exactly the Lens kernels.
 
-`Research/ChoiceResolved.lean` packages this as the formal
-statement that "Choice is Lens specification": any
-slash-congruence arises as the kernel of a concrete Lens, so no
-external choice function is needed to select representatives.
-All proofs use only `[propext]` and `[Quot.sound]`; no
-`Classical.choice` is invoked.
+`Research/ChoiceResolved.lean` packages this as: any
+slash-congruence arises as the kernel of an explicit Lens; no
+choice function is needed to select representatives.  The
+construction uses only `[propext, Quot.sound]`.
 
-#### Worked example: parity congruence
+**Example.**  Let `E_Xor` be the kernel of the Bool-valued
+universal morphism with the Xor combine — that is, the relation
+`E_Xor r r' := boolXor.view r = boolXor.view r'`, where
+`boolXor` is the Lens `⟨false, true, xor⟩`.  This relation is a
+slash-congruence (the four hypotheses follow from equational
+properties of `=` on `Bool`), and `universalLens E_Xor` produces
+a Lens of type `Lens (Raw → Prop)` whose kernel is exactly
+`E_Xor`.  No representative is selected: the indicator function
+`λ r. E_Xor r ·` plays the role of the Choice-side selector.
 
-A concrete instance: take `E := λ r r'. depth r ≡ depth r' (mod 2)`
-restricted to slash-congruence-closed shapes (depth-parity on
-itself fails the slash compatibility, as §5.2 records; the
-correct depth-parity Lens is built differently).  As a
-genuinely usable example, take instead the kernel `E` on a
-depth-3 sub-language that does satisfy the four hypotheses:
+### §5.2 Power set — boundary witness
 
-```
-E := λ r r'. (universalMorphism Bool r) = (universalMorphism Bool r')
-```
-
-i.e., the kernel of the Bool universal morphism (with the Xor
-combine).  All four hypotheses (`hrefl, hsymm, htrans, hslash`)
-are immediate from the equational structure of `=` on `Bool`,
-and `universalLens E` recovers a Lens whose `view` lands in
-`Raw → Prop` and whose kernel is exactly this Bool-equivalence.
-The construction goes through *without* picking representatives:
-`universalLens` is built via the canonical `λ r. E r ·` indicator
-function rather than a Choice-style selector.
-
-### §5.2 Power set: constructive subset, not full P(X)
-
-Lens kernels are not arbitrary equivalence relations on `Raw`;
-they are *slash-congruences* — equivalence relations preserved
-by `Raw.slash` for distinct arguments
-(`KernelCongruence.Lens.equiv_slash_congruence`).  Conversely,
-`Research/NoDepthParity.lean` shows that depth-parity equality
-on `Raw` is not a slash-congruence, hence not a Lens kernel:
+The Lens kernels form a strict subset of the binary relations
+on `Raw`.  `Research/NoDepthParity.lean` exhibits an explicit
+witness: depth-parity equality on `Raw` is not a slash-congruence,
+hence not a Lens kernel.
 
 ```
 theorem NoDepthParity.depthParity_ker_not_slash_cong : ...
 ```
 
-(See `Research/DepthParityNotFold.lean` for the function-level
-version: depth-parity-as-Bool is not fold-structured.)
-
-This is wrapped at the function level in `SemanticAtom.lean`:
+The function-level analogue, in `Research/DepthParityNotFold.lean`
+and packaged in `SemanticAtom.lean`, is
 
 ```
 theorem exists_non_lens_expressible :
-    ∃ f : Raw → Bool, ¬ IsLensExpressible f
+    ∃ f : Raw → Bool, ¬ IsLensExpressible f.
 ```
 
-Together: the Lens-kernel space is *strictly smaller* than the
-full power set of `Raw → Raw → Prop`, with depth parity as the
-explicit witness of strict inclusion.  This is not a deficiency
-but the framework's deliberate scope: it represents the
-fold-structured (i.e., distinguishing-coherent) subsets of
-`Raw`, refusing to commit to arbitrary LEM-dispatchable
-subsets.
+The framework therefore does not represent arbitrary subsets
+of `Raw`; it represents the fold-structured (slash-congruent)
+ones.  The strict-inclusion is established constructively, with
+depth parity as a definite witness.
 
-### §5.3 Infinity → unbounded depth Raw
+### §5.3 Infinity — unbounded depth
 
-`Raw` is inductively defined; every finite-depth term is
-mechanically constructible (`Firmware/RawLevels.lean` exhibits
-the first few levels).  The framework `Infinity/` directory
-establishes that `Raw` is countably infinite via an explicit
-injection `Nat ↪ Raw` (`Countable.lean`, `Godel.lean`).
+`Raw` is inductively defined and every finite-depth term is
+mechanically constructible (`Firmware/RawLevels.lean`).
+`Infinity/Countable.lean` and `Infinity/Godel.lean` exhibit an
+explicit injection `Nat ↪ Raw`, so `Raw` is countably infinite
+without an external Infinity axiom.  `Infinity/Cantor.lean`
+further proves a Cantor-style result `cantor_general` for
+`Raw → Bool`.
 
-`Cantor.lean` further establishes a Cantor-style theorem
-(`cantor_general`) within the framework, exhibiting an
-uncountable cardinality at the level of `Raw → Bool` — without
-any external Infinity axiom.
+### §5.4 Cardinality
 
-### §5.4 Cardinality is a (Raw, Lens) pair property
+Cardinality is a property of the pair (Raw, Lens), not of
+`Raw` alone.  `Raw` is countable (`Godel.lean`).  The Lens
+kernel space is at least countably infinite
+(`KernelCardinalityLB.lean`: the family `leavesModNat m`,
+`m ≥ 2`, gives an injection of `Nat` into the kernel space).
+An uncountable lower bound for the kernel space is open.
 
-A central observation: **cardinality is not an intrinsic property
-of `Raw` alone, but of the (Raw, Lens) pair.**  `Raw` itself is
-countable (one explicit Nat-indexing exists, `Godel.lean`).
-The space of Lens kernels is at least countably infinite
-(`KernelCardinalityLB.lean`: an injection of `Nat` into the
-kernel space, via the `leavesModNat m : m ≥ 2` family).  An
-uncountable lower bound for the kernel space is left as future
-work.  In any case, the framework supports both countable and
-larger cardinalities without committing to either as axiomatic.
+### §5.5 Comprehension — distinguishing-closed subtype
 
-### §5.5 Comprehension → distinguishing-closed subtype
+For any predicate `P : Raw → Prop` with `P Raw.a` and
+`P Raw.b`, `Research/SubtypeInstance.lean` equips the subtype
+`{r : Raw // P r}` with a `HasDistinguishing` instance.  The
+combine in the present version is *degenerate* (constant
+`⟨Raw.a, h_a⟩`); a slash-based combine requires `P` to be
+closed under `Raw.slash` on distinct arguments and meets a
+Lean elaborator boundary on nested Subtypes (§8.2).  Even in
+this weakened form, the construction replaces ZFC's
+arbitrary-subset commitment with an explicit closure
+precondition.
 
-`Research/SubtypeInstance.lean` realizes the 213-side analog of
-Comprehension: for any predicate `P : Raw → Prop` containing
-both `Raw.a` and `Raw.b`, the subtype `{r : Raw // P r}`
-carries a `HasDistinguishing` instance.  The instance currently
-uses a *degenerate* combine (constantly returning `⟨Raw.a, h_a⟩`)
-because the meaningful slash-based combine encounters a
-nested-Subtype elaboration limit (§8.3); supplying a
-non-degenerate combine would additionally require `P` to be
-closed under `Raw.slash` for distinct arguments.  Even in this
-weakened form, ZFC's *arbitrary* subset commitment is replaced
-by an explicit closure precondition.
+### §5.6 Coproduct — Prism dual
 
-### §5.6 Coproduct → Prism dual
+`Research/Prism.lean` introduces `Prism α`, the categorical
+dual of `Lens`, with operations `preview : Raw → Option α` and
+`review : α → Raw`.  Concrete instances `aPrism`, `bPrism` and
+the disjointness theorem `caseElement_disjoint` formalize the
+coproduct on the two primitive elements.
 
-In ZFC the disjoint sum (categorical coproduct) is encoded
-indirectly via the Pair and Union axioms; the structure is
-not primitive.  In 213, `Research/Prism.lean` realizes the
-coproduct as the *categorical dual of Lens* — Lens accesses a
-product, Prism accesses a coproduct case (with `preview :
-Raw → Option α` and `review : α → Raw`).  Concrete instances
-`aPrism`, `bPrism` and the disjointness theorem
-`caseElement_disjoint` formalize the universal property of the
-coproduct.
-
-The Sum-type instance `sumHasDistinguishing` itself is provided
-in `Research/SumInstance.lean` with a priority-based combine
-(left-preference on mixed cases).  This is a deliberately
-*ad-hoc* choice for the mixed case — there is no categorically
-natural commutative combine on `Sum α β` — and the framework
-records this asymmetry as a *limit of self-naturality* rather
-than a derivable structure (see §8.3).
+The Sum-type instance `sumHasDistinguishing` of
+`Research/SumInstance.lean` uses a priority-based combine
+(left-preference on mixed cases).  We know of no
+categorically natural commutative combine on `Sum α β`; the
+priority variant is recorded as an admitted asymmetry rather
+than a canonical construction (see §8.2).
 
 ---
 
-## §6 Cauchy Completeness
+## §6 Cauchy completeness
+
+The framework supports limit constructions internally: a
+sequence of `Raw` elements is judged Cauchy with respect to a
+Lens (or family thereof), and its limit is captured as
+Lens-output data, with no new `Raw` element introduced.  This
+is the structure exercised in §7 to exhibit √2, ℤ_p, e, and
+π/2 within 213.
 
 ### §6.1 Lens-Cauchy and EventuallyClass
 
-The classical Cauchy criterion has a natural Lens-side
-counterpart.  A sequence `xs : Nat → Raw` is *Lens-Cauchy* with
-respect to a Lens `L` if its tail eventually collapses to a
-single L-equivalence class:
+A sequence `xs : Nat → Raw` is *Lens-Cauchy* with respect to a
+Lens `L` if its tail eventually collapses to a single
+`L`-equivalence class:
 
 ```
 def LensCauchy (L : Lens α) (xs : Nat → Raw) : Prop :=
@@ -724,15 +659,11 @@ At a more abstract level, the slash-congruence
 `∀ x y. (∀ (m, k). cd.cut m k = orderProj m k (abLens.view x))
 ↔ same of y` arises as the kernel of a `universalLens` (§5.1).
 
-No new Raw element is created; the limit data resides at the
-Lens-output level (specifically, as a `Nat → Nat → Bool`
-decision function).  This is the **Cauchy completeness without
-external ℝ** structure: the limit of a Cauchy ab-sequence is
-captured by a Lens-output Bool function rather than by a new
-Raw term.  Whether *every* Cauchy sequence's limit is so
-captured depends on the threshold-set the witness `cd.N`
-covers; for the demonstrations in §7, only explicit thresholds
-are claimed (§6.4).
+The limit is a `Nat → Nat → Bool` decision function on the
+rational thresholds; no new `Raw` element is introduced.
+Whether the limit cuts at *every* rational threshold depends on
+the witness `cd.N`; §7 establishes only the explicit
+thresholds, in line with §6.4.
 
 ### §6.4 Monotonic-bounded propagation
 
@@ -761,26 +692,26 @@ theorem orderProj_false_propagates (xs : Nat → Raw)
 ```
 
 Once `orderProj m k` becomes `false` at some `N₀`, it stays
-`false` for all `i ≥ N₀`.  This converts a single false-witness
-into a tail-Cauchy property at that `(m, k)`, without invoking
-LEM.  Both Euler and Wallis seqs satisfy `IsAbMonotonic` and
-`IsAbPositiveB` (`euler_isAbMonotonic`,
-`wallis_isAbMonotonic`, etc).
+`false` for all `i ≥ N₀`.  A single `false` witness at `(m, k)`
+therefore gives the tail-Cauchy property at that threshold,
+without LEM.  Both the Euler and Wallis sequences satisfy
+`IsAbMonotonic` and `IsAbPositiveB`
+(`euler_isAbMonotonic`, `wallis_isAbMonotonic`).
 
-The general `∀ (m, k), ∃ N` statement (the "all cuts at once"
-closure) requires LEM for monotonic Bool sequences (one would
-need to case-split on whether `orderProj m k` is ever false) and
-is therefore *deliberately not claimed* — see §8.3 for the
-closed-boundary discussion.
+The general statement `∀ (m, k), ∃ N` (the "all cuts" closure)
+requires LEM on monotonic Bool sequences and is *deliberately
+not claimed*; see §8.2.
 
 ---
 
-## §7 Demonstration Suite
+## §7 Demonstrations
 
-The framework's Cauchy completeness is exercised on four
-concrete irrationals: the algebraic √2 (Pell), the
-number-theoretic ℤ_p (p-adic), and the transcendentals e (Σ
-1/k!) and π/2 (Wallis product).
+The Cauchy framework of §6 is exercised on four targets, each
+chosen to stress a different facet: an algebraic constant
+defined by a quadratic invariant (√2 via Pell), a profinite
+sequence under a mod-tower (ℤ_p), a transcendental given by an
+infinite series (e via factorial sums), and a transcendental
+given by an infinite product (π/2 via Wallis).
 
 ### §7.1 Rational diagonal warm-up
 
@@ -931,189 +862,240 @@ correct one (true if `m/k > π/2`, false otherwise) but its
 formal proof requires the LEM-bound general closure (§6.4),
 hence is not claimed within the framework.
 
-### §7.6 Significance
+### §7.6 Scope
 
-The four examples show that the framework supports algebraic
-(Pell), number-theoretic (Padic), and transcendental
-(Euler/Wallis) irrationals on equal footing.  No external ℝ or
-ℤ_p is invoked: each irrational appears as a sequence of `Raw`
-elements observed via `abLens + orderProj` (or `leavesModNat`
-for the profinite case), with limit-class data residing in the
-Lens output rather than as new Raw terms.
+Each of the four targets is a sequence of `Raw` elements
+observed by `abLens + orderProj` (or `leavesModNat` in the
+profinite case).  No external ℝ or ℤ_p is invoked.
 
-A sober scope clarification: each transcendental is established
-as a Dedekind cut at *explicit* `(m, k)` thresholds — for
-example, `e ∈ (2, 3)` and `π/2 ∈ (1, 2)` — not as the cut at
-*every* rational threshold.  The general `∀ (m, k)` closure
-would require LEM (§6.4) and is therefore not claimed.  What
-the framework does internally is exhibit each irrational as a
-Raw sequence whose specific cuts are mechanically verified;
-the limit object is then named "the cut" by convention
-(externally to the framework).
+For the transcendentals, only the cuts at *explicit* `(m, k)`
+thresholds are claimed (e.g., `e ∈ (2, 3)`, `π/2 ∈ (1, 2)`),
+not the cut at every rational threshold.  The latter would
+require the all-cuts closure of §6.4, which is LEM-equivalent
+and not claimed.  Naming the limit "the cut" is therefore an
+external convention; the framework supplies the explicit
+cuts.
 
 ---
 
-## §8 Falsifiability and Closed Boundaries
+## §8 Falsifiability and boundaries
 
-### §8.1 The falsifiability contract
+### §8.1 Contract
 
-`AXIOM.md` §5.2.1 records the framework's central contract:
+`AXIOM.md` §5.2.1 states the framework's contract:
 
-> Every result must be derivable from the Raw axiom + Lean 4
-> core baseline.  If any result genuinely requires an
-> additional axiom, the entire 213 theory is discarded.  This
-> is a direct consequence of the Raw axiom being the *minimum
-> residue* (§1).  If an extra axiom were genuinely needed, then
-> "minimum" was a false claim.
+> Every result must be derivable from the Raw axiom and the
+> Lean 4 core baseline.  Should any result genuinely require
+> an additional axiom, the framework is to be discarded — not
+> the result alone — since the Raw axiom is claimed as the
+> minimum.
 
-Operating consequences:
+Operational consequences:
 
-- `Classical.choice`, LEM, `native_decide`, and other external
-  axioms are forbidden in framework derivations.
-- Stuck results may be left "open" for now, but a permanent
+- External axioms (`Classical.choice`, LEM, `native_decide`,
+  etc.) are forbidden in framework derivations.
+- Results may be left open temporarily, but a permanent
   obstruction triggers a falsification declaration.
-- The Lean kernel is the framework's mechanical auditor.
+- The Lean kernel is the mechanical auditor.
 
-### §8.2 Status of the contract
+After the work of §§2-7 and §9, every public theorem reports
+`[propext, Quot.sound]` or no axioms (Appendix A).  The
+contract is met; the present body of work supplies no
+counterexample.
 
-After the work reported in §§2-7 (and §9), every public
-theorem reports `[propext, Quot.sound]` or no axioms.  No
-external commitment has been required.  The framework satisfies
-its falsifiability contract.
+### §8.2 Closed boundaries
 
-### §8.3 Closed boundaries
+Three results have been resolved by establishing the boundary
+rather than crossing it:
 
-Several open questions earlier in the work have been resolved
-by establishing the *boundary* rather than crossing it:
+- **Power-set**: not every binary relation on `Raw` is a
+  Lens kernel.  Witness: depth parity
+  (`exists_non_lens_expressible`).
+- **All-cuts Cauchy closure**: the statement `∀ (m, k), ∃ N`
+  on monotonic Bool sequences is LEM-equivalent and is not
+  claimed.  Each Cauchy cut is supplied explicitly.
+- **Sub-instance combine**: a slash-based combine on
+  `{r : Raw // P r}` meets a Lean elaborator boundary on
+  nested Subtypes; the present `SubtypeInstance.lean` carries
+  a degenerate combine.
 
-- **Power-set boundary**: `NoDepthParity` shows that not every
-  binary relation on `Raw` is a slash-congruence, so the Lens
-  kernel space is strictly contained in the full power set.
-  The boundary is *non-trivial* (witness: depth parity), and
-  this is itself a closed result (`exists_non_lens_expressible`).
+The first two reflect the deliberate avoidance of LEM-style
+commitments; the third is infrastructural (Lean elaborator).
 
-- **General `∀ (m, k)` Cauchy closure**: requires LEM for
-  monotonic Bool sequences; *deliberately not claimed*.  Each
-  cut is given by an explicit witness, in keeping with the
-  framework's constructive character.
+### §8.3 Open work (incremental)
 
-- **Sub-instance with meaningful slash-based combine**: the
-  nested-Subtype elaborator interferes with the proof of
-  `combine_sym`.  A degenerate combine version is supplied
-  (`SubtypeInstance.lean`); the meaningful version awaits a
-  reflection-style refactor.
-
-These are not unresolved problems but **identified boundaries
-of the framework's expressive range**.  The first (Power-set
-boundary) and second (general (m,k) closure) reflect the
-framework's deliberate refusal of LEM-style commitments; the
-third (sub-instance combine) is an infrastructural limitation
-of Lean's elaborator on nested Subtypes (see §9.5 for the full
-accounting).
-
-### §8.4 Open work (incremental)
-
-- Sharpening individual cut bounds (e.g., e ≤ 5/2, π/2 ≤ 4/3).
-- Additional Lens catalogue entries.
+- Sharper cut bounds for e and π/2 (e.g. `e ≤ 5/2`, `π/2 ≤ 4/3`).
+- Further entries in the Lens catalogue.
 - Integration of the r5-critique sub-track
-  (`213/research/r5-critique/`): a separate arc analysing the
-  ℝ-algebra assumption used by an earlier abandoned paper draft
-  (`papers/paper14_213.tex`).  This is a Paper 2 candidate.
+  (`213/research/r5-critique/`), which analyses the ℝ-algebra
+  assumption underlying an earlier paper draft
+  (`papers/paper14_213.tex`); a candidate Paper 2 topic.
 
-### §8.5 Acknowledgments
+### §8.4 Acknowledgments
 
 Mingu Jeong (Independent Researcher) is the originator of the
-theory and the source of axiom design and physical intuition.
-Claude (Anthropic) contributed Lean formalization, derivation
-exploration, and prose drafting.  Every result was verified by
-the Lean kernel; conceptual claims were independently
-re-derived rather than accepted on authority.
+theory and the source of axiom design.  Claude (Anthropic)
+contributed Lean formalization, derivation exploration, and
+prose drafting.  Every formal result was verified by the Lean
+kernel.
 
 ---
 
-## §9 Semantic Atom Thesis
+## §9 The semantic-atom reading
 
-### §9.1 The thesis
+§§2-8 establish the formal core of the framework.  This section
+collects those results into a single reading: that 213 plays
+the role of a *semantic atom* for distinguishing-based
+structures.  The reading has a precise formal scope, given
+below; a broader interpretive claim is recorded separately and
+not asserted as a theorem.
 
-The framework's central claim, beyond the individual formal
-results of §§2-7, is the following.  Reading "an entity carries
-meaning" as "the entity sits in a type with at least two
-distinguishable elements observed by some commutative
-operation", the framework expresses such entities exactly via
-the `(HasDistinguishing α, universalMorphism Raw α)` pair.
+### §9.1 Formal scope
 
-The thesis decomposes into two clauses, each *formally
-verified* in scope:
+Define a type `α` to be *distinguishable* if it carries a
+`HasDistinguishing α` instance — equivalently, a triple
+`(a, b : α, combine : α → α → α)` with `a ≠ b` and `combine`
+commutative.  For every such `α`:
 
-1. **Genesis of meaning** has two minimal data: *distinction*
-   (the existence of at least two unequal elements with a
-   commutative binary operation) and *interpretation* (a
-   homomorphism out of `Raw` into the entity's carrier).  These
-   correspond exactly to a `HasDistinguishing` instance and the
-   induced `universalMorphism : Raw → α`.
-2. **Strict minimality**: removing any clause of the Raw axiom
-   collapses the framework (§2.5).  The Lens layer is the
-   minimal additional structure for non-trivial observation
-   (an empty Lens collection reduces `Raw` to a syntactic
-   carrier with no meaningful homomorphism out).
+1. **Existence.**  There is a homomorphism `universalMorphism :
+   Raw → α` (`SemanticAtom.universalMorphism`).
+2. **Uniqueness.**  Any other homomorphism agreeing with the
+   instance on `a, b, combine` coincides with it
+   (`universalMorphism_unique`).
+3. **Initiality.**  Bundling (1) and (2): `Raw` is the initial
+   object in the category of commutative `Raw`-algebras
+   (`raw_initial`; `Lens.initiality`).
 
-The interpretive claim — that *all* "meaningful" entities, in
-the broadest pre-formal sense, fall under the framework — is
-not a Lean theorem.  It is a philosophical reading of the
-formal results, supported by the wide range of `HasDistinguishing`
-instances exhibited in §§5, 7, and 9.2.
+The reading "213 is the semantic atom" denotes (1)-(3): in any
+distinguishable type, `Raw` is the unique source of
+homomorphisms compatible with the instance data.
 
-### §9.2 Fifteen formal components
+The looser reading — that *every* working framework is a
+distinguishable type, hence that 213 sits beneath every such
+framework — is a philosophical claim, not a theorem.  The
+range of instances exhibited in §§5, 7 and Appendix A
+(four `Prop` connectives, products, function spaces,
+recursive `Lens^n α` towers, Sum/Prism, Bool, Fin 3, Nat,
+Int) supports this reading by example, but no Lean statement
+quantifies over "all frameworks".
 
-The thesis is supported by the following components, each
-formalized in Lean 4 core with all axioms ≤ `[propext,
-Quot.sound]`:
+### §9.2 Components
 
-1. **Strict minimum** (`AxiomMinimality.lean`, 4 cases).
-2. **Distinguishing-framework abstraction** (`HasDistinguishing`
-   typeclass).
-3. **Universal property** (`raw_initial`: ∃ + uniqueness for
-   morphism Raw → α).
-4. **Self-application via `Prop`** (4 connectives: Xor, Iff,
-   And, Or, with explicit characterizations).
-5. **Function-level boundary** (`exists_non_lens_expressible`).
-6. **Lens canonical form** (`lens_canonical_universal`: every
-   Lens is refines-equivalent to its kernel's universal Lens).
-7. **Reach catalogue** (5 instances: Bool, Fin 3, Nat, Int,
-   Raw — finite × infinite × surjective × non-surjective
-   coverage).
-8. **Categorical structure** (`DistMorphism` category with id,
-   composition, associativity, neutrality laws).
-9. **Recursive self-application** (`LensOnLens`: `Lens α` is a
-   `HasDistinguishing` instance; the recursive tower
-   `Lens^n α` is exhibited for `n = 1, 2, 3, 4`).
-10. **Image minimum** (`image_minimum_property`: universalMorphism's
-    image is the minimum distinguishing-closed subset of α).
-11. **Type-constructor closure (product)** (`PairInstance`:
-    binary product `α × β` is an instance, with components-wise
-    universal-morphism splitting).
-12. **Type-constructor closure (function)** (`FunctionSpace`:
-    `α → β` is an instance with `Inhabited α`).
-13. **Cross-instance functoriality** (Bool ↔ Prop morphisms
-    commute under `boolToProp`, for all four connectives).
-14. **Coproduct (Prism dual)** (`Prism` + `SumInstance`:
-    coproduct accessor, plus a Sum-type instance with priority-
-    based combine).
-15. **Reflection** (`UniversalReflection`: every `HasDistinguishing`
-    instance presents as a `Lens` whose `view` is the
-    `universalMorphism`).
+The formal evidence breaks into fifteen components.  Each is
+proved in a single Lean module within the axiom budget
+`[propext, Quot.sound]`.  The component-to-declaration map is
+in Appendix A.
 
-(The earlier `SubtypeInstance` realizing the Comprehension axiom
-in degenerate combine form is included in the framework but, as
-explained in §8.3, awaits a meaningful slash-based combine.)
+1. **Strict minimum** of the Raw axiom (§2.5).
+2. **Distinguishing-framework abstraction**: the
+   `HasDistinguishing` typeclass.
+3. **Universal property**: `raw_initial`.
+4. **Self-application via `Prop`**: each of the four
+   connectives Xor, Iff, And, Or yields a `HasDistinguishing
+   Prop` instance with an explicit `canonicalMap`.
+5. **Function-level boundary**: `exists_non_lens_expressible`.
+6. **Lens canonical form**: `lens_canonical_universal`.
+7. **Reach catalogue**: instances on Bool, Fin 3, Nat, Int,
+   Raw covering the finite/infinite × surjective/non-surjective
+   axes.
+8. **Categorical structure**: `DistMorphism` (id, comp,
+   associativity, neutrality).
+9. **Recursive self-application**: `Lens α` is itself an
+   instance, so `Lens^n α` exists for every `n`.
+10. **Image minimum**: `image_minimum_property`.
+11. **Type-constructor closure (product)**: `α × β`.
+12. **Type-constructor closure (function)**: `α → β` for
+    `[Inhabited α]`.
+13. **Cross-instance functoriality**: Bool ↔ Prop morphisms
+    commute under `boolToProp` for all four connectives.
+14. **Coproduct dual**: `Prism` accessor and a Sum-type
+    instance.
+15. **Reflection**: every `HasDistinguishing` instance presents
+    as a `Lens` whose `view` is its `universalMorphism`.
 
-#### Axiom verification table
+`SubtypeInstance` (a 213-side counterpart of Comprehension) is
+included with a degenerate combine; the meaningful version
+awaits the reflection refactor (§8.2).
 
-Each component below is mapped to a representative Lean
-declaration in the development.  The "Axioms" column reports the
-output of `#print axioms` for that declaration, which is either
-empty or a subset of the Lean 4 core baseline `[propext,
-Quot.sound]`:
+The components do not assert that *every* type-construction
+fits.  They assert that the constructions we tested fit, and
+that the cases that resisted (§8.2) failed for identifiable
+infrastructural reasons — Lean elaborator boundary, LEM gap —
+not for mathematical reasons internal to the framework.
+
+### §9.3 Comparison with ZFC
+
+| Aspect | ZFC | 213 |
+|--------|-----|-----|
+| Axiom commitments | 9 | 0 (baseline only) |
+| Strict minimality formal proof | absent | ✓ `AxiomMinimality` |
+| Universal property | absent | ✓ `raw_initial` |
+| Boundary explicit | absent | ✓ `exists_non_lens` |
+| Self-application | metalanguage split | ✓ Prop + Lens-on-Lens |
+| Categorical structure | external | ✓ `DistMorphism` |
+| Coproduct universal | encoded via Pair + Union | ✓ `Prism` (dual) |
+| Comprehension | axiom | ✓ `Subtype` (with closure) |
+
+The two systems differ in what is taken as primitive: ZFC
+postulates the existence of certain collections, 213 postulates
+only the distinguishing operation and constructs corresponding
+internal structures as Lens specifications.  The comparison is
+structural, not evaluative.
+
+### §9.4 ORIGIN correspondence (interpretive)
+
+`ORIGIN.md` records the prompt chain that motivated the
+framework — physical intuitions about the impossibility of
+singular points, resolution covariance, and lattice-information
+invariance.  The present formal results admit an interpretive
+reading along this chain (informal correspondence, not formal
+derivation):
+
+- §3 (Zeno-pixel paradox) ↔ Raw axiom's strict minimality
+  (§2.5).
+- §6 (resolution = unit of information) ↔ `HasDistinguishing`
+  abstraction.
+- §7 (lattice-unit information invariant under resolution
+  choice) ↔ closure + categorical product (§9.2 items 6, 11).
+
+The framework's name DRLT (*Dynamic Resolution Lattice
+Theory*) records this physical motivation.  The formal results
+of §§2-9 stand independently of the reading.
+
+### §9.5 Limits of the reading
+
+The fifteen components do not constitute an absolute
+completeness proof.  Such a proof would require a metatheoretic
+statement outside the framework, which is not given here.
+
+Specific limits:
+
+- **Raw.fold reduction** is not always unfolded by Lean's
+  elaborator on deep nested terms.  The reflection theorem
+  `universalAsLens` sidesteps this by re-presenting an
+  instance as a `Lens` whose `view` definitionally equals
+  `universalMorphism`.
+- **Sum-type combine** has no canonical commutative choice in
+  the mixed case; the priority-based variant in
+  `SumInstance.lean` is admitted as ad-hoc.
+- **Subtype `combine_sym`** under a slash-based combine meets
+  the nested-Subtype elaborator boundary; the present version
+  uses a degenerate combine.
+- **All-cuts Cauchy closure** `∀ (m, k), ∃ N` is LEM-equivalent
+  on monotonic Bool sequences and is not claimed (§6.4, §8.2).
+
+The first three are infrastructural; the fourth is a deliberate
+refusal of LEM.  Each is either sidestepped or scoped, and none
+breaks the falsifiability contract.
+
+---
+
+## Appendix A.  Component-to-declaration map
+
+Each row records: the component number from §9.2, a brief
+title, the Lean module and representative declaration, and the
+output of `#print axioms` for that declaration (either empty
+or a subset of `[propext, Quot.sound]`).
 
 | # | Component | Module · Declaration | Axioms |
 |---|-----------|----------------------|--------|
@@ -1153,107 +1135,11 @@ Quot.sound]`:
 | 14 | Sum-type instance | `SumInstance` · `sumHasDistinguishing`, `sumCombine_comm` | propext, Quot.sound |
 | 15 | Reflection (typeclass→Lens) | `UniversalReflection` · `universalAsLens`, `universalAsLens_view` | propext, Quot.sound |
 
-The baseline `propext` (propositional extensionality) and
-`Quot.sound` (quotient soundness) are part of Lean 4 core's
-trusted kernel.  No further axiom — no Classical, no choice,
-no LEM, no native_decide — is invoked anywhere in the
+`propext` (propositional extensionality) and `Quot.sound`
+(quotient soundness) are part of Lean 4 core's trusted kernel.
+No further axiom — no `Classical.choice`, no LEM, no
+`native_decide` — appears in any declaration of the
 development.
-
-Taken together the components establish that the framework
-absorbs the structural extensions we attempted: a particular
-metalanguage truth-value type (`Prop` with one of four
-connectives) becomes a `HasDistinguishing` instance; the
-recursive `Lens^n α` tower yields instances at every level;
-binary product, function space, and Sum/Coproduct each fit the
-abstraction.  This does not prove that *every* conceivable
-extension fits — only that the extensions we tried did fit, and
-that the few that resisted (§8.3) failed for identifiable
-infrastructural reasons (Lean elaborator, LEM gap), not for
-mathematical ones.
-
-### §9.3 ZFC contrast
-
-| Aspect | ZFC | 213 |
-|--------|-----|-----|
-| Axiom commitments | 9 | 0 (baseline only) |
-| Strict minimality formal proof | absent | ✓ `AxiomMinimality` |
-| Universal property | absent | ✓ `raw_initial` |
-| Boundary explicit | absent (arbitrary P(X)) | ✓ `exists_non_lens` |
-| Self-application | absent (metalanguage split) | ✓ Prop + Lens-on-Lens |
-| Categorical structure | external (Set category) | ✓ `DistMorphism` |
-| Coproduct universal | encoded via Pair + Union | ✓ `Prism` (dual) |
-| Comprehension | axiom | ✓ `Subtype` (with closure) |
-
-The contrast is structural: ZFC takes the existence of arbitrary
-objects as axiomatic and treats the metatheory as external.
-213 takes only the minimum residue of distinguishing as
-axiomatic and absorbs all the structural commitments — including
-its own metalanguage instances — as internal Lens
-specifications.
-
-### §9.4 Connection to ORIGIN
-
-`ORIGIN.md` records the original prompt chain that motivated
-the framework — a sequence of physical intuitions about the
-impossibility of singular points, the necessity of resolution
-covariance, and the invariance of lattice information.  The
-present formal results may be read as an *interpretive*
-mathematical counterpart to that chain (informal correspondence,
-not formal derivation):
-
-- §3 (Zeno-pixel paradox: the law-stability requires a minimum
-  pixel) ↔ Raw axiom's strict minimality (§2.5).
-- §6 (resolution = unit of information; introduction of `h_eff`)
-  ↔ `HasDistinguishing` abstraction (§9.2 item 2).
-- §7 (lattice-unit information invariant under any
-  resolution choice) ↔ Closure + categorical product (§9.2
-  items 6, 11).
-
-The framework's name DRLT (*Dynamic Resolution Lattice Theory*)
-records this physical motivation; the present paper formalizes
-the resulting mathematical structure as 213.  We emphasize that
-the ORIGIN correspondence is *interpretive*: the formal results
-of §§2–9 stand independently of any particular physical
-reading.
-
-### §9.5 Sober limits
-
-The fifteen components do not amount to an *absolute*
-completeness proof in any philosophical sense — such a proof
-would require a metatheoretic statement outside the framework.
-What they establish is that the structural extensions we
-specifically tested are absorbed into the framework's instance
-language, and that the few cases that resisted absorption did
-so for identifiable reasons.
-
-Specific limits:
-
-- The `Raw.fold` reduction is occasionally not unfolded by
-  Lean's elaborator on deep nested terms (this is an
-  *implementation* limitation of Lean's evaluator, not a
-  foundational constraint).  When this prevents a direct
-  reduction-based proof, the reflection theorem
-  `universalAsLens` (`UniversalReflection.lean`) sidesteps the
-  issue by re-presenting the typeclass instance as a `Lens`
-  data record whose `view` definitionally equals
-  `universalMorphism`.
-- The Sum-type combine has no categorically natural commutative
-  choice in the mixed case; we use a priority-based variant
-  (`SumInstance.lean`) that yields a valid (if ad-hoc)
-  `HasDistinguishing` instance.
-- Subtype's `combine_sym` proof under a `slash`-based combine
-  meets the nested-Subtype elaborator boundary; a degenerate
-  constant combine carries the proof in the present version
-  (`SubtypeInstance.lean`).
-- The general `∀ (m, k), ∃ N` Cauchy closure for monotonic
-  Bool sequences is LEM-equivalent and is therefore not claimed
-  (§6.4, §8.3).
-
-The first three are infrastructural; the fourth is the
-framework's deliberate refusal of an LEM-style commitment.
-None of the four breaks the falsifiability contract: each is
-either sidestepped (reflection) or scoped (deliberately not
-claimed).
 
 ---
 

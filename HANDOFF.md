@@ -1,12 +1,15 @@
-# Session Handoff — 2026-04-26 (PAPER1.md 14 review rounds 완료)
+# Session Handoff — 2026-04-26 (PAPER1.md dry-formal rewrite 완료)
 
 ## Status
 
 Branch: `claude/lean-infinity-explanation-QqnSp`.
 All Lean modules build clean.  0 sorry, 0 external axioms (only
 `propext` + `Quot.sound` baseline).
-PAPER1.md (~1240 줄) 14 round review 완료 — 추가 차수 가 다 marginal
-return.  현재 stop point.
+PAPER1.md (~1190 줄) 14 review rounds + meta-review-driven
+dry-formal rewrite 완료.  table → Appendix A 분리, §1
+defensive 톤 제거, §5 "Reductions" → "ZFC commitments —
+213-side counterparts", §1.3 와 §8.1 의 redundancy 정리, §9
+가 §1 의 elaboration 으로 framing.
 
 ## User directive (2026-04-25)
 
