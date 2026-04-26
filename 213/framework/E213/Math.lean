@@ -25,6 +25,9 @@ import E213.Research.Real213CutSeries
 import E213.Research.Real213Signed
 import E213.Research.Real213SignedSum
 import E213.Research.Real213CutInv
+import E213.Research.Real213CutAlgebraStruct
+import E213.Research.Real213CutPow
+import E213.Research.Real213CutPoly
 
 /-!
 # E213.Math: 213-native real analysis library (root entry)
