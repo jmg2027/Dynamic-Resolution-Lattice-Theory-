@@ -668,10 +668,14 @@ At a more abstract level, the slash-congruence
 ↔ same of y` arises as the kernel of a `universalLens` (§5.1).
 
 No new Raw element is created; the limit data resides at the
-Lens-output level.  This is the **Cauchy completeness without
-external ℝ** statement: the framework's reach is closed under
-sequential limits, with the limit residing as `Lens`-output decision
-functions rather than as new Raw terms.
+Lens-output level (specifically, as a `Nat → Nat → Bool`
+decision function).  This is the **Cauchy completeness without
+external ℝ** structure: the limit of a Cauchy ab-sequence is
+captured by a Lens-output Bool function rather than by a new
+Raw term.  Whether *every* Cauchy sequence's limit is so
+captured depends on the threshold-set the witness `cd.N`
+covers; for the demonstrations in §7, only explicit thresholds
+are claimed (§6.4).
 
 ### §6.4 Monotonic-bounded propagation
 
@@ -943,9 +947,12 @@ by establishing the *boundary* rather than crossing it:
   reflection-style refactor.
 
 These are not unresolved problems but **identified boundaries
-of the framework's expressive range** — and they coincide
-exactly with where the framework refuses to import LEM-style
-commitments.
+of the framework's expressive range**.  The first (Power-set
+boundary) and second (general (m,k) closure) reflect the
+framework's deliberate refusal of LEM-style commitments; the
+third (sub-instance combine) is an infrastructural limitation
+of Lean's elaborator on nested Subtypes (see §9.5 for the full
+accounting).
 
 ### §8.4 Open work (incremental)
 
