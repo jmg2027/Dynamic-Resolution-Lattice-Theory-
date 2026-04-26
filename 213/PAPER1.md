@@ -706,8 +706,20 @@ framework on a known-rational case.
 
 `Research/PellSeq.lean` constructs the Pell sequence
 `(x_n, y_n)` satisfying the invariant `x_n^2 = 2*y_n^2 + 1`,
-representing rational approximations to √2.  Combined with
-`Sqrt2Cut.lean`'s key lemmas:
+representing rational approximations to √2.  The recursion
+starts from `(3, 2)` and applies `(x, y) ↦ (3x + 4y, 2x + 3y)`:
+
+| n | (x_n, y_n)  | x_n / y_n     |  approximation |
+|---|-------------|---------------|----------------|
+| 0 | (3, 2)      | 3 / 2         | 1.5            |
+| 1 | (17, 12)    | 17 / 12       | 1.4166…        |
+| 2 | (99, 70)    | 99 / 70       | 1.4142857…     |
+| 3 | (577, 408)  | 577 / 408     | 1.41421568…    |
+
+Each pair is constructively realized as a `Raw` element via
+`abLens_witness` (an explicit constructive surjection of `abLens`
+on positive `(a, b)` pairs).  Combined with `Sqrt2Cut.lean`'s
+key lemmas:
 
 ```
 theorem pell_orderProj_above (x y m k : Nat)
@@ -720,9 +732,13 @@ theorem pell_orderProj_below (x y m k : Nat)
     orderProj m k (x, y) = false
 ```
 
-Together with the tighter case `m*m = 2*k*k` being impossible
-(rationality argument), this demonstrates `√2` as a Dedekind
-cut entirely within the framework.
+The two lemmas cover the rational thresholds strictly above and
+strictly below √2.  The remaining case `m^2 = 2 k^2` cannot
+occur for `k ≥ 1` (this is the irrationality of √2 — proved
+externally; the framework merely *uses* the impossibility) and
+is therefore vacuous.  Hence `√2` appears as a Dedekind cut at
+every rational threshold via the Pell-sequence approach,
+entirely within the framework.
 
 ### §7.3 ℤ_p number-theoretic — Padic
 
@@ -740,26 +756,47 @@ profinite zero element.  The tower-refinement theorem
 
 ### §7.4 e transcendental — Euler partial sums
 
-`Research/EulerSeq.lean` defines the partial sums of e via
+`Research/EulerSeq.lean` defines the partial sums of `e` via the
 common-denominator factorial form:
 
 ```
 def eulerNum : Nat → Nat
   | 0 => 1
   | n+1 => (n+1) * eulerNum n + 1
-def eulerDen : Nat → Nat | 0 => 1 | n+1 => (n+1) * eulerDen n
+
+def eulerDen : Nat → Nat
+  | 0 => 1
+  | n+1 => (n+1) * eulerDen n
 ```
 
-The two algebraic invariants
+This corresponds to `S_n = ∑_{k=0}^{n} 1/k!`:
+
+| n | eulerNum n | eulerDen n | S_n     | approximation |
+|---|------------|------------|---------|---------------|
+| 0 | 1          | 1          | 1 / 1   | 1.000…        |
+| 1 | 2          | 1          | 2 / 1   | 2.000…        |
+| 2 | 5          | 2          | 5 / 2   | 2.500…        |
+| 3 | 16         | 6          | 16 / 6  | 2.666…        |
+| 4 | 65         | 24         | 65 / 24 | 2.708…        |
+
+Two algebraic invariants are proved by induction:
 
 ```
-3 * eulerDen n ≥ eulerNum n + 1   -- S_n < 3
-eulerNum n ≥ 2 * eulerDen n + 1   -- S_n > 2 (for n ≥ 2)
+theorem euler_upper_inv : 3 * eulerDen n ≥ eulerNum n + 1
+  -- equivalently S_n ≤ 3 - 1/eulerDen n  <  3.
+
+theorem euler_lower_inv (hn : n ≥ 2) :
+    eulerNum n ≥ 2 * eulerDen n + 1
+  -- equivalently S_n ≥ 2 + 1/eulerDen n  >  2  (for n ≥ 2).
 ```
 
-establish e ∈ (2, 3) as a Dedekind cut in the orderProj sense:
-`m/k ≥ 3` ⇒ orderProj true (always); `m/k ≤ 2` ⇒ orderProj false
-(from n ≥ 2).
+These yield two Dedekind cuts at concrete thresholds:
+`m/k ≥ 3` ⇒ `orderProj m k = true` for all `n` (always above e);
+`m/k ≤ 2` ⇒ `orderProj m k = false` from `n ≥ 2` (always below).
+Threshold values `m/k ∈ (2, 3)` (strictly between 2 and 3) get
+the correct cut value but their proof would require the LEM-bound
+general closure (§6.4); they are not asserted within the
+framework.
 
 ### §7.5 π/2 transcendental — Wallis product
 
@@ -767,9 +804,20 @@ establish e ∈ (2, 3) as a Dedekind cut in the orderProj sense:
 recursion:
 
 ```
-wallisNum (n+1) = wallisNum n * 4 * (n+1)^2
-wallisDen (n+1) = wallisDen n * (2n+1) * (2n+3)
+wallisNum 0 = 1,   wallisNum (n+1) = wallisNum n * 4 * (n+1)^2
+wallisDen 0 = 1,   wallisDen (n+1) = wallisDen n * (2n+1) * (2n+3)
 ```
+
+Concrete partial products:
+
+| n | wallisNum n | wallisDen n | W_n        | approximation |
+|---|-------------|-------------|------------|---------------|
+| 0 | 1           | 1           | 1          | 1.000…        |
+| 1 | 4           | 3           | 4 / 3      | 1.333…        |
+| 2 | 64          | 45          | 64 / 45    | 1.422…        |
+| 3 | 2304        | 1575        | 2304 / 1575| 1.463…        |
+
+(target π/2 ≈ 1.5708 — convergence is slow.)
 
 Two algebraic invariants are required:
 
