@@ -1252,6 +1252,9 @@ or a subset of `[propext, Quot.sound]`).
 | §7.4 | e > 5/2 sharper | `EulerSharper` · `euler_sharper_lower` | none |
 | §5.6 | Sum non-coproduct (and combine) | `SumNotCoproductGeneric` · `sum_not_coproduct_and` | propext |
 | §3.2 | Kernel ↔ slash-cong bijection | `KernelCorresp` · `IsSlashCongruence`, `kernel_correspondence` | propext, Quot.sound |
+| §7.5 | Wallis π/2 > 64/45 sharper | `WallisSharper` · `wallis_sharper_lower`, `poly_ineq` | none |
+| §3.3 | idLens kernel = equality | `IdLensKernelEq` · `idLens_equiv_eq` | none |
+| §3.4 | parityLens Collapse-False explicit | `ParityLensCollapseFalse` · `parityLens_collapse_false` | none |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
