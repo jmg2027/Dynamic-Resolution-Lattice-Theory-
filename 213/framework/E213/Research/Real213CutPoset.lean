@@ -1,0 +1,66 @@
+import E213.Research.Real213CutSum
+
+/-!
+# Research.Real213CutPoset: cut-level partial order
+
+cutLe cx cy := "x ≤ y" via "every rational ≥ y is ≥ x".
+cutEq cx cy := pointwise Bool equality.
+
+## 의의
+
+213 의 native order on RealCut.  Bishop's ≤ 의 cut form.
+-/
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- **cutEq**: pointwise Bool equality of cuts. -/
+def cutEq (cx cy : Nat → Nat → Bool) : Prop := ∀ m k, cx m k = cy m k
+
+/-- **cutLe**: x ≤ y as cuts.  Direction: cy implies cx. -/
+def cutLe (cx cy : Nat → Nat → Bool) : Prop :=
+  ∀ m k, cy m k = true → cx m k = true
+
+/-- cutEq reflexivity. -/
+theorem cutEq_refl (c : Nat → Nat → Bool) : cutEq c c := fun _ _ => rfl
+
+/-- cutEq symmetry. -/
+theorem cutEq_symm (cx cy : Nat → Nat → Bool) :
+    cutEq cx cy → cutEq cy cx := fun h m k => (h m k).symm
+
+/-- cutEq transitivity. -/
+theorem cutEq_trans (cx cy cz : Nat → Nat → Bool) :
+    cutEq cx cy → cutEq cy cz → cutEq cx cz :=
+  fun hxy hyz m k => (hxy m k).trans (hyz m k)
+
+/-- cutLe reflexivity. -/
+theorem cutLe_refl (c : Nat → Nat → Bool) : cutLe c c :=
+  fun _ _ h => h
+
+/-- cutLe transitivity. -/
+theorem cutLe_trans (cx cy cz : Nat → Nat → Bool) :
+    cutLe cx cy → cutLe cy cz → cutLe cx cz :=
+  fun hxy hyz m k hcz => hxy m k (hyz m k hcz)
+
+/-- cutEq → cutLe (both directions). -/
+theorem cutLe_of_cutEq (cx cy : Nat → Nat → Bool) :
+    cutEq cx cy → cutLe cx cy := fun h m k hy => (h m k).symm ▸ hy
+
+/-- **Antisymmetry**: cutLe both directions → cutEq. -/
+theorem cutEq_of_cutLe_both (cx cy : Nat → Nat → Bool) :
+    cutLe cx cy → cutLe cy cx → cutEq cx cy := by
+  intro h1 h2 m k
+  cases hcx : cx m k with
+  | true =>
+    have := h2 m k hcx
+    rw [this]
+  | false =>
+    cases hcy : cy m k with
+    | true =>
+      have hcx_true := h1 m k hcy
+      rw [hcx_true] at hcx
+      exact Bool.noConfusion hcx
+    | false => rfl
+
+end E213.Research.Real213CutSum
