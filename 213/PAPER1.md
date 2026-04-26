@@ -1247,6 +1247,11 @@ or a subset of `[propext, Quot.sound]`).
 | §9.2.9 | Generic Lens-on-Lens collapse | `LensOnLensImageGeneric` · `lensUniversalMorphism_factors_generic`, `constComposite_*` | propext, Quot.sound |
 | §4.5 | Canonical form as choice | `CanonicalChoice` · `canonical_trichotomy` | propext |
 | §3.3 | Refines chain witness | `RefinesChain` · `refines_chain` | propext, Quot.sound |
+| §9.2.9 | Two-level Lens-on-Lens collapse | `LensOnLensImageLevel2` · `lensUniversalMorphism_factors_level2` | propext, Quot.sound |
+| §9.2.9 | Three-level Lens tower collapse | `LensTowerLevel3` · `lensUniversalMorphism_factors_level3` | propext, Quot.sound |
+| §7.4 | e > 5/2 sharper | `EulerSharper` · `euler_sharper_lower` | none |
+| §5.6 | Sum non-coproduct (and combine) | `SumNotCoproductGeneric` · `sum_not_coproduct_and` | propext |
+| §3.2 | Kernel ↔ slash-cong bijection | `KernelCorresp` · `IsSlashCongruence`, `kernel_correspondence` | propext, Quot.sound |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
