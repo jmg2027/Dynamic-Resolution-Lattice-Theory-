@@ -34,10 +34,35 @@ Classical.choice 모두 부재.  Inductive types + computation 만.
 
 ### 그룹 C: **[propext, Quot.sound]** (Lean baseline 사용)
 
-대 부 분 `omega` tactic (internally uses both axioms) 또 는
-`Raw.fold` (Quot.sound dependency 가 transitively) 의존.
-`omega` 제거 + `Raw.fold` 의 elemental 재 작성 으 로 일부 그룹
-B 또 는 A 로 격하 가능 — 별 도 refactor 작업.
+`omega` tactic (internally uses both axioms) 또 는 `Raw.fold` /
+`Raw.rec` (Quot.sound 의존 가 transitively) 의존.
+
+### omega 제거 demonstrated (B → A 또 는 C → B 격하)
+
+Concrete 한 omega elimination 결과:
+
+- `Sqrt2IrrationalKernelFree.sqrt2_irrational`: original 이
+  `[propext, Quot.sound]` 였 으 나 manual descent 로
+  `[propext]` only 격하.  **Quot.sound 가 omega 의 incidental
+  dependency 였 음 을 demonstrate**.
+- `EulerSharperKernelFree.euler_sharper_lower_n3/n4`:
+  concrete value 의 verification 이 `decide` 로 axiom-free
+  (그룹 A).
+- `WallisSharperKernelFree.wallis_sharper_n2/n3`: 같음.
+- `DiagonalHasModulus`: omega 제거 → `[propext]` only 격하.
+- `PellHasModulus`: omega 제거 (upstream Quot.sound 의 영향
+  으 로 still C, 하지만 module-internal 은 propext only).
+
+### Conclusion
+
+Lean 4 core 의 `propext` + `Quot.sound` 는 *kernel axioms* —
+이 들 자체 의 modularization 은 Lean 자체 의 modify 필 요.
+
+하지만 framework 의 이론 결과 의 의존 성 은 *largely
+incidental*: `omega` tactic 의 internal 사용 + `Raw.fold`
+의 quotient encoding 이 주 요 source.  `omega` 제거 +
+explicit Nat reasoning 으 로 substantial fragment 가
+`[propext]` only 또 는 axiom-free.
 
 ## 의의
 
