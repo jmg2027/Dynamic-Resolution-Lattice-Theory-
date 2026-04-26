@@ -116,9 +116,17 @@ includes the decidability of equality on `Raw`
 (`RawDecEq`), the preorder properties of `Lens.refines`
 (`RefinesPreorder`), the equivalence properties of `Lens.equiv`
 (`LensEquivProperties`), the `HasModulus → isOrderCauchy`
-implication (`HasModulus`), and the `parityLens` Collapse-False
-witness (`ParityLensCollapseFalse`).  See `KernelFreeAudit.lean`
-and Appendix A for the complete tabulation.
+implication (`HasModulus`), the `parityLens` Collapse-False
+witness (`ParityLensCollapseFalse`), and concrete numeric
+verifications such as the sharper Euler bounds at specific n
+(`EulerSharperKernelFree`).  A second tier depends on
+`propext` only (no `Quot.sound`), including the omega-free
+√2 irrationality proof (`Sqrt2IrrationalKernelFree`) — the
+`Quot.sound` dependency in the original `Sqrt2Irrational`
+came purely from the `omega` tactic's internal reflection
+machinery, which is removable via manual descent.  See
+`KernelFreeAudit.lean` and Appendix A for the complete
+tabulation.
 
 This bound is taken as a *contract*: see §8 for the
 falsifiability statement and its operational consequences.
@@ -1274,6 +1282,8 @@ or a subset of `[propext, Quot.sound]`).
 | §9.2.15 | universalMorphism factor unfold | `UniversalMorphismFactor` · `constComposite_a_unfold`, `_b_unfold` | propext, Quot.sound |
 | §5.4 | Distinct kernels witness | `FourDistinctKernels` · `id_neq_leaves` | propext |
 | §1.3 | Kernel-free fragment audit | `KernelFreeAudit` (documentation) | none |
+| §7.2 | √2 irrationality (kernel-free, Quot.sound 부재) | `Sqrt2IrrationalKernelFree` · `sqrt2_irrational`, `mul_self_mod_two`, `descent_step` | propext |
+| §7.4 | Euler sharper at n=3, n=4 (axiom-free) | `EulerSharperKernelFree` · `euler_sharper_lower_n3`, `_n4` | none |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
