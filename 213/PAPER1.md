@@ -1292,6 +1292,7 @@ or a subset of `[propext, Quot.sound]`).
 | §7 | √5 irrationality (axiom-free, prime-5 descent) | `Sqrt5IrrationalPure` · `sqrt5_irrational`, `sqrt5_no_rational_aux` | **none** |
 | §7 | mod-5 descent infrastructure (axiom-free) | `PureNatMod5` · `mod5`, `nat_quintichotomy`, `five_mul_r_sq`, `mod5_self_mul_zero` | **none** |
 | §7 | Descent boundary observations | `PrimeDescentObservations` · `sqrt4_rational`, `sqrt4_not_irrational`, `sqrt16_rational` | **none** |
+| §7.4 | Euler bounds (axiom-free, omega-free) | `EulerCombinatorialPure` · `euler_upper_pure`, `euler_lower_pure`, `euler_in_open_2_3` | **none** |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
