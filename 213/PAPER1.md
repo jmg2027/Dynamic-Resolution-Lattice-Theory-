@@ -632,14 +632,14 @@ the kernel space.  An uncountable lower bound is open.
 
 For any predicate `P : Raw → Prop` with `P Raw.a` and
 `P Raw.b`, `Research/SubtypeInstance.lean` equips the subtype
-`{r : Raw // P r}` with a `HasDistinguishing` instance.  The
-combine in the present version is *degenerate* (constant
-`⟨Raw.a, h_a⟩`); a slash-based combine requires `P` to be
-closed under `Raw.slash` on distinct arguments and meets a
-Lean elaborator boundary on nested Subtypes (§8.2).  Even in
-this weakened form, the construction replaces ZFC's
-arbitrary-subset commitment with an explicit closure
-precondition.
+`{r : Raw // P r}` with a `HasDistinguishing` instance.
+A meaningful slash-based combine is supplied in
+`Research/SubtypeInstanceClosed.lean` under the additional
+`SlashClosed P` hypothesis (a typeclass requiring
+`∀ x y h, P x → P y → P (Raw.slash x y h)`).  The closure
+hypothesis replaces ZFC's arbitrary-subset commitment with
+an explicit slash-closure precondition; the resulting instance
+`subtypeHasDistinguishingClosed` uses `[propext]` only.
 
 ### §5.6 Coproduct — Prism counterpart
 
@@ -997,10 +997,11 @@ rather than crossing it:
 - **All-cuts Cauchy closure**: the statement `∀ (m, k), ∃ N`
   on monotonic Bool sequences is LEM-equivalent and is not
   claimed.  Each Cauchy cut is supplied explicitly.
-- **Sub-instance combine**: a slash-based combine on
-  `{r : Raw // P r}` meets a Lean elaborator boundary on
-  nested Subtypes; the present `SubtypeInstance.lean` carries
-  a degenerate combine.
+- **Sub-instance combine**: the original
+  `SubtypeInstance.lean` carries a degenerate combine; a
+  slash-based meaningful combine is supplied in
+  `SubtypeInstanceClosed.lean` under `SlashClosed P`
+  (§5.5).
 
 The first two reflect the deliberate avoidance of LEM-style
 commitments; the third is infrastructural (Lean elaborator).
@@ -1138,9 +1139,11 @@ Four specific limits remain:
   (`SumNotCoproduct.sum_not_coproduct_xor`).  The combine
   choice is non-canonical; canonicity is decided in the
   negative (§5.6).
-- **Subtype `combine_sym`** under a slash-based combine meets
-  the nested-Subtype elaborator boundary; the present version
-  uses a degenerate combine.
+- **Subtype `combine_sym`** under a slash-based combine: the
+  original `SubtypeInstance.lean` uses a degenerate combine;
+  the meaningful slash-based version is in
+  `SubtypeInstanceClosed.lean` under `SlashClosed P`
+  hypothesis (§5.5).
 - **All-cuts Cauchy closure** `∀ (m, k), ∃ N` is LEM-equivalent
   on monotonic Bool sequences and is not claimed (§6.4, §8.2).
 
@@ -1196,6 +1199,7 @@ or a subset of `[propext, Quot.sound]`).
 | 14 | Sum-type non-coproduct | `SumNotCoproduct` · `sum_not_coproduct_xor` | propext |
 | 15 | Reflection (typeclass→Lens) | `UniversalReflection` · `universalAsLens`, `universalAsLens_view` | propext, Quot.sound |
 | §7.2 | √2 irrationality (descent) | `Sqrt2Irrational` · `sqrt2_irrational`, `mul_self_mod_two` | propext, Quot.sound |
+| §5.5 | Subtype slash-based combine (closed) | `SubtypeInstanceClosed` · `SlashClosed`, `subtypeHasDistinguishingClosed` | propext |
 
 `propext` (propositional extensionality) and `Quot.sound`
 (quotient soundness) are part of Lean 4 core's trusted kernel.
