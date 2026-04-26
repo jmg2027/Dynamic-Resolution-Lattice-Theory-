@@ -1,0 +1,41 @@
+import E213.Research.Real213CutMul
+import E213.Research.Real213CutSumTest
+
+/-!
+# Research.Real213CutPow: cut-level powers + polynomial building blocks
+
+x^n via repeated cutMul.
+
+## 정의
+
+cutPow x n := x^n cut.
+cutScale a b cx := (a/b) * cx.
+-/
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- **cutPow**: x^n via repeated cutMul. -/
+def cutPow (x : Nat → Nat → Bool) : Nat → Nat → Nat → Bool
+  | 0 => constCut 1 1
+  | n+1 => cutMul (cutPow x n) x
+
+/-- **cutScale**: a/b * cx via cutMul with const. -/
+def cutScale (a b : Nat) (cx : Nat → Nat → Bool) : Nat → Nat → Bool :=
+  cutMul (constCut a b) cx
+
+/-- 1^0 = 1 ≤ 1/1. -/
+example : cutPow (constCut 1 1) 0 1 1 = true := by decide
+
+/-- 1^1 = 1 ≤ 1/1. -/
+example : cutPow (constCut 1 1) 1 1 1 = true := by decide
+
+/-- 1^2 = 1 ≤ 1/1. -/
+example : cutPow (constCut 1 1) 2 1 1 = true := by decide
+
+/-- (2/1)^2 = 4 ≤ 4/1.  Note: cutMul precision boundary 적 용 — 정 확
+    한 고 boundary 에 서 만 verifiable. -/
+example : cutPow (constCut 2 1) 2 4 1 = true := by decide
+
+end E213.Research.Real213CutSum
