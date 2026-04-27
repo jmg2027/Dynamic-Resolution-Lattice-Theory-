@@ -11,6 +11,7 @@ import E213.Physics.Phase4.HeliumIEPPM
 import E213.Physics.Phase4.LithiumIE
 import E213.Physics.Phase4.BerylliumIE
 import E213.Physics.Phase4.SecondRowIE
+import E213.Physics.Phase4.CorrectionAsLens
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
