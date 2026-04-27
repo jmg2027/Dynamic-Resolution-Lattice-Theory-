@@ -38,4 +38,13 @@ theorem cutAbs_cutNeg (s : SignedCut) : cutAbs (cutNeg s) = cutAbs s := rfl
 theorem cutNeg_cutAbs (s : SignedCut) :
     cutNeg (cutAbs s) = { sign := false, cut := s.cut } := rfl
 
+/-- abs of a signed const = positive const. -/
+theorem cutAbs_signedConstCut (sign : Bool) (a b : Nat) :
+    cutAbs (signedConstCut sign a b) = signedConstCut true a b := rfl
+
+/-- |x*y| = |x|*|y|: abs distributes over signed mul. -/
+theorem cutAbs_cutSignedMul (sx sy : SignedCut) :
+    cutAbs (cutSignedMul sx sy)
+    = cutSignedMul (cutAbs sx) (cutAbs sy) := rfl
+
 end E213.Research.Real213CutSum
