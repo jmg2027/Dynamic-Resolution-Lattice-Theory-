@@ -60,9 +60,12 @@ would be discarded.
 | `IMPLEMENTATION.md` | Raw + Firmware Lean implementation audit. |
 | `AUDIT_Lean.md` | Lean × AXIOM correspondence audit. |
 | `PAPER1_OUTLINE.md` | Paper 1 structure + argument flow. |
+| **`ANALYSIS213.md`** | **★ 분석학 213 — 학부 1학년 미적분 + ODE + Newton + 7 초월함수 종합 paper.** |
+| **`CATALOG213.md`** | **★ Library reference — import 경로 + 정리 카탈로그 + usage examples.** |
 | `research/infinity-as-lens/` | Detailed notes (numbered narrative). |
 | `research/r5-critique/` | Sub-track: ℝ-algebra assumption critique (Paper 2 candidate). |
 | `framework/E213/` | Lean 4 formalization. |
+| **`framework/E213/Math/Analysis213.lean`** | **★ 라이브러리 entry point — single import for all analysis results.** |
 
 ## Lean architecture (`framework/E213/`)
 

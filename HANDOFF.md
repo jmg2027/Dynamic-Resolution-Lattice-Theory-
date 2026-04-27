@@ -7,6 +7,18 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### ★ Library consolidation (2026-04-27) — `ANALYSIS213.md` + `CATALOG213.md` + `Analysis213.lean`
+
+해석학 213 트랙 라이브러리화 완료:
+
+- **`213/ANALYSIS213.md`** — 종합 paper (15장, 발견 5가지, capstone 계층).
+- **`213/CATALOG213.md`** — import-path 카탈로그 (A-L 카테고리, usage examples).
+- **`213/framework/E213/Math/Analysis213.lean`** — single-import entry point
+  (87 imports, all 176 Real213 modules + 18 capstones).
+
+`#print axioms phaseDK_ultimate_capstone` → [propext, Quot.sound] only.
+build clean, 0 sorry.
+
 ### Phase DA-DK (351b4c2 → ★) — **★★★ 100% 완성 ★★★**
 
 학부 1학년 미적분 + ODE + 물리 + 초월함수 = **100% 완성**.
