@@ -59,4 +59,33 @@ def bisectMidValue (a b : Nat → Nat → Bool) (oracle : Nat → Nat → Bool �
   let p := bisectN a b oracle n m k
   cutMid p.1 p.2 m k
 
+/-- bisectN at n = 0: returns original bracket. -/
+theorem bisectN_zero (a b : Nat → Nat → Bool)
+    (oracle : Nat → Nat → Bool → Bool) (m k : Nat) :
+    bisectN a b oracle 0 m k = (a, b) := rfl
+
+/-- bisectN at n+1, oracle says yes: recurse on (a, mid). -/
+theorem bisectN_succ_true (a b : Nat → Nat → Bool)
+    (oracle : Nat → Nat → Bool → Bool) (n m k : Nat)
+    (h : oracle m k ((cutMid a b) m k) = true) :
+    bisectN a b oracle (n+1) m k
+    = bisectN a (cutMid a b) oracle n m k := by
+  show (if oracle m k ((cutMid a b) m k)
+        then bisectN a (cutMid a b) oracle n m k
+        else bisectN (cutMid a b) b oracle n m k)
+       = bisectN a (cutMid a b) oracle n m k
+  rw [if_pos h]
+
+/-- bisectN at n+1, oracle says no: recurse on (mid, b). -/
+theorem bisectN_succ_false (a b : Nat → Nat → Bool)
+    (oracle : Nat → Nat → Bool → Bool) (n m k : Nat)
+    (h : oracle m k ((cutMid a b) m k) = false) :
+    bisectN a b oracle (n+1) m k
+    = bisectN (cutMid a b) b oracle n m k := by
+  show (if oracle m k ((cutMid a b) m k)
+        then bisectN a (cutMid a b) oracle n m k
+        else bisectN (cutMid a b) b oracle n m k)
+       = bisectN (cutMid a b) b oracle n m k
+  rw [h]; rfl
+
 end E213.Research.Real213CutSum
