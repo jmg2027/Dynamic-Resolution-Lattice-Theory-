@@ -37,6 +37,7 @@ import E213.Research.Real213DerivativeDecide
 import E213.Research.Real213ConcreteDerivativeModulus
 import E213.Research.Real213ConcreteDerivativeModulusHigh
 import E213.Research.Real213ConcreteDerivativeModulusFinal
+import E213.Research.Real213ConcreteDerivativeMega
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
