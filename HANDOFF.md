@@ -1,102 +1,62 @@
-# Session Handoff — 2026-04-27 (Cohomology 213 CLOSED + Audit)
+# Session Handoff — 2026-04-27 (Linalg213 marathon started)
 
 ## Branch
 `claude/review-paper-directory-nDw9L` (committed + pushed).
 
-## What Was Done
+## State
 
-### 1. Open Problem #1 (1/α_em) — bracket tightening + structural gap
-- `BaselBoundTight.lean` — width 1/(N(N+1)) two-sided telescoping.
-- `AlphaEM137Tight.lean` — N=20 width 0.14 (43× tighter).
-- `AlphaEMStructuralGap.lean` — 5.443×10⁻⁴ gap as falsifier target.
+### 1. Cohomology 213 marathon — CLOSED + Audit/Bridge/Chiral/Fractal/TopologyCompare
+24 files in `lean/E213/Math/Cohomology/`.  Capstone CA-CF + 5
+post-marathon files.  Last addition `TopologyCompare.lean`
+formally rules out K_N complete; ONLY K_{3,2}^{(2)} (or swap) gives
+b_1 = 8 = 1/α_3.  All 0-axiom.
 
-### 2. "What is α_em from Raw under lensing" — answered
-**1/α_em(IR) = unique simplicial-cohomology sum on K_{3,2}^{(2)}
-⊂ Δ⁴.** "25/3 conjectural" was wrong:
-25/3 = (NS²−1) + 1/NS = b₁ + 1/(#4-cycles), both Raw-derived.
+### 2. Linalg213 marathon — Phase L1 STARTED
+User direction: forget classical math/physics; build 213-native
+linear algebra.  Target = paper 1 chiral compression
+"rank(Gram) ≤ d=5 for arbitrary N atomic vectors".
 
-### 3. Cohomology 213 marathon — **CLOSED + Audit/Bridge + Fractal**
-20 files / ~70 theorems / 0 axiom.
+`lean/E213/Math/Linalg213/`:
+* `Vector.lean` — `Vec n := Fin n → Nat`.  Basis, add, smul.
+  Atomic d=5 + chiral (NS=3, NT=2) verified.
+* `Gram.lean` — `Vec.inner` via `List.range`; Gram matrix type;
+  orthonormal 2-vector example decide-checked.
+* Rank-5 target stated as placeholder; needs `Rank.lean` next.
 
-CA (5): Cochain + SimplexBasis + Delta + DeltaSqZero + TrivialCases.
-CB (3): HodgeStar + HodgeInvolution + HodgeDelta.
-CC (1): BettiKernel — Δ⁴ contractible.
-CD (3): Cup + CupLeibniz + CupRing — Leibniz `δ(α⌣β)=δα⌣β⊕α⌣δβ`.
-CE (2): Bipartite32 + Bipartite32Betti — K_{3,2}^{(2)} b₁ = 8.
-CF (1): Capstone.
+### 3. Open Problem #1 (1/α_em) status
+- Bracket tightening + structural gap formalized.
+- Hop hypothesis: paper 4 §3.1 already has N_eff = 1/2/∞ structure.
+- 8 → 8.48 correction should come from **simplex-face cohomology**
+  (NOT SM perturbative running).
 
-**Audit + Bridge:**
+## Lessons learned (carryover)
 
-* `AlphaEMBridge.lean` — chain-level `Bip32.kerSizeDelta0_eq_2`
-  ↔ scalar `PhotonKernel.b_1_eq_8`.
-
-* `Audit.lean` — catalog + 2 NEW discoveries:
-  - `Bip32.b_k_graph_trivial` (0-axiom): K_{3,2}^{(2)} is 1-dim
-    ⇒ H^k = 0 for k ≥ 2 ⇒ ALL cup products of 1-classes are 0
-    in H². Forecloses graph cohomology as α_em 6th-term source.
-  - `alpha_3_two_derivations` (0-axiom): bundles the bridge.
-
-### 4. Fractal-cohomology vision — paper 1/2/3 reconstruction continues
-
-**User correction (2026-04-27 late):** 2-level uniform fractal is
-WRONG. Correct topology has TWO refinements:
-  (a) chiral split: 5 = 3 + 2 (NS + NT), forced by paper 1.
-  (b) L-level depth: for N lattice points in block universe,
-      depth L = log_5(N), so K_{5^L} not just K_25.
-The 25 leaves are only the L=2 instance.
-
-Six new files (vs original 3):
-
-* `K5.lean` — single-Δ⁴ 1-skeleton.  b₀=1, b₁=6 by direct
-  enumeration (32 cochains).  6 = (d-1)(d-2)/2 = C(d-1,2).
-* `Fractal25.lean` — K_{25} cohomology by Euler formula
-  (decide-checkable arithmetic, since 2²⁵ enumeration too large).
-  b₀=1, b₁=276 = numE−numV+1 = 300−25+1.
-* `FractalAlphaGUT.lean` — first paper-2 result reformulated:
-  α_GUT = b₁(K₅) / (numV(K₂₅)·π²) = 6 / (25·π²).
-
-* `Paper1Chiral.lean` (NEW) — paper 1 chiral bigrading on Cochain
-  spaces.  C^k = ⊕_{i+j=k} C^{i,j} with dim = binom(NS,i)·binom(NT,j).
-  Level-1 statement: 3 + 2 = 5 ⇒ ℂ⁵ = ℂ³ ⊕ ℂ² (paper 1).
-  Vandermonde identity verified at levels 0..3 by decide.
-
-* `FractalLevel.lean` — L-level K_{5^L}: b_1(L) = (5^L−1)(5^L−2)/2.
-
-* `TopologyCompare.lean` (NEW) — **formalization decides which
-  topology is correct**.  Compares b_1 across K_5 (=6),
-  K_{3,2}^{(c)} for c=1,2,3 (=2,8,14), K_{4,1}^{(2)} (=4),
-  K_25 (=276), and shows that ONLY (NS,NT,c) = (3,2,2) and
-  its swap (2,3,2) give b_1 = 8 = 1/α_3 (observed).
-  Capstone `topology_uniqueness` rules out K_N complete graphs
-  and non-(3,2,2) bipartite candidates by direct decide-checked
-  inequalities.
-
-## Lessons learned
-
-1. **Prop coercion breaks `decide` through `hodgeStar`.**
-   Use Bool-pure cochains (`==`, `fun _ => true`).
-2. **`hodgeStar n k m σ` needs all three (n,k,m) explicit.**
-3. **`Nat.fold` doesn't reduce under `decide`.** Use
+1. Bool-pure cochains via `==`, not `i.val = 0` (Prop coercion).
+2. `hodgeStar n k m σ`: all (n,k,m) explicit Nat.
+3. `Nat.fold` doesn't reduce under `decide`; use
    `(List.range _).filter ... |>.length`.
-4. **Universal `∀ σ : Cochain n k, P σ` not decidable in Lean 4
-   core.**  Workaround: pointwise `∀ σ τ e, σ e = τ e`.
+4. Universal `∀ σ : Cochain n k, P σ` not decidable in Lean 4 core.
+5. `Cochain n k` parameter naming: don't use `d` as Vec parameter
+   when `E213.Physics.Simplex.d` is open'd; use `n`.
 
 ## Open Problems (priority)
 
-### 1. Real213 Phase B–H — cohomological calculus extension
-General `cutMul` propEq remains the wall.
+### 1. Linalg213 Phase L2 — Rank.lean
+Define 213-native rank.  Rows are Vec d.  Rank = max # linearly
+independent rows.  Decide-friendly definition needed.
 
-### 2. T3 chapters → T2/T1 migration
-ℂ uniqueness (Frobenius → Raw-internal) highest-leverage.
+### 2. Linalg213 Phase L3 — rank-5 compression theorem
+For any `vs : Fin N → Vec 5`, rank(Gram(vs)) ≤ 5.  This formalizes
+paper 1's chiral compression at 213-internal level.
 
-### 3. Universal δ²=0, ⋆⋆=id, Leibniz
+### 3. Universal δ²=0, ⋆⋆=id, Leibniz on Cochain
 Build Fintype on `Cochain n k` via explicit
 `cochainAt` ↔ `cochainEncode` round trip.
 
-### 4. Single-theorem AxiomMinimality.
+### 4. T3 chapters → T2/T1 migration
+ℂ uniqueness (Frobenius → Raw-internal) highest-leverage.
 
-### 5. Next math marathon — open
-Cohomology 213 closed; user's choice for next field.
+### 5. Single-theorem AxiomMinimality.
 
 ## Authors
 
