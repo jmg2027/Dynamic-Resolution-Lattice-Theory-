@@ -144,4 +144,44 @@ example : (midIsSmooth squareIsSmooth cubeIsSmooth).linearityModulus 5 = 15 := b
 /-- midIsSmooth on (quartic, octic): degree 4 + 8 mixed. Modulus = max(20, 40) = 40. -/
 example : (midIsSmooth quarticIsSmooth octicIsSmooth).linearityModulus 5 = 40 := by decide
 
+/-! ### Q1: addIsSmooth modulus = max behavior (linear) -/
+
+/-- addIsSmooth (id, id): max(5, 5) = 5. -/
+example : (addIsSmooth idIsSmooth idIsSmooth).linearityModulus 5 = 5 := by decide
+
+/-- addIsSmooth (id, square): max(5, 10) = 10. -/
+example : (addIsSmooth idIsSmooth squareIsSmooth).linearityModulus 5 = 10 := by decide
+
+/-- addIsSmooth (square, cube): max(10, 15) = 15. -/
+example : (addIsSmooth squareIsSmooth cubeIsSmooth).linearityModulus 5 = 15 := by decide
+
+/-- addIsSmooth (cube, septic): max(15, 35) = 35. -/
+example : (addIsSmooth cubeIsSmooth septicIsSmooth).linearityModulus 5 = 35 := by decide
+
+/-! ### Q2: mulIsSmooth modulus = sum behavior (compounding) -/
+
+/-- mulIsSmooth (id, id): id + id = 5 + 5 = 10. -/
+example : (mulIsSmooth idIsSmooth idIsSmooth).linearityModulus 5 = 10 := by decide
+
+/-- mulIsSmooth (id, square): id + square = 5 + 10 = 15. -/
+example : (mulIsSmooth idIsSmooth squareIsSmooth).linearityModulus 5 = 15 := by decide
+
+/-- mulIsSmooth (square, cube): square + cube = 10 + 15 = 25 (degree 5). -/
+example : (mulIsSmooth squareIsSmooth cubeIsSmooth).linearityModulus 5 = 25 := by decide
+
+/-- mulIsSmooth (cube, septic): cube + septic = 15 + 35 = 50 (degree 10). -/
+example : (mulIsSmooth cubeIsSmooth septicIsSmooth).linearityModulus 5 = 50 := by decide
+
+/-! ### Q3: 3-way composition tests -/
+
+/-- compose (compose square square) square: x ↦ ((x²)²)² = x⁸. Modulus 40. -/
+example :
+    (composeIsSmooth (composeIsSmooth squareIsSmooth squareIsSmooth) squareIsSmooth).linearityModulus 5 = 40
+    := by decide
+
+/-- compose square (compose square square): x ↦ (x²)^4 = x⁸. Modulus 40. -/
+example :
+    (composeIsSmooth squareIsSmooth (composeIsSmooth squareIsSmooth squareIsSmooth)).linearityModulus 5 = 40
+    := by decide
+
 end E213.Research.Real213CutSum
