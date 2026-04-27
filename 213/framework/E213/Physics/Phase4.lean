@@ -4,6 +4,7 @@ import E213.Physics.Phase4.Sparsity
 import E213.Physics.Phase4.Enumeration
 import E213.Physics.Phase4.Atomic1Complete
 import E213.Physics.Phase4.IonizationEnergies
+import E213.Physics.Phase4.HydrogenIEPPM
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
