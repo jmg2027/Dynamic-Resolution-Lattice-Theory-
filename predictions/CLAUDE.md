@@ -32,7 +32,17 @@ PRD_006: θ_QCD precision derivation                   7/7 ✓ (SUPERSEDED by PR
 PRD_007: θ_QCD rigorous Berry phase                   9/9 ✓ (best candidate: J×α⁴)
 PRD_008: Variational θ — S₃ axiomatic                3/4 (1 expected fail)
 PRD_009: Berry phase = spectral flow (U(1))          11/11 ✓ ★
+PRD_010: Muon g-2 structural reading                  9/9 ✓ ★
 ```
+
+## Muon g-2 (PRD_010) — DRLT reading
+- Schwinger α/(2π) 정확, EW(1-loop) DRLT v_H + sin²θ_W
+- a_μ^DRLT(BMW HVP) = 116_591_954 × 10⁻¹¹
+- a_μ^SM (BMW lit)   = 116_591_953 × 10⁻¹¹  (차 +1)
+- a_μ^exp (Fermilab) = 116_592_059 × 10⁻¹¹  (DRLT 대비 −1.72σ)
+- R-ratio path: −5.13σ (구조적으로 SM HVP 분기 산물 추정)
+- DRLT 베팅: no anomaly. m_μ/m_e ppb 정합성 + N_gen=3가 BSM 거부
+- Falsifier: R-ratio HVP가 lattice와 영구 불일치 + Fermilab 영구 5σ
 
 ## θ_QCD 유도 이력
 - PRD_003: 초기 추정 J×α⁴ ≈ 2.86×10⁻¹¹
@@ -42,5 +52,6 @@ PRD_009: Berry phase = spectral flow (U(1))          11/11 ✓ ★
 - PRD_009: Berry phase ≡ U(1) spectral flow, Chern number = 0 (상쇄의 위상학적 보호)
 
 ## Status: ACTIVE
-총 53/54 checks passed. 9개 실험 완료.
-다음: PRD_010. proton decay lifetime, neutron star EOS 예측 추가 가능.
+총 62/63 checks passed. 10개 실험 완료.
+다음: PRD_011. proton decay lifetime, neutron star EOS,
+또는 HAD_001-009 통합 HVP 적분 (PRD_010 후속).
