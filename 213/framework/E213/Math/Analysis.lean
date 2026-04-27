@@ -11,6 +11,7 @@ import E213.Research.Real213Dyadic
 import E213.Research.Real213DyadicBracket
 import E213.Research.Real213IsSmooth
 import E213.Research.Real213ConsistentOracle
+import E213.Research.Real213DyadicRiemann
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
