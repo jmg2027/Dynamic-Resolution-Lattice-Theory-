@@ -532,6 +532,38 @@ example : (DyadicBracket.bisectN (negSignOracle 3 4) 4 unitBracket).numA = 12
         ∧ (DyadicBracket.bisectN (negSignOracle 3 4) 4 unitBracket).expE = 4
         := by decide
 
+/-! ### N3: Asymmetry — 0+ ≠ 0 but 1- = 1 -/
+
+/-- **alwaysFalseUnit limit IS cut-equivalent to constCut 1 1**.
+
+    At every (m, k) query, the alwaysFalseUnit "1- limit" equals
+    constCut 1 1 (the "1-exact" cut).  ASYMMETRY: 0+ ≠ 0-exact (M1
+    gap), but 1- = 1-exact (no gap).
+
+    Why?  At m = 0 boundary: 0+ says false (positive infinitesimal
+    > 0/k for k ≥ 1) while 0 says true.  But there's no "k = 0
+    boundary" — k = 0 is degenerate.  So the cut model has a
+    one-sided infinitesimal asymmetry. -/
+theorem alwaysFalseUnit_limit_eq_one_one (m k : Nat) :
+    (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit m k
+    = constCut 1 1 m k := by
+  rw [alwaysFalseUnit_limit_value]
+  show decide ((2^(k+1) - 1) * k ≤ 2^(k+1) * m) = decide (1 * k ≤ 1 * m)
+  rw [Nat.one_mul, Nat.one_mul]
+  have h_pow : 2^(k+1) ≥ k + 1 := by have := two_pow_ge_succ k; omega
+  rcases Nat.lt_or_ge m k with hmk | hkm
+  · -- m < k: both false.
+    have h_lhs_false : ¬ ((2^(k+1) - 1) * k ≤ 2^(k+1) * m) :=
+      alwaysFalse_unit_cut_false_when_m_lt_k k m k h_pow hmk
+    have h_rhs_false : ¬ (k ≤ m) := by omega
+    rw [decide_eq_false h_lhs_false, decide_eq_false h_rhs_false]
+  · -- k ≤ m: both true.
+    have h_lhs_true : (2^(k+1) - 1) * k ≤ 2^(k+1) * m := by
+      have h1 : (2^(k+1) - 1) * k ≤ 2^(k+1) * k := by
+        apply Nat.mul_le_mul_right; omega
+      exact Nat.le_trans h1 (Nat.mul_le_mul_left _ hkm)
+    rw [decide_eq_true h_lhs_true, decide_eq_true hkm]
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
