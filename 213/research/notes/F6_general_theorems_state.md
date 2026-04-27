@@ -110,16 +110,49 @@
 
 - `cutInv_cutInv` = id.
 - `cutNeg_cutSignedMul_left/right` : sign distributes over signed mul.
+- `cutNeg_cutSignedSum` : sign distributes over signed sum.
 - `cutAbs_cut`, `cutAbs_cutNeg`, `cutNeg_cutAbs` : abs/neg algebra.
+- `cutAbs_signedConstCut`, `cutAbs_cutSignedMul` :
+  abs distributes over signed mul.
 
-## Total stats (extended marathon + Phase D)
+### cutSignedMul on constants
 
-- 60+ Real213-related Lean modules.
-- 90+ commits across the full marathon.
+- `cutSignedMul_one_one_pos` : (+1)(+1) = +1.
+- `cutSignedMul_one_one_neg` : (−1)(−1) = +1.
+- `cutSignedMul_pos_neg` : (+1)(−1) = −1.
+- `cutSignedMul_zero_zero` : (+0)(+0) = +0.
+- `cutSignedMul_one_const_pos` : (+1)(+a/b) = +(a/b).
+
+### cutPow on simplest constants
+
+- `cutPow_zero_succ` : 0^(n+1) = 0 for any n.
+- `cutPow_one_n` : 1^n = 1 for any n.
+
+### cutMax/cutMin × cutEq / cutLe (NEW)
+
+Real213CutLatticeEq.lean — full substitution structure:
+
+- `cutMax_cutEq_left/right/both`, `cutMin_cutEq_left/right/both`.
+- `cutMax_cutLe_left/right/both`, `cutMin_cutLe_left/right/both`.
+
+12 theorems mirroring cutSum/cutMul's compatibility coverage.
+
+## Total stats (extended marathon + Phase D + E)
+
+- 62+ Real213-related Lean modules.
+- 100+ commits across the full marathon.
 - All build clean, ≤ propext + Quot.sound (Lean 4 core only).
-- Library entry: `E213.Math` with 7 sub-modules,
-  CutOps now imports SumOne/MulOne/MidSelf/PowConst/ConstCutScale/
-  ScaleLattice; Series imports SeriesConst.
+- Library entry: `E213.Math` with 7 sub-modules.  CutOps now imports
+  SumOne / MulOne / MidSelf / PowConst / ConstCutScale / ScaleLattice
+  / LatticeEq / SignedMulConst.  Series imports SeriesConst.
+
+### Phase E (latest) summary
+
+- Lattice eq/le compatibility (12 theorems).
+- Signed mul on const cuts (5 theorems).
+- cutPow on 0 and 1 (inductive, all n).
+- cutSum_assoc on integer/half constants.
+- partialSum closed forms (inductive).
 
 ## 비 verified scaffolded
 
