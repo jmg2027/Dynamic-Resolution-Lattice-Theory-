@@ -169,4 +169,31 @@ theorem riemannSampleSum_const_normalized (a b : Nat) (n : Nat) :
 theorem riemannSampleSum_id_depth_zero (db : DyadicBracket) :
     riemannSampleSum id db 0 = db.midCut := rfl
 
+/-! ### M2: Riemann finite-N marker (no π / ∞ in dyadic accumulation)
+
+Sister-branch `Physics/FiniteUniverse.no_pi_in_finite_alpha_em` style:
+explicitly mark that at every finite depth, the Riemann sum is a
+concrete (Nat, Nat) rational — no transcendence creeps in. -/
+
+/-- **Concrete Riemann sum at depth 3 on a generic bracket**:
+    constant 1/1 integrand gives sum = 8/1 (= 2³ samples). -/
+theorem riemann_depth_3_concrete (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 1)) db 3 = constCut 8 1 :=
+  riemannSampleSum_constCut 1 1 db 3
+
+/-- **Concrete Riemann sum at depth 5**: sum = 32/1 = 2⁵. -/
+theorem riemann_depth_5_concrete (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 1)) db 5 = constCut 32 1 :=
+  riemannSampleSum_constCut 1 1 db 5
+
+/-- **No-π marker for Riemann**: every concrete Riemann sum on a
+    constant integrand is an explicit (Nat, Nat) rational, with NO
+    transcendence (π, e, etc.) anywhere in the structure.
+
+    Direct analog of physics-track `no_pi_in_finite_alpha_em`. -/
+theorem no_pi_in_finite_riemann (a b : Nat) (db : DyadicBracket) (n : Nat) :
+    ∃ M : Nat, riemannSampleSum (constCutFn (constCut a b)) db n
+             = constCut M b :=
+  ⟨2^n * a, riemannSampleSum_constCut a b db n⟩
+
 end E213.Research.Real213CutSum
