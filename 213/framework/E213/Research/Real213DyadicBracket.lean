@@ -386,4 +386,16 @@ theorem DyadicBracket.bisectN_collapsed (oracle : DyadicOracle) :
     exact DyadicBracket.bisectN_collapsed oracle n (db.bisectStep oracle)
             (DyadicBracket.bisectStep_collapsed db oracle h)
 
+/-- **bisectStep on collapsed: numA doubles**. -/
+theorem DyadicBracket.bisectStep_collapsed_numA
+    (db : DyadicBracket) (oracle : DyadicOracle) (h : db.numA = db.numB) :
+    (db.bisectStep oracle).numA = 2 * db.numA := by
+  show (if oracle db.midCut then db.leftHalf else db.rightHalf).numA = 2 * db.numA
+  by_cases hor : oracle db.midCut = true
+  · rw [if_pos hor]
+    rfl
+  · rw [if_neg hor]
+    show db.numA + db.numB = 2 * db.numA
+    rw [Nat.two_mul, h]
+
 end E213.Research.Real213CutSum
