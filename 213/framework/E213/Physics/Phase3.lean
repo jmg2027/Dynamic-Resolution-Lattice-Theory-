@@ -44,6 +44,7 @@ import E213.Physics.Phase3.Translation.Optics
 import E213.Physics.Phase3.Translation.Information
 import E213.Physics.Phase3.Translation.Nuclear
 import E213.Physics.Phase3.Translation.Astrophysics
+import E213.Physics.Phase3.Translation.MasterCatalog
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 
