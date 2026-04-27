@@ -8,6 +8,13 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase U COMPLETE — Coverage extension
+
+- U1: x⁹, x¹², x¹⁵ non-power-of-2 polynomials.
+- U2: Riemann at depths 14, 16, 20.
+- U3: alwaysTrueUnit limit eq constCut 0 1 for m ≥ 1 (gap localized).
+- U4: Final 9-Phase synthesis docs.
+
 ### Phase T COMPLETE — cutEq strengthening + generic polynomial moduli
 
 - T1: Strong M1 (¬cutEq form) — alwaysTrueUnit ≠ constCut 0 1 cut.

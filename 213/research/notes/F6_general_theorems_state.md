@@ -399,6 +399,17 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase U — 4 milestones COMPLETE (extending coverage)
+
+**U1: x⁹, x¹², x¹⁵** — non-power-of-2 polynomial coverage.
+**U2: Riemann at depths 14, 16, 20** — very deep concrete sums.
+**U3: alwaysTrueUnit limit cutEq for m ≥ 1** — localize the gap.
+**U4: This 9-Phase final docs synthesis.**
+
+The asymmetry is now precisely localized: 0+ ≠ 0-exact ONLY at
+m = 0 (with k ≥ 1).  Everywhere else, 0+ = 0-exact.  Single-point
+boundary phenomenon.
+
 ### Phase T — 4 milestones COMPLETE (cutEq strengthening + generic poly moduli)
 
 **T1: alwaysTrueUnit_limit_not_cutEq_zero** — strong M1 ¬cutEq form.
