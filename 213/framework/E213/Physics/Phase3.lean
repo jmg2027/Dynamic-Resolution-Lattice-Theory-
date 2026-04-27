@@ -51,6 +51,8 @@ import E213.Physics.Phase3.Translation.Plasma
 import E213.Physics.Phase3.Translation.ParticlePhysics
 import E213.Physics.Phase3.Translation.FluidMechanics
 import E213.Physics.Phase3.Translation.BeyondSM
+import E213.Physics.Phase3.Translation.QuantumGravity
+import E213.Physics.Phase3.Translation.Anomalies
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 
