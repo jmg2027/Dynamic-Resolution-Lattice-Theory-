@@ -133,4 +133,34 @@ theorem alwaysTrue_unit_expE (n : Nat) :
   show 0 + n = n
   exact Nat.zero_add n
 
+/-- **alwaysTrue 1-step on numA=0 bracket: numB unchanged**. -/
+theorem alwaysTrue_zero_step_numB (db : DyadicBracket) (h : db.numA = 0) :
+    (db.bisectStep alwaysTrue).numB = db.numB := by
+  rw [alwaysTrue_step]
+  show db.numA + db.numB = db.numB
+  rw [h, Nat.zero_add]
+
+/-- **alwaysTrue n-step on numA=0 bracket: numB invariant**. -/
+theorem alwaysTrue_zero_numB_invariant (n : Nat) (db : DyadicBracket)
+    (h : db.numA = 0) :
+    (DyadicBracket.bisectN alwaysTrue n db).numB = db.numB := by
+  induction n generalizing db with
+  | zero => rfl
+  | succ k ih =>
+    show (DyadicBracket.bisectN alwaysTrue k (db.bisectStep alwaysTrue)).numB
+       = db.numB
+    have hAStep : (db.bisectStep alwaysTrue).numA = 0 := by
+      rw [alwaysTrue_step]
+      show 2 * db.numA = 0
+      rw [h, Nat.mul_zero]
+    rw [ih (db.bisectStep alwaysTrue) hAStep,
+        alwaysTrue_zero_step_numB db h]
+
+/-- **alwaysTrue from unit: numB invariant at 1**.
+    Combined with numA = 0, expE = n, this gives the full closed
+    form: bracket stays (0, 1, n) at every depth. -/
+theorem alwaysTrue_unit_numB (n : Nat) :
+    (DyadicBracket.bisectN alwaysTrue n unitBracket).numB = 1 :=
+  alwaysTrue_zero_numB_invariant n unitBracket rfl
+
 end E213.Research.Real213CutSum
