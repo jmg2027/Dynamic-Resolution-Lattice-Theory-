@@ -18,6 +18,7 @@ import E213.Research.Real213DyadicTrajectory
 import E213.Research.Real213PhaseLCapstone
 import E213.Research.Real213PhaseACMinimumProposition
 import E213.Research.Real213PhysicsBridgeNT2
+import E213.Research.Real213IsDifferentiable
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
