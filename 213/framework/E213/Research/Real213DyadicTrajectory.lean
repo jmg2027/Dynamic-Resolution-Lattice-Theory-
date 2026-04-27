@@ -97,4 +97,40 @@ theorem alwaysTrue_numA (n : Nat) (db : DyadicBracket) :
     show 2^k * (2 * db.numA) = 2^(k+1) * db.numA
     rw [Nat.pow_succ, Nat.mul_assoc]
 
+/-! ### Unit bracket trajectory corollaries
+
+Specialize the closed forms to unitBracket = (0, 1, 0):
+- alwaysFalse: numA stays 0? NO, rightHalf gives numA + numB.
+  Actually: numA evolves via numA + numB pattern.
+- numB straight: 2^n.
+- expE straight: n. -/
+
+/-- **alwaysFalse from unit: numB = 2^n**. -/
+theorem alwaysFalse_unit_numB (n : Nat) :
+    (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n := by
+  rw [alwaysFalse_numB n unitBracket]
+  show 2^n * 1 = 2^n
+  rw [Nat.mul_one]
+
+/-- **alwaysTrue from unit: numA = 0** (always-left preserves 0). -/
+theorem alwaysTrue_unit_numA (n : Nat) :
+    (DyadicBracket.bisectN alwaysTrue n unitBracket).numA = 0 := by
+  rw [alwaysTrue_numA n unitBracket]
+  show 2^n * 0 = 0
+  rw [Nat.mul_zero]
+
+/-- **alwaysFalse from unit: expE = n** (depth advances cleanly). -/
+theorem alwaysFalse_unit_expE (n : Nat) :
+    (DyadicBracket.bisectN alwaysFalse n unitBracket).expE = n := by
+  rw [DyadicBracket.bisectN_expE alwaysFalse n unitBracket]
+  show 0 + n = n
+  exact Nat.zero_add n
+
+/-- **alwaysTrue from unit: expE = n** (same as alwaysFalse). -/
+theorem alwaysTrue_unit_expE (n : Nat) :
+    (DyadicBracket.bisectN alwaysTrue n unitBracket).expE = n := by
+  rw [DyadicBracket.bisectN_expE alwaysTrue n unitBracket]
+  show 0 + n = n
+  exact Nat.zero_add n
+
 end E213.Research.Real213CutSum
