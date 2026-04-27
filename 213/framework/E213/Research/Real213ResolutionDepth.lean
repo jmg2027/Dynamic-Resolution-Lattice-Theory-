@@ -144,6 +144,20 @@ example : (midIsSmooth squareIsSmooth cubeIsSmooth).linearityModulus 5 = 15 := b
 /-- midIsSmooth on (quartic, octic): degree 4 + 8 mixed. Modulus = max(20, 40) = 40. -/
 example : (midIsSmooth quarticIsSmooth octicIsSmooth).linearityModulus 5 = 40 := by decide
 
+/-! ### W3: midIsSmooth iteration -/
+
+/-- midIsSmooth iterated: mid (mid id id) id at depth 5: max(max(5,5), 5) = 5. -/
+example : (midIsSmooth (midIsSmooth idIsSmooth idIsSmooth) idIsSmooth).linearityModulus 5 = 5
+  := by decide
+
+/-- midIsSmooth iterated: mid (mid square square) cube: max(max(10,10), 15) = 15. -/
+example : (midIsSmooth (midIsSmooth squareIsSmooth squareIsSmooth) cubeIsSmooth).linearityModulus 5 = 15
+  := by decide
+
+/-- 4-deep mid iteration: mid (mid (mid id id) id) id: stays at 5 (linear). -/
+example : (midIsSmooth (midIsSmooth (midIsSmooth idIsSmooth idIsSmooth) idIsSmooth) idIsSmooth).linearityModulus 5 = 5
+  := by decide
+
 /-! ### Q1: addIsSmooth modulus = max behavior (linear) -/
 
 /-- addIsSmooth (id, id): max(5, 5) = 5. -/
