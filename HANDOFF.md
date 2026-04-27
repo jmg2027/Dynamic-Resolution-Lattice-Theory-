@@ -8,7 +8,21 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
-### Phase F (LATEST) — Cauchy completeness extended
+### Phase I (LATEST) — IVT framework foundation
+
+Started full IVT proof attempt.  Reached structural foundation:
+- ValidCut / RatioCut + closures (Real213ValidCut, ValidCutOps).
+- cutMid pointwise mono at (m, k) for k ≥ 1 (Real213CutMidMono).
+- 1-step bracket containment (Real213IVTContainment).
+
+Blocked at Phase 5+ (n-step containment + Cauchy + root):
+- RatioCut closure under cutMid fails at tight precision boundary
+  (k1 ≥ 2 with m1*k2 = m2*k1 needs k1 | i*k2, not generally true).
+- Same artifact as cutSum_assoc on b ≥ 3.
+- Workarounds (dyadic restriction or ScaleCut) require multi-session
+  development.
+
+### Phase F — Cauchy completeness extended
 
 CauchyCutSeq closed under SIX cut operations, each with a limit
 theorem proving the limit operation commutes:

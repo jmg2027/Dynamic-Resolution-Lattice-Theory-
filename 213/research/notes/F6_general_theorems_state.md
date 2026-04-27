@@ -202,13 +202,46 @@ Real213CutLatticeEq.lean — full substitution structure:
 - cutDouble distributes over cutMid (composed).
 - cutSumAux_cutDouble (induction on iteration index).
 
-### Phase H summary (LATEST — Cauchy cutMid + const closed forms)
+### Phase H summary (Cauchy cutMid + const closed forms)
 
 - CauchyCutSeq.cutMid + cutMid_limit (7th lifted op).
 - constCauchy_cutSum_int / half closed forms.
 - constCauchy_cutMul_one_one closed form.
 - CauchyCutSeq.cutDouble_cutSum_limit (mixed-op distributivity at
   Cauchy limit).
+
+### Phase I (LATEST — IVT framework foundation)
+
+ValidCut + RatioCut infrastructure for IVT:
+
+- structure ValidCut : upM (m-monotone) + dnK (k-anti-monotone).
+- constCut_valid : constCut is ValidCut.
+- cutMax/Min/Half/Double/Sum_valid : closure under common ops.
+- cutMid_valid : cutHalf ∘ cutSum closure.
+
+- structure RatioCut : ratioMono (rational-ordering monotonicity,
+  k1 ≥ 1 hypothesis).
+- constCut_ratio : constCut is RatioCut.
+
+cutMid pointwise monotonicity (Real213CutMidMono.lean):
+- cutLe_a_cutMid_at : a ≤ cutMid a b at fixed (m, k) with k ≥ 1.
+- cutLe_cutMid_b_at : cutMid a b ≤ b symmetric.
+
+Bracket containment foundation (Real213IVTContainment.lean):
+- cutLeAt cx cy m k : pointwise cutLe at fixed (m, k).
+- cutLeAt_refl, cutLeAt_trans.
+- bisectStep_contains : 1-step bracket containment.
+
+### IVT open problems
+
+- **n-step bracket containment**: needs RatioCut closure under cutMid
+  (or cutSum), blocked by precision artifact at tight m1*k2 = m2*k1
+  with k1 ≥ 2.
+- **Bracket Cauchy convergence**: needs bracket-length halving with
+  quantitative bound on the modulus N.
+- **Root identification**: requires continuity (LDD) integration.
+- Workaround paths: dyadic restriction (cutSum_quarter_general etc.),
+  ScaleCut/RescaleCut stronger property, Decidable choice axiom.
 
 ## 비 verified scaffolded
 
