@@ -1,5 +1,6 @@
 import E213.Research.Real213Signed
 import E213.Research.Real213CutInv
+import E213.Research.Real213CutSumOne
 
 /-!
 # Research.Real213SignedSum: signed sum + subtraction
@@ -50,5 +51,32 @@ theorem cutSignedSum_neg_neg (cx cy : Nat → Nat → Bool) :
         then ({sign := false, cut := cutSum cx cy} : SignedCut)
         else _) = _
   rw [if_pos rfl]
+
+/-- **(+a/1) + (+c/1) = +(a+c)/1**: signed sum on positive integers. -/
+theorem cutSignedSum_pos_int (a c : Nat) :
+    cutSignedSum (signedConstCut true a 1) (signedConstCut true c 1)
+    = signedConstCut true (a+c) 1 := by
+  show cutSignedSum {sign := true, cut := constCut a 1}
+                    {sign := true, cut := constCut c 1}
+    = {sign := true, cut := constCut (a+c) 1}
+  rw [cutSignedSum_pos_pos, cutSum_int_int]
+
+/-- **(-a/1) + (-c/1) = -(a+c)/1**: signed sum on negative integers. -/
+theorem cutSignedSum_neg_int (a c : Nat) :
+    cutSignedSum (signedConstCut false a 1) (signedConstCut false c 1)
+    = signedConstCut false (a+c) 1 := by
+  show cutSignedSum {sign := false, cut := constCut a 1}
+                    {sign := false, cut := constCut c 1}
+    = {sign := false, cut := constCut (a+c) 1}
+  rw [cutSignedSum_neg_neg, cutSum_int_int]
+
+/-- **(+a/2) + (+c/2) = +(a+c)/2**: signed sum on positive halves. -/
+theorem cutSignedSum_pos_half (a c : Nat) :
+    cutSignedSum (signedConstCut true a 2) (signedConstCut true c 2)
+    = signedConstCut true (a+c) 2 := by
+  show cutSignedSum {sign := true, cut := constCut a 2}
+                    {sign := true, cut := constCut c 2}
+    = {sign := true, cut := constCut (a+c) 2}
+  rw [cutSignedSum_pos_pos, cutSum_half_general]
 
 end E213.Research.Real213CutSum
