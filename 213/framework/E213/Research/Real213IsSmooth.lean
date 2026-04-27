@@ -277,6 +277,13 @@ def fifteenthIsSmooth :
                                                 (cutMul (cutMul x x) (cutMul x x))) x)) :=
   mulIsSmooth septicIsSmooth octicIsSmooth
 
+/-- **cutPow IsSmooth (recursive)**: x ↦ cutPow x n is smooth for every n.
+    Built via repeated mulIsSmooth on the cutPow recurrence
+    (cutPow x (n+1) = cutMul (cutPow x n) x). -/
+def cutPowFnIsSmooth : ∀ n, IsSmooth (fun x => cutPow x n)
+  | 0 => constIsSmooth (constCut 1 1)
+  | n+1 => mulIsSmooth (cutPowFnIsSmooth n) idIsSmooth
+
 /-- **x ↦ x¹¹ is smooth**: x³ × x⁸ (degree 11). -/
 def eleventhIsSmooth :
     IsSmooth (fun x => cutMul ((fun x => cutMul x (cutMul x x)) x)

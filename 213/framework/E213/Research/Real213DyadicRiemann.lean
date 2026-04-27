@@ -317,4 +317,15 @@ theorem fundamental_dyadic_calculus_const (a b : Nat) (n : Nat) :
     cutEq (constCut (2^n * a) (b * 2^n)) (constCut a b) :=
   fun m k => by rw [riemannSampleSum_const_normalized]
 
+/-! ### AA1: Riemann sum at depth 0 explicit -/
+
+/-- Riemann at depth 0 = single sample at midpoint.  For const f
+    = constCutFn c, this gives c. -/
+theorem riemann_const_depth_zero (c : Nat → Nat → Bool) (db : DyadicBracket) :
+    riemannSampleSum (constCutFn c) db 0 = c := rfl
+
+/-- Riemann at depth 0 with id integrand gives midpoint. -/
+theorem riemann_id_depth_zero (db : DyadicBracket) :
+    riemannSampleSum id db 0 = db.midCut := rfl
+
 end E213.Research.Real213CutSum

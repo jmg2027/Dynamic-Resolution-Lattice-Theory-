@@ -158,6 +158,26 @@ example : (midIsSmooth (midIsSmooth squareIsSmooth squareIsSmooth) cubeIsSmooth)
 example : (midIsSmooth (midIsSmooth (midIsSmooth idIsSmooth idIsSmooth) idIsSmooth) idIsSmooth).linearityModulus 5 = 5
   := by decide
 
+/-! ### AA2: cutPowFnIsSmooth modulus tests -/
+
+/-- cutPow x 0 = constCut 1 1: modulus = 0 (constant). -/
+example : (cutPowFnIsSmooth 0).linearityModulus 5 = 0 := by decide
+
+/-- cutPow x 1: modulus 5 (slope 1, linear). -/
+example : (cutPowFnIsSmooth 1).linearityModulus 5 = 5 := by decide
+
+/-- cutPow x 2: modulus 10 (slope 2). -/
+example : (cutPowFnIsSmooth 2).linearityModulus 5 = 10 := by decide
+
+/-- cutPow x 3: modulus 15 (slope 3). -/
+example : (cutPowFnIsSmooth 3).linearityModulus 5 = 15 := by decide
+
+/-- cutPow x 5: modulus 25 (slope 5). -/
+example : (cutPowFnIsSmooth 5).linearityModulus 5 = 25 := by decide
+
+/-- cutPow x 10: modulus 50 (slope 10). -/
+example : (cutPowFnIsSmooth 10).linearityModulus 5 = 50 := by decide
+
 /-! ### X1: composeIsSmooth iteration tests -/
 
 /-- 3-deep compose: square ∘ square ∘ square = x⁸. Modulus 40. -/
