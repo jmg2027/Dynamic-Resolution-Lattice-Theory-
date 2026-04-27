@@ -105,4 +105,13 @@ theorem cutDouble_cutSum (cx cy : Nat → Nat → Bool) :
      = cutSumAux (cutDouble cx) (cutDouble cy) k (2*m) (2*m)
   rw [cutSumAux_cutDouble]
 
+/-- **cutDouble distributes over cutMid**.
+    Composes cutDouble_cutSum with cutDouble_cutHalf_comm. -/
+theorem cutDouble_cutMid (cx cy : Nat → Nat → Bool) :
+    cutDouble (cutMid cx cy) = cutMid (cutDouble cx) (cutDouble cy) := by
+  show cutDouble (cutHalf (cutSum cx cy))
+     = cutHalf (cutSum (cutDouble cx) (cutDouble cy))
+  rw [← cutDouble_cutSum]
+  exact cutDouble_cutHalf_comm _
+
 end E213.Research.Real213CutSum
