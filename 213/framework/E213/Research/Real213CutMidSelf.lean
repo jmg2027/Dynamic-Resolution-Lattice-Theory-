@@ -48,4 +48,22 @@ theorem cutMid_half_int (a c : Nat) :
   show cutHalf (cutSum (constCut a 2) (constCut c 1)) = constCut (a+2*c) 4
   rw [cutSum_half_int, cutHalf_constCut]
 
+/-! ### Concrete cutMid evaluations on integer pairs -/
+
+/-- midpoint(0, 1) = 1/2. -/
+example : cutMid (constCut 0 1) (constCut 1 1) = constCut 1 2 :=
+  cutMid_int_int 0 1
+
+/-- midpoint(0, 4) = 2. -/
+example : cutMid (constCut 0 1) (constCut 4 1) = constCut 4 2 :=
+  cutMid_int_int 0 4
+
+/-- midpoint(1, 3) = 2. -/
+example : cutMid (constCut 1 1) (constCut 3 1) = constCut 4 2 :=
+  cutMid_int_int 1 3
+
+/-- midpoint(2, 8) = 5. -/
+example : cutMid (constCut 2 1) (constCut 8 1) = constCut 10 2 :=
+  cutMid_int_int 2 8
+
 end E213.Research.Real213CutSum
