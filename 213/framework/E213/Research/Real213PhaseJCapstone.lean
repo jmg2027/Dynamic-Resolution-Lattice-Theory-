@@ -110,4 +110,17 @@ theorem phaseJ_no_infinity (db : DyadicBracket) (oracle : DyadicOracle)
   refine ⟨rfl, rfl, ?_⟩
   exact ⟨2^n * a, riemannSampleSum_constCut a b db n⟩
 
+/-! ### ConsistentOracle existence on collapsed brackets
+
+For collapsed brackets, ConsistentOracle exists for ANY oracle —
+witness construction via Phase K. -/
+
+/-- **ConsistentOracle existence on collapsed bracket**: shows the
+    Phase K concrete instance is non-vacuous. -/
+theorem consistentOracle_exists_on_collapsed
+    (db : DyadicBracket) (h : db.numA = db.numB)
+    (oracle : DyadicOracle) :
+    ∃ co : ConsistentOracle db, co.oracle = oracle :=
+  ⟨ConsistentOracle.collapsed db h oracle, rfl⟩
+
 end E213.Research.Real213CutSum
