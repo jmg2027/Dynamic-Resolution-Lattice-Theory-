@@ -1,6 +1,7 @@
 import E213.Research.Real213DyadicBracket
 import E213.Research.Real213CutSumOne
 import E213.Research.Real213CutContinuity
+import E213.Research.Real213ConstCutScale
 
 /-!
 # Research.Real213DyadicRiemann: dyadic Riemann sample-sum trajectory
@@ -150,5 +151,17 @@ theorem riemannSampleSum_half_linear
   rw [cutSum_half_general]
   show constCut (2^n * a + 2^n * c) 2 = constCut (2^n * (a + c)) 2
   rw [show 2^n * a + 2^n * c = 2^n * (a + c) from (Nat.mul_add (2^n) a c).symm]
+
+/-- **Riemann sum normalized by sample count gives back the integrand**:
+    Σ_{depth n} (a/b) at sample count 2^n, viewed at denominator
+    scaled by 2^n, equals a/b cut-equivalently.
+
+    Real meaning: average sample value = constant integrand.
+    Proof: pure constCut_scale rescaling. -/
+theorem riemannSampleSum_const_normalized (a b : Nat) (n : Nat) :
+    constCut (2^n * a) (b * 2^n) = constCut a b := by
+  rw [Nat.mul_comm (2^n) a]
+  exact (constCut_scale a b (2^n)
+    (Nat.pos_pow_of_pos n (by decide : 0 < 2))).symm
 
 end E213.Research.Real213CutSum
