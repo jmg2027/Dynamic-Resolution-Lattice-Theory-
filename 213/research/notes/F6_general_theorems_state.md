@@ -306,6 +306,26 @@ Real213DyadicRiemann.lean:
 - riemannSampleSum_constCut : Σ over depth n of constCut a b
   = constCut (2^n * a) b.
 - riemannSampleSum_zero_fn, _one_fn : zero/one corollaries.
+- riemannSampleSum_congr : pointwise-equal integrands give equal sums.
+- riemannSampleSum_one_depth : explicit two-sample form.
+- riemannSampleSum_int_linear, _half_linear : linearity on b ∈ {1, 2}.
+
+### Phase K — Polynomial IsSmooth + ConsistentOracle concrete instance
+
+Real213IsSmooth.lean Phase K additions:
+- squareIsSmooth, cubeIsSmooth, quarticIsSmooth (polynomial chain).
+
+Real213DyadicBracket.lean Phase K additions (collapsed bracket):
+- bisectStep_collapsed : numA = numB preserved by bisectStep.
+- bisectN_collapsed : preserved by bisectN.
+- bisectStep_collapsed_numA : numA doubles each step.
+- bisectN_collapsed_numA : numA_n = 2^n * numA.
+- **bisectN_collapsed_midCut_form** : midCut value invariant in n
+  (equals decide(numA*k ≤ 2^E*m) regardless of n).
+
+Real213ConsistentOracle.lean Phase K addition:
+- **ConsistentOracle.collapsed** : FIRST sorry-free concrete instance,
+  showing the protocol has content.  thresholdN = 0 for collapsed db.
 
 ## 비 verified scaffolded
 
