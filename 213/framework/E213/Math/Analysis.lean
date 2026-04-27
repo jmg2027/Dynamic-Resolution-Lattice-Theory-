@@ -15,6 +15,7 @@ import E213.Research.Real213DyadicRiemann
 import E213.Research.Real213PhaseJCapstone
 import E213.Research.Real213ResolutionDepth
 import E213.Research.Real213DyadicTrajectory
+import E213.Research.Real213PhaseLCapstone
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
