@@ -10,6 +10,10 @@
 - `cutSum_const_zero` : a/b + 0 = a/b.
 - `cutMul_one_const` : 1 * a/b = a/b.
 - `cutMul_const_one` : a/b * 1 = a/b.
+- **`cutSum_self` : c + c = 2c for any const c = a/b** (most general).
+- `cutSum_half_half` : 1/2 + 1/2 = 1 (corollary).
+- `cutSum_third_third` : 1/3 + 1/3 = 2/3 (corollary).
+- `cutSum_half_general` : a/2 + b/2 = (a+b)/2 (same denom).
 
 ### Rational equivalence
 
