@@ -7,6 +7,18 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### Phase AY-BA (d9dbb7a → ★) — **cohomEquiv 브릿지: cutEq → propEq via Setoid** ★★
+
+병목 (cutEq vs propEq) 정면 돌파.  Quotient *없이* Setoid만으로 해결 — 213 ontology 보존 (구조적으로 다른 cuts는 다른 객체로 유지).
+
+- **AY-1**: `cohomEquiv` Setoid (forward/backward 컴포넌트별 cutEq).  refl/symm/trans **0 axioms**!
+- **AY-2**: flux 연산 (neg/add/sub) 모두 cohomEquiv 보존 functorial
+- **AY-3**: ★ MVT for id at unitBracket — *full propEq* (cohomEquiv 안 필요).  cutMul_one_one + cutMul_one_const 활용.
+- **AZ**: FTC framework + bridge — `localDivergence id = fluxAlong id at unitBracket` *propEq*
+- **BA**: 8-fact unified capstone
+
+★★ **결정적 발견**: 가장 깨끗한 case에선 propEq 직접 가능, 나머지 경우 cohomEquiv 충분.  Quotient의 ZFC식 collapse를 회피하면서 framework가 propEq와 cohomEquiv 사이를 *graceful degradation*.
+
 ### Phase AV-AX (bb375be → 43b7638) — **Cohomological flux arc** ★
 
 213-native subtraction: 산술적 음수가 아니라 **simplicial cohomology의 orientation**으로 부호 정의. 다른 AI가 "Option 3" 으로 힌트 준 방향, 정확히 213이 시키는 그것.
