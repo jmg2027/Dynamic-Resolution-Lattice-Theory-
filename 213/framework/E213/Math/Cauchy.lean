@@ -1,5 +1,6 @@
 import E213.Research.Real213CauchyComplete
 import E213.Research.Real213CutSequence
+import E213.Research.Real213CauchyLattice
 
 /-!
 # E213.Math.Cauchy: Cauchy sequence + completeness
