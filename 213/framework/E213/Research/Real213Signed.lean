@@ -89,4 +89,20 @@ theorem cutSignedMul_comm (sx sy : SignedCut) :
   · cases sx.sign <;> cases sy.sign <;> rfl
   · funext m k; exact cutMul_comm _ _ m k
 
+/-- cutNeg distributes over cutSignedMul on the left. -/
+theorem cutNeg_cutSignedMul_left (sx sy : SignedCut) :
+    cutNeg (cutSignedMul sx sy) = cutSignedMul (cutNeg sx) sy := by
+  show ({ sign := !(sx.sign == sy.sign), cut := cutMul sx.cut sy.cut } : SignedCut)
+     = { sign := (!sx.sign) == sy.sign, cut := cutMul sx.cut sy.cut }
+  congr 1
+  cases sx.sign <;> cases sy.sign <;> rfl
+
+/-- cutNeg distributes over cutSignedMul on the right. -/
+theorem cutNeg_cutSignedMul_right (sx sy : SignedCut) :
+    cutNeg (cutSignedMul sx sy) = cutSignedMul sx (cutNeg sy) := by
+  show ({ sign := !(sx.sign == sy.sign), cut := cutMul sx.cut sy.cut } : SignedCut)
+     = { sign := sx.sign == (!sy.sign), cut := cutMul sx.cut sy.cut }
+  congr 1
+  cases sx.sign <;> cases sy.sign <;> rfl
+
 end E213.Research.Real213CutSum
