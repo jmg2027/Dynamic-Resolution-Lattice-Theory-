@@ -473,6 +473,28 @@ example : (DyadicBracket.bisectN (negSignOracle 1 2) 4 unitBracket).numA = 8
         ∧ (DyadicBracket.bisectN (negSignOracle 1 2) 4 unitBracket).numB = 9
         := by decide
 
+/-- Helper: bracket (2^k, 2^k + 1, k+1) form for the negSignOracle 1 2
+    trajectory.  At every such bracket, the oracle picks leftHalf
+    (since midpoint > 1/2 strictly), and leftHalf preserves the
+    pattern.  Closed form by induction on iteration count n. -/
+private def db_pattern (k : Nat) : DyadicBracket where
+  numA := 2^k
+  numB := 2^k + 1
+  expE := k + 1
+  hLe := by omega
+
+/-- leftHalf of db_pattern k = db_pattern (k+1). -/
+private theorem db_pattern_leftHalf (k : Nat) :
+    (db_pattern k).leftHalf.numA = (db_pattern (k+1)).numA
+    ∧ (db_pattern k).leftHalf.numB = (db_pattern (k+1)).numB
+    ∧ (db_pattern k).leftHalf.expE = (db_pattern (k+1)).expE := by
+  refine ⟨?_, ?_, ?_⟩
+  · show 2 * 2^k = 2^(k+1)
+    rw [Nat.pow_succ, Nat.mul_comm]
+  · show 2^k + (2^k + 1) = 2^(k+1) + 1
+    rw [Nat.pow_succ, Nat.mul_comm]; omega
+  · rfl
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
