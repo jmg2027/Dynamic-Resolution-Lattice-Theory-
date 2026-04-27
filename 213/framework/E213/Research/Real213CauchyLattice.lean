@@ -1,5 +1,7 @@
 import E213.Research.Real213CauchyComplete
 import E213.Research.Real213CutMaxMin
+import E213.Research.Real213CutDouble
+import E213.Research.Real213CutBisection
 
 /-!
 # Research.Real213CauchyLattice: lattice ops on Cauchy sequences
@@ -59,5 +61,39 @@ theorem CauchyCutSeq.cutMin_limit (a b : CauchyCutSeq) :
        = (a.cs (a.N m k) m k || b.cs (b.N m k) m k)
   rw [a.cauchy m k _ _ (Nat.le_max_left _ _) (Nat.le_refl _)]
   rw [b.cauchy m k _ _ (Nat.le_max_right _ _) (Nat.le_refl _)]
+
+/-- Pointwise cutDouble of a Cauchy seq is Cauchy.
+    Modulus shifts: N (m, k) := a.N m (2k). -/
+def CauchyCutSeq.cutDouble (a : CauchyCutSeq) : CauchyCutSeq where
+  cs := fun i => Real213CutSum.cutDouble (a.cs i)
+  N := fun m k => a.N m (2*k)
+  cauchy := by
+    intro m k i j hi hj
+    show a.cs i m (2*k) = a.cs j m (2*k)
+    exact a.cauchy m (2*k) i j hi hj
+
+/-- Limit of cutDouble of a Cauchy seq = cutDouble of limit. -/
+theorem CauchyCutSeq.cutDouble_limit (a : CauchyCutSeq) :
+    a.cutDouble.limit = Real213CutSum.cutDouble a.limit := by
+  funext m k
+  show a.cs (a.N m (2*k)) m (2*k) = a.cs (a.N m (2*k)) m (2*k)
+  rfl
+
+/-- Pointwise cutHalf of a Cauchy seq is Cauchy.
+    Modulus: N (m, k) := a.N (2m) k. -/
+def CauchyCutSeq.cutHalf (a : CauchyCutSeq) : CauchyCutSeq where
+  cs := fun i => Real213CutSum.cutHalf (a.cs i)
+  N := fun m k => a.N (2*m) k
+  cauchy := by
+    intro m k i j hi hj
+    show a.cs i (2*m) k = a.cs j (2*m) k
+    exact a.cauchy (2*m) k i j hi hj
+
+/-- Limit of cutHalf of a Cauchy seq = cutHalf of limit. -/
+theorem CauchyCutSeq.cutHalf_limit (a : CauchyCutSeq) :
+    a.cutHalf.limit = Real213CutSum.cutHalf a.limit := by
+  funext m k
+  show a.cs (a.N (2*m) k) (2*m) k = a.cs (a.N (2*m) k) (2*m) k
+  rfl
 
 end E213.Research.Real213CutSum
