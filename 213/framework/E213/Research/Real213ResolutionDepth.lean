@@ -130,4 +130,18 @@ example :
     (composeIsSmooth squareIsSmooth quarticIsSmooth).linearityModulus 5 = 40
     := by decide
 
+/-! ### P4: midIsSmooth modulus computations -/
+
+/-- midIsSmooth on (id, id): x ↦ midpoint(x, x) ≈ x.  Modulus = max(id, id) = id. -/
+example : (midIsSmooth idIsSmooth idIsSmooth).linearityModulus 5 = 5 := by decide
+
+/-- midIsSmooth on (id, square): mixed.  Modulus = max(n, 2n) = 2n. -/
+example : (midIsSmooth idIsSmooth squareIsSmooth).linearityModulus 5 = 10 := by decide
+
+/-- midIsSmooth on (square, cube): mixed.  Modulus = max(2n, 3n) = 3n. -/
+example : (midIsSmooth squareIsSmooth cubeIsSmooth).linearityModulus 5 = 15 := by decide
+
+/-- midIsSmooth on (quartic, octic): degree 4 + 8 mixed. Modulus = max(20, 40) = 40. -/
+example : (midIsSmooth quarticIsSmooth octicIsSmooth).linearityModulus 5 = 40 := by decide
+
 end E213.Research.Real213CutSum
