@@ -6,9 +6,9 @@ import E213.Physics.SimplexCounts
 ## DRLT atomic σ
 
   σ_1s_to_2s = 7/8 (Phase 1 AtomicScreening)
-  σ_2s_to_2s = NS/d = 3/5 atomic ★ (새 발견 후보)
+  σ_2s_to_2s = NS/d = 3/5 atomic ★ (candidate new discovery)
 
-## 공식
+## Formula
 
   Z = NS + 1 = 4
   σ_total = 2·σ_1s + σ_2s_2s = 7/4 + 3/5 = 47/20
@@ -23,8 +23,8 @@ import E213.Physics.SimplexCounts
   IE(Be) observed = 9.322699 eV
   Match: -0.67%
 
-σ_2s_to_2s = NS/d = inverse Y-norm.  같은 정수 비율 (Phase 1
-ProtonMass, m_H 등에 등장).
+σ_2s_to_2s = NS/d = inverse Y-norm.  Same integer ratio (appears in Phase 1
+ProtonMass, m_H, etc.).
 -/
 
 namespace E213.Physics.Phase4.BerylliumIE

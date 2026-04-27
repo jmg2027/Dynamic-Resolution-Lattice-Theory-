@@ -4,7 +4,7 @@ import E213.Physics.SimplexCounts
 /-!
 # Phase 4 HydrogenIEPPM — H IE 13.605693 eV bracket
 
-표준: IE(H) = m_e·c²·α²/2
+Standard: IE(H) = m_e·c²·α²/2
 
   m_e·c² = 510998.95 eV (CODATA, ppm)
   α      = 1/137.0359992
@@ -17,7 +17,7 @@ DRLT chain:
 
 bracket: m_e/(2·137.07²) ≤ IE ≤ m_e/(2·137.00²)
        ≈ [13.5993, 13.6131] eV
-관측 13.605693 ∈ bracket ✓
+observed 13.605693 ∈ bracket ✓
 -/
 
 namespace E213.Physics.Phase4.HydrogenIEPPM
@@ -53,7 +53,7 @@ theorem hydrogen_IE_atomic :
   refine ⟨?_, ?_, ?_, ?_⟩
   all_goals decide
 
-/-! ## Sub-ppm tightening (Phase 1 α to ppm 사용) -/
+/-! ## Sub-ppm tightening (using Phase 1 α to ppm) -/
 
 /-- IE(H) observed in 10⁻⁶ eV (μeV) = 13605693. -/
 def IE_H_micro : Nat := 13605693

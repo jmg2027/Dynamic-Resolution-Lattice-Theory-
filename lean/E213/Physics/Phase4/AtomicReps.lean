@@ -1,15 +1,15 @@
 import E213.Physics.Phase4.AtomicExpr
 
 /-!
-# Phase 4 — Atomic Representations 정리
+# Phase 4 — Atomic Representations summary
 
-각 물리 정수 N 에 대해:
+For each physical integer N:
   ∃ e : Expr,  eval e = N  ∧  complexity e ≤ K(N)
 
-K(N) 가 *작음* = atomic 으로 *간결 표현* 가능.
-무작위 정수 N 의 평균 description length ~ log N 와 비교.
+K(N) being *small* = expressible *compactly* as atomic.
+Compare with average description length ~ log N for random integer N.
 
-## 핵심 정리들
+## Key theorems
 
   6 = NS·NT          complexity = 1
   8 = NS² - 1         complexity = 2 (mul + sub)
@@ -40,7 +40,7 @@ def eight_expr : Expr := .pow .NTc 3
 theorem eight_eval : eval eight_expr = 8 := by decide
 theorem eight_complexity : complexity eight_expr ≤ 1 := by decide
 
-/-- 8 = NS² - (NS - NT) alternative.  복잡 form. -/
+/-- 8 = NS² - (NS - NT) alternative.  Complex form. -/
 def eight_expr_alt : Expr := .sub (.pow .NSc 2) (.sub .NSc .NTc)
 
 theorem eight_alt_eval : eval eight_expr_alt = 8 := by decide

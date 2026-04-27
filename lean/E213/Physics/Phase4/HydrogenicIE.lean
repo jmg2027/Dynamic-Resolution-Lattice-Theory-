@@ -1,14 +1,14 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 4 HydrogenicIE — H-like ions IE = R·Z² *정확*
+# Phase 4 HydrogenicIE — H-like ions IE = R·Z² *exact*
 
 Hydrogenic ions (single electron):
   IE(Z) = R∞ · Z²
 
-  여기서 R∞ = 13.605693 eV (HydrogenIEPPM 에서 4.3 ppb 검증).
+  where R∞ = 13.605693 eV (verified to 4.3 ppb in HydrogenIEPPM).
 
-R∞ · Z² atomic chain → Z² atomic 정수 곱.
+R∞ · Z² atomic chain → Z² atomic integer product.
 
 ## Observed IE (CODATA, eV)
 
@@ -55,7 +55,7 @@ theorem Li_2plus_atomic_bracket :
 theorem Be_3plus_atomic_bracket :
     IE_Be_3plus - 16 * R_infinity_mEV = 27562 := by decide
 
-/-- ★ Z² 의 atomic form ★ -/
+/-- ★ Atomic form of Z² ★ -/
 theorem hydrogenic_atomic_chain :
     -- He+ Z²
     (NT * NT = 4)
