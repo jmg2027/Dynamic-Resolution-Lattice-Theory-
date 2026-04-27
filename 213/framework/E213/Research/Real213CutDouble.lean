@@ -83,4 +83,26 @@ theorem cutHalf_cutLe (cx cy : Nat → Nat → Bool)
     (h : cutLe cx cy) : cutLe (cutHalf cx) (cutHalf cy) :=
   fun m k => h (2*m) k
 
+/-- cutSumAux for doubled cuts at precision k = cutSumAux for original
+    cuts at precision (2k) — doubling acts on the inner k slot. -/
+theorem cutSumAux_cutDouble (cx cy : Nat → Nat → Bool)
+    (k m1Max : Nat) :
+    ∀ n, cutSumAux (cutDouble cx) (cutDouble cy) k m1Max n
+       = cutSumAux cx cy (2*k) m1Max n
+  | 0 => rfl
+  | n+1 => by
+    show ((cx (n+1) (2*(2*k)) && cy (m1Max - (n+1)) (2*(2*k)))
+          || cutSumAux (cutDouble cx) (cutDouble cy) k m1Max n)
+       = ((cx (n+1) (2*(2*k)) && cy (m1Max - (n+1)) (2*(2*k)))
+          || cutSumAux cx cy (2*k) m1Max n)
+    rw [cutSumAux_cutDouble cx cy k m1Max n]
+
+/-- **cutDouble distributes over cutSum**. -/
+theorem cutDouble_cutSum (cx cy : Nat → Nat → Bool) :
+    cutDouble (cutSum cx cy) = cutSum (cutDouble cx) (cutDouble cy) := by
+  funext m k
+  show cutSumAux cx cy (2*k) (2*m) (2*m)
+     = cutSumAux (cutDouble cx) (cutDouble cy) k (2*m) (2*m)
+  rw [cutSumAux_cutDouble]
+
 end E213.Research.Real213CutSum
