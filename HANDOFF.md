@@ -12,10 +12,17 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 (Foundation / CutOps / Generic / Continuity / Cauchy / Series / Analysis).
 
 **General theorems proved** (NOT just decide-tested):
-- `cutSum_one_one` : 1 + 1 = 2 (cutSum (1)(1) = constCut 2 1).
+- `cutSum_self` : c + c = 2c for any c = a/b (most general doubling).
+- `cutSum_half_general` : a/2 + b/2 = (a+b)/2 for any a, b.
+- `cutSum_one_one` : 1 + 1 = 2 (corollary).
+- `cutSum_half_half` : 1/2 + 1/2 = 1 (corollary).
+- `cutSum_third_third` : 1/3 + 1/3 = 2/3 (corollary).
 - `cutMul_one_one` : 1 * 1 = 1.
 - `cutSum_zero_const`, `cutSum_const_zero` : 0 + a/b = a/b + 0 = a/b.
 - `cutMul_one_const`, `cutMul_const_one` : 1 * a/b = a/b * 1 = a/b.
+- `constCut_scale` : equivalent rationals (a/b = ac/bc).
+- `cutSum/Mul_comm` + `cutSum/Mul_mono` + `cutSum/Mul_cutLe_*`.
+- Lattice (full bounded distributive + lub/glb) + cut poset.
 
 **Verified theorems** (substantial mathematical content):
 - Phase A foundation (type / equiv / const / order / sign / OrderExtra).
