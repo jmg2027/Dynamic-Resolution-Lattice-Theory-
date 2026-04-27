@@ -3,19 +3,18 @@ import E213.Research.PureNatMod5
 /-!
 # Research.Sqrt5IrrationalPure: √5 irrationality, **truly axiom-free**
 
-`Sqrt2IrrationalPure` + `Sqrt3IrrationalPure` 의 일반화 to p = 5.
-같 은 5-step descent template — *prime* p 에 대 한 descent 의
-robustness 의 evidence.
+Generalization of `Sqrt2IrrationalPure` + `Sqrt3IrrationalPure` to p = 5.
+Same 5-step descent template — evidence of robustness of descent for *prime* p.
 
-## 관 찰
+## Observations
 
-- p = 2: 2 case (even/odd).
-- p = 3: 3 case (mod 0/1/2).
-- p = 5: 5 case (mod 0/1/2/3/4).
-- p = 7: 7 case (예상).
+- p = 2: 2 cases (even/odd).
+- p = 3: 3 cases (mod 0/1/2).
+- p = 5: 5 cases (mod 0/1/2/3/4).
+- p = 7: 7 cases (expected).
 
-각 prime p 마 다 case-count 가 늘 지 만, 5-step template 은
-*mechanical*.  무리수 의 본질 = squaring kernel of (Z/p)*
+The case-count grows for each prime p, but the 5-step template is
+*mechanical*.  The essence of irrationality = squaring kernel of (Z/p)*
 trivial.
 -/
 

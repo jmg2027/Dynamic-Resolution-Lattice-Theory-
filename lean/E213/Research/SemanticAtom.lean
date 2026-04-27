@@ -61,10 +61,10 @@ namespace E213.Research.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
-/-! ### Raw 가 HasDistinguishing instance
+/-! ### Raw as HasDistinguishing instance
 
-가장 자명 한 instance: Raw 의 a, b, slash 자체 가 axiom 만족.
-slash_comm 이 combine_sym 의 직접 보존. -/
+The most trivial instance: Raw's a, b, slash themselves satisfy the axioms.
+slash_comm directly preserves combine_sym. -/
 
 instance : HasDistinguishing Raw where
   a := Raw.a
@@ -85,11 +85,11 @@ open E213.Firmware E213.Hypervisor
 
 /-! ### Universal morphism: Raw → α (HasDistinguishing α)
 
-`HasDistinguishing α` 의 instance 에 대해, Raw 가 unique
-morphism 으로 embed.  fold 가 universal morphism — Raw 가
-"distinguishing framework" category 의 initial object.
+For an instance of `HasDistinguishing α`, Raw embeds via a unique
+morphism.  fold is the universal morphism — Raw is the initial object
+in the "distinguishing framework" category.
 
-(즉 213 의 axiom 이 *모든* 의미 framework 의 minimum.) -/
+(That is, the 213 axiom is the minimum for *every* meaning framework.) -/
 
 /-- Universal morphism Raw → α via fold. -/
 def universalMorphism (α : Type) [d : HasDistinguishing α] : Raw → α :=
@@ -117,19 +117,19 @@ namespace E213.Research.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
-/-! ### Lens 가 HasDistinguishing 의 specific instance
+/-! ### Lens as a specific instance of HasDistinguishing
 
-Lens α 의 view 는 HasDistinguishing α 의 morphism — 즉 Lens
-는 의미 framework 의 instance 의 specific 형태.  Raw 가 모든
-Lens 의 carrier (universal). -/
+The view of Lens α is a morphism of HasDistinguishing α — that is,
+Lens is a specific form of an instance of the meaning framework.
+Raw is the carrier (universal) for all Lenses. -/
 
-/-- Lens 가 HasDistinguishing 의 instance — base 의 distinctness
-    + combine 의 swap-sym 을 hypothesis 로 받음.  일반 Lens 는
-    constLens 같은 degenerate case 가 distinguishing 부재 (base_a
-    = base_b) 가 가능 하므로, distinguishing 보존 Lens 만 instance.
+/-- Lens as a HasDistinguishing instance — takes distinctness of base
+    and swap-sym of combine as hypotheses.  A general Lens can have
+    degenerate cases like constLens where distinguishing is absent
+    (base_a = base_b), so only distinguishing-preserving Lenses are instances.
 
-    이 partial functoriality 가 "의미 의 atom 은 Raw, Lens 는
-    그 위 의 representation" 의 형식 표현. -/
+    This partial functoriality is the formal expression of "the atom of
+    meaning is Raw, and Lens is its representation on top". -/
 def lensToHasDistinguishing {α : Type} (L : Lens α)
     (h_distinct : L.base_a ≠ L.base_b)
     (h_sym : ∀ u v, L.combine u v = L.combine v u) :
@@ -146,33 +146,34 @@ namespace E213.Research.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
-/-! ### `Prop` 이 `HasDistinguishing` instance
+/-! ### `Prop` as a `HasDistinguishing` instance
 
-Lean 의 `Prop` type 도 `HasDistinguishing` instance 가 될 수
-있다 — `True ≠ False` + commutative connective.  이걸 형식
-화 하면 `universalMorphism Prop : Raw → Prop` 이 자동 생성
+Lean's `Prop` type can also be a `HasDistinguishing` instance —
+`True ≠ False` + commutative connective.  Formalizing this
+auto-generates `universalMorphism Prop : Raw → Prop`
 (fold via the chosen connective).
 
-**구성:**
-- `True`, `False`: 두 distinguishable base.
+**Construction:**
+- `True`, `False`: two distinguishable bases.
 - `propXor` (= `(P ∨ Q) ∧ ¬(P ∧ Q)`): commutative combine.
-- 다른 commutative connective (Iff, And, Or) 도 instance 가능
-  — 아래 alternative 참조.
+- Other commutative connectives (Iff, And, Or) can also be instances
+  — see alternatives below.
 
-**의의 (note 76 분석):**
+**Significance (note 76 analysis):**
 
-Lens 의 view 가 일반 적 으로 Raw → α (α : Type).  α = Prop
-case 가 특수 한 의의 — thesis 가 자기 의 truth value 를
-framework 안 의 universal morphism 으로 결정.  이건 framework
-의 self-coverage 의 부분 적 형식 — "thesis 의 logical 평가
-가 외부 metatheory 가 아니라 framework 안 derivation".
+The view of Lens is generally Raw → α (α : Type).  The α = Prop
+case has special significance — the thesis determines its own truth
+value via the universal morphism inside the framework.  This is a
+partial formalization of framework self-coverage — "the logical
+evaluation of the thesis is a derivation inside the framework,
+not an external metatheory".
 
-(이것 이 모든 Prop 을 cover 한다 는 의미 가 아님 — Prop 이
-HasDistinguishing 의 *하나 의* instance 일 수 있음 만.  자세
-한 한계 는 note 76 §"Limits".)
+(This does not mean all Props are covered — it only means Prop can
+be *one* instance of HasDistinguishing.  Detailed limits in
+note 76 §"Limits".)
 -/
 
-/-- Xor on Prop — commutative + distinguishing 보존 connective. -/
+/-- Xor on Prop — commutative + distinguishing-preserving connective. -/
 def propXor (P Q : Prop) : Prop := (P ∨ Q) ∧ ¬(P ∧ Q)
 
 theorem propXor_comm (P Q : Prop) : propXor P Q = propXor Q P := by
@@ -189,8 +190,8 @@ theorem propXor_comm (P Q : Prop) : propXor P Q = propXor Q P := by
 theorem true_ne_false : (True : Prop) ≠ False := by
   intro h; exact h.mp trivial
 
-/-- **Prop 이 distinguishing-framework category 의 object**.
-    `True ≠ False` + `propXor` (= Raw.slash 의 boolean parallel). -/
+/-- **Prop as an object of the distinguishing-framework category**.
+    `True ≠ False` + `propXor` (= boolean parallel of Raw.slash). -/
 def propAsDistinguishing : HasDistinguishing Prop where
   a := True
   b := False
@@ -199,8 +200,8 @@ def propAsDistinguishing : HasDistinguishing Prop where
   combine_sym := propXor_comm
 
 /-- Universal morphism Raw → Prop via `propAsDistinguishing`.
-    Prop 이 HasDistinguishing instance 인 specific case 의
-    fold-derived 함수. -/
+    fold-derived function for the specific case where Prop is a
+    HasDistinguishing instance. -/
 def canonicalTruthMap : Raw → Prop :=
   @universalMorphism Prop propAsDistinguishing
 
@@ -226,21 +227,21 @@ open E213.Firmware E213.Hypervisor
 
 /-! ### Alternative connective: `Iff`
 
-Prop 이 *하나 의* HasDistinguishing instance 만 가지는 게 아님
-— 다른 commutative connective 도 instance.  여기 서 `Iff`
-(↔, "same truth value") 의 instance 를 보여서 specific Xor
-선택 에 의존 하지 않음 demonstrate.
+Prop does not have *only one* HasDistinguishing instance —
+other commutative connectives are also instances.  Here we show
+the `Iff` (↔, "same truth value") instance to demonstrate
+independence from the specific Xor choice.
 
-(이게 framework 의 self-coverage 가 *어떤 specific connective*
-에 의존 하지 않음 — 단지 `True ≠ False` + commutative combine
-의 minimum 구조 에 의존 한다는 sober claim.) -/
+(This is the sober claim that framework self-coverage does not
+depend on *any specific connective* — only on the minimum structure
+of `True ≠ False` + commutative combine.) -/
 
 theorem iff_comm_eq (P Q : Prop) : (P ↔ Q) = (Q ↔ P) := by
   apply propext
   exact ⟨Iff.symm, Iff.symm⟩
 
-/-- Prop 의 Iff-based instance.  `True ↔ False = False` (distinguishing
-    보존), `True ↔ True = True`, `False ↔ False = True`. -/
+/-- Iff-based instance of Prop.  `True ↔ False = False` (distinguishing
+    preserved), `True ↔ True = True`, `False ↔ False = True`. -/
 def propAsDistinguishingIff : HasDistinguishing Prop where
   a := True
   b := False
@@ -248,9 +249,9 @@ def propAsDistinguishingIff : HasDistinguishing Prop where
   combine := Iff
   combine_sym := iff_comm_eq
 
-/-- Iff-based universal morphism — Xor instance 와 *다른* fold
-    함수 를 produce (당연 — fold rule 이 다름).  Prop instance
-    의 non-uniqueness 보임. -/
+/-- Iff-based universal morphism — produces a *different* fold function
+    from the Xor instance (naturally — fold rules differ).
+    Shows non-uniqueness of Prop instances. -/
 def canonicalIffMap : Raw → Prop :=
   @universalMorphism Prop propAsDistinguishingIff
 
@@ -321,28 +322,28 @@ namespace E213.Research.SemanticAtom
 open E213.Firmware E213.Hypervisor
 open E213.Research.FoldStructured
 
-/-! ### Negative direction: Lens-expressibility 의 boundary
+/-! ### Negative direction: boundary of Lens-expressibility
 
-§1.1 (formal core) 의 dual.  `HasDistinguishing` typeclass 가
-"의미 framework 의 abstraction" 의 positive form 이라면, 다음
-은 negative form: **framework 안 표현 부재 한 함수 의 존재**.
+Dual of §1.1 (formal core).  If the `HasDistinguishing` typeclass
+is the positive form of "abstraction of the meaning framework", then
+the following is the negative form: **existence of functions not
+expressible inside the framework**.
 
-이미 `Research/{NoDepthParity, DepthParityNotFold,
-SlashCharNotFold}.lean` 에 specific instance 들 형식 화 됨.
-여기 서 통합 statement 명시 — Lens-expressibility 가 자명 하지
-않은 boundary (모든 Raw → α 함수 가 Lens-expressible 인 게
-아님).
+Specific instances have already been formalized in
+`Research/{NoDepthParity, DepthParityNotFold, SlashCharNotFold}.lean`.
+Here we state the unified statement — Lens-expressibility has a
+non-trivial boundary (not every Raw → α function is Lens-expressible).
 
-Note 77 의 통합 분석. -/
+Unified analysis of Note 77. -/
 
-/-- **Lens-expressible** 의 정확 한 정의: f 가 어떤 Lens L 의
-    view (with combine 의 swap-symmetry 가정). -/
+/-- Precise definition of **Lens-expressible**: f is the view of some Lens L
+    (assuming swap-symmetry of combine). -/
 def IsLensExpressible {α : Type} (f : Raw → α) : Prop :=
   ∃ L : Lens α, (∀ u v, L.combine u v = L.combine v u) ∧
                 (∀ r, L.view r = f r)
 
 /-- IsLensExpressible ↔ FoldStructured.  FoldStructured.lean
-    의 결과 의 wrapping. -/
+    Wrapping of the result from FoldStructured.lean. -/
 theorem isLensExpressible_iff_foldStructured {α : Type} (f : Raw → α) :
     IsLensExpressible f ↔ FoldStructured f := by
   unfold IsLensExpressible
@@ -355,8 +356,8 @@ theorem isLensExpressible_iff_foldStructured {α : Type} (f : Raw → α) :
     obtain ⟨L, hsym, hview⟩ := fold_structured_lens_expressible f hfs
     exact ⟨L, hsym, fun r => congrFun hview r⟩
 
-/-- **Negative existence**: ∃ f : Raw → Bool, f 가 Lens-expressible
-    이 아님.  의미 atom thesis 의 boundary 의 직접 evidence. -/
+/-- **Negative existence**: ∃ f : Raw → Bool, f is not Lens-expressible.
+    Direct evidence for the boundary of the semantic atom thesis. -/
 theorem exists_non_lens_expressible :
     ∃ f : Raw → Bool, ¬ IsLensExpressible f := by
   refine ⟨E213.Research.DepthParityNotFold.depthParityFn, ?_⟩
@@ -372,13 +373,13 @@ open E213.Research.RawInitiality
 
 /-! ### Universal property of `HasDistinguishing` category
 
-`Lens.initiality` (RawInitiality.lean) 의 HasDistinguishing-level
-재진술.  Raw 가 distinguishing-framework category 의 *initial
-object* 의 명시 적 ∃! statement. -/
+HasDistinguishing-level restatement of `Lens.initiality` (RawInitiality.lean).
+Explicit ∃! statement that Raw is the *initial object* of the
+distinguishing-framework category. -/
 
-/-- **Universal morphism uniqueness**: HasDistinguishing α 의
-    instance 에 대해, distinguishing-preserving 함수 Raw → α
-    가 정확히 `universalMorphism α`. -/
+/-- **Universal morphism uniqueness**: for an instance of HasDistinguishing α,
+    the distinguishing-preserving function Raw → α is exactly
+    `universalMorphism α`. -/
 theorem universalMorphism_unique (α : Type) [d : HasDistinguishing α]
     (f : Raw → α)
     (ha : f Raw.a = d.a)
@@ -390,12 +391,12 @@ theorem universalMorphism_unique (α : Type) [d : HasDistinguishing α]
   exact Lens.view_unique
     (⟨d.a, d.b, d.combine⟩ : Lens α) d.combine_sym f ha hb hslash r
 
-/-- **Raw 가 HasDistinguishing-category 의 initial object**:
-    임의 instance α 에 대해, distinguishing-preserving 함수
-    Raw → α 가 *unique 하게* 존재 (= `universalMorphism α`).
-    이게 "213 axiom 이 모든 의미 framework 의 minimum" 의
-    categorical 명시.  (∃! Lean 4 core syntax 부재, explicit
-    existence + uniqueness conjunction 형식.) -/
+/-- **Raw as initial object of HasDistinguishing-category**:
+    for any instance α, the distinguishing-preserving function
+    Raw → α *uniquely* exists (= `universalMorphism α`).
+    This is the categorical statement of "the 213 axiom is the minimum
+    for every meaning framework".  (∃! syntax absent in Lean 4 core;
+    expressed as explicit existence + uniqueness conjunction.) -/
 theorem raw_initial (α : Type) [d : HasDistinguishing α] :
     ∃ f : Raw → α,
       (f Raw.a = d.a) ∧

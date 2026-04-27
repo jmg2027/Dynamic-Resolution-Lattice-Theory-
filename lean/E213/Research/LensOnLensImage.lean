@@ -2,15 +2,15 @@ import E213.Research.LensOnLens
 import E213.Research.BoolPropMorphism
 
 /-!
-# Research.LensOnLensImage: Lens-on-Lens 의 tower collapse
+# Research.LensOnLensImage: tower collapse of Lens-on-Lens
 
-`lensUniversalMorphism : Raw → Lens Bool` 의 image 의 정확 한
-characterization.
+Exact characterization of the image of
+`lensUniversalMorphism : Raw → Lens Bool`.
 
-## 핵심 결과
+## Key Result
 
 Image = {constTrueLens, constFalseLens} (2-element set).
-Diagram commutes —
+The diagram commutes —
 
 ```
         Raw
@@ -20,9 +20,9 @@ universalMorphism Bool       lensUniversalMorphism
       Bool ─── boolToConstLens ───→ Lens Bool
 ```
 
-즉 `lensUniversalMorphism = boolToConstLens ∘ universalMorphism
-Bool [boolXorHasDistinguishing]`.  Lens-on-Lens 의 recursive
-structure 가 image level 에서 a-leaf parity 로 collapse.
+That is, `lensUniversalMorphism = boolToConstLens ∘ universalMorphism
+Bool [boolXorHasDistinguishing]`.  The recursive structure of
+Lens-on-Lens collapses at the image level to the a-leaf parity.
 -/
 
 namespace E213.Research.LensOnLensImage
@@ -48,7 +48,7 @@ open E213.Research.SemanticAtom
 open E213.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
-/-! ### lensXor 가 {constTrueLens, constFalseLens} 위 에서 xor -/
+/-! ### lensXor acts as xor on {constTrueLens, constFalseLens} -/
 
 theorem lensXor_TT : lensXor constTrueLens constTrueLens = constFalseLens := by
   unfold lensXor constTrueLens constFalseLens; rfl
@@ -71,7 +71,7 @@ open E213.Research.SemanticAtom
 open E213.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
-/-- boolToConstLens 가 xor combine 보존. -/
+/-- boolToConstLens preserves the xor combine. -/
 theorem boolToConstLens_xor (x y : Bool) :
     boolToConstLens (xor x y) =
       lensXor (boolToConstLens x) (boolToConstLens y) := by
@@ -89,8 +89,8 @@ open E213.Research.BoolPropMorphism
 
 /-! ### Main: tower collapse factorization -/
 
-/-- Composite 가 lensUniversalMorphism 의 (a, b, slash) 의무
-    를 만족 — universalMorphism_unique 의 가정. -/
+/-- The composite satisfies the (a, b, slash) obligations of
+    lensUniversalMorphism — assumption of universalMorphism_unique. -/
 def composite (r : Raw) : Lens Bool :=
   boolToConstLens (@universalMorphism Bool boolXorHasDistinguishing r)
 
@@ -119,9 +119,9 @@ open E213.Research.SemanticAtom
 open E213.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
-/-- **Tower collapse**: lensUniversalMorphism 가 universalMorphism Bool
-    을 통해 factor.  Lens-on-Lens 의 image 가 boolToConstLens 의
-    image = {constTrueLens, constFalseLens}. -/
+/-- **Tower collapse**: lensUniversalMorphism factors through
+    universalMorphism Bool.  The image of Lens-on-Lens equals the
+    image of boolToConstLens = {constTrueLens, constFalseLens}. -/
 theorem lensUniversalMorphism_factors (r : Raw) :
     lensUniversalMorphism r = composite r := by
   have h := @universalMorphism_unique (Lens Bool) lensBoolHasDistinguishing
@@ -137,8 +137,8 @@ open E213.Research.SemanticAtom
 open E213.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
-/-- **Image characterization**: lensUniversalMorphism 의 image
-    가 정확 히 2 elements — {constTrueLens, constFalseLens}. -/
+/-- **Image characterization**: the image of lensUniversalMorphism is
+    exactly 2 elements — {constTrueLens, constFalseLens}. -/
 theorem lensUniversalMorphism_image (r : Raw) :
     lensUniversalMorphism r = constTrueLens ∨
     lensUniversalMorphism r = constFalseLens := by

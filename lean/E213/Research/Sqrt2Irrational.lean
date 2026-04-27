@@ -1,23 +1,23 @@
 import E213.Firmware.Raw
 
 /-!
-# Research.Sqrt2Irrational: m² = 2k² 무해 (k ≥ 1)
+# Research.Sqrt2Irrational: m² = 2k² impossible (k ≥ 1)
 
-`Sqrt2Cut` 의 input fact "irrationality of √2" 를 framework
-내부 lemma 로 격상.  Lean 4 core + descent 만 사용.
+Elevates the input fact "irrationality of √2" from `Sqrt2Cut` to a
+framework-internal lemma.  Uses only Lean 4 core + descent.
 
-## 핵심
+## Core
 
 `sqrt2_irrational`: ∀ k ≥ 1, ∀ m : ℕ, m * m ≠ 2 * k * k.
 
-증명: 2-adic descent.  m² = 2k² → m even → m = 2m' →
+Proof: 2-adic descent.  m² = 2k² → m even → m = 2m' →
 4m'² = 2k² → k² = 2m'² → k even → k = 2k' → m'² = 2k'² →
-k' < k 이므로 induction hypothesis 적용.
+k' < k so apply induction hypothesis.
 -/
 
 namespace E213.Research.Sqrt2Irrational
 
-/-- `m * m` 의 parity 가 `m` 의 parity 와 일치. -/
+/-- The parity of `m * m` matches the parity of `m`. -/
 theorem mul_self_mod_two (m : Nat) : m * m % 2 = m % 2 := by
   have h := Nat.mod_two_eq_zero_or_one m
   rcases h with h | h
@@ -41,8 +41,8 @@ end E213.Research.Sqrt2Irrational
 
 namespace E213.Research.Sqrt2Irrational
 
-/-- `m * m = 2 * k * k` 의 descent step:
-    m 짝수 → m = 2m', 2 * (m'*m') = k*k. -/
+/-- Descent step for `m * m = 2 * k * k`:
+    m even → m = 2m', 2 * (m'*m') = k*k. -/
 private theorem descent_step (m k : Nat) (heq : m * m = 2 * (k * k))
     (m' : Nat) (hm : m = 2 * m') :
     2 * (m' * m') = k * k := by
@@ -56,8 +56,8 @@ end E213.Research.Sqrt2Irrational
 namespace E213.Research.Sqrt2Irrational
 
 /-- **Auxiliary descent**: bounded by `s` (s ≥ k), descent
-    works step-by-step.  k 가 짝수면 m 도 짝수, 양쪽 절반
-    하 면 더 작은 instance — induction on `s`. -/
+    works step-by-step.  If k is even then m is even; halving both
+    gives a smaller instance — induction on `s`. -/
 theorem sqrt2_no_rational_aux :
     ∀ s k m : Nat, k ≤ s → m * m = 2 * (k * k) → k = 0 := by
   intro s
@@ -90,15 +90,15 @@ end E213.Research.Sqrt2Irrational
 
 namespace E213.Research.Sqrt2Irrational
 
-/-- **√2 의 irrationality, framework-internal**: ∀ k, m: ℕ,
+/-- **Irrationality of √2, framework-internal**: ∀ k, m: ℕ,
     m² = 2 k² → k = 0.
 
-    `PellSeq` 의 invariant `IsPellSol x y := x² = 2y² + 1` 와
-    합치면, k ≥ 1 인 어떤 (m, k) 도 m² = 2k² 만족 불가.  즉
-    유리 수 √2 = m/k 가능 한 k ≥ 1 부재.
+    Combined with `PellSeq`'s invariant `IsPellSol x y := x² = 2y² + 1`,
+    no (m, k) with k ≥ 1 can satisfy m² = 2k².  That is,
+    no k ≥ 1 allows a rational √2 = m/k.
 
-    `Sqrt2Cut` 의 input fact 가 framework-internal lemma 로
-    격상 — Pell-style descent (Lean 4 core + omega). -/
+    The input fact of `Sqrt2Cut` is elevated to a framework-internal lemma
+    — Pell-style descent (Lean 4 core + omega). -/
 theorem sqrt2_irrational (k : Nat) (hk : k ≥ 1) (m : Nat) :
     m * m ≠ 2 * (k * k) := by
   intro heq

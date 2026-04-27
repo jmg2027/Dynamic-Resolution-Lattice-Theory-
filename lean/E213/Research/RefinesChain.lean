@@ -2,11 +2,10 @@ import E213.Research.LensLattice
 import E213.Research.LeavesRefinesParity
 
 /-!
-# Research.RefinesChain: Lens.refines preorder 의 explicit chain
+# Research.RefinesChain: explicit chain in the Lens.refines preorder
 
-PAPER1 §3.3 의 meet-semilattice claim 의 concrete witness:
-finest (idLens) → ... → coarsest (constLens) 의 4-step
-chain.
+Concrete witness for the meet-semilattice claim in PAPER1 §3.3:
+4-step chain from finest (idLens) → ... → coarsest (constLens).
 
 ## Chain
 
@@ -15,9 +14,8 @@ idLens  →  Lens.leaves  →  parityLens  →  constLens true
 (finest)                                      (coarsest)
 ```
 
-Each arrow 가 strict refines.  반대 방향 은 strict (e.g.,
-leaves 가 idLens 를 refine 하 지 않음 — leaves count 같지만
-다른 Raw 들 존재).
+Each arrow is a strict refinement.  The reverse direction is strict (e.g.,
+leaves does not refine idLens — leaf counts agree but different Raws exist).
 -/
 
 namespace E213.Research.RefinesChain

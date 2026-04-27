@@ -11,10 +11,10 @@ Direct evidence of a single DRLT origin.
   - SU(NS) root count [Group]
   - 3! permutation [combinatorics]
   - AdS/CFT bulk d+1 [QG]
-  - M_Pl/v_H 분모 [Hierarchy]
-  - α_GUT 분자 [GUT]
+  - M_Pl/v_H denominator [Hierarchy]
+  - α_GUT numerator [GUT]
 
-## 정수 8 = NS² - 1 = F_6
+## Integer 8 = NS² - 1 = F_6
 
   - 1/α_3 (color) [Phase 1 PhotonKernel]
   - SU(3) adjoint [Symmetry]
@@ -26,7 +26,7 @@ Direct evidence of a single DRLT origin.
   - HO magic 2 [Magic]
   - F_6 Fibonacci
 
-## 정수 12 = 2·NS·NT
+## Integer 12 = 2·NS·NT
 
   - α_2 prefactor 12·NT [Phase 1]
   - α_1 prefactor 12·NS [Phase 1]
@@ -35,19 +35,19 @@ Direct evidence of a single DRLT origin.
   - X, Y leptoquark [SM]
   - Z partial widths [Particle]
 
-## 정수 13 = NS² + NT² = F_7
+## Integer 13 = NS² + NT² = F_7
 
   - NH₃ bond denom [Molecular]
   - Born rule quadratic [QM]
   - Fibonacci F_7
 
-## 정수 16 = NT⁴
+## Integer 16 = NT⁴
 
   - SU(5) fermion / generation
   - log₁₀(Q_GUT) atomic
   - NT·(NS²-1) alternative
 
-## 정수 24 = d² - 1 = (d-1)(d+1) = 4!
+## Integer 24 = d² - 1 = (d-1)(d+1) = 4!
 
   - SU(5) GUT adjoint [Symmetry]
   - α_2 prefactor 12·NT [Phase 1]
@@ -56,21 +56,21 @@ Direct evidence of a single DRLT origin.
   - SM gauge sum 8+3+12+1
   - Conformal anomaly
 
-## 정수 137 = 1/α_em
+## Integer 137 = 1/α_em
 
   - Fine structure (Phase 1 ppm)
-  - m_t/m_c ratio (이중 등장)
+  - m_t/m_c ratio (double appearance)
 
-## 정수 192 = (NS²-1)(d²-1) = 8·24
+## Integer 192 = (NS²-1)(d²-1) = 8·24
 
   - Muon lifetime prefactor
 
-## 의미
+## Meaning
 
-  무관 이론 → 같은 정수 우연 (확률 ~0)
-  DRLT 단일 origin → 필연
+  Independent theories → same integer by coincidence (probability ~0)
+  Single DRLT origin → necessity
 
-## 사용
+## Usage
 
 ```lean
 import E213.Physics.Phase4.Library.MathLibrary

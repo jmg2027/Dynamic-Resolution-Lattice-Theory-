@@ -2,23 +2,23 @@ import E213.Research.HasModulus
 import E213.Research.DiagonalHasModulus
 
 /-!
-# Research.StrongModulus: bounded view-variation modulus (E3 의 (B) 시도)
+# Research.StrongModulus: bounded view-variation modulus (attempt (B) for E3)
 
-`E3_modulus_kernel_deep_obstruction.md` 의 해결 방향 (B) — Bishop
-ε-N standard 의 213 form.  HasModulus 의 strict 강화: orderProj
-stability 뿐 아 니 라 view 의 *ratio variation* 도 bounded.
+Resolution direction (B) for `E3_modulus_kernel_deep_obstruction.md` —
+213 form of the Bishop ε-N standard.  Strict strengthening of HasModulus:
+not only orderProj stability but also bounded *ratio variation* of the view.
 
-## 정의
+## Definition
 
 `StrongModulus xs` : ∀ k ≥ 1, ∃ N, ∀ i, j ≥ N,
   |a_i/b_i - a_j/b_j| ≤ 1/k (cross-mult form).
 
-## 의의
+## Significance
 
-- Addition 등 arithmetic 의 modulus combination 이 standard ε/2 form
-  으 로 가능.
-- 기존 HasModulus 의 *strict* form — 모든 StrongModulus 가 HasModulus
-  이 지 만 reverse 부재.
+- Modulus combination for arithmetic such as addition is possible
+  in the standard ε/2 form.
+- A *strict* form of HasModulus — every StrongModulus is a HasModulus
+  but not conversely.
 -/
 
 namespace E213.Research.StrongModulusNS
@@ -53,7 +53,7 @@ def diagonalStrongModulus (xs : Nat → Raw)
   bound := by
     intro k _ i j _ _
     rw [h i, h j]
-    -- Goal: (i+1)*(j+1)*k ≤ (i+1)*(j+1)*k + (i+1)*(j+1) ∧ (시메트릭)
+    -- Goal: (i+1)*(j+1)*k ≤ (i+1)*(j+1)*k + (i+1)*(j+1) ∧ (symmetric)
     refine ⟨?_, ?_⟩
     · exact Nat.le_add_right _ _
     · exact Nat.le_add_right _ _

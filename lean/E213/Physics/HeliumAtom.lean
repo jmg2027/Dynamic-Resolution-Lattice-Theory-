@@ -2,7 +2,7 @@ import E213.Physics.HydrogenAtom
 import E213.Physics.AtomicScreening
 
 /-!
-# 헬륨 IE = 24.587 eV — screening σ_1s = 7/8 (0 axioms)
+# Helium IE = 24.587 eV — screening σ_1s = 7/8 (0 axioms)
 
 DRLT formula (ATM_013, ch10):
 
@@ -62,7 +62,7 @@ theorem helium_uses_sigma_1s :
     ∧ d * d - 1 - NS = 21
     ∧ d * d - 1 = 24 := by decide
 
-/-- Bohr "2" = NT 도 He에 등장.  Same Bohr formula. -/
+/-- Bohr "2" = NT also appears in He.  Same Bohr formula. -/
 theorem helium_bohr_via_NT : bohr_denom = NT := by decide
 
 /-- ★ He IE bracket: 24 ≤ IE ≤ 25 eV (1% sanity) ★ -/

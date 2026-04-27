@@ -3,11 +3,11 @@ import E213.Research.LensOnLens
 /-!
 # Research.LensOnLensImageGeneric: generic Lens-on-Lens collapse
 
-`LensOnLensImage` 의 Bool 특수 case 를 generic α 로 일반화.
+Generalizes the Bool special case of `LensOnLensImage` to generic α.
 
-## 핵심
+## Core
 
-For any `α` with `HasDistinguishing` instance,
+For any `α` with a `HasDistinguishing` instance,
 `@universalMorphism (Lens α) (lensHasDistinguishing α)`
 factors through `α`:
 
@@ -19,9 +19,9 @@ universalMorphism α        lensUniversalMorphism α
        α  ─── constLens ───→ Lens α
 ```
 
-즉 `Lens α` 의 universalMorphism image 는 `α` 의 image
-의 constLens-pullback — recursive Lens^n α tower 의 모든
-level 에 서 동일 한 collapse 발생.
+That is, the universalMorphism image of `Lens α` is the constLens
+pullback of the image of `α` — the same collapse occurs at every
+level of the recursive Lens^n α tower.
 -/
 
 namespace E213.Research.LensOnLensImageGeneric
@@ -73,12 +73,13 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 open E213.Research.LensOnLens
 
-/-- **Generic tower collapse**: For any `α` with HasDistinguishing,
+/-- **Generic tower collapse**: for any `α` with HasDistinguishing,
     the Lens-on-Lens universalMorphism factors through α via
     constLens.
 
-    `LensOnLensImage` (Bool case) 의 일반화 — α 가 어떤 type 이든
-    `Lens α` 의 image 는 `α` 의 image 의 constLens-pullback. -/
+    Generalizes `LensOnLensImage` (Bool case) — regardless of type α,
+    the image of `Lens α` is the constLens pullback of the image of
+    `α`. -/
 theorem lensUniversalMorphism_factors_generic
     (α : Type) [d : HasDistinguishing α] (r : Raw) :
     @universalMorphism (Lens α) (lensHasDistinguishing α) r =

@@ -21,14 +21,14 @@ DRLT formula (lib/drlt.py:633, ch21):
   m_H = v_H · 0.5097 ≈ 245.8 · 0.5097 = 125.28 GeV
   vs observed 125.25 ± 0.17 GeV  (+0.02% match)
 
-## ★ 같은 atomic cofactor (d-1) 또 등장 ★
+## ★ Same atomic cofactor (d-1) appears again ★
 
-  m_H/v_H 의 leading correction 계수: (d-1)/d = 4/5
-  → 같은 (d-1) = 4 cofactor 가 α_em IR, m_μ/m_e, Cabibbo,
-    그리고 m_H 보정에서 *전부* 등장.
+  Leading correction coefficient of m_H/v_H: (d-1)/d = 4/5
+  → The same (d-1) = 4 cofactor appears in *all* of
+    α_em IR, m_μ/m_e, Cabibbo, and m_H corrections.
 
-  단일 atomicity (NS, NT, d, c) = (3, 2, 5, 2) 강제하는
-  (d-1) = 4 가 *다섯 가지 정밀 식*에 공통 building block.
+  (d-1) = 4, forced by single atomicity (NS, NT, d, c) = (3, 2, 5, 2),
+  is the common building block in *five precision formulas*.
 -/
 
 namespace E213.Physics.Higgs
@@ -68,7 +68,7 @@ theorem higgs_uses_tet : tetrahedra_per_vertex = NS + 1 := by decide
 
 theorem adjoint_eq_24 : d * d - 1 = 24 := by decide
 
-/-- m_H/v_H 식의 모든 prefactor가 격자 primitives. -/
+/-- All prefactors in the m_H/v_H formula are lattice primitives. -/
 theorem higgs_structural :
     -- Leading 1/c
     (leading_ratio = (1, c_lat))
@@ -89,7 +89,7 @@ theorem mH_vH_bracket_5097 :
     50 * 10000 < 5097 * 100 ∧ 5097 * 100 < 52 * 10000 := by decide
 
 /-- ★ Capstone ★
-    m_H/v_H 의 모든 구조가 같은 atomic primitives + same (d-1)
+    All structure of m_H/v_H shares the same atomic primitives + same (d-1)
     cofactor pattern from α_em/m_μ/Cabibbo. -/
 theorem higgs_simplicial_pattern :
     -- Leading exact rational 1/c = 1/2

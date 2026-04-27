@@ -3,16 +3,17 @@ import E213.Research.LeavesModNat
 /-!
 # Research.ModJoinBezout: parametric Bezout chain step
 
-`ModJoinExample` (m=4, k=6) 와 `ModJoinCoprime` (m=2, k=3) 의
-공통 패턴을 일반화 lemma 로 추출.
+Extracts the common pattern of `ModJoinExample` (m=4, k=6) and
+`ModJoinCoprime` (m=2, k=3) into a general lemma.
 
-**Core lemma**: `chain_step`.  L_m + L_k 이 N 에 refine 될
-때, +m then -k (intermediate Raw 를 거쳐서) 의 net +(m-k) step
-이 N 에 의해 absorbed.
+**Core lemma**: `chain_step`.  When L_m and L_k both refine N,
+the net +(m-k) step via +m then -k (passing through an intermediate
+Raw) is absorbed by N.
 
-## 적용
+## Application
 
-이 lemma + induction 으로 임의 Bezout-like chain 구성 가능.
+This lemma + induction suffices to construct an arbitrary Bezout-like
+chain.
 -/
 
 namespace E213.Research.ModJoinBezout
@@ -99,7 +100,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
 
 /-- **Consecutive coprime → Join = constLens**.
-    L_{k+1}.refines N ∧ L_k.refines N → N 은 constant. -/
+    L_{k+1}.refines N ∧ L_k.refines N → N is constant. -/
 theorem consecutive_refines_const {α : Type} (N : Lens α) (m k : Nat)
     (hk : k ≥ 2) (hmk : m = k + 1)
     (hLm : (leavesModNat m).refines N)

@@ -1,24 +1,24 @@
 # Catalog 213 — Analysis Library Reference
 
-라이브러리 사용 매뉴얼.  각 정리/구조의 **이름 + import 경로 + 용법**.
+Library usage manual.  **Name + import path + usage** of each theorem/structure.
 
 ---
 
 ## Quick start — single import
 
 ```lean
-import E213.Math.Analysis213    -- 모든 분석학 213 결과 한 줄 import
+import E213.Math.Analysis213    -- import all Analysis213 results in one line
 ```
 
-또는 layer별:
+Or by layer:
 
 ```lean
-import E213.Math.Analysis       -- 기존 umbrella
+import E213.Math.Analysis       -- existing umbrella
 ```
 
 ---
 
-## A. 기본 산술 — Cut Algebra
+## A. Basic arithmetic — Cut Algebra
 
 ### A.1 Ground type
 
@@ -37,7 +37,7 @@ import E213.Research.Real213CutMulComm -- cutMul_comm
 import E213.Research.Real213CutSumEq   -- cutSum_cutEq_*, cutMul_cutEq_*
 ```
 
-### A.3 핵심 propEq 정리
+### A.3 Core propEq theorems
 
 ```lean
 import E213.Research.Real213CutSumZero  -- cutSum_zero_zero, cutMul_zero_zero, cutMid_zero_zero
@@ -67,7 +67,7 @@ import E213.Research.Real213CutPoset      -- cutEq, cutLe, cutEq_refl/symm/trans
 
 ---
 
-## B. Dyadic 구조
+## B. Dyadic structure
 
 ### B.1 DyadicBracket
 
@@ -95,7 +95,7 @@ import E213.Research.Real213DyadicRiemann
 -- riemannSampleSum_constCut a b db n : closed form for constants
 ```
 
-### B.4 Dyadic interval brackets (★ 비-unit FTC)
+### B.4 Dyadic interval brackets (★ non-unit FTC)
 
 ```lean
 import E213.Research.Real213IntegralIntInterval    -- intInterval n = [0, n]
@@ -106,7 +106,7 @@ import E213.Research.Real213IntegralDyadic         -- ★★ dyadicIntervalAB nu
 
 ---
 
-## C. 미분 학
+## C. Differential calculus
 
 ### C.1 IsSmooth filter
 
@@ -140,9 +140,9 @@ import E213.Research.Real213IsDifferentiable
 import E213.Research.Real213DifferentiableInstances  -- square, cube, quartic + cutScale, cutHalf
 import E213.Research.Real213DifferentiableHigherPow  -- nonic, decic, dodecic, hexadecic
 import E213.Research.Real213DifferentiableHighOrder  -- 9, 10, 12, 16
-import E213.Research.Real213DifferentiableMid        -- midIsDifferentiable + 인스턴스
+import E213.Research.Real213DifferentiableMid        -- midIsDifferentiable + instances
 import E213.Research.Real213DifferentiableAffine     -- affine, polynomial sums
-import E213.Research.Real213DifferentiableCompose    -- compose 인스턴스
+import E213.Research.Real213DifferentiableCompose    -- compose instances
 ```
 
 ### C.4 Derivative closed forms
@@ -200,7 +200,7 @@ import E213.Research.Real213FluxMVTClosure   -- passthrough closure (compose, mu
 
 ---
 
-## E. MVT 위트니스 + 클래스
+## E. MVT witnesses + classes
 
 ### E.1 Passthrough class
 
@@ -230,17 +230,17 @@ import E213.Research.Real213FluxMVTPropagateCompose -- ★ generic id-compose pr
 ```lean
 import E213.Research.Real213ClassicCalc           -- ClassicCalc f := { diff, pass }
                                                    -- id_calc, square_calc, cube_calc + .mvt, .ftc
-import E213.Research.Real213ClassicCalcHigher     -- 4-8차
+import E213.Research.Real213ClassicCalcHigher     -- degrees 4-8
 import E213.Research.Real213ClassicCalcExtreme    -- 9, 10, 12, 16
 import E213.Research.Real213ClassicCalcGeneric    -- ★ cutPow_calc n (∀ n)
-import E213.Research.Real213ClassicCalcMid        -- mid_calc + 인스턴스
+import E213.Research.Real213ClassicCalcMid        -- mid_calc + instances
 import E213.Research.Real213ClassicCalcCombinators -- compose_calc, mul_calc
 import E213.Research.Real213ClassicAnti           -- ClassicCalc → IsAntiderivative
 ```
 
 ---
 
-## F. 적분 / 안티미분
+## F. Integration / antiderivatives
 
 ### F.1 IsAntiderivative class
 
@@ -250,10 +250,10 @@ import E213.Research.Real213Antiderivative
 -- IsAntiderivative.id_anti, const_anti
 
 import E213.Research.Real213AntiderivativeCombinators  -- mid_anti, add_anti
-import E213.Research.Real213AntiderivativeStructural   -- fromDifferentiable (★ 모든 IsDiff)
+import E213.Research.Real213AntiderivativeStructural   -- fromDifferentiable (★ all IsDiff)
 ```
 
-### F.2 적분 = flux of antiderivative
+### F.2 Integral = flux of antiderivative
 
 ```lean
 import E213.Research.Real213IntegralViaAnti
@@ -281,7 +281,7 @@ import E213.Research.Real213FTCRiemannChain        -- chain instances
 
 ---
 
-## G. ODE + 물리
+## G. ODE + physics
 
 ```lean
 import E213.Research.Real213ODELinear              -- y' = a (linear)
@@ -294,15 +294,15 @@ import E213.Research.Real213CubeDerivativeAtZero   -- (x^n)' at 0 = 0
 
 ---
 
-## H. 급수 + 초월함수
+## H. Series + transcendental functions
 
 ### H.1 Series infrastructure
 
 ```lean
 import E213.Research.Real213CutSequence       -- CutSequence (Cauchy)
 import E213.Research.Real213CutSeries         -- partialSum, SeriesCauchy
-import E213.Research.Real213CutSeriesConst    -- partialSum 상수 closed forms
-import E213.Research.Real213CutSeriesZero     -- partialSum 0 시리즈
+import E213.Research.Real213CutSeriesConst    -- partialSum constant closed forms
+import E213.Research.Real213CutSeriesZero     -- partialSum 0 series
 import E213.Research.Real213CutSeriesConv     -- ratio/comparison test scaffold
 import E213.Research.Real213CutGeomSeries     -- geomHalfSeries
 import E213.Research.Real213FluxSeries        -- seriesFlux, geomHalfFlux
@@ -320,9 +320,9 @@ import E213.Research.Real213TranscendentalAtZero  -- ★★ 7 functions bundle
 
 ---
 
-## I. Capstone 정리들
+## I. Capstone theorems
 
-라이브러리 사용 시 *바로 호출*하는 mega 정리들:
+Mega theorems *directly callable* when using the library:
 
 | Capstone | Module | Facts |
 |---|---|---|
@@ -346,28 +346,28 @@ import E213.Research.Real213TranscendentalAtZero  -- ★★ 7 functions bundle
 
 ---
 
-## J. Usage examples — 라이브러리 호출 패턴
+## J. Usage examples — library call patterns
 
-### J.1 다항식 미분
+### J.1 Polynomial differentiation
 
 ```lean
 import E213.Math.Analysis213
 open E213.Research.Real213CutSum
 
--- 다항식 모듈러스
+-- polynomial modulus
 example : (cutPowFnIsSmooth 5).linearityModulus 3 = 15 :=
   cutPowFnIsSmooth_modulus 5 3
 
--- 직접 구성 다항식 미분 (sharp)
+-- directly constructed polynomial differentiation (sharp)
 example : squareIsDifferentiable.derivativeSmooth.linearityModulus 7 = 7 :=
   squareIsDifferentiable_derivative_modulus 7
 
--- 미분의 명시 형식
+-- explicit form of derivative
 example (x : Cut) : squareIsDifferentiable.derivative x
     = cutSum (cutMul (constCut 1 1) x) (cutMul x (constCut 1 1)) := rfl
 ```
 
-### J.2 MVT 적용
+### J.2 MVT application
 
 ```lean
 -- ANY passthrough function — one-liner
@@ -377,14 +377,14 @@ example (f : Cut → Cut)
     FluxCut.localDivergence f unitBracket = FluxCut.ofCut (constCut 1 1) :=
   FluxCut.mvt_passthrough_unit f h0 h1
 
--- 다항식 generic — ∀ n
+-- polynomial generic — ∀ n
 example (n : Nat) :
     FluxCut.localDivergence (fun x => cutPow x (n+1)) unitBracket
       = FluxCut.ofCut (constCut 1 1) :=
   ClassicCalc.cutPow_calc_mvt n
 ```
 
-### J.3 적분
+### J.3 Integration
 
 ```lean
 -- ∫_0^n 1 dx = n
@@ -399,7 +399,7 @@ example (numA numB E : Nat) (h : numA ≤ numB) :
       = { forward := constCut numB (2^E), backward := constCut numA (2^E) } := rfl
 ```
 
-### J.4 초월함수 at zero
+### J.4 Transcendental functions at zero
 
 ```lean
 -- exp(0) = 1
@@ -414,22 +414,22 @@ example (n : Nat) : partialSum sinTermsAtZero n = constCut 0 1 :=
 ### J.5 ODE / Newton
 
 ```lean
--- 1차 linear ODE: y' = a
+-- 1st order linear ODE: y' = a
 example (a b : Nat) :
     (linearWithIntercept_isDifferentiable a b).derivative
       = constCutFn (constCut a 1) :=
   linearWithIntercept_derivative a b
 
--- Newton 1st: 일정 속도
+-- Newton 1st: constant velocity
 example (v0 x0 : Nat) (t : Cut) :
     (linearWithIntercept_isDifferentiable v0 x0).derivative t = constCut v0 1 := by
   rw [velocity_is_v0]
 ```
 
-### J.6 ULTIMATE 한 줄
+### J.6 ULTIMATE one-liner
 
 ```lean
--- Phase DK — 18-fact 한 줄로 모든 핵심 결과 호출
+-- Phase DK — call all core results in one line with 18 facts
 example (n k v0 x0 a b numA numB E : Nat)
     (h_num : numA ≤ numB)
     (f : Cut → Cut)
@@ -441,7 +441,7 @@ example (n k v0 x0 a b numA numB E : Nat)
 
 ---
 
-## K. axiom audit — 모든 결과 ≤ {propext, Quot.sound}
+## K. Axiom audit — all results ≤ {propext, Quot.sound}
 
 ```lean
 import E213.Math.Analysis213
@@ -456,20 +456,20 @@ open E213.Research.Real213CutSum
 
 ---
 
-## L. 카탈로그 통계
+## L. Catalog statistics
 
-| 카테고리 | 모듈 수 | 주요 정리 수 |
+| Category | Modules | Key theorems |
 |---|---|---|
 | A. Cut Algebra | 10+ | 50+ propEq |
-| B. Dyadic 구조 | 6 | 30+ |
-| C. 미분학 | 12 | 80+ |
+| B. Dyadic structure | 6 | 30+ |
+| C. Differential calculus | 12 | 80+ |
 | D. Cohomological | 7 | 30+ |
-| E. MVT 위트니스 | 13 | 40+ |
-| F. 적분 | 8 | 25+ |
-| G. ODE + 물리 | 6 | 20+ |
-| H. 급수 + 초월 | 9 | 20+ |
+| E. MVT witnesses | 13 | 40+ |
+| F. Integration | 8 | 25+ |
+| G. ODE + physics | 6 | 20+ |
+| H. Series + transcendental | 9 | 20+ |
 | I. Capstone | 17 | 17 mega-conjunction |
-| **합계** | **88+** (전체 176 모듈 중 핵심) | **300+ 정리** |
+| **Total** | **88+** (core of 176 total modules) | **300+ theorems** |
 
 axioms ≤ {propext, Quot.sound} · 0 sorry · Mathlib-free
 

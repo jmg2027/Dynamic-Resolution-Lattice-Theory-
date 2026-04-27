@@ -2,13 +2,13 @@ import E213.Physics.SimplexCounts
 import E213.Physics.Generations
 
 /-!
-# 세대 구조 — Λᵏ(ℂ⁵) → 1 generation = 15 fermions (0 axioms)
+# Generation structure — Λᵏ(ℂ⁵) → 1 generation = 15 fermions (0 axioms)
 
-DRLT 도출 (ch11 SU(5)):
+DRLT derivation (ch11 SU(5)):
 
   ∧¹(ℂ⁵) = 5̄ representation (dim 5)  → 5 fermions
   ∧²(ℂ⁵) = 10 representation (dim 10) → 10 fermions
-  Total per generation: 5 + 10 = 15 fermions ★ SU(5)와 일치
+  Total per generation: 5 + 10 = 15 fermions ★ matches SU(5)
 
   3 generations × 15 fermions = 45 fermion states.
   
@@ -34,7 +34,7 @@ DRLT 도출 (ch11 SU(5)):
   ∧¹ = 5̄: d_R^c (3) + L (2) [3 quarks + lepton doublet]
   ∧² = 10: u_R^c (3) + Q_L (6) + e_R^c (1) [10 = 3+6+1]
 
-  Numbers 5, 10, 5, 10 등이 모두 *binomial coefficients of d=5*.
+  Numbers 5, 10, 5, 10, etc. are all *binomial coefficients of d=5*.
   Pure combinatorial.
 -/
 
@@ -81,7 +81,7 @@ theorem lambda_dimensions_atomic :
 
 /-- ★ Generation = Λ¹ ⊕ Λ² (15 states) ★
     SM matter content (per generation) = 15 exactly.
-    SU(5) GUT 자연 인코딩.  No tuning. -/
+    Naturally encodes SU(5) GUT.  No tuning. -/
 theorem generation_via_lambda :
     -- ∧¹ = 5̄ matter (d_R^c, L)
     (lambda_dim 1 = 5)

@@ -4,12 +4,12 @@ import E213.Research.LeavesRefinesParity
 /-!
 # Research.Mod2Mod3Incomparable
 
-**주장**: `parityLens ∥ leavesMod3Lens` — mod 2 와 mod 3 kernel 은
-incomparable.
+**Claim**: `parityLens ∥ leavesMod3Lens` — the kernels of mod 2 and
+mod 3 are incomparable.
 
-일반적으로 mod m 과 mod k 가 coprime 이면 둘 kernel 은
-incomparable.  이는 Lens kernel 공간이 **최소 countable
-무한 chain 이 아니라 antichain** 을 포함함을 보임.
+In general, if mod m and mod k are coprime their kernels are
+incomparable.  This shows that the Lens kernel space contains
+**antichains, not merely a countable infinite chain**.
 
 ## Witnesses
 
@@ -49,7 +49,7 @@ theorem parity_equates_a_r5 : parityLens.view Raw.a = parityLens.view r5 := by
 theorem mod3_distinguishes_a_r5 :
     leavesMod3Lens.view Raw.a ≠ leavesMod3Lens.view r5 := by decide
 
-/-- **parityLens 는 leavesMod3Lens 를 refine 하지 않음**. -/
+/-- **parityLens does not refine leavesMod3Lens**. -/
 theorem parity_not_refines_mod3 :
     ¬ parityLens.refines leavesMod3Lens := by
   intro h
@@ -63,7 +63,7 @@ theorem mod3_equates_r2_r5 :
 theorem parity_distinguishes_r2_r5 :
     parityLens.view r2 ≠ parityLens.view r5 := by decide
 
-/-- **leavesMod3Lens 는 parityLens 를 refine 하지 않음**. -/
+/-- **leavesMod3Lens does not refine parityLens**. -/
 theorem mod3_not_refines_parity :
     ¬ leavesMod3Lens.refines parityLens := by
   intro h

@@ -3,15 +3,15 @@ import E213.Research.LensOnLensImageLevel2
 /-!
 # Research.LensTowerLevel3: Lens (Lens (Lens α)) image collapse
 
-`LensOnLensImageLevel2` 의 한 step 더 — Lens (Lens (Lens α)) 의
-universalMorphism 이 α 를 통 해 factor (3-level constLens
-nesting).
+One step beyond `LensOnLensImageLevel2` — the universalMorphism of
+Lens (Lens (Lens α)) factors through α (3-level constLens nesting).
 
-## 의의
+## Significance
 
-Recursive Lens^n α tower 의 모든 finite level 에 서 image 가
-α 의 image 의 nested-constLens-pullback.  level 별 cardinality
-가 *동일* — α 의 image 와 같은 cardinality.
+At every finite level of the recursive Lens^n α tower the image is
+the nested-constLens pullback of the image of α.  The cardinality at
+each level is *identical* — the same as the cardinality of the image
+of α.
 -/
 
 namespace E213.Research.LensTowerLevel3

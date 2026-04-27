@@ -137,7 +137,7 @@ def lensCombineGeneric {α : Type} (c : α → α → α) (L M : Lens α) : Lens
   ⟨c L.base_a M.base_a, c L.base_b M.base_b,
    fun x y => c (L.combine x y) (M.combine x y)⟩
 
-/-- α 의 combine 의 commutativity 가 lensCombineGeneric 의 commutativity. -/
+/-- Commutativity of α's combine implies commutativity of lensCombineGeneric. -/
 theorem lensCombineGeneric_comm {α : Type} (c : α → α → α)
     (hsym : ∀ u v, c u v = c v u) (L M : Lens α) :
     lensCombineGeneric c L M = lensCombineGeneric c M L := by
@@ -155,10 +155,11 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
 /-- **Generic Lens-on-Lens**: `HasDistinguishing α → HasDistinguishing
-    (Lens α)`.  Lens 의 type 자체 가 의미 framework 의 instance.
+    (Lens α)`.  The Lens type itself is an instance of the semantic
+    framework.
 
-    Recursive: 이 instance + 자동 elaboration → `Lens (Lens α)`,
-    `Lens^n α` 의 무한 tower 가능. -/
+    Recursive: this instance + automatic elaboration → enables an
+    infinite tower of `Lens (Lens α)`, `Lens^n α`. -/
 def lensHasDistinguishing (α : Type) [d : HasDistinguishing α] :
     HasDistinguishing (Lens α) where
   a := constLens d.a
@@ -177,10 +178,11 @@ open E213.Research.InstanceReach
 
 /-! ### Tower demonstration: infinite recursive instances
 
-`HasDistinguishing α → HasDistinguishing (Lens α)` 의 recursive
-application — Bool → Lens Bool → Lens (Lens Bool) → ...
+Recursive application of
+`HasDistinguishing α → HasDistinguishing (Lens α)` —
+Bool → Lens Bool → Lens (Lens Bool) → ...
 
-framework 의 self-application 이 *unbounded tower* 형성. -/
+The framework's self-application forms an *unbounded tower*. -/
 
 /-- Level 1: HasDistinguishing (Lens Bool). -/
 def levelOne : HasDistinguishing (Lens Bool) :=

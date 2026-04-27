@@ -1,12 +1,12 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# 황금비 φ — d = 5 격자에서 자연 등장 (0 axioms)
+# Golden ratio φ — naturally emerging from d = 5 lattice (0 axioms)
 
 φ = (1 + √5)/2 = (1 + √d)/2
 
-격자 차원 d = 5에서 황금비가 자연 발생.  φ² = φ + 1
-recurrence가 d = 5 atomic structure를 인코딩.
+The golden ratio arises naturally from lattice dimension d = 5.  The φ² = φ + 1
+recurrence encodes the d = 5 atomic structure.
 
 ## DRLT formulas using φ
 
@@ -23,7 +23,7 @@ recurrence가 d = 5 atomic structure를 인코딩.
   Cleanest: (2φ - 1)² = 4φ² - 4φ + 1 = 4(φ+1) - 4φ + 1 = 5
   → 2φ - 1 = √5 = √d
 
-  → **φ가 d=5 격자의 자연 invariant.**
+  → **φ is a natural invariant of the d=5 lattice.**
 
 ## Pell-like Lean bound
 
@@ -47,7 +47,7 @@ theorem phi_d_link :
     F_n+1/F_n → φ.  At d=5, the 5th Fibonacci connects.
     F_1 = 1, F_2 = 1, F_3 = 2, F_4 = 3, F_5 = 5 = d. ★
     
-    → **5번째 Fibonacci = d** ★ -/
+    → **5th Fibonacci = d** ★ -/
 def fib : Nat → Nat
   | 0 => 0
   | 1 => 1
@@ -64,9 +64,9 @@ theorem fib_first_8 :
     F_6 = 8 = NS² - 1 = 1/α_3 (strong adjoint!)
     F_7 = 13 = NS² + NS + 1 (NH₃ denom!)
 
-    Fibonacci 수열이 atomic primitives와 *연속* 일치:
+    Fibonacci sequence *consecutively* matches atomic primitives:
       F_5 = d
-      F_6 = 1/α_3  
+      F_6 = 1/α_3
       F_7 = NH₃ denom -/
 theorem fibonacci_atomic_coincidence :
     (fib 5 = d)
@@ -84,7 +84,7 @@ theorem phi_squared_bracket :
     -- And > 2: 21² = 441 > 2 · 169 = 338 ✓
     ∧ 21 * 21 > 2 * 13 * 13 := by decide
 
-/-- ★ Capstone — 황금비가 d = 5 격자의 자연 invariant ★ -/
+/-- ★ Capstone — golden ratio is a natural invariant of the d = 5 lattice ★ -/
 theorem golden_ratio_atomic :
     -- F_5 = d (Fibonacci anchor)
     (fib 5 = d)

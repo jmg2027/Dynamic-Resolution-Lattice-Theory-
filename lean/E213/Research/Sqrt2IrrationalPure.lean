@@ -3,17 +3,16 @@ import E213.Research.PureNat
 /-!
 # Research.Sqrt2IrrationalPure: √2 irrationality, **truly axiom-free**
 
-`Sqrt2IrrationalKernelFree` 의 propext 까 지 제거.  Lean 을 *순수
-type checker* 로만 사용 — 어떤 axiom 도 없 음 (propext, Quot.sound,
-Classical 모두 부재).
+Removes even propext from `Sqrt2IrrationalKernelFree`.  Uses Lean as
+a *pure type checker* only — no axioms whatsoever (propext, Quot.sound,
+Classical all absent).
 
-User question 의 *극한 의 순수성* 의 결정 적 결과.
+The decisive result of the user question's *ultimate purity*.
 
-## 구조
+## Structure
 
-`PureNat` 의 axiom-free Nat library 위 에 sqrt2 irrationality 의
-descent 직접 구성.  아 무 omega, 어떤 propext-사용 lemma 도
-부재.
+Direct construction of the sqrt2 irrationality descent on top of
+`PureNat`'s axiom-free Nat library.  No omega, no propext-using lemmas.
 -/
 
 namespace E213.Research.Sqrt2IrrationalPure

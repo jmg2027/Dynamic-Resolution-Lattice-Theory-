@@ -1,19 +1,19 @@
 /-!
 # Research.Sqrt2IrrationalKernelFree: omega-free √2 irrationality
 
-`Sqrt2Irrational` 의 axiom-free version: `omega` (which uses
-`[propext, Quot.sound]`) 부재, 결과 axiom 가 ≤ `[propext]`.
+axiom-free version of `Sqrt2Irrational`: without `omega` (which uses
+`[propext, Quot.sound]`), so the resulting axiom is ≤ `[propext]`.
 
-## 의의
+## Significance
 
-User question (2026-04-26): Lean kernel 의 `propext` + `Quot.sound`
-도 modularize 가능 한가?  omega 는 baseline Lean 4 core 의
-`[propext, Quot.sound]` 둘 다 사용 하 는 tactic.  manual Nat
-arithmetic 으 로 omega 제거 → axiom budget 의 Quot.sound 제거.
+User question (2026-04-26): Can `propext` + `Quot.sound` in the Lean kernel
+also be modularized?  omega is a tactic that uses both `[propext, Quot.sound]`
+from baseline Lean 4 core.  Removing omega via manual Nat arithmetic
+→ removes Quot.sound from the axiom budget.
 
-`mul_self_mod_two` + `descent_step` + `m_even_of_sq` 가 모두
-propext only.  Pure type-checker 영역 보다 한 단 계 위 (propext
-는 Lean 4 core 의 essential axiom — Prop equality).
+`mul_self_mod_two` + `descent_step` + `m_even_of_sq` all use propext only.
+One level above the pure type-checker realm (propext is an essential axiom
+of Lean 4 core — Prop equality).
 -/
 
 namespace E213.Research.Sqrt2IrrationalKernelFree
@@ -88,7 +88,7 @@ end E213.Research.Sqrt2IrrationalKernelFree
 namespace E213.Research.Sqrt2IrrationalKernelFree
 
 /-- **Bounded descent**: ∀ s, k ≤ s, m * m = 2 * (k * k) → k = 0.
-    omega 사용 부재 — manual Nat 산술. -/
+    No omega — manual Nat arithmetic. -/
 theorem sqrt2_no_rational_aux :
     ∀ s k m : Nat, k ≤ s → m * m = 2 * (k * k) → k = 0 := by
   intro s
@@ -130,7 +130,7 @@ end E213.Research.Sqrt2IrrationalKernelFree
 namespace E213.Research.Sqrt2IrrationalKernelFree
 
 /-- **√2 irrationality, omega-free**: ∀ k ≥ 1, m, m * m ≠ 2 * (k * k).
-    Axiom budget = `[propext]` only (Quot.sound 부재). -/
+    Axiom budget = `[propext]` only (no Quot.sound). -/
 theorem sqrt2_irrational (k : Nat) (hk : k ≥ 1) (m : Nat) :
     m * m ≠ 2 * (k * k) := by
   intro heq

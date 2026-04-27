@@ -1,7 +1,7 @@
 import E213.Physics.HadronMasses
 
 /-!
-# 핵 결합 — semi-empirical mass formula (0 axioms)
+# Nuclear binding — semi-empirical mass formula (0 axioms)
 
 DRLT formulae (NUC_010, ch10):
 
@@ -12,13 +12,13 @@ DRLT formulae (NUC_010, ch10):
 
   where E_d = deuteron binding energy ≈ 2.28 MeV
 
-## ★ 다시 등장하는 atom들 ★
+## ★ Recurring atoms ★
 
-  a_V coefficient 6 = NS·NT = d+1 = bipartite edges (PhotonKernel과 같음)
-  a_S coefficient 4 = d-1     = NS+1 = tet/vertex (Dyson denom과 같음)
-  a_C coefficient 3/5 = NS/d  = inverse Y-norm (proton mass와 같음)
+  a_V coefficient 6 = NS·NT = d+1 = bipartite edges (same as PhotonKernel)
+  a_S coefficient 4 = d-1     = NS+1 = tet/vertex (same as Dyson denom)
+  a_C coefficient 3/5 = NS/d  = inverse Y-norm (same as proton mass)
 
-  → 핵 결합 계수가 *모두* 다른 정밀 양과 같은 atomic primitives.
+  → Nuclear binding coefficients *all* share the same atomic primitives as other precision quantities.
 
 ## Numerical match
 
@@ -27,8 +27,8 @@ DRLT formulae (NUC_010, ch10):
   a_C: DRLT 0.685-0.686 MeV vs observed 0.71 (-3.6%)
   E_d: DRLT 2.271 MeV vs 2.224 (+2.1%)
 
-  Larger errors than EM/EW area — 핵 동역학 추가 보정 필요.
-  하지만 *prefactor 정수*는 정확히 atomic.
+  Larger errors than EM/EW area — additional nuclear dynamics corrections needed.
+  But the *integer prefactors* are exactly atomic.
 -/
 
 namespace E213.Physics.Nuclear
@@ -83,7 +83,7 @@ theorem a_S_value_lower :
     a_S_coef * 228 = 912 := by decide
 
 /-- ★ Atomic prefactor universality ★
-    핵 결합 SEMF 계수 (a_V, a_S, a_C)이 모두 다른 정밀 식의 atom과 일치. -/
+    Nuclear binding SEMF coefficients (a_V, a_S, a_C) all match the atoms of other precision formulas. -/
 theorem nuclear_simplicial_pattern :
     -- a_V = NS·NT = d+1 = 6 (bipartite edges)
     (a_V_coef = NS * NT)

@@ -4,18 +4,18 @@ import E213.Physics.NeffDerivation
 /-!
 # Massless particles — photon, gluon, graviton (0 axioms)
 
-DRLT 무질량 입자 분류 (ch08 + ch12):
+DRLT massless particle classification (ch08 + ch12):
 
   Photon (γ):     N_eff = ∞, cross-sector U(1)
   Gluon (g):      N_eff = 1, AAA confined  (massless asymptotic free)
   Graviton (g_μν): W = |G|²/d trace component (modulus shadow)
   Neutrino:       3 nearly-massless flavors (mixed sector)
 
-## ★ 무질량 = N_eff 또는 cycle space 위치 ★
+## ★ Massless = N_eff or cycle space position ★
 
-  광자 무질량 ←: cross-sector → no rank exhaustion → N_eff = ∞
-  Gluon 무질량 ←: AAA pure → confined but propagator UV-finite
-  Graviton 무질량 ←: trace mode of G (always present, no mass)
+  Photon massless ←: cross-sector → no rank exhaustion → N_eff = ∞
+  Gluon massless ←: AAA pure → confined but propagator UV-finite
+  Graviton massless ←: trace mode of G (always present, no mass)
 
 ## Cycle space dimension counts
 
@@ -26,7 +26,7 @@ DRLT 무질량 입자 분류 (ch08 + ch12):
   dim = E - V + 1 = 12 - 5 + 1 = 8 = NS² - 1
   
   → photon kernel space *equals* α_3 confined adjoint dim.
-  같은 정수 8.
+  The same integer 8.
 
 ## ★ Three forces, three propagation regimes ★
 
@@ -34,7 +34,7 @@ DRLT 무질량 입자 분류 (ch08 + ch12):
   α_2 (W, Z):    rank-exhausted at hop NT (mass via Higgs)
   α_1 (γ):       no rank exhaustion (massless)
   
-  ★ 무질량 = absent rank exhaustion ★
+  ★ Massless = absent rank exhaustion ★
 -/
 
 namespace E213.Physics.Massless
@@ -66,20 +66,20 @@ theorem WZ_massive_via_NT :
     α_2:  N_eff=NT, W/Z massive (Higgs mechanism)
     α_1:  N_eff=∞, photon massless (cross-sector)
     
-    모두 atomicity-derived rank structure. -/
+    All from atomicity-derived rank structure. -/
 theorem three_force_mass_pattern :
     -- α_3 : N_eff = 1
     (alpha_3_Neff = 1)
     -- α_2 : N_eff = NT
     ∧ (alpha_2_Neff = NT)
-    -- α_1 : 무 saturation (photon massless)
+    -- α_1 : no saturation (photon massless)
     ∧ (NS ≠ 0 ∧ NT ≠ 0)
     -- Atomicity
     ∧ (NS = 3) ∧ (NT = 2) := by decide
 
 /-- ★ Photon kernel = α_3 adjoint coincidence ★
-    같은 정수 8이 photon kernel dim과 α_3 adjoint에 등장.
-    PhotonKernel.lean의 핵심 발견 다시 확인. -/
+    The same integer 8 appears in photon kernel dim and α_3 adjoint.
+    Reconfirming the key finding of PhotonKernel.lean. -/
 theorem photon_alpha_3_link :
     (b_1 = NS * NS - 1)
     ∧ (b_1 = 8) := by decide
