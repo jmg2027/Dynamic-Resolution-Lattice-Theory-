@@ -437,6 +437,42 @@ theorem zero_plus_gap_below_zero_exact :
     rw [Nat.zero_mul, Nat.mul_zero]
     rfl
 
+/-! ### M4: Sign oracle trajectory — non-canonical mixed bisection -/
+
+/-- **negSignOracle**: returns true iff midpoint > m/k (i.e., midCut
+    at (m, k) is FALSE).  Used for binary search toward target m/k:
+    when midpoint above target, go left; below target, go right. -/
+def negSignOracle (m k : Nat) : DyadicOracle := fun mc => !(mc m k)
+
+/-- Concrete: depth 0 of negSignOracle is just the unit bracket. -/
+example : (DyadicBracket.bisectN (negSignOracle 1 2) 0 unitBracket).numA = 0
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 2) 0 unitBracket).numB = 1
+        := by decide
+
+/-- Concrete: depth 1 toward target 1/2.  At depth 0 midpoint = 1/2,
+    which equals target → oracle says false (not strictly >) → go right.
+    Bracket: rightHalf of (0, 1, 0) = (1, 2, 1). -/
+example : (DyadicBracket.bisectN (negSignOracle 1 2) 1 unitBracket).numA = 1
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 2) 1 unitBracket).numB = 2
+        := by decide
+
+/-- Concrete: depth 2 toward target 1/2.  At depth 1 midpoint = 3/4,
+    above 1/2 → oracle says true → go left.
+    Bracket: leftHalf of (1, 2, 1) = (2, 3, 2). -/
+example : (DyadicBracket.bisectN (negSignOracle 1 2) 2 unitBracket).numA = 2
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 2) 2 unitBracket).numB = 3
+        := by decide
+
+/-- Concrete: depth 3 toward target 1/2.  Bracket (4, 5, 3). -/
+example : (DyadicBracket.bisectN (negSignOracle 1 2) 3 unitBracket).numA = 4
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 2) 3 unitBracket).numB = 5
+        := by decide
+
+/-- Concrete: depth 4 toward target 1/2.  Bracket (8, 9, 4). -/
+example : (DyadicBracket.bisectN (negSignOracle 1 2) 4 unitBracket).numA = 8
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 2) 4 unitBracket).numB = 9
+        := by decide
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
