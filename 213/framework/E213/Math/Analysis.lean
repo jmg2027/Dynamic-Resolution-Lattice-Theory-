@@ -43,6 +43,7 @@ import E213.Research.Real213ComposeDerivativeModulus
 import E213.Research.Real213FluxCut
 import E213.Research.Real213FluxCochain
 import E213.Research.Real213FluxDivergence
+import E213.Research.Real213FluxMVT
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
