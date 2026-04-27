@@ -178,6 +178,21 @@ example : (cutPowFnIsSmooth 5).linearityModulus 5 = 25 := by decide
 /-- cutPow x 10: modulus 50 (slope 10). -/
 example : (cutPowFnIsSmooth 10).linearityModulus 5 = 50 := by decide
 
+/-- **AA2 GENERIC: cutPowFnIsSmooth n has linearityModulus = n * k**.
+    Single induction proof covering ALL polynomial degrees n. -/
+theorem cutPowFnIsSmooth_modulus (n : Nat) (k : Nat) :
+    (cutPowFnIsSmooth n).linearityModulus k = n * k := by
+  induction n with
+  | zero =>
+    show 0 = 0 * k
+    rw [Nat.zero_mul]
+  | succ m ih =>
+    show (cutPowFnIsSmooth m).linearityModulus k
+       + idIsSmooth.linearityModulus k
+       = (m + 1) * k
+    rw [ih, idIsSmooth_modulus]
+    rw [Nat.add_mul, Nat.one_mul]
+
 /-! ### X1: composeIsSmooth iteration tests -/
 
 /-- 3-deep compose: square ∘ square ∘ square = x⁸. Modulus 40. -/
