@@ -56,11 +56,18 @@ witness + propagation), FTC (Riemann + antiderivative), ODE (linear,
 
 ## Open / next
 
-- General `cutMul (a/b) (c/d)` propEq — currently search-bound,
-  unsolved. Phase B "wall" per `research-notes/E1_real213_analysis_roadmap.md`.
+- **Cohomology 213 marathon (Phase CA–CF) — next priority.**
+  Blueprint at `blueprints/math/15_cohomology_213.md` +
+  `15_cohomology_213_phases.md`. Generalizes FluxCut/FluxCochain to
+  k-cochains on Δᵈ + bipartite K_{NS,NT}^{(c)}; computes higher
+  Bettis (b₂), cup product, Hodge ⋆ at cochain level. Direct physics
+  payoff: candidate sixth simplicial invariant for the α_em
+  5.4×10⁻⁴ structural gap (Ch. 05). Six phases CA→CF, target dir
+  `lean/E213/Math/Cohomology/`.
+- General `cutMul (a/b) (c/d)` propEq — search-bound, unsolved.
+  Phase B "wall" per `research-notes/E1_real213_analysis_roadmap.md`.
 - Multi-variable calculus (Phase C–H).
 - Measure theory beyond dyadic.
-- Connect cohomological calculus directly to Ch. 12 YM gauge.
 
 ## Sources
 

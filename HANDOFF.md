@@ -1,74 +1,77 @@
-# Session Handoff — 2026-04-27 (Master Guide v1)
+# Session Handoff — 2026-04-27 (Cohomology Marathon Planned)
 
 ## Branch
 `claude/review-paper-directory-nDw9L` (committed + pushed this session).
 
 ## What Was Done This Session
 
-### 1. Deep audit of repository
-Reviewed `lean/E213/` (634 files), `papers/` (16 + drlt-book 22 ch),
-`books/`, `blueprints/` (35), `seed/` (9), `catalogs/` (7),
-`research-notes/` (24), `tools/` (5).
+### 1. Open Problem #1 progress (1/α_em)
+- `BaselBoundTight.lean` — two-sided telescoping bracket
+  S(N)+1/(N+1) ≤ ζ(2) ≤ S(N)+1/N. Width 1/(N(N+1)).
+- `AlphaEM137Tight.lean` — bracket on candidate at N=20 has width
+  0.14 (vs N=10 width 6.0 baseline; 43× tighter).
+- `AlphaEMStructuralGap.lean` — 5.443×10⁻⁴ gap to observed
+  documented as first-class falsifier target. All 0-axiom.
 
-Key correction to prior view: `lean/E213` is not a thin certification
-layer. `Research/Real213*.lean` (176 files) = ZFC/Mathlib/Choice-free
-analysis with new structures (Cut, FluxCut, dyadic brackets,
-cohomological derivative, (n−1)·k depth). `Physics/` Phase 1 closed
-with 300+ theorems, 0 axiom. d=5 is theorem, not axiom.
+### 2. "What is α_em from Raw under lensing" — answered
+Re-reading the existing chain (`PhotonKernel`, `FaceTerms`,
+`AlphaEMSimplicial`, `AlphaEMUnified`, `AlphaEMDerivation`) reveals:
 
-### 2. Created guide/ — Master Guide v1
-21 files / 1436 lines. Single deductively-ordered document tagging
-each section with vocabulary tier (T0 213-only / T1 213 sharper /
-T2 classical adequate / T3 classical only). Sections migrate
-T3 → T2 → T1 → T0 as marathons close.
+**1/α_em(IR) = unique graded simplicial-cohomology sum on
+K_{NS,NT}^{(c)} ⊂ Δ⁴ at atomicity (3, 2, 2, 5).** Five terms, all
+atomicity-forced geometric invariants. Already proven 0-axiom.
 
-Chapters: 00 meta, 01 substrate, 02 atomicity, 03 simplex,
-04 quantization, 05 couplings, 06 masses, 07 atomic, 08 mixing,
-09 cosmology, 10 hadron, 11 nuclear, 12 yang-mills, 13 critical-line,
-14 cohomological-calculus, 15 metalogic. Plus README, INDEX, STATUS,
-appendix_paper_origins, appendix_lean_map.
+Critical correction: the "conjectural d²/NS = 25/3" tag in
+`AlphaEM137.lean` was wrong. `AlphaEMUnified.lean` already proves
+25/3 = (NS²−1) + 1/NS = b₁ + 1/(#4-cycles) — both simplicial
+quantities derived from Raw. Not ad hoc.
 
-### 3. Updated papers/ and books/ READMEs
-- `papers/README.md` (new): role = external communication layer,
-  idea archive, upper-bound progress index. Points to guide/.
-- `books/README.md`: 213-internal narration; points to papers/ for
-  external vocabulary, guide/ for the bridge.
+The 5.4×10⁻⁴ gap is the residual between the five-term simplicial
+sum and observed 137.036. Most likely missing: a sixth simplicial
+invariant (H², cup product, or higher cell-complex term).
 
-## 4/27 Standard — Honest Status
+### 3. Cohomology 213 marathon planned
+- `blueprints/math/15_cohomology_213.md` — base spec
+- `blueprints/math/15_cohomology_213_phases.md` — CA→CF phases
+- `blueprints/math/INDEX.md` updated (field 15 added)
+- `blueprints/INDEX.md` updated (cohomology = next math priority)
+- `guide/14_cohomological_calculus.md` updated
+- `guide/INDEX.md`, `guide/STATUS.md` updated
 
-**12 closed at standard:** IE_H (4.3 ppb), m_μ/m_e (0.48 ppb), m_p,
-m_H, sin²θ₁₃, m₃/m₂(ν), Ω_Λ (0.0008%), magic 7/7, d=5 atomicity,
-1/α₃=8, Z=1..118 IE, CH₄/H₂O/NH₃ angles.
-
-**Pending:** 1/α_em headline (bracket width ~6 at N=10), α_GUT
-bracket, η_B (0.5%), Cabibbo λ ppm, YM continuum-limit proof,
-RH and Millennium-class results.
+Marathon target dir: `lean/E213/Math/Cohomology/`. Six phases:
+CA cochain + δ²=0, CB Hodge ⋆, CC Betti numbers, CD cup product,
+CE α_em sixth-term hunt, CF capstone.
 
 ## Open Problems (priority order)
 
-1. **Tighten 1/α_em to width < 10⁻⁴.** Bracket exists; needs N
-   tightening or structural derivation of d²/NS = 25/3 term
-   (currently "conjectural" tagged in `AlphaEM137.lean`).
-2. **Lean formalization of Born-rule Gram graph (paper5).** Zero Lean
-   coverage of Ch. 13. First marathon target for math track.
-3. **Real213 Phase B–H.** General `cutMul` propEq is the Phase B
-   "wall"; multivariable calculus blocked on this.
-4. **Migrate T3 chapters to T2/T1.** ℂ uniqueness via Frobenius →
-   Raw-internal derivation is highest-leverage migration.
-5. **Single-theorem AxiomMinimality.** Tighten distributed lemmas to
-   one statement of jointly-minimal Raw clauses.
+### 1. Cohomology 213 marathon — Phase CA
+First file: `CohomologyCochain.lean`. Define `Cᵏ` type and
+`delta : Cᵏ → Cᵏ⁺¹`. Smoke-test on Δ²..Δ⁵. Then `δ² = 0` by decide.
+
+### 2. Phase CC b₂(K_{3,2}^{(2)}) — direct physics payoff
+Compute b₂ at cochain level. If non-trivial, candidate sixth
+simplicial invariant for the α_em gap.
+
+### 3. Real213 Phase B–H (cohomological calculus extension)
+General `cutMul` propEq remains the wall.
+
+### 4. T3 chapters → T2/T1 migration
+ℂ uniqueness (Frobenius → Raw-internal) is highest-leverage.
+
+### 5. Single-theorem AxiomMinimality
+Tighten `Meta/AxiomMinimality.lean`.
 
 ## File Map
 
 ```
-guide/                 ← NEW (21 files, master guide v1)
-papers/README.md       ← NEW (role + pointer to guide/)
-books/README.md        ← UPDATED (vocabulary split)
-HANDOFF.md             ← regenerated
+lean/E213/Physics/BaselBoundTight.lean        ← α_em 1a
+lean/E213/Physics/AlphaEM137Tight.lean        ← α_em 1a
+lean/E213/Physics/AlphaEMStructuralGap.lean   ← α_em 1b documented
+blueprints/math/15_cohomology_213{,_phases}.md ← marathon plan
+guide/14_cohomological_calculus.md, INDEX, STATUS ← updated
 ```
 
 ## Authors
 
 - Mingu Jeong (Independent Researcher) — theory originator.
-- Claude (Anthropic): synchronization and formalization —
-  credited in Acknowledgments per repo policy.
+- Claude (Anthropic): formalization + planning — Acknowledgments.

@@ -53,6 +53,12 @@ the *template*. Each field proceeds under the same *tightness + propEq
 | 13 | **213 self-deepening** | `13_213_meta.md` | ★★★ |
 | 14 | **Logic / Proof Theory 213** | `14_logic_213.md` | ★ |
 
+### Phase E — Cohomology (added 2026-04-27)
+
+| # | Field | File | Priority |
+|---|---|---|---|
+| 15 | **Cohomology 213** | `15_cohomology_213.md` + `15_cohomology_213_phases.md` | ★★★ Top priority (motivated by α_em 5.4×10⁻⁴ gap) |
+
 ### Additional — Directory Proposal
 
 - `00_DIRECTORY_PROPOSAL.md` — Physics/math track consensus.
@@ -61,8 +67,13 @@ the *template*. Each field proceeds under the same *tightness + propEq
 
 ## Completed (2026-04-27)
 
-✅ All 16 documents written (INDEX + 00 directory + fields 01-14).
-Average ~100-150 lines per field.
+✅ Original 16 documents (INDEX + 00 directory + fields 01-14)
+written; average ~100-150 lines per field.
+
+✅ Field 15 (Cohomology 213) added 2026-04-27 — first marathon
+motivated by a specific physics open problem (α_em structural gap).
+Split into base spec + phases file (`15_cohomology_213.md` +
+`15_cohomology_213_phases.md`) per 80-line hook.
 
 ---
 

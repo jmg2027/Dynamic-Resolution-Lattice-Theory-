@@ -42,6 +42,7 @@ formal fact.
 ## Progress Priorities (★★★ Top Priority)
 
 ### Math
+- **15 Cohomology** ← next marathon (motivated by α_em 5.4×10⁻⁴ gap)
 - 01 Probability (FluxCut already done)
 - 02 Multivariable
 - 03 Topology
