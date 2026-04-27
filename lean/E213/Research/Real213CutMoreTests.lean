@@ -2,9 +2,9 @@ import E213.Research.Real213CutMul
 import E213.Research.Real213CutSumTest
 
 /-!
-# Research.Real213CutMoreTests: 추 가 concrete decide tests
+# Research.Real213CutMoreTests: additional concrete decide tests
 
-다 양 한 rational arithmetic 의 cut-level 검증.
+Cut-level verification of various rational arithmetic.
 -/
 
 namespace E213.Research.Real213CutSum

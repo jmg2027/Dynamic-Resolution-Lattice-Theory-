@@ -10,15 +10,15 @@ DRLT formula (SM_022, ch09):
   Components:
   - (m_d - m_u): up-down mass split, DRLT 2.505 MeV
   - (1 - S(2)/ζ(2)): EM-excess fraction = (1 - 5/(4·π²/6))
-  - 12 = c·NS·NT (directed bipartite edges, 또 등장!)
+  - 12 = c·NS·NT (directed bipartite edges, appears again!)
 
 ## ★ Structural reuse ★
 
   Prefactor 12 = c·NS·NT — same as α_2 prefactor, same as
   PhotonKernel num_edges.  단일 격자의 같은 atom.
 
-  EM-excess fraction (1 - S₂/S∞) = "어떻게 long-range가 short
-  보다 더 contributes" 비.  같은 Basel sum 등장.
+  EM-excess fraction (1 - S₂/S∞) = the ratio of "how long-range contributes
+  more than short-range".  The same Basel sum appears.
 
 ## Numerical
 
@@ -29,8 +29,8 @@ DRLT formula (SM_022, ch09):
   
   Δm_np ≈ 2.505 · 0.2402 · 12 / something... 
   
-  실제 DRLT computation 조금 더 복잡 (per SM_022).
-  결과: Δm_np ≈ 1.275 MeV vs observed 1.293 (-1.5%)
+  The actual DRLT computation is slightly more complex (per SM_022).
+  Result: Δm_np ≈ 1.275 MeV vs observed 1.293 (-1.5%)
 -/
 
 namespace E213.Physics.NeutronProton

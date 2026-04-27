@@ -22,7 +22,7 @@ DRLT GUT unification (ch08 sec 5):
     AAA: NS² = 9
     BBB: NT² = 4
     Mixed: 2·NS·NT = 12
-    Total: 25 = d² ✓ (정확히 같음!)
+    Total: 25 = d² ✓ (exactly the same!)
 
   → Same 25 channels, *different N_eff per sector at IR*.
 

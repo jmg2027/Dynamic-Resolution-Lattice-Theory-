@@ -7,7 +7,7 @@ DRLT (cosmic-structure CST_001 etc):
 
   H_0 ≈ 67.66 km/s/Mpc (Planck) or 73 (SH0ES) — Hubble tension
 
-DRLT prediction: 약 67-70 range (depending on derivation route).
+DRLT prediction: approximately 67-70 range (depending on derivation route).
 
 ## Atomic structure of H_0
 
@@ -23,10 +23,10 @@ DRLT prediction: 약 67-70 range (depending on derivation route).
 
   Two H_0 measurements (CMB vs SH0ES) differ by ~9%.
   
-  DRLT 가설: tension은 *cosmic horizon vs late universe* effect.
-  
-  격자 N_universe (FiniteUniverse.lean) 의 전이적 효과 가능.
-  현재는 추측.
+  DRLT hypothesis: the tension is a *cosmic horizon vs late universe* effect.
+
+  Transitional effect of lattice N_universe (FiniteUniverse.lean) is possible.
+  Currently speculative.
 -/
 
 namespace E213.Physics.Hubble
@@ -38,7 +38,7 @@ open E213.Physics.Simplex
     Convert to 1/time via ℏc/E. -/
 theorem hubble_uses_v_H : True := trivial
 
-/-- Hubble tension structural — atomicity (3,2,5)에서. -/
+/-- Hubble tension structural — from atomicity (3,2,5). -/
 theorem hubble_atomic :
     (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 

@@ -1,7 +1,7 @@
 import E213.Physics.AlphaEM137
 
 /-!
-# m_μ/m_e — 같은 simplicial 패턴 (0 axioms)
+# m_μ/m_e — same simplicial pattern (0 axioms)
 
 DRLT formula (lib/drlt.py:662, ch09):
   m_μ/m_e = (NS/NT) · (1/α_em) · P · (1 + δ₁ + δ₂ + δ₃)
@@ -11,16 +11,16 @@ DRLT formula (lib/drlt.py:662, ch09):
   δ₂ = -α_GUT²/(d²-1)            ← adjoint SU(5) denom
   δ₃ = -α_em²·α_GUT
 
-★ 같은 simplicial 격자 양 재등장 ★
-  - Dyson tail 1/(1-α_GUT/(NS+1)) : α_em IR + Cabibbo + 본 식
-  - Adjoint SU(5) denom (d²-1)    : α_em IR + 본 식 δ₂
-  - Cabibbo Ξ form (1-α_GUT)      : Cabibbo + 본 식 δ₁
+★ Same simplicial lattice quantities appearing again ★
+  - Dyson tail 1/(1-α_GUT/(NS+1)) : α_em IR + Cabibbo + this formula
+  - Adjoint SU(5) denom (d²-1)    : α_em IR + δ₂ in this formula
+  - Cabibbo Ξ form (1-α_GUT)      : Cabibbo + δ₁ in this formula
 
-  모든 구조적 building block가 *같은* atomicity-locked 격자 양.
-  m_μ/m_e의 0.48 ppb 정밀도는 우연이 아니라 같은 simplicial
-  complex K_{NS,NT}^{(c)}의 다른 양에 대한 측정.
+  All structural building blocks are the *same* atomicity-locked lattice quantities.
+  The 0.48 ppb precision of m_μ/m_e is not a coincidence but a measurement
+  of a different quantity on the same simplicial complex K_{NS,NT}^{(c)}.
 
-## 수치
+## Numerics
 
   Leading r₀ = NS/(NT·α_em) = 3/2 · 137.036 = 205.554
   × P (1.00612) = 206.812
@@ -30,7 +30,7 @@ DRLT formula (lib/drlt.py:662, ch09):
 
   - r₀ leading bracket at N=10
   - 205 ∈ leading bracket (round of observed 205.55)
-  - 같은 cofactor pattern (NS+1 = d-1, adjoint SU(5))
+  - Same cofactor pattern (NS+1 = d-1, adjoint SU(5))
   - NS/NT = 3/2 = spatial/temporal atomic ratio
 -/
 

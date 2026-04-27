@@ -11,11 +11,11 @@ DRLT formulae (PRD_007, ch11):
   J = c₁₂·s₁₂·c₂₃·s₂₃·c₁₃²·s₁₃·sin(δ)
     ≈ 3.18 × 10⁻⁵ (DRLT, matches PDG)
 
-## ★ δ_CKM 의 격자 의미 ★
+## ★ Lattice meaning of δ_CKM ★
 
   φ² = (3 + √5)/2 = (golden ratio)²
-  δ_CKM = π/φ² 
-  
+  δ_CKM = π/φ²
+
   φ² + φ⁻² = (3+√5)/2 + (3-√5)/2 = 3 = NS  ★
   → φ² + 1/φ² = NS = spatial dim.
 
@@ -32,10 +32,10 @@ DRLT formulae (PRD_007, ch11):
 
 ## Structural Lean
 
-  δ_CKM denominator φ² 가 atomicity-derived:
+  δ_CKM denominator φ² is atomicity-derived:
   φ² = φ+1 (recurrence)
   φ²·NS = NS·φ + NS — recursive Fibonacci pattern.
-  
+
   φ² + 1/φ² = NS = atomic invariant.
 -/
 
@@ -81,7 +81,7 @@ theorem J_lambda_dependence :
     Lean form: F_{n+1}/F_n approaching φ; F_{n+1}·F_{n-1} - F_n² = ±1.
     At n=4: F_5·F_3 - F_4² = 5·2 - 3² = 10 - 9 = 1 ✓ (Cassini).
     
-    이게 φ²·NS의 Fibonacci 식: F_5/F_4 = 5/3 (Y-norm!) -/
+    This is the Fibonacci form of φ²·NS: F_5/F_4 = 5/3 (Y-norm!) -/
 theorem phi_sq_via_fibonacci :
     -- F_5 · F_3 - F_4² = 1 (Cassini identity at d=5)
     fib 5 * fib 3 - fib 4 * fib 4 = 1

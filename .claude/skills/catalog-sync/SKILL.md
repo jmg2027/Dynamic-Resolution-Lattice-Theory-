@@ -1,61 +1,61 @@
 ---
 name: catalog-sync
-description: "Lean 정리 추가 후 catalogs/ 동기화.  새 atomic 정수, 상수, 결과 → 적절한 catalog 갱신.  Triggered by: '카탈로그 동기화', 'catalog sync', '카탈로그 갱신', 'sync catalogs'."
+description: "Sync catalogs/ after adding Lean theorems.  New atomic integers, constants, results → update appropriate catalog.  Triggered by: '카탈로그 동기화' / 'catalog sync', 'catalog sync', '카탈로그 갱신' / 'catalog update', 'sync catalogs'."
 ---
 
 # Catalog Sync
 
-213 도서관 의 3 source (Lean, books, catalogs) 동기화.
-Lean = ground truth → catalogs 반영.
+Sync the 3 sources (Lean, books, catalogs) of the 213 library.
+Lean = ground truth → reflect in catalogs.
 
 ## Procedure
 
-### Step 1: 변경된 Lean 파일 식별
+### Step 1: Identify changed Lean files
 
 ```bash
 git diff --name-only HEAD~1..HEAD lean/E213/ | head
 ```
 
-### Step 2: 새 정리 추출
+### Step 2: Extract new theorems
 
-각 변경 파일에서 새 theorem 식별:
-- `theorem`, `def`, `class` 선언
-- 결과 정수 (`= N` 형태)
-- atomic 표현 (NS, NT, d 사용)
+Identify new theorems in each changed file:
+- `theorem`, `def`, `class` declarations
+- result integers (in `= N` form)
+- atomic expressions (using NS, NT, d)
 
-### Step 3: 적절한 catalog 매핑
+### Step 3: Map to appropriate catalog
 
-| 새 결과 | 갱신 catalog |
+| New result | Update catalog |
 |---|---|
-| 새 atomic 정수 | catalogs/atomic-integers.md |
-| 물리 상수 chain | catalogs/physics-constants.md |
-| 원소 / Z atomic | catalogs/periodic-table.md |
-| 측정 결판 | catalogs/falsifiers.md |
-| Multi-output 정수 | catalogs/correspondences.md |
-| 수학 정리 | catalogs/math-theorems.md |
+| New atomic integer | catalogs/atomic-integers.md |
+| Physics constant chain | catalogs/physics-constants.md |
+| Element / Z atomic | catalogs/periodic-table.md |
+| Measurement falsifier | catalogs/falsifiers.md |
+| Multi-output integer | catalogs/correspondences.md |
+| Math theorem | catalogs/math-theorems.md |
 
-### Step 4: catalog 항목 추가
+### Step 4: Add catalog entry
 
-각 새 결과:
+For each new result:
 ```markdown
-  N = atomic_form  (file_path:line, 정밀도)
+  N = atomic_form  (file_path:line, precision)
 ```
 
-### Step 5: 책 갱신 권장 (선택)
+### Step 5: Book update recommended (optional)
 
-해당 분야 books/<track>/<field>.md narrative 도 동기화 권장.
+Also recommended: sync the relevant books/<track>/<field>.md narrative.
 
-## 사용 시점
+## When to Use
 
-- 마라톤 종료 시
-- 새 결과 commit 직후
-- HANDOFF 작성 전
-- Migration 후
+- At end of marathon
+- Immediately after committing new results
+- Before writing HANDOFF
+- After migration
 
-## 일관성 원칙
+## Consistency Principle
 
   Lean = ground truth (build + decide)
   Catalogs = lookup
   Books = narrative
 
-  세 source 동기화 유지.
+  Keep all three sources in sync.

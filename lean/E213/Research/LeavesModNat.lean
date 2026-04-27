@@ -3,16 +3,16 @@ import E213.Research.LensFactoring
 import E213.Infinity.LensCardinality
 
 /-!
-# Research.LeavesModNat: leaves mod m 의 divisibility → refinement
+# Research.LeavesModNat: divisibility → refinement for leaves mod m
 
-mod m 계열 Lens 의 통합 form.  임의의 m ≥ 2 에 대해 Lens Nat
-으로 leaves mod m 관측.
+Unified form of the mod m family of Lenses.  For any m ≥ 2,
+observes leaves mod m via a Lens Nat.
 
-**핵심**: `k ∣ m → leavesModNat m refines leavesModNat k`.  즉
-mod m family 는 divisibility lattice 와 동형 (refines preorder
-의 반영).
+**Key**: `k ∣ m → leavesModNat m refines leavesModNat k`.  That is,
+the mod m family is isomorphic to the divisibility lattice (as a
+reflection of the refines preorder).
 
-note 41 §4 의 countable 무한 하한의 구체 구조.
+Concrete structure of the countably infinite lower bound from note 41 §4.
 -/
 
 namespace E213.Research.LeavesModNat
@@ -28,7 +28,7 @@ def leavesModNat (m : Nat) : Lens Nat where
 private theorem mod_add_comm (m a b : Nat) :
     (a + b) % m = (b + a) % m := by rw [Nat.add_comm]
 
-/-- leavesModNat m 의 view = leaves r % m. -/
+/-- View of leavesModNat m = leaves r % m. -/
 theorem leavesModNat_view_eq (m : Nat) :
     ∀ r : Raw, (leavesModNat m).view r = Lens.leaves.view r % m := by
   intro r
@@ -75,20 +75,20 @@ namespace E213.Research.LeavesModNat
 
 open E213.Firmware E213.Hypervisor
 
-/-- Converse (k ≥ 2): mod m refines mod k ⟹ k ∣ m.  Witness는
-    leaves = m+1 (존재 — leaves_surjective_pos) vs leaves = 1
+/-- Converse (k ≥ 2): mod m refines mod k ⟹ k ∣ m.  Witness:
+    leaves = m+1 (exists — leaves_surjective_pos) vs leaves = 1
     (= Raw.a). -/
 theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     (hrefines : (leavesModNat m).refines (leavesModNat k)) :
     k ∣ m := by
   obtain ⟨r, hr⟩ := E213.Infinity.leaves_surjective_pos (m + 1) (by omega)
   have h_leaves_a : Lens.leaves.view Raw.a = 1 := rfl
-  -- mod m 에서 Raw.a 와 r 은 같음 (둘 다 leaves ≡ 1 mod m)
+  -- In mod m, Raw.a and r are equal (both have leaves ≡ 1 mod m)
   have hm_eq : (leavesModNat m).view Raw.a = (leavesModNat m).view r := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, h_leaves_a, hr]
     show 1 % m = (m + 1) % m
     rw [Nat.add_mod_left, Nat.mod_eq_of_lt (by omega)]
-  -- refines 로 mod k 에서도 같음
+  -- By refines, they are also equal under mod k
   have hk_eq : (leavesModNat k).view Raw.a = (leavesModNat k).view r :=
     hrefines Raw.a r hm_eq
   rw [leavesModNat_view_eq, leavesModNat_view_eq, h_leaves_a, hr] at hk_eq

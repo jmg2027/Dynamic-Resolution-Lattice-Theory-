@@ -19,8 +19,8 @@ Experimental bound (nEDM, 2026):
 
 ## Why α⁴
 
-  α_GUT의 4 거듭제곱 = (d-1) cofactor times.  같은 (d-1) = 4
-  cofactor가 등장 (Dyson denom과 같음).
+  The 4th power of α_GUT = (d-1) cofactor times.  The same (d-1) = 4
+  cofactor appears (same as the Dyson denominator).
 
   α_GUT^(d-1) = α_GUT^4 = "(d-1) loop suppression factor".
 
@@ -28,7 +28,7 @@ Experimental bound (nEDM, 2026):
 
   Next-gen nEDM (2027-30): bound goes to ~10⁻¹².
   DRLT θ_QCD = 2.86·10⁻¹¹ would then be DETECTABLE.
-  *Falsifiable prediction*: 측정 시 일치 또는 DRLT 폐기.
+  *Falsifiable prediction*: on measurement, either agreement or DRLT is refuted.
 
 ## Bracket structure
 

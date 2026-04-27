@@ -1,64 +1,64 @@
 # Functional Analysis 213 — Blueprint
 
-**우선순위**: ★ (학부 3-4년 수학, 양자역학 응용)
+**Priority**: ★ (undergraduate 3-4 year math, quantum mechanics applications)
 
 ---
 
-## 1. 왜 이 분야인가
+## 1. Why This Field
 
 ZFC functional analysis:
 - Banach space (norm), Hilbert space (inner product)
 - Operator theory, spectral theorem
-- Hahn-Banach, open mapping (Choice 의존!)
+- Hahn-Banach, open mapping (Choice-dependent!)
 
-213 의 자연 등장:
-- **분석학 213** 의 Cut 공간이 자연 functional space
-- **CayleyDickson** 의 ℤ[i] etc. 가 inner product space candidates
-- σ-algebra 거부했듯이 **non-constructive 정리 거부**
+Natural emergence in 213:
+- **Analysis 213**'s Cut space is a natural functional space
+- **CayleyDickson**'s ℤ[i] etc. are inner product space candidates
+- Just as σ-algebra was rejected, **non-constructive theorems rejected**
 
-## 2. 213-native 등장
+## 2. 213-native Emergence
 
-### 2.1 Cut 공간 = function space
+### 2.1 Cut space = function space
 
-`Cut → Cut` 자체가 함수공간.  norm, inner product 정의 가능:
+`Cut → Cut` itself is a function space.  norm, inner product definable:
 
 ```
 def cutNorm (f : Cut → Cut) : Cut := ...   -- sup over dyadic
 def cutInner (f g : Cut → Cut) : Cut := ∫ f * g dx
 ```
 
-### 2.2 Banach 공간 — Cauchy complete
+### 2.2 Banach space — Cauchy complete
 
-분석학 213 의 `CauchyCutSeq` 가 이미 Cauchy 완비성.  Banach
-space = 함수의 Cauchy 완비.
+Analysis 213's `CauchyCutSeq` already provides Cauchy completeness.  Banach
+space = Cauchy completeness of functions.
 
-### 2.3 Hilbert 공간
+### 2.3 Hilbert space
 
-Inner product = `cutInner`.  `IsAntiderivative.integral` 직접
-활용.  L² 공간 자연.
+Inner product = `cutInner`.  `IsAntiderivative.integral` directly
+utilized.  L² space natural.
 
 ### 2.4 Operator + spectrum
 
-Linear operator T : Cut → Cut.  Spectrum = `cohomEquiv` 형식
+Linear operator T : Cut → Cut.  Spectrum = `cohomEquiv` form
 eigenvalue.
 
-### 2.5 Hahn-Banach 거부
+### 2.5 Hahn-Banach rejected
 
-ZFC 의 Hahn-Banach 는 Choice 의존.  213 에선 **directly
-constructible extension** 만.  이게 *제한* 아니라 *feature*.
+ZFC's Hahn-Banach depends on Choice.  In 213: **directly
+constructible extension** only.  This is a *feature*, not a *restriction*.
 
-## 3. 빌딩 블록
+## 3. Building Blocks
 
-- 분석학 213 (cut, IsDifferentiable, Cauchy)
-- 측도 213 (Lebesgue 213)
-- 복소 213 (complex Hilbert)
+- Analysis 213 (cut, IsDifferentiable, Cauchy)
+- Measure 213 (Lebesgue 213)
+- Complex 213 (complex Hilbert)
 
-## 4. Phase 계획
+## 4. Phase Plan
 
 ### Phase FA — Norm + Cauchy (3-5 commits)
 
-1. `cutNorm` 정의 + propEq sup
-2. Cauchy 완비 (분석학 213 활용)
+1. Define `cutNorm` + propEq sup
+2. Cauchy completeness (using Analysis 213)
 3. Banach skeleton
 
 ### Phase FB — Inner product + Hilbert
@@ -71,37 +71,37 @@ constructible extension** 만.  이게 *제한* 아니라 *feature*.
 
 1. Linear operator on Cut → Cut
 2. Bounded operator
-3. Spectrum (eigenvalue) — finite dim 부터
+3. Spectrum (eigenvalue) — starting from finite dim
 
 ### Phase FD — Capstone
 
-학부 functional analysis 1년차.
+First year undergraduate functional analysis.
 
-## 5. 다른 트랙 연결
+## 5. Connections to Other Tracks
 
-- **Atoms**: orbital = Hilbert space 원소
+- **Atoms**: orbital = element of Hilbert space
 - **Quantum gravity**: amplitude
-- **Yang-Mills**: gauge field 공간
+- **Yang-Mills**: gauge field space
 - **DHA**: Fourier basis = orthonormal
 
-## 6. 미해결 / Open
+## 6. Open Problems
 
-- **Hahn-Banach** — Choice 부재 → constructive 부분만
-- **Open mapping theorem** — 마찬가지
-- **Spectral theorem 일반** — 일부분만
+- **Hahn-Banach** — no Choice → constructive part only
+- **Open mapping theorem** — likewise
+- **Spectral theorem general** — partial only
 
-## 7. 핵심 인사이트 (★)
+## 7. Key Insights (★)
 
-★ **Banach completion = Cauchy** — 분석학 213 직접 활용.
+★ **Banach completion = Cauchy** — Analysis 213 directly applicable.
 
-★ **L² = cutPow integrable** — 측도 213 + 분석학 213 결합.
+★ **L² = cutPow integrable** — Measure 213 + Analysis 213 combined.
 
-★ **Choice 거부 = 제약 vs feature** — constructive 만으로 양자역학
-formal 가능성 시험.
+★ **Choice rejected = constraint vs feature** — tests feasibility of formal
+quantum mechanics with constructive methods only.
 
-## 8. 첫 마라톤 명령
+## 8. First Marathon Command
 
 ```
-"Phase FA 시작.  cutNorm + Banach skeleton on Cut → Cut"
+"Start Phase FA.  cutNorm + Banach skeleton on Cut → Cut"
 ```
 

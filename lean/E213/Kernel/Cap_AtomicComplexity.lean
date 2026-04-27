@@ -1,13 +1,13 @@
 import E213.Kernel.Term
 
 /-!
-# E213.Kernel.Cap_AtomicComplexity — atomic-1 정수 표현 검증.
+# E213.Kernel.Cap_AtomicComplexity — atomic-1 integer representation verification.
 
-기존 Phase4/AtomicReps.lean 의 complexity 정리들 중 *순수 산술* 만
-재기술.  6 = NS·NT, 8 = NT³, 25 = d², ...
+Re-states only the *pure arithmetic* among the complexity theorems from
+Phase4/AtomicReps.lean.  6 = NS·NT, 8 = NT³, 25 = d², ...
 
-complexity 본인은 Expr 위 함수라 옮기기 어려움.  여기선 *결과 정수
-가 정확히 그 형태로 표현 가능* 만 입증 → 0 axiom.
+The complexity function itself is hard to port (it is a function over Expr).
+Here we only prove that *each result integer can be expressed in exactly that form* → 0 axiom.
 -/
 
 namespace E213.Kernel.Cap.AtomicComplexity
@@ -23,7 +23,7 @@ theorem six_atomic : (6 : Nat) = NS * NT := rfl
 /-- 8 = NT³. -/
 theorem eight_atomic : (8 : Nat) = NT * NT * NT := rfl
 
-/-- 8 = NS² - (NS - NT) = 9 - 1.  (Alt form, complexity 1+.) -/
+/-- 8 = NS² - (NS - NT) = 9 - 1.  (Alternative form, complexity 1+.) -/
 theorem eight_alt : (8 : Nat) = NS * NS - (NS - NT) := rfl
 
 /-- 10 = d · NT. -/
@@ -41,7 +41,7 @@ theorem twelve_atomic : (12 : Nat) = NS * d - NS := rfl
 /-- 24 = (d-1) · d - (d-1)·1 = ... 24 = d² - 1 = 25-1.  Or 24 = d·d - 1. -/
 theorem twentyfour_atomic : (24 : Nat) = d * d - 1 := rfl
 
-/-- 13 = NS² + (d - NS) - 1  ... 사실 13 = 2·NS² - d = 18 - 5. -/
+/-- 13 = NS² + (d - NS) - 1  ... in fact 13 = 2·NS² - d = 18 - 5. -/
 theorem thirteen_atomic : (13 : Nat) = 2 * NS * NS - d := rfl
 
 /-- 60 = NS·d·NT·NT = 3·5·2·2. -/

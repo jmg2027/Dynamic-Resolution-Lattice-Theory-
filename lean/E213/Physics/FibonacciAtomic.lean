@@ -12,13 +12,13 @@ import E213.Physics.GoldenRatio
   F_6 = 8 = 1/α_3 (strong adjoint)
   F_7 = 13 = NS² + NS + 1 (NH₃ denom)
 
-## 의미
+## Meaning
 
-  Atomic configuration (3, 2)가 *임의*가 아니라 **Fibonacci
-  consecutive pair**.  PairForcing이 (NS, NT) = (F_4, F_3) 강제.
-  Atomicity가 *Fibonacci 자체*에서 도출 가능.
+  Atomic configuration (3, 2) is not *arbitrary* but a **Fibonacci
+  consecutive pair**.  PairForcing forces (NS, NT) = (F_4, F_3).
+  Atomicity can be derived from *Fibonacci itself*.
 
-  → "왜 (3, 2)?" 의 진짜 답:
+  → The real answer to "why (3, 2)?":
     *consecutive Fibonacci pair with d = next Fibonacci*
 
 ## Recurrence chain
@@ -29,15 +29,15 @@ import E213.Physics.GoldenRatio
   F_6 = 8  = 1/α_3      (NS² - 1 = adjoint SU(NS))
   F_7 = 13 = NH₃ denom (NS² + NS + 1)
 
-  다섯 연속 Fibonacci 수가 다섯 다른 atomic invariant.
+  Five consecutive Fibonacci numbers are five different atomic invariants.
 
-## 황금비 limit
+## Golden ratio limit
 
   F_(n+1) / F_n → φ as n → ∞
   At small n: F_5/F_4 = 5/3 = d/NS = inverse Y-norm!
 
-  → 황금비 convergent F_5/F_4 = d/NS = 5/3 ★
-    같은 5/3이 SU(5) Y-normalization.
+  → Golden ratio convergent F_5/F_4 = d/NS = 5/3 ★
+    The same 5/3 is the SU(5) Y-normalization.
 
   F_6/F_5 = 8/5 (= 1/α_3 / d)
   F_7/F_6 = 13/8 (NH₃/α_3)
@@ -58,8 +58,8 @@ theorem NS_eq_F4 : NS = fib 4 := by decide
 theorem d_eq_F5 : d = fib 5 := by decide
 
 /-- ★ Fibonacci recurrence at atomic level ★
-    (NT, NS, d) = (F_3, F_4, F_5).  Atomic partition이 곧
-    Fibonacci consecutive triple. -/
+    (NT, NS, d) = (F_3, F_4, F_5).  Atomic partition is precisely
+    a Fibonacci consecutive triple. -/
 theorem atomic_fibonacci_triple :
     NT = fib 3
     ∧ NS = fib 4
@@ -103,8 +103,8 @@ theorem F6_F5_ratio :
 
   PairForcing → (NS, NT) = (F_4, F_3) → d = F_5 by recurrence
   → 1/α_3 = F_6, NH₃ denom = F_7
-  
-  *Atomicity 자체가 Fibonacci sequence*. -/
+
+  *Atomicity itself is a Fibonacci sequence*. -/
 theorem atomicity_is_fibonacci :
     (NT = fib 3) ∧ (NS = fib 4) ∧ (d = fib 5)
     ∧ (NS * NS - 1 = fib 6)

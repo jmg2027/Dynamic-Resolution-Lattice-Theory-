@@ -1,14 +1,13 @@
-# D1 — ZFC ℝ 가 213 의 *final boss*
+# D1 — ZFC ℝ is the *final boss* of 213
 
-## 통 찰 (Mingu, 2026-04-26)
+## Insight (Mingu, 2026-04-26)
 
-> "초실수 나 large 공리계 같은 건 오히려 213 에 자연스럽게
-> 편입되는 것처럼 보이던데, ZFC 의 실수 정의 자체 가
-> 최종보스네."
+> "Hyperreals and large axiom systems seem to naturally fit into
+> 213, but ZFC's definition of the reals itself is the final boss."
 
-이 note 는 그 통찰 의 **evidence 와 한계** 정리.
+This note summarizes the **evidence and limits** of that insight.
 
-## 1. 자연스럽게 편입되는 large structures
+## 1. Large structures that naturally fit in
 
 ### 1.1 Hyperreal-like (Hyper213)
 
@@ -20,26 +19,27 @@ def cofiniteEquiv (xs ys : Hyper213) : Prop :=
   ∃ N, ∀ n ≥ N, xs n = ys n
 ```
 
-- Cauchy modulus *없 이* sequence 만 + cofinite equiv.
-- ZFC 의 free ultrafilter (NSA) 보 다 약 하 지 만 framework-internal.
-- "Infinitesimal + finite + infinite" 의 algebra 의 building block.
-- Axiom check: cofinite_refl/symm/const_equiv_iff 모두 zero axioms,
-  cofinite_trans 만 [propext].
+- Sequence only *without* Cauchy modulus + cofinite equiv.
+- Weaker than ZFC's free ultrafilter (NSA) but framework-internal.
+- Building block for the algebra of "infinitesimal + finite + infinite".
+- Axiom check: cofinite_refl/symm/const_equiv_iff all zero axioms,
+  only cofinite_trans requires [propext].
 
 ### 1.2 Lens tower (Lens^n α)
 
-`framework/E213/Research/LensOnLens.lean` 의 `lensHasDistinguishing` +
-`LensTowerLevel3` 의 level-3 closure:
+`lensHasDistinguishing` + level-3 closure of `LensTowerLevel3`
+from `framework/E213/Research/LensOnLens.lean`:
 
 ```
 HasDistinguishing α → HasDistinguishing (Lens α)
 ```
 
-- Recursive — Bool → Lens Bool → Lens (Lens Bool) → ... 무 한 tower.
-- 각 level 의 image cardinality 가 α 와 같 음 (collapse) — tower 가
-  "depth 만 큰" structure 이지 cardinality blowup 부재.
+- Recursive — Bool → Lens Bool → Lens (Lens Bool) → ... infinite tower.
+- The image cardinality at each level equals that of α (collapse) —
+  the tower is a structure with "greater depth only", no cardinality
+  blowup.
 
-### 1.3 두 axis 결합 (Hyper213Tower)
+### 1.3 Two-axis combination (Hyper213Tower)
 
 `framework/E213/Research/Hyper213Tower.lean`:
 
@@ -50,9 +50,9 @@ def LensTower (α : Type) [HasDistinguishing α] : Nat → Type
 def HyperTower α n := Nat → LensTower α n
 ```
 
-- Sequence-large + tower-large 의 simultaneous extension.
-- 두 axis 모두 framework-internal — Lens 또는 sequence-of-Raw.
-- HyperTower 의 cofinite equiv 도 framework-internal.
+- Simultaneous extension along both sequence-large + tower-large axes.
+- Both axes are framework-internal — Lens or sequence-of-Raw.
+- Cofinite equiv of HyperTower is also framework-internal.
 
 ### 1.4 Constructive Cauchy ℝ (Real213)
 
@@ -65,127 +65,134 @@ structure Real213 where
 ```
 
 - (sequence + explicit modulus) pair = Bishop-style constructive ℝ.
-- 외부 axiom 부재 (HasModulus 의 axiom-free property 상속).
+- No external axioms (inherits axiom-free property of HasModulus).
 
-## 2. 진짜 final boss: ZFC ℝ via Dedekind cut
+## 2. The true final boss: ZFC ℝ via Dedekind cut
 
-### 2.1 ZFC ℝ 의 정의 의 핵심
+### 2.1 Core of the ZFC ℝ definition
 
-ZFC: ℝ = {Dedekind cut of ℚ} = *power-set 의 subset*.
+ZFC: ℝ = {Dedekind cut of ℚ} = *subset of a power-set*.
 
-각 real number = ℚ 의 *임의* downward-closed subset.
+Each real number = an *arbitrary* downward-closed subset of ℚ.
 
-핵심 구성 요소:
+Key components:
 
-1. **Power set axiom**: 𝒫(ℚ) 가 set 으 로 존재.
-2. **Subset comprehension**: 임의 predicate P(x) 의 {x ∈ ℚ : P(x)}.
-3. **임의 P 가 set-theoretic** — formula language 의 임의 statement.
+1. **Power set axiom**: 𝒫(ℚ) exists as a set.
+2. **Subset comprehension**: {x ∈ ℚ : P(x)} for arbitrary predicate P(x).
+3. **Arbitrary P is set-theoretic** — any statement of the formula language.
 
-ZFC 의 ℝ 는 cardinality 2^ℵ₀ — uncountable 의 *first-order set-theoretic*
-정의.
+ZFC's ℝ has cardinality 2^ℵ₀ — *first-order set-theoretic* definition
+of uncountable.
 
-### 2.2 213 가 거 부 하 는 것
+### 2.2 What 213 rejects
 
-**임의 subset of ℚ 의 enumeration 부재** — framework-internal Lens
-는 fold-structured combine 의 closure 를 만족 해 야 함.  임의 predicate
-의 reified subset 부재.
+**No enumeration of arbitrary subsets of ℚ** — framework-internal Lens
+must satisfy the closure of fold-structured combine.  No reified subset
+of arbitrary predicate.
 
-`research/notes/C1_kernel_cardinality_obstruction.md` 의 evidence:
+Evidence from `research/notes/C1_kernel_cardinality_obstruction.md`:
 
-- Slash-congruence 의 closure 가 너무 강 — most natural
-  parameterizations 가 finite/countable structures 로 collapse.
-- Direct Cantor diagonal 이 slash-closure 보존 안 함.
-- Function-space Lens 시도 모두 collapse.
+- The closure of slash-congruence is too strong — most natural
+  parameterizations collapse to finite/countable structures.
+- Direct Cantor diagonal does not preserve slash-closure.
+- All function-space Lens attempts collapse.
 - Intersection of countable family = countable only.
 
-→ **Lens-kernel cardinality 가 countable 일 가능 성 strong** (3 angle
-다 collapse).
+→ **Strong possibility that Lens-kernel cardinality is countable**
+(all 3 angles collapse).
 
-### 2.3 왜 이 게 "final boss" 인 가
+### 2.3 Why this is the "final boss"
 
-Hyperreal, ordinal, large cardinal 등 의 대 부 분 의 "exotic" set-
-theoretic constructions:
+Most "exotic" set-theoretic constructions like hyperreal, ordinal,
+large cardinal:
 
 - *Sequence* (Hyper213, NSA), *tree* (surreals), *recursive instance*
-  (large cardinals 의 일 부) — framework 가 자연 capture.
-- "Large" 의 *combinatorial* form — depth, recursion, sequence — 모두
-  framework 안.
+  (some large cardinals) — the framework naturally captures these.
+- *Combinatorial* form of "large" — depth, recursion, sequence — all
+  within the framework.
 
-**유일 예 외**: *power-set 에 의존 하 는* construction.
+**The sole exception**: constructions that *depend on power-set*.
 
-- ZFC ℝ = power-set 의 subset (Dedekind cut).
-- ZFC ℵ₁ = "임의 countable ordinal" — 정의 자체 가 power-set.
-- ZFC AC = 임의 family 의 choice function (formula 로 표현 부재).
+- ZFC ℝ = subset of power-set (Dedekind cut).
+- ZFC ℵ₁ = "arbitrary countable ordinal" — the definition itself is
+  power-set.
+- ZFC AC = choice function for an arbitrary family (not expressible
+  as a formula).
 
-213 의 abstraction — Lens — 은 *constructive* (combine + slash 의
-closure).  power-set 같 은 *non-constructive* set former 의 수입
-부재.
+213's abstraction — Lens — is *constructive* (closure of combine +
+slash).  No import of *non-constructive* set formers like power-set.
 
 ## 3. Honest reading
 
-### 3.1 213 의 position fix
+### 3.1 Position fix of 213
 
-- **Constructive countable foundation**: framework 안 derivable 한
-  것 들 의 cardinality 의 natural upper bound 가 countable.
-- **ZFC power-set 의 명 시 적 거 부**: framework 의 axiom 추가
-  (power-set 또 는 LEM) 가 framework 폐기 조건 (CLAUDE.md
-  falsifiability).
-- **Hyperreal 등 의 자연 capture**: sequence-based exotic structures
-  가 framework-internal.
+- **Constructive countable foundation**: the natural upper bound on
+  the cardinality of things derivable within the framework is countable.
+- **Explicit rejection of ZFC power-set**: adding axioms to the
+  framework (power-set or LEM) is a framework discard condition
+  (CLAUDE.md falsifiability).
+- **Natural capture of hyperreals etc.**: sequence-based exotic
+  structures are framework-internal.
 
-### 3.2 ZFC ℝ 와 의 관 계
+### 3.2 Relationship to ZFC ℝ
 
-- ZFC ℝ = framework 가 *직접 capture 부재* — uncountable 의 first-
-  order set-theoretic 정의 자체 부재.
-- 그 러 나 ZFC ℝ 의 각 *개별 computable real* 은 framework 의
-  Real213 으 로 capture 가능.
-- 차이: ZFC 의 ℝ = *all* reals (including non-computable).
-  213 의 Real213 = *constructive* reals (framework-internal).
+- ZFC ℝ = *no direct capture* by the framework — the first-order
+  set-theoretic definition of uncountable itself is absent.
+- However, each *individual computable real* of ZFC ℝ can be captured
+  by the framework's Real213.
+- Difference: ZFC's ℝ = *all* reals (including non-computable).
+  213's Real213 = *constructive* reals (framework-internal).
 
-### 3.3 결론
+### 3.3 Conclusion
 
-**Hyperreal 도 large axiom 도 framework 의 적 이 아 님** — 이 들 은
-sequence/recursion 기반 으 로 framework 가 자연 흡수.
+**Neither hyperreals nor large axioms are enemies of the framework** —
+they are naturally absorbed by the framework on a sequence/recursion
+basis.
 
-**ZFC 의 ℝ 만 framework 의 진짜 boundary** — power-set 의존 의
-*non-constructive* set former 의 수입 부재.
+**Only ZFC's ℝ is the true boundary of the framework** — no import
+of *non-constructive* set formers that depend on power-set.
 
-이 게 "ZFC ℝ 가 final boss" 의 의미.  framework 의 *combinatorial
-rigidity* (C1) 의 직접 귀결.
+This is the meaning of "ZFC ℝ is the final boss".  A direct corollary
+of the framework's *combinatorial rigidity* (C1).
 
 ## 4. Falsifiability check
 
-CLAUDE.md: "어떤 결과 가 공리 추가 없 이 절대 불가능 → 폐기."
+CLAUDE.md: "if some result is absolutely impossible without adding
+axioms → discard."
 
-213 의 falsifiability 시나리오:
+Falsifiability scenarios for 213:
 
-- (a) ZFC ℝ 의 framework-internal 정의 가 발견 되 면 — power-set
-  axiom 부재 의 *constructive* substitute 발견.  현재 부재.
-- (b) Lens-kernel cardinality 가 uncountable lower bound 가
-  발견 되 면 — C1 의 obstruction 우 회.  현재 evidence countable.
-- (c) Hyperreal 의 framework-internal 정의 가 axiom 추가 요구 →
-  현재 axiom 추가 부재 (Hyper213 이 직접 demonstrate).
+- (a) If a framework-internal definition of ZFC ℝ is discovered —
+  a *constructive* substitute for the power-set axiom found.
+  Currently absent.
+- (b) If an uncountable lower bound for Lens-kernel cardinality is
+  found — circumventing the C1 obstruction.  Current evidence is
+  countable.
+- (c) If the framework-internal definition of hyperreals requires
+  adding axioms → currently no axiom addition needed (Hyper213
+  directly demonstrates this).
 
-(a) 가 *unsolved obstruction* — framework 의 진정한 boundary.
-(b) 와 (c) 는 framework 가 자연 capture.
+(a) is the *unsolved obstruction* — the true boundary of the framework.
+(b) and (c) are naturally captured by the framework.
 
 ## 5. Artifacts
 
-| Layer | 파일 | 결과 |
-|-------|------|------|
+| Layer | File | Result |
+|-------|------|--------|
 | Hyperreal-like sequence | `Research/Hyper213.lean` | cofinite equiv, ≤ propext |
 | Recursive Lens tower | `Research/LensOnLens.lean` + tower 3 levels | image collapse |
-| 두 axis 결합 | `Research/Hyper213Tower.lean` | hyperTower_refl 0 axioms |
+| Two-axis combination | `Research/Hyper213Tower.lean` | hyperTower_refl 0 axioms |
 | Constructive Cauchy ℝ | `Research/Real213.lean` | (sequence + modulus) struct |
 | Universal Lens claim | `Research/UniversalLensClaim.lean` | partial formal |
 | Power-set obstruction | `notes/C1_kernel_cardinality_obstruction.md` | countable evidence |
 
-## 6. 다음
+## 6. Next
 
-- (D2 후 보) 다 른 *constructive ℝ* (Bishop, Russian, formal
-  topology) 와 의 정 확 한 비교 — framework 안 어디 까 지 captured.
-- (D3 후 보) Power-set 의 *constructive substitute* 가 framework
-  안 가능 한 가 — formal explore.
-- ZFC 의 ℝ 자체 의 framework-internal 정의 시도 는 falsifiability
-  시도 — 성공 시 framework strengthened, 실 패 시 boundary
-  confirm.
+- (D2 candidate) Precise comparison with other *constructive ℝ*
+  (Bishop, Russian, formal topology) — how far is captured within
+  the framework.
+- (D3 candidate) Whether a *constructive substitute* for power-set
+  is possible within the framework — formal exploration.
+- Attempting a framework-internal definition of ZFC's ℝ itself is
+  a falsifiability test — if successful, framework is strengthened;
+  if it fails, boundary is confirmed.

@@ -1,10 +1,10 @@
 # Information Theory 213 — Blueprint
 
-**우선순위**: ★★ (binary tree 가 정보이론의 *바로 그것*)
+**Priority**: ★★ (binary tree *is* information theory)
 
 ---
 
-## 1. 왜 이 분야인가
+## 1. Why This Field
 
 ZFC information theory:
 - Shannon entropy H(X) = -Σ p log p
@@ -12,24 +12,24 @@ ZFC information theory:
 - Channel capacity, error-correcting codes
 - Kolmogorov complexity
 
-213 의 자연 등장:
+Natural emergence in 213:
 - **Dyadic tree = binary information tree**
-- **각 bisection = 1 bit**
+- **each bisection = 1 bit**
 - **bisectN n = n bits of information**
-- log₂ 자연 등장 (atomic depth)
+- log₂ naturally appears (atomic depth)
 
-## 2. 213-native 등장
+## 2. 213-native Emergence
 
 ### 2.1 1 bit = 1 bisection
 
-dyadic tree 의 깊이 n = n bits.  Information content 자연
-정의:
+Depth n of dyadic tree = n bits.  Information content naturally
+defined:
 - log₂(2^n) = n
 - atomic prime 2 = bit base
 
 ### 2.2 Shannon entropy = path distribution
 
-분포 p on dyadic tree → entropy = expected path length.
+Distribution p on dyadic tree → entropy = expected path length.
 H(X) = -Σ p_i log₂ p_i.
 
 213-native: probability 213 (blueprint 01) + log₂ via bisection
@@ -38,7 +38,7 @@ depth.
 ### 2.3 Mutual information = cohomological
 
 I(X;Y) = H(X) + H(Y) - H(X,Y).
-FluxCut 의 add 연산이 자연.
+FluxCut's add operation is natural.
 
 ### 2.4 Channel = trajectory
 
@@ -52,24 +52,24 @@ optimization.
 
 ### 2.6 Kolmogorov complexity
 
-213 의 *axiomatic minimality* (Raw axiom 4 clause = 최소
-잔여물) 이 *the smallest description*.  Kolmogorov complexity
-의 213 native form.
+213's *axiomatic minimality* (Raw axiom 4 clause = minimum
+residual) is *the smallest description*.  Kolmogorov complexity
+in 213-native form.
 
-## 3. 빌딩 블록
+## 3. Building Blocks
 
-| 도구 | 활용 |
+| Tool | Use |
 |---|---|
 | `bisectN` | bit sequence |
 | `DyadicBracket.expE` | bit count |
 | Probability 213 | distribution |
-| `partialSum` | entropy 계산 |
-| `IsAntiderivative.integral` | 연속 entropy |
+| `partialSum` | entropy computation |
+| `IsAntiderivative.integral` | continuous entropy |
 | `cutPow 2 n` | 2^n |
 
-## 4. Phase 계획
+## 4. Phase Plan
 
-### Phase IA — Bit + entropy 기초 (3-5 commits)
+### Phase IA — Bit + entropy foundations (3-5 commits)
 
 1. `bitDepth db := db.expE` (= 1 bit per bisection)
 2. `informationContent p` for dyadic prob
@@ -103,38 +103,38 @@ optimization.
 
 ### Phase IF — Capstone
 
-학부 정보이론 1년차 + Kolmogorov 첫 단계.
+First year undergraduate information theory + introductory Kolmogorov.
 
-## 5. 다른 트랙 연결
+## 5. Connections to Other Tracks
 
-- **Probability 213**: 분포 = 정보 분포
+- **Probability 213**: distribution = information distribution
 - **Quantum gravity**: holographic principle (Bekenstein bound)
 - **Yang-Mills**: gauge information
 - **Cosmology**: ER=EPR, holographic
-- **사용자 vision (3)**: 양자 decoherence 제거 = information loss 제거
+- **User vision (3)**: removing quantum decoherence = removing information loss
 
-## 6. 미해결 / Open
+## 6. Open Problems
 
 - **Quantum information** — qubit, von Neumann entropy
 - **Channel coding lower bound** — converse theorem
 - **AIT (algorithmic info)** — universal Turing machine 213?
 
-## 7. 핵심 인사이트 (★)
+## 7. Key Insights (★)
 
-★ **bit = bisection** — 213 의 dyadic tree 가 정보이론의 본바탕.
+★ **bit = bisection** — 213's dyadic tree is the foundation of information theory.
 
-★ **Shannon entropy = expected bit depth** — bisectN 직접 활용.
+★ **Shannon entropy = expected bit depth** — bisectN directly applicable.
 
-★ **213 자체가 minimum description** — Raw 공리 4 clause =
+★ **213 itself is the minimum description** — Raw axiom 4 clause =
 Kolmogorov 0-axiom-minimal description.
 
-★ **사용자 vision (3) "양자 decoherence 제거"** = 정보 손실
-없는 dyadic 채널.  213 = 결정론적 비트 + dyadic = 자연 양자
-대안.
+★ **User vision (3) "remove quantum decoherence"** = information-loss-free
+dyadic channel.  213 = deterministic bit + dyadic = natural quantum
+alternative.
 
-## 8. 첫 마라톤 명령
+## 8. First Marathon Command
 
 ```
-"Phase IA 시작.  bitDepth + Shannon entropy on uniform 2^n"
+"Start Phase IA.  bitDepth + Shannon entropy on uniform 2^n"
 ```
 

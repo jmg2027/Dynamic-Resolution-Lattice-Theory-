@@ -2,14 +2,14 @@ import E213.Kernel.Term
 import E213.Kernel.Compare
 
 /-!
-# E213.Kernel.Cap_PhysicsObservables — 핵심 물리 관측값 bracket 포팅.
+# E213.Kernel.Cap_PhysicsObservables — core physics observable brackets ported.
 
-기존 Physics/*.lean 의 `by decide` bracket 정리들을 kernel `Nat.ble`
-형태로 재기술 → 0 axiom.
+Re-states the bracket theorems from Physics/*.lean (which use the decide tactic)
+in kernel `Nat.ble` form → 0 axiom.
 
-각 줄 = 실제 213 관측 (CLAUDE.md "Key Precision Results"):
-  Δm_np, H 1s 에너지, He/H 이온화 비, Higgs 질량, Ω_Λ, deuteron 결합,
-  λ_C (Cabibbo), δ_CKM (CP 위반).
+Each line = an actual 213 observable (CLAUDE.md "Key Precision Results"):
+  Δm_np, H 1s energy, He/H ionization ratio, Higgs mass, Ω_Λ, deuteron binding,
+  λ_C (Cabibbo), δ_CKM (CP violation).
 -/
 
 namespace E213.Kernel.Cap.PhysicsObservables
@@ -38,11 +38,11 @@ theorem lambda_C_lt_quarter :
 theorem mH_vH_bracket :
     Nat.ble 500001 509700 = true ∧ Nat.ble 509701 520000 = true := ⟨rfl, rfl⟩
 
-/-- δ_CKM ≈ 1196 (mrad), 정밀 |delta - 1196| < 200/1000. -/
+/-- δ_CKM ≈ 1196 (mrad), precise |delta - 1196| < 200/1000. -/
 theorem delta_close_1196 :
     Nat.ble (1196 * 1000 - 199) (1196 * 1000) = true := rfl
 
-/-- ResolutionDepth 의 24 ≠ 30: kernel 형태 (Nat.beq = false). -/
+/-- ResolutionDepth: 24 ≠ 30 in kernel form (Nat.beq = false). -/
 theorem twenty_four_ne_thirty :
     Nat.beq 24 30 = false := rfl
 

@@ -1,89 +1,89 @@
-# Directory Structure Proposal — 213 도서관 합의안
+# Directory Structure Proposal — 213 Library Consensus
 
-**작성**: 수학트랙 (분석학 213 마라톤 완수자) 입장.
-**비교 대상**: 물리트랙의 directory 제안.
-**목표**: 양 트랙 만족 + CLAUDE.md 정리 원칙 준수 + 미래 확장성.
+**Written by**: Math track (Analysis 213 marathon completer).
+**Compared against**: Physics track directory proposal.
+**Goal**: Satisfy both tracks + comply with CLAUDE.md organization principles + future extensibility.
 
 ---
 
-## 1. 핵심 합의점 (양쪽 동의)
+## 1. Core Consensus Points (both tracks agree)
 
-✅ **`lean/` 분리** — Lean 코드를 별도 namespace dir
-✅ **`Library/` 카탈로그 모듈** — 사용자 진입점 (IELibrary 등)
-✅ **`books/` narrative 분리** — paper 와 다른 *읽는 책*
+✅ **`lean/` separation** — Lean code in its own namespace dir
+✅ **`Library/` catalog module** — user entry point (IELibrary, etc.)
+✅ **`books/` narrative separation** — *readable books* distinct from papers
 ✅ **`catalogs/` lookup tables** — grep-able
-✅ **`examples/` Mathlib 스타일** — 사용성 ↑
-✅ **`tools/` CLI** — atomic chain 검색
+✅ **`examples/` Mathlib style** — improved usability
+✅ **`tools/` CLI** — atomic chain search
 
-## 2. 차이점 + 합의안
+## 2. Differences + Consensus
 
 ### 2.1 Namespace: `DRLT/` vs `E213/`
 
-**물리**: `DRLT/`
-**수학**: `E213/` 유지
+**Physics**: `DRLT/`
+**Math**: keep `E213/`
 
-**합의**: `E213/` 유지.  근거:
-- 80+ commits Lean 모두 import 경로 갱신 (대규모 부작용)
-- `DRLT` = 이론 이름, `E213` = Lean 식별자 — 분리 유지
-- `lean/E213/` 형식이 명확
+**Consensus**: keep `E213/`.  Rationale:
+- Updating import paths in 80+ Lean commits (large side effect)
+- `DRLT` = theory name, `E213` = Lean identifier — keep them separate
+- `lean/E213/` form is clear
 
-### 2.2 옛 코드: `archive/`
+### 2.2 Old code: `archive/`
 
-**물리**: `archive/` 디렉토리 보존
-**수학**: 없음
+**Physics**: preserve `archive/` directory
+**Math**: none
 
-**합의**: `archive/` 만들지 않음.  근거:
-- CLAUDE.md "Deprecated 는 *삭제*"
-- "역사적 기록" 가치 = noise
-- git history 로 충분
+**Consensus**: do not create `archive/`.  Rationale:
+- CLAUDE.md "Deprecated → *delete*"
+- Value of "historical record" = noise
+- git history is sufficient
 
-### 2.3 수학 코드 organization
+### 2.3 Math code organization
 
-**물리**: `Math/Calculus.lean` 단일
-**수학**: `Math/Analysis/`, `Math/Probability/` sub-dirs
+**Physics**: single `Math/Calculus.lean`
+**Math**: `Math/Analysis/`, `Math/Probability/` sub-dirs
 
-**합의**: Sub-dir 채택.  근거:
-- 분석학 213 = 176 모듈 — 단일 파일 불가
-- 80줄 Lean hook
-- 분야별 (probability, multivariable, ...) blueprint 14개 예정
-- 각 분야 sub-dir + `_root.lean` umbrella
+**Consensus**: adopt sub-dirs.  Rationale:
+- Analysis 213 = 176 modules — single file impossible
+- 80-line Lean hook
+- 14 blueprints planned per field (probability, multivariable, ...)
+- Each field gets a sub-dir + `_root.lean` umbrella
 
-### 2.4 books 평면 vs 계층
+### 2.4 books: flat vs hierarchical
 
-**물리**: 11 chapters 평면
-**수학**: `books/math/`, `books/physics/` 계층
+**Physics**: 11 chapters flat
+**Math**: `books/math/`, `books/physics/` hierarchy
 
-**합의**: 계층 채택.  근거:
-- 분야 깊이 증가 시 평면 → 혼란
-- 분석학 213 만 `ANALYSIS213.md` (370줄) 분리 필요
-- 책 다수 → math/ vs physics/ 분리 자연
+**Consensus**: adopt hierarchy.  Rationale:
+- Flat structure becomes confusing as field depth increases
+- Analysis 213 alone requires separate `ANALYSIS213.md` (370 lines)
+- Many books → natural to split math/ vs physics/
 
-### 2.5 Seed 디렉토리
+### 2.5 Seed directory
 
-**물리**: `axioms/` (AXIOM, PAPER1, ORIGIN, NOTATION)
-**수학**: `seed/` (위 + PHILOSOPHY, FALSIFIABILITY)
+**Physics**: `axioms/` (AXIOM, PAPER1, ORIGIN, NOTATION)
+**Math**: `seed/` (above + PHILOSOPHY, FALSIFIABILITY)
 
-**합의**: `seed/`.  근거:
-- "공리" 만 씨앗 아님 — 철학, 위조가능성 도 씨앗
-- AXIOM.md §5.2.1 의 falsifiability 가 핵심 씨앗
-- "axioms" 는 너무 좁은 framing
+**Consensus**: `seed/`.  Rationale:
+- "Axioms" alone are not the only seeds — philosophy and falsifiability are too
+- Falsifiability from AXIOM.md §5.2.1 is a core seed
+- "axioms" is too narrow a framing
 
-### 2.6 Blueprints (수학트랙 추가)
+### 2.6 Blueprints (math track addition)
 
-**물리**: 없음
-**수학**: `blueprints/` 추가
+**Physics**: none
+**Math**: add `blueprints/`
 
-**합의**: 채택.  근거:
-- 미래 마라톤 14 분야 방향 문서
-- 분석학 213 처럼 100% 마라톤 가능한 분야들 명시
-- 신규 세션이 어디부터 시작할지 가이드
+**Consensus**: adopt.  Rationale:
+- Direction documents for 14 future marathon fields
+- Identifies fields capable of a 100% marathon like Analysis 213
+- Guides new sessions on where to start
 
 ---
 
-## 3. 최종 합의안 (트리, 1/2)
+## 3. Final Consensus (Tree, 1/2)
 
 ```
-/                               # repo = 213 도서관
+/                               # repo = 213 library
 ├── README.md
 ├── CATALOG.md                  # ★ master entry
 ├── INSTALL.md
@@ -91,7 +91,7 @@
 ├── CLAUDE.md
 ├── LICENSE
 │
-├── seed/                       # ★ 씨앗
+├── seed/                       # ★ seeds
 │   ├── AXIOM.md
 │   ├── ORIGIN.md
 │   ├── NOTATION.md
@@ -110,7 +110,7 @@
 │       ├── Tactic/
 │       ├── Infinity/
 │       ├── Math/
-│       │   ├── Analysis/       # 현재 Real213*
+│       │   ├── Analysis/       # current Real213*
 │       │   ├── Probability/    # blueprint 01
 │       │   ├── Multivariable/  # blueprint 02
 │       │   ├── Topology/       # blueprint 03
@@ -135,21 +135,21 @@
 │       │   ├── Cosmology/
 │       │   ├── YangMills/
 │       │   └── _root.lean
-│       └── Library/            # ★ 카탈로그 모듈
+│       └── Library/            # ★ catalog module
 │           ├── IELibrary.lean
 │           ├── CouplingLibrary.lean
 │           └── ... (28+)
 ```
 
-## 트리 (2/2)
+## Tree (2/2)
 
 ```
-├── papers/                     # 저널 .tex 평면
+├── papers/                     # journal .tex flat
 │   ├── analysis213.tex
 │   ├── physics213.tex
 │   └── architecture213.tex
 │
-├── books/                      # ★ narrative 계층
+├── books/                      # ★ narrative hierarchy
 │   ├── README.md
 │   ├── 00-overview.md
 │   ├── math/
@@ -169,28 +169,28 @@
 │   ├── correspondences.md
 │   ├── falsifiers.md
 │   ├── lemma-index.md
-│   ├── math-theorems.md        # ★ 수학트랙 추가
-│   └── modules.md              # ★ Lean 모듈 → 정리 매핑
+│   ├── math-theorems.md        # ★ math track addition
+│   └── modules.md              # ★ Lean module → theorem mapping
 │
-├── blueprints/                 # ★ 미래 마라톤 방향
+├── blueprints/                 # ★ future marathon directions
 │   ├── INDEX.md
-│   ├── 00_DIRECTORY_PROPOSAL.md  (이 파일)
+│   ├── 00_DIRECTORY_PROPOSAL.md  (this file)
 │   ├── 01_probability_213.md
 │   ├── 02_multivariable_213.md
-│   └── ... (14 분야)
+│   └── ... (14 fields)
 │
-├── examples/                   # Mathlib 스타일
+├── examples/                   # Mathlib style
 │   ├── README.md
 │   ├── 01-hello-atomic.lean
 │   ├── 02-compute-ie.lean
 │   ├── 03-verify-prediction.lean
 │   ├── 04-atomic-chain.lean
 │   ├── 05-import-other-project.lean
-│   ├── math-01-mvt.lean        # ★ 수학 예시
+│   ├── math-01-mvt.lean        # ★ math examples
 │   ├── math-02-integral.lean
 │   └── math-03-transcendental.lean
 │
-├── research-notes/             # 연구 노트 (현 213/research/notes/)
+├── research-notes/             # research notes (current 213/research/notes/)
 │   ├── 17_existence_mode_lens.md
 │   ├── 19_lens_not_functor.md
 │   └── ...
@@ -203,66 +203,67 @@
 
 ---
 
-## 4. 마이그레이션 단계
+## 4. Migration Steps
 
-현재 → 합의안 변경 큰 단계 (다음 세션 작업):
+Major steps from current → consensus (work for next session):
 
-### Step 1: seed/ 디렉토리
+### Step 1: seed/ directory
 
 `213/AXIOM.md`, `ORIGIN.md`, `NOTATION.md` → `seed/`.
-PHILOSOPHY.md, FALSIFIABILITY.md 신규 작성.
+Write new PHILOSOPHY.md, FALSIFIABILITY.md.
 
-### Step 2: lean/ 분리
+### Step 2: lean/ separation
 
-`213/framework/` → `lean/`.  Lakefile + lean-toolchain 이동.
-`E213/` namespace 그대로 유지.
+`213/framework/` → `lean/`.  Move Lakefile + lean-toolchain.
+Keep `E213/` namespace as-is.
 
-### Step 3: lean/E213/Math/ 분야별 sub-dir
+### Step 3: lean/E213/Math/ per-field sub-dirs
 
-현재 `Real213*.lean` 176 모듈 → `Math/Analysis/Real213*.lean`.
-이름 유지 (이름 바꾸면 import path 갱신).
+Current `Real213*.lean` 176 modules → `Math/Analysis/Real213*.lean`.
+Keep filenames (renaming would require updating import paths).
 
-### Step 4: books/ 계층
+### Step 4: books/ hierarchy
 
-`book/` 평면 → `books/math/`, `books/physics/`.
+Flat `book/` → `books/math/`, `books/physics/`.
 `ANALYSIS213.md` → `books/math/analysis213.md`.
 
-### Step 5: catalogs/ 신규
+### Step 5: new catalogs/
 
-`CATALOG213.md` → `catalogs/math-theorems.md` (또는 master로 분리).
+`CATALOG213.md` → `catalogs/math-theorems.md` (or split as master).
 
-### Step 6: blueprints/ 그대로 (이미 작성)
+### Step 6: blueprints/ unchanged (already written)
 
-`213/research/blueprints/` → 그대로 유지 또는 root 로 이동.
+`213/research/blueprints/` → keep as-is or move to root.
 
-### Step 7: archive/ 만들지 않음
+### Step 7: do not create archive/
 
-현재 sub-projects 의 옛 Python experiments 는 *결과만* 213 안에
-이전, 옛 Python 자체는 **삭제** (git history 보존).
+Old Python experiments in current sub-projects: migrate *results only*
+into 213; delete the old Python itself (**deletion**, git history preserved).
 
 ---
 
-## 5. 핵심 원칙
+## 5. Core Principles
 
-| 원칙 | 출처 |
+| Principle | Source |
 |---|---|
-| Deprecated 는 삭제 | CLAUDE.md |
-| 80줄 hook | 강제 |
-| 자연스러운 reading order | CLAUDE.md |
-| 외부 axiom 추가 = 이론 폐기 | AXIOM.md §5.2.1 |
-| 0 sorry, axioms ≤ {propext, Quot.sound} | 형식 검증 기준 |
+| Deprecated → delete | CLAUDE.md |
+| 80-line hook | enforced |
+| Natural reading order | CLAUDE.md |
+| Adding external axiom = theory discarded | AXIOM.md §5.2.1 |
+| 0 sorry, axioms ≤ {propext, Quot.sound} | formal verification standard |
 | Mathlib-free | Lean 4 core only |
 
-이 6 원칙은 디렉토리 변경에서도 *유지*.
+These 6 principles are *maintained* even through directory changes.
 
 ---
 
-## 6. 결론
+## 6. Conclusion
 
-**70% 합의** (Library 모듈, examples, tools, catalogs, books 분리).
-**30% 차이** (namespace, archive, math sub-dir, books 계층, seed 명명).
+**70% consensus** (Library module, examples, tools, catalogs, books separation).
+**30% difference** (namespace, archive, math sub-dir, books hierarchy, seed naming).
 
-수학트랙 입장에서 합의안이 양쪽 더 공평 + 미래 확장성 ↑.
+From the math track's perspective, the consensus is more equitable for both
+sides and increases future extensibility.
 
-물리트랙의 검토 + 사용자 결정 대기.
+Awaiting physics track review + user decision.
 

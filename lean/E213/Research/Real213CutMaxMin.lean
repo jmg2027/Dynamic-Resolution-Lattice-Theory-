@@ -7,11 +7,11 @@ import E213.Research.Real213CutSumTest
 max(x, y) ≤ m/k iff x ≤ m/k AND y ≤ m/k → cut := cx ∧ cy.
 min(x, y) ≤ m/k iff x ≤ m/k OR y ≤ m/k → cut := cx ∨ cy.
 
-## 의의
+## Significance
 
-213-native: 검색 없 이 직접 Bool combinator 로 표현.  cutBinary 의
-*특수 form* — 모든 (m1, m2) 조합 이 trivial 하 게 결정.  Continuity
-도 자명.
+213-native: expressed directly as Bool combinators without search.  A
+*special form* of cutBinary — every (m1, m2) combination is trivially
+determined.  Continuity is also trivially obvious.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -36,28 +36,28 @@ example : cutMax (constCut 1 1) (constCut 2 1) 1 1 = false := by decide
 /-- min(1, 2) = 1 ≤ 1/1 true. -/
 example : cutMin (constCut 1 1) (constCut 2 1) 1 1 = true := by decide
 
-/-- min 의 commutativity. -/
+/-- commutativity of min. -/
 theorem cutMin_comm (cx cy : Nat → Nat → Bool) :
     cutMin cx cy = cutMin cy cx := by
   funext m k
   show (cx m k || cy m k) = (cy m k || cx m k)
   cases cx m k <;> cases cy m k <;> rfl
 
-/-- max 의 commutativity. -/
+/-- commutativity of max. -/
 theorem cutMax_comm (cx cy : Nat → Nat → Bool) :
     cutMax cx cy = cutMax cy cx := by
   funext m k
   show (cx m k && cy m k) = (cy m k && cx m k)
   cases cx m k <;> cases cy m k <;> rfl
 
-/-- max 의 associativity. -/
+/-- associativity of max. -/
 theorem cutMax_assoc (cx cy cz : Nat → Nat → Bool) :
     cutMax (cutMax cx cy) cz = cutMax cx (cutMax cy cz) := by
   funext m k
   show ((cx m k && cy m k) && cz m k) = (cx m k && (cy m k && cz m k))
   cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
 
-/-- min 의 associativity. -/
+/-- associativity of min. -/
 theorem cutMin_assoc (cx cy cz : Nat → Nat → Bool) :
     cutMin (cutMin cx cy) cz = cutMin cx (cutMin cy cz) := by
   funext m k

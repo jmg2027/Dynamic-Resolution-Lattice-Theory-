@@ -1,70 +1,70 @@
-# E3 — ModulusCombiner kernel 의 깊은 obstruction
+# E3 — Deep obstruction in the ModulusCombiner kernel
 
-## Kernel 의 구축 (2026-04-26)
+## Building the kernel (2026-04-26)
 
-`Real213ModulusCombiner.lean`: abstract kernel 완성.
+`Real213ModulusCombiner.lean`: abstract kernel completed.
 
 ```
 structure ModulusCombiner (combine : Raw → Raw → Raw) where
   precX : Nat → Nat → Nat × Nat
   precY : Nat → Nat → Nat × Nat
   precX_k_pos / precY_k_pos
-  preserves : ... — orderProj 일 치 propagation
+  preserves : ... — orderProj match propagation
 ```
 
-`combineModulus` generic theorem: 두 HasModulus + ModulusCombiner →
-combined HasModulus.  Cauchy bookkeeping 이 *one place* 격리 ([propext]
-only).
+`combineModulus` generic theorem: two HasModulus + ModulusCombiner →
+combined HasModulus.  Cauchy bookkeeping isolated to *one place*
+([propext] only).
 
-## Trivial instances ✓ (kernel 검증)
+## Trivial instances ✓ (kernel validation)
 
 - `piOneCombiner` : combine x y = x (0 axioms).
 - `piTwoCombiner` : combine x y = y (0 axioms).
 - `constCombiner c` : combine = constant c (0 axioms).
 
-위 3 instance 가 kernel 의 well-formedness 확인.
+These 3 instances confirm the well-formedness of the kernel.
 
-## Addition 의 deeper obstruction
+## Deeper obstruction for addition
 
-Addition combiner 시도 시 *근본 적* 문제 발견:
+When attempting an addition combiner, a *fundamental* problem is found:
 
-**Single-precision query 의 information 부족**.
+**Insufficient information from a single-precision query**.
 
-ModulusCombiner 의 preserves: x1, x2 가 *single* precision (m_x, k_x)
-에 서 orderProj 일 치, y1, y2 가 *single* precision (m_y, k_y) 에 서
-orderProj 일 치 → combined 가 (m, k) 에 서 일 치.
+The `preserves` of ModulusCombiner: x1, x2 match orderProj at
+*single* precision (m_x, k_x), y1, y2 match at *single* precision
+(m_y, k_y) → combined matches at (m, k).
 
 Addition: orderProj of sum view (a*b' + a'*b, b*b') at (m, k) =
-decide ((a*b' + a'*b)*k ≤ b*b'*m).  이 결정 은 (a, b, a', b') 의
-*exact value* 에 의존 — single precision 에 서 의 cut decision 만
-으 로 는 결정 부재.
+decide ((a*b' + a'*b)*k ≤ b*b'*m).  This decision depends on the
+*exact values* of (a, b, a', b') — not decidable from cut decisions
+at single precision only.
 
-**Counterexample**: x1 view (1, 2), x2 view (2, 4) — 둘 다 ratio 1/2.
+**Counterexample**: x1 view (1, 2), x2 view (2, 4) — both ratio 1/2.
 orderProj 1 2 of (1, 2) = decide(2 ≤ 2) = true.  orderProj 1 2 of
-(2, 4) = decide(4 ≤ 4) = true.  Single precision 일 치.
+(2, 4) = decide(4 ≤ 4) = true.  Single precision match.
 
 But sum with y view (1, 1): sum1 view = (1*1 + 1*2, 2*1) = (3, 2),
-sum2 view = (2*1 + 1*4, 4*1) = (6, 4).  Ratios 모두 3/2 — orderProj
-일 치 OK at any (m, k).  다행히 같음.
+sum2 view = (2*1 + 1*4, 4*1) = (6, 4).  Both ratios are 3/2 —
+orderProj matches OK at any (m, k).  Fortunately they are the same.
 
-Hmm — *이 specific case* 는 ratio 가 같으 니 OK.  하 지 만 일반 적
-으 로 view 의 *value* 가 다 르 면 orderProj 의 일 치 가 view-equality
-가 아 니 라 *cut-side* equality 만 보 장.
+Hmm — *this specific case* is OK since the ratios are equal.  But in
+general, when the *values* of views differ, the match of orderProj
+only guarantees *cut-side* equality, not view-equality.
 
-## 진 짜 issue
+## True issue
 
-Cauchy sequence 의 view 가 *value* 로 stabilize 안 함 — orderProj
-*decision* 만 stabilize.  Addition 의 sum view 의 orderProj 는 view
-의 *value-pair* 에 의존.  Decision-side 만 으 로 는 sum decision 결정
-부재.
+The view of a Cauchy sequence does not stabilize to a *value* —
+only the orderProj *decision* stabilizes.  The orderProj of the
+sum view for addition depends on the *value-pair* of the view.
+The sum decision cannot be determined from the decision-side alone.
 
-## 가능 한 해결 방향
+## Possible resolution directions
 
 ### (A) Multiple-precision queries
 
-ModulusCombiner 를 확장: precX 가 single precision 이 아 닌 *list*
-of precisions.  Bishop 의 ε/2 trick 의 213 form — 여 러 cut decision
-조합 으 로 sum decision 좁 히 기.
+Extend ModulusCombiner: precX is a *list* of precisions rather than
+single precision.  213 form of Bishop's ε/2 trick — narrow the sum
+decision by combining multiple cut decisions.
 
 ```
 structure ModulusCombiner (combine) where
@@ -72,13 +72,13 @@ structure ModulusCombiner (combine) where
   preserves : ... ∀ p ∈ precX, orderProj p of x1 = of x2 → ...
 ```
 
-이 design 이 더 expressive.  하 지 만 *얼마 나 많은 precision* 이
-필 요 한 가 가 case-specific.
+This design is more expressive.  But *how many precisions* are needed
+is case-specific.
 
 ### (B) Stronger Cauchy form — bounded view variation
 
-HasModulus 를 확장: orderProj 의 stability 뿐 아 니 라 view-value
-의 *bounded variation* 도 보 장.
+Extend HasModulus: guarantee not just the stability of orderProj but
+also the *bounded variation* of the view-value.
 
 ```
 structure StrongModulus where
@@ -87,34 +87,34 @@ structure StrongModulus where
   view_bound : ∀ ε > 0, ∃ N, ∀ i j ≥ N, |view i - view j| < ε
 ```
 
-이 형식 으 로 는 addition 이 자연 — Bishop 의 standard.  하 지 만
-*기존* HasModulus 와 의 호환 부재 — Pell, Diagonal 등 의 instance
-re-prove 필 요.
+With this form addition is natural — Bishop's standard.  But no
+compatibility with *existing* HasModulus — need to re-prove instances
+for Pell, Diagonal, etc.
 
 ### (C) Cut-level addition
 
-`RealCut := Nat → Nat → Bool` 위 에 서 직접 addition 정의.  단,
-∃-quantifier-heavy.  Decidability 부재.
+Define addition directly on `RealCut := Nat → Nat → Bool`.
+However, ∃-quantifier-heavy.  No decidability.
 
-## 결정
+## Decision
 
-**(B) 권 장** — Bishop 의 ε-N standard 와 정 합, 외 부 axiom 부재.
-HasModulus 를 *strict* form 으 로 강화 + 기존 instance 들 재증명.
-이 게 진 짜 long arc.
+**(B) recommended** — consistent with Bishop's ε-N standard, no
+external axioms.  Strengthen HasModulus to a *strict* form + re-prove
+existing instances.  This is a genuinely long arc.
 
-또 는 (A): 더 abstract, 하 지 만 case-specific tuning 필 요.
+Or (A): more abstract, but requires case-specific tuning.
 
 ## Falsifiability
 
-이 obstruction 도 *engineering challenge* — Bishop 의 program 자체
-가 working (외부 mathematics literature), 단순 213 안 *바 른 abstraction
-선택* 의 문제.
+This obstruction is also an *engineering challenge* — Bishop's program
+itself works (external mathematics literature), simply a matter of
+*choosing the right abstraction* within 213.
 
-## 다 음
+## Next
 
-- **F1 (proposed)**: `StrongModulus` typeclass + 기존 instance (Pell,
-  Diagonal) 의 재증명.
-- **F2 (proposed)**: `StrongModulus` 위 의 ModulusCombiner kernel.
-- **F3 (proposed)**: Addition 의 instance.
+- **F1 (proposed)**: `StrongModulus` typeclass + re-proof of existing
+  instances (Pell, Diagonal).
+- **F2 (proposed)**: ModulusCombiner kernel on `StrongModulus`.
+- **F3 (proposed)**: Addition instance.
 
-별 도 큰 arc — 이 session 에 서 는 *진단* 까 지 만.
+A separate large arc — this session only reaches *diagnosis*.

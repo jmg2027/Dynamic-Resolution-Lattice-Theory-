@@ -28,9 +28,9 @@ example : cutInv (constCut 1 2) 1 1 = false := by decide
 example : cutInv (constCut 1 3) 4 1 = true := by decide
 
 /-- **cutDiv**: division via reciprocal.
-    Note: cutMul + cutInv combine 시 boundary precision artifact 발생,
-    "x/y ≤ exact ratio" 가 strict 기 준 으 로 만 capture.  Finer
-    precision redesign 별 도. -/
+    Note: when combining cutMul + cutInv, a boundary precision artifact occurs;
+    "x/y ≤ exact ratio" is only captured with strict criteria.  Finer
+    precision redesign is separate. -/
 def cutDiv (cx cy : Nat → Nat → Bool) : Nat → Nat → Bool :=
   cutMul cx (cutInv cy)
 

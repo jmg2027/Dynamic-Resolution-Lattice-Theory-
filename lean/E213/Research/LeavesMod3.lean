@@ -4,19 +4,19 @@ import E213.Research.LensFactoring
 /-!
 # Research.LeavesMod3: leaves count mod 3 Lens
 
-**Lens**: `leavesMod3Lens : Lens (Fin 3)` 로 leaves count mod 3
-관측.
+**Lens**: `leavesMod3Lens : Lens (Fin 3)` observes leaves count mod 3.
 
-이는 parity (mod 2) 외에 추가로 자연스러운 Lens kernel 을
-제공 — 일반적으로 모든 m ≥ 2 에 대해 "leaves mod m" 이
-slash-congruence.  따라서 Lens kernel 은 최소 countable 무한.
+This provides an additional natural Lens kernel beyond parity (mod 2)
+— in general, for every m ≥ 2, "leaves mod m" is a
+slash-congruence.  Therefore the Lens kernel has at least countably
+infinitely many elements.
 
-## 정리
+## Theorems
 
 - `leavesMod3Lens_view_eq` — view = leaves % 3.
 - `leaves_refines_mod3` — Lens.leaves.refines leavesMod3Lens.
-- `mod3_distinct_from_parity` (prose): mod 3 kernel 은 parity
-  kernel 과 다름 (leaves 1 vs 3 구분).
+- `mod3_distinct_from_parity` (prose): the mod 3 kernel differs from
+  the parity kernel (distinguishes leaves 1 vs 3).
 -/
 
 namespace E213.Research.LeavesMod3

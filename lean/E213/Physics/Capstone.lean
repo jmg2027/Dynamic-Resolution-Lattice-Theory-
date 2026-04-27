@@ -12,13 +12,13 @@ Combines the seven key results of the Physics track into one
 conjunction.  Each conjunct is a separately-proven `decide`-checked
 statement; this file just witnesses their *simultaneity*.
 
-`drlt_physics_milestone` 가 0-sorry, 0-axiom으로 닫히는 것이 곧
-"DRLT 물리 형식화 트랙이 작동한다"의 조작적 의미.
+`drlt_physics_milestone` closing with 0-sorry, 0-axiom is precisely
+the operational meaning of "the DRLT physics formalization track works".
 
-CLAUDE.md 절대 원칙 (2026-04-27):
-  1. 정밀 형식 정리 ✓ (AlphaGUT, AlphaEM, TightenBracket, Cabibbo)
-  2. 형식화된 새 물리 ✓ (Generations no_4th_gen, MagicNumbers HO)
-  교집합 ✓ (Cabibbo: 5/22 정수 도출 + 측정 가능)
+CLAUDE.md absolute principles (2026-04-27):
+  1. Precision formal theorem ✓ (AlphaGUT, AlphaEM, TightenBracket, Cabibbo)
+  2. Formalized new physics ✓ (Generations no_4th_gen, MagicNumbers HO)
+  Intersection ✓ (Cabibbo: 5/22 integer derivation + measurable)
 -/
 
 namespace E213.Physics.Capstone
@@ -31,19 +31,19 @@ open E213.Physics.Magic
 open E213.Physics.Tighten
 open E213.Physics.Cabibbo
 
-/-- **DRLT 물리 형식화 마일스톤 종합 정리**.
+/-- **DRLT physics formalization milestone master theorem**.
 
-  단일 `by decide`로 닫히는 7-fold conjunction:
+  A 7-fold conjunction closed by a single `by decide`:
   (1) 1/α_GUT bracket at N=3 contains 41
-  (2) 1/α_GUT bracket at N=10 *strictly excludes* 42 (좁아짐 입증)
+  (2) 1/α_GUT bracket at N=10 *strictly excludes* 42 (witnesses tightening)
   (3) 1/α_em(bare) bracket at N=5 contains 128
   (4) N_gen = 3, no 4th generation slot
   (5) HO magic = pronic sum (n(n+1)(n+2)/3 closed form at n=1..7)
   (6) sin θ_C = 5/22 (rational from {D, C_lat} alone)
   (7) Cabibbo within 1% of observed 22650/100000
 
-  이 한 정리가 0 sorry, 0 axiom으로 빌드되는 것이
-  "Physics formalization track is operational"의 형식 진술. -/
+  This single theorem building with 0 sorry, 0 axiom is
+  the formal statement of "Physics formalization track is operational". -/
 theorem drlt_physics_milestone :
     -- (1) precision: 41 ∈ AlphaGUT bracket(3)
     (let lo := inv_lower 3; let hi := inv_upper 3

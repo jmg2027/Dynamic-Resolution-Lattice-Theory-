@@ -1,6 +1,6 @@
 ---
 name: verify-consistency
-description: Deep self-consistency audit of the entire repo. Checks theory, notation, numbers, cross-references, file organization, and documentation. Fixes all inconsistencies found. Triggered by "검증", "일관성", "consistency check", "verify", "clean", "정리 검증", "audit".
+description: Deep self-consistency audit of the entire repo. Checks theory, notation, numbers, cross-references, file organization, and documentation. Fixes all inconsistencies found. Triggered by "검증" / "verify", "일관성" / "consistency", "consistency check", "verify", "clean", "정리 검증" / "theorem verify", "audit".
 ---
 
 # Self-Consistency Verification & Correction
@@ -235,11 +235,11 @@ After all phases, produce a summary:
 
 ## Quick Mode vs Full Mode
 
-**Quick mode** (default for "검증", "verify"):
+**Quick mode** (default for "검증" / "verify", "verify"):
 - Phase 2.1 (number matching) + Phase 3.3 (single.tex sync) + Phase 4.1 (CLAUDE.md)
 - ~5 minutes
 
-**Full mode** ("전체 검증", "full audit", "deep verify"):
+**Full mode** ("전체 검증" / "full verify", "full audit", "deep verify"):
 - All 6 phases
 - ~20 minutes
 - Use Agent tool for parallel scanning

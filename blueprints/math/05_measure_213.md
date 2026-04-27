@@ -1,25 +1,25 @@
 # Measure Theory 213 — Blueprint
 
-**우선순위**: ★★ (σ-algebra 거부 — 213 의 *대안 정립*)
+**Priority**: ★★ (σ-algebra rejected — 213 establishes an *alternative*)
 
 ---
 
-## 1. 왜 이 분야인가
+## 1. Why This Field
 
-ZFC 측도이론:
+ZFC measure theory:
 - σ-algebra (Borel, Lebesgue)
-- Choice → Vitali 비측도 집합 (골치)
-- countable additivity 가 closure 조건
-- Lebesgue integral, Radon-Nikodym 등
+- Choice → Vitali non-measurable sets (trouble)
+- countable additivity is a closure condition
+- Lebesgue integral, Radon-Nikodym, etc.
 
-213 의 *거부* 와 *대안*:
-- **σ-algebra 거부** — Choice 의존
-- **dyadic interval system** 으로 충분 — 가산성 자체적
-- **cohomological 측도** = FluxCut (이미 형식화)
+213 *rejects* and proposes an *alternative*:
+- **σ-algebra rejected** — depends on Choice
+- **dyadic interval system** is sufficient — countability intrinsic
+- **cohomological measure** = FluxCut (already formalized)
 
-이게 *213 이 ZFC 와 깊이 다른 지점* 명시 — 매우 중요.
+This marks the point where *213 differs deeply from ZFC* — very important.
 
-## 2. 213-native 등장
+## 2. 213-native Emergence
 
 ### 2.1 Dyadic measurable space
 
@@ -27,104 +27,104 @@ ZFC 측도이론:
 DyadicMeasurableSet := List DyadicBracket   -- finite union
 ```
 
-가산 union 도 OK 하지만 *list* 자체로 Choice 회피.
+Countable union is also OK, but *list* itself avoids Choice.
 
-### 2.2 측도 = cohomological
+### 2.2 Measure = cohomological
 
 ```
-def DyadicMeasure := DyadicBracket → Cut    -- 각 bracket 에 cut 값
+def DyadicMeasure := DyadicBracket → Cut    -- cut value per bracket
 ```
 
-**Properties** (probability 의 대응):
+**Properties** (correspondence to probability):
 - monotone: db1 ⊆ db2 → m(db1) ≤ m(db2)
 - additive: disjoint → m(db1 ∪ db2) = m(db1) + m(db2)
-- normalized (확률 한정): m(unitBracket) = 1
+- normalized (probability only): m(unitBracket) = 1
 
-### 2.3 Lebesgue 적분 = cohomological flux
+### 2.3 Lebesgue integral = cohomological flux
 
-`IsAntiderivative.integral` 은 *이미 Lebesgue-style*:
-- ∫ f over db = fluxAlong F db (F 는 antideriv)
-- monotone convergence: cohomEquiv 형식
+`IsAntiderivative.integral` is *already Lebesgue-style*:
+- ∫ f over db = fluxAlong F db (F is antiderivative)
+- monotone convergence: cohomEquiv form
 - dominated convergence: bounded cut
 
 ### 2.4 Radon-Nikodym — flux density
 
 f = dμ/dν (Radon-Nikodym derivative) ↔ flux density.
-`localDivergence` 가 이미 그 역할.
+`localDivergence` already plays that role.
 
-### 2.5 Lp 공간
+### 2.5 Lp spaces
 
-|f|^p integrable.  cutPow + integral 결합.
+|f|^p integrable.  Combine cutPow + integral.
 
-## 3. 빌딩 블록
+## 3. Building Blocks
 
-| 도구 | 활용 |
+| Tool | Use |
 |---|---|
 | `dyadicIntervalAB` | measurable set base |
-| `FluxCut` | 측도 = 1-cochain |
+| `FluxCut` | measure = 1-cochain |
 | `IsAntiderivative.integral` | Lebesgue ∫ |
 | `localDivergence` | Radon-Nikodym |
 | `partialSum` | sequence convergence |
 
-## 4. Phase 계획
+## 4. Phase Plan
 
 ### Phase MeasA — Dyadic measurable (3-5 commits)
 
-1. `DyadicMeasurableSet` 정의
-2. union, intersection, difference (list 연산)
+1. Define `DyadicMeasurableSet`
+2. union, intersection, difference (list operations)
 3. measure 0 (empty list) propEq
 4. uniform measure on unitBracket
 
-### Phase MeasB — Lebesgue 적분
+### Phase MeasB — Lebesgue integral
 
-1. `lebesgueIntegral f db` — IsAntiderivative.integral 재포장
+1. `lebesgueIntegral f db` — repackages IsAntiderivative.integral
 2. linearity, monotonicity propEq
-3. 상수 함수 적분 = constant × measure
-4. dyadic step function 적분
+3. constant function integral = constant × measure
+4. dyadic step function integral
 
 ### Phase MeasC — Convergence theorems
 
-1. Monotone convergence (cohomEquiv 형식)
+1. Monotone convergence (cohomEquiv form)
 2. Dominated convergence (bounded cut)
 3. Fatou lemma — open
 
-### Phase MeasD — Lp 공간
+### Phase MeasD — Lp spaces
 
-1. `Lp` cut 공간 정의
-2. Hölder, Minkowski 부등식
-3. L¹ ⊂ L²  inclusion (bounded domain)
+1. Define `Lp` cut space
+2. Hölder, Minkowski inequalities
+3. L¹ ⊂ L² inclusion (bounded domain)
 
 ### Phase MeasE — Capstone
 
-학부 측도이론 1년차.
+First year undergraduate measure theory.
 
-## 5. 다른 트랙 연결
+## 5. Connections to Other Tracks
 
-- **Probability 213**: 측도이론 = 확률 모자
-- **Yang-Mills**: 스펙트럴 측도
-- **Critical Line**: zeta 측도
-- **DHA**: Lebesgue 위 Fourier
+- **Probability 213**: measure theory = hat of probability
+- **Yang-Mills**: spectral measure
+- **Critical Line**: zeta measure
+- **DHA**: Fourier over Lebesgue
 
-## 6. 미해결 / Open
+## 6. Open Problems
 
-- **Vitali 비측도 집합** — *존재 자체 부재* (Choice 없으니)
-- **Banach-Tarski** — 마찬가지 부재
-- **Lebesgue measure on ℝ general** — dyadic 로 완전 대체 가능?
-- **Haar measure** on group — group theory 213 (blueprint 11) 활용
+- **Vitali non-measurable set** — *cannot exist* (no Choice)
+- **Banach-Tarski** — same: absent
+- **Lebesgue measure on ℝ general** — fully replaceable by dyadic?
+- **Haar measure** on group — use group theory 213 (blueprint 11)
 
-## 7. 핵심 인사이트 (★)
+### 7. Key Insights (★)
 
-★ **σ-algebra 부재 = feature** — 213 이 ZFC 의 측도이론 *문제*
-(Vitali, Banach-Tarski) 자동 제거.
+★ **σ-algebra absent = feature** — 213 automatically removes ZFC
+measure-theory *problems* (Vitali, Banach-Tarski).
 
-★ **측도 = cohomological 1-cochain** — 분석학 213 이 이미 형식화.
+★ **Measure = cohomological 1-cochain** — already formalized in Analysis 213.
 
-★ **Lebesgue ⊂ Riemann (213-native)** — dyadic Riemann 이 충분히
-강력 — Lebesgue 별도 정의 불필요할 수.
+★ **Lebesgue ⊂ Riemann (213-native)** — dyadic Riemann is
+sufficiently powerful; separate Lebesgue definition may be unnecessary.
 
-## 8. 첫 마라톤 명령
+## 8. First Marathon Command
 
 ```
-"Phase MeasA 시작.  DyadicMeasurableSet + measure on unitBracket"
+"Start Phase MeasA.  DyadicMeasurableSet + measure on unitBracket"
 ```
 

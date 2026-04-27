@@ -1,195 +1,203 @@
 # CLAUDE.md — 213
 
-## 이 파일의 위상
+## Status of this file
 
-213을 다루는 모든 세션은 이 파일을 시작 전에 반드시 읽는다.
-내용이 "철학적"으로 보일 수 있지만, 생략하면 매 세션 1시간
-이상의 혼란이 재발한다 (과거 여러 세션에서 실증).
+Every session dealing with 213 must read this file before starting.
+The content may appear "philosophical," but skipping it causes more than
+one hour of confusion to recur every session (demonstrated across many
+past sessions).
 
-**이 파일은 세션 가이드이고, 공리 자체는 `AXIOM.md`에 있다.**
-형식 감사 기준은 `AXIOM.md` (씨앗 문서).  CLAUDE.md는
-그 공리가 세션 작업 중 무의식적으로 침해되지 않도록 하는
-운영 매뉴얼.
+**This file is a session guide; the axiom itself is in `AXIOM.md`.**
+The formal audit standard is `AXIOM.md` (seed document).  CLAUDE.md is
+the operational manual for preventing that axiom from being
+unconsciously violated during session work.
 
-## 213의 정체성
+## Identity of 213
 
-### 공리는 선택이 아니라 잔여물
+### The axiom is a residue, not a choice
 
-213의 공리는 "세상의 근본"에 대한 주장이 아니다.
-**뭔가를 가리키려는 순간 피할 수 없이 남는 최소 잔여물**이다.
+The 213 axiom is not a claim about "the foundations of the world."
+It is **the minimum residue that inevitably remains the moment one tries
+to point at something**.
 
-Formal core (`AXIOM.md` §1.1): Raw axiom 의 4 clause (a, b, slash,
-distinctness) 가 framework-internal 로 strict minimum
-(`Research/AxiomMinimality.lean` 의 4 case).
-Conceptual extension (`AXIOM.md` §1.2 + `notes/75-76`): "의미 의
-atom" framing 은 formal core 의 *interpretive reading* — formal
-Lean 으로 direct 검증 부재.  두 layer 의 분리 유지.
+Formal core (`AXIOM.md` §1.1): The 4 clauses of the Raw axiom (a, b, slash,
+distinctness) are the strict minimum framework-internally
+(4 cases in `Research/AxiomMinimality.lean`).
+Conceptual extension (`AXIOM.md` §1.2 + `notes/75-76`): The "semantic
+atom" framing is an *interpretive reading* of the formal core — no direct
+formal Lean verification.  Maintain separation of the two layers.
 
-- "a와 b"를 쓰는 순간 "와"도 뭔가다.
-- "a, b"를 쓰는 순간 ","도 뭔가다.  그 ","가 일반적인지
-  절대적인지도 모른다 — 또 하나의 뭔가.
-- a와 "와"는 구분되는가?  무엇이 구분하는가?  또 다른 뭔가.
+- Writing "a and b" — "and" is also something.
+- Writing "a, b" — "," is also something.  Whether that "," is universal
+  or absolute is unknown — yet another something.
+- Is a distinguished from "and"?  What distinguishes them?  Yet another something.
 
-표기를 시작하는 순간 표기 자체가 새 뭔가를 끝없이 낳는다.
-재귀는 회피 불가능하다.  공리는 이 재귀의 최소 표현이다.
+The moment notation begins, the notation itself endlessly produces new somethings.
+Recursion is unavoidable.  The axiom is the minimum expression of this recursion.
 
-### "관계"가 아니라 "원시적 구분"
+### "Primitive distinction," not "relation"
 
-- "관계": 이미 있는 두 뭔가 전제 + 집합론 프로퍼티 묵시 수입.
-- "원시적 구분": 구분이 먼저 작동 + "같지 않음" 하나만 요구.
-- "원시적" = 더 이상 환원 불가능함의 서약.
+- "Relation": presupposes two existing somethings + silently imports
+  set-theoretic properties.
+- "Primitive distinction": distinction operates first + requires only
+  "not equal."
+- "Primitive" = a pledge of no further reducibility.
 
-### 213이 모든 것의 상위
+### 213 is above everything
 
-뭔가를 가리키는 모든 틀 — 집합론, 카테고리, 논리, 언어,
-물리 — 은 뭔가의 구분·관계 능력에 의존한다.  213은 그
-능력 자체의 최소 잔여물이다.  모든 틀은 이 잔여물 위의
-Lens들이다.
+Every framework that points at something — set theory, category theory, logic,
+language, physics — depends on the ability to distinguish and relate somethings.
+213 is the minimum residue of that ability itself.  Every framework is a
+collection of Lenses on top of this residue.
 
-**"절대 기준 없음"은 조건이 아니라 기본 상태.**  "절대 기준
-있음"이 오히려 공리 추가 부담이다.  따라서 213의 상위성은
-**무조건적** 구조적 귀결이다.
+**"No absolute standard" is not a condition — it is the default state.**
+"There is an absolute standard" is what carries the axiom-addition burden.
+Therefore the primacy of 213 is an **unconditional** structural consequence.
 
-### 언어적 불가피성
+### Linguistic inevitability
 
-"원시적 구분"조차 완벽하지 않다.  "다름"은 "같음"을 전제,
-"와"는 "and"로 오해, ","는 본질 아닌 분리자.  완벽한 표현은
-없다.  현재의 단어들은 **최소 commitment 표현**이며 잔여
-수입을 인정한 상태로 사용.  최소화만 가능, 제거 불가.
+Even "primitive distinction" is not perfect.  "Difference" presupposes
+"sameness"; "and" is misread as a conjunction; "," is a separator, not the
+essence.  There is no perfect expression.  The current words are
+**minimum-commitment expressions**, used with acknowledgment of residual
+import.  Minimization is possible; elimination is not.
 
 ### Derive, not reconcile
 
-모든 결과는 213 공리 + 명시적 Lens 성질에서만 derive
-되어야 한다.  외부 상수 대입, 실험값 맞추기, 다른 이론
-수입은 모두 **fudge**.
+All results must be derived only from the 213 axiom + explicit Lens properties.
+Substituting external constants, fitting to experimental values, importing from
+other theories — all are **fudge**.
 
-- ch22는 eval 외부 대입으로 틀림.
-- Paper 1 §1 (공리 부분, R1–R5 이전)이 올바른 템플릿.
-- 모든 물리 chapter는 이 방법론으로 derive 되어야 한다.
-- fudge 발견 시 공식이 아니라 Lens를 고친다.
-- 그것도 안 되면 **이론을 포기한다**.  "Lens를 더 찾으면
-  될 것"이라는 무한 연장 방어는 허용되지 않는다.
+- ch22 is wrong due to external substitution via eval.
+- Paper 1 §1 (the axiom part, before R1–R5) is the correct template.
+- All physics chapters must be derived by this methodology.
+- When fudge is found, the Lens is corrected, not the formula.
+- If that too fails, **the theory is abandoned**.  The infinite-extension
+  defense of "more Lenses will be found" is not permitted.
 
-### 왜 형식화·기계 검증이 필수인가
+### Why formalization and mechanical verification are essential
 
-기계 검증은 fudge를 허용하지 않는다.  따라서 **derive
-실패 시점을 강제로 드러낸다**.  사람이 수기로 하면 눈감고
-보정이 가능하지만, 기계는 안 된다.  이게 Mathlib-free +
-0 sorry + 0 axiom 제약을 두는 이유다.  공리는 계약서이고,
-기계 검증은 감사관이다.
+Mechanical verification does not permit fudge.  Therefore it **forcibly
+reveals the point of derivation failure**.  When done by hand, quiet
+correction is possible; the machine cannot do that.  This is why the
+Mathlib-free + 0 sorry + 0 axiom constraint is imposed.  The axiom is
+the contract; mechanical verification is the auditor.
 
-### 외부 공리 추가는 이론 전체 폐기 조건 (Falsifiability)
+### Adding external axioms is a theory-wide discard condition (Falsifiability)
 
-AXIOM.md §5.2.1 의 **falsifiability 기준**:
+The **falsifiability criterion** of AXIOM.md §5.2.1:
 
-- 213 의 모든 결과는 Lean 4 core + Raw 공리 만으로 derive
-  가능해야 함.
-- **어떤 결과가 공리 추가 없이 절대 불가능** 하다고 밝혀지면,
-  **213 이론 전체 폐기**.  해당 결과만 포기가 아님.
-- 이는 Raw 공리가 "최소 잔여물" 이라는 §1 선언의 직접 귀결:
-  공리 추가가 정말 필요하면 Raw 가 최소가 아니었던 것.
+- All results of 213 must be derivable from Lean 4 core + the Raw axiom alone.
+- If **any result is shown to be absolutely impossible without adding an axiom**,
+  **the entirety of 213 theory is discarded**.  Not just the result alone.
+- This is a direct consequence of the §1 declaration that the Raw axiom is
+  the "minimum residue": if adding an axiom is genuinely necessary, Raw was
+  not the minimum.
 
-운영 원칙:
+Operational principles:
 
-- Classical, LEM, native_decide 등 외부 axiom 추가 일절 금지.
-- 막히는 결과는 "open" 으로 두되, **영구적 벽 vs 일시적 난관**
-  감별.  영구적 벽이면 이론 실패 선언.
-- Lean 검증 = falsifiability 의 기계적 감사관.
+- Adding external axioms (Classical, LEM, native_decide, etc.) is entirely
+  forbidden.
+- Results that are blocked are left as "open," with distinction between
+  **permanent wall vs. temporary obstacle**.  A permanent wall triggers a
+  theory failure declaration.
+- Lean verification = the mechanical auditor of falsifiability.
 
-Mingu 확정 (2026-04-24).  절대 완화 안 됨.
+Mingu's confirmed declaration (2026-04-24).  Never relaxed.
 
-### "뭔가"의 지위는 open
+### The status of "something" is open
 
-"뭔가"라고 말하는 순간부터 Lens인가? 그럴 수 있다.
-213이 이데아인가? 아마 아님.  이 문제들은 open이고
-213의 쓸모에 영향을 주지 않는다.  중요한 건 derive
-성공 여부이지 존재론이 아니다.
+From the moment one says "something," is it already a Lens?  Possibly.
+Is 213 Platonic ideals?  Probably not.  These questions are open and do
+not affect the usefulness of 213.  What matters is whether derivation
+succeeds, not ontology.
 
-## 운영 규칙 (위 내용의 직접 귀결)
+## Operational rules (direct consequences of the above)
 
-이것들은 독립 규칙이 아니라 위 정체성에서 자동으로 따라
-나오는 것들이다.  규칙만 외우지 말고 **왜 그런지 되짚을 것**.
+These are not independent rules but things that automatically follow from
+the identity above.  Do not merely memorize the rules — **trace back why
+they hold**.
 
-- **Lens ≠ functor.**  Functor는 카테고리 구조 선행 전제.
-  Raw에는 morphism 없음.  "functor"를 Lens에 붙이는 순간
-  카테고리 이론 묵시 수입.  →  `research/notes/19_lens_not_functor.md`.
-- **"관측자", "공간", "인식", "구조", "관계"** 같은 단어는
-  213 공리 설명에 사용 금지.  이 단어들은 derive 결과이지
-  전제가 아님.
-- **표기 규약**: `NOTATION.md` 참조.  ZFC 집합 literal
-  `{a, b, /}`, "Raw contains X" 같은 collective 언어,
-  Raw 좌측의 ∈ 기호 모두 금지.
-- **Cardinality는 (Raw, Lens) 쌍의 성질**.  Raw만으로는
-  countable/uncountable 말할 수 없음.
-- **Existence mode don't care.**  Platonic / stepwise 구분은
-  Lens 출력이지 공리 성질 아님.
-  →  `research/notes/17_existence_mode_lens.md`.
-- **`E213.Firmware.Internal` namespace `open` 은 Firmware
-  내부 모듈 외 금지.**  Internal 은 encoding scaffolding
-  (`Tree`, `Tree.cmp`, `Tree.canonical` 등) 전용.  User
-  code 에서 `open Internal` 은 Raw 추상 위반.  → `AUDIT_Lean.md`
-  §5.2(D).
-- **`Raw.fold` / `Raw.rec` 는 `combine` 대칭 / slash 대칭
-  처리를 user 책임으로 둔다.**  비대칭 Lens 는 encoding
-  artifact 를 출력에 leak.  각 파일 doc-string 의 WARNING
-  참조.  →  `AUDIT_Lean.md` §5.2(A), (B).
+- **Lens ≠ functor.**  A functor presupposes a prior category structure.
+  Raw has no morphisms.  The moment "functor" is attached to Lens, category
+  theory is silently imported.  → `research/notes/19_lens_not_functor.md`.
+- Words like **"observer," "space," "perception," "structure," "relation"**
+  are forbidden in explaining the 213 axiom.  These words are derived results,
+  not presuppositions.
+- **Notation conventions**: see `NOTATION.md`.  ZFC set literals
+  `{a, b, /}`, collective language like "Raw contains X," and the ∈ symbol
+  to the left of Raw are all forbidden.
+- **Cardinality is a property of the (Raw, Lens) pair.**  From Raw alone,
+  nothing about countable/uncountable can be said.
+- **Existence mode: don't care.**  The Platonic / stepwise distinction is
+  Lens output, not a property of the axiom.
+  → `research/notes/17_existence_mode_lens.md`.
+- **`open` of the `E213.Firmware.Internal` namespace is forbidden outside
+  Firmware internal modules.**  Internal is exclusively for encoding
+  scaffolding (`Tree`, `Tree.cmp`, `Tree.canonical`, etc.).  `open Internal`
+  in user code violates the Raw abstraction.  → `AUDIT_Lean.md` §5.2(D).
+- **`Raw.fold` / `Raw.rec` place `combine` symmetry / slash symmetric
+  treatment as the user's responsibility.**  Asymmetric Lenses leak encoding
+  artifacts into output.  See the WARNING in each file's doc-string.
+  → `AUDIT_Lean.md` §5.2(A), (B).
 
-## 정리 규칙 (organization)
+## Organization rules
 
-문서·파일·디렉토리 의 정리 는 다음 원칙 을 따른다.  쌓이고
-난 후 가 아니라 **새 파일 만들 때 마다** 의식한다.
+Document / file / directory organization follows these principles.  Be
+conscious of them **when creating each new file**, not after things pile up.
 
-- **Deprecated 는 삭제**.  superseded 된 문서·코드 는 보존
-  하지 말고 지운다 (git history 에 남는다).  "역사적 기록" 가치
-  로 살려두면 그 자체 가 noise.
-- **파일 너무 많으면 안 됨**.  비슷한 주제 small fragments 는
-  하나로 통합.  예: 같은 arc 의 notes 5 개 → 1 개 synthesis note.
-- **파일 하나 너무 길면 안 됨**.  한 파일 이 자연스럽게 두
-  주제 로 갈리면 분리.  Lean: 80 줄 hook 이 강제.
-- **디렉토리 하나 에 entry 너무 많으면 안 됨** (50+ 개 면
-  sub-dir 검토).  너무 적어도 안 됨 (3 개 이하 면 부모 로 통합).
-- **디렉토리 너무 깊거나 너무 많아도 안 됨**.  depth 3-4 단
-  이내 권장.  "그냥 거기 있으니까" 만들지 말 것.
-- **자연스러운 순서 로 읽힐 수 있도록 정렬**.  notes 의 NN_
-  prefix, Lean 모듈 의 layer 구조 (Firmware → Hypervisor →
-  Research) 모두 reading order 가 자연스럽게 흐르도록.
-- **새 파일 만들기 보다 기존 파일 갱신 우선**.  관련 내용 있는
-  파일 이 이미 있으면 거기 에 append/edit 한다.
+- **Delete deprecated items.**  Do not preserve superseded documents or code
+  (git history retains them).  Keeping them alive as "historical record"
+  makes them noise in themselves.
+- **Too many files is bad.**  Consolidate small fragments on similar topics.
+  E.g., 5 notes from the same arc → 1 synthesis note.
+- **One file that is too long is bad.**  If a file naturally splits into two
+  topics, separate them.  Lean: the 80-line hook enforces this.
+- **Too many entries in one directory is bad** (50+ calls for a sub-dir
+  review).  Too few is also bad (3 or fewer should be merged into parent).
+- **Too deep or too many directories is bad.**  Depth 3-4 levels recommended.
+  Do not create directories just because they happen to be there.
+- **Sort for natural reading order.**  The NN_ prefix for notes, the layer
+  structure of Lean modules (Firmware → Hypervisor → Research) — all should
+  flow naturally in reading order.
+- **Prefer updating existing files over creating new ones.**  If a file
+  with related content already exists, append/edit there.
 
-위 규칙 을 어기는 정리 는 정리 가 아니라 누적.
+Organization that violates the above rules is not organization but accumulation.
 
-## 물리 chapter 감사 기준
+## Physics chapter audit criterion
 
-그 chapter의 결과가 **AXIOM.md + 명시적 Lens 성질** 로부터
-fudge 없이 derive 가능한가?  안 되면 **speculative 격리**.
+Can the results of that chapter be derived without fudge from
+**AXIOM.md + explicit Lens properties**?  If not, **isolate as speculative**.
 
-## Paper 1, 2 삭제됨 (2026-04-24)
+## Papers 1 and 2 deleted (2026-04-24)
 
-이전 `213/PAPER.md` (R1-R5 → ℂ 도출) 및 `213/PAPER2.md`
-(r5-critique) 는 삭제됨.  이유: 두 문서 모두 **특정 시점의
-derivation 시도** 였고, arc 진행 중 프레이밍이 낡음.
-`notes/30_bool_is_liar_paradox.md` 가 이 삭제 배경 기록.
+The previous `213/PAPER.md` (R1-R5 → ℂ derivation) and `213/PAPER2.md`
+(r5-critique) have been deleted.  Reason: both documents were **derivation
+attempts at a specific point in time**, and their framing became stale during
+arc progression.  `notes/30_bool_is_liar_paradox.md` records the background
+for this deletion.
 
-현재 **AXIOM.md 가 유일한 공리 문서**, **PAPER1.md 가 유일한
-formal paper** (R1-R5 도출 없이, Raw + Lens 의 foundational
-formalization).  derivation 은 `research/notes/` 에서 자유롭게
-탐구 (판정 프레임 없이).
+Currently **AXIOM.md is the sole axiom document**, **PAPER1.md is the sole
+formal paper** (foundational formalization of Raw + Lens without R1-R5
+derivation).  Derivation is explored freely in `research/notes/`
+(without a judgment frame).
 
-## 파일 지도
+## File map
 
-- **`AXIOM.md` — 공리 씨앗 문서 (최상위 기준).**
-- **`PAPER1.md` — Lean 4 core 형식화 의 paper form.**  최종 stop
-  point (2026-04-26).  PAPER1.md 의 §9 + Appendix A 가 semantic
-  atom thesis 의 formal core.
-- **`ORIGIN.md` — 이론의 원본 프롬프트 chain (2026-04-24 고정).**
-  공리의 형태가 "왜 이것인가" 의심될 때 먼저 참조.  PAPER1.md
-  본문 에는 physics motivation 부재.
-- `NOTATION.md` — 표기 규약.
-- `IMPLEMENTATION.md` — Raw + Firmware 구현 감사 연구.
-- `AUDIT_Lean.md` — Lean × AXIOM 대조 감사.
+- **`AXIOM.md` — axiom seed document (highest authority).**
+- **`PAPER1.md` — paper form of the Lean 4 core formalization.**  Final stop
+  point (2026-04-26).  §9 + Appendix A of PAPER1.md are the formal core of
+  the semantic atom thesis.
+- **`ORIGIN.md` — original prompt chain of the theory (fixed 2026-04-24).**
+  Consult first when the axiom's form is questioned "why this one?".
+  PAPER1.md body has no physics motivation.
+- `NOTATION.md` — notation conventions.
+- `IMPLEMENTATION.md` — Raw + Firmware implementation audit study.
+- `AUDIT_Lean.md` — Lean × AXIOM cross-check audit.
 - `research/notes/` — 5 reference notes (17, 19, 30, 75, 76).
-- `framework/E213/` — Lean 4 core 형식화.
-- 루트 `../HANDOFF.md` — 세션 아크 연속성.
+- `framework/E213/` — Lean 4 core formalization.
+- Root `../HANDOFF.md` — session arc continuity.
 
 ## Author & licence
 

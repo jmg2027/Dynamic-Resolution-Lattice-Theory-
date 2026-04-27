@@ -1,52 +1,54 @@
 # F0 — 213-native arithmetic synthesis (insights + usage)
 
-## Session journey 요약 (2026-04-26)
+## Session journey summary (2026-04-26)
 
 D3 (Real213 = native ℝ) → E1 (full marathon roadmap) → A1-A5 ✓ →
-B walls (E2-E4) → E5 (User directive: "213 은 213 해 야 만 해") →
+B walls (E2-E4) → E5 (User directive: "213 must stay 213") →
 F1 (cutSum working).
 
-## 핵심 통찰
+## Key insights
 
-### 1. orderProj-Cauchy 가 primitive
+### 1. orderProj-Cauchy is primitive
 
-기존 HasModulus 의 ∀ (m, k), ∃ N, ∀ i, j ≥ N, orderProj 일 치
-= Real213 의 native Cauchy form.  이 것 이 Dedekind cut 의 213
-counterpart.
+Existing HasModulus's ∀ (m, k), ∃ N, ∀ i, j ≥ N, orderProj match
+= Real213's native Cauchy form.  This is 213's counterpart of the
+Dedekind cut.
 
-ε-N (Bishop) 은 *다 른 abstraction* — 213 안 에 서 두 form 이 *non-
-equivalent* (E4: rational point 에 서 differ).  213 은 native 만.
+ε-N (Bishop) is a *different abstraction* — within 213 the two forms
+are *non-equivalent* (E4: they differ at rational points).  213 uses
+native only.
 
-### 2. Arithmetic 은 cut-level (RealCut), 아니라 sequence-level
+### 2. Arithmetic is at cut-level (RealCut), not sequence-level
 
-Sequence-level lift (E2 의 Raw realization, E3 의 multi-precision
-query, E4 의 Cauchy form 갈등) — 모두 *Bishop framework import*
-의 부 작용.
+Sequence-level lift (Raw realization from E2, multi-precision query
+from E3, Cauchy form conflict from E4) — all are side effects of
+*importing Bishop's framework*.
 
-**Cut-level**: `RealCut := Nat → Nat → Bool` 위 에 서 직접 operation.
+**Cut-level**: direct operation on `RealCut := Nat → Nat → Bool`.
 
 ```
 cutSum(cx, cy, m, k) := ∃ m1 ≤ 2m with cx(m1, 2k) ∧ cy(2m-m1, 2k)
 ```
 
-5 줄 코드, 0 axioms, decide 로 verify.
+5 lines of code, 0 axioms, verified with `decide`.
 
-### 3. ε/2 trick 은 *implementation detail*
+### 3. The ε/2 trick is an *implementation detail*
 
-cutSum 안 의 "2k" 가 Bishop 의 ε/2 trick — 하 지 만 사용자 노출
-*불필요*.  Bounded search 로 wrapped, primitive 는 cut-decision.
+The "2k" inside cutSum is Bishop's ε/2 trick — but *user exposure is
+unnecessary*.  Wrapped as bounded search, the primitive is
+cut-decision.
 
-### 4. "213 은 213" 의 working evidence
+### 4. Working evidence of "213 stays 213"
 
-User directive 의 working code:
+Working code from the user directive:
 
-| Operation | sequence-level 시도 | cut-level (F1) |
-|-----------|------|-----|
+| Operation | Sequence-level attempt | cut-level (F1) |
+|-----------|------------------------|----------------|
 | Effort | multi-file engineering | ~5 lines |
 | Walls | 3 (E2, E3, E4) | none |
 | Verification | hard (Cauchy bookkeeping) | `decide` |
 
-= "오 히 려 더 쉬울 거" 의 실제 demonstration.
+= actual demonstration of "it will actually be easier".
 
 ## Usage method
 

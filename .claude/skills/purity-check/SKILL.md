@@ -1,22 +1,22 @@
 ---
 name: purity-check
-description: "DRLT 213 purity 검증 — 0 sorry, 0 외부 axiom, 0 Mathlib import, 0 Classical, 0 native_decide.  Triggered by: 'purity', '순수성', '0 axiom 검증', 'falsifiability check', 'audit purity'."
+description: "DRLT 213 purity verification — 0 sorry, 0 external axiom, 0 Mathlib import, 0 Classical, 0 native_decide.  Triggered by: 'purity', '순수성' / 'purity', '0 axiom 검증' / '0 axiom verify', 'falsifiability check', 'audit purity'."
 ---
 
 # DRLT 213 Purity Check
 
-CLAUDE.md 의 falsifiability 원칙: Lean 4 core 만 + Raw 공리.
-외부 axiom 추가 = *이론 폐기*.
+CLAUDE.md falsifiability principle: Lean 4 core only + raw axioms.
+Adding external axioms = *theory abandoned*.
 
 ## Procedure
 
-### Step 1: 4 forbidden patterns 검사
+### Step 1: Check 4 forbidden patterns
 
 ```bash
 echo "sorry:"
 grep -rn "^\s*sorry\b\|:= sorry\|by sorry" lean/E213/ | wc -l
 
-echo "외부 axiom 선언:"
+echo "external axiom declaration:"
 grep -rn "^axiom \|^[[:space:]]*axiom " lean/E213/ | head -5
 
 echo "native_decide:"
@@ -26,33 +26,33 @@ echo "Classical / Mathlib:"
 grep -rn "open Classical\|import Mathlib" lean/E213/ | wc -l
 ```
 
-### Step 2: Capstone axioms 점검
+### Step 2: Capstone axioms inspection
 
-핵심 capstone 의 `#print axioms` 검증:
+Verify `#print axioms` for key capstones:
 
 ```lean
 import E213.Physics.Phase4.Library.CompletePeriodicTable
 #print axioms E213.Physics.Phase4.Library.CompletePeriodicTable.all_noble_gas_atomic
--- 기대: [propext, Quot.sound] 또는 axioms not depend
+-- expected: [propext, Quot.sound] or axioms not depend
 ```
 
-### Step 3: 결과 분류
+### Step 3: Result Classification
 
-- 4 forbidden 모두 0 + capstone ≤ propext+Quot.sound → ✅ pure
-- 어느 하나 위반 → ⚠️ 위반 위치 보고 + 수정 제안
-- 외부 axiom 발견 → ★ 즉시 보고 (이론 폐기 trigger)
+- all 4 forbidden = 0 + capstone ≤ propext+Quot.sound → ✅ pure
+- any violation → ⚠️ report violation location + suggest fix
+- external axiom found → ★ report immediately (theory abandon trigger)
 
-### Step 4: Fix 제안
+### Step 4: Fix Suggestions
 
-위반 시:
-- sorry → 정리 다른 방법 또는 제거
-- Mathlib import → 213-native 함수 작성
-- Classical → constructive 증명
-- native_decide → decide 또는 명시적 증명
+On violation:
+- sorry → prove by another method or remove
+- Mathlib import → write 213-native function
+- Classical → constructive proof
+- native_decide → decide or explicit proof
 
-## 사용 시점
+## When to Use
 
-- Commit 전 강제 점검
-- 마라톤 종료 시
-- Migration 후
-- 의심스러운 외부 import 추가 시
+- Mandatory check before commit
+- At end of marathon
+- After migration
+- When suspicious external import is added

@@ -1,218 +1,216 @@
-# AUDIT_Lean.md — Lean framework × AXIOM.md 대조
+# AUDIT_Lean.md — Lean framework × AXIOM.md cross-check
 
-**감사 대상**: `framework/E213/Firmware/`
-**기준 문서**: `AXIOM.md` (2026-04-24)
-**감사일**: 2026-04-24
-**전체 판정**: **충실 (Faithful)**.  구조적 수정 불필요.
-소소한 sanding 3건 권고.
+**Audit target**: `framework/E213/Firmware/`
+**Reference document**: `AXIOM.md` (2026-04-24)
+**Audit date**: 2026-04-24
+**Overall verdict**: **Faithful**.  No structural revision required.
+Three minor sanding items recommended.
 
 ---
 
-## §1. 공리 4조 대조
+## §1. Four-axiom cross-check
 
-### 공리 1: "뭔가가 있다.  최소 둘.  a, b.  원시적 구분."
+### Axiom 1: "Something exists.  At least two.  a, b.  Primitive distinction."
 
-Lean 구현 (`Firmware/Raw/Core.lean`):
+Lean implementation (`Firmware/Raw/Core.lean`):
 - `Raw.a : Raw := ⟨.a, rfl⟩` (line 60)
 - `Raw.b : Raw := ⟨.b, rfl⟩` (line 61)
-- `DecidableEq Raw` 인스턴스 제공 → "같지 않음" 판정 가능.
+- `DecidableEq Raw` instance provided → "not equal" judgment available.
 
-**판정**: ✓ 일치.
+**Verdict**: ✓ Match.
 
-### 공리 2: "두 뭔가의 페어링은 또 하나의 뭔가."
+### Axiom 2: "Pairing of two somethings is yet another something."
 
-Lean 구현 (`Firmware/Raw/Slash.lean`):
+Lean implementation (`Firmware/Raw/Slash.lean`):
 - `Raw.slash (x y : Raw) (h : x ≠ y) : Raw` (line 20)
-- 결과는 다시 Raw — 닫힘.
+- Result is again Raw — closed.
 
-**판정**: ✓ 일치.
+**Verdict**: ✓ Match.
 
-### 공리 3: "페어링은 대칭."
+### Axiom 3: "Pairing is symmetric."
 
-Lean 구현 (`Firmware/Raw/Slash.lean`):
+Lean implementation (`Firmware/Raw/Slash.lean`):
 - `Raw.slash_comm : Raw.slash x y h = Raw.slash y x (Ne.symm h)`
   (line 31)
 
-**판정**: ✓ 일치.
+**Verdict**: ✓ Match.
 
-### 공리 4: "자기 자신과의 페어링은 없음."
+### Axiom 4: "No pairing with oneself."
 
-Lean 구현:
-- `Raw.slash` 의 시그니처에 `h : x ≠ y` 가 필수 인자.
-  → x = y 일 때 호출 자체 불가능.
-- `x ≠ y` 는 Lean 타입 시스템이 정적으로 강제.
+Lean implementation:
+- `Raw.slash` signature requires `h : x ≠ y` as mandatory argument.
+  → Calling with x = y is impossible by construction.
+- `x ≠ y` is statically enforced by the Lean type system.
 
-**판정**: ✓ 일치.
-
----
-
-## §2. "공리에 없는 것" 점검
-
-### 크기 / 카디널리티 / 유한성 / 무한성
-
-Firmware 자체에는 크기 개념 없음.  `leaves`, `depth` 정의가
-있으나 이들은 `Raw.fold` 를 통한 **관측 결과**이지 공리가
-아님.  `Infinity/` 모듈도 별도 폴더 (Firmware 밖).
-
-**판정**: ✓ 준수.
-
-### 순서 / 위계 / 서열
-
-**주의 지점 (A)**.  Internal namespace에 `Tree.cmp` 가 있다
-(`Firmware/Raw/Core.lean:23–36`).  이는 canonical form 선택을
-위한 **encoding 장치**이지 Raw의 성질이 아니다.  PAPER.md
-§1.2 에서 이미 *"the ordering is the encoding's selection
-function, not a property of the axiom"* 로 명시됨.
-
-그러나 AXIOM.md 에는 이 점이 명시되어 있지 않다.
-→ **권고 1**: AXIOM.md §7.1 에 "Lean encoding은 primitive
-quotient 부재로 인해 canonical form을 쓰며, 이 때 사용되는
-ordering은 공리가 아닌 encoding artifact" 를 명시.
-
-**판정**: △ 일치하지만 AXIOM.md 갱신 필요.
-
-### 집합 / 원소 / 멤버십
-
-Lean 4 core 의 `inductive Tree` 는 ZFC 집합이 아님 (type
-theory).  `RawLevels.lean` 의 `List Raw` 는 Lens-level
-enumeration 이며 Firmware 외부 수준이라도 수용.
-
-**판정**: ✓ 준수.
-
-### 관측자 / 공간 / 인식 / 구조 / 기하
-
-Firmware 자체에 없음.  Hypervisor 의 `Lens` 가 별도 모듈.
-
-**판정**: ✓ 준수.
-
-### 존재 양식
-
-Lean `inductive` 는 정의상 Platonic / stepwise 어느 해석과도
-양립.  `Infinity/` 의 `notes/17_existence_mode_lens.md` 참조.
-
-**판정**: ✓ 준수.
-
-### 연산의 결합·분배·항등원·역원
-
-`Raw.slash` 는 대칭성 (공리 3) 과 반사 불허 (공리 4) 만
-보장.  결합·분배 등 **없음**.  있다면 Lens-level (e.g.
-Research/LipschitzLens).
-
-**판정**: ✓ 준수.
+**Verdict**: ✓ Match.
 
 ---
 
-## §3. 공리 **외**의 Firmware 내용
+## §2. Check for items "not in the axiom"
 
-AXIOM.md 가 금지하지 않지만, 공리 외의 utility 가 Firmware 에
-있는 것들 — 검토 필요.
+### Size / Cardinality / Finiteness / Infinity
+
+Firmware itself has no notion of size.  `leaves` and `depth` are defined
+but these are **observation results** via `Raw.fold`, not axioms.  The `Infinity/`
+module is also a separate folder (outside Firmware).
+
+**Verdict**: ✓ Compliant.
+
+### Order / Hierarchy / Ranking
+
+**Caution point (A)**.  The Internal namespace contains `Tree.cmp`
+(`Firmware/Raw/Core.lean:23–36`).  This is an **encoding device** for
+selecting canonical forms, not a property of Raw.  PAPER.md
+§1.2 already states *"the ordering is the encoding's selection
+function, not a property of the axiom"*.
+
+However, this point is not stated in AXIOM.md.
+→ **Recommendation 1**: Add to AXIOM.md §7.1 that "the Lean encoding uses canonical
+forms due to absence of primitive quotient, and the ordering used there is an
+encoding artifact, not an axiom."
+
+**Verdict**: △ Matches but AXIOM.md update needed.
+
+### Set / Element / Membership
+
+Lean 4 core's `inductive Tree` is not a ZFC set (type
+theory).  The `List Raw` in `RawLevels.lean` is a Lens-level
+enumeration; acceptable even at the outside-Firmware level.
+
+**Verdict**: ✓ Compliant.
+
+### Observer / Space / Perception / Structure / Geometry
+
+Not present in Firmware itself.  The `Lens` in Hypervisor is a separate module.
+
+**Verdict**: ✓ Compliant.
+
+### Mode of existence
+
+Lean `inductive` is by definition compatible with either Platonic or stepwise
+interpretation.  See `Infinity/notes/17_existence_mode_lens.md`.
+
+**Verdict**: ✓ Compliant.
+
+### Associativity / distributivity / identity / inverse of operations
+
+`Raw.slash` guarantees only symmetry (Axiom 3) and anti-reflexivity (Axiom 4).
+Associativity, distributivity, etc. **absent**.  If present, they belong at the
+Lens level (e.g., Research/LipschitzLens).
+
+**Verdict**: ✓ Compliant.
+
+---
+
+## §3. Firmware content **beyond** the axiom
+
+Not forbidden by AXIOM.md, but utility content beyond the axiom present in
+Firmware — review required.
 
 ### Raw.fold (catamorphism)
 
-위치: `Firmware/Raw/Fold.lean`.  이는 inductive type의
-표준 eliminator의 wrapper 이며 특정 Lens가 아닌 **모든 Lens
-를 만드는 도구**.  Consumer utility 로 분류.
+Location: `Firmware/Raw/Fold.lean`.  This is a wrapper around the standard
+eliminator of an inductive type, serving as **the tool for constructing all
+Lenses**, not a specific Lens.  Classified as consumer utility.
 
-**판정**: ✓ 수용.  Firmware 위치 OK.
+**Verdict**: ✓ Accepted.  Firmware location OK.
 
 ### Raw.swap (automorphism)
 
-위치: `Firmware/Raw/Swap.lean`.  Swap은 공리 1 ("a, b 는 같지
-않음 외의 어떤 관계도 없음") 로부터 직접 **도출**되는 사실
- — a ↔ b 교환이 자동으로 automorphism 이 됨.  즉 첫 번째
-derivation.
+Location: `Firmware/Raw/Swap.lean`.  Swap is directly **derived** from
+Axiom 1 ("a, b have no relation other than not being equal") — exchanging
+a ↔ b automatically becomes an automorphism.  This is the first derivation.
 
-**주의 지점 (B)**.  "공리 1의 자동 도출" 임이 AXIOM.md에서
-명시되지 않음.  Paper 1 §2 (Symmetry of Raw) 에 있지만
-AXIOM.md 에 크로스 레퍼런스 필요.
-→ **권고 2**: AXIOM.md §5 또는 §7.2 에 "Raw.swap 은 공리 1
-로부터의 첫 derivation" 명시.
+**Caution point (B)**.  AXIOM.md does not state that this is "automatically
+derived from Axiom 1."  It appears in Paper 1 §2 (Symmetry of Raw) but
+a cross-reference in AXIOM.md is needed.
+→ **Recommendation 2**: Add to AXIOM.md §5 or §7.2 that "Raw.swap is the
+first derivation from Axiom 1."
 
-**판정**: △ 수용하지만 AXIOM.md 보강 필요.
+**Verdict**: △ Accepted but AXIOM.md reinforcement needed.
 
 ### Raw.depth, Raw.leaves
 
-위치: `Firmware/Raw/Slash.lean:52`, `Firmware/Raw/Levels.lean`.
+Location: `Firmware/Raw/Slash.lean:52`, `Firmware/Raw/Levels.lean`.
 
-**주의 지점 (C)**.  `depth`, `leaves` 는 특정 Lens (Lens.depth,
-Lens.leaves) 의 observable 이다.  이들이 Firmware 에 `Raw.depth`,
-`Raw.leaves` 로 노출된 건 **Lens-layer bleed**.
+**Caution point (C)**.  `depth` and `leaves` are observables of specific Lenses
+(Lens.depth, Lens.leaves).  Their exposure in Firmware as `Raw.depth`,
+`Raw.leaves` is **Lens-layer bleed**.
 
-AXIOM.md §3.3 은 "크기 / 카디널리티" 를 공리에서 제외.
-`Raw.leaves r` 는 **그 Raw 의 특정 Lens 관측 결과** 이므로
-공리 차원에 두어선 안 됨.  현재 위치는 엄밀 말해 잘못.
+AXIOM.md §3.3 excludes "size / cardinality" from the axiom.
+`Raw.leaves r` is **the observation result of a specific Lens on that Raw**,
+so it should not reside at the axiom level.  The current location is strictly
+speaking incorrect.
 
-다만 실용적으로:
-- Internal `Tree.depth`, `Tree.leaves` 는 canonicality 관련
-  불변량 증명에 쓰임 — Internal 보존 필요.
-- Public `Raw.depth`, `Raw.leaves` 는 Hypervisor 로 **이전**
-  되어야.
+Practically however:
+- Internal `Tree.depth`, `Tree.leaves` are used in canonicality-related
+  invariant proofs — must be kept Internal.
+- Public `Raw.depth`, `Raw.leaves` should be **moved** to Hypervisor.
 
-→ **권고 3**: `Raw.depth`, `Raw.leaves` 의 public 선언을
-Hypervisor 층으로 이동.  Internal 선언은 canonicality 증명에
-필요하므로 유지.
+→ **Recommendation 3**: Move public declarations of `Raw.depth`, `Raw.leaves`
+to the Hypervisor layer.  Internal declarations must be retained for
+canonicality proofs.
 
-**판정**: ✗ Lens-layer bleed.  이전 필요.
+**Verdict**: ✗ Lens-layer bleed.  Migration needed.
 
 ### Raw.fold_eq_depth / fold_eq_leaves / fold_signed_swap / fold_swap_hom
 
-위치: `Firmware/Raw/Signed.lean`, `Firmware/Raw/Hom.lean`.
+Location: `Firmware/Raw/Signed.lean`, `Firmware/Raw/Hom.lean`.
 
-이들은 "Raw.fold 로 특정 Lens 를 재구성했을 때의 bridge
-정리"들.  **Lens-level 정리**이며 Hypervisor 또는 Meta 에
-속함.
+These are "bridge theorems for reconstituting a specific Lens via Raw.fold."
+They are **Lens-level theorems** belonging in Hypervisor or Meta.
 
-→ 권고 3 과 함께 이전.
+→ Migrate together with Recommendation 3.
 
-**판정**: ✗ Lens-layer bleed.  이전 필요.
-
----
-
-## §4. 전체 판정
-
-**Lean framework 는 AXIOM.md 공리의 충실한 구현이다.**
-구조적 재작성은 필요하지 않음.  첫 2주간의 작업 (78 모듈,
-457 정리, 0 sorry, 0 axiom) 은 axiom 갱신 없이 유지 가능.
-
-### 권고 3건 (우선순위 순)
-
-1. **AXIOM.md §7.1 보강** — Lean encoding 에서의 canonical
-   form / Tree.cmp 는 encoding artifact 이지 공리가 아님을
-   명시.  (5분 작업.)
-
-2. **AXIOM.md §5 또는 §7 보강** — Raw.swap 은 공리 1 의
-   첫 derivation 임을 명시.  (5분 작업.)
-
-3. **Lens-layer bleed 이전** — `Raw.depth`, `Raw.leaves`,
-   `Raw.fold_eq_*`, `Raw.fold_signed_swap`, `Raw.fold_swap_hom`
-   의 public 선언을 Hypervisor 또는 Meta 로 이동.  Internal
-   `Tree.*` 는 유지.  (1 세션 작업.  `import` 연쇄 수정
-   필요.)
-
-권고 1, 2 는 AXIOM.md 문서 갱신.  권고 3 은 Lean refactor
-이며 `lake build` 재실행 필요.
-
-### 무엇을 **하지 않아야** 하는지
-
-- **공리 자체의 형태를 바꾸지 말 것.**  현재 `Raw.a`, `Raw.b`,
-  `Raw.slash (h : x ≠ y)`, `Raw.slash_comm` 은 AXIOM.md §3.2
-  의 1:1 번역이다.  이 형태를 ch22 의 3원소·2연산 형태로
-  "업그레이드" 해서는 안 된다 (ch22 는 별개 fudge 문제).
-
-- **78 모듈 457 정리를 버리지 말 것.**  권고 3 의 이동 작업
-  이후 대부분은 그대로 유지.  증명 내용 자체는 변경 불필요.
-
-### 다음 단계 (Step 3 이후)
-
-- Step 3: PAPER.md §1 을 AXIOM.md 로 대체.  §2-§4 (R1-R5 + ℂ)
-  를 별도 논문으로 분리.
-- Step 4: `book/AUDIT.md` — ch01-ch21 감사.
+**Verdict**: ✗ Lens-layer bleed.  Migration needed.
 
 ---
 
-## 변경 이력
+## §4. Overall verdict
 
-- 2026-04-24: 최초 감사.  Session
+**The Lean framework is a faithful implementation of the AXIOM.md axiom.**
+No structural rewrite is required.  The first two weeks of work (78 modules,
+457 theorems, 0 sorry, 0 axiom) can be maintained without axiom updates.
+
+### Three recommendations (in priority order)
+
+1. **Reinforce AXIOM.md §7.1** — State explicitly that canonical
+   forms / Tree.cmp in the Lean encoding are encoding artifacts, not axioms.
+   (5-minute task.)
+
+2. **Reinforce AXIOM.md §5 or §7** — State that Raw.swap is
+   the first derivation from Axiom 1.  (5-minute task.)
+
+3. **Lens-layer bleed migration** — Move public declarations of `Raw.depth`,
+   `Raw.leaves`, `Raw.fold_eq_*`, `Raw.fold_signed_swap`, `Raw.fold_swap_hom`
+   to Hypervisor or Meta.  Retain Internal `Tree.*`.
+   (1-session task.  Cascading `import` changes required.)
+
+Recommendations 1 and 2 are AXIOM.md document updates.  Recommendation 3 is
+a Lean refactor requiring `lake build` to be re-run.
+
+### What **not** to do
+
+- **Do not change the form of the axiom itself.**  The current `Raw.a`, `Raw.b`,
+  `Raw.slash (h : x ≠ y)`, `Raw.slash_comm` are a 1:1 translation of AXIOM.md §3.2.
+  This form must not be "upgraded" to the 3-element·2-operation form from ch22
+  (ch22 is a separate fudge issue).
+
+- **Do not discard 78 modules and 457 theorems.**  After the migration in
+  Recommendation 3, most are retained as-is.  The proof content itself need
+  not change.
+
+### Next steps (after Step 3)
+
+- Step 3: Replace PAPER.md §1 with AXIOM.md.  Split §2-§4 (R1-R5 + ℂ)
+  into a separate paper.
+- Step 4: `book/AUDIT.md` — Audit ch01-ch21.
+
+---
+
+## Change history
+
+- 2026-04-24: Initial audit.  Session
   `claude/lean-infinity-explanation-QqnSp`.
 
 ## Author
@@ -221,138 +219,138 @@ Hypervisor 층으로 이동.  Internal 선언은 canonicality 증명에
 
 ---
 
-## §5. 심층 감사: Corner cases / 안전장치 (2차, 2026-04-24)
+## §5. Deep audit: Corner cases / safeguards (2nd pass, 2026-04-24)
 
-1차 감사는 공리 대조에 집중했다.  2차는 **"encoding artifact
-가 Lens 출력으로 새어 나갈 수 있는가?"** 를 본다.
+The 1st audit focused on axiom cross-checking.  The 2nd asks
+**"Can encoding artifacts leak into Lens output?"**
 
-Raw 는 quotient 로서 `Tree.cmp` 선택에 무관한 추상 대상이지만,
-Lean 구현은 canonical form 을 쓰므로 user code 가 실수로
-cmp 에 의존하면 그 Lens 는 **encoding artifact** 를 물고
-들어가게 된다.
+Raw is an abstract object as a quotient, independent of the `Tree.cmp` choice,
+but since the Lean implementation uses canonical forms, if user code accidentally
+depends on cmp, that Lens will **carry encoding artifacts**.
 
-### §5.1 이미 있는 안전장치 (pass)
+### §5.1 Existing safeguards (pass)
 
-| 장치 | 위치 | 효과 |
-|------|------|------|
-| `h : x ≠ y` 강제 인자 | `Raw.slash` 시그니처 | 반사 금지 정적 강제 |
-| `Raw.slash_comm` 정리 | Slash.lean | 대칭성 공식 증명 |
-| `fold_slash` 의 `hsym` 전제 | Fold.lean | 대칭 combine 에서만 axiom 부합 결과 |
-| `fold_swap_hom` 의 4 전제 | Hom.lean | 대칭+distributive 에서만 conj 하향식 부합 |
-| `Internal` namespace 분리 | Core.lean | `open E213.Firmware` 로는 Tree 노출 안 됨 |
-| Mathlib-free + 0 sorry | 프로젝트 규약 | 외부 공리 수입 차단 |
-| `@[elab_as_elim] Raw.rec` | Rec.lean | `induction` tactic 이 Raw 층 eliminator 강제 |
+| Device | Location | Effect |
+|--------|----------|--------|
+| Mandatory `h : x ≠ y` argument | `Raw.slash` signature | Static enforcement of anti-reflexivity |
+| `Raw.slash_comm` theorem | Slash.lean | Formal proof of symmetry |
+| `hsym` hypothesis in `fold_slash` | Fold.lean | Axiom-conforming results only with symmetric combine |
+| 4 hypotheses in `fold_swap_hom` | Hom.lean | Top-down congruence conforming only with symmetric+distributive |
+| `Internal` namespace separation | Core.lean | Tree not exposed by `open E213.Firmware` |
+| Mathlib-free + 0 sorry | Project convention | Blocks import of external axioms |
+| `@[elab_as_elim] Raw.rec` | Rec.lean | `induction` tactic forces Raw-layer eliminator |
 
-이들은 실제로 작동한다.  Canonical form 의 **존재** 가 Lens
-출력을 오염시키는 시나리오는 이 장치들로 대체로 차단됨.
+These work in practice.  Scenarios where the **existence** of canonical form
+contaminates Lens output are largely blocked by these devices.
 
-### §5.2 미비한 안전장치 (issues)
+### §5.2 Insufficient safeguards (issues)
 
-#### (A) **`Raw.fold` 에 combine 대칭성 요구 없음** — HIGH
+#### (A) **`Raw.fold` does not require combine symmetry** — HIGH
 
-`Raw.fold ba bb combine r` 는 `combine` 이 **비대칭이어도**
-타입이 맞는다.  그런 `combine` 으로 `Raw.fold` 를 쓰면
-결과는 Tree 의 canonical ordering (= cmp 선택) 에 의존한다.
-이는 공리에 없는 것 (encoding artifact) 이 Lens 출력에
-새어 들어가는 **silent leak**.
+`Raw.fold ba bb combine r` type-checks even if `combine` is **asymmetric**.
+Using `Raw.fold` with such a `combine` makes the result depend on the
+canonical ordering of Tree (= the cmp choice).
+This is a **silent leak** — something not in the axiom (encoding artifact)
+leaking into Lens output.
 
-`fold_slash` 가 대칭성을 전제로 요구하지만, 이건 정리일 뿐
-`Raw.fold` 자체 호출은 막지 못한다.  user 가 비대칭 combine
-으로 Lens 를 만들면 아무 경고 없이 작동하고, 그 결과는
-공리에 비해 overcommitted.
+`fold_slash` requires symmetry as a precondition, but that is just a theorem;
+it does not prevent calling `Raw.fold` itself.  If a user constructs a Lens
+with an asymmetric combine, it works without any warning, and the result is
+overcommitted relative to the axiom.
 
-**권고 A**: `Raw.fold` 의 doc-string 에 경고 추가.  또는
-장기적으로 `Lens.valid` 술어 도입 (combine 대칭을 type-level
-로 강제).
+**Recommendation A**: Add a warning to `Raw.fold`'s doc-string.  Or
+long-term, introduce a `Lens.valid` predicate to enforce combine symmetry
+at the type level.
 
-#### (B) **`Raw.rec` 의 `slash x y h` 순서** — HIGH
+#### (B) **Order of `slash x y h` in `Raw.rec`** — HIGH
 
-`Raw.rec` 의 slash 분기는 user 에게 `(x, y)` 순서쌍을 건넨다.
-이 순서는 canonical form 에서 유래 — 즉 `cmp x y = .lt`.
+The slash branch of `Raw.rec` hands the user the pair `(x, y)` in order.
+This order originates from the canonical form — i.e., `cmp x y = .lt`.
 
-User 가 `slash` 분기에서 **x 와 y 를 비대칭 처리** 하면
-(예: `f x + 2 * g y`), 그 결과는 cmp 선택에 의존한다.
-다시 silent leak.
+If the user **treats x and y asymmetrically** in the slash branch
+(e.g., `f x + 2 * g y`), the result depends on the cmp choice.
+Again a silent leak.
 
-**권고 B**: `Raw.rec` doc-string 에 "slash 분기는 x, y 를
-대칭적으로 다루어야 한다; 그렇지 않으면 결과가 encoding
-artifact 에 의존" 경고.  또는 `Raw.rec_sym` 같은 대체 버전
-을 만들어 motive 가 swap-불변임을 요구.
+**Recommendation B**: Add a warning to `Raw.rec` doc-string: "the slash
+branch must treat x, y symmetrically; otherwise the result depends on
+encoding artifacts."  Or create an alternative `Raw.rec_sym` requiring
+the motive to be swap-invariant.
 
-#### (C) **`Subtype.val` 접근** — LOW
+#### (C) **`Subtype.val` access** — LOW
 
-`r.val` 을 쓰면 underlying Tree 가 보인다.  실무적으로는
-모든 Raw 가 canonical 이므로 `.val` 은 "유일 대표" 이고
-leak 이 크지 않다.  단, `.val` 을 Lens semantics 에 쓰면
-(예: `r.val.depth` 대신 `Lens.depth.view r`) 가능.
+Using `r.val` exposes the underlying Tree.  In practice,
+every Raw is canonical, so `.val` is the "unique representative"
+and the leak is small.  However, using `.val` in Lens semantics
+(e.g., `r.val.depth` instead of `Lens.depth.view r`) should be avoided.
 
-**권고 C**: `NOTATION.md` 에 "`.val` 접근은 encoding 층
-내부 전용; Lens semantics 에 쓰지 말 것" 추가.
+**Recommendation C**: Add to `NOTATION.md`: "`.val` access is for internal
+Firmware proofs only; do not use in Lens semantics."
 
-#### (D) **`open E213.Firmware.Internal` 의 관례 의존성** — MEDIUM
+#### (D) **Convention-dependence of `open E213.Firmware.Internal`** — MEDIUM
 
-Lean 4 core 에는 strict visibility control 이 없다 (module
-system 이 아님).  User 가 임의 모듈에서 `open E213.Firmware.
-Internal` 하면 Tree 에 직접 접근 가능.
+Lean 4 core has no strict visibility control (not a module system).
+A user can `open E213.Firmware.Internal` from any module to access
+Tree directly.
 
-**권고 D**: `CLAUDE.md` DO-NOT 에 "`E213.Firmware.Internal`
-의 `open` 은 Firmware 내부 모듈 외에 금지" 명시.  또는
-CI 에 grep 규칙 추가.
+**Recommendation D**: Add to `CLAUDE.md` DO-NOT: "`open` of
+`E213.Firmware.Internal` is forbidden outside Firmware internal modules."
+Or add a grep rule to CI.
 
-#### (E) **`ValidLens` 술어 / 구조 부재** — MEDIUM (future)
+#### (E) **Absence of `ValidLens` predicate / structure** — MEDIUM (future)
 
-현재 `Lens` 는 `⟨base_a, base_b, combine⟩` 만 요구.  combine
-대칭성 / base 대칭성 / R1-R5 만족도 등이 Lens 정의 시점에
-검증되지 않는다.
+The current `Lens` only requires `⟨base_a, base_b, combine⟩`.  Combine
+symmetry / base symmetry / R1-R5 satisfaction are not verified at Lens
+definition time.
 
-**권고 E**: `Hypervisor/Lens.lean` 에 `ValidLens` 술어 도입.
-최소한 combine 대칭을 field 로.  모든 Lens 선언이 validity
-증명을 동반하게.  (별도 세션 1회 분량.)
+**Recommendation E**: Introduce a `ValidLens` predicate in
+`Hypervisor/Lens.lean`.  At minimum, make combine symmetry a field.
+All Lens declarations should be accompanied by a validity proof.
+(One separate session's worth of work.)
 
-### §5.3 Corner cases가 **아닌** 것들 (이미 방어됨)
+### §5.3 Items that are **not** corner cases (already guarded)
 
-- **비 canonical Tree 를 Raw 로 위장**: subtype 이 `canonical
-  = true` 증명 요구.  `decide` 없이는 통과 불가.  OK.
-- **`Tree.slash x x` 같은 반사형**: canonical false 이므로 Raw
-  에 못 들어감.  OK.
-- **서로 다른 canonical proof 가 같은 Raw 로 인식**: Lean 의
-  Subtype.ext 가 proof-irrelevance 로 처리.  OK.
-- **무한 깊이 Raw**: inductive type 은 well-founded — 모든
-  구체 Raw 는 유한 깊이.  axiom 과 부합.  OK.
-- **`Tree.a ≠ Tree.b` 가 공리에서 도출 안 됨**: Lean inductive
-  type 의 no-confusion 원리로 자동.  axiom 1 (원시적 구분) 의
-  자연스러운 기계 표현.  OK.
+- **Disguising a non-canonical Tree as Raw**: the subtype requires proof of
+  `canonical = true`.  Cannot pass without `decide`.  OK.
+- **Reflexive forms like `Tree.slash x x`**: canonical is false, so they
+  cannot enter Raw.  OK.
+- **Different canonical proofs recognized as the same Raw**: Lean's
+  Subtype.ext handles this via proof-irrelevance.  OK.
+- **Infinitely deep Raw**: inductive type is well-founded — every concrete
+  Raw has finite depth.  Consistent with the axiom.  OK.
+- **`Tree.a ≠ Tree.b` not derived from the axiom**: automatic via Lean
+  inductive type's no-confusion principle.  Natural machine representation
+  of axiom 1 (primitive distinction).  OK.
 
-### §5.4 조치 우선순위
+### §5.4 Action priority
 
-| # | 권고 | 난이도 | 영향 |
-|---|------|--------|------|
-| A | Raw.fold doc 에 대칭 요구 경고 | 5분 | HIGH |
-| B | Raw.rec doc 에 대칭 요구 경고 | 5분 | HIGH |
-| D | CLAUDE.md 에 Internal open 금지 추가 | 5분 | MEDIUM |
-| C | NOTATION.md 에 `.val` 금지 추가 | 5분 | LOW |
-| 3 (§3) | Lens-layer bleed 이전 | 1 세션 | MEDIUM |
-| E | ValidLens 술어 도입 | 1 세션 | MEDIUM (future) |
+| # | Recommendation | Difficulty | Impact |
+|---|----------------|------------|--------|
+| A | Add symmetry-requirement warning to Raw.fold doc | 5 min | HIGH |
+| B | Add symmetry-requirement warning to Raw.rec doc | 5 min | HIGH |
+| D | Add Internal open prohibition to CLAUDE.md | 5 min | MEDIUM |
+| C | Add `.val` prohibition to NOTATION.md | 5 min | LOW |
+| 3 (§3) | Lens-layer bleed migration | 1 session | MEDIUM |
+| E | Introduce ValidLens predicate | 1 session | MEDIUM (future) |
 
-A, B, C, D 는 doc 추가로 당장 적용 가능.  3, E 는 코드 수정
-필요로 별도 세션.
+A, B, C, D can be applied immediately as doc additions.  3 and E require
+code changes and need separate sessions.
 
 ---
 
-## §6. 전체 재판정 (심층 감사 반영)
+## §6. Overall re-verdict (incorporating deep audit)
 
-**여전히 Faithful, 단 silent leak 경로 2건 존재**.
+**Still Faithful, but 2 silent leak paths exist**.
 
-1차 감사의 결론 (공리 4조 충실, "없는 것" 목록 준수) 은 유지.
-2차 감사는 이에 더해 **Lens 출력이 encoding artifact 에
-silent 하게 의존할 수 있는 API 표면** 2건을 발견 (Raw.fold,
-Raw.rec).  doc-level 경고로 mitigate 가능.  장기로는 ValidLens
-술어로 type-level 강제 권장.
+The conclusion of the 1st audit (faithful to 4-clause axiom, compliant with
+"absent items" list) is maintained.  The 2nd audit additionally identifies
+**2 API surfaces** where Lens output can silently depend on encoding artifacts
+(Raw.fold, Raw.rec).  Mitigable by doc-level warnings.  Long-term, type-level
+enforcement via a ValidLens predicate is recommended.
 
-78 모듈 457 정리의 구조적 정합성은 영향 없음.  기존 Lens
-들 (Lens.depth, Lens.leaves, signedLens 등) 은 모두 **대칭
-combine 사용** 으로 이미 leak 없음 — 검증 완료 (Fold.lean 의
-`fold_slash` 증명이 그들의 대칭성을 사용함).
+The structural consistency of 78 modules and 457 theorems is unaffected.
+Existing Lenses (Lens.depth, Lens.leaves, signedLens, etc.) all use
+**symmetric combine** and are already leak-free — verified (the `fold_slash`
+proof in Fold.lean uses their symmetry).
 
-**취약점은 미래 사용자가 비대칭 Lens 를 만들 때만 발현.**
-doc 경고로 충분히 방지 가능.
+**The vulnerability manifests only when a future user constructs an asymmetric Lens.**
+Doc warnings are sufficient to prevent this.

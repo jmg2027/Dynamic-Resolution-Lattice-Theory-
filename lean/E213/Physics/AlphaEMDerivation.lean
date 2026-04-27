@@ -2,17 +2,17 @@ import E213.Physics.AlphaEMUnified
 import E213.Physics.NeffDerivation
 
 /-!
-# 1/α_em(IR) — 다섯 항의 Lens-level 도출 시도 (0 axioms part)
+# 1/α_em(IR) — Lens-level derivation attempt for five terms (0 axioms part)
 
-Continuing user directive (2026-04-27): "단일 격자 합으로 도출".
-이 파일은 다섯 항의 *각각*이 prior Lean 정리에서 옴을 명시하고,
-*왜 정확히 이 다섯 항인지*의 open question을 형식화.
+Continuing user directive (2026-04-27): "derive as a single lattice sum".
+This file makes explicit that each of the five terms comes from prior Lean theorems,
+and formalizes the open question of *why exactly these five terms*.
 
 ## Five-term decomposition
 
   1/α_em(IR) = 1/α_3 + 1/α_2 + (5/3)·(1/α_1) + 1/NS + α_GUT/(NS+1)
 
-각 항의 prior 출처:
+Prior source for each term:
   Term 1: 1/α_3 = NS² - 1 = 8
           ← `SimplexCounts.inv_alpha_3_confined`
           ← `NeffDerivation.alpha_3_Neff_eq_1` (rank exhaustion at NS²)
@@ -36,16 +36,16 @@ Continuing user directive (2026-04-27): "단일 격자 합으로 도출".
   1/NS                 = NT/(d+1)
   α_GUT/(NS+1)         = α_GUT/(d-1)
 
-이는 단순한 산술 일치 이상일 수 있음 — d² = (d-1)(d+1) + 1
-factorisation가 격자 cofactor를 직접 가리킨다는 가설.
+This may be more than a simple arithmetic coincidence — the hypothesis that
+the d² = (d-1)(d+1) + 1 factorisation directly points to the lattice cofactors.
 
 ## Open question
 
-  ◯ 다섯 항이 *왜 정확히 이 합*인가의 strict Lens-level 도출:
-    - photon-as-cross-sector-U(1)의 Lean 정의
-    - 각 sector의 contribution 합산 메커니즘
-    - d±1 cofactor 분해의 lens-기원
-  현재는 "각 항이 prior 양"이고 "합이 ppm match" 까지만.
+  ◯ Strict Lens-level derivation of *why exactly this sum* for the five terms:
+    - Lean definition of photon-as-cross-sector-U(1)
+    - Summation mechanism for each sector's contribution
+    - Lens origin of the d±1 cofactor decomposition
+  Currently only established: "each term is a prior quantity" and "sum is ppm match".
 -/
 
 namespace E213.Physics.AlphaEMDerivation
@@ -70,15 +70,15 @@ theorem d_sq_minus_1_factorises :
 theorem d_sq_pell_form :
     d * d = (d - 1) * (d + 1) + 1 := by decide
 
-/-- ★ Cofactor 분해 종합 정리 ★
-    다섯 항이 모두 d, NS, NT의 *factorisation 패턴*에 정렬.
+/-- ★ Cofactor decomposition master theorem ★
+    All five terms align with the *factorisation pattern* of d, NS, NT.
 
     d² - 1 = (d-1)(d+1) = adjoint SU(5)
     1/NS   = NT/(d+1)   ← d+1 cofactor
     α_GUT/(NS+1) = α_GUT/(d-1)   ← d-1 cofactor
 
-    이는 d²의 Pell-form factorisation이 격자 cofactor를 두 갈래로
-    나누고, 각 cofactor가 다섯 항 중 하나에 대응한다는 가설. -/
+    The hypothesis that the Pell-form factorisation of d² splits the lattice cofactors
+    into two branches, with each cofactor corresponding to one of the five terms. -/
 theorem cofactor_pattern :
     -- d² - 1 = (d-1)(d+1)
     (d * d - 1 = (d - 1) * (d + 1))
@@ -89,7 +89,7 @@ theorem cofactor_pattern :
     -- Concrete values
     ∧ (d - 1 = 4) ∧ (d + 1 = 6) := by decide
 
-/-- 다섯 항의 각각이 prior 정리 양과 일치 — citation theorem. -/
+/-- Each of the five terms matches a prior theorem quantity — citation theorem. -/
 theorem five_terms_traceable :
     -- Term 1: 1/α_3 = 8 (NS² - 1)
     (NS * NS - 1 = 8)
@@ -102,11 +102,11 @@ theorem five_terms_traceable :
     -- d²-1 = (d-1)(d+1) = adjoint
     ∧ (d * d - 1 = (d - 1) * (d + 1)) := by decide
 
-/-- **Open**: 다섯 항이 *왜 정확히 이 합*인가의 Lens-level 도출.
-    현재는 numerical match (ppm) + structural traceability + d±1
-    cofactor pattern까지.  Photon = cross-sector U(1) phase의
-    Raw + Lens definition + IR coupling = 합산 메커니즘 = 다섯 항
-    의 strict 도출 사슬은 별도 작업.  -/
+/-- **Open**: Lens-level derivation of *why exactly this sum* for the five terms.
+    Currently established: numerical match (ppm) + structural traceability + d±1
+    cofactor pattern.  The strict derivation chain of
+    Photon = cross-sector U(1) phase, Raw + Lens definition, IR coupling = summation mechanism = five terms
+    is separate work.  -/
 theorem derivation_open : True := trivial
 
 end E213.Physics.AlphaEMDerivation

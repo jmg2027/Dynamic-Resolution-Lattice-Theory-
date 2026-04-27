@@ -1,6 +1,6 @@
-# B1 — Pure descent method 의 진작 + 무리수 일반화 의 통찰
+# B1 — Advancing the pure descent method + insights on generalizing irrationals
 
-## 방법 의 핵심
+## Core of the method
 
 `Sqrt2IrrationalPure` + `Sqrt3IrrationalPure` 의 demonstrated
 common pattern (Lean 을 *순수 type checker* 로만 사용, zero
@@ -8,13 +8,13 @@ axioms).
 
 ### 5-step descent template (prime p)
 
-**Step 1**: 정의 mod_p : Nat → Nat by structural recursion of
+**Step 1**: define mod_p : Nat → Nat by structural recursion of
 period p.  `mod_p_self_mul_zero`: `mod_p (m * m) = 0 → mod_p m = 0`.
 
 **Step 2**: prove p-trichotomy : ∀ n, ∃ k, n = p*k + r for
 r ∈ {0, ..., p-1}.
 
-**Step 3**: prove (p*k + r)^2 의 explicit polynomial identity
+**Step 3**: prove the explicit polynomial identity for (p*k + r)^2
 for each r.  e.g. (p*k)^2 = p * (p * k^2) → mod_p = 0.
 
 **Step 4**: descent_step : m = p*m', m^2 = p*(k*k) → p*(m'^2)
@@ -25,7 +25,7 @@ m^2 = p*(k*k).
 
 ### Specific properties needed for prime p
 
-`mod_p_self_mul_zero` 의 증명 — 이게 prime 의 본질:
+Proof of `mod_p_self_mul_zero` — this is the essence of primality:
 For prime p, `m^2 ≡ 0 (mod p) → m ≡ 0 (mod p)`.
 Proof: case on m mod p ∈ {0, ..., p-1}.  For r ≠ 0, r^2 mod p ≠ 0.
 
@@ -38,35 +38,35 @@ Specifically:
 Pattern: `r^2 mod p ≠ 0 for r ∈ {1, ..., p-1}`.  Quadratic
 residue non-zero structure of (Z/p)*.
 
-## 무리수 일반화 의 통찰
+## Insights on generalizing irrationals
 
-**1. √(prime p) 는 always irrational, descent 작동.**
+**1. √(prime p) is always irrational, descent works.**
 For p prime: (Z/p)* is multiplicative group, squaring kernel
 trivial, hence m^2 ≡ 0 → m ≡ 0.
 
-**2. √(squarefree N > 1) 는 irrational.**
+**2. √(squarefree N > 1) is irrational.**
 N = p1·p2·...·pk → descent via any prime factor.
 
-**3. √(perfect square) 는 rational.**
+**3. √(perfect square) is rational.**
 N = a^2 → m^2 = N·k^2 has m = a·k.
 
-**4. p^2 | N 인 N: √N = p·√M for M = N/p^2.**
+**4. N with p^2 | N: √N = p·√M for M = N/p^2.**
 √N irrational ↔ √M irrational ↔ M not perfect square.
 
-**5. 213 framework 와 의 connection.**
+**5. Connection to the 213 framework.**
 
-PAPER1 §6, §7 의 Cauchy completeness 가 abstract 한
-*Lens-output sequence* 의 stabilization.  각 무리수 는 specific
-Pell-like sequence 의 limit class.
+The Cauchy completeness of PAPER1 §6, §7 is the stabilization of an
+abstract *Lens-output sequence*.  Each irrational is the limit class
+of a specific Pell-like sequence.
 
-Descent pattern 의 213-internal counterpart:
+213-internal counterpart of the descent pattern:
 - Each irrational ↔ slash-congruence with no rational-finding witness.
-- √p의 kernel = {(r, r') : Pell limit class is 같음} 이 단 한
-  element 만 capture (each Pell limit unique).
-- 이 kernel 의 *injectivity 부재* 가 sqrt p 의 irrationality
-  의 의미 — 더 fine 한 distinction 부재.
+- The kernel of √p = {(r, r') : Pell limit class is the same} captures
+  only a single element (each Pell limit is unique).
+- The *absence of injectivity* of this kernel is the meaning of the
+  irrationality of sqrt p — no finer distinction is present.
 
-**6. Real numbers 일반화 의 hint.**
+**6. Hint for generalizing to real numbers.**
 
 213 framework + descent pattern → real numbers 의 *constructive*
 construction:
@@ -80,38 +80,38 @@ Each real = abLens-orderProj equivalence class.
 Each prime p → Pell sequence representing √p → specific
 *irrational element*, slash-congruence on Raw NOT rational.
 
-**Key observation**: irrationality 가 framework 안 *negative
-existence* 결과 — "어떤 finite-state Lens 도 이 sequence 의
-kernel 을 representation 할 수 없 음".
+**Key observation**: irrationality is a *negative existence* result
+within the framework — "no finite-state Lens can represent the kernel
+of this sequence".
 
-## ROI 와 막힌 문제 와 의 연결
+## Connection to ROI and blocked problems
 
-User claim: "방법 의 진작 으 로 막힌 문제 들 의 혈 이 뚫림."
+User claim: "Advancing the method unblocks the blocked problems."
 
 ### Connection to Lens-kernel cardinality (A)
 
-Pure descent 의 패턴 — *modular structure 의 squaring 의 kernel
-분석* — 이 abstract 한 *Lens-on-Lens 의 universalMorphism 의
-kernel 분석* 과 isomorphic 한 형태.
+The pattern of pure descent — *kernel analysis of squaring in modular
+structure* — is isomorphic in form to the abstract *kernel analysis
+of universalMorphism in Lens-on-Lens*.
 
-`LensOnLensImage` 에 서 `lensXor_TT = constFalseLens` 등 의
-4-case computation 이 정확 히 mod-2 squaring 의 case analysis 와
-동일 한 structure.
+The 4-case computation `lensXor_TT = constFalseLens` etc. in
+`LensOnLensImage` has exactly the same structure as the case analysis
+for mod-2 squaring.
 
-Generalization: `Lens (Lens α)` 의 kernel 분석 이 α 의 mod-N
-descent analysis 와 같은 framework 안.
+Generalization: the kernel analysis of `Lens (Lens α)` is within the
+same framework as the mod-N descent analysis of α.
 
 ### Open question (sharper) for A
 
-For each prime p (or each squarefree N), the kernel 가 distinct.
-This gives ∞-many distinct kernels via ∞-many primes — partial
+For each prime p (or each squarefree N), the kernel is distinct.
+This gives ∞-many distinct kernels via ∞-many primes — a partial
 **countable** answer to A.
 
-For uncountable: prime 만 으 로 는 countable.  Need *general
+For uncountable: primes alone give only countable.  Need *general
 modular structure with non-trivial squaring kernel* — possibly
 real-coordinate Lens (Nat → Bool) families.
 
-### 다음 시도 candidate
+### Next candidate attempts
 
 1. **Sqrt5IrrationalPure**: same pattern, p = 5.
 2. **General `prime_descent_template` typeclass**:
@@ -121,43 +121,44 @@ real-coordinate Lens (Nat → Bool) families.
 4. **kernel cardinality lower bound**: each prime p gives
    distinct Lens kernel via Pell-like sequence.
 
-방법 의 진작 의 ROI:
-- (a) Quot.sound + propext 의 incidental nature 의 demonstrate.
-- (b) prime descent 의 일반화 가능 성.
-- (c) 무리수 의 *modular impossibility* 본질 의 명시 화.
-- (d) framework 의 Cauchy structure 와 의 connection 의 sharper.
+ROI of advancing the method:
+- (a) Demonstrate the incidental nature of Quot.sound + propext.
+- (b) Generalizability of prime descent.
+- (c) Explicit clarification of the *modular impossibility* essence
+  of irrationality.
+- (d) Sharper connection to the framework's Cauchy structure.
 
 ## Observations (2026-04-26)
 
-`Sqrt5IrrationalPure` 추가 + `PrimeDescentObservations` 의
-boundary 실험 결과:
+Results of boundary experiments adding `Sqrt5IrrationalPure` and
+`PrimeDescentObservations`:
 
-**Observation 1**: descent template 이 prime p (= 2, 3, 5)
-모두 작동 — robustness 확인.
+**Observation 1**: descent template works for prime p (= 2, 3, 5)
+— robustness confirmed.
 
-**Observation 2**: sqrt4 = 2 rational, descent 실패 — sqrt4
-의 squaring kernel = {0, 2} mod 4 (not trivial).  Concrete witness:
-`sqrt4_rational : ∃ m k, k ≥ 1 ∧ m² = 4·k²` (m=2, k=1).
+**Observation 2**: sqrt4 = 2 is rational, descent fails — the
+squaring kernel of sqrt4 = {0, 2} mod 4 (not trivial).  Concrete
+witness: `sqrt4_rational : ∃ m k, k ≥ 1 ∧ m² = 4·k²` (m=2, k=1).
 
-**Observation 3**: descent 가 *exactly squarefree* N 에 대 해
-작동.  Non-squarefree → factor out square first.
+**Observation 3**: descent works for *exactly squarefree* N.
+Non-squarefree → factor out the square first.
 
-**Observation 4 (transcendental e/π/2)**: prime descent *불가능*.
-e 는 polynomial equation 의 root 가 아 님 — descent 의 starting
-equation 자체 부재.  Hermite proof (factorial bound + Cauchy
-analysis) 는 *별 도 path* — series convergence rate, not modular
+**Observation 4 (transcendental e/π/2)**: prime descent *impossible*.
+e is not the root of a polynomial equation — the starting equation
+for descent does not exist.  Hermite proof (factorial bound + Cauchy
+analysis) is a *separate path* — series convergence rate, not modular
 structure.
 
-## 정직 한 평가 of "Universal Prime Lens"
+## Honest assessment of "Universal Prime Lens"
 
-- *Algebraic squarefree* fragment 에 대 해 universal.
-- *Algebraic non-squarefree* 는 reducible to squarefree.
-- *Transcendental* 은 *외 부 path* (analytic Cauchy).
+- Universal for the *algebraic squarefree* fragment.
+- *Algebraic non-squarefree* is reducible to squarefree.
+- *Transcendental* requires an *external path* (analytic Cauchy).
 
 Honest naming: "**Universal Squarefree-Algebraic Descent Lens**"
-+ "*Analytic Cauchy Lens* (separate)".  두 layer 명시.
++ "*Analytic Cauchy Lens* (separate)".  Two layers made explicit.
 
-framework 의 *complete* description: 두 layer 결합 = 모든
-infrastructure-internal real number 의 representation.  Adele-style
-structure 가 가능 하 지 만, archimedean place (analytic) 는
-*algebraic* 이 아 닌 *별 도 의 valuation*.
+*Complete* description of the framework: combining two layers =
+representation of all infrastructure-internal real numbers.
+Adele-style structure is possible, but the archimedean place
+(analytic) is a *separate valuation*, not *algebraic*.

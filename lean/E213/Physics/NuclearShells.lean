@@ -2,9 +2,9 @@ import E213.Physics.MagicNumbers
 import E213.Physics.NuclearBinding
 
 /-!
-# 핵 마법수 7/7 — HO + spin-orbit splitting (0 axioms)
+# Nuclear magic numbers 7/7 — HO + spin-orbit splitting (0 axioms)
 
-DRLT 도출 (NUC_003, ch10):
+DRLT derivation (NUC_003, ch10):
 
   HO magic:      2, 8, 20, 40, 70, 112, 168
   Nuclear magic: 2, 8, 20, 28, 50, 82, 126
@@ -33,10 +33,10 @@ DRLT 도출 (NUC_003, ch10):
   At n = 4: shift = 4·3 = 12.
   Or 2·n·(n−1) = 24 = d² − 1 = adjoint SU(5).
   
-  → 핵의 첫 spin-orbit promotion (28 magic) involves adjoint
+  → The first nuclear spin-orbit promotion (28 magic) involves adjoint
     SU(5) structure!
 
-## Atomic primitives 깔린
+## Atomic primitives underlying
 
   All shifts are *integer* combinations of n.
   No fitting parameters.
@@ -59,7 +59,7 @@ theorem first_three_coincide :
 theorem fourth_differs :
     -- HO_magic 4 = 40, NUCLEAR_MAGIC[3] = 28
     ho_magic 4 - 28 = 12
-    -- 12 = NS·NT bipartite edges (또 등장!)
+    -- 12 = NS·NT bipartite edges (appears again!)
     ∧ NS * NT * 2 = 12 := by decide
 
 /-- 5th: HO=70, Nuclear=50, diff=20. -/
@@ -85,7 +85,7 @@ theorem nuclear_magic_atomic_shifts :
     -- First 3: HO = Nuclear (no shift)
     (ho_magic 1 = 2) ∧ (ho_magic 2 = 8) ∧ (ho_magic 3 = 20)
     -- Shifts (HO - Nuclear):
-    ∧ (ho_magic 4 - 28 = 12)    -- = c·NS·NT (또 등장!)
+    ∧ (ho_magic 4 - 28 = 12)    -- = c·NS·NT (appears again!)
     ∧ (ho_magic 5 - 50 = 20)    -- = d(d-1)
     ∧ (ho_magic 6 - 82 = 30)    -- = 1/α_2
     ∧ (ho_magic 7 - 126 = 42)   -- = (d+1)(d+2)

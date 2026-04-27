@@ -34,7 +34,7 @@ example : partialSum geomHalfSeries 2 1 1 = false := by decide
 
 -- Closed form pattern: partialSum n approaches 2 from below.
 -- For finite n: partialSum n = 2 - (1/2)^{n-1}.
--- Note: deeper n test 시 maximum recursion depth (Lean reduction limit,
+-- Note: for deeper n tests, maximum recursion depth (Lean reduction limit,
 -- not framework limit).
 
 end E213.Research.Real213CutSum

@@ -1,7 +1,7 @@
 import E213.Physics.HiggsMass
 
 /-!
-# m_τ/m_μ — 같은 atomicity-locked geometric series (0 axioms)
+# m_τ/m_μ — same atomicity-locked geometric series (0 axioms)
 
 DRLT formula (lib/drlt.py:680, ch09):
   m_τ/m_μ = c^NS · NT · [1 + x + x² + (NS/(d+1))·x³]
@@ -27,12 +27,12 @@ DRLT formula (lib/drlt.py:680, ch09):
   - series 1 + x + x² + ... (Dyson-like geometric)
   - x³ coefficient NS/(d+1) = 3/6 = 1/2  ← d+1 cofactor *again*!
 
-  같은 (d+1) cofactor 가 m_τ/m_μ 에도 등장:
+  The same (d+1) cofactor also appears in m_τ/m_μ:
     α_em IR:    1/NS = NT/(d+1)
     Cabibbo:    sin θ_C base uses (d² - d + c) = 22 = ...
     m_τ/m_μ:    series x³ coefficient NS/(d+1)
 
-  → "d+1 cofactor universality" 를 한 번 더 확인.
+  → "d+1 cofactor universality" confirmed once more.
 -/
 
 namespace E213.Physics.TauMu
