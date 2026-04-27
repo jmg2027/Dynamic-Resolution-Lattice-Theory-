@@ -77,4 +77,16 @@ theorem partialSum_const_half (a : Nat) :
     rw [(Nat.succ_mul (n+1) a).symm] at h
     exact h
 
+/-- **3-term integer cutSum (assoc-form)**: (a + b) + c = a + b + c. -/
+theorem cutSum_int_int_three (a b c : Nat) :
+    cutSum (cutSum (constCut a 1) (constCut b 1)) (constCut c 1)
+    = constCut (a+b+c) 1 := by
+  rw [cutSum_int_int, cutSum_int_int]
+
+/-- **3-term half cutSum (assoc-form)**: (a/2 + b/2) + c/2 = (a+b+c)/2. -/
+theorem cutSum_half_three (a b c : Nat) :
+    cutSum (cutSum (constCut a 2) (constCut b 2)) (constCut c 2)
+    = constCut (a+b+c) 2 := by
+  rw [cutSum_half_general, cutSum_half_general]
+
 end E213.Research.Real213CutSum
