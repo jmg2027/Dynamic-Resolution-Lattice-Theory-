@@ -56,6 +56,7 @@ import E213.Research.Real213FluxFTCPolynomial
 import E213.Research.Real213FluxMVTHigh
 import E213.Research.Real213FluxMVTGeneric
 import E213.Research.Real213FluxMVTPassthrough
+import E213.Research.Real213FluxMVTApplications
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
