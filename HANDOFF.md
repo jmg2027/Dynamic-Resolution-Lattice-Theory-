@@ -4,11 +4,13 @@
 `claude/block-universe-asymmetry-bYQZZ` (pushed to origin).
 
 ## Status
-**E213/Physics track Phase 1 + Phase 2 모두 완료.**
+**E213/Physics track Phase 1 + 2 + 3 모두 완료.**
 - Phase 1: 68 Lean 파일 (정밀 양 트랙)
-- Phase 2: 14 Lean 파일 (axiom-level 트랙, root + 13 modules)
-- 모두 0 sorry, ≤ propext + Quot.sound (Lean 4 core)
-- `lake build E213.Physics` clean (134 modules)
+- Phase 2: 14 Lean 파일 (axiom-level 트랙)
+- Phase 3: 14 Lean 파일 (falsifier 트랙)
+- 모두 0 sorry, ≤ propext + Quot.sound
+- Phase 3 capstone phase3_falsifiers = **0 axioms**
+- `lake build E213.Physics` clean (**150 modules**)
 
 ## Phase 2 (이번 세션 후반)
 
@@ -24,6 +26,26 @@
   - phase2_absolute: 26-conjunct 단일 종합
   - Phase1Bridge: 두 트랙 산술 동일성 증명 (0 axioms)
   - Falsifier: 7 반증 가능 명제 (CLAUDE.md 기준 2)
+
+## Phase 3 (이번 세션 끝)
+
+**E213/Physics/Phase3/** (14 파일):
+  Manifesto, IntegerLockings, NoFourthGen, NeutrinoOrdering,
+  ThetaQCDFalsifier, WMassFalsifier, HubbleTension,
+  MagicNumbersFalsifier, PMNSSpecific, CassiniLink,
+  AlphaEMSharp, LeptonRatios, CKMSpecific, ProtonMassSharp,
+  + Capstone, Phase3.lean root
+
+**핵심 falsifier**:
+  - JUNO neutrino ordering 결판 (~2030)
+  - nEDM θ_QCD ∈ [2.5, 3.0]×10⁻¹¹ (~2027-30)
+  - LHC 4th gen collider 발견 → 폐기
+  - DUNE/HK PMNS 정밀 측정
+  - LHCb/Belle II Cabibbo λ 정밀화
+  - Lattice QCD m_p next-order
+
+phase3_falsifiers : 19-conjunct, **0 axioms**.
+어느 한 falsifier 위반 → 213 즉시 폐기 ("레포 삭제 ㅋㅋ").
 
 ## 본 세션 (~5시간) 요약
 
