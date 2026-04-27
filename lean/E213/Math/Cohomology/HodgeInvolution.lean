@@ -27,7 +27,7 @@ def e0_5 : Cochain 5 2 := fun i => i.val == 0
 def all_true_5_2 : Cochain 5 2 := fun _ => true
 
 /-- All-true cochain at (3, 1). -/
-def all_true_3_1 : Cochain 3 1 := fun _ => true
+def at_3_1_h : Cochain 3 1 := fun _ => true
 
 /-- ⋆⋆(zero) at (5, 1). -/
 theorem hodge_sq_zero_5_1 :
@@ -56,10 +56,10 @@ theorem hodge_sq_all_true_5_2 :
     ∀ i : Fin (binom 5 2),
       hodgeStar 5 3 2 (hodgeStar 5 2 3 all_true_5_2) i = all_true_5_2 i := by decide
 
-/-- ⋆⋆(all_true_3_1) = all_true_3_1. -/
-theorem hodge_sq_all_true_3_1 :
+/-- ⋆⋆(at_3_1_h) = at_3_1_h. -/
+theorem hodge_sq_at_3_1_h :
     ∀ i : Fin (binom 3 1),
-      hodgeStar 3 2 1 (hodgeStar 3 1 2 all_true_3_1) i = all_true_3_1 i := by decide
+      hodgeStar 3 2 1 (hodgeStar 3 1 2 at_3_1_h) i = at_3_1_h i := by decide
 
 /-- ★ Phase CB intermediate capstone — ⋆⋆ = id on Δ⁴, bundled. -/
 theorem phase_CB_hodge_involution :

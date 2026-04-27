@@ -17,8 +17,11 @@ atomicity-forced (already proven in `AlphaEMSimplicial.lean`).
 "25/3 conjectural" tag was wrong: 25/3 = (NS²−1) + 1/NS = b₁ +
 1/(#4-cycles), both Raw-derived.
 
-### 3. Cohomology 213 marathon — Phases CA + CB + CC + CD + CE closed
-14 files / ~50 theorems / 0 axiom in `lean/E213/Math/Cohomology/`.
+### 3. Cohomology 213 marathon — **CLOSED (CA + CB + CC + CD + CE + CF)**
+15 files / 1084 lines / ~52 theorems / 0 axiom in
+`lean/E213/Math/Cohomology/`.  Single capstone theorem
+`cohomology_213_marathon` bundles representative results from
+all six phases.
 
 CA (cochain foundation, 5 files): Cochain + SimplexBasis + Delta +
 DeltaSqZero + TrivialCases. δ²=0 verified at concrete cochains.
