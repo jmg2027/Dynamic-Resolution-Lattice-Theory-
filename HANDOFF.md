@@ -15,8 +15,8 @@
 ⊂ Δ⁴.** "25/3 conjectural" was wrong:
 25/3 = (NS²−1) + 1/NS = b₁ + 1/(#4-cycles), both Raw-derived.
 
-### 3. Cohomology 213 marathon — **CLOSED + Audit/Bridge**
-17 files / ~58 theorems / 0 axiom.
+### 3. Cohomology 213 marathon — **CLOSED + Audit/Bridge + Fractal**
+20 files / ~70 theorems / 0 axiom.
 
 CA (5): Cochain + SimplexBasis + Delta + DeltaSqZero + TrivialCases.
 CB (3): HodgeStar + HodgeInvolution + HodgeDelta.
@@ -35,6 +35,20 @@ CF (1): Capstone.
     ⇒ H^k = 0 for k ≥ 2 ⇒ ALL cup products of 1-classes are 0
     in H². Forecloses graph cohomology as α_em 6th-term source.
   - `alpha_3_two_derivations` (0-axiom): bundles the bridge.
+
+### 4. Fractal-cohomology vision — paper 1/2/3 reconstruction begun
+User insight: cosmos as 2-level fractal where each vertex of a
+single Δ⁴ is itself a Δ⁴, yielding 25 leaves connected as K_{25}
+(finite complete graph).  Three new files:
+
+* `K5.lean` — single-Δ⁴ 1-skeleton.  b₀=1, b₁=6 by direct
+  enumeration (32 cochains).  6 = (d-1)(d-2)/2 = C(d-1,2).
+* `Fractal25.lean` — K_{25} cohomology by Euler formula
+  (decide-checkable arithmetic, since 2²⁵ enumeration too large).
+  b₀=1, b₁=276 = numE−numV+1 = 300−25+1.
+* `FractalAlphaGUT.lean` — first paper-2 result reformulated:
+  α_GUT = b₁(K₅) / (numV(K₂₅)·π²) = 6 / (25·π²).
+  Both factors identified as fractal-cohomology invariants.
 
 ## Lessons learned
 

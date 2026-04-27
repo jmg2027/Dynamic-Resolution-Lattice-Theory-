@@ -43,7 +43,7 @@ multiple tiers per section.
 |-----------|---------------|--------|-------|
 | 1/α_em = 137.036 (1a) | tight bracket [N=20] width 0.14, [N=50] width 0.024 | width < 10⁻⁴ | Ch. 05 |
 | 1/α_em = 137.036 (1b) | gap 5.443×10⁻⁴ → reframed: missing simplicial invariant | Cohomology 213 marathon (Phase CE) | Ch. 05 |
-| Cohomology 213 marathon | **CLOSED + Audit/Bridge** (17 files, ~58 theorems, 0 axiom). Capstone + AlphaEMBridge (links to Physics b₁) + Audit (catalog of partial/closed + new discoveries). | (next math marathon) | Ch. 14 |
+| Cohomology 213 marathon | **CLOSED + Audit/Bridge + Fractal** (20 files, ~70 theorems, 0 axiom). Capstone + AlphaEMBridge + Audit + **Fractal vision: K₅ b₁=6, K₂₅ b₁=276, α_GUT = b₁(K₅)/(numV(K₂₅)·π²)** | Paper 1/2/3 reconstruction | Ch. 14 |
 | α_GUT = 6/(25π²) | bracket [N=3] width ~8 | width < 10⁻⁴ | Ch. 05 |
 | AlphaEM137 d²/NS=25/3 | conjectural-tagged | derive from Raw | Ch. 05 |
 | η_B | 0.5% narrative | ppb | Ch. 09 |
