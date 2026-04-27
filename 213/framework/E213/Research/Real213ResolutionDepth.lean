@@ -205,6 +205,29 @@ example : (cutPowFnIsSmooth 100).linearityModulus 1 = 100 := by
 example : (cutPowFnIsSmooth 0).linearityModulus 100 = 0 := by
   rw [cutPowFnIsSmooth_modulus]
 
+/-! ### AB1: cutPowFnIsSmooth modulus matches polynomial chain
+    instances (idIsSmooth, squareIsSmooth, cubeIsSmooth) -/
+
+/-- cutPowFnIsSmooth 1 modulus = idIsSmooth modulus (slope 1). -/
+example (k : Nat) :
+    (cutPowFnIsSmooth 1).linearityModulus k = idIsSmooth.linearityModulus k := by
+  rw [cutPowFnIsSmooth_modulus, idIsSmooth_modulus, Nat.one_mul]
+
+/-- cutPowFnIsSmooth 2 modulus = squareIsSmooth modulus (slope 2). -/
+example (k : Nat) :
+    (cutPowFnIsSmooth 2).linearityModulus k = squareIsSmooth.linearityModulus k := by
+  rw [cutPowFnIsSmooth_modulus, squareIsSmooth_modulus]
+
+/-- cutPowFnIsSmooth 3 modulus = cubeIsSmooth modulus (slope 3). -/
+example (k : Nat) :
+    (cutPowFnIsSmooth 3).linearityModulus k = cubeIsSmooth.linearityModulus k := by
+  rw [cutPowFnIsSmooth_modulus, cubeIsSmooth_modulus]
+
+/-- cutPowFnIsSmooth 4 modulus = quarticIsSmooth modulus (slope 4). -/
+example (k : Nat) :
+    (cutPowFnIsSmooth 4).linearityModulus k = quarticIsSmooth.linearityModulus k := by
+  rw [cutPowFnIsSmooth_modulus, quarticIsSmooth_modulus]
+
 /-! ### X1: composeIsSmooth iteration tests -/
 
 /-- 3-deep compose: square ∘ square ∘ square = x⁸. Modulus 40. -/
