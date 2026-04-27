@@ -2,6 +2,7 @@ import E213.Research.Real213CutSum
 import E213.Research.Real213CutSumTest
 import E213.Research.Real213CutSumOne
 import E213.Research.Real213CutBisection
+import E213.Research.Real213CutPoset
 
 /-!
 # Research.Real213CutDouble: 2x cut function
@@ -61,5 +62,25 @@ theorem cutDouble_cutDouble_constCut (a b : Nat) :
   rw [cutDouble_constCut, cutDouble_constCut]
   congr 1
   rw [← Nat.mul_assoc]
+
+/-- cutDouble preserves cutEq. -/
+theorem cutDouble_cutEq (cx cy : Nat → Nat → Bool)
+    (h : cutEq cx cy) : cutEq (cutDouble cx) (cutDouble cy) :=
+  fun m k => h m (2*k)
+
+/-- cutDouble preserves cutLe. -/
+theorem cutDouble_cutLe (cx cy : Nat → Nat → Bool)
+    (h : cutLe cx cy) : cutLe (cutDouble cx) (cutDouble cy) :=
+  fun m k => h m (2*k)
+
+/-- cutHalf preserves cutEq. -/
+theorem cutHalf_cutEq (cx cy : Nat → Nat → Bool)
+    (h : cutEq cx cy) : cutEq (cutHalf cx) (cutHalf cy) :=
+  fun m k => h (2*m) k
+
+/-- cutHalf preserves cutLe. -/
+theorem cutHalf_cutLe (cx cy : Nat → Nat → Bool)
+    (h : cutLe cx cy) : cutLe (cutHalf cx) (cutHalf cy) :=
+  fun m k => h (2*m) k
 
 end E213.Research.Real213CutSum
