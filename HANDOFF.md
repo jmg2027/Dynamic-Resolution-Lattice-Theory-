@@ -36,10 +36,16 @@ CF (1): Capstone.
     in H². Forecloses graph cohomology as α_em 6th-term source.
   - `alpha_3_two_derivations` (0-axiom): bundles the bridge.
 
-### 4. Fractal-cohomology vision — paper 1/2/3 reconstruction begun
-User insight: cosmos as 2-level fractal where each vertex of a
-single Δ⁴ is itself a Δ⁴, yielding 25 leaves connected as K_{25}
-(finite complete graph).  Three new files:
+### 4. Fractal-cohomology vision — paper 1/2/3 reconstruction continues
+
+**User correction (2026-04-27 late):** 2-level uniform fractal is
+WRONG. Correct topology has TWO refinements:
+  (a) chiral split: 5 = 3 + 2 (NS + NT), forced by paper 1.
+  (b) L-level depth: for N lattice points in block universe,
+      depth L = log_5(N), so K_{5^L} not just K_25.
+The 25 leaves are only the L=2 instance.
+
+Six new files (vs original 3):
 
 * `K5.lean` — single-Δ⁴ 1-skeleton.  b₀=1, b₁=6 by direct
   enumeration (32 cochains).  6 = (d-1)(d-2)/2 = C(d-1,2).
@@ -48,7 +54,15 @@ single Δ⁴ is itself a Δ⁴, yielding 25 leaves connected as K_{25}
   b₀=1, b₁=276 = numE−numV+1 = 300−25+1.
 * `FractalAlphaGUT.lean` — first paper-2 result reformulated:
   α_GUT = b₁(K₅) / (numV(K₂₅)·π²) = 6 / (25·π²).
-  Both factors identified as fractal-cohomology invariants.
+
+* `Paper1Chiral.lean` (NEW) — paper 1 chiral bigrading on Cochain
+  spaces.  C^k = ⊕_{i+j=k} C^{i,j} with dim = binom(NS,i)·binom(NT,j).
+  Level-1 statement: 3 + 2 = 5 ⇒ ℂ⁵ = ℂ³ ⊕ ℂ² (paper 1).
+  Vandermonde identity verified at levels 0..3 by decide.
+
+* `FractalLevel.lean` (NEW) — L-level fractal K_{5^L} cohomology:
+  b_1(L) = (5^L − 1)(5^L − 2)/2.  Spectrum at L=1..4:
+  6, 276, 7626, 194376.  All decide-checked.
 
 ## Lessons learned
 
