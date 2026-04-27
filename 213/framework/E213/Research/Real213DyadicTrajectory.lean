@@ -592,6 +592,21 @@ theorem alwaysFalseUnit_limit_cutEq_one :
           (constCut 1 1) :=
   fun m k => alwaysFalseUnit_limit_eq_one_one m k
 
+/-- **T1: Strong M1 — NOT cutEq form**. The alwaysTrueUnit limit
+    (0+) is NOT cutEq with constCut 0 1 (0-exact).  Derived from
+    InfinitesimalGap (which gives a specific witness pair m=0, k=1
+    where they differ). -/
+theorem alwaysTrueUnit_limit_not_cutEq_zero :
+    ¬ cutEq (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
+            (constCut 0 1) := by
+  intro h_eq
+  have h := h_eq 0 1
+  have ⟨h0, h1⟩ := alwaysTrueUnit_limit_distinct_from_zero
+  rw [h0] at h
+  -- h : false = constCut 0 1 0 1 = true
+  rw [h1] at h
+  exact Bool.noConfusion h
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
