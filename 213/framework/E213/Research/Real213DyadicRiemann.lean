@@ -218,4 +218,20 @@ theorem riemann_third_depth_6 (db : DyadicBracket) :
     riemannSampleSum (constCutFn (constCut 1 3)) db 6 = constCut 64 3 :=
   riemannSampleSum_constCut 1 3 db 6
 
+/-- **Riemann constant doubling recurrence**: at depth n+1, the sum
+    of constant a/b is the cutSum of the depth n sum with itself.
+
+    This expresses that doubling the sample count = doubling the sum
+    (constant integrand). -/
+theorem riemann_const_doubling (a b : Nat) (db : DyadicBracket) (n : Nat) :
+    riemannSampleSum (constCutFn (constCut a b)) db (n+1)
+    = cutSum (riemannSampleSum (constCutFn (constCut a b)) db n)
+             (riemannSampleSum (constCutFn (constCut a b)) db n) := by
+  rw [riemannSampleSum_constCut a b db (n+1)]
+  rw [riemannSampleSum_constCut a b db n]
+  rw [cutSum_self]
+  show constCut (2^(n+1) * a) b = constCut (2 * (2^n * a)) b
+  congr 1
+  rw [Nat.pow_succ, Nat.mul_assoc, Nat.mul_left_comm]
+
 end E213.Research.Real213CutSum
