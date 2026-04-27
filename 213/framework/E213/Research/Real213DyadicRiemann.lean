@@ -164,4 +164,9 @@ theorem riemannSampleSum_const_normalized (a b : Nat) (n : Nat) :
   exact (constCut_scale a b (2^n)
     (Nat.pos_pow_of_pos n (by decide : 0 < 2))).symm
 
+/-- **Riemann sum on identity at depth 0**: the trivial single-sample
+    case.  Just f(midpoint) = midpoint. -/
+theorem riemannSampleSum_id_depth_zero (db : DyadicBracket) :
+    riemannSampleSum id db 0 = db.midCut := rfl
+
 end E213.Research.Real213CutSum
