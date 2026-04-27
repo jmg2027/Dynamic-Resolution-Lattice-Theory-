@@ -12,9 +12,15 @@
 --   Research   : E213/Research/*.lean   (r5-critique track:
 --                                        ZI, Z2, ZOmega witnesses)
 
--- Kernel (deep-embedded 213, 0 Lean axioms)
+-- Kernel (deep-embedded 213, 0 Lean axioms — vision floor)
 import E213.Kernel.Term
+import E213.Kernel.Compare
+import E213.Kernel.Pair
+import E213.Kernel.Rat
+import E213.Kernel.Decide
+import E213.Kernel.Sound
 import E213.Kernel.Demo
+import E213.Kernel.Cap_PeriodicTable
 
 -- Firmware
 import E213.Firmware.Raw
