@@ -44,9 +44,16 @@ CE α_em sixth-term hunt, CF capstone.
 
 ## Open Problems (priority order)
 
-### 1. Cohomology 213 marathon — Phase CA
-First file: `CohomologyCochain.lean`. Define `Cᵏ` type and
-`delta : Cᵏ → Cᵏ⁺¹`. Smoke-test on Δ²..Δ⁵. Then `δ² = 0` by decide.
+### 1. Cohomology 213 marathon — **Phase CA closed**
+5 files / ~14 theorems / 0 axiom in `lean/E213/Math/Cohomology/`:
+- `Cochain.lean` — `Cochain n k = Fin (binom n k) → Bool`, XOR add
+- `SimplexBasis.lean` — `kSubset n k i` colex enumeration
+- `Delta.lean` — `delta : Cᵏ → Cᵏ⁺¹` via XOR over face removals
+- `DeltaSqZero.lean` — δ²=0 verified at multiple concrete cochains
+- `TrivialCases.lean` — Phase CA capstone (Δ¹..Δ⁴ smoke + δ-zero)
+
+**Phase CB next:** Hodge ⋆: Cᵏ → Cᵈ⁻ᵏ at cochain level
+(generalizes existing `SimplexCounts.hodge_*` dim-only lemmas).
 
 ### 2. Phase CC b₂(K_{3,2}^{(2)}) — direct physics payoff
 Compute b₂ at cochain level. If non-trivial, candidate sixth
