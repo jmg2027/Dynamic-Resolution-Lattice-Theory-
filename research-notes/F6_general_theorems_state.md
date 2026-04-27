@@ -556,7 +556,7 @@ The three modulus rules:
 - 213-native binary search algorithm — non-canonical (mixed)
   trajectory case.
 
-## 비 verified scaffolded
+## Not verified (scaffolded)
 
 - Series convergence theorems (full).
 - IVT bracket convergence proof.

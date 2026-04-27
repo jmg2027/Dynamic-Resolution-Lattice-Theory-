@@ -89,14 +89,15 @@
 ## Total stats
 
 - 50+ Lean modules, all build clean.
-- 0 sorry, 모든 theorem ≤ propext + Quot.sound (Lean 4 core only).
+- 0 sorry, all theorems ≤ propext + Quot.sound (Lean 4 core only).
 - Library entry point: `E213.Math` with 7 sub-modules.
 
-## 의의
+## Significance
 
-213-native real analysis 의 *substantial mathematical content*
-verified.  Bishop program 의 의도 적 *무 시*, framework 자체 의
-인 herent 함 수 공 간 위 의 specific operations 를 verified working.
+*Substantial mathematical content* of 213-native real analysis
+verified.  Intentional *ignoring* of Bishop's program, specific
+operations on the framework's own inherent function space verified
+working.
 
-Marathon 의 actual mathematical content 까 지 도 달 — 상 당 한 Bishop-
-style theorems 의 213 form 에 서 working code.
+Reached the actual mathematical content of the marathon — substantial
+working code in the 213 form of Bishop-style theorems.

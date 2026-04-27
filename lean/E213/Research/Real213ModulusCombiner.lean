@@ -4,17 +4,17 @@ import E213.Research.HasModulus
 /-!
 # Research.Real213ModulusCombiner: Generic kernel for combining HasModulus
 
-User suggestion (2026-04-26): EulerGenericPure 의 meta-algorithm
-패 턴 처럼, modulus combination 의 *kernel* 을 abstract 화 — Cauchy
-bookkeeping 의 *one place* 격리.
+User suggestion (2026-04-26): Like the meta-algorithm pattern of EulerGenericPure,
+abstract the *kernel* of modulus combination — isolating Cauchy bookkeeping
+in *one place*.
 
-`ModulusCombiner combine` = combine : Raw → Raw → Raw 에 대 한
-precision translation + preservation data.
+`ModulusCombiner combine` = precision translation + preservation data
+for combine : Raw → Raw → Raw.
 
-`combineModulus` : 두 HasModulus + ModulusCombiner → 합 HasModulus.
-모든 Cauchy bookkeeping 이 이 한 theorem 에 격리.
+`combineModulus` : two HasModulus + ModulusCombiner → combined HasModulus.
+All Cauchy bookkeeping is isolated in this one theorem.
 
-Per-operation (add, mul, ...) 은 ModulusCombiner instance 만 supply.
+Per-operation (add, mul, ...) supplies only a ModulusCombiner instance.
 -/
 
 namespace E213.Research.Real213
@@ -48,7 +48,7 @@ open E213.Research.HasModulusNS
 open E213.Research.ABLens
 open E213.Research.ArchimedeanCauchy
 
-/-- **Generic combine theorem**: ModulusCombiner + 두 HasModulus → sum HasModulus. -/
+/-- **Generic combine theorem**: ModulusCombiner + two HasModulus → combined HasModulus. -/
 def combineModulus {xs ys : Nat → Raw}
     (mod_x : HasModulus xs) (mod_y : HasModulus ys)
     {combine : Raw → Raw → Raw}

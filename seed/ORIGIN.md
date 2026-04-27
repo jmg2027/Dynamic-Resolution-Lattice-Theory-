@@ -1,28 +1,27 @@
-# ORIGIN.md — 이론의 발상 과정 (원본 기록)
+# ORIGIN.md — The genesis of the theory (original record)
 
-## 이 문서의 위상
+## Status of this document
 
-213 + DRLT 의 모든 것이 시작된 **원본 프롬프트 chain** 이다.
-Git history 에는 이미 결과물 (28개 실험 + 1007줄 공리 +
-`lib/drlt.py` 677줄) 이 임포트된 이후의 commit 만 있다.
-원본 seed 는 이 chat 기록에만 존재했으며, 이 문서로
-**최초 고정**된다.
+This is the **original prompt chain** from which all of 213 + DRLT began.
+Git history contains only commits after the results (28 experiments + 1007-line
+axiom + `lib/drlt.py` 677 lines) were imported.  The original seed existed
+only in this chat record, and is **fixed here for the first time**.
 
-"Foundation first → 물리 응용" 이 아니라 **물리 직관 → 수학
-사슬 → foundation 필연성 발견** 의 순서로 이 이론이 자라났
-음을 기록.
+Records that this theory grew in the order **physical intuition → mathematical
+chain → discovery of foundational necessity**, not "foundation first → physics
+applications."
 
 - Author: Mingu Jeong.
-- 기록 대상: Pre-repo AI dialogue (원본 프롬프트만 보존,
-  AI 응답 생략).
-- 고정일: 2026-04-24.
+- Subject: Pre-repo AI dialogue (original prompts only preserved,
+  AI responses omitted).
+- Fixed date: 2026-04-24.
 
-### 저장 이유
+### Reason for preservation
 
-다음 세션의 Claude 가 "왜 이 공리 형태인가" 물을 때 참조.
-이 역사 없이는 AXIOM.md 의 austerity 가 임의의 선택으로
-보일 위험.  공리의 형태는 **물리 직관 사슬이 내려앉은
-필연**이지 "깔끔해 보이는 최소 구조" 가 아님을 증거.
+Reference for the next session's Claude when asked "why this axiom form?"
+Without this history, the austerity of AXIOM.md risks appearing as an arbitrary
+choice.  The form of the axiom is **the necessity at which the physical intuition
+chain settled**, not "a minimal structure that looks clean."
 
 ---
 

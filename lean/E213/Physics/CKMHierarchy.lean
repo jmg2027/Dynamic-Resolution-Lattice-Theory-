@@ -2,7 +2,7 @@ import E213.Physics.CabibboAngle
 import E213.Physics.GoldenRatio
 
 /-!
-# CKM Wolfenstein hierarchy — λ^k 거듭제곱 (0 axioms)
+# CKM Wolfenstein hierarchy — λ^k powers (0 axioms)
 
 DRLT formulae (PRD_007, ch11):
 

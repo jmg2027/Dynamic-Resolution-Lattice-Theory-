@@ -2,26 +2,26 @@ import E213.Research.UniversalQuotLens
 import E213.Research.KernelCongruence
 
 /-!
-# Research.LensCanonicalForm: Lens 의 canonical form via universalLens
+# Research.LensCanonicalForm: canonical form of a Lens via universalLens
 
-`universalLens_recovers` (UniversalQuotLens.lean) 의 explicit
-refines-equivalence wrapping.  framework 의 *self-stabilization*
-의 형식 표현:
+Explicit refines-equivalence wrapping of `universalLens_recovers`
+(UniversalQuotLens.lean).  Formal expression of the framework's
+*self-stabilization*:
 
-> 임의 Lens `M` 이 `universalLens M.equiv` 와 refines-equivalent.
+> Any Lens `M` is refines-equivalent to `universalLens M.equiv`.
 >
-> framework 가 자기 의 임의 Lens 를 자기 의 kernel 로 부터
-> *up to refines-equivalence* 재구성.
+> The framework reconstructs any of its own Lenses from its own
+> kernel *up to refines-equivalence*.
 
-## 의의
+## Significance
 
-- `universalLens` 가 모든 Lens 의 canonical form.
-- Lens 의 refines-equivalence class 가 slash-congruence 로
-  parameterized.
-- framework 가 자기 안 closure: Lens space 가 자기 의 quotient
-  로 부터 reconstruct.
+- `universalLens` is the canonical form of every Lens.
+- The refines-equivalence class of a Lens is parameterized by a
+  slash-congruence.
+- The framework is closed within itself: the Lens space reconstructs
+  from its own quotient.
 
-Note 78 분석.
+Analysis of Note 78.
 -/
 
 namespace E213.Research.LensCanonicalForm
@@ -29,7 +29,7 @@ namespace E213.Research.LensCanonicalForm
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
 
-/-- **Lens refines-equivalence**: 두 Lens 가 같은 kernel. -/
+/-- **Lens refines-equivalence**: two Lenses share the same kernel. -/
 def refinesEquiv {α β : Type} (L : Lens α) (M : Lens β) : Prop :=
   L.refines M ∧ M.refines L
 
@@ -47,8 +47,8 @@ namespace E213.Research.LensCanonicalForm
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
 
-/-- **Self-stabilization**: 임의 Lens M 이 `universalLens M.equiv`
-    와 refines-equivalent. -/
+/-- **Self-stabilization**: any Lens M is refines-equivalent to
+    `universalLens M.equiv`. -/
 theorem lens_canonical_universal {α : Type} (M : Lens α)
     (hsym : ∀ u v, M.combine u v = M.combine v u) :
     refinesEquiv M (universalLens M.equiv) := by
@@ -60,7 +60,7 @@ theorem lens_canonical_universal {α : Type} (M : Lens α)
     show M.view x = M.view y
     exact (universalLens_recovers α M hsym x y).mp hxy
 
-/-- **Idempotent canonical form**: universalLens 가 fixed-point. -/
+/-- **Idempotent canonical form**: universalLens is a fixed-point. -/
 theorem lens_canonical_idempotent {α : Type} (M : Lens α) :
     refinesEquiv (universalLens M.equiv)
                  (universalLens (universalLens M.equiv).equiv) := by
