@@ -12,6 +12,14 @@ import E213.Physics.Phase3.AlphaEMSharp
 import E213.Physics.Phase3.LeptonRatios
 import E213.Physics.Phase3.CKMSpecific
 import E213.Physics.Phase3.ProtonMassSharp
+import E213.Physics.Phase3.NeutrinoRatioDerivation
+import E213.Physics.Phase3.AlphaEMDerivation
+import E213.Physics.Phase3.ProtonMassDerivation
+import E213.Physics.Phase3.LeptonRatioDerivation
+import E213.Physics.Phase3.HiggsMassDerivation
+import E213.Physics.Phase3.DarkEnergyDerivation
+import E213.Physics.Phase3.AlphaGUTDerivation
+import E213.Physics.Phase3.MagicNumbersDerivation
 import E213.Physics.Phase3.Capstone
 
 /-!
@@ -37,6 +45,17 @@ Phase 2 = axiom-level 트랙 (시점 명시).
   * `LeptonRatios`          — m_μ/m_e 0.48 ppb falsifier
   * `CKMSpecific`           — Cabibbo λ = 5/22 falsifier
   * `ProtonMassSharp`       — m_p = 938.27 MeV atomic exact
+
+### Deep-dive derivations (이번 라운드)
+
+  * `NeutrinoRatioDerivation` — *왜 5.71 인가* (T₂₃ atomic chain)
+  * `AlphaEMDerivation`       — *왜 137.036 인가* (5-항 sum)
+  * `ProtonMassDerivation`    — *왜 938.27 MeV 인가* (closed prop)
+  * `LeptonRatioDerivation`   — *왜 206.768 ppb 인가* (3·137/2)
+  * `HiggsMassDerivation`     — *왜 125.28 GeV 인가* ((d-1)/d)
+  * `DarkEnergyDerivation`    — *왜 0.685 인가* (1-1/π trace)
+  * `AlphaGUTDerivation`      — *왜 6/(25π²) 인가* (d²·ζ(2))
+  * `MagicNumbersDerivation`  — *왜 2,8,20,...126 인가* (HO closed)
   * `Capstone`              — 19 falsifier 단일 종합
 
 ## 운영 stake
