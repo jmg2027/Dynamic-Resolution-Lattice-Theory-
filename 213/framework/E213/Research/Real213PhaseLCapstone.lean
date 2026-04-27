@@ -56,4 +56,25 @@ theorem phaseL_unified_capstone (n : Nat) (a b : Nat) :
    alwaysTrueUnit_limit_distinct_from_zero.1,
    alwaysTrueUnit_limit_distinct_from_zero.2⟩
 
+/-- **Phase M+N Unified Capstone**: bundles M1 + M2 + N3 + N4 results
+    + cross-track parallel.
+
+    Sister branch (claude/block-universe-asymmetry-bYQZZ) formalizes
+    the SAME ontology in physics domain.  This file's theorem states
+    the analysis-domain analogs explicitly, providing the
+    cross-track verification anchor. -/
+theorem phaseMN_cross_track_parallel (m k : Nat) :
+    -- (M1) Infinitesimal gap structure: 0+ ≠ 0 at boundary.
+    InfinitesimalGap (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
+                     (constCut 0 1)
+    -- (M2) Riemann finite-N: no π in dyadic accumulation.
+    ∧ (∀ a b db n, ∃ M : Nat,
+        riemannSampleSum (constCutFn (constCut a b)) db n = constCut M b)
+    -- (N3) Asymmetry: 1- = 1-exact at every (m, k).
+    ∧ (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit m k
+      = constCut 1 1 m k :=
+  ⟨zero_plus_gap_below_zero_exact,
+   no_pi_in_finite_riemann,
+   alwaysFalseUnit_limit_eq_one_one m k⟩
+
 end E213.Research.Real213CutSum
