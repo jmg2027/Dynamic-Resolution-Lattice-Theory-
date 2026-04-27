@@ -584,6 +584,14 @@ theorem alwaysFalseUnit_limit_eq_one_one (m k : Nat) :
       exact Nat.le_trans h1 (Nat.mul_le_mul_left _ hkm)
     rw [decide_eq_true h_lhs_true, decide_eq_true hkm]
 
+/-- **Strong N3**: alwaysFalseUnit.limit is cutEq (universally
+    pointwise equal) with constCut 1 1.  Strengthens N3 from
+    per-(m, k) equality to full cutEq. -/
+theorem alwaysFalseUnit_limit_cutEq_one :
+    cutEq (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit
+          (constCut 1 1) :=
+  fun m k => alwaysFalseUnit_limit_eq_one_one m k
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
