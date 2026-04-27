@@ -232,16 +232,42 @@ Bracket containment foundation (Real213IVTContainment.lean):
 - cutLeAt_refl, cutLeAt_trans.
 - bisectStep_contains : 1-step bracket containment.
 
-### IVT open problems
+### IVT open problems (resolved by Phase J)
 
-- **n-step bracket containment**: needs RatioCut closure under cutMid
-  (or cutSum), blocked by precision artifact at tight m1*k2 = m2*k1
-  with k1 ≥ 2.
+- ~~**n-step bracket containment**: needs RatioCut closure under cutMid~~
+  → **RESOLVED** via dyadic restriction (Phase J).
 - **Bracket Cauchy convergence**: needs bracket-length halving with
-  quantitative bound on the modulus N.
+  quantitative bound on the modulus N.  Still open but tractable in
+  the dyadic regime.
 - **Root identification**: requires continuity (LDD) integration.
-- Workaround paths: dyadic restriction (cutSum_quarter_general etc.),
-  ScaleCut/RescaleCut stronger property, Decidable choice axiom.
+  Open.
+
+### Phase J — Dyadic IVT + IsSmooth filter (LATEST)
+
+User insight: 213's universe is a binary tree.  cutMid is bit-shift,
+not continuous halving.  IVT is search trajectory, not point
+existence.  Smooth functions are special, not default.
+
+Real213Dyadic.lean:
+- def dyadicCut M E := constCut M (2^E).
+- dyadicCut_ratio, dyadicCut_valid (inherited).
+
+Real213DyadicBracket.lean:
+- structure DyadicBracket : (numA, numB, expE) with numA ≤ numB.
+- bisectStep, bisectN : oracle-driven binary tree descent.
+- bisectN_expE : after n steps, expE += n exactly.
+- bisectN_lenNum : numerator difference invariant.
+- cutLe_dyadicCut : cross-multiplication test.
+- 4 one-step containment theorems (left/right × leftHalf/rightHalf).
+- 2 oracle-agnostic bisectStep containment (left, right).
+- **bisectN_contains_left/right** : n-step containment via induction
+  + cutLe_trans.  No RatioCut closure, no precision artifact.
+
+Real213IsSmooth.lean:
+- structure IsSmooth f extends LDD : linearityModulus : Nat → Nat.
+  Differentiability as constructive filter requiring explicit
+  dyadic modulus.
+- idIsSmooth, constIsSmooth, composeIsSmooth (categorical closure).
 
 ## 비 verified scaffolded
 

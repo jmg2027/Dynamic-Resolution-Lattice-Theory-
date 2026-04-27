@@ -8,19 +8,34 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
-### Phase I (LATEST) — IVT framework foundation
+### Phase J (LATEST) — Dyadic IVT + IsSmooth filter
 
-Started full IVT proof attempt.  Reached structural foundation:
-- ValidCut / RatioCut + closures (Real213ValidCut, ValidCutOps).
-- cutMid pointwise mono at (m, k) for k ≥ 1 (Real213CutMidMono).
-- 1-step bracket containment (Real213IVTContainment).
+User-driven reframe: 213's universe is a binary tree.  The
+RatioCut closure obstruction in Phase I was 213 refusing
+continuous-line geometry — switching to dyadic representation
+(constCut M (2^E)) dissolved it.
 
-Blocked at Phase 5+ (n-step containment + Cauchy + root):
-- RatioCut closure under cutMid fails at tight precision boundary
-  (k1 ≥ 2 with m1*k2 = m2*k1 needs k1 | i*k2, not generally true).
-- Same artifact as cutSum_assoc on b ≥ 3.
-- Workarounds (dyadic restriction or ScaleCut) require multi-session
-  development.
+NEW MODULES:
+- Real213Dyadic : dyadicCut + ratio/valid inheritance.
+- Real213DyadicBracket : full bisection apparatus + n-step
+  containment (the Phase 5 wall, now broken).
+- Real213IsSmooth : differentiability as constructive filter
+  with explicit dyadic linearity modulus.  id/const/compose
+  instances.
+
+n-step bracket containment for dyadic brackets is now PROVED
+end-to-end via induction + cutLe_trans.  No precision artifacts.
+
+Open: bracket Cauchy convergence (quantitative modulus) +
+root identification (LDD continuity integration).  Both
+tractable in the dyadic regime.
+
+### Phase I — Earlier IVT attempt (RatioCut, generic)
+
+Built ValidCut/RatioCut + closures, cutMid mono, 1-step
+containment.  Blocked at n-step due to RatioCut closure under
+cutMid (tight m1*k2 = m2*k1 with k1 ≥ 2 needs k1 | i*k2).
+Phase J's dyadic restriction supersedes.
 
 ### Phase F — Cauchy completeness extended
 
