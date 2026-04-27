@@ -284,4 +284,52 @@ theorem DyadicBracket.bisectN_contains_right
       db.bisectStep_contains_right oracle
     exact cutLe_trans _ _ _ h1 h2
 
+/-- **Midpoint above left endpoint**: cutLe db.leftCut db.midCut. -/
+theorem DyadicBracket.midCut_above_left (db : DyadicBracket) :
+    cutLe db.leftCut db.midCut := by
+  show cutLe (dyadicCut db.numA db.expE)
+             (dyadicCut db.midNum (db.expE + 1))
+  apply cutLe_dyadicCut
+  rw [dyadic_pow_succ_eq]
+  apply Nat.mul_le_mul_right
+  show 2 * db.numA ≤ db.numA + db.numB
+  rw [Nat.two_mul]
+  exact Nat.add_le_add_left db.hLe db.numA
+
+/-- **Midpoint below right endpoint**: cutLe db.midCut db.rightCut. -/
+theorem DyadicBracket.midCut_below_right (db : DyadicBracket) :
+    cutLe db.midCut db.rightCut := by
+  show cutLe (dyadicCut db.midNum (db.expE + 1))
+             (dyadicCut db.numB db.expE)
+  apply cutLe_dyadicCut
+  rw [dyadic_pow_succ_eq]
+  apply Nat.mul_le_mul_right
+  show db.numA + db.numB ≤ 2 * db.numB
+  rw [Nat.two_mul]
+  exact Nat.add_le_add_right db.hLe db.numB
+
+/-- **bisectN midpoint trapped in original bracket (left side)**:
+    ∀ n, original.leftCut ≤ (bisectN n).midCut. -/
+theorem DyadicBracket.bisectN_midCut_above_left
+    (oracle : DyadicOracle) (n : Nat) (db : DyadicBracket) :
+    cutLe db.leftCut (DyadicBracket.bisectN oracle n db).midCut := by
+  have h1 : cutLe db.leftCut (DyadicBracket.bisectN oracle n db).leftCut :=
+    DyadicBracket.bisectN_contains_left oracle n db
+  have h2 : cutLe (DyadicBracket.bisectN oracle n db).leftCut
+                  (DyadicBracket.bisectN oracle n db).midCut :=
+    DyadicBracket.midCut_above_left _
+  exact cutLe_trans _ _ _ h1 h2
+
+/-- **bisectN midpoint trapped in original bracket (right side)**:
+    ∀ n, (bisectN n).midCut ≤ original.rightCut. -/
+theorem DyadicBracket.bisectN_midCut_below_right
+    (oracle : DyadicOracle) (n : Nat) (db : DyadicBracket) :
+    cutLe (DyadicBracket.bisectN oracle n db).midCut db.rightCut := by
+  have h1 : cutLe (DyadicBracket.bisectN oracle n db).midCut
+                  (DyadicBracket.bisectN oracle n db).rightCut :=
+    DyadicBracket.midCut_below_right _
+  have h2 : cutLe (DyadicBracket.bisectN oracle n db).rightCut db.rightCut :=
+    DyadicBracket.bisectN_contains_right oracle n db
+  exact cutLe_trans _ _ _ h1 h2
+
 end E213.Research.Real213CutSum
