@@ -34,7 +34,7 @@ ls books/       | wc -l
 ### Step 2 — Scan for Korean text
 ```bash
 grep -r --include="*.lean" --include="*.md" --include="*.tex" \
-     --include="*.py" -P "[\xAC00-\xD7A3]" . --exclude-dir=.git -l
+     --include="*.py" -P "[\x{AC00}-\x{D7A3}]" . --exclude-dir=.git -l
 ```
 If any files found → translate comments/prose to English (never touch code).
 

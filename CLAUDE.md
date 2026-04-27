@@ -78,21 +78,25 @@ The day that last theorem closes with 0 sorry = the first milestone of "rewritin
 
 ### Sub-Projects (Independent workspace per field)
 
+> **Note:** These directories are **planned** but do not yet exist in the repo.
+> All current work lives in `lean/E213/` (Lean) and top-level `research-notes/`.
+> Create a sub-project when starting a focused experiment campaign.
+
 | Directory | Prefix | Status | Experiments | Domain |
 |-----------|--------|--------|-------------|--------|
-| `foundations/` | `FND_` | **ACTIVE** | 37 (FND_001-037) | Derivation chain (math-physics bridge): simplex geometry, variation, f_occ, Grassmannian, Binet–Cauchy, confluence |
-| `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
-| `atoms/` | `ATM_` | **ACTIVE** | 69 (ATM_001-069) | atoms, periodic table, wedge screening |
-| `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
-| `cosmic-structure/` | `CST_` | **ACTIVE** | 22 (CST_001-022) | LSS, BH jets, H₀, T_CMB, BBN |
-| `critical-line/` | `RH_` | **ACTIVE** | 79 (RH_001-079) | critical line, RH, GRH, L-functions, Galois, Lean |
-| `nuclear/` | `NUC_` | **CLOSED** ✓ | 15 (NUC_001-015) | magic numbers, 600-cell, binding |
-| `hadron/` | `HAD_` | **CLOSED** ✓ | 9 (HAD_001-009) | meson/baryon spectrum, hyperfine |
-| `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-009) | unmeasured predictions (JUNO, θ_QCD, Berry phase) |
-| `quantum-gravity/` | `QG_` | **ACTIVE** | 7 (QG_001-007) | spacetime emergence, holographic |
-| `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | mass gap, NS regularity, Lean 4 formalization |
-| `discrete-harmonic/` | `DHA_` | **ACTIVE** | 19 (DHA_001-019) | discrete harmonic analysis, spectrum, S₅ representation theory |
-| `drlt-elements/` | `ELM_` | **ACTIVE** | 0 (Lean 7 files 26 thms) | elements: Entity→Eq→Logic→Nat→Arith→Order→Bridge |
+| `foundations/` | `FND_` | (planned) | 37 planned | Derivation chain (math-physics bridge): simplex geometry, variation, f_occ, Grassmannian, Binet–Cauchy, confluence |
+| `standard-model/` | `SM_` | (planned) | 24 planned | couplings, masses, mixing |
+| `atoms/` | `ATM_` | (planned) | 69 planned | atoms, periodic table, wedge screening |
+| `cosmology/` | `COS_` | (planned) | 3 planned | η_B, Ω_Λ, Webb |
+| `cosmic-structure/` | `CST_` | (planned) | 22 planned | LSS, BH jets, H₀, T_CMB, BBN |
+| `critical-line/` | `RH_` | (planned) | 79 planned | critical line, RH, GRH, L-functions, Galois, Lean |
+| `nuclear/` | `NUC_` | (planned) | 15 planned | magic numbers, 600-cell, binding |
+| `hadron/` | `HAD_` | (planned) | 9 planned | meson/baryon spectrum, hyperfine |
+| `predictions/` | `PRD_` | (planned) | 8 planned | unmeasured predictions (JUNO, θ_QCD, Berry phase) |
+| `quantum-gravity/` | `QG_` | (planned) | 7 planned | spacetime emergence, holographic |
+| `yang-mills/` | `YM_` | (planned) | Lean ~58 thms | mass gap, NS regularity, Lean 4 formalization |
+| `discrete-harmonic/` | `DHA_` | (planned) | 19 planned | discrete harmonic analysis, spectrum, S₅ representation theory |
+| `drlt-elements/` | `ELM_` | (planned) | Lean 7 files 26 thms | elements: Entity→Eq→Logic→Nat→Arith→Order→Bridge |
 
 ### Sub-Project Required Structure
 ```

@@ -94,11 +94,11 @@ research-notes/                         ← translated (earlier in session)
 │   ├── Math/         8 | Firmware/ 13 | OS/ 8
 │   ├── Infinity/ 9 | Meta/ 9 | Tactic/ 10
 │   └── App/ 1 | Hypervisor/ 1
-├── blueprints/     meta/2 + math/16 + physics/16 = 34 .md
+├── blueprints/     INDEX.md + meta/2 + math/16 + physics/16 = 35 .md
 ├── books/          math/ + physics/ + README.md
 ├── papers/         16 .tex + 4 .md + drlt-book/
 ├── catalogs/       6 lookup .md + README.md
 ├── tools/          5 files
 ├── research-notes/ 24 docs
-└── .claude/skills/ 14 skills
+└── .claude/skills/ 8 repo skills
 ```
