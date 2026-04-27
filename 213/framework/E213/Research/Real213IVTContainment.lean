@@ -43,4 +43,13 @@ theorem bisectStep_contains (a b : Nat → Nat → Bool)
     refine ⟨fun ha => cutLe_a_cutMid_at a b hra hle m k hk ha,
             fun hb => hb⟩
 
+/-- cutLeAt is reflexive at any (m, k). -/
+theorem cutLeAt_refl (c : Nat → Nat → Bool) (m k : Nat) :
+    cutLeAt c c m k := fun h => h
+
+/-- cutLeAt is transitive at fixed (m, k). -/
+theorem cutLeAt_trans (cx cy cz : Nat → Nat → Bool) (m k : Nat)
+    (hxy : cutLeAt cx cy m k) (hyz : cutLeAt cy cz m k) :
+    cutLeAt cx cz m k := fun h => hxy (hyz h)
+
 end E213.Research.Real213CutSum
