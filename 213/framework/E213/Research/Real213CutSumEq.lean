@@ -71,4 +71,13 @@ theorem cutMul_cutEq_both (cx cx' cy cy' : Nat → Nat → Bool)
   rw [cutMul_cutEq_left cx cx' cy hx m k]
   exact cutMul_cutEq_right cx' cy cy' hy m k
 
+/-- cutLe is preserved under cutSum (both args). -/
+theorem cutSum_cutLe_both (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
+    (hx : cutLe cx1 cx2) (hy : cutLe cy1 cy2) :
+    cutLe (cutSum cx1 cy1) (cutSum cx2 cy2) := by
+  intro m k h_sum2
+  have step1 : cutSum cx1 cy2 m k = true :=
+    cutSum_mono_left cx2 cx1 cy2 hx m k h_sum2
+  exact cutSum_mono_right cx1 cy2 cy1 hy m k step1
+
 end E213.Research.Real213CutSum
