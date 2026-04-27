@@ -1,7 +1,7 @@
 import E213.Physics.ProtonMass
 
 /-!
-# Hadron 질량 — GMOR + hyperfine 격자 form (0 axioms part)
+# Hadron masses — GMOR + hyperfine lattice form (0 axioms part)
 
 DRLT formulae (HAD_001, HAD_005, ch09):
 
@@ -12,13 +12,13 @@ DRLT formulae (HAD_001, HAD_005, ch09):
     m_ρ² = m_π² + Δ²
     Δ = d · Λ_QCD / NT  [hyperfine splitting]
 
-## 핵심 격자 atoms
+## Key lattice atoms
 
   GMOR n_eff = NS² = 9
-    → 같은 NS² primitive (1/α_3 = NS²-1과 짝)
+    → same NS² primitive (paired with 1/α_3 = NS²-1)
 
   Hyperfine Δ = d·Λ/NT
-    → d/NT 비율 (d/NS의 변형)
+    → d/NT ratio (variant of d/NS)
 
 ## Numerical match
 
@@ -28,11 +28,11 @@ DRLT formulae (HAD_001, HAD_005, ch09):
   m_J/ψ: DRLT 3081.6 MeV vs PDG 3096.9 MeV (-0.5%)
   Δ-N split: DRLT 295.7 MeV vs 294 MeV     (+0.6%)
 
-## 같은 atomicity-locked 패턴
+## Same atomicity-locked pattern
 
   - NS² = 9 prefactor (GMOR n_eff)
   - d/NT = 5/2 (hyperfine ratio)
-  - Λ_QCD scale (HAD_005에서 도출)
+  - Λ_QCD scale (derived from HAD_005)
   - Closed propagator P(x) for heavy quarks
 -/
 
@@ -40,12 +40,12 @@ namespace E213.Physics.Hadrons
 
 open E213.Physics.Simplex
 
-/-- GMOR n_eff = NS² = 9.  이 정수가 m_π² 식의 prefactor. -/
+/-- GMOR n_eff = NS² = 9.  This integer is the prefactor in the m_π² formula. -/
 def gmor_n_eff : Nat := NS * NS
 
 theorem gmor_n_eff_eq_9 : gmor_n_eff = 9 := by decide
 
-/-- NS² = adjoint SU(NS) + 1 = 1/α_3 + 1. 같은 격자 양과 연결. -/
+/-- NS² = adjoint SU(NS) + 1 = 1/α_3 + 1. Connected to the same lattice quantity. -/
 theorem gmor_via_adjoint :
     gmor_n_eff = (NS * NS - 1) + 1
     ∧ NS * NS - 1 = 8 := by decide
@@ -84,13 +84,13 @@ theorem hyperfine_squared :
     ∧ 154 * 1000 < 592900 := by decide
 
 /-- ★ Atomicity-locked hadron pattern ★
-    GMOR + hyperfine 모두 같은 격자 primitives. -/
+    GMOR + hyperfine both use the same lattice primitives. -/
 theorem hadron_simplicial_pattern :
     -- GMOR n_eff = NS²
     (gmor_n_eff = 9)
     -- Hyperfine = d/NT
     ∧ (hyperfine_num = d) ∧ (hyperfine_den = NT)
-    -- Linked to other 정밀 양
+    -- Linked to other precision quantities
     ∧ (NS * NS - 1 = 8)  -- 1/α_3
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 

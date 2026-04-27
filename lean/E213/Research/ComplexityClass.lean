@@ -3,31 +3,31 @@ import E213.Firmware.Raw
 /-!
 # Research.ComplexityClass: Lens-algorithm complexity class (D2 partial)
 
-`research/notes/D2_complexity_class_hierarchy.md` 의 Tier 1 (FSM)
-의 partial Lean formalization.
+Partial Lean formalization of Tier 1 (FSM) from
+`research/notes/D2_complexity_class_hierarchy.md`.
 
-## Tier 1 의 형식 정의
+## Formal definition of Tier 1
 
-`HasFiniteStateMachine xs` = sequence xs : Nat → Raw 가 *유한
-state machine* 의 unfolding 으 로 표현 가능.
+`HasFiniteStateMachine xs` = the sequence xs : Nat → Raw can be
+expressed as the unfolding of a *finite state machine*.
 
-- `bound` = state space size - 1 (Fin (bound + 1) 사용).
-- `state k` = sequence 의 k-th index 의 state.
-- `transition` = 고정 transition function.
+- `bound` = state space size - 1 (using Fin (bound + 1)).
+- `state k` = state at the k-th index of the sequence.
+- `transition` = fixed transition function.
 - `output` = state → Raw output.
-- `state_step` + `output_correct` = state machine 의 정확 한 unfolding.
+- `state_step` + `output_correct` = exact unfolding of the state machine.
 
-## 의의
+## Significance
 
-3-tier hierarchy (D2) 의 Tier 1 entry point:
+Tier 1 entry point of the 3-tier hierarchy (D2):
 
-- Tier 1 (FSM): `HasFiniteStateMachine xs` 의 instance 존재.
-- Tier 2 (ICT): `HasModulus xs` 이지만 FSM instance 부재 — negative
-  존재 statement, framework 안 직접 형식 화 어 려 움.
-- Tier 3: framework 외부.
+- Tier 1 (FSM): an instance of `HasFiniteStateMachine xs` exists.
+- Tier 2 (ICT): `HasModulus xs` holds but no FSM instance — a
+  negative existence statement, hard to formalize directly in the framework.
+- Tier 3: outside the framework.
 
-이 파일 은 typeclass + 1 trivial instance (constant sequence).
-Pell / Sqrt2 sequence 의 FSM instance 는 별 도 작업 (cyclic mod-N
+This file contains the typeclass + 1 trivial instance (constant sequence).
+FSM instances for Pell / Sqrt2 sequences are separate work (cyclic mod-N
 state).
 -/
 
@@ -35,7 +35,7 @@ namespace E213.Research.ComplexityClass
 
 open E213.Firmware
 
-/-- **Tier 1 (FSM)**: sequence 가 finite state machine 으 로 표현. -/
+/-- **Tier 1 (FSM)**: sequence expressible as a finite state machine. -/
 class HasFiniteStateMachine (xs : Nat → Raw) where
   bound : Nat
   state : Nat → Fin (bound + 1)
@@ -55,7 +55,7 @@ open E213.Firmware
 /-- Constant sequence xs k = r. -/
 def constSeq (r : Raw) : Nat → Raw := fun _ => r
 
-/-- Constant sequence 가 1-state FSM. -/
+/-- Constant sequence is a 1-state FSM. -/
 instance constSeq_FSM (r : Raw) : HasFiniteStateMachine (constSeq r) where
   bound := 0
   state := fun _ => ⟨0, Nat.zero_lt_succ _⟩
@@ -95,7 +95,7 @@ def fin2ToRaw : Fin 2 → Raw
   | ⟨0, _⟩ => Raw.a
   | _ => Raw.b
 
-/-- Alternating sequence 가 2-state FSM. -/
+/-- Alternating sequence is a 2-state FSM. -/
 instance altSeq_FSM : HasFiniteStateMachine altSeq where
   bound := 1
   state := fun k => boolToFin2 (altState k)

@@ -2,9 +2,9 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 원자 분광학 → DRLT atomic
+# Translation: Atomic spectroscopy → DRLT atomic
 
-## 정리 목록
+## Theorem list
 
   1. Rydberg constant R_∞ = m_e c α²/(2h) → atomic α²/2
   2. Fine structure α → 1/137 atomic (Phase 1)

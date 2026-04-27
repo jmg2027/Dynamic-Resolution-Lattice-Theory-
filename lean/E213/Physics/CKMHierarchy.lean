@@ -2,7 +2,7 @@ import E213.Physics.CabibboAngle
 import E213.Physics.GoldenRatio
 
 /-!
-# CKM Wolfenstein hierarchy — λ^k 거듭제곱 (0 axioms)
+# CKM Wolfenstein hierarchy — λ^k powers (0 axioms)
 
 DRLT formulae (PRD_007, ch11):
 
@@ -13,18 +13,18 @@ DRLT formulae (PRD_007, ch11):
   δ_CKM = π/φ²
   J = c₁₂ · s₁₂ · c₂₃ · s₂₃ · c₁₃² · s₁₃ · sin(δ)
 
-## ★ Wolfenstein hierarchy = λ^k 거듭제곱 ★
+## ★ Wolfenstein hierarchy = λ^k powers ★
 
   s₁₂ ∝ λ¹ = 5/22     ≈ 0.227
   s₂₃ ∝ A·λ² ∝ (5/22)² = 25/484 ≈ 0.052
   s₁₃ ∝ A·λ³ ∝ (5/22)³ = 125/10648 ≈ 0.0117
 
-  Hierarchy 비율:
+  Hierarchy ratios:
     s₂₃/s₁₂ = λ ≈ 0.227 = 5/22
     s₁₃/s₂₃ = λ ≈ 0.227 = 5/22
 
-  → CKM hierarchy의 자연 ratio가 *Cabibbo angle 자체*.
-  Single atomic fraction 5/22가 hierarchy 강제.
+  → The natural ratio of the CKM hierarchy is *the Cabibbo angle itself*.
+  A single atomic fraction 5/22 forces the hierarchy.
 
 ## λ powers (rational)
 
@@ -78,13 +78,13 @@ theorem lambda_less_than_quarter :
 /-- λ > 1/5: 5·5 = 25 > 22.  So λ > 1/5 = NS reciprocal.
     
     → 22/5 vs NS = 3:  22 = 5·5 - 3 = d² - NS.
-    Or 22 = NS² - NS + c(NS+NT) - ... 정확히 d²-d+c. -/
+    Or 22 = NS² - NS + c(NS+NT) - ... exactly d²-d+c. -/
 theorem lambda_denom_atomic :
     -- 22 = d² - d + c_lattice = 25 - 5 + 2 = 22 ✓
     lambda_den = d * d - d + 2 := by decide
 
-/-- ★ CKM hierarchy 모두 atomic primitive ★
-    λ = 5/22의 분자/분모가 (d, NS, c) = (5, 3, 2)에서. -/
+/-- ★ CKM hierarchy all atomic primitives ★
+    Numerator/denominator of λ = 5/22 comes from (d, NS, c) = (5, 3, 2). -/
 theorem CKM_hierarchy_atomic :
     -- λ numerator = NS·(NS-1) + 2 = wait, just 5 = d
     (lambda_num = d)

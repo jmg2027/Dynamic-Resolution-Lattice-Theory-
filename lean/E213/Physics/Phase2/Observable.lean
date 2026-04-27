@@ -1,26 +1,26 @@
 import E213.Physics.Phase2.Space
 
 /-!
-# Phase 2 Observable — 213이 *측정 가능*하다고 답할 수 있는 것
+# Phase 2 Observable — what 213 can answer as *measurable*
 
-**Layer: App** (atomicity-derived 정수 양들).
+**Layer: App** (atomicity-derived integer quantities).
 
-이전 파일들이 답한 것을 종합하면:
+Synthesis of what previous files answered:
 
   Origin: d = 5
-  Shape: 5 vertex, (3, 2), 10 쌍
-  Existence: Vertex + block 분류
+  Shape: 5 vertices, (3, 2), 10 pairs
+  Existence: Vertex + block classification
   Pairs: 10 = 3 (AA) + 1 (BB) + 6 (AB)
-  Time: NT 섹터 unfolded → 2^n
-  Space: NS 섹터 unfolded → 3^n, 비대칭 (3/2)^n
+  Time: NT sector unfolded → 2^n
+  Space: NS sector unfolded → 3^n, asymmetric (3/2)^n
 
-이 파일은 *그럼 측정 가능한 양은 무엇인가?* 의 정리.
+This file is the theorem of *what measurable quantities exist*.
 
 ## 213-axiom-level observables
 
-각 양은 *atomic-derived 정수* — Lens 추가 없이 axiom 만으로 정함:
+Each quantity is an *atomic-derived integer* — determined by the axiom alone without added Lens:
 
-  | Observable | 값 | 출처 |
+  | Observable | Value | Source |
   |---|---|---|
   | dim | 5 | Origin |
   | vertex count | 5 | Existence |
@@ -32,17 +32,17 @@ import E213.Physics.Phase2.Space
   | NS step branching | 3 | Space |
   | NT-NS asymmetry ratio | 3/2 | Space |
 
-## "측정 가능 양" 의 의미
+## Meaning of "measurable quantities"
 
-Phase 2 입장: 213만으로 *이 9개 정수* 가 자연 발생.
-더 이상의 양 (mass, energy, coupling, ...) 은 Lens 추가 시.
+Phase 2 perspective: from 213 alone, *these 9 integers* naturally emerge.
+Further quantities (mass, energy, coupling, ...) arise when Lens is added.
 
-본 파일은 9 개 양의 *값* 만 모음.  종합 정리.
+This file collects only the *values* of the 9 quantities.  Comprehensive theorem.
 -/
 
 namespace E213.Physics.Phase2.Observable
 
-/-- 9 개 axiom-level observable 값 list. -/
+/-- List of 9 axiom-level observable values. -/
 def cosmos_observables : List (String × Nat) :=
   [ ("dim",           5)
   , ("vertex_count",  5)
@@ -52,18 +52,18 @@ def cosmos_observables : List (String × Nat) :=
   , ("AB_pairs",      6)
   , ("NT_branching",  2)
   , ("NS_branching",  3)
-  , ("ratio_3_2",     0)  -- 3/2 = rational, Nat 표현은 cross-mult로
+  , ("ratio_3_2",     0)  -- 3/2 = rational, Nat representation via cross-mult
   ]
 
 theorem observable_count : cosmos_observables.length = 9 := by decide
 
-/-- 모든 axiom-level observable 의 합 = 5+5+10+3+1+6+2+3+0 = 35. -/
+/-- Sum of all axiom-level observables = 5+5+10+3+1+6+2+3+0 = 35. -/
 theorem observable_sum :
     (cosmos_observables.map (·.2)).foldl (· + ·) 0 = 35 := by decide
 
-/-- ★ 213-axiom-level observables 종합 ★
+/-- ★ 213-axiom-level observables synthesis ★
 
-  9 개 정수 값 모두 atomic-derived.  더 이상은 Lens 추가 시 결정. -/
+  All 9 integer values are atomic-derived.  Further quantities determined when Lens is added. -/
 theorem axiom_level_observables :
     -- dim
     (5 = 5)
@@ -77,18 +77,18 @@ theorem axiom_level_observables :
     ∧ (3 * 2 = 2 * 3)  -- 3/2 cross-mult tautology
     := by decide
 
-/-- ★ Phase 2 의미적 결론 ★
+/-- ★ Phase 2 semantic conclusion ★
 
-  213이 *axiom 만으로* 답할 수 있는 양 = 9 개 정수.
-  
-  Phase 1 (137, m_p, ...) 의 모든 정밀 양은 *이 9 개에서 파생*
-  된 더 깊은 Lens 출력.  Phase 1 = Phase 2 위 세부.
-  
-  Phase 2 는 *백지 시작점*, Phase 1 은 *세부 output*. -/
+  Quantities 213 can answer *from axioms alone* = 9 integers.
+
+  All precision quantities of Phase 1 (137, m_p, ...) are deeper Lens outputs
+  *derived from these 9*.  Phase 1 = details on top of Phase 2.
+
+  Phase 2 is the *blank starting point*, Phase 1 is the *detailed output*. -/
 theorem phase2_observable_summary :
-    -- 9개 axiom-level observable
+    -- 9 axiom-level observables
     (cosmos_observables.length = 9)
-    -- 합 = 35 (sanity check)
+    -- sum = 35 (sanity check)
     ∧ ((cosmos_observables.map (·.2)).foldl (· + ·) 0 = 35) := by decide
 
 end E213.Physics.Phase2.Observable

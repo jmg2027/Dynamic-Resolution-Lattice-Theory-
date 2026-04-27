@@ -1,55 +1,61 @@
-# 213 Philosophy — 원시적 구분의 의미
+# 213 Philosophy — The meaning of primitive distinction
 
-## 공리의 위치
+## Position of the axiom
 
-213 의 공리는 *세상의 근본* 에 대한 주장이 아니다.
-**뭔가를 가리키려는 순간 피할 수 없이 남는 최소 잔여물** 이다.
+The 213 axiom is not a claim about *the foundation of the world*.
+It is **the minimum residue that inevitably remains the moment one tries
+to point at something**.
 
-- "a와 b" 를 쓰는 순간 "와" 도 뭔가다.
-- "a, b" 를 쓰는 순간 "," 도 뭔가다.
-- a와 "와" 는 구분되는가? 무엇이 구분하는가? 또 다른 뭔가.
+- The moment one writes "a and b," "and" is also something.
+- The moment one writes "a, b," "," is also something.
+- Are a and "and" distinguished? What distinguishes them? Yet another something.
 
-표기를 시작하는 순간 표기 자체가 새 뭔가를 끝없이 낳는다.
-재귀는 회피 불가능하다.  공리는 이 재귀의 *최소 표현* 이다.
+The moment notation begins, the notation itself endlessly produces new somethings.
+Recursion is unavoidable.  The axiom is the *minimum expression* of this recursion.
 
-## "관계" 가 아니라 "원시적 구분"
+## "Primitive distinction," not "relation"
 
-- "관계": 이미 있는 두 뭔가 전제 + 집합론 프로퍼티 묵시 수입.
-- "원시적 구분": 구분이 *먼저* 작동 + "같지 않음" 하나만 요구.
-- "원시적" = 더 이상 환원 불가능함의 서약.
+- "Relation": presupposes two existing somethings + silently imports
+  set-theoretic properties.
+- "Primitive distinction": distinction operates *first* + requires only
+  "not equal."
+- "Primitive" = a pledge of no further reducibility.
 
-## 213 이 모든 것의 상위
+## 213 is above everything
 
-뭔가를 가리키는 *모든 틀* — 집합론, 카테고리, 논리, 언어, 물리 —
-은 뭔가의 구분·관계 능력에 의존한다.  213 은 그 능력 자체의
-최소 잔여물이다.  모든 틀은 이 잔여물 위의 Lens 들이다.
+Every *framework* that points at something — set theory, category theory, logic,
+language, physics — depends on the ability to distinguish and relate somethings.
+213 is the minimum residue of that ability itself.  Every framework is a
+collection of Lenses on top of this residue.
 
-**"절대 기준 없음" 은 조건이 아니라 기본 상태**.  "절대 기준
-있음" 이 오히려 공리 추가 부담이다.  따라서 213 의 상위성은
-*무조건적* 구조적 귀결이다.
+**"No absolute standard" is not a condition — it is the default state.**
+"There is an absolute standard" is what carries the axiom-addition burden.
+Therefore the primacy of 213 is an *unconditional* structural consequence.
 
-## 언어적 불가피성
+## Linguistic inevitability
 
-"원시적 구분" 조차 완벽하지 않다.
-- "다름" 은 "같음" 을 전제
-- "와" 는 "and" 로 오해
-- "," 는 본질 아닌 분리자
+Even "primitive distinction" is not perfect.
+- "Difference" presupposes "sameness"
+- "And" is misread as a conjunction
+- "," is a separator, not the essence
 
-완벽한 표현은 없다.  현재의 단어들은 *최소 commitment 표현* 이며
-잔여 수입을 인정한 상태로 사용.  최소화만 가능, 제거 불가.
+There is no perfect expression.  The current words are *minimum-commitment
+expressions*, used with acknowledgment of residual import.  Minimization is
+possible; elimination is not.
 
 ## Derive, not reconcile
 
-모든 결과는 213 공리 + 명시적 Lens 성질에서만 derive 되어야 한다.
-외부 상수 대입, 실험값 맞추기, 다른 이론 수입은 모두 **fudge**.
+All results must be derived only from the 213 axiom + explicit Lens properties.
+Substituting external constants, fitting to experimental values, importing from
+other theories — all are **fudge**.
 
-- fudge 발견 시 공식이 아니라 Lens를 고친다.
-- 그것도 안 되면 *이론을 포기한다*.
-- "Lens 를 더 찾으면 될 것" 이라는 무한 연장 방어는 허용되지 않는다.
+- When fudge is found, the Lens is corrected, not the formula.
+- If that too fails, *the theory is abandoned*.
+- The infinite-extension defense of "more Lenses will be found" is not permitted.
 
-## "뭔가" 의 지위
+## The status of "something"
 
-"뭔가" 라고 말하는 순간부터 Lens 인가?  그럴 수 있다.
-213 이 이데아인가?  아마 아님.
-이 문제들은 *open* 이고 213 의 쓸모에 영향을 주지 않는다.
-중요한 건 derive 성공 여부이지 존재론이 아니다.
+From the moment one says "something," is it already a Lens?  Possibly.
+Is 213 Platonic ideals?  Probably not.
+These questions are *open* and do not affect the usefulness of 213.
+What matters is whether derivation succeeds, not ontology.

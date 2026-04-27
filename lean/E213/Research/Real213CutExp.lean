@@ -6,16 +6,16 @@ import E213.Research.Real213CutSeries
 
 exp(x) = Σ_{i=0}^∞ x^i / i!
 
-## 정의
+## Definitions
 
 factorial : Nat → Nat.
 expSeries x i := x^i / i! cut.
 expCutPartial x n := partialSum expSeries x at n.
 
-## 의의
+## Significance
 
-Cut-level e^x 의 partial sum approximation.  Convergence proof
-별 도 arc.
+Partial sum approximation of e^x at cut level.  Convergence proof is a
+separate arc.
 -/
 
 namespace E213.Research.Real213CutSum

@@ -1,45 +1,45 @@
 import E213.Physics.Phase2.Origin
 
 /-!
-# Phase 2 Existence — d=5에 *무엇*이 있는가?
+# Phase 2 Existence — what *exists* in d=5?
 
-**Layer: App** (`Vertex := Fin 5` + block 분류 — 수학 트랙
-`App/Simplex.lean` 의 `isA, classify` 와 *완전 동일 패턴*).
+**Layer: App** (`Vertex := Fin 5` + block classification — *exactly the same pattern*
+as `isA, classify` in math track `App/Simplex.lean`).
 
-Origin.lean: *우주는 d=5 차원*.
-Shape.lean: *5 점, (3,2) 분할, 10 쌍*.
-이 파일: *그 5는 무엇이며, 그 사이 정보는 무엇인가?*
+Origin.lean: *the universe is d=5 dimensional*.
+Shape.lean: *5 points, (3,2) partition, 10 pairs*.
+This file: *what are those 5, and what is the information between them?*
 
-## 213이 답할 수 있는 것 (그리고 못 하는 것)
+## What 213 can (and cannot) answer
 
-### 답할 수 있는 것
-- *5개의 무엇*이 있다 (Fin 5 type).
-- 두 무엇 사이는 *같다 / 같지 않다* 의 답 (DecidableEq).
-- 그 답들의 패턴이 *atomic partition* 따라 (3,2)로 분류됨.
+### Can answer
+- There are *5 things* (Fin 5 type).
+- Between two things: the answer is *same / not same* (DecidableEq).
+- The pattern of those answers is classified as (3,2) following *atomic partition*.
 
-### 213만으로는 못 하는 것
-- 그 5 무엇의 *명칭*은 axiom에 없음 (Lens 추가 시 결정).
-- 거리, 시간, 입자 등 *분류*도 axiom에 없음 (Lens 출력).
-- "labels" (어느 게 spatial, 어느 게 temporal) 도 Lens 결정.
-  단지 *block 크기* 만 axiom 결정.
+### Cannot do from 213 alone
+- The *names* of those 5 things are not in the axiom (determined when Lens is added).
+- *Classifications* such as distance, time, particles are also not in the axiom (Lens output).
+- "labels" (which is spatial, which is temporal) are also Lens decisions.
+  Only *block sizes* are determined by axiom.
 -/
 
 namespace E213.Physics.Phase2.Existence
 
-/-- d=5 무엇 type — Fin 5.  최소 Lens output. -/
+/-- Type of d=5 things — Fin 5.  Minimal Lens output. -/
 def Vertex : Type := Fin 5
 
-/-- 두 무엇이 같은가는 *결정 가능*. -/
+/-- Whether two things are the same is *decidable*. -/
 instance : DecidableEq Vertex := inferInstanceAs (DecidableEq (Fin 5))
 
-/-- 어느 vertex가 "big block" (크기 3)에 속하는가 — block 0.
-    Labels는 임의 (Lens 결정), 단지 size 만 axiom 결정. -/
+/-- Which vertex belongs to the "big block" (size 3) — block 0.
+    Labels are arbitrary (Lens decision), only size is axiom-determined. -/
 def inBigBlock (v : Vertex) : Bool := v.val < 3
 
-/-- "small block" (크기 2)에 속하는가 — 보완. -/
+/-- Which vertex belongs to "small block" (size 2) — complement. -/
 def inSmallBlock (v : Vertex) : Bool := decide (3 ≤ v.val)
 
-/-- 모든 vertex는 정확히 한 block에 (mutually exclusive). -/
+/-- Every vertex is in exactly one block (mutually exclusive). -/
 theorem block_disjoint_at_0 :
     inBigBlock ⟨0, by decide⟩ = !inSmallBlock ⟨0, by decide⟩ := by decide
 theorem block_disjoint_at_1 :
@@ -51,27 +51,27 @@ theorem block_disjoint_at_3 :
 theorem block_disjoint_at_4 :
     inBigBlock ⟨4, by decide⟩ = !inSmallBlock ⟨4, by decide⟩ := by decide
 
-/-- Big block 에 정확히 3 개 vertex. -/
+/-- Exactly 3 vertices in big block. -/
 theorem big_block_size_three :
     ((List.finRange 5).filter (fun v => inBigBlock v)).length = 3 := by
   decide
 
-/-- Small block 에 정확히 2 개 vertex. -/
+/-- Exactly 2 vertices in small block. -/
 theorem small_block_size_two :
     ((List.finRange 5).filter (fun v => inSmallBlock v)).length = 2 := by
   decide
 
-/-- 두 block 합이 5 (전체 vertex 개수). -/
+/-- Two block sizes sum to 5 (total vertex count). -/
 theorem block_sizes_sum_to_5 :
     ((List.finRange 5).filter (fun v => inBigBlock v)).length
     + ((List.finRange 5).filter (fun v => inSmallBlock v)).length
     = 5 := by decide
 
-/-- ★ Phase 2 Existence — 213이 답할 수 있는 모든 것 ★
+/-- ★ Phase 2 Existence — everything 213 can answer ★
 
-  d=5 차원에 *5 vertex*가 있다.
-  Atomic partition은 *(3, 2)* 크기로 갈라진다.
-  더 이상의 ontology (이름, 의미)는 axiom 결정 안 함. -/
+  In d=5 dimensions there are *5 vertices*.
+  The atomic partition splits into *(3, 2)* sizes.
+  Further ontology (names, meanings) is not axiom-determined. -/
 theorem cosmos_existence_minimal :
     -- (3, 2) block sizes
     (((List.finRange 5).filter (fun v => inBigBlock v)).length = 3)

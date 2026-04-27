@@ -4,7 +4,7 @@ import E213.Physics.AtomicScreening
 /-!
 # Phase 4 LithiumIE — Li IE atomic chain
 
-## 표준 공식
+## Standard formula
 
   IE(Li) = R · Z_eff² / n²
 
@@ -31,7 +31,7 @@ import E213.Physics.AtomicScreening
 5/4 = (NS+NT)/(NS+1) = d/(NS+1) atomic.
 25/64 = (d/(NS+1))² / (NT²) = d² / (16·NT²) atomic.
 
-ppm 정밀화: σ_1s 의 atomic refinement 필요 (Phase 5 작업).
+ppm precision: atomic refinement of σ_1s needed (Phase 5 work).
 -/
 
 namespace E213.Physics.Phase4.LithiumIE

@@ -1,42 +1,42 @@
 # Quantum Information 213 — Blueprint
 
-**우선순위**: ★★ (Qubit = NT, Bell, Bekenstein)
+**Priority**: ★★ (Qubit = NT, Bell, Bekenstein)
 
-## 1. 왜 이 분야인가
+## 1. Why This Field
 
-표준 quantum information:
+Standard quantum information:
 - Qubit Hilbert space ℂ²
 - Bell inequality (CHSH)
 - No-cloning, no-teleportation
 - Holographic principle (AdS/CFT)
 
-213 의 자연 등장:
+Natural emergence in 213:
 - Qubit dim = NT = 2 atomic
 - Bell pair = NT² = 4 atomic
 - Bell quantum² = NT³ = 8 atomic
 - Bekenstein bound 4 = d-1 atomic
 
-## 2. 213-native 등장
+## 2. 213-native Emergence
 
 ### 2.1 Qubit = NT block
 2-state slot atomic.
 
 ### 2.2 Entanglement = layer connectivity
-Lens layer 사이 atomic 관계.
+Atomic relationship between Lens layers.
 
 ### 2.3 No-cloning
-Lens deterministic.  Raw 단일.
+Lens deterministic.  Raw single.
 
 ### 2.4 Holographic c
 Surface ~ Volume entropy atomic.
 
-## 3. 이미 깔린
+## 3. Already in Hand
 
 - Information.lean (Phase 3 Translation)
 - InformationLibrary (Phase 4)
 - AtomicCorrespondences (multi-output)
 
-## 4. Phase 진행 계획
+## 4. Phase Progression Plan
 
 ### Phase IA — Bell formal
 CHSH inequality atomic.
@@ -53,13 +53,13 @@ S = -Tr ρ ln ρ atomic.
 ### Phase IE — Holographic info
 Bulk ↔ boundary atomic.
 
-## 5. 다른 트랙 연결
+## 5. Connections to Other Tracks
 
 - QM: ψ ∈ ℂ Lens output
 - QG: holographic principle
-- 수학: Information Library (blueprint 12)
+- Math: Information Library (blueprint 12)
 
-## 6. 미해결
+## 6. Open Problems
 
 - Quantum supremacy proof atomic
 - Toffoli/CNOT gate atomic

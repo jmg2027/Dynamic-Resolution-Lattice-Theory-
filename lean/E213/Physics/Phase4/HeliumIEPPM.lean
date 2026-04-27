@@ -5,8 +5,8 @@ import E213.Physics.AlphaGUT
 /-!
 # Phase 4 HeliumIEPPM — He IE atomic chain (-0.09% Phase 1)
 
-Phase 1 결과: IE(He) ≈ 4·IE(H)·(1/NT - 2α_GUT) ≈ 24.56 eV.
-관측: 24.587 eV.  -0.09% match.
+Phase 1 result: IE(He) ≈ 4·IE(H)·(1/NT - 2α_GUT) ≈ 24.56 eV.
+Observed: 24.587 eV.  -0.09% match.
 
 ## Atomic chain
 
@@ -26,10 +26,10 @@ Phase 1 결과: IE(He) ≈ 4·IE(H)·(1/NT - 2α_GUT) ≈ 24.56 eV.
   σ_factor ≈ 0.4517 (= 1/2 - 0.0483)
   IE(He) ≈ 24.587 eV ★
 
-관측 = 24.587387 eV.
+Observed = 24.587387 eV.
 DRLT = 24.566 eV (Phase 1 -0.09%).
 
-ppm 정밀화 위해 α_GUT atomic bracket → IE(He) bracket.
+For ppm refinement: α_GUT atomic bracket → IE(He) bracket.
 -/
 
 namespace E213.Physics.Phase4.HeliumIEPPM

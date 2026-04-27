@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Particle Library — 입자물리 atomic catalog
+# Particle Library — particle physics atomic catalog
 
 ## Decay rates
 

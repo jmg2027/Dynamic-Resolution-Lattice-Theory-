@@ -2,31 +2,31 @@ import E213.Research.FoldStructured
 import E213.Research.RawACharLens
 
 /-!
-# Research.SlashCharNotFold: 특정 slash 의 characteristic 은 not fold-structured
+# Research.SlashCharNotFold: the characteristic of a specific slash is not fold-structured
 
-**대응**: leaf characteristic 은 Lens-expressible (RawACharLens.lean) 지만
-**specific slash 의 characteristic 은 NOT**.
+**Correspondence**: leaf characteristics are Lens-expressible (RawACharLens.lean)
+but **the characteristic of a specific slash is NOT**.
 
 ## Witness
 
 `slashAB := slash Raw.a Raw.b`.  `f r := decide (r = slashAB)`.
 
 - f(Raw.a) = false, f(Raw.b) = false, f(slashAB) = true.
-- fold structure 가정 시 c(false, false) = true (slashAB 경우).
-- 그러나 slash(Raw.a, slash(Raw.a, slashAB)): 모든 sub 의 f = false,
-  전체 f = false.  c(false, false) 값이 false 여야 함.
-- 같은 c(false, false) 이 true 이자 false 일 수 없음.  모순.
+- Assuming fold structure: c(false, false) = true (slashAB case).
+- But slash(Raw.a, slash(Raw.a, slashAB)): f = false for all subs,
+  so overall f = false.  c(false, false) must be false.
+- The same c(false, false) cannot be both true and false.  Contradiction.
 
-## 의의
+## Significance
 
-**Raw 의 leaf 와 non-leaf 비대칭**: leaf (Raw.a, Raw.b) 는 개별
-식별 가능하지만, 특정 slash 는 view 수준에서 식별 불가능 —
-slash 는 "compositional" 이어서 view 만으로는 자기 자신 구별
-못 함.
+**Asymmetry of leaf vs. non-leaf in Raw**: leaf (Raw.a, Raw.b) can each
+be individually identified, but a specific slash cannot be identified
+at the view level — slash is "compositional" and cannot distinguish itself
+by view alone.
 
-이는 "관측" 개념의 정확한 한계: Raw.slash x y h 라는 **특정
-구조물** 은 "위에서 내려다보는" Lens 로는 구별 안 됨.
-Lens 는 fold-compositional observation 만 허용.
+This is the precise limit of the "observation" concept: the **specific
+structure** Raw.slash x y h is not distinguishable by a "top-down" Lens.
+Lens only permits fold-compositional observation.
 -/
 
 namespace E213.Research.SlashCharNotFold
@@ -56,11 +56,11 @@ private theorem slashCharFn_b : slashCharFn Raw.b = false := by decide
 private theorem slashCharFn_slashAB : slashCharFn slashAB = true := by decide
 private theorem slashCharFn_outerR : slashCharFn outerR = false := by decide
 
--- slash(a, slashAB) 의 f = false (≠ slashAB since structure 다름).
+-- f of slash(a, slashAB) = false (≠ slashAB since the structure differs).
 private def innerR : Raw := Raw.slash Raw.a slashAB (by decide)
 private theorem slashCharFn_innerR : slashCharFn innerR = false := by decide
 
-/-- **slashCharFn 은 fold-structured 아님**. -/
+/-- **slashCharFn is not fold-structured**. -/
 theorem slashCharFn_not_fold_structured :
     ¬ FoldStructured slashCharFn := by
   intro ⟨ba, bb, c, hba, hbb, _, hslash⟩

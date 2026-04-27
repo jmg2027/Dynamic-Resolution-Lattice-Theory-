@@ -3,7 +3,7 @@ import E213.Physics.SimplexCounts
 /-!
 # Period 7 (Z=87~118) — Fr ~ Og atomic catalog
 
-32 원소 (actinides 90-103, super-heavy 104+).
+32 elements (actinides 90-103, super-heavy 104+).
 
 ## Z atomic clean cases
 
@@ -25,8 +25,8 @@ import E213.Physics.SimplexCounts
   U 6.194    Np 6.266    Pu 6.026   Am 5.974
   Og ~8.9 (predicted)
 
-대부분 lanthanide/actinide 는 동일 valence (s² or s²f^k)
-→ IE 가 Z 따라 천천히 증가.
+Most lanthanides/actinides have the same valence (s² or s²f^k)
+→ IE increases slowly with Z.
 -/
 
 namespace E213.Physics.Phase4.Library.Period7IE

@@ -2,13 +2,13 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 입자물리 phenomenology → DRLT atomic
+# Translation: Particle physics phenomenology → DRLT atomic
 
   1. Decay rate Γ ∝ |M|² × phase space → atomic
   2. Cross-section σ atomic
   3. Branching ratio atomic
   4. Z boson partial width → atomic 12 = 2·NS·NT
-  5. Mass hierarchy → Phase 1 deep-dive 활용
+  5. Mass hierarchy → using Phase 1 deep-dive
 -/
 
 namespace E213.Physics.Phase3.Translation.ParticlePhysics

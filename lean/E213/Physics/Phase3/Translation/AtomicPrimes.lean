@@ -2,11 +2,11 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: Atomic 정수 의 prime structure
+# Translation: Prime structure of atomic integers
 
-DRLT atomic primitives 가 만족하는 *prime* / *composite* 분류:
+*Prime* / *composite* classification satisfied by DRLT atomic primitives:
 
-## Prime atomic 정수
+## Prime atomic integers
   2 = NT          (smallest prime)
   3 = NS          (prime)
   5 = d           (prime)
@@ -15,7 +15,7 @@ DRLT atomic primitives 가 만족하는 *prime* / *composite* 분류:
   41 = α_GUT integer (prime)
   137 = 1/α_em   (prime)
 
-## Composite atomic 정수
+## Composite atomic integers
   4 = d-1 = NT² = NS+1  (= 2², not prime)
   6 = NS·NT             (= 2·3)
   8 = NS²-1 = F_6       (= 2³)
@@ -32,7 +32,7 @@ DRLT atomic primitives 가 만족하는 *prime* / *composite* 분류:
   7 = NS² - NT  (prime)
   13 = NS² + NT² (prime)
 
-★ DRLT atomic 위 prime 분포: 2, 3, 5, 7, 13, 41, 137 모두 prime ★
+★ Prime distribution over DRLT atomic: 2, 3, 5, 7, 13, 41, 137 all prime ★
 -/
 
 namespace E213.Physics.Phase3.Translation.AtomicPrimes

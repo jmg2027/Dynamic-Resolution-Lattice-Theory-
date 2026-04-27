@@ -7,15 +7,15 @@ of differentiation
 
 f'(x) ≈ (f(x+h) - f(x)) / h.
 
-## 정의
+## Definition
 
 DifferenceQuotient f x h := (f(x+h) - f(x)) / h.
 DiffModulus f x f': for ε ≥ 1, ∃ δ-cut, |f(x+h)-f(x))/h - f'(x)| < 1/ε
                    for h ≤ δ.
 
-## 의의
+## Significance
 
-Differentiation 의 cut form — Bishop modulus carried as data.
+Cut form of differentiation — Bishop modulus carried as data.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -31,11 +31,11 @@ def differenceQuotient (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
   let xPlusH := cutSum x h
   let fxPlusH := f xPlusH
   let fx := f x
-  -- Subtract: (fxPlusH - fx) — 위 Bishop signed sub
+  -- Subtract: (fxPlusH - fx) — Bishop signed sub above
   -- Divide by h via cutDiv
   cutDiv (cutSum fxPlusH (cutInv fx)) h
   -- Note: cutSum (·) (cutInv ·) is hacky subtraction —
-  -- proper signed difference quotient 별 도 arc.
+  -- proper signed difference quotient is a separate arc.
 
 end E213.Research.Real213CutSum
 
@@ -60,8 +60,8 @@ def constDifferentiableModulus (c : Nat → Nat → Bool) (x : Nat → Nat → B
 
 /-- **Constant difference quotient = same constant**.
 
-For f = constant c, f(x+h) = c, f(x) = c.  Difference quotient의 numerator
-= c - c.  In our cutDiv form: (cutSum c (cutInv c)) / h. -/
+For f = constant c, f(x+h) = c, f(x) = c.  The numerator of the
+difference quotient = c - c.  In our cutDiv form: (cutSum c (cutInv c)) / h. -/
 theorem differenceQuotient_const (c : Nat → Nat → Bool) (x h : Nat → Nat → Bool) :
     differenceQuotient (fun _ => c) x h
     = cutDiv (cutSum c (cutInv c)) h := by

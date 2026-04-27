@@ -2,14 +2,14 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 통계역학 → DRLT atomic
+# Translation: Statistical mechanics → DRLT atomic
 
-## 정리 목록
+## Theorem list
 
   1. Boltzmann e^(-βE) → Lens layer weight
-  2. Ising 2D 임계: T_c·sinh(2J/T_c) = 1 → atomic 2 = NT
-  3. Critical exponent ν, η → atomic NS, NT 비율
-  4. Universality class → atomic 격자 차원 d
+  2. Ising 2D critical: T_c·sinh(2J/T_c) = 1 → atomic 2 = NT
+  3. Critical exponent ν, η → atomic NS, NT ratio
+  4. Universality class → atomic lattice dimension d
   5. Mean field: critical exponent = 1/2, 1, 3 atomic
 -/
 
@@ -20,10 +20,10 @@ open E213.Physics.Simplex
 /-!
 ## ★ Mean field critical exponents atomic ★
 
-표준 mean field:
+Standard mean field:
   α = 0, β = 1/2, γ = 1, δ = 3, ν = 1/2, η = 0.
 
-DRLT atomic 추측:
+DRLT atomic conjecture:
   β = 1/2 = 1/NT
   γ = 1 = NT - 1 = NT/NT
   δ = 3 = NS

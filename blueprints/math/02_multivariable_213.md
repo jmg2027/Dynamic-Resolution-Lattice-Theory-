@@ -1,36 +1,36 @@
 # Multivariable Calculus 213 — Blueprint
 
-**우선순위**: ★★★ (분석학 213 의 직접 확장)
+**Priority**: ★★★ (direct extension of Analysis 213)
 
 ---
 
-## 1. 왜 이 분야인가
+## 1. Why This Field
 
-분석학 213 은 1변수 (Cut → Cut) 함수만 다룸.  학부 2학년/공학
-미적분의 핵심:
+Analysis 213 handles only single-variable (Cut → Cut) functions.
+Core of sophomore/engineering calculus:
 - partial derivative ∂f/∂xᵢ
 - gradient ∇f, divergence ∇·F, curl ∇×F
 - multiple integral ∫∫ f dA, ∫∫∫ f dV
 - Stokes' theorem (general dimension)
 
-213 는 *이미 cohomological 구조* 를 갖고 있어서 multivariable
-은 별로 어렵지 않을 수 있음 — 1변수 framework 의 product space
-로 자연 확장.
+213 already has a *cohomological structure*, so multivariable
+may not be very difficult — natural extension of the 1-variable
+framework to product spaces.
 
-## 2. 213-native 등장
+## 2. 213-native Emergence
 
 ### 2.1 Multi-Cut
 
 ```
 MultiCut n := Fin n → Cut
-  -- n-차원 점 = n개의 cut 의 tuple
+  -- n-dimensional point = tuple of n cuts
 ```
 
-Function: `MultiCut n → Cut` 또는 `MultiCut n → MultiCut m`.
+Function: `MultiCut n → Cut` or `MultiCut n → MultiCut m`.
 
 ### 2.2 Partial derivative
 
-i-번째 cut 만 가변, 나머지 고정:
+Only the i-th cut varies, rest fixed:
 
 ```
 def partialAt (f : MultiCut n → Cut) (i : Fin n) (x : MultiCut n)
@@ -38,7 +38,7 @@ def partialAt (f : MultiCut n → Cut) (i : Fin n) (x : MultiCut n)
   fun y => f (x.update i y)
 ```
 
-이게 1변수 함수 → IsDifferentiable 적용 가능.
+This is a single-variable function → IsDifferentiable applicable.
 
 ### 2.3 Gradient as MultiCut-valued
 
@@ -47,17 +47,17 @@ def gradient (f : MultiCut n → Cut) (x : MultiCut n) : MultiCut n :=
   fun i => (partialAt f i x).derivative ?
 ```
 
-Output 도 n-tuple.  벡터 미적분 자연 확장.
+Output is also an n-tuple.  Natural extension to vector calculus.
 
 ### 2.4 Divergence + curl via cohomology
 
-213 의 `localDivergence` 는 1차원.  n차원 일반화:
+213's `localDivergence` is 1-dimensional.  n-dimensional generalization:
 ```
 def divergence (F : MultiCut n → MultiCut n) (x : MultiCut n) : Cut :=
   Σᵢ (partialAt (Fᵢ) i x).derivative
 ```
 
-= ∑ ∂Fᵢ/∂xᵢ — 표준 정의.  **1차원 FluxCut 의 자연 일반화**.
+= ∑ ∂Fᵢ/∂xᵢ — standard definition.  **Natural generalization of 1D FluxCut**.
 
 ### 2.5 Multiple integral via tensor Riemann
 
@@ -68,19 +68,19 @@ def riemannMulti (f : MultiCut n → Cut) (db : Fin n → DyadicBracket) (depth 
 
 Product of dyadic brackets → multi-dimensional Riemann sum.
 
-## 3. 이미 깔린 빌딩 블록
+## 3. Already-Laid Building Blocks
 
-| 도구 | 활용 |
+| Tool | Use |
 |---|---|
-| `IsDifferentiable f` | 각 partial 마다 1변수 적용 |
+| `IsDifferentiable f` | applied per partial as single-variable |
 | `IsAntiderivative` | iterated integral (Fubini) |
-| `FluxCut` | 1차원 1-cochain → n차원 (n-1)-cochain |
+| `FluxCut` | 1D 1-cochain → n-dimensional (n-1)-cochain |
 | `dyadicIntervalAB` | n-cube product |
-| `cutPow x n` | 다변수 다항식 (개별 변수마다) |
+| `cutPow x n` | multivariate polynomial (per variable) |
 
-## 4. Phase 계획
+## 4. Phase Plan
 
-### Phase MA — MultiCut 기초 (3-5 commits)
+### Phase MA — MultiCut foundations (3-5 commits)
 
 1. `MultiCut n := Fin n → Cut`
 2. `MultiCut.update`, `MultiCut.const`, `MultiCut.basis`
@@ -89,10 +89,10 @@ Product of dyadic brackets → multi-dimensional Riemann sum.
 
 ### Phase MB — Partial derivative
 
-1. `partialAt f i x` 정의
-2. `IsPartiallyDifferentiable f i` — i-번째 partial IsDifferentiable
-3. `IsCInfDifferentiable f` — 모든 partial 미분 가능
-4. 다항식 partials: ∂(x²y)/∂x = 2xy 형식 propEq
+1. Define `partialAt f i x`
+2. `IsPartiallyDifferentiable f i` — i-th partial IsDifferentiable
+3. `IsCInfDifferentiable f` — all partials differentiable
+4. Polynomial partials: ∂(x²y)/∂x = 2xy form propEq
 
 ### Phase MC — Gradient + divergence + curl
 
@@ -104,47 +104,47 @@ Product of dyadic brackets → multi-dimensional Riemann sum.
 ### Phase MD — Multiple integral
 
 1. `riemannMulti f db_n depth`
-2. Fubini propEq: 순서 무관 (특수 case 부터)
-3. Iterated `IsAntiderivative` 형식
-4. n-cube 위 ∫ const = product of edge lengths
+2. Fubini propEq: order-independent (special cases first)
+3. Iterated `IsAntiderivative` form
+4. ∫ const over n-cube = product of edge lengths
 
 ### Phase ME — Stokes' theorem (cohomological)
 
-분석학 213 의 1차원 FTC 가 *Stokes' theorem 1-d 버전*.
-n차원 자연 일반화:
+The 1D FTC of Analysis 213 is the *1-d version of Stokes' theorem*.
+Natural n-dimensional generalization:
 - ∫_M dω = ∫_∂M ω
 - 213-native: localDivergence integrated over volume = boundary flux
 
 ### Phase MF — Capstone
 
-학부 2학년 미적분 / 공학수학 핵심.
+Core of sophomore calculus / engineering mathematics.
 
-## 5. 다른 트랙 연결
+## 5. Connections to Other Tracks
 
-- **Yang-Mills**: 4차원 ∫ F ∧ *F (= 작용)
-- **Cosmology**: 3+1 차원 시공간 적분
-- **Quantum gravity**: 시공간 창발 → multivariable 자연
-- **Atoms**: Wedge screening = 4차원 simplex 적분
-- **DHA**: 다변수 Fourier
+- **Yang-Mills**: 4D ∫ F ∧ *F (= action)
+- **Cosmology**: 3+1 dimensional spacetime integration
+- **Quantum gravity**: spacetime emergence → multivariable natural
+- **Atoms**: Wedge screening = 4D simplex integral
+- **DHA**: multivariable Fourier
 
-## 6. 미해결 / Open
+## 6. Open Problems
 
 - **Coordinate change** (Jacobian) — 213-native?
-- **Manifold** 정의 — 213 dyadic 위 어떤 manifold?
+- **Manifold** definition — what manifold over 213 dyadic?
 - **Riemannian metric** — cohomological?
 - **Differential form** general — exterior algebra 213-native
 
-## 7. 핵심 인사이트 (★)
+## 7. Key Insights (★)
 
-★ **n차원 = n개 1차원의 product** — 분석학 213 framework 가
-직접 lift.
+★ **n dimensions = product of n copies of 1 dimension** — Analysis 213
+framework lifts directly.
 
-★ **Stokes' theorem = cohomological FTC 의 n차원** — 이미
-FluxCut + localDivergence 가 1d 의 그것.
+★ **Stokes' theorem = n-dimensional cohomological FTC** — FluxCut +
+localDivergence already are the 1D version.
 
-## 8. 첫 마라톤 명령
+## 8. First Marathon Command
 
 ```
-"Phase MA 시작.  MultiCut n 정의 + vector arithmetic + unitNCube"
+"Start Phase MA.  Define MultiCut n + vector arithmetic + unitNCube"
 ```
 

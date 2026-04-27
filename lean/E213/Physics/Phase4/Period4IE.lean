@@ -3,12 +3,12 @@ import E213.Physics.SimplexCounts
 /-!
 # Phase 4 Period4IE — Period 4 (K ~ Kr) atomic catalog
 
-Period 4 = 18 원소 (K to Kr, Z = 19-36).
+Period 4 = 18 elements (K to Kr, Z = 19-36).
 Period 4 closure: Kr at Z = 36 = 6² = (NS·NT)² atomic.
 
 ## Z atomic forms
 
-  K  (19) = NS³ - NT³ atomic (Phase 3 발견)
+  K  (19) = NS³ - NT³ atomic (discovered in Phase 3)
   Ca (20) = 4·d atomic
   Sc (21) = NS·d + NS·NT atomic (= 15+6=21)
   Ti (22) = 2·d² - NT² + NT² ... or 22 = d²-NS atomic (= Cabibbo λ denom!)

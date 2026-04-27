@@ -2,34 +2,32 @@ import E213.Research.SumInstance
 import E213.Research.BoolPropMorphism
 
 /-!
-# Research.SumNotCoproduct: Sum α β 가 DistMorphism 의 coproduct
-가 아님
+# Research.SumNotCoproduct: Sum α β is not a coproduct of DistMorphism
 
-PAPER1 §5.6, §9.4 의 open question 을 결정 적 으로 닫음:
-priority-based combine 의 *non-canonicity* 를 형식 negative
-result 로.
+Decisively closes the open question of PAPER1 §5.6, §9.4:
+*non-canonicity* of priority-based combine as a formal negative result.
 
-## 핵심 결과
+## Core result
 
 `α = β = γ = Bool` with boolXor (xor combine).  f = g = id
-는 양쪽 모두 HasDistinguishing morphism.
+are both HasDistinguishing morphisms.
 
-Coproduct universal property 가 만족 하려 면 unique
-morphism `h : Sum Bool Bool → Bool` 이 존재 하 며 `h ∘ inl =
-id`, `h ∘ inr = id`, AND `h` 가 combine 보존 해야 함.
+For the coproduct universal property to hold, a unique morphism
+`h : Sum Bool Bool → Bool` must exist with `h ∘ inl = id`,
+`h ∘ inr = id`, AND `h` preserving combine.
 
-**그런 h 부재**.  Counterexample: `(inl true, inr true)` 에서
-`sumCombine = inl true` (priority left), 따라서
+**No such h exists**.  Counterexample: at `(inl true, inr true)`,
+`sumCombine = inl true` (priority left), so
 `h (sumCombine (inl true) (inr true)) = h (inl true) = true`.
-하지만 `xor (h (inl true)) (h (inr true)) = xor true true =
-false`.  Combine 보존 위반.
+But `xor (h (inl true)) (h (inr true)) = xor true true = false`.
+Combine preservation violated.
 
-## 의의
+## Significance
 
-Priority-based combine 은 *non-canonical*: DistMorphism
-category 의 coproduct universal property 위반.  단순 valid
-instance 일 뿐.  PAPER1 §5.6, §9.4 의 admitted asymmetry 가
-formal negative theorem 으로 격상.
+Priority-based combine is *non-canonical*: it violates the coproduct
+universal property of the DistMorphism category.  It is merely a valid
+instance.  The admitted asymmetry in PAPER1 §5.6, §9.4 is elevated to
+a formal negative theorem.
 -/
 
 namespace E213.Research.SumNotCoproduct
@@ -39,9 +37,9 @@ open E213.Research.SemanticAtom
 open E213.Research.SumInstance
 open E213.Research.BoolPropMorphism
 
-/-- **Sum Bool Bool with xor 가 coproduct universal property
-    위반**.  Counterexample: f = g = id 양쪽 morphism 인데, 그
-    universal mediator h 가 combine 보존 불가. -/
+/-- **Sum Bool Bool with xor violates the coproduct universal property**.
+    Counterexample: f = g = id are both morphisms, but no universal
+    mediator h can preserve combine. -/
 theorem sum_not_coproduct_xor :
     ¬ ∃ h : Sum Bool Bool → Bool,
       (∀ x, h (Sum.inl x) = x) ∧

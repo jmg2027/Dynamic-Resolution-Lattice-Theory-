@@ -2,10 +2,10 @@ import E213.Physics.AlphaEM
 import E213.Physics.RunningGap
 
 /-!
-# 1/α_em(IR) — 단일한 격자 합 (unified sum form, 0 axioms)
+# 1/α_em(IR) — single lattice sum (unified sum form, 0 axioms)
 
-User insight (2026-04-27): "단일한 값들의 합 혹은 대수학적 급수합
-으로 유도하면 많은게 풀릴수도".  → 풀립니다.
+User insight (2026-04-27): "If derived as a sum of single values or an
+algebraic series sum, many things might be resolved".  → They are resolved.
 
 Three-force unified sum:
 
@@ -14,7 +14,7 @@ Three-force unified sum:
     =     8   +   30    +     10π²       + 1/3  +    0.006
     =                  137.035                          (ppm match 137.036)
 
-  여기서:
+  where:
     1/α_3 = NS² - 1            (adjoint SU(NS), confined)
     1/α_2 = 12·NT·S(NT) = 30   (electroweak, S(NT) = 5/4)
     1/α_1 = 12·NS·S(∞) = 6π²   (hypercharge bare)
@@ -22,15 +22,15 @@ Three-force unified sum:
     1/NS  = spatial-direction reciprocal
     α_GUT/(NS+1) = Dyson tail (face-dim 4 in NS+1)
 
-이 형태는 "단일한 격자 양의 합"입니다.  각 항이 Raw + Lens 공리
-+ 다른 prior 정리에서 도출되어 있음.
+This form is a "single sum of lattice quantities".  Each term is derived
+from Raw + Lens axioms + other prior theorems.
 
 ★ Beauty ★
-  세 힘 + 기하 교정 = 137 정확.  d²/NS = (NS² - 1) + 1/NS 의
-  decomposition 이 의미를 줍니다:
+  Three forces + geometric correction = exactly 137.  The decomposition
+  d²/NS = (NS² - 1) + 1/NS gives meaning:
       "channels per spatial dim" = "confined SU(NS) adjoint + 1/spatial"
 
-  즉 25/3 = 1/α_3 + 1/NS — 두 개의 기존 격자 양의 합으로 분해.
+  That is, 25/3 = 1/α_3 + 1/NS — decomposed as a sum of two known lattice quantities.
 -/
 
 namespace E213.Physics.AlphaEMUnified
@@ -38,7 +38,7 @@ namespace E213.Physics.AlphaEMUnified
 open E213.Physics.Simplex
 open E213.Physics.Basel
 
-/-- d²/NS의 두 항 분해: d²/NS = (NS² - 1) + 1/NS.
+/-- Two-term decomposition of d²/NS: d²/NS = (NS² - 1) + 1/NS.
 
     Verify: (NS² - 1) + 1/NS = ((NS² - 1)·NS + 1)/NS
                               = (NS³ - NS + 1)/NS
@@ -61,7 +61,7 @@ theorem decomposition_cross_mult :
 
 /-- Three forces contribution to 1/α_em(IR), Y-normalised α_1.
     Concrete integer values: 1/α_3 = 8, 1/α_2 = 30, (5/3)·(1/α_1) at S(N).
-    Numeric pre-Basel: 8 + 30 = 38 (확정). -/
+    Numeric pre-Basel: 8 + 30 = 38 (fixed). -/
 def three_force_int_sum : Nat := (NS * NS - 1) + 30
 
 theorem three_force_int_eq_38 : three_force_int_sum = 38 := by decide

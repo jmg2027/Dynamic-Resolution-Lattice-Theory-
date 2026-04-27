@@ -6,43 +6,43 @@ import E213.Physics.Phase3.NoInteraction
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 Reframing — *SM/QM 모든 frame 의 artifact 화*
+# Phase 3 Reframing — *all SM/QM frames become artifacts*
 
-**Layer: App** (Phase 3 종합).
+**Layer: App** (Phase 3 synthesis).
 
 User insights (2026-04-27):
-  "러닝 사라져야"
-  "에너지 스케일 사라져야"
-  "파동함수 사라져야"
-  "존재확률 사라져야"
-  "상호작용도 사라져야"
-  "이미 중력은 상호작용 아니고"
+  "Running must disappear"
+  "Energy scale must disappear"
+  "Wave function must disappear"
+  "Existence probability must disappear"
+  "Interaction must also disappear"
+  "Gravity is already not an interaction"
 
-본 파일: 5 artifact-removal 파일 의 단일 capstone.
+This file: single capstone of 5 artifact-removal files.
 
-## 5 reframing
+## 5 reframings
 
-  StaticCouplings        — running 부재, 모든 coupling atomic-locked
-  Artifacts              — SM/QM 전 용어 catalog
-  GravityNotInteraction  — 중력 = (3,2) asymmetry, 매개체 부재
-  NoWaveFunction         — ψ, |ψ|² 모두 Lens output
-  NoInteraction          — pair 분류만, 교환 없음
+  StaticCouplings        — no running, all couplings atomic-locked
+  Artifacts              — full catalog of SM/QM terminology
+  GravityNotInteraction  — gravity = (3,2) asymmetry, no mediator
+  NoWaveFunction         — ψ, |ψ|² both Lens output
+  NoInteraction          — only pair classification, no exchange
 
-## 격자 위 *진짜 근본*
+## *True fundamentals* on the lattice
 
 ```
 Raw + Lens.
 
-원시적 구분 (= "같지 않다")
-+ Lens output (= "그 차이가 무엇으로 보이는가").
+Primitive distinction (= "not identical")
++ Lens output (= "what does that difference look like").
 
-  ─ 끝 ─
+  — End —
 ```
 
-표준 SM/QM/QFT 의 *전 frame* 이 격자 위 Lens output 의 이름:
-  파동함수, 입자, 힘, 상호작용, 교환, 시간 진행, 확률, 측정,
-  관측자, 에너지 스케일, β-function, 가상 입자, Feynman diagram,
-  S-matrix, 게이지, ...
+The *entire frame* of standard SM/QM/QFT is the name of Lens output on the lattice:
+  wave function, particle, force, interaction, exchange, time progression, probability,
+  measurement, observer, energy scale, β-function, virtual particle, Feynman diagram,
+  S-matrix, gauge, ...
 -/
 
 namespace E213.Physics.Phase3.Reframing
@@ -50,13 +50,13 @@ namespace E213.Physics.Phase3.Reframing
 open E213.Physics.Simplex
 
 /-- ★ Reframing Capstone ★
-    5 artifact-removal 의 atomic core 단일 정리. -/
+    Single theorem of atomic core of 5 artifact-removals. -/
 theorem reframing_capstone :
-    -- atomic primitives (모든 reframing 의 공통 basis)
+    -- atomic primitives (common basis of all reframings)
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
     -- StaticCouplings: d²/NS = 25/3 atomic ("running gap")
     ∧ (d * d * 3 = 25 * NS)
-    -- α_3 atomic (모든 energy 동일)
+    -- α_3 atomic (same at all energies)
     ∧ (NS * NS - 1 = 8)
     -- GravityNotInteraction: (3,2) asymmetry
     ∧ (NS - NT = 1)

@@ -2,11 +2,11 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 정수 12 의 multi-output
+# Translation: Multi-output of integer 12
 
 12 = 2·NS·NT = c·NS·NT (PhotonKernel num_edges)
 
-## 12 등장 목록
+## List of appearances of 12
 
   1. PhotonKernel directed edges = c·NS·NT [Phase 2]
   2. SU(5) cross sector (X, Y leptoquark) [Symmetry]
@@ -32,7 +32,7 @@ theorem twelve_half_adjoint : (d * d - 1) / NT = 12 := by decide
 
 /-- ★ Twelve Everywhere Capstone ★ -/
 theorem twelve_everywhere :
-    -- 3 다른 atomic form
+    -- 3 different atomic forms
     (2 * NS * NT = 12)
     ∧ ((d - 1) * NS = 12)
     ∧ ((d * d - 1) / NT = 12)

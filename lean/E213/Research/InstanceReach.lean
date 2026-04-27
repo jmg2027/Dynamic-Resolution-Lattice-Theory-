@@ -1,34 +1,34 @@
 import E213.Research.SemanticAtom
 
 /-!
-# Research.InstanceReach: universalMorphism 의 image 의 boundary
+# Research.InstanceReach: boundary of the image of universalMorphism
 
-`SemanticAtom.lean` 의 `universalMorphism α : Raw → α` 가
-HasDistinguishing instance α 의 morphism.  이 image 가 *항상*
-α 와 같은 가? — 답: **아님**.  α 의 carrier 가 image 보다 더
-클 수 있음.
+`universalMorphism α : Raw → α` from `SemanticAtom.lean` is a
+morphism into HasDistinguishing instance α.  Is the image *always*
+all of α? — Answer: **no**.  The carrier of α can be strictly
+larger than the image.
 
-## 의의
+## Significance
 
-의미 atom thesis 의 sharpening:
+A sharpening of the semantic atom thesis:
 
-> Raw 가 모든 distinguishing-framework instance 의 *generator*
-> (image 가 distinguishing-closed sub-instance).  하지만 instance
-> 의 carrier 가 image 보다 *strict 클* 수 있음 — framework 의
-> reach 와 carrier 의 분리.
+> Raw is a *generator* of every distinguishing-framework instance
+> (the image is a distinguishing-closed sub-instance).  But the
+> carrier of an instance can be *strictly larger* than the image —
+> separating the framework's reach from the carrier.
 
-즉 의미 atom 이 generator 의 minimum 이고, instance 가 그 위
-"unreachable" element 를 carry 가능.  이게 framework 의 *reach
-boundary* 의 명시.
+That is, the semantic atom is the minimum generator, and an instance
+can carry "unreachable" elements above it.  This makes the framework's
+*reach boundary* explicit.
 
 ## Witness
 
 `Fin 3` with `a := 0, b := 1, combine := λ _ _, 0`:
-- reach = {0, 1} (Raw 로 부터 image).
+- reach = {0, 1} (image from Raw).
 - carrier = {0, 1, 2}.
 - 2 ∉ image — strict subset.
 
-Note 80 분석.
+Note 80 analysis.
 -/
 
 namespace E213.Research.InstanceReach
@@ -36,7 +36,7 @@ namespace E213.Research.InstanceReach
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-! ### Witness: Fin 3 의 trivial-combine instance -/
+/-! ### Witness: trivial-combine instance on Fin 3 -/
 
 instance fin3HasDistinguishing : HasDistinguishing (Fin 3) where
   a := 0
@@ -45,8 +45,8 @@ instance fin3HasDistinguishing : HasDistinguishing (Fin 3) where
   combine _ _ := 0
   combine_sym _ _ := rfl
 
-/-- Image 의 forward closure: universalMorphism (Fin 3) 의 결과
-    가 항상 0 또는 1 (combine 이 항상 0). -/
+/-- Forward closure of the image: universalMorphism (Fin 3) always
+    yields 0 or 1 (combine always returns 0). -/
 theorem fin3_image_in_01 (r : Raw) :
     universalMorphism (Fin 3) r = 0 ∨ universalMorphism (Fin 3) r = 1 := by
   induction r using Raw.rec with
@@ -64,9 +64,9 @@ namespace E213.Research.InstanceReach
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- **Image 의 strict subset**: Fin 3 의 element 2 가 universalMorphism
-    의 image 외부.  framework 의 reach 와 carrier 의 분리 의 명시
-    적 witness. -/
+/-- **Strict subset of the image**: element 2 of Fin 3 is outside
+    the image of universalMorphism.  Explicit witness of the separation
+    between the framework's reach and the carrier. -/
 theorem fin3_image_strict :
     ∃ x : Fin 3, ¬ ∃ r : Raw, universalMorphism (Fin 3) r = x := by
   refine ⟨2, ?_⟩
@@ -82,11 +82,11 @@ namespace E213.Research.InstanceReach
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-! ### Dual: Bool instance 가 surjective
+/-! ### Dual: Bool instance is surjective
 
-`Fin 3` 가 non-surjective 의 witness.  `Bool` 은 *항상* surjective
-— a, b 의 두 base 만 으로 carrier 전체 커버.  reach = carrier
-의 instance 의 example. -/
+`Fin 3` is a witness of non-surjectivity.  `Bool` is *always*
+surjective — the two bases a, b alone cover the entire carrier.
+An example of an instance where reach = carrier. -/
 
 instance boolHasDistinguishing : HasDistinguishing Bool where
   a := true
@@ -95,7 +95,7 @@ instance boolHasDistinguishing : HasDistinguishing Bool where
   combine := and
   combine_sym := Bool.and_comm
 
-/-- Bool instance 의 universalMorphism 이 surjective. -/
+/-- universalMorphism of the Bool instance is surjective. -/
 theorem bool_image_surjective :
     ∀ b : Bool, ∃ r : Raw, universalMorphism Bool r = b := by
   intro b
@@ -110,20 +110,20 @@ namespace E213.Research.InstanceReach
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-! ### Image 의 minimum 성질 (closure under bases) -/
+/-! ### Minimality property of the image (closure under bases) -/
 
-/-- Image 가 항상 d.a 를 포함. -/
+/-- The image always contains d.a. -/
 theorem image_contains_a (α : Type) [d : HasDistinguishing α] :
     ∃ r : Raw, universalMorphism α r = d.a :=
   ⟨Raw.a, universalMorphism_a α⟩
 
-/-- Image 가 항상 d.b 를 포함. -/
+/-- The image always contains d.b. -/
 theorem image_contains_b (α : Type) [d : HasDistinguishing α] :
     ∃ r : Raw, universalMorphism α r = d.b :=
   ⟨Raw.b, universalMorphism_b α⟩
 
-/-- Distinct image elements 의 combine 도 image — Raw.slash 의
-    direct application. -/
+/-- The combine of distinct image elements is also in the image —
+    direct application of Raw.slash. -/
 theorem image_closed_under_distinct_combine (α : Type) [d : HasDistinguishing α]
     (rx ry : Raw) (h : rx ≠ ry) :
     ∃ r : Raw,
@@ -140,11 +140,11 @@ open E213.Research.SemanticAtom
 
 /-! ### Infinite surjective: Nat with addition
 
-Bool 이 finite surjective.  Fin 3 (constant combine) 이 finite
+Bool is finite surjective.  Fin 3 (constant combine) is finite
 non-surjective.  Nat with addition: **infinite surjective** —
-모든 Nat 가 image, carrier 무한.
+every Nat is in the image, carrier is infinite.
 
-`a := 0`, `b := 1`, `combine := (· + ·)`.  combine_sym 자명
+`a := 0`, `b := 1`, `combine := (· + ·)`.  combine_sym is trivial
 (`Nat.add_comm`).
 
 Witness: r n := slash (r (n-1)) Raw.b _ for n ≥ 1, r 0 := Raw.a.
@@ -165,7 +165,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
 /-- Concrete witnesses for small Nat values — Raw.a, Raw.b cover
-    {0, 1}, slash 가 더 큰 element generate. -/
+    {0, 1}, and slash generates larger elements. -/
 theorem nat_image_zero : ∃ r : Raw, universalMorphism Nat r = 0 :=
   ⟨Raw.a, universalMorphism_a Nat⟩
 
@@ -186,9 +186,9 @@ namespace E213.Research.InstanceReach
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-! ### Nat surjective: 완전 증명
+/-! ### Nat surjective: complete proof
 
-`natHasDistinguishing` 가 surjective — ∀ n : Nat, ∃ r : Raw,
+`natHasDistinguishing` is surjective — ∀ n : Nat, ∃ r : Raw,
 universalMorphism Nat r = n.
 
 Witness construction: induction on n.
@@ -200,7 +200,7 @@ Trick: induction with strong invariant — r n ≠ Raw.a for n ≥ 1
 + universalMorphism r n = n.  Then slash Raw.a (r n) (a ≠ rn).
 -/
 
-/-- Helper: Raw.slash 의 결과 가 Raw.a 와 다름 (depth-based proof). -/
+/-- Helper: result of Raw.slash differs from Raw.a (depth-based proof). -/
 private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
     Raw.slash x y h ≠ Raw.a := by
   intro heq
@@ -226,16 +226,16 @@ open E213.Research.SemanticAtom
 
 /-! ### natWitness construction note
 
-각 Nat n 의 explicit Raw witness:
+Explicit Raw witness for each Nat n:
 - r 0 := Raw.a (universalMorphism = 0).
 - r (n+1) := slash Raw.b (r n) (proof Raw.b ≠ r n).
   → universalMorphism = 1 + n.
 Need: ∀ n, r n ≠ Raw.b.  By induction:
 - r 0 = Raw.a ≠ Raw.b (decide).
-- r (n+1) = slash _ _ _ ≠ Raw.b (slash_ne_b 로 proof).
+- r (n+1) = slash _ _ _ ≠ Raw.b (proved via slash_ne_b).
 -/
 
-/-- Helper: Raw.slash 의 결과 가 Raw.b 와 다름. -/
+/-- Helper: result of Raw.slash differs from Raw.b. -/
 private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
     Raw.slash x y h ≠ Raw.b := by
   intro heq
@@ -274,9 +274,9 @@ namespace E213.Research.InstanceReach
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- **Nat surjective with form invariant**: 모든 n 에 대해 explicit
-    Raw witness 의 form 도 동시에 induct (form invariant 가 induction
-    step 에서 사용). -/
+/-- **Nat surjective with form invariant**: for every n, simultaneously
+    induct on the explicit Raw witness's form (form invariant used in
+    the induction step). -/
 theorem nat_surjective_with_form : ∀ n : Nat, ∃ r : Raw,
     universalMorphism Nat r = n ∧
     (r = Raw.a ∨ ∃ x y h, r = Raw.slash x y h) := by
@@ -293,7 +293,7 @@ theorem nat_surjective_with_form : ∀ n : Nat, ∃ r : Raw,
       show 1 + n = n + 1
       exact Nat.add_comm 1 n
 
-/-- **Main result**: Nat instance 의 universalMorphism 이 surjective. -/
+/-- **Main result**: universalMorphism of the Nat instance is surjective. -/
 theorem nat_image_surjective :
     ∀ n : Nat, ∃ r : Raw, universalMorphism Nat r = n := by
   intro n
@@ -310,12 +310,12 @@ open E213.Research.SemanticAtom
 /-! ### Int with addition: infinite non-surjective
 
 Bool finite surj, Fin 3 finite non-surj, Nat infinite surj.
-Int with addition: **infinite non-surjective** — Nat ⊊ Int 의
-positive part 만 reach, negative numbers unreachable (combine
-= + 가 항상 비감 소).
+Int with addition: **infinite non-surjective** — only the positive
+part of Nat ⊊ Int is reachable; negative numbers are unreachable
+(combine = + is always non-decreasing).
 
-이게 infinite 의 cardinality 가 surjective 부재 의 explicit
-witness — image 가 *strict* infinite subset. -/
+This is an explicit witness of surjectivity failure for an infinite
+carrier — the image is a *strict* infinite subset. -/
 
 instance intHasDistinguishing : HasDistinguishing Int where
   a := 0
@@ -324,8 +324,8 @@ instance intHasDistinguishing : HasDistinguishing Int where
   combine := (· + ·)
   combine_sym := Int.add_comm
 
-/-- Image 의 forward closure: universalMorphism Int 의 결과 가
-    항상 ≥ 0. -/
+/-- Forward closure of the image: universalMorphism Int always
+    yields a result ≥ 0. -/
 theorem int_image_nonneg (r : Raw) : 0 ≤ universalMorphism Int r := by
   induction r using Raw.rec with
   | a =>
@@ -338,9 +338,9 @@ theorem int_image_nonneg (r : Raw) : 0 ≤ universalMorphism Int r := by
       rw [universalMorphism_slash Int x y h]
       exact Int.add_nonneg ihx ihy
 
-/-- **Image 의 strict subset (infinite case)**: -1 ∈ Int 가
-    universalMorphism 의 image 외부.  infinite carrier 의 non-
-    surjective witness. -/
+/-- **Strict subset of the image (infinite case)**: -1 ∈ Int is
+    outside the image of universalMorphism.  Non-surjectivity witness
+    for an infinite carrier. -/
 theorem int_image_strict :
     ∃ x : Int, ¬ ∃ r : Raw, universalMorphism Int r = x := by
   refine ⟨-1, ?_⟩

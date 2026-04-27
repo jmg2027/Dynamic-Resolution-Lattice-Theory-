@@ -11,24 +11,24 @@ DRLT formula (lib/drlt.py:654, ch09 sec 6.1):
   Hierarchy ratio:
     v_H / M_Pl = (d + 1) / d^(d²) = 6 / 5^25 ≈ 2.01 × 10⁻¹⁷
     M_Pl ≈ 1.22 × 10¹⁹ GeV
-    v_H ≈ 245.6 GeV   (관측 246 GeV, +0.16%)
+    v_H ≈ 245.6 GeV   (observed 246 GeV, +0.16%)
 
-## ★ Hierarchy 가 lattice depth d^(d²)에서 ★
+## ★ Hierarchy from lattice depth d^(d²) ★
 
-  계층 문제 (Hierarchy problem)의 DRLT 답:
-    v_H ≪ M_Pl 이 자연 — 격자 깊이 d^(d²) = 5^25 이 huge.
-    
-  d² = 25 lattice levels (Gram channels), 각 레벨이 d-fold
-  branching → 총 capacity d^(d²) = 5^25 ≈ 3 × 10¹⁷.
-  
-  → v_H의 "smallness"가 fine-tuning이 아니라 **격자 cardinality**
-    의 자연 결과.
+  DRLT answer to the hierarchy problem:
+    v_H ≪ M_Pl is natural — lattice depth d^(d²) = 5^25 is huge.
+
+  d² = 25 lattice levels (Gram channels), each level with d-fold
+  branching → total capacity d^(d²) = 5^25 ≈ 3 × 10¹⁷.
+
+  → The "smallness" of v_H is a natural consequence of **lattice cardinality**,
+    not fine-tuning.
 
 ## Atomic structure
 
   (d + 1) numerator = 6 = bipartite edges NS·NT
-  d^(d²) denominator = 5^25 — 단일 atomic 정수 d 의 atomic 차수
-  d² 거듭제곱
+  d^(d²) denominator = 5^25 — single atomic integer d raised to
+  the atomic degree d²
 -/
 
 namespace E213.Physics.HiggsVacuum
@@ -87,9 +87,9 @@ theorem hier_ratio_bracket :
     ∧ 60 * 100000000000000000 < 21 * 298023223876953125 := by
   decide
 
-/-- ★ Hierarchy 자연 발생 ★
-    v_H ≪ M_Pl 이 fine-tuning이 아니라 lattice depth d^(d²)
-    의 자연 결과.  (d+1)/d^(d²) = 6/5^25 ≈ 2·10⁻¹⁷. -/
+/-- ★ Hierarchy arises naturally ★
+    v_H ≪ M_Pl is a natural result of lattice depth d^(d²),
+    not fine-tuning.  (d+1)/d^(d²) = 6/5^25 ≈ 2·10⁻¹⁷. -/
 theorem hierarchy_atomic :
     -- Numerator = d + 1 = bipartite edges
     (hier_num = NS * NT)  -- 6 = 3·2

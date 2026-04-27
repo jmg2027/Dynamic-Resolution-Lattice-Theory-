@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: "Generate HANDOFF.md for the next session. Gathers branch, recent work, open problems, precision table, and file map into a structured document. The session-start hook auto-detects this file. Triggered by: '핸드오프', 'handoff', 'hand off', '세션 정리', 'session wrap', 'wrap up session'."
+description: "Generate HANDOFF.md for the next session. Gathers branch, recent work, open problems, precision table, and file map into a structured document. The session-start hook auto-detects this file. Triggered by: 'handoff' / 'handoff', 'handoff', 'hand off', 'session wrap-up' / 'session wrap-up', 'session wrap', 'wrap up session'."
 ---
 
 # Generate HANDOFF.md

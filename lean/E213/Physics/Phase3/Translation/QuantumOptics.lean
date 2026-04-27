@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 양자광학 → DRLT atomic
+# Translation: Quantum optics → DRLT atomic
 
   1. Coherent state |α⟩: e^(-|α|²/2) Σ α^n/sqrt(n!)
   2. Photon number variance ⟨(Δn)²⟩ atomic

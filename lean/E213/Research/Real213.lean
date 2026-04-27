@@ -3,27 +3,27 @@ import E213.Research.HasModulus
 /-!
 # Research.Real213: framework-internal Real number type
 
-PAPER1 §6, §7 의 Cauchy completeness 의 *type-level*
-formulation: real number = (sequence + modulus) pair.
+*Type-level* formulation of the Cauchy completeness in PAPER1 §6, §7:
+real number = (sequence + modulus) pair.
 
-## 정의
+## Definition
 
 `Real213 := { xs : Nat → Raw // ∃ N : Nat → Nat → Nat, ... }`
 
-각 element = constructive Cauchy sequence with explicit modulus.
-HasModulus 의 reified form.
+Each element = constructive Cauchy sequence with explicit modulus.
+Reified form of HasModulus.
 
-## 의의
+## Significance
 
-- 213 framework 안 *constructive ℝ* 의 type definition.
-- 외부 axiom 부재 (HasModulus 의 axiom-free property 상속).
-- Equivalence relation: 두 sequence 가 *모든 (m, k) cut* 에 서
-  같 은 limit decision.
+- Type definition of *constructive ℝ* within the 213 framework.
+- No external axioms (inherits axiom-free property of HasModulus).
+- Equivalence relation: two sequences produce the same limit decision
+  at *every (m, k) cut*.
 
-## 막 힌 부분
+## Blocked point
 
-Equivalence relation + quotient — Lean 의 quotient 가 Quot.sound
-의존.  이를 우 회 하 는 setoid-style approach 또 는 raw subtype.
+Equivalence relation + quotient — Lean's quotient depends on Quot.sound.
+Workaround: setoid-style approach or raw subtype.
 -/
 
 namespace E213.Research.Real213

@@ -26,15 +26,15 @@ DRLT quark masses (ch09 sec 6, SM_024):
   
   → m_t/m_b ≈ 41.3 ≈ 1/α_GUT (= 41.12)!  ★
 
-  같은 atomicity-locked α_GUT가 quark hierarchy 강제.
+  The same atomicity-locked α_GUT forces the quark hierarchy.
 
 ## Atomic ratios
 
   m_t / m_b ≈ 1/α_GUT = 25π²/6 ≈ 41.12
   m_b / m_t ≈ α_GUT
   
-  → top-bottom 비율 = α_GUT의 reciprocal.
-  Single atomic GUT scale 강제 quark hierarchy.
+  → top-bottom ratio = reciprocal of α_GUT.
+  Single atomic GUT scale forces quark hierarchy.
 
 ## Bracket
 
@@ -125,7 +125,7 @@ theorem quark_hierarchy_atomic :
 
   m_b/m_t ≈ α_GUT = 6/(25π²) ≈ 0.0243 (observed 0.0242, 0.4%)
   
-  Same atomic GUT coupling이 quark mass hierarchy 강제. -/
+  The same atomic GUT coupling forces quark mass hierarchy. -/
 theorem quark_hierarchy_capstone :
     (mt_mb_ratio = d * d)
     ∧ (mt_mb_ratio = 25)

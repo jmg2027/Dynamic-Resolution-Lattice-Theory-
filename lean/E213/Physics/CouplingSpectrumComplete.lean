@@ -4,9 +4,9 @@ import E213.Physics.WhyBasel
 import E213.Physics.NeffDerivation
 
 /-!
-# 결합 상수 spectrum 통합 — 4 forces in single Lean theorem (0 axioms)
+# Coupling constant spectrum unification — 4 forces in single Lean theorem (0 axioms)
 
-DRLT 도출 결합 상수:
+DRLT-derived coupling constants:
 
   α_3 (color, confined):    1/α_3 = NS² - 1 = 8     [adjoint SU(NS)]
   α_2 (electroweak):       1/α_2 = 12·NT·5/4 = 30  [Basel S(NT)]
@@ -80,7 +80,7 @@ theorem inv_alpha_GUT_eq_25 : inv_alpha_GUT_factor = 25 := by decide
 
 /-- ★ COUPLING SPECTRUM CAPSTONE ★
 
-  네 결합 모두 atomic primitive 곱 + 자기 N_eff Basel partial.
+  All four couplings are products of atomic primitives × their own N_eff Basel partial.
   α_2 prefactor = adjoint SU(5) hidden link. -/
 theorem coupling_spectrum_atomic :
     -- α_3 = NS² - 1 = 8
@@ -95,15 +95,15 @@ theorem coupling_spectrum_atomic :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-/-- ★ 결합 hierarchy ★
+/-- ★ Coupling hierarchy ★
 
-  1/α 값들 사이의 정수 비율 모두 atomic primitives. -/
+  All integer ratios among 1/α values are atomic primitives. -/
 theorem coupling_ratios :
     -- 1/α_GUT / 1/α_3 = 25·ζ(2)/8 ≈ 5.14
     -- 1/α_2 / 1/α_3 = 30/8 = 15/4
     -- 1/α_em(M_Z) / 1/α_2 ≈ 128/30 ≈ 4.27
     -- 1/α_em(IR) / 1/α_GUT ≈ 137/41 ≈ 3.34
-    -- 모두 atomic 정수 ratio
+    -- all atomic integer ratios
     (alpha_2_prefactor = 24)
     ∧ (alpha_2_prefactor / alpha_3_channel = 3)  -- 24/8 = 3 = NS
     -- α_2/α_3 ratio = 3 = NS! atomic

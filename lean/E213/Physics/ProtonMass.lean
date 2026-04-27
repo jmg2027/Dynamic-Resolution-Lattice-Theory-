@@ -27,14 +27,14 @@ DRLT formula (ch09 §proton, lib/drlt.py:611):
   Same P(x) appears in:
   - m_μ/m_e Dyson series (geometric)
   - m_p (this file)
-  - 일반 fermion mass (ch09 closed propagator)
+  - general fermion mass (ch09 closed propagator)
 
 ## ★ Atomic ratio NS/d = 3/5 ★
 
   Argument of P is α_GUT · (NS/d) — same Y-norm-style factor 5/3
   inverse appearing!  At GUT scale: x = α_GUT · NS/d.
 
-  → 같은 d/NS atomicity가 또 등장.
+  → The same d/NS atomicity appears again.
 -/
 
 namespace E213.Physics.Proton
@@ -51,7 +51,7 @@ theorem prop_factor_eq_3_5 :
     closed_prop_factor_num = 3 ∧ closed_prop_factor_den = 5 := by decide
 
 /-- NS/d = 3/5 = inverse of Y-norm 5/3.
-    → 같은 atomic ratio가 두 form (5/3 and 3/5)으로 등장. -/
+    → The same atomic ratio appears in two forms (5/3 and 3/5). -/
 theorem NS_d_inverse_of_y_norm :
     closed_prop_factor_den * 3 = closed_prop_factor_num * 5 := by decide
 
@@ -81,7 +81,7 @@ theorem mp_in_point1_percent_bracket :
 theorem mp_4digit_match :
     93827 = 93827 := by decide
 
-/-- ★ Same atomicity-locked atoms as other 정밀 양 ★
+/-- ★ Same atomicity-locked atoms as other precision quantities ★
     closed propagator P(x) shared with α_em IR + fermion masses. -/
 theorem proton_simplicial_pattern :
     -- NS = 3 valence quarks

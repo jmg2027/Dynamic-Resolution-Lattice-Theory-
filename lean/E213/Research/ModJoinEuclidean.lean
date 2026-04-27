@@ -3,12 +3,12 @@ import E213.Research.ModJoinBezout
 /-!
 # Research.ModJoinEuclidean: Euclidean step — L_m + L_k → L_{m-k}
 
-`ModJoinBezout.chain_step_sub` 의 iteration 으로 일반 step.
+General step via iteration of `ModJoinBezout.chain_step_sub`.
 
-**정리**: m > k ≥ 2 이고 m - k ≥ 2 이면
+**Theorem**: if m > k ≥ 2 and m - k ≥ 2 then
     `L_m.refines N ∧ L_k.refines N → L_{m-k}.refines N`.
 
-즉 Euclidean step 이 Lens refinement level 에서 작동.
+That is, the Euclidean step operates at the Lens refinement level.
 -/
 
 namespace E213.Research.ModJoinEuclidean
@@ -73,7 +73,7 @@ namespace E213.Research.ModJoinEuclidean
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.ModJoinBezout
 
-/-- **Euclidean step**: m > k ≥ 2, m - k ≥ 2 인 경우
+/-- **Euclidean step**: when m > k ≥ 2 and m - k ≥ 2,
     L_m + L_k → L_{m-k}. -/
 theorem euclidean_step {α : Type} (N : Lens α) (m k : Nat)
     (hk : k ≥ 2) (hmk : m > k) (hdiff : m - k ≥ 2)

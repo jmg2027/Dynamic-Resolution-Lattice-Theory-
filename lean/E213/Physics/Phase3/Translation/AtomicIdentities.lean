@@ -2,11 +2,11 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: Atomic 격자 의 *수치 항등식* catalog
+# Translation: *Numerical identity* catalog of the atomic lattice
 
-★ DRLT atomic primitives 가 만족하는 *놀라운* 수치 항등식 ★
+★ Remarkable numerical identities satisfied by DRLT atomic primitives ★
 
-## 항등식 catalog
+## Identity catalog
 
   (1) NS - NT = 1
   (2) NS·NT - 1 = NS² - NT²
@@ -17,9 +17,9 @@ import E213.Physics.SimplexCounts
   (7) NS² - 1 = NS·NT + (NT² - 2)
   (8) F_n F_{n+2} - F_{n+1}² = (-1)^n  (Cassini)
 
-(3) 가 특별: NS² - NT² = NS + NT 는 *모든* (NS, NT) 에 성립
-하는 게 아니다.  *NS - NT = 1 일 때* 만 성립.
-   → atomic asymmetry NS-NT = 1 의 직접 결과.
+(3) is special: NS² - NT² = NS + NT does NOT hold for *all* (NS, NT).
+It holds *only when* NS - NT = 1.
+   → Direct consequence of atomic asymmetry NS-NT = 1.
 -/
 
 namespace E213.Physics.Phase3.Translation.AtomicIdentities
@@ -35,7 +35,7 @@ theorem id_2 : NS * NT - 1 = NS * NS - NT * NT := by decide
 /-- (3) NS² - NT² = d.  Striking: NS² - NT² = NS + NT atomic. -/
 theorem id_3 : NS * NS - NT * NT = NS + NT := by decide
 
-/-- (4) NS² - NT² = d (다른 표현). -/
+/-- (4) NS² - NT² = d (alternative form). -/
 theorem id_4 : NS * NS - NT * NT = d := by decide
 
 /-- (5) Cassini: d·NT - NS² = 1. -/

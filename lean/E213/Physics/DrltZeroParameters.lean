@@ -5,14 +5,13 @@ import E213.Physics.FibonacciExtended
 import E213.Physics.ColorConfinement
 
 /-!
-# DRLT 0 free parameter — Lean 형식 입증 (0 axioms)
+# DRLT 0 free parameter — Lean formal proof (0 axioms)
 
-DRLT의 핵심 주장: *모든 물리량이 atomic primitives에서 도출*.
+Core DRLT claim: *all physical quantities are derived from atomic primitives*.
 
-Phase 1 Lean 형식화 결과:
+Phase 1 Lean formalization results:
 
-  단일 atomic configuration (NS, NT, d, c) = (3, 2, 5, 2)이
-  강제하는 것:
+  What single atomic configuration (NS, NT, d, c) = (3, 2, 5, 2) forces:
 
 ## Couplings (4)
   α_3 = 1/8,  α_2 = 1/30,  α_1bare = 1/(6π²),  α_GUT = 6/(25π²)
@@ -38,7 +37,7 @@ Phase 1 Lean 형식화 결과:
 ## Atomic IE (3+)
   H IE = 13.6 eV (Bohr 2 = NT)
   He IE = 24.587 eV (Z=2=NT, σ_1s=7/8)
-  6 σ screening 모두 rational
+  All 6 σ screenings rational
 
 ## Bond angles (3)
   CH₄: cos θ = -1/NS
@@ -74,13 +73,13 @@ namespace E213.Physics.ZeroParam
 
 open E213.Physics.Simplex
 
-/-- ★ DRLT *zero free parameter* claim의 단일 형식 정리 ★
+/-- ★ Single formal theorem for the DRLT *zero free parameter* claim ★
 
-  모든 atomic primitives + 도출 정수가 단일 atomicity에서.
-  
-  외부 입력: NONE.
-  자유 매개변수: 0.
-  맞추기 위해 도입된 상수: 0.
+  All atomic primitives + derived integers from single atomicity.
+
+  External inputs: NONE.
+  Free parameters: 0.
+  Constants introduced to fit: 0.
 -/
 theorem drlt_zero_parameter_claim :
     -- Atomic primitives

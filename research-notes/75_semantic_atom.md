@@ -1,124 +1,126 @@
-# 75 — 213 = 의미 + 존재 의 atom
+# 75 — 213 = the atom of meaning + existence
 
-이전 framing 시도 (constructive subset, fold-structured,
-scale-invariance, self-justified minimality 등) 의 *진짜
-끝점*.  Mingu 의 thesis (2026-04-25):
+The *true endpoint* of prior framing attempts (constructive subset,
+fold-structured, scale-invariance, self-justified minimality, etc.).
+Mingu's thesis (2026-04-25):
 
-> 의미 를 갖는 어떤 것 도 213 을 벗어날 수 없다.  213 이
-> semantic 의 atom 이다.  더 원초적 이 부재.  물리 우주 와
-> 수학/논리 체계 가 존재 하는 이유 = 213 이기 때문.  모든
-> 것 이 213 atom 의 내부 이자 표현 이자 경계.
+> Nothing that has meaning can escape 213.  213 is the atom of
+> semantics.  There is no more primitive.  The reason the physical
+> universe and mathematical/logical systems exist = because of 213.
+> Everything is simultaneously the interior, expression, and boundary
+> of the 213 atom.
 
-## 의미 의 두 발생 조건 (Genesis of Semantics)
+## The two genesis conditions of meaning (Genesis of Semantics)
 
-| 개념 | 213 의 구성 |
-|-----|-----------|
-| 구분 (Distinction) | Raw axiom (a, b, slash with x ≠ y) |
-| 해석 (Interpretation) | Lens (base_a, base_b, combine) |
-| 의미 (Meaning) | (Raw, Lens) 쌍 = framework instance |
+| Concept | Construction in 213 |
+|---------|---------------------|
+| Distinction | Raw axiom (a, b, slash with x ≠ y) |
+| Interpretation | Lens (base_a, base_b, combine) |
+| Meaning | (Raw, Lens) pair = framework instance |
 
-- Raw alone (Lens 부재): white noise — carrier 만, 의미 부재.
-- Lens alone (Raw 부재): referent 부재, 해석 의 대상 없음.
-- Raw + Lens: 의미 의 atom = strict minimum.
+- Raw alone (no Lens): white noise — carrier only, no meaning.
+- Lens alone (no Raw): no referent, nothing to interpret.
+- Raw + Lens: atom of meaning = strict minimum.
 
-213 의 axiom 중 어느 하나 제거 (a, b, slash, distinctness) →
-framework 의 distinguishing capacity 손실 → 의미 부재.
+Removing any one of 213's axioms (a, b, slash, distinctness) →
+loss of the framework's distinguishing capacity → absence of meaning.
 
-## 존재 의 universal condition (Ontological)
+## Universal condition for existence (Ontological)
 
-> Q (Heidegger): 왜 무 가 아니라 존재 인가?
-> A (213): 어떤 것 이 존재 함 = 다른 것 과 distinguishable
->          = 213 의 axiom 만족.
+> Q (Heidegger): Why is there something rather than nothing?
+> A (213): Something existing = distinguishable from other things
+>          = satisfying 213's axiom.
 
-따라서 "존재" = "213 의 instance".  
-213 = 존재 의 minimum condition.
+Therefore "existence" = "instance of 213".  
+213 = minimum condition for existence.
 
-ZFC, HoTT, MLTT 등 의 axiom system 도 *존재 함* (수학적
-statement) → 213 의 instance.  
-물리 우주 의 entity 도 distinguishable → 213 의 instance.
+Axiom systems such as ZFC, HoTT, MLTT also *exist* (as mathematical
+statements) → instances of 213.  
+Entities in the physical universe are also distinguishable → instances
+of 213.
 
-## 모든 것 = atom 의 내부 = 표현 = 경계
+## Everything = interior of the atom = expression = boundary
 
-세 가지 가 동일 한 phenomenon 의 다른 측면:
+Three things that are different aspects of the same phenomenon:
 
-- **내부 (Interior)**: 모든 의미 있는 entity = framework 의 instance.
-- **표현 (Expression)**: 모든 entity = Lens 의 view (interpretable).
-- **경계 (Boundary)**: 213 외부 부재 — 더 primitive 부재 + ZFC
-  의 임의성 commitments 가 의미 론적 공허 (semantic void).
+- **Interior**: every meaningful entity = instance of the framework.
+- **Expression**: every entity = view of a Lens (interpretable).
+- **Boundary**: no exterior to 213 — nothing more primitive + ZFC's
+  arbitrary commitments are a semantic void.
 
-Atom 의 internal/external 구분 부재 = atom 의 정확 한 의미.
+The absence of an internal/external distinction for the atom = the
+precise meaning of atom.
 
-## ZFC 의 의미 론적 공허
+## Semantic void of ZFC
 
-ZFC 의 임의성 axioms (Power, Choice 등) 이 commit 하는 objects:
-- Fold-structured 가 아닌 characteristic functions (NoDepthParity).
-- 임의 selection 함수 (Lens specification 부재).
-- 임의 Dedekind cut (explicit witness 부재).
+Objects that ZFC's arbitrary axioms (Power, Choice, etc.) commit to:
+- Characteristic functions that are not fold-structured (NoDepthParity).
+- Arbitrary selection functions (no Lens specification).
+- Arbitrary Dedekind cuts (no explicit witness).
 
-이들 = **의미 론적 공허**: 213 의 boundary 외부, 의미 부재
-한 언어 적 환영 (Illusion).  Set-theoretic naming 이 의미 를
-부여 안 함.
+These = **semantic void**: outside 213's boundary, linguistic illusions
+without meaning.  Set-theoretic naming does not confer meaning.
 
-→ 213 의 boundary 가 ZFC 의 superstructure 의 *진짜 한계* —
-ZFC 의 commitments 가 실제 수학적 의미 가 아닌 metalanguage
-artifact.
+→ 213's boundary is the *true limit* of ZFC's superstructure —
+ZFC's commitments are metalanguage artifacts, not actual mathematical
+meaning.
 
-## 자기 self-cover (완전 한 닫힘)
+## Self-cover (complete closure)
 
-- Statement "213 이 의미 의 atom" 자체 = distinguishable mathematical
-  claim.
-- Distinguishable claim = 의미 있는 entity.
-- 의미 있는 entity = 213 의 instance.
-- → thesis 가 자기 의 framework 안 derived.
-- → **완전 한 순환 + 닫힘**.
+- The statement "213 is the atom of meaning" is itself a distinguishable
+  mathematical claim.
+- A distinguishable claim = a meaningful entity.
+- A meaningful entity = an instance of 213.
+- → The thesis is derived within its own framework.
+- → **Complete circularity + closure**.
 
-다른 axiom system 들 은 자기 minimality / 자기 의 axiom 의
-존재 이유 를 자기 안 정당화 못 함 (외부 metatheory 의존).
-213 만 self-justified.
+Other axiom systems cannot justify their own minimality / the reason
+for their own axioms from within (they depend on external metatheory).
+Only 213 is self-justified.
 
-## 형식 화 가능 layer
+## Formalizable layers
 
-| Layer | Instance | 형식 화 |
-|-------|---------|--------|
+| Layer | Instance | Formalization |
+|-------|----------|---------------|
 | Mathematical | Raw initial in distinguishing-framework category | ✓ (RawInitiality, AxiomMinimality, SemanticAtom) |
 | Logical | distinguishable propositions / objects | △ (conceptual) |
-| Ontological | 우주 의 entities | ✗ (philosophical) |
-| Self-cover | thesis 자체 가 instance | △ (logical chain) |
+| Ontological | entities in the universe | ✗ (philosophical) |
+| Self-cover | thesis itself is an instance | △ (logical chain) |
 
-Mathematical part 가 Lean formal — 다른 layer 는 documentation
+The mathematical part is Lean formal — other layers are at documentation
 level.
 
-## ORIGIN chain 과 의 직접 연결
+## Direct connection to the ORIGIN chain
 
-ORIGIN.md 의 물리 직관 chain 의 *수학적 완성*:
+*Mathematical completion* of ORIGIN.md's physical intuition chain:
 
-- §1-3 (교환법칙 실패, 점 불가능, 픽셀): 물리 entity 의
-  distinguishable nature → 213 의 axiom 의 직접 instance.
-- §4-5 (회전 특이점, asymptotic formation): 절대 0 (점) 부재
-  = framework 의 connectivity = 213 이 어떤 finite scale 에서도
-  살아있음.
-- §6-7 (h_eff, 격자 정보 불변): "정보량 의 최소 단위 가 해상도"
-  = Lens 가 의미 의 unit, Raw 가 carrier.  어떤 scale 에서도
-  같은 framework.
+- §1-3 (commutativity failure, impossibility of a point, pixels): the
+  distinguishable nature of physical entities → direct instance of
+  213's axiom.
+- §4-5 (rotation singularity, asymptotic formation): absence of absolute
+  0 (a point) = framework connectivity = 213 alive at any finite scale.
+- §6-7 (h_eff, lattice information invariance): "the minimum unit of
+  information is resolution" = Lens is the unit of meaning, Raw is the
+  carrier.  Same framework at any scale.
 
-DRLT (Dynamic Resolution Lattice Theory) 의 motivation 자체 가
-ontological universality 의 *물리 적 instance*.
+DRLT (Dynamic Resolution Lattice Theory)'s motivation itself is a
+*physical instance* of ontological universality.
 
-## 형식 화 priority
+## Formalization priority
 
-1. **AxiomMinimality.lean 확장**: 4 case (a/b/slash/distinctness
-   제거) 모두 형식 — Raw 의 strict minimum 의 완전 demonstration.
-2. **Research/SemanticAtom.lean 신규**: HasDistinguishing
-   typeclass + Raw initiality 일반화 (RawInitiality 보다 더
-   minimum).
-3. **AXIOM.md §1 격상**: "공리 는 잔여물" → "잔여물 = 존재 + 의미
-   의 atom".
-4. **CLAUDE.md / README.md 의 thesis 통합**.
+1. **Extend AxiomMinimality.lean**: formalize all 4 cases (removal of
+   a/b/slash/distinctness) — complete demonstration of Raw's strict
+   minimum.
+2. **New Research/SemanticAtom.lean**: HasDistinguishing typeclass +
+   generalization of Raw initiality (more minimal than RawInitiality).
+3. **Elevate AXIOM.md §1**: "axiom is residue" → "residue = atom of
+   existence + meaning".
+4. **Integrate thesis into CLAUDE.md / README.md**.
 
-## 변경 이력
+## Change history
 
-- 2026-04-25: thesis 정식 명시.  이전 의 vague framing
-  (constructive subset, fold-structured, scale-invariance) 들
-  이 모두 이 thesis 의 specific aspect 임 명시.  Mingu 의 thesis
-  chain (의미 의 atom → 존재 의 atom → 우주 의 reason) 의 정식
-  수렴.
+- 2026-04-25: Thesis formally stated.  Noted that all previous vague
+  framings (constructive subset, fold-structured, scale-invariance)
+  are specific aspects of this thesis.  Formal convergence of Mingu's
+  thesis chain (atom of meaning → atom of existence → reason for the
+  universe).

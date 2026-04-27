@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Optics Library — 광학 atomic catalog
+# Optics Library — optics atomic catalog
 
 ## Catalog
 

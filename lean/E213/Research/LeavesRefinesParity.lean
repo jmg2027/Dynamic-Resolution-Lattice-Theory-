@@ -2,16 +2,16 @@ import E213.Meta.ParityLens
 import E213.Research.LensLattice
 
 /-!
-# Research.LeavesRefinesParity: Q37.2 의 concrete witness
+# Research.LeavesRefinesParity: concrete witness for Q37.2
 
-**주장**: `Lens.leaves.refines parityLens`.
+**Claim**: `Lens.leaves.refines parityLens`.
 
-이유: parity (xor fold) 는 leaves count 의 `% 2` 로 결정됨.
-따라서 leaves count 가 같으면 parity 도 같다 → leaves 의
-kernel ⊆ parity 의 kernel → leaves refines parity.
+Reason: parity (xor fold) is determined by `% 2` of the leaves count.
+Therefore if the leaves count is equal, parity is also equal → the
+kernel of leaves ⊆ kernel of parity → leaves refines parity.
 
-note 37 의 refines preorder 에서 `Lens.leaves ⊑ parityLens`
-(leaves 가 더 finer).
+In the refines preorder from note 37: `Lens.leaves ⊑ parityLens`
+(leaves is finer).
 -/
 
 namespace E213.Research.LeavesRefinesParity
@@ -25,7 +25,7 @@ private theorem bool_xor_parity (a b : Nat) :
   all_goals rcases Nat.mod_two_eq_zero_or_one b with hb | hb
   all_goals simp [Nat.add_mod, ha, hb]
 
-/-- parityLens.view r = leaves count 의 홀짝 판정. -/
+/-- parityLens.view r = odd/even determination of the leaves count. -/
 theorem parityLens_view_eq_leaves_odd :
     ∀ r : Raw,
       parityLens.view r = decide (Lens.leaves.view r % 2 = 1) := by
@@ -62,9 +62,9 @@ open E213.Firmware E213.Hypervisor E213.Meta
 def sample3 : Raw :=
   Raw.slash Raw.a (Raw.slash Raw.a Raw.b (by decide)) (by decide)
 
-/-- **Negative direction**: parity 는 leaves 를 refine 하지 않음.
+/-- **Negative direction**: parity does not refine leaves.
     Witness: Raw.a (leaves=1, parity=true) vs sample3 (leaves=3,
-    parity=true).  같은 parity, 다른 leaves count. -/
+    parity=true).  Same parity, different leaves count. -/
 theorem parity_not_refines_leaves : ¬ parityLens.refines Lens.leaves := by
   intro h
   have hpar : parityLens.view Raw.a = parityLens.view sample3 := by decide

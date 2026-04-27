@@ -12,7 +12,7 @@ DRLT formula (lib/drlt.py:583, ch08 sec 5.5):
     → sin²θ_W = 30/128.696 ≈ 0.2331
 
   Observed: 0.2312 ± 0.0001  (DRLT bare 0.82% above)
-  같은 running gap as α_em, expected.
+  Same running gap as α_em, expected.
 
 ## Structural form
 

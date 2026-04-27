@@ -4,27 +4,27 @@ import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 MEGA CAPSTONE — 39 마일스톤 자율 진행 종합
+# Phase 3 MEGA CAPSTONE — 39 milestone autonomous progress summary
 
-User: "임의로 마일스톤을 설정하고 213으로 물리를 모두
-기술하고 증명하는 작업 수행."
+User: "Set milestones freely and carry out the work of
+describing and proving all of physics using 213."
 
-## 진행 현황
+## Progress status
 
-  Phase 1 (정밀 양 트랙):     68 파일, ppm/ppb 검증
-  Phase 2 (axiom 트랙):        14 파일, 시점 명시
-  Phase 3 (통번역 트랙):       81 파일, 39 마일스톤
-                              ─────
-  total                       163 핵심 Lean 파일
-                              219 build modules
-                              0 sorry, 0 axioms
+  Phase 1 (precision quantity track):  68 files, ppm/ppb verified
+  Phase 2 (axiom track):               14 files, timestamps noted
+  Phase 3 (translation track):         81 files, 39 milestones
+                                       ─────
+  total                                163 core Lean files
+                                       219 build modules
+                                       0 sorry, 0 axioms
 
-## Phase 3 38+ 마일스톤 history
+## Phase 3 38+ milestone history
 
   M1-3: Translation real derivation, theorems, equations
-  M4-6: 응집물질, StatMech, 광학, 정보, 핵, 천체
-  M7-9: MasterCatalog, Lagrangian, 분광, BSM
-  M10-12: 양자중력, Anomalies, UltraCapstone, HANDOFF
+  M4-6: CondensedMatter, StatMech, Optics, Information, Nuclear, Astrophysics
+  M7-9: MasterCatalog, Lagrangian, Spectroscopy, BSM
+  M10-12: QuantumGravity, Anomalies, UltraCapstone, HANDOFF
   M13-15: Topological, Capstone import, UnsolvedProblems
   M16-18: Constants, GroupTheory, SixEverywhere
   M19-21: README, EightEverywhere, TwentyFour, GravWaves
@@ -35,17 +35,17 @@ User: "임의로 마일스톤을 설정하고 213으로 물리를 모두
   M34-36: MassHierarchy, HANDOFF, Weinberg
   M37-39: CKMDeepDive, ColdAtoms+AnomalousMoment, MegaCapstone
 
-## 핵심 atomic 발견 종합
+## Core atomic discovery summary
 
-  *같은 정수가 무관 framework 들에 반복* — 단일 격자 origin 증거.
+  *Same integers recur across unrelated frameworks* — evidence of single lattice origin.
 
-  6 = NS·NT          (10+ framework)
-  8 = NS²-1 = F_6    (11+ framework)
-  12 = 2·NS·NT       (5+ framework)
+  6 = NS·NT          (10+ frameworks)
+  8 = NS²-1 = F_6    (11+ frameworks)
+  12 = 2·NS·NT       (5+ frameworks)
   16 = NT⁴ = NT(NS²-1) (SU(5) fermion + GUT scale)
-  24 = d²-1 = 4!     (8+ framework)
+  24 = d²-1 = 4!     (8+ frameworks)
   60 = d²·NT + d·NT  (Inflation e-folds)
-  137 = 1/α_em + m_t/m_c (이중 등장)
+  137 = 1/α_em + m_t/m_c (double appearance)
   192 = (NS²-1)(d²-1) (Muon lifetime)
 -/
 
@@ -56,7 +56,7 @@ open E213.Physics.Simplex
 /-- ★★★ Phase 3 MEGA CAPSTONE ★★★ -/
 theorem phase3_mega :
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
-    -- 핵심 multi-output 정수
+    -- core multi-output integers
     ∧ (NS * NT = 6) ∧ (3 * 2 * 1 = 6) ∧ (NS * (NS - 1) = 6)
     ∧ (NS * NS - 1 = 8) ∧ (NT * NT * NT = 8)
     ∧ (2 * NS * NT = 12) ∧ ((d - 1) * NS = 12)
@@ -65,7 +65,7 @@ theorem phase3_mega :
     ∧ (d * d = 25)
     ∧ ((NS * NS - 1) * (d * d - 1) = 192)
     ∧ (d * d * NT + d * NT = 60)
-    -- 격자 강제
+    -- lattice forcing
     ∧ (NS + NT = d)
     ∧ (d * NT - NS * NS = 1)            -- Cassini
     ∧ (d * d * 3 = 25 * NS) := by         -- d²/NS atomic

@@ -1,10 +1,10 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.LensEquivProperties: Lens.equiv 가 equivalence relation
+# Research.LensEquivProperties: Lens.equiv is an equivalence relation
 
-PAPER1 §3.2 의 `Lens.equiv` 가 reflexivity + symmetry +
-transitivity 만족 의 explicit theorems.
+Explicit theorems that `Lens.equiv` satisfies reflexivity + symmetry +
+transitivity, as stated in PAPER1 §3.2.
 -/
 
 namespace E213.Research.LensEquivProperties

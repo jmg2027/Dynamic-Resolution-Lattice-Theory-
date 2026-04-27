@@ -2,9 +2,9 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 핵물리 → DRLT atomic
+# Translation: Nuclear physics → DRLT atomic
 
-## 정리 목록
+## List of theorems
 
   1. Magic numbers {2, 8, 20, 28, 50, 82, 126} → HO atomic (already)
   2. Semi-empirical mass formula coefficients → atomic
@@ -20,9 +20,9 @@ open E213.Physics.Simplex
 /-!
 ## ★ Binding per nucleon ≈ 8 MeV atomic ★
 
-표준 핵: 평균 binding ≈ 8 MeV/nucleon.
+Standard nuclear: average binding ≈ 8 MeV/nucleon.
 DRLT atomic: 8 = NS² - 1 = 1/α_3 (cycle space).
-  → 핵 binding scale = strong coupling 정수.
+  → Nuclear binding scale = strong coupling integer.
 -/
 
 /-- Binding per nucleon ≈ 8 = NS² - 1 atomic. -/
@@ -31,7 +31,7 @@ theorem nuclear_binding_atomic : NS * NS - 1 = 8 := by decide
 /-!
 ## ★ Liquid drop coefficients atomic ratio ★
 
-표준 SEMF:
+Standard SEMF:
   a_V ≈ 15.5 MeV (Volume)
   a_S ≈ 16.8 MeV (Surface)
   a_C ≈ 0.71 MeV (Coulomb)
@@ -50,7 +50,7 @@ theorem av_atomic : NT = 2 := by decide
 /-!
 ## ★ Nuclear radius r₀ atomic ★
 
-표준: r ≈ r₀·A^(1/3), r₀ ≈ 1.2 fm.
+Standard: r ≈ r₀·A^(1/3), r₀ ≈ 1.2 fm.
 A^(1/3) → 1/3 exponent = 1/NS atomic.
 1.25 ≈ 5/4 = d/(NS+1) atomic.
 -/

@@ -2,12 +2,12 @@ import E213.Kernel.Term
 import E213.Kernel.Compare
 
 /-!
-# E213.Kernel.Cap_PhysicsBrackets — 물리 bracket 정리 포팅, 0 axiom.
+# E213.Kernel.Cap_PhysicsBrackets — physics bracket theorems ported, 0 axiom.
 
-기존 lean/E213/Physics/HadronMasses.lean 의 bracket 정리들 (`by decide`
-의존) 을 kernel 의 `lt_b` 로 다시 표현 → axiom-free 보장.
+Re-expresses the bracket theorems from lean/E213/Physics/HadronMasses.lean
+(which rely on the decide tactic) using the kernel's `lt_b` → guarantees axiom-free.
 
-각 bracket 검증: `lt_b lo m = true ∧ lt_b m hi = true`.
+Each bracket check: `lt_b lo m = true ∧ lt_b m hi = true`.
 -/
 
 namespace E213.Kernel.Cap.PhysicsBrackets

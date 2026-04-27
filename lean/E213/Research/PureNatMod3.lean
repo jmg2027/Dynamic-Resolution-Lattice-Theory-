@@ -3,15 +3,15 @@ import E213.Research.PureNat
 /-!
 # Research.PureNatMod3: mod-3 descent infrastructure
 
-`PureNat` 의 mod-2 (isEven) family 의 generalization to p = 3.
-같은 structural-recursion + Bool/Nat 패턴.
+Generalization of the `PureNat` mod-2 (isEven) family to p = 3.
+Same structural-recursion + Bool/Nat pattern.
 
-## 의의
+## Significance
 
-User directive: 방법 의 진작.  Mod-2 descent 의 abstraction
-이 mod-p (general prime) 로 lift 가능 — 이 모듈 이 mod-3
-case study.  다음 단 계 는 sqrt3_irrational, 이후 generic
-prime-mod descent template.
+User directive: advance the method.  The mod-2 descent abstraction can
+be lifted to mod-p (general prime) — this module is a mod-3 case
+study.  Next step is sqrt3_irrational, then a generic prime-mod descent
+template.
 -/
 
 namespace E213.Research.PureNatMod3
@@ -130,7 +130,7 @@ theorem three_mul_two_sq (k : Nat) :
   -- Goal: A + 3*(2*k) + (3*(2*k) + (3 + 1)) = A + (3*(2*k) + 3*(2*k)) + 3 + 1
   exact reassoc4 (3*(3*(k*k))) (3*(2*k)) (3*(2*k)) 4
 
-/-- mod3 의 self-mul rule: m² mod 3 = 0 ↔ m mod 3 = 0. -/
+/-- Self-multiplication rule for mod3: m² mod 3 = 0 ↔ m mod 3 = 0. -/
 theorem mod3_self_mul_zero (m : Nat) :
     mod3 (m * m) = 0 → mod3 m = 0 := by
   intro h

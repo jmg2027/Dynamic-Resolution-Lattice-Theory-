@@ -2,25 +2,24 @@ import E213.Hypervisor.Lens
 import E213.Research.KernelCongruence
 
 /-!
-# Research.JoinEquiv: 두 Lens kernel 의 join 으로서의 smallest
-slash-congruence
+# Research.JoinEquiv: smallest slash-congruence as the join of two Lens kernels
 
-**주장**: 두 Lens L, M 에 대해 JoinEquiv L M 은 L.equiv ∪ M.equiv
-를 포함하는 가장 작은 **slash-congruence 동치 관계**.
+**Claim**: for two Lenses L and M, JoinEquiv L M is the smallest
+**slash-congruence equivalence relation** containing L.equiv ∪ M.equiv.
 
-## Inductive 정의
+## Inductive definition
 
-Equivalence 구조 + slash-congruence 가 constructor 로 built-in.
+Equivalence structure + slash-congruence are built in as constructors.
 
-이는 refines preorder 의 **Join (least upper bound)** 에
-대응 — 두 kernel 모두 refine 하는 가장 작은 congruence.
+This corresponds to the **Join (least upper bound)** of the refines
+preorder — the smallest congruence that refines both kernels.
 -/
 
 namespace E213.Research.JoinEquiv
 
 open E213.Firmware E213.Hypervisor
 
-/-- 두 Lens 의 kernel 을 포함하는 smallest slash-congruence. -/
+/-- Smallest slash-congruence containing the kernels of two Lenses. -/
 inductive JoinEquiv {α β : Type} (L : Lens α) (M : Lens β) : Raw → Raw → Prop where
   | ofL : L.equiv x y → JoinEquiv L M x y
   | ofM : M.equiv x y → JoinEquiv L M x y
@@ -33,17 +32,17 @@ inductive JoinEquiv {α β : Type} (L : Lens α) (M : Lens β) : Raw → Raw →
       JoinEquiv L M x x' → JoinEquiv L M y y' →
       JoinEquiv L M (Raw.slash x y hxy) (Raw.slash x' y' hx'y')
 
-/-- JoinEquiv 는 L.equiv 를 포함. -/
+/-- JoinEquiv contains L.equiv. -/
 theorem L_refines_JoinEquiv {α β : Type} (L : Lens α) (M : Lens β)
     (x y : Raw) (h : L.equiv x y) : JoinEquiv L M x y :=
   JoinEquiv.ofL h
 
-/-- JoinEquiv 는 M.equiv 를 포함. -/
+/-- JoinEquiv contains M.equiv. -/
 theorem M_refines_JoinEquiv {α β : Type} (L : Lens α) (M : Lens β)
     (x y : Raw) (h : M.equiv x y) : JoinEquiv L M x y :=
   JoinEquiv.ofM h
 
-/-- JoinEquiv 는 slash-congruence (constructor 로부터 직접). -/
+/-- JoinEquiv is a slash-congruence (directly from the constructor). -/
 theorem JoinEquiv_slash_cong {α β : Type} (L : Lens α) (M : Lens β)
     (x x' y y' : Raw) (hxy : x ≠ y) (hx'y' : x' ≠ y')
     (hxx' : JoinEquiv L M x x') (hyy' : JoinEquiv L M y y') :
@@ -57,12 +56,13 @@ namespace E213.Research.JoinEquiv
 open E213.Firmware E213.Hypervisor
 open E213.Research.KernelCongruence
 
-/-- **Join universal property**: 만약 L, M 이 둘 다 N 을 refine
-    하고 (즉 N.equiv 이 L.equiv 와 M.equiv 를 모두 포함), N
-    의 combine 이 대칭이면, N.equiv 는 JoinEquiv L M 도 포함.
+/-- **Join universal property**: if both L and M refine N (i.e.,
+    N.equiv contains both L.equiv and M.equiv) and N's combine is
+    symmetric, then N.equiv also contains JoinEquiv L M.
 
-    즉 JoinEquiv L M 이 "L.refines N ∧ M.refines N" 들의
-    **최소** relation (least upper bound in refines preorder). -/
+    That is, JoinEquiv L M is the **minimum** relation among those
+    satisfying "L.refines N ∧ M.refines N" (least upper bound in
+    the refines preorder). -/
 theorem JoinEquiv_is_least {α β γ : Type} (L : Lens α) (M : Lens β) (N : Lens γ)
     (hNsym : ∀ u v, N.combine u v = N.combine v u)
     (hLN : L.refines N) (hMN : M.refines N) :

@@ -1,18 +1,18 @@
 import E213.Kernel.Term
 
 /-!
-# E213.Kernel.Cap_PhysicsAtomicIE — 원소 이온화 에너지 비율 brackets.
+# E213.Kernel.Cap_PhysicsAtomicIE — element ionization energy ratio brackets.
 
-기존 Phase4/PeriodicTableIE.lean 의 ratio bracket 정리들을 kernel
-형태로.  IE 값은 inline 으로 (pure Nat) 들어감 → 0 axiom.
+Ports the ratio bracket theorems from Phase4/PeriodicTableIE.lean into
+kernel form.  IE values are inlined (pure Nat) → 0 axiom.
 
-각 정리: cross-multiplication 으로 IE_X / IE_H 비율 검증.
-모두 `Nat.ble = true ∧ Nat.ble = true := ⟨rfl, rfl⟩`.
+Each theorem: verifies the IE_X / IE_H ratio via cross-multiplication.
+All use `Nat.ble = true ∧ Nat.ble = true := ⟨rfl, rfl⟩`.
 -/
 
 namespace E213.Kernel.Cap.PhysicsAtomicIE
 
--- 이온화 에너지 (× 10⁻⁵ eV, integer encoding)
+-- Ionization energies (× 10⁻⁵ eV, integer encoding)
 def IE_H  : Nat := 13598434
 def IE_Li : Nat := 5391715
 def IE_Be : Nat := 9322699
@@ -43,7 +43,7 @@ theorem C_H_ratio_bracket :
 theorem mmu_me_bracket :
     Nat.ble 2068 2068 = true ∧ Nat.ble 2069 2070 = true := ⟨rfl, rfl⟩
 
-/-- 정밀 m_μ/m_e: 2067682 < x < 2067683 (×10⁻⁴). -/
+/-- Precise m_μ/m_e: 2067682 < x < 2067683 (×10⁻⁴). -/
 theorem mmu_me_precise : Nat.ble 2067682 2067682 = true := rfl
 
 end E213.Kernel.Cap.PhysicsAtomicIE

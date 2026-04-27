@@ -4,15 +4,16 @@ import E213.Research.LensMeet
 /-!
 # Research.ModLensCRT: prodLens(L_2, L_3) ≈ L_6 (CRT in Lens form)
 
-**정리**: `L_6` 와 `prodLens L_2 L_3` 는 refines-equivalent.
+**Theorem**: `L_6` and `prodLens L_2 L_3` are refines-equivalent.
 
-## 의의
+## Significance
 
-Note 45 의 claim "prodLens L_m L_k ≈ L_{lcm(m,k)}" 의 concrete
-case (m=2, k=3, lcm=6).  CRT 가 Lens lattice 구조로 실현됨.
+Concrete case (m=2, k=3, lcm=6) of the claim in Note 45:
+"prodLens L_m L_k ≈ L_{lcm(m,k)}."  CRT is realized as a Lens
+lattice structure.
 
-두 meet 표현 (prodLens 와 L_lcm) 이 정확히 같은 kernel 을
-주는 Lean witness.
+A Lean witness that the two meet representations (prodLens and L_lcm)
+yield exactly the same kernel.
 -/
 
 namespace E213.Research.ModLensCRT
@@ -20,8 +21,8 @@ namespace E213.Research.ModLensCRT
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensMeet
 
-/-- L_6 refines prodLens(L_2, L_3) — divides_refines + meet
-    universal property 로 자동. -/
+/-- L_6 refines prodLens(L_2, L_3) — automatic from divides_refines
+    + the meet universal property. -/
 theorem L6_refines_prod :
     (leavesModNat 6).refines
       (prodLens (leavesModNat 2) (leavesModNat 3)) := by
@@ -35,8 +36,8 @@ theorem L6_refines_prod :
   · exact divides_refines 6 2 ⟨3, rfl⟩
   · exact divides_refines 6 3 ⟨2, rfl⟩
 
-/-- prodLens(L_2, L_3) refines L_6 — CRT 방향.  two values with
-    same mod 2 and same mod 3 have same mod 6. -/
+/-- prodLens(L_2, L_3) refines L_6 — the CRT direction.  Two values
+    with the same mod 2 and mod 3 have the same mod 6. -/
 theorem prod_refines_L6 :
     (prodLens (leavesModNat 2) (leavesModNat 3)).refines
       (leavesModNat 6) := by

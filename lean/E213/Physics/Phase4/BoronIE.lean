@@ -18,7 +18,7 @@ import E213.Physics.SimplexCounts
 ## Numerical
 
   R · 961/1600 = 13605693 · 961/1600 = 8171919 μeV
-  관측 = 8298019 μeV
+  observed = 8298019 μeV
   diff = 126100 μeV = 1.52%
 
   + P(x) (closed propagator):
@@ -26,9 +26,9 @@ import E213.Physics.SimplexCounts
     8171919 · 1.01437 = 8289344
     diff = 8675 μeV = **1046 ppm** ★
 
-  → 1.52% → 1046 ppm 향상.
+  → 1.52% → 1046 ppm improvement.
 
-ppm 으로 가려면 σ_2s_to_2p atomic refinement 추가 필요.
+Additional σ_2s_to_2p atomic refinement needed to reach ppm.
 -/
 
 namespace E213.Physics.Phase4.BoronIE

@@ -2,34 +2,34 @@ import E213.Hypervisor.Lens
 import E213.Research.RawInitiality
 
 /-!
-# Research.FoldStructured: Lens-expressible 함수의 정확한 특성화
+# Research.FoldStructured: exact characterization of Lens-expressible functions
 
-**주장**: f : Raw → α 가 어떤 Lens 의 view 이다 ↔ f 가
-**fold-structured** (base 값 + symmetric combine 으로 recurrence
-만족).
+**Claim**: f : Raw → α is the view of some Lens ↔ f is
+**fold-structured** (satisfies the recurrence with base values +
+symmetric combine).
 
-## 의의
+## Significance
 
-이 arc 전체의 중심 결과.  "어떤 Raw → α 함수가 Lens 로
-표현 가능한가?" 의 정확한 답.
+The central result of this arc.  The exact answer to "which Raw → α
+functions are Lens-expressible?"
 
-Kernel 쪽에서는 `KernelCongruence.lean` 이 같은 질문의
-equivalence relation 버전 (slash-congruence ↔ Lens kernel).
-이 파일은 **함수 버전**.
+On the kernel side, `KernelCongruence.lean` covers the equivalence
+relation version of the same question (slash-congruence ↔ Lens kernel).
+This file is the **function version**.
 -/
 
 namespace E213.Research.FoldStructured
 
 open E213.Firmware E213.Hypervisor E213.Research.RawInitiality
 
-/-- `f : Raw → α` 이 fold-structured. -/
+/-- `f : Raw → α` is fold-structured. -/
 def FoldStructured {α : Type} (f : Raw → α) : Prop :=
   ∃ (ba bb : α) (c : α → α → α),
     (f Raw.a = ba) ∧ (f Raw.b = bb) ∧
     (∀ u v, c u v = c v u) ∧
     (∀ (x y : Raw) (h : x ≠ y), f (Raw.slash x y h) = c (f x) (f y))
 
-/-- **Forward**: Lens view 는 fold-structured. -/
+/-- **Forward**: a Lens view is fold-structured. -/
 theorem lens_view_fold_structured {α : Type} (L : Lens α)
     (hsym : ∀ u v : α, L.combine u v = L.combine v u) :
     FoldStructured L.view := by
@@ -37,7 +37,7 @@ theorem lens_view_fold_structured {α : Type} (L : Lens α)
   intro x y h
   exact Raw.fold_slash L.base_a L.base_b L.combine hsym x y h
 
-/-- **Backward**: fold-structured 함수는 Lens view 로 realize 됨. -/
+/-- **Backward**: a fold-structured function is realizable as a Lens view. -/
 theorem fold_structured_lens_expressible {α : Type} (f : Raw → α)
     (hfold : FoldStructured f) :
     ∃ L : Lens α, (∀ u v, L.combine u v = L.combine v u) ∧ L.view = f := by
@@ -53,8 +53,8 @@ namespace E213.Research.FoldStructured
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Main theorem (iff)**: f 가 어떤 symmetric-combine Lens 의
-    view 이다 ↔ f 가 fold-structured. -/
+/-- **Main theorem (iff)**: f is the view of some symmetric-combine Lens
+    ↔ f is fold-structured. -/
 theorem lens_expressible_iff_fold_structured {α : Type} (f : Raw → α) :
     (∃ L : Lens α, (∀ u v, L.combine u v = L.combine v u) ∧ L.view = f)
       ↔ FoldStructured f := by

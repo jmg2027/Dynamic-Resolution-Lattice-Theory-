@@ -1,9 +1,9 @@
 import E213.Physics.Phase4.AtomicReps
 
 /-!
-# Phase 4 Enumeration — Atomic-K 의 *유한 cardinality* 명시
+# Phase 4 Enumeration — *Finite cardinality* specification of Atomic-K
 
-Atomic-K 가 *작은 유한 집합* 임을 명시.  Statistical 비교 base.
+Specifying that Atomic-K is a *small finite set*.  Statistical comparison base.
 
 ## Atomic-0 (constants only)
 
@@ -28,9 +28,9 @@ Atomic-K 가 *작은 유한 집합* 임을 명시.  Statistical 비교 base.
 
 Atomic-1 ⊂ [1, 200] has ~20 elements.
 Random integer in [1, 200]: only ~10% chance of being in Atomic-1.
-물리 정수 (6, 8, 10, 25, ...) → 모두 Atomic-1.
+Physical integers (6, 8, 10, 25, ...) → all in Atomic-1.
 
-이게 cherry-pick 아닌 *통계적 유의* 의 의미.
+This is the meaning of *statistical significance*, not cherry-picking.
 -/
 
 namespace E213.Physics.Phase4.Enumeration

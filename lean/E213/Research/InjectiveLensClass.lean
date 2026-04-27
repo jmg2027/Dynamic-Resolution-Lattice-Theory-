@@ -2,29 +2,29 @@ import E213.Hypervisor.Lens
 import E213.Prelude
 
 /-!
-# Research.InjectiveLensClass: injective Lens 의 유일 equivalence class
+# Research.InjectiveLensClass: the unique equivalence class of injective Lenses
 
-**관찰**: Refines preorder 의 equivalence class 관점에서,
-**injective 인 모든 Lens 는 한 class 에 속함**.
+**Observation**: From the perspective of equivalence classes in the
+refines preorder, **every injective Lens belongs to the same class**.
 
-## 정리
+## Theorem
 
-`L.view`, `M.view` 둘 다 injective 이면 `L ≈ M` (서로 refine).
+If both `L.view` and `M.view` are injective, then `L ≈ M` (they refine each other).
 
-## 의의
+## Significance
 
-Note 37 에서 `idLens` 가 bottom (모든 Lens 를 refine) 임을
-확인.  이 파일은 추가: **idLens 가 injective 대표** — 모든
-injective Lens 는 idLens 와 동치.
+Note 37 confirmed that `idLens` is bottom (refines every Lens).
+This file adds: **idLens is the injective representative** — every
+injective Lens is equivalent to idLens.
 
-즉 injective Lens 의 "공간" 은 1점 (up to equivalence).
+That is, the "space" of injective Lenses is a single point (up to equivalence).
 -/
 
 namespace E213.Research.InjectiveLensClass
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Injective equivalence**: 두 injective Lens 는 서로 refine. -/
+/-- **Injective equivalence**: two injective Lenses refine each other. -/
 theorem injective_equiv {α β : Type} (L : Lens α) (M : Lens β)
     (hL : Function.Injective L.view) (hM : Function.Injective M.view) :
     L.refines M ∧ M.refines L := by

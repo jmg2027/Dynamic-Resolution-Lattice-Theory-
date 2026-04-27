@@ -2,21 +2,20 @@ import E213.Physics.FibonacciAtomic
 import E213.Physics.AtomicScreening
 
 /-!
-# Fibonacci 확장 — F_8, F_9 atomic 등장 (0 axioms)
+# Fibonacci extension — F_8, F_9 atomic appearances (0 axioms)
 
-이미 발견 (FibonacciAtomic):
+Already found (FibonacciAtomic):
   F_3 = 2  = NT
   F_4 = 3  = NS
   F_5 = 5  = d
   F_6 = 8  = 1/α_3
   F_7 = 13 = NH₃ denom
 
-추가 발견:
+Additional findings:
   F_8 = 21 = σ_1s unreduced numerator (= d²-1-NS)
   F_9 = 34 = 2·17 = c·σ_even_num
 
-더 많은 atomic 일치 — Fibonacci sequence가 *전체* 결합·차폐
-구조에 깊이 침투.
+More atomic matches — Fibonacci sequence deeply penetrates *the entire* coupling and screening structure.
 
 ## F_8 = 21 = σ_1s unreduced numerator
 
@@ -33,10 +32,10 @@ import E213.Physics.AtomicScreening
   
   → F_9 = c · (d(d-1) - NS)
 
-## 깊은 패턴
+## Deep pattern
 
-  F_n = polynomial in {NS, NT, d, c} 계속.
-  Fibonacci recurrence의 자체 내재성 + atomic config이 같이.
+  F_n = polynomial in {NS, NT, d, c} continues.
+  Fibonacci recurrence's intrinsic nature + atomic config together.
 -/
 
 namespace E213.Physics.FibExtended
@@ -73,7 +72,7 @@ theorem F10_atomic_decomp :
     ∧ d * (NS * NS + NT) = 55  -- d · 11 = 55
     ∧ NS * NS + NT = 11 := by decide
 
-/-- ★ Fibonacci 깊은 침투 ★
+/-- ★ Fibonacci deep penetration ★
     F_3..F_10 = 2, 3, 5, 8, 13, 21, 34, 55
     
     F_3 = NT

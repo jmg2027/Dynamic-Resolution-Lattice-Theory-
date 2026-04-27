@@ -1,12 +1,12 @@
 import E213.Research.ArchimedeanCauchy
 
 /-!
-# Research.Sqrt2Cut: √2 의 Dedekind cut (213 irrational instance)
+# Research.Sqrt2Cut: Dedekind cut of √2 (213 irrational instance)
 
-Mingu (b): "killer demo" — 외부 ℝ 없이 213 안 에서 진짜 무리수
-의 Dedekind cut.
+Mingu (b): "killer demo" — Dedekind cut of a genuine irrational
+inside 213, without external ℝ.
 
-## 전략
+## Strategy
 
 Pell-like sequence: abLens.view (xs n) = (x_n, y_n) with
 x_n² = 2 y_n² + 1.  x_n / y_n → √2 from above.
@@ -28,7 +28,7 @@ namespace E213.Research.Sqrt2Cut
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
 
-/-- Pell-like 조건. -/
+/-- Pell-like condition. -/
 def IsPellSol (x y : Nat) : Prop := x * x = 2 * y * y + 1
 
 /-- Helper: Nat squared comparison.  a ≤ b iff a*a ≤ b*b. -/
@@ -55,7 +55,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
 
 /-- **Pell solutions: orderProj true when m/k > √2 (rationally
-    captured as 2k² < m²)**.  y² ≥ k² 가정 (y 충분히 큰 경우). -/
+    captured as 2k² < m²)**.  Assumes y² ≥ k² (y sufficiently large). -/
 theorem pell_orderProj_above (x y m k : Nat)
     (hPell : IsPellSol x y) (hmsq : 2 * k * k < m * m)
     (hy_large : k * k ≤ y * y) :
@@ -182,7 +182,7 @@ theorem pell_orderProj_below (x y m k : Nat)
         omega
       omega
     omega
-  · -- y = 0 case: y² m² = 0, (2y²+1) k² = k² ≥ 1.  0 ≤ k², strict 부재.
+  · -- y = 0 case: y² m² = 0, (2y²+1) k² = k² ≥ 1.  0 ≤ k², no strict bound.
     -- hle becomes 0 ≤ 0, tautology, but we need strict inequality somewhere.
     -- Wait, hle was ≤ (not strict), and we need to find ¬ ≤ for False.
     -- Hmm.  Actually hle says x*k*(x*k) ≤ y*m*(y*m).  After rw to (2y²+1)k² ≤ y² m².

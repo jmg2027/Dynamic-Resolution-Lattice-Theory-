@@ -3,7 +3,7 @@ import E213.Physics.WZBosons
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 WMassFalsifier — CDF anomaly 결판
+# Phase 3 WMassFalsifier — CDF anomaly verdict
 
 **Layer: App**.
 
@@ -11,25 +11,25 @@ CDF (2022) m_W = 80.434 ± 0.009 GeV.
 PDG (2024) m_W = 80.379 ± 0.012 GeV.
 7σ tension.
 
-DRLT 예측 (Phase 1 WZBosons.lean):
+DRLT prediction (Phase 1 WZBosons.lean):
   cos²θ_W = m_W²/m_Z² ∈ [0.75, 0.78]
   numerator = NS · NT = 6, constant = NS = 3.
 
-## 측정값 → cos²θ_W 환산
+## Measured values → cos²θ_W conversion
 
   PDG  : cos²θ_W = 0.7686 (m_W=80.379, m_Z=91.188)
   CDF  : cos²θ_W = 0.7707 (m_W=80.434, m_Z=91.188)
 
-둘 다 DRLT 의 [0.75, 0.78] 안.  DRLT 는 *직접 결판* 못 함.
+Both inside DRLT's [0.75, 0.78].  DRLT cannot deliver a *direct verdict*.
 
-## 그러나 DRLT 강제 정수
+## However, DRLT-forced integers
 
-  cos²θ_W 의 atomic form: numerator coefficient = NS·NT = 6,
-  denominator constant = NS = 3.  *이 정수들이 다르면* 213 폐기.
+  Atomic form of cos²θ_W: numerator coefficient = NS·NT = 6,
+  denominator constant = NS = 3.  *If these integers differ*, 213 is falsified.
 
-미래 정밀 측정이 cos²θ_W 를 [0.75, 0.78] 밖으로 가져가면
-폐기.  현재 PDG와 CDF 둘 다 안쪽 → DRLT 검증 (둘 중 어느
-쪽이 정확한지는 별개 문제).
+If future precision measurements push cos²θ_W outside [0.75, 0.78],
+falsified.  Currently both PDG and CDF are inside → DRLT validated
+(which of the two is correct is a separate question).
 -/
 
 namespace E213.Physics.Phase3.WMassFalsifier
@@ -37,7 +37,7 @@ namespace E213.Physics.Phase3.WMassFalsifier
 open E213.Physics.WZBosons
 open E213.Physics.Simplex
 
-/-- DRLT cos²θ_W ∈ [0.75, 0.78] bracket (Phase 1 검증). -/
+/-- DRLT cos²θ_W ∈ [0.75, 0.78] bracket (Phase 1 verified). -/
 theorem drlt_bracket :
     let lo := cos2_W_lower 10
     let hi := cos2_W_upper 10
@@ -62,13 +62,13 @@ theorem cdf_in_bracket :
 
 /-- ★ W mass falsifier ★
     DRLT cos²θ_W bracket forces m_W²/m_Z² ∈ [0.75, 0.78].
-    측정값이 outside → 213 폐기. -/
+    Measured value outside → 213 falsified. -/
 theorem w_mass_falsifier :
-    -- DRLT bracket 자체
+    -- DRLT bracket itself
     (let lo := cos2_W_lower 10
      let hi := cos2_W_upper 10
      75 * lo.2 < 100 * lo.1 ∧ 100 * hi.1 < 78 * hi.2)
-    -- PDG, CDF 둘 다 bracket 안
+    -- both PDG and CDF inside bracket
     ∧ (7686 > 7500 ∧ 7686 < 7800)
     ∧ (7707 > 7500 ∧ 7707 < 7800)
     -- atomic

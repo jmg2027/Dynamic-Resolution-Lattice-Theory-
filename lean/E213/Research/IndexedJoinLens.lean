@@ -2,21 +2,21 @@ import E213.Research.UniversalQuotLens
 import E213.Research.JoinEquiv
 
 /-!
-# Research.IndexedJoinLens: 임의 indexed family 의 join
+# Research.IndexedJoinLens: join of an arbitrary indexed family
 
-`JoinLens` 가 binary join 이라면, 이건 임의 family `{L_i}_{i ∈ I}`
-의 join.
+If `JoinLens` is the binary join, this is the join of an arbitrary
+family `{L_i}_{i ∈ I}`.
 
-## 핵심
+## Core
 
-`IJoinEquiv F` (F : ι → Σ α, Lens α): 임의 family 에 대한 least
-slash-cong containing each L_i.equiv.
+`IJoinEquiv F` (F : ι → Σ α, Lens α): least slash-congruence
+containing each L_i.equiv, for an arbitrary family.
 
 `iJoinLens F := universalLens (IJoinEquiv F)`: concrete Lens
 realizing the indexed join.
 
-family 가 finite 면 binary join 의 iteration 으로 같은 결과.
-Infinite family 에 대해 새로운 표현력 제공.
+For a finite family the result equals iterated binary join.
+Provides new expressiveness for infinite families.
 -/
 
 namespace E213.Research.IndexedJoinLens
@@ -24,8 +24,8 @@ namespace E213.Research.IndexedJoinLens
 open E213.Firmware E213.Hypervisor
 open E213.Research.JoinEquiv E213.Research.UniversalQuotLens
 
-/-- Indexed join equivalence: 임의 family 의 Lenses 에 대한
-    smallest slash-cong containing each L_i.equiv. -/
+/-- Indexed join equivalence: smallest slash-congruence containing
+    each L_i.equiv, for an arbitrary family of Lenses. -/
 inductive IJoinEquiv {ι : Type} (F : ι → (α : Type) × Lens α) :
     Raw → Raw → Prop where
   | ofL (i : ι) :
@@ -41,7 +41,7 @@ inductive IJoinEquiv {ι : Type} (F : ι → (α : Type) × Lens α) :
 def iJoinLens {ι : Type} (F : ι → (α : Type) × Lens α) :
     Lens (Raw → Prop) := universalLens (IJoinEquiv F)
 
-/-- **kernel = IJoinEquiv**.  universalLens 직접 귀결. -/
+/-- **kernel = IJoinEquiv**.  Direct consequence of universalLens. -/
 theorem iJoinLens_kernel {ι : Type} (F : ι → (α : Type) × Lens α)
     (r r' : Raw) :
     (iJoinLens F).view r = (iJoinLens F).view r'
@@ -53,8 +53,8 @@ theorem iJoinLens_kernel {ι : Type} (F : ι → (α : Type) × Lens α)
   · exact fun _ _ _ _ hxy hx'y' h1 h2 =>
       IJoinEquiv.slash_cong hxy hx'y' h1 h2
 
-/-- **각 L_i 가 iJoinLens 를 refine**: family 의 모든 L_i 가
-    common upper bound iJoinLens 를 가짐. -/
+/-- **Each L_i refines iJoinLens**: all L_i in the family have
+    iJoinLens as a common upper bound. -/
 theorem each_refines_iJoinLens {ι : Type} (F : ι → (α : Type) × Lens α)
     (i : ι) :
     (F i).2.refines (iJoinLens F) := by
@@ -78,9 +78,8 @@ private theorem ijoin_implies_N {ι : Type} {γ : Type}
       exact E213.Research.KernelCongruence.Lens.equiv_slash_congruence
         N hNsym _ _ _ _ hxy hx'y' ih1 ih2
 
-/-- **Universal property (indexed)**: iJoinLens 가 least upper
-    bound.  모든 L_i 가 N 을 refine + N.combine sym → iJoinLens
-    이 N 을 refine. -/
+/-- **Universal property (indexed)**: iJoinLens is the least upper
+    bound.  All L_i refine N + N.combine sym → iJoinLens refines N. -/
 theorem iJoinLens_is_least {ι : Type} {γ : Type}
     (F : ι → (α : Type) × Lens α) (N : Lens γ)
     (hNsym : ∀ u v, N.combine u v = N.combine v u)
@@ -96,17 +95,17 @@ namespace E213.Research.IndexedJoinLens
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Indexed product Lens (meet)**: 임의 family `{L_i}` 의
-    concrete meet — codomain 은 dependent function space.
-    각 (F i).2 의 view 가 component 로 추출. -/
+/-- **Indexed product Lens (meet)**: concrete meet of an arbitrary
+    family `{L_i}` — codomain is the dependent function space.
+    Each component is extracted as the view of (F i).2. -/
 def iProdLens {ι : Type} (F : ι → (α : Type) × Lens α) :
     Lens ((i : ι) → (F i).1) where
   base_a := fun i => (F i).2.base_a
   base_b := fun i => (F i).2.base_b
   combine := fun f g i => (F i).2.combine (f i) (g i)
 
-/-- iProdLens.view 가 pointwise application — 각 L_i 의 combine
-    sym 가정 필요. -/
+/-- iProdLens.view is a pointwise application — requires combine
+    sym for each L_i. -/
 theorem iProdLens_view {ι : Type} (F : ι → (α : Type) × Lens α)
     (hAllSym : ∀ i (u v : (F i).1),
                 (F i).2.combine u v = (F i).2.combine v u)
@@ -132,7 +131,7 @@ theorem iProdLens_view {ι : Type} (F : ι → (α : Type) × Lens α)
       rw [hL_fs]
       rfl
 
-/-- iProdLens 가 각 L_i 를 refine — lower bound. -/
+/-- iProdLens refines each L_i — lower bound. -/
 theorem iProdLens_refines_each {ι : Type} (F : ι → (α : Type) × Lens α)
     (hAllSym : ∀ i (u v : (F i).1),
                 (F i).2.combine u v = (F i).2.combine v u)
@@ -148,8 +147,8 @@ theorem iProdLens_refines_each {ι : Type} (F : ι → (α : Type) × Lens α)
   rw [h1, h2] at hview
   exact congrFun hview i
 
-/-- **iProdLens universal property (greatest lower bound)**: 모든
-    (F i).2 를 refine 하는 L 은 iProdLens F 도 refine. -/
+/-- **iProdLens universal property (greatest lower bound)**: any L
+    that refines all (F i).2 also refines iProdLens F. -/
 theorem iProdLens_is_greatest {ι : Type} {α : Type}
     (F : ι → (β : Type) × Lens β) (L : Lens α)
     (hAllSym : ∀ i (u v : (F i).1),

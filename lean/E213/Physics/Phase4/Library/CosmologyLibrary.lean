@@ -1,9 +1,9 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Cosmology Library — 우주론 atomic catalog
+# Cosmology Library — cosmology atomic catalog
 
-각 우주론 결과 atomic primitives 표현.
+Each cosmology result expressed in atomic primitives.
 
 ## Catalog
 
@@ -14,7 +14,7 @@ import E213.Physics.SimplexCounts
   Inflation e-folds = d²·NT + d·NT = 60 (Phase 3)
   Spectral index n_s ≈ 1 - 1/(NS·NT·d-d) atomic
 
-## DRLT 우주론 *예측*
+## DRLT cosmology *predictions*
 
   m_3/m_2 ≈ 5.71 (PRD_001, normal hierarchy, Phase 3)
   Σ ν masses → atomic prediction

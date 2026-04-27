@@ -1,27 +1,28 @@
 import E213.Research.SemanticAtom
 
 /-!
-# Research.DistMorphism: distinguishing-framework category 의 morphism
+# Research.DistMorphism: Morphisms of the distinguishing-framework category
 
-`HasDistinguishing` instance 들 사이 의 structure-preserving
-morphism α → β.  Identity + composition.
+Structure-preserving morphisms α → β between `HasDistinguishing`
+instances.  Identity + composition.
 
 ## Design note (sober)
 
-Raw 의 자명 instance 에서 `combine x x = x` (idempotent — 같은
-arg slash 부재 의 결과).  하지만 일반 instance (e.g., Nat with
-+) 는 idempotent 부재 (`1 + 1 = 2 ≠ 1`).  따라서 `universalMorphism
-α : Raw → α` 가 *모든* combine case 위 preserved 보장 부재 —
-diagonal case 만.
+In the trivial Raw instance, `combine x x = x` (idempotent — the
+consequence of no same-arg slash).  But general instances (e.g., Nat
+with +) are not idempotent (`1 + 1 = 2 ≠ 1`).  Therefore
+`universalMorphism α : Raw → α` is not guaranteed to preserve *all*
+combine cases — only the diagonal case.
 
-이게 design 의 *feature*: `Raw` 의 fold structure 가 distinct
-args 만 다룸 (axiom 4 의 직접 reflection).  일반 morphism α → β
-는 ideally 모든 (x, y) preserve, 하지만 Raw 와 의 align 은
-distinct case 만.
+This is a *feature* of the design: the fold structure of `Raw` handles
+only distinct args (a direct reflection of axiom 4).  A general morphism
+α → β ideally preserves all (x, y), but alignment with Raw is only for
+the distinct case.
 
-이 file 은 *abstract* DistMorphism 정의 (모든 case 보존) 와 그
-identity / composition 만 — Raw 의 specific position 은 별도
-axiom (RawInitiality / SemanticAtom 의 universalMorphism).
+This file contains only the *abstract* DistMorphism definition
+(preservation of all cases) and its identity / composition — the
+specific position of Raw is a separate axiom (RawInitiality /
+universalMorphism in SemanticAtom).
 -/
 
 namespace E213.Research.DistMorphism

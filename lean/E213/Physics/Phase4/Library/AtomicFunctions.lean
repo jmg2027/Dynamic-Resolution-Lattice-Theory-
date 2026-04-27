@@ -1,18 +1,18 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 4 Library — Atomic Functions (재사용)
+# Phase 4 Library — Atomic Functions (reusable)
 
-각 IE 계산 에 쓰이는 *재사용* 함수들.
+*Reusable* functions used in each IE calculation.
 
 ## Functions
 
   z_eff_atom : (n_inner, n_2s, n_2p) → ℚ_atomic
   ie_leading : Z_eff² → R / n²
   hund_pen   : n_outer → ε_pair (if > half)
-  full_ie    : 위 chain 전체
+  full_ie    : entire chain above
 
-각 함수 가 atomic primitives 만으로 닫힘.
+Each function closes over atomic primitives only.
 -/
 
 namespace E213.Physics.Phase4.Library.AtomicFunctions
@@ -44,7 +44,7 @@ theorem hund_F : hund_count 5 = 2 := by decide
 theorem hund_Ne : hund_count 6 = 3 := by decide
 theorem hund_N : hund_count 3 = 0 := by decide
 
-/-- Library 함수 일관성 capstone. -/
+/-- Library function consistency capstone. -/
 theorem library_consistent :
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
     ∧ (p_half = NS)

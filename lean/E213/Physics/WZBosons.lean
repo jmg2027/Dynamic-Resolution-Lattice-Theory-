@@ -24,7 +24,7 @@ DRLT formula:
               = 6ζ(2)/(3 + 6ζ(2))
               = 6/(3·1/ζ(2) + 6)
 
-  Numerator 6 = NS·NT = d+1 (bipartite edges, 또 등장!)
+  Numerator 6 = NS·NT = d+1 (bipartite edges, appears again!)
   Constant 3 = NS  (spatial dim)
   Both atomic.
 
@@ -78,8 +78,8 @@ theorem cos2_W_atomic_form :
     ∧ NS = 3 ∧ NT = 2 := by decide
 
 /-- ★ m_W/m_Z structural same atom 6 = NS·NT ★
-    같은 6 = NS·NT가 1/NS = NT/(d+1) 분모, m_τ x³ coefficient,
-    그리고 W/Z mass ratio numerator에 등장. -/
+    The same 6 = NS·NT appears in the 1/NS = NT/(d+1) denominator,
+    m_τ x³ coefficient, and W/Z mass ratio numerator. -/
 theorem WZ_simplicial_pattern :
     -- Numerator 6 = bipartite edges
     (6 = NS * NT)

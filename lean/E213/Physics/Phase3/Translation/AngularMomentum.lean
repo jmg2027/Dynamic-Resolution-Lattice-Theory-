@@ -2,12 +2,12 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 각운동량·스핀 → DRLT atomic
+# Translation: Angular momentum · spin → DRLT atomic
 
   L² eigenvalue ℓ(ℓ+1)ħ² → atomic
   L_z eigenvalue m·ħ → atomic
   Spin S = NT/2 = 1/NT atomic
-  J = L + S (총 각운동량)
+  J = L + S (total angular momentum)
   Clebsch-Gordan coefficients atomic
 -/
 
@@ -28,7 +28,7 @@ theorem L_l1 : 1 * 2 = NT := by decide
 theorem L_l2 : 2 * 3 = NS * NT := by decide
 theorem L_l3 : 3 * 4 = 2 * NS * NT := by decide
 
-/-- m_l 값 -ℓ ≤ m ≤ ℓ → 2ℓ+1 값. -/
+/-- m_l values -ℓ ≤ m ≤ ℓ → 2ℓ+1 values. -/
 theorem m_count_l1 : 2 * 1 + 1 = NS := by decide
 theorem m_count_l2 : 2 * 2 + 1 = d := by decide
 

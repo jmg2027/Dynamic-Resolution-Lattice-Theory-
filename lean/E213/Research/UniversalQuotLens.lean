@@ -2,35 +2,35 @@ import E213.Hypervisor.Lens
 import E213.Research.KernelCongruence
 
 /-!
-# Research.UniversalQuotLens: Q37.3 의 일반 해결
+# Research.UniversalQuotLens: general solution of Q37.3
 
-**임의의 slash-congruence E** (equivalence + slash 보존) 에
-대해 concrete Lens L_E with kernel = E 구성.
+For **any slash-congruence E** (equivalence + slash preservation),
+constructs a concrete Lens L_E with kernel = E.
 
-## 구성
+## Construction
 
 `L_E : Lens (Raw → Prop)`:
-- `view r := fun s => E r s` (특성 함수: r 의 E-class).
+- `view r := fun s => E r s` (characteristic function: E-class of r).
 - `combine f g := fun r' => ∃ X Y h, (∀ s, E X s ↔ f s) ∧
                   (∀ s, E Y s ↔ g s) ∧ E (Raw.slash X Y h) r'`.
 
-## 핵심 정리
+## Core theorems
 
 `L_E.view r = L_E.view r' ↔ E r r'` (kernel = E exactly).
 
-→: funext + propext + E equivalence 의 표준 결과.
+→: standard consequence of funext + propext + E equivalence.
 ←: E r r' → ∀ s, E r s ↔ E r' s → funext → view r = view r'.
 
-`combine` 의 fold-structure: slash_cong 으로부터.
+fold-structure of `combine`: from slash_cong.
 
-## 의의
+## Significance
 
-Q37.3 ("임의 slash-congruence 의 concrete Lens 구성") 의
-**일반 해결**.  Mod family 한정 (`ModJoinEquivGCD`) 의 진정한
-일반화.
+**General solution** of Q37.3 ("constructing a concrete Lens for any
+slash-congruence").  True generalization of the Mod family restriction
+(`ModJoinEquivGCD`).
 
-Classical 사용 안 함; funext + propext (Lean 4 core baseline)
-만 사용.
+No classical reasoning used; only funext + propext (Lean 4 core
+baseline).
 -/
 
 namespace E213.Research.UniversalQuotLens
@@ -44,7 +44,7 @@ variable (htrans : ∀ r r' r'', E r r' → E r' r'' → E r r'')
 variable (hslash : ∀ x x' y y' (h : x ≠ y) (h' : x' ≠ y'),
                    E x x' → E y y' → E (Raw.slash x y h) (Raw.slash x' y' h'))
 
-/-- 임의 slash-cong E 의 universal Lens. -/
+/-- Universal Lens for an arbitrary slash-congruence E. -/
 def universalLens : Lens (Raw → Prop) where
   base_a := fun s => E Raw.a s
   base_b := fun s => E Raw.b s
@@ -53,7 +53,7 @@ def universalLens : Lens (Raw → Prop) where
                            (∀ s, E Y s ↔ g s) ∧
                            E (Raw.slash X Y h) r'
 
-/-- Combine 의 symmetry (renaming + slash_comm). -/
+/-- Symmetry of combine (renaming + slash_comm). -/
 theorem universalLens_combine_sym (f g : Raw → Prop) :
     (universalLens E).combine f g = (universalLens E).combine g f := by
   funext r'
@@ -66,7 +66,7 @@ theorem universalLens_combine_sym (f g : Raw → Prop) :
     refine ⟨Y, X, Ne.symm h, hY, hX, ?_⟩
     rwa [Raw.slash_comm Y X (Ne.symm h)]
 
-/-- **핵심 정리 1**: view r = (E r ·).  Raw.rec induction. -/
+/-- **Core theorem 1**: view r = (E r ·).  Raw.rec induction. -/
 theorem universalLens_view_eq
     (hrefl : ∀ r, E r r)
     (htrans : ∀ r r' r'', E r r' → E r' r'' → E r r'')
@@ -102,9 +102,9 @@ theorem universalLens_view_eq
         · intro s; exact Iff.rfl
         · intro s; exact Iff.rfl
 
-/-- **Q37.3 일반 해결**: kernel of universalLens E = E.
-    임의 slash-cong E (equivalence + slash-preserving) 가
-    concrete Lens 의 kernel. -/
+/-- **General solution of Q37.3**: kernel of universalLens E = E.
+    Any slash-congruence E (equivalence + slash-preserving) is the
+    kernel of a concrete Lens. -/
 theorem universalLens_kernel_eq_E
     (hrefl : ∀ r, E r r)
     (hsymm : ∀ r r', E r r' → E r' r)
@@ -136,9 +136,9 @@ namespace E213.Research.UniversalQuotLens
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Canonical form 정리**: 임의 Lens M 에 대해, universalLens
-    M.equiv 의 kernel = M 의 kernel.  즉 universalLens 가 모든
-    Lens 의 canonical form. -/
+/-- **Canonical form theorem**: for any Lens M, the kernel of
+    universalLens M.equiv equals the kernel of M.  That is,
+    universalLens is the canonical form of every Lens. -/
 theorem universalLens_recovers (α : Type) (M : Lens α)
     (hMsym : ∀ u v, M.combine u v = M.combine v u)
     (r r' : Raw) :
@@ -152,8 +152,8 @@ theorem universalLens_recovers (α : Type) (M : Lens α)
     exact E213.Research.KernelCongruence.Lens.equiv_slash_congruence
       M hMsym x x' y y' hxy hx'y' hxx' hyy'
 
-/-- **Idempotence**: universalLens 를 두 번 적용 해도 같은 kernel.
-    universalLens 가 normalization 임의 직접 표현. -/
+/-- **Idempotence**: applying universalLens twice yields the same kernel.
+    Direct expression of universalLens as a normalization map. -/
 theorem universalLens_idempotent (α : Type) (M : Lens α)
     (r r' : Raw) :
     (universalLens (universalLens M.equiv).equiv).view r

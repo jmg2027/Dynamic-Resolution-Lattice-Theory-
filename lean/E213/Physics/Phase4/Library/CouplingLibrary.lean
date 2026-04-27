@@ -1,9 +1,9 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Coupling Library — 결합 상수 atomic catalog
+# Coupling Library — coupling constants atomic catalog
 
-각 결합 상수 atomic primitives 표현 (재사용).
+Each coupling constant expressed in atomic primitives (reusable).
 
 ## Catalog
 
@@ -15,12 +15,12 @@ import E213.Physics.SimplexCounts
   G_F       = atomic chain via v_H
   G_N       = 1/d × atomic (HiggsVacuum)
 
-## Atomic 정수 catalog (재사용)
+## Atomic integer catalog (reusable)
 
   1/α_3 = 8 = NS²-1 = NT³ atomic
   1/α_2 = 30 = NS·NT·d atomic
   1/α_em ≈ 137 (5-term simplicial sum, ppm)
-  1/α_GUT 분모 = 25 = d²
+  1/α_GUT denominator = 25 = d²
 -/
 
 namespace E213.Physics.Phase4.Library.CouplingLibrary

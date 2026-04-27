@@ -3,15 +3,15 @@ import E213.Physics.HiggsQuartic
 import E213.Physics.HiggsVacuum
 
 /-!
-# Higgs sector master — v_H, m_H, λ_H 통합 (0 axioms)
+# Higgs sector master — v_H, m_H, λ_H unification (0 axioms)
 
-DRLT 도출 chain:
+DRLT derivation chain:
 
   v_H = (d+1)·M_Pl / d^(d²) = 6·M_Pl / 5^25 ≈ 245.6 GeV
   m_H = v_H · (1+α_GUT)·(1-α_GUT/d)/c ≈ 125.28 GeV
   λ_H = [m_H/(√2·v_H)]² ≈ 0.131
 
-## Atomic structure 통합
+## Unified atomic structure
 
   v_H scale:        d^(d²) = 5^25 lattice cardinality
   v_H prefactor:    (d+1) = 6 = NS·NT bipartite edges
@@ -19,15 +19,15 @@ DRLT 도출 chain:
   m_H/v_H corr:     (1 + α_GUT) face BC + (1 - α_GUT/d) embedding
   λ_H leading:      1/(2c²) = 1/8 = 1/α_3 ★
 
-  → Higgs 세 양 모두 atomic primitives + α_GUT corrections.
+  → All three Higgs quantities are atomic primitives + α_GUT corrections.
 
-## ★ λ_H = 1/α_3 의 의미 ★
+## ★ Meaning of λ_H = 1/α_3 ★
 
-  Higgs self-coupling이 strong adjoint와 *같은 정수* 8.
-  단순 우연 아님 — atomicity가 둘을 묶음.
-  
+  Higgs self-coupling shares the *same integer* 8 as the strong adjoint.
+  Not a mere coincidence — atomicity binds them together.
+
   Physical: Higgs self-coupling strength = strong color
-  adjoint dimension reciprocal.  격자 cohomology level에서.
+  adjoint dimension reciprocal.  At the lattice cohomology level.
 -/
 
 namespace E213.Physics.HiggsMaster
@@ -67,8 +67,8 @@ theorem higgs_hierarchy_summary :
 
 /-- ★ Three Higgs quantities → single atomicity ★
 
-  v_H, m_H, λ_H 셋 다 (NS, NT, d, c) = (3, 2, 5, 2)에서
-  + α_GUT (자체 atomicity-derived). 자유 매개변수 0. -/
+  All three of v_H, m_H, λ_H come from (NS, NT, d, c) = (3, 2, 5, 2)
+  + α_GUT (itself atomicity-derived). Zero free parameters. -/
 theorem higgs_zero_param :
     -- v_H structural form factors
     (hier_num = NS * NT)        -- d+1 = NS·NT

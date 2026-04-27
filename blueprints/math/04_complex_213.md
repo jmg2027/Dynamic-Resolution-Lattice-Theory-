@@ -1,23 +1,23 @@
 # Complex Analysis 213 — Blueprint
 
-**우선순위**: ★★ (CayleyDickson 트랙 이미 깔림)
+**Priority**: ★★ (CayleyDickson track already in place)
 
 ---
 
-## 1. 왜 이 분야인가
+## 1. Why This Field
 
 ZFC complex analysis:
 - ℂ = ℝ + iℝ, |i² = -1|
 - holomorphic = complex differentiable
-- Cauchy-Riemann eq, residue, contour integral
+- Cauchy-Riemann equations, residue, contour integral
 
-213 의 자연 등장:
-- **CayleyDickson 트랙** 이미 형식화: ZI, ZSqrt2, ZOmega,
-  Cayley/Sedenion/Pathion/Trigintaduonion (29 파일)
-- **분석학 213** 1변수 미분 framework
-- 둘 *결합* → 213-native 복소해석
+Natural emergence in 213:
+- **CayleyDickson track** already formalized: ZI, ZSqrt2, ZOmega,
+  Cayley/Sedenion/Pathion/Trigintaduonion (29 files)
+- **Analysis 213** single-variable differentiation framework
+- Combining both → 213-native complex analysis
 
-## 2. 213-native 등장
+## 2. 213-native Emergence
 
 ### 2.1 ℂ as Cayley-Dickson on Cut
 
@@ -27,101 +27,101 @@ def cAdd (z w : ComplexCut) := (z.1 + w.1, z.2 + w.2)
 def cMul (z w : ComplexCut) := (z.1*w.1 - z.2*w.2, z.1*w.2 + z.2*w.1)
 ```
 
-`ZI.lean` (이미 보유) 위에 Cut 으로 lift.
+Lift to Cut over `ZI.lean` (already in hand).
 
 ### 2.2 Holomorphicity — Cauchy-Riemann
 
-f : ℂ → ℂ 가 holomorphic ↔ ∂u/∂x = ∂v/∂y, ∂u/∂y = -∂v/∂x.
+f : ℂ → ℂ holomorphic ↔ ∂u/∂x = ∂v/∂y, ∂u/∂y = -∂v/∂x.
 
 213-native:
 - IsDifferentiable (real part), IsDifferentiable (imag part)
 - Partial derivatives via multivariable 213 (blueprint 02)
-- Cauchy-Riemann = partial 등식 propEq
+- Cauchy-Riemann = partial equality propEq
 
 ### 2.3 Power series + analytic functions
 
-f(z) = Σ aₙ zⁿ.  분석학 213 의 series + cutPow 결합.
+f(z) = Σ aₙ zⁿ.  Combine Analysis 213 series + cutPow.
 
-복소 다항식: `cMul` chain.  exp(z), sin(z), cos(z), log(z) =
-Real213 series 의 ℂ-lift.
+Complex polynomials: `cMul` chain.  exp(z), sin(z), cos(z), log(z) =
+ℂ-lift of Real213 series.
 
 ### 2.4 Residue + contour integral
 
 Contour = closed dyadic path on ℂ.  Integral = sum of fluxAlong
-각 segment.  Residue = limit of (z-a)·f(z) as z → a.
+each segment.  Residue = limit of (z-a)·f(z) as z → a.
 
-## 3. 빌딩 블록
+## 3. Building Blocks
 
-| 도구 | 활용 |
+| Tool | Use |
 |---|---|
-| `Real213.CayleyDickson.ZI` | Z[i] = ℂ 정수 |
+| `Real213.CayleyDickson.ZI` | Z[i] = Gaussian integers |
 | `Real213.IsDifferentiable` | real/imag part |
 | `Real213.cutPow x n` | z^n via cMul chain |
-| `Real213.expTermsAtZero` | exp(z) at 0 (sin, cos 자동) |
-| `MultiCut 2` | (real, imag) tuple = ℂ 점 |
+| `Real213.expTermsAtZero` | exp(z) at 0 (sin, cos automatic) |
+| `MultiCut 2` | (real, imag) tuple = ℂ point |
 | `FluxCut` | contour 1-cochain |
 
-## 4. Phase 계획
+## 4. Phase Plan
 
-### Phase CXA — ComplexCut 기초 (3-5 commits)
+### Phase CXA — ComplexCut foundations (3-5 commits)
 
-1. `ComplexCut := MultiCut 2` (Real213 의 다변수 2)
-2. `cAdd`, `cMul`, `cConj` 정의 + 결합/교환 propEq
+1. `ComplexCut := MultiCut 2` (multivariable 2 of Real213)
+2. Define `cAdd`, `cMul`, `cConj` + associative/commutative propEq
 3. `i := (0, 1)`, `i² = -1` propEq
 4. `|z|² = z·conj z` (real part)
 
 ### Phase CXB — Holomorphic
 
-1. `IsHolomorphicAt f z` via Cauchy-Riemann (partial 등식)
+1. `IsHolomorphicAt f z` via Cauchy-Riemann (partial equality)
 2. `id` (z ↦ z) holomorphic
-3. `cutPow z n` holomorphic (다항식 = entire)
+3. `cutPow z n` holomorphic (polynomial = entire)
 4. Sum / product / composition holomorphic
 
 ### Phase CXC — Series + transcendentals
 
-1. `cExp` via series (분석학 213 exp 패턴 ℂ-lift)
+1. `cExp` via series (ℂ-lift of Analysis 213 exp pattern)
 2. `cSin`, `cCos` from cExp
-3. Euler 정리: e^(iπ) + 1 = 0 (위상수학 인사이트, 형식화 어려울 수)
-4. cExp(0) = 1 (확실 propEq)
+3. Euler's identity: e^(iπ) + 1 = 0 (topological insight, may be hard to formalize)
+4. cExp(0) = 1 (definite propEq)
 
 ### Phase CXD — Contour integral
 
-1. Closed dyadic contour 정의
+1. Define closed dyadic contour
 2. `contourIntegral f path`
-3. Cauchy 적분 정리 (analytic f → ∮ f = 0)
+3. Cauchy's integral theorem (analytic f → ∮ f = 0)
 4. Residue theorem skeleton
 
 ### Phase CXE — Capstone
 
-학부 복소해석 1년차.
+First year undergraduate complex analysis.
 
-## 5. 다른 트랙 연결
+## 5. Connections to Other Tracks
 
-- **CayleyDickson** (이미 보유): ZI, ZSqrt2 등
-- **Critical Line / RH**: zeta function = 복소 해석
+- **CayleyDickson** (already in hand): ZI, ZSqrt2, etc.
+- **Critical Line / RH**: zeta function = complex analysis
 - **Yang-Mills**: complex action e^(iS)
 - **Quantum Gravity**: complex amplitudes
-- **r5-critique**: ℝ-algebra 가정 비판 (complex 의 *진짜* 정체)
+- **r5-critique**: critique of ℝ-algebra assumption (true nature of complex)
 
-## 6. 미해결 / Open
+## 6. Open Problems
 
 - **Riemann mapping theorem** — 213-native?
 - **Zeta function continuation** — analytic continuation
-- **Quaternion / Octonion** 변환 (Cayley-Dickson tower 활용)
+- **Quaternion / Octonion** transformation (using Cayley-Dickson tower)
 
-## 7. 핵심 인사이트 (★)
+## 7. Key Insights (★)
 
-★ **ℂ = Cut × Cut** — 분석학 213 의 직접 lift.
+★ **ℂ = Cut × Cut** — direct lift of Analysis 213.
 
-★ **Holomorphic = Cauchy-Riemann partial 등식** — multivariable
-213 framework 가 직접 형식화.
+★ **Holomorphic = Cauchy-Riemann partial equality** — directly
+formalized by the multivariable 213 framework.
 
-★ **CayleyDickson 트랙 활용** — 29 파일 이미 보유, ℂ → ℍ → 𝕆
-까지 자연 일반화.
+★ **CayleyDickson track in use** — 29 files already in hand,
+natural generalization from ℂ → ℍ → 𝕆.
 
-## 8. 첫 마라톤 명령
+## 8. First Marathon Command
 
 ```
-"Phase CXA 시작.  ComplexCut + cAdd/cMul/cConj + i² = -1 propEq"
+"Start Phase CXA.  ComplexCut + cAdd/cMul/cConj + i² = -1 propEq"
 ```
 

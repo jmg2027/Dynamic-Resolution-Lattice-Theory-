@@ -6,15 +6,15 @@ import E213.Physics.PhotonKernel
 
 Clay Millennium Problem: prove SU(N) Yang-Mills has mass gap.
 
-DRLT 답 (yang-mills/ + ch08):
+DRLT answer (yang-mills/ + ch08):
 
   Mass gap = lattice rank exhaustion at finite N_eff.
-  
+
   α_3 SU(NS) Yang-Mills:
     N_eff = 1 (rank exhausted in single hop)
     → propagator confined within single hinge
     → mass gap = "lowest excitation above confined vacuum"
-    
+
   Continuum: gap proof requires nonperturbative methods.
   DRLT: gap = N_eff < ∞.  Combinatorial fact.
 
@@ -22,8 +22,8 @@ DRLT 답 (yang-mills/ + ch08):
 
   Gap scale ~ Λ_QCD ≈ 308 MeV (HAD_005)
   Λ_QCD related to lattice depth + α_GUT.
-  
-  Mass gap存在 = combinatorial property of K_{NS,NT}^{(c)}
+
+  Existence of mass gap = combinatorial property of K_{NS,NT}^{(c)}
   cohomology — no continuum proof needed.
 
 ## Open

@@ -3,7 +3,7 @@ import E213.Physics.SimplexCounts
 /-!
 # Geometry Library — 5-simplex Δ⁴ atomic catalog
 
-## Δ⁴ 면 분포
+## Δ⁴ face distribution
 
   vertex (0-face)  C(d,1) = 5
   edge   (1-face)  C(d,2) = 10
@@ -11,7 +11,7 @@ import E213.Physics.SimplexCounts
   tetrahedron      C(d,4) = 5    ★ Hodge dual to vertex
   4-cell           C(d,5) = 1
 
-## Atomic 정수
+## Atomic integers
 
   C(d,2) = C(d,3) = 10 (Hodge symmetry)
   C(d,1) = C(d,4) = d

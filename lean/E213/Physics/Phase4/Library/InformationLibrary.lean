@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Information Library — 정보이론·양자정보 atomic catalog
+# Information Library — information theory and quantum information atomic catalog
 
 ## Catalog
 

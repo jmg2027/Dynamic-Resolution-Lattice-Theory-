@@ -13,9 +13,9 @@ Partial products:
 - W_n = ∏_{k=1..n} (2k)² / ((2k-1)(2k+1))
 - W_0 = 1, W_1 = 4/3, W_2 = 64/45, ... → π/2 ≈ 1.5708.
 
-`wallisNum`, `wallisDen` 정수 recursion.
+`wallisNum`, `wallisDen` integer recursion.
 
-## 불변량 (모두 closed)
+## Invariants (all closed)
 
 - **Monotonic**: `wallisNum n * wallisDen (n+1) < wallisNum (n+1) * wallisDen n`.
   W_n strictly increasing.
@@ -25,23 +25,24 @@ Partial products:
   (W_n ≤ 2 - 1/(2n+1) < 2).  Polynomial identity
   `(4k+1)*4(k+1)² + 1 = (4k+5)*(2k+1)²` (degree-3 in k) closed
   via **Flat-Monomial Strategy**: `K := k*k`, `M := k*(k*k)`
-  two-generalize + `Nat.mul_mul_mul_comm` + omega (Mingu 제안,
-  note 72).  Lean 4 core only — `ring` 부재.
+  two-generalize + `Nat.mul_mul_mul_comm` + omega (proposed by Mingu,
+  note 72).  Lean 4 core only — no `ring`.
 
-따라서 W_n ∈ (1, 2) Dedekind cut 양쪽 fully demonstrated:
+Therefore, both sides of the W_n ∈ (1, 2) Dedekind cut are fully
+demonstrated:
 - m/k ≤ 1 → orderProj false (n ≥ 1).  [closed]
 - m/k ≥ 2 → orderProj true (∀ n).  [closed]
 
-## 의의
+## Significance
 
-EulerSeq (Σ 1/k!) 와 함께 transcendental 영역 의 213 Cauchy
-demonstration.  e: factorial 분모.  π: even²/odd² product.
+Together with EulerSeq (Σ 1/k!), a 213 Cauchy demonstration in the
+transcendental domain.  e: factorial denominator.  π: even²/odd² product.
 
 `#print axioms`: [propext] only.
 
-## 변경 이력
+## Changelog
 
-- 2026-04-25: WallisSeq.lean 작성.  π/2 ∈ (1, 2) cuts.
+- 2026-04-25: WallisSeq.lean written.  π/2 ∈ (1, 2) cuts.
 -/
 
 namespace E213.Research.WallisSeq
@@ -152,7 +153,7 @@ namespace E213.Research.WallisSeq
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
 
-/-! ### Monotonicity (Cauchy 의 부분 demonstration) -/
+/-! ### Monotonicity (partial Cauchy demonstration) -/
 
 /-- **Monotonicity**: W_n < W_{n+1}.
     wallisNum n * wallisDen (n+1) < wallisNum (n+1) * wallisDen n.
@@ -264,9 +265,9 @@ open E213.Firmware E213.Hypervisor
 
 /-- **Polynomial identity**: `(4k+1) · 4(k+1)² + 1 = (4k+5) · (2k+1)²`.
 
-    Lean 4 core 에서 ring 없이 close — flat-monomial normalization
+    Closed without ring in Lean 4 core — flat-monomial normalization
     + two-generalize (`K := k*k`, `M := k*(k*k)`) + omega.
-    Note 72 의 strategy 의 minimal instance. -/
+    Minimal instance of the strategy from note 72. -/
 theorem wallis_poly_identity (k : Nat) :
     (4 * k + 1) * (4 * (k + 1) * (k + 1)) + 1
       = (4 * k + 5) * ((2 * k + 1) * (2 * k + 1)) := by

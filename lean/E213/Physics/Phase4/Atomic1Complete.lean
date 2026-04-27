@@ -1,9 +1,9 @@
 import E213.Physics.Phase4.AtomicExpr
 
 /-!
-# Phase 4 Atomic1Complete — Atomic-1 의 *완전* 열거
+# Phase 4 Atomic1Complete — *Complete* enumeration of Atomic-1
 
-complexity ≤ 1 expr 의 *모든* 가능 결과 (pow exponent ≤ 5):
+All possible results of complexity ≤ 1 expr (pow exponent ≤ 5):
 
 ## Constants (complexity 0)
   NS, NT, d = 3, 2, 5
@@ -18,15 +18,15 @@ complexity ≤ 1 expr 의 *모든* 가능 결과 (pow exponent ≤ 5):
 
   {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 16, 25, 27, 32, 81, 125, ...}
 
-물리 정수 6, 8, 10, 16, 25 모두 ∈ Atomic-1.
-Random 정수 11, 13, 17, 19, 23 다수 ∉ Atomic-1.
+Physical integers 6, 8, 10, 16, 25 all ∈ Atomic-1.
+Random integers 11, 13, 17, 19, 23 mostly ∉ Atomic-1.
 -/
 
 namespace E213.Physics.Phase4.Atomic1Complete
 
 open E213.Physics.Phase4.AtomicExpr
 
-/-- 완전 열거 (pow exp ≤ 5).  실제로는 더 많지만 핵심 sample. -/
+/-- Complete enumeration (pow exp ≤ 5).  There are more in reality, but this is the key sample. -/
 def atomic_1_complete : List Nat :=
   -- constants
   [3, 2, 5,
@@ -52,7 +52,7 @@ theorem eight_in : (8 : Nat) ∈ atomic_1_complete := by decide
 /-- 25 ∈ atomic_1_complete. -/
 theorem twentyfive_in : (25 : Nat) ∈ atomic_1_complete := by decide
 
-/-- ★ Random 정수 가 Atomic-1 *바깥* ★ -/
+/-- ★ Random integers are *outside* Atomic-1 ★ -/
 theorem eleven_not_in : ¬ ((11 : Nat) ∈ atomic_1_complete) := by decide
 theorem thirteen_not_in : ¬ ((13 : Nat) ∈ atomic_1_complete) := by decide
 theorem seventeen_not_in : ¬ ((17 : Nat) ∈ atomic_1_complete) := by decide
@@ -60,9 +60,9 @@ theorem nineteen_not_in : ¬ ((19 : Nat) ∈ atomic_1_complete) := by decide
 theorem twentythree_not_in : ¬ ((23 : Nat) ∈ atomic_1_complete) := by decide
 
 /-- ★ Sparsity comparison ★
-    [1, 30] 의 Atomic-1 ∩ = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 16, 25, 27}
-    14 elements out of 30 → 47% (높지 않음).
-    [1, 100] 비율 ↓: ~20%.
+    Atomic-1 ∩ [1, 30] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 16, 25, 27}
+    14 elements out of 30 → 47% (not high).
+    [1, 100] ratio ↓: ~20%.
     [1, 1000] ↓: ~5%. -/
 theorem sparsity_30 :
     -- count distinct atomic-1 elements in [1, 30]

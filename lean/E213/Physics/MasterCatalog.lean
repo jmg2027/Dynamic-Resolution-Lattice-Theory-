@@ -7,10 +7,10 @@ import E213.Physics.HiggsQuartic
 import E213.Physics.NeutronProton
 
 /-!
-# Master Catalog — 모든 정밀 양에서 재등장하는 atomic identities (0 axioms)
+# Master Catalog — atomic identities recurring across all precision quantities (0 axioms)
 
-37-file Physics track 종합.  각 atomic primitive가 어느 정밀
-양에 등장하는지 catalogue.
+Summary of 37-file Physics track.  Catalogue of which atomic primitive appears
+in which precision quantity.
 
 ## Atomic identities recurrence map
 
@@ -75,9 +75,9 @@ open E213.Physics.AlphaEMPrefactors
 
 /-- ★★★ MASTER CATALOG ★★★
 
-  37-file Physics track 누적 발견.  단일 (NS, NT, d, c) =
-  (3, 2, 5, 2) atomicity가 *모든* 식에 등장하는 atom들을 *동시*
-  강제. -/
+  Accumulated findings of the 37-file Physics track.  A single (NS, NT, d, c) =
+  (3, 2, 5, 2) atomicity *simultaneously* forces the atoms that appear in
+  *every* expression. -/
 theorem master_atomic_catalog :
     -- (NS² - 1) = 8 — α_3, λ_H
     (NS * NS - 1 = 8)
@@ -103,14 +103,15 @@ theorem master_atomic_catalog :
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
 
 /- ★ Operational meaning ★
-  Above 14-fold conjunction은 *모든* 정밀 양에 재등장하는 atomic
-  identity의 종합.  단일 atomicity가 다음 정밀 양 모두 강제:
+  The above 14-fold conjunction is a summary of atomic identities that recur in
+  *every* precision quantity.  A single atomicity forces all of the following
+  precision quantities simultaneously:
     α_em, m_μ/m_e, m_τ/m_μ, m_H, m_p, sin²θ_W, Ω_Λ,
     bond angles, magic numbers, λ_H, hadron masses,
     PMNS angles, nuclear binding, n-p mass diff,
     Cabibbo, generations.
 
-  이게 DRLT의 "0 free parameter" 의 진짜 의미: 
-  단일 atomic configuration에서 모든 결과가 *동시* 강제. -/
+  This is the true meaning of DRLT's "0 free parameters":
+  all results are *simultaneously* forced from a single atomic configuration. -/
 
 end E213.Physics.MasterCatalog

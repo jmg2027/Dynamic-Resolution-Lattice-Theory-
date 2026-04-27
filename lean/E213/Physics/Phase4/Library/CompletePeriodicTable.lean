@@ -5,11 +5,11 @@ import E213.Physics.Phase4.Library.Period7IE
 import E213.Physics.SimplexCounts
 
 /-!
-# Complete Periodic Table — DRLT 213 버전
+# Complete Periodic Table — DRLT 213 version
 
-★ User directive ★ "주기율표 213 버전 완전 작성"
+★ User directive ★ "Complete the 213 version of the periodic table"
 
-전체 118 원소 + Period closures atomic + super-heavy 예측.
+All 118 elements + Period closures atomic + super-heavy predictions.
 
 ## Period structure (atomic)
 
@@ -26,26 +26,26 @@ import E213.Physics.SimplexCounts
   P8 (Z=168) [unnamed] = HO magic 7 = 7·8·9/3
   P9 (Z=218) [unnamed] = ?
 
-## 전체 통합
+## Full integration
 
-각 Z 의 atomic 표현 (clean cases):
+Atomic representation of each Z (clean cases):
   Period 1+2 → PeriodicCatalog (Z=1-36)
   Period 5   → Period5IE (Z=37-54)
   Period 6   → Period6IE (Z=55-86)
   Period 7   → Period7IE (Z=87-118)
 
-## 보증
+## Guarantee
 
-표준 chemistry/physics 차용 부재.
-Atomic primitives (NS=3, NT=2, d=5, c=2) 만.
-모두 0 sorry, decide-checked.
+No standard chemistry/physics borrowing.
+Atomic primitives (NS=3, NT=2, d=5, c=2) only.
+All 0 sorry, decide-checked.
 -/
 
 namespace E213.Physics.Phase4.Library.CompletePeriodicTable
 
 open E213.Physics.Simplex
 
-/-- ★ 모든 noble gas closure atomic ★ -/
+/-- ★ All noble gas closures atomic ★ -/
 theorem all_noble_gas_atomic :
     -- Period 1: He
     (NT = 2)

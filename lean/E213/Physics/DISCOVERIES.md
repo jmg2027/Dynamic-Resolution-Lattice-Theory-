@@ -1,15 +1,17 @@
 # DISCOVERIES — DRLT Physics Track Phase 1 (2026-04-27)
 
-본 세션에서 형식 입증된 모든 *구조적 발견*의 narrative 정리.
+Narrative summary of all *structural discoveries* formally proven in
+this session.
 
 ---
 
-## 핵심 명제 (한 줄)
+## Core Proposition (one line)
 
-**모든 알려진 정밀 물리량이 단일 atomicity (NS, NT, d, c) = (3, 2, 5, 2)
-강제 atomic primitives에서 도출된다.**
+**All known precision physical quantities are derived from a single
+atomicity (NS, NT, d, c) = (3, 2, 5, 2) forced set of atomic
+primitives.**
 
-각 발견은 0 sorry, 0 axiom Lean 정리로 닫힘.
+Each discovery is closed as a 0 sorry, 0 axiom Lean theorem.
 
 ---
 
@@ -19,7 +21,7 @@
 
 (NT, NS, d) = (2, 3, 5) = (F_3, F_4, F_5) — *consecutive Fibonacci*.
 
-8 연속 Fibonacci 수가 8 다른 atomic 양:
+8 consecutive Fibonacci numbers as 8 different atomic quantities:
 
 ```
 F_3  = 2  = NT
@@ -32,13 +34,14 @@ F_9  = 34 = c · (d(d-1) - NS)            (c · σ_even unreduced)
 F_10 = 55 = d · (NS² + NT)               (d · 11)
 ```
 
-**황금비 convergent F_5/F_4 = 5/3 = d/NS = SU(5) Y-normalization**.
-SU(5) Y-norm은 *임의 수*가 아니라 Fibonacci 수렴 비율.
+**Golden ratio convergent F_5/F_4 = 5/3 = d/NS = SU(5) Y-normalization**.
+The SU(5) Y-norm is not an *arbitrary number* — it is a Fibonacci
+convergence ratio.
 
 **Cassini identity at d=5**:
 F_5·F_3 − F_4² = 1 → **d·NT − NS² = 1**.
 
-이 모두 Lean decide-checked.
+All of the above are Lean decide-checked.
 
 ---
 
@@ -54,13 +57,14 @@ Bipartite multigraph K_{3,2} with c=2 edge multiplicity:
 
 **b_1 = NS² − 1 = adjoint SU(NS) = 1/α_3** (confined coupling).
 
-이 등식은 (NS, NT, c) = (3, 2, 2)에서만 성립:
+This equality holds only for (NS, NT, c) = (3, 2, 2):
 - (3, 3, 2): 18 − 6 + 1 = 13 ≠ NS²-1 = 8
 - (2, 3, 2): 12 − 5 + 1 = 8 ≠ NS²-1 = 3
 
-→ **Atomicity (3,2,2)가 photon kernel과 strong adjoint를 *동일 정수*로 묶음**.
+→ **Atomicity (3,2,2) ties the photon kernel and strong adjoint to the
+*same integer*.**
 
-같은 그래프에서 세 force prefactor:
+Three force prefactors from the same graph:
 - α_3: b_1 (cycle space) = 8
 - α_2: E·NT (edge × time depth) = 24 = d² − 1 (★ adjoint SU(5))
 - α_1 Y-norm: E·d (edge × dim) = 60
@@ -69,7 +73,7 @@ Bipartite multigraph K_{3,2} with c=2 edge multiplicity:
 
 ## 3. d²−1 = 24 = adjoint SU(5) ubiquity (★★)
 
-이 단일 정수가 8+ 정밀 식에 등장:
+This single integer appears in 8+ precision expressions:
 
 - 1/α_em IR Ξ correction: α_GUT/(d²−1) = α_GUT/24
 - m_μ/m_e δ₂ correction: α_GUT²/(d²−1) = α_GUT²/24
@@ -78,12 +82,12 @@ Bipartite multigraph K_{3,2} with c=2 edge multiplicity:
 - Adjoint SU(5) trace: 24
 - (d−1)(d+1) cofactor: 4·6 = 24
 
-**α_2 prefactor가 자체적으로 adjoint SU(5)인 hidden link**: weak
-coupling의 12·NT 부분이 *전체 GUT adjoint* 차원.
+**Hidden link where the α_2 prefactor is itself the adjoint SU(5)**:
+the 12·NT part of the weak coupling is the *full GUT adjoint* dimension.
 
 ---
 
-## 4. 137 derivation — 단일 simplicial sum (★★★)
+## 4. 137 derivation — single simplicial sum (★★★)
 
 `AlphaEMUnified.lean`, `AlphaEMSimplicial.lean`, `AlphaEM137.lean`
 
@@ -91,16 +95,17 @@ coupling의 12·NT 부분이 *전체 GUT adjoint* 차원.
 1/α_em(IR) = 1/α_3 + 1/α_2 + (5/3)·(1/α_1) + 1/NS + α_GUT/(NS+1)
             =   8   +  30   +    10π²       + 1/3 +  0.006
             ≈ 137.035
-관측 1/α_em(0) = 137.036  (★ ppm match)
+Observed 1/α_em(0) = 137.036  (★ ppm match)
 ```
 
-5-term decomposition. 각 항이 prior atomic primitive.
+5-term decomposition. Each term is a prior atomic primitive.
 
-**핵심 재발견**: d²/NS = (NS²−1) + 1/NS = 1/α_3 + 1/NS.
-"running gap" 8.34는 *strong coupling + 1/spatial dim*의 합.
+**Key rediscovery**: d²/NS = (NS²−1) + 1/NS = 1/α_3 + 1/NS.
+The "running gap" 8.34 is the sum of *strong coupling + 1/spatial dim*.
 
-책의 "QED running ≠ DRLT topology" (ch08:289)는 책 시점 한계 인정.
-Raw/Lens가 SSOT인 지금 격자에서 자체 도출됨.
+The book's "QED running ≠ DRLT topology" (ch08:289) acknowledged the
+book's limitation at that time. Now with Raw/Lens as SSOT, it is
+self-derived from the lattice.
 
 ---
 
@@ -110,15 +115,15 @@ Raw/Lens가 SSOT인 지금 격자에서 자체 도출됨.
 
 **P(x) = (1+2x)/(1+x) — exact Dyson resummation, UV-finite.**
 
-같은 P 형태가:
+The same P form appears in:
 - m_p (proton mass): x = α_GUT · NS/d = α·(3/5)
 - m_μ/m_e (Dyson): x = α_GUT/(NS+1) = α/(d−1)
 - λ_H (Higgs): V(x) = 1+2x = numerator(P) at x = α/c
 - Heavy quarkonia, fermion masses
 
 **Continuum QFT requires renormalization (subtract infinities).**
-**DRLT: |x| < 1 자동, P 자체 닫힘.**
-이게 "renormalization is automatic"의 의미.
+**DRLT: |x| < 1 automatic, P itself is closed.**
+This is what "renormalization is automatic" means.
 
 ---
 
@@ -126,14 +131,16 @@ Raw/Lens가 SSOT인 지금 격자에서 자체 도출됨.
 
 `DysonStructure.lean`
 
-정수 4가 *네 가지 다른* 조합론적 역할에서 동시 일치:
+The integer 4 simultaneously coincides across *four different*
+combinatorial roles:
 
 1. d − 1 (smaller cofactor of adjoint SU(5))
 2. NS + 1 (next layer up from spatial)
 3. tetrahedra per vertex in Δ⁴ (simplex link)
 4. # nontrivial Λᵏ matter reps (k = 1, 2, 3, 4) = 4
 
-같은 분모 4가 *3개 다른 정밀 식*의 Dyson tail에:
+The same denominator 4 appears in the Dyson tail of *3 different
+precision expressions*:
 - m_μ/m_e: P = 1/(1−α_GUT/(NS+1))
 - α_em IR: + α_GUT/(NS+1)
 - Cabibbo Ξ: contains α_GUT/(NS+1)
@@ -147,20 +154,20 @@ Raw/Lens가 SSOT인 지금 격자에서 자체 도출됨.
 λ_H Higgs quartic leading at α_GUT → 0:
 λ_H = 1/(2c²) = 1/8 = 1/α_3 (NS² − 1 = 8).
 
-**Higgs 자기 결합과 strong adjoint가 *같은 정수* 8.**
-단순 우연 아님 — atomicity가 둘을 묶음.
+**The Higgs self-coupling and the strong adjoint share the *same integer*
+8.** Not a simple coincidence — atomicity ties them together.
 
-같은 정수 8의 다른 등장:
+Other appearances of the same integer 8:
 - F_6 = 8 (Fibonacci)
 - NS² − 1 = 1/α_3
 - λ_H denom
 - Photon cycle space b_1
 
-→ **8이 atomicity의 deep invariant**.
+→ **8 is a deep invariant of atomicity.**
 
 ---
 
-## 8. 분자 결합각 cos이 순수 유리수 (★)
+## 8. Molecular bond angle cosines are pure rationals (★)
 
 `BondAngles.lean`
 
@@ -168,29 +175,31 @@ Raw/Lens가 SSOT인 지금 격자에서 자체 도출됨.
 - H₂O: cos θ = −1/(NS+1) = −1/4 → 104.48° exact
 - NH₃: cos θ = −(NS+1)/(NS²+NS+1) = −4/13 → 107.25°
 
-NH₃ 분모 13 = F_7 = NS² + NS + 1. 분자 기하학이 Fibonacci에.
+The NH₃ denominator 13 = F_7 = NS² + NS + 1. Molecular geometry is
+in Fibonacci.
 
 ---
 
-## 9. Phase ↔ Modulus = 게이지 ↔ 중력 자동 분리 (★★)
+## 9. Phase ↔ Modulus = Gauge ↔ Gravity automatic separation (★★)
 
 `GravityShadow.lean`, `MasslessParticles.lean`
 
-DRLT 격자 정의:
-- G_ij = ⟨ψ_i|ψ_j⟩ (복소, phase + modulus)
-- W_ij = |G_ij|² / d (실수, modulus shadow)
+DRLT lattice definition:
+- G_ij = ⟨ψ_i|ψ_j⟩ (complex, phase + modulus)
+- W_ij = |G_ij|² / d (real, modulus shadow)
 
-**G의 phase = 게이지** (SU 회전 invariant)
-**W의 modulus = 중력** (rotation invariant)
+**Phase of G = gauge** (SU rotation invariant)
+**Modulus of W = gravity** (rotation invariant)
 
-같은 격자의 두 다른 정보 — 외부 ansatz 없이 자동 분리.
-중력 normalization 1/d, hierarchy from d^(d²) cardinality.
+Two different pieces of information from the same lattice — automatic
+separation without external ansatz.
+Gravity normalization 1/d, hierarchy from d^(d²) cardinality.
 
 ---
 
-## 10. 정밀 결과 catalogue
+## 10. Precision results catalogue
 
-| 양 | DRLT | 관측 | 매치 | 파일 |
+| Quantity | DRLT | Observed | Match | File |
 |---|---|---|---|---|
 | 1/α_em IR | 137.035 | 137.036 | **ppm** | AlphaEMUnified |
 | m_μ/m_e | 206.7682837 | 206.7682838 | **0.48 ppb** | MuOverE |
@@ -210,37 +219,38 @@ DRLT 격자 정의:
 
 ---
 
-## 11. 새 물리 예측 (formal Lean 정리, falsifiable)
+## 11. New physics predictions (formal Lean theorems, falsifiable)
 
 1. **N_gen = 3** (no 4th generation)
-   - 4세대 lepton 관측 시 atomicity 깨짐
+   - If a 4th-generation lepton is observed, atomicity breaks
    - FCC-ee/hh (~2035+) test
    
 2. **θ_QCD < J·α_GUT^4 ≈ 2.86×10⁻¹¹**
-   - 차세대 nEDM (2027-30) measurement
+   - Next-generation nEDM (2027-30) measurement
    
 3. **Photon kernel = α_3 adjoint** (atomicity-forced)
-   - 두 양이 같은 정수 8 — falsifier 어려움 (양쪽 다 측정됨)
+   - Both quantities share the same integer 8 — difficult to falsify
+     (both sides already measured)
 
 ---
 
-## 12. 의도적으로 *안* 한 것 (Phase 2-4 후보)
+## 12. Intentionally *not* done (Phase 2-4 candidates)
 
-- **Real213 마라톤** (Bishop 류 constructive analysis) — 수학 트랙
-- **DRLT-Native frame** (Phase 2): SM-frame artifact 식별
-- **Yang-Mills mass gap full proof** (현재 structural)
+- **Real213 marathon** (Bishop-style constructive analysis) — math track
+- **DRLT-Native frame** (Phase 2): SM-frame artifact identification
+- **Yang-Mills mass gap full proof** (currently structural)
 - **Gravity G_N 9-digit derivation**
-- **η_B sqrt 처리** (huge integer)
+- **η_B sqrt treatment** (huge integer)
 
 ---
 
-## 13. 형식화 완성도
+## 13. Formalization completeness
 
-| 측정값 | 값 |
+| Metric | Value |
 |---|---|
 | Lean files | 68 |
 | Total lines | ~8250 |
-| Theorems (개략) | 300+ |
+| Theorems (approximate) | 300+ |
 | sorry | 0 |
 | External axioms | 0 (1 propext only) |
 | Mathlib imports | 0 |
@@ -248,22 +258,23 @@ DRLT 격자 정의:
 
 ---
 
-## 14. 운영 원칙 (CLAUDE.md 준수 확인)
+## 14. Operating principles (CLAUDE.md compliance check)
 
-- ✓ "맞추기 위해" 매개변수 도입 0
-- ✓ 외부 수학·물리 수입 0
+- ✓ Parameters introduced "to fit" = 0
+- ✓ External mathematics/physics imports = 0
 - ✓ derive, not reconcile
-- ✓ Lean = 형식 감사관 (decide로 닫힘)
+- ✓ Lean = formal auditor (closed by decide)
 - ✓ 0 sorry, 0 external axioms
 - ✓ Mathlib-free (Lean 4 core only)
 
 ---
 
-## 15. 의미 한 문장
+## 15. Meaning in one sentence
 
-> **Atomicity (3, 2, 5, 2)가 강제하는 atomic primitives 단일 set이
-> 알려진 모든 정밀 물리량과 (적어도 ppm 수준에서) 일치하는 동시에,
-> 같은 set이 새 falsifiable 물리 (N_gen=3, θ_QCD bound, photon kernel
-> link)도 강제. 이 모든 게 0 sorry, 0 axiom Lean 정리로 닫힘.**
+> **The single set of atomic primitives forced by atomicity (3, 2, 5, 2)
+> matches all known precision physical quantities (at least at ppm level),
+> while the same set also forces new falsifiable physics (N_gen=3,
+> θ_QCD bound, photon kernel link). All of this is closed as 0 sorry,
+> 0 axiom Lean theorems.**
 
-이게 DRLT "0 free parameter" 주장의 형식 의미.
+This is the formal meaning of DRLT's "0 free parameters" claim.

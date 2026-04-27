@@ -3,18 +3,18 @@ import E213.Research.LeavesModNat
 /-!
 # Research.ModJoinCoprime: coprime m, k — Join = L_1 = constant
 
-**정리 (L_2, L_3 specific case)**:
+**Theorem (specific case L_2, L_3)**:
 `(leavesModNat 2).refines N ∧ (leavesModNat 3).refines N`
-→ N.view 는 constant.
+→ N.view is constant.
 
-즉 Join(L_2, L_3) = L_1 = constLens (refines class level).
+That is, Join(L_2, L_3) = L_1 = constLens (at the refines class level).
 
-## 기법
+## Technique
 
 Bezout: gcd(2, 3) = 1 = 3 - 2.
 Chain +1 step: r → (leaves r + 3 via L_3) → (leaves r + 1 via L_2).
 
-Induction on |leaves r' - leaves r| 로 임의 leaves 차이.
+Induction on |leaves r' - leaves r| for an arbitrary leaves difference.
 -/
 
 namespace E213.Research.ModJoinCoprime
@@ -96,8 +96,8 @@ namespace E213.Research.ModJoinCoprime
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
 
-/-- **Main**: L_2.refines N ∧ L_3.refines N → N 은 constant.
-    Join(L_2, L_3) = L_1 = constLens 의 concrete 증명 (gcd = 1). -/
+/-- **Main**: L_2.refines N ∧ L_3.refines N → N is constant.
+    Concrete proof of Join(L_2, L_3) = L_1 = constLens (gcd = 1). -/
 theorem mod_2_3_refines_const {α : Type} (N : Lens α)
     (h2 : (leavesModNat 2).refines N)
     (h3 : (leavesModNat 3).refines N) :

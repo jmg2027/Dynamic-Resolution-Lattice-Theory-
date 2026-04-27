@@ -2,21 +2,22 @@ import E213.Research.LensLattice
 import E213.Prelude
 
 /-!
-# Research.LensMeet: refines preorder 의 meet (greatest lower bound)
+# Research.LensMeet: meet (greatest lower bound) of the refines preorder
 
-note 37 Q37.1 의 답.
+Answer to note 37 Q37.1.
 
-두 Lens `L : Lens α`, `M : Lens β` 의 **meet** (가장 coarse
-한 common refinement) 은 product:
+The **meet** (coarsest common refinement) of two Lenses
+`L : Lens α` and `M : Lens β` is their product:
 
 ```
 prodLens L M : Lens (α × β)
 ```
 
-view 는 쌍 `(L.view r, M.view r)`, kernel 은 `L.ker ∩ M.ker`.
+The view is the pair `(L.view r, M.view r)` and the kernel is
+`L.ker ∩ M.ker`.
 
-- `prod_view` — view 가 쌍.
-- `prod_refines_fst/snd` — product 가 양쪽을 refine.
+- `prod_view` — view is the pair.
+- `prod_refines_fst/snd` — product refines both sides.
 - `prod_is_meet` — universal property (greatest lower bound).
 -/
 
@@ -24,7 +25,7 @@ namespace E213.Research.LensMeet
 
 open E213.Firmware E213.Hypervisor
 
-/-- Product Lens: 성분별 data. -/
+/-- Product Lens: componentwise data. -/
 def prodLens {α β : Type} (L : Lens α) (M : Lens β) : Lens (α × β) where
   base_a := (L.base_a, M.base_a)
   base_b := (L.base_b, M.base_b)
@@ -62,7 +63,7 @@ namespace E213.Research.LensMeet
 
 open E213.Firmware E213.Hypervisor
 
-/-- product 는 왼쪽 Lens 를 refine. -/
+/-- the product refines the left Lens. -/
 theorem prodLens_refines_fst {α β : Type} (L : Lens α) (M : Lens β)
     (hLsym : ∀ u v, L.combine u v = L.combine v u)
     (hMsym : ∀ u v, M.combine u v = M.combine v u) :
@@ -75,7 +76,7 @@ theorem prodLens_refines_fst {α β : Type} (L : Lens α) (M : Lens β)
     rw [← hx, ← hy]; exact hxy
   exact congrArg Prod.fst hp
 
-/-- product 는 오른쪽 Lens 를 refine. -/
+/-- the product refines the right Lens. -/
 theorem prodLens_refines_snd {α β : Type} (L : Lens α) (M : Lens β)
     (hLsym : ∀ u v, L.combine u v = L.combine v u)
     (hMsym : ∀ u v, M.combine u v = M.combine v u) :
@@ -94,9 +95,9 @@ namespace E213.Research.LensMeet
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Meet universal property**: N 이 L, M 을 모두 refine
-    하면 N 은 product 도 refine.  즉 prodLens L M 은 refines
-    preorder 에서 L, M 의 greatest lower bound. -/
+/-- **Meet universal property**: if N refines both L and M, then N
+    also refines their product.  Hence prodLens L M is the greatest
+    lower bound of L and M in the refines preorder. -/
 theorem prodLens_is_meet {α β γ : Type}
     (L : Lens α) (M : Lens β) (N : Lens γ)
     (hLsym : ∀ u v, L.combine u v = L.combine v u)

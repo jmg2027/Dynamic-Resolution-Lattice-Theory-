@@ -1,27 +1,27 @@
 import E213.Physics.Phase4.AtomicReps
 
 /-!
-# Phase 4 Sparsity — *physics 정수 = atomic-sparse*
+# Phase 4 Sparsity — *physics integers = atomic-sparse*
 
 ★ Core formal claim ★
 
-  A 정수 N 은 *atomic-K-derivable* iff
+  An integer N is *atomic-K-derivable* iff
     ∃ e : Expr,  eval e = N  ∧  complexity e ≤ K.
 
   Atomic-K = {N | atomic-K-derivable N}.
 
-물리 정수 *대부분* 이 작은 K 의 Atomic-K 에 속함.
+*Most* physics integers belong to Atomic-K for small K.
 
-## Sparsity 의 의미
+## Meaning of Sparsity
 
-Atomic-K 의 *cardinality* 가 K 따라 다항 증가.
-무작위 정수 [1..N] 평균 K ~ log N.
-물리 정수 (137, 192, 60 등) K ≤ 5 → *통계적으로 유의*.
+*Cardinality* of Atomic-K grows polynomially in K.
+A random integer in [1..N] has average K ~ log N.
+Physics integers (137, 192, 60, etc.) have K ≤ 5 → *statistically significant*.
 
-## 본 파일
+## This file
 
   - is_atomic_K predicate (decidable)
-  - 핵심 물리 정수 의 atomic-K membership 정리
+  - atomic-K membership theorems for key physics integers
   - Sparsity catalog
 -/
 
@@ -30,7 +30,7 @@ namespace E213.Physics.Phase4.Sparsity
 open E213.Physics.Phase4.AtomicExpr
 open E213.Physics.Phase4.AtomicReps
 
-/-- N 이 atomic-K-derivable.  ∃ e of complexity ≤ K with eval e = N. -/
+/-- N is atomic-K-derivable.  ∃ e of complexity ≤ K with eval e = N. -/
 def is_atomic_K (N K : Nat) : Prop :=
   ∃ e : Expr, eval e = N ∧ complexity e ≤ K
 

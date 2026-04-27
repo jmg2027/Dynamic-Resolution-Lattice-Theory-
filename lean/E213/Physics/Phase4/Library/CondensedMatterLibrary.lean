@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Condensed Matter Library — 응집물질 atomic catalog
+# Condensed Matter Library — condensed matter atomic catalog
 
 ## Catalog
 

@@ -3,16 +3,16 @@ import E213.Research.Real213CutSum
 /-!
 # Research.Real213CauchyComplete: Cauchy completeness at cut level (Phase C3)
 
-`E1` 의 Phase C3: Real213 의 Cauchy completeness.
+Phase C3 of `E1`: Cauchy completeness of Real213.
 
-User insight (E1): "Real213 자체 가 (sequence + modulus) 이 므 로
-Cauchy completeness 가 *almost trivial*".
+User insight (E1): "Since Real213 itself is (sequence + modulus),
+Cauchy completeness is *almost trivial*".
 
-Cut-level: sequence of cuts (cs : Nat → RealCut) Cauchy iff pointwise
-eventual agreement at each (m, k).  Limit = explicit witness via
+Cut-level: sequence of cuts (cs : Nat → RealCut) is Cauchy iff it has
+pointwise eventual agreement at each (m, k).  Limit = explicit witness via
 modulus N.
 
-## 정의
+## Definition
 
 ```
 structure CauchyCutSeq where
@@ -23,10 +23,10 @@ structure CauchyCutSeq where
 
 `limit ccs := fun m k => ccs.cs (ccs.N m k) m k` — extract eventual.
 
-## 의의
+## Significance
 
-Sequence of cuts Cauchy → *direct* limit construction.  Bishop
-completeness 의 213 form trivial.
+Sequence of cuts Cauchy → *direct* limit construction.  The 213 form
+of Bishop completeness is trivial.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -59,13 +59,13 @@ open E213.Firmware E213.Hypervisor
 
 /-! ### Constant Cauchy sequence — sanity check -/
 
-/-- Const cut sequence at fixed cut c (모든 i 에 서 c). -/
+/-- Const cut sequence at fixed cut c (c for all i). -/
 def constCauchyCutSeq (c : Nat → Nat → Bool) : CauchyCutSeq where
   cs := fun _ => c
   N := fun _ _ => 0
   cauchy := fun _ _ _ _ _ _ => rfl
 
-/-- Const Cauchy 의 limit = c. -/
+/-- The limit of a constant Cauchy sequence is c. -/
 theorem constCauchyCutSeq_limit (c : Nat → Nat → Bool) :
     (constCauchyCutSeq c).limit = c := rfl
 

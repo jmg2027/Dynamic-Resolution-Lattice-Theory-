@@ -14,11 +14,12 @@ This module defines the dyadic structure cleanly and exhibits its
 basic properties.  All RatioCut closure issues from the general
 case vanish here because constCut is always RatioCut.
 
-## 의의
+## Significance
 
-User insight (Phase J): 213 거부했던 것 은 RatioCut closure 의
-일반성 — 임의 분모 의 cutSum 이 boundary 에 서 깨짐 (k1 ≥ 2 의
-tight precision).  Dyadic 으 로 가 면 그 issue 가 자연 소멸.
+User insight (Phase J): what 213 resisted was the generality of
+RatioCut closure — cutSum with arbitrary denominators breaks at the
+boundary (tight precision at k1 ≥ 2).  Moving to dyadic makes that
+issue vanish naturally.
 -/
 
 namespace E213.Research.Real213CutSum

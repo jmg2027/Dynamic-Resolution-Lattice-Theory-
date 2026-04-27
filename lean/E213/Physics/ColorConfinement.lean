@@ -4,7 +4,7 @@ import E213.Physics.NeffDerivation
 /-!
 # Color confinement — rank exhaustion at NS² (0 axioms)
 
-DRLT 강력 confinement 메커니즘 (ch08 §sec:Neff):
+DRLT strong confinement mechanism (ch08 §sec:Neff):
 
   α_3 propagation: AAA hinge sector.
   Hop 1:  unique AAA configuration (NS² independent vectors).
@@ -16,24 +16,24 @@ DRLT 강력 confinement 메커니즘 (ch08 §sec:Neff):
 
 ## Atomicity-locked uniqueness
 
-  Confinement은 *NS = 3 specifically* 강제.
-  
+  Confinement specifically forces *NS = 3*.
+
   At NS = 3: AAA sector = ℂ^3, 9 vectors max linearly independent.
   Hop count = floor(NS²/NS²) = 1.  → confined at single hop.
-  
+
   At NS = 2: AAA sector = ℂ^2, 4 vectors max.  Different N_eff.
   At NS = 4: AAA sector = ℂ^4, 16 vectors max.  Larger N_eff.
-  
-  → NS = 3에서만 confinement at exactly 1 hop.
+
+  → Confinement at exactly 1 hop only at NS = 3.
 
 ## Connection to photon kernel
 
   Photon kernel dim = b_1(K_{NS,NT}^{(c)}) = NS² - 1 = 1/α_3.
   
-  → Confinement (α_3 = NS²-1)이 photon kernel과 같은 정수.
-  
-  PhotonKernel.lean에서 이미 보임 — 두 양이 *같은 atomicity*
-  강제로 묶임.
+  → Confinement (α_3 = NS²-1) shares the same integer as the photon kernel.
+
+  Already shown in PhotonKernel.lean — the two quantities are bound by
+  *the same atomicity* constraint.
 -/
 
 namespace E213.Physics.Confinement
@@ -52,7 +52,7 @@ theorem confinement_N_eff_one : alpha_3_Neff = 1 := by decide
 
 /-- ★ Confinement at NS=3 specifically ★
     binom(NS, NS) = C(3, 3) = 1 means single AAA configuration.
-    이게 PairForcing → Atomicity의 *직접* 결과. -/
+    This is the *direct* result of PairForcing → Atomicity. -/
 theorem confinement_at_NS_3 :
     (binom NS NS = 1)
     ∧ (alpha_3_Neff = 1)
@@ -78,12 +78,12 @@ theorem photon_alpha_3_link :
 
 /-- ★ Confinement is *combinatorial*, not dynamic ★
 
-  표준 QCD: confinement = nonperturbative dynamics 미해결.
+  Standard QCD: confinement = unresolved nonperturbative dynamics.
   DRLT: confinement = "AAA sector has C(NS, NS) = 1 unique
-  configuration".  결합론적 사실.
-  
-  Quark-gluon plasma sQGP의 KSS bound η/s = 1/(4π)도 같은
-  atomicity에서 자연 (ch08 remark).  -/
+  configuration".  A combinatorial fact.
+
+  The KSS bound η/s = 1/(4π) of quark-gluon plasma sQGP also arises
+  naturally from the same atomicity (ch08 remark).  -/
 theorem confinement_is_combinatorial :
     -- Single AAA configuration
     (binom NS NS = 1)

@@ -3,13 +3,13 @@ import E213.Research.IdentityLens
 /-!
 # Research.FourDistinctKernels: explicit kernel pair distinctness
 
-PAPER1 §5.4 의 Lens-kernel space 의 multiple-element witness:
-{idLens, Lens.leaves} 가 distinct kernels.
+Multiple-element witness for the Lens-kernel space in PAPER1 §5.4:
+{idLens, Lens.leaves} have distinct kernels.
 
-## 핵심
+## Core
 
-Witness: `Raw.a, Raw.b` — leaves count 같음 (둘 다 1) 이지만
-Raw.a ≠ Raw.b.  따라서 leaves equiv 인데 idLens 는 not equiv.
+Witness: `Raw.a, Raw.b` — same leaf count (both 1) but Raw.a ≠ Raw.b.
+Therefore leaves-equiv, but idLens is not-equiv.
 -/
 
 namespace E213.Research.FourDistinctKernels
@@ -17,9 +17,9 @@ namespace E213.Research.FourDistinctKernels
 open E213.Firmware E213.Hypervisor
 open E213.Research.IdentityLens
 
-/-- idLens 와 Lens.leaves 의 kernel pairwise distinct.
-    Witness pair (Raw.a, Raw.b): leaves 같지만 (둘 다 1)
-    idLens 는 다름 (Raw.a ≠ Raw.b). -/
+/-- Kernels of idLens and Lens.leaves are pairwise distinct.
+    Witness pair (Raw.a, Raw.b): same leaves count (both 1)
+    but idLens distinguishes them (Raw.a ≠ Raw.b). -/
 theorem id_neq_leaves :
     Lens.leaves.equiv Raw.a Raw.b ∧ ¬ idLens.equiv Raw.a Raw.b := by
   refine ⟨?_, ?_⟩

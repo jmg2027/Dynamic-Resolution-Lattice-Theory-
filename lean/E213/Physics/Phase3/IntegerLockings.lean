@@ -2,12 +2,12 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 IntegerLockings — DRLT 강제 정수 동일성 catalog
+# Phase 3 IntegerLockings — catalog of DRLT forced integer identities
 
 **Layer: App**.
 
-Phase 1 의 정밀 양 도출은 *수치 검증*.  본 파일은 그 모든 양
-사이의 *axiom-level 정수 동일성* 을 catalog 화 — *각각 falsifier*.
+Phase 1 precision quantity derivation is *numerical verification*.  This file
+catalogs the *axiom-level integer identities* among all those quantities — each one a *falsifier*.
 
 ## 7 sharp lockings
 
@@ -19,27 +19,27 @@ Phase 1 의 정밀 양 도출은 *수치 검증*.  본 파일은 그 모든 양
   (L6) NS·NT - 1 = NS² - NT²     (cross identity)
   (L7) (NS+NT)² = NS² + 2·NS·NT + NT² (= d² = 25)
 
-각 등식은 *두 정수가 같음* 의 평범한 산술.  하지만 *왜* 이 두
-정수가 같아야 하는가 는 (3, 2, 5) atomicity 강제.  관측이 어느
-하나라도 다른 값이면 213 폐기.
+Each equality is ordinary arithmetic of *two integers being equal*.  But *why* these
+two integers must be equal is forced by (3, 2, 5) atomicity.  If any observation
+gives a different value, 213 is discarded.
 
-## 측정값과의 대응
+## Correspondence with measured values
 
-  L1: 차원 (block universe partition) - 관측 d=5, 직접
-  L2: α_2 prefactor 12NT = adjoint SU(5) = 24 - QCD 검증
-  L3: α_1 prefactor - hypercharge 검증
+  L1: dimension (block universe partition) - observed d=5, direct
+  L2: α_2 prefactor 12NT = adjoint SU(5) = 24 - QCD verification
+  L3: α_1 prefactor - hypercharge verification
   L4: 1/α_3 = 8 (cycle space) - Phase 1 PhotonKernel
   L5: cosmological constant relation - Ω_Λ 0.0008%
   L6,7: Phase 1 multi-formula consistency
 
-본 파일 = 7 정리 + 단일 capstone.
+This file = 7 theorems + single capstone.
 -/
 
 namespace E213.Physics.Phase3.IntegerLockings
 
 open E213.Physics.Simplex
 
-/-- Lattice "speed" c = 2 (Phase 2 Edges 와 동일). -/
+/-- Lattice "speed" c = 2 (same as Phase 2 Edges). -/
 def c_lat : Nat := 2
 
 /-- (L1) Block partition.  d = 5, NS = 3, NT = 2. -/
@@ -64,8 +64,8 @@ theorem L6_cross : NS * NT - 1 = NS * NS - NT * NT := by decide
 /-- (L7) Square of partition sum = d². -/
 theorem L7_square : (NS + NT) * (NS + NT) = d * d := by decide
 
-/-- ★ 7 lockings 단일 종합 ★
-    어느 하나 라도 측정 위반 → 213 폐기. -/
+/-- ★ Single synthesis of 7 lockings ★
+    Any single measurement violation → 213 discarded. -/
 theorem all_lockings :
     (NS + NT = d)
     ∧ (d * d - 1 = 12 * NT)
@@ -78,8 +78,8 @@ theorem all_lockings :
   all_goals decide
 
 /- ★ Operational stake ★
-   각 등식은 평범한 산술 — 하지만 (3,2,5) atomicity 가
-   *왜 이 두 정수가 같아야 하는가* 의 의미.  Phase 1 의 정밀
-   양 (1/α_3, 12NT, 36 등) 가 모두 이 lockings 의 *manifestation*. -/
+   Each equality is ordinary arithmetic — but (3,2,5) atomicity gives
+   the meaning of *why these two integers must be equal*.  All Phase 1 precision
+   quantities (1/α_3, 12NT, 36, etc.) are *manifestations* of these lockings. -/
 
 end E213.Physics.Phase3.IntegerLockings

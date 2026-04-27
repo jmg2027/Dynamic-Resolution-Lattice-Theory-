@@ -5,26 +5,26 @@ import E213.Physics.Phase3.ComplexAsTime
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 Ultra Capstone — *전체 통합*
+# Phase 3 Ultra Capstone — *full integration*
 
-Phase 3 의 *모든* 작업 단일 capstone.
+Single capstone for *all* Phase 3 work.
 
-## 통합 대상
+## Integration targets
 
   Phase 3 (54 modules):
     - Manifesto + Capstone + Phase3.lean root        (3)
-    - 14 falsifier (관측 결판)
-    - 8 deep-dive derivation (왜 그 값?)
-    - 6 reframing + ComplexAsTime (용어 정리)
-    - 21 Translation (현대 물리 전 분야)
+    - 14 falsifiers (observational verdict)
+    - 8 deep-dive derivations (why that value?)
+    - 6 reframings + ComplexAsTime (terminology)
+    - 21 Translations (all modern physics fields)
     - + sub-capstones, MasterCatalog
 
-## 대표 정리들
+## Representative theorems
 
   - phase3_falsifiers: 19-conjunct (Capstone)
   - all_modern_physics_atomic: 13-conjunct (Translation Capstone)
   - reframing_capstone: 8-conjunct
-  - master_atomic_catalog: 10-conjunct (정수 multi-output)
+  - master_atomic_catalog: 10-conjunct (integer multi-output)
   - complex_as_time: 7-conjunct
 -/
 
@@ -33,21 +33,21 @@ namespace E213.Physics.Phase3.UltraCapstone
 open E213.Physics.Simplex
 
 /-- ★★★ Phase 3 ULTRA CAPSTONE ★★★
-    falsifier + reframing + translation 단일 통합. -/
+    single integration of falsifier + reframing + translation. -/
 theorem phase3_ultra :
-    -- atomic primitives (모든 Phase 3 의 공통 기반)
+    -- atomic primitives (common foundation of all Phase 3)
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
-    -- Falsifier 핵심: (3,2,5) atomic 강제
+    -- Falsifier core: (3,2,5) atomic forced
     ∧ (NS + NT = d)
-    -- Reframing: running 부재 (d²/NS atomic)
+    -- Reframing: no running (d²/NS atomic)
     ∧ (d * d * 3 = 25 * NS)
-    -- Translation: 모든 분야 atomic
+    -- Translation: all fields atomic
     ∧ (NS * NT = 6)             -- Pauli ε / Lorentz / cross
     ∧ (NS * NS - 1 = 8)         -- α_3 / SU(3) / b_1 / Einstein
     ∧ (d * d - 1 = 24)          -- SU(5) / 4! / SM gauge sum
     -- ComplexAsTime: i = NT axis
     ∧ (NT = 2)
-    -- Master catalog: 11 atomic 정수 모두 multi-output
+    -- Master catalog: all 11 atomic integers multi-output
     ∧ (d * d = 25)
     ∧ (d * NS = 15)
     ∧ (NS * NS + NT * NT = 13) := by

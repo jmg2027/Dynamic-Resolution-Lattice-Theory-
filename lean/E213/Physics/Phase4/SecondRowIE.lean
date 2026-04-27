@@ -6,21 +6,21 @@ import E213.Physics.SimplexCounts
 ## DRLT atomic σ (proposed)
 
   σ_1s_to_2s,2p = 7/8 atomic (Phase 1 AtomicScreening)
-  σ_2s_to_2s = 3/5 = NS/d (Be 검증)
+  σ_2s_to_2s = 3/5 = NS/d (verified for Be)
   σ_2s_to_2p ≈ 17/20 = (NS²+(NS²-1))/(4d) (B fit)
   σ_2p_to_2p ≈ 3/4 = NS/(NS+1) (C fit)
 
-## 각 원소
+## Each element
 
   B  (Z=5): IE = 8.298 eV.  DRLT chain → 8.171 (-1.5%)
   C  (Z=6): 11.260 eV.  DRLT → 11.021 (-2.1%)
   N  (Z=7): 14.534 eV.  DRLT → ~14 (-3%)
-  O  (Z=8): 13.618 eV.  exception (Hund 깨짐)
+  O  (Z=8): 13.618 eV.  exception (Hund breaking)
   F  (Z=9): 17.423 eV.
   Ne (Z=10): 21.565 eV.
 
-표준 Slater rules 정밀도 ~5-10% 와 비교 → DRLT atomic ~1-3%
-훨씬 정밀.  ppm 위해 Phase 5 작업.
+Compared to standard Slater rules precision ~5-10% → DRLT atomic ~1-3%
+is far more precise.  Phase 5 work needed for ppm.
 -/
 
 namespace E213.Physics.Phase4.SecondRowIE

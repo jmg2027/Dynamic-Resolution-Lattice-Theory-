@@ -10,41 +10,41 @@ import E213.Physics.Phase2.Edges
 import E213.Physics.Phase2.Lens
 
 /-!
-# Phase 2 Capstone — 전체 10 파일 종합
+# Phase 2 Capstone — synthesis of all 10 files
 
-**Layer: App** (모든 prior Phase 2 파일 import).
+**Layer: App** (imports all prior Phase 2 files).
 
-본 파일은 Phase 2 진행 10 파일의 단일 capstone:
+This file is the single capstone of Phase 2's 10 files:
 
   Origin → Shape → Existence → Pairs → Time → Space →
   Observable → Force → Edges → Lens
 
-각 파일이 답한 질문 + 종합 단일 정리.
+Questions answered by each file + comprehensive single theorem.
 
-## 답한 질문들
+## Questions answered
 
-1. **Origin**: 우주는 몇 차원? → d = 5 (Atomicity 강제)
-2. **Shape**: 그 5는 어떻게 생겼나? → 5 vertex, (3,2), 10 쌍
-3. **Existence**: 5는 무엇인가? → Vertex := Fin 5 + block 분류
-4. **Pairs**: 쌍 정보? → 3 AA + 1 BB + 6 AB
+1. **Origin**: How many dimensions does the universe have? → d = 5 (Atomicity forced)
+2. **Shape**: What does that 5 look like? → 5 vertices, (3,2), 10 pairs
+3. **Existence**: What is 5? → Vertex := Fin 5 + block classification
+4. **Pairs**: Pair information? → 3 AA + 1 BB + 6 AB
 5. **Time**: NT=2 unfolded? → 2^n binary (dyadic, bridge)
 6. **Space**: NS=3 unfolded? → 3^n ternary (asymmetry)
-7. **Observable**: 측정 가능 양? → 9 atomic-derived 정수
-8. **Force**: 3 channel = 3 force (AA, BB, AB)
+7. **Observable**: Measurable quantities? → 9 atomic-derived integers
+8. **Force**: 3 channels = 3 forces (AA, BB, AB)
 9. **Edges**: c=2 doubling → 12 directed, b_1 = 8 = NS²-1
 10. **Lens**: Hypervisor explicit Lens (parityLens, bCountLens)
 
-## 도출된 핵심 발견
+## Key derived findings
 
 - (3, 2) atomic partition forced
-- 10 pairs → 6 cross = K_{3,2} bipartite (Phase 1 PhotonKernel 기반)
-- NT=2 → dyadic geometry (수학 트랙 bridge 활용)
-- NS=3 → ternary, NT vs NS 비대칭 (3/2)^n
-- 3 channel (AA/BB/AB) = 3 force (Phase 1 α_3, α_2, α_1 의 axiom origin)
+- 10 pairs → 6 cross = K_{3,2} bipartite (based on Phase 1 PhotonKernel)
+- NT=2 → dyadic geometry (using math track bridge)
+- NS=3 → ternary, NT vs NS asymmetry (3/2)^n
+- 3 channels (AA/BB/AB) = 3 forces (axiom origin of Phase 1 α_3, α_2, α_1)
 - 12 directed edges → cycle space b_1 = 8 = NS² - 1 = 1/α_3
-- Lens 객체가 Hypervisor-layer 에서 직접 정의됨 (Raw 위 fold)
-- (3/2) 비대칭이 Phase 1의 m_μ/m_e factor, Y-norm,
-  Fibonacci F_5/F_4의 *axiom-level 기원*
+- Lens objects defined directly at Hypervisor-layer (fold over Raw)
+- (3/2) asymmetry is the *axiom-level origin* of Phase 1's m_μ/m_e factor, Y-norm,
+  and Fibonacci F_5/F_4
 -/
 
 namespace E213.Physics.Phase2.Capstone
@@ -55,8 +55,8 @@ open E213.Physics.Phase2.Pairs
 
 /-- ★★★ PHASE 2 ABSOLUTE CAPSTONE ★★★
 
-  213 axiom + Atomicity 만으로 우주에 대해 *말할 수 있는 모든
-  것* 의 단일 통합 정리. -/
+  A single unified theorem of everything that can be *said about the universe*
+  from 213 axiom + Atomicity alone. -/
 theorem phase2_absolute :
     -- (1) Origin: d = 5 unique
     Atomic 5
@@ -126,13 +126,12 @@ theorem phase2_absolute :
 
 /- ★ Operational meaning ★
 
-  이 단일 정리가 0 sorry, ≤ propext + Quot.sound 으로 닫히는 것 =
-  *Phase 2의 모든 finding 이 단일 atomicity (3, 2) 강제 하에서
-  일관 작동* 의 형식 의미.
+  That this single theorem closes with 0 sorry, ≤ propext + Quot.sound is the formal meaning
+  that *all Phase 2 findings operate consistently under single atomicity (3, 2) forcing*.
 
-  Phase 1 = 정밀 양 derivation (위 9 observable 의 Lens output)
-  Phase 2 = axiom-level 출발점 (위 정리의 양)
+  Phase 1 = precision quantity derivation (Lens output of the 9 observables above)
+  Phase 2 = axiom-level starting point (quantities in the theorem above)
 
-  두 트랙이 *서로 일관*. -/
+  The two tracks are *mutually consistent*. -/
 
 end E213.Physics.Phase2.Capstone

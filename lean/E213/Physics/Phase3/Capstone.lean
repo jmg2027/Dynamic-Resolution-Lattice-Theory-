@@ -14,19 +14,19 @@ import E213.Physics.Phase3.CKMSpecific
 import E213.Physics.Phase3.ProtonMassSharp
 
 /-!
-# Phase 3 Capstone — 모든 falsifier 단일 종합
+# Phase 3 Capstone — single synthesis of all falsifiers
 
-각 sub-module 의 falsifier 단일 정리로 모음.
+Collects each sub-module's falsifier as a single theorem.
 
-## Falsifier 목록
+## Falsifier list
 
   (F1) NS+NT=d, d²-1=12NT, ... (IntegerLockings, 7 lockings)
   (F2) N_gen = 3, no 4th gen slot (NoFourthGen)
   (F3) Normal neutrino ordering proxy (NeutrinoOrdering, JUNO)
   (F4) θ_QCD ∈ [2.5, 3.0]×10⁻¹¹ (ThetaQCDFalsifier, nEDM)
-  (F5) cos²θ_W ∈ [0.75, 0.78] (WMassFalsifier, 정밀 W mass)
+  (F5) cos²θ_W ∈ [0.75, 0.78] (WMassFalsifier, precise W mass)
 
-각 *어느 하나라도 위반* 시 213 즉시 폐기.
+*Any single violation* → 213 immediately discarded.
 -/
 
 namespace E213.Physics.Phase3.Capstone
@@ -34,8 +34,8 @@ namespace E213.Physics.Phase3.Capstone
 open E213.Physics.Phase3
 open E213.Physics.Simplex
 
-/-- ★ Phase 3 단일 falsifier 종합 ★
-    각 conjunct = 한 falsifier 의 핵심 atomic 등식. -/
+/-- ★ Single synthesis of Phase 3 falsifiers ★
+    Each conjunct = the core atomic equality of one falsifier. -/
 theorem phase3_falsifiers :
     -- (F1) Integer locking: NS + NT = d
     (NS + NT = d)

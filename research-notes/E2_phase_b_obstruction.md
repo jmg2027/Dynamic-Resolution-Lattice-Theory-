@@ -1,52 +1,53 @@
-# E2 — Phase B (Arithmetic) 의 Raw-realization obstruction
+# E2 — Raw-realization obstruction in Phase B (Arithmetic)
 
-## 발 견 (2026-04-26)
+## Discovery (2026-04-26)
 
-Phase B1 (Real213 addition) 시도 중 다음 obstruction 발 견.
+The following obstruction found while attempting Phase B1 (Real213
+addition).
 
-## abLens.view 의 image
+## Image of abLens.view
 
-`framework/E213/Research/PellSeq.lean` 의 `abLens_surjective`:
+`abLens_surjective` from `framework/E213/Research/PellSeq.lean`:
 
 ```
 ∀ a b : Nat, a + b = s → 1 ≤ a → 1 ≤ b → ∃ r : Raw, abLens.view r = (a, b)
 ```
 
-**Image 의 정확한 description**:
+**Precise description of the image**:
 
 ```
 range(abLens.view) = {(1, 0)} ∪ {(0, 1)} ∪ {(a, b) : a ≥ 1 ∧ b ≥ 1}
 ```
 
-증거:
-- (1, 0): Raw.a 의 view.
-- (0, 1): Raw.b 의 view.
+Evidence:
+- (1, 0): view of Raw.a.
+- (0, 1): view of Raw.b.
 - (a, b), a ≥ 1, b ≥ 1: abLens_surjective.
-- (0, k) for k ≥ 2: **realizable Raw 부재** — slash 가 distinct 요구
-  → b-leaves 만 으 로 조립 불가.
-- (k, 0) for k ≥ 2: 같은 이유 로 부재.
+- (0, k) for k ≥ 2: **no realizable Raw** — slash requires distinct
+  → cannot assemble from b-leaves only.
+- (k, 0) for k ≥ 2: absent for the same reason.
 
 ## Addition obstruction
 
-a/b + a'/b' 의 view = (a*b' + a'*b, b*b').
+view of a/b + a'/b' = (a*b' + a'*b, b*b').
 
-핵심 obstruction case: 두 sequence 가 동시에 "0-counts" 누적,
-sum view 의 b-count ≥ 2 가 발생.  예: (0, 1) seq + (a, b≥1 with a=0)
-seq → boundary 부재.
+Key obstruction case: two sequences simultaneously accumulate
+"0-counts", producing b-count ≥ 2 in the sum view.  Example:
+(0, 1) seq + (a, b≥1 with a=0) seq → no boundary.
 
-## 진 짜 issue
+## True issue
 
-Raw 의 view image 가 *정 확 한* 형식 으 로 제한.  Real213 의
-sequence 는 Raw 만 으 로 만들 어 지 므 로 view 가 image 안.  하 지 만
-*sum 의 view 도* image 안 이 어 야 Real213 으 로 lift 가능.
+Raw's view image is restricted in a *precise* form.  Since Real213's
+sequences are built from Raw only, the view is in the image.  But *the
+sum's view also* must be in the image to be liftable to Real213.
 
-Sum image 가 *항상* range 안 으 로 closed 인 가? — **No.**
-(1, 0) + (1, 0) = (0, 0) 이 boundary case (Raw.a + Raw.a, "infinity +
-infinity").
+Is the sum image *always* closed within the range? — **No.**
+(1, 0) + (1, 0) = (0, 0) is the boundary case (Raw.a + Raw.a,
+"infinity + infinity").
 
-## 해 결 책 후보
+## Solution candidates
 
-### (i) Real213StrictPos: 모든 view 가 (a, b) with a, b ≥ 1
+### (i) Real213StrictPos: all views are (a, b) with a, b ≥ 1
 
 ```
 structure Real213StrictPos extends Real213 where
@@ -54,40 +55,41 @@ structure Real213StrictPos extends Real213 where
                   (abLens.view (xs i)).2 ≥ 1
 ```
 
-이 subtype 위 에 서 는 addition 이 well-defined:
+Addition is well-defined on this subtype:
 - (a, b), (a', b') with a, b, a', b' ≥ 1 → sum view = (a*b' + a'*b,
-  b*b') with both ≥ 1, abLens_surjective 가능.
+  b*b') with both ≥ 1, abLens_surjective possible.
 
 ### (ii) Equivalence-class addition (defer)
 
-Real213 을 equiv-class 로 보 고, 임의 r 의 *대 표* 를 strict
-positive view 로 선택.  더 abstract.
+View Real213 as equiv-classes and choose the *representative* of
+arbitrary r as the strict positive view.  More abstract.
 
-## 결정
+## Decision
 
-**(i) 채택 권 장** — most concrete, framework-internal, axiom 추가
-부재.  Phase B 작업 은 `Real213StrictPos` 위 에 서 진행, 추 후
-`Real213StrictPos → Real213` 의 cut-equivalence 와 의 호환 별 도
-작업.
+**(i) recommended** — most concrete, framework-internal, no axiom
+addition.  Phase B work proceeds on `Real213StrictPos`, with separate
+work later for cut-equivalence compatibility of
+`Real213StrictPos → Real213`.
 
-## Falsifiability 의 의미
+## Falsifiability meaning
 
-이 obstruction 이 *framework boundary* 인 가?
+Is this obstruction a *framework boundary*?
 
-- **NO**: addition 자체 는 framework 안 가능 — 단, *type 의
-  refinement* 필 요 (StrictPos).  Workaround 존재.
-- *Hidden axiom 추가 부재* — 모든 작업 framework-internal.
+- **NO**: addition itself is possible within the framework — only a
+  *type refinement* is needed (StrictPos).  A workaround exists.
+- *No hidden axiom addition* — all work is framework-internal.
 
-따라서 falsifiability trigger 아 님 — 단순 *engineering challenge*
-(type refinement).
+Therefore not a falsifiability trigger — a simple *engineering
+challenge* (type refinement).
 
-## E1 roadmap 갱신
+## E1 roadmap update
 
-- Phase B 의 모든 milestone 이 `Real213StrictPos` 위 에 서 의 작업.
-- Phase A 추가:
-  - A6 (proposed): `Real213StrictPos` subtype 정의 + Real213 ↔
-    StrictPos 의 cut-equivalence 호환.
+- All milestones of Phase B are work on `Real213StrictPos`.
+- Phase A addition:
+  - A6 (proposed): `Real213StrictPos` subtype definition + Real213 ↔
+    StrictPos cut-equivalence compatibility.
 
 ## Next
 
-E2 의 결정 채택 후, `Real213StrictPos.lean` + `Real213Add.lean` 작업.
+After adopting E2's decision, work on `Real213StrictPos.lean` +
+`Real213Add.lean`.

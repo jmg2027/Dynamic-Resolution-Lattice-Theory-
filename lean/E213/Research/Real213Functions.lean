@@ -12,13 +12,13 @@ Series-based definitions of standard transcendental functions.
 - cos(x) := lim Σ (-1)^n x^(2n) / (2n)!
 - π := 4 * arctan(1) (Leibniz) or Wallis product
 
-## 이 파일 의 status
+## Status of this file
 
 Interface — *symbolic definitions* placeholder.  Full series convergence
-proofs (with explicit modulus) 는 별 도 arc 마다 (각 함 수 ≈ 1 module).
+proofs (with explicit modulus) are per separate arc (each function ≈ 1 module).
 
-이 미 EulerCombinatorialPure 의 e bound, WallisSharper 의 π bound 가
-부 분 적 building block.
+EulerCombinatorialPure's e bound and WallisSharper's π bound are already
+partial building blocks.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -27,7 +27,7 @@ open E213.Firmware E213.Hypervisor
 
 /-- Symbolic exp function — full series definition future work. -/
 def expCut (x : Nat → Nat → Bool) : Nat → Nat → Bool :=
-  fun _ _ => true  -- placeholder — series 미 구현
+  fun _ _ => true  -- placeholder — series not yet implemented
 
 /-- Symbolic π cut — Leibniz series approximation. -/
 def piCut : Nat → Nat → Bool :=

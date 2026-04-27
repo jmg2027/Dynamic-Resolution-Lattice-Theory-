@@ -20,9 +20,9 @@ This file proves the rational form 5/22 exactly + numerical
 inclusion in observed range up to 1% precision.  All 0-axiom
 decide-checked.
 
-CLAUDE.md 기준 1+2 교집합:
-  * 정밀 (기준 1): rational with no irrationals
-  * 새 물리 (기준 2): SM treats sin θ_C as input parameter; DRLT
+CLAUDE.md criteria 1+2 intersection:
+  * Precision (criterion 1): rational with no irrationals
+  * New physics (criterion 2): SM treats sin θ_C as input parameter; DRLT
     derives 5/22 from {D, C} alone — falsified if measurement
     ever excludes the rational 5/22 entirely.
 -/

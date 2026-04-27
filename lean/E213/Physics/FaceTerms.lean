@@ -3,25 +3,25 @@ import E213.Physics.PhotonKernel
 /-!
 # 1/NS and α_GUT/(NS+1) — simplicial geometry origins (0 axioms)
 
-**남은 두 항의 격자 의미**:
+**Lattice meaning of the remaining two terms**:
 
   Term 4: 1/NS = 1/3
-    1/NS의 역수 NS = 3 = #4-cycles in K_{NS,NT} = C(NS,2)·C(NT,2)
-    K_{NS,NT}^{(c)} 의 *4-cycle space* 자유도.
+    The reciprocal of 1/NS is NS = 3 = #4-cycles in K_{NS,NT} = C(NS,2)·C(NT,2)
+    The *4-cycle space* degrees of freedom of K_{NS,NT}^{(c)}.
 
   Term 5: α_GUT/(NS+1) = α_GUT/4
     NS+1 = 4 = #tetrahedra containing a fixed vertex in 5-simplex
             = C(d-1, 3) = C(4, 3)
-    5-simplex의 *vertex link* 차원.
+    The *vertex link* dimension of the 5-simplex.
 
-**둘 다 atomicity-specific**:
+**Both are atomicity-specific**:
   - C(NS,2)·C(NT,2) = NS only at (NS, NT) = (3, 2)
   - C(d-1, 3) = NS + 1 only at d = 5
 
-→ PairForcing → Atomicity가 다섯 항 *전체*의 simplicial cohomology
-  origin을 강제.  단순 산술 일치 아님.
+→ PairForcing → Atomicity forces the simplicial cohomology origin of all five terms.
+  Not a mere arithmetic coincidence.
 
-## 다섯 항 unified geometric origin
+## Unified geometric origin of five terms
 
   Term 1: α_3 = NS² - 1 = b_1(K_{NS,NT}^{(c)}) = cycle space
   Term 2: α_2 prefactor = E · NT = edge × time depth
@@ -29,9 +29,9 @@ import E213.Physics.PhotonKernel
   Term 4: 1/NS reciprocal = #4-cycles in K_{NS,NT}
   Term 5: NS+1 = #tetrahedra per vertex in 5-simplex
 
-  **모두 simplicial complex K_{NS,NT}^{(c)} ⊂ Δ⁴의 cohomology 양**.
-  다섯 항이 *별개*가 아니라 *한 simplicial complex의 graded
-  decomposition*.  진짜 single-sum derivation 의 자리.
+  **All are cohomology quantities of simplicial complex K_{NS,NT}^{(c)} ⊂ Δ⁴**.
+  The five terms are not *separate* but a *graded decomposition of one simplicial complex*.
+  The place for the true single-sum derivation.
 -/
 
 namespace E213.Physics.FaceTerms

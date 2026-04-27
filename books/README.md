@@ -1,21 +1,21 @@
 # 213 Books — Narrative explanation
 
-Lean 정리 + catalogs 의 *읽는 책* form.
+The *readable book* form of Lean theorems + catalogs.
 
-## 구조
+## Structure
 
-  math/        수학 narrative
-  physics/     물리 narrative
+  math/        mathematics narrative
+  physics/     physics narrative
 
-## 현재 (작성된 책)
+## Current (written books)
 
 ### math/
-  - analysis213.md  학부 1학년 미적분 100% 완성
+  - analysis213.md  undergraduate year-1 calculus 100% complete
 
 ### physics/
-  - periodic-table.md  주기율표 213 버전
+  - periodic-table.md  periodic table 213 version
 
-## 향후 (blueprints 따라)
+## Future (following blueprints)
 
 ### math/
   probability213, multivariable213, topology213, ...
@@ -25,10 +25,10 @@ Lean 정리 + catalogs 의 *읽는 책* form.
   gauge.md, qg.md, yang-mills.md, sm.md, particle.md,
   falsifier.md, astrophysics.md, qinfo.md, bsm.md, condensed.md
 
-## 책 ↔ Lean ↔ Catalog 동기화
+## Book ↔ Lean ↔ Catalog synchronization
 
-  Lean 정리 = ground truth
+  Lean theorems = ground truth
   Book = narrative
   Catalog = lookup
 
-  각 마라톤 종료 시 셋 모두 갱신.
+  All three updated at each marathon completion.

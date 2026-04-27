@@ -3,28 +3,30 @@ import E213.Research.LeavesModNat
 import E213.Infinity.LensCardinality
 
 /-!
-# Research.ProfiniteSeq: leavesModNat family 의 Cauchy instance
+# Research.ProfiniteSeq: Cauchy instance for the leavesModNat family
 
-Mingu 제안 (b): leavesModNat family 의 specific Cauchy seq 가
-**profinite ℤ̂ (= Ẑ) 와 유사한 구조** 생성 함의 형식 demonstration.
+Mingu proposal (b): formal demonstration that a specific Cauchy
+sequence for the leavesModNat family generates a structure analogous
+to the **profinite ℤ̂ (= Ẑ)**.
 
-## 핵심
+## Core
 
-leaves(xs n) = factorial(n+1) 인 sequence xs 는 family-Cauchy
+A sequence xs with leaves(xs n) = factorial(n+1) is family-Cauchy
 w.r.t. {leavesModNat m : m ≥ 2}.
 
-각 m ≥ 2 에 대해, n+1 ≥ m → factorial(n+1) ≡ 0 (mod m).
-따라서 limit class = "0 mod m for all m" = profinite zero.
+For each m ≥ 2, n+1 ≥ m → factorial(n+1) ≡ 0 (mod m).
+Therefore limit class = "0 mod m for all m" = profinite zero.
 
-직관 적으로 ℕ 의 "무한대" 에 해당 — Ẑ-style 의 profinite 0.
+Intuitively corresponds to "infinity" in ℕ — the profinite 0 in the
+Ẑ style.
 
-## 의의
+## Significance
 
-213 framework 가 단지 finite combinatorics 에 머무르지 않고
-**profinite (algebraic) limit** 도 자연스럽게 생성.
+The 213 framework does not merely remain in finite combinatorics; it
+also naturally generates **profinite (algebraic) limits**.
 
-leavesModNat family 의 iProdLens 가 정확히 ℤ̂-like profinite
-완비화.  Lens-as-completion 의 구체 instance.
+The iProdLens of the leavesModNat family is exactly the ℤ̂-like
+profinite completion.  A concrete instance of Lens-as-completion.
 -/
 
 namespace E213.Research.ProfiniteSeq
@@ -32,7 +34,7 @@ namespace E213.Research.ProfiniteSeq
 open E213.Firmware E213.Hypervisor
 open E213.Research.LensCauchy
 
-/-- Local factorial (Lean 4 core 에는 없음). -/
+/-- Local factorial (absent from Lean 4 core). -/
 def factorial : Nat → Nat
   | 0 => 1
   | n+1 => (n+1) * factorial n
@@ -46,7 +48,7 @@ theorem factorial_pos (n : Nat) : factorial n ≥ 1 := by
       simp at this
       omega
 
-/-- factorial n 이 모든 m ≤ n 으로 나누어짐. -/
+/-- factorial n is divisible by every m ≤ n. -/
 theorem factorial_dvd (m n : Nat) (h : 1 ≤ m) (hmn : m ≤ n) :
     m ∣ factorial n := by
   induction n with
@@ -74,14 +76,14 @@ namespace E213.Research.ProfiniteSeq
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
 
-/-- factorial seq 가 mod m 으로 eventually 0 (n + 1 ≥ m 이면). -/
+/-- The factorial sequence is eventually 0 mod m (when n + 1 ≥ m). -/
 theorem factorial_eventually_zero_mod (m : Nat) (hm : 1 ≤ m)
     (n : Nat) (hn : n + 1 ≥ m) : factorial (n + 1) % m = 0 := by
   obtain ⟨q, hq⟩ := factorial_dvd m (n + 1) hm hn
   rw [hq, Nat.mul_mod_right]
 
-/-- **Cauchy w.r.t. leavesModNat m**: factorial-leaves seq 는
-    각 m ≥ 2 에 대해 leavesModNat m Cauchy. -/
+/-- **Cauchy w.r.t. leavesModNat m**: the factorial-leaves sequence
+    is leavesModNat m Cauchy for each m ≥ 2. -/
 theorem factorial_seq_cauchy (xs : Nat → Raw)
     (hLeaves : ∀ n, Lens.leaves.view (xs n) = factorial (n + 1))
     (m : Nat) (hm : m ≥ 2) :
@@ -94,8 +96,9 @@ theorem factorial_seq_cauchy (xs : Nat → Raw)
   rw [factorial_eventually_zero_mod m (by omega) k (by omega)]
   rw [factorial_eventually_zero_mod m (by omega) l (by omega)]
 
-/-- **Profinite limit**: factorial-leaves seq 의 leavesModNat m
-    limit 이 0.  Ẑ 의 profinite zero 와 정확히 대응. -/
+/-- **Profinite limit**: the leavesModNat m limit of the
+    factorial-leaves sequence is 0.  Corresponds exactly to the
+    profinite zero of Ẑ. -/
 theorem factorial_seq_limit_zero (xs : Nat → Raw)
     (hLeaves : ∀ n, Lens.leaves.view (xs n) = factorial (n + 1))
     (m : Nat) (hm : m ≥ 2) :
@@ -110,16 +113,17 @@ theorem factorial_seq_limit_zero (xs : Nat → Raw)
 def leavesModNatFamily : { m : Nat // m ≥ 2 } → (α : Type) × Lens α :=
   fun m => ⟨Nat, leavesModNat m.val⟩
 
-/-- factorial-leaves seq 가 leavesModNat family 전체 에 대해
-    family-Cauchy.  Profinite Cauchy 의 형식 표현. -/
+/-- The factorial-leaves sequence is family-Cauchy w.r.t. the entire
+    leavesModNat family.  Formal expression of profinite Cauchy. -/
 theorem factorial_seq_familyCauchy (xs : Nat → Raw)
     (hLeaves : ∀ n, Lens.leaves.view (xs n) = factorial (n + 1)) :
     FamilyCauchy leavesModNatFamily xs := by
   intro ⟨m, hm⟩
   exact factorial_seq_cauchy xs hLeaves m hm
 
-/-- **Profinite limit assignment**: factorial seq 의 family-Cauchy
-    limit 이 모든 m 에 대해 0.  Ẑ 의 0 element 의 213 표현. -/
+/-- **Profinite limit assignment**: the family-Cauchy limit of the
+    factorial sequence is 0 for every m.  The 213 representation of
+    the 0 element of Ẑ. -/
 theorem factorial_seq_limit_all_zero (xs : Nat → Raw)
     (hLeaves : ∀ n, Lens.leaves.view (xs n) = factorial (n + 1))
     (la : LimitAssignment leavesModNatFamily xs)

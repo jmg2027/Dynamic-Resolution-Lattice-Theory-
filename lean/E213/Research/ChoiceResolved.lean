@@ -1,25 +1,25 @@
 import E213.Research.UniversalQuotLens
 
 /-!
-# Research.ChoiceResolved: "선택 = Lens specification" 의 formal
+# Research.ChoiceResolved: Formal version of "choice = Lens specification"
 
-Note 44 의 thesis 의 explicit formalization:
+Explicit formalization of the thesis in Note 44:
 
-**임의 slash-congruence E 에 대해 concrete Lens 가 존재**.
-Classical.choice 또는 외부 axiom 추가 없이.
+**For any slash-congruence E, a concrete Lens exists**.
+Without Classical.choice or any external axiom.
 
-이것이 213 안에서 "choice 가 Lens spec 으로 환원" 의 정확한
-의미.  추상 적 choice 함수 가 아니라 universalLens 구성 으로
-명시 적 Lens 지정.
+This is the precise meaning of "choice reduces to Lens spec" inside 213.
+Not an abstract choice function, but an explicit Lens specified by the
+universalLens construction.
 
-## 정리
+## Theorem
 
 `choice_as_lens_spec`: ∀ E (equiv + slash-cong), ∃ L : Lens
   (Raw → Prop), ∀ r r', L.view r = L.view r' ↔ E r r'.
 
-증명: ⟨universalLens E, universalLens_kernel_eq_E E ...⟩.
+Proof: ⟨universalLens E, universalLens_kernel_eq_E E ...⟩.
 
-External axiom 0.  Constructive existence — 명시 적 witness
+0 external axioms.  Constructive existence — explicit witness
 universalLens E.
 -/
 
@@ -27,9 +27,9 @@ namespace E213.Research.ChoiceResolved
 
 open E213.Firmware E213.Hypervisor E213.Research.UniversalQuotLens
 
-/-- **Choice resolved**: 임의 slash-congruence E 에 대해 concrete
-    Lens 존재 (external axiom 0).  Classical.choice 부재 하 universal
-    construction. -/
+/-- **Choice resolved**: For any slash-congruence E, a concrete Lens
+    exists (0 external axioms).  Universal construction without
+    Classical.choice. -/
 theorem choice_as_lens_spec (E : Raw → Raw → Prop)
     (hrefl : ∀ r, E r r)
     (hsymm : ∀ r r', E r r' → E r' r)
@@ -41,8 +41,8 @@ theorem choice_as_lens_spec (E : Raw → Raw → Prop)
   ⟨universalLens E,
    fun r r' => universalLens_kernel_eq_E E hrefl hsymm htrans hslash r r'⟩
 
-/-- **Choice 가 Lens 인스턴스 의 직접 귀결**: 각 slash-cong E 에
-    대해 universalLens E 가 그 choice 의 명시 witness. -/
+/-- **Choice as a direct consequence of Lens instances**: for each
+    slash-cong E, universalLens E is the explicit witness of that choice. -/
 def witness_explicit (E : Raw → Raw → Prop) :
     Lens (Raw → Prop) := universalLens E
 

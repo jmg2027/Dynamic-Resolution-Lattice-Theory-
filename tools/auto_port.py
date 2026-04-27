@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""기존 .lean 파일에서 bracket 패턴 자동 포팅.
+"""Auto-port bracket patterns from existing .lean files.
 
-지원 패턴:
+Supported patterns:
   1. `theorem N : LO < M ∧ M < HI := by decide`
      → `Nat.ble (LO+1) M = true ∧ Nat.ble (M+1) HI = true := ⟨rfl, rfl⟩`
 
-  2. `theorem N : K = V := rfl`  (정수 등식)
-     → 변경 없음 (이미 axiom-free 가능성 높음)
+  2. `theorem N : K = V := rfl`  (integer equality)
+     → no change (likely already axiom-free)
 
 Usage: python3 tools/auto_port.py <input.lean>
-출력: stdout 에 ported 코드.
+Output: ported code to stdout.
 
-수동 검수 후 lean/E213/Kernel/Cap_*.lean 으로 합쳐 넣기.
+After manual review, merge into lean/E213/Kernel/Cap_*.lean.
 """
 import re, sys
 from pathlib import Path

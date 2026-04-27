@@ -5,7 +5,7 @@ import E213.Physics.FaceTerms
 /-!
 # Dyson tail 1/(1-α_GUT/(d-1)) — universal pattern (0 axioms)
 
-같은 Dyson resummation 분모 d-1 = NS+1 = 4가 여러 정밀 식에 등장.
+The same Dyson resummation denominator d-1 = NS+1 = 4 appears in several precision formulas.
 
 ## Where the same y = α_GUT/(d-1) Dyson tail appears
 
@@ -16,7 +16,7 @@ import E213.Physics.FaceTerms
   3. **α_em IR formula** (AlphaEMUnified.lean):
        Tiny correction term α_GUT/(NS+1) ≈ 0.006
 
-  세 식 모두 같은 분모 (d-1) — atomicity 강제.
+  All three formulas share the same denominator (d-1) — atomicity forces it.
 
 ## Atomicity locks d-1 = 4 = three coincident roles
 
@@ -26,8 +26,8 @@ import E213.Physics.FaceTerms
     = #tetrahedra per vertex in 5-simplex (Δ⁴ link)
     = #nontrivial Λᵏ matter reps (k=1,2,3,4)
 
-  단일 atomicity (NS, NT, d) = (3, 2, 5)이 네 가지 다른
-  조합론적 기원의 정수 4를 *동시에 일치*시킴.
+  Single atomicity (NS, NT, d) = (3, 2, 5) simultaneously makes
+  the integer 4 from four different combinatorial origins *coincide*.
 -/
 
 namespace E213.Physics.Dyson

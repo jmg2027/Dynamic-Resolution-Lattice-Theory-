@@ -1,23 +1,23 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 4 HundPenalty — *Hund 규칙 = atomic edge penalty*
+# Phase 4 HundPenalty — *Hund's rule = atomic edge penalty*
 
 ★ User insight ★
-"훈트 규칙은 새 물리 법칙이 아닌 격자 간선 점유율 > 절반
-일 때 의 atomic combinatorial penalty."
+"Hund's rule is not a new physical law but an atomic combinatorial
+penalty when lattice edge occupancy exceeds half-fill."
 
-## 가설
+## Hypothesis
 
   ε_pair = R · NS/(NS²-1) = R · α_3 · NS = R · 3/8 atomic
 
   Half-fill = NS (= 3, half of NS·NT=6).
-  n_2p > NS 시 (n - NS) 개 paired electron.
+  When n_2p > NS: (n - NS) paired electrons.
   IE_actual = IE_no_pair - ε_pair · 1.
 
-  관측 O drop ~5 eV ≈ ε_pair atomic (R·3/8 ≈ 5.10).
+  Observed O drop ~5 eV ≈ ε_pair atomic (R·3/8 ≈ 5.10).
 
-→ "Hund 규칙" = 격자 α_3 strong coupling penalty.
+→ "Hund's rule" = lattice α_3 strong coupling penalty.
 -/
 
 namespace E213.Physics.Phase4.HundPenalty
@@ -46,7 +46,7 @@ theorem F_paired : (5 : Nat) - NS = 2 := by decide
 theorem Ne_paired : (6 : Nat) - NS = 3 := by decide
 
 /-- ★ Hund Penalty Atomic Capstone ★
-    "이상한 보정" 부재.  α_3 · NS · R = atomic Lens output. -/
+    No "strange correction".  α_3 · NS · R = atomic Lens output. -/
 theorem hund_atomic :
     -- p shell size atomic
     (NS * NT = 6)

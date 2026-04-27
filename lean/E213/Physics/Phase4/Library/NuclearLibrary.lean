@@ -1,9 +1,9 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Nuclear Library — 핵 atomic catalog
+# Nuclear Library — nuclear atomic catalog
 
-## Magic numbers (Phase 1 검증, 7/7 정확)
+## Magic numbers (Phase 1 verified, 7/7 exact)
 
   2, 8, 20, 28, 50, 82, 126
 
@@ -16,8 +16,8 @@ import E213.Physics.SimplexCounts
 
 ## Spin-orbit shift (8 atomic)
 
-  관측 = HO + atomic correction
-  Phase 1 NuclearShells 검증.
+  observed = HO + atomic correction
+  Phase 1 NuclearShells verified.
 
 ## Binding energy
 
@@ -38,7 +38,7 @@ theorem ho_magic_2 : NS * NS - 1 = 8 := by decide
 /-- HO magic 3 = 4d = 20. -/
 theorem ho_magic_3 : 4 * d = 20 := by decide
 
-/-- HO magic 7 = 168 (Z=168 super-heavy 예측). -/
+/-- HO magic 7 = 168 (Z=168 super-heavy prediction). -/
 theorem ho_magic_7 : 7 * 8 * 9 / 3 = 168 := by decide
 
 /-- Nuclear binding ~ 1/α_3 = 8 MeV atomic. -/

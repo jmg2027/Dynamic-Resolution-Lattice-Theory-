@@ -30,21 +30,23 @@ Index starts at p^1 (k = 0) so each modulus ≥ p ≥ 2.
 5. `padic_limit_all_zero`: limit assignment is identically 0
    — the p-adic zero of ℤ_p.
 
-## 의의
+## Significance
 
-ℤ_p 는 표준 number theory 의 무거운 도구.  213 framework 에서는
-`leavesModNat` sub-family + `factorial` seq 만으로 자연스럽게
-realized.  `ProfiniteSeq` (factorial 전체 = Ẑ) 의 sub-tower.
+ℤ_p is a heavy tool of standard number theory.  In the 213 framework
+it is naturally realized using only the `leavesModNat` sub-family and
+the `factorial` sequence.  A sub-tower of `ProfiniteSeq` (factorial
+entire = Ẑ).
 
-CmpIndependence + Cauchy completeness 와 함께, Paper 1 의
-"ZFC 대체" claim 을 number-theoretic limit 영역 까지 확장.
+Together with CmpIndependence + Cauchy completeness, this extends the
+"ZFC replacement" claim of Paper 1 into the number-theoretic limit
+domain.
 
-`#print axioms`: propext only — Classical.choice 부재.
+`#print axioms`: propext only — no Classical.choice.
 
-## 변경 이력
+## Changelog
 
-- 2026-04-25: padicFamily + factorial-seq instance.  ProfiniteSeq
-  의 직접 sub-tower 형식화.
+- 2026-04-25: padicFamily + factorial-seq instance.  Formalization as
+  a direct sub-tower of ProfiniteSeq.
 -/
 
 namespace E213.Research.Padic
@@ -61,7 +63,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
 open E213.Research.ProfiniteSeq
 
-/-! ### Power lemmas (Lean 4 core 기반) -/
+/-! ### Power lemmas (based on Lean 4 core) -/
 
 private theorem pow_one_le (p : Nat) (hp : p ≥ 2) (k : Nat) :
     1 ≤ p^k := by

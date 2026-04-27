@@ -3,15 +3,15 @@ import E213.Research.PureNatMod3
 /-!
 # Research.Sqrt3IrrationalPure: √3 irrationality, **truly axiom-free**
 
-`Sqrt2IrrationalPure` 의 일반화 to p = 3.  같 은 descent 패턴 —
-prime-modular structure 의 squaring map 분석 + infinite descent.
+Generalization of `Sqrt2IrrationalPure` to p = 3.  Same descent pattern —
+squaring map analysis of prime-modular structure + infinite descent.
 
-Lean 을 *순수 type checker* 로만 사용.
+Uses Lean as a *pure type checker* only.
 
-## 의의
+## Significance
 
-방법 의 진작 — sqrt2 의 일반화: 임의 prime p 에 대해 sqrt p
-irrational, descent via mod-p.  Concrete instance for p = 3.
+Advance of the method — generalization of sqrt2: sqrt p is irrational
+for any prime p, descent via mod-p.  Concrete instance for p = 3.
 -/
 
 namespace E213.Research.Sqrt3IrrationalPure

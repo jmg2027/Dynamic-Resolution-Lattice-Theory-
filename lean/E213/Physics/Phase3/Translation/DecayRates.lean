@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 입자 붕괴율 → DRLT atomic
+# Translation: Particle decay rates → DRLT atomic
 
   1. Muon lifetime τ_μ = 192/(G_F² m_μ⁵) → atomic exponent 5 = d
   2. Pion β-decay → atomic

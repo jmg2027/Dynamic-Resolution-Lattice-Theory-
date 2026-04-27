@@ -1,8 +1,8 @@
-# Phase 2 AUDIT — 수학 트랙 엄밀함 학습 + 위반 점검
+# Phase 2 AUDIT — Learning Math Track Rigor + Violation Check
 
-## 1. 수학 트랙 (QqnSp) 의 Lens 패턴
+## 1. Math Track (QqnSp) Lens Pattern
 
-### 1.1 Lens 정의 (`Hypervisor/Lens.lean`)
+### 1.1 Lens Definition (`Hypervisor/Lens.lean`)
 
 ```lean
 structure Lens (α : Type) where
@@ -15,35 +15,35 @@ def Lens.view (L : Lens α) (r : Raw) : α :=
 ```
 
 **Lens = (codomain α, base_a, base_b, combine) tuple**.
-`Lens.view` = catamorphism `Raw → α` (Raw.fold 의 wrapper).
+`Lens.view` = catamorphism `Raw → α` (wrapper around Raw.fold).
 
 **Lens.equiv x y := L.view x = L.view y** — kernel equivalence.
-Lens 가 다르면 다른 *equality* 부여.  None is part of the axiom.
+Different Lens gives different *equality*. None is part of the axiom.
 
-### 1.2 Lens 의 정확한 의미
+### 1.2 Exact Meaning of Lens
 
 CLAUDE.md (213/CLAUDE.md):
-> "Lens는 functor 아님.  Functor는 카테고리 구조 선행 전제."
+> "Lens is not a functor. Functor presupposes categorical structure."
 
-즉 Lens는 *카테고리* 객체가 아니다.  *Raw 위 specific
-catamorphism*.  α type, base values, binary combine 만으로 정의.
-어떤 외부 수학 구조도 import 안 함.
+So a Lens is *not* a category object. It is a *specific catamorphism
+on Raw*. Defined only by α type, base values, and binary combine.
+No external mathematical structure imported.
 
-### 1.3 Layer 구조
+### 1.3 Layer Structure
 
 ```
 Firmware  (Raw type, fold)
  ↓
 Hypervisor (Lens)
  ↓
-OS  (Atomicity 등 axiom-derived theorems)
+OS  (Atomicity and other axiom-derived theorems)
  ↓
 App (Simplex.lean — 5-vertex partition application)
  ↓
 Research (specific experiments)
 ```
 
-### 1.4 App/Simplex.lean — Atomicity 응용 패턴
+### 1.4 App/Simplex.lean — Atomicity Application Pattern
 
 ```lean
 import E213.OS.Atomicity
@@ -54,65 +54,69 @@ def classify (i j : Fin 5) : BlockPair := ...
 def AutInvariant (W : Fin 5 → Fin 5 → α) : Prop := ...
 ```
 
-**즉 수학 트랙이 (3,2) partition, vertex, classify 같은 것들을
-Fin 5 위에 직접 정의한다.**  Lens 객체로서 정식화하지 않음.
+**So the math track directly defines (3,2) partition, vertex,
+classify and similar things on Fin 5.** Not formalized as Lens
+objects.
 
-이게 *App-layer 패턴* — Atomicity 이후, 구체 application 단계.
+This is the *App-layer pattern* — the concrete application stage
+after Atomicity.
 
-### 1.5 엄밀함 기준
+### 1.5 Rigor Criteria
 
-수학 트랙이 지키는 것:
+What the math track maintains:
 - 0 sorry
-- ≤ propext + Quot.sound (외부 axiom 0)
-- Mathlib 0 imports
+- ≤ propext + Quot.sound (0 external axioms)
+- 0 Mathlib imports
 - Lean 4 core only
 - Decidable everything
 
-**위 5조건 충족 시 "엄밀"하다고 인정.**
+**Satisfying the above 5 conditions is recognized as "rigorous".**
 
 ---
 
-## 2. Phase 2 위반 점검
+## 2. Phase 2 Violation Check
 
-### 2.1 파일별 audit
+### 2.1 Per-file audit
 
 #### `Origin.lean` — **OK (axiom-level)**
-- `import E213.OS.Atomicity` 만
-- Atomic 정리 사용 (`atomic_five`, `atomic_implies_five`)
-- Axioms: propext + Quot.sound (Atomicity 본체에 의존)
-- ✓ **fully axiom-level, 위반 없음**
+- Only `import E213.OS.Atomicity`
+- Uses Atomic theorems (`atomic_five`, `atomic_implies_five`)
+- Axioms: propext + Quot.sound (depends on Atomicity body)
+- ✓ **fully axiom-level, no violation**
 
-#### `Shape.lean` — **OK (App-level, 수학 트랙 패턴)**
-- 단순 `Nat` 산술 (5 = 3+2, C(5,2)=10, ...)
-- "vertex", "block", "쌍" 등 단어 사용 → *Lens output 의미*
-- Axioms: 0 (decide만 사용)
-- ✓ **App-level이지만 명시 안 됨 — 보강 권장**
+#### `Shape.lean` — **OK (App-level, math track pattern)**
+- Simple `Nat` arithmetic (5 = 3+2, C(5,2)=10, ...)
+- Words like "vertex", "block", "pair" used → *Lens output meaning*
+- Axioms: 0 (only decide used)
+- ✓ **App-level but not explicitly marked — reinforcement recommended**
 
-#### `Existence.lean` — **OK (App-level, App/Simplex 동일 패턴)**
-- `Vertex := Fin 5` 정의
-- `inBigBlock`, `inSmallBlock` 함수
-- App/Simplex의 `isA` 와 *완전 동일 패턴*
+#### `Existence.lean` — **OK (App-level, same pattern as App/Simplex)**
+- `Vertex := Fin 5` definition
+- `inBigBlock`, `inSmallBlock` functions
+- *Completely identical pattern* to App/Simplex's `isA`
 - Axioms: 0
-- ✓ **수학 트랙 App-layer 와 동일 — 위반 없음**
+- ✓ **Same as math track App-layer — no violation**
 
 #### `Pairs.lean` — **OK (App-level)**
-- 10 쌍 분류 (AA, BB, AB)
-- App/Simplex의 `BlockPair` 와 유사
+- 10 pair classification (AA, BB, AB)
+- Similar to App/Simplex's `BlockPair`
 - Axioms: 0
-- ✓ **App-level, 위반 없음**
+- ✓ **App-level, no violation**
 
-### 2.2 단어 사용 점검 (CLAUDE.md "관계, 구조, 인식, 관측자, 공간" 금지)
+### 2.2 Word Usage Check (CLAUDE.md prohibits "relation, structure,
+cognition, observer, space")
 
-본 트랙 모든 파일 검토:
-- ✓ "관계" — 사용 없음
-- ✓ "관측자" — 사용 없음
-- ✓ "인식" — 사용 없음
-- ⚠ "구조" — README에서 "atomic 구조" 한 번 (직접적 axiom 설명 X)
-- ✓ "공간" — 사용 없음 (NS sector 도 "공간" 단어 회피, "spatial" 사용)
+Review of all files in this track:
+- ✓ "relation" — not used
+- ✓ "observer" — not used
+- ✓ "cognition" — not used
+- ⚠ "structure" — once in README as "atomic structure" (not a direct
+  axiom description)
+- ✓ "space" — not used (NS sector also avoids "space", uses "spatial")
 
-**한 회 mild 사용 — 무시 가능 수준.**
+**One mild usage — negligible level.**
 
-### 2.3 0 sorry, 0 axiom 기준
+### 2.3 0 sorry, 0 axiom criteria
 
 ```
 Origin.lean       : propext + Quot.sound
@@ -121,54 +125,58 @@ Existence.lean    : 0 axioms
 Pairs.lean        : 0 axioms
 ```
 
-✓ **모두 ≤ propext + Quot.sound — 수학 트랙 기준 충족.**
+✓ **All ≤ propext + Quot.sound — meets math track criteria.**
 
 ---
 
-## 3. 결론
+## 3. Conclusion
 
-### 3.1 종합 판정
+### 3.1 Overall Verdict
 
-**Phase 2 4개 파일 모두 수학 트랙 엄밀함 기준 충족.**
-- 0 sorry, 0 external axiom (≤ propext + Quot.sound)
+**All 4 Phase 2 files meet the math track rigor criteria.**
+- 0 sorry, 0 external axioms (≤ propext + Quot.sound)
 - Mathlib-free, Lean 4 core only
-- 수학 트랙 App-layer (App/Simplex) 와 *완전 동일 패턴*
+- *Completely identical pattern* to math track App-layer (App/Simplex)
 
-### 3.2 *명시적 보강* 권장
+### 3.2 *Explicit Reinforcement* Recommended
 
-본 audit에서 확인된 *권장사항* (위반 아님):
-- 각 파일이 "axiom-level" vs "App-level" 명시
-- App/Simplex 와의 관계 명시 (parallel work, intentional)
-- Lens 객체 자체가 정의된 것 아님 — App-layer 작업이라는 점 명시
+Recommendations identified in this audit (not violations):
+- Each file should explicitly state "axiom-level" vs "App-level"
+- Explicitly state relationship with App/Simplex (parallel work,
+  intentional)
+- Note that no Lens object itself is defined — state explicitly that
+  this is App-layer work
 
-### 3.3 다음 단계 권장
+### 3.3 Recommended Next Steps
 
-Phase 2 진행 시:
-1. 각 파일에 "Layer: App/Lens-output (not raw axiom)" 헤더 추가
-2. (선택) 명시적 Lens 정의 file 추가 — 현재 Vertex/partition을
-   *어떤 Lens가 produce* 하는지 형식화
-3. App/Simplex 와 cross-reference 추가
+When proceeding with Phase 2:
+1. Add "Layer: App/Lens-output (not raw axiom)" header to each file
+2. (Optional) Add explicit Lens definition file — formalize *which
+   Lens produces* the current Vertex/partition
+3. Add cross-reference with App/Simplex
 
-### 3.4 수학 트랙에서 배운 것
+### 3.4 Learned from Math Track
 
-- **Layer 분리 명시**: Firmware → Hypervisor → OS → App → Research
-- **Lens는 catamorphism**: (α, base_a, base_b, combine) 만으로 정의
-- **Decidable 우선**: Lean 4 core 만으로 충분
-- **0 axiom 외부 수학 imports**: Mathlib 절대 X
-- **propext, Quot.sound 만 허용**: Lean 4 core 표준 (Atomicity 본체도 사용)
+- **Explicit layer separation**: Firmware → Hypervisor → OS → App →
+  Research
+- **Lens is catamorphism**: defined only by (α, base_a, base_b, combine)
+- **Decidable first**: Lean 4 core is sufficient
+- **0 axiom external math imports**: absolutely no Mathlib
+- **Only propext, Quot.sound allowed**: Lean 4 core standard (also used
+  in Atomicity body)
 
-### 3.5 물리 트랙에 적용
+### 3.5 Applied to Physics Track
 
 **Phase 1**:
-- 정밀 양 (137, m_p 등)이 atomic primitives에서 도출
-- ≤ propext + Quot.sound 준수
-- 각 파일이 사실상 App-layer (정수 산술 + Fin 5 like)
+- Precision quantities (137, m_p, etc.) derived from atomic primitives
+- ≤ propext + Quot.sound compliance
+- Each file is essentially App-layer (integer arithmetic + Fin 5-like)
 
 **Phase 2**:
-- Origin = OS-level (Atomicity 직접)
-- Shape/Existence/Pairs = App-level (Fin 5 위 partition/classify)
-- 둘 모두 수학 트랙 표준 충족
+- Origin = OS-level (Atomicity directly)
+- Shape/Existence/Pairs = App-level (partition/classify on Fin 5)
+- Both meet math track standard
 
-→ **물리 트랙은 수학 트랙과 *동일 엄밀함*** 으로 작동 중.
-다만 architecture에서 "이건 axiom이고 이건 App이다" 가 *implicit*.
-Audit 후 *explicit* 으로 마크하면 더 정직.
+→ **The physics track operates at *the same rigor* as the math track.**
+However, in the architecture, "this is axiom" vs "this is App" is
+*implicit*. Post-audit, marking it *explicit* is more honest.

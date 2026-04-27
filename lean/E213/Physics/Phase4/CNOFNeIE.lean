@@ -3,10 +3,10 @@ import E213.Physics.SimplexCounts
 /-!
 # Phase 4 CNOFNeIE — C, N, O, F, Ne IE atomic chain
 
-각 원소 leading + P(x/k) chain.
-정밀도 1000-3000 ppm range (σ_atomic refinement 추가 필요).
+Leading + P(x/k) chain for each element.
+Precision in 1000-3000 ppm range (additional σ_atomic refinement needed).
 
-## 관측 IE (CODATA, eV)
+## Observed IE (CODATA, eV)
 
   C   11.260288
   N   14.534130
@@ -17,15 +17,15 @@ import E213.Physics.SimplexCounts
 ## DRLT chain (working hypothesis)
 
   σ_2p_2p = 11/15 = (NS²+NT)/(d·NS) atomic
-  same-m vs different-m 추가 보정 필요 (Hund's rule).
+  Additional correction needed for same-m vs different-m (Hund's rule).
 
   C  (2p²): σ_total = 69/20 + 11/15 = 251/60, Z_eff = 109/60
-  N  (2p³): exception (Hund 최대 spin)
+  N  (2p³): exception (Hund maximum spin)
   O  (2p⁴): re-pairing exception
   F  (2p⁵): close to closed shell
   Ne (2p⁶): closed shell, special
 
-각 원소 의 atomic σ 정밀화 = future Phase 5.
+Atomic σ refinement for each element = future Phase 5.
 -/
 
 namespace E213.Physics.Phase4.CNOFNeIE

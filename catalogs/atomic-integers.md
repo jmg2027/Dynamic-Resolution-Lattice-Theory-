@@ -1,8 +1,8 @@
 # Atomic Integers Catalog
 
-213 atomic primitives (NS=3, NT=2, d=5, c=2) 로 표현 가능한 정수.
+Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
 
-## 작은 정수 (1-30)
+## Small integers (1-30)
 
   1 = NS - NT, NT - 1
   2 = NT, c
@@ -26,7 +26,7 @@
   27 = NS³
   30 = NS·NT·d
 
-## 중간 정수 (30-100)
+## Medium integers (30-100)
 
   32 = NT^d   36 = (NS·NT)²   40 = (NS²-1)·d
   41 = α_GUT integer (prime)
@@ -35,17 +35,17 @@
   72 = (d²-1)·NS   75 = NS·d²   80 = NT⁴·d
   81 = NS⁴   86 = Rn   100 = NT²·d²
 
-## 큰 정수 (100+)
+## Large integers (100+)
 
   118 = Og   137 = 1/α_em (prime)
-  168 = HO magic 7 (Z=168 예측)
+  168 = HO magic 7 (Z=168 prediction)
   192 = (NS²-1)(d²-1) (Muon lifetime)
 
 ## Atomic primes
 
   2, 3, 5, 7, 13, 41, 137
 
-## Multi-output (같은 정수 무관 framework)
+## Multi-output (same integer across unrelated frameworks)
 
   6 = NS·NT     [Pauli ε, Lorentz, AB pair, 3!]
   8 = NS²-1     [α_3, SU(3), b_1, Einstein, Hawking]

@@ -1,7 +1,7 @@
 import E213.Physics.BaselBound
 
 /-!
-# α_GUT — 첫 DRLT 물리 상수 형식 정리
+# α_GUT — first DRLT physics constant formal theorem
 
 Standard formulation: 1/α_GUT = d² · ζ(2) = 25 · π²/6 ≈ 41.123.
 

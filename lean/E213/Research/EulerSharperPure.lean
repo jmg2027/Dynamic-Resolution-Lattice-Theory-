@@ -8,7 +8,7 @@ import E213.Research.EulerCombinatorialPure
 `euler_sharper_8_3_pure`: n ≥ 4 → 3 * eulerNum n ≥ 8 * eulerDen n + 1
 (== S_n > 8/3 strict).
 
-이 sharper bound + e < 3 → e ∈ (8/3, 3).  No integer a/3 in
+This sharper bound + e < 3 → e ∈ (8/3, 3).  No integer a/3 in
 (8/3, 3) → e ≠ a/3 for any positive integer a.
 -/
 
@@ -79,12 +79,12 @@ theorem eulerDen_pos_pure (N : Nat) : eulerDen N ≥ 1 := by
       rw [Nat.mul_one] at h_mul
       exact Nat.le_trans h_kp h_mul
 
-/-- **e ≠ a/3 (partial sum form, axiom-free)**: 모든 N ≥ 4 와
-    positive integer a 에 대해 `3 · eulerNum N ≠ a · eulerDen N`.
+/-- **e ≠ a/3 (partial sum form, axiom-free)**: for every N ≥ 4
+    and positive integer a, `3 · eulerNum N ≠ a · eulerDen N`.
 
-    이 framework 의 partial sum 의 statement.  S_N → e 의 limit
-    의미 에서 e ≠ a/3 for any a ∈ ℕ⁺.  Hermite-style 증명
-    의 framework-internal 형식 화. -/
+    A statement about the framework's partial sums.  In the limit
+    sense S_N → e, this formalizes e ≠ a/3 for any a ∈ ℕ⁺.
+    Framework-internal formalization of a Hermite-style proof. -/
 theorem e_partial_neq_third_a (a : Nat) (ha : a ≥ 1) (N : Nat) (hN : N ≥ 4) :
     3 * eulerNum N ≠ a * eulerDen N := by
   intro heq

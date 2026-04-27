@@ -123,5 +123,5 @@ RecurrenceLens (transcendental classification).
 
 ## Library status: SCAFFOLDED — interfaces + simple instances.
 
-Full convergence/correctness proofs 별 도 arc.
+Full convergence/correctness proofs are a separate arc.
 -/

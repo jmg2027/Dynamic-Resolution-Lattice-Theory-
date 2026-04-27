@@ -12,7 +12,7 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- **CutAlgebra**: 모든 standard cut operation 의 binding. -/
+/-- **CutAlgebra**: bundle of all standard cut operations. -/
 structure CutAlgebra where
   zero : Nat → Nat → Bool
   one : Nat → Nat → Bool
@@ -34,10 +34,10 @@ def stdCutAlgebra : CutAlgebra where
   half := cutHalf
   mid := cutMid
 
-/-- 1 + 1 = 2 의 stdCutAlgebra 형 식 verification. -/
+/-- Formal verification that 1 + 1 = 2 in stdCutAlgebra. -/
 example : stdCutAlgebra.add stdCutAlgebra.one stdCutAlgebra.one 2 1 = true := by decide
 
-/-- 0 의 cut "always true" verification. -/
+/-- Verification that the cut for 0 is "always true". -/
 example : stdCutAlgebra.zero 0 1 = true := by decide
 
 end E213.Research.Real213CutSum

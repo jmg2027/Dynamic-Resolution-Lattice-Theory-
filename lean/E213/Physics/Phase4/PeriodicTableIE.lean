@@ -16,13 +16,13 @@ CODATA observed ionization energies (eV):
   F   17.422820  (2p)
   Ne  21.564540  (2p)
 
-Each element 의 DRLT atomic chain:
+DRLT atomic chain for each element:
 
   IE(Z, n, shell) = R · Z_eff² / n²
   Z_eff = Z - σ_atomic
   σ_atomic = atomic shell-specific ratio
 
-본 파일: 각 원자 의 observed IE 의 atomic 정수 표현 + bracket.
+This file: atomic integer representation + bracket for each element's observed IE.
 -/
 
 namespace E213.Physics.Phase4.PeriodicTableIE
@@ -75,7 +75,7 @@ theorem Z_O_atomic : NS * NT + NT = 8 := by decide
 theorem Z_F_atomic : NS * NS = 9 := by decide
 theorem Z_Ne_atomic : NS * NT + NT * NT = 10 := by decide
 
-/-! ## Atomic chain proxies (각 원자 의 IE 와 atomic 정수 의 cross-mult) -/
+/-! ## Atomic chain proxies (cross-mult between each element's IE and atomic integer) -/
 
 /-- IE(He)/IE(H) ratio: 24.587 / 13.598 ≈ 1.808.
     Atomic claim: 4 · IE(H) · σ_factor = IE(He) where σ ≈ 0.452.

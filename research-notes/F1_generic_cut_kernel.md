@@ -1,15 +1,15 @@
-# F1 — Generic cutBinary kernel ('213 스럽게 generic')
+# F1 — Generic cutBinary kernel ('generic in the 213 style')
 
 ## User directive (2026-04-26)
 
-> "Generic 으로 213 스럽게 가보자."
+> "Let's go generic in the 213 style."
 
-기존 cutSum, cutMul 의 specific 구현 → universal abstraction 으 로
-elevate.
+Elevate the specific implementations of cutSum and cutMul to a
+universal abstraction.
 
 ## Generic framework
 
-### `cutBinary` 의 universal kernel
+### Universal kernel of `cutBinary`
 
 ```
 cutBinary P k1 k2 M1 M2 cx cy
@@ -26,7 +26,7 @@ structure CutBinaryOp where
   k1 k2 M1 M2 : Nat → Nat → Nat
 ```
 
-모든 binary cut operation 의 *parameter space*.
+*Parameter space* of all binary cut operations.
 
 ### Instance pattern
 
@@ -41,36 +41,36 @@ def cutSumOp : CutBinaryOp where
 
 ### Generic theorem
 
-`CutBinaryOp.apply_locallyDetermined` : op.apply 가 locally determined.
+`CutBinaryOp.apply_locallyDetermined` : op.apply is locally determined.
 
-**모두 0 axioms!**
+**All 0 axioms!**
 
 ## Special cases
 
 ### Trivial (search-free) operations
 
 cutMax, cutMin = pure Bool combinators (cx ∧ cy or cx ∨ cy).
-- 검 색 부 재.
-- Continuity 자명.
-- Commutativity, associativity 모두 funext + cases 로 (axiom: Quot.sound).
+- No search.
+- Continuity trivial.
+- Commutativity, associativity all via funext + cases (axiom: Quot.sound).
 
-cutMax 가 cut framework 의 가 장 elegant 한 operation.
+cutMax is the most elegant operation in the cut framework.
 
 ### Search-based operations
 
-cutSum, cutMul = cutBinary 의 specific instance.
+cutSum, cutMul = specific instances of cutBinary.
 - Bounded 2D search.
-- Bishop ε-precision 의 implementation detail (k1, k2 factor).
-- Continuity 자동 유 도.
+- Implementation detail of Bishop ε-precision (k1, k2 factor).
+- Continuity auto-derived.
 
-## 213-style 의 의의
+## Significance of the 213 style
 
-1. **Lens-style abstraction**: 모든 binary cut operation 이 single
+1. **Lens-style abstraction**: all binary cut operations in a single
    structural form.
-2. **Substrate uniformity**: 미 래 모든 operation 이 같은 kernel 의
-   instance.
-3. **Auto-derived properties**: locally-determined 가 generic theorem.
-4. **Axiom-free generic**: cutBinary_locallyDetermined 가 0 axioms.
+2. **Substrate uniformity**: all future operations are instances of
+   the same kernel.
+3. **Auto-derived properties**: locally-determined is a generic theorem.
+4. **Axiom-free generic**: cutBinary_locallyDetermined has 0 axioms.
 
 ## Future generic directions
 
@@ -78,8 +78,8 @@ cutSum, cutMul = cutBinary 의 specific instance.
   commutes.  Bijection-based proof.
 - **Monotonic predicate → monotonicity**: P → P' implies app result
   monotone.
-- **Composition**: f ∘ g 의 LDD (`composeLDD`) — already done.
-- **CutAlgebra typeclass**: 0, 1, +, ×, max, min 등 통합.
+- **Composition**: LDD of f ∘ g (`composeLDD`) — already done.
+- **CutAlgebra typeclass**: unification of 0, 1, +, ×, max, min, etc.
 
 ## Cross-references
 

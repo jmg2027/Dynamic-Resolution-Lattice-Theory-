@@ -35,12 +35,12 @@ import E213.Physics.Phase3.Translation.GravitationalWaves
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation Capstone — 현대 물리 5+1 통번역 종합
+# Translation Capstone — modern physics 5+1 translation summary
 
-User: "현대 물리 전체를 그냥 213으로 통번역하고 모조리
-정리로 만들어버리자."
+User: "Let's just translate all of modern physics into 213
+and turn everything into theorems."
 
-## 통번역 5 분야
+## 5 fields of translation
 
   QuantumMechanics  : ψ, |ψ|², spin, Heisenberg
   Relativity        : SR + GR, c, Minkowski, curvature
@@ -49,24 +49,24 @@ User: "현대 물리 전체를 그냥 213으로 통번역하고 모조리
   Cosmology         : Big Bang, Ω_Λ, flatness, asymmetry
   Symmetry          : SU(N), gauge, Noether, GUT
 
-## 모두 *동일* atomic primitives 위 derive
+## All derived from *identical* atomic primitives
 
   (NS, NT, d, c) = (3, 2, 5, 2) atomic
   + Lens layer index
   + (3/2)^n hierarchy
   + d² = 25, d² - 1 = 24, NS² - 1 = 8, NT² - 1 = 3
 
-## 단일 capstone — 현대 물리 전 frame
+## Single capstone — all frames of modern physics
 -/
 
 namespace E213.Physics.Phase3.Translation.Capstone
 
 open E213.Physics.Simplex
 
-/-- ★★★ 현대 물리 5+1 통번역 단일 capstone ★★★
-    *모든* 분야가 동일 atomic primitives 위 derive. -/
+/-- ★★★ Modern physics 5+1 translation single capstone ★★★
+    *All* fields derived from identical atomic primitives. -/
 theorem all_modern_physics_atomic :
-    -- atomic primitives (전 분야 공통)
+    -- atomic primitives (common to all fields)
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
     -- QM: Pauli generators NT²-1 = 3, ℂ readout NS+NT = d
     ∧ (NT * NT - 1 = 3) ∧ (NS + NT = d)

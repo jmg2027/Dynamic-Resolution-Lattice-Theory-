@@ -27,28 +27,28 @@ import E213.Physics.Phase4.Library
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
 
-User insight: "decide-check 만 하는 건 number games."
+User insight: "decide-check only is number games."
 
 ★ Solution: AtomicExpr framework ★
-  inductive 문법 + complexity + eval
-  → "정수 N 이 atomic-K-derivable" 정의 가능
-  → 물리 정수 catalog 가 *작은 K* 임을 *결정 가능*
+  inductive syntax + complexity + eval
+  → "integer N is atomic-K-derivable" definable
+  → physical integer catalog being *small K* is *decidable*
 
-이 framework 의 *진짜 의미*:
+The *true meaning* of this framework:
 
-  무작위 정수 N 의 평균 description length ~ log N.
-  물리 정수 (137, 192, 60 등) atomic-K, K ≤ 5.
-  → *통계적으로 유의*.
+  Average description length of random integer N ~ log N.
+  Physical integers (137, 192, 60, etc.) atomic-K, K ≤ 5.
+  → *Statistically significant*.
 
-## 모듈
+## Modules
 
-  AtomicExpr  — Expr 문법 + complexity + eval
-  AtomicReps  — 핵심 정수 의 atomic representation
+  AtomicExpr  — Expr syntax + complexity + eval
+  AtomicReps  — atomic representation of key integers
   Sparsity    — is_atomic_K predicate + theorems
 
-## 향후 작업
+## Future work
 
-  - 모든 물리 정수 (Phase 1, Phase 3 etc.) 의 atomic-K membership
-  - Atomic-K 의 cardinality bounds
-  - Random integer 와의 statistical comparison
+  - atomic-K membership of all physical integers (Phase 1, Phase 3 etc.)
+  - Cardinality bounds of Atomic-K
+  - Statistical comparison with random integers
 -/

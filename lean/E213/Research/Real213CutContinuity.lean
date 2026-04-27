@@ -5,18 +5,18 @@ import E213.Research.Real213CauchyComplete
 
 Cut-level continuity of functions f : RealCut → RealCut.
 
-## 정의
+## Definition
 
-`isLocallyDetermined f` := f 의 value at (m, k) 가 cx 의 *bounded
-range* 의 values 에 만 의존.
+`isLocallyDetermined f` := the value of f at (m, k) depends only on
+values of cx within a *bounded range*.
 
-## 의의
+## Significance
 
 213-native continuity = "f's value at (m, k) only depends on cx's
 values at precisions ≤ N(m, k)".
 
-이 form 은 standard ε-δ continuity 의 cut counterpart — Bishop
-locatedness 와 정 합.
+This form is the cut-level counterpart of standard ε-δ continuity —
+consistent with Bishop locatedness.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -26,8 +26,8 @@ open E213.Firmware E213.Hypervisor
 /-- **CutFunction**: cut → cut transformer. -/
 abbrev CutFunction := (Nat → Nat → Bool) → (Nat → Nat → Bool)
 
-/-- **isLocallyDetermined**: f 의 (m, k) 결과 가 cx 의 ≤ N 안 values 만
-    의존. -/
+/-- **isLocallyDetermined**: the result of f at (m, k) depends only
+    on values of cx within ≤ N. -/
 def isLocallyDetermined (f : CutFunction) : Prop :=
   ∀ m k, ∃ N : Nat,
     ∀ cx cy : Nat → Nat → Bool,

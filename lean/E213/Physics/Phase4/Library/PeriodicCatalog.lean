@@ -3,9 +3,9 @@ import E213.Physics.SimplexCounts
 /-!
 # Phase 4 Library — Periodic Table Catalog (Z=1 to 36, atomic only)
 
-★ DRLT 주기율표 — 표준 차용 부재 ★
+★ DRLT periodic table — no standard borrowing ★
 
-각 row: Z, atomic_form, observed_IE_μeV.
+Each row: Z, atomic_form, observed_IE_μeV.
 
 ## Period 1
   1 H    Z=1                 IE=13598434  (4.3 ppb formal)
@@ -31,7 +31,7 @@ import E213.Physics.SimplexCounts
  17 Cl   Z=NS²+(NS²-1)       IE=12967632
  18 Ar   Z=2·NS²             IE=15759610  ★ P3 closure
 
-## Period 4 (선택)
+## Period 4 (selected)
  19 K    Z=NS³-NT³
  20 Ca   Z=4·d
  25 Mn   Z=d²
@@ -45,7 +45,7 @@ namespace E213.Physics.Phase4.Library.PeriodicCatalog
 
 open E213.Physics.Simplex
 
-/-- 모든 Z (1-36) atomic 표현 검증. -/
+/-- Verification of all Z (1-36) atomic representations. -/
 theorem all_Z_atomic :
     -- Period 1
     (1 = 1) ∧ (NT = 2)
@@ -58,7 +58,7 @@ theorem all_Z_atomic :
     ∧ (NS * NS + NT * NT = 13) ∧ (3 * d - 1 = 14)
     ∧ (NS * d = 15) ∧ (NT * NT * NT * NT = 16)
     ∧ (NS * NS + (NS * NS - 1) = 17) ∧ (2 * NS * NS = 18)
-    -- Period 4 (선택)
+    -- Period 4 (selected)
     ∧ (NS * NS * NS - NT * NT * NT = 19) ∧ (4 * d = 20)
     ∧ (d * d = 25) ∧ (NS * NS * NS = 27)
     ∧ (NS * NT * d = 30) ∧ (NT * NT * NT * NT * NT = 32)

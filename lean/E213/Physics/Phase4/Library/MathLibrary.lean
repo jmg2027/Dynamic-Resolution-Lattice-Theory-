@@ -1,9 +1,9 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Math Library — 수학 atomic catalog
+# Math Library — mathematics atomic catalog
 
-표준 수학 차용 부재.  Atomic 정수 만.
+No standard mathematics borrowing.  Atomic integers only.
 
 ## Primes atomic
 

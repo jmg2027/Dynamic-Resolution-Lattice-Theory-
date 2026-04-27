@@ -5,20 +5,20 @@ import E213.Physics.HeliumAtom
 /-!
 # Phase 4 IonizationEnergies — H, He, Li atomic to ppm
 
-User: "원자 IE를 수치계산 없이 ppm 이하로 계산하기"
+User: "Compute atomic IE below ppm without numerical calculation"
 
-## 표준 공식
+## Standard formula
 
   IE(H, n=1) = R_∞ = m_e c² α² / 2
 
-  여기서:
+  where:
     m_e c² = 510998.95 eV (electron rest energy)
     α = 1/137.0359992 (fine structure)
     1/2 = 1/NT atomic
 
   Observed: 13.605693 eV (CODATA 2018, 9-digit).
 
-## DRLT atomic chain (현재)
+## DRLT atomic chain (current)
 
   - α 1/137 (Phase 1 AlphaEM137, ppm bracket)
   - m_e (Phase 1, eV scale via m_p)
@@ -28,13 +28,13 @@ User: "원자 IE를 수치계산 없이 ppm 이하로 계산하기"
 
   Phase 1 HydrogenAtom: 1% bracket [13.4, 13.8] verified.
 
-## ppm 으로 tighten 위해 필요
+## Required to tighten to ppm
 
-  α to ppm (이미 Phase 1)
+  α to ppm (already in Phase 1)
   m_e to ppm (Phase 1 chain via m_μ/m_e 0.48 ppb)
   → IE = m_e · α² / 2 atomic chain to ppm
 
-본 파일: 형식 chain 시작.
+This file: formal chain start.
 -/
 
 namespace E213.Physics.Phase4.IonizationEnergies

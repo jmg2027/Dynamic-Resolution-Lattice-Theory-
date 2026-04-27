@@ -4,11 +4,11 @@ import E213.Research.InstanceReach
 /-!
 # Research.BoolPropMorphism: Bool → Prop morphism
 
-`Bool` 과 `Prop` 모두 의미 framework 의 instance.  이 둘 사이
-의 *structure-preserving morphism* 의 직접 형식.
+Both `Bool` and `Prop` are instances of the meaning framework.
+Direct formalization of the *structure-preserving morphism* between them.
 
-`DistMorphism` 의 typeclass-based 형식 이 multiple Prop instance
-의 synthesis 부재 — explicit record 로 직접 형식.
+The typeclass-based formalization of `DistMorphism` lacks synthesis
+for multiple Prop instances — formalized directly via an explicit record.
 -/
 
 namespace E213.Research.BoolPropMorphism
@@ -17,8 +17,8 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 open E213.Research.InstanceReach
 
-/-- Bool → Prop, b ↦ (b = true).  Bool.and ↔ Prop.And 의 structure
-    preservation. -/
+/-- Bool → Prop, b ↦ (b = true).  Structure preservation:
+    Bool.and ↔ Prop.And. -/
 def boolToProp (b : Bool) : Prop := b = true
 
 theorem boolToProp_true : boolToProp true = True := by
@@ -44,8 +44,8 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 open E213.Research.InstanceReach
 
-/-- **Functorial commutativity**: Raw 의 universal morphism Bool 과
-    Prop (And) 의 image 가 boolToProp 으로 commute.
+/-- **Functorial commutativity**: the images of Raw's universal morphism
+    for Bool and for Prop (And) commute via boolToProp.
 
     universalMorphism Prop = boolToProp ∘ universalMorphism Bool. -/
 theorem universalMorphism_commute (r : Raw) :
@@ -83,13 +83,13 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 open E213.Research.InstanceReach
 
-/-! ### Bool with Xor + Prop with Xor 의 commute
+/-! ### Commutativity of Bool with Xor + Prop with Xor
 
-이전 (위 의) Bool (and) ↔ Prop (And) 외 의 다른 connective pair
-의 functoriality.
+Functoriality of a different connective pair beyond the earlier
+Bool (and) ↔ Prop (And).
 
-Bool 의 xor instance + Prop 의 propXor instance.  같은 boolToProp
-morphism 으로 commute. -/
+Bool's xor instance + Prop's propXor instance.  Commute via the
+same boolToProp morphism. -/
 
 /-- Bool with xor combine instance. -/
 def boolXorHasDistinguishing : HasDistinguishing Bool where
@@ -99,14 +99,14 @@ def boolXorHasDistinguishing : HasDistinguishing Bool where
   combine := xor
   combine_sym := by intros x y; cases x <;> cases y <;> rfl
 
-/-- boolToProp 가 xor combine 보존 (Bool xor → Prop propXor). -/
+/-- boolToProp preserves xor combine (Bool xor → Prop propXor). -/
 theorem boolToProp_xor (x y : Bool) :
     boolToProp (xor x y) = propXor (boolToProp x) (boolToProp y) := by
   unfold boolToProp propXor
   cases x <;> cases y <;> simp [xor]
 
-/-- **Functorial commutativity (Xor pair)**: Bool (xor) instance 의
-    universalMorphism 이 Prop (Xor) 의 universalMorphism 으로 commute
+/-- **Functorial commutativity (Xor pair)**: the universalMorphism of
+    the Bool (xor) instance commutes with that of Prop (Xor)
     via boolToProp. -/
 theorem universalMorphism_commute_xor (r : Raw) :
     @universalMorphism Prop propAsDistinguishing r
@@ -144,7 +144,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 open E213.Research.InstanceReach
 
-/-! ### Or, Iff connective pairs 의 functoriality -/
+/-! ### Functoriality of Or and Iff connective pairs -/
 
 /-- Bool with or combine instance. -/
 def boolOrHasDistinguishing : HasDistinguishing Bool where
@@ -154,7 +154,7 @@ def boolOrHasDistinguishing : HasDistinguishing Bool where
   combine := Bool.or
   combine_sym := Bool.or_comm
 
-/-- boolToProp 가 or combine 보존. -/
+/-- boolToProp preserves or combine. -/
 theorem boolToProp_or (x y : Bool) :
     boolToProp (Bool.or x y) = (boolToProp x ∨ boolToProp y) := by
   unfold boolToProp
@@ -204,7 +204,7 @@ def boolIffHasDistinguishing : HasDistinguishing Bool where
   combine := fun x y => decide (x = y)
   combine_sym := by intros x y; cases x <;> cases y <;> rfl
 
-/-- boolToProp 가 Iff combine 보존. -/
+/-- boolToProp preserves Iff combine. -/
 theorem boolToProp_iff (x y : Bool) :
     boolToProp (decide (x = y)) = (boolToProp x ↔ boolToProp y) := by
   unfold boolToProp

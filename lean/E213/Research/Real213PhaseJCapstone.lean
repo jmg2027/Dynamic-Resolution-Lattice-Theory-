@@ -4,36 +4,36 @@ import E213.Research.Real213ConsistentOracle
 import E213.Research.Real213IsSmooth
 
 /-!
-# Research.Real213PhaseJCapstone: Phase J 전체의 single-theorem capstone
+# Research.Real213PhaseJCapstone: single-theorem capstone for all of Phase J
 
-**Style**: Physics track의 `AlphaEMSimplicial` capstone 패턴 그대로
-가져와서, Phase J에서 증명된 7개의 핵심 사실을 단일 conjunctive
-정리로 묶는다.
+**Style**: Following exactly the `AlphaEMSimplicial` capstone pattern from
+the physics track, bundles the 7 key facts proved in Phase J into a single
+conjunctive theorem.
 
-**Operational meaning**: 이 정리가 build 되는 것 = "213이 dyadic
-search trajectory + resolution-depth filter를 통해 ZFC infinity 없이
-real analysis foundation을 구성한다"의 형식 의미.
+**Operational meaning**: This theorem building = the formal meaning of
+"213 constructs a real analysis foundation without ZFC infinity, via
+dyadic search trajectory + resolution-depth filter".
 
-## 묶이는 7개 사실
+## 7 bundled facts
 
-(i)   bisectN structural: expE += n (binary tree depth 정확).
-(ii)  bisectN invariant: lenNum 보존 (real length는 2^(-n) halving).
-(iii) Bracket containment: bisectN trajectory는 original bracket 내부.
-(iv)  Midpoint trapped: bisectN midpoint는 항상 [a, b] 안.
-(v)   Riemann closed form: 상수 a/b의 sample sum at depth n = (2^n*a)/b.
-(vi)  ConsistentOracle: collapsed bracket에 대한 첫 concrete instance.
-(vii) IsSmooth filter: x↦(a/b)*x 는 smooth (linearityModulus = id).
+(i)   bisectN structural: expE += n (binary tree depth exact).
+(ii)  bisectN invariant: lenNum preserved (real length is 2^(-n) halving).
+(iii) Bracket containment: bisectN trajectory is inside the original bracket.
+(iv)  Midpoint trapped: bisectN midpoint always inside [a, b].
+(v)   Riemann closed form: sample sum at depth n for constant a/b = (2^n*a)/b.
+(vi)  ConsistentOracle: first concrete instance for a collapsed bracket.
+(vii) IsSmooth filter: x↦(a/b)*x is smooth (linearityModulus = id).
 -/
 
 namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Phase J Capstone**: dyadic search trajectory + resolution-depth
-    filter foundation의 단일 정리.
+/-- **Phase J Capstone**: single theorem for the dyadic search trajectory +
+    resolution-depth filter foundation.
 
-    7개 사실 모두 already-proved theorems의 직접 conjunction.
-    이 build = Phase J의 형식 완성. -/
+    All 7 facts are direct conjunctions of already-proved theorems.
+    This build = the formal completion of Phase J. -/
 theorem phaseJ_capstone (db : DyadicBracket) (oracle : DyadicOracle)
     (n : Nat) (a b : Nat) :
   -- (i) Binary tree depth: expE increases by exactly n.

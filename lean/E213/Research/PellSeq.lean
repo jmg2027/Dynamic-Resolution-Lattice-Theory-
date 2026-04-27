@@ -4,19 +4,19 @@ import E213.Infinity.LensCardinality
 /-!
 # Research.PellSeq: Pell sequence Raw construction
 
-Mingu (priority): "abLens.view (xs n) = Pell sols 인 Raw sequence
-를 실제로 construct 가능 함의 demonstration".
+Mingu (priority): "demonstration that a Raw sequence satisfying
+abLens.view (xs n) = Pell solutions can actually be constructed."
 
-## 핵심
+## Core
 
-1. **abLens 의 surjectivity** (a, b ≥ 1): 임의 (a, b) ∈ ℕ⁺ × ℕ⁺
-   에 대해 abLens.view r = (a, b) 인 Raw r 존재.
+1. **Surjectivity of abLens** (a, b ≥ 1): for any (a, b) ∈ ℕ⁺ × ℕ⁺
+   there exists a Raw r with abLens.view r = (a, b).
 2. **Pell recursion**: x_{n+1} = x_n + 2 y_n, y_{n+1} = x_n + y_n
-   (starting from (1, 1)).  Pell invariant 유지.
-3. **Pell Raw sequence**: 각 (x_n, y_n) 에 대해 Raw construct.
+   (starting from (1, 1)).  Maintains the Pell invariant.
+3. **Pell Raw sequence**: construct a Raw for each (x_n, y_n).
 
-이로써 √2 의 Dedekind cut 이 abstract 가 아니라 **constructive
-witness** 로 capture.
+This captures the Dedekind cut of √2 not abstractly but as a
+**constructive witness**.
 -/
 
 namespace E213.Research.PellSeq
@@ -68,7 +68,7 @@ private theorem expand_2x3y (x y : Nat) :
   have e4 : (3 * y) * (3 * y) = 9 * (y * y) := by rw [Nat.mul_mul_mul_comm]
   rw [e1, e2, e3, e4]; omega
 
-/-- **Pell step**: invariant 가 recursion 으로 유지. -/
+/-- **Pell step**: the invariant is preserved by the recursion. -/
 theorem pell_step (x y : Nat) (h : x * x = 2 * (y * y) + 1) :
     (3 * x + 4 * y) * (3 * x + 4 * y)
       = 2 * ((2 * x + 3 * y) * (2 * x + 3 * y)) + 1 := by
@@ -173,8 +173,8 @@ namespace E213.Research.PellSeq
 
 open E213.Firmware E213.Hypervisor E213.Research.ABLens
 
-/-- Constructive Σ-version: abLens_witness 가 explicit Raw function.
-    abLens_surjective 의 constructive version — Classical 부재. -/
+/-- Constructive Σ-version: abLens_witness is an explicit Raw function.
+    Constructive version of abLens_surjective — no Classical. -/
 def abLens_witness (s : Nat) : ∀ (a b : Nat),
     a + b = s → 1 ≤ a → 1 ≤ b → {r : Raw // abLens.view r = (a, b)} := by
   induction s with
@@ -244,7 +244,7 @@ theorem pellY_pos (n : Nat) : 1 ≤ pellY n := by
       have hxk : 1 ≤ (pellPair k).1 := pellX_pos k
       omega
 
-/-- **Pell Raw sequence**: 각 n 에 대해 abLens.view (pellRaw n)
+/-- **Pell Raw sequence**: for each n, abLens.view (pellRaw n)
     = (pellX n, pellY n). -/
 def pellRaw (n : Nat) : {r : Raw // abLens.view r = (pellX n, pellY n)} :=
   abLens_witness (pellX n + pellY n) (pellX n) (pellY n) rfl
@@ -254,8 +254,8 @@ theorem pellRaw_view (n : Nat) :
     abLens.view (pellRaw n).val = (pellX n, pellY n) :=
   (pellRaw n).property
 
-/-- **√2 demonstration**: Pell Raw seq 의 IsPellSol 보존.
-    Sqrt2Cut.pell_orderProj_above 가 직접 적용. -/
+/-- **√2 demonstration**: preservation of IsPellSol by the Pell Raw
+    sequence.  Sqrt2Cut.pell_orderProj_above applies directly. -/
 theorem pellRaw_isPellSol (n : Nat) :
     IsPellSol (abLens.view (pellRaw n).val).1
               (abLens.view (pellRaw n).val).2 := by
@@ -269,7 +269,7 @@ namespace E213.Research.PellSeq
 open E213.Firmware E213.Hypervisor E213.Research.ABLens E213.Research.Sqrt2Cut
 open E213.Research.ArchimedeanCauchy
 
-/-- Pell Y 의 lower bound: y_n ≥ n + 2 (linear growth). -/
+/-- Lower bound for Pell Y: y_n ≥ n + 2 (linear growth). -/
 theorem pellY_lb (n : Nat) : pellY n ≥ n + 2 := by
   induction n with
   | zero => unfold pellY pellPair; decide
@@ -281,8 +281,8 @@ theorem pellY_lb (n : Nat) : pellY n ≥ n + 2 := by
       have hY : (pellPair k).2 ≥ k + 2 := ih
       omega
 
-/-- **√2 cut from Pell Raw seq (above)**: 2k² < m² 면 충분 한 N 부터
-    orderProj true. -/
+/-- **√2 cut from Pell Raw seq (above)**: when 2k² < m², orderProj is
+    true from a sufficiently large N. -/
 theorem pellRaw_cut_above (m k : Nat) (hk : k ≥ 1) (hmsq : 2 * k * k < m * m) :
     ∃ N, ∀ n, n ≥ N →
       orderProj m k (abLens.view (pellRaw n).val) = true := by
@@ -297,8 +297,8 @@ theorem pellRaw_cut_above (m k : Nat) (hk : k ≥ 1) (hmsq : 2 * k * k < m * m) 
   exact pell_orderProj_above (pellX n) (pellY n) m k
     (pell_invariant n) hmsq hyn_sq
 
-/-- **√2 cut from Pell Raw seq (below)**: m² < 2k² 면 모든 n 에서
-    orderProj false. -/
+/-- **√2 cut from Pell Raw seq (below)**: when m² < 2k², orderProj is
+    false for all n. -/
 theorem pellRaw_cut_below (m k : Nat) (hk : k ≥ 1) (hmsq : m * m < 2 * k * k)
     (n : Nat) :
     orderProj m k (abLens.view (pellRaw n).val) = false := by

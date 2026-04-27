@@ -1,12 +1,12 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# GR Library — 중력·일반상대성 atomic catalog
+# GR Library — gravity and general relativity atomic catalog
 
 ## Catalog
 
   Spacetime (3+1) = (NS, NT) atomic
-  c (광속) = NT = 2 atomic
+  c (speed of light) = NT = 2 atomic
   Minkowski signature: NS² - NT² = 5 = d
   Einstein 8π factor: 8 = NS² - 1 atomic
   Hawking 1/8 = 1/(NS²-1) atomic

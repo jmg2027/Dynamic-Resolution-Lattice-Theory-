@@ -3,7 +3,7 @@ import E213.Physics.NeutrinoMixing
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 PMNSSpecific — neutrino mixing 정수 falsifier
+# Phase 3 PMNSSpecific — neutrino mixing integer falsifier
 
 **Layer: App**.
 
@@ -13,25 +13,25 @@ Neutrino mixing PMNS matrix angles:
   - sin²θ_13 ≈ 0.0220 (reactor) → DRLT α_GUT ≈ 0.0243
   - δ_CP ≈ -1.6 rad (≈ 180°+15° = 195°) → DRLT 195°
 
-각 leading order = 단일 atomic primitive {NS, NT, d, α_GUT}.
+Each leading order = single atomic primitive {NS, NT, d, α_GUT}.
 
-## DRLT 강제 정수
+## DRLT forced integers
 
   sin²θ_12 denom = NS = 3
   sin²θ_23 denom = NT = 2
   δ_CP denom    = d² - 1 = 24 (adjoint SU(5))
   δ_CP value    = 180 + 360/24 = 195°
 
-## 측정과의 결판
+## Resolution against measurements
 
-  현재 PMNS 측정 정밀도:
-    - θ_12 ~3% 정밀도
-    - θ_23 ~3% 정밀도
-    - θ_13 ~3% 정밀도
-    - δ_CP ~30° 정밀도 (T2K, NOvA)
+  Current PMNS measurement precision:
+    - θ_12 ~3% precision
+    - θ_23 ~3% precision
+    - θ_13 ~3% precision
+    - δ_CP ~30° precision (T2K, NOvA)
 
-DUNE/HK (~2030) 가 정밀도 5-10× 향상 → DRLT 정수 직접 검증.
-*PMNS angle 의 leading order denom 이 {NS, NT, d²-1} 외 정수면 폐기*.
+DUNE/HK (~2030) improves precision 5-10× → direct verification of DRLT integers.
+*If leading order denom of any PMNS angle is an integer outside {NS, NT, d²-1} → discarded*.
 -/
 
 namespace E213.Physics.Phase3.PMNSSpecific
@@ -52,7 +52,7 @@ theorem delta_cp_atomic : delta_CP_denom = 24 := by decide
 theorem delta_cp_value : 180 + 360 / 24 = 195 := by decide
 
 /-- ★ PMNS Falsifier ★
-    각 mixing angle 의 leading denom 이 {NS, NT, d²-1} 외이면 폐기. -/
+    If leading denom of any mixing angle is outside {NS, NT, d²-1} → discarded. -/
 theorem pmns_falsifier :
     -- sin²θ_12: denom = NS
     (sin2_12_leading_denom = NS) ∧ (sin2_12_leading_denom = 3)

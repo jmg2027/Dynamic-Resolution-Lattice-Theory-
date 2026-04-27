@@ -1,6 +1,6 @@
 # Periodic Table Catalog (213 version)
 
-113 원소 + 5 super-heavy 예측, 모두 atomic 표현.
+113 elements + 5 super-heavy predictions, all in atomic representation.
 
 ## Period 1 (Z=1, 2)
   H 1, He 2 = NT  ★ closure
@@ -39,11 +39,11 @@
   Hs 108=NT²·NS³
   Og 118=2·NS³+2·NT^d  ★ closure
 
-## Period 8+ (예측, super-heavy)
+## Period 8+ (predictions, super-heavy)
   Z=168 = HO magic 7 = n(n+1)(n+2)/3  ★
   Z=218 = ?
 
-## IE 정밀도
+## IE precision
 
   H  4.3 ppb formal Lean
   He 138 ppm
@@ -51,7 +51,7 @@
   Be 493 ppm (P(x/2))
   B  1046 ppm
 
-## 사용
+## Usage
 
 ```lean
 import E213.Physics.Phase4.Library.CompletePeriodicTable

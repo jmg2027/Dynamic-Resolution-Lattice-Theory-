@@ -1,26 +1,26 @@
 import E213.Firmware.Raw
 
 /-!
-# Research.CmpIndependence: cmp 선택 의 axiom-무관 성 (foundational)
+# Research.CmpIndependence: Axiom-independence of the cmp choice (foundational)
 
-`IMPLEMENTATION.md §5` 의 cmp-independence meta-theorem 의
-foundational layer 형식 화.
+Formalization of the foundational layer of the cmp-independence
+meta-theorem from `IMPLEMENTATION.md §5`.
 
-## Internal access 정당성
+## Justification for internal access
 
-이 파일 은 `E213.Firmware.Internal` 을 `open` 함.  CLAUDE.md
-일반 규칙 ("user code 에서 Internal open 금지") 의 **명시 적
-예외** — 이 파일 자체 가 encoding scaffolding (Tree, Tree.cmp)
-의 axiom 무관 성 검증.
+This file opens `E213.Firmware.Internal`.  An **explicit exception**
+to the general CLAUDE.md rule ("no Internal open in user code") —
+this file itself verifies the axiom-independence of the encoding
+scaffolding (Tree, Tree.cmp).
 
-## 형식화 단계
+## Formalization phases
 
-Phase 1 (이 파일):
-- `CmpProps`: cmp 의 well-behaved order 조건 추상화.
-- `Tree.cmp` 가 CmpProps 만족.
-- `cmpRev` 도 CmpProps 만족 (involutive).
+Phase 1 (this file):
+- `CmpProps`: abstraction of well-behaved order conditions for cmp.
+- `Tree.cmp` satisfies CmpProps.
+- `cmpRev` also satisfies CmpProps (involutive).
 - `canonicalBy cmp`, `RawBy cmp`: cmp-parametric.
-- 원래 Raw 와의 일치: `canonicalBy Tree.cmp = Tree.canonical`.
+- Agreement with original Raw: `canonicalBy Tree.cmp = Tree.canonical`.
 
 Phase 2 (future): bijection RawBy cmp1 ≃ RawBy cmp2.
 -/
@@ -29,24 +29,24 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
-/-- **CmpProps**: cmp 의 well-behaved order 조건. -/
+/-- **CmpProps**: well-behaved order conditions for cmp. -/
 structure CmpProps (cmp : Tree → Tree → Ordering) : Prop where
   eq_iff : ∀ x y, cmp x y = .eq ↔ x = y
   swap : ∀ x y, cmp x y = (cmp y x).swap
 
-/-- Tree.cmp 가 CmpProps 만족. -/
+/-- Tree.cmp satisfies CmpProps. -/
 theorem Tree_cmp_props : CmpProps Tree.cmp where
   eq_iff := Tree.cmp_eq_iff
   swap := Tree.cmp_swap
 
-/-- cmp 의 reverse: cmpRev x y := (cmp x y).swap. -/
+/-- Reverse of cmp: cmpRev x y := (cmp x y).swap. -/
 def cmpRev (cmp : Tree → Tree → Ordering) (x y : Tree) : Ordering :=
   (cmp x y).swap
 
 theorem Ordering_swap_swap (o : Ordering) : o.swap.swap = o := by
   cases o <;> rfl
 
-/-- cmpRev 도 CmpProps 만족 (involutive). -/
+/-- cmpRev also satisfies CmpProps (involutive). -/
 theorem cmpRev_props (cmp : Tree → Tree → Ordering) (h : CmpProps cmp) :
     CmpProps (cmpRev cmp) where
   eq_iff := by
@@ -75,8 +75,8 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
-/-- **canonicalBy cmp**: Tree 가 cmp-canonical (slash 의 left
-    child 가 cmp 로 strictly less). -/
+/-- **canonicalBy cmp**: Tree is cmp-canonical (the left child of
+    slash is strictly less under cmp). -/
 def canonicalBy (cmp : Tree → Tree → Ordering) : Tree → Bool
   | .a => true
   | .b => true
@@ -84,11 +84,11 @@ def canonicalBy (cmp : Tree → Tree → Ordering) : Tree → Bool
       canonicalBy cmp x && canonicalBy cmp y &&
       (match cmp x y with | .lt => true | _ => false)
 
-/-- **RawBy cmp**: cmp-canonical Tree 의 subtype. -/
+/-- **RawBy cmp**: subtype of cmp-canonical Trees. -/
 def RawBy (cmp : Tree → Tree → Ordering) : Type :=
   { t : Tree // canonicalBy cmp t = true }
 
-/-- Original Tree.cmp 사용 시 canonicalBy = Tree.canonical. -/
+/-- When using the original Tree.cmp, canonicalBy = Tree.canonical. -/
 theorem canonicalBy_Tree_cmp (t : Tree) :
     canonicalBy Tree.cmp t = t.canonical := by
   induction t with
@@ -99,12 +99,12 @@ theorem canonicalBy_Tree_cmp (t : Tree) :
       rw [ihx, ihy]
       rfl
 
-/-- 따라서 RawBy Tree.cmp 의 underlying predicate = Tree.canonical. -/
+/-- Therefore the underlying predicate of RawBy Tree.cmp = Tree.canonical. -/
 theorem RawBy_Tree_cmp_iff (t : Tree) :
     canonicalBy Tree.cmp t = true ↔ t.canonical = true := by
   rw [canonicalBy_Tree_cmp]
 
-/-- **Polymorphic constructors**: RawBy cmp 의 base 와 slash. -/
+/-- **Polymorphic constructors**: base and slash of RawBy cmp. -/
 def RawBy.a (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.a, rfl⟩
 def RawBy.b (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.b, rfl⟩
 
@@ -114,8 +114,8 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
-/-- **Polymorphic slash**: RawBy cmp 의 slash 가 cmp 으로
-    canonicalize.  Original Raw.slash 의 generalization. -/
+/-- **Polymorphic slash**: slash of RawBy cmp canonicalized by cmp.
+    Generalization of the original Raw.slash. -/
 def RawBy.slash (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
     (x y : RawBy cmp) (hxy : x ≠ y) : RawBy cmp :=
   match hc : cmp x.val y.val with
@@ -139,15 +139,15 @@ def RawBy.slash (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
       have hxy_val : x.val = y.val := (h.eq_iff x.val y.val).mp hc
       absurd (Subtype.ext hxy_val) hxy
 
-/-- **Tree-level slash helper**: cmp 으로 canonicalize 한 Tree slash.
-    RawBy.slash 의 underlying val 을 추출 한 helper. -/
+/-- **Tree-level slash helper**: Tree slash canonicalized by cmp.
+    A helper that extracts the underlying val of RawBy.slash. -/
 def slashTree (cmp : Tree → Tree → Ordering) (x y : Tree) : Tree :=
   match cmp x y with
   | .lt => .slash x y
   | .gt => .slash y x
   | .eq => .slash x y
 
-/-- slashTree 가 commutative (CmpProps 만 사용). -/
+/-- slashTree is commutative (using only CmpProps). -/
 theorem slashTree_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
     (x y : Tree) (hxy : x ≠ y) :
     slashTree cmp x y = slashTree cmp y x := by
@@ -174,7 +174,7 @@ theorem slashTree_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
         | gt => rw [hyx_val] at hsw; cases hsw
       rw [hyx_cmp]
 
-/-- RawBy.slash 의 val = slashTree.  Tree-level 등치 — 모든 cases. -/
+/-- val of RawBy.slash = slashTree.  Tree-level equality — all cases. -/
 theorem RawBy_slash_val (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
     (x y : RawBy cmp) (hxy : x ≠ y) :
     (RawBy.slash cmp h x y hxy).val = slashTree cmp x.val y.val := by
@@ -196,8 +196,8 @@ theorem RawBy_slash_val (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
     have hxy_val : x.val = y.val := (h.eq_iff x.val y.val).mp hc
     exact absurd (Subtype.ext hxy_val) hxy
 
-/-- **Polymorphic RawBy.slash_comm**: Subtype.ext 로 val 비교 →
-    slashTree_comm 적용. -/
+/-- **Polymorphic RawBy.slash_comm**: compare vals via Subtype.ext →
+    apply slashTree_comm. -/
 theorem RawBy.slash_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
     (x y : RawBy cmp) (hxy : x ≠ y) :
     RawBy.slash cmp h x y hxy = RawBy.slash cmp h y x (Ne.symm hxy) := by
@@ -212,7 +212,7 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
-/-- canonicalBy slash 의 lt 추출. -/
+/-- Extract lt from canonicalBy slash. -/
 theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
     {x y : Tree} (h : canonicalBy cmp (.slash x y) = true) :
     cmp x y = .lt := by
@@ -297,8 +297,8 @@ instance (cmp : Tree → Tree → Ordering) : DecidableEq (RawBy cmp) :=
     · exact .isTrue (Subtype.ext heq)
 
 /-- **Transport**: RawBy cmp1 → RawBy cmp2 via RawBy.rec.
-    Mingu hint: "변환 자체 가 Lens" — base+slash 를 cmp2 의
-    constructor 로 하는 fold. -/
+    Mingu hint: "the transformation itself is a Lens" — a fold
+    using cmp2's constructors for base+slash. -/
 noncomputable def transport (cmp1 cmp2 : Tree → Tree → Ordering)
     (h1 : CmpProps cmp1) (h2 : CmpProps cmp2)
     (r : RawBy cmp1) : RawBy cmp2 :=
@@ -332,10 +332,10 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
--- transport_slash 의 manual reduction 은 noncomputable rec 의
--- internal Eq.mpr / cast / Subtype.ext 의 orchestration 필요.
--- Subtype.ext 강등 + recAux Tree-level reduction + Eq.mpr 정리.
--- Phase 3.5 의 진행 — concrete attempt 는 별도.
+-- The manual reduction of transport_slash requires orchestrating the
+-- internal Eq.mpr / cast / Subtype.ext of the noncomputable rec.
+-- Subtype.ext demotion + recAux Tree-level reduction + Eq.mpr cleanup.
+-- Phase 3.5 in progress — concrete attempt deferred.
 
 end E213.Research.CmpIndependence
 
@@ -343,17 +343,17 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
--- recAux_slash 보조 정리 (Phase 3.5): RawBy.recAux 가 Tree.slash
--- 입력 시 어떤 형태로 reduce 되는지 명시 — Mingu hint #2.
--- 도전: noncomputable rec 의 reduction 이 자동 부재 라서, manual
--- Eq.mpr / cast 정리 필요.  실제 obstacle (예상):
+-- recAux_slash auxiliary lemma (Phase 3.5): explicitly states how
+-- RawBy.recAux reduces when given a Tree.slash input — Mingu hint #2.
+-- Challenge: the noncomputable rec does not auto-reduce, so manual
+-- Eq.mpr / cast cleanup is needed.  Expected obstacles:
 -- A. Tree.rec.{u} universe.
--- B. (RawBy.slash _).val 의 match 분기.
--- C. (RawBy.slash _).property 의 proof.
--- D. rw [heq] 의 Eq.mpr.
--- E. let-zeta 부재.
--- 이 부분 의 manual orchestration 이 transport_slash 의 마지막
--- 닫음.  추가 simp [Eq.mpr, cast] 가 도움 될 가능성.
+-- B. match branch for (RawBy.slash _).val.
+-- C. proof of (RawBy.slash _).property.
+-- D. Eq.mpr from rw [heq].
+-- E. absence of let-zeta.
+-- The manual orchestration of this part is the final closure of
+-- transport_slash.  Additional simp [Eq.mpr, cast] may help.
 
 end E213.Research.CmpIndependence
 
@@ -361,8 +361,8 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
--- Phase 3.5 alternative path: 직접 Tree-level transportTree 정의.
--- noncomputable RawBy.rec 의 reduction 회피.
+-- Phase 3.5 alternative path: define transportTree directly at Tree level.
+-- Avoids the reduction of the noncomputable RawBy.rec.
 
 /-- **Tree-level transport**: canonicalize Tree under cmp2.
     Computable, inductively defined on Tree. -/
@@ -394,7 +394,7 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
-/-- slashTree commutativity 의 핵심 산물: canonical input 의 result. -/
+/-- Key consequence of slashTree commutativity: result for canonical input. -/
 theorem slashTree_canonical_input {cmp : Tree → Tree → Ordering}
     (h : CmpProps cmp) (s u : Tree) (hsu : cmp s u = .lt) :
     slashTree cmp s u = .slash s u := by
@@ -425,8 +425,7 @@ namespace E213.Research.CmpIndependence
 open E213.Firmware E213.Firmware.Internal
 
 /-- **Round-trip on canonical**: f(g(t)) = t for canonical-by-cmp2 t.
-    f := transportTree cmp2, g := transportTree cmp1.
-    핑계 없는 cases noodge. -/
+    f := transportTree cmp2, g := transportTree cmp1. -/
 theorem transportTree_roundtrip
     (cmp1 cmp2 : Tree → Tree → Ordering)
     (h1 : CmpProps cmp1) (h2 : CmpProps cmp2)
@@ -483,8 +482,8 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
-/-- transportTree 가 canonical-by-cmp1 → canonical-by-cmp2.
-    g∘f = id 의 symmetric application 으로 injectivity 도출. -/
+/-- transportTree maps canonical-by-cmp1 → canonical-by-cmp2.
+    Injectivity derived via symmetric application of g∘f = id. -/
 theorem transportTree_canonical
     (cmp1 cmp2 : Tree → Tree → Ordering)
     (h1 : CmpProps cmp1) (h2 : CmpProps cmp2)
@@ -553,7 +552,7 @@ def transportRawBy (cmp1 cmp2 : Tree → Tree → Ordering)
   ⟨transportTree cmp2 r.val,
    transportTree_canonical cmp1 cmp2 h1 h2 r.val r.property⟩
 
-/-- **Bijection theorem**: transportRawBy 가 inverse 와 함께 bijection.
+/-- **Bijection theorem**: transportRawBy is a bijection with inverse.
     f∘g = id, g∘f = id. -/
 theorem transportRawBy_roundtrip
     (cmp1 cmp2 : Tree → Tree → Ordering)
@@ -566,7 +565,7 @@ theorem transportRawBy_roundtrip
   exact transportTree_roundtrip cmp1 cmp2 h1 h2 r.val r.property
 
 /-- **Final**: RawBy cmp1 ≃ RawBy cmp2 (inverse via roundtrip).
-    cmp-independence meta theorem 의 형식 closing. -/
+    Formal closing of the cmp-independence meta theorem. -/
 theorem RawBy_bijection (cmp1 cmp2 : Tree → Tree → Ordering)
     (h1 : CmpProps cmp1) (h2 : CmpProps cmp2) :
     ∀ (r : RawBy cmp2),

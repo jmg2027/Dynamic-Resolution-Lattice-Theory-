@@ -3,11 +3,11 @@ import E213.Physics.ProtonMass
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 ProtonMassDerivation — *왜 938.27 MeV 인가* deep-dive
+# Phase 3 ProtonMassDerivation — deep-dive on *why 938.27 MeV*
 
-**Layer: App** (ProtonMass + Phase 3 형식화).
+**Layer: App** (ProtonMass + Phase 3 formalization).
 
-## Atomic 도출 chain
+## Atomic derivation chain
 
 m_p = NS · Λ_QCD · P(α_GUT · NS/d)
 
@@ -16,12 +16,12 @@ m_p = NS · Λ_QCD · P(α_GUT · NS/d)
   P(x) = (1 + 2x)/(1 + x)    (closed propagator, Dyson resummed)
   x = α_GUT · NS/d ≈ 0.01459
 
-수치:
+Numerical values:
   NS · Λ_QCD       = 3 · 308.32     = 924.97 MeV
   P(0.01459)       = 1.02918/1.01459 = 1.01438
   m_p              = 924.97 · 1.01438 = 938.27 MeV ★
 
-관측: 938.272 MeV (CODATA 2018)  → **0.000% match** (lattice 정밀).
+Observed: 938.272 MeV (CODATA 2018)  → **0.000% match** (lattice precision).
 -/
 
 namespace E213.Physics.Phase3.ProtonMassDerivation
@@ -60,7 +60,7 @@ theorem proton_mass_derivation :
     ∧ (closed_prop_num_factor = 2)
     -- small param x = 18/(125·π²)
     ∧ (6 * NS = 18) ∧ (d * d * d = 125)
-    -- m_p in 0.1% bracket (관측 93827/100)
+    -- m_p in 0.1% bracket (observed 93827/100)
     ∧ (93700 < 93827 ∧ 93827 < 94000) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide

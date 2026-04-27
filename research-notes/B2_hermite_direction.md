@@ -1,12 +1,12 @@
-# B2 — Hermite e-irrationality 의 axiom-free 형식 화 시도
+# B2 — Axiom-free formalization attempt of Hermite e-irrationality
 
-User directive: 초월수도 결국 유리수 무한 급수 = combinatorial.
-시도: e 의 irrationality 의 Hermite-style proof 의 axiom-free
-formalization.
+User directive: even transcendentals are ultimately infinite series
+of rationals = combinatorial.  Attempt: axiom-free formalization
+of the Hermite-style proof of irrationality of e.
 
-## 진 척 상황
+## Progress
 
-### 완료 (모두 zero axioms)
+### Completed (all zero axioms)
 
 `EulerCombinatorialPure.lean`:
 - `euler_upper_pure : ∀ n, 3 * eulerDen n ≥ eulerNum n + 1`.
@@ -15,25 +15,25 @@ formalization.
   → S_n > 2 strict for n ≥ 2.
 - `euler_in_open_2_3 : ∀ n ≥ 2, S_n ∈ (2, 3) strict`.
 
-이 들 *모두 omega 부재 + 모든 lemma axiom-free* — Lean 을
-순수 type-checker 로만 사용.
+All of these *have no omega + every lemma is axiom-free* — Lean used
+as a pure type-checker only.
 
-### 의의
+### Significance
 
-- e 가 *정수 가 아 님* 의 axiom-free formal proof: e ∈ (2, 3).
-- 이 만 으 로 도 *partial* Hermite-style: a/b = e with b = 1 은
-  exclude (since e ∉ {0, 1, 2, 3} 의 integer forms).
-- 즉 **e 는 정수 가 아 니 라 는 사실 은 axiom-free로 형식 화** 됨.
+- Axiom-free formal proof that e is *not an integer*: e ∈ (2, 3).
+- This alone is *partial* Hermite-style: a/b = e with b = 1 is
+  excluded (since e ∉ {0, 1, 2, 3} as integer forms).
+- That is, **the fact that e is not an integer is formalized axiom-free**.
 
-## Full Hermite 의 missing pieces
+## Missing pieces of full Hermite
 
 ### Piece 1: Tail bound (combinatorial inequality)
 
 For b ≥ 1, N > b: `b · sum_{k=b+1}^N b!/k! < 1`.
 Integer form: `b · sum_{k=b+1}^N b! · N!/k! < N!`.
 
-**가능 함**: induction on N + factorial arithmetic.  Axiom-free
-원칙 적 으 로 가능, but heavy.
+**Possible**: induction on N + factorial arithmetic.  Axiom-free
+in principle, but heavy.
 
 ### Piece 2: Integer-rational contradiction
 
@@ -46,26 +46,28 @@ Contradiction.
 ### Piece 3: 213-internal restatement
 
 Cleaner statement in 213:
-"For each b ≥ 1, the orderProj cuts at thresholds m/b 가 e ≠ m/b
-의 stabilization 을 보 임."
+"For each b ≥ 1, the orderProj cuts at thresholds m/b show
+stabilization of e ≠ m/b."
 
-**비 용**: 큰 작업, but tractable.  현재 arc 의 scope 외.
+**Cost**: large undertaking, but tractable.  Outside the scope of
+the current arc.
 
-## Conclusion — User 의 통찰 의 결정 적 진위
+## Conclusion — decisive truth of User's insight
 
-User: "모든 초월수는 유리수 무한급수" → combinatorial.
+User: "all transcendentals are infinite series of rationals" →
+combinatorial.
 
-**확인됨 (partial)**:
-- e 의 *bounded interval* 의 formal proof 가 axiom-free 가능.
-- 따라서 e 는 *어떤 정수 도 아 님*: axiom-free formal.
+**Confirmed (partial)**:
+- Axiom-free formal proof of the *bounded interval* for e is possible.
+- Therefore e is *not any integer*: axiom-free formal.
 
-**미 확인 (보완 가능)**:
-- e ≠ 임의 a/b: full Hermite 의 tail bound + integer
-  contradiction 의 axiom-free formalization 필요.
+**Not confirmed (can be supplemented)**:
+- e ≠ arbitrary a/b: requires axiom-free formalization of the full
+  Hermite tail bound + integer contradiction.
 
-**원리 적**: 가능.  **현실 적**: 큰 후속 작업.
+**In principle**: possible.  **In practice**: large follow-up work.
 
-User 의 *깊은* 통찰: 정확.  Combinatorial framework 안 *모든*
-무리수 의 irrationality 가 axiom-free formal 가능 — 단,
-algebraic 은 *간결* (descent), transcendental 은 *복잡한*
-combinatorial bound (Hermite-style).
+User's *deep* insight: correct.  The irrationality of *every*
+irrational within a combinatorial framework can be axiom-free
+formalized — but algebraic is *concise* (descent), while
+transcendental requires *complex* combinatorial bounds (Hermite-style).

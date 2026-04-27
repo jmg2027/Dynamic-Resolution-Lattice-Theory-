@@ -3,19 +3,20 @@ import E213.Research.DiagonalClassification
 /-!
 # Research.IdempotentConstancy: Idempotent + swap-blind ⟹ constant
 
-**정리**: `L : Lens α` 이 Idempotent 이고 `base_a = base_b`
-(swap-blind) 이고 combine 이 대칭이면 `L.view` 는 상수 (=
-`L.base_a`).
+**Theorem**: if `L : Lens α` is Idempotent and has `base_a = base_b`
+(swap-blind) and a symmetric combine, then `L.view` is constant
+(= `L.base_a`).
 
-## 의의
+## Significance
 
-idempotent combine 은 "같은 것끼리 합쳐도 변화 없음" 을 의미.
-base 가 swap-blind 이면 모든 leaf 가 같은 값 → 모든 fold
-값도 같은 값 (idempotent 유지).  view collapse.
+An idempotent combine means "merging something with itself leaves it
+unchanged."  If the base is swap-blind, every leaf has the same value →
+every fold value also has the same value (idempotent preserved).
+View collapses.
 
-이는 boolAndLens, boolOrLens 가 `view r = true` constant 인
-이유를 일반화.  Note 35 의 Idempotent 범주와 Note 37 의
-top-근처 (constant view Lens) 간 자연스러운 다리.
+This generalizes why boolAndLens and boolOrLens have the constant
+`view r = true`.  A natural bridge between the Idempotent category
+of Note 35 and the near-top (constant view Lens) of Note 37.
 -/
 
 namespace E213.Research.IdempotentConstancy

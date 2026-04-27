@@ -2,24 +2,24 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 대칭성·게이지 → DRLT  (★ skeleton + TODO ★)
+# Translation: Symmetry and gauge → DRLT  (★ skeleton + TODO ★)
 
-**현 상태**: skeleton + 일부 atomic correspondence.
-**TODO**: 살 붙이기:
-  - Noether 정리 → Lens layer 보존 conservation law derivation
-  - Goldstone 보존 → Lens layer breaking generator count
+**Current state**: skeleton + partial atomic correspondence.
+**TODO**: flesh out:
+  - Noether's theorem → Lens layer conservation law derivation
+  - Goldstone conservation → Lens layer breaking generator count
   - Anomaly cancellation → atomic generator sum
 
-## 통번역 표
+## Translation table
 
-| 표준 symmetry | DRLT |
+| Standard symmetry | DRLT |
 |---|---|
 | Continuous symmetry | Lens layer invariance |
 | Lie group G | Pair-type group |
 | Lie algebra g | Atomic generator (NS²-1, NT²-1) |
-| Noether's theorem | Lens output 보존 |
+| Noether's theorem | Lens output conservation |
 | Conserved current J | Lens layer trace |
-| Gauge invariance | Pair classification 불변 |
+| Gauge invariance | Pair classification invariant |
 | SU(N) | NS²-1 generators (N=NS) |
 | SU(3) color | NS² - 1 = 8 (atomic) |
 | SU(2) weak | NT² - 1 = 3 (atomic) |
@@ -30,19 +30,19 @@ import E213.Physics.SimplexCounts
 | Goldstone boson | Pair-type orientation |
 | Anomaly | Lens layer mismatch |
 
-## 표준모델 게이지 → DRLT atomic
+## Standard model gauge → DRLT atomic
 
   SU(3)·SU(2)·U(1) gauge group
   = α_3 (NS²-1=8) · α_2 (NT²-1=3) · α_1 (cross)
-  = atomic (NS, NT) = (3, 2) 의 *그 자체*.
+  = atomic (NS, NT) = (3, 2) *itself*.
 
 ## d² = 24 + 1 (adjoint + scalar)
 
   d² - 1 = 24 = SU(5) adjoint = 8 + 3 + 12 + 1
                               = SU(3) + SU(2) + cross (12) + Higgs
 
-  표준 GUT: SU(5) → SU(3)·SU(2)·U(1).
-  DRLT: 같은 분해 atomic-forced (Phase 1 SU5Roots.lean).
+  Standard GUT: SU(5) → SU(3)·SU(2)·U(1).
+  DRLT: same decomposition atomic-forced (Phase 1 SU5Roots.lean).
 -/
 
 namespace E213.Physics.Phase3.Translation.Symmetry
@@ -63,11 +63,11 @@ theorem su5_adjoint : d * d - 1 = 24 := by decide
 theorem su5_decomp : 8 + 3 + 12 + 1 = 24 := by decide
 
 /-!
-## ★ Real derivation: SU(5) → SU(3)·SU(2)·U(1) atomic 분해 ★
+## ★ Real derivation: SU(5) → SU(3)·SU(2)·U(1) atomic decomposition ★
 
-표준 GUT: SU(5) adjoint 24 = (8, 1, 0) ⊕ (1, 3, 0) ⊕ (3, 2, ±5/6) ⊕ (1, 1, 0)
-                              = 8     +  3      +  12         +  1
-  여기서:
+Standard GUT: SU(5) adjoint 24 = (8, 1, 0) ⊕ (1, 3, 0) ⊕ (3, 2, ±5/6) ⊕ (1, 1, 0)
+                                = 8     +  3      +  12         +  1
+  where:
     8  = SU(3) gluons (NS²-1)
     3  = SU(2) W bosons (NT²-1)
     12 = X, Y leptoquarks (cross sector × 2)
@@ -78,10 +78,10 @@ DRLT atomic: 24 = NS²-1 + NT²-1 + 2·NS·NT + 1
             = (d-1)(d+1)
             = d² - 1.
 
-★ 이게 "왜 SM gauge group SU(3)·SU(2)·U(1)" 의 atomic 강제 ★
+★ This is the atomic forcing of "why SM gauge group SU(3)·SU(2)·U(1)" ★
 
 12 cross sector: 2·NS·NT = 12 = c·NS·NT (c=2).
-  → X, Y leptoquark 12 개가 Phase 1 PhotonKernel 의 num_edges.
+  → 12 X, Y leptoquarks = num_edges of Phase 1 PhotonKernel.
 -/
 
 /-- 8 = NS² - 1 (SU(3) gluons). -/
@@ -110,7 +110,7 @@ theorem sm_gauge_atomic :
     ∧ (2 * NS * NT = 12)           -- X, Y leptoquark
     ∧ (8 + 3 + 12 + 1 = 24)         -- total = SU(5) adjoint
     ∧ (d * d - 1 = 24)              -- = (d-1)(d+1)
-    ∧ ((d - 1) * (d + 1) = 24)     -- 같은 정수 다른 표현
+    ∧ ((d - 1) * (d + 1) = 24)     -- same integer, different form
     ∧ (NS = 3) ∧ (NT = 2) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide

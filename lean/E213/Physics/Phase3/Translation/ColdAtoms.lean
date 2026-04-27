@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 차가운 원자·양자 시뮬레이션 → DRLT atomic
+# Translation: Cold atoms · quantum simulation → DRLT atomic
 
   1. Optical lattice band gap → atomic
   2. BEC critical density n_c·λ³ ≈ 2.612 (ζ(3/2))

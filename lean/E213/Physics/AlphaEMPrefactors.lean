@@ -1,16 +1,16 @@
 import E213.Physics.AlphaEMDerivation
 
 /-!
-# 1/α_em(IR) — 모든 prefactor의 격자 primitive 도출 (0 axioms)
+# 1/α_em(IR) — lattice primitive derivation of all prefactors (0 axioms)
 
-User insight (2026-04-27): 세 prefactor가 모두 격자 기하학에서.
+User insight (2026-04-27): all three prefactors come from lattice geometry.
 
-  Hint 1: 5/3 = d/NS  (광자가 전체 격자 d를 공간 NS 대비 점유 비율)
+  Hint 1: 5/3 = d/NS  (occupation ratio of photon over full lattice d versus spatial NS)
   Hint 2: 12  = c·NS·NT (directed bipartite edges in K_{NS,NT})
   Hint 3: NS²-1 vs NS²: trace removal (singlet U(1) decouples from SU(3))
 
-이 셋이 모두 verified → unified formula 의 모든 prefactor가
-{NS, NT, d, c, α_GUT}에서 직접.
+All three verified → all prefactors of unified formula come directly from
+{NS, NT, d, c, α_GUT}.
 
 ## Reformulated unified sum
 
@@ -76,7 +76,7 @@ theorem alpha_1_y_norm_prefactor :
     ∧ c_lat * d * NS * NT = (c_lat * NS * NT) * d := by decide
 
 /-- ★ Unified prefactor capstone ★
-    모든 prefactor가 {c, NS, NT, d}에서.
+    All prefactors come from {c, NS, NT, d}.
 
     α_3: NS² - 1 = (NS-1)(NS+1)    [trace-removed adjoint]
     α_2: c·NS·NT² = 24 = adjoint SU(5)  [directed K_{NS,NT} × NT]

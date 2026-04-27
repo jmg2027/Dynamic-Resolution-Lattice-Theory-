@@ -1,11 +1,10 @@
 import E213.Research.LensLattice
 
 /-!
-# Research.ConstLensTotalKernel: constLens 의 kernel = total
-relation
+# Research.ConstLensTotalKernel: kernel of constLens = total relation
 
-PAPER1 §3.3 의 coarsest element claim 의 explicit:
-constLens 의 equiv 가 모든 (x, y) 페어 위 true.
+Explicit version of the coarsest element claim in PAPER1 §3.3:
+constLens's equiv is true for every (x, y) pair.
 -/
 
 namespace E213.Research.ConstLensTotalKernel
@@ -13,7 +12,7 @@ namespace E213.Research.ConstLensTotalKernel
 open E213.Firmware E213.Hypervisor
 open E213.Research.LensLattice
 
-/-- constLens 의 kernel: 모든 Raw pair 가 equivalent. -/
+/-- Kernel of constLens: every Raw pair is equivalent. -/
 theorem constLens_equiv_total {α : Type} (e : α) (x y : Raw) :
     (constLens e).equiv x y := by
   unfold Lens.equiv

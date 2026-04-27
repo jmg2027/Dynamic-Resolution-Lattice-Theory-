@@ -1,17 +1,17 @@
 # 213 Catalogs
 
-Lookup tables for 213 도서관.  grep-able.
+Lookup tables for the 213 library.  grep-able.
 
-## 파일
+## Files
 
-  atomic-integers.md     1-1000 atomic 정수 표현
+  atomic-integers.md     1-1000 atomic integer representations
   physics-constants.md   α, m_p, Ω_Λ, ... atomic chain
-  periodic-table.md      113 + 5 super-heavy 원소 atomic
-  falsifiers.md          14 sharp 측정 결판 명제
-  correspondences.md     같은 정수 multi-framework
-  math-theorems.md       수학 정리 catalog
+  periodic-table.md      113 + 5 super-heavy elements atomic
+  falsifiers.md          14 sharp measurement decision propositions
+  correspondences.md     same integer multi-framework
+  math-theorems.md       math theorems catalog
 
-## 사용
+## Usage
 
 ```bash
 $ grep "137" catalogs/*.md
@@ -26,10 +26,10 @@ catalogs/falsifiers.md
 catalogs/physics-constants.md
 ```
 
-## 동기화
+## Synchronization
 
-  Lean 정리 = ground truth
+  Lean theorems = ground truth
   Books = narrative
   Catalogs = lookup
 
-  세 source 동기화 (각 마라톤 종료 시 갱신).
+  Three sources synchronized (updated at each marathon completion).

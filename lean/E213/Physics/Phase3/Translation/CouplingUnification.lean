@@ -4,13 +4,13 @@ import E213.Physics.SimplexCounts
 /-!
 # Translation: Coupling unification → DRLT atomic
 
-표준 GUT: α_3, α_2, α_1 모두 ~10¹⁶ GeV 에서 만남.
-이건 *running* (artifact, StaticCouplings 참조).
+Standard GUT: α_3, α_2, α_1 all meet at ~10¹⁶ GeV.
+This is *running* (artifact, see StaticCouplings).
 
-DRLT atomic: 모든 coupling *atomic-locked*, "running" 부재.
-대신 atomic primitives 의 단일 격자 위 사영.
+DRLT atomic: all couplings *atomic-locked*, "running" absent.
+Instead, projection onto a single lattice of atomic primitives.
 
-## Atomic 결합 정수
+## Atomic coupling constants
 
   1/α_3 = NS² - 1 = 8
   1/α_2 = 12·NT·S(NT) = 30  (S(NT) = 5/4 atomic)
@@ -21,12 +21,12 @@ DRLT atomic: 모든 coupling *atomic-locked*, "running" 부재.
   α_2 / α_1 ≈ 30/98.7 ≈ 3/10 atomic
   α_3 + α_2 + (5/3)α_1 = atomic chain ≈ 137 (Phase 1 5-term)
 
-## 통합 scale 의 atomic
+## Atomic nature of the unification scale
 
   Q_GUT ≈ 2 × 10¹⁶ GeV.
   log₁₀(Q_GUT/GeV) ≈ 16 = NT⁴ atomic ★
 
-이게 "왜 GUT scale 이 ~10¹⁶ GeV" 의 atomic 직접 derivation.
+This is the direct atomic derivation of "why GUT scale is ~10¹⁶ GeV".
 -/
 
 namespace E213.Physics.Phase3.Translation.CouplingUnification

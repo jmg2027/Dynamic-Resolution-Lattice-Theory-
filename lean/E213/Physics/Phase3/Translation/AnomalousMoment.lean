@@ -2,27 +2,27 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 비정상 자기 모멘트 g-2 → DRLT atomic
+# Translation: Anomalous magnetic moment g-2 → DRLT atomic
 
-표준 QED 결과 (Schwinger 1948):
+Standard QED result (Schwinger 1948):
   a_e = (g_e - 2)/2 = α/(2π) + O(α²)
 
-관측: a_e ≈ 1.159 × 10⁻³ (가장 정밀 측정 양 중 하나)
+Observed: a_e ≈ 1.159 × 10⁻³ (one of the most precisely measured quantities)
 
 DRLT atomic:
   α/(2π) ≈ (1/137) / (2π) ≈ 0.001162
   → leading 1/(NT·π) atomic
 
   NT = 2 → 1/(2π) atomic factor.
-  g-factor 2 자체 = NT atomic ★
+  g-factor 2 itself = NT atomic ★
 
 ## g_μ - 2 anomaly
 
   Fermilab + BNL: a_μ(exp) - a_μ(SM) = 251 × 10⁻¹¹ (4.2σ)
   Lattice QCD (BMW): no anomaly.
 
-  DRLT 입장: anomaly 와 lattice 어느 쪽이 정확한지 atomic
-  derivation 필요.  현재 미결.
+  DRLT position: atomic derivation needed to determine which side —
+  anomaly or lattice — is correct.  Currently unresolved.
 -/
 
 namespace E213.Physics.Phase3.Translation.AnomalousMoment

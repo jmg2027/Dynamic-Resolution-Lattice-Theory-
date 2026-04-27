@@ -1,38 +1,37 @@
 import E213.Firmware.Raw
 
 /-!
-# Research.Hyper213: Hyperreal-like 의 framework-internal type
+# Research.Hyper213: Framework-internal type for a hyperreal-like structure
 
-User insight: 초실수 가 213 에 자연 capture.  Cauchy 의 modulus
-요구 *없이* sequence 만 — 그 위 *cofinite equivalence* 로
-"infinitesimal + finite + infinite" 의 자연 algebra.
+User insight: hyperreals are naturally captured in 213.  Sequences only —
+*without* a Cauchy modulus — with *cofinite equivalence* on top give a
+natural algebra of "infinitesimal + finite + infinite."
 
-## 정의
+## Definition
 
 `Hyper213 := Nat → Raw` (raw sequence, no modulus).
 `Hyper213.cofiniteEquiv xs ys := ∃ N, ∀ n ≥ N, xs n = ys n`.
 
-## 의의
+## Significance
 
-- Cauchy 보다 *느슨* 한 equivalence — Cauchy modulus 없 이 도
-  의미 있는 algebra.
-- Standard Cauchy 는 *strict subset* — Cauchy ∧ same limit
-  → cofinite equiv (after limit reaches stability).
-- Cofinite equiv 가 reflexive, symmetric, transitive — true
+- A *looser* equivalence than Cauchy — meaningful algebra even without
+  a Cauchy modulus.
+- Standard Cauchy is a *strict subset* — Cauchy ∧ same limit
+  → cofinite equiv (after the limit reaches stability).
+- Cofinite equiv is reflexive, symmetric, transitive — a true
   equivalence.
 
-## 의 미
+## Meaning
 
-ZFC 의 ℝ 가 *power set 기반* (Dedekind cut = 임의 subset of ℚ).
-213 의 Real213 = *constructive Cauchy*.  Hyper213 = sequence
-의 *cofinite quotient* — ZFC 의 free ultrafilter (NSA) 보 다 약
-하 지 만 framework-internal.
+ℝ in ZFC is *power-set based* (Dedekind cut = arbitrary subset of ℚ).
+Real213 in 213 = *constructive Cauchy*.  Hyper213 = the *cofinite
+quotient* of sequences — weaker than ZFC's free ultrafilter (NSA) but
+framework-internal.
 
-대 부 분 의 *exotic* number systems (hyperreals, surreals 등)
-가 sequence 또 는 tree structure 의 quotient — 213 framework
-가 자연 capture.
+Most *exotic* number systems (hyperreals, surreals, etc.) are quotients
+of sequences or tree structures — naturally captured by the 213 framework.
 
-오 직 *arbitrary subset* (power set) 만 framework 의 거부.
+Only *arbitrary subsets* (power sets) are rejected by the framework.
 -/
 
 namespace E213.Research.Hyper213
@@ -71,7 +70,7 @@ open E213.Firmware
 /-- Constant hyperreal embedding: each Raw r → constant sequence. -/
 def constHyper (r : Raw) : Hyper213 := fun _ => r
 
-/-- Constant Hyper213 의 cofinite equivalence iff Raw equality. -/
+/-- Cofinite equivalence of constant Hyper213 iff Raw equality. -/
 theorem const_equiv_iff (r r' : Raw) :
     cofiniteEquiv (constHyper r) (constHyper r') ↔ r = r' := by
   refine ⟨?_, ?_⟩

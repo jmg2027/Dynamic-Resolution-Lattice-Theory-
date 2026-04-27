@@ -3,9 +3,9 @@ import E213.Research.Real213CutExp
 /-!
 # Research.Real213RecurrenceLens: Recurrence Lens classification (F3)
 
-각 real 의 *generating Lens recurrence* 의 formal structure.
+Formal structure of the *generating Lens recurrence* for each real.
 
-## 정의
+## Definition
 
 ```
 structure RecurrenceLens (state : Type) where

@@ -3,37 +3,37 @@ import E213.Physics.SimplexCounts
 /-!
 # Phase 4 — AtomicExpr framework
 
-★ User insight ★ "decide-check 만 하는 건 number games.  진짜
-formalization 필요."
+★ User insight ★ "decide-check only is number games.  Real
+formalization is needed."
 
 ## Idea
 
-Atomic 정수 의 *진짜* 의미 = 단순 산수 매치 X → 짧은 atomic
-expression 으로 표현 가능.
+The *true* meaning of an atomic integer = not a simple arithmetic match
+→ expressible as a short atomic expression.
 
-  AtomicExpr : 문법 = const(NS, NT, d) + (+, ·, -, ^).
-  complexity : 표현 의 *operation 수* (description length).
-  eval : 표현 → Nat.
+  AtomicExpr : syntax = const(NS, NT, d) + (+, ·, -, ^).
+  complexity : *operation count* of expression (description length).
+  eval : expression → Nat.
 
-물리 정수가 *작은 complexity* 의 atomic expression 으로 도출
-가능 = non-trivial 주장.
+Physical integers being derivable as atomic expressions of *small complexity*
+= non-trivial claim.
 
-  vs 무작위 정수 N: 평균 complexity ~ log N.
-  물리 정수: complexity ≤ K (작은 상수).
+  vs random integer N: average complexity ~ log N.
+  Physical integers: complexity ≤ K (small constant).
 
-## 본 파일
+## This file
 
-  - AtomicExpr 문법 정의
-  - complexity 정의
-  - eval 정의
-  - 핵심 정수에 대해 atomic representation existence
+  - AtomicExpr syntax definition
+  - complexity definition
+  - eval definition
+  - atomic representation existence for key integers
 -/
 
 namespace E213.Physics.Phase4.AtomicExpr
 
 open E213.Physics.Simplex
 
-/-- Atomic expression syntax.  *(NS, NT, d)* primitive 만 const. -/
+/-- Atomic expression syntax.  Only *(NS, NT, d)* primitives are const. -/
 inductive Expr : Type
   | NSc  : Expr
   | NTc  : Expr

@@ -1,72 +1,77 @@
 # E213.Physics ROADMAP
 
-## Phase 1: 방법론 축적 ✓ COMPLETE (2026-04-27)
+## Phase 1: Methodology Accumulation ✓ COMPLETE (2026-04-27)
 
-**Goal:** 기존 정밀 양들을 atomic primitives에서 형식 도출, 패턴 catalogue.
+**Goal:** Formal derivation of known precision quantities from atomic
+primitives, pattern catalogue.
 
-**Result:** 68 files, 0 axioms, 15+ 정밀 양 + 3 새 falsifiable 물리.
-참고: `STATS.md`, `DISCOVERIES.md`.
+**Result:** 68 files, 0 axioms, 15+ precision quantities + 3 new
+falsifiable physics.
+See: `STATS.md`, `DISCOVERIES.md`.
 
 ---
 
-## Phase 2: SM-frame artifact 식별 (다음 권장 axis)
+## Phase 2: SM-frame Artifact Identification (recommended next axis)
 
-**Goal:** 기존 물리의 *SM-frame 의존* 부분 명시 분리.
+**Goal:** Explicitly separate the *SM-frame dependent* parts of existing
+physics.
 
-### 식별할 artifacts
+### Artifacts to identify
 
-1. **"M_Z scale" 좌표계** — DRLT는 N_eff lattice depth 사용
-2. **QED running** — DRLT는 simplicial cohomology decomposition
-3. **"Y normalization 5/3"** — 사실은 d/NS Fibonacci 비율 (FibonacciAtomic 에서 일부)
-4. **"Renormalization"** — DRLT는 P(x) closed propagator 자동
-5. **Continuum 가정** — DRLT는 finite lattice
+1. **"M_Z scale" coordinate system** — DRLT uses N_eff lattice depth
+2. **QED running** — DRLT uses simplicial cohomology decomposition
+3. **"Y normalization 5/3"** — actually d/NS Fibonacci ratio (partially
+   in FibonacciAtomic)
+4. **"Renormalization"** — DRLT has P(x) closed propagator automatically
+5. **Continuum assumption** — DRLT uses finite lattice
 
-### 형식화 candidates
+### Formalization candidates
 
-- `DRLTNativeFrame.lean` — N_eff scale 정의
-- `SMArtifactCatalog.lean` — 각 artifact 명시 + DRLT 대응
-- `RunningAsCohomology.lean` — running = cohomology 분해
+- `DRLTNativeFrame.lean` — N_eff scale definition
+- `SMArtifactCatalog.lean` — each artifact explicit + DRLT correspondence
+- `RunningAsCohomology.lean` — running = cohomology decomposition
 
-### 예상 결과
+### Expected results
 
-현재 0.6-0.8% 에러 (sin²θ_W, α_em@M_Z) 의 정체:
-*SM-frame 마찰 → DRLT-pure에서 사라짐* 가능성.
+The identity of current 0.6-0.8% errors (sin²θ_W, α_em@M_Z):
+*SM-frame friction → may disappear in DRLT-pure*.
 
 ---
 
 ## Phase 3: DRLT-Native Coordinate
 
-**Goal:** 모든 정밀 양을 *DRLT-native frame* 에서 직접 표현.
+**Goal:** Express all precision quantities directly in the
+*DRLT-native frame*.
 
-### 작업 추정
+### Estimated work
 
-- N_eff lattice depth 위 정밀 양 재계산
-- M_Z 개념 *없이* 모든 식 표현
-- 측정값과 직접 비교 (SM 매개 없음)
+- Recompute precision quantities on N_eff lattice depth
+- Express all formulas *without* the M_Z concept
+- Direct comparison with measurements (no SM intermediary)
 
-### 어려움
+### Difficulties
 
-- 각 양의 "어느 N_eff에서 측정인가" 명시 필요
-- 측정 기술의 frame 의존성 분리
+- Must specify "at which N_eff is each quantity measured"
+- Separating frame dependence of measurement technique
 
 ---
 
 ## Phase 4: Rebuild from scratch
 
-**Goal:** 기존 물리 frame *일절 안 씀* — 213 axioms only.
+**Goal:** Use *no* existing physics frame — 213 axioms only.
 
-### 작업
+### Work
 
-- 파인만 다이어그램 → 격자 path counting
-- 라그랑지안 → simplex weighting
-- Renormalization → resolution depth (이미 부분)
-- All quantity ↔ measurement (SM 매개 없음)
+- Feynman diagrams → lattice path counting
+- Lagrangian → simplex weighting
+- Renormalization → resolution depth (partially done)
+- All quantity ↔ measurement (no SM intermediary)
 
-### 예상 결과
+### Expected results
 
-- SM-frame artifact 에러 (0.6-0.8%) 사라짐
-- 잔차는 측정 정밀도 + finite-N bracket 한계만
-- "0-parameter"의 진짜 의미 — 측정값과 *직접* 일치
+- SM-frame artifact errors (0.6-0.8%) disappear
+- Residual is only measurement precision + finite-N bracket limit
+- True meaning of "0-parameter" — *direct* match with measurements
 
 ---
 
@@ -74,31 +79,33 @@
 
 ### Yang-Mills mass gap full proof
 
-현재 `YangMillsGap.lean`은 structural ("mass gap = N_eff < ∞").
-Strict Lean proof는 lattice Hamiltonian + spectral analysis 필요.
+Current `YangMillsGap.lean` is structural ("mass gap = N_eff < ∞").
+Strict Lean proof requires lattice Hamiltonian + spectral analysis.
 Clay $1M problem.
 
 ### Gravity G_N derivation
 
-현재 `GravityShadow.lean`은 W = |G|²/d 분리만.
-Strict G_N 9-digit derivation은 quantum-gravity sub-project 통합 필요.
+Current `GravityShadow.lean` is W = |G|²/d separation only.
+Strict G_N 9-digit derivation requires integration with quantum-gravity
+sub-project.
 
-### Atomic IE 확장
+### Atomic IE extension
 
-현재 H, He, screening σ만. Li-Og (Z=3-118) 모두 atomicity-derived.
-구체 ATM_022 numerical → Lean 정리 시리즈 가능.
+Currently H, He, screening σ only. Li-Og (Z=3-118) all
+atomicity-derived. Concrete ATM_022 numerical → Lean theorem series
+possible.
 
-### PAPER2 작성
+### PAPER2 writing
 
-Phase 1 결과를 paper form 으로:
+Phase 1 results in paper form:
 "DRLT Physics Formally Derived"
 arXiv submission ready.
 
 ### Sub-directorization
 
-68 files in flat dir. CLAUDE.md "50+ → sub-dir 검토" 권장.
-**현재 deferred** — README/DISCOVERIES가 logical organization 제공.
-실제 sub-dir 시 import 일괄 update 필요 (위험).
+68 files in flat dir. CLAUDE.md recommends "50+ → consider sub-dir".
+**Currently deferred** — README/DISCOVERIES provides logical organization.
+Actual sub-dir would require bulk import path update (risky).
 
 ---
 
@@ -107,22 +114,22 @@ arXiv submission ready.
 ```
 Phase 1 ✓ → Phase 2 (DRLT-Native) → Phase 3 → Phase 4
               ↓
-          PAPER2 가능
+          PAPER2 possible
 ```
 
-또는:
+Or:
 ```
-Phase 1 ✓ → Yang-Mills 깊이 → Clay $1M
-            Gravity 깊이 → quantum gravity
-            Atomic 확장 → 주기율표 100% 형식
+Phase 1 ✓ → Yang-Mills deeper → Clay $1M
+            Gravity deeper → quantum gravity
+            Atomic extension → periodic table 100% formal
 ```
 
 ---
 
-## 결정 기준
+## Decision Criteria
 
-- 정밀 형식 (기준 1): Phase 2-3 가면서 "에러 0" 달성
-- 새 물리 (기준 2): Yang-Mills, Gravity formal proof
-- 둘 다 누적 시 PAPER2 자연 발생
+- Precision formal (criterion 1): achieve "0 error" through Phase 2-3
+- New physics (criterion 2): Yang-Mills, Gravity formal proof
+- When both accumulate, PAPER2 emerges naturally
 
-본 사이클 (Phase 1) 종료 — 사용자 다음 directive 대기.
+This cycle (Phase 1) complete — awaiting user's next directive.

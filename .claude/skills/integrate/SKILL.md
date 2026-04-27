@@ -102,12 +102,12 @@ mcp__github__issue_write → close if completed
 After completion, report:
 
 ```
-## <branch-name> 통합 완료
+## <branch-name> Integration Complete
 
-| 항목 | 결과 |
-|------|------|
-| **새 실험** | <list> |
-| **충돌 해결** | <details or "없음"> |
-| **감사 수정** | <details or "이상 없음"> |
-| **검증** | <experiment checks> |
+| Item | Result |
+|------|--------|
+| **New experiments** | <list> |
+| **Conflicts resolved** | <details or "none"> |
+| **Audit fixes** | <details or "no issues"> |
+| **Verification** | <experiment checks> |
 ```

@@ -1,7 +1,7 @@
 import E213.Physics.HadronMasses
 
 /-!
-# PMNS mixing angles — 가장 깨끗한 leading orders (0 axioms)
+# PMNS mixing angles — cleanest leading orders (0 axioms)
 
 DRLT formulae (ch11 sec 8.3, lib/drlt.py:749):
 
@@ -16,26 +16,26 @@ DRLT formulae (ch11 sec 8.3, lib/drlt.py:749):
   sin²θ₁₃ → **α_GUT** (single coupling primitive!)
   δ_CP   → **180° + 360°/(d²−1)** = 180° + 15° = 195°
 
-  네 PMNS angle이 *모두* 단일 atomic primitive로 leading.
+  All four PMNS angles have *single* atomic primitives as leading terms.
   No SM matrix gymnastics — direct geometric assignment.
 
-## 관측 정합
+## Observational consistency
 
   sin²θ₁₂: DRLT leading 1/3 = 0.333,  observed 0.307 ± 0.013
   sin²θ₂₃: DRLT leading 1/2 = 0.500,  observed 0.572 (maximal)
   sin²θ₁₃: DRLT leading 0.0243,        observed 0.0220
   δ_CP:    DRLT leading 195°,          observed ~270°
 
-  보정 후 (Ξ 사슬) 모두 2σ 안.  Leading만으로도 정성적 구조 OK.
+  After corrections (Ξ chain) all within 2σ.  Leading terms alone give the qualitative structure.
 
-## 같은 atomicity-locked atoms
+## Same atomicity-locked atoms
 
-  sin²θ₁₂의 1/NS = NT/(d+1) (위 cofactor pattern!)
-  sin²θ₂₃의 1/NT (atomic primitive)
-  sin²θ₁₃의 α_GUT = 6/(25π²) (전체 식 prefactor)
-  δ_CP의 d²-1 = 24 (adjoint SU(5) — 또 등장!)
+  1/NS for sin²θ₁₂ = NT/(d+1) (cofactor pattern above!)
+  1/NT for sin²θ₂₃ (atomic primitive)
+  α_GUT = 6/(25π²) for sin²θ₁₃ (full formula prefactor)
+  d²-1 = 24 for δ_CP (adjoint SU(5) — appears again!)
 
-  → **adjoint SU(5)가 PMNS에도 등장** (δ_CP 분모).
+  → **adjoint SU(5) also appears in PMNS** (δ_CP denominator).
 -/
 
 namespace E213.Physics.PMNS
@@ -71,7 +71,7 @@ theorem delta_CP_leading_eq_195 :
     ∧ 360 / 24 = 15
     ∧ 180 + 15 = 195 := by decide
 
-/-- 네 PMNS angle leading 모두 단일 격자 primitive. -/
+/-- All four PMNS angle leadings are single lattice primitives. -/
 theorem all_PMNS_leadings_atomic :
     -- θ₁₂ leading = 1/NS
     (sin2_12_leading_denom = NS)
@@ -83,8 +83,8 @@ theorem all_PMNS_leadings_atomic :
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
 /-- ★ Adjoint SU(5) appears in PMNS too ★
-    d²-1 = 24가 PMNS δ_CP에 등장 →
-    α_em IR, m_μ/m_e, m_H, Ω_Λ 외에 PMNS도 같은 패턴. -/
+    d²-1 = 24 appears in PMNS δ_CP →
+    PMNS follows the same pattern as α_em IR, m_μ/m_e, m_H, Ω_Λ. -/
 theorem adjoint_in_PMNS :
     delta_CP_denom = d * d - 1
     ∧ d * d - 1 = (d - 1) * (d + 1) := by decide

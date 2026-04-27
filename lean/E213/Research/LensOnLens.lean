@@ -2,26 +2,26 @@ import E213.Research.SemanticAtom
 import E213.Research.InstanceReach
 
 /-!
-# Research.LensOnLens: Lens 자체 가 의미 framework 의 instance
+# Research.LensOnLens: Lens itself as an instance of the semantic framework
 
-Note 53 의 thesis ("meta-hierarchy 부재 — Lens 가 framework 안
-또 하나 의 instance") 의 mechanical proof.
+Mechanical proof of the thesis of Note 53 ("no meta-hierarchy —
+Lens is another instance within the framework").
 
-`HasDistinguishing (Lens Bool)` 의 instance 정의 — 두 distinct
-Lens (constTrueLens, constFalseLens) + pointwise xor combine.
+Defines a `HasDistinguishing (Lens Bool)` instance — two distinct
+Lenses (constTrueLens, constFalseLens) + pointwise xor combine.
 
-## 의의
+## Significance
 
-framework 의 self-cover 의 가장 *sharp* form:
-- Lens 가 framework 의 element (Raw) 가 *아니라* output type
-  의 instance.
-- 같은 framework abstraction (HasDistinguishing) 위 Lens type
-  자체 가 instance.
-- → meta-hierarchy 부재 — Lens-on-Lens 가 *새 layer* 가 아님.
+The sharpest form of the framework's self-cover:
+- Lens is an instance of the output type, *not* an element (Raw) of
+  the framework.
+- The Lens type itself is an instance of the same framework
+  abstraction (HasDistinguishing).
+- → No meta-hierarchy — Lens-on-Lens is *not* a new layer.
 
-universalMorphism (Lens Bool) : Raw → Lens Bool — Raw 의 element
-가 Lens 로 mapping.  의미 atom 의 self-application 의 정확 한
-form.
+universalMorphism (Lens Bool) : Raw → Lens Bool — elements of Raw
+map to Lenses.  The exact form of self-application of a semantic
+atom.
 -/
 
 namespace E213.Research.LensOnLens
@@ -35,7 +35,7 @@ def constTrueLens : Lens Bool := ⟨true, true, fun _ _ => true⟩
 /-- Constant-false Lens. -/
 def constFalseLens : Lens Bool := ⟨false, false, fun _ _ => false⟩
 
-/-- 두 constant Lens 가 distinct. -/
+/-- The two constant Lenses are distinct. -/
 theorem const_lenses_distinct : constTrueLens ≠ constFalseLens := by
   intro h
   have h_base_a : constTrueLens.base_a = constFalseLens.base_a :=
@@ -49,7 +49,7 @@ namespace E213.Research.LensOnLens
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- Lens 의 pointwise xor combine. -/
+/-- Pointwise xor combine of Lenses. -/
 def lensXor (L M : Lens Bool) : Lens Bool :=
   ⟨xor L.base_a M.base_a, xor L.base_b M.base_b,
    fun x y => xor (L.combine x y) (M.combine x y)⟩
@@ -70,7 +70,7 @@ namespace E213.Research.LensOnLens
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- **Lens-on-Lens**: Lens Bool 자체 가 HasDistinguishing instance. -/
+/-- **Lens-on-Lens**: Lens Bool itself is a HasDistinguishing instance. -/
 def lensBoolHasDistinguishing : HasDistinguishing (Lens Bool) where
   a := constTrueLens
   b := constFalseLens
@@ -87,8 +87,8 @@ open E213.Research.SemanticAtom
 
 /-! ### Universal morphism Raw → Lens Bool
 
-자기 self-application 의 가장 sharp instance — Raw 의 element
-가 Lens (= framework 의 표현 unit) 로 mapping. -/
+The sharpest self-application instance — elements of Raw map to
+Lenses (= the representation unit of the framework). -/
 
 /-- Universal morphism Raw → Lens Bool via lens-on-lens instance. -/
 def lensUniversalMorphism : Raw → Lens Bool :=
@@ -116,28 +116,28 @@ open E213.Research.SemanticAtom
 
 /-! ### Generic Lens-on-Lens: recursive self-application
 
-`HasDistinguishing α → HasDistinguishing (Lens α)` 의 generic
-form.  → `Lens α`, `Lens (Lens α)`, `Lens (Lens (Lens α))`, ...
-의 infinite tower.
+Generic form of `HasDistinguishing α → HasDistinguishing (Lens α)`.
+Yields an infinite tower `Lens α`, `Lens (Lens α)`,
+`Lens (Lens (Lens α))`, ...
 
-framework 의 self-application 의 *recursive closure*. -/
+The *recursive closure* of the framework's self-application. -/
 
-/-- Constant Lens — view 가 항상 같은 element. -/
+/-- Constant Lens — view is always the same element. -/
 def constLens {α : Type} (a : α) : Lens α := ⟨a, a, fun _ _ => a⟩
 
-/-- 두 constant Lens 가 distinguishable iff base 가 distinguishable. -/
+/-- Two constant Lenses are distinguishable iff their bases are distinguishable. -/
 theorem constLens_distinct {α : Type} {x y : α} (h : x ≠ y) :
     constLens x ≠ constLens y := by
   intro heq
   have : (constLens x).base_a = (constLens y).base_a := congrArg Lens.base_a heq
   exact h this
 
-/-- Generic Lens combine via α 의 combine. -/
+/-- Generic Lens combine using the combine of α. -/
 def lensCombineGeneric {α : Type} (c : α → α → α) (L M : Lens α) : Lens α :=
   ⟨c L.base_a M.base_a, c L.base_b M.base_b,
    fun x y => c (L.combine x y) (M.combine x y)⟩
 
-/-- α 의 combine 의 commutativity 가 lensCombineGeneric 의 commutativity. -/
+/-- Commutativity of α's combine implies commutativity of lensCombineGeneric. -/
 theorem lensCombineGeneric_comm {α : Type} (c : α → α → α)
     (hsym : ∀ u v, c u v = c v u) (L M : Lens α) :
     lensCombineGeneric c L M = lensCombineGeneric c M L := by
@@ -155,10 +155,11 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
 /-- **Generic Lens-on-Lens**: `HasDistinguishing α → HasDistinguishing
-    (Lens α)`.  Lens 의 type 자체 가 의미 framework 의 instance.
+    (Lens α)`.  The Lens type itself is an instance of the semantic
+    framework.
 
-    Recursive: 이 instance + 자동 elaboration → `Lens (Lens α)`,
-    `Lens^n α` 의 무한 tower 가능. -/
+    Recursive: this instance + automatic elaboration → enables an
+    infinite tower of `Lens (Lens α)`, `Lens^n α`. -/
 def lensHasDistinguishing (α : Type) [d : HasDistinguishing α] :
     HasDistinguishing (Lens α) where
   a := constLens d.a
@@ -177,10 +178,11 @@ open E213.Research.InstanceReach
 
 /-! ### Tower demonstration: infinite recursive instances
 
-`HasDistinguishing α → HasDistinguishing (Lens α)` 의 recursive
-application — Bool → Lens Bool → Lens (Lens Bool) → ...
+Recursive application of
+`HasDistinguishing α → HasDistinguishing (Lens α)` —
+Bool → Lens Bool → Lens (Lens Bool) → ...
 
-framework 의 self-application 이 *unbounded tower* 형성. -/
+The framework's self-application forms an *unbounded tower*. -/
 
 /-- Level 1: HasDistinguishing (Lens Bool). -/
 def levelOne : HasDistinguishing (Lens Bool) :=

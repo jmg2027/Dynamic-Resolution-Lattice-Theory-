@@ -38,7 +38,7 @@ DRLT *exact* Dyson resummation (ch09):
   m_μ/m_e: x_dyson = α · 1/(NS+1) = α/(d-1)  [Dyson denom]
   λ_H:    x_H = α · 1/c = α/2  [self-dual]
 
-  → 같은 α_GUT가 다른 atomic ratio와 결합.  All from lattice.
+  → The same α_GUT combines with different atomic ratios.  All from lattice.
 -/
 
 namespace E213.Physics.Propagator
@@ -72,8 +72,8 @@ theorem P_arguments_atomic :
     ∧ (c_lat = 2) := by decide
 
 /-- ★ Closed propagator universality ★
-    같은 P(x) form이 m_p, m_μ/m_e, λ_H, fermion masses, heavy
-    mesons에 등장.  Argument만 다른 atomic ratio. -/
+    The same P(x) form appears in m_p, m_μ/m_e, λ_H, fermion masses, heavy
+    mesons.  Only the argument differs — a different atomic ratio. -/
 theorem closed_prop_universal :
     -- P numerator coefficient = c_lat = 2
     (P_numer_x_coef = c_lat)
@@ -86,7 +86,7 @@ theorem closed_prop_universal :
     Continuum: Dyson 1 + x + x² + ... diverges (x = coupling)
     DRLT:      |x| < 1 lattice → P(x) closes UV-finite
 
-    이게 "renormalization is automatic" 의 의미.
+    This is the meaning of "renormalization is automatic".
     α_GUT × any atomic ratio = small enough for closure. -/
 theorem renormalization_auto :
     -- α_GUT < 1/d (since α_GUT = 6/(25π²) ≈ 0.024 < 1/5 = 0.2)

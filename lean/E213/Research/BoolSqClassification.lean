@@ -2,34 +2,34 @@ import E213.Research.DiagonalClassification
 import E213.Research.NegSqLens
 
 /-!
-# Research.BoolSqClassification: Bool Lens 의 완전 diagonal 분류
+# Research.BoolSqClassification: Complete diagonal classification of Bool Lenses
 
-note 35 + NegSqLens 의 완성: **Bool-valued Lens 의 sq 함수
-는 정확히 4 가지** 중 하나.
+Completion of note 35 + NegSqLens: **the sq function of a Bool-valued
+Lens is exactly one of 4 cases**.
 
-모든 Lens Bool L 에 대해:
-- Collapse L true (sq = const true), 또는
-- Collapse L false (sq = const false), 또는
-- Idempotent L (sq = id), 또는
+For every Lens Bool L:
+- Collapse L true (sq = const true), or
+- Collapse L false (sq = const false), or
+- Idempotent L (sq = id), or
 - "NegSq" L (sq = !).
 
-## 의의
+## Significance
 
-Bool 의 자기-함수 공간이 유한하므로 (`Bool → Bool` 은 4
-함수), diagonal 거동이 정확히 4가지.  일반 α 에서는 `α → α`
-의 크기가 결정.
+Since the self-function space of Bool is finite (`Bool → Bool` has 4
+functions), the diagonal behavior is exactly 4 cases.  For a general
+α, the size of `α → α` determines the count.
 -/
 
 namespace E213.Research.BoolSqClassification
 
 open E213.Firmware E213.Hypervisor E213.Research.DiagonalClassification
 
-/-- sq 가 negation 인 class. -/
+/-- Class where sq is negation. -/
 def NegSq {α : Type} (L : Lens α) (f : α → α) : Prop :=
   (∀ v : α, L.combine v v = f v) ∧ (∀ v : α, f (f v) = v) ∧
   (∀ v : α, f v ≠ v)
 
-/-- **Bool Lens 의 sq 완전 분류**. -/
+/-- **Complete classification of sq for Bool Lenses**. -/
 theorem bool_sq_classification (L : Lens Bool) :
     Collapse L true ∨ Collapse L false ∨ Idempotent L
     ∨ (∀ v : Bool, L.combine v v = !v) := by

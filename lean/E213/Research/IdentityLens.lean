@@ -2,35 +2,35 @@ import E213.Hypervisor.Lens
 import E213.Prelude
 
 /-!
-# Research.IdentityLens: Raw → Raw 항등 Lens + Yoneda-dual
+# Research.IdentityLens: Raw → Raw identity Lens + Yoneda-dual
 
-Note 34 Q34.4 의 부분 답.
+Partial answer to Note 34 Q34.4.
 
-**Self-encoding 은 불가** — Lens α 는 α 에 의존하므로 "모든
-α 에 대한 canonical `Lens.fromRaw : Raw → Lens α`" 는 없음.
+**Self-encoding is not possible** — since `Lens α` depends on `α`,
+there is no canonical `Lens.fromRaw : Raw → Lens α` for all `α`.
 
-**하지만 dual 은 자연스러움** — 각 Raw 원소 r 은 모든 Lens
-를 평가하는 함수:
+**But the dual is natural** — each Raw element `r` is a function
+that evaluates every Lens:
 
 ```
 Raw.eval r {α} (L : Lens α) : α := L.view r
 ```
 
-이 dual 은 `Lens.view L : Raw → α` 를 Raw 쪽에서 본 형태.
+This dual is `Lens.view L : Raw → α` viewed from the Raw side.
 
-- §1. **identity Lens `idLens : Lens Raw`** — Q34.3 의 가장
-  단순한 구현 (codomain = Raw).
-- §2. injective Lens witness.  `r ↦ Raw.eval r idLens` 는
-  injective.
+- §1. **identity Lens `idLens : Lens Raw`** — the simplest implementation
+  of Q34.3 (codomain = Raw).
+- §2. Injective Lens witness.  `r ↦ Raw.eval r idLens` is injective.
 -/
 
 namespace E213.Research.IdentityLens
 
 open E213.Firmware E213.Hypervisor
 
-/-- Identity Lens: view = id on Raw.  combine 은 Raw.slash
-    (x ≠ y 분기), 대각에서는 fallback Raw.a — 대각은 view
-    계산 중 hit 되지 않음 (slash 분기의 `x ≠ y` 보장). -/
+/-- Identity Lens: view = id on Raw.  combine is Raw.slash
+    (x ≠ y branch), diagonal fallback to Raw.a — the diagonal
+    is never hit during view computation (guaranteed by `x ≠ y`
+    in the slash branch). -/
 def idLens : Lens Raw where
   base_a := Raw.a
   base_b := Raw.b
@@ -73,18 +73,18 @@ namespace E213.Research.IdentityLens
 
 open E213.Firmware E213.Hypervisor
 
-/-- `idLens.view` 는 injective (실은 identity). -/
+/-- `idLens.view` is injective (in fact, the identity). -/
 theorem idLens_injective : Function.Injective idLens.view := by
   intro x y hxy
   rw [idLens_is_id x, idLens_is_id y] at hxy
   exact hxy
 
-/-- **Yoneda-dual**: Raw 원소 r 이 모든 Lens α 를 평가하는
-    함수.  `L.view : Raw → α` 의 dual 시점. -/
+/-- **Yoneda-dual**: Raw element r as a function that evaluates
+    every Lens α.  The dual perspective of `L.view : Raw → α`. -/
 def Raw.eval (r : Raw) {α : Type} (L : Lens α) : α := L.view r
 
-/-- `r ↦ Raw.eval r idLens` 는 injective.  즉 Raw 원소는
-    Lens-evaluator 로서 서로 구분됨. -/
+/-- `r ↦ Raw.eval r idLens` is injective.  That is, Raw elements
+    are distinguished from each other as Lens-evaluators. -/
 theorem raw_distinguished_by_idLens :
     Function.Injective (fun r : Raw => Raw.eval r idLens) :=
   idLens_injective

@@ -3,10 +3,10 @@ import E213.Physics.AlphaEM
 /-!
 # 1/α_em(IR) candidate — pure DRLT formula attempt for 137.036
 
-User directive (2026-04-27): "책은 더이상 toe이자 ssot가 아닙니다.
-Raw/lens가 toe이자 ssot이지요."  ch08:289의 "QED running is not
-DRLT topology" 명시는 *책 쓰일 때* 의 자기 한계 인정이고, 213이
-무르익은 지금 격자에서 자체 도출 시도.
+User directive (2026-04-27): "The book is no longer the ToE and SSOT.
+Raw/Lens is the ToE and SSOT."  The explicit statement in ch08:289 "QED running is not
+DRLT topology" was a self-acknowledged limitation *at the time the book was written*, and now
+that 213 has matured, attempting self-derivation from the lattice.
 
 ## Candidate formula
 
@@ -31,7 +31,7 @@ DRLT topology" 명시는 *책 쓰일 때* 의 자기 한계 인정이고, 213이
 
 ## What this file proves (0 axioms)
 
-  * Bracket 형태의 candidate formula
+  * Candidate formula in bracket form
   * 137 ∈ bracket at N = 10 (containment by `decide`)
   * 138 ∉ bracket (sharp)
   * 136 ∉ bracket (sharp from below at N=10)

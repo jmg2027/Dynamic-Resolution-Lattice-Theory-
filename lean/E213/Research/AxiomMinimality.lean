@@ -1,41 +1,43 @@
 /-!
-# Research.AxiomMinimality: Raw axiom 의 minimum 성
+# Research.AxiomMinimality: Minimality of the Raw axioms
 
-Raw axiom 의 3 clauses (Raw.a, Raw.b, slash with x ≠ y) 가 진짜
-minimum 임을 형식적 demonstration.
+Formal demonstration that the 3 clauses of the Raw axioms
+(Raw.a, Raw.b, slash with x ≠ y) are truly minimal.
 
-## 결과
+## Result
 
-Raw.b 제거 한 가상 axiom 은 generation 붕괴.  Single base + slash
-with distinctness 만으로는 single element 만 생성.
+A hypothetical axiom with Raw.b removed collapses generation.
+A single base + slash with distinctness alone generates only a
+single element.
 
-따라서 (Raw.a, Raw.b) 두 base 가 essential.
+Therefore both bases (Raw.a, Raw.b) are essential.
 
-## 접근
+## Approach
 
-- TreeA: Raw.b 없는 inductive type.  diagonal slash 도 일단 허용.
-- RawA: TreeA 의 subtype (no diagonal slashes).
-- 정리: ∀ r : RawA, r.val = TreeA.a.
+- TreeA: inductive type without Raw.b.  Diagonal slashes are
+  syntactically allowed for now.
+- RawA: subtype of TreeA (no diagonal slashes).
+- Theorem: ∀ r : RawA, r.val = TreeA.a.
 -/
 
 namespace E213.Research.AxiomMinimality
 
-/-- Raw.b 없는 가상 tree.  diagonal slash 는 syntactically 허용
-    되지만 RawA subtype 으로 제외. -/
+/-- Hypothetical tree without Raw.b.  Diagonal slashes are
+    syntactically allowed but excluded by the RawA subtype. -/
 inductive TreeA : Type where
   | a
   | slash : TreeA → TreeA → TreeA
 deriving DecidableEq
 
-/-- TreeA 안 어딘가에 diagonal slash (x = y) 가 있는지. -/
+/-- Whether a diagonal slash (x = y) occurs anywhere inside TreeA. -/
 def TreeA.hasDiag : TreeA → Bool
   | .a => false
   | .slash x y => decide (x = y) || hasDiag x || hasDiag y
 
-/-- RawA: diagonal slash 없는 TreeA. -/
+/-- RawA: TreeA with no diagonal slash. -/
 abbrev RawA : Type := { t : TreeA // t.hasDiag = false }
 
-/-- RawA.a — 유일하게 자명한 element. -/
+/-- RawA.a — the uniquely trivial element. -/
 def RawA.a : RawA := ⟨.a, rfl⟩
 
 /-- TreeA without diag and without Raw.b → only TreeA.a.
@@ -57,8 +59,9 @@ theorem treeA_no_diag_only_a : ∀ t : TreeA, t.hasDiag = false → t = TreeA.a 
       rw [hx_a, hy_a] at hxy
       exact absurd rfl hxy
 
-/-- **AxiomMinimality 정리**: Raw.b 제거 한 axiom 은 single
-    element (RawA.a) 만 생성.  Generation 붕괴 demonstration. -/
+/-- **AxiomMinimality theorem**: The axiom with Raw.b removed
+    generates only a single element (RawA.a).
+    Demonstration of generation collapse. -/
 theorem rawA_trivial : ∀ r : RawA, r = RawA.a := by
   intro ⟨t, h⟩
   have : t = TreeA.a := treeA_no_diag_only_a t h
@@ -69,10 +72,10 @@ end E213.Research.AxiomMinimality
 
 namespace E213.Research.AxiomMinimality.NoA
 
-/-! ### Case 2: `a` 제거 (b 만 남음) — 대칭 으로 trivial -/
+/-! ### Case 2: Removing `a` (only b remains) — trivially symmetric -/
 
-/-- `a` 없는 가상 tree.  diagonal slash 는 syntactically 허용
-    되지만 RawB subtype 으로 제외. -/
+/-- Hypothetical tree without `a`.  Diagonal slashes are
+    syntactically allowed but excluded by the RawB subtype. -/
 inductive TreeB : Type where
   | b
   | slash : TreeB → TreeB → TreeB
@@ -104,7 +107,7 @@ theorem treeB_no_diag_only_b : ∀ t : TreeB, t.hasDiag = false → t = TreeB.b 
       rw [hx_b, hy_b] at hxy
       exact absurd rfl hxy
 
-/-- **Case 2 결과**: `a` 제거 한 axiom 도 single element 만 생성. -/
+/-- **Case 2 result**: The axiom with `a` removed also generates only a single element. -/
 theorem rawB_trivial : ∀ r : RawB, r = RawB.b := by
   intro ⟨t, h⟩
   have : t = TreeB.b := treeB_no_diag_only_b t h
@@ -114,9 +117,9 @@ end E213.Research.AxiomMinimality.NoA
 
 namespace E213.Research.AxiomMinimality.NoSlash
 
-/-! ### Case 3: `slash` 제거 — static, 새 element 생성 부재 -/
+/-! ### Case 3: Removing `slash` — static, no new element generation -/
 
-/-- slash 없는 framework: 두 base 만. -/
+/-- Framework without slash: two bases only. -/
 inductive TreeAB : Type where
   | a
   | b
@@ -124,18 +127,18 @@ deriving DecidableEq
 
 abbrev RawAB : Type := TreeAB
 
-/-- **Case 3 결과**: slash 제거 시 framework 가 **static** —
-    오직 두 element (a, b) 만, 새 element 생성 부재.
-    Distinguishing 자체 는 가능 (a ≠ b) 하지만 framework 가
-    한 step 에서 끝남: combinatorial generation 부재. -/
+/-- **Case 3 result**: Removing slash makes the framework **static** —
+    only two elements (a, b), no new element generation.
+    Distinguishing is still possible (a ≠ b) but the framework ends
+    in one step: no combinatorial generation. -/
 theorem rawAB_only_two : ∀ r : RawAB, r = TreeAB.a ∨ r = TreeAB.b := by
   intro r
   cases r with
   | a => exact Or.inl rfl
   | b => exact Or.inr rfl
 
-/-- 두 element 의 한정 cardinality — countable infinite tower
-    (Raw 의 본질) 부재. -/
+/-- Finite cardinality of two elements — no countably infinite tower
+    (which is the essence of Raw). -/
 theorem rawAB_card_eq_two :
     ∀ r : RawAB, r ∈ ([TreeAB.a, TreeAB.b] : List RawAB) := by
   intro r
@@ -147,32 +150,32 @@ end E213.Research.AxiomMinimality.NoSlash
 
 namespace E213.Research.AxiomMinimality.NoDistinct
 
-/-! ### Case 4: `distinctness` (x ≠ y) 제거 — degenerate
+/-! ### Case 4: Removing `distinctness` (x ≠ y) — degenerate
 
-distinctness 부재 시 free magma: `slash x x` 가 valid element.
-"같은 것 을 자기 자신 과 구분" 한다는 개념 의 collapse.
-Distinguishing 의 의미 손실. -/
+Without distinctness, a free magma: `slash x x` is a valid element.
+Collapse of the concept of "distinguishing something from itself."
+Loss of the meaning of distinguishing. -/
 
-/-- distinctness 제거 — Raw 의 free magma version. -/
+/-- Without distinctness — free magma version of Raw. -/
 inductive TreeFree : Type where
   | a
   | b
   | slash : TreeFree → TreeFree → TreeFree
 deriving DecidableEq
 
-/-- **Case 4 결과**: distinctness 제거 시 self-pairing 가능
-    (`slash a a`).  Raw axiom 4 (x ≠ y) 의 직접 위반.
-    "구분" 의 의미 부재. -/
+/-- **Case 4 result**: Without distinctness, self-pairing is possible
+    (`slash a a`).  Direct violation of Raw axiom 4 (x ≠ y).
+    The meaning of "distinguishing" is absent. -/
 theorem self_pairing_exists :
     ∃ r : TreeFree, r = TreeFree.slash TreeFree.a TreeFree.a := by
   exact ⟨TreeFree.slash TreeFree.a TreeFree.a, rfl⟩
 
-/-- 같은 base 의 self-pairing 의 무한 chain. -/
+/-- Infinite chain of self-pairings with the same base. -/
 def selfChain : Nat → TreeFree
   | 0 => TreeFree.a
   | n + 1 => TreeFree.slash (selfChain n) (selfChain n)
 
-/-- selfChain 의 모든 element 가 self-paired. -/
+/-- Every element of selfChain is self-paired. -/
 theorem selfChain_self_paired (n : Nat) :
     selfChain (n + 1) = TreeFree.slash (selfChain n) (selfChain n) := rfl
 
@@ -180,27 +183,27 @@ end E213.Research.AxiomMinimality.NoDistinct
 
 namespace E213.Research.AxiomMinimality
 
-/-! ### Hub: 4 case 의 완전 통합
+/-! ### Hub: Complete integration of all 4 cases
 
-Raw axiom 의 4 clauses (a, b, slash, distinctness) 모두 essential.
-어느 하나 제거 / 약화 시 framework 가 의미 부재 (degenerate /
-static / void) 로 collapse.
+All 4 clauses of the Raw axioms (a, b, slash, distinctness) are essential.
+Removing or weakening any one causes the framework to collapse to
+something meaningless (degenerate / static / void).
 
-이 4 case 의 형식 적 demonstration 이 곧 **Raw = strict minimum
-의 self-justified 증명**.  외부 metatheory 부재.
+The formal demonstration of these 4 cases is exactly the
+**self-justified proof that Raw = strict minimum**.  No external metatheory.
 
-| Case | 결과 |
-|------|------|
-| `b` 제거 (`rawA_trivial`) | single element only → distinguishing 부재 |
-| `a` 제거 (`NoA.rawB_trivial`) | single element only → distinguishing 부재 |
-| `slash` 제거 (`NoSlash.rawAB_only_two`) | static 2-element, 새 element 생성 부재 |
-| `distinctness` 제거 (`NoDistinct.self_pairing_exists`) | self-pairing → "구분" 의 의미 collapse |
+| Case | Result |
+|------|--------|
+| Remove `b` (`rawA_trivial`) | single element only → no distinguishing |
+| Remove `a` (`NoA.rawB_trivial`) | single element only → no distinguishing |
+| Remove `slash` (`NoSlash.rawAB_only_two`) | static 2-element, no new element generation |
+| Remove `distinctness` (`NoDistinct.self_pairing_exists`) | self-pairing → collapse of the meaning of "distinguishing" |
 
-따라서 Raw axiom = "distinguishable + generative + meaningful"
-framework 의 strict minimum.  이 statement 자체 가 framework
-안 [propext] only 로 형식 됨 → **self-justified minimality**.
+Therefore Raw axiom = strict minimum of a "distinguishable + generative +
+meaningful" framework.  This statement itself is formalized inside the
+framework with [propext] only → **self-justified minimality**.
 
-Note 75 ("semantic atom") 의 형식 화 부분.
+Part of the formalization of Note 75 ("semantic atom").
 -/
 
 end E213.Research.AxiomMinimality

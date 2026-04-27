@@ -2,28 +2,28 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 물리 상수 → DRLT atomic catalog
+# Translation: Physical constants → DRLT atomic catalog
 
-  표준 명명             atomic 기원
+  Standard name        atomic origin
   ─────────────────    ──────────────────────────
-  c (광속)              = NT lattice speed = 2
-  ħ (Planck)            = atomic invariant
-  G (Newton)            = 1/d normalization
-  k_B (Boltzmann)       = atomic ratio
-  α_em                  = 1/137 (Phase 1 ppm)
-  α_GUT                 = 6/(d²·π²) atomic
-  α_3                   = 1/(NS²-1) = 1/8
-  α_2                   = 1/30 atomic
-  α_1                   = 1/60·ζ(2) atomic
-  m_p                   = NS·Λ_QCD·P (Phase 1)
-  m_e/m_μ              = NT/(NS·137) (Phase 1 0.48 ppb)
-  m_H                   = v_H·(1/c + α(d-1)/d) (Phase 1 +0.02%)
-  Λ_QCD                 = 308 MeV atomic
-  v_H (EW vev)          = 245.6 GeV atomic
-  M_Pl (Planck mass)    = v_H·d^(d²)/(d+1)
-  Ω_Λ                   = (1-1/π)(1+α/d)
-  H_0                   = (Lens output)
-  T_CMB                 = atomic scale
+  c (speed of light)   = NT lattice speed = 2
+  ħ (Planck)           = atomic invariant
+  G (Newton)           = 1/d normalization
+  k_B (Boltzmann)      = atomic ratio
+  α_em                 = 1/137 (Phase 1 ppm)
+  α_GUT                = 6/(d²·π²) atomic
+  α_3                  = 1/(NS²-1) = 1/8
+  α_2                  = 1/30 atomic
+  α_1                  = 1/60·ζ(2) atomic
+  m_p                  = NS·Λ_QCD·P (Phase 1)
+  m_e/m_μ             = NT/(NS·137) (Phase 1 0.48 ppb)
+  m_H                  = v_H·(1/c + α(d-1)/d) (Phase 1 +0.02%)
+  Λ_QCD                = 308 MeV atomic
+  v_H (EW vev)         = 245.6 GeV atomic
+  M_Pl (Planck mass)   = v_H·d^(d²)/(d+1)
+  Ω_Λ                  = (1-1/π)(1+α/d)
+  H_0                  = (Lens output)
+  T_CMB                = atomic scale
 -/
 
 namespace E213.Physics.Phase3.Translation.Constants

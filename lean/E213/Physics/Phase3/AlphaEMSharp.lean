@@ -4,15 +4,15 @@ import E213.Physics.AlphaEMTight
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 AlphaEMSharp — 1/α_em = 137.036 ppm 정밀 falsifier
+# Phase 3 AlphaEMSharp — 1/α_em = 137.036 ppm precision falsifier
 
 **Layer: App**.
 
-DRLT 결과 (Phase 1 AlphaEM137.lean): 1/α_em = 137 ∈ rational
-bracket from atomic primitives.  관측: 137.0359992 (CODATA 2018).
+DRLT result (Phase 1 AlphaEM137.lean): 1/α_em = 137 ∈ rational
+bracket from atomic primitives.  Observed: 137.0359992 (CODATA 2018).
 
-DRLT 정밀: ppm 수준 (실험 정밀도 0.81 × 10⁻¹⁰ 보다 거침).
-하지만 *integer 137 자체* 는 정확.
+DRLT precision: ppm level (coarser than experimental precision 0.81 × 10⁻¹⁰).
+But *integer 137 itself* is exact.
 
 ## Sharp form
 
@@ -20,22 +20,22 @@ DRLT 정밀: ppm 수준 (실험 정밀도 0.81 × 10⁻¹⁰ 보다 거침).
   bracket_138_excluded: 138 ∉ bracket
   bracket_131_excluded: 131 ∉ bracket
 
-## DRLT 강제 정수 chain
+## DRLT forced integer chain
 
   α_em ≈ α_GUT · (5/3) · (1 - α_corrections) (running)
   1/α_em ≈ 137 (5-term simplicial sum from atomic primitives)
 
-  *measurement → 1/α_em ≠ 137* 이면 폐기.
-  현재 measurement = 137.036 → 검증.
+  *measurement → 1/α_em ≠ 137* → discarded.
+  Current measurement = 137.036 → verified.
 
 ## Falsifier sharp form
 
-  - 1/α_em ∈ [136, 138] DRLT bracket (Phase 1 검증)
-  - 더 정밀 측정이 outside → 폐기
+  - 1/α_em ∈ [136, 138] DRLT bracket (Phase 1 verified)
+  - More precise measurement outside → discarded
 
-CODATA 2024+ 가 137.0359990 ± 10⁻¹¹ 추가 정밀화 시 DRLT bracket
-이 충분히 tight 한가?  현재 5-term sum 의 next-order correction 이
-어떻게 closes 하는지 가 critical path.
+If CODATA 2024+ refines to 137.0359990 ± 10⁻¹¹, is the DRLT bracket
+sufficiently tight?  How the next-order correction of the current 5-term sum
+closes is the critical path.
 -/
 
 namespace E213.Physics.Phase3.AlphaEMSharp
@@ -59,8 +59,8 @@ theorem alpha_131_out : True := by
   trivial
 
 /-- ★ Alpha EM Sharp Falsifier ★
-    DRLT 가 137 정수 강제 + 138/131 배제.  관측 137.036 검증.
-    더 정밀 측정 → DRLT bracket tightening 필요. -/
+    DRLT forces integer 137 + excludes 138/131.  Observation 137.036 verified.
+    More precise measurement → DRLT bracket tightening needed. -/
 theorem alpha_em_falsifier :
     -- atomic
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)

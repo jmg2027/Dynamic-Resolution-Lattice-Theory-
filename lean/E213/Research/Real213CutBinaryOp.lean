@@ -3,14 +3,14 @@ import E213.Research.Real213CutBinary
 /-!
 # Research.Real213CutBinaryOp: structural binary cut operation
 
-`CutBinaryOp` 으 로 모든 binary cut operation 의 *parameters* 를
-single struct 으 로 reify.  cutSum, cutMul 모두 instance.
+Reify the *parameters* of all binary cut operations into a single struct
+via `CutBinaryOp`.  Both cutSum and cutMul are instances.
 
-## 의의
+## Significance
 
 - 213-style universal abstraction for binary cut operations.
-- locally-determined property 가 자동 유 도.
-- 새 operation 은 instance 정의 만.
+- The locally-determined property follows automatically.
+- New operations require only an instance definition.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -38,7 +38,7 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- **cutSumOp**: cutSum 의 CutBinaryOp form. -/
+/-- **cutSumOp**: CutBinaryOp form of cutSum. -/
 def cutSumOp : CutBinaryOp where
   predicate := fun m _ m1 m2 => decide (m1 + m2 = 2*m)
   k1 := fun _ k => 2*k
@@ -46,7 +46,7 @@ def cutSumOp : CutBinaryOp where
   M1 := fun m _ => 2*m
   M2 := fun m _ => 2*m
 
-/-- **cutMulOp**: cutMul 의 CutBinaryOp form. -/
+/-- **cutMulOp**: CutBinaryOp form of cutMul. -/
 def cutMulOp : CutBinaryOp where
   predicate := fun m k m1 m2 => decide (m1 * m2 ≤ m * k)
   k1 := fun _ k => k
@@ -60,7 +60,7 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- **CutBinaryOp.apply 는 locally determined** — generic. -/
+/-- **CutBinaryOp.apply is locally determined** — generic. -/
 theorem CutBinaryOp.apply_locallyDetermined (op : CutBinaryOp)
     (cx1 cx2 cy1 cy2 : Nat → Nat → Bool) (m k : Nat)
     (hx : ∀ m', m' ≤ op.M1 m k → cx1 m' (op.k1 m k) = cx2 m' (op.k1 m k))

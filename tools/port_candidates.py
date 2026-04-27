@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""기존 lean/E213/ 의 short-proof 정리를 kernel 포팅 후보로 식별.
+"""Identify short-proof theorems in lean/E213/ as kernel porting candidates.
 
-휴리스틱:
-  - 본문 (body) 이 `rfl`, `by rfl`, `by decide`, `Iff.rfl` 류
-  - 정수/Bool/Nat 산술만 등장
-  - 한 줄 안에 닫힘
+Heuristics:
+  - body is `rfl`, `by rfl`, `by decide`, `Iff.rfl`, etc.
+  - only integer/Bool/Nat arithmetic appears
+  - closes within a single line
 
-이런 정리는 보통 deep-embedded Term 으로 거의 일대일 포팅 가능.
+Such theorems can usually be ported nearly one-to-one as deep-embedded Terms.
 
 Usage: python3 tools/port_candidates.py [--limit 50]
 """

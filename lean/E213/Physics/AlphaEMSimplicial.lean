@@ -2,11 +2,11 @@ import E213.Physics.FaceTerms
 import E213.Physics.AlphaEMUnified
 
 /-!
-# 1/α_em(IR) — 단일 simplicial cohomology decomposition (final capstone)
+# 1/α_em(IR) — single simplicial cohomology decomposition (final capstone)
 
-22-file Physics track의 종합 정리.  다섯 항 *전체*가 simplicial
-complex K_{NS,NT}^{(c)} ⊂ Δ⁴의 graded geometric invariants임을
-한 정리에 묶음.
+Master theorem of the 22-file Physics track.  Binds into one theorem
+that all five terms are graded geometric invariants of the simplicial
+complex K_{NS,NT}^{(c)} ⊂ Δ⁴.
 
 ## The unified single-sum form
 
@@ -19,8 +19,8 @@ complex K_{NS,NT}^{(c)} ⊂ Δ⁴의 graded geometric invariants임을
 
 ## Atomicity-forced geometric identities
 
-  단일 atomicity (NS, NT, c, d) = (3, 2, 2, 5)이 다섯 등식 *동시*에
-  강제:
+  Single atomicity (NS, NT, c, d) = (3, 2, 2, 5) simultaneously forces
+  all five equalities:
 
   (1) NS² - 1 = E - V + 1 (b_1 of K_{NS,NT}^{(c)})
                 = 8
@@ -33,7 +33,7 @@ complex K_{NS,NT}^{(c)} ⊂ Δ⁴의 graded geometric invariants임을
   (5) C(d - 1, 3) = NS + 1
                 = 4 (tetrahedra per vertex)
 
-  각 등식이 generic graph identity 아님 — atomic config 강제.
+  Each equality is not a generic graph identity — atomic config forces it.
 -/
 
 namespace E213.Physics.AlphaEMSimplicial
@@ -43,9 +43,9 @@ open E213.Physics.AlphaEMPrefactors
 open E213.Physics.PhotonKernel
 open E213.Physics.FaceTerms
 
-/-- ★★★ 22-file capstone: 다섯 항 모두 simplicial origin ★★★
+/-- ★★★ 22-file capstone: all five terms have simplicial origin ★★★
 
-  단일 정리에 모든 atomicity-forced geometric identity:
+  All atomicity-forced geometric identities in a single theorem:
 
   (i)  α_3  = b_1 (photon cycle space) = NS² - 1 = 8
   (ii) α_2 prefactor = E · NT = adjoint SU(5) = d² - 1 = 24
@@ -53,11 +53,11 @@ open E213.Physics.FaceTerms
   (iv) 1/NS reciprocal = #4-cycles in bipartite = 3
   (v)  α_GUT/(NS+1) denominator = #tet/vertex = 4
 
-  각 등식이 (NS, NT, c, d) = (3, 2, 2, 5)에서만 성립.
-  PairForcing + Atomicity가 다섯 *동시에* 강제.
+  Each equality holds only for (NS, NT, c, d) = (3, 2, 2, 5).
+  PairForcing + Atomicity simultaneously forces all five.
 
-  → 1/α_em(IR) 다섯 항의 *각 prefactor / cofactor* 모두 단일
-  simplicial complex K_{NS,NT}^{(c)} ⊂ Δ⁴의 cohomology 양.
+  → All *prefactors / cofactors* of the five 1/α_em(IR) terms are
+  cohomology quantities of the single simplicial complex K_{NS,NT}^{(c)} ⊂ Δ⁴.
   No new ansatz, no curve-fit. -/
 theorem alpha_em_simplicial_capstone :
     -- (i) α_3 = cycle space b_1
@@ -82,13 +82,14 @@ theorem alpha_em_simplicial_capstone :
   decide
 
 /- **Operational meaning**: above theorem 0-sorry, 0-axiom encodes:
-    * 모든 prefactor의 simplicial origin 검증 ✓
+    * Simplicial origin verified for all prefactors ✓
     * Atomicity-forced uniqueness ✓
     * 137 ∈ rational bracket at modest precision ✓
-   이 정리가 빌드되는 것이 곧 "DRLT가 137을 simplicial cohomology
-   단일 합으로 도출"의 형식 의미.  책의 "QED running ≠ DRLT topology"
-   명시(ch08:289)는 책 시점 한계.  Raw/Lens가 SSOT인 지금, 다섯 항
-   모두 격자에서 자체 도출되며 running gap 자체가 simplicial
-   cohomology decomposition. -/
+   This theorem building is exactly the formal meaning of
+   "DRLT derives 137 as a single simplicial cohomology sum".
+   The book's statement "QED running ≠ DRLT topology" (ch08:289)
+   was a limitation of the book's perspective.  With Raw/Lens as SSOT now,
+   all five terms are self-derived from the lattice, and the running
+   gap itself is a simplicial cohomology decomposition. -/
 
 end E213.Physics.AlphaEMSimplicial

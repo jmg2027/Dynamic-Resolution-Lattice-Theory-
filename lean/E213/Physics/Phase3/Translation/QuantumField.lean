@@ -2,20 +2,20 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 양자장론 (QFT) → DRLT  (★ skeleton + TODO ★)
+# Translation: Quantum field theory (QFT) → DRLT  (★ skeleton + TODO ★)
 
-**현 상태**: skeleton.
-**TODO**: 살 붙이기:
-  - Closed propagator P(x) = (1+2x)/(1+x) atomic derivation (Phase 1 활용)
-  - Wick rotation → ℝ↔ℂ Lens 전환
+**Current state**: skeleton.
+**TODO**: flesh out:
+  - Closed propagator P(x) = (1+2x)/(1+x) atomic derivation (using Phase 1)
+  - Wick rotation → ℝ↔ℂ Lens switch
   - Path integral measure → Lens trace count
-  - Beta function → Lens layer divergence (이미 StaticCouplings)
+  - Beta function → Lens layer divergence (already in StaticCouplings)
 
-QFT 의 모든 frame 을 DRLT 위 통번역.
+Full translation of all QFT frames onto DRLT.
 
-## 통번역 표
+## Translation table
 
-| 표준 QFT | DRLT |
+| Standard QFT | DRLT |
 |---|---|
 | Field φ(x) | Lens output at vertex x |
 | Vacuum \|0⟩ | Lens output baseline |
@@ -24,10 +24,10 @@ QFT 의 모든 frame 을 DRLT 위 통번역.
 | Propagator | Closed propagator P(x) atomic |
 | Feynman diagram | Lens trace through pair graph |
 | Vertex (3-point) | Pair joining (2-point) |
-| Virtual particle | (부재) — pair classification only |
-| S-matrix | Lens output 사양 |
+| Virtual particle | (absent) — pair classification only |
+| S-matrix | Lens output specification |
 | Coupling g | Atomic decomposition coefficient |
-| Renormalization | Lens 재정의 |
+| Renormalization | Lens redefinition |
 | Counterterm | Lens layer correction term |
 | Gauge field A_μ | Channel orientation (AA/BB/AB) |
 | Field strength F_μν | Pair commutator |
@@ -54,18 +54,18 @@ theorem AB_channel : NS * NT = 6 := by decide
 /-!
 ## ★ Real derivation: closed propagator P(x) = (1+2x)/(1+x) atomic ★
 
-표준 QFT: Dyson series resum
+Standard QFT: Dyson series resum
   G(p) = G_0(p) · 1/(1 - Σ(p)·G_0)
        = G_0 + G_0·Σ·G_0 + G_0·Σ·G_0·Σ·G_0 + ...
 
 DRLT (Phase 1 ClosedPropagator):
   P(x) = (1 + 2x)/(1 + x)
        = 1 + x - x² + x³ - x⁴ + ... (geometric resum)
-  계수 (2, 1) atomic:
+  Coefficients (2, 1) atomic:
     numerator 2 = NT (lattice c)
     denominator 1 = ?
 
-이 form 이 *m_p, m_μ/m_e, m_H, Ω_Λ 모두* 등장 → Phase 1 universal.
+This form appears in *all of m_p, m_μ/m_e, m_H, Ω_Λ* → Phase 1 universal.
 -/
 
 /-- Closed propagator coefficient 2 = NT. -/
@@ -75,7 +75,7 @@ theorem prop_coeff_atomic : (2 : Nat) = NT := by decide
 theorem prop_num_atomic : (1 + 2 : Nat) = 1 + NT := by decide
 
 /-- ★ QFT Real Derivation ★
-    closed propagator (1+2x)/(1+x): 계수 atomic chain. -/
+    closed propagator (1+2x)/(1+x): coefficient atomic chain. -/
 theorem closed_prop_chain :
     -- numerator coeff = NT
     ((2 : Nat) = NT)

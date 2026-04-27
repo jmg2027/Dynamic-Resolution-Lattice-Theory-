@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Hadron Mass Library — 하드론 질량 atomic catalog
+# Hadron Mass Library — hadron mass atomic catalog
 
 ## Catalog
 

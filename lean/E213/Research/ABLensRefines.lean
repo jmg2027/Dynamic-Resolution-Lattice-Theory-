@@ -5,24 +5,24 @@ import E213.Meta.BoolLens
 /-!
 # Research.ABLensRefines: abLens ⊏ parityLens, abLens ⊏ boolXorLens
 
-abLens (a-count, b-count) 은 parityLens (total parity) 와
-boolXorLens (a-count parity) 를 모두 refine.  Transitively,
-abLens 는 leaves 도 refine (ABLens.lean 의 abLens_refines_leaves).
+abLens (a-count, b-count) refines both parityLens (total parity) and
+boolXorLens (a-count parity).  Transitively, abLens also refines
+leaves (abLens_refines_leaves in ABLens.lean).
 
-## 정리
+## Theorems
 
 - `abLens_refines_parityLens`: abLens ⊏ parityLens.
 - `abLens_refines_boolXorLens`: abLens ⊏ boolXorLens.
 
-## 의의
+## Significance
 
-abLens 가 refines preorder 에서 세 Bool kernel 을 동시에 refine:
+abLens simultaneously refines three Bool kernels in the refines preorder:
 - leaves (via sum factor).
 - parityLens (via sum parity factor).
 - boolXorLens (via a parity factor).
 
-Raw 의 basic 정보 추출 (a-count, b-count) 이 여러 "derived"
-관측을 모두 포함.
+The basic Raw information extraction (a-count, b-count) contains all
+of these "derived" observations.
 -/
 
 namespace E213.Research.ABLensRefines
@@ -54,8 +54,8 @@ open E213.Research.ABLens E213.Research.LensFactoring
 private def aParityFactor (p : Nat × Nat) : Bool :=
   decide (p.1 % 2 = 1)
 
-/-- boolXorLens view 는 a-count mod 2.  (Note 37 catalogue 와
-    일관.)  Raw.rec induction 으로 직접. -/
+/-- boolXorLens view is a-count mod 2.  (Consistent with the Note 37
+    catalogue.)  Proved directly by Raw.rec induction. -/
 private theorem boolXorLens_view_eq (r : Raw) :
     boolXorLens.view r = decide ((abLens.view r).1 % 2 = 1) := by
   induction r using Raw.rec with

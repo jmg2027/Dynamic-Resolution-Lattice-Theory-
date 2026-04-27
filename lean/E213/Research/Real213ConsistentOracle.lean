@@ -7,27 +7,30 @@ import E213.Research.Real213CauchyComplete
 
 ## User insight (Phase J Sec 1)
 
-ZFC IVT의 유령은 "어딘가 c가 정확히 존재한다"는 신화에서 온다.
-213은 이를 거부하므로, oracle 의 *진동 에러 구간*을 외부 가정으로
-끌어오는 대신, **oracle 자체에 protocol 족쇄를 채워야** 한다.
+The ghost of ZFC IVT comes from the myth that "c exists exactly somewhere."
+213 rejects this, so instead of importing the oracle's *oscillation error
+interval* as an external assumption, **the oracle itself must be shackled
+with a protocol**.
 
-## 정의
+## Definition
 
-`ConsistentOracle db` 는 다음을 보증한다:
+`ConsistentOracle db` guarantees:
 
-- `oracle : DyadicOracle` — bisection의 steering wheel.
-- `thresholdN m k : Nat` — query (m, k)에 대한 일관성 임계점.
-- `consistency` — n ≥ thresholdN m k 인 모든 step n에서, bracket
-  midpoint cut at (m, k) 는 안정 (n_1, n_2 모두 임계점 이상이면
-  midCut 값 동일).
+- `oracle : DyadicOracle` — the steering wheel of bisection.
+- `thresholdN m k : Nat` — the consistency threshold for query (m, k).
+- `consistency` — for every step n with n ≥ thresholdN m k, the bracket
+  midpoint cut at (m, k) is stable (if both n_1, n_2 are past the
+  threshold, the midCut value is the same).
 
-즉, oracle 이 임계점 이후에는 cut 응답을 번복하지 않는다는 약속.
+That is, a promise that the oracle does not retract its cut responses
+after the threshold.
 
-## 의의
+## Significance
 
-이 typed protocol 안에서 midSeq는 Cauchy.  사용자 통찰 그대로:
-"결과는 궤적 그 자체이지 limit가 아니다" — ConsistentOracle은
-궤적이 충분히 안정적임을 보장하는 type-level 계약.
+Within this typed protocol, midSeq is Cauchy.  Exactly as the user
+insight states: "the result is the trajectory itself, not the limit" —
+ConsistentOracle is a type-level contract guaranteeing the trajectory
+is sufficiently stable.
 -/
 
 namespace E213.Research.Real213CutSum

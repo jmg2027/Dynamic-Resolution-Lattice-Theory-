@@ -6,15 +6,15 @@ import E213.Research.Real213CutInv
 
 ∫[a, b] f := lim Σ_{i=0}^{n-1} f(a + i*h) * h, h = (b-a)/n.
 
-## 정의
+## Definition
 
 partition n a b := list of midpoints.
 riemannSum f a b n := Σ f(midpoint_i) * h.
 riemannIntegral f a b := lim_n riemannSum f a b n.
 
-## 의의
+## Significance
 
-Riemann integration 의 cut-level form — partition + sum + limit.
+Cut-level form of Riemann integration — partition + sum + limit.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -22,8 +22,8 @@ namespace E213.Research.Real213CutSum
 open E213.Firmware E213.Hypervisor
 
 /-- **Riemann sum at sample points**: Σ_{i=0}^{n-1} f(xs i).
-주 어 진 sample sequence xs 위 의 finite sum.  Δx scaling 은
-caller responsibility (subtraction 가 cut-level 에 서 partial). -/
+Finite sum over given sample sequence xs.  Δx scaling is
+caller responsibility (subtraction is partial at cut level). -/
 def riemannSumOnSamples (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (xs : Nat → (Nat → Nat → Bool)) : Nat → Nat → Nat → Bool
   | 0 => constCut 0 1
@@ -34,7 +34,7 @@ def constSamples (a : Nat → Nat → Bool) : Nat → (Nat → Nat → Bool) :=
   fun _ => a
 
 /-- riemannSumOnSamples at degenerate (all = a) for constant f returns
-    n * f(a) — but partial sum 형 식 으 로. -/
+    n * f(a) — but in partial sum form. -/
 example : riemannSumOnSamples (fun _ => constCut 1 1) (constSamples (constCut 1 1)) 0
     = constCut 0 1 := rfl
 
@@ -66,7 +66,7 @@ structure RiemannIntegralData
   bound_data : Unit  -- placeholder for convergence proof
 
 /-- **Constant integration**: ∫[a, b] c dx = c * (b - a).
-Cut-level implementation 별 도. -/
+Cut-level implementation is separate. -/
 def constRiemann (c : Nat → Nat → Bool) (a b : Nat → Nat → Bool) :
     RiemannIntegralData (fun _ => c) a b where
   approx := fun _ => c   -- placeholder

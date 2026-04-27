@@ -3,28 +3,27 @@ import E213.Physics.Phase2.Edges
 import E213.Physics.Phase2.Force
 
 /-!
-# Phase 2 Falsifier — 213 의 반증 가능 명제
+# Phase 2 Falsifier — falsifiable propositions of 213
 
-**Layer: App** (Phase 2 결과의 contrapositive 형식화).
+**Layer: App** (contrapositive formalization of Phase 2 results).
 
-CLAUDE.md 검증 기준 (2): *형식화되어서 아무도 딴지걸 수 없는
-새로운 물리* — 측정 가능 명제.
+CLAUDE.md verification criterion (2): *formalized such that no one can dispute the new physics* — measurable propositions.
 
-Phase 2 는 axiom 으로 강제된 *정수* 들을 derive 했다.  본 파일은
-그 contrapositive — *어떤 관측이 213 을 반증하는가* 의 형식화.
+Phase 2 derived *integers* forced by the axioms.  This file is the
+contrapositive — formalization of *which observations refute 213*.
 
-## 형식 falsifier 들
+## Formal falsifiers
 
-  (F1) d ≠ 5 관측 → Atomicity 위반.
-  (F2) Big block 크기 ≠ 3 → (3,2) partition 위반.
-  (F3) Small block 크기 ≠ 2 → (3,2) partition 위반.
-  (F4) Total pair 수 ≠ 10 → C(5,2) 위반.
-  (F5) Channel 수 ≠ 3 → pair type 분류 위반.
-  (F6) Cycle space dim ≠ 8 → atomicity-locked photon 위반.
-  (F7) c_lat ≠ 2 → NT atomic 위반.
+  (F1) observation d ≠ 5 → violates Atomicity.
+  (F2) big block size ≠ 3 → violates (3,2) partition.
+  (F3) small block size ≠ 2 → violates (3,2) partition.
+  (F4) total pair count ≠ 10 → violates C(5,2).
+  (F5) channel count ≠ 3 → violates pair type classification.
+  (F6) cycle space dim ≠ 8 → violates atomicity-locked photon.
+  (F7) c_lat ≠ 2 → violates NT atomic.
 
-각 falsifier 는 *contrapositive* 형식: "DRLT 가 옳다면 X 가 성립.
-X 가 거짓이면 DRLT 폐기."
+Each falsifier is in *contrapositive* form: "If DRLT is correct then X holds.
+If X is false then DRLT is refuted."
 -/
 
 namespace E213.Physics.Phase2.Falsifier
@@ -48,14 +47,14 @@ theorem falsifier_not_atomic_6 : ¬ Atomic 6 :=
 theorem falsifier_not_atomic_11 : ¬ Atomic 11 :=
   falsifier_d_unique 11 (by decide)
 
-/-- (F4) Pair 총 개수 ≠ 10 falsifier.  C(5,2) = 10 강제. -/
+/-- (F4) Total pair count ≠ 10 falsifier.  C(5,2) = 10 forced. -/
 theorem falsifier_pair_count : 5 * (5 - 1) / 2 = 10 := by decide
 
 theorem falsifier_pair_count_not_9 : ¬ (5 * (5 - 1) / 2 = 9) := by decide
 
 theorem falsifier_pair_count_not_15 : ¬ (5 * (5 - 1) / 2 = 15) := by decide
 
-/-- (F6) Cycle space dim ≠ 8 falsifier.  NS²-1 = 8 강제. -/
+/-- (F6) Cycle space dim ≠ 8 falsifier.  NS²-1 = 8 forced. -/
 theorem falsifier_cycle_space :
     E213.Physics.Phase2.Edges.NS_atomic *
     E213.Physics.Phase2.Edges.NS_atomic - 1 = 8 := by decide
@@ -64,23 +63,23 @@ theorem falsifier_cycle_space_not_5 :
     ¬ (E213.Physics.Phase2.Edges.NS_atomic *
        E213.Physics.Phase2.Edges.NS_atomic - 1 = 5) := by decide
 
-/-- (F7) c_lat ≠ 2 falsifier.  Phase 2 Edges 정의. -/
+/-- (F7) c_lat ≠ 2 falsifier.  Phase 2 Edges definition. -/
 theorem falsifier_c_lat : E213.Physics.Phase2.Edges.c_lattice = 2 := by decide
 
-/-- (F5) Channel 수 ≠ 3 falsifier. -/
+/-- (F5) Channel count ≠ 3 falsifier. -/
 theorem falsifier_channels : E213.Physics.Phase2.Force.num_channels = 3 := by decide
 
-/-- ★ Phase 2 Falsifier 종합 ★
-    DRLT 가 강제하는 *모든 정수* 의 단일 형식 정리.
-    이 중 *어느 하나* 라도 관측이 다르면 213 폐기. -/
+/-- ★ Phase 2 Falsifier synthesis ★
+    A single formal theorem of *all integers* forced by DRLT.
+    If *any one* of these differs from observation, 213 is refuted. -/
 theorem phase2_falsifiers :
     -- (F1) d unique
     (∀ n, n ≠ 5 → ¬ Atomic n)
-    -- (F1') 표준 후보들 모두 falsifier
+    -- (F1') all standard candidates are falsifiers
     ∧ (¬ Atomic 4) ∧ (¬ Atomic 6) ∧ (¬ Atomic 11)
     -- (F4) C(5,2) = 10
     ∧ (5 * (5 - 1) / 2 = 10)
-    -- (F5) Channel 수 = 3
+    -- (F5) Channel count = 3
     ∧ (E213.Physics.Phase2.Force.num_channels = 3)
     -- (F6) Cycle space = 8 = NS²-1
     ∧ (E213.Physics.Phase2.Edges.NS_atomic *

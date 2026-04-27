@@ -2,16 +2,16 @@ import E213.Research.SemanticAtom
 import E213.Research.InstanceReach
 
 /-!
-# Research.SumInstance: Sum type 의 priority-based combine instance
+# Research.SumInstance: priority-based combine instance for Sum type
 
-User directive (2026-04-25): Coproduct 의 정면 돌파 — Prism-like
-dual 구조.
+User directive (2026-04-25): Direct attack on coproduct — Prism-like
+dual structure.
 
-`Sum α β` 의 HasDistinguishing instance — combine 의 정의 가
-priority-based (left preference).  Mixed case 의 자연 한 답 부재
-이지만 commutative + distinct 보존 으로 형식 가능.
+HasDistinguishing instance for `Sum α β` — combine is defined as
+priority-based (left preference).  No natural answer in the mixed case
+but formalizable with commutative + distinct preservation.
 
-## combine 의 정의
+## Definition of combine
 
 ```
 combine (inl a) (inl a') = inl (d_α.combine a a')  -- both left
@@ -20,18 +20,19 @@ combine (inl a) (inr _)  = inl a                   -- mixed: prefer left
 combine (inr _) (inl a)  = inl a                   -- sym
 ```
 
-Mixed case 의 priority 가 ad-hoc — categorical coproduct 의 자연
-universal property 와 *완전 align* 부재.  단지 valid instance.
+The priority in the mixed case is ad-hoc — not *fully aligned* with the
+natural universal property of categorical coproduct.  Just a valid instance.
 
-## 의의
+## Significance
 
-Sum type 도 framework 의 instance — 단, mixed case 의 priority
-가 *artificial choice* (not categorically natural).  이게 framework
-의 categorical limit — coproduct 의 universal property 가 213 의
-distinguishing-framework category 에서 정확 히 emerge 부재.
+Sum type is also an instance of the framework — however, the priority in
+the mixed case is an *artificial choice* (not categorically natural).
+This is the categorical limit of the framework — the universal property
+of coproduct does not naturally emerge in 213's distinguishing-framework
+category.
 
-(이 instance 의 universalMorphism 의 image 가 specific algebraic
-content — 분석 흥미.)
+(The image of universalMorphism for this instance has specific algebraic
+content — interesting to analyze.)
 -/
 
 namespace E213.Research.SumInstance
@@ -40,7 +41,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 open E213.Research.InstanceReach
 
-/-- Sum type 의 priority-based combine. -/
+/-- Priority-based combine for Sum type. -/
 def sumCombine {α β : Type} [d_α : HasDistinguishing α]
     [d_β : HasDistinguishing β] (x y : Sum α β) : Sum α β :=
   match x, y with
@@ -61,7 +62,7 @@ namespace E213.Research.SumInstance
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- Sum type 의 HasDistinguishing instance. -/
+/-- HasDistinguishing instance for Sum type. -/
 def sumHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]
     [d_β : HasDistinguishing β] : HasDistinguishing (Sum α β) where
   a := Sum.inl d_α.a

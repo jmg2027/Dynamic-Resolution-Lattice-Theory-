@@ -12,20 +12,20 @@ For locally-determined f : RealCut → RealCut and bounds a, b cuts
 with a ≤ b and f(a) ≤ 0 ≤ f(b), there exists c with a ≤ c ≤ b and
 f(c) approximates 0.
 
-## 의의
+## Significance
 
-Cut-level IVT — bisection algorithm 의 framework-internal form.  Full
-constructive proof 는 별 도 arc (bisection sequence + Cauchy convergence
+Cut-level IVT — the framework-internal form of the bisection algorithm.  Full
+constructive proof is a separate arc (bisection sequence + Cauchy convergence
 + continuity preservation).
 
-이 파일 은 *interface* 만 — IVT statement + supporting types.
+This file is *interface* only — IVT statement + supporting types.
 -/
 
 namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- IVT 의 hypothesis 구조.
+/-- IVT hypothesis structure.
 
 `f`: cut function, `a`, `b`: bracketing cuts, `f a sign positive`,
 `f b sign negative` (or vice versa). -/
@@ -35,11 +35,11 @@ structure IVTHypothesis where
   a : Nat → Nat → Bool
   b : Nat → Nat → Bool
 
-/-- **IVT 의 declarative statement**: 적 절 한 hypothesis 하 에 c 의
-    존재.  Constructive proof 는 bisection — 별 도 arc. -/
+/-- **IVT declarative statement**: existence of c under appropriate hypotheses.
+    Constructive proof is bisection — a separate arc. -/
 def IVTStatement (h : IVTHypothesis) : Prop :=
   ∃ c : Nat → Nat → Bool,
-    -- "a ≤ c ≤ b" 와 "f(c) ≈ 0" 의 framework-내 형식
+    -- framework-internal form of "a ≤ c ≤ b" and "f(c) ≈ 0"
     True  -- Placeholder — full statement needs cut order + zero approximation
 
 end E213.Research.Real213CutSum

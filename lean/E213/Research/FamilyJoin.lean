@@ -1,23 +1,23 @@
 import E213.Research.UniversalQuotLens
 
 /-!
-# Research.FamilyJoin: arbitrary-index family 의 slash-congruence
-join
+# Research.FamilyJoin: slash-congruence join of an arbitrary-index family
 
-`FamilyMeet` 의 dual: arbitrary-index family `⟨E_i⟩_{i ∈ I}` 의
-*가장 작은* slash-congruence containing all `E_i`.
+Dual of `FamilyMeet`: the *smallest* slash-congruence containing all
+`E_i` for an arbitrary-index family `⟨E_i⟩_{i ∈ I}`.
 
-## 구성
+## Construction
 
-`FamilyJoinEquiv E` 가 inductive Prop 으 로 family elements +
-equivalence-closure + slash-closure 의 generated relation.
-`universalLens` 로 single Lens kernel realize.
+`FamilyJoinEquiv E` is an inductive Prop carrying the generated
+relation from family elements + equivalence-closure + slash-closure.
+Realized as a single Lens kernel via `universalLens`.
 
-## 의의
+## Significance
 
-`LensMeet` (binary meet), `JoinEquiv` (binary join), `FamilyMeet`
-(arbitrary meet) 와 함께 complete-lattice 구조 의 형식 화 완결:
-slash-congruences 의 set 이 *complete lattice*.
+Together with `LensMeet` (binary meet), `JoinEquiv` (binary join),
+and `FamilyMeet` (arbitrary meet), this completes the formalization
+of the complete-lattice structure: the set of slash-congruences is a
+*complete lattice*.
 -/
 
 namespace E213.Research.FamilyJoin
@@ -25,7 +25,7 @@ namespace E213.Research.FamilyJoin
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
 
-/-- Index 별 family 의 join: smallest slash-congruence
+/-- Index-wise family join: smallest slash-congruence
     containing all `E i`. -/
 inductive FamilyJoinEquiv {I : Type} (E : I → Raw → Raw → Prop) :
     Raw → Raw → Prop where
@@ -46,10 +46,10 @@ namespace E213.Research.FamilyJoin
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
 
-/-- **Family join via universalLens**: arbitrary family
-    의 join 이 single Lens 의 kernel 로 표현.  FamilyJoinEquiv
-    가 inductive 로 4 closure properties 자체 carry, 따라서
-    universalLens 의 hypothesis 만족. -/
+/-- **Family join via universalLens**: the join of an arbitrary family
+    is expressed as the kernel of a single Lens.  FamilyJoinEquiv
+    inductively carries the 4 closure properties itself, so it satisfies
+    the hypotheses of universalLens. -/
 def familyJoinLens {I : Type} (E : I → Raw → Raw → Prop) :
     Lens (Raw → Prop) :=
   universalLens (FamilyJoinEquiv E)
@@ -65,7 +65,7 @@ theorem familyJoinLens_kernel {I : Type} (E : I → Raw → Raw → Prop)
     (fun _ _ _ _ h h' h1 h2 => FamilyJoinEquiv.slash_cong h h' h1 h2)
     r r'
 
-/-- **Universal property**: 각 E_i 가 family join 안 contain. -/
+/-- **Universal property**: each E_i is contained in the family join. -/
 theorem familyJoin_contains {I : Type} (E : I → Raw → Raw → Prop)
     (i : I) (r r' : Raw) (h : E i r r') :
     (familyJoinLens E).view r = (familyJoinLens E).view r' :=

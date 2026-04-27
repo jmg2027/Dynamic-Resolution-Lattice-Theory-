@@ -2,25 +2,25 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: SU(5) fermion 내용 → DRLT atomic
+# Translation: SU(5) fermion content → DRLT atomic
 
-표준 SM: 한 generation 당 15+1 = 16 fermion (1 = right-handed ν).
-SU(5): 5̄ + 10 = 15 fermion + 1 sterile ν = 16.
+Standard SM: 15+1 = 16 fermions per generation (1 = right-handed ν).
+SU(5): 5̄ + 10 = 15 fermions + 1 sterile ν = 16.
 
 DRLT atomic: 16 = NT^(d-1) = 2^4 atomic.
 
-## fermion 분해
+## fermion decomposition
 
   5̄ representation (5 fermions):
-    quark d^c × NS = 3 (anti-down 색)
+    quark d^c × NS = 3 (anti-down color)
     lepton e + ν_e = 2 = NT
-    합 = 3 + 2 = NS + NT = d = 5 ✓
+    sum = 3 + 2 = NS + NT = d = 5 ✓
 
   10 representation (10 fermions):
     quark u × NS, d × NS = 6 = NS·NT
     quark u^c × NS = 3 = NS
     lepton e^c = 1
-    합 = 6 + 3 + 1 = 10 = C(d, 2) ✓
+    sum = 6 + 3 + 1 = 10 = C(d, 2) ✓
 
   ★ 5 + 10 + 1 = 16 atomic ★
   16 = NT^(d-1) (atomic exponent d-1 = 4)

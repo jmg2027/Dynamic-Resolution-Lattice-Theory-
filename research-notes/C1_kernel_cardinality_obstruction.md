@@ -1,31 +1,31 @@
-# C1 — KernelSpace cardinality 의 Cantor obstruction
+# C1 — Cantor obstruction for KernelSpace cardinality
 
-## 시 도
+## Attempt
 
-`KernelSpace := { E : Raw → Raw → Prop // IsSlashCongruence E }`
-의 cardinality 결정 시도.
+Attempting to determine the cardinality of
+`KernelSpace := { E : Raw → Raw → Prop // IsSlashCongruence E }`.
 
-### Direct Cantor diagonal — 안 됨
+### Direct Cantor diagonal — does not work
 
-표준 Cantor: ¬ ∃ f : X → (X → Bool), Surjective.  KernelSpace
-는 *closed* subset 이지 power set 모양 아 님.
+Standard Cantor: ¬ ∃ f : X → (X → Bool), Surjective.  KernelSpace
+is a *closed* subset but not shaped like a power set.
 
-Diagonalization 이 slash-closure 보존 안 함 — 임의 pair flip
-이 transitivity / slash-cong 깨뜨림.
+Diagonalization does not preserve slash-closure — arbitrary pair
+flips break transitivity / slash-cong.
 
-### Function-space Lens 시도 — 모두 collapse
+### Function-space Lens attempts — all collapse
 
 For f : Nat → Bool, L_f : Lens (Nat → Bool):
 
 - `combine = pointwise xor`: kernel = parity (count_a mod 2,
-  count_b mod 2), f 와 무 관.
-- `combine = pointwise ∧/∨`: 3-class collapse, f 와 무 관.
-- `combine = if f n then ∧ else ∨`: 같은 collapse.
-- `combine = pointwise xor with f-shift`: 일부 class 가
-  f-dependent 이지만 대부분 partition 이 f-independent.
+  count_b mod 2), independent of f.
+- `combine = pointwise ∧/∨`: 3-class collapse, independent of f.
+- `combine = if f n then ∧ else ∨`: same collapse.
+- `combine = pointwise xor with f-shift`: some classes are
+  f-dependent but most partitions are f-independent.
 
-**Pattern**: function-space combine 의 most form 이 finite-
-class collapse 를 강제.
+**Pattern**: most forms of function-space combine force a finite-class
+collapse.
 
 ### Intersection of countable family — countable only
 
@@ -34,42 +34,44 @@ Finite S: E_S = leavesModNat (lcm S) (CRT).
 Infinite S: E_S = "leaves equal" (lcm → ∞).
 → countable.
 
-## 통 찰: framework 의 *rigidity*
+## Insight: *rigidity* of the framework
 
-Slash-congruence 의 closure 가 너무 강 — most natural
-parameterizations 가 finite/countable structures 로 collapse.
+The closure of slash-congruence is too strong — most natural
+parameterizations collapse to finite/countable structures.
 
-이 게 *fold-structured* 의 의미: framework 가 capture 하 는
-relations 가 *combinatorially rigid*.
+This is the meaning of *fold-structured*: the relations the framework
+captures are *combinatorially rigid*.
 
-## 잠 정 conclusion
+## Tentative conclusion
 
-- Fold-structured slash-congruences 의 cardinality 가
-  *countable* 일 가능 성 strong (현재 시도 모두 collapse).
-- Uncountable answer 위 해 서 는 non-fold-structured 또 는
-  infinitely-deep modular structure 필 요.
-- Cantor 의 power-set 형 argument 가 KernelSpace 의 closure
-  property 와 incompatible.
+- Strong possibility that the cardinality of fold-structured
+  slash-congruences is *countable* (all current attempts collapse).
+- An uncountable answer requires non-fold-structured or
+  infinitely-deep modular structure.
+- Cantor's power-set-style argument is incompatible with the closure
+  property of KernelSpace.
 
-## 의 의 (falsifiability 관점)
+## Significance (from a falsifiability perspective)
 
-CLAUDE.md: "어떤 결과 가 공리 추가 없 이 절대 불가능 → 폐기."
+CLAUDE.md: "if some result is absolutely impossible without adding
+axioms → discard."
 
-KernelSpace = countable 이면 → framework 의 *combinatorial*
-power 의 *countable boundary*.  ZFC power-set 의 capture 부재.
-이 자체 가 *position fix* — countable system, 해석학 ℝ 가
+If KernelSpace = countable → *countable boundary* of the framework's
+*combinatorial* power.  No capture of ZFC power-set.  This itself
+is a *position fix* — countable system, analytic ℝ is
 framework-external.
 
-Uncountable 이면 → ZFC power-set capture 가능.  하지 만 현재
-evidence 는 countable.
+If uncountable → ZFC power-set capture possible.  But current
+evidence points to countable.
 
-## 다음 단 계
+## Next steps
 
-(a) Countable upper bound 의 explicit proof — 모든 slash-
-    congruence 가 어떤 Nat-encoded family 의 element.
-(b) Specific uncountable construction 의 새 angle — 현재 막 힘.
-(c) F4 (Real213 type) 와 connection.
+(a) Explicit proof of a countable upper bound — every slash-congruence
+    is an element of some Nat-encoded family.
+(b) New angle for a specific uncountable construction — currently
+    blocked.
+(c) Connection with F4 (Real213 type).
 
-현 시점: framework 의 *combinatorial rigidity* 의 evidence.
-Sober reading: framework = constructive countable foundation,
-ZFC power-set 의 명시 적 거 부.
+Current point: evidence of the framework's *combinatorial rigidity*.
+Sober reading: framework = constructive countable foundation, explicit
+rejection of ZFC power-set.

@@ -3,24 +3,24 @@ import E213.Research.PellSeq
 import E213.Research.Sqrt2IrrationalKernelFree
 
 /-!
-# Research.PellHasModulus: Pell sequence 의 HasModulus instance
+# Research.PellHasModulus: HasModulus instance for the Pell sequence
 
-PAPER1 §6.4 의 LEM-bound closure 가 Pell sequence 위 에서
-*완전 close*: explicit modulus N(m, k) 가 sqrt2_irrational
-+ pellRaw_cut_above/below 의 합 으 로 구성.
+The LEM-bound closure of PAPER1 §6.4 *fully closes* on the Pell
+sequence: the explicit modulus N(m, k) is constructed from the
+combination of sqrt2_irrational and pellRaw_cut_above/below.
 
-## 핵심
+## Core
 
-`pellRawSeq : Nat → Raw := λ n. (pellRaw n).val` 의 modulus:
-- `2k² < m²`: N(m, k) = k (pellRaw_cut_above 의 N).
-- `m² < 2k²`: N(m, k) = 0 (pellRaw_cut_below 가 모든 n).
-- `m² = 2k²`: 불가능 (sqrt2_irrational, k ≥ 1).
+Modulus for `pellRawSeq : Nat → Raw := λ n. (pellRaw n).val`:
+- `2k² < m²`: N(m, k) = k (the N of pellRaw_cut_above).
+- `m² < 2k²`: N(m, k) = 0 (pellRaw_cut_below holds for all n).
+- `m² = 2k²`: impossible (sqrt2_irrational, k ≥ 1).
 
-## 의의
+## Significance
 
-Pell sequence 의 all-(m, k) Cauchy property 가 LEM 없 이
-constructive 로 close.  `HasModulus xs → isOrderCauchy xs`
-infrastructure 의 첫 concrete instance.
+The all-(m, k) Cauchy property of the Pell sequence closes
+constructively without LEM.  The first concrete instance of the
+`HasModulus xs → isOrderCauchy xs` infrastructure.
 -/
 
 namespace E213.Research.PellHasModulus
@@ -35,7 +35,7 @@ open E213.Research.Sqrt2IrrationalKernelFree
 /-- Pell sequence as `Nat → Raw`. -/
 def pellRawSeq : Nat → Raw := fun n => (pellRaw n).val
 
-/-- Modulus 함수: above case 면 k, 아니 면 0. -/
+/-- Modulus function: k in the above case, 0 otherwise. -/
 def pellModulusN (m k : Nat) : Nat :=
   if 2 * k * k < m * m then k else 0
 
@@ -51,14 +51,14 @@ open E213.Research.PellSeq
 open E213.Research.Sqrt2Cut
 open E213.Research.Sqrt2IrrationalKernelFree
 
-/-- Cauchy stability at (m, k) — 3-case 분석. -/
+/-- Cauchy stability at (m, k) — 3-case analysis. -/
 theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
     (i j : Nat) (hi : i ≥ pellModulusN m k) (hj : j ≥ pellModulusN m k) :
     orderProj m k (abLens.view (pellRawSeq i)) =
     orderProj m k (abLens.view (pellRawSeq j)) := by
   unfold pellRawSeq
   by_cases h : 2 * k * k < m * m
-  · -- above: both true.  Inline pellRaw_cut_above 의 logic (N = k).
+  · -- above: both true.  Inline the logic of pellRaw_cut_above (N = k).
     have hN : pellModulusN m k = k := if_pos h
     rw [hN] at hi hj
     have above : ∀ n, n ≥ k →
@@ -74,7 +74,7 @@ theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
       exact pell_orderProj_above (pellX n) (pellY n) m k
         (pell_invariant n) h hyn_sq
     rw [above i hi, above j hj]
-  · -- ¬ (2k² < m²) → m² ≤ 2k².  m² = 2k² 는 불가 (sqrt2_irrational).
+  · -- ¬ (2k² < m²) → m² ≤ 2k².  m² = 2k² is impossible (sqrt2_irrational).
     have hle : m * m ≤ 2 * k * k := Nat.le_of_not_lt h
     have hne : m * m ≠ 2 * k * k := by
       intro heq
@@ -93,14 +93,15 @@ open E213.Research.ArchimedeanCauchy
 open E213.Research.HasModulusNS
 open E213.Research.PellSeq
 
-/-- **Pell HasModulus instance**: explicit modulus 가 sqrt2_irrational
-    + pellRaw_cut_above/below 의 합 으 로 구성.  PAPER1 §6.4
-    의 LEM-bound closure 가 Pell 위 에서 LEM 없 이 close. -/
+/-- **Pell HasModulus instance**: the explicit modulus is constructed
+    from the combination of sqrt2_irrational and
+    pellRaw_cut_above/below.  The LEM-bound closure of PAPER1 §6.4
+    closes on Pell without LEM. -/
 def pellHasModulus : HasModulus pellRawSeq where
   N := pellModulusN
   cauchy_at := pell_cauchy_at
 
-/-- 따라서 Pell sequence 가 isOrderCauchy (LEM 없 이). -/
+/-- Therefore the Pell sequence is isOrderCauchy (without LEM). -/
 theorem pell_isOrderCauchy : isOrderCauchy pellRawSeq :=
   isOrderCauchy_of_hasModulus pellRawSeq pellHasModulus
 

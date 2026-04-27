@@ -7,9 +7,9 @@ import E213.Research.Real213CutSumTest
 Half: c/2 ≤ m/k iff c ≤ 2m/k.
 Mid: (x+y)/2 cut.
 
-## 의의
+## Significance
 
-IVT bisection algorithm 의 substrate.  Real213 위 의 root finding.
+Substrate of the IVT bisection algorithm.  Root finding on Real213.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -39,7 +39,7 @@ example : cutMid (constCut 1 1) (constCut 1 1) 0 1 = false := by decide
 /-- midpoint of (0, 2) is 1, ≤ 1/1. -/
 example : cutMid (constCut 0 1) (constCut 2 1) 1 1 = true := by decide
 
-/-- cutHalf 의 idempotent-on-zero: 0/2 = 0. -/
+/-- cutHalf idempotent-on-zero: 0/2 = 0. -/
 example : cutHalf (constCut 0 1) 0 1 = true := by decide
 
 /-- midpoint(1, 1) = 1 ≤ 1/1. -/

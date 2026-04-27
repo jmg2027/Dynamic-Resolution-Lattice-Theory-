@@ -1282,11 +1282,11 @@ or a subset of `[propext, Quot.sound]`).
 | §9.2.15 | universalMorphism factor unfold | `UniversalMorphismFactor` · `constComposite_a_unfold`, `_b_unfold` | propext, Quot.sound |
 | §5.4 | Distinct kernels witness | `FourDistinctKernels` · `id_neq_leaves` | propext |
 | §1.3 | Kernel-free fragment audit | `KernelFreeAudit` (documentation) | none |
-| §7.2 | √2 irrationality (kernel-free, Quot.sound 부재) | `Sqrt2IrrationalKernelFree` · `sqrt2_irrational`, `mul_self_mod_two`, `descent_step` | propext |
+| §7.2 | √2 irrationality (kernel-free, Quot.sound absent) | `Sqrt2IrrationalKernelFree` · `sqrt2_irrational`, `mul_self_mod_two`, `descent_step` | propext |
 | §7.4 | Euler sharper at n=3, n=4 (axiom-free) | `EulerSharperKernelFree` · `euler_sharper_lower_n3`, `_n4` | none |
 | §7.5 | Wallis sharper at n=2, n=3 (axiom-free) | `WallisSharperKernelFree` · `wallis_sharper_n2`, `_n3` | none |
 | §1.3 | Custom axiom-free Nat library | `PureNat` · `mul_assoc`, `add_mul`, `mul_mul_mul_comm`, `isEven_self_mul`, `even_sq`, `odd_sq` | none |
-| §7.2 | √2 irrationality (truly axiom-free, propext 까 지 제거) | `Sqrt2IrrationalPure` · `sqrt2_irrational`, `sqrt2_no_rational_aux`, `descent_step` | **none** |
+| §7.2 | √2 irrationality (truly axiom-free, propext also removed) | `Sqrt2IrrationalPure` · `sqrt2_irrational`, `sqrt2_no_rational_aux`, `descent_step` | **none** |
 | §7 | √3 irrationality (axiom-free, prime-3 descent) | `Sqrt3IrrationalPure` · `sqrt3_irrational`, `sqrt3_no_rational_aux` | **none** |
 | §7 | mod-3 descent infrastructure (axiom-free) | `PureNatMod3` · `mod3`, `nat_trichotomy`, `three_mul_sq`, `mod3_self_mul_zero` | **none** |
 | §7 | √5 irrationality (axiom-free, prime-5 descent) | `Sqrt5IrrationalPure` · `sqrt5_irrational`, `sqrt5_no_rational_aux` | **none** |

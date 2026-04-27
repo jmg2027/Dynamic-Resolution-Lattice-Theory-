@@ -10,11 +10,11 @@ import E213.Physics.SimplexCounts
   λ³              = 125/10648
   CP-violation J  = atomic chain
 
-## Atomic 정수
+## Atomic integers
 
   λ_num = d = 5
   λ_den = d² - NS = 22
-  관측 0.225 ∈ DRLT bracket [0.226, 0.230] (+0.9%)
+  observed 0.225 ∈ DRLT bracket [0.226, 0.230] (+0.9%)
 -/
 
 namespace E213.Physics.Phase4.Library.CKMLibrary

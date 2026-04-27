@@ -4,14 +4,14 @@ import E213.Physics.SimplexCounts
 import E213.Physics.NeutrinoMixing
 
 /-!
-# Phase 3 NeutrinoRatioDerivation — *왜 5.71인가?* deep-dive
+# Phase 3 NeutrinoRatioDerivation — deep-dive on *why 5.71?*
 
-**Layer: App** (PRD_001 의 Phase 3 형식화).
+**Layer: App** (Phase 3 formalization of PRD_001).
 
-NeutrinoOrdering.lean 은 "NS > NT → ordering proxy" 만 제시.
-본 파일: m₃/m₂ = 5.712 가 *어떤 atomic 산술* 에서 강제 되는가.
+NeutrinoOrdering.lean presents only "NS > NT → ordering proxy".
+This file: from *which atomic arithmetic* is m₃/m₂ = 5.712 forced.
 
-## Atomic 도출 chain
+## Atomic derivation chain
 
 ### Step 1: T₂₃ atomic form
 
@@ -19,9 +19,9 @@ NeutrinoOrdering.lean 은 "NS > NT → ordering proxy" 만 제시.
       = (π² + NS) / (NT · π²)
 
   - 1/NT  : sin²θ_23 leading (Phase 1 NeutrinoMixing PMNS)
-  - NS/(NT·π²) : atomic correction (NT 작은 block + π² scale)
+  - NS/(NT·π²) : atomic correction (NT small block + π² scale)
 
-  단일 rational expression in (π², NS, NT).
+  Single rational expression in (π², NS, NT).
 
 ### Step 2: π² → ζ(2) → Basel bracket
 
@@ -35,27 +35,27 @@ NeutrinoOrdering.lean 은 "NS > NT → ordering proxy" 만 제시.
   → T₂₃ ∈ [1/2 + 9/61, 1/2 + 9/49] = [79/122, 67/98]
         ≈ [0.6475, 0.6837]
 
-  관측 (PRD_001): T₂₃ ≈ 0.6520 ∈ bracket ✓
+  Observed (PRD_001): T₂₃ ≈ 0.6520 ∈ bracket ✓
 
 ### Step 3: Democratic seesaw → m₃/m₂
 
   D = diag(1, 1/√NT, 1/√NT)  (atomic flavor weights)
-  T = symmetric 3×3, off-diag 1/√NT 외 T₂₃ = 위 atomic form
+  T = symmetric 3×3, off-diag 1/√NT other than T₂₃ = above atomic form
   M_ν = D · T⁻¹ · D
   eigenvalues sorted → m₃/m₂ ratio
 
   TBM (T₂₃=1/√NT): m₃/m₂ = 3.732
   DRLT (T₂₃ atomic): m₃/m₂ = 5.712
-  → DRLT correction *NS/(NT·π²)* 가 ratio 를 3.732 → 5.712 로 shift.
+  → DRLT correction *NS/(NT·π²)* shifts ratio from 3.732 → 5.712.
 
-### Step 4: 결판 (JUNO ~2030)
+### Step 4: Resolution (JUNO ~2030)
 
-  현재: m₃/m₂ = 5.71 ± 0.12 → DRLT +0.04% 일치
-  JUNO: ±0.024 (5× 정밀화) → DRLT vs TBM 81.7σ 분리
-  관측 m₃/m₂ ≠ 5.7 ± 0.1 → 213 폐기
+  Currently: m₃/m₂ = 5.71 ± 0.12 → DRLT +0.04% match
+  JUNO: ±0.024 (5× refinement) → DRLT vs TBM 81.7σ separation
+  Observed m₃/m₂ ≠ 5.7 ± 0.1 → 213 discarded
 
-본 파일: Step 1, 2 의 atomic form + bracket Lean 형식.
-Step 3, 4 는 doc 으로만 (eigenvalue calc 은 √NT 포함).
+This file: Lean formalization of atomic form + bracket for Steps 1, 2.
+Steps 3, 4 are documentation only (eigenvalue calc involves √NT).
 -/
 
 namespace E213.Physics.Phase3.NeutrinoRatioDerivation
@@ -91,10 +91,10 @@ theorem T23_obs_in_bracket :
     -- Upper: 652·98 < 67·1000 (i.e. 0.652 < 0.6837)
     ∧ 652 * 98 < 67 * 1000 := by decide
 
-/- Step 3 산술 — eigenvalue calc 의 *주요 invariant* atomic 형식.
-   detailed full closed-form 은 √NT 포함 → 본 파일은 *bracket* 만. -/
+/- Step 3 arithmetic — atomic form of *key invariant* of eigenvalue calc.
+   Detailed full closed-form involves √NT → this file gives *bracket* only. -/
 
-/-- m₃/m₂ DRLT 예측 = 5712/1000 (PRD_001 Python verified). -/
+/-- m₃/m₂ DRLT prediction = 5712/1000 (PRD_001 Python verified). -/
 def ratio_drlt_num : Nat := 5712
 def ratio_drlt_den : Nat := 1000
 
@@ -109,13 +109,13 @@ def ratio_tbm_den : Nat := 1000
 /-- DRLT (5.712) ≠ TBM (3.732) — atomic correction NS/(NT·π²) shift. -/
 theorem drlt_neq_tbm : ratio_drlt_num ≠ ratio_tbm_num := by decide
 
-/-- DRLT - TBM 차이 = 1980 (in /1000 units = 1.98).
-    JUNO σ ≈ 0.024 → 1.98/0.024 ≈ 82.5σ 분리 (PRD_001 verified). -/
+/-- DRLT - TBM difference = 1980 (in /1000 units = 1.98).
+    JUNO σ ≈ 0.024 → 1.98/0.024 ≈ 82.5σ separation (PRD_001 verified). -/
 theorem juno_discrimination_gap : ratio_drlt_num - ratio_tbm_num = 1980 := by
   decide
 
 /-- ★ NeutrinoRatio Derivation Capstone ★
-    *왜 5.71 인가* 의 atomic chain: -/
+    Atomic chain for *why 5.71*: -/
 theorem ratio_derivation :
     -- T₂₃ = (π² + NS)/(NT·π²) atomic structure
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
@@ -126,7 +126,7 @@ theorem ratio_derivation :
     ∧ (79 * 100 > 60 * 122) ∧ (67 * 100 < 70 * 98)
     -- m₃/m₂ DRLT = 5.712, TBM = 3.732
     ∧ (ratio_drlt_num = 5712) ∧ (ratio_tbm_num = 3732)
-    -- 분리 1.980 (JUNO 81.7σ)
+    -- separation 1.980 (JUNO 81.7σ)
     ∧ (ratio_drlt_num - ratio_tbm_num = 1980)
     -- DRLT bracket
     ∧ (5500 < ratio_drlt_num ∧ ratio_drlt_num < 6000) := by

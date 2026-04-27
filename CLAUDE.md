@@ -5,71 +5,62 @@
 - Summarize key points and ask what to work on.
 
 ## Communication
-- **Korean is the primary language.** Respond in Korean unless asked otherwise.
+- **English is the primary language.** Respond in English unless asked otherwise.
 - Author: "Mingu Jeong" (not Mingoo, not Min-goo).
 - Every tex/pdf: Author "Mingu Jeong" only. Claude in Acknowledgments.
 
 ## Editing
-- **80줄 한도 hook 강제.** 대량 파일은 Bash(cat)로 조합.
+- **80-line limit enforced by hook.** Combine large files via Bash(cat).
 
-## DRLT 검증 기준 (절대 원칙, 2026-04-27 확정)
+## DRLT Validation Standard (Absolute Principle, finalized 2026-04-27)
 
-**기존 물리·수학을 일절 모르는 상태에서 DRLT는 둘 중 *하나는* 만족할 수 있어야 한다:**
+**Starting from zero knowledge of existing physics/math, DRLT must satisfy at least *one* of:**
 
-1. **아주아주아주아주 정확한 형식화된 계산값** — Lean으로
-   닫힌 0-sorry 0-axiom 정리가 ppb~ppm 수준 정밀도로
-   관측값과 일치 (예: 1/α_em, m_μ/m_e, m_p).
-2. **혹은 형식화되어서 아무도 딴지걸 수 없는 새로운 물리** —
-   Lean 정리로 닫힌 *측정 가능* 명제 (예: N_gen=3, θ_QCD < J·α⁴).
+1. **Extremely precise formalized computed values** — a closed 0-sorry 0-axiom Lean theorem matching observations at ppb~ppm precision (e.g., 1/α_em, m_μ/m_e, m_p).
+2. **Or formalized new physics that no one can dispute** — a *measurable* proposition closed as a Lean theorem (e.g., N_gen=3, θ_QCD < J·α⁴).
 
-이 둘 중 어느 것도 만족 못 하면 DRLT는 **현재 단계 미달**.
-Python에서 식 만들기 + 수치 일치 보고는 *둘 다 아님* — 흥미로운
-연구 노트이지 자기 입증 아님.  PRD_010, PRD_011은 이 단계.
+If neither is satisfied, DRLT is **below current threshold**.
+Building an expression in Python + reporting numerical agreement is *neither* — it is an interesting research note, not self-validation. PRD_010, PRD_011 are at this stage.
 
-- **타임라인·ROI 일절 고려 금지.**  "곧" 가능한지가 아니라
-  "위 둘 중 하나가 닫혔는가" 만 묻는다.
-- 수치 일치만으로 만족하지 않는다 (PRD가 catalogue가 됨).
-- 형식화만으로 만족하지 않는다 (Lean 정리이지만 관측 무관이면
-  수학 연습).
-- **두 길의 교집합** — 형식화된 정밀 정리 + 형식화된 falsifier —
-  이게 진짜 자리.
+- **Timeline/ROI considerations are absolutely prohibited.** The only question is "has one of the above two been closed?", not "can it be done soon?".
+- Numerical agreement alone is not sufficient (PRD becomes a catalogue).
+- Formalization alone is not sufficient (a Lean theorem unrelated to observation is a math exercise).
+- **The intersection of both paths** — formalized precision theorem + formalized falsifier — is the real target.
 
-## 유한 이산 격자의 함의 (2026-04-27)
+## Implications of Finite Discrete Lattice (2026-04-27)
 
-DRLT 공리는 *유한 이산 격자*.  따라서 다음은 물리 형식화에 *불필요*:
+DRLT axioms posit a *finite discrete lattice*. Therefore the following are *unnecessary* for physics formalization:
 
-- ÷ (division) → ℚ 산술의 부산물
-- ∫ (integration) → 유한 합 (예: HVP = Σ over hadronic resonances)
-- π, e, ζ(2) 등 transcendental → bounded rational interval 로 충분
+- ÷ (division) → byproduct of ℚ arithmetic
+- ∫ (integration) → finite sum (e.g., HVP = Σ over hadronic resonances)
+- π, e, ζ(2) and other transcendentals → bounded rational interval suffices
 
-**진짜 필요한 것:** ℕ + ℚ + 유한 simplex 조합 + interval bound.
-Real213 마라톤(Phase A→H, Bishop 류 constructive analysis)은
-*수학적 트랙*이고 **물리 형식화의 critical path 아님**.
+**What is actually needed:** ℕ + ℚ + finite simplex combinatorics + interval bound.
+The Real213 marathon (Phase A→H, Bishop-style constructive analysis) is the *math track* and **not on the critical path for physics formalization**.
 
-물리 트랙 critical path:
+Physics track critical path:
   SimplexCounts → FoccSpectrum → BaselBound → AlphaGUT → AlphaEM
-  → 형식 정리 `|inv_alpha_em - 137.036| < 1/10^4`
+  → formal theorem `|inv_alpha_em - 137.036| < 1/10^4`
 
-위 마지막 정리가 0 sorry로 닫히는 날 = "물리 처음부터 다시
-작성"의 첫 마일스톤.
+The day that last theorem closes with 0 sorry = the first milestone of "rewriting physics from scratch".
 
 ## The Axiom
 - **Things exist with pairwise relations.** G_ij = ⟨ψ_i|ψ_j⟩.
 - ℂ⁵ is derived (Frobenius → ℂ, atomic → d=5), not the axiom.
 - Derivation chain: relations → ℂ → G → W,φ → rank cascade → laws → ħ → QM
 
-## Theoretical Integrity (핵심 원칙)
-- **기존 물리/화학을 억지로 대입하지 말 것.** 결과가 안 맞으면 안 맞는 것이다.
-- DRLT 공리에서 자연스럽게 도출되지 않는 구조를 외부에서 가져와 끼워맞추지 않는다.
-- 수치가 관측값과 다르면 솔직하게 인정하고, 빠진 물리를 찾는다.
-- "맞추기 위해" 파라미터를 도입하면 0-parameter 이론이 아니다.
+## Theoretical Integrity (Core Principle)
+- **Do not forcibly map existing physics/chemistry.** If the result does not match, it does not match.
+- Do not import external structures that do not arise naturally from DRLT axioms and force-fit them.
+- If a number differs from observation, honestly acknowledge it and look for the missing physics.
+- Introducing parameters "to fit" is not a 0-parameter theory.
 
-## Algebraic Priority (대수적 우선 원칙)
-- **DRLT의 결과는 세기(counting)에서 나온다.** 연속 변분(extremize S)이 아니라 조합론/정수론/대수학에서.
-- 미적분은 결과를 **검증**하는 도구이지, 원리를 **발견**하는 도구가 아니다.
-- 막혔을 때: 연속적 접근(action 변분, gradient) 대신 이산적 구조(channel counting, hinge 위상, 표현론)를 먼저 확인.
-- 교훈 사례: ATM_026-028 (연속 변분 3회 실패) → ATM_029 (위상 counting으로 α_GUT 도출)
-- 패턴: d²=25(산술) → α_GUT(물리), ζ(2)(정수론) → 전파자(해석학), f_occ(대수) → coupling(물리)
+## Algebraic Priority (Core Principle)
+- **DRLT results come from counting.** Not from continuous variation (extremize S), but from combinatorics/number theory/algebra.
+- Calculus is a tool to **verify** results, not to **discover** principles.
+- When stuck: check discrete structure (channel counting, hinge topology, representation theory) before continuous approaches (action variation, gradient).
+- Lesson: ATM_026-028 (3 consecutive continuous variation failures) → ATM_029 (α_GUT derived via topological counting)
+- Pattern: d²=25 (arithmetic) → α_GUT (physics), ζ(2) (number theory) → propagator (analysis), f_occ (algebra) → coupling (physics)
 
 ## Authors
 - Mingu Jeong (Independent Researcher) — theory originator, physical intuition
@@ -85,56 +76,74 @@ Real213 마라톤(Phase A→H, Bishop 류 constructive analysis)은
 - `papers/` = standalone copies for journal submission.
 - `research-notes/` = historical drafts (may be superseded).
 
-### Sub-Projects (각 분야별 독립 작업 공간)
+### Sub-Projects (Independent workspace per field)
 
-| Directory | Prefix | Status | Experiments | 영역 |
-|-----------|--------|--------|-------------|------|
-| `foundations/` | `FND_` | **ACTIVE** | 37 (FND_001-037) | 유도 사슬 (수학-물리 브릿지): 심플렉스 기하, 변분, f_occ, Grassmannian, Binet–Cauchy, confluence |
-| `standard-model/` | `SM_` | CLOSED ✓ | 24 (SM_001-024) | couplings, masses, mixing |
-| `atoms/` | `ATM_` | **ACTIVE** | 69 (ATM_001-069) | 원자, 주기율표, wedge screening |
-| `cosmology/` | `COS_` | STABLE | 3 (COS_001-003) | η_B, Ω_Λ, Webb |
-| `cosmic-structure/` | `CST_` | **ACTIVE** | 22 (CST_001-022) | LSS, BH jets, H₀, T_CMB, BBN |
-| `critical-line/` | `RH_` | **ACTIVE** | 79 (RH_001-079) | 임계선, RH, GRH, L-함수, Galois, Lean |
-| `nuclear/` | `NUC_` | **CLOSED** ✓ | 15 (NUC_001-015) | magic numbers, 600-cell, binding |
-| `hadron/` | `HAD_` | **CLOSED** ✓ | 9 (HAD_001-009) | meson/baryon spectrum, hyperfine |
-| `predictions/` | `PRD_` | **ACTIVE** | 8 (PRD_001-009) | 미측정 예측 (JUNO, θ_QCD, Berry phase) |
-| `quantum-gravity/` | `QG_` | **ACTIVE** | 7 (QG_001-007) | 시공간 창발, holographic |
-| `yang-mills/` | `YM_` | **ACTIVE** | 0 (Lean ~58 thms) | 질량 갭, NS 정칙성, Lean 4 형식화 |
-| `discrete-harmonic/` | `DHA_` | **ACTIVE** | 19 (DHA_001-019) | 이산 조화해석학, 스펙트럼, S₅ 표현론 |
-| `drlt-elements/` | `ELM_` | **ACTIVE** | 0 (Lean 7파일 26thm) | 원론: Entity→Eq→Logic→Nat→Arith→Order→Bridge |
+> **Note:** These directories are **planned** but do not yet exist in the repo.
+> All current work lives in `lean/E213/` (Lean) and top-level `research-notes/`.
+> Create a sub-project when starting a focused experiment campaign.
 
-### Sub-Project 필수 구조
+| Directory | Prefix | Status | Experiments | Domain |
+|-----------|--------|--------|-------------|--------|
+| `foundations/` | `FND_` | (planned) | 37 planned | Derivation chain (math-physics bridge): simplex geometry, variation, f_occ, Grassmannian, Binet–Cauchy, confluence |
+| `standard-model/` | `SM_` | (planned) | 24 planned | couplings, masses, mixing |
+| `atoms/` | `ATM_` | (planned) | 69 planned | atoms, periodic table, wedge screening |
+| `cosmology/` | `COS_` | (planned) | 3 planned | η_B, Ω_Λ, Webb |
+| `cosmic-structure/` | `CST_` | (planned) | 22 planned | LSS, BH jets, H₀, T_CMB, BBN |
+| `critical-line/` | `RH_` | (planned) | 79 planned | critical line, RH, GRH, L-functions, Galois, Lean |
+| `nuclear/` | `NUC_` | (planned) | 15 planned | magic numbers, 600-cell, binding |
+| `hadron/` | `HAD_` | (planned) | 9 planned | meson/baryon spectrum, hyperfine |
+| `predictions/` | `PRD_` | (planned) | 8 planned | unmeasured predictions (JUNO, θ_QCD, Berry phase) |
+| `quantum-gravity/` | `QG_` | (planned) | 7 planned | spacetime emergence, holographic |
+| `yang-mills/` | `YM_` | (planned) | Lean ~58 thms | mass gap, NS regularity, Lean 4 formalization |
+| `discrete-harmonic/` | `DHA_` | (planned) | 19 planned | discrete harmonic analysis, spectrum, S₅ representation theory |
+| `drlt-elements/` | `ELM_` | (planned) | Lean 7 files 26 thms | elements: Entity→Eq→Logic→Nat→Arith→Order→Bridge |
+
+### Sub-Project Required Structure
 ```
 {sub-project}/
-  CLAUDE.md          — 분야 context, 상수, 실험 목록 (필수)
-  HANDOFF.md         — 상태, open problems, 다음 단계 (필수)
-  experiments/       — {PREFIX}_NNN_name.py (필수)
-  results/           — 실험 출력 (필수)
-  theory/            — 이론 문서 .tex/.md (선택)
-  lib/               — 분야별 전용 라이브러리 (선택)
+  CLAUDE.md          — field context, constants, experiment list (required)
+  HANDOFF.md         — status, open problems, next steps (required)
+  experiments/       — {PREFIX}_NNN_name.py (required)
+  results/           — experiment output (required)
+  theory/            — theory documents .tex/.md (optional)
+  lib/               — field-specific library (optional)
 ```
 
 ### Shared Infrastructure
 ```
-book/              — THE BOOK (20 chapters + 2 appendices)
-lib/               — Core library (drlt.py, experiment.py)
-papers/            — 저널 투고용 standalone .tex (5편)
+books/             — narrative books (math/, physics/)
+papers/            — standalone .tex for journal submission (16 papers + drlt-book/)
 .claude/skills/    — Agent skills
+```
+
+### Lean Library Structure (lean/E213/)
+```
+Kernel/     ★ deep-embedded 213 kernel (14 files, 101 theorems, 0 axiom)
+Physics/    physics formalization (227 files)
+Research/   research / exploratory proofs (331 files)
+Math/       mathematics (8 files)
+Firmware/   Raw axiom layer: Raw, RawLevels, RawSwap (13 files)
+OS/         Atomicity + canonical structures (8 files)
+App/        applications (1 file)
+Hypervisor/ cross-layer bridge (1 file)
+Infinity/   limit / compactification (9 files)
+Meta/       meta-theory utilities (9 files)
+Tactic/     custom tactics (10 files)
 ```
 
 ---
 
 ## Naming
-- 실험: `{PREFIX}_{NNN}_{desc}.py` (sub-project/experiments/ 안)
-- 결과: `EXP_{PREFIX}_{NNN}_{Title}.txt` (자동 생성, sub-project/results/)
-- 새 sub-project: prefix + CLAUDE.md + HANDOFF.md + experiments/ + results/
+- Experiments: `{PREFIX}_{NNN}_{desc}.py` (inside sub-project/experiments/)
+- Results: `EXP_{PREFIX}_{NNN}_{Title}.txt` (auto-generated, sub-project/results/)
+- New sub-project: prefix + CLAUDE.md + HANDOFF.md + experiments/ + results/
 
 ---
 
 ## Organization
-- 실험/결과는 sub-project 안에서만. root results/에 EXP_*.txt 금지.
-- 이론은 book/에 통합. sub-project는 작업 공간.
-- 세션 시작: root HANDOFF → sub-project HANDOFF 순서로 읽기.
+- Experiments/results go inside sub-projects only. No EXP_*.txt in root results/.
+- Theory consolidated in book/. Sub-projects are workspaces.
+- Session start: read root HANDOFF → then sub-project HANDOFF in order.
 
 ---
 
@@ -169,10 +178,10 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 | Δ-N split | 295.7 MeV | 294 MeV | **+0.6%** |
 
 ## Workflow
-- book/ 편집 후 math/ + physics/ 동기화 + single .tex 재생성.
-- 의미 있는 변경마다 commit. 절대 amend 안 함.
+- After editing book/, sync math/ + physics/ and regenerate single .tex.
+- Commit after every meaningful change. Never amend.
 
 ## Paper Authorship Rule
-- **Author: "Mingu Jeong" only.** Claude는 저자가 아니라 도구.
-- **Acknowledgments에 기재:** "This work was developed in dialogue with Claude (Anthropic)."
-- `\author{...Claude...}` 금지. arXiv desk reject 사유.
+- **Author: "Mingu Jeong" only.** Claude is a tool, not an author.
+- **In Acknowledgments:** "This work was developed in dialogue with Claude (Anthropic)."
+- `\author{...Claude...}` is forbidden. Grounds for arXiv desk reject.

@@ -3,10 +3,10 @@ import E213.Research.LensOnLensImageGeneric
 /-!
 # Research.LensOnLensImageLevel2: 2-level Lens-on-Lens collapse
 
-`LensOnLensImageGeneric` 의 응용: `Lens (Lens α)` 의
-universalMorphism 도 α 의 image 를 통 해 factor.
+Application of `LensOnLensImageGeneric`: the universalMorphism of
+`Lens (Lens α)` also factors through the image of α.
 
-## 핵심
+## Core
 
 ```
         Raw
@@ -16,9 +16,10 @@ universal α  →  α  ─constLens─→ Lens α  ─constLens─→ Lens (Lens
         ─────────  Lens (Lens α) universal  ──────────
 ```
 
-즉 level-2 의 universalMorphism 도 α 를 거치며, image 가
-`{constLens (constLens d.a), constLens (constLens d.b)}` 의
-2-element subset (Bool case 의 경우).
+That is, the level-2 universalMorphism also passes through α, and
+the image is the 2-element subset
+`{constLens (constLens d.a), constLens (constLens d.b)}`
+(in the Bool case).
 -/
 
 namespace E213.Research.LensOnLensImageLevel2
@@ -33,9 +34,9 @@ def constComposite2 (α : Type) [d : HasDistinguishing α] :
     Raw → Lens (Lens α) :=
   fun r => constLens (constLens (@universalMorphism α d r))
 
-/-- **Tower collapse at level 2**.  Lens (Lens α) 의
-    universalMorphism 도 α 의 image 를 통 해 factor —
-    nested constLens 으 로. -/
+/-- **Tower collapse at level 2**.  The universalMorphism of
+    Lens (Lens α) also factors through the image of α —
+    via nested constLens. -/
 theorem lensUniversalMorphism_factors_level2
     (α : Type) [d : HasDistinguishing α] (r : Raw) :
     @universalMorphism (Lens (Lens α))

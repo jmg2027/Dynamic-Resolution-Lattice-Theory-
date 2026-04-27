@@ -1,10 +1,10 @@
 import E213.Meta.ParityLens
 
 /-!
-# Research.ParityLensCollapseFalse: parityLens 가 Collapse-False
+# Research.ParityLensCollapseFalse: parityLens is Collapse-False
 
-PAPER1 §3.4 의 BoolSqClassification 분류 claim 의 explicit
-witness: parityLens.combine x x = false 모든 x.
+Explicit witness for the BoolSqClassification claim in PAPER1 §3.4:
+parityLens.combine x x = false for all x.
 -/
 
 namespace E213.Research.ParityLensCollapseFalse
@@ -12,7 +12,7 @@ namespace E213.Research.ParityLensCollapseFalse
 open E213.Hypervisor
 open E213.Meta
 
-/-- parityLens 의 self-combine 이 항상 false (Collapse-False class). -/
+/-- The self-combine of parityLens is always false (Collapse-False class). -/
 theorem parityLens_collapse_false (x : Bool) :
     parityLens.combine x x = false := by
   cases x <;> rfl

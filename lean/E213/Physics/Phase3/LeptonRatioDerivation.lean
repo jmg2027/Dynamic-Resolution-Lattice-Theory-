@@ -3,11 +3,11 @@ import E213.Physics.MuOverE
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 LeptonRatioDerivation — *왜 m_μ/m_e = 206.768 ppb 인가* deep-dive
+# Phase 3 LeptonRatioDerivation — deep-dive on *why m_μ/m_e = 206.768 ppb*
 
 **Layer: App**.
 
-## Atomic 도출 chain
+## Atomic derivation chain
 
 m_μ/m_e = NS/(NT · α_em) · P · (1 + Σδ)
 
@@ -19,7 +19,7 @@ m_μ/m_e = NS/(NT · α_em) · P · (1 + Σδ)
   = 205.554 · 1.00612 · 0.999792
   = 206.768
 
-  관측: 206.7682838 (CODATA 2018) → **0.48 ppb match**.
+  Observed: 206.7682838 (CODATA 2018) → **0.48 ppb match**.
 -/
 
 namespace E213.Physics.Phase3.LeptonRatioDerivation
@@ -60,7 +60,7 @@ theorem lepton_ratio_derivation :
     ∧ (NS * 2 = 3 * NT)
     -- 5·41 = 205 (lower integer, Phase 1)
     ∧ (5 * 41 = 205)
-    -- 관측 206.768 ∈ [205, 207]
+    -- observed 206.768 ∈ [205, 207]
     ∧ (205 * 1000 < 206768) ∧ (206768 < 207 * 1000) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide

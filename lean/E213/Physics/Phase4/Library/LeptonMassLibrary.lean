@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Lepton Mass Library — 렙톤 질량 비 atomic catalog
+# Lepton Mass Library — lepton mass ratio atomic catalog
 
 ## Mass ratios (Phase 1)
 

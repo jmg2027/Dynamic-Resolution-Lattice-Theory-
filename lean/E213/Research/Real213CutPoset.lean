@@ -7,9 +7,9 @@ import E213.Research.Real213CutMaxMin
 cutLe cx cy := "x ≤ y" via "every rational ≥ y is ≥ x".
 cutEq cx cy := pointwise Bool equality.
 
-## 의의
+## Significance
 
-213 의 native order on RealCut.  Bishop's ≤ 의 cut form.
+Native order on RealCut in 213.  Cut form of Bishop's ≤.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -104,7 +104,7 @@ theorem cutLe_cutMin_right (cx cy : Nat → Nat → Bool) : cutLe (cutMin cx cy)
   rw [h]
   cases cx m k <;> rfl
 
-/-- **cutMax 의 least-upper-bound property**: x, y ≤ z → max(x, y) ≤ z. -/
+/-- **least-upper-bound property of cutMax**: x, y ≤ z → max(x, y) ≤ z. -/
 theorem cutMax_lub (cx cy cz : Nat → Nat → Bool)
     (hxz : cutLe cx cz) (hyz : cutLe cy cz) :
     cutLe (cutMax cx cy) cz := by
@@ -113,7 +113,7 @@ theorem cutMax_lub (cx cy cz : Nat → Nat → Bool)
   rw [hxz m k hcz, hyz m k hcz]
   rfl
 
-/-- **cutMin 의 greatest-lower-bound property**: z ≤ x, z ≤ y → z ≤ min(x, y). -/
+/-- **greatest-lower-bound property of cutMin**: z ≤ x, z ≤ y → z ≤ min(x, y). -/
 theorem cutMin_glb (cx cy cz : Nat → Nat → Bool)
     (hzx : cutLe cz cx) (hzy : cutLe cz cy) :
     cutLe cz (cutMin cx cy) := by

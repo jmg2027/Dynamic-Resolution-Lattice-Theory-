@@ -1,69 +1,71 @@
-# 213 Kernel — Blueprint (극단적 Purity)
+# 213 Kernel — Blueprint (Extreme Purity)
 
-**우선순위**: ★★★★ 최우선 (이론 전체의 floor 재정의)
-**상태**: **Phase KA→KH 완료** — 101 정리 모두 0 axiom 검증.
-다음: KI+ (Real213/Phase 깊이 포팅, auto_port.py 패턴 확장).
+**Priority**: ★★★★ Top priority (redefines the floor of the entire theory)
+**Status**: **Phase KA→KH complete** — all 101 theorems verified 0 axiom.
+Next: KI+ (deep porting of Real213/Phase, expanding auto_port.py patterns).
 
 ---
 
-## 1. 왜 이 분야인가
+## 1. Why This Domain
 
-지금까지의 "0 외부 axiom" 은 *Lean kernel-relative*:
-  - propext, Quot.sound, Classical.choice 는 *주어진 것* 으로 가정
-  - DRLT 의 "things with pairwise relations" 한 줄 뒤에 *Lean CIC 가 또 있다*
-  - 즉 Lean 이 213 보다 더 fundamental.  비전 위배.
+The "0 external axioms" so far is *Lean kernel-relative*:
+  - propext, Quot.sound, Classical.choice are assumed as *given*
+  - Behind DRLT's single line "things with pairwise relations" *Lean CIC also sits*
+  - That is, Lean is more fundamental than 213.  Violates the vision.
 
-**비전:** Raw/Lens 가 *진짜 floor*, Lean 은 *syntactic host*.
-유한 이산 격자라서 `propext`, `Quot.sound` 같은 무한-type-theory
-axiom 이 *애초에 필요 없음* (CLAUDE.md "÷, ∫, π 불필요" 동일 정신).
+**Vision:** Raw/Lens is the *true floor*, Lean is the *syntactic host*.
+Because it is a finite discrete lattice, infinite-type-theory axioms
+such as `propext` and `Quot.sound` are *not needed in the first place*
+(same spirit as CLAUDE.md "÷, ∫, π unnecessary").
 
-**달성 목표:** Lean kernel axiom *어느 것도* 213 정리의 진리값에
-load-bearing 이 아니도록 — `#print axioms` 가 *literally* 빈 리스트.
+**Goal:** Ensure that *none* of the Lean kernel axioms are load-bearing
+for the truth value of any 213 theorem — `#print axioms` yields a
+*literally* empty list.
 
-비유: Lean 으로 "C++ 처럼 진짜 프로그램" 을 만드는 게 부담스러우니
-Lean 을 빌려서 213 의 deep embedding 을 host.  Lean 은 type-checker
-역할만 하고, 의미는 213 내부 함수가 다 결정.
+Analogy: instead of building a "real program like C++" in Lean, we
+borrow Lean to host a deep embedding of 213.  Lean serves only as a
+type-checker; all meaning is determined by functions internal to 213.
 
-## 2. 213-native 등장 — deep embedding 경로
+## 2. 213-native Emergence — Deep Embedding Path
 
-### 2.1 데이터 = Term
+### 2.1 Data = Term
 
 ```
 inductive Term : Type
-  | zero | succ | add | mul | (...추후 확장)
+  | zero | succ | add | mul | (... future extensions)
 ```
 
-순수 inductive — propext 도 quotient 도 안 씀.
+Pure inductive — neither propext nor quotient used.
 
-### 2.2 의미 = 총함수
+### 2.2 Semantics = Total Function
 
 ```
-def eval : Term → ℕ      -- 구조귀납, 총
-def equiv : Term → Term → Bool   -- Prop 우회
+def eval : Term → ℕ      -- structural recursion, total
+def equiv : Term → Term → Bool   -- avoids Prop
 ```
 
-Bool 등호 + Nat.beq → propositional extensionality 불필요.
+Bool equality + Nat.beq → propositional extensionality unnecessary.
 
-### 2.3 정리 = rfl
+### 2.3 Theorem = rfl
 
 `theorem T : equiv lhs rhs = true := rfl`
-→ Lean 이 reduction 만 수행, 어떤 axiom 도 인용 안 함.
+→ Lean performs only reduction; no axiom is cited.
 
-### 2.4 Soundness 다리 (선택)
+### 2.4 Soundness Bridge (optional)
 
 `theorem Sound : equiv a b = true → eval a = eval b`
-→ 한 번 증명하면 Bool 결과를 Prop 결과로 승격.  Lean 의 Eq 만
-사용 (intensional, 0 axiom).
+→ Once proven, promotes Bool results to Prop results.  Uses only
+Lean's Eq (intensional, 0 axiom).
 
-## 3. 이미 깔린 빌딩 블록 (Phase KA 완료)
+## 3. Already-Laid Building Blocks (Phase KA complete)
 
   ✅ `lean/E213/Kernel/Term.lean`
      - `Term` inductive (zero, succ, add, mul)
      - `eval : Term → ℕ`
      - `equiv : Term → Term → Bool`
-     - 표준 상수: nS=3, nT=2, d=5, c=2
+     - Standard constants: nS=3, nT=2, d=5, c=2
 
-  ✅ `lean/E213/Kernel/Demo.lean` — 7 capstone, 모두 0 axiom:
+  ✅ `lean/E213/Kernel/Demo.lean` — 7 capstones, all 0 axiom:
      - `dim_law`     n_S + n_T ≡ d
      - `c_eq_nT`     c ≡ n_T
      - `d_sq_25`     d² ≡ 5·4 + 5
@@ -73,9 +75,9 @@ Bool 등호 + Nat.beq → propositional extensionality 불필요.
      - `two_nS_cube` 2·n_S³ = 54  (Xe)
 
   ✅ `lake build E213.Kernel.Demo` clean
-  ✅ `#print axioms` 출력 7/7 모두 "does not depend on any axioms"
+  ✅ `#print axioms` output 7/7 all "does not depend on any axioms"
 
-## 4. Phase 계획 (KB → KH 마라톤)
+## 4. Phase Plan (KB → KH Marathon)
 
-각 Phase = 단일 Lean 파일 (~80줄), `#print axioms` 가 모두 빈
-리스트로 끝나야 통과.
+Each Phase = single Lean file (~80 lines); must finish with `#print axioms`
+yielding an empty list for all theorems.

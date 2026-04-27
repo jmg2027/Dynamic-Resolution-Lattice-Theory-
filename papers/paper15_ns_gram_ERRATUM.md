@@ -1,61 +1,61 @@
-# Paper 15 정오표
+# Paper 15 Erratum
 
-## 오류
+## Error
 
-Lemma 3.1의 추정이 틀렸다.
+The estimate in Lemma 3.1 is incorrect.
 
-잘못된 것:
+What was claimed:
 ```
 Σ_{k+p=q} |k||p| a_k a_p a_q
 ≤ (Σ|k|²a_k²)^{1/2} (Σa_p²)^{1/2} (Σa_q²)^{1/2}
 = Ω^{1/2} · E₀
 ```
 
-오류: k+p=q 조건(컨볼루션 제약)이 있어서
-세 합이 독립이 아님. CS를 독립 합에 적용 불가.
+Error: the constraint k+p=q (convolution constraint) means
+the three sums are not independent. CS cannot be applied to independent sums.
 
-## 올바른 추정
+## Correct estimate
 
-표준 (Ladyzhenskaya):
+Standard (Ladyzhenskaya):
 ```
 |S| ≤ C ‖ω‖³_{L³} ≤ C Ω^{3/4} P^{3/4}
 ```
 
-Gram 보정:
+Gram-corrected:
 ```
 |S| ≤ C √d · Ω^{3/4} P^{3/4}
 ```
 
-지수: Ω^{1/2}이 아니라 Ω^{3/4} P^{3/4}.
+Exponent: Ω^{3/4} P^{3/4}, not Ω^{1/2}.
 
-## 결과
+## Consequence
 
 d/dt Ω ≤ -2νP + C√d · Ω^{3/4} P^{3/4}
 Young: ≤ -νP + C'd · Ω³/ν³
 
-이것은 **3차 ODE**. 선형 성장이 아님.
-Ω³은 유한 시간 blow-up 가능.
-NS 정칙성 증명 안 됨.
+This is a **cubic ODE**. Not linear growth.
+Ω³ allows finite-time blow-up.
+NS regularity is not proved.
 
-## Gram이 주는 것 (정직)
+## What Gram contributes (honest)
 
-바뀐 것: 상수가 N-의존 → d-의존 (√d = √5).
-안 바뀐 것: 지수. Ω^{3/4}P^{3/4}. 이것이 NS의 진짜 장벽.
+Changed: constant is N-dependent → d-dependent (√d = √5).
+Unchanged: exponent. Ω^{3/4}P^{3/4}. This is the true barrier of NS.
 
-## 213 분석
+## 213 analysis
 
-오류의 213 해석:
-23(얽힘, 컨볼루션)을 213(독립, 분리)으로 잘못 읽음.
-경계(1)를 넣으면 안 되는 곳에 넣음.
-p, q, k가 k+p=q로 얽혀있는데 독립인 척 분리.
+213 interpretation of the error:
+Read 23 (entanglement, convolution) as 213 (independent, separated).
+Inserted boundary (1) where it should not go.
+p, q, k are entangled by k+p=q, but were treated as independent.
 
-정직한 비용:
+Honest cost:
 ```
 |S| ≤ C√d · Ω^{3/4} P^{3/4}
 
-지수 3/4 + 3/4 = 3/2 > 1.
-비용 3/2 > 1 = e₁.
+Exponent 3/4 + 3/4 = 3/2 > 1.
+Cost 3/2 > 1 = e₁.
 ```
 
-이 초과(3/2 - 1 = 1/2)가 NS의 진짜 갭.
-213 예산(5) 문제가 아니라 **지수 구조**의 문제.
+This excess (3/2 - 1 = 1/2) is the true gap of NS.
+Not a 213 budget (5) problem but an **exponent structure** problem.

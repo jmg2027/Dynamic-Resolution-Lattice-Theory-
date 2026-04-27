@@ -3,19 +3,21 @@ import E213.Research.ModJoinGCD
 /-!
 # Research.ModJoinEquivGCD: L_gcd.equiv ⊆ JoinEquiv L_m L_k
 
-`ModJoinGCD.joinEquiv_subset_gcd` 의 **반대 방향**.  함께
-**L_gcd.equiv = JoinEquiv L_m L_k** 확정 — 즉 **L_gcd 는
-JoinEquiv 의 concrete Lens realization** (mod family 한정).
+The **converse direction** of `ModJoinGCD.joinEquiv_subset_gcd`.
+Together they establish **L_gcd.equiv = JoinEquiv L_m L_k** —
+that is, **L_gcd is the concrete Lens realization of JoinEquiv**
+(for the mod family).
 
-이는 note 48 의 "concrete Quot Lens construction" open problem
-의 mod family 한정 해결.
+This resolves the "concrete Quot Lens construction" open problem of
+note 48 for the mod family.
 
-## 전략
+## Strategy
 
-`ModJoinGCD.join_refines_gcd` 의 chain 증명 구조를 JoinEquiv
-level 에서 그대로 복원.  각 `N.view r = N.view r'` 주장을
-`JoinEquiv L_m L_k r r'` 로 바꾸고, `hLm`, `hLk` 의 refinement
-적용을 `ofL`, `ofM` constructor 로 바꿈.
+Reconstructs the chain proof structure of
+`ModJoinGCD.join_refines_gcd` at the JoinEquiv level.  Each claim
+`N.view r = N.view r'` is replaced with `JoinEquiv L_m L_k r r'`,
+and the refinement application of `hLm`, `hLk` is replaced with the
+`ofL`, `ofM` constructors.
 -/
 
 namespace E213.Research.ModJoinEquivGCD
@@ -34,9 +36,9 @@ private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
         intro u v; exact Nat.add_comm u v
       rw [hfs]; omega
 
-/-- **Chain step** at JE level: m > k ≥ 2 이면
+/-- **Chain step** at the JE level: when m > k ≥ 2,
     `leaves r' = leaves r + (m - k) → JoinEquiv L_m L_k r r'`.
-    `ModJoinBezout.chain_step_sub` 의 JE level 복원. -/
+    Reconstruction of `ModJoinBezout.chain_step_sub` at the JE level. -/
 theorem chain_step_sub_JE (m k : Nat) (hk : k ≥ 2) (hmk : m > k)
     (r r' : Raw) (hdiff : Lens.leaves.view r' = Lens.leaves.view r + (m - k)) :
     JoinEquiv (leavesModNat m) (leavesModNat k) r r' := by
@@ -61,8 +63,8 @@ theorem same_leaves_JE (m k : Nat)
   show (leavesModNat m).view r = (leavesModNat m).view r'
   rw [leavesModNat_view_eq, leavesModNat_view_eq, hr]
 
-/-- **+n(m-k) chain** at JE level.  `ModJoinEuclidean.step_plus_nd`
-    의 JE level 복원. -/
+/-- **+n(m-k) chain** at the JE level.  Reconstruction of
+    `ModJoinEuclidean.step_plus_nd` at the JE level. -/
 theorem step_plus_nd_JE (m k : Nat) (hk : k ≥ 2) (hmk : m > k)
     (r : Raw) (n : Nat) :
     ∀ r', Lens.leaves.view r' = Lens.leaves.view r + n * (m - k) →
@@ -134,8 +136,8 @@ theorem euclidean_step_JE (m k : Nat)
   · exact JoinEquiv.symm
       (step_plus_nd_JE m k hk hmk r' _ r (key _ _ h_mod hle))
 
-/-- **Consecutive** at JE level.  m = k + 1 이면 임의 r, r' 에
-    대해 JoinEquiv L_m L_k (L_1.equiv 이 항상 true 이므로). -/
+/-- **Consecutive** at the JE level.  When m = k + 1, JoinEquiv L_m L_k
+    holds for all r, r' (since L_1.equiv is always true). -/
 theorem consecutive_refines_all_JE (m k : Nat) (hk : k ≥ 2) (hms : m = k + 1) :
     ∀ r r' : Raw, JoinEquiv (leavesModNat m) (leavesModNat k) r r' := by
   intro r r'
@@ -150,8 +152,9 @@ theorem consecutive_refines_all_JE (m k : Nat) (hk : k ≥ 2) (hms : m = k + 1) 
         (by rw [hdiff, Nat.mul_one]; omega))
 
 /-- **Lifting**: JoinEquiv L_{m-k} L_k → JoinEquiv L_m L_k.
-    Induct on JoinEquiv.  ofL 는 euclidean_step_JE, ofM 직접 lift,
-    나머지 equivalence/congruence constructor 는 동형 lift. -/
+    Induct on JoinEquiv.  ofL uses euclidean_step_JE, ofM lifts
+    directly, and the remaining equivalence/congruence constructors
+    lift isomorphically. -/
 theorem lift_sub_JE (m k : Nat) (hk : k ≥ 2) (hmk : m > k) (hd : m - k ≥ 2)
     (r r' : Raw)
     (h : JoinEquiv (leavesModNat (m - k)) (leavesModNat k) r r') :
@@ -178,8 +181,9 @@ theorem swap_JE (m k : Nat) (r r' : Raw)
   | slash_cong hxy hx'y' _ _ ih1 ih2 =>
       exact JoinEquiv.slash_cong hxy hx'y' ih1 ih2
 
-/-- **Main theorem at JE level (sorted)**: strong induction on m + k,
-    m ≥ k 가정. L_gcd.equiv r r' → JoinEquiv L_m L_k r r'. -/
+/-- **Main theorem at the JE level (sorted)**: strong induction on
+    m + k, assuming m ≥ k.
+    L_gcd.equiv r r' → JoinEquiv L_m L_k r r'. -/
 private theorem join_eq_gcd_JE_sorted :
     ∀ (s m k : Nat), m + k ≤ s → m ≥ k → m ≥ 2 → k ≥ 2 →
     ∀ r r' : Raw, (leavesModNat (Nat.gcd m k)).equiv r r' →
@@ -233,8 +237,8 @@ private theorem join_eq_gcd_JE_sorted :
               swap_JE k (m - k) r r' hrec
             exact lift_sub_JE m k hk hmgt hd2 r r' hrec'
 
-/-- **Main theorem at JE level**: L_gcd.equiv r r' → JoinEquiv L_m L_k r r'.
-    `ModJoinGCD.joinEquiv_subset_gcd` 의 반대 방향. -/
+/-- **Main theorem at the JE level**: L_gcd.equiv r r' → JoinEquiv L_m L_k r r'.
+    Converse direction of `ModJoinGCD.joinEquiv_subset_gcd`. -/
 theorem gcd_subset_joinEquiv (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     (r r' : Raw) (h : (leavesModNat (Nat.gcd m k)).equiv r r') :
     JoinEquiv (leavesModNat m) (leavesModNat k) r r' := by
@@ -249,7 +253,7 @@ theorem gcd_subset_joinEquiv (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     exact swap_JE k m r r' this
 
 /-- **Equivalence**: L_gcd.equiv = JoinEquiv L_m L_k on Raw × Raw.
-    concrete Quot Lens construction for mod family case. -/
+    Concrete Quot Lens construction for the mod family case. -/
 theorem gcd_equiv_joinEquiv (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     (r r' : Raw) :
     (leavesModNat (Nat.gcd m k)).equiv r r' ↔

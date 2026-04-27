@@ -1,6 +1,6 @@
 # Physics Constants Catalog
 
-표준 물리 상수의 213 atomic chain.
+213 atomic chain of standard physical constants.
 
 ## Coupling
 
@@ -17,7 +17,7 @@
   m_μ/m_e = 206.768  (NS·137/NT, 0.48 ppb)
   m_τ/m_μ ≈ 17 = NS²+(NS²-1)
   m_H = 125.28 GeV  (1/c · v_H, +0.02%)
-  m_t/m_c ≈ 137  (atomic 일치)
+  m_t/m_c ≈ 137  (atomic match)
 
 ## Lifetime / decay
 
@@ -44,7 +44,7 @@
   PMNS θ_23 leading = 1/NT
   δ_CP = 195° = 180 + 360/24
 
-## 사용
+## Usage
 
 ```lean
 import E213.Physics.Phase4.Library.CouplingLibrary

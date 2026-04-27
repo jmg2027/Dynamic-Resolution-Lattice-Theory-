@@ -3,24 +3,24 @@ import E213.Kernel.Term
 /-!
 # E213.Kernel.Decide — finite-enumeration decision procedures.
 
-Lean 의 `decide` tactic 은 `Decidable` typeclass + Classical 영역 을
-종종 끌어옴.  유한 이산 격자 에선 *순수 Bool 함수 + 유한 재귀* 면
-충분 → typeclass 우회.
+Lean's `decide` tactic often pulls in `Decidable` typeclass + Classical.
+For a finite discrete lattice, *pure Bool functions + finite recursion* are
+sufficient → bypassing the typeclass.
 
   allBelow n p   = ∀ x < n, p x = true   (Bool)
   existsBelow n p = ∃ x < n, p x = true  (Bool)
 
-전부 구조귀납 + Bool 연산 → 0 axiom.
+All use structural induction + Bool operations → 0 axiom.
 -/
 
 namespace E213.Kernel.Decide
 
-/-- ∀ x < n, p x 의 Bool 버전. -/
+/-- Bool version of ∀ x < n, p x. -/
 def allBelow : Nat → (Nat → Bool) → Bool
   | 0,     _ => true
   | n+1,   p => (allBelow n p) && p n
 
-/-- ∃ x < n, p x 의 Bool 버전. -/
+/-- Bool version of ∃ x < n, p x. -/
 def existsBelow : Nat → (Nat → Bool) → Bool
   | 0,     _ => false
   | n+1,   p => (existsBelow n p) || p n
@@ -29,29 +29,29 @@ end E213.Kernel.Decide
 
 namespace E213.Kernel.Decide.Tests
 
-/-- d (= 5) 미만 의 모든 수가 ≤ 4. -/
+/-- All numbers less than d (= 5) are ≤ 4. -/
 theorem all_lt_d_le_4 :
     allBelow 5 (fun x => Nat.ble x 4) = true := rfl
 
-/-- d 미만 에 4 가 존재. -/
+/-- 4 exists among numbers less than d. -/
 theorem exists_lt_d_eq_4 :
     existsBelow 5 (fun x => Nat.beq x 4) = true := rfl
 
-/-- d 미만 에 5 는 부재. -/
+/-- 5 is absent among numbers less than d. -/
 theorem no_lt_d_eq_5 :
     existsBelow 5 (fun x => Nat.beq x 5) = false := rfl
 
-/-- 25 미만 의 모든 페어 (i, j) 에 대해 i + j ≤ 48.
-    (가벼운 sanity 검사 — d² 격자 안 sum bound). -/
+/-- For all pairs (i, j) with i, j < 25, we have i + j ≤ 48.
+    (Light sanity check — sum bound within the d² lattice). -/
 theorem pair_sum_bound :
     allBelow 25 (fun i =>
       allBelow 25 (fun j => Nat.ble (i + j) 48)) = true := rfl
 
-/-- magic numbers (2, 8, 20, 28, 50, 82, 126) 모두 ≤ 126. -/
+/-- magic numbers (2, 8, 20, 28, 50, 82, 126) are all ≤ 126. -/
 theorem magic_le_126 :
     [2, 8, 20, 28, 50, 82, 126].all (fun n => Nat.ble n 126) = true := rfl
 
-/-- magic numbers 모두 짝수. -/
+/-- magic numbers are all even. -/
 theorem magic_all_even :
     [2, 8, 20, 28, 50, 82, 126].all (fun n => Nat.beq (n % 2) 0) = true := rfl
 

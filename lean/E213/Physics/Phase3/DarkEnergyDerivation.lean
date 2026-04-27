@@ -3,11 +3,11 @@ import E213.Physics.DarkEnergy
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 DarkEnergyDerivation — *왜 Ω_Λ = 0.685 인가* deep-dive
+# Phase 3 DarkEnergyDerivation — deep-dive on *why Ω_Λ = 0.685*
 
 **Layer: App**.
 
-## Atomic 도출 chain
+## Atomic derivation chain
 
 Ω_Λ = (1 - c/(2π)) · (1 + α_GUT/d)
 
@@ -15,24 +15,24 @@ import E213.Physics.SimplexCounts
   Trace corr = 1 + α_GUT/d = 1.00486          [universal pattern]
   Total      = 0.6817 · 1.00486 = 0.6850
 
-  관측: Ω_Λ ≈ 0.685 ± 0.007 (Planck/DESI)
-  → **0.0008% match** (DRLT 의 가장 정확한 cosmological 결과).
+  Observed: Ω_Λ ≈ 0.685 ± 0.007 (Planck/DESI)
+  → **0.0008% match** (most accurate cosmological result of DRLT).
 
 ## ★ Trace-correction (1 ± α_GUT/d) ubiquity ★
 
-같은 (1 ± α_GUT/d) factor 가:
+The same (1 ± α_GUT/d) factor appears in:
   - m_H/v_H: (1 + α_GUT)·(1 - α_GUT/d)/c
   - Ω_Λ: (1 - 1/π)·(1 + α_GUT/d)
   - He IE: (1 + α_GUT/d) factor
 
-→ 단일 atomic ratio α_GUT/d 가 *세 다른 분야* 등장.
+→ Single atomic ratio α_GUT/d appears in *three different fields*.
 
-## Bare = 1 - c/(2π) 의 atomic 의미
+## Atomic meaning of Bare = 1 - c/(2π)
 
   c = 2 = NT_atomic = lattice speed
   c/(2π) = 2/(2π) = 1/π = "angular deficit at horizon"
 
-DRLT geometric residue: 4-simplex Δ⁴ 의 horizon 절단.
+DRLT geometric residue: horizon cut of 4-simplex Δ⁴.
 -/
 
 namespace E213.Physics.Phase3.DarkEnergyDerivation
@@ -62,7 +62,7 @@ theorem dark_energy_derivation :
     ∧ (68170 < 68182)
     -- Ω_Λ ∈ [684, 686]/1000
     ∧ (684 < 685 ∧ 685 < 686)
-    -- Universal pattern: Ω_Λ, m_H, He 모두 (1 ± α/d) 구조
+    -- Universal pattern: Ω_Λ, m_H, He all have (1 ± α/d) structure
     ∧ (d = 5) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide

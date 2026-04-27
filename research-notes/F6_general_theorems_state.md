@@ -1,6 +1,6 @@
 # F6 — General theorems state (Marathon final + extension)
 
-## 이 wave 의 actual general theorems (NOT just decide tests)
+## Actual general theorems of this wave (NOT just decide tests)
 
 ### Algebraic identities
 
@@ -290,9 +290,11 @@ Recommended threshold formula (per user guidance):
 ### Phase J integral + IsSmooth Sum/Mul (LATEST)
 
 User Phase J Sec 2 + 3:
-- "Sum 먼저, Mul은 maxRange 명시적": addIsSmooth uses MAX of moduli;
-  mulIsSmooth uses SUM (errors compound) + (m+1)*(k+1) bound for LDD.
-- "미분보다 적분": dyadic Riemann sample-sum trajectory native first.
+- "Sum first, Mul makes maxRange explicit": addIsSmooth uses MAX of
+  moduli; mulIsSmooth uses SUM (errors compound) + (m+1)*(k+1) bound
+  for LDD.
+- "Integration before differentiation": dyadic Riemann sample-sum
+  trajectory native first.
 
 Real213IsSmooth.lean additions:
 - addLDD, addIsSmooth : pointwise sum of smooth.
@@ -556,7 +558,7 @@ The three modulus rules:
 - 213-native binary search algorithm — non-canonical (mixed)
   trajectory case.
 
-## 비 verified scaffolded
+## Not verified (scaffolded)
 
 - Series convergence theorems (full).
 - IVT bracket convergence proof.

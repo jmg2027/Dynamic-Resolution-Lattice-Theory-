@@ -2,34 +2,34 @@ import E213.Research.LeavesModNat
 import E213.Infinity.LensCardinality
 
 /-!
-# Research.KernelCardinalityLB: Lens kernel 공간 lower bound (≥ ℵ₀)
+# Research.KernelCardinalityLB: lower bound on the Lens kernel space (≥ ℵ₀)
 
-`leavesModNat m` family 가 m 별로 구별되는 kernel 을 제공.
-즉 Lens kernel 공간은 **countable infinite 이상**.
+The `leavesModNat m` family provides distinct kernels for each m,
+so the Lens kernel space is **at least countably infinite**.
 
-Upper bound 𝔠 (Raw 가 countable 이고 equivalence 관계는
-2^(Raw²) = 𝔠) 와 합쳐: ℵ₀ ≤ |kernel space| ≤ 𝔠.
+Combined with the upper bound 𝔠 (Raw is countable so equivalence
+relations have 2^(Raw²) = 𝔠): ℵ₀ ≤ |kernel space| ≤ 𝔠.
 
-정확한 cardinality 는 open conjecture (note 47).  하지만
-**lower bound 가 확정** = mod family 로부터.
+The exact cardinality is an open conjecture (note 47).  But the
+**lower bound is established** by the mod family.
 
-## 주 정리
+## Main Theorem
 
-`leavesModNat_injective_kernel`: m ≠ k (둘 다 ≥ 2) → 두 Lens
-의 kernel 이 서로 다름 (∃ r, r' 에서 분리).
+`leavesModNat_injective_kernel`: m ≠ k (both ≥ 2) → the kernels
+of the two Lenses differ (separated at some r, r').
 -/
 
 namespace E213.Research.KernelCardinalityLB
 
 open E213.Firmware E213.Hypervisor E213.Research.LeavesModNat
 
-/-- m ≠ k (둘 다 ≥ 2) 이면 leavesModNat m 의 kernel ≠
-    leavesModNat k 의 kernel.  Witness: Raw.a (leaves=1) 와
-    leaves = m+1 인 Raw.
+/-- If m ≠ k (both ≥ 2) then the kernel of leavesModNat m ≠
+    the kernel of leavesModNat k.  Witness: Raw.a (leaves=1) and
+    a Raw with leaves = m+1.
 
-    leavesModNat m: Raw.a (1 mod m) vs r (m+1 mod m = 1) — 같음.
-    leavesModNat k: 1 mod k vs (m+1) mod k — m % k = 0 인 경우만
-    같음.  m ≠ k, m ≥ 2 이고 k ∤ m 이면 다름. -/
+    leavesModNat m: Raw.a (1 mod m) vs r (m+1 mod m = 1) — equal.
+    leavesModNat k: 1 mod k vs (m+1) mod k — equal only if m % k = 0.
+    If m ≠ k, m ≥ 2 and k ∤ m, they differ. -/
 private theorem mod_kernel_separates (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     (hnotdvd : ¬ k ∣ m) :
     ∃ r r' : Raw,
@@ -74,7 +74,7 @@ namespace E213.Research.KernelCardinalityLB
 open E213.Firmware E213.Hypervisor E213.Research.LeavesModNat
 
 /-- **Distinct mod kernels for distinct moduli (m ≠ k, both ≥ 2)**.
-    적어도 한 방향에서 k ∤ m 이므로 위 lemma 적용. -/
+    In at least one direction k ∤ m, so the above lemma applies. -/
 theorem leavesModNat_kernel_neq (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     (hne : m ≠ k) :
     ∃ r r' : Raw,

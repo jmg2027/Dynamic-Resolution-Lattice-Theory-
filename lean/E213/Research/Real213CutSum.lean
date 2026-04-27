@@ -1,25 +1,25 @@
 import E213.Research.ArchimedeanCauchy
 
 /-!
-# Research.Real213CutSum: cut-level addition (E5 의 F1)
+# Research.Real213CutSum: cut-level addition (F1 of E5)
 
-`E5_213_stays_213.md` 의 F1: orderProj-native arithmetic.  RealCut 위
-직접 sum 정의 — bounded search over rational decomposition.
+F1 from `E5_213_stays_213.md`: orderProj-native arithmetic.  Direct
+sum definition on RealCut — bounded search over rational decomposition.
 
-## 정의
+## Definition
 
 `cutSum cx cy m k` := ∃ m1 ∈ [0, 2m] with cx(m1, 2k) ∧ cy(2m - m1, 2k).
 
-= "limit_x + limit_y ≤ m/k 의 *쪼개 진* witness 존재".
+= "existence of a *split* witness for limit_x + limit_y ≤ m/k".
 
-## 의의
+## Significance
 
-213-native arithmetic 의 첫 step.  Sequence-level lift (E2-E4 walls)
-대 신 cut-level 직접 작업 — Bishop ε-N machinery 부재.
+First step of 213-native arithmetic.  Direct cut-level work instead
+of sequence-level lift (E2-E4 walls) — no Bishop ε-N machinery.
 
-`cx`, `cy` 가 Real213 의 cut 일 때, `cutSum cx cy` 가 합 의 cut.
-ε/2 trick (k1 = k2 = 2k) 는 *implementation detail*, primitive 는
-bounded search.
+When `cx`, `cy` are cuts of Real213, `cutSum cx cy` is the cut of
+their sum.  The ε/2 trick (k1 = k2 = 2k) is an *implementation
+detail*; the primitive is bounded search.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -27,14 +27,14 @@ namespace E213.Research.Real213CutSum
 open E213.Firmware E213.Hypervisor
 open E213.Research.ArchimedeanCauchy
 
-/-- Bounded search: m1 ∈ [0, m1Max] 중 cx m1 (2k) ∧ cy (m1Max - m1) (2k)
-    인 m1 존재 여부. -/
+/-- Bounded search: whether there exists m1 ∈ [0, m1Max] such that
+    cx m1 (2k) ∧ cy (m1Max - m1) (2k). -/
 def cutSumAux (cx cy : Nat → Nat → Bool) (k m1Max : Nat) : Nat → Bool
   | 0 => cx 0 (2*k) && cy m1Max (2*k)
   | n+1 => (cx (n+1) (2*k) && cy (m1Max - (n+1)) (2*k))
             || cutSumAux cx cy k m1Max n
 
-/-- **cutSum**: 두 cut 의 sum cut.  Bounded search over m1 ∈ [0, 2m]. -/
+/-- **cutSum**: sum cut of two cuts.  Bounded search over m1 ∈ [0, 2m]. -/
 def cutSum (cx cy : Nat → Nat → Bool) (m k : Nat) : Bool :=
   cutSumAux cx cy k (2*m) (2*m)
 

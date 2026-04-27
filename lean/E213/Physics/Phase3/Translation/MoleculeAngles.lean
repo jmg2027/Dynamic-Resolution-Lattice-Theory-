@@ -3,9 +3,9 @@ import E213.Physics.BondAngles
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 분자 결합각 → DRLT atomic (Phase 1 BondAngles deep-dive)
+# Translation: Molecular bond angles → DRLT atomic (Phase 1 BondAngles deep-dive)
 
-표준 화학:
+Standard chemistry:
   CH₄ (methane): θ ≈ 109.47°  (tetrahedral)
   H₂O (water):   θ ≈ 104.48°  (bent)
   NH₃ (ammonia): θ ≈ 107.0°   (pyramidal)
@@ -15,7 +15,7 @@ DRLT atomic (Phase 1):
   cos θ_H2O = -1/(NS+1)   = -1/4
   cos θ_NH3 = (NS+1)/(NS²+NS+1) = 4/13
 
-각 분자 의 *atomic 직접 derivation*.
+*Atomic direct derivation* for each molecule.
 
 NH₃: NS² + NS + 1 = 13 = F_7 (Fibonacci atomic).
 -/

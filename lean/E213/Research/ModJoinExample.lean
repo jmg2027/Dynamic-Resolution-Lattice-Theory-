@@ -1,22 +1,22 @@
 import E213.Research.LeavesModNat
 
 /-!
-# Research.ModJoinExample: Join = gcd 의 concrete 예
+# Research.ModJoinExample: concrete example of Join = gcd
 
-Note 45 §3 의 "Join = gcd" 주장의 구체 instance.
+Concrete instance of the "Join = gcd" claim in Note 45 §3.
 
-**주장**: L_4.refines N ∧ L_6.refines N → L_2.refines N (부분적).
+**Claim**: L_4.refines N ∧ L_6.refines N → L_2.refines N (partial).
 
-Chain 기법으로 증명: 주어진 r, r' 에 대해 intermediate r_w 를
-construct 하여 L_4 / L_6 단계로 연결.
+Proved via the chain technique: for given r, r', construct an
+intermediate r_w and connect the steps using L_4 / L_6.
 
-## 간단한 예
+## Simple example
 
-r = Raw.a (leaves 1), r' 은 leaves 3 인 Raw.  Chain:
+r = Raw.a (leaves 1), r' is a Raw with leaves 3.  Chain:
 - Raw.a (leaves 1) ~_L_6 r_7 (leaves 7): 1 ≡ 7 mod 6.
 - r_7 (leaves 7) ~_L_4 r' (leaves 3): 7 ≡ 3 mod 4.
 
-결합: N.view Raw.a = N.view r'.
+Combined: N.view Raw.a = N.view r'.
 -/
 
 namespace E213.Research.ModJoinExample
@@ -86,7 +86,7 @@ private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
         intro u v; exact Nat.add_comm u v
       rw [hfs]; omega
 
-/-- 일반 chain: +2k step. -/
+/-- General chain: +2k step. -/
 theorem mod_4_6_step_2k {α : Type} (N : Lens α)
     (h4 : (leavesModNat 4).refines N)
     (h6 : (leavesModNat 6).refines N) (r : Raw) (k : Nat) :
@@ -116,8 +116,8 @@ namespace E213.Research.ModJoinExample
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
 
-/-- **L_4 + L_6 → L_2 완성**.  refines preorder 에서
-    Join(L_4, L_6) = L_2 = L_gcd(4,6) 의 least direction. -/
+/-- **L_4 + L_6 → L_2 complete**.  Least direction of
+    Join(L_4, L_6) = L_2 = L_gcd(4,6) in the refines preorder. -/
 theorem mod_4_6_refines_parity {α : Type} (N : Lens α)
     (h4 : (leavesModNat 4).refines N)
     (h6 : (leavesModNat 6).refines N) :

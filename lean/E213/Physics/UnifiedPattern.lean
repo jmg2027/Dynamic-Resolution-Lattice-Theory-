@@ -7,11 +7,10 @@ import E213.Physics.DarkEnergy
 import E213.Physics.BondAngles
 
 /-!
-# Unified pattern — 모든 정밀 양 같은 atomicity-locked atoms (0 axioms)
+# Unified pattern — all precision quantities from the same atomicity-locked atoms (0 axioms)
 
-Physics track 30-file 종합:  α_em IR, m_μ/m_e, m_τ/m_μ, m_H/v_H,
-sin²θ_W, Ω_Λ, CH₄/NH₃/H₂O 결합각 *모두* 같은 atomic 격자
-primitives에서 파생된다는 단일 정리.
+Physics track 30-file synthesis:  a single theorem stating that α_em IR, m_μ/m_e, m_τ/m_μ, m_H/v_H,
+sin²θ_W, Ω_Λ, CH₄/NH₃/H₂O bond angles are *all* derived from the same atomic lattice primitives.
 
 ## Universal building blocks
 
@@ -54,10 +53,10 @@ primitives에서 파생된다는 단일 정리.
   NH₃ cos   = -(NS+1)/(NS²+NS+1)    = -4/13
               [pure rational from NS]
 
-## ★ 단일 atomicity 강제 ★
+## ★ Single atomicity forcing ★
 
-  (NS, NT, d, c) = (3, 2, 5, 2)이 위 *모든* identity를 동시 강제.
-  다른 어떤 (NS, NT, d, c) 조합에서도 *동시에* 만족 안 됨.
+  (NS, NT, d, c) = (3, 2, 5, 2) simultaneously forces *all* of the identities above.
+  No other combination of (NS, NT, d, c) satisfies them *simultaneously*.
 -/
 
 namespace E213.Physics.Unified
@@ -73,10 +72,10 @@ open E213.Physics.BondAngles
 
 /-- ★★★ MASTER CAPSTONE ★★★
 
-  *일곱 정밀 양*이 모두 같은 atomicity-locked atoms에서.
+  *Seven precision quantities* all from the same atomicity-locked atoms.
 
   α_em IR + m_μ/m_e + m_τ/m_μ + m_H/v_H + sin²θ_W + Ω_Λ +
-  bond angles — 단일 (3, 2, 5, 2) atomicity 가 강제. -/
+  bond angles — forced by single (3, 2, 5, 2) atomicity. -/
 theorem master_unified_pattern :
     -- 1) α_em cycle space (PhotonKernel)
     (b_1 = NS * NS - 1)
@@ -105,13 +104,13 @@ theorem master_unified_pattern :
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
 
 /- ★ Operational meaning ★
-   이 단일 정리가 0 sorry, 0 axiom으로 닫힌다는 것 =
-   "다양한 정밀 양들이 *전부* 같은 (3,2,5,2) atomic configuration의
-   simplicial cohomology decomposition에서 도출됨"의 형식 입증.
+   That this single theorem closes with 0 sorry, 0 axiom is the formal proof
+   that "diverse precision quantities are *all* derived from the
+   simplicial cohomology decomposition of the same (3,2,5,2) atomic configuration."
 
-   다른 (NS, NT, d, c) 조합에서는 위 14 등식 중 다수가 동시에
-   거짓이 됨.  단일 atomicity 강제만이 모든 정밀 식을 해명.
+   For any other (NS, NT, d, c) combination, many of the 14 equalities above
+   become simultaneously false.  Only single atomicity forcing explains all precision formulas.
 
-   이게 DRLT의 "0 free parameter" 주장의 진짜 의미. -/
+   This is the true meaning of DRLT's "0 free parameter" claim. -/
 
 end E213.Physics.Unified

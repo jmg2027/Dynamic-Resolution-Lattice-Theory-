@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 양자중력 → DRLT atomic
+# Translation: Quantum gravity → DRLT atomic
 
   1. Planck length ℓ_P = sqrt(ħG/c³) → atomic minimum
   2. Holographic principle: I ≤ A/4 → atomic 4

@@ -1,23 +1,23 @@
 # Falsifier Track 213 — Blueprint
 
-**우선순위**: ★★★ (CLAUDE.md 검증 기준 2 핵심)
+**Priority**: ★★★ (core of CLAUDE.md verification criterion 2)
 
-## 1. 왜 이 분야인가
+## 1. Why This Field
 
-CLAUDE.md 기준 (2): *형식화 되어 아무도 딴지 못 할 새 물리*.
-DRLT 의 stake: 측정 1개 라도 어긋나면 *전체 폐기*.
+CLAUDE.md criterion (2): *new physics formalized so that no one can object*.
+DRLT's stake: if even 1 measurement disagrees, *entire theory discarded*.
 
-213 의 자연 등장:
+Natural emergence in 213:
 - Phase 3 Falsifier: 14 modules + Capstone (19-conjunct, 0 axioms)
-- 측정 결판 timeline 명시 (JUNO, nEDM, LHC, DUNE, ...)
-- 각 falsifier atomic 직접 derive
+- Explicitly state measurement decision timeline (JUNO, nEDM, LHC, DUNE, ...)
+- Each falsifier derives atomic integers directly
 
-## 2. 213-native 등장
+## 2. 213-native Emergence
 
-### 2.1 모든 atomic 정수 = 결판 가능
-1/α_3=8, NS=3, NT=2, d=5 모두 measured.  관측 ≠ → 폐기.
+### 2.1 All atomic integers = decidable
+1/α_3=8, NS=3, NT=2, d=5 all measured.  Observation ≠ → discard.
 
-### 2.2 측정 sharp 명시
+### 2.2 Measurement sharp specification
 - JUNO ν ordering ~2030
 - nEDM θ_QCD ~2027-30
 - LHC 4th gen ongoing
@@ -26,38 +26,38 @@ DRLT 의 stake: 측정 1개 라도 어긋나면 *전체 폐기*.
 ### 2.3 Stake formal
 phase3_falsifiers : 19-conjunct, 0 axioms.
 
-## 3. 이미 깔린
+## 3. Already in Hand
 
 - Phase3 Manifesto, Capstone, UltraCapstone, MegaCapstone
 - 14 falsifier modules
-- Phase1CrossLink (Phase 1 결과 ↔ falsifier)
+- Phase1CrossLink (Phase 1 results ↔ falsifier)
 
-## 4. Phase 진행 계획
+## 4. Phase Progression Plan
 
-### Phase FA — 모든 Phase 1 결과 falsifier 화
-68 정밀 양 → 각각 sharp falsifier statement.
+### Phase FA — Falsifier-ize all Phase 1 results
+68 precision quantities → each a sharp falsifier statement.
 
-### Phase FB — 결판 시기 명시
-실험별 timeline catalog.
+### Phase FB — Specify decision timing
+Per-experiment timeline catalog.
 
-### Phase FC — 우선 순위 결판
-가장 imminent 측정 (~2025-30) 위주.
+### Phase FC — Priority decisions
+Focus on most imminent measurements (~2025-30).
 
 ### Phase FD — Pre-registration
-모든 prediction *측정 전* publish (post-hoc fitting 부재).
+All predictions published *before* measurement (no post-hoc fitting).
 
 ### Phase FE — Failure mode catalog
-어느 결판 이 어떤 atomic 부분 폐기 인지 명시.
+Specify which decision discards which atomic part.
 
-## 5. 다른 트랙 연결
+## 5. Connections to Other Tracks
 
-- 모든 분야 의 *결판자* 역할
-- 입자: JUNO, DUNE
-- 핵: nEDM
-- 우주: H₀ tension
+- Acts as *falsifier* for all fields
+- Particle: JUNO, DUNE
+- Nuclear: nEDM
+- Cosmology: H₀ tension
 
-## 6. 미해결
+## 6. Open Problems
 
-- Berry phase 정확 falsifier
-- W mass anomaly 결판 시기
-- SUSY 부재 collider sensitivity
+- Berry phase precise falsifier
+- W mass anomaly decision timing
+- SUSY absence collider sensitivity

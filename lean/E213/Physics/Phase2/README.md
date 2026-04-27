@@ -1,20 +1,20 @@
-# Phase 2 — 213만으로 우주를 다시 그리기
+# Phase 2 — Redrawing the Universe with 213 Alone
 
-Phase 1 (E213/Physics/, 68 files) 은 *기존 정밀 양*을 atomic
-primitives에서 도출했음.
+Phase 1 (E213/Physics/, 68 files) derived *known precision quantities*
+from atomic primitives.
 
-Phase 2는 **다 잊고 다시** 묻는다:
+Phase 2 asks again by **forgetting everything and starting over**:
 
-> *213 axiom만으로 우주에 대해 무엇을 말할 수 있는가?*
+> *What can we say about the universe using only 213 axioms?*
 
 ---
 
-## 진행 (educational + 직관 순)
+## Progression (educational + intuition order)
 
-### 1. `Origin.lean` — *몇 차원?*
+### 1. `Origin.lean` — *How many dimensions?*
 
-213 axiom + Atomicity → **d = 5**, 다른 선택지가 axiom 위반.
-이 한 정리가 Phase 2의 *씨앗*.
+213 axiom + Atomicity → **d = 5**, any other choice violates the axiom.
+This single theorem is the *seed* of Phase 2.
 
 ```lean
 theorem only_one_cosmos_dim :
@@ -23,132 +23,134 @@ theorem only_one_cosmos_dim :
 
 ---
 
-### 2. `Shape.lean` — *그럼 어떻게 생겼나?*
+### 2. `Shape.lean` — *So what does it look like?*
 
 ```
   ●───●───●         ← 3-block (a-block)
    \  |  /          
     \ | /           
      \|/            
-      X             ← cross-pairs (6개)
+      X             ← cross-pairs (6)
      /|\            
     / | \           
    /  |  \          
   ●───●             ← 2-block (b-block)
 ```
 
-5 점 = 3 점 + 2 점.  Edge: 3 (triangle) + 1 (line) + 6 (cross) = 10.
+5 points = 3 points + 2 points.  Edges: 3 (triangle) + 1 (line) +
+6 (cross) = 10.
 
-수학 용어로: **4-simplex Δ⁴ with (3,2) vertex partition**.
+In mathematical terms: **4-simplex Δ⁴ with (3,2) vertex partition**.
 
 ---
 
-### 3. `Existence.lean` — *5는 무엇인가?*
+### 3. `Existence.lean` — *What are the 5?*
 
   `Vertex := Fin 5`.
   
-  두 vertex가 *같은가* 는 `DecidableEq` (axiom 결정).
+  Whether two vertices are *the same* is `DecidableEq` (axiom decision).
   
-  Block 분류:
-  - `inBigBlock v` — 3-block에 속함
-  - `inSmallBlock v` — 2-block에 속함
+  Block classification:
+  - `inBigBlock v` — belongs to the 3-block
+  - `inSmallBlock v` — belongs to the 2-block
 
-213만의 *최대 ontology*: "5 vertex, (3,2) 크기 분할".  더 이상의
-이름·의미는 Lens 추가 시.
+213's *maximum ontology*: "5 vertices, (3,2) size partition". No
+further names or meanings until a Lens is added.
 
 ---
 
-### 4. `Pairs.lean` — *쌍 사이 무엇이 있나?*
+### 4. `Pairs.lean` — *What is between pairs?*
 
-10 쌍이 자동으로 세 분류:
+10 pairs automatically fall into three categories:
 
-| 분류 | 개수 | 의미 |
+| Category | Count | Meaning |
 |---|---|---|
-| AA | 3 | 둘 다 big block (triangle 내부 edge) |
-| BB | 1 | 둘 다 small block (line 자체) |
+| AA | 3 | Both in big block (triangle interior edge) |
+| BB | 1 | Both in small block (the line itself) |
 | AB | **6** | cross — **K_{3,2} bipartite edges** |
 
-**6 cross pairs = K_{3,2} bipartite 그래프.  자연 발생.**
+**6 cross pairs = K_{3,2} bipartite graph. Naturally emerging.**
 
-(Phase 1의 PhotonKernel이 이 위에서 cycle space b_1 = 8 = α_3
-발견했었는데, *그 본체 K_{3,2}* 가 axiom-derived라는 거 확인.)
+(Phase 1's PhotonKernel discovered cycle space b_1 = 8 = α_3 on top
+of this — now confirming that *the underlying K_{3,2} itself* is
+axiom-derived.)
 
 ---
 
-## 213이 *말할 수 있는 모든 것* (Phase 2 끝)
+## Everything 213 *Can Say* (end of Phase 2)
 
 ```
-우주:
-  d = 5 (차원)
-  5 vertex (무엇 5개)
-  (3, 2) partition (block 크기, labels는 Lens)
+Universe:
+  d = 5 (dimensions)
+  5 vertices (what the 5 are)
+  (3, 2) partition (block sizes, labels are Lens)
   10 pair information (3 AA + 1 BB + 6 AB)
 ```
 
-이게 *전부*.
+This is *all*.
 
-더 나아가려면:
-- *labels* (어느 게 spatial, 어느 게 temporal) → **Lens 추가**
-- *측정값* (mass, coupling, ...) → **Lens output**
-- *force* (게이지) → **Lens 분류 (channel)**
-- 나머지 모든 물리 → **Lens 출력**
+To go further:
+- *labels* (which is spatial, which is temporal) → **add Lens**
+- *measurements* (mass, coupling, ...) → **Lens output**
+- *force* (gauge) → **Lens classification (channel)**
+- all remaining physics → **Lens output**
 
 ---
 
-## Phase 1 vs Phase 2 비교
+## Phase 1 vs Phase 2 Comparison
 
 | | Phase 1 | Phase 2 |
 |---|---|---|
-| 출발점 | 기존 정밀 양 | 213 axiom만 |
-| 첫 import | NS=3, NT=2 *수치* | Atomicity *정리* |
-| 답 | 137, m_p, etc. | d=5, 5 vertex, 10 쌍 |
-| Atomic atoms | 등장 | 정의됨 |
-| 쓸모 | 기존 물리 매치 검증 | 의미적 출발점 명시 |
+| Starting point | Known precision quantities | 213 axioms only |
+| First import | NS=3, NT=2 *numerically* | Atomicity *theorem* |
+| Answer | 137, m_p, etc. | d=5, 5 vertices, 10 pairs |
+| Atomic atoms | appear | are defined |
+| Use | verify existing physics match | state semantic starting point |
 
-두 트랙 *상호보완*.  Phase 1이 끝점 (정밀 매치), Phase 2가 시점
-(axiom 의미).
+The two tracks *complement each other*. Phase 1 is the endpoint
+(precision match), Phase 2 is the starting point (axiom meaning).
 
 ---
 
-### 5. `Time.lean` — NT 섹터 = dyadic resolution
+### 5. `Time.lean` — NT sector = dyadic resolution
 
-NT = 2 atomic 작은 block 크기.  *수학 트랙 bridge* 활용:
-NT step 이 *2-진 dyadic 분할* 로 unfolded.
+NT = 2 is the atomic small block size.  Utilizing the *math track
+bridge*: NT steps are unfolded as *binary dyadic division*.
 
   `NT_n_steps_yield_two_pow : bisectN^n start = 2^n branches`
 
-(수학 트랙 `Real213/Phase A→C` dyadic geometry = 물리 NT
-섹터의 axiom-level 의미.)
+(Math track `Real213/Phase A→C` dyadic geometry = the axiom-level
+meaning of the physical NT sector.)
 
 ---
 
-### 6. `Space.lean` — NS 섹터 = ternary resolution
+### 6. `Space.lean` — NS sector = ternary resolution
 
-NS = 3 atomic 큰 block 크기.  3^n ternary unfolding.
+NS = 3 is the atomic big block size.  3^n ternary unfolding.
 
-NT vs NS *비대칭* (3/2)^n 가 Phase 1 의 m_μ/m_e factor,
-Y-norm, Fibonacci F_5/F_4 의 axiom-level 기원.
+The NT vs NS *asymmetry* (3/2)^n is the axiom-level origin of Phase 1's
+m_μ/m_e factor, Y-norm, and Fibonacci F_5/F_4.
 
 ---
 
-### 7. `Observable.lean` — 측정 가능한 양
+### 7. `Observable.lean` — measurable quantities
 
-213 axiom 만으로 정의 가능한 *9 정수*:
+*9 integers* definable with 213 axioms alone:
 d, NS, NT, c, total_pairs, AA, BB, AB,
 num_directed_edges, cycle_space_dim.
 
-Phase 1 의 정밀 양들은 이 9 의 Lens output.
+Phase 1's precision quantities are Lens outputs of these 9.
 
 ---
 
-### 8. `Force.lean` — 3 channel = 3 force?
+### 8. `Force.lean` — 3 channels = 3 forces?
 
   - AA (3 pairs): NS-internal, color-like / α_3
   - BB (1 pair):  NT-internal, weak-like / α_2
   - AB (6 pairs): cross-sector, EM-like / α_1
 
-★ 3 force 자연 발생 ★ (channel 크기 ≠ 결합 강도 직접 비례,
-Phase 1 prefactor 가 더 깊은 origin.)
+★ 3 forces emerge naturally ★ (channel size ≠ direct proportion to
+coupling strength; Phase 1 prefactors have a deeper origin.)
 
 ---
 
@@ -157,41 +159,42 @@ Phase 1 prefactor 가 더 깊은 origin.)
 c = 2 = NT atomic size.  6 undirected → 12 directed.
 Cycle space b_1 = 12 - 5 + 1 = 8 = NS² - 1.
 
-**8 = 1/α_3** (Phase 1 PhotonKernel 의 axiom-level 산술).
+**8 = 1/α_3** (axiom-level arithmetic underlying Phase 1 PhotonKernel).
 
 ---
 
 ### 10. `Lens.lean` — Hypervisor explicit Lens
 
-수학 트랙 `Hypervisor/Lens.lean` 패턴 직접 사용.  첫 명시적
-Lens 객체 (parityLens, bCountLens) — App-layer 산술이 아닌
-*Hypervisor-layer* 에서 Raw 위 동작.
+Direct use of the math track `Hypervisor/Lens.lean` pattern. First
+explicit Lens objects (parityLens, bCountLens) — operating on Raw at
+the *Hypervisor-layer*, not App-layer arithmetic.
 
 ---
 
-### 11. `Capstone.lean` — 10 파일 단일 종합
+### 11. `Capstone.lean` — single synthesis of 10 files
 
-26 conjunct 정리, ≤ propext + Quot.sound.  Phase 2 *전체* 의
-형식 종합.
+26-conjunct theorem, ≤ propext + Quot.sound.  Formal synthesis of
+*all* of Phase 2.
 
 ---
 
-## 빌드
+## Build
 
 ```bash
 cd 213/framework
-lake build E213.Physics.Phase2.Capstone   # 전체 종합 (10 파일)
+lake build E213.Physics.Phase2.Capstone   # full synthesis (10 files)
 ```
 
-모두 0 sorry, ≤ propext + Quot.sound (Lean 4 core only).
-대부분 파일은 *완전 axiom-free*.
+All 0 sorry, ≤ propext + Quot.sound (Lean 4 core only).
+Most files are *completely axiom-free*.
 
 ---
 
-## 운영 원칙
+## Operating Principles
 
-CLAUDE.md "관측자/구조/관계/공간/인식" 단어 axiom 설명에 X.
-"원시적 구분" 만 사용.  나머지는 Lens 출력 명시.
+CLAUDE.md: no words "observer/structure/relation/space/cognition" in
+axiom descriptions. Only "primitive distinction". Everything else is
+stated as Lens output.
 
-`AUDIT.md` — 수학 트랙 (extreme rigor) 대조 감사:
-**Phase 2 위반 없음**.  App/Simplex 패턴 그대로 따름.
+`AUDIT.md` — cross-audit with math track (extreme rigor):
+**Phase 2 has no violations**. Follows App/Simplex pattern exactly.
