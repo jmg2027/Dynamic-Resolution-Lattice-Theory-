@@ -94,6 +94,7 @@ import E213.Research.Real213AntiderivativeStructural
 import E213.Research.Real213IntegralViaAnti
 import E213.Research.Real213ClassicAnti
 import E213.Research.Real213PhaseCSCapstone
+import E213.Research.Real213IntegralProperties
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
