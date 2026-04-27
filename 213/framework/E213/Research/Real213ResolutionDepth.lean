@@ -192,4 +192,51 @@ example : decicIsSmooth.linearityModulus 5 = 50 := by decide
 /-- hexadecic (x¹⁶) at depth 5: modulus = 80. -/
 example : hexadecicIsSmooth.linearityModulus 5 = 80 := by decide
 
+/-! ### T3: Generic polynomial modulus theorems for x⁵-x⁸ -/
+
+/-- **x⁵ generic modulus**: linearityModulus n = 5 * n (slope 5). -/
+theorem quinticIsSmooth_modulus (n : Nat) :
+    quinticIsSmooth.linearityModulus n = 5 * n := by
+  show squareIsSmooth.linearityModulus n + cubeIsSmooth.linearityModulus n
+       = 5 * n
+  rw [squareIsSmooth_modulus, cubeIsSmooth_modulus]; omega
+
+/-- **x⁶ generic modulus**: linearityModulus n = 6 * n (slope 6). -/
+theorem sexticIsSmooth_modulus (n : Nat) :
+    sexticIsSmooth.linearityModulus n = 6 * n := by
+  show cubeIsSmooth.linearityModulus n + cubeIsSmooth.linearityModulus n
+       = 6 * n
+  rw [cubeIsSmooth_modulus]; omega
+
+/-- **x⁷ generic modulus**: linearityModulus n = 7 * n (slope 7). -/
+theorem septicIsSmooth_modulus (n : Nat) :
+    septicIsSmooth.linearityModulus n = 7 * n := by
+  show cubeIsSmooth.linearityModulus n + quarticIsSmooth.linearityModulus n
+       = 7 * n
+  rw [cubeIsSmooth_modulus, quarticIsSmooth_modulus]; omega
+
+/-- **x⁸ generic modulus**: linearityModulus n = 8 * n (slope 8). -/
+theorem octicIsSmooth_modulus (n : Nat) :
+    octicIsSmooth.linearityModulus n = 8 * n := by
+  show quarticIsSmooth.linearityModulus n + quarticIsSmooth.linearityModulus n
+       = 8 * n
+  rw [quarticIsSmooth_modulus]; omega
+
+/-- **Polynomial slope coverage**: degree → modulus slope explicitly,
+    for degrees 1-8.  Capstone of the full polynomial chain. -/
+theorem polynomial_slope_coverage (n : Nat) :
+    idIsSmooth.linearityModulus n = 1 * n
+    ∧ squareIsSmooth.linearityModulus n = 2 * n
+    ∧ cubeIsSmooth.linearityModulus n = 3 * n
+    ∧ quarticIsSmooth.linearityModulus n = 4 * n
+    ∧ quinticIsSmooth.linearityModulus n = 5 * n
+    ∧ sexticIsSmooth.linearityModulus n = 6 * n
+    ∧ septicIsSmooth.linearityModulus n = 7 * n
+    ∧ octicIsSmooth.linearityModulus n = 8 * n := by
+  refine ⟨?_, squareIsSmooth_modulus n, cubeIsSmooth_modulus n,
+          quarticIsSmooth_modulus n, quinticIsSmooth_modulus n,
+          sexticIsSmooth_modulus n, septicIsSmooth_modulus n,
+          octicIsSmooth_modulus n⟩
+  rw [Nat.one_mul]; exact idIsSmooth_modulus n
+
 end E213.Research.Real213CutSum
