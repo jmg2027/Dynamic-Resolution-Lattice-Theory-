@@ -111,4 +111,30 @@ theorem allPhase_super_capstone (n a b m k : Nat) :
   · exact zero_plus_gap_below_zero_exact
   · exact alwaysFalseUnit_limit_eq_one_one m k
 
+/-- **Phase S2: 6-Phase Super-Super-Capstone**.
+
+    Adds modulus-rule witnesses (O3, P3, Q1, Q2) to the all-Phase
+    capstone — the deepest unified statement of dyadic real-analysis
+    foundation. -/
+theorem sixPhase_super_super_capstone (n : Nat) :
+    -- (1) Polynomial degree → linearityModulus slope (Phase L+O+R)
+    squareIsSmooth.linearityModulus n = 2 * n
+    ∧ cubeIsSmooth.linearityModulus n = 3 * n
+    ∧ quarticIsSmooth.linearityModulus n = 4 * n
+    -- (2) midIsSmooth modulus = max (Phase O3+P4)
+    ∧ (midIsSmooth idIsSmooth idIsSmooth).linearityModulus n
+      = max (idIsSmooth.linearityModulus n) (idIsSmooth.linearityModulus n)
+    -- (3) addIsSmooth modulus = max (Phase Q1)
+    ∧ (addIsSmooth idIsSmooth squareIsSmooth).linearityModulus n
+      = max (idIsSmooth.linearityModulus n)
+            (squareIsSmooth.linearityModulus n)
+    -- (4) mulIsSmooth modulus = sum (Phase Q2)
+    ∧ (mulIsSmooth idIsSmooth squareIsSmooth).linearityModulus n
+      = idIsSmooth.linearityModulus n + squareIsSmooth.linearityModulus n
+    -- (5) composeIsSmooth modulus = nested (Phase O+P3)
+    ∧ (composeIsSmooth squareIsSmooth squareIsSmooth).linearityModulus n
+      = squareIsSmooth.linearityModulus (squareIsSmooth.linearityModulus n) :=
+  ⟨squareIsSmooth_modulus n, cubeIsSmooth_modulus n,
+   quarticIsSmooth_modulus n, rfl, rfl, rfl, rfl⟩
+
 end E213.Research.Real213CutSum
