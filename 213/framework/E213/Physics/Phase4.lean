@@ -3,6 +3,7 @@ import E213.Physics.Phase4.AtomicReps
 import E213.Physics.Phase4.Sparsity
 import E213.Physics.Phase4.Enumeration
 import E213.Physics.Phase4.Atomic1Complete
+import E213.Physics.Phase4.IonizationEnergies
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
