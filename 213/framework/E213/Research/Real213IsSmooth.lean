@@ -231,4 +231,15 @@ def octicIsSmooth :
                               (cutMul (cutMul x x) (cutMul x x))) :=
   mulIsSmooth quarticIsSmooth quarticIsSmooth
 
+/-- **Midpoint smoothness**: if f, g smooth, so is fun x => cutMid (f x) (g x).
+    Composes cutHalf ∘ (cutSum on f, g).  Linear like add. -/
+def midIsSmooth {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : IsSmooth f) (sg : IsSmooth g) :
+    IsSmooth (fun x => cutMid (f x) (g x)) where
+  toLocallyDeterminedData :=
+    composeLDD cutHalfLDD
+      (addLDD sf.toLocallyDeterminedData sg.toLocallyDeterminedData)
+  linearityModulus := fun n =>
+    max (sf.linearityModulus n) (sg.linearityModulus n)
+
 end E213.Research.Real213CutSum
