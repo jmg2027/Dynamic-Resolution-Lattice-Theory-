@@ -41,6 +41,7 @@ import E213.Research.Real213ConcreteDerivativeMega
 import E213.Research.Real213PolySumDerivativeModulus
 import E213.Research.Real213ComposeDerivativeModulus
 import E213.Research.Real213FluxCut
+import E213.Research.Real213FluxCochain
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
