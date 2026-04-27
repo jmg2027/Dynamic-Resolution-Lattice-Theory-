@@ -7,11 +7,11 @@
 **E213/Physics track Phase 1 + 2 + 3 모두 완료, Phase 3 대규모 확장.**
 - Phase 1: 68 Lean 파일 (정밀 양 트랙)
 - Phase 2: 14 Lean 파일 (axiom-level 트랙)
-- Phase 3: **77 Lean 파일** (falsifier + deep-dive + reframing + Translation)
+- Phase 3: **86 Lean 파일** (falsifier + deep-dive + reframing + Translation)
 - 모두 0 sorry, ≤ propext + Quot.sound
 - Phase 3 모든 capstone = **0 axioms**
-- `lake build E213.Physics` clean (**215 modules**)
-- **34 마일스톤 자율 진행 완료** (계속 진행 중)
+- `lake build E213.Physics` clean (**224 modules**)
+- **43 마일스톤 자율 진행 완료** (계속 진행 중)
 
 ## Phase 3 (대규모 확장, 이번 세션)
 
