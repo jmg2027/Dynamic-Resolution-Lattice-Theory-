@@ -82,6 +82,7 @@ import E213.Research.Real213FTCRiemannGeneric
 import E213.Research.Real213FTCRiemannChain
 import E213.Research.Real213ClassicCalcCombinators
 import E213.Research.Real213FluxMVTNested
+import E213.Research.Real213FluxMVTPattern
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
