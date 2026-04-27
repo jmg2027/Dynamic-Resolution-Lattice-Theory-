@@ -196,11 +196,19 @@ Real213CutLatticeEq.lean — full substitution structure:
   distrib/idempotent — 8 theorems).
 - Commutative arithmetic at limit (cutSum_comm, cutMul_comm).
 
-### Phase G summary (LATEST — mixed-op distributivity)
+### Phase G summary (mixed-op distributivity)
 
 - cutDouble distributes over cutSum (universal).
 - cutDouble distributes over cutMid (composed).
 - cutSumAux_cutDouble (induction on iteration index).
+
+### Phase H summary (LATEST — Cauchy cutMid + const closed forms)
+
+- CauchyCutSeq.cutMid + cutMid_limit (7th lifted op).
+- constCauchy_cutSum_int / half closed forms.
+- constCauchy_cutMul_one_one closed form.
+- CauchyCutSeq.cutDouble_cutSum_limit (mixed-op distributivity at
+  Cauchy limit).
 
 ## 비 verified scaffolded
 
