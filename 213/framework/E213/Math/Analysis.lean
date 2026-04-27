@@ -60,6 +60,7 @@ import E213.Research.Real213FluxMVTApplications
 import E213.Research.Real213PhaseBHCapstone
 import E213.Research.Real213FluxMVTClosure
 import E213.Research.Real213FluxPassthroughClass
+import E213.Research.Real213FluxPassthroughCatalog
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
