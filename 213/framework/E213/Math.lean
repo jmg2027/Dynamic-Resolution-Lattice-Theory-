@@ -33,6 +33,7 @@ import E213.Research.Real213CutExp
 import E213.Research.Real213CutPoset
 import E213.Research.Real213AsLensOutput
 import E213.Research.Real213RecurrenceLens
+import E213.Research.Real213CutTrig
 
 /-!
 # E213.Math: 213-native real analysis library (root entry)
