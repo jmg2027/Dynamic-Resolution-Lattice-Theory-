@@ -49,4 +49,19 @@ theorem cutMid_zero_zero :
   show cutHalf (cutSum (constCut 0 1) (constCut 0 1)) = constCut 0 1
   rw [cutSum_zero_zero, cutHalf_zero]
 
+/-- 1/2 + 1/2 = 1 at (1, 1) — concrete decide. -/
+example : cutSum (constCut 1 2) (constCut 1 2) 1 1 = constCut 1 1 1 1 := by decide
+
+/-- 1/2 + 1/2 = 1 at (2, 2) — also true. -/
+example : cutSum (constCut 1 2) (constCut 1 2) 2 2 = constCut 1 1 2 2 := by decide
+
+/-- 1/3 + 2/3 = 1 — at (3, 3) precision suffices. -/
+example : cutSum (constCut 1 3) (constCut 2 3) 3 3 = true := by decide
+
+/-- 2 + 3 = 5 ≤ 5/1. -/
+example : cutSum (constCut 2 1) (constCut 3 1) 5 1 = true := by decide
+
+/-- 2 * 3 = 6, NOT ≤ 5/1. -/
+example : cutMul (constCut 2 1) (constCut 3 1) 5 1 = false := by decide
+
 end E213.Research.Real213CutSum
