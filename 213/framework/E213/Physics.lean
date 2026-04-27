@@ -42,6 +42,8 @@ import E213.Physics.PhysicsTrackComplete
 import E213.Physics.HiggsVacuum
 import E213.Physics.GoldenRatio
 import E213.Physics.FibonacciAtomic
+import E213.Physics.WZBosons
+import E213.Physics.ThetaQCD
 import E213.Physics.Capstone
 
 /-!
