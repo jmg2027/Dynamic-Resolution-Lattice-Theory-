@@ -8,6 +8,13 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase AB COMPLETE — cutPow ↔ polynomial chain unification
+
+- AB1: cutPowFnIsSmooth ↔ polynomial chain matching (degrees 1-4).
+- AB2: Riemann + cutPow integrand.
+- AB3: cutPowFnIsSmooth_universal capstone.
+- AB4: 16-Phase synthesis docs.
+
 ### Phase AA COMPLETE — Recursive cutPow + generic ResolutionDepth
 
 - AA1: Riemann at depth 0 explicit forms.

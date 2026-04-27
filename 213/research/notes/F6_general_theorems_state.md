@@ -399,6 +399,13 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase AB — 4 milestones COMPLETE (cutPow ↔ polynomial chain unification)
+
+**AB1: cutPowFnIsSmooth ↔ polynomial chain matching** (degrees 1-4).
+**AB2: Riemann + cutPow** (covered partially via AA1).
+**AB3: cutPowFnIsSmooth_universal capstone**.
+**AB4: 16-Phase synthesis docs.**
+
 ### Phase AA — 4 milestones COMPLETE (recursive cutPow + generic modulus)
 
 **AA1: Riemann at depth 0 explicit** (rfl form for const + id integrand).

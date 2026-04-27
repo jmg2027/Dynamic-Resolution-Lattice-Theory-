@@ -111,6 +111,15 @@ theorem allPhase_super_capstone (n a b m k : Nat) :
   · exact zero_plus_gap_below_zero_exact
   · exact alwaysFalseUnit_limit_eq_one_one m k
 
+/-- **AB3: cutPowFnIsSmooth universal generic capstone**.
+
+    Single theorem stating that for ANY natural n, cutPowFnIsSmooth n
+    exists with linearityModulus = n * k.  This subsumes ALL prior
+    polynomial chain capstones in one statement. -/
+theorem cutPowFnIsSmooth_universal (n k : Nat) :
+    (cutPowFnIsSmooth n).linearityModulus k = n * k :=
+  cutPowFnIsSmooth_modulus n k
+
 /-- **Phase S3: All IsSmooth instances bundle**.
 
     Single conjunctive existence theorem listing all IsSmooth
