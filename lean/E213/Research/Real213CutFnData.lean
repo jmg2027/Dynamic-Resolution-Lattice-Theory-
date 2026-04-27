@@ -1,0 +1,155 @@
+import E213.Research.Real213CutContinuity
+import E213.Research.Real213CutBisection
+import E213.Research.Real213CutMulDetermined
+import E213.Research.Real213CutPow
+
+/-!
+# Research.Real213CutFnData: data-bearing local determinedness
+
+`isLocallyDetermined` 의 *data* form — Bishop modulus 의 cut function
+counterpart.  Existence-only form 은 composition 시 Classical.choose
+요구.  Data form 은 axiom-free composition.
+
+## 정의
+
+```
+structure LocallyDeterminedData (f : CutFunction) where
+  N : Nat → Nat → Nat
+  prop : f's value at (m, k) determined by cx at ≤ N m k.
+```
+-/
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- **LocallyDeterminedData**: explicit modulus carried as data. -/
+structure LocallyDeterminedData (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
+  N : Nat → Nat → Nat
+  prop : ∀ m k, ∀ cx cy : Nat → Nat → Bool,
+    (∀ m' k', m' ≤ N m k → k' ≤ N m k → cx m' k' = cy m' k') →
+    f cx m k = f cy m k
+
+/-- Identity 의 LocallyDeterminedData. -/
+def idLDD : LocallyDeterminedData id where
+  N := fun m k => max m k
+  prop := by
+    intro m k cx cy h
+    exact h m k (Nat.le_max_left _ _) (Nat.le_max_right _ _)
+
+/-- Const 의 LocallyDeterminedData. -/
+def constLDD (c : Nat → Nat → Bool) : LocallyDeterminedData (constCutFn c) where
+  N := fun _ _ => 0
+  prop := fun _ _ _ _ _ => rfl
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- Max over j ∈ [0, K] of f i j. -/
+def maxRangeRow (f : Nat → Nat → Nat) (i : Nat) : Nat → Nat
+  | 0 => f i 0
+  | k+1 => max (f i (k+1)) (maxRangeRow f i k)
+
+/-- Max over (i, j) ∈ [0, M] × [0, K]. -/
+def maxRange (f : Nat → Nat → Nat) (M K : Nat) : Nat :=
+  match M with
+  | 0 => maxRangeRow f 0 K
+  | M+1 => max (maxRangeRow f (M+1) K) (maxRange f M K)
+
+/-- maxRangeRow 의 upper bound property. -/
+theorem maxRangeRow_ge (f : Nat → Nat → Nat) (i K j : Nat) (hj : j ≤ K) :
+    f i j ≤ maxRangeRow f i K := by
+  induction K with
+  | zero =>
+    have : j = 0 := Nat.le_zero.mp hj
+    subst this
+    exact Nat.le_refl _
+  | succ k ih =>
+    rcases Nat.eq_or_lt_of_le hj with heq | hlt
+    · subst heq
+      show f i (k+1) ≤ max (f i (k+1)) (maxRangeRow f i k)
+      exact Nat.le_max_left _ _
+    · have hjk : j ≤ k := Nat.lt_succ_iff.mp hlt
+      show f i j ≤ max (f i (k+1)) (maxRangeRow f i k)
+      exact Nat.le_trans (ih hjk) (Nat.le_max_right _ _)
+
+/-- maxRange 의 upper bound property. -/
+theorem maxRange_ge (f : Nat → Nat → Nat) (M K i j : Nat)
+    (hi : i ≤ M) (hj : j ≤ K) : f i j ≤ maxRange f M K := by
+  induction M with
+  | zero =>
+    have : i = 0 := Nat.le_zero.mp hi
+    subst this
+    show f 0 j ≤ maxRangeRow f 0 K
+    exact maxRangeRow_ge f 0 K j hj
+  | succ k ih =>
+    rcases Nat.eq_or_lt_of_le hi with heq | hlt
+    · subst heq
+      show f (k+1) j ≤ max (maxRangeRow f (k+1) K) (maxRange f k K)
+      exact Nat.le_trans (maxRangeRow_ge f (k+1) K j hj) (Nat.le_max_left _ _)
+    · have hik : i ≤ k := Nat.lt_succ_iff.mp hlt
+      show f i j ≤ max (maxRangeRow f (k+1) K) (maxRange f k K)
+      exact Nat.le_trans (ih hik) (Nat.le_max_right _ _)
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- **LDD composition closure**: f ∘ g LDD if f, g 모두 LDD. -/
+def composeLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (lf : LocallyDeterminedData f) (lg : LocallyDeterminedData g) :
+    LocallyDeterminedData (f ∘ g) where
+  N := fun m k => maxRange lg.N (lf.N m k) (lf.N m k)
+  prop := by
+    intro m k cx cy hagree
+    show f (g cx) m k = f (g cy) m k
+    apply lf.prop
+    intro m' k' hm' hk'
+    apply lg.prop
+    intro m'' k'' hm'' hk''
+    apply hagree
+    · exact Nat.le_trans hm''
+        (maxRange_ge lg.N (lf.N m k) (lf.N m k) m' k' hm' hk')
+    · exact Nat.le_trans hk''
+        (maxRange_ge lg.N (lf.N m k) (lf.N m k) m' k' hm' hk')
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- cutHalf 의 LocallyDeterminedData. -/
+def cutHalfLDD : LocallyDeterminedData cutHalf where
+  N := fun m k => max (2*m) k
+  prop := by
+    intro m k cx cy h
+    show cx (2*m) k = cy (2*m) k
+    exact h (2*m) k (Nat.le_max_left _ _) (Nat.le_max_right _ _)
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- cutScale a b 의 LocallyDeterminedData (via cutMul_locallyDetermined). -/
+def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where
+  N := fun m k => (m + 1) * (k + 1)
+  prop := by
+    intro m k cx cy h
+    show cutMul (constCut a b) cx m k = cutMul (constCut a b) cy m k
+    have hk_le : k ≤ (m + 1) * (k + 1) :=
+      Nat.le_trans (Nat.le_succ k)
+        (Nat.le_mul_of_pos_left _ (Nat.succ_pos _))
+    apply cutMulOuter_congr
+    · intro _ _; rfl
+    · intro m' hm'; exact h m' k hm' hk_le
+    · exact Nat.le_refl _
+
+end E213.Research.Real213CutSum

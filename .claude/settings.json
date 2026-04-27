@@ -19,6 +19,36 @@
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/chunk-guard.sh",
             "timeout": 10,
             "statusMessage": "Checking chunk size..."
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/purity-guard.sh",
+            "timeout": 10,
+            "statusMessage": "DRLT 213 purity check..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/no-amend.sh",
+            "timeout": 5,
+            "statusMessage": "Checking git amend/force..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/kernel-axiom-check.sh",
+            "timeout": 60,
+            "statusMessage": "Kernel axiom regression check..."
           }
         ]
       }

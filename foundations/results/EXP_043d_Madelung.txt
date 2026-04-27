@@ -1,6 +1,0 @@
-EXP_043d: Aufbau from Simplex Topology
-Score = 1/n² × (1 - l/3)^p, p = 0.6
-Madelung match: 14 orbitals
-
-DRLT filling: 1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d → 5p → 6s → 6p → 5d → 7s → 7p → 8s → 6d → 8p → 7d
-Madelung:     1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d → 5p → 6s → 4f → 5d → 6p → 7s → 5f → 6d → 7p → 8s

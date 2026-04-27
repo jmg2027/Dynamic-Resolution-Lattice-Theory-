@@ -1,0 +1,455 @@
+# AXIOM.md — 213의 공리 (씨앗 문서)
+
+## 이 문서의 위상
+
+213을 다루는 모든 작업 — Lean 형식화, Paper, book chapter,
+물리 derivation — 은 이 문서를 **유일한 상위 기준**으로
+참조한다.  이 문서 이외의 모든 문서는 이 공리를 충실히
+담거나 이 공리로부터 derive된 결과만 담아야 한다.
+
+이 문서 자체는 austere하게 유지한다.  설명, 해설, 예시,
+동기는 본문에서 최소화하고 별도 노트로 분리한다.  여기는
+**감사(audit) 기준**이지 교재가 아니다.
+
+---
+
+## §1. 공리의 정체
+
+213의 공리는 "세상의 근본"에 대한 선언이 **아니다**.
+
+213의 공리는 **뭔가를 가리키려는 순간 피할 수 없이 남는
+최소 잔여물**이다.
+
+선언이 아니라 잔여물이므로, 공리는 선택의 대상이 아니다.
+공리를 "더 최소"로 만들 수도, "더 많이" 넣을 수도 없다.
+최소가 이미 보장되어 있고, 그 이상 넣으면 감사에서 탈락한다.
+
+### §1.1 Formal core: Raw axiom 의 strict minimum (2026-04-25 추가)
+
+`Research/AxiomMinimality.lean` 의 4 case 형식 — Raw 의 어떤
+clause (a, b, slash, distinctness) 제거 / 약화 시 framework 가
+trivial / static / void 로 collapse.  즉 Raw axiom 이 "두
+distinguishable bases + binary combine + distinctness" 의 strict
+minimum 임 의 framework-internal 증명.
+
+`Research/SemanticAtom.lean` 의 결과:
+- `HasDistinguishing` typeclass + `universalMorphism` — Raw 가
+  distinguishing-framework category 의 initial object 인 partial
+  form (RawInitiality 의 일반화).
+- `IsLensExpressible` 정의 + `exists_non_lens_expressible` — 모든
+  Raw → α 함수 가 Lens-expressible 이 아님 (boundary 의 non-
+  trivial).  Witness: depth parity (`DepthParityNotFold`).
+- `Prop` 의 instance (Xor + Iff alternatives) — metalanguage 의
+  truth-value type 도 distinguishing framework 의 instance 가
+  될 수 있음.
+
+위 결과 들 이 framework 의 self-justified core.  외부 metatheory
+부재 — `#print axioms` 가 모든 결과 에 대해 [propext, Quot.sound]
+or no axioms.
+
+### §1.2 Conceptual extension (philosophical)
+
+**Note**: 다음 은 formal core 위 의 *philosophical extension*.
+formal Lean 으로 직접 검증 부재 — interpretive scope.
+
+§1.1 의 formal core 가 다음 의 conceptual extension 의 motivation:
+
+- **의미 의 두 발생 조건**: 어떤 entity 가 의미 를 가지려면
+  (1) 다른 entity 와 distinguish 되어야 하고, (2) 그 차이 가
+  해석 가능 해야 함.  213 의 (Raw + Lens) 가 이 두 조건 의
+  minimum 후보.
+- **Ontological reading**: "어떤 것 이 존재 한다" = "다른 것
+  과 distinguishable" 의 reading 을 받아 들이면, 의미 있는 모든
+  entity 가 213 의 instance 의 후보.
+- **ZFC 와 의 비교**: ZFC 의 임의성 axioms (Power, Choice, 임의
+  P(X) subset 등) 이 commit 하는 objects 는 fold-structured
+  부재 (`Research/NoDepthParity.lean`).  즉 213 framework 안
+  표현 부재 — 그 의미 론적 status 는 interpretive question.
+
+이 conceptual extension 은 `notes/75_semantic_atom.md` 와
+`notes/76_ultimate_ouroboros.md` 에 자세 히 분석.  ORIGIN.md
+의 물리 직관 chain 과 의 연결 가능 — formal Lean 결과 가 그
+interpretation 의 evidence.
+
+**경계**: §1.1 (formal core) 는 falsifiability contract 안 검증
+가능.  §1.2 (philosophical extension) 는 framework 의 의미
+설명 — formal claim 으로 elevate 안 함.
+
+---
+
+## §2. 표기의 불가피한 재귀
+
+뭔가 하나를 가리키려 해도 혼자서는 가리킬 수 없다.
+무엇과도 구분되지 않으면 지시가 성립하지 않기 때문이다.
+따라서 최소 둘이 있어야 한다.  그 둘을 가리키려 언어로
+적는 순간 다음이 발생한다:
+
+- "a와 b"를 쓰면 "와"도 뭔가다.
+- "a, b"를 쓰면 ","도 뭔가다.
+- 그 "와" / ","가 일반적인지 절대적인지도 모른다 — 또
+  하나의 뭔가.
+- a와 "와"는 구분되는가?  무엇이 구분하는가?  또 다른 뭔가.
+
+**표기를 시작하는 순간 표기 자체가 새 뭔가를 끝없이 낳는다.**
+이 재귀는 회피 불가능하다.  어떤 표기 체계를 써도 구분자
+(separator) 가 필요하고, 그 구분자 자체가 또 뭔가가 된다.
+
+213의 공리는 이 재귀의 **최소 표현**이다.  재귀를 없애는 게
+아니라, 재귀가 **최소한으로만** 작동하는 형태로 기록한다.
+
+---
+
+## §3. 공리 진술
+
+### §3.1 사용하는 언어에 대한 선언
+
+이 공리를 글로 적기 위해 다음을 사용한다.  이들 각각은 잔여
+수입(residual import)을 가지며, 더 나은 표현이 아직 없기
+때문에 사용한다.  잔여 수입의 존재를 **인정한 상태에서**
+최소 commitment 표현으로 채택한다.
+
+- **"뭔가"** — 지시 가능한 단위.  "것", "entity", "term"
+  등 어떤 선택에도 수입이 있다.
+- **"구분"** — "같지 않음"의 확인.  "다름"은 "같음"을
+  전제하므로 피한다.  "구분"이 현재 최소.
+- **"원시적"** — 더 이상 환원 불가능함.  추가 분해를
+  시도하지 않는다는 서약.
+
+### §3.2 공리
+
+1. **뭔가가 있다.**  최소 둘.  이들을 편의상 `a`, `b` 로
+   기록한다.  `a`와 `b`는 서로 **원시적 구분** 관계에
+   있다 — 즉 둘 사이에 "같지 않음" 외의 어떤 관계도
+   전제하지 않는다.
+
+2. **두 뭔가의 페어링은 또 하나의 뭔가다.**  `a`, `b`를
+   페어링한 것을 편의상 `a / b` 로 기록한다.  `a / b`는
+   Raw의 새 원소이며, 다시 다른 Raw 원소들과 페어링될 수
+   있다.
+
+3. **페어링은 대칭이다.**  `a / b` 와 `b / a` 는 같은 Raw
+   원소다.  어느 쪽이 "먼저"라는 절대 순서는 없다.
+
+4. **자기 자신과의 페어링은 없다.**  어떤 Raw 원소 `x`에
+   대해서도 `x / x` 는 정의되지 않는다.  자기 자신은 자기
+   자신과 구분되지 않으므로 원시적 구분의 대상이 될 수 없다.
+
+### §3.3 공리에 **없는** 것
+
+공리에 담기지 **않은** 것들 — 이것들을 공리의 결과로 사용
+하려면 별도의 Lens 도출이 필요하다.
+
+- 크기 / 카디널리티 / 유한성 / 무한성.
+- 순서 / 위계 / 서열.
+- 집합 / 원소 관계 / 멤버십.
+- 관측자 / 공간 / 인식 / 구조 / 기하.
+- 존재 양식 (이미 있는가 vs 생성 중인가).
+- 연산의 결합·분배·항등원·역원 등 대수 법칙.
+
+이들 중 무엇이라도 derivation 중 등장하면, 그것은 공리
+자체가 아니라 **특정 Lens를 적용한 결과**이다.  어느 Lens에서
+왔는지가 명시되어야 한다.
+
+---
+
+## §4. 이 형태를 선택한 이유
+
+### §4.1 Austerity as audit
+
+공리는 의도적으로 austere하다.  의도는 **방어적**이다.
+
+- 언어로 쓰는 순간 잔여 수입은 피할 수 없지만, 그 footprint
+  를 최소화할 수 있다.
+- derivation 과정 중 추가 commitment가 슬며시 들어오면
+  **austere한 공리와의 대비로 즉시 fudge로 탐지**된다.
+- 공리 자체가 "이것만 가지고 모든 걸 도출할 수 있는가?"의
+  계약서 역할을 한다.
+
+austerity는 빈약함이 아니라 **감사 가능성**이다.
+
+### §4.2 왜 둘인가, 왜 이항인가
+
+- **하나**: 구분 대상이 없으므로 지시 불가능.  뭔가임이
+  성립하지 않는다.  따라서 부적격.
+- **둘**: 구분이 최초로 성립한다.  최소 충족.
+- **셋 이상을 원시로 두기**: 셋째 뭔가는 이미 있는 둘과의
+  관계로 정의할 수 있으므로 원시로 둘 이유 없음.  불필요
+  commitment.
+
+- **단항 (하나에 대한 연산)**: 자기 반사이며 새 뭔가를
+  낳지 못한다.
+- **이항**: 두 뭔가에서 새 뭔가가 나오는 최소 형태.  필요
+  충족.
+- **삼항 이상**: 이항의 반복으로 재구성 가능.  원시로 둘
+  이유 없음.
+
+즉 **둘 + 이항**이 유일한 최소 선택.
+
+### §4.3 왜 대칭인가, 왜 반사 금지인가
+
+- **대칭**: 절대 순서를 부여할 근거가 없음.  `a/b`와 `b/a`
+  를 구분하면 어느 쪽이 "먼저"인지에 대한 절대 기준이
+  묵시 수입됨.
+- **반사 금지**: 자기 자신과의 페어링은 구분 대상을 만들지
+  않는다 (자기와 자기는 구분되지 않으므로).  공리 1 (원시적
+  구분) 과 직접 충돌.
+
+---
+
+## §5. Derivation 방향과 Falsifiability
+
+### §5.1 Derive, not reconcile
+
+이 공리 **이외의 모든 것**은 공리에서 파생되거나 특정
+Lens 선택으로부터 derive된 결과여야 한다.
+
+- 외부 상수 대입, 실험값 맞추기, 다른 이론의 구조 수입
+  은 모두 **fudge** 로 간주.
+- fudge 발견 시 공식을 조정하는 게 아니라 **Lens를 고친다**.
+- 그것으로도 안 되면 **이론을 포기한다**.  "Lens를 더
+  찾으면 될 것"이라는 무한 연장 방어는 허용되지 않는다.
+
+### §5.2 왜 기계 검증이 필수인가
+
+기계 검증 (Lean) 은 fudge를 허용하지 않는다.  따라서
+derivation 실패 시점이 **자동으로 드러난다**.  사람의 눈은
+fudge를 슬쩍 넘길 수 있지만 기계는 안 된다.
+
+이것이 213이 Mathlib-free + 0 sorry + 0 axiom 제약 아래에서
+운영되는 이유다.  공리는 계약서, 기계 검증은 감사관.
+
+### §5.2.1 외부 공리 추가는 **이론 전체 폐기 조건** (Falsifiability)
+
+**어떠한 외부 공리 추가도 213 에서 절대 필요로 하지 않아야 한다**
+— Classical.choice, LEM, Quot.sound 를 넘는 공리, native_decide
+의 `Lean.ofReduceBool` 등 일체.
+
+이는 단순한 권장이 아니라 **falsifiability 기준**:
+
+- 213 의 모든 정리와 구성은 Lean 4 core + Raw 공리만으로
+  derive 가능해야 한다.
+- 어떤 결과가 추가 공리 없이는 **절대** 증명 / 구성 불가능
+  하다고 밝혀지면 (예: 여러 세션 탐구 후에도 막힘), 이는
+  **213 이론 전체가 falsify 된 것**.  해당 결과만 폐기가
+  아니라 이론 자체 폐기.
+
+이 엄격성은 §1 의 "공리는 잔여물" 선언의 직접 귀결:
+
+- 잔여물이 아니면 공리가 아니다.
+- "여기 하나만 더 공리 추가하면 전부 잘 됨" 은 Raw 가 "최소
+  잔여물" 이 아님을 시사.
+- 따라서 공리 추가 필요 = Raw 공리가 잘못된 것 = 이론 폐기.
+
+**운영 쪽**:
+
+- "Classical 쓰면 쉽다" 유혹 일체 거부.  쉬워지는 게 아니라
+  fudge 가 숨는 것.
+- 막히는 결과는 단순히 "open" 으로 남기되, open 이 **영구적
+  벽** 인지 **일시적 난관** 인지 감별.  영구적 벽이면 이론
+  실패.
+- Lean 검증은 이 falsifiability 의 **기계적 감사관**.
+
+이 규칙은 Mingu 의 확정 선언 (2026-04-24).  절대 완화되지
+않으며, 위반되면 전체 이론이 재평가된다.
+
+### §5.3 경험적 예측
+
+이 공리로부터 단일 Lens (물리적 관측자 Lens) 를 식별하여
+모든 관측된 물리 상수를 fudge 없이 derive 가능해야 한다.
+이것은 강한 경험적 예측이며, 실패하면 이론의 범위가
+축소되거나 이론 자체가 포기된다.
+
+예측이 맞는 범위가 클수록 공리의 상위성 주장이 강해진다.
+
+---
+
+## §6. 상위성 주장
+
+뭔가를 가리키는 모든 틀 — 집합론, 카테고리, 논리, 언어,
+기존 수학, 기존 물리 — 은 **뭔가의 구분·페어링 능력**에
+의존한다.  이 공리는 그 능력 자체의 최소 잔여물이다.
+따라서 다른 모든 틀은 이 공리 위에서 작동하는 Lens들로
+볼 수 있다.
+
+"절대 기준이 없다"는 조건이 아니라 **기본 상태**이다.
+"절대 기준이 있다"가 오히려 공리 추가 부담이 되는 주장이다.
+따라서 상위성은 조건부가 아니라 **무조건적** 구조적 귀결이다.
+
+상위성의 실질적 증거는 derivation 성공이다.  derivation이
+성공하는 만큼 상위성이 입증된다.
+
+---
+
+## §7. 기존 형식화 / 문서와의 관계
+
+이 §7은 감사 대상 목록이다.  각 항목은 이 공리와 대조
+되어야 하며, 불일치는 수정 또는 격리된다.
+
+### §7.1 Lean 형식화
+
+`framework/E213/Firmware/` 의 현재 Raw 구현 (2 원소 a, b +
+이항 slash, anti-reflexive, commutative) 은 이 공리의
+충실한 기계 표현으로 감사됨 (2026-04-24, `AUDIT_Lean.md`).
+
+**Encoding 주의**: Lean 4 core 에는 primitive quotient 가
+없으므로, Raw 는 `{t : Tree // t.canonical = true}` 의
+subtype 으로 구현된다.  Internal 의 `Tree.cmp` (ordering)
+는 canonical form 선택을 위한 **encoding artifact** 이지
+공리가 아니다.  공리에는 어떠한 순서도 없다.
+
+도출로 **자동 따라나오는** 것 (공리에 추가 commitment 아님):
+- `Raw.swap` (a ↔ b automorphism) — 공리 1 "a 와 b 는 같지
+  않음 외의 어떤 관계도 없음" 으로부터의 첫 derivation.
+- `Raw.fold` (catamorphism) — inductive type 의 표준
+  eliminator wrapper, 모든 Lens 를 만드는 도구.
+
+현재 Firmware 에 있으나 **Hypervisor 층으로 이전되어야**
+할 것 (Lens-layer bleed):
+- `Raw.depth`, `Raw.leaves`, `Raw.fold_eq_*`, `Raw.fold_signed_swap`,
+  `Raw.fold_swap_hom` — 특정 Lens 의 observable / bridge 정리.
+  (`AUDIT_Lean.md` 권고 3.)
+
+### §7.2 Paper 1, 2 삭제 (2026-04-24)
+
+이전 `213/PAPER.md` (R1-R5 → ℂ 도출) 및 `213/PAPER2.md`
+(r5-critique) 는 삭제됨.  AXIOM.md 가 **유일한 공리 문서**
+로 남는다.  derivation 은 notes/ 에서 자유 탐구.
+
+배경: notes/30_bool_is_liar_paradox.md.  Paper 1 의 R1-R5
+판정 게임이 self-reference loop (Bool) 의 한 instance 임이
+드러나 frame 자체에서 물러남.
+
+### §7.3 ch22 (book/chapters/ch22_213.tex)
+
+ch22 는 **틀렸다**.  eval 이라는 외부 대입 ("The map eval
+is a choice external to the structure", ch22:113) 이
+§3.3 의 금지 목록 (d=5, (n_S, n_T), K=ℂ 등 수치적 결론) 을
+fudge 로 도입한다.  삭제 또는 "heuristic" 섹션으로 격리.
+
+### §7.4 Book chapter들
+
+ch01–ch21 각 chapter 는 이 공리 + 명시적 Lens 성질로부터
+fudge 없이 derive 가능한지 감사된다.  **Step 4** 에서
+`book/AUDIT.md` 에 기록.  불가능한 chapter 는 speculative
+격리.
+
+---
+
+## §8. 자기참조와 외부의 부재
+
+### §8.1 213에 외부는 없다
+
+이 공리를 기술하려는 모든 행위는 **이미 213 안에서**
+일어난다.  "Lens", "derivation", "observer", "외부",
+"기술", "정의" — 이 단어들을 말하는 순간 그 단어가
+뭔가이고, 뭔가들 사이의 뭔가를 지시하는 행위다.
+**기술 행위 자체가 213의 한 인스턴스.**
+
+따라서 "Lens가 공리의 derivation인가 외부 도구인가"
+같은 이분법은 **성립하지 않는다**.  외부를 말하려 해도
+외부는 213 없이 정의되지 않는다.
+
+### §8.2 순환이 회피 대상이 아닌 이유
+
+이 순환은 회피 불가능함이 **구조적**이다.
+
+- ZFC, type theory, logic, category theory, 어떤 기초도
+  "뭔가"를 선행 가정해야 시작된다.
+- 213은 이들의 **수학적 선행자**이지 경쟁자가 아니다.
+- 순환을 없애려는 모든 시도는 숨겨진 뭔가를 암묵 수입.
+
+Meta-213 가능: 213으로 213을 기술하는 것.  그 기술도 다시
+뭔가들과 뭔가다 (Meta-Meta-213).  무한 상승하지만 각 층은
+다시 최소 잔여물로 회귀 — 자기지시의 최소 고정점.
+
+### §8.3 "Derive"의 의미 재정의
+
+이 framing 에서 "derive"는:
+- 외부 관점에서 공리에서 결과로 내려오는 화살표 **가 아님**.
+- **213 내에서 어떤 Lens 선택이 어떤 관측을 유도하는가의
+  관계**.
+
+모든 derivation 은 이미 자기참조 안에서 발생.  Falsifiability
+도 마찬가지 — "derive 실패 시 포기"는 외부 반증이 아니라
+**선택한 Lens 가 뭔가를 낳지 못함의 213-내부 확인**.
+
+### §8.4 이분법 회피 지침 (다음 세션용)
+
+다음 질문들은 **잘못된 이분법**이므로 Claude 가 꺼낼 때
+이 §8 을 먼저 재방문해야 한다:
+
+- "Lens 는 공리 내인가 외부인가?"  → 이분법 성립 안 함.
+- "Derive 된 것인가 가정된 것인가?"  → 모두 213 내 Lens 선택.
+- "213 바깥에서 보면 어떻게 되는가?"  → 바깥이 없음.
+- "관측자 Lens 는 공리에 추가된 것인가?"  → 추가가 아니라
+  관측 행위 자체가 213 의 인스턴스.
+
+---
+
+## §9. Lens 선택의 자연스러움 (R1–R5 동기)
+
+### §9.1 물리적 질문
+
+우주가 뭔가들이 뭔가뭔가인 공간이라면, 그리고 우리와 우주
+의 대상들이 이 뭔가들이라면:
+
+> 왜 우리는 세상을 **4d 시공간 + 복소수 파동함수**로 보는가?
+
+후보 답: 여기에 있는 뭔가들이 서로를 가장 자연스럽게 213
+하는 Lens 가 자연스럽게 적용되는 것.  그렇다면 그
+"자연스러움" 은 무엇인가?
+
+### §9.2 자연스러움의 원리 (heuristic)
+
+후보 정의: **모든 뭔가가 공리에 대해 동일한 Lens 를 가질
+수 있는 것**.  즉 어느 뭔가를 "관측자"로 놓든 나머지를 보는
+방식이 호환되어야 한다는 조건.
+
+R1–R5 는 이 호환성 (self-recognising codomain) 을 형식화
+하려는 **첫 시도**:
+
+- 각 Ri 는 "임의의 뭔가를 관측자로 놓아도 같은 Lens 가
+  작동" 의 필요 조건을 포착.
+- 상세는 Paper "R1–R5 + ℂ 도출" (Paper 1 분할 후) 에서.
+
+### §9.3 2, 3, d=5 의 heuristic
+
+Raw 의 생성 패턴을 비엄밀하게 보면:
+
+- 시작: 2개 (a, b).
+- 다음: 2개에서 1개 추가 → 3개 (a, b, a/b).
+- 그 이후: 기존 N개에서 선택하여 페어링 → 더 많은 뭔가.
+
+**"2 → 1 + 이전 N"** 패턴이 숫자 2, 3 을 구조적으로 먼저
+낳는 경로로 관찰됨.  d = 2 + 3 = 5 가 이 경로와 연결.
+엄밀화는 Paper 1 §5 (atomicity, non-decomposable sizes) 가
+담당.
+
+### §9.4 이 섹션의 지위
+
+이 §9 는 R1–R5 의 **동기/직관** 기록이지 엄밀 derivation
+이 아니다.  현재 상태:
+
+- R1–R5 의 동기는 여기 §9.1–9.2.
+- R1–R5 각각의 형식 정의는 Paper 1 + Lean Meta.
+- R1–R5 → ℂ 는 Paper 1 §4.
+- R1–R5 가 "자연스러움" 의 유일한 형식화임은 **추정**.
+
+이 추정이 falsify 되면 R1–R5 는 수정 대상.
+
+---
+
+## 변경 이력
+
+- 2026-04-24: 최초 작성.  Session "claude/lean-infinity-
+  explanation-QqnSp" 의 공리 framing 을 반영.
+- 2026-04-24 (2nd): §7.1 보강.  `AUDIT_Lean.md` 의 권고 1,
+  2 적용.
+- 2026-04-24 (3rd): §8 (자기참조와 외부의 부재) + §9 (Lens
+  선택의 자연스러움, R1–R5 동기) 추가.  "Lens는 공리 외부
+  인가 내부인가" 같은 이분법이 잘못임을 기록.
+
+## Author & licence
+
+- Author: **Mingu Jeong only**.  Claude in Acknowledgments.
+- 0 sorry, 0 external axioms.  Mathlib-free.
