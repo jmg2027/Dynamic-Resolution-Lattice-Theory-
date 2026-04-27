@@ -71,3 +71,20 @@ lake build E213
 - Mingu Jeong (Independent Researcher)
 - Claude (Anthropic): formalization, Acknowledgments
 - 0 sorry, 0 external axioms
+
+## License
+
+This is a **research repository, not an open-source library**.
+사용 전 라이선스 반드시 확인.
+
+| 영역 | 라이선스 | 의미 |
+|---|---|---|
+| `lean/`, `tools/`, `.claude/` (코드) | **PolyForm Noncommercial 1.0.0** | 학술/비영리 사용·수정 자유, 상업 사용 *금지* |
+| `book/`, `papers/`, `blueprints/`, `seed/`, `catalogs/`, `books/`, `research-notes/` (산문) | **CC BY-NC-ND 4.0** | 출처 표시 + 비상업 + *2차 저작물 금지* |
+
+상세: [`LICENSE`](LICENSE) (코드) · [`LICENSE-DOCS`](LICENSE-DOCS) (산문)
+
+학술 인용·연구 재현·교육 용도 환영.  상업 fork / 제품화 / 무단
+번역 / 무단 변형은 금지.
+
+Copyright © 2026 Mingu Jeong.

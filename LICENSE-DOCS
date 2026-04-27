@@ -1,0 +1,56 @@
+# Documentation License — CC BY-NC-ND 4.0
+
+The *prose / theory documents* of this repository are licensed
+under the **Creative Commons Attribution-NonCommercial-NoDerivatives
+4.0 International License** (CC BY-NC-ND 4.0).
+
+  Full text: https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+  Summary:   https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+## Scope
+
+This license covers:
+  - book/                  (THE BOOK)
+  - papers/                (arXiv standalone .tex)
+  - blueprints/            (math + physics + meta blueprints)
+  - books/                 (math/, physics/ field-specific books)
+  - seed/                  (axioms, philosophy, falsifiability)
+  - catalogs/              (lookup tables)
+  - research-notes/        (historical drafts)
+  - HANDOFF.md, README.md  (top-level docs)
+
+## Summary of terms
+
+You may:
+  ✅ Share — copy and redistribute in any medium or format
+  ✅ Cite — academic citations are fully supported (BY)
+
+You may not:
+  ❌ Use commercially  (NC)
+  ❌ Distribute modified versions, translations, or adaptations  (ND)
+  ❌ Remove attribution to "Mingu Jeong"  (BY)
+
+## Attribution
+
+You must give appropriate credit, provide a link to the license,
+and indicate if changes were made.  Suggested form:
+
+  Mingu Jeong, "Dynamic Resolution Lattice Theory", 2026.
+  https://github.com/jmg2027/Dynamic-Resolution-Lattice-Theory-
+  Licensed CC BY-NC-ND 4.0.
+
+## Note on academic use
+
+Standard academic citation, fair-use quotation, and
+reproduction of small excerpts for criticism, comment,
+review, teaching, scholarship, or research are not affected by
+the ND clause — these fall under fair use / fair dealing.
+
+## Note on code vs prose
+
+For the *code* (Lean formalization, Python tools, hooks)
+see LICENSE (PolyForm Noncommercial 1.0.0).
+
+---
+
+Copyright (c) 2026 Mingu Jeong.
