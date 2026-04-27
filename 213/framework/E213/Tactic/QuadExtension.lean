@@ -1,5 +1,5 @@
 import Lean
-import E213.Research.ZSqrtInstance
+import E213.Research.CayleyDickson.ZSqrtInstance
 
 /-!
 # Tactic: `quad_extension D` — parametric `ℤ[√-D]` one-liner
