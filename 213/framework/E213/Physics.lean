@@ -41,6 +41,7 @@ import E213.Physics.AtomicScreening
 import E213.Physics.PhysicsTrackComplete
 import E213.Physics.HiggsVacuum
 import E213.Physics.GoldenRatio
+import E213.Physics.FibonacciAtomic
 import E213.Physics.Capstone
 
 /-!
