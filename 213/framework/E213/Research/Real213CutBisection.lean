@@ -42,4 +42,25 @@ example : cutMid (constCut 0 1) (constCut 2 1) 1 1 = true := by decide
 /-- cutHalf 의 idempotent-on-zero: 0/2 = 0. -/
 example : cutHalf (constCut 0 1) 0 1 = true := by decide
 
+/-- midpoint(1, 1) = 1 ≤ 1/1. -/
+example : cutMid (constCut 1 1) (constCut 1 1) 1 1 = true := by decide
+
+/-- midpoint(1, 1) = 1, NOT ≤ 0/1. -/
+example : cutMid (constCut 1 1) (constCut 1 1) 0 1 = false := by decide
+
+/-- midpoint(0, 4) = 2 ≤ 2/1. -/
+example : cutMid (constCut 0 1) (constCut 4 1) 2 1 = true := by decide
+
+/-- midpoint(0, 4) = 2, NOT ≤ 1/1. -/
+example : cutMid (constCut 0 1) (constCut 4 1) 1 1 = false := by decide
+
+/-- midpoint of equal cuts: cutMid c c uses cutHalf (cutSum c c). -/
+theorem cutMid_def (cx cy : Nat → Nat → Bool) :
+    cutMid cx cy = cutHalf (cutSum cx cy) := rfl
+
+/-- cutHalf monotone in c. -/
+theorem cutHalf_mono (c c' : Nat → Nat → Bool)
+    (h : ∀ m' k', c m' k' = true → c' m' k' = true) (m k : Nat) :
+    cutHalf c m k = true → cutHalf c' m k = true := fun hmk => h (2*m) k hmk
+
 end E213.Research.Real213CutSum
