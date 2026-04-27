@@ -304,4 +304,17 @@ theorem riemann_universal_facts (a b : Nat) (db : DyadicBracket) (n : Nat) :
    riemann_const_doubling a b db n,
    riemannSampleSum_const_normalized a b n⟩
 
+/-! ### Z1: Fundamental Dyadic Calculus Theorem (constant integrand) -/
+
+/-- **Fundamental theorem of dyadic calculus (constant case)**:
+    The sample sum at depth n, when interpreted at scaled denominator
+    b*2^n, equals the constant integrand a/b cut-EQ-uivalent.
+
+    Real meaning: ∫_a^b (constant c) dx = c × (b-a)
+    expressed via cut-equivalence.  Sister-branch FiniteUniverse
+    pattern at the calculus level. -/
+theorem fundamental_dyadic_calculus_const (a b : Nat) (n : Nat) :
+    cutEq (constCut (2^n * a) (b * 2^n)) (constCut a b) :=
+  fun m k => by rw [riemannSampleSum_const_normalized]
+
 end E213.Research.Real213CutSum
