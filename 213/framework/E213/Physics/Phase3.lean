@@ -40,6 +40,8 @@ import E213.Physics.Phase3.Translation.GRTheorems
 import E213.Physics.Phase3.Translation.EquationsAtomic
 import E213.Physics.Phase3.Translation.CondensedMatter
 import E213.Physics.Phase3.Translation.StatMech
+import E213.Physics.Phase3.Translation.Optics
+import E213.Physics.Phase3.Translation.Information
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 
