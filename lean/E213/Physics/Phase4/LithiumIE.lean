@@ -4,7 +4,7 @@ import E213.Physics.AtomicScreening
 /-!
 # Phase 4 LithiumIE — Li IE atomic chain
 
-## 표준 공식
+## Standard formula
 
   IE(Li) = R · Z_eff² / n²
 

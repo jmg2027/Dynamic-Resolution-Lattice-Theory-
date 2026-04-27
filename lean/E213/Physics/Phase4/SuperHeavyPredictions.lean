@@ -1,35 +1,35 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 4 SuperHeavyPredictions — Period 8+ atomic 예측
+# Phase 4 SuperHeavyPredictions — Period 8+ atomic predictions
 
-★ User insight 적용 ★
-모든 period closure 가 atomic primitives.
-Super-heavy elements (Z > 118) 의 *예측* 가능.
+★ Applying user insight ★
+All period closures are atomic primitives.
+*Predictions* for super-heavy elements (Z > 118) are possible.
 
-## Period 8 + 9 (Z = 119-218 범위)
+## Period 8 + 9 (Z = 119-218 range)
 
   Period 8 size = 50 = 2·d² atomic
   Period 8 closure: Z = 118 + 50 = 168 = HO magic 7 atomic ★
 
   HO magic n=7: n(n+1)(n+2)/3 = 7·8·9/3 = 168
-  → 7번째 nuclear magic number 와 atomic 일치 (Phase 1 MagicNumbers)
+  → atomic match with the 7th nuclear magic number (Phase 1 MagicNumbers)
 
   Period 9 size = 50 (paired)
   Period 9 closure: 168 + 50 = 218
 
-## 핵·전자 magic numbers atomic identity
+## Nuclear and electron magic numbers atomic identity
 
   Nuclear magic: 2, 8, 20, 28, 50, 82, 126
   Electron shell closures (period): 2, 10, 18, 36, 54, 86, 118
 
-  ★ 두 series 모두 atomic primitives ★
+  ★ Both series are atomic primitives ★
 
-## 예측 (DRLT falsifier 형식)
+## Prediction (DRLT falsifier form)
 
   Z=168 super-heavy = stability island candidate.
   Atomic form: HO magic 7 = 7·8·9/3.
-  관측 시 (~2050s 기술): DRLT 검증.
+  When observed (~2050s technology): DRLT verification.
 -/
 
 namespace E213.Physics.Phase4.SuperHeavyPredictions

@@ -3,7 +3,7 @@ import E213.Physics.SimplexCounts
 /-!
 # Period 6 (Z=55~86) — Cs ~ Rn atomic catalog
 
-32 원소 (lanthanides 58-71 포함).
+32 elements (including lanthanides 58-71).
 
 ## Z atomic clean cases
 

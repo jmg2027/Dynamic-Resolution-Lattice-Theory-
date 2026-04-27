@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Quantum Gravity Library — 양자중력 atomic catalog
+# Quantum Gravity Library — quantum gravity atomic catalog
 
 ## Catalog
 

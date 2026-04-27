@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Topology Library — 위상 invariant atomic catalog
+# Topology Library — topological invariant atomic catalog
 
 ## Δ⁴ topological invariants
 
@@ -21,7 +21,7 @@ namespace E213.Physics.Phase4.Library.TopologyLibrary
 
 open E213.Physics.Simplex
 
-/-- Δ⁴ Euler characteristic = 1 (Nat 산술 reorder: 16 - 15 = 1). -/
+/-- Δ⁴ Euler characteristic = 1 (Nat arithmetic reorder: 16 - 15 = 1). -/
 theorem euler_chi_1 : (5 + 10 + 1) - (10 + 5) = 1 := by decide
 
 /-- K_{NS,NT}^(c) cycle space dim = NS² - 1 = 8. -/

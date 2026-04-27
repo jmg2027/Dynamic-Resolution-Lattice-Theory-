@@ -2,26 +2,26 @@ import E213.Physics.Phase2.Existence
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 4 PureLens213 — 표준 물리 차용 없이 IE 구성
+# Phase 4 PureLens213 — IE construction without borrowing standard physics
 
 ★ User directive ★
-"다른 수학과 물리를 모르는 상태에서 오직 213 (Raw and Lens) 만으로"
+"Using only 213 (Raw and Lens), starting from zero knowledge of other math and physics"
 
-표준 차용 없이 atomic primitives 와 Lens output 만으로 IE 정의.
+IE defined using only atomic primitives and Lens output, without any standard borrowing.
 
-## Pure 213 구성
+## Pure 213 construction
 
-Raw 의 Vertex (= Fin 5).
-ElectronConfig := Vertex → Nat  (각 vertex 의 electron count).
+Vertex of Raw (= Fin 5).
+ElectronConfig := Vertex → Nat  (electron count at each vertex).
 Z := total = sum over vertices.
 
 Period structure:
   Period 1 closes at Z = NT = 2.
   Period 2 closes at Z = d·NT = 10.
   Period 3 closes at Z = 2·NS² = 18.
-  Period 4 closes at Z = ? atomic (예측).
+  Period 4 closes at Z = ? atomic (prediction).
 
-각 period 의 마지막 element 가 *closed* configuration.
+The last element of each period is a *closed* configuration.
 Closed → atomic invariant.
 
 ## IE Lens
@@ -29,8 +29,8 @@ Closed → atomic invariant.
   IE_Lens : ElectronConfig → ℚ
   IE_Lens (config Z) - IE_Lens (config Z+1) = IE(Z)
 
-표준 QM 식 차용 없이 *형식 정의* — 실제 수치는 atomic Lens 의
-fold sum 으로 도출.
+*Formal definition* without borrowing standard QM formulas — actual values
+derived as fold sums of atomic Lens.
 -/
 
 namespace E213.Physics.Phase4.PureLens213
@@ -38,7 +38,7 @@ namespace E213.Physics.Phase4.PureLens213
 open E213.Physics.Simplex
 open E213.Physics.Phase2.Existence
 
-/-- ElectronConfig: 각 vertex (Fin 5) 의 electron count. -/
+/-- ElectronConfig: electron count at each vertex (Fin 5). -/
 def ElectronConfig := Vertex → Nat
 
 /-- Z = total electrons. -/
@@ -66,7 +66,7 @@ theorem period_2_close : d * NT = 10 := by decide
 theorem period_3_close : 2 * NS * NS = 18 := by decide
 
 /-- ★ Pure 213 IE construction marker ★
-    표준 quantum number 부재.  atomic primitives + Lens 만. -/
+    No standard quantum numbers.  Atomic primitives + Lens only. -/
 theorem pure_lens_atomic :
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
     ∧ (NT = 2)              -- Period 1

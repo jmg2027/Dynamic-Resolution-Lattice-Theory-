@@ -11,7 +11,7 @@ import E213.Physics.SimplexCounts
   δ_CP            = 180 + 360/(d²-1) = 195°
   m₃/m₂           ≈ 5.71 (Phase 3 derivation, +0.04%)
 
-## Atomic 정수
+## Atomic integers
 
   θ₁₂ denom = NS
   θ₂₃ denom = NT

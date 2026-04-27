@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# QFT Library — 양자장론 atomic catalog
+# QFT Library — quantum field theory atomic catalog
 
 ## Catalog
 

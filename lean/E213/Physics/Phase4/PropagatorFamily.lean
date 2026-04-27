@@ -3,7 +3,7 @@ import E213.Physics.SimplexCounts
 /-!
 # Phase 4 PropagatorFamily — P(x/k) atomic family
 
-★ Pattern 발견 ★
+★ Pattern discovered ★
 Each atom IE correction: IE(Z) = R·Z_eff²/n² · P(x/k_Z)
 
   x = α_GUT · NS/d = 18/(125·π²) atomic
@@ -12,7 +12,7 @@ Each atom IE correction: IE(Z) = R·Z_eff²/n² · P(x/k_Z)
   Li (1s² 2s¹): k=1, P(x) → 113 ppm
   Be (1s² 2s²): k=NT=2, P(x/2) → ~500 ppm
 
-각 P(x/k) atomic Lens output.
+Each P(x/k) is an atomic Lens output.
 -/
 
 namespace E213.Physics.Phase4.PropagatorFamily
