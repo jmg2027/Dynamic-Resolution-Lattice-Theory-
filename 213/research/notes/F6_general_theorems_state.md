@@ -59,7 +59,7 @@
 - `geomHalfSeries`, `expCutPartial`, `sinPartial`, `cosPartial`,
   `leibnizPiPartial`.
 
-### Cauchy completeness — closed under cut ops (NEW Phase F)
+### Cauchy completeness — closed under cut ops (Phase F)
 
 CauchyCutSeq closed under SIX cut operations, each with a limit
 theorem proving the limit operation commutes:
@@ -71,9 +71,24 @@ theorem proving the limit operation commutes:
 - `CauchyCutSeq.cutSum` / `cutSum_limit` (uses maxModulus + cutSumAux_congr).
 - `CauchyCutSeq.cutMul` / `cutMul_limit` (uses maxNAt + cutMulOuter_congr).
 
-Plus corollaries:
-- `cutMax_self_limit`, `cutMin_self_limit` (idempotent at limit).
-- `cutDouble_cutHalf_comm_limit` (commute at limit).
+Cauchy lattice structure at limit:
+- `cutMax_self_limit`, `cutMin_self_limit` (idempotent).
+- `cutMax_comm_limit`, `cutMin_comm_limit`.
+- `cutMax_assoc_limit`, `cutMin_assoc_limit`.
+- `cutMax_distrib_cutMin_limit`, `cutMin_distrib_cutMax_limit`.
+
+Cauchy ring-like at limit:
+- `cutSum_comm_limit`, `cutMul_comm_limit`.
+
+Plus `cutDouble_cutHalf_comm_limit`.
+
+### cutDouble distributive (Phase G)
+
+- `cutDouble_cutSum` : cutDouble (cutSum cx cy) = cutSum (cutDouble cx) (cutDouble cy).
+- `cutDouble_cutMid` : 2 * midpoint = midpoint of doubles.
+- `cutSumAux_cutDouble` (helper).
+
+These are the FIRST cut-level mixed-op distributivity theorems.
 
 ### IVT structural + cutEq compat + Cut poset
 
@@ -170,13 +185,22 @@ Real213CutLatticeEq.lean — full substitution structure:
 - cutSum_assoc on integer/half constants.
 - partialSum closed forms (inductive).
 
-### Phase F summary (LATEST — Cauchy completeness)
+### Phase F summary (Cauchy completeness)
 
 - CauchyCutSeq closed under cutMax, cutMin, cutDouble, cutHalf,
   cutSum, cutMul (6 lifted ops).
 - Each comes with a limit-commutation theorem.
 - Helpers: maxModulus / maxNAt for finite-range modulus computation.
 - Corollaries: idempotent at limit, double-half commute at limit.
+- Bounded distributive lattice structure at limit (comm/assoc/
+  distrib/idempotent — 8 theorems).
+- Commutative arithmetic at limit (cutSum_comm, cutMul_comm).
+
+### Phase G summary (LATEST — mixed-op distributivity)
+
+- cutDouble distributes over cutSum (universal).
+- cutDouble distributes over cutMid (composed).
+- cutSumAux_cutDouble (induction on iteration index).
 
 ## 비 verified scaffolded
 
