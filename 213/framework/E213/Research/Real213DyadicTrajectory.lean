@@ -328,6 +328,31 @@ def ConsistentOracle.alwaysFalseUnit : ConsistentOracle unitBracket where
         exact Nat.le_trans h_le_2pow (Nat.mul_le_mul_left _ hkm)
       rw [decide_eq_true h1_true, decide_eq_true h2_true]
 
+/-! ### Limit values of canonical ConsistentOracles -/
+
+/-- Limit of alwaysTrueUnit's CauchyCutSeq at (m, k):
+    decide(k ≤ 2^(k+1) * m).  Represents the "0+ cut". -/
+theorem alwaysTrueUnit_limit_value (m k : Nat) :
+    (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit m k
+    = decide (k ≤ 2^(k+1) * m) := by
+  show (DyadicBracket.bisectN alwaysTrue k unitBracket).midCut m k
+       = decide (k ≤ 2^(k+1) * m)
+  rw [alwaysTrue_unit_midCut k]
+  show decide (1 * k ≤ 2^(k+1) * m) = decide (k ≤ 2^(k+1) * m)
+  rw [Nat.one_mul]
+
+/-- Limit of alwaysFalseUnit's CauchyCutSeq at (m, k):
+    decide((2^(k+1) - 1) * k ≤ 2^(k+1) * m).  Represents the "1- cut". -/
+theorem alwaysFalseUnit_limit_value (m k : Nat) :
+    (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit m k
+    = decide ((2^(k+1) - 1) * k ≤ 2^(k+1) * m) := by
+  show (DyadicBracket.bisectN alwaysFalse k unitBracket).midCut m k
+       = decide ((2^(k+1) - 1) * k ≤ 2^(k+1) * m)
+  rw [alwaysFalse_unit_midCut k]
+  show dyadicCut (2^(k+1) - 1) (k+1) m k
+     = decide ((2^(k+1) - 1) * k ≤ 2^(k+1) * m)
+  rfl
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
