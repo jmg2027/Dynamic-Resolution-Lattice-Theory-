@@ -12,6 +12,7 @@ import E213.Physics.FiniteUniverse
 import E213.Physics.WhyBasel
 import E213.Physics.NeffDerivation
 import E213.Physics.AlphaEMTight
+import E213.Physics.AlphaEM137
 import E213.Physics.Capstone
 
 /-!
