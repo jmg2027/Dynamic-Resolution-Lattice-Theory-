@@ -44,6 +44,19 @@ def riemannSumStep (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
   let _ := b
   riemannSumOnSamples f (constSamples a) n
 
+/-- riemannSumOnSamples unfolding at 0 (rfl). -/
+theorem riemannSumOnSamples_zero
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (xs : Nat → (Nat → Nat → Bool)) :
+    riemannSumOnSamples f xs 0 = constCut 0 1 := rfl
+
+/-- riemannSumOnSamples unfolding at n+1 (rfl). -/
+theorem riemannSumOnSamples_succ
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (xs : Nat → (Nat → Nat → Bool)) (n : Nat) :
+    riemannSumOnSamples f xs (n+1)
+    = cutSum (riemannSumOnSamples f xs n) (f (xs n)) := rfl
+
 /-- **Riemann integral data** (carries n + sum + modulus). -/
 structure RiemannIntegralData
     (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
