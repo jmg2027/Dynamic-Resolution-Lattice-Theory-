@@ -7,6 +7,19 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### Phase CN-CS (fd2faae → ★) — **IsAntiderivative 클래스 + 통합 framework** ★★
+
+미적분학의 적분 측면 — antiderivative class + integral via flux.
+
+- **CN**: `IsAntiderivative` 클래스 정의 + atomic instances (id, const)
+- **CO**: 조합자 (mid_anti, add_anti)
+- **CP**: structural fromDifferentiable (모든 IsDiff → IsAnti)
+- **CQ**: `integral` via 안티미분 + FTC propEq form
+- **CR**: ClassicCalc → IsAntiderivative + `integralCC`
+- **CS**: 8-fact arc capstone
+
+★ 213-native FTC: ∫_a^b f dx = F(b) - F(a) → `fluxAlong F db` (= `integralCC cc db` if cc is ClassicCalc)
+
 ### Phase CH-CM (329f0db → ★) — **propagation 정리 + 최종 capstone** ★★★
 
 - **CH/CI**: derivative computation showcase (decide-checked, ML 응용)
