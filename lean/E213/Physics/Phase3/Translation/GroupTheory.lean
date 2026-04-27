@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: Lie 대수·군표현 → DRLT atomic
+# Translation: Lie algebra and group representations → DRLT atomic
 
   1. Lie group dim: SU(N) = N²-1 atomic
   2. Cartan subalgebra rank: SU(N) rank = N-1

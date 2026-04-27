@@ -1,9 +1,9 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Atomic Mass Library — 원자량 atomic chain
+# Atomic Mass Library — atomic mass atomic chain
 
-표준 차용 부재.  Atomic primitives 만.
+No standard borrowing.  Atomic primitives only.
 
 ## Methodology
 
@@ -14,7 +14,7 @@ import E213.Physics.SimplexCounts
   α_3 = 1/8 atomic
   k(Z) = atomic ratio (binding shape)
 
-## CODATA 원자량 (amu)
+## CODATA atomic masses (amu)
 
   H   1.00794
   He  4.00260
@@ -23,10 +23,10 @@ import E213.Physics.SimplexCounts
   Fe 55.84500
   ...
 
-## 첫 atomic 검증
+## First atomic verification
 
-  H/He 비: 4.0026/1.00794 = 3.9712 ≈ NT² = 4 atomic
-  → 정확히 NT² 가까움 (binding 보정 후 ppm).
+  H/He ratio: 4.0026/1.00794 = 3.9712 ≈ NT² = 4 atomic
+  → exactly close to NT² (ppm after binding correction).
 -/
 
 namespace E213.Physics.Phase4.Library.AtomicMassLibrary

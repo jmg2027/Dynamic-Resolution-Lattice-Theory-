@@ -1,22 +1,22 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 4 PeriodClosures — *모든 period closure atomic*
+# Phase 4 PeriodClosures — *all period closures atomic*
 
-★ User insight ★ "Lens 만으로 period 가 닫히는 atomic 수"
+★ User insight ★ "The atomic numbers at which periods close using only the Lens"
 
-  Period 1 닫힘: He   Z=2  = NT
-  Period 2 닫힘: Ne   Z=10 = d·NT
-  Period 3 닫힘: Ar   Z=18 = 2·NS²
-  Period 4 닫힘: Kr   Z=36 = (NS·NT)² ★
-  Period 5 닫힘: Xe   Z=54 = 2·NS³
-  Period 6 닫힘: Rn   Z=86 = 2·NS³ + NT^d
-  Period 7 닫힘: Og   Z=118 = ?
+  Period 1 closure: He   Z=2  = NT
+  Period 2 closure: Ne   Z=10 = d·NT
+  Period 3 closure: Ar   Z=18 = 2·NS²
+  Period 4 closure: Kr   Z=36 = (NS·NT)² ★
+  Period 5 closure: Xe   Z=54 = 2·NS³
+  Period 6 closure: Rn   Z=86 = 2·NS³ + NT^d
+  Period 7 closure: Og   Z=118 = ?
 
-각 closure 가 *atomic primitives 짧은 표현*.
+Each closure is a *short expression in atomic primitives*.
 "closed shell" = atomic invariant.
 
-NS·NT = 6 (Phase 3 SixEverywhere) 가 Kr 자체.
+NS·NT = 6 (Phase 3 SixEverywhere) is Kr itself.
 
 ## Pattern
 

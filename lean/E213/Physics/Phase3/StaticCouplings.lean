@@ -72,7 +72,7 @@ namespace E213.Physics.Phase3.StaticCouplings
 
 open E213.Physics.Simplex
 
-/-- d² 분해: d² = NS² + 2·NS·NT + NT². -/
+/-- d² decomposition: d² = NS² + 2·NS·NT + NT². -/
 theorem d_squared_decomp : d * d = NS * NS + 2 * NS * NT + NT * NT := by
   decide
 

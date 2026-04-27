@@ -46,7 +46,7 @@ theorem no_sixth_slot : binom NS 6 = 0 := by decide
     DRLT gives N_gen = 3 exactly.  Discovery of 4th generation lepton or quark
     at any collider → contrapositive of this theorem → 213 discarded. -/
 theorem fourth_gen_falsifier :
-    -- N_gen 정확
+    -- N_gen exact
     (N_gen = 3)
     -- 4th, 5th, 6th all have no slot
     ∧ (binom NS 4 = 0)

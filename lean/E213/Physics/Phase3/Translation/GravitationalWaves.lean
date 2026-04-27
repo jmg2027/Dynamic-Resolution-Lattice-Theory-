@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 중력파 → DRLT atomic
+# Translation: Gravitational waves → DRLT atomic
 
   1. GW polarization: 2 (h_+, h_×) → atomic NT
   2. Quadrupole formula h ∝ (G/c⁴) Q̈ → atomic 1/c⁴

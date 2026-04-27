@@ -59,7 +59,7 @@ theorem d_minus_1_ubiquitous : d - 1 = 4 ∧ NS + 1 = 4 :=
 /-- adjoint SU(5) = 24 — appears in Higgs too. -/
 theorem adjoint_in_higgs : d * d - 1 = 24 := adjoint_eq_24
 
-/-- m_H/v_H ≈ 0.5097 — Phase 1 bracket [0.5, 0.52] 안. -/
+/-- m_H/v_H ≈ 0.5097 — within Phase 1 bracket [0.5, 0.52]. -/
 theorem mH_vH_bracket :
     50 * 10000 < 5097 * 100 ∧ 5097 * 100 < 52 * 10000 :=
   mH_vH_bracket_5097

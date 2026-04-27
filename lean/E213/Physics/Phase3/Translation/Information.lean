@@ -2,9 +2,9 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 정보이론·양자정보 → DRLT atomic
+# Translation: Information theory and quantum information → DRLT atomic
 
-## 정리 목록
+## List of theorems
 
   1. Shannon entropy: H = -Σ p log p → Lens layer count log
   2. Qubit: 2-state → NT = 2 atomic
@@ -21,10 +21,10 @@ open E213.Physics.Simplex
 /-!
 ## ★ Qubit = NT atomic ★
 
-표준 양자정보: qubit = 2-level system, 기저 |0⟩, |1⟩.
+Standard quantum information: qubit = 2-level system, basis |0⟩, |1⟩.
 
-DRLT atomic: NT = 2 직접 = qubit dimension.
-  → 한 vertex 의 NT block readout.
+DRLT atomic: NT = 2 directly = qubit dimension.
+  → NT block readout of one vertex.
 -/
 
 /-- Qubit dimension = NT atomic. -/
@@ -36,8 +36,8 @@ theorem bell_dim : NT * NT = 4 := by decide
 /-!
 ## ★ Bell inequality atomic ★
 
-표준: classical |S| ≤ 2.  Quantum |S| ≤ 2√2.
-경계 2 = NT atomic.  2√2 = NT·√NT atomic.
+Standard: classical |S| ≤ 2.  Quantum |S| ≤ 2√2.
+Bound 2 = NT atomic.  2√2 = NT·√NT atomic.
 -/
 
 /-- Bell classical bound 2 = NT atomic. -/
@@ -49,8 +49,8 @@ theorem bell_quantum_squared : NT * NT * NT = 8 := by decide
 /-!
 ## ★ Bekenstein bound atomic ★
 
-표준: 영역 A 에 담을 수 있는 정보량 ≤ A/(4·ℓ_P²·ln2).
-계수 4 = atomic d - 1.
+Standard: information capacity of region A ≤ A/(4·ℓ_P²·ln2).
+Coefficient 4 = atomic d - 1.
 
 DRLT atomic: holographic 4 = (d-1) atomic.
 -/

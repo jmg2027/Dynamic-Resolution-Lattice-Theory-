@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 강입자 물리 → DRLT atomic
+# Translation: Hadron physics → DRLT atomic
 
   1. Quark content: NS = 3 (3 valence quark per baryon)
   2. SU(3) flavor: u, d, s → atomic 3 = NS

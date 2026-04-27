@@ -43,7 +43,7 @@ namespace E213.Physics.Phase3.HubbleTension
 open E213.Physics.DarkEnergy
 open E213.Physics.Simplex
 
-/-- Ω_Λ atomic 검증 (Phase 1 DarkEnergy 결과 재사용). -/
+/-- Ω_Λ atomic verification (reusing Phase 1 DarkEnergy result). -/
 theorem omega_lambda_observed :
     684 < 685 ∧ 685 < 686 := omega_lambda_in_bracket
 
@@ -59,7 +59,7 @@ theorem flatness_check : 685 + 315 = 1000 := by decide
     additional derivation needed to resolve early/late tension.
     This theorem is *current marker only*. -/
 theorem hubble_tension_marker :
-    -- Ω_Λ 검증
+    -- Ω_Λ verification
     (684 < 685 ∧ 685 < 686)
     -- Atomic
     ∧ (d = 5) ∧ (NS = 3) ∧ (NT = 2)

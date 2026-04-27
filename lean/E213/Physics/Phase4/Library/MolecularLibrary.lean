@@ -1,13 +1,13 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Molecular Library — 분자 atomic catalog
+# Molecular Library — molecular atomic catalog
 
 ## Bond angles (Phase 1 BondAngles)
 
-  CH₄: cos θ = -1/NS = -1/3   → 109.47°  (정확)
-  H₂O: cos θ = -1/(NS+1) = -1/4 → 104.48°  (정확)
-  NH₃: cos θ = (NS+1)/(NS²+NS+1) = 4/13 → 107°  (정확)
+  CH₄: cos θ = -1/NS = -1/3   → 109.47°  (exact)
+  H₂O: cos θ = -1/(NS+1) = -1/4 → 104.48°  (exact)
+  NH₃: cos θ = (NS+1)/(NS²+NS+1) = 4/13 → 107°  (exact)
 
 ## Atomic forms
 

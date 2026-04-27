@@ -3,8 +3,8 @@ import E213.Physics.SimplexCounts
 /-!
 # Phase 4 Period3IE — Period 3 (Na ~ Ar) IE atomic chain
 
-★ 순수 213 mode ★
-표준 quantum number 차용 없이 atomic primitives 만.
+★ pure 213 mode ★
+Atomic primitives only, without borrowing standard quantum numbers.
 
 ## Z atomic forms (Period 3)
 
@@ -17,7 +17,7 @@ import E213.Physics.SimplexCounts
   Cl (Z=17) = NS² + (NS²-1) atomic
   Ar (Z=18) = 2·NS² atomic
 
-## 관측 IE (eV, CODATA)
+## Observed IE (eV, CODATA)
 
   Na  5.139076
   Mg  7.646235
@@ -28,13 +28,13 @@ import E213.Physics.SimplexCounts
   Cl 12.967632
   Ar 15.759610
 
-## Period closure 정수 atomic
+## Period closure atomic integers
 
   Period 1: 2 = NT
   Period 2: 10 = ? (closing 2+8)
   Period 3: 18 = 2·NS² atomic ★ (Period 3 closes at Ar)
 
-각 period closing = atomic 정수 (Phase 3 MasterCatalog 참조).
+Each period closing = atomic integer (see Phase 3 MasterCatalog).
 -/
 
 namespace E213.Physics.Phase4.Period3IE

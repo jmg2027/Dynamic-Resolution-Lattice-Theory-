@@ -2,13 +2,13 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 정수 8 의 *모든* 물리적 출현
+# Translation: All *physical occurrences* of the integer 8
 
 ★ Second-strongest atomic correspondence ★
 
 8 = NS² - 1 = F_6 = c·NS·NT - d + 1.
 
-## 8 의 등장 목록
+## List of appearances of 8
 
   1. 1/α_3 = 8 (color, Phase 1 PhotonKernel) [QCD]
   2. SU(3) adjoint dim = 8 [Group/Symmetry]
@@ -44,12 +44,12 @@ theorem eight_F6 : NS * NS - 1 = 8 := by decide
 
 /-- ★ Eight Everywhere Capstone ★ -/
 theorem eight_everywhere :
-    -- 다중 atomic form
+    -- multiple atomic forms
     (NS * NS - 1 = 8)               -- α_3, SU(3), Cycle, Einstein
     ∧ (2 * NS * NT - d + 1 = 8)     -- atomicity-locked
     ∧ (NT * NT * NT = 8)             -- NT³, Bell²
     ∧ (2 * 3 * 4 / 3 = 8)            -- HO magic n=2
-    -- atomic 기반
+    -- atomic basis
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide

@@ -2,9 +2,9 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 천체물리 → DRLT atomic
+# Translation: Astrophysics → DRLT atomic
 
-## 정리 목록
+## Theorem list
 
   1. Chandrasekhar mass M_Ch ≈ 1.4 M_☉ → atomic ratio
   2. Eddington luminosity L_Edd ∝ M → atomic c, σ_T
@@ -21,8 +21,8 @@ open E213.Physics.Simplex
 /-!
 ## ★ Schwarzschild radius factor 2 atomic ★
 
-표준 GR: r_s = 2GM/c².
-계수 2 atomic.
+Standard GR: r_s = 2GM/c².
+Factor 2 atomic.
 
 DRLT: 2 = NT (lattice speed).
   r_s = NT·G·M/c² → NT direct.
@@ -34,9 +34,9 @@ theorem schwarzschild_atomic : NT = 2 := by decide
 /-!
 ## ★ Chandrasekhar limit atomic ★
 
-표준: M_Ch = (3/2)·(NS·NT/c²)^(3/2) ≈ 1.4 M_☉.
-계수 (3/2) = NS/NT atomic.
-exponent (3/2) = NS/NT atomic.
+Standard: M_Ch = (3/2)·(NS·NT/c²)^(3/2) ≈ 1.4 M_☉.
+Factor (3/2) = NS/NT atomic.
+Exponent (3/2) = NS/NT atomic.
 -/
 
 /-- Chandrasekhar 3/2 = NS/NT atomic. -/
@@ -46,7 +46,7 @@ theorem chandra_atomic : NS * 2 = 3 * NT := by decide
 ## ★ Stefan-Boltzmann + CMB temperature ★
 
 CMB T = 2.725 K.  Black body radiation.
-Stefan-Boltzmann denom 15 = d·NS atomic (Optics).
+Stefan-Boltzmann denominator 15 = d·NS atomic (Optics).
 -/
 
 /-- CMB Stefan denom 15 = d·NS. -/
@@ -55,7 +55,7 @@ theorem cmb_atomic : d * NS = 15 := by decide
 /-!
 ## ★ Triple-α process atomic ★
 
-별 내부: 3·⁴He → ¹²C nucleosynthesis.
+Inside stars: 3·⁴He → ¹²C nucleosynthesis.
 NS = 3 atomic = 3-α process count.
 -/
 

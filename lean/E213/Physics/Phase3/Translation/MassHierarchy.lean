@@ -4,19 +4,19 @@ import E213.Physics.SimplexCounts
 /-!
 # Translation: Mass hierarchy → DRLT atomic chain
 
-표준 SM 3 generation mass:
+Standard SM 3-generation masses:
   Up:    u 2.2 MeV, c 1.27 GeV, t 173 GeV
   Down:  d 4.7 MeV, s 95 MeV, b 4.18 GeV
   Lepton: e 0.511, μ 105.7, τ 1777 MeV
 
-## Atomic 비례 chain
+## Atomic proportionality chain
 
   m_μ/m_e ≈ 207 = NS·137/NT (Phase 1 0.48 ppb)
   m_τ/m_μ ≈ 17 = NS² + NS²-1 = 9 + 8 atomic ★
   m_t/m_b ≈ 41 = α_GUT integer
   m_t/m_c ≈ 137 = 1/α_em integer ★
 
-같은 atomic 정수 (137, 41) 이 fine structure / mass ratio 양쪽 등장.
+The same atomic integers (137, 41) appear in both fine structure and mass ratios.
 -/
 
 namespace E213.Physics.Phase3.Translation.MassHierarchy

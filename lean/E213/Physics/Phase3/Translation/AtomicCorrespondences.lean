@@ -2,60 +2,60 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: Atomic 정수 의 *재출현* catalog
+# Translation: *Reappearance* catalog of atomic integers
 
-★ 진짜 발견 ★ — 같은 atomic 정수가 *서로 무관해 보이는* 물리
-프레임워크들에 *반복* 등장.  단일 atomic 격자 의 직접 증거.
+★ Genuine discovery ★ — the same atomic integers recur across physics
+frameworks that *appear unrelated*.  Direct evidence of a single atomic lattice.
 
-## 정수 6 = NS · NT
+## Integer 6 = NS · NT
 
-  - QM: Pauli ε_abc 비영 entry 수 (Levi-Civita)
-  - SR: Lorentz group SO(3,1) generator 수
-  - Phase 2: AB cross pair 수 (K_{3,2} bipartite edge)
-  - Combinatorics: 3! permutation 수
+  - QM: number of nonzero Pauli ε_abc entries (Levi-Civita)
+  - SR: number of Lorentz group SO(3,1) generators
+  - Phase 2: number of AB cross pairs (K_{3,2} bipartite edge)
+  - Combinatorics: number of 3! permutations
 
-## 정수 8 = NS² - 1
+## Integer 8 = NS² - 1
 
-  - 강력 1/α_3 (atomicity-locked, Phase 1 PhotonKernel)
-  - SU(3) adjoint 차원 (gluon 수)
+  - Strong force 1/α_3 (atomicity-locked, Phase 1 PhotonKernel)
+  - SU(3) adjoint dimension (number of gluons)
   - K_{3,2}^{(c=2)} cycle space dim b_1 (Phase 2 Edges)
   - F_6 Fibonacci (Phase 1 FibonacciAtomic)
-  - 5-simplex Δ⁴ 면 분해 항
+  - 5-simplex Δ⁴ face decomposition term
 
-## 정수 24 = d² - 1 = (d-1)(d+1)
+## Integer 24 = d² - 1 = (d-1)(d+1)
 
-  - SU(5) GUT adjoint 차원 (Phase 1 SU5Roots)
+  - SU(5) GUT adjoint dimension (Phase 1 SU5Roots)
   - α_2 prefactor 12·NT (Phase 1)
-  - PMNS δ_CP denom (Phase 1 NeutrinoMixing)
+  - PMNS δ_CP denominator (Phase 1 NeutrinoMixing)
   - 4! permutation (S_4 symmetric group)
-  - SU(3)·SU(2)·U(1) 분해 합 (8+3+12+1)
+  - SU(3)·SU(2)·U(1) decomposition sum (8+3+12+1)
 
-## 정수 3 = NS = NT² - 1 = C(NS, NT)
+## Integer 3 = NS = NT² - 1 = C(NS, NT)
 
-  - 공간 차원 수 (NS)
-  - Pauli matrix 수 (NT²-1)
-  - 세대 수 N_gen (Phase 1 Generations)
-  - Big block 크기 (Phase 2 Existence)
-  - α 분해 prefactor 비
+  - Number of spatial dimensions (NS)
+  - Number of Pauli matrices (NT²-1)
+  - Number of generations N_gen (Phase 1 Generations)
+  - Big block size (Phase 2 Existence)
+  - α decomposition prefactor ratio
 
-## 정수 5 = d = NS + NT = F_5
+## Integer 5 = d = NS + NT = F_5
 
-  - 시공간 차원 (3+1+1?  실제로는 (3,2))
-  - 5-simplex Δ⁴ 정점 수 (Phase 2 Shape)
+  - Spacetime dimension (3+1+1?  actually (3,2))
+  - Number of 5-simplex Δ⁴ vertices (Phase 2 Shape)
   - Fibonacci F_5 (Phase 1 FibonacciAtomic)
-  - 4-simplex face의 위수
-  - 4! - 19 = 5 (작은 정수 잔여)
+  - Order of 4-simplex face
+  - 4! - 19 = 5 (small integer residue)
 
-## 함의
+## Implication
 
-서로 무관해 보이는 물리 프레임워크에서 *같은 정수* 가 등장 한다는
-사실은:
+The fact that *the same integers* appear across physics frameworks that
+seem unrelated is:
 
-  *모든 프레임워크가 단일 atomic 격자 의 *다른 면사* * 라는
-  *간접 증거*.
+  *Indirect evidence* that *all frameworks are different facets of a
+  single atomic lattice*.
 
-만약 *진짜 별개* 이론들 이라면 같은 정수 등장 = 우연.
-DRLT 가 모든 frame 의 origin 이라면 = *필연*.
+If they were *truly separate* theories, the shared integers would be coincidence.
+If DRLT is the origin of all frames, it is *necessary*.
 -/
 
 namespace E213.Physics.Phase3.Translation.AtomicCorrespondences
@@ -87,7 +87,7 @@ theorem three_atomic :
   all_goals decide
 
 /-- ★ Atomic Correspondences Capstone ★
-    같은 atomic 정수가 다중 framework 등장 — DRLT 단일 기원 증거. -/
+    Same atomic integers appear across multiple frameworks — evidence of single DRLT origin. -/
 theorem atomic_reincarnation :
     -- 6 = NS·NT (Pauli ε, Lorentz, AB pair, 3!)
     (NS * NT = 6) ∧ (3 * 2 * 1 = 6)

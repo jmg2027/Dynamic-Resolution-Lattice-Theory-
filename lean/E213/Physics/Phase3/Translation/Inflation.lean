@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 인플레이션 → DRLT atomic
+# Translation: Inflation → DRLT atomic
 
   1. e-folds N ≈ 60 → atomic
   2. Spectral index n_s ≈ 0.965 → atomic 1 - 1/d

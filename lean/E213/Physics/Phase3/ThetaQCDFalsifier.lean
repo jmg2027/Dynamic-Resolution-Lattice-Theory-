@@ -44,7 +44,7 @@ theorem alpha_power_atomic : alpha_pow = d - 1 := alpha_pow_eq_d_minus_1
 /-- α^4 forced (no other power). -/
 theorem alpha_pow_is_4 : alpha_pow = 4 := alpha_pow_eq_4
 
-/-- DRLT 예측 < 현재 nEDM bound (factor ≈ 6.3 below). -/
+/-- DRLT prediction < current nEDM bound (factor ≈ 6.3 below). -/
 theorem drlt_below_current_bound : 286 * 100 < 18 * 10000 :=
   drlt_below_bound
 
@@ -61,7 +61,7 @@ theorem drlt_upper : 286 < 300 := by decide
 theorem nedm_falsifier :
     -- α power = d - 1 = 4 (atomic)
     (alpha_pow = d - 1) ∧ (alpha_pow = 4)
-    -- DRLT 현재 bound 아래
+    -- DRLT below current bound
     ∧ (286 * 100 < 18 * 10000)
     -- DRLT in [2.5, 3.0] × 10⁻¹¹
     ∧ (286 > 250) ∧ (286 < 300)

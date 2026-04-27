@@ -4,15 +4,15 @@ import E213.Physics.SimplexCounts
 /-!
 # Translation: Lagrangian formalism → DRLT atomic
 
-표준 물리 build-up: 모든 이론 = Lagrangian L + action S = ∫L dt.
-변분원리: δS = 0 → equations of motion.
+Standard physics build-up: every theory = Lagrangian L + action S = ∫L dt.
+Variational principle: δS = 0 → equations of motion.
 
-DRLT 격자 위 정체:
-  ∫ → 유한 sum over Lens layers
+DRLT identity on the lattice:
+  ∫ → finite sum over Lens layers
   L → atomic vertex weight
   δS = 0 → atomic minimum path
 
-## SM Lagrangian L_SM 구조
+## SM Lagrangian L_SM structure
 
   L_SM = L_gauge + L_fermion + L_Higgs + L_Yukawa
 
@@ -21,16 +21,16 @@ DRLT 격자 위 정체:
   L_Higgs   = (D_μ Φ)†(D^μ Φ) - V(Φ)
   V(Φ)      = -μ²|Φ|² + λ|Φ|⁴
 
-각 piece atomic:
+Each piece atomic:
   - F_μν : 2-form on (NS, NT) atomic
   - γ^μ  : d-1 = 4 Dirac matrices
   - D_μ  : NS+NT covariant derivative
   - V(Φ) : λ_H = 1/α_3 = 1/8 atomic (Phase 1)
 
-## 변분원리 = 격자 최단 경로
+## Variational principle = lattice shortest path
 
-  격자 위 path = Lens layer sequence.
-  최단 = atomic 정수 minimum.
+  Path on lattice = Lens layer sequence.
+  Shortest = atomic integer minimum.
   → Euler-Lagrange eq = atomic step relation.
 -/
 

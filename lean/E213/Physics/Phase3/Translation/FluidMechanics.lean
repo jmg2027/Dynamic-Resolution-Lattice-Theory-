@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 유체역학 → DRLT atomic
+# Translation: Fluid mechanics → DRLT atomic
 
   1. Navier-Stokes ∂v/∂t + (v·∇)v = -∇P/ρ + ν∇²v
   2. Reynolds number Re = ρvL/μ atomic

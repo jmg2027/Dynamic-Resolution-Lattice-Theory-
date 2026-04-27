@@ -70,7 +70,7 @@ The place of "probability" in DRLT = Lens multiplicity:
   But *fundamental* is deterministic (axiom + Lens specification one-to-one).
 -/
 
-/-- Atomic primitives 모두 결정 (DecidableEq). -/
+/-- All atomic primitives determined (DecidableEq). -/
 theorem atomic_decidable :
     (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by
   refine ⟨?_, ?_, ?_⟩
