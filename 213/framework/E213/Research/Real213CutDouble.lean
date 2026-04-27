@@ -25,4 +25,16 @@ theorem cutDouble_constCut (a b : Nat) :
 /-- 2 * (1/2) = 1: cutDouble (1/2) = constCut 2 2.  Cut-equivalent to 1. -/
 example : cutDouble (constCut 1 2) = constCut 2 2 := cutDouble_constCut 1 2
 
+/-- cutDouble of zero = zero. -/
+theorem cutDouble_zero : cutDouble (constCut 0 1) = constCut 0 1 := by
+  rw [cutDouble_constCut]
+
+/-- cutDouble of cutDouble = quadruple: c m (4k). -/
+theorem cutDouble_cutDouble (c : Nat → Nat → Bool) :
+    cutDouble (cutDouble c) = (fun m k => c m (4*k)) := by
+  funext m k
+  show c m (2*(2*k)) = c m (4*k)
+  congr 1
+  rw [← Nat.mul_assoc]
+
 end E213.Research.Real213CutSum
