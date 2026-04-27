@@ -603,9 +603,24 @@ theorem alwaysTrueUnit_limit_not_cutEq_zero :
   have h := h_eq 0 1
   have ⟨h0, h1⟩ := alwaysTrueUnit_limit_distinct_from_zero
   rw [h0] at h
-  -- h : false = constCut 0 1 0 1 = true
   rw [h1] at h
   exact Bool.noConfusion h
+
+/-- **T2: ConsistentOracle existence witnesses**.  Three concrete
+    (db, oracle) pairs covered: any oracle on collapsed bracket,
+    alwaysTrue/alwaysFalse on unit bracket. -/
+theorem consistent_oracle_existence_witnesses :
+    -- (1) Any oracle on collapsed bracket: ConsistentOracle exists.
+    (∀ db : DyadicBracket, db.numA = db.numB →
+      ∀ oracle : DyadicOracle,
+      ∃ co : ConsistentOracle db, co.oracle = oracle)
+    -- (2) alwaysTrue on unit: ConsistentOracle exists.
+    ∧ (∃ co : ConsistentOracle unitBracket, co.oracle = alwaysTrue)
+    -- (3) alwaysFalse on unit: ConsistentOracle exists.
+    ∧ (∃ co : ConsistentOracle unitBracket, co.oracle = alwaysFalse) :=
+  ⟨fun db h oracle => ⟨ConsistentOracle.collapsed db h oracle, rfl⟩,
+   ⟨ConsistentOracle.alwaysTrueUnit, rfl⟩,
+   ⟨ConsistentOracle.alwaysFalseUnit, rfl⟩⟩
 
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
