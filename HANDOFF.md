@@ -44,16 +44,22 @@ CE α_em sixth-term hunt, CF capstone.
 
 ## Open Problems (priority order)
 
-### 1. Cohomology 213 marathon — **Phase CA closed**
-5 files / ~14 theorems / 0 axiom in `lean/E213/Math/Cohomology/`:
-- `Cochain.lean` — `Cochain n k = Fin (binom n k) → Bool`, XOR add
-- `SimplexBasis.lean` — `kSubset n k i` colex enumeration
-- `Delta.lean` — `delta : Cᵏ → Cᵏ⁺¹` via XOR over face removals
-- `DeltaSqZero.lean` — δ²=0 verified at multiple concrete cochains
-- `TrivialCases.lean` — Phase CA capstone (Δ¹..Δ⁴ smoke + δ-zero)
+### 1. Cohomology 213 marathon — **Phases CA + CB closed**
+8 files / ~25 theorems / 0 axiom in `lean/E213/Math/Cohomology/`:
+Cochain + SimplexBasis + Delta + DeltaSqZero + TrivialCases (CA);
+HodgeStar + HodgeInvolution + HodgeDelta (CB).
 
-**Phase CB next:** Hodge ⋆: Cᵏ → Cᵈ⁻ᵏ at cochain level
-(generalizes existing `SimplexCounts.hodge_*` dim-only lemmas).
+Phase CB: ⋆: Cᵏ → Cⁿ⁻ᵏ via set-theoretic complement;
+⋆⋆ = id verified on multiple Bool-pure cochains; codifferential
+`codiff = ⋆δ⋆` at (5,2) and (5,3) decide-checked.
+
+**Lessons (CB):** cochains using `fun i => i.val = 0` (Prop)
+trigger elaboration errors when chained through `hodgeStar`
+(Nat-sub in result type). Use Bool-pure (`==`).
+`hodgeStar n k m σ` needs all three (n, k, m) explicit.
+
+**Phase CC next:** Betti numbers on Δ⁴ and K_{3,2}^{(2)}.
+**b₂(K_{3,2}^{(2)})** is the α_em 5.4×10⁻⁴ candidate.
 
 ### 2. Phase CC b₂(K_{3,2}^{(2)}) — direct physics payoff
 Compute b₂ at cochain level. If non-trivial, candidate sixth
