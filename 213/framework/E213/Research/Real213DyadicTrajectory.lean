@@ -408,6 +408,35 @@ theorem alwaysTrueUnit_limit_distinct_from_zero :
     decide
   · decide
 
+/-- **M1: Infinitesimal gap structure**.
+
+    Cut `a` is "below" cut `b` at infinitesimal precision iff at
+    every query (0, k) with k ≥ 1, a says false (x > 0) but b says
+    true (x ≤ 0).  This captures the cut-distinctness of "x > 0
+    strictly" from "x ≤ 0".
+
+    The gap is "infinitesimal" because it disappears at higher m
+    (positive numerator queries) — only visible at the boundary
+    m = 0 with positive precision k. -/
+def InfinitesimalGap (a b : Nat → Nat → Bool) : Prop :=
+  ∀ k, k ≥ 1 → a 0 k = false ∧ b 0 k = true
+
+/-- **0+ has infinitesimal gap below 0-exact**: alwaysTrueUnit's
+    limit (the "0+" cut) sits below constCut 0 1 (the "0-exact"
+    cut) at every infinitesimal-precision query (0, k) for k ≥ 1.
+    Formal expression of: "0+ is positive infinitesimal." -/
+theorem zero_plus_gap_below_zero_exact :
+    InfinitesimalGap (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
+                     (constCut 0 1) := by
+  intro k hk
+  refine ⟨?_, ?_⟩
+  · rw [alwaysTrueUnit_limit_value 0 k, Nat.mul_zero]
+    show decide (k ≤ 0) = false
+    exact decide_eq_false (by omega)
+  · show decide (0 * k ≤ 1 * 0) = true
+    rw [Nat.zero_mul, Nat.mul_zero]
+    rfl
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
