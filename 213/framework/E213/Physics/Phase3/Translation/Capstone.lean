@@ -25,6 +25,13 @@ import E213.Physics.Phase3.Translation.BeyondSM
 import E213.Physics.Phase3.Translation.QuantumGravity
 import E213.Physics.Phase3.Translation.Anomalies
 import E213.Physics.Phase3.Translation.Topological
+import E213.Physics.Phase3.Translation.UnsolvedProblems
+import E213.Physics.Phase3.Translation.Constants
+import E213.Physics.Phase3.Translation.GroupTheory
+import E213.Physics.Phase3.Translation.SixEverywhere
+import E213.Physics.Phase3.Translation.EightEverywhere
+import E213.Physics.Phase3.Translation.TwentyFourEverywhere
+import E213.Physics.Phase3.Translation.GravitationalWaves
 import E213.Physics.SimplexCounts
 
 /-!
