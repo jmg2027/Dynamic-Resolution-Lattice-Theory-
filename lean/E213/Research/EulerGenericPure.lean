@@ -4,33 +4,34 @@ import E213.Research.EulerSeq
 /-!
 # Research.EulerGenericPure: Generic Euler lower bound (meta-algorithm)
 
-User insight: 임의 b 에 대 한 sharper Euler bound 를 *parameterized*
-template 으 로.  per-b 의 manual 작업 → *single generic theorem* +
-per-b base case `decide`.
+User insight: sharper Euler bounds for arbitrary b as a *parameterized*
+template.  Per-b manual work → *single generic theorem* + per-b base
+case `decide`.
 
-## 구 성
+## Construction
 
-`euler_lower_generic`: ∀ j b (hb : b ≥ 1), N0 base case 만 주어
-지 면, ∀ n ≥ N0, b·eulerNum n ≥ j·eulerDen n + 1.
+`euler_lower_generic`: ∀ j b (hb : b ≥ 1), given only an N0 base case,
+∀ n ≥ N0, b·eulerNum n ≥ j·eulerDen n + 1.
 
-Inductive step: IH × (k+1) + arithmetic chain.  계 수 (b, j) 에
-무관 — pattern *mechanical generic*.
+Inductive step: IH × (k+1) + arithmetic chain.  Independent of
+coefficients (b, j) — the pattern is *mechanically generic*.
 
-## 의 의
+## Significance
 
-User 의 깊은 통찰: "각 b 에 대 한 sharper bound 의 메타 알고리즘".
-이게 그 구 현 — single generic theorem 으 로 모든 b 의 lower
-bound 가 즉시 유도.  per-b application 은 base case `decide` 만.
+A deep user insight: "the meta-algorithm for sharper bounds for each b."
+This is the implementation — from a single generic theorem, lower bounds
+for every b are immediately derived.  The per-b application requires only
+a base case `decide`.
 
-각 b 의 (j, b) pair 가 e ∈ (j/b, (j+1)/b) 의 sharp interval 결정.
-upper bound 는 별 도 (`euler_upper_pure` 의 generic version 도
-가능).
+Each (j, b) pair determines the sharp interval e ∈ (j/b, (j+1)/b).
+Upper bound is separate (a generic version of `euler_upper_pure` is
+also possible).
 
-## 현재 status
+## Current status
 
-- Generic lower theorem 완료.
-- Per-b application: b=3 (j=8), b=5 (j=13) 등 demonstrated.
-- 모두 axiom budget = `[propext]` 만 (Quot.sound 부재).
+- Generic lower theorem complete.
+- Per-b applications: b=3 (j=8), b=5 (j=13), etc. demonstrated.
+- All use axiom budget = `[propext]` only (no Quot.sound).
 -/
 
 namespace E213.Research.EulerGenericPure
@@ -74,10 +75,10 @@ theorem euler_lower_step (j b k : Nat) (hb : b ≥ 1)
   exact Nat.le_trans h_drop h_add_b
 
 /-- **Generic Euler lower bound (META-ALGORITHM)**: ∀ j b (b ≥ 1)
-    N0, base case verification 만 주어 지 면 ∀ n ≥ N0,
+    N0, given only a base case verification, ∀ n ≥ N0,
     `b · eulerNum n ≥ j · eulerDen n + 1` (== S_n > j/b strict).
 
-    인 자: per-(j, b) 의 base case 만 `decide` 로 verify. -/
+    Argument: only the per-(j, b) base case needs `decide` to verify. -/
 theorem euler_lower_generic (j b N0 : Nat) (hb : b ≥ 1)
     (h_base : b * eulerNum N0 ≥ j * eulerDen N0 + 1) :
     ∀ n, n ≥ N0 → b * eulerNum n ≥ j * eulerDen n + 1 := by
@@ -188,14 +189,14 @@ theorem e_lt_11_4 (n : Nat) (hn : n ≥ 4) :
 
 /-! ### Transcendental cut discriminator
 
-`euler_lower_generic` + `euler_upper_generic` 결합 — 임의 (a, b) 의
-e-discrimination 의 unified theorem. -/
+Combination of `euler_lower_generic` + `euler_upper_generic` —
+a unified theorem for e-discrimination for arbitrary (a, b). -/
 
-/-- **Transcendental cut discriminator (lower side)**: 임의 (a, b) 에
-    대해 j_low ≥ a 인 sharper lower 가 있 으 면, S_n > a/b strict
-    for all n ≥ N0.
+/-- **Transcendental cut discriminator (lower side)**: for arbitrary
+    (a, b), if there is a sharper lower with j_low ≥ a, then S_n > a/b
+    strict for all n ≥ N0.
 
-    e > a/b 의 partial-sum form. -/
+    Partial-sum form of e > a/b. -/
 theorem e_partial_gt_a_b (a b j_low N0 : Nat) (hb : b ≥ 1)
     (h_a_le_j : a ≤ j_low)
     (h_base : b * eulerNum N0 ≥ j_low * eulerDen N0 + 1) :
@@ -211,10 +212,10 @@ theorem e_partial_gt_a_b (a b j_low N0 : Nat) (hb : b ≥ 1)
     Nat.lt_succ_of_le h_amul
   exact Nat.lt_of_lt_of_le h_strict h_lower
 
-/-- **Transcendental cut discriminator (upper side)**: a ≥ j_up 인
-    sharper upper 가 있 으 면, S_n < a/b strict for all n ≥ N0.
+/-- **Transcendental cut discriminator (upper side)**: if there is a
+    sharper upper with a ≥ j_up, then S_n < a/b strict for all n ≥ N0.
 
-    e < a/b 의 partial-sum form. -/
+    Partial-sum form of e < a/b. -/
 theorem e_partial_lt_a_b (a b j_up N0 : Nat) (hb : b ≥ 1) (hN0 : N0 ≥ b)
     (h_a_ge_j : a ≥ j_up)
     (h_base : j_up * eulerDen N0 ≥ b * eulerNum N0 + 1) :
@@ -228,8 +229,8 @@ theorem e_partial_lt_a_b (a b j_up N0 : Nat) (hb : b ≥ 1) (hN0 : N0 ≥ b)
     Nat.lt_succ_of_le (Nat.le_trans h_upper h_amul)
   exact Nat.lt_of_succ_lt_succ h_strict
 
-/-- **e ≠ a/b** (partial-sum form): a/b 가 (j_low, j_up) interval 외 면
-    e ≠ a/b in framework partial sum form. -/
+/-- **e ≠ a/b** (partial-sum form): if a/b is outside the (j_low, j_up)
+    interval, then e ≠ a/b in framework partial sum form. -/
 theorem e_partial_neq_a_b (a b j_low j_up N0 : Nat) (hb : b ≥ 1) (hN0 : N0 ≥ b)
     (h_a_out : a ≤ j_low ∨ a ≥ j_up)
     (h_lower_base : b * eulerNum N0 ≥ j_low * eulerDen N0 + 1)

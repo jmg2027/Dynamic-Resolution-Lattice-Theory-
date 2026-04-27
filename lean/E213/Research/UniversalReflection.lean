@@ -25,16 +25,16 @@ namespace E213.Research.UniversalReflection
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- HasDistinguishing instance 의 reflection — Lens form. -/
+/-- Reflection of a HasDistinguishing instance as a Lens. -/
 def universalAsLens (α : Type) [d : HasDistinguishing α] : Lens α :=
   ⟨d.a, d.b, d.combine⟩
 
-/-- universalAsLens 의 view 가 universalMorphism 과 동일. -/
+/-- The view of universalAsLens equals universalMorphism. -/
 theorem universalAsLens_view (α : Type) [d : HasDistinguishing α] (r : Raw) :
     (universalAsLens α).view r = universalMorphism α r := rfl
 
-/-- Reflection 이 round-trip — Lens 로 부터 다시 HasDistinguishing
-    가능 (with given combine_sym). -/
+/-- Reflection is a round-trip — HasDistinguishing can be recovered
+    from the Lens (given combine_sym). -/
 theorem universalAsLens_combine_sym (α : Type) [d : HasDistinguishing α] :
     ∀ u v, (universalAsLens α).combine u v = (universalAsLens α).combine v u :=
   d.combine_sym

@@ -1,11 +1,10 @@
 import E213.Research.HasModulus
 
 /-!
-# Research.HasModulusBoundsExtra: HasModulus 의 trivial wrapping
-results
+# Research.HasModulusBoundsExtra: trivial wrapping results for HasModulus
 
-`HasModulus xs` 와 함께 자연 한 derived results — modulus
-의 monotonicity, fixed-N versions, etc.
+Derived results natural to `HasModulus xs` — modulus monotonicity,
+fixed-N versions, etc.
 -/
 
 namespace E213.Research.HasModulusBoundsExtra
@@ -15,8 +14,7 @@ open E213.Research.ABLens
 open E213.Research.ArchimedeanCauchy
 open E213.Research.HasModulusNS
 
-/-- HasModulus 의 N 을 더 크 게 잡 아 도 OK — modulus 의
-    monotonicity. -/
+/-- A larger N for HasModulus is also valid — modulus monotonicity. -/
 theorem cauchy_at_larger_N (xs : Nat → Raw) (h : HasModulus xs)
     (m k : Nat) (hk : k ≥ 1) (M : Nat) (hM : M ≥ h.N m k)
     (i j : Nat) (hi : i ≥ M) (hj : j ≥ M) :

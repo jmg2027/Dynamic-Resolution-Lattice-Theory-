@@ -62,7 +62,7 @@ computes `Raw.leaves r : Nat`, i.e. a counting of Raw.
 Where does the `Nat` in `⟨1, 1, +⟩` come from?  From Lean's
 primitive `inductive Nat` — the type system supplies it.
 
-In 213's strict view (AXIOM.md §8: "213 외부 없음"), this
+In 213's strict view (AXIOM.md §8: "nothing outside 213"), this
 primitive `Nat` must *itself* be a Lens output.  So:
 
   Nat = Raw-leaves-Lens-output.

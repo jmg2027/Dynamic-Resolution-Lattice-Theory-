@@ -18,5 +18,5 @@ Real213 type, equivalence, constant embedding, order, sign.
 - Order (le, lt, antisymm via Bool case-analysis).
 - Sign (zero, positive).
 
-모두 ≤ propext.  213-native ℝ 의 type-level foundation.
+All ≤ propext.  Type-level foundation of 213-native ℝ.
 -/

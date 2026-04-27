@@ -21,7 +21,7 @@ namespace E213.Research.SubtypeInstanceClosed
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- `P` 가 `Raw.slash` 위 closed: distinct args 위 P 보존. -/
+/-- `P` is closed over `Raw.slash`: P is preserved on distinct args. -/
 class SlashClosed (P : Raw → Prop) : Prop where
   closed : ∀ {x y : Raw} (h : x ≠ y), P x → P y → P (Raw.slash x y h)
 

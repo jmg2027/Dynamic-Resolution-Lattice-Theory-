@@ -1,23 +1,23 @@
 import E213.Research.Real213Equiv
 
 /-!
-# Research.Real213Const: Real213 의 constant embedding (D3-A 후속)
+# Research.Real213Const: constant embedding of Real213 (D3-A follow-up)
 
-`D3_real213_native_R.md` 의 D3-A 다음 단계 — Raw → Real213 의
-embedding (constant Cauchy sequence).
+Next step after D3-A in `D3_real213_native_R.md` — embedding of
+Raw → Real213 as a constant Cauchy sequence.
 
-## 정의
+## Definition
 
-`Real213.const r` = 모든 index 에 서 r 를 출력 하 는 Cauchy
-sequence + trivial modulus (N = 0).
+`Real213.const r` = Cauchy sequence outputting r at every index +
+trivial modulus (N = 0).
 
-## 의의
+## Significance
 
-- Raw 의 element 가 Real213 에 *direct embed* (각 Raw 가 자기
-  자신의 constant 으 로 ℝ-element 가 됨).
-- `const r ~ const r'` ↔ orderProj m k 가 *모든* (m, k) 에 서
-  agree — view (Nat × Nat) 의 ratio-equivalence.
-- 이게 Real213 의 *최 소 한 의* element constructor.
+- Elements of Raw *directly embed* into Real213 (each Raw becomes an
+  ℝ-element as its own constant).
+- `const r ~ const r'` ↔ orderProj m k agrees at *every* (m, k) —
+  ratio-equivalence of the (Nat × Nat) view.
+- This is the *minimal* element constructor for Real213.
 -/
 
 namespace E213.Research.Real213
@@ -30,7 +30,7 @@ open E213.Research.ArchimedeanCauchy
 /-- Constant sequence at single Raw r. -/
 def constSeq (r : Raw) : Nat → Raw := fun _ => r
 
-/-- Constant sequence 의 trivial modulus — N = 0, cauchy_at trivial. -/
+/-- Trivial modulus for constant sequence — N = 0, cauchy_at trivial. -/
 def constModulus (r : Raw) : HasModulus (constSeq r) where
   N := fun _ _ => 0
   cauchy_at := fun _ _ _ _ _ _ _ => rfl
@@ -39,7 +39,7 @@ def constModulus (r : Raw) : HasModulus (constSeq r) where
 def const (r : Raw) : Real213 :=
   ⟨constSeq r, constModulus r⟩
 
-/-- Constant Real213 의 equivalence ↔ orderProj 가 모든 (m, k) 에 서 같 음. -/
+/-- Equivalence of constant Real213 ↔ orderProj agrees at every (m, k). -/
 theorem const_equiv_iff (r r' : Raw) :
     Real213.equiv (const r) (const r')
       ↔ ∀ m k, k ≥ 1 →
@@ -51,7 +51,7 @@ theorem const_equiv_iff (r r' : Raw) :
   · intro h m k hk
     exact ⟨0, fun _ _ => h m k hk⟩
 
-/-- const 가 자기 자신과 equivalent (trivial — equiv_refl 의 special case). -/
+/-- const is equivalent to itself (trivial — special case of equiv_refl). -/
 theorem const_equiv_self (r : Raw) : Real213.equiv (const r) (const r) :=
   equiv_refl (const r)
 

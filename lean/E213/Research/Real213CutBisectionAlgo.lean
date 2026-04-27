@@ -17,9 +17,9 @@ bisect a b oracle n :
 
 After n iterations, bracket length ≤ (b - a) / 2^n.
 
-## 의의
+## Significance
 
-IVT 의 algorithmic 형식 — given continuous f and bracket [a, b]
+Algorithmic form of IVT — given continuous f and bracket [a, b]
 with sign change, iterative midpoint refinement.  Output: bracket
 sequence converging to root.
 -/

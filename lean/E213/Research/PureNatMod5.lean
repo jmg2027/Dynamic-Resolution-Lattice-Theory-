@@ -3,8 +3,8 @@ import E213.Research.PureNat
 /-!
 # Research.PureNatMod5: mod-5 descent infrastructure
 
-`PureNatMod3` 의 일반화 to p = 5.  같 은 5-step template
-적용 — squaring kernel 의 (Z/5)* 분석.
+Generalization of `PureNatMod3` to p = 5.  Same 5-step template
+applied — analysis of the squaring kernel of (Z/5)*.
 
 (5k+r)² mod 5:
 - r=0: (5k)² = 25k² = 5·(5k²) → 0

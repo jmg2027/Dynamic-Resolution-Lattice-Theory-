@@ -1,10 +1,10 @@
 import E213.Meta.ParityLens
 
 /-!
-# Research.ParityLensCollapseFalse: parityLens 가 Collapse-False
+# Research.ParityLensCollapseFalse: parityLens is Collapse-False
 
-PAPER1 §3.4 의 BoolSqClassification 분류 claim 의 explicit
-witness: parityLens.combine x x = false 모든 x.
+Explicit witness for the BoolSqClassification claim in PAPER1 §3.4:
+parityLens.combine x x = false for all x.
 -/
 
 namespace E213.Research.ParityLensCollapseFalse

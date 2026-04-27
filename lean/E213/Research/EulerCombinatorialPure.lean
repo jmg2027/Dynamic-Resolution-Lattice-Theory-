@@ -4,21 +4,21 @@ import E213.Research.EulerSeq
 /-!
 # Research.EulerCombinatorialPure: Euler bounds, axiom-free
 
-`EulerSeq` 의 omega-using inductive bounds 를 manual Nat
-arithmetic 으 로 재 작성.
+Rewriting the omega-using inductive bounds of `EulerSeq` with manual
+Nat arithmetic.
 
-## 핵심
+## Core
 
-`euler_upper_pure`: `n` 모두, `3 * eulerDen n ≥ eulerNum n + 1`
+`euler_upper_pure`: for every `n`, `3 * eulerDen n ≥ eulerNum n + 1`
 (== `S_n < 3 - 1/eulerDen n`).
 
 Inductive step: `(k+1) * (3 * eulerDen k - eulerNum k - 1) ≥ 0`
-이고 `3 * eulerDen (k+1) - eulerNum (k+1) - 1 ≥ ...`.
+and `3 * eulerDen (k+1) - eulerNum (k+1) - 1 ≥ ...`.
 
-## 의의
+## Significance
 
-전 형 적 e 의 *Hermite-style 분석* 의 기초 inequality.  Axiom-free
-formalization 의 가능 성 을 보 이 는 기 반.
+The foundational inequality for *Hermite-style analysis* of the typical
+e.  The basis showing the possibility of axiom-free formalization.
 -/
 
 namespace E213.Research.EulerCombinatorialPure
@@ -27,7 +27,7 @@ open E213.Research.PureNat
 open E213.Research.EulerSeq
 
 /-- **Euler upper bound, axiom-free**: 3 * eulerDen n ≥ eulerNum n + 1.
-    omega 부재 — manual Nat reasoning.
+    No omega — manual Nat reasoning.
 
     Base cases n=0, n=1 직접 decide.  n=k+1 for k ≥ 1: IH * (k+1)
     + slack 의 chain. -/
@@ -105,8 +105,8 @@ theorem euler_lower_pure (n : Nat) (hn : n ≥ 2) :
           exact Nat.add_le_add_right h_chain 1
 
 /-- **Combinatorial Hermite-direction**: 2 < S_n < 3 strict for n ≥ 2.
-    e 의 *first integer constraint* — 어떤 a/b 도 이 cut 에 fit 안 됨
-    (b ≥ 1 에 대 해 e ≠ a/b 의 mod-2 form).
+    The *first integer constraint* on e — no a/b fits this cut
+    (mod-2 form of e ≠ a/b for b ≥ 1).
 
     Specifically: `2 * eulerDen n < eulerNum n` AND `3 * eulerDen n
     > eulerNum n` for n ≥ 2.  Hence S_n ∈ (2, 3) strict. -/

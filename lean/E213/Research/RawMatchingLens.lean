@@ -1,32 +1,32 @@
 import E213.Research.IdentityLens
 
 /-!
-# Research.RawMatchingLens: Raw-matching Lens 는 모두 identity view
+# Research.RawMatchingLens: all Raw-matching Lenses have identity view
 
-**정리**: `L : Lens Raw` 가 다음을 만족하면 `L.view = id`:
+**Theorem**: if `L : Lens Raw` satisfies the following, then `L.view = id`:
 
 1. `L.base_a = Raw.a`
 2. `L.base_b = Raw.b`
 3. `L.combine x y = Raw.slash x y h` for all `x ≠ y`.
 
-diagonal (`L.combine x x`) 은 자유 — view 에 영향 없음.
+The diagonal (`L.combine x x`) is free — it has no effect on view.
 
-## 의의
+## Significance
 
-`idLens` 는 specific choice (diagonal = Raw.a).  이 정리는
-**Raw-level data 가 일치하면 view 는 반드시 identity** 임을
-보여줌.  즉 idLens 의 공식적 id-ness 는 diagonal 선택 무관.
+`idLens` is a specific choice (diagonal = Raw.a).  This theorem shows that
+**whenever Raw-level data agrees, view must be identity**.  That is, the
+formal identity of idLens is independent of the diagonal choice.
 
-Universal property 의 강력한 form: off-diagonal 구조가 view
-를 결정.  이는 Note 34-35 의 "diagonal 은 view 에 있을 때만
-의미" 관찰의 더 강한 표현.
+A stronger form of the universal property: off-diagonal structure determines
+view.  This is a stronger expression of the Note 34-35 observation that
+"diagonal is meaningful only when present in view."
 -/
 
 namespace E213.Research.RawMatchingLens
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
-/-- Raw-matching 조건 + diagonal 자유 Lens 는 view = id. -/
+/-- A Lens satisfying the Raw-matching conditions with a free diagonal has view = id. -/
 theorem rawMatching_view_is_id (L : Lens Raw)
     (hba : L.base_a = Raw.a)
     (hbb : L.base_b = Raw.b)

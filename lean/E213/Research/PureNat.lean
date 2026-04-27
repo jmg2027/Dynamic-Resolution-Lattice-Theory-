@@ -1,16 +1,18 @@
 /-!
 # Research.PureNat: custom axiom-free Nat lemmas
 
-Lean 4 core 의 `Nat.mul_assoc`, `Nat.add_mul`, `Nat.mul_mul_mul_comm`,
-`Nat.div_add_mod`, `Nat.mul_mod` 모두 `[propext]` 사용.
+`Nat.mul_assoc`, `Nat.add_mul`, `Nat.mul_mul_mul_comm`,
+`Nat.div_add_mod`, and `Nat.mul_mod` in the Lean 4 core all use
+`[propext]`.
 
-직접 induction 으 로 axiom-free 재 증명 — Lean 을 *순수 type
-checker* 로만 사용.
+Re-proved axiom-free via direct induction — using Lean purely as a
+*type checker*.
 
-## 의의
+## Significance
 
-User question (2026-04-26): propext 도 modularize.  Lean 4 core
-의 standard Nat library 마저 의존 부재 한 *극한 의 순수성*.
+User question (2026-04-26): modularize propext as well.  The *extreme
+purity* of having no dependency even on the standard Nat library of
+Lean 4 core.
 -/
 
 namespace E213.Research.PureNat

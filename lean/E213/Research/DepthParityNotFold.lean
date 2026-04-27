@@ -2,18 +2,18 @@ import E213.Research.FoldStructured
 import E213.Research.NoDepthParity
 
 /-!
-# Research.DepthParityNotFold: depth parity 함수는 fold-structured 가 아님
+# Research.DepthParityNotFold: depth parity function is not fold-structured
 
-`fun r => decide (Lens.depth.view r % 2 = 1)` — 이 Raw → Bool
-함수는 fold-structured 가 **아님**.
+`fun r => decide (Lens.depth.view r % 2 = 1)` — this Raw → Bool
+function is **not** fold-structured.
 
-따라서 어떤 Bool-valued Lens 도 이 함수를 view 로 가질 수 없음
-(FoldStructured iff Lens-expressible 에 의해).
+Therefore no Bool-valued Lens can have this function as its view
+(by the FoldStructured iff Lens-expressible equivalence).
 
-`NoDepthParity` 의 positive version: partition 가 slash-congruence
-아님 ⟺ 함수가 fold-structured 아님.
+Positive version of `NoDepthParity`: the partition is not a
+slash-congruence ⟺ the function is not fold-structured.
 
-두 관점 (note 42 §1) 의 concrete 적용.
+Concrete application of both perspectives (note 42 §1).
 -/
 
 namespace E213.Research.DepthParityNotFold
@@ -21,7 +21,7 @@ namespace E213.Research.DepthParityNotFold
 open E213.Firmware E213.Hypervisor
 open E213.Research.FoldStructured E213.Research.NoDepthParity
 
-/-- depth parity 함수. -/
+/-- The depth parity function. -/
 def depthParityFn (r : Raw) : Bool :=
   decide (Lens.depth.view r % 2 = 1)
 
@@ -32,7 +32,7 @@ private theorem depthParityFn_rB2 : depthParityFn rB2 = false := by decide
 private theorem depthParityFn_slash12 : depthParityFn slash12 = true := by decide
 private theorem depthParityFn_slash32 : depthParityFn slash32 = false := by decide
 
-/-- **depth parity 함수는 fold-structured 아님**. -/
+/-- **The depth parity function is not fold-structured**. -/
 theorem depthParityFn_not_fold_structured :
     ¬ FoldStructured depthParityFn := by
   intro ⟨ba, bb, c, _, _, _, hslash⟩

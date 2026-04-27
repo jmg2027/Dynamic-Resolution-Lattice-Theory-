@@ -17,8 +17,8 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 open E213.Research.InstanceReach
 
-/-- Bool → Prop, b ↦ (b = true).  Bool.and ↔ Prop.And 의 structure
-    preservation. -/
+/-- Bool → Prop, b ↦ (b = true).  Structure preservation:
+    Bool.and ↔ Prop.And. -/
 def boolToProp (b : Bool) : Prop := b = true
 
 theorem boolToProp_true : boolToProp true = True := by
@@ -44,8 +44,8 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 open E213.Research.InstanceReach
 
-/-- **Functorial commutativity**: Raw 의 universal morphism Bool 과
-    Prop (And) 의 image 가 boolToProp 으로 commute.
+/-- **Functorial commutativity**: the images of Raw's universal morphism
+    for Bool and for Prop (And) commute via boolToProp.
 
     universalMorphism Prop = boolToProp ∘ universalMorphism Bool. -/
 theorem universalMorphism_commute (r : Raw) :
@@ -105,8 +105,8 @@ theorem boolToProp_xor (x y : Bool) :
   unfold boolToProp propXor
   cases x <;> cases y <;> simp [xor]
 
-/-- **Functorial commutativity (Xor pair)**: Bool (xor) instance 의
-    universalMorphism 이 Prop (Xor) 의 universalMorphism 으로 commute
+/-- **Functorial commutativity (Xor pair)**: the universalMorphism of
+    the Bool (xor) instance commutes with that of Prop (Xor)
     via boolToProp. -/
 theorem universalMorphism_commute_xor (r : Raw) :
     @universalMorphism Prop propAsDistinguishing r

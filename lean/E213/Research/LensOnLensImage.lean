@@ -32,7 +32,7 @@ open E213.Research.SemanticAtom
 open E213.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
-/-- Bool → Lens Bool: factorization 의 second leg. -/
+/-- Bool → Lens Bool: second leg of the factorization. -/
 def boolToConstLens (b : Bool) : Lens Bool :=
   if b then constTrueLens else constFalseLens
 

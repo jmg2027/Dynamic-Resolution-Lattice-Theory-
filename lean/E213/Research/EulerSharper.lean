@@ -3,21 +3,21 @@ import E213.Research.EulerSeq
 /-!
 # Research.EulerSharper: e > 5/2 strict bound
 
-PAPER1 §7.4 의 e > 2 bound 의 sharper version.
+A sharper version of the e > 2 bound from PAPER1 §7.4.
 
-## 핵심
+## Core
 
 `euler_sharper_lower`: `n ≥ 3 → 2 * eulerNum n ≥ 5 * eulerDen n + 1`
-즉 `S_n > 5/2` strict for `n ≥ 3`.
+i.e., `S_n > 5/2` strict for `n ≥ 3`.
 
-Inductive step (Flat-Monomial 없 이): IH 의 differential 이
-positive, induction step 가 (n+1) * (positive) + constant ≥ 1.
+Inductive step (without Flat-Monomial): the IH's differential is
+positive, so the induction step gives (n+1) * (positive) + constant ≥ 1.
 
-## 의의
+## Significance
 
-`m/k = 5/2` 에 대해 `orderProj 5 2 (S_n) = false` from `n ≥ 3`
-constructive 하 게 close.  (1, 2) ∪ (5/2, 3) cuts 를
-이 incremental bound 로 좁힘.
+Constructively closes `orderProj 5 2 (S_n) = false` from `n ≥ 3`
+for `m/k = 5/2`.  Narrows the (1, 2) ∪ (5/2, 3) cuts with this
+incremental bound.
 -/
 
 namespace E213.Research.EulerSharper

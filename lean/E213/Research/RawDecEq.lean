@@ -3,22 +3,22 @@ import E213.Firmware.Raw
 /-!
 # Research.RawDecEq: DecidableEq Raw
 
-`Tree` 가 `deriving DecidableEq` 이고 `Raw` 가 `{t : Tree //
-canonicalBy t = true}` 이므로, `Raw` 의 equality 도 decidable.
-PAPER1 §2.3 의 1-line claim 의 explicit formalization.
+Since `Tree` has `deriving DecidableEq` and `Raw` is
+`{t : Tree // canonicalBy t = true}`, equality on `Raw` is also
+decidable.  Explicit formalization of the 1-line claim in PAPER1 §2.3.
 
-## 의의
+## Significance
 
-`Raw.slash` 의 precondition `x ≠ y` 가 *constructive* —
-elaborator 가 witness 를 produce 가능.  Decidability 가
-data 로 carry, 외부 LEM 부재.
+The precondition `x ≠ y` of `Raw.slash` is *constructive* —
+the elaborator can produce a witness.  Decidability is carried as
+data; no external LEM.
 -/
 
 namespace E213.Research.RawDecEq
 
 open E213.Firmware
 
-/-- `Raw` 의 equality 가 decidable. -/
+/-- Equality on `Raw` is decidable. -/
 instance : DecidableEq Raw := by
   intro x y
   match h : decEq x.val y.val with

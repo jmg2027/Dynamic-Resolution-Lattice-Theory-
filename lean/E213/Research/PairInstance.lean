@@ -97,7 +97,7 @@ Written as direct records since typeclass synthesis for `DistMorphism`
 is absent.
 -/
 
-/-- pair forget projection α × β → α 의 properties. -/
+/-- Properties of the pair forget projection α × β → α. -/
 theorem pair_forget_first_a (α β : Type)
     [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] :
     Prod.fst (pairHasDistinguishing α β).a = d_α.a := rfl

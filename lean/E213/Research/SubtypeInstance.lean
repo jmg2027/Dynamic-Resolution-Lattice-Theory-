@@ -23,9 +23,9 @@ namespace E213.Research.SubtypeInstance
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- distinguishing-closed predicate 위 의 sub-instance (degenerate
-    combine).  combine 의 결과 가 항상 a (first base) — degenerate
-    하지만 valid HasDistinguishing instance. -/
+/-- Sub-instance for a distinguishing-closed predicate (degenerate
+    combine).  The combine result is always a (first base) — degenerate
+    but a valid HasDistinguishing instance. -/
 def subtypeHasDistinguishing (P : Raw → Prop)
     (h_a : P Raw.a) (h_b : P Raw.b) :
     HasDistinguishing {r : Raw // P r} where

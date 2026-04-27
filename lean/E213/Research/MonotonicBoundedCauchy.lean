@@ -50,8 +50,8 @@ def IsAbMonotonic (xs : Nat → Raw) : Prop :=
   ∀ n, (abLens.view (xs n)).1 * (abLens.view (xs (n+1))).2
        ≤ (abLens.view (xs (n+1))).1 * (abLens.view (xs n)).2
 
-/-- abLens.view 의 b component 가 모두 양수.
-    Pell, Euler, Wallis 모두 만족 (denominator 가 항상 ≥ 1). -/
+/-- The b component of abLens.view is positive for all terms.
+    Satisfied by Pell, Euler, and Wallis (denominator always ≥ 1). -/
 def IsAbPositiveB (xs : Nat → Raw) : Prop :=
   ∀ n, 1 ≤ (abLens.view (xs n)).2
 

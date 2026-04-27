@@ -42,5 +42,5 @@ CutAlgebra struct: stdCutAlgebra.
 
 ## Library status: STABLE
 
-대부분 0 axioms or ≤ propext + Quot.sound (funext).
+Mostly 0 axioms or ≤ propext + Quot.sound (funext).
 -/

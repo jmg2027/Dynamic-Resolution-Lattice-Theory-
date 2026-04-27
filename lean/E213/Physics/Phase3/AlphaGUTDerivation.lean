@@ -4,46 +4,46 @@ import E213.Physics.BaselBound
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 AlphaGUTDerivation — *왜 α_GUT = 6/(25π²) 인가* deep-dive
+# Phase 3 AlphaGUTDerivation — deep-dive on *why α_GUT = 6/(25π²)*
 
 **Layer: App**.
 
-## Atomic 도출 chain
+## Atomic derivation chain
 
 1/α_GUT = d² · ζ(2) = 25 · π²/6
 
   d²    = 25       (5-simplex face count)
   ζ(2)  = π²/6     (Basel rational bracket)
-  곱     = 25π²/6 ≈ 41.123
+  product = 25π²/6 ≈ 41.123
 
-  관측 (running unification): 1/α_GUT ≈ 41.5 ± 1
-  → DRLT bracket [34, 42] *contains* 표준 41.
+  Observed (running unification): 1/α_GUT ≈ 41.5 ± 1
+  → DRLT bracket [34, 42] *contains* standard 41.
 
-α_GUT = 6/(25π²) — **첫 DRLT 물리 상수 형식 정리**.
+α_GUT = 6/(25π²) — **first DRLT physical constant formal theorem**.
 
-## 각 piece 의 atomic 의미
+## Atomic meaning of each piece
 
 ### d² = 25 (5-simplex face)
-Δ⁴ 의 1-face count = C(d, 2) = 10? 아니, d² = 25 = (5-simplex
-의 vertex² 수, 또는 K_5 complete graph 의 *all directed edges*).
+1-face count of Δ⁴ = C(d, 2) = 10? No, d² = 25 = (vertex² count of
+5-simplex, or *all directed edges* of complete graph K_5).
 
 ### ζ(2) = π²/6 (Basel)
 ∑_{n=1}^∞ 1/n² = π²/6.  Phase 1 BaselBound rational bracket:
   N=3: [49/36, 61/36]
-  N=10: 더 tight
+  N=10: tighter
 
-DRLT 핵심 트릭: π² 직접 안 쓰고 ζ(2) bracket 으로 처리.
+DRLT key trick: avoid using π² directly, handle with ζ(2) bracket.
 
-### 곱 d²·ζ(2)
+### product d²·ζ(2)
 25 · ζ(2) at N=3:
   Lower: 25 · 49/36 = 1225/36 ≈ 34.03
   Upper: 25 · 183/108 = 4575/108 ≈ 42.36
-  → 1/α_GUT ∈ [34, 42], 표준 41 안.
+  → 1/α_GUT ∈ [34, 42], standard 41 inside.
 
 ## Phase 3 falsifier
 
-  α_GUT 정밀 측정 → 1/α_GUT outside [34, 42] → 폐기.
-  현재 LHC + Tevatron data: ~41.5, DRLT bracket 안 ✓.
+  Precise measurement of α_GUT → 1/α_GUT outside [34, 42] → discarded.
+  Current LHC + Tevatron data: ~41.5, inside DRLT bracket ✓.
 -/
 
 namespace E213.Physics.Phase3.AlphaGUTDerivation
@@ -65,7 +65,7 @@ theorem inv_alpha_lower : inv_lower 3 = (1225, 36) := inv_lower_3
 /-- 1/α_GUT upper at N=3: 4575/108. -/
 theorem inv_alpha_upper : inv_upper 3 = (4575, 108) := inv_upper_3
 
-/-- 표준 1/α_GUT = 41 ∈ DRLT bracket. -/
+/-- Standard 1/α_GUT = 41 ∈ DRLT bracket. -/
 theorem standard_in_bracket : True :=
   by have := standard_41_in_bracket; trivial
 

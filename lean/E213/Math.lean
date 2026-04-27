@@ -23,15 +23,16 @@ Library structure with namespace separation.
 
 ## Status
 
-모두 build 성공, 0 sorry, ≤ propext + Quot.sound (Lean 4 core only).
+All build successfully, 0 sorry, ≤ propext + Quot.sound (Lean 4 core
+only).
 
-연 구 단 계 (incomplete proofs 또 는 scaffolding) modules 도 import —
-"library" status 는 doc-string 의 명 시.
+Research-stage modules (incomplete proofs or scaffolding) are also
+imported — "library" status is stated explicitly in each doc-string.
 
-User directives 의 working evidence:
-- "213 만 의 실수" → Real213 (Foundation)
-- "Generic 으 로 213 스럽 게" → Generic + CutOps
-- "라 이 브 러 리 화" → 이 namespace structure
+Working evidence for user directives:
+- "reals native to 213" → Real213 (Foundation)
+- "213-style via Generic" → Generic + CutOps
+- "make it a library" → this namespace structure
 - "Real = Lens output" → AsLensOutput (Analysis)
 - "transcendental Lens" → RecurrenceLens (Analysis)
 -/

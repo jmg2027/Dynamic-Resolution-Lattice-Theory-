@@ -24,7 +24,7 @@ namespace E213.Research.BoolSqClassification
 
 open E213.Firmware E213.Hypervisor E213.Research.DiagonalClassification
 
-/-- sq 가 negation 인 class. -/
+/-- Class where sq is negation. -/
 def NegSq {α : Type} (L : Lens α) (f : α → α) : Prop :=
   (∀ v : α, L.combine v v = f v) ∧ (∀ v : α, f (f v) = v) ∧
   (∀ v : α, f v ≠ v)

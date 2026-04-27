@@ -8,7 +8,7 @@ import E213.Research.Real213CutBinaryInstances
 cutBinary universal kernel + CutBinaryOp struct + cutSumOp/cutMulOp
 instances + apply_locallyDetermined generic theorem.
 
-## Library status: STABLE — 모두 0 axioms.
+## Library status: STABLE — all 0 axioms.
 
 213-style universal abstraction for binary cut operations.
 -/

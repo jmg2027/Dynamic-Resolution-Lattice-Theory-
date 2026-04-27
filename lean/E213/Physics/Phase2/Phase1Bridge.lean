@@ -8,15 +8,15 @@ import E213.Physics.SimplexCounts
 
 **Layer: App** (cross-track 정합성 검증).
 
-Phase 2 (Edges, Force): axiom-level 산술
+Phase 2 (Edges, Force): axiom-level arithmetic
   - num_directed_edges = c_lattice · NS_atomic · 2 = 12
   - cycle_space dim = 12 - 5 + 1 = 8 = NS_atomic² - 1
 
-Phase 1 (PhotonKernel, SimplexCounts): 정밀 양 derivation
+Phase 1 (PhotonKernel, SimplexCounts): precision quantity derivation
   - num_edges = c_lat · NS · NT = 12
   - b_1 = num_edges - num_vertices + 1 = 8 = NS² - 1 (= 1/α_3)
 
-★ 두 트랙의 *문자 그대로 동일 산술* ★ — 본 파일 형식 증명.
+★ *Literally the same arithmetic* in both tracks ★ — formal proof in this file.
 -/
 
 namespace E213.Physics.Phase2.Phase1Bridge

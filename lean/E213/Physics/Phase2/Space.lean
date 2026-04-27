@@ -83,19 +83,19 @@ theorem NT_NS_ratio_cross_mult_at_2 :
 theorem NT_NS_ratio_cross_mult_at_3 :
     (3 : Nat) ^ 3 * (2 : Nat) ^ 3 = 6 ^ 3 := by decide
 
-/-- ★ Phase 2 Space — 종합 명제 ★
+/-- ★ Phase 2 Space — comprehensive proposition ★
 
-  NS=3 atom unfolded 는 ternary (3^n leaves).
-  NT=2 dyadic 과 비대칭, ratio (3/2)^n.
-  
-  Phase 1의 m_μ/m_e (NS/NT factor 3/2), Y-norm (5/3 = d/NS),
-  Fibonacci F_5/F_4 = 5/3 의 atomicity-level 기원. -/
+  NS=3 atom unfolded gives ternary (3^n leaves).
+  Asymmetric with NT=2 dyadic, ratio (3/2)^n.
+
+  Atomicity-level origin of Phase 1's m_μ/m_e (NS/NT factor 3/2), Y-norm (5/3 = d/NS),
+  and Fibonacci F_5/F_4 = 5/3. -/
 theorem space_is_NS_unfolded :
     -- NS atomic size
     (NS_atomic_size = 3)
     -- 1 step gives 3 states
     ∧ ((3 : Nat) ^ 1 = 3)
-    -- 비대칭 (3 ≠ 2)
+    -- asymmetry (3 ≠ 2)
     ∧ (3 ≠ 2)
     -- NS/NT ratio = 3/2 (cross-mult)
     ∧ (3 * 2 = 2 * 3) := by decide

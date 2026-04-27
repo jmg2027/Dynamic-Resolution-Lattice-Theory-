@@ -49,7 +49,7 @@ namespace E213.Research.LensOnLens
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- Lens 의 pointwise xor combine. -/
+/-- Pointwise xor combine of Lenses. -/
 def lensXor (L M : Lens Bool) : Lens Bool :=
   ⟨xor L.base_a M.base_a, xor L.base_b M.base_b,
    fun x y => xor (L.combine x y) (M.combine x y)⟩

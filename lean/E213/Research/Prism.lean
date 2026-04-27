@@ -113,7 +113,7 @@ theorem caseElement_disjoint (target1 target2 : Raw) (h : target1 ≠ target2)
   by_cases ht1 : r = target1
   · -- r = target1.
     by_cases ht2 : r = target2
-    · -- r = target2 도.  target1 = target2 contradiction.
+    · -- r = target2 also.  target1 = target2 contradiction.
       rw [← ht1, ht2] at h
       exact h rfl
     · -- r ≠ target2 → preview target2 r = none → contradicts h2.
@@ -121,7 +121,7 @@ theorem caseElement_disjoint (target1 target2 : Raw) (h : target1 ≠ target2)
   · -- r ≠ target1 → preview target1 r = none → contradicts h1.
     simp [ht1] at h1
 
-/-- Specific instance: aPrism 과 bPrism 의 disjointness. -/
+/-- Specific instance: disjointness of aPrism and bPrism. -/
 theorem aPrism_bPrism_disjoint (r : Raw) :
     ¬ (aPrism.preview r = some () ∧ bPrism.preview r = some ()) :=
   caseElement_disjoint Raw.a Raw.b (by decide) r

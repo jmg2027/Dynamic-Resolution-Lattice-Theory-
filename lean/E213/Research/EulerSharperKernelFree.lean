@@ -1,16 +1,15 @@
 import E213.Research.EulerSeq
 
 /-!
-# Research.EulerSharperKernelFree: omega-free Euler sharper
-bound (partial)
+# Research.EulerSharperKernelFree: omega-free Euler sharper bound (partial)
 
-EulerSharper 의 axiom-free version.  `omega` 의 사용처
-대 부 분 manual Nat 로 대체 — `[propext]` only.
+Axiom-free version of EulerSharper.  Most uses of `omega` replaced by
+manual Nat arithmetic — `[propext]` only.
 
-특정 case 만 demonstrated (n=3 base + IH structure).
-Full omega elimination 은 inductive arithmetic chain 의 전체
-expansion 필 요 — base case 만 으 로 도 sharper bound 의
-*존재* 가 axiom-free 로 형식 화.
+Only specific cases are demonstrated (n=3 base + IH structure).
+Full omega elimination requires expanding the entire inductive
+arithmetic chain — even with the base case alone, the *existence* of
+the sharper bound is formalized axiom-free.
 -/
 
 namespace E213.Research.EulerSharperKernelFree

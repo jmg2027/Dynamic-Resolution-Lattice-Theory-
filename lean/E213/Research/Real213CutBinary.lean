@@ -3,13 +3,13 @@ import E213.Research.ArchimedeanCauchy
 /-!
 # Research.Real213CutBinary: generic 2D bounded-search cut operation
 
-User directive (2026-04-26): "Generic 으로 213 스럽게 가보자".
+User directive (2026-04-26): "Let's go generic in the 213 style."
 
-cutSum, cutMul 의 *공통 패턴* 추 출 — 2D bounded search over rational
-witnesses.  Differences only in (1) precision factors (k1, k2), (2)
-search bounds (M1, M2), (3) per-cell predicate.
+Extract the *common pattern* of cutSum and cutMul — 2D bounded search over
+rational witnesses.  Differences only in (1) precision factors (k1, k2),
+(2) search bounds (M1, M2), (3) per-cell predicate.
 
-## 정의
+## Definition
 
 ```
 cutBinary P k1 k2 M1 M2 cx cy
@@ -17,20 +17,20 @@ cutBinary P k1 k2 M1 M2 cx cy
        P m1 m2 = true ∧ cx(m1, k1) = true ∧ cy(m2, k2) = true
 ```
 
-## 213-style 의 의의
+## Significance of 213-style
 
-- **모든 binary cut operation 의 universal kernel** — Lens-style
-  unified abstraction.
-- cutSum, cutMul 등 specific operations = `cutBinary` 의 specific
-  predicate / precision / bound 의 instance.
-- locally-determined property 자동 유 도 (predicate 가 cx, cy 와
-  무 관 하 게 정의 되 면).
+- **Universal kernel of all binary cut operations** — unified abstraction
+  in Lens style.
+- Specific operations such as cutSum and cutMul = instances of `cutBinary`
+  with specific predicate / precision / bounds.
+- The locally-determined property follows automatically (when the predicate
+  is defined independently of cx, cy).
 
-## 의의
+## Significance
 
-CutOp 의 *cardinality* 는 (predicate, k1, k2, M1, M2) 의 4D parameter
-space — 모든 합 리 적 binary operation 이 이 안.  Bishop 의
-ε-precision 선 택 도 이 안 의 special form.
+The *cardinality* of CutOp is the 4D parameter space of
+(predicate, k1, k2, M1, M2) — all rational binary operations live within
+it.  Bishop's ε-precision choice is also a special form within it.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -113,7 +113,7 @@ theorem cutBinaryOuter_congr (P : Nat → Nat → Bool) (k1 k2 M1 M2 : Nat)
                     (hx (i+1) hn) hy M2 (Nat.le_refl _)
     rw [step1, ih hi]
 
-/-- **Generic cutBinary 의 locally-determined property**. -/
+/-- **Locally-determined property of generic cutBinary**. -/
 theorem cutBinary_locallyDetermined (P : Nat → Nat → Bool) (k1 k2 M1 M2 : Nat)
     (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
     (hx : ∀ m', m' ≤ M1 → cx1 m' k1 = cx2 m' k1)

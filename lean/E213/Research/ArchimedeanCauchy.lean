@@ -47,8 +47,8 @@ namespace E213.Research.ArchimedeanCauchy
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
 
-/-- **(a, b) = (n, n) (n ≥ 1) 의 orderProj 가 n-independent**:
-    diagonal 비율 1/1 = 1 의 Dedekind cut. -/
+/-- **orderProj is n-independent for (a, b) = (n, n) (n ≥ 1)**:
+    Dedekind cut for the diagonal ratio 1/1 = 1. -/
 theorem diagonal_seq_orderProj_const (m k : Nat) (n : Nat) (hn : n ≥ 1) :
     orderProj m k (n, n) = decide (k ≤ m) := by
   unfold orderProj
@@ -68,19 +68,19 @@ namespace E213.Research.ArchimedeanCauchy
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.LensCauchy
 
-/-- **Order Cauchy data**: explicit witness 구조 (constructive). -/
+/-- **Order Cauchy data**: explicit witness structure (constructive). -/
 structure OrderCauchyData (xs : Nat → Raw) where
   N : Nat → Nat → Nat
   cauchy : ∀ m k i j, k ≥ 1 → i ≥ N m k → j ≥ N m k →
     orderProj m k (abLens.view (xs i)) = orderProj m k (abLens.view (xs j))
 
-/-- **Dedekind cut**: Order-Cauchy seq 의 limit decision function.
-    각 (m, k) reference 에 대해 eventually-constant Bool. -/
+/-- **Dedekind cut**: limit decision function of an Order-Cauchy sequence.
+    Eventually-constant Bool for each (m, k) reference. -/
 def OrderCauchyData.cut {xs : Nat → Raw} (cd : OrderCauchyData xs)
     (m k : Nat) : Bool :=
   orderProj m k (abLens.view (xs (cd.N m k)))
 
-/-- **Cut 의 well-definedness**: tail 모두 동일 cut 값. -/
+/-- **Well-definedness of Cut**: all tail values equal the cut value. -/
 theorem cut_eq_tail {xs : Nat → Raw} (cd : OrderCauchyData xs)
     (m k : Nat) (hk : k ≥ 1) (n : Nat) (hn : n ≥ cd.N m k) :
     orderProj m k (abLens.view (xs n)) = cd.cut m k := by
@@ -94,8 +94,8 @@ namespace E213.Research.ArchimedeanCauchy
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
 
-/-- **Diagonal sequence (a=b=n+1) 가 Order-Cauchy**.
-    abLens.view (xs n) = (n+1, n+1) 가정. -/
+/-- **Diagonal sequence (a=b=n+1) is Order-Cauchy**.
+    Assumes abLens.view (xs n) = (n+1, n+1). -/
 theorem diagonal_seq_orderCauchy (xs : Nat → Raw)
     (h : ∀ n, abLens.view (xs n) = (n + 1, n + 1)) :
     isOrderCauchy xs := by
@@ -106,7 +106,7 @@ theorem diagonal_seq_orderCauchy (xs : Nat → Raw)
   rw [diagonal_seq_orderProj_const m k (i+1) (by omega)]
   rw [diagonal_seq_orderProj_const m k (j+1) (by omega)]
 
-/-- **Diagonal sequence 의 explicit OrderCauchyData**. -/
+/-- **Explicit OrderCauchyData for the diagonal sequence**. -/
 def diagonal_seq_data (xs : Nat → Raw)
     (h : ∀ n, abLens.view (xs n) = (n + 1, n + 1)) :
     OrderCauchyData xs where
@@ -117,8 +117,8 @@ def diagonal_seq_data (xs : Nat → Raw)
     rw [diagonal_seq_orderProj_const m k (i+1) (by omega)]
     rw [diagonal_seq_orderProj_const m k (j+1) (by omega)]
 
-/-- **Diagonal sequence 의 Dedekind cut = "ratio 1"**:
-    cut(m, k) = decide (k ≤ m).  rational 1 의 Dedekind 표현. -/
+/-- **Dedekind cut of the diagonal sequence = "ratio 1"**:
+    cut(m, k) = decide (k ≤ m).  Dedekind representation of rational 1. -/
 theorem diagonal_seq_cut (xs : Nat → Raw)
     (h : ∀ n, abLens.view (xs n) = (n + 1, n + 1)) (m k : Nat) :
     (diagonal_seq_data xs h).cut m k = decide (k ≤ m) := by
@@ -133,8 +133,8 @@ namespace E213.Research.ArchimedeanCauchy
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
 
-/-- (n+1, n+2) sequence 의 orderProj eventually constant (각
-    (m, k) 별로 N 다름). -/
+/-- orderProj of the (n+1, n+2) sequence is eventually constant
+    (N differs for each (m, k)). -/
 theorem ratio_one_below_orderProj_eventually
     (m k : Nat) (hk : k ≥ 1) :
     ∃ N, ∀ n, n ≥ N →
@@ -188,8 +188,8 @@ namespace E213.Research.ArchimedeanCauchy
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
 
-/-- **(n+1, n+2) 형 sequence 가 Order-Cauchy** — ratio 1 을 below
-    에서 approach. -/
+/-- **(n+1, n+2)-type sequence is Order-Cauchy** — approaches ratio 1
+    from below. -/
 theorem ratio_one_below_orderCauchy (xs : Nat → Raw)
     (h : ∀ n, abLens.view (xs n) = (n + 1, n + 2)) :
     isOrderCauchy xs := by
@@ -199,8 +199,8 @@ theorem ratio_one_below_orderCauchy (xs : Nat → Raw)
   intro i j hi hj
   rw [h i, h j, hN i hi, hN j hj]
 
-/-- **(n+1, n+2) 형 sequence 의 Dedekind cut 도 ratio 1**.
-    (n+1, n+1) 과 같은 cut — 같은 ℝ-element 의 다른 sequence. -/
+/-- **Dedekind cut of the (n+1, n+2)-type sequence is also ratio 1**.
+    Same cut as (n+1, n+1) — a different sequence for the same ℝ-element. -/
 theorem ratio_one_below_cut_eq_diagonal (xs ys : Nat → Raw)
     (hx : ∀ n, abLens.view (xs n) = (n + 1, n + 1))
     (hy : ∀ n, abLens.view (ys n) = (n + 1, n + 2))
@@ -218,8 +218,8 @@ namespace E213.Research.ArchimedeanCauchy
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
 
-/-- **General rational p/q sequence**: (a, b) = (p*(n+1), q*(n+1))
-    의 orderProj 가 n-independent. -/
+/-- **General rational p/q sequence**: orderProj of (a, b) =
+    (p*(n+1), q*(n+1)) is n-independent. -/
 theorem rational_seq_orderProj_const (p q m k : Nat) (n : Nat) (hn : n ≥ 1) :
     orderProj m k (p * n, q * n) = decide (p * k ≤ q * m) := by
   unfold orderProj
@@ -240,8 +240,8 @@ theorem rational_seq_orderProj_const (p q m k : Nat) (n : Nat) (hn : n ≥ 1) :
       exact Nat.le_of_mul_le_mul_left h'' hn
     simp [hpq, this]
 
-/-- **General rational p/q seq 의 Dedekind cut = "ratio p/q"**.
-    Constant sequence (p*(n+1), q*(n+1)) 의 cut = decide (p*k ≤ q*m). -/
+/-- **Dedekind cut of the general rational p/q sequence = "ratio p/q"**.
+    Cut of the constant sequence (p*(n+1), q*(n+1)) = decide (p*k ≤ q*m). -/
 theorem rational_seq_cut (p q : Nat) (xs : Nat → Raw)
     (h : ∀ n, abLens.view (xs n) = (p * (n+1), q * (n+1))) (m k : Nat) :
     orderProj m k (abLens.view (xs 0)) = decide (p * k ≤ q * m) := by
@@ -290,8 +290,8 @@ namespace E213.Research.ArchimedeanCauchy
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Cut equivalence**: 두 OrderCauchyData 가 같은 Dedekind cut →
-    같은 ℝ-element. -/
+/-- **Cut equivalence**: two OrderCauchyData with the same Dedekind cut
+    represent the same ℝ-element. -/
 def CutEquiv {xs ys : Nat → Raw}
     (cdx : OrderCauchyData xs) (cdy : OrderCauchyData ys) : Prop :=
   ∀ m k, cdx.cut m k = cdy.cut m k
@@ -310,11 +310,11 @@ theorem CutEquiv.trans {xs ys zs : Nat → Raw}
     (hxy : CutEquiv cdx cdy) (hyz : CutEquiv cdy cdz) : CutEquiv cdx cdz :=
   fun m k => (hxy m k).trans (hyz m k)
 
-/-- **ℝ-element type**: Dedekind cut 자체.
-    각 (m, k) 에 대한 일관된 Bool decision. -/
+/-- **ℝ-element type**: the Dedekind cut itself.
+    A consistent Bool decision for each (m, k). -/
 abbrev RealCut : Type := Nat → Nat → Bool
 
-/-- OrderCauchyData 에서 RealCut 추출. -/
+/-- Extract RealCut from OrderCauchyData. -/
 def OrderCauchyData.toRealCut {xs : Nat → Raw}
     (cd : OrderCauchyData xs) : RealCut :=
   cd.cut

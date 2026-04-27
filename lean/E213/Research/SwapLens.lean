@@ -27,7 +27,7 @@ namespace E213.Research.SwapLens
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
-/-- Swap Lens: Raw.swap 이 view 인 Lens. -/
+/-- Swap Lens: Lens whose view is Raw.swap. -/
 def swapLens : Lens Raw where
   base_a := Raw.b
   base_b := Raw.a
@@ -56,13 +56,13 @@ theorem swapLens_view_eq_swap : ∀ r : Raw, swapLens.view r = Raw.swap r := by
            = Raw.swap (Raw.slash x y h)
       rw [dif_pos hne, ← Raw.swap_slash]
 
-/-- Corollary: swapLens.view 는 involutive. -/
+/-- Corollary: swapLens.view is involutive. -/
 theorem swapLens_view_involutive :
     ∀ r : Raw, swapLens.view (swapLens.view r) = r := by
   intro r
   rw [swapLens_view_eq_swap, swapLens_view_eq_swap, Raw.swap_swap]
 
-/-- swapLens 는 injective view (involutive 이므로). -/
+/-- swapLens has an injective view (since it is involutive). -/
 theorem swapLens_injective : Function.Injective swapLens.view := by
   intro x y hxy
   rw [swapLens_view_eq_swap, swapLens_view_eq_swap] at hxy

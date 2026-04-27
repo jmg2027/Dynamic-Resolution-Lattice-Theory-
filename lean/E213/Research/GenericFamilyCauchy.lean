@@ -4,12 +4,12 @@ import E213.Research.ArchimedeanCauchy
 import E213.Research.ProfiniteSeq
 
 /-!
-# Research.GenericFamilyCauchy: Lens + post-processing 의 통합 framework
+# Research.GenericFamilyCauchy: Unified framework for Lens + post-processing
 
-ArchimedeanCauchy (orderProj family) 와 ProfiniteSeq (mod m
-family) 가 **같은 추상화 의 두 instance** 임을 명시.
+Explicitly identifies ArchimedeanCauchy (orderProj family) and
+ProfiniteSeq (mod m family) as **two instances of the same abstraction**.
 
-## 통합 form
+## Unified form
 
 `(L, F) family-Cauchy` where L : Lens α, F : ι → α → β:
 
@@ -17,18 +17,18 @@ family) 가 **같은 추상화 의 두 instance** 임을 명시.
 ∀ i, ∃ N, ∀ k l ≥ N, F i (L.view (xs k)) = F i (L.view (xs l))
 ```
 
-ι, β 는 임의 type.
+ι, β are arbitrary types.
 
 - **Profinite case**: L = Lens.leaves, F m = (· % m), β = Nat.
 - **Archimedean case**: L = abLens, F (m, k) = orderProj m k,
   β = Bool.
 
-## 의의
+## Significance
 
-Mingu (c)+(d): "Profinite ↔ Archimedean 둘 다 어떤 Lens family
-선택 의 차이.  같은 limitLens 메커니즘".
+Mingu (c)+(d): "Profinite ↔ Archimedean are both differences in Lens
+family choice.  Same limitLens mechanism."
 
-이 file 이 그 통일 의 형식 표현.
+This file is the formal expression of that unification.
 -/
 
 namespace E213.Research.GenericFamilyCauchy
@@ -49,13 +49,13 @@ structure GFCauchyData {α β : Type} {ι : Type}
   cauchy : ∀ i k l, k ≥ N i → l ≥ N i →
     F i (L.view (xs k)) = F i (L.view (xs l))
 
-/-- Limit assignment 추출. -/
+/-- Extract limit assignment. -/
 def GFCauchyData.limitAssign {α β : Type} {ι : Type}
     {L : Lens α} {F : ι → α → β} {xs : Nat → Raw}
     (cd : GFCauchyData L F xs) : ι → β :=
   fun i => F i (L.view (xs (cd.N i)))
 
-/-- Limit assignment 의 well-definedness. -/
+/-- Well-definedness of limit assignment. -/
 theorem limitAssign_eq_tail {α β : Type} {ι : Type}
     {L : Lens α} {F : ι → α → β} {xs : Nat → Raw}
     (cd : GFCauchyData L F xs) (i : ι) (n : Nat) (hn : n ≥ cd.N i) :
@@ -98,7 +98,7 @@ theorem orderCauchy_is_GFCauchy
   by_cases hk : mk.2 ≥ 1
   · obtain ⟨N, hN⟩ := h mk.1 mk.2 hk
     exact ⟨N, hN⟩
-  · -- mk.2 = 0: orderProj 가 항상 true (since p.1 * 0 = 0 ≤ p.2 * mk.1)
+  · -- mk.2 = 0: orderProj is always true (since p.1 * 0 = 0 ≤ p.2 * mk.1)
     refine ⟨0, ?_⟩
     intro k l _ _
     show E213.Research.ArchimedeanCauchy.orderProj mk.1 mk.2 _ =
@@ -136,8 +136,8 @@ namespace E213.Research.GenericFamilyCauchy
 
 open E213.Firmware E213.Hypervisor
 
-/-- **ProjectionLens**: F 가 fold-compatible 인 경우 single
-    Lens (ι → β) 구성. -/
+/-- **ProjectionLens**: when F is fold-compatible, constructs a
+    single Lens (ι → β). -/
 def projectionLens {α β ι : Type} (L : Lens α) (F : ι → α → β)
     (combine_β : ι → β → β → β) :
     Lens (ι → β) where
@@ -145,7 +145,7 @@ def projectionLens {α β ι : Type} (L : Lens α) (F : ι → α → β)
   base_b := fun i => F i L.base_b
   combine f g := fun i => combine_β i (f i) (g i)
 
-/-- ProjectionLens 의 view 가 pointwise (fold-compat 가정 하).  -/
+/-- ProjectionLens view is pointwise (assuming fold-compatibility). -/
 theorem projectionLens_view {α β ι : Type} (L : Lens α) (F : ι → α → β)
     (combine_β : ι → β → β → β)
     (hLsym : ∀ u v, L.combine u v = L.combine v u)
@@ -190,7 +190,7 @@ def leavesModAllLens : Lens (Nat → Nat) :=
     (fun (m : Nat) (n : Nat) => n % (m + 1))
     (fun (m : Nat) (a b : Nat) => (a + b) % (m + 1))
 
-/-- leavesModAllLens.view r 의 m-th 컴포넌트 = leaves r % (m+1). -/
+/-- The m-th component of leavesModAllLens.view r = leaves r % (m+1). -/
 theorem leavesModAllLens_view (r : Raw) :
     leavesModAllLens.view r = fun m => Lens.leaves.view r % (m + 1) := by
   apply projectionLens_view

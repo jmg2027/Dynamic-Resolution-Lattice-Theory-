@@ -104,7 +104,7 @@ import E213.Research.Real213FTCRiemannMid
 import E213.Research.Real213FTCRiemannGeneric
 import E213.Research.Real213FTCRiemannChain
 
--- I. ODE + 물리
+-- I. ODE + physics
 import E213.Research.Real213ODELinear
 import E213.Research.Real213ODECatalog
 import E213.Research.Real213ODESecondOrder
@@ -112,7 +112,7 @@ import E213.Research.Real213NewtonFirst
 import E213.Research.Real213NewtonSecond
 import E213.Research.Real213CubeDerivativeAtZero
 
--- J. 급수 + 7 초월함수 at zero
+-- J. Series + 7 transcendental functions at zero
 import E213.Research.Real213CutSequence
 import E213.Research.Real213CutSeries
 import E213.Research.Real213CutSeriesConst
@@ -124,7 +124,7 @@ import E213.Research.Real213ExpAtZero
 import E213.Research.Real213SinCosAtZero
 import E213.Research.Real213TranscendentalAtZero
 
--- K. Capstone 정리 모음
+-- K. Capstone theorem collection
 import E213.Research.Real213PhaseLCapstone
 import E213.Research.Real213PhaseACMinimumProposition
 import E213.Research.Real213PhaseADCapstone

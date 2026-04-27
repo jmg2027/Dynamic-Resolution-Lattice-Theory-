@@ -5,9 +5,9 @@ import E213.Research.Real213SignedSum
 
 |x - y| via abs ∘ signed-sub.
 
-## 정의
+## Definition
 
-cutAbs s := { sign := true, cut := s.cut } — 절댓값.
+cutAbs s := { sign := true, cut := s.cut } — absolute value.
 cutDistance sx sy := cutAbs (cutSignedSub sx sy).
 -/
 
@@ -25,7 +25,7 @@ def cutDistance (sx sy : SignedCut) : SignedCut :=
 /-- abs idempotent. -/
 theorem cutAbs_idempotent (s : SignedCut) : cutAbs (cutAbs s) = cutAbs s := rfl
 
-/-- abs sign 항상 positive. -/
+/-- abs sign is always positive. -/
 theorem cutAbs_sign (s : SignedCut) : (cutAbs s).sign = true := rfl
 
 /-- abs cut = original cut (sign-independent). -/

@@ -15,17 +15,17 @@ Pell-style demonstration: algebraic invariants `3 d_n ≥ a_n + 1`
 (S_n < 3) and `a_n ≥ 2 d_n + 1` for n ≥ 2 (S_n > 2 from n=2).
 Together: e ∈ (2, 3) Dedekind cut at concrete thresholds.
 
-## 의의
+## Significance
 
-PellSeq + Sqrt2Cut 가 √2 (algebraic irrational), EulerSeq 는
-e (transcendental).  213 framework 가 transcendental 까지
-constructive Cauchy 로 내려놓을 수 있음의 demonstration.
+PellSeq + Sqrt2Cut covers √2 (algebraic irrational); EulerSeq covers
+e (transcendental).  A demonstration that the 213 framework can
+accommodate even transcendentals via constructive Cauchy.
 
 `#print axioms`: [propext] only.
 
-## 변경 이력
+## Changelog
 
-- 2026-04-25: EulerSeq.lean 작성.  e ∈ (2, 3) cuts.
+- 2026-04-25: EulerSeq.lean written.  e ∈ (2, 3) cuts.
 -/
 
 namespace E213.Research.EulerSeq

@@ -3,28 +3,27 @@ import E213.Research.ArchimedeanCauchy
 /-!
 # Research.HasModulus: Constructive Cauchy modulus typeclass
 
-PAPER1 §6.4 의 LEM-bound `∀ (m, k), ∃ N` closure 를 우회 하는
-정통 Bishop-style infrastructure: explicit modulus 를 *data*
-로 요구.
+Canonical Bishop-style infrastructure bypassing the LEM-bound
+`∀ (m, k), ∃ N` closure from PAPER1 §6.4: an explicit modulus
+is required as *data*.
 
-## 핵심
+## Core
 
-`HasModulus xs`: sequence `xs : Nat → Raw` 에 대 한 explicit
-N : Nat → Nat → Nat (per-(m, k) modulus) 의 typeclass
-embedding.  data 가 주어지면 isOrderCauchy 가 LEM 없 이
-derive.
+`HasModulus xs`: typeclass embedding of an explicit
+N : Nat → Nat → Nat (per-(m, k) modulus) for the sequence
+`xs : Nat → Raw`.  Once data is provided, isOrderCauchy is
+derived without LEM.
 
-## 의의
+## Significance
 
-- *Sequence supplier 가 modulus 를 함께 제공* 하는 정통
-  constructive analysis pattern (Bishop 1967).
-- `HasModulus → isOrderCauchy` 가 trivially 성립 — typeclass
-  보유 가 LEM 우회 의 mechanical replacement.
-- 구체 instance (Pell, Euler, Wallis) 는 future work; 각각
-  explicit N 함수 의 구성 이 부담 (Pell: y_n ≥ k iff n ≥ k 의
-  bound 로 closed form 가능; Euler/Wallis: irrationality of
-  e/π/2 가 framework-internal lemma 로 격상 되 어야 — 별도
-  arc).
+- The canonical constructive-analysis pattern where the *sequence
+  supplier also provides the modulus* (Bishop 1967).
+- `HasModulus → isOrderCauchy` holds trivially — possessing the
+  typeclass is the mechanical replacement for bypassing LEM.
+- Concrete instances (Pell, Euler, Wallis) are future work; constructing
+  the explicit N function for each is non-trivial (Pell: closed form
+  via bound y_n ≥ k iff n ≥ k; Euler/Wallis: irrationality of e/π/2
+  must be elevated to a framework-internal lemma — separate arc).
 -/
 
 namespace E213.Research.HasModulusNS
@@ -33,10 +32,9 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
 open E213.Research.ArchimedeanCauchy
 
-/-- **Constructive Cauchy modulus**: explicit per-(m, k)
-    modulus N 으로 orderProj 의 stabilization 을 data 로
-    carry.  Bishop-style constructive analysis 의 정통
-    pattern. -/
+/-- **Constructive Cauchy modulus**: carries the stabilization of
+    orderProj as data via an explicit per-(m, k) modulus N.
+    The canonical pattern of Bishop-style constructive analysis. -/
 structure HasModulus (xs : Nat → Raw) where
   N : Nat → Nat → Nat
   cauchy_at : ∀ m k, k ≥ 1 → ∀ i j, i ≥ N m k → j ≥ N m k →

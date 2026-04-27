@@ -15,5 +15,5 @@ isLocallyDetermined / isLocallyDetermined2 + concrete proofs:
 
 ## Library status: STABLE
 
-Bishop locatedness 의 213 form + categorical structure.
+213 form of Bishop locatedness + categorical structure.
 -/

@@ -21,8 +21,8 @@ namespace E213.Research.ModLensCRT
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensMeet
 
-/-- L_6 refines prodLens(L_2, L_3) — divides_refines + meet
-    universal property 로 자동. -/
+/-- L_6 refines prodLens(L_2, L_3) — automatic from divides_refines
+    + the meet universal property. -/
 theorem L6_refines_prod :
     (leavesModNat 6).refines
       (prodLens (leavesModNat 2) (leavesModNat 3)) := by

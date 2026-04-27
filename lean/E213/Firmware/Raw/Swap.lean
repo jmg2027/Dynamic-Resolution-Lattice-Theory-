@@ -120,7 +120,7 @@ theorem Raw.swap_swap (r : Raw) : Raw.swap (Raw.swap r) = r := by
   apply Subtype.ext
   exact Tree.swap_swap r.val r.property
 
-/-- Raw.swap 은 injective.  involutivity 에서 직접 귀결. -/
+/-- Raw.swap is injective.  Follows directly from involutivity. -/
 theorem Raw.swap_injective {x y : Raw} (h : Raw.swap x = Raw.swap y) : x = y := by
   have hswap : Raw.swap (Raw.swap x) = Raw.swap (Raw.swap y) :=
     congrArg Raw.swap h

@@ -1,25 +1,25 @@
 import E213.Research.UniversalQuotLens
 
 /-!
-# Research.FamilyMeet: arbitrary-index family 의 slash-congruence meet
+# Research.FamilyMeet: slash-congruence meet of an arbitrary-index family
 
-`UniversalQuotLens` 의 single-`E` form 을 family `⟨E_i⟩_{i ∈ I}`
-로 일반화.  Index type `I` 의 cardinality 가 임의 (특히
-countable I 가능 → countable Choice 의 213-internal counterpart).
+Generalizes the single-`E` form of `UniversalQuotLens` to a family
+`⟨E_i⟩_{i ∈ I}`.  The cardinality of the index type `I` is arbitrary
+(countable I in particular → the 213-internal counterpart of countable Choice).
 
-## 핵심
+## Core
 
-각 E_i 가 slash-congruence 면 `λ r r'. ∀ i, E_i r r'` 도
-slash-congruence.  `universalLens` 로 단일 Lens 가 그
-intersection kernel 을 capture.
+If each E_i is a slash-congruence, then `λ r r'. ∀ i, E_i r r'` is
+also a slash-congruence.  A single Lens captures that intersection
+kernel via `universalLens`.
 
-## 의의
+## Significance
 
-PAPER1 §5.1 의 "Choice → Lens specification" 의 family
-version: countable family 의 simultaneous representative
-selection 이 213 안 에서 single Lens 로 가능 — external
-countable Choice 부재.  Lens-kernel space 의 *complete
-meet-semilattice* structure 의 형식 화.
+Family version of the "Choice → Lens specification" from PAPER1 §5.1:
+simultaneous representative selection for a countable family is possible
+inside 213 via a single Lens — no external countable Choice required.
+Formalization of the *complete meet-semilattice* structure of the
+Lens-kernel space.
 -/
 
 namespace E213.Research.FamilyMeet
@@ -27,7 +27,7 @@ namespace E213.Research.FamilyMeet
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
 
-/-- Index 별 slash-congruence family 의 intersection. -/
+/-- Index-wise intersection of a slash-congruence family. -/
 def familyMeet {I : Type} (E : I → Raw → Raw → Prop)
     (r r' : Raw) : Prop :=
   ∀ i : I, E i r r'
@@ -62,13 +62,12 @@ namespace E213.Research.FamilyMeet
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
 
-/-- **Family meet via universalLens**: arbitrary family
-    `⟨E_i⟩_{i ∈ I}` 의 simultaneous slash-congruence
-    intersection 이 single Lens 의 kernel 로 표현 가능.
+/-- **Family meet via universalLens**: the simultaneous slash-congruence
+    intersection of an arbitrary family `⟨E_i⟩_{i ∈ I}` can be
+    expressed as the kernel of a single Lens.
 
-    각 E_i 가 slash-congruence (4 closure properties)
-    이면 universalLens (familyMeet E) 의 kernel 이 정확 히
-    `familyMeet E`. -/
+    If each E_i is a slash-congruence (4 closure properties), then the
+    kernel of universalLens (familyMeet E) equals exactly `familyMeet E`. -/
 theorem familyMeet_kernel_eq
     {I : Type} (E : I → Raw → Raw → Prop)
     (hrefl : ∀ i r, E i r r)

@@ -4,13 +4,13 @@ import E213.Physics.BaselBound
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 AlphaEMDerivation — *왜 137.036 인가* deep-dive
+# Phase 3 AlphaEMDerivation — deep-dive on *why 137.036*
 
-**Layer: App** (AlphaEMUnified + Phase 3 형식화).
+**Layer: App** (AlphaEMUnified + Phase 3 formalization).
 
-## Atomic 도출 chain
+## Atomic derivation chain
 
-1/α_em(IR) = 다섯 항의 합. 각 항이 atomic primitive 만:
+1/α_em(IR) = sum of five terms. Each term uses only atomic primitives:
 
   Term 1 :  1/α_3      = NS² - 1                        = 8
   Term 2 :  1/α_2      = 12·NT·S(NT)                    = 30
@@ -18,15 +18,15 @@ import E213.Physics.SimplexCounts
   Term 4 :  1/NS                                          = 1/3
   Term 5 :  α_GUT/(NS+1) (Dyson tail)                   ≈ 0.006
   ─────────────────────────────────────────────────────────────
-  합                                                       ≈ 137.035
+  sum                                                      ≈ 137.035
 
-  관측: 137.0359992... (CODATA 2018) → ppm match.
+  Observed: 137.0359992... (CODATA 2018) → ppm match.
 
-## 각 항의 *atomic 근거*
+## *Atomic basis* of each term
 
 ### Term 1: 1/α_3 = NS² - 1 = 8 (color, confined)
 
-K_{NS,NT}^{(c)} 의 cycle space dim (Phase 1 PhotonKernel,
+Cycle space dim of K_{NS,NT}^{(c)} (Phase 1 PhotonKernel,
 Phase 2 Edges).  c·NS·NT - (NS+NT) + 1 = 12 - 5 + 1 = 8.
 
 ### Term 2: 1/α_2 = 12·NT·S(NT) = 30 (electroweak)
@@ -42,18 +42,18 @@ Phase 2 Edges).  c·NS·NT - (NS+NT) + 1 = 12 - 5 + 1 = 8.
 
 ### Term 4: 1/NS = 1/3 (spatial reciprocal)
 
-d²/NS = 25/3 = (NS² - 1) + 1/NS decomposition.  1/NS 가 *기하
-교정* 항.
+d²/NS = 25/3 = (NS² - 1) + 1/NS decomposition.  1/NS is the *geometric
+correction* term.
 
 ### Term 5: α_GUT/(NS+1) (Dyson tail, face-dim 4)
 
 NS+1 = 4 = d-1.  4-simplex face dimension.  α_GUT/4 ≈ 0.006.
 
-## 다섯 항 모두 atomic primitives
+## All five terms are atomic primitives
 
-  {NS, NT, d, c} → 산술 + Basel ζ(2) bracket.
-  유일 transcendental: ζ(2) (= π²/6).
-  Phase 1 BaselBound 에서 *유리수 bracket* 으로 처리.
+  {NS, NT, d, c} → arithmetic + Basel ζ(2) bracket.
+  Only transcendental: ζ(2) (= π²/6).
+  Handled as *rational bracket* in Phase 1 BaselBound.
 -/
 
 namespace E213.Physics.Phase3.AlphaEMDerivation
@@ -111,11 +111,11 @@ theorem five_term_sum_137 :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-/-- ★ Capstone — 137.036 의 atomic 합 ★ -/
+/-- ★ Capstone — atomic sum of 137.036 ★ -/
 theorem alpha_em_137_derivation :
     -- Atomic primitives
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
-    -- 5-항 atomic sum
+    -- 5-term atomic sum
     ∧ (NS * NS - 1 = 8)        -- α_3 (color)
     ∧ (12 * NT * 5 = 30 * 4)    -- α_2 (electroweak)
     ∧ (5 * 12 * NS = 60 * 3)    -- α_1 prefactor

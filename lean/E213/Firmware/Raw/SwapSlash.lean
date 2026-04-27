@@ -2,19 +2,19 @@ import E213.Firmware.Raw.Swap
 import E213.Firmware.Raw.Slash
 
 /-!
-# Firmware.Raw.SwapSlash: Raw.swap 과 Raw.slash 의 호환성
+# Firmware.Raw.SwapSlash: compatibility of Raw.swap and Raw.slash
 
-**정리**: `Raw.swap (Raw.slash x y h) = Raw.slash (swap x) (swap y) h'`.
+**Theorem**: `Raw.swap (Raw.slash x y h) = Raw.slash (swap x) (swap y) h'`.
 
-Raw.swap 이 Raw 의 automorphism 임을 확정.  canonical form
-의 case analysis.
+Confirms that Raw.swap is an automorphism of Raw.  Case analysis on
+canonical form.
 -/
 
 namespace E213.Firmware
 
 open E213.Firmware.Internal
 
-/-- **Raw.swap_slash**: Raw.swap 과 Raw.slash 의 호환성. -/
+/-- **Raw.swap_slash**: compatibility of Raw.swap and Raw.slash. -/
 theorem Raw.swap_slash (x y : Raw) (h : x ≠ y) :
     Raw.swap (Raw.slash x y h)
       = Raw.slash (Raw.swap x) (Raw.swap y)

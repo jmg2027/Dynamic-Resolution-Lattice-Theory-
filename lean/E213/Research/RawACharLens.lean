@@ -3,27 +3,27 @@ import E213.Research.LensFactoring
 import E213.Research.LeafLens
 
 /-!
-# Research.RawACharLens: Raw.a 의 characteristic function 은 Lens
+# Research.RawACharLens: characteristic function of Raw.a is a Lens
 
-**관찰**: `fun r => decide (r = Raw.a)` 는 fold-structured 함수
-(따라서 Lens 로 실현 가능).
+**Observation**: `fun r => decide (r = Raw.a)` is a fold-structured function
+(and therefore realizable as a Lens).
 
-combine = const false 로 구현.
+Implemented with combine = const false.
 
-## 이유 (왜 leaf 만 가능한가)
+## Reason (why only leaves work)
 
-- Raw.a 는 leaf.  "s = Raw.a" 는 base 분기에서만 결정됨.
-  slash 분기는 자동으로 false (slash ≠ leaf).
-- Raw.slash x y h 같은 특정 slash r 에 대해서는 "s = r" 이
-  fold-structured 아님 — s = r 여부가 view x, view y 만으로
-  결정되지 않음 (subtree 구조 직접 봐야 함).
+- Raw.a is a leaf.  "s = Raw.a" is determined only in the base branch.
+  The slash branch is automatically false (slash ≠ leaf).
+- For a specific slash r such as Raw.slash x y h, "s = r" is
+  not fold-structured — whether s = r cannot be determined from
+  view x, view y alone (requires direct inspection of subtree structure).
 
-**Leaf 는 Lens 로 관측 가능, 특정 slash 는 관측 불가능**.
+**Leaves are observable via Lens; specific slashes are not observable**.
 
-## 새 kernel class
+## New kernel class
 
-2-class partition: {Raw.a} vs {모든 나머지}.  기존 카탈로그의
-leafLens ({leaves} vs {slashes}) 와 다름.
+2-class partition: {Raw.a} vs {everything else}.  Distinct from the
+existing catalog's leafLens ({leaves} vs {slashes}).
 -/
 
 namespace E213.Research.RawACharLens
@@ -70,7 +70,7 @@ namespace E213.Research.RawACharLens
 
 open E213.Firmware E213.Hypervisor E213.Research.LeafLens
 
-/-- Raw.a vs Raw.b: leafLens 는 equate, rawACharLens 는 구별. -/
+/-- Raw.a vs Raw.b: leafLens equates them, rawACharLens distinguishes them. -/
 theorem leafLens_equates_a_b :
     leafLens.view Raw.a = leafLens.view Raw.b := rfl
 
@@ -83,9 +83,9 @@ theorem leafLens_not_refines_rawACharLens :
   exact rawACharLens_distinguishes_a_b
     (h Raw.a Raw.b leafLens_equates_a_b)
 
-/-- rawACharLens 는 leafLens 를 refine 하지 않음.
-    Witness: Raw.b (not-a-leaf? no, leaf) vs slash(a, b).
-    둘 다 "≠ Raw.a" 이지만 leafLens 는 구별 (leaf vs slash). -/
+/-- rawACharLens does not refine leafLens.
+    Witness: Raw.b (a leaf, not Raw.a) vs slash(a, b).
+    Both satisfy "≠ Raw.a" but leafLens distinguishes them (leaf vs slash). -/
 theorem rawACharLens_not_refines_leafLens :
     ¬ rawACharLens.refines leafLens := by
   intro h

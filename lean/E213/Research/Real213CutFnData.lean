@@ -6,11 +6,11 @@ import E213.Research.Real213CutPow
 /-!
 # Research.Real213CutFnData: data-bearing local determinedness
 
-`isLocallyDetermined` 의 *data* form — Bishop modulus 의 cut function
-counterpart.  Existence-only form 은 composition 시 Classical.choose
-요구.  Data form 은 axiom-free composition.
+*Data* form of `isLocallyDetermined` — cut function counterpart of
+Bishop modulus.  The existence-only form requires Classical.choose during
+composition.  The data form allows axiom-free composition.
 
-## 정의
+## Definition
 
 ```
 structure LocallyDeterminedData (f : CutFunction) where
@@ -30,14 +30,14 @@ structure LocallyDeterminedData (f : (Nat → Nat → Bool) → (Nat → Nat →
     (∀ m' k', m' ≤ N m k → k' ≤ N m k → cx m' k' = cy m' k') →
     f cx m k = f cy m k
 
-/-- Identity 의 LocallyDeterminedData. -/
+/-- LocallyDeterminedData for identity. -/
 def idLDD : LocallyDeterminedData id where
   N := fun m k => max m k
   prop := by
     intro m k cx cy h
     exact h m k (Nat.le_max_left _ _) (Nat.le_max_right _ _)
 
-/-- Const 의 LocallyDeterminedData. -/
+/-- LocallyDeterminedData for const. -/
 def constLDD (c : Nat → Nat → Bool) : LocallyDeterminedData (constCutFn c) where
   N := fun _ _ => 0
   prop := fun _ _ _ _ _ => rfl
@@ -59,7 +59,7 @@ def maxRange (f : Nat → Nat → Nat) (M K : Nat) : Nat :=
   | 0 => maxRangeRow f 0 K
   | M+1 => max (maxRangeRow f (M+1) K) (maxRange f M K)
 
-/-- maxRangeRow 의 upper bound property. -/
+/-- Upper bound property of maxRangeRow. -/
 theorem maxRangeRow_ge (f : Nat → Nat → Nat) (i K j : Nat) (hj : j ≤ K) :
     f i j ≤ maxRangeRow f i K := by
   induction K with
@@ -76,7 +76,7 @@ theorem maxRangeRow_ge (f : Nat → Nat → Nat) (i K j : Nat) (hj : j ≤ K) :
       show f i j ≤ max (f i (k+1)) (maxRangeRow f i k)
       exact Nat.le_trans (ih hjk) (Nat.le_max_right _ _)
 
-/-- maxRange 의 upper bound property. -/
+/-- Upper bound property of maxRange. -/
 theorem maxRange_ge (f : Nat → Nat → Nat) (M K i j : Nat)
     (hi : i ≤ M) (hj : j ≤ K) : f i j ≤ maxRange f M K := by
   induction M with
@@ -100,7 +100,7 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- **LDD composition closure**: f ∘ g LDD if f, g 모두 LDD. -/
+/-- **LDD composition closure**: f ∘ g is LDD if both f and g are LDD. -/
 def composeLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     (lf : LocallyDeterminedData f) (lg : LocallyDeterminedData g) :
     LocallyDeterminedData (f ∘ g) where
@@ -124,7 +124,7 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- cutHalf 의 LocallyDeterminedData. -/
+/-- LocallyDeterminedData for cutHalf. -/
 def cutHalfLDD : LocallyDeterminedData cutHalf where
   N := fun m k => max (2*m) k
   prop := by
@@ -138,7 +138,7 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- cutScale a b 의 LocallyDeterminedData (via cutMul_locallyDetermined). -/
+/-- LocallyDeterminedData for cutScale a b (via cutMul_locallyDetermined). -/
 def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where
   N := fun m k => (m + 1) * (k + 1)
   prop := by

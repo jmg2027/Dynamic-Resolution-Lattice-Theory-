@@ -47,15 +47,15 @@ namespace E213.Research.CanonicalTruthChar
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- canonicalTruthMap 의 specific reduction at a. -/
+/-- Specific reduction of canonicalTruthMap at a. -/
 private theorem ctm_a : canonicalTruthMap Raw.a = True :=
   canonicalTruthMap_a
 
-/-- canonicalTruthMap 의 specific reduction at b. -/
+/-- Specific reduction of canonicalTruthMap at b. -/
 private theorem ctm_b : canonicalTruthMap Raw.b = False :=
   canonicalTruthMap_b
 
-/-- propXor 의 Bool xor 와 의 connection. -/
+/-- Connection between propXor and Bool xor. -/
 theorem propXor_iff_bool_xor (P Q : Prop) (b₁ b₂ : Bool)
     (hP : P ↔ (b₁ = true)) (hQ : Q ↔ (b₂ = true)) :
     propXor P Q ↔ (xor b₁ b₂ = true) := by
