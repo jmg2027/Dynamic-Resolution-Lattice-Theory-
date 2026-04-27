@@ -38,4 +38,11 @@ example : cutPow (constCut 1 1) 2 1 1 = true := by decide
     한 고 boundary 에 서 만 verifiable. -/
 example : cutPow (constCut 2 1) 2 4 1 = true := by decide
 
+/-- x^0 = 1 (definitional). -/
+theorem cutPow_zero (x : Nat → Nat → Bool) : cutPow x 0 = constCut 1 1 := rfl
+
+/-- x^(n+1) = (x^n) * x (definitional). -/
+theorem cutPow_succ (x : Nat → Nat → Bool) (n : Nat) :
+    cutPow x (n+1) = cutMul (cutPow x n) x := rfl
+
 end E213.Research.Real213CutSum
