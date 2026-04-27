@@ -4,19 +4,20 @@ import E213.Physics.SimplexCounts
 /-!
 # Translation: Atomic Reduction Conjecture (meta-statement)
 
-## 진술
+## Statement
 
-  *모든 표준 물리의 정수 는 (NS=3, NT=2, d=5) atomic primitives
-  의 산술 expression*.
+  *Every integer in standard physics is an arithmetic expression
+  of (NS=3, NT=2, d=5) atomic primitives*.
 
-이건 Lean 으로 직접 증명 불가능 — *전체 표준 물리 enumeration*
-이 무한 (모든 가능 측정).  하지만 *케이스 별* 검증은 가능.
+This cannot be proved directly in Lean — the *full enumeration of standard
+physics* is infinite (all possible measurements).  But *case-by-case*
+verification is possible.
 
-본 파일: 31+ atomic 정수의 각 case-by-case 형식 증명 catalog.
+This file: formal proof catalog of each case for 31+ atomic integers.
 
-## Catalog (Phase 3 통번역 결과 종합)
+## Catalog (Phase 3 translation results summary)
 
-| 정수 | atomic form | 등장 framework |
+| Integer | atomic form | appearing framework |
 |---|---|---|
 | 2 | NT | c, qubit, spin½, Schwarzschild |
 | 3 | NS, NT²-1 | dim, generation, quark, Pauli |
@@ -50,14 +51,14 @@ namespace E213.Physics.Phase3.Translation.AtomicReductionConjecture
 
 open E213.Physics.Simplex
 
-/-- Conjecture marker: all physics 정수 = atomic expression. -/
+/-- Conjecture marker: all physics integers = atomic expression. -/
 theorem reduction_marker : True := trivial
 
-/-- 검증된 catalog: 25+ 정수 atomic. -/
+/-- Verified catalog: 25+ integers atomic. -/
 theorem catalog_verified :
     -- atomic
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
-    -- 핵심 정수 verified
+    -- core integers verified
     ∧ (NS * NT = 6) ∧ (NS * NS - 1 = 8)
     ∧ (NT * NT * NT * NT = 16) ∧ (d * d - 1 = 24)
     ∧ (d * d = 25) ∧ ((NS * NS - 1) * (d * d - 1) = 192)
