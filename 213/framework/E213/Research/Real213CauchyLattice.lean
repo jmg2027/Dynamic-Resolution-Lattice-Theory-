@@ -2,6 +2,7 @@ import E213.Research.Real213CauchyComplete
 import E213.Research.Real213CutMaxMin
 import E213.Research.Real213CutDouble
 import E213.Research.Real213CutBisection
+import E213.Research.Real213CutAlgebraic
 
 /-!
 # Research.Real213CauchyLattice: lattice ops on Cauchy sequences
@@ -95,5 +96,15 @@ theorem CauchyCutSeq.cutHalf_limit (a : CauchyCutSeq) :
   funext m k
   show a.cs (a.N (2*m) k) (2*m) k = a.cs (a.N (2*m) k) (2*m) k
   rfl
+
+/-- Idempotence at limit: (a.cutMax a).limit = a.limit. -/
+theorem CauchyCutSeq.cutMax_self_limit (a : CauchyCutSeq) :
+    (a.cutMax a).limit = a.limit := by
+  rw [cutMax_limit, Real213CutSum.cutMax_idempotent]
+
+/-- Idempotence at limit: (a.cutMin a).limit = a.limit. -/
+theorem CauchyCutSeq.cutMin_self_limit (a : CauchyCutSeq) :
+    (a.cutMin a).limit = a.limit := by
+  rw [cutMin_limit, Real213CutSum.cutMin_idempotent]
 
 end E213.Research.Real213CutSum
