@@ -133,4 +133,43 @@ theorem cutSum_half_half :
       apply decide_eq_true
       omega
 
+/-- **cutSum (1/3) (1/3) = constCut 2 3**: 1/3 + 1/3 = 2/3. -/
+theorem cutSum_third_third :
+    cutSum (constCut 1 3) (constCut 1 3) = constCut 2 3 := by
+  funext m k
+  apply bool_eq_iff
+  show cutSumAux (constCut 1 3) (constCut 1 3) k (2*m) (2*m) = true
+       ↔ constCut 2 3 m k = true
+  rw [cutSumAux_eq_true_iff]
+  constructor
+  · rintro ⟨i, hi, hci, hcsi⟩
+    have h_2k_3i : 2*k ≤ 3*i := by
+      have : 1*(2*k) ≤ 3*i := of_decide_eq_true hci
+      rwa [Nat.one_mul] at this
+    have h_2k_3mi : 2*k ≤ 3*(2*m - i) := by
+      have : 1*(2*k) ≤ 3*(2*m - i) := of_decide_eq_true hcsi
+      rwa [Nat.one_mul] at this
+    show decide (2*k ≤ 3*m) = true
+    apply decide_eq_true
+    have h_add : (2*m - i) + i = 2*m := Nat.sub_add_cancel hi
+    have h_sum : 3*i + 3*(2*m - i) = 6*m := by
+      rw [Nat.add_comm]
+      rw [← Nat.mul_add]
+      rw [h_add]
+      omega
+    omega
+  · intro h
+    have h_2k_3m : 2*k ≤ 3*m := of_decide_eq_true h
+    refine ⟨m, ?_, ?_, ?_⟩
+    · -- m ≤ 2m
+      omega
+    · show decide (1*(2*k) ≤ 3*m) = true
+      rw [Nat.one_mul]
+      exact decide_eq_true h_2k_3m
+    · show decide (1*(2*k) ≤ 3*(2*m - m)) = true
+      rw [Nat.one_mul]
+      have : 2*m - m = m := by omega
+      rw [this]
+      exact decide_eq_true h_2k_3m
+
 end E213.Research.Real213CutSum
