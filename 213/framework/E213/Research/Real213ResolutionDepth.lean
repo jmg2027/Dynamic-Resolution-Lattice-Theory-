@@ -210,6 +210,29 @@ example : thirteenthIsSmooth.linearityModulus 5 = 65 := by decide
 /-- fourteenth (x¹⁴) at depth 5: modulus = 70 (slope 14). -/
 example : fourteenthIsSmooth.linearityModulus 5 = 70 := by decide
 
+/-! ### W1: Polynomial coverage capstone for degrees 1-16 -/
+
+/-- **Polynomial chain coverage 1-16**: 16-fact bundle showing
+    every integer degree 1-16 has an IsSmooth instance with modulus
+    at depth 5 = 5 × degree. -/
+theorem polynomial_coverage_1_to_16 :
+    idIsSmooth.linearityModulus 5 = 5
+    ∧ squareIsSmooth.linearityModulus 5 = 10
+    ∧ cubeIsSmooth.linearityModulus 5 = 15
+    ∧ quarticIsSmooth.linearityModulus 5 = 20
+    ∧ quinticIsSmooth.linearityModulus 5 = 25
+    ∧ sexticIsSmooth.linearityModulus 5 = 30
+    ∧ septicIsSmooth.linearityModulus 5 = 35
+    ∧ octicIsSmooth.linearityModulus 5 = 40
+    ∧ nonicIsSmooth.linearityModulus 5 = 45
+    ∧ decicIsSmooth.linearityModulus 5 = 50
+    ∧ eleventhIsSmooth.linearityModulus 5 = 55
+    ∧ twelfthIsSmooth.linearityModulus 5 = 60
+    ∧ thirteenthIsSmooth.linearityModulus 5 = 65
+    ∧ fourteenthIsSmooth.linearityModulus 5 = 70
+    ∧ fifteenthIsSmooth.linearityModulus 5 = 75
+    ∧ hexadecicIsSmooth.linearityModulus 5 = 80 := by decide
+
 /-! ### T3: Generic polynomial modulus theorems for x⁵-x⁸ -/
 
 /-- **x⁵ generic modulus**: linearityModulus n = 5 * n (slope 5). -/
