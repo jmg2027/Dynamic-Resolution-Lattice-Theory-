@@ -8,6 +8,13 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase Y COMPLETE — Numerical witnesses + applications
+
+- Y1: negSignOracle 1 2 unit at depths 5-8 (decide).
+- Y2: cutMul concrete applications.
+- Y3: Combinator matrix (covered in W3+X1-X3).
+- Y4: 13-Phase synthesis docs.
+
 ### Phase X COMPLETE — Combinator iteration tests
 
 - X1: composeIsSmooth iteration (3-deep, 4-deep).

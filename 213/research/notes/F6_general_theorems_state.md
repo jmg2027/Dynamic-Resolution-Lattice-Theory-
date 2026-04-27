@@ -399,6 +399,13 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase Y — 4 milestones COMPLETE (numerical witnesses + applications)
+
+**Y1: negSignOracle 1 2 trajectory at depths 5-8** (decide tests).
+**Y2: cutMul concrete applications** (one-const, const-one, zero, one).
+**Y3: ResolutionDepth Combinator Matrix** (covered in W3+X1-X3).
+**Y4: 13-Phase synthesis docs.**
+
 ### Phase X — 4 milestones COMPLETE (combinator iteration)
 
 **X1: composeIsSmooth iteration** (3-deep, 4-deep nested compose).

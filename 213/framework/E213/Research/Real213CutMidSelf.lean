@@ -1,6 +1,8 @@
 import E213.Research.Real213CutSumOne
 import E213.Research.Real213ConstCutScale
 import E213.Research.Real213CutBisection
+import E213.Research.Real213CutMulOne
+import E213.Research.Real213CutSumZero
 
 /-!
 # Research.Real213CutMidSelf: midpoint(c, c) = c for const cut
@@ -65,5 +67,23 @@ example : cutMid (constCut 1 1) (constCut 3 1) = constCut 4 2 :=
 /-- midpoint(2, 8) = 5. -/
 example : cutMid (constCut 2 1) (constCut 8 1) = constCut 10 2 :=
   cutMid_int_int 2 8
+
+/-! ### Y2: cutMul concrete applications -/
+
+/-- 1 × (5/7) = 5/7. -/
+example : cutMul (constCut 1 1) (constCut 5 7) = constCut 5 7 :=
+  cutMul_one_const 5 7
+
+/-- (3/4) × 1 = 3/4. -/
+example : cutMul (constCut 3 4) (constCut 1 1) = constCut 3 4 :=
+  cutMul_const_one 3 4
+
+/-- 0 × 0 = 0. -/
+example : cutMul (constCut 0 1) (constCut 0 1) = constCut 0 1 :=
+  cutMul_zero_zero
+
+/-- 1 × 1 = 1. -/
+example : cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1 :=
+  cutMul_one_one
 
 end E213.Research.Real213CutSum
