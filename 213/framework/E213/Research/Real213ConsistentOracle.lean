@@ -67,4 +67,20 @@ def ConsistentOracle.toCauchyCutSeq {db : DyadicBracket}
   N := co.thresholdN
   cauchy := co.consistency
 
+/-- **Collapsed bracket gives a trivially-consistent oracle**.
+
+    For any oracle, when the bracket starts collapsed (numA = numB),
+    bisection cannot diverge — both leftHalf and rightHalf produce
+    the same result.  The midpoint cut value at any (m, k) is
+    invariant under n.  thresholdN = 0 (instant convergence). -/
+def ConsistentOracle.collapsed
+    (db : DyadicBracket) (h : db.numA = db.numB)
+    (oracle : DyadicOracle) : ConsistentOracle db where
+  oracle := oracle
+  thresholdN := fun _ _ => 0
+  consistency := by
+    intro m k n1 n2 _ _
+    rw [DyadicBracket.bisectN_collapsed_midCut_form oracle db h n1 m k,
+        DyadicBracket.bisectN_collapsed_midCut_form oracle db h n2 m k]
+
 end E213.Research.Real213CutSum

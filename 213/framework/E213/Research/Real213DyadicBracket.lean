@@ -398,4 +398,73 @@ theorem DyadicBracket.bisectStep_collapsed_numA
     show db.numA + db.numB = 2 * db.numA
     rw [Nat.two_mul, h]
 
+/-- **bisectN on collapsed: numA scales as 2^n**. -/
+theorem DyadicBracket.bisectN_collapsed_numA (oracle : DyadicOracle) :
+    ∀ n db, db.numA = db.numB →
+      (DyadicBracket.bisectN oracle n db).numA = 2^n * db.numA
+  | 0, db, _ => by
+    show db.numA = 2^0 * db.numA
+    have : (2:Nat)^0 = 1 := rfl
+    rw [this, Nat.one_mul]
+  | n+1, db, h => by
+    show (DyadicBracket.bisectN oracle n (db.bisectStep oracle)).numA
+       = 2^(n+1) * db.numA
+    rw [DyadicBracket.bisectN_collapsed_numA oracle n (db.bisectStep oracle)
+          (DyadicBracket.bisectStep_collapsed db oracle h)]
+    rw [DyadicBracket.bisectStep_collapsed_numA db oracle h]
+    rw [Nat.pow_succ, Nat.mul_assoc]
+
+/-- **Collapsed bracket midCut form**: for collapsed db, the midCut
+    value at (m, k) at step n = decide(numA * k ≤ 2^expE * m),
+    independent of n.  This is the formal payoff of all the
+    structural lemmas. -/
+theorem DyadicBracket.bisectN_collapsed_midCut_form
+    (oracle : DyadicOracle) (db : DyadicBracket)
+    (h : db.numA = db.numB) (n : Nat) (m k : Nat) :
+    (DyadicBracket.bisectN oracle n db).midCut m k
+    = decide (db.numA * k ≤ 2^db.expE * m) := by
+  have hnumA : (DyadicBracket.bisectN oracle n db).numA = 2^n * db.numA :=
+    DyadicBracket.bisectN_collapsed_numA oracle n db h
+  have hcoll : (DyadicBracket.bisectN oracle n db).numA
+             = (DyadicBracket.bisectN oracle n db).numB :=
+    DyadicBracket.bisectN_collapsed oracle n db h
+  have hexpE : (DyadicBracket.bisectN oracle n db).expE = db.expE + n :=
+    DyadicBracket.bisectN_expE oracle n db
+  show decide ((DyadicBracket.bisectN oracle n db).midNum * k
+       ≤ 2^((DyadicBracket.bisectN oracle n db).expE + 1) * m)
+       = decide (db.numA * k ≤ 2^db.expE * m)
+  show decide (((DyadicBracket.bisectN oracle n db).numA
+              + (DyadicBracket.bisectN oracle n db).numB) * k
+       ≤ 2^((DyadicBracket.bisectN oracle n db).expE + 1) * m)
+       = decide (db.numA * k ≤ 2^db.expE * m)
+  rw [← hcoll, hnumA, hexpE]
+  -- Goal: decide ((2^n * db.numA + 2^n * db.numA) * k ≤ 2^(db.expE + n + 1) * m)
+  --     = decide (db.numA * k ≤ 2^db.expE * m)
+  have e1 : 2^n * db.numA + 2^n * db.numA = 2^(n+1) * db.numA := by
+    rw [← Nat.two_mul, ← Nat.mul_assoc, Nat.mul_comm 2 (2^n), ← Nat.pow_succ]
+  have e2 : (2:Nat)^(db.expE + n + 1) = 2^(n+1) * 2^db.expE := by
+    rw [show db.expE + n + 1 = (n+1) + db.expE from by omega, Nat.pow_add]
+  rw [e1, e2]
+  -- Goal: decide (2^(n+1) * db.numA * k ≤ 2^(n+1) * 2^db.expE * m)
+  --     = decide (db.numA * k ≤ 2^db.expE * m)
+  congr 1
+  apply propext
+  constructor
+  · intro hle
+    have : 2^(n+1) * db.numA * k = 2^(n+1) * (db.numA * k) :=
+      Nat.mul_assoc _ _ _
+    rw [this] at hle
+    have h2 : 2^(n+1) * 2^db.expE * m = 2^(n+1) * (2^db.expE * m) :=
+      Nat.mul_assoc _ _ _
+    rw [h2] at hle
+    exact Nat.le_of_mul_le_mul_left hle
+      (Nat.pos_pow_of_pos (n+1) (by decide : 0 < 2))
+  · intro hle
+    have h1 : 2^(n+1) * db.numA * k = 2^(n+1) * (db.numA * k) :=
+      Nat.mul_assoc _ _ _
+    have h2 : 2^(n+1) * 2^db.expE * m = 2^(n+1) * (2^db.expE * m) :=
+      Nat.mul_assoc _ _ _
+    rw [h1, h2]
+    exact Nat.mul_le_mul_left (2^(n+1)) hle
+
 end E213.Research.Real213CutSum
