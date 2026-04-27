@@ -60,9 +60,16 @@ Six new files (vs original 3):
   Level-1 statement: 3 + 2 = 5 ⇒ ℂ⁵ = ℂ³ ⊕ ℂ² (paper 1).
   Vandermonde identity verified at levels 0..3 by decide.
 
-* `FractalLevel.lean` (NEW) — L-level fractal K_{5^L} cohomology:
-  b_1(L) = (5^L − 1)(5^L − 2)/2.  Spectrum at L=1..4:
-  6, 276, 7626, 194376.  All decide-checked.
+* `FractalLevel.lean` — L-level K_{5^L}: b_1(L) = (5^L−1)(5^L−2)/2.
+
+* `TopologyCompare.lean` (NEW) — **formalization decides which
+  topology is correct**.  Compares b_1 across K_5 (=6),
+  K_{3,2}^{(c)} for c=1,2,3 (=2,8,14), K_{4,1}^{(2)} (=4),
+  K_25 (=276), and shows that ONLY (NS,NT,c) = (3,2,2) and
+  its swap (2,3,2) give b_1 = 8 = 1/α_3 (observed).
+  Capstone `topology_uniqueness` rules out K_N complete graphs
+  and non-(3,2,2) bipartite candidates by direct decide-checked
+  inequalities.
 
 ## Lessons learned
 

@@ -43,7 +43,7 @@ multiple tiers per section.
 |-----------|---------------|--------|-------|
 | 1/α_em = 137.036 (1a) | tight bracket [N=20] width 0.14, [N=50] width 0.024 | width < 10⁻⁴ | Ch. 05 |
 | 1/α_em = 137.036 (1b) | gap 5.443×10⁻⁴ → reframed: missing simplicial invariant | Cohomology 213 marathon (Phase CE) | Ch. 05 |
-| Cohomology 213 marathon | **CLOSED + Audit/Bridge + Chiral + L-Fractal** (22 files, ~80 theorems, 0 axiom). Capstone + AlphaEMBridge + Audit + **K₅ b₁=6, fractal-level K_{5^L} spectrum, paper 1 chiral bigrading ℂ⁵=ℂ²⊕ℂ³** | Paper 1/2/3 reconstruction continues | Ch. 14 |
+| Cohomology 213 marathon | **CLOSED + Audit/Bridge + Chiral + L-Fractal + TopologyCompare** (23 files, ~85 theorems, 0 axiom). **TopologyCompare formally rules out K_N complete; only K_{3,2}^{(2)} (and swap (2,3,2)) gives b_1 = 8 = 1/α_3.** | Paper 1/2/3 reconstruction continues | Ch. 14 |
 | α_GUT = 6/(25π²) | bracket [N=3] width ~8 | width < 10⁻⁴ | Ch. 05 |
 | AlphaEM137 d²/NS=25/3 | conjectural-tagged | derive from Raw | Ch. 05 |
 | η_B | 0.5% narrative | ppb | Ch. 09 |
