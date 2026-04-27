@@ -268,6 +268,25 @@ Real213IsSmooth.lean:
   Differentiability as constructive filter requiring explicit
   dyadic modulus.
 - idIsSmooth, constIsSmooth, composeIsSmooth (categorical closure).
+- cutScaleIsSmooth (linear scaling) + cutHalfIsSmooth (halving).
+
+### Phase J Cauchy trichotomy progress
+
+Bracket midpoint sequence at fixed (m, k):
+- Case A (rightCut m k = true) : midSeq constant true.  PROVED.
+- Case B (leftCut m k = false) : midSeq constant false.  PROVED.
+- Case C (leftCut m k = true ∧ rightCut m k = false) : midSeq
+  eventually constant once bracket length < gap to m/k boundary.
+  Open — requires quantitative N(m, k) computation.
+
+Both A and B follow from the trapped-midpoint theorems via cutLe
+direction reasoning.  Case C is the genuine quantitative part and
+remains open (requires oracle consistency / continuity to bound N).
+
+Structural midpoint properties PROVED:
+- midCut_above_left, midCut_below_right (within any bracket).
+- bisectN_midCut_above_left, bisectN_midCut_below_right (uniform
+  in n via composition with bisectN_contains).
 
 ## 비 verified scaffolded
 
