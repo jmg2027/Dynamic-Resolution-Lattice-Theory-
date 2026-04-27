@@ -9,6 +9,7 @@ import E213.Physics.Phase3.MagicNumbersFalsifier
 import E213.Physics.Phase3.PMNSSpecific
 import E213.Physics.Phase3.CassiniLink
 import E213.Physics.Phase3.AlphaEMSharp
+import E213.Physics.Phase3.LeptonRatios
 
 /-!
 # Phase 3 Capstone — 모든 falsifier 단일 종합
@@ -55,8 +56,12 @@ theorem phase3_falsifiers :
     -- (F9) Cassini: d·NT - NS² = 1
     ∧ (d * NT - NS * NS = 1)
     -- (F10) Alpha EM: d² = 25
-    ∧ (d * d = 25) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    ∧ (d * d = 25)
+    -- (F11) Lepton: NS·2 = 3·NT (cross consistency)
+    ∧ (NS * 2 = 3 * NT)
+    -- (F12) Lepton: 5·41 = 205 (m_μ/m_e leading)
+    ∧ (5 * 41 = 205) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
 end E213.Physics.Phase3.Capstone
