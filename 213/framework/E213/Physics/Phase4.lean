@@ -22,6 +22,7 @@ import E213.Physics.Phase4.Period4IE
 import E213.Physics.Phase4.PeriodClosures
 import E213.Physics.Phase4.SuperHeavyPredictions
 import E213.Physics.Phase4.HundPenalty
+import E213.Physics.Phase4.Library
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
