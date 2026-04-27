@@ -257,4 +257,24 @@ theorem riemann_hundredth_depth_12 (db : DyadicBracket) :
     = constCut 4096 100 :=
   riemannSampleSum_constCut 1 100 db 12
 
+/-! ### U2: Riemann sums at very deep depths (14, 16, 20) -/
+
+/-- Σ_{depth 14} (1/2) = 16384/2 = 8192. -/
+theorem riemann_half_depth_14 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 14
+    = constCut 16384 2 :=
+  riemannSampleSum_constCut 1 2 db 14
+
+/-- Σ_{depth 16} (1/3) = 65536/3. -/
+theorem riemann_third_depth_16 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 3)) db 16
+    = constCut 65536 3 :=
+  riemannSampleSum_constCut 1 3 db 16
+
+/-- Σ_{depth 20} (7/13) = (1048576 × 7)/13 = 7340032/13. -/
+theorem riemann_sevenThirteenth_depth_20 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 7 13)) db 20
+    = constCut 7340032 13 :=
+  riemannSampleSum_constCut 7 13 db 20
+
 end E213.Research.Real213CutSum
