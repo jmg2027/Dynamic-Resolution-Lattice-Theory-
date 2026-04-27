@@ -15,6 +15,7 @@ import E213.Physics.Phase4.CorrectionAsLens
 import E213.Physics.Phase4.PropagatorFamily
 import E213.Physics.Phase4.BoronIE
 import E213.Physics.Phase4.IECapstone
+import E213.Physics.Phase4.CNOFNeIE
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
