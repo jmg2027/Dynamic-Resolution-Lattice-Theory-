@@ -31,7 +31,7 @@ chapter(s) where its content is treated.
 |-----------------------|---------------|
 | `SimplexCounts`, `FoccSpectrum` | Ch. 03 |
 | `BaselBound`, `WhyBasel` | Ch. 03, Ch. 05 |
-| `AlphaGUT`, `AlphaEM`, `AlphaEM137`, `GUTUnification` | Ch. 05 |
+| `AlphaGUT`, `AlphaEM`, `AlphaEM137`, `AlphaEM137Tight`, `BaselBoundTight`, `AlphaEMStructuralGap`, `GUTUnification` | Ch. 05 |
 | `MuOverE`, `TauOverMu`, `ProtonMass`, `HiggsMass` | Ch. 06 |
 | `QuarkHierarchy`, `HierarchyTowers` | Ch. 06 |
 | `CabibboAngle`, `CKMHierarchy`, `NeutrinoMixing`, `CPViolation` | Ch. 08 |

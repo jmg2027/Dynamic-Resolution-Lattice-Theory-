@@ -3,66 +3,70 @@
 **Tier:** T2 (classical adequate; 213 sharpens individual brackets)
 **Status:** Partial — α_GUT and α_em closed as rational brackets, not yet
 to ppm width. Headline 1/α_em = 137.036 *not yet* 4/27-passing.
-**Lean:** `Physics/AlphaGUT.lean`, `Physics/AlphaEM.lean`,
-`Physics/AlphaEM137.lean`, `Physics/BaselBound.lean`.
+**Open Problem #1 status (2026-04-27 update):** split into 1a (bracket
+tightening, computational) + 1b (5.4×10⁻⁴ structural gap, research).
+**Lean:** `Physics/AlphaGUT`, `AlphaEM`, `AlphaEM137`, `AlphaEM137Tight`,
+`BaselBound`, `BaselBoundTight`, `AlphaEMStructuralGap`.
 
 ## Best current statement
 
-The unified coupling constant is, classically:
+Classical: `α_GUT = 6/(25π²)`, `1/α_GUT = d²·ζ(2) ≈ 41.123`.
+
+In 213, ζ(2) is replaced by rational bracket `[S(N), upper(N)]`
+(`BaselBound.lean`). At N = 3:
+`1/α_GUT ∈ [1225/36, 4575/108] ≈ [34.03, 42.36]` strictly contains
+41 (`decide`, 0 axioms). Bracket tightens monotonically with N.
+
+### α_em chain (candidate formula, honest-tagged)
 
 ```
-α_GUT = 6 / (25 π²)
-1/α_GUT = d² · ζ(2) = 25 · π²/6 ≈ 41.123
+1/α_em(bare) = 60·ζ(2) + 30                      (Weinberg sum)
+1/α_em(IR)   = 60·ζ(2) + 30 + d²/NS + α_GUT/(NS+1)
+             ≈ 137.0354548                       (asymptotic, perfect ζ)
 ```
 
-In 213, ζ(2) is replaced by the rational bracket `[S(N), upper(N)]`
-generated from the f_occ spectrum (`BaselBound.lean`). At N = 3:
-
-```
-1/α_GUT ∈ [25 · 49/36, 25 · 183/108] = [1225/36, 4575/108]
-                                     ≈ [34.03, 42.36]
-```
-
-This **strictly contains 41**, proven `by decide` (no real numbers, no
-axioms). The bracket tightens monotonically with N.
-
-### α_em chain (AlphaEM137.lean — honest tag)
-
-The candidate formula:
-
-```
-1/α_em(bare) = 60 · ζ(2) + 30   (Weinberg sum)
-1/α_em(IR)   = 10 π² + 30 + d²/NS + α_GUT/(NS+1)
-```
-
-At N = 10, the bracket contains 137 (proven `by decide`).
-**Honesty tag in source:** the `d²/NS = 25/3` term is *conjectural
-structural form*, plausible but not derived from the Raw axiom.
+At N=10 the candidate bracket contains 137 (`decide`).
+The `d²/NS = 25/3` term is **conjectural structural form** — not yet
+derived from the Raw axiom.
 
 ### α_3 (strong coupling, confined regime)
 
-`Physics/PhotonKernel.lean` identifies 1/α_3 = b₁(K_{3,2}) = NS² − 1
-= 8. This is closed and exact; it depends on Discovery 2 (photon =
-cycle space of K_{3,2} bipartite graph).
+`PhotonKernel.lean`: 1/α_3 = NS²−1 = 8. Exact; depends on
+Discovery 2 (photon = cycle space of K_{3,2}).
 
 ## 213 sharpening
 
-- ζ(2) → S(N) rational bracket: classical *transcendental* replaced by
-  *finite rational interval*. Width is the open question, not the
-  value.
-- Three classical "paths" to α_GUT (simplex, RMT, coprimality) collapse
-  into a single bracket-tightening problem.
-- 1/α_3 = 8 is exact, derived from atomicity. No counterpart in
-  classical QCD.
+- ζ(2) → S(N) rational bracket; transcendental replaced by finite
+  rational interval. Width is the question, not the value.
+- α_GUT three classical paths (simplex / RMT / coprimality) collapse
+  into one bracket-tightening problem.
+- 1/α_3 = 8 exact from atomicity — no classical-QCD counterpart.
 
-## Open / next (Open Problem #2 from HANDOFF.md)
+## Open / next — Open Problem #1 split
 
-- **Tighten α_em bracket to width < 10⁻⁴** at the headline value
-  137.036. Estimated N ≈ 6×10⁵; not yet computed.
-- **Derive d²/NS = 25/3 term from atomicity** rather than tagging
-  conjectural. This is the structural-origin gap in `AlphaEM137.lean`.
-- Extend Phase 4 chain to formally close the inequality
-  `|1/α_em − 137.036| < 10⁻⁴` in a single Lean theorem.
+**1a (computational, decide-checked).** `BaselBoundTight` adds the
+two-sided telescoping bound: `S(N) + 1/(N+1) ≤ ζ(2) ≤ S(N) + 1/N`,
+giving width `1/(N(N+1))` — quadratic improvement. `AlphaEM137Tight`
+applies it: at N=20 the candidate-formula bracket has width 0.14
+(vs 6.0 baseline at N=10, a 43× improvement). N=50 reaches width
+0.024. N>50 hits Lean's default `maxRecDepth` for `S` unfolding.
+
+**1b (structural research — newly first-class).** Even with a
+zero-width Basel bracket, the candidate formula's asymptotic value
+137.0354548 differs from observed 137.0359991 by **5.443×10⁻⁴**.
+This gap is intrinsic to the formula. Bracket tightening alone
+**cannot** close it.
+
+`AlphaEMStructuralGap.lean` records the gap as a Lean-level rational
+falsifier target with three candidate corrections:
+- Next-order Dyson tail (α_GUT² term) — too small alone (~3.7×10⁻⁵).
+- Refined d²/NS coefficient — derivation from Gram-channel atomicity
+  is open.
+- Hadronic-VP analog from d=5 atomic structure — unknown.
+
+The **research target** is therefore: derive an explicit Raw-axiom
+correction at the 5×10⁻⁴ scale, OR demonstrate that the candidate
+formula is the wrong structural form for 1/α_em at the IR scale.
 
 ## Sources
 

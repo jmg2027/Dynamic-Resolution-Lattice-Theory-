@@ -44,7 +44,9 @@ T3  : 1 chapter   (13)
 
 ## 4/27 standard pending list (claims not yet closed at standard)
 
-- 1/α_em → bracket containing 137 at N=10, width ~6 (target: < 10⁻⁴)
+- 1/α_em → tight bracket [N=20] width 0.14, [N=50] width 0.024
+  (target: < 10⁻⁴). Intrinsic gap 5.443×10⁻⁴ to observed 137.036
+  remains; bracket tightening alone cannot close it (see Ch. 05).
 - α_GUT → bracket containing 41 at N=3, width ~8
 - AlphaEM137 d²/NS = 25/3 term → conjectural structural form
 - sin²θ₁₃, m₃/m₂, m_H/v_H → numerical match, not yet bracketed
