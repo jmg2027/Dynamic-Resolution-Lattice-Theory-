@@ -390,6 +390,24 @@ theorem alwaysTrue_le_alwaysFalse_at_limit :
   have h_mul_ge : 2^(k+1) * k ≥ 2 * k := Nat.mul_le_mul_right k h_pow
   omega
 
+/-- **alwaysTrueUnit limit is NOT cutEq with constCut 0 1**.
+
+    This formalizes the constructive distinction: 0+ (infinitesimally
+    positive) is a different cut function from 0 exactly.  Witness
+    at (m=0, k=1): 0+ gives false ("0+ > 0/1"), while constCut 0 1
+    gives true ("0 ≤ 0").
+
+    Constructive insight: completed-infinity equality (Cauchy limit
+    = exact value) does NOT hold in 213.  The trajectory IS the
+    constructive content; "limit point exists" is a ZFC fiction. -/
+theorem alwaysTrueUnit_limit_distinct_from_zero :
+    (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit 0 1 = false
+    ∧ (constCut 0 1) 0 1 = true := by
+  refine ⟨?_, ?_⟩
+  · rw [alwaysTrueUnit_limit_value 0 1]
+    decide
+  · decide
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
