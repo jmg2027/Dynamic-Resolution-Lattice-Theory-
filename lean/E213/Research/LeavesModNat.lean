@@ -116,30 +116,30 @@ namespace E213.Research.LeavesModNat
 
 open E213.Firmware E213.Hypervisor
 
-/-- L_gcd(m, k) 는 L_m, L_k 양쪽의 upper bound (refines 관점).
-    divides_refines 의 직접 귀결. -/
+/-- L_gcd(m, k) is an upper bound of both L_m and L_k (in the refines order).
+    Direct consequence of divides_refines. -/
 theorem gcd_upper_bound (m k : Nat) :
     (leavesModNat m).refines (leavesModNat (Nat.gcd m k)) ∧
     (leavesModNat k).refines (leavesModNat (Nat.gcd m k)) :=
   ⟨divides_refines m (Nat.gcd m k) (Nat.gcd_dvd_left m k),
    divides_refines k (Nat.gcd m k) (Nat.gcd_dvd_right m k)⟩
 
-/-- L_lcm(m, k) 는 L_m, L_k 양쪽의 lower bound (refines 관점).
-    divides_refines 의 귀결. -/
+/-- L_lcm(m, k) is a lower bound of both L_m and L_k (in the refines order).
+    Consequence of divides_refines. -/
 theorem lcm_lower_bound (m k : Nat) :
     (leavesModNat (Nat.lcm m k)).refines (leavesModNat m) ∧
     (leavesModNat (Nat.lcm m k)).refines (leavesModNat k) :=
   ⟨divides_refines (Nat.lcm m k) m (Nat.dvd_lcm_left m k),
    divides_refines (Nat.lcm m k) k (Nat.dvd_lcm_right m k)⟩
 
-/-! ## Converse (least upper bound / greatest lower bound) 방향
+/-! ## Converse (least upper bound / greatest lower bound) direction
 
-**Least upper bound** (gcd is least upper bound): 임의의 N 이
-L_m, L_k 에 의해 refine 되면, N 은 L_gcd 에 의해 refine 됨.
-Bezout chain 필요 — 향후 작업.
+**Least upper bound** (gcd is least upper bound): if an arbitrary N
+is refined by both L_m and L_k, then N is refined by L_gcd.
+Requires Bezout chain — future work.
 
-**Greatest lower bound** (lcm is greatest lower bound): 유사.
-prodLens = meet 의 universal property 로부터 간접 도출 가능.
+**Greatest lower bound** (lcm is greatest lower bound): analogous.
+Can be derived indirectly from the universal property of prodLens = meet.
 -/
 
 end E213.Research.LeavesModNat

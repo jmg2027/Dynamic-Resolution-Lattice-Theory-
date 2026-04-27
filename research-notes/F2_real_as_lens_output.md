@@ -1,59 +1,61 @@
-# F2 — Real as Lens output: User 의 마지막 reframe (2026-04-26)
+# F2 — Real as Lens output: User's final reframe (2026-04-26)
 
 ## User insight
 
-> "0.28384485728181…. 같은걸 생각해보면 213에서 자연수를 뽑는
-> 서로 다른 방법은 무한히 많잖아? 당연히 실수가 있네 끝.
-> 계산? 그 무 한 한 자연수 들 간 에 연산 하 는 방법 을 무조건
-> 고를 수 있잖아 끝."
+> "Think of something like 0.28384485728181….  In 213 there are
+> infinitely many different ways to pick natural numbers, right?
+> Then of course reals exist, done.  Computation?  You can always
+> choose a way to operate on those infinitely many natural numbers,
+> done."
 
-## 핵심 framing
+## Core framing
 
 ### Real = Lens output
 
-213 의 Raw 위 의 *Lens family* (parametrized by rational targets) 의
-output 이 자동 으 로 reals 를 form.
+The output of a *Lens family* (parametrized by rational targets) on
+213's Raw automatically forms reals.
 
-`RealCut := Nat → Nat → Bool` 의 각 valid 함수 가 a real.  213 의
-axiom 으 로 이 함 수 공간 inherent.
+Each valid function of `RealCut := Nat → Nat → Bool` is a real.
+This function space is inherent to 213's axiom.
 
-### Existence: 끝
+### Existence: done
 
-Reals 의 *존재 증명* 부 재 — framework 가 이 미 *함 수 공 간* 을
-contain.  Constructive build (Bishop 의 ε-N) 가 over-engineering.
+No *existence proof* for reals — the framework already *contains*
+the *function space*.  Constructive build (Bishop's ε-N) is
+over-engineering.
 
-### Computation: 끝
+### Computation: done
 
-Operations = 함 수 들 사 이 의 combine 의 *선택*.  Infinitely many
-선택 가능, framework 가 abstract 하 게 received.
+Operations = *choices* of combine between functions.  Infinitely many
+choices are possible, abstractly received by the framework.
 
-cutSum, cutMul 등 우 리 가 build 한 것 들 = "rational arithmetic 처 럼
-보이는" specific 선택 의 instances.
+What we have built — cutSum, cutMul, etc. — are instances of specific
+choices that "look like rational arithmetic".
 
-## Marathon 의 진 짜 의의
+## True significance of the marathon
 
-기존 framing (Bishop program 의 213 reconstruction) → 새 framing (Lens
-space 가 이미 contain) 로 **simplify**.
+**Simplified** from the old framing (213 reconstruction of Bishop's
+program) → new framing (Lens space already contains it).
 
-| 기존 framing | 새 framing |
-|---|---|
+| Old framing | New framing |
+|-------------|-------------|
 | "Real213 = Cauchy sequence + modulus" | "Real = valid Lens output function" |
-| Operations = ε-N machinery 으 로 careful build | Operations = combine 선택 |
-| Bishop program 의 *redundant* reconstruction | Framework 가 이미 contains |
-| Walls (E2-E4) 발생 | Walls 도 over-thinking 의 산물 |
+| Operations = carefully built with ε-N machinery | Operations = choice of combine |
+| *Redundant* reconstruction of Bishop's program | Framework already contains it |
+| Walls (E2-E4) arise | Walls are also products of over-thinking |
 
-## 실 체 적 implications
+## Practical implications
 
-기존 build 한 modules 들 = *one specific 선택* 의 formalizations.
-같은 framework 안 다 른 combine 함 수 들 도 valid:
+The modules we have built = formalizations of *one specific choice*.
+Other combine functions within the same framework are also valid:
 
 - cutSum (Bishop sum) — one choice
 - cutMul (Bishop mul) — one choice
 - cutMax / cutMin (lattice ops) — alternative
 - Other arbitrary combines — still framework-internal
 
-각 선택 이 다 른 *operational structure* 를 yields.  Framework 가
-abstract 하 게 모두 contain.
+Each choice yields a different *operational structure*.  The framework
+abstractly contains all of them.
 
 ## Lean module
 
@@ -66,14 +68,14 @@ abbrev RealAsLensOutput := Nat → Nat → Bool
 이 type 자체 가 framework 의 inherent — `Nat → Nat → Bool` 가 213
 axiom 만 으 로 well-defined.
 
-## 결 론
+## Conclusion
 
-User 의 framing 이 marathon 의 정점.  Real analysis 의 213 form 의
-*최 종 simplicity*:
+User's framing is the pinnacle of the marathon.  *Ultimate simplicity*
+of the 213 form of real analysis:
 
-1. Reals exist (framework 의 함 수 공 간).
-2. Operations exist (combine 의 선택).
-3. Bishop program 의 reconstruction 은 *one specific implementation*.
+1. Reals exist (function space of the framework).
+2. Operations exist (choice of combine).
+3. Bishop's program reconstruction is *one specific implementation*.
 
 이 framing 으 로 marathon 의 모든 work 가 *examples* 로 understood —
 framework 가 이미 모두 contain.

@@ -17,8 +17,8 @@ DRLT formula (SM_020, ch21):
     - c = 2 (lattice speed)
     - 2·c² = 8 = NS² - 1 = 1/α_3 (confined adjoint!)
   
-  → **λ_H 의 leading denominator = 1/α_3** ★
-    Higgs self-coupling이 strong adjoint와 *같은 정수* 8 공유.
+  → **λ_H leading denominator = 1/α_3** ★
+    Higgs self-coupling shares the *same integer* 8 as the strong adjoint.
 
 ## f_occ structure
 

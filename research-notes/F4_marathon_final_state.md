@@ -11,9 +11,9 @@ classification).
 총 commits: 30+ (b4a29fe → 95b79b3 + ongoing).
 총 Real213 modules: 43+.
 
-## Library 완 성 항 목
+## Library completed items
 
-E213.Math.lean (single import entry) 이 다음 modules re-exports:
+E213.Math.lean (single import entry) re-exports the following modules:
 
 ### Foundation (Phase A)
 
@@ -67,7 +67,7 @@ Real213OrderExtra, Real213Sign, Real213StrictPos.
 ### Cut poset
 
 - `cutEq` (pointwise Bool equality), `cutLe` (cy implies cx).
-- Refl / symm / trans / antisymm 모두 verified.
+- Refl / symm / trans / antisymm all verified.
 
 ## Honest assessment
 
@@ -92,35 +92,37 @@ Real213OrderExtra, Real213Sign, Real213StrictPos.
 ### Scaffolded (definitions correct, full proofs deferred)
 
 - IVT, Differentiation, Integration interfaces.
-- Series convergence (partialSum 까 지, limit proof 별 도 arc).
-- exp / sin / cos / π partial sums (convergence proof 별 도).
+- Series convergence (up to partialSum, limit proof separate arc).
+- exp / sin / cos / π partial sums (convergence proof separate).
 - Division (boundary precision artifact).
 - Symmetric predicate → commutativity (deferred).
 
-## 진짜 의의
+## True significance
 
-User 의 framework-philosophical interventions 가 marathon 전 추 진력:
+User's framework-philosophical interventions were the driving force
+throughout the marathon:
 
-1. "데 데 킨 트 절 단 매 핑 보 다 213 만 의 실수 정의" → D3 retraction.
-2. "커널 하 나 씩 직성" → ModulusCombiner kernel.
-3. "213 은 213만" → Cut-level breakthrough (F1).
-4. "Generic 으 로 213 스럽 게" → cutBinary universal kernel.
-5. "라 이 브 러 리 화" → E213.Math entry point.
-6. "0.28...같은 실수 자연수 픽업 무 한" → F2 reframe (Real = Lens
-   output, framework inherent).
-7. "transcendental 의 패 턴 생 성 규 칙" → F3 recurrence Lens
+1. "Define 213's own reals rather than mapping Dedekind cuts" → D3
+   retraction.
+2. "Write kernels one by one" → ModulusCombiner kernel.
+3. "213 must stay 213" → Cut-level breakthrough (F1).
+4. "Go generic in the 213 style" → cutBinary universal kernel.
+5. "Libraryize" → E213.Math entry point.
+6. "Infinite natural number pickup for reals like 0.28..." → F2
+   reframe (Real = Lens output, framework inherent).
+7. "Pattern-generating rule of transcendentals" → F3 recurrence Lens
    classification.
 
-각 directive 가 *framework simplification* — Bishop ε-N 시도 의 noise
-제거.
+Each directive was a *framework simplification* — removing the noise
+of Bishop ε-N attempts.
 
-## 다 음 axis 후 보
+## Next axis candidates
 
-- IVT bisection algorithm 의 full proof.
-- Series convergence 의 generic theorem.
+- Full proof of the IVT bisection algorithm.
+- Generic theorem for series convergence.
 - Differentiation: difference quotient + modulus.
 - Integration: Riemann sum convergence.
-- 파 일 정 리 / Math/ namespace 의 explicit 분리.
+- File organization / explicit separation of the Math/ namespace.
 
 ## Cross-references
 

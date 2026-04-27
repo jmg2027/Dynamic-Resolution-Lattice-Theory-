@@ -1,22 +1,22 @@
 # Astrophysics 213 — Blueprint
 
-**우선순위**: ★ (Schwarzschild, Chandra atomic, GW)
+**Priority**: ★ (Schwarzschild, Chandra atomic, GW)
 
-## 1. 왜 이 분야인가
+## 1. Why This Field
 
-표준 천체물리:
+Standard astrophysics:
 - Stellar structure (TOV, Lane-Emden)
 - IMF (initial mass function)
 - GW astronomy (LIGO/Virgo)
 - Black hole observation (EHT)
 
-213 의 자연 등장:
+Natural emergence in 213:
 - Schwarzschild factor 2 = NT atomic
 - Chandrasekhar 3/2 = NS/NT atomic
 - GW 2 polarizations = NT
 - Triple-α = NS atomic
 
-## 2. 213-native 등장
+## 2. 213-native Emergence
 
 ### 2.1 Stellar collapse atomic
 Chandrasekhar limit M_Ch atomic chain.
@@ -30,14 +30,14 @@ h_+, h_× = 2 = NT atomic.
 ### 2.4 BH no-hair
 3 parameter (M, J, Q) = NS atomic.
 
-## 3. 이미 깔린
+## 3. Already in Hand
 
 - HubbleConstant.lean (marker)
 - GravityShadow.lean
 - Astrophysics.lean (Phase 3 Translation)
 - GravitationalWaves.lean (Phase 3)
 
-## 4. Phase 진행 계획
+## 4. Phase Progression Plan
 
 ### Phase AA — Stellar mass spectrum
 IMF Salpeter slope -2.35 atomic.
@@ -54,13 +54,13 @@ Neutron star structure atomic.
 ### Phase AE — EHT image
 M87, Sgr A* atomic predictions.
 
-## 5. 다른 트랙 연결
+## 5. Connections to Other Tracks
 
-- 우주: H₀, structure
+- Cosmology: H₀, structure
 - QG: BH thermodynamics
-- 핵: r-process nucleosynthesis
+- Nuclear: r-process nucleosynthesis
 
-## 6. 미해결
+## 6. Open Problems
 
 - Solar luminosity atomic
 - Magnetar magnetic field atomic

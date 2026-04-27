@@ -52,43 +52,44 @@ Working code from the user directive:
 
 ## Usage method
 
-### 새 operation 정의 패 턴
+### Pattern for defining new operations
 
 For unary op f (e.g., negation, abs, ...):
-1. 정의: `cutF (cx) (m, k) := bounded predicate on cx`.
-2. Verify: rational instances 에 서 `decide` 로 expected match.
+1. Define: `cutF (cx) (m, k) := bounded predicate on cx`.
+2. Verify: `decide` matches expected on rational instances.
 
 For binary op ⊕ (add, mul, ...):
-1. 정의: `cut⊕ (cx, cy) (m, k) := bounded search over decompositions`.
-2. Verify: rational instances 에 서 `decide` 로.
-3. (선 택) Lift: Real213 → RealCut via OrderCauchyData.toRealCut.
+1. Define: `cut⊕ (cx, cy) (m, k) := bounded search over decompositions`.
+2. Verify: `decide` on rational instances.
+3. (Optional) Lift: Real213 → RealCut via OrderCauchyData.toRealCut.
 
-### Sequence-level 우 회 부재
+### No sequence-level bypass
 
-Real213 의 sequence (xs, modulus) 자체 는 *internal implementation*.
-External API 는 RealCut 만.  Sequence 의 Raw constructor (Pell, etc.)
-는 *witness* 로 만 — primitive arithmetic 부재.
+Real213's sequence (xs, modulus) itself is *internal implementation*.
+External API is RealCut only.  Raw constructors for sequences (Pell,
+etc.) are *witnesses* only — no primitive arithmetic.
 
-이 게 213-native 의 *의 미*: cut 이 primitive, sequence 는 witness.
+This is the *meaning* of 213-native: cuts are primitive, sequences are
+witnesses.
 
 ### Lifting RealCut → Real213 (open)
 
-모든 RealCut 가 Real213 origin 인가?  → 모든 *valid* cut 이 어떤
-Real213 의 cut 인가?
+Does every RealCut have a Real213 origin?  → Does every *valid* cut
+belong to some Real213?
 
-- 모든 OrderCauchyData 의 cut 은 Real213 origin (정의 상).
-- 모든 Nat → Nat → Bool 이 valid 는 아 님 — monotonicity, locatedness
-  등 properties 만족 필 요.
+- Every cut of OrderCauchyData has a Real213 origin (by definition).
+- Not every Nat → Nat → Bool is valid — must satisfy monotonicity,
+  locatedness, and other properties.
 
-*Valid* RealCut = monotone + dense + ... — full characterization 별 도
-작업.
+*Valid* RealCut = monotone + dense + ... — full characterization is
+separate work.
 
-## 다 음 arc (F2-F5 + Phase C onward)
+## Next arc (F2-F5 + Phase C onward)
 
 | # | Milestone | Approach |
 |---|-----------|----------|
 | F2 | cutMul (multiplication) | bounded search on (m1, k1, m2, k2) |
-| F3 | cutNeg / signed Real213 | extend Real213 with sign bit 또 는 swap-Lens |
+| F3 | cutNeg / signed Real213 | extend Real213 with sign bit or swap-Lens |
 | F4 | RealCut → Real213 lift (partial) | for "valid" cuts |
 | F5 | Real213 arithmetic via cut roundtrip | full add/mul/neg/div on Real213 |
 | C2-C3 | Cauchy in Real213 + completeness | distance via cutSum + cutNeg |

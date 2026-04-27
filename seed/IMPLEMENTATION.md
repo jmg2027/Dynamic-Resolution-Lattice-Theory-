@@ -414,54 +414,52 @@ Analysis:
 
 ---
 
-## §7. 결론
+## §7. Conclusion
 
-### §7.1 공리 충실성
+### §7.1 Axiom faithfulness
 
-Raw + Firmware 의 Lean 구현은 `AXIOM.md` 공리의 **충실한
-emulator** 이다.  구현 장치를 분류하면:
+The Lean implementation of Raw + Firmware is a **faithful
+emulator** of the `AXIOM.md` axiom.  Classifying implementation devices:
 
-- (α) 공리의 type-level 재표현: Tree 의 a, b, slash 생성자,
-  `Raw.slash` 의 `h : x ≠ y`.
-- (β) Encoding artifact: Tree.cmp, Tree.canonical, Raw 의
-  subtype 구조, canonicalize 로직.
+- (α) Type-level re-expression of the axiom: Tree's a, b, slash constructors,
+  `Raw.slash`'s `h : x ≠ y`.
+- (β) Encoding artifact: Tree.cmp, Tree.canonical, Raw's
+  subtype structure, canonicalize logic.
 - (γ) Derivation: DecidableEq, slash_comm, Raw.swap, Raw.fold,
-  Raw.rec, no-confusion 귀결 (a ≠ b 등).
-- (δ) 추가 commitment: **없음**.
+  Raw.rec, no-confusion consequences (a ≠ b, etc.).
+- (δ) Additional commitment: **none**.
 
-### §7.2 안전장치의 지위
+### §7.2 Status of safeguards
 
-모든 안전장치는 다음 중 하나:
+Every safeguard is one of the following:
 
-- 공리의 type-level 재표현 (h : x ≠ y 같은 gate).
-- 정리의 조건부 전제 (fold_slash 의 hsym 같은 hyp).
-- Doc 경고 또는 namespace 규약 (meta-syntactic hygiene).
+- Type-level re-expression of the axiom (gate like h : x ≠ y).
+- Conditional precondition of a theorem (hyp like hsym of fold_slash).
+- Doc warning or namespace convention (meta-syntactic hygiene).
 
-**안전장치는 수학적 commitment 를 추가하지 않는다.**
-제거해도 Lean codebase 는 동일하게 컴파일되고 동일한 정리를
-증명한다.  바뀌는 건 사용자의 오용 가능성뿐.
+**Safeguards add no mathematical commitment.**
+Removing them leaves the Lean codebase compiling identically and
+proving the same theorems.  Only the possibility of user misuse changes.
 
-### §7.3 미해결 과제
+### §7.3 Open problems
 
-- ~~cmp-independence meta-theorem 형식화 (§5)~~ — **완료**
+- ~~cmp-independence meta-theorem formalization (§5)~~ — **completed**
   (CmpIndependence.lean, 2026-04-25).
-- (future) ValidLens 술어 도입 (§4 E).
-- (short-term) Lens-layer bleed 이전 — Raw.depth,
-  Raw.leaves 등을 Hypervisor 로 (§4 없는 번호, AUDIT_Lean
-  §3 권고 3).
-- (extension, completed) p-adic ℤ_p sub-tower 형식화
+- (future) Introduce ValidLens predicate (§4 E).
+- (short-term) Lens-layer bleed migration — move Raw.depth,
+  Raw.leaves, etc. to Hypervisor (§4, AUDIT_Lean §3 Recommendation 3).
+- (extension, completed) p-adic ℤ_p sub-tower formalization
   (`Research/Padic.lean`, note 71): leavesModNat sub-family
-  + factorial seq instance.  ZFC reduction scope 가 number-
-  theoretic limit 영역 까지 확장.
+  + factorial seq instance.  ZFC reduction scope extended to
+  number-theoretic limit territory.
 
-이 과제들은 모두 **안전장치의 강화** 이지 공리의 변경이
-아니다.
+All of these tasks are **safeguard reinforcement**, not axiom changes.
 
 ---
 
-## 변경 이력
+## Change history
 
-- 2026-04-24: 최초 작성.  Session
+- 2026-04-24: Initial draft.  Session
   `claude/lean-infinity-explanation-QqnSp`.
 
 ## Author

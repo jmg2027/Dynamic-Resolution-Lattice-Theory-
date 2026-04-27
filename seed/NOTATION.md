@@ -102,7 +102,7 @@ right of the Lens arrow, never to the left**.
 
 The comma is itself a distinction operator: it says "this
 and also this, separately".  Mingu's observation (session
-2026-04-24): *"콤마 자체가 구분 객체 중 하나임"*.
+2026-04-24): *"The comma itself is one of the distinction objects"*.
 
 There is no way to fully escape the comma inside a textual
 medium.  The convention records this as an acknowledged
@@ -137,17 +137,17 @@ membership use Lean's typing judgement `x : Raw`.
 
 ## On `.val` accessor (Lean encoding)
 
-Raw 는 subtype 이므로 `r.val : Tree` 접근이 가능하다.
-`.val` 은 encoding 층 (canonical form 의 underlying
-Tree) 을 드러낸다.  원칙:
+Since Raw is a subtype, `r.val : Tree` access is available.
+`.val` exposes the encoding layer (the underlying Tree of the
+canonical form).  Principle:
 
-- `.val` 은 **Firmware 내부 증명** 에서만 사용.
-- **Lens semantics 에는 사용 금지.**  Lens 관측은 항상
-  `Lens.view` / `Raw.fold` 를 거친다.
-- User code 에 `r.val.depth`, `r.val.cmp` 등이 보이면
-  encoding artifact 의 Lens 층 leak.  교정 대상.
+- `.val` is used **only in Firmware internal proofs**.
+- **Forbidden in Lens semantics.**  Lens observations always
+  go through `Lens.view` / `Raw.fold`.
+- If `r.val.depth`, `r.val.cmp`, etc. appear in user code,
+  it is an encoding artifact leaking into the Lens layer.  Requires correction.
 
-이는 `AUDIT_Lean.md` §5.2(C) 권고의 반영.
+This reflects the recommendation of `AUDIT_Lean.md` §5.2(C).
 
 ## Enforcement
 

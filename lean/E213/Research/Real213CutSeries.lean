@@ -6,7 +6,7 @@ import E213.Research.Real213CutAlgebraic
 
 Iterated partial sums + Cauchy form for series.
 
-## 정의
+## Definition
 
 partialSum s : Nat → RealCut — partial sums Σ_{i<n} s i.
 SeriesCauchy: explicit modulus form.

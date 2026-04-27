@@ -4,9 +4,9 @@ import E213.Physics.BaselBound
 /-!
 # Asymptotic freedom — α_3 high-E running (0 axioms structural)
 
-DRLT 도출 (ch08 §sec:running):
+DRLT derivation (ch08 §sec:running):
 
-  표준 QCD: α_3 has β-function 음수 → asymptotic freedom.
+  Standard QCD: α_3 has a negative β-function → asymptotic freedom.
   
   DRLT picture:
     Low E:  N_eff = 1 (confined)

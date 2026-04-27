@@ -26,8 +26,8 @@ The same Dyson resummation denominator d-1 = NS+1 = 4 appears in several precisi
     = #tetrahedra per vertex in 5-simplex (Δ⁴ link)
     = #nontrivial Λᵏ matter reps (k=1,2,3,4)
 
-  단일 atomicity (NS, NT, d) = (3, 2, 5)이 네 가지 다른
-  조합론적 기원의 정수 4를 *동시에 일치*시킴.
+  Single atomicity (NS, NT, d) = (3, 2, 5) simultaneously makes
+  the integer 4 from four different combinatorial origins *coincide*.
 -/
 
 namespace E213.Physics.Dyson

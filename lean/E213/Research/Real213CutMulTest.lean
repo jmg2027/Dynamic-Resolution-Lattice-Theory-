@@ -4,7 +4,7 @@ import E213.Research.Real213CutSumTest
 /-!
 # Research.Real213CutMulTest: cutMul verification on rational products
 
-`Real213CutMul.lean` 의 cutMul 의 const cut (rational) 위 정확 성.
+Accuracy verification of cutMul from `Real213CutMul.lean` on const cuts (rationals).
 -/
 
 namespace E213.Research.Real213CutSum

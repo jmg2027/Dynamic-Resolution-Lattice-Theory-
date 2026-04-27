@@ -1,22 +1,22 @@
 # Condensed Matter 213 — Blueprint
 
-**우선순위**: ★★ (BEC, Hall, BCS, TI atomic)
+**Priority**: ★★ (BEC, Hall, BCS, TI atomic)
 
-## 1. 왜 이 분야인가
+## 1. Why This Field
 
-표준 condensed matter:
-- Many-body Hamiltonian (수치)
-- Fermi liquid theory (현상학)
+Standard condensed matter:
+- Many-body Hamiltonian (numerical)
+- Fermi liquid theory (phenomenological)
 - BCS superconductivity
 - Topological phases (TI, TSC)
 
-213 의 자연 등장:
+Natural emergence in 213:
 - BEC exponent 2/3 = NT/NS atomic
 - Quantum Hall ν = NS atomic
 - BCS 2Δ/k_BT_c ≈ 7/2 atomic
 - TI Z_2 = NT atomic
 
-## 2. 213-native 등장
+## 2. 213-native Emergence
 
 ### 2.1 BEC critical
 T_c ∝ n^(NT/NS) atomic.
@@ -30,14 +30,14 @@ T_c ∝ n^(NT/NS) atomic.
 ### 2.4 Topological
 Z_2 = NT.  Chern = NS.
 
-## 3. 이미 깔린
+## 3. Already in Hand
 
 - CondensedMatter.lean (Phase 3 Translation)
 - Topological.lean
 - ColdAtoms.lean
 - CondensedMatterLibrary (Phase 4)
 
-## 4. Phase 진행 계획
+## 4. Phase Progression Plan
 
 ### Phase MA — Phonon dispersion
 ω(k) atomic.
@@ -54,14 +54,14 @@ Frustrated systems atomic.
 ### Phase ME — Anyons
 Statistics atomic.
 
-## 5. 다른 트랙 연결
+## 5. Connections to Other Tracks
 
-- 정보: TI Z_2 = qubit
+- Information: TI Z_2 = qubit
 - QG: Holographic c-theorem
 - StatPhys: critical phenomena
 
-## 6. 미해결
+## 6. Open Problems
 
 - High-T_c superconductivity atomic
-- Spin liquid 정확 atomic
+- Spin liquid precise atomic
 - Quantum Hall plateau width atomic

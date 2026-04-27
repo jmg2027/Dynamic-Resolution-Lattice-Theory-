@@ -1,7 +1,7 @@
 import E213.Physics.AlphaEM
 
 /-!
-# 수소 원자 — Bohr formula's "2" = NT (0 axioms)
+# Hydrogen atom — Bohr formula's "2" = NT (0 axioms)
 
 DRLT formula (ch10 sec 7.3, lib/drlt.py:736):
 
@@ -19,31 +19,31 @@ DRLT formula (ch10 sec 7.3, lib/drlt.py:736):
   Standard QM derives E_1 = -m_e·α²/2 with the "2" coming from
   reduced mass / kinetic energy factor.
 
-  **DRLT의 "2" = NT (temporal sector dimension)**.  PairForcing
-  → Atomicity → NT = 2.  *원자 결합 에너지의 분모 2가 격자
-  atomicity에서 직접 도출.*
+  **DRLT's "2" = NT (temporal sector dimension)**.  PairForcing
+  → Atomicity → NT = 2.  *The denominator 2 in the atomic binding energy
+  is directly derived from lattice atomicity.*
 
   Standard: "2" is QM derivation artifact
   DRLT:    "2" = NT atomic primitive
 
-  같은 숫자, 다른 의미. DRLT 가 *왜* 2 인지 답함.
+  Same number, different meaning. DRLT answers *why* it is 2.
 
-## n² 양자수 의 정체
+## Identity of the n² quantum number
 
-  E_n ∝ 1/n²  (Rydberg 양자수)
+  E_n ∝ 1/n²  (Rydberg quantum number)
 
   DRLT picture: principal quantum number n indexes lattice
   resolution depth.  1/n² = solid-angle propagator (WhyBasel).
-  
-  → 같은 1/n² Basel weight 가 hydrogen energy levels에도.
 
-## 다른 atomic IE에 같은 NT 분모
+  → The same 1/n² Basel weight also applies to hydrogen energy levels.
+
+## Same NT denominator in other atomic IEs
 
   H IE: 13.606 eV = m_e·α²/NT
   He IE: 24.587 eV (uses NT + screening)
   Li IE: 5.392 eV (uses NT + outer electron screening)
 
-  모두 1/NT factor 공통 — atomicity-derived.
+  All share the common 1/NT factor — atomicity-derived.
 -/
 
 namespace E213.Physics.Hydrogen
@@ -69,8 +69,8 @@ def n2_prefactor_denom : Nat := NT * 2 * 2
 theorem n2_prefactor_eq_8 : n2_prefactor_denom = 8 := by decide
 
 /-- ★ n=2 prefactor = 8 = 1/α_3 ★
-    수소 second level 분모가 strong adjoint와 같은 정수.
-    coincidental atomic structure! -/
+    The hydrogen second level denominator shares the same integer as the strong adjoint.
+    Coincidental atomic structure! -/
 theorem n2_prefactor_eq_alpha_3 :
     n2_prefactor_denom = NS * NS - 1 := by decide
 
@@ -86,7 +86,7 @@ theorem H_E1_bracket :
 theorem He_H_ratio :
     24585184 < 24587000 ∧ 24587000 - 24585184 < 2000 := by decide
 
-/-- ★ Capstone — 수소 ★ -/
+/-- ★ Capstone — hydrogen ★ -/
 theorem hydrogen_atomic_pattern :
     -- Bohr "2" = NT
     (bohr_denom = NT) ∧ (NT = 2)

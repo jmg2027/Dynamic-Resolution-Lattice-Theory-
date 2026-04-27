@@ -4,14 +4,14 @@ import E213.Research.Real213CutSumDetermined
 /-!
 # Research.Real213CutMulDetermined: cutMul locality
 
-cutMul 의 locally-determined property — bounded 2D search.
+locally-determined property of cutMul — bounded 2D search.
 -/
 
 namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- cutMulInner 의 congruence — m1 fixed, iterate m2. -/
+/-- congruence of cutMulInner — m1 fixed, iterate m2. -/
 theorem cutMulInner_congr (k m m1 m2Bound : Nat)
     (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
     (hx : cx1 m1 k = cx2 m1 k)
@@ -37,7 +37,7 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- cutMulOuter 의 congruence — iterate m1. -/
+/-- congruence of cutMulOuter — iterate m1. -/
 theorem cutMulOuter_congr (k m m1Bound m2Bound : Nat)
     (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
     (hx : ∀ m', m' ≤ m1Bound → cx1 m' k = cx2 m' k)
@@ -67,7 +67,7 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- **cutMul 은 locally determined**: N = (m+1)*(k+1). -/
+/-- **cutMul is locally determined**: N = (m+1)*(k+1). -/
 theorem cutMul_locallyDetermined : isLocallyDetermined2 cutMul := by
   intro m k
   refine ⟨(m+1) * (k+1), ?_⟩

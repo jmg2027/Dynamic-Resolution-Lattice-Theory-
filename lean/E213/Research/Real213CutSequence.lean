@@ -5,13 +5,13 @@ import E213.Research.Real213CutDistance
 
 A sequence of cuts (or signed cuts) — Cauchy in cut-level form.
 
-## 정의
+## Definition
 
 CutSeq := Nat → RealCut.
 CauchySeqCut: explicit modulus N(m, k) bounding eventual agreement.
 limitOf cs h := the eventual cut value (well-defined by Cauchy).
 
-## 의의
+## Significance
 
 213-native form of Real-valued sequence convergence.  Bishop-style
 Cauchy structure, axiom-free.
@@ -40,7 +40,7 @@ def constCauchySeqCut (c : Nat → Nat → Bool) : CauchySeqCut where
   N := fun _ _ => 0
   cauchy := fun _ _ _ _ _ _ => rfl
 
-/-- Constant 의 limit = 자기 자신. -/
+/-- Limit of constant sequence = itself. -/
 theorem constCauchySeqCut_limit (c : Nat → Nat → Bool) :
     (constCauchySeqCut c).limit = c := rfl
 

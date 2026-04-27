@@ -1,16 +1,16 @@
 # F5 — Full proofs summary (this session 의 actual theorems)
 
-## Verified mathematical theorems (이 session 에 서 proved)
+## Verified mathematical theorems (proved in this session)
 
 ### Phase A foundation
 
-- type / equiv (Setoid) / const / order / sign — 모두 verified.
+- type / equiv (Setoid) / const / order / sign — all verified.
 
 ### Cut arithmetic — basic
 
 - `cutSum`, `cutMul`, `cutMaxMin`, `cutNeg`, `cutSignedMul`,
   `cutHalf`, `cutMid`, `cutPow`, `cutScale`, `evalPoly`,
-  `cutInv`, `cutSignedSum`, `cutSignedSub` — 모두 working.
+  `cutInv`, `cutSignedSum`, `cutSignedSub` — all working.
 
 ### Algebraic identities
 

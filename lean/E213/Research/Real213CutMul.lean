@@ -3,20 +3,20 @@ import E213.Research.Real213CutSum
 /-!
 # Research.Real213CutMul: cut-level multiplication (F2)
 
-`F0_213_native_arithmetic_synthesis.md` 의 F2: cut-level multiplication
+F2 from `F0_213_native_arithmetic_synthesis.md`: cut-level multiplication
 of two RealCuts.
 
-## 정의
+## Definition
 
 `cutMul cx cy m k` := ∃ m1 ≤ bound, m2 ≤ bound with
   cx(m1, k) ∧ cy(m2, k) ∧ m1*m2 ≤ m*k.
 
-= "L_x * L_y ≤ m/k" 의 bounded witness.
+= bounded witness for "L_x * L_y ≤ m/k".
 
-For positive reals, k1 = k2 = k → 곱 (m1*m2) / (k*k) ≤ m/k iff
+For positive reals, k1 = k2 = k → product (m1*m2) / (k*k) ≤ m/k iff
 m1*m2 ≤ m*k.
 
-bound = (m+1)*(k+1) — 충분 한 search space.
+bound = (m+1)*(k+1) — sufficient search space.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -36,7 +36,7 @@ def cutMulOuter (cx cy : Nat → Nat → Bool) (k m m2Bound : Nat) : Nat → Boo
   | n+1 => cutMulInner cx cy k m (n+1) m2Bound
             || cutMulOuter cx cy k m m2Bound n
 
-/-- **cutMul**: 두 cut 의 product cut. -/
+/-- **cutMul**: product cut of two cuts. -/
 def cutMul (cx cy : Nat → Nat → Bool) (m k : Nat) : Bool :=
   let bound := (m + 1) * (k + 1)
   cutMulOuter cx cy k m bound bound

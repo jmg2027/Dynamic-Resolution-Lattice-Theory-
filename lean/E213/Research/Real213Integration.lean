@@ -3,17 +3,17 @@ import E213.Research.Real213Diff
 /-!
 # Research.Real213Integration: Riemann integration (Phase F)
 
-Riemann sum 에서 partition + Cauchy sequence 형 limit.
+Partition + Cauchy sequence form limit from Riemann sum.
 
 ## Definition
 
 For continuous f : CutFunction on bracket [a, b]:
 ∫[a, b] f := limit of Riemann sums over n-partition.
 
-## 이 파일 의 status
+## Status of this file
 
 Interface — full algorithm (Riemann sum sequence + Cauchy completeness)
-는 별 도 작업.  Lebesgue 는 framework 외 부 (measure theory 부재).
+is separate work.  Lebesgue is outside the framework (measure theory absent).
 -/
 
 namespace E213.Research.Real213CutSum

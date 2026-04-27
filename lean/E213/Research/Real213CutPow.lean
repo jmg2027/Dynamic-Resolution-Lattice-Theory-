@@ -6,7 +6,7 @@ import E213.Research.Real213CutSumTest
 
 x^n via repeated cutMul.
 
-## 정의
+## Definition
 
 cutPow x n := x^n cut.
 cutScale a b cx := (a/b) * cx.
@@ -34,8 +34,8 @@ example : cutPow (constCut 1 1) 1 1 1 = true := by decide
 /-- 1^2 = 1 ≤ 1/1. -/
 example : cutPow (constCut 1 1) 2 1 1 = true := by decide
 
-/-- (2/1)^2 = 4 ≤ 4/1.  Note: cutMul precision boundary 적 용 — 정 확
-    한 고 boundary 에 서 만 verifiable. -/
+/-- (2/1)^2 = 4 ≤ 4/1.  Note: cutMul precision boundary applies — verifiable
+    only at exact upper boundary. -/
 example : cutPow (constCut 2 1) 2 4 1 = true := by decide
 
 /-- x^0 = 1 (definitional). -/

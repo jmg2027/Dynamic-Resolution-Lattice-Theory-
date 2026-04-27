@@ -16,7 +16,7 @@ cancels via algebraic regularity to look linear at the macro scale.
 Therefore differentiation is NOT a default — it is a FILTER admitting
 only those functions that carry an explicit dyadic linearity modulus.
 
-## 정의
+## Definition
 
 A function f : RealCut → RealCut is `IsSmooth` iff it ships:
 1. **LocallyDeterminedData** : continuity (LDD modulus N m k).
@@ -28,7 +28,7 @@ The modulus is INJECTED as data (constructive Bishop-style), not
 derived classically.  Concrete instances (polynomials, exponentials)
 construct linearityModulus + the linearity certificate at use-site.
 
-## 의의
+## Significance
 
 - LocallyDetermined functions (LDD): continuity is automatic.
 - IsSmooth functions: a strict subset requiring explicit dyadic

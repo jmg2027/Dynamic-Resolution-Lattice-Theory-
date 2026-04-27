@@ -22,8 +22,8 @@ import E213.Physics.CabibboAngle
 /-!
 # Physics track complete integration (0 axioms)
 
-Phase 1 종료 마커.  20+ 정밀 양이 같은 atomicity-locked atoms
-에서 도출됨을 단일 정리에 통합.
+Phase 1 completion marker.  Integrates 20+ precision quantities derived
+from the same atomicity-locked atoms into a single theorem.
 
 ## Quantities formalized (Phase 1 cycle)
 
@@ -96,8 +96,8 @@ open E213.Physics.Cabibbo
 
 /-- ★★★ PHASE 1 COMPLETE CAPSTONE ★★★
 
-  20+ 정밀 양 모두 단일 atomicity (3, 2, 5, 2)에서.
-  Phase 1 (방법론 축적) 종료 마커. -/
+  All 20+ precision quantities from single atomicity (3, 2, 5, 2).
+  Phase 1 (methodology accumulation) completion marker. -/
 theorem phase1_complete :
     -- Couplings
     (b_1 = NS * NS - 1)                      -- α_3 = 8

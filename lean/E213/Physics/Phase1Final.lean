@@ -11,16 +11,16 @@ import E213.Physics.DrltZeroParameters
 import E213.Physics.ColorConfinement
 
 /-!
-# Phase 1 FINAL — DRLT Physics Track 종합 capstone (0 axioms)
+# Phase 1 FINAL — DRLT Physics Track comprehensive capstone (0 axioms)
 
-61-file Phase 1 누적의 단일 absolute capstone.
+Single absolute capstone accumulating 61-file Phase 1.
 
 ## Summary of discoveries
 
 ### Foundational atomic configuration
-  (NS, NT, d, c) = (3, 2, 5, 2) — PairForcing + Atomicity 강제
+  (NS, NT, d, c) = (3, 2, 5, 2) — forced by PairForcing + Atomicity
 
-### Universal building blocks (재등장 횟수)
+### Universal building blocks (recurrence count)
   NS² - 1 = 8         : 5+ files (α_3, λ_H, F_6, photon kernel)
   d² - 1 = 24         : 8+ files (adjoint SU(5), α_2 prefactor, ...)
   d - 1 = 4           : 6+ files (Dyson denom)
@@ -55,7 +55,7 @@ open E213.Physics.Simplex
 
 /-- ★★★ PHASE 1 ABSOLUTE CAPSTONE ★★★
 
-  61-file Phase 1의 모든 atomic discoveries를 단일 정리에.
+  All atomic discoveries from 61-file Phase 1 in a single theorem.
   All by single decide.  0 sorry, 0 axiom. -/
 theorem phase1_absolute :
     -- Foundational config
@@ -93,11 +93,11 @@ theorem phase1_absolute :
     ∧ (NS * (NS + 1) + 1 = NS * NS + NS + 1) := by decide
 
 /- ★ Operational meaning ★
-  이 단일 정리가 0 sorry, 0 axiom으로 빌드되는 것 =
-  *Phase 1의 모든 finding이 단일 atomicity (3, 2, 5, 2)에서 동시*
-  
-  외부 입력 0개.  자유 매개변수 0개.  모든 정수 atomic-derived.
-  
-  이게 "DRLT Physics Track Phase 1 Complete"의 형식 의미. -/
+  This single theorem building with 0 sorry, 0 axiom means:
+  *All Phase 1 findings simultaneously come from single atomicity (3, 2, 5, 2)*
+
+  Zero external inputs.  Zero free parameters.  All integers atomic-derived.
+
+  This is the formal meaning of "DRLT Physics Track Phase 1 Complete". -/
 
 end E213.Physics.Phase1
