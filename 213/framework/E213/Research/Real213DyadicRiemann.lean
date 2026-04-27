@@ -277,4 +277,16 @@ theorem riemann_sevenThirteenth_depth_20 (db : DyadicBracket) :
     = constCut 7340032 13 :=
   riemannSampleSum_constCut 7 13 db 20
 
+/-- Σ_{depth 25} (1/2) closed form: 2^25 / 2 = 33554432 / 2. -/
+theorem riemann_half_depth_25 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 25
+    = constCut (2^25 * 1) 2 :=
+  riemannSampleSum_constCut 1 2 db 25
+
+/-- Σ_{depth 30} (1/2) closed form: 2^30 / 2 = 1073741824 / 2. -/
+theorem riemann_half_depth_30 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 30
+    = constCut (2^30 * 1) 2 :=
+  riemannSampleSum_constCut 1 2 db 30
+
 end E213.Research.Real213CutSum
