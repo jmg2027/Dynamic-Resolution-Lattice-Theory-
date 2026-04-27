@@ -289,4 +289,19 @@ theorem riemann_half_depth_30 (db : DyadicBracket) :
     = constCut (2^30 * 1) 2 :=
   riemannSampleSum_constCut 1 2 db 30
 
+/-- **Riemann universal facts bundle (W2)**: closed form +
+    doubling recurrence + normalized average for constant integrand. -/
+theorem riemann_universal_facts (a b : Nat) (db : DyadicBracket) (n : Nat) :
+    -- (1) Closed form: Σ_{depth n} (a/b) = (2^n * a) / b.
+    riemannSampleSum (constCutFn (constCut a b)) db n = constCut (2^n * a) b
+    -- (2) Doubling recurrence: depth (n+1) = double depth n.
+    ∧ riemannSampleSum (constCutFn (constCut a b)) db (n+1)
+      = cutSum (riemannSampleSum (constCutFn (constCut a b)) db n)
+               (riemannSampleSum (constCutFn (constCut a b)) db n)
+    -- (3) Normalized average: scaled denom recovers original constant.
+    ∧ constCut (2^n * a) (b * 2^n) = constCut a b :=
+  ⟨riemannSampleSum_constCut a b db n,
+   riemann_const_doubling a b db n,
+   riemannSampleSum_const_normalized a b n⟩
+
 end E213.Research.Real213CutSum
