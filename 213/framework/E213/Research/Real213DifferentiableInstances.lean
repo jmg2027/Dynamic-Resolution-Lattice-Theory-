@@ -60,6 +60,26 @@ theorem quarticIsDifferentiable_modulus (k : Nat) :
   show (k + k) + (k + k) = 4 * k
   omega
 
+/-- x ↦ (a/b)·x linear scaling: differentiable, derivative = a/b. -/
+def cutScaleIsDifferentiable (a b : Nat) : IsDifferentiable (cutScale a b) where
+  toIsSmooth := cutScaleIsSmooth a b
+  derivative := constCutFn (constCut a b)
+  derivativeSmooth := constIsSmooth (constCut a b)
+
+/-- x ↦ x/2 halving: differentiable, derivative = 1/2. -/
+def cutHalfIsDifferentiable : IsDifferentiable cutHalf where
+  toIsSmooth := cutHalfIsSmooth
+  derivative := constCutFn (constCut 1 2)
+  derivativeSmooth := constIsSmooth (constCut 1 2)
+
+/-- d/dx [(a/b)·x] = a/b. -/
+theorem cutScale_derivative_form (a b : Nat) :
+    (cutScaleIsDifferentiable a b).derivative = constCutFn (constCut a b) := rfl
+
+/-- d/dx [x/2] = 1/2. -/
+theorem cutHalf_derivative_form :
+    cutHalfIsDifferentiable.derivative = constCutFn (constCut 1 2) := rfl
+
 /-- Phase AE-1 capstone: square/cube/quartic moduli. -/
 theorem polynomial_differentiable_instances_capstone (k : Nat) :
     squareIsDifferentiable.linearityModulus k = 2 * k

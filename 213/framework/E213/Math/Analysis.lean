@@ -23,6 +23,7 @@ import E213.Research.Real213DerivativeForms
 import E213.Research.Real213DerivativeDepth
 import E213.Research.Real213PhaseADCapstone
 import E213.Research.Real213DifferentiableInstances
+import E213.Research.Real213PhaseAESuperCapstone
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
