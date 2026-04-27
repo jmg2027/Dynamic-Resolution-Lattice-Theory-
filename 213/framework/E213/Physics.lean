@@ -28,6 +28,9 @@ import E213.Physics.WeinbergAngle
 import E213.Physics.DarkEnergy
 import E213.Physics.BondAngles
 import E213.Physics.UnifiedPattern
+import E213.Physics.ProtonMass
+import E213.Physics.HadronMasses
+import E213.Physics.NeutrinoMixing
 import E213.Physics.Capstone
 
 /-!
