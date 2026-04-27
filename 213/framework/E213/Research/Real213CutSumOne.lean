@@ -90,4 +90,12 @@ theorem cutSum_zero_const (a b : Nat) :
       rw [e1, e2]
       exact Nat.mul_le_mul_left 2 h_ak
 
+/-- **cutSum (constCut a b) (constCut 0 1) = constCut a b** (right zero identity).
+    Via cutSum_comm + cutSum_zero_const. -/
+theorem cutSum_const_zero (a b : Nat) :
+    cutSum (constCut a b) (constCut 0 1) = constCut a b := by
+  funext m k
+  rw [cutSum_comm (constCut a b) (constCut 0 1) m k]
+  exact congrFun (congrFun (cutSum_zero_const a b) m) k
+
 end E213.Research.Real213CutSum
