@@ -7,6 +7,25 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### Phase BI-BS (a9f113b → eb3389c) — **ClassicCalc framework + MVT witness** ★★
+
+Calculus textbook framework: bundle IsDifferentiable + Passthrough.
+
+- **BI**: passthrough closed under composition + product
+- **BJ**: `Passthrough` 구조 + 조합자 (id/cutPow/compose/mul)
+- **BK**: passthrough catalog (7 instances all combinator-derived)
+- **BL**: `ClassicCalc f := { diff, pass }` 통합 클래스
+- **BM**: ClassicCalc 1-8차 (정명적 instance)
+- **BN**: series → flux 다리 (seriesFlux, geomHalfFlux)
+- **BO**: ClassicCalc 9, 10, 12, 16차
+- **BP**: ★ generic `cutPow_calc (n)` — ∀ n one-liner MVT/FTC
+- **BQ**: 11-fact omega capstone (AY-BP 통합)
+- **BR**: ★ **explicit dyadic MVT witness for x²**: c = 1/2, f'(1/2) = 1 propEq
+- **BS**: passthrough closed under midpoint (`cutMid` 조합자)
+
+★ Calculus framework closed under id/cutPow/compose/mul/mid.
+★ x²의 MVT witness c=1/2가 *constructively dyadic* — concretely.
+
 ### Phase BB-BH (3e26265 → ★) — **MVT/FTC propositional resolution at unit bracket** ★★
 
 병목 풀린 후 첫 *대규모* 결과. 다항식별 propEq MVT/FTC, 일반 passthrough 정리, structural unification.
