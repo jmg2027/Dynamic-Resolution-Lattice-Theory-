@@ -353,6 +353,24 @@ theorem alwaysFalseUnit_limit_value (m k : Nat) :
      = decide ((2^(k+1) - 1) * k ≤ 2^(k+1) * m)
   rfl
 
+/-! ### Concrete decide tests for limit values -/
+
+/-- alwaysTrueUnit limit at (1, 1): true (since 1 ≤ 2^2 * 1 = 4). -/
+example : (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit 1 1
+        = true := by decide
+
+/-- alwaysTrueUnit limit at (0, 1): false (since 1 > 2^2 * 0 = 0). -/
+example : (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit 0 1
+        = false := by decide
+
+/-- alwaysFalseUnit limit at (1, 1): true (since (2^2 - 1) * 1 = 3 ≤ 4). -/
+example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 1 1
+        = true := by decide
+
+/-- alwaysFalseUnit limit at (1, 2): false (since (2^3-1)*2 = 14 > 8). -/
+example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 1 2
+        = false := by decide
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
