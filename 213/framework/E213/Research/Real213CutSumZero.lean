@@ -1,6 +1,7 @@
 import E213.Research.Real213CutSumComm
 import E213.Research.Real213CutMulComm
 import E213.Research.Real213CutAlgebraic
+import E213.Research.Real213CutBisection
 
 /-!
 # Research.Real213CutSumZero: cutSum (zero) (zero) = zero
@@ -35,5 +36,17 @@ theorem cutMul_zero_zero : cutMul (constCut 0 1) (constCut 0 1) = constCut 0 1 :
   · exact constCut_zero_always 0 k
   · exact constCut_zero_always 0 k
   · rw [Nat.zero_mul]; exact Nat.zero_le _
+
+/-- **cutHalf zero = zero**: 0/2 = 0. -/
+theorem cutHalf_zero : cutHalf (constCut 0 1) = constCut 0 1 := by
+  funext m k
+  show constCut 0 1 (2*m) k = constCut 0 1 m k
+  rw [constCut_zero_always, constCut_zero_always]
+
+/-- **cutMid zero zero = zero**: midpoint of 0 and 0 is 0. -/
+theorem cutMid_zero_zero :
+    cutMid (constCut 0 1) (constCut 0 1) = constCut 0 1 := by
+  show cutHalf (cutSum (constCut 0 1) (constCut 0 1)) = constCut 0 1
+  rw [cutSum_zero_zero, cutHalf_zero]
 
 end E213.Research.Real213CutSum
