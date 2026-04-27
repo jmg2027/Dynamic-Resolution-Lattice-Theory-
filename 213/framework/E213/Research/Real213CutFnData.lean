@@ -1,5 +1,7 @@
 import E213.Research.Real213CutContinuity
 import E213.Research.Real213CutBisection
+import E213.Research.Real213CutMulDetermined
+import E213.Research.Real213CutPow
 
 /-!
 # Research.Real213CutFnData: data-bearing local determinedness
@@ -129,5 +131,25 @@ def cutHalfLDD : LocallyDeterminedData cutHalf where
     intro m k cx cy h
     show cx (2*m) k = cy (2*m) k
     exact h (2*m) k (Nat.le_max_left _ _) (Nat.le_max_right _ _)
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- cutScale a b 의 LocallyDeterminedData (via cutMul_locallyDetermined). -/
+def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where
+  N := fun m k => (m + 1) * (k + 1)
+  prop := by
+    intro m k cx cy h
+    show cutMul (constCut a b) cx m k = cutMul (constCut a b) cy m k
+    have hk_le : k ≤ (m + 1) * (k + 1) :=
+      Nat.le_trans (Nat.le_succ k)
+        (Nat.le_mul_of_pos_left _ (Nat.succ_pos _))
+    apply cutMulOuter_congr
+    · intro _ _; rfl
+    · intro m' hm'; exact h m' k hm' hk_le
+    · exact Nat.le_refl _
 
 end E213.Research.Real213CutSum
