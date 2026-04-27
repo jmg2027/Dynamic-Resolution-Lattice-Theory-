@@ -49,4 +49,19 @@ example : cutMul (constCut 1 1) (constCut 1 1) 1 1
 example : cutMul (constCut 1 1) (constCut 1 1) 0 1
         = constCut 1 1 0 1 := by decide
 
+/-- cutSum associativity at (3, 1): (1+1)+1 = 1+(1+1) = 3.  Both true. -/
+example : cutSum (cutSum (constCut 1 1) (constCut 1 1)) (constCut 1 1) 3 1
+        = cutSum (constCut 1 1) (cutSum (constCut 1 1) (constCut 1 1)) 3 1
+  := by decide
+
+/-- cutSum associativity at (2, 1): (1+1)+1=3, NOT ≤ 2.  Both false. -/
+example : cutSum (cutSum (constCut 1 1) (constCut 1 1)) (constCut 1 1) 2 1
+        = cutSum (constCut 1 1) (cutSum (constCut 1 1) (constCut 1 1)) 2 1
+  := by decide
+
+/-- cutMul associativity at (1, 1): (1*1)*1=1*(1*1)=1.  Both true. -/
+example : cutMul (cutMul (constCut 1 1) (constCut 1 1)) (constCut 1 1) 1 1
+        = cutMul (constCut 1 1) (cutMul (constCut 1 1) (constCut 1 1)) 1 1
+  := by decide
+
 end E213.Research.Real213CutSum
