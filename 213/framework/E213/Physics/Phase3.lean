@@ -33,6 +33,7 @@ import E213.Physics.Phase3.Translation.QuantumField
 import E213.Physics.Phase3.Translation.Thermodynamics
 import E213.Physics.Phase3.Translation.Cosmology
 import E213.Physics.Phase3.Translation.Symmetry
+import E213.Physics.Phase3.Translation.AtomicCorrespondences
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 
