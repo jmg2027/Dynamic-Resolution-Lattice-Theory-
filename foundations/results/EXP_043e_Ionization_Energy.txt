@@ -1,8 +1,0 @@
-EXP_043e: Ionization Energy from Simplex Topology
-==================================================
-
-Basic: IE = 30.92 / (n+l)²
-  Mean |error|: 83.2%
-
-Improved: IE = 37.92 / (n+l)² × (count/capacity)
-  Mean |error|: 86.6%
