@@ -78,4 +78,19 @@ def composeIsSmooth {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     composeLDD sf.toLocallyDeterminedData sg.toLocallyDeterminedData
   linearityModulus := fun n => sg.linearityModulus (sf.linearityModulus n)
 
+/-- **Linear scaling is smooth**: cutScale a b (i.e., x ↦ (a/b) * x).
+
+    Linear functions have EXACT linear approximation everywhere, so
+    the linearity modulus is trivial (id).  This is the simplest
+    non-trivial smooth instance: a literal linear function. -/
+def cutScaleIsSmooth (a b : Nat) : IsSmooth (cutScale a b) where
+  toLocallyDeterminedData := cutScaleLDD a b
+  linearityModulus := id
+
+/-- **Halving is smooth**: cutHalf (i.e., x ↦ x/2).
+    Same logic as cutScale — exact linear, trivial modulus. -/
+def cutHalfIsSmooth : IsSmooth cutHalf where
+  toLocallyDeterminedData := cutHalfLDD
+  linearityModulus := id
+
 end E213.Research.Real213CutSum
