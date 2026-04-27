@@ -371,6 +371,25 @@ example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 1 1
 example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 1 2
         = false := by decide
 
+/-- **0+ ≤ 1- in the cut order**: the alwaysTrue limit (representing
+    "infinitesimally above 0") is ≤ the alwaysFalse limit (representing
+    "infinitesimally below 1") cut-wise.  Mathematical sanity. -/
+theorem alwaysTrue_le_alwaysFalse_at_limit :
+    cutLe (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
+          (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit := by
+  intro m k h
+  rw [alwaysFalseUnit_limit_value] at h
+  rw [alwaysTrueUnit_limit_value]
+  apply decide_eq_true
+  have h1 : (2^(k+1) - 1) * k ≤ 2^(k+1) * m := of_decide_eq_true h
+  have h_pow : 2^(k+1) ≥ 2 := by
+    have := two_pow_ge_succ k; omega
+  have e : (2^(k+1) - 1) * k = 2^(k+1) * k - k := by
+    rw [Nat.mul_comm, Nat.mul_sub_left_distrib, Nat.mul_one, Nat.mul_comm k]
+  rw [e] at h1
+  have h_mul_ge : 2^(k+1) * k ≥ 2 * k := Nat.mul_le_mul_right k h_pow
+  omega
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
