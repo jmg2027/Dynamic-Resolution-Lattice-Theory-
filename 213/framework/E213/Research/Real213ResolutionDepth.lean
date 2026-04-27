@@ -77,4 +77,21 @@ theorem polynomial_resolution_depth_principle (n : Nat) :
   rw [Nat.one_mul]
   exact idIsSmooth_modulus n
 
+/-! ### Concrete decide tests — explicit depth values for n = 5
+
+Sister-branch `WhyBasel.lean` style decide-based concrete tests
+showing the explicit numerical pattern. -/
+
+/-- id at depth 5: modulus = 5 (slope 1). -/
+example : idIsSmooth.linearityModulus 5 = 5 := by decide
+
+/-- square at depth 5: modulus = 10 (slope 2). -/
+example : squareIsSmooth.linearityModulus 5 = 10 := by decide
+
+/-- cube at depth 5: modulus = 15 (slope 3). -/
+example : cubeIsSmooth.linearityModulus 5 = 15 := by decide
+
+/-- quartic at depth 5: modulus = 20 (slope 4). -/
+example : quarticIsSmooth.linearityModulus 5 = 20 := by decide
+
 end E213.Research.Real213CutSum
