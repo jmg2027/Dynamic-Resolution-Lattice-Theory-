@@ -8,7 +8,27 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
-### Phase J COMPLETE — Dyadic IVT + IsSmooth + Riemann
+### Phase L COMPLETE — Trajectory closed forms + 3 ConsistentOracle
+
+User-pointed sister branch (`claude/block-universe-asymmetry-bYQZZ`)
+inspired Phase L style: physics-track Capstone + decide-tested
+exact derivation patterns.
+
+NEW MODULES + EXTENSIONS:
+- Real213PhaseJCapstone : 7-fact Phase J + finite-N markers.
+- Real213ResolutionDepth : polynomial → linearityModulus = d*n.
+- Real213DyadicTrajectory : alwaysTrue/False oracle closed forms.
+- ConsistentOracle.alwaysTrueUnit + alwaysFalseUnit : 3 concrete
+  instances (with collapsed Phase K — 3 total).
+
+Trajectory closed form on unit bracket:
+  alwaysTrue: bracket (0, 1, n), midCut = dyadicCut 1 (n+1).
+  alwaysFalse: bracket (2^n - 1, 2^n, n), midCut = dyadicCut (2^(n+1)-1) (n+1).
+
+These match physics-track exact-integer derivation pattern in
+analysis domain.
+
+### Phase J — Dyadic IVT + IsSmooth + Riemann
 
 Three-priority roadmap from Phase J Sec 1-3 fully delivered:
 
