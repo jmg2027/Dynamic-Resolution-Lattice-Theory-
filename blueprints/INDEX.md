@@ -1,11 +1,22 @@
 # 213 Library Blueprints — Master Index
 
-213 도서관 의 *지도* — 미래 마라톤 28 분야 (math 14 + physics 14).
+213 도서관 의 *지도* — 미래 마라톤 + Kernel meta.
 
 ## 트랙 별 INDEX
 
-  📐 **Math Track**     `blueprints/math/INDEX.md`  (14 분야)
-  ⚛️ **Physics Track** `blueprints/physics/INDEX.md` (14 분야)
+  📋 **Meta Track**    `blueprints/meta/`               (kernel philosophy + phases)
+  📐 **Math Track**     `blueprints/math/INDEX.md`       (14 분야)
+  ⚛️ **Physics Track** `blueprints/physics/INDEX.md`     (14 분야)
+
+## Meta — 213 Kernel (★★★★ 최우선, KA→KH 완료)
+
+  - `meta/01_213_kernel.md`         비전 + 빌딩 블록 + Phase 개요
+  - `meta/01_213_kernel_phases.md`  KB→KH 상세 + 미해결 문제
+
+상태: **101 정리 모두 0 axiom 검증** (`./tools/kernel_regress.sh`).
+Lean kernel 의 propext / Quot.sound / Classical.choice 어느 것도
+load-bearing 아님 — "Lean = syntactic host, 213 = real foundation"
+이 형식적 사실.
 
 ## Architecture
 

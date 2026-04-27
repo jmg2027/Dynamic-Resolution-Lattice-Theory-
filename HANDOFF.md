@@ -20,12 +20,13 @@ Classical.choice 어느 것도 *진리값에 기여 안 함*.
 /                            (repo = 213 도서관)
 ├── README.md, HANDOFF.md, CLAUDE.md
 ├── seed/        9 docs
-├── lean/E213/   628 Lean files (Kernel/ 8개 추가)
-│   └── Kernel/  ★ deep-embedded 213 kernel (NEW)
-├── blueprints/  meta/ 추가 (kernel blueprint)
-├── books/, papers/, catalogs/
-├── tools/       4 자동화 도구 (NEW)
-└── research-notes/
+├── lean/E213/   634 Lean files (14 Kernel + 227 Physics + 331 Research + 8 Math + ...)
+│   └── Kernel/  ★ deep-embedded 213 kernel (14 files, 101 정리 0 axiom)
+├── blueprints/  meta/2 + math/16 + physics/16 = 35 docs
+├── books/, papers/, catalogs/  (3 / 69 tex / 7 lookup)
+├── tools/       5 (audit/port_candidates/auto_port/kernel_regress + FORBIDDEN.md)
+├── LICENSE, LICENSE-DOCS  (PolyForm-NC + CC BY-NC-ND)
+└── research-notes/  24 docs
 ```
 
 ## Kernel 구조

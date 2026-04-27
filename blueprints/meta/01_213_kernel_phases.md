@@ -58,14 +58,20 @@ propext 없음.  `#print axioms` 빈 리스트 유지.
 
 각 capstone 의 `#print axioms` 가 빈 리스트.
 
-## Phase KH — 점진 포팅 도구  (`tools/port_to_kernel.py`)
+## Phase KH — 점진 포팅 도구 (`tools/`) ✅ 완료
 
-기존 620 파일 → kernel encoding 자동 보조:
-  - `decide` 호출 패턴 detect
-  - Nat/Rat 산술 → Term DSL 변환 시도
-  - `#print axioms` 자동 회귀 테스트
+기존 634 파일 → kernel encoding 자동 보조:
+  - `audit_axioms.py`     `lake build` + `#print axioms` 파싱
+  - `port_candidates.py`  short-proof 후보 자동 식별 (85+ 발견)
+  - `auto_port.py`        bracket 패턴 (LO < N < HI) 자동 변환
+  - `kernel_regress.sh`   axiom 회귀 자동 차단 (CI gate)
 
-마라톤 종료 = "핵심 capstone 5개 이상 axiom-free".
+훅 자동화 (.claude/hooks/):
+  - `purity-guard.sh`        Tier1 + Tier2 (Kernel-strict)
+  - `kernel-axiom-check.sh`  PostToolUse 회귀 검증
+
+**달성:** 7 capstone 카테고리 + 101 정리 모두 axiom-free
+(목표 "5개 이상" 초과 달성).
 
 ---
 

@@ -18,19 +18,25 @@ DRLT (Dynamic Resolution Lattice Theory)
 
 - **0 sorry, 0 외부 axiom** (Lean 4 core only)
 - ≤ propext + Quot.sound (대부분 0 axioms)
+- ★ **213 Kernel: 101 정리 *literally 0 axiom*** (deep embedding,
+  propext/Quot.sound 어느 것도 load-bearing 아님)
+  → "Lean = syntactic host, 213 = real foundation" 형식적 입증
+  → 검증: `./tools/kernel_regress.sh`
 - *수치해석 부재* — rational arithmetic + decide
 - *Mathlib-free*
-- *측정 falsifier* 14+ (관측 1 위반 → 폐기)
+- *측정 falsifier* 14+ (관측 1 위반 → 폐기, 그 중 8개 axiom-free)
 
 ## 디렉토리
 
 ```
 seed/         씨앗 (axioms + philosophy + falsifiability)
-lean/E213/    Lean 4 formal library (Math + Physics)
-blueprints/   미래 마라톤 28 분야 (math 14 + physics 14)
+lean/E213/    Lean 4 formal library (634 files)
+  └── Kernel/ ★ deep-embedded 213 kernel (14 files, 101 정리 0 axiom)
+blueprints/   meta/ + math/14 + physics/14
 books/        narrative 계층 (math/, physics/)
 papers/       저널 .tex + DRLT book
-catalogs/     lookup tables (atomic 정수, 상수, 주기율표)
+catalogs/     lookup tables (atomic 정수, 상수, 주기율표, falsifiers)
+tools/        자동화 (audit, port_candidates, auto_port, regress, FORBIDDEN)
 research-notes/  연구 노트
 ```
 
