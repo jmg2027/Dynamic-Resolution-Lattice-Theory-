@@ -158,6 +158,48 @@ example : (midIsSmooth (midIsSmooth squareIsSmooth squareIsSmooth) cubeIsSmooth)
 example : (midIsSmooth (midIsSmooth (midIsSmooth idIsSmooth idIsSmooth) idIsSmooth) idIsSmooth).linearityModulus 5 = 5
   := by decide
 
+/-! ### X1: composeIsSmooth iteration tests -/
+
+/-- 3-deep compose: square ∘ square ∘ square = x⁸. Modulus 40. -/
+example :
+    (composeIsSmooth squareIsSmooth (composeIsSmooth squareIsSmooth squareIsSmooth)).linearityModulus 5
+    = 40 := by decide
+
+/-- 4-deep compose: square ∘ square ∘ square ∘ square = x¹⁶. Modulus 80. -/
+example :
+    (composeIsSmooth (composeIsSmooth squareIsSmooth squareIsSmooth)
+                     (composeIsSmooth squareIsSmooth squareIsSmooth)).linearityModulus 5
+    = 80 := by decide
+
+/-- compose square cube cube: (x²)³³ ... actually (x²) ∘ (x³ ∘ x³) = x³⁶? Hmm let me think.
+    Actually compose f g = f ∘ g, so f(g(x)).
+    compose square (compose cube cube) means square (cube (cube x)) = (((x³)³)²) = x¹⁸.
+    But linearityModulus = sg.lM (sf.lM n) = (cube ∘ cube).lM (square.lM n)
+    = (cube.lM (cube.lM (square.lM n))) — wait wrong direction.
+
+    Actually composeIsSmooth's linearityModulus is sg.lM (sf.lM n).
+    For compose f g (= f ∘ g), the linearityModulus = g's lM applied to f's lM(n).
+    So nested compose composes moduli inside-out.
+
+    compose sq (comp cube cube) = compose sq (cube ∘ cube).
+    linearityModulus n = (cube ∘ cube).lM (sq.lM n) = cube.lM (cube.lM (2n))
+    = cube.lM (3 * 2n) = 3 * 6n = 18n.
+    Hmm wait that's not how compose works.
+    Let me re-read composeIsSmooth.
+
+    Actually composeIsSmooth in our def gives:
+    linearityModulus := fun n => sg.linearityModulus (sf.linearityModulus n).
+    For f = sq, g = (cube ∘ cube): lM = g.lM (sq.lM n) = (cube ∘ cube).lM (2n).
+    (cube ∘ cube).lM = cube.lM ∘ cube.lM ... wait no, (cube ∘ cube) is also composeIsSmooth.
+    Its lM = (composeIsSmooth cube cube).lM = cube.lM (cube.lM ·).
+
+    So ((compose cube cube).lM) (2n) = cube.lM (cube.lM (2n)) = 3 * (3 * 2n) = 18n.
+
+    At n = 5: 18 * 5 = 90.
+    -/
+example : (composeIsSmooth squareIsSmooth (composeIsSmooth cubeIsSmooth cubeIsSmooth)).linearityModulus 5
+    = 90 := by decide
+
 /-! ### Q1: addIsSmooth modulus = max behavior (linear) -/
 
 /-- addIsSmooth (id, id): max(5, 5) = 5. -/
