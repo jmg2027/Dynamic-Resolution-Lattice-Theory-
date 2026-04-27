@@ -200,6 +200,42 @@ example :
 example : (composeIsSmooth squareIsSmooth (composeIsSmooth cubeIsSmooth cubeIsSmooth)).linearityModulus 5
     = 90 := by decide
 
+/-! ### X2: addIsSmooth iteration tests -/
+
+/-- 3-arity add: add (add id id) id: max(max(5,5),5) = 5. -/
+example : (addIsSmooth (addIsSmooth idIsSmooth idIsSmooth) idIsSmooth).linearityModulus 5 = 5
+  := by decide
+
+/-- 4-arity add: add (add square cube) (add quartic quintic):
+    max(max(10,15), max(20,25)) = max(15, 25) = 25. -/
+example : (addIsSmooth (addIsSmooth squareIsSmooth cubeIsSmooth)
+                       (addIsSmooth quarticIsSmooth quinticIsSmooth)).linearityModulus 5
+    = 25 := by decide
+
+/-! ### X3: Mixed combinator iteration -/
+
+/-- mul (add id id) (mid square cube): mul-rule (sum) on add-result and mid-result.
+    add(id, id).lM 5 = max(5,5) = 5.
+    mid(square, cube).lM 5 = max(10, 15) = 15.
+    mul of these: 5 + 15 = 20. -/
+example : (mulIsSmooth (addIsSmooth idIsSmooth idIsSmooth)
+                       (midIsSmooth squareIsSmooth cubeIsSmooth)).linearityModulus 5
+    = 20 := by decide
+
+/-- compose (mul id id) square:
+    (mul id id).lM 5 = 5+5 = 10.
+    Then compose: square.lM (10) = 20. -/
+example : (composeIsSmooth (mulIsSmooth idIsSmooth idIsSmooth) squareIsSmooth).linearityModulus 5
+    = 20 := by decide
+
+/-- mid (compose square cube) (add id quartic):
+    (compose square cube).lM 5 = cube.lM(square.lM 5) = cube.lM 10 = 30.
+    (add id quartic).lM 5 = max(5, 20) = 20.
+    mid of these: max(30, 20) = 30. -/
+example : (midIsSmooth (composeIsSmooth squareIsSmooth cubeIsSmooth)
+                       (addIsSmooth idIsSmooth quarticIsSmooth)).linearityModulus 5
+    = 30 := by decide
+
 /-! ### Q1: addIsSmooth modulus = max behavior (linear) -/
 
 /-- addIsSmooth (id, id): max(5, 5) = 5. -/
