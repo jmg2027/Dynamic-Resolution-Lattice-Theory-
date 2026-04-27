@@ -274,6 +274,14 @@ theorem cutSum_int_half (a b : Nat) :
       rw [e]
       omega
 
+/-- **cutSum (a/2) (b/1) = (a + 2*b)/2**: half + int via comm. -/
+theorem cutSum_half_int (a b : Nat) :
+    cutSum (constCut a 2) (constCut b 1) = constCut (a + 2*b) 2 := by
+  funext m k
+  rw [cutSum_comm]
+  have h := congrFun (congrFun (cutSum_int_half b a) m) k
+  rw [h, Nat.add_comm (2*b) a]
+
 /-- **cutSum (a/1) (b/1) = (a+b)/1** for integers. -/
 theorem cutSum_int_int (a b : Nat) :
     cutSum (constCut a 1) (constCut b 1) = constCut (a + b) 1 := by
