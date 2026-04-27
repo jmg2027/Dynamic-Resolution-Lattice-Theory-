@@ -277,4 +277,25 @@ def fifteenthIsSmooth :
                                                 (cutMul (cutMul x x) (cutMul x x))) x)) :=
   mulIsSmooth septicIsSmooth octicIsSmooth
 
+/-- **x ↦ x¹¹ is smooth**: x³ × x⁸ (degree 11). -/
+def eleventhIsSmooth :
+    IsSmooth (fun x => cutMul ((fun x => cutMul x (cutMul x x)) x)
+                              ((fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                                                (cutMul (cutMul x x) (cutMul x x))) x)) :=
+  mulIsSmooth cubeIsSmooth octicIsSmooth
+
+/-- **x ↦ x¹³ is smooth**: x⁵ × x⁸ (degree 13). -/
+def thirteenthIsSmooth :
+    IsSmooth (fun x => cutMul ((fun x => cutMul (cutMul x x) (cutMul x (cutMul x x))) x)
+                              ((fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                                                (cutMul (cutMul x x) (cutMul x x))) x)) :=
+  mulIsSmooth quinticIsSmooth octicIsSmooth
+
+/-- **x ↦ x¹⁴ is smooth**: x⁶ × x⁸ (degree 14). -/
+def fourteenthIsSmooth :
+    IsSmooth (fun x => cutMul ((fun x => cutMul (cutMul x (cutMul x x)) (cutMul x (cutMul x x))) x)
+                              ((fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                                                (cutMul (cutMul x x) (cutMul x x))) x)) :=
+  mulIsSmooth sexticIsSmooth octicIsSmooth
+
 end E213.Research.Real213CutSum

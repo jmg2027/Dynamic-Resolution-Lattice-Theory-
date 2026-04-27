@@ -201,6 +201,15 @@ example : twelfthIsSmooth.linearityModulus 5 = 60 := by decide
 /-- fifteenth (x¹⁵) at depth 5: modulus = 75 (slope 15). -/
 example : fifteenthIsSmooth.linearityModulus 5 = 75 := by decide
 
+/-- eleventh (x¹¹) at depth 5: modulus = 55 (slope 11). -/
+example : eleventhIsSmooth.linearityModulus 5 = 55 := by decide
+
+/-- thirteenth (x¹³) at depth 5: modulus = 65 (slope 13). -/
+example : thirteenthIsSmooth.linearityModulus 5 = 65 := by decide
+
+/-- fourteenth (x¹⁴) at depth 5: modulus = 70 (slope 14). -/
+example : fourteenthIsSmooth.linearityModulus 5 = 70 := by decide
+
 /-! ### T3: Generic polynomial modulus theorems for x⁵-x⁸ -/
 
 /-- **x⁵ generic modulus**: linearityModulus n = 5 * n (slope 5). -/
