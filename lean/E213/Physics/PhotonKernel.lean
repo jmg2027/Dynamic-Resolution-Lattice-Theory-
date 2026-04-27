@@ -45,7 +45,7 @@ def num_edges : Nat := c_lat * NS * NT
 
 theorem num_edges_eq_12 : num_edges = 12 := by decide
 
-/-- Vertex 수 = NS + NT = d. -/
+/-- Vertex count = NS + NT = d. -/
 def num_vertices : Nat := NS + NT
 
 theorem num_vertices_eq_d : num_vertices = d := by decide

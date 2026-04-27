@@ -1,7 +1,7 @@
 import E213.Physics.GoldenRatio
 
 /-!
-# (NS, NT) = (F_4, F_3) — Atomic partition은 Fibonacci recurrence (0 axioms)
+# (NS, NT) = (F_4, F_3) — Atomic partition follows Fibonacci recurrence (0 axioms)
 
 ★★★ MOST STRIKING DISCOVERY ★★★
 

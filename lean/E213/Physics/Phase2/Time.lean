@@ -58,7 +58,7 @@ theorem NT_n_steps_yield_two_pow (n : Nat) :
     (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n :=
   nt2_step_count n
 
-/-- NT 섹터 좌측 trajectory closed form (bridge B-2). -/
+/-- NT sector left trajectory closed form (bridge B-2). -/
 theorem NT_left_endpoint_closed (n : Nat) :
     (DyadicBracket.bisectN alwaysTrue n unitBracket).numA = 0
     ∧ (DyadicBracket.bisectN alwaysTrue n unitBracket).numB = 1

@@ -75,8 +75,8 @@ theorem NT_NS_at_depth_2 :
 theorem NT_NS_at_depth_3 :
     ((3 : Nat) ^ 3 - (2 : Nat) ^ 3 = 19) := by decide
 
-/-- 깊이 n에서 ratio: 3^n / 2^n = (3/2)^n
-    (정수 cross-mult: 3^n · 2^n = 6^n). -/
+/-- Ratio at depth n: 3^n / 2^n = (3/2)^n
+    (integer cross-mult: 3^n · 2^n = 6^n). -/
 theorem NT_NS_ratio_cross_mult_at_2 :
     (3 : Nat) ^ 2 * (2 : Nat) ^ 2 = 6 ^ 2 := by decide
 

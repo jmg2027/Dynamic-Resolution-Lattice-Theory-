@@ -52,7 +52,7 @@ def num_directed_edges : Nat := c_lattice * NS_atomic * 2
 
 theorem directed_edges_eq_12 : num_directed_edges = 12 := by decide
 
-/-- Phase 1 PhotonKernel과의 일치: 12 directed edges. -/
+/-- Agreement with Phase 1 PhotonKernel: 12 directed edges. -/
 theorem matches_phase1_photon_kernel :
     num_directed_edges = 12
     ∧ c_lattice * NS_atomic * 2 = 12 := by decide

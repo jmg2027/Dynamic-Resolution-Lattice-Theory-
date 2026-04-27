@@ -66,7 +66,7 @@ theorem falsifier_cycle_space_not_5 :
 /-- (F7) c_lat ≠ 2 falsifier.  Phase 2 Edges definition. -/
 theorem falsifier_c_lat : E213.Physics.Phase2.Edges.c_lattice = 2 := by decide
 
-/-- (F5) Channel 수 ≠ 3 falsifier. -/
+/-- (F5) Channel count ≠ 3 falsifier. -/
 theorem falsifier_channels : E213.Physics.Phase2.Force.num_channels = 3 := by decide
 
 /-- ★ Phase 2 Falsifier synthesis ★

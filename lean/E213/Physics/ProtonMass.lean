@@ -27,7 +27,7 @@ DRLT formula (ch09 §proton, lib/drlt.py:611):
   Same P(x) appears in:
   - m_μ/m_e Dyson series (geometric)
   - m_p (this file)
-  - 일반 fermion mass (ch09 closed propagator)
+  - general fermion mass (ch09 closed propagator)
 
 ## ★ Atomic ratio NS/d = 3/5 ★
 

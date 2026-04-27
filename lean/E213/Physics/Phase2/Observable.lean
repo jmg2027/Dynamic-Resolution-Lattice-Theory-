@@ -88,7 +88,7 @@ theorem axiom_level_observables :
 theorem phase2_observable_summary :
     -- 9 axiom-level observables
     (cosmos_observables.length = 9)
-    -- 합 = 35 (sanity check)
+    -- sum = 35 (sanity check)
     ∧ ((cosmos_observables.map (·.2)).foldl (· + ·) 0 = 35) := by decide
 
 end E213.Physics.Phase2.Observable

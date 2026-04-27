@@ -15,7 +15,7 @@ DRLT formula (SM_022, ch09):
 ## ★ Structural reuse ★
 
   Prefactor 12 = c·NS·NT — same as α_2 prefactor, same as
-  PhotonKernel num_edges.  단일 격자의 같은 atom.
+  PhotonKernel num_edges.  The same atom of the single lattice.
 
   EM-excess fraction (1 - S₂/S∞) = the ratio of "how long-range contributes
   more than short-range".  The same Basel sum appears.

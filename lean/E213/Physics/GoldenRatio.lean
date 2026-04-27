@@ -36,7 +36,7 @@ namespace E213.Physics.Golden
 
 open E213.Physics.Simplex
 
-/-- φ² = φ + 1 의 cross-mult: (2φ-1)² = 5 = d. -/
+/-- Cross-mult of φ² = φ + 1: (2φ-1)² = 5 = d. -/
 theorem phi_d_link :
     -- (2φ - 1)² = 4φ² - 4φ + 1 = 4(φ+1) - 4φ + 1 = 5
     -- This is a meta-statement; φ itself isn't in Nat.
@@ -73,7 +73,7 @@ theorem fibonacci_atomic_coincidence :
     ∧ (fib 6 = NS * NS - 1)
     ∧ (fib 7 = NS * NS + NS + 1) := by decide
 
-/-- φ² 값: 2 < φ² < 3 (since φ ≈ 1.618, φ² ≈ 2.618).
+/-- Value of φ²: 2 < φ² < 3 (since φ ≈ 1.618, φ² ≈ 2.618).
     Cross-mult: 2 < φ² as 4 < (1+√5)² · 2... bracket via golden
     sequence convergents. -/
 theorem phi_squared_bracket :

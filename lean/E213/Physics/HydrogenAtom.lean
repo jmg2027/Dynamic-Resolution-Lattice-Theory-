@@ -74,7 +74,7 @@ theorem n2_prefactor_eq_8 : n2_prefactor_denom = 8 := by decide
 theorem n2_prefactor_eq_alpha_3 :
     n2_prefactor_denom = NS * NS - 1 := by decide
 
-/-- E_1 ≈ -13.6 eV 의 1% bracket [13.4, 13.8].  Cross-mult. -/
+/-- 1% bracket [13.4, 13.8] for E_1 ≈ -13.6 eV.  Cross-mult. -/
 theorem H_E1_bracket :
     1340 < 1361 ∧ 1361 < 1380 := by decide
 

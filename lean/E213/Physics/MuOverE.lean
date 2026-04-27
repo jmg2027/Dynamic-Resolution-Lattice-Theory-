@@ -6,7 +6,7 @@ import E213.Physics.AlphaEM137
 DRLT formula (lib/drlt.py:662, ch09):
   m_μ/m_e = (NS/NT) · (1/α_em) · P · (1 + δ₁ + δ₂ + δ₃)
 
-  P  = 1/(1 - α_GUT/(NS+1))     ← α_em IR과 같은 Dyson tail
+  P  = 1/(1 - α_GUT/(NS+1))     ← same Dyson tail as α_em IR
   δ₁ = -α_em·α_GUT/(1-α_GUT)    ← Cabibbo Ξ pattern
   δ₂ = -α_GUT²/(d²-1)            ← adjoint SU(5) denom
   δ₃ = -α_em²·α_GUT

@@ -92,12 +92,12 @@ def small_block_pairs : Nat := small_block * (small_block - 1) / 2
 
 theorem small_block_pairs_eq_1 : small_block_pairs = 1 := by decide
 
-/-- Cross 쌍 = 3 · 2 = 6 (bipartite K_{3,2}). -/
+/-- Cross pairs = 3 · 2 = 6 (bipartite K_{3,2}). -/
 def cross_pairs : Nat := big_block * small_block
 
 theorem cross_pairs_eq_6 : cross_pairs = 6 := by decide
 
-/-- ★ 모든 쌍이 분류됨: 3 + 1 + 6 = 10 ★ -/
+/-- ★ All pairs accounted for: 3 + 1 + 6 = 10 ★ -/
 theorem all_pairs_accounted :
     big_block_pairs + small_block_pairs + cross_pairs = total_pairs := by
   decide
@@ -116,7 +116,7 @@ theorem cosmos_shape_minimal :
     ∧ (total_pairs = 10)
     -- decomposition: 3 + 1 + 6
     ∧ (big_block_pairs + small_block_pairs + cross_pairs = 10)
-    -- 각 부분
+    -- each part
     ∧ (big_block_pairs = 3) ∧ (small_block_pairs = 1)
     ∧ (cross_pairs = 6) := by decide
 
