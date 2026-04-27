@@ -62,6 +62,7 @@ import E213.Research.Real213FluxMVTClosure
 import E213.Research.Real213FluxPassthroughClass
 import E213.Research.Real213FluxPassthroughCatalog
 import E213.Research.Real213ClassicCalc
+import E213.Research.Real213ClassicCalcHigher
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
