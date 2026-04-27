@@ -35,6 +35,7 @@ import E213.Research.Real213DifferentiableMegaCoverage
 import E213.Research.Real213PhaseANOmegaCapstone
 import E213.Research.Real213DerivativeDecide
 import E213.Research.Real213ConcreteDerivativeModulus
+import E213.Research.Real213ConcreteDerivativeModulusHigh
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
