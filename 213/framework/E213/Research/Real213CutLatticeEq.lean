@@ -83,4 +83,32 @@ theorem cutMin_cutLe_right (cx cy1 cy2 : Nat → Nat → Bool)
   · exact Or.inl h1
   · exact Or.inr (h m k h2)
 
+/-- cutMax preserves cutEq on both args. -/
+theorem cutMax_cutEq_both (cx cx' cy cy' : Nat → Nat → Bool)
+    (hx : cutEq cx cx') (hy : cutEq cy cy') :
+    cutEq (cutMax cx cy) (cutMax cx' cy') :=
+  cutEq_trans _ _ _ (cutMax_cutEq_left cx cx' cy hx)
+                    (cutMax_cutEq_right cx' cy cy' hy)
+
+/-- cutMin preserves cutEq on both args. -/
+theorem cutMin_cutEq_both (cx cx' cy cy' : Nat → Nat → Bool)
+    (hx : cutEq cx cx') (hy : cutEq cy cy') :
+    cutEq (cutMin cx cy) (cutMin cx' cy') :=
+  cutEq_trans _ _ _ (cutMin_cutEq_left cx cx' cy hx)
+                    (cutMin_cutEq_right cx' cy cy' hy)
+
+/-- cutMax preserves cutLe on both args. -/
+theorem cutMax_cutLe_both (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
+    (hx : cutLe cx1 cx2) (hy : cutLe cy1 cy2) :
+    cutLe (cutMax cx1 cy1) (cutMax cx2 cy2) :=
+  cutLe_trans _ _ _ (cutMax_cutLe_left cx1 cx2 cy1 hx)
+                    (cutMax_cutLe_right cx2 cy1 cy2 hy)
+
+/-- cutMin preserves cutLe on both args. -/
+theorem cutMin_cutLe_both (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
+    (hx : cutLe cx1 cx2) (hy : cutLe cy1 cy2) :
+    cutLe (cutMin cx1 cy1) (cutMin cx2 cy2) :=
+  cutLe_trans _ _ _ (cutMin_cutLe_left cx1 cx2 cy1 hx)
+                    (cutMin_cutLe_right cx2 cy1 cy2 hy)
+
 end E213.Research.Real213CutSum
