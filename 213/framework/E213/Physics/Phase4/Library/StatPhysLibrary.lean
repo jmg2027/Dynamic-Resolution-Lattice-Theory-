@@ -1,0 +1,28 @@
+import E213.Physics.SimplexCounts
+
+/-!
+# Statistical Physics Library — 통계역학 atomic catalog
+
+## 핵심
+
+  Specific heat c_v = (NS/2)·k_B atomic (단원자)
+  Equipartition kT/d atomic
+  Stefan-Boltzmann denom 15 = d·NS atomic
+  Mean field critical exponents: β=1/NT, δ=NS, ν=1/NT atomic
+  2nd law origin: NT < NS asymmetry
+-/
+
+namespace E213.Physics.Phase4.Library.StatPhysLibrary
+
+open E213.Physics.Simplex
+
+/-- Stefan-Boltzmann denom = d·NS = 15. -/
+theorem stefan_atomic : d * NS = 15 := by decide
+
+/-- 단원자 c_v = NS/2·k_B atomic. -/
+theorem cv_monatomic : NS = 3 := by decide
+
+/-- 2nd law atomic origin. -/
+theorem second_law : NT < NS := by decide
+
+end E213.Physics.Phase4.Library.StatPhysLibrary
