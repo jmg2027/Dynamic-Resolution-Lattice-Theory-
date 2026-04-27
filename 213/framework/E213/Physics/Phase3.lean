@@ -48,6 +48,9 @@ import E213.Physics.Phase3.Translation.MasterCatalog
 import E213.Physics.Phase3.Translation.Lagrangian
 import E213.Physics.Phase3.Translation.AtomicSpectroscopy
 import E213.Physics.Phase3.Translation.Plasma
+import E213.Physics.Phase3.Translation.ParticlePhysics
+import E213.Physics.Phase3.Translation.FluidMechanics
+import E213.Physics.Phase3.Translation.BeyondSM
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 
