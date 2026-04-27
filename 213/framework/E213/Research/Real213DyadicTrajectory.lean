@@ -211,4 +211,26 @@ theorem alwaysFalse_unit_midCut (n : Nat) :
     omega
   rw [h_eq]
 
+/-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
+    bisection on unit bracket under the two canonical oracles.
+
+    Inspired by physics-track AlphaEMSimplicial Capstone style. -/
+theorem trajectory_capstone (n : Nat) :
+    -- alwaysTrue trajectory (collapses left)
+    (DyadicBracket.bisectN alwaysTrue n unitBracket).numA = 0
+    ∧ (DyadicBracket.bisectN alwaysTrue n unitBracket).numB = 1
+    ∧ (DyadicBracket.bisectN alwaysTrue n unitBracket).expE = n
+    ∧ (DyadicBracket.bisectN alwaysTrue n unitBracket).midCut
+        = dyadicCut 1 (n+1)
+    -- alwaysFalse trajectory (collapses right)
+    ∧ (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 2^n - 1
+    ∧ (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n
+    ∧ (DyadicBracket.bisectN alwaysFalse n unitBracket).expE = n
+    ∧ (DyadicBracket.bisectN alwaysFalse n unitBracket).midCut
+        = dyadicCut (2^(n+1) - 1) (n+1) :=
+  ⟨alwaysTrue_unit_numA n, alwaysTrue_unit_numB n, alwaysTrue_unit_expE n,
+   alwaysTrue_unit_midCut n,
+   alwaysFalse_unit_numA n, alwaysFalse_unit_numB n,
+   alwaysFalse_unit_expE n, alwaysFalse_unit_midCut n⟩
+
 end E213.Research.Real213CutSum
