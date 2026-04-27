@@ -106,4 +106,28 @@ example : septicIsSmooth.linearityModulus 5 = 35 := by decide
 /-- octic (x⁸) at depth 5: modulus = 40 (slope 8). -/
 example : octicIsSmooth.linearityModulus 5 = 40 := by decide
 
+/-! ### P3: composeIsSmooth modulus = product of degrees -/
+
+/-- compose square ∘ square : x ↦ (x²)² = x⁴.
+    Modulus 5 = 20 = 4 × 5 (degrees compose multiplicatively). -/
+example :
+    (composeIsSmooth squareIsSmooth squareIsSmooth).linearityModulus 5 = 20
+    := by decide
+
+/-- compose square ∘ cube: x ↦ (x²)³ = x⁶.
+    Modulus 5 = 30 = 6 × 5. -/
+example :
+    (composeIsSmooth squareIsSmooth cubeIsSmooth).linearityModulus 5 = 30
+    := by decide
+
+/-- compose id ∘ square: still gives modulus 10 (degree 2 effectively). -/
+example :
+    (composeIsSmooth idIsSmooth squareIsSmooth).linearityModulus 5 = 10
+    := by decide
+
+/-- compose square ∘ quartic: x ↦ (x²)⁴ = x⁸. Modulus 40 (degree 8). -/
+example :
+    (composeIsSmooth squareIsSmooth quarticIsSmooth).linearityModulus 5 = 40
+    := by decide
+
 end E213.Research.Real213CutSum
