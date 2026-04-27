@@ -29,6 +29,7 @@ import E213.Research.Real213DifferentiationCapstone
 import E213.Research.Real213PhaseAHGrandCapstone
 import E213.Research.Real213DifferentiableAffine
 import E213.Research.Real213DifferentiableCompose
+import E213.Research.Real213DifferentiableHighOrder
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
