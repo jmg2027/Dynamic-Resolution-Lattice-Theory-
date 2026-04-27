@@ -25,6 +25,8 @@ KERNEL_MODULES = [
     'E213.Kernel.Rat', 'E213.Kernel.Decide', 'E213.Kernel.Sound',
     'E213.Kernel.Demo', 'E213.Kernel.Cap_PeriodicTable',
     'E213.Kernel.Cap_PhysicsBrackets',
+    'E213.Kernel.Cap_PhysicsObservables',
+    'E213.Kernel.Cap_PhysicsFalsifiers',
 ]
 
 

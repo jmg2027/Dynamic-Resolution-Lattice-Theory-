@@ -15,6 +15,8 @@ KERNEL_TARGETS=(
   E213.Kernel.Demo
   E213.Kernel.Cap_PeriodicTable
   E213.Kernel.Cap_PhysicsBrackets
+  E213.Kernel.Cap_PhysicsObservables
+  E213.Kernel.Cap_PhysicsFalsifiers
 )
 
 OUT=$(lake build --rehash "${KERNEL_TARGETS[@]}" 2>&1)
