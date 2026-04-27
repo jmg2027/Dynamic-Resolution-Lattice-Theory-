@@ -8,6 +8,20 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase S COMPLETE — Final super-super-capstones
+
+- S1: Sister-branch export anchor (F6 doc).
+- S2: sixPhase_super_super_capstone (5 modulus rules in single theorem).
+- S3: all_smooth_instances_bundle (7 explicit IsSmooth witnesses).
+- S4: Final F6 + HANDOFF synthesis.
+
+### Phase R COMPLETE — Deeper polynomials + decide tests
+
+- R1: x¹⁰ and x¹⁶ IsSmooth instances + modulus tests.
+- R2: Riemann higher depths (8, 10, 12) explicit closed forms.
+- R3: alwaysFalseUnit limit decide tests at various (m, k).
+- R4: Strong N3 cutEq form (alwaysFalseUnit_limit_cutEq_one).
+
 ### Phase Q COMPLETE — Modulus rule tests (add max, mul sum, compose product)
 
 - Q1: addIsSmooth modulus tests (max behavior).

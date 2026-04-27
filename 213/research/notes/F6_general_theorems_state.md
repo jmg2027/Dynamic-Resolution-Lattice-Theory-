@@ -399,6 +399,20 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase S — 4 milestones COMPLETE (final super-super-capstones)
+
+**S1: Sister-branch export** (this F6 doc serves as export anchor).
+**S2: 6-Phase Super-Super-Capstone** — sixPhase_super_super_capstone.
+**S3: All IsSmooth instances bundle** — all_smooth_instances_bundle.
+**S4: Final F6 + HANDOFF synthesis (this update).**
+
+### Phase R — 4 milestones COMPLETE (deeper polynomials + decide tests)
+
+**R1: x¹⁰ and x¹⁶ instances** — decic, hexadecic IsSmooth + modulus.
+**R2: Riemann higher depths (8, 10, 12)** — explicit closed forms.
+**R3: alwaysFalseUnit limit decide tests** — 5 explicit (m, k) values.
+**R4: Strong N3 (cutEq form)** — alwaysFalseUnit_limit_cutEq_one.
+
 ### Phase Q — 4 milestones COMPLETE (modulus computation rules)
 
 **Q1: addIsSmooth modulus tests** — 4 decide tests confirming max behavior.
