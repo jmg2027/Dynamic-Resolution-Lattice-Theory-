@@ -7,6 +7,16 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### Phase CH-CM (329f0db → ★) — **propagation 정리 + 최종 capstone** ★★★
+
+- **CH/CI**: derivative computation showcase (decide-checked, ML 응용)
+- **CJ**: 4번째 nested mid 위트니스
+- **CK**: ★ generic mid propagation (`mid_witness_propagates`)
+- **CL**: ★ generic id-compose propagation
+- **CM**: ★★★ BB-CL 12-fact final mega-mega capstone
+
+★ Catalog 대신 *propagation 정리*로 모든 패턴 추상화.
+
 ### Phase CD-CG (be15668 → 247212b) — **ClassicCalc 조합자 + 위트니스 카탈로그**
 
 - **CD**: generic FTC-Riemann을 chain (id ∘ x²) + mid에 적용 (3-instance)
