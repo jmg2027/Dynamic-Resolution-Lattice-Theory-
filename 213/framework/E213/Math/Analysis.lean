@@ -107,6 +107,7 @@ import E213.Research.Real213IntegralIntInterval
 import E213.Research.Real213IntegralGeneralInt
 import E213.Research.Real213IntegralDyadic
 import E213.Research.Real213GeomSeriesPartialSum
+import E213.Research.Real213ExpAtZero
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
