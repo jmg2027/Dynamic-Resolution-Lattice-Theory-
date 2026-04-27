@@ -77,6 +77,7 @@ import E213.Research.Real213PhaseBXCapstone
 import E213.Research.Real213FTCRiemann
 import E213.Research.Real213PhaseBZMegaOmega
 import E213.Research.Real213FTCRiemannSquare
+import E213.Research.Real213FTCRiemannMid
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
