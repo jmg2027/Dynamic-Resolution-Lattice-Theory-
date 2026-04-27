@@ -1,6 +1,50 @@
-# Session Handoff — 2026-04-26 (213 sub-project: arc closed, repo cleaned)
+# Session Handoff — 2026-04-26 (213 사 후 arc + Real213 marathon)
 
-## Status
+## Latest marathon update
+
+Branch: `claude/lean-infinity-explanation-QqnSp`.
+
+**Real213 marathon ~80+ commits** (b4a29fe → ...):
+
+54+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
+
+**Library entry point**: `framework/E213/Math.lean` with 7 sub-modules
+(Foundation / CutOps / Generic / Continuity / Cauchy / Series / Analysis).
+
+**Verified theorems** (substantial mathematical content):
+- Phase A foundation (type / equiv / const / order / sign / OrderExtra).
+- Cut arithmetic: cutSum, cutMul, cutMaxMin, cutNeg, cutSignedMul,
+  cutInv, cutDiv, cutHalf, cutMid, cutPow, cutScale, cutDouble, etc.
+- **Commutativity**: cutSum_comm, cutMul_comm, cutSignedMul_comm.
+- **Monotonicity**: cutSum/Mul_mono_left/right.
+- **Lattice**: cutMax/Min idempotent / zero / distributive / absorption
+  / lub / glb / assoc.
+- **Continuity**: cutSum/Mul_locallyDetermined (0 axioms!), composeLDD,
+  cutHalfLDD.
+- **Existential characterizations**: cutSumAux/MulInner/Outer_eq_true_iff.
+- **Cauchy completeness**: CauchyCutSeq + limit (direct construction).
+- **cutEq compatibility**: cutSum/Mul_cutEq_left/right, comm_cutEq.
+- **Algebraic identities**: cutSum_zero_zero, cutMul_zero_zero,
+  cutHalf_zero, cutMid_zero_zero, partialSum_zero_series.
+- **Recurrence Lens classification**: RecurrenceLens + e/const instances.
+- **IVT bisection structural**: bisectN_zero/succ_true/succ_false.
+- **Riemann recursive sum**: actual implementation (not placeholder).
+- **Series**: partialSum, SeriesCauchy, geom/exp/sin/cos/π partial sums.
+- **Cut poset**: cutEq + cutLe + refl/symm/trans/antisymm + lub/glb.
+
+**Scaffolded** (definitions but full convergence proofs deferred):
+- IVT full bracket convergence.
+- Series convergence theorems (RatioBound/ComparisonBound types only).
+- Differentiation rules (sum / product / chain).
+- Riemann full integral (FTC, linearity).
+- Specific transcendental convergence (limit of partial sums).
+
+**Notes**:
+- F0-F5: framework synthesis + reframe + recurrence Lens + final state.
+- D3 retraction: ZFC ℝ as final boss → Real213 native ℝ.
+- E5: "213 은 213 만" directive 의 working code.
+
+## Earlier marathon (이전 wave)
 
 Branch: `claude/lean-infinity-explanation-QqnSp`.
 Lean: 0 sorry, 0 external axioms (only `propext` + `Quot.sound`).
