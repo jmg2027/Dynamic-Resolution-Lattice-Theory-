@@ -74,11 +74,20 @@ Real213OrderExtra, Real213Sign, Real213StrictPos.
 ### Verified working (decide-tested or proved 0/propext axioms)
 
 - Cut arithmetic: cutSum, cutMul, cutMaxMin, cutNeg, cutSignedMul.
+- **cutSum_comm + cutMul_comm** (via iff existential + bijection).
+- **cutSum_mono + cutMul_mono** (left + right, via iff).
 - Continuity: cutSum/Mul locally-determined.
 - Composition closure: composeLDD.
 - Cauchy completeness (direct construction).
-- Lattice properties (cutMax_idempotent, cutMax_zero_left 등).
-- Cut poset (cutLe refl/trans/antisymm).
+- Lattice properties: cutMax/Min idempotent, zero, **distributive**,
+  **absorption**, **upper/lower bounds (cutLe_cutMax/Min)**.
+- Cut poset (cutLe refl/trans/antisymm + lattice ordering).
+- IVT bisection structural lemmas (zero/succ_true/succ_false).
+- Constant difference quotient simplification.
+- Geometric series partial sum tests (n=2, n=3).
+- Riemann actual recursive sum (replacing placeholder).
+- cutSumAux_eq_true_iff + cutMulInner/Outer_eq_true_iff (existential
+  characterizations).
 
 ### Scaffolded (definitions correct, full proofs deferred)
 
