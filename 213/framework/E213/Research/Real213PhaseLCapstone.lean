@@ -77,4 +77,38 @@ theorem phaseMN_cross_track_parallel (m k : Nat) :
    no_pi_in_finite_riemann,
    alwaysFalseUnit_limit_eq_one_one m k⟩
 
+/-- **Phase O1: All-Phase Super-Capstone**.
+
+    Single conjunctive theorem bundling representative results from
+    every Phase J/K/L/M/N — the comprehensive 213-native real
+    analysis foundation in one statement.  -/
+theorem allPhase_super_capstone (n a b m k : Nat) :
+    -- Phase J: dyadic IVT bracket containment
+    cutLe unitBracket.leftCut
+          (DyadicBracket.bisectN alwaysTrue n unitBracket).leftCut
+    -- Phase K: ConsistentOracle.collapsed witness
+    ∧ (∀ db, db.numA = db.numB →
+        ∃ co : ConsistentOracle db, co.oracle = alwaysTrue)
+    -- Phase L: trajectory closed forms
+    ∧ (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n
+    -- Phase L: ResolutionDepth (cube has slope 3)
+    ∧ cubeIsSmooth.linearityModulus n = 3 * n
+    -- Phase L: Riemann normalized average
+    ∧ constCut (2^n * a) (b * 2^n) = constCut a b
+    -- Phase M1: 0+ infinitesimal gap below 0-exact
+    ∧ InfinitesimalGap (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
+                       (constCut 0 1)
+    -- Phase N3: 1- = 1-exact (asymmetry)
+    ∧ (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit m k
+      = constCut 1 1 m k := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact DyadicBracket.bisectN_contains_left alwaysTrue n unitBracket
+  · intro db h
+    exact ⟨ConsistentOracle.collapsed db h alwaysTrue, rfl⟩
+  · exact alwaysFalse_unit_numB n
+  · exact cubeIsSmooth_modulus n
+  · exact riemannSampleSum_const_normalized a b n
+  · exact zero_plus_gap_below_zero_exact
+  · exact alwaysFalseUnit_limit_eq_one_one m k
+
 end E213.Research.Real213CutSum
