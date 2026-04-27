@@ -70,6 +70,7 @@ import E213.Physics.Phase3.Translation.Chemistry
 import E213.Physics.Phase3.Translation.Scattering
 import E213.Physics.Phase3.Translation.TwelveEverywhere
 import E213.Physics.Phase3.Translation.QuantumOptics
+import E213.Physics.Phase3.Translation.FermionContent
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 import E213.Physics.Phase3.UltraCapstone
