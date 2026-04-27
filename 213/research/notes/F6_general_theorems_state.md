@@ -366,6 +366,39 @@ Real213Dyadic.lean Phase L addition:
 - cutHalf_dyadicCut : exponent +1.
 - cutDouble_dyadicCut : numerator * 2.
 
+### Phase L Round 3 — Trajectory closed forms + 3 ConsistentOracle instances
+
+Real213DyadicTrajectory.lean (NEW, large module):
+
+Concrete trajectory examples + closed forms:
+- alwaysTrue, alwaysFalse oracles, unitBracket = (0, 1, 0).
+- 4 decide-based concrete examples (depth 0, 1, 2, 3).
+- alwaysFalse_step / alwaysTrue_step (rfl reductions).
+- alwaysFalse_numB / alwaysTrue_numA : 2^n × initial scaling.
+- alwaysTrue_zero_numB_invariant : numA=0 preserves numB.
+
+Unit-bracket corollaries:
+- alwaysTrue_unit_numA = 0, _numB = 1, _expE = n.
+- alwaysFalse_unit_numA = 2^n - 1, _numB = 2^n, _expE = n.
+- alwaysTrue_unit_midCut = dyadicCut 1 (n+1).
+- alwaysFalse_unit_midCut = dyadicCut (2^(n+1) - 1) (n+1).
+
+Capstone:
+- trajectory_capstone : 8-fact bundle.
+- unit_universal_invariants : oracle-independent lenNum=1 ∧ expE=n.
+
+ConsistentOracle concrete instances (THREE total now):
+- ConsistentOracle.collapsed (Phase K).
+- ConsistentOracle.alwaysTrueUnit (Phase L) : non-collapsed bracket
+  with trivial-direction oracle.  thresholdN = k.
+- ConsistentOracle.alwaysFalseUnit (Phase L) : symmetric, with
+  case analysis on m vs k.  thresholdN = k.
+
+Helper:
+- two_pow_ge_succ : 2^(x+1) ≥ x + 1 (induction).
+- alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
+  via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
+
 ## 비 verified scaffolded
 
 - Series convergence theorems (full).
