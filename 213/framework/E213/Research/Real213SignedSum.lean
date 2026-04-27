@@ -79,4 +79,16 @@ theorem cutSignedSum_pos_half (a c : Nat) :
     = {sign := true, cut := constCut (a+c) 2}
   rw [cutSignedSum_pos_pos, cutSum_half_general]
 
+/-- **−(x + y) = (−x) + (−y)**: cutNeg distributes over cutSignedSum.
+    Holds in both branches (same-sign and cross-sign) of the partial
+    cutSignedSum implementation. -/
+theorem cutNeg_cutSignedSum (sx sy : SignedCut) :
+    cutNeg (cutSignedSum sx sy)
+    = cutSignedSum (cutNeg sx) (cutNeg sy) := by
+  cases sx with
+  | mk sxsign sxcut =>
+    cases sy with
+    | mk sysign sycut =>
+      cases sxsign <;> cases sysign <;> rfl
+
 end E213.Research.Real213CutSum
