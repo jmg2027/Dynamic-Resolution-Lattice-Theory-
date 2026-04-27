@@ -222,6 +222,58 @@ theorem cutSum_half_general (a b : Nat) :
         exact h_abk_2m
       omega
 
+/-- **cutSum (a/1) (b/2) = (2*a + b)/2** for any a, b. -/
+theorem cutSum_int_half (a b : Nat) :
+    cutSum (constCut a 1) (constCut b 2) = constCut (2*a + b) 2 := by
+  funext m k
+  apply bool_eq_iff
+  show cutSumAux (constCut a 1) (constCut b 2) k (2*m) (2*m) = true
+       ↔ constCut (2*a + b) 2 m k = true
+  rw [cutSumAux_eq_true_iff]
+  constructor
+  · rintro ⟨i, hi, hci, hcsi⟩
+    have h_2ak_i : 2*(a*k) ≤ i := by
+      have h1 : a*(2*k) ≤ 1*i := of_decide_eq_true hci
+      have e : a*(2*k) = 2*(a*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm a, Nat.mul_assoc]
+      rw [Nat.one_mul] at h1; rwa [e] at h1
+    have h_2bk_2mi : b*(2*k) ≤ 2*(2*m - i) := of_decide_eq_true hcsi
+    show decide ((2*a + b)*k ≤ 2*m) = true
+    apply decide_eq_true
+    have h_bk : b*k ≤ 2*m - i := by
+      have e : b*(2*k) = 2*(b*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm b, Nat.mul_assoc]
+      rw [e] at h_2bk_2mi
+      exact Nat.le_of_mul_le_mul_left h_2bk_2mi (by decide : 0 < 2)
+    have h_add : i + (2*m - i) = 2*m := Nat.add_sub_of_le hi
+    have h_total : 2*(a*k) + b*k ≤ 2*m := by
+      calc 2*(a*k) + b*k ≤ i + (2*m - i) := Nat.add_le_add h_2ak_i h_bk
+        _ = 2*m := h_add
+    have e_lhs : (2*a + b)*k = 2*(a*k) + b*k := by
+      rw [Nat.add_mul, Nat.mul_assoc]
+    rw [e_lhs]
+    exact h_total
+  · intro h
+    have h_le : (2*a + b)*k ≤ 2*m := of_decide_eq_true h
+    have h_total : 2*(a*k) + b*k ≤ 2*m := by
+      have e : (2*a + b)*k = 2*(a*k) + b*k := by
+        rw [Nat.add_mul, Nat.mul_assoc]
+      rw [e] at h_le; exact h_le
+    refine ⟨2*(a*k), ?_, ?_, ?_⟩
+    · omega
+    · show decide (a*(2*k) ≤ 1*(2*(a*k))) = true
+      rw [Nat.one_mul]
+      have : a*(2*k) = 2*(a*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm a, Nat.mul_assoc]
+      rw [this]
+      exact decide_eq_true (Nat.le_refl _)
+    · show decide (b*(2*k) ≤ 2*(2*m - 2*(a*k))) = true
+      apply decide_eq_true
+      have e : b*(2*k) = 2*(b*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm b, Nat.mul_assoc]
+      rw [e]
+      omega
+
 /-- **cutSum (a/1) (b/1) = (a+b)/1** for integers. -/
 theorem cutSum_int_int (a b : Nat) :
     cutSum (constCut a 1) (constCut b 1) = constCut (a + b) 1 := by
