@@ -268,6 +268,66 @@ def ConsistentOracle.alwaysTrueUnit : ConsistentOracle unitBracket where
         omega
       rw [decide_eq_true h_le1, decide_eq_true h_le2]
 
+/-- Helper for alwaysFalseUnit: in m < k case, cut is false past
+    threshold.  The key inequality (2^(n+1) - 1) * k > 2^(n+1) * m
+    derived from 2^(n+1) ≥ k+1 and k - m ≥ 1. -/
+private theorem alwaysFalse_unit_cut_false_when_m_lt_k
+    (n m k : Nat) (hn : 2^(n+1) ≥ k + 1) (hmk : m < k) :
+    ¬ ((2^(n+1) - 1) * k ≤ 2^(n+1) * m) := by
+  intro hle
+  -- Convert (2^(n+1) - 1) * k = 2^(n+1) * k - k via comm + Nat.mul_sub_left_distrib.
+  have e : (2^(n+1) - 1) * k = 2^(n+1) * k - k := by
+    rw [Nat.mul_comm, Nat.mul_sub_left_distrib, Nat.mul_one, Nat.mul_comm k]
+  rw [e] at hle
+  -- hle : 2^(n+1) * k - k ≤ 2^(n+1) * m
+  have hAk : 2^(n+1) * k ≥ k :=
+    Nat.le_mul_of_pos_left k (by
+      have := Nat.pos_pow_of_pos (n+1) (by decide : 0 < 2); omega)
+  have h_le : 2^(n+1) * k ≤ 2^(n+1) * m + k := by omega
+  have h_split : 2^(n+1) * k = 2^(n+1) * m + 2^(n+1) * (k - m) := by
+    rw [← Nat.mul_add]
+    congr 1
+    omega
+  rw [h_split] at h_le
+  -- h_le: 2^(n+1) * m + 2^(n+1) * (k - m) ≤ 2^(n+1) * m + k
+  have h_le2 : 2^(n+1) * (k - m) ≤ k := by omega
+  have h_lower : 2^(n+1) ≤ 2^(n+1) * (k - m) :=
+    Nat.le_mul_of_pos_right (2^(n+1)) (by omega : 0 < k - m)
+  omega
+
+/-- **alwaysFalse trajectory on unit bracket is a ConsistentOracle**.
+    Threshold: thresholdN m k := k.  Cut splits on (m vs k):
+    - k ≤ m: cut always true (midpoint ≤ 1 ≤ m/k).
+    - m < k: cut becomes false once 2^(n+1) > k. -/
+def ConsistentOracle.alwaysFalseUnit : ConsistentOracle unitBracket where
+  oracle := alwaysFalse
+  thresholdN := fun _ k => k
+  consistency := by
+    intro m k n1 n2 hn1 hn2
+    have hk1 : n1 ≥ k := hn1
+    have hk2 : n2 ≥ k := hn2
+    rw [alwaysFalse_unit_midCut n1, alwaysFalse_unit_midCut n2]
+    show decide ((2^(n1+1) - 1) * k ≤ 2^(n1+1) * m)
+       = decide ((2^(n2+1) - 1) * k ≤ 2^(n2+1) * m)
+    have h_pow1 : 2^(n1+1) ≥ k + 1 := by
+      have h := two_pow_ge_succ n1; omega
+    have h_pow2 : 2^(n2+1) ≥ k + 1 := by
+      have h := two_pow_ge_succ n2; omega
+    rcases Nat.lt_or_ge m k with hmk | hkm
+    · -- m < k: both cuts false.
+      rw [decide_eq_false (alwaysFalse_unit_cut_false_when_m_lt_k n1 m k h_pow1 hmk),
+          decide_eq_false (alwaysFalse_unit_cut_false_when_m_lt_k n2 m k h_pow2 hmk)]
+    · -- k ≤ m: both cuts true.
+      have h1_true : (2^(n1+1) - 1) * k ≤ 2^(n1+1) * m := by
+        have h_le_2pow : (2^(n1+1) - 1) * k ≤ 2^(n1+1) * k := by
+          apply Nat.mul_le_mul_right; omega
+        exact Nat.le_trans h_le_2pow (Nat.mul_le_mul_left _ hkm)
+      have h2_true : (2^(n2+1) - 1) * k ≤ 2^(n2+1) * m := by
+        have h_le_2pow : (2^(n2+1) - 1) * k ≤ 2^(n2+1) * k := by
+          apply Nat.mul_le_mul_right; omega
+        exact Nat.le_trans h_le_2pow (Nat.mul_le_mul_left _ hkm)
+      rw [decide_eq_true h1_true, decide_eq_true h2_true]
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
