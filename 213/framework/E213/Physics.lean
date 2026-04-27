@@ -22,6 +22,8 @@ import E213.Physics.FaceTerms
 import E213.Physics.AlphaEMSimplicial
 import E213.Physics.MuOverE
 import E213.Physics.DysonStructure
+import E213.Physics.HiggsMass
+import E213.Physics.TauOverMu
 import E213.Physics.Capstone
 
 /-!
