@@ -10,7 +10,7 @@ import E213.Physics.SimplexCounts
   T_P = m_P c²/k_B = 1.4×10³² K  atomic
   E_P = m_P c² = 1.22×10¹⁹ GeV  atomic
 
-DRLT 격자 구조: c = NT = 2 → 모든 c^n atomic 정수.
+DRLT lattice structure: c = NT = 2 → all c^n are atomic integers.
 -/
 
 namespace E213.Physics.Phase3.Translation.PlanckUnits
@@ -23,10 +23,10 @@ theorem c_cubed : NT * NT * NT = 8 := by decide
 /-- c⁵ = NT⁵ = 32 atomic. -/
 theorem c_fifth : NT * NT * NT * NT * NT = 32 := by decide
 
-/-- ℓ_P 분모 c³ = 8. -/
+/-- ℓ_P denominator c³ = 8. -/
 theorem planck_length_atomic : NT * NT * NT = 8 := c_cubed
 
-/-- t_P 분모 c⁵ = 32. -/
+/-- t_P denominator c⁵ = 32. -/
 theorem planck_time_atomic : NT * NT * NT * NT * NT = 32 := c_fifth
 
 /-- E_P scale ≈ 10^19 atomic — log_10 ≈ 19 = NS³ - NT³. -/

@@ -2,9 +2,9 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 플라즈마 물리 → DRLT atomic
+# Translation: Plasma physics → DRLT atomic
 
-## 정리 목록
+## Theorem list
 
   1. Plasma frequency ω_p = sqrt(n e²/ε₀ m) → atomic
   2. Debye length λ_D = sqrt(ε₀ k_B T/(n e²)) → atomic
@@ -23,7 +23,7 @@ theorem plasma_param_atomic :
   refine ⟨?_, ?_⟩
   all_goals decide
 
-/-- Debye length sqrt → exponent NT/d 분의 1 atomic. -/
+/-- Debye length sqrt → exponent 1/(NT/d) atomic. -/
 theorem debye_atomic : NT * d = 10 := by decide
 
 /-- Larmor circular: 2π factor = NT·π. -/

@@ -2,17 +2,17 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 열역학·통계역학 → DRLT  (★ skeleton + TODO ★)
+# Translation: Thermodynamics and statistical mechanics → DRLT  (★ skeleton + TODO ★)
 
-**현 상태**: skeleton + 1 atomic correspondence.
-**TODO**: 살 붙이기:
+**Current state**: skeleton + 1 atomic correspondence.
+**TODO**: flesh out:
   - Boltzmann distribution e^(-βE) → Lens layer weight derivation
   - Stefan-Boltzmann σ T⁴ → atomic d-dependence
-  - Critical exponent → (3/2)^n scaling 형식 정리
+  - Critical exponent → (3/2)^n scaling formal theorem
 
-## 통번역 표
+## Translation table
 
-| 표준 열역학 | DRLT |
+| Standard thermodynamics | DRLT |
 |---|---|
 | Temperature T | Lens layer index inverse |
 | Entropy S | Lens layer count log |
@@ -20,14 +20,14 @@ import E213.Physics.SimplexCounts
 | Pressure P | Lens layer gradient |
 | Volume V | Lens vertex count |
 | Heat Q | Lens layer transition magnitude |
-| 1st law dE = TdS - PdV | Lens output 보존 |
+| 1st law dE = TdS - PdV | Lens output conservation |
 | 2nd law dS ≥ 0 | Lens layer asymmetry (NT vs NS) |
 | 3rd law S(T=0) = const | Lens layer 0 baseline |
 | Equipartition kT/2 | NT/d atomic ratio |
 
-## 통계역학
+## Statistical mechanics
 
-| 표준 stat mech | DRLT |
+| Standard stat mech | DRLT |
 |---|---|
 | Boltzmann distribution e^(-βE) | Lens layer weight |
 | Partition function Z | Lens trace sum |
@@ -38,18 +38,18 @@ import E213.Physics.SimplexCounts
 | Phase transition | Lens layer transition |
 | Critical exponent | (3/2)^n scaling |
 
-## DRLT 의 특별 함의
+## Special implication of DRLT
 
-  Entropy = Lens layer count.  Block universe 에서 NT < NS
-  비대칭이 *시간 화살표* 의 atomic origin.  → 2nd law 가
-  격자 axiom 의 직접 귀결.
+  Entropy = Lens layer count.  In the block universe, the NT < NS
+  asymmetry is the atomic origin of the *arrow of time*.  → 2nd law is
+  a direct consequence of the lattice axiom.
 -/
 
 namespace E213.Physics.Phase3.Translation.Thermo
 
 open E213.Physics.Simplex
 
-/-- 2nd law atomic origin: NT < NS asymmetry → 시간 화살표. -/
+/-- 2nd law atomic origin: NT < NS asymmetry → arrow of time. -/
 theorem second_law_atomic : NT < NS := by decide
 
 /-- Equipartition NT/d = 2/5 (atomic). -/

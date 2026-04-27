@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 산란 이론 → DRLT atomic
+# Translation: Scattering theory → DRLT atomic
 
   1. Cross-section σ = atomic
   2. Mott scattering: dσ/dΩ ∝ 1/sin⁴(θ/2)
