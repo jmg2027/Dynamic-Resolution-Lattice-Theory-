@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-220 -220 440 440"
+     font-family="serif" font-size="14">
+  <title>213 Diamond Crystal — chiral 4-simplex K_{3,2}^{(2)}</title>
+  <desc>Trigonal bipyramid skeleton: 3 spatial S-vertices on
+        equator, 2 temporal T-vertices at poles.  6 bipartite
+        spokes, each doubled by lattice cycle c=2.  Cohomology:
+        b_0=1, b_1=8 = NS²-1 = 1/α_3.</desc>
+
+  <rect x="-220" y="-220" width="440" height="440" fill="#fafafa"/>
+
+  <!-- Equatorial guideline (faint, NOT a real edge) -->
+  <ellipse cx="0" cy="0" rx="160" ry="42"
+           fill="none" stroke="#cccccc" stroke-width="0.7"
+           stroke-dasharray="3,3"/>
+  <text x="170" y="6" fill="#888888" font-size="10">equator (no S–S)</text>
+
+  <!-- 12 edges = 6 spokes × c=2 (doubled, slight offset) -->
+  <!-- Top T_0 to S_0/S_1/S_2 -->
+  <g stroke="#3a6ea5" stroke-width="1.6" stroke-linecap="round">
+    <!-- T_0 to S_0 (right) -->
+    <line x1="-2" y1="-178" x2="158" y2="-2"/>
+    <line x1="2"  y1="-178" x2="162" y2="2"/>
+    <!-- T_0 to S_1 (lower-left) -->
+    <line x1="-3" y1="-178" x2="-83" y2="-1"/>
+    <line x1="2"  y1="-178" x2="-78" y2="3"/>
+    <!-- T_0 to S_2 (upper-left) -->
+    <line x1="-3" y1="-178" x2="-83" y2="-79"/>
+    <line x1="2"  y1="-178" x2="-78" y2="-83"/>
+  </g>
+
+  <!-- Bottom T_1 to S_0/S_1/S_2 -->
+  <g stroke="#a53a3a" stroke-width="1.6" stroke-linecap="round">
+    <line x1="-2" y1="178" x2="158" y2="2"/>
+    <line x1="2"  y1="178" x2="162" y2="-2"/>
+    <line x1="-3" y1="178" x2="-83" y2="1"/>
+    <line x1="2"  y1="178" x2="-78" y2="-3"/>
+    <line x1="-3" y1="178" x2="-83" y2="79"/>
+    <line x1="2"  y1="178" x2="-78" y2="83"/>
+  </g>
+
+  <!-- Vertices (drawn last to overlay) -->
+  <!-- T-vertices: orange circles -->
+  <circle cx="0" cy="-180" r="14" fill="#ffb84d" stroke="#5a3a00" stroke-width="2"/>
+  <text x="0" y="-195" text-anchor="middle" font-weight="bold">T₀</text>
+  <text x="22" y="-176" font-size="10" fill="#5a3a00">temporal</text>
+
+  <circle cx="0" cy="180" r="14" fill="#ffb84d" stroke="#5a3a00" stroke-width="2"/>
+  <text x="0" y="207" text-anchor="middle" font-weight="bold">T₁</text>
+
+  <!-- S-vertices: blue circles, equatorial -->
+  <circle cx="160" cy="0" r="14" fill="#5a9bd5" stroke="#1f3f5f" stroke-width="2"/>
+  <text x="180" y="6" font-weight="bold">S₀</text>
+
+  <circle cx="-80" cy="0" r="14" fill="#5a9bd5" stroke="#1f3f5f" stroke-width="2"/>
+  <text x="-100" y="6" text-anchor="end" font-weight="bold">S₁</text>
+
+  <circle cx="-80" cy="-80" r="14" fill="#5a9bd5" stroke="#1f3f5f" stroke-width="2"/>
+  <text x="-100" y="-74" text-anchor="end" font-weight="bold">S₂</text>
+
+  <!-- Legend -->
+  <g font-size="11">
+    <rect x="-215" y="-215" width="100" height="50"
+          fill="white" stroke="#cccccc" stroke-width="0.7"/>
+    <circle cx="-205" cy="-202" r="5" fill="#5a9bd5" stroke="#1f3f5f"/>
+    <text x="-194" y="-198">S = NS=3</text>
+    <circle cx="-205" cy="-185" r="5" fill="#ffb84d" stroke="#5a3a00"/>
+    <text x="-194" y="-181">T = NT=2</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="0" y="210" text-anchor="middle" font-size="11" fill="#444"
+        font-style="italic">K_{3,2}^{(2)} — bipartite, c=2 multiplicity</text>
+</svg>
