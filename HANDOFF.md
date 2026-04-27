@@ -1,12 +1,38 @@
-# Session Handoff — 2026-04-27 (Real213 marathon Phase D-F)
+# Session Handoff — 2026-04-27 (Real213 marathon Phase J-AH + cross-track bridge)
 
-## Latest marathon update — Phase F
+## Latest marathon update — Phase AH
 
-Branch: `claude/lean-infinity-explanation-QqnSp`.
+Branch: `claude/lean-infinity-explanation-QqnSp` (head: `76d0f54`).
 
-**Real213 marathon 110+ commits** (b4a29fe → 8c5fc28):
+**Real213 marathon now spans Phase J → AH**.  Autonomous-run delta this
+session: 11 commits `6150fa2..76d0f54`.
 
-64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
+### Phase AH (76d0f54) — 17-phase grand-mega unified capstone
+Single 11-fact bundle spanning J/L/AB/AC/N/AD/AE/AG + Riemann +
+cross-track bridge.
+
+### Phase AG (a7bb031) — polynomial diff 0-8 unified capstone
+10-fact bundle: id + square..octic + generic cutPowFnIsDifferentiable.
+
+### Phase AF (e5f4099) — IsDifferentiable degrees 5-8
+quintic/sextic/septic/octic + modulus theorems.
+
+### Phase AE (4ee2043, d74067d) — concrete polynomial instances
+square/cube/quartic IsDifferentiable + cutScale/cutHalf + super capstone.
+
+### Phase AD (3ff1b84..d6ba0c4) — differentiation FRAMEWORK
+- AD-1: IsDifferentiable structure (extends IsSmooth + derivative)
+- AD-2: derivative closed forms (all rfl)
+- AD-3: derivative resolution depth (n*k for polynomials)
+- AD-4: 7-fact phaseAD_unified_capstone
+
+### Cross-track bridge (932e12e) — NT=2 atom ↔ dyadic geometry
+Real213PhysicsBridgeNT2.lean for physics-track Phase 2 Time.lean.
+0 physics imports, single-line import-ready by physics branch.
+
+### Phase AC (6150fa2) — minimum proposition (physics-track mirror)
+Mirror of physics `only_one_cosmos_dim`: 3 forced iff statements
++ phaseAC_minimum_proposition bundle.
 
 ### Phase AB COMPLETE — cutPow ↔ polynomial chain unification
 
