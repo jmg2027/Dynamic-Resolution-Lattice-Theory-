@@ -13,6 +13,8 @@ import E213.Physics.Phase4.BerylliumIE
 import E213.Physics.Phase4.SecondRowIE
 import E213.Physics.Phase4.CorrectionAsLens
 import E213.Physics.Phase4.PropagatorFamily
+import E213.Physics.Phase4.BoronIE
+import E213.Physics.Phase4.IECapstone
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
