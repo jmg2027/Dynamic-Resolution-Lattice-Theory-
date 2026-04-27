@@ -1,6 +1,7 @@
 import E213.Research.Real213CutSum
 import E213.Research.Real213CutSumTest
 import E213.Research.Real213CutSumOne
+import E213.Research.Real213CutBisection
 
 /-!
 # Research.Real213CutDouble: 2x cut function
@@ -42,5 +43,23 @@ theorem cutDouble_cutDouble (c : Nat → Nat → Bool) :
 theorem cutSum_self_eq_cutDouble (a b : Nat) :
     cutSum (constCut a b) (constCut a b) = cutDouble (constCut a b) := by
   rw [cutSum_self, cutDouble_constCut]
+
+/-- **cutDouble and cutHalf commute** universally. -/
+theorem cutDouble_cutHalf_comm (c : Nat → Nat → Bool) :
+    cutDouble (cutHalf c) = cutHalf (cutDouble c) := rfl
+
+/-- **cutHalf (cutHalf (a/b)) = a/(4b)**: half of half is quarter. -/
+theorem cutHalf_cutHalf_constCut (a b : Nat) :
+    cutHalf (cutHalf (constCut a b)) = constCut a (4*b) := by
+  rw [cutHalf_constCut, cutHalf_constCut]
+  congr 1
+  rw [← Nat.mul_assoc]
+
+/-- **cutDouble (cutDouble (a/b)) = (4a)/b**: double-double quadruples. -/
+theorem cutDouble_cutDouble_constCut (a b : Nat) :
+    cutDouble (cutDouble (constCut a b)) = constCut (4*a) b := by
+  rw [cutDouble_constCut, cutDouble_constCut]
+  congr 1
+  rw [← Nat.mul_assoc]
 
 end E213.Research.Real213CutSum
