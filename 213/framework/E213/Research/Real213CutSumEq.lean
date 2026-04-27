@@ -89,4 +89,26 @@ theorem cutMul_cutLe_both (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
     cutMul_mono_left cx2 cx1 cy2 hx m k h_mul2
   exact cutMul_mono_right cx1 cy2 cy1 hy m k step1
 
+/-- cutSum cutLe-preservation 일 변. -/
+theorem cutSum_cutLe_left (cx1 cx2 cy : Nat → Nat → Bool)
+    (hx : cutLe cx1 cx2) :
+    cutLe (cutSum cx1 cy) (cutSum cx2 cy) :=
+  cutSum_cutLe_both cx1 cx2 cy cy hx (cutLe_refl cy)
+
+theorem cutSum_cutLe_right (cx cy1 cy2 : Nat → Nat → Bool)
+    (hy : cutLe cy1 cy2) :
+    cutLe (cutSum cx cy1) (cutSum cx cy2) :=
+  cutSum_cutLe_both cx cx cy1 cy2 (cutLe_refl cx) hy
+
+/-- cutMul cutLe-preservation 일 변. -/
+theorem cutMul_cutLe_left (cx1 cx2 cy : Nat → Nat → Bool)
+    (hx : cutLe cx1 cx2) :
+    cutLe (cutMul cx1 cy) (cutMul cx2 cy) :=
+  cutMul_cutLe_both cx1 cx2 cy cy hx (cutLe_refl cy)
+
+theorem cutMul_cutLe_right (cx cy1 cy2 : Nat → Nat → Bool)
+    (hy : cutLe cy1 cy2) :
+    cutLe (cutMul cx cy1) (cutMul cx cy2) :=
+  cutMul_cutLe_both cx cx cy1 cy2 (cutLe_refl cx) hy
+
 end E213.Research.Real213CutSum
