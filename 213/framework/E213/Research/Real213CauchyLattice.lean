@@ -107,4 +107,10 @@ theorem CauchyCutSeq.cutMin_self_limit (a : CauchyCutSeq) :
     (a.cutMin a).limit = a.limit := by
   rw [cutMin_limit, Real213CutSum.cutMin_idempotent]
 
+/-- cutDouble and cutHalf commute at the limit on Cauchy sequences. -/
+theorem CauchyCutSeq.cutDouble_cutHalf_comm_limit (a : CauchyCutSeq) :
+    a.cutDouble.cutHalf.limit = a.cutHalf.cutDouble.limit := by
+  rw [cutHalf_limit, cutDouble_limit, cutDouble_limit, cutHalf_limit]
+  exact (Real213CutSum.cutDouble_cutHalf_comm _).symm
+
 end E213.Research.Real213CutSum
