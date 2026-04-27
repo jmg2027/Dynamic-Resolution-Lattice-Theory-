@@ -7,11 +7,20 @@
 **E213/Physics track Phase 1 + 2 + 3 모두 완료, Phase 3 대규모 확장.**
 - Phase 1: 68 Lean 파일 (정밀 양 트랙)
 - Phase 2: 14 Lean 파일 (axiom-level 트랙)
-- Phase 3: **86 Lean 파일** (falsifier + deep-dive + reframing + Translation)
+- Phase 3: **88 Lean 파일** (falsifier + deep-dive + reframing + Translation)
 - 모두 0 sorry, ≤ propext + Quot.sound
 - Phase 3 모든 capstone = **0 axioms**
-- `lake build E213.Physics` clean (**224 modules**)
-- **43 마일스톤 자율 진행 완료** (계속 진행 중)
+- `lake build E213.Physics` clean (**226 modules**)
+- **46 마일스톤 자율 진행 완료** (계속 진행 중)
+
+## 새 atomic 발견 (M40-46)
+
+  M40: NS² - NT² = NS + NT = d (atomic identity)
+  M41: log₁₀(E_Planck) = NS³ - NT³ = 19 atomic
+  M42: Atomic Reduction Conjecture (25+ integers)
+  M43: NH₃ denom 13 = NS² + NT² = F_7
+  M44-45: Angular momentum atomic, ℓ(ℓ+1) atomic
+  M46: 7 = NS² - NT atomic prime, 13 atomic prime
 
 ## Phase 3 (대규모 확장, 이번 세션)
 
