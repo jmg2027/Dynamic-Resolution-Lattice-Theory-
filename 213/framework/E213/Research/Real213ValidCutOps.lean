@@ -102,4 +102,9 @@ theorem cutSum_valid (cx cy : Nat → Nat → Bool)
            hx.dnK i (2*k1) (2*k2) (Nat.mul_le_mul_left 2 hk) hci,
            hy.dnK (2*m - i) (2*k1) (2*k2) (Nat.mul_le_mul_left 2 hk) hcsi⟩
 
+/-- cutMid preserves ValidCut (cutMid = cutHalf ∘ cutSum). -/
+theorem cutMid_valid (cx cy : Nat → Nat → Bool)
+    (hx : ValidCut cx) (hy : ValidCut cy) : ValidCut (cutMid cx cy) :=
+  cutHalf_valid (cutSum cx cy) (cutSum_valid cx cy hx hy)
+
 end E213.Research.Real213CutSum

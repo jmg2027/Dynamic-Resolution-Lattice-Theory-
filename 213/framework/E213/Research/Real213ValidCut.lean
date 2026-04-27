@@ -38,4 +38,31 @@ theorem constCut_valid (a b : Nat) : ValidCut (constCut a b) where
     apply decide_eq_true
     exact Nat.le_trans (Nat.mul_le_mul_left a hk) hak2_bm
 
+/-- **RatioCut**: cuts respect rational ordering.  m1/k1 ≤ m2/k2
+    (cross-multiplied: m1*k2 ≤ m2*k1) with k1 ≥ 1 and c m1 k1 →
+    c m2 k2.  This is the natural property for cuts representing
+    real numbers via cross-multiplied rational comparison. -/
+structure RatioCut (c : Nat → Nat → Bool) : Prop where
+  ratioMono : ∀ m1 k1 m2 k2, k1 ≥ 1 → m1 * k2 ≤ m2 * k1 →
+              c m1 k1 = true → c m2 k2 = true
+
+/-- constCut is RatioCut. -/
+theorem constCut_ratio (a b : Nat) : RatioCut (constCut a b) where
+  ratioMono := by
+    intro m1 k1 m2 k2 hk1 hratio h
+    have hak_bm1 : a * k1 ≤ b * m1 := of_decide_eq_true h
+    show decide (a*k2 ≤ b*m2) = true
+    apply decide_eq_true
+    have step1 : a*k1*k2 ≤ b*m1*k2 := Nat.mul_le_mul_right k2 hak_bm1
+    have step2 : b*m1*k2 ≤ b*m2*k1 := by
+      rw [Nat.mul_assoc, Nat.mul_assoc]
+      exact Nat.mul_le_mul_left b hratio
+    have step3 : a*k1*k2 ≤ b*m2*k1 := Nat.le_trans step1 step2
+    have hrearr_l : a*k1*k2 = k1 * (a*k2) := by
+      rw [Nat.mul_comm a k1, Nat.mul_assoc]
+    have hrearr_r : b*m2*k1 = k1 * (b*m2) := by
+      rw [Nat.mul_comm (b*m2) k1]
+    rw [hrearr_l, hrearr_r] at step3
+    exact Nat.le_of_mul_le_mul_left step3 hk1
+
 end E213.Research.Real213CutSum
