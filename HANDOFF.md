@@ -7,10 +7,11 @@
 **E213/Physics track Phase 1 + 2 + 3 모두 완료, Phase 3 대규모 확장.**
 - Phase 1: 68 Lean 파일 (정밀 양 트랙)
 - Phase 2: 14 Lean 파일 (axiom-level 트랙)
-- Phase 3: **70 Lean 파일** (falsifier + deep-dive + reframing + Translation)
+- Phase 3: **77 Lean 파일** (falsifier + deep-dive + reframing + Translation)
 - 모두 0 sorry, ≤ propext + Quot.sound
 - Phase 3 모든 capstone = **0 axioms**
-- `lake build E213.Physics` clean (**208 modules**)
+- `lake build E213.Physics` clean (**215 modules**)
+- **34 마일스톤 자율 진행 완료** (계속 진행 중)
 
 ## Phase 3 (대규모 확장, 이번 세션)
 
@@ -32,13 +33,17 @@
   M22-M24: Hadron, Phase1CrossLink, Inflation
   M25-M27: DarkMatter, DecayRates, Chemistry, Scattering
 
-  ★ 핵심 atomic 발견 ★
-    6 = NS·NT (10+ framework)
-    8 = NS²-1 (11+ framework)
-    24 = d²-1 (8+ framework)
-    192 = (NS²-1)(d²-1) (Muon lifetime prefactor)
-    60 = d²·NT + d·NT (Inflation e-folds)
+  ★ 핵심 atomic 발견 (확장) ★
+    6 = NS·NT (10+ framework, SixEverywhere)
+    8 = NS²-1 (11+ framework, EightEverywhere)
+    12 = 2·NS·NT (5+ framework, TwelveEverywhere)
+    16 = NT⁴ = NT·(NS²-1) (SU(5) fermion + GUT scale)
+    17 = NS² + (NS²-1) (m_τ/m_μ)
+    24 = d²-1 = 4! (8+ framework, TwentyFourEverywhere)
     25 = d² (α_GUT, 5-simplex)
+    60 = d²·NT + d·NT (Inflation e-folds)
+    137 = 1/α_em + m_t/m_c (이중 등장)
+    192 = (NS²-1)(d²-1) (Muon lifetime)
 
 **핵심 발견 — atomic 정수 재출현**:
   6 = NS·NT: Pauli ε, Lorentz, AB pair, 3!
