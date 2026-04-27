@@ -52,6 +52,7 @@ import E213.Research.Real213FluxMVTConcrete
 import E213.Research.Real213FluxFTC
 import E213.Research.Real213PhaseBACapstone
 import E213.Research.Real213FluxMVTPolynomial
+import E213.Research.Real213FluxFTCPolynomial
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
