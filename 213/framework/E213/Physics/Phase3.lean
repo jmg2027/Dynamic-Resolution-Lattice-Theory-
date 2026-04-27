@@ -58,6 +58,7 @@ import E213.Physics.Phase3.Translation.UnsolvedProblems
 import E213.Physics.Phase3.Translation.Constants
 import E213.Physics.Phase3.Translation.GroupTheory
 import E213.Physics.Phase3.Translation.SixEverywhere
+import E213.Physics.Phase3.Translation.EightEverywhere
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 import E213.Physics.Phase3.UltraCapstone
