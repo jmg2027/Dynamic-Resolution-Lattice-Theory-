@@ -26,6 +26,14 @@ import E213.Physics.Phase3.GravityNotInteraction
 import E213.Physics.Phase3.NoWaveFunction
 import E213.Physics.Phase3.NoInteraction
 import E213.Physics.Phase3.Reframing
+import E213.Physics.Phase3.ComplexAsTime
+import E213.Physics.Phase3.Translation.QuantumMechanics
+import E213.Physics.Phase3.Translation.Relativity
+import E213.Physics.Phase3.Translation.QuantumField
+import E213.Physics.Phase3.Translation.Thermodynamics
+import E213.Physics.Phase3.Translation.Cosmology
+import E213.Physics.Phase3.Translation.Symmetry
+import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 
 /-!
@@ -71,6 +79,17 @@ Phase 2 = axiom-level 트랙 (시점 명시).
   * `NoWaveFunction`          — ψ, |ψ|² 모두 Lens output
   * `NoInteraction`           — pair 분류만, 교환 부재
   * `Reframing`               — 5 reframing 단일 capstone
+  * `ComplexAsTime`           — i = 시간축, 파동/확률 misnomer
+
+### Translation/ — 현대 물리 전 분야 213 통번역
+
+  * `Translation.QuantumMechanics`  — ψ, spin, Heisenberg
+  * `Translation.Relativity`        — SR + GR, c, Minkowski
+  * `Translation.QuantumField`      — field, vacuum, S-matrix
+  * `Translation.Thermodynamics`    — entropy, partition, 2nd law
+  * `Translation.Cosmology`         — Big Bang, Ω_Λ, flatness
+  * `Translation.Symmetry`          — SU(N), gauge, GUT
+  * `Translation.Capstone`          — all_modern_physics_atomic
 
   * `Capstone`              — 19 falsifier 단일 종합
 
