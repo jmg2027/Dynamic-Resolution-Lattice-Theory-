@@ -116,16 +116,16 @@ open E213.Research.SemanticAtom
 
 /-! ### Generic Lens-on-Lens: recursive self-application
 
-`HasDistinguishing α → HasDistinguishing (Lens α)` 의 generic
-form.  → `Lens α`, `Lens (Lens α)`, `Lens (Lens (Lens α))`, ...
-의 infinite tower.
+Generic form of `HasDistinguishing α → HasDistinguishing (Lens α)`.
+Yields an infinite tower `Lens α`, `Lens (Lens α)`,
+`Lens (Lens (Lens α))`, ...
 
-framework 의 self-application 의 *recursive closure*. -/
+The *recursive closure* of the framework's self-application. -/
 
-/-- Constant Lens — view 가 항상 같은 element. -/
+/-- Constant Lens — view is always the same element. -/
 def constLens {α : Type} (a : α) : Lens α := ⟨a, a, fun _ _ => a⟩
 
-/-- 두 constant Lens 가 distinguishable iff base 가 distinguishable. -/
+/-- Two constant Lenses are distinguishable iff their bases are distinguishable. -/
 theorem constLens_distinct {α : Type} {x y : α} (h : x ≠ y) :
     constLens x ≠ constLens y := by
   intro heq

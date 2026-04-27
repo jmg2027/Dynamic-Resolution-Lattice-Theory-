@@ -1,7 +1,7 @@
 import E213.Physics.DysonStructure
 
 /-!
-# m_H/v_H = 0.5097 — 같은 atomic cofactor 패턴 (0 axioms)
+# m_H/v_H = 0.5097 — same atomic cofactor pattern (0 axioms)
 
 DRLT formula (lib/drlt.py:633, ch21):
   m_H / v_H = (1 + α_GUT) · (1 - α_GUT/d) / c

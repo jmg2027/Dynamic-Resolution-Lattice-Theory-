@@ -1,9 +1,9 @@
 # Atomic Correspondences Catalog
 
-같은 atomic 정수가 *서로 무관 framework* 들에 *반복* 등장.
-DRLT 단일 origin 의 직접 증거.
+The same atomic integer *repeatedly* appears in *mutually independent frameworks*.
+Direct evidence of a single DRLT origin.
 
-## 정수 6 = NS · NT
+## Integer 6 = NS · NT
 
   - Pauli ε_abc 비영 entry [QM]
   - Lorentz SO(3,1) generators [SR]

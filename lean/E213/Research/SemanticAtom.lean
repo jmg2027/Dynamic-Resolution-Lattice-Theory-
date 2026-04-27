@@ -38,15 +38,15 @@ namespace E213.Research.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
-/-! ### HasDistinguishing typeclass — 의미 framework 의 abstraction
+/-! ### HasDistinguishing typeclass — abstraction of the meaning framework
 
-"의미 를 갖는 framework" 의 minimum requirements:
-1. 두 distinguishable base elements (a ≠ b).
-2. Combining operation (binary).
-3. Combine 의 symmetry (swap-invariance) — slash 의 commutativity.
+Minimum requirements for a "framework with meaning":
+1. Two distinguishable base elements (a ≠ b).
+2. A combining operation (binary).
+3. Symmetry of combine (swap-invariance) — commutativity of slash.
 
-(3) 가 없으면 encoding artifact 가 결과 에 leak — Raw axiom 의
-slash_comm.  따라서 의미 framework 의 part. -/
+Without (3), encoding artifacts leak into results — Raw axiom's
+slash_comm.  Therefore it is part of the meaning framework. -/
 
 class HasDistinguishing (α : Type) where
   a : α

@@ -45,7 +45,7 @@
 
   2, 3, 5, 7, 13, 41, 137
 
-## Multi-output (같은 정수 무관 framework)
+## Multi-output (same integer across unrelated frameworks)
 
   6 = NS·NT     [Pauli ε, Lorentz, AB pair, 3!]
   8 = NS²-1     [α_3, SU(3), b_1, Einstein, Hawking]
