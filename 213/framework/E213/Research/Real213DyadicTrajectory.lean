@@ -515,6 +515,20 @@ private theorem db_pattern_leftHalf (k : Nat) :
     rw [Nat.pow_succ, Nat.mul_comm]; omega
   · rfl
 
+/-- **Y1: negSignOracle 1 2 unit trajectory at depths 5, 6, 7 (decide)**.
+    Closed form pattern: at depth n+1, numA = 2^n. -/
+example : (DyadicBracket.bisectN (negSignOracle 1 2) 5 unitBracket).numA = 16
+        := by decide
+
+example : (DyadicBracket.bisectN (negSignOracle 1 2) 6 unitBracket).numA = 32
+        := by decide
+
+example : (DyadicBracket.bisectN (negSignOracle 1 2) 7 unitBracket).numA = 64
+        := by decide
+
+example : (DyadicBracket.bisectN (negSignOracle 1 2) 8 unitBracket).numA = 128
+        := by decide
+
 /-! ### N2: Other dyadic targets — 1/4 and 3/4 -/
 
 /-- Concrete trajectory toward target 1/4 (negSignOracle 1 4):
