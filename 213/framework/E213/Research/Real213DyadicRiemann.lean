@@ -234,4 +234,27 @@ theorem riemann_const_doubling (a b : Nat) (db : DyadicBracket) (n : Nat) :
   congr 1
   rw [Nat.pow_succ, Nat.mul_assoc, Nat.mul_left_comm]
 
+/-! ### R2: Riemann sums at higher depths (8, 10) -/
+
+/-- Σ_{depth 8} (1/3) = 256/3.  256 samples × 1/3. -/
+theorem riemann_third_depth_8 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 3)) db 8 = constCut 256 3 :=
+  riemannSampleSum_constCut 1 3 db 8
+
+/-- Σ_{depth 10} (1/2) = 1024/2.  1024 samples × 1/2 = 512. -/
+theorem riemann_half_depth_10 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 10 = constCut 1024 2 :=
+  riemannSampleSum_constCut 1 2 db 10
+
+/-- Σ_{depth 8} (5/7) = 1280/7.  256 samples × 5/7. -/
+theorem riemann_fiveSeventh_depth_8 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 5 7)) db 8 = constCut 1280 7 :=
+  riemannSampleSum_constCut 5 7 db 8
+
+/-- Σ_{depth 12} (1/100) = 4096/100. -/
+theorem riemann_hundredth_depth_12 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 100)) db 12
+    = constCut 4096 100 :=
+  riemannSampleSum_constCut 1 100 db 12
+
 end E213.Research.Real213CutSum
