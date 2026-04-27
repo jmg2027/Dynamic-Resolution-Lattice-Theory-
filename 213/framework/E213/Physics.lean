@@ -7,6 +7,7 @@ import E213.Physics.Generations
 import E213.Physics.MagicNumbers
 import E213.Physics.TightenBracket
 import E213.Physics.CabibboAngle
+import E213.Physics.Capstone
 
 /-!
 # E213.Physics — DRLT physics formalization track
