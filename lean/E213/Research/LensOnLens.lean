@@ -132,7 +132,7 @@ theorem constLens_distinct {α : Type} {x y : α} (h : x ≠ y) :
   have : (constLens x).base_a = (constLens y).base_a := congrArg Lens.base_a heq
   exact h this
 
-/-- Generic Lens combine via α 의 combine. -/
+/-- Generic Lens combine using the combine of α. -/
 def lensCombineGeneric {α : Type} (c : α → α → α) (L M : Lens α) : Lens α :=
   ⟨c L.base_a M.base_a, c L.base_b M.base_b,
    fun x y => c (L.combine x y) (M.combine x y)⟩
