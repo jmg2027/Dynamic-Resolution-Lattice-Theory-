@@ -5,6 +5,8 @@ import E213.Physics.Phase4.Enumeration
 import E213.Physics.Phase4.Atomic1Complete
 import E213.Physics.Phase4.IonizationEnergies
 import E213.Physics.Phase4.HydrogenIEPPM
+import E213.Physics.Phase4.PeriodicTableIE
+import E213.Physics.Phase4.HydrogenicIE
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
