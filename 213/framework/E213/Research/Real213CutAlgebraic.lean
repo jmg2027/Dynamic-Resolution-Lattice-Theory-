@@ -48,4 +48,34 @@ theorem cutMin_zero_left (c : Nat → Nat → Bool) :
   rw [constCut_zero_always]
   cases c m k <;> rfl
 
+/-- **Lattice distributivity**: max distributes over min. -/
+theorem cutMax_distrib_cutMin (cx cy cz : Nat → Nat → Bool) :
+    cutMax cx (cutMin cy cz) = cutMin (cutMax cx cy) (cutMax cx cz) := by
+  funext m k
+  show (cx m k && (cy m k || cz m k))
+     = ((cx m k && cy m k) || (cx m k && cz m k))
+  cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
+
+/-- **Lattice distributivity**: min distributes over max. -/
+theorem cutMin_distrib_cutMax (cx cy cz : Nat → Nat → Bool) :
+    cutMin cx (cutMax cy cz) = cutMax (cutMin cx cy) (cutMin cx cz) := by
+  funext m k
+  show (cx m k || (cy m k && cz m k))
+     = ((cx m k || cy m k) && (cx m k || cz m k))
+  cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
+
+/-- **Absorption law**: max(x, min(x, y)) = x. -/
+theorem cutMax_absorb (cx cy : Nat → Nat → Bool) :
+    cutMax cx (cutMin cx cy) = cx := by
+  funext m k
+  show (cx m k && (cx m k || cy m k)) = cx m k
+  cases cx m k <;> cases cy m k <;> rfl
+
+/-- **Absorption law**: min(x, max(x, y)) = x. -/
+theorem cutMin_absorb (cx cy : Nat → Nat → Bool) :
+    cutMin cx (cutMax cx cy) = cx := by
+  funext m k
+  show (cx m k || (cx m k && cy m k)) = cx m k
+  cases cx m k <;> cases cy m k <;> rfl
+
 end E213.Research.Real213CutSum

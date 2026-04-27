@@ -13,6 +13,8 @@ import E213.Research.Real213Signed
 import E213.Research.Real213SignedSum
 import E213.Research.Real213CutAlgebraStruct
 import E213.Research.Real213CutPoset
+import E213.Research.Real213CutSumComm
+import E213.Research.Real213CutMulComm
 
 /-!
 # E213.Math.CutOps: cut-level rational arithmetic operations
