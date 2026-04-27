@@ -54,10 +54,10 @@ theorem hall_laughlin : NS = 3 := by decide
 /-!
 ## ★ 3. BCS superconductivity: 2Δ/k_BT_c ≈ 3.5 atomic ★
 
-표준 BCS: 2Δ(0)/k_B T_c = 2π/e^γ ≈ 3.528 (universal).
+Standard BCS: 2Δ(0)/k_B T_c = 2π/e^γ ≈ 3.528 (universal).
 γ = Euler-Mascheroni constant.
 
-DRLT atomic 추측:
+DRLT atomic conjecture:
   3.528 ≈ 7/2 = (NS²-2)/NT atomic.
   cross-mult: 7·NT = 14, NS²·NT - 2·NT = 14.
 
@@ -70,8 +70,8 @@ theorem bcs_ratio : 7 * NT = NS * NS * NT - NT - NT := by decide
 /-!
 ## ★ 4. Fermi liquid: γ ∝ π²/3 atomic ★
 
-표준: 비열 γ = (π²/3) k_B² g(E_F) T.
-계수 π²/3.
+Standard: heat capacity γ = (π²/3) k_B² g(E_F) T.
+Coefficient π²/3.
 
 DRLT: π² ≈ 6·ζ(2), 3 = NS atomic.
   π²/3 = 6·ζ(2)/NS = 2·ζ(2) atomic-rational.

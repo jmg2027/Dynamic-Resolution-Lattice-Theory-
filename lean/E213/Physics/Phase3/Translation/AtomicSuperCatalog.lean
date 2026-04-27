@@ -57,7 +57,7 @@ open E213.Physics.Simplex
 /-- ★ Super Catalog Capstone ★
     Selected atomic integers multi-output. -/
 theorem super_catalog :
-    -- atomic 기반
+    -- atomic basis
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
     -- small integers
     ∧ (NS * NT = 6) ∧ (3 * 2 * 1 = 6)
