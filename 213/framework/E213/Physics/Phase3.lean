@@ -83,6 +83,7 @@ import E213.Physics.Phase3.Translation.PlanckUnits
 import E213.Physics.Phase3.Translation.AtomicReductionConjecture
 import E213.Physics.Phase3.Translation.MoleculeAngles
 import E213.Physics.Phase3.Translation.AngularMomentum
+import E213.Physics.Phase3.Translation.AtomicPrimes
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 import E213.Physics.Phase3.UltraCapstone
