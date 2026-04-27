@@ -1,5 +1,6 @@
 import E213.Research.Real213CauchyArithSum
 import E213.Research.Real213CauchyArithMul
+import E213.Research.Real213CauchyLattice
 import E213.Research.Real213CutSumOne
 import E213.Research.Real213CutMulOne
 
@@ -39,5 +40,16 @@ theorem constCauchy_cutMul_one_one :
     = constCut 1 1 := by
   rw [CauchyCutSeq.cutMul_limit, constCauchyCutSeq_limit]
   exact cutMul_one_one
+
+/-- cutDouble distributes over cutSum at the Cauchy limit. -/
+theorem CauchyCutSeq.cutDouble_cutSum_limit (a b : CauchyCutSeq) :
+    (a.cutDouble.cutSum b.cutDouble).limit
+    = (a.cutSum b).cutDouble.limit := by
+  rw [CauchyCutSeq.cutSum_limit,
+      CauchyCutSeq.cutDouble_limit a,
+      CauchyCutSeq.cutDouble_limit b,
+      CauchyCutSeq.cutDouble_limit (a.cutSum b),
+      CauchyCutSeq.cutSum_limit]
+  exact (Real213CutSum.cutDouble_cutSum _ _).symm
 
 end E213.Research.Real213CutSum
