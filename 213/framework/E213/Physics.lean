@@ -38,6 +38,7 @@ import E213.Physics.MasterCatalog
 import E213.Physics.ClosedPropagator
 import E213.Physics.HydrogenAtom
 import E213.Physics.AtomicScreening
+import E213.Physics.PhysicsTrackComplete
 import E213.Physics.Capstone
 
 /-!
