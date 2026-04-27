@@ -222,6 +222,66 @@ theorem cutSum_half_general (a b : Nat) :
         exact h_abk_2m
       omega
 
+/-- **cutSum (a/1) (b/1) = (a+b)/1** for integers. -/
+theorem cutSum_int_int (a b : Nat) :
+    cutSum (constCut a 1) (constCut b 1) = constCut (a + b) 1 := by
+  funext m k
+  apply bool_eq_iff
+  show cutSumAux (constCut a 1) (constCut b 1) k (2*m) (2*m) = true
+       ↔ constCut (a + b) 1 m k = true
+  rw [cutSumAux_eq_true_iff]
+  constructor
+  · rintro ⟨i, hi, hci, hcsi⟩
+    have h_2ak_i : 2*(a*k) ≤ i := by
+      have : a*(2*k) ≤ 1*i := of_decide_eq_true hci
+      rw [Nat.one_mul] at this
+      have e : a*(2*k) = 2*(a*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm a, Nat.mul_assoc]
+      rwa [e] at this
+    have h_2bk_2mi : 2*(b*k) ≤ 2*m - i := by
+      have : b*(2*k) ≤ 1*(2*m - i) := of_decide_eq_true hcsi
+      rw [Nat.one_mul] at this
+      have e : b*(2*k) = 2*(b*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm b, Nat.mul_assoc]
+      rwa [e] at this
+    show decide ((a+b)*k ≤ 1*m) = true
+    rw [Nat.one_mul]
+    apply decide_eq_true
+    have h_add : i + (2*m - i) = 2*m := Nat.add_sub_of_le hi
+    have h_2abk_2m : 2*(a*k) + 2*(b*k) ≤ 2*m := by
+      calc 2*(a*k) + 2*(b*k)
+          ≤ i + (2*m - i) := Nat.add_le_add h_2ak_i h_2bk_2mi
+        _ = 2*m := h_add
+    have e : 2*(a*k) + 2*(b*k) = 2 * ((a+b)*k) := by
+      rw [← Nat.mul_add, Nat.add_mul]
+    rw [e] at h_2abk_2m
+    exact Nat.le_of_mul_le_mul_left h_2abk_2m (by decide : 0 < 2)
+  · intro h
+    have h_abk_m : (a+b)*k ≤ 1*m := of_decide_eq_true h
+    rw [Nat.one_mul] at h_abk_m
+    refine ⟨2*(a*k), ?_, ?_, ?_⟩
+    · -- 2ak ≤ 2m
+      have : a*k ≤ (a+b)*k := by
+        rw [Nat.add_mul]; exact Nat.le_add_right _ _
+      have h_ak_m : a*k ≤ m := Nat.le_trans this h_abk_m
+      omega
+    · show decide (a*(2*k) ≤ 1*(2*(a*k))) = true
+      rw [Nat.one_mul]
+      have e : a*(2*k) = 2*(a*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm a, Nat.mul_assoc]
+      rw [e]
+      exact decide_eq_true (Nat.le_refl _)
+    · show decide (b*(2*k) ≤ 1*(2*m - 2*(a*k))) = true
+      rw [Nat.one_mul]
+      apply decide_eq_true
+      have e : b*(2*k) = 2*(b*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm b, Nat.mul_assoc]
+      rw [e]
+      have h_abk' : a*k + b*k ≤ m := by
+        rw [show a*k + b*k = (a+b)*k from (Nat.add_mul a b k).symm]
+        exact h_abk_m
+      omega
+
 /-- **cutSum c c = 2c** for constant cut c = a/b. -/
 theorem cutSum_self (a b : Nat) :
     cutSum (constCut a b) (constCut a b) = constCut (2*a) b := by
