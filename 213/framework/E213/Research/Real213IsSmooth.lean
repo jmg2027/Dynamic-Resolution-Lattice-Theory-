@@ -242,4 +242,18 @@ def midIsSmooth {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
   linearityModulus := fun n =>
     max (sf.linearityModulus n) (sg.linearityModulus n)
 
+/-- **x ↦ x¹⁰ is smooth**: x⁵ × x⁵ = quintic × quintic, modulus 10n. -/
+def decicIsSmooth :
+    IsSmooth (fun x => cutMul (cutMul (cutMul x x) (cutMul x (cutMul x x)))
+                              (cutMul (cutMul x x) (cutMul x (cutMul x x)))) :=
+  mulIsSmooth quinticIsSmooth quinticIsSmooth
+
+/-- **x ↦ x¹⁶ is smooth**: octic × octic, modulus 16n.  Power-of-2 chain. -/
+def hexadecicIsSmooth :
+    IsSmooth (fun x => cutMul ((fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                                                (cutMul (cutMul x x) (cutMul x x))) x)
+                              ((fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                                                (cutMul (cutMul x x) (cutMul x x))) x)) :=
+  mulIsSmooth octicIsSmooth octicIsSmooth
+
 end E213.Research.Real213CutSum

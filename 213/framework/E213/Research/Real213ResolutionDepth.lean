@@ -184,4 +184,12 @@ example :
     (composeIsSmooth squareIsSmooth (composeIsSmooth squareIsSmooth squareIsSmooth)).linearityModulus 5 = 40
     := by decide
 
+/-! ### R1: x¹⁰ and x¹⁶ moduli -/
+
+/-- decic (x¹⁰) at depth 5: modulus = 50. -/
+example : decicIsSmooth.linearityModulus 5 = 50 := by decide
+
+/-- hexadecic (x¹⁶) at depth 5: modulus = 80. -/
+example : hexadecicIsSmooth.linearityModulus 5 = 80 := by decide
+
 end E213.Research.Real213CutSum
