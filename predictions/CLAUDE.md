@@ -33,6 +33,7 @@ PRD_007: θ_QCD rigorous Berry phase                   9/9 ✓ (best candidate: 
 PRD_008: Variational θ — S₃ axiomatic                3/4 (1 expected fail)
 PRD_009: Berry phase = spectral flow (U(1))          11/11 ✓ ★
 PRD_010: Muon g-2 structural reading                  9/9 ✓ ★
+PRD_011: Muon g-2 pure DRLT (no SM imports)            9/9 ✓ ★
 ```
 
 ## Muon g-2 (PRD_010) — DRLT reading
@@ -44,6 +45,16 @@ PRD_010: Muon g-2 structural reading                  9/9 ✓ ★
 - DRLT 베팅: no anomaly. m_μ/m_e ppb 정합성 + N_gen=3가 BSM 거부
 - Falsifier: R-ratio HVP가 lattice와 영구 불일치 + Fermilab 영구 5σ
 
+## PRD_011 — Pure DRLT (no SM imports)
+- 입력: α_em, α_GUT, α_3, v_H, sin²θ_W, m_μ, m_p, Λ_QCD,
+  m_π, m_ρ, Δ_hyp 모두 DRLT 0-param 또는 명시 ansatz (f_π=Λ/π)
+- a_μ^DRLT(pure) = 116_416_326 × 10⁻¹¹  (-0.15% vs exp)
+- Schwinger ✓ exact, EW 1-loop ✓ DRLT inputs,
+  HVP via KSRF VMD ✓ 차수, HLBL OoM ✓
+- Gap (-1507 ppm) = QED 2..5-loop C_n 누락 (DRLT-Dyson은
+  C_1 exact + C_2 부분만 capture, C_3..C_5 미반영)
+- 다음: f_occ 다중루프 카운팅으로 C_n 도출, R(s) 적분
+
 ## θ_QCD 유도 이력
 - PRD_003: 초기 추정 J×α⁴ ≈ 2.86×10⁻¹¹
 - PRD_006: α⁶sin(π/12) ≈ 5.4×10⁻¹¹ 시도 → **폐기** (sin(π/12) 비정당화)
@@ -52,6 +63,5 @@ PRD_010: Muon g-2 structural reading                  9/9 ✓ ★
 - PRD_009: Berry phase ≡ U(1) spectral flow, Chern number = 0 (상쇄의 위상학적 보호)
 
 ## Status: ACTIVE
-총 62/63 checks passed. 10개 실험 완료.
-다음: PRD_011. proton decay lifetime, neutron star EOS,
-또는 HAD_001-009 통합 HVP 적분 (PRD_010 후속).
+총 71/72 checks passed. 11개 실험 완료.
+다음: PRD_012 또는 QED C_n DRLT 도출 (PRD_011 후속).
