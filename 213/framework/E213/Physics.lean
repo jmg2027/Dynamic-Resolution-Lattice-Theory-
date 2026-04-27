@@ -19,6 +19,7 @@ import E213.Physics.AlphaEMDerivation
 import E213.Physics.AlphaEMPrefactors
 import E213.Physics.PhotonKernel
 import E213.Physics.FaceTerms
+import E213.Physics.AlphaEMSimplicial
 import E213.Physics.Capstone
 
 /-!
