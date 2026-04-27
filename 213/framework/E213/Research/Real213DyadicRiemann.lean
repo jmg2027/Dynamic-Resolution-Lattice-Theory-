@@ -196,4 +196,26 @@ theorem no_pi_in_finite_riemann (a b : Nat) (db : DyadicBracket) (n : Nat) :
              = constCut M b :=
   ⟨2^n * a, riemannSampleSum_constCut a b db n⟩
 
+/-! ### O4: Riemann concrete sums for various constant integrands -/
+
+/-- Σ_{depth 2} (1/2) at any bracket = 4/2.  4 samples × 1/2 = 2. -/
+theorem riemann_half_depth_2 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 2 = constCut 4 2 :=
+  riemannSampleSum_constCut 1 2 db 2
+
+/-- Σ_{depth 3} (1/2) = 8/2.  8 samples × 1/2 = 4. -/
+theorem riemann_half_depth_3 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 3 = constCut 8 2 :=
+  riemannSampleSum_constCut 1 2 db 3
+
+/-- Σ_{depth 4} (3/4) = 48/4.  16 samples × 3/4 = 12. -/
+theorem riemann_threequarter_depth_4 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 3 4)) db 4 = constCut 48 4 :=
+  riemannSampleSum_constCut 3 4 db 4
+
+/-- Σ_{depth 6} (1/3) = 64/3.  64 samples × 1/3. -/
+theorem riemann_third_depth_6 (db : DyadicBracket) :
+    riemannSampleSum (constCutFn (constCut 1 3)) db 6 = constCut 64 3 :=
+  riemannSampleSum_constCut 1 3 db 6
+
 end E213.Research.Real213CutSum
