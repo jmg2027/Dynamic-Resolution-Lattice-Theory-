@@ -8,7 +8,28 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
-### Phase J (LATEST) — Dyadic IVT + IsSmooth filter
+### Phase J COMPLETE — Dyadic IVT + IsSmooth + Riemann
+
+Three-priority roadmap from Phase J Sec 1-3 fully delivered:
+
+1. **Cauchy Case C → ConsistentOracle** (Sec 1)
+   - structure ConsistentOracle carries its own thresholdN data.
+   - .toCauchyCutSeq converts to standard CauchyCutSeq.
+   - The 213-native IVT IS the trajectory, not a "root c".
+
+2. **IsSmooth Sum + Mul** (Sec 2)
+   - addLDD + addIsSmooth: linearityModulus = max(sf, sg).
+   - mulLDD + mulIsSmooth: linearityModulus = sf + sg
+     (errors compound through product).
+
+3. **Dyadic Riemann (integral first)** (Sec 3)
+   - riemannSampleSum: tree-recursive cutSum accumulator.
+   - riemannSampleSum_constCut: Σ_{depth n} (a/b) = (2^n*a)/b.
+   - Zero/one corollaries.
+
+Phase J FOUNDATION
+
+
 
 User-driven reframe: 213's universe is a binary tree.  The
 RatioCut closure obstruction in Phase I was 213 refusing

@@ -270,23 +270,42 @@ Real213IsSmooth.lean:
 - idIsSmooth, constIsSmooth, composeIsSmooth (categorical closure).
 - cutScaleIsSmooth (linear scaling) + cutHalfIsSmooth (halving).
 
-### Phase J Cauchy trichotomy progress
+### Phase J Cauchy trichotomy + ConsistentOracle (RESOLVED)
 
 Bracket midpoint sequence at fixed (m, k):
 - Case A (rightCut m k = true) : midSeq constant true.  PROVED.
 - Case B (leftCut m k = false) : midSeq constant false.  PROVED.
-- Case C (leftCut m k = true ∧ rightCut m k = false) : midSeq
-  eventually constant once bracket length < gap to m/k boundary.
-  Open — requires quantitative N(m, k) computation.
+- Case C (boundary) : RESOLVED via ConsistentOracle protocol —
+  oracle carries its own thresholdN(m, k) data + consistency cert.
 
-Both A and B follow from the trapped-midpoint theorems via cutLe
-direction reasoning.  Case C is the genuine quantitative part and
-remains open (requires oracle consistency / continuity to bound N).
+Real213ConsistentOracle.lean:
+- structure ConsistentOracle (db : DyadicBracket) :
+    oracle, thresholdN, consistency.
+- ConsistentOracle.toCauchyCutSeq : the 213-native IVT trajectory
+  IS a CauchyCutSeq.
 
-Structural midpoint properties PROVED:
-- midCut_above_left, midCut_below_right (within any bracket).
-- bisectN_midCut_above_left, bisectN_midCut_below_right (uniform
-  in n via composition with bisectN_contains).
+Recommended threshold formula (per user guidance):
+  thresholdN m k := db.lenNum * (m + k + 1).
+
+### Phase J integral + IsSmooth Sum/Mul (LATEST)
+
+User Phase J Sec 2 + 3:
+- "Sum 먼저, Mul은 maxRange 명시적": addIsSmooth uses MAX of moduli;
+  mulIsSmooth uses SUM (errors compound) + (m+1)*(k+1) bound for LDD.
+- "미분보다 적분": dyadic Riemann sample-sum trajectory native first.
+
+Real213IsSmooth.lean additions:
+- addLDD, addIsSmooth : pointwise sum of smooth.
+  linearityModulus = max (sf.l) (sg.l).
+- mulLDD, mulIsSmooth : pointwise product of smooth.
+  linearityModulus = sf.l + sg.l (compounding errors).
+
+Real213DyadicRiemann.lean:
+- riemannSampleSum f db n : tree-recursive accumulator over 2^n
+  sub-brackets via cutSum.
+- riemannSampleSum_constCut : Σ over depth n of constCut a b
+  = constCut (2^n * a) b.
+- riemannSampleSum_zero_fn, _one_fn : zero/one corollaries.
 
 ## 비 verified scaffolded
 
