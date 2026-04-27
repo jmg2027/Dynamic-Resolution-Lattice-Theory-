@@ -96,6 +96,7 @@ import E213.Research.Real213ClassicAnti
 import E213.Research.Real213PhaseCSCapstone
 import E213.Research.Real213IntegralProperties
 import E213.Research.Real213ODELinear
+import E213.Research.Real213ODECatalog
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
