@@ -332,4 +332,30 @@ theorem DyadicBracket.bisectN_midCut_below_right
     DyadicBracket.bisectN_contains_right oracle n db
   exact cutLe_trans _ _ _ h1 h2
 
+/-- **Cauchy trichotomy case A**: if rightCut m k = true, then
+    every bisectN midpoint is also true at (m, k).  Sequence is
+    constant true; trivially Cauchy with modulus 0. -/
+theorem DyadicBracket.bisectN_midCut_constTrue
+    (oracle : DyadicOracle) (db : DyadicBracket) (m k : Nat)
+    (hr : db.rightCut m k = true) (n : Nat) :
+    (DyadicBracket.bisectN oracle n db).midCut m k = true :=
+  DyadicBracket.bisectN_midCut_below_right oracle n db m k hr
+
+/-- **Cauchy trichotomy case B**: if leftCut m k = false, then
+    every bisectN midpoint is also false at (m, k).  Sequence is
+    constant false; trivially Cauchy with modulus 0. -/
+theorem DyadicBracket.bisectN_midCut_constFalse
+    (oracle : DyadicOracle) (db : DyadicBracket) (m k : Nat)
+    (hl : db.leftCut m k = false) (n : Nat) :
+    (DyadicBracket.bisectN oracle n db).midCut m k = false := by
+  -- Contrapositive of bisectN_midCut_above_left:
+  -- midCut → leftCut, so leftCut = false → midCut = false.
+  cases hmidVal : (DyadicBracket.bisectN oracle n db).midCut m k
+  · rfl
+  · exfalso
+    have hleft : db.leftCut m k = true :=
+      DyadicBracket.bisectN_midCut_above_left oracle n db m k hmidVal
+    rw [hleft] at hl
+    exact Bool.noConfusion hl
+
 end E213.Research.Real213CutSum
