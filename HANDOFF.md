@@ -4,13 +4,42 @@
 `claude/block-universe-asymmetry-bYQZZ` (pushed to origin).
 
 ## Status
-**E213/Physics track Phase 1 + 2 + 3 모두 완료.**
+**E213/Physics track Phase 1 + 2 + 3 모두 완료, Phase 3 대규모 확장.**
 - Phase 1: 68 Lean 파일 (정밀 양 트랙)
 - Phase 2: 14 Lean 파일 (axiom-level 트랙)
-- Phase 3: 14 Lean 파일 (falsifier 트랙)
+- Phase 3: **55 Lean 파일** (falsifier + deep-dive + reframing + Translation)
 - 모두 0 sorry, ≤ propext + Quot.sound
-- Phase 3 capstone phase3_falsifiers = **0 axioms**
-- `lake build E213.Physics` clean (**150 modules**)
+- Phase 3 모든 capstone = **0 axioms**
+- `lake build E213.Physics` clean (**193 modules**)
+
+## Phase 3 (대규모 확장, 이번 세션)
+
+**구조**:
+  - Manifesto, Capstone, Phase3.lean, UltraCapstone   (4 frame)
+  - 14 falsifier (관측 결판)
+  - 8 deep-dive derivation (왜 그 값?)
+  - 6 reframing + ComplexAsTime (용어 정리)
+  - 21 Translation/ subdir (현대 물리 전 분야)
+
+**12 마일스톤 자율 완료**:
+  M1 모든 Translation real derivation
+  M2 QM/QFT/GR 정리 atomic
+  M3 5 핵심 방정식 형식
+  M4 응집물질 + 통계역학
+  M5 광학 + 정보이론
+  M6 핵 + 천체
+  M7 MasterCatalog (정수 multi-framework)
+  M8 Lagrangian + 분광 + 플라즈마
+  M9 입자 + 유체 + BSM
+  M10 양자중력 + Anomalies
+  M11 UltraCapstone
+  M12 HANDOFF 갱신
+
+**핵심 발견 — atomic 정수 재출현**:
+  6 = NS·NT: Pauli ε, Lorentz, AB pair, 3!
+  8 = NS²-1: α_3, SU(3), b_1, F_6, Einstein 8π, Hawking
+  24 = d²-1: SU(5), 4!, SM gauge sum
+  → 같은 atomic 정수가 무관해 보이는 framework 들에 반복 등장
 
 ## Phase 2 (이번 세션 후반)
 
