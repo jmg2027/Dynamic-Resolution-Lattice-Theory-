@@ -44,6 +44,7 @@ import E213.Research.Real213FluxCut
 import E213.Research.Real213FluxCochain
 import E213.Research.Real213FluxDivergence
 import E213.Research.Real213FluxMVT
+import E213.Research.Real213FluxPolynomial
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
