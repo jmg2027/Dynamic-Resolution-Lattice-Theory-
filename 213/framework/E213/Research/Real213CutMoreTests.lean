@@ -33,4 +33,20 @@ example : cutSum (constCut 1 1) (constCut 0 1) 0 1 = false := by decide
 /-- 1 * 0 = 0 ≤ 0/1. -/
 example : cutMul (constCut 1 1) (constCut 0 1) 0 1 = true := by decide
 
+/-- cutSum (1)(1) at (2, 1) = constCut 2 1 — both true. -/
+example : cutSum (constCut 1 1) (constCut 1 1) 2 1
+        = constCut 2 1 2 1 := by decide
+
+/-- cutSum (1)(1) at (1, 1) = constCut 2 1 — both false. -/
+example : cutSum (constCut 1 1) (constCut 1 1) 1 1
+        = constCut 2 1 1 1 := by decide
+
+/-- cutMul (1)(1) at (1, 1) = constCut 1 1 — both true. -/
+example : cutMul (constCut 1 1) (constCut 1 1) 1 1
+        = constCut 1 1 1 1 := by decide
+
+/-- cutMul (1)(1) at (0, 1) = constCut 1 1 — both false. -/
+example : cutMul (constCut 1 1) (constCut 1 1) 0 1
+        = constCut 1 1 0 1 := by decide
+
 end E213.Research.Real213CutSum
