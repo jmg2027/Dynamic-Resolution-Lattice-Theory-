@@ -131,4 +131,30 @@ theorem CauchyCutSeq.cutMax_distrib_cutMin_limit
   rw [cutMax_limit, cutMin_limit, cutMin_limit, cutMax_limit, cutMax_limit]
   exact Real213CutSum.cutMax_distrib_cutMin _ _ _
 
+/-- cutMax is commutative at the Cauchy limit. -/
+theorem CauchyCutSeq.cutMax_comm_limit (a b : CauchyCutSeq) :
+    (a.cutMax b).limit = (b.cutMax a).limit := by
+  rw [cutMax_limit, cutMax_limit]
+  exact Real213CutSum.cutMax_comm _ _
+
+/-- cutMin is commutative at the Cauchy limit. -/
+theorem CauchyCutSeq.cutMin_comm_limit (a b : CauchyCutSeq) :
+    (a.cutMin b).limit = (b.cutMin a).limit := by
+  rw [cutMin_limit, cutMin_limit]
+  exact Real213CutSum.cutMin_comm _ _
+
+/-- cutMax is associative at the Cauchy limit. -/
+theorem CauchyCutSeq.cutMax_assoc_limit (a b c : CauchyCutSeq) :
+    ((a.cutMax b).cutMax c).limit
+    = (a.cutMax (b.cutMax c)).limit := by
+  rw [cutMax_limit, cutMax_limit, cutMax_limit, cutMax_limit]
+  exact Real213CutSum.cutMax_assoc _ _ _
+
+/-- cutMin is associative at the Cauchy limit. -/
+theorem CauchyCutSeq.cutMin_assoc_limit (a b c : CauchyCutSeq) :
+    ((a.cutMin b).cutMin c).limit
+    = (a.cutMin (b.cutMin c)).limit := by
+  rw [cutMin_limit, cutMin_limit, cutMin_limit, cutMin_limit]
+  exact Real213CutSum.cutMin_assoc _ _ _
+
 end E213.Research.Real213CutSum
