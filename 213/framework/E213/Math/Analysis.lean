@@ -103,6 +103,7 @@ import E213.Research.Real213CubeDerivativeAtZero
 import E213.Research.Real213PhaseDAOmegaOmega
 import E213.Research.Real213NewtonSecond
 import E213.Research.Real213IndefiniteIntegral
+import E213.Research.Real213IntegralIntInterval
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
