@@ -77,6 +77,17 @@ theorem partialSum_const_half (a : Nat) :
     rw [(Nat.succ_mul (n+1) a).symm] at h
     exact h
 
+/-- **partialSum is a function of the series's pointwise behavior**:
+    if two series agree pointwise on all indices, their partial sums
+    coincide at every n. -/
+theorem partialSum_pointwise_eq (s s' : Nat → (Nat → Nat → Bool))
+    (h : ∀ i, s i = s' i) :
+    ∀ n, partialSum s n = partialSum s' n
+  | 0 => rfl
+  | n+1 => by
+    show cutSum (partialSum s n) (s n) = cutSum (partialSum s' n) (s' n)
+    rw [partialSum_pointwise_eq s s' h n, h n]
+
 /-- **3-term integer cutSum (assoc-form)**: (a + b) + c = a + b + c. -/
 theorem cutSum_int_int_three (a b c : Nat) :
     cutSum (cutSum (constCut a 1) (constCut b 1)) (constCut c 1)
