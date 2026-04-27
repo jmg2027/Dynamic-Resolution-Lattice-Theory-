@@ -76,6 +76,8 @@ import E213.Physics.Phase3.Translation.CouplingUnification
 import E213.Physics.Phase3.Translation.MassHierarchy
 import E213.Physics.Phase3.Translation.WeinbergDerivation
 import E213.Physics.Phase3.Translation.CKMDeepDive
+import E213.Physics.Phase3.Translation.ColdAtoms
+import E213.Physics.Phase3.Translation.AnomalousMoment
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 import E213.Physics.Phase3.UltraCapstone
