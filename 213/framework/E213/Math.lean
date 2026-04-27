@@ -30,6 +30,9 @@ import E213.Research.Real213CutPow
 import E213.Research.Real213CutPoly
 import E213.Research.Real213CutGeomSeries
 import E213.Research.Real213CutExp
+import E213.Research.Real213CutPoset
+import E213.Research.Real213AsLensOutput
+import E213.Research.Real213RecurrenceLens
 
 /-!
 # E213.Math: 213-native real analysis library (root entry)
