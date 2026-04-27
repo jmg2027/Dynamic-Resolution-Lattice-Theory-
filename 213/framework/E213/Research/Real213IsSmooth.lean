@@ -1,5 +1,6 @@
 import E213.Research.Real213CutFnData
 import E213.Research.Real213Dyadic
+import E213.Research.Real213CutSumDetermined
 
 /-!
 # Research.Real213IsSmooth: smoothness as resolution-compression filter
@@ -92,5 +93,55 @@ def cutScaleIsSmooth (a b : Nat) : IsSmooth (cutScale a b) where
 def cutHalfIsSmooth : IsSmooth cutHalf where
   toLocallyDeterminedData := cutHalfLDD
   linearityModulus := id
+
+/-- **Pointwise addition LDD**: if f, g are LDD then so is
+    fun x => cutSum (f x) (g x).  Uses cutSumAux_congr directly
+    with bound 2m for the search range. -/
+def addLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : LocallyDeterminedData f)
+    (sg : LocallyDeterminedData g) :
+    LocallyDeterminedData (fun x => cutSum (f x) (g x)) where
+  N := fun m k =>
+    max (maxRange sf.N (2*m) (2*k)) (maxRange sg.N (2*m) (2*k))
+  prop := by
+    intro m k cx cy hagree
+    show cutSumAux (f cx) (g cx) k (2*m) (2*m)
+       = cutSumAux (f cy) (g cy) k (2*m) (2*m)
+    apply cutSumAux_congr
+    · intro m' hm'
+      apply sf.prop
+      intro m'' k'' hm'' hk''
+      apply hagree
+      · exact Nat.le_trans hm''
+          (Nat.le_trans (maxRange_ge sf.N (2*m) (2*k) m' (2*k)
+            hm' (Nat.le_refl _)) (Nat.le_max_left _ _))
+      · exact Nat.le_trans hk''
+          (Nat.le_trans (maxRange_ge sf.N (2*m) (2*k) m' (2*k)
+            hm' (Nat.le_refl _)) (Nat.le_max_left _ _))
+    · intro m' hm'
+      apply sg.prop
+      intro m'' k'' hm'' hk''
+      apply hagree
+      · exact Nat.le_trans hm''
+          (Nat.le_trans (maxRange_ge sg.N (2*m) (2*k) m' (2*k)
+            hm' (Nat.le_refl _)) (Nat.le_max_right _ _))
+      · exact Nat.le_trans hk''
+          (Nat.le_trans (maxRange_ge sg.N (2*m) (2*k) m' (2*k)
+            hm' (Nat.le_refl _)) (Nat.le_max_right _ _))
+    · exact Nat.le_refl _
+
+/-- **Pointwise sum of smooth is smooth**.  Per user's Phase J Sec 2:
+    cutSum is dyadic-lens superposition, so the linearity modulus is
+    the max of input moduli (with a single +1 step buffer).
+
+    h(x) = (f x) + (g x) is smooth with linearityModulus =
+    max sf.linearityModulus sg.linearityModulus. -/
+def addIsSmooth {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : IsSmooth f) (sg : IsSmooth g) :
+    IsSmooth (fun x => cutSum (f x) (g x)) where
+  toLocallyDeterminedData :=
+    addLDD sf.toLocallyDeterminedData sg.toLocallyDeterminedData
+  linearityModulus := fun n =>
+    max (sf.linearityModulus n) (sg.linearityModulus n)
 
 end E213.Research.Real213CutSum
