@@ -96,4 +96,11 @@ theorem CauchyCutSeq.cutMul_limit (a b : CauchyCutSeq) :
     exact b.cauchy m' k Nmax (b.N m' k) hbig (Nat.le_refl _)
   · exact Nat.le_refl _
 
+/-- cutMul is commutative at the Cauchy limit. -/
+theorem CauchyCutSeq.cutMul_comm_limit (a b : CauchyCutSeq) :
+    (a.cutMul b).limit = (b.cutMul a).limit := by
+  rw [cutMul_limit, cutMul_limit]
+  funext m k
+  exact cutMul_comm a.limit b.limit m k
+
 end E213.Research.Real213CutSum

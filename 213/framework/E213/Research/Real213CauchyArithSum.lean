@@ -92,4 +92,11 @@ theorem CauchyCutSeq.cutSum_limit (a b : CauchyCutSeq) :
     exact b.cauchy m' (2*k) Nmax (b.N m' (2*k)) hbig (Nat.le_refl _)
   · exact Nat.le_refl _
 
+/-- cutSum is commutative at the Cauchy limit. -/
+theorem CauchyCutSeq.cutSum_comm_limit (a b : CauchyCutSeq) :
+    (a.cutSum b).limit = (b.cutSum a).limit := by
+  rw [cutSum_limit, cutSum_limit]
+  funext m k
+  exact cutSum_comm a.limit b.limit m k
+
 end E213.Research.Real213CutSum
