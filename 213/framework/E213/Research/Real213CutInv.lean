@@ -34,4 +34,13 @@ example : cutInv (constCut 1 3) 4 1 = true := by decide
 def cutDiv (cx cy : Nat → Nat → Bool) : Nat → Nat → Bool :=
   cutMul cx (cutInv cy)
 
+/-- **cutInv (cutInv c) = c**: double inverse is identity. -/
+theorem cutInv_cutInv (c : Nat → Nat → Bool) :
+    cutInv (cutInv c) = c := by
+  funext m k
+  show Bool.not (Bool.not (c m k)) = c m k
+  cases c m k
+  · rfl
+  · rfl
+
 end E213.Research.Real213CutSum
