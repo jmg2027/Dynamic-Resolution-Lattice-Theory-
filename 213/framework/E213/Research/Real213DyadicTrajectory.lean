@@ -163,4 +163,22 @@ theorem alwaysTrue_unit_numB (n : Nat) :
     (DyadicBracket.bisectN alwaysTrue n unitBracket).numB = 1 :=
   alwaysTrue_zero_numB_invariant n unitBracket rfl
 
+/-- **alwaysFalse from unit: numA = 2^n - 1**.
+    Derived from numB = 2^n and lenNum invariant = 1. -/
+theorem alwaysFalse_unit_numA (n : Nat) :
+    (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 2^n - 1 := by
+  have hB := alwaysFalse_unit_numB n
+  have hLen := DyadicBracket.bisectN_lenNum alwaysFalse n unitBracket
+  have h_unit_len : unitBracket.lenNum = 1 := rfl
+  rw [h_unit_len] at hLen
+  have hLe := (DyadicBracket.bisectN alwaysFalse n unitBracket).hLe
+  have h2n : (2:Nat)^n ≥ 1 := Nat.pos_pow_of_pos n (by decide : 0 < 2)
+  show (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 2^n - 1
+  -- hLen: numB - numA = 1. hB: numB = 2^n.  hLe: numA ≤ numB.  h2n: 2^n ≥ 1.
+  show (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 2^n - 1
+  have hLen_unfold :
+    (DyadicBracket.bisectN alwaysFalse n unitBracket).numB
+    - (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 1 := hLen
+  omega
+
 end E213.Research.Real213CutSum
