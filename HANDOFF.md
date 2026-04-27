@@ -11,17 +11,20 @@ post-marathon files.  Last addition `TopologyCompare.lean`
 formally rules out K_N complete; ONLY K_{3,2}^{(2)} (or swap) gives
 b_1 = 8 = 1/α_3.  All 0-axiom.
 
-### 2. Linalg213 marathon — Phase L1 STARTED
-User direction: forget classical math/physics; build 213-native
-linear algebra.  Target = paper 1 chiral compression
-"rank(Gram) ≤ d=5 for arbitrary N atomic vectors".
+### 2. Linalg213 marathon — Phases L1+L2
+User direction: build 213-native linear algebra from scratch.
+Target = paper 1 chiral compression "rank(Gram) ≤ d=5".
 
-`lean/E213/Math/Linalg213/`:
-* `Vector.lean` — `Vec n := Fin n → Nat`.  Basis, add, smul.
+`lean/E213/Math/Linalg213/` (3 files):
+* `Vector.lean` (L1) — `Vec n := Fin n → Nat`.  Basis, add, smul.
   Atomic d=5 + chiral (NS=3, NT=2) verified.
-* `Gram.lean` — `Vec.inner` via `List.range`; Gram matrix type;
-  orthonormal 2-vector example decide-checked.
-* Rank-5 target stated as placeholder; needs `Rank.lean` next.
+* `Gram.lean` (L1) — `Vec.inner`, Gram matrix; orthonormal
+  2-vector example decide-checked.
+* `Rank.lean` (L2) — `IntCoeffs N := Fin N → Int`, `linComb`,
+  `linComb_isZero`.  ★ `e0_e1_LI_bounded`: linear independence
+  of {e_0, e_1} ⊆ Vec 5 verified via bounded enumeration over
+  coefficients {-1, 0, 1}² (Fin 3 × Fin 3 = 9 cases by decide).
+* Rank-5 target stated as placeholder; needs L3 (full rank def).
 
 ### 3. Open Problem #1 (1/α_em) status
 - Bracket tightening + structural gap formalized.
