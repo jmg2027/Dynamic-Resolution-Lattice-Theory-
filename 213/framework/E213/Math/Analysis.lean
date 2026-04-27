@@ -32,6 +32,7 @@ import E213.Research.Real213DifferentiableCompose
 import E213.Research.Real213DifferentiableHighOrder
 import E213.Research.Real213DifferentiableMid
 import E213.Research.Real213DifferentiableMegaCoverage
+import E213.Research.Real213PhaseANOmegaCapstone
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
