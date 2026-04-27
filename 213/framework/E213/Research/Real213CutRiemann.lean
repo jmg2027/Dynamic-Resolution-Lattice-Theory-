@@ -21,20 +21,28 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Riemann sum at n subdivisions** (declarative).
-Concrete computation requires arithmetic chains 가 finer precision —
-별 도 arc.
+/-- **Riemann sum at sample points**: Σ_{i=0}^{n-1} f(xs i).
+주 어 진 sample sequence xs 위 의 finite sum.  Δx scaling 은
+caller responsibility (subtraction 가 cut-level 에 서 partial). -/
+def riemannSumOnSamples (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (xs : Nat → (Nat → Nat → Bool)) : Nat → Nat → Nat → Bool
+  | 0 => constCut 0 1
+  | n+1 => cutSum (riemannSumOnSamples f xs n) (f (xs n))
 
-For now: scaffolding interface. -/
+/-- Sample partition: xs i = constant a (degenerate sample). -/
+def constSamples (a : Nat → Nat → Bool) : Nat → (Nat → Nat → Bool) :=
+  fun _ => a
+
+/-- riemannSumOnSamples at degenerate (all = a) for constant f returns
+    n * f(a) — but partial sum 형 식 으 로. -/
+example : riemannSumOnSamples (fun _ => constCut 1 1) (constSamples (constCut 1 1)) 0
+    = constCut 0 1 := rfl
+
+/-- **Riemann sum step** (legacy interface). -/
 def riemannSumStep (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (a b : Nat → Nat → Bool) (n : Nat) : Nat → Nat → Bool :=
-  -- Recursively build partial sum: Σ_{i=0}^{n-1} f(a + i*h) * h
-  -- placeholder: just return f(a) * (b-a)/1
-  -- Full computation 별 도 arc (needs subtraction + division 의 finer
-  -- precision form)
-  match n with
-  | 0 => constCut 0 1
-  | _+1 => f a  -- crude approximation: f(a) only
+  let _ := b
+  riemannSumOnSamples f (constSamples a) n
 
 /-- **Riemann integral data** (carries n + sum + modulus). -/
 structure RiemannIntegralData

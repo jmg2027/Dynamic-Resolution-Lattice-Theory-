@@ -58,4 +58,13 @@ def constDifferentiableModulus (c : Nat → Nat → Bool) (x : Nat → Nat → B
   delta := fun _ _ _ => 0
   bound_data := ()
 
+/-- **Constant difference quotient = same constant**.
+
+For f = constant c, f(x+h) = c, f(x) = c.  Difference quotient의 numerator
+= c - c.  In our cutDiv form: (cutSum c (cutInv c)) / h. -/
+theorem differenceQuotient_const (c : Nat → Nat → Bool) (x h : Nat → Nat → Bool) :
+    differenceQuotient (fun _ => c) x h
+    = cutDiv (cutSum c (cutInv c)) h := by
+  rfl
+
 end E213.Research.Real213CutSum
