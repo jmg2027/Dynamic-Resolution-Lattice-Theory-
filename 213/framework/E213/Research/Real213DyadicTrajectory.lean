@@ -592,6 +592,22 @@ theorem alwaysFalseUnit_limit_cutEq_one :
           (constCut 1 1) :=
   fun m k => alwaysFalseUnit_limit_eq_one_one m k
 
+/-- **V3 (forward)**: alwaysFalseUnit.limit ≤ constCut 1 1. -/
+theorem alwaysFalseUnit_le_one :
+    cutLe (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit
+          (constCut 1 1) := by
+  intro m k h
+  rw [← alwaysFalseUnit_limit_cutEq_one m k] at h
+  exact h
+
+/-- **V3 (backward)**: constCut 1 1 ≤ alwaysFalseUnit.limit. -/
+theorem one_le_alwaysFalseUnit :
+    cutLe (constCut 1 1)
+          (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit := by
+  intro m k h
+  rw [alwaysFalseUnit_limit_cutEq_one m k] at h
+  exact h
+
 /-- **T1: Strong M1 — NOT cutEq form**. The alwaysTrueUnit limit
     (0+) is NOT cutEq with constCut 0 1 (0-exact).  Derived from
     InfinitesimalGap (which gives a specific witness pair m=0, k=1
