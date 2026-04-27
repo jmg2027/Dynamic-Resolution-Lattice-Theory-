@@ -72,6 +72,7 @@ import E213.Research.Real213ClassicCalcMid
 import E213.Research.Real213HasDyadicMVTWitness
 import E213.Research.Real213FluxMVTMore
 import E213.Research.Real213MVTWitnessCatalog
+import E213.Research.Real213MVTWitnessChain
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
