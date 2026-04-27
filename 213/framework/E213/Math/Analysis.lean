@@ -13,6 +13,7 @@ import E213.Research.Real213IsSmooth
 import E213.Research.Real213ConsistentOracle
 import E213.Research.Real213DyadicRiemann
 import E213.Research.Real213PhaseJCapstone
+import E213.Research.Real213ResolutionDepth
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
