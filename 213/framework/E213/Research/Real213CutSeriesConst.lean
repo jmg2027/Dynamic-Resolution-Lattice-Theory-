@@ -129,4 +129,15 @@ theorem cutSum_half_assoc (a b c : Nat) :
     = cutSum (constCut a 2) (cutSum (constCut b 2) (constCut c 2)) := by
   rw [cutSum_half_three, cutSum_half_three_right, Nat.add_assoc]
 
+/-- **Sum of n ones = n** as cuts (n/1). -/
+theorem partialSum_ones (n : Nat) :
+    partialSum (fun _ => constCut 1 1) n = constCut n 1 := by
+  rw [partialSum_const_int 1 n, Nat.mul_one]
+
+/-- **Sum of (n+1) halves = (n+1)/2** as cuts.
+    Stated from n+1 to dodge the n=0 base. -/
+theorem partialSum_halves (n : Nat) :
+    partialSum (fun _ => constCut 1 2) (n+1) = constCut (n+1) 2 := by
+  rw [partialSum_const_half 1 n, Nat.mul_one]
+
 end E213.Research.Real213CutSum
