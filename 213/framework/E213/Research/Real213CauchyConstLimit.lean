@@ -68,6 +68,30 @@ theorem const_cauchy_cutMul_limit (c1 c2 : Nat → Nat → Bool) :
   rw [CauchyCutSeq.cutMul_limit,
       constCauchyCutSeq_limit c1, constCauchyCutSeq_limit c2]
 
+/-- **Z3: const Cauchy cutMax limit (general form)**. -/
+theorem const_cauchy_cutMax_limit (c1 c2 : Nat → Nat → Bool) :
+    ((constCauchyCutSeq c1).cutMax (constCauchyCutSeq c2)).limit
+    = cutMax c1 c2 := by
+  rw [CauchyCutSeq.cutMax_limit,
+      constCauchyCutSeq_limit c1, constCauchyCutSeq_limit c2]
+
+/-- **Z3 dual**: const Cauchy cutMin limit (general form). -/
+theorem const_cauchy_cutMin_limit (c1 c2 : Nat → Nat → Bool) :
+    ((constCauchyCutSeq c1).cutMin (constCauchyCutSeq c2)).limit
+    = cutMin c1 c2 := by
+  rw [CauchyCutSeq.cutMin_limit,
+      constCauchyCutSeq_limit c1, constCauchyCutSeq_limit c2]
+
+/-- **Z3 scaling**: const Cauchy cutDouble limit. -/
+theorem const_cauchy_cutDouble_limit (c : Nat → Nat → Bool) :
+    ((constCauchyCutSeq c).cutDouble).limit = cutDouble c := by
+  rw [CauchyCutSeq.cutDouble_limit, constCauchyCutSeq_limit]
+
+/-- **Z3 scaling dual**: const Cauchy cutHalf limit. -/
+theorem const_cauchy_cutHalf_limit (c : Nat → Nat → Bool) :
+    ((constCauchyCutSeq c).cutHalf).limit = cutHalf c := by
+  rw [CauchyCutSeq.cutHalf_limit, constCauchyCutSeq_limit]
+
 /-- cutMid on Cauchy = cutHalf ∘ cutSum, lifted. -/
 def CauchyCutSeq.cutMid (a b : CauchyCutSeq) : CauchyCutSeq :=
   (a.cutSum b).cutHalf
