@@ -57,4 +57,11 @@ theorem cutMax_assoc (cx cy cz : Nat → Nat → Bool) :
   show ((cx m k && cy m k) && cz m k) = (cx m k && (cy m k && cz m k))
   cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
 
+/-- min 의 associativity. -/
+theorem cutMin_assoc (cx cy cz : Nat → Nat → Bool) :
+    cutMin (cutMin cx cy) cz = cutMin cx (cutMin cy cz) := by
+  funext m k
+  show ((cx m k || cy m k) || cz m k) = (cx m k || (cy m k || cz m k))
+  cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
+
 end E213.Research.Real213CutSum
