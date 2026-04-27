@@ -3,24 +3,24 @@ import E213.Research.IdentityLens
 import E213.Firmware.Raw.SwapSlash
 
 /-!
-# Research.SwapLens: Raw.swap 을 view 로 갖는 Lens
+# Research.SwapLens: Lens with Raw.swap as its view
 
 **Lens**: `swapLens : Lens Raw` with `view = Raw.swap`.
 
-swap_slash (Firmware) 가 있어야 증명 가능한 구성.
+Construction is only provable with swap_slash (Firmware).
 
-## 의의
+## Significance
 
-Raw 의 유일한 nontrivial automorphism 이 Lens 의 view 로
-실현됨.  idLens (identity) 에 대응하는 "반사 Lens".
+The unique nontrivial automorphism of Raw is realized as the view of a Lens.
+The "reflection Lens" corresponding to idLens (identity).
 
-## 구조
+## Structure
 
-idLens 와 **같은 combine** (off-diagonal 에서 Raw.slash,
-diagonal fallback Raw.a).  **다른 base** (a, b 가 swap).
+**Same combine** as idLens (Raw.slash off-diagonal, Raw.a diagonal fallback).
+**Different base** (a, b swapped).
 
-이는 Raw-matching Lens family 의 한 원소 (RawMatchingLens.lean
-일반화).  base 만 swap 해도 view = Raw.swap 이 됨.
+This is one element of the Raw-matching Lens family (generalized in
+RawMatchingLens.lean).  Swapping just the base yields view = Raw.swap.
 -/
 
 namespace E213.Research.SwapLens
@@ -75,8 +75,8 @@ namespace E213.Research.SwapLens
 open E213.Firmware E213.Hypervisor
 open E213.Research.IdentityLens
 
-/-- idLens 와 swapLens 는 refines-equivalent.  둘 다 injective
-    이므로 InjectiveLensClass.lean 의 injective_equiv 로부터. -/
+/-- idLens and swapLens are refines-equivalent.  Both are injective,
+    so this follows from injective_equiv in InjectiveLensClass.lean. -/
 theorem idLens_swapLens_refines_equiv :
     idLens.refines swapLens ∧ swapLens.refines idLens := by
   constructor

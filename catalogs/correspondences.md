@@ -5,7 +5,7 @@ Direct evidence of a single DRLT origin.
 
 ## Integer 6 = NS · NT
 
-  - Pauli ε_abc 비영 entry [QM]
+  - Pauli ε_abc non-zero entries [QM]
   - Lorentz SO(3,1) generators [SR]
   - AB cross pair K_{3,2} [Phase 2]
   - SU(NS) root count [Group]

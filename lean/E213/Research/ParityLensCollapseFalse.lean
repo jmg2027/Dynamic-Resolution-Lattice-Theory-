@@ -12,7 +12,7 @@ namespace E213.Research.ParityLensCollapseFalse
 open E213.Hypervisor
 open E213.Meta
 
-/-- parityLens 의 self-combine 이 항상 false (Collapse-False class). -/
+/-- The self-combine of parityLens is always false (Collapse-False class). -/
 theorem parityLens_collapse_false (x : Bool) :
     parityLens.combine x x = false := by
   cases x <;> rfl

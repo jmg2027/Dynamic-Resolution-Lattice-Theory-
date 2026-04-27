@@ -1,48 +1,47 @@
 import E213.Physics.Phase2.Time
 
 /-!
-# Phase 2 Space — NS=3 섹터를 펼치면 무엇이 되는가?
+# Phase 2 Space — what does unfolding the NS=3 sector yield?
 
 **Layer: App** (NS atomicity-derived ternary unfolding).
 
 Time.lean: *NT=2 sector unfolded → 2^n binary bisection (dyadic)*.
-이 파일: *NS=3 sector unfolded → 3^n ternary tree*.
+This file: *NS=3 sector unfolded → 3^n ternary tree*.
 
-## NS=3 atomic block 의 의미
+## Meaning of NS=3 atomic block
 
-213 axiom 만으로는 "공간" 단어 사용 X (CLAUDE.md derive 결과).
-다만:
+The word "space" cannot be used from 213 axioms alone (per CLAUDE.md derivation).  However:
 
   Atomicity → atom pair {2, 3} → larger block size 3 (= NS)
 
-NS=3 atom 을 *반복 적용* 하면 매 step 3-fold branching.
-Depth n 회 후 3^n distinguishable states.
+Applying NS=3 atom *repeatedly* gives 3-fold branching at each step.
+After depth n, 3^n distinguishable states.
 
-## 비대칭성 (★ Phase 2 결정적 발견 ★)
+## Asymmetry (★ Phase 2 decisive finding ★)
 
   NT=2 unfolded: 2^n   (binary, dyadic)
   NS=3 unfolded: 3^n   (ternary, triadic)
 
-  비율: 3^n / 2^n = (3/2)^n  → 시간 vs 공간 비대칭이
-  *atomicity 자체*에서 강제됨.
+  Ratio: 3^n / 2^n = (3/2)^n  → time vs space asymmetry
+  *forced by atomicity itself*.
 
-이게 Phase 1에서 발견한 다양한 (3/2) 비율들의 *axiom-level 기원*:
-  - m_μ/m_e 의 NS/NT factor
+This is the *axiom-level origin* of the various (3/2) ratios found in Phase 1:
+  - NS/NT factor in m_μ/m_e
   - SU(5) Y-norm d/NS = 5/3
   - Fibonacci F_5/F_4 = 5/3
-  - 모두 (3/2) atomicity 비대칭의 그림자
+  - all shadows of (3/2) atomicity asymmetry
 
-## 본 파일의 기여
+## This file's contribution
 
-NS=3 ternary unfolding 의 자연 명제 + Time과의 비대칭성 명시.
+Natural propositions of NS=3 ternary unfolding + explicit statement of asymmetry with Time.
 
-수학 트랙 dyadic bridge 와 *parallel* 하지만 ternary 는 별도 작업
-(아직 수학 트랙에 ternary bridge 없음 — 본 파일이 부분 정리).
+*Parallel* to math track dyadic bridge but ternary is separate work
+(ternary bridge not yet in math track — this file provides partial results).
 -/
 
 namespace E213.Physics.Phase2.Space
 
-/-- NS 섹터 = atomic 3-block. -/
+/-- NS sector = atomic 3-block. -/
 def NS_atomic_size : Nat := 3
 
 theorem NS_size_eq_3 : NS_atomic_size = 3 := by decide

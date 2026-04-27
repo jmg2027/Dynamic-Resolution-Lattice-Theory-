@@ -1,20 +1,19 @@
 import E213.Research.SemanticAtom
 
 /-!
-# Research.SubtypeInstanceClosed: distinguishing-closed subtype
-의 slash-based combine instance
+# Research.SubtypeInstanceClosed: slash-based combine instance for
+distinguishing-closed subtype
 
-PAPER1 §8.2 의 third closed boundary 의 fix: nested-Subtype
-elaborator 우회 via SlashClosed typeclass + decidable equality
-on Raw.
+Fix for the third closed boundary in PAPER1 §8.2: bypasses the nested-Subtype
+elaborator via SlashClosed typeclass + decidable equality on Raw.
 
-## 핵심
+## Core
 
-`SlashClosed P`: P 가 distinct slash arguments 위 closed 임을
-data 로 carry.  이 가정 하 에 `{r : Raw // P r}` 위 의 slash-based
-combine 가 well-defined + commutative.
+`SlashClosed P`: carries as data that P is closed over distinct slash arguments.
+Under this assumption, the slash-based combine on `{r : Raw // P r}` is
+well-defined + commutative.
 
-`SubtypeInstance.lean` 의 degenerate combine 을 대체.
+Replaces the degenerate combine of `SubtypeInstance.lean`.
 -/
 
 namespace E213.Research.SubtypeInstanceClosed
@@ -33,8 +32,8 @@ namespace E213.Research.SubtypeInstanceClosed
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- Subtype 위 의 slash-based combine.  Equal val 의 경우
-    base_a fallback (slash 가 distinct args 만 받기 때문). -/
+/-- Slash-based combine on Subtype.  Falls back to base_a when
+    vals are equal (since slash only accepts distinct args). -/
 def subtypeCombine (P : Raw → Prop) [SlashClosed P]
     (h_a : P Raw.a) :
     {r : Raw // P r} → {r : Raw // P r} → {r : Raw // P r} :=
@@ -64,9 +63,9 @@ open E213.Research.SemanticAtom
 
 /-- **Slash-based HasDistinguishing instance** on
     `{r : Raw // P r}` for distinguishing-closed `P`.
-    `SubtypeInstance.lean` 의 degenerate combine 의
-    *meaningful* version.  PAPER1 §8.2 의 third closed
-    boundary 가 SlashClosed typeclass 와 함께 해소. -/
+    The *meaningful* version of the degenerate combine in
+    `SubtypeInstance.lean`.  The third closed boundary in
+    PAPER1 §8.2 is resolved with the SlashClosed typeclass. -/
 def subtypeHasDistinguishingClosed (P : Raw → Prop) [SlashClosed P]
     (h_a : P Raw.a) (h_b : P Raw.b) :
     HasDistinguishing {r : Raw // P r} where
@@ -88,15 +87,15 @@ open E213.Research.SemanticAtom
 
 /-! ### Concrete instance: `True`-predicate (the trivial slash-closed)
 
-`P := fun _ => True` 가 자명 하 게 SlashClosed.  결과 subtype
-`{r : Raw // True}` 는 Raw 와 isomorphic, 그 위 의 instance 가
-slash-based combine. -/
+`P := fun _ => True` is trivially SlashClosed.  The resulting subtype
+`{r : Raw // True}` is isomorphic to Raw, and the instance on it
+uses slash-based combine. -/
 
 instance trueSlashClosed : SlashClosed (fun _ => True) where
   closed := fun _ _ _ => trivial
 
-/-- `{r : Raw // True}` 위 의 slash-based instance.  `Raw` 자체
-    의 instance 와 essentially 동치 — meaningful combine. -/
+/-- Slash-based instance on `{r : Raw // True}`.  Essentially
+    equivalent to the instance of `Raw` itself — meaningful combine. -/
 def trueSubtypeInstance : HasDistinguishing {r : Raw // True} :=
   subtypeHasDistinguishingClosed (fun _ => True) trivial trivial
 

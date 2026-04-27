@@ -4,24 +4,24 @@ import E213.Meta.BoolLens
 /-!
 # Research.ParityXorIncomparable
 
-**주장**: `parityLens ∥ boolXorLens` (refines preorder 에서
-incomparable).
+**Claim**: `parityLens ∥ boolXorLens` (incomparable in the refines
+preorder).
 
 - `parityLens`: base_a = base_b = true, combine = xor.
   view = total leaves count mod 2.
 - `boolXorLens`: base_a = true, base_b = false, combine = xor.
   view = a-count mod 2 (a = Raw.a leaves).
 
-두 Lens 는 다른 **정보를 추출**:
-- parityLens: 모든 leaf 를 동등하게 센다 (total parity).
-- boolXorLens: a 와 b 를 구별하여 a-count 만 센다.
+The two Lenses extract **different information**:
+- parityLens: counts all leaves equally (total parity).
+- boolXorLens: distinguishes a and b, counting only a-leaves.
 
 ## Witnesses
 
-- `parity_not_refines_xor`: Raw.a vs Raw.b — 같은 parity (1),
-  다른 xor view (a-only vs b-only).
-- `xor_not_refines_parity`: Raw.a vs rAAA — 같은 xor view
-  (둘 다 a-odd), 다른 parity (1 vs 4).
+- `parity_not_refines_xor`: Raw.a vs Raw.b — same parity (1),
+  different xor view (a-only vs b-only).
+- `xor_not_refines_parity`: Raw.a vs rAAA — same xor view (both
+  a-odd), different parity (1 vs 4).
 -/
 
 namespace E213.Research.ParityXorIncomparable
@@ -34,7 +34,7 @@ theorem parity_equates_ab :
 theorem xor_distinguishes_ab :
     boolXorLens.view Raw.a ≠ boolXorLens.view Raw.b := by decide
 
-/-- parityLens 는 boolXorLens 를 refine 하지 않음 (a,b 구별 손실). -/
+/-- parityLens does not refine boolXorLens (loses the a,b distinction). -/
 theorem parity_not_refines_xor : ¬ parityLens.refines boolXorLens := by
   intro h
   exact xor_distinguishes_ab (h Raw.a Raw.b parity_equates_ab)
@@ -51,7 +51,7 @@ theorem xor_equates :
 theorem parity_distinguishes :
     parityLens.view Raw.a ≠ parityLens.view rAAA := by decide
 
-/-- boolXorLens 는 parityLens 를 refine 하지 않음 (total 정보 손실). -/
+/-- boolXorLens does not refine parityLens (loses total information). -/
 theorem xor_not_refines_parity : ¬ boolXorLens.refines parityLens := by
   intro h
   exact parity_distinguishes (h Raw.a rAAA xor_equates)

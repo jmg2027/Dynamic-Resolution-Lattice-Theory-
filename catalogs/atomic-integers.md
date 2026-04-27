@@ -1,6 +1,6 @@
 # Atomic Integers Catalog
 
-213 atomic primitives (NS=3, NT=2, d=5, c=2) 로 표현 가능한 정수.
+Integers expressible via 213 atomic primitives (NS=3, NT=2, d=5, c=2).
 
 ## Small integers (1-30)
 

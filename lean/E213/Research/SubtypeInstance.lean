@@ -1,21 +1,21 @@
 import E213.Research.SemanticAtom
 
 /-!
-# Research.SubtypeInstance: distinguishing-closed predicate 의 sub-instance
+# Research.SubtypeInstance: sub-instance of a distinguishing-closed predicate
 
-User directive (2026-04-25): Subtype 의 distinguishing-closed
-가정 의 framework 안 내부화.
+User directive (2026-04-25): Internalize the distinguishing-closed assumption
+of Subtype inside the framework.
 
-`{r : Raw // P r}` 의 HasDistinguishing instance.
+HasDistinguishing instance for `{r : Raw // P r}`.
 
 ## Design note
 
-기본 기 정 combine (Raw.slash) 의 commutativity 의 형식 이
-nested Subtype (Raw 가 자신 도 Subtype) 의 elaborator unfold 의
-한계 봉착.  대신 *degenerate combine* 으로 instance 형식.
+Hit the limits of the elaborator's unfold of nested Subtype (Raw is itself
+also a Subtype) for the formal commutativity of the default combine
+(Raw.slash).  Instead, instance is formed with *degenerate combine*.
 
-→ Sub-instance 의 *존재* 형식 됨 — meaningful combine 의 design
-은 Lean infrastructure 의 제약 으로 추가 작업 필요.
+→ The *existence* of a sub-instance is formalized — meaningful combine
+design requires additional work due to Lean infrastructure constraints.
 -/
 
 namespace E213.Research.SubtypeInstance
@@ -47,8 +47,8 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
 /-- Universal morphism Raw → {r : Raw // P r} via degenerate
-    sub-instance.  대부분 Raw 가 a 에 collapse — degenerate
-    instance 의 자연 결과. -/
+    sub-instance.  Most Raws collapse to a — the natural result of
+    a degenerate instance. -/
 def subtypeUniversalMorphism (P : Raw → Prop)
     (h_a : P Raw.a) (h_b : P Raw.b) : Raw → {r : Raw // P r} :=
   @universalMorphism {r : Raw // P r} (subtypeHasDistinguishing P h_a h_b)

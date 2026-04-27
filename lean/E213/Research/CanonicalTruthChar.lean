@@ -1,23 +1,24 @@
 import E213.Research.SemanticAtom
 
 /-!
-# Research.CanonicalTruthChar: canonicalTruthMap 의 정확 한 characterization
+# Research.CanonicalTruthChar: Exact characterization of canonicalTruthMap
 
-`SemanticAtom.canonicalTruthMap : Raw → Prop` (Xor-based) 의
-의미: 각 Raw 의 truth value 가 무엇 으로 결정 되는가?
+The meaning of `SemanticAtom.canonicalTruthMap : Raw → Prop`
+(Xor-based): what determines the truth value of each Raw?
 
-**결과**: `canonicalTruthMap r ↔ (a count of r) is odd`.
+**Result**: `canonicalTruthMap r ↔ (a count of r) is odd`.
 
-즉 Prop instance 의 universal morphism 이 정확히 *Raw 의 a-count
-parity* 를 추출.  의미 atom 의 self-application 의 정확 한 form.
+That is, the universal morphism of the Prop instance extracts
+exactly *the a-count parity of Raw*.  The exact form of the
+self-application of the semantic atom.
 
-## 구성
+## Construction
 
 Bool-valued analog: `aCountParityLens : Lens Bool := ⟨true, false,
 xor⟩`.  view r = a-count parity (true iff odd).
 
-그리고 canonicalTruthMap r = (aCountParityLens.view r = true)
-의 Prop 변환.
+And canonicalTruthMap r is the Prop translation of
+(aCountParityLens.view r = true).
 -/
 
 namespace E213.Research.CanonicalTruthChar
@@ -89,13 +90,13 @@ namespace E213.Research.CanonicalTruthChar
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-! ### Iff alternative 의 characterization
+/-! ### Characterization of the Iff alternative
 
-`canonicalIffMap` (note 76 alternative) 의 정확 한 의미:
+The exact meaning of `canonicalIffMap` (note 76 alternative):
 `canonicalIffMap r ↔ b-count of r is even`.
 
-Iff XNOR fold 가 b-count parity 추출 (canonicalTruthMap 의 a-count
-odd 와 dual). -/
+The Iff XNOR fold extracts the b-count parity (dual to
+the a-count odd of canonicalTruthMap). -/
 
 /-- Bool-valued Iff Lens. -/
 def iffBoolLens : Lens Bool := ⟨true, false, fun x y => decide (x = y)⟩
@@ -118,10 +119,10 @@ namespace E213.Research.CanonicalTruthChar
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- **두 Prop instance 의 morphism 이 다름**: canonicalTruthMap
-    (Xor) 과 canonicalIffMap (Iff) 의 결과 가 specific witness
-    에서 다름.  Connective 선택 에 따라 specific algebraic
-    invariant 가 다름. -/
+/-- **The morphisms of two Prop instances differ**: the results of
+    canonicalTruthMap (Xor) and canonicalIffMap (Iff) differ at a
+    specific witness.  Different connective choices extract different
+    algebraic invariants. -/
 theorem canonicalTruthMap_ne_canonicalIffMap_witness :
     canonicalTruthMap (Raw.slash Raw.a Raw.b (by decide))
       ≠ canonicalIffMap (Raw.slash Raw.a Raw.b (by decide)) := by
@@ -168,8 +169,8 @@ theorem iff_iff_bool_eq (P Q : Prop) (b₁ b₂ : Bool)
   cases b₁ <;> cases b₂ <;> simp [hP, hQ]
 
 /-- **canonicalIffMap characterization**: `canonicalIffMap r ↔
-    iffBoolLens.view r = true`.  Iff XNOR fold 의 algebraic
-    content. -/
+    iffBoolLens.view r = true`.  The algebraic content of the
+    Iff XNOR fold. -/
 theorem canonicalIffMap_iff_iffBoolLens (r : Raw) :
     canonicalIffMap r ↔ iffBoolLens.view r = true := by
   induction r using Raw.rec with
@@ -192,8 +193,8 @@ open E213.Research.SemanticAtom
 
 /-! ### And-based characterization: r = Raw.a iff canonicalAndMap
 
-And combine 가 매우 약 — T ∧ F = F.  대부분 r 에 대해 결과 가
-False.  Hypothesis: `canonicalAndMap r ↔ r = Raw.a`. -/
+And combine is very weak — T ∧ F = F.  The result is False for
+most r.  Hypothesis: `canonicalAndMap r ↔ r = Raw.a`. -/
 
 theorem canonicalAndMap_iff_eq_a (r : Raw) :
     canonicalAndMap r ↔ r = Raw.a := by
@@ -238,10 +239,10 @@ open E213.Research.SemanticAtom
 
 /-! ### Or-based characterization: r ≠ Raw.b iff canonicalOrMap
 
-Or 가 And 의 dual.  T ∨ F = T, F ∨ F = F.  Hypothesis:
+Or is the dual of And.  T ∨ F = T, F ∨ F = F.  Hypothesis:
 `canonicalOrMap r ↔ r ≠ Raw.b` (= ∃ a leaf in r). -/
 
-/-- Helper: Raw.slash 의 결과 가 Raw.b 와 다름 — depth-based. -/
+/-- Helper: the result of Raw.slash differs from Raw.b — depth-based. -/
 private theorem slash_ne_b_via_depth (x y : Raw) (h : x ≠ y) :
     Raw.slash x y h ≠ Raw.b := by
   intro heq
@@ -276,8 +277,8 @@ theorem canonicalOrMap_iff_ne_b (r : Raw) :
       · intro _ hslash_eq_b
         exact slash_ne_b_via_depth x y h hslash_eq_b
       · intro _
-        -- (slash x y h) ≠ b → 적어도 하나 의 branch 가 ≠ b → IH 로 canonicalOrMap.
-        -- x ≠ y 이므로 둘 다 동시 에 b 가 부재.  적어도 하나 가 ≠ b.
+        -- (slash x y h) ≠ b → at least one branch ≠ b → canonicalOrMap by IH.
+        -- Since x ≠ y, both cannot simultaneously be b.  At least one ≠ b.
         by_cases hx : x = Raw.b
         · -- x = b, then y ≠ b (since x ≠ y).
           have hy_ne_b : y ≠ Raw.b := by

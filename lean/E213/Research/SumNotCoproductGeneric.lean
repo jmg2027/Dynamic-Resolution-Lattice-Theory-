@@ -2,21 +2,20 @@ import E213.Research.SumInstance
 import E213.Research.BoolPropMorphism
 
 /-!
-# Research.SumNotCoproductGeneric: Sum α β coproduct failure 의
-generic case
+# Research.SumNotCoproductGeneric: generic case of Sum α β coproduct failure
 
-`SumNotCoproduct` 의 xor case 를 다른 commutative combine 으 로
-확장.  Sum α β + priority combine 의 non-canonicity 가 `xor`
-specific 이 아 니 라 *broad phenomenon*.
+Extends the xor case of `SumNotCoproduct` to other commutative combines.
+The non-canonicity of Sum α β + priority combine is not `xor`-specific
+but a *broad phenomenon*.
 
-## 핵심
+## Core
 
-`α = β = γ = Bool` with **and** combine: f = g = id 양쪽
-morphism 인데, mediating h 부재.
+`α = β = γ = Bool` with **and** combine: f = g = id are both morphisms,
+but no mediating h exists.
 
-Counterexample: combine (inl true) (inr false) = inl true
-(priority).  `h(inl true) = true`, `h(inr false) = false`.
-But morphism 요구: `h (combine ...) = and (h ...) (h ...)` =
+Counterexample: combine (inl true) (inr false) = inl true (priority).
+`h(inl true) = true`, `h(inr false) = false`.
+But morphism requires: `h (combine ...) = and (h ...) (h ...)` =
 and true false = false.  Contradiction (true ≠ false).
 -/
 
@@ -28,8 +27,8 @@ open E213.Research.SumInstance
 open E213.Research.BoolPropMorphism
 
 /-- Sum Bool Bool with **and** combine (boolXorHasDistinguishing
-    used as instance for both sides) 도 coproduct universal
-    property 위반. -/
+    used as instance for both sides) also violates the coproduct
+    universal property. -/
 theorem sum_not_coproduct_and :
     ¬ ∃ h : Sum Bool Bool → Bool,
       (∀ x, h (Sum.inl x) = x) ∧

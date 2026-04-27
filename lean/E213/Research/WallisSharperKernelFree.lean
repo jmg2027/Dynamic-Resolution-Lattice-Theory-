@@ -4,9 +4,9 @@ import E213.Research.WallisSeq
 # Research.WallisSharperKernelFree: Wallis sharper at concrete n
 (axiom-free)
 
-`WallisSharper` 의 axiom-free version (concrete n).
-Inductive proof full omega-elimination 은 비싼 일이지만,
-specific value 의 verification 은 `decide` 로 axiom-free.
+Axiom-free version of `WallisSharper` (concrete n).
+Full omega-elimination from the inductive proof is expensive, but
+verification at specific values is axiom-free via `decide`.
 -/
 
 namespace E213.Research.WallisSharperKernelFree

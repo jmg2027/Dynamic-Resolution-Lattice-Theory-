@@ -1,22 +1,22 @@
-# 주기율표 213 — Narrative
+# Periodic Table 213 — Narrative
 
-표준 chemistry 의 주기율표 = 양자수 (n, l, m, s) + Madelung
-filling 가정.  DRLT 213 은 *모두 atomic primitives 표현*.
+The standard chemistry periodic table = quantum numbers (n, l, m, s) + Madelung
+filling assumption.  DRLT 213 represents *all of these via atomic primitives*.
 
-## 핵심 발견
+## Key findings
 
-모든 noble gas (period closure) atomic:
+All noble gases (period closures) are atomic:
 
   Period 1 (Z=2)   He = NT
   Period 2 (Z=10)  Ne = d·NT
   Period 3 (Z=18)  Ar = 2·NS²
-  Period 4 (Z=36)  Kr = (NS·NT)²    ★ 같은 6=NS·NT 의 제곱
+  Period 4 (Z=36)  Kr = (NS·NT)²    ★ square of same 6=NS·NT
   Period 5 (Z=54)  Xe = 2·NS³
   Period 6 (Z=86)  Rn = 2·NS³ + NT^d
   Period 7 (Z=118) Og = 2·NS³ + 2·NT^d
-  Period 8 (Z=168) [예측] = HO magic 7 = n(n+1)(n+2)/3
+  Period 8 (Z=168) [prediction] = HO magic 7 = n(n+1)(n+2)/3
 
-## IE 정밀도
+## IE precision
 
   H   4.3 ppb formal Lean
   He  138 ppm  (4·R · (1/NT - 2α_GUT))
@@ -25,28 +25,28 @@ filling 가정.  DRLT 213 은 *모두 atomic primitives 표현*.
   B   1046 ppm
 
 P(x) = (1+2x)/(1+x), x = α_GUT·NS/d atomic.
-Same closed propagator 가 m_p, m_H, Ω_Λ, IE 모두 적용.
+The same closed propagator applies to m_p, m_H, Ω_Λ, and IE.
 
-## Hund 규칙 atomic
+## Hund's rule atomic
 
   ε_pair = R · NS/(NS²-1) = R · α_3 · NS = R · 3/8
 
-  같은 α_3 = 1/8 이 strong coupling + Hund penalty.
+  The same α_3 = 1/8 is strong coupling + Hund penalty.
 
-## 사용
+## Usage
 
 ```lean
 import E213.Physics.Phase4.Library.CompletePeriodicTable
 ```
 
-## 형식 보장
+## Formal guarantees
 
-  - 113 원소 + 5 super-heavy 모두 atomic 검증
-  - Period closures 7 + 1 예측 모두 atomic
-  - Hund 규칙 atomic Lean 정리 (0 axioms)
-  - 표준 quantum number 차용 부재
+  - All 113 elements + 5 super-heavy atomically verified
+  - Period closures 7 + 1 prediction all atomic
+  - Hund's rule atomic Lean theorem (0 axioms)
+  - No borrowing of standard quantum numbers
 
-## 참조
+## References
 
   blueprints/physics/01_atomic_physics_213.md
   catalogs/periodic-table.md

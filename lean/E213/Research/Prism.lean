@@ -1,41 +1,41 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.Prism: Lens 의 categorical dual
+# Research.Prism: categorical dual of Lens
 
-User directive (2026-04-25): "Lens 의 쌍대 (Prism) 개념 을 213 의
-문법 으로 가져와 대수적 dual 을 구축".
+User directive (2026-04-25): "bring the Prism concept (dual of Lens)
+into the 213 grammar and build the algebraic dual."
 
-Functional programming 의 Prism 의 213-form:
+The 213-form of the functional-programming Prism:
 - `preview : Raw → Option α` (partial getter).
 - `review : α → Raw` (constructor / injection).
-- coherence: review 후 preview 가 round-trip.
+- coherence: preview after review is a round-trip.
 
-## 의의
+## Significance
 
-Lens 가 Raw 의 *모든* element 를 α 로 view (total).
-Prism 이 Raw 의 *specific case* 만 α 로 extract (partial) +
-α 의 element 를 Raw 로 inject (constructor).
+Lens views *every* element of Raw as α (total).
+Prism extracts only *specific cases* of Raw as α (partial) and
+injects elements of α back into Raw (constructor).
 
 → Lens = product accessor, Prism = sum/coproduct accessor.
 
 ## Concrete instances
 
-- `aPrism : Prism Unit` — Raw.a 의 case.
-- `bPrism : Prism Unit` — Raw.b 의 case.
+- `aPrism : Prism Unit` — case of Raw.a.
+- `bPrism : Prism Unit` — case of Raw.b.
 
-각 prism 이 Raw 의 specific element 를 *distinguishably* extract.
+Each prism extracts a specific element of Raw *distinguishably*.
 -/
 
 namespace E213.Research.Prism
 
 open E213.Firmware E213.Hypervisor
 
-/-- 213-style Prism: Lens 의 categorical dual.
+/-- 213-style Prism: categorical dual of Lens.
 
-    `preview` 가 specific case 의 partial extraction.
-    `review` 가 그 case 의 element 의 constructor.
-    coherence 가 round-trip property. -/
+    `preview` is the partial extraction of a specific case.
+    `review` is the constructor for that case's elements.
+    coherence is the round-trip property. -/
 structure Prism (α : Type) where
   preview : Raw → Option α
   review : α → Raw
@@ -47,7 +47,7 @@ namespace E213.Research.Prism
 
 open E213.Firmware E213.Hypervisor
 
-/-- Decidable equality on Raw 으로 부터 specific case Prism. -/
+/-- Specific case Prism from decidable equality on Raw. -/
 def caseElement (target : Raw) : Prism Unit where
   preview r := if r = target then some () else none
   review _ := target
@@ -55,10 +55,10 @@ def caseElement (target : Raw) : Prism Unit where
     show (if target = target then some () else none) = some ()
     rw [if_pos rfl]
 
-/-- Raw.a 의 case Prism. -/
+/-- Case Prism for Raw.a. -/
 def aPrism : Prism Unit := caseElement Raw.a
 
-/-- Raw.b 의 case Prism. -/
+/-- Case Prism for Raw.b. -/
 def bPrism : Prism Unit := caseElement Raw.b
 
 end E213.Research.Prism
@@ -67,7 +67,7 @@ namespace E213.Research.Prism
 
 open E213.Firmware E213.Hypervisor
 
-/-- aPrism preview 가 Raw.a 에서 some, Raw.b 에서 none. -/
+/-- aPrism preview is some at Raw.a and none at Raw.b. -/
 theorem aPrism_a : aPrism.preview Raw.a = some () := by
   unfold aPrism caseElement
   show (if (Raw.a : Raw) = Raw.a then some () else none) = some ()

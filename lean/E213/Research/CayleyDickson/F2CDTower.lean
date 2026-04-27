@@ -148,7 +148,7 @@ Collecting the proofs above:
 | field | ✗ `F2D.eps_has_no_inverse` | ✓ |
 | ε² = 0 | ✓ `F2D.eps_sq_is_zero` | N/A |
 | i² = -1 | `e² = 1` (char 2 collapse) | ✓ |
-| bootstrap | **없음** | Nat bootstrap 경유 |
+| bootstrap | **none** | via Nat bootstrap |
 
 Layer 1 over 𝔽₂ is the **dual-number ring** 𝔽₂[ε]/ε² — a
 finite commutative ring with nilpotent ε.  It's NOT ℂ (which

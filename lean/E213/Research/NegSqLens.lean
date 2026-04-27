@@ -2,33 +2,34 @@ import E213.Hypervisor.Lens
 import E213.Research.DiagonalClassification
 
 /-!
-# Research.NegSqLens: diagonal classification 의 5번째 범주
+# Research.NegSqLens: fifth category of diagonal classification
 
-Note 35 의 4분류 (Collapse / Idempotent / Escalate / Multiply)
-는 완전하지 않음.  Bool 에서 **sq = negation** (involution)
-을 주는 combine 이 존재:
+The 4-way classification of Note 35 (Collapse / Idempotent /
+Escalate / Multiply) is not exhaustive.  Over Bool there exists a
+combine giving **sq = negation** (involution):
 
 ```
 def negSqLens.combine u v := if u = v then !u else true
 ```
 
-- `combine v v = !v` → sq 는 negation 함수.
-- 그 어느 4범주에도 속하지 않음.
+- `combine v v = !v` → sq is the negation function.
+- Does not belong to any of the four categories.
 
-§5 "본질은 4 + special case" 가 맞음 — special case 중 하나.
+The §5 claim "essentially 4 + special cases" is correct — this is one
+of those special cases.
 
-## 구조적 해석
+## Structural interpretation
 
-sq 는 involution: `sq (sq v) = v`.  Bool 의 `not` 함수.
-4분류는 `sq` 가 constant / id / linear / quadratic 인 경우;
-involution 은 제 5의 가능성.
+sq is an involution: `sq (sq v) = v`.  The `not` function on Bool.
+The 4-way classification covers the cases where `sq` is constant /
+id / linear / quadratic; involution is a fifth possibility.
 -/
 
 namespace E213.Research.NegSqLens
 
 open E213.Firmware E213.Hypervisor E213.Research.DiagonalClassification
 
-/-- Negation-sq Lens on Bool.  대각에서 !v, 대각 외에서 true. -/
+/-- Negation-sq Lens on Bool.  !v on the diagonal, true off-diagonal. -/
 def negSqLens : Lens Bool where
   base_a := false
   base_b := true
@@ -38,14 +39,13 @@ def negSqLens : Lens Bool where
 theorem negSqLens_sq (v : Bool) : sq negSqLens v = !v := by
   cases v <;> rfl
 
-/-- negSqLens 는 Idempotent 가 아님 (sq v = !v ≠ v). -/
+/-- negSqLens is not Idempotent (sq v = !v ≠ v). -/
 theorem negSqLens_not_idempotent : ¬ Idempotent negSqLens := by
   intro h
   have : (!true : Bool) = true := h true
   cases this
 
-/-- negSqLens 는 어떤 e 에 대해서도 Collapse 가 아님
-    (sq 가 non-constant). -/
+/-- negSqLens is not Collapse for any e (sq is non-constant). -/
 theorem negSqLens_not_collapse : ¬ ∃ e : Bool, Collapse negSqLens e := by
   intro ⟨e, hC⟩
   have h1 : (!true : Bool) = e := hC true
@@ -57,7 +57,7 @@ theorem negSqLens_not_collapse : ¬ ∃ e : Bool, Collapse negSqLens e := by
   rw [← h1] at h2
   cases h2
 
-/-- combine 은 symmetric (Lens 의 AXIOM 준수 요건). -/
+/-- combine is symmetric (satisfies the Lens AXIOM requirement). -/
 theorem negSqLens_symmetric :
     ∀ u v : Bool, negSqLens.combine u v = negSqLens.combine v u := by
   intro u v; cases u <;> cases v <;> rfl

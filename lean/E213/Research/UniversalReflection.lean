@@ -1,24 +1,23 @@
 import E213.Research.SemanticAtom
 
 /-!
-# Research.UniversalReflection: universalMorphism 의 Lens reflection
+# Research.UniversalReflection: Lens reflection of universalMorphism
 
-User directive (2026-04-25): "Raw.fold 의 environment-level
-reduction 의 우회 — reflection theorem 으로 environment 의 한계
-를 mathematical 으로 우회".
+User directive (2026-04-25): "Bypassing environment-level reduction of Raw.fold
+— mathematically bypassing the limits of the environment via a reflection
+theorem".
 
-`universalMorphism α : Raw → α` 자체 가 어떤 Lens 의 view —
-즉 framework 의 abstract HasDistinguishing instance 가 concrete
-Lens 의 specific instance.
+`universalMorphism α : Raw → α` is itself the view of some Lens —
+that is, the abstract HasDistinguishing instance of the framework is a
+specific instance of a concrete Lens.
 
-## 의의
+## Significance
 
-reflection: HasDistinguishing α (typeclass) → Lens α (data) →
-view : Raw → α.  같은 universalMorphism 이 두 form 으로 표현
-가능.
+Reflection: HasDistinguishing α (typeclass) → Lens α (data) →
+view : Raw → α.  The same universalMorphism is expressible in two forms.
 
-→ framework 의 self-reflective property: typeclass-level
-의 instance 가 data-level 의 Lens 로 reflect.
+→ Self-reflective property of the framework: a typeclass-level instance
+reflects as a data-level Lens.
 -/
 
 namespace E213.Research.UniversalReflection

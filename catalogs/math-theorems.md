@@ -187,7 +187,7 @@ import E213.Research.Real213FluxEquivOps     -- neg/add/sub respect cohomEquiv
 ### D.3 Polynomial flux + MVT framework
 
 ```lean
-import E213.Research.Real213FluxPolynomial   -- localDivergence_square/cube/quartic 등
+import E213.Research.Real213FluxPolynomial   -- localDivergence_square/cube/quartic etc.
 import E213.Research.Real213FluxMVT          -- fluxBalance + concrete cases
 import E213.Research.Real213FluxMVTConcrete  -- mvt_id_unitBracket (propEq)
 import E213.Research.Real213FluxMVTPolynomial -- square, cube at unit (propEq)

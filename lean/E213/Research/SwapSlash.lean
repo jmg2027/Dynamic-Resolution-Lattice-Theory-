@@ -2,14 +2,13 @@ import E213.Firmware.Raw.SwapSlash
 import E213.Prelude
 
 /-!
-# Research.SwapSlash: Raw.swap 의 Function.Injective / Surjective form
+# Research.SwapSlash: Function.Injective / Surjective form of Raw.swap
 
-핵심 정리 `Raw.swap_injective`, `Raw.swap_slash` 는 Firmware
-(`Firmware/Raw/Swap.lean`, `Firmware/Raw/SwapSlash.lean`)
-에 있음.
+The key theorems `Raw.swap_injective` and `Raw.swap_slash` are in Firmware
+(`Firmware/Raw/Swap.lean`, `Firmware/Raw/SwapSlash.lean`).
 
-이 파일은 `Function.Injective` / `Function.Surjective` form
-(Lens framework 내 사용) 재정리.
+This file restates them in the `Function.Injective` / `Function.Surjective`
+form (for use within the Lens framework).
 -/
 
 namespace E213.Research.SwapSlash

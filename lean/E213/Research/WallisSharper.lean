@@ -3,21 +3,21 @@ import E213.Research.WallisSeq
 /-!
 # Research.WallisSharper: π/2 > 64/45 strict bound (n ≥ 2)
 
-PAPER1 §7.5 의 W_n ≥ 4/3 의 sharper version.
+Sharper version of the W_n ≥ 4/3 bound from PAPER1 §7.5.
 
-## 핵심
+## Core
 
 `wallis_sharper_lower`: `n ≥ 2 → 45 * wallisNum n ≥ 64 *
 wallisDen n`.  W_2 = 64/45 base, then monotonic increase.
 
-Inductive step uses `4(k+1)² ≥ (2k+1)(2k+3)` (degree-2
-polynomial identity), Flat-Monomial Strategy 로 close.
+The inductive step uses `4(k+1)² ≥ (2k+1)(2k+3)` (degree-2
+polynomial identity), closed via the Flat-Monomial Strategy.
 
-## 의의
+## Significance
 
-`m/k = 64/45` 에 대해 `orderProj 64 45` cut 이 close.
-intermediate (4/3, 64/45) cuts 도 case-by-case 가능 한
-threshold 추가.
+The `orderProj 64 45` cut closes for `m/k = 64/45`.
+Additional threshold cuts in (4/3, 64/45) can also be added
+case-by-case.
 -/
 
 namespace E213.Research.WallisSharper

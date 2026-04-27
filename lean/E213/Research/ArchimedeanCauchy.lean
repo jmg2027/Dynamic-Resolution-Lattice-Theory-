@@ -4,23 +4,23 @@ import E213.Research.ABLens
 /-!
 # Research.ArchimedeanCauchy: ℝ-like completion via Dedekind cut
 
-Mingu (C) 방향 (2026-04-25): abLens + order-projection family.
+Mingu (C) direction (2026-04-25): abLens + order-projection family.
 
-## 핵심
+## Core
 
 - **Lens core**: abLens : Lens (Nat × Nat).  Fold-structured.
 - **Order projection**: orderProj m k : (Nat × Nat) → Bool with
-  decide (a*k ≤ b*m).  Non-fold derived 평가.
-- **Order-Cauchy**: 모든 (m, k) reference 에 대해 orderProj
-  view eventually constant.
-- **Limit = Dedekind cut**: consistent decision function (m, k) →
-  Bool 자체 가 ℝ-element.
+  decide (a*k ≤ b*m).  Non-fold derived evaluation.
+- **Order-Cauchy**: orderProj view eventually constant for every
+  (m, k) reference.
+- **Limit = Dedekind cut**: the consistent decision function (m, k) →
+  Bool itself is an ℝ-element.
 
-## 213 의의
+## Significance for 213
 
-- Limit 이 새 Raw 부재 — Lens output 의 consistent decision.
-- Archimedean property: family 가 ℚ⁺ dense 라 자동.
-- 외부 metric 부재 — ordering 만 fold-structured Bool family.
+- The limit is not a new Raw — it is a consistent decision on Lens output.
+- Archimedean property: automatic because the family is ℚ⁺-dense.
+- No external metric — ordering only, as a fold-structured Bool family.
 -/
 
 namespace E213.Research.ArchimedeanCauchy
@@ -29,13 +29,13 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.LensCauchy
 
 /-- **Order projection**: (a, b) ↦ decide (a * k ≤ b * m).
-    Cross-multiplication form 으로 a/b ≤ m/k 비교 (k ≥ 1 가정).
-    Lens 자체 가 아니라 abLens 의 image 위 derived 평가. -/
+    Cross-multiplication form comparing a/b ≤ m/k (assuming k ≥ 1).
+    A derived evaluation on the image of abLens, not a Lens itself. -/
 def orderProj (m k : Nat) : (Nat × Nat) → Bool :=
   fun p => decide (p.1 * k ≤ p.2 * m)
 
-/-- **Order-Cauchy**: 모든 (m, k) 에 대해 orderProj 가 eventually
-    constant.  Dedekind cut 형 수렴. -/
+/-- **Order-Cauchy**: orderProj is eventually constant for every
+    (m, k).  Convergence in the Dedekind cut sense. -/
 def isOrderCauchy (xs : Nat → Raw) : Prop :=
   ∀ m k, k ≥ 1 → ∃ N, ∀ i j, i ≥ N → j ≥ N →
     orderProj m k (abLens.view (xs i)) = orderProj m k (abLens.view (xs j))
@@ -140,7 +140,7 @@ theorem ratio_one_below_orderProj_eventually
     ∃ N, ∀ n, n ≥ N →
       orderProj m k (n+1, n+2) = decide (k ≤ m) := by
   by_cases hkm : k ≤ m
-  · -- k ≤ m case: 항상 true
+  · -- k ≤ m case: always true
     refine ⟨0, ?_⟩
     intro n _
     unfold orderProj
@@ -149,7 +149,7 @@ theorem ratio_one_below_orderProj_eventually
     have h2 : (n+1) * m ≤ (n+2) * m := Nat.mul_le_mul_right m (by omega)
     have h3 : (n+1) * k ≤ (n+2) * m := Nat.le_trans h1 h2
     simp [hkm, h3]
-  · -- k > m case: n 충분 크면 false
+  · -- k > m case: false for sufficiently large n
     have hkmgt : k > m := Nat.lt_of_not_le hkm
     refine ⟨m + 1, ?_⟩
     intro n hn

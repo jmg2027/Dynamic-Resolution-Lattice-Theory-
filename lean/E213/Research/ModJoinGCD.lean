@@ -3,25 +3,27 @@ import E213.Research.ModJoinEuclidean
 import E213.Research.JoinEquiv
 
 /-!
-# Research.ModJoinGCD: 일반 join = gcd (임의 m, k ≥ 2)
+# Research.ModJoinGCD: general join = gcd (arbitrary m, k ≥ 2)
 
-`ModJoinEuclidean.euclidean_step` + `ModJoinBezout.consecutive_refines_const`
-를 strong induction 으로 iterate 해서 임의 m, k ≥ 2 에 대해
+Iterates `ModJoinEuclidean.euclidean_step` and
+`ModJoinBezout.consecutive_refines_const` via strong induction to
+establish, for arbitrary m, k ≥ 2:
 
     L_m.refines N ∧ L_k.refines N → L_{gcd m k}.refines N.
 
-즉 refines preorder 의 **join = gcd** 이 mod family 전체에서
-확립 (universal direction).
+That is, **join = gcd** in the refines preorder holds throughout the
+entire mod family (universal direction).
 
-Recall: `LeavesModNat.gcd_upper_bound` 은 반대 방향 (L_m,
-L_k 가 L_gcd 를 refine).  두 방향 합쳐 mod family 의
-**join semilattice 구조 = Nat.gcd lattice**.
+Recall: `LeavesModNat.gcd_upper_bound` gives the opposite direction
+(L_m, L_k are refined by L_gcd).  Together the two directions
+establish **join semilattice structure = Nat.gcd lattice** for the
+mod family.
 
 ## gcd = 1 case
 
-m, k coprime (gcd = 1) 이면 L_1.refines N 을 얻음.
-`leavesModNat 1` 은 모든 r 에 대해 view = 0 이므로 refines 가
-"N constant" 와 동치.  따라서 coprime 은 "N 은 constant" 를 의미.
+When m, k are coprime (gcd = 1), we obtain L_1.refines N.
+Since `leavesModNat 1` has view = 0 for every r, refines is
+equivalent to "N constant."  Hence coprimality implies "N is constant."
 -/
 
 namespace E213.Research.ModJoinGCD
@@ -100,15 +102,15 @@ private theorem join_refines_gcd_sorted {α : Type} (N : Lens α) :
             rw [gcd_sub_left m k (by omega), Nat.gcd_comm]
             exact hrec
 
-/-- **Join = gcd (main theorem)**: 임의 m, k ≥ 2 에 대해
+/-- **Join = gcd (main theorem)**: for arbitrary m, k ≥ 2,
     L_m.refines N ∧ L_k.refines N → L_{gcd m k}.refines N.
 
-    두 의의:
-    - `LeavesModNat.gcd_upper_bound` (L_m, L_k 가 L_gcd 에 의해
-      refine 됨) 와 합쳐, refines preorder 의 **least upper bound
-      characterization** (gcd 이 least).
-    - gcd = 1 (coprime) 이면 L_1.refines N = N constant.  따라서
-      coprime + N 양쪽 refine → N 은 constant. -/
+    Two significances:
+    - Combined with `LeavesModNat.gcd_upper_bound` (L_m, L_k are
+      refined by L_gcd), gives the **least upper bound
+      characterization** of the refines preorder (gcd is least).
+    - When gcd = 1 (coprime), L_1.refines N = N constant.  Hence
+      coprime + N refines both → N is constant. -/
 theorem join_refines_gcd {α : Type} (N : Lens α) (m k : Nat)
     (hm : m ≥ 2) (hk : k ≥ 2)
     (hLm : (leavesModNat m).refines N)
@@ -127,9 +129,10 @@ namespace E213.Research.ModJoinGCD
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
 
-/-- **Sanity check**: L_4 + L_6 → L_2 은 join_refines_gcd 의
-    특수 경우 (gcd 4 6 = 2).  `ModJoinExample.mod_4_6_refines_parity`
-    의 manual Bezout 구성과 일관. -/
+/-- **Sanity check**: L_4 + L_6 → L_2 is a special case of
+    join_refines_gcd (gcd 4 6 = 2).  Consistent with the manual
+    Bezout construction of
+    `ModJoinExample.mod_4_6_refines_parity`. -/
 example {α : Type} (N : Lens α)
     (hL4 : (leavesModNat 4).refines N)
     (hL6 : (leavesModNat 6).refines N) :
@@ -139,8 +142,8 @@ example {α : Type} (N : Lens α)
   rw [hgcd] at this
   exact this
 
-/-- **Sanity check**: L_2 + L_3 → N constant 은
-    `ModJoinCoprime` 와 일관.  gcd 2 3 = 1, L_1.refines N = N const. -/
+/-- **Sanity check**: L_2 + L_3 → N constant is consistent with
+    `ModJoinCoprime`.  gcd 2 3 = 1, L_1.refines N = N const. -/
 example {α : Type} (N : Lens α)
     (hL2 : (leavesModNat 2).refines N)
     (hL3 : (leavesModNat 3).refines N) :
@@ -160,9 +163,9 @@ namespace E213.Research.ModJoinGCD
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.JoinEquiv
 
-/-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k 는 L_gcd
-    의 equivalence 에 포함.  `JoinEquiv_is_least` + `gcd_upper_bound`
-    의 직접 귀결. -/
+/-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k is contained in
+    the equivalence of L_gcd.  Direct consequence of
+    `JoinEquiv_is_least` + `gcd_upper_bound`. -/
 theorem joinEquiv_subset_gcd (m k : Nat)
     (x y : Raw)
     (h : JoinEquiv (leavesModNat m) (leavesModNat k) x y) :

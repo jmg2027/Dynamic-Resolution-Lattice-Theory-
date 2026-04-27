@@ -4,26 +4,27 @@ import E213.Research.ArchimedeanCauchy
 /-!
 # Research.MonotonicBoundedCauchy: monotonic ab-sequence → orderCauchy
 
-Specific transcendental cuts (e ∈ (2, 3), π/2 ∈ (1, 2) 등) 의
-**일반화**: ab-monotonically increasing sequence 는 임의 (m, k)
-threshold 에 대해 자동 isOrderCauchy.
+**Generalization** of specific transcendental cuts
+(e ∈ (2, 3), π/2 ∈ (1, 2), etc.): an ab-monotonically increasing
+sequence is automatically isOrderCauchy for every (m, k) threshold.
 
-## 핵심 통찰
+## Key Insight
 
-orderProj m k (a, b) = decide (a*k ≤ b*m) 은 ab-ratio a/b vs m/k
-비교.  Sequence 가 monotonic increasing 이면 Bool sequence
-{orderProj m k (xs n)} 는 한 번 만 transition (true → false).
-따라서 eventually constant — orderCauchy.
+orderProj m k (a, b) = decide (a*k ≤ b*m) compares the ab-ratio
+a/b against m/k.  When the sequence is monotonically increasing the
+Bool sequence {orderProj m k (xs n)} transitions at most once
+(true → false).  Therefore it is eventually constant — orderCauchy.
 
-## 적용
+## Applications
 
-- EulerSeq: a_n / d_n = Σ 1/k! 가 monotonic increasing → 임의 (m, k)
-  cut 에서 orderCauchy.
-- WallisSeq: W_n = ∏ (2k)²/((2k-1)(2k+1)) 가 monotonic increasing
-  → 같은 결론.
+- EulerSeq: a_n / d_n = Σ 1/k! is monotonically increasing →
+  orderCauchy at every (m, k) cut.
+- WallisSeq: W_n = ∏ (2k)²/((2k-1)(2k+1)) is monotonically
+  increasing → same conclusion.
 
-이 일반 정리 가 이전 specific cuts (m/k ≥ 3, m/k ≤ 2 등) 을
-**모든 (m, k)** 로 자동 확장 — Paper 1 의 §7 closure 강화.
+This general theorem automatically extends earlier specific cuts
+(m/k ≥ 3, m/k ≤ 2, etc.) to **all (m, k)** — strengthening the §7
+closure of Paper 1.
 
 `#print axioms`: [propext] only.
 -/
@@ -141,7 +142,8 @@ open E213.Research.ABLens E213.Research.ArchimedeanCauchy
 
 /-! ### orderProj false propagates forward (monotonic) -/
 
-/-- 한 시점 N 에서 orderProj false 면, monotonic 으로 i ≥ N 모두 false. -/
+/-- If orderProj is false at some time N, then by monotonicity it is
+    false for all i ≥ N. -/
 theorem orderProj_false_propagates (xs : Nat → Raw)
     (hmono : IsAbMonotonic xs) (hpos : IsAbPositiveB xs)
     (m k N : Nat) (hN_false : orderProj m k (abLens.view (xs N)) = false)

@@ -4,17 +4,18 @@ import E213.Research.InstanceReach
 /-!
 # Research.PairInstance: categorical product of HasDistinguishing
 
-`α × β` 가 HasDistinguishing instance — 두 instance 의 categorical
-product.  universalMorphism 이 components 별 fold 로 split.
+`α × β` is a HasDistinguishing instance — the categorical product of
+two instances.  universalMorphism splits componentwise as a fold.
 
-## 결과
+## Results
 
 - `pairHasDistinguishing α β`: pair instance.
 - `universalMorphism_pair_commute`: universalMorphism (α × β)
   = (universalMorphism α, universalMorphism β) componentwise.
 
-이게 distinguishing-framework category 의 *binary product* 의
-universal property — 의미 atom 의 product structure.
+This is the universal property of the *binary product* in the
+distinguishing-framework category — the product structure of semantic
+atoms.
 -/
 
 namespace E213.Research.PairInstance
@@ -22,7 +23,7 @@ namespace E213.Research.PairInstance
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- Pair instance: 두 HasDistinguishing 의 product. -/
+/-- Pair instance: the product of two HasDistinguishing instances. -/
 def pairHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]
     [d_β : HasDistinguishing β] : HasDistinguishing (α × β) where
   a := (d_α.a, d_β.a)
@@ -43,7 +44,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
 /-- **Universal property of binary product**: universalMorphism (α × β)
-    가 components 별 universalMorphism 의 pair. -/
+    is the pair of componentwise universalMorphisms. -/
 theorem universalMorphism_pair_commute (α β : Type)
     [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (r : Raw) :
     @universalMorphism (α × β) (pairHasDistinguishing α β) r
@@ -88,11 +89,12 @@ open E213.Research.SemanticAtom
 
 /-! ### Pair forget projections (categorical projection morphisms)
 
-`α × β → α` 와 `α × β → β` 가 distinguishing-framework category
-의 *projection* — categorical product 의 universal property 의
-일부.
+`α × β → α` and `α × β → β` are *projections* in the
+distinguishing-framework category — part of the universal property of
+the categorical product.
 
-`DistMorphism` 의 typeclass synthesis 부재 라 직접 record 형식.
+Written as direct records since typeclass synthesis for `DistMorphism`
+is absent.
 -/
 
 /-- pair forget projection α × β → α 의 properties. -/
@@ -129,11 +131,11 @@ namespace E213.Research.PairInstance
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-! ### Universal property 와 forget 의 결합
+/-! ### Combination of universal property and forget projections
 
-universalMorphism (α × β) 의 first/second projection 이 components
-별 universalMorphism — categorical product 의 universal property
-의 직접 귀결. -/
+The first/second projection of universalMorphism (α × β) equals the
+componentwise universalMorphism — a direct consequence of the
+universal property of the categorical product. -/
 
 theorem universalMorphism_first (α β : Type)
     [d_α : HasDistinguishing α] [d_β : HasDistinguishing β] (r : Raw) :
