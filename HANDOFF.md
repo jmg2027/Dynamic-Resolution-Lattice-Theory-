@@ -17,8 +17,8 @@ atomicity-forced (already proven in `AlphaEMSimplicial.lean`).
 "25/3 conjectural" tag was wrong: 25/3 = (NS²−1) + 1/NS = b₁ +
 1/(#4-cycles), both Raw-derived.
 
-### 3. Cohomology 213 marathon — Phases CA + CB + CC + CD closed
-12 files / ~40 theorems / 0 axiom in `lean/E213/Math/Cohomology/`.
+### 3. Cohomology 213 marathon — Phases CA + CB + CC + CD + CE closed
+14 files / ~50 theorems / 0 axiom in `lean/E213/Math/Cohomology/`.
 
 CA (cochain foundation, 5 files): Cochain + SimplexBasis + Delta +
 DeltaSqZero + TrivialCases. δ²=0 verified at concrete cochains.
@@ -31,13 +31,18 @@ CC partial (1 file): BettiKernel.lean defines kernel enumeration.
 confirms Δ⁴ is contractible (b̃_0 = b̃_1 = 0 reduced ℤ/2).
 
 CD (cup product, 3 files): Cup + CupLeibniz + CupRing.
-Cup defined Alexander–Whitney style; ε ∈ C⁰ = `fun _ => true` is
-left + right unit; associativity verified at all-true ⌣ all-true ⌣
-all-true and v0 ⌣ all-true ⌣ all-true; **Leibniz rule
-δ(α ⌣ β) = δα ⌣ β XOR α ⌣ δβ** decide-checked at four cochain
-pairs (this is what makes cup descend to H*); cochain-level
-non-commutativity formally noted (graded-commutativity holds only
-on H*, not pointwise).
+Cup defined Alexander–Whitney style; ε ∈ C⁰ unit; associativity at
+two cochain triples; **Leibniz rule δ(α ⌣ β) = δα ⌣ β XOR α ⌣ δβ**
+decide-checked at four pairs (cup descends to H*); cochain-level
+non-commutativity noted (graded-comm only on H*).
+
+CE (bipartite cochains, 2 files): Bipartite32 + Bipartite32Betti.
+A SEPARATE cochain construction for K_{3,2}^{(2)} (graph, not
+simplex): 5 vertices Fin 5 → Bool, 12 edges Fin 12 → Bool, with
+δ₀(σ)(e) = σ(src e) XOR σ(tgt e). Enumeration over 32 vertex
+cochains gives |ker δ₀| = 2 ⇒ b₀ = 1; rank-nullity gives
+**b₁ = 8 = NS² − 1**, re-establishing PhotonKernel.b_1_eq_8 at
+full cochain level.
 
 ## Lessons learned
 
