@@ -1,4 +1,5 @@
 import E213.Research.Real213DyadicBracket
+import E213.Research.Real213ConsistentOracle
 
 /-!
 # Research.Real213DyadicTrajectory: concrete bisection trajectories
@@ -224,6 +225,48 @@ theorem unit_universal_invariants (oracle : DyadicOracle) (n : Nat) :
   · rw [DyadicBracket.bisectN_expE oracle n unitBracket]
     show 0 + n = n
     exact Nat.zero_add n
+
+/-- **Power-of-two grows linearly-or-faster**: 2^(x+1) ≥ x + 1 for
+    all x.  Used to bound consistency thresholds. -/
+private theorem two_pow_ge_succ (x : Nat) : x + 1 ≤ 2^(x+1) := by
+  induction x with
+  | zero => decide
+  | succ y ih =>
+    show y + 1 + 1 ≤ 2^(y+1+1)
+    rw [Nat.pow_succ]
+    omega
+
+/-- **alwaysTrue trajectory on unit bracket is a ConsistentOracle**.
+    Threshold: thresholdN m k := k.  At depth n ≥ k, the midCut value
+    at (m, k) is fully determined (cases on m: m=0 cut is constant
+    immediately; m≥1 cut becomes constant true once 2^(n+1) ≥ k). -/
+def ConsistentOracle.alwaysTrueUnit : ConsistentOracle unitBracket where
+  oracle := alwaysTrue
+  thresholdN := fun _ k => k
+  consistency := by
+    intro m k n1 n2 hn1 hn2
+    have hk1 : n1 ≥ k := hn1
+    have hk2 : n2 ≥ k := hn2
+    rw [alwaysTrue_unit_midCut n1, alwaysTrue_unit_midCut n2]
+    show decide (1 * k ≤ 2^(n1+1) * m) = decide (1 * k ≤ 2^(n2+1) * m)
+    cases m with
+    | zero =>
+      show decide (1*k ≤ 2^(n1+1) * 0) = decide (1*k ≤ 2^(n2+1) * 0)
+      rw [Nat.mul_zero, Nat.mul_zero]
+    | succ j =>
+      have h_pow1 : 2^(n1+1) ≥ k + 1 := by
+        have h := two_pow_ge_succ n1; omega
+      have h_pow2 : 2^(n2+1) ≥ k + 1 := by
+        have h := two_pow_ge_succ n2; omega
+      have h_le1 : 1*k ≤ 2^(n1+1) * (j+1) := by
+        have : 2^(n1+1) * (j+1) ≥ 2^(n1+1) :=
+          Nat.le_mul_of_pos_right _ (Nat.succ_pos j)
+        omega
+      have h_le2 : 1*k ≤ 2^(n2+1) * (j+1) := by
+        have : 2^(n2+1) * (j+1) ≥ 2^(n2+1) :=
+          Nat.le_mul_of_pos_right _ (Nat.succ_pos j)
+        omega
+      rw [decide_eq_true h_le1, decide_eq_true h_le2]
 
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
