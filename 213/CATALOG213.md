@@ -1,0 +1,475 @@
+# Catalog 213 — Analysis Library Reference
+
+라이브러리 사용 매뉴얼.  각 정리/구조의 **이름 + import 경로 + 용법**.
+
+---
+
+## Quick start — single import
+
+```lean
+import E213.Math.Analysis213    -- 모든 분석학 213 결과 한 줄 import
+```
+
+또는 layer별:
+
+```lean
+import E213.Math.Analysis       -- 기존 umbrella
+```
+
+---
+
+## A. 기본 산술 — Cut Algebra
+
+### A.1 Ground type
+
+```lean
+import E213.Research.Real213CutSumTest
+-- def constCut (a b : Nat) : Nat → Nat → Bool := fun m k => decide (a*k ≤ b*m)
+```
+
+### A.2 Sum / Mul
+
+```lean
+import E213.Research.Real213CutSum     -- cutSum, cutSumAux
+import E213.Research.Real213CutMul     -- cutMul, cutMulOuter, cutMulInner
+import E213.Research.Real213CutSumComm -- cutSum_comm
+import E213.Research.Real213CutMulComm -- cutMul_comm
+import E213.Research.Real213CutSumEq   -- cutSum_cutEq_*, cutMul_cutEq_*
+```
+
+### A.3 핵심 propEq 정리
+
+```lean
+import E213.Research.Real213CutSumZero  -- cutSum_zero_zero, cutMul_zero_zero, cutMid_zero_zero
+import E213.Research.Real213CutSumOne   -- cutSum_zero_const, cutSum_const_zero,
+                                         -- cutSum_int_int, cutSum_half_general,
+                                         -- cutSum_half_half, cutSum_int_half, etc.
+import E213.Research.Real213CutMulOne   -- cutMul_one_one, cutMul_one_const,
+                                         -- cutMul_const_one
+import E213.Research.Real213CutMidSelf  -- cutMid_self_constCut, cutMid_int_int,
+                                         -- cutMid_half_general
+```
+
+### A.4 Half / Double / Mid
+
+```lean
+import E213.Research.Real213CutBisection  -- cutHalf
+import E213.Research.Real213CutDouble     -- cutDouble
+import E213.Research.Real213CutPow        -- cutScale a b cx, cutPow x n
+import E213.Research.Real213CutPowConst   -- cutPow_one_n, cutPow_zero_succ
+```
+
+### A.5 Equivalence / Order
+
+```lean
+import E213.Research.Real213CutPoset      -- cutEq, cutLe, cutEq_refl/symm/trans
+```
+
+---
+
+## B. Dyadic 구조
+
+### B.1 DyadicBracket
+
+```lean
+import E213.Research.Real213DyadicBracket
+-- structure DyadicBracket where numA numB expE : Nat; hLe : numA ≤ numB
+-- DyadicBracket.leftCut, rightCut, midCut, leftHalf, rightHalf, bisectN
+```
+
+### B.2 Bisection trajectory
+
+```lean
+import E213.Research.Real213DyadicTrajectory
+-- alwaysTrue, alwaysFalse, unitBracket
+-- alwaysTrue_unit_numA/numB/expE n  closed forms
+-- alwaysFalse_unit_numA/numB/expE n closed forms
+-- ConsistentOracle structure
+```
+
+### B.3 Riemann sum
+
+```lean
+import E213.Research.Real213DyadicRiemann
+-- riemannSampleSum f db n
+-- riemannSampleSum_constCut a b db n : closed form for constants
+```
+
+### B.4 Dyadic interval brackets (★ 비-unit FTC)
+
+```lean
+import E213.Research.Real213IntegralIntInterval    -- intInterval n = [0, n]
+import E213.Research.Real213IntegralGeneralInt     -- intIntervalAB a b h = [a, b]
+import E213.Research.Real213IntegralDyadic         -- ★★ dyadicIntervalAB numA numB E h
+                                                     -- = [numA/2^E, numB/2^E] universal
+```
+
+---
+
+## C. 미분 학
+
+### C.1 IsSmooth filter
+
+```lean
+import E213.Research.Real213CutFnData              -- LocallyDeterminedData, addLDD, mulLDD, etc.
+import E213.Research.Real213IsSmooth
+-- structure IsSmooth f extends LocallyDeterminedData f where linearityModulus : Nat → Nat
+-- idIsSmooth, constIsSmooth, cutScaleIsSmooth, cutHalfIsSmooth
+-- addIsSmooth, mulIsSmooth, composeIsSmooth, midIsSmooth
+-- squareIsSmooth, cubeIsSmooth, ..., octicIsSmooth, ..., hexadecicIsSmooth
+-- cutPowFnIsSmooth n (★ ∀ n recursive)
+```
+
+### C.2 Resolution depth
+
+```lean
+import E213.Research.Real213ResolutionDepth
+-- cutPowFnIsSmooth_modulus n k : (cutPowFnIsSmooth n).linearityModulus k = n*k
+-- squareIsSmooth_modulus, cubeIsSmooth_modulus, ..., quarticIsSmooth_modulus
+```
+
+### C.3 IsDifferentiable
+
+```lean
+import E213.Research.Real213IsDifferentiable
+-- structure IsDifferentiable f extends IsSmooth f where
+--   derivative : Cut → Cut; derivativeSmooth : IsSmooth derivative
+-- idIsDifferentiable, constIsDifferentiable, addIsDifferentiable,
+-- mulIsDifferentiable, composeIsDifferentiable, cutPowFnIsDifferentiable n
+
+import E213.Research.Real213DifferentiableInstances  -- square, cube, quartic + cutScale, cutHalf
+import E213.Research.Real213DifferentiableHigherPow  -- nonic, decic, dodecic, hexadecic
+import E213.Research.Real213DifferentiableHighOrder  -- 9, 10, 12, 16
+import E213.Research.Real213DifferentiableMid        -- midIsDifferentiable + 인스턴스
+import E213.Research.Real213DifferentiableAffine     -- affine, polynomial sums
+import E213.Research.Real213DifferentiableCompose    -- compose 인스턴스
+```
+
+### C.4 Derivative closed forms
+
+```lean
+import E213.Research.Real213DerivativeForms
+-- id_derivative_form, const_derivative_form, add_derivative_form,
+-- mul_derivative_form, compose_derivative_form
+-- cutPow_derivative_step (recurrence)
+```
+
+### C.5 ★ Sharp resolution depth
+
+```lean
+import E213.Research.Real213DerivativeDepth                  -- cutPowFn_derivative_modulus
+import E213.Research.Real213ConcreteDerivativeModulus        -- square, cube, quartic
+import E213.Research.Real213ConcreteDerivativeModulusHigh    -- 5-8
+import E213.Research.Real213ConcreteDerivativeModulusFinal   -- 9, 10, 12, 16
+import E213.Research.Real213ConcreteDerivativeMega           -- ★ 11-fact bundle
+```
+
+---
+
+## D. Cohomological framework
+
+### D.1 FluxCut + 1-cochain
+
+```lean
+import E213.Research.Real213FluxCut          -- FluxCut, neg, add, sub, ofCut, zero
+                                              -- neg_neg, neg_add, sub_self_balanced
+import E213.Research.Real213FluxCochain      -- fluxAlong f db
+import E213.Research.Real213FluxDivergence   -- localDivergence, fluxScale
+```
+
+### D.2 Setoid bridge (★ no Quotient)
+
+```lean
+import E213.Research.Real213FluxEquiv        -- cohomEquiv Setoid (0 axioms!)
+import E213.Research.Real213FluxEquivOps     -- neg/add/sub respect cohomEquiv
+```
+
+### D.3 Polynomial flux + MVT framework
+
+```lean
+import E213.Research.Real213FluxPolynomial   -- localDivergence_square/cube/quartic 등
+import E213.Research.Real213FluxMVT          -- fluxBalance + concrete cases
+import E213.Research.Real213FluxMVTConcrete  -- mvt_id_unitBracket (propEq)
+import E213.Research.Real213FluxMVTPolynomial -- square, cube at unit (propEq)
+import E213.Research.Real213FluxMVTHigh      -- quartic at unit
+import E213.Research.Real213FluxMVTGeneric   -- ★ ∀n cutPow x^(n+1) MVT
+import E213.Research.Real213FluxMVTPassthrough  -- ★★ general passthrough MVT
+import E213.Research.Real213FluxMVTApplications -- passthrough corollaries
+import E213.Research.Real213FluxMVTClosure   -- passthrough closure (compose, mul)
+```
+
+---
+
+## E. MVT 위트니스 + 클래스
+
+### E.1 Passthrough class
+
+```lean
+import E213.Research.Real213FluxPassthroughClass    -- Passthrough struct, id_pass, cutPow_pass,
+                                                     -- compose_pass, mul_pass + .mvt, .ftc
+import E213.Research.Real213FluxPassthroughCatalog  -- 7-instance catalog
+```
+
+### E.2 ★ HasDyadicMVTWitness
+
+```lean
+import E213.Research.Real213FluxMVTWitness       -- ★ squareDerivative_at_half (c=1/2)
+import E213.Research.Real213HasDyadicMVTWitness  -- HasDyadicMVTWitness class
+import E213.Research.Real213FluxMVTMore          -- mid(x, x²) witness
+import E213.Research.Real213MVTWitnessCatalog    -- id at any c, x², mid(x,x²), id∘x²
+import E213.Research.Real213MVTWitnessChain      -- chain rule witness propagation
+import E213.Research.Real213FluxMVTNested        -- nested mid witness chain
+import E213.Research.Real213FluxMVTNested2       -- mid(mid, x²) witness
+import E213.Research.Real213FluxMVTPattern       -- 5-instance catalog
+import E213.Research.Real213FluxMVTPropagate     -- ★ generic mid propagation
+import E213.Research.Real213FluxMVTPropagateCompose -- ★ generic id-compose propagation
+```
+
+### E.3 ★ ClassicCalc unified class
+
+```lean
+import E213.Research.Real213ClassicCalc           -- ClassicCalc f := { diff, pass }
+                                                   -- id_calc, square_calc, cube_calc + .mvt, .ftc
+import E213.Research.Real213ClassicCalcHigher     -- 4-8차
+import E213.Research.Real213ClassicCalcExtreme    -- 9, 10, 12, 16
+import E213.Research.Real213ClassicCalcGeneric    -- ★ cutPow_calc n (∀ n)
+import E213.Research.Real213ClassicCalcMid        -- mid_calc + 인스턴스
+import E213.Research.Real213ClassicCalcCombinators -- compose_calc, mul_calc
+import E213.Research.Real213ClassicAnti           -- ClassicCalc → IsAntiderivative
+```
+
+---
+
+## F. 적분 / 안티미분
+
+### F.1 IsAntiderivative class
+
+```lean
+import E213.Research.Real213Antiderivative
+-- structure IsAntiderivative F sF f := { eq : sF.derivative = f }
+-- IsAntiderivative.id_anti, const_anti
+
+import E213.Research.Real213AntiderivativeCombinators  -- mid_anti, add_anti
+import E213.Research.Real213AntiderivativeStructural   -- fromDifferentiable (★ 모든 IsDiff)
+```
+
+### F.2 적분 = flux of antiderivative
+
+```lean
+import E213.Research.Real213IntegralViaAnti
+-- IsAntiderivative.integral hF db := fluxAlong F db
+
+import E213.Research.Real213IntegralProperties     -- integral_add, integral_mid, zero_length
+import E213.Research.Real213IndefiniteIntegral     -- indefIntFromZero
+
+import E213.Research.Real213IntegralIntInterval    -- ∫_0^n
+import E213.Research.Real213IntegralGeneralInt     -- ∫_a^b
+import E213.Research.Real213IntegralDyadic         -- ★★ ∫ over [a/2^E, b/2^E]
+```
+
+### F.3 FTC + Riemann
+
+```lean
+import E213.Research.Real213FluxFTC                -- ftc_bridge_id_unitBracket
+import E213.Research.Real213FluxFTCPolynomial      -- square/cube/quartic FTC bridges
+import E213.Research.Real213FTCRiemann             -- id depth-0 FTC propEq
+import E213.Research.Real213FTCRiemannSquare       -- x² depth-0
+import E213.Research.Real213FTCRiemannMid          -- mid(x, x²) depth-0
+import E213.Research.Real213FTCRiemannGeneric      -- ★ generic via witness
+import E213.Research.Real213FTCRiemannChain        -- chain instances
+```
+
+---
+
+## G. ODE + 물리
+
+```lean
+import E213.Research.Real213ODELinear              -- y' = a (linear)
+import E213.Research.Real213ODECatalog             -- 5-class trivial RHS
+import E213.Research.Real213ODESecondOrder         -- y'' = 0 for linear
+import E213.Research.Real213NewtonFirst            -- F=0 → constant velocity
+import E213.Research.Real213NewtonSecond           -- v' = a (Newton's 2nd in velocity form)
+import E213.Research.Real213CubeDerivativeAtZero   -- (x^n)' at 0 = 0
+```
+
+---
+
+## H. 급수 + 초월함수
+
+### H.1 Series infrastructure
+
+```lean
+import E213.Research.Real213CutSequence       -- CutSequence (Cauchy)
+import E213.Research.Real213CutSeries         -- partialSum, SeriesCauchy
+import E213.Research.Real213CutSeriesConst    -- partialSum 상수 closed forms
+import E213.Research.Real213CutSeriesZero     -- partialSum 0 시리즈
+import E213.Research.Real213CutSeriesConv     -- ratio/comparison test scaffold
+import E213.Research.Real213CutGeomSeries     -- geomHalfSeries
+import E213.Research.Real213FluxSeries        -- seriesFlux, geomHalfFlux
+import E213.Research.Real213GeomSeriesPartialSum  -- ★ S_1, S_2 propEq
+```
+
+### H.2 ★★ Transcendentals at zero
+
+```lean
+import E213.Research.Real213ExpAtZero          -- ★ exp(0) = 1
+import E213.Research.Real213SinCosAtZero       -- ★ sin(0) = 0, cos(0) = 1
+import E213.Research.Real213TranscendentalAtZero  -- ★★ 7 functions bundle
+                                                   -- exp/sin/cos/tan/sinh/cosh/log
+```
+
+---
+
+## I. Capstone 정리들
+
+라이브러리 사용 시 *바로 호출*하는 mega 정리들:
+
+| Capstone | Module | Facts |
+|---|---|---|
+| `phaseL_unified_capstone` | `Real213PhaseLCapstone` | 8 |
+| `allPhase_super_capstone` | `Real213PhaseLCapstone` | 7 |
+| `phaseAC_minimum_proposition` | `Real213PhaseACMinimumProposition` | 3 |
+| `phaseAD_unified_capstone` | `Real213PhaseADCapstone` | 7 |
+| `phaseAE_super_capstone` | `Real213PhaseAESuperCapstone` | 9 |
+| `phaseAH_grand_capstone` | `Real213PhaseAHGrandCapstone` | 11 |
+| `polynomial_diff_full_coverage` | `Real213DifferentiableMegaCoverage` | 12 |
+| `phaseAN_omega_capstone` | `Real213PhaseANOmegaCapstone` | 13 |
+| `concrete_derivative_sharp_pattern` | `Real213ConcreteDerivativeMega` | 11 |
+| `cohomology_arc_capstone` | `Real213FluxCohomologyCapstone` | 7 |
+| `phaseBA_capstone` | `Real213PhaseBACapstone` | 8 |
+| `phaseBH_grand_capstone` | `Real213PhaseBHCapstone` | 8 |
+| `phaseBQ_omega_capstone` | `Real213PhaseBQOmegaCapstone` | 11 |
+| `phaseCM_final_capstone` | `Real213PhaseCMFinalCapstone` | 10 |
+| `phaseCS_antiderivative_capstone` | `Real213PhaseCSCapstone` | 8 |
+| `phaseDA_omega_omega_capstone` | `Real213PhaseDAOmegaOmega` | 14 |
+| **★★★★ `phaseDK_ultimate_capstone`** | `Real213PhaseDKUltimate` | **18** |
+
+---
+
+## J. Usage examples — 라이브러리 호출 패턴
+
+### J.1 다항식 미분
+
+```lean
+import E213.Math.Analysis213
+open E213.Research.Real213CutSum
+
+-- 다항식 모듈러스
+example : (cutPowFnIsSmooth 5).linearityModulus 3 = 15 :=
+  cutPowFnIsSmooth_modulus 5 3
+
+-- 직접 구성 다항식 미분 (sharp)
+example : squareIsDifferentiable.derivativeSmooth.linearityModulus 7 = 7 :=
+  squareIsDifferentiable_derivative_modulus 7
+
+-- 미분의 명시 형식
+example (x : Cut) : squareIsDifferentiable.derivative x
+    = cutSum (cutMul (constCut 1 1) x) (cutMul x (constCut 1 1)) := rfl
+```
+
+### J.2 MVT 적용
+
+```lean
+-- ANY passthrough function — one-liner
+example (f : Cut → Cut)
+    (h0 : f (constCut 0 1) = constCut 0 1)
+    (h1 : f (constCut 1 1) = constCut 1 1) :
+    FluxCut.localDivergence f unitBracket = FluxCut.ofCut (constCut 1 1) :=
+  FluxCut.mvt_passthrough_unit f h0 h1
+
+-- 다항식 generic — ∀ n
+example (n : Nat) :
+    FluxCut.localDivergence (fun x => cutPow x (n+1)) unitBracket
+      = FluxCut.ofCut (constCut 1 1) :=
+  ClassicCalc.cutPow_calc_mvt n
+```
+
+### J.3 적분
+
+```lean
+-- ∫_0^n 1 dx = n
+example (n : Nat) :
+    IsAntiderivative.integral IsAntiderivative.id_anti (intInterval n)
+      = { forward := constCut n 1, backward := constCut 0 1 } := rfl
+
+-- ★★ ∫ over arbitrary dyadic interval
+example (numA numB E : Nat) (h : numA ≤ numB) :
+    IsAntiderivative.integral IsAntiderivative.id_anti
+        (dyadicIntervalAB numA numB E h)
+      = { forward := constCut numB (2^E), backward := constCut numA (2^E) } := rfl
+```
+
+### J.4 초월함수 at zero
+
+```lean
+-- exp(0) = 1
+example (n : Nat) : partialSum expTermsAtZero (n+1) = constCut 1 1 :=
+  expAtZero_partial_succ n
+
+-- sin(0) = 0
+example (n : Nat) : partialSum sinTermsAtZero n = constCut 0 1 :=
+  sinAtZero_partial n
+```
+
+### J.5 ODE / Newton
+
+```lean
+-- 1차 linear ODE: y' = a
+example (a b : Nat) :
+    (linearWithIntercept_isDifferentiable a b).derivative
+      = constCutFn (constCut a 1) :=
+  linearWithIntercept_derivative a b
+
+-- Newton 1st: 일정 속도
+example (v0 x0 : Nat) (t : Cut) :
+    (linearWithIntercept_isDifferentiable v0 x0).derivative t = constCut v0 1 := by
+  rw [velocity_is_v0]
+```
+
+### J.6 ULTIMATE 한 줄
+
+```lean
+-- Phase DK — 18-fact 한 줄로 모든 핵심 결과 호출
+example (n k v0 x0 a b numA numB E : Nat)
+    (h_num : numA ≤ numB)
+    (f : Cut → Cut)
+    (h_left : f (constCut 0 1) = constCut 0 1)
+    (h_right : f (constCut 1 1) = constCut 1 1) :=
+  phaseDK_ultimate_capstone n k v0 x0 a b numA numB E h_num
+                            f h_left h_right
+```
+
+---
+
+## K. axiom audit — 모든 결과 ≤ {propext, Quot.sound}
+
+```lean
+import E213.Math.Analysis213
+open E213.Research.Real213CutSum
+
+#print axioms phaseDK_ultimate_capstone
+-- 'phaseDK_ultimate_capstone' depends on axioms: [propext, Quot.sound]
+
+#print axioms FluxCut.cohomEquiv_refl
+-- 'FluxCut.cohomEquiv_refl' does not depend on any axioms  -- ★ 0 axioms!
+```
+
+---
+
+## L. 카탈로그 통계
+
+| 카테고리 | 모듈 수 | 주요 정리 수 |
+|---|---|---|
+| A. Cut Algebra | 10+ | 50+ propEq |
+| B. Dyadic 구조 | 6 | 30+ |
+| C. 미분학 | 12 | 80+ |
+| D. Cohomological | 7 | 30+ |
+| E. MVT 위트니스 | 13 | 40+ |
+| F. 적분 | 8 | 25+ |
+| G. ODE + 물리 | 6 | 20+ |
+| H. 급수 + 초월 | 9 | 20+ |
+| I. Capstone | 17 | 17 mega-conjunction |
+| **합계** | **88+** (전체 176 모듈 중 핵심) | **300+ 정리** |
+
+axioms ≤ {propext, Quot.sound} · 0 sorry · Mathlib-free
+
