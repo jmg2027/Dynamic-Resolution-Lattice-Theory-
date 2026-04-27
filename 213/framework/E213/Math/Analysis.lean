@@ -3,6 +3,10 @@ import E213.Research.Real213CutDiffQuotient
 import E213.Research.Real213CutRiemann
 import E213.Research.Real213AsLensOutput
 import E213.Research.Real213RecurrenceLens
+import E213.Research.Real213ValidCut
+import E213.Research.Real213ValidCutOps
+import E213.Research.Real213CutMidMono
+import E213.Research.Real213IVTContainment
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
