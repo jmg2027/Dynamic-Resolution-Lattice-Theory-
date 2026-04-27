@@ -7,6 +7,19 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### Phase AV-AX (bb375be → 43b7638) — **Cohomological flux arc** ★
+
+213-native subtraction: 산술적 음수가 아니라 **simplicial cohomology의 orientation**으로 부호 정의. 다른 AI가 "Option 3" 으로 힌트 준 방향, 정확히 213이 시키는 그것.
+
+- **AV-1**: `FluxCut := { forward, backward }` + neg involution + anti-morphism (0 axioms!)
+- **AV-2**: 1-cochain `fluxAlong f db` (constant flux는 ∂c=0, balanced)
+- **AV-3**: `localDivergence` = flux × 2^expE (= derivative as cohomological flux density)
+- **AV-4**: MVT framework + concrete cases (const, id at unitBracket)
+- **AW**: 다항식별 explicit divergence form (rfl-clean for square, cube, quartic, cutPow)
+- **AX**: 7-fact arc capstone
+
+진짜 게임체인저: 미분 = local divergence, MVT = path flux equality, FTC = boundary integral — 셋 모두 동일 cohomological 객체의 다른 측면. ZFC와 *근본적*으로 다른 표현.
+
 ### Phase AU (3e7db2d) — chain-rule derivative modulus (3 facts)
 ### Phase AT (17a2eb9) — polynomial sum derivative modulus
 ### Phase AS (f8347e2) — 11-degree concrete derivative sharp mega capstone
