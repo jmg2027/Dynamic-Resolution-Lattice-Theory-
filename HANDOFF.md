@@ -7,7 +7,15 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
-### Phase CN-CS (fd2faae → ★) — **IsAntiderivative 클래스 + 통합 framework** ★★
+### Phase CT-CV (b009abf → 70b9440) — **적분 성질 + ODE 카탈로그** ★
+
+- **CT**: 적분 선형성 + 영길이 구간 = 0 (mid_anti, add_anti 활용)
+- **CU**: ★ y' = a (linear ODE) propEq solution (linearWithIntercept)
+- **CV**: 5-class ODE 카탈로그 (y'=0, 1, a, a/b, 1/2 모두 propEq)
+
+★ 학부 첫 학기 ODE 핵심 (linear first-order, separable trivial cases) 형식화.
+
+### Phase CN-CS (fd2faae → 8d31a59) — **IsAntiderivative 클래스 + 통합 framework** ★★
 
 미적분학의 적분 측면 — antiderivative class + integral via flux.
 
