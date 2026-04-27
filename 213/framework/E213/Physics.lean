@@ -20,6 +20,8 @@ import E213.Physics.AlphaEMPrefactors
 import E213.Physics.PhotonKernel
 import E213.Physics.FaceTerms
 import E213.Physics.AlphaEMSimplicial
+import E213.Physics.MuOverE
+import E213.Physics.DysonStructure
 import E213.Physics.Capstone
 
 /-!
