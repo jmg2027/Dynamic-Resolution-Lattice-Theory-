@@ -28,4 +28,14 @@ theorem cutAbs_idempotent (s : SignedCut) : cutAbs (cutAbs s) = cutAbs s := rfl
 /-- abs sign 항상 positive. -/
 theorem cutAbs_sign (s : SignedCut) : (cutAbs s).sign = true := rfl
 
+/-- abs cut = original cut (sign-independent). -/
+theorem cutAbs_cut (s : SignedCut) : (cutAbs s).cut = s.cut := rfl
+
+/-- |−x| = |x|: abs forgets sign. -/
+theorem cutAbs_cutNeg (s : SignedCut) : cutAbs (cutNeg s) = cutAbs s := rfl
+
+/-- −|x| has sign := false, cut unchanged. -/
+theorem cutNeg_cutAbs (s : SignedCut) :
+    cutNeg (cutAbs s) = { sign := false, cut := s.cut } := rfl
+
 end E213.Research.Real213CutSum
