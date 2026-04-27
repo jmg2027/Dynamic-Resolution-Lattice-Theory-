@@ -44,7 +44,7 @@ multiple tiers per section.
 | 1/α_em = 137.036 (1a) | tight bracket [N=20] width 0.14, [N=50] width 0.024 | width < 10⁻⁴ | Ch. 05 |
 | 1/α_em = 137.036 (1b) | gap 5.443×10⁻⁴ → reframed: missing simplicial invariant | Cohomology 213 marathon (Phase CE) | Ch. 05 |
 | Cohomology 213 marathon | **CLOSED + Audit/Bridge + Chiral + L-Fractal + TopologyCompare** (23 files, ~85 theorems, 0 axiom). | Paper 1/2/3 reconstruction continues | Ch. 14 |
-| **Linalg213 (NEW marathon)** | Phase L1 started: Vec + Gram foundations (2 files). Target = rank-5 compression theorem (paper 1). | Rank.lean next | Ch. 14 |
+| **Linalg213 marathon** | Phases L1-L5 closed (6 files, ~30 theorems, ≤ {propext, Quot.sound}). Vec/Gram + linComb + universal basis decomp + chiral split (Vec 5 = VecS ⊕ VecT) + **Bridge to Cohomology 213** (all 0-axiom). | L6 capstone | Ch. 14 |
 | α_GUT = 6/(25π²) | bracket [N=3] width ~8 | width < 10⁻⁴ | Ch. 05 |
 | AlphaEM137 d²/NS=25/3 | conjectural-tagged | derive from Raw | Ch. 05 |
 | η_B | 0.5% narrative | ppb | Ch. 09 |
@@ -71,11 +71,6 @@ edit. `tools/FORBIDDEN.md` blocks `sorry`, `axiom`, `import Mathlib`,
 
 ## Update protocol
 
-This file is updated whenever:
-- A marathon closes a new theorem (move row from pending → pass-list).
-- A new Lean module appears that maps to a guide chapter.
-- A falsifier resolution is observed (mark passing/discarded).
-- A chapter migrates tier (T3 → T2 → T1 → T0).
-
-Sync targets at update: `INDEX.md`, affected chapter file,
-`appendix_lean_map.md`, `catalogs/falsifiers.md`.
+Updated when: marathon closes a theorem; new module appears;
+falsifier observed; chapter tier migrates. Sync `INDEX.md`,
+chapter files, `appendix_lean_map.md`, `catalogs/falsifiers.md`.
