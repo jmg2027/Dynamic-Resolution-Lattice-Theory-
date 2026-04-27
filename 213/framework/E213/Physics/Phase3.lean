@@ -82,6 +82,7 @@ import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 import E213.Physics.Phase3.UltraCapstone
 import E213.Physics.Phase3.FinalCapstone
+import E213.Physics.Phase3.MegaCapstone
 
 /-!
 # E213.Physics.Phase3 — root entry (Falsifier Track)
