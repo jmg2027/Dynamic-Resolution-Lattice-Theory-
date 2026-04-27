@@ -98,4 +98,39 @@ theorem cutSum_const_zero (a b : Nat) :
   rw [cutSum_comm (constCut a b) (constCut 0 1) m k]
   exact congrFun (congrFun (cutSum_zero_const a b) m) k
 
+/-- **cutSum (1/2) (1/2) = constCut 1 1**: 1/2 + 1/2 = 1. -/
+theorem cutSum_half_half :
+    cutSum (constCut 1 2) (constCut 1 2) = constCut 1 1 := by
+  funext m k
+  apply bool_eq_iff
+  show cutSumAux (constCut 1 2) (constCut 1 2) k (2*m) (2*m) = true
+       ↔ constCut 1 1 m k = true
+  rw [cutSumAux_eq_true_iff]
+  constructor
+  · rintro ⟨i, hi, hci, hcsi⟩
+    have h_2k_2i : 2*k ≤ 2*i := by
+      have : 1*(2*k) ≤ 2*i := of_decide_eq_true hci
+      rwa [Nat.one_mul] at this
+    have h_2k_2mi : 2*k ≤ 2*(2*m - i) := by
+      have : 1*(2*k) ≤ 2*(2*m - i) := of_decide_eq_true hcsi
+      rwa [Nat.one_mul] at this
+    have h_k_i : k ≤ i := Nat.le_of_mul_le_mul_left h_2k_2i (by decide : 0 < 2)
+    have h_k_mi : k ≤ 2*m - i := Nat.le_of_mul_le_mul_left h_2k_2mi (by decide : 0 < 2)
+    show decide (1*k ≤ 1*m) = true
+    rw [Nat.one_mul, Nat.one_mul]
+    apply decide_eq_true
+    omega
+  · intro h
+    have h_km : 1*k ≤ 1*m := of_decide_eq_true h
+    rw [Nat.one_mul, Nat.one_mul] at h_km
+    refine ⟨k, ?_, ?_, ?_⟩
+    · omega
+    · show decide (1*(2*k) ≤ 2*k) = true
+      rw [Nat.one_mul]
+      exact decide_eq_true (Nat.le_refl _)
+    · show decide (1*(2*k) ≤ 2*(2*m - k)) = true
+      rw [Nat.one_mul]
+      apply decide_eq_true
+      omega
+
 end E213.Research.Real213CutSum
