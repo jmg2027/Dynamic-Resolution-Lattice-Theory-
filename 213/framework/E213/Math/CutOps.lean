@@ -19,6 +19,12 @@ import E213.Research.Real213CutSumZero
 import E213.Research.Real213CutSumEq
 import E213.Research.Real213CutDouble
 import E213.Research.Real213CutMoreTests
+import E213.Research.Real213CutScaleLattice
+import E213.Research.Real213CutSumOne
+import E213.Research.Real213CutMulOne
+import E213.Research.Real213CutMidSelf
+import E213.Research.Real213CutPowConst
+import E213.Research.Real213ConstCutScale
 
 /-!
 # E213.Math.CutOps: cut-level rational arithmetic operations

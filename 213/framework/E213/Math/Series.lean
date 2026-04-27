@@ -4,6 +4,7 @@ import E213.Research.Real213CutExp
 import E213.Research.Real213CutTrig
 import E213.Research.Real213CutSeriesConv
 import E213.Research.Real213CutSeriesZero
+import E213.Research.Real213CutSeriesConst
 
 /-!
 # E213.Math.Series: series + specific functions
