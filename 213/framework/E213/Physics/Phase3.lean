@@ -11,6 +11,7 @@ import E213.Physics.Phase3.CassiniLink
 import E213.Physics.Phase3.AlphaEMSharp
 import E213.Physics.Phase3.LeptonRatios
 import E213.Physics.Phase3.CKMSpecific
+import E213.Physics.Phase3.ProtonMassSharp
 import E213.Physics.Phase3.Capstone
 
 /-!
@@ -35,7 +36,8 @@ Phase 2 = axiom-level 트랙 (시점 명시).
   * `AlphaEMSharp`          — 137 정수 + bracket
   * `LeptonRatios`          — m_μ/m_e 0.48 ppb falsifier
   * `CKMSpecific`           — Cabibbo λ = 5/22 falsifier
-  * `Capstone`              — 16 falsifier 단일 종합
+  * `ProtonMassSharp`       — m_p = 938.27 MeV atomic exact
+  * `Capstone`              — 19 falsifier 단일 종합
 
 ## 운영 stake
 

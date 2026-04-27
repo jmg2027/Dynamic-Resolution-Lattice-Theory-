@@ -11,6 +11,7 @@ import E213.Physics.Phase3.CassiniLink
 import E213.Physics.Phase3.AlphaEMSharp
 import E213.Physics.Phase3.LeptonRatios
 import E213.Physics.Phase3.CKMSpecific
+import E213.Physics.Phase3.ProtonMassSharp
 
 /-!
 # Phase 3 Capstone — 모든 falsifier 단일 종합
@@ -64,8 +65,12 @@ theorem phase3_falsifiers :
     ∧ (5 * 41 = 205)
     -- (F13) CKM: λ = d/(d²-NS) = 5/22
     ∧ (E213.Physics.CKMHierarchy.lambda_num = d)
-    ∧ (E213.Physics.CKMHierarchy.lambda_den = d * d - NS) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    ∧ (E213.Physics.CKMHierarchy.lambda_den = d * d - NS)
+    -- (F14) Proton: 3-quark + closed propagator
+    ∧ (E213.Physics.Proton.closed_prop_factor_num = NS)
+    ∧ (E213.Physics.Proton.closed_prop_num_factor = 2)
+    ∧ (E213.Physics.Proton.closed_prop_factor_den = d) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
 end E213.Physics.Phase3.Capstone
