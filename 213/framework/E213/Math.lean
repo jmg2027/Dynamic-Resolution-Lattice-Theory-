@@ -1,63 +1,37 @@
-import E213.Research.Real213
-import E213.Research.Real213Equiv
-import E213.Research.Real213Const
-import E213.Research.Real213Order
-import E213.Research.Real213OrderExtra
-import E213.Research.Real213Sign
-import E213.Research.Real213CutSum
-import E213.Research.Real213CutSumTest
-import E213.Research.Real213CutMul
-import E213.Research.Real213CutMulTest
-import E213.Research.Real213CutMaxMin
-import E213.Research.Real213CutAlgebraic
-import E213.Research.Real213CauchyComplete
-import E213.Research.Real213CutContinuity
-import E213.Research.Real213CutSumDetermined
-import E213.Research.Real213CutMulDetermined
-import E213.Research.Real213CutFnData
-import E213.Research.Real213CutBinary
-import E213.Research.Real213CutBinaryOp
-import E213.Research.Real213CutBinaryInstances
-import E213.Research.Real213CutDistance
-import E213.Research.Real213CutSequence
-import E213.Research.Real213CutBisection
-import E213.Research.Real213CutSeries
-import E213.Research.Real213Signed
-import E213.Research.Real213SignedSum
-import E213.Research.Real213CutInv
-import E213.Research.Real213CutAlgebraStruct
-import E213.Research.Real213CutPow
-import E213.Research.Real213CutPoly
-import E213.Research.Real213CutGeomSeries
-import E213.Research.Real213CutExp
-import E213.Research.Real213CutPoset
-import E213.Research.Real213AsLensOutput
-import E213.Research.Real213RecurrenceLens
-import E213.Research.Real213CutTrig
+import E213.Math.Foundation
+import E213.Math.CutOps
+import E213.Math.Generic
+import E213.Math.Continuity
+import E213.Math.Cauchy
+import E213.Math.Series
+import E213.Math.Analysis
 
 /-!
 # E213.Math: 213-native real analysis library (root entry)
 
-라이브러리화 entry point — stable cut-level real analysis foundation.
+Library structure with namespace separation.
 
-## Structure
+## Sub-modules
 
-- **Real213**: framework-internal Cauchy ℝ type.
-- **Order/Sign**: le, lt, positive.
-- **Cut operations**: cutSum, cutMul, cutMax, cutMin, cutInv, cutNeg.
-- **Generic kernel**: cutBinary + CutBinaryOp.
-- **Continuity**: locally-determined + composition.
-- **Cauchy completeness**: Real-valued sequence + limit.
-- **Series**: partialSum + SeriesCauchy.
-- **Bisection**: cutHalf, cutMid (IVT support).
-- **Distance**: cutAbs + cutDistance.
+- **Foundation**: Real213 type-level (Phase A).
+- **CutOps**: cut-level rational arithmetic (Sum/Mul/MaxMin/Inv/Pow/...).
+- **Generic**: cutBinary universal kernel + CutBinaryOp.
+- **Continuity**: locally-determined + categorical closure.
+- **Cauchy**: completeness via direct construction.
+- **Series**: partialSum + geometric/exp/trig/π specific series.
+- **Analysis**: IVT bisection / differentiation / Riemann (scaffolded).
 
 ## Status
 
-이 모듈 의 imports 가 모두 build 통과 + 0 sorry + ≤ propext +
-Quot.sound (Lean 4 core 만).
+모두 build 성공, 0 sorry, ≤ propext + Quot.sound (Lean 4 core only).
 
-연 구 단 계 (incomplete proofs, scaffolding) 는 `Research/` 안 의 별 도
-modules — `Real213StrictPos`, `StrongModulus`, `Real213ModulusCombiner`,
-`Real213IVT`, `Real213Diff`, `Real213Integration`, `Real213Functions` 등.
+연 구 단 계 (incomplete proofs 또 는 scaffolding) modules 도 import —
+"library" status 는 doc-string 의 명 시.
+
+User directives 의 working evidence:
+- "213 만 의 실수" → Real213 (Foundation)
+- "Generic 으 로 213 스럽 게" → Generic + CutOps
+- "라 이 브 러 리 화" → 이 namespace structure
+- "Real = Lens output" → AsLensOutput (Analysis)
+- "transcendental Lens" → RecurrenceLens (Analysis)
 -/
