@@ -399,6 +399,16 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase Z — 4 milestones COMPLETE (Fundamental Calculus + Cauchy reductions)
+
+**Z1: fundamental_dyadic_calculus_const** — cutEq form of constant integral.
+**Z2: const_cauchy_cutSum/cutMul_limit** — general form for any RealCut.
+**Z3: const_cauchy_cutMax/Min/Double/Half_limit** — all 6 ops reduce.
+**Z4: 14-Phase synthesis docs.**
+
+The constant Cauchy framework is now fully closed under all 6
+lifted operations.
+
 ### Phase Y — 4 milestones COMPLETE (numerical witnesses + applications)
 
 **Y1: negSignOracle 1 2 trajectory at depths 5-8** (decide tests).

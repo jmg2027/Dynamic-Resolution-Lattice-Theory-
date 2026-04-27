@@ -8,6 +8,13 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase Z COMPLETE — Fundamental Calculus + Cauchy reductions
+
+- Z1: fundamental_dyadic_calculus_const (cutEq form).
+- Z2: const Cauchy cutSum/cutMul limits (general form).
+- Z3: const Cauchy cutMax/Min/Double/Half limits (all 6 ops).
+- Z4: 14-Phase synthesis docs.
+
 ### Phase Y COMPLETE — Numerical witnesses + applications
 
 - Y1: negSignOracle 1 2 unit at depths 5-8 (decide).
