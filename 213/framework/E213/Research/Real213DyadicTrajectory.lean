@@ -606,6 +606,29 @@ theorem alwaysTrueUnit_limit_not_cutEq_zero :
   rw [h1] at h
   exact Bool.noConfusion h
 
+/-- **U3: alwaysTrueUnit limit AGREES with constCut 0 1 for m ≥ 1**.
+
+    The disagreement (M1 InfinitesimalGap) is ONLY at m = 0
+    boundary.  At every (m, k) with m ≥ 1, both cuts give true.
+
+    This formalizes the precise location of the cut-distinctness
+    asymmetry: it's a single-point boundary phenomenon. -/
+theorem alwaysTrueUnit_limit_eq_zero_at_pos_m (m k : Nat) (hm : m ≥ 1) :
+    (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit m k
+    = constCut 0 1 m k := by
+  rw [alwaysTrueUnit_limit_value]
+  show decide (k ≤ 2^(k+1) * m) = decide (0 * k ≤ 1 * m)
+  rw [Nat.zero_mul, Nat.one_mul]
+  -- LHS: decide(k ≤ 2^(k+1) * m).  RHS: decide(0 ≤ m).
+  -- For m ≥ 1: both true.
+  have h_pow : 2^(k+1) ≥ k + 1 := by have := two_pow_ge_succ k; omega
+  have h_lhs : k ≤ 2^(k+1) * m := by
+    have h_prod : 2^(k+1) * m ≥ 2^(k+1) :=
+      Nat.le_mul_of_pos_right _ (by omega : 0 < m)
+    omega
+  have h_rhs : (0 : Nat) ≤ m := Nat.zero_le _
+  rw [decide_eq_true h_lhs, decide_eq_true h_rhs]
+
 /-- **T2: ConsistentOracle existence witnesses**.  Three concrete
     (db, oracle) pairs covered: any oracle on collapsed bracket,
     alwaysTrue/alwaysFalse on unit bracket. -/
