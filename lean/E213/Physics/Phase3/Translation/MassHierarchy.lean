@@ -40,7 +40,7 @@ theorem mass_hierarchy_atomic :
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)
     -- m_μ/m_e ratio leading
     ∧ (NS * 137 = 411)
-    -- m_τ/m_μ ≈ 17 = NS² + (NS²-1) ★ 새 발견
+    -- m_τ/m_μ ≈ 17 = NS² + (NS²-1) ★ new discovery
     ∧ (NS * NS + (NS * NS - 1) = 17)
     -- m_t/m_b ≈ 41 = α_GUT
     ∧ (41 = 41)
