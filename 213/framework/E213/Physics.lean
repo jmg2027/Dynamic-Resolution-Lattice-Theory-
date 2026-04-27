@@ -54,6 +54,7 @@ import E213.Physics.HierarchyTowers
 import E213.Physics.ColorConfinement
 import E213.Physics.DrltZeroParameters
 import E213.Physics.GUTUnification
+import E213.Physics.HiggsMaster
 import E213.Physics.Capstone
 
 /-!
