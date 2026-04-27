@@ -100,4 +100,33 @@ theorem cutSum_half_three (a b c : Nat) :
     = constCut (a+b+c) 2 := by
   rw [cutSum_half_general, cutSum_half_general]
 
+/-- **3-term integer cutSum, right-associated**:
+    a + (b + c) = a + b + c. -/
+theorem cutSum_int_int_three_right (a b c : Nat) :
+    cutSum (constCut a 1) (cutSum (constCut b 1) (constCut c 1))
+    = constCut (a+(b+c)) 1 := by
+  rw [cutSum_int_int b c, cutSum_int_int a (b+c)]
+
+/-- **cutSum is associative on integer constants**:
+    (a + b) + c = a + (b + c) for any a, b, c : Nat,
+    proved at the constCut level. -/
+theorem cutSum_int_assoc (a b c : Nat) :
+    cutSum (cutSum (constCut a 1) (constCut b 1)) (constCut c 1)
+    = cutSum (constCut a 1) (cutSum (constCut b 1) (constCut c 1)) := by
+  rw [cutSum_int_int_three, cutSum_int_int_three_right, Nat.add_assoc]
+
+/-- **3-term half cutSum, right-associated**:
+    a/2 + (b/2 + c/2) = (a+b+c)/2. -/
+theorem cutSum_half_three_right (a b c : Nat) :
+    cutSum (constCut a 2) (cutSum (constCut b 2) (constCut c 2))
+    = constCut (a+(b+c)) 2 := by
+  rw [cutSum_half_general b c, cutSum_half_general a (b+c)]
+
+/-- **cutSum is associative on half constants**:
+    (a/2 + b/2) + c/2 = a/2 + (b/2 + c/2). -/
+theorem cutSum_half_assoc (a b c : Nat) :
+    cutSum (cutSum (constCut a 2) (constCut b 2)) (constCut c 2)
+    = cutSum (constCut a 2) (cutSum (constCut b 2) (constCut c 2)) := by
+  rw [cutSum_half_three, cutSum_half_three_right, Nat.add_assoc]
+
 end E213.Research.Real213CutSum
