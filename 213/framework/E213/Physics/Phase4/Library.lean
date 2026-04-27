@@ -21,6 +21,10 @@ import E213.Physics.Phase4.Library.QGLibrary
 import E213.Physics.Phase4.Library.CondensedMatterLibrary
 import E213.Physics.Phase4.Library.OpticsLibrary
 import E213.Physics.Phase4.Library.InformationLibrary
+import E213.Physics.Phase4.Library.Period5IE
+import E213.Physics.Phase4.Library.Period6IE
+import E213.Physics.Phase4.Library.Period7IE
+import E213.Physics.Phase4.Library.CompletePeriodicTable
 
 /-!
 # Phase 4 Library — IE 도서관 + 다른 분야 framework
