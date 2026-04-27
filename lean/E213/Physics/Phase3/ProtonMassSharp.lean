@@ -3,7 +3,7 @@ import E213.Physics.ProtonMass
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 ProtonMassSharp — m_p = 938.27 MeV 정확 falsifier
+# Phase 3 ProtonMassSharp — m_p = 938.27 MeV precise falsifier
 
 **Layer: App**.
 
@@ -16,21 +16,21 @@ Concrete:
   Closed propagator factor: P(α_GUT · 3/5) ≈ 1.01438
   m_p = 3 · 308.32 · 1.01438 ≈ 924.97 · 1.01438 ≈ 938.27 MeV
 
-관측: 938.272 MeV.  **0.000% match (lattice precision)**.
+Observed: 938.272 MeV.  **0.000% match (lattice precision)**.
 
-## Atomic 잠금
+## Atomic lock
 
   - 3-quark structure: NS = 3 (atomicity)
   - Closed propagator P(x) = (1 + 2x)/(1 + x): NS·NT/d = 6/5 prefactor
-  - α_GUT · NS/d = α_GUT · 3/5 (Y-norm 비)
+  - α_GUT · NS/d = α_GUT · 3/5 (Y-norm ratio)
 
 ## Falsifier
 
-  m_p ≠ NS · Λ_QCD · P(α_GUT · NS/d) 측정 → 폐기.
-  현재: lattice QCD + 실험 모두 938.27 → DRLT atomic exact 검증.
+  Measurement m_p ≠ NS · Λ_QCD · P(α_GUT · NS/d) → discarded.
+  Currently: both lattice QCD + experiment give 938.27 → DRLT atomic exact verified.
 
-  Lattice precision 향상 (~0.01% target) → atomic correction
-  next-order 이 정확히 어떻게 closes 하는지 확인 가능.
+  Improved lattice precision (~0.01% target) → can check exactly how
+  next-order atomic correction closes.
 -/
 
 namespace E213.Physics.Phase3.ProtonMassSharp
@@ -47,7 +47,7 @@ theorem closed_prop_atomic :
     ∧ closed_prop_den_factor = 1  -- (1 + 1·x) denominator
     := by decide
 
-/-- α_GUT · NS/d 의 NS/d = Y-norm inverse. -/
+/-- NS/d of α_GUT · NS/d = Y-norm inverse. -/
 theorem y_norm_inverse :
     closed_prop_factor_num = NS
     ∧ closed_prop_factor_den = d
@@ -55,7 +55,7 @@ theorem y_norm_inverse :
 
 /-- ★ Proton Mass Falsifier ★
     m_p atomic-exact: NS·Λ_QCD·P(α·NS/d).
-    각 piece 가 atomic 정수.  관측 != → 폐기. -/
+    Each piece is an atomic integer.  Observation != → discarded. -/
 theorem proton_mass_falsifier :
     -- 3-quark
     (closed_prop_factor_num = NS) ∧ (NS = 3)
@@ -64,7 +64,7 @@ theorem proton_mass_falsifier :
     ∧ (closed_prop_den_factor = 1)
     -- denom factor = d
     ∧ (closed_prop_factor_den = d) ∧ (d = 5)
-    -- Y-norm 비: NS/d = 3/5
+    -- Y-norm ratio: NS/d = 3/5
     ∧ (3 * 5 = NS * d) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
