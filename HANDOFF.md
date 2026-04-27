@@ -8,6 +8,13 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase T COMPLETE — cutEq strengthening + generic polynomial moduli
+
+- T1: Strong M1 (¬cutEq form) — alwaysTrueUnit ≠ constCut 0 1 cut.
+- T2: 3-pair ConsistentOracle existence bundle.
+- T3: Generic poly moduli x⁵-x⁸ + polynomial_slope_coverage capstone.
+- T4: Final synthesis docs.
+
 ### Phase S COMPLETE — Final super-super-capstones
 
 - S1: Sister-branch export anchor (F6 doc).

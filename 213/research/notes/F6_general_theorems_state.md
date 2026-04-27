@@ -399,6 +399,19 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase T — 4 milestones COMPLETE (cutEq strengthening + generic poly moduli)
+
+**T1: alwaysTrueUnit_limit_not_cutEq_zero** — strong M1 ¬cutEq form.
+**T2: consistent_oracle_existence_witnesses** — 3-pair existence bundle.
+**T3: Generic polynomial modulus x⁵-x⁸** + polynomial_slope_coverage capstone.
+**T4: This final docs synthesis.**
+
+ASYMMETRY now formalized at the cutEq level:
+- alwaysFalseUnit.limit cutEq constCut 1 1 (positive).
+- alwaysTrueUnit.limit ¬cutEq constCut 0 1 (negative).
+
+ResolutionDepth fully verified for degrees 1-8.
+
 ### Phase S — 4 milestones COMPLETE (final super-super-capstones)
 
 **S1: Sister-branch export** (this F6 doc serves as export anchor).
