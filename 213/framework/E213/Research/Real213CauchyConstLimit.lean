@@ -52,4 +52,15 @@ theorem CauchyCutSeq.cutDouble_cutSum_limit (a b : CauchyCutSeq) :
       CauchyCutSeq.cutSum_limit]
   exact (Real213CutSum.cutDouble_cutSum _ _).symm
 
+/-- cutMid on Cauchy = cutHalf ∘ cutSum, lifted. -/
+def CauchyCutSeq.cutMid (a b : CauchyCutSeq) : CauchyCutSeq :=
+  (a.cutSum b).cutHalf
+
+/-- Limit of cutMid of two Cauchy seqs = cutMid of limits. -/
+theorem CauchyCutSeq.cutMid_limit (a b : CauchyCutSeq) :
+    (a.cutMid b).limit = Real213CutSum.cutMid a.limit b.limit := by
+  show (a.cutSum b).cutHalf.limit
+       = Real213CutSum.cutHalf (Real213CutSum.cutSum a.limit b.limit)
+  rw [CauchyCutSeq.cutHalf_limit, CauchyCutSeq.cutSum_limit]
+
 end E213.Research.Real213CutSum
