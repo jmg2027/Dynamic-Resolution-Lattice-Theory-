@@ -59,6 +59,22 @@
 - `geomHalfSeries`, `expCutPartial`, `sinPartial`, `cosPartial`,
   `leibnizPiPartial`.
 
+### Cauchy completeness — closed under cut ops (NEW Phase F)
+
+CauchyCutSeq closed under SIX cut operations, each with a limit
+theorem proving the limit operation commutes:
+
+- `CauchyCutSeq.cutMax` / `cutMax_limit`.
+- `CauchyCutSeq.cutMin` / `cutMin_limit`.
+- `CauchyCutSeq.cutDouble` / `cutDouble_limit`.
+- `CauchyCutSeq.cutHalf` / `cutHalf_limit`.
+- `CauchyCutSeq.cutSum` / `cutSum_limit` (uses maxModulus + cutSumAux_congr).
+- `CauchyCutSeq.cutMul` / `cutMul_limit` (uses maxNAt + cutMulOuter_congr).
+
+Plus corollaries:
+- `cutMax_self_limit`, `cutMin_self_limit` (idempotent at limit).
+- `cutDouble_cutHalf_comm_limit` (commute at limit).
+
 ### IVT structural + cutEq compat + Cut poset
 
 - `bisectN_zero`, `bisectN_succ_true`, `bisectN_succ_false`.
@@ -146,13 +162,21 @@ Real213CutLatticeEq.lean — full substitution structure:
   SumOne / MulOne / MidSelf / PowConst / ConstCutScale / ScaleLattice
   / LatticeEq / SignedMulConst.  Series imports SeriesConst.
 
-### Phase E (latest) summary
+### Phase E summary
 
 - Lattice eq/le compatibility (12 theorems).
 - Signed mul on const cuts (5 theorems).
 - cutPow on 0 and 1 (inductive, all n).
 - cutSum_assoc on integer/half constants.
 - partialSum closed forms (inductive).
+
+### Phase F summary (LATEST — Cauchy completeness)
+
+- CauchyCutSeq closed under cutMax, cutMin, cutDouble, cutHalf,
+  cutSum, cutMul (6 lifted ops).
+- Each comes with a limit-commutation theorem.
+- Helpers: maxModulus / maxNAt for finite-range modulus computation.
+- Corollaries: idempotent at limit, double-half commute at limit.
 
 ## 비 verified scaffolded
 
