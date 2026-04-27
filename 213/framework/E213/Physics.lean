@@ -47,6 +47,7 @@ import E213.Physics.ThetaQCD
 import E213.Physics.CKMHierarchy
 import E213.Physics.QuarkHierarchy
 import E213.Physics.HeliumAtom
+import E213.Physics.DeuteronBinding
 import E213.Physics.Capstone
 
 /-!
