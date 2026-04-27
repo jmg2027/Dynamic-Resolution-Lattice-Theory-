@@ -6,10 +6,10 @@ import E213.Physics.SimplexCounts
 /-!
 # Translation: CKM Wolfenstein deep-dive
 
-표준 Wolfenstein:
+Standard Wolfenstein:
   V_CKM = identity + λ·Cabibbo + λ²·... + λ³·CP
 
-  λ = 0.225 (관측, Cabibbo angle sine)
+  λ = 0.225 (observed, Cabibbo angle sine)
   λ² ≈ 0.0506
   λ³ ≈ 0.0114
   λ⁴ ≈ 0.00257
@@ -20,7 +20,7 @@ DRLT atomic (Phase 1 CKMHierarchy):
   λ³ = 125/10648
   λ⁴ = 625/234256
 
-각 λ^k 가 atomic 정수 거듭제곱.
+Each λ^k is a power of atomic integers.
 -/
 
 namespace E213.Physics.Phase3.Translation.CKMDeepDive
