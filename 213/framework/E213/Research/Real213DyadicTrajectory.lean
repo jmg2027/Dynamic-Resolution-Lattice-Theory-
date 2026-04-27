@@ -181,4 +181,34 @@ theorem alwaysFalse_unit_numA (n : Nat) :
     - (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 1 := hLen
   omega
 
+/-- **alwaysTrue from unit: midCut = dyadicCut 1 (n+1)**.
+    The midpoint at depth n is 1/2^(n+1), approaching 0 as n grows. -/
+theorem alwaysTrue_unit_midCut (n : Nat) :
+    (DyadicBracket.bisectN alwaysTrue n unitBracket).midCut
+    = dyadicCut 1 (n+1) := by
+  show dyadicCut ((DyadicBracket.bisectN alwaysTrue n unitBracket).numA
+                 + (DyadicBracket.bisectN alwaysTrue n unitBracket).numB)
+        ((DyadicBracket.bisectN alwaysTrue n unitBracket).expE + 1)
+       = dyadicCut 1 (n+1)
+  rw [alwaysTrue_unit_numA n, alwaysTrue_unit_numB n,
+      alwaysTrue_unit_expE n]
+
+/-- **alwaysFalse from unit: midCut = dyadicCut (2^(n+1) - 1) (n+1)**.
+    The midpoint at depth n is (2^(n+1) - 1)/2^(n+1) = 1 - 1/2^(n+1),
+    approaching 1 as n grows. -/
+theorem alwaysFalse_unit_midCut (n : Nat) :
+    (DyadicBracket.bisectN alwaysFalse n unitBracket).midCut
+    = dyadicCut (2^(n+1) - 1) (n+1) := by
+  show dyadicCut ((DyadicBracket.bisectN alwaysFalse n unitBracket).numA
+                 + (DyadicBracket.bisectN alwaysFalse n unitBracket).numB)
+        ((DyadicBracket.bisectN alwaysFalse n unitBracket).expE + 1)
+       = dyadicCut (2^(n+1) - 1) (n+1)
+  rw [alwaysFalse_unit_numA n, alwaysFalse_unit_numB n,
+      alwaysFalse_unit_expE n]
+  have h2n : (2:Nat)^n ≥ 1 := Nat.pos_pow_of_pos n (by decide : 0 < 2)
+  have h_eq : (2^n - 1) + 2^n = 2^(n+1) - 1 := by
+    rw [Nat.pow_succ]
+    omega
+  rw [h_eq]
+
 end E213.Research.Real213CutSum
