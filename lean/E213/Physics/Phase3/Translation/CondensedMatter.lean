@@ -2,9 +2,9 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 응집물질 → DRLT atomic
+# Translation: Condensed matter → DRLT atomic
 
-## 정리 목록
+## Theorem list
 
   1. BCS gap: Δ ∝ exp(-1/N(0)V) → Lens layer transition
   2. BEC: T_c ∝ n^(2/3) → atomic 2/3 = NT/NS
@@ -21,10 +21,10 @@ open E213.Physics.Simplex
 /-!
 ## ★ 1. BEC: T_c ∝ n^(2/3) atomic ★
 
-표준: BEC critical T_c ∝ n^(2/3) (3D 이상기체).
-지수 2/3 = (d-1)/d (3D non-rel).
+Standard: BEC critical T_c ∝ n^(2/3) (3D ideal gas).
+Exponent 2/3 = (d-1)/d (3D non-rel).
 
-DRLT atomic: 2/3 = NT/NS atomic 비율.
+DRLT atomic: 2/3 = NT/NS atomic ratio.
   - n^(NT/NS) = n^(2/3)
   - exponent atomic-forced.
 -/
@@ -35,14 +35,14 @@ theorem bec_exponent : NT * NS = 2 * NS := by decide
 /-!
 ## ★ 2. Quantum Hall: ν integer atomic ★
 
-표준: σ_xy = ν · e²/h, ν 정수.
-필링 인자 ν: 1, 2, 3, 5, 7, ... (Laughlin states ν = 1/3 등).
+Standard: σ_xy = ν · e²/h, ν integer.
+Filling factor ν: 1, 2, 3, 5, 7, ... (Laughlin states ν = 1/3 etc.).
 
 DRLT atomic: ν integer = Lens layer count.
   - integer ν = atomic vertex count.
   - fractional ν = atomic ratio.
 
-ν = NS = 3 (가장 안정 plateau)?
+ν = NS = 3 (most stable plateau)?
 -/
 
 /-- Hall ν = NS atomic plateau. -/

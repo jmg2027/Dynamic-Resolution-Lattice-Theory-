@@ -2,9 +2,9 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 화학 → DRLT atomic
+# Translation: Chemistry → DRLT atomic
 
-  1. Periodic table 주기 8: 2, 8, 18, 32 (≈ 2n²) → atomic
+  1. Periodic table period 8: 2, 8, 18, 32 (≈ 2n²) → atomic
   2. Bond angles: H₂O 104.5°, NH₃ 107°, CH₄ 109.5° (Phase 1 BondAngles)
   3. pH = -log[H+] → atomic
   4. Enthalpy of formation
