@@ -100,6 +100,7 @@ import E213.Research.Real213ODECatalog
 import E213.Research.Real213ODESecondOrder
 import E213.Research.Real213NewtonFirst
 import E213.Research.Real213CubeDerivativeAtZero
+import E213.Research.Real213PhaseDAOmegaOmega
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
