@@ -371,6 +371,26 @@ example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 1 1
 example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 1 2
         = false := by decide
 
+/-- alwaysFalseUnit limit at (3, 2): true (k=2 ≤ m=3). -/
+example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 3 2
+        = true := by decide
+
+/-- alwaysFalseUnit limit at (2, 3): false (k=3 > m=2). -/
+example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 2 3
+        = false := by decide
+
+/-- alwaysFalseUnit limit at (5, 5): true (k=5 ≤ m=5). -/
+example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 5 5
+        = true := by decide
+
+/-- alwaysFalseUnit limit at (5, 6): false (k=6 > m=5). -/
+example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 5 6
+        = false := by decide
+
+/-- alwaysFalseUnit limit at (10, 5): true (k=5 ≤ m=10). -/
+example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 10 5
+        = true := by decide
+
 /-- **0+ ≤ 1- in the cut order**: the alwaysTrue limit (representing
     "infinitesimally above 0") is ≤ the alwaysFalse limit (representing
     "infinitesimally below 1") cut-wise.  Mathematical sanity. -/
