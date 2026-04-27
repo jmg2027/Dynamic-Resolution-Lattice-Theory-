@@ -15,6 +15,12 @@ import E213.Physics.Phase4.Library.ParticleLibrary
 import E213.Physics.Phase4.Library.TopologyLibrary
 import E213.Physics.Phase4.Library.LeptonMassLibrary
 import E213.Physics.Phase4.Library.StatPhysLibrary
+import E213.Physics.Phase4.Library.QFTLibrary
+import E213.Physics.Phase4.Library.GRLibrary
+import E213.Physics.Phase4.Library.QGLibrary
+import E213.Physics.Phase4.Library.CondensedMatterLibrary
+import E213.Physics.Phase4.Library.OpticsLibrary
+import E213.Physics.Phase4.Library.InformationLibrary
 
 /-!
 # Phase 4 Library — IE 도서관 + 다른 분야 framework
