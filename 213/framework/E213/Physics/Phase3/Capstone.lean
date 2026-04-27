@@ -10,6 +10,7 @@ import E213.Physics.Phase3.PMNSSpecific
 import E213.Physics.Phase3.CassiniLink
 import E213.Physics.Phase3.AlphaEMSharp
 import E213.Physics.Phase3.LeptonRatios
+import E213.Physics.Phase3.CKMSpecific
 
 /-!
 # Phase 3 Capstone — 모든 falsifier 단일 종합
@@ -60,8 +61,11 @@ theorem phase3_falsifiers :
     -- (F11) Lepton: NS·2 = 3·NT (cross consistency)
     ∧ (NS * 2 = 3 * NT)
     -- (F12) Lepton: 5·41 = 205 (m_μ/m_e leading)
-    ∧ (5 * 41 = 205) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    ∧ (5 * 41 = 205)
+    -- (F13) CKM: λ = d/(d²-NS) = 5/22
+    ∧ (E213.Physics.CKMHierarchy.lambda_num = d)
+    ∧ (E213.Physics.CKMHierarchy.lambda_den = d * d - NS) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
 end E213.Physics.Phase3.Capstone
