@@ -7,6 +7,15 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### Phase CD-CG (be15668 → 247212b) — **ClassicCalc 조합자 + 위트니스 카탈로그**
+
+- **CD**: generic FTC-Riemann을 chain (id ∘ x²) + mid에 적용 (3-instance)
+- **CE**: ClassicCalc 조합자 (compose_calc, mul_calc) — 모든 조합자 closed
+- **CF**: nested mid(x, mid(x, x²)) 위트니스 c = 1/2
+- **CG**: 5-인스턴스 dyadic 위트니스 카탈로그 (id/x²/mid/compose/nested-mid)
+
+★ ClassicCalc framework now fully closed: id, cutPow, ∘, ·, mid 조합자 + Passthrough = MVT/FTC 자동.
+
 ### Phase BY-CC (1771cb7 → ab04bd3) — **FTC-Riemann 다리 + 일반화** ★★
 
 미적분학 기본정리의 Riemann sum 버전.  적분 측면 ↔ 경계 측면 = Stokes 정리.
