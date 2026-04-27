@@ -1,4 +1,5 @@
 import E213.Research.Real213Dyadic
+import E213.Research.Real213CutPoset
 
 /-!
 # Research.Real213DyadicBracket: dyadic IVT bracket
@@ -143,5 +144,144 @@ theorem DyadicBracket.bisectN_lenNum (oracle : DyadicOracle) :
     by_cases h : oracle db.midCut = true
     · rw [if_pos h]; exact db.leftHalf_lenNum
     · rw [if_neg h]; exact db.rightHalf_lenNum
+
+/-- **Dyadic comparison lemma**: cutLe between two dyadicCuts via
+    cross-multiplication.  numA / 2^E ≤ numB / 2^F iff
+    numA * 2^F ≤ numB * 2^E. -/
+theorem cutLe_dyadicCut (numA E numB F : Nat)
+    (h : numA * 2^F ≤ numB * 2^E) :
+    cutLe (dyadicCut numA E) (dyadicCut numB F) := by
+  intro m k hbk
+  have hBk : numB * k ≤ 2^F * m := of_decide_eq_true hbk
+  show decide (numA * k ≤ 2^E * m) = true
+  apply decide_eq_true
+  -- numA * k ≤ 2^E * m via numA * 2^F ≤ numB * 2^E and numB * k ≤ 2^F * m.
+  -- Multiply h by k: numA * 2^F * k ≤ numB * 2^E * k.
+  -- Multiply hBk by 2^E: numB * 2^E * k ≤ 2^F * m * 2^E.
+  have step1 : numA * 2^F * k ≤ numB * 2^E * k :=
+    Nat.mul_le_mul_right k h
+  have step2 : numB * 2^E * k ≤ 2^F * m * 2^E := by
+    have e : numB * 2^E * k = numB * k * 2^E := by
+      rw [Nat.mul_assoc, Nat.mul_comm (2^E) k, ← Nat.mul_assoc]
+    rw [e]
+    exact Nat.mul_le_mul_right (2^E) hBk
+  have step3 : numA * 2^F * k ≤ 2^F * m * 2^E := Nat.le_trans step1 step2
+  -- step3: numA * 2^F * k ≤ 2^F * m * 2^E.
+  -- Want: numA * k ≤ 2^E * m.  Rearrange both sides.
+  -- LHS: numA * 2^F * k = 2^F * (numA * k).
+  -- RHS: 2^F * m * 2^E = 2^F * (2^E * m).
+  -- So 2^F * (numA * k) ≤ 2^F * (2^E * m).
+  -- Cancel 2^F (which is ≥ 1 always since 2^anything ≥ 1).
+  have hLHS : numA * 2^F * k = 2^F * (numA * k) := by
+    rw [Nat.mul_comm numA (2^F), Nat.mul_assoc]
+  have hRHS : 2^F * m * 2^E = 2^F * (2^E * m) := by
+    rw [Nat.mul_assoc, Nat.mul_comm m (2^E)]
+  rw [hLHS, hRHS] at step3
+  exact Nat.le_of_mul_le_mul_left step3 (Nat.pos_pow_of_pos F (by decide : 0 < 2))
+
+/-- Helper: numA * 2^(E+1) = 2 * numA * 2^E. -/
+private theorem dyadic_pow_succ_eq (n E : Nat) :
+    n * 2^(E+1) = 2 * n * 2^E := by
+  rw [Nat.pow_succ, Nat.mul_comm (2^E) 2, ← Nat.mul_assoc, Nat.mul_comm n 2]
+
+/-- **leftHalf bracket containment (left endpoint)**: original left
+    endpoint is ≤ leftHalf's left endpoint (real-wise equal). -/
+theorem DyadicBracket.leftHalf_left_contains (db : DyadicBracket) :
+    cutLe db.leftCut db.leftHalf.leftCut := by
+  show cutLe (dyadicCut db.numA db.expE)
+             (dyadicCut (2*db.numA) (db.expE + 1))
+  apply cutLe_dyadicCut
+  rw [dyadic_pow_succ_eq]
+  exact Nat.le_refl _
+
+/-- **leftHalf bracket containment (right endpoint)**: leftHalf's
+    right endpoint (the midpoint) is ≤ original right endpoint. -/
+theorem DyadicBracket.leftHalf_right_contains (db : DyadicBracket) :
+    cutLe db.leftHalf.rightCut db.rightCut := by
+  show cutLe (dyadicCut (db.numA + db.numB) (db.expE + 1))
+             (dyadicCut db.numB db.expE)
+  apply cutLe_dyadicCut
+  rw [dyadic_pow_succ_eq]
+  have : db.numA + db.numB ≤ 2 * db.numB := by
+    rw [Nat.two_mul]
+    exact Nat.add_le_add_right db.hLe db.numB
+  exact Nat.mul_le_mul_right (2^db.expE) this
+
+/-- **rightHalf bracket containment (left endpoint)**: original
+    left endpoint ≤ rightHalf's left endpoint (the midpoint). -/
+theorem DyadicBracket.rightHalf_left_contains (db : DyadicBracket) :
+    cutLe db.leftCut db.rightHalf.leftCut := by
+  show cutLe (dyadicCut db.numA db.expE)
+             (dyadicCut (db.numA + db.numB) (db.expE + 1))
+  apply cutLe_dyadicCut
+  rw [dyadic_pow_succ_eq]
+  have : 2 * db.numA ≤ db.numA + db.numB := by
+    rw [Nat.two_mul]
+    exact Nat.add_le_add_left db.hLe db.numA
+  exact Nat.mul_le_mul_right (2^db.expE) this
+
+/-- **rightHalf bracket containment (right endpoint)**: rightHalf's
+    right endpoint ≤ original right endpoint (real-wise equal). -/
+theorem DyadicBracket.rightHalf_right_contains (db : DyadicBracket) :
+    cutLe db.rightHalf.rightCut db.rightCut := by
+  show cutLe (dyadicCut (2*db.numB) (db.expE + 1))
+             (dyadicCut db.numB db.expE)
+  apply cutLe_dyadicCut
+  rw [dyadic_pow_succ_eq]
+  exact Nat.le_refl _
+
+/-- **One-step bisectStep containment (left)**: original left
+    endpoint ≤ bisectStep's left endpoint, regardless of oracle. -/
+theorem DyadicBracket.bisectStep_contains_left
+    (db : DyadicBracket) (oracle : DyadicOracle) :
+    cutLe db.leftCut (db.bisectStep oracle).leftCut := by
+  show cutLe db.leftCut
+        (if oracle db.midCut then db.leftHalf else db.rightHalf).leftCut
+  by_cases h : oracle db.midCut = true
+  · rw [if_pos h]; exact db.leftHalf_left_contains
+  · rw [if_neg h]; exact db.rightHalf_left_contains
+
+/-- **One-step bisectStep containment (right)**: bisectStep's right
+    endpoint ≤ original right endpoint, regardless of oracle. -/
+theorem DyadicBracket.bisectStep_contains_right
+    (db : DyadicBracket) (oracle : DyadicOracle) :
+    cutLe (db.bisectStep oracle).rightCut db.rightCut := by
+  show cutLe (if oracle db.midCut
+              then db.leftHalf else db.rightHalf).rightCut db.rightCut
+  by_cases h : oracle db.midCut = true
+  · rw [if_pos h]; exact db.leftHalf_right_contains
+  · rw [if_neg h]; exact db.rightHalf_right_contains
+
+/-- **n-step bisection bracket containment (left)**: ∀ n, original
+    left endpoint ≤ bisectN's left endpoint. -/
+theorem DyadicBracket.bisectN_contains_left
+    (oracle : DyadicOracle) :
+    ∀ n db, cutLe db.leftCut (DyadicBracket.bisectN oracle n db).leftCut
+  | 0, db => cutLe_refl db.leftCut
+  | n+1, db => by
+    show cutLe db.leftCut
+          (DyadicBracket.bisectN oracle n (db.bisectStep oracle)).leftCut
+    have h1 : cutLe db.leftCut (db.bisectStep oracle).leftCut :=
+      db.bisectStep_contains_left oracle
+    have h2 : cutLe (db.bisectStep oracle).leftCut
+              (DyadicBracket.bisectN oracle n (db.bisectStep oracle)).leftCut :=
+      DyadicBracket.bisectN_contains_left oracle n (db.bisectStep oracle)
+    exact cutLe_trans _ _ _ h1 h2
+
+/-- **n-step bisection bracket containment (right)**: ∀ n, bisectN's
+    right endpoint ≤ original right endpoint. -/
+theorem DyadicBracket.bisectN_contains_right
+    (oracle : DyadicOracle) :
+    ∀ n db, cutLe (DyadicBracket.bisectN oracle n db).rightCut db.rightCut
+  | 0, db => cutLe_refl db.rightCut
+  | n+1, db => by
+    show cutLe (DyadicBracket.bisectN oracle n (db.bisectStep oracle)).rightCut
+                db.rightCut
+    have h1 : cutLe (DyadicBracket.bisectN oracle n (db.bisectStep oracle)).rightCut
+              (db.bisectStep oracle).rightCut :=
+      DyadicBracket.bisectN_contains_right oracle n (db.bisectStep oracle)
+    have h2 : cutLe (db.bisectStep oracle).rightCut db.rightCut :=
+      db.bisectStep_contains_right oracle
+    exact cutLe_trans _ _ _ h1 h2
 
 end E213.Research.Real213CutSum
