@@ -39,35 +39,35 @@ namespace E213.Physics.Phase3.NoWaveFunction
 open E213.Physics.Simplex
 
 /-!
-## "측정" / "관측" 도 artifact
+## "Measurement" / "observation" are also artifacts
 
-표준 QM: 측정 → wavefunction collapse.
-  - "관측자" 가정 함의
-  - 비결정론적 transition
+Standard QM: measurement → wavefunction collapse.
+  - Implies "observer" assumption
+  - Non-deterministic transition
 
-CLAUDE.md (213/CLAUDE.md): "관측자" 단어 axiom 설명에 금지.
-DRLT: 측정 = Lens 사양 변경.
-  - Raw 변하지 않음 (axiom 위반 아님)
-  - 다른 layer 의 Lens 적용
-  - "관측자" 부재, 결정론
+CLAUDE.md (213/CLAUDE.md): the word "observer" is prohibited in axiom descriptions.
+DRLT: measurement = Lens specification change.
+  - Raw does not change (no axiom violation)
+  - Lens of a different layer is applied
+  - No "observer", deterministic
 
-| 표준 QM | DRLT |
+| Standard QM | DRLT |
 |---|---|
-| 파동함수 ψ | Lens output |
-| 존재확률 \|ψ\|² | \|Lens output\|² (여전히 Lens) |
+| Wave function ψ | Lens output |
+| Existence probability \|ψ\|² | \|Lens output\|² (still Lens) |
 | Hilbert space | Gram space (atomic) |
 | Operator | Lens transformation |
 | Eigenvalue = observable | Lens output = readout |
-| Measurement | Lens 사양 |
+| Measurement | Lens specification |
 | Collapse | Lens layer transition |
-| Observer | (부재) |
+| Observer | (absent) |
 
-## 결정론
+## Determinism
 
-DRLT 에서 "확률" 의 자리 = Lens 다중성:
-  같은 Raw, 다른 Lens → 다른 output.
-  Output 이 "확률" 처럼 *분포* 보일 수 있음.
-  하지만 *근본* 은 결정론 (axiom + Lens 사양 일대일).
+The place of "probability" in DRLT = Lens multiplicity:
+  Same Raw, different Lens → different output.
+  Output may *look like a distribution* similar to "probability".
+  But *fundamental* is deterministic (axiom + Lens specification one-to-one).
 -/
 
 /-- Atomic primitives 모두 결정 (DecidableEq). -/
