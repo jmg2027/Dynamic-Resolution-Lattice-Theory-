@@ -63,6 +63,9 @@ import E213.Physics.Phase3.Translation.TwentyFourEverywhere
 import E213.Physics.Phase3.Translation.GravitationalWaves
 import E213.Physics.Phase3.Translation.Hadron
 import E213.Physics.Phase3.Translation.Phase1CrossLink
+import E213.Physics.Phase3.Translation.Inflation
+import E213.Physics.Phase3.Translation.DarkMatter
+import E213.Physics.Phase3.Translation.DecayRates
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 import E213.Physics.Phase3.UltraCapstone
