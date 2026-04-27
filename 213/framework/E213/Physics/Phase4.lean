@@ -18,6 +18,8 @@ import E213.Physics.Phase4.IECapstone
 import E213.Physics.Phase4.CNOFNeIE
 import E213.Physics.Phase4.Period3IE
 import E213.Physics.Phase4.PureLens213
+import E213.Physics.Phase4.Period4IE
+import E213.Physics.Phase4.PeriodClosures
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
