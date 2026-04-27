@@ -89,4 +89,17 @@ theorem riemannSampleSum_constCut (a b : Nat) (db : DyadicBracket) :
       rw [Nat.pow_succ, Nat.mul_comm (2^n) 2, Nat.mul_assoc]
     rw [h]
 
+/-- **Riemann sum of zero function** = 0 at every depth. -/
+theorem riemannSampleSum_zero_fn (db : DyadicBracket) (n : Nat) :
+    riemannSampleSum (constCutFn (constCut 0 1)) db n = constCut 0 1 := by
+  rw [riemannSampleSum_constCut 0 1 db n]
+  rw [Nat.mul_zero]
+
+/-- **Riemann sum of constant 1** at depth n = (2^n)/1.
+    Sum of 2^n copies of 1 is 2^n. -/
+theorem riemannSampleSum_one_fn (db : DyadicBracket) (n : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 1)) db n = constCut (2^n) 1 := by
+  rw [riemannSampleSum_constCut 1 1 db n]
+  rw [Nat.mul_one]
+
 end E213.Research.Real213CutSum
