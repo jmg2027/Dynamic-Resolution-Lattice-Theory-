@@ -104,4 +104,27 @@ theorem cutLe_cutMin_right (cx cy : Nat → Nat → Bool) : cutLe (cutMin cx cy)
   rw [h]
   cases cx m k <;> rfl
 
+/-- **cutMax 의 least-upper-bound property**: x, y ≤ z → max(x, y) ≤ z. -/
+theorem cutMax_lub (cx cy cz : Nat → Nat → Bool)
+    (hxz : cutLe cx cz) (hyz : cutLe cy cz) :
+    cutLe (cutMax cx cy) cz := by
+  intro m k hcz
+  show (cx m k && cy m k) = true
+  rw [hxz m k hcz, hyz m k hcz]
+  rfl
+
+/-- **cutMin 의 greatest-lower-bound property**: z ≤ x, z ≤ y → z ≤ min(x, y). -/
+theorem cutMin_glb (cx cy cz : Nat → Nat → Bool)
+    (hzx : cutLe cz cx) (hzy : cutLe cz cy) :
+    cutLe cz (cutMin cx cy) := by
+  intro m k hmin
+  show cz m k = true
+  have hor : (cx m k || cy m k) = true := hmin
+  cases hcx : cx m k with
+  | true => exact hzx m k hcx
+  | false =>
+    cases hcy : cy m k with
+    | true => exact hzy m k hcy
+    | false => rw [hcx, hcy] at hor; cases hor
+
 end E213.Research.Real213CutSum
