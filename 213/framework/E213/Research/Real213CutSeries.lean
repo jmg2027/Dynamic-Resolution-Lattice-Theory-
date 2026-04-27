@@ -39,4 +39,12 @@ def zeroSeries : Nat → (Nat → Nat → Bool) :=
 /-- partialSum of zero series at 0 = 0-cut. -/
 example : partialSum zeroSeries 0 = constCut 0 1 := rfl
 
+/-- partialSum unfolding at 0 (rfl). -/
+theorem partialSum_zero_unfold (s : Nat → (Nat → Nat → Bool)) :
+    partialSum s 0 = constCut 0 1 := rfl
+
+/-- partialSum unfolding at n+1 (rfl). -/
+theorem partialSum_succ (s : Nat → (Nat → Nat → Bool)) (n : Nat) :
+    partialSum s (n+1) = cutSum (partialSum s n) (s n) := rfl
+
 end E213.Research.Real213CutSum
