@@ -92,6 +92,7 @@ import E213.Research.Real213Antiderivative
 import E213.Research.Real213AntiderivativeCombinators
 import E213.Research.Real213AntiderivativeStructural
 import E213.Research.Real213IntegralViaAnti
+import E213.Research.Real213ClassicAnti
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
