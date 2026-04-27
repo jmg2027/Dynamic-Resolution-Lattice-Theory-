@@ -81,6 +81,7 @@ import E213.Physics.Phase3.Translation.AnomalousMoment
 import E213.Physics.Phase3.Translation.AtomicIdentities
 import E213.Physics.Phase3.Translation.PlanckUnits
 import E213.Physics.Phase3.Translation.AtomicReductionConjecture
+import E213.Physics.Phase3.Translation.MoleculeAngles
 import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 import E213.Physics.Phase3.UltraCapstone
