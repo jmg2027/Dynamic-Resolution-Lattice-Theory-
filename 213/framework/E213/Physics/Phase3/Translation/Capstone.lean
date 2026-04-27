@@ -4,6 +4,27 @@ import E213.Physics.Phase3.Translation.QuantumField
 import E213.Physics.Phase3.Translation.Thermodynamics
 import E213.Physics.Phase3.Translation.Cosmology
 import E213.Physics.Phase3.Translation.Symmetry
+import E213.Physics.Phase3.Translation.AtomicCorrespondences
+import E213.Physics.Phase3.Translation.QMTheorems
+import E213.Physics.Phase3.Translation.QFTTheorems
+import E213.Physics.Phase3.Translation.GRTheorems
+import E213.Physics.Phase3.Translation.EquationsAtomic
+import E213.Physics.Phase3.Translation.CondensedMatter
+import E213.Physics.Phase3.Translation.StatMech
+import E213.Physics.Phase3.Translation.Optics
+import E213.Physics.Phase3.Translation.Information
+import E213.Physics.Phase3.Translation.Nuclear
+import E213.Physics.Phase3.Translation.Astrophysics
+import E213.Physics.Phase3.Translation.MasterCatalog
+import E213.Physics.Phase3.Translation.Lagrangian
+import E213.Physics.Phase3.Translation.AtomicSpectroscopy
+import E213.Physics.Phase3.Translation.Plasma
+import E213.Physics.Phase3.Translation.ParticlePhysics
+import E213.Physics.Phase3.Translation.FluidMechanics
+import E213.Physics.Phase3.Translation.BeyondSM
+import E213.Physics.Phase3.Translation.QuantumGravity
+import E213.Physics.Phase3.Translation.Anomalies
+import E213.Physics.Phase3.Translation.Topological
 import E213.Physics.SimplexCounts
 
 /-!
