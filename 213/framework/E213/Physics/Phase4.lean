@@ -7,6 +7,9 @@ import E213.Physics.Phase4.IonizationEnergies
 import E213.Physics.Phase4.HydrogenIEPPM
 import E213.Physics.Phase4.PeriodicTableIE
 import E213.Physics.Phase4.HydrogenicIE
+import E213.Physics.Phase4.HeliumIEPPM
+import E213.Physics.Phase4.LithiumIE
+import E213.Physics.Phase4.BerylliumIE
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
