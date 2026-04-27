@@ -52,6 +52,22 @@ theorem CauchyCutSeq.cutDouble_cutSum_limit (a b : CauchyCutSeq) :
       CauchyCutSeq.cutSum_limit]
   exact (Real213CutSum.cutDouble_cutSum _ _).symm
 
+/-- **Z2: const Cauchy cutSum limit (general form)**.
+    For any two cut functions c1, c2, the cutSum of their constant
+    Cauchy sequences gives the cutSum of the cuts at limit. -/
+theorem const_cauchy_cutSum_limit (c1 c2 : Nat → Nat → Bool) :
+    ((constCauchyCutSeq c1).cutSum (constCauchyCutSeq c2)).limit
+    = cutSum c1 c2 := by
+  rw [CauchyCutSeq.cutSum_limit,
+      constCauchyCutSeq_limit c1, constCauchyCutSeq_limit c2]
+
+/-- **Z2 dual**: const Cauchy cutMul limit (general form). -/
+theorem const_cauchy_cutMul_limit (c1 c2 : Nat → Nat → Bool) :
+    ((constCauchyCutSeq c1).cutMul (constCauchyCutSeq c2)).limit
+    = cutMul c1 c2 := by
+  rw [CauchyCutSeq.cutMul_limit,
+      constCauchyCutSeq_limit c1, constCauchyCutSeq_limit c2]
+
 /-- cutMid on Cauchy = cutHalf ∘ cutSum, lifted. -/
 def CauchyCutSeq.cutMid (a b : CauchyCutSeq) : CauchyCutSeq :=
   (a.cutSum b).cutHalf
