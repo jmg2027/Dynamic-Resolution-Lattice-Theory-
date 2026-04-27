@@ -63,4 +63,12 @@ theorem cutHalf_mono (c c' : Nat → Nat → Bool)
     (h : ∀ m' k', c m' k' = true → c' m' k' = true) (m k : Nat) :
     cutHalf c m k = true → cutHalf c' m k = true := fun hmk => h (2*m) k hmk
 
+/-- **cutHalf (constCut a b) = constCut a (2*b)**: a/b / 2 = a/(2b). -/
+theorem cutHalf_constCut (a b : Nat) :
+    cutHalf (constCut a b) = constCut a (2*b) := by
+  funext m k
+  show decide (a*k ≤ b*(2*m)) = decide (a*k ≤ (2*b)*m)
+  congr 1
+  rw [← Nat.mul_assoc, Nat.mul_comm b 2]
+
 end E213.Research.Real213CutSum
