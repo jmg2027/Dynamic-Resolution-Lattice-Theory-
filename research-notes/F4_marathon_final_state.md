@@ -3,13 +3,13 @@
 ## Session arc
 
 D1 (ZFC ℝ as final boss) → D3 retraction → E1 roadmap (Bishop-style
-Phase A-H) → E2-E4 walls → E5 ("213 은 213만") → F1 cutSum working →
-F1-F3 generic kernel + recurrence Lens → F2 reframe (Real = Lens
-output, framework inherent) → F3 (transcendental recurrence
+Phase A-H) → E2-E4 walls → E5 ("213 must stay 213") → F1 cutSum
+working → F1-F3 generic kernel + recurrence Lens → F2 reframe (Real
+= Lens output, framework inherent) → F3 (transcendental recurrence
 classification).
 
-총 commits: 30+ (b4a29fe → 95b79b3 + ongoing).
-총 Real213 modules: 43+.
+Total commits: 30+ (b4a29fe → 95b79b3 + ongoing).
+Total Real213 modules: 43+.
 
 ## Library completed items
 
@@ -32,7 +32,7 @@ Real213OrderExtra, Real213Sign, Real213StrictPos.
 ### Generic kernel
 
 - `cutBinary` (P k1 k2 M1 M2 cx cy → Bool), `cutBinaryInner_congr`,
-  `cutBinaryOuter_congr`, `cutBinary_locallyDetermined` (모두 0 axioms).
+  `cutBinaryOuter_congr`, `cutBinary_locallyDetermined` (all 0 axioms).
 - `CutBinaryOp` struct + `cutSumOp` + `cutMulOp` + `apply_locallyDetermined`.
 - `CutAlgebra` struct + `stdCutAlgebra` (universal binding).
 

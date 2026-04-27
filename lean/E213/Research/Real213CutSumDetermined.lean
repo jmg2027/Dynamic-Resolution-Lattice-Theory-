@@ -4,10 +4,10 @@ import E213.Research.Real213CutContinuity
 /-!
 # Research.Real213CutSumDetermined: cutSum locality framework
 
-`cutSum` 의 *bounded values* 에 만 의존 — Bishop locatedness 의 213
-counterpart.
+Depends only on *bounded values* of `cutSum` — 213 counterpart of
+Bishop locatedness.
 
-## 결과
+## Results
 
 - `isLocallyDetermined2` : 2-arg locally-determined property.
 - `cutSum_aux_congr_zero` : zero-case congruence (one step toward
@@ -15,9 +15,9 @@ counterpart.
 
 ## Note
 
-Full `cutSum_locallyDetermined` proof 는 Lean 의 Bool/Prop || 의
-elaboration corner case (decide auto-coercion) 에 막 힘 — 별 도
-session 에 서 cleaner approach.
+Full `cutSum_locallyDetermined` proof is blocked by a Lean Bool/Prop ||
+elaboration corner case (decide auto-coercion) — cleaner approach in
+a separate session.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -33,7 +33,7 @@ def isLocallyDetermined2
       (∀ m' k', m' ≤ N → k' ≤ N → cy1 m' k' = cy2 m' k') →
       f cx1 cy1 m k = f cx2 cy2 m k
 
-/-- cutSumAux 의 congruence — 같은 precision 에 서 agreeing cuts. -/
+/-- congruence of cutSumAux — agreeing cuts at the same precision. -/
 theorem cutSumAux_congr (k m1Max : Nat)
     (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
     (hx : ∀ m', m' ≤ m1Max → cx1 m' (2*k) = cx2 m' (2*k))
@@ -52,7 +52,7 @@ theorem cutSumAux_congr (k m1Max : Nat)
             || cutSumAux cx2 cy2 k m1Max i)
     rw [hx (i+1) hn, hy (m1Max - (i+1)) (Nat.sub_le _ _), ih hi]
 
-/-- **cutSum 은 locally determined**: N = max(2m, 2k). -/
+/-- **cutSum is locally determined**: N = max(2m, 2k). -/
 theorem cutSum_locallyDetermined : isLocallyDetermined2 cutSum := by
   intro m k
   refine ⟨max (2*m) (2*k), ?_⟩

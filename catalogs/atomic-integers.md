@@ -2,7 +2,7 @@
 
 213 atomic primitives (NS=3, NT=2, d=5, c=2) 로 표현 가능한 정수.
 
-## 작은 정수 (1-30)
+## Small integers (1-30)
 
   1 = NS - NT, NT - 1
   2 = NT, c
@@ -26,7 +26,7 @@
   27 = NS³
   30 = NS·NT·d
 
-## 중간 정수 (30-100)
+## Medium integers (30-100)
 
   32 = NT^d   36 = (NS·NT)²   40 = (NS²-1)·d
   41 = α_GUT integer (prime)
@@ -35,7 +35,7 @@
   72 = (d²-1)·NS   75 = NS·d²   80 = NT⁴·d
   81 = NS⁴   86 = Rn   100 = NT²·d²
 
-## 큰 정수 (100+)
+## Large integers (100+)
 
   118 = Og   137 = 1/α_em (prime)
   168 = HO magic 7 (Z=168 예측)

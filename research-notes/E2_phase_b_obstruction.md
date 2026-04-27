@@ -1,4 +1,4 @@
-# E2 — Phase B (Arithmetic) 의 Raw-realization obstruction
+# E2 — Raw-realization obstruction in Phase B (Arithmetic)
 
 ## Discovery (2026-04-26)
 

@@ -5,7 +5,7 @@ import E213.Research.Real213FTCRiemann
 
 Phase BZ: ★★ **AY-BY mega-omega capstone** ★★
 
-Summarizes the entire post-病목 arc covering:
+Summarizes the entire post-bottleneck arc covering:
   AY: cohomEquiv Setoid bridge (no Quotient)
   AZ-BA: FTC bridge for id at unit (propEq)
   BB-BG: polynomial MVT/FTC at unit (propEq + passthrough)

@@ -114,14 +114,14 @@ ROI order: A → B → C is the natural path.  D is a separate track.
 
 ## Cross-references
 
-- `notes/C1_kernel_cardinality_obstruction.md`: Cantor diagonal
-  의 framework-internal 실 패.
-- `notes/D1_zfc_real_as_final_boss.md`: framing retracted (이 note
-  로 superseded *부분 적*) — D1 의 evidence 자체 는 valid, framing
-  만 corrective.
+- `notes/C1_kernel_cardinality_obstruction.md`: framework-internal
+  failure of the Cantor diagonal.
+- `notes/D1_zfc_real_as_final_boss.md`: framing retracted (partially
+  superseded by this note) — D1's evidence itself is valid, only the
+  framing is corrected.
 - `notes/D2_complexity_class_hierarchy.md`: 3-tier (FSM/ICT/external)
   hierarchy.
-- `framework/E213/Research/Real213.lean`: native ℝ 의 type 정의.
+- `framework/E213/Research/Real213.lean`: type definition of native ℝ.
 - `framework/E213/Research/HasModulus.lean`: Cauchy modulus typeclass.
 
 ## What parts of D1 are valid

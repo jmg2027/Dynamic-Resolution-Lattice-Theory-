@@ -14,8 +14,8 @@ namespace E213.Research.Real213CutSum
 open E213.Firmware E213.Hypervisor
 
 /-- **cutSignedSum**: signed addition.  Same sign: cutSum on |abs|.
-    Different sign: |abs| difference (sign 결 정 은 generic case 미 완,
-    boundary 에 서 partial). -/
+    Different sign: |abs| difference (sign determination is incomplete in
+    the generic case, partial at the boundary). -/
 def cutSignedSum (sx sy : SignedCut) : SignedCut :=
   if sx.sign = sy.sign then
     { sign := sx.sign, cut := cutSum sx.cut sy.cut }

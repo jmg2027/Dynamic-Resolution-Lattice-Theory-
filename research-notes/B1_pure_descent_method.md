@@ -2,9 +2,9 @@
 
 ## Core of the method
 
-`Sqrt2IrrationalPure` + `Sqrt3IrrationalPure` 의 demonstrated
-common pattern (Lean 을 *순수 type checker* 로만 사용, zero
-axioms).
+Demonstrated common pattern of `Sqrt2IrrationalPure` +
+`Sqrt3IrrationalPure` (using Lean as a *pure type checker* only,
+zero axioms).
 
 ### 5-step descent template (prime p)
 
@@ -68,8 +68,8 @@ of a specific Pell-like sequence.
 
 **6. Hint for generalizing to real numbers.**
 
-213 framework + descent pattern → real numbers 의 *constructive*
-construction:
+213 framework + descent pattern → *constructive* construction of
+real numbers:
 
 ```
 Real := { sequences xs : Nat → Raw // ∃ Lens L, isOrderCauchy xs }

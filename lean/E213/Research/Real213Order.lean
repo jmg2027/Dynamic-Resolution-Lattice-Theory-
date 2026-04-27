@@ -1,24 +1,24 @@
 import E213.Research.Real213Const
 
 /-!
-# Research.Real213Order: Real213 의 order (le, lt) — A4
+# Research.Real213Order: order (le, lt) on Real213 — A4
 
-`E1_real213_analysis_roadmap.md` 의 Phase A milestone A4.
-Bishop-style constructive le: 모든 rational m/k 에 대 해 eventually
+Phase A milestone A4 of `E1_real213_analysis_roadmap.md`.
+Bishop-style constructive le: for every rational m/k, eventually
 "r' ≤ m/k → r ≤ m/k".
 
-## 정의
+## Definitions
 
-- `le r r' := ∀ m k, ∃ N, ∀ i ≥ N, orderProj 의 r'-implies-r`
-- `lt r r' := ∃ m k, ∃ N, ∀ i ≥ N, r ≤ m/k 이지 만 r' > m/k`
+- `le r r' := ∀ m k, ∃ N, ∀ i ≥ N, orderProj r'-implies-r`
+- `lt r r' := ∃ m k, ∃ N, ∀ i ≥ N, r ≤ m/k but r' > m/k`
 
 orderProj m k (a, b) = decide (a*k ≤ b*m) — cross-mult form.
 
-## 의의
+## Significance
 
-- LEM 부재 의 constructive le.
-- ZFC 의 r ≤ r' (set-theoretic) 와 *다 른 object* — explicit
-  modulus 형 evidence 요구.
+- Constructive le without LEM.
+- A *different object* from ZFC's r ≤ r' (set-theoretic) — requires
+  explicit modulus-form evidence.
 -/
 
 namespace E213.Research.Real213
@@ -28,14 +28,14 @@ open E213.Research.HasModulusNS
 open E213.Research.ABLens
 open E213.Research.ArchimedeanCauchy
 
-/-- **Real213 의 le**: 모든 rational m/k cut 에 대 해, eventually
-    r' ≤ m/k 이면 r ≤ m/k.  Bishop-style constructive le. -/
+/-- **Real213 le**: for every rational m/k cut, eventually
+    r' ≤ m/k implies r ≤ m/k.  Bishop-style constructive le. -/
 def le (r r' : Real213) : Prop :=
   ∀ m k, k ≥ 1 → ∃ N, ∀ i, i ≥ N →
     orderProj m k (abLens.view (r'.xs i)) = true →
     orderProj m k (abLens.view (r.xs i)) = true
 
-/-- **Real213 의 lt**: 어떤 m/k 가 r 와 r' 를 separate (r ≤ m/k < r'). -/
+/-- **Real213 lt**: some m/k separates r and r' (r ≤ m/k < r'). -/
 def lt (r r' : Real213) : Prop :=
   ∃ m k, k ≥ 1 ∧ ∃ N, ∀ i, i ≥ N →
     orderProj m k (abLens.view (r.xs i)) = true ∧
@@ -50,12 +50,12 @@ open E213.Research.HasModulusNS
 open E213.Research.ABLens
 open E213.Research.ArchimedeanCauchy
 
-/-- le 의 reflexivity. -/
+/-- Reflexivity of le. -/
 theorem le_refl (r : Real213) : le r r := by
   intro _ _ _
   exact ⟨0, fun _ _ h => h⟩
 
-/-- le 의 transitivity. -/
+/-- Transitivity of le. -/
 theorem le_trans (r r' r'' : Real213) :
     le r r' → le r' r'' → le r r'' := by
   intro h1 h2 m k hk
@@ -66,7 +66,7 @@ theorem le_trans (r r' r'' : Real213) :
   have hi2 : i ≥ N2 := Nat.le_trans (Nat.le_max_right N1 N2) hi
   exact h1N i hi1 (h2N i hi2 h_r''_le)
 
-/-- lt 의 irreflexivity. -/
+/-- Irreflexivity of lt. -/
 theorem lt_irrefl (r : Real213) : ¬ lt r r := by
   intro h
   obtain ⟨m, k, _, N, hN⟩ := h

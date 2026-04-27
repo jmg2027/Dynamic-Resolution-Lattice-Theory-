@@ -1,17 +1,17 @@
 import E213.Research.Real213Order
 
 /-!
-# Research.Real213OrderExtra: le/lt 의 equiv 호환 (B5 부분)
+# Research.Real213OrderExtra: equiv compatibility of le/lt (part of B5)
 
-`E1_real213_analysis_roadmap.md` 의 Phase B5 일부 — equiv 와 의
-algebraic 호환.  여기 서 는 order side 만 (arithmetic 은 별 도).
+Part of Phase B5 of `E1_real213_analysis_roadmap.md` — algebraic
+compatibility with equiv.  Only the order side here (arithmetic is separate).
 
-## 결과
+## Results
 
 - `le_of_equiv` : r ~ r' → r ≤ r'.
 - `lt_implies_not_equiv` : r < r' → ¬ (r ~ r').
 
-이 들 이 le/lt 가 *equivalence-relation 호환* 의 첫 단계.
+These are the first step in showing le/lt is *equivalence-relation compatible*.
 -/
 
 namespace E213.Research.Real213
@@ -33,7 +33,7 @@ theorem le_of_equiv (r r' : Real213) (h : Real213.equiv r r') : le r r' := by
 theorem ge_of_equiv (r r' : Real213) (h : Real213.equiv r r') : le r' r :=
   le_of_equiv r' r (equiv_symm r r' h)
 
-/-- lt 와 equiv 의 incompatibility — strict order 의 핵심. -/
+/-- Incompatibility of lt and equiv — the core of strict order. -/
 theorem lt_implies_not_equiv (r r' : Real213) :
     lt r r' → ¬ Real213.equiv r r' := by
   intro hlt hequiv

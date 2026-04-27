@@ -26,7 +26,7 @@ DRLT quark masses (ch09 sec 6, SM_024):
   
   → m_t/m_b ≈ 41.3 ≈ 1/α_GUT (= 41.12)!  ★
 
-  같은 atomicity-locked α_GUT가 quark hierarchy 강제.
+  The same atomicity-locked α_GUT forces the quark hierarchy.
 
 ## Atomic ratios
 

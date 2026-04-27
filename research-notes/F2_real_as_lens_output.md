@@ -59,14 +59,14 @@ abstractly contains all of them.
 
 ## Lean module
 
-`Real213AsLensOutput.lean` 의 declaration:
+Declaration in `Real213AsLensOutput.lean`:
 
 ```
 abbrev RealAsLensOutput := Nat → Nat → Bool
 ```
 
-이 type 자체 가 framework 의 inherent — `Nat → Nat → Bool` 가 213
-axiom 만 으 로 well-defined.
+This type itself is inherent to the framework — `Nat → Nat → Bool`
+is well-defined with 213's axiom alone.
 
 ## Conclusion
 
@@ -77,8 +77,8 @@ of the 213 form of real analysis:
 2. Operations exist (choice of combine).
 3. Bishop's program reconstruction is *one specific implementation*.
 
-이 framing 으 로 marathon 의 모든 work 가 *examples* 로 understood —
-framework 가 이미 모두 contain.
+With this framing, all the work of the marathon is understood as
+*examples* — the framework already contains everything.
 
 ## Cross-references
 

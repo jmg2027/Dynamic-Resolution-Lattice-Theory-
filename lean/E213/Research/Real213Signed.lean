@@ -5,11 +5,11 @@ import E213.Research.Real213CutMulComm
 /-!
 # Research.Real213Signed: signed Real213 + negation (F3)
 
-`F0_213_native_arithmetic_synthesis.md` 의 F3.  Real213 의 native
-form 은 *non-negative* ratios (abLens.view 의 (a, b) 모두 ≥ 0).
-음수 표 현 위 해 sign 확장.
+F3 of `F0_213_native_arithmetic_synthesis.md`.  The native form of Real213
+is *non-negative* ratios (both (a, b) of abLens.view are ≥ 0).
+Sign extension for representing negatives.
 
-## 정의
+## Definition
 
 ```
 structure SignedCut where
@@ -19,12 +19,12 @@ structure SignedCut where
 
 Negation = sign flip.
 
-## 의의
+## Significance
 
-- Real213 의 native 가 non-negative — 음수 는 *별 도 layer*.
-- 213 axiom 자체 는 a, b 의 *symmetric* 한 두 distinct atom — sign
-  은 외부 부착, framework axiom 위 에 layer.
-- Bishop 도 signed reals 를 |abs| × sign 으 로 정의.
+- Real213's native is non-negative — negatives are a *separate layer*.
+- The 213 axiom itself has two *symmetric* distinct atoms a, b — sign
+  is attached externally, as a layer above the framework axiom.
+- Bishop also defines signed reals as |abs| × sign.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -41,7 +41,7 @@ structure SignedCut where
 def cutNeg (s : SignedCut) : SignedCut :=
   { sign := !s.sign, cut := s.cut }
 
-/-- Negation 의 involutivity. -/
+/-- Involutivity of negation. -/
 theorem cutNeg_cutNeg (s : SignedCut) : cutNeg (cutNeg s) = s := by
   cases s with
   | mk sign cut =>
@@ -51,11 +51,11 @@ theorem cutNeg_cutNeg (s : SignedCut) : cutNeg (cutNeg s) = s := by
 def signedConstCut (sign : Bool) (a b : Nat) : SignedCut :=
   { sign := sign, cut := constCut a b }
 
-/-- Positive 1 의 negation = negative 1. -/
+/-- Negation of positive 1 = negative 1. -/
 example : cutNeg (signedConstCut true 1 1)
         = signedConstCut false 1 1 := rfl
 
-/-- Negative 1 의 negation = positive 1. -/
+/-- Negation of negative 1 = positive 1. -/
 example : cutNeg (signedConstCut false 1 1)
         = signedConstCut true 1 1 := rfl
 

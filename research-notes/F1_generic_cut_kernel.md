@@ -1,4 +1,4 @@
-# F1 — Generic cutBinary kernel ('213 스럽게 generic')
+# F1 — Generic cutBinary kernel ('generic in the 213 style')
 
 ## User directive (2026-04-26)
 

@@ -2,9 +2,10 @@
 
 ## The question (Mingu's formulation)
 
-> "213 공간은 이미 있는 것인가 귀납적으로 만들어지는
-> 중인가?  내 주장은 don't care — 공리가 말해주지
-> 못하며, 상관없음. (증명 가능하다고 생각)"
+> "Is the 213 space already there, or is it being built
+> inductively?  My claim is: don't care — the axiom
+> does not say, and it doesn't matter.  (I think this
+> can be proved.)"
 
 ## The claim
 

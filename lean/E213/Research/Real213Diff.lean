@@ -11,11 +11,11 @@ f : CutFunction is differentiable at point p (cut) with derivative
 f' (cut function) if difference quotient (f(p+h) - f(p))/h converges
 to f'(p) as h → 0.
 
-cut form: explicit modulus N(m, k) 로 bound provided.
+cut form: bound provided via explicit modulus N(m, k).
 
-## 이 파일 의 status
+## Status of this file
 
-Interface + types — full implementation 별 도.
+Interface + types — full implementation is separate.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -28,7 +28,7 @@ structure DifferentiableAt (f : (Nat → Nat → Bool) → (Nat → Nat → Bool
   derivative : Nat → Nat → Bool  -- f'(p) cut
   modulus : Nat → Nat → Nat  -- precision modulus
 
-/-- Constant function 의 derivative = 0 (declarative). -/
+/-- Derivative of constant function = 0 (declarative). -/
 def constDifferentiable (c : Nat → Nat → Bool) (p : Nat → Nat → Bool) :
     DifferentiableAt (constCutFn c) p where
   derivative := constCut 0 1  -- "0/1" cut representation (always true)

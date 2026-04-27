@@ -1,10 +1,10 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.LensMorphism: Lens-algebra 간 morphism
+# Research.LensMorphism: morphism between Lens-algebras
 
-Lens 는 α 위의 (base_a, base_b, combine) 데이터.  두 Lens
-사이의 **morphism** 은 base 와 combine 을 보존하는 함수:
+A Lens is (base_a, base_b, combine) data over α.  A **morphism**
+between two Lenses is a function preserving bases and combine:
 
 ```
 IsLensMorphism h L M :=
@@ -13,26 +13,26 @@ IsLensMorphism h L M :=
   ∀ u v, h (L.combine u v) = M.combine (h u) (h v)
 ```
 
-**핵심 정리**: h 가 L-M morphism 이면 `M.view = h ∘ L.view`.
-즉 Lens-morphism 이 view 수준에서 factoring 을 제공.
+**Key theorem**: if h is an L-M morphism then `M.view = h ∘ L.view`.
+That is, a Lens-morphism provides factoring at the view level.
 
-Note 39 의 `refines_of_factor` 가 generic factoring 이라면,
-이 파일은 **algebraic structure 를 보존하는 factoring** 의
-더 강한 form.
+While `refines_of_factor` from Note 39 is generic factoring, this
+file is the stronger form of **factoring that preserves algebraic
+structure**.
 -/
 
 namespace E213.Research.LensMorphism
 
 open E213.Firmware E213.Hypervisor
 
-/-- h 가 L-M Lens morphism. -/
+/-- h is an L-M Lens morphism. -/
 def IsLensMorphism {α β : Type} (h : α → β) (L : Lens α) (M : Lens β) :
     Prop :=
   h L.base_a = M.base_a ∧
   h L.base_b = M.base_b ∧
   ∀ u v : α, h (L.combine u v) = M.combine (h u) (h v)
 
-/-- **Factoring through morphism**: h 가 Lens morphism 이면
+/-- **Factoring through morphism**: if h is a Lens morphism then
     `M.view r = h (L.view r)` for all r. -/
 theorem view_factors_through_morphism {α β : Type}
     (L : Lens α) (M : Lens β) (h : α → β)
@@ -60,8 +60,8 @@ namespace E213.Research.LensMorphism
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Morphism → Refinement**: h 가 L-M morphism 이면
-    L.refines M (combine 대칭 하). -/
+/-- **Morphism → Refinement**: if h is an L-M morphism then
+    L.refines M (given symmetric combine). -/
 theorem refines_of_morphism {α β : Type} (L : Lens α) (M : Lens β)
     (h : α → β)
     (hLsym : ∀ u v : α, L.combine u v = L.combine v u)

@@ -1,4 +1,4 @@
-# F5 — Full proofs summary (this session 의 actual theorems)
+# F5 — Full proofs summary (actual theorems from this session)
 
 ## Verified mathematical theorems (proved in this session)
 

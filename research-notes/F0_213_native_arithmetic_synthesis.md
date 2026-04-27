@@ -97,7 +97,7 @@ separate work.
 
 ## Cross-references
 
-- `framework/E213/Research/Real213.lean` — type 정의.
+- `framework/E213/Research/Real213.lean` — type definition.
 - `framework/E213/Research/Real213{Equiv,Const,Order,Sign,OrderExtra}.lean`
   — Phase A complete.
 - `framework/E213/Research/Real213CutSum.lean` — F1 cutSum.

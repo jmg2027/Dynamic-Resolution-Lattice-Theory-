@@ -11,7 +11,7 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- cutSumAux 가 true iff existential witness 존재. -/
+/-- cutSumAux is true iff an existential witness exists. -/
 theorem cutSumAux_eq_true_iff (cx cy : Nat → Nat → Bool) (k M : Nat) (n : Nat) :
     cutSumAux cx cy k M n = true ↔
     ∃ i, i ≤ n ∧ cx i (2*k) = true ∧ cy (M - i) (2*k) = true := by

@@ -1,4 +1,4 @@
-# E4 — orderProj-Cauchy vs ε-N Cauchy 의 deep tension
+# E4 — Deep tension between orderProj-Cauchy and ε-N Cauchy
 
 ## Discovery (2026-04-26)
 
@@ -99,7 +99,7 @@ Next session: design decision — orderProj vs ε-N vs union vs strict.
 ## Cross-references
 
 - `notes/E2_phase_b_obstruction.md` (Raw realization).
-- `notes/E3_modulus_kernel_deep_obstruction.md` (single-precision
-  query 부족).
+- `notes/E3_modulus_kernel_deep_obstruction.md` (insufficient
+  single-precision query).
 - `framework/E213/Research/Real213ModulusCombiner.lean` (kernel).
-- `framework/E213/Research/StrongModulus.lean` (ε-N form 시도).
+- `framework/E213/Research/StrongModulus.lean` (ε-N form attempt).

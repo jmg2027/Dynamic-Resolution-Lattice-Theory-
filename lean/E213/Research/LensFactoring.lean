@@ -1,26 +1,28 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.LensFactoring: refines 의 general sufficient condition
+# Research.LensFactoring: general sufficient condition for refines
 
-**주장**: L.view 를 통해 M.view 가 factor 되면 L.refines M.
+**Claim**: if M.view factors through L.view, then L.refines M.
 
 ```
 M.view = g ∘ L.view for some g : α → β  ⟹  L.refines M
 ```
 
-이는 "M 은 L 이 주는 정보만 쓴다" 의 형식화.  모든 catalogue
-refines relationship (note 38 §7 Q37.2) 의 **통일 도구**.
+This formalizes "M uses only the information provided by L."
+It is the **unified tool** for all catalogue refines relationships
+(note 38 §7 Q37.2).
 
-역방향은 비건설적 (AC 필요).  이 파일은 건설적 방향만 제공.
+The converse direction is non-constructive (requires AC).  This file
+provides only the constructive direction.
 -/
 
 namespace E213.Research.LensFactoring
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Factoring → Refinement**: M.view 가 L.view 를 통해
-    factor 되면 L.refines M. -/
+/-- **Factoring → Refinement**: if M.view factors through L.view,
+    then L.refines M. -/
 theorem refines_of_factor {α β : Type} (L : Lens α) (M : Lens β)
     (g : α → β) (hfactor : ∀ r : Raw, M.view r = g (L.view r)) :
     L.refines M := by

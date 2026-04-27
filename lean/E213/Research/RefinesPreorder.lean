@@ -1,9 +1,9 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.RefinesPreorder: Lens.refines 의 preorder 구조
+# Research.RefinesPreorder: preorder structure of Lens.refines
 
-PAPER1 §3.3 의 preorder claim 의 explicit theorems:
+Explicit theorems for the preorder claim in PAPER1 §3.3:
 reflexivity + transitivity.
 -/
 

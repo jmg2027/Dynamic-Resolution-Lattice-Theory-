@@ -23,8 +23,8 @@ transition : state → state
 output : state → Nat → Nat → Bool
 ```
 
-각 step: state n+1 = transition (state n).  Cut at (m, k) by partial
-output 의 limit.
+Each step: state n+1 = transition (state n).  Cut at (m, k) by the
+limit of partial output.
 
 ## Classification
 
@@ -72,7 +72,7 @@ every cut function is the output of some Lens.
 
 - `notes/D2_complexity_class_hierarchy.md` (FSM/ICT classification).
 - `notes/F2_real_as_lens_output.md` (Real = Lens output reframe).
-- `framework/E213/Research/Real213CutExp.lean` (e 의 recurrence
-  Lens — factorial series).
+- `framework/E213/Research/Real213CutExp.lean` (recurrence Lens
+  for e — factorial series).
 - `framework/E213/Research/Real213RecurrenceLens.lean` (formal
   structure).

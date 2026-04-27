@@ -1,7 +1,7 @@
 import E213.Physics.SimplexCounts
 
 /-!
-# Generation count — 형식화된 새 물리 (기준 2)
+# Generation count — formalized new physics (criterion 2)
 
 Standard Model treats N_gen = 3 as **observation** (no derivation).
 DRLT *derives* N_gen from the (3, 2) simplex partition:
@@ -15,8 +15,8 @@ The latter is a falsifiable physics claim: if a 4th lepton generation
 is ever observed (FCC-ee/hh, ~2035+), DRLT's (3, 2) atomic forcing
 breaks.  This file gives the Lean form of that claim.
 
-CLAUDE.md 절대 원칙 — 기준 2 (형식화되어서 아무도 딴지 못 하는
-새 물리): 이 파일이 그 한 인스턴스.
+CLAUDE.md absolute principle — criterion 2 (formalized such that
+no one can dispute the new physics): this file is one instance of it.
 
 All theorems 0-axiom, decide-checked.
 -/

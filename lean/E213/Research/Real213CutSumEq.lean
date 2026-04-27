@@ -7,7 +7,7 @@ import E213.Research.Real213CutMulComm
 /-!
 # Research.Real213CutSumEq: cutSum / cutMul respect cutEq
 
-cutSum 의 well-definedness modulo cutEq.
+Well-definedness of cutSum modulo cutEq.
 -/
 
 namespace E213.Research.Real213CutSum
@@ -48,15 +48,15 @@ namespace E213.Research.Real213CutSum
 
 open E213.Firmware E213.Hypervisor
 
-/-- cutSum 의 cutEq commutativity. -/
+/-- cutEq commutativity of cutSum. -/
 theorem cutSum_comm_cutEq (cx cy : Nat → Nat → Bool) :
     cutEq (cutSum cx cy) (cutSum cy cx) := fun m k => cutSum_comm cx cy m k
 
-/-- cutMul 의 cutEq commutativity. -/
+/-- cutEq commutativity of cutMul. -/
 theorem cutMul_comm_cutEq (cx cy : Nat → Nat → Bool) :
     cutEq (cutMul cx cy) (cutMul cy cx) := fun m k => cutMul_comm cx cy m k
 
-/-- cutSum 의 cutEq composability: cutEq cx cx', cutEq cy cy' →
+/-- cutEq composability of cutSum: cutEq cx cx', cutEq cy cy' →
     cutEq (cutSum cx cy) (cutSum cx' cy'). -/
 theorem cutSum_cutEq_both (cx cx' cy cy' : Nat → Nat → Bool)
     (hx : cutEq cx cx') (hy : cutEq cy cy') :
@@ -64,7 +64,7 @@ theorem cutSum_cutEq_both (cx cx' cy cy' : Nat → Nat → Bool)
   rw [cutSum_cutEq_left cx cx' cy hx m k]
   exact cutSum_cutEq_right cx' cy cy' hy m k
 
-/-- cutMul 의 cutEq composability. -/
+/-- cutEq composability of cutMul. -/
 theorem cutMul_cutEq_both (cx cx' cy cy' : Nat → Nat → Bool)
     (hx : cutEq cx cx') (hy : cutEq cy cy') :
     cutEq (cutMul cx cy) (cutMul cx' cy') := fun m k => by
@@ -89,7 +89,7 @@ theorem cutMul_cutLe_both (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
     cutMul_mono_left cx2 cx1 cy2 hx m k h_mul2
   exact cutMul_mono_right cx1 cy2 cy1 hy m k step1
 
-/-- cutSum cutLe-preservation 일 변. -/
+/-- cutSum cutLe-preservation in one argument. -/
 theorem cutSum_cutLe_left (cx1 cx2 cy : Nat → Nat → Bool)
     (hx : cutLe cx1 cx2) :
     cutLe (cutSum cx1 cy) (cutSum cx2 cy) :=
@@ -100,7 +100,7 @@ theorem cutSum_cutLe_right (cx cy1 cy2 : Nat → Nat → Bool)
     cutLe (cutSum cx cy1) (cutSum cx cy2) :=
   cutSum_cutLe_both cx cx cy1 cy2 (cutLe_refl cx) hy
 
-/-- cutMul cutLe-preservation 일 변. -/
+/-- cutMul cutLe-preservation in one argument. -/
 theorem cutMul_cutLe_left (cx1 cx2 cy : Nat → Nat → Bool)
     (hx : cutLe cx1 cx2) :
     cutLe (cutMul cx1 cy) (cutMul cx2 cy) :=

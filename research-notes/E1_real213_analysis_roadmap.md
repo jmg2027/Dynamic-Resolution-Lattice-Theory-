@@ -154,7 +154,7 @@ is *permanently* stuck, framework is discarded (CLAUDE.md §1.5).
 - `notes/D2_complexity_class_hierarchy.md` (Tier classification).
 - `notes/D3_real213_native_R.md` (Real213 = native ℝ statement).
 - `framework/E213/Research/Real213.lean`, `Real213Equiv.lean`,
-  `Real213Const.lean` (Phase A 의 done parts).
+  `Real213Const.lean` (completed parts of Phase A).
 - `framework/E213/Research/HasModulus.lean` (Bishop modulus
   infrastructure).
 - `framework/E213/Research/PellHasModulus.lean` (concrete instance).

@@ -2,26 +2,26 @@ import E213.Research.SemanticAtom
 import E213.Research.InstanceReach
 
 /-!
-# Research.LensOnLens: Lens 자체 가 의미 framework 의 instance
+# Research.LensOnLens: Lens itself as an instance of the semantic framework
 
-Note 53 의 thesis ("meta-hierarchy 부재 — Lens 가 framework 안
-또 하나 의 instance") 의 mechanical proof.
+Mechanical proof of the thesis of Note 53 ("no meta-hierarchy —
+Lens is another instance within the framework").
 
-`HasDistinguishing (Lens Bool)` 의 instance 정의 — 두 distinct
-Lens (constTrueLens, constFalseLens) + pointwise xor combine.
+Defines a `HasDistinguishing (Lens Bool)` instance — two distinct
+Lenses (constTrueLens, constFalseLens) + pointwise xor combine.
 
-## 의의
+## Significance
 
-framework 의 self-cover 의 가장 *sharp* form:
-- Lens 가 framework 의 element (Raw) 가 *아니라* output type
-  의 instance.
-- 같은 framework abstraction (HasDistinguishing) 위 Lens type
-  자체 가 instance.
-- → meta-hierarchy 부재 — Lens-on-Lens 가 *새 layer* 가 아님.
+The sharpest form of the framework's self-cover:
+- Lens is an instance of the output type, *not* an element (Raw) of
+  the framework.
+- The Lens type itself is an instance of the same framework
+  abstraction (HasDistinguishing).
+- → No meta-hierarchy — Lens-on-Lens is *not* a new layer.
 
-universalMorphism (Lens Bool) : Raw → Lens Bool — Raw 의 element
-가 Lens 로 mapping.  의미 atom 의 self-application 의 정확 한
-form.
+universalMorphism (Lens Bool) : Raw → Lens Bool — elements of Raw
+map to Lenses.  The exact form of self-application of a semantic
+atom.
 -/
 
 namespace E213.Research.LensOnLens
@@ -35,7 +35,7 @@ def constTrueLens : Lens Bool := ⟨true, true, fun _ _ => true⟩
 /-- Constant-false Lens. -/
 def constFalseLens : Lens Bool := ⟨false, false, fun _ _ => false⟩
 
-/-- 두 constant Lens 가 distinct. -/
+/-- The two constant Lenses are distinct. -/
 theorem const_lenses_distinct : constTrueLens ≠ constFalseLens := by
   intro h
   have h_base_a : constTrueLens.base_a = constFalseLens.base_a :=

@@ -1,8 +1,8 @@
 # 76 — Prop instance: Raw → Prop universal morphism
 
-`Research/SemanticAtom.lean` 의 `propAsDistinguishing` +
-`canonicalTruthMap` — Lean 의 `Prop` type 도 `HasDistinguishing`
-instance 가 될 수 있음 의 형식 표현.
+`propAsDistinguishing` + `canonicalTruthMap` from
+`Research/SemanticAtom.lean` — formal expression that Lean's `Prop`
+type can also be a `HasDistinguishing` instance.
 
 ## Results
 
@@ -80,7 +80,7 @@ Trade-off of connective choices:
 In this file both instances are formalized — Xor as primary, Iff as
 alternative — showing the freedom in connective choice.
 
-## Axiom 검증
+## Axiom check
 
 `#print axioms`:
 - propXor_comm, true_ne_false, propAsDistinguishing,
@@ -89,7 +89,8 @@ alternative — showing the freedom in connective choice.
 - iff_comm_eq, propAsDistinguishingIff, canonicalIffMap:
   [propext] only.
 
-Lean baseline minimum.  AXIOM.md §5.2.1 falsifiability 와 정합.
+Lean baseline minimum.  Consistent with AXIOM.md §5.2.1
+falsifiability.
 
 ## Relationship to Note 75
 

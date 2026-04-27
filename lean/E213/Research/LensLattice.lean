@@ -1,34 +1,34 @@
 import E213.Research.IdentityLens
 
 /-!
-# Research.LensLattice: Lens.refines 의 구조
+# Research.LensLattice: structure of Lens.refines
 
-`Lens.refines` (Hypervisor/Lens.lean) 는 Lens 들의 kernel 에
-대한 preorder.  `L.refines M` iff `L.equiv` 이 `M.equiv` 보다
-finer (L.ker ⊆ M.ker).
+`Lens.refines` (Hypervisor/Lens.lean) is a preorder on the kernels
+of Lenses.  `L.refines M` iff `L.equiv` is finer than `M.equiv`
+(L.ker ⊆ M.ker).
 
-이 파일은 preorder 의 양 끝을 명시:
+This file makes explicit the two ends of the preorder:
 
-- **Bottom (finest kernel)**: `idLens` — equiv = `=` (Raw
-  동등성).  모든 Lens 를 refine.
+- **Bottom (finest kernel)**: `idLens` — equiv = `=` (Raw equality).
+  Refines every Lens.
 - **Top (coarsest kernel)**: `constLens e` — equiv = Raw × Raw
-  (모두 같음).  모든 Lens 에 의해 refine 됨.
+  (everything equal).  Refined by every Lens.
 
-**따라서**: Lens L 의 view 가 injective ↔ L 이 idLens 를
-refine 함 (L.ker ⊆ `=`).
+**Therefore**: L.view is injective ↔ L refines idLens (L.ker ⊆ `=`).
 
-## 의의
+## Significance
 
-Note 34-36 의 diagonal 분석이 Lens 개별 data 에 대한 것이었
-다면, 이 파일은 Lens **사이의 관계** 를 다룬다.  refines
-preorder 가 Lens 세계의 구조를 제공.
+Whereas the diagonal analysis of Notes 34-36 concerned the data of
+individual Lenses, this file treats the **relationships between**
+Lenses.  The refines preorder provides the structure of the Lens
+world.
 -/
 
 namespace E213.Research.LensLattice
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
-/-- Terminal Lens: 모든 Raw 를 한 점 e 로. -/
+/-- Terminal Lens: maps every Raw to a single point e. -/
 def constLens {α : Type} (e : α) : Lens α where
   base_a := e
   base_b := e
@@ -52,8 +52,8 @@ namespace E213.Research.LensLattice
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
-/-- **Bottom**: idLens 는 모든 Lens 를 refine.  idLens 의
-    kernel 은 Raw 의 동등성 `=` 이므로 모든 kernel 에 포함. -/
+/-- **Bottom**: idLens refines every Lens.  Since the kernel of
+    idLens is Raw equality `=`, it is contained in every kernel. -/
 theorem idLens_refines_all {α : Type} (L : Lens α) :
     idLens.refines L := by
   intro x y hxy
@@ -62,8 +62,8 @@ theorem idLens_refines_all {α : Type} (L : Lens α) :
   show L.view x = L.view y
   rw [h]
 
-/-- **Top**: 모든 Lens 가 constLens e 를 refine.  constLens 의
-    kernel 은 universal (모두 같음). -/
+/-- **Top**: every Lens refines constLens e.  The kernel of constLens
+    is universal (everything is equal). -/
 theorem all_refine_constLens {α : Type} (e : α) (L : Lens α) :
     L.refines (constLens e) := by
   intro x y _
@@ -76,8 +76,8 @@ namespace E213.Research.LensLattice
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
-/-- **Injectivity characterisation**: L 이 idLens 를 refine 함
-    ↔ L.view 가 injective. -/
+/-- **Injectivity characterisation**: L refines idLens ↔ L.view is
+    injective. -/
 theorem refines_idLens_iff_injective {α : Type} (L : Lens α) :
     L.refines idLens ↔ Function.Injective L.view := by
   constructor
@@ -90,7 +90,7 @@ theorem refines_idLens_iff_injective {α : Type} (L : Lens α) :
     show idLens.view x = idLens.view y
     rw [heq]
 
-/-- constLens e 가 어떤 L 을 refine 하면 L 도 상수. -/
+/-- If constLens e refines some L, then L is also constant. -/
 theorem constLens_refines_iff_const {α β : Type} (e : α) (L : Lens β) :
     (constLens e).refines L ↔ ∀ x y : Raw, L.view x = L.view y := by
   constructor

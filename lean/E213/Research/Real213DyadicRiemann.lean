@@ -8,17 +8,17 @@ import E213.Research.Real213ConstCutScale
 
 ## 213-native philosophy (Phase J Sec 3)
 
-User insight: "리만 적분은 단순히 결정론적인 브라켓 컷들을
-다이애딕하게 누적하는(Accumulate) 행위입니다.  bisectN에서 이미
-다이애딕 분기를 마스터했으니, 브라켓의 길이를 가중치로 곱해서
-더하는 적분 궤적 생성기를 먼저 구현하시는 것이 프레임워크의
-저항을 덜 받는 길입니다."
+User insight: "Riemann integration is simply the act of dyadically
+accumulating deterministic bracket cuts.  Since we have already
+mastered dyadic branching in bisectN, implementing the integral
+trajectory generator — which multiplies bracket widths as weights
+and sums them — is the path of least resistance from the framework."
 
 This is the integral as a **dyadic accumulator**, not as a real-valued
 limit.  At depth n, we subdivide the bracket into 2^n sub-brackets
 and accumulate sample values via cutSum.
 
-## 의의
+## Significance
 
 - bisectN: dyadic binary tree DESCENT (one path).
 - riemann: dyadic binary tree FULL ACCUMULATION (all leaves summed).
@@ -26,7 +26,7 @@ and accumulate sample values via cutSum.
 The two operations are complementary uses of the same dyadic
 structure — IVT picks ONE leaf, integral sums ALL leaves.
 
-## 정의
+## Definition
 
 `riemannSampleSum f db depth` accumulates f(midpoint) over the 2^depth
 sub-brackets of db, via tree-recursive cutSum.

@@ -1,9 +1,9 @@
 import E213.Physics.HydrogenAtom
 
 /-!
-# 원자 차폐 상수 — 모두 순수 유리수 (0 axioms)
+# Atomic screening constants — all pure rationals (0 axioms)
 
-DRLT 도출 (atoms/CLAUDE.md, ATM 시리즈):
+DRLT derivation (atoms/CLAUDE.md, ATM series):
 
   σ_1s→outer  = 1 − NS/(d²−1) = 1 − 3/24 = 21/24 = 7/8
   σ_same_p(p=2) = NS/(NS+1) = 3/4
@@ -13,19 +13,19 @@ DRLT 도출 (atoms/CLAUDE.md, ATM 시리즈):
   σ_df→p     = 1 − α_GUT       = 1 − 6/(25π²) ≈ 0.976
   σ_core_offset = (d²+NT)/(d·NT) = 27/10
 
-★ 모든 차폐 상수가 순수 유리수 ★
-  분자/분모가 {NS, NT, d, c} 정수에서 직접.  α_GUT correction
-  하나 (σ_df→p)만 transcendental.
+★ All screening constants are pure rationals ★
+  Numerators/denominators come directly from {NS, NT, d, c} integers.
+  Only one α_GUT correction (σ_df→p) is transcendental.
 
-## Numerical match (전체 주기율표 z=1-118, ATM_021)
+## Numerical match (full periodic table z=1-118, ATM_021)
 
-  H-Ne: 모든 IE < 3% error
+  H-Ne: all IE < 3% error
   Period 3-4: median 3.9-3.5%
   Period 5-7: median 2.8-12%
-  Z=1-118 종합: median 3.5%
+  Z=1-118 total: median 3.5%
 
   118 elements all within < 30% of observed IE.  Rational
-  screening constants가 atomicity 강제로 정확 일치.
+  screening constants precisely agree under atomicity forcing.
 -/
 
 namespace E213.Physics.AtomicScreening
