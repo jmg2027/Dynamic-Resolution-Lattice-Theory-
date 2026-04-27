@@ -94,4 +94,16 @@ example : cubeIsSmooth.linearityModulus 5 = 15 := by decide
 /-- quartic at depth 5: modulus = 20 (slope 4). -/
 example : quarticIsSmooth.linearityModulus 5 = 20 := by decide
 
+/-- quintic (x⁵) at depth 5: modulus = 25 (slope 5). -/
+example : quinticIsSmooth.linearityModulus 5 = 25 := by decide
+
+/-- sextic (x⁶) at depth 5: modulus = 30 (slope 6). -/
+example : sexticIsSmooth.linearityModulus 5 = 30 := by decide
+
+/-- septic (x⁷) at depth 5: modulus = 35 (slope 7). -/
+example : septicIsSmooth.linearityModulus 5 = 35 := by decide
+
+/-- octic (x⁸) at depth 5: modulus = 40 (slope 8). -/
+example : octicIsSmooth.linearityModulus 5 = 40 := by decide
+
 end E213.Research.Real213CutSum
