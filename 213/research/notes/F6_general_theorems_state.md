@@ -327,6 +327,45 @@ Real213ConsistentOracle.lean Phase K addition:
 - **ConsistentOracle.collapsed** : FIRST sorry-free concrete instance,
   showing the protocol has content.  thresholdN = 0 for collapsed db.
 
+### Phase L — Cross-track parallel + Capstones (sister-branch inspired)
+
+User pointed at sister branch `claude/block-universe-asymmetry-bYQZZ`
+which formalizes physics-track derivations on the same DRLT
+substrate.  The sister branch's `FiniteUniverse.lean` and
+`ResolutionDepth.lean` formalize identical Phase J ontology
+(no completed-infinity primitives, depth-resolution principle) in
+the physics domain.  Our analysis-track parallel:
+
+Real213PhaseJCapstone.lean:
+- phaseJ_capstone : 7-fact conjunctive theorem bundling all main
+  Phase J results (bisectN structure, containment, Riemann constant).
+- dyadic_bracket_finite_rational : every bisectN step is finite Nat
+  rational at left/right/mid (no π, no ∞).
+- riemann_const_finite_rational : Riemann sum on constant integrand
+  produces finite rational at every depth.
+- phaseJ_no_infinity : combined finite-N marker.
+- consistentOracle_exists_on_collapsed : Phase K instance witness.
+
+Real213ResolutionDepth.lean:
+- 5 explicit linearityModulus theorems for polynomial chain:
+  * idIsSmooth_modulus : depth 1 (= n).
+  * constIsSmooth_modulus : depth 0.
+  * cutScaleIsSmooth_modulus : depth 1.
+  * squareIsSmooth_modulus : depth 2 (= 2n).
+  * cubeIsSmooth_modulus : depth 3 (= 3n).
+  * quarticIsSmooth_modulus : depth 4 (= 4n).
+- polynomial_resolution_depth_principle : capstone showing
+  polynomial degree d → linearityModulus n = d * n.
+
+Real213DyadicRiemann.lean Phase L addition:
+- riemannSampleSum_const_normalized : average sample = constant
+  integrand (constCut_scale rescaling).
+
+Real213Dyadic.lean Phase L addition:
+- cutSum_dyadicCut_self : doubling preserves dyadic.
+- cutHalf_dyadicCut : exponent +1.
+- cutDouble_dyadicCut : numerator * 2.
+
 ## 비 verified scaffolded
 
 - Series convergence theorems (full).
