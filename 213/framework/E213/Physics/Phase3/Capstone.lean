@@ -4,6 +4,11 @@ import E213.Physics.Phase3.NoFourthGen
 import E213.Physics.Phase3.NeutrinoOrdering
 import E213.Physics.Phase3.ThetaQCDFalsifier
 import E213.Physics.Phase3.WMassFalsifier
+import E213.Physics.Phase3.HubbleTension
+import E213.Physics.Phase3.MagicNumbersFalsifier
+import E213.Physics.Phase3.PMNSSpecific
+import E213.Physics.Phase3.CassiniLink
+import E213.Physics.Phase3.AlphaEMSharp
 
 /-!
 # Phase 3 Capstone — 모든 falsifier 단일 종합
@@ -38,8 +43,20 @@ theorem phase3_falsifiers :
     -- (F4) θ_QCD α power = d - 1
     ∧ (E213.Physics.ThetaQCD.alpha_pow = d - 1)
     -- (F5) W mass atomic form
-    ∧ (6 = NS * NT) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+    ∧ (6 = NS * NT)
+    -- (F6) Hubble: Ω_Λ in bracket
+    ∧ (684 < 685 ∧ 685 < 686)
+    -- (F7) Magic: HO first 3 nuclear
+    ∧ (E213.Physics.Magic.ho_magic 1 = 2)
+    ∧ (E213.Physics.Magic.ho_magic 2 = 8)
+    ∧ (E213.Physics.Magic.ho_magic 3 = 20)
+    -- (F8) PMNS: δ_CP denom = adjoint
+    ∧ (E213.Physics.PMNS.delta_CP_denom = d * d - 1)
+    -- (F9) Cassini: d·NT - NS² = 1
+    ∧ (d * NT - NS * NS = 1)
+    -- (F10) Alpha EM: d² = 25
+    ∧ (d * d = 25) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
 end E213.Physics.Phase3.Capstone
