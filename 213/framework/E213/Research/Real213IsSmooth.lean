@@ -197,4 +197,16 @@ def mulIsSmooth {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
   linearityModulus := fun n =>
     sf.linearityModulus n + sg.linearityModulus n
 
+/-- **x ↦ x² is smooth**: derived from mulIsSmooth ∘ id × id. -/
+def squareIsSmooth : IsSmooth (fun x => cutMul x x) :=
+  mulIsSmooth idIsSmooth idIsSmooth
+
+/-- **x ↦ x³ is smooth**: derived from mulIsSmooth ∘ id × square. -/
+def cubeIsSmooth : IsSmooth (fun x => cutMul x (cutMul x x)) :=
+  mulIsSmooth idIsSmooth squareIsSmooth
+
+/-- **x ↦ x⁴ is smooth**: square of square. -/
+def quarticIsSmooth : IsSmooth (fun x => cutMul (cutMul x x) (cutMul x x)) :=
+  mulIsSmooth squareIsSmooth squareIsSmooth
+
 end E213.Research.Real213CutSum
