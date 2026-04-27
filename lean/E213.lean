@@ -12,6 +12,10 @@
 --   Research   : E213/Research/*.lean   (r5-critique track:
 --                                        ZI, Z2, ZOmega witnesses)
 
+-- Kernel (deep-embedded 213, 0 Lean axioms)
+import E213.Kernel.Term
+import E213.Kernel.Demo
+
 -- Firmware
 import E213.Firmware.Raw
 import E213.Firmware.RawSwap
