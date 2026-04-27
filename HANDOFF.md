@@ -11,6 +11,12 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 **Library entry point**: `framework/E213/Math.lean` with 7 sub-modules
 (Foundation / CutOps / Generic / Continuity / Cauchy / Series / Analysis).
 
+**General theorems proved** (NOT just decide-tested):
+- `cutSum_one_one` : 1 + 1 = 2 (cutSum (1)(1) = constCut 2 1).
+- `cutMul_one_one` : 1 * 1 = 1.
+- `cutSum_zero_const`, `cutSum_const_zero` : 0 + a/b = a/b + 0 = a/b.
+- `cutMul_one_const`, `cutMul_const_one` : 1 * a/b = a/b * 1 = a/b.
+
 **Verified theorems** (substantial mathematical content):
 - Phase A foundation (type / equiv / const / order / sign / OrderExtra).
 - Cut arithmetic: cutSum, cutMul, cutMaxMin, cutNeg, cutSignedMul,
