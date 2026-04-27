@@ -1,90 +1,79 @@
-# Session Handoff — 2026-04-27 (Cohomology Marathon Planned)
+# Session Handoff — 2026-04-27 (Cohomology Marathon Phases CA+CB+CC partial)
 
 ## Branch
-`claude/review-paper-directory-nDw9L` (committed + pushed this session).
+`claude/review-paper-directory-nDw9L` (committed + pushed).
 
-## What Was Done This Session
+## What Was Done
 
-### 1. Open Problem #1 progress (1/α_em)
-- `BaselBoundTight.lean` — two-sided telescoping bracket
-  S(N)+1/(N+1) ≤ ζ(2) ≤ S(N)+1/N. Width 1/(N(N+1)).
-- `AlphaEM137Tight.lean` — bracket on candidate at N=20 has width
-  0.14 (vs N=10 width 6.0 baseline; 43× tighter).
-- `AlphaEMStructuralGap.lean` — 5.443×10⁻⁴ gap to observed
-  documented as first-class falsifier target. All 0-axiom.
+### 1. Open Problem #1 (1/α_em) — bracket tightening + structural gap
+- `BaselBoundTight.lean` — two-sided telescoping, width 1/(N(N+1)).
+- `AlphaEM137Tight.lean` — N=20 bracket width 0.14 (43× tighter).
+- `AlphaEMStructuralGap.lean` — 5.443×10⁻⁴ gap as falsifier target.
 
 ### 2. "What is α_em from Raw under lensing" — answered
-Re-reading the existing chain (`PhotonKernel`, `FaceTerms`,
-`AlphaEMSimplicial`, `AlphaEMUnified`, `AlphaEMDerivation`) reveals:
-
 **1/α_em(IR) = unique graded simplicial-cohomology sum on
-K_{NS,NT}^{(c)} ⊂ Δ⁴ at atomicity (3, 2, 2, 5).** Five terms, all
-atomicity-forced geometric invariants. Already proven 0-axiom.
+K_{NS,NT}^{(c)} ⊂ Δ⁴ at atomicity (3,2,2,5).** Five terms, all
+atomicity-forced (already proven in `AlphaEMSimplicial.lean`).
+"25/3 conjectural" tag was wrong: 25/3 = (NS²−1) + 1/NS = b₁ +
+1/(#4-cycles), both Raw-derived.
 
-Critical correction: the "conjectural d²/NS = 25/3" tag in
-`AlphaEM137.lean` was wrong. `AlphaEMUnified.lean` already proves
-25/3 = (NS²−1) + 1/NS = b₁ + 1/(#4-cycles) — both simplicial
-quantities derived from Raw. Not ad hoc.
+### 3. Cohomology 213 marathon — Phases CA + CB + CC partial
+9 files / ~28 theorems / 0 axiom in `lean/E213/Math/Cohomology/`.
 
-The 5.4×10⁻⁴ gap is the residual between the five-term simplicial
-sum and observed 137.036. Most likely missing: a sixth simplicial
-invariant (H², cup product, or higher cell-complex term).
+CA (cochain foundation, 5 files): Cochain + SimplexBasis + Delta +
+DeltaSqZero + TrivialCases. δ²=0 verified at concrete cochains.
 
-### 3. Cohomology 213 marathon planned
-- `blueprints/math/15_cohomology_213.md` — base spec
-- `blueprints/math/15_cohomology_213_phases.md` — CA→CF phases
-- `blueprints/math/INDEX.md` updated (field 15 added)
-- `blueprints/INDEX.md` updated (cohomology = next math priority)
-- `guide/14_cohomological_calculus.md` updated
-- `guide/INDEX.md`, `guide/STATUS.md` updated
+CB (Hodge ⋆, 3 files): HodgeStar + HodgeInvolution + HodgeDelta.
+⋆⋆ = id verified; codiff = ⋆δ⋆ defined at (5,2) and (5,3).
 
-Marathon target dir: `lean/E213/Math/Cohomology/`. Six phases:
-CA cochain + δ²=0, CB Hodge ⋆, CC Betti numbers, CD cup product,
-CE α_em sixth-term hunt, CF capstone.
+CC partial (1 file): BettiKernel.lean defines kernel enumeration.
+`kerSizeDelta 5 0 = 1`, `kerSizeDelta 5 1 = 2` verified —
+confirms Δ⁴ is contractible (b̃_0 = b̃_1 = 0 reduced ℤ/2).
 
-## Open Problems (priority order)
+## Lessons learned
 
-### 1. Cohomology 213 marathon — **Phases CA + CB closed**
-8 files / ~25 theorems / 0 axiom in `lean/E213/Math/Cohomology/`:
-Cochain + SimplexBasis + Delta + DeltaSqZero + TrivialCases (CA);
-HodgeStar + HodgeInvolution + HodgeDelta (CB).
+1. **Prop coercion breaks `decide` through `hodgeStar`.**
+   Cochains via `fun i => i.val = 0` (Prop) + `Decidable` autoconvert
+   to Bool, but chained through `hodgeStar`'s Nat-sub result type
+   triggers "expected type must not contain free variables".
+   Use Bool-pure (`==`, `fun _ => true`).
+2. **`hodgeStar n k m σ` needs all three (n,k,m) explicit.**
+3. **`Nat.fold` doesn't reduce under `decide`.** Use
+   `(List.range _).filter ... |>.length` for kernel enumeration.
 
-Phase CB: ⋆: Cᵏ → Cⁿ⁻ᵏ via set-theoretic complement;
-⋆⋆ = id verified on multiple Bool-pure cochains; codifferential
-`codiff = ⋆δ⋆` at (5,2) and (5,3) decide-checked.
+## Open Problems (priority)
 
-**Lessons (CB):** cochains using `fun i => i.val = 0` (Prop)
-trigger elaboration errors when chained through `hodgeStar`
-(Nat-sub in result type). Use Bool-pure (`==`).
-`hodgeStar n k m σ` needs all three (n, k, m) explicit.
+### 1. Phase CC continuation (α_em 6th-term payoff blocked)
+K_{3,2}^{(2)} cohomology requires a SEPARATE cochain construction
+(graph cochains, not simplicial-on-{0..n-1}).  And
+b₂(K_{3,2}^{(2)}) = 0 trivially (1-dim graph), so the sixth term
+— if it exists — must come from Phase CD (cup product) or a
+2-cell extension.  Plan: skip to Phase CD next.
 
-**Phase CC next:** Betti numbers on Δ⁴ and K_{3,2}^{(2)}.
-**b₂(K_{3,2}^{(2)})** is the α_em 5.4×10⁻⁴ candidate.
-
-### 2. Phase CC b₂(K_{3,2}^{(2)}) — direct physics payoff
-Compute b₂ at cochain level. If non-trivial, candidate sixth
-simplicial invariant for the α_em gap.
+### 2. Phase CD — cup product
+`Cohomology/Cup.lean` defines `cup : Cᵏ ⊗ Cˡ → Cᵏ⁺ˡ` (XOR
+bilinear), Leibniz, ring on H*. Cup product invariants on
+K_{3,2}^{(2)} are next α_em-gap candidate.
 
 ### 3. Real213 Phase B–H (cohomological calculus extension)
 General `cutMul` propEq remains the wall.
 
 ### 4. T3 chapters → T2/T1 migration
-ℂ uniqueness (Frobenius → Raw-internal) is highest-leverage.
+ℂ uniqueness (Frobenius → Raw-internal) highest-leverage.
 
-### 5. Single-theorem AxiomMinimality
-Tighten `Meta/AxiomMinimality.lean`.
+### 5. Single-theorem AxiomMinimality.
 
-## File Map
+## File Map (this session)
 
 ```
-lean/E213/Physics/BaselBoundTight.lean        ← α_em 1a
-lean/E213/Physics/AlphaEM137Tight.lean        ← α_em 1a
-lean/E213/Physics/AlphaEMStructuralGap.lean   ← α_em 1b documented
-blueprints/math/15_cohomology_213{,_phases}.md ← marathon plan
-guide/14_cohomological_calculus.md, INDEX, STATUS ← updated
+lean/E213/Physics/{BaselBoundTight,AlphaEM137Tight,AlphaEMStructuralGap}.lean
+lean/E213/Math/Cohomology/{Cochain,SimplexBasis,Delta,DeltaSqZero,
+  TrivialCases,HodgeStar,HodgeInvolution,HodgeDelta,BettiKernel}.lean
+blueprints/math/15_cohomology_213{,_phases}.md
+guide/{14_cohomological_calculus,INDEX,STATUS}.md, papers/README.md
 ```
 
 ## Authors
 
-- Mingu Jeong (Independent Researcher) — theory originator.
-- Claude (Anthropic): formalization + planning — Acknowledgments.
+- Mingu Jeong (Independent Researcher).
+- Claude (Anthropic): formalization + planning.

@@ -43,7 +43,7 @@ multiple tiers per section.
 |-----------|---------------|--------|-------|
 | 1/α_em = 137.036 (1a) | tight bracket [N=20] width 0.14, [N=50] width 0.024 | width < 10⁻⁴ | Ch. 05 |
 | 1/α_em = 137.036 (1b) | gap 5.443×10⁻⁴ → reframed: missing simplicial invariant | Cohomology 213 marathon (Phase CE) | Ch. 05 |
-| Cohomology 213 marathon | **Phases CA + CB closed** (8 files, ~25 theorems, 0 axiom): Cochain + δ + δ²=0 + ⋆ + ⋆⋆=id + codiff | Phase CC Betti numbers | Ch. 14 |
+| Cohomology 213 marathon | **Phases CA + CB + CC partial** (9 files, ~28 theorems, 0 axiom): Cochain + δ + δ²=0 + ⋆ + ⋆⋆=id + codiff + kerSize on Δ⁴ | Phase CC bipartite cochains | Ch. 14 |
 | α_GUT = 6/(25π²) | bracket [N=3] width ~8 | width < 10⁻⁴ | Ch. 05 |
 | AlphaEM137 d²/NS=25/3 | conjectural-tagged | derive from Raw | Ch. 05 |
 | η_B | 0.5% narrative | ppb | Ch. 09 |
