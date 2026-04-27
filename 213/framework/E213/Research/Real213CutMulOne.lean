@@ -111,4 +111,11 @@ theorem cutMul_one_const (a b : Nat) :
     · -- k*m ≤ m*k
       rw [Nat.mul_comm]; exact Nat.le_refl _
 
+/-- **cutMul (constCut a b) (constCut 1 1) = constCut a b** (right identity). -/
+theorem cutMul_const_one (a b : Nat) :
+    cutMul (constCut a b) (constCut 1 1) = constCut a b := by
+  funext m k
+  rw [cutMul_comm (constCut a b) (constCut 1 1) m k]
+  exact congrFun (congrFun (cutMul_one_const a b) m) k
+
 end E213.Research.Real213CutSum
