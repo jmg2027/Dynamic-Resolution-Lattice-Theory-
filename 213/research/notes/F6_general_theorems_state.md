@@ -1,4 +1,4 @@
-# F6 — General theorems state (Marathon final)
+# F6 — General theorems state (Marathon final + extension)
 
 ## 이 wave 의 actual general theorems (NOT just decide tests)
 
@@ -68,13 +68,58 @@
 ### cutDouble
 
 - `cutDouble_constCut`, `cutDouble_zero`, `cutDouble_cutDouble`.
+- `cutSum_self_eq_cutDouble` : cutSum c c = cutDouble c on constants.
+- `cutDouble_cutHalf_comm` : cutDouble ∘ cutHalf = cutHalf ∘ cutDouble.
+- `cutHalf_cutHalf_constCut`, `cutDouble_cutDouble_constCut`.
+- `cutDouble_cutEq`, `cutDouble_cutLe` : preservation of order/equiv.
+- `cutHalf_cutEq`, `cutHalf_cutLe` : same for cutHalf.
 
-## Total stats (extended marathon)
+### cutMid composition
 
-- 56+ Real213-related Lean modules.
-- 60+ commits in this wave.
+- `cutMid_int_int` : midpoint(a/1, c/1) = (a+c)/2.
+- `cutMid_int_half` : midpoint(a/1, c/2) = (2a+c)/4.
+- `cutMid_half_int` : midpoint(a/2, c/1) = (a+2c)/4.
+
+### cutHalf/cutDouble × cutMax/cutMin commute (rfl-trivial)
+
+- `cutHalf_cutMax`, `cutHalf_cutMin`.
+- `cutDouble_cutMax`, `cutDouble_cutMin`.
+
+### cutSum associativity (NEW — Phase D)
+
+- `cutSum_int_int_three` : (a + b) + c = (a+b+c)/1.
+- `cutSum_int_int_three_right` : a + (b + c) = (a+(b+c))/1.
+- `cutSum_int_assoc` : (a+b)+c = a+(b+c) on integer constants.
+- `cutSum_half_three`, `cutSum_half_three_right`, `cutSum_half_assoc`.
+
+### partialSum closed forms
+
+- `partialSum_pointwise_eq` : pointwise-equal series have equal sums.
+- `partialSum_const_int (a n)` : Σ_{i<n} (a/1) = (n*a)/1.
+- `partialSum_const_half (a n)` : Σ_{i<n+1} (a/2) = ((n+1)*a)/2.
+- `partialSum_ones` : Σ_{i<n} 1 = n.
+- `partialSum_halves` : Σ_{i<n+1} 1/2 = (n+1)/2.
+- `partialSum_const_one/two/three_int/three_half` : per-n closed forms.
+
+### cutSignedSum closed forms
+
+- `cutSignedSum_pos_int`, `cutSignedSum_neg_int`,
+  `cutSignedSum_pos_half`.
+
+### cutInv / cutAbs / cutNeg
+
+- `cutInv_cutInv` = id.
+- `cutNeg_cutSignedMul_left/right` : sign distributes over signed mul.
+- `cutAbs_cut`, `cutAbs_cutNeg`, `cutNeg_cutAbs` : abs/neg algebra.
+
+## Total stats (extended marathon + Phase D)
+
+- 60+ Real213-related Lean modules.
+- 90+ commits across the full marathon.
 - All build clean, ≤ propext + Quot.sound (Lean 4 core only).
-- Library entry: `E213.Math` with 7 sub-modules.
+- Library entry: `E213.Math` with 7 sub-modules,
+  CutOps now imports SumOne/MulOne/MidSelf/PowConst/ConstCutScale/
+  ScaleLattice; Series imports SeriesConst.
 
 ## 비 verified scaffolded
 
@@ -83,5 +128,8 @@
 - Differentiation rules (sum/product/chain).
 - Riemann FTC.
 - Specific transcendental limit proofs.
-- cutSum_assoc as general theorem.
+- cutSum_assoc on arbitrary same-denom (blocked at b ≥ 3 by
+  divisibility — only b ∈ {1, 2} give clean closed forms in Lean).
 - cutSum × cutMul distributivity.
+- cutMul_const_const = constCut(ac)(bd) (cutMul has precision
+  artifacts, only special cases proved).
