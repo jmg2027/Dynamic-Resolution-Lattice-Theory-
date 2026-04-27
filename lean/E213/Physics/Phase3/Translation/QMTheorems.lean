@@ -55,7 +55,7 @@ DRLT atomic:
 NT = 2 is the atomic direct derivation of *why exactly 2 fermions*.
 -/
 
-/-- NT = 2: 한 spin slot 에 2 vertices 만. -/
+/-- NT = 2: only 2 vertices per spin slot. -/
 theorem pauli_exclusion_atomic : NT = 2 := by decide
 
 /-- 2 + 1 > NT: 3rd fermion overflow forbidden. -/
@@ -109,7 +109,7 @@ This is the *atomic direct derivation* of spin-statistics (Pauli 'magic').
 /-- Spin = NT/2.  At NT = 2, spin = 1.  But fermion = NT atomic = 2. -/
 theorem spin_atomic_value : NT = 2 := by decide
 
-/-- Fermion 정체 = NT block of size 2. -/
+/-- Fermion identity = NT block of size 2. -/
 theorem fermion_block_size : NT = 2 := by decide
 
 /-- ★ QM Theorems Capstone ★ -/

@@ -5,7 +5,7 @@ import E213.Physics.SimplexCounts
 /-!
 # Translation: Weinberg angle deep-dive → DRLT atomic
 
-표준: sin²θ_W ≈ 0.231 (관측, M_Z scale).
+Standard: sin²θ_W ≈ 0.231 (observed, M_Z scale).
    bare DRLT: 0.2331.
    running effect: ~0.2 reduction.
 
@@ -14,12 +14,12 @@ DRLT atomic (Phase 1 WeinbergAngle):
          = 30 / (30 + 60·ζ(2))
          = 1/α_2 / (1/α_2 + (5/3)/α_1)
 
-  계수 atomic:
+  Coefficients atomic:
     30 = α_2 inverse
     60 = (5/3) · 12 · NS (Y-norm hypercharge)
-    분모 30 + 60·ζ(2) atomic
+    denominator 30 + 60·ζ(2) atomic
 
-이게 sin²θ_W 의 *atomic 직접 derivation* — running 부재.
+This is the *atomic direct derivation* of sin²θ_W — no running.
 -/
 
 namespace E213.Physics.Phase3.Translation.WeinbergDerivation

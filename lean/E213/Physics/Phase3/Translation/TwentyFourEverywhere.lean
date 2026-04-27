@@ -2,11 +2,11 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 정수 24 의 *모든* 물리적 출현
+# Translation: *All* physical appearances of integer 24
 
 24 = d² - 1 = (d-1)(d+1) = 4! = 8 + 3 + 12 + 1
 
-## 24 등장 목록
+## List of appearances of 24
 
   1. SU(5) GUT adjoint dim [Symmetry]
   2. α_2 prefactor 12·NT [Phase 1]
@@ -14,7 +14,7 @@ import E213.Physics.SimplexCounts
   4. 4! permutation S_4 [combinatorics]
   5. SM gauge sum 8+3+12+1 [Symmetry]
   6. Conformal anomaly 1/(24π²) [QFT]
-  7. Leech lattice (관계: 24-dim Steiner)
+  7. Leech lattice (relation: 24-dim Steiner)
   8. 24-cell regular polytope (4-dim)
 -/
 
@@ -39,7 +39,7 @@ theorem tf_decomp : 8 + 3 + 12 + 1 = 24 := by decide
 
 /-- ★ TwentyFour Everywhere Capstone ★ -/
 theorem twentyfour_everywhere :
-    -- 5 다른 atomic form
+    -- 5 different atomic forms
     (d * d - 1 = 24)
     ∧ ((d - 1) * (d + 1) = 24)
     ∧ (4 * 3 * 2 * 1 = 24)

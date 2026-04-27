@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 위상상 → DRLT atomic
+# Translation: Topological phases → DRLT atomic
 
   1. Chern number C ∈ ℤ → atomic integer
   2. Quantum Hall plateau ν ∈ {1, 2, 3, ...} atomic

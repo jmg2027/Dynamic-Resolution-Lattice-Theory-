@@ -2,7 +2,7 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 표준 미해결 문제 → DRLT atomic 해결 catalog
+# Translation: Standard unsolved problems → DRLT atomic resolution catalog
 
   1. Hierarchy m_H << M_Pl: M_Pl/v_H = d^(d²)/(d+1)
   2. Strong CP: θ_QCD = J·α^(d-1) atomic
