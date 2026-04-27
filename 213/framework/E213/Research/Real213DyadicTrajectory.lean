@@ -211,6 +211,20 @@ theorem alwaysFalse_unit_midCut (n : Nat) :
     omega
   rw [h_eq]
 
+/-- **Universal trajectory invariants on unit bracket**: regardless
+    of oracle, after n bisection steps starting from unit bracket
+    [0, 1], we have lenNum = 1 (numerator difference invariant) and
+    expE = n (depth advances).  Real interval length: 1/2^n. -/
+theorem unit_universal_invariants (oracle : DyadicOracle) (n : Nat) :
+    (DyadicBracket.bisectN oracle n unitBracket).lenNum = 1
+    ∧ (DyadicBracket.bisectN oracle n unitBracket).expE = n := by
+  refine ⟨?_, ?_⟩
+  · rw [DyadicBracket.bisectN_lenNum oracle n unitBracket]
+    rfl
+  · rw [DyadicBracket.bisectN_expE oracle n unitBracket]
+    show 0 + n = n
+    exact Nat.zero_add n
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
