@@ -1,4 +1,5 @@
 import E213.Research.Real213CutContinuity
+import E213.Research.Real213CutBisection
 
 /-!
 # Research.Real213CutFnData: data-bearing local determinedness
@@ -114,5 +115,19 @@ def composeLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
         (maxRange_ge lg.N (lf.N m k) (lf.N m k) m' k' hm' hk')
     · exact Nat.le_trans hk''
         (maxRange_ge lg.N (lf.N m k) (lf.N m k) m' k' hm' hk')
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- cutHalf 의 LocallyDeterminedData. -/
+def cutHalfLDD : LocallyDeterminedData cutHalf where
+  N := fun m k => max (2*m) k
+  prop := by
+    intro m k cx cy h
+    show cx (2*m) k = cy (2*m) k
+    exact h (2*m) k (Nat.le_max_left _ _) (Nat.le_max_right _ _)
 
 end E213.Research.Real213CutSum
