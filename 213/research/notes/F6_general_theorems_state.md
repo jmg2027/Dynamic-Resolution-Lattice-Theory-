@@ -399,6 +399,13 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase W — 4 milestones COMPLETE (capstone bundles + iteration)
+
+**W1: polynomial_coverage_1_to_16** — single decide-proven 16-fact bundle.
+**W2: riemann_universal_facts** — 3-fact Riemann bundle (closed form + doubling + normalized).
+**W3: midIsSmooth iteration tests** — nested mid composition.
+**W4: This 11-Phase synthesis.**
+
 ### Phase V — 4 milestones COMPLETE (gap-filling + cutLe both ways)
 
 **V1: x¹¹, x¹³, x¹⁴** — gap-fill polynomial coverage (now 1-16 complete).

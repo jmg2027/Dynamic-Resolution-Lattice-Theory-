@@ -8,6 +8,13 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase W COMPLETE — Capstone bundles + iteration
+
+- W1: polynomial_coverage_1_to_16 (16-fact bundle).
+- W2: riemann_universal_facts (3-fact Riemann bundle).
+- W3: midIsSmooth iteration tests (nested compositions).
+- W4: 11-Phase synthesis docs.
+
 ### Phase V COMPLETE — Gap-filling polynomials + cutLe both ways
 
 - V1: x¹¹, x¹³, x¹⁴ (polynomial chain 1-16 complete).
