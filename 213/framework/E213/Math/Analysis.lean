@@ -86,6 +86,7 @@ import E213.Research.Real213FluxMVTPattern
 import E213.Research.Real213DerivativeShowcase
 import E213.Research.Real213FluxMVTNested2
 import E213.Research.Real213FluxMVTPropagate
+import E213.Research.Real213FluxMVTPropagateCompose
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
