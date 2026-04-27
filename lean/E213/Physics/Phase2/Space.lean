@@ -53,25 +53,25 @@ theorem NS_one_step : (3 : Nat) ^ 1 = 3 := by decide
 theorem NS_two_steps : (3 : Nat) ^ 2 = 9 := by decide
 theorem NS_three_steps : (3 : Nat) ^ 3 = 27 := by decide
 
-/-- ★ NT vs NS 비대칭성 — atomic-forced ★
+/-- ★ NT vs NS asymmetry — atomic-forced ★
 
-  NT 2 vs NS 3 → unfolding 차이가 항상 (3/2)^n.
-  
-  즉 *공간 vs 시간 비대칭* 이 atomicity 자체에서.
-  Lens 추가나 외부 frame 없이. -/
+  NT 2 vs NS 3 → unfolding difference is always (3/2)^n.
+
+  That is, *space vs time asymmetry* comes from atomicity itself.
+  Without added Lens or external frame. -/
 theorem NT_NS_asymmetry_at_n :
     -- NT 1 step: 2 states
     ((2 : Nat) ^ 1 = 2)
     -- NS 1 step: 3 states
     ∧ ((3 : Nat) ^ 1 = 3)
-    -- 비율: 3/2 = NS/NT
+    -- ratio: 3/2 = NS/NT
     ∧ (3 * 2 = 2 * 3) := by decide
 
-/-- 깊이 2에서 비대칭: 9 vs 4 (= 5 difference). -/
+/-- Asymmetry at depth 2: 9 vs 4 (= 5 difference). -/
 theorem NT_NS_at_depth_2 :
     ((3 : Nat) ^ 2 - (2 : Nat) ^ 2 = 5) := by decide
 
-/-- 깊이 3에서: 27 vs 8 (= 19 difference). -/
+/-- At depth 3: 27 vs 8 (= 19 difference). -/
 theorem NT_NS_at_depth_3 :
     ((3 : Nat) ^ 3 - (2 : Nat) ^ 3 = 19) := by decide
 

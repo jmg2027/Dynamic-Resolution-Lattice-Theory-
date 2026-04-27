@@ -94,13 +94,13 @@ namespace E213.Research.Prism
 
 open E213.Firmware E213.Hypervisor
 
-/-! ### Prism 의 disjointness (categorical universal property)
+/-! ### Disjointness of Prisms (categorical universal property)
 
-두 다른 target 의 case prism 이 mutually exclusive — coproduct
-의 disjoint property 의 직접 형식.
+Case prisms for two different targets are mutually exclusive — the
+direct form of the disjoint property of coproducts.
 
-이게 Prism 의 *Coproduct accessor* 의 structural evidence —
-categorical sum 의 strict disjointness. -/
+This is the structural evidence of Prism as a *coproduct accessor* —
+strict disjointness of the categorical sum. -/
 
 theorem caseElement_disjoint (target1 target2 : Raw) (h : target1 ≠ target2)
     (r : Raw) :

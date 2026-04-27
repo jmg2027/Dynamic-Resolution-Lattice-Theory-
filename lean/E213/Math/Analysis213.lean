@@ -19,12 +19,12 @@ import E213.Research.Real213CutPow
 import E213.Research.Real213CutPowConst
 import E213.Research.Real213CutPoset
 
--- B. Dyadic 구조
+-- B. Dyadic structure
 import E213.Research.Real213DyadicBracket
 import E213.Research.Real213DyadicTrajectory
 import E213.Research.Real213DyadicRiemann
 
--- C. 미분학
+-- C. Differential calculus
 import E213.Research.Real213CutFnData
 import E213.Research.Real213IsSmooth
 import E213.Research.Real213ResolutionDepth
@@ -54,7 +54,7 @@ import E213.Research.Real213FluxCohomologyCapstone
 import E213.Research.Real213FluxEquiv
 import E213.Research.Real213FluxEquivOps
 
--- E. MVT 위트니스 + Passthrough class
+-- E. MVT witness + Passthrough class
 import E213.Research.Real213FluxMVTConcrete
 import E213.Research.Real213FluxMVTPolynomial
 import E213.Research.Real213FluxMVTHigh
@@ -84,7 +84,7 @@ import E213.Research.Real213ClassicCalcMid
 import E213.Research.Real213ClassicCalcCombinators
 import E213.Research.Real213ClassicAnti
 
--- G. 적분 / 안티미분
+-- G. Integration / antiderivatives
 import E213.Research.Real213Antiderivative
 import E213.Research.Real213AntiderivativeCombinators
 import E213.Research.Real213AntiderivativeStructural
