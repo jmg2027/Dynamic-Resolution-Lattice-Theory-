@@ -17,8 +17,8 @@ atomicity-forced (already proven in `AlphaEMSimplicial.lean`).
 "25/3 conjectural" tag was wrong: 25/3 = (NS²−1) + 1/NS = b₁ +
 1/(#4-cycles), both Raw-derived.
 
-### 3. Cohomology 213 marathon — Phases CA + CB + CC partial
-9 files / ~28 theorems / 0 axiom in `lean/E213/Math/Cohomology/`.
+### 3. Cohomology 213 marathon — Phases CA + CB + CC + CD closed
+12 files / ~40 theorems / 0 axiom in `lean/E213/Math/Cohomology/`.
 
 CA (cochain foundation, 5 files): Cochain + SimplexBasis + Delta +
 DeltaSqZero + TrivialCases. δ²=0 verified at concrete cochains.
@@ -29,6 +29,15 @@ CB (Hodge ⋆, 3 files): HodgeStar + HodgeInvolution + HodgeDelta.
 CC partial (1 file): BettiKernel.lean defines kernel enumeration.
 `kerSizeDelta 5 0 = 1`, `kerSizeDelta 5 1 = 2` verified —
 confirms Δ⁴ is contractible (b̃_0 = b̃_1 = 0 reduced ℤ/2).
+
+CD (cup product, 3 files): Cup + CupLeibniz + CupRing.
+Cup defined Alexander–Whitney style; ε ∈ C⁰ = `fun _ => true` is
+left + right unit; associativity verified at all-true ⌣ all-true ⌣
+all-true and v0 ⌣ all-true ⌣ all-true; **Leibniz rule
+δ(α ⌣ β) = δα ⌣ β XOR α ⌣ δβ** decide-checked at four cochain
+pairs (this is what makes cup descend to H*); cochain-level
+non-commutativity formally noted (graded-commutativity holds only
+on H*, not pointwise).
 
 ## Lessons learned
 
