@@ -14,6 +14,7 @@ import E213.Research.Real213ConsistentOracle
 import E213.Research.Real213DyadicRiemann
 import E213.Research.Real213PhaseJCapstone
 import E213.Research.Real213ResolutionDepth
+import E213.Research.Real213DyadicTrajectory
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
