@@ -21,6 +21,7 @@ import E213.Kernel.Decide
 import E213.Kernel.Sound
 import E213.Kernel.Demo
 import E213.Kernel.Cap_PeriodicTable
+import E213.Kernel.Cap_PhysicsBrackets
 
 -- Firmware
 import E213.Firmware.Raw
