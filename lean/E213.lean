@@ -24,6 +24,9 @@ import E213.Kernel.Cap_PeriodicTable
 import E213.Kernel.Cap_PhysicsBrackets
 import E213.Kernel.Cap_PhysicsObservables
 import E213.Kernel.Cap_PhysicsFalsifiers
+import E213.Kernel.Cap_PhysicsAtomicIE
+import E213.Kernel.Cap_AtomicComplexity
+import E213.Kernel.Cap_MathArithmetic
 
 -- Firmware
 import E213.Firmware.Raw

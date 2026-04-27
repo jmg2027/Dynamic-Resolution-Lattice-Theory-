@@ -17,6 +17,9 @@ KERNEL_TARGETS=(
   E213.Kernel.Cap_PhysicsBrackets
   E213.Kernel.Cap_PhysicsObservables
   E213.Kernel.Cap_PhysicsFalsifiers
+  E213.Kernel.Cap_PhysicsAtomicIE
+  E213.Kernel.Cap_AtomicComplexity
+  E213.Kernel.Cap_MathArithmetic
 )
 
 OUT=$(lake build --rehash "${KERNEL_TARGETS[@]}" 2>&1)

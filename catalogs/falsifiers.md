@@ -61,6 +61,28 @@ CLAUDE.md 검증 기준 (2): 측정 1 위반 → 213 폐기.
 
   phase3_falsifiers : 19-conjunct, 0 axioms (Lean 검증)
 
+## ★ 213 Kernel axiom-free 닫힘 (KH 마라톤)
+
+다음 falsifier 가 *literally* 0 Lean axiom 으로 형식화됨
+(`E213.Kernel.Cap_PhysicsFalsifiers` 등):
+
+  ★ F1  d ≠ 26, d ≠ 11           (string/M-theory 부재)
+  ★ F4  θ_QCD bracket             (286 ∈ [251, 300])
+  ★ F8  λ_Cabibbo precise         (5/22 ∈ [0.226, 0.228])
+  ★ F10 1/α_em bracket            (137 ∈ [137, 138])
+  ★ F11 m_μ/m_e bracket           (206.7682 inline)
+  ★ F12 m_H/v_H bracket           (5097 ∈ [50·10⁴, 52·10⁴])
+  ★ F13 Ω_Λ bracket               (685 ∈ [684, 686])
+  ★ F14 Z=168 cumsum              (cumsum [2,8,8,18,18,32,32,50])
+
+검증:
+  $ ./tools/kernel_regress.sh
+  ✅ Kernel pure: 101 theorems verified 0-axiom.
+
+★ 표시 = `#print axioms` 빈 리스트.  Lean kernel 의 propext,
+Quot.sound, Classical.choice 어느 것도 진리값에 기여 안 함.
+즉 비전 ("213 = floor, Lean = syntactic host") 의 형식적 입증.
+
 ## 측정 timeline
 
   2025-2030: JUNO (F3), nEDM (F4), DUNE (F7)

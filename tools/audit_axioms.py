@@ -27,6 +27,9 @@ KERNEL_MODULES = [
     'E213.Kernel.Cap_PhysicsBrackets',
     'E213.Kernel.Cap_PhysicsObservables',
     'E213.Kernel.Cap_PhysicsFalsifiers',
+    'E213.Kernel.Cap_PhysicsAtomicIE',
+    'E213.Kernel.Cap_AtomicComplexity',
+    'E213.Kernel.Cap_MathArithmetic',
 ]
 
 
