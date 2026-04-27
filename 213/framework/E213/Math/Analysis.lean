@@ -7,6 +7,9 @@ import E213.Research.Real213ValidCut
 import E213.Research.Real213ValidCutOps
 import E213.Research.Real213CutMidMono
 import E213.Research.Real213IVTContainment
+import E213.Research.Real213Dyadic
+import E213.Research.Real213DyadicBracket
+import E213.Research.Real213IsSmooth
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
