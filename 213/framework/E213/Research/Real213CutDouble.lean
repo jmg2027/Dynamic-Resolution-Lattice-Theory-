@@ -1,5 +1,6 @@
 import E213.Research.Real213CutSum
 import E213.Research.Real213CutSumTest
+import E213.Research.Real213CutSumOne
 
 /-!
 # Research.Real213CutDouble: 2x cut function
@@ -36,5 +37,10 @@ theorem cutDouble_cutDouble (c : Nat → Nat → Bool) :
   show c m (2*(2*k)) = c m (4*k)
   congr 1
   rw [← Nat.mul_assoc]
+
+/-- **cutSum c c = cutDouble c** for c = constCut a b. -/
+theorem cutSum_self_eq_cutDouble (a b : Nat) :
+    cutSum (constCut a b) (constCut a b) = cutDouble (constCut a b) := by
+  rw [cutSum_self, cutDouble_constCut]
 
 end E213.Research.Real213CutSum
