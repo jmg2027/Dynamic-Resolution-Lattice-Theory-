@@ -495,6 +495,43 @@ private theorem db_pattern_leftHalf (k : Nat) :
     rw [Nat.pow_succ, Nat.mul_comm]; omega
   · rfl
 
+/-! ### N2: Other dyadic targets — 1/4 and 3/4 -/
+
+/-- Concrete trajectory toward target 1/4 (negSignOracle 1 4):
+    initial midpoint 1/2 > 1/4 → go left.  Then 1/4 hit exactly →
+    go right.  Then bisect within [1/4, ...]. -/
+example : (DyadicBracket.bisectN (negSignOracle 1 4) 1 unitBracket).numA = 0
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 4) 1 unitBracket).numB = 1
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 4) 1 unitBracket).expE = 1
+        := by decide
+
+example : (DyadicBracket.bisectN (negSignOracle 1 4) 2 unitBracket).numA = 1
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 4) 2 unitBracket).numB = 2
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 4) 2 unitBracket).expE = 2
+        := by decide
+
+example : (DyadicBracket.bisectN (negSignOracle 1 4) 4 unitBracket).numA = 4
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 4) 4 unitBracket).numB = 5
+        ∧ (DyadicBracket.bisectN (negSignOracle 1 4) 4 unitBracket).expE = 4
+        := by decide
+
+/-- Concrete trajectory toward target 3/4 (negSignOracle 3 4):
+    symmetric to 1/4 but on the right side. -/
+example : (DyadicBracket.bisectN (negSignOracle 3 4) 1 unitBracket).numA = 1
+        ∧ (DyadicBracket.bisectN (negSignOracle 3 4) 1 unitBracket).numB = 2
+        ∧ (DyadicBracket.bisectN (negSignOracle 3 4) 1 unitBracket).expE = 1
+        := by decide
+
+example : (DyadicBracket.bisectN (negSignOracle 3 4) 2 unitBracket).numA = 3
+        ∧ (DyadicBracket.bisectN (negSignOracle 3 4) 2 unitBracket).numB = 4
+        ∧ (DyadicBracket.bisectN (negSignOracle 3 4) 2 unitBracket).expE = 2
+        := by decide
+
+example : (DyadicBracket.bisectN (negSignOracle 3 4) 4 unitBracket).numA = 12
+        ∧ (DyadicBracket.bisectN (negSignOracle 3 4) 4 unitBracket).numB = 13
+        ∧ (DyadicBracket.bisectN (negSignOracle 3 4) 4 unitBracket).expE = 4
+        := by decide
+
 /-- **Trajectory Capstone**: 8-fact conjunctive summary of dyadic
     bisection on unit bracket under the two canonical oracles.
 
