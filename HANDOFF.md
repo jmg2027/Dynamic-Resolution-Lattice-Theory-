@@ -7,6 +7,25 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### Phase BT-BX (5750214 → ★) — **HasDyadicMVTWitness 클래스 + 카탈로그** ★★
+
+213-CONSTRUCTIBLE existence vs CLASSICAL existence 분리 명시.
+
+- **BT**: `HasDyadicMVTWitness` 클래스 정의 (witness + proof bundle)
+- **BU**: `mid(x, x²)` dyadic witness c = 1/2 (propEq via combinator)
+- **BV**: id 기여 (any c works) + 5-fact 카탈로그
+- **BW**: chain rule witness (id ∘ x²의 c = 1/2)
+- **BX**: 7-fact omega 카탈로그 capstone
+
+★ 5+ functions with constructive dyadic MVT witnesses:
+  - id at any c (linear)
+  - x² at c = 1/2
+  - mid(x, x²) at c = 1/2
+  - id ∘ x² at c = 1/2
+
+★★ 발견: 모든 다항식이 dyadic witness 갖지는 않음.  x³ (c=1/√3)과 x⁴ (c=4^(-1/3))은 비-dyadic — Cauchy 근사 필요.
+이게 *real-existence와 dyadic-existence의 차이*.  213은 후자만 직접 표현, 전자는 trajectory로.
+
 ### Phase BI-BS (a9f113b → eb3389c) — **ClassicCalc framework + MVT witness** ★★
 
 Calculus textbook framework: bundle IsDifferentiable + Passthrough.
