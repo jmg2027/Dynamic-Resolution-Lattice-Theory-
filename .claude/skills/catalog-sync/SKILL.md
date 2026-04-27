@@ -1,6 +1,6 @@
 ---
 name: catalog-sync
-description: "Sync catalogs/ after adding Lean theorems.  New atomic integers, constants, results → update appropriate catalog.  Triggered by: '카탈로그 동기화' / 'catalog sync', 'catalog sync', '카탈로그 갱신' / 'catalog update', 'sync catalogs'."
+description: "Sync catalogs/ after adding Lean theorems.  New atomic integers, constants, results → update appropriate catalog.  Triggered by: 'catalog sync' / 'catalog sync', 'catalog sync', 'catalog update' / 'catalog update', 'sync catalogs'."
 ---
 
 # Catalog Sync

@@ -1,6 +1,6 @@
 ---
 name: lake-build-verify
-description: "Verify Lean build is clean (E213 namespace).  Run `cd lean && lake build` and report result.  Triggered by: 'build verify', 'lake build', '빌드 확인' / 'build verify', 'verify lean'."
+description: "Verify Lean build is clean (E213 namespace).  Run `cd lean && lake build` and report result.  Triggered by: 'build verify', 'lake build', 'build verify' / 'build verify', 'verify lean'."
 ---
 
 # Lake Build Verify

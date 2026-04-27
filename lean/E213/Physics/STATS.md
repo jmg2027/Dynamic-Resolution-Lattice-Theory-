@@ -1,28 +1,28 @@
 # Physics Track STATS — Phase 1 Final (2026-04-27)
 
-## 파일 통계
+## File Statistics
 
 - **Lean files: 68**
 - **Documentation files: 5** (README, HANDOFF, ROADMAP, STATS, DISCOVERIES)
 - **Entry: 1** (Physics.lean)
 - **Total: 74 entries** in `E213/Physics/`
 
-## 코드 통계
+## Code Statistics
 
-- Total Lean 라인: ~8250
-- 평균 파일 크기: ~120 줄
-- 최대: PhysicsTrackComplete.lean (139 줄)
-- 최소: HubbleConstant.lean (45 줄)
+- Total Lean lines: ~8250
+- Average file size: ~120 lines
+- Maximum: PhysicsTrackComplete.lean (139 lines)
+- Minimum: HubbleConstant.lean (45 lines)
 
-## 정리 통계
+## Theorem Statistics
 
-- 정리 (개략): 300+
+- Theorems (approximate): 300+
 - sorry: **0**
-- External axioms: **0** (1 propext only, 일부 파일)
+- External axioms: **0** (1 propext only, some files)
 - Mathlib imports: **0**
 - Lean version: 4.16.0 core
 
-## Build 상태
+## Build Status
 
 ```
 $ lake build E213.Physics
@@ -30,9 +30,9 @@ $ lake build E213.Physics
 Build completed successfully.
 ```
 
-## 정밀 양 매치 표
+## Precision Quantity Match Table
 
-| 양 | DRLT | 관측 | Match | 파일 |
+| Quantity | DRLT | Observed | Match | File |
 |---|---|---|---|---|
 | 1/α_em(IR) | 137.035 | 137.036 | **ppm** | AlphaEMUnified |
 | m_μ/m_e | 206.7682837 | 206.7682838 | **0.48 ppb** | MuOverE |
@@ -50,14 +50,14 @@ Build completed successfully.
 | He IE | 24.565 eV | 24.587 | -0.09% | HeliumAtom |
 | sin²θ_W (M_Z) | 0.2331 | 0.2312 | 0.82% (running) | WeinbergAngle |
 
-## Atomic atoms 재등장 횟수
+## Atomic Atom Recurrence Count
 
-| Atom | 값 | 등장 파일 수 |
+| Atom | Value | Number of files |
 |---|---|---|
-| NS = 3 | 3 | 모든 파일 |
-| NT = 2 | 2 | 모든 파일 |
-| d = 5 | 5 | 모든 파일 |
-| c_lat = 2 | 2 | 다수 |
+| NS = 3 | 3 | all files |
+| NT = 2 | 2 | all files |
+| d = 5 | 5 | all files |
+| c_lat = 2 | 2 | many |
 | d² - 1 | 24 | 8+ |
 | d - 1 | 4 | 6+ |
 | d + 1 | 6 | 4+ |
@@ -69,31 +69,31 @@ Build completed successfully.
 | F_3..F_10 = 2,3,5,8,13,21,34,55 | Fibonacci atomic | 2 (specialized) |
 | d^(d²) = 5^25 | 2.98×10¹⁷ | 2 (hierarchy) |
 
-## Capstones (시간 순)
+## Capstones (chronological)
 
 1. `Capstone.lean` — 7-fold (early)
 2. `UnifiedPattern.lean` — 16-fold
 3. `MasterCatalog.lean` — 14-fold + cross-references
 4. `PhysicsTrackComplete.lean` — 28-fold
 5. `Phase1Final.lean` — 22-fold absolute
-6. `DrltZeroParameters.lean` — formal "0 매개변수" claim
+6. `DrltZeroParameters.lean` — formal "0 parameters" claim
 
-## 새 물리 falsifiers (3)
+## New physics falsifiers (3)
 
 - `Generations.drlt_no_4th_gen_falsifier` — N_gen=3
 - `ThetaQCD.theta_QCD_pattern` — θ_QCD < bound
 - `PhotonKernel.atomicity_locks_photon_to_alpha_3` — same 8
 
-## 작업 시간
+## Work Time
 
-세션 시작: 2026-04-27 00:38 UTC (PRD_010)
+Session start: 2026-04-27 00:38 UTC (PRD_010)
 Phase 1 capstone: 2026-04-27 ~05:50 UTC
-**총 ~5시간 (실 작업 시간 less, 대화 포함)**.
+**Total ~5 hours (actual work time less, including conversation)**.
 
-평균 파일 작성 속도: ~1-3분/파일 (단순) ~5분/파일 (capstone).
+Average file writing speed: ~1-3 min/file (simple) ~5 min/file (capstone).
 
-## 기억할 한 사실
+## One Fact to Remember
 
-> **3시간 전엔 책이 "QED running ≠ DRLT topology"라고 후퇴해 있었다.**
-> **3시간 후 137이 5-term simplicial sum from atomic primitives로 도출.**
-> **차이: 사용자의 "Raw/Lens가 SSOT" 한 줄.**
+> **3 hours ago the book had retreated to "QED running ≠ DRLT topology".**
+> **3 hours later 137 was derived as a 5-term simplicial sum from atomic primitives.**
+> **The difference: the user's single line "Raw/Lens is SSOT".**

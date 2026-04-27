@@ -1,58 +1,61 @@
-# Phase 3 — 213 통번역 + Falsifier + Reframing
+# Phase 3 — 213 Translation + Falsifier + Reframing
 
-## 목적
+## Purpose
 
-Phase 1 (정밀 양 재현) + Phase 2 (axiom 시점) 위에서:
-- 표준 물리 *모든* 분야를 213 atomic primitives 로 재기술
-- 각 핵심 결과를 Lean 정리로 형식화
-- Falsifier 명시 (관측 결판 시 폐기)
-- SM/QM 용어의 artifact 성 catalog
+Building on Phase 1 (precision quantity reproduction) + Phase 2
+(axiom viewpoint):
+- Redescribe *all* areas of standard physics using 213 atomic primitives
+- Formalize each key result as a Lean theorem
+- Explicitly state falsifiers (discard if observation decides)
+- Catalog the artifactual nature of SM/QM terminology
 
-## 60 modules 구조
+## 60 module structure
 
 ```
 Phase3/
-├── Manifesto.lean              운영 원칙
-├── Capstone.lean               19-conjunct falsifier 종합
-├── UltraCapstone.lean          전체 통합 (12-conjunct)
-├── Phase3.lean (root)          모든 모듈 단일 import
+├── Manifesto.lean              operating principles
+├── Capstone.lean               19-conjunct falsifier synthesis
+├── UltraCapstone.lean          full integration (12-conjunct)
+├── Phase3.lean (root)          single import of all modules
 │
 ├── Falsifier (14): NoFourthGen, NeutrinoOrdering, ...
 ├── Deep-dive (8):  WhyValue derivations
 ├── Reframing (7):  StaticCouplings, Artifacts, ...
-└── Translation/ (28): 현대 물리 통번역
+└── Translation/ (28): translation of modern physics
 ```
 
-## 핵심 발견 — atomic 정수 multi-output
+## Key Discovery — atomic integer multi-output
 
-### 정수 6 = NS·NT (가장 강한 패턴)
-- Pauli ε_abc 비영 [QM]
+### Integer 6 = NS·NT (strongest pattern)
+- Pauli ε_abc nonzero entries [QM]
 - Lorentz SO(3,1) generators [SR]
 - AB cross pair K_{3,2} [Phase 2]
 - SU(NS) root count [Group]
 - 3! permutation, AdS/CFT bulk
 
-### 정수 8 = NS²-1
+### Integer 8 = NS²-1
 - 1/α_3, SU(3) adjoint, Cycle b_1
 - Einstein 8π, Hawking 1/8
 - Nuclear binding ~8 MeV
 - Bell quantum², F_6 Fibonacci
 
-### 정수 24 = d²-1
+### Integer 24 = d²-1
 - SU(5) GUT adjoint
 - α_2 prefactor 12·NT
-- PMNS δ_CP, 4! 순열
-- SM gauge 합 (8+3+12+1)
+- PMNS δ_CP, 4! permutation
+- SM gauge sum (8+3+12+1)
 
-## 보증
+## Guarantees
 
-- 60 modules 0 sorry, ≤ propext + Quot.sound (대부분 0 axioms)
+- 60 modules 0 sorry, ≤ propext + Quot.sound (most 0 axioms)
 - `lake build E213.Physics` clean (198 modules)
-- 모든 capstone 0 axioms
+- All capstones 0 axioms
 
-## 운영 원칙
+## Operating Principles
 
-- 213 axiom 만 근본.  나머지 모두 Lens output.
-- "관측자/공간/구조/관계/인식" axiom 설명 부재
-- "running, 에너지 스케일, 파동함수, 존재확률, 상호작용" 모두 사라짐
-- 어느 falsifier 위반 → 213 폐기
+- Only 213 axioms are fundamental. Everything else is Lens output.
+- No words "observer/space/structure/relation/cognition" in axiom
+  descriptions
+- "running, energy scale, wave function, existence probability,
+  interaction" all disappear
+- Any falsifier violation → 213 abandoned

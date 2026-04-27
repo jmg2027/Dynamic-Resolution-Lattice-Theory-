@@ -1,18 +1,18 @@
-# Phase 4 Library — DRLT 거대 atomic 도서관
+# Phase 4 Library — DRLT Large Atomic Library
 
 ★ User directive ★
-> "모든 IE 완전 계산 방법론 + 라이브러리화 + 카탈로그화.
->  다른 물리·수학도 거대 도서관."
+> "Complete IE calculation methodology + library + catalog.
+>  Other physics/mathematics also as a large library."
 
-## 17 모듈 구조
+## 17 Module Structure
 
 ### Methodology (3)
-- `IEMethodology` — IE 계산 8 step 절차 + atomic σ catalog
-- `AtomicFunctions` — sigma_inner, hund_count 재사용 함수
-- `PeriodicCatalog` — Z=1-36 atomic 표현 검증
+- `IEMethodology` — IE calculation 8-step procedure + atomic σ catalog
+- `AtomicFunctions` — sigma_inner, hund_count reusable functions
+- `PeriodicCatalog` — Z=1-36 atomic representation verification
 
 ### Physics (10)
-- `AtomicMassLibrary` — 원자량 (m_He/m_H = NT² 등)
+- `AtomicMassLibrary` — atomic masses (m_He/m_H = NT² etc.)
 - `CouplingLibrary` — α_em, α_GUT, α_3, α_2 atomic
 - `CosmologyLibrary` — Ω_Λ, e-folds, Cassini
 - `HadronMassLibrary` — m_p, π, ρ, J/ψ atomic
@@ -26,7 +26,7 @@
 
 ### Math (4)
 - `MathLibrary` — primes, Fibonacci, group theory
-- `GeometryLibrary` — 5-simplex Δ⁴ 면 분포
+- `GeometryLibrary` — 5-simplex Δ⁴ face distribution
 - `TopologyLibrary` — Euler χ, cycle dim, Z₂
 
 ### Future Plan
@@ -34,20 +34,20 @@
   PlasmaLibrary, CondensedMatterLibrary, ColdAtomsLibrary,
   AnomaliesLibrary, BeyondSMLibrary, ...
 
-## 사용법
+## Usage
 
 ```lean
 import E213.Physics.Phase4.Library
 
 open E213.Physics.Phase4.Library.CouplingLibrary
 
--- atomic 결합 상수 즉시 사용
+-- immediately use atomic coupling constants
 #check inv_alpha_3_eq_8  -- 1/α_3 = 8 atomic
 ```
 
-## 운영 원칙
+## Operating Principles
 
-- 표준 수학·물리 차용 부재
-- atomic primitives (NS=3, NT=2, d=5, c=2) 만
+- No borrowing from standard mathematics/physics
+- Atomic primitives only (NS=3, NT=2, d=5, c=2)
 - 0 sorry, decide-checked
-- 재사용 가능 catalog
+- Reusable catalog

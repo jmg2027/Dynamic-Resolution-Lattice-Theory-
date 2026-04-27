@@ -1,6 +1,6 @@
 ---
 name: purity-check
-description: "DRLT 213 purity verification — 0 sorry, 0 external axiom, 0 Mathlib import, 0 Classical, 0 native_decide.  Triggered by: 'purity', '순수성' / 'purity', '0 axiom 검증' / '0 axiom verify', 'falsifiability check', 'audit purity'."
+description: "DRLT 213 purity verification — 0 sorry, 0 external axiom, 0 Mathlib import, 0 Classical, 0 native_decide.  Triggered by: 'purity', 'purity' / 'purity', '0 axiom verify' / '0 axiom verify', 'falsifiability check', 'audit purity'."
 ---
 
 # DRLT 213 Purity Check

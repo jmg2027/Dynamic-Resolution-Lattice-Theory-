@@ -1,6 +1,6 @@
 ---
 name: marathon-start
-description: "Start a new marathon following a blueprint.  Read blueprints/{math,physics}/<field>.md + start Phase planning.  Triggered by: '마라톤 시작' / 'marathon start', 'marathon start', 'start blueprint', 'begin field'."
+description: "Start a new marathon following a blueprint.  Read blueprints/{math,physics}/<field>.md + start Phase planning.  Triggered by: 'marathon start' / 'marathon start', 'marathon start', 'start blueprint', 'begin field'."
 ---
 
 # Marathon Start
