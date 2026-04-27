@@ -11,20 +11,24 @@ post-marathon files.  Last addition `TopologyCompare.lean`
 formally rules out K_N complete; ONLY K_{3,2}^{(2)} (or swap) gives
 b_1 = 8 = 1/α_3.  All 0-axiom.
 
-### 2. Linalg213 marathon — Phases L1+L2
+### 2. Linalg213 marathon — Phases L1+L2+L3+L4
 User direction: build 213-native linear algebra from scratch.
 Target = paper 1 chiral compression "rank(Gram) ≤ d=5".
 
-`lean/E213/Math/Linalg213/` (3 files):
-* `Vector.lean` (L1) — `Vec n := Fin n → Nat`.  Basis, add, smul.
-  Atomic d=5 + chiral (NS=3, NT=2) verified.
-* `Gram.lean` (L1) — `Vec.inner`, Gram matrix; orthonormal
-  2-vector example decide-checked.
-* `Rank.lean` (L2) — `IntCoeffs N := Fin N → Int`, `linComb`,
-  `linComb_isZero`.  ★ `e0_e1_LI_bounded`: linear independence
-  of {e_0, e_1} ⊆ Vec 5 verified via bounded enumeration over
-  coefficients {-1, 0, 1}² (Fin 3 × Fin 3 = 9 cases by decide).
-* Rank-5 target stated as placeholder; needs L3 (full rank def).
+`lean/E213/Math/Linalg213/` (5 files, ~25 theorems, ≤ {propext, Quot.sound}):
+
+* L1 `Vector.lean` — `Vec n := Fin n → Nat`.  Basis, add, smul.
+* L1 `Gram.lean` — `Vec.inner`, Gram matrix.
+* L2 `Rank.lean` — IntCoeffs, linComb, bounded LI of {e_0, e_1}.
+* L3 `Span.lean` — ★ universal basis decomposition theorem
+  `vec5_basis_span : ∀ v : Vec 5, v(k) = Σ v(i)·e_i(k)` at every
+  k ∈ Fin 5 (pointwise, by omega).  Constructive form of
+  "Vec 5 has rank 5 over ℕ".
+* L4 `Chiral.lean` — ★ paper 1 chiral split formalized.
+  `Vec 5 = VecS ⊕ VecT` where VecS = Fin 3 → Nat (NS=3),
+  VecT = Fin 2 → Nat (NT=2).  `combine_proj_eq` proves the
+  pointwise round-trip ∀ v k, combine (projS v) (projT v) k = v k.
+  Capstone `phase_L4_capstone` bundles dim check + round-trip.
 
 ### 3. Open Problem #1 (1/α_em) status
 - Bracket tightening + structural gap formalized.
