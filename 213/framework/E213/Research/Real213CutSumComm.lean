@@ -110,4 +110,28 @@ theorem cutSum_comm (cx cy : Nat → Nat → Bool) (m k : Nat) :
     · exact hcx
     · rw [Nat.sub_sub_self hj]; exact hcy
 
+/-- cutSum monotone in cy: cy implies cy' → cutSum cx cy implies cutSum cx cy'. -/
+theorem cutSum_mono_right (cx cy cy' : Nat → Nat → Bool)
+    (h : ∀ m' k', cy m' k' = true → cy' m' k' = true)
+    (m k : Nat) :
+    cutSum cx cy m k = true → cutSum cx cy' m k = true := by
+  intro hsum
+  rw [show cutSum cx cy m k = cutSumAux cx cy k (2*m) (2*m) from rfl] at hsum
+  rw [cutSumAux_eq_true_iff] at hsum
+  obtain ⟨i, hi, hcx, hcy⟩ := hsum
+  show cutSumAux cx cy' k (2*m) (2*m) = true
+  rw [cutSumAux_eq_true_iff]
+  exact ⟨i, hi, hcx, h (2*m - i) (2*k) hcy⟩
+
+/-- cutSum monotone in cx: symmetric via cutSum_comm. -/
+theorem cutSum_mono_left (cx cx' cy : Nat → Nat → Bool)
+    (h : ∀ m' k', cx m' k' = true → cx' m' k' = true)
+    (m k : Nat) :
+    cutSum cx cy m k = true → cutSum cx' cy m k = true := by
+  intro hsum
+  rw [cutSum_comm] at hsum
+  have := cutSum_mono_right cy cx cx' h m k hsum
+  rw [cutSum_comm]
+  exact this
+
 end E213.Research.Real213CutSum

@@ -1,4 +1,5 @@
 import E213.Research.Real213CutSum
+import E213.Research.Real213CutMaxMin
 
 /-!
 # Research.Real213CutPoset: cut-level partial order
@@ -62,5 +63,45 @@ theorem cutEq_of_cutLe_both (cx cy : Nat → Nat → Bool) :
       rw [hcx_true] at hcx
       exact Bool.noConfusion hcx
     | false => rfl
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- **x ≤ max(x, y)**: cutLe cx (cutMax cx cy). -/
+theorem cutLe_cutMax_left (cx cy : Nat → Nat → Bool) : cutLe cx (cutMax cx cy) := by
+  intro m k h
+  show cx m k = true
+  have : (cx m k && cy m k) = true := h
+  cases hcx : cx m k with
+  | true => rfl
+  | false =>
+    rw [hcx] at this
+    cases this
+
+/-- **y ≤ max(x, y)**. -/
+theorem cutLe_cutMax_right (cx cy : Nat → Nat → Bool) : cutLe cy (cutMax cx cy) := by
+  intro m k h
+  show cy m k = true
+  have : (cx m k && cy m k) = true := h
+  cases hcy : cy m k with
+  | true => rfl
+  | false =>
+    cases hcx : cx m k <;> rw [hcx, hcy] at this <;> cases this
+
+/-- **min(x, y) ≤ x**: cutLe (cutMin cx cy) cx. -/
+theorem cutLe_cutMin_left (cx cy : Nat → Nat → Bool) : cutLe (cutMin cx cy) cx := by
+  intro m k h
+  show (cx m k || cy m k) = true
+  rw [h]; rfl
+
+/-- **min(x, y) ≤ y**. -/
+theorem cutLe_cutMin_right (cx cy : Nat → Nat → Bool) : cutLe (cutMin cx cy) cy := by
+  intro m k h
+  show (cx m k || cy m k) = true
+  rw [h]
+  cases cx m k <;> rfl
 
 end E213.Research.Real213CutSum
