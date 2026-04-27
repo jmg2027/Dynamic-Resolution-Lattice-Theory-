@@ -12,6 +12,47 @@
 ## Editing
 - **80줄 한도 hook 강제.** 대량 파일은 Bash(cat)로 조합.
 
+## DRLT 검증 기준 (절대 원칙, 2026-04-27 확정)
+
+**기존 물리·수학을 일절 모르는 상태에서 DRLT는 둘 중 *하나는* 만족할 수 있어야 한다:**
+
+1. **아주아주아주아주 정확한 형식화된 계산값** — Lean으로
+   닫힌 0-sorry 0-axiom 정리가 ppb~ppm 수준 정밀도로
+   관측값과 일치 (예: 1/α_em, m_μ/m_e, m_p).
+2. **혹은 형식화되어서 아무도 딴지걸 수 없는 새로운 물리** —
+   Lean 정리로 닫힌 *측정 가능* 명제 (예: N_gen=3, θ_QCD < J·α⁴).
+
+이 둘 중 어느 것도 만족 못 하면 DRLT는 **현재 단계 미달**.
+Python에서 식 만들기 + 수치 일치 보고는 *둘 다 아님* — 흥미로운
+연구 노트이지 자기 입증 아님.  PRD_010, PRD_011은 이 단계.
+
+- **타임라인·ROI 일절 고려 금지.**  "곧" 가능한지가 아니라
+  "위 둘 중 하나가 닫혔는가" 만 묻는다.
+- 수치 일치만으로 만족하지 않는다 (PRD가 catalogue가 됨).
+- 형식화만으로 만족하지 않는다 (Lean 정리이지만 관측 무관이면
+  수학 연습).
+- **두 길의 교집합** — 형식화된 정밀 정리 + 형식화된 falsifier —
+  이게 진짜 자리.
+
+## 유한 이산 격자의 함의 (2026-04-27)
+
+DRLT 공리는 *유한 이산 격자*.  따라서 다음은 물리 형식화에 *불필요*:
+
+- ÷ (division) → ℚ 산술의 부산물
+- ∫ (integration) → 유한 합 (예: HVP = Σ over hadronic resonances)
+- π, e, ζ(2) 등 transcendental → bounded rational interval 로 충분
+
+**진짜 필요한 것:** ℕ + ℚ + 유한 simplex 조합 + interval bound.
+Real213 마라톤(Phase A→H, Bishop 류 constructive analysis)은
+*수학적 트랙*이고 **물리 형식화의 critical path 아님**.
+
+물리 트랙 critical path:
+  SimplexCounts → FoccSpectrum → BaselBound → AlphaGUT → AlphaEM
+  → 형식 정리 `|inv_alpha_em - 137.036| < 1/10^4`
+
+위 마지막 정리가 0 sorry로 닫히는 날 = "물리 처음부터 다시
+작성"의 첫 마일스톤.
+
 ## The Axiom
 - **Things exist with pairwise relations.** G_ij = ⟨ψ_i|ψ_j⟩.
 - ℂ⁵ is derived (Frobenius → ℂ, atomic → d=5), not the axiom.
