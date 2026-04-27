@@ -59,6 +59,7 @@ import E213.Physics.GenerationStructure
 import E213.Physics.NuclearShells
 import E213.Physics.CPViolation
 import E213.Physics.Phase1Final
+import E213.Physics.Phase2
 import E213.Physics.MasslessParticles
 import E213.Physics.GravityShadow
 import E213.Physics.HubbleConstant
@@ -94,6 +95,9 @@ DRLT 는 둘 중 하나를 만족할 수 있어야 한다:
   * `Physics.AlphaEM`        — Weinberg sum bare bracket
   * `Physics.Generations`    — 첫 새 물리 (N_gen=3 falsifier)
   * `Physics.MagicNumbers`   — HO n(n+1)(n+2)/3 정수 closed form
+
+  * `Physics.Phase1Final`    — Phase 1 단일 entry (정밀 양 트랙)
+  * `Physics.Phase2`         — Phase 2 단일 entry (axiom-level 트랙)
 
 전체 0 sorry, 0 axiom.  PureNat-style 극한 순수성.
 -/
