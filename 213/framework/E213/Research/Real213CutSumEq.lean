@@ -1,6 +1,8 @@
 import E213.Research.Real213CutSumDetermined
 import E213.Research.Real213CutMulDetermined
 import E213.Research.Real213CutPoset
+import E213.Research.Real213CutSumComm
+import E213.Research.Real213CutMulComm
 
 /-!
 # Research.Real213CutSumEq: cutSum / cutMul respect cutEq
@@ -39,5 +41,34 @@ theorem cutMul_cutEq_right (cx cy cy' : Nat → Nat → Bool)
     cutMul cx cy m k = cutMul cx cy' m k := by
   obtain ⟨N, hN⟩ := cutMul_locallyDetermined m k
   exact hN cx cx cy cy' (fun _ _ _ _ => rfl) (fun m' k' _ _ => h m' k')
+
+end E213.Research.Real213CutSum
+
+namespace E213.Research.Real213CutSum
+
+open E213.Firmware E213.Hypervisor
+
+/-- cutSum 의 cutEq commutativity. -/
+theorem cutSum_comm_cutEq (cx cy : Nat → Nat → Bool) :
+    cutEq (cutSum cx cy) (cutSum cy cx) := fun m k => cutSum_comm cx cy m k
+
+/-- cutMul 의 cutEq commutativity. -/
+theorem cutMul_comm_cutEq (cx cy : Nat → Nat → Bool) :
+    cutEq (cutMul cx cy) (cutMul cy cx) := fun m k => cutMul_comm cx cy m k
+
+/-- cutSum 의 cutEq composability: cutEq cx cx', cutEq cy cy' →
+    cutEq (cutSum cx cy) (cutSum cx' cy'). -/
+theorem cutSum_cutEq_both (cx cx' cy cy' : Nat → Nat → Bool)
+    (hx : cutEq cx cx') (hy : cutEq cy cy') :
+    cutEq (cutSum cx cy) (cutSum cx' cy') := fun m k => by
+  rw [cutSum_cutEq_left cx cx' cy hx m k]
+  exact cutSum_cutEq_right cx' cy cy' hy m k
+
+/-- cutMul 의 cutEq composability. -/
+theorem cutMul_cutEq_both (cx cx' cy cy' : Nat → Nat → Bool)
+    (hx : cutEq cx cx') (hy : cutEq cy cy') :
+    cutEq (cutMul cx cy) (cutMul cx' cy') := fun m k => by
+  rw [cutMul_cutEq_left cx cx' cy hx m k]
+  exact cutMul_cutEq_right cx' cy cy' hy m k
 
 end E213.Research.Real213CutSum
