@@ -3,6 +3,9 @@ import E213.Physics.Phase2.Origin
 /-!
 # Phase 2 Existence — d=5에 *무엇*이 있는가?
 
+**Layer: App** (`Vertex := Fin 5` + block 분류 — 수학 트랙
+`App/Simplex.lean` 의 `isA, classify` 와 *완전 동일 패턴*).
+
 Origin.lean: *우주는 d=5 차원*.
 Shape.lean: *5 점, (3,2) 분할, 10 쌍*.
 이 파일: *그 5는 무엇이며, 그 사이 정보는 무엇인가?*

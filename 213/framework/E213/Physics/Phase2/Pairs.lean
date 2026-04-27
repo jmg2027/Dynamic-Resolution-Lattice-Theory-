@@ -3,6 +3,9 @@ import E213.Physics.Phase2.Existence
 /-!
 # Phase 2 Pairs — 쌍의 정보 구조
 
+**Layer: App** (pair classification — 수학 트랙 `App/Simplex.lean`
+의 `BlockPair, classify` 와 동일 패턴).
+
 Origin: *d=5*. Shape: *5 vertex, (3,2), 10 쌍*. Existence: *5 무엇 + 분류*.
 이 파일: *그 10 쌍 사이에 무엇이 있는가?*
 

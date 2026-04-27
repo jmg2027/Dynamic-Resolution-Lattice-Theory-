@@ -3,6 +3,8 @@ import E213.OS.Atomicity
 /-!
 # Phase 2 Origin — 첫 질문: 우주는 몇 차원인가?
 
+**Layer: OS** (Atomicity 정리 직접 사용, App-layer 진입 전).
+
 Phase 1 (`E213/Physics/Phase1Final.lean`)은 *기존* 정밀 물리량을
 atomic primitives에서 도출했음.  Phase 2는 다 잊고 다시 묻는다:
 

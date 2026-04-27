@@ -3,6 +3,9 @@ import E213.Physics.Phase2.Origin
 /-!
 # Phase 2 Shape — 우주는 어떻게 생겼나? (educational view)
 
+**Layer: App** (Atomicity-derived 산술 사실, vertex/partition 의미는
+Lens-output 관례).  수학 트랙 `App/Simplex.lean` 과 동일 패턴.
+
 Origin.lean: *우주는 d=5*.
 이 파일: *그럼 d=5는 어떻게 생겼나?*
 
