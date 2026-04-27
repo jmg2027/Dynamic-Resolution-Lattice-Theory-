@@ -192,6 +192,15 @@ example : decicIsSmooth.linearityModulus 5 = 50 := by decide
 /-- hexadecic (x¹⁶) at depth 5: modulus = 80. -/
 example : hexadecicIsSmooth.linearityModulus 5 = 80 := by decide
 
+/-- nonic (x⁹) at depth 5: modulus = 45 (slope 9). -/
+example : nonicIsSmooth.linearityModulus 5 = 45 := by decide
+
+/-- twelfth (x¹²) at depth 5: modulus = 60 (slope 12). -/
+example : twelfthIsSmooth.linearityModulus 5 = 60 := by decide
+
+/-- fifteenth (x¹⁵) at depth 5: modulus = 75 (slope 15). -/
+example : fifteenthIsSmooth.linearityModulus 5 = 75 := by decide
+
 /-! ### T3: Generic polynomial modulus theorems for x⁵-x⁸ -/
 
 /-- **x⁵ generic modulus**: linearityModulus n = 5 * n (slope 5). -/

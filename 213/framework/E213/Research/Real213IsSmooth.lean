@@ -256,4 +256,25 @@ def hexadecicIsSmooth :
                                                 (cutMul (cutMul x x) (cutMul x x))) x)) :=
   mulIsSmooth octicIsSmooth octicIsSmooth
 
+/-- **x ↦ x⁹ is smooth**: x⁴ × x⁵, modulus 9n. -/
+def nonicIsSmooth :
+    IsSmooth (fun x => cutMul ((fun x => cutMul (cutMul x x) (cutMul x x)) x)
+                              ((fun x => cutMul (cutMul x x) (cutMul x (cutMul x x))) x)) :=
+  mulIsSmooth quarticIsSmooth quinticIsSmooth
+
+/-- **x ↦ x¹² is smooth**: x⁴ × x⁸, modulus 12n. -/
+def twelfthIsSmooth :
+    IsSmooth (fun x => cutMul ((fun x => cutMul (cutMul x x) (cutMul x x)) x)
+                              ((fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                                                (cutMul (cutMul x x) (cutMul x x))) x)) :=
+  mulIsSmooth quarticIsSmooth octicIsSmooth
+
+/-- **x ↦ x¹⁵ is smooth**: x⁷ × x⁸, modulus 15n. -/
+def fifteenthIsSmooth :
+    IsSmooth (fun x => cutMul ((fun x => cutMul (cutMul x (cutMul x x))
+                                                (cutMul (cutMul x x) (cutMul x x))) x)
+                              ((fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                                                (cutMul (cutMul x x) (cutMul x x))) x)) :=
+  mulIsSmooth septicIsSmooth octicIsSmooth
+
 end E213.Research.Real213CutSum
