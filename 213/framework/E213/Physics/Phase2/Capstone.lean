@@ -5,15 +5,19 @@ import E213.Physics.Phase2.Pairs
 import E213.Physics.Phase2.Time
 import E213.Physics.Phase2.Space
 import E213.Physics.Phase2.Observable
+import E213.Physics.Phase2.Force
+import E213.Physics.Phase2.Edges
+import E213.Physics.Phase2.Lens
 
 /-!
-# Phase 2 Capstone — 전체 7 파일 종합
+# Phase 2 Capstone — 전체 10 파일 종합
 
 **Layer: App** (모든 prior Phase 2 파일 import).
 
-본 파일은 Phase 2 진행 7 파일의 단일 capstone:
+본 파일은 Phase 2 진행 10 파일의 단일 capstone:
 
-  Origin → Shape → Existence → Pairs → Time → Space → Observable
+  Origin → Shape → Existence → Pairs → Time → Space →
+  Observable → Force → Edges → Lens
 
 각 파일이 답한 질문 + 종합 단일 정리.
 
@@ -26,6 +30,9 @@ import E213.Physics.Phase2.Observable
 5. **Time**: NT=2 unfolded? → 2^n binary (dyadic, bridge)
 6. **Space**: NS=3 unfolded? → 3^n ternary (asymmetry)
 7. **Observable**: 측정 가능 양? → 9 atomic-derived 정수
+8. **Force**: 3 channel = 3 force (AA, BB, AB)
+9. **Edges**: c=2 doubling → 12 directed, b_1 = 8 = NS²-1
+10. **Lens**: Hypervisor explicit Lens (parityLens, bCountLens)
 
 ## 도출된 핵심 발견
 
@@ -33,6 +40,9 @@ import E213.Physics.Phase2.Observable
 - 10 pairs → 6 cross = K_{3,2} bipartite (Phase 1 PhotonKernel 기반)
 - NT=2 → dyadic geometry (수학 트랙 bridge 활용)
 - NS=3 → ternary, NT vs NS 비대칭 (3/2)^n
+- 3 channel (AA/BB/AB) = 3 force (Phase 1 α_3, α_2, α_1 의 axiom origin)
+- 12 directed edges → cycle space b_1 = 8 = NS² - 1 = 1/α_3
+- Lens 객체가 Hypervisor-layer 에서 직접 정의됨 (Raw 위 fold)
 - (3/2) 비대칭이 Phase 1의 m_μ/m_e factor, Y-norm,
   Fibonacci F_5/F_4의 *axiom-level 기원*
 -/
@@ -72,9 +82,47 @@ theorem phase2_absolute :
     ∧ ((3 : Nat) ^ 2 - (2 : Nat) ^ 2 = 5)
     ∧ ((3 : Nat) ^ 3 - (2 : Nat) ^ 3 = 19)
     -- (3/2) cross-mult (NS · NT_other = NT · NS_other)
-    ∧ (3 * 2 = 2 * 3) := by
+    ∧ (3 * 2 = 2 * 3)
+    -- (8) Force: 3 channels (AA, BB, AB)
+    ∧ (E213.Physics.Phase2.Force.num_channels = 3)
+    -- (9) Edges: c=2 doubling, 12 directed, b_1 = 8 = NS²-1
+    ∧ (E213.Physics.Phase2.Edges.c_lattice = 2)
+    ∧ (E213.Physics.Phase2.Edges.num_directed_edges = 12)
+    ∧ (E213.Physics.Phase2.Edges.num_directed_edges - 5 + 1 = 8)
+    ∧ (8 = E213.Physics.Phase2.Edges.NS_atomic
+            * E213.Physics.Phase2.Edges.NS_atomic - 1)
+    -- (10) Lens: Hypervisor explicit Lens demo
+    ∧ (E213.Physics.Phase2.Lens.parityLens.view E213.Firmware.Raw.a = false)
+    ∧ (E213.Physics.Phase2.Lens.parityLens.view E213.Firmware.Raw.b = true)
+    ∧ (E213.Physics.Phase2.Lens.bCountLens.view E213.Firmware.Raw.a = 0)
+    ∧ (E213.Physics.Phase2.Lens.bCountLens.view E213.Firmware.Raw.b = 1) := by
   refine ⟨atomic_five, fun n => atomic_implies_five n, ?_⟩
-  decide
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
+          ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · decide
+  · rfl
+  · rfl
+  · rfl
+  · rfl
 
 /- ★ Operational meaning ★
 

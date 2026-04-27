@@ -110,16 +110,69 @@ theorem only_one_cosmos_dim :
 
 ---
 
-## 다음 가능 단계
+### 5. `Time.lean` — NT 섹터 = dyadic resolution
 
-1. `Edges.lean` — 10 쌍 → 12 directed (c=2) edges (PhotonKernel 본체)
-2. `Lens.lean` — Lens 정의 + 첫 Lens output examples
-3. `Observable.lean` — *측정 가능한 양* 의 213 정의
-4. `Force.lean` — channel structure → force 의미
-5. `Time.lean` — NT sector이 "시간"이라는 단어 *없이* 어떻게
+NT = 2 atomic 작은 block 크기.  *수학 트랙 bridge* 활용:
+NT step 이 *2-진 dyadic 분할* 로 unfolded.
 
-각 한 파일.  이미 Phase 1에서 형식 검증한 결과들과 *연결되는
-의미* 를 axiom 레벨에서 설명.
+  `NT_n_steps_yield_two_pow : bisectN^n start = 2^n branches`
+
+(수학 트랙 `Real213/Phase A→C` dyadic geometry = 물리 NT
+섹터의 axiom-level 의미.)
+
+---
+
+### 6. `Space.lean` — NS 섹터 = ternary resolution
+
+NS = 3 atomic 큰 block 크기.  3^n ternary unfolding.
+
+NT vs NS *비대칭* (3/2)^n 가 Phase 1 의 m_μ/m_e factor,
+Y-norm, Fibonacci F_5/F_4 의 axiom-level 기원.
+
+---
+
+### 7. `Observable.lean` — 측정 가능한 양
+
+213 axiom 만으로 정의 가능한 *9 정수*:
+d, NS, NT, c, total_pairs, AA, BB, AB,
+num_directed_edges, cycle_space_dim.
+
+Phase 1 의 정밀 양들은 이 9 의 Lens output.
+
+---
+
+### 8. `Force.lean` — 3 channel = 3 force?
+
+  - AA (3 pairs): NS-internal, color-like / α_3
+  - BB (1 pair):  NT-internal, weak-like / α_2
+  - AB (6 pairs): cross-sector, EM-like / α_1
+
+★ 3 force 자연 발생 ★ (channel 크기 ≠ 결합 강도 직접 비례,
+Phase 1 prefactor 가 더 깊은 origin.)
+
+---
+
+### 9. `Edges.lean` — c=2 doubling, b_1=8
+
+c = 2 = NT atomic size.  6 undirected → 12 directed.
+Cycle space b_1 = 12 - 5 + 1 = 8 = NS² - 1.
+
+**8 = 1/α_3** (Phase 1 PhotonKernel 의 axiom-level 산술).
+
+---
+
+### 10. `Lens.lean` — Hypervisor explicit Lens
+
+수학 트랙 `Hypervisor/Lens.lean` 패턴 직접 사용.  첫 명시적
+Lens 객체 (parityLens, bCountLens) — App-layer 산술이 아닌
+*Hypervisor-layer* 에서 Raw 위 동작.
+
+---
+
+### 11. `Capstone.lean` — 10 파일 단일 종합
+
+26 conjunct 정리, ≤ propext + Quot.sound.  Phase 2 *전체* 의
+형식 종합.
 
 ---
 
@@ -127,18 +180,18 @@ theorem only_one_cosmos_dim :
 
 ```bash
 cd 213/framework
-lake build E213.Physics.Phase2.Origin
-lake build E213.Physics.Phase2.Shape
-lake build E213.Physics.Phase2.Existence
-lake build E213.Physics.Phase2.Pairs
+lake build E213.Physics.Phase2.Capstone   # 전체 종합 (10 파일)
 ```
 
-모두 0 sorry, 0 axioms (Origin은 propext+Quot.sound, 나머지는
-*완전 무*).
+모두 0 sorry, ≤ propext + Quot.sound (Lean 4 core only).
+대부분 파일은 *완전 axiom-free*.
 
 ---
 
 ## 운영 원칙
 
-CLAUDE.md "관측자/구조/관계" 단어 axiom 설명에 사용 X.
+CLAUDE.md "관측자/구조/관계/공간/인식" 단어 axiom 설명에 X.
 "원시적 구분" 만 사용.  나머지는 Lens 출력 명시.
+
+`AUDIT.md` — 수학 트랙 (extreme rigor) 대조 감사:
+**Phase 2 위반 없음**.  App/Simplex 패턴 그대로 따름.
