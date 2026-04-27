@@ -209,4 +209,26 @@ def cubeIsSmooth : IsSmooth (fun x => cutMul x (cutMul x x)) :=
 def quarticIsSmooth : IsSmooth (fun x => cutMul (cutMul x x) (cutMul x x)) :=
   mulIsSmooth squareIsSmooth squareIsSmooth
 
+/-- **x ↦ x⁵ is smooth**: square × cube. -/
+def quinticIsSmooth :
+    IsSmooth (fun x => cutMul (cutMul x x) (cutMul x (cutMul x x))) :=
+  mulIsSmooth squareIsSmooth cubeIsSmooth
+
+/-- **x ↦ x⁶ is smooth**: cube × cube. -/
+def sexticIsSmooth :
+    IsSmooth (fun x => cutMul (cutMul x (cutMul x x)) (cutMul x (cutMul x x))) :=
+  mulIsSmooth cubeIsSmooth cubeIsSmooth
+
+/-- **x ↦ x⁷ is smooth**: cube × quartic. -/
+def septicIsSmooth :
+    IsSmooth (fun x => cutMul (cutMul x (cutMul x x))
+                              (cutMul (cutMul x x) (cutMul x x))) :=
+  mulIsSmooth cubeIsSmooth quarticIsSmooth
+
+/-- **x ↦ x⁸ is smooth**: quartic × quartic. -/
+def octicIsSmooth :
+    IsSmooth (fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                              (cutMul (cutMul x x) (cutMul x x))) :=
+  mulIsSmooth quarticIsSmooth quarticIsSmooth
+
 end E213.Research.Real213CutSum
