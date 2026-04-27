@@ -20,6 +20,12 @@ import E213.Physics.Phase3.HiggsMassDerivation
 import E213.Physics.Phase3.DarkEnergyDerivation
 import E213.Physics.Phase3.AlphaGUTDerivation
 import E213.Physics.Phase3.MagicNumbersDerivation
+import E213.Physics.Phase3.StaticCouplings
+import E213.Physics.Phase3.Artifacts
+import E213.Physics.Phase3.GravityNotInteraction
+import E213.Physics.Phase3.NoWaveFunction
+import E213.Physics.Phase3.NoInteraction
+import E213.Physics.Phase3.Reframing
 import E213.Physics.Phase3.Capstone
 
 /-!
@@ -56,6 +62,16 @@ Phase 2 = axiom-level 트랙 (시점 명시).
   * `DarkEnergyDerivation`    — *왜 0.685 인가* (1-1/π trace)
   * `AlphaGUTDerivation`      — *왜 6/(25π²) 인가* (d²·ζ(2))
   * `MagicNumbersDerivation`  — *왜 2,8,20,...126 인가* (HO closed)
+
+### Reframing (이번 라운드 — SM/QM 용어 artifact 화)
+
+  * `StaticCouplings`         — running 부재, atomic-locked
+  * `Artifacts`               — SM/QM 전 용어 catalog
+  * `GravityNotInteraction`   — 중력 = (3,2) asymmetry, 매개체 X
+  * `NoWaveFunction`          — ψ, |ψ|² 모두 Lens output
+  * `NoInteraction`           — pair 분류만, 교환 부재
+  * `Reframing`               — 5 reframing 단일 capstone
+
   * `Capstone`              — 19 falsifier 단일 종합
 
 ## 운영 stake
