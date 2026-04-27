@@ -38,7 +38,7 @@
 ## Large integers (100+)
 
   118 = Og   137 = 1/α_em (prime)
-  168 = HO magic 7 (Z=168 예측)
+  168 = HO magic 7 (Z=168 prediction)
   192 = (NS²-1)(d²-1) (Muon lifetime)
 
 ## Atomic primes

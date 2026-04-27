@@ -70,7 +70,7 @@ namespace E213.Research.LensOnLens
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
 
-/-- **Lens-on-Lens**: Lens Bool 자체 가 HasDistinguishing instance. -/
+/-- **Lens-on-Lens**: Lens Bool itself is a HasDistinguishing instance. -/
 def lensBoolHasDistinguishing : HasDistinguishing (Lens Bool) where
   a := constTrueLens
   b := constFalseLens
@@ -87,8 +87,8 @@ open E213.Research.SemanticAtom
 
 /-! ### Universal morphism Raw → Lens Bool
 
-자기 self-application 의 가장 sharp instance — Raw 의 element
-가 Lens (= framework 의 표현 unit) 로 mapping. -/
+The sharpest self-application instance — elements of Raw map to
+Lenses (= the representation unit of the framework). -/
 
 /-- Universal morphism Raw → Lens Bool via lens-on-lens instance. -/
 def lensUniversalMorphism : Raw → Lens Bool :=

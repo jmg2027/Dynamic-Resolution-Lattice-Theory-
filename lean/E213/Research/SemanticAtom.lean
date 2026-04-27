@@ -5,33 +5,33 @@ import E213.Research.FoldStructured
 import E213.Research.DepthParityNotFold
 
 /-!
-# Research.SemanticAtom: 213 = 의미 의 atom (formal hub)
+# Research.SemanticAtom: 213 = the atom of meaning (formal hub)
 
-Note 75 의 thesis 의 형식 화 hub.  이전 의 vague framing
-들 (constructive subset, fold-structured, scale-invariance)
-모두 이 thesis 의 specific aspect 임 명시.
+Hub for the formalization of Note 75's thesis.  Clarifies that all previous
+vague framings (constructive subset, fold-structured, scale-invariance)
+are specific aspects of this thesis.
 
 ## Thesis (Mingu, 2026-04-25)
 
-> 의미 를 갖는 어떤 것 도 213 을 벗어날 수 없다.  213 이
-> semantic atom 이다.  213 의 axiom 보다 더 원초적 부재.
-> 모든 것 이 213 atom 의 내부 이자 표현 이자 경계.
+> Nothing with meaning can escape 213.  213 is the semantic atom.
+> Nothing is more primitive than the axiom of 213.
+> Everything is inside, a representation of, and a boundary of the 213 atom.
 
 ## Formal layer
 
-| Layer | Lean 형식 |
-|-------|---------|
+| Layer | Lean form |
+|-------|-----------|
 | Distinguishing framework abstraction | `HasDistinguishing` typeclass |
-| Raw 가 instance | `Raw.instHasDistinguishing` |
-| Universal morphism | `Raw.fold` (이미 있음) |
-| Initial object | RawInitiality.lean (기존) |
+| Raw as instance | `Raw.instHasDistinguishing` |
+| Universal morphism | `Raw.fold` (already exists) |
+| Initial object | RawInitiality.lean (existing) |
 | Strict minimum | AxiomMinimality.lean (4 cases) |
 
-## Thesis 의 Lean 형식 부분
+## Lean formalization of the thesis
 
-이 파일 은 `HasDistinguishing` typeclass 로 의미 framework 의
-abstraction 명시 — Raw 가 이 abstraction 의 strict minimum
-(AxiomMinimality 의 4 case 가 negative direction).
+This file uses the `HasDistinguishing` typeclass to make explicit the
+abstraction of the meaning framework — Raw is the strict minimum of this
+abstraction (the 4 cases of AxiomMinimality are the negative direction).
 -/
 
 namespace E213.Research.SemanticAtom

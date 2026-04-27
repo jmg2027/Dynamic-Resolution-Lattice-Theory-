@@ -83,8 +83,8 @@ theorem all_PMNS_leadings_atomic :
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
 /-- ★ Adjoint SU(5) appears in PMNS too ★
-    d²-1 = 24가 PMNS δ_CP에 등장 →
-    α_em IR, m_μ/m_e, m_H, Ω_Λ 외에 PMNS도 같은 패턴. -/
+    d²-1 = 24 appears in PMNS δ_CP →
+    PMNS follows the same pattern as α_em IR, m_μ/m_e, m_H, Ω_Λ. -/
 theorem adjoint_in_PMNS :
     delta_CP_denom = d * d - 1
     ∧ d * d - 1 = (d - 1) * (d + 1) := by decide

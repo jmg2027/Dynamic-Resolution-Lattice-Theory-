@@ -76,7 +76,7 @@ theorem alpha_1_y_norm_prefactor :
     ∧ c_lat * d * NS * NT = (c_lat * NS * NT) * d := by decide
 
 /-- ★ Unified prefactor capstone ★
-    모든 prefactor가 {c, NS, NT, d}에서.
+    All prefactors come from {c, NS, NT, d}.
 
     α_3: NS² - 1 = (NS-1)(NS+1)    [trace-removed adjoint]
     α_2: c·NS·NT² = 24 = adjoint SU(5)  [directed K_{NS,NT} × NT]
