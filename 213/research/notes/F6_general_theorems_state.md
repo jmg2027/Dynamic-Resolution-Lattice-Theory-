@@ -399,6 +399,13 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase X — 4 milestones COMPLETE (combinator iteration)
+
+**X1: composeIsSmooth iteration** (3-deep, 4-deep nested compose).
+**X2: addIsSmooth iteration** (3, 4-arity add).
+**X3: Mixed combinator iteration** (mul/add, compose/mul, mid/compose/add).
+**X4: 12-Phase synthesis docs.**
+
 ### Phase W — 4 milestones COMPLETE (capstone bundles + iteration)
 
 **W1: polynomial_coverage_1_to_16** — single decide-proven 16-fact bundle.

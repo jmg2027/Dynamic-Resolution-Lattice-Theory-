@@ -8,6 +8,13 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase X COMPLETE — Combinator iteration tests
+
+- X1: composeIsSmooth iteration (3-deep, 4-deep).
+- X2: addIsSmooth iteration (3, 4-arity).
+- X3: Mixed combinator (mul+add, compose+mul, mid+compose+add).
+- X4: 12-Phase synthesis docs.
+
 ### Phase W COMPLETE — Capstone bundles + iteration
 
 - W1: polynomial_coverage_1_to_16 (16-fact bundle).
