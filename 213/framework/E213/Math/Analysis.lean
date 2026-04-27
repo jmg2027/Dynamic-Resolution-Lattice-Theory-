@@ -16,6 +16,7 @@ import E213.Research.Real213PhaseJCapstone
 import E213.Research.Real213ResolutionDepth
 import E213.Research.Real213DyadicTrajectory
 import E213.Research.Real213PhaseLCapstone
+import E213.Research.Real213PhaseACMinimumProposition
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
