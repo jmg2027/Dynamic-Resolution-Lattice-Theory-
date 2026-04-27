@@ -12,6 +12,7 @@ import E213.Physics.Phase4.LithiumIE
 import E213.Physics.Phase4.BerylliumIE
 import E213.Physics.Phase4.SecondRowIE
 import E213.Physics.Phase4.CorrectionAsLens
+import E213.Physics.Phase4.PropagatorFamily
 
 /-!
 # E213.Physics.Phase4 — *Proper formalization* of atomic claim
