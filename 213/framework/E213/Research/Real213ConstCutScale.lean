@@ -47,4 +47,18 @@ example : constCut 1 2 = constCut 3 6 := constCut_scale 1 2 3 (by decide)
 /-- 2/3 = 4/6. -/
 example : constCut 2 3 = constCut 4 6 := constCut_scale 2 3 2 (by decide)
 
+/-- constCut 1 1 = constCut a a (= "1") for a ≥ 1. -/
+theorem constCut_one_one_eq (a : Nat) (ha : a ≥ 1) :
+    constCut 1 1 = constCut a a := by
+  have h := constCut_scale 1 1 a ha
+  rw [Nat.one_mul] at h
+  exact h
+
+/-- constCut 0 1 = constCut 0 b (= "0") for b ≥ 1. -/
+theorem constCut_zero_eq (b : Nat) (hb : b ≥ 1) :
+    constCut 0 1 = constCut 0 b := by
+  have h := constCut_scale 0 1 b hb
+  rw [Nat.zero_mul, Nat.one_mul] at h
+  exact h
+
 end E213.Research.Real213CutSum
