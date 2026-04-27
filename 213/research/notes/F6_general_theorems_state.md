@@ -13,7 +13,11 @@
 - **`cutSum_self` : c + c = 2c for any const c = a/b** (most general).
 - `cutSum_half_half` : 1/2 + 1/2 = 1 (corollary).
 - `cutSum_third_third` : 1/3 + 1/3 = 2/3 (corollary).
-- `cutSum_half_general` : a/2 + b/2 = (a+b)/2 (same denom).
+- `cutSum_half_general` : a/2 + b/2 = (a+b)/2 (same denom 2).
+- `cutHalf_constCut` : (a/b)/2 = a/(2b).
+- `cutMid_self_constCut` : midpoint(c, c) = c.
+- `cutPow_zero/succ`, `partialSum_zero/succ`, `riemannSumOnSamples_zero/succ`
+  (rfl-level unfolding lemmas).
 
 ### Rational equivalence
 
