@@ -7,6 +7,13 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### Phase AU (3e7db2d) — chain-rule derivative modulus (3 facts)
+### Phase AT (17a2eb9) — polynomial sum derivative modulus
+### Phase AS (f8347e2) — 11-degree concrete derivative sharp mega capstone
+### Phase AR (72c698a) — concrete derivative modulus 9/10/12/16
+### Phase AQ (587fe3b) — concrete derivative modulus 5-8 (sharp)
+### Phase AP (d5f6ae3) — concrete poly derivative modulus = (n-1)·k pattern
+### Phase AO (382e92f) — decide-checked derivative evaluations
 ### Phase AN (47dac44) — omega capstone (AC-AM, 13 facts)
 ### Phase AM (af7afb3) — polynomial diff total coverage 0-16
 ### Phase AL (5657d39) — midpoint combinator (cutMid)
