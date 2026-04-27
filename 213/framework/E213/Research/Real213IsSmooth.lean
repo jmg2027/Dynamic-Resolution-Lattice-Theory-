@@ -1,6 +1,7 @@
 import E213.Research.Real213CutFnData
 import E213.Research.Real213Dyadic
 import E213.Research.Real213CutSumDetermined
+import E213.Research.Real213CutMulDetermined
 
 /-!
 # Research.Real213IsSmooth: smoothness as resolution-compression filter
@@ -143,5 +144,57 @@ def addIsSmooth {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     addLDD sf.toLocallyDeterminedData sg.toLocallyDeterminedData
   linearityModulus := fun n =>
     max (sf.linearityModulus n) (sg.linearityModulus n)
+
+/-- **Pointwise product LDD**: if f, g are LDD then so is
+    fun x => cutMul (f x) (g x).  Uses cutMulOuter_congr with the
+    cutMul-locality bound (m+1)*(k+1). -/
+def mulLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : LocallyDeterminedData f)
+    (sg : LocallyDeterminedData g) :
+    LocallyDeterminedData (fun x => cutMul (f x) (g x)) where
+  N := fun m k =>
+    max (maxRange sf.N ((m+1)*(k+1)) k)
+        (maxRange sg.N ((m+1)*(k+1)) k)
+  prop := by
+    intro m k cx cy hagree
+    show cutMulOuter (f cx) (g cx) k m ((m+1)*(k+1)) ((m+1)*(k+1))
+       = cutMulOuter (f cy) (g cy) k m ((m+1)*(k+1)) ((m+1)*(k+1))
+    apply cutMulOuter_congr
+    · intro m' hm'
+      apply sf.prop
+      intro m'' k'' hm'' hk''
+      apply hagree
+      · exact Nat.le_trans hm''
+          (Nat.le_trans (maxRange_ge sf.N ((m+1)*(k+1)) k m' k
+            hm' (Nat.le_refl _)) (Nat.le_max_left _ _))
+      · exact Nat.le_trans hk''
+          (Nat.le_trans (maxRange_ge sf.N ((m+1)*(k+1)) k m' k
+            hm' (Nat.le_refl _)) (Nat.le_max_left _ _))
+    · intro m' hm'
+      apply sg.prop
+      intro m'' k'' hm'' hk''
+      apply hagree
+      · exact Nat.le_trans hm''
+          (Nat.le_trans (maxRange_ge sg.N ((m+1)*(k+1)) k m' k
+            hm' (Nat.le_refl _)) (Nat.le_max_right _ _))
+      · exact Nat.le_trans hk''
+          (Nat.le_trans (maxRange_ge sg.N ((m+1)*(k+1)) k m' k
+            hm' (Nat.le_refl _)) (Nat.le_max_right _ _))
+    · exact Nat.le_refl _
+
+/-- **Pointwise product of smooth is smooth**.  Per user's Phase J Sec 2:
+    cutMul has nonlinear error compound from input dynamic range.
+    Linearity modulus = sum of input moduli (errors add multiplicatively
+    in product, additively in log-form moduli).
+
+    h(x) = (f x) * (g x) is smooth with linearityModulus =
+    sf.linearityModulus + sg.linearityModulus. -/
+def mulIsSmooth {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : IsSmooth f) (sg : IsSmooth g) :
+    IsSmooth (fun x => cutMul (f x) (g x)) where
+  toLocallyDeterminedData :=
+    mulLDD sf.toLocallyDeterminedData sg.toLocallyDeterminedData
+  linearityModulus := fun n =>
+    sf.linearityModulus n + sg.linearityModulus n
 
 end E213.Research.Real213CutSum
