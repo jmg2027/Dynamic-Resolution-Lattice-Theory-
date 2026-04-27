@@ -64,6 +64,7 @@ import E213.Physics.GravityShadow
 import E213.Physics.HubbleConstant
 import E213.Physics.YangMillsGap
 import E213.Physics.AsymptoticFreedom
+import E213.Physics.SU5Roots
 import E213.Physics.Capstone
 
 /-!
