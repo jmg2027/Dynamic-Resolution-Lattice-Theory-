@@ -26,6 +26,8 @@ import E213.Physics.HiggsMass
 import E213.Physics.TauOverMu
 import E213.Physics.WeinbergAngle
 import E213.Physics.DarkEnergy
+import E213.Physics.BondAngles
+import E213.Physics.UnifiedPattern
 import E213.Physics.Capstone
 
 /-!
