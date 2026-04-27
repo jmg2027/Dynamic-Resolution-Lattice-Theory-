@@ -399,6 +399,25 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase Q — 4 milestones COMPLETE (modulus computation rules)
+
+**Q1: addIsSmooth modulus tests** — 4 decide tests confirming max behavior.
+**Q2: mulIsSmooth modulus tests** — 4 decide tests confirming sum behavior.
+**Q3: 3-way composition** — degree multiplication verified.
+**Q4: This F6 / HANDOFF doc update.**
+
+The three modulus rules:
+- ADD: max (linear).
+- MUL: sum (compounding, additive in degrees).
+- COMPOSE: nested function composition (multiplicative in degrees).
+
+### Phase P — 4 milestones COMPLETE (concrete evaluations)
+
+**P1: cutMid_int_int evaluations** — 4 examples on integer pairs.
+**P2: Riemann constant doubling recurrence** — depth (n+1) = double depth n.
+**P3: composeIsSmooth concrete tests** — degree multiplication verified.
+**P4: midIsSmooth concrete tests** — max behavior like add.
+
 ### Phase O — 4 milestones COMPLETE (super-capstone + polynomial chain)
 
 **O1: All-Phase Super-Capstone**

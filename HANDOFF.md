@@ -8,6 +8,20 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase Q COMPLETE — Modulus rule tests (add max, mul sum, compose product)
+
+- Q1: addIsSmooth modulus tests (max behavior).
+- Q2: mulIsSmooth modulus tests (sum behavior).
+- Q3: 3-way composition (degree multiplication).
+- Q4: F6 + HANDOFF docs update.
+
+### Phase P COMPLETE — Concrete evaluations across the framework
+
+- P1: cutMid_int_int evaluations.
+- P2: Riemann constant doubling recurrence.
+- P3: composeIsSmooth concrete tests.
+- P4: midIsSmooth concrete tests.
+
 ### Phase O COMPLETE — Super-capstone + polynomial chain
 
 - O1: allPhase_super_capstone (J/K/L/M/N bundle in single theorem).
