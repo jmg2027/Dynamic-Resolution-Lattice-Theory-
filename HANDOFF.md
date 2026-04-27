@@ -7,6 +7,15 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
+### Phase CW-CY (c43664e → 728d1d6) — **2차 ODE + Newton + 다항식 derivative @0** ★
+
+- **CW**: 2차 ODE — y'' = 0 for linear functions (propEq)
+- **CX**: Newton 제1법칙 (F=0 → constant velocity) 형식화
+- **CY**: x², x³, x⁴ derivatives at x=0 = 0 (propEq via simp chain)
+
+★ 물리 응용: 자유 운동 = 2차 ODE의 가장 간단한 case 형식 검증.
+★ 다항식 derivative at 0 propEq — cutMul/cutSum 0-체인 구성.
+
 ### Phase CT-CV (b009abf → 70b9440) — **적분 성질 + ODE 카탈로그** ★
 
 - **CT**: 적분 선형성 + 영길이 구간 = 0 (mid_anti, add_anti 활용)
