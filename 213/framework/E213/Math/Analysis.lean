@@ -68,6 +68,7 @@ import E213.Research.Real213ClassicCalcExtreme
 import E213.Research.Real213ClassicCalcGeneric
 import E213.Research.Real213PhaseBQOmegaCapstone
 import E213.Research.Real213FluxMVTWitness
+import E213.Research.Real213ClassicCalcMid
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
