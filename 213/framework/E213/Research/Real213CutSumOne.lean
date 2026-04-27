@@ -172,4 +172,54 @@ theorem cutSum_third_third :
       rw [this]
       exact decide_eq_true h_2k_3m
 
+/-- **cutSum (a/2) (b/2) = (a+b)/2** for any a, b. -/
+theorem cutSum_half_general (a b : Nat) :
+    cutSum (constCut a 2) (constCut b 2) = constCut (a + b) 2 := by
+  funext m k
+  apply bool_eq_iff
+  show cutSumAux (constCut a 2) (constCut b 2) k (2*m) (2*m) = true
+       ↔ constCut (a + b) 2 m k = true
+  rw [cutSumAux_eq_true_iff]
+  constructor
+  · rintro ⟨i, hi, hci, hcsi⟩
+    have h_2ak_2i : a*(2*k) ≤ 2*i := of_decide_eq_true hci
+    have h_2bk_2mi : b*(2*k) ≤ 2*(2*m - i) := of_decide_eq_true hcsi
+    show decide ((a+b)*k ≤ 2*m) = true
+    apply decide_eq_true
+    have h_add : i + (2*m - i) = 2*m := Nat.add_sub_of_le hi
+    have h_e1 : a*(2*k) = 2*(a*k) := by
+      rw [← Nat.mul_assoc, Nat.mul_comm a, Nat.mul_assoc]
+    have h_e2 : b*(2*k) = 2*(b*k) := by
+      rw [← Nat.mul_assoc, Nat.mul_comm b, Nat.mul_assoc]
+    rw [h_e1] at h_2ak_2i
+    rw [h_e2] at h_2bk_2mi
+    have h_ak : a*k ≤ i := Nat.le_of_mul_le_mul_left h_2ak_2i (by decide : 0 < 2)
+    have h_bk : b*k ≤ 2*m - i := Nat.le_of_mul_le_mul_left h_2bk_2mi (by decide : 0 < 2)
+    have h_abk : a*k + b*k ≤ i + (2*m - i) := Nat.add_le_add h_ak h_bk
+    rw [h_add] at h_abk
+    rw [show a*k + b*k = (a+b)*k from (Nat.add_mul a b k).symm] at h_abk
+    exact h_abk
+  · intro h
+    have h_abk_2m : (a+b)*k ≤ 2*m := of_decide_eq_true h
+    have h_ak_le_2m : a*k ≤ 2*m := by
+      have : a*k ≤ (a+b)*k := by
+        rw [Nat.add_mul]; exact Nat.le_add_right _ _
+      exact Nat.le_trans this h_abk_2m
+    refine ⟨a*k, h_ak_le_2m, ?_, ?_⟩
+    · show decide (a*(2*k) ≤ 2*(a*k)) = true
+      apply decide_eq_true
+      have : a*(2*k) = 2*(a*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm a, Nat.mul_assoc]
+      rw [this]
+      exact Nat.le_refl _
+    · show decide (b*(2*k) ≤ 2*(2*m - a*k)) = true
+      apply decide_eq_true
+      have e1 : b*(2*k) = 2*(b*k) := by
+        rw [← Nat.mul_assoc, Nat.mul_comm b, Nat.mul_assoc]
+      rw [e1]
+      have h_abk' : a*k + b*k ≤ 2*m := by
+        rw [show a*k + b*k = (a+b)*k from (Nat.add_mul a b k).symm]
+        exact h_abk_2m
+      omega
+
 end E213.Research.Real213CutSum
