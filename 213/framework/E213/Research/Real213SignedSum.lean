@@ -33,4 +33,22 @@ example : (cutSignedSum (signedConstCut true 1 1)
 example : (cutSignedSub (signedConstCut true 1 1)
                        (signedConstCut true 1 1)).sign = true := by decide
 
+/-- Same-sign positive: cutSignedSum reduces to cutSum on cuts. -/
+theorem cutSignedSum_pos_pos (cx cy : Nat → Nat → Bool) :
+    cutSignedSum {sign := true, cut := cx} {sign := true, cut := cy}
+    = {sign := true, cut := cutSum cx cy} := by
+  show (if true = true
+        then ({sign := true, cut := cutSum cx cy} : SignedCut)
+        else _) = _
+  rw [if_pos rfl]
+
+/-- Same-sign negative: cutSignedSum sign := false, cut := cutSum. -/
+theorem cutSignedSum_neg_neg (cx cy : Nat → Nat → Bool) :
+    cutSignedSum {sign := false, cut := cx} {sign := false, cut := cy}
+    = {sign := false, cut := cutSum cx cy} := by
+  show (if false = false
+        then ({sign := false, cut := cutSum cx cy} : SignedCut)
+        else _) = _
+  rw [if_pos rfl]
+
 end E213.Research.Real213CutSum
