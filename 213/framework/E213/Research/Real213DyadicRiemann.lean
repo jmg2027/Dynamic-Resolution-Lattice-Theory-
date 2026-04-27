@@ -102,4 +102,28 @@ theorem riemannSampleSum_one_fn (db : DyadicBracket) (n : Nat) :
   rw [riemannSampleSum_constCut 1 1 db n]
   rw [Nat.mul_one]
 
+/-- **Riemann sum congruence**: pointwise-equal functions give
+    pointwise-equal Riemann sums at every depth and bracket. -/
+theorem riemannSampleSum_congr
+    (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (db : DyadicBracket) (n : Nat)
+    (h : ∀ x, f x = g x) :
+    riemannSampleSum f db n = riemannSampleSum g db n := by
+  induction n generalizing db with
+  | zero =>
+    show f db.midCut = g db.midCut
+    exact h db.midCut
+  | succ k ih =>
+    show cutSum (riemannSampleSum f db.leftHalf k)
+                (riemannSampleSum f db.rightHalf k)
+       = cutSum (riemannSampleSum g db.leftHalf k)
+                (riemannSampleSum g db.rightHalf k)
+    rw [ih db.leftHalf, ih db.rightHalf]
+
+/-- **Riemann sum at depth 1**: explicit two-sample form. -/
+theorem riemannSampleSum_one_depth
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) (db : DyadicBracket) :
+    riemannSampleSum f db 1
+    = cutSum (f db.leftHalf.midCut) (f db.rightHalf.midCut) := rfl
+
 end E213.Research.Real213CutSum
