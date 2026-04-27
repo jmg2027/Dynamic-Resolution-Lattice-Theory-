@@ -1,63 +1,69 @@
-# Session Handoff — 2026-04-27 (Physics + Math 트랙 통합)
+# Session Handoff — 2026-04-27 (213 도서관 architecture migration 완료)
 
 ## Branch
-`claude/block-universe-asymmetry-bYQZZ` (math 트랙 머지 후).
+`claude/block-universe-asymmetry-bYQZZ` (math 트랙 머지 + migration).
 
-## Status
+## 현재 디렉토리 구조
 
-### Physics Track (이 브랜치)
-- Phase 1: 68 정밀 derivation
-- Phase 2: 14 axiom-level
-- Phase 3: 88 falsifier + reframing + Translation
-- Phase 4: 52 (도서관 28 + IE deep-dive 등)
-- E213.Physics = 279 modules clean
+```
+/                            (repo = 213 도서관)
+├── README.md, HANDOFF.md, CLAUDE.md
+├── seed/        9 docs (AXIOM, ORIGIN, NOTATION, PAPER1,
+│                 PHILOSOPHY, FALSIFIABILITY, AUDIT_Lean,
+│                 IMPLEMENTATION, CLAUDE-213)
+├── lean/E213/   620 Lean files (build clean)
+├── blueprints/  31 docs (math 14 + physics 14 + INDEX 등)
+├── books/       math 1 + physics 1 (sample)
+├── papers/      DRLT book + 16 standalone .tex
+├── catalogs/    6 lookup tables
+└── research-notes/  연구 노트
+```
 
-### Math Track (방금 머지 — claude/lean-infinity-explanation-QqnSp)
-- Real213 marathon Phase J → DK (★★ 100% calculus 완성 ★★)
-- IsDifferentiable framework
-- Cohomological flux structure (FluxCut, MVT, Divergence)
-- Antiderivative class + integration
-- Newton 1, 2 법칙
-- ODE catalog
-- Transcendentals: exp(0), sin(0), cos(0), tan, sinh, cosh, log
-- ULTIMATE 18-fact capstone (Phase DK)
-- Mathlib-free, 0 sorry, ≤ propext + Quot.sound
-- ★ Analysis213.lean — single import, 87 imports, 176 modules
-- ★ ANALYSIS213.md + CATALOG213.md — paper + library catalog
+## Build status
 
-## 머지 후 통합 결과
+```
+$ cd lean && lake build
+Build completed successfully.
 
-  Physics 279 modules + Math 176 modules = 455+ Lean modules clean.
-  *학부 1학년 미적분 + ODE + 물리 + 초월함수 = 100% 완성*.
-  + 모든 atomic 물리 catalog (도서관 28 modules).
+0 sorry, 0 외부 axiom, 0 native_decide,
+0 Classical, 0 Mathlib import.
+≤ propext + Quot.sound (대부분 0 axioms).
+```
 
-## 핵심 atomic 발견 (Physics 트랙)
+## File counts
 
-  6 = NS·NT (Pauli ε, Lorentz, AB pair, 3!)
-  8 = NS²-1 (α_3, b_1, F_6, Einstein 8π, Hawking)
-  16 = NT⁴ = SU(5) fermion content
-  24 = d²-1 (SU(5), 4!, SM gauge)
-  192 = (NS²-1)(d²-1) Muon lifetime
-  168 = HO magic 7 (Z=168 super-heavy 예측)
-  Period closures: NT, d·NT, 2·NS², (NS·NT)², 2·NS³, ...
+  E213 Lean: 620
+    Physics: 227
+    Research (Real213): 176
+    기타 (Firmware/Hypervisor/OS/App/Math/Meta/...): 217
 
-## 핵심 발견 (Math 트랙)
+## 핵심 결과
 
-  - 213-native subtraction: simplicial cohomology orientation
-  - 미분 = local divergence (cohomological flux density)
-  - MVT = path flux equality
-  - FTC = boundary integral
-  - 셋 모두 동일 cohomological 객체의 다른 측면
-  - ZFC 와 *근본적*으로 다른 표현
-  - exp/sin/cos/tan/sinh/cosh/log all from 213 axioms
+### Physics
+- 1/α_em = 137.036 (ppm)
+- m_p = 938.27 MeV (0.000%)
+- m_μ/m_e = 206.768 (0.48 ppb)
+- Ω_Λ = 0.685 (0.0008%)
+- 주기율표 113 + 5 super-heavy atomic
 
-## 다음 가능 단계
+### Math
+- 학부 1학년 미적분 100% (Phase J→DK)
+- 213-native 미분 = cohomological flux
+- exp(0), sin(0), cos(0) atomic
 
-1. Physics ↔ Math 트랙 cross-link (running coupling 등에 flux 적용)
-2. 213 외부 sub-projects migration
-3. 더 깊은 atomic correspondences
+## 일관성 검토 (이번 세션)
 
-## 통합 자체가 *대단한* 결과
+  ✅ Build clean
+  ✅ 0 sorry / 0 외부 axiom 검증
+  ✅ orphan dirs 제거 (lean/books, lean/catalogs)
+  ✅ catalogs/ 5개 추가 (atomic-integers, physics-constants,
+     periodic-table, falsifiers, correspondences) + README
+  ✅ books/physics/ sample (periodic-table.md) + README
+  ✅ HANDOFF 갱신 (이 문서)
 
-기존 물리 + 미적분 = 둘 다 *213 axiom 만으로* derive 됨.
-Mathlib-free + 0 sorry + ≤ propext + Quot.sound.
+## 다음
+
+  - 28 blueprints 따라 마라톤 (math + physics)
+  - books/ 더 작성
+  - catalogs/ 동기화 유지
+  - 새 분야 마라톤 시 결과 → Lean + book + catalog
