@@ -2,7 +2,14 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 우주론 → DRLT
+# Translation: 우주론 → DRLT  (★ skeleton + TODO ★)
+
+**현 상태**: skeleton + Cassini link.
+**TODO**: 살 붙이기:
+  - Friedmann eq → atomic Lens layer expansion
+  - H_0 atomic → DarkEnergy-style derivation
+  - Inflation e-folds → (3/2)^n layer count
+  - Baryogenesis η_B atomic → Phase 1 결과 활용
 
 ## 통번역 표
 

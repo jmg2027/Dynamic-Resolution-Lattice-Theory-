@@ -2,7 +2,13 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Translation: 열역학·통계역학 → DRLT
+# Translation: 열역학·통계역학 → DRLT  (★ skeleton + TODO ★)
+
+**현 상태**: skeleton + 1 atomic correspondence.
+**TODO**: 살 붙이기:
+  - Boltzmann distribution e^(-βE) → Lens layer weight derivation
+  - Stefan-Boltzmann σ T⁴ → atomic d-dependence
+  - Critical exponent → (3/2)^n scaling 형식 정리
 
 ## 통번역 표
 
