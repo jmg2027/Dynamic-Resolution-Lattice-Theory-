@@ -7,10 +7,10 @@
 **E213/Physics track Phase 1 + 2 + 3 모두 완료, Phase 3 대규모 확장.**
 - Phase 1: 68 Lean 파일 (정밀 양 트랙)
 - Phase 2: 14 Lean 파일 (axiom-level 트랙)
-- Phase 3: **55 Lean 파일** (falsifier + deep-dive + reframing + Translation)
+- Phase 3: **70 Lean 파일** (falsifier + deep-dive + reframing + Translation)
 - 모두 0 sorry, ≤ propext + Quot.sound
 - Phase 3 모든 capstone = **0 axioms**
-- `lake build E213.Physics` clean (**193 modules**)
+- `lake build E213.Physics` clean (**208 modules**)
 
 ## Phase 3 (대규모 확장, 이번 세션)
 
@@ -21,19 +21,24 @@
   - 6 reframing + ComplexAsTime (용어 정리)
   - 21 Translation/ subdir (현대 물리 전 분야)
 
-**12 마일스톤 자율 완료**:
-  M1 모든 Translation real derivation
-  M2 QM/QFT/GR 정리 atomic
-  M3 5 핵심 방정식 형식
-  M4 응집물질 + 통계역학
-  M5 광학 + 정보이론
-  M6 핵 + 천체
-  M7 MasterCatalog (정수 multi-framework)
-  M8 Lagrangian + 분광 + 플라즈마
-  M9 입자 + 유체 + BSM
-  M10 양자중력 + Anomalies
-  M11 UltraCapstone
-  M12 HANDOFF 갱신
+**27 마일스톤 자율 완료**:
+  M1-M3:   Translation real derivation, QM/QFT/GR 정리, 5 핵심 방정식
+  M4-M6:   응집물질, StatMech, 광학, 정보, 핵, 천체
+  M7-M9:   MasterCatalog, Lagrangian, 분광, 플라즈마, 입자, 유체, BSM
+  M10-M12: 양자중력, Anomalies, UltraCapstone, HANDOFF
+  M13-M15: Topological, Translation Capstone import, UnsolvedProblems
+  M16-M18: Constants, GroupTheory, SixEverywhere
+  M19-M21: README, EightEverywhere, TwentyFour, GravWaves
+  M22-M24: Hadron, Phase1CrossLink, Inflation
+  M25-M27: DarkMatter, DecayRates, Chemistry, Scattering
+
+  ★ 핵심 atomic 발견 ★
+    6 = NS·NT (10+ framework)
+    8 = NS²-1 (11+ framework)
+    24 = d²-1 (8+ framework)
+    192 = (NS²-1)(d²-1) (Muon lifetime prefactor)
+    60 = d²·NT + d·NT (Inflation e-folds)
+    25 = d² (α_GUT, 5-simplex)
 
 **핵심 발견 — atomic 정수 재출현**:
   6 = NS·NT: Pauli ε, Lorentz, AB pair, 3!
