@@ -12,6 +12,7 @@ import E213.Research.Real213DyadicBracket
 import E213.Research.Real213IsSmooth
 import E213.Research.Real213ConsistentOracle
 import E213.Research.Real213DyadicRiemann
+import E213.Research.Real213PhaseJCapstone
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
