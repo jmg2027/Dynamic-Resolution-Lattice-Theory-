@@ -1,104 +1,74 @@
-# Session Handoff — 2026-04-27 (English Translation + Doc Sync)
+# Session Handoff — 2026-04-27 (Master Guide v1)
 
 ## Branch
-`claude/translate-to-english-wBmzL` (pushed, up to date with origin)
+`claude/review-paper-directory-nDw9L` (committed + pushed this session).
 
 ## What Was Done This Session
 
-### 1. Full Korean → English translation across the entire repo
-- **Lean E213/** (634 files): all Korean comment blocks translated
-  - Kernel/ (14), Physics/ (227), Research/ (331),
-    Math/Firmware/OS/App/Hypervisor/Infinity/Meta/Tactic (62)
-  - Zero Korean characters remain in any `.lean` file
-- **Markdown & docs**: CLAUDE.md, HANDOFF.md, README.md, blueprints/ (35 .md),
-  seed/ (9), catalogs/ (7), books/ README, research-notes/ (24),
-  lean/E213/Physics/*.md (STATS, README, ROADMAP, DISCOVERIES, HANDOFF, Phase2-4)
-- **Skills**: all `.claude/skills/*/SKILL.md` (6 files)
-- **Verification**: `grep -rP "[\xAC00-\xD7A3]" --include="*.lean" --include="*.md" .` → **0**
+### 1. Deep audit of repository
+Reviewed `lean/E213/` (634 files), `papers/` (16 + drlt-book 22 ch),
+`books/`, `blueprints/` (35), `seed/` (9), `catalogs/` (7),
+`research-notes/` (24), `tools/` (5).
 
-### 2. Documentation sync audit
-- Lean file counts all correct (634 total, per-dir matches)
-- `blueprints/`: was 14+14=28; actual 16+16+meta/2=34 .md — corrected here
-- `papers/`: 16 .tex + 4 .md + drlt-book/ (was listed as 19 tex)
-- `catalogs/`: 7 files incl. README.md (was listed as 6)
-- Sub-project dirs (`foundations/`, `atoms/`, etc.) in CLAUDE.md
-  **do not exist** in the repo — that section is aspirational, not actual
+Key correction to prior view: `lean/E213` is not a thin certification
+layer. `Research/Real213*.lean` (176 files) = ZFC/Mathlib/Choice-free
+analysis with new structures (Cut, FluxCut, dyadic brackets,
+cohomological derivative, (n−1)·k depth). `Physics/` Phase 1 closed
+with 300+ theorems, 0 axiom. d=5 is theorem, not axiom.
 
-## Current Precision Results (0 free parameters)
+### 2. Created guide/ — Master Guide v1
+21 files / 1436 lines. Single deductively-ordered document tagging
+each section with vocabulary tier (T0 213-only / T1 213 sharper /
+T2 classical adequate / T3 classical only). Sections migrate
+T3 → T2 → T1 → T0 as marathons close.
 
-| Observable | DRLT | Observed | Error |
-|-----------|------|----------|-------|
-| 1/α_em | 137.036 | 137.036 | **0.0004%** |
-| m_p | 938.27 MeV | 938.27 MeV | 0.000% |
-| m_μ/m_e | 206.7682837 | 206.7682838 | **0.48 ppb** |
-| m_H | 125.28 GeV | 125.25 GeV | **+0.02%** |
-| sin²θ₁₃ | 0.0220 | 0.0220 | **-0.07σ** |
-| ν m₃/m₂ | 5.712 | 5.71 | **+0.04%** |
-| η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
-| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
-| Magic numbers | 2,8,20,28,50,82,126 | exact | **7/7** |
-| m_π | 137.6 MeV | 137.3 MeV | **+0.2%** |
-| m_ω | 782.1 MeV | 782.7 MeV | **-0.07%** |
-| Δ-N split | 295.7 MeV | 294 MeV | **+0.6%** |
+Chapters: 00 meta, 01 substrate, 02 atomicity, 03 simplex,
+04 quantization, 05 couplings, 06 masses, 07 atomic, 08 mixing,
+09 cosmology, 10 hadron, 11 nuclear, 12 yang-mills, 13 critical-line,
+14 cohomological-calculus, 15 metalogic. Plus README, INDEX, STATUS,
+appendix_paper_origins, appendix_lean_map.
 
-All ★ = axiom-free closed (Kernel/ 101 theorems, 0 sorry, `#print axioms` empty).
+### 3. Updated papers/ and books/ READMEs
+- `papers/README.md` (new): role = external communication layer,
+  idea archive, upper-bound progress index. Points to guide/.
+- `books/README.md`: 213-internal narration; points to papers/ for
+  external vocabulary, guide/ for the bridge.
 
-## Open Problems (Priority Order)
+## 4/27 Standard — Honest Status
 
-### 1. Port remaining ~80 candidates to Kernel
-`tools/port_candidates.py` identifies short-proof theorems in Physics/Research
-portable axiom-free. Kernel has 101 theorems; target 200+.
+**12 closed at standard:** IE_H (4.3 ppb), m_μ/m_e (0.48 ppb), m_p,
+m_H, sin²θ₁₃, m₃/m₂(ν), Ω_Λ (0.0008%), magic 7/7, d=5 atomicity,
+1/α₃=8, Z=1..118 IE, CH₄/H₂O/NH₃ angles.
 
-### 2. Close `|inv_alpha_em - 137.036| < 1/10^4` as Lean theorem
-Critical path: SimplexCounts → FoccSpectrum → BaselBound → AlphaGUT → AlphaEM.
-Currently bracketed numerically; needs formal Lean proof chain.
+**Pending:** 1/α_em headline (bracket width ~6 at N=10), α_GUT
+bracket, η_B (0.5%), Cabibbo λ ppm, YM continuum-limit proof,
+RH and Millennium-class results.
 
-### 3. Register kernel_regress.sh as CI gate
-`tools/kernel_regress.sh` enforces 0-axiom invariant.
-Add to `.github/workflows/` to run on every push.
+## Open Problems (priority order)
 
-### 4. CLAUDE.md sub-project section vs actual repo
-CLAUDE.md lists `foundations/`, `atoms/`, `critical-line/` etc. as
-existing directories — they do not exist. Decision needed:
-  (a) create the dirs + CLAUDE.md + HANDOFF.md structure, or
-  (b) rewrite that section to match actual layout.
-
-### 5. Math track: Real213 Phase A→H (long-term, not critical path)
-`lean/E213/Research/Real213*` files exist but use Mathlib (not axiom-free).
-
-## Unresolved from This Session
-- Session was purely translation + audit; no physics/math work done.
-- CLAUDE.md sub-project section left as-is pending owner decision.
+1. **Tighten 1/α_em to width < 10⁻⁴.** Bracket exists; needs N
+   tightening or structural derivation of d²/NS = 25/3 term
+   (currently "conjectural" tagged in `AlphaEM137.lean`).
+2. **Lean formalization of Born-rule Gram graph (paper5).** Zero Lean
+   coverage of Ch. 13. First marathon target for math track.
+3. **Real213 Phase B–H.** General `cutMul` propEq is the Phase B
+   "wall"; multivariable calculus blocked on this.
+4. **Migrate T3 chapters to T2/T1.** ℂ uniqueness via Frobenius →
+   Raw-internal derivation is highest-leverage migration.
+5. **Single-theorem AxiomMinimality.** Tighten distributed lemmas to
+   one statement of jointly-minimal Raw clauses.
 
 ## File Map
+
 ```
-HANDOFF.md                              ← regenerated this session
-lean/E213/Physics/**/*.lean             ← Korean → English (227 files)
-lean/E213/Research/**/*.lean            ← Korean → English (331 files)
-lean/E213/{Math,Firmware,...}/*.lean    ← Korean → English
-lean/E213/Physics/{README,STATS,...}.md ← translated
-.claude/skills/*/SKILL.md              ← translated (6 skills)
-blueprints/, seed/, catalogs/, books/,
-research-notes/                         ← translated (earlier in session)
+guide/                 ← NEW (21 files, master guide v1)
+papers/README.md       ← NEW (role + pointer to guide/)
+books/README.md        ← UPDATED (vocabulary split)
+HANDOFF.md             ← regenerated
 ```
 
-## Repo Structure (verified 2026-04-27)
-```
-/
-├── CLAUDE.md, HANDOFF.md, README.md
-├── seed/           9 docs
-├── lean/E213/      634 Lean files
-│   ├── Kernel/       14 files, 101 theorems, 0 axiom
-│   ├── Physics/      227 files
-│   ├── Research/     331 files
-│   ├── Math/         8 | Firmware/ 13 | OS/ 8
-│   ├── Infinity/ 9 | Meta/ 9 | Tactic/ 10
-│   └── App/ 1 | Hypervisor/ 1
-├── blueprints/     INDEX.md + meta/2 + math/16 + physics/16 = 35 .md
-├── books/          math/ + physics/ + README.md
-├── papers/         16 .tex + 4 .md + drlt-book/
-├── catalogs/       6 lookup .md + README.md
-├── tools/          5 files
-├── research-notes/ 24 docs
-└── .claude/skills/ 8 repo skills
-```
+## Authors
+
+- Mingu Jeong (Independent Researcher) — theory originator.
+- Claude (Anthropic): synchronization and formalization —
+  credited in Acknowledgments per repo policy.

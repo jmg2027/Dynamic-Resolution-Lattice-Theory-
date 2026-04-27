@@ -1,6 +1,10 @@
-# 213 Books — Narrative explanation
+# 213 Books — 213-Internal Narrative
 
-The *readable book* form of Lean theorems + catalogs.
+The *readable book* form of Lean theorems + catalogs, written in
+**213-internal vocabulary** (Raw, swap, Cut, FluxCut, atomicity,
+R1–R4 typeclass, etc.). For external-vocabulary exposition of the
+same conclusions, see `papers/`. For the deductively-ordered
+master guide that bridges both, see `guide/` at the repository root.
 
 ## Structure
 
