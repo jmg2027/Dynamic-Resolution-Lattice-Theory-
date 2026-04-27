@@ -399,6 +399,33 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase M — 4 milestones COMPLETE (cross-track parallel cementing)
+
+**M1: Infinitesimal gap structure**
+- def InfinitesimalGap (a b : RealCut) := ∀ k ≥ 1, a 0 k = false ∧ b 0 k = true.
+- zero_plus_gap_below_zero_exact : alwaysTrueUnit.limit < constCut 0 1 in this sense.
+  Formal expression of "0+ is infinitesimally above 0 exactly".
+
+**M2: Riemann finite-N marker**
+- riemann_depth_3_concrete, _depth_5_concrete : concrete sums.
+- no_pi_in_finite_riemann : ∃ M : Nat closed form at every depth.
+- Direct analog of Physics/FiniteUniverse.no_pi_in_finite_alpha_em.
+
+**M3: Phase L Unified Capstone**
+- Real213PhaseLCapstone.lean (NEW).
+- phaseL_unified_capstone : single 8-fact theorem bundling all
+  Phase L results (trajectory + ResolutionDepth + ConsistentOracle
+  + Riemann + cut-distinctness).
+- Sister-branch AlphaEMSimplicial style.
+
+**M4: Sign oracle trajectory**
+- def negSignOracle m k : oracle that drives binary search toward
+  target m/k.
+- 5 concrete decide tests showing (negSignOracle 1 2) on unit
+  produces bracket (2^(n-1), 2^(n-1)+1, n) at depth n ≥ 1.
+- 213-native binary search algorithm — non-canonical (mixed)
+  trajectory case.
+
 ## 비 verified scaffolded
 
 - Series convergence theorems (full).

@@ -8,6 +8,21 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase M COMPLETE — 4 milestones formalizing constructive distinctness
+
+User-set milestone-mode session (203 commits → 207).  All 4
+milestones complete:
+
+- M1: InfinitesimalGap structure + 0+ vs 0-exact witness.
+- M2: Riemann finite-N marker (no_pi_in_finite_riemann).
+- M3: Phase L Unified Capstone (single 8-fact theorem).
+- M4: Sign oracle trajectory (negSignOracle, 213-native binary search).
+
+These cement the cross-track parallel: same dyadic-search,
+finite-N, no-completed-infinity ontology, formalized in BOTH
+analysis (this branch) and physics (sister branch
+claude/block-universe-asymmetry-bYQZZ).
+
 ### Phase L COMPLETE — Trajectory closed forms + 3 ConsistentOracle
 
 User-pointed sister branch (`claude/block-universe-asymmetry-bYQZZ`)
