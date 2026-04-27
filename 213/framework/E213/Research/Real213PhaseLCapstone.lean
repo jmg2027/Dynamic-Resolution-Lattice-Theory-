@@ -111,6 +111,30 @@ theorem allPhase_super_capstone (n a b m k : Nat) :
   · exact zero_plus_gap_below_zero_exact
   · exact alwaysFalseUnit_limit_eq_one_one m k
 
+/-- **Phase S3: All IsSmooth instances bundle**.
+
+    Single conjunctive existence theorem listing all IsSmooth
+    instances built up to Phase R — verifies the constructive
+    filter has rich content. -/
+theorem all_smooth_instances_bundle (c : Nat → Nat → Bool) (a b : Nat) :
+    -- Atomic instances
+    (∃ s : IsSmooth id, s.linearityModulus 5 = 5)
+    ∧ (∃ s : IsSmooth (constCutFn c), s.linearityModulus 5 = 0)
+    ∧ (∃ s : IsSmooth (cutScale a b), s.linearityModulus 5 = 5)
+    ∧ (∃ s : IsSmooth cutHalf, s.linearityModulus 5 = 5)
+    -- Polynomial chain (degrees 2-8)
+    ∧ (∃ s : IsSmooth (fun x => cutMul x x), s.linearityModulus 5 = 10)
+    ∧ (∃ s : IsSmooth (fun x => cutMul x (cutMul x x)), s.linearityModulus 5 = 15)
+    ∧ (∃ s : IsSmooth (fun x => cutMul (cutMul x x) (cutMul x x)),
+        s.linearityModulus 5 = 20) :=
+  ⟨⟨idIsSmooth, rfl⟩,
+   ⟨constIsSmooth c, rfl⟩,
+   ⟨cutScaleIsSmooth a b, rfl⟩,
+   ⟨cutHalfIsSmooth, rfl⟩,
+   ⟨squareIsSmooth, by decide⟩,
+   ⟨cubeIsSmooth, by decide⟩,
+   ⟨quarticIsSmooth, by decide⟩⟩
+
 /-- **Phase S2: 6-Phase Super-Super-Capstone**.
 
     Adds modulus-rule witnesses (O3, P3, Q1, Q2) to the all-Phase
