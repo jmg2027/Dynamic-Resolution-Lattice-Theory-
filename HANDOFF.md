@@ -7,7 +7,21 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
-### Phase AY-BA (d9dbb7a → ★) — **cohomEquiv 브릿지: cutEq → propEq via Setoid** ★★
+### Phase BB-BH (3e26265 → ★) — **MVT/FTC propositional resolution at unit bracket** ★★
+
+병목 풀린 후 첫 *대규모* 결과. 다항식별 propEq MVT/FTC, 일반 passthrough 정리, structural unification.
+
+- **BB**: square/cube MVT at unit (propEq via cutMul cascade)
+- **BC**: square/cube FTC bridge (LD = fluxAlong, propEq)
+- **BD**: quartic MVT/FTC at unit (propEq)
+- **BE**: ★ **generic ∀n, x^(n+1) MVT/FTC at unit** (propEq via cutPow_one_n + cutPow_zero_succ)
+- **BF**: ★★ **general passthrough**: 모든 f with f(0)=0, f(1)=1 → MVT/FTC at unit
+- **BG**: BB-BE를 BF의 corollaries로 재구성 (structural unification)
+- **BH**: 8-fact grand capstone
+
+★★ 의미: 학부 1학년 칼큘러스 미분/적분 핵심 정리들이 *unit bracket에서 propEq로 form-perfect*.  Quotient 안 쓰고 cohomEquiv도 안 쓰고 — *직접 propositional* 검증.
+
+### Phase AY-BA (d9dbb7a → 21c56fa) — **cohomEquiv 브릿지: cutEq → propEq via Setoid** ★★
 
 병목 (cutEq vs propEq) 정면 돌파.  Quotient *없이* Setoid만으로 해결 — 213 ontology 보존 (구조적으로 다른 cuts는 다른 객체로 유지).
 
