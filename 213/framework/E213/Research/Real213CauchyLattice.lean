@@ -113,4 +113,22 @@ theorem CauchyCutSeq.cutDouble_cutHalf_comm_limit (a : CauchyCutSeq) :
   rw [cutHalf_limit, cutDouble_limit, cutDouble_limit, cutHalf_limit]
   exact (Real213CutSum.cutDouble_cutHalf_comm _).symm
 
+/-- Lattice distributivity at the Cauchy limit:
+    a ⊓ (b ⊔ c) = (a ⊓ b) ⊔ (a ⊓ c). -/
+theorem CauchyCutSeq.cutMin_distrib_cutMax_limit
+    (a b c : CauchyCutSeq) :
+    (a.cutMin (b.cutMax c)).limit
+    = ((a.cutMin b).cutMax (a.cutMin c)).limit := by
+  rw [cutMin_limit, cutMax_limit, cutMax_limit, cutMin_limit, cutMin_limit]
+  exact Real213CutSum.cutMin_distrib_cutMax _ _ _
+
+/-- Lattice distributivity at the Cauchy limit:
+    a ⊔ (b ⊓ c) = (a ⊔ b) ⊓ (a ⊔ c). -/
+theorem CauchyCutSeq.cutMax_distrib_cutMin_limit
+    (a b c : CauchyCutSeq) :
+    (a.cutMax (b.cutMin c)).limit
+    = ((a.cutMax b).cutMin (a.cutMax c)).limit := by
+  rw [cutMax_limit, cutMin_limit, cutMin_limit, cutMax_limit, cutMax_limit]
+  exact Real213CutSum.cutMax_distrib_cutMin _ _ _
+
 end E213.Research.Real213CutSum
