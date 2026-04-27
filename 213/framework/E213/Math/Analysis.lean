@@ -46,6 +46,8 @@ import E213.Research.Real213FluxDivergence
 import E213.Research.Real213FluxMVT
 import E213.Research.Real213FluxPolynomial
 import E213.Research.Real213FluxCohomologyCapstone
+import E213.Research.Real213FluxEquiv
+import E213.Research.Real213FluxEquivOps
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
