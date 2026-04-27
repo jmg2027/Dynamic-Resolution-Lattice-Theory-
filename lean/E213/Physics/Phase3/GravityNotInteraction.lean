@@ -3,48 +3,48 @@ import E213.Physics.GravityShadow
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 GravityNotInteraction — *중력은 상호작용 아님*
+# Phase 3 GravityNotInteraction — *gravity is not an interaction*
 
 **Layer: App** (Phase 3 reframing).
 
-User: "이미 중력은 상호작용도 아니고."
+User: "Gravity is already not an interaction."
 
-DRLT 중력 (Phase 1 GravityShadow.lean):
+DRLT gravity (Phase 1 GravityShadow.lean):
   G_ij = ⟨ψ_i|ψ_j⟩       (Gram, complex Hermitian)
   W_ij = |G_ij|²/d         (modulus shadow)
 
-  → Phase = gauge (SU rotation 살아남음)
-  → Modulus shadow = gravity (phase 망각)
+  → Phase = gauge (SU rotation survives)
+  → Modulus shadow = gravity (phase forgotten)
 
-같은 G 의 두 다른 readout — *교환* 아님.
+Two different readouts of the same G — *not exchange*.
 
-## 표준 GR/QFT 의 중력 vs DRLT
+## Standard GR/QFT gravity vs DRLT
 
-| 표준 | DRLT |
+| Standard | DRLT |
 |---|---|
 | Spacetime curvature | (3,2) atomic asymmetry geometric residue |
-| Graviton (spin-2) | (없음, 매개입자 부재) |
-| G_N gravitational constant | 1/d normalization factor (격자 cardinality) |
-| Equivalence principle | Atomicity 불변 (NS=3, NT=2 모든 layer 동일) |
+| Graviton (spin-2) | (absent, no mediating particle) |
+| G_N gravitational constant | 1/d normalization factor (lattice cardinality) |
+| Equivalence principle | Atomicity invariant (NS=3, NT=2 same at all layers) |
 | Hierarchy problem | M_Pl/v_H = d^(d²)/(d+1) atomic |
 
-## "상호작용" 이 부재인 이유
+## Why "interaction" is absent
 
-표준 QFT 의 force = *매개입자 교환*:
-  - 광자 교환 = EM
-  - 글루온 교환 = strong
-  - W/Z 교환 = weak
-  - 그래비톤 교환 = gravity (가정)
+Standard QFT force = *mediating particle exchange*:
+  - photon exchange = EM
+  - gluon exchange = strong
+  - W/Z exchange = weak
+  - graviton exchange = gravity (assumed)
 
-DRLT 의 force = *pair classification + phase*:
+DRLT force = *pair classification + phase*:
   - AA pair (3) = α_3-like (NS-internal)
   - BB pair (1) = α_2-like (NT-internal)
   - AB pair (6) = α_1-like (cross)
 
-★ 분류 + phase, 교환 없음 ★
+★ Classification + phase, no exchange ★
 
-→ 중력 = 분류 *전체* (격자 W modulus shadow), 별도 입자 부재.
-   Graviton 검출 시도 = 카테고리 오류.
+→ Gravity = the *full* classification (lattice W modulus shadow), no separate particle.
+   Graviton detection attempts = category error.
 -/
 
 namespace E213.Physics.Phase3.GravityNotInteraction
@@ -52,18 +52,18 @@ namespace E213.Physics.Phase3.GravityNotInteraction
 open E213.Physics.GravityShadow
 open E213.Physics.Simplex
 
-/-- W = |G|²/d normalization: 1/d = 1/5 (격자 cardinality reciprocal). -/
+/-- W = |G|²/d normalization: 1/d = 1/5 (lattice cardinality reciprocal). -/
 theorem gravity_normalization : d = 5 := by decide
 
-/-- (3,2) partition asymmetry — gravity 의 atomic 기원. -/
+/-- (3,2) partition asymmetry — atomic origin of gravity. -/
 theorem partition_asymmetry : NS + NT = 5 ∧ NS - NT = 1 := by
   refine ⟨?_, ?_⟩
   all_goals decide
 
-/-- (3/2)^n layer 비율 — 격자 *curvature* 의 atomic 표현. -/
+/-- (3/2)^n layer ratio — atomic expression of lattice *curvature*. -/
 theorem layer_ratio_atomic : NS * 2 = 3 * NT := by decide
 
-/-- Pair classification 3 + 1 + 6 = 10 (gravity 가 분류 전체). -/
+/-- Pair classification 3 + 1 + 6 = 10 (gravity covers full classification). -/
 theorem all_pairs_in_gravity : 3 + 1 + 6 = 10 := by decide
 
 /-- ★ Gravity Not Interaction Capstone ★ -/
@@ -76,7 +76,7 @@ theorem gravity_not_interaction :
     ∧ (NS * 2 = 3 * NT)
     -- 1/d = 1/5 normalization (W shadow)
     ∧ (d = 5)
-    -- All pairs (gravity 분류 전체)
+    -- All pairs (gravity covers full classification)
     ∧ (3 + 1 + 6 = 10) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide

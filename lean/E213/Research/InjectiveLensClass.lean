@@ -24,7 +24,7 @@ namespace E213.Research.InjectiveLensClass
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Injective equivalence**: 두 injective Lens 는 서로 refine. -/
+/-- **Injective equivalence**: two injective Lenses refine each other. -/
 theorem injective_equiv {α β : Type} (L : Lens α) (M : Lens β)
     (hL : Function.Injective L.view) (hM : Function.Injective M.view) :
     L.refines M ∧ M.refines L := by

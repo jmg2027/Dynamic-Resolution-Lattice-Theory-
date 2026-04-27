@@ -3,36 +3,36 @@ import E213.Physics.MuOverE
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 LeptonRatios — m_μ/m_e ppb 정밀 falsifier
+# Phase 3 LeptonRatios — m_μ/m_e ppb precision falsifier
 
 **Layer: App**.
 
-DRLT 결과 (Phase 1 MuOverE.lean): m_μ/m_e leading = 205 ∈ bracket.
-관측: 206.7682838 (CODATA 2018).
-정밀도: **0.48 ppb** (Phase 1 documented match).
+DRLT result (Phase 1 MuOverE.lean): m_μ/m_e leading = 205 ∈ bracket.
+Observed: 206.7682838 (CODATA 2018).
+Precision: **0.48 ppb** (Phase 1 documented match).
 
-## 강한 falsifier
+## Strong falsifier
 
-  m_μ/m_e leading 정수 = 205 (= simplicial sum from atomic).
-  205 ≠ 207 (배제).
-  205 ≠ 196 (배제).
+  m_μ/m_e leading integer = 205 (= simplicial sum from atomic).
+  205 ≠ 207 (excluded).
+  205 ≠ 196 (excluded).
 
-  관측 206.768 ≈ 205 + ~1.8 (next-order correction within Phase 1 5%).
+  Observed 206.768 ≈ 205 + ~1.8 (next-order correction within Phase 1 5%).
 
-  더 정밀 measurement (이미 0.5 ppb 정밀) → DRLT correction 정확
-  도출 필요.  현재 Phase 1 leading + ~1% atomic correction match.
+  More precise measurement (already 0.5 ppb precise) → DRLT correction
+  needs precise derivation.  Currently Phase 1 leading + ~1% atomic correction match.
 
-## NS·NT 비대칭 잠금
+## NS·NT asymmetry lock
 
-  NS · 2 = 3 · NT  (즉 3·2 = 2·3, 비대칭 self-consistency)
+  NS · 2 = 3 · NT  (i.e. 3·2 = 2·3, asymmetry self-consistency)
 
-  m_μ/m_e ≈ NS·simplicial = 3·(simplex 산술).
-  비대칭이 깨지면 leading 정수 다른 값 → 폐기.
+  m_μ/m_e ≈ NS·simplicial = 3·(simplex arithmetic).
+  If asymmetry breaks, leading integer takes a different value → discarded.
 
 ## Sharp falsifier
 
-  m_μ/m_e leading 정수 ≠ 205 측정 → 213 폐기.
-  현재 measurement 206.7682838 ≈ 205 + ε with DRLT-derived ε.
+  Measurement of m_μ/m_e leading integer ≠ 205 → 213 discarded.
+  Current measurement 206.7682838 ≈ 205 + ε with DRLT-derived ε.
 -/
 
 namespace E213.Physics.Phase3.LeptonRatios
@@ -52,8 +52,8 @@ theorem leading_207_marker : True := by
 theorem cross_consistency : NS * 2 = 3 * NT := NS_NT_ratio
 
 /-- ★ Lepton Ratio Falsifier ★
-    m_μ/m_e leading 정수 = 205 (simplicial sum). 다른 정수 측정 시 폐기.
-    NS=3, NT=2 비대칭이 leading 잠금. -/
+    m_μ/m_e leading integer = 205 (simplicial sum). Discard if different integer measured.
+    NS=3, NT=2 asymmetry locks the leading value. -/
 theorem lepton_ratio_falsifier :
     -- atomic
     (NS = 3) ∧ (NT = 2) ∧ (d = 5)

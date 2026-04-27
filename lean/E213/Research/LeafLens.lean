@@ -3,25 +3,25 @@ import E213.Research.LensFactoring
 import E213.Meta.ParityLens
 
 /-!
-# Research.LeafLens: Raw 가 leaf 인지 여부를 Lens 로 관측
+# Research.LeafLens: observing whether a Raw term is a leaf via a Lens
 
-**Lens**: `leafLens : Lens Bool` 으로 "r 은 Raw.a 또는 Raw.b
-인가?" 를 추출.  combine = const true.
+**Lens**: `leafLens : Lens Bool` extracts "is r a Raw.a or Raw.b?"
+combine = const true.
 
-이 Lens 는 refines preorder 에서 **leaves 와 parity 사이**에
-위치 — leaves 보다는 거칠고 (정보 적음), parity 와는 incomparable.
+This Lens sits **between leaves and parity** in the refines preorder —
+coarser than leaves (less information), and incomparable with parity.
 
-## 정리
+## Theorems
 
-- `leafLens_view`: view r = "r 은 slash 가 아님".
-- `leaves_refines_leafLens`: leaves 가 leafLens 를 refine.
+- `leafLens_view`: view r = "r is not a slash".
+- `leaves_refines_leafLens`: leaves refines leafLens.
 -/
 
 namespace E213.Research.LeafLens
 
 open E213.Firmware E213.Hypervisor E213.Research.LensFactoring
 
-/-- r 이 leaf (Raw.a 또는 Raw.b) 인가? -/
+/-- Is r a leaf (Raw.a or Raw.b)? -/
 def leafLens : Lens Bool where
   base_a := false
   base_b := false
@@ -61,8 +61,8 @@ theorem leafLens_view_eq :
       have : Lens.leaves.view x + Lens.leaves.view y ≥ 2 := by omega
       simp [this]
 
-/-- **Lens.leaves 는 leafLens 를 refine** (leaves count 가
-    leaf/slash 여부를 결정).  factoring lemma 로. -/
+/-- **Lens.leaves refines leafLens** (leaves count determines
+    leaf/slash status).  Via the factoring lemma. -/
 theorem leaves_refines_leafLens : Lens.leaves.refines leafLens :=
   refines_of_factor Lens.leaves leafLens
     (fun n => decide (n ≥ 2)) leafLens_view_eq
@@ -73,14 +73,14 @@ namespace E213.Research.LeafLens
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
-/-- leafLens 는 parityLens 를 refine 하지 않음.
-    Witness: Raw.a vs slash(a, slash(a,b)) — 둘 다 leaf-ness
-    다르나 leafLens equates false/true... wait no.  실제:
-    둘 다 slash 인 쌍으로 parity 만 다름.
+/-- leafLens does not refine parityLens.
+    Witness: Raw.a vs slash(a, slash(a,b)) — different leaf-ness
+    but leafLens equates false/true... actually: a pair that are
+    both slashes with different parity only.
 
-    leafLens equates (Raw.slash a b) 과 slash(a, slash(a,b)):
-    둘 다 slash → leafLens = true.  parity: 2 (even, false) vs
-    3 (odd, true). 다름. -/
+    leafLens equates (Raw.slash a b) and slash(a, slash(a,b)):
+    both are slashes → leafLens = true.  parity: 2 (even, false) vs
+    3 (odd, true). Different. -/
 def rAB : Raw := Raw.slash Raw.a Raw.b (by decide)
 def rAAB : Raw :=
   Raw.slash Raw.a (Raw.slash Raw.a Raw.b (by decide)) (by decide)
@@ -96,9 +96,9 @@ theorem leafLens_not_refines_parity :
   intro h
   exact parity_distinguishes_slashes (h rAB rAAB leafLens_equates_slashes)
 
-/-- parityLens 도 leafLens 를 refine 하지 않음.
+/-- parityLens does not refine leafLens either.
     Witness: Raw.a (leaf, parity=true) vs slash(a, slash(a,b))
-    (slash, parity=true) — 같은 parity, 다른 leafness. -/
+    (slash, parity=true) — same parity, different leafness. -/
 theorem parity_equates_leaf_slash :
     parityLens.view Raw.a = parityLens.view rAAB := by decide
 

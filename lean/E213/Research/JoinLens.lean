@@ -2,19 +2,21 @@ import E213.Research.JoinEquiv
 import E213.Research.UniversalQuotLens
 
 /-!
-# Research.JoinLens: 임의 Lens 쌍 의 concrete join Lens
+# Research.JoinLens: concrete join Lens for an arbitrary Lens pair
 
 `joinLens L M : Lens (Raw → Prop)` := `universalLens (JoinEquiv L M)`.
 
-`JoinEquiv` 의 universal property + `universalLens_kernel_eq_E`
-의 결합 으로 임의 Lens 쌍 에 대해 **concrete join Lens** 존재.
+The combination of `JoinEquiv`'s universal property and
+`universalLens_kernel_eq_E` yields a **concrete join Lens** for
+every Lens pair.
 
-prodLens (meet) 와 함께 refines preorder 의 lattice 구조 완성.
+Together with prodLens (meet), this completes the lattice structure
+of the refines preorder.
 
-## 핵심 정리
+## Key Theorems
 
 - `joinLens_kernel`: kernel of joinLens L M = JoinEquiv L M.
-- `L_refines_joinLens`, `M_refines_joinLens`: upper bound 성.
+- `L_refines_joinLens`, `M_refines_joinLens`: upper bound property.
 - `joinLens_is_least`: least upper bound (universal property).
 -/
 
@@ -23,7 +25,7 @@ namespace E213.Research.JoinLens
 open E213.Firmware E213.Hypervisor
 open E213.Research.JoinEquiv E213.Research.UniversalQuotLens
 
-/-- JoinEquiv L M 은 equivalence relation. -/
+/-- JoinEquiv L M is an equivalence relation. -/
 private theorem joinEquiv_refl {α β : Type} (L : Lens α) (M : Lens β)
     (r : Raw) : JoinEquiv L M r r := JoinEquiv.refl r
 
@@ -43,12 +45,12 @@ private theorem joinEquiv_slash {α β : Type} (L : Lens α) (M : Lens β)
     JoinEquiv L M (Raw.slash x y h) (Raw.slash x' y' h') :=
   JoinEquiv.slash_cong h h' hxx' hyy'
 
-/-- **Concrete join Lens**: 임의 Lens 쌍 의 join 을 universalLens
-    구성 으로 명시. -/
+/-- **Concrete join Lens**: join of an arbitrary Lens pair, made
+    explicit via the universalLens construction. -/
 def joinLens {α β : Type} (L : Lens α) (M : Lens β) : Lens (Raw → Prop) :=
   universalLens (JoinEquiv L M)
 
-/-- **kernel = JoinEquiv**.  universalLens 의 직접 귀결. -/
+/-- **kernel = JoinEquiv**.  Direct consequence of universalLens. -/
 theorem joinLens_kernel {α β : Type} (L : Lens α) (M : Lens β)
     (r r' : Raw) :
     (joinLens L M).view r = (joinLens L M).view r'
@@ -59,7 +61,7 @@ theorem joinLens_kernel {α β : Type} (L : Lens α) (M : Lens β)
   · exact joinEquiv_trans L M
   · exact joinEquiv_slash L M
 
-/-- **L 이 joinLens L M 을 refine** (upper bound). -/
+/-- **L refines joinLens L M** (upper bound). -/
 theorem L_refines_joinLens {α β : Type} (L : Lens α) (M : Lens β) :
     L.refines (joinLens L M) := by
   intro r r' h
@@ -67,7 +69,7 @@ theorem L_refines_joinLens {α β : Type} (L : Lens α) (M : Lens β) :
   rw [joinLens_kernel L M r r']
   exact JoinEquiv.ofL h
 
-/-- **M 이 joinLens L M 을 refine** (upper bound). -/
+/-- **M refines joinLens L M** (upper bound). -/
 theorem M_refines_joinLens {α β : Type} (L : Lens α) (M : Lens β) :
     M.refines (joinLens L M) := by
   intro r r' h
@@ -75,9 +77,9 @@ theorem M_refines_joinLens {α β : Type} (L : Lens α) (M : Lens β) :
   rw [joinLens_kernel L M r r']
   exact JoinEquiv.ofM h
 
-/-- **Universal property**: joinLens L M 이 least upper bound.
-    임의 N (combine sym) 에 대해 L, M 둘 다 refine 하면 joinLens
-    이 N 도 refine. -/
+/-- **Universal property**: joinLens L M is the least upper bound.
+    For any N (combine sym), if both L and M refine N then joinLens
+    also refines N. -/
 theorem joinLens_is_least {α β γ : Type}
     (L : Lens α) (M : Lens β) (N : Lens γ)
     (hNsym : ∀ u v, N.combine u v = N.combine v u)

@@ -269,7 +269,7 @@ namespace E213.Research.PellSeq
 open E213.Firmware E213.Hypervisor E213.Research.ABLens E213.Research.Sqrt2Cut
 open E213.Research.ArchimedeanCauchy
 
-/-- Pell Y 의 lower bound: y_n ≥ n + 2 (linear growth). -/
+/-- Lower bound for Pell Y: y_n ≥ n + 2 (linear growth). -/
 theorem pellY_lb (n : Nat) : pellY n ≥ n + 2 := by
   induction n with
   | zero => unfold pellY pellPair; decide

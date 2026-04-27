@@ -44,7 +44,7 @@ namespace E213.Research.StrongModulusNS
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
 
-/-- **Diagonal sequence** (view (n+1, n+1)) 가 StrongModulus instance.
+/-- **Diagonal sequence** (view (n+1, n+1)) is a StrongModulus instance.
     Constant ratio 1 → variation = 0 → trivial bound. -/
 def diagonalStrongModulus (xs : Nat → Raw)
     (h : ∀ n, abLens.view (xs n) = (n + 1, n + 1)) :

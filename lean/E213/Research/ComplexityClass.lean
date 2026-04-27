@@ -55,7 +55,7 @@ open E213.Firmware
 /-- Constant sequence xs k = r. -/
 def constSeq (r : Raw) : Nat → Raw := fun _ => r
 
-/-- Constant sequence 가 1-state FSM. -/
+/-- Constant sequence is a 1-state FSM. -/
 instance constSeq_FSM (r : Raw) : HasFiniteStateMachine (constSeq r) where
   bound := 0
   state := fun _ => ⟨0, Nat.zero_lt_succ _⟩
@@ -95,7 +95,7 @@ def fin2ToRaw : Fin 2 → Raw
   | ⟨0, _⟩ => Raw.a
   | _ => Raw.b
 
-/-- Alternating sequence 가 2-state FSM. -/
+/-- Alternating sequence is a 2-state FSM. -/
 instance altSeq_FSM : HasFiniteStateMachine altSeq where
   bound := 1
   state := fun k => boolToFin2 (altState k)

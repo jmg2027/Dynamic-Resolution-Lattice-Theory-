@@ -29,12 +29,12 @@ inductive TreeA : Type where
   | slash : TreeA → TreeA → TreeA
 deriving DecidableEq
 
-/-- TreeA 안 어딘가에 diagonal slash (x = y) 가 있는지. -/
+/-- Whether a diagonal slash (x = y) occurs anywhere inside TreeA. -/
 def TreeA.hasDiag : TreeA → Bool
   | .a => false
   | .slash x y => decide (x = y) || hasDiag x || hasDiag y
 
-/-- RawA: diagonal slash 없는 TreeA. -/
+/-- RawA: TreeA with no diagonal slash. -/
 abbrev RawA : Type := { t : TreeA // t.hasDiag = false }
 
 /-- RawA.a — the uniquely trivial element. -/
@@ -156,7 +156,7 @@ Without distinctness, a free magma: `slash x x` is a valid element.
 Collapse of the concept of "distinguishing something from itself."
 Loss of the meaning of distinguishing. -/
 
-/-- distinctness 제거 — Raw 의 free magma version. -/
+/-- Without distinctness — free magma version of Raw. -/
 inductive TreeFree : Type where
   | a
   | b
@@ -170,12 +170,12 @@ theorem self_pairing_exists :
     ∃ r : TreeFree, r = TreeFree.slash TreeFree.a TreeFree.a := by
   exact ⟨TreeFree.slash TreeFree.a TreeFree.a, rfl⟩
 
-/-- 같은 base 의 self-pairing 의 무한 chain. -/
+/-- Infinite chain of self-pairings with the same base. -/
 def selfChain : Nat → TreeFree
   | 0 => TreeFree.a
   | n + 1 => TreeFree.slash (selfChain n) (selfChain n)
 
-/-- selfChain 의 모든 element 가 self-paired. -/
+/-- Every element of selfChain is self-paired. -/
 theorem selfChain_self_paired (n : Nat) :
     selfChain (n + 1) = TreeFree.slash (selfChain n) (selfChain n) := rfl
 

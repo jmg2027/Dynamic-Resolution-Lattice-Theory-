@@ -131,7 +131,7 @@ theorem iProdLens_view {ι : Type} (F : ι → (α : Type) × Lens α)
       rw [hL_fs]
       rfl
 
-/-- iProdLens 가 각 L_i 를 refine — lower bound. -/
+/-- iProdLens refines each L_i — lower bound. -/
 theorem iProdLens_refines_each {ι : Type} (F : ι → (α : Type) × Lens α)
     (hAllSym : ∀ i (u v : (F i).1),
                 (F i).2.combine u v = (F i).2.combine v u)

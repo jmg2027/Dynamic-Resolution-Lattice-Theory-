@@ -2,19 +2,19 @@ import E213.Hypervisor.Lens
 import E213.Research.IdentityLens
 
 /-!
-# Research.IsLeafLens: "leaf indicator" 가 valid Lens Bool
+# Research.IsLeafLens: "leaf indicator" as a valid Lens Bool
 
-PAPER1 §3.4 의 Lens catalogue 의 자연 한 entry:
-view r = true iff r is a leaf (Raw.a 또 는 Raw.b).
+A natural entry in the Lens catalogue of PAPER1 §3.4:
+view r = true iff r is a leaf (Raw.a or Raw.b).
 
-## 핵심
+## Core
 
 `isLeafLens` = ⟨true, true, λ _ _. false⟩.  base values = true
-(leaves), combine = const false (slash 의 결과 는 leaf 아님).
+(leaves), combine = const false (result of slash is not a leaf).
 
-Raw 가 leaf iff view = true (decidable).
+Raw is a leaf iff view = true (decidable).
 
-BoolSqClassification: combine x x = false 이므로 Collapse-False.
+BoolSqClassification: since combine x x = false, this is Collapse-False.
 -/
 
 namespace E213.Research.IsLeafLens

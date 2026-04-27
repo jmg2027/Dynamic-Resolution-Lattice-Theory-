@@ -35,8 +35,8 @@ namespace E213.Research.GenericFamilyCauchy
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Generic family-Cauchy**: Lens L 의 view 위 family of
-    derived projections F 의 Cauchy. -/
+/-- **Generic family-Cauchy**: Cauchy condition for a family of derived
+    projections F over the view of Lens L. -/
 def GFCauchy {α β : Type} {ι : Type} (L : Lens α) (F : ι → α → β)
     (xs : Nat → Raw) : Prop :=
   ∀ i, ∃ N, ∀ k l, k ≥ N → l ≥ N →
@@ -86,8 +86,8 @@ namespace E213.Research.GenericFamilyCauchy
 
 open E213.Firmware E213.Hypervisor
 
-/-- **ArchimedeanCauchy is GFCauchy instance**: orderProj family
-    + abLens 는 GFCauchy with ι = Nat × Nat, β = Bool. -/
+/-- **ArchimedeanCauchy is GFCauchy instance**: orderProj family +
+    abLens is GFCauchy with ι = Nat × Nat, β = Bool. -/
 theorem orderCauchy_is_GFCauchy
     (xs : Nat → Raw)
     (h : E213.Research.ArchimedeanCauchy.isOrderCauchy xs) :
@@ -115,8 +115,8 @@ namespace E213.Research.GenericFamilyCauchy
 open E213.Firmware E213.Hypervisor
 
 /-- **Profinite (factorial) Cauchy is GFCauchy instance**:
-    Lens.leaves + (· % (m+1)) family.  Index 가 ℕ 인데 m+1 사용
-    하여 m+1 ≥ 1 자동 보장. -/
+    Lens.leaves + (· % (m+1)) family.  Index is ℕ with m+1 ensuring
+    m+1 ≥ 1 automatically. -/
 theorem profinite_factorial_is_GFCauchy
     (xs : Nat → Raw)
     (hLeaves : ∀ n, Lens.leaves.view (xs n)
@@ -183,8 +183,8 @@ namespace E213.Research.GenericFamilyCauchy
 
 open E213.Firmware E213.Hypervisor
 
-/-- **Mod family projectionLens**: leaves + mod 가 fold-compatible
-    → single fold-structured Lens (Nat → Nat). -/
+/-- **Mod family projectionLens**: leaves + mod are fold-compatible,
+    giving a single fold-structured Lens (Nat → Nat). -/
 def leavesModAllLens : Lens (Nat → Nat) :=
   projectionLens Lens.leaves
     (fun (m : Nat) (n : Nat) => n % (m + 1))

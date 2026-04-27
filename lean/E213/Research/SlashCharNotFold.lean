@@ -60,7 +60,7 @@ private theorem slashCharFn_outerR : slashCharFn outerR = false := by decide
 private def innerR : Raw := Raw.slash Raw.a slashAB (by decide)
 private theorem slashCharFn_innerR : slashCharFn innerR = false := by decide
 
-/-- **slashCharFn 은 fold-structured 아님**. -/
+/-- **slashCharFn is not fold-structured**. -/
 theorem slashCharFn_not_fold_structured :
     ¬ FoldStructured slashCharFn := by
   intro ⟨ba, bb, c, hba, hbb, _, hslash⟩

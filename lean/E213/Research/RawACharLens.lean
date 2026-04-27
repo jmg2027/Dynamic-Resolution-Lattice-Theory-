@@ -30,7 +30,7 @@ namespace E213.Research.RawACharLens
 
 open E213.Firmware E213.Hypervisor
 
-/-- Raw.a 의 characteristic Lens. -/
+/-- Characteristic Lens of Raw.a. -/
 def rawACharLens : Lens Bool where
   base_a := true
   base_b := false

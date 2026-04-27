@@ -39,7 +39,7 @@ theorem Tree_cmp_props : CmpProps Tree.cmp where
   eq_iff := Tree.cmp_eq_iff
   swap := Tree.cmp_swap
 
-/-- cmp 의 reverse: cmpRev x y := (cmp x y).swap. -/
+/-- Reverse of cmp: cmpRev x y := (cmp x y).swap. -/
 def cmpRev (cmp : Tree → Tree → Ordering) (x y : Tree) : Ordering :=
   (cmp x y).swap
 
@@ -212,7 +212,7 @@ namespace E213.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
-/-- canonicalBy slash 의 lt 추출. -/
+/-- Extract lt from canonicalBy slash. -/
 theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
     {x y : Tree} (h : canonicalBy cmp (.slash x y) = true) :
     cmp x y = .lt := by

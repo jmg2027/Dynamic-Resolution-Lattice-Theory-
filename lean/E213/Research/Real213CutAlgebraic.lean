@@ -3,7 +3,7 @@ import E213.Research.Real213CutMaxMin
 /-!
 # Research.Real213CutAlgebraic: algebraic properties of cut operations
 
-cutMax, cutMin 의 lattice properties + cut zero/one properties.
+Lattice properties of cutMax, cutMin + cut zero/one properties.
 -/
 
 namespace E213.Research.Real213CutSum

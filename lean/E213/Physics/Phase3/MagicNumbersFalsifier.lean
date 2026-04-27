@@ -3,33 +3,33 @@ import E213.Physics.MagicNumbers
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 MagicNumbersFalsifier — 7/7 retrofit + 향후 falsifier
+# Phase 3 MagicNumbersFalsifier — 7/7 retrofit + future falsifiers
 
 **Layer: App**.
 
-핵 magic number: 2, 8, 20, 28, 50, 82, 126 — *측정 사실*.
-shell model 은 phenomenological 가정.
+Nuclear magic numbers: 2, 8, 20, 28, 50, 82, 126 — *measured facts*.
+Shell model is a phenomenological assumption.
 
 DRLT (Phase 1 MagicNumbers.lean):
   HO closed form: ho_magic(n) = n(n+1)(n+2)/3
-  → 첫 3 magic = {2, 8, 20} HO 정확
-  → 다음 4 magic = {28, 50, 82, 126} spin-orbit shift 패턴
+  → first 3 magic = {2, 8, 20} HO exact
+  → next 4 magic = {28, 50, 82, 126} spin-orbit shift pattern
 
 ## 7/7 retro-falsifier
 
-  관측 magic numbers 가 *다른 정수* 였다면 DRLT 폐기.
-  현재: 7/7 정확 일치.
+  If observed magic numbers *were different integers* → DRLT discarded.
+  Currently: 7/7 exact match.
 
-## 향후 falsifier
+## Future falsifiers
 
-  Doubly-magic nucleus 의 미측정 양 (binding excess, decay rate
-  등) 이 DRLT atomic 정수와 다르면 폐기.
-  특히 매우 무거운 super-heavy (Z=120, 126, 132, 154 등)의 stability island.
+  If unmeasured quantities of doubly-magic nuclei (binding excess, decay rate,
+  etc.) differ from DRLT atomic integers → discarded.
+  Especially the stability islands of super-heavy nuclei (Z=120, 126, 132, 154, etc.).
 
 ## Sharp Lean form
 
-  HO formula 가 정확히 첫 3 magic 도출.
-  Spin-orbit shift 가 다음 4 의 (관측) 값.
+  HO formula derives exactly the first 3 magic numbers.
+  Spin-orbit shift gives the (observed) values for the next 4.
 -/
 
 namespace E213.Physics.Phase3.MagicNumbersFalsifier
@@ -37,28 +37,28 @@ namespace E213.Physics.Phase3.MagicNumbersFalsifier
 open E213.Physics.Magic
 open E213.Physics.Simplex
 
-/-- HO closed form 첫 3 magic 정확. -/
+/-- HO closed form gives first 3 magic numbers exactly. -/
 theorem ho_first_3 : ho_magic 1 = 2 ∧ ho_magic 2 = 8 ∧ ho_magic 3 = 20 := by
   refine ⟨?_, ?_, ?_⟩
   all_goals decide
 
-/-- Nuclear magic number list 검증. -/
+/-- Nuclear magic number list verified. -/
 theorem nuclear_list :
     NUCLEAR_MAGIC = [2, 8, 20, 28, 50, 82, 126] := by decide
 
-/-- HO 첫 3 magic 과 nuclear 첫 3 일치. -/
+/-- First 3 HO magic numbers match first 3 nuclear magic numbers. -/
 theorem first_3_match : ho_magic 1 = 2 ∧ ho_magic 2 = 8 ∧ ho_magic 3 = 20 :=
   ho_first_3
 
 /-- ★ Magic Number Falsifier ★
-    DRLT HO closed form n(n+1)(n+2)/3 정확히 {2, 8, 20}.
-    *관측이 다른 정수* 였으면 폐기.  현재 7/7 일치. -/
+    DRLT HO closed form n(n+1)(n+2)/3 exactly gives {2, 8, 20}.
+    If *observation were different integers* → discarded.  Currently 7/7 match. -/
 theorem magic_falsifier :
-    -- HO 첫 3 정확
+    -- HO first 3 exact
     (ho_magic 1 = 2)
     ∧ (ho_magic 2 = 8)
     ∧ (ho_magic 3 = 20)
-    -- Nuclear list 정확
+    -- Nuclear list exact
     ∧ (NUCLEAR_MAGIC = [2, 8, 20, 28, 50, 82, 126])
     -- HO formula = n(n+1)(n+2)/3
     ∧ (ho_magic 4 = 40) ∧ (ho_magic 5 = 70)

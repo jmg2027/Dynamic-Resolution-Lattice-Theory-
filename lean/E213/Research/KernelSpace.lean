@@ -3,24 +3,25 @@ import E213.Research.KernelCorresp
 /-!
 # Research.KernelSpace: framework-internal type of slash-congruences
 
-`KernelCorresp.IsSlashCongruence` 위 의 sigma type — Lens-kernel
-space 의 *type-level* representation.
+Sigma type over `KernelCorresp.IsSlashCongruence` — the *type-level*
+representation of the Lens-kernel space.
 
-## 의의
+## Significance
 
-PAPER1 §5.4 의 cardinality question 의 *type-level* foundation.
-KernelSpace 의 cardinality 결정 = framework 의 위치 fix.
+Type-level foundation of the cardinality question in PAPER1 §5.4.
+Determining the cardinality of KernelSpace fixes the position of the
+framework.
 
-## 구조
+## Structure
 
 `KernelSpace := Σ (E : Raw → Raw → Prop), IsSlashCongruence E`.
-각 element = (slash-congruence + closure proof) pair.
+Each element = (slash-congruence + closure proof) pair.
 
-각 Lens L (commutative combine) 가 (Lens.equiv L, _) 로 KernelSpace 에
-embed (KernelCorresp.lens_kernel_is_slash_cong).
+Each Lens L (with commutative combine) embeds into KernelSpace as
+(Lens.equiv L, _) (KernelCorresp.lens_kernel_is_slash_cong).
 
-각 KernelSpace element E 가 `universalLens E` 의 kernel 로 realize
-(KernelCorresp.slash_cong_is_lens_kernel).
+Each KernelSpace element E is realized as the kernel of
+`universalLens E` (KernelCorresp.slash_cong_is_lens_kernel).
 -/
 
 namespace E213.Research.KernelSpace
@@ -28,7 +29,7 @@ namespace E213.Research.KernelSpace
 open E213.Firmware E213.Hypervisor
 open E213.Research.KernelCorresp
 
-/-- Lens-kernel space 의 type-level representation. -/
+/-- Type-level representation of the Lens-kernel space. -/
 def KernelSpace : Type := { E : Raw → Raw → Prop // IsSlashCongruence E }
 
 /-- Two KernelSpace elements are equal iff their relations are equal. -/

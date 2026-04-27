@@ -5,26 +5,26 @@ import E213.Physics.SimplexCounts
 /-!
 # Phase 3 NoFourthGen — N_gen = 3 sharp falsifier
 
-**Layer: App** (Phase 1 Generations.lean 의 Phase 3 reformulation).
+**Layer: App** (Phase 3 reformulation of Phase 1 Generations.lean).
 
-Phase 1 의 `Generations.lean` 은 N_gen = 3 도출 + "no 4th gen
-slot".  본 파일은 *반증 가능 명제 형식* 으로 sharp 화.
+Phase 1 `Generations.lean` derives N_gen = 3 + "no 4th gen
+slot".  This file sharpens it into *falsifiable proposition form*.
 
-## 정수 예측
+## Integer prediction
 
   N_gen = C(NS, NT) = C(3, 2) = 3
 
-C(NS, NT+1) = C(3, 3) = 1, 이미 3 generation 으로 채워짐 →
-4th lepton/quark generation 의 *slot 자체가 없음*.
+C(NS, NT+1) = C(3, 3) = 1, already filled by 3 generations →
+the *slot itself does not exist* for a 4th lepton/quark generation.
 
-## 측정 현황 (2026)
+## Measurement status (2026)
 
-  - LEP (Z 너비): N_ν = 2.984 ± 0.008 (정확 3)
+  - LEP (Z width): N_ν = 2.984 ± 0.008 (exactly 3)
   - CMB (N_eff): 3.046 (3 light + radiation)
-  - LHC: 4th gen quark mass > 1 TeV 배제 영역 확장 중
+  - LHC: excluded region for 4th gen quark mass > 1 TeV expanding
 
-DRLT 는 *예외 없이* N_gen = 3.  *어느 collider 든 4th generation
-입자 발견 → 213 즉시 폐기*.
+DRLT gives N_gen = 3 *without exception*.  *Discovery of 4th generation
+particle at any collider → 213 immediately discarded*.
 -/
 
 namespace E213.Physics.Phase3.NoFourthGen
@@ -32,27 +32,27 @@ namespace E213.Physics.Phase3.NoFourthGen
 open E213.Physics.Generations
 open E213.Physics.Simplex
 
-/-- Phase 3 sharp form: N_gen = 3 정확. -/
+/-- Phase 3 sharp form: N_gen = 3 exactly. -/
 theorem n_gen_sharp : N_gen = 3 := n_gen_eq_three
 
-/-- 4th gen slot 없음 (NS=3 → C(3,4)=0). -/
+/-- No 4th gen slot (NS=3 → C(3,4)=0). -/
 theorem no_fourth_slot : binom NS 4 = 0 := no_4th_gen_slot
 
-/-- 5th, 6th gen 도 0. -/
+/-- 5th, 6th gen also 0. -/
 theorem no_fifth_slot : binom NS 5 = 0 := by decide
 theorem no_sixth_slot : binom NS 6 = 0 := by decide
 
 /-- ★ Falsifier formal ★
-    DRLT 는 N_gen = 3 정확.  4th generation lepton 또는 quark
-    의 어느 collider 발견 → 본 정리 contrapositive → 213 폐기. -/
+    DRLT gives N_gen = 3 exactly.  Discovery of 4th generation lepton or quark
+    at any collider → contrapositive of this theorem → 213 discarded. -/
 theorem fourth_gen_falsifier :
     -- N_gen 정확
     (N_gen = 3)
-    -- 4th, 5th, 6th 모두 slot 없음
+    -- 4th, 5th, 6th all have no slot
     ∧ (binom NS 4 = 0)
     ∧ (binom NS 5 = 0)
     ∧ (binom NS 6 = 0)
-    -- C(NS, NT) 로 forced
+    -- forced by C(NS, NT)
     ∧ (binom NS NT = 3) := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide

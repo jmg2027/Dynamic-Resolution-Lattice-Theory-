@@ -2,36 +2,36 @@ import E213.Physics.Phase2
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 NoWaveFunction — *파동함수·존재확률 사라짐*
+# Phase 3 NoWaveFunction — *wave function and existence probability disappear*
 
 **Layer: App** (Phase 3 reframing).
 
-User: "파동함수랑 존재확률이라는 말도 사라져야 할 판."
+User: "The words 'wave function' and 'existence probability' are also bound to disappear."
 
-## QM 의 파동함수 ψ — DRLT 에서
+## Wave function ψ in QM — from DRLT perspective
 
-표준 QM:
-  |ψ⟩ ∈ Hilbert space (근본)
-  |ψ(x)|² = 존재확률 밀도 (Born rule)
+Standard QM:
+  |ψ⟩ ∈ Hilbert space (fundamental)
+  |ψ(x)|² = existence probability density (Born rule)
   Operator → Hermitian, eigenvalue = observable
 
 DRLT:
-  Raw = 근본 (axiom).  Lens output = 모든 readout.
-  G_ij = ⟨ψ_i|ψ_j⟩ — *이것 자체가 Lens output*
-  W = |G|²/d — modulus shadow (gravity 부분)
-  → "파동함수" = Lens output, *근본 아님*.
+  Raw = fundamental (axiom).  Lens output = all readouts.
+  G_ij = ⟨ψ_i|ψ_j⟩ — *this itself is Lens output*
+  W = |G|²/d — modulus shadow (gravity part)
+  → "wave function" = Lens output, *not fundamental*.
 
-## "존재확률" 부재
+## Absence of "existence probability"
 
-표준 해석: |ψ|² = "거기 있을 확률".
-함의: 무엇 가 *변동* 존재함.
+Standard interpretation: |ψ|² = "probability of being there".
+Implication: something exists with *fluctuation*.
 
-DRLT: Raw 의 vertex 5 개 — *모두 존재* 또는 *부재*.  중간 없음.
-  - Atomic axiom: NS=3, NT=2, d=5.  Block sizes 강제.
-  - Lens output 이 *어느 vertex* 인지 사양 — 확률 X.
+DRLT: 5 vertices of Raw — *all exist* or *absent*.  No in-between.
+  - Atomic axiom: NS=3, NT=2, d=5.  Block sizes forced.
+  - Lens output specifies *which vertex* — no probability.
 
-→ "존재확률" = Lens projection 의 *고전적 표현*.
-  DRLT 에서는 *Lens 사양* 만 — "확률" framing 의 부재.
+→ "Existence probability" = *classical expression* of Lens projection.
+  In DRLT there is only *Lens specification* — no "probability" framing.
 -/
 
 namespace E213.Physics.Phase3.NoWaveFunction

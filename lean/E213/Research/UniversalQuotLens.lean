@@ -53,7 +53,7 @@ def universalLens : Lens (Raw → Prop) where
                            (∀ s, E Y s ↔ g s) ∧
                            E (Raw.slash X Y h) r'
 
-/-- Combine 의 symmetry (renaming + slash_comm). -/
+/-- Symmetry of combine (renaming + slash_comm). -/
 theorem universalLens_combine_sym (f g : Raw → Prop) :
     (universalLens E).combine f g = (universalLens E).combine g f := by
   funext r'

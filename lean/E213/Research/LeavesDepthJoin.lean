@@ -1,44 +1,44 @@
 import E213.Research.JoinEquiv
 
 /-!
-# Research.LeavesDepthJoin: leaves ⊔ depth ≠ constLens (비-mod non-trivial join)
+# Research.LeavesDepthJoin: leaves ⊔ depth ≠ constLens (non-trivial non-mod join)
 
-`LeavesDepthIncomparable` 에서 leaves 와 depth 가 incomparable 임을
-확인.  여기서 둘의 **join 이 universal 이 아님** 을 형식적으로
-증명.
+`LeavesDepthIncomparable` confirmed that leaves and depth are
+incomparable.  Here we formally prove that their **join is not
+universal**.
 
-## 핵심 관찰
+## Core Observation
 
-Raw.a (leaves=1, depth=0) 와 Raw.slash Raw.a Raw.b h (leaves=2,
-depth=1) 는 JoinEquiv(leaves, depth) 에서 **분리된 class**.
+Raw.a (leaves=1, depth=0) and Raw.slash Raw.a Raw.b h (leaves=2,
+depth=1) are **separated classes** in JoinEquiv(leaves, depth).
 
-## 증명 전략
+## Proof Strategy
 
-Invariant `small r := Lens.leaves.view r = 1` 가 JoinEquiv 하에
-preserved.
+The invariant `small r := Lens.leaves.view r = 1` is preserved
+under JoinEquiv.
 
 - ofL (leaves.equiv): same leaves, so same small-ness.
 - ofM (depth.equiv): depth=0 ↔ leaves=1 ↔ small, so preserved.
-- slash_cong: output 는 항상 Raw.slash (depth ≥ 1, leaves ≥ 2),
-  never small.  양쪽 다 ¬ small, invariant holds vacuously.
-- refl, symm, trans: 표준.
+- slash_cong: output is always Raw.slash (depth ≥ 1, leaves ≥ 2),
+  never small.  Both sides ¬ small, invariant holds vacuously.
+- refl, symm, trans: standard.
 
-Raw.a 는 small, Raw.slash Raw.a Raw.b 는 not small.  따라서
-JoinEquiv 로 분리.
+Raw.a is small; Raw.slash Raw.a Raw.b is not small.  Therefore
+they are separated by JoinEquiv.
 -/
 
 namespace E213.Research.LeavesDepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
-/-- `small r` := r 가 base (Raw.a 또는 Raw.b), leaves=1. -/
+/-- `small r` := r is a base (Raw.a or Raw.b), leaves=1. -/
 private def small (r : Raw) : Prop := Lens.leaves.view r = 1
 
 private theorem small_of_leaves_one {r : Raw} (h : Lens.leaves.view r = 1) : small r := h
 
 private theorem leaves_of_small {r : Raw} (h : small r) : Lens.leaves.view r = 1 := h
 
-/-- Leaves view 는 항상 ≥ 1. -/
+/-- Leaves view is always ≥ 1. -/
 private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
   | a => decide
@@ -50,7 +50,7 @@ private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
         intro u v; exact Nat.add_comm u v
       rw [hfs]; omega
 
-/-- Raw.slash x y h 는 leaves ≥ 2 이므로 ¬ small. -/
+/-- Raw.slash x y h has leaves ≥ 2, so ¬ small. -/
 private theorem not_small_slash (x y : Raw) (h : x ≠ y) :
     ¬ small (Raw.slash x y h) := by
   intro hsmall
@@ -93,7 +93,7 @@ private theorem small_iff_depth_zero (r : Raw) :
         rw [hfsD] at hd
         omega
 
-/-- **핵심 invariant**: `small r ↔ small r'` under JoinEquiv leaves depth. -/
+/-- **Core invariant**: `small r ↔ small r'` under JoinEquiv leaves depth. -/
 theorem small_invariant (r r' : Raw)
     (h : JoinEquiv Lens.leaves Lens.depth r r') :
     small r ↔ small r' := by
@@ -114,10 +114,11 @@ theorem small_invariant (r r' : Raw)
       · intro hs; exact absurd hs (not_small_slash _ _ hxy)
       · intro hs; exact absurd hs (not_small_slash _ _ hx'y')
 
-/-- **Main 결과**: leaves ⊔ depth ≠ constLens (universal).
-    Raw.a (leaves=1) 와 Raw.slash Raw.a Raw.b (leaves=2) 는
-    JoinEquiv 분리.  즉 두 Lens 의 join 은 non-universal.  따라서
-    비-mod family non-trivial (non-const) join 존재. -/
+/-- **Main result**: leaves ⊔ depth ≠ constLens (universal).
+    Raw.a (leaves=1) and Raw.slash Raw.a Raw.b (leaves=2) are
+    separated by JoinEquiv.  Thus the join of the two Lenses is
+    non-universal.  Therefore a non-trivial (non-const) join of a
+    non-mod family exists. -/
 theorem leaves_depth_join_not_universal :
     ¬ JoinEquiv Lens.leaves Lens.depth Raw.a
         (Raw.slash Raw.a Raw.b (by decide)) := by
@@ -125,15 +126,15 @@ theorem leaves_depth_join_not_universal :
   have := (small_invariant _ _ h).mp (by unfold small; rfl)
   exact not_small_slash _ _ _ this
 
-/-- Raw.a 와 Raw.b 는 JoinEquiv 로 연결 (same leaves = 1). -/
+/-- Raw.a and Raw.b are connected by JoinEquiv (same leaves = 1). -/
 theorem joinEquiv_a_b :
     JoinEquiv Lens.leaves Lens.depth Raw.a Raw.b := by
   apply JoinEquiv.ofL
   show Lens.leaves.view Raw.a = Lens.leaves.view Raw.b
   rfl
 
-/-- small r → JoinEquiv r Raw.a (class of Raw.a 는 {Raw.a, Raw.b}
-    를 포함). -/
+/-- small r → JoinEquiv r Raw.a (the class of Raw.a contains
+    {Raw.a, Raw.b}). -/
 theorem small_joinEquiv_a (r : Raw) (hs : small r) :
     JoinEquiv Lens.leaves Lens.depth r Raw.a := by
   apply JoinEquiv.ofL
@@ -141,9 +142,9 @@ theorem small_joinEquiv_a (r : Raw) (hs : small r) :
   rw [leaves_of_small hs]
   rfl
 
-/-- **Raw.a 의 class = {r : small r}**: leaves+depth JoinEquiv class
-    of Raw.a 는 정확히 base Raws.  따라서 join 은 ≥ 2 non-trivial
-    classes 를 가짐. -/
+/-- **Class of Raw.a = {r : small r}**: the leaves+depth JoinEquiv
+    class of Raw.a is exactly the base Raws.  Therefore the join has
+    ≥ 2 non-trivial classes. -/
 theorem class_of_a_iff_small (r : Raw) :
     JoinEquiv Lens.leaves Lens.depth Raw.a r ↔ small r := by
   constructor
@@ -159,8 +160,8 @@ namespace E213.Research.LeavesDepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
-/-- 비-small 인 r 에 대해 leaves r = 2 → depth r = 1 (slash 의
-    children 모두 small). -/
+/-- For non-small r: leaves r = 2 → depth r = 1 (all children of
+    the slash are small). -/
 private theorem leaves_two_iff_depth_one (r : Raw) (hns : ¬ small r) :
     Lens.leaves.view r = 2 ↔ Lens.depth.view r = 1 := by
   induction r using Raw.rec with
@@ -260,7 +261,7 @@ private theorem depth_ge_two_leaves_ge_three (r : Raw)
             (leaves_two_iff_depth_one y hyns).mpr hdye
           rw [hfsL]; omega
 
-/-- tier 가 depth 에 의해 결정. -/
+/-- tier is determined by depth. -/
 private theorem tier_eq_of_depth_eq (r r' : Raw)
     (h : Lens.depth.view r = Lens.depth.view r') : tier r = tier r' := by
   have hri : tier r = if Lens.depth.view r = 0 then 0
@@ -305,12 +306,12 @@ private theorem tier_eq_of_depth_eq (r r' : Raw)
         simp [hl_ne_1, hl_ne_2, hd0, hd1]
   rw [hri, hri', h]
 
-/-- tier 가 leaves 에 의해 결정 (정의에서 직접). -/
+/-- tier is determined by leaves (directly from the definition). -/
 private theorem tier_eq_of_leaves_eq (r r' : Raw)
     (h : Lens.leaves.view r = Lens.leaves.view r') : tier r = tier r' := by
   unfold tier; rw [h]
 
-/-- slash 의 tier 는 양 child 가 모두 small (tier 0) 이면 1, 아니면 2. -/
+/-- tier of a slash is 1 if both children are small (tier 0), else 2. -/
 private theorem tier_slash (x y : Raw) (h : x ≠ y) :
     tier (Raw.slash x y h) = (if tier x = 0 ∧ tier y = 0 then 1 else 2) := by
   have hfsL : Lens.leaves.view (Raw.slash x y h)
@@ -357,7 +358,7 @@ private theorem tier_slash (x y : Raw) (h : x ≠ y) :
         split <;> decide
       simp [h_ne_1, h_ne_2, hsx, hsy, htx_ne_0]
 
-/-- slash_cong 단계: tier 의 join_cong-like 보존. -/
+/-- slash_cong step: join_cong-like preservation of tier. -/
 private theorem tier_slash_from_inputs (x y x' y' : Raw)
     (hxy : x ≠ y) (hx'y' : x' ≠ y')
     (htx : tier x = tier x') (hty : tier y = tier y') :
@@ -370,7 +371,7 @@ namespace E213.Research.LeavesDepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
-/-- **Tier invariant**: JoinEquiv leaves depth 하에 tier 는 보존. -/
+/-- **Tier invariant**: tier is preserved under JoinEquiv leaves depth. -/
 theorem tier_invariant (r r' : Raw)
     (h : JoinEquiv Lens.leaves Lens.depth r r') : tier r = tier r' := by
   induction h with
@@ -392,7 +393,7 @@ namespace E213.Research.LeavesDepthJoin
 
 open E213.Firmware E213.Hypervisor
 
-/-- **tierLens**: leaves 와 depth 의 공통 upper bound (concrete).
+/-- **tierLens**: concrete common upper bound of leaves and depth.
     view = tier r ∈ {0, 1, 2}. -/
 def tierLens : Lens Nat where
   base_a := 0
@@ -409,7 +410,7 @@ private theorem tierLens_combine_sym (u v : Nat) :
     · simp [hu, hv]
   · simp [hu]
 
-/-- tierLens.view = tier function.  Bool-style representation Nat 으로. -/
+/-- tierLens.view = tier function.  Represented as Nat in Bool-style. -/
 theorem tierLens_view_eq_tier (r : Raw) : tierLens.view r = tier r := by
   induction r using Raw.rec with
   | a => unfold tier tierLens; show 0 = (if Lens.leaves.view Raw.a = 1 then 0 else _); rfl
@@ -430,7 +431,7 @@ namespace E213.Research.LeavesDepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
-/-- 구체 Raws: tier 0, 1, 2 의 대표. -/
+/-- Concrete Raws: representatives of tiers 0, 1, 2. -/
 private def repr0 : Raw := Raw.a
 private def repr1 : Raw := Raw.slash Raw.a Raw.b (by decide)
 private def repr2 : Raw :=
@@ -470,8 +471,8 @@ private theorem repr2_tier : tier repr2 = 2 := by
     rw [hfs, h2]; rfl
   rw [h3]; rfl
 
-/-- **3 classes 분리**: repr0 (small), repr1 ((2,1)), repr2 (≥3 leaves)
-    는 JoinEquiv leaves depth 에서 모두 서로 분리. -/
+/-- **3 classes separated**: repr0 (small), repr1 ((2,1)), repr2 (≥3 leaves)
+    are all mutually separated in JoinEquiv leaves depth. -/
 theorem three_classes_distinct :
     (¬ JoinEquiv Lens.leaves Lens.depth repr0 repr1) ∧
     (¬ JoinEquiv Lens.leaves Lens.depth repr1 repr2) ∧
@@ -496,21 +497,21 @@ namespace E213.Research.LeavesDepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
-/-- **leaves refines tierLens** (tierLens 가 leaves 의 upper bound). -/
+/-- **leaves refines tierLens** (tierLens is an upper bound of leaves). -/
 theorem leaves_refines_tierLens : Lens.leaves.refines tierLens := by
   intro r r' h
   show tierLens.view r = tierLens.view r'
   rw [tierLens_view_eq_tier, tierLens_view_eq_tier]
   exact tier_eq_of_leaves_eq r r' h
 
-/-- **depth refines tierLens** (tierLens 가 depth 의 upper bound). -/
+/-- **depth refines tierLens** (tierLens is an upper bound of depth). -/
 theorem depth_refines_tierLens : Lens.depth.refines tierLens := by
   intro r r' h
   show tierLens.view r = tierLens.view r'
   rw [tierLens_view_eq_tier, tierLens_view_eq_tier]
   exact tier_eq_of_depth_eq r r' h
 
-/-- **tierLens.view 는 정확히 3 값** (0, 1, 2 모두 hit). -/
+/-- **tierLens.view takes exactly 3 values** (all of 0, 1, 2 are hit). -/
 theorem tierLens_three_values :
     tierLens.view repr0 = 0 ∧
     tierLens.view repr1 = 1 ∧
@@ -520,8 +521,8 @@ theorem tierLens_three_values :
   · rw [tierLens_view_eq_tier]; exact repr1_tier
   · rw [tierLens_view_eq_tier]; exact repr2_tier
 
-/-- **JoinEquiv leaves depth ⊆ tierLens.equiv** (universal property
-    의 직접 귀결: tierLens 가 upper bound). -/
+/-- **JoinEquiv leaves depth ⊆ tierLens.equiv** (direct consequence
+    of the universal property: tierLens is an upper bound). -/
 theorem joinEquiv_subset_tierLens (r r' : Raw)
     (h : JoinEquiv Lens.leaves Lens.depth r r') :
     tierLens.equiv r r' := by

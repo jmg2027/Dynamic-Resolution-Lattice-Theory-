@@ -4,35 +4,35 @@ import E213.Physics.AlphaEMPrefactors
 import E213.Physics.SimplexCounts
 
 /-!
-# Phase 3 HiggsMassDerivation — *왜 m_H = 125.28 GeV 인가* deep-dive
+# Phase 3 HiggsMassDerivation — deep-dive on *why m_H = 125.28 GeV*
 
 **Layer: App**.
 
-## Atomic 도출 chain
+## Atomic derivation chain
 
 m_H/v_H = leading + α_GUT correction
 
   Leading ratio  = 1/c_lat = 1/2 = 0.5  (atomic, c_lat=2 lattice speed)
   + α_GUT · (d-1)/d  (face-dim correction)
                  = α_GUT · 4/5
-  + 추가 corrections (1/(c·d), Dyson tail)
+  + additional corrections (1/(c·d), Dyson tail)
   ─────────────────────────────────────
   m_H/v_H ≈ 0.5097
   v_H ≈ 245.6 GeV (Higgs vev)
   m_H = 0.5097 · 245.6 = 125.28 GeV
 
-  관측: 125.25 GeV (PDG 2024) → **+0.02% match**.
+  Observed: 125.25 GeV (PDG 2024) → **+0.02% match**.
 
-## 각 piece 의 atomic 의미
+## Atomic meaning of each piece
 
-  - 1/c_lat = 1/2: lattice speed 의 reciprocal
-  - (d-1)/d = 4/5: 4-simplex face-dim 비
+  - 1/c_lat = 1/2: reciprocal of lattice speed
+  - (d-1)/d = 4/5: 4-simplex face-dim ratio
   - α_GUT = 6/(d²·π²): atomic-derived
   - v_H ≈ 245.6 GeV: electroweak scale (separate Lens output)
 
 ## (d-1)=4 ubiquity
 
-같은 cofactor 4 가:
+The same cofactor 4 appears in:
   - m_H face: α_GUT · (d-1)/d
   - α_em IR: α_GUT/(d-1)
   - m_μ/m_e Dyson: α_GUT/(NS+1) = α_GUT/(d-1)

@@ -35,7 +35,7 @@ def constModulus (r : Raw) : HasModulus (constSeq r) where
   N := fun _ _ => 0
   cauchy_at := fun _ _ _ _ _ _ _ => rfl
 
-/-- Real213 의 constant embedding: Raw → Real213. -/
+/-- Constant embedding of Real213: Raw → Real213. -/
 def const (r : Raw) : Real213 :=
   ⟨constSeq r, constModulus r⟩
 

@@ -29,8 +29,8 @@ open E213.Research.EulerSeq
 /-- **Euler upper bound, axiom-free**: 3 * eulerDen n ≥ eulerNum n + 1.
     No omega — manual Nat reasoning.
 
-    Base cases n=0, n=1 직접 decide.  n=k+1 for k ≥ 1: IH * (k+1)
-    + slack 의 chain. -/
+    Base cases n=0, n=1 directly by decide.  n=k+1 for k ≥ 1: IH * (k+1)
+    + slack chain. -/
 theorem euler_upper_pure (n : Nat) : 3 * eulerDen n ≥ eulerNum n + 1 := by
   induction n with
   | zero => decide
