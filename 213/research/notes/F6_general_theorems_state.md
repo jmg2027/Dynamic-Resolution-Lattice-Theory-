@@ -399,6 +399,24 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase O — 4 milestones COMPLETE (super-capstone + polynomial chain)
+
+**O1: All-Phase Super-Capstone**
+- allPhase_super_capstone : single 7-fact theorem bundling
+  representative results from EVERY Phase J/K/L/M/N.
+
+**O2: Polynomial chain x⁵-x⁸**
+- quinticIsSmooth, sexticIsSmooth, septicIsSmooth, octicIsSmooth.
+- 4 decide tests at depth 5 confirming linearityModulus = degree × n.
+
+**O3: midIsSmooth**
+- cutMid preserves IsSmooth via composeLDD cutHalfLDD addLDD.
+- linearityModulus = max (sf.l) (sg.l), same as add.
+
+**O4: Riemann concrete sums**
+- riemann_half_depth_2/3, _threequarter_depth_4, _third_depth_6.
+- Various constant integrands at various depths.
+
 ### Phase M — 4 milestones COMPLETE (cross-track parallel cementing)
 
 **M1: Infinitesimal gap structure**

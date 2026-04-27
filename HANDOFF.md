@@ -8,6 +8,23 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase O COMPLETE — Super-capstone + polynomial chain
+
+- O1: allPhase_super_capstone (J/K/L/M/N bundle in single theorem).
+- O2: Polynomial chain extended to x⁵, x⁶, x⁷, x⁸ + decide tests.
+- O3: midIsSmooth (cutMid preserves smoothness).
+- O4: Riemann concrete sums (1/2, 3/4, 1/3 at various depths).
+
+Library: 103 modules, 216+ commits.  All polynomial degrees 1-8
+have explicit linearityModulus = degree × n verified.
+
+### Phase N COMPLETE — Trajectory closed forms + asymmetry observation
+
+- N1: db_pattern helper (partial — full inductive form deferred).
+- N2: Dyadic targets 1/4, 3/4 verified via decide.
+- N3: 1- = 1-exact cut-equivalent (asymmetry with 0+ ≠ 0).
+- N4: Cross-track parallel unified capstone.
+
 ### Phase M COMPLETE — 4 milestones formalizing constructive distinctness
 
 User-set milestone-mode session (203 commits → 207).  All 4
