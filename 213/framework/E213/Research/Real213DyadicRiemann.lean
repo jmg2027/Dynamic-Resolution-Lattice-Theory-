@@ -126,4 +126,29 @@ theorem riemannSampleSum_one_depth
     riemannSampleSum f db 1
     = cutSum (f db.leftHalf.midCut) (f db.rightHalf.midCut) := rfl
 
+/-- **Riemann linearity on integer constants**: ∫(a + c) = ∫a + ∫c
+    for constant integer integrands. -/
+theorem riemannSampleSum_int_linear
+    (a c : Nat) (db : DyadicBracket) (n : Nat) :
+    cutSum (riemannSampleSum (constCutFn (constCut a 1)) db n)
+           (riemannSampleSum (constCutFn (constCut c 1)) db n)
+    = constCut (2^n * (a + c)) 1 := by
+  rw [riemannSampleSum_constCut a 1 db n,
+      riemannSampleSum_constCut c 1 db n]
+  rw [cutSum_int_int]
+  show constCut (2^n * a + 2^n * c) 1 = constCut (2^n * (a + c)) 1
+  rw [show 2^n * a + 2^n * c = 2^n * (a + c) from (Nat.mul_add (2^n) a c).symm]
+
+/-- **Riemann linearity on half constants**: ∫((a + c)/2) = ∫(a/2) + ∫(c/2). -/
+theorem riemannSampleSum_half_linear
+    (a c : Nat) (db : DyadicBracket) (n : Nat) :
+    cutSum (riemannSampleSum (constCutFn (constCut a 2)) db n)
+           (riemannSampleSum (constCutFn (constCut c 2)) db n)
+    = constCut (2^n * (a + c)) 2 := by
+  rw [riemannSampleSum_constCut a 2 db n,
+      riemannSampleSum_constCut c 2 db n]
+  rw [cutSum_half_general]
+  show constCut (2^n * a + 2^n * c) 2 = constCut (2^n * (a + c)) 2
+  rw [show 2^n * a + 2^n * c = 2^n * (a + c) from (Nat.mul_add (2^n) a c).symm]
+
 end E213.Research.Real213CutSum

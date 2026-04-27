@@ -358,4 +358,32 @@ theorem DyadicBracket.bisectN_midCut_constFalse
     rw [hleft] at hl
     exact Bool.noConfusion hl
 
+/-- **bisectStep preserves collapsed (numA = numB)**: regardless of
+    oracle, when the bracket is a degenerate point bracket, the
+    result is also a degenerate point bracket. -/
+theorem DyadicBracket.bisectStep_collapsed (db : DyadicBracket)
+    (oracle : DyadicOracle) (h : db.numA = db.numB) :
+    (db.bisectStep oracle).numA = (db.bisectStep oracle).numB := by
+  show (if oracle db.midCut then db.leftHalf else db.rightHalf).numA
+     = (if oracle db.midCut then db.leftHalf else db.rightHalf).numB
+  by_cases hor : oracle db.midCut = true
+  · rw [if_pos hor]
+    show 2 * db.numA = db.numA + db.numB
+    rw [Nat.two_mul, h]
+  · rw [if_neg hor]
+    show db.numA + db.numB = 2 * db.numB
+    rw [Nat.two_mul, h]
+
+/-- **bisectN preserves collapsed**: by induction on n. -/
+theorem DyadicBracket.bisectN_collapsed (oracle : DyadicOracle) :
+    ∀ n db, db.numA = db.numB →
+      (DyadicBracket.bisectN oracle n db).numA
+      = (DyadicBracket.bisectN oracle n db).numB
+  | 0, _, h => h
+  | n+1, db, h => by
+    show (DyadicBracket.bisectN oracle n (db.bisectStep oracle)).numA
+       = (DyadicBracket.bisectN oracle n (db.bisectStep oracle)).numB
+    exact DyadicBracket.bisectN_collapsed oracle n (db.bisectStep oracle)
+            (DyadicBracket.bisectStep_collapsed db oracle h)
+
 end E213.Research.Real213CutSum
