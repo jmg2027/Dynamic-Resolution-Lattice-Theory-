@@ -7,7 +7,19 @@ Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 **Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
 session: 17 commits `6150fa2..47dac44`, 14 new files.
 
-### Phase BT-BX (5750214 → ★) — **HasDyadicMVTWitness 클래스 + 카탈로그** ★★
+### Phase BY-CC (1771cb7 → ab04bd3) — **FTC-Riemann 다리 + 일반화** ★★
+
+미적분학 기본정리의 Riemann sum 버전.  적분 측면 ↔ 경계 측면 = Stokes 정리.
+
+- **BY**: id에서 Riemann sum closed form + depth-0 FTC propEq
+- **BZ**: AY-BY 10-fact mega-omega capstone
+- **CA**: x²에서 FTC-Riemann depth 0 (witness c=1/2 = midCut)
+- **CB**: mid(x, x²)에서 FTC-Riemann (같은 패턴)
+- **CC**: ★★ **generic FTC-Riemann via witness** — 추상 정리 한 개가 CA/CB 둘 다 instance로 흡수
+
+★ Stokes 정리 dyadic 버전: midpoint Riemann sample = boundary value when MVT witness = midpoint.
+
+### Phase BT-BX (5750214 → a5cd919) — **HasDyadicMVTWitness 클래스 + 카탈로그** ★★
 
 213-CONSTRUCTIBLE existence vs CLASSICAL existence 분리 명시.
 
