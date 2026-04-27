@@ -1,11 +1,18 @@
-# Session Handoff — 2026-04-27 (Real213 marathon Phase J-AH + cross-track bridge)
+# Session Handoff — 2026-04-27 (Real213 marathon Phase J-AN + cross-track bridge)
 
-## Latest marathon update — Phase AH
+## Latest marathon update — Phase AN
 
-Branch: `claude/lean-infinity-explanation-QqnSp` (head: `76d0f54`).
+Branch: `claude/lean-infinity-explanation-QqnSp` (head: `47dac44`).
 
-**Real213 marathon now spans Phase J → AH**.  Autonomous-run delta this
-session: 11 commits `6150fa2..76d0f54`.
+**Real213 marathon now spans Phase J → AN**.  Autonomous-run delta this
+session: 17 commits `6150fa2..47dac44`, 14 new files.
+
+### Phase AN (47dac44) — omega capstone (AC-AM, 13 facts)
+### Phase AM (af7afb3) — polynomial diff total coverage 0-16
+### Phase AL (5657d39) — midpoint combinator (cutMid)
+### Phase AK (bca3efd) — high-order polynomial 9/10/12/16
+### Phase AJ (c2762c6) — composition (chain rule)
+### Phase AI (708d763) — affine + polynomial sums
 
 ### Phase AH (76d0f54) — 17-phase grand-mega unified capstone
 Single 11-fact bundle spanning J/L/AB/AC/N/AD/AE/AG + Riemann +
