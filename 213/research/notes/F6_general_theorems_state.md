@@ -399,6 +399,16 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase AA — 4 milestones COMPLETE (recursive cutPow + generic modulus)
+
+**AA1: Riemann at depth 0 explicit** (rfl form for const + id integrand).
+**AA2: cutPowFnIsSmooth recursive instance** + generic modulus (n * k).
+**AA3: Concrete modulus values via generic** (50, 100, 0).
+**AA4: 15-Phase synthesis docs.**
+
+The cutPowFnIsSmooth_modulus theorem unifies all polynomial degrees
+into a single induction proof — degree d → linearityModulus k = d * k.
+
 ### Phase Z — 4 milestones COMPLETE (Fundamental Calculus + Cauchy reductions)
 
 **Z1: fundamental_dyadic_calculus_const** — cutEq form of constant integral.

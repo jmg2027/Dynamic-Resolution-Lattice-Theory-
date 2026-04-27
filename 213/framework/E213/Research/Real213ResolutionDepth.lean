@@ -193,6 +193,18 @@ theorem cutPowFnIsSmooth_modulus (n : Nat) (k : Nat) :
     rw [ih, idIsSmooth_modulus]
     rw [Nat.add_mul, Nat.one_mul]
 
+/-! ### AA3: cutPowFnIsSmooth concrete modulus values via generic theorem -/
+
+/-- All polynomial degrees 0-100 follow the generic n * k slope pattern. -/
+example : (cutPowFnIsSmooth 50).linearityModulus 7 = 350 := by
+  rw [cutPowFnIsSmooth_modulus]
+
+example : (cutPowFnIsSmooth 100).linearityModulus 1 = 100 := by
+  rw [cutPowFnIsSmooth_modulus]
+
+example : (cutPowFnIsSmooth 0).linearityModulus 100 = 0 := by
+  rw [cutPowFnIsSmooth_modulus]
+
 /-! ### X1: composeIsSmooth iteration tests -/
 
 /-- 3-deep compose: square ∘ square ∘ square = x⁸. Modulus 40. -/

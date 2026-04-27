@@ -8,6 +8,16 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase AA COMPLETE — Recursive cutPow + generic ResolutionDepth
+
+- AA1: Riemann at depth 0 explicit forms.
+- AA2: cutPowFnIsSmooth recursive + generic modulus (n * k).
+- AA3: Concrete modulus values via generic theorem.
+- AA4: 15-Phase synthesis docs.
+
+The polynomial chain is unified: cutPowFnIsSmooth_modulus theorem
+covers all degrees in single induction.
+
 ### Phase Z COMPLETE — Fundamental Calculus + Cauchy reductions
 
 - Z1: fundamental_dyadic_calculus_const (cutEq form).
