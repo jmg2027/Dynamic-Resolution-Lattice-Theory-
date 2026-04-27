@@ -399,6 +399,13 @@ Helper:
 - alwaysFalse_unit_cut_false_when_m_lt_k : the m < k case proof
   via Nat.mul_sub_left_distrib + 2^(n+1) ≥ k+1 contradiction.
 
+### Phase V — 4 milestones COMPLETE (gap-filling + cutLe both ways)
+
+**V1: x¹¹, x¹³, x¹⁴** — gap-fill polynomial coverage (now 1-16 complete).
+**V2: Riemann at depth 25, 30** — explicit closed forms at extreme depth.
+**V3: alwaysFalseUnit cutLe both directions** — formal equivalence.
+**V4: This 10-Phase docs synthesis.**
+
 ### Phase U — 4 milestones COMPLETE (extending coverage)
 
 **U1: x⁹, x¹², x¹⁵** — non-power-of-2 polynomial coverage.

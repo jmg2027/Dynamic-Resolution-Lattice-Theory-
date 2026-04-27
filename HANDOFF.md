@@ -8,6 +8,13 @@ Branch: `claude/lean-infinity-explanation-QqnSp`.
 
 64+ Real213-related Lean modules, all build clean, ≤ propext + Quot.sound.
 
+### Phase V COMPLETE — Gap-filling polynomials + cutLe both ways
+
+- V1: x¹¹, x¹³, x¹⁴ (polynomial chain 1-16 complete).
+- V2: Riemann depth 25, 30.
+- V3: alwaysFalseUnit cutLe both directions (formal equivalence).
+- V4: 10-Phase synthesis.
+
 ### Phase U COMPLETE — Coverage extension
 
 - U1: x⁹, x¹², x¹⁵ non-power-of-2 polynomials.
