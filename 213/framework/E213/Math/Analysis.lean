@@ -91,6 +91,7 @@ import E213.Research.Real213PhaseCMFinalCapstone
 import E213.Research.Real213Antiderivative
 import E213.Research.Real213AntiderivativeCombinators
 import E213.Research.Real213AntiderivativeStructural
+import E213.Research.Real213IntegralViaAnti
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
