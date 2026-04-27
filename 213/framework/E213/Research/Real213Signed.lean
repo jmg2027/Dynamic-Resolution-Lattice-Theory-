@@ -1,5 +1,6 @@
 import E213.Research.Real213CutMul
 import E213.Research.Real213CutSumTest
+import E213.Research.Real213CutMulComm
 
 /-!
 # Research.Real213Signed: signed Real213 + negation (F3)
@@ -74,5 +75,18 @@ example : (cutSignedMul (signedConstCut false 1 1)
 /-- (+1) * (-1) = (-1).  Sign false. -/
 example : (cutSignedMul (signedConstCut true 1 1)
                        (signedConstCut false 1 1)).sign = false := by decide
+
+/-- cutNeg of signedConstCut: flips sign. -/
+theorem cutNeg_signedConstCut (sign : Bool) (a b : Nat) :
+    cutNeg (signedConstCut sign a b) = signedConstCut (!sign) a b := rfl
+
+/-- cutSignedMul commutativity. -/
+theorem cutSignedMul_comm (sx sy : SignedCut) :
+    cutSignedMul sx sy = cutSignedMul sy sx := by
+  show ({ sign := sx.sign == sy.sign, cut := cutMul sx.cut sy.cut } : SignedCut)
+     = { sign := sy.sign == sx.sign, cut := cutMul sy.cut sx.cut }
+  congr 1
+  · cases sx.sign <;> cases sy.sign <;> rfl
+  · funext m k; exact cutMul_comm _ _ m k
 
 end E213.Research.Real213CutSum
