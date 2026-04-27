@@ -21,4 +21,18 @@ theorem partialSum_zero_series (n : Nat) :
        = constCut 0 1
     rw [ih, cutSum_zero_zero]
 
+/-- **zero series 가 SeriesCauchy** (concrete instance). -/
+def zeroSeriesCauchy : SeriesCauchy where
+  terms := fun _ => constCut 0 1
+  N := fun _ _ => 0
+  cauchy := by
+    intro m k i j _ _
+    rw [partialSum_zero_series, partialSum_zero_series]
+
+/-- zero series의 limit = 0. -/
+theorem zeroSeriesCauchy_limit : zeroSeriesCauchy.limit = constCut 0 1 := by
+  funext m k
+  show partialSum _ 0 m k = constCut 0 1 m k
+  rfl
+
 end E213.Research.Real213CutSum
