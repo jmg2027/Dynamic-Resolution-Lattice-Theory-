@@ -4,11 +4,21 @@
 //! Default N = 20 (matches Lean's `capstone_n20`).
 
 use drlt_app::alpha_em::bracket_137_at;
-use drlt_app::basel::{s_partial, upper};
+use drlt_app::basel::{s_partial, upper, Q};
 use drlt_app::certificate::{Certificate, Cmp, Step};
 use num_bigint::BigUint;
 
 fn nat(n: u64) -> BigUint { BigUint::from(n) }
+
+/// Print `q.0 / q.1` as integer.fractional with `scale` decimal digits.
+/// ℕ-only — no floats.  Pretty-print only.
+fn dec(label: &str, q: &Q, scale: u32) {
+    let big = BigUint::from(10u64).pow(scale);
+    let scaled = &q.0 * &big / &q.1;
+    let int_part = &scaled / &big;
+    let frac_part = &scaled % &big;
+    println!("  {label} ≈ {int_part}.{:0>w$}", frac_part, w = scale as usize);
+}
 
 fn main() {
     let n: u64 = std::env::args().nth(1)
@@ -17,11 +27,16 @@ fn main() {
     let cert = build_certificate(n, &result);
 
     println!("=== α_em bracket re-execution at N = {n} ===");
-    println!("S({n})         = ({}, {})", s_partial(n).0, s_partial(n).1);
-    println!("upper({n})     = ({}, {})", upper(n).0, upper(n).1);
-    println!("inv_lower_tight = ({}, {})", result.lo.0, result.lo.1);
-    println!("inv_full_upper  = ({}, {})", result.hi.0, result.hi.1);
-    println!("contains 137: {}   excludes 138: {}",
+    dec("S(N)            ", &s_partial(n), 9);
+    dec("upper(N)        ", &upper(n),     9);
+    dec("inv_lower_tight ", &result.lo,    9);
+    dec("inv_full_upper  ", &result.hi,    9);
+    let hi_x_lod = &result.hi.0 * &result.lo.1;
+    let lo_x_hid = &result.lo.0 * &result.hi.1;
+    let width = if hi_x_lod >= lo_x_hid { &hi_x_lod - &lo_x_hid } else { BigUint::from(0u32) };
+    let width_den = &result.lo.1 * &result.hi.1;
+    dec("bracket width   ", &(width, width_den), 9);
+    println!("  contains 137: {}   excludes 138: {}",
         result.contains_137, result.excludes_138);
 
     if !result.contains_137 || !result.excludes_138 {
