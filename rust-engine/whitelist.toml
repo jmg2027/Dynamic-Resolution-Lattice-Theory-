@@ -1,0 +1,72 @@
+# DRLT 213 Rust runtime ↔ Lean theorem citation registry.
+#
+# Single source of truth.  `verify-citations` checks each entry:
+#   1. The Lean lemma exists in lean/E213/.
+#   2. lake build succeeds.
+#   3. #print axioms <thm> ⊆ {propext, Quot.sound}.
+#   4. Every public runtime function is in this file.
+#
+# Adding an op = adding a row here + Lean lemma + Rust impl + test.
+
+# ── Phase 0: kernel ────────────────────────────────────────────────
+[[op]]
+rust = "drlt_kernel::term::Term::eval"
+lean = "E213.Kernel.Term.eval"
+
+[[op]]
+rust = "drlt_kernel::term::Term::equiv"
+lean = "E213.Kernel.Term.equiv"
+
+[[op]]
+rust = "drlt_kernel::compare::le_b"
+lean = "E213.Kernel.Term.le_b"
+
+[[op]]
+rust = "drlt_kernel::compare::lt_b"
+lean = "E213.Kernel.Term.lt_b"
+
+[[op]]
+rust = "drlt_kernel::rat::equiv_q"
+lean = "E213.Kernel.Term.equivQ"
+
+[[op]]
+rust = "drlt_kernel::rat::le_q"
+lean = "E213.Kernel.Term.leQ"
+
+# ── Phase 0: firmware ──────────────────────────────────────────────
+[[op]]
+rust = "drlt_firmware::raw::Raw::a"
+lean = "E213.Firmware.Raw.a"
+
+[[op]]
+rust = "drlt_firmware::raw::Raw::b"
+lean = "E213.Firmware.Raw.b"
+
+[[op]]
+rust = "drlt_firmware::raw::Raw::slash"
+lean = "E213.Firmware.Raw.slash"
+
+[[op]]
+rust = "drlt_firmware::raw::Raw::depth"
+lean = "E213.Firmware.Raw.depth"
+
+[[op]]
+rust = "drlt_firmware::raw::Raw::fold"
+lean = "E213.Firmware.Raw.fold"
+
+[[op]]
+rust = "drlt_firmware::lens::Lens::view"
+lean = "E213.Hypervisor.Lens.view"
+
+[[op]]
+rust = "drlt_firmware::lens::Lens::equiv"
+lean = "E213.Hypervisor.Lens.equiv"
+
+# ── Phase 0: hypervisor (canonical lenses) ─────────────────────────
+[[op]]
+rust = "drlt_hypervisor::canonical::lens_leaves"
+lean = "E213.Hypervisor.Lens.leaves"
+
+[[op]]
+rust = "drlt_hypervisor::canonical::lens_depth"
+lean = "E213.Hypervisor.Lens.depth"

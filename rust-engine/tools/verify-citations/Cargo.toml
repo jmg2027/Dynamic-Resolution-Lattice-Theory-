@@ -1,0 +1,15 @@
+[package]
+name = "verify-citations"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Cross-check rust-engine/whitelist.toml: every entry's Lean lemma exists in lean/E213/."
+
+[dependencies]
+serde = { workspace = true }
+toml  = { workspace = true }
+
+[lints.rust]
+unsafe_code = "forbid"
