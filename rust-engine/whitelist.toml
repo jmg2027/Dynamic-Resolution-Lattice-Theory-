@@ -192,5 +192,17 @@ rust = "drlt_hypervisor::chiral_k32::lens_st_count"
 lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"
 
 [[op]]
+rust = "drlt_hypervisor::k32_graph::edges"
+lean = "E213.Math.Cohomology.TopologyCompare.K32_c2_b1"
+
+[[op]]
+rust = "drlt_hypervisor::k32_graph::b1"
+lean = "E213.Math.Cohomology.TopologyCompare.K32_c2_b1"
+
+[[op]]
+rust = "drlt_hypervisor::k32_graph::chiral_cells"
+lean = "E213.Math.Cohomology.Paper1Chiral.chiralDim"
+
+[[op]]
 rust = "drlt_hypervisor::chiral_k32::paper1_capstone_check"
 lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"

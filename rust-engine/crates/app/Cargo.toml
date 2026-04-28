@@ -15,6 +15,10 @@ path = "src/bin/alpha_em_bracket.rs"
 name = "gap-explorer"
 path = "src/bin/gap_explorer.rs"
 
+[[bin]]
+name = "k32-inspect"
+path = "src/bin/k32_inspect.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
