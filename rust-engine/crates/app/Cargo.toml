@@ -11,6 +11,10 @@ description = "DRLT 213 App — Simplex, Basel, AlphaEM, magic numbers. Mirrors 
 name = "alpha-em-bracket"
 path = "src/bin/alpha_em_bracket.rs"
 
+[[bin]]
+name = "gap-explorer"
+path = "src/bin/gap_explorer.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
