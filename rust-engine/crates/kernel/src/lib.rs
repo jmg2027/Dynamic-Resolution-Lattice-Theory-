@@ -8,6 +8,7 @@
 pub mod term;
 pub mod compare;
 pub mod rat;
+pub mod normal_form;
 
 pub use term::Term;
 

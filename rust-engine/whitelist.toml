@@ -71,6 +71,27 @@ lean = "E213.Hypervisor.Lens.leaves"
 rust = "drlt_hypervisor::canonical::lens_depth"
 lean = "E213.Hypervisor.Lens.depth"
 
+# ── Phase 2: kernel normal_form rules ──────────────────────────────
+[[op]]
+rust = "drlt_kernel::normal_form::rules::NsMulNtEqSix"
+lean = "E213.Kernel.MonomialAxioms.ns_mul_nt_eq_six"
+
+[[op]]
+rust = "drlt_kernel::normal_form::rules::MulCommNsNt"
+lean = "E213.Kernel.MonomialAxioms.mul_comm_ns_nt"
+
+[[op]]
+rust = "drlt_kernel::normal_form::rules::NsSqEq9"
+lean = "E213.Kernel.MonomialAxioms.ns_sq_eq_9"
+
+[[op]]
+rust = "drlt_kernel::normal_form::rules::NtSqEq4"
+lean = "E213.Kernel.MonomialAxioms.nt_sq_eq_4"
+
+[[op]]
+rust = "drlt_kernel::normal_form::rules::DSqEq25"
+lean = "E213.Kernel.MonomialAxioms.d_sq_eq_25"
+
 # ── Phase 1: hypervisor (chiral K_{3,2}^{(2)}) ─────────────────────
 [[op]]
 rust = "drlt_hypervisor::chiral_k32::b1_bipartite"
