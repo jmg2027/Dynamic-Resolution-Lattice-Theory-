@@ -19,6 +19,10 @@ path = "src/bin/gap_explorer.rs"
 name = "k32-inspect"
 path = "src/bin/k32_inspect.rs"
 
+[[bin]]
+name = "alpha-em-decompose"
+path = "src/bin/alpha_em_decompose.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
