@@ -4,6 +4,10 @@
 //! Default N = 20 (matches Lean's `capstone_n20`).
 
 use drlt_app::alpha_em::{bracket_137_at, bracket_137036_at, bracket_candidate_at};
+use drlt_app::alpha_em_with_tail::{
+    bracket_137036_with_tail_at, bracket_candidate_with_tail_at,
+    inv_lower_with_tail, inv_upper_with_tail,
+};
 use drlt_app::basel::{s_partial, upper, Q};
 use drlt_app::certificate::{Certificate, Cmp, Step};
 use num_bigint::BigUint;
@@ -36,17 +40,31 @@ fn main() {
     let width = if hi_x_lod >= lo_x_hid { &hi_x_lod - &lo_x_hid } else { BigUint::from(0u32) };
     let width_den = &result.lo.1 * &result.hi.1;
     dec("bracket width   ", &(width, width_den), 9);
+    println!("  -- no-tail bracket --");
     println!("  contains 137:        {}", result.contains_137);
     println!("  contains 137.036:    {}  (observed)",  bracket_137036_at(n));
     println!("  contains 137.0354:   {}  (candidate)", bracket_candidate_at(n));
     println!("  excludes 138:        {}", result.excludes_138);
+    if n >= 1 {
+        println!("  -- with Dyson tail α_GUT/(NS+1) --");
+        dec("inv_lower_with_tail", &inv_lower_with_tail(n), 9);
+        dec("inv_upper_with_tail", &inv_upper_with_tail(n), 9);
+        println!("  contains 137.036:    {}  (observed)",  bracket_137036_with_tail_at(n));
+        println!("  contains 137.0354:   {}  (candidate)", bracket_candidate_with_tail_at(n));
+    }
 
-    // Exit successful iff observed 137.036 is in the bracket.
-    // (At N ≥ 500 the bracket no longer covers observed — this is
-    // the structural gap demonstration, not a code failure.)
-    if !bracket_137036_at(n) {
-        eprintln!("NOTE: bracket excludes observed at N = {n} \
-            — width below structural gap (~5×10⁻⁴).");
+    // Note rotation: differentiate "needs tail" vs "structural gap".
+    let no_tail = bracket_137036_at(n);
+    let with_tail = n >= 1 && bracket_137036_with_tail_at(n);
+    match (no_tail, with_tail) {
+        (true,  _)     => {} // baseline ok
+        (false, true)  => eprintln!(
+            "NOTE: at N={n}, observed needs Dyson tail α_GUT/(NS+1) \
+             to lie inside the bracket."),
+        (false, false) => eprintln!(
+            "NOTE: at N={n}, observed is OUTSIDE even the with-tail \
+             bracket — structural gap (~5.4×10⁻⁴) is visible \
+             (cf. AlphaEMStructuralGap Open Problem #1b)."),
     }
     println!("\n--- certificate.json ---");
     println!("{}", cert.to_json());

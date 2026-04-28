@@ -105,6 +105,22 @@ rust = "drlt_app::alpha_em::bracket_candidate_at"
 lean = "E213.Physics.AlphaEMGap.n50_bracket_contains_candidate"
 
 [[op]]
+rust = "drlt_app::alpha_em_with_tail::inv_lower_with_tail"
+lean = "E213.Physics.AlphaEMWithTail.inv_lower_with_tail"
+
+[[op]]
+rust = "drlt_app::alpha_em_with_tail::inv_upper_with_tail"
+lean = "E213.Physics.AlphaEMWithTail.inv_upper_with_tail"
+
+[[op]]
+rust = "drlt_app::alpha_em_with_tail::bracket_137036_with_tail_at"
+lean = "E213.Physics.AlphaEMWithTail.n50_with_tail_contains_observed"
+
+[[op]]
+rust = "drlt_app::alpha_em_with_tail::bracket_candidate_with_tail_at"
+lean = "E213.Physics.AlphaEMWithTail.n20_with_tail_contains_candidate"
+
+[[op]]
 rust = "drlt_app::bin::alpha_em_bracket"
 lean = "E213.Tools.CertChecker.cert_anchor_n20"
 

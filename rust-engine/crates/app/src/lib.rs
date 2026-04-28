@@ -6,6 +6,7 @@
 pub mod simplex;
 pub mod basel;
 pub mod alpha_em;
+pub mod alpha_em_with_tail;
 pub mod certificate;
 
 pub const LEAN_NAMESPACE: &str = "E213.App";
