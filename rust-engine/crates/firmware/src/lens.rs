@@ -33,10 +33,24 @@ impl<A: Clone> Lens<A> {
     /// Crate-internal constructor.  Public factories live in the
     /// `hypervisor` crate and pass through here.  Do NOT relax to
     /// `pub` — that breaks the citation guarantee.
+    ///
+    /// **Axiom check** (213 §3): asserts `combine(u,v) == combine(v,u)`
+    /// on every pair in `sym_samples`.  Empty samples are rejected —
+    /// each lens factory must supply representative pairs.  Asymmetric
+    /// `combine` is a silent leak (Lean: `Raw.fold_slash` precondition).
     #[doc(hidden)]
-    pub fn __new__<F>(lean_thm: &'static str, base_a: A, base_b: A, combine: F) -> Self
-    where F: Fn(&A, &A) -> A + Send + Sync + 'static,
+    pub fn __new__<F>(
+        lean_thm: &'static str, base_a: A, base_b: A, combine: F,
+        sym_samples: &[(A, A)],
+    ) -> Self
+    where A: PartialEq, F: Fn(&A, &A) -> A + Send + Sync + 'static,
     {
+        assert!(!sym_samples.is_empty(),
+            "Lens::__new__ '{lean_thm}': sym_samples must be non-empty");
+        for (u, v) in sym_samples {
+            assert!(combine(u, v) == combine(v, u),
+                "axiom violation: combine asymmetric in lens '{lean_thm}'");
+        }
         Lens {
             base_a, base_b, combine: Arc::new(combine), lean_thm,
             _seal: std::marker::PhantomData,
@@ -69,6 +83,7 @@ mod tests {
     #[test] fn leaves_a_is_one() {
         let lens: Lens<u64> = Lens::__new__(
             "E213.Hypervisor.Lens.leaves", 1u64, 1u64, |a, b| a + b,
+            &[(1u64, 2), (3, 5)],
         );
         assert_eq!(lens.view(&Raw::a()), 1);
         assert_eq!(lens.view(&Raw::b()), 1);

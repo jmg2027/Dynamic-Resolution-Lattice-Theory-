@@ -25,6 +25,8 @@ pub enum Term {
     Mul(Box<Term>, Box<Term>),
 }
 
+// Names `add`/`mul` mirror Lean inductive cases, not std::ops traits.
+#[allow(clippy::should_implement_trait)]
 impl Term {
     /// `eval : Term → ℕ`.  Lean: `E213.Kernel.Term.eval`.
     pub fn eval(&self) -> BigUint {
@@ -52,10 +54,9 @@ impl Term {
         t
     }
 
-    // Ergonomic constructors mirroring Lean call sites.
-    pub fn succ(t: Term)         -> Term { Term::Succ(Box::new(t)) }
     pub fn add(a: Term, b: Term) -> Term { Term::Add(Box::new(a), Box::new(b)) }
     pub fn mul(a: Term, b: Term) -> Term { Term::Mul(Box::new(a), Box::new(b)) }
+    pub fn succ(t: Term) -> Term { Term::Succ(Box::new(t)) }
 }
 
 // 213 standard constants (mirror Term.nS / nT / d / c).

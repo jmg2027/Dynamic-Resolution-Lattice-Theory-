@@ -70,3 +70,20 @@ lean = "E213.Hypervisor.Lens.leaves"
 [[op]]
 rust = "drlt_hypervisor::canonical::lens_depth"
 lean = "E213.Hypervisor.Lens.depth"
+
+# ── Phase 1: hypervisor (chiral K_{3,2}^{(2)}) ─────────────────────
+[[op]]
+rust = "drlt_hypervisor::chiral_k32::b1_bipartite"
+lean = "E213.Math.Cohomology.TopologyCompare.b1_bipartite"
+
+[[op]]
+rust = "drlt_hypervisor::chiral_k32::chiral_dim"
+lean = "E213.Math.Cohomology.Paper1Chiral.chiralDim"
+
+[[op]]
+rust = "drlt_hypervisor::chiral_k32::lens_st_count"
+lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"
+
+[[op]]
+rust = "drlt_hypervisor::chiral_k32::paper1_capstone_check"
+lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"

@@ -1,8 +1,7 @@
 //! Integration tests — `Lens` axioms + asymmetric-combine guard.
 //!
-//! Lean: `lean/E213/Hypervisor/Lens.lean`.  Lens with asymmetric
-//! `combine` is a *silent leak* per `Raw.fold_slash` (axiom §3).
-//! These tests fence that guarantee.
+//! Lean: `lean/E213/Hypervisor/Lens.lean`.  Phase 1 promotes the
+//! symmetry audit to `__new__` construction time.
 
 use drlt_firmware::{check_not_eq, Lens, Raw};
 
@@ -11,65 +10,60 @@ fn slash(x: Raw, y: Raw) -> Raw {
     Raw::slash(x, y, w)
 }
 
+fn add_lens() -> Lens<u64> {
+    Lens::__new__("test.leaves", 1u64, 1u64, |a, b| a + b,
+                  &[(1u64, 2), (3, 7)])
+}
+
 // ── Lens.equiv axioms ─────────────────────────────────────────────
 
 #[test] fn lens_equiv_reflexive() {
-    let l: Lens<u64> = Lens::__new__("test.leaves", 1u64, 1u64, |a, b| a + b);
     let r = slash(Raw::a(), Raw::b());
-    assert!(l.equiv(&r, &r));
+    assert!(add_lens().equiv(&r, &r));
 }
 
 #[test] fn lens_equiv_symmetric() {
-    let l: Lens<u64> = Lens::__new__("test.leaves", 1u64, 1u64, |a, b| a + b);
+    let l = add_lens();
     let x = slash(Raw::a(), Raw::b());
     let y = slash(Raw::b(), Raw::a());        // canonicalises to same
     assert!(l.equiv(&x, &y) && l.equiv(&y, &x));
 }
 
-#[test] fn lens_view_distinguishes_a_and_b_when_intended() {
-    // First-projection lens: base_a = 0, base_b = 1.
-    let l: Lens<u64> = Lens::__new__("test.first", 0u64, 1u64, |a, _| *a);
+#[test] fn lens_view_distinguishes_a_and_b() {
+    let l: Lens<u64> = Lens::__new__("test.max", 0u64, 1u64,
+        |a, b| std::cmp::max(*a, *b), &[(0u64, 1), (3, 7)]);
     assert_eq!(l.view(&Raw::a()), 0);
     assert_eq!(l.view(&Raw::b()), 1);
 }
 
-// ── Lean theorem citation present ─────────────────────────────────
-
 #[test] fn lens_carries_citation() {
-    let l: Lens<u64> = Lens::__new__(
-        "E213.Hypervisor.Lens.leaves", 1u64, 1u64, |a, b| a + b,
-    );
-    assert_eq!(l.lean_thm(), "E213.Hypervisor.Lens.leaves");
+    assert_eq!(add_lens().lean_thm(), "test.leaves");
 }
 
-// ── Axiom violation guard: asymmetric combine is detectable ───────
+// ── Construction-time symmetric audit (Phase 1 hardening) ─────────
 
-/// `combine` symmetry audit — to be promoted to a construction-time
-/// check in Phase 1.  213 axiom requires `combine u v = combine v u`.
-fn audit_symmetric<A: Clone + PartialEq>(
-    combine: impl Fn(&A, &A) -> A, samples: &[(A, A)],
-) -> bool {
-    samples.iter().all(|(u, v)| combine(u, v) == combine(v, u))
+#[test] #[should_panic(expected = "axiom violation")]
+fn ctor_panics_on_first_projection() {
+    let _: Lens<u64> = Lens::__new__("bad.first", 0u64, 1u64,
+        |a, _| *a, &[(1u64, 2), (3, 7)]);
 }
 
-#[test] fn audit_passes_for_addition() {
-    let combine = |a: &u64, b: &u64| a + b;
-    assert!(audit_symmetric(combine, &[(1u64, 2), (3, 7), (0, 5)]));
+#[test] #[should_panic(expected = "axiom violation")]
+fn ctor_panics_on_subtraction() {
+    let _: Lens<u64> = Lens::__new__("bad.sub", 0u64, 0u64,
+        |a, b| a.saturating_sub(*b), &[(7u64, 3), (2, 5)]);
 }
 
-#[test] fn audit_passes_for_one_plus_max() {
-    let combine = |a: &u64, b: &u64| 1 + std::cmp::max(*a, *b);
-    assert!(audit_symmetric(combine, &[(1u64, 2), (3, 7), (5, 5)]));
+#[test] #[should_panic(expected = "sym_samples must be non-empty")]
+fn ctor_panics_on_empty_samples() {
+    let _: Lens<u64> = Lens::__new__("bad.empty", 0u64, 0u64,
+        |a, b| a + b, &[]);
 }
 
-#[test] fn axiom_violation_first_projection_flagged() {
-    // Asymmetric: result depends on argument order → axiom §3 leak.
-    let combine = |a: &u64, _: &u64| *a;
-    assert!(!audit_symmetric(combine, &[(1u64, 2), (3, 7)]),
-        "asymmetric combine must be flagged");
-}
+#[test] fn ctor_accepts_addition() { let _ = add_lens(); }
 
-#[test] fn axiom_violation_subtraction_flagged() {
-    let combine = |a: &u64, b: &u64| a.saturating_sub(*b);
-    assert!(!audit_symmetric(combine, &[(7u64, 3), (2, 5)]));
+#[test] fn ctor_accepts_one_plus_max() {
+    let _: Lens<u64> = Lens::__new__("test.depth", 0u64, 0u64,
+        |a, b| 1 + std::cmp::max(*a, *b),
+        &[(0u64, 1), (3, 7), (5, 5)]);
 }
