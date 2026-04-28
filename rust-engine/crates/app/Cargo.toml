@@ -7,11 +7,16 @@ license.workspace = true
 repository.workspace = true
 description = "DRLT 213 App — Simplex, Basel, AlphaEM, magic numbers. Mirrors lean/E213/App/ + Physics/."
 
+[[bin]]
+name = "alpha-em-bracket"
+path = "src/bin/alpha_em_bracket.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
 drlt-hypervisor = { path = "../hypervisor" }
 drlt-os         = { path = "../os" }
+num-bigint      = { workspace = true }
 
 [lints.rust]
 unsafe_code = "forbid"

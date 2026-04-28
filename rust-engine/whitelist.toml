@@ -71,6 +71,35 @@ lean = "E213.Hypervisor.Lens.leaves"
 rust = "drlt_hypervisor::canonical::lens_depth"
 lean = "E213.Hypervisor.Lens.depth"
 
+# ── Phase 4: app layer (Simplex, Basel, AlphaEM) ───────────────────
+[[op]]
+rust = "drlt_app::simplex::classify"
+lean = "E213.App.Simplex.classify"
+
+[[op]]
+rust = "drlt_app::basel::s_partial"
+lean = "E213.Physics.Basel.S"
+
+[[op]]
+rust = "drlt_app::basel::upper"
+lean = "E213.Physics.Basel.upper"
+
+[[op]]
+rust = "drlt_app::alpha_em::inv_full_upper"
+lean = "E213.Physics.AlphaEM137.inv_full_upper"
+
+[[op]]
+rust = "drlt_app::alpha_em::inv_lower_tight"
+lean = "E213.Physics.AlphaEM137Tight.inv_lower_tight"
+
+[[op]]
+rust = "drlt_app::alpha_em::bracket_137_at"
+lean = "E213.Physics.AlphaEM137Tight.capstone_n20"
+
+[[op]]
+rust = "drlt_app::bin::alpha_em_bracket"
+lean = "E213.Tools.CertChecker.cert_anchor_n20"
+
 # ── Phase 3: OS layer (atomicity, arity, canonical_part) ───────────
 [[op]]
 rust = "drlt_os::atomicity::is_atomic"
