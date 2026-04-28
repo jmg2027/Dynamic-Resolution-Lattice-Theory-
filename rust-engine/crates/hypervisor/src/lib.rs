@@ -7,6 +7,7 @@
 pub mod canonical;
 pub mod chiral_k32;
 pub mod k32_graph;
+pub mod k32_cycles;
 
 pub use canonical::{lens_leaves, lens_depth};
 pub use chiral_k32::{b1_bipartite, binom, chiral_dim, lens_st_count,

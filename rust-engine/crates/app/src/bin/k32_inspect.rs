@@ -4,6 +4,7 @@
 //! levels (i, j) with i ∈ [0, 3], j ∈ [0, 2].
 
 use drlt_hypervisor::chiral_k32::chiral_dim;
+use drlt_hypervisor::k32_cycles::{cycle_basis, cycle_length_distribution};
 use drlt_hypervisor::k32_graph::{b1, chiral_cells, edges, is_s, vertices, Vertex};
 
 fn name(v: Vertex) -> String {
@@ -49,4 +50,19 @@ fn main() {
     }
     println!("\nTotal cells across all levels: {} = 2^d = {}",
         total, 1u64 << 5);
+
+    println!("\n=== Cycle basis (b_1 = {} fundamental cycles) ===", b1());
+    let elist = edges();
+    for (i, cy) in cycle_basis().iter().enumerate() {
+        print!("  cycle {} (len {}):", i + 1, cy.len());
+        for &e in cy {
+            let (s, t, k) = elist[e];
+            print!("  {}-{}[{}]", name(s), name(t), k);
+        }
+        println!();
+    }
+    println!("\nLength distribution: {:?}",
+        cycle_length_distribution());
+    let total_len: usize = cycle_basis().iter().map(|c| c.len()).sum();
+    println!("Sum of lengths: {} = 2·E - 2·tree = 2·8 + ... structural", total_len);
 }
