@@ -51,6 +51,11 @@ impl Term {
         }
         t
     }
+
+    // Ergonomic constructors mirroring Lean call sites.
+    pub fn succ(t: Term)         -> Term { Term::Succ(Box::new(t)) }
+    pub fn add(a: Term, b: Term) -> Term { Term::Add(Box::new(a), Box::new(b)) }
+    pub fn mul(a: Term, b: Term) -> Term { Term::Mul(Box::new(a), Box::new(b)) }
 }
 
 // 213 standard constants (mirror Term.nS / nT / d / c).
