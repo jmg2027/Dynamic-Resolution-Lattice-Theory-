@@ -71,6 +71,39 @@ lean = "E213.Hypervisor.Lens.leaves"
 rust = "drlt_hypervisor::canonical::lens_depth"
 lean = "E213.Hypervisor.Lens.depth"
 
+# ── Phase 3: OS layer (atomicity, arity, canonical_part) ───────────
+[[op]]
+rust = "drlt_os::atomicity::is_atomic"
+lean = "E213.OS.Atomicity.atomic_iff_five"
+
+[[op]]
+rust = "drlt_os::atomicity::canonical_partition_holds"
+lean = "E213.OS.Atomicity.canonical_partition"
+
+[[op]]
+rust = "drlt_os::atomicity::is_alive"
+lean = "E213.OS.Alive.alive_iff_odd_pair"
+
+[[op]]
+rust = "drlt_os::atomicity::is_non_decomposable"
+lean = "E213.OS.NonDecomposable.non_decomposable_iff"
+
+[[op]]
+rust = "drlt_os::atomicity::pair_size_nondecomposable"
+lean = "E213.OS.PrimitiveSizes.pairSize_nondecomposable"
+
+[[op]]
+rust = "drlt_os::arity::find_collision"
+lean = "E213.OS.Pigeonhole.no_inj_lt"
+
+[[op]]
+rust = "drlt_os::arity::reachable3"
+lean = "E213.OS.ArityForcing.reachable3_only_object"
+
+[[op]]
+rust = "drlt_os::canonical_part::canonical_split"
+lean = "E213.OS.PairForcing.atomic_23_iff_five"
+
 # ── Phase 2: kernel normal_form rules ──────────────────────────────
 [[op]]
 rust = "drlt_kernel::normal_form::rules::NsMulNtEqSix"
