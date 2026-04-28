@@ -1,9 +1,12 @@
 //! Integration tests — α_em bracket re-execution + certificate.
 //!
-//! Maps to `lean/E213/Physics/AlphaEM137{,Tight}.lean` and
-//! `lean/E213/Tools/CertChecker.lean`.
+//! Maps to `Physics/AlphaEM137{,Tight}.lean`, `AlphaEMGap.lean`, and
+//! `Tools/CertChecker.lean`.
 
-use drlt_app::alpha_em::{bracket_137_at, inv_full_upper, inv_lower_tight};
+use drlt_app::alpha_em::{
+    bracket_137_at, bracket_137036_at, bracket_candidate_at,
+    inv_full_upper, inv_lower_tight,
+};
 use drlt_app::certificate::{Cmp, Step};
 use num_bigint::BigUint;
 
@@ -32,15 +35,13 @@ fn nat(n: u64) -> BigUint { BigUint::from(n) }
 }
 
 #[test] fn bracket_narrows_with_n() {
-    let r10 = bracket_137_at(10);
-    let r30 = bracket_137_at(30);
-    assert!(r10.contains_137 && r30.contains_137);
+    assert!(bracket_137_at(10).contains_137);
+    assert!(bracket_137_at(30).contains_137);
 }
 
 #[test] fn excludes_136_at_20() {
     let r = bracket_137_at(20);
-    let lhs = nat(136) * &r.lo.1;
-    assert!(lhs < r.lo.0);
+    assert!(nat(136) * &r.lo.1 < r.lo.0);
 }
 
 #[test] fn certificate_emits_correct_step_count() {
@@ -57,6 +58,18 @@ fn nat(n: u64) -> BigUint { BigUint::from(n) }
 
 #[test] fn inv_upper_at_20_is_positive() {
     let u = inv_full_upper(20);
-    assert!(u.0 > BigUint::from(0u32));
-    assert!(u.1 > BigUint::from(0u32));
+    assert!(u.0 > BigUint::from(0u32) && u.1 > BigUint::from(0u32));
 }
+
+/// Lean: `AlphaEMGap.n50_bracket_contains_observed` — 137.036 ∈ bracket.
+#[test] fn bracket_contains_observed_at_50() { assert!(bracket_137036_at(50)); }
+
+/// Lean: `AlphaEMGap.n50_bracket_contains_candidate` — 137.0354 ∈ bracket.
+#[test] fn bracket_contains_candidate_at_50() { assert!(bracket_candidate_at(50)); }
+
+/// N=20 bracket also wide enough to contain observed.
+#[test] fn bracket_contains_observed_at_20() { assert!(bracket_137036_at(20)); }
+
+/// At N≥500 the bracket width narrows below the formula→observed
+/// gap (~5×10⁻⁴): observed exits the bracket — visible structural gap.
+#[test] fn bracket_excludes_observed_at_500() { assert!(!bracket_137036_at(500)); }

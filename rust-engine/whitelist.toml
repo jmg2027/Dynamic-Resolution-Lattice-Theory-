@@ -97,6 +97,14 @@ rust = "drlt_app::alpha_em::bracket_137_at"
 lean = "E213.Physics.AlphaEM137Tight.capstone_n20"
 
 [[op]]
+rust = "drlt_app::alpha_em::bracket_137036_at"
+lean = "E213.Physics.AlphaEMGap.n50_bracket_contains_observed"
+
+[[op]]
+rust = "drlt_app::alpha_em::bracket_candidate_at"
+lean = "E213.Physics.AlphaEMGap.n50_bracket_contains_candidate"
+
+[[op]]
 rust = "drlt_app::bin::alpha_em_bracket"
 lean = "E213.Tools.CertChecker.cert_anchor_n20"
 
