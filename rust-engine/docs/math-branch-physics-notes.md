@@ -1663,3 +1663,48 @@ binary that takes a prime p and outputs (Legendre class, Pisano
 period, atomic decomposition).  Trivially implementable from
 the math-branch theorem; immediately useful for any subsequent
 mod-p physics work.
+
+## 53-56. `Cohomology/DyadicLegendre213 + LegendrePisano + PellLens + PellLensCapstone`
+
+**What's there**: Four files completing the Legendre/Pell stack.
+
+- `Legendre213.lean`: 213-native Legendre symbol via Euler's
+  criterion (D^((p-1)/2) mod p) realized as ArithFSM₁(p).
+  Returns `Fin 3`: 0=ramified, 1=QR (split), 2=NQR (inert).
+  This is the *bottom* of the ArithFSM hierarchy.
+- `LegendrePisano.lean`: bridge theorem connecting the Legendre
+  classification to the Pisano period formulas (used by the
+  predictor in #49-52).
+- `PellLens.lean`: BitFSM.product composition of Pell mod-p
+  instances.  Gives `lens_composition_period` (period of pair
+  divides lcm of individual periods).
+- `PellLensCapstone.lean`: All FSM-level lens compositions for
+  Pell mod {3, 5, 7} bundled.  Three pairs + one triple = 4
+  conjuncts in a single 0-axiom theorem.
+
+**Physics intuition**: The four files together establish the
+**213-native CRT (Chinese Remainder Theorem)** at the FSM level.
+Practical consequence:
+
+  observable mod p × observable mod q
+  = composite observable mod pq with period | lcm(period(p), period(q))
+
+For DRLT: when a physics observable carries multiple prime-mod
+characters (e.g. fermion-counting mod 7 × baryon-number mod 3),
+the joint period is *automatically* atomic via the lcm rule —
+no need to derive it from physics axioms.
+
+The fact that Legendre = ArithFSM₁ (degree 1) and Pell = ArithFSM₂
+(degree 2) means **DRLT's atomic primes always live in a
+finite-state degree-≤2 ring**.  Beyond degree 3 (Tribonacci) the
+Tier-2 hardness conjecture kicks in and transcendentals appear.
+
+**Computation lever**: For any composite mod-p · mod-q identity,
+period = lcm.  This is the **discrete-lattice closure of the CRT**
+applied to physics — ready to use in any sweep involving primes.
+
+**Rust-engine application**: post-merge, a `crt-period-compose`
+binary that takes a list of primes and outputs the joint period
++ Legendre classification of each.  Immediate use case: any
+physics identity involving products of small atomic primes (e.g.
+the muon prefactor 192 = 8·24 lcm structure).
