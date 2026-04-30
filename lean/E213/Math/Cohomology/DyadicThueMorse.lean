@@ -68,4 +68,16 @@ theorem thueMorse_signature_aperiodic_small :
     ∧ signature thueMorse 5 ≠ signature thueMorse 2
     ∧ signature thueMorse 7 ≠ signature thueMorse 3 := by decide
 
+/-- Signature trajectory of Thue-Morse for first 8 indices:
+    0, 3, 1, 4, 1, 4, 1, 3.  Concrete characterisation. -/
+theorem thueMorse_signature_first8 :
+    signature thueMorse 0 = ⟨0, by decide⟩
+    ∧ signature thueMorse 1 = ⟨3, by decide⟩
+    ∧ signature thueMorse 2 = ⟨1, by decide⟩
+    ∧ signature thueMorse 3 = ⟨4, by decide⟩
+    ∧ signature thueMorse 4 = ⟨1, by decide⟩
+    ∧ signature thueMorse 5 = ⟨4, by decide⟩
+    ∧ signature thueMorse 6 = ⟨1, by decide⟩
+    ∧ signature thueMorse 7 = ⟨3, by decide⟩ := by decide
+
 end E213.Math.Cohomology.DyadicConjecture
