@@ -239,8 +239,12 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicArithFSMmod19.lean` — Pell mod 19 (QR/split, period 9 TIGHT;
     sig period 18 doubled by parity).
   - `DyadicLegendre13_19.lean` — 6-prime Legendre bridge.
-  - `DyadicPisanoPredictor6.lean` — ★★★★★★★ pisano_predict_realises_pell_6:
-    Predictor function exactly matches TIGHT periods for all 6 primes.
+  - `DyadicPisanoPredictor6.lean` — ★★★★★★★ pisano_predict_realises_pell_6.
+  - `DyadicArithFSMmod17.lean` — Pell mod 17 (NQR/inert, period 18 TIGHT).
+  - `DyadicPisanoPredictor7.lean` — ★★★★★★★ pisano_predict_realises_pell_7:
+    7 of 7 primes verified.  Inert × 4, split × 2, ramified × 1.
+  - `DyadicNumberTheory213v2.lean` — ★★★★★★★★★ number_theory_213_capstone_v2:
+    Master capstone with 7-prime predictor evidence base.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
