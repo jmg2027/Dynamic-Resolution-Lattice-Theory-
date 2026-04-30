@@ -1825,3 +1825,71 @@ binary that takes a candidate physics identity and verifies:
 (b) it doesn't trigger Tier-2 hardness (i.e. produces an
 eventually-periodic stream).  Both checks are runtime-decidable
 within reasonable bit-prefix lengths.
+
+## 65-68. `Cohomology/{NumberTheory213, NumberTheory213v2, TribCapstone, WalkUniversal}`
+
+**What's there**: The four top-level capstones for the Dyadic
+track.
+
+- `NumberTheory213.lean`: master capstone bundling Steps 1+2+3
+  (CRT lens composition, Legendre lens + 4-prime predictor,
+  algebraic degree tower).  Single 0-axiom theorem.
+- `NumberTheory213v2.lean`: strengthens v1 with **7-prime
+  predictor evidence** (inert × 4 at p ∈ {3,7,13,17}, split × 2
+  at p ∈ {11,19}, ramified × 1 at p=5) — covers all three Pell
+  branch types multiply.
+- `TribCapstone.lean`: cubic-class capstone parallel to Pell.
+  Tribonacci mod 2: bit period 4, signature period 4 with
+  pre-period 1.  ArithFSM₃(n) ⊂ BitFSM(n³).  Signature period
+  ≤ 5·n³ universal bound.  Tier-2 hardness extends.
+- `WalkUniversal.lean`: every Bool sequence is realisable as a
+  K_{3,2}^{(c=2)} bit-walk.  `chooseEdge : Fin 5 → Bool → Fin 12`
+  constructive selector — at each (vertex, bit) names a specific
+  edge.  Conjecture 2 holds **trivially in existence form**;
+  non-trivial content is canonicity.
+
+**Physics intuition** (★★ closing):
+
+These capstones together establish that **the entire 213-native
+number-theory edifice is closed** at three layers:
+
+1. **Quadratic (Pell)**: closed at 7-prime evidence, all three
+   branch types (inert, split, ramified) verified.
+2. **Cubic (Tribonacci)**: closed at the structural level — bit
+   + signature periods, FSM-to-BitFSM embedding, hardness.
+3. **Universal walk**: any bit stream realises as a K_{3,2}
+   walk via constructive `chooseEdge`.
+
+The implication for physics: **DRLT's number-theory layer is
+strong enough to host any rational/algebraic discrete dynamics
+SM observables can produce**.  Whatever a quantization-mod-prime
+calculation throws up, the framework already has machinery to
+classify it (Pisano predictor for periods, signature predictor
+for K_{3,2} parity coupling, algebraic-degree tower for
+complexity, Tier-2 hardness for transcendental-like escapees).
+
+Important: `WalkUniversal`'s "every Bool stream is realizable
+trivially" is itself a DRLT-style statement — it says
+**no a priori filter on what physics can be observed**.  The
+filter comes from *which streams are ArithFSM_d-generable*, not
+from "which streams are realizable as walks".  Realizability is
+universal; complexity is what's quantized.
+
+**Computation lever**: For any new physics observable proposal,
+ask which capstone covers it:
+- finite-state mod-p recurrence → NumberTheory213v2 (rationals,
+  Pell, 7+ primes)
+- cubic recurrence → TribCapstone
+- needs to be a graph walk → WalkUniversal (always available)
+- transcendental-like? → Tier-2 hardness barrier
+
+This is the **decision tree** at the top of the Dyadic track,
+mirroring the cohomology-classes A/B/C/D/E classification at
+the top of the physics observable side.
+
+**Rust-engine application**: post-merge, a single
+`dyadic-classifier` binary (analog to `scale-ladder-classify`)
+that takes a candidate sequence and routes it through the four
+capstones, outputting which class+period+degree applies.  This
+becomes **the one-stop diagnostic for any number-theoretic
+content in DRLT physics**.
