@@ -330,3 +330,15 @@ lean = "E213.Physics.HorizonInformation.delta4_bits"
 [[op]]
 rust = "drlt_app::bin::asymptotic_freedom"
 lean = "E213.Physics.AsymptoticFreedom.inv_alpha_3_increasing"
+
+[[op]]
+rust = "drlt_app::bin::deuteron_binding"
+lean = "E213.Physics.DeuteronBinding"
+
+[[op]]
+rust = "drlt_app::bin::bond_angles"
+lean = "E213.Physics.BondAngles"
+
+[[op]]
+rust = "drlt_app::bin::nuclear_binding"
+lean = "E213.Physics.NuclearBinding"

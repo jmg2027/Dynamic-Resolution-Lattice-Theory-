@@ -159,6 +159,18 @@ path = "src/bin/horizon_info.rs"
 name = "asymptotic-freedom"
 path = "src/bin/asymptotic_freedom.rs"
 
+[[bin]]
+name = "deuteron-binding"
+path = "src/bin/deuteron_binding.rs"
+
+[[bin]]
+name = "bond-angles"
+path = "src/bin/bond_angles.rs"
+
+[[bin]]
+name = "nuclear-binding"
+path = "src/bin/nuclear_binding.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
