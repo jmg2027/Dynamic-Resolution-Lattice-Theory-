@@ -2,17 +2,20 @@ import E213.Math.Cohomology.DyadicArithFSMtoBitFSM
 import E213.Math.Cohomology.DyadicConcretePellSig
 
 /-!
-# Pell ArithFSM mod 13 — period 28 (INERT case, second instance)
+# Pell ArithFSM mod 13 — period 14 (INERT case, second instance)
 
 Pell discriminant Δ = 5.  Legendre (5/13) = (13/5) = (3/5).
 3^((5-1)/2) = 3² = 9 ≡ -1 mod 5.  So (5/13) = -1, INERT.
 
-Pisano formula: π(13) | 2(13+1) = 28.  Computational check shows
-the Pell trajectory mod 13 in (Fin 13)² returns to (1,1) at step 28.
+Pisano formula (inert): period | p + 1 = 14.
 
-This is the second INERT instance (after p=3, p=7), confirming the
-inert formula at a larger size.  Bit period 28; signature period
-also 28 (even, no parity doubling).
+Trajectory:
+  (1,1) → (3,2) → (8,5) → (8,0) → (3,8) → (1,11)
+        → (0,12) → (12,12) → (10,11) → (5,8) → (5,0)
+        → (10,5) → (12,2) → (0,1) → (1,1).
+
+Period 14, exactly p+1.  Bit period 14 (even); signature period
+also 14 (no parity doubling needed).
 -/
 
 namespace E213.Math.Cohomology.DyadicConjecture
@@ -31,30 +34,30 @@ theorem pellFSMmod13_first5 :
     ∧ pellFSMmod13.bits 2 = false ∧ pellFSMmod13.bits 3 = false
     ∧ pellFSMmod13.bits 4 = false := by decide
 
-/-- ★★★ Pell mod-13 run cycles with period 28. -/
-theorem pellFSMmod13_run_period_28 :
-    ∀ k, pellFSMmod13.run (k + 28) = pellFSMmod13.run k := by
+/-- ★★★ Pell mod-13 run cycles with period 14 (TIGHT). -/
+theorem pellFSMmod13_run_period_14 :
+    ∀ k, pellFSMmod13.run (k + 14) = pellFSMmod13.run k := by
   intro k
   induction k with
   | zero => decide
   | succ k' ih =>
-    show pellFSMmod13.step (pellFSMmod13.run (k' + 28))
+    show pellFSMmod13.step (pellFSMmod13.run (k' + 14))
         = pellFSMmod13.step (pellFSMmod13.run k')
     rw [ih]
 
-/-- ★★★★ Pell mod-13 bits cycle with period 28. -/
-theorem pellFSMmod13_bits_period_28 :
-    ∀ k, pellFSMmod13.bits (k + 28) = pellFSMmod13.bits k := by
+/-- ★★★★ Pell mod-13 bits cycle with period 14. -/
+theorem pellFSMmod13_bits_period_14 :
+    ∀ k, pellFSMmod13.bits (k + 14) = pellFSMmod13.bits k := by
   intro k
-  show pellFSMmod13.out (pellFSMmod13.run (k + 28))
+  show pellFSMmod13.out (pellFSMmod13.run (k + 14))
       = pellFSMmod13.out (pellFSMmod13.run k)
-  rw [pellFSMmod13_run_period_28]
+  rw [pellFSMmod13_run_period_14]
 
-/-- ★★★★★ Pell mod-13 signature has period 28 (TIGHT, even). -/
-theorem pellFSMmod13_signature_period_28 :
-    ∀ k, signature pellFSMmod13.bits (k + 28)
+/-- ★★★★★ Pell mod-13 signature has period 14 (TIGHT). -/
+theorem pellFSMmod13_signature_period_14 :
+    ∀ k, signature pellFSMmod13.bits (k + 14)
         = signature pellFSMmod13.bits k :=
-  signature_period_of_bits_period_and_anchor pellFSMmod13.bits 28
-    pellFSMmod13_bits_period_28 (by decide)
+  signature_period_of_bits_period_and_anchor pellFSMmod13.bits 14
+    pellFSMmod13_bits_period_14 (by decide)
 
 end E213.Math.Cohomology.DyadicConjecture

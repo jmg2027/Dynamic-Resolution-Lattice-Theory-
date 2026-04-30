@@ -8,7 +8,7 @@ import E213.Math.Cohomology.DyadicPisanoPredictor
 # Legendre lens at p ∈ {13, 19} + extended Pisano bridge (6 primes)
 
 Adds two more verified primes to the bridge:
-  - p = 13: NQR (inert), bit period 28 = 2(p+1)/gcd
+  - p = 13: NQR (inert), bit period 14 = p+1 (TIGHT)
   - p = 19: QR (split), bit period 9 = (p-1)/2
 
 This brings the total verified count to 6 primes covering all
@@ -40,9 +40,9 @@ theorem legendre_pisano_6prime_bridge :
     -- p = 11: QR/split, period (p-1)/2 = 5
     ∧ (legendre213 5 11 (by omega) = ⟨1, by decide⟩
         ∧ ∀ k, pellFSMmod11.bits (k + 5) = pellFSMmod11.bits k)
-    -- p = 13: NQR/inert, period 2(p+1) = 28  (NEW)
+    -- p = 13: NQR/inert, period p+1 = 14  (NEW)
     ∧ (legendre213 5 13 (by omega) = ⟨2, by decide⟩
-        ∧ ∀ k, pellFSMmod13.bits (k + 28) = pellFSMmod13.bits k)
+        ∧ ∀ k, pellFSMmod13.bits (k + 14) = pellFSMmod13.bits k)
     -- p = 19: QR/split, period (p-1)/2 = 9  (NEW)
     ∧ (legendre213 5 19 (by omega) = ⟨1, by decide⟩
         ∧ ∀ k, pellFSMmod19.bits (k + 9) = pellFSMmod19.bits k) :=
@@ -50,7 +50,7 @@ theorem legendre_pisano_6prime_bridge :
    ⟨legendre_5_mod_5, pellFSMmod5_bits_period_10⟩,
    ⟨legendre_5_mod_7, pellFSMmod7_bits_period_8⟩,
    ⟨legendre_5_mod_11, pellFSMmod11_bits_period_5⟩,
-   ⟨legendre_5_mod_13, pellFSMmod13_bits_period_28⟩,
+   ⟨legendre_5_mod_13, pellFSMmod13_bits_period_14⟩,
    ⟨legendre_5_mod_19, pellFSMmod19_bits_period_9⟩⟩
 
 end E213.Math.Cohomology.DyadicConjecture
