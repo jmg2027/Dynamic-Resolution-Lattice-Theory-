@@ -301,7 +301,26 @@ Reference: `research-notes/D2_complexity_class_hierarchy.md` —
 **Open**: prove specific transcendentals' bit stream aperiodicity
 constructively (classical irrationality ⇒ aperiodic for binary
 expansion is straightforward; constructive version harder).
-Plus: Tier 1 (algebraic) BitFSM construction for √2 via Pell.
+
+**Important realisation (2026-04-30, late session)**:
+BitFSM at the BIT STREAM level captures *exactly* Tier 0
+(rationals).  Both Tier 1 (algebraic √2) and Tier 2
+(transcendental e, π) have aperiodic bit streams, hence are
+NOT BitFSM-generable at the bit level.
+
+D2's Tier 1 vs Tier 2 distinction is at the RAW SEQUENCE level
+(Pell-state FSM produces the Cauchy modulus), not the bit
+expansion.  To distinguish Tier 1 from Tier 2 at the bit/signature
+level, one needs:
+
+  - Multi-state arithmetic abstractions (Pell-like recurrence)
+  - Or: complexity hierarchies on bit streams (Kolmogorov,
+    automatic sequences, etc.)
+
+The K_{3,2}^{(2)} signature lens accurately captures the
+Tier 0 / non-Tier 0 boundary; finer distinctions remain open
+and likely require classical analysis tools beyond the
+constructive 213-internal framework.
 
 **Tier ⊂ BitFSM hierarchy** (formal):
   - Tier 0 (rationals): explicit BitFSM with state count = period
