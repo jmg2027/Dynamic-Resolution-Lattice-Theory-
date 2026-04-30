@@ -2740,3 +2740,70 @@ binaries should mirror this *cite-the-capstone* discipline.
 For instance, `m_proton.rs` invoking "the propagator P" should
 cite the relevant flux/derivative capstone, not individual
 sub-results.  Cleaner audit trail.
+
+## 239-249. Misc bridges + final (~11 files)
+
+**What's there** (compact note):
+
+Cross-track bridges (3 files):
+- `PhysicsBridgeNT2` ★: cross-track bridge to physics Phase 2
+  (atomic NT-sector = 2).  Connects Real213 sign machinery to
+  the physics atomicity proof.  This IS the formal connection
+  point between math track and physics track.
+- `ConsistentOracle` (Phase J Sec 1) ★: oracle consistency as
+  TYPED PROTOCOL — 213-native solution to Cauchy Case C (the
+  awkward case in classical Bishop where you need a "consistent
+  oracle" to extract a real from approximations).  In 213, this
+  becomes a typeclass.
+- `ResolutionDepth`: linearityModulus = resolution depth.
+  Cross-track parallel to `Physics/ResolutionDepth.lean`.
+
+Foundation extensions (3 files):
+- `Sign` (Phase A5): zero + constructive positivity for Real213.
+- `Signed`: native signed Real213 + negation.
+- `StrictPos`: addition-friendly subtype (resolves Phase B
+  obstruction).
+
+Modulus + Passthrough (3 files):
+- `ModulusCombiner` (★ user-suggested 2026-04-26): generic
+  kernel for combining HasModulus instances.  Meta-algorithm
+  pattern (like EulerGenericPure on math side).
+- `ModulusCombinerInstances`: π1/π2 (project first/second)
+  trivial instances validating the kernel.
+- `FluxPassthroughClass` (Phase BJ): passthrough class bundling
+  function with endpoint witnesses making MVT/FTC instant.
+
+Diff coverage (2 files):
+- `DifferentiableMid` (Phase AL): mid(f, g) = (f+g)/2 IsDiff
+  combinator.
+- `DifferentiableMegaCoverage` (Phase AM): polynomial diff
+  degrees 0-16 in single 12-fact theorem.
+
+**Physics intuition** (★ closing): The most physics-actionable
+single insight of this batch is **`PhysicsBridgeNT2`**.  This is
+the FORMAL bridge between Real213 sign machinery and physics
+atomicity.  Specifically, it connects:
+- Real213's NT (here = sign-related "negative" structure)
+- Physics's NT = 2 atomic temporal cardinality
+
+The bridge formalizes that **the same NT=2 appears as both**:
+(a) a pure-math negation/sign primitive in Real213
+(b) a physics atomic count (temporal vertices)
+This is exactly the "math = physics" unification CLAUDE.md
+points to — 213 reuses the SAME Nat structures across both
+tracks, no separate axioms.
+
+`ConsistentOracle` is the second key insight: classical Bishop
+analysis has Case C ("you need a consistent oracle"), often
+glossed over.  In 213 this becomes a *typed protocol*, no oracle
+"glossing".  Closes a long-standing constructive-analysis gap.
+
+**Computation lever**: When proposing a physics-math bridge
+(any place that math and physics use the same primitive), check
+whether there's a `BridgeNT2`-style cross-track theorem.  If
+yes, cite it; if no, write one — that's how the unification
+gets formalized.
+
+**Rust-engine application**: post-merge, this is mostly Lean-
+side bridge work.  The rust-engine inherits the unification
+implicitly through whitelist citations spanning both tracks.
