@@ -38,6 +38,17 @@ theorem thueMorse_not_period_3_5_6 :
     ∧ thueMorse (1 + 5) ≠ thueMorse 1
     ∧ thueMorse (4 + 6) ≠ thueMorse 4 := by decide
 
+/-- Periods 9..16 each fail with small witnesses (computed). -/
+theorem thueMorse_not_period_9_to_16 :
+    thueMorse (1 + 9) ≠ thueMorse 1
+    ∧ thueMorse (2 + 10) ≠ thueMorse 2
+    ∧ thueMorse (0 + 11) ≠ thueMorse 0
+    ∧ thueMorse (8 + 12) ≠ thueMorse 8
+    ∧ thueMorse (0 + 13) ≠ thueMorse 0
+    ∧ thueMorse (0 + 14) ≠ thueMorse 0
+    ∧ thueMorse (2 + 15) ≠ thueMorse 2
+    ∧ thueMorse (0 + 16) ≠ thueMorse 0 := by decide
+
 /-- ★★★ Aperiodic for periods 1..8: explicit witness for each. -/
 theorem thueMorse_aperiodic_short :
     (∃ k, thueMorse (k + 1) ≠ thueMorse k)
