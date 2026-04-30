@@ -147,6 +147,9 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicAlgebraicCapstone.lean` — ★★★★★★★★ algebraic_tier1_capstone:
     unified mega-bundle of pell + tribonacci (quadratic AND cubic).
     Formal expression of Tier 1 ⊊ Tier 2 separation via K_{3,2}^{(2)}.
+  - `DyadicArithFSM2to3.lean` — ArithFSM2 ⊂ ArithFSM3:
+    - padTo3 inclusion (pad with inert 3rd component).
+    - padTo3_run_components, padTo3_bits_eq (STRICT 0-AXIOM).
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
