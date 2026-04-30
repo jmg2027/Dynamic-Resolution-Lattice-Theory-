@@ -47,6 +47,25 @@ theorem pellFSMmod2_first8 :
     ∧ pellFSMmod2.bits 2 = false ∧ pellFSMmod2.bits 3 = true
     ∧ pellFSMmod2.bits 4 = true ∧ pellFSMmod2.bits 5 = false := by decide
 
+/-- ★★★ Pell mod-2 run cycles with period 3 (universally). -/
+theorem pellFSMmod2_run_period_3 :
+    ∀ k, pellFSMmod2.run (k + 3) = pellFSMmod2.run k := by
+  intro k
+  induction k with
+  | zero => decide
+  | succ k' ih =>
+    show pellFSMmod2.step (pellFSMmod2.run (k' + 3))
+        = pellFSMmod2.step (pellFSMmod2.run k')
+    rw [ih]
+
+/-- ★★★★ Pell mod-2 bits cycle with period 3 (universally). -/
+theorem pellFSMmod2_bits_period_3 :
+    ∀ k, pellFSMmod2.bits (k + 3) = pellFSMmod2.bits k := by
+  intro k
+  show pellFSMmod2.out (pellFSMmod2.run (k + 3))
+      = pellFSMmod2.out (pellFSMmod2.run k)
+  rw [pellFSMmod2_run_period_3]
+
 /-- ★★ ArithFSM2 reduces to BitFSM(n²) via pair-encoding —
     same pigeonhole argument applies. -/
 def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
