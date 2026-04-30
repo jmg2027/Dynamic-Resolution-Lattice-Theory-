@@ -236,11 +236,12 @@ Reference: `research-notes/D2_complexity_class_hierarchy.md` —
   - `one_third_signature_periodic` (concrete forward at 1/3,
     ≤ {propext, Quot.sound})
   - `joint_state_collision` (general forward seed via pigeonhole,
-    `DyadicForwardPeriodicity.lean`; uses Classical.choice for
-    existential extraction)
+    `DyadicForwardPeriodicity.lean`; **Classical.choice REMOVED**
+    via `Decidable.byContradiction` on Bool-valued collisionTest,
+    ≤ {propext, Quot.sound})
   - Inductive completion of the general forward direction is
     straightforward from `joint_state_collision` + `bs_periodic_multiple`
-    (deferred — modulo the Classical.choice cost).
+    (deferred — but axiom-clean).
 
 **Tier 0 vs Tier 1+2 closure**: aperiodic bits ⇒ aperiodic
 signature (`aperiodic_bits_imp_aperiodic_sig`).
