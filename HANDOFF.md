@@ -123,6 +123,9 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - ★★★★★ pellFSMmod5 signature period 10 (pure).
     - ★★★★ pellFSMmod2 signature period 6 from step 1 (pre-period 1,
       "doubled" by bipartite alternation).
+  - `DyadicPellCapstone.lean` — ★★★★★★★ pell_capstone:
+    9-conjunct Tier 1 bundle (mod 2/3/5 bit + signature periods,
+    ArithFSM ⊂ BitFSM equivalence, 5n² bound, aperiodic hardness).
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
