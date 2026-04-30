@@ -208,5 +208,9 @@ rust = "drlt_hypervisor::k32_cycles::cycle_basis"
 lean = "E213.Math.Cohomology.TopologyCompare.K32_c2_b1"
 
 [[op]]
+rust = "drlt_app::bin::simplex_inventory"
+lean = "E213.Physics.SubSimplexInventory.total_non_empty"
+
+[[op]]
 rust = "drlt_hypervisor::chiral_k32::paper1_capstone_check"
 lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"

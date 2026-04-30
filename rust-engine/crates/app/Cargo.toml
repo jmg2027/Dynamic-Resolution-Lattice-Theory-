@@ -23,6 +23,10 @@ path = "src/bin/k32_inspect.rs"
 name = "alpha-em-decompose"
 path = "src/bin/alpha_em_decompose.rs"
 
+[[bin]]
+name = "simplex-inventory"
+path = "src/bin/simplex_inventory.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }

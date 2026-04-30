@@ -11,15 +11,15 @@ use drlt_app::gap_explorer::{abs_diff, candidates, decimal, lt_q, nat};
 use std::cmp::Ordering;
 
 fn main() {
-    let n: u64 = std::env::args().nth(1)
-        .and_then(|s| s.parse().ok()).unwrap_or(200);
-    let top: usize = std::env::args().nth(2)
-        .and_then(|s| s.parse().ok()).unwrap_or(20);
+    let mut a = std::env::args().skip(1);
+    let n: u64 = a.next().and_then(|s| s.parse().ok()).unwrap_or(200);
+    let top: usize = a.next().and_then(|s| s.parse().ok()).unwrap_or(20);
+    let t_num: u64 = a.next().and_then(|s| s.parse().ok()).unwrap_or(5443);
+    let t_den: u64 = a.next().and_then(|s| s.parse().ok()).unwrap_or(10_000_000);
 
-    let gap: Q = (nat(5443), nat(10_000_000));
+    let gap: Q = (nat(t_num), nat(t_den));
     println!("=== Gap Explorer (213 pure-ℚ inventory) ===");
-    println!("Target gap = 137.0359991 − 137.0354548");
-    println!("           = {} = {}/{}", decimal(&gap, 9), gap.0, gap.1);
+    println!("Target gap = {}/{} ≈ {}", t_num, t_den, decimal(&gap, 11));
     println!("α_GUT bracket evaluated at N = {n}");
     println!();
 
