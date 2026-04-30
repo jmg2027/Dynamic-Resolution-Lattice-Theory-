@@ -1,9 +1,30 @@
-# Session Handoff — 2026-04-30 (Δ⁴ Leibniz CLOSED + lessons)
+# Session Handoff — 2026-04-30 (Δ⁴ Leibniz + Universal Lens metatheory)
 
 ## Branch
 `claude/review-paper-directory-nDw9L` (committed + pushed).
 
 ## State
+
+### Universal Lens metatheory — NEW (G1)
+
+User-articulated thesis (research-notes/G1_universal_lens.md):
+"213 is not described from outside; it is the precondition for
+any describing".
+
+Formalised in `lean/E213/Meta/UniversalLens.lean`:
+  - `IsUniversal L := Function.Injective L.view`
+  - `idLens_is_universal` — existence witness
+  - `refines_all` — universal ⇒ refines every other lens (0-axiom)
+  - ★★★★★ `universal_lens_capstone` (≤ {propext})
+
+Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
+  - `DyadicConjecture.lean` — bit-walk language, 1/3, 1/5, 1/7
+    walk realisability (all STRICT 0-axiom)
+  - `DyadicWalkUniversal.lean` — `chooseEdge` constructive
+    selector (STRICT 0-axiom)
+  - **Finding**: existence form trivial (every vertex has both
+    bits in incident edges).  Non-trivial content must be
+    canonicity/signature.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 
@@ -52,19 +73,34 @@ Top-3 from this session (full list in LESSONS_KERNEL_DECIDE.md):
 
 ## Open Problems (priority)
 
-### 1. Real213 Phase B–H — cohomological calculus extension
-General `cutMul` propEq remains the wall.
+### 1. Conjecture 2 — sharpened canonicity (NEW)
+Dyadic ↔ K_{3,2}^{(2)} existence form is trivial.  Sharpen
+to one of (canonical walk / period-graph isomorphism / hinge
+labelling determinism) per G1 §5.  Falsifier-style.
 
-### 2. (n, a, b) generalisation of bilinearity lens
-Currently lens is hand-specialised at (5, 1, 2), (5, 2, 1), etc.
-Could lift to ∀ n via parametric foldr-XOR + general decomposition.
+### 2. Conjecture 1 — universal expressibility (NEW)
+Curry–Howard + Raw encoding of arbitrary constructive proofs.
+Bishop-style scope.
 
-### 3. Hodge ⋆⋆ = id at remaining strata
+### 3. Real213 Phase B–H — cohomological calculus extension
+General `cutMul` propEq remains the wall.  Possible new attack
+through K_{3,2}^{(2)} dyadic lens (G1 §5 Conjecture 2).
+
+### 4. (n, a, b) generalisation of bilinearity lens
+Currently hand-specialised at (5,1,2), (5,2,1), (5,2,2).
+Could lift to ∀ n via parametric foldr-XOR + general decomp.
+
+### 5. Hodge ⋆⋆ = id at remaining strata
 (5, 0) and (5, 3), (5, 4) trivial-ish; bundling capstone needed.
 
-### 4. Rust 213 computation tool (user-led design)
+### 6. ℚ²-discrete refinement of `idLens : Lens Raw`
+Per G1 derivation, ℚ²-discrete is the structural minimum target.
+Currently witness is `Lens Raw` (trivial). Upgrade to `Lens (ℚ × ℚ)`
+constructively.
 
-### 5. Next math marathon
+### 7. Rust 213 computation tool (user-led design)
+
+### 8. Next math marathon
 Probability 213, Topology 213, Multivariable 213 per
 blueprints/math/INDEX.md.
 
