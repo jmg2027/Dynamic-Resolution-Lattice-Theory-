@@ -204,3 +204,37 @@ reusable for (5,2,1), (5,2,2), and beyond.
 | ~100k+ cases | Algebraic lift: bilinearity + linearity + basis + structural rearrangement |
 | Universal over `n, k` | Structural proof: funext + cases + induction |
 | `List.foldl`/`foldr` over Bool | Generic foldr lemma + induction (0-axiom) |
+
+---
+
+## Lessons added 2026-04-30 (Universal Lens / BitFSM session)
+
+13. **`Classical.byContradiction` adds `Classical.choice`.**
+    Use `Decidable.byContradiction` instead.  Only requires the
+    proposition to be `Decidable` (often auto-inferred for nested
+    Nat-bounded ∃ + Bool predicates).
+
+14. **Bool-valued predicates beat Prop-valued for decidability.**
+    `(g i).val == (g j).val : Bool` is decidable; `g i = g j : Prop`
+    needs the Decidable instance.  Lean 4 core auto-synthesises
+    Decidable for `∃ i, i < k ∧ ∃ j, j < k ∧ ... ∧ Bool = true`.
+
+15. **`by_contra` may be unknown.**  Use `Decidable.byContradiction`
+    or `Classical.byContradiction` (latter adds `Classical.choice`).
+
+16. **Joint state pigeonhole** is the standard technique for
+    proving "FSM input ⇒ eventually periodic output": encode
+    (sig, position) into Fin (S × P), apply `no_inj_lt`.
+
+17. **`conv_lhs` / `conv_rhs` may not be available**.  Use
+    `rw [show LHS = RHS from ...]` or `have : ... := by ...; rw [this]`.
+
+18. **BitFSM-class characterises Tier 0 EXACTLY** (rationals).
+    Both Tier 1 (algebraic) and Tier 2 (transcendental) are
+    aperiodic at the bit level → outside BitFSM.  Distinguishing
+    Tier 1/2 needs richer abstractions (BitAuto2 = 2-automatic,
+    or arithmetic/Pell-style multi-state).
+
+19. **BitAuto2 (2-automatic)** is strictly richer than BitFSM:
+    Thue-Morse witness is in BitAuto2 but not BitFSM.  Reads
+    binary digits of the INDEX through a finite DFA.
