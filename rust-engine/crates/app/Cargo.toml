@@ -39,6 +39,10 @@ path = "src/bin/triple_coupling.rs"
 name = "overlap-series"
 path = "src/bin/overlap_series.rs"
 
+[[bin]]
+name = "series-truncation"
+path = "src/bin/series_truncation.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
