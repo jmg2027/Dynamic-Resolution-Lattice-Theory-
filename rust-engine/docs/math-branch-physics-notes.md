@@ -2688,3 +2688,55 @@ flux level.  Use cases: any binary computing classical-mechanical
 trajectories (e.g. inertial frames, kinematic relations).
 Connects to physics-side `MasslessParticles.lean` and Phase 3
 GravityNotInteraction.lean.
+
+## 223-238. Phase capstones — 16 layered bundles (compact note)
+
+**What's there**: A hierarchy of capstones each bundling
+representative results from a phase arc.  Each is a single
+0-axiom conjunctive theorem.
+
+| Phase    | Scope                                              |
+|----------|----------------------------------------------------|
+| AC       | Minimum proposition (cosmos dim atomicity mirror)  |
+| AD       | Differentiation framework (AD-1/2/3 unified)       |
+| AE       | Super: AC + AD + concrete instances                |
+| AH       | Grand: 17-phase representative bundle (J-AG)       |
+| AN       | Omega: + mega coverage + compose + affine          |
+| BA       | cohomEquiv bridge (AY-AZ)                          |
+| BH       | AY-BG: cohomEquiv + MVT/FTC unit-bracket           |
+| BQ       | ★★ Omega cohomological calculus (AY-BP)            |
+| BX       | Constructive MVT witness arc (BT-BW)               |
+| BZ       | ★★ AY-BY mega-omega                                |
+| CM       | ★★★ BB-CL final mega-mega                          |
+| CS       | ★★ Antiderivative arc (CN-CR)                      |
+| DA       | ★★★ Omega-omega: 100% calculus coverage            |
+| DK       | ★★★★ ULTIMATE: diff + MVT + FTC + …                |
+| J        | Phase J single-theorem capstone (smoothness depth) |
+| L        | Phase L unified capstone (resolution + trajectory) |
+
+**Physics intuition**: This pyramid of capstones is **the
+modular interface for the entire Real213 calculus framework**.
+Each capstone is a "promise level": cite at the level you need.
+- For a basic propEq derivative, cite AD or AE.
+- For a generic FTC over polynomials, cite BZ.
+- For "everything calculus does at unit bracket", cite DK.
+
+This is the *Lean engineering pattern* that makes the framework
+reusable: the user (whether a physics theorem or a future paper)
+imports the capstone at the granularity they need, never the
+inner arc directly.
+
+For physics: when a physics paper claim invokes "by basic calculus"
+or "by Newton-Leibniz", **citing one of these capstones** gives
+the reader precise scope — what's actually being used.
+
+**Computation lever**: When a derivation at a high level needs
+to invoke "all of calculus" as a lemma, cite DK (Ultimate).  When
+it needs only diff, cite AD.  Cite at the *minimum* level
+sufficient — preserves modularity, makes proofs auditable.
+
+**Rust-engine application**: post-merge, the rust-engine
+binaries should mirror this *cite-the-capstone* discipline.
+For instance, `m_proton.rs` invoking "the propagator P" should
+cite the relevant flux/derivative capstone, not individual
+sub-results.  Cleaner audit trail.
