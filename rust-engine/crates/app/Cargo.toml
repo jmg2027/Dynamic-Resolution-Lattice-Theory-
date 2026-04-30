@@ -103,6 +103,22 @@ path = "src/bin/neutron_proton.rs"
 name = "neutrino-mixing"
 path = "src/bin/neutrino_mixing.rs"
 
+[[bin]]
+name = "dark-energy"
+path = "src/bin/dark_energy.rs"
+
+[[bin]]
+name = "wz-bosons"
+path = "src/bin/wz_bosons.rs"
+
+[[bin]]
+name = "cabibbo-angle"
+path = "src/bin/cabibbo_angle.rs"
+
+[[bin]]
+name = "generations"
+path = "src/bin/generations.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }

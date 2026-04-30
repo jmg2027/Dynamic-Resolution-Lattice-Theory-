@@ -274,3 +274,19 @@ lean = "E213.Physics.NeutronProton.np_simplicial"
 [[op]]
 rust = "drlt_app::bin::neutrino_mixing"
 lean = "E213.Physics.NeutrinoMixing"
+
+[[op]]
+rust = "drlt_app::bin::dark_energy"
+lean = "E213.Physics.DarkEnergy"
+
+[[op]]
+rust = "drlt_app::bin::wz_bosons"
+lean = "E213.Physics.WZBosons"
+
+[[op]]
+rust = "drlt_app::bin::cabibbo_angle"
+lean = "E213.Physics.CabibboAngle"
+
+[[op]]
+rust = "drlt_app::bin::generations"
+lean = "E213.Physics.Generations.n_gen_eq_three"
