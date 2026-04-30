@@ -192,6 +192,19 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     crossLens_pell5_trib2_period_20 (BitFSM(200)).
     Demonstrates algebraic-dimension universality of
     lens_composition_period.
+
+### Step 2 — Legendre as ArithFSM₁ (213-native number theory) NEW
+
+  - `DyadicArithFSM1.lean` — base ArithFSM₁(n) structure
+    (state Fin n, single-component). Bottom of ArithFSM hierarchy.
+  - `DyadicLegendre213.lean` — Legendre symbol via Euler's criterion:
+    legendreFSM D p, legendre213 D p (Fin 3 encoding {0, 1, 2}).
+    Trajectory-walking; no external number theory.
+  - `DyadicLegendreSmall.lean` — concrete computations:
+    legendre_5_mod_{3,5,7,11} = (NQR, ramified, NQR, QR).
+  - `DyadicLegendrePisano.lean` — ★★★★★★ legendre_pisano_bridge_table:
+    Legendre value PREDICTS Pell period type
+    (p=3 NQR ⇒ 4, p=5 ramified ⇒ 10, p=7 NQR ⇒ 8).
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
