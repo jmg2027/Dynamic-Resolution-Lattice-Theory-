@@ -131,6 +131,14 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - tribFSMmod2: Tribonacci mod 2 (a,b,c) → (b,c,a+b+c).
     - ★★★ tribFSMmod2_run_period_4 (STRICT 0-AXIOM).
     - ★★★★★ tribFSMmod2_signature_period_4_from_1 (pre-period 1).
+  - `DyadicArithFSM3toBitFSM.lean` — encoding (a,b,c) ↦ a*n²+b*n+c
+    into BitFSM(n³).  Helpers + ArithFSM3.toBitFSM definition.
+  - `DyadicArithFSM3Equiv.lean` — run-encoding theorem:
+    - ★★★ toBitFSM3_run_encode (≤ {propext, Quot.sound}).
+  - `DyadicArithFSM3Bound.lean` — cubic-class bound:
+    - ★★★★ toBitFSM3_bits_eq.
+    - ★★★★★ arithFSM3_signature_period_bound: 5n³ explicit.
+    - ★★★★★★ tribFSMmod2_signature_period_bound: 40 = 5·8.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
