@@ -1,77 +1,62 @@
-# Session Handoff — 2026-04-27 (Linalg213 closed + Paper bundles)
+# Session Handoff — 2026-04-30 (rust-engine + triple-coupling discovery)
 
 ## Branch
-`claude/review-paper-directory-nDw9L` (committed + pushed).
+`claude/213-rust-engine-SloKB` (committed + pushed).
 
 ## State
 
-### 1. Cohomology 213 marathon — CLOSED
-24 files in `lean/E213/Math/Cohomology/`.  CA-CF + 5
-post-marathon (Audit, AlphaEMBridge, Paper1Chiral, FractalLevel,
-TopologyCompare).  All 0-axiom.
+### 1. rust-engine — 11 binaries, 0-axiom Lean trust path
+- 5-crate workspace: kernel ← firmware ← hypervisor ← os ← app
+- 178/178 tests pass | 52/52 citations resolve | clippy clean
+- ℕ-only (BigUint), no floats, no Q-algebra type — all (num,den) pairs
+- See `rust-engine/docs/{architecture,layers,trust-contract,milestones}.md`
 
-### 2. Linalg213 marathon — CLOSED (L1-L6)
-7 files in `lean/E213/Math/Linalg213/`.  Vec/Gram + Rank +
-Span + Chiral + Bridge + Capstone.  ★★★ `paper1_chiral_compression`
-bundles 6 results across 213 framework.  ≤ {propext, Quot.sound}.
+### 2. Triple-coupling discovery (★★★ headline)
+**0 free parameters → all 3 SM gauge couplings:**
 
-### 3. Paper-X bundles (this session, all 0-axiom or close)
-* `Physics/HopHypothesis.lean` (66 lines) — paper 4 §3.1 hop
-  depths (strong=1, weak=2, EM=∞) bundled with N_eff and
-  S(N_eff) values.  Strict 0-axiom.
-* `Physics/Paper3Bundle.lean` (77 lines) — paper 3 zero-parameter
-  predictions: magic 7/7, Ω_Λ, 1/α_3, 1/α_2, IE_H, atomic source.
-  Strict 0-axiom.
-* `Physics/Paper2Bundle.lean` (61 lines) — paper 2 gauge structure:
-  atomic chiral substrate, α_3=8 + α_2=30, α_GUT bracket containing
-  41, α_em(bare) bracket containing 128, fractal-cohomology factor
-  identification.  Strict 0-axiom.
+  1/α_em = 60·ζ(2) + 30 + 25/3 + α_GUT/4 + α_GUT/45
+        ≈ 137.0359951   vs CODATA 137.0359991  Δ ~ 0.07 ppm
+  1/α_3  = 8 + 1/2 − α_GUT + α_GUT²/2  (v2)
+        ≈ 8.475971      vs PDG 8.476    Δ ~ 0.0003%
+  1/α_2  = 30 − 1/2 + 4·α_GUT  (v2)
+        ≈ 29.597268     vs PDG 29.6     Δ ~ 0.009%
 
-Plus paper 1 capstone via Linalg213.Capstone (L6).  Together
-papers 1-4 each have 213-internal Lean capstones.
+Each integer coefficient = K_{3,2}^{(2)} structural invariant
+(60=E·d, 30=31−1, 8=b_1, 25=d², 45=NS²·d, 4=NS+1, ...).
 
-## Lessons learned (carryover)
+### 3. Finite-N self-resonance (paper-grade)
+Each coupling's residual lives at its own *finite* lattice N:
 
-1. Bool-pure cochains via `==`, not `i.val = 0`.
-2. `hodgeStar n k m σ`: all (n,k,m) explicit Nat.
-3. `Nat.fold` doesn't reduce under `decide`; use
-   `(List.range _).filter ... |>.length`.
-4. Universal `∀ σ : Cochain n k, P σ` not decidable in Lean 4 core.
-5. Don't `open Simplex (NS NT d)` when using these in top-level
-   theorem signatures — Lean treats as free variables.  Either
-   omit the open and fully-qualify, or put theorem inside a `def`
-   that captures them properly.
+  1/α_2 ← N = b_1 = 8           (= 1/α_3 itself, self-referential)
+  1/α_3 ← N = (NS+1)·d = 20
+  1/α_em ← N = ⌊1/α_GUT⌋ = 41
 
-## User direction (this session)
+Hierarchy N_2 < N_3 < N_em ↔ gauge coupling hierarchy.
+Infinite N would cancel; finite N keeps each at distinct scale.
 
-* Build 213-native math from scratch (no classical math/physics).
-* Continue formal capstones during pause to design Rust tool.
-* Rust computation tool planned (separate from Lean ground truth).
+### 4. New 0-axiom Lean modules (this session, ~38 theorems)
+- `Physics/AlphaEMStructure.lean` — integer coefficient origins
+- `Physics/AlphaEMWithTail.lean` — Dyson tail bracket
+- `Physics/SubSimplexInventory.lean` — 31 = 2^d − 1
+- `Physics/TripleCoupling.lean` — α_em + α_3 + α_2 skeletons
+- `Physics/TripleCouplingV2.lean` — H³ asym + α_GUT² self-int
+- `Physics/AlphaEMPropagator.lean` — P(x) family for α_em
+- `Physics/FiniteResonanceN.lean` — N hierarchy 8/20/41
+- `Tools/CertChecker.lean` — Rust certificate anchor
 
-## Open Problems (priority)
+### 5. Other findings (this session)
+- 31 sub-simplex inventory: vertices 5 + edges 10 + tris 10 + tet 5 + hyp 1
+- α_GUT/(NS²·d) discovered via gap-explorer (closes 99% of 4 ppm)
+- P(x) = (1+2x)/(1+x) universal: P(0)=1, P(1)=3/2 = NS/NT
+- CF analysis: 1/α_3 v2 has 82% lattice-int density (vs null 25%)
 
-### 1. Real213 Phase B–H — cohomological calculus extension
-General `cutMul` propEq remains the wall.
+## Open Problems
 
-### 2. T3 chapters → T2/T1 migration
-ℂ uniqueness (Frobenius → Raw-internal) highest-leverage.
-
-### 3. Universal δ²=0, ⋆⋆=id, Leibniz on Cochain
-Build Fintype on `Cochain n k` via explicit
-`cochainAt` ↔ `cochainEncode` round trip.
-
-### 4. Single-theorem AxiomMinimality.
-
-### 5. Rust 213 computation tool (user-led design)
-Architecture in design.  Will mirror Lean definitions for
-exploration/visualization, NOT proof.
-
-### 6. Next math marathon
-Linalg213 + Cohomology 213 + paper bundles closed.  User's choice
-for next field (e.g. Probability 213, Topology 213, Multivariable
-213, etc. per blueprints/math/INDEX.md).
+- Exact origin of factor 1.06–1.27 in finite-N normalizer (N−5)⁴
+- 20 = 4·d structural derivation cleaner than current
+- N_em = 41 ⌊1/α_GUT⌋ tight bracket Lean theorem (needs N≥203)
+- Real213 Phase B–H — math-track concern (separate)
 
 ## Authors
-
-- Mingu Jeong (Independent Researcher).
-- Claude (Anthropic): formalization + planning.
+- Mingu Jeong (Independent Researcher) — theory.
+- Claude (Anthropic) — formalization, code, verification.
