@@ -2312,3 +2312,54 @@ constructive scrutiny.
 form (give N, get S(N) bracket).  Generalizing to a
 `crates/app/src/cauchy.rs` would let new binaries use the same
 Cauchy machinery for non-ζ(2) limits (e.g. Wallis π, Taylor e).
+
+## 144-151. Series + Geom + Trig + Exp (~8 files)
+
+**What's there**:
+
+- `CutSeries`: iterated partial sums + Cauchy form for series.
+  THE generic series-convergence framework.
+- `CutSeriesConv`: ratio test + comparison test framework.
+- `CutGeomSeries`: (1/2)^i geometric series, declarative limit
+  Σ (1/2)^i = 2.
+- `GeomSeriesPartialSum` ★ (Phase DG): closed-form propEq for
+  geometric partial sums — `Σ_{i<n}(1/2)^i = (2^n − 1)/2^n`.
+  Decidable.
+- `CutExp` ★: `exp(x) = Σ x^i/i!` at cut level — full Taylor
+  exponential.  Truncatable to any precision.
+- `CutTrig` ★: `sin(x) = Σ (−1)^i x^(2i+1)/(2i+1)!`,
+  `cos(x) = Σ (−1)^i x^(2i)/(2i)!`,
+  `π/4 = Σ (−1)^i/(2i+1)` (Leibniz).
+- `CutSeriesConst`: partial sums of constant series at small n.
+- `CutSeriesZero`: Σ 0 = 0 (trivial closure).
+
+**Physics intuition** (★★★ huge for physics): Every transcendental
+DRLT physics encounters now has a **decidable Taylor-style cut
+representation**:
+- **e**: full `exp(x) = Σ x^i/i!` to any depth → ppm-level exact.
+- **π/4**: Leibniz series `Σ (−1)^i/(2i+1)`, alternating bound at
+  each truncation.
+- **sin/cos**: full Taylor series.
+- **Geometric series**: `Σ r^i` with closed-form partial sums.
+
+These are *exactly* the transcendentals that gaps-and-todos.md
+§4 flags as "external inputs" in `dark_energy.rs` and
+`deuteron_binding.rs`.  With Real213CutExp + CutTrig, those
+become 213-internal brackets — closes §4 fully.
+
+**Computation lever**: When a physics formula uses π or e,
+substitute the Taylor / Leibniz partial sum at the desired
+depth, and prove the inequality side at the *bracket* level.
+Cleaner than current "external rational input".
+
+**Rust-engine application** (★ priority): post-merge, port:
+- `crates/app/src/wallis.rs` (or `taylor_pi.rs`):
+  `pi_lower(N) = 4·Σ_{i<N, i even}(−1)^i/(2i+1)`,
+  `pi_upper(N) = 4·Σ_{i<N+1, ...}` analogously.  Refactor
+  `dark_energy.rs` to use this bracket directly.
+- `crates/app/src/taylor_e.rs`:
+  `exp_lower/upper(x, N) = Σ_{i<N} x^i/i!` with explicit
+  Lagrange remainder bound.  Refactor `deuteron_binding.rs`.
+
+This single batch closes the most-cited "external input" gap
+in the engine.  HIGH PRIORITY for first post-merge work.
