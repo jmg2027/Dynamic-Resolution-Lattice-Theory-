@@ -224,6 +224,10 @@ rust = "drlt_app::bin::parity_check"
 lean = "E213.Physics.ParitySign.parity_skeleton"
 
 [[op]]
+rust = "drlt_app::bin::mu_electron"
+lean = "E213.Physics.Phase3.LeptonRatioDerivation.lepton_ratio_derivation"
+
+[[op]]
 rust = "drlt_app::bin::finite_resonance"
 lean = "E213.Physics.FiniteResonanceN.finite_resonance_n_skeleton"
 

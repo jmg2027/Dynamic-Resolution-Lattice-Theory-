@@ -59,6 +59,10 @@ path = "src/bin/finite_resonance.rs"
 name = "parity-check"
 path = "src/bin/parity_check.rs"
 
+[[bin]]
+name = "mu-electron"
+path = "src/bin/mu_electron.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
