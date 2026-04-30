@@ -232,6 +232,15 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     Single 3-conjunct theorem bundling Steps 1+2+3.  All <= {propext,
     Quot.sound}.  Realises the user's thesis "213 = language for
     rewriting mathematics, not a translation interface".
+
+### Extended verified primes (6-instance table)
+
+  - `DyadicArithFSMmod13.lean` — Pell mod 13 (NQR/inert, period 14 TIGHT).
+  - `DyadicArithFSMmod19.lean` — Pell mod 19 (QR/split, period 9 TIGHT;
+    sig period 18 doubled by parity).
+  - `DyadicLegendre13_19.lean` — 6-prime Legendre bridge.
+  - `DyadicPisanoPredictor6.lean` — ★★★★★★★ pisano_predict_realises_pell_6:
+    Predictor function exactly matches TIGHT periods for all 6 primes.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
