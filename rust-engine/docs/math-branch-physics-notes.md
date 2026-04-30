@@ -2363,3 +2363,59 @@ Cleaner than current "external rational input".
 
 This single batch closes the most-cited "external input" gap
 in the engine.  HIGH PRIORITY for first post-merge work.
+
+## 152-159. Differentiation core (~8 files)
+
+**What's there**:
+
+- `Real213Diff` (Phase E): Bishop-style differentiation in cut
+  form, declarative definition.  f differentiable at p with
+  derivative d.
+- `CutDiffQuotient`: `f'(x) ≈ (f(x+h) − f(x)) / h` with explicit
+  modulus form.
+- `IsSmooth` (Phase J): smoothness as a *resolution-compression
+  filter* — smooth functions allow finer resolutions to compress
+  rather than diverge.  213-native characterization.
+- `IsDifferentiable`: extends IsSmooth with explicit derivative
+  function as **constructive data**.  Type-class structure; Phase
+  AD-1 instances.
+- `DerivativeForms` (Phase AD-2): rfl-clean closed-form derivatives
+  for each constructor.  Computational handle.
+- `DerivativeDepth` (Phase AD-3): linearityModulus = how fine a
+  resolution the derivative needs.  Quantitative locality.
+- `DerivativeDecide` (Phase AO): concrete decide-checked
+  derivative evaluations at dyadic points.  ★ "ML gradient
+  descent ground truth" — executable.
+- `DerivativeShowcase` (Phase CI): demos `d/dx[x²]` etc at
+  multiple dyadic points, queryable at runtime.
+
+**Physics intuition** ★: This is **the 213-native definition of
+differentiability**, equivalent to Bishop's but framed via
+resolution-compression.  Most-physics-actionable items:
+
+1. **Derivative as constructive data**: `IsDifferentiable` carries
+   the derivative function with it.  No "derivative exists by
+   axiom" — every diff'able function has its derivative AS DATA.
+   For physics: every differentiable observable comes with its
+   "rate of change" function as a queryable object.
+
+2. **Decide-checkable derivatives at dyadic points**: numeric
+   gradient descent / optimization in DRLT physics has *exact*
+   ground truth values at dyadic points — no float roundoff,
+   no infinite-precision approximation.  ML applications direct.
+
+3. **Resolution-compression**: smooth = "input refinement gives
+   proportional output refinement".  Maps to **physically smooth
+   couplings** (analytic in some neighborhood) vs. *singular*
+   couplings (e.g. confinement boundary).
+
+**Computation lever**: When proposing a smooth physics quantity,
+identify its `IsDifferentiable` constructor.  Each constructor
+has a closed-form derivative (DerivativeForms) — no chain rule
+re-derivation needed.
+
+**Rust-engine application**: post-merge,
+`crates/app/src/derivative.rs` providing
+`Differentiable::derivative` mirroring the math-branch interface.
+Use cases: any future binary computing physics gradients (e.g.
+beta function running, RG-flow at the discrete level).
