@@ -1,4 +1,4 @@
-# Session Handoff — rust-engine + 25+ precision cross-checks (52 bins)
+# Session Handoff — rust-engine + 25+ precision cross-checks (53 bins)
 
 ## Branch
 `claude/213-rust-engine-SloKB` (committed + pushed).
@@ -11,8 +11,11 @@
 - BigUint only, no floats anywhere in runtime crates
 - Companion docs: `rust-engine/docs/{architecture,layers,milestones,
   trust-contract,precision-matrix,gaps-and-todos,cohomology-classes}.md`
-  (cohomology-classes.md = P(x) generalization, distills 4 classes
-  A/B/C/D from observed atomic patterns)
+  (cohomology-classes.md = 5 classes A/B/C/D/E.  E = modulus shadow
+  = gravity, the dual readout of the same Gram G that gives gauge
+  via phase.  Single principle covers sub-atomic → cosmology — see
+  `scale-ladder-classify` bin: 23 observables × 7 scales × 5 classes
+  all in one table.)
 - New regression coverage: `crates/app/tests/binary_smoke.rs` runs
   all 48 bins; `binary_snapshots.rs` pins simplex-inventory,
   triple-coupling, mu-electron headline outputs.

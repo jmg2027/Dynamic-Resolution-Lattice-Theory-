@@ -81,3 +81,50 @@ couplings diverge".  DRLT's discrete reading separates them cleanly:
 Each class has its own Lean ground.  A/B/C have *no free parameters
 that aren't already in atomic counting*.  Recognizing the class is
 half the work — the closed form follows.
+
+## Class E — Modulus shadow (gravity is already in the lattice)
+
+The four classes above all read the *phase* of the Gram matrix
+G_ij = ⟨ψ_i|ψ_j⟩ — the SU rotation-invariant content.  Gravity is
+the *complementary* readout: the modulus shadow
+
+  W_ij = |G_ij|² / d                (Lean: GravityShadow.lean)
+
+Same G, two readouts:
+
+| readout    | physics          | role                       |
+|------------|------------------|----------------------------|
+| phase(G)   | gauge (Classes A–D) | SU rotation survives    |
+| |G|² / d   | gravity          | phase forgotten            |
+
+**Consequence**: graviton-as-mediator is a category error.  Gravity
+is not an "interaction" — it is the modulus-shadow reading of the
+same lattice that produces gauge couplings via the phase reading.
+M_Pl/v_H = d^(d²)/(d+1) is the atomic gravitational hierarchy that
+falls straight out of the lattice cardinality, no separate quantum
+of gravity required.
+
+Lean: `GravityShadow.gravity_simplicial`,
+`Phase3.GravityNotInteraction.gravity_not_interaction` (0-axiom).
+
+## Scale-ladder application
+
+The same A–D + E classification applies at every length scale.
+Single principle, repeated structure:
+
+| scale            | example                     | class    |
+|------------------|-----------------------------|----------|
+| atom (1-electron)| H E_n hydrogen levels       | A or C   |
+| atom (multi-e⁻)  | He ionization (Z screening) | B (NS leakage) |
+| heavy / high-Z   | Z_eff cascade               | B → D    |
+| molecule (2 atom)| H₂O, CH₄ bond angles        | A (single sub-simplex angle) |
+| molecule (chain) | hydrocarbon chain           | D (atom-atom composition) |
+| nucleus (light)  | deuteron binding            | A (NS-NT pair) |
+| nucleus (magic)  | shell numbers 2,8,20        | C (NS²−1 pronic sum)   |
+| nucleus (heavy)  | semi-empirical mass formula | C+B+D    |
+| cosmology        | Ω_Λ, M_Pl/v_H               | E (modulus shadow)     |
+
+Atom → big atom → high-Z → molecule → nucleus → cosmology — every
+ladder rung is a re-application of the same A–E classes.  The
+*principle* is invariant under scale; only the simplex labels and
+chain depths differ.

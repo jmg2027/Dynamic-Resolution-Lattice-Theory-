@@ -227,3 +227,7 @@ path = "src/bin/mt_mc_cohomology.rs"
 [[bin]]
 name = "top-yukawa"
 path = "src/bin/top_yukawa.rs"
+
+[[bin]]
+name = "scale-ladder-classify"
+path = "src/bin/scale_ladder_classify.rs"
