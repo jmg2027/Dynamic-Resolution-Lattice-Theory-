@@ -78,6 +78,8 @@ const ROWS: &[Row] = &[
           form: "NS-NT pair propagator", lean: "DeuteronBinding" },
     Row { scale: "nucleus",    obs: "r_p·m_p/ℏc = NT² (0.02 %)", class: "C",
           form: "NT² = (d−1) = (NS+1) triple", lean: "Proton.r_p_atomic" },
+    Row { scale: "lepton",     obs: "m_p/m_e = NS·NT·π⁵ (19 ppm)", class: "C",
+          form: "6·π⁵, 6 = NS·NT = d+1", lean: "ProtonElectronRatio" },
     Row { scale: "nucleus",    obs: "Magic 2,8,20 EXACT", class: "C",
           form: "pronic sum", lean: "MagicNumbers.ho_magic_first_7" },
     Row { scale: "nucleus",    obs: "m_p (1.56 ppm)", class: "A",

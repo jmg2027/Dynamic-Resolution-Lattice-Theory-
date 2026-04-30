@@ -15,6 +15,7 @@ const BINS: &[(&str, &[&str])] = &[
     ("alpha-em-decompose", &["20"]),
     ("asymptotic-freedom", &[]),
     ("atomic-correspondences", &[]),
+    ("atomic-hunter", &["200", "1000"]),
     ("bond-angles", &[]),
     ("cabibbo-angle", &[]),
     ("cf-generator", &[]),

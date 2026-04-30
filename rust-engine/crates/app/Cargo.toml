@@ -235,3 +235,7 @@ path = "src/bin/scale_ladder_classify.rs"
 [[bin]]
 name = "proton-radius"
 path = "src/bin/proton_radius.rs"
+
+[[bin]]
+name = "atomic-hunter"
+path = "src/bin/atomic_hunter.rs"
