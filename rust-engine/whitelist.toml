@@ -240,6 +240,14 @@ rust = "drlt_app::bin::higgs_quartic"
 lean = "E213.Physics.HiggsQuartic.lambda_leading_denom"
 
 [[op]]
+rust = "drlt_app::bin::m_tau_mu"
+lean = "E213.Physics.TauOverMu.base_eq_16"
+
+[[op]]
+rust = "drlt_app::bin::higgs_master"
+lean = "E213.Physics.HiggsMaster.higgs_master_atomic"
+
+[[op]]
 rust = "drlt_app::bin::finite_resonance"
 lean = "E213.Physics.FiniteResonanceN.finite_resonance_n_skeleton"
 

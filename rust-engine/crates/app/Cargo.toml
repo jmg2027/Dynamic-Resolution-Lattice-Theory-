@@ -75,6 +75,14 @@ path = "src/bin/magic_numbers.rs"
 name = "higgs-quartic"
 path = "src/bin/higgs_quartic.rs"
 
+[[bin]]
+name = "m-tau-mu"
+path = "src/bin/m_tau_mu.rs"
+
+[[bin]]
+name = "higgs-master"
+path = "src/bin/higgs_master.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
