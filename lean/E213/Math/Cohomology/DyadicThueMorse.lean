@@ -60,4 +60,12 @@ theorem thueMorse_self_similar_small :
     ∧ (∀ n, n ≤ 7 → thueMorse (2 * n + 1) = !thueMorse n) := by
   refine ⟨?_, ?_⟩ <;> decide
 
+/-- ★★★★ K_{3,2}^{(2)} signature of Thue-Morse is also aperiodic
+    for periods 1, 2, 3, 4 (small range, decidable). -/
+theorem thueMorse_signature_aperiodic_small :
+    signature thueMorse 1 ≠ signature thueMorse 0
+    ∧ signature thueMorse 3 ≠ signature thueMorse 1
+    ∧ signature thueMorse 5 ≠ signature thueMorse 2
+    ∧ signature thueMorse 7 ≠ signature thueMorse 3 := by decide
+
 end E213.Math.Cohomology.DyadicConjecture
