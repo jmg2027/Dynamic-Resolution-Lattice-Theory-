@@ -48,6 +48,12 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
       bits periodic ⇒ ∃ N P, sig eventually periodic from N
       with period P.  ≤ {propext, Quot.sound}.
     Tier 0 BIDIRECTIONAL closure formally complete.
+  - `DyadicBitFSM.lean` — finite-state-machine abstraction:
+    - `structure BitFSM (n : Nat)` with `init`, `step`, `out`.
+    - `fsm_run_collision`, `fsm_run_eventually_periodic`,
+      `fsm_bits_eventually_periodic` — chain via pigeonhole.
+    Captures Tier 0 ∪ Tier 1 (FSM-generable bit streams).
+    Tier 2 conjecturally OUTSIDE this class.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 
