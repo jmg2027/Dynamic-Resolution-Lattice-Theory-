@@ -4,32 +4,45 @@ import E213.OS.Pigeonhole
 /-!
 # Forward direction (general): periodic bits ⇒ ev-periodic signature
 
-Joint state (sig n, n mod p) ∈ Fin (5p) has 5p values; among 5p+1
-consecutive steps, pigeonhole forces a collision.  From the
-collision, signature is periodic with period P (multiple of p)
-starting at the collision step.
-
-**Axiom note**: existential extraction via `Classical.byContradiction`
-adds `Classical.choice` (research-level).  `bs_periodic_multiple`
-remains STRICT 0-axiom.  For 0-axiom Tier-0 forward see
-`one_third_signature_periodic` in `DyadicTierBridge`.
+Joint state (sig n, n mod p) ∈ Fin (5p); pigeonhole forces a
+collision among 5p+1 steps.  Decidable.byContradiction (no
+Classical) on Bool-valued `collisionTest` keeps everything at
+≤ {propext, Quot.sound}.
 -/
 
 namespace E213.Math.Cohomology.DyadicConjecture
 
 open E213.OS.Pigeonhole
 
-/-- Pigeonhole-derived collision (existential form). -/
+/-- Bool-valued collision test (decidable, no Classical). -/
+def collisionTest {N k : Nat} (g : Fin k → Fin N) (i j : Nat) : Bool :=
+  if h_i : i < k then
+    if h_j : j < k then (g ⟨i, h_i⟩).val == (g ⟨j, h_j⟩).val
+    else false
+  else false
+
+/-- Constructive pigeonhole — Decidable extraction (no Classical). -/
 theorem pigeonhole_collision {N k : Nat} (h : N < k) (g : Fin k → Fin N) :
-    ∃ i j : Fin k, i.val < j.val ∧ g i = g j :=
-  Classical.byContradiction fun hno => by
-    apply no_inj_lt h g
-    intro i j hij heq
-    rcases Nat.lt_or_ge i.val j.val with hlt | hge
-    · exact hno ⟨i, j, hlt, heq⟩
-    · rcases Nat.lt_or_eq_of_le hge with hgt | heq_idx
-      · exact hno ⟨j, i, hgt, heq.symm⟩
-      · exact hij (Fin.ext heq_idx.symm)
+    ∃ i, i < k ∧ ∃ j, j < k ∧ i < j ∧ collisionTest g i j = true := by
+  apply Decidable.byContradiction
+  intro hno
+  apply no_inj_lt h g
+  intro i j hij heq
+  have hi_eq : (⟨i.val, i.isLt⟩ : Fin k) = i := Fin.ext rfl
+  have hj_eq : (⟨j.val, j.isLt⟩ : Fin k) = j := Fin.ext rfl
+  rcases Nat.lt_or_ge i.val j.val with hlt | hge
+  · apply hno
+    refine ⟨i.val, i.isLt, j.val, j.isLt, hlt, ?_⟩
+    show collisionTest g i.val j.val = true
+    unfold collisionTest
+    simp [i.isLt, j.isLt, hi_eq, hj_eq, heq]
+  · rcases Nat.lt_or_eq_of_le hge with hgt | heq_idx
+    · apply hno
+      refine ⟨j.val, j.isLt, i.val, i.isLt, hgt, ?_⟩
+      show collisionTest g j.val i.val = true
+      unfold collisionTest
+      simp [i.isLt, j.isLt, hi_eq, hj_eq, heq]
+    · exact hij (Fin.ext heq_idx.symm)
 
 /-- bs periodic at multiple of p: bs (n + k*p) = bs n. -/
 theorem bs_periodic_multiple (bs : Nat → Bool) (p : Nat)
@@ -52,30 +65,41 @@ def jointState (bs : Nat → Bool) (p : Nat) (hp : 0 < p)
       Nat.mul_le_mul_right p (by omega)
     omega⟩
 
-/-- ★ Joint state collision: ∃ i < j ∈ Fin (5p+1) with sig & mod equal. -/
+/-- ★ Joint state collision: ∃ i < j ≤ 5p with sig & mod equal. -/
 theorem joint_state_collision (bs : Nat → Bool) (p : Nat) (hp : 0 < p) :
-    ∃ i j : Fin (5 * p + 1), i.val < j.val
-      ∧ signature bs i.val = signature bs j.val
-      ∧ i.val % p = j.val % p := by
+    ∃ i, i ≤ 5 * p ∧ ∃ j, j ≤ 5 * p ∧ i < j
+      ∧ signature bs i = signature bs j
+      ∧ i % p = j % p := by
   have hlt : 5 * p < 5 * p + 1 := Nat.lt_succ_self _
-  obtain ⟨i, j, hij, heq⟩ := pigeonhole_collision hlt (jointState bs p hp)
-  have hval : (signature bs i.val).val * p + i.val % p
-                = (signature bs j.val).val * p + j.val % p := by
-    have := congrArg Fin.val heq; simpa [jointState] using this
-  have hmi : i.val % p < p := Nat.mod_lt _ hp
-  have hmj : j.val % p < p := Nat.mod_lt _ hp
-  have hdiv_i : ((signature bs i.val).val * p + i.val % p) / p
-                  = (signature bs i.val).val := by
-    rw [Nat.mul_comm (signature bs i.val).val p, Nat.add_comm,
+  obtain ⟨i, hi, j, hj, hij, hcoll⟩ :=
+    pigeonhole_collision hlt (jointState bs p hp)
+  have hi' : i ≤ 5 * p := by omega
+  have hj' : j ≤ 5 * p := by omega
+  -- collisionTest gives joint state val equal
+  have hjs_eq : (jointState bs p hp ⟨i, hi⟩).val
+                  = (jointState bs p hp ⟨j, hj⟩).val := by
+    unfold collisionTest at hcoll
+    simp [hi, hj] at hcoll
+    omega
+  have hval : (signature bs i).val * p + i % p
+                = (signature bs j).val * p + j % p := by
+    show (jointState bs p hp ⟨i, hi⟩).val
+          = (jointState bs p hp ⟨j, hj⟩).val
+    exact hjs_eq
+  have hmi : i % p < p := Nat.mod_lt _ hp
+  have hmj : j % p < p := Nat.mod_lt _ hp
+  have hdiv_i : ((signature bs i).val * p + i % p) / p
+                  = (signature bs i).val := by
+    rw [Nat.mul_comm (signature bs i).val p, Nat.add_comm,
         Nat.add_mul_div_left _ _ hp, Nat.div_eq_of_lt hmi, Nat.zero_add]
-  have hdiv_j : ((signature bs j.val).val * p + j.val % p) / p
-                  = (signature bs j.val).val := by
-    rw [Nat.mul_comm (signature bs j.val).val p, Nat.add_comm,
+  have hdiv_j : ((signature bs j).val * p + j % p) / p
+                  = (signature bs j).val := by
+    rw [Nat.mul_comm (signature bs j).val p, Nat.add_comm,
         Nat.add_mul_div_left _ _ hp, Nat.div_eq_of_lt hmj, Nat.zero_add]
-  have h_sig_val_eq : (signature bs i.val).val = (signature bs j.val).val := by
+  have h_sig_val_eq : (signature bs i).val = (signature bs j).val := by
     rw [← hdiv_i, ← hdiv_j, hval]
-  refine ⟨i, j, hij, Fin.ext h_sig_val_eq, ?_⟩
-  have h_offset : (signature bs i.val).val * p = (signature bs j.val).val * p :=
+  refine ⟨i, hi', j, hj', hij, Fin.ext h_sig_val_eq, ?_⟩
+  have h_offset : (signature bs i).val * p = (signature bs j).val * p :=
     by rw [h_sig_val_eq]
   omega
 
