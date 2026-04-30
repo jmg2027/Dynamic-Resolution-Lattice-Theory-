@@ -47,6 +47,10 @@ path = "src/bin/series_truncation.rs"
 name = "cf-generator"
 path = "src/bin/cf_generator.rs"
 
+[[bin]]
+name = "propagator-form"
+path = "src/bin/propagator_form.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
