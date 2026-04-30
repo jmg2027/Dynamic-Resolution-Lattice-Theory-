@@ -126,6 +126,11 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicPellCapstone.lean` — ★★★★★★★ pell_capstone:
     9-conjunct Tier 1 bundle (mod 2/3/5 bit + signature periods,
     ArithFSM ⊂ BitFSM equivalence, 5n² bound, aperiodic hardness).
+  - `DyadicArithFSM3.lean` — 3-state ArithFSM (cubic / Tribonacci):
+    - structure ArithFSM3(n) with (Fin n)³ state.
+    - tribFSMmod2: Tribonacci mod 2 (a,b,c) → (b,c,a+b+c).
+    - ★★★ tribFSMmod2_run_period_4 (STRICT 0-AXIOM).
+    - ★★★★★ tribFSMmod2_signature_period_4_from_1 (pre-period 1).
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
