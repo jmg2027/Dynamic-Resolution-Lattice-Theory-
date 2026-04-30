@@ -2030,3 +2030,72 @@ expose `bit_fsm_product(f1, f2, g) -> BitFSM` mirroring the
 math-branch construction.  Period inferred from
 `gcd_lcm_period`.  Used wherever a binary needs to compose two
 mod-p sequences.
+
+## 94-110. Misc Dyadic utilities — supporting infrastructure
+
+**What's there** (compact note, ~17 files): The remaining
+support / utility files in the Dyadic directory.  Roles:
+
+**Legendre extension** (3 files):
+- `LegendreSmall`: concrete Legendre values for D=5 (Pell
+  discriminant) at small primes.
+- `Legendre13_19`: extended to p=13, 19 (matches 6-prime predictor).
+- `LegendrePisanoExt`: bridge extended to SPLIT case at p=11.
+
+**Aperiodic / fractal** (2 files):
+- `ThueMorse`: t(n) = parity of popcount(n).  Concrete aperiodic
+  2-automatic example.  Tier-2 hardness applies.
+- `SubwordComplexity`: quantitative complexity via length-L
+  substring counts on Fin 5 trajectories.  Combinatorial
+  complexity invariant.
+
+**Signature variants** (4 files):
+- `EdgeSignature`: alternative lens via edge (Fin 12) trajectory
+  instead of vertex (Fin 5) — richer info per step (encodes
+  parallel-edge multiplicity = chirality copy).
+- `SignatureBipartite`: alternation invariant — S↔T parity from
+  bipartite structure.
+- `SignatureInj`: matching signatures ⇒ matching bit streams
+  (signature is lossless).
+- `Classifier`: signature periodic ⇒ bit stream periodic (G1
+  Conjecture 2 sharpened).
+
+**Hardness extensions** (2 files):
+- `ArithFSMHardness`: ArithFSM₂ hardness — aperiodic ⇒ no
+  ArithFSM₂ generates it.
+- `TierBridge`: connects K_{3,2}^{(c=2)} signature to D2
+  complexity-class hierarchy from research-notes/.
+
+**Bridges + helpers** (~6 files):
+- `LCMClosure`: stream-level Pisano-CRT structural lemma.
+- `ArithFSMSignature`: chains Pell ArithFSM family into the
+  K_{3,2} signature lens.
+- `ArithFSMHierarchy`, `ArithFSMtoBitFSM`: foundational
+  embeddings (already covered structurally above).
+- `ConcretePellSig`: explicit signature period values for Pell
+  family (TIGHT, not just bounds).
+- `AlgebraicCapstone`: unifies quadratic Pell + cubic Tribonacci
+  in one mega-theorem.
+
+**Physics intuition**: Together these are the *plumbing* that
+makes the visible high-level capstones (NumberTheory213v2,
+Tribonacci, Pell, Legendre, etc.) work.  Each has a specific
+role but the physics-relevant content is already captured by
+the higher-level entries above.
+
+The most physics-actionable items in this batch:
+- **EdgeSignature**: edge trajectory carries c=2 chirality
+  multiplicity directly — useful when proposing a physics
+  observable that needs *which copy* (left vs right) is
+  traversed at each step.
+- **TierBridge**: connects the FSM/ICT/PowerSet 3-tier
+  hierarchy from research-notes/ to the in-Lean Dyadic track.
+  Bridges informal text → formal Lean.
+
+**Computation lever**: For utility-level claims, cite the
+appropriate sub-file directly in addition to the capstone —
+gives reviewers fine-grained access.
+
+**Rust-engine application**: post-merge, no individual binaries
+needed — these utilities are imported by the higher-level
+binaries already proposed.
