@@ -27,6 +27,10 @@ path = "src/bin/alpha_em_decompose.rs"
 name = "simplex-inventory"
 path = "src/bin/simplex_inventory.rs"
 
+[[bin]]
+name = "impedance-search"
+path = "src/bin/impedance_search.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
