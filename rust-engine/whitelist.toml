@@ -216,5 +216,9 @@ rust = "drlt_app::bin::triple_coupling"
 lean = "E213.Physics.TripleCoupling.triple_skeleton_bundle"
 
 [[op]]
+rust = "drlt_app::bin::triple_coupling_v2"
+lean = "E213.Physics.TripleCouplingV2.triple_v2_skeleton"
+
+[[op]]
 rust = "drlt_hypervisor::chiral_k32::paper1_capstone_check"
 lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"

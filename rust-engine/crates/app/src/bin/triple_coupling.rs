@@ -42,6 +42,14 @@ fn main() {
     let three_agut = mul_n(&agut_lo, 3);
     let inv_a2 = add_q(&weak_int, &three_agut);
 
+    // v2 corrections (physics agent review 2026-04):
+    //   1/α_3_v2 = ... + α_GUT²/2  (self-interaction of pure-A triangle)
+    //   1/α_2_v2 = ... + α_GUT     (H³ chirality imbalance |3−2| = 1)
+    let agut_sq = (&agut_hi.0 * &agut_hi.0, &agut_hi.1 * &agut_hi.1);
+    let agut_sq_half = (agut_sq.0.clone(), &agut_sq.1 * nat(2));
+    let inv_a3_v2 = add_q(&inv_a3, &agut_sq_half);
+    let inv_a2_v2 = add_q(&inv_a2, &agut_lo);
+
     println!("=== Triple coupling decomposition (N = {n}) ===\n");
     println!("--- 1/α_em (H^1+...+H^4 Taylor path-impedance) ---");
     println!("  60·ζ(2)   ≈ {}   [12·d edges, H¹]", decimal(&t1, 6));
@@ -52,13 +60,16 @@ fn main() {
     println!("  Σ        = {}    CODATA 137.035999100",
         decimal(&inv_em, 9));
     println!("\n--- 1/α_3 (strong, A-confinement) ---");
-    println!("  8 + 3/6 − α_GUT");
-    println!("  Σ        = {}     PDG 1/α_s(MZ) ≈ 8.476",
-        decimal(&inv_a3, 6));
+    println!("  v1: 8 + 3/6 − α_GUT");
+    println!("      Σ = {}     PDG ≈ 8.476", decimal(&inv_a3, 9));
+    println!("  v2: + α_GUT²/2  (pure-A triangle self-interaction)");
+    println!("      Σ = {}     PDG ≈ 8.476", decimal(&inv_a3_v2, 9));
+
     println!("\n--- 1/α_2 (weak, chiral-bd crossing) ---");
-    println!("  (31−1) − 1/2 + 3·α_GUT");
-    println!("  Σ        = {}     PDG 1/α_2(MZ) ≈ 29.6",
-        decimal(&inv_a2, 6));
+    println!("  v1: (31−1) − 1/2 + 3·α_GUT");
+    println!("      Σ = {}     PDG ≈ 29.6", decimal(&inv_a2, 6));
+    println!("  v2: + α_GUT  (H³ imbalance |chiralDim(2,2)−(3,1)| = 1)");
+    println!("      Σ = {}     PDG ≈ 29.6", decimal(&inv_a2_v2, 6));
     println!("\nQED 3 phenomena geometric origin:");
     println!("  √α (vertex)  : H¹ — single A→B edge amplitude");
     println!("  v/c ∝ α      : H² — d²→NS face bottleneck");
