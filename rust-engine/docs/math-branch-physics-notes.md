@@ -1768,3 +1768,60 @@ binary that takes any rational/algebraic input and returns:
 (c) the signature period via `signature_predict`,
 (d) the algebraic degree (via ArithFSM brute-force search).
 Becomes the **classifier of any number in DRLT terms**.
+
+## 61-64. `Cohomology/{SplitSplitLens, CrossClassLens, TwoLayerPredictor, Tier2Hardness}`
+
+**What's there**: Four files completing the composition + hardness layer:
+
+- `SplitSplitLens.lean`: First SPLIT × SPLIT composition.
+  Pell mod 11 (period 5) × Pell mod 19 (period 9) → period |
+  lcm(5, 9) = 45.  Demonstrates lens_composition_period at two
+  split primes.
+- `CrossClassLens.lean`: ★ Universality of lens_composition.
+  Pell mod 3 (ArithFSM₂, quadratic) × Tribonacci mod 2
+  (ArithFSM₃, cubic) — *different algebraic degrees* compose
+  cleanly at BitFSM level.  Period 4.
+- `TwoLayerPredictor.lean`: Bundles `pisano_predict` (bit) +
+  `signature_predict` (signature) into one 2-conjunct theorem.
+  Both predictors realise actual periods at 7 verified primes.
+- `Tier2Hardness.lean`: ★★ negative result — aperiodic bit
+  streams are NOT BitFSM-generable (any state count).
+  Genuine transcendentals (e, π conjecturally) thus escape
+  the BitFSM class.
+
+**Physics intuition** (★ key implication): These four files
+together pin the **ceiling** of the Dyadic framework:
+
+1. *Within the framework*: any composite of finite-degree
+   algebraic FSMs (regardless of which degree) closes via lcm
+   periods.  This is universally available for SM observables.
+2. *Above the framework*: anything that produces a genuinely
+   aperiodic bit stream (transcendental binary expansions)
+   provably escapes BitFSM-generation.
+
+For DRLT: the framework is **complete for atomic + algebraic
+observables**, *bounded above by transcendental walls*.  This
+is exactly the right ceiling — it leaves no room for
+"hidden parameters" while preserving room for π / e brackets
+(which use bounded-rational approximation, not full
+transcendentality).
+
+The Tier-2 hardness is the **mathematical analog of "DRLT can
+NOT have free parameters"** — anything escaping the BitFSM
+hierarchy is provably outside the framework, hence cannot be
+introduced as a fitting parameter without breaking
+falsifiability.
+
+**Computation lever**: When a proposed atomic identity needs
+*both* a quadratic and a cubic ArithFSM contribution, the cross-
+class lens gives the joint period without re-derivation.  When
+a proposed identity would require a *transcendental* (not just
+bracket-approximated), Tier-2 hardness rules it out — go back
+and find an atomic alternative.
+
+**Rust-engine application**: post-merge, a `dyadic-bound-check`
+binary that takes a candidate physics identity and verifies:
+(a) it composes cleanly through cross-class lens, and
+(b) it doesn't trigger Tier-2 hardness (i.e. produces an
+eventually-periodic stream).  Both checks are runtime-decidable
+within reasonable bit-prefix lengths.
