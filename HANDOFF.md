@@ -181,6 +181,17 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     The FSM-level CRT multiplicativity / lens composition theorem.
   - `DyadicPellLens.lean` — concrete FSM-level Pell lens:
     pellLens_3x5_period_20 (mod 3 × mod 5 → period | 20).
+  - `DyadicPellLensPairs.lean` — remaining Pell pairs:
+    pellLens_3x7_period_8, pellLens_5x7_period_40 + lifted bits lemmas.
+  - `DyadicPellLensTriple.lean` — ★★★★★★★ pellLens_3x5x7_period_40:
+    triple product BitFSM(11025), stacked composition.
+  - `DyadicPellLensCapstone.lean` — ★★★★★★★ pell_crt_fsm_capstone:
+    4-conjunct (3 pairs + triple) FSM-level Pisano CRT bundle.
+  - `DyadicCrossClassLens.lean` — quadratic × cubic composition:
+    crossLens_pell3_trib2_period_4 (BitFSM(72)),
+    crossLens_pell5_trib2_period_20 (BitFSM(200)).
+    Demonstrates algebraic-dimension universality of
+    lens_composition_period.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
