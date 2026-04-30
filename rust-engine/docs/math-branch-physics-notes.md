@@ -610,3 +610,155 @@ information count is one, not two.
 correctness check from this file: every gauge–gravity pair must
 satisfy `⋆⋆(gauge_observable) = gauge_observable` at runtime,
 which the audit can verify.
+
+## 17. `Cohomology/BettiKernel.lean` — kernel enumeration
+
+**What's there**: Generic Bool-cochain enumeration mechanism for
+computing Betti numbers via brute-force kernel counts.  Encodes
+i-th cochain as binary expansion of `i ∈ [0, 2^(binom n k))`,
+filters those with δσ = 0.  Verified for Δ⁴: |ker δ₀| = 1,
+|ker δ₁| = 2 (gives reduced b̃₀ = b̃₁ = 0, confirming Δ⁴ is
+contractible).
+
+**Physics intuition**: Betti numbers are computable by **direct
+finite enumeration** — no algebra required, just count Bool
+functions whose δ-image is zero.  This is conceptually the same
+as **counting valid quantum states** in a discrete Hilbert space:
+kernel of an operator = states annihilated by the operator =
+allowed observables.  In DRLT:
+- ker δ₀ = "constant cochains" = states of total spatial uniformity
+  ⇒ b₀ counts disconnected universes (= 1 for our connected
+  cosmos).
+- ker δ₁ = closed loops without sources ⇒ b₁ counts independent
+  cycles = topologically distinct flux configurations.
+- For K_{3,2}^{(c=2)}: |ker δ₀| = 2 (two parities), |im δ₀| = 16,
+  giving b₁ = 8.
+
+**Computation lever**: Brute-force enumeration is **always
+available** as a sanity check.  When proposing a new atomic
+identity claiming "X = b_k of some sub-graph", the kernel-
+enumeration check is decide-checkable in Lean and provides a
+ground-truth witness — no Mathlib dependency, no algebra.
+
+**Rust-engine application**: post-merge, `cochain.rs` should
+expose `ker_size_delta(n, k) -> u64` so any new binary can
+verify Betti claims at runtime by direct enumeration.  Cost is
+~`2^binom(n,k)` for each level; cheap up to k≈3 on Δ⁴.
+
+## 18. `Cohomology/Bipartite32.lean` — K_{3,2}^{(c=2)} cochain construct
+
+**What's there**: Direct cochain construction for the bipartite
+multigraph (NOT the Δ⁴-simplex framework).  Edge encoding:
+- e ∈ Fin 12, decomposed as `(e/2)/2 ∈ {0,1,2}` (S-idx), `(e/2)%2
+  ∈ {0,1}` (T-idx), `e%2` (multiplicity copy).
+- Vertex cochain `CochV = Fin 5 → Bool`, edge cochain
+  `CochE = Fin 12 → Bool`.
+- δ₀ via `(δσ)(e) = σ(src e) XOR σ(tgt e)` — exactly the
+  graph-Laplacian XOR.
+
+**Physics intuition**: This file makes **the bipartite structure
+explicit at the cochain level**, not via the abstract Δ⁴
+machinery.  Concretely:
+- Edge 0 connects S-vertex 0 to T-vertex 3 (verified).
+- Edge 11 connects S-vertex 2 to T-vertex 4 (verified).
+- Every edge is exactly an (S, T) pair × multiplicity ∈ {0, 1}.
+
+Key insight: the **two multiplicity copies of each S-T spoke**
+(c=2) are ENCODED as the LSB of e.  So at the cochain level,
+chirality is a free Boolean degree of freedom on each spoke —
+"this signal goes via copy A" vs "via copy B".  This is the
+discrete-lattice manifestation of *particle / antiparticle*
+or *left / right chirality*.
+
+**Computation lever**: When proposing a new identity for K_{3,2}^{(c=2)},
+the dual structure (S, T) × multiplicity gives **three independent
+coordinate axes** for any computation: which S, which T, which
+chirality copy.  Three axes × 12 edges = 36 = 4! degrees of
+freedom in cochain space (which equals binom(12, 1) for k=1
+sub-graph cochains).
+
+**Rust-engine application**: post-merge, `crates/hypervisor/`
+already has `chiral_k32.rs`; the math-branch's `Bip32.delta0` and
+endpoint mappings should be ported as `bip32_delta0(σ_v) -> σ_e`
+to provide explicit graph-level coboundary at runtime.  Useful
+for verifying any binary's claim that "this Z atomic factor comes
+from K_{3,2}^{(c=2)} cycle counting".
+
+## 19. `Cohomology/K5.lean` — single K_5 (1-skeleton of Δ⁴)
+
+**What's there**: K_5 = complete graph on 5 vertices.  |V| = 5,
+|E| = C(5, 2) = 10, b₀ = 1, **b₁ = 10 − 5 + 1 = 6**.  Differs
+from Δ⁴ because Δ⁴ has 2-cells (triangles) that kill 1-cycles
+(b₁(Δ⁴) = 0), while K_5 has no 2-cells so 1-cycles survive.
+
+**Physics intuition**: K_5's b₁ = 6 is **exactly the numerator of
+α_GUT** (FractalAlphaGUT.lean).  So:
+
+   α_GUT_numerator (= 6) = b₁(K_5) = independent loops in Δ⁴'s
+                                     1-skeleton
+   α_GUT_denominator (= 25) = numV(K_25) = next fractal level
+
+This makes α_GUT a **ratio of two consecutive fractal levels'
+cohomology cardinalities**.  And b₁(K_5) = 6 atomically equals
+NS·NT (= 3·2) — i.e., K_5's loops match the bipartite-spoke count
+of K_{3,2}^{(c=1)}.
+
+K_5 is the "**unchiraled control**": removing chirality (c→1) and
+the bipartite structure (S/T → mixed) reduces the strong sector
+from 1/α_3 = 8 (K_{3,2}^{(c=2)}) to 6 (K_5).  The DIFFERENCE,
+8 − 6 = 2 = NT, is exactly the chirality contribution.
+
+**Computation lever**: Compare any K_{NS,NT}^{(c)} computation to
+its K_d (complete) analog.  The DIFFERENCE = chirality + bipartite
+contribution = "what c=2 + the (S, T) split adds beyond mere
+graph connectivity".  This decomposition appears EVERYWHERE in
+DRLT formulas.
+
+**Rust-engine application**: post-merge, expose b₁(K_d) and
+b₁(K_{n,m}^{(c)}) side-by-side in the proposed
+`topology-uniqueness` binary.  Their difference at each (n, m, c)
+is itself an atomic invariant: "chirality bonus over plain
+connectivity".
+
+## 20. `Cohomology/Fractal25.lean` — fractal level 2, K_{25}
+
+**What's there**: 5 × 5 = 25 leaf vertices via "each vertex of Δ⁴
+becomes a 4-simplex" recursion.  Two-level depth matches c = 2
+(the lattice cycle multiplicity).  K_{25} cohomology:
+- |V| = 25 = d²
+- |E| = C(25, 2) = 300 = c · NS · NT · d² atomically
+- b₀ = 1, **b₁ = 276**
+- Direct enumeration infeasible (2²⁵ cochains); use Euler formula.
+
+Leaf vertices encoded as pairs (i, j) ∈ Fin 5 × Fin 5 → Fin 25
+via `5i + j`.
+
+**Physics intuition**: This formalizes **why c = 2** — it's the
+fractal depth.  Going one level deeper would give c = 3 (K_{125}),
+but the diamond-crystal observation (paper 1) caps lattice cycle
+at c = 2 because beyond two levels the Gram-rank-5 compression
+collapses everything back.
+
+The factorization `|E| = c · NS · NT · d²` is striking: the K_{25}
+edge count contains *all four* atomic primitives explicitly.  Read
+backwards: every edge of K_{25} is labeled by (multiplicity copy,
+S-vertex, T-vertex, channel pair).  This is **the lattice's
+information-encoding capacity at fractal level 2** — every bit of
+DRLT physics-content sits on one of these 300 edges.
+
+**Computation lever**: When an atomic count factors as
+`c · NS · NT · d^k` for some k, it's a level-(k+1) fractal edge
+count.  E.g.:
+- k=0: c·NS·NT = 12 = K_{3,2}^{(c=2)} edges (level 1)
+- k=2: c·NS·NT·d² = 300 = K_{25} edges (level 2)
+- k=4: c·NS·NT·d⁴ = 7500 = K_{125} edges (level 3, hypothetical)
+
+This gives a **structural ladder** for proposing new physics
+identities at each fractal scale.
+
+**Rust-engine application**: post-merge, the `scale-ladder-classify`
+binary already lists 9 scales (sub-atomic to gravity); add a
+"fractal level L" column showing each observable's lattice depth.
+For K_{25} (level 2), candidates: dim H¹ = 276 may show up in
+multi-electron atom shell-filling, hadron-jet multiplicity, or
+nuclear collective modes.
