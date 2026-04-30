@@ -2099,3 +2099,63 @@ gives reviewers fine-grained access.
 **Rust-engine application**: post-merge, no individual binaries
 needed — these utilities are imported by the higher-level
 binaries already proposed.
+
+## 111-118. Research/{Pell*, Real213Dyadic*} — final batch
+
+**What's there** (compact note, 8 files):
+
+Pell sequence concrete construction (2 files):
+- `Research.PellSeq`: explicit Raw construction of a sequence
+  whose abLens.view yields Pell solutions.  Demonstrates that
+  Pell can be realized AS A 213-NATIVE Raw object, not just a
+  mathematical abstraction.
+- `Research.PellHasModulus`: LEM-bound closure of paper 1 §6.4
+  on Pell.  Constructs explicit modulus N(m,k) combining
+  sqrt2_irrational with pellRaw_cut_above/below.  Closes
+  paper 1 §6.4 fully on this concrete sequence.
+
+Real213 dyadic infrastructure (6 files):
+- `Real213Dyadic`: dyadic cuts with denominator 2^E.  Natural
+  representation since 213's universe is a binary tree
+  (cutMid is a bit-shift).
+- `Real213DyadicBracket`: dyadic IVT brackets.  Each bisection
+  descends one tree level (E → E+1), halves bracket exactly.
+- `Real213DyadicRiemann`: dyadic Riemann sample-sum trajectory
+  for 213-native integration.
+- `Real213DyadicTrajectory`: concrete bisection trajectories.
+- `Real213HasDyadicMVTWitness`: class for constructive dyadic
+  MVT witnesses (when MVT point IS itself a dyadic cut — lucky
+  functions).
+- `Real213IntegralDyadic`: integration over arbitrary dyadic
+  interval [numA/2^E, numB/2^E].
+
+**Physics intuition**: This is the **dyadic-tree representation
+of 213-native real analysis** — recognizing that the underlying
+universe is a binary tree (Raw structure depth = bit-shifts at
+each level).  Therefore:
+
+- Cuts are most naturally `numerator / 2^E` (dyadic rationals)
+- Bisection is bit-shift, exact at every level
+- Integration over dyadic intervals is exact arithmetic, not
+  approximation.
+- IVT, MVT, Riemann sums all become **decide-checkable** on
+  dyadic intervals.
+
+For DRLT physics: any closed-form integral or limit that lives
+on dyadic boundaries is computable EXACTLY in 213-native form.
+This includes any quantity proportional to powers of 2 (which
+covers a lot of DRLT atomic primitives, since 2 = NT and many
+coefficients are NT^k or N^d patterns).
+
+**Computation lever**: When an observable's closed form involves
+powers of 2 in denominator (or numerator), check if it lies on
+a dyadic level — if yes, computable exactly with `Research.
+Real213Dyadic*`, no bracket approximation needed.
+
+**Rust-engine application**: post-merge, this is mostly already
+mirrored in rust-engine's BigUint Q-pair arithmetic — denominators
+are arbitrary, so dyadic cases are handled.  But adding a
+`dyadic_cut.rs` module with denominator-as-power-of-2
+specialization could give exact arithmetic + simpler Lean
+correspondence for any binary using dyadic-friendly observables
+(many cosmology / Higgs / quartic-coupling formulas are dyadic).
