@@ -2633,3 +2633,58 @@ get the propEq closed bracket value.
 **Rust-engine application**: post-merge, `crates/app/src/integral.rs`
 companion to `derivative.rs`.  Same typeclass approach mirrored:
 take an IsAntiderivative and produce ∫_db at any dyadic bracket.
+
+## 210-222. ClassicCalc + IVT + Newton + ODE (~13 files) ★★★
+
+**What's there**: The "complete classical calculus" + Newton's
+laws + ODE solutions, all in 213-native form.
+
+ClassicCalc bundles (6 files):
+- `ClassicCalc` (Phase BL): integrated structure bundling
+  IsDifferentiable + IsAntiderivative + FTC + MVT for a function.
+  THE classical-calc package for one f.
+- `ClassicCalcGeneric` (Phase BP): generic `cutPow x (n+1)` as
+  ClassicCalc.
+- `ClassicCalcHigher`/`Extreme` (BM, BO): polynomial degrees 4-8
+  / 9, 10, 12, 16.
+- `ClassicCalcMid`: mid(x, x²) as ClassicCalc.
+- `ClassicCalcCombinators` (Phase CE): compose, mul, mid combinators.
+
+IVT (2 files): `IVT` (Bishop-style declarative), `IVTContainment`
+(bracket containment at fixed (m, k) — algorithmic IVT).
+
+Newton's laws (2 files):
+- `NewtonFirst` (Phase CX) ★: Newton's first law in 213 native form.
+- `NewtonSecond` (Phase DB) ★: Newton's second law `v' = F/m = a`
+  (velocity form).  Both as Lean theorems.
+
+ODE (3 files): `ODELinear` (Phase CU), `ODECatalog` (Phase CV
+trivial-RHS solutions), `ODESecondOrder` (Phase CW: `y'' = 0`).
+
+**Physics intuition** (★★★ massive): The Newton's laws being
+formal Lean theorems is **the rebuild physics from 213 vision
+realized for the most fundamental dynamics**.  Specifically:
+
+- **Newton I** (inertia): becomes a propEq about constant
+  velocity in the absence of force — discrete-lattice form.
+- **Newton II** (`v' = F/m`): becomes the antiderivative
+  relation between force and velocity — fundamental ODE
+  `dv/dt = F/m` is now decide-checkable at dyadic time
+  intervals.
+
+For DRLT: classical mechanics is *not* an axiom; it is a
+**theorem** following from the cut-level antiderivative + flux
++ ClassicCalc structure.  The "F = ma" identity has the same
+status as `192 = 8·24` — a Nat-level decidable claim.
+
+**Computation lever**: When a physics problem involves Newton's
+laws + ODE, recast it via ClassicCalc + ODECatalog.  All the
+classical solutions become 213-native theorems with explicit
+witnesses.
+
+**Rust-engine application**: post-merge, a `crates/app/src/dynamics.rs`
+implementing Newton I/II via ClassicCalc + ODE solver at the
+flux level.  Use cases: any binary computing classical-mechanical
+trajectories (e.g. inertial frames, kinematic relations).
+Connects to physics-side `MasslessParticles.lean` and Phase 3
+GravityNotInteraction.lean.
