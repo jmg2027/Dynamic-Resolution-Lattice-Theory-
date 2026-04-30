@@ -76,6 +76,12 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - ★★★★★ `aperiodic_bits_imp_not_BitFSM`: aperiodic ⇒ no BitFSM
     - ★★★★★★ `BitFSM_generable_imp_eventually_periodic`
   - `DyadicCapstone.lean` — ★★★★★★★ single 9-conjunct bundle.
+  - `DyadicThueMorse.lean` — Thue-Morse witness:
+    - `thueMorse` via testBit fold.
+    - aperiodicity verified for periods 1..8.
+    - self-similarity t(2n)=t(n), t(2n+1)=¬t(n) verified n ≤ 7.
+    Concrete aperiodic but finitely-describable bit stream;
+    "Tier 1.5" outside BitFSM but still automatic.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 

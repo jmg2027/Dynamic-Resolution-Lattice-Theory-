@@ -308,6 +308,22 @@ BitFSM at the BIT STREAM level captures *exactly* Tier 0
 (transcendental e, π) have aperiodic bit streams, hence are
 NOT BitFSM-generable at the bit level.
 
+**Thue-Morse witness** (`DyadicThueMorse.lean`):
+  - `thueMorse n := parity of popcount(n)` via testBit fold.
+  - First 8 values 0,1,1,0,1,0,0,1 verified.
+  - `thueMorse_aperiodic_short`: not periodic with period 1..8
+    (explicit witnesses).
+  - `thueMorse_self_similar_small`: t(2n) = t(n), t(2n+1) = ¬t(n)
+    verified for n ≤ 7.
+  - All only `[propext]`.
+
+Thue-Morse is 2-automatic (DFA reading binary digits) but NOT
+BitFSM-generable (assuming aperiodicity for all periods, classical
+result).  Sits between Tier 0 and "fully random" — a Tier 1.5
+witness.  Demonstrates that BitFSM is a STRICT lower bound on
+"finitely describable" bit streams; richer abstractions
+(2-automatic, k-automatic, computable) remain the next horizon.
+
 D2's Tier 1 vs Tier 2 distinction is at the RAW SEQUENCE level
 (Pell-state FSM produces the Cauchy modulus), not the bit
 expansion.  To distinguish Tier 1 from Tier 2 at the bit/signature
