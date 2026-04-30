@@ -254,6 +254,18 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicPisanoPredictor8.lean` — ★★★★★★★ 8-prime predictor.
   - `DyadicSplitSplitLens.lean` — split × split lens composition
     (mod 11 × mod 19 → period | 45).
+
+### Parametric discriminant: Pell proper (D = 8)
+
+  - `DyadicPellProper.lean` — pellProperFSMmod n + pisano_predict_proper.
+    Pell proper [[2,1],[1,0]], Δ = 8.  Formulas: split → p-1,
+    inert → 2(p+1).
+  - `DyadicPellProperSmall.lean` — TIGHT periods mod {3, 5, 7}:
+    {8, 12, 6} (STRICT 0-AXIOM).
+  - `DyadicPellProperBridge.lean` — ★★★★★★★ pellProper_legendre_bridge:
+    Both branch types verified.  Confirms framework PARAMETRICITY
+    across discriminants — same lens infrastructure for D = 5 (Pell
+    Fibonacci-squared) and D = 8 (Pell proper).
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
