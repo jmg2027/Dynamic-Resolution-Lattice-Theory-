@@ -100,6 +100,13 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
       both periodicity proved STRICT 0-AXIOM.
     - ArithFSM2.toBitFSM encoding (subclass of BitFSM).
     - pellMod_periods_differ: algebraic structure visible.
+  - `DyadicSignatureBipartite.lean` — bipartite alternation:
+    - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
+  - `DyadicAtomicityConnection.lean` — atomic primitives match:
+    - ★★★★★ signature_atomicity_capstone (STRICT 0-AXIOM):
+      NS=3, NT=2, d=5 — K_{3,2}^{(2)} signature lens is the
+      *atomically forced* lens for DRLT.
+    - signature_NS_NT_alternation: NS/NT-phrased invariant.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 

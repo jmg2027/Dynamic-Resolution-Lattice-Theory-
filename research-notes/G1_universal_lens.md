@@ -357,6 +357,20 @@ requires UNBOUNDED modulus growth (Pell modulus → ∞ as
 precision → ∞), which doesn't fit any single BitFSM.  This
 matches D2's Tier 1 vs Tier 2 distinction.
 
+**Bipartite invariant** (`DyadicSignatureBipartite.lean`):
+  - `nextVertex_S_to_T`, `nextVertex_T_to_S`: transitions flip sides.
+  - ★★★ `signature_bipartite_alternation`: even step → S-side
+    (val < 3), odd step → T-side (val ≥ 3).  Universal property.
+
+**Atomicity connection** (`DyadicAtomicityConnection.lean`):
+  - ★★★★★ `signature_atomicity_capstone` (STRICT 0-AXIOM):
+    NS = 3, NT = 2, d = 5, NS + NT = d.
+  - K_{3,2}^{(2)} signature lens dimensions match the atomic
+    primitives forced by `OS.Atomicity` — the lens is *atomically
+    forced*, not arbitrary.
+  - `signature_NS_NT_alternation`: bipartite invariant phrased
+    in terms of NS/NT.
+
 **Class hierarchy** (formal where indicated):
   Tier 0 (rationals)         = BitFSM-class  ★ formal
   Tier 1.5 (Thue-Morse)      ⊂ BitAuto2 \ BitFSM ★ partial formal
