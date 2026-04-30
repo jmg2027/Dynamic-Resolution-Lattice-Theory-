@@ -211,6 +211,10 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicLegendrePisanoExt.lean` — ★★★★★★★ legendre_pisano_extended_bridge:
     All 4 branch types verified (split + inert + ramified)
     across primes {3, 5, 7, 11} for Pell discriminant 5.
+  - `DyadicPisanoPredictor.lean` — ★★★★★★★ pisano_predict function:
+    pisano_predict p = 2p / (p-1)/2 / p+1 based on legendre213 5 p.
+    pisano_predict_realises_pell: function predicts actual Pell
+    period at all four primes.  Operational form of Pisano CRT.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
