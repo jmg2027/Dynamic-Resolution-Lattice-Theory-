@@ -2534,3 +2534,52 @@ limit-based proofs.
 (EM flux through surfaces, hadronic transition amplitudes,
 RG flow integrals).  Connects directly to the Cohomology 213
 machinery covered in Section I.
+
+## 179-194. MVT family (~16 files compact)
+
+**What's there**: Mean Value Theorem in 213 flux form, with
+multiple variants and a catalog of constructive witnesses.
+
+Core MVT (5 files): FluxMVT (concrete cases), FluxMVTWitness
+(★ explicit witness for x²), FluxMVTConcrete (via cohomEquiv),
+FluxMVTPolynomial (polynomial at unitBracket propEq),
+FluxMVTPattern (★ dyadic witness c = 1/2 pattern).
+
+Generic / passthrough (4 files): FluxMVTGeneric, FluxMVTHigh,
+FluxMVTPassthrough, FluxMVTMore.
+
+Compositional (4 files): FluxMVTNested, FluxMVTNested2,
+FluxMVTPropagate, FluxMVTPropagateCompose.  Build composite
+MVT from sub-bracket pieces.
+
+Applications + closures (3 files): FluxMVTApplications (specific
+functions as corollaries), FluxMVTClosure (theorem closure),
+FluxPassthroughCatalog + FluxPassthroughClass.
+
+Witness catalogs (2 files): MVTWitnessCatalog (HasDyadicMVTWitness
+instances — c is itself a dyadic cut for the lucky case),
+MVTWitnessChain (chain rule for MVT witnesses, compose).
+
+**Physics intuition** (★ key pattern): The discovery in
+`FluxMVTPattern` is that **all known constructive dyadic MVT
+witnesses share c = 1/2**.  This is **a structural fact about
+discrete-lattice mean-value points** — at the unit bracket, the
+"average rate of change" point is canonically the midpoint, NOT
+some abstract real-number c.  This is much stronger than
+classical MVT (which only gives existence): in DRLT, the
+witness IS a specific dyadic point.
+
+For physics: when MVT-style arguments arise (e.g. "average
+something between two scales"), the 213-native answer gives
+**the explicit dyadic point**, not a vague existence claim.
+Quantitative MVT for free.
+
+**Computation lever**: When a physics formula uses an "average"
+between two endpoints (e.g. mean energy between scales), check
+if the dyadic-MVT witness applies — if yes, the answer is c =
+midpoint exactly, no integration needed.
+
+**Rust-engine application**: post-merge, integrate MVT
+machinery into `flux.rs` from #170-178.  Add an
+`mvt_witness(f, db) -> Option<DyadicCut>` function that
+returns the explicit dyadic witness when one exists.
