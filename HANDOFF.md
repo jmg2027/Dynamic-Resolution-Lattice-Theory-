@@ -37,6 +37,12 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
       direction at Tier 0 (rational): bits period 2 ⇒ signature
       period 2 from step 1.
     Tier 0 (rationals) ⇒ both directions closed.
+  - `DyadicForwardPeriodicity.lean` — general forward seed:
+    - `bs_periodic_multiple` (STRICT 0-axiom)
+    - `jointState`, `pigeonhole_collision`, `joint_state_collision`
+      (existential via Classical.choice)
+    - Provides the seed for the general forward direction
+      (inductive completion deferred).
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 

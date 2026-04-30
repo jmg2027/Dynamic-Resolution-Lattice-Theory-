@@ -230,9 +230,17 @@ Reference: `research-notes/D2_complexity_class_hierarchy.md` —
 | 2 | aperiodic | aperiodic, unbounded trajectory complexity |
 | 3 | not extractable | undefined |
 
-**Tier 0 closure** (`DyadicTierBridge.lean`):
-  - `signature_periodic_implies_bits_periodic` (general theorem)
-  - `one_third_signature_periodic` (concrete forward: 1/3 → period 2)
+**Tier 0 closure**:
+  - `signature_periodic_implies_bits_periodic` (general theorem,
+    ≤ {propext, Quot.sound})
+  - `one_third_signature_periodic` (concrete forward at 1/3,
+    ≤ {propext, Quot.sound})
+  - `joint_state_collision` (general forward seed via pigeonhole,
+    `DyadicForwardPeriodicity.lean`; uses Classical.choice for
+    existential extraction)
+  - Inductive completion of the general forward direction is
+    straightforward from `joint_state_collision` + `bs_periodic_multiple`
+    (deferred — modulo the Classical.choice cost).
 
 **Tier 0 vs Tier 1+2 closure**: aperiodic bits ⇒ aperiodic
 signature (`aperiodic_bits_imp_aperiodic_sig`).
