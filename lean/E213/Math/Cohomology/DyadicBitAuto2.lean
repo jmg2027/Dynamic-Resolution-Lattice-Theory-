@@ -56,4 +56,23 @@ theorem thueMorseAuto_witnesses_bitAuto2 :
   refine ⟨thueMorseAuto, ?_⟩
   decide
 
+/-- isPow2 indicator: 1 iff n is a power of 2 (popcount = 1). -/
+def isPow2Auto : BitAuto2 3 where
+  init := ⟨0, by decide⟩  -- popcount = 0 (no 1-bits seen)
+  step s b := bif b then
+    bif s.val == 0 then ⟨1, by decide⟩  -- 0 → 1 (first 1-bit)
+    else bif s.val == 1 then ⟨2, by decide⟩  -- 1 → 2 (second 1-bit)
+    else ⟨2, by decide⟩  -- 2 → 2 (saturate)
+  else s
+  out s := s.val == 1  -- true iff exactly one 1-bit
+
+/-- isPow2Auto correctly identifies powers of 2 in 0..15. -/
+theorem isPow2Auto_first16 :
+    isPow2Auto.bits 4 0 = false ∧ isPow2Auto.bits 4 1 = true
+    ∧ isPow2Auto.bits 4 2 = true ∧ isPow2Auto.bits 4 3 = false
+    ∧ isPow2Auto.bits 4 4 = true ∧ isPow2Auto.bits 4 5 = false
+    ∧ isPow2Auto.bits 4 6 = false ∧ isPow2Auto.bits 4 7 = false
+    ∧ isPow2Auto.bits 4 8 = true ∧ isPow2Auto.bits 4 9 = false
+    ∧ isPow2Auto.bits 4 15 = false := by decide
+
 end E213.Math.Cohomology.DyadicConjecture
