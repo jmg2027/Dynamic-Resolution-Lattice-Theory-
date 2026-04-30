@@ -231,3 +231,7 @@ path = "src/bin/top_yukawa.rs"
 [[bin]]
 name = "scale-ladder-classify"
 path = "src/bin/scale_ladder_classify.rs"
+
+[[bin]]
+name = "proton-radius"
+path = "src/bin/proton_radius.rs"

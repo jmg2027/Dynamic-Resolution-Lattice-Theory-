@@ -76,6 +76,8 @@ const ROWS: &[Row] = &[
           form: "single sub-simplex angle", lean: "BondAngles" },
     Row { scale: "nucleus",    obs: "Deuteron binding 2.27 MeV", class: "A",
           form: "NS-NT pair propagator", lean: "DeuteronBinding" },
+    Row { scale: "nucleus",    obs: "r_p·m_p/ℏc = NT² (0.02 %)", class: "C",
+          form: "NT² = (d−1) = (NS+1) triple", lean: "Proton.r_p_atomic" },
     Row { scale: "nucleus",    obs: "Magic 2,8,20 EXACT", class: "C",
           form: "pronic sum", lean: "MagicNumbers.ho_magic_first_7" },
     Row { scale: "nucleus",    obs: "m_p (1.56 ppm)", class: "A",

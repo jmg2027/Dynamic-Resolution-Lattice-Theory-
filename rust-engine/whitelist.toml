@@ -390,3 +390,7 @@ lean = "E213.Physics.QuarkHierarchy.top_yukawa_skeleton"
 [[op]]
 rust = "drlt_app::bin::scale_ladder_classify"
 lean = "E213.Physics.Phase3.GravityNotInteraction.gravity_not_interaction"
+
+[[op]]
+rust = "drlt_app::bin::proton_radius"
+lean = "E213.Physics.ProtonMass.r_p_atomic"
