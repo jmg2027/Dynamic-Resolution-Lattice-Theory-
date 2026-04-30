@@ -1,4 +1,5 @@
 import E213.Math.Cohomology.DyadicBitFSMBound
+import E213.Math.Cohomology.DyadicTierBridge
 
 /-!
 # Concrete BitFSM examples — Tier 0 (rationals)
@@ -75,5 +76,32 @@ theorem tier0_bitfsm_witnesses :
   ⟨⟨fsm_one_third, by decide, by decide⟩,
    ⟨fsm_one_fifth, by decide, by decide⟩,
    ⟨fsm_one_seventh, by decide, by decide⟩⟩
+
+/-- fsm_one_third's run state matches k % 2 (Nat-level). -/
+theorem fsm_one_third_run_val (k : Nat) :
+    (fsm_one_third.run k).val = k % 2 := by
+  induction k with
+  | zero => rfl
+  | succ k' ih =>
+    show (fsm_one_third.step (fsm_one_third.run k')).val = (k' + 1) % 2
+    have h_val_lt : (fsm_one_third.run k').val < 2 :=
+      (fsm_one_third.run k').isLt
+    rcases Nat.lt_or_ge (fsm_one_third.run k').val 1 with h0 | h1
+    · -- val = 0
+      have hval : (fsm_one_third.run k').val = 0 := by omega
+      have hrun : fsm_one_third.run k' = ⟨0, by decide⟩ := Fin.ext hval
+      rw [hrun]; show 1 = (k' + 1) % 2
+      rw [hval] at ih; omega
+    · -- val = 1
+      have hval : (fsm_one_third.run k').val = 1 := by omega
+      have hrun : fsm_one_third.run k' = ⟨1, by decide⟩ := Fin.ext hval
+      rw [hrun]; show 0 = (k' + 1) % 2
+      rw [hval] at ih; omega
+
+/-- ★★★★★ fsm_one_third generates exactly the bit13 pattern. -/
+theorem fsm_one_third_eq_bit13 (k : Nat) :
+    fsm_one_third.bits k = bit13 k := by
+  show ((fsm_one_third.run k).val == 1) = (k % 2 == 1)
+  rw [fsm_one_third_run_val]
 
 end E213.Math.Cohomology.DyadicConjecture
