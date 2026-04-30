@@ -1,7 +1,10 @@
 //! `propagator-form` — P(x) = (1+2x)/(1+x) closed-form Dyson sum.
 //!
-//! Tests user 2026-04 hypothesis: 1/α_em correction terms are
-//! (P(α·rᵢ) − 1) for atomic ratios rᵢ ∈ {1/4, 1/45, ...}.
+//! ⚠ Diagnostic, not certified.  No row in `whitelist.toml`.
+//! Tests user 2026-04 hypothesis that 1/α_em correction terms equal
+//! `(P(α·rᵢ) − 1)` for atomic ratios rᵢ ∈ {1/4, 1/45, ...}.  The
+//! certified consequence (with v2 closed-propagator structure) lives
+//! under `alpha-em-bracket` and `triple-coupling`.
 //!
 //! Reference: lean/E213/Physics/ClosedPropagator.lean.
 

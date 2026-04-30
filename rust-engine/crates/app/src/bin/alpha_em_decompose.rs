@@ -1,6 +1,10 @@
 //! `alpha-em-decompose` — show structural origin of every integer
 //! coefficient in 1/α_em(IR) and verify the sum at large N.
 //!
+//! ⚠ Diagnostic, not certified.  No row in `whitelist.toml` — this is
+//! a decomposition / human-readable trace, not a verification claim.
+//! For the certified bracket use `alpha-em-bracket`.
+//!
 //! Each term traces to a 213 lattice quantity (cited Lean theorem):
 //!   E·d · ζ(2)         (edge count × atomic dim × Basel sum)
 //!   1/α_2 = 30         (paper 2 gauge value)

@@ -1,6 +1,9 @@
 //! `cf-generator` — continued fraction expansions of 213 couplings
 //! vs null-hypothesis irrationals.  CF via Euclidean algorithm.
 //! Marks lattice integers {2, 3, 5, 8, 9, 10, 12, 25, 30, 45, 60}.
+//!
+//! ⚠ Diagnostic, not certified.  No row in `whitelist.toml` —
+//! null-hypothesis comparison aid, not a verification claim.
 
 use drlt_app::basel::{s_partial, upper};
 use drlt_app::gap_explorer::nat;

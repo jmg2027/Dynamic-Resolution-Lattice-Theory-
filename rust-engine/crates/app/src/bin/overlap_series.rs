@@ -1,5 +1,8 @@
 //! `overlap-series` — K_{3,2}^{(2)} instance overlap multiplicities.
 //!
+//! ⚠ Diagnostic, not certified.  No row in `whitelist.toml` —
+//! combinatorial enumeration feeding the series-truncation hypothesis.
+//!
 //! M(N, k) = #{unordered 5-subset pairs sharing k vertices}
 //!         = C(N,5) · C(5,k) · C(N−5, 5−k) / 2   (k < 5).
 

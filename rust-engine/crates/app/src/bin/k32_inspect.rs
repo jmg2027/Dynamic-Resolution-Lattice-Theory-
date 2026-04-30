@@ -1,5 +1,9 @@
 //! `k32-inspect` — explicit visualization of K_{3,2}^{(2)}.
 //!
+//! ⚠ Diagnostic, not certified.  No row in `whitelist.toml` —
+//! human-readable graph dump; underlying counts (b₁=8, 12 edges, etc)
+//! are certified by `simplex-inventory` and the topology Lean cites.
+//!
 //! Prints all 5 vertices, 12 edges, and 32 chiral cells across
 //! levels (i, j) with i ∈ [0, 3], j ∈ [0, 2].
 

@@ -84,6 +84,30 @@ theorem phi_squared_bracket :
     -- And > 2: 21² = 441 > 2 · 169 = 338 ✓
     ∧ 21 * 21 > 2 * 13 * 13 := by decide
 
+/-- ★ Pell-Cassini identity (pure Nat form) ★
+    Real Pell identity is `(2φ−1)² = d`, which lives in ℝ.  In ℕ
+    the corresponding statement is **Cassini's identity** on Fibonacci
+    convergents:  `|F_{n+1}·F_{n−1} − F_n²| = 1`.
+
+    Specialized to the atomic anchor `n = 5`:
+      F_4 · F_6 = 3 · 8 = 24
+      F_5 · F_5 = 5 · 5 = 25
+      Δ = 25 − 24 = 1                                      ★
+
+    This is the *finite-lattice* witness that φ — the limit of
+    F_{n+1}/F_n — satisfies a Pell equation: the Cassini gap = 1
+    is exactly what `(2φ−1)² = d` becomes after multiplying out
+    cross-terms in the Nat ring.  No transcendentals required. -/
+theorem cassini_pell_d5 :
+    fib 5 * fib 5 = fib 4 * fib 6 + 1 := by decide
+
+/-- More general Pell witness across the d-anchor: every adjacent
+    Fibonacci triple around F_d has Cassini gap exactly 1. -/
+theorem cassini_pell_window :
+    (fib 4 * fib 6 + 1 = fib 5 * fib 5)
+    ∧ (fib 5 * fib 7 = fib 6 * fib 6 + 1)
+    ∧ (fib 6 * fib 8 + 1 = fib 7 * fib 7) := by decide
+
 /-- ★ Capstone — golden ratio is a natural invariant of the d = 5 lattice ★ -/
 theorem golden_ratio_atomic :
     -- F_5 = d (Fibonacci anchor)

@@ -1,6 +1,9 @@
 //! `series-truncation` — test user hypothesis (2026-04):
 //!   residual_X = Σ over k-overlap pairs · α_GUT^(5−k) / norm
 //! with truncation depth differing per coupling.
+//!
+//! ⚠ Diagnostic, not certified.  No row in `whitelist.toml` —
+//! hypothesis test feeding into Lean development; not a verification.
 
 use drlt_app::basel::Q;
 use drlt_app::gap_explorer::{decimal, nat};

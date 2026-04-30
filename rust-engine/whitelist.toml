@@ -301,7 +301,7 @@ lean = "E213.Physics.ThetaQCD.drlt_below_bound"
 
 [[op]]
 rust = "drlt_app::bin::muon_lifetime"
-lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
+lean = "E213.Physics.Phase4.Library.ParticleLibrary.muon_lifetime_192"
 
 [[op]]
 rust = "drlt_app::bin::ckm_wolfenstein"

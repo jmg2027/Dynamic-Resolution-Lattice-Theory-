@@ -1,6 +1,9 @@
 //! `impedance-search` — bottom-up: try natural impedance functions
 //! C(i, j) on the 31 sub-simplices, sum Σ chiralDim(i,j)·C(i,j),
 //! compare to 137.036.  Known terms appear at the end as cross-check.
+//!
+//! ⚠ Diagnostic, not certified.  No row in `whitelist.toml` —
+//! search through ansatz space; certified result is `triple-coupling`.
 
 use drlt_app::basel::{s_partial, Q};
 use drlt_app::gap_explorer::{decimal, lt_q, nat};

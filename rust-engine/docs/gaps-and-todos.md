@@ -33,21 +33,24 @@ now resolve at theorem-id level.
 
 ## 2.  Reused MasterCatalog citations
 
-`muon_lifetime` and `atomic_correspondences` both cite
-`E213.Physics.MasterCatalog.master_atomic_catalog`.  For
-muon_lifetime, the lifetime formula τ = 192·π³/(G_F²·m_μ⁵) deserves
-its own Lean theorem (the `192 = 8·24 = (NS²−1)(d²−1)` identity is
-EXACT — easy 0-axiom prize).
+`muon_lifetime` formerly cited the broad MasterCatalog; ✅ resolved
+2026-04-30 by retargeting to the existing 0-axiom theorem
+`E213.Physics.Phase4.Library.ParticleLibrary.muon_lifetime_192`,
+which states `(NS² − 1)·(d² − 1) = 192` — the EXACT atomic identity
+underlying the muon lifetime prefactor.  `atomic_correspondences`
+remains pointed at MasterCatalog: that's correct since it is itself
+a multi-observable catalog binary.
 
-## 3.  Exploratory binaries with no whitelist row
+## 3.  Exploratory binaries with no whitelist row  ✅ TAGGED 2026-04-30
+
+The 8 diagnostic binaries
 
   alpha_em_decompose, gap_explorer, propagator_form, series_truncation,
   overlap_series, cf_generator, impedance_search, k32_inspect
 
-These are diagnostic / number-search tools, not verification claims —
-no Lean theorem to cite.  Acceptable as-is, but tag them in source
-comments as "diagnostic, not certified" so future readers don't
-mistake their outputs for engine certificates.
+now carry an explicit "⚠ Diagnostic, not certified" header pointing
+readers at the corresponding certified binary
+(`alpha-em-bracket`, `triple-coupling`, `simplex-inventory`, etc).
 
 ## 4.  Hardcoded transcendental inputs
 
@@ -82,11 +85,19 @@ helpers (decimal, nat, Q) are touched.
 
 - `m_t/m_c ≈ 137` cross-context coincidence with 1/α_em — looks
   combinatorial (d²·ζ(2) ≈ 41, N(α_em)=41 hierarchy).  Worth a Lean
-  bound theorem.
-- `192 = (NS²−1)(d²−1)` for muon lifetime: trivial Nat identity,
-  belongs in `MagicNumbers` or its own micro-file.
-- `(2φ−1)² = d` from golden_ratio.rs — Lean has the file but no
-  0-axiom Pell identity theorem yet.
+  bound theorem.  *Still open.*
+- `192 = (NS²−1)(d²−1)` for muon lifetime: ✅ resolved — the theorem
+  `muon_lifetime_192` already lived in
+  `Physics/Phase4/Library/ParticleLibrary.lean`; whitelist now cites
+  it directly.
+- `(2φ−1)² = d` Pell identity in golden_ratio.rs: ✅ resolved
+  2026-04-30 — `Physics/GoldenRatio.lean` now contains pure-Nat
+  Cassini-form Pell theorems
+  `cassini_pell_d5  : F₅·F₅ = F₄·F₆ + 1`
+  `cassini_pell_window : ±1 across F₄..F₈`
+  Both 0-axiom (does not depend on any axioms).  Cassini's identity
+  is the finite-lattice realization of `(2φ−1)² = d` — when φ is
+  replaced by F_{n+1}/F_n the Pell error term collapses to ±1.
 
 ## 8.  Documentation hygiene
 

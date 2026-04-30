@@ -1,5 +1,9 @@
 //! `gap-explorer` — rank 213-pure ℚ values by proximity to a target.
 //!
+//! ⚠ Diagnostic, not certified.  No row in `whitelist.toml` —
+//! exploration / search, not a verification claim.  Output guides
+//! which closed-form Lean theorems to chase next.
+//!
 //! Default target: α_em structural gap = 137.0359991 - 137.0354548
 //!                                     = 0.0005443 = (5443, 10_000_000).
 //!
