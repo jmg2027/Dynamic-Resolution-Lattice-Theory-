@@ -1211,3 +1211,91 @@ becomes a 0-axiom Lean theorem.  This is how to make heuristic
 (proposed earlier) becomes a one-stop demo of the entire Capstone
 content at runtime — δ, ⋆⋆, Betti, cup, all in one place,
 matching the Lean theorem layer-by-layer.
+
+## 33. `Math/Analysis.lean` — umbrella for Research/Real213 marathon
+
+**What's there**: Mega-import file aggregating ~55+
+`Research.Real213*` modules — a full Bishop-style constructive
+analysis marathon over Dedekind-cut-based Real213.  Topics:
+bisection algo, diff quotient, Riemann integration, valid cuts,
+IVT containment, dyadic brackets, smoothness predicate,
+differentiable instances, derivative depth, flux cohomology,
+mean-value-theorem, FTC, phase-A through phase-AN capstones.
+
+**Physics intuition**: This is the **constructive analysis
+counterpart** to the Cohomology 213 marathon — both are
+self-contained 213-internal frameworks, no Mathlib.  Cohomology
+covers discrete topology (Δⁿ⁻¹, K_{n,m}^{(c)}, cup, ⋆); Analysis
+covers continuous calculus (cuts, derivatives, integrals, FTC).
+
+CLAUDE.md flags Analysis213 as "math track, NOT on the critical
+path for physics formalization" since the lattice is finite-
+discrete.  The relevant slice for physics is **bracket**
+machinery (Real213ValidCut, Real213DyadicBracket): bounded
+rational interval arithmetic that the rust-engine already uses
+for ζ(2) via `Basel.upper`/`s_partial`.
+
+**Computation lever**: When a physics calculation needs
+"continuous calculus", check whether the bracket machinery suffices
+first.  Most DRLT formulas only need bounded interval evaluation,
+not full Bishop-style constructive analysis.  Reach for the
+deeper layers only if a *derivative* or *integral* of a
+non-rational function is genuinely needed.
+
+**Rust-engine application**: post-merge, `crates/app/src/basel.rs`'s
+bracket types could be generalized to a `BracketRat` newtype
+matching `Real213ValidCut`'s structure, giving runtime
+constructive-real arithmetic where needed.  Most binaries don't
+need this; useful only for new precision claims that require
+sub-bracket evaluation.
+
+(Mining Real213.* in detail would be a separate, much longer
+campaign.  Flagged for future sessions.)
+
+## 34. `Math/{Cauchy, Continuity, Foundation}.lean` — Real213 umbrellas
+
+**What's there**: Three thin re-export umbrellas pulling specific
+slices of the Research/Real213 marathon together for use as
+clean public API:
+
+- `Foundation.lean` (Phase A): Real213 type, Setoid equivalence,
+  constant embedding, order (le/lt antisymm via Bool case-analysis),
+  sign predicate.  All ≤ {propext} — type-level foundation of
+  213-native ℝ.
+- `Cauchy.lean`: CauchyCutSeq sequences + completeness.  In 213,
+  Bishop's completeness theorem is **trivial direct construction**
+  — no metric-space theory needed.
+- `Continuity.lean`: locally-determined cut functions
+  (`isLocallyDetermined`), categorical closure under composition
+  (`composeLDD`).  213 form of Bishop locatedness.
+
+**Physics intuition**: Three pillars of "what's needed to do real
+analysis on Real213":
+- Foundation = the *type* exists, has order + sign.  This is the
+  bare minimum for "magnitude-comparable observables".
+- Cauchy = limits exist as constructive direct objects, not
+  ε-δ over a completed metric space.  In 213, every "limit"
+  is a witnessed Cauchy sequence with explicit modulus.
+- Continuity = "outputs determined by local input" — exactly the
+  *physical* notion of locality that Bishop captures.
+
+For DRLT physics: most observables need only **Foundation + Bracket
+arithmetic**, not full Cauchy.  The few that need limits (e.g. ζ(2)
+via Basel partial sums) use bracket-based limits where lower/upper
+sequences both stabilize — which is exactly the Cauchy completeness
+case.  Continuity isn't reached for in current physics binaries
+because all observables are explicitly *defined* on a finite cochain
+basis (no need for "function-from-Real-to-Real" objects).
+
+**Computation lever**: When you find yourself wanting "limit X" or
+"continuous function f", check if the bracket form suffices — it
+almost always does in DRLT.  Reach for Cauchy/Continuity only if
+you genuinely need the limit-structure, not just bounded
+approximation.
+
+**Rust-engine application**: post-merge, none of these directly
+ports to the Rust runtime — bracket arithmetic in `basel.rs`
+handles all current needs.  Future relevance: if a binary is
+proposed that genuinely needs to *take a limit* (e.g. Wallis-style
+π via convergent product), then Cauchy.lean's CauchyCutSeq is the
+target Lean structure to mirror.
