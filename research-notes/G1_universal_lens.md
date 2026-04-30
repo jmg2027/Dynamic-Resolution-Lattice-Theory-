@@ -171,6 +171,45 @@ statement, then test against irrationals.  Also: a NEW entry
 to **Real213 Phase B–H** (cutMul propEq wall) — through the
 K_{3,2}^{(2)} lens rather than ε-δ.
 
+### Conjecture 2 (CLASSIFIER VARIANT — closed direction)
+
+**Mingu's sharpened conjecture (2026-04-30, second pass)**:
+"무리수 종류 자체를 이걸로 구분할 수도 있을 듯" — distinct
+irrationals have distinct K_{3,2}^{(2)} signatures.
+
+Realised in `DyadicSignature.lean` + `DyadicClassifier.lean`:
+
+```
+def nextVertex : Fin 5 → Bool → Fin 5
+  -- S_j → T_b on bit b (S → T determined by bit)
+  -- T_0 → S_{0/1}; T_1 → S_{1/2} (T → S richer)
+
+def signature (bs : Nat → Bool) : Nat → Fin 5
+  -- start at S_0; signature (n+1) = nextVertex (sig n) (bs n)
+```
+
+**Theorems (≤ {propext, Quot.sound}):**
+  - `nextVertex_bit_inj` — every vertex has bit-injective
+    transitions (the 2 outgoing land on distinct vertices).
+  - **★★★ `signature_periodic_implies_bits_periodic`** —
+    signature periodic with period p from N
+      ⇒ bit stream periodic with period p from N.
+  - **★★★★★ `aperiodic_bits_imp_aperiodic_signature`** —
+    aperiodic bits (= irrational binary expansion)
+      ⇒ aperiodic K_{3,2}^{(2)} signature trajectory.
+  - `signatures_distinct` (0-axiom) — 1/3, 1/5, 1/7 trajectories
+    pairwise distinguished by step ≤ 9.
+
+**What this proves**: the K_{3,2}^{(2)} signature is a
+*lossless* aperiodicity witness.  Rationality ⇔ eventual
+periodicity (forward dir is the classical pigeonhole; backward
+dir = the new theorem above).
+
+**Open direction (next)**: classify finer.  Algebraic vs
+transcendental; algebraic degree d ↔ trajectory complexity
+class C_d.  Test against √2 (degree 2): compute its dyadic
+bits via Newton iteration, check trajectory.
+
 ## 6. Status
 
 - **Lean formalisation.**

@@ -22,9 +22,14 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     walk realisability (all STRICT 0-axiom)
   - `DyadicWalkUniversal.lean` — `chooseEdge` constructive
     selector (STRICT 0-axiom)
-  - **Finding**: existence form trivial (every vertex has both
-    bits in incident edges).  Non-trivial content must be
-    canonicity/signature.
+  - `DyadicSignature.lean` — `nextVertex` deterministic
+    transition + `signature` trajectory; concrete classification
+    1/3, 1/5, 1/7 pairwise distinguished by step ≤ 9
+    (★★★ STRICT 0-axiom).
+  - `DyadicClassifier.lean` — ★★★★★ key theorem:
+    **aperiodic bits ⇒ aperiodic K_{3,2}^{(2)} signature**
+    (≤ {propext, Quot.sound}).  Realises Mingu's intuition that
+    K_{3,2}^{(2)} walk classifies irrational types.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 
@@ -73,10 +78,13 @@ Top-3 from this session (full list in LESSONS_KERNEL_DECIDE.md):
 
 ## Open Problems (priority)
 
-### 1. Conjecture 2 — sharpened canonicity (NEW)
-Dyadic ↔ K_{3,2}^{(2)} existence form is trivial.  Sharpen
-to one of (canonical walk / period-graph isomorphism / hinge
-labelling determinism) per G1 §5.  Falsifier-style.
+### 1. Conjecture 2 — finer irrational classification (NEW)
+Existence form trivial; signature classifier closed
+(aperiodic bits ⇒ aperiodic signature).  Open: classify
+*finer* — algebraic vs transcendental, algebraic degree d ↔
+trajectory complexity class C_d.  Test against √2 (degree 2):
+compute its dyadic bits via Newton iteration on rationals,
+check trajectory pattern.
 
 ### 2. Conjecture 1 — universal expressibility (NEW)
 Curry–Howard + Raw encoding of arbitrary constructive proofs.
