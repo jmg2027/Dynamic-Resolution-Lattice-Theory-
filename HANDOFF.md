@@ -205,6 +205,12 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicLegendrePisano.lean` — ★★★★★★ legendre_pisano_bridge_table:
     Legendre value PREDICTS Pell period type
     (p=3 NQR ⇒ 4, p=5 ramified ⇒ 10, p=7 NQR ⇒ 8).
+  - `DyadicArithFSMmod11.lean` — Pell mod 11 (SPLIT, period 5):
+    First QR/split-case instance.  Bit period 5, sig period 10
+    (doubled by parity since bit period is odd).
+  - `DyadicLegendrePisanoExt.lean` — ★★★★★★★ legendre_pisano_extended_bridge:
+    All 4 branch types verified (split + inert + ramified)
+    across primes {3, 5, 7, 11} for Pell discriminant 5.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
