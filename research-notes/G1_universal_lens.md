@@ -325,9 +325,12 @@ witness.
 **BitAuto2 abstraction** (`DyadicBitAuto2.lean`):
   - `structure BitAuto2 (n : Nat)` with init/step/out reading
     binary digits of index via testBit.
-  - `thueMorseAuto : BitAuto2 2` concrete instance.
-  - `thueMorseAuto_witnesses_bitAuto2`: ∃ m : BitAuto2 2 matching
-    thueMorse on first 8 indices.
+  - `thueMorseAuto : BitAuto2 2` (parity-XOR DFA).
+  - `isPow2Auto : BitAuto2 3` (popcount-saturating DFA detecting
+    powers of 2).
+  - Witness theorems verifying both match expected patterns on
+    bounded ranges.  Two distinct BitAuto2 instances demonstrating
+    the abstraction.
 
 **Class hierarchy** (formal where indicated):
   Tier 0 (rationals)         = BitFSM-class  ★ formal
