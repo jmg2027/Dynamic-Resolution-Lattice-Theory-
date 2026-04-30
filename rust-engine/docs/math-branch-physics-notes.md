@@ -2267,3 +2267,48 @@ Q-pair arithmetic in `crates/app/src/basel.rs` could be
 reformulated through `CutBinary`-style abstractions for
 cleaner Lean correspondence.  Most useful for new binaries
 that operate on multiple bracket types.
+
+## 137-143. Continuity + Cauchy completeness (~7 files)
+
+**What's there**:
+
+- `CutContinuity`: cut-function continuity via locatedness
+  predicate `isLocallyDetermined f` — value of f at (m, k)
+  depends only on a finite local neighborhood of input cut.
+  Bishop-style without ε-δ.
+- `CauchyComplete`: ★ "Cauchy completeness of Real213 is *almost
+  trivial*" — since Real213 IS (sequence + modulus), the
+  completeness is direct construction.  No metric-space theory.
+- `CauchyLattice`: max/min of Cauchy sequences is Cauchy.
+- `CauchyArithSum`: sum of Cauchy is Cauchy with explicit
+  modulus `max_{j ∈ [0, 2m]} (a.N j (2k), b.N j (2k))`.
+- `CauchyArithMul`: product of Cauchy with explicit modulus
+  `max_{j ∈ [0, B]} a.N j k` where B = (m+1)(k+1).
+- `CauchyConstLimit`: closed forms for arithmetic on constant
+  Cauchy sequences (the easy case).
+- `CutSequence`: Real213-valued sequences themselves form a
+  CutSeq, with their own Cauchy + limit notions.
+
+**Physics intuition**: Bishop's completeness theorem becomes
+**direct construction** in 213 because Real213 IS already a
+sequence-with-modulus.  No "complete the rationals" step needed.
+Limits exist as concrete witnessed Cauchy sequences with explicit
+moduli — every limit comes with a "how fast does it converge"
+witness.
+
+For physics: when proposing convergence of a series / partial
+sum / approximation scheme, the **explicit modulus is what
+the proof needs**, not a vague "tends to zero".  This forces
+proposals to come with a quantitative convergence rate.
+
+**Computation lever**: When a physics quantity is given as a
+limit, write down its modulus N(m, k) explicitly.  If you can't,
+the proposal is incomplete.  This catches a lot of hand-wavy
+"in the limit X tends to Y" arguments that don't survive
+constructive scrutiny.
+
+**Rust-engine application**: post-merge, the existing
+`Basel.s_partial`/`upper` are exactly this Cauchy-with-modulus
+form (give N, get S(N) bracket).  Generalizing to a
+`crates/app/src/cauchy.rs` would let new binaries use the same
+Cauchy machinery for non-ζ(2) limits (e.g. Wallis π, Taylor e).
