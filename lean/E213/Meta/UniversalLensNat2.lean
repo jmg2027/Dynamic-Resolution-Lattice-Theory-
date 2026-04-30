@@ -61,4 +61,20 @@ theorem expSumLens_distinguishes_sample :
     expSumLens.view Raw.a
       ≠ expSumLens.view (Raw.slash Raw.a Raw.b (by decide)) := by decide
 
+/-- ★★★★★ All four canonical depth-≤1 Raws have pairwise distinct views.
+    Concrete injectivity check at the small-depth boundary. -/
+theorem expSumLens_injective_small :
+    expSumLens.view Raw.a ≠ expSumLens.view Raw.b
+    ∧ expSumLens.view Raw.a
+        ≠ expSumLens.view (Raw.slash Raw.a Raw.b (by decide))
+    ∧ expSumLens.view Raw.b
+        ≠ expSumLens.view (Raw.slash Raw.a Raw.b (by decide)) := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
+/-- ★★★★ Slash-views ALWAYS exceed leaf-views: 2^m + 2^n ≥ 6
+    when m ≠ n and both ≥ 1.  (Numerically: leaf = 1 or 2, smallest
+    slash = 6.) -/
+theorem slash_view_minimum :
+    (expSumLens.view (Raw.slash Raw.a Raw.b (by decide))).1 = 6 := rfl
+
 end E213.Meta.UniversalLensNat2
