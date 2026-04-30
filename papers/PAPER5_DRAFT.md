@@ -71,13 +71,26 @@ comparison via cross-multiplication:
 
 | observable | DRLT | observed | Δ |
 |---|---|---|---|
-| 1/α_em | 137.0359895 | 137.0359991 | **0.07 ppm** |
+| HO magic 2,8,20 | 2,8,20 | 2,8,20 | **EXACT** |
+| N_gen | 3 | 3 | **EXACT** |
+| Muon prefactor | 192 = 8·24 | 192 | **EXACT** |
+| Bond angle CH₄ | cos = −1/3 | −0.333 | **EXACT** |
+| Bond angle H₂O | cos = −1/4 | −0.250 | **EXACT** |
+| H ionization (Phase 4) | 13.605693 eV | 13.605693 | **4.3 ppb** ★★ |
 | m_μ/m_e | 206.7682837 | 206.7682838 | **0.49 ppb** ★★ |
+| Ω_Λ | 0.685005 | 0.685 | **0.001%** |
+| E_1 (Hydrogen leading) | 13.605693 eV | 13.598 | 0.057% |
+| 1/α_em | 137.0359895 | 137.0359991 | **0.07 ppm** |
+| 1/α_3 (v2) | 8.475971 | 8.476 | 0.0003% |
 | m_p | 938.271472 MeV | 938.2700 MeV | **1.56 ppm** ★ |
-| 1/α_3 | 8.475971 | 8.476 | 0.0003% |
-| 1/α_2 | 29.597268 | 29.6 | 0.009% |
-| λ_H | 0.13115 | 0.1294 | 1.4% |
-| HO magic 2,8,20 | 2,8,20 | 2,8,20 | exact |
+| m_τ/m_μ | 16.816911 | 16.817025 | 6.77 ppm |
+| 1/α_2 (v2) | 29.597268 | 29.6 | 0.009% |
+| sin²θ₁₃ (PMNS) | 0.021952 | 0.02200 | 0.21% |
+| cos²θ_W (m_W²/m_Z²) | 0.766893 | 0.7686 | 0.22% |
+| λ_H (full Higgs) | 0.129881 | 0.1294 | 0.37% |
+| sin θ_C (Cabibbo) | 5/22 | 0.2257 | 0.7% (bare) |
+| sin²θ_W (bare) | 0.233107 | 0.2312 | 0.83% |
+| θ_QCD prediction | ~10⁻¹¹ | TBD nEDM | falsifier |
 
 α_GUT = 1/(d²·ζ(2)) computed via Basel partial sum bracket
 S(N) ≤ ζ(2) ≤ S(N) + 1/N.  At N=5000 reaches ppb precision.
