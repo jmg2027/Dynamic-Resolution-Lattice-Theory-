@@ -225,6 +225,13 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicAlgebraicDegree.lean` — HasDegree_d predicates + containments:
     legendreFSM has degree ≤ 1, pellFSMmod3 ≤ 2, tribFSMmod2 ≤ 3.
     213-native algebraic-degree definition via state-space dimension.
+
+### 213-native number theory MASTER CAPSTONE
+
+  - `DyadicNumberTheory213.lean` — ★★★★★★★★ number_theory_213_capstone:
+    Single 3-conjunct theorem bundling Steps 1+2+3.  All <= {propext,
+    Quot.sound}.  Realises the user's thesis "213 = language for
+    rewriting mathematics, not a translation interface".
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
