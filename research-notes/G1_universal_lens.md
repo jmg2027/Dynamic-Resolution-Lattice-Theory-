@@ -255,7 +255,14 @@ Reference: `research-notes/D2_complexity_class_hierarchy.md` —
   - `★ fsm_run_collision` (pigeonhole)
   - `★★★ fsm_run_eventually_periodic`
   - `★★★★★ fsm_bits_eventually_periodic`
+  - `★★★★★★ fsm_signature_eventually_periodic`
+    (BitFSM ⇒ signature eventually periodic, full chain closed)
   All ≤ {propext, Quot.sound}.
+
+**Eventual forward direction** (`DyadicForwardEventual.lean`):
+  Strict generalisation: bits eventually periodic with pre-period
+  N₀ ⇒ signature eventually periodic.  Used to close the BitFSM
+  chain.  ≤ {propext, Quot.sound}.
 
 **Tier ⊂ BitFSM hierarchy** (formal):
   - Tier 0 (rationals): explicit BitFSM with state count = period

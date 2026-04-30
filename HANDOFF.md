@@ -52,8 +52,15 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - `structure BitFSM (n : Nat)` with `init`, `step`, `out`.
     - `fsm_run_collision`, `fsm_run_eventually_periodic`,
       `fsm_bits_eventually_periodic` — chain via pigeonhole.
+    - ★★★★★★ `fsm_signature_eventually_periodic`: BitFSM-generated
+      bit stream ⇒ K_{3,2}^{(2)} signature eventually periodic
+      (full chain closed, ≤ {propext, Quot.sound}).
     Captures Tier 0 ∪ Tier 1 (FSM-generable bit streams).
     Tier 2 conjecturally OUTSIDE this class.
+  - `DyadicForwardEventual.lean` — eventual extension of forward:
+    - `signature_eventually_periodic_of_eventually_periodic_bits`
+      (≤ {propext, Quot.sound}). Used to close BitFSM → signature
+      chain.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 
