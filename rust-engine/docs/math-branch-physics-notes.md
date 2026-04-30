@@ -1893,3 +1893,49 @@ that takes a candidate sequence and routes it through the four
 capstones, outputting which class+period+degree applies.  This
 becomes **the one-stop diagnostic for any number-theoretic
 content in DRLT physics**.
+
+## 69-77. ArithFSM3 family + remaining mod primes (Pell mod 17, 19, 23)
+
+**What's there** (compact note, 9 files):
+
+ArithFSM3 family (5 files): `ArithFSM3.lean` defines the
+3-state arithmetic FSM (cubic / Tribonacci class).  Joint state
+`(Fin n)³` of size n³.  Recurrence captures
+`a_{k+1} = a + b + c` Tribonacci-style.  Then:
+- `ArithFSM3toBitFSM`: encoding (a,b,c) ↦ a·n² + b·n + c gives
+  Tier 1 cubic ⊂ BitFSM(n³).
+- `ArithFSM3Equiv`: helper lemmas (encode-mod, inner-div).
+- `ArithFSM3Bound`: signature period bound ≤ 5n³.
+- `ArithFSM3Hardness`: aperiodic ⇒ no ArithFSM3 generates it
+  (cubic Tier-2 hardness, mirrors quadratic).
+
+Remaining mod primes (4 files) — Pell mod {17, 19, 23} +
+predictor evidence:
+- mod 17: INERT, period 18 = p+1.  Verified.
+- mod 19: SPLIT, period 9 = (p−1)/2.  Bipartite parity doubling
+  → signature period 18.  Verified.
+- mod 23: INERT, period 24 = p+1.  Latest entry; full 8-prime
+  predictor evidence base.
+
+**Physics intuition** (joint): The cubic-class extension makes
+**Tribonacci-style 3-step recurrences** first-class citizens
+of the framework — same hardness, same bit-stream embedding,
+same period bounds (now n³ instead of n²).  For physics: any
+3-quark / 3-generation / 3-color resonance that produces a
+recurrence has its complexity classifiable here.
+
+The 8-prime evidence corpus {3,5,7,11,13,17,19,23} samples
+**all three Pell branch types** (inert/split/ramified) at
+multiple primes, making the predictor "verified across
+the structural cases".
+
+**Computation lever**: When a physics observable involves
+Tribonacci-style triple-recurrence, ArithFSM3 is the home
+class.  Period ≤ 5n³, hardness applies.  When involving any
+of the verified primes (3-23), use pisano_predict directly
+without re-derivation.
+
+**Rust-engine application**: same `arith-fsm-classify` binary
+(proposed at #41-44) covers ArithFSM3 case automatically by
+extending the brute-force search up to d=3.  No additional
+binary needed.
