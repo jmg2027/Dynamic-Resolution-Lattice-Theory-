@@ -158,6 +158,10 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - ★★★★★ pellFSMmod7_signature_period_8 (TIGHT, pure).
     - pellFSMmod7_signature_period_bound: 245 = 5·49.
     - run period 8 STRICT 0-AXIOM.
+  - `DyadicPellFamily.lean` — ★★★★★★ pell_family_closure:
+    12-conjunct bundle for the full 4-modulus family
+    (bit periods + TIGHT sig periods + 5n² guarantees) at
+    moduli {2, 3, 5, 7}.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
