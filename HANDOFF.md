@@ -245,6 +245,11 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     7 of 7 primes verified.  Inert × 4, split × 2, ramified × 1.
   - `DyadicNumberTheory213v2.lean` — ★★★★★★★★★ number_theory_213_capstone_v2:
     Master capstone with 7-prime predictor evidence base.
+  - `DyadicSignaturePredict.lean` — ★★★★★★★ signature_predict +
+    signature_predict_realises_pell_7: signature-period predictor
+    (parity doubling for odd bit periods) verified at all 7 primes.
+  - `DyadicTwoLayerPredictor.lean` — ★★★★★★★★ two_layer_predictor_capstone:
+    Bit + signature predictor unified (14-conjunct: 7+7).
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
