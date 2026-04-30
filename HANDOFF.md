@@ -5,10 +5,12 @@
 
 ## State
 
-### 1. rust-engine — 31+ binaries, ℕ-only ☞ Lean 0-axiom trust path
+### 1. rust-engine — 48 binaries, ℕ-only ☞ Lean 0-axiom trust path
 - 5-crate workspace: kernel ← firmware ← hypervisor ← os ← app
 - 178/178 tests pass | 89/89 citations resolve | clippy ~clean
 - BigUint only, no floats anywhere in runtime crates
+- Companion docs: `rust-engine/docs/{architecture,layers,milestones,
+  trust-contract,precision-matrix,gaps-and-todos}.md`
 
 ### 2. Comprehensive precision matrix (★★ headline)
 
@@ -57,10 +59,19 @@
   SubSimplexInventory, TripleCoupling{,V2},
   FiniteResonanceN, ParitySign, Tools/CertChecker.
 
-### 8. Paper 5 draft (papers/PAPER5_DRAFT.md)
-  "Zero-parameter SM couplings from finite-N K_{3,2}^{(2)} resonance"
+### 8. Precision matrix doc (rust-engine/docs/precision-matrix.md)
+  "Precision Matrix — DRLT Cross-Checks via the Rust Engine"
+  (engine companion; not a journal-bound paper draft.  papers/ is
+  archive — the prior PAPER5_DRAFT.md was misnamed since
+  papers/paper5_critical_line.tex is an unrelated RH paper.)
 
-### 9. Rust binaries (31+) — by category
+### 8a. Cleanup notes (rust-engine/docs/gaps-and-todos.md)
+  Catalogues loose whitelist citations (17 module-level entries),
+  exploratory binaries without Lean cite, hardcoded π/ζ(2)
+  display-only spots, Λ_QCD origin still informal, and three open
+  Lean opportunities (m_t/m_c, 192 identity, (2φ−1)²=d).
+
+### 9. Rust binaries (48) — by category
   α_em chain : alpha-em-bracket, alpha-em-decompose, gap-explorer,
                propagator-form, finite-resonance, series-truncation,
                overlap-series, cf-generator, impedance-search

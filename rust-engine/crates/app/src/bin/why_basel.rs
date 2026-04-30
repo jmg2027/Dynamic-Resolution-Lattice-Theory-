@@ -9,8 +9,8 @@
 //!
 //! THIS is *why* π² appears in 1/α_em — not arbitrary, forced by NS=3.
 
-use drlt_app::basel::{s_partial, Q};
-use drlt_app::gap_explorer::{decimal, nat};
+use drlt_app::basel::s_partial;
+use drlt_app::gap_explorer::decimal;
 
 fn main() {
     let n: u64 = std::env::args().nth(1)

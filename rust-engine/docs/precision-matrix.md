@@ -1,7 +1,12 @@
-# Zero-parameter Standard Model couplings from finite-N K_{3,2}^{(2)} resonance
+# Precision Matrix — DRLT Cross-Checks via the Rust Engine
 
-**Mingu Jeong** (Independent Researcher).
-*Acknowledgment: Formal verification developed in dialogue with Claude (Anthropic).*
+*Scope*: this document captures all SM-precision observables reproduced
+through the `rust-engine/` workspace, each cited to a 0-axiom Lean
+theorem in `lean/E213/Physics/`.  Companion document for the engine,
+not a journal-bound paper draft.
+
+**Author of the underlying theory**: Mingu Jeong (Independent Researcher).
+**Engine + verification**: developed in dialogue with Claude (Anthropic).
 
 ## Abstract
 From four lattice axioms (existence, distinction, slash, slash_comm)

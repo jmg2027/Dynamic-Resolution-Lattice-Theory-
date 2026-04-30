@@ -23,7 +23,7 @@ fn pm1_sq(x: &Q) -> Q {
 }
 
 fn main() {
-    let s = s_partial(2000); let u = upper(2000);
+    let _s = s_partial(2000); let u = upper(2000);
     let agut: Q = (u.1.clone(), nat(25) * &u.0);   // α_GUT_lo
 
     println!("=== P(x) = (1+2x)/(1+x) propagator form ===\n");
