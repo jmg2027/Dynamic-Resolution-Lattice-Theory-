@@ -135,34 +135,59 @@ finite Raw tree under the right encoding.
 > 일반적인 무리수를 유리수의 급수로 하는 바운더리들을 조사하면, 절단의
 > 패턴이 K23^2의 Dyadic성을 바탕으로 나타난다.
 
-For any irrational represented as a Cauchy sequence of rationals,
-the dyadic cut bit-pattern follows a K_{3,2}^{(2)} hinge labelling.
+**Status (2026-04-30 follow-up).**  Formalised as:
 
-**Path to formalisation.**
+  - `lean/E213/Math/Cohomology/DyadicConjecture.lean`:
+    bit-walk language, period validation for 1/3 (period 2),
+    1/5 (period 4), 1/7 (period 3) — all realised as
+    K_{3,2}^{(2)} bit-walks, all STRICT 0-axiom.
+  - `lean/E213/Math/Cohomology/DyadicWalkUniversal.lean`:
+    `chooseEdge : Fin 5 → Bool → Fin 12` constructive
+    selector + `chooseEdge_bit_full` (10-case 0-axiom bundle).
 
-```lean
-def dyadicCut (q : ℕ → ℚ) (n : ℕ) : Bool := ...
-theorem cut_pattern_K32 :
-  ∀ (q : ℕ → ℚ) (hcauchy : ...),
-    ∃ (h : Hinge K32^(2)),
-      ∀ n, dyadicCut q n = label h n := ...
-```
+**Finding (sharpens the conjecture).**  Every K_{3,2}^{(2)}
+vertex has both bits 0 and 1 in its incident edges →
+**existence form of Conjecture 2 is trivial** (any bit
+sequence realises by greedy walk extension).
 
-Test against π, e, √2, log 2.  Consistent → strong evidence;
-inconsistent → honest negative finding (LeibnizFinding-style).
+Therefore the non-trivial content must be: the realising walk
+is *canonical* / *signature-bearing*, not merely existent.
+Plausible refinements:
 
-Also a NEW entry to **Real213 Phase B–H** (cutMul propEq wall)
-— through the K_{3,2}^{(2)} lens rather than ε-δ.
+  1. **Canonical walk.**  For each irrational r, there is a
+     UNIQUE walk satisfying some additional constraint (e.g.,
+     minimal hinge cycle decomposition, lex-least under
+     vertex labelling).
+  2. **Period-graph isomorphism.**  Periodic bit-streams of
+     period p correspond to length-p walks in K_{3,2}^{(2)};
+     the cycle structure of this walk is the *signature* of p.
+  3. **Hinge labelling determinism.**  The dyadic cut bits
+     correspond to a deterministic transition function on
+     the hinges of K_{3,2}^{(2)} (a Markov chain), reading the
+     irrational's expansion from a specific starting hinge.
+
+**Direction.**  Sharpen one of (1)–(3) into a falsifier
+statement, then test against irrationals.  Also: a NEW entry
+to **Real213 Phase B–H** (cutMul propEq wall) — through the
+K_{3,2}^{(2)} lens rather than ε-δ.
 
 ## 6. Status
 
-- **Lean formalisation.** `lean/E213/Meta/UniversalLens.lean`
-  closed at ≤ {propext}.  `refines_all` strict 0-axiom.
+- **Lean formalisation.**
+  - `lean/E213/Meta/UniversalLens.lean` — Universal Lens
+    metatheory.  ≤ {propext}; `refines_all` strict 0-axiom.
+  - `lean/E213/Math/Cohomology/DyadicConjecture.lean` —
+    bit-walk language + 1/3, 1/5, 1/7 walks (0-axiom).
+  - `lean/E213/Math/Cohomology/DyadicWalkUniversal.lean` —
+    chooseEdge witness (0-axiom).
 - **Memo doc.** This file.
-- **Open.** Conjectures 1, 2.  ℚ²-discrete refinement (currently
-  witnessed by `idLens : Lens Raw`; upgrade to `Lens (ℚ × ℚ)` is
-  structurally the minimum target per the user's derivation but
-  technically deferred).
+- **Open.**
+  - Conjecture 1 (universal expressibility — needs Curry–Howard
+    + Raw encoding of arbitrary constructive proofs).
+  - Conjecture 2 *canonicity refinement* — pick (1)/(2)/(3)
+    above and formalise as falsifier.
+  - ℚ²-discrete refinement of `idLens : Lens Raw` to
+    `Lens (ℚ × ℚ)` — structurally the minimum target, deferred.
 
 ## 7. Significance
 
