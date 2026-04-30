@@ -135,6 +135,18 @@ path = "src/bin/muon_lifetime.rs"
 name = "ckm-wolfenstein"
 path = "src/bin/ckm_wolfenstein.rs"
 
+[[bin]]
+name = "atomic-correspondences"
+path = "src/bin/atomic_correspondences.rs"
+
+[[bin]]
+name = "fibonacci-atomic"
+path = "src/bin/fibonacci_atomic.rs"
+
+[[bin]]
+name = "drlt-zero-parameters"
+path = "src/bin/drlt_zero_parameters.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }

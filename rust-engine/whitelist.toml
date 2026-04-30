@@ -306,3 +306,15 @@ lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
 [[op]]
 rust = "drlt_app::bin::ckm_wolfenstein"
 lean = "E213.Physics.CKMHierarchy"
+
+[[op]]
+rust = "drlt_app::bin::atomic_correspondences"
+lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
+
+[[op]]
+rust = "drlt_app::bin::fibonacci_atomic"
+lean = "E213.Physics.FibonacciAtomic"
+
+[[op]]
+rust = "drlt_app::bin::drlt_zero_parameters"
+lean = "E213.Physics.DrltZeroParameters"
