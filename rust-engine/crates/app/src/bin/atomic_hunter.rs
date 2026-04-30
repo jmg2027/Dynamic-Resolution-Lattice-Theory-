@@ -25,15 +25,33 @@ fn mul_q(a: &Q, b: &Q) -> Q { (&a.0 * &b.0, &a.1 * &b.1) }
 /// Atomic integer candidates (NS=3, NT=2, d=5, c=2 derivatives).
 fn atomic_ints() -> Vec<(&'static str, u64)> {
     vec![
-        ("1",      1),  ("NT",      2),  ("NS",       3),  ("NT²",      4),
-        ("d",      5),  ("NS·NT",   6),  ("d−NT",     3),  ("NS²−1",    8),
-        ("NS²",    9),  ("NT·d",   10),  ("c·NS·NT", 12),  ("F_7",     13),
-        ("NS·d",  15),  ("d²−1",   24),  ("d²",      25),  ("d^NT=25",  25),
-        ("NT^d",  32),  ("NS²·d",  45),  ("d²+24",   49),  ("E·d=60",  60),
-        ("d²·c·NT=100", 100), ("NS·NT·d²=150", 150), ("d·NT^d=160", 160),
-        ("(NS²−1)·(d²−1)=192", 192), ("NT^d·NT²=128", 128),
-        ("NS·d²+1=76", 76), ("NS·NT·d=30", 30), ("NS·NT²=12", 12),
-        ("NS·d²=75", 75), ("NS·d²+NS·NT²+1=88", 88),
+        ("1",          1), ("NT",         2), ("NS",         3), ("NT²",        4),
+        ("d",          5), ("NS·NT",      6), ("d+NT=7",     7), ("NS²−1",      8),
+        ("NS²",        9), ("NT·d",      10), ("d²+NS²−d=11",11), ("c·NS·NT",  12),
+        ("F_7",       13), ("NS²+d=14",  14), ("NS·d",      15), ("(NS²+1)·NT−2", 18),
+        ("NS²·c+2",   20), ("NS²+NS·NT", 15), ("d²−NT=23",  23), ("d²−1",      24),
+        ("d²",        25), ("d²+NT−1=26",26), ("NS²+NS·d−1=23", 23),
+        ("NS·NT·d−1=29", 29), ("NS·NT·d=30", 30), ("NT^d",      32),
+        ("d²+d²−d²+15=40", 40), ("NS²·d", 45), ("d²+24=49", 49),
+        ("d²·NT=50",  50), ("E·d=60",    60), ("NS·d²=75",  75),
+        ("d²·c·NT=100", 100), ("NS²+d^NT−4=30", 30), ("NS·d²·c=150", 150),
+        ("d·NT^d=160", 160), ("(NS²−1)·(d²−1)=192", 192), ("NT^d·NT²=128", 128),
+    ]
+}
+
+/// Atomic fractional candidates p/q for atomic p, q.
+/// Captures sub-simplex weight ratios that may appear in
+/// composite hadronic / nuclear observables.
+fn atomic_fractions() -> Vec<(&'static str, u64, u64)> {
+    vec![
+        ("NT/NS",      2, 3),  ("NS/NT",      3, 2),  ("NT/d",      2, 5),
+        ("NS/d",       3, 5),  ("NT²/NS",     4, 3),  ("NS²/NT",    9, 2),
+        ("NS²/d",      9, 5),  ("d/NS",       5, 3),  ("d/NT",      5, 2),
+        ("(NS²−1)/d",  8, 5),  ("(NS²−1)/NT²",8, 4),  ("(d²−1)/d",  24, 5),
+        ("(d²−1)/NS·NT",24,6), ("d²/(NS·NT)",25, 6),  ("(NT^d)/(NS·d²)",32,75),
+        ("(d²−1)/(NS²−1)",24,8), ("NS²/(d²−1)", 9, 24), ("NT²/(d²−1)",4,24),
+        ("(NS²+1)/d",  10, 5), ("(d+1)/NT",   6, 2),  ("(NS+NT+1)/d²", 6, 25),
+        ("NS/(d²−1)",  3, 24), ("NT/(d²−1)",  2, 24), ("NS·NT/(d²−1)",6,24),
     ]
 }
 
@@ -115,6 +133,7 @@ fn apply_alpha(q: &Q, k: i32, zeta: &Q) -> Q {
 
 fn hunt(label: &str, target: &Q, pi: &Q, zeta: &Q) {
     let mut best: Vec<(u64, String, Q)> = Vec::new();
+    // Pass 1: integer-prefactor candidates
     for (k_lab, k) in atomic_ints() {
         for (t_lab, pi_p, ze_p) in transcendental_combos() {
             let base = candidate(k, pi_p, ze_p, pi, zeta);
@@ -125,11 +144,25 @@ fn hunt(label: &str, target: &Q, pi: &Q, zeta: &Q) {
             }
         }
     }
+    // Pass 2: rational-prefactor candidates p/q (sub-simplex weights)
+    for (f_lab, p_num, p_den) in atomic_fractions() {
+        for (t_lab, pi_p, ze_p) in transcendental_combos() {
+            let pi_part = q_pow(pi, pi_p);
+            let z_part = q_pow(zeta, ze_p);
+            let base: Q = (nat(p_num) * &pi_part.0 * &z_part.0,
+                           nat(p_den) * &pi_part.1 * &z_part.1);
+            for (a_lab, a_k) in alpha_corrections() {
+                let cand = apply_alpha(&base, a_k, zeta);
+                let ppm = ppm_diff(target, &cand);
+                best.push((ppm, format!("{f_lab}{t_lab}{a_lab}"), cand));
+            }
+        }
+    }
     best.sort_by_key(|(p, _, _)| *p);
     println!("--- {label} ---");
     println!("  target = {}", decimal(target, 9));
-    for (ppm, lab, val) in best.iter().take(3) {
-        println!("  {:<32} = {} ({} ppm)",
+    for (ppm, lab, val) in best.iter().take(5) {
+        println!("  {:<36} = {} ({} ppm)",
             lab, decimal(val, 9), ppm);
     }
     println!();
