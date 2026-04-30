@@ -2221,3 +2221,49 @@ operations on the underlying Raw structure.  The existing
 `crates/hypervisor/src/recurrence_lens.rs` with the standard
 Lens-as-real machinery would unify how the engine handles
 different real-flavored quantities.
+
+## 125-136. Cut algebra (~12 files compact)
+
+**What's there**: Complete arithmetic operations on RealCut
+(predicate `c m k = decide(x ≤ m/k)`).
+
+- `CutSum`: `(x + y) ≤ m/k` via bounded search over rational
+  decomposition `m/k = m₁/k + m₂/k`, c-cut for each.
+- `CutMul`: `(x · y) ≤ m/k` via 2D bounded search over rational
+  decomposition.  Inherits monotone properties.
+- `CutDouble`: 2x via cutSum (specialized).
+- `CutPow`: x^n by repeated cutMul.
+- `CutInv`: reciprocal for positive c (c > 0 strict).
+- `CutPoly`: Σ aᵢ·xⁱ polynomial eval.
+- `CutMaxMin`: max via AND-conjunction, min via OR-disjunction
+  on the cut predicate.  Trivial.
+- `CutBisection`: cutHalf (`c/2 ≤ m/k iff c ≤ 2m/k`), cutMid for
+  (x+y)/2 — IVT support.
+- `CutDistance`: |x − y| via abs∘signed-sub.
+- `CutAlgebraStruct`: bind operations into reusable struct.
+- `CutBinary` ★: GENERIC 2D bounded-search cut operation.
+  Extracts the common pattern of cutSum and cutMul — "let's
+  go generic in the 213 style" (user directive).
+- `CutAlgebraic`: lattice properties of max/min + cut-zero/one.
+
+**Physics intuition**: All standard arithmetic operations on
+real-valued physics observables become **bounded search over
+rational decompositions** at the cut level.  The arithmetic is
+fully constructive — no completeness axiom needed.  Bishop-style
+"locatedness" naturally falls out.
+
+The generic `CutBinary` is most elegant: ANY binary operation
+on cuts (sum, product, max, min, distance, ...) shares the same
+"2D bounded search" template.  This is the **discrete-lattice
+unification of arithmetic operations** — there's only one
+underlying mechanism, specialized by which combiner Bool is used.
+
+**Computation lever**: When proposing arithmetic on physics
+observables in DRLT, derive it via CutBinary's template — gives
+*automatic* monotone / locatedness / Bishop-locality properties.
+
+**Rust-engine application**: post-merge, the rust-engine's
+Q-pair arithmetic in `crates/app/src/basel.rs` could be
+reformulated through `CutBinary`-style abstractions for
+cleaner Lean correspondence.  Most useful for new binaries
+that operate on multiple bracket types.
