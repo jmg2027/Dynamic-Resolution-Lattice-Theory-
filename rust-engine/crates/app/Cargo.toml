@@ -55,6 +55,10 @@ path = "src/bin/propagator_form.rs"
 name = "finite-resonance"
 path = "src/bin/finite_resonance.rs"
 
+[[bin]]
+name = "parity-check"
+path = "src/bin/parity_check.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
