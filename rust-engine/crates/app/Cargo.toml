@@ -63,6 +63,18 @@ path = "src/bin/parity_check.rs"
 name = "mu-electron"
 path = "src/bin/mu_electron.rs"
 
+[[bin]]
+name = "m-proton"
+path = "src/bin/m_proton.rs"
+
+[[bin]]
+name = "magic-numbers"
+path = "src/bin/magic_numbers.rs"
+
+[[bin]]
+name = "higgs-quartic"
+path = "src/bin/higgs_quartic.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }

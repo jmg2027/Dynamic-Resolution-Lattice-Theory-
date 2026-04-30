@@ -228,6 +228,18 @@ rust = "drlt_app::bin::mu_electron"
 lean = "E213.Physics.Phase3.LeptonRatioDerivation.lepton_ratio_derivation"
 
 [[op]]
+rust = "drlt_app::bin::m_proton"
+lean = "E213.Physics.ProtonMass.proton_simplicial_pattern"
+
+[[op]]
+rust = "drlt_app::bin::magic_numbers"
+lean = "E213.Physics.MagicNumbers.ho_magic_first_7"
+
+[[op]]
+rust = "drlt_app::bin::higgs_quartic"
+lean = "E213.Physics.HiggsQuartic.lambda_leading_denom"
+
+[[op]]
 rust = "drlt_app::bin::finite_resonance"
 lean = "E213.Physics.FiniteResonanceN.finite_resonance_n_skeleton"
 
