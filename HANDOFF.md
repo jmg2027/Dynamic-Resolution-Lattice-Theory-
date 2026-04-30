@@ -72,7 +72,10 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicSignatureInj.lean` — lossless invariant:
     - ★★★★★★ `signature_eq_iff_bits_eq`: signatures match ⇔
       bit streams match.
-  - `DyadicCapstone.lean` — ★★★★★★★ single 8-conjunct bundle.
+  - `DyadicTier2Hardness.lean` — Tier 2 hardness:
+    - ★★★★★ `aperiodic_bits_imp_not_BitFSM`: aperiodic ⇒ no BitFSM
+    - ★★★★★★ `BitFSM_generable_imp_eventually_periodic`
+  - `DyadicCapstone.lean` — ★★★★★★★ single 9-conjunct bundle.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 
