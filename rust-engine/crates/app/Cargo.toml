@@ -171,6 +171,10 @@ path = "src/bin/bond_angles.rs"
 name = "nuclear-binding"
 path = "src/bin/nuclear_binding.rs"
 
+[[bin]]
+name = "golden-ratio"
+path = "src/bin/golden_ratio.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }

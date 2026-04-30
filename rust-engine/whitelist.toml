@@ -342,3 +342,7 @@ lean = "E213.Physics.BondAngles"
 [[op]]
 rust = "drlt_app::bin::nuclear_binding"
 lean = "E213.Physics.NuclearBinding"
+
+[[op]]
+rust = "drlt_app::bin::golden_ratio"
+lean = "E213.Physics.GoldenRatio"
