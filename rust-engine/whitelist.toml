@@ -396,5 +396,9 @@ rust = "drlt_app::bin::proton_radius"
 lean = "E213.Physics.ProtonMass.r_p_atomic"
 
 [[op]]
+rust = "drlt_app::bin::koide_check"
+lean = "E213.Physics.KoideFormula.koide_atomic"
+
+[[op]]
 rust = "drlt_app::bin::atomic_hunter"
 lean = "E213.Physics.ProtonElectronRatio.m_p_over_m_e_atomic"

@@ -39,6 +39,7 @@ const BINS: &[(&str, &[&str])] = &[
     ("ie-capstone", &[]),
     ("impedance-search", &["50"]),
     ("k32-inspect", &[]),
+    ("koide-check", &[]),
     ("lambda-qcd-search", &[]),
     ("m-proton", &["100"]),
     ("m-tau-mu", &["100"]),
