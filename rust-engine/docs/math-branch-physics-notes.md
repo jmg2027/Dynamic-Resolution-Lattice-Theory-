@@ -2473,3 +2473,64 @@ the Taylor structure (Series + Diff combined).
 evaluator for transcendentals — `exp_at_dyadic(p, q)`,
 `sin_at_dyadic`, etc — using ExpAtZero and SinCosAtZero as
 ground truth at p = 0, q = 1, then expanding via Taylor.
+
+## 170-178. Flux + Cohomology capstone (~9 files) ★★★
+
+**What's there**: The Flux track is the **simplicial-cohomology
+formulation of calculus** at the 213 cut level.
+
+- `FluxCut` (Phase AV-1): cohomological flux structure.
+  1-cochain on oriented dyadic edges.  Sign from ORIENTATION,
+  not arithmetic.  No more "negative numbers" needed for
+  derivatives — just flip the edge.
+- `FluxCochain` (Phase AV-2): explicit 1-cochain construction
+  `fluxAlong f db` — value of f along oriented bracket.
+- `FluxDivergence` (Phase AV-3): localDivergence = flux per
+  unit measure.  For bracket of expE n, measure = 2^(-n),
+  divergence = flux × 2^n.  ★ "213-native form of derivative:
+  cohomological flux density, NO LIMITS, NO ARITHMETIC RATIO".
+- `FluxPolynomial` (Phase AW): explicit local divergence forms
+  for polynomial functions, each with rfl-clean closed form.
+- `FluxFTC` (Phase AZ) ★: **Fundamental Theorem of Calculus**.
+  Classical: ∫_a^b f'(x) dx = f(b) − f(a).
+  213 cohomological: path-integrated localDivergence equals
+  endpoint difference.  Decidable.
+- `FluxFTCPolynomial` (Phase BC): polynomial FTC bridge at
+  unit bracket, propEq closed form.
+- `FluxEquiv` (Phase AY-1): cohomological equivalence for
+  FluxCut as Setoid (NO Quotient — preserves 213 ontology).
+- `FluxCohomologyCapstone` (Phase AX): bundles every AV-AW
+  result.  Single 0-axiom theorem.
+- `FluxSeries` (Phase BN): bridge ∑-series with FluxCut.
+  Cauchy in flux norm.
+
+**Physics intuition** (★★★ huge): This is **the cohomological
+foundation for differentiation/integration that bypasses LIMITS
+ENTIRELY**:
+
+- Derivative = cohomological flux density (decidable on each
+  dyadic level).  No ε-δ.  No infinitesimal.  Just oriented
+  edge values divided by edge measure.
+- Integral = path-integration of flux (sum of edge values along
+  oriented chain).  Concrete arithmetic.
+- FTC = "boundary of chain = chain of boundary" at the cohomology
+  level.  Reduces to a propEq at the cut level.
+
+The connection to standard physics:
+- **Maxwell's equations** become δ²=0 + flux algebra.
+- **Stokes' theorem** is FTC generalized.
+- **Quantum amplitude** ∫_path = sum of FluxCut.bits along chain.
+- **Gauge invariance** = "FluxCut up to coboundary" (Setoid).
+
+**Computation lever**: When proposing an integral/derivative
+identity in DRLT physics, **express it via FluxCut** (oriented
+1-cochain) rather than via continuum Riemann/Newton-Leibniz.
+The cohomological version is decide-checkable and avoids
+limit-based proofs.
+
+**Rust-engine application** (★ priority): post-merge, a
+`crates/app/src/flux.rs` module mirroring FluxCut + localDivergence
++ fluxAlong.  Use cases: any binary computing physics flux
+(EM flux through surfaces, hadronic transition amplitudes,
+RG flow integrals).  Connects directly to the Cohomology 213
+machinery covered in Section I.
