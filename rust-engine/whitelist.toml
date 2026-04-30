@@ -346,3 +346,11 @@ lean = "E213.Physics.NuclearBinding"
 [[op]]
 rust = "drlt_app::bin::golden_ratio"
 lean = "E213.Physics.GoldenRatio"
+
+[[op]]
+rust = "drlt_app::bin::ie_capstone"
+lean = "E213.Physics.Phase4.IECapstone.IE_periodic_atomic"
+
+[[op]]
+rust = "drlt_app::bin::quark_hierarchy"
+lean = "E213.Physics.QuarkHierarchy.mt_mb_dim"

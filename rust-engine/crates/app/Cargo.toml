@@ -175,6 +175,14 @@ path = "src/bin/nuclear_binding.rs"
 name = "golden-ratio"
 path = "src/bin/golden_ratio.rs"
 
+[[bin]]
+name = "ie-capstone"
+path = "src/bin/ie_capstone.rs"
+
+[[bin]]
+name = "quark-hierarchy"
+path = "src/bin/quark_hierarchy.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
