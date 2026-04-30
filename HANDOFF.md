@@ -150,6 +150,14 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicArithFSM2to3.lean` — ArithFSM2 ⊂ ArithFSM3:
     - padTo3 inclusion (pad with inert 3rd component).
     - padTo3_run_components, padTo3_bits_eq (STRICT 0-AXIOM).
+  - `DyadicPellBounds.lean` — concrete bounds for Pell {2, 3}:
+    - pellFSMmod{2,3}_signature_period_bound (20, 45).
+    - pell_family_signature_period_bounds: 3-conjunct table.
+  - `DyadicArithFSMmod7.lean` — Pell mod 7 (period 8 TIGHT):
+    - pellFSMmod7 instance.
+    - ★★★★★ pellFSMmod7_signature_period_8 (TIGHT, pure).
+    - pellFSMmod7_signature_period_bound: 245 = 5·49.
+    - run period 8 STRICT 0-AXIOM.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
