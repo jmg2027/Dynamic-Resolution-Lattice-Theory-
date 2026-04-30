@@ -171,6 +171,16 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - pell_mod{3,5,7} XOR-pairwise period bounds (20, 8, 40).
     - ★★★★★★ pell_crt_capstone: 3-conjunct pairwise CRT bundle.
     Formal Pisano CRT for the Fibonacci-squared matrix family.
+  - `DyadicProductHelpers.lean` — generic Fin pair encoding:
+    encodeFinPair, decodeFinFirst/Second, round-trip lemmas.
+  - `DyadicProductFSM.lean` — BitFSM.product universal definition.
+  - `DyadicProductFSMRun.lean` — product run/bits decomposition:
+    decodeFin{First,Second} ((product f1 f2).run k) = (f1.run k, f2.run k).
+  - `DyadicProductFSMPeriod.lean` — ★★★★★★ lens_composition_period:
+    period(BitFSM.product f1 f2 g) | lcm(period(f1), period(f2)).
+    The FSM-level CRT multiplicativity / lens composition theorem.
+  - `DyadicPellLens.lean` — concrete FSM-level Pell lens:
+    pellLens_3x5_period_20 (mod 3 × mod 5 → period | 20).
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
