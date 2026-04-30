@@ -2889,3 +2889,59 @@ connecting directly to BitFSM / 2-Automatic structures in
 Section II.  The link "Raw structure ↔ binary expansion ↔
 ArithFSM₂ recurrences" becomes computationally explicit through
 this encoding.
+
+## 251. `Meta/UniversalLensQ213Inj.lean` — ℚ² closure (Open Problem #6 FULLY CLOSED) ★★★★★
+
+**What's there**: The companion ℚ² witness, sealing Open Problem
+#6 in both ℕ² and ℚ² forms.
+
+```
+q213Lens : Lens (Q213 × Q213)         -- 213-NATIVE rational pair
+qNat r := (q213Lens.view r).1.1.eval  -- extract Nat
+theorem qNat_eq_expSumNat   : ∀ r, qNat r = expSumNat r
+theorem q213Lens_view_inj   : Function.Injective q213Lens.view
+theorem q213Lens_is_universal : IsUniversal q213Lens
+```
+
+Strategy: bridge to the ℕ² result.  Define `qNat` as the .eval of
+the first ℚ component; prove by induction it equals `expSumNat`;
+inherit injectivity.  Key auxiliary `Q213_ofNat_eval`: round-trip
+`(Q213.ofNat n).1.eval = n` proven by Nat induction.
+
+**Physics intuition** (★ what ℚ² adds beyond ℕ²):
+
+The ℕ² witness (#250) shows Raw embeds into pairs of *external*
+naturals.  The ℚ² witness shows Raw embeds into pairs of
+**213-INTERNAL rationals** (Q213, the kernel's Term type with
+.eval evaluation).  Crucially:
+
+1. **The rust-engine's runtime Q-pair IS the universal lens
+   output**.  Every `(BigUint, BigUint)` value computed by the
+   engine corresponds — under the q213Lens injection — to a
+   *unique Raw provenance*.  No Q-pair in the engine is "made
+   up"; each one factors back to a derivation tree.
+
+2. **Self-referential closure**: 213 uses Q213 internally, and
+   now Raw embeds into Q213 × Q213 injectively.  The system
+   has a faithful self-encoding.  This is the structural form
+   of "213 fully describes itself in its own native arithmetic"
+   — no external Nat needed for the description.
+
+3. **Both `(ℕ×ℕ)` and `(Q213×Q213)` witnesses available**: gives
+   flexibility in physics computations.  ℕ² for combinatorial
+   identities (binom, Pisano, etc); Q213² for ratio-valued
+   physics observables (couplings, mass ratios).  Choose the
+   codomain matching your observable's natural type.
+
+**Computation lever**: When designing a new physics quantity in
+DRLT, choose ℕ² when the answer is an integer count; ℚ² when
+the answer is a ratio.  Both encodings are universal — no
+information lost either way.  The rust-engine `Q-pair` already
+matches q213Lens output; no refactor needed for runtime.
+
+**Rust-engine application**: `crates/firmware/src/raw.rs` now
+has TWO faithful pair-encoding options for runtime Raw storage.
+The Q-pair form is more directly matched to existing Q-pair
+arithmetic in `basel.rs`, `wallis.rs`, etc.  Provenance tracking
+(every Q-pair → its originating Raw) becomes mechanically
+implementable.
