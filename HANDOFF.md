@@ -113,6 +113,16 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - ★★★★★ arithFSM2_signature_period_bound: signature period
       ≤ 5n² explicit (joint state argument).
     - ★★★★★★ pellFSMmod5_signature_period_bound: concrete 125 bound.
+  - `DyadicArithFSMHardness.lean` — Tier 2 hardness for ArithFSM lens:
+    - ★★★★★ aperiodic_bits_imp_not_ArithFSM2: aperiodic bs ⇒
+      no ArithFSM2(n) generates it (any modulus).
+    - ★★★★★★ ArithFSM2_generable_imp_eventually_periodic.
+  - `DyadicConcretePellSig.lean` — TIGHT signature periods:
+    - signature_period_of_bits_period_and_anchor (universal closure).
+    - ★★★★ pellFSMmod3 signature period 4 (pure).
+    - ★★★★★ pellFSMmod5 signature period 10 (pure).
+    - ★★★★ pellFSMmod2 signature period 6 from step 1 (pre-period 1,
+      "doubled" by bipartite alternation).
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
