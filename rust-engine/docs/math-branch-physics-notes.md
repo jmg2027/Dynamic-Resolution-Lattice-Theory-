@@ -1507,3 +1507,55 @@ fails — both interesting).
 audit` binary that takes a Q-pair sequence and checks whether
 its leading bits match any small BitFSM (brute-force search up
 to n ≤ 16 states or so).
+
+## 41-44. `Cohomology/DyadicArithFSM{,1,1to2,2to3,Hierarchy}.lean`
+
+**What's there**: ArithFSM hierarchy = state machines whose state
+space is `(Fin n)^d` (d-tuple).  ArithFSM_d captures
+recurrences of *algebraic degree d*:
+
+- ArithFSM₁: scalar state mod n (Legendre symbol streams,
+  multiplicative characters; degree 0/1).
+- ArithFSM₂: 2-component state, e.g. Pell `(a, b) ↦ (2a+b, a+b)`
+  mod n (quadratic algebraic, √2-style).
+- ArithFSM₃: 3-component state, Tribonacci-style cubic
+  recurrences.
+
+`ArithFSM1.padTo2` and `ArithFSM2.padTo3` give bit-stream-
+faithful inclusions ArithFSM₁ ⊂ ArithFSM₂ ⊂ ArithFSM₃.  The
+chain composition `padTo3 = padTo2 ∘ padTo3` gives
+ArithFSM₁ ↪ ArithFSM₃ directly.
+
+`arithFSM_hierarchy_capstone` packages all three inclusions
+into one 0-axiom theorem.
+
+**Physics intuition** (★★ critical): This is **the 213-native
+definition of algebraic degree**:
+
+  `deg(bs) := minimum d such that bs ∈ ArithFSM_d`
+
+Physical observables can therefore be classified by their
+algebraic degree — the minimum *state-space dimension* of a
+generating recurrence.  This gives a precise, computable handle
+on:
+- *quadratic vs cubic* couplings (Pell sequences vs Tribonacci)
+- the *minimum complexity* of a discrete observable
+- which observables admit closed forms in `√(d²·ζ(2))` (degree 2)
+  vs deeper roots (degree 3+)
+
+DRLT atomic primitives at d = 5 produce predominantly degree-2
+algebraic recurrences (Pell-like), with degree-3 reserved for
+specific tri-resonance phenomena (Tribonacci-like, e.g.
+m_t/m_b chain composition or 3-quark hadronic states).
+
+**Computation lever**: For a new observable, ask "what's the
+minimum d such that the closed form involves an ArithFSM_d?"
+This is a *lower bound* on its algebraic complexity — and lets
+you pre-classify before searching for explicit atomic forms.
+
+**Rust-engine application**: post-merge, an `arith-fsm-classify`
+binary that takes a sequence (or its first ~32 bits) and
+identifies the smallest ArithFSM_d generating it via brute-force
+search.  Outputs the degree `d` and the recurrence's matrix.
+This becomes a **complexity-class diagnostic** for atomic
+observables.
