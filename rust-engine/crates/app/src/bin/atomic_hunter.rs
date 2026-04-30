@@ -26,11 +26,26 @@ fn mul_q(a: &Q, b: &Q) -> Q { (&a.0 * &b.0, &a.1 * &b.1) }
 fn atomic_ints() -> Vec<(&'static str, u64)> {
     vec![
         ("1",      1),  ("NT",      2),  ("NS",       3),  ("NT²",      4),
-        ("d",      5),  ("NS·NT",   6),  ("NS²−1",    8),  ("NS²",      9),
-        ("NT·d",  10),  ("c·NS·NT",12),  ("F_7",     13),  ("NS·d",    15),
-        ("NT^d",  32),  ("d²",     25),  ("d²−1",    24),  ("d+1",      6),
-        ("NS²·d", 45),  ("E·d=60", 60),  ("(NS²−1)·(d²−1)=192", 192),
-        ("NS·NT·d²=150", 150), ("d·NT^d=160", 160),
+        ("d",      5),  ("NS·NT",   6),  ("d−NT",     3),  ("NS²−1",    8),
+        ("NS²",    9),  ("NT·d",   10),  ("c·NS·NT", 12),  ("F_7",     13),
+        ("NS·d",  15),  ("d²−1",   24),  ("d²",      25),  ("d^NT=25",  25),
+        ("NT^d",  32),  ("NS²·d",  45),  ("d²+24",   49),  ("E·d=60",  60),
+        ("d²·c·NT=100", 100), ("NS·NT·d²=150", 150), ("d·NT^d=160", 160),
+        ("(NS²−1)·(d²−1)=192", 192), ("NT^d·NT²=128", 128),
+        ("NS·d²+1=76", 76), ("NS·NT·d=30", 30), ("NS·NT²=12", 12),
+        ("NS·d²=75", 75), ("NS·d²+NS·NT²+1=88", 88),
+    ]
+}
+
+/// α_GUT correction coefficients: candidate · (1 + α_GUT·k).
+/// k = 0 means no correction.
+fn alpha_corrections() -> Vec<(&'static str, i32)> {
+    vec![
+        ("",            0),  ("·(1+α)",      1),  ("·(1+NTα)",    2),
+        ("·(1+NSα)",    3),  ("·(1+NT²α)",   4),  ("·(1+dα)",     5),
+        ("·(1+NS·NTα)", 6),  ("·(1+NS²α)",   9),  ("·(1−α)",     -1),
+        ("·(1−NTα)",   -2),  ("·(1−NSα)",   -3),  ("·(1−NT²α)",  -4),
+        ("·(1−dα)",    -5),  ("·(1−d²α)",  -25),
     ]
 }
 
@@ -41,6 +56,8 @@ fn transcendental_combos() -> Vec<(&'static str, u32, u32)> {
         ("·π",        1, 0), ("·π·ζ(2)",   1, 1), ("·π²",      2, 0),
         ("·π³",       3, 0), ("·π·ζ(2)²",  1, 2), ("·π²·ζ(2)", 2, 1),
         ("·π⁴",       4, 0), ("·π⁵",       5, 0), ("·π·ζ(2)³", 1, 3),
+        ("·ζ(2)³",    0, 3), ("·π⁶",       6, 0), ("·π²·ζ(2)²", 2, 2),
+        ("·π³·ζ(2)",  3, 1), ("·π⁷",       7, 0), ("·π³·ζ(2)²", 3, 2),
     ]
 }
 
@@ -73,20 +90,46 @@ fn ppm_diff(target: &Q, cand: &Q) -> u64 {
     q.to_u64_digits().first().copied().unwrap_or(0).min(u64::MAX)
 }
 
+/// Apply α_GUT linear correction: q · (1 + α·k/d²·ζ).
+/// Computed as q + q·k·α_GUT.  α_GUT = 1/(d²·ζ(2)) so
+/// α_GUT_num/den = (zeta.1) / (25·zeta.0).  Sign tracked: k can be ±.
+fn apply_alpha(q: &Q, k: i32, zeta: &Q) -> Q {
+    if k == 0 { return q.clone(); }
+    // q·k·α_GUT = q · k / (25·ζ(2)) = (q.0·|k|·zeta.1) / (q.1·25·zeta.0)
+    let ak = k.unsigned_abs() as u64;
+    let corr_num = &q.0 * nat(ak) * &zeta.1;
+    let corr_den = &q.1 * nat(25) * &zeta.0;
+    if k > 0 {
+        // q·(1+α·k) = q + q·α·k
+        let n = &q.0 * &corr_den + &q.1 * &corr_num;
+        let d = &q.1 * &corr_den;
+        (n, d)
+    } else {
+        // q·(1−α·|k|) = q − q·α·|k|.  Assume positive (no underflow checks).
+        let lhs = &q.0 * &corr_den;
+        let rhs = &q.1 * &corr_num;
+        let n = if lhs > rhs { lhs - rhs } else { rhs - lhs };
+        (n, &q.1 * &corr_den)
+    }
+}
+
 fn hunt(label: &str, target: &Q, pi: &Q, zeta: &Q) {
     let mut best: Vec<(u64, String, Q)> = Vec::new();
     for (k_lab, k) in atomic_ints() {
         for (t_lab, pi_p, ze_p) in transcendental_combos() {
-            let cand = candidate(k, pi_p, ze_p, pi, zeta);
-            let ppm = ppm_diff(target, &cand);
-            best.push((ppm, format!("{k_lab}{t_lab}"), cand));
+            let base = candidate(k, pi_p, ze_p, pi, zeta);
+            for (a_lab, a_k) in alpha_corrections() {
+                let cand = apply_alpha(&base, a_k, zeta);
+                let ppm = ppm_diff(target, &cand);
+                best.push((ppm, format!("{k_lab}{t_lab}{a_lab}"), cand));
+            }
         }
     }
     best.sort_by_key(|(p, _, _)| *p);
     println!("--- {label} ---");
     println!("  target = {}", decimal(target, 9));
     for (ppm, lab, val) in best.iter().take(3) {
-        println!("  {:<24} = {} ({} ppm)",
+        println!("  {:<32} = {} ({} ppm)",
             lab, decimal(val, 9), ppm);
     }
     println!();
@@ -128,9 +171,27 @@ fn main() {
     let r_p_ratio: Q = (nat(40008), nat(10_000));
     hunt("r_p·m_p/(ℏc)", &r_p_ratio, &pi, &zeta);
 
-    // m_τ / m_e = 1777/0.5110 ≈ 3477.6 ; or m_τ/m_e_actual = 3477.15
+    // m_τ / m_e = 1777/0.5110 ≈ 3477.15
     let mt_me: Q = (nat(347715), nat(100));
     hunt("m_τ/m_e", &mt_me, &pi, &zeta);
+
+    // (m_n − m_p) / m_e = 1.293/0.5110 ≈ 2.5306
+    let dmn_me: Q = (nat(25306), nat(10_000));
+    hunt("(m_n−m_p)/m_e", &dmn_me, &pi, &zeta);
+
+    // m_μ / m_e ≈ 206.7682838 (CODATA — already known)
+    let mmu_me: Q = (nat(20676828380u64), nat(100_000_000));
+    hunt("m_μ/m_e (sanity)", &mmu_me, &pi, &zeta);
+
+    // m_W / m_e = 80379e3/0.5110 ≈ 1.5729e8
+    let mw_me: Q = (nat(157296477u64), nat(1));
+    hunt("m_W/m_e", &mw_me, &pi, &zeta);
+
+    // M_Pl/v_H = 1.22e19 / 246 GeV = 4.96e16 — way too big for hunter
+
+    // α_em·m_p/m_e = 0.0072973525·1836.153 = 13.398
+    let alpha_mp_me: Q = (nat(13398396u64), nat(1_000_000));
+    hunt("α_em·m_p/m_e", &alpha_mp_me, &pi, &zeta);
 }
 
 

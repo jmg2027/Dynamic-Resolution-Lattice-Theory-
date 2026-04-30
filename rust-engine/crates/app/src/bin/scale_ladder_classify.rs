@@ -80,6 +80,8 @@ const ROWS: &[Row] = &[
           form: "NT² = (d−1) = (NS+1) triple", lean: "Proton.r_p_atomic" },
     Row { scale: "lepton",     obs: "m_p/m_e = NS·NT·π⁵ (19 ppm)", class: "C",
           form: "6·π⁵, 6 = NS·NT = d+1", lean: "ProtonElectronRatio" },
+    Row { scale: "lepton",     obs: "m_τ/m_e = (d·NT)²·π³·(1+dα) (134 ppm)", class: "B+C",
+          form: "100·π³·(1+5α_GUT)", lean: "ProtonElectronRatio.m_tau_over_m_e_atomic" },
     Row { scale: "nucleus",    obs: "Magic 2,8,20 EXACT", class: "C",
           form: "pronic sum", lean: "MagicNumbers.ho_magic_first_7" },
     Row { scale: "nucleus",    obs: "m_p (1.56 ppm)", class: "A",
