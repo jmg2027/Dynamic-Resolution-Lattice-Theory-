@@ -762,3 +762,164 @@ binary already lists 9 scales (sub-atomic to gravity); add a
 For K_{25} (level 2), candidates: dim H¹ = 276 may show up in
 multi-electron atom shell-filling, hadron-jet multiplicity, or
 nuclear collective modes.
+
+## 21. `Cohomology/Audit.lean` — what's closed vs partial
+
+**What's there**: Meta-level audit of the Cohomology 213 marathon.
+Catalogs:
+- **Closed universal**: XOR group structure (∀ σ), Bool identities,
+  `CochAbove.pointwise` (∀ σ τ : Empty → Bool, vacuously since
+  Empty is uninhabited).
+- **Partial**: δ²=0, ⋆⋆=id, Leibniz, Cup unit/assoc — concrete-
+  cochain checks only.  Universal versions require Fintype on
+  `Cochain n k` (not in Lean core).
+- **Honest negative**: `cup_not_pointwise_comm` (graded-comm only
+  on H*), `b_k_graph_trivial` (H^k(K_{3,2}^{(c=2)}) = 0 ∀ k ≥ 2
+  since graph is 1-dimensional).
+
+Plus two "discoveries":
+- **H^k = 0 for k ≥ 2 on graph** ⇒ cup product H¹ × H¹ → H² is the
+  ZERO map.  The α_em "missing 6th term" CANNOT be a graph-cohom
+  cup invariant.
+- **AlphaEM bridge double-derivation** of b₁ = 8.
+
+**Physics intuition** (the big one): "the missing 6th term in the
+α_em formula can't be a graph cup invariant" is a **negative
+falsifier** — telling us where NOT to search.  When proposing
+new corrections to 1/α_em (or any other Class C+A observable),
+we now know cup-product corrections at the graph level are
+forbidden.  Any new term must come from:
+- a Hodge-dual operation (Class E mirror), or
+- a higher fractal level (K_{25} or beyond), or
+- a chain (Class D) involving non-graph cochains.
+
+**Computation lever**: The audit lists what's *deferred* (Fintype
++ DecidablePred for Cochain n k).  When proposing universal
+identities, switch to concrete-cochain decide-checking — that's
+the format already accepted in the marathon.
+
+**Rust-engine application**: post-merge, the audit's "honest
+negative" entries should be added to `gaps-and-todos.md` as
+**known-impossible-targets** so future searches don't waste
+cycles.  E.g.: "do NOT search for Class A corrections to
+m_τ/m_μ at H² level — graph cohomology vanishes there."
+
+## 22. `Cohomology/DiamondAudit.lean` — internal consistency check
+
+**What's there**: A single 0-axiom theorem `diamond_audit_unified_atomic`
+asserting that **every coefficient across every DRLT prediction
+module factors through the same four atomic primitives**:
+
+```
+NS = 3, NT = 2, d = 5, c = 2 (= AlphaEMPrefactors.c_lat)
+NS + NT = 5, NS · NT = 6, c · NS · NT = 12
+NS² − 1 = 8, 12 · NT · 5 / 4 = 30, d² = 25
+N_eff(α_3) = 1, N_eff(α_2) = 2
+b_1(K_{3,2}^{(c=2)}) = 8
+```
+
+Plus `diamond_audit_falsifier_coupling`: any wrong prediction
+→ atomic mismatch → entire framework collapses.
+
+**Physics intuition**: This is the **structural rigidity proof**
+of DRLT.  There is no "knob to turn" — every coefficient in every
+formula is forced to be one of these atomic combinations.  If a
+new measurement disagreed with DRLT by, say, 2%, you cannot fix it
+by tweaking some parameter; the only way to repair the framework
+is to admit that NS, NT, d, or c is wrong, which propagates to
+EVERY OTHER PREDICTION simultaneously.
+
+This is the "0-parameter theory" claim made completely concrete:
+the parameter count is literally zero, and any deviation falsifies
+the WHOLE framework, not just one observable.
+
+**Computation lever**: When adding a new observable to scale-ladder-
+classify, run a "diamond audit consistency check": does its
+proposed atomic form use the SAME primitives the rest of the table
+uses?  If it introduces a new fitted constant (something not in
+{3, 2, 5, 6, 8, 12, 24, 25, 30, ...}-atomic-derivatives), it's
+*outside the framework*.
+
+**Rust-engine application**: post-merge, add `diamond-audit` Rust
+binary that takes the existing `scale-ladder-classify` 36-row table
+and verifies for each observable that its atomic form decomposes
+into {NS, NT, d, c} polynomials.  Anything that doesn't audit fails
+the rigidity test.
+
+## 23. `Cohomology/TrivialCases.lean` — Δⁿ⁻¹ smoke for n=2..5
+
+**What's there**: Verifies cochain complex `(Cᵏ, δ)` is well-formed
+for n = 2, 3, 4, 5.  Each row checks face counts + δ preserves
+zero cochain.  Records the binomial table:
+
+```
+n = 2: (1, 2, 1)
+n = 3: (1, 3, 3, 1)
+n = 4: (1, 4, 6, 4, 1)
+n = 5: (1, 5, 10, 10, 5, 1)   ← the atomic Δ⁴
+```
+
+**Physics intuition**: Pascal's triangle is the **vertex-count
+ladder for fractal Δⁿ⁻¹** at each (n, k).  At n=5 (atomic) the
+sequence (1, 5, 10, 10, 5, 1) is **palindromic**, which is exactly
+the **Hodge ⋆ self-duality** at d=5.  No other small n gives the
+"middle is doubled" structure (10, 10) — Δ⁴ is uniquely positioned
+for ⋆-self-duality at the level-2 (k=2) ↔ level-3 (k=3) split.
+
+This palindrome-at-middle is **why d=5 is special for chirality**:
+the Hodge ⋆ exchanges H² ↔ H³ within the same dimension, giving
+a **non-trivial involution on the same cohomology degree** —
+which is precisely the kind of structure that supports
+non-orientable / chiral physics.
+
+**Computation lever**: When extending to non-Δ⁴ situations
+(higher fractal levels, other graph structures), check the
+binomial palindrome.  If it's symmetric, you have ⋆-self-duality
+opportunities.  If not, gauge-gravity sectors will be structurally
+asymmetric in a way that breaks the clean dual-readout pairing.
+
+**Rust-engine application**: post-merge, the proposed
+`hodge-pair-audit` binary (note #4) should print these binomial
+ladders for each fractal level and highlight the palindromic
+symmetry.
+
+## 24. `Cohomology/SimplexBasis.lean` — k-subset colex enumeration
+
+**What's there**: The bijection `Fin (binom n k) → k-subset of
+{0..n-1}` via colex order, defined recursively using Pascal's
+identity:
+
+```
+binom(n+1, k) = binom(n, k) + binom(n, k-1)
+↑  k-subsets of {0..n-1}     ↑  (k-1)-subsets of {0..n-1} ∪ {n}
+```
+
+Smoke verifies kSubset 5 1 i = [i] (singletons), kSubset 5 2 i
+gives [0,1], [0,2], [1,2], ..., [3,4] (last).
+
+**Physics intuition**: Colex order is **the natural sorting of
+particle states by "highest excited mode first"**.  At n = 5
+(d = 5 atomic), the colex enumeration of k-subsets gives:
+- k=1: vertices 0..4 in order — atomic single-particle states
+- k=2: pairs sorted by largest-element-first — 2-particle modes
+- k=3: triples — 3-vertex sub-simplices
+- k=4: 4-tuples = co-vertices (Hodge dual of single vertices)
+
+The Pascal recurrence `binom(n+1, k) = binom(n, k) + binom(n, k-1)`
+has a physical reading: "to form a k-subset of n+1 elements, either
+EXCLUDE element n (giving binom(n, k) options) or INCLUDE it
+(giving binom(n, k-1) options for the rest)".  This is **the
+discrete-lattice version of "particle-in/particle-out
+decomposition"** — every observable on a (n+1)-vertex system
+decomposes into "n-vertex piece + new-vertex piece".
+
+**Computation lever**: When generalizing a Δ⁴ identity to higher
+fractal levels (Δ⁹, etc.), use the Pascal-decomposition recurrence
+explicitly.  Each induction step adds one more vertex and the
+new contribution factors into "old" + "new vertex pair".
+
+**Rust-engine application**: post-merge, port `kSubset` to
+`crates/hypervisor/src/cochain.rs::k_subset(n, k, i) -> Vec<u32>`.
+Used wherever a binary needs to iterate over sub-simplices in
+canonical order (e.g. `simplex-inventory`, future `cohomology-bits`
+binary).
