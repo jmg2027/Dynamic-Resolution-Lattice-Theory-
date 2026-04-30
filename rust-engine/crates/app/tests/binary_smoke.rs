@@ -43,6 +43,7 @@ const BINS: &[(&str, &[&str])] = &[
     ("m-tau-mu", &["100"]),
     ("magic-numbers", &[]),
     ("massless-particles", &[]),
+    ("mb-mc-sweep", &["100"]),
     ("master-catalog", &[]),
     ("mu-electron", &["100"]),
     ("muon-lifetime", &[]),

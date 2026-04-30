@@ -215,3 +215,7 @@ float_arithmetic = "deny"
 [[bin]]
 name = "lambda-qcd-search"
 path = "src/bin/lambda_qcd_search.rs"
+
+[[bin]]
+name = "mb-mc-sweep"
+path = "src/bin/mb_mc_sweep.rs"

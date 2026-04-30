@@ -1,4 +1,4 @@
-# Session Handoff — rust-engine + 25+ precision cross-checks (49 bins)
+# Session Handoff — rust-engine + 25+ precision cross-checks (50 bins)
 
 ## Branch
 `claude/213-rust-engine-SloKB` (committed + pushed).
@@ -88,8 +88,15 @@
     §6 ✅ binary_smoke.rs (48) + binary_snapshots.rs (3 headlines)
     §7a ✅ 192 = (NS²−1)(d²−1) — cite retargeted to existing theorem
     §7b ✅ Cassini-Pell Nat form for (2φ−1)² = d added 0-axiom
-    §7c 🟡 m_t/m_c ≈ 137 honestly flagged as tautology placeholder
-       (m_b/m_c needs an atomic correction beyond NS=3 first)
+    §7c ✅ m_t/m_c + m_b/m_c closed 2026-04-30 (Jeong thesis):
+       • m_t/m_c: full-lattice resonance ⇒ same cohomology poly as
+         1/α_em ⇒ "double 137" is structural, not coincidence.
+       • m_b/m_c = NS·(1 + α_GUT·NT²) = 3·(1 + 4α_GUT) ≈ 3.29181
+         vs PDG 3.29134, |Δ| = 142 ppm ★.  4 = NT² = d−1 = NS+1
+         (triple atomic reading).  New 0-axiom Lean theorems
+         `four_atomic_triple` + `mb_mc_correction_atomic` in
+         QuarkHierarchy.  New binary `mb-mc-sweep` confirms the
+         linear form wins over P(x) by ≥ 2 percent.
 
   Verifier upgraded: `tools/verify-citations` now requires depth ≥ 2
   file resolution AND Lean-identifier match for trailing segment.

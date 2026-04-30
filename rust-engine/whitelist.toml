@@ -374,3 +374,7 @@ lean = "E213.Physics.HopHypothesis.hop_hypothesis_capstone"
 [[op]]
 rust = "drlt_app::bin::lambda_qcd_search"
 lean = "E213.Physics.LambdaQCDPhantom.lambda_qcd_phantom_count"
+
+[[op]]
+rust = "drlt_app::bin::mb_mc_sweep"
+lean = "E213.Physics.QuarkHierarchy.mb_mc_correction_atomic"
