@@ -84,9 +84,16 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     "Tier 1.5" outside BitFSM but still automatic.
   - `DyadicBitAuto2.lean` — 2-automatic abstraction:
     - structure BitAuto2 with run/bits via testBit fold.
-    - thueMorseAuto : BitAuto2 2 concrete instance.
-    - thueMorseAuto_witnesses_bitAuto2: ∃ m matching Thue-Morse.
-    Demonstrates BitAuto2 strictly richer than BitFSM.
+    - thueMorseAuto : BitAuto2 2 (parity DFA).
+    - isPow2Auto : BitAuto2 3 (popcount-saturating DFA).
+  - `DyadicSubwordComplexity.lean` — quantitative classifier:
+    - subwordCount via List.eraseDups.
+    - subword_growth_separation: 1/3 vs Thue-Morse strictly
+      separated at L=1..4, M=16.
+  - `DyadicEdgeSignature.lean` — Fin 12 edge-based lens variant:
+    - edgeFromBit, edgeSignature.
+    - edge_signatures_differ_at_2: 1/3 vs Thue-Morse diverge
+      at step 2.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 

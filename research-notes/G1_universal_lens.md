@@ -328,9 +328,18 @@ witness.
   - `thueMorseAuto : BitAuto2 2` (parity-XOR DFA).
   - `isPow2Auto : BitAuto2 3` (popcount-saturating DFA detecting
     powers of 2).
-  - Witness theorems verifying both match expected patterns on
-    bounded ranges.  Two distinct BitAuto2 instances demonstrating
-    the abstraction.
+
+**Subword complexity** (`DyadicSubwordComplexity.lean`):
+  - `subwords`, `subwordCount` definitions on Fin 5 trajectories.
+  - 1/3 has subwordCount ≤ 3 even at L=8 (period bounded);
+    Thue-Morse subwordCount strictly grows with L.
+  - ★★★★ `subword_growth_separation`: at L=1..4, M=16, periodic
+    has STRICTLY fewer subwords than aperiodic.
+
+**Edge signature variant** (`DyadicEdgeSignature.lean`):
+  - Fin 12 edge-based lens (richer than Fin 5 vertex lens).
+  - 1/3 vs Thue-Morse traverse different K_{3,2}^{(2)} edges
+    starting from step 2.
 
 **Class hierarchy** (formal where indicated):
   Tier 0 (rationals)         = BitFSM-class  ★ formal
