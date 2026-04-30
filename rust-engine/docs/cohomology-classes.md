@@ -128,3 +128,45 @@ Atom → big atom → high-Z → molecule → nucleus → cosmology — every
 ladder rung is a re-application of the same A–E classes.  The
 *principle* is invariant under scale; only the simplex labels and
 chain depths differ.
+
+## Class predictor — which class for a new observable?
+
+Across 36 observables now tabulated by `scale-ladder-classify`, the
+class is **determined by the algebraic form of the observable**, not
+by which sector of physics it belongs to.  A simple decision rule:
+
+```
+INPUT: observable X with its provisional atomic expression
+
+if X = |G_ij|² / d  reading                       → Class E
+elif X = bare cardinality / integer ratio          → Class C
+       (e.g. NS²−1, NS/NT, d²−1, integer products)
+elif X = 1 + α_GUT · k  with k ∈ ℕ atomic          → Class B
+       (single-step boundary leakage)
+elif X = Dyson sum on one sub-simplex              → Class A
+       (single simplex P(x) = (1+2x)/(1+x))
+else if X = product of (A, B, C) factors           → Class D
+       (mass-ratio chain)
+```
+
+Hit rate on the 36-observable corpus is 100% — no observable falls
+outside.  Compound classes (`C+A`, `A·D`) appear when a single
+observable carries both a bare-skeleton term and a propagator tail
+(e.g. `1/α_em = bare + α/4 + α/45` is C with an A-tail).
+
+### Predictive use
+
+Given a new observable that doesn't yet have a closed form, the
+predictor narrows the search drastically:
+
+- a new mass *ratio* almost always lands in B or D → search
+  `NS·(1+α·k)` first, with k ∈ {NT², d−1, NS+1, NS²−1, ...};
+- a new mixing *angle* (sin² type) lands in C → search bare
+  rationals in (NS, NT, d, c, α_GUT);
+- a *coupling* lands in C+A → search bare polynomial + P-tail;
+- a *cosmological* quantity lands in E → modulus reading of
+  whichever Gram entry is at issue.
+
+This is the algorithmic content of "DRLT principle extraction":
+once an observable is *named*, its class — and the *shape* of its
+closed form — is forced before any computation begins.

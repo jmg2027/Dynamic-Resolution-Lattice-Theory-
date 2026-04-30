@@ -11,11 +11,13 @@
 - BigUint only, no floats anywhere in runtime crates
 - Companion docs: `rust-engine/docs/{architecture,layers,milestones,
   trust-contract,precision-matrix,gaps-and-todos,cohomology-classes}.md`
-  (cohomology-classes.md = 5 classes A/B/C/D/E.  E = modulus shadow
-  = gravity, the dual readout of the same Gram G that gives gauge
-  via phase.  Single principle covers sub-atomic → cosmology — see
-  `scale-ladder-classify` bin: 23 observables × 7 scales × 5 classes
-  all in one table.)
+  (cohomology-classes.md = 5 classes A/B/C/D/E + Class predictor
+  algorithm.  E = modulus shadow = gravity, dual readout of the same
+  Gram G that gives gauge via phase.  Single principle covers
+  sub-atomic → cosmology — `scale-ladder-classify` now tabulates 36
+  observables × 9 scales × 5 classes; class is predictable from
+  algebraic form alone, 100 % hit rate on the corpus.  Tally:
+  6 A · 4 B · 17 C · 1 C+A · 1 A·D · 3 D · 4 E.)
 - New regression coverage: `crates/app/tests/binary_smoke.rs` runs
   all 48 bins; `binary_snapshots.rs` pins simplex-inventory,
   triple-coupling, mu-electron headline outputs.
