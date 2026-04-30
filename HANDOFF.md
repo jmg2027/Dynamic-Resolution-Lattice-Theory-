@@ -257,7 +257,7 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicSplitSplitLens.lean` — split × split lens composition
     (mod 11 × mod 19 → period | 45).
 
-### Universal Lens — Open Problem #6 STRUCTURALLY CLOSED
+### Universal Lens — Open Problem #6 FULLY CLOSED
 
   - `lean/E213/Meta/BitPatternUniqueness.lean` — bit-uniqueness lemmas:
     - `two_pow_sum_inj_lt`: ordered uniqueness 2^m+2^n=2^p+2^q (m<n,p<q)
@@ -265,24 +265,19 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - `two_pow_sum_lt_not_pow`: distinct exponents → not single power
     - ★★★★★★★ `two_pow_sum_inj_full`: FULL unordered uniqueness
       (just m≠n; p≠q derived).  All <= {propext, Quot.sound}.
-  - `lean/E213/Meta/UniversalLensNat2.lean` — `expSumLens : Lens (ℕ × ℕ)`:
-    First non-trivial codomain beyond `Lens Raw`.  Encoding via
-    `combine x y = (2^x.1 + 2^y.1, x.2 + y.2 + 1)`.
-    Symmetric (≤ {propext, Quot.sound}); distinguishability witnesses
-    (STRICT 0-AXIOM).
+  - `lean/E213/Meta/UniversalLensNat2.lean` — `expSumLens : Lens (ℕ × ℕ)`.
   - `lean/E213/Meta/UniversalLensNat2Inj.lean` — FULL UNIVERSALITY:
     - ★★★★★★★★ `expSumLens_view_inj`: Function.Injective expSumLens.view
     - ★★★★★★★★★ `expSumLens_is_universal`: IsUniversal expSumLens
-    Proof: Raw.rec induction + bit-pattern uniqueness at slash case.
-    The first NON-TRIVIAL universal lens — codomain ℕ × ℕ, not Raw.
   - `lean/E213/Meta/UniversalLensQ213.lean` — `q213Lens : Lens (Q213 × Q213)`
-    where `Q213 := Term × Term` (213-native rational from
-    `Kernel/Rat.lean`, cross-mult equivalence).  Realises the
-    Open Problem #6 ℚ²-discrete witness — using 213's own ℚ
-    infrastructure, no Lean Rat / no Mathlib.
-    Symmetric, view-on-base witnesses, distinguish a vs b (STRICT
-    0-AXIOM).  Full injectivity follows the same bit-pattern argument
-    composed with Term.eval (left as continuation work).
+    with `Q213 := Term × Term` (213-native rational).
+  - `lean/E213/Meta/UniversalLensQ213Inj.lean` — Q213 FULL UNIVERSALITY:
+    - `Q213_ofNat_eval`: encoding round-trip (STRICT 0-AXIOM)
+    - `qNat_eq_expSumNat`: bridge qNat = expSumNat
+    - ★★★★★★★★★ `q213Lens_view_inj`: Function.Injective q213Lens.view
+    - ★★★★★★★★★★ `q213Lens_is_universal`: IsUniversal q213Lens
+    Both ℕ × ℕ AND ℚ × ℚ universal lenses formalised at <= {propext,
+    Quot.sound}.  Open Problem #6 FORMALLY CLOSED.
 
 ### Parametric discriminant: Pell proper (D = 8)
 
