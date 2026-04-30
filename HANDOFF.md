@@ -100,6 +100,19 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
       both periodicity proved STRICT 0-AXIOM.
     - ArithFSM2.toBitFSM encoding (subclass of BitFSM).
     - pellMod_periods_differ: algebraic structure visible.
+  - `DyadicArithFSMmod5.lean` — Pell mod 5 (period 10):
+    - pellFSMmod5 in (Fin 5 × Fin 5), trajectory returns to (1,1)
+      at step 10.  STRICT 0-AXIOM via run/step rewrite induction.
+    - pell_period_growth: mod 2 → 3, mod 3 → 4, mod 5 → 10.
+  - `DyadicArithFSMSignature.lean` — chains Pell family to signature:
+    - pell_family_signatures_eventually_periodic
+      (mod 2, 3, 5 all yield eventually-periodic signatures via
+      signature_eventually_periodic_of_eventually_periodic_bits).
+  - `DyadicArithFSMtoBitFSM.lean` — Tier 1 ⊂ BitFSM(n²):
+    - ★★★★ toBitFSM_bits_eq: pair-encoding bit-stream-faithful.
+    - ★★★★★ arithFSM2_signature_period_bound: signature period
+      ≤ 5n² explicit (joint state argument).
+    - ★★★★★★ pellFSMmod5_signature_period_bound: concrete 125 bound.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
