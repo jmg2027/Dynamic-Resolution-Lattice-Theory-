@@ -61,6 +61,18 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - `signature_eventually_periodic_of_eventually_periodic_bits`
       (≤ {propext, Quot.sound}). Used to close BitFSM → signature
       chain.
+  - `DyadicBitFSMBound.lean` — quantitative bound:
+    - ★★★★★ `fsm_signature_period_bound`: BitFSM(n) ⇒ signature
+      period ≤ 5n explicitly.
+  - `DyadicBitFSMExamples.lean` — concrete Tier 0 BitFSMs:
+    - `fsm_one_third`, `fsm_one_fifth`, `fsm_one_seventh`.
+  - `DyadicBitFSMConverse.lean` — Tier 0 ⇔ BitFSM:
+    - `bitFSMOfPure` cyclic shift register.
+    - ★★★★★★ `tier0_equiv_bitfsm`: bs purely periodic ⇒ ∃ BitFSM(p).
+  - `DyadicSignatureInj.lean` — lossless invariant:
+    - ★★★★★★ `signature_eq_iff_bits_eq`: signatures match ⇔
+      bit streams match.
+  - `DyadicCapstone.lean` — ★★★★★★★ single 8-conjunct bundle.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 

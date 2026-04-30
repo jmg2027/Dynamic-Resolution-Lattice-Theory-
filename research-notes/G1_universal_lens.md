@@ -264,6 +264,32 @@ Reference: `research-notes/D2_complexity_class_hierarchy.md` —
   N₀ ⇒ signature eventually periodic.  Used to close the BitFSM
   chain.  ≤ {propext, Quot.sound}.
 
+**Quantitative bound** (`DyadicBitFSMBound.lean`):
+  - `fsm_joint_collision`: pigeonhole on Fin 5 × Fin n
+  - ★★★★★ `fsm_signature_period_bound`: BitFSM(n) ⇒ signature
+    period ≤ 5n explicitly.
+
+**Concrete examples** (`DyadicBitFSMExamples.lean`):
+  - `fsm_one_third`, `fsm_one_fifth`, `fsm_one_seventh` —
+    BitFSM(2), BitFSM(4), BitFSM(3) for the corresponding rationals.
+  - `tier0_bitfsm_witnesses` bundle.
+
+**Converse** (`DyadicBitFSMConverse.lean`):
+  - `bitFSMOfPure` — cyclic shift register construction.
+  - ★★★★★★ `tier0_equiv_bitfsm`: bs purely periodic ⇒ ∃ BitFSM(p).
+  Tier 0 = BitFSM-class formal equivalence.
+
+**Lossless invariant** (`DyadicSignatureInj.lean`):
+  - ★★★★★ `signature_injective`: matching signatures ⇒ matching
+    bit streams.
+  - ★★★★★★ `signature_eq_iff_bits_eq`: bidirectional —
+    signatures match ⇔ bit streams match.
+  Signature is informationally equivalent to the bit stream.
+
+**Capstone** (`DyadicCapstone.lean`):
+  - ★★★★★★★ `dyadic_signature_capstone`: 8-conjunct bundle of all
+    above.  ≤ {propext, Quot.sound}.
+
 **Tier ⊂ BitFSM hierarchy** (formal):
   - Tier 0 (rationals): explicit BitFSM with state count = period
   - Tier 1 (algebraic Pell): conjecturally BitFSM-generable
