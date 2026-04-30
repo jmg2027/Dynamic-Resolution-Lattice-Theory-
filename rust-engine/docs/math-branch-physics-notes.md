@@ -1939,3 +1939,51 @@ without re-derivation.
 (proposed at #41-44) covers ArithFSM3 case automatically by
 extending the brute-force search up to d=3.  No additional
 binary needed.
+
+## 78-84. BitFSM support + Forward family + 2-Automatic
+
+**What's there** (compact note, 7 files):
+
+BitFSM support (4 files):
+- `BitFSMBound`: signature period ≤ 5n via joint-state pigeonhole.
+- `BitFSMConverse`: purely-periodic bs ⇒ ∃ BitFSM(p).  Together
+  with eventual-periodicity gives the **Tier 0 ⇔ ∃ BitFSM**
+  iff.
+- `BitFSMExamples`: explicit BitFSM construction for 1/3 (period
+  2), 1/5 (period 4) — concrete Tier 0 (rational) instances.
+- `BitAuto2`: 2-automatic bit streams (Allouche-Shallit) —
+  strictly richer than BitFSM (sequential).  Reads index n's
+  binary digits through a DFA.  Includes Thue-Morse,
+  paperfolding, Rudin-Shapiro.
+
+Forward family (3 files):
+- `ForwardPeriodicity`: pigeonhole on joint state (sig n, n mod p)
+  ∈ Fin (5p) → signature eventually periodic.  At ≤ {propext,
+  Quot.sound} (no Classical).
+- `ForwardClosure`: completes inductive step, gives full Tier-0
+  bidirectional equivalence.
+- `ForwardEventual`: bit-stream pre-period offset N₀ generalization.
+
+**Physics intuition**: Together these establish the **logical
+backbone** of the Dyadic framework's Tier 0 (rationals):
+
+  *bs is purely periodic ⇔ ∃ BitFSM generating bs*
+  *bs is eventually periodic ⇒ signature is eventually periodic*
+
+So **rationality = BitFSM-generability** at the lattice level.
+The 2-Automatic extension gives a strictly broader class —
+Thue-Morse-style sequences that are *not* purely periodic but
+still finite-state.  Physics reading: 2-automatic = "fractal-
+self-similar" sequences (paperfolding, ...).  These are a real
+intermediate class between rational (Tier 0) and irrational-
+algebraic (Tier 1+).
+
+**Computation lever**: Verify any rationality / aperiodicity
+claim about a DRLT observable via BitFSM construction (rational)
+or 2-Automatic DFA (fractal).  If neither works, the observable
+is provably algebraic-or-higher (not rational, not 2-automatic).
+
+**Rust-engine application**: post-merge, the proposed
+`dyadic-classifier` binary should also test 2-Automatic
+generability by trying small DFAs — gives an additional
+intermediate class label.
