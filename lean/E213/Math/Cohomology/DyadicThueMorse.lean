@@ -53,4 +53,11 @@ theorem thueMorse_aperiodic_short :
   exact ⟨⟨0, h1⟩, ⟨0, h2⟩, ⟨2, h3⟩, ⟨0, h4⟩,
          ⟨1, h5⟩, ⟨4, h6⟩, ⟨0, h7⟩, ⟨0, h8⟩⟩
 
+/-- ★★ Self-similarity verified for n ≤ 7:
+    t(2n) = t(n) and t(2n+1) = !t(n).  Decidable on bounded range. -/
+theorem thueMorse_self_similar_small :
+    (∀ n, n ≤ 7 → thueMorse (2 * n) = thueMorse n)
+    ∧ (∀ n, n ≤ 7 → thueMorse (2 * n + 1) = !thueMorse n) := by
+  refine ⟨?_, ?_⟩ <;> decide
+
 end E213.Math.Cohomology.DyadicConjecture
