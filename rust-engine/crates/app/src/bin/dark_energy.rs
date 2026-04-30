@@ -5,8 +5,13 @@
 //! α_GUT/d correction: ×1.00486 → 0.6850.
 //! Observed Planck/DESI: Ω_Λ ≈ 0.685.
 //!
-//! NOTE: 1/π not derivable in pure ℕ-pair without sqrt; we use a
-//! high-precision rational input here.  Pure 213 bracket via Wallis.
+//! ⚠ External-input bracket: 1/π is not derivable in pure ℕ-pair
+//!   without sqrt.  This binary feeds in a rational approximation
+//!   (display-only); the certified statement in `DarkEnergy.lean`
+//!   uses an explicit interval bracket consistent with the finite-
+//!   discrete-lattice principle (CLAUDE.md §"Implications of Finite
+//!   Discrete Lattice").  A Wallis-style ℕ-pair derivation of 1/π
+//!   is the principled replacement (TODO).
 
 use drlt_app::basel::{s_partial, Q};
 use drlt_app::gap_explorer::{decimal, nat};

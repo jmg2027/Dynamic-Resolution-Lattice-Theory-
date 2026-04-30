@@ -52,18 +52,16 @@ now carry an explicit "⚠ Diagnostic, not certified" header pointing
 readers at the corresponding certified binary
 (`alpha-em-bracket`, `triple-coupling`, `simplex-inventory`, etc).
 
-## 4.  Hardcoded transcendental inputs
+## 4.  Hardcoded transcendental inputs  ✅ DOCUMENTED 2026-04-30
 
-CLAUDE.md notes the lattice is finite ⇒ π and ζ(2) should appear only
-through bounded rational brackets.  Two binaries still print an
-intermediate decimal of π/ζ(2) for human readability:
+Two binaries that consume π as a display-only rational input now
+carry explicit "⚠ External-input bracket" headers calling out:
 
-- dark_energy.rs        : Ω_Λ derivation prints π² ≈ 9.8696 informally
-- deuteron_binding.rs   : nuclear scale uses π in geometric factor
-
-Both are display-only; the underlying ℚ-pair arithmetic is
-bracket-based.  Worth a one-line "external input bracket" header
-comment in each.
+- dark_energy.rs       : 1/π consumed display-only; certified Lean
+  uses an interval bracket consistent with the finite-lattice
+  principle.  Wallis-style ℕ-pair derivation = principled fix.
+- deuteron_binding.rs  : 1/π plus Λ_QCD as an empirical scale —
+  inheriting the §5 Λ_QCD gap until that closes.
 
 ## 5.  Λ_QCD origin still informal (HAD chain)
 
@@ -73,19 +71,36 @@ comment in each.
 does not yet close `Λ_QCD = f(NS, NT, d, c, α_GUT)` as a 0-axiom
 identity.  Flag for next session.
 
-## 6.  No per-binary unit tests
+## 6.  Per-binary regression coverage  ✅ ADDED 2026-04-30
 
-178/178 workspace tests pass, but every `crates/app/src/bin/*.rs`
-relies on integration-level checks (Lean cite + decimal print).  A
-lightweight `#[test]` per binary asserting "first decimal of headline
-output matches snapshot" would prevent silent regression when shared
-helpers (decimal, nat, Q) are touched.
+Two new integration test files cover all 48 binaries:
+
+- `tests/binary_smoke.rs`     — runs every binary with default args,
+  asserts exit code 0 and non-empty stdout.  Catches helper-induced
+  crashes within ~1.5 s.
+- `tests/binary_snapshots.rs` — pins headline numeric/string outputs
+  for 3 representative certified binaries:
+    simplex-inventory : 31 = 2^d−1 sub-simplex count + AB-edges = 6
+    triple-coupling   : 1/α_em atomic-integer skeleton (60·ζ(2),
+                        30, 25/3, α_GUT/4, α_GUT/45)
+    mu-electron       : "206.7683" headline + "ppb" precision report
+
+Workspace count: 178 → 182 (4 new tests).  Future bins should at
+minimum be added to the smoke list; the snapshot file targets the
+most-cited 0-axiom claims.
 
 ## 7.  Open Lean opportunities surfaced during cleanup
 
-- `m_t/m_c ≈ 137` cross-context coincidence with 1/α_em — looks
-  combinatorial (d²·ζ(2) ≈ 41, N(α_em)=41 hierarchy).  Worth a Lean
-  bound theorem.  *Still open.*
+- `m_t/m_c ≈ 137` cross-context coincidence with 1/α_em — *still
+  open and honestly so*.  The current Lean theorem
+  `Phase3.Translation.MassHierarchy.top_charm : (137 : Nat) = 137`
+  is a **tautology placeholder**, not a derivation.  The substantive
+  obstruction: m_b/m_c ≈ 3.29 observed vs NS = 3 atomic — DRLT does
+  not yet have a closed-form correction that bridges the 10% gap.
+  Per CLAUDE.md "introducing parameters to fit is not a 0-parameter
+  theory", we prefer to flag this as observational until the m_b/m_c
+  step has its own atomic derivation.  Forcing the integer 137 onto
+  m_t/m_c without that step would catalogue, not validate.
 - `192 = (NS²−1)(d²−1)` for muon lifetime: ✅ resolved — the theorem
   `muon_lifetime_192` already lived in
   `Physics/Phase4/Library/ParticleLibrary.lean`; whitelist now cites

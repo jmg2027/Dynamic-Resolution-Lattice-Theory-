@@ -5,6 +5,14 @@
 //!
 //! Λ_QCD ≈ 308 MeV (HAD_005 input).
 //! Observed E_d ≈ 2.224 MeV  (DRLT: ~2.27, +2.1%).
+//!
+//! ⚠ Two external-input brackets:
+//!   • 1/π — display-only; the certified Lean statement uses an
+//!     interval bracket consistent with the finite-discrete-lattice
+//!     principle (replace by Wallis-style ℕ-pair derivation, TODO).
+//!   • Λ_QCD — currently an empirical scale.  Its closed-form atomic
+//!     origin (in NS, NT, d, c, α_GUT) is gaps-and-todos.md §5;
+//!     until then this binary's MeV figure inherits that gap.
 
 use drlt_app::basel::{s_partial, Q};
 use drlt_app::gap_explorer::{decimal, nat};
