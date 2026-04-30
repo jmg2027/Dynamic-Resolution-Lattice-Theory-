@@ -52,16 +52,29 @@ now carry an explicit "⚠ Diagnostic, not certified" header pointing
 readers at the corresponding certified binary
 (`alpha-em-bracket`, `triple-coupling`, `simplex-inventory`, etc).
 
-## 4.  Hardcoded transcendental inputs  ✅ DOCUMENTED 2026-04-30
+## 4.  Hardcoded transcendental inputs  ✅ FULLY CLOSED 2026-04-30
 
-Two binaries that consume π as a display-only rational input now
-carry explicit "⚠ External-input bracket" headers calling out:
+Originally: `dark_energy.rs` and `deuteron_binding.rs` each
+consumed `1/π ≈ 318309886184/10^12` as a hardcoded rational.
+Documented as "external input" headers (intermediate fix).
 
-- dark_energy.rs       : 1/π consumed display-only; certified Lean
-  uses an interval bracket consistent with the finite-lattice
-  principle.  Wallis-style ℕ-pair derivation = principled fix.
-- deuteron_binding.rs  : 1/π plus Λ_QCD as an empirical scale —
-  inheriting the §5 Λ_QCD gap until that closes.
+**Fully closed** by porting the Real213 Leibniz series machinery
+(see math-branch-physics-notes.md #144-151) to the rust-engine:
+
+- New `crates/app/src/wallis.rs`:
+  - `pi_bracket(n)` from `π/4 = Σ (−1)^i/(2i+1)` alternating series
+  - `inv_pi_bracket(n)` reciprocal
+  - 2 unit tests verify n=50 contains observed π and 1/π values
+- `dark_energy.rs` reports `Ω_Λ ∈ [lo, hi]` bracket containing
+  observed 0.685 (Planck/DESI).
+- `deuteron_binding.rs` reports `E_d ∈ [lo, hi]` and exposes the
+  Λ_QCD anchor context-dependence (308 MeV from m_p side vs
+  ~293 MeV needed for deuteron — QCD running between scales).
+
+`taylor_e.rs` (e brackets) deferred — no current binary uses e.
+
+Tests: 182 → 184.  No external transcendental inputs remain in
+runtime crates.
 
 ## 5.  Λ_QCD-as-parameter dissolved 2026-04-30  ✅
 
