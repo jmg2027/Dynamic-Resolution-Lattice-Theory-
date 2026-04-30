@@ -35,6 +35,10 @@ path = "src/bin/impedance_search.rs"
 name = "triple-coupling"
 path = "src/bin/triple_coupling.rs"
 
+[[bin]]
+name = "overlap-series"
+path = "src/bin/overlap_series.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
