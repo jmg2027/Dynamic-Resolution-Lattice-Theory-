@@ -66,6 +66,49 @@ theorem pellFSMmod2_bits_period_3 :
       = pellFSMmod2.out (pellFSMmod2.run k)
   rw [pellFSMmod2_run_period_3]
 
+/-- Pell-style FSM mod 3: same recurrence, bigger modulus. -/
+def pellFSMmod3 : ArithFSM2 3 where
+  init := (⟨1, by decide⟩, ⟨1, by decide⟩)
+  step p := let (a, b) := p
+    (⟨(2 * a.val + b.val) % 3, Nat.mod_lt _ (by decide)⟩,
+     ⟨(a.val + b.val) % 3, Nat.mod_lt _ (by decide)⟩)
+  out p := p.1.val == 1
+
+/-- Pell mod-3 first values: T, F, F, F, T, F, F, F (period 4). -/
+theorem pellFSMmod3_first8 :
+    pellFSMmod3.bits 0 = true ∧ pellFSMmod3.bits 1 = false
+    ∧ pellFSMmod3.bits 2 = false ∧ pellFSMmod3.bits 3 = false
+    ∧ pellFSMmod3.bits 4 = true ∧ pellFSMmod3.bits 5 = false := by decide
+
+/-- ★★★ Pell mod-3 run cycles with period 4. -/
+theorem pellFSMmod3_run_period_4 :
+    ∀ k, pellFSMmod3.run (k + 4) = pellFSMmod3.run k := by
+  intro k
+  induction k with
+  | zero => decide
+  | succ k' ih =>
+    show pellFSMmod3.step (pellFSMmod3.run (k' + 4))
+        = pellFSMmod3.step (pellFSMmod3.run k')
+    rw [ih]
+
+/-- ★★★★ Pell mod-3 bits cycle with period 4 (universally). -/
+theorem pellFSMmod3_bits_period_4 :
+    ∀ k, pellFSMmod3.bits (k + 4) = pellFSMmod3.bits k := by
+  intro k
+  show pellFSMmod3.out (pellFSMmod3.run (k + 4))
+      = pellFSMmod3.out (pellFSMmod3.run k)
+  rw [pellFSMmod3_run_period_4]
+
+/-- ★★★★★ Different moduli give different periods (mod 2 → 3,
+    mod 3 → 4) — algebraic structure visible at the FSM level. -/
+theorem pellMod_periods_differ :
+    (∃ p : Nat, p > 0 ∧ p = 3 ∧
+      ∀ k, pellFSMmod2.bits (k + p) = pellFSMmod2.bits k)
+    ∧ (∃ p : Nat, p > 0 ∧ p = 4 ∧
+      ∀ k, pellFSMmod3.bits (k + p) = pellFSMmod3.bits k) :=
+  ⟨⟨3, by omega, rfl, pellFSMmod2_bits_period_3⟩,
+   ⟨4, by omega, rfl, pellFSMmod3_bits_period_4⟩⟩
+
 /-- ★★ ArithFSM2 reduces to BitFSM(n²) via pair-encoding —
     same pigeonhole argument applies. -/
 def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
