@@ -2583,3 +2583,53 @@ midpoint exactly, no integration needed.
 machinery into `flux.rs` from #170-178.  Add an
 `mvt_witness(f, db) -> Option<DyadicCut>` function that
 returns the explicit dyadic witness when one exists.
+
+## 195-209. Integration + Antiderivative (~15 files)
+
+**What's there**: Full constructive integration theory.
+
+Riemann (1 file): `Integration` — Phase F partition + Cauchy
+sequence Riemann sum.
+
+FTC-Riemann variants (5 files): `FTCRiemann`/`Mid`/`Square`/
+`Generic`/`Chain` — Phases BY-CD propEq closures of FTC at
+unitBracket, depth 0, for x², mid(x, x²), generic, chain rule.
+
+Indefinite + properties (4 files): `IndefiniteIntegral` (Phase DC,
+indefinite integral as flux-valued function), `IntegralProperties`,
+`IntegralIntInterval` ([0, n] integer interval),
+`IntegralGeneralInt` ([a, b] arbitrary).
+
+Antiderivative class (4 files): `Antiderivative` (Phase CN, the
+`IsAntiderivative` typeclass), `AntiderivativeCombinators`
+(closure under +/·), `AntiderivativeStructural` (★ every
+IsDifferentiable yields an IsAntiderivative — diff/integ
+duality at the typeclass level), `IntegralViaAnti` (Phase CQ,
+∫ via Anti).
+
+Bridge (1 file): `ClassicAnti` (Phase CR, ClassicCalc →
+IsAntiderivative).
+
+**Physics intuition** (★★ key duality): The structural theorem
+**`IsDifferentiable → IsAntiderivative`** says diff and integ
+are *typeclass duals* in DRLT.  Every diff'able function
+automatically supplies an antiderivative for its derivative —
+no separate "find an antiderivative" step.  This is exactly
+what Newton-Leibniz says, but now as a formal Lean statement.
+
+For physics: when an observable has a known closed-form
+derivative (Class A propagator, polynomial mass formula, etc.),
+its **integral is automatically available** by reading the
+typeclass.  This unlocks:
+- transition amplitude integrations (sum over cochain ∫ paths)
+- thermodynamic state functions (∫ flux around cycle)
+- RG flow integrals (∫ beta function over scale interval)
+
+**Computation lever**: Whenever a physics formula needs ∫ of
+a known-derivative function, identify the IsDifferentiable
+constructor → IsAntiderivative auto.  Apply FTC-Riemann form to
+get the propEq closed bracket value.
+
+**Rust-engine application**: post-merge, `crates/app/src/integral.rs`
+companion to `derivative.rs`.  Same typeclass approach mirrored:
+take an IsAntiderivative and produce ∫_db at any dyadic bracket.
