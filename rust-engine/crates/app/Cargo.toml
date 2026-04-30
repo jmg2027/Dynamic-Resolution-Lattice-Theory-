@@ -119,6 +119,22 @@ path = "src/bin/cabibbo_angle.rs"
 name = "generations"
 path = "src/bin/generations.rs"
 
+[[bin]]
+name = "hierarchy-towers"
+path = "src/bin/hierarchy_towers.rs"
+
+[[bin]]
+name = "theta-qcd"
+path = "src/bin/theta_qcd.rs"
+
+[[bin]]
+name = "muon-lifetime"
+path = "src/bin/muon_lifetime.rs"
+
+[[bin]]
+name = "ckm-wolfenstein"
+path = "src/bin/ckm_wolfenstein.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }

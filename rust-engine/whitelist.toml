@@ -290,3 +290,19 @@ lean = "E213.Physics.CabibboAngle"
 [[op]]
 rust = "drlt_app::bin::generations"
 lean = "E213.Physics.Generations.n_gen_eq_three"
+
+[[op]]
+rust = "drlt_app::bin::hierarchy_towers"
+lean = "E213.Physics.HierarchyTowers"
+
+[[op]]
+rust = "drlt_app::bin::theta_qcd"
+lean = "E213.Physics.ThetaQCD"
+
+[[op]]
+rust = "drlt_app::bin::muon_lifetime"
+lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
+
+[[op]]
+rust = "drlt_app::bin::ckm_wolfenstein"
+lean = "E213.Physics.CKMHierarchy"
