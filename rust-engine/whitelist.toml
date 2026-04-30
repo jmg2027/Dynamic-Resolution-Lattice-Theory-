@@ -254,3 +254,23 @@ lean = "E213.Physics.FiniteResonanceN.finite_resonance_n_skeleton"
 [[op]]
 rust = "drlt_hypervisor::chiral_k32::paper1_capstone_check"
 lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"
+
+[[op]]
+rust = "drlt_app::bin::master_catalog"
+lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
+
+[[op]]
+rust = "drlt_app::bin::weinberg_angle"
+lean = "E213.Physics.WeinbergAngle"
+
+[[op]]
+rust = "drlt_app::bin::hydrogen_atom"
+lean = "E213.Physics.HydrogenAtom"
+
+[[op]]
+rust = "drlt_app::bin::neutron_proton"
+lean = "E213.Physics.NeutronProton.np_simplicial"
+
+[[op]]
+rust = "drlt_app::bin::neutrino_mixing"
+lean = "E213.Physics.NeutrinoMixing"

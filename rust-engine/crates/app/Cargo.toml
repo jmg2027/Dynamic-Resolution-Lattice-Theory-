@@ -83,6 +83,26 @@ path = "src/bin/m_tau_mu.rs"
 name = "higgs-master"
 path = "src/bin/higgs_master.rs"
 
+[[bin]]
+name = "master-catalog"
+path = "src/bin/master_catalog.rs"
+
+[[bin]]
+name = "weinberg-angle"
+path = "src/bin/weinberg_angle.rs"
+
+[[bin]]
+name = "hydrogen-atom"
+path = "src/bin/hydrogen_atom.rs"
+
+[[bin]]
+name = "neutron-proton"
+path = "src/bin/neutron_proton.rs"
+
+[[bin]]
+name = "neutrino-mixing"
+path = "src/bin/neutrino_mixing.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
