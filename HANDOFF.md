@@ -245,6 +245,8 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     7 of 7 primes verified.  Inert × 4, split × 2, ramified × 1.
   - `DyadicNumberTheory213v2.lean` — ★★★★★★★★★ number_theory_213_capstone_v2:
     Master capstone with 7-prime predictor evidence base.
+  - `DyadicNumberTheory213v3.lean` — ★★★★★★★★★★ number_theory_213_capstone_v3:
+    discriminant-parametric (D=5 + D=8).
   - `DyadicSignaturePredict.lean` — ★★★★★★★ signature_predict +
     signature_predict_realises_pell_7: signature-period predictor
     (parity doubling for odd bit periods) verified at all 7 primes.
@@ -254,6 +256,14 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicPisanoPredictor8.lean` — ★★★★★★★ 8-prime predictor.
   - `DyadicSplitSplitLens.lean` — split × split lens composition
     (mod 11 × mod 19 → period | 45).
+
+### Universal Lens — non-trivial witness (Open Problem #6 step)
+
+  - `lean/E213/Meta/UniversalLensNat2.lean` — `expSumLens : Lens (ℕ × ℕ)`:
+    First non-trivial codomain beyond `Lens Raw`.  Encoding via
+    `combine x y = (2^x.1 + 2^y.1, x.2 + y.2 + 1)`.
+    Symmetric (≤ {propext, Quot.sound}); distinguishability witnesses
+    (STRICT 0-AXIOM).  Full universality (injective view) open.
 
 ### Parametric discriminant: Pell proper (D = 8)
 
