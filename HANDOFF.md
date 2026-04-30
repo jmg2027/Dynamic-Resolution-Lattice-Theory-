@@ -94,6 +94,12 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - edgeFromBit, edgeSignature.
     - edge_signatures_differ_at_2: 1/3 vs Thue-Morse diverge
       at step 2.
+  - `DyadicArithFSM.lean` — Pell-style multi-state FSM:
+    - structure ArithFSM2(n) with (Fin n × Fin n) state.
+    - pellFSMmod2 (period 3) + pellFSMmod3 (period 4),
+      both periodicity proved STRICT 0-AXIOM.
+    - ArithFSM2.toBitFSM encoding (subclass of BitFSM).
+    - pellMod_periods_differ: algebraic structure visible.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 

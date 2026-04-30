@@ -341,6 +341,22 @@ witness.
   - 1/3 vs Thue-Morse traverse different K_{3,2}^{(2)} edges
     starting from step 2.
 
+**ArithFSM (Pell-style)** (`DyadicArithFSM.lean`):
+  - `ArithFSM2 (n)` with state vector (Fin n × Fin n) updating
+    by linear recurrence mod n.
+  - `pellFSMmod2 : ArithFSM2 2` (period 3, STRICT 0-AXIOM).
+  - `pellFSMmod3 : ArithFSM2 3` (period 4, STRICT 0-AXIOM).
+  - `pellMod_periods_differ`: different moduli yield different
+    periods — algebraic structure visible at FSM level.
+  - `ArithFSM2.toBitFSM`: encoding into BitFSM(n²) shows ArithFSM2
+    is a SUBCLASS of BitFSM at fixed modulus.
+
+**Realisation about Tier 1 escape**: ArithFSM at fixed modulus is
+within BitFSM-class.  Tier 1 algebraic ESCAPE from BitFSM
+requires UNBOUNDED modulus growth (Pell modulus → ∞ as
+precision → ∞), which doesn't fit any single BitFSM.  This
+matches D2's Tier 1 vs Tier 2 distinction.
+
 **Class hierarchy** (formal where indicated):
   Tier 0 (rationals)         = BitFSM-class  ★ formal
   Tier 1.5 (Thue-Morse)      ⊂ BitAuto2 \ BitFSM ★ partial formal
