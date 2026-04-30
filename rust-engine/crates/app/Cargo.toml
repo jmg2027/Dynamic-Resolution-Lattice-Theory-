@@ -51,6 +51,10 @@ path = "src/bin/cf_generator.rs"
 name = "propagator-form"
 path = "src/bin/propagator_form.rs"
 
+[[bin]]
+name = "finite-resonance"
+path = "src/bin/finite_resonance.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
