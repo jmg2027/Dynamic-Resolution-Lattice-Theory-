@@ -5,9 +5,9 @@
 
 ## State
 
-### 1. rust-engine — 25+ binaries, ℕ-only ☞ Lean 0-axiom trust path
+### 1. rust-engine — 31+ binaries, ℕ-only ☞ Lean 0-axiom trust path
 - 5-crate workspace: kernel ← firmware ← hypervisor ← os ← app
-- 178/178 tests pass | 83/83 citations resolve | clippy ~clean
+- 178/178 tests pass | 89/89 citations resolve | clippy ~clean
 - BigUint only, no floats anywhere in runtime crates
 
 ### 2. Comprehensive precision matrix (★★ headline)
@@ -60,15 +60,18 @@
 ### 8. Paper 5 draft (papers/PAPER5_DRAFT.md)
   "Zero-parameter SM couplings from finite-N K_{3,2}^{(2)} resonance"
 
-### 9. Rust binaries (25+) — by category
+### 9. Rust binaries (31+) — by category
   α_em chain : alpha-em-bracket, alpha-em-decompose, gap-explorer,
                propagator-form, finite-resonance, series-truncation,
                overlap-series, cf-generator, impedance-search
   Couplings  : triple-coupling, weinberg-angle, wz-bosons, parity-check
-  Masses     : mu-electron, m-tau-mu, m-proton, hierarchy-towers
+  Masses     : mu-electron, m-tau-mu, m-proton, hierarchy-towers,
+               quark-hierarchy
   Higgs      : higgs-quartic, higgs-master, higgs-vacuum
   Mixing     : neutrino-mixing, cabibbo-angle, ckm-wolfenstein
   Cosmology  : dark-energy, theta-qcd, horizon-info
+  Foundations: why-basel, hop-hypothesis, asymptotic-freedom,
+               color-confinement, massless-particles, ie-capstone
   Atoms/Mol  : hydrogen-atom, bond-angles
   Nuclear    : neutron-proton, deuteron-binding, nuclear-binding,
                magic-numbers, muon-lifetime
