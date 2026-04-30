@@ -51,4 +51,17 @@ theorem subword_distinguishes_periodic_aperiodic :
     ∧ subwordCount (signature bit13) 3 8
         < subwordCount (signature thueMorse) 3 8 := by decide
 
+/-- For 1/3 even at L=8 (= 4 × period), still 3 distinct subwords. -/
+theorem one_third_signature_subword_count_8_16 :
+    subwordCount (signature bit13) 8 16 = 3 := by decide
+
+/-- ★★★★ Subword counts for periodic (1/3) vs aperiodic (Thue-Morse)
+    at M=16: periodic stays bounded, Thue-Morse strictly grows. -/
+theorem subword_growth_separation :
+    subwordCount (signature bit13) 1 16 < subwordCount (signature thueMorse) 1 16
+    ∧ subwordCount (signature bit13) 2 16 < subwordCount (signature thueMorse) 2 16
+    ∧ subwordCount (signature bit13) 3 16 < subwordCount (signature thueMorse) 3 16
+    ∧ subwordCount (signature bit13) 4 16
+        < subwordCount (signature thueMorse) 4 16 := by decide
+
 end E213.Math.Cohomology.DyadicConjecture
