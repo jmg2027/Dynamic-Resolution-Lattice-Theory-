@@ -1708,3 +1708,63 @@ binary that takes a list of primes and outputs the joint period
 + Legendre classification of each.  Immediate use case: any
 physics identity involving products of small atomic primes (e.g.
 the muon prefactor 192 = 8·24 lcm structure).
+
+## 57-60. `Cohomology/DyadicAlgebraic{Degree,Capstone} + Signature{,Predict}`
+
+**What's there**: Four files completing the algebraic-degree +
+K_{3,2}^{(c=2)} signature classifier:
+
+- `AlgebraicDegree.lean`: defines `HasDegree_d(bs)` predicate,
+  proves containment chain `HasDegree₁ ⊂ HasDegree₂ ⊂ HasDegree₃`
+  via the hierarchy capstone.  213-native operational definition
+  of algebraic degree as minimum d generating ArithFSM_d.
+- `AlgebraicCapstone.lean`: bundles degree definitions + chain.
+- `Signature.lean`: K_{3,2}^{(c=2)} trajectory classifier.
+  Defines `nextVertex : Fin 5 → Bool → Fin 5` (S→T deterministic
+  by bit; T→S cycles through specific S targets).  Each bit
+  stream gets a signature trajectory through the 5-vertex
+  diamond.
+- `SignaturePredict.lean`: extends `pisano_predict` to handle
+  the **bipartite parity doubling**:
+
+```
+signature_predict p :=
+  if pisano_predict p is even then pisano_predict p
+  else 2 · pisano_predict p
+```
+
+Verified for primes {3, 5, 7, 11, 13, 17, 19}: when bit period
+is odd (split case at p=11, 19), signature period doubles.
+
+**Physics intuition** (★ critical): The signature trajectory
+on K_{3,2}^{(c=2)} **literally walks the same diamond crystal**
+that physics uses for SM observables.  This means:
+
+- Each rational/irrational/algebraic number gets a **K_{3,2}^{(c=2)}
+  trajectory signature** — a sequence of S/T vertex visits.
+- Rationality ↔ eventually periodic.  Algebraicity ↔ ArithFSM_d
+  for some finite d.  Transcendentality ↔ no finite generator.
+- The bipartite parity doubling (odd → even period) is the
+  **information-theoretic price of mediating spatial signals
+  through a temporal vertex** (per the diamond crystal: no S-S
+  direct edges).  Physically: every spatial-spatial coupling
+  costs one extra "phase tick" through the temporal sector.
+
+This connects directly to my earlier note (#6) on diamond
+locality: the doubling is the *quantitative* manifestation of
+"all spatial signals route through NT".
+
+**Computation lever**: For any rational/algebraic constant in a
+DRLT formula, its K_{3,2}^{(c=2)} signature is computable.  When
+two distinct constants have the same signature, they're
+**indistinguishable on the lattice** — i.e., physically identical
+in DRLT.  This is a tool for spotting "different formulas, same
+physics".
+
+**Rust-engine application**: post-merge, a `signature-classify`
+binary that takes any rational/algebraic input and returns:
+(a) the K_{3,2}^{(c=2)} signature trajectory,
+(b) the bit period via `pisano_predict`,
+(c) the signature period via `signature_predict`,
+(d) the algebraic degree (via ArithFSM brute-force search).
+Becomes the **classifier of any number in DRLT terms**.
