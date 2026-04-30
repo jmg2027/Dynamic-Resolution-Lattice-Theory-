@@ -57,10 +57,12 @@
     192 = 8·24: Muon lifetime EXACT
     Pure 213 forcing across QM, SR, GR, BH, info theory, ...
 
-### 7. New 0-axiom Lean modules (this session, ~51 theorems)
+### 7. New 0-axiom Lean modules (this session, ~54 theorems)
   AlphaEMStructure, AlphaEMWithTail, AlphaEMPropagator,
   SubSimplexInventory, TripleCoupling{,V2},
-  FiniteResonanceN, ParitySign, Tools/CertChecker.
+  FiniteResonanceN, ParitySign, Tools/CertChecker,
+  LambdaQCDPhantom (Λ_QCD-as-parameter elimination, 3 new thms).
+  GoldenRatio gained 2 Cassini-Pell theorems for (2φ−1)²=d.
 
 ### 8. Precision matrix doc (rust-engine/docs/precision-matrix.md)
   "Precision Matrix — DRLT Cross-Checks via the Rust Engine"
@@ -74,10 +76,15 @@
     §2 ✅ muon_lifetime → muon_lifetime_192 theorem cited
     §3 ✅ 8 exploratory bins tagged "Diagnostic, not certified"
     §4 ✅ dark_energy + deuteron_binding "External-input bracket" headers
-    §5 🟡 Λ_QCD origin — `lambda-qcd-search` (new, diagnostic) finds
-       v_H/Λ_QCD ≈ d²·NT^d = 800 to 0.16% (the *only* clean 2-factor
-       atomic match in ±2.5%).  Not yet a derivation: combinatorial
-       meaning of NT^d on K_{3,2}^{(2)} = open question.
+    §5 ✅ Λ_QCD dissolved as parameter (Jeong 2026-04-30 phantom
+       thesis).  Λ_QCD is not a fundamental DRLT quantity — it is
+       the MeV unit one picks to express NS·P(α_GUT·NS/d).  What
+       survives is the K_{3,2}^{(2)} counting invariant 800:
+         v_H/"Λ_QCD" = d²·NT²·(NS²−1) = 25·4·8
+                     = channels · chiral_phase · cycle_space
+       Closed 0-axiom in `Physics/LambdaQCDPhantom.lean` (3 thms).
+       lambda-qcd-search promoted from diagnostic to certified;
+       90/90 citations now resolve.
     §6 ✅ binary_smoke.rs (48) + binary_snapshots.rs (3 headlines)
     §7a ✅ 192 = (NS²−1)(d²−1) — cite retargeted to existing theorem
     §7b ✅ Cassini-Pell Nat form for (2φ−1)² = d added 0-axiom

@@ -1,13 +1,21 @@
 //! `m-proton` — m_p verification via P(α_GUT · NS/d) propagator.
-//! Lean: ProtonMass.lean
+//! Lean: ProtonMass.lean (atomic claim) + LambdaQCDPhantom.lean
+//! (Λ_QCD = unit-convention, not primitive).
 //!
-//!   m_p = NS · Λ_QCD · P(α_GUT · NS/d)
-//!       = 3 · 308.32 · P(α/5·3) MeV
-//!       = 924.97 · 1.01438
-//!       ≈ 938.27 MeV
+//!   m_p = NS · (anchor) · P(α_GUT · NS/d)
+//!       = 3 · 308.32 MeV · P(α·3/5)
+//!       ≈ 924.97 · 1.01438  ≈  938.27 MeV
+//!
+//! ⚠ The 308.32 MeV "anchor" is conventionally called Λ_QCD.  Per the
+//! 2026-04-30 phantom-elimination thesis (LambdaQCDPhantom.lean),
+//! Λ_QCD is *not* a fundamental DRLT parameter — it is the MeV unit
+//! one chooses to express the dimensionless atomic ratio
+//! `NS · P(α_GUT · NS/d)`.  The K_{3,2}^{(c=2)} counting invariant
+//! `d² · NT² · (NS²−1) = 800` is what really sets the gear ratio
+//! between any two scales (e.g. v_H ≈ 800 · "Λ_QCD"); the units
+//! are arbitrary.  The atomic claim is the projection NS/d = 3/5.
 //!
 //! Same P(x) = (1+2x)/(1+x) family as α_em Dyson + m_μ/m_e.
-//! Argument x = α_GUT · NS/d = α/(d/NS) = α·3/5 (= "inverse Y-norm").
 
 use drlt_app::basel::{s_partial, Q};
 use drlt_app::gap_explorer::{decimal, nat};

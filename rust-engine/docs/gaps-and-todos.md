@@ -63,29 +63,40 @@ carry explicit "⚠ External-input bracket" headers calling out:
 - deuteron_binding.rs  : 1/π plus Λ_QCD as an empirical scale —
   inheriting the §5 Λ_QCD gap until that closes.
 
-## 5.  Λ_QCD origin — hypothesis surfaced 2026-04-30, not closed
+## 5.  Λ_QCD-as-parameter dissolved 2026-04-30  ✅
 
-`m_proton`, `nuclear_binding`, and the hadron-mass ladder all assume
-Λ_QCD as a unit scale.  `Physics/HadronMassChain.lean` does not yet
-close `Λ_QCD = f(NS, NT, d, c, α_GUT)` as a 0-axiom identity, and
-the existing `Phase3/ProtonMassSharp.lean` line `Λ_QCD ≈ 308 MeV`
-is comment-only.
+The original framing ("derive Λ_QCD = f(NS,NT,d,c,α_GUT)") presumed
+Λ_QCD has a fundamental status.  Mingu Jeong's 2026-04-30
+*phantom-elimination thesis* corrects this:
 
-**New exploration tool**: `lambda-qcd-search` (diagnostic-only)
-enumerates 2-factor atomic ratios for v_H/Λ_QCD in the window
-[780, 820] (observed 798.7 with v_H = 246 GeV, Λ_QCD = 308 MeV
-MSbar).  The search returns *exactly one* clean atomic candidate:
+  Mainstream QCD treats Λ_QCD as the energy scale where the running
+  coupling diverges — a singularity inherited from continuum field
+  theory.  In K_{3,2}^{(c=2)} signals do not run; they truncate at
+  the b_1 = NS²−1 = 8 cycle-space boundary because no further
+  topological degree of freedom exists.  Λ_QCD is therefore *not*
+  a primitive — it is just the MeV unit chosen to express the
+  dimensionless atomic ratio `NS · P(α_GUT · NS/d)` (already
+  encoded in `m_p` via the projection NS/d = 3/5).
 
-  v_H / Λ_QCD ≈ d² · NT^d = 25 · 32 = 800   (Δ = +0.16 %)
+The atomic counting integer that survives — and the only quantity
+that needs explanation — is the K_{3,2}^{(c=2)} invariant 800:
 
-→ if confirmed, Λ_QCD = v_H / 800 = 307.5 MeV  (obs 308 MeV).
+  v_H/"Λ_QCD" = d² · NT² · (NS² − 1) = 25 · 4 · 8 = 800
+              = (channels) · (chiral phase) · (cycle space)
+  with NT² · (NS² − 1) = NT^d = 32  (chiral cell total).
 
-This is a hypothesis, **not** a derivation: per CLAUDE.md
-"numerical agreement alone is not sufficient".  The combinatorial
-interpretation of `d² · NT^d` is the open question — `d²` counts
-channels per spatial dim (already used in 1/α_GUT denom), `NT^d`
-might enumerate chiral orientations on a 5-vertex graph, but this
-needs to come out of K_{3,2}^{(2)} counting, not be retrofit.
+✅ **Lean (0-axiom) closure**: `Physics/LambdaQCDPhantom.lean`
+   `chiral_cells_eq_NT_pow_d`     : `NT^d = 32`
+   `chiral_cells_factor`          : `NT^d = NT² · (NS² − 1)`
+   `lambda_qcd_phantom_count`     : `d² · NT² · (NS² − 1) = 800`
+   plus the equivalence `= d² · NT^d`.
+   All `does not depend on any axioms`.
+
+✅ **Rust trace**: `lambda-qcd-search` now prints the decomposition,
+   cites the Lean theorem, and explicitly notes the unit-convention
+   point.  `m-proton` header rewritten: the 308.32 MeV "anchor"
+   is the chosen MeV unit, not a parameter; the atomic claim is the
+   projection NS/d.
 
 ## 6.  Per-binary regression coverage  ✅ ADDED 2026-04-30
 

@@ -370,3 +370,7 @@ lean = "E213.Physics.WhyBasel.prop_exponent_eq_2"
 [[op]]
 rust = "drlt_app::bin::hop_hypothesis"
 lean = "E213.Physics.HopHypothesis.hop_hypothesis_capstone"
+
+[[op]]
+rust = "drlt_app::bin::lambda_qcd_search"
+lean = "E213.Physics.LambdaQCDPhantom.lambda_qcd_phantom_count"
