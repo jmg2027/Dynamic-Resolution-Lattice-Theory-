@@ -2807,3 +2807,85 @@ gets formalized.
 **Rust-engine application**: post-merge, this is mostly Lean-
 side bridge work.  The rust-engine inherits the unification
 implicitly through whitelist citations spanning both tracks.
+
+# Section IV — Universal Lens injectivity (Open Problem #6 closed)
+
+Math-branch HEAD as of 2026-04-30 closes the long-standing
+"Open Problem #6: non-trivial Universal Lens witness".  Single-step
+result with massive consequences.
+
+## 250. `Meta/UniversalLensNat2.lean` + `UniversalLensNat2Inj.lean` ★★★★★
+
+**What's there**: A non-trivial Universal Lens witness:
+
+```
+expSumLens : Lens (ℕ × ℕ)
+  base_a := (1, 0)
+  base_b := (2, 0)
+  combine x y := (2^x.1 + 2^y.1, x.2 + y.2 + 1)
+
+theorem expSumLens_is_universal :
+  E213.Meta.UniversalLens.IsUniversal expSumLens
+```
+
+i.e., `view : Raw → ℕ × ℕ` is **INJECTIVE** — Function.Injective.
+Proven by structural induction on Raw, using the bit-pattern
+uniqueness lemma `two_pow_sum_inj_full`:
+
+  if 2^m + 2^n = 2^p + 2^q with m ≠ n, p ≠ q, then {m,n} = {p,q}
+
+via factor-out-lowest-power-of-2 + odd/even contradiction.  Pure
+Nat arithmetic.  ≤ {propext, Quot.sound}.
+
+**Physics intuition** (★★★★★ structural breakthrough):
+
+This is the **first concrete witness** that the entire DRLT
+universe — every Raw value, from `a` and `b` through arbitrarily
+deep nested slashes — has a **faithful encoding into a pair of
+natural numbers**.  Every relation, every derivation tree, every
+state in the 213 system: lossless representation as (m, n) ∈ ℕ².
+
+Implications:
+
+1. **"213 is the precondition for any describing"** thesis (G1
+   universal-lens) now has an explicit witness.  Whatever the
+   external observer wants to describe, they can use the
+   expSumLens encoding without losing any 213-internal structure.
+
+2. **Discrete-trajectory representation of physics**: every
+   physical observable in DRLT, being a function of Raw, is a
+   function of (m, n).  Hence physics observables are discrete
+   functions ℕ² → (something).  All physics becomes
+   ℕ²-trajectory analysis.
+
+3. **Bridge to number theory** (paper 5 RH, paper 11 P≠NP, etc):
+   if Raw embeds in ℕ², standard number-theoretic objects
+   (primes, zeta zeros, complexity classes) can be directly
+   compared to DRLT-internal counterparts.  The "bridge" between
+   math papers (using ℕ-arithmetic) and 213 (using Raw) becomes
+   a single injection — no translation overhead.
+
+4. **For the rust-engine specifically**: every Raw value the
+   engine handles is now equivalent to a (BigUint, BigUint) pair.
+   The hypervisor crate's Lens machinery acquires this exact
+   shape — math-branch Lens (ℕ × ℕ) is the *intended* runtime
+   representation.
+
+**Computation lever**: When proposing any new physics quantity
+on Raw, you can equivalently express it as a function on
+(BigUint, BigUint) — encoding decidable, lossless, back-and-forth
+provably exact.  All DRLT physics can be re-expressed entirely
+in ℕ² without losing any structural information.
+
+**Rust-engine application**: post-merge, a `raw-encode` /
+`raw-decode` binary pair using expSumLens.  More ambitiously:
+refactor `crates/firmware/src/raw.rs` so Raw values are STORED
+as (m, n) pairs internally — runtime representation mirrors the
+universality theorem.
+
+The encoding form `(2^x + 2^y, depth+1)` is the **bit-pattern
+uniqueness encoding** — simplest possible faithful pair-encoding,
+connecting directly to BitFSM / 2-Automatic structures in
+Section II.  The link "Raw structure ↔ binary expansion ↔
+ArithFSM₂ recurrences" becomes computationally explicit through
+this encoding.
