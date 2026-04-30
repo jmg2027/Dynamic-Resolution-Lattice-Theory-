@@ -6,14 +6,14 @@
 //!       = 3 · 308.32 MeV · P(α·3/5)
 //!       ≈ 924.97 · 1.01438  ≈  938.27 MeV
 //!
-//! ⚠ The 308.32 MeV "anchor" is conventionally called Λ_QCD.  Per the
-//! 2026-04-30 phantom-elimination thesis (LambdaQCDPhantom.lean),
-//! Λ_QCD is *not* a fundamental DRLT parameter — it is the MeV unit
-//! one chooses to express the dimensionless atomic ratio
-//! `NS · P(α_GUT · NS/d)`.  The K_{3,2}^{(c=2)} counting invariant
-//! `d² · NT² · (NS²−1) = 800` is what really sets the gear ratio
-//! between any two scales (e.g. v_H ≈ 800 · "Λ_QCD"); the units
-//! are arbitrary.  The atomic claim is the projection NS/d = 3/5.
+//! ⚠ The 308.32 MeV "anchor" is conventionally called Λ_QCD.  In
+//! DRLT (see LambdaQCDPhantom.lean) Λ_QCD is *not* a fundamental
+//! parameter — it is the MeV unit one chooses to express the
+//! dimensionless atomic ratio `NS · P(α_GUT · NS/d)`.  The
+//! K_{3,2}^{(c=2)} counting invariant `d² · NT² · (NS²−1) = 800`
+//! sets the gear ratio between any two scales (e.g. v_H ≈ 800 ·
+//! "Λ_QCD"); the units are arbitrary.  The atomic claim is the
+//! projection NS/d = 3/5.
 //!
 //! Same P(x) = (1+2x)/(1+x) family as α_em Dyson + m_μ/m_e.
 

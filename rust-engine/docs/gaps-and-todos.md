@@ -66,8 +66,8 @@ carry explicit "⚠ External-input bracket" headers calling out:
 ## 5.  Λ_QCD-as-parameter dissolved 2026-04-30  ✅
 
 The original framing ("derive Λ_QCD = f(NS,NT,d,c,α_GUT)") presumed
-Λ_QCD has a fundamental status.  Mingu Jeong's 2026-04-30
-*phantom-elimination thesis* corrects this:
+Λ_QCD has a fundamental status.  The 2026-04-30 reframing — Λ_QCD
+as a phantom of continuum field theory — corrects this:
 
   Mainstream QCD treats Λ_QCD as the energy scale where the running
   coupling diverges — a singularity inherited from continuum field
@@ -119,7 +119,7 @@ most-cited 0-axiom claims.
 ## 7.  Open Lean opportunities surfaced during cleanup
 
 - `m_t/m_c ≈ 137`: ✅ structurally closed 2026-04-30.
-  Per Jeong's "Top quark = full lattice resonance" thesis, m_t/m_c
+  Per the "Top quark = full lattice resonance" reading, m_t/m_c
   is *not* an independent ratio: the top quark resonates with the
   entire K_{3,2}^{(c=2)} lens (H⁴ + 31 sub-simplices), so m_t/m_c
   follows the same cohomological polynomial as 1/α_em

@@ -1,6 +1,6 @@
 //! `lambda-qcd-search` — atomic counting underlying the apparent
-//! v_H / Λ_QCD ratio, reinterpreted per the *phantom-elimination*
-//! thesis (Mingu Jeong, 2026-04-30).
+//! v_H / Λ_QCD ratio, reinterpreted as a unit-convention artifact
+//! rather than a fundamental DRLT parameter (note added 2026-04-30).
 //!
 //! Mainstream QCD treats Λ_QCD as the energy scale where the running
 //! coupling diverges — a singularity inherited from the continuum
@@ -73,7 +73,7 @@ fn main() {
     println!();
     println!("Lean cite: LambdaQCDPhantom.lambda_qcd_phantom_count (0-axiom)");
     println!();
-    println!("Per Mingu Jeong 2026-04-30 phantom-elimination thesis:");
+    println!("Phantom-elimination reading:");
     println!("  Λ_QCD is NOT a fundamental parameter.  It is the unit one");
     println!("  chooses to express the dimensionless atomic ratio");
     println!("  NS · P(α_GUT · NS/d) in MeV.  The integer 800 is a");

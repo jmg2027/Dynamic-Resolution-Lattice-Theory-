@@ -76,8 +76,8 @@
     §2 ✅ muon_lifetime → muon_lifetime_192 theorem cited
     §3 ✅ 8 exploratory bins tagged "Diagnostic, not certified"
     §4 ✅ dark_energy + deuteron_binding "External-input bracket" headers
-    §5 ✅ Λ_QCD dissolved as parameter (Jeong 2026-04-30 phantom
-       thesis).  Λ_QCD is not a fundamental DRLT quantity — it is
+    §5 ✅ Λ_QCD dissolved as parameter (2026-04-30 phantom
+       reframing).  Λ_QCD is not a fundamental DRLT quantity — it is
        the MeV unit one picks to express NS·P(α_GUT·NS/d).  What
        survives is the K_{3,2}^{(2)} counting invariant 800:
          v_H/"Λ_QCD" = d²·NT²·(NS²−1) = 25·4·8
@@ -88,7 +88,7 @@
     §6 ✅ binary_smoke.rs (48) + binary_snapshots.rs (3 headlines)
     §7a ✅ 192 = (NS²−1)(d²−1) — cite retargeted to existing theorem
     §7b ✅ Cassini-Pell Nat form for (2φ−1)² = d added 0-axiom
-    §7c ✅ m_t/m_c + m_b/m_c closed 2026-04-30 (Jeong thesis):
+    §7c ✅ m_t/m_c + m_b/m_c closed 2026-04-30:
        • m_t/m_c: full-lattice resonance ⇒ same cohomology poly as
          1/α_em ⇒ "double 137" is structural, not coincidence.
        • m_b/m_c = NS·(1 + α_GUT·NT²) = 3·(1 + 4α_GUT) ≈ 3.29181

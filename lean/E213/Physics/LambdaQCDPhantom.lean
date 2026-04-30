@@ -4,7 +4,7 @@ import E213.Physics.Phase2
 /-!
 # Λ_QCD as topological projection — phantom elimination
 
-Theorist note (Mingu Jeong, 2026-04-30):
+Note (added 2026-04-30):
 
 Mainstream QCD treats Λ_QCD as the *energy scale where the running
 coupling diverges* — a singularity inherited from the continuum

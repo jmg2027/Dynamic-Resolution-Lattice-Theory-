@@ -1,7 +1,7 @@
-//! `mb-mc-sweep` — m_b/m_c correction sweep (Jeong 2026-04-30 hint).
+//! `mb-mc-sweep` — m_b/m_c correction sweep (added 2026-04-30).
 //!
 //! Observed PDG: m_b ≈ 4.18 GeV, m_c ≈ 1.27 GeV → ratio 3.2913.
-//! NS=3 base (3rd-gen quark spatial cutoff per the §7c thesis).
+//! NS=3 base (3rd-gen quark spatial cutoff, gaps-and-todos.md §7c).
 //! Residual = 3.2913 − 3 = 0.2913 from "Beyond NS=3" leakage:
 //! signal at the b_1=8 cycle-space edge crosses the chiral-split
 //! boundary into the NT=2 sector via an atomic correction tensor.

@@ -131,7 +131,7 @@ theorem quark_hierarchy_capstone :
     ∧ (mt_mb_ratio = 25)
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-/-! ## m_b/m_c "Beyond NS=3" correction — Jeong 2026-04-30 thesis
+/-! ## m_b/m_c "Beyond NS=3" correction — added 2026-04-30
 
 The NS=3 cutoff is precisely where 3rd-generation quark mass ratios
 break the spatial-sector pattern.  Empirically m_b/m_c ≈ 3.2913, so
