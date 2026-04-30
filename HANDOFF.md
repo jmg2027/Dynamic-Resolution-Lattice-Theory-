@@ -162,6 +162,15 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     12-conjunct bundle for the full 4-modulus family
     (bit periods + TIGHT sig periods + 5n² guarantees) at
     moduli {2, 3, 5, 7}.
+  - `DyadicLCMClosure.lean` — Pisano-style CRT structural lemmas:
+    - bs_periodic_at_multiple, bs_periodic_of_dvd (STRICT 0-AXIOM).
+    - ★★★★★ bs_periodic_lcm (≤ {propext}).
+    - ★★★★★★ bs_combined_periodic_lcm: two streams combined via
+      any g have period | lcm.
+  - `DyadicPellCRT.lean` — Pell family CRT applications:
+    - pell_mod{3,5,7} XOR-pairwise period bounds (20, 8, 40).
+    - ★★★★★★ pell_crt_capstone: 3-conjunct pairwise CRT bundle.
+    Formal Pisano CRT for the Fibonacci-squared matrix family.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
