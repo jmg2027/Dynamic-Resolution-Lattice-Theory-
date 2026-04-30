@@ -219,3 +219,11 @@ path = "src/bin/lambda_qcd_search.rs"
 [[bin]]
 name = "mb-mc-sweep"
 path = "src/bin/mb_mc_sweep.rs"
+
+[[bin]]
+name = "mt-mc-cohomology"
+path = "src/bin/mt_mc_cohomology.rs"
+
+[[bin]]
+name = "top-yukawa"
+path = "src/bin/top_yukawa.rs"

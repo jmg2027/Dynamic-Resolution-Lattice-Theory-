@@ -1,4 +1,4 @@
-# Session Handoff — rust-engine + 25+ precision cross-checks (50 bins)
+# Session Handoff — rust-engine + 25+ precision cross-checks (52 bins)
 
 ## Branch
 `claude/213-rust-engine-SloKB` (committed + pushed).
@@ -10,7 +10,9 @@
 - 182/182 tests pass | 89/89 citations resolve at theorem-id level
 - BigUint only, no floats anywhere in runtime crates
 - Companion docs: `rust-engine/docs/{architecture,layers,milestones,
-  trust-contract,precision-matrix,gaps-and-todos}.md`
+  trust-contract,precision-matrix,gaps-and-todos,cohomology-classes}.md`
+  (cohomology-classes.md = P(x) generalization, distills 4 classes
+  A/B/C/D from observed atomic patterns)
 - New regression coverage: `crates/app/tests/binary_smoke.rs` runs
   all 48 bins; `binary_snapshots.rs` pins simplex-inventory,
   triple-coupling, mu-electron headline outputs.
@@ -57,12 +59,14 @@
     192 = 8·24: Muon lifetime EXACT
     Pure 213 forcing across QM, SR, GR, BH, info theory, ...
 
-### 7. New 0-axiom Lean modules (this session, ~54 theorems)
+### 7. New 0-axiom Lean modules (this session, ~57 theorems)
   AlphaEMStructure, AlphaEMWithTail, AlphaEMPropagator,
   SubSimplexInventory, TripleCoupling{,V2},
   FiniteResonanceN, ParitySign, Tools/CertChecker,
-  LambdaQCDPhantom (Λ_QCD-as-parameter elimination, 3 new thms).
-  GoldenRatio gained 2 Cassini-Pell theorems for (2φ−1)²=d.
+  LambdaQCDPhantom (3 thms), GoldenRatio (2 Cassini-Pell).
+  QuarkHierarchy gained 4 thms: mb_mc_correction_atomic,
+  four_atomic_triple, mt_mc_chain_atomic + skeleton_diff,
+  top_yukawa_skeleton.
 
 ### 8. Precision matrix doc (rust-engine/docs/precision-matrix.md)
   "Precision Matrix — DRLT Cross-Checks via the Rust Engine"

@@ -378,3 +378,11 @@ lean = "E213.Physics.LambdaQCDPhantom.lambda_qcd_phantom_count"
 [[op]]
 rust = "drlt_app::bin::mb_mc_sweep"
 lean = "E213.Physics.QuarkHierarchy.mb_mc_correction_atomic"
+
+[[op]]
+rust = "drlt_app::bin::mt_mc_cohomology"
+lean = "E213.Physics.QuarkHierarchy.mt_mc_chain_atomic"
+
+[[op]]
+rust = "drlt_app::bin::top_yukawa"
+lean = "E213.Physics.QuarkHierarchy.top_yukawa_skeleton"
