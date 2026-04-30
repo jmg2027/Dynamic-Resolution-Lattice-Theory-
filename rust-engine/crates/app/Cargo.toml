@@ -183,6 +183,14 @@ path = "src/bin/ie_capstone.rs"
 name = "quark-hierarchy"
 path = "src/bin/quark_hierarchy.rs"
 
+[[bin]]
+name = "massless-particles"
+path = "src/bin/massless_particles.rs"
+
+[[bin]]
+name = "color-confinement"
+path = "src/bin/color_confinement.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }

@@ -354,3 +354,11 @@ lean = "E213.Physics.Phase4.IECapstone.IE_periodic_atomic"
 [[op]]
 rust = "drlt_app::bin::quark_hierarchy"
 lean = "E213.Physics.QuarkHierarchy.mt_mb_dim"
+
+[[op]]
+rust = "drlt_app::bin::massless_particles"
+lean = "E213.Physics.MasslessParticles.three_force_mass_pattern"
+
+[[op]]
+rust = "drlt_app::bin::color_confinement"
+lean = "E213.Physics.ColorConfinement"
