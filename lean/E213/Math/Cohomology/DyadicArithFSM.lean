@@ -1,0 +1,76 @@
+import E213.Math.Cohomology.DyadicBitAuto2
+
+/-!
+# ArithFSM — multi-state arithmetic recurrence (Tier 1 abstraction)
+
+Captures the structure of Pell-like sequences for algebraic
+irrationals.  An `ArithFSM2` has a 2-component state vector
+(Fin n × Fin n) updating via a linear recurrence mod n.
+
+Joint state space: Fin n × Fin n with n² values.  Transitions
+are constrained to arithmetic recurrences (matrix mod n).
+
+For Pell sequence (√2): (a_{k+1}, b_{k+1}) = (2a + b, a + b)
+has finite state mod any fixed N (CRT-style closure).
+-/
+
+namespace E213.Math.Cohomology.DyadicConjecture
+
+/-- 2-state arithmetic FSM with state vector in Fin n × Fin n. -/
+structure ArithFSM2 (n : Nat) where
+  init : Fin n × Fin n
+  step : Fin n × Fin n → Fin n × Fin n
+  out  : Fin n × Fin n → Bool
+
+/-- Run for k steps. -/
+def ArithFSM2.run {n : Nat} (m : ArithFSM2 n) : Nat → Fin n × Fin n
+  | 0 => m.init
+  | k + 1 => m.step (m.run k)
+
+/-- Bit stream from arithmetic FSM. -/
+def ArithFSM2.bits {n : Nat} (m : ArithFSM2 n) (k : Nat) : Bool :=
+  m.out (m.run k)
+
+/-- Pell-style FSM mod 2: (a_{k+1}, b_{k+1}) = (2a + b, a + b) mod 2.
+    Out: parity of a. -/
+def pellFSMmod2 : ArithFSM2 2 where
+  init := (⟨1, by decide⟩, ⟨1, by decide⟩)
+  step p := let (a, b) := p
+    (⟨b.val % 2, Nat.mod_lt _ (by decide)⟩,
+     ⟨(a.val + b.val) % 2, Nat.mod_lt _ (by decide)⟩)
+  out p := p.1.val == 1
+
+/-- Pell mod-2 first values: cycles with period 3 since (Fin 2)² has
+    only 4 states and the dynamics is deterministic. -/
+theorem pellFSMmod2_first8 :
+    pellFSMmod2.bits 0 = true ∧ pellFSMmod2.bits 1 = true
+    ∧ pellFSMmod2.bits 2 = false ∧ pellFSMmod2.bits 3 = true
+    ∧ pellFSMmod2.bits 4 = true ∧ pellFSMmod2.bits 5 = false := by decide
+
+/-- ★★ ArithFSM2 reduces to BitFSM(n²) via pair-encoding —
+    same pigeonhole argument applies. -/
+def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
+    BitFSM (n * n) where
+  init := ⟨m.init.1.val * n + m.init.2.val, by
+    have h1 := m.init.1.isLt; have h2 := m.init.2.isLt
+    have hsucc : (m.init.1.val + 1) * n = m.init.1.val * n + n :=
+      Nat.succ_mul _ _
+    have hbound : (m.init.1.val + 1) * n ≤ n * n :=
+      Nat.mul_le_mul_right n (by omega)
+    omega⟩
+  step v :=
+    let a : Fin n := ⟨v.val / n, (Nat.div_lt_iff_lt_mul hn).mpr v.isLt⟩
+    let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
+    let (a', b') := m.step (a, b)
+    ⟨a'.val * n + b'.val, by
+      have h1 := a'.isLt; have h2 := b'.isLt
+      have hsucc : (a'.val + 1) * n = a'.val * n + n := Nat.succ_mul _ _
+      have hbound : (a'.val + 1) * n ≤ n * n :=
+        Nat.mul_le_mul_right n (by omega)
+      omega⟩
+  out v :=
+    let a : Fin n := ⟨v.val / n, (Nat.div_lt_iff_lt_mul hn).mpr v.isLt⟩
+    let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
+    m.out (a, b)
+
+end E213.Math.Cohomology.DyadicConjecture
