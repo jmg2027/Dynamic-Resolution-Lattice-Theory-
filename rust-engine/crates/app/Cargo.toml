@@ -147,6 +147,18 @@ path = "src/bin/fibonacci_atomic.rs"
 name = "drlt-zero-parameters"
 path = "src/bin/drlt_zero_parameters.rs"
 
+[[bin]]
+name = "higgs-vacuum"
+path = "src/bin/higgs_vacuum.rs"
+
+[[bin]]
+name = "horizon-info"
+path = "src/bin/horizon_info.rs"
+
+[[bin]]
+name = "asymptotic-freedom"
+path = "src/bin/asymptotic_freedom.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }

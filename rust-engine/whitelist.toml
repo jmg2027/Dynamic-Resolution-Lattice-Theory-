@@ -318,3 +318,15 @@ lean = "E213.Physics.FibonacciAtomic"
 [[op]]
 rust = "drlt_app::bin::drlt_zero_parameters"
 lean = "E213.Physics.DrltZeroParameters"
+
+[[op]]
+rust = "drlt_app::bin::higgs_vacuum"
+lean = "E213.Physics.HiggsVacuum"
+
+[[op]]
+rust = "drlt_app::bin::horizon_info"
+lean = "E213.Physics.HorizonInformation.delta4_bits"
+
+[[op]]
+rust = "drlt_app::bin::asymptotic_freedom"
+lean = "E213.Physics.AsymptoticFreedom.inv_alpha_3_increasing"
