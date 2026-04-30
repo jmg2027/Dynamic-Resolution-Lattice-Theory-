@@ -239,9 +239,16 @@ Reference: `research-notes/D2_complexity_class_hierarchy.md` —
     `DyadicForwardPeriodicity.lean`; **Classical.choice REMOVED**
     via `Decidable.byContradiction` on Bool-valued collisionTest,
     ≤ {propext, Quot.sound})
-  - Inductive completion of the general forward direction is
-    straightforward from `joint_state_collision` + `bs_periodic_multiple`
-    (deferred — but axiom-clean).
+  - **★★★ `signature_eventually_periodic_of_periodic_bits`**
+    (`DyadicForwardClosure.lean`): general forward direction
+    CLOSED — purely periodic bits ⇒ ∃ N P, 0 < P ∧ ∀ n ≥ N,
+    sig (n + P) = sig n.  Proof: joint_state_collision +
+    sub_is_multiple_of_p + bs_periodic_multiple + induction.
+    All ≤ {propext, Quot.sound} (no Classical).
+
+**Tier 0 BIDIRECTIONAL closure (formal):**
+  bit stream eventually periodic ⇔ K_{3,2}^{(2)} signature
+  eventually periodic    [both directions ≤ {propext, Quot.sound}]
 
 **Tier 0 vs Tier 1+2 closure**: aperiodic bits ⇒ aperiodic
 signature (`aperiodic_bits_imp_aperiodic_sig`).

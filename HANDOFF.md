@@ -42,6 +42,12 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - `bs_periodic_multiple` (STRICT 0-axiom)
     - `collisionTest`, `pigeonhole_collision`, `joint_state_collision`
       all at ≤ {propext, Quot.sound}.
+  - `DyadicForwardClosure.lean` — general forward CLOSED:
+    - `sub_is_multiple_of_p`: i ≤ j ∧ i % p = j % p ⇒ p ∣ (j - i)
+    - ★★★ `signature_eventually_periodic_of_periodic_bits`:
+      bits periodic ⇒ ∃ N P, sig eventually periodic from N
+      with period P.  ≤ {propext, Quot.sound}.
+    Tier 0 BIDIRECTIONAL closure formally complete.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 
@@ -91,7 +97,9 @@ Top-3 from this session (full list in LESSONS_KERNEL_DECIDE.md):
 ## Open Problems (priority)
 
 ### 1. Conjecture 2 — finer Tier 1 vs Tier 2 distinction (NEW)
-Tier 0 (rational) closed: bits ev-periodic ⇔ signature ev-periodic.
+Tier 0 (rational) BIDIRECTIONAL closed at ≤ {propext, Quot.sound}:
+bits ev-periodic ⇔ signature ev-periodic (both directions, no
+Classical).
 Tier 1 ∪ Tier 2 vs Tier 0 closed: aperiodic bits ⇒ aperiodic sig.
 **Open**: Tier 1 (algebraic) vs Tier 2 (transcendental) at
 signature level — needs *trajectory complexity* measure.  Conjecture:
