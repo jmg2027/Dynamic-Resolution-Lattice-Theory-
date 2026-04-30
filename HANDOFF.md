@@ -257,13 +257,20 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
   - `DyadicSplitSplitLens.lean` — split × split lens composition
     (mod 11 × mod 19 → period | 45).
 
-### Universal Lens — non-trivial witness (Open Problem #6 step)
+### Universal Lens — Open Problem #6 PARTIALLY CLOSED
 
   - `lean/E213/Meta/UniversalLensNat2.lean` — `expSumLens : Lens (ℕ × ℕ)`:
     First non-trivial codomain beyond `Lens Raw`.  Encoding via
     `combine x y = (2^x.1 + 2^y.1, x.2 + y.2 + 1)`.
     Symmetric (≤ {propext, Quot.sound}); distinguishability witnesses
     (STRICT 0-AXIOM).  Full universality (injective view) open.
+  - `lean/E213/Meta/UniversalLensQ213.lean` — `q213Lens : Lens (Q213 × Q213)`
+    where `Q213 := Term × Term` (213-native rational from
+    `Kernel/Rat.lean`, cross-mult equivalence).  THIS realises the
+    Open Problem #6 ℚ²-discrete witness — using 213's own ℚ
+    infrastructure, no Lean Rat / no Mathlib.
+    Symmetric, view-on-base witnesses, distinguish a vs b (STRICT
+    0-AXIOM where applicable).  Full injectivity open.
 
 ### Parametric discriminant: Pell proper (D = 8)
 
