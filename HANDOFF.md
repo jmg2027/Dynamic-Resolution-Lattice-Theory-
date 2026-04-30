@@ -30,6 +30,13 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     **aperiodic bits ⇒ aperiodic K_{3,2}^{(2)} signature**
     (≤ {propext, Quot.sound}).  Realises Mingu's intuition that
     K_{3,2}^{(2)} walk classifies irrational types.
+  - `DyadicTierBridge.lean` — connects to D2 hierarchy:
+    - `EventuallyPeriodic` definition
+    - `ev_periodic_sig_imp_ev_periodic_bits` (eventual version)
+    - ★ `one_third_signature_periodic` — concrete FORWARD
+      direction at Tier 0 (rational): bits period 2 ⇒ signature
+      period 2 from step 1.
+    Tier 0 (rationals) ⇒ both directions closed.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 
@@ -78,13 +85,15 @@ Top-3 from this session (full list in LESSONS_KERNEL_DECIDE.md):
 
 ## Open Problems (priority)
 
-### 1. Conjecture 2 — finer irrational classification (NEW)
-Existence form trivial; signature classifier closed
-(aperiodic bits ⇒ aperiodic signature).  Open: classify
-*finer* — algebraic vs transcendental, algebraic degree d ↔
-trajectory complexity class C_d.  Test against √2 (degree 2):
-compute its dyadic bits via Newton iteration on rationals,
-check trajectory pattern.
+### 1. Conjecture 2 — finer Tier 1 vs Tier 2 distinction (NEW)
+Tier 0 (rational) closed: bits ev-periodic ⇔ signature ev-periodic.
+Tier 1 ∪ Tier 2 vs Tier 0 closed: aperiodic bits ⇒ aperiodic sig.
+**Open**: Tier 1 (algebraic) vs Tier 2 (transcendental) at
+signature level — needs *trajectory complexity* measure.  Conjecture:
+Tier 1 has bounded joint-state (Pell × K_{3,2}^{(2)}) FSM; Tier 2
+has unbounded (factorial in Euler's HasModulus N(m, k)).
+Formalisation: entropy / Kolmogorov-style finite-witness bound on
+Fin 5-valued trajectories.
 
 ### 2. Conjecture 1 — universal expressibility (NEW)
 Curry–Howard + Raw encoding of arbitrary constructive proofs.

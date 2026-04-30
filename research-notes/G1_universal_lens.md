@@ -210,6 +210,40 @@ transcendental; algebraic degree d ↔ trajectory complexity
 class C_d.  Test against √2 (degree 2): compute its dyadic
 bits via Newton iteration, check trajectory.
 
+### Connection to D2 hierarchy
+
+Mingu (2026-04-30, third pass): "어느 문서에 보면 대수적 무리수랑
+e랑 파이랑 다른 종류로 구분해놓은거 있거든 그거도 한번 참고해서".
+Reference: `research-notes/D2_complexity_class_hierarchy.md` —
+3-tier:
+  - Tier 0: rationals (eventually periodic bits)
+  - Tier 1: algebraic (Pell-style FSM on Raw sequence)
+  - Tier 2: transcendentals (e, π) — Cauchy modulus, no FSM
+  - Tier 3: non-computable (outside framework)
+
+**K_{3,2}^{(2)} signature behaviour per tier:**
+
+| Tier | Bit stream | Signature trajectory |
+|------|-----------|---------------------|
+| 0 | eventually periodic | EVENTUALLY PERIODIC (★ both directions) |
+| 1 | aperiodic | aperiodic, bounded trajectory complexity |
+| 2 | aperiodic | aperiodic, unbounded trajectory complexity |
+| 3 | not extractable | undefined |
+
+**Tier 0 closure** (`DyadicTierBridge.lean`):
+  - `signature_periodic_implies_bits_periodic` (general theorem)
+  - `one_third_signature_periodic` (concrete forward: 1/3 → period 2)
+
+**Tier 0 vs Tier 1+2 closure**: aperiodic bits ⇒ aperiodic
+signature (`aperiodic_bits_imp_aperiodic_sig`).
+
+**Tier 1 vs Tier 2 (open conjecture)**: distinguished by
+*trajectory complexity*.  Tier 1 has bounded joint-state
+(Pell × K_{3,2}^{(2)}) FSM; Tier 2 has unbounded (factorial in
+Euler's HasModulus N(m, k)).  Formalisation requires defining a
+complexity measure on Fin 5-valued sequences — likely entropy
+or Kolmogorov-style finite-witness bound.
+
 ## 6. Status
 
 - **Lean formalisation.**
