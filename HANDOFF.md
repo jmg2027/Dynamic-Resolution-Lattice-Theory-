@@ -250,6 +250,10 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     (parity doubling for odd bit periods) verified at all 7 primes.
   - `DyadicTwoLayerPredictor.lean` — ★★★★★★★★ two_layer_predictor_capstone:
     Bit + signature predictor unified (14-conjunct: 7+7).
+  - `DyadicArithFSMmod23.lean` — Pell mod 23 (NQR/inert, period 24).
+  - `DyadicPisanoPredictor8.lean` — ★★★★★★★ 8-prime predictor.
+  - `DyadicSplitSplitLens.lean` — split × split lens composition
+    (mod 11 × mod 19 → period | 45).
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
