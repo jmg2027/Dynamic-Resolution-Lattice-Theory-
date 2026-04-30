@@ -318,3 +318,163 @@ tag each candidate's (S, T) projector content.  The current sweep
 treats all atomic primitives symmetrically; with the chiral split
 known, we can pre-filter: "this observable is S-type so ignore
 purely-T candidates."  Likely 5–10× search speedup.
+
+## 9. `Cohomology/TopologyCompare.lean` — uniqueness of K_{3,2}^{(c=2)}
+
+**What's there**: Closed-form b_1 for two graph families:
+- complete graph K_N:           `b_1 = (N−1)(N−2)/2`
+- bipartite multi K_{n,m}^{(c)}: `b_1 = c·n·m − (n+m) + 1`
+
+Sweep across small (n, m, c) configs:
+
+| graph              | b_1  | match 1/α_3 = 8? |
+|--------------------|------|------------------|
+| K_5 (complete)     | 6    | NO               |
+| K_{3,2}, c=1       | 2    | NO               |
+| K_{3,2}, c=2       | **8**| ★ YES            |
+| K_{3,2}, c=3       | 14   | NO               |
+| K_{4,1}, c=2       | 4    | NO               |
+| K_{2,3}, c=2       | 8    | YES (swap NS↔NT) |
+| K_25 (complete)    | 276  | NO               |
+
+**Physics intuition**: The graph topology is **observation-selected**,
+not assumed.  Given that physics measures `1/α_3 = 8`, the lattice
+*must* be K_{3,2}^{(c=2)} (or its NS↔NT swap K_{2,3}^{(c=2)}, which
+is the same graph up to relabeling).  No other small bipartite multi
+or complete graph in the search range matches.  Combined with
+`WhyDimFive.lean`'s d=5 doubly-forcing, this is the **strongest
+falsifiability** statement DRLT has at the topological level: change
+b_1 by a single integer and the underlying graph is forced different.
+
+**Computation lever**: When proposing a *new* atomic identity that
+involves a topological invariant (Betti, Euler char, ...), compute
+its value across this same candidate sweep.  If multiple graphs
+match → the observable is degenerate / not a structure-selector.  If
+unique → you have a falsification anchor.
+
+**Rust-engine application**: post-merge, add a `topology-uniqueness`
+diagnostic binary that tabulates `b_1` for K_N (N=2..10) and
+K_{n,m}^{(c)} (n+m=2..7, c=1..4) and highlights matches to known
+DRLT integers (8, 12, 30, 60, 192, ...).  This becomes a search tool
+for "what's the next topological coincidence" — a way to reverse-
+discover atomic identities by scanning topology space.
+
+## 10. `Linalg213/Bridge.lean` — Linalg ⇄ Cohomology connector
+
+**What's there** (inferred from `Linalg213/Capstone.lean` references):
+The bridge identifies dimension-counts coming from two different
+machineries:
+
+  `Bridge.dimVecS = chiralDim 1 0 = NS = 3`
+  `Bridge.dimVecT = chiralDim 0 1 = NT = 2`
+  `Bridge.atomic_split_consistent`: the (S, T) split via Linalg
+  `projS`/`projT` agrees with the cochain-level chiral bigrading.
+
+**Physics intuition**: This is the **commutative diagram** that
+licenses moving freely between two languages:
+
+```
+         physics observable
+          /            \
+   linalg image    cochain bigrading
+   (Vec 5 split)    (chiralDim i j)
+          \            /
+        same atomic count
+```
+
+Without this bridge, "rank-5 Gram compression" (Linalg) and
+"H¹ has dim NS²−1" (Cohomology) would be two unrelated
+formalizations.  Bridge says they are computing the **same**
+geometric content via two different algebraic apparatuses.  Linalg
+gives universal quantification (∀ vectors, rank-5); Cohomology
+gives discrete structure (b_k bigrading, cup product, Hodge ⋆).
+
+**Computation lever**: When stuck deriving an identity in one
+language, **switch to the other via the bridge**.  Suspicious
+chiralDim count?  Verify via projS/projT on concrete Vec-5 vectors.
+Messy Vec-5 gymnastics?  Recast as a cochain-bigrading sum
+(Vandermonde collapses many cases at once).
+
+**Rust-engine application**: post-merge, the rust crates
+`hypervisor` (Gram) and `os` (chiral) currently mirror only the
+Linalg side.  Adding cochain-level mirrors (e.g. a new module
+`crates/hypervisor/src/cochain.rs`) would expose both sides in
+runtime, letting binaries switch representations to match the
+clearest derivation path for each observable.
+
+## 11. `Cohomology/EulerClosed.lean` — closed 4-manifold from Δ⁴ gluing
+
+**What's there**: Euler characteristic via face counts.
+- single Δ⁴: `χ = 5 − 10 + 10 − 5 + 1 = 1` (open, has boundary)
+- two Δ⁴'s glued along ∂Δ⁴: `χ = 5 − 10 + 10 − 5 + 2·1 = 2 = χ(S⁴)`
+  — the minimal closed 4-manifold from Δ⁴ gluing.
+- bonus: Hodge symmetry verified `binom 5 k = binom 5 (5−k)` for k=1, 2.
+
+**Physics intuition**: The cosmos as a *closed* 4-manifold is a
+real DRLT proposal (route 2 of `diamond_N_brainstorm.md`).
+Topological closure FORCES finite N (block universe).  The minimum
+χ=2 case (S⁴) gives a finite but non-trivial geometry; larger N
+gives other closed 4-manifolds.  This connects directly to the
+gravity-as-modulus picture (Class E) — gravitational dynamics on
+the lattice is *the* readout of a finite, topologically closed
+chiral-simplicial manifold.
+
+**Computation lever**: when an observable involves a global
+geometric quantity (Hubble parameter, horizon area,
+cosmological constant), it should *factor through* a closed
+4-manifold's χ, b_k, or signature.  These are scale-invariants
+in the bordism sense — additive across gluings, fixed for closed
+manifolds.  So checking χ first narrows what kind of atomic form
+the answer can take.
+
+**Rust-engine application**: post-merge, add to `dark-energy.rs`
+or `horizon-info.rs` an explicit χ-decomposition of Ω_Λ:
+the `(1 − 1/π)` factor encodes the angular deficit of a finite
+closed manifold (boundary contribution that vanishes on closure),
+while `(1 + α/d)` is the bulk-cell correction.  Currently this
+splitting is ad-hoc; with `EulerClosed.lean` cited it becomes a
+χ=2 closure statement.
+
+## 12. `Cohomology/DeltaSqZero.lean` — δ² = 0, the cohomology engine
+
+**What's there**: The single most fundamental cochain identity:
+`δ ∘ δ = 0` verified by `decide` at multiple concrete cochains on
+Δ⁴ (zero, vertex indicator, edge indicator, all-true).  In ℤ/2
+this is automatic from XOR cancellation: each (k+2)-subset's
+δ²σ value counts every k-subset face twice (once per removal
+order), and `XOR(x, x) = 0`.
+
+**Physics intuition**: `δ² = 0` is **the engine that makes
+cohomology exist at all** — without it, ker δ ⊃ im δ (so the
+quotient H = ker / im is well-defined) wouldn't hold.  In
+physics terms, δ²=0 is the **conservation law**: applying δ
+twice returns nothing, which means ANY cocycle representative
+of a cohomology class is conserved up to coboundary.  This is
+the mathematical origin of:
+- charge conservation (current is a cocycle, ∂J = δ²A = 0)
+- gauge invariance (A and A + δλ give same H¹ class)
+- topological invariants (b_k stable under refinement, Hodge
+  ⋆⋆ = id, cup product on H* well-defined)
+
+In DRLT, `δ²=0` over ℤ/2 specifically gives **mod-2 conservation
+laws**: parities, chirality counts, even/odd electron shell
+fillings, etc.  This is *why* the DRLT discrete physics works
+in ℤ/2 cohomology — because the underlying conservation is
+inherent in the cochain complex itself, not added as extra
+postulate.
+
+**Computation lever**: When designing a new identity, check that
+both sides of the proposed equation behave consistently under δ
+(coboundary).  If LHS is a closed cochain (δLHS = 0) and RHS
+isn't, the identity must be at the cohomology class level
+(LHS = RHS + δλ for some λ), not the cochain level.  This
+sanity check catches false identities that look numerically
+correct but break gauge invariance.
+
+**Rust-engine application**: post-merge, add an `assert_cocycle`
+helper to `crates/hypervisor/src/cochain.rs` that takes a Q-pair
+expression and verifies its δ image is zero (within the rational
+ring).  Useful for: new sweeps that propose identities involving
+charge / chirality / generation-count conservation — the helper
+flags candidates that violate δ²=0 at cochain level before they
+get reported as physics matches.
