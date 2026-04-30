@@ -478,3 +478,135 @@ ring).  Useful for: new sweeps that propose identities involving
 charge / chirality / generation-count conservation — the helper
 flags candidates that violate δ²=0 at cochain level before they
 get reported as physics matches.
+
+## 13. `Cohomology/Cochain.lean` — type-level foundation, ℤ/2 coefficients
+
+**What's there**: `Cochain n k = Fin (binom n k) → Bool` — Bool-
+valued functions on the i-th k-element subset of n vertices.
+ℤ/2 coefficients via XOR.  Establishes zero, add (XOR), and abelian
+group axioms (add_self gives 2σ = 0, add_zero, comm, assoc).
+
+**Physics intuition**: ℤ/2 (not ℚ, not ℝ) is the **deliberate
+coefficient choice** — DRLT's discrete physics is binary at its
+foundation: presence/absence of a relation, not magnitude.  The
+fact that 2σ = 0 means **every cochain is its own additive
+inverse** — there are no "negative" relations, only "this relation
+flipped" which is the same as "this relation".  Connects directly
+to the c=2 chirality multiplicity (each spoke is doubled = each
+relation has its XOR partner).
+
+**Computation lever**: When proposing an identity, ask whether it
+respects the Bool/XOR structure or whether it implicitly assumes
+ℚ-arithmetic.  An identity that holds in ℚ but breaks under
+"replace + with XOR" is *not* atomic at DRLT's foundational level
+— it's a derived statement, valid only in a specific representation.
+
+**Rust-engine application**: post-merge, the `crates/hypervisor`
+runtime should have a `cochain.rs` mirroring this Bool-level
+arithmetic.  Existing rust uses Q-pair (BigUint, BigUint) which is
+a rational-level shadow; the cochain.rs would provide a parallel
+ℤ/2 computation path for cross-checking.  Every Q-level identity
+should have a ℤ/2-level shadow that holds.
+
+## 14. `Cohomology/Delta.lean` — coboundary δ via face-removal XOR
+
+**What's there**: `δ : Cᵏ → Cᵏ⁺¹` defined by
+
+    δσ(τ) = XOR_{i=0..k} σ(τ \ {τ[i]})
+
+In ℤ/2 the alternating sign (−1)^i collapses, but δ²=0 still
+holds because each (k+2)-face is hit twice by composed removals
+and XOR cancels.  Implemented via `subsetIdx` colex enumeration.
+
+**Physics intuition**: δ is the **discrete-lattice analog of d
+(exterior derivative)**:
+- δ on charges (0-cochain) → currents (1-cochain).  Charge
+  conservation = δ²=0 = currents have no source.
+- δ on connection (1-cochain) → curvature (2-cochain).  Bianchi
+  identity = δ²=0.
+- δ on flux (2-cochain) → divergence (3-cochain).  ∇·B = 0
+  = δ²=0.
+
+Maxwell-style identities become decide-checkable Nat statements.
+
+**Computation lever**: "X is conserved" or "Y has no source" →
+look for the (k−1)-cochain whose δ gives X.  If X = δZ for
+atomic Z, then X is exact (im δ) and its cohomology class is
+trivial — no contribution to physical observables.
+
+**Rust-engine application**: post-merge, `cochain.rs` provides
+`delta_at(n, k, sigma, tau_idx) -> bool` mirroring Lean's
+`deltaAt`.  Unlocks computing δ-images of physics quantities at
+runtime, complementing the integer-skeleton arguments.
+
+## 15. `Cohomology/Cup.lean` — cup product (Alexander–Whitney)
+
+**What's there**: `⌣ : Cᵏ × Cˡ → Cᵏ⁺ˡ` via
+
+    (α ⌣ β)(σ) = α(front-k-face σ) · β(back-l-face σ)
+
+(Alexander–Whitney formula; product is Bool AND in ℤ/2.)
+CupRing.lean (already #3) lifts this to ring structure.
+
+**Physics intuition**: Cup product is **how to combine two
+independent observations into a joint observation**.  If α picks
+out "vertex i is excited" and β picks out "vertex j is excited",
+then α ⌣ β picks out "both i and j are excited at the same time".
+The cohomology version of:
+- multiplying two probability amplitudes
+- combining two scattering channels
+- composing two mass-ratio steps in a chain (Class D)
+
+In ℤ/2, cup is **not symmetric** at cochain level, only on H*.
+Physically: order of composition matters at the microscopic
+cocycle level (representatives differ by a coboundary) but the
+macroscopic H*-class is order-independent.
+
+**Computation lever**: When chaining atomic factors (Class D),
+it's cup-product composition, not just rational multiplication.
+The "front-back face split" gives a concrete recipe for which
+sub-simplices contribute at each step.
+
+**Rust-engine application**: post-merge, Cup as runtime op in
+`cochain.rs`.  When `mb-mc-sweep` family extends to multi-step
+chains (e.g. m_t/m_e via three steps), runtime cup gives the
+*cocycle witness*, not just the value.
+
+## 16. `Cohomology/HodgeInvolution.lean` — ⋆⋆ = id
+
+**What's there**: Decide-checked verification that `⋆ ∘ ⋆ : Cᵏ → Cᵏ`
+is the identity, at multiple concrete cochains on Δ⁴ (zero, vertex
+indicator, edge indicator, all-true).  Reason: `complement(complement
+σ) = σ` set-theoretically, so the composed cochain action returns
+to the original.  In ℤ/2 the usual sign factor `(−1)^(k(n−k))`
+collapses, so ⋆ is a clean involution.
+
+**Physics intuition**: ⋆⋆ = id means **gauge ↔ gravity dual readout
+is reversible without information loss**.  Going from phase-reading
+of G to modulus-reading and back gives back the same Gram entry.
+This is why the gauge sector and gravity sector carry the **same
+information content** despite being structurally different — they're
+two faces of the same Hodge involution, not independent fields.
+
+For DRLT specifically:
+- (gauge readout) ⋆⋆ → (gauge readout) — gauge sector is closed
+  under Hodge double-dual.
+- (gravity readout) = ⋆(gauge), but ⋆⋆ takes you back.  So
+  "graviton detection" is fundamentally a translation problem,
+  not a physical search problem.
+- The quaternary symmetry ⋆ at d=5 means H¹ ↔ H⁴, H² ↔ H³, H⁰ ↔ H⁵
+  — six "phase channels" reduce to three independent dual pairs.
+
+**Computation lever**: When two physics observables look
+"unrelated" but live at Hodge-dual cohomology degrees (k and
+d−k), they actually carry the *same* information — one is the
+⋆-dual of the other.  Use this to halve apparent independent
+content.  E.g. `1/α_em` (lives in some H¹-flavor combination) and
+`M_Pl/v_H` (lives in H⁴-flavor) are Hodge-dual; their joint
+information count is one, not two.
+
+**Rust-engine application**: post-merge, the binary
+`hodge-pair-audit` proposed earlier (cf. note #4) gains its
+correctness check from this file: every gauge–gravity pair must
+satisfy `⋆⋆(gauge_observable) = gauge_observable` at runtime,
+which the audit can verify.
