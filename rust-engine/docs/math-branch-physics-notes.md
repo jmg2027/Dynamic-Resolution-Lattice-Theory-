@@ -1299,3 +1299,88 @@ handles all current needs.  Future relevance: if a binary is
 proposed that genuinely needs to *take a limit* (e.g. Wallis-style
 π via convergent product), then Cauchy.lean's CauchyCutSeq is the
 target Lean structure to mirror.
+
+## 35. `Math/{CutOps, Generic, Series}.lean` — operations on cuts
+
+**What's there**: Three more umbrella files completing the
+Real213 algebraic-operation surface:
+
+- `CutOps.lean`: cut sum, mul, max/min, distance, bisection, pow,
+  poly, inv, scale-lattice.  Concrete plus algebraic-structure
+  facts.  All "tested" sibling files give decide-checkable smoke.
+- `Generic.lean`: universal kernel `cutBinary` + `CutBinaryOp`
+  abstraction.  `cutSumOp`, `cutMulOp` instances.  Gives one
+  generic `apply_locallyDetermined` theorem subsuming sum/mul
+  individual proofs.
+- `Series.lean` ★: `partialSum`, `SeriesCauchy`, convergence
+  framework.  Specific instances: `geomHalfSeries`,
+  `expCutPartial`, `sinPartial`, `cosPartial`,
+  **`leibnizPiPartial`**.  RatioBound, ComparisonBound,
+  GeometricConvergent.
+
+**Physics intuition** (★): `Series.lean` directly addresses the
+gaps-and-todos.md §4 transcendental-bracket residue.  Specifically:
+
+- **π** can be bracketed via `leibnizPiPartial`:
+  `π/4 = 1 − 1/3 + 1/5 − 1/7 + ...` (alternating series with
+  explicit error bound at each cutoff).
+- **e** via `expCutPartial`: `e^x = Σ x^k/k!` (truncated with
+  explicit Lagrange remainder).
+- **sin/cos** via `sinPartial`/`cosPartial` for trig fields.
+
+This means **π and e are NOT external inputs** to a fully-merged
+DRLT — they are 213-internal bracket sequences with computable
+modulus, decide-checkable to any desired precision.  Currently
+`dark_energy.rs` and `deuteron_binding.rs` consume π as
+display-only because the bracket isn't yet wired through.
+
+**Computation lever**: Whenever you propose an identity involving
+π or e, check whether a partial-sum bracket suffices at the target
+precision.  For most DRLT physics this is at most ppm — so tens of
+Leibniz / expCut terms are enough.
+
+**Rust-engine application**: post-merge, this is the **first
+high-priority wiring target**: port `leibnizPiPartial` and
+`expCutPartial` to `crates/app/src/wallis.rs` (or
+`taylor_series.rs`), and refactor `dark-energy.rs` /
+`deuteron-binding.rs` to use these brackets instead of hardcoded
+decimals.  Closes gaps-and-todos.md §4 fully and removes the only
+remaining "external input" annotations from the engine.
+
+## 36. `Linalg213/Capstone.lean` — Paper 1 chiral compression bundle
+
+**What's there**: The single 0-axiom theorem
+`paper1_chiral_compression` bundling six results:
+
+(i)   Atomic forcing: NS=3, NT=2, d=NS+NT=5
+(ii)  Linalg chiral split: ∀v ∈ Vec 5,
+      `combine (projS v) (projT v) k = v k`
+(iii) Cohomology bigrading: `chiralDim 1 0 + chiralDim 0 1 = 5`
+(iv)  Bridge: `dimVecS = chiralDim 1 0 = NS`, `dimVecT = ditto`
+(v)   Physics: `b_1(K_{3,2}^{(c=2)}) = 8 = NS² − 1 = 1/α_3`
+(vi)  Topology uniqueness: K_{3,2}^{(c=2)} matches; K_5 doesn't
+
+**Physics intuition**: This is the **paper 1 main claim closed
+formally**.  "ℂ⁵ chiral atomic decomposition is forced and unique"
+becomes a single decide-checkable statement spanning four
+machineries (atomicity, linalg, cohomology, physics).  Each
+conjunct is a different lens on the same underlying fact — that
+the K_{3,2}^{(c=2)} chiral lattice is the unique structure
+consistent with both the atomicity axiom AND the physics
+observation 1/α_3 = 8.
+
+The key consolidation: **paper 1 is no longer a heuristic
+"we propose ℂ² ⊕ ℂ³"** — it is a proven conjunction of six
+independently-verifiable facts.  Knock out any one and the chain
+breaks.
+
+**Computation lever**: When citing paper 1's framework in any new
+physics derivation, **cite this Capstone**, not the diffuse claims.
+Every downstream theorem inherits the rigorous chiral split +
+uniqueness from a single 0-axiom result.
+
+**Rust-engine application**: post-merge, the rust-engine's existing
+`crates/app/src/bin/k32_inspect.rs` should add a "paper 1 capstone"
+panel showing all six conjuncts side-by-side with their atomic
+counts, making the chiral compression *runtime-visible* for any
+user of the engine.
