@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.DyadicSignatureInj
 import E213.Math.Cohomology.DyadicBitFSMExamples
+import E213.Math.Cohomology.DyadicTier2Hardness
 
 /-!
 # Dyadic / K_{3,2}^{(2)} signature capstone
@@ -44,7 +45,11 @@ theorem dyadic_signature_capstone :
         ∃ N P, 0 < P ∧ N + P ≤ 5 * n
           ∧ ∀ k, k ≥ N → signature m.bits (k + P) = signature m.bits k
               ∧ m.run (k + P) = m.run k)
-    -- (6) Concrete Tier 0 BitFSM witnesses
+    -- (6) Tier 2 hardness: aperiodic ⇒ no BitFSM (any size)
+    ∧ (∀ (bs : Nat → Bool),
+        (∀ N P, 0 < P → ∃ k, k ≥ N ∧ bs (k + P) ≠ bs k)
+          → ¬ ∃ (n : Nat) (m : BitFSM n), ∀ k, m.bits k = bs k)
+    -- (7-9) Concrete Tier 0 BitFSM witnesses
     ∧ (∃ m : BitFSM 2, m.bits 0 = false ∧ m.bits 1 = true)
     ∧ (∃ m : BitFSM 4, m.bits 2 = true ∧ m.bits 3 = true)
     ∧ (∃ m : BitFSM 3, m.bits 0 = false ∧ m.bits 2 = true) :=
@@ -53,6 +58,7 @@ theorem dyadic_signature_capstone :
    signature_eventually_periodic_of_eventually_periodic_bits,
    tier0_equiv_bitfsm,
    fun _ m hn => fsm_signature_period_bound m hn,
+   aperiodic_bits_imp_no_BitFSM,
    ⟨fsm_one_third, by decide, by decide⟩,
    ⟨fsm_one_fifth, by decide, by decide⟩,
    ⟨fsm_one_seventh, by decide, by decide⟩⟩
