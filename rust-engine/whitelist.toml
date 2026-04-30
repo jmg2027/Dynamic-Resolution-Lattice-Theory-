@@ -19,40 +19,40 @@ lean = "E213.Kernel.Term.equiv"
 
 [[op]]
 rust = "drlt_kernel::compare::le_b"
-lean = "E213.Kernel.Term.le_b"
+lean = "E213.Kernel.Compare.le_b"
 
 [[op]]
 rust = "drlt_kernel::compare::lt_b"
-lean = "E213.Kernel.Term.lt_b"
+lean = "E213.Kernel.Compare.lt_b"
 
 [[op]]
 rust = "drlt_kernel::rat::equiv_q"
-lean = "E213.Kernel.Term.equivQ"
+lean = "E213.Kernel.Rat.equivQ"
 
 [[op]]
 rust = "drlt_kernel::rat::le_q"
-lean = "E213.Kernel.Term.leQ"
+lean = "E213.Kernel.Rat.leQ"
 
 # ── Phase 0: firmware ──────────────────────────────────────────────
 [[op]]
 rust = "drlt_firmware::raw::Raw::a"
-lean = "E213.Firmware.Raw.a"
+lean = "E213.Firmware.Raw.Core.Raw.a"
 
 [[op]]
 rust = "drlt_firmware::raw::Raw::b"
-lean = "E213.Firmware.Raw.b"
+lean = "E213.Firmware.Raw.Core.Raw.b"
 
 [[op]]
 rust = "drlt_firmware::raw::Raw::slash"
-lean = "E213.Firmware.Raw.slash"
+lean = "E213.Firmware.Raw.Slash.slash"
 
 [[op]]
 rust = "drlt_firmware::raw::Raw::depth"
-lean = "E213.Firmware.Raw.depth"
+lean = "E213.Firmware.Raw.Slash.depth"
 
 [[op]]
 rust = "drlt_firmware::raw::Raw::fold"
-lean = "E213.Firmware.Raw.fold"
+lean = "E213.Firmware.Raw.Fold.fold"
 
 [[op]]
 rust = "drlt_firmware::lens::Lens::view"
@@ -78,11 +78,11 @@ lean = "E213.App.Simplex.classify"
 
 [[op]]
 rust = "drlt_app::basel::s_partial"
-lean = "E213.Physics.Basel.S"
+lean = "E213.Physics.BaselBound.S"
 
 [[op]]
 rust = "drlt_app::basel::upper"
-lean = "E213.Physics.Basel.upper"
+lean = "E213.Physics.BaselBound.upper"
 
 [[op]]
 rust = "drlt_app::alpha_em::inv_full_upper"
@@ -98,11 +98,11 @@ lean = "E213.Physics.AlphaEM137Tight.capstone_n20"
 
 [[op]]
 rust = "drlt_app::alpha_em::bracket_137036_at"
-lean = "E213.Physics.AlphaEMGap.n50_bracket_contains_observed"
+lean = "E213.Physics.AlphaEMStructuralGap.n50_bracket_contains_observed"
 
 [[op]]
 rust = "drlt_app::alpha_em::bracket_candidate_at"
-lean = "E213.Physics.AlphaEMGap.n50_bracket_contains_candidate"
+lean = "E213.Physics.AlphaEMStructuralGap.n50_bracket_contains_candidate"
 
 [[op]]
 rust = "drlt_app::alpha_em_with_tail::inv_lower_with_tail"
@@ -261,11 +261,11 @@ lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
 
 [[op]]
 rust = "drlt_app::bin::weinberg_angle"
-lean = "E213.Physics.WeinbergAngle"
+lean = "E213.Physics.WeinbergAngle.weinberg_pattern_capstone"
 
 [[op]]
 rust = "drlt_app::bin::hydrogen_atom"
-lean = "E213.Physics.HydrogenAtom"
+lean = "E213.Physics.HydrogenAtom.hydrogen_atomic_pattern"
 
 [[op]]
 rust = "drlt_app::bin::neutron_proton"
@@ -273,19 +273,19 @@ lean = "E213.Physics.NeutronProton.np_simplicial"
 
 [[op]]
 rust = "drlt_app::bin::neutrino_mixing"
-lean = "E213.Physics.NeutrinoMixing"
+lean = "E213.Physics.NeutrinoMixing.PMNS_simplicial_pattern"
 
 [[op]]
 rust = "drlt_app::bin::dark_energy"
-lean = "E213.Physics.DarkEnergy"
+lean = "E213.Physics.DarkEnergy.dark_energy_pattern_capstone"
 
 [[op]]
 rust = "drlt_app::bin::wz_bosons"
-lean = "E213.Physics.WZBosons"
+lean = "E213.Physics.WZBosons.WZ_simplicial_pattern"
 
 [[op]]
 rust = "drlt_app::bin::cabibbo_angle"
-lean = "E213.Physics.CabibboAngle"
+lean = "E213.Physics.CabibboAngle.irreducible_5_22"
 
 [[op]]
 rust = "drlt_app::bin::generations"
@@ -293,11 +293,11 @@ lean = "E213.Physics.Generations.n_gen_eq_three"
 
 [[op]]
 rust = "drlt_app::bin::hierarchy_towers"
-lean = "E213.Physics.HierarchyTowers"
+lean = "E213.Physics.HierarchyTowers.hierarchy_towers_master"
 
 [[op]]
 rust = "drlt_app::bin::theta_qcd"
-lean = "E213.Physics.ThetaQCD"
+lean = "E213.Physics.ThetaQCD.drlt_below_bound"
 
 [[op]]
 rust = "drlt_app::bin::muon_lifetime"
@@ -305,7 +305,7 @@ lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
 
 [[op]]
 rust = "drlt_app::bin::ckm_wolfenstein"
-lean = "E213.Physics.CKMHierarchy"
+lean = "E213.Physics.CKMHierarchy.wolfenstein_atomic_capstone"
 
 [[op]]
 rust = "drlt_app::bin::atomic_correspondences"
@@ -313,15 +313,15 @@ lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
 
 [[op]]
 rust = "drlt_app::bin::fibonacci_atomic"
-lean = "E213.Physics.FibonacciAtomic"
+lean = "E213.Physics.FibonacciAtomic.five_fib_atomic"
 
 [[op]]
 rust = "drlt_app::bin::drlt_zero_parameters"
-lean = "E213.Physics.DrltZeroParameters"
+lean = "E213.Physics.DrltZeroParameters.drlt_zero_parameter_claim"
 
 [[op]]
 rust = "drlt_app::bin::higgs_vacuum"
-lean = "E213.Physics.HiggsVacuum"
+lean = "E213.Physics.HiggsVacuum.hierarchy_atomic"
 
 [[op]]
 rust = "drlt_app::bin::horizon_info"
@@ -333,19 +333,19 @@ lean = "E213.Physics.AsymptoticFreedom.inv_alpha_3_increasing"
 
 [[op]]
 rust = "drlt_app::bin::deuteron_binding"
-lean = "E213.Physics.DeuteronBinding"
+lean = "E213.Physics.DeuteronBinding.deuteron_simplicial"
 
 [[op]]
 rust = "drlt_app::bin::bond_angles"
-lean = "E213.Physics.BondAngles"
+lean = "E213.Physics.BondAngles.bond_angles_capstone"
 
 [[op]]
 rust = "drlt_app::bin::nuclear_binding"
-lean = "E213.Physics.NuclearBinding"
+lean = "E213.Physics.NuclearBinding.nuclear_simplicial_pattern"
 
 [[op]]
 rust = "drlt_app::bin::golden_ratio"
-lean = "E213.Physics.GoldenRatio"
+lean = "E213.Physics.GoldenRatio.golden_ratio_atomic"
 
 [[op]]
 rust = "drlt_app::bin::ie_capstone"
@@ -361,7 +361,7 @@ lean = "E213.Physics.MasslessParticles.three_force_mass_pattern"
 
 [[op]]
 rust = "drlt_app::bin::color_confinement"
-lean = "E213.Physics.ColorConfinement"
+lean = "E213.Physics.ColorConfinement.confinement_is_combinatorial"
 
 [[op]]
 rust = "drlt_app::bin::why_basel"

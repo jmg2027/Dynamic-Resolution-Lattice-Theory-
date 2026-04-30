@@ -5,32 +5,31 @@ docs/precision-matrix.md).  These are *not* bugs in the verified
 0-axiom Lean theorems; they are loose ends in the Rust verification
 layer or pending Lean formalizations worth doing.
 
-## 1.  Loose whitelist citations (module-level, not theorem-level)
+## 1.  Loose whitelist citations  ✅ RESOLVED 2026-04-30
 
-Several `whitelist.toml` rows cite a Lean *module* rather than a named
-theorem.  `verify-citations` checks the file exists, not that a
-specific 0-axiom theorem is invoked.  Tighten by replacing each with
-the strongest theorem the file exports.
+All 17 module-level cites replaced with specific theorems
+(weinberg_pattern_capstone, hydrogen_atomic_pattern,
+PMNS_simplicial_pattern, dark_energy_pattern_capstone,
+WZ_simplicial_pattern, irreducible_5_22, hierarchy_towers_master,
+drlt_below_bound, wolfenstein_atomic_capstone, five_fib_atomic,
+drlt_zero_parameter_claim, hierarchy_atomic, deuteron_simplicial,
+bond_angles_capstone, nuclear_simplicial_pattern, golden_ratio_atomic,
+confinement_is_combinatorial).
 
-  binary               module-only citation
-  ───────────────────  ───────────────────────────────────
-  weinberg_angle       E213.Physics.WeinbergAngle
-  hydrogen_atom        E213.Physics.HydrogenAtom
-  neutrino_mixing      E213.Physics.NeutrinoMixing
-  dark_energy          E213.Physics.DarkEnergy
-  wz_bosons            E213.Physics.WZBosons
-  cabibbo_angle        E213.Physics.CabibboAngle
-  hierarchy_towers     E213.Physics.HierarchyTowers
-  theta_qcd            E213.Physics.ThetaQCD
-  ckm_wolfenstein      E213.Physics.CKMHierarchy
-  fibonacci_atomic     E213.Physics.FibonacciAtomic
-  drlt_zero_parameters E213.Physics.DrltZeroParameters
-  higgs_vacuum         E213.Physics.HiggsVacuum
-  deuteron_binding     E213.Physics.DeuteronBinding
-  bond_angles          E213.Physics.BondAngles
-  nuclear_binding      E213.Physics.NuclearBinding
-  golden_ratio         E213.Physics.GoldenRatio
-  color_confinement    E213.Physics.ColorConfinement
+Also caught + fixed in the same pass:
+- `Kernel.Term.{le_b, lt_b}` → `Kernel.Compare.{le_b, lt_b}` (file split)
+- `Kernel.Term.{equivQ, leQ}` → `Kernel.Rat.{equivQ, leQ}`
+- `Physics.Basel.{S, upper}` → `Physics.BaselBound.{S, upper}`
+- `Physics.AlphaEMGap.n50_bracket_*` →
+  `Physics.AlphaEMStructuralGap.n50_bracket_*`
+- `Firmware.Raw.{a,b,slash,depth,fold}` → re-export shim citations
+  retargeted to actual sub-files (Raw/Core, Raw/Slash, Raw/Fold).
+
+Verifier upgraded (`tools/verify-citations`): now requires depth ≥ 2
+file resolution AND that the trailing segment appears as a Lean
+identifier (theorem/lemma/def/abbrev/instance, dotted def, inductive
+constructor, or structure field) inside the resolved file.  All 89/89
+now resolve at theorem-id level.
 
 ## 2.  Reused MasterCatalog citations
 
