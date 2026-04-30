@@ -1987,3 +1987,46 @@ is provably algebraic-or-higher (not rational, not 2-automatic).
 `dyadic-classifier` binary should also test 2-Automatic
 generability by trying small DFAs — gives an additional
 intermediate class label.
+
+## 85-93. Pell support + ProductFSM family
+
+**What's there** (compact note, 9 files):
+
+Pell support (5 files):
+- `PellBounds`: signature period bounds at small primes (mod 2:
+  20, mod 3: 45) — universal 5n² instantiations.
+- `PellCRT`: CRT-style period combinations.  lcm(3,4)=12,
+  lcm(4,10)=20.
+- `PellFamily`: bundles 4 instances (mod 2, 3, 5, 7) with
+  TIGHT periods and universal 5n² guarantees.
+- `PellLensPairs`: all pairwise compositions (3×5: 20, 3×7: 8,
+  5×7: 40).
+- `PellLensTriple`: ((mod3×mod5)×mod7) encoded into
+  BitFSM(11025), period | lcm(4,10,8) = 40.
+
+ProductFSM family (4 files):
+- `ProductHelpers`: generic Fin pair encoding (Fin n × Fin m ↔
+  Fin (n·m)) — asymmetric, used by BitFSM.product.
+- `ProductFSM`: `BitFSM.product f1 f2 g` definition.  State =
+  pair-encoding of (f1.state, f2.state).  Bits = g(f1, f2).
+- `ProductFSMRun`: decode component runs from product run
+  (decodeFinFirst, decodeFinSecond).
+- `ProductFSMPeriod`: ★ Lens Composition Theorem:
+  `period(BitFSM.product f1 f2 g) | lcm(period(f1), period(f2))`
+
+**Physics intuition**: ProductFSM gives the **universal CRT
+machinery at the FSM level** — any two BitFSMs compose to a
+BitFSM of size `n·m`, period = lcm of components.  This is
+what powers all the cross-class compositions (#61-64) and
+Pell-CRT capstone (#53-56).  At physics level: when two
+*independent* mod-p observations are combined (any Boolean
+function `g`), the result has automatic-atomic period.
+
+**Computation lever**: Combining two ArithFSM observables in
+DRLT inherits the lcm-period bound automatically.  No re-derivation.
+
+**Rust-engine application**: post-merge, `cochain.rs` should
+expose `bit_fsm_product(f1, f2, g) -> BitFSM` mirroring the
+math-branch construction.  Period inferred from
+`gcd_lcm_period`.  Used wherever a binary needs to compose two
+mod-p sequences.
