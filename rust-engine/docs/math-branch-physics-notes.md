@@ -2159,3 +2159,65 @@ are arbitrary, so dyadic cases are handled.  But adding a
 specialization could give exact arithmetic + simpler Lean
 correspondence for any binary using dyadic-friendly observables
 (many cosmology / Higgs / quartic-coupling formulas are dyadic).
+
+# Section III — Real213 Constructive Analysis Marathon
+
+The Research/Real213*.lean files (~173 of them) form the
+Bishop-style constructive analysis layer of 213.  CLAUDE.md flags
+this as "math track NOT critical for physics", but the user
+correctly notes that good *ideas* live here that physics can
+borrow.  Below, ~13 batches of compact thematic notes.
+
+## 119-124. Real213 foundation (type, equiv, order, ValidCut, lens)
+
+**What's there** (compact note, 6 files):
+
+- `Real213.lean`: framework-internal real-number type defined as
+  `{xs : ℕ → Raw // ∃ N : ℕ→ℕ→ℕ, modulus_property}` — *Cauchy
+  sequence + modulus* is THE atomic real.
+- `Real213Equiv.lean`: verifies equiv on Real213 is a genuine
+  equivalence (refl, symm, trans).
+- `Real213Order.lean`: Bishop-style le/lt — for every rational
+  m/k, eventually "r' ≤ m/k → r ≤ m/k".  Decidable in finite
+  approx form.
+- `Real213ValidCut.lean`: cut predicate `c m k = decide(x ≤ m/k)`,
+  monotone upward in m / downward in k (in truth values).  THE
+  alternative real-number representation.
+- `Real213AsLensOutput.lean` ★: user's reframe insight — every
+  real is a Lens output applied to ℕ.  No transcendentals
+  needed; computation = pick any Lens operation on the infinite
+  ℕ structure.
+- `Real213RecurrenceLens.lean`: classification of reals by
+  generating-Lens recurrence structure.  Each real has a
+  RecurrenceLens (init, step, project) — concrete Lens form.
+
+**Physics intuition** (★ key for physics): The two most
+physics-actionable items are:
+
+1. **Real-as-Lens**: any continuous physical quantity is the
+  output of a Lens applied to the infinite ℕ structure.  No
+  separate "continuum" required — only ℕ + Lens choice.  This
+  is the deepest answer to "where does ℝ come from in DRLT?":
+  ℝ is a way of *reading* ℕ-trees, not a separate object.
+2. **Cut representation**: every real `x` corresponds to a
+  function `(m, k) ↦ decide(x ≤ m/k)`.  Physics-relevant
+  observables are *queryable* this way: ask the bracket
+  question, get a Bool answer.  This is the discrete-lattice
+  equivalent of measurement — every continuous outcome is a
+  Bool returned by a finite query.
+
+**Computation lever**: When a physics quantity is "real-valued",
+ask which Lens generates it (RecurrenceLens classification).
+The Lens's structure determines the quantity's *complexity*:
+periodic → rational, eventually periodic → 2-Automatic,
+algebraic → ArithFSM_d, transcendental → no finite Lens.
+This connects directly to Section II Dyadic classification.
+
+**Rust-engine application**: post-merge, `Real213AsLensOutput`
+is the conceptual bridge that lets the rust-engine treat ALL
+brackets / Q-pair / continuum-flavored computations as Lens
+operations on the underlying Raw structure.  The existing
+`crates/firmware/src/raw.rs` already encodes Raw; adding a
+`crates/hypervisor/src/recurrence_lens.rs` with the standard
+Lens-as-real machinery would unify how the engine handles
+different real-flavored quantities.
