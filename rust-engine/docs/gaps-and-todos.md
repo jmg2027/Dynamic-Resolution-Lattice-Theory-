@@ -63,13 +63,29 @@ carry explicit "⚠ External-input bracket" headers calling out:
 - deuteron_binding.rs  : 1/π plus Λ_QCD as an empirical scale —
   inheriting the §5 Λ_QCD gap until that closes.
 
-## 5.  Λ_QCD origin still informal (HAD chain)
+## 5.  Λ_QCD origin — hypothesis surfaced 2026-04-30, not closed
 
 `m_proton`, `nuclear_binding`, and the hadron-mass ladder all assume
-Λ_QCD as a unit scale.  The finite-N self-resonance section
-(N(α_3)=20) hints at the answer but `Physics/HadronMassChain.lean`
-does not yet close `Λ_QCD = f(NS, NT, d, c, α_GUT)` as a 0-axiom
-identity.  Flag for next session.
+Λ_QCD as a unit scale.  `Physics/HadronMassChain.lean` does not yet
+close `Λ_QCD = f(NS, NT, d, c, α_GUT)` as a 0-axiom identity, and
+the existing `Phase3/ProtonMassSharp.lean` line `Λ_QCD ≈ 308 MeV`
+is comment-only.
+
+**New exploration tool**: `lambda-qcd-search` (diagnostic-only)
+enumerates 2-factor atomic ratios for v_H/Λ_QCD in the window
+[780, 820] (observed 798.7 with v_H = 246 GeV, Λ_QCD = 308 MeV
+MSbar).  The search returns *exactly one* clean atomic candidate:
+
+  v_H / Λ_QCD ≈ d² · NT^d = 25 · 32 = 800   (Δ = +0.16 %)
+
+→ if confirmed, Λ_QCD = v_H / 800 = 307.5 MeV  (obs 308 MeV).
+
+This is a hypothesis, **not** a derivation: per CLAUDE.md
+"numerical agreement alone is not sufficient".  The combinatorial
+interpretation of `d² · NT^d` is the open question — `d²` counts
+channels per spatial dim (already used in 1/α_GUT denom), `NT^d`
+might enumerate chiral orientations on a 5-vertex graph, but this
+needs to come out of K_{3,2}^{(2)} counting, not be retrofit.
 
 ## 6.  Per-binary regression coverage  ✅ ADDED 2026-04-30
 

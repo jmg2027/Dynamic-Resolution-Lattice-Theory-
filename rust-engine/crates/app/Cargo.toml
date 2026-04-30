@@ -211,3 +211,7 @@ unsafe_code = "forbid"
 
 [lints.clippy]
 float_arithmetic = "deny"
+
+[[bin]]
+name = "lambda-qcd-search"
+path = "src/bin/lambda_qcd_search.rs"

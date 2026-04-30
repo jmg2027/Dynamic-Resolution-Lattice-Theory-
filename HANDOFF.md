@@ -1,4 +1,4 @@
-# Session Handoff — rust-engine + 25+ precision cross-checks
+# Session Handoff — rust-engine + 25+ precision cross-checks (49 bins)
 
 ## Branch
 `claude/213-rust-engine-SloKB` (committed + pushed).
@@ -7,10 +7,13 @@
 
 ### 1. rust-engine — 48 binaries, ℕ-only ☞ Lean 0-axiom trust path
 - 5-crate workspace: kernel ← firmware ← hypervisor ← os ← app
-- 178/178 tests pass | 89/89 citations resolve | clippy ~clean
+- 182/182 tests pass | 89/89 citations resolve at theorem-id level
 - BigUint only, no floats anywhere in runtime crates
 - Companion docs: `rust-engine/docs/{architecture,layers,milestones,
   trust-contract,precision-matrix,gaps-and-todos}.md`
+- New regression coverage: `crates/app/tests/binary_smoke.rs` runs
+  all 48 bins; `binary_snapshots.rs` pins simplex-inventory,
+  triple-coupling, mu-electron headline outputs.
 
 ### 2. Comprehensive precision matrix (★★ headline)
 
@@ -66,10 +69,23 @@
   papers/paper5_critical_line.tex is an unrelated RH paper.)
 
 ### 8a. Cleanup notes (rust-engine/docs/gaps-and-todos.md)
-  Catalogues loose whitelist citations (17 module-level entries),
-  exploratory binaries without Lean cite, hardcoded π/ζ(2)
-  display-only spots, Λ_QCD origin still informal, and three open
-  Lean opportunities (m_t/m_c, 192 identity, (2φ−1)²=d).
+  Status (✅ done / 🟡 honest / ⚪ open):
+    §1 ✅ 17 loose cites tightened + 4 misroutings fixed
+    §2 ✅ muon_lifetime → muon_lifetime_192 theorem cited
+    §3 ✅ 8 exploratory bins tagged "Diagnostic, not certified"
+    §4 ✅ dark_energy + deuteron_binding "External-input bracket" headers
+    §5 🟡 Λ_QCD origin — `lambda-qcd-search` (new, diagnostic) finds
+       v_H/Λ_QCD ≈ d²·NT^d = 800 to 0.16% (the *only* clean 2-factor
+       atomic match in ±2.5%).  Not yet a derivation: combinatorial
+       meaning of NT^d on K_{3,2}^{(2)} = open question.
+    §6 ✅ binary_smoke.rs (48) + binary_snapshots.rs (3 headlines)
+    §7a ✅ 192 = (NS²−1)(d²−1) — cite retargeted to existing theorem
+    §7b ✅ Cassini-Pell Nat form for (2φ−1)² = d added 0-axiom
+    §7c 🟡 m_t/m_c ≈ 137 honestly flagged as tautology placeholder
+       (m_b/m_c needs an atomic correction beyond NS=3 first)
+
+  Verifier upgraded: `tools/verify-citations` now requires depth ≥ 2
+  file resolution AND Lean-identifier match for trailing segment.
 
 ### 9. Rust binaries (48) — by category
   α_em chain : alpha-em-bracket, alpha-em-decompose, gap-explorer,
