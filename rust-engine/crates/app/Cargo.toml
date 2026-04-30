@@ -31,6 +31,10 @@ path = "src/bin/simplex_inventory.rs"
 name = "impedance-search"
 path = "src/bin/impedance_search.rs"
 
+[[bin]]
+name = "triple-coupling"
+path = "src/bin/triple_coupling.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }

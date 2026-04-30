@@ -212,5 +212,9 @@ rust = "drlt_app::bin::simplex_inventory"
 lean = "E213.Physics.SubSimplexInventory.total_non_empty"
 
 [[op]]
+rust = "drlt_app::bin::triple_coupling"
+lean = "E213.Physics.TripleCoupling.triple_skeleton_bundle"
+
+[[op]]
 rust = "drlt_hypervisor::chiral_k32::paper1_capstone_check"
 lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"
