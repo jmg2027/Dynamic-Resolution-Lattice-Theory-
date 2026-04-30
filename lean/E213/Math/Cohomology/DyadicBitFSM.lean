@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.DyadicForwardClosure
+import E213.Math.Cohomology.DyadicForwardEventual
 
 /-!
 # BitFSM — finite-state-machine generated bit streams
@@ -71,5 +71,13 @@ theorem fsm_bits_eventually_periodic {n : Nat} (m : BitFSM n) :
   intro k hk
   show m.out (m.run (k + P)) = m.out (m.run k)
   rw [h k hk]
+
+/-- ★★★★★★ BitFSM-generated signature is eventually periodic. -/
+theorem fsm_signature_eventually_periodic {n : Nat} (m : BitFSM n) :
+    ∃ N P, 0 < P ∧ ∀ k, k ≥ N →
+      signature m.bits (k + P) = signature m.bits k := by
+  obtain ⟨N₀, P, hP, hbits⟩ := fsm_bits_eventually_periodic m
+  exact signature_eventually_periodic_of_eventually_periodic_bits
+    m.bits P N₀ hP (fun n hn => hbits n hn)
 
 end E213.Math.Cohomology.DyadicConjecture
