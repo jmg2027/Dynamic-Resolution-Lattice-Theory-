@@ -2419,3 +2419,57 @@ re-derivation needed.
 `Differentiable::derivative` mirroring the math-branch interface.
 Use cases: any future binary computing physics gradients (e.g.
 beta function running, RG-flow at the discrete level).
+
+## 160-169. Differentiable instances + transcendentals at zero (~10 files)
+
+**What's there**:
+
+Polynomial instances (5 files):
+- `DifferentiableInstances` (Phase AE-1): polynomial IsDifferentiable
+  for x², x³, x⁴ etc.
+- `DifferentiableHigherPow` (Phase AF): degrees 5-8.
+- `DifferentiableHighOrder` (Phase AK): nonic x⁹ = x⁴·x⁵ etc.
+- `DifferentiableAffine` (Phase AI): affine + sum form (ax+b,
+  x²+ax+b — ML-style polynomial models).
+- `DifferentiableCompose` (Phase AJ): chain rule via
+  `composeIsDifferentiable` + closed-form moduli.
+- `DifferentiationCapstone` (Phase AG): unified polynomial
+  capstone, degrees 0-8.
+
+Transcendentals at zero (4 files):
+- `ExpAtZero` (Phase DH) ★: `exp(0) = 1` formalized propEq.
+- `SinCosAtZero` (Phase DI) ★: `sin(0) = 0, cos(0) = 1` propEq.
+- `TranscendentalAtZero` (Phase DJ) ★: comprehensive bundle of
+  transcendental values at zero.
+- `CubeDerivativeAtZero` (Phase CY): `d/dx[x³] at 0 = 0` propEq.
+
+**Physics intuition**: This batch establishes that **closed-form
+derivatives of all standard physics-relevant functions are
+available at the cut level**:
+- Polynomial: degrees 0-9 covered.
+- Affine + composite: chain rule handles compositions.
+- Transcendentals: at the special points (0) where they're
+  exact values.
+
+For DRLT physics, this means **any standard formula involving
+polynomial / affine / transcendental functions has a 213-native
+derivative**.  Examples:
+- α_em correction factor V(x) at x = α/2 (Higgs quartic)
+- P(x) propagator at various atomic ratios
+- Top Yukawa near-saturation `y_t = 1 - α_GUT/NS`
+
+The "at-zero" theorems are particularly useful for
+**perturbation around small parameters** — α_GUT, α_em, etc are
+all small (~10⁻²), so series expansions around 0 with
+*decidable* zero-order terms give clean ppm-level brackets.
+
+**Computation lever**: For any "small parameter expansion" in
+DRLT physics, identify which transcendental's at-zero theorem
+gives the leading term.  Higher-order corrections come from
+the Taylor structure (Series + Diff combined).
+
+**Rust-engine application**: post-merge, the
+`crates/app/src/derivative.rs` module gains a "dyadic point"
+evaluator for transcendentals — `exp_at_dyadic(p, q)`,
+`sin_at_dyadic`, etc — using ExpAtZero and SinCosAtZero as
+ground truth at p = 0, q = 1, then expanding via Taylor.
