@@ -39,9 +39,9 @@ theorem dyadic_signature_capstone :
     -- (4) Tier 0 ⇔ BitFSM
     ∧ (∀ (bs : Nat → Bool) (p : Nat) (hp : 0 < p),
         (∀ n, bs (n + p) = bs n) → ∃ (m : BitFSM p), ∀ k, m.bits k = bs k)
-    -- (5) BitFSM(n) period bounded by 5n
+    -- (5) BitFSM(n) ⇒ pre-period + period ≤ 5n
     ∧ (∀ (n : Nat) (m : BitFSM n) (hn : 0 < n),
-        ∃ N P, 0 < P ∧ P ≤ 5 * n
+        ∃ N P, 0 < P ∧ N + P ≤ 5 * n
           ∧ ∀ k, k ≥ N → signature m.bits (k + P) = signature m.bits k
               ∧ m.run (k + P) = m.run k)
     -- (6) Concrete Tier 0 BitFSM witnesses

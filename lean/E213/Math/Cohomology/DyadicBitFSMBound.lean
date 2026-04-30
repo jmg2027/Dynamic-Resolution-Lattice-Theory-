@@ -63,9 +63,9 @@ theorem fsm_joint_collision {n : Nat} (m : BitFSM n) (hn : 0 < n) :
   show (m.run i).val = (m.run j).val
   omega
 
-/-- ★★★★★ Explicit period bound: BitFSM(n) signature has period ≤ 5n. -/
+/-- ★★★★★ Tight bound: BitFSM(n) signature has pre-period + period ≤ 5n. -/
 theorem fsm_signature_period_bound {n : Nat} (m : BitFSM n) (hn : 0 < n) :
-    ∃ N P, 0 < P ∧ P ≤ 5 * n
+    ∃ N P, 0 < P ∧ N + P ≤ 5 * n
       ∧ ∀ k, k ≥ N → signature m.bits (k + P) = signature m.bits k
       ∧ m.run (k + P) = m.run k := by
   obtain ⟨i, _, j, hj, hij, hsig, hrun⟩ := fsm_joint_collision m hn
