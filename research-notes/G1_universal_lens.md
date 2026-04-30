@@ -320,9 +320,24 @@ NOT BitFSM-generable at the bit level.
 Thue-Morse is 2-automatic (DFA reading binary digits) but NOT
 BitFSM-generable (assuming aperiodicity for all periods, classical
 result).  Sits between Tier 0 and "fully random" — a Tier 1.5
-witness.  Demonstrates that BitFSM is a STRICT lower bound on
-"finitely describable" bit streams; richer abstractions
-(2-automatic, k-automatic, computable) remain the next horizon.
+witness.
+
+**BitAuto2 abstraction** (`DyadicBitAuto2.lean`):
+  - `structure BitAuto2 (n : Nat)` with init/step/out reading
+    binary digits of index via testBit.
+  - `thueMorseAuto : BitAuto2 2` concrete instance.
+  - `thueMorseAuto_witnesses_bitAuto2`: ∃ m : BitAuto2 2 matching
+    thueMorse on first 8 indices.
+
+**Class hierarchy** (formal where indicated):
+  Tier 0 (rationals)         = BitFSM-class  ★ formal
+  Tier 1.5 (Thue-Morse)      ⊂ BitAuto2 \ BitFSM ★ partial formal
+  Tier 1 (algebraic √2)      ⊂ ?  (needs Pell-style abstraction)
+  Tier 2 (e, π)             outside automatic? open
+  Tier 3 (non-computable)   outside framework
+
+Strict inclusion BitFSM ⊊ BitAuto2 demonstrated via Thue-Morse
+witness (verified on bounded range; full aperiodicity is classical).
 
 D2's Tier 1 vs Tier 2 distinction is at the RAW SEQUENCE level
 (Pell-state FSM produces the Cauchy modulus), not the bit

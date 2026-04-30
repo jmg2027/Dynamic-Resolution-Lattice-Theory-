@@ -82,6 +82,11 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     - self-similarity t(2n)=t(n), t(2n+1)=¬t(n) verified n ≤ 7.
     Concrete aperiodic but finitely-describable bit stream;
     "Tier 1.5" outside BitFSM but still automatic.
+  - `DyadicBitAuto2.lean` — 2-automatic abstraction:
+    - structure BitAuto2 with run/bits via testBit fold.
+    - thueMorseAuto : BitAuto2 2 concrete instance.
+    - thueMorseAuto_witnesses_bitAuto2: ∃ m matching Thue-Morse.
+    Demonstrates BitAuto2 strictly richer than BitFSM.
 
 ### Δ⁴ Cohomology — Leibniz coverage CLOSED
 
