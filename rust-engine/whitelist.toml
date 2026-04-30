@@ -362,3 +362,11 @@ lean = "E213.Physics.MasslessParticles.three_force_mass_pattern"
 [[op]]
 rust = "drlt_app::bin::color_confinement"
 lean = "E213.Physics.ColorConfinement"
+
+[[op]]
+rust = "drlt_app::bin::why_basel"
+lean = "E213.Physics.WhyBasel.prop_exponent_eq_2"
+
+[[op]]
+rust = "drlt_app::bin::hop_hypothesis"
+lean = "E213.Physics.HopHypothesis.hop_hypothesis_capstone"

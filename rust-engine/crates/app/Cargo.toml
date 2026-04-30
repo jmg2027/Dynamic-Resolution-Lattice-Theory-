@@ -191,6 +191,14 @@ path = "src/bin/massless_particles.rs"
 name = "color-confinement"
 path = "src/bin/color_confinement.rs"
 
+[[bin]]
+name = "why-basel"
+path = "src/bin/why_basel.rs"
+
+[[bin]]
+name = "hop-hypothesis"
+path = "src/bin/hop_hypothesis.rs"
+
 [dependencies]
 drlt-kernel     = { path = "../kernel" }
 drlt-firmware   = { path = "../firmware" }
