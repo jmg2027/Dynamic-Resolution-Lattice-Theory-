@@ -215,6 +215,16 @@ Conjecture 2 scaffold (dyadic ↔ K_{3,2}^{(2)} bit-walks):
     pisano_predict p = 2p / (p-1)/2 / p+1 based on legendre213 5 p.
     pisano_predict_realises_pell: function predicts actual Pell
     period at all four primes.  Operational form of Pisano CRT.
+
+### Step 3 — Algebraic degree tower (Galois trajectory complexity) NEW
+
+  - `DyadicArithFSM1to2.lean` — ArithFSM₁ ↪ ArithFSM₂:
+    padTo2 (inert second component), bit-stream-faithful, STRICT 0-AXIOM.
+  - `DyadicArithFSMHierarchy.lean` — ★★★★★★ arithFSM_hierarchy_capstone:
+    3-conjunct chain ArithFSM₁ ⊂ ArithFSM₂ ⊂ ArithFSM₃ (all STRICT 0-AXIOM).
+  - `DyadicAlgebraicDegree.lean` — HasDegree_d predicates + containments:
+    legendreFSM has degree ≤ 1, pellFSMmod3 ≤ 2, tribFSMmod2 ≤ 3.
+    213-native algebraic-degree definition via state-space dimension.
   - `DyadicSignatureBipartite.lean` — bipartite alternation:
     - ★★★ signature_bipartite_alternation: even ⇒ S, odd ⇒ T.
   - `DyadicAtomicityConnection.lean` — atomic primitives match:
