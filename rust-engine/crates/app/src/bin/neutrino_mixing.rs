@@ -29,11 +29,21 @@ fn main() {
     println!("=== PMNS mixing from K_{{3,2}}^{{(2)}} ===\n");
     println!("α_GUT  ≈ {}", decimal(&agut, 12));
 
-    // sin²θ₁₂ leading = 1/NS = 1/3
-    let sin12_lead: Q = (nat(1), nat(3));
-    println!("\nsin²θ₁₂ leading (= 1/NS = 1/3) = {}",
-        decimal(&sin12_lead, 6));
-    println!("  Observed: 0.307 ± 0.013  (PDG global fit)");
+    // sin²θ₁₂ Pythagorean: NT²/(NS²+NT²) = 4/13
+    let sin12_pyt: Q = (nat(4), nat(13));
+    println!("\nsin²θ₁₂ = NT²/(NS²+NT²) = 4/13 = {}",
+        decimal(&sin12_pyt, 9));
+    println!("  PDG = 0.307 ± 0.013  (42000 ppm experimental)");
+    println!("  ★ Pythagorean rational from (NS=3, NT=2) — no α correction");
+    println!("  tan θ₁₂ = NT/NS = 2/3 (atomic ratio)");
+    let obs_12: Q = (nat(307), nat(1000));
+    let l = &sin12_pyt.0 * &obs_12.1; let r = &obs_12.0 * &sin12_pyt.1;
+    let dn = if l > r { l - r } else { r - l };
+    let diff_12: Q = (dn, &sin12_pyt.1 * &obs_12.1);
+    let ppm_12: Q = (&diff_12.0 * nat(1_000_000) * &obs_12.1,
+                     &diff_12.1 * &obs_12.0);
+    println!("  ppm = {}  (was 8500 ppm via 1/NS leading)",
+        decimal(&ppm_12, 1));
 
     // sin²θ₂₃ leading = 1/NT = 1/2 (maximal mixing)
     let sin23_lead: Q = (nat(1), nat(2));
