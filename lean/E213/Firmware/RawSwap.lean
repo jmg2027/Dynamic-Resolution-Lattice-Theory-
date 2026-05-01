@@ -13,18 +13,18 @@ public `Raw.*` API — no `Tree` internals.
 namespace E213.Firmware
 
 -- ═══ Thm 3.3 — swap bijectivity ═══
+-- Note: the point-style `Raw.swap_injective` (h : swap x = swap y → x = y)
+-- is defined in `Firmware/Raw/Swap.lean`.  Here we provide the
+-- `Function.Injective` wrapper + surjective + bijective.
 
-theorem Raw.swap_injective : Function.Injective Raw.swap := by
-  intro x y h
-  have := congrArg Raw.swap h
-  rw [Raw.swap_swap, Raw.swap_swap] at this
-  exact this
+theorem Raw.swap_injective_fn : Function.Injective Raw.swap :=
+  fun _ _ h => Raw.swap_injective h
 
 theorem Raw.swap_surjective : Function.Surjective Raw.swap :=
   fun y => ⟨Raw.swap y, Raw.swap_swap y⟩
 
 theorem Raw.swap_bijective : Function.Bijective Raw.swap :=
-  ⟨Raw.swap_injective, Raw.swap_surjective⟩
+  ⟨Raw.swap_injective_fn, Raw.swap_surjective⟩
 
 -- ═══ Thm 3.5 — ℤ/2 structure on {id, swap} ═══
 
