@@ -14,23 +14,33 @@ LEAN_ROOT = REPO / "lean"
 E213 = LEAN_ROOT / "E213"
 
 # Directories where files share a namespace by design (don't auto-align).
-# Vertical-layer dirs use umbrella-shared namespaces (e.g., multiple
-# Tactic/X.lean files all live under `namespace E213.Tactic`).  Per
-# CLAUDE.md "vertical layer takes precedence", leave these alone.
+# Per ARCHITECTURE.md §6.1: tactic-bearing files use `namespace E213.Tactic`
+# short-form so users `open E213.Tactic` to access the omega213 macro etc.
+# Their *path* (Kernel/Tactic/, Math/Tactic/, Meta/Tactic/) reflects the
+# import-derived layer, but the *namespace* is intentionally short.
 DEFAULT_SKIP = {
     # Raw umbrella — multiple flat files share `E213.Firmware`
     "lean/E213/Firmware/Raw",
     "lean/E213/Firmware/Raw.lean",
     "lean/E213/Firmware/RawLevels.lean",
     "lean/E213/Firmware/RawSwap.lean",
-    # Hypervisor/Lens.lean uses `E213.Hypervisor` umbrella (single file
-    # at root); but Hypervisor/Lens/ sub-cluster should be aligned.
+    # Hypervisor/Lens.lean uses `E213.Hypervisor` umbrella
     "lean/E213/Hypervisor/Lens.lean",
-    # Other vertical-layer umbrellas
-    "lean/E213/Infinity",
-    "lean/E213/Tactic",
+    # Kernel layer umbrella (101 thms in `namespace E213.Kernel`)
     "lean/E213/Kernel",
     "lean/E213/Prelude.lean",
+    # Tactic short-namespace umbrellas (post-2026-05-XX reorg).
+    # Files at these paths declare `namespace E213.Tactic` for ergonomic
+    # `open E213.Tactic` macro access.  Path is path-aligned-to-layer;
+    # namespace is intentionally short.
+    "lean/E213/Kernel/Tactic",
+    "lean/E213/Math/Tactic",
+    "lean/E213/Meta/Tactic",
+    # Math/Infinity/ files share `namespace E213.Infinity` umbrella by
+    # design — they ALSO use `namespace E213.Firmware.Internal` for
+    # helper access (multi-namespace files), which the auto-aligner
+    # mis-handles.  Keep the umbrella stable.
+    "lean/E213/Math/Infinity",
 }
 
 
