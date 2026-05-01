@@ -19,7 +19,7 @@ open E213.Firmware E213.Hypervisor
 
 /-- Pointwise cutMax of two CauchyCutSeqs is Cauchy. -/
 def CauchyCutSeq.cutMax (a b : CauchyCutSeq) : CauchyCutSeq where
-  cs := fun i => Real213CutSum.cutMax (a.cs i) (b.cs i)
+  cs := fun i => E213.Research.Real213.CutSum.cutMax (a.cs i) (b.cs i)
   N := fun m k => Nat.max (a.N m k) (b.N m k)
   cauchy := by
     intro m k i j hi hj
@@ -32,7 +32,7 @@ def CauchyCutSeq.cutMax (a b : CauchyCutSeq) : CauchyCutSeq where
 
 /-- Pointwise cutMin of two CauchyCutSeqs is Cauchy. -/
 def CauchyCutSeq.cutMin (a b : CauchyCutSeq) : CauchyCutSeq where
-  cs := fun i => Real213CutSum.cutMin (a.cs i) (b.cs i)
+  cs := fun i => E213.Research.Real213.CutSum.cutMin (a.cs i) (b.cs i)
   N := fun m k => Nat.max (a.N m k) (b.N m k)
   cauchy := by
     intro m k i j hi hj
@@ -45,7 +45,7 @@ def CauchyCutSeq.cutMin (a b : CauchyCutSeq) : CauchyCutSeq where
 
 /-- Limit of cutMax of two Cauchy seqs = cutMax of limits. -/
 theorem CauchyCutSeq.cutMax_limit (a b : CauchyCutSeq) :
-    (a.cutMax b).limit = Real213CutSum.cutMax a.limit b.limit := by
+    (a.cutMax b).limit = E213.Research.Real213.CutSum.cutMax a.limit b.limit := by
   funext m k
   show (a.cs (Nat.max (a.N m k) (b.N m k)) m k
         && b.cs (Nat.max (a.N m k) (b.N m k)) m k)
@@ -55,7 +55,7 @@ theorem CauchyCutSeq.cutMax_limit (a b : CauchyCutSeq) :
 
 /-- Limit of cutMin of two Cauchy seqs = cutMin of limits. -/
 theorem CauchyCutSeq.cutMin_limit (a b : CauchyCutSeq) :
-    (a.cutMin b).limit = Real213CutSum.cutMin a.limit b.limit := by
+    (a.cutMin b).limit = E213.Research.Real213.CutSum.cutMin a.limit b.limit := by
   funext m k
   show (a.cs (Nat.max (a.N m k) (b.N m k)) m k
         || b.cs (Nat.max (a.N m k) (b.N m k)) m k)
@@ -66,7 +66,7 @@ theorem CauchyCutSeq.cutMin_limit (a b : CauchyCutSeq) :
 /-- Pointwise cutDouble of a Cauchy seq is Cauchy.
     Modulus shifts: N (m, k) := a.N m (2k). -/
 def CauchyCutSeq.cutDouble (a : CauchyCutSeq) : CauchyCutSeq where
-  cs := fun i => Real213CutSum.cutDouble (a.cs i)
+  cs := fun i => E213.Research.Real213.CutSum.cutDouble (a.cs i)
   N := fun m k => a.N m (2*k)
   cauchy := by
     intro m k i j hi hj
@@ -75,7 +75,7 @@ def CauchyCutSeq.cutDouble (a : CauchyCutSeq) : CauchyCutSeq where
 
 /-- Limit of cutDouble of a Cauchy seq = cutDouble of limit. -/
 theorem CauchyCutSeq.cutDouble_limit (a : CauchyCutSeq) :
-    a.cutDouble.limit = Real213CutSum.cutDouble a.limit := by
+    a.cutDouble.limit = E213.Research.Real213.CutSum.cutDouble a.limit := by
   funext m k
   show a.cs (a.N m (2*k)) m (2*k) = a.cs (a.N m (2*k)) m (2*k)
   rfl
@@ -83,7 +83,7 @@ theorem CauchyCutSeq.cutDouble_limit (a : CauchyCutSeq) :
 /-- Pointwise cutHalf of a Cauchy seq is Cauchy.
     Modulus: N (m, k) := a.N (2m) k. -/
 def CauchyCutSeq.cutHalf (a : CauchyCutSeq) : CauchyCutSeq where
-  cs := fun i => Real213CutSum.cutHalf (a.cs i)
+  cs := fun i => E213.Research.Real213.CutSum.cutHalf (a.cs i)
   N := fun m k => a.N (2*m) k
   cauchy := by
     intro m k i j hi hj
@@ -92,7 +92,7 @@ def CauchyCutSeq.cutHalf (a : CauchyCutSeq) : CauchyCutSeq where
 
 /-- Limit of cutHalf of a Cauchy seq = cutHalf of limit. -/
 theorem CauchyCutSeq.cutHalf_limit (a : CauchyCutSeq) :
-    a.cutHalf.limit = Real213CutSum.cutHalf a.limit := by
+    a.cutHalf.limit = E213.Research.Real213.CutSum.cutHalf a.limit := by
   funext m k
   show a.cs (a.N (2*m) k) (2*m) k = a.cs (a.N (2*m) k) (2*m) k
   rfl
@@ -100,18 +100,18 @@ theorem CauchyCutSeq.cutHalf_limit (a : CauchyCutSeq) :
 /-- Idempotence at limit: (a.cutMax a).limit = a.limit. -/
 theorem CauchyCutSeq.cutMax_self_limit (a : CauchyCutSeq) :
     (a.cutMax a).limit = a.limit := by
-  rw [cutMax_limit, Real213CutSum.cutMax_idempotent]
+  rw [cutMax_limit, E213.Research.Real213.CutSum.cutMax_idempotent]
 
 /-- Idempotence at limit: (a.cutMin a).limit = a.limit. -/
 theorem CauchyCutSeq.cutMin_self_limit (a : CauchyCutSeq) :
     (a.cutMin a).limit = a.limit := by
-  rw [cutMin_limit, Real213CutSum.cutMin_idempotent]
+  rw [cutMin_limit, E213.Research.Real213.CutSum.cutMin_idempotent]
 
 /-- cutDouble and cutHalf commute at the limit on Cauchy sequences. -/
 theorem CauchyCutSeq.cutDouble_cutHalf_comm_limit (a : CauchyCutSeq) :
     a.cutDouble.cutHalf.limit = a.cutHalf.cutDouble.limit := by
   rw [cutHalf_limit, cutDouble_limit, cutDouble_limit, cutHalf_limit]
-  exact (Real213CutSum.cutDouble_cutHalf_comm _).symm
+  exact (E213.Research.Real213.CutSum.cutDouble_cutHalf_comm _).symm
 
 /-- Lattice distributivity at the Cauchy limit:
     a ⊓ (b ⊔ c) = (a ⊓ b) ⊔ (a ⊓ c). -/
@@ -120,7 +120,7 @@ theorem CauchyCutSeq.cutMin_distrib_cutMax_limit
     (a.cutMin (b.cutMax c)).limit
     = ((a.cutMin b).cutMax (a.cutMin c)).limit := by
   rw [cutMin_limit, cutMax_limit, cutMax_limit, cutMin_limit, cutMin_limit]
-  exact Real213CutSum.cutMin_distrib_cutMax _ _ _
+  exact E213.Research.Real213.CutSum.cutMin_distrib_cutMax _ _ _
 
 /-- Lattice distributivity at the Cauchy limit:
     a ⊔ (b ⊓ c) = (a ⊔ b) ⊓ (a ⊔ c). -/
@@ -129,32 +129,32 @@ theorem CauchyCutSeq.cutMax_distrib_cutMin_limit
     (a.cutMax (b.cutMin c)).limit
     = ((a.cutMax b).cutMin (a.cutMax c)).limit := by
   rw [cutMax_limit, cutMin_limit, cutMin_limit, cutMax_limit, cutMax_limit]
-  exact Real213CutSum.cutMax_distrib_cutMin _ _ _
+  exact E213.Research.Real213.CutSum.cutMax_distrib_cutMin _ _ _
 
 /-- cutMax is commutative at the Cauchy limit. -/
 theorem CauchyCutSeq.cutMax_comm_limit (a b : CauchyCutSeq) :
     (a.cutMax b).limit = (b.cutMax a).limit := by
   rw [cutMax_limit, cutMax_limit]
-  exact Real213CutSum.cutMax_comm _ _
+  exact E213.Research.Real213.CutSum.cutMax_comm _ _
 
 /-- cutMin is commutative at the Cauchy limit. -/
 theorem CauchyCutSeq.cutMin_comm_limit (a b : CauchyCutSeq) :
     (a.cutMin b).limit = (b.cutMin a).limit := by
   rw [cutMin_limit, cutMin_limit]
-  exact Real213CutSum.cutMin_comm _ _
+  exact E213.Research.Real213.CutSum.cutMin_comm _ _
 
 /-- cutMax is associative at the Cauchy limit. -/
 theorem CauchyCutSeq.cutMax_assoc_limit (a b c : CauchyCutSeq) :
     ((a.cutMax b).cutMax c).limit
     = (a.cutMax (b.cutMax c)).limit := by
   rw [cutMax_limit, cutMax_limit, cutMax_limit, cutMax_limit]
-  exact Real213CutSum.cutMax_assoc _ _ _
+  exact E213.Research.Real213.CutSum.cutMax_assoc _ _ _
 
 /-- cutMin is associative at the Cauchy limit. -/
 theorem CauchyCutSeq.cutMin_assoc_limit (a b c : CauchyCutSeq) :
     ((a.cutMin b).cutMin c).limit
     = (a.cutMin (b.cutMin c)).limit := by
   rw [cutMin_limit, cutMin_limit, cutMin_limit, cutMin_limit]
-  exact Real213CutSum.cutMin_assoc _ _ _
+  exact E213.Research.Real213.CutSum.cutMin_assoc _ _ _
 
 end E213.Research.Real213.CutSum

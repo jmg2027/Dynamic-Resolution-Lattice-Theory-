@@ -41,13 +41,13 @@ theorem maxNAt_ge (a_N : Nat → Nat → Nat) (kPrec : Nat) :
     Modulus: max over the search range j ∈ [0, B]
     where B = (m+1)*(k+1) is cutMul's bound. -/
 def CauchyCutSeq.cutMul (a b : CauchyCutSeq) : CauchyCutSeq where
-  cs := fun i => Real213CutSum.cutMul (a.cs i) (b.cs i)
+  cs := fun i => E213.Research.Real213.CutSum.cutMul (a.cs i) (b.cs i)
   N := fun m k => Nat.max (maxNAt a.N k ((m+1)*(k+1)))
                           (maxNAt b.N k ((m+1)*(k+1)))
   cauchy := by
     intro m k i j hi hj
-    show Real213CutSum.cutMul (a.cs i) (b.cs i) m k
-       = Real213CutSum.cutMul (a.cs j) (b.cs j) m k
+    show E213.Research.Real213.CutSum.cutMul (a.cs i) (b.cs i) m k
+       = E213.Research.Real213.CutSum.cutMul (a.cs j) (b.cs j) m k
     show cutMulOuter (a.cs i) (b.cs i) k m ((m+1)*(k+1)) ((m+1)*(k+1))
        = cutMulOuter (a.cs j) (b.cs j) k m ((m+1)*(k+1)) ((m+1)*(k+1))
     apply cutMulOuter_congr
@@ -75,7 +75,7 @@ def CauchyCutSeq.cutMul (a b : CauchyCutSeq) : CauchyCutSeq where
 
 /-- Limit of cutMul of two Cauchy seqs = cutMul of limits. -/
 theorem CauchyCutSeq.cutMul_limit (a b : CauchyCutSeq) :
-    (a.cutMul b).limit = Real213CutSum.cutMul a.limit b.limit := by
+    (a.cutMul b).limit = E213.Research.Real213.CutSum.cutMul a.limit b.limit := by
   funext m k
   let Nmax := Nat.max (maxNAt a.N k ((m+1)*(k+1)))
                       (maxNAt b.N k ((m+1)*(k+1)))

@@ -42,13 +42,13 @@ theorem maxModulus_ge (a_N : Nat → Nat → Nat) (k : Nat) :
 /-- Pointwise cutSum of two CauchyCutSeqs is Cauchy.
     Modulus: max over the search range j ∈ [0, 2m]. -/
 def CauchyCutSeq.cutSum (a b : CauchyCutSeq) : CauchyCutSeq where
-  cs := fun i => Real213CutSum.cutSum (a.cs i) (b.cs i)
+  cs := fun i => E213.Research.Real213.CutSum.cutSum (a.cs i) (b.cs i)
   N := fun m k => Nat.max (maxModulus a.N k (2*m))
                           (maxModulus b.N k (2*m))
   cauchy := by
     intro m k i j hi hj
-    show Real213CutSum.cutSum (a.cs i) (b.cs i) m k
-       = Real213CutSum.cutSum (a.cs j) (b.cs j) m k
+    show E213.Research.Real213.CutSum.cutSum (a.cs i) (b.cs i) m k
+       = E213.Research.Real213.CutSum.cutSum (a.cs j) (b.cs j) m k
     show cutSumAux (a.cs i) (b.cs i) k (2*m) (2*m)
        = cutSumAux (a.cs j) (b.cs j) k (2*m) (2*m)
     apply cutSumAux_congr
@@ -72,7 +72,7 @@ def CauchyCutSeq.cutSum (a b : CauchyCutSeq) : CauchyCutSeq where
 
 /-- Limit of cutSum of two Cauchy seqs = cutSum of limits. -/
 theorem CauchyCutSeq.cutSum_limit (a b : CauchyCutSeq) :
-    (a.cutSum b).limit = Real213CutSum.cutSum a.limit b.limit := by
+    (a.cutSum b).limit = E213.Research.Real213.CutSum.cutSum a.limit b.limit := by
   funext m k
   let Nmax := Nat.max (maxModulus a.N k (2*m)) (maxModulus b.N k (2*m))
   show cutSumAux (a.cs Nmax) (b.cs Nmax) k (2*m) (2*m)
