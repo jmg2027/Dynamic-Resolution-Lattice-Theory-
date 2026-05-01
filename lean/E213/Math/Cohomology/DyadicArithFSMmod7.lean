@@ -64,7 +64,7 @@ theorem pellFSMmod7_signature_period_bound :
       ∧ ∀ k, k ≥ N →
         signature pellFSMmod7.bits (k + P) = signature pellFSMmod7.bits k := by
   obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 7) (by omega) pellFSMmod7
-  exact ⟨N, P, hP, by omega, hk⟩
+    arithFSM2_signature_period_bound (n := 7) (by decide) pellFSMmod7
+  exact ⟨N, P, hP, hbound, hk⟩
 
 end E213.Math.Cohomology.DyadicConjecture
