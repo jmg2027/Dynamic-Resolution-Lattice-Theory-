@@ -86,6 +86,58 @@ Note: physics-track capstones (`validation_standard_capstone`, `pure_atomic_obse
 - Full lessons: `rust-engine/docs/gaps-and-todos.md` §10.
 - **Closure algorithm + conjecture**: `rust-engine/docs/closure-algorithm.md` — the meta-pattern of L1-L5 written as explicit pseudocode + the *DRLT Closure Form conjecture* (every K_{3,2}^{(c=2)} observable = R(NS,NT,d,c)·Π(1+κ_i·α_i^{n_i}) with κ_i from a small anchor catalog), backed by 9 session-empirical closures.
 
+## Repository Organization Philosophy (2026-05-01, Mingu directive)
+
+> "이 레포지토리는 학문 몇 개를 다시 세우는 수준의 일을 하고 있다."
+
+213 reconstructs multiple disciplines (math, physics, metalogic) from a
+single 4-clause Raw axiom.  As a living research codebase at that scope,
+optimize for **readability, extensibility, modularity, well-formed
+classification** — NOT for file count, line count, or merge-density
+metrics.
+
+### Concrete consequences for repo edits
+
+  1. **One coherent topic per file** — when a file accumulates two
+     unrelated topics, split it.  Two topics in one file hurts
+     discoverability + breaks the "1 import = 1 concept" mental model.
+  2. **Sub-cluster as soon as 3+ thematically-related files appear.**
+     Don't wait for 10+ — early sub-clustering is cheap; flat-root
+     accumulation is hard to undo.
+  3. **Naming reflects classification.**  Drop redundant prefixes when
+     they appear in the parent dir (`Lens/Factoring.lean`, not
+     `Lens/LensFactoring.lean`).  V-prefix on digit-start (`V137`,
+     not `137`).
+  4. **Don't merge files just to reduce count.**  If 27 distinct topics
+     are each a single small file, that's *good modularity* — leave
+     them.  The Phase4/Library 27→6 merge was a misjudgment under
+     this principle.
+  5. **Path = namespace, ideally.**  When `Physics/AlphaEM/V137.lean`
+     declares `namespace E213.Physics.AlphaEM137`, that's a
+     classification leak.  Either rename the namespace or rename the
+     path so they match.
+  6. **No "phase" or "session-number" in long-lived names.**  Phase
+     labels reflect WHEN the work happened, not WHAT it does.  Reorganize
+     `Phase{2,3,4}/` by content category at first opportunity.
+  7. **INDEX.md per non-trivial sub-tree.**  Every sub-cluster ≥ 5
+     files gets an INDEX.md or README.md naming convention notes,
+     "what lives here", "where to add new".
+  8. **The vertical-vs-horizontal axis tension is real.**  Kernel/,
+     Firmware/, OS/, Hypervisor/, Meta/, App/, Tactic/, Tools/ are
+     vertical (dependency layers).  Math/, Physics/, Research/ are
+     horizontal (topical).  When in doubt: vertical layer takes
+     precedence (foundation files belong in their layer dir, even
+     if they happen to be "math" or "physics").
+
+### When deletion is right
+
+Deprecated content with no active dependents (e.g., the `papers/`
+archive at commit a02b751) should be deleted, not kept "just in case".
+Git history retains everything; the working tree should reflect
+*current* state.  But: never delete content under active use, and
+always preserve a README or marker in the deleted directory pointing
+to the recovery commit.
+
 ## Authors
 - Mingu Jeong (Independent Researcher) — theory originator, physical intuition
 - Claude (Anthropic) — mathematical formalization, numerical experiments, code
