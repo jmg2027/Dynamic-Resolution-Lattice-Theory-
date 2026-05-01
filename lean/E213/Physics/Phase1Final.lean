@@ -1,14 +1,14 @@
-import E213.Physics.PhysicsTrackComplete
-import E213.Physics.MasterCatalog
-import E213.Physics.HierarchyTowers
+import E213.Physics.Capstones.PhysicsTrackComplete
+import E213.Physics.Capstones.MasterCatalog
+import E213.Physics.Mass.HierarchyTowers
 import E213.Physics.FibonacciExtended
-import E213.Physics.CPViolation
-import E213.Physics.NuclearShells
+import E213.Physics.Mixing.CPViolation
+import E213.Physics.Nuclear.Shells
 import E213.Physics.GenerationStructure
-import E213.Physics.HiggsMaster
-import E213.Physics.GUTUnification
-import E213.Physics.DrltZeroParameters
-import E213.Physics.ColorConfinement
+import E213.Physics.Higgs.Master
+import E213.Physics.Couplings.GUTUnification
+import E213.Physics.Foundations.DrltZeroParameters
+import E213.Physics.Couplings.ColorConfinement
 
 /-!
 # Phase 1 FINAL — DRLT Physics Track comprehensive capstone (0 axioms)

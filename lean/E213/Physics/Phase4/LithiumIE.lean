@@ -1,5 +1,5 @@
 import E213.Physics.SimplexCounts
-import E213.Physics.AtomicScreening
+import E213.Physics.Atomic.Screening
 
 /-!
 # Phase 4 LithiumIE — Li IE atomic chain

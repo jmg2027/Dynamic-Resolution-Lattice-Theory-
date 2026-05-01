@@ -1,5 +1,5 @@
-import E213.Physics.HiggsQuartic
-import E213.Physics.ProtonMass
+import E213.Physics.Higgs.Quartic
+import E213.Physics.Hadron.ProtonMass
 
 /-!
 # Closed propagator P(x) = (1+2x)/(1+x) — universal pattern (0 axioms)

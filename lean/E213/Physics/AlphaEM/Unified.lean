@@ -1,5 +1,5 @@
 import E213.Physics.AlphaEM.Core
-import E213.Physics.RunningGap
+import E213.Physics.Couplings.RunningGap
 
 /-!
 # 1/α_em(IR) — single lattice sum (unified sum form, 0 axioms)

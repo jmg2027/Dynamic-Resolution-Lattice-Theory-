@@ -1,6 +1,6 @@
 import E213.Physics.SimplexCounts
-import E213.Physics.AtomicScreening
-import E213.Physics.AlphaGUT
+import E213.Physics.Atomic.Screening
+import E213.Physics.Couplings.AlphaGUT
 
 /-!
 # Phase 4 HeliumIEPPM — He IE atomic chain (-0.09% Phase 1)

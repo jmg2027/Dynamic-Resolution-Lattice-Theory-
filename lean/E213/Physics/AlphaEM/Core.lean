@@ -1,4 +1,4 @@
-import E213.Physics.AlphaGUT
+import E213.Physics.Couplings.AlphaGUT
 
 /-!
 # 1/α_em(bare) — Weinberg sum + rational bracket

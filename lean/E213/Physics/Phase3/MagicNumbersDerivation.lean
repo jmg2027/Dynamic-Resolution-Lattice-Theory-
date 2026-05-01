@@ -1,5 +1,5 @@
 import E213.Physics.Phase2
-import E213.Physics.MagicNumbers
+import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.SimplexCounts
 
 /-!

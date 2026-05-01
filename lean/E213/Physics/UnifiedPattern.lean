@@ -1,10 +1,10 @@
 import E213.Physics.AlphaEM.Simplicial
-import E213.Physics.MuOverE
-import E213.Physics.HiggsMass
-import E213.Physics.TauOverMu
-import E213.Physics.WeinbergAngle
-import E213.Physics.DarkEnergy
-import E213.Physics.BondAngles
+import E213.Physics.Mass.MuOverE
+import E213.Physics.Higgs.Mass
+import E213.Physics.Mass.TauOverMu
+import E213.Physics.YangMills.WeinbergAngle
+import E213.Physics.Cosmology.DarkEnergy
+import E213.Physics.Atomic.BondAngles
 
 /-!
 # Unified pattern — all precision quantities from the same atomicity-locked atoms (0 axioms)

@@ -1,5 +1,5 @@
 import E213.Physics.Phase2
-import E213.Physics.ProtonMass
+import E213.Physics.Hadron.ProtonMass
 import E213.Physics.SimplexCounts
 
 /-!

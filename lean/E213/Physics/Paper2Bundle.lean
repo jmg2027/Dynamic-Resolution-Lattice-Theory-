@@ -1,4 +1,4 @@
-import E213.Physics.AlphaGUT
+import E213.Physics.Couplings.AlphaGUT
 import E213.Physics.AlphaEM.Core
 import E213.Physics.AlphaEM.Tight
 import E213.Physics.AlphaEM.Simplicial

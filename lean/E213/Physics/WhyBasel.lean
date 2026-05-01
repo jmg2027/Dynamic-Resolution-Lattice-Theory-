@@ -1,6 +1,6 @@
 import E213.Physics.SimplexCounts
 import E213.Physics.BaselBound
-import E213.Physics.ResolutionDepth
+import E213.Physics.Foundations.ResolutionDepth
 
 /-!
 # Why Basel? — 1/n² is geometric, not ansatz (0 axioms part)

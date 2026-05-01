@@ -1,5 +1,5 @@
 import E213.Physics.AlphaEM.V137Tight
-import E213.Physics.AlphaGUT
+import E213.Physics.Couplings.AlphaGUT
 
 /-!
 # 1/α_em(IR) candidate WITH Dyson tail α_GUT/(NS+1).

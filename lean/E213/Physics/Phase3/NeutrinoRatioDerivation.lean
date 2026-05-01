@@ -1,7 +1,7 @@
 import E213.Physics.Phase2
 import E213.Physics.BaselBound
 import E213.Physics.SimplexCounts
-import E213.Physics.NeutrinoMixing
+import E213.Physics.Mixing.NeutrinoMixing
 
 /-!
 # Phase 3 NeutrinoRatioDerivation — deep-dive on *why 5.71?*

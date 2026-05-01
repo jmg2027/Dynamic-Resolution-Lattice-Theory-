@@ -1,5 +1,5 @@
-import E213.Physics.AlphaGUT
-import E213.Physics.CabibboAngle
+import E213.Physics.Couplings.AlphaGUT
+import E213.Physics.Mixing.CabibboAngle
 
 /-!
 # θ_QCD bound — J · α_GUT⁴ < nEDM bound (0 axioms)

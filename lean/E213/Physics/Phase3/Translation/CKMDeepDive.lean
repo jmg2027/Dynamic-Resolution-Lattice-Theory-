@@ -1,6 +1,6 @@
 import E213.Physics.Phase2
-import E213.Physics.CKMHierarchy
-import E213.Physics.CabibboAngle
+import E213.Physics.Mixing.CKMHierarchy
+import E213.Physics.Mixing.CabibboAngle
 import E213.Physics.SimplexCounts
 
 /-!

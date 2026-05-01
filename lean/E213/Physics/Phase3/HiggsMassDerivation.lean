@@ -1,5 +1,5 @@
 import E213.Physics.Phase2
-import E213.Physics.HiggsMass
+import E213.Physics.Higgs.Mass
 import E213.Physics.AlphaEM.Prefactors
 import E213.Physics.SimplexCounts
 

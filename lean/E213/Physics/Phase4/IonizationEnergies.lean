@@ -1,6 +1,6 @@
 import E213.Physics.Phase4.AtomicReps
-import E213.Physics.HydrogenAtom
-import E213.Physics.HeliumAtom
+import E213.Physics.Atomic.Hydrogen
+import E213.Physics.Atomic.Helium
 
 /-!
 # Phase 4 IonizationEnergies — H, He, Li atomic to ppm

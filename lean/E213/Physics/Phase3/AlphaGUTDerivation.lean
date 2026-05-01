@@ -1,5 +1,5 @@
 import E213.Physics.Phase2
-import E213.Physics.AlphaGUT
+import E213.Physics.Couplings.AlphaGUT
 import E213.Physics.BaselBound
 import E213.Physics.SimplexCounts
 

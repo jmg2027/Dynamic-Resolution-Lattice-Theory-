@@ -1,4 +1,4 @@
-import E213.Physics.FiniteResonanceN
+import E213.Physics.Foundations.FiniteResonanceN
 
 /-!
 # Parity sign rule from K_{3,2}^{(2)} Lorentz signature.

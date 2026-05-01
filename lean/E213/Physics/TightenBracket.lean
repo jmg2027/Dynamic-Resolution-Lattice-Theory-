@@ -1,4 +1,4 @@
-import E213.Physics.AlphaGUT
+import E213.Physics.Couplings.AlphaGUT
 
 /-!
 # Tightening the 1/α_GUT bracket — N → ∞ scales (0 axioms)

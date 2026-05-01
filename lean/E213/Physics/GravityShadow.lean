@@ -1,5 +1,5 @@
-import E213.Physics.HiggsVacuum
-import E213.Physics.MasslessParticles
+import E213.Physics.Higgs.Vacuum
+import E213.Physics.Foundations.MasslessParticles
 
 /-!
 # Gravity shadow W = |G|²/d (0 axioms part)

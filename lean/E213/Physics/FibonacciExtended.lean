@@ -1,5 +1,5 @@
 import E213.Physics.FibonacciAtomic
-import E213.Physics.AtomicScreening
+import E213.Physics.Atomic.Screening
 
 /-!
 # Fibonacci extension — F_8, F_9 atomic appearances (0 axioms)

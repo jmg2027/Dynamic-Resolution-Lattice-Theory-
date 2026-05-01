@@ -1,6 +1,6 @@
 import E213.Physics.AlphaEM.SO10
 import E213.Physics.AlphaEM.GramSelfEnergy
-import E213.Physics.NUniverseFractalDepth
+import E213.Physics.Foundations.NUniverseFractalDepth
 import E213.Physics.AlphaEM.NUniverseCandidates
 
 /-!
