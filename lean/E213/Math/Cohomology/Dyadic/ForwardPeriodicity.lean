@@ -35,13 +35,15 @@ theorem pigeonhole_collision {N k : Nat} (h : N < k) (g : Fin k → Fin N) :
     refine ⟨i.val, i.isLt, j.val, j.isLt, hlt, ?_⟩
     show collisionTest g i.val j.val = true
     unfold collisionTest
-    simp [i.isLt, j.isLt, hi_eq, hj_eq, heq]
+    rw [dif_pos i.isLt, dif_pos j.isLt, hi_eq, hj_eq, heq]
+    exact beq_iff_eq.mpr rfl
   · rcases Nat.lt_or_eq_of_le hge with hgt | heq_idx
     · apply hno
       refine ⟨j.val, j.isLt, i.val, i.isLt, hgt, ?_⟩
       show collisionTest g j.val i.val = true
       unfold collisionTest
-      simp [i.isLt, j.isLt, hi_eq, hj_eq, heq]
+      rw [dif_pos j.isLt, dif_pos i.isLt, hi_eq, hj_eq, heq]
+      exact beq_iff_eq.mpr rfl
     · exact hij (Fin.ext heq_idx.symm)
 
 /-- bs periodic at multiple of p: bs (n + k*p) = bs n. -/
@@ -61,9 +63,13 @@ def jointState (bs : Nat → Bool) (p : Nat) (hp : 0 < p)
   ⟨(signature bs k.val).val * p + k.val % p, by
     have h1 : (signature bs k.val).val < 5 := (signature bs k.val).isLt
     have h2 : k.val % p < p := Nat.mod_lt _ hp
+    have h1' : (signature bs k.val).val ≤ 4 := Nat.lt_succ_iff.mp h1
     have h3 : (signature bs k.val).val * p ≤ 4 * p :=
-      Nat.mul_le_mul_right p (by omega)
-    omega⟩
+      Nat.mul_le_mul_right p h1'
+    calc (signature bs k.val).val * p + k.val % p
+        < 4 * p + p := Nat.add_lt_add_of_le_of_lt h3 h2
+      _ = (4 + 1) * p := (Nat.succ_mul 4 p).symm
+      _ = 5 * p := rfl⟩
 
 /-- ★ Joint state collision: ∃ i < j ≤ 5p with sig & mod equal. -/
 theorem joint_state_collision (bs : Nat → Bool) (p : Nat) (hp : 0 < p) :
@@ -73,8 +79,8 @@ theorem joint_state_collision (bs : Nat → Bool) (p : Nat) (hp : 0 < p) :
   have hlt : 5 * p < 5 * p + 1 := Nat.lt_succ_self _
   obtain ⟨i, hi, j, hj, hij, hcoll⟩ :=
     pigeonhole_collision hlt (jointState bs p hp)
-  have hi' : i ≤ 5 * p := by omega
-  have hj' : j ≤ 5 * p := by omega
+  have hi' : i ≤ 5 * p := Nat.lt_succ_iff.mp hi
+  have hj' : j ≤ 5 * p := Nat.lt_succ_iff.mp hj
   -- collisionTest gives joint state val equal
   have hjs_eq : (jointState bs p hp ⟨i, hi⟩).val
                   = (jointState bs p hp ⟨j, hj⟩).val := by

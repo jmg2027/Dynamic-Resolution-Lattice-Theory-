@@ -25,9 +25,13 @@ def fsmJointAt {n : Nat} (m : BitFSM n) (hn : 0 < n) (k : Fin (5 * n + 1))
     have h1 : (signature m.bits k.val).val < 5 :=
       (signature m.bits k.val).isLt
     have h2 : (m.run k.val).val < n := (m.run k.val).isLt
+    have h1' : (signature m.bits k.val).val ≤ 4 := Nat.lt_succ_iff.mp h1
     have h3 : (signature m.bits k.val).val * n ≤ 4 * n :=
-      Nat.mul_le_mul_right n (by omega)
-    omega⟩
+      Nat.mul_le_mul_right n h1'
+    calc (signature m.bits k.val).val * n + (m.run k.val).val
+        < 4 * n + n := Nat.add_lt_add_of_le_of_lt h3 h2
+      _ = (4 + 1) * n := (Nat.succ_mul 4 n).symm
+      _ = 5 * n := rfl⟩
 
 /-- ★ Joint (sig, run) collision via pigeonhole. -/
 theorem fsm_joint_collision {n : Nat} (m : BitFSM n) (hn : 0 < n) :
@@ -56,7 +60,8 @@ theorem fsm_joint_collision {n : Nat} (m : BitFSM n) (hn : 0 < n) :
         Nat.add_mul_div_left _ _ hn, Nat.div_eq_of_lt hrj, Nat.zero_add]
   have h_sig_eq : (signature m.bits i).val = (signature m.bits j).val := by
     rw [← hdiv_i, ← hdiv_j, hval]
-  refine ⟨i, by omega, j, by omega, hij, Fin.ext h_sig_eq, ?_⟩
+  refine ⟨i, Nat.lt_succ_iff.mp hi, j, Nat.lt_succ_iff.mp hj, hij,
+          Fin.ext h_sig_eq, ?_⟩
   have h_offset : (signature m.bits i).val * n
                     = (signature m.bits j).val * n := by rw [h_sig_eq]
   apply Fin.ext

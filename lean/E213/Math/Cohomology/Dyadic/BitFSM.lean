@@ -37,7 +37,7 @@ theorem fsm_run_collision {n : Nat} (m : BitFSM n) :
   have hlt : n < n + 1 := Nat.lt_succ_self _
   let g : Fin (n+1) → Fin n := fun k => m.run k.val
   obtain ⟨i, hi, j, hj, hij, hcoll⟩ := pigeonhole_collision hlt g
-  refine ⟨i, by omega, j, by omega, hij, ?_⟩
+  refine ⟨i, Nat.lt_succ_iff.mp hi, j, Nat.lt_succ_iff.mp hj, hij, ?_⟩
   unfold collisionTest at hcoll
   simp [hi, hj] at hcoll
   exact Fin.ext hcoll
@@ -46,7 +46,7 @@ theorem fsm_run_collision {n : Nat} (m : BitFSM n) :
 theorem fsm_run_eventually_periodic {n : Nat} (m : BitFSM n) :
     ∃ N P, 0 < P ∧ ∀ k, k ≥ N → m.run (k + P) = m.run k := by
   obtain ⟨i, _, j, _, hij, heq⟩ := fsm_run_collision m
-  refine ⟨i, j - i, by omega, ?_⟩
+  refine ⟨i, j - i, Nat.sub_pos_of_lt hij, ?_⟩
   intro k hk
   obtain ⟨d, rfl⟩ : ∃ d, k = i + d := ⟨k - i, (Nat.add_sub_cancel' hk).symm⟩
   clear hk
@@ -57,8 +57,9 @@ theorem fsm_run_eventually_periodic {n : Nat} (m : BitFSM n) :
         Nat.sub_add_cancel (Nat.le_of_lt hij)]
     exact heq.symm
   | succ d' ih =>
-    have h1 : i + (d' + 1) + (j - i) = (i + d' + (j - i)) + 1 := by omega
-    have h2 : i + (d' + 1) = (i + d') + 1 := by omega
+    have h1 : i + (d' + 1) + (j - i) = (i + d' + (j - i)) + 1 :=
+      Nat.succ_add (i + d') (j - i)
+    have h2 : i + (d' + 1) = (i + d') + 1 := rfl
     rw [h1, h2]
     show m.step (m.run (i + d' + (j - i))) = m.step (m.run (i + d'))
     rw [ih]
