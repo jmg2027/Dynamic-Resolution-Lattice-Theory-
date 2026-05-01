@@ -155,14 +155,54 @@ invariant ⇒ Class C.
 Is the closure form **complete**?  i.e., is there an observable on
 K_{3,2}^{(c=2)} that does NOT fit `R · Π(1+κα^n)`?
 
-Current empirical answer: **no failures yet** at depth ≤ 3.  All 9
-session closures fit.  Failure modes that *would* break the conjecture:
-  - Λ_QCD-anchored observables (m_π, deuteron) need a separate scale,
-    not just a coupling correction
-  - Observables involving running between scales (1/α_em IR vs UV)
-    may need additional bracket structure
+Current empirical answer: 9 confirmed fits, **1 candidate falsifier**.
 
-Sufficient evidence for the conjecture: a 10th–20th observable closing
-to the same form, with κ_i drawn from the anchor catalog.
+### Confirmed falsifier candidate: g_n (neutron magnetic moment)
 
-— added 2026-05-01
+Searched at depths 1, 2, 3 with bounded atomic coefficient
+enumeration.  Best hit:
+
+  |g_n| = (19/6) · (1 + d·α_GUT) · (1 + NT·d·α_em) · (1 + NS·d²·α_em²)
+       = (19/6) · (1 + 5·α_GUT) · (1 + 10·α_em) · (1 + 75·α_em²)
+       at 0.23 ppm vs CODATA |g_n| = 3.826085
+
+α-coefficients (5, 10, 75) ARE catalog (d, NT·d, NS·d²) —
+**but the base 19/6 has 19 which is NOT in the catalog**:
+  19 ≠ NSᵃ·NTᵇ·dᶜ·cᵈ for any small a,b,c,d
+  19 ≠ small linear combination
+  19 = prime, no DRLT decomposition
+
+Physical reason: the neutron has total charge 0, so its magnetic
+moment cannot use the same R = (d²−NS)/NT² Cabibbo-numerator
+base as g_p (which has Q = +1).  The cup-product structure
+that gives g_p its (22/4) base does not apply.
+
+This is the FIRST candidate observable that *appears to fit
+numerically* but *fails the structural anchor-catalog test*.
+
+Two interpretations:
+  (a) The conjecture is false — there exist observables on
+      K_{3,2}^{(c=2)} that don't fit `R · Π(1+κα^n)` with
+      catalog R, κ.  g_n is one.
+  (b) The conjecture holds for *charged* hadrons; neutral
+      hadrons (Q = 0) need a different cohomology class
+      (multi-simplex Class F with explicit charge cup-product),
+      moving them off the simple form.
+
+Either way, g_n is a **diagnostic** — its closure path will
+either tighten the conjecture or refute it.
+
+### Other failure modes (anticipated)
+
+  - Λ_QCD-anchored observables (m_π, deuteron) need a separate
+    scale, not just a coupling correction
+  - Running-between-scales observables (1/α_em IR vs UV) may
+    need additional bracket structure
+  - Nuclear binding ratios (a_S/a_V = 1.130 vs DRLT 9/8 = 1.125
+    at 4500 ppm) don't close cleanly via depth ≤ 3 with catalog κ
+
+Sufficient evidence to *promote conjecture to lemma*: 10–20 more
+charged-or-mass-ratio observables fitting the form, plus a clean
+characterization of the failure-mode boundary (e.g., "Q ≠ 0 required").
+
+— added 2026-05-01, falsifier g_n logged 2026-05-01
