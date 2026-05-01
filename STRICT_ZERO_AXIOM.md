@@ -47,8 +47,13 @@ Verified via `#print axioms <theorem>` returning:
 | `pisano_predict_realises_pell_14` | 14-prime Pell |
 | `pisano_predict_realises_pell_17` | 17-prime Pell |
 | `signature_predict_realises_pell_7` | 7-prime signature |
+| `two_layer_predictor_capstone` | Bit + sig layers bundled |
 | `fib_pisano_predict_realises_8` | 8-prime Fibonacci |
 | `legendre_5_mod_X` (X=13..89) | 14 Legendre symbols |
+| `pellProper_8prime_capstone` | Pell-proper 8-prime |
+| `three_family_pisano_capstone` | 3-family Galois capstone |
+| `pellProper{3,5,7}_run_period_*` | 3 PellProper TIGHT |
+| `pellProper{11,13,17,19,23}_bits_period_*` | 5 PellProper bits |
 
 ## Atomic identities (all STRICT 0-AXIOM via decide)
 
