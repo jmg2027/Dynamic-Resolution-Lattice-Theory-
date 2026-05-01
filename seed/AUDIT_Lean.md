@@ -88,8 +88,7 @@ Not present in Firmware itself.  The `Lens` in Hypervisor is a separate module.
 ### Mode of existence
 
 Lean `inductive` is by definition compatible with either Platonic or stepwise
-interpretation.  Companion narrative formerly in
-`Infinity/notes/17_existence_mode_lens.md` (deleted with `notes/`).
+interpretation.  Companion narrative: `research-notes/17_existence_mode_lens.md`.
 Current Lean coverage: `lean/E213/Infinity/Tower.lean`,
 `lean/E213/Infinity/Chain.lean`, and `lean/E213/Physics/Foundations/FiniteUniverse.lean`.
 
@@ -221,10 +220,9 @@ a Lean refactor requiring `lake build` to be re-run.
 - 2026-04-24: Initial audit.  Session
   `claude/lean-infinity-explanation-QqnSp`.
 - 2026-05-XX: Stale-reference cleanup.  PAPER.md → PAPER1.md (archival);
-  `Infinity/notes/17_existence_mode_lens.md` (deleted) replaced by current
-  Lean coverage (`Infinity/Tower.lean`, `Chain.lean`,
-  `Physics/Foundations/FiniteUniverse.lean`); §3 Steps 3/4 deprecated
-  (book/, papers/ deleted; superseded by AXIOM.md + guide/ + ARCHITECTURE.md).
+  `Infinity/notes/17_existence_mode_lens.md` → `research-notes/17_existence_mode_lens.md`
+  (renamed/relocated, not deleted); §3 Steps 3/4 deprecated (book/,
+  papers/ deleted; superseded by AXIOM.md + guide/ + ARCHITECTURE.md).
   Audit verdict (faithful, no structural revision) is unchanged.
 
 ## Author

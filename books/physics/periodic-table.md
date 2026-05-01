@@ -36,7 +36,7 @@ The same closed propagator applies to m_p, m_H, Ω_Λ, and IE.
 ## Usage
 
 ```lean
-import E213.Physics.Phase4.Library.CompletePeriodicTable
+import E213.Physics.Library.CompletePeriodicTable
 ```
 
 ## Formal guarantees
@@ -50,4 +50,4 @@ import E213.Physics.Phase4.Library.CompletePeriodicTable
 
   blueprints/physics/01_atomic_physics_213.md
   catalogs/periodic-table.md
-  lean/E213/Physics/Phase4/Library/CompletePeriodicTable.lean
+  lean/E213.Physics.Library/CompletePeriodicTable.lean

@@ -77,11 +77,11 @@ The formal core of §1.1 motivates the following conceptual extension:
   inside the 213 framework — their semantic status is an interpretive
   question.
 
-This conceptual extension was originally analyzed in `notes/75_semantic_atom.md`
-and `notes/76_ultimate_ouroboros.md` (the `notes/` tree is no longer in the
-repo — current Lean coverage in `Research/SemanticAtom.lean`).  It can be
-connected to the physics intuition chain in ORIGIN.md — formal Lean
-results serve as evidence for that interpretation.
+This conceptual extension is analyzed in `research-notes/75_semantic_atom.md`
+and `research-notes/76_ultimate_ouroboros.md`; current Lean coverage in
+`Research/SemanticAtom.lean`.  It can be connected to the physics
+intuition chain in ORIGIN.md — formal Lean results serve as evidence
+for that interpretation.
 
 **Boundary**: §1.1 (formal core) is verifiable within the falsifiability
 contract.  §1.2 (philosophical extension) is a semantic explanation of the
@@ -379,7 +379,7 @@ The previous `213/PAPER.md` (R1-R5 → ℂ derivation) and `213/PAPER2.md`
 Derivation is explored freely in notes/ where present, and in the Lean
 metatheory layer (`Meta/UniversalLens/`).
 
-Background: notes/30_bool_is_liar_paradox.md.  The R1-R5 judgment game in
+Background: `research-notes/30_bool_is_liar_paradox.md`.  The R1-R5 judgment game in
 Paper 1 was revealed to be an instance of a self-reference loop (Bool),
 so the frame itself was stepped back from.
 
@@ -543,7 +543,8 @@ depend on it.
     through Raw."
   - §1.2 path corrections: `Research/NoDepthParity.lean` →
     `Research/Morphism/{NoDepthParity, DepthParityNotFold}.lean`;
-    `notes/75_*, notes/76_*` (deleted) replaced by
+    `notes/75_*, notes/76_*` → `research-notes/75_*, research-notes/76_*`
+    (relocated, not deleted); current Lean counterpart
     `Research/SemanticAtom.lean`.
   - §7.1 updated: Lens-layer bleed migration (Recommendation 3) is
     deprioritized — `Raw.depth/leaves/fold_signed_swap/fold_swap_hom`

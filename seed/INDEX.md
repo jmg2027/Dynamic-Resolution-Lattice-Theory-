@@ -46,7 +46,5 @@ made here in prose.
 
   - `ORIGIN.md`, `AXIOM.md`, `PHILOSOPHY.md`, `NOTATION.md`: stable
   - `IMPLEMENTATION.md`, `AUDIT_Lean.md`: should track Lean refactors
-  - `PAPER1.md`: archival reference, not actively maintained
-  - (Previously: `CLAUDE-213.md` was retained as older session guide;
-     deleted 2026-05-XX — content fully superseded by root `CLAUDE.md`
-     and `PHILOSOPHY.md`.  Recoverable from git history.)
+  - `PAPER1.md`: archival reference, not actively maintained.  Still
+    cited from ~25 Lean files via `PAPER1 §X.Y` markers — do not delete.
