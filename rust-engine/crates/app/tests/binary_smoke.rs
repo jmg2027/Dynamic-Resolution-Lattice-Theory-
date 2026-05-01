@@ -11,6 +11,7 @@
 use std::process::Command;
 
 const BINS: &[(&str, &[&str])] = &[
+    ("alpha-em-augmented", &["100"]),
     ("alpha-em-bracket", &["20"]),
     ("alpha-em-decompose", &["20"]),
     ("asymptotic-freedom", &[]),
