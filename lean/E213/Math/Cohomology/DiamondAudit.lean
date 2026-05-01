@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.DiamondShape
-import E213.Physics.HopHypothesis
-import E213.Physics.Paper3Bundle
+import E213.Physics.Foundations.HopHypothesis
+import E213.Physics.Capstones.Paper3Bundle
 
 /-!
 # Diamond Crystal — Verification Audit

@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Cohomology — k-cochain type with ℤ/2 coefficients (Phase CA, file 1)
