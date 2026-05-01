@@ -251,3 +251,7 @@ path = "src/bin/proton_g.rs"
 [[bin]]
 name = "hadron-bigrading"
 path = "src/bin/hadron_bigrading.rs"
+
+[[bin]]
+name = "mn-mp-split"
+path = "src/bin/mn_mp_split.rs"
