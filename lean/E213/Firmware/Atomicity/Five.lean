@@ -13,8 +13,7 @@ uniqueness forces a < 3 ∧ b < 2. Combined with a,b odd and ≥ 1 gives
 a = b = 1, hence n = 5.
 -/
 
-namespace E213.OS.Atomicity
-
+namespace E213.Firmware.Atomicity.Five
 /-- n decomposes as 2a + 3b. -/
 def Decomp (n a b : Nat) : Prop := n = 2 * a + 3 * b
 
@@ -72,4 +71,4 @@ theorem canonical_partition :
   simp [Decomp] at h
   refine ⟨?_, ?_⟩ <;> omega
 
-end E213.OS.Atomicity
+end E213.Firmware.Atomicity.Five

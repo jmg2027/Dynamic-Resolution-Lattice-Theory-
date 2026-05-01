@@ -6,8 +6,7 @@ bare-bones pigeonhole directly by induction on `N`, using a
 "shift-around" that identifies `Fin (n+1) \ {v}` with `Fin n`.
 -/
 
-namespace E213.OS.Pigeonhole
-
+namespace E213.Math.Pigeonhole
 /-- Reindex `Fin (n+1) \ {v}` into `Fin n`: drop `v`, relabel. -/
 private def shiftAround {n : Nat} (v w : Fin (n+1)) (h : w ≠ v) : Fin n :=
   if hlt : w.val < v.val then
@@ -83,4 +82,4 @@ theorem no_inj_lt {N k : Nat} (h : N < k) (g : Fin k → Fin N)
     fun h => hval_ne (by have := congrArg Fin.val h; simpa using this)
   exact hinj _ _ hidx_ne heq'
 
-end E213.OS.Pigeonhole
+end E213.Math.Pigeonhole

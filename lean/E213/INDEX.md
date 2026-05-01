@@ -26,17 +26,25 @@ Research/    exploratory + Real213 marathon (332 files)
 
 | Layer | Purpose | Axiom load |
 |---|---|---|
-| Kernel/ | 14 files, 101 theorems literally 0 axiom | none |
-| Firmware/ | Raw type with 4 definitional commitments | none |
-| OS/ | atomicity (d=5) + (NS,NT)=(3,2) derived | none |
-| Hypervisor/ | Lens framework (Lens, R4Codomain) | none |
-| Meta/ | Universal Lens, kernel meta-theory | mostly none |
-| Math/ | Cohomology, Linalg | mixed |
-| Physics/ | 213 physics formalization | mixed |
+| Kernel/ | 14 files, 101 theorems literally 0 axiom (Lean-side scaffolding for 213) | none |
+| Firmware/ | Raw axiom (4-clause) + `Atomicity/` sub-cluster (forced shape uniqueness — d=5, (NS,NT)=(3,2) proven from outside, not derived from Raw) | none |
+| Hypervisor/ | Lens framework (catamorphism Raw → α) | none |
+| Meta/ | Lens metatheory (Universal Lens variants, R4Codomain, ...) | mostly none |
+| Math/ | Cohomology, Linalg, Pigeonhole + horizontal math frameworks | mixed |
+| Physics/ | 213 physics formalization (App-layer derivations) | mixed |
 | Research/ | Real213 marathon, dyadic predictors, exploratory | mixed |
 | Infinity/ | limit/compactification (mostly external bridges) | mixed |
 | Tactic/ | custom tactics (Omega213, VerifyR4, ...) | none |
 | App/ | applications | none |
+
+> **Architectural note (2026-05-XX)**: the previous `OS/` directory
+> was a misnomer.  Its 7 atomicity-shape proofs were independent ℕ-
+> arithmetic theorems (no Raw import) that *predict* the Raw axiom's
+> shape — they belong inside Firmware as the axiom's forced-uniqueness
+> proof obligation, NOT as a separate "OS layer" between Firmware
+> and Hypervisor.  See `Firmware/Atomicity/README.md` for theory.
+> The general-purpose `Pigeonhole.lean` (universal Fin infrastructure,
+> atomicity-agnostic) moved to `Math/Pigeonhole.lean`.
 
 ## Capstone navigation
 

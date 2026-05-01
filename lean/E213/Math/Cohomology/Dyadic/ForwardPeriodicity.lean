@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.TierBridge
-import E213.OS.Pigeonhole
+import E213.Math.Pigeonhole
 
 /-!
 # Forward direction (general): periodic bits ⇒ ev-periodic signature
@@ -12,7 +12,7 @@ Classical) on Bool-valued `collisionTest` keeps everything at
 
 namespace E213.Math.Cohomology.Dyadic.ForwardPeriodicity
 
-open E213.OS.Pigeonhole
+open E213.Math.Pigeonhole
 
 /-- Bool-valued collision test (decidable, no Classical). -/
 def collisionTest {N k : Nat} (g : Fin k → Fin N) (i j : Nat) : Bool :=

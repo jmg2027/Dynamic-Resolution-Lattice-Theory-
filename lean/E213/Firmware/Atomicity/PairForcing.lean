@@ -1,9 +1,9 @@
-import E213.OS.Atomicity
+import E213.Firmware.Atomicity.Five
 
 /-!
 # Pair Forcing: (2, 3) is the unique coprime pair with a unique atomic n
 
-This file strengthens `E213.OS.Atomicity.atomic_iff_five` to the
+This file strengthens `E213.Firmware.Atomicity.Five.atomic_iff_five` to the
 **arithmetic uniqueness** of the atom pair (2, 3):
 
     For coprime (p, q) with 2 ≤ p < q,
@@ -23,11 +23,10 @@ This count equals 1 iff both `⌊p/2⌋ = 1` and `⌊q/2⌋ = 1`, iff
 `(p, q) = (2, 3)`.
 
 Connection to Atomic: the (2, 3) case recovers
-`E213.OS.Atomicity.atomic_iff_five`.
+`E213.Firmware.Atomicity.Five.atomic_iff_five`.
 -/
 
-namespace E213.OS.PairForcing
-
+namespace E213.Firmware.Atomicity.PairForcing
 open Nat
 
 /-- n decomposes as p*a + q*b. -/
@@ -52,13 +51,10 @@ example : count 3 5 = 2 := rfl
 example : count 4 5 = 4 := rfl
 example : count 5 7 = 6 := rfl
 
-end E213.OS.PairForcing
-
-
+end E213.Firmware.Atomicity.PairForcing
 -- ═══ Core arithmetic theorem ═══
 
-namespace E213.OS.PairForcing
-
+namespace E213.Firmware.Atomicity.PairForcing
 /-- Helper: in ℕ, `a * b = 1` with `a ≥ 1` and `b ≥ 1` forces `a = 1 ∧ b = 1`. -/
 private theorem mul_eq_one_of_pos (a b : Nat) (ha : 1 ≤ a) (hb : 1 ≤ b)
     (h : a * b = 1) : a = 1 ∧ b = 1 := by
@@ -93,13 +89,10 @@ private theorem div_two_eq_one_iff (p : Nat) (hp : 2 ≤ p) :
   · intro h; omega
   · rintro (rfl | rfl) <;> rfl
 
-end E213.OS.PairForcing
-
-
+end E213.Firmware.Atomicity.PairForcing
 -- ═══ Main theorems ═══
 
-namespace E213.OS.PairForcing
-
+namespace E213.Firmware.Atomicity.PairForcing
 /-- **Key arithmetic theorem.** For coprime `(p, q)` with `2 ≤ p < q`,
     `count(p, q) = 1` iff `(p, q) = (2, 3)`. -/
 theorem count_eq_one_iff
@@ -123,26 +116,23 @@ theorem count_eq_one_iff
   · rintro ⟨rfl, rfl⟩
     rfl
 
-end E213.OS.PairForcing
-
-
+end E213.Firmware.Atomicity.PairForcing
 -- ═══ Connection to Atomic (bridge to §6.3) ═══
 
-namespace E213.OS.PairForcing
-
+namespace E213.Firmware.Atomicity.PairForcing
 /-- The specialization `(p, q) = (2, 3)` of `Atomic` coincides with
-    `E213.OS.Atomicity.Atomic`. -/
+    `E213.Firmware.Atomicity.Five.Atomic`. -/
 theorem atomic_23_eq (n : Nat) :
-    Atomic 2 3 n ↔ E213.OS.Atomicity.Atomic n := by
-  unfold Atomic E213.OS.Atomicity.Atomic Decomp E213.OS.Atomicity.Decomp
-         IsAlive E213.OS.Atomicity.IsAlive
+    Atomic 2 3 n ↔ E213.Firmware.Atomicity.Five.Atomic n := by
+  unfold Atomic E213.Firmware.Atomicity.Five.Atomic Decomp E213.Firmware.Atomicity.Five.Decomp
+         IsAlive E213.Firmware.Atomicity.Five.IsAlive
   rfl
 
 /-- **Main connection.** For the unique coprime pair `(2, 3)`,
     `Atomic 2 3 n ↔ n = 5`. -/
 theorem atomic_23_iff_five (n : Nat) : Atomic 2 3 n ↔ n = 5 := by
   rw [atomic_23_eq]
-  exact E213.OS.Atomicity.atomic_iff_five n
+  exact E213.Firmware.Atomicity.Five.atomic_iff_five n
 
 /-- **Pair Forcing Theorem (paper §6 core).**
     For coprime `(p, q)` with `2 ≤ p < q`, the pair has a unique
@@ -152,4 +142,4 @@ theorem pair_forcing
     count p q = 1 ↔ (p = 2 ∧ q = 3) :=
   count_eq_one_iff p q hp hpq hcop
 
-end E213.OS.PairForcing
+end E213.Firmware.Atomicity.PairForcing

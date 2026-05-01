@@ -19,8 +19,7 @@ verbatim to any `k ≥ 3` by the same pigeonhole. Arity 0/1 degeneracy
 is evident from the signatures themselves (no need for Lean proof).
 -/
 
-namespace E213.OS.ArityForcing
-
+namespace E213.Firmware.Atomicity.ArityForcing
 /-- Arity-3 analog of `Raw`. -/
 inductive Raw3 where
   | object : Fin 2 → Raw3
@@ -69,4 +68,4 @@ theorem no_reachable_rel3 (x y z : Raw3) : ¬ Reachable3 (.rel3 x y z) := by
 -- tree structure) and non-vacuous (arity ≥ 3 produces no Reachable
 -- relation at all).
 
-end E213.OS.ArityForcing
+end E213.Firmware.Atomicity.ArityForcing

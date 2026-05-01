@@ -28,7 +28,7 @@ If X is false then DRLT is refuted."
 
 namespace E213.Physics.Substrate.Falsifier
 
-open E213.OS.Atomicity
+open E213.Firmware.Atomicity.Five
 
 /-- (F1) d=5 falsifier.  Atomic n → n=5.  contrapositive: n≠5 → ¬Atomic n. -/
 theorem falsifier_d_unique (n : Nat) (hn : n ≠ 5) : ¬ Atomic n := by

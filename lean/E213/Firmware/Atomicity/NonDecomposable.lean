@@ -12,8 +12,7 @@ Hence decomposability as stated is equivalent to the 2-part form,
 which we use below.
 -/
 
-namespace E213.OS.NonDecomposable
-
+namespace E213.Firmware.Atomicity.NonDecomposable
 /-- Expressible as `a + b` with `a, b ≥ 2` (two-part decomposition). -/
 def Decomposable (n : Nat) : Prop :=
   ∃ a b : Nat, a ≥ 2 ∧ b ≥ 2 ∧ a + b = n
@@ -44,4 +43,4 @@ theorem non_decomposable_iff (n : Nat) :
       rintro ⟨a, b, ha, hb, hab⟩
       omega
 
-end E213.OS.NonDecomposable
+end E213.Firmware.Atomicity.NonDecomposable

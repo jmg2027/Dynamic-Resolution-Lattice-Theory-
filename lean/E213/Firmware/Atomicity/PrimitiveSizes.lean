@@ -1,4 +1,4 @@
-import E213.OS.NonDecomposable
+import E213.Firmware.Atomicity.NonDecomposable
 
 /-!
 # Primitive sizes: `{2, 3}` from the axiom
@@ -9,7 +9,7 @@ axiom, which names exactly two sizes:
 - `pairSize = 2`: the input pair (the axiom's "two objects").
 - `closureSize = 3`: the first closure (pair + their relation).
 
-Proposition 6.5 (`E213.OS.NonDecomposable.non_decomposable_iff`)
+Proposition 6.5 (`E213.Firmware.Atomicity.NonDecomposable.non_decomposable_iff`)
 confirms that these two sizes are exactly the non-decomposable
 integers `≥ 2` under additive composition with parts `≥ 2`.
 
@@ -17,9 +17,8 @@ The two characterizations — primitive-structural (this file) and
 arithmetic (NonDecomposable) — coincide on `{2, 3}`.
 -/
 
-namespace E213.OS.PrimitiveSizes
-
-open E213.OS.NonDecomposable
+namespace E213.Firmware.Atomicity.PrimitiveSizes
+open E213.Firmware.Atomicity.NonDecomposable
 
 /-- The input pair: two objects. Named by the axiom. -/
 def pairSize : Nat := 2
@@ -44,4 +43,4 @@ theorem primitive_sizes_eq_nondecomposable (n : Nat) :
   unfold pairSize closureSize
   exact Iff.rfl
 
-end E213.OS.PrimitiveSizes
+end E213.Firmware.Atomicity.PrimitiveSizes

@@ -46,7 +46,7 @@ Research (specific experiments)
 ### 1.4 App/Simplex.lean — Atomicity Application Pattern
 
 ```lean
-import E213.OS.Atomicity
+import E213.Firmware.Atomicity.Five
 namespace E213.App.Simplex
 def isA (i : Fin 5) : Bool := i.val < 3
 inductive BlockPair | AAdiag | AAoff | AB | BA | BBdiag | BBoff
@@ -79,7 +79,7 @@ What the math track maintains:
 ### 2.1 Per-file audit
 
 #### `Origin.lean` — **OK (axiom-level)**
-- Only `import E213.OS.Atomicity`
+- Only `import E213.Firmware.Atomicity.Five`
 - Uses Atomic theorems (`atomic_five`, `atomic_implies_five`)
 - Axioms: propext + Quot.sound (depends on Atomicity body)
 - ✓ **fully axiom-level, no violation**
