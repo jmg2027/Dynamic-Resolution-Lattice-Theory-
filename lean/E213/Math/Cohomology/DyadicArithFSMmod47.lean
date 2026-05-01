@@ -60,7 +60,7 @@ theorem pellFSMmod47_bits_period_48 :
   have h1 := pellFSMmod47_bits_period_16 (k + 32)
   have h2 := pellFSMmod47_bits_period_16 (k + 16)
   have h3 := pellFSMmod47_bits_period_16 k
-  have hreshape : k + 48 = ((k + 16) + 16) + 16 := by omega
+  have hreshape : k + 48 = ((k + 16) + 16) + 16 := rfl
   rw [hreshape, h1, h2, h3]
 
 /-- ★★★★★ Pell mod-47 signature has period 16 (TIGHT, even). -/

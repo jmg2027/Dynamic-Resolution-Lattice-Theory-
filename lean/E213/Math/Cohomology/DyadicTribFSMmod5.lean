@@ -60,7 +60,7 @@ theorem tribFSMmod5_bits_period_62 :
   intro k
   have h1 := tribFSMmod5_bits_period_31 (k + 31)
   have h2 := tribFSMmod5_bits_period_31 k
-  have hreshape : k + 62 = (k + 31) + 31 := by omega
+  have hreshape : k + 62 = (k + 31) + 31 := (Nat.add_assoc k 31 31).symm
   rw [hreshape, h1, h2]
 
 set_option maxRecDepth 1024 in

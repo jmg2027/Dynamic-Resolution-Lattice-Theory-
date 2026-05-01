@@ -61,7 +61,7 @@ theorem tribFSMmod3_bits_period_26 :
   intro k
   have h1 := tribFSMmod3_bits_period_13 (k + 13)
   have h2 := tribFSMmod3_bits_period_13 k
-  have hreshape : k + 26 = (k + 13) + 13 := by omega
+  have hreshape : k + 26 = (k + 13) + 13 := (Nat.add_assoc k 13 13).symm
   rw [hreshape, h1, h2]
 
 /-- ★★★★★ Tribonacci mod-3 signature has period 26 from step 1
