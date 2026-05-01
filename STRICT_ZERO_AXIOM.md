@@ -20,6 +20,17 @@ Verified via `#print axioms <theorem>` returning:
 | `alpha_em_so10_capstone` | SO(10) tail correction |
 | `alpha_em_gram_capstone` | Gram self-energy correction |
 
+## STRICT 0-AXIOM additions from Phase 5 batch 1 (2026-05-01)
+
+| theorem | content |
+|---|---|
+| `pellFSMmod3_has_degree2` | Pell-mod-3 has algebraic degree ≤ 2 |
+| `tribFSMmod2_has_degree3` | Tribonacci-mod-2 has algebraic degree ≤ 3 |
+| `pisano_crt_framework_complete` | full Pisano CRT framework (was strict 0 already, retained) |
+
+(Sample — full list grows as we audit downstream theorems whose
+last-mile dependency was a trivial `by omega` decidable bound.)
+
 ## Number theory generals (STRICT 0-AXIOM after omega→Nat.succ_add)
 
 | theorem | content |
@@ -81,6 +92,31 @@ STRICT 0-AXIOM.
 Example (commit 304723f):
   Before: `have : k+1+N = (k+N)+1 := by omega`  → propext dep
   After:  `rw [Nat.succ_add k N]`  → STRICT 0-AXIOM
+
+## omega → decide lesson (Phase 5 batch 1, commit 08b02e1)
+
+For `by omega` calls used purely for **decidable bounds on literals**
+(e.g. `(by omega : 0 < 3)` or `(by omega : 1 < 5)`), `by decide`
+is a strict 0-axiom drop-in.  In Phase 5 batch 1, 111 such
+omega calls across 19 files in `Math/Cohomology/Dyadic/`
+were converted, with the following measured upgrades:
+
+  - `pellFSMmod3_has_degree2` : [propext, Quot.sound] → STRICT 0
+  - `tribFSMmod2_has_degree3` : [propext, Quot.sound] → STRICT 0
+  - `number_theory_213_capstone` (v1) : [propext, Quot.sound] → [propext]
+  - `number_theory_213_capstone_v2`    : [propext, Quot.sound] → [propext]
+  - `number_theory_213_capstone_v3`    : already [propext]
+  - `pell_crt_capstone`, `pell_crt_fsm_capstone` : [propext] (kept)
+  - `pisano_crt_framework_complete`   : STRICT 0 (kept)
+  - `pellLens_3x5_period_20` (etc.)   : [propext] (kept)
+
+The Quot.sound was being dragged in by inner `omega` calls in the
+HasDegree witnesses (`⟨n, by omega, m, fun _ => rfl⟩`) — pure decidable
+positivity that `decide` handles strictly axiom-free.  Capstones
+dropping Quot.sound is a **genuine epistemic upgrade** at the trust
+contract level: anything ≤ {propext, Quot.sound} is DRLT-allowed,
+but the strict-0 standard rejects Quot.sound — so v1 and v2 now
+qualify for the broader-still "no quotient axiom" tier.
 
 ## Audit command
 

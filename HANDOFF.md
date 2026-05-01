@@ -1,7 +1,25 @@
 # Session Handoff — ★★★ FIRST MILESTONE CLOSED ★★★
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed + pushed; head = `9978af7`).
+`claude/213-rust-engine-SloKB` (committed + pushed; head = `61e3260`).
+
+## ★ Phase 5 batch 1 axiom-upgrade results (2026-05-01)
+
+| capstone | before | after |
+|---|---|---|
+| `pellFSMmod3_has_degree2` | [propext, Quot.sound] | **STRICT 0** |
+| `tribFSMmod2_has_degree3` | [propext, Quot.sound] | **STRICT 0** |
+| `number_theory_213_capstone` (v1) | [propext, Quot.sound] | [propext] |
+| `number_theory_213_capstone_v2` | [propext, Quot.sound] | [propext] |
+| `number_theory_213_capstone_v3` | [propext] | [propext] (kept) |
+| `pell_crt_capstone` | [propext] | [propext] (kept) |
+| `pisano_crt_framework_complete` | STRICT 0 | STRICT 0 (kept) |
+
+Mechanism: `by omega` inside HasDegree2/3 witnesses
+(`⟨3, by omega, pellFSMmod3, ...⟩`) was a pure decidable positivity
+on literal — `by decide` is the strict 0-axiom drop-in.  The
+Quot.sound from omega's internals was the only thing keeping
+v1/v2 capstones above strict {propext} — now eliminated.
 
 ## Cleanup Status (2026-05-01, latest)
 
