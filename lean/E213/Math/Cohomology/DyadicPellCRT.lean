@@ -61,10 +61,12 @@ theorem pell_crt_capstone :
     -- mod 5 × mod 7: period | 40
     ∧ (∀ k, xor (pellFSMmod5.bits (k + 40)) (pellFSMmod7.bits (k + 40))
         = xor (pellFSMmod5.bits k) (pellFSMmod7.bits k)) := by
-  obtain ⟨h1, h2, h3⟩ := pell_lcm_table
   refine ⟨?_, ?_, ?_⟩
-  · intro k; have := pell_mod3_xor_mod5_period_20 k; rwa [h1] at this
-  · intro k; have := pell_mod3_xor_mod7_period_8 k; rwa [h2] at this
-  · intro k; have := pell_mod5_xor_mod7_period_40 k; rwa [h3] at this
+  · intro k; have := pell_mod3_xor_mod5_period_20 k
+    rwa [pell_lcm_table.1] at this
+  · intro k; have := pell_mod3_xor_mod7_period_8 k
+    rwa [pell_lcm_table.2.1] at this
+  · intro k; have := pell_mod5_xor_mod7_period_40 k
+    rwa [pell_lcm_table.2.2] at this
 
 end E213.Math.Cohomology.DyadicConjecture

@@ -31,29 +31,28 @@ def pisano_predict (p : Nat) (hp : 1 < p) : Nat :=
 
 /-- ★★★★★★ Predictor matches TIGHT Pell period at all four cases. -/
 theorem pisano_predict_correct :
-    pisano_predict 3 (by omega) = 4
-    ∧ pisano_predict 5 (by omega) = 10
-    ∧ pisano_predict 7 (by omega) = 8
-    ∧ pisano_predict 11 (by omega) = 5 := by
+    pisano_predict 3 (by decide) = 4
+    ∧ pisano_predict 5 (by decide) = 10
+    ∧ pisano_predict 7 (by decide) = 8
+    ∧ pisano_predict 11 (by decide) = 5 := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
 /-- ★★★★★★★ The Legendre lens-driven predictor PREDICTS the
     actual Pell bit periods at all four primes — a single
     formula that reads the trajectory and yields the period. -/
 theorem pisano_predict_realises_pell :
-    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by omega))
+    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
         = pellFSMmod3.bits k)
-    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by omega))
+    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by decide))
         = pellFSMmod5.bits k)
-    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by omega))
+    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by decide))
         = pellFSMmod7.bits k)
-    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by omega))
+    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by decide))
         = pellFSMmod11.bits k) := by
-  obtain ⟨h3, h5, h7, h11⟩ := pisano_predict_correct
   refine ⟨?_, ?_, ?_, ?_⟩
-  · intro k; rw [h3]; exact pellFSMmod3_bits_period_4 k
-  · intro k; rw [h5]; exact pellFSMmod5_bits_period_10 k
-  · intro k; rw [h7]; exact pellFSMmod7_bits_period_8 k
-  · intro k; rw [h11]; exact pellFSMmod11_bits_period_5 k
+  · intro k; rw [pisano_predict_correct.1]; exact pellFSMmod3_bits_period_4 k
+  · intro k; rw [pisano_predict_correct.2.1]; exact pellFSMmod5_bits_period_10 k
+  · intro k; rw [pisano_predict_correct.2.2.1]; exact pellFSMmod7_bits_period_8 k
+  · intro k; rw [pisano_predict_correct.2.2.2]; exact pellFSMmod11_bits_period_5 k
 
 end E213.Math.Cohomology.DyadicConjecture
