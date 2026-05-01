@@ -1,5 +1,5 @@
 import E213.Research.FoldStructured
-import E213.Research.RawACharLens
+import E213.Research.Lens.RawAChar
 
 /-!
 # Research.SlashCharNotFold: the characteristic of a specific slash is not fold-structured

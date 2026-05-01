@@ -1,5 +1,5 @@
-import E213.Research.LensCauchy
-import E213.Research.ABLens
+import E213.Research.Lens.Cauchy
+import E213.Research.Lens.AB
 import E213.Research.ArchimedeanCauchy
 import E213.Research.ProfiniteSeq
 

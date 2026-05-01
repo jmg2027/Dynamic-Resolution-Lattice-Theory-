@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens
-import E213.Research.KernelCongruence
+import E213.Research.Kernel.Congruence
 
 /-!
 # Research.UniversalQuotLens: general solution of Q37.3

@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 import E213.Meta.ParityLens
 import E213.Meta.BoolLens
-import E213.Research.F9Lens
+import E213.Research.Lens.F9
 
 /-!
 # Research.DiagonalClassification: Classification of the diagonal behavior of combine

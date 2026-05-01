@@ -1,4 +1,4 @@
-import E213.Research.PureNatMod3
+import E213.Research.ModArith.PureNatMod3
 
 /-!
 # Research.Sqrt3IrrationalPure: √3 irrationality, **truly axiom-free**

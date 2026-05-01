@@ -1,4 +1,4 @@
-import E213.Research.PureNatMod5
+import E213.Research.ModArith.PureNatMod5
 
 /-!
 # Research.Sqrt5IrrationalPure: √5 irrationality, **truly axiom-free**

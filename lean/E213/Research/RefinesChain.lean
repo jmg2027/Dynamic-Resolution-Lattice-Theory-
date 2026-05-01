@@ -1,5 +1,5 @@
-import E213.Research.LensLattice
-import E213.Research.LeavesRefinesParity
+import E213.Research.Lens.Lattice
+import E213.Research.Leaves.RefinesParity
 
 /-!
 # Research.RefinesChain: explicit chain in the Lens.refines preorder

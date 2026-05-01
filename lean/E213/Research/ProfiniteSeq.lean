@@ -1,5 +1,5 @@
-import E213.Research.LensCauchy
-import E213.Research.LeavesModNat
+import E213.Research.Lens.Cauchy
+import E213.Research.Leaves.ModNat
 import E213.Infinity.LensCardinality
 
 /-!

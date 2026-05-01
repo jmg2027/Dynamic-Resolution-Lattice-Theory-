@@ -1,5 +1,5 @@
 import E213.Research.Hyper.Hyper213
-import E213.Research.LensOnLens
+import E213.Research.Lens.OnLens
 
 /-!
 # Research.Hyper213Tower: Simultaneous capture of the Hyper213 × Lens tower

@@ -1,5 +1,5 @@
 import E213.Research.Diagonal.Classification
-import E213.Research.NegSqLens
+import E213.Research.Lens.NegSq
 
 /-!
 # Research.BoolSqClassification: Complete diagonal classification of Bool Lenses

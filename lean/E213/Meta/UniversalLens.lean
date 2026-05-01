@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 import E213.Prelude
-import E213.Research.IdentityLens
-import E213.Research.LensLattice
+import E213.Research.Lens.Identity
+import E213.Research.Lens.Lattice
 
 /-!
 # Meta.UniversalLens — Universal Lens metatheory

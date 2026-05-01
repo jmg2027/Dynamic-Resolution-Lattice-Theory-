@@ -1,5 +1,5 @@
-import E213.Research.LensCauchy
-import E213.Research.ABLens
+import E213.Research.Lens.Cauchy
+import E213.Research.Lens.AB
 
 /-!
 # Research.ArchimedeanCauchy: ℝ-like completion via Dedekind cut

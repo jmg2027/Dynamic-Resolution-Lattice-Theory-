@@ -1,4 +1,4 @@
-import E213.Research.IdentityLens
+import E213.Research.Lens.Identity
 
 /-!
 # Research.UniverseFlat: universe-flat nature of 213 self-reference

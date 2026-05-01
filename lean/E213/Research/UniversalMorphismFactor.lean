@@ -1,6 +1,6 @@
 import E213.Research.SemanticAtom
-import E213.Research.LensOnLens
-import E213.Research.LensOnLensImageGeneric
+import E213.Research.Lens.OnLens
+import E213.Research.Lens.OnLensImageGeneric
 
 /-!
 # Research.UniversalMorphismFactor: image-Lens of universalMorphism

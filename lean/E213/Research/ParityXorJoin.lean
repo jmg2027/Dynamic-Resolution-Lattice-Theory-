@@ -1,5 +1,5 @@
-import E213.Research.JoinEquiv
-import E213.Research.KernelCongruence
+import E213.Research.Lens.JoinEquiv
+import E213.Research.Kernel.Congruence
 import E213.Meta.ParityLens
 import E213.Meta.BoolLens
 
