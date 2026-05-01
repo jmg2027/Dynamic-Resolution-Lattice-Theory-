@@ -1,7 +1,24 @@
 # Session Handoff — ★★★ FIRST MILESTONE CLOSED ★★★
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed + pushed; head = `e5d6cfa`).
+`claude/213-rust-engine-SloKB` (committed + pushed; head = `9978af7`).
+
+## Cleanup Status (2026-05-01, latest)
+
+| Phase | Status | Note |
+|---|---|---|
+| Phase 0 (janitorial) | ✅ done | dead refs / stale docs swept |
+| Phase 2 (INDEX layer) | ✅ done | `lean/E213/INDEX.md`, `Math/Cohomology/INDEX.md` |
+| Phase 3 (directory reorg) | ✅ done | Math/Cohomology/ → 9 sub-clusters; Research/Real213/ → 180 files |
+| Phase 7 (CupAW/Universal) | ✅ done | rolled into Phase 3 sub-clusters |
+| Phase 6 (exploratory archival) | ✅ partial | Cohomology/Dyadic/Archive/ |
+| Real213 namespace rename | ✅ done (9978af7) | dangling `Real213CutSum.*` refs fixed in 4 files |
+| `lake build` | ✅ clean | full lib (incl. Physics + Math) |
+| `lean-rust-diff` | ✅ 43/43 | Lean ↔ Rust BigUint exact equality across α_em chain |
+| Phase 1 (versioning consolidation) | 🟡 partial | NumberTheory213 v1+v2+v3 merged; PisanoPredictor "9→1" determined N/A — chain is each-adds-new-primes (P→P6→P7→P8→P11→P14→P17→P20→P22), not redundant versioning, audit guide outdated |
+| Phase 5 (omega → decide/omega213) | 🟡 partial | 343 → 232 calls (-111, -32%); batch 1 commits 08b02e1; omega213 extended (Nat.le_trans, Nat.add_sub_of_le, etc.) |
+| Native213 deeper | ⚪ pending | Nat.div_* avoidance via `q*n+r=x ∧ r<n` decomposition |
+| File-by-file classification | ⚪ deferred | per user — after all current phases close |
 
 ## ★★★ FIRST MILESTONE CLOSED (2026-05-01, commit e5d6cfa)
 

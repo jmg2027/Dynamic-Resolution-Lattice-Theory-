@@ -55,6 +55,8 @@ macro_rules
   | `(tactic| omega213) => `(tactic|
       first
         | decide
+        | rfl
+        | assumption
         | exact Nat.le_refl _
         | exact Nat.zero_le _
         | exact Nat.zero_lt_succ _
@@ -63,6 +65,9 @@ macro_rules
         | (apply Nat.mul_le_mul_left; assumption)
         | (apply Nat.mul_le_mul_right; assumption)
         | (apply Nat.pos_of_ne_zero; assumption)
-        | assumption)
+        | (apply Nat.add_sub_of_le; assumption)
+        | (apply Nat.le_of_lt; assumption)
+        | (apply Nat.lt_of_le_of_lt <;> assumption)
+        | (apply Nat.le_trans <;> assumption))
 
 end E213.Tactic

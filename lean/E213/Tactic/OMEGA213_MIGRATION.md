@@ -22,14 +22,17 @@ theorem ex (n : Nat) (h : 1 ≤ n) : 2 * 1 ≤ 2 * n := by omega213
 
 ## What `omega213` covers
 
-The minimal initial implementation handles:
+The implementation handles:
 
-  1. `decide` (concrete decidable goals)
-  2. `Nat.le_refl`, `Nat.zero_le`, `Nat.zero_lt_succ`
-  3. `Nat.le_succ_of_le`, `Nat.lt_succ_of_le`
-  4. `Nat.mul_le_mul_left`, `Nat.mul_le_mul_right`
-  5. `Nat.pos_of_ne_zero`
-  6. `assumption` (matching hypothesis)
+  1. `decide` (concrete decidable goals — strict 0 axiom)
+  2. `rfl` (definitional equality)
+  3. `assumption` (matching hypothesis)
+  4. `Nat.le_refl`, `Nat.zero_le`, `Nat.zero_lt_succ`
+  5. `Nat.le_succ_of_le`, `Nat.lt_succ_of_le`
+  6. `Nat.mul_le_mul_left`, `Nat.mul_le_mul_right`
+  7. `Nat.pos_of_ne_zero`, `Nat.le_of_lt`
+  8. `Nat.add_sub_of_le` (introduces propext from upstream Nat lemma)
+  9. `Nat.lt_of_le_of_lt`, `Nat.le_trans` (transitive chains)
 
 ## What it does NOT cover (yet)
 
@@ -89,7 +92,9 @@ never inflating beyond what 213 uses.
 
 ## Survey of current omega usage (2026-05-01)
 
-  195 `by omega` calls across 50 files in lean/E213/
+  Initial inventory: 343 `by omega` calls across ~62 files in lean/E213/
+  After Math/Cohomology trivial-bound batch (commit 08b02e1):
+    232 calls / 61 files (-111, -32%).
 
 Densest clusters:
   - lean/E213/Research/Real213*.lean (cut algebra)
