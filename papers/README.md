@@ -1,26 +1,27 @@
-# 213 Papers — DEPRECATED ARCHIVE (do not consult as authoritative)
+# 213 Papers — REMOVED ARCHIVE
 
-> ⚠️ **Status (2026-05-01): Deprecated archive.**  Do NOT use these
-> files as the current state of 213.  They predate the finitist
-> closure (`ValidationStandardOne.lean`, `PureAtomicObservables.lean`,
-> `AlphaEMMasterCapstone.lean`) and the L1-strong rational-complex
-> principle.
+> ⚠️ **Status (2026-05-01): Files removed from working tree.**
+>
+> All `.tex` papers and the `drlt-book/` monograph (~3.2MB, 81 files)
+> were deleted from the working tree at commit `c6084e0`.  They remain
+> recoverable from git history (e.g. `git show c6084e0:papers/<file>`
+> or `git log --all -- papers/<file>`).
 >
 > **Current authoritative material** — Lean theorems in `lean/E213/`
 > + `HANDOFF.md` (root) + `LESSONS_LEARNED.md` + the closure-algorithm
-> doc in `rust-engine/docs/`.  Use those, not this directory.
+> doc in `rust-engine/docs/`.  Use those.
 
-## What this directory was
+## What was removed
 
-16 .tex papers + the 22-chapter `drlt-book/` monograph, expressing
+16 `.tex` papers + the 22-chapter `drlt-book/` monograph, expressing
 213 conclusions in **pre-213 mathematical vocabulary** (Frobenius
 classification, π₁ topology, SU(N) representation theory, Dieudonné
 determinant, Regge calculus, etc.).  Originally intended as external
 communication layer for non-213-native readers.
 
-## Why deprecated
+## Why removed
 
-  1. **Vocabulary mismatch with current 213**: papers use ZFC-style
+  1. **Vocabulary mismatch with current 213**: papers used ZFC-style
      "asymptote", "limit", "transcendental input" framing.  213 is
      now formalized as finitist-by-theorem (see CLAUDE.md "Finitism
      is Forced, Not Chosen") — the paper framing is structurally
@@ -28,53 +29,40 @@ communication layer for non-213-native readers.
   2. **Stale claims**: numerical agreements quoted in papers were
      superseded by sub-ppb closures (α_em 0.18 ppb, m_p/m_e
      0.06 ppm, m_n/m_p 1 ppb, etc.) — the papers' precision tables
-     are old.
-  3. **No 0-axiom cite path**: papers reference Lean modules that
-     have since been refactored or absorbed; cite chain broken.
+     were old by the time of removal.
+  3. **No 0-axiom cite path**: papers referenced Lean modules that
+     had since been refactored or absorbed; cite chains broken.
 
-## What replaced this
+## What replaced them
 
 | Was in `papers/` | Now lives in |
 |---|---|
 | 213 closed-form derivations | `lean/E213/Physics/*.lean` (0-axiom) |
 | Narrative + theorem map | `guide/INDEX.md` + chapters |
 | Master atomic catalog | `catalogs/atomic-integers.md` + `rust-engine/docs/closure-algorithm.md` |
-| External-vocabulary translation | (no current authoritative version — to be re-built when needed) |
+| External-vocabulary translation | (none current — to be re-built when needed, on top of the current 0-axiom Lean base, not by reviving the deprecated drafts) |
 
-## If you want to read the old papers anyway
+## Reverse-map of paper ↔ current location
 
-They are kept as historical record.  Treat any specific claim as
-"archived hypothesis" — verify against current Lean theorems before
-citing.  See `guide/STATUS.md` for which papers' content is closed
-at the current 0-axiom standard.
+`guide/appendix_paper_origins.md` retains the cross-reference table
+showing which guide chapter each removed paper migrated to.  That
+file documents *where the content is now*, even though the original
+.tex files no longer exist in the working tree.
 
-## Structure
+## Recovering old papers (if absolutely needed)
 
-- `paper{1..16}*.tex` — individual journal-style papers. See
-  `guide/appendix_paper_origins.md` for the reverse map of which
-  paper corresponds to which guide chapter.
-- `drlt-book/` — 22-chapter monograph. Comprehensive but written in
-  pre-213 vocabulary. Chapter ↔ guide map in
-  `guide/appendix_paper_origins.md`.
-- `paper15_ns_gram_ERRATUM.md`, `paper15_ns_gram_v2_abstract.md`,
-  `paper16_v2_plan.md`, `prime_numbers_from_finite_geometry.md` —
-  supplementary notes and revision drafts.
+```
+git show c6084e0:papers/paper1_chiral_decomposition.tex > /tmp/paper1.tex
+git checkout c6084e0 -- papers/   # full restore (do not commit)
+```
 
-## Status
-
-Papers and Lean are **complementary by design**, not competitors:
-
-- Papers prove "the conclusions match what existing physics says".
-- Lean proves "the conclusions follow from the 4-clause raw axiom".
-
-Both kinds of proof are needed. Neither replaces the other.
+Treat any specific claim as "archived hypothesis" — verify against
+current Lean theorems before citing.
 
 ## Author
 
 - Mingu Jeong (Independent Researcher).
-- Acknowledgment in each paper: "This work was developed in dialogue
-  with Claude (Anthropic)."
 
 ## License
 
-Prose under CC BY-NC-ND 4.0 (see repository root `LICENSE-DOCS`).
+Prose was under CC BY-NC-ND 4.0 (see repository root `LICENSE-DOCS`).
