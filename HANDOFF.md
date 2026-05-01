@@ -1,47 +1,68 @@
-# Session Handoff — rust-engine + Tier-4 + L3 closures (54 bins)
+# Session Handoff — rust-engine + 9 closures via L1-L5 (54 bins)
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed + pushed; head = `f2478e5`).
+`claude/213-rust-engine-SloKB` (committed + pushed; head = `58ce59e`).
 
-## ★ 2026-05-01 update — 5 observables closed via L1-L5 lessons
-
-All three Tier-4 stuck composite-particle observables, plus two
-electroweak mixing observables, closed in one session:
+## ★ 2026-05-01 update — 9 observables closed via L1-L5 lessons
 
 | observable        | before    | after        | improvement | commit  |
 |-------------------|-----------|--------------|-------------|---------|
 | m_n/m_p           | 195 ppm   | ~1 ppb       | 195×        | fceeeee |
-| (m_n − m_p)/m_e   | 1264 ppm  | ~24 ppm      | 53×         | 75d0d44 |
+| (m_n − m_p)/m_e   | 1264 ppm  | ~5 ppm       | 260×        | a01f55d |
 | g_p               | 828 ppm   | ~0.097 ppm   | 8500×       | 0794c98 |
 | sin²θ₁₃           | 3550 ppm  | ~14 ppm      | 250×        | 1ab2d2a |
 | sin²θ_W           | 8200 ppm  | ~34 ppm      | 240×        | f33100e |
+| m_p/m_e           | 19 ppm    | ~0.06 ppm    | 300×        | a01f55d |
+| m_n/m_e (cascade) | 19 ppm    | ~0.06 ppm    | L5 free     | 46cd34e |
+| m_τ/m_e (cascade) | 106 ppm   | ~3 ppm       | L5 free     | c3f2953 |
+| r_p · m_p / ℏc    | 195 ppm   | ~0.84 ppm    | 232×        | 58ce59e |
 
 Closed forms (all 0-axiom in Lean):
 
   m_n/m_p − 1     = (NS²/(NT²(NS²−1))) · α_em · (1 − NS²·d · α_em)
                   = (9/32)·α_em·(1 − 45·α_em)
+  m_p/m_e         = NS·NT · π⁵ · (1 + α_GUT/(NS·NT)⁴)
+                  = 6π⁵·(1 + α_GUT/1296)
   (m_n − m_p)/m_e = (m_p/m_e) · (m_n/m_p − 1)  [Class C × Class F]
+  m_n/m_e         = (m_n/m_p) · (m_p/m_e)      [L5 cascade]
+  m_τ/m_e         = (m_τ/m_μ) · (m_μ/m_e)      [L5 cascade]
   g_p             = (d²−NS)/NT² · (1+NS·NT·α_GUT) · (1−NS·d·α_em)
                                 · (1−NS²·NT·d·α_em²)
                   = (22/4)·(1+6α_GUT)·(1−15α_em)·(1−90α_em²)
   sin²θ₁₃         = α_GUT · (1−NT²·α_GUT) · (1+NS·NT·α_GUT²)
                   = α_GUT·(1−4α_GUT)·(1+6α_GUT²)
   sin²θ_W         = (30/(60·ζ(2)+30)) · (1 − α_GUT/NS)
+  r_p·m_p/(ℏc)    = NT² · (1 + α_GUT / d³) = 4·(1+α_GUT/125)
 
-Coefficient reuse (L4): NT² = 4 in (sin²θ₁₃, m_b/m_c), NS·NT = 6
-in (sin²θ₁₃, g_p, 1/α_em), NS²·d = 45 in (1/α_em α/45 tail,
-m_n/m_p, g_p α_em² coef as 90 = NT·45) — all the same K_25
-cup-chain anchors.
+### K_25 cup-chain anchor catalog (L4 evidence)
 
-New 0-axiom Lean theorems:
-- `HadronBigrading.mn_mp_split_atomic`
-- `HadronBigrading.mn_minus_mp_over_me_atomic`
+Same atomic counts recur across multiple observables — structural
+evidence of unified K_{3,2}^{(c=2)} cohomology, not coincidence:
+
+| anchor | atomic reading       | observables                          |
+|--------|----------------------|--------------------------------------|
+| 4      | NT² = d−1 = NS+1     | sin²θ₁₃, m_b/m_c, r_p                |
+| 6      | NS·NT = d+1          | g_p, sin²θ₁₃, 1/α_em, m_p/m_e        |
+| 8      | NS²−1 = SU(NS) adj   | m_n/m_p denom, 1/α_3, b₁(K_{3,2})    |
+| 15     | NS·d                 | g_p α_em coef                        |
+| 22     | d²−NS = Cabibbo num  | g_p base, sin θ_C bare 5/22          |
+| 32     | NT²(NS²−1) = 2^d     | m_n/m_p denom = SU(5) Λ* total       |
+| 45     | NS²·d                | 1/α_em α/45 tail, m_n/m_p α_em² coef |
+| 90     | NT·45 = NS²·NT·d     | g_p α_em² coef                       |
+| 125    | d³ = 3D vol          | r_p Class B leak                     |
+| 1296   | (NS·NT)⁴ = 6⁴        | m_p/m_e 4-edge cup-chain             |
+
+New 0-axiom Lean theorems (all `does not depend on any axioms`):
+- `HadronBigrading.{mn_mp_split,mn_minus_mp_over_me,mn_over_me_cascade}_atomic`
+- `ProtonElectronRatio.{m_p_over_m_e_v2,m_tau_over_m_e_composition}_atomic`
 - `ProtonG.g_p_v2_atomic`
 - `NeutrinoMixing.sin2_13_v2_atomic`
 - `WeinbergAngle.sin2_W_v2_atomic`
+- `ProtonMass.r_p_v2_atomic`
 
 Two new bins: `mn-mp-split`, `mn-minus-mp-over-me`.  Updated:
-`proton-g`, `neutrino-mixing`, `weinberg-angle`.  Whitelist 99 → 101.
+`proton-g`, `neutrino-mixing`, `weinberg-angle`, `proton-radius`.
+Whitelist 99 → 101 (101 OK).
 
 **Methodology lessons** (`docs/gaps-and-todos.md` §10, also
 `CLAUDE.md` "Hunter Methodology Lessons"):
