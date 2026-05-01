@@ -7,9 +7,9 @@ Latest milestone branch state — see `git log` for session history.
 ## Source-of-truth pointers
 
   1. `lean/E213/ARCHITECTURE.md` — canonical layer architecture
-     (Kernel / Firmware / Hypervisor / Meta / App + horizontal
-     Math / Physics / Research; dependency graph; naming conventions;
-     open architectural questions)
+     (vertical: Kernel/Firmware/Hypervisor/Meta/App; topical:
+     Math/, Physics/ — every file has one vertical layer mechanically
+     determined by import closure; `tools/layer_audit.py` reports it).
   2. `lean/E213/INDEX.md` — directory navigation
   3. `STRICT_ZERO_AXIOM.md` — strict-0-axiom theorem registry
   4. `CAPSTONE_INDEX.md` — top theorem map
@@ -40,33 +40,32 @@ Latest milestone branch state — see `git log` for session history.
   - `1/α_3 = NS² − 1 = 8` (color-confinement integer)
   - `hierarchy = d^(d²)/(d+1)` (no fine-tuning)
 
-## Architecture (post-2026-05-XX cleanup)
+## Architecture (post-2026-05-XX deep reorg)
 
-213 = Lean library at `lean/E213/`.  Vertical layers:
-**Kernel ↑ Firmware ↑ Hypervisor ↑ Meta**.  Horizontal at App-level:
-**Math, Physics, Research**.  Plus orthogonal infra (Tactic, Tools,
-Infinity).
+213 = Lean library at `lean/E213/`.  ONE axis: vertical layers
+**Kernel ↑ Firmware ↑ Hypervisor ↑ Meta ↑ App**.  PLUS topical labels:
+**Math/, Physics/** (every file in those trees has a vertical layer
+determined by import closure — see `tools/layer_audit.py`).
 
 Recent architectural events (see `lean/E213/ARCHITECTURE.md` for theory):
 
-  - **OS/ retired.**  The previous "OS" directory contained 7
-    atomicity-shape proofs (no Raw import) + 1 universal Fin
-    pigeonhole.  Migrated to `Firmware/Atomicity/` (atomicity proofs
-    are Raw's forced-uniqueness obligation, not a separate layer)
-    and `Math/Pigeonhole.lean` (universal infra).
-  - **Phase{2,3,4} retired.**  Session-numbered names eliminated.
-    Content distributed by topic (`Physics/{Substrate, Atomic,
-    AtomicCorrespondences, Library, Capstones, …}/`).
-  - **Meta cleanup.**  Concrete Lens instances (BoolLens, etc.) →
-    `Hypervisor/Lens/Instances/`; Lens-level characterisations →
-    `Hypervisor/Lens/Characterisation/`.  Meta now contains only
-    true metatheorems (UniversalLens family, SelfRecognising,
-    BitPatternUniqueness, RawInductionDemo).
-  - **namespace ↔ path alignment.**  Every horizontal-cluster file's
-    namespace matches its file path, enforced by
-    `tools/sync_namespaces.py`.  Vertical-layer umbrella patterns
-    (Kernel/, Tactic/, Firmware/Raw/, Hypervisor/Lens.lean,
-    Infinity/) intentionally retained as shared umbrellas.
+  - **2026-05-XX deep reorg**: previous `Research/` (337), `Infinity/`
+    (9), `Tactic/` (11), `Tools/` (1) top-level trees were *fully
+    distributed* into Math/Physics/Kernel/Firmware/Hypervisor/Meta by
+    content + import-derived layer.  The "horizontal vs vertical
+    axes" framing was wrong; the corrected view is one vertical axis
+    + Math/Physics topical roots.  See ARCHITECTURE.md §0 for the
+    distribution table.  `tools/layer_audit.py` reports 0 violations
+    on 907 files.
+  - **OS/ retired** (earlier).  Atomicity proofs → `Firmware/Atomicity/`;
+    universal Fin pigeonhole → `Math/Pigeonhole.lean`.
+  - **Phase{2,3,4} retired** (earlier).  Session-numbered names
+    eliminated.  Content distributed by topic.
+  - **Meta cleanup** (earlier).  Concrete Lens instances → Hypervisor/Lens/
+    Instances/; Lens characterisations → Hypervisor/Lens/Characterisation/.
+  - **namespace ↔ path alignment.**  Enforced by `tools/sync_namespaces.py`.
+    Intentional exceptions: `namespace E213.Tactic` (Omega213 macro
+    short-name umbrella; file lives at Kernel/Tactic/).
 
 ## Key Lean theorems (top-7)
 
@@ -80,6 +79,9 @@ Recent architectural events (see `lean/E213/ARCHITECTURE.md` for theory):
 
 ## Tooling
 
+  - `tools/layer_audit.py` — derive each file's natural vertical layer
+    from its import closure.  Rule: `layer(F) >= max(layer(I))` over
+    `E213.*` imports.  Reports violations + topical-cluster depth.
   - `tools/sync_namespaces.py` — auto namespace↔path alignment.
     Workflow: `git mv` + `python3 tools/sync_namespaces.py
     --apply --include-rust`.

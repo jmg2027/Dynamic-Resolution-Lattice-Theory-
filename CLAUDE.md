@@ -203,28 +203,39 @@ OPERATIONAL:
 > Canonical layer definitions in `lean/E213/ARCHITECTURE.md`.
 
 ```
-Kernel/      ★ 14 files, 101 theorems literally 0 axiom
-             (Lean-side scaffolding for running 213)
-Firmware/    Raw axiom (4-clause) + Atomicity/ sub-cluster
-             (forced shape uniqueness; pure-ℕ proofs that don't
-             import Raw — they prove Raw's shape is forced)
-Hypervisor/  Lens framework (catamorphism Raw → α) +
-             Lens/{Instances, Characterisation}/ sub-clusters
-Meta/        true metatheory (UniversalLens family, SelfRecognising
-             R1-R4 hierarchy, BitPatternUniqueness, RawInductionDemo)
+Kernel/      18 files (101 thms literally 0-axiom) + Tactic/Omega213
+             (Lean-side scaffolding; Kernel-level tactics)
+Firmware/    Raw axiom (4-clause) + Atomicity/ sub-cluster (forced
+             shape uniqueness; pure-ℕ proofs that don't import Raw)
+             + Tools/CertChecker
+Hypervisor/  78 files: Lens framework (catamorphism Raw → α) +
+             Lens/{Instances, Characterisation, Research}/
+             sub-clusters.  Lens/Research/ contains Lens-framework
+             exploration (Lens, Morphism, Instance, Leaves, Refines,
+             Kernel, Universal, SemanticAtom, Initiality)
+Meta/        23 files: true metatheory (UniversalLens family,
+             SelfRecognising R1-R4 hierarchy, BitPatternUniqueness,
+             RawInductionDemo, AxiomMinimality, CUniquenessBridge)
+             + Tactic/{VerifyR4, DeriveR4Codomain}
 App/         applications (Simplex)
-Physics/     267 files in 18 topical sub-clusters (AlphaEM, Couplings,
+Math/        484 files (after 2026-05-XX absorption of Research math
+             content + Infinity/): Cohomology/, Linalg213/, Real213/
+             marathon, CayleyDickson/, Cauchy/, ModArith/, Modulus/,
+             Diagonal/, Irrational/, Hyper/, Choice/, Infinity/,
+             Tactic/{HurwitzRing, IntSquare, QuadExtension}, Pigeonhole
+Physics/     275 files in 18 topical sub-clusters (AlphaEM, Couplings,
              Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology, Atomic,
              Simplex, Basel, FamousCoincidences, YangMills, Capstones,
              Library, Substrate, AtomicCorrespondences, Foundations)
-Research/    332 files in 17 sub-clusters (Real213/ marathon = 180 of
-             those, CayleyDickson, Lens, Cauchy, ModArith, Kernel, ...)
-Math/        211 files (Cohomology/ in 10 sub-clusters, Linalg213/,
-             Cauchy/Real213-plumbing, Pigeonhole)
-Tactic/      custom tactics (Omega213, VerifyR4, ...)
-Infinity/    limit / compactification (mostly 213-external bridges)
-Tools/       Lean tooling (CertChecker)
 ```
+
+**Architectural axis (corrected 2026-05-XX)**: ONE vertical axis
+(Kernel/Firmware/Hypervisor/Meta/App).  Math/ and Physics/ are
+*topical labels*, NOT a separate axis — every file inside them has a
+vertical layer determined by its import closure.  Run
+`python3 tools/layer_audit.py` to see each file's mechanical layer.
+Previous Research/, Infinity/, Tactic/, Tools/ top-level dirs were
+distributed by content + import-derived layer (337+9+11+1 files).
 
 (Counts as of 2026-05-01.  Earlier CLAUDE.md versions listed
 sub-project directories `foundations/`, `standard-model/`, `atoms/`,

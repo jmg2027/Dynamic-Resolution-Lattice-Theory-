@@ -7,46 +7,55 @@ READMEs) follows from this.
 
 Last revised: 2026-05-XX (post-OS-dissolution, post-Meta-audit).
 
-## 0. One axis: vertical layers + topical labels
+## 0. One axis: vertical layers + Math/Physics topical labels
 
-**Correction (Mingu, 2026-05-XX)**: previous versions of this
-document spoke of "horizontal vs vertical" as if Math/Physics/
-Research were a separate axis.  That was wrong.
+**Every file has exactly one vertical layer** —
+Kernel / Firmware / Hypervisor / Meta / App — mechanically
+determined by its import closure.  `tools/layer_audit.py` computes
+it.  The script reports zero violations on the current tree.
 
-  **Every file has exactly one vertical layer** —
-  Kernel / Firmware / Hypervisor / Meta / App — mechanically
-  determined by its import closure.  `tools/layer_audit.py`
-  computes it.
+**Math/ and Physics/ are the only horizontal topical clusters.**
+A `Math/X.lean` file might be Kernel-level (no E213 imports),
+Firmware-level (uses Raw), Hypervisor-level (uses Lens), or
+Meta-level (uses metatheorems) — depending on what it imports.  The
+folder name only says "this is mathematics-flavored" / "this is
+physics-flavored", not "this is at layer X".
 
-  **Math / Physics / Research / Infinity / Tactic / Tools are
-  topical labels**, NOT layers.  A `Math/X.lean` file might be
-  Kernel-level (no E213 imports), Firmware-level (uses Raw),
-  Hypervisor-level (uses Lens), or Meta-level (uses metatheorems)
-  — depending on what it imports.  The folder name only says
-  "this is mathematics-flavored", not "this is at layer X".
+Other top-level trees that previously existed have been distributed
+into the vertical-layer dirs as Tactic/ / Tools/ / Research/
+sub-folders:
+  - `Research/` (337 files) → Math/* (math research) + Hypervisor/Lens/Research/
+    (Lens framework research) + Meta/* (universality / axiom-minimality
+    metatheorems) + Firmware/Raw/Research/ (Raw encoding research)
+  - `Infinity/` (9 files) → Math/Infinity/
+  - `Tactic/` (11 files + tests) → Kernel/Tactic/ (Omega213, QuadNorm) +
+    Meta/Tactic/ (VerifyR4, DeriveR4Codomain) +
+    Math/Tactic/ (HurwitzRing, IntSquare, QuadExtension)
+  - `Tools/` (1 file) → Firmware/Tools/CertChecker.lean
 
-Concrete distribution as of 2026-05-XX:
+Distribution after the 2026-05-XX reorg:
 
-| top-folder | Kernel | Firmware | Hypervisor | Meta | App |
-|---|---|---|---|---|---|
-| Math/ (212) | 2 | 202 | 8 | 0 | 0 |
-| Physics/ (275) | 2 | 168 | 105 | 0 | 0 |
-| Research/ (337) | 33 | 7 | 293 | 4 | 0 |
-| Infinity/ (9) | 1 | 6 | 2 | 0 | 0 |
-| Tactic/ (11) | 8 | 0 | 0 | 3 | 0 |
-| Tools/ (1) | 0 | 1 | 0 | 0 | 0 |
+| top-folder | Kernel | Firmware | Hypervisor | Meta | App | total |
+|---|---|---|---|---|---|---|
+| Kernel/ | 18 | 0 | 0 | 0 | 0 | 18 |
+| Firmware/ | 0 | 25 | 0 | 0 | 0 | 25 |
+| Hypervisor/ | 0 | 0 | 78 | 0 | 0 | 78 |
+| Meta/ | 0 | 0 | 0 | 23 | 0 | 23 |
+| App/ | 0 | 0 | 0 | 0 | 1 | 1 |
+| Math/ (484) | 36 | 211 | 231 | 6 | 0 | 484 |
+| Physics/ (275) | 2 | 168 | 105 | 0 | 0 | 275 |
 
-So most "Math" files are Firmware-level (using Raw), most "Physics"
-are split Firmware/Hypervisor, most "Research" is Hypervisor-level
-(using Lens framework), and all of `Tactic/Test/` reaches Meta.
+Reading the table: a `Hypervisor/X.lean` file is at Hypervisor by
+both path AND mechanics; a `Math/X.lean` file's natural mechanical
+layer is one of {Kernel, Firmware, Hypervisor, Meta} — pick by
+running `layer_audit.py`.
 
-**Implication for reorganization** (open question — see §3):
-should the directory structure mirror the vertical layer assignment,
-e.g., `Hypervisor/Math/Cohomology/...` instead of `Math/Cohomology/...`?
-Pro: directory matches mechanical layer.  Con: cross-cuts topical
-locality (one logical "Math" tree split across 3 layers).  Current
-state: keep topical top-level, layer is metadata exposed by
-`layer_audit.py`.
+**Why keep Math/Physics horizontal at all?** Topical locality.
+Splitting `Math/Cohomology/Delta/Core.lean` into `Hypervisor/Math/
+Cohomology/Delta/Core.lean` is mechanically right but breaks the
+"one folder = one mathematical sub-discipline" intuition.  Math/Physics
+are kept as topical roots; their mechanical layer is exposed via
+`layer_audit.py` as metadata.
 
 ## 1. Vertical layers (canonical definitions)
 
@@ -214,39 +223,32 @@ names.  Content has been redistributed by topic.
 105 Hypervisor.  Roughly 60% Firmware (atomicity-based mass/coupling
 formulas), 38% Hypervisor (full Lens-based observable construction).
 
-### Research/
+### Where the old top-level dirs went (2026-05-XX reorg)
 
-**Role**: Exploratory work that may or may not formalize fully.
-Contains:
-  - `Real213/` — Bishop-style real analysis marathon (180 files)
-  - `CayleyDickson/` — division-algebra tower
-  - 15 sub-clusters of lens metatheory, modular arithmetic,
-    irrationality proofs, etc. (post-2026-05-01 reorg)
+  - **Research/** (337 files) — fully distributed:
+    - mathematics-flavored exploration → `Math/{Real213, CayleyDickson,
+      Cauchy, ModArith, Modulus, Diagonal, Irrational, Hyper, Choice}/`
+      + 9 loose Math/* files
+    - Lens-framework research → `Hypervisor/Lens/Research/{Lens,
+      Morphism, Instance, Leaves, Refines, Kernel, Universal,
+      SemanticAtom, Initiality}/`
+    - axiom-uniqueness metatheorems → `Meta/{AxiomMinimality,
+      AxiomMinimalityCapstone, Universal/{LensClaim,
+      MorphismFactor, Reflection}}.lean`
+    - Raw encoding research → `Firmware/Raw/Research/{DecEq, SwapSlash,
+      ComplexityClass, CmpIndependence}/`
+  - **Infinity/** (9 files: Cantor, Gödel, Tower, …) → `Math/Infinity/`
+  - **Tactic/** (11 + tests):
+    - `Omega213`, `QuadNorm`, `OMEGA213_MIGRATION.md` → `Kernel/Tactic/`
+    - `VerifyR4`, `DeriveR4Codomain` → `Meta/Tactic/`
+    - `HurwitzRing`, `IntSquare`, `QuadExtension` → `Math/Tactic/`
+  - **Tools/** (1 file: CertChecker.lean) → `Firmware/Tools/`
 
-**Layer distribution** (337 files): 33 Kernel, 7 Firmware, 293
-Hypervisor, 4 Meta.  Heavily Hypervisor-skewed because most
-exploratory work uses Lenses on top of Raw.  The 4 Meta-level
-files (Research/Lens/* using R*Codomain) and 33 Kernel-level
-files (pure-ℕ exploration) are the ends of the distribution.
-
-## 2.5. Orthogonal infrastructure (no axis)
-
-### Tactic/
-
-**Role**: Custom Lean tactics (Omega213, VerifyR4, ...).  Cross-
-cutting infrastructure used at any layer.  Files share `namespace
-E213.Tactic` umbrella (intentional).
-
-### Tools/
-
-**Role**: Lean-side analysis tools (CertChecker.lean for certificate
-verification).
-
-### Infinity/
-
-**Role**: Limit / compactification bridges to ZFC-style infinitary
-mathematics (Cantor, Gödel, Tower, Countable, BoolSpace, ...).
-Mostly external bridges; not load-bearing for 213's finitist core.
+Note: `namespace E213.Tactic` umbrella (used by `omega213` macro) is
+preserved as the *internal* namespace of `Kernel/Tactic/Omega213.lean`
+— users still write `open E213.Tactic` to get the macro.  The
+*path* is `Kernel/Tactic/`; the *namespace* `E213.Tactic` is
+intentionally short for ergonomics.
 
 ## 3. Open architectural questions
 

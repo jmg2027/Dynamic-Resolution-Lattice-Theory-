@@ -3,8 +3,9 @@
 --
 -- This umbrella file imports the *vertical-layer* foundation modules
 -- (Kernel, Firmware, Hypervisor, Meta, App) + key infrastructure.
--- Horizontal-layer Math/Physics/Research files are NOT imported here
--- en masse — their dependency closures are large and cross-cutting;
+-- Topical-cluster files under Math/, Physics/ (and the per-layer
+-- Tactic/, Tools/, Research/ sub-folders) are NOT imported here en
+-- masse — their dependency closures are large and cross-cutting;
 -- consumers should import the specific module they need.
 
 -- Kernel (Lean-side scaffolding for 213 — 0 axiom)
