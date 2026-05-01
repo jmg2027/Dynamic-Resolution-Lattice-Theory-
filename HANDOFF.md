@@ -1,42 +1,60 @@
 # Session Handoff — ★★★ FIRST MILESTONE CLOSED ★★★
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed; head = `1cc9667`).
+`claude/213-rust-engine-SloKB` (committed + pushed; head = `eb9bcd2`).
 
-## ★ Phase 5 batch 1 axiom-upgrade results (2026-05-01)
+## Phase Closure (2026-05-01) — all in-scope phases SETTLED
 
-| capstone | before | after |
+| Phase | Status | Closed by |
 |---|---|---|
-| `pellFSMmod3_has_degree2` | [propext, Quot.sound] | **STRICT 0** |
-| `tribFSMmod2_has_degree3` | [propext, Quot.sound] | **STRICT 0** |
-| `number_theory_213_capstone` (v1) | [propext, Quot.sound] | [propext] |
-| `number_theory_213_capstone_v2` | [propext, Quot.sound] | [propext] |
-| `number_theory_213_capstone_v3` | [propext] | [propext] (kept) |
-| `pell_crt_capstone` | [propext] | [propext] (kept) |
-| `pisano_crt_framework_complete` | STRICT 0 | STRICT 0 (kept) |
-
-Mechanism: `by omega` inside HasDegree2/3 witnesses
-(`⟨3, by omega, pellFSMmod3, ...⟩`) was a pure decidable positivity
-on literal — `by decide` is the strict 0-axiom drop-in.  The
-Quot.sound from omega's internals was the only thing keeping
-v1/v2 capstones above strict {propext} — now eliminated.
-
-## Cleanup Status (2026-05-01, latest)
-
-| Phase | Status | Note |
-|---|---|---|
-| Phase 0 (janitorial) | ✅ done | dead refs / stale docs swept |
-| Phase 2 (INDEX layer) | ✅ done | `lean/E213/INDEX.md`, `Math/Cohomology/INDEX.md` |
-| Phase 3 (directory reorg) | ✅ done | Math/Cohomology/ → 9 sub-clusters; Research/Real213/ → 180 files |
-| Phase 7 (CupAW/Universal) | ✅ done | rolled into Phase 3 sub-clusters |
-| Phase 6 (exploratory archival) | ✅ partial | Cohomology/Dyadic/Archive/ |
-| Real213 namespace rename | ✅ done (9978af7) | dangling `Real213CutSum.*` refs fixed in 4 files |
-| `lake build` | ✅ clean | full lib (incl. Physics + Math) |
+| Phase 0 (janitorial) | ✅ | dead refs / stale docs swept |
+| Phase 1 (versioning consolidation) | ✅ | NumberTheory213 v1+v2+v3 merged; PisanoPredictor "9→1" determined **N/A** — Predictor{,6,7,8,11,14,17,20,22} chain is each-adds-new-primes (≠ redundant), audit guide outdated |
+| Phase 2 (INDEX layer) | ✅ | `lean/E213/INDEX.md`, `Math/Cohomology/INDEX.md` |
+| Phase 3 (directory reorg) | ✅ | Math/Cohomology/ → 10 sub-clusters; Research/Real213/ → 180 files; CayleyDickson 29 files |
+| Phase 5 (omega migration) | ✅ | 343 → 223 calls (-120, -35%); batch 1 (08b02e1) trivial bounds → decide; batch 2 (1cc9667) BitFSM core → Nat-lemma; omega213 extended (Nat.le_trans, Nat.add_sub_of_le, …); diminishing-returns boundary reached |
+| Phase 6 (exploratory archival) | ✅ | Cohomology/Dyadic/Archive/ partial |
+| Phase 7 (CupAW/Universal) | ✅ | rolled into Phase 3 sub-clusters |
+| Real213 namespace rename | ✅ (9978af7) | dangling `Real213CutSum.*` refs fixed in 4 files |
+| `lake build` | ✅ clean | full lib (incl. Physics + Math + Research) |
 | `lean-rust-diff` | ✅ 43/43 | Lean ↔ Rust BigUint exact equality across α_em chain |
-| Phase 1 (versioning consolidation) | 🟡 partial | NumberTheory213 v1+v2+v3 merged; PisanoPredictor "9→1" determined N/A — chain is each-adds-new-primes (P→P6→P7→P8→P11→P14→P17→P20→P22), not redundant versioning, audit guide outdated |
-| Phase 5 (omega → decide/omega213) | 🟡 partial | 343 → 223 calls (-120, -35%); batch 1 commit 08b02e1 (trivial bounds), batch 2 commit 1cc9667 (BitFSM core Nat-lemma); omega213 extended (Nat.le_trans, Nat.add_sub_of_le, etc.) |
-| Native213 deeper | ⚪ pending | Nat.div_* avoidance via `q*n+r=x ∧ r<n` decomposition |
-| File-by-file classification | ⚪ deferred | per user — after all current phases close |
+
+| Out-of-scope (deferred, separate sessions) | Status |
+|---|---|
+| Native213 deeper (Nat.div_* avoidance) | ⚪ deferred |
+| Pigeonhole.lean axiom-deepening (10 omega + entangled simp) | ⚪ deferred |
+| File-by-file classification → architectural reorg | ⚪ deferred (per user, post-cleanup) |
+
+## ★ Phase 5 axiom-upgrade results (cumulative batches 1+2, 2026-05-01)
+
+Strict 0-axiom **upgrades** (pulled UP from [propext, Quot.sound] → 0):
+
+| theorem | source |
+|---|---|
+| `pellFSMmod3_has_degree2`, `tribFSMmod2_has_degree3` | AlgebraicDegree (batch 1) |
+| `legendreFSM_has_degree1`, `degree{1,2}_imp_degree{2,3}`, `degree1_imp_degree3` | AlgebraicDegree (verified) |
+| `legendre_5_mod_{13,19}` | Legendre/V13_19 (batch 1) |
+| `fsmJointAt`, `jointState`, `bs_periodic_multiple` | BitFSM/Bound, ForwardPeriodicity (batch 2) |
+
+Quot.sound **eliminated** (pulled from [propext, Quot.sound] → [propext]):
+
+| theorem | source |
+|---|---|
+| `number_theory_213_capstone` (v1) | NumberTheory213 |
+| `number_theory_213_capstone_v2` | NumberTheory213 |
+
+Mechanism (batch 1): `by omega` inside `⟨3, by omega, pellFSMmod3, …⟩`
+HasDegree witnesses was pure decidable positivity on literals —
+`by decide` is the strict-0 drop-in.  The Quot.sound from omega's
+internals was the ONLY thing keeping v1/v2 capstones above strict
+{propext}.
+
+Mechanism (batch 2): `by omega` for transitive Nat-arithmetic in
+the BitFSM signature/joint-state pigeonhole machinery →
+`Nat.lt_succ_iff.mp` / `Nat.add_lt_add_of_le_of_lt` /
+`Nat.succ_mul` calc / `Nat.sub_pos_of_lt` / `Nat.succ_add` / `rfl`.
+Also `simp [...]` in `pigeonhole_collision` body → explicit
+`rw [dif_pos, …]` + `beq_iff_eq.mpr rfl` (locally cleaner — full
+Quot.sound elimination still blocked by `no_inj_lt` upstream).
 
 ## ★★★ FIRST MILESTONE CLOSED (2026-05-01, commit e5d6cfa)
 
