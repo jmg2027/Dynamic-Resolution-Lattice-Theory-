@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM
+import E213.Physics.AlphaEM.Core
 import E213.Physics.AlphaGUT
 import E213.Physics.WhyBasel
 import E213.Physics.NeffDerivation

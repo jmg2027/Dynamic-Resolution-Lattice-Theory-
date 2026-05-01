@@ -1,7 +1,7 @@
 import E213.Physics.AlphaGUT
-import E213.Physics.AlphaEM
-import E213.Physics.AlphaEMTight
-import E213.Physics.AlphaEMSimplicial
+import E213.Physics.AlphaEM.Core
+import E213.Physics.AlphaEM.Tight
+import E213.Physics.AlphaEM.Simplicial
 import E213.Math.Cohomology.Fractal.AlphaGUT
 
 /-!

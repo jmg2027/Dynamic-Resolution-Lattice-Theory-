@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM137Tight
+import E213.Physics.AlphaEM.V137Tight
 import E213.Physics.AlphaGUT
 
 /-!

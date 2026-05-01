@@ -1,5 +1,5 @@
 import E213.Physics.AlphaGUT
-import E213.Physics.AlphaEM
+import E213.Physics.AlphaEM.Core
 import E213.Physics.Generations
 import E213.Physics.MagicNumbers
 import E213.Physics.TightenBracket

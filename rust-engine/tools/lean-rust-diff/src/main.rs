@@ -84,14 +84,14 @@ fn cases() -> Vec<DiffCase> {
         // ── α_em bare 5-term chain (AlphaEM137) ──
         DiffCase {
             name: "alphaEM137_inv_full_lower",
-            lean_module: "E213.Physics.AlphaEM137",
+            lean_module: "E213.Physics.AlphaEM.V137",
             lean_expr: "E213.Physics.AlphaEM137.inv_full_lower",
             rust_call: drlt_app::alpha_em::inv_full_lower,
             n_values: &[2, 3, 5, 10],
         },
         DiffCase {
             name: "alphaEM137_inv_full_upper",
-            lean_module: "E213.Physics.AlphaEM137",
+            lean_module: "E213.Physics.AlphaEM.V137",
             lean_expr: "E213.Physics.AlphaEM137.inv_full_upper",
             rust_call: drlt_app::alpha_em::inv_full_upper,
             n_values: &[2, 3, 5, 10],
@@ -99,7 +99,7 @@ fn cases() -> Vec<DiffCase> {
         // ── Tightened lower bracket (AlphaEM137Tight) ──
         DiffCase {
             name: "alphaEM137Tight_inv_lower_tight",
-            lean_module: "E213.Physics.AlphaEM137Tight",
+            lean_module: "E213.Physics.AlphaEM.V137Tight",
             lean_expr: "E213.Physics.AlphaEM137Tight.inv_lower_tight",
             rust_call: drlt_app::alpha_em::inv_lower_tight,
             n_values: &[2, 3, 5, 10],
@@ -107,14 +107,14 @@ fn cases() -> Vec<DiffCase> {
         // ── α_em with Dyson tail α_GUT/(NS+1) ──
         DiffCase {
             name: "alphaEMWithTail_inv_lower_with_tail",
-            lean_module: "E213.Physics.AlphaEMWithTail",
+            lean_module: "E213.Physics.AlphaEM.WithTail",
             lean_expr: "E213.Physics.AlphaEMWithTail.inv_lower_with_tail",
             rust_call: drlt_app::alpha_em_with_tail::inv_lower_with_tail,
             n_values: &[3, 5, 10],
         },
         DiffCase {
             name: "alphaEMWithTail_inv_upper_with_tail",
-            lean_module: "E213.Physics.AlphaEMWithTail",
+            lean_module: "E213.Physics.AlphaEM.WithTail",
             lean_expr: "E213.Physics.AlphaEMWithTail.inv_upper_with_tail",
             rust_call: drlt_app::alpha_em_with_tail::inv_upper_with_tail,
             n_values: &[3, 5, 10],
@@ -122,14 +122,14 @@ fn cases() -> Vec<DiffCase> {
         // ── α_em SO(10) tail (AlphaEMSO10) ──
         DiffCase {
             name: "alphaEMSO10_inv_lower_so10",
-            lean_module: "E213.Physics.AlphaEMSO10",
+            lean_module: "E213.Physics.AlphaEM.SO10",
             lean_expr: "E213.Physics.AlphaEMSO10.inv_lower_so10",
             rust_call: drlt_app::alpha_em_so10_gram::inv_lower_so10,
             n_values: &[3, 5, 10],
         },
         DiffCase {
             name: "alphaEMSO10_inv_upper_so10",
-            lean_module: "E213.Physics.AlphaEMSO10",
+            lean_module: "E213.Physics.AlphaEM.SO10",
             lean_expr: "E213.Physics.AlphaEMSO10.inv_upper_so10",
             rust_call: drlt_app::alpha_em_so10_gram::inv_upper_so10,
             n_values: &[3, 5, 10],
@@ -137,14 +137,14 @@ fn cases() -> Vec<DiffCase> {
         // ── α_em Gram self-energy augmented chain (AlphaEMGramSelfEnergy) ──
         DiffCase {
             name: "alphaEMGram_inv_lower_aug",
-            lean_module: "E213.Physics.AlphaEMGramSelfEnergy",
+            lean_module: "E213.Physics.AlphaEM.GramSelfEnergy",
             lean_expr: "E213.Physics.AlphaEMGram.inv_lower_aug",
             rust_call: drlt_app::alpha_em_so10_gram::inv_lower_aug,
             n_values: &[3, 5, 10],
         },
         DiffCase {
             name: "alphaEMGram_inv_upper_aug",
-            lean_module: "E213.Physics.AlphaEMGramSelfEnergy",
+            lean_module: "E213.Physics.AlphaEM.GramSelfEnergy",
             lean_expr: "E213.Physics.AlphaEMGram.inv_upper_aug",
             rust_call: drlt_app::alpha_em_so10_gram::inv_upper_aug,
             n_values: &[3, 5, 10],

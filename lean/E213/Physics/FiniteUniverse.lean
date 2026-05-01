@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM
+import E213.Physics.AlphaEM.Core
 
 /-!
 # Finite-N universe — π² is a limit-label, not a DRLT primitive

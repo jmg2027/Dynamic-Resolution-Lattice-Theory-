@@ -1,5 +1,5 @@
 import E213.Physics.MuOverE
-import E213.Physics.AlphaEMPrefactors
+import E213.Physics.AlphaEM.Prefactors
 import E213.Physics.FaceTerms
 
 /-!

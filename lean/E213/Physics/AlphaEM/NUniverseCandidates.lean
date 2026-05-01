@@ -1,6 +1,6 @@
 import E213.Physics.FiniteUniverse
 import E213.Physics.SimplexCounts
-import E213.Physics.AlphaEM137
+import E213.Physics.AlphaEM.V137
 
 /-!
 # N_universe candidates — atomic combinatorial enumeration

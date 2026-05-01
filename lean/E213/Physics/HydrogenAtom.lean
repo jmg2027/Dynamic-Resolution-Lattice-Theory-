@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM
+import E213.Physics.AlphaEM.Core
 
 /-!
 # Hydrogen atom — Bohr formula's "2" = NT (0 axioms)

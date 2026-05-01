@@ -1,6 +1,6 @@
 import E213.Physics.Phase2
-import E213.Physics.AlphaEM137
-import E213.Physics.AlphaEMTight
+import E213.Physics.AlphaEM.V137
+import E213.Physics.AlphaEM.Tight
 import E213.Physics.SimplexCounts
 
 /-!

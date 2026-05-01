@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Fractal.V25
 import E213.Physics.FiniteUniverse
 import E213.Physics.SimplexCounts
-import E213.Physics.AlphaEMNUniverseCandidates
+import E213.Physics.AlphaEM.NUniverseCandidates
 
 /-!
 # N_universe = d^(d²) — structural identification from fractal level-2

@@ -1,5 +1,5 @@
-import E213.Physics.AlphaEM137Tight
-import E213.Physics.AlphaEMStructuralGap
+import E213.Physics.AlphaEM.V137Tight
+import E213.Physics.AlphaEM.StructuralGap
 
 /-!
 # 1/α_em(IR) — SO(10) next-order correction (Open Problem #1b candidate)

@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEMGramSelfEnergy
+import E213.Physics.AlphaEM.GramSelfEnergy
 
 /-!
 # 1/α_em(IR) — FIRST MILESTONE theorem (CLAUDE.md, 2026-05-01)

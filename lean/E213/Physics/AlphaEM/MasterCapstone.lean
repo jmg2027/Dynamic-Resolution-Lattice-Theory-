@@ -1,7 +1,7 @@
-import E213.Physics.AlphaEMSO10
-import E213.Physics.AlphaEMGramSelfEnergy
+import E213.Physics.AlphaEM.SO10
+import E213.Physics.AlphaEM.GramSelfEnergy
 import E213.Physics.NUniverseFractalDepth
-import E213.Physics.AlphaEMNUniverseCandidates
+import E213.Physics.AlphaEM.NUniverseCandidates
 
 /-!
 # 1/α_em master capstone — finitist 213-internal closure

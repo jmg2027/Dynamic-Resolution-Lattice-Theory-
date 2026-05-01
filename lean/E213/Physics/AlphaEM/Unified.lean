@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM
+import E213.Physics.AlphaEM.Core
 import E213.Physics.RunningGap
 
 /-!

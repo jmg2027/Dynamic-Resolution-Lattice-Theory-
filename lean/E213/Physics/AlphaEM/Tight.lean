@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM
+import E213.Physics.AlphaEM.Core
 
 /-!
 # 1/α_em(M_Z) bare — tightened bracket (pure DRLT, no corrections)

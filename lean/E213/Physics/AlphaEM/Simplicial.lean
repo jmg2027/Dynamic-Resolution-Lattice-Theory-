@@ -1,5 +1,5 @@
 import E213.Physics.FaceTerms
-import E213.Physics.AlphaEMUnified
+import E213.Physics.AlphaEM.Unified
 
 /-!
 # 1/α_em(IR) — single simplicial cohomology decomposition (final capstone)

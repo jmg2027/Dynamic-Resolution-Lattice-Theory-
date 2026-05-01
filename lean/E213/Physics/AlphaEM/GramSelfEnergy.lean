@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEMSO10
+import E213.Physics.AlphaEM.SO10
 
 /-!
 # 1/α_em(IR) — Gram self-energy second correction (sub-ppb closure)

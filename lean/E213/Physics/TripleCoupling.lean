@@ -1,5 +1,5 @@
 import E213.Physics.SubSimplexInventory
-import E213.Physics.AlphaEMStructure
+import E213.Physics.AlphaEM.Structure
 
 /-!
 # Triple coupling decomposition (user spec 2026-04).

@@ -1,6 +1,6 @@
 import E213.Physics.HiggsMass
 import E213.Physics.NUniverseFractalDepth
-import E213.Physics.AlphaEMMasterCapstone
+import E213.Physics.AlphaEM.MasterCapstone
 
 /-!
 # m_H/v_H finitist closure — N_U = d^(d²) inherited
