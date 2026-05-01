@@ -365,6 +365,38 @@ is meta-relative-to-its-imports (e.g., a forced-shape proof, a
 universality claim, an application).  Promotion-without-reason is
 discouraged.
 
+### 6.2 Horizontal cluster sub-layering (within-cluster depth)
+
+The same import-depth rule applies *within* a horizontal cluster.
+For each file in `Math/`, `Physics/`, `Research/`, `layer_audit.py`
+computes its topological depth restricted to imports from the same
+cluster.  Sub-folders whose depth span is wide (≥ 15) are
+**sub-clustering candidates** — a single flat folder with a 15-deep
+import chain is a sign that natural sub-layers exist but haven't
+been folded into the directory structure.
+
+Current state (2026-05-XX):
+
+| Cluster | Sub-folder | files | depth span | status |
+|---|---|---|---|---|
+| Math | Cohomology | 195 | 44 | **WIDE** — single mega-folder |
+| Math | Linalg213 | 8 | 18 | wide-narrow |
+| Physics | Couplings | 20 | 15 | mid |
+| Physics | Foundations | 27 | 16 | mid |
+| Physics | Capstones | 13 | 15 | mid |
+| Research | Real213 | 181 | **90** | **WIDE** — Real213 marathon chain |
+
+Recommendation: WIDE sub-folders are candidates for further
+sub-clustering.  Especially `Cohomology/` (44-deep, 195 files) and
+`Real213/` (90-deep, 181 files) — these are entire research
+sub-projects in single folders.  Future reorg should depth-band them
+(e.g., `Real213/Foundations/`, `Real213/Phase{A..H}/`,
+`Real213/Capstones/` keyed off mechanical depth, not session number).
+
+The `(min, med, max)` triple printed by `layer_audit.py` for each
+sub-folder is the canonical signal: *narrow span → coherent
+sub-cluster; wide span → split candidate*.
+
 ## 7. History (for context only — do not use as current state)
 
   - 2026-05-01: First Phase 0-7 cleanup (sub-clustering,

@@ -90,7 +90,60 @@ def main() -> int:
         elif path_rank > nat_rank:
             downgrades.append((p, path_label, path_rank, nat_label, nat_rank))
 
-    return report(files, violations, downgrades, horizontal_high)
+    rc = report(files, violations, downgrades, horizontal_high)
+    horizontal_depth_report(files, imports)
+    return rc
+
+
+def horizontal_depth_report(files, imports):
+    """Within each horizontal cluster, report per-file import depth and
+    flag sub-folders whose depth span suggests sub-clustering opportunity."""
+    print("\n## Horizontal cluster depth (within-cluster imports only)")
+    print("(span >= 15 → sub-clustering candidate)\n")
+    for cluster in sorted(HORIZONTAL):
+        sub_files = [f for f in files
+                     if f.relative_to(LEAN_ROOT).parts[0] == cluster]
+        if not sub_files:
+            continue
+        in_set = set(sub_files)
+        deps = {f: [ip for ip in imports[f] if ip in in_set] for f in sub_files}
+        depth = compute_depth(sub_files, deps)
+        print(f"### {cluster}/  ({len(sub_files)} files, max depth {max(depth.values(), default=0)})")
+        report_subfolders(sub_files, depth)
+        print()
+
+
+def compute_depth(files, deps):
+    """Topological depth of each file: 1 + max(depth of imports), or 0 if leaf."""
+    depth = {}
+    def dfs(f, stack):
+        if f in depth:
+            return depth[f]
+        if f in stack:
+            return 0
+        stack.add(f)
+        d = 0 if not deps[f] else 1 + max(dfs(x, stack) for x in deps[f])
+        stack.discard(f)
+        depth[f] = d
+        return d
+    for f in files:
+        dfs(f, set())
+    return depth
+
+
+def report_subfolders(sub_files, depth):
+    from statistics import median
+    by_sub = {}
+    for f in sub_files:
+        parts = f.relative_to(LEAN_ROOT).parts
+        sub = parts[1] if len(parts) > 2 else "(top)"
+        by_sub.setdefault(sub, []).append(depth[f])
+    rows = sorted((min(ds), max(ds), int(median(ds)), len(ds), s)
+                  for s, ds in by_sub.items())
+    print(f"  {'sub':<26} {'n':>4}  min  med  max  flag")
+    for mn, mx, md, n, sub in rows:
+        flag = "  WIDE" if (mx - mn) >= 15 else ""
+        print(f"  {sub:<26} {n:>4}  {mn:>3}  {md:>3}  {mx:>3}{flag}")
 
 
 def report(files, violations, downgrades, horizontal_high) -> int:
