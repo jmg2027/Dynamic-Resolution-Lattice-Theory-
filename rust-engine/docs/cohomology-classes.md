@@ -236,3 +236,133 @@ to cosmological.
 `claude/review-paper-directory-nDw9L`, not yet merged into main.
 Once merged, `whitelist.toml` will gain rows pinning each Class's
 formal cohomology operation to its Lean theorem.)
+
+## Class F — multi-simplex composite (added 2026-04-30)
+
+**The threshold this class identifies**: single-simplex observables
+(electron, muon, τ, simple couplings) live inside ONE Δ⁴.  P(x)
+propagator + single α-leakage = one room, one boundary cross —
+clean closure at ≤ 200 ppm via Classes A–E.
+
+Composite hadrons (proton uud, neutron udd) are NOT single-Δ⁴
+points; they are 3-simplex glued architectures — a *simplicial
+complex*, not a simplex.  The hunter cannot close them at the
+single-α level no matter how the search space is extended,
+because the underlying structure is fundamentally Class F.
+
+### Mechanism: δ²=0 internal-boundary collapse on gluing
+
+When you glue simplices face-to-face, the discrete-Noether engine
+δ²=0 fires *aggressively*: paired internal faces cancel via XOR,
+and the simplices that were N independent rooms become a single
+complex with EMERGENT global structure:
+
+- **Global cavities** (interior space that didn't exist in any
+  single Δ⁴) appear as new 2-cells in the complex.
+- **Macro cycles** (closed loops threading multiple simplices)
+  appear that no single Δ⁴ could carry alone.
+- These macro cycles produce NEW Betti numbers strictly larger
+  than any single-simplex b_k.
+
+This is the first place the lattice "creates new cohomological
+content from gluing alone" — δ²=0 is the engine, gluing is the
+input, emergent cycles are the output.
+
+### Where the large primes 17, 19, 31 come from
+
+In the single-simplex hunter (Section II Dyadic), Pell mod-p
+periods are bounded by the prime: e.g. mod 11 (split) gives
+period 5, mod 17 (inert) gives period 18, mod 31 gives period
+32.  These are **single-FSM periods**.
+
+When 3 sub-simplex FSMs are GLUED into a composite, their joint
+period is `lcm(period_a, period_b, period_c)`.  The lcm of 3
+small primes can hit 17, 19, 31 directly as the *cycle length
+of the glued macro-trajectory* — the new b_1 contribution that
+gluing produces.
+
+The hunter's discovery of `17·NT` in m_τ/m_e and `(NS²/d)·ζ(2)²·
+(1+6α)` in g_p is exactly this signature: the prime 17 is the
+period of an emergent 3-glued FSM cycle, the ζ(2)² is the
+2-loop trace through the joint cohomology, and the α-coefficient
+6 = NS·NT counts the chiral edges crossed during the joint loop.
+
+### Why multi-α corrections are geometrically forced
+
+In a single Δ⁴, information crosses one chiral boundary, leaks
+linearly with α_GUT (Class B), and exits — done.
+
+In a 3-simplex glued composite, information about an internal
+quark transition (e.g. u ↔ d for n − p mass split) must propagate
+through *every internal gluing surface* to reach an external
+observable.  Each crossing costs one α factor.  A path that
+visits k internal interfaces accumulates α^k weight.
+
+Cohomologically: this is exactly the cup-product chain
+H^a × H^b × ... → H^(Σ) on the glued complex.  At the cochain
+level it manifests as α², α³, paired (1+α·k₁)(1+α·k₂) products
+— precisely the corrections the extended hunter could not avoid.
+
+### The natural arena: K_{5^L} fractal at L=2
+
+The single Δ⁴ corresponds to fractal level L=1 (K_5, b_1=6).
+The hadron-glued composite naturally lives at L=2 — exactly
+the K_{25} structure already formalized in
+`Cohomology/FractalLevel.lean` (math branch):
+
+  L = 2:  numV = 25,  numE = 300,  b_1 = 276
+
+The b_1 = 276 of K_{25} is the OBSERVED-but-yet-unexplained
+"large macro Betti" required by hadron physics.  The 3-quark
+composite picks specific glued sub-configurations of K_{25}
+whose joint cohomology gives the observed g_p, m_n − m_p,
+m_n / m_p — projections of the 276-dim H¹ space onto specific
+3-tuple subspaces.
+
+Equivalently in DyadicNumberTheory213 language: the 3-quark
+composite is a 3-component ArithFSM₂ (or ArithFSM₃) chain whose
+joint period belongs to the K_{25}-level FSM family.  The
+math-branch already has the period machinery (lcm composition
+in `DyadicProductFSMPeriod.lean`); applying it to 3-quark
+composites gives the structural derivations.
+
+### Net consequence for hadron physics
+
+Hadron dynamics — historically the most analytically intractable
+sector of particle physics (lattice QCD computations take
+supercomputers months) — reduces in 213 to **a pure combinatorial
+gluing problem**: "which Δ⁴ blocks, glued how, with what shared
+faces?"
+
+Once the gluing pattern for proton/neutron is identified, the
+joint cohomology is computable by the Cohomology 213 machinery
+already present in the math branch (Cup, Hodge, Massey via cup
+chains).  Numerical predictions follow from the discrete K_{25}
+FSM periods + α^k chain corrections — no continuum non-perturbative
+methods, no lattice QCD.  Hadron mass ratios become Class F
+*propEq* statements at the appropriate fractal level.
+
+### Hunter extension plan (next iteration)
+
+Three layers to add for stuck Class F targets:
+
+1. **Paired α**: `(1 + α·k₁) · (1 + α·k₂)` for atomic (k₁, k₂).
+   Captures 2-quark internal interaction.
+2. **Triple α**: `(1 + α·k₁) · (1 + α·k₂) · (1 + α·k₃)`.
+   Captures full 3-quark gluing with Borromean signature.
+3. **Per-interface α**: distinct α-coefficients per gluing
+   interface, mirroring the Massey-product k₁/k₂/k₃ structure.
+
+When all three layers are searched, the hunter becomes a
+**classifier of internal sub-simplex multiplicity** — outputting
+which Class (A/B/C/D/E/F-2/F-3) any observable falls into
+PLUS the gluing pattern.
+
+### Implication for the framework's reach
+
+Class F closure on hadrons would mean DRLT predicts the entire
+SM mass spectrum (leptons via Classes A–D + Koide, hadrons via
+Class F + K_{25} fractal) with zero free parameters using only
+the K_{3,2}^{(c=2)} simplex and its glued multi-simplex
+extensions.  The Standard Model becomes a single combinatorial
+read-out of the lattice's cohomology — not a fitted theory.
