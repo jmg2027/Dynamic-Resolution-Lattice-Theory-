@@ -225,8 +225,10 @@ fn hunt(label: &str, target: &Q, pi: &Q, zeta: &Q) {
     // Pass 3: α² (Massey-product) corrections on integer prefactors,
     // limited to a small transcendental subset for tractability.
     let trans_subset: &[(&str, u32, u32)] = &[
-        ("",     0, 0), ("·ζ(2)", 0, 1), ("·π",  1, 0), ("·π²", 2, 0),
-        ("·π³", 3, 0),  ("·π⁴",  4, 0), ("·π⁵", 5, 0),
+        ("",     0, 0), ("·ζ(2)",   0, 1), ("·ζ(2)²",  0, 2),
+        ("·π",   1, 0), ("·π²",     2, 0), ("·π³",     3, 0),
+        ("·π⁴",  4, 0), ("·π⁵",     5, 0), ("·π·ζ(2)", 1, 1),
+        ("·π³·ζ(2)", 3, 1), ("·π·ζ(2)²", 1, 2),
     ];
     for (k_lab, k) in atomic_ints() {
         for (t_lab, pi_p, ze_p) in trans_subset {
@@ -279,6 +281,7 @@ fn main() {
         .and_then(|s| s.parse().ok()).unwrap_or(2000);
     let n_z:  u64 = std::env::args().nth(2)
         .and_then(|s| s.parse().ok()).unwrap_or(5000);
+    let stuck_only = std::env::args().any(|a| a == "--stuck");
 
     // π midpoint from Leibniz bracket
     let (pi_lo, pi_hi) = pi_bracket(n_pi);
@@ -291,14 +294,13 @@ fn main() {
     let zeta: Q = (&s.0 * &np1 + &s.1, &s.1 * &np1);
 
     println!("=== atomic-hunter — auto search for atomic identities ===\n");
-    println!("brackets: π midpoint (Leibniz N={n_pi}), ζ(2) tight (Basel N={n_z})\n");
+    println!("brackets: π midpoint (Leibniz N={n_pi}), ζ(2) tight (Basel N={n_z})");
+    if stuck_only {
+        println!("[--stuck mode: focused on Class F composite-particle targets]");
+    }
+    println!();
 
-    // Target list: dimensionless physics ratios with CODATA values.
-    // m_p/m_e = 1836.15267343 (CODATA 2022)
-    let mp_me: Q = (nat(183615267343u64), nat(100_000_000));
-    hunt("m_p/m_e", &mp_me, &pi, &zeta);
-
-    // m_n/m_p = 1.001378
+    // m_n/m_p = 1.001378 (Class F-2 composite candidate)
     let mn_mp: Q = (nat(1001378u64), nat(1_000_000));
     hunt("m_n/m_p", &mn_mp, &pi, &zeta);
 
@@ -306,29 +308,23 @@ fn main() {
     let g_p: Q = (nat(55856946893u64), nat(10_000_000_000u64));
     hunt("g_p (proton)", &g_p, &pi, &zeta);
 
-    // r_p · m_p / (ℏc) = 4.0008 (already discovered: NT² = 4)
-    let r_p_ratio: Q = (nat(40008), nat(10_000));
-    hunt("r_p·m_p/(ℏc)", &r_p_ratio, &pi, &zeta);
-
-    // m_τ / m_e = 1777/0.5110 ≈ 3477.15
-    let mt_me: Q = (nat(347715), nat(100));
-    hunt("m_τ/m_e", &mt_me, &pi, &zeta);
-
     // (m_n − m_p) / m_e = 1.293/0.5110 ≈ 2.5306
     let dmn_me: Q = (nat(25306), nat(10_000));
     hunt("(m_n−m_p)/m_e", &dmn_me, &pi, &zeta);
 
-    // m_μ / m_e ≈ 206.7682838 (CODATA — already known)
+    if stuck_only { return; }
+
+    // ── Single-simplex targets (already largely closed) ─────────
+    let mp_me: Q = (nat(183615267343u64), nat(100_000_000));
+    hunt("m_p/m_e", &mp_me, &pi, &zeta);
+    let r_p_ratio: Q = (nat(40008), nat(10_000));
+    hunt("r_p·m_p/(ℏc)", &r_p_ratio, &pi, &zeta);
+    let mt_me: Q = (nat(347715), nat(100));
+    hunt("m_τ/m_e", &mt_me, &pi, &zeta);
     let mmu_me: Q = (nat(20676828380u64), nat(100_000_000));
     hunt("m_μ/m_e (sanity)", &mmu_me, &pi, &zeta);
-
-    // m_W / m_e = 80379e3/0.5110 ≈ 1.5729e8
     let mw_me: Q = (nat(157296477u64), nat(1));
     hunt("m_W/m_e", &mw_me, &pi, &zeta);
-
-    // M_Pl/v_H = 1.22e19 / 246 GeV = 4.96e16 — way too big for hunter
-
-    // α_em·m_p/m_e = 0.0072973525·1836.153 = 13.398
     let alpha_mp_me: Q = (nat(13398396u64), nat(1_000_000));
     hunt("α_em·m_p/m_e", &alpha_mp_me, &pi, &zeta);
 }
