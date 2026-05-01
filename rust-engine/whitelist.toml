@@ -273,7 +273,7 @@ lean = "E213.Physics.NeutronProton.np_simplicial"
 
 [[op]]
 rust = "drlt_app::bin::neutrino_mixing"
-lean = "E213.Physics.NeutrinoMixing.PMNS_simplicial_pattern"
+lean = "E213.Physics.NeutrinoMixing.sin2_13_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::dark_energy"

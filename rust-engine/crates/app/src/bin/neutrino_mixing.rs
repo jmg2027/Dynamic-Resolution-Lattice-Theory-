@@ -41,21 +41,29 @@ fn main() {
         decimal(&sin23_lead, 6));
     println!("  Observed: 0.572 (NH best-fit, near 0.5 maximal)");
 
-    // sin²θ₁₃ = α_GUT · (1 − 4·α_GUT)
+    // sin²θ₁₃ tighter: α_GUT·(1−NT²·α_GUT)·(1+NS·NT·α_GUT²)
+    //                = α_GUT·(1 − 4·α_GUT)·(1 + 6·α_GUT²)
     let four_agut: Q = (&agut.0 * nat(4), agut.1.clone());
     let one = (nat(1), nat(1));
     let one_minus_4agut = sub_q(&one, &four_agut);
-    let sin13 = mul_q(&agut, &one_minus_4agut);
-    println!("\nsin²θ₁₃ = α_GUT·(1−4·α_GUT) = {}    ★", decimal(&sin13, 9));
-    let observed_13: Q = (nat(220), nat(10000));   // 0.0220
-    println!("  Observed: {}  (PDG)", decimal(&observed_13, 5));
+    let agut_sq = mul_q(&agut, &agut);
+    let six_agut_sq: Q = (&agut_sq.0 * nat(6), agut_sq.1.clone());
+    let one_plus_6agut2: Q =
+        (&one.0 * &six_agut_sq.1 + &six_agut_sq.0 * &one.1,
+         &one.1 * &six_agut_sq.1);
+    let sin13 = mul_q(&mul_q(&agut, &one_minus_4agut), &one_plus_6agut2);
+    println!("\nsin²θ₁₃ = α_GUT·(1−NT²·α_GUT)·(1+NS·NT·α_GUT²)");
+    println!("        = α_GUT·(1−4·α_GUT)·(1+6·α_GUT²)");
+    println!("        = {}    ★", decimal(&sin13, 9));
+    let observed_13: Q = (nat(2203), nat(100000));   // PDG 0.02203
+    println!("  PDG: {} ± 0.00058 (NuFIT)", decimal(&observed_13, 5));
     let l = &sin13.0 * &observed_13.1; let r = &observed_13.0 * &sin13.1;
     let dn = if l > r { l - r } else { r - l };
     let diff: Q = (dn, &sin13.1 * &observed_13.1);
-    let sigma: Q = (&diff.0 * nat(100) * &observed_13.1,
-                    &diff.1 * &observed_13.0);
-    println!("  |Δ| ≈ {} ({} % relative)",
-        decimal(&diff, 6), decimal(&sigma, 2));
+    let ppm: Q = (&diff.0 * nat(1_000_000) * &observed_13.1,
+                  &diff.1 * &observed_13.0);
+    println!("  |Δ| ≈ {} ({} ppm — was 3550 ppm)",
+        decimal(&diff, 8), decimal(&ppm, 1));
 
     // δ_CP = 180° + 360°/(d²−1) = 180° + 15° = 195°
     let dcp_corr: Q = (nat(360), nat(24));    // 360°/24
@@ -67,5 +75,5 @@ fn main() {
     println!("                          = 180° + 15° = {}°",
         decimal(&dcp_total, 4));
     println!("  Observed: ≈ 197° (T2K/NOvA, large uncertainty)");
-    println!("\nLean cite: NeutrinoMixing (sin²θ₁₃, δ_CP, 0-axiom)");
+    println!("\nLean cite: NeutrinoMixing.sin2_13_v2_atomic (0-axiom)");
 }
