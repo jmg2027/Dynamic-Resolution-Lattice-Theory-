@@ -57,6 +57,8 @@ The finitist position in 213 is not a philosophical preference — it is a **con
 
 Note: physics-track capstones (`validation_standard_capstone`, `pure_atomic_observables_capstone`, `alpha_em_master_capstone`) achieve the strict form "does not depend on any axioms".  The cut-algebra contradiction proofs above use the standard Lean kernel base {propext, Quot.sound} — which is the DRLT-allowed set.  Both standards are stronger than typical "0-axiom" claims in mathematical physics.
 
+**Tooling: `omega213`** (`lean/E213/Tactic/Omega213.lean`).  Lean's `omega` tactic introduces `[propext, Quot.sound]` into every theorem that uses it.  `omega213` is a 213-native axiom-free replacement for the linear-arithmetic patterns 213 actually uses (decide + curated `Nat.*` core lemmas).  Drop-in: `by omega → by omega213` reduces the axiom set from `[propext, Quot.sound]` to ∅ for covered patterns.  Migration guide: `lean/E213/Tactic/OMEGA213_MIGRATION.md`.  195 omega calls across 50 files are candidates for incremental conversion.
+
 ## The Axiom
 - **Things exist with pairwise relations.** G_ij = ⟨ψ_i|ψ_j⟩.
 - ℂ⁵ is derived (Frobenius → ℂ, atomic → d=5), not the axiom.
