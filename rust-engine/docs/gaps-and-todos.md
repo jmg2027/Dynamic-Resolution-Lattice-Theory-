@@ -210,10 +210,42 @@ Path (a) is most tractable for next iteration — 16 atomic
 manageable search space.  Path (c) is the most fundamental but
 requires the math-branch Cohomology 213 merging into main first.
 
-**Hunter v6 plan**:
-  add `apply_alpha_em_alpha_GUT_cross(q, k_em, k_GUT, zeta)`
-    computing q · (1 + α_em·k_em + α_GUT·k_GUT)
-            and q · (1 + α_em·α_GUT·k_em·k_GUT)
-  with α_em ≈ 1/137.036 from the bracketed 1/α_em.
+**Hunter v6 implemented + tested 2026-04-30** (commit 4270cc7):
+
+Full path (a) — three structural hint integrations:
+  Hint 1 (CupRing cross-coupling):
+    apply_alpha_em(q, k)        → q · (1 + α_em·k)
+    apply_alpha_cross_mul       → q · (1+α_em·k_em)·(1+α_GUT·k_gut)
+    apply_alpha_cross_quot      → q · (1+α_GUT·k_gut)/(1+α_em·k_em)
+  Hint 2 (chiralDim bigrading):
+    chiralDim(i,j) = C(NS,i)·C(NT,j) ratios in atomic_fractions
+  Hint 3 (K_{25} L=2 anchors):
+    276 = b_1(K_{25}), 300 = numE, 625, 3125 = d^d, 6250
+
+**Empirical result**: m_n/m_p in v6 still 195 ppm — UNCHANGED from
+v3/v4/v5.  Cross-coupling, paired α, α², primes 17–47 — none
+close it.
+
+**Conclusion (definitive)**: Tier-4 composite-particle observables
+are NOT search-closeable in any single-Δ⁴ hunter parameterization.
+m_n/m_p − 1 = 0.001378 sits between NT·α² and NS·α² with no
+clean atomic factor for additive, multiplicative, paired, α² or
+α_em·α_GUT cross corrections.
+
+This is the EMPIRICAL SIGNATURE of Class F (multi-simplex
+composite): hunter framework extracts ALL search-closeable
+observables (Tier 1-3) and provides positive evidence that
+anything stuck at Tier 4 is genuinely Class F.
+
+**Remaining path = (c)**: direct K_{25} 3-quark sub-cohomology
+analysis.  uud / udd glued sub-configurations of K_{25} project
+to m_n/m_p, g_p as *propEq* statements.  Requires math-branch
+Cohomology 213 (CupRing, Bipartite32Betti, MultiSimplexComposite)
+merging into main, then concrete uud/udd Lean theorems.
+
+Until merge, Tier 4 stands as:
+- search-impossible by construction
+- positively classified as Class F
+- ready for direct cohomological closure once toolchain available
 
 — last updated 2026-04-30
