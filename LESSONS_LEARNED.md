@@ -249,10 +249,15 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 
 | 패턴 | 대체 |
 |---|---|
-| `k + N = (k + n) + n` (N=2n, doubling) | `(Nat.add_assoc k n n).symm` |
-| `k + N = ((k+n)+n)+n` (N=3n, tripling) | `rfl` (literal Nat reduces) |
+| `k + N = (k + n) + n` (N=2n, doubling) | `rfl` ★ |
+| `k + N = ((k+n)+n)+n` (N=3n, tripling) | `rfl` ★ |
+| `k + (n+1) = (k+n) + 1` | `rfl` ★ |
 | `k+1+N = (k+N)+1` | `Nat.succ_add k N` |
 | `0 + N = N` | `Nat.zero_add` |
+| `k = N₀ + (k - N₀)` (k ≥ N₀) | `(Nat.add_sub_cancel' h).symm` (propext 잔여) |
+
+★ Nat addition은 우측 인자 기반 recursion이므로 변수 좌측 +
+Nat literal 우측 식은 `rfl` 으로 충분.  `Nat.add_assoc` 호출 불필요.
 
 **핵심 발견** (commit 9e811cb):
 변수 좌측 + Nat literal 우측의 add 식은 정의적으로 reduce 됨.
