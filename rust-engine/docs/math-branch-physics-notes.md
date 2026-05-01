@@ -2120,10 +2120,10 @@ Real213 dyadic infrastructure (6 files):
   (cutMid is a bit-shift).
 - `Real213DyadicBracket`: dyadic IVT brackets.  Each bisection
   descends one tree level (E → E+1), halves bracket exactly.
-- `Real213DyadicRiemann`: dyadic Riemann sample-sum trajectory
+- `Real213/DyadicRiemann.lean`: dyadic Riemann sample-sum trajectory
   for 213-native integration.
-- `Real213DyadicTrajectory`: concrete bisection trajectories.
-- `Real213HasDyadicMVTWitness`: class for constructive dyadic
+- `Real213/DyadicTrajectory.lean`: concrete bisection trajectories.
+- `Real213/HasDyadicMVTWitness.lean`: class for constructive dyadic
   MVT witnesses (when MVT point IS itself a dyadic cut — lucky
   functions).
 - `Real213IntegralDyadic`: integration over arbitrary dyadic

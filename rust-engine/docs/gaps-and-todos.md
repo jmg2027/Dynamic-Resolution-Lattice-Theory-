@@ -1,9 +1,10 @@
 # Gaps & TODOs — Rust Engine Cleanup Notes
 
-Surfaced during the 2026-04 reorganization (papers/PAPER5_DRAFT.md →
-docs/precision-matrix.md).  These are *not* bugs in the verified
-0-axiom Lean theorems; they are loose ends in the Rust verification
-layer or pending Lean formalizations worth doing.
+Surfaced during the 2026-04 reorganization that promoted what was
+once `papers/PAPER5_DRAFT.md` to `docs/precision-matrix.md`
+(papers/ has since been deleted, commit a02b751).  These are *not*
+bugs in the verified 0-axiom Lean theorems; they are loose ends in
+the Rust verification layer or pending Lean formalizations.
 
 ## 1.  Loose whitelist citations  ✅ RESOLVED 2026-04-30
 
@@ -170,8 +171,9 @@ most-cited 0-axiom claims.
 
 - HANDOFF.md still claimed "31+ binaries" — actual count = 48.
 - precision-matrix.md was previously misnamed `papers/PAPER5_DRAFT.md`
-  (paper 5 in `papers/` is `paper5_critical_line.tex`, an unrelated
-  RH paper).  Now lives under `rust-engine/docs/` as engine companion.
+  (paper 5 in the now-deleted `papers/` was `paper5_critical_line.tex`,
+  an unrelated RH paper).  Now lives under `rust-engine/docs/` as
+  engine companion.
 
 ## 9.  Class F (composite hadron) Tier-4 empirical status
 
