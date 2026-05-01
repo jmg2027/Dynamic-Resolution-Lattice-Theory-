@@ -401,7 +401,7 @@ lean = "E213.Physics.KoideFormula.koide_atomic"
 
 [[op]]
 rust = "drlt_app::bin::proton_g"
-lean = "E213.Physics.ProtonG.g_p_atomic_skeleton"
+lean = "E213.Physics.ProtonG.g_p_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::atomic_hunter"
