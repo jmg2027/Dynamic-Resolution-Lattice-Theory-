@@ -77,12 +77,24 @@ lake env lean -e '...'           # eval (used by lean-rust-diff)
   - `Tactic/VerifyR4.lean` — R4Codomain instance diagnostic
   - `Tools/CertChecker.lean` — Lean-side certificate verifier
 
-## Cleanup status (per AUDIT_GUIDE.md)
+## Cleanup status (2026-05-01, post Phase 3+7)
 
-Lean tree count: ~810 files.  Cleanup targets:
-  - `Math/Cohomology/Dyadic*` — 77 flat files → sub-cluster reorg pending
-  - `Research/` — 332 files → dependency-graph audit pending
-  - omega → omega213 migration: 195 calls / 50 files pending
+Lean tree count: ~810 files (unchanged in count; reorganized in
+structure).
+
+Sub-clustered (this session):
+  - `Math/Cohomology/Dyadic/` — 8 sub-clusters (ArithFSM, BitFSM,
+    Pell, Fib, Trib, Legendre, Pisano, Archive)
+  - `Math/Cohomology/{Bipartite, Cochain, Cup, CupAW, Delta,
+    Fractal, Hodge, Universal}/` — 8 sub-clusters
+  - `Research/Real213/` — 180 files (Bishop analysis marathon)
+
+Pending:
+  - Phase 1 versioning consolidation (PisanoPredictor 9→1, etc.) —
+    requires content migration, deferred
+  - Phase 5 omega → omega213 migration: 195 calls / 50 files
+  - Native213 deeper: Nat.div_* avoidance via `q*n + r = x ∧ r < n`
+    decomposition
 
 Hands-off layers (well-organized): Kernel, Firmware, OS, Hypervisor,
 App, Meta, Physics.
