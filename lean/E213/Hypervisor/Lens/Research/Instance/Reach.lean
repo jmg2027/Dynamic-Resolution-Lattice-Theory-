@@ -1,4 +1,4 @@
-import E213.Meta.SemanticAtom
+import E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-!
 # Research.InstanceReach: boundary of the image of universalMorphism
@@ -34,7 +34,7 @@ Note 80 analysis.
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Witness: trivial-combine instance on Fin 3 -/
 
@@ -62,7 +62,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- **Strict subset of the image**: element 2 of Fin 3 is outside
     the image of universalMorphism.  Explicit witness of the separation
@@ -80,7 +80,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Dual: Bool instance is surjective
 
@@ -108,7 +108,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Minimality property of the image (closure under bases) -/
 
@@ -136,7 +136,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Infinite surjective: Nat with addition
 
@@ -162,7 +162,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- Concrete witnesses for small Nat values — Raw.a, Raw.b cover
     {0, 1}, and slash generates larger elements. -/
@@ -184,7 +184,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Nat surjective: complete proof
 
@@ -222,7 +222,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### natWitness construction note
 
@@ -257,7 +257,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- Helper: combined `r ≠ Raw.b` for both Raw.a and slash forms. -/
 private theorem natWitness_ne_b_helper (r : Raw)
@@ -272,7 +272,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- **Nat surjective with form invariant**: for every n, simultaneously
     induct on the explicit Raw witness's form (form invariant used in
@@ -305,7 +305,7 @@ end E213.Hypervisor.Lens.Research.Instance.Reach
 namespace E213.Hypervisor.Lens.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Int with addition: infinite non-surjective
 

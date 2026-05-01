@@ -1,4 +1,4 @@
-import E213.Meta.Universal.QuotLens
+import E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-!
 # Research.ChoiceResolved: Formal version of "choice = Lens specification"
@@ -25,7 +25,7 @@ universalLens E.
 
 namespace E213.Math.Choice.Resolved
 
-open E213.Firmware E213.Hypervisor E213.Meta.Universal.QuotLens
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- **Choice resolved**: For any slash-congruence E, a concrete Lens
     exists (0 external axioms).  Universal construction without

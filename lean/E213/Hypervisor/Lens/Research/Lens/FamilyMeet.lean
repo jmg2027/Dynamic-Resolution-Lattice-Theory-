@@ -1,4 +1,4 @@
-import E213.Meta.Universal.QuotLens
+import E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-!
 # Research.FamilyMeet: slash-congruence meet of an arbitrary-index family
@@ -25,7 +25,7 @@ Lens-kernel space.
 namespace E213.Hypervisor.Lens.Research.Lens.FamilyMeet
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.Universal.QuotLens
+open E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- Index-wise intersection of a slash-congruence family. -/
 def familyMeet {I : Type} (E : I → Raw → Raw → Prop)
@@ -60,7 +60,7 @@ end E213.Hypervisor.Lens.Research.Lens.FamilyMeet
 namespace E213.Hypervisor.Lens.Research.Lens.FamilyMeet
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.Universal.QuotLens
+open E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- **Family meet via universalLens**: the simultaneous slash-congruence
     intersection of an arbitrary family `⟨E_i⟩_{i ∈ I}` can be

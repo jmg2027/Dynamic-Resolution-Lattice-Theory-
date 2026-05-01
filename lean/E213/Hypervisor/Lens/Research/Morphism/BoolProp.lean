@@ -1,4 +1,4 @@
-import E213.Meta.SemanticAtom
+import E213.Hypervisor.Lens.Research.SemanticAtom
 import E213.Hypervisor.Lens.Research.Instance.Reach
 
 /-!
@@ -14,7 +14,7 @@ for multiple Prop instances — formalized directly via an explicit record.
 namespace E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.InstanceReach
 
 /-- Bool → Prop, b ↦ (b = true).  Structure preservation:
@@ -41,7 +41,7 @@ end E213.Hypervisor.Lens.Research.Morphism.BoolProp
 namespace E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.InstanceReach
 
 /-- **Functorial commutativity**: the images of Raw's universal morphism
@@ -80,7 +80,7 @@ end E213.Hypervisor.Lens.Research.Morphism.BoolProp
 namespace E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.InstanceReach
 
 /-! ### Commutativity of Bool with Xor + Prop with Xor
@@ -141,7 +141,7 @@ end E213.Hypervisor.Lens.Research.Morphism.BoolProp
 namespace E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.InstanceReach
 
 /-! ### Functoriality of Or and Iff connective pairs -/
@@ -193,7 +193,7 @@ end E213.Hypervisor.Lens.Research.Morphism.BoolProp
 namespace E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.InstanceReach
 
 /-- Bool with beq (= equality on Bool) combine instance. -/

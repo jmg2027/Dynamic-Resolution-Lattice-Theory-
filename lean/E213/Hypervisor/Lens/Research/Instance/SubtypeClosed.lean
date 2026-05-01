@@ -1,4 +1,4 @@
-import E213.Meta.SemanticAtom
+import E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-!
 # Research.SubtypeInstanceClosed: slash-based combine instance for
@@ -19,7 +19,7 @@ Replaces the degenerate combine of `SubtypeInstance.lean`.
 namespace E213.Hypervisor.Lens.Research.Instance.SubtypeClosed
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- `P` is closed over `Raw.slash`: P is preserved on distinct args. -/
 class SlashClosed (P : Raw → Prop) : Prop where
@@ -30,7 +30,7 @@ end E213.Hypervisor.Lens.Research.Instance.SubtypeClosed
 namespace E213.Hypervisor.Lens.Research.Instance.SubtypeClosed
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- Slash-based combine on Subtype.  Falls back to base_a when
     vals are equal (since slash only accepts distinct args). -/
@@ -59,7 +59,7 @@ end E213.Hypervisor.Lens.Research.Instance.SubtypeClosed
 namespace E213.Hypervisor.Lens.Research.Instance.SubtypeClosed
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- **Slash-based HasDistinguishing instance** on
     `{r : Raw // P r}` for distinguishing-closed `P`.
@@ -83,7 +83,7 @@ end E213.Hypervisor.Lens.Research.Instance.SubtypeClosed
 namespace E213.Hypervisor.Lens.Research.Instance.SubtypeClosed
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Concrete instance: `True`-predicate (the trivial slash-closed)
 

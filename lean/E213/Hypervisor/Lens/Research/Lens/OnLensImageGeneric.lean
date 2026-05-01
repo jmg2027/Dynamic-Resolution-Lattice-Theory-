@@ -27,7 +27,7 @@ level of the recursive Lens^n α tower.
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImageGeneric
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 
 /-- `lensCombineGeneric c (constLens a) (constLens b) = constLens (c a b)`. -/
@@ -40,7 +40,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLensImageGeneric
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImageGeneric
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 
 /-- Composite map: Raw → α → Lens α via constLens. -/
@@ -70,7 +70,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLensImageGeneric
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImageGeneric
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 
 /-- **Generic tower collapse**: for any `α` with HasDistinguishing,

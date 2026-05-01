@@ -1,4 +1,4 @@
-import E213.Meta.SemanticAtom
+import E213.Hypervisor.Lens.Research.SemanticAtom
 import E213.Hypervisor.Lens.Research.Instance.Reach
 
 /-!
@@ -27,7 +27,7 @@ atom.
 namespace E213.Hypervisor.Lens.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- Constant-true Lens. -/
 def constTrueLens : Lens Bool := ⟨true, true, fun _ _ => true⟩
@@ -47,7 +47,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLens
 namespace E213.Hypervisor.Lens.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- Pointwise xor combine of Lenses. -/
 def lensXor (L M : Lens Bool) : Lens Bool :=
@@ -68,7 +68,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLens
 namespace E213.Hypervisor.Lens.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- **Lens-on-Lens**: Lens Bool itself is a HasDistinguishing instance. -/
 def lensBoolHasDistinguishing : HasDistinguishing (Lens Bool) where
@@ -83,7 +83,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLens
 namespace E213.Hypervisor.Lens.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Universal morphism Raw → Lens Bool
 
@@ -112,7 +112,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLens
 namespace E213.Hypervisor.Lens.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Generic Lens-on-Lens: recursive self-application
 
@@ -152,7 +152,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLens
 namespace E213.Hypervisor.Lens.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- **Generic Lens-on-Lens**: `HasDistinguishing α → HasDistinguishing
     (Lens α)`.  The Lens type itself is an instance of the semantic
@@ -173,7 +173,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLens
 namespace E213.Hypervisor.Lens.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.InstanceReach
 
 /-! ### Tower demonstration: infinite recursive instances

@@ -1,4 +1,4 @@
-import E213.Meta.SemanticAtom
+import E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-!
 # Research.CanonicalTruthChar: Exact characterization of canonicalTruthMap
@@ -24,7 +24,7 @@ And canonicalTruthMap r is the Prop translation of
 namespace E213.Math.Choice.CanonicalTruthChar
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- Bool-valued a-count parity Lens. -/
 def aCountParityLens : Lens Bool := ⟨true, false, fun x y => xor x y⟩
@@ -45,7 +45,7 @@ end E213.Math.Choice.CanonicalTruthChar
 namespace E213.Math.Choice.CanonicalTruthChar
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- Specific reduction of canonicalTruthMap at a. -/
 private theorem ctm_a : canonicalTruthMap Raw.a = True :=
@@ -67,7 +67,7 @@ end E213.Math.Choice.CanonicalTruthChar
 namespace E213.Math.Choice.CanonicalTruthChar
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- **Main characterization**: canonicalTruthMap r ↔ aCountParityLens.view r = true. -/
 theorem canonicalTruthMap_iff_aCountOdd (r : Raw) :
@@ -88,7 +88,7 @@ end E213.Math.Choice.CanonicalTruthChar
 namespace E213.Math.Choice.CanonicalTruthChar
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Characterization of the Iff alternative
 
@@ -117,7 +117,7 @@ end E213.Math.Choice.CanonicalTruthChar
 namespace E213.Math.Choice.CanonicalTruthChar
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- **The morphisms of two Prop instances differ**: the results of
     canonicalTruthMap (Xor) and canonicalIffMap (Iff) differ at a
@@ -158,7 +158,7 @@ end E213.Math.Choice.CanonicalTruthChar
 namespace E213.Math.Choice.CanonicalTruthChar
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Iff alternative characterization (b-count parity) -/
 
@@ -189,7 +189,7 @@ end E213.Math.Choice.CanonicalTruthChar
 namespace E213.Math.Choice.CanonicalTruthChar
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### And-based characterization: r = Raw.a iff canonicalAndMap
 
@@ -235,7 +235,7 @@ end E213.Math.Choice.CanonicalTruthChar
 namespace E213.Math.Choice.CanonicalTruthChar
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Or-based characterization: r ≠ Raw.b iff canonicalOrMap
 

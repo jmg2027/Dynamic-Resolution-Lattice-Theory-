@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens.Research.Lens.JoinEquiv
-import E213.Meta.Universal.QuotLens
+import E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-!
 # Research.JoinLens: concrete join Lens for an arbitrary Lens pair
@@ -23,7 +23,7 @@ of the refines preorder.
 namespace E213.Hypervisor.Lens.Research.Lens.Join
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.Lens.JoinEquiv E213.Meta.Universal.QuotLens
+open E213.Hypervisor.Lens.Research.Lens.JoinEquiv E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- JoinEquiv L M is an equivalence relation. -/
 private theorem joinEquiv_refl {α β : Type} (L : Lens α) (M : Lens β)

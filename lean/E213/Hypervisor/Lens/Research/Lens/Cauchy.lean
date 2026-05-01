@@ -1,4 +1,4 @@
-import E213.Meta.Universal.QuotLens
+import E213.Hypervisor.Lens.Research.Universal.QuotLens
 import E213.Hypervisor.Lens.Research.Lens.IndexedJoin
 
 /-!
@@ -148,7 +148,7 @@ end E213.Hypervisor.Lens.Research.Lens.Cauchy
 
 namespace E213.Hypervisor.Lens.Research.Lens.Cauchy
 
-open E213.Firmware E213.Hypervisor E213.Meta.Universal.QuotLens
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- **Tail congruence**: minimum slash-congruence starting from the
     tail of sequence xs.  All tail elements (xs m, xs k) for m, k ≥ N

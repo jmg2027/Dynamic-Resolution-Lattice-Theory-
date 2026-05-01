@@ -1,4 +1,4 @@
-import E213.Meta.SemanticAtom
+import E213.Hypervisor.Lens.Research.SemanticAtom
 import E213.Hypervisor.Lens.Research.Instance.Reach
 
 /-!
@@ -21,7 +21,7 @@ atoms.
 namespace E213.Hypervisor.Lens.Research.Instance.Pair
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- Pair instance: the product of two HasDistinguishing instances. -/
 def pairHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]
@@ -41,7 +41,7 @@ end E213.Hypervisor.Lens.Research.Instance.Pair
 namespace E213.Hypervisor.Lens.Research.Instance.Pair
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- **Universal property of binary product**: universalMorphism (α × β)
     is the pair of componentwise universalMorphisms. -/
@@ -85,7 +85,7 @@ end E213.Hypervisor.Lens.Research.Instance.Pair
 namespace E213.Hypervisor.Lens.Research.Instance.Pair
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Pair forget projections (categorical projection morphisms)
 
@@ -129,7 +129,7 @@ end E213.Hypervisor.Lens.Research.Instance.Pair
 namespace E213.Hypervisor.Lens.Research.Instance.Pair
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-! ### Combination of universal property and forget projections
 

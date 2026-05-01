@@ -1,4 +1,4 @@
-import E213.Meta.SemanticAtom
+import E213.Hypervisor.Lens.Research.SemanticAtom
 import E213.Hypervisor.Lens.Research.Instance.Reach
 
 /-!
@@ -20,7 +20,7 @@ analogous to Lens.
 namespace E213.Hypervisor.Lens.Research.Instance.FunctionSpace
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.InstanceReach
 
 /-- HasDistinguishing instance for function space `α → β`.
@@ -47,7 +47,7 @@ end E213.Hypervisor.Lens.Research.Instance.FunctionSpace
 namespace E213.Hypervisor.Lens.Research.Instance.FunctionSpace
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.InstanceReach
 
 /-- **Universal morphism Raw → (α → β)** via function-space instance.

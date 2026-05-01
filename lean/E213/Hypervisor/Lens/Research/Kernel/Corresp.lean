@@ -1,4 +1,4 @@
-import E213.Meta.Universal.QuotLens
+import E213.Hypervisor.Lens.Research.Universal.QuotLens
 import E213.Hypervisor.Lens.Research.Kernel.Congruence
 
 /-!
@@ -21,7 +21,7 @@ K = {Lens kernels} = {slash-congruences}.
 namespace E213.Hypervisor.Lens.Research.Kernel.Corresp
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.Universal.QuotLens
+open E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- Slash-congruence predicate. -/
 def IsSlashCongruence (E : Raw → Raw → Prop) : Prop :=
@@ -49,7 +49,7 @@ end E213.Hypervisor.Lens.Research.Kernel.Corresp
 namespace E213.Hypervisor.Lens.Research.Kernel.Corresp
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.Universal.QuotLens
+open E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- **Direction 2**: any slash-congruence is the kernel of some Lens.
     `universalLens E` is the explicit witness (§5.1). -/

@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens
-import E213.Firmware.Raw.Research.Initiality
+import E213.Hypervisor.Lens.Research.Initiality
 
 /-!
 # Research.FoldStructured: exact characterization of Lens-expressible functions
@@ -20,7 +20,7 @@ This file is the **function version**.
 
 namespace E213.Hypervisor.Lens.Research.Morphism.FoldStructured
 
-open E213.Firmware E213.Hypervisor E213.Firmware.Raw.Research.Initiality
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Research.Initiality
 
 /-- `f : Raw → α` is fold-structured. -/
 def FoldStructured {α : Type} (f : Raw → α) : Prop :=

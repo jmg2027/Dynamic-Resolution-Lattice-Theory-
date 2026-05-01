@@ -1,4 +1,4 @@
-import E213.Meta.Universal.QuotLens
+import E213.Hypervisor.Lens.Research.Universal.QuotLens
 import E213.Hypervisor.Lens.Research.Lens.JoinEquiv
 
 /-!
@@ -22,7 +22,7 @@ Provides new expressiveness for infinite families.
 namespace E213.Hypervisor.Lens.Research.Lens.IndexedJoin
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.Lens.JoinEquiv E213.Meta.Universal.QuotLens
+open E213.Hypervisor.Lens.Research.Lens.JoinEquiv E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- Indexed join equivalence: smallest slash-congruence containing
     each L_i.equiv, for an arbitrary family of Lenses. -/

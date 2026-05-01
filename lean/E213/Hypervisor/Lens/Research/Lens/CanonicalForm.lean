@@ -1,4 +1,4 @@
-import E213.Meta.Universal.QuotLens
+import E213.Hypervisor.Lens.Research.Universal.QuotLens
 import E213.Hypervisor.Lens.Research.Kernel.Congruence
 
 /-!
@@ -27,7 +27,7 @@ Analysis of Note 78.
 namespace E213.Hypervisor.Lens.Research.Lens.CanonicalForm
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.Universal.QuotLens
+open E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- **Lens refines-equivalence**: two Lenses share the same kernel. -/
 def refinesEquiv {α β : Type} (L : Lens α) (M : Lens β) : Prop :=
@@ -45,7 +45,7 @@ end E213.Hypervisor.Lens.Research.Lens.CanonicalForm
 namespace E213.Hypervisor.Lens.Research.Lens.CanonicalForm
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.Universal.QuotLens
+open E213.Hypervisor.Lens.Research.Universal.QuotLens
 
 /-- **Self-stabilization**: any Lens M is refines-equivalent to
     `universalLens M.equiv`. -/

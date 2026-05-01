@@ -1,4 +1,4 @@
-import E213.Meta.SemanticAtom
+import E213.Hypervisor.Lens.Research.SemanticAtom
 import E213.Hypervisor.Lens.Research.Instance.Reach
 
 /-!
@@ -38,7 +38,7 @@ content — interesting to analyze.)
 namespace E213.Hypervisor.Lens.Research.Instance.Sum
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.InstanceReach
 
 /-- Priority-based combine for Sum type. -/
@@ -60,7 +60,7 @@ end E213.Hypervisor.Lens.Research.Instance.Sum
 namespace E213.Hypervisor.Lens.Research.Instance.Sum
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 
 /-- HasDistinguishing instance for Sum type. -/
 def sumHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]

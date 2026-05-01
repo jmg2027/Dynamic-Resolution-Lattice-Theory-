@@ -33,7 +33,7 @@ a formal negative theorem.
 namespace E213.Hypervisor.Lens.Research.Instance.SumNotCoproduct
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.Instance.Sum
 open E213.Hypervisor.Lens.Research.Morphism.BoolProp
 

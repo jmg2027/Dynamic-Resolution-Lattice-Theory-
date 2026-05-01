@@ -1,4 +1,4 @@
-import E213.Meta.SemanticAtom
+import E213.Hypervisor.Lens.Research.SemanticAtom
 import E213.Hypervisor.Lens.Research.Lens.OnLens
 import E213.Hypervisor.Lens.Research.Lens.OnLensImageGeneric
 
@@ -20,7 +20,7 @@ Direct consequence of the universalAsLens definition in `UniversalReflection.lea
 namespace E213.Meta.Universal.MorphismFactor
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta.SemanticAtom
+open E213.Hypervisor.Lens.Research.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Hypervisor.Lens.Research.LensOnLensImageGeneric
 
