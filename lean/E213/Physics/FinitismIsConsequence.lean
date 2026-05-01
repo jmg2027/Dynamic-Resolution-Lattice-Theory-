@@ -1,4 +1,4 @@
-import E213.Research.Real213DyadicTrajectory
+import E213.Research.Real213.DyadicTrajectory
 import E213.Physics.NUniverseFractalDepth
 
 /-!
@@ -40,7 +40,7 @@ infinity" 와 양립하지 않음.  "Cauchy limit = exact value"가
 
 namespace E213.Physics.FinitismConsequence
 
-open E213.Research.Real213CutSum
+open E213.Research.Real213.CutSum
 
 /-- ★★★ Completed-infinity equality FAILS in 213. -/
 theorem completed_infinity_fails :

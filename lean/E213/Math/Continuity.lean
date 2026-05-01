@@ -1,7 +1,7 @@
-import E213.Research.Real213CutContinuity
-import E213.Research.Real213CutSumDetermined
-import E213.Research.Real213CutMulDetermined
-import E213.Research.Real213CutFnData
+import E213.Research.Real213.CutContinuity
+import E213.Research.Real213.CutSumDetermined
+import E213.Research.Real213.CutMulDetermined
+import E213.Research.Real213.CutFnData
 
 /-!
 # E213.Math.Continuity: locally-determined cut functions

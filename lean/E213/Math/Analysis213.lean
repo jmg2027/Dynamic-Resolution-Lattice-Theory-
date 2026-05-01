@@ -4,144 +4,144 @@
 -- Author: Mingu Jeong.  0 sorry, ≤ {propext, Quot.sound}, Mathlib-free.
 
 -- A. Cut Algebra (basic arithmetic)
-import E213.Research.Real213CutSum
-import E213.Research.Real213CutMul
-import E213.Research.Real213CutSumComm
-import E213.Research.Real213CutMulComm
-import E213.Research.Real213CutSumEq
-import E213.Research.Real213CutSumZero
-import E213.Research.Real213CutSumOne
-import E213.Research.Real213CutMulOne
-import E213.Research.Real213CutMidSelf
-import E213.Research.Real213CutBisection
-import E213.Research.Real213CutDouble
-import E213.Research.Real213CutPow
-import E213.Research.Real213CutPowConst
-import E213.Research.Real213CutPoset
+import E213.Research.Real213.CutSum
+import E213.Research.Real213.CutMul
+import E213.Research.Real213.CutSumComm
+import E213.Research.Real213.CutMulComm
+import E213.Research.Real213.CutSumEq
+import E213.Research.Real213.CutSumZero
+import E213.Research.Real213.CutSumOne
+import E213.Research.Real213.CutMulOne
+import E213.Research.Real213.CutMidSelf
+import E213.Research.Real213.CutBisection
+import E213.Research.Real213.CutDouble
+import E213.Research.Real213.CutPow
+import E213.Research.Real213.CutPowConst
+import E213.Research.Real213.CutPoset
 
 -- B. Dyadic structure
-import E213.Research.Real213DyadicBracket
-import E213.Research.Real213DyadicTrajectory
-import E213.Research.Real213DyadicRiemann
+import E213.Research.Real213.DyadicBracket
+import E213.Research.Real213.DyadicTrajectory
+import E213.Research.Real213.DyadicRiemann
 
 -- C. Differential calculus
-import E213.Research.Real213CutFnData
-import E213.Research.Real213IsSmooth
-import E213.Research.Real213ResolutionDepth
-import E213.Research.Real213IsDifferentiable
-import E213.Research.Real213DerivativeForms
-import E213.Research.Real213DerivativeDepth
-import E213.Research.Real213DifferentiableInstances
-import E213.Research.Real213DifferentiableHigherPow
-import E213.Research.Real213DifferentiableHighOrder
-import E213.Research.Real213DifferentiableMid
-import E213.Research.Real213DifferentiableAffine
-import E213.Research.Real213DifferentiableCompose
-import E213.Research.Real213DifferentiableMegaCoverage
-import E213.Research.Real213DifferentiationCapstone
-import E213.Research.Real213ConcreteDerivativeModulus
-import E213.Research.Real213ConcreteDerivativeModulusHigh
-import E213.Research.Real213ConcreteDerivativeModulusFinal
-import E213.Research.Real213ConcreteDerivativeMega
+import E213.Research.Real213.CutFnData
+import E213.Research.Real213.IsSmooth
+import E213.Research.Real213.ResolutionDepth
+import E213.Research.Real213.IsDifferentiable
+import E213.Research.Real213.DerivativeForms
+import E213.Research.Real213.DerivativeDepth
+import E213.Research.Real213.DifferentiableInstances
+import E213.Research.Real213.DifferentiableHigherPow
+import E213.Research.Real213.DifferentiableHighOrder
+import E213.Research.Real213.DifferentiableMid
+import E213.Research.Real213.DifferentiableAffine
+import E213.Research.Real213.DifferentiableCompose
+import E213.Research.Real213.DifferentiableMegaCoverage
+import E213.Research.Real213.DifferentiationCapstone
+import E213.Research.Real213.ConcreteDerivativeModulus
+import E213.Research.Real213.ConcreteDerivativeModulusHigh
+import E213.Research.Real213.ConcreteDerivativeModulusFinal
+import E213.Research.Real213.ConcreteDerivativeMega
 
 -- D. Cohomological framework
-import E213.Research.Real213FluxCut
-import E213.Research.Real213FluxCochain
-import E213.Research.Real213FluxDivergence
-import E213.Research.Real213FluxMVT
-import E213.Research.Real213FluxPolynomial
-import E213.Research.Real213FluxCohomologyCapstone
-import E213.Research.Real213FluxEquiv
-import E213.Research.Real213FluxEquivOps
+import E213.Research.Real213.FluxCut
+import E213.Research.Real213.FluxCochain
+import E213.Research.Real213.FluxDivergence
+import E213.Research.Real213.FluxMVT
+import E213.Research.Real213.FluxPolynomial
+import E213.Research.Real213.FluxCohomologyCapstone
+import E213.Research.Real213.FluxEquiv
+import E213.Research.Real213.FluxEquivOps
 
 -- E. MVT witness + Passthrough class
-import E213.Research.Real213FluxMVTConcrete
-import E213.Research.Real213FluxMVTPolynomial
-import E213.Research.Real213FluxMVTHigh
-import E213.Research.Real213FluxMVTGeneric
-import E213.Research.Real213FluxMVTPassthrough
-import E213.Research.Real213FluxMVTApplications
-import E213.Research.Real213FluxMVTClosure
-import E213.Research.Real213FluxPassthroughClass
-import E213.Research.Real213FluxPassthroughCatalog
-import E213.Research.Real213FluxMVTWitness
-import E213.Research.Real213HasDyadicMVTWitness
-import E213.Research.Real213FluxMVTMore
-import E213.Research.Real213MVTWitnessCatalog
-import E213.Research.Real213MVTWitnessChain
-import E213.Research.Real213FluxMVTNested
-import E213.Research.Real213FluxMVTNested2
-import E213.Research.Real213FluxMVTPattern
-import E213.Research.Real213FluxMVTPropagate
-import E213.Research.Real213FluxMVTPropagateCompose
+import E213.Research.Real213.FluxMVTConcrete
+import E213.Research.Real213.FluxMVTPolynomial
+import E213.Research.Real213.FluxMVTHigh
+import E213.Research.Real213.FluxMVTGeneric
+import E213.Research.Real213.FluxMVTPassthrough
+import E213.Research.Real213.FluxMVTApplications
+import E213.Research.Real213.FluxMVTClosure
+import E213.Research.Real213.FluxPassthroughClass
+import E213.Research.Real213.FluxPassthroughCatalog
+import E213.Research.Real213.FluxMVTWitness
+import E213.Research.Real213.HasDyadicMVTWitness
+import E213.Research.Real213.FluxMVTMore
+import E213.Research.Real213.MVTWitnessCatalog
+import E213.Research.Real213.MVTWitnessChain
+import E213.Research.Real213.FluxMVTNested
+import E213.Research.Real213.FluxMVTNested2
+import E213.Research.Real213.FluxMVTPattern
+import E213.Research.Real213.FluxMVTPropagate
+import E213.Research.Real213.FluxMVTPropagateCompose
 
 -- F. ClassicCalc unified class
-import E213.Research.Real213ClassicCalc
-import E213.Research.Real213ClassicCalcHigher
-import E213.Research.Real213ClassicCalcExtreme
-import E213.Research.Real213ClassicCalcGeneric
-import E213.Research.Real213ClassicCalcMid
-import E213.Research.Real213ClassicCalcCombinators
-import E213.Research.Real213ClassicAnti
+import E213.Research.Real213.ClassicCalc
+import E213.Research.Real213.ClassicCalcHigher
+import E213.Research.Real213.ClassicCalcExtreme
+import E213.Research.Real213.ClassicCalcGeneric
+import E213.Research.Real213.ClassicCalcMid
+import E213.Research.Real213.ClassicCalcCombinators
+import E213.Research.Real213.ClassicAnti
 
 -- G. Integration / antiderivatives
-import E213.Research.Real213Antiderivative
-import E213.Research.Real213AntiderivativeCombinators
-import E213.Research.Real213AntiderivativeStructural
-import E213.Research.Real213IntegralViaAnti
-import E213.Research.Real213IntegralProperties
-import E213.Research.Real213IndefiniteIntegral
-import E213.Research.Real213IntegralIntInterval
-import E213.Research.Real213IntegralGeneralInt
-import E213.Research.Real213IntegralDyadic
+import E213.Research.Real213.Antiderivative
+import E213.Research.Real213.AntiderivativeCombinators
+import E213.Research.Real213.AntiderivativeStructural
+import E213.Research.Real213.IntegralViaAnti
+import E213.Research.Real213.IntegralProperties
+import E213.Research.Real213.IndefiniteIntegral
+import E213.Research.Real213.IntegralIntInterval
+import E213.Research.Real213.IntegralGeneralInt
+import E213.Research.Real213.IntegralDyadic
 
 -- H. FTC + Riemann
-import E213.Research.Real213FluxFTC
-import E213.Research.Real213FluxFTCPolynomial
-import E213.Research.Real213FTCRiemann
-import E213.Research.Real213FTCRiemannSquare
-import E213.Research.Real213FTCRiemannMid
-import E213.Research.Real213FTCRiemannGeneric
-import E213.Research.Real213FTCRiemannChain
+import E213.Research.Real213.FluxFTC
+import E213.Research.Real213.FluxFTCPolynomial
+import E213.Research.Real213.FTCRiemann
+import E213.Research.Real213.FTCRiemannSquare
+import E213.Research.Real213.FTCRiemannMid
+import E213.Research.Real213.FTCRiemannGeneric
+import E213.Research.Real213.FTCRiemannChain
 
 -- I. ODE + physics
-import E213.Research.Real213ODELinear
-import E213.Research.Real213ODECatalog
-import E213.Research.Real213ODESecondOrder
-import E213.Research.Real213NewtonFirst
-import E213.Research.Real213NewtonSecond
-import E213.Research.Real213CubeDerivativeAtZero
+import E213.Research.Real213.ODELinear
+import E213.Research.Real213.ODECatalog
+import E213.Research.Real213.ODESecondOrder
+import E213.Research.Real213.NewtonFirst
+import E213.Research.Real213.NewtonSecond
+import E213.Research.Real213.CubeDerivativeAtZero
 
 -- J. Series + 7 transcendental functions at zero
-import E213.Research.Real213CutSequence
-import E213.Research.Real213CutSeries
-import E213.Research.Real213CutSeriesConst
-import E213.Research.Real213CutSeriesZero
-import E213.Research.Real213CutGeomSeries
-import E213.Research.Real213FluxSeries
-import E213.Research.Real213GeomSeriesPartialSum
-import E213.Research.Real213ExpAtZero
-import E213.Research.Real213SinCosAtZero
-import E213.Research.Real213TranscendentalAtZero
+import E213.Research.Real213.CutSequence
+import E213.Research.Real213.CutSeries
+import E213.Research.Real213.CutSeriesConst
+import E213.Research.Real213.CutSeriesZero
+import E213.Research.Real213.CutGeomSeries
+import E213.Research.Real213.FluxSeries
+import E213.Research.Real213.GeomSeriesPartialSum
+import E213.Research.Real213.ExpAtZero
+import E213.Research.Real213.SinCosAtZero
+import E213.Research.Real213.TranscendentalAtZero
 
 -- K. Capstone theorem collection
-import E213.Research.Real213PhaseLCapstone
-import E213.Research.Real213PhaseACMinimumProposition
-import E213.Research.Real213PhaseADCapstone
-import E213.Research.Real213PhaseAESuperCapstone
-import E213.Research.Real213PhaseAHGrandCapstone
-import E213.Research.Real213PhaseANOmegaCapstone
-import E213.Research.Real213PhaseBACapstone
-import E213.Research.Real213PhaseBHCapstone
-import E213.Research.Real213PhaseBQOmegaCapstone
-import E213.Research.Real213PhaseBXCapstone
-import E213.Research.Real213PhaseCMFinalCapstone
-import E213.Research.Real213PhaseCSCapstone
-import E213.Research.Real213PhaseDAOmegaOmega
-import E213.Research.Real213PhaseDKUltimate
+import E213.Research.Real213.PhaseLCapstone
+import E213.Research.Real213.PhaseACMinimumProposition
+import E213.Research.Real213.PhaseADCapstone
+import E213.Research.Real213.PhaseAESuperCapstone
+import E213.Research.Real213.PhaseAHGrandCapstone
+import E213.Research.Real213.PhaseANOmegaCapstone
+import E213.Research.Real213.PhaseBACapstone
+import E213.Research.Real213.PhaseBHCapstone
+import E213.Research.Real213.PhaseBQOmegaCapstone
+import E213.Research.Real213.PhaseBXCapstone
+import E213.Research.Real213.PhaseCMFinalCapstone
+import E213.Research.Real213.PhaseCSCapstone
+import E213.Research.Real213.PhaseDAOmegaOmega
+import E213.Research.Real213.PhaseDKUltimate
 
 -- L. Bridge to physics track
-import E213.Research.Real213PhysicsBridgeNT2
+import E213.Research.Real213.PhysicsBridgeNT2
 
 namespace E213.Math.Analysis213
 
@@ -150,7 +150,7 @@ namespace E213.Math.Analysis213
 
 ```lean
 import E213.Math.Analysis213
-open E213.Research.Real213CutSum
+open E213.Research.Real213.CutSum
 
 -- 18-fact ULTIMATE capstone covering all 1st-year calculus + ODE + 7 transcendentals
 #check @phaseDK_ultimate_capstone

@@ -1,5 +1,5 @@
 import E213.Physics.Phase2.Pairs
-import E213.Research.Real213PhysicsBridgeNT2
+import E213.Research.Real213.PhysicsBridgeNT2
 
 /-!
 # Phase 2 Time — what does unfolding the NT=2 sector yield?
@@ -42,7 +42,7 @@ All actual proofs are already in the bridge — this file is a thin wrapper.
 namespace E213.Physics.Phase2.Time
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.Real213CutSum
+open E213.Research.Real213.CutSum
 
 /-- NT sector = atomic 2-block.  Phase 2 explicitly assigns Lens label
     "time-like" here. -/
