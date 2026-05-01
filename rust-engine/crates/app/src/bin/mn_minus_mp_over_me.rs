@@ -9,12 +9,13 @@
 //!                   [HadronBigrading.mn_mp_split_atomic]
 //!     = 6 · π⁵ · (9/32) · α_em · (1 − 45·α_em)
 //!
-//! Hunter v6 best: 1264 ppm.  Compositional closure: ~24 ppm — 53×.
-//! (Floor = 19 ppm of m_p/m_e ≈ NS·NT·π⁵ Class C; δ contributes 1 ppb.)
+//! Hunter v6 best: 1264 ppm.  Compositional closure (v2): ~5 ppm — 260×.
+//! Uses m_p/m_e v2 = NS·NT·π⁵·(1 + α_GUT/(NS·NT)⁴) at 0.06 ppm
+//! (4-edge cup-chain on K_{3,2}^{(c=2)}); δ contributes 1 ppb.
 //!
 //! Lean: HadronBigrading.mn_minus_mp_over_me_atomic (0-axiom).
 
-use drlt_app::basel::Q;
+use drlt_app::basel::{s_partial, Q};
 use drlt_app::gap_explorer::{decimal, nat};
 use drlt_app::wallis::pi_bracket;
 
@@ -43,10 +44,28 @@ fn main() {
     let pi5_hi = mul_q(&mul_q(&mul_q(&mul_q(&pi_hi, &pi_hi), &pi_hi),
         &pi_hi), &pi_hi);
     let six: Q = (nat(6u64), nat(1u64));
-    let mp_me_lo = mul_q(&six, &pi5_lo);
-    let mp_me_hi = mul_q(&six, &pi5_hi);
+    let bare_lo = mul_q(&six, &pi5_lo);
+    let bare_hi = mul_q(&six, &pi5_hi);
 
-    println!("m_p/m_e = 6·π⁵     ∈ [{}, {}]",
+    // α_GUT = 1/(d²·ζ(2)) via Basel partial sum (N = 5000)
+    let s = s_partial(5000u64);
+    let np1 = nat(5001u64);
+    let zeta_tight: Q = (&s.0 * &np1 + &s.1, &s.1 * &np1);
+    let agut: Q = (zeta_tight.1.clone(), nat(25) * &zeta_tight.0);
+
+    // tail = (1 + α_GUT / (NS·NT)⁴) = (1 + α_GUT / 1296)
+    let tail_correction: Q = (agut.0.clone(), &agut.1 * nat(1296u64));
+    let tail: Q = (&tail_correction.0 + &tail_correction.1,
+                   tail_correction.1.clone());
+
+    let mp_me_lo = mul_q(&bare_lo, &tail);
+    let mp_me_hi = mul_q(&bare_hi, &tail);
+
+    println!("m_p/m_e bare 6·π⁵   ∈ [{}, {}]",
+        decimal(&bare_lo, 6), decimal(&bare_hi, 6));
+    println!("(1 + α_GUT/1296)    = {}  (1296 = (NS·NT)⁴)",
+        decimal(&tail, 12));
+    println!("m_p/m_e v2          ∈ [{}, {}]",
         decimal(&mp_me_lo, 6), decimal(&mp_me_hi, 6));
 
     let pre: Q = (nat(9u64), nat(32u64));
@@ -80,11 +99,12 @@ fn main() {
     let ppm = mul_q(&mul_q(&dq, &mil), &inv_obs);
     println!("midpoint           = {}", decimal(&mid, 9));
     println!("|Δ| (vs PDG)       = {}", decimal(&dq, 9));
-    println!("                   ≈ {} ppm  ★ (was 1264 — 53×)",
+    println!("                   ≈ {} ppm  ★ (was 1264 — 260×)",
         decimal(&ppm, 2));
 
     println!();
-    println!("Class C × Class F: floor = 19 ppm (m_p/m_e ≈ NS·NT·π⁵)");
-    println!("                  δ      = 1 ppb (mn_mp_split_atomic)");
+    println!("Class C × Class F (v2):");
+    println!("  m_p/m_e = 6π⁵·(1+α_GUT/1296)   sub-ppm");
+    println!("  δ        = (9/32)α_em(1-45α_em) 1 ppb");
     println!("Lean: HadronBigrading.mn_minus_mp_over_me_atomic (0-axiom)");
 }

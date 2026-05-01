@@ -405,7 +405,7 @@ lean = "E213.Physics.ProtonG.g_p_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::atomic_hunter"
-lean = "E213.Physics.ProtonElectronRatio.m_p_over_m_e_atomic"
+lean = "E213.Physics.ProtonElectronRatio.m_p_over_m_e_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::hadron_bigrading"
