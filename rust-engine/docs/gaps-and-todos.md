@@ -173,4 +173,47 @@ most-cited 0-axiom claims.
   (paper 5 in `papers/` is `paper5_critical_line.tex`, an unrelated
   RH paper).  Now lives under `rust-engine/docs/` as engine companion.
 
+## 9.  Class F (composite hadron) Tier-4 empirical status
+
+Three targets remain stuck after multiple hunter extensions:
+
+  m_n/m_p          best 195 ppm absolute (1·(1+NT·α²))
+                   — δ-structure 14% off
+  g_p              best 828 ppm ((NS²/d)·ζ(2)²·(1+NS·NT·α))
+                   — paired α did NOT improve, paired
+                     NS²/d·ζ(2)²·(1+NTα)(1+NT²α) at 3296 ppm
+                     (worse than single (1+6α))
+  (m_n−m_p)/m_e    best 1264 ppm (NS/NT·ζ(2)·(1+α))
+
+Hunter extensions tried and ruled out:
+  v3  α² Massey corrections (single)             insufficient
+  v4  primes 17/19/29/31/37/41/43/47 + composites partially
+        helped m_τ/m_e (134→106 ppm) but stuck targets unchanged
+  v5  ζ(2)² in trans subset + paired α layer     insufficient
+
+Diagnosis (per cohomology-classes.md §Class F): these targets are
+multi-simplex composites at fractal level L=2 (K_{25}, b_1=276),
+not single-Δ⁴ phenomena.  Single-α and paired-α corrections both
+remain inside Class F-1/F-2 search; closing requires:
+
+(a) **α_em × α_GUT cross-mixing**: physically motivated for n−p
+    (EM self-energy of proton) and g_p (anomalous magnetic moment
+    is canonically a 1-loop QED + QCD-bound-state effect).
+(b) **Triple α (real Massey) `(1+α·k₁)(1+α·k₂)(1+α·k₃)`**:
+    captures full 3-quark gluing with Borromean signature.
+(c) **Direct K_{25} 3-quark sub-cohomology**: derive joint Betti
+    contribution from uud/udd flavor patterns instead of fitting
+    closed forms.
+
+Path (a) is most tractable for next iteration — 16 atomic
+α_em-coefficients × 16 α_GUT-coefficients = 256 cross-pairs,
+manageable search space.  Path (c) is the most fundamental but
+requires the math-branch Cohomology 213 merging into main first.
+
+**Hunter v6 plan**:
+  add `apply_alpha_em_alpha_GUT_cross(q, k_em, k_GUT, zeta)`
+    computing q · (1 + α_em·k_em + α_GUT·k_GUT)
+            and q · (1 + α_em·α_GUT·k_em·k_GUT)
+  with α_em ≈ 1/137.036 from the bracketed 1/α_em.
+
 — last updated 2026-04-30
