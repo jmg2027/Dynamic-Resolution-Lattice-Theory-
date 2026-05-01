@@ -11,18 +11,33 @@ that block strict ∅-axiom, and the 213-native replacements for each.
 ## 213-native helper modules (`Kernel/Tactic/`)
 
   - `Omega213.lean`  — `omega213` tactic (linear ℕ arithmetic).
-  - `Nat213.lean`    — `Nat`-arithmetic helpers (`sub_one_add_one`,
-                       `ne_zero_of_le_ne`, `sub_one_lt_of_lt_succ_ne`).
-  - `Fin213.lean`    — `Fin` helpers (`absurd0` for `Fin 0` elim).
+  - `Nat213.lean`    — `Nat`-arithmetic helpers (11 theorems).
+  - `Fin213.lean`    — `Fin` helpers (`absurd0`).
 
 All theorems in these modules are individually verified ∅-axiom.
-Pull from them instead of redefining locally per file.
+
+### Nat213 catalog
+
+  - `sub_one_add_one`     `n ≠ 0 → n - 1 + 1 = n`
+  - `sub_add_cancel`      `m ≤ n → n - m + m = n`         (general)
+  - `add_sub_of_le`       `m ≤ n → m + (n - m) = n`
+  - `add_sub_cancel_right` `a + b - b = a`
+  - `le_sub_of_add_le`    `a + b ≤ c → a ≤ c - b`
+  - `cases_lt_two`        `n < 2 → n = 0 ∨ n = 1`
+  - `cases_lt_three`      `n < 3 → n = 0 ∨ n = 1 ∨ n = 2`
+  - `add_right_cancel`    `a + c = b + c → a = b`
+  - `add_left_cancel`     `a + b = a + c → b = c`
+  - `ne_zero_of_le_ne`    `b ≤ a → a ≠ b → a ≠ 0`
+  - `sub_one_lt_of_lt_succ_ne`  `b ≤ a → a ≠ b → a < n+1 → a-1 < n`
 
 ## Migrated files (∅-axiom verified)
 
 | File | Theorems | Notes |
 |---|---|---|
-| `Math/Pigeonhole.lean` | `no_inj_succ`, `no_inj_lt` | 20 omega + 2 simp + Fin.elim0 + literal `(0 : Fin 1)` all replaced via `Omega213`/`Nat213`/`Fin213` |
+| `Math/Pigeonhole.lean` | 2 | 20 omega + 2 simp + Fin.elim0 + literal `(0 : Fin 1)` |
+| `Firmware/Atomicity/NonDecomposable.lean` | 3 | omega + rcases + match-on-value pattern |
+| `Firmware/Atomicity/ArityForcing.lean` | 2 | omega-pigeonhole on Fin 2 → 6-case `cases_lt_two` |
+| `Math/Infinity/Pair.lean` | 5 | 5 omega + Nat.add_left/right_cancel + Prod.mk.injEq |
 
 ## Catalog of axiom leaks discovered
 
@@ -35,9 +50,16 @@ the 213-native form on the right.
 | `by omega` | propext, Quot.sound | `by omega213` |
 | `by simp` | propext | targeted `rw` chains, explicit `Nat.*` lemmas |
 | `by simpa` | propext | `have ... ; exact ...` |
-| `Nat.sub_add_cancel` | propext | inline cases proof: `n - 1 + 1 = n` from `n ≠ 0` |
-| `Fin.elim0` | propext | `fun h => absurd h.isLt (Nat.not_lt_zero _)` |
+| `Nat.sub_add_cancel` | propext | `Nat213.sub_add_cancel` |
+| `Nat.le_sub_of_add_le` | propext | `Nat213.le_sub_of_add_le` |
+| `Nat.add_left_cancel` | propext | `Nat213.add_left_cancel` |
+| `Nat.add_right_cancel` | propext | `Nat213.add_right_cancel` |
+| `Nat.div_lt_iff_lt_mul.mpr` | propext | (TODO Nat213 — iff destructor brings propext) |
+| `Nat.le_div_iff_mul_le.mpr` | propext | (TODO Nat213) |
+| `Fin.elim0` | propext | `Fin213.absurd0` |
 | `(0 : Fin (n+1))` literal | propext | explicit `⟨0, Nat.zero_lt_succ _⟩` |
+| `Prod.mk.injEq.mpr` | propext | `congr (congrArg Prod.mk hx) hy` |
+| `match n, h2, h4 with \| 2,_,_ \| 3,_,_` (small-case match) | propext, Quot.sound | `match Nat.lt_or_ge n k with` cascade + `Nat.le_antisymm` |
 | `funext` (general) | Quot.sound | structural pointwise lemmas (per-construct) |
 
 ## Lean-core lemmas verified ∅-axiom
