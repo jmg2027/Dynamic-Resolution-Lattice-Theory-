@@ -1,6 +1,6 @@
 import E213.Physics.Phase2
-import E213.Physics.GravityShadow
-import E213.Physics.SimplexCounts
+import E213.Physics.Cosmology.GravityShadow
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 GravityNotInteraction — *gravity is not an interaction*

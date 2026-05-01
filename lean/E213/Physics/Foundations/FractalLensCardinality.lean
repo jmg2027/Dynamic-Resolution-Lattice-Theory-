@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Fractal.V25
 import E213.Physics.Foundations.NUniverseFractalDepth
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Fractal Lens Cardinality — Universal Lens count at level d²

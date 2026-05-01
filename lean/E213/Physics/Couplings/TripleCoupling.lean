@@ -1,4 +1,4 @@
-import E213.Physics.SubSimplexInventory
+import E213.Physics.Simplex.SubInventory
 import E213.Physics.AlphaEM.Structure
 
 /-!

@@ -1,6 +1,6 @@
 import E213.Physics.Mixing.CKMHierarchy
 import E213.Physics.Mixing.CabibboAngle
-import E213.Physics.GoldenRatio
+import E213.Physics.Foundations.GoldenRatio
 
 /-!
 # CP violation — δ_CKM = π/φ², Jarlskog J (0 axioms)

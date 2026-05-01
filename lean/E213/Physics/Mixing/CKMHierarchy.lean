@@ -1,5 +1,5 @@
 import E213.Physics.Mixing.CabibboAngle
-import E213.Physics.GoldenRatio
+import E213.Physics.Foundations.GoldenRatio
 
 /-!
 # CKM Wolfenstein hierarchy — λ^k powers (0 axioms)

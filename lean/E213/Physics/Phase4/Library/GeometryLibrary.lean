@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Geometry Library — 5-simplex Δ⁴ atomic catalog

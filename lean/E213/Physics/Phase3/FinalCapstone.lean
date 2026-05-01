@@ -1,5 +1,5 @@
 import E213.Physics.Phase3.UltraCapstone
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 FINAL CAPSTONE — synthesis of 30 autonomous milestones

@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Atomic Mass Library — atomic mass atomic chain

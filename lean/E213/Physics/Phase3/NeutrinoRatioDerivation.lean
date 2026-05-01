@@ -1,6 +1,6 @@
 import E213.Physics.Phase2
-import E213.Physics.BaselBound
-import E213.Physics.SimplexCounts
+import E213.Physics.Basel.Bound
+import E213.Physics.Simplex.Counts
 import E213.Physics.Mixing.NeutrinoMixing
 
 /-!

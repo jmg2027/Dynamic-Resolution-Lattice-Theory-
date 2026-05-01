@@ -2,7 +2,7 @@ import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Mass.MuOverE
 import E213.Physics.Phase4.HydrogenIEPPM
-import E213.Physics.HopHypothesis
+import E213.Physics.Foundations.HopHypothesis
 
 /-!
 # Paper 3 Predictions Bundle

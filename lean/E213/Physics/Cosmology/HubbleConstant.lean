@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Hubble constant H_0 — DRLT structural form (0 axioms partial)

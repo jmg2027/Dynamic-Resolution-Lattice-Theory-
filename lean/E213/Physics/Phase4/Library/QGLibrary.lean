@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Quantum Gravity Library — quantum gravity atomic catalog

@@ -1,4 +1,4 @@
-import E213.Physics.ClosedPropagator
+import E213.Physics.Couplings.ClosedPropagator
 
 /-!
 # 1/α_em correction terms as P(x) propagator chain (user 2026-04).

@@ -1,5 +1,5 @@
-import E213.Physics.SimplexCounts
-import E213.Physics.Generations
+import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Generations
 
 /-!
 # Generation structure — Λᵏ(ℂ⁵) → 1 generation = 15 fermions (0 axioms)

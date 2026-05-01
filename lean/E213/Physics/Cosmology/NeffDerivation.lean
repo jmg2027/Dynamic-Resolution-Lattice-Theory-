@@ -1,5 +1,5 @@
-import E213.Physics.SimplexCounts
-import E213.Physics.WhyBasel
+import E213.Physics.Simplex.Counts
+import E213.Physics.Basel.WhyBasel
 
 /-!
 # N_eff per force from Gram-sector rank (0 axioms)

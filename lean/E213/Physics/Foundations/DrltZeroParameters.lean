@@ -1,7 +1,7 @@
 import E213.Physics.Capstones.MasterCatalog
 import E213.Physics.Capstones.PhysicsTrackComplete
 import E213.Physics.Mass.HierarchyTowers
-import E213.Physics.FibonacciExtended
+import E213.Physics.Foundations.FibonacciExtended
 import E213.Physics.Couplings.ColorConfinement
 
 /-!

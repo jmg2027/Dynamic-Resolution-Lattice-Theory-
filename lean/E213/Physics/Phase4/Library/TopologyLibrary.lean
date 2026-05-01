@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Topology Library — topological invariant atomic catalog

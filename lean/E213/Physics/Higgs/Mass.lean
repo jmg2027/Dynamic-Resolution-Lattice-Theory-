@@ -1,4 +1,4 @@
-import E213.Physics.DysonStructure
+import E213.Physics.Couplings.DysonStructure
 
 /-!
 # m_H/v_H = 0.5097 — same atomic cofactor pattern (0 axioms)

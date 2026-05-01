@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 4 Library — Periodic Table Catalog (Z=1 to 36, atomic only)

@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 4 HydrogenicIE — H-like ions IE = R·Z² *exact*

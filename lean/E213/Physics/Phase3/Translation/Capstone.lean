@@ -32,7 +32,7 @@ import E213.Physics.Phase3.Translation.SixEverywhere
 import E213.Physics.Phase3.Translation.EightEverywhere
 import E213.Physics.Phase3.Translation.TwentyFourEverywhere
 import E213.Physics.Phase3.Translation.GravitationalWaves
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Translation Capstone — modern physics 5+1 translation summary

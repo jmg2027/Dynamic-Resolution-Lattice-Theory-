@@ -1,7 +1,7 @@
 import E213.Physics.Phase2
-import E213.Physics.FibonacciAtomic
-import E213.Physics.GoldenRatio
-import E213.Physics.SimplexCounts
+import E213.Physics.Foundations.FibonacciAtomic
+import E213.Physics.Foundations.GoldenRatio
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 CassiniLink — Fibonacci lock

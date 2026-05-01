@@ -3,7 +3,7 @@ import E213.Physics.Phase3.Artifacts
 import E213.Physics.Phase3.GravityNotInteraction
 import E213.Physics.Phase3.NoWaveFunction
 import E213.Physics.Phase3.NoInteraction
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 Reframing — *all SM/QM frames become artifacts*

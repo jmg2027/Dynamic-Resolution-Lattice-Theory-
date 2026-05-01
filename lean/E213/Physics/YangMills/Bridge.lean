@@ -1,5 +1,5 @@
 import E213.Physics.YangMills.Gap
-import E213.Physics.PhotonKernel
+import E213.Physics.Couplings.PhotonKernel
 
 /-!
 # Yang-Mills ↔ Diamond bridge

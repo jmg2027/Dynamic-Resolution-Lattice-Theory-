@@ -1,10 +1,10 @@
 import E213.Physics.Capstones.PhysicsTrackComplete
 import E213.Physics.Capstones.MasterCatalog
 import E213.Physics.Mass.HierarchyTowers
-import E213.Physics.FibonacciExtended
+import E213.Physics.Foundations.FibonacciExtended
 import E213.Physics.Mixing.CPViolation
 import E213.Physics.Nuclear.Shells
-import E213.Physics.GenerationStructure
+import E213.Physics.Simplex.GenerationStructure
 import E213.Physics.Higgs.Master
 import E213.Physics.Couplings.GUTUnification
 import E213.Physics.Foundations.DrltZeroParameters

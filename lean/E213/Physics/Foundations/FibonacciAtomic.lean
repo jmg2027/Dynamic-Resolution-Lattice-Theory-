@@ -1,4 +1,4 @@
-import E213.Physics.GoldenRatio
+import E213.Physics.Foundations.GoldenRatio
 
 /-!
 # (NS, NT) = (F_4, F_3) — Atomic partition follows Fibonacci recurrence (0 axioms)

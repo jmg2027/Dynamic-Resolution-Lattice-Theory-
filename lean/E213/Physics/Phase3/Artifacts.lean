@@ -1,5 +1,5 @@
 import E213.Physics.Phase2
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 Artifacts — catalog of SM/QM terms that are *Lens artifacts*

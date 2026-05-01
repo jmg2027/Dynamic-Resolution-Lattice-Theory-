@@ -1,7 +1,7 @@
 import E213.Physics.Phase2
 import E213.Physics.AlphaEM.Unified
-import E213.Physics.BaselBound
-import E213.Physics.SimplexCounts
+import E213.Physics.Basel.Bound
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 AlphaEMDerivation — deep-dive on *why 137.036*

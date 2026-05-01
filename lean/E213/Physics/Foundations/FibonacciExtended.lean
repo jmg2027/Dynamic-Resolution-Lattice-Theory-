@@ -1,4 +1,4 @@
-import E213.Physics.FibonacciAtomic
+import E213.Physics.Foundations.FibonacciAtomic
 import E213.Physics.Atomic.Screening
 
 /-!

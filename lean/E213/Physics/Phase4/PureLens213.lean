@@ -1,5 +1,5 @@
 import E213.Physics.Phase2.Existence
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 4 PureLens213 — IE construction without borrowing standard physics

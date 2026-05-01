@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Fractal.V25
 import E213.Physics.Foundations.FiniteUniverse
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 import E213.Physics.AlphaEM.NUniverseCandidates
 
 /-!

@@ -1,4 +1,4 @@
-import E213.Physics.BaselBound
+import E213.Physics.Basel.Bound
 
 /-!
 # Tighter Basel bracket — two-sided telescoping

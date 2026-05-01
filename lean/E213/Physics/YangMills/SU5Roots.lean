@@ -1,5 +1,5 @@
-import E213.Physics.SimplexCounts
-import E213.Physics.GenerationStructure
+import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.GenerationStructure
 
 /-!
 # SU(5) root system from 5-simplex (0 axioms)

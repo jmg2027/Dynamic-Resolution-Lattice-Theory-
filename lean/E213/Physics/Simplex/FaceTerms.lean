@@ -1,4 +1,4 @@
-import E213.Physics.PhotonKernel
+import E213.Physics.Couplings.PhotonKernel
 
 /-!
 # 1/NS and α_GUT/(NS+1) — simplicial geometry origins (0 axioms)

@@ -1,5 +1,5 @@
 import E213.Physics.Phase2
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Translation: Multi-output of integer 12

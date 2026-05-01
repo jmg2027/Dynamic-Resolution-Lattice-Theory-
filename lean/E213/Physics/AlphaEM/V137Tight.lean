@@ -1,5 +1,5 @@
 import E213.Physics.AlphaEM.V137
-import E213.Physics.BaselBoundTight
+import E213.Physics.Basel.BoundTight
 
 /-!
 # Tightened bracket on the 1/α_em(IR) candidate formula

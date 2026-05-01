@@ -2,7 +2,7 @@ import E213.Physics.Phase4.Library.PeriodicCatalog
 import E213.Physics.Phase4.Library.Period5IE
 import E213.Physics.Phase4.Library.Period6IE
 import E213.Physics.Phase4.Library.Period7IE
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Complete Periodic Table — DRLT 213 version

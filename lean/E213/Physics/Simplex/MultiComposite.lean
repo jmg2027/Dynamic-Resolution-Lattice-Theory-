@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Multi-simplex composite — Class F structural placeholder (2026-04-30)

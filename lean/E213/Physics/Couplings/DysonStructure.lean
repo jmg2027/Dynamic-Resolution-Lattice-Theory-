@@ -1,6 +1,6 @@
 import E213.Physics.Mass.MuOverE
 import E213.Physics.AlphaEM.Prefactors
-import E213.Physics.FaceTerms
+import E213.Physics.Simplex.FaceTerms
 
 /-!
 # Dyson tail 1/(1-α_GUT/(d-1)) — universal pattern (0 axioms)

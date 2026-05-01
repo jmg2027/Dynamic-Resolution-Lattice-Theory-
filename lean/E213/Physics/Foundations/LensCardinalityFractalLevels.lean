@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Fractal.Level
 import E213.Physics.Foundations.NUniverseFractalDepth
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Lens cardinality across fractal levels — structural enumeration

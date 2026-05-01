@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # v_H/M_Pl = (d+1)/d^(d²) — hierarchy from atomic exponent (0 axioms)

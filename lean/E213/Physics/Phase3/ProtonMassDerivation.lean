@@ -1,6 +1,6 @@
 import E213.Physics.Phase2
 import E213.Physics.Hadron.ProtonMass
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 ProtonMassDerivation — deep-dive on *why 938.27 MeV*

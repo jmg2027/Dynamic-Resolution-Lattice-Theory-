@@ -14,8 +14,8 @@ import E213.Physics.Higgs.Quartic
 import E213.Physics.Hadron.NeutronProton
 import E213.Physics.Atomic.Hydrogen
 import E213.Physics.Atomic.Screening
-import E213.Physics.ClosedPropagator
-import E213.Physics.Generations
+import E213.Physics.Couplings.ClosedPropagator
+import E213.Physics.Simplex.Generations
 import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Mixing.CabibboAngle
 

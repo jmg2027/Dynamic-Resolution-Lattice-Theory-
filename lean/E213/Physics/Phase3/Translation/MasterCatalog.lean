@@ -1,5 +1,5 @@
 import E213.Physics.Phase2
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Translation Master Catalog — *Multi-framework occurrences of all atomic integers*

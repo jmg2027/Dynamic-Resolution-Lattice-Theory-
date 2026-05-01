@@ -1,6 +1,6 @@
-import E213.Physics.HopHypothesis
-import E213.Physics.Paper2Bundle
-import E213.Physics.Paper3Bundle
+import E213.Physics.Foundations.HopHypothesis
+import E213.Physics.Capstones.Paper2Bundle
+import E213.Physics.Capstones.Paper3Bundle
 import E213.Physics.Mixing.Bridge
 import E213.Physics.Hadron.Bridge
 import E213.Physics.Cosmology.Bridge

@@ -1,5 +1,5 @@
 import E213.Physics.Cosmology.NeffDerivation
-import E213.Physics.PhotonKernel
+import E213.Physics.Couplings.PhotonKernel
 
 /-!
 # Yang-Mills mass gap — DRLT structural (0 axioms part)

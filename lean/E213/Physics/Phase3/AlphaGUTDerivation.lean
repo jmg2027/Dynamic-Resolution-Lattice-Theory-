@@ -1,7 +1,7 @@
 import E213.Physics.Phase2
 import E213.Physics.Couplings.AlphaGUT
-import E213.Physics.BaselBound
-import E213.Physics.SimplexCounts
+import E213.Physics.Basel.Bound
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 AlphaGUTDerivation — deep-dive on *why α_GUT = 6/(25π²)*

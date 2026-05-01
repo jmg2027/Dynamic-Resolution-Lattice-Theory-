@@ -1,7 +1,7 @@
 import E213.Physics.Phase2.Edges
 import E213.Physics.Phase2.Force
-import E213.Physics.PhotonKernel
-import E213.Physics.SimplexCounts
+import E213.Physics.Couplings.PhotonKernel
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 2 → Phase 1 Bridge — axiom-level = numeric track

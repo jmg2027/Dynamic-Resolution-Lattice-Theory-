@@ -1,6 +1,6 @@
 import E213.Physics.Phase2
 import E213.Physics.Nuclear.MagicNumbers
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 MagicNumbersDerivation — *why 2, 8, 20, 28, 50, 82, 126*

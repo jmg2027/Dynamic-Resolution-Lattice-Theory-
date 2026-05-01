@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Fractal.Level
 import E213.Physics.Foundations.NUniverseFromFractal
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # N_universe = d^(d²) via SELF-REFERENTIAL fractal depth L = d²

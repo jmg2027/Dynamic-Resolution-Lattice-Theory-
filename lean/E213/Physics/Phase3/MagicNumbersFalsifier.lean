@@ -1,6 +1,6 @@
 import E213.Physics.Phase2
 import E213.Physics.Nuclear.MagicNumbers
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 MagicNumbersFalsifier — 7/7 retrofit + future falsifiers

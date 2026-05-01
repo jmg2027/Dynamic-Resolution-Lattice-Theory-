@@ -1,4 +1,4 @@
-import E213.Physics.PhotonKernel
+import E213.Physics.Couplings.PhotonKernel
 import E213.Physics.Cosmology.NeffDerivation
 
 /-!

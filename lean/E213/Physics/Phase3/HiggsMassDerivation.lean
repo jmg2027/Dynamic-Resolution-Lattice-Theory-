@@ -1,7 +1,7 @@
 import E213.Physics.Phase2
 import E213.Physics.Higgs.Mass
 import E213.Physics.AlphaEM.Prefactors
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 HiggsMassDerivation — deep-dive on *why m_H = 125.28 GeV*

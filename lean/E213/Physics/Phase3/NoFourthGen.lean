@@ -1,6 +1,6 @@
 import E213.Physics.Phase2
-import E213.Physics.Generations
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Generations
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 NoFourthGen — N_gen = 3 sharp falsifier

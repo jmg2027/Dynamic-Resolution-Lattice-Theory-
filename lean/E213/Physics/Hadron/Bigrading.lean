@@ -1,4 +1,4 @@
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Hadron bigrading composite — 3-quark glued sub-cohomology on K_{25}

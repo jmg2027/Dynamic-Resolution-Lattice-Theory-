@@ -1,5 +1,5 @@
 import E213.Physics.Mixing.CabibboAngle
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Nuclear.MagicNumbersAtomic
 import E213.Physics.FamousCoincidences.V1

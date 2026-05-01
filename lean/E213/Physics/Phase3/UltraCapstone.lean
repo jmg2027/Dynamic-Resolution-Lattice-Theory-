@@ -2,7 +2,7 @@ import E213.Physics.Phase3.Translation.Capstone
 import E213.Physics.Phase3.Capstone
 import E213.Physics.Phase3.Reframing
 import E213.Physics.Phase3.ComplexAsTime
-import E213.Physics.SimplexCounts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 Ultra Capstone — *full integration*

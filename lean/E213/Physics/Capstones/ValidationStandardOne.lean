@@ -3,7 +3,7 @@ import E213.Physics.Mass.MuOverEFinitist
 import E213.Physics.Cosmology.OmegaLambdaFinitist
 import E213.Physics.Capstones.FinitistObservableChain
 import E213.Physics.Foundations.NUniverseFractalDepth
-import E213.Physics.Generations
+import E213.Physics.Simplex.Generations
 import E213.Physics.Nuclear.MagicNumbers
 
 /-!
