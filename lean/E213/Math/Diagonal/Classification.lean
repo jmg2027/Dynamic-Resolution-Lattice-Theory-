@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Instances.Parity
 import E213.Hypervisor.Lens.Instances.Bool
-import E213.Research.Lens.F9
+import E213.Hypervisor.Lens.Research.Lens.F9
 
 /-!
 # Research.DiagonalClassification: Classification of the diagonal behavior of combine
@@ -92,7 +92,7 @@ end E213.Math.Diagonal.Classification
 
 namespace E213.Math.Diagonal.Classification
 
-open E213.Firmware E213.Hypervisor E213.Research.Lens.F9
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Research.Lens.F9
 
 /-! ## §4. Classification of F9 Lens — Multiply -/
 

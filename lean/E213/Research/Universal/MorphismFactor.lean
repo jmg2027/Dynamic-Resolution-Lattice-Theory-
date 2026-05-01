@@ -1,6 +1,6 @@
 import E213.Research.SemanticAtom
-import E213.Research.Lens.OnLens
-import E213.Research.Lens.OnLensImageGeneric
+import E213.Hypervisor.Lens.Research.Lens.OnLens
+import E213.Hypervisor.Lens.Research.Lens.OnLensImageGeneric
 
 /-!
 # Research.UniversalMorphismFactor: image-Lens of universalMorphism
@@ -21,8 +21,8 @@ namespace E213.Research.Universal.MorphismFactor
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
-open E213.Research.LensOnLens
-open E213.Research.LensOnLensImageGeneric
+open E213.Hypervisor.Lens.Research.LensOnLens
+open E213.Hypervisor.Lens.Research.LensOnLensImageGeneric
 
 /-- universalMorphism agrees with the view of universalAsLens (by
     definition of `universalAsLens`). -/

@@ -1,5 +1,5 @@
 import E213.Math.Hyper.Hyper213
-import E213.Research.Lens.OnLens
+import E213.Hypervisor.Lens.Research.Lens.OnLens
 
 /-!
 # Research.Hyper213Tower: Simultaneous capture of the Hyper213 × Lens tower
@@ -39,7 +39,7 @@ namespace E213.Math.Hyper.Hyper213Tower
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
-open E213.Research.LensOnLens
+open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Math.Hyper213
 
 /-- LensTower α n: n-fold lens-on-lens self-application. -/

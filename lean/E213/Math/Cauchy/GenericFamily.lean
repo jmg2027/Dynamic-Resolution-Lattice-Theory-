@@ -1,5 +1,5 @@
-import E213.Research.Lens.Cauchy
-import E213.Research.Lens.AB
+import E213.Hypervisor.Lens.Research.Lens.Cauchy
+import E213.Hypervisor.Lens.Research.Lens.AB
 import E213.Math.Cauchy.Archimedean
 import E213.Math.Cauchy.ProfiniteSeq
 
@@ -67,7 +67,7 @@ end E213.Math.Cauchy.GenericFamily
 namespace E213.Math.Cauchy.GenericFamily
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.LensCauchy
+open E213.Hypervisor.Lens.Research.LensCauchy
 
 /-- **LensCauchy is GFCauchy instance** with trivial family
     (single Lens, identity post-processing). -/
