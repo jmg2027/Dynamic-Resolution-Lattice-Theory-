@@ -1,12 +1,20 @@
-name: Lean CI
+name: Lean build
+
+# Sanity: lake build should succeed.  Pointed at lean/ (root Lean lib).
+# The earlier path 'critical-line/lean/**' was a leftover from the
+# abandoned sub-projects plan and never existed.
 
 on:
   push:
+    branches:
+      - main
+      - 'claude/**'
     paths:
-      - 'critical-line/lean/**'
+      - 'lean/**'
+      - '.github/workflows/lean_ci.yml'
   pull_request:
     paths:
-      - 'critical-line/lean/**'
+      - 'lean/**'
   workflow_dispatch:
 
 jobs:
@@ -14,8 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: critical-line/lean
-
+        working-directory: lean
     steps:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1

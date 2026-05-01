@@ -1,0 +1,15 @@
+[package]
+name = "lean-rust-diff"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Differential equivalence: run lake env lean #eval and Rust at same N, compare BigUint outputs for exact equality."
+
+[dependencies]
+num-bigint = { workspace = true }
+drlt-app   = { path = "../../crates/app" }
+
+[lints.rust]
+unsafe_code = "forbid"
