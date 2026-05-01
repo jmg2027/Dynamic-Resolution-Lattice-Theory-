@@ -7,6 +7,7 @@ pub mod simplex;
 pub mod basel;
 pub mod alpha_em;
 pub mod alpha_em_with_tail;
+pub mod alpha_em_so10_gram;
 pub mod certificate;
 pub mod gap_explorer;
 pub mod wallis;
