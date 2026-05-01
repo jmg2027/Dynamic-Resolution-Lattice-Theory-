@@ -68,7 +68,8 @@ The day that last theorem closes with 0 sorry = the first milestone of "rewritin
 - **L3**: Composite (3-quark hadron) observables are **Class D triple cup-chains**, not single-α leakages. Single-α searches structurally cannot close them.
 - **L4**: Coefficient reuse across observables is **structural evidence**, not coincidence. The integer 45 = NS²·d appears in 1/α_em (α/45), m_n/m_p (α_em²·45), and g_p (α_em²·90 = NT·45) — same K_25 anchor.
 - **L5**: **Always check compositional closure first.** Before launching a fresh hunter, ask: is the target = (already-closed-A) × (already-closed-B)? (m_n − m_p)/m_e closed at 53× improvement just by being m_p/m_e × (m_n/m_p − 1).
-- Full doc: `rust-engine/docs/gaps-and-todos.md` §10.
+- Full lessons: `rust-engine/docs/gaps-and-todos.md` §10.
+- **Closure algorithm + conjecture**: `rust-engine/docs/closure-algorithm.md` — the meta-pattern of L1-L5 written as explicit pseudocode + the *DRLT Closure Form conjecture* (every K_{3,2}^{(c=2)} observable = R(NS,NT,d,c)·Π(1+κ_i·α_i^{n_i}) with κ_i from a small anchor catalog), backed by 9 session-empirical closures.
 
 ## Authors
 - Mingu Jeong (Independent Researcher) — theory originator, physical intuition
