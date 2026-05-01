@@ -20,33 +20,38 @@ namespace E213.Math.Cohomology.DyadicConjecture
 
 /-- ★★★★★ Legendre 5 mod 17 = NQR (inert). -/
 theorem legendre_5_mod_17 :
-    legendre213 5 17 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 17 (by decide) = ⟨2, by decide⟩ := by decide
 
 /-- ★★★★★★★ Predictor REALISES Pell period at all 7 verified primes. -/
 theorem pisano_predict_realises_pell_7 :
-    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by omega))
+    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
         = pellFSMmod3.bits k)
-    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by omega))
+    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by decide))
         = pellFSMmod5.bits k)
-    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by omega))
+    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by decide))
         = pellFSMmod7.bits k)
-    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by omega))
+    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by decide))
         = pellFSMmod11.bits k)
-    ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by omega))
+    ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by decide))
         = pellFSMmod13.bits k)
-    ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by omega))
+    ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by decide))
         = pellFSMmod17.bits k)
-    ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by omega))
+    ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by decide))
         = pellFSMmod19.bits k) := by
-  have h17 : pisano_predict 17 (by omega) = 18 := by decide
-  obtain ⟨h3, h5, h7, h11, h13, h19⟩ := pisano_predict_correct_6
+  have h17 : pisano_predict 17 (by decide) = 18 := by decide
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · intro k; rw [h3]; exact pellFSMmod3_bits_period_4 k
-  · intro k; rw [h5]; exact pellFSMmod5_bits_period_10 k
-  · intro k; rw [h7]; exact pellFSMmod7_bits_period_8 k
-  · intro k; rw [h11]; exact pellFSMmod11_bits_period_5 k
-  · intro k; rw [h13]; exact pellFSMmod13_bits_period_14 k
+  · intro k; rw [pisano_predict_correct_6.1]
+    exact pellFSMmod3_bits_period_4 k
+  · intro k; rw [pisano_predict_correct_6.2.1]
+    exact pellFSMmod5_bits_period_10 k
+  · intro k; rw [pisano_predict_correct_6.2.2.1]
+    exact pellFSMmod7_bits_period_8 k
+  · intro k; rw [pisano_predict_correct_6.2.2.2.1]
+    exact pellFSMmod11_bits_period_5 k
+  · intro k; rw [pisano_predict_correct_6.2.2.2.2.1]
+    exact pellFSMmod13_bits_period_14 k
   · intro k; rw [h17]; exact pellFSMmod17_bits_period_18 k
-  · intro k; rw [h19]; exact pellFSMmod19_bits_period_9 k
+  · intro k; rw [pisano_predict_correct_6.2.2.2.2.2]
+    exact pellFSMmod19_bits_period_9 k
 
 end E213.Math.Cohomology.DyadicConjecture

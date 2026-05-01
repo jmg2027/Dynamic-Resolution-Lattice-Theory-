@@ -21,29 +21,35 @@ namespace E213.Math.Cohomology.DyadicConjecture
 
 /-- ★★★★★ Legendre 5 mod 23 = NQR (inert). -/
 theorem legendre_5_mod_23 :
-    legendre213 5 23 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 23 (by decide) = ⟨2, by decide⟩ := by decide
 
 /-- ★★★★★★★ Bit predictor REALISES Pell period at 8 primes. -/
 theorem pisano_predict_realises_pell_8 :
-    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by omega))
+    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
         = pellFSMmod3.bits k)
-    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by omega))
+    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by decide))
         = pellFSMmod5.bits k)
-    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by omega))
+    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by decide))
         = pellFSMmod7.bits k)
-    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by omega))
+    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by decide))
         = pellFSMmod11.bits k)
-    ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by omega))
+    ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by decide))
         = pellFSMmod13.bits k)
-    ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by omega))
+    ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by decide))
         = pellFSMmod17.bits k)
-    ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by omega))
+    ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by decide))
         = pellFSMmod19.bits k)
-    ∧ (∀ k, pellFSMmod23.bits (k + pisano_predict 23 (by omega))
+    ∧ (∀ k, pellFSMmod23.bits (k + pisano_predict 23 (by decide))
         = pellFSMmod23.bits k) := by
-  have h23 : pisano_predict 23 (by omega) = 24 := by decide
-  obtain ⟨h3, h5, h7, h11, h13, h17, h19⟩ := pisano_predict_realises_pell_7
-  refine ⟨h3, h5, h7, h11, h13, h17, h19, ?_⟩
+  have h23 : pisano_predict 23 (by decide) = 24 := by decide
+  refine ⟨pisano_predict_realises_pell_7.1,
+          pisano_predict_realises_pell_7.2.1,
+          pisano_predict_realises_pell_7.2.2.1,
+          pisano_predict_realises_pell_7.2.2.2.1,
+          pisano_predict_realises_pell_7.2.2.2.2.1,
+          pisano_predict_realises_pell_7.2.2.2.2.2.1,
+          pisano_predict_realises_pell_7.2.2.2.2.2.2,
+          ?_⟩
   intro k; rw [h23]; exact pellFSMmod23_bits_period_24 k
 
 end E213.Math.Cohomology.DyadicConjecture

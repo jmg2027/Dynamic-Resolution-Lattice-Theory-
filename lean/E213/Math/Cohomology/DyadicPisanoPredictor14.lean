@@ -37,15 +37,15 @@ namespace E213.Math.Cohomology.DyadicConjecture
 
 /-- ★★★★★ Legendre 5 mod 41 = QR (split). -/
 theorem legendre_5_mod_41 :
-    legendre213 5 41 (by omega) = ⟨1, by decide⟩ := by decide
+    legendre213 5 41 (by decide) = ⟨1, by decide⟩ := by decide
 
 /-- ★★★★★ Legendre 5 mod 43 = NQR (inert). -/
 theorem legendre_5_mod_43 :
-    legendre213 5 43 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 43 (by decide) = ⟨2, by decide⟩ := by decide
 
 /-- ★★★★★ Legendre 5 mod 47 = NQR (inert). -/
 theorem legendre_5_mod_47 :
-    legendre213 5 47 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 47 (by decide) = ⟨2, by decide⟩ := by decide
 
 /-- ★★★★★★★ Bit predictor REALISES Pell period at 14 primes.
 
@@ -64,41 +64,43 @@ theorem legendre_5_mod_47 :
   trajectory. -/
 theorem pisano_predict_realises_pell_14 :
     -- All 11 previous primes
-    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by omega))
+    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
         = pellFSMmod3.bits k)
-    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by omega))
+    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by decide))
         = pellFSMmod5.bits k)
-    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by omega))
+    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by decide))
         = pellFSMmod7.bits k)
-    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by omega))
+    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by decide))
         = pellFSMmod11.bits k)
-    ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by omega))
+    ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by decide))
         = pellFSMmod13.bits k)
-    ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by omega))
+    ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by decide))
         = pellFSMmod17.bits k)
-    ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by omega))
+    ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by decide))
         = pellFSMmod19.bits k)
-    ∧ (∀ k, pellFSMmod23.bits (k + pisano_predict 23 (by omega))
+    ∧ (∀ k, pellFSMmod23.bits (k + pisano_predict 23 (by decide))
         = pellFSMmod23.bits k)
-    ∧ (∀ k, pellFSMmod29.bits (k + pisano_predict 29 (by omega))
+    ∧ (∀ k, pellFSMmod29.bits (k + pisano_predict 29 (by decide))
         = pellFSMmod29.bits k)
-    ∧ (∀ k, pellFSMmod31.bits (k + pisano_predict 31 (by omega))
+    ∧ (∀ k, pellFSMmod31.bits (k + pisano_predict 31 (by decide))
         = pellFSMmod31.bits k)
-    ∧ (∀ k, pellFSMmod37.bits (k + pisano_predict 37 (by omega))
+    ∧ (∀ k, pellFSMmod37.bits (k + pisano_predict 37 (by decide))
         = pellFSMmod37.bits k)
     -- Three new primes
-    ∧ (∀ k, pellFSMmod41.bits (k + pisano_predict 41 (by omega))
+    ∧ (∀ k, pellFSMmod41.bits (k + pisano_predict 41 (by decide))
         = pellFSMmod41.bits k)
-    ∧ (∀ k, pellFSMmod43.bits (k + pisano_predict 43 (by omega))
+    ∧ (∀ k, pellFSMmod43.bits (k + pisano_predict 43 (by decide))
         = pellFSMmod43.bits k)
-    ∧ (∀ k, pellFSMmod47.bits (k + pisano_predict 47 (by omega))
+    ∧ (∀ k, pellFSMmod47.bits (k + pisano_predict 47 (by decide))
         = pellFSMmod47.bits k) := by
-  have h41 : pisano_predict 41 (by omega) = 20 := by decide
-  have h43 : pisano_predict 43 (by omega) = 44 := by decide
-  have h47 : pisano_predict 47 (by omega) = 48 := by decide
-  obtain ⟨h3, h5, h7, h11, h13, h17, h19, h23, h29, h31, h37⟩ :=
-    pisano_predict_realises_pell_11
-  refine ⟨h3, h5, h7, h11, h13, h17, h19, h23, h29, h31, h37,
+  have h41 : pisano_predict 41 (by decide) = 20 := by decide
+  have h43 : pisano_predict 43 (by decide) = 44 := by decide
+  have h47 : pisano_predict 47 (by decide) = 48 := by decide
+  let H := pisano_predict_realises_pell_11
+  refine ⟨H.1, H.2.1, H.2.2.1, H.2.2.2.1, H.2.2.2.2.1,
+          H.2.2.2.2.2.1, H.2.2.2.2.2.2.1,
+          H.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.1,
+          H.2.2.2.2.2.2.2.2.2.1, H.2.2.2.2.2.2.2.2.2.2,
           ?_, ?_, ?_⟩
   · intro k; rw [h41]; exact pellFSMmod41_bits_period_20 k
   · intro k; rw [h43]; exact pellFSMmod43_bits_period_44 k

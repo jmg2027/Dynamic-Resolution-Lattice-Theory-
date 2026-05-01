@@ -36,15 +36,15 @@ namespace E213.Math.Cohomology.DyadicConjecture
 
 /-- ★★★★★ Legendre 5 mod 29 = QR (split). -/
 theorem legendre_5_mod_29 :
-    legendre213 5 29 (by omega) = ⟨1, by decide⟩ := by decide
+    legendre213 5 29 (by decide) = ⟨1, by decide⟩ := by decide
 
 /-- ★★★★★ Legendre 5 mod 31 = QR (split). -/
 theorem legendre_5_mod_31 :
-    legendre213 5 31 (by omega) = ⟨1, by decide⟩ := by decide
+    legendre213 5 31 (by decide) = ⟨1, by decide⟩ := by decide
 
 /-- ★★★★★ Legendre 5 mod 37 = NQR (inert). -/
 theorem legendre_5_mod_37 :
-    legendre213 5 37 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 37 (by decide) = ⟨2, by decide⟩ := by decide
 
 /-- ★★★★★★★ Bit predictor REALISES Pell period at 11 primes.
 
@@ -53,34 +53,40 @@ theorem legendre_5_mod_37 :
   predictor formula (split→(p-1)/2, inert→p+1) yields a period N
   satisfying  ∀ k, bits(k + N) = bits(k). -/
 theorem pisano_predict_realises_pell_11 :
-    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by omega))
+    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
         = pellFSMmod3.bits k)
-    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by omega))
+    ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by decide))
         = pellFSMmod5.bits k)
-    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by omega))
+    ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by decide))
         = pellFSMmod7.bits k)
-    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by omega))
+    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by decide))
         = pellFSMmod11.bits k)
-    ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by omega))
+    ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by decide))
         = pellFSMmod13.bits k)
-    ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by omega))
+    ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by decide))
         = pellFSMmod17.bits k)
-    ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by omega))
+    ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by decide))
         = pellFSMmod19.bits k)
-    ∧ (∀ k, pellFSMmod23.bits (k + pisano_predict 23 (by omega))
+    ∧ (∀ k, pellFSMmod23.bits (k + pisano_predict 23 (by decide))
         = pellFSMmod23.bits k)
-    ∧ (∀ k, pellFSMmod29.bits (k + pisano_predict 29 (by omega))
+    ∧ (∀ k, pellFSMmod29.bits (k + pisano_predict 29 (by decide))
         = pellFSMmod29.bits k)
-    ∧ (∀ k, pellFSMmod31.bits (k + pisano_predict 31 (by omega))
+    ∧ (∀ k, pellFSMmod31.bits (k + pisano_predict 31 (by decide))
         = pellFSMmod31.bits k)
-    ∧ (∀ k, pellFSMmod37.bits (k + pisano_predict 37 (by omega))
+    ∧ (∀ k, pellFSMmod37.bits (k + pisano_predict 37 (by decide))
         = pellFSMmod37.bits k) := by
-  have h29 : pisano_predict 29 (by omega) = 14 := by decide
-  have h31 : pisano_predict 31 (by omega) = 15 := by decide
-  have h37 : pisano_predict 37 (by omega) = 38 := by decide
-  obtain ⟨h3, h5, h7, h11, h13, h17, h19, h23⟩ :=
-    pisano_predict_realises_pell_8
-  refine ⟨h3, h5, h7, h11, h13, h17, h19, h23, ?_, ?_, ?_⟩
+  have h29 : pisano_predict 29 (by decide) = 14 := by decide
+  have h31 : pisano_predict 31 (by decide) = 15 := by decide
+  have h37 : pisano_predict 37 (by decide) = 38 := by decide
+  refine ⟨pisano_predict_realises_pell_8.1,
+          pisano_predict_realises_pell_8.2.1,
+          pisano_predict_realises_pell_8.2.2.1,
+          pisano_predict_realises_pell_8.2.2.2.1,
+          pisano_predict_realises_pell_8.2.2.2.2.1,
+          pisano_predict_realises_pell_8.2.2.2.2.2.1,
+          pisano_predict_realises_pell_8.2.2.2.2.2.2.1,
+          pisano_predict_realises_pell_8.2.2.2.2.2.2.2,
+          ?_, ?_, ?_⟩
   · intro k; rw [h29]; exact pellFSMmod29_bits_period_14 k
   · intro k; rw [h31]; exact pellFSMmod31_bits_period_15 k
   · intro k; rw [h37]; exact pellFSMmod37_bits_period_38 k

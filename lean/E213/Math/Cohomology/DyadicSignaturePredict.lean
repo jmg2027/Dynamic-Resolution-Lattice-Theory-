@@ -38,41 +38,41 @@ def signature_predict (p : Nat) (hp : 1 < p) : Nat :=
 
 /-- ★★★★★★ signature_predict matches actual TIGHT signature periods. -/
 theorem signature_predict_correct_7 :
-    signature_predict 3 (by omega) = 4
-    ∧ signature_predict 5 (by omega) = 10
-    ∧ signature_predict 7 (by omega) = 8
-    ∧ signature_predict 11 (by omega) = 10
-    ∧ signature_predict 13 (by omega) = 14
-    ∧ signature_predict 17 (by omega) = 18
-    ∧ signature_predict 19 (by omega) = 18 := by
+    signature_predict 3 (by decide) = 4
+    ∧ signature_predict 5 (by decide) = 10
+    ∧ signature_predict 7 (by decide) = 8
+    ∧ signature_predict 11 (by decide) = 10
+    ∧ signature_predict 13 (by decide) = 14
+    ∧ signature_predict 17 (by decide) = 18
+    ∧ signature_predict 19 (by decide) = 18 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
 /-- ★★★★★★★ Signature predictor REALISES Pell signature period at
     all 7 primes (via Legendre lens trajectory). -/
 theorem signature_predict_realises_pell_7 :
-    (∀ k, signature pellFSMmod3.bits (k + signature_predict 3 (by omega))
+    (∀ k, signature pellFSMmod3.bits (k + signature_predict 3 (by decide))
         = signature pellFSMmod3.bits k)
-    ∧ (∀ k, signature pellFSMmod5.bits (k + signature_predict 5 (by omega))
+    ∧ (∀ k, signature pellFSMmod5.bits (k + signature_predict 5 (by decide))
         = signature pellFSMmod5.bits k)
-    ∧ (∀ k, signature pellFSMmod7.bits (k + signature_predict 7 (by omega))
+    ∧ (∀ k, signature pellFSMmod7.bits (k + signature_predict 7 (by decide))
         = signature pellFSMmod7.bits k)
-    ∧ (∀ k, signature pellFSMmod11.bits (k + signature_predict 11 (by omega))
+    ∧ (∀ k, signature pellFSMmod11.bits (k + signature_predict 11 (by decide))
         = signature pellFSMmod11.bits k)
-    ∧ (∀ k, signature pellFSMmod13.bits (k + signature_predict 13 (by omega))
+    ∧ (∀ k, signature pellFSMmod13.bits (k + signature_predict 13 (by decide))
         = signature pellFSMmod13.bits k)
-    ∧ (∀ k, signature pellFSMmod17.bits (k + signature_predict 17 (by omega))
+    ∧ (∀ k, signature pellFSMmod17.bits (k + signature_predict 17 (by decide))
         = signature pellFSMmod17.bits k)
-    ∧ (∀ k, signature pellFSMmod19.bits (k + signature_predict 19 (by omega))
+    ∧ (∀ k, signature pellFSMmod19.bits (k + signature_predict 19 (by decide))
         = signature pellFSMmod19.bits k) := by
-  obtain ⟨h3, h5, h7, h11, h13, h17, h19⟩ := signature_predict_correct_7
+  let H := signature_predict_correct_7
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · intro k; rw [h3]; exact pellFSMmod3_signature_period_4 k
-  · intro k; rw [h5]; exact pellFSMmod5_signature_period_10 k
-  · intro k; rw [h7]
-    have := pellFSMmod7_signature_period_8 k; exact this
-  · intro k; rw [h11]; exact pellFSMmod11_signature_period_10 k
-  · intro k; rw [h13]; exact pellFSMmod13_signature_period_14 k
-  · intro k; rw [h17]; exact pellFSMmod17_signature_period_18 k
-  · intro k; rw [h19]; exact pellFSMmod19_signature_period_18 k
+  · intro k; rw [H.1]; exact pellFSMmod3_signature_period_4 k
+  · intro k; rw [H.2.1]; exact pellFSMmod5_signature_period_10 k
+  · intro k; rw [H.2.2.1]
+    exact pellFSMmod7_signature_period_8 k
+  · intro k; rw [H.2.2.2.1]; exact pellFSMmod11_signature_period_10 k
+  · intro k; rw [H.2.2.2.2.1]; exact pellFSMmod13_signature_period_14 k
+  · intro k; rw [H.2.2.2.2.2.1]; exact pellFSMmod17_signature_period_18 k
+  · intro k; rw [H.2.2.2.2.2.2]; exact pellFSMmod19_signature_period_18 k
 
 end E213.Math.Cohomology.DyadicConjecture
