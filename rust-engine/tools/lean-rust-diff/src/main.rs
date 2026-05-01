@@ -66,6 +66,7 @@ fn q_eq(a: &Q, b: &Q) -> bool { &a.0 * &b.1 == &b.0 * &a.1 }
 
 fn cases() -> Vec<DiffCase> {
     vec![
+        // ── Basel partial sum + telescoping bound ──
         DiffCase {
             name: "basel_S",
             lean_module: "E213.Physics.BaselBound",
@@ -79,6 +80,44 @@ fn cases() -> Vec<DiffCase> {
             lean_expr: "E213.Physics.Basel.upper",
             rust_call: drlt_app::basel::upper,
             n_values: &[1, 2, 3, 5, 10, 20],
+        },
+        // ── α_em bare 5-term chain (AlphaEM137) ──
+        DiffCase {
+            name: "alphaEM137_inv_full_lower",
+            lean_module: "E213.Physics.AlphaEM137",
+            lean_expr: "E213.Physics.AlphaEM137.inv_full_lower",
+            rust_call: drlt_app::alpha_em::inv_full_lower,
+            n_values: &[2, 3, 5, 10],
+        },
+        DiffCase {
+            name: "alphaEM137_inv_full_upper",
+            lean_module: "E213.Physics.AlphaEM137",
+            lean_expr: "E213.Physics.AlphaEM137.inv_full_upper",
+            rust_call: drlt_app::alpha_em::inv_full_upper,
+            n_values: &[2, 3, 5, 10],
+        },
+        // ── Tightened lower bracket (AlphaEM137Tight) ──
+        DiffCase {
+            name: "alphaEM137Tight_inv_lower_tight",
+            lean_module: "E213.Physics.AlphaEM137Tight",
+            lean_expr: "E213.Physics.AlphaEM137Tight.inv_lower_tight",
+            rust_call: drlt_app::alpha_em::inv_lower_tight,
+            n_values: &[2, 3, 5, 10],
+        },
+        // ── α_em with Dyson tail α_GUT/(NS+1) ──
+        DiffCase {
+            name: "alphaEMWithTail_inv_lower_with_tail",
+            lean_module: "E213.Physics.AlphaEMWithTail",
+            lean_expr: "E213.Physics.AlphaEMWithTail.inv_lower_with_tail",
+            rust_call: drlt_app::alpha_em_with_tail::inv_lower_with_tail,
+            n_values: &[3, 5, 10],
+        },
+        DiffCase {
+            name: "alphaEMWithTail_inv_upper_with_tail",
+            lean_module: "E213.Physics.AlphaEMWithTail",
+            lean_expr: "E213.Physics.AlphaEMWithTail.inv_upper_with_tail",
+            rust_call: drlt_app::alpha_em_with_tail::inv_upper_with_tail,
+            n_values: &[3, 5, 10],
         },
     ]
 }
