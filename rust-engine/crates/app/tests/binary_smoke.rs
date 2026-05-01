@@ -58,6 +58,7 @@ const BINS: &[(&str, &[&str])] = &[
     ("overlap-series", &["20"]),
     ("parity-check", &[]),
     ("propagator-form", &[]),
+    ("proton-g", &[]),
     ("proton-radius", &[]),
     ("quark-hierarchy", &["100"]),
     ("series-truncation", &["50"]),

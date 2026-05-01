@@ -81,4 +81,22 @@ theorem m_tau_over_m_e_atomic :
     ∧ NS = 3 ∧ NT = 2 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
+/-! Tighter form (auto-discovered, hunter extended 2026-04-30):
+
+  m_τ / m_e ≈ 17·NT · π³ · ζ(2)² · (1 + NS²·α_GUT)
+            = 34 · π³ · ζ(2)² · (1 + 9·α_GUT)
+            ≈ 3476.78  vs 3477.15  →  106 ppm  (was 134 ppm).
+
+The prime 17 = 2⁴ + 1 is an FSM-period prime (per Section II
+Dyadic Number Theory mining).  α-coefficient NS² = 9 = AAA
+channel count.  Class B+C tighter than the (d·NT)² form. -/
+theorem m_tau_over_m_e_tighter :
+    -- prefactor 17·NT = 34, with 17 as FSM-period prime
+    17 * NT = 34
+    -- α-leakage k = NS² = 9
+    ∧ NS * NS = 9
+    -- atomic anchors
+    ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
+
 end E213.Physics.ProtonElectronRatio

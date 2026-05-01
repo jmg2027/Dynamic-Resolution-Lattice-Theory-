@@ -243,3 +243,7 @@ path = "src/bin/atomic_hunter.rs"
 [[bin]]
 name = "koide-check"
 path = "src/bin/koide_check.rs"
+
+[[bin]]
+name = "proton-g"
+path = "src/bin/proton_g.rs"
