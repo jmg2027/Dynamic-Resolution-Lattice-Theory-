@@ -91,81 +91,85 @@ Note: physics-track capstones (`validation_standard_capstone`, `pure_atomic_obse
 
 ---
 
-## Repository Architecture
+## Repository Architecture (current, 2026-05-01)
 
-### Single Source of Truth
-- **`book/` is the ONLY authoritative theory.** Book > everything else.
-- `papers/` = standalone copies for journal submission.
-- `research-notes/` = historical drafts (may be superseded).
+### Source of Truth — Lean theorems in `lean/E213/`
 
-### Sub-Projects (Independent workspace per field)
+The authoritative state of 213 is the set of 0-axiom Lean theorems
+in `lean/E213/`.  Everything else (narrative, papers, notes) is
+either an entry-point INTO that body of work or a derived artifact.
 
-> **Note:** These directories are **planned** but do not yet exist in the repo.
-> All current work lives in `lean/E213/` (Lean) and top-level `research-notes/`.
-> Create a sub-project when starting a focused experiment campaign.
+### Top-level layout
 
-| Directory | Prefix | Status | Experiments | Domain |
-|-----------|--------|--------|-------------|--------|
-| `foundations/` | `FND_` | (planned) | 37 planned | Derivation chain (math-physics bridge): simplex geometry, variation, f_occ, Grassmannian, Binet–Cauchy, confluence |
-| `standard-model/` | `SM_` | (planned) | 24 planned | couplings, masses, mixing |
-| `atoms/` | `ATM_` | (planned) | 69 planned | atoms, periodic table, wedge screening |
-| `cosmology/` | `COS_` | (planned) | 3 planned | η_B, Ω_Λ, Webb |
-| `cosmic-structure/` | `CST_` | (planned) | 22 planned | LSS, BH jets, H₀, T_CMB, BBN |
-| `critical-line/` | `RH_` | (planned) | 79 planned | critical line, RH, GRH, L-functions, Galois, Lean |
-| `nuclear/` | `NUC_` | (planned) | 15 planned | magic numbers, 600-cell, binding |
-| `hadron/` | `HAD_` | (planned) | 9 planned | meson/baryon spectrum, hyperfine |
-| `predictions/` | `PRD_` | (planned) | 8 planned | unmeasured predictions (JUNO, θ_QCD, Berry phase) |
-| `quantum-gravity/` | `QG_` | (planned) | 7 planned | spacetime emergence, holographic |
-| `yang-mills/` | `YM_` | (planned) | Lean ~58 thms | mass gap, NS regularity, Lean 4 formalization |
-| `discrete-harmonic/` | `DHA_` | (planned) | 19 planned | discrete harmonic analysis, spectrum, S₅ representation theory |
-| `drlt-elements/` | `ELM_` | (planned) | Lean 7 files 26 thms | elements: Entity→Eq→Logic→Nat→Arith→Order→Bridge |
-
-### Sub-Project Required Structure
 ```
-{sub-project}/
-  CLAUDE.md          — field context, constants, experiment list (required)
-  HANDOFF.md         — status, open problems, next steps (required)
-  experiments/       — {PREFIX}_NNN_name.py (required)
-  results/           — experiment output (required)
-  theory/            — theory documents .tex/.md (optional)
-  lib/               — field-specific library (optional)
-```
+ENTRY (read these first):
+  README.md            30-second overview
+  HANDOFF.md           current session state (volatile)
+  CLAUDE.md            this file — agent instructions + principles
+  LESSONS_LEARNED.md   guardrails (finitist framing, etc.)
 
-### Shared Infrastructure
-```
-books/             — narrative books (math/, physics/)
-papers/            — standalone .tex for journal submission (16 papers + drlt-book/)
-.claude/skills/    — Agent skills
+FORMAL CORE (the actual 213):
+  lean/E213/           720 .lean files, 0-axiom standard
+  rust-engine/         Rust runtime (52 binaries, ℕ-only) + docs/
+
+NARRATIVE / NAVIGATION:
+  guide/               master deductive guide (16 chapters, T0/T1/T2/T3 tags)
+  books/               213-internal narrative (math/, physics/)
+  catalogs/            quick-lookup tables (atoms, falsifiers, constants)
+
+META / HISTORY:
+  blueprints/          architectural plans (math/, meta/, physics/)
+  research-notes/      exploratory notes (E1-F6 numbered)
+  seed/                axioms / philosophy / falsifiability snapshots
+
+DEPRECATED:
+  papers/              ⚠ DEPRECATED ARCHIVE — pre-finitist vocabulary,
+                       stale precision claims.  See papers/README.md.
+
+OPERATIONAL:
+  tools/               audit scripts (kernel_regress.sh, FORBIDDEN.md, …)
+  .claude/skills/      Agent skills
 ```
 
-### Lean Library Structure (lean/E213/)
+### Lean Library Structure (`lean/E213/`)
+
 ```
-Kernel/     ★ deep-embedded 213 kernel (14 files, 101 theorems, 0 axiom)
-Physics/    physics formalization (227 files)
-Research/   research / exploratory proofs (331 files)
-Math/       mathematics (8 files)
-Firmware/   Raw axiom layer: Raw, RawLevels, RawSwap (13 files)
-OS/         Atomicity + canonical structures (8 files)
-App/        applications (1 file)
-Hypervisor/ cross-layer bridge (1 file)
-Infinity/   limit / compactification (9 files)
-Meta/       meta-theory utilities (9 files)
-Tactic/     custom tactics (10 files)
+Kernel/      ★ 14 files, 101 theorems literally 0 axiom (deep embedding)
+Firmware/    Raw axiom layer (Raw, RawLevels, RawSwap)
+OS/          Atomicity + canonical structures
+Hypervisor/  cross-layer bridge
+App/         applications
+Physics/     267 files (currently flat + Phase{2,3,4}/ — pending topical reorg)
+Research/    332 files (Real213 marathon + dyadic predictors + exploratory)
+Math/        51 files
+Meta/        meta-theory utilities
+Tactic/      custom tactics
+Infinity/    limit / compactification (mostly 213-external bridges)
+Tools/       Lean tooling
 ```
+
+(Counts as of 2026-05-01.  Earlier CLAUDE.md versions listed
+sub-project directories `foundations/`, `standard-model/`, `atoms/`,
+etc. as "planned" — none were created.  Topical reorg of Phase{2,3,4}
+into named sub-folders is a pending architectural task.)
+
+### Branches
+
+  - `main`                                 — base
+  - `claude/213-rust-engine-SloKB`         — current work head
+  - `claude/review-paper-directory-nDw9L`  — math-track parallel
+                                              (frequent cherry-picks
+                                               into rust-engine branch)
 
 ---
 
-## Naming
-- Experiments: `{PREFIX}_{NNN}_{desc}.py` (inside sub-project/experiments/)
-- Results: `EXP_{PREFIX}_{NNN}_{Title}.txt` (auto-generated, sub-project/results/)
-- New sub-project: prefix + CLAUDE.md + HANDOFF.md + experiments/ + results/
+## Workflow
 
----
-
-## Organization
-- Experiments/results go inside sub-projects only. No EXP_*.txt in root results/.
-- Theory consolidated in book/. Sub-projects are workspaces.
-- Session start: read root HANDOFF → then sub-project HANDOFF in order.
+- Session start: read root `HANDOFF.md` first.
+- Commit after every meaningful change.  Never amend.
+- Physics edits → `lean/E213/Physics/` or `rust-engine/`.
+- Math edits → `lean/E213/Math/` or `lean/E213/Research/`.
+- Documentation: edit the appropriate top-level dir per layout above.
 
 ---
 
@@ -199,11 +203,12 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 | m_J/ψ | 3081.6 MeV | 3096.9 MeV | **-0.5%** |
 | Δ-N split | 295.7 MeV | 294 MeV | **+0.6%** |
 
-## Workflow
-- After editing book/, sync math/ + physics/ and regenerate single .tex.
-- Commit after every meaningful change. Never amend.
+## Paper Authorship Rule (when papers are eventually re-introduced)
 
-## Paper Authorship Rule
+`papers/` is currently DEPRECATED ARCHIVE (see `papers/README.md`).
+For any future external-communication artifacts (re-built from
+current 0-axiom Lean theorems):
+
 - **Author: "Mingu Jeong" only.** Claude is a tool, not an author.
 - **In Acknowledgments:** "This work was developed in dialogue with Claude (Anthropic)."
 - `\author{...Claude...}` is forbidden. Grounds for arXiv desk reject.

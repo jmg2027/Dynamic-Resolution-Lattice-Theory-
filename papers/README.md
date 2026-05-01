@@ -1,33 +1,52 @@
-# 213 Papers
+# 213 Papers — DEPRECATED ARCHIVE (do not consult as authoritative)
 
-This directory contains 16 .tex papers + the 22-chapter `drlt-book/`
-monograph. They express 213 conclusions in **pre-213 mathematical
-vocabulary** (Frobenius classification, π₁ topology, SU(N)
-representation theory, Dieudonné determinant, Regge calculus, etc.).
+> ⚠️ **Status (2026-05-01): Deprecated archive.**  Do NOT use these
+> files as the current state of 213.  They predate the finitist
+> closure (`ValidationStandardOne.lean`, `PureAtomicObservables.lean`,
+> `AlphaEMMasterCapstone.lean`) and the L1-strong rational-complex
+> principle.
+>
+> **Current authoritative material** — Lean theorems in `lean/E213/`
+> + `HANDOFF.md` (root) + `LESSONS_LEARNED.md` + the closure-algorithm
+> doc in `rust-engine/docs/`.  Use those, not this directory.
 
-## Role
+## What this directory was
 
-These papers serve three purposes — none of them "obsolete":
+16 .tex papers + the 22-chapter `drlt-book/` monograph, expressing
+213 conclusions in **pre-213 mathematical vocabulary** (Frobenius
+classification, π₁ topology, SU(N) representation theory, Dieudonné
+determinant, Regge calculus, etc.).  Originally intended as external
+communication layer for non-213-native readers.
 
-1. **External communication layer.** Bridge to the existing
-   mathematical and physical community using shared vocabulary. The
-   audience here is researchers who do not (yet) work in 213-internal
-   ontology.
-2. **Idea archive.** Narrative arguments and intuitions that may guide
-   future 213-internal re-derivations as marathons grow.
-3. **Upper-bound progress index.** Claims here that have been closed
-   at the 4/27 standard in `lean/E213/` are tracked separately
-   (see `guide/STATUS.md`).
+## Why deprecated
 
-## Where to read what
+  1. **Vocabulary mismatch with current 213**: papers use ZFC-style
+     "asymptote", "limit", "transcendental input" framing.  213 is
+     now formalized as finitist-by-theorem (see CLAUDE.md "Finitism
+     is Forced, Not Chosen") — the paper framing is structurally
+     incompatible with the proven cut-algebra obstruction.
+  2. **Stale claims**: numerical agreements quoted in papers were
+     superseded by sub-ppb closures (α_em 0.18 ppb, m_p/m_e
+     0.06 ppm, m_n/m_p 1 ppb, etc.) — the papers' precision tables
+     are old.
+  3. **No 0-axiom cite path**: papers reference Lean modules that
+     have since been refactored or absorbed; cite chain broken.
 
-For the canonical, deductively-ordered presentation of 213 results in
-the cleanest currently-available vocabulary — including epistemic tags
-(T0/T1/T2/T3) showing which sections are 213-internal vs. classical —
-**see `guide/`** at the repository root. The guide treats `papers/`
-content alongside `lean/E213/` modules and `books/` narration.
+## What replaced this
 
-For the 213-internal narration in pure 213 vocabulary, see `books/`.
+| Was in `papers/` | Now lives in |
+|---|---|
+| 213 closed-form derivations | `lean/E213/Physics/*.lean` (0-axiom) |
+| Narrative + theorem map | `guide/INDEX.md` + chapters |
+| Master atomic catalog | `catalogs/atomic-integers.md` + `rust-engine/docs/closure-algorithm.md` |
+| External-vocabulary translation | (no current authoritative version — to be re-built when needed) |
+
+## If you want to read the old papers anyway
+
+They are kept as historical record.  Treat any specific claim as
+"archived hypothesis" — verify against current Lean theorems before
+citing.  See `guide/STATUS.md` for which papers' content is closed
+at the current 0-axiom standard.
 
 ## Structure
 
