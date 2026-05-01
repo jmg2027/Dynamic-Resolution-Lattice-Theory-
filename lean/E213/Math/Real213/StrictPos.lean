@@ -30,9 +30,9 @@ structure Real213StrictPos extends Real213 where
 namespace E213.Math.Real213.StrictPos
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- Real213 with all sequence views strictly positive ((a, b) with a, b ≥ 1). -/
 structure Real213StrictPos extends Real213 where
@@ -43,19 +43,19 @@ end E213.Math.Real213.StrictPos
 namespace E213.Math.Real213.StrictPos
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- Diagonal sequence: xs n = Raw with view (n+1, n+1) via abLens_witness. -/
 def diagonalRaw (n : Nat) : Raw :=
-  (E213.Research.PellSeq.abLens_witness ((n+1) + (n+1)) (n+1) (n+1)
+  (E213.Math.Cauchy.PellSeq.abLens_witness ((n+1) + (n+1)) (n+1) (n+1)
     rfl (Nat.succ_le_succ (Nat.zero_le _))
     (Nat.succ_le_succ (Nat.zero_le _))).1
 
 theorem diagonalRaw_view (n : Nat) :
     abLens.view (diagonalRaw n) = (n+1, n+1) :=
-  (E213.Research.PellSeq.abLens_witness ((n+1) + (n+1)) (n+1) (n+1)
+  (E213.Math.Cauchy.PellSeq.abLens_witness ((n+1) + (n+1)) (n+1) (n+1)
     rfl (Nat.succ_le_succ (Nat.zero_le _))
     (Nat.succ_le_succ (Nat.zero_le _))).2
 

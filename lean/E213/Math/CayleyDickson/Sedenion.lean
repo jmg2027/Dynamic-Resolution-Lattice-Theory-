@@ -83,9 +83,9 @@ ladder across the first four CD layers:
   Sedenion   R2 ✗   R3 ✗   assoc ✗  (R3 fail deferred)
 -/
 
-namespace E213.Research.Sedenion
+namespace E213.Math.CayleyDickson.Sedenion
 
-open E213.Research E213.Research.Cayley
+open E213.Research E213.Math.CayleyDickson.Cayley
 
 instance : Add Sedenion := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
 instance : Neg Sedenion := ⟨fun u => ⟨-u.re, -u.im⟩⟩
@@ -114,11 +114,11 @@ def zd_left : Sedenion := e3 + e10
 /-- `e_6 - e_15` — other side. -/
 def zd_right : Sedenion := e6 - e15
 
-end E213.Research.Sedenion
+end E213.Math.CayleyDickson.Sedenion
 
-namespace E213.Research.Sedenion
+namespace E213.Math.CayleyDickson.Sedenion
 
-open E213.Research E213.Research.Cayley
+open E213.Research E213.Math.CayleyDickson.Cayley
 
 /-- **Moreno's sedenion zero divisor** (1998).
     `(e_3 + e_10) · (e_6 - e_15) = 0` in the standard
@@ -142,14 +142,14 @@ theorem R3_fails_on_sedenion :
   ⟨zd_left, zd_right, zd_left_ne_zero, zd_right_ne_zero,
    zd_product_zero⟩
 
-end E213.Research.Sedenion
+end E213.Math.CayleyDickson.Sedenion
 
-namespace E213.Research.Sedenion
+namespace E213.Math.CayleyDickson.Sedenion
 
 /-- Generators at sedenion level: Cayley generators lifted. -/
-def I' : Sedenion := ⟨E213.Research.Cayley.I', 0⟩
-def J' : Sedenion := ⟨E213.Research.Cayley.J', 0⟩
-def L' : Sedenion := ⟨E213.Research.Cayley.L, 0⟩
+def I' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.I', 0⟩
+def J' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.J', 0⟩
+def L' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.L, 0⟩
 /-- New generator at sedenion level (the "M" imaginary). -/
 def M  : Sedenion := ⟨0, ⟨⟨⟨1, 0⟩, 0⟩, 0⟩⟩
 
@@ -165,9 +165,9 @@ theorem mul_not_associative :
     ∃ u v w : Sedenion, (u * v) * w ≠ u * (v * w) := by
   refine ⟨I', J', L', ?_⟩; decide
 
-end E213.Research.Sedenion
+end E213.Math.CayleyDickson.Sedenion
 
-namespace E213.Research.Sedenion
+namespace E213.Math.CayleyDickson.Sedenion
 
 -- ═══ Alternativity failure at Sedenion level ═══
 -- Octonions (CD layer 2) are classically alternative.
@@ -190,11 +190,11 @@ theorem not_alternative :
     ∃ a b : Sedenion, (a * a) * b ≠ a * (a * b) :=
   ⟨zd_left, zd_right, alt_fails_at_zd⟩
 
-end E213.Research.Sedenion
+end E213.Math.CayleyDickson.Sedenion
 
-namespace E213.Research.Sedenion
+namespace E213.Math.CayleyDickson.Sedenion
 
-open E213.Research.Cayley
+open E213.Math.CayleyDickson.Cayley
 
 -- ═══ Conjugation at Sedenion level ═══
 
@@ -221,4 +221,4 @@ theorem sub_im (u v : Sedenion) : (u - v).im = u.im - v.im := rfl
 theorem zero_re : (0 : Sedenion).re = 0 := rfl
 theorem zero_im : (0 : Sedenion).im = 0 := rfl
 
-end E213.Research.Sedenion
+end E213.Math.CayleyDickson.Sedenion

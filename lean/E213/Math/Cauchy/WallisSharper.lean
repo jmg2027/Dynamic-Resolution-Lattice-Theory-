@@ -23,7 +23,7 @@ case-by-case.
 namespace E213.Math.Cauchy.WallisSharper
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.WallisSeq
+open E213.Math.Cauchy.WallisSeq
 
 /-- Polynomial: `4(k+1)² ≥ (2k+1)(2k+3)`. -/
 private theorem poly_ineq (k : Nat) :
@@ -50,7 +50,7 @@ end E213.Math.Cauchy.WallisSharper
 namespace E213.Math.Cauchy.WallisSharper
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.WallisSeq
+open E213.Math.Cauchy.WallisSeq
 
 /-- **W_n ≥ 64/45 strict** (n ≥ 2): 45 * wallisNum n ≥ 64 *
     wallisDen n.  Inductive base W_2 = 64/45, then monotonic

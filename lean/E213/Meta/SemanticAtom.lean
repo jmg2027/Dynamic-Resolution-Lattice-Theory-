@@ -320,7 +320,7 @@ end E213.Meta.SemanticAtom
 namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.FoldStructured
+open E213.Hypervisor.Lens.Research.Morphism.FoldStructured
 
 /-! ### Negative direction: boundary of Lens-expressibility
 
@@ -360,9 +360,9 @@ theorem isLensExpressible_iff_foldStructured {α : Type} (f : Raw → α) :
     Direct evidence for the boundary of the semantic atom thesis. -/
 theorem exists_non_lens_expressible :
     ∃ f : Raw → Bool, ¬ IsLensExpressible f := by
-  refine ⟨E213.Research.DepthParityNotFold.depthParityFn, ?_⟩
+  refine ⟨E213.Hypervisor.Lens.Research.Morphism.DepthParityNotFold.depthParityFn, ?_⟩
   rw [isLensExpressible_iff_foldStructured]
-  exact E213.Research.DepthParityNotFold.depthParityFn_not_fold_structured
+  exact E213.Hypervisor.Lens.Research.Morphism.DepthParityNotFold.depthParityFn_not_fold_structured
 
 end E213.Meta.SemanticAtom
 

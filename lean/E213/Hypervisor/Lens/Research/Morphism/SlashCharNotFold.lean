@@ -32,7 +32,7 @@ Lens only permits fold-compositional observation.
 namespace E213.Hypervisor.Lens.Research.Morphism.SlashCharNotFold
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.FoldStructured
+open E213.Hypervisor.Lens.Research.Morphism.FoldStructured
 
 /-- slashAB = slash(Raw.a, Raw.b). -/
 def slashAB : Raw := Raw.slash Raw.a Raw.b (by decide)
@@ -49,7 +49,7 @@ end E213.Hypervisor.Lens.Research.Morphism.SlashCharNotFold
 namespace E213.Hypervisor.Lens.Research.Morphism.SlashCharNotFold
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.FoldStructured
+open E213.Hypervisor.Lens.Research.Morphism.FoldStructured
 
 private theorem slashCharFn_a : slashCharFn Raw.a = false := by decide
 private theorem slashCharFn_b : slashCharFn Raw.b = false := by decide

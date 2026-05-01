@@ -129,7 +129,7 @@ end E213.Hypervisor.Lens.Research.Lens.Cauchy
 
 namespace E213.Hypervisor.Lens.Research.Lens.Cauchy
 
-open E213.Firmware E213.Hypervisor E213.Research.IndexedJoinLens
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Research.Lens.IndexedJoin
 
 /-- **Pointwise limit match**: the limit assignment of a family-Cauchy
     sequence agrees pointwise with the view of iProdLens F. -/

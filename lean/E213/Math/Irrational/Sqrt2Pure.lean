@@ -1,4 +1,4 @@
-import E213.Research.PureNat
+import E213.Math.PureNat
 
 /-!
 # Research.Sqrt2IrrationalPure: √2 irrationality, **truly axiom-free**
@@ -17,7 +17,7 @@ Direct construction of the sqrt2 irrationality descent on top of
 
 namespace E213.Math.Irrational.Sqrt2Pure
 
-open E213.Research.PureNat
+open E213.Math.PureNat
 
 /-- m^2 = 2*(k*k) → m even. -/
 theorem m_even_of_sq (m k : Nat) (heq : m * m = 2 * (k * k)) :

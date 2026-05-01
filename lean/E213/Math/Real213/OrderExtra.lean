@@ -17,9 +17,9 @@ These are the first step in showing le/lt is *equivalence-relation compatible*.
 namespace E213.Math.Real213.OrderExtra
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- equiv → le. -/
 theorem le_of_equiv (r r' : Real213) (h : Real213.equiv r r') : le r r' := by

@@ -19,7 +19,7 @@ Concrete application of both perspectives (note 42 §1).
 namespace E213.Hypervisor.Lens.Research.Morphism.DepthParityNotFold
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.FoldStructured E213.Research.NoDepthParity
+open E213.Hypervisor.Lens.Research.Morphism.FoldStructured E213.Hypervisor.Lens.Research.Morphism.NoDepthParity
 
 /-- The depth parity function. -/
 def depthParityFn (r : Raw) : Bool :=

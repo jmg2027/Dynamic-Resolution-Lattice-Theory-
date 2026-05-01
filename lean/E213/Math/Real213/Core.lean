@@ -29,7 +29,7 @@ Workaround: setoid-style approach or raw subtype.
 namespace E213.Math.Real213.Core
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
+open E213.Math.Modulus.HasModulus
 
 /-- Constructive Cauchy real: sequence + explicit modulus. -/
 structure Real213 where
@@ -41,9 +41,9 @@ structure Real213 where
 def Real213.equiv (r r' : Real213) : Prop :=
   ∀ m k, k ≥ 1 →
     ∃ N, ∀ i, i ≥ N →
-      E213.Research.ArchimedeanCauchy.orderProj m k
-        (E213.Research.ABLens.abLens.view (r.xs i)) =
-      E213.Research.ArchimedeanCauchy.orderProj m k
-        (E213.Research.ABLens.abLens.view (r'.xs i))
+      E213.Math.Cauchy.Archimedean.orderProj m k
+        (E213.Hypervisor.Lens.Research.Lens.AB.abLens.view (r.xs i)) =
+      E213.Math.Cauchy.Archimedean.orderProj m k
+        (E213.Hypervisor.Lens.Research.Lens.AB.abLens.view (r'.xs i))
 
 end E213.Math.Real213.Core

@@ -1,4 +1,4 @@
-import E213.Research.PureNat
+import E213.Math.PureNat
 import E213.Math.Cauchy.EulerSeq
 import E213.Math.Cauchy.EulerCombinatorialPure
 
@@ -14,8 +14,8 @@ This sharper bound + e < 3 → e ∈ (8/3, 3).  No integer a/3 in
 
 namespace E213.Math.Cauchy.EulerSharperPure
 
-open E213.Research.PureNat
-open E213.Research.EulerSeq
+open E213.Math.PureNat
+open E213.Math.Cauchy.EulerSeq
 
 /-- **e > 8/3 strict** (n ≥ 4): 3 * eulerNum n ≥ 8 * eulerDen n + 1.
 

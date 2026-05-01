@@ -12,9 +12,9 @@ Actual addition / multiplication is separate work.
 namespace E213.Math.Real213.ModulusCombinerInstances
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- **π1 combiner**: combine x y = x.  Trivial — y is ignored. -/
 def piOneCombiner : ModulusCombiner (fun x _ => x) where

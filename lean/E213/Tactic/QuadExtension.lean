@@ -8,8 +8,8 @@ A command-level macro that registers a `R4Codomain (ZSqrt D)`
 instance for a positive natural `D`.  Equivalent to:
 
 ```
-instance : E213.Meta.R4Codomain (E213.Research.ZSqrt D) :=
-  E213.Research.ZSqrt.R4_of_pos (by decide)
+instance : E213.Meta.R4Codomain (E213.Math.CayleyDickson.ZSqrt D) :=
+  E213.Math.CayleyDickson.ZSqrt.R4_of_pos (by decide)
 ```
 
 but reduces the per-D boilerplate to a single keyword + literal.
@@ -52,8 +52,8 @@ def elabQuadExtension : CommandElab := fun stx => do
         throwError "quad_extension: D must be positive (got 0); \
                     ℤ[√0] = ℤ has no nontrivial involution, so R4 fails"
       let cmd ← `(command|
-        instance : E213.Meta.R4Codomain (E213.Research.ZSqrt $d) :=
-          E213.Research.ZSqrt.R4_of_pos (by decide))
+        instance : E213.Meta.R4Codomain (E213.Math.CayleyDickson.ZSqrt $d) :=
+          E213.Math.CayleyDickson.ZSqrt.R4_of_pos (by decide))
       elabCommand cmd
       logInfo m!"✓ quad_extension {dVal}: R4Codomain (ZSqrt {dVal}) registered"
   | _ => throwUnsupportedSyntax

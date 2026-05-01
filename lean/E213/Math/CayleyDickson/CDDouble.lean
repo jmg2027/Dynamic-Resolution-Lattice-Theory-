@@ -63,9 +63,9 @@ end Lipschitz
 
 end E213.Math.CayleyDickson.CDDouble
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research E213.Research.ZI
+open E213.Research E213.Math.CayleyDickson.ZI
 
 /-- **CD multiplication** on `Lipschitz`. -/
 def mul (u v : Lipschitz) : Lipschitz :=
@@ -103,11 +103,11 @@ theorem conj_ne_id : (conj : Lipschitz → Lipschitz) ≠ id := by
   have : (-1 : Int) = 1 := (ZI.mk.injEq ..).mp this |>.1
   exact absurd this (by decide)
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research E213.Research.ZI
+open E213.Research E213.Math.CayleyDickson.ZI
 
 -- ═══ Non-commutativity of CD multiplication ═══
 
@@ -155,11 +155,11 @@ theorem mul_not_commutative : ∃ u v : Lipschitz, u * v ≠ v * u := by
   have : (1 : Int) = -1 := (ZI.mk.injEq ..).mp this |>.2
   exact absurd this (by decide)
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research E213.Research.ZI
+open E213.Research E213.Math.CayleyDickson.ZI
 
 /-- **Anti-distributivity of `conj` over `mul`** — the CD
     signature: `conj(u·v) = conj v · conj u` with *reversed*
@@ -195,11 +195,11 @@ theorem conj_mul_anti (u v : Lipschitz) :
              + -(v.im.re * u.re.im + v.im.im * u.re.re)
       omega
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research.ZI
+open E213.Math.CayleyDickson.ZI
 
 -- ═══ Lipschitz Add/Neg/Sub (for CD layer 2) ═══
 
@@ -212,7 +212,7 @@ theorem add_im (u v : Lipschitz) : (u + v).im = u.im + v.im := rfl
 theorem neg_re (u : Lipschitz) : (-u).re = -u.re := rfl
 theorem neg_im (u : Lipschitz) : (-u).im = -u.im := rfl
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
 /-
 **Lipschitz universal associativity** `(u·v)·w = u·(v·w)` is a
@@ -223,7 +223,7 @@ per-variable scope of `omega`'s linear decision procedure.  A
 dedicated "tri-factor" tactic would close it.  Deferred.
 -/
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
 /-- `I' ≠ 0` in Lipschitz. -/
 theorem I'_ne_zero : I' ≠ (0 : Lipschitz) := by decide
@@ -238,9 +238,9 @@ theorem mul_generators_ne_zero :
     I' * J ≠ 0 ∧ J * I' ≠ 0 ∧ I' * I' ≠ 0 ∧ J * J ≠ 0 := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
 /-- **Hamilton's identity** at the Lipschitz level: `(ij)² = -1`.
     Since `i · j = k` (via `I_mul_J`), this computes the square
@@ -258,9 +258,9 @@ theorem J_squared : J * J = ⟨⟨-1, 0⟩, 0⟩ := by decide
 /-- `i² = -1`. -/
 theorem I_squared : I' * I' = ⟨⟨-1, 0⟩, 0⟩ := by decide
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
 -- ═══ Quaternion group Q_8 relations ═══
 -- `K := I' * J` is the derived third generator (quaternion k).
@@ -288,9 +288,9 @@ theorem K_mul_J : (I' * J) * J = -I' := by decide
 /-- `i · k = -j`. -/
 theorem I_mul_K : I' * (I' * J) = -J := by decide
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
 -- ═══ Associativity at quaternion basis triples ═══
 -- Lipschitz IS associative (quaternion associativity);
@@ -308,11 +308,11 @@ theorem assoc_I_I_J : (I' * I') * J = I' * (I' * J) := by decide
 /-- `(j·i)·j = j·(i·j)`. -/
 theorem assoc_J_I_J : (J * I') * J = J * (I' * J) := by decide
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research.ZI
+open E213.Math.CayleyDickson.ZI
 
 /-- Lipschitz norm-squared: `u.re.normSq + u.im.normSq`. -/
 def normSq (u : Lipschitz) : Int := u.re.normSq + u.im.normSq
@@ -347,11 +347,11 @@ theorem normSq_neg (u : Lipschitz) : normSq (-u) = normSq u := by
       Int.neg_mul_neg, Int.neg_mul_neg,
       Int.neg_mul_neg, Int.neg_mul_neg]
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research.ZI E213.Tactic
+open E213.Math.CayleyDickson.ZI E213.Tactic
 
 /-- `|I' * J|² = |I'|² * |J|²` at concrete basis.  Sanity
     check before attempting the universal identity. -/
@@ -367,7 +367,7 @@ theorem normSq_mul_sum_basis :
     normSq ((⟨⟨1, 0⟩, 0⟩ + I') * J)
       = normSq (⟨⟨1, 0⟩, 0⟩ + I') * normSq J := by decide
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
 /-
 **Lipschitz universal norm multiplicativity** `|uv|² =
@@ -377,9 +377,9 @@ polynomial identity with ~100 terms on each side.  Beyond
 A dedicated tactic extension is deferred.
 -/
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research E213.Research.ZI
+open E213.Research E213.Math.CayleyDickson.ZI
 
 -- ═══ Projection simp lemmas for hurwitz_ring tactic ═══
 
@@ -403,14 +403,14 @@ theorem zero_re : (0 : Lipschitz).re = 0 := rfl
 /-- `.im` of Lipschitz `0`. -/
 theorem zero_im : (0 : Lipschitz).im = 0 := rfl
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens
 
-namespace E213.Research.Lipschitz
+namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research.ZI
+open E213.Math.CayleyDickson.ZI
 
 theorem sub_re (u v : Lipschitz) : (u - v).re = u.re - v.re := rfl
 
 theorem sub_im (u v : Lipschitz) : (u - v).im = u.im - v.im := rfl
 
-end E213.Research.Lipschitz
+end E213.Math.CayleyDickson.LipschitzLens

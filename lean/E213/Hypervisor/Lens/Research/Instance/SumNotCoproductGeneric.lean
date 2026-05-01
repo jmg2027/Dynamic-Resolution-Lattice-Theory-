@@ -23,8 +23,8 @@ namespace E213.Hypervisor.Lens.Research.Instance.SumNotCoproductGeneric
 
 open E213.Firmware E213.Hypervisor
 open E213.Meta.SemanticAtom
-open E213.Research.SumInstance
-open E213.Research.BoolPropMorphism
+open E213.Hypervisor.Lens.Research.Instance.Sum
+open E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 /-- Sum Bool Bool with **and** combine (boolXorHasDistinguishing
     used as instance for both sides) also violates the coproduct

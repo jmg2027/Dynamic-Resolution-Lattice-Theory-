@@ -1,8 +1,8 @@
 import E213.Math.CayleyDickson.ZSqrt2
-import E213.Research.IntHelpers
+import E213.Math.IntHelpers
 import E213.Tactic.QuadNorm
 
-open E213.Research.IntHelpers
+open E213.Math.IntHelpers
 open E213.Tactic
 
 /-!

@@ -33,7 +33,7 @@ For non-squarefree N: factor out the square, then reduce to the descent
 for the squarefree part.
 -/
 
-namespace E213.Research.PrimeDescentObservations
+namespace E213.Math.PrimeDescentObservations
 
 /-- **Observation 1**: m = 2, k = 1 solves m² = 4k² — sqrt4 = 2 rational. -/
 theorem sqrt4_rational : ∃ m k : Nat, k ≥ 1 ∧ m * m = 4 * (k * k) :=
@@ -51,4 +51,4 @@ theorem sqrt4_not_irrational :
 theorem sqrt16_rational : ∃ m k : Nat, k ≥ 1 ∧ m * m = 16 * (k * k) :=
   ⟨4, 1, Nat.le_refl 1, rfl⟩
 
-end E213.Research.PrimeDescentObservations
+end E213.Math.PrimeDescentObservations

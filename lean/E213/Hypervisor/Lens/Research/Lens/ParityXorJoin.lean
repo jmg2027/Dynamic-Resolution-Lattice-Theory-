@@ -26,9 +26,9 @@ Case analysis on (parityLens.view r, boolXorLens.view r):
 - (F, F): chain via Raw.b (r ~_boolXor Raw.b ~_parity Raw.a)
 -/
 
-namespace E213.Research.ParityXorJoin
+namespace E213.Hypervisor.Lens.Research.Lens.ParityXorJoin
 
-open E213.Firmware E213.Hypervisor E213.Meta E213.Research.JoinEquiv
+open E213.Firmware E213.Hypervisor E213.Meta E213.Hypervisor.Lens.Research.Lens.JoinEquiv
 
 private theorem join_to_a (r : Raw) :
     JoinEquiv parityLens boolXorLens r Raw.a := by
@@ -73,9 +73,9 @@ theorem refine_parity_boolXor_implies_const {γ : Type} (N : Lens γ)
   exact JoinEquiv_is_least parityLens boolXorLens N hNsym hLp hLb r r'
     (joinEquiv_parityLens_boolXorLens_universal r r')
 
-namespace E213.Research.ParityXorJoin
+namespace E213.Hypervisor.Lens.Research.Lens.ParityXorJoin
 
-open E213.Firmware E213.Hypervisor E213.Meta E213.Research.JoinEquiv
+open E213.Firmware E213.Hypervisor E213.Meta E213.Hypervisor.Lens.Research.Lens.JoinEquiv
 
 private theorem leavesLens_to_a (r : Raw) :
     JoinEquiv Lens.leaves boolXorLens r Raw.a := by
@@ -112,4 +112,4 @@ theorem refine_leaves_boolXor_implies_const {γ : Type} (N : Lens γ)
   exact JoinEquiv_is_least Lens.leaves boolXorLens N hNsym hLl hLb r r'
     (joinEquiv_leavesLens_boolXorLens_universal r r')
 
-end E213.Research.ParityXorJoin
+end E213.Hypervisor.Lens.Research.Lens.ParityXorJoin

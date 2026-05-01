@@ -20,7 +20,7 @@ multiplication, etc. — separate work.)
 namespace E213.Math.Real213.Equiv
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
+open E213.Math.Modulus.HasModulus
 
 /-- reflexivity of equiv. -/
 theorem equiv_refl (r : Real213) : Real213.equiv r r := by

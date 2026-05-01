@@ -15,7 +15,7 @@ Witness:
 Not distinguishable by (leaves, depth), but distinguishable by idLens.
 -/
 
-namespace E213.Research.ProdBelowId
+namespace E213.Hypervisor.Lens.Research.Lens.ProdBelowId
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.Research.Lens.Identity E213.Hypervisor.Lens.Research.LensMeet
@@ -66,4 +66,4 @@ theorem prod_not_refines_idLens :
   intro h
   exact idLens_distinguishes (h rA rB prod_equates)
 
-end E213.Research.ProdBelowId
+end E213.Hypervisor.Lens.Research.Lens.ProdBelowId

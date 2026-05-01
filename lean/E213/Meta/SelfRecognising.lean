@@ -19,7 +19,7 @@ R4Codomain    ← +R4: nontrivial swap-matching involution
 ```
 
 R5 is omitted (R5b is vacuous over inductive Raw — see
-`E213.Research.R5Vacuity` and `notes/02_r5_vacuity.md`).
+`E213.Math.CayleyDickson.R5Vacuity` and `notes/02_r5_vacuity.md`).
 -/
 
 namespace E213.Meta.SelfRecognising

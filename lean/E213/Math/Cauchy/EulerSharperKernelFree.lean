@@ -14,7 +14,7 @@ the sharper bound is formalized axiom-free.
 
 namespace E213.Math.Cauchy.EulerSharperKernelFree
 
-open E213.Research.EulerSeq
+open E213.Math.Cauchy.EulerSeq
 
 /-- **e > 5/2 strict at n = 3** (axiom-free base case): 2 * eulerNum 3 ≥ 5 * eulerDen 3 + 1.
     Concrete value check via `decide`. -/

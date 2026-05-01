@@ -30,7 +30,7 @@ Negation = sign flip.
 namespace E213.Math.Real213.Signed
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Cauchy.Archimedean
 
 /-- Signed cut: sign + absolute-value cut. -/
 structure SignedCut where

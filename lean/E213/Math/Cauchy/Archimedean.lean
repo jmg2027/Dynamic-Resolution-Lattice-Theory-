@@ -26,7 +26,7 @@ Mingu (C) direction (2026-04-25): abLens + order-projection family.
 namespace E213.Math.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Hypervisor.Lens.Research.LensCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Hypervisor.Lens.Research.LensCauchy
 
 /-- **Order projection**: (a, b) ↦ decide (a * k ≤ b * m).
     Cross-multiplication form comparing a/b ≤ m/k (assuming k ≥ 1).
@@ -45,7 +45,7 @@ end E213.Math.Cauchy.Archimedean
 namespace E213.Math.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
+open E213.Hypervisor.Lens.Research.Lens.AB
 
 /-- **orderProj is n-independent for (a, b) = (n, n) (n ≥ 1)**:
     Dedekind cut for the diagonal ratio 1/1 = 1. -/
@@ -66,7 +66,7 @@ end E213.Math.Cauchy.Archimedean
 namespace E213.Math.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Hypervisor.Lens.Research.LensCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Hypervisor.Lens.Research.LensCauchy
 
 /-- **Order Cauchy data**: explicit witness structure (constructive). -/
 structure OrderCauchyData (xs : Nat → Raw) where
@@ -92,7 +92,7 @@ end E213.Math.Cauchy.Archimedean
 namespace E213.Math.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
+open E213.Hypervisor.Lens.Research.Lens.AB
 
 /-- **Diagonal sequence (a=b=n+1) is Order-Cauchy**.
     Assumes abLens.view (xs n) = (n+1, n+1). -/
@@ -131,7 +131,7 @@ end E213.Math.Cauchy.Archimedean
 namespace E213.Math.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
+open E213.Hypervisor.Lens.Research.Lens.AB
 
 /-- orderProj of the (n+1, n+2) sequence is eventually constant
     (N differs for each (m, k)). -/
@@ -186,7 +186,7 @@ end E213.Math.Cauchy.Archimedean
 namespace E213.Math.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
+open E213.Hypervisor.Lens.Research.Lens.AB
 
 /-- **(n+1, n+2)-type sequence is Order-Cauchy** — approaches ratio 1
     from below. -/
@@ -216,7 +216,7 @@ end E213.Math.Cauchy.Archimedean
 namespace E213.Math.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
+open E213.Hypervisor.Lens.Research.Lens.AB
 
 /-- **General rational p/q sequence**: orderProj of (a, b) =
     (p*(n+1), q*(n+1)) is n-independent. -/
@@ -253,7 +253,7 @@ end E213.Math.Cauchy.Archimedean
 namespace E213.Math.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
+open E213.Hypervisor.Lens.Research.Lens.AB
 
 /-- **Half sequence (a = n+1, b = 2*(n+1))**: ratio 1/2. -/
 theorem half_seq_orderCauchy (xs : Nat → Raw)

@@ -19,7 +19,7 @@ This generalizes why boolAndLens and boolOrLens have the constant
 of Note 35 and the near-top (constant view Lens) of Note 37.
 -/
 
-namespace E213.Research.IdempotentConstancy
+namespace E213.Math.Diagonal.IdempotentConstancy
 
 open E213.Firmware E213.Hypervisor E213.Math.DiagonalClassification
 
@@ -39,4 +39,4 @@ theorem idempotent_swap_blind_const {α : Type} (L : Lens α)
       rw [hfs, ihx, ihy]
       exact hI L.base_a
 
-end E213.Research.IdempotentConstancy
+end E213.Math.Diagonal.IdempotentConstancy

@@ -1,5 +1,5 @@
 import E213.Math.CayleyDickson.CDDouble
-import E213.Research.IntHelpers
+import E213.Math.IntHelpers
 import E213.Tactic.HurwitzRing
 
 /-!
@@ -25,7 +25,7 @@ end E213.Math.CayleyDickson.LipschitzHeavy
 
 namespace E213.Math.CayleyDickson.LipschitzHeavy
 
-open E213.Tactic E213.Research.ZI
+open E213.Tactic E213.Math.CayleyDickson.ZI
 
 /-- **Hurwitz norm-multiplicativity** at Lipschitz level:
     `|u·v|² = |u|² · |v|²`.  8-variable Int polynomial
@@ -42,7 +42,7 @@ end E213.Math.CayleyDickson.LipschitzHeavy
 
 namespace E213.Math.CayleyDickson.LipschitzHeavy
 
-open E213.Tactic E213.Research.ZI
+open E213.Tactic E213.Math.CayleyDickson.ZI
 
 /-- `Lipschitz.normSq u = 0 ↔ u = 0`.  Sum of 4 integer
     squares = 0 iff each square = 0. -/
@@ -97,7 +97,7 @@ end E213.Math.CayleyDickson.LipschitzHeavy
 
 namespace E213.Math.CayleyDickson.LipschitzHeavy
 
-open E213.Research.ZI
+open E213.Math.CayleyDickson.ZI
 
 /-- **R3 at Lipschitz (= integer quaternions)**: no zero
     divisors.  Classical consequence of norm multiplicativity

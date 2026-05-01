@@ -1,5 +1,5 @@
 import E213.Math.CayleyDickson.Cayley
-import E213.Research.IntHelpers
+import E213.Math.IntHelpers
 import E213.Math.CayleyDickson.LipschitzHeavy
 import E213.Tactic.HurwitzRing
 
@@ -29,7 +29,7 @@ end E213.Math.CayleyDickson.CayleyHeavy
 
 namespace E213.Math.CayleyDickson.CayleyHeavy
 
-open E213.Tactic E213.Research.Lipschitz E213.Research.ZI
+open E213.Tactic E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.ZI
 
 /-- Cayley (octonion) norm-squared:
     `re.normSq + im.normSq` at Lipschitz level. -/
@@ -54,7 +54,7 @@ end E213.Math.CayleyDickson.CayleyHeavy
 
 namespace E213.Math.CayleyDickson.CayleyHeavy
 
-open E213.Tactic E213.Research.Lipschitz E213.Research.ZI
+open E213.Tactic E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.ZI
 
 /-- `Lipschitz.normSq ≥ 0` (sum of integer squares). -/
 private theorem lip_normSq_nonneg (u : Lipschitz) :

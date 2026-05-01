@@ -11,7 +11,7 @@ verification at specific values is axiom-free via `decide`.
 
 namespace E213.Math.Cauchy.WallisSharperKernelFree
 
-open E213.Research.WallisSeq
+open E213.Math.Cauchy.WallisSeq
 
 /-- W_2 = 64/45 (base of sharper bound, axiom-free). -/
 theorem wallis_sharper_n2 : 45 * wallisNum 2 ≥ 64 * wallisDen 2 := by decide

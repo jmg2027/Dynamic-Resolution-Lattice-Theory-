@@ -32,7 +32,7 @@ closure of Paper 1.
 namespace E213.Math.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Helper (Nat right-cancellation via commutativity) -/
 
@@ -60,7 +60,7 @@ end E213.Math.Cauchy.MonotonicBounded
 namespace E213.Math.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Monotonic chain (transitive form) -/
 
@@ -138,7 +138,7 @@ end E213.Math.Cauchy.MonotonicBounded
 namespace E213.Math.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
 
 /-! ### orderProj false propagates forward (monotonic) -/
 
@@ -193,7 +193,7 @@ end E213.Math.Cauchy.MonotonicBounded
 namespace E213.Math.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Constructive Cauchy from a witness "false at N₀"
 

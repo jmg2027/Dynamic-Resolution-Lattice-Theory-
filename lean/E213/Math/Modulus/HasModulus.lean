@@ -29,8 +29,8 @@ derived without LEM.
 namespace E213.Math.Modulus.HasModulus
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- **Constructive Cauchy modulus**: carries the stabilization of
     orderProj as data via an explicit per-(m, k) modulus N.

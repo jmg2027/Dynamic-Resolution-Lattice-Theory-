@@ -23,9 +23,9 @@ trivial modulus (N = 0).
 namespace E213.Math.Real213.Const
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- Constant sequence at single Raw r. -/
 def constSeq (r : Raw) : Nat → Raw := fun _ => r

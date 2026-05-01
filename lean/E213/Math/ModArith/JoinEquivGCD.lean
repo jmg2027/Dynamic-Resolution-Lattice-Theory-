@@ -23,7 +23,7 @@ and the refinement application of `hLm`, `hLk` is replaced with the
 namespace E213.Math.ModArith.JoinEquivGCD
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.LeavesModNat E213.Research.JoinEquiv E213.Research.ModJoinGCD
+open E213.Hypervisor.Lens.Research.Leaves.ModNat E213.Hypervisor.Lens.Research.Lens.JoinEquiv E213.Math.ModArith.JoinGCD
 
 private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
@@ -259,6 +259,6 @@ theorem gcd_equiv_joinEquiv (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     (leavesModNat (Nat.gcd m k)).equiv r r' ↔
       JoinEquiv (leavesModNat m) (leavesModNat k) r r' :=
   ⟨gcd_subset_joinEquiv m k hm hk r r',
-   E213.Research.ModJoinGCD.joinEquiv_subset_gcd m k r r'⟩
+   E213.Math.ModArith.JoinGCD.joinEquiv_subset_gcd m k r r'⟩
 
 end E213.Math.ModArith.JoinEquivGCD

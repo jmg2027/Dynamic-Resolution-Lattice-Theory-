@@ -1,4 +1,4 @@
-import E213.Research.IntHelpers
+import E213.Math.IntHelpers
 
 /-!
 # Tactic: `int_square`
@@ -23,7 +23,7 @@ namespace E213.Tactic
 
 scoped macro "int_square" : tactic => `(tactic|
   first
-    | exact E213.Research.IntHelpers.mul_self_nonneg _
-    | exact E213.Research.IntHelpers.mul_self_eq_zero)
+    | exact E213.Math.IntHelpers.mul_self_nonneg _
+    | exact E213.Math.IntHelpers.mul_self_eq_zero)
 
 end E213.Tactic

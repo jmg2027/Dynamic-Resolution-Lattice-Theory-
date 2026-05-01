@@ -31,7 +31,7 @@ FSM instances for Pell / Sqrt2 sequences are separate work (cyclic mod-N
 state).
 -/
 
-namespace E213.Research.ComplexityClass
+namespace E213.Firmware.Raw.Research.ComplexityClass
 
 open E213.Firmware
 
@@ -44,9 +44,9 @@ class HasFiniteStateMachine (xs : Nat → Raw) where
   output : Fin (bound + 1) → Raw
   output_correct : ∀ k, xs k = output (state k)
 
-end E213.Research.ComplexityClass
+end E213.Firmware.Raw.Research.ComplexityClass
 
-namespace E213.Research.ComplexityClass
+namespace E213.Firmware.Raw.Research.ComplexityClass
 
 open E213.Firmware
 
@@ -64,9 +64,9 @@ instance constSeq_FSM (r : Raw) : HasFiniteStateMachine (constSeq r) where
   output := fun _ => r
   output_correct := fun _ => rfl
 
-end E213.Research.ComplexityClass
+end E213.Firmware.Raw.Research.ComplexityClass
 
-namespace E213.Research.ComplexityClass
+namespace E213.Firmware.Raw.Research.ComplexityClass
 
 open E213.Firmware
 
@@ -112,4 +112,4 @@ instance altSeq_FSM : HasFiniteStateMachine altSeq where
     unfold altSeq
     cases altState k <;> rfl
 
-end E213.Research.ComplexityClass
+end E213.Firmware.Raw.Research.ComplexityClass

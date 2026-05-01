@@ -90,10 +90,10 @@ open E213.Firmware E213.Hypervisor
     abLens is GFCauchy with ι = Nat × Nat, β = Bool. -/
 theorem orderCauchy_is_GFCauchy
     (xs : Nat → Raw)
-    (h : E213.Research.ArchimedeanCauchy.isOrderCauchy xs) :
-    GFCauchy E213.Research.ABLens.abLens
+    (h : E213.Math.Cauchy.Archimedean.isOrderCauchy xs) :
+    GFCauchy E213.Hypervisor.Lens.Research.Lens.AB.abLens
       (fun (mk : Nat × Nat) (p : Nat × Nat) =>
-         E213.Research.ArchimedeanCauchy.orderProj mk.1 mk.2 p) xs := by
+         E213.Math.Cauchy.Archimedean.orderProj mk.1 mk.2 p) xs := by
   intro mk
   by_cases hk : mk.2 ≥ 1
   · obtain ⟨N, hN⟩ := h mk.1 mk.2 hk
@@ -101,10 +101,10 @@ theorem orderCauchy_is_GFCauchy
   · -- mk.2 = 0: orderProj is always true (since p.1 * 0 = 0 ≤ p.2 * mk.1)
     refine ⟨0, ?_⟩
     intro k l _ _
-    show E213.Research.ArchimedeanCauchy.orderProj mk.1 mk.2 _ =
-         E213.Research.ArchimedeanCauchy.orderProj mk.1 mk.2 _
+    show E213.Math.Cauchy.Archimedean.orderProj mk.1 mk.2 _ =
+         E213.Math.Cauchy.Archimedean.orderProj mk.1 mk.2 _
     have hk0 : mk.2 = 0 := by omega
-    unfold E213.Research.ArchimedeanCauchy.orderProj
+    unfold E213.Math.Cauchy.Archimedean.orderProj
     rw [hk0]
     simp
 

@@ -58,9 +58,9 @@ end Cayley
 
 end E213.Math.CayleyDickson.Cayley
 
-namespace E213.Research.Cayley
+namespace E213.Math.CayleyDickson.Cayley
 
-open E213.Research E213.Research.Lipschitz
+open E213.Research E213.Math.CayleyDickson.LipschitzLens
 
 /-- `Cayley.conj` is involutive. -/
 theorem conj_conj (u : Cayley) : conj (conj u) = u := by
@@ -91,7 +91,7 @@ theorem conj_ne_id : (conj : Cayley → Cayley) ≠ id := by
   have : (-1 : Int) = 1 := hreZ
   exact absurd this (by decide)
 
-end E213.Research.Cayley
+end E213.Math.CayleyDickson.Cayley
 
 /-
 **Classical fact (not yet formalised).**  Cayley at this
@@ -105,9 +105,9 @@ non-associator.  Formalisation requires unfolding the CD
 formula through three layers of nested `mul`; deferred.
 -/
 
-namespace E213.Research.Cayley
+namespace E213.Math.CayleyDickson.Cayley
 
-open E213.Research E213.Research.Lipschitz
+open E213.Research E213.Math.CayleyDickson.LipschitzLens
 
 /-- **Non-associativity of Cayley multiplication.**  Three
     generators `I', J', L` of the integer octonions satisfy
@@ -119,11 +119,11 @@ theorem mul_not_associative :
   refine ⟨I', J', L, ?_⟩
   decide
 
-end E213.Research.Cayley
+end E213.Math.CayleyDickson.Cayley
 
-namespace E213.Research.Cayley
+namespace E213.Math.CayleyDickson.Cayley
 
-open E213.Research E213.Research.Lipschitz
+open E213.Research E213.Math.CayleyDickson.LipschitzLens
 
 /-- **Non-commutativity of Cayley multiplication.**
     `I' * J' ≠ J' * I'` at the Cayley level (inherited from
@@ -133,11 +133,11 @@ theorem mul_not_commutative :
   refine ⟨I', J', ?_⟩
   decide
 
-end E213.Research.Cayley
+end E213.Math.CayleyDickson.Cayley
 
-namespace E213.Research.Cayley
+namespace E213.Math.CayleyDickson.Cayley
 
-open E213.Research E213.Research.Lipschitz
+open E213.Research E213.Math.CayleyDickson.LipschitzLens
 
 /-- `I' ≠ 0` in Cayley. -/
 theorem I'_ne_zero : I' ≠ (0 : Cayley) := by decide
@@ -158,9 +158,9 @@ theorem mul_generators_ne_zero :
     I' * J' ≠ 0 ∧ J' * L ≠ 0 ∧ I' * L ≠ 0 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
-end E213.Research.Cayley
+end E213.Math.CayleyDickson.Cayley
 
-namespace E213.Research.Cayley
+namespace E213.Math.CayleyDickson.Cayley
 
 /-- `L² = -1` at Cayley level. -/
 theorem L_squared : L * L = ⟨⟨⟨-1, 0⟩, 0⟩, 0⟩ := by decide
@@ -175,9 +175,9 @@ theorem J'_squared : J' * J' = ⟨⟨⟨-1, 0⟩, 0⟩, 0⟩ := by decide
     non-commuting, octonion-flavor. -/
 theorem I'_J'_L_ne_comm : (I' * J') * L ≠ L * (I' * J') := by decide
 
-end E213.Research.Cayley
+end E213.Math.CayleyDickson.Cayley
 
-namespace E213.Research.Cayley
+namespace E213.Math.CayleyDickson.Cayley
 
 -- ═══ Alternativity evidence ═══
 -- Octonions are classically an alternative algebra:
@@ -198,11 +198,11 @@ theorem alt_L_L_I : (L * L) * I' = L * (L * I') := by decide
 /-- Right alternativity at `(I', J')`: `I'·(J'·J') = (I'·J')·J'`. -/
 theorem alt_right_I_J_J : I' * (J' * J') = (I' * J') * J' := by decide
 
-end E213.Research.Cayley
+end E213.Math.CayleyDickson.Cayley
 
-namespace E213.Research.Cayley
+namespace E213.Math.CayleyDickson.Cayley
 
-open E213.Research.Lipschitz
+open E213.Math.CayleyDickson.LipschitzLens
 
 -- ═══ Cayley Add/Neg/Sub (needed for hurwitz_ring) ═══
 
@@ -229,11 +229,11 @@ theorem neg_im (u : Cayley) : (-u).im = -u.im := rfl
 theorem zero_re : (0 : Cayley).re = 0 := rfl
 theorem zero_im : (0 : Cayley).im = 0 := rfl
 
-end E213.Research.Cayley
+end E213.Math.CayleyDickson.Cayley
 
-namespace E213.Research.Cayley
+namespace E213.Math.CayleyDickson.Cayley
 
 theorem sub_re (u v : Cayley) : (u - v).re = u.re - v.re := rfl
 theorem sub_im (u v : Cayley) : (u - v).im = u.im - v.im := rfl
 
-end E213.Research.Cayley
+end E213.Math.CayleyDickson.Cayley

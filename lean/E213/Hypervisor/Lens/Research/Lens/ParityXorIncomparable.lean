@@ -24,7 +24,7 @@ The two Lenses extract **different information**:
   a-odd), different parity (1 vs 4).
 -/
 
-namespace E213.Research.ParityXorIncomparable
+namespace E213.Hypervisor.Lens.Research.Lens.ParityXorIncomparable
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -56,4 +56,4 @@ theorem xor_not_refines_parity : ¬ boolXorLens.refines parityLens := by
   intro h
   exact parity_distinguishes (h Raw.a rAAA xor_equates)
 
-end E213.Research.ParityXorIncomparable
+end E213.Hypervisor.Lens.Research.Lens.ParityXorIncomparable

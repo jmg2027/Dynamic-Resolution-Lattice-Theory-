@@ -29,8 +29,8 @@ equivalent to "N constant."  Hence coprimality implies "N is constant."
 namespace E213.Math.ModArith.JoinGCD
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LeavesModNat E213.Research.ModJoinBezout
-open E213.Research.ModJoinEuclidean
+open E213.Hypervisor.Lens.Research.LeavesModNat E213.Math.ModArith.JoinBezout
+open E213.Math.ModArith.JoinEuclidean
 
 /-- gcd(m, k) = gcd(m - k, k) when k ≤ m. -/
 private theorem gcd_sub_left (m k : Nat) (h : k ≤ m) :
@@ -62,8 +62,8 @@ end E213.Math.ModArith.JoinGCD
 namespace E213.Math.ModArith.JoinGCD
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LeavesModNat E213.Research.ModJoinBezout
-open E213.Research.ModJoinEuclidean
+open E213.Hypervisor.Lens.Research.LeavesModNat E213.Math.ModArith.JoinBezout
+open E213.Math.ModArith.JoinEuclidean
 
 /-- Sorted auxiliary: `m ≥ k` assumed.  Strong induction on s = m + k. -/
 private theorem join_refines_gcd_sorted {α : Type} (N : Lens α) :
@@ -161,7 +161,7 @@ end E213.Math.ModArith.JoinGCD
 namespace E213.Math.ModArith.JoinGCD
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LeavesModNat E213.Research.JoinEquiv
+open E213.Hypervisor.Lens.Research.LeavesModNat E213.Hypervisor.Lens.Research.Lens.JoinEquiv
 
 /-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k is contained in
     the equivalence of L_gcd.  Direct consequence of

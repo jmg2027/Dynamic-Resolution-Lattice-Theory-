@@ -27,7 +27,7 @@ injects elements of α back into Raw (constructor).
 Each prism extracts a specific element of Raw *distinguishably*.
 -/
 
-namespace E213.Research.Prism
+namespace E213.Hypervisor.Lens.Research.Lens.Prism
 
 open E213.Firmware E213.Hypervisor
 
@@ -41,9 +41,9 @@ structure Prism (α : Type) where
   review : α → Raw
   coherence : ∀ a, preview (review a) = some a
 
-end E213.Research.Prism
+end E213.Hypervisor.Lens.Research.Lens.Prism
 
-namespace E213.Research.Prism
+namespace E213.Hypervisor.Lens.Research.Lens.Prism
 
 open E213.Firmware E213.Hypervisor
 
@@ -61,9 +61,9 @@ def aPrism : Prism Unit := caseElement Raw.a
 /-- Case Prism for Raw.b. -/
 def bPrism : Prism Unit := caseElement Raw.b
 
-end E213.Research.Prism
+end E213.Hypervisor.Lens.Research.Lens.Prism
 
-namespace E213.Research.Prism
+namespace E213.Hypervisor.Lens.Research.Lens.Prism
 
 open E213.Firmware E213.Hypervisor
 
@@ -88,9 +88,9 @@ theorem bPrism_b : bPrism.preview Raw.b = some () := by
   show (if (Raw.b : Raw) = Raw.b then some () else none) = some ()
   rw [if_pos rfl]
 
-end E213.Research.Prism
+end E213.Hypervisor.Lens.Research.Lens.Prism
 
-namespace E213.Research.Prism
+namespace E213.Hypervisor.Lens.Research.Lens.Prism
 
 open E213.Firmware E213.Hypervisor
 
@@ -126,4 +126,4 @@ theorem aPrism_bPrism_disjoint (r : Raw) :
     ¬ (aPrism.preview r = some () ∧ bPrism.preview r = some ()) :=
   caseElement_disjoint Raw.a Raw.b (by decide) r
 
-end E213.Research.Prism
+end E213.Hypervisor.Lens.Research.Lens.Prism

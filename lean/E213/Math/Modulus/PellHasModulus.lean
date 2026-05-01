@@ -26,11 +26,11 @@ constructively without LEM.  The first concrete instance of the
 namespace E213.Math.Modulus.PellHasModulus
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
-open E213.Research.HasModulusNS
-open E213.Research.PellSeq
-open E213.Research.Sqrt2IrrationalKernelFree
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
+open E213.Math.Modulus.HasModulus
+open E213.Math.Cauchy.PellSeq
+open E213.Math.Irrational.Sqrt2KernelFree
 
 /-- Pell sequence as `Nat → Raw`. -/
 def pellRawSeq : Nat → Raw := fun n => (pellRaw n).val
@@ -44,12 +44,12 @@ end E213.Math.Modulus.PellHasModulus
 namespace E213.Math.Modulus.PellHasModulus
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
-open E213.Research.HasModulusNS
-open E213.Research.PellSeq
-open E213.Research.Sqrt2Cut
-open E213.Research.Sqrt2IrrationalKernelFree
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
+open E213.Math.Modulus.HasModulus
+open E213.Math.Cauchy.PellSeq
+open E213.Math.Irrational.Sqrt2Cut
+open E213.Math.Irrational.Sqrt2KernelFree
 
 /-- Cauchy stability at (m, k) — 3-case analysis. -/
 theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
@@ -89,9 +89,9 @@ end E213.Math.Modulus.PellHasModulus
 namespace E213.Math.Modulus.PellHasModulus
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ArchimedeanCauchy
-open E213.Research.HasModulusNS
-open E213.Research.PellSeq
+open E213.Math.Cauchy.Archimedean
+open E213.Math.Modulus.HasModulus
+open E213.Math.Cauchy.PellSeq
 
 /-- **Pell HasModulus instance**: the explicit modulus is constructed
     from the combination of sqrt2_irrational and

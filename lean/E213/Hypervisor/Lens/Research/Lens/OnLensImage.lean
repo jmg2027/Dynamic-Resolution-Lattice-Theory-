@@ -30,7 +30,7 @@ namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 open E213.Firmware E213.Hypervisor
 open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
-open E213.Research.BoolPropMorphism
+open E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 /-- Bool → Lens Bool: second leg of the factorization. -/
 def boolToConstLens (b : Bool) : Lens Bool :=
@@ -46,7 +46,7 @@ namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 open E213.Firmware E213.Hypervisor
 open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
-open E213.Research.BoolPropMorphism
+open E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 /-! ### lensXor acts as xor on {constTrueLens, constFalseLens} -/
 
@@ -69,7 +69,7 @@ namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 open E213.Firmware E213.Hypervisor
 open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
-open E213.Research.BoolPropMorphism
+open E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 /-- boolToConstLens preserves the xor combine. -/
 theorem boolToConstLens_xor (x y : Bool) :
@@ -85,7 +85,7 @@ namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 open E213.Firmware E213.Hypervisor
 open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
-open E213.Research.BoolPropMorphism
+open E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 /-! ### Main: tower collapse factorization -/
 
@@ -117,7 +117,7 @@ namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 open E213.Firmware E213.Hypervisor
 open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
-open E213.Research.BoolPropMorphism
+open E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 /-- **Tower collapse**: lensUniversalMorphism factors through
     universalMorphism Bool.  The image of Lens-on-Lens equals the
@@ -135,7 +135,7 @@ namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 open E213.Firmware E213.Hypervisor
 open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
-open E213.Research.BoolPropMorphism
+open E213.Hypervisor.Lens.Research.Morphism.BoolProp
 
 /-- **Image characterization**: the image of lensUniversalMorphism is
     exactly 2 elements — {constTrueLens, constFalseLens}. -/

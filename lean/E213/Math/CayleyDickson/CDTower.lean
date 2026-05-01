@@ -29,8 +29,8 @@ All six components below are formally proved.
 
 namespace E213.Math.CayleyDickson.CDTower
 
-open E213.Research.ZI E213.Research.Lipschitz E213.Research.Cayley
-     E213.Research.Sedenion
+open E213.Math.CayleyDickson.ZI E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.Cayley
+     E213.Math.CayleyDickson.Sedenion
 
 /-- **CD tower structural drop pattern.**  Each successive
     Cayley–Dickson doubling strictly loses one structural
@@ -53,7 +53,7 @@ end E213.Math.CayleyDickson.CDTower
 
 namespace E213.Math.CayleyDickson.CDTower
 
-open E213.Research.Lipschitz E213.Research.Cayley E213.Research.Sedenion
+open E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.Sedenion
 
 /-- **Extended CD tower drop pattern** — adds the
     alternativity axiom drop at layer 3.  Shows the full
@@ -86,7 +86,7 @@ end E213.Math.CayleyDickson.CDTower
 
 namespace E213.Math.CayleyDickson.CDTower
 
-open E213.Research.Lipschitz E213.Research.Cayley E213.Research.Sedenion
+open E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.Sedenion
 
 /-- **FULL CD tower structural theorem** with composition-
     algebra status now included via Track A's `hurwitz_ring`

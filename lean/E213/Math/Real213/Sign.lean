@@ -25,9 +25,9 @@ Phase A5 milestone of `E1_real213_analysis_roadmap.md`.
 namespace E213.Math.Real213.Sign
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- **Real213 zero**: const Raw.b (abLens.view = (0, 1), ratio 0). -/
 def zero : Real213 := const Raw.b

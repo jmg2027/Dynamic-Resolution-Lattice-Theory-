@@ -1,5 +1,5 @@
 import E213.Math.CayleyDickson.Sedenion
-import E213.Research.IntHelpers
+import E213.Math.IntHelpers
 import E213.Math.CayleyDickson.CayleyHeavy
 import E213.Tactic.HurwitzRing
 
@@ -14,7 +14,7 @@ can still close at layer 3.
 
 namespace E213.Math.CayleyDickson.SedenionHeavy
 
-open E213.Tactic E213.Research.Cayley E213.Research.Lipschitz
+open E213.Tactic E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.LipschitzLens
 
 set_option maxHeartbeats 2000000 in
 /-- **Sedenion conjugation is involutive**: 1-variable
@@ -54,7 +54,7 @@ end E213.Math.CayleyDickson.SedenionHeavy
 
 namespace E213.Math.CayleyDickson.SedenionHeavy
 
-open E213.Research.Cayley E213.Research.Lipschitz
+open E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.LipschitzLens
 
 /-- Sedenion norm-squared: `re.normSq + im.normSq` at
     Cayley level. -/

@@ -10,9 +10,9 @@ fixed-N versions, etc.
 namespace E213.Math.Modulus.HasModulusBoundsExtra
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
-open E213.Research.HasModulusNS
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
+open E213.Math.Modulus.HasModulus
 
 /-- A larger N for HasModulus is also valid — modulus monotonicity. -/
 theorem cauchy_at_larger_N (xs : Nat → Raw) (h : HasModulus xs)

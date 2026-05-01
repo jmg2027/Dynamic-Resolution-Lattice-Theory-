@@ -20,9 +20,9 @@ Per-operation (add, mul, ...) supplies only a ModulusCombiner instance.
 namespace E213.Math.Real213.ModulusCombiner
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- **ModulusCombiner**: abstract kernel for sequence combine + Cauchy preservation. -/
 structure ModulusCombiner (combine : Raw → Raw → Raw) where
@@ -44,9 +44,9 @@ end E213.Math.Real213.ModulusCombiner
 namespace E213.Math.Real213.ModulusCombiner
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- **Generic combine theorem**: ModulusCombiner + two HasModulus → combined HasModulus. -/
 def combineModulus {xs ys : Nat → Raw}

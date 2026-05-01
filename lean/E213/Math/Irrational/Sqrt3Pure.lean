@@ -16,8 +16,8 @@ for any prime p, descent via mod-p.  Concrete instance for p = 3.
 
 namespace E213.Math.Irrational.Sqrt3Pure
 
-open E213.Research.PureNat
-open E213.Research.PureNatMod3
+open E213.Math.PureNat
+open E213.Math.ModArith.PureNatMod3
 
 /-- m^2 = 3*(k*k) → mod3 m = 0. -/
 theorem m_mod3_zero_of_sq (m k : Nat) (heq : m * m = 3 * (k * k)) :

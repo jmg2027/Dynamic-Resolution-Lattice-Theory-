@@ -48,8 +48,8 @@ transcendental domain.  e: factorial denominator.  π: even²/odd² product.
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
-open E213.Research.PellSeq
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
+open E213.Math.Cauchy.PellSeq
 
 /-! ### Wallis product recursion -/
 
@@ -94,7 +94,7 @@ end E213.Math.Cauchy.WallisSeq
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Algebraic invariants -/
 
@@ -151,7 +151,7 @@ end E213.Math.Cauchy.WallisSeq
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Monotonicity (partial Cauchy demonstration) -/
 
@@ -194,8 +194,8 @@ end E213.Math.Cauchy.WallisSeq
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
-open E213.Research.PellSeq
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
+open E213.Math.Cauchy.PellSeq
 
 /-! ### Raw sequence + orderProj (below 1) cut -/
 
@@ -313,7 +313,7 @@ end E213.Math.Cauchy.WallisSeq
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
 
 /-- **Upper invariant**: `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`.
     (W_n ≤ 2 - 1/(2n+1) < 2.)
@@ -378,7 +378,7 @@ end E213.Math.Cauchy.WallisSeq
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
 
 /-- **Cut above 2**: m/k ≥ 2 (2k ≤ m) → orderProj true (∀ n).
     Upper inv: a_n * (2n+1) ≤ (4n+1) * d_n.  (4n+1) ≤ 2(2n+1) so
@@ -435,7 +435,7 @@ end E213.Math.Cauchy.WallisSeq
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
 
 /-- **Order Cauchy** at thresholds m/k ≥ 2 ∨ m/k ≤ 1.
     Other thresholds in (1, 2) — fine-grained analysis would need
@@ -458,8 +458,8 @@ end E213.Math.Cauchy.WallisSeq
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.ABLens E213.Research.ArchimedeanCauchy
-open E213.Research.MonotonicBoundedCauchy
+open E213.Hypervisor.Lens.Research.Lens.AB E213.Math.Cauchy.Archimedean
+open E213.Math.Cauchy.MonotonicBounded
 
 /-! ### Monotonicity instance (for MonotonicBoundedCauchy) -/
 

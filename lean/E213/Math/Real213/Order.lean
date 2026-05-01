@@ -24,9 +24,9 @@ orderProj m k (a, b) = decide (a*k ≤ b*m) — cross-mult form.
 namespace E213.Math.Real213.Order
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- **Real213 le**: for every rational m/k cut, eventually
     r' ≤ m/k implies r ≤ m/k.  Bishop-style constructive le. -/
@@ -46,9 +46,9 @@ end E213.Math.Real213.Order
 namespace E213.Math.Real213.Order
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.HasModulusNS
-open E213.Research.ABLens
-open E213.Research.ArchimedeanCauchy
+open E213.Math.Modulus.HasModulus
+open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Math.Cauchy.Archimedean
 
 /-- Reflexivity of le. -/
 theorem le_refl (r : Real213) : le r r := by
