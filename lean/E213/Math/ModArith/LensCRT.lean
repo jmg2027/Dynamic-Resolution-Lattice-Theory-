@@ -19,7 +19,7 @@ yield exactly the same kernel.
 namespace E213.Math.ModArith.LensCRT
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.LeavesModNat E213.Hypervisor.Lens.Lattice.Meet
+open E213.Hypervisor.Lens.Leaves.ModNat E213.Hypervisor.Lens.Lattice.Meet
 
 /-- L_6 refines prodLens(L_2, L_3) — automatic from divides_refines
     + the meet universal property. -/

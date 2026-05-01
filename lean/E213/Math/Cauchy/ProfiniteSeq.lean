@@ -74,7 +74,7 @@ end E213.Math.Cauchy.ProfiniteSeq
 namespace E213.Math.Cauchy.ProfiniteSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.LeavesModNat E213.Hypervisor.Lens.Instances.Cauchy
+open E213.Hypervisor.Lens.Leaves.ModNat E213.Hypervisor.Lens.Instances.Cauchy
 
 /-- The factorial sequence is eventually 0 mod m (when n + 1 ≥ m). -/
 theorem factorial_eventually_zero_mod (m : Nat) (hm : 1 ≤ m)

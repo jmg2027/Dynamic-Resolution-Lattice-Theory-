@@ -49,7 +49,7 @@ def scan(modules):
         decls.extend(find_decls(m))
     lines.extend(f'#print axioms {d}' for d in decls)
     PROBE_PATH.write_text('\n'.join(lines) + '\n')
-    cmd = ['lake', 'build', '--rehash', 'E213._AxiomScanProbe']
+    cmd = ['lake', 'build', 'E213._AxiomScanProbe']
     r = subprocess.run(cmd, cwd='lean', capture_output=True, text=True)
     out = r.stdout + r.stderr
     PROBE_PATH.unlink(missing_ok=True)

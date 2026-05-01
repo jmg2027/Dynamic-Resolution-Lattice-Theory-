@@ -19,7 +19,7 @@ chain.
 namespace E213.Math.ModArith.JoinBezout
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.LeavesModNat
+open E213.Hypervisor.Lens.Leaves.ModNat
 
 private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
@@ -40,7 +40,7 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
     (hLk : (leavesModNat k).refines N)
     (r r' : Raw) (hdiff : Lens.leaves.view r' = Lens.leaves.view r + (m - k)) :
     N.view r = N.view r' := by
-  obtain ⟨w, hw⟩ := E213.Math.Infinity.leaves_surjective_pos
+  obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
     (Lens.leaves.view r + m) (by omega)
   have h_r_w : (leavesModNat m).view r = (leavesModNat m).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw, Nat.add_mod_right]
@@ -56,7 +56,7 @@ end E213.Math.ModArith.JoinBezout
 namespace E213.Math.ModArith.JoinBezout
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.LeavesModNat
+open E213.Hypervisor.Lens.Leaves.ModNat
 
 /-- Same leaves → same N-view via arbitrary L_k. -/
 private theorem same_leaves_N {α : Type} (N : Lens α) (k : Nat) (hk : k ≥ 2)
@@ -84,7 +84,7 @@ theorem consecutive_step_plus_n {α : Type} (N : Lens α) (m k : Nat)
       intro r' hr'
       have h_r_ge := leaves_ge_one r
       obtain ⟨r'', hr''⟩ :=
-        E213.Math.Infinity.leaves_surjective_pos
+        E213.Infinity.leaves_surjective_pos
           (Lens.leaves.view r + n) (by omega)
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have step2 : N.view r'' = N.view r' := by
@@ -97,7 +97,7 @@ end E213.Math.ModArith.JoinBezout
 namespace E213.Math.ModArith.JoinBezout
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.LeavesModNat
+open E213.Hypervisor.Lens.Leaves.ModNat
 
 /-- **Consecutive coprime → Join = constLens**.
     L_{k+1}.refines N ∧ L_k.refines N → N is constant. -/

@@ -21,7 +21,7 @@ of the two Lenses differ (separated at some r, r').
 
 namespace E213.Hypervisor.Lens.Kernel.CardinalityLB
 
-open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.LeavesModNat
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Leaves.ModNat
 
 /-- If m ≠ k (both ≥ 2) then the kernel of leavesModNat m ≠
     the kernel of leavesModNat k.  Witness: Raw.a (leaves=1) and
@@ -35,7 +35,7 @@ private theorem mod_kernel_separates (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     ∃ r r' : Raw,
       (leavesModNat m).view r = (leavesModNat m).view r' ∧
       (leavesModNat k).view r ≠ (leavesModNat k).view r' := by
-  obtain ⟨r', hr'⟩ := E213.Math.Infinity.leaves_surjective_pos (m + 1) (by omega)
+  obtain ⟨r', hr'⟩ := E213.Infinity.leaves_surjective_pos (m + 1) (by omega)
   refine ⟨Raw.a, r', ?_, ?_⟩
   · -- leavesModNat m: 1 % m = (m+1) % m = 1
     show (leavesModNat m).view Raw.a = (leavesModNat m).view r'
@@ -71,7 +71,7 @@ end E213.Hypervisor.Lens.Kernel.CardinalityLB
 
 namespace E213.Hypervisor.Lens.Kernel.CardinalityLB
 
-open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.LeavesModNat
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Leaves.ModNat
 
 /-- **Distinct mod kernels for distinct moduli (m ≠ k, both ≥ 2)**.
     In at least one direction k ∤ m, so the above lemma applies. -/

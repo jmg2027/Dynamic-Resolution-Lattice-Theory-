@@ -24,7 +24,7 @@ incomparable.  This shows that the Lens kernel space contains
 namespace E213.Math.ModArith.Mod2Mod3Incomparable
 
 open E213.Firmware E213.Hypervisor E213.Meta
-open E213.Hypervisor.Lens.LeavesMod3
+open E213.Hypervisor.Lens.Leaves.Mod3
 
 /-- Raw with leaves 2. -/
 def r2 : Raw := Raw.slash Raw.a Raw.b (by decide)
