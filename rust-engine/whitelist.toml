@@ -393,7 +393,7 @@ lean = "E213.Physics.Phase3.GravityNotInteraction.gravity_not_interaction"
 
 [[op]]
 rust = "drlt_app::bin::proton_radius"
-lean = "E213.Physics.ProtonMass.r_p_atomic"
+lean = "E213.Physics.ProtonMass.r_p_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::koide_check"

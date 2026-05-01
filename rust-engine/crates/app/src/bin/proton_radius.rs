@@ -59,20 +59,35 @@ fn main() {
     println!("NT² = (d−1) = (NS+1) = {}", decimal(&nt_sq, 0));
 
     let dq = sub_q(&ratio, &nt_sq);
-    let pct = mul_q(&dq, &(nat(100), nat(1)));
-    let pct_rel = mul_q(&pct, &(nt_sq.1.clone(), nt_sq.0.clone()));
-    println!("|Δ|              = {}    ({} %)",
-        decimal(&dq, 6), decimal(&pct_rel, 4));
+    let ppm = mul_q(&dq, &(nat(1_000_000), nat(1)));
+    let ppm_rel = mul_q(&ppm, &(nt_sq.1.clone(), nt_sq.0.clone()));
+    println!("Bare |Δ|         = {}    ({} ppm)",
+        decimal(&dq, 6), decimal(&ppm_rel, 1));
+
+    // v2: NT² · (1 + α_GUT/d³) — Class B leak with d³ = 125
+    // α_GUT = 1/(d²·ζ(2)), via Basel partial sum N=5000
+    let s = drlt_app::basel::s_partial(5000u64);
+    let np1 = nat(5001u64);
+    let zeta_tight: Q = (&s.0 * &np1 + &s.1, &s.1 * &np1);
+    let agut: Q = (zeta_tight.1.clone(), nat(25) * &zeta_tight.0);
+    let one: Q = (nat(1), nat(1));
+    // (1 + α_GUT/d³) = (1 + α_GUT/125)
+    let agut_d3: Q = (agut.0.clone(), &agut.1 * nat(125));
+    let leak: Q = (&one.0 * &agut_d3.1 + &agut_d3.0 * &one.1,
+                   &one.1 * &agut_d3.1);
+    let pred_v2 = mul_q(&nt_sq, &leak);
+    let dq_v2 = sub_q(&ratio, &pred_v2);
+    let ppm_v2 = mul_q(&mul_q(&dq_v2, &(nat(1_000_000), nat(1))),
+                       &(pred_v2.1.clone(), pred_v2.0.clone()));
+    println!();
+    println!("v2: NT²·(1 + α_GUT/d³) = {}", decimal(&pred_v2, 9));
+    println!("v2 |Δ|              = {}  ({} ppm — was 195)",
+        decimal(&dq_v2, 9), decimal(&ppm_v2, 2));
 
     println!();
-    println!("Triple atomic reading of integer 4:");
-    println!("  NT²    = 4   (chiral phase volume on K_{{3,2}}^{{(c=2)}})");
-    println!("  d − 1  = 4   (backbone minus base point)");
-    println!("  NS + 1 = 4   (first 'beyond NS' step)");
+    println!("Atomic reading of 125: d³ = 5³ = 3D simplex spatial volume");
+    println!("Class B leak: α_GUT/(spatial volume)");
     println!();
-    println!("→ r_p = NT² · ℏ/(m_p·c)  = NT² · Compton wavelength of proton");
-    println!("       Class C (bare invariant), no α_GUT correction needed.");
-    println!();
-    println!("Lean cite: ProtonMass.r_p_atomic (0-axiom, added 2026-04-30)");
+    println!("Lean cite: ProtonMass.r_p_v2_atomic (0-axiom)");
 }
 
