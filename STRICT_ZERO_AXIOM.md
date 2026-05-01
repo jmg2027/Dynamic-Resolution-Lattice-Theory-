@@ -27,6 +27,11 @@ Verified via `#print axioms <theorem>` returning:
 | `ArithFSM2.run_period_of_init` | universal Pisano period theorem |
 | `ArithFSM2.bits_period_of_init` | universal bits period |
 | `ArithFSM3.run_period_of_init` | cubic-class universal period |
+| `signature_period_of_bits_period_and_anchor` | universal sig period (TIGHT) |
+| `pellFSMmod{11,19,31,47,59}_signature_period_X` | TIGHT sig instances (5×) |
+| `pellFSMmod{3,5}_signature_period_X` | TIGHT sig instances (2×) |
+| `tribFSMmod{3,5,19,29,31}_bits_period_X` | Tribonacci doubling bits |
+| `pellFSMmod47_bits_period_48` | triple-anchor reshape via rfl |
 
 ## Atomic identities (all STRICT 0-AXIOM via decide)
 
