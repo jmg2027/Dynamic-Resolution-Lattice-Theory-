@@ -1,7 +1,76 @@
 # Session Handoff — ★★★ FIRST MILESTONE CLOSED ★★★
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed; head = `cd6aa89`).
+`claude/213-rust-engine-SloKB` (committed; latest deep-reorg session).
+
+## Deep file-by-file reorg pass (2026-05-01, after Phase A-H repo cleanup)
+
+User requested: "E213 아래에, 여러 파일로 되어있는데 그럴 필요 없는
+애들이 많은듯. 리서치 디렉토리 밑에는 아직 정리가 안된건지? 모든
+파일들을 읽고 분석해서 분류히는 작업".
+
+### Research/ reorg (3 batches, 114 files moved)
+
+| Sub-cluster | Files | Naming pattern |
+|---|---|---|
+| `Lens/` | 32 | LensX.lean → Lens/X.lean, ABLens.lean → Lens/AB.lean, etc. |
+| `Cauchy/` | 14 | Wallis*, Euler*, Profinite*, MonotonicBounded, GenericFamily, PellSeq |
+| `ModArith/` | 10 | ModJoinX.lean → ModArith/JoinX.lean, etc. |
+| `Kernel/` | 8 | KernelX.lean → Kernel/X.lean, FourDistinct, IdLensEq |
+| `Instance/` | 8 | Pair, Subtype{,Closed}, Sum*, FunctionSpace, Reach |
+| `Morphism/` | 7 | BoolProp, Dist, FoldStructured, NotFold series |
+| `Irrational/` | 6 | Sqrt2{,Cut,KernelFree,Pure}, Sqrt3Pure, Sqrt5Pure |
+| `Universal/` | 5 | LensClaim, MorphismFactor, QuotLens, Reflection, Flat |
+| `Leaves/` | 5 | DepthIncomparable/Join, Mod3, ModNat, RefinesParity |
+| `Modulus/` | 4 | HasModulus{,BoundsExtra}, StrongModulus, PellHasModulus |
+| `Choice/` | 4 | Canonical, CanonicalTruthChar, Resolved, BootstrapWitness |
+| `Diagonal/` | 3 | Classification, HasModulus, Irrelevance |
+| `Raw/` | 3 | DecEq, Initiality, SwapSlash |
+| `Hyper/` | 3 | Hyper213, Hyper213Tower, Padic |
+| `Refines/` | 2 | Chain, Preorder |
+
+Research/ flat root: **127 → 13** (-90%).
+Created `Research/INDEX.md` documenting the layout.
+
+### Physics/ reorg (3 batches, 99 files moved across 13 sub-clusters)
+
+| Sub-cluster | Files |
+|---|---|
+| `AlphaEM/` | 18 (Core, V137*, Derivation, GramSelfEnergy, ...) |
+| `Foundations/` | 17 (DrltZeroParameters, finitism, N_universe, GoldenRatio, Fibonacci, Koide, Hop, ...) |
+| `Couplings/` | 15 (AlphaGUT, asymp.freedom, color conf., GUT unif., propagator, ParitySign, ...) |
+| `Hadron/` | 8 (Bigrading, Bridge, Masses, ProtonG/Mass/ElectronRatio, NeutronProton, QuarkHierarchy) |
+| `Capstones/` | 8 (ValidationStandardOne, PureAtomicObservables, FinitistObservableChain, PaperBundles, ...) |
+| `Cosmology/` | 7 (DarkEnergy, Hubble, Neff, OmegaLambda, GravityShadow, HorizonInformation, Bridge) |
+| `Simplex/` | 7 (Counts, SubInventory, FoccSpectrum, FaceTerms, MultiComposite, Generations) |
+| `Nuclear/` | 6 (Deuteron, Magic*, Binding, Bridge, Shells) |
+| `Higgs/` | 5 (Mass{,Finitist}, Master, Quartic, Vacuum) |
+| `Mixing/` | 5 (CKM, CP, Cabibbo, Bridge, Neutrino) |
+| `YangMills/` | 5 (WZBosons, WeinbergAngle, Bridge, Gap, SU5Roots) |
+| `Atomic/` | 5 (Bridge, Screening, BondAngles, Helium, Hydrogen) |
+| `Mass/` | 4 (MuOverE, MuOverEFinitist, TauOverMu, HierarchyTowers) |
+| `FamousCoincidences/` | 4 (V{1,2,3,4}) |
+| `Basel/` | 3 (Bound, BoundTight, WhyBasel) |
+
+Physics/ flat root: **121 → 4** (-97%; remaining = Phase{1Final,2,3,4}.lean
+namespace aggregators).
+Created `Physics/INDEX.md`.
+
+### Verified post-reorg
+
+  - `lake build` clean across full E213 tree
+  - `lean-rust-diff` 43/43 OK (after updating diff harness lean_module
+    paths to new sub-cluster locations)
+
+### Notes
+
+  - File-system paths reorganized; namespace declarations inside files
+    retained.  Lean's import system uses module-path; namespaces are
+    independent — `import E213.Physics.AlphaEM.V137` brings in theorems
+    declared under `namespace E213.Physics.AlphaEM137`.
+  - 213 module-name validity: digit-start names blocked (e.g.
+    `137.lean` → `V137.lean`, `FamousCoincidencesII.lean` →
+    `FamousCoincidences/V2.lean`).
 
 ## Repo-wide cleanup (Phase A-G, 2026-05-01)
 
