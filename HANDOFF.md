@@ -5,6 +5,23 @@
 Branch: `claude/review-paper-directory-nDw9L` — **READY FOR MERGE**.
 Major progress in 2026-04-30 / 05-01 sessions.
 
+## Recent cleanup (2026-05-01 late session)
+
+  - Tribonacci mod3, mod5 → STRICT 0-AXIOM (omega→Nat.add_assoc.symm)
+  - Pell mod47 triple-anchor → STRICT 0-AXIOM via rfl (commit 9e811cb)
+  - Universal sig lemma `signature_period_of_bits_period_and_anchor`
+      → STRICT 0-AXIOM (commit a9b5786) — ripple-fixed 5 Pell sig
+      instances (mod 11, 19, 31, 47, 59)
+  - DyadicClassifier, DyadicTierBridge, DyadicBitFSMBound 의 omega
+      → Nat.succ_add (commit e5c9e2d)
+  - 9 doubling reshapes: `(Nat.add_assoc).symm` → `rfl` (commit be39ea7)
+  - LESSONS 교훈 12 (omega→0-axiom 패턴) added/corrected
+  - PairForcing.lean orphan build 복구 (commit 8e85bba):
+      by_contra → cases (core Lean 4.16에 by_contra 없음)
+      App.Simplex import 추가하여 default build 에 포함
+  - Real213 zero_plus_gap omega → Nat.not_le_of_lt (commit ea26cb0)
+      (propext 잔여는 Cauchy machinery 자체가 필요)
+
 ## ★ Headline achievement: 213 finitist closure ★
 
 **213 now satisfies CLAUDE.md Validation Standard #1+#2** as a single
