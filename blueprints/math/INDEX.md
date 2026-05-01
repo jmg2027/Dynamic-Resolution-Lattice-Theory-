@@ -77,7 +77,7 @@ Split into base spec + phases file (`15_cohomology_213.md` +
 
 ---
 
-## Realization status (2026-04-30 — 18-day sprint snapshot)
+## Realization status (2026-04-30)
 
 | # | Field | Status | Evidence |
 |---|---|---|---|
@@ -97,7 +97,7 @@ Split into base spec + phases file (`15_cohomology_213.md` +
 | 12 | Information Theory 213 | ⏳ **Pending** | |
 | 14 | Logic / Proof Theory 213 | ⏳ **Pending** | Long-term: self-bootstrapping `Kernel.Proof` to eliminate propext + Quot.sound. |
 
-Summary: **3 of 15 fields fully or substantially realized in 18 days**.
+Summary: **3 of 15 fields fully or substantially realized**.
 Originally planned ★★★ priorities Phase A (01-03) deferred behind
 opportunistic completions in 07, 13, 15.
 

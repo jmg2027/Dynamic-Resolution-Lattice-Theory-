@@ -51,7 +51,7 @@
 
 ---
 
-## Realization status (2026-04-30 — 18-day sprint snapshot)
+## Realization status (2026-04-30)
 
 Companion branch `claude/213-rust-engine-SloKB` carries the bulk of
 realization through 53 `rust-engine` binaries with ℕ-only
@@ -74,7 +74,7 @@ verification + Lean theorem citations.
 | 12 | Quantum Information 213 | ⏳ **Pending** | |
 | 14 | Condensed Matter 213 | ⏳ **Pending** | |
 
-Summary: **5 of 14 fields REALIZED, 6 PARTIAL, 3 PENDING in 18 days**.
+Summary: **5 of 14 fields REALIZED, 6 PARTIAL, 3 PENDING**.
 The "ToE Level 4" (formal physics derivation at ppm precision) of
 DRLT validation standard is *substantially achieved* — 1/α_em at
 0.07 ppm, m_μ/m_e at 0.49 ppb, m_p at 1.56 ppm, all in ℕ-only

@@ -39,7 +39,7 @@ formal fact.
   - Physics track: lean/E213/Physics/, books/physics/, physics/all
   - Common: seed/, catalogs/, papers/, examples/, tools/
 
-## Realization snapshot (2026-04-30 — 18-day sprint)
+## Realization snapshot (2026-04-30)
 
 ### Math (3 of 15 fields realized)
 
