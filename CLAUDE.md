@@ -63,7 +63,7 @@ The day that last theorem closes with 0 sorry = the first milestone of "rewritin
 - Pattern: d²=25 (arithmetic) → α_GUT (physics), ζ(2) (number theory) → propagator (analysis), f_occ (algebra) → coupling (physics)
 
 ## Hunter Methodology Lessons (2026-05-01, Tier-4 Path (c) closure)
-- **L1**: π and ζ(2) are derived (finite Leibniz / Basel partials, N→∞ limit), not axiomatic. The lattice is primary; transcendentals are bracketable shadows.
+- **L1**: π, ζ(2), e, all transcendentals are *limits* of finite rational lattice sums (Leibniz, Basel, etc.) — not axiomatic. **Everything in DRLT is rational-complex**: G_ij = ⟨ψ_i|ψ_j⟩ has rational magnitude AND rational sin/cos for the phase (Pythagorean-triple style). Transcendentals are convenient shorthand for "N→∞ limit of a rational bracket"; the *true* DRLT closed form should be rational. When a form contains π/ζ(2), look for the underlying rational structure.
 - **L2**: When a hunter form has ζ(2)^k or π^k and won't tighten, **strip the transcendentals and re-search pure-rational bases**. g_p went 828 ppm → 0.097 ppm by replacing (NS²/d)·ζ(2)² with (d²−NS)/NT² + extra α corrections.
 - **L3**: Composite (3-quark hadron) observables are **Class D triple cup-chains**, not single-α leakages. Single-α searches structurally cannot close them.
 - **L4**: Coefficient reuse across observables is **structural evidence**, not coincidence. The integer 45 = NS²·d appears in 1/α_em (α/45), m_n/m_p (α_em²·45), and g_p (α_em²·90 = NT·45) — same K_25 anchor.

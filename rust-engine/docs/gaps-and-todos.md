@@ -284,6 +284,13 @@ partial sums, ζ(2) = lim of Basel partials.  Forms with π or
 ζ(2) are *idealizations of finite combinatorial sums*.  See
 `CLAUDE.md` "Implications of Finite Discrete Lattice".
 
+  **Stronger version (2026-05-01):** *Everything* in DRLT is
+  rational-complex.  G_ij = ⟨ψ_i|ψ_j⟩ has rational magnitude AND
+  rational sin/cos (Pythagorean-triple style: ∃ rational (a,b,c)
+  with a²+b² = c², giving rational sin = a/c, cos = b/c).  Any
+  apparent π/ζ in a closed form is shorthand for "N→∞ limit of a
+  rational bracket"; the true DRLT closed form should be rational.
+
 **L2 — When stuck, try pure-rational bases first.**  The prior
 g_p form (NS²/d)·ζ(2)²·(1+6α_GUT) was 828 ppm; replacing the
 ζ(2)² with the pure-rational base (d²−NS)/NT² and adding two
