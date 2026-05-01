@@ -36,6 +36,16 @@ fn atomic_ints() -> Vec<(&'static str, u64)> {
         ("d²·NT=50",  50), ("E·d=60",    60), ("NS·d²=75",  75),
         ("d²·c·NT=100", 100), ("NS²+d^NT−4=30", 30), ("NS·d²·c=150", 150),
         ("d·NT^d=160", 160), ("(NS²−1)·(d²−1)=192", 192), ("NT^d·NT²=128", 128),
+        // FSM-period primes (per 2026-04-30 user analysis, composite hadrons)
+        ("2^4+1=17",        17), ("2^4+NS=19",        19),
+        ("d²+NT²=29",       29), ("2^d−1=31",         31),
+        ("F_9=37",          37), ("d²+NT^d−16=41",    41),
+        ("NS²·NT^d−2·d²=43",43), ("d·d²−NT²=47",      47),
+        ("NT^d+NT^d−1=63",  63),
+        // 3-quark Borromean: prime × atomic for composite period
+        ("17·NT=34",  34), ("19·NT=38",  38), ("31·NT=62",  62),
+        ("17·NS=51",  51), ("19·NS=57",  57), ("31·NS=93",  93),
+        ("17·d=85",   85), ("19·d=95",   95),
     ]
 }
 
@@ -131,6 +141,40 @@ fn apply_alpha(q: &Q, k: i32, zeta: &Q) -> Q {
     }
 }
 
+/// α² correction set for composite multi-step boundary leakage
+/// (2026-04-30 user thesis: Massey product traces of multi-α leak).
+fn alpha_sq_corrections() -> Vec<(&'static str, i32)> {
+    vec![
+        ("·(1+α²)",     1), ("·(1+NTα²)",   2), ("·(1+NSα²)",   3),
+        ("·(1+NT²α²)",  4), ("·(1+dα²)",    5), ("·(1+NS·NTα²)",6),
+        ("·(1+NS²α²)",  9), ("·(1+d²α²)",  25),
+        ("·(1−α²)",    -1), ("·(1−NTα²)",  -2), ("·(1−dα²)",   -5),
+        ("·(1−d²α²)", -25),
+    ]
+}
+
+/// Apply q · (1 + α²·k) correction.  α² = 1/(d²·ζ(2))² so
+/// q·k·α² = q·k / (625·ζ(2)²).
+fn apply_alpha_sq(q: &Q, k: i32, zeta: &Q) -> Q {
+    if k == 0 { return q.clone(); }
+    let ak = k.unsigned_abs() as u64;
+    // α² denominator = 625·zeta.0².  numerator = zeta.1².
+    let zeta_sq_num = &zeta.1 * &zeta.1;
+    let zeta_sq_den = &zeta.0 * &zeta.0;
+    let corr_num = &q.0 * nat(ak) * &zeta_sq_num;
+    let corr_den = &q.1 * nat(625) * &zeta_sq_den;
+    if k > 0 {
+        let n = &q.0 * &corr_den + &q.1 * &corr_num;
+        let d = &q.1 * &corr_den;
+        (n, d)
+    } else {
+        let lhs = &q.0 * &corr_den;
+        let rhs = &q.1 * &corr_num;
+        let n = if lhs > rhs { lhs - rhs } else { rhs - lhs };
+        (n, &q.1 * &corr_den)
+    }
+}
+
 fn hunt(label: &str, target: &Q, pi: &Q, zeta: &Q) {
     let mut best: Vec<(u64, String, Q)> = Vec::new();
     // Pass 1: integer-prefactor candidates
@@ -155,6 +199,22 @@ fn hunt(label: &str, target: &Q, pi: &Q, zeta: &Q) {
                 let cand = apply_alpha(&base, a_k, zeta);
                 let ppm = ppm_diff(target, &cand);
                 best.push((ppm, format!("{f_lab}{t_lab}{a_lab}"), cand));
+            }
+        }
+    }
+    // Pass 3: α² (Massey-product) corrections on integer prefactors,
+    // limited to a small transcendental subset for tractability.
+    let trans_subset: &[(&str, u32, u32)] = &[
+        ("",     0, 0), ("·ζ(2)", 0, 1), ("·π",  1, 0), ("·π²", 2, 0),
+        ("·π³", 3, 0),  ("·π⁴",  4, 0), ("·π⁵", 5, 0),
+    ];
+    for (k_lab, k) in atomic_ints() {
+        for (t_lab, pi_p, ze_p) in trans_subset {
+            let base = candidate(k, *pi_p, *ze_p, pi, zeta);
+            for (a_lab, a_k) in alpha_sq_corrections() {
+                let cand = apply_alpha_sq(&base, a_k, zeta);
+                let ppm = ppm_diff(target, &cand);
+                best.push((ppm, format!("{k_lab}{t_lab}{a_lab}"), cand));
             }
         }
     }
