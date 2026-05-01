@@ -48,10 +48,10 @@ The day that last theorem closes with 0 sorry = the first milestone of "rewritin
 
 The finitist position in 213 is not a philosophical preference — it is a **consequence of Lean theorems** (DRLT-axiom set ⊆ {propext, Quot.sound}) showing ZFC-style completed infinity breaks the lattice's cut-function algebra:
 
-- `Real213DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`: the Cauchy *limit* of "always-true unit" sequence is **strictly different** from constructive zero.  Witness at (m=0, k=1): limit gives `false`, exact gives `true`.  Source comment: *"'limit point exists' is a ZFC fiction"*.
-- `Real213DyadicTrajectory.zero_plus_gap_below_zero_exact`: limit-cut sits below exact-cut at every (0, k≥1) query — `InfinitesimalGap` is structural, not numerical artifact.
-- `Real213CutInv.cutDiv` documents boundary precision artifacts when combining cutMul + cutInv across infinity-flavored operations.
-- `Real213CutMulConstSum`, `Real213CutSumGeneral` close *forward direction only* — backward direction breaks via the same gap.
+- `Real213.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`: the Cauchy *limit* of "always-true unit" sequence is **strictly different** from constructive zero.  Witness at (m=0, k=1): limit gives `false`, exact gives `true`.  Source comment: *"'limit point exists' is a ZFC fiction"*.
+- `Real213.DyadicTrajectory.zero_plus_gap_below_zero_exact`: limit-cut sits below exact-cut at every (0, k≥1) query — `InfinitesimalGap` is structural, not numerical artifact.
+- `Real213.CutInv.cutDiv` documents boundary precision artifacts when combining cutMul + cutInv across infinity-flavored operations.
+- `Real213.CutMulConstSum`, `Real213.CutSumGeneral` close *forward direction only* — backward direction breaks via the same gap.
 
 **Therefore**: staying at finite `N_U = d^(d²) = 5²⁵` is *forced by self-consistency*, not stipulated.  External "N→∞ asymptote" framing is a ZFC translation that doesn't survive 213's cut algebra.  The 213-internal answer is always the specific finite rational at N_U.
 
@@ -124,9 +124,10 @@ META / HISTORY:
   research-notes/      exploratory notes (E1-F6 numbered)
   seed/                axioms / philosophy / falsifiability snapshots
 
-DEPRECATED:
-  papers/              ⚠ DEPRECATED ARCHIVE — pre-finitist vocabulary,
-                       stale precision claims.  See papers/README.md.
+REMOVED:
+  papers/              ⚠ DELETED ARCHIVE — files removed (commit a02b751);
+                       only papers/README.md retained as historical
+                       marker + git-history recovery info.
 
 OPERATIONAL:
   tools/               audit scripts (kernel_regress.sh, FORBIDDEN.md, …)
@@ -143,7 +144,7 @@ Hypervisor/  cross-layer bridge
 App/         applications
 Physics/     267 files (currently flat + Phase{2,3,4}/ — pending topical reorg)
 Research/    332 files (Real213 marathon + dyadic predictors + exploratory)
-Math/        51 files
+Math/        211 files (Cohomology/ in 10 sub-clusters, Linalg213/, Cauchy/)
 Meta/        meta-theory utilities
 Tactic/      custom tactics
 Infinity/    limit / compactification (mostly 213-external bridges)
@@ -207,9 +208,10 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 
 ## Paper Authorship Rule (when papers are eventually re-introduced)
 
-`papers/` is currently DEPRECATED ARCHIVE (see `papers/README.md`).
-For any future external-communication artifacts (re-built from
-current 0-axiom Lean theorems):
+`papers/` is currently DELETED ARCHIVE (commit a02b751; only
+`papers/README.md` retained for historical marker).  For any future
+external-communication artifacts (re-built from current 0-axiom
+Lean theorems, *not* by reviving the deleted drafts):
 
 - **Author: "Mingu Jeong" only.** Claude is a tool, not an author.
 - **In Acknowledgments:** "This work was developed in dialogue with Claude (Anthropic)."

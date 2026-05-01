@@ -74,7 +74,7 @@ For a *5-second* entry into any sub-area, read its `INDEX.md`:
 | `catalogs/` | `catalogs/README.md` | grep-able lookup tables |
 | `research-notes/` | `research-notes/INDEX.md` | numbered exploratory notes |
 | `blueprints/` | `blueprints/INDEX.md` | math/physics/meta blueprints |
-| `papers/` | `papers/README.md` | ⚠ DEPRECATED ARCHIVE |
+| `papers/` | `papers/README.md` | ⚠ DELETED ARCHIVE (see README for git recovery) |
 | `rust-engine/` | `rust-engine/docs/architecture.md` | runtime + binaries |
 
 Top-level Lean theorem index: `CAPSTONE_INDEX.md`.
@@ -93,10 +93,12 @@ lean/E213/       Lean 4 formal library (~800 files)
   ├── Hypervisor/ Lens instances; chiral K_{3,2}^{(c=2)}
   ├── OS/        Atomicity, PairForcing, Pigeonhole
   ├── App/       Simplex, BaselBound, AlphaGUT, AlphaEM, ...
-  ├── Math/      Cohomology (147 files), Linalg213, Analysis
-  ├── Physics/   86 files; couplings, masses, mixing, atoms,
+  ├── Math/      Cohomology (~175 files in 10 sub-clusters),
+  │              Linalg213, Cauchy
+  ├── Physics/   267 files; couplings, masses, mixing, atoms,
   │              hadrons, nuclei, cosmology
-  ├── Research/  research / exploratory (~300 files)
+  ├── Research/  research / exploratory (332 files; Real213/ alone is
+  │              180 of those)
   ├── Meta/      Universal Lens metatheory + variants
   ├── Infinity/  limit / compactification
   └── Tactic/    custom tactics
@@ -105,9 +107,10 @@ rust-engine/     Independent ℕ-only verification (53 binaries,
 blueprints/      math/14 + physics/14 + meta/2 (status snapshots)
 books/           narrative hierarchy
   └── math/      analysis213 + number-theory-213 + cohomology-213
-                 + linalg-213
-  └── physics/   periodic-table + (more in rust-engine docs)
-papers/          ⚠ DEPRECATED ARCHIVE (see papers/README.md)
+                 + linalg-213 + probability-213 + universal-lens-213
+  └── physics/   periodic-table + diamond + (more in rust-engine docs)
+papers/          ⚠ DELETED ARCHIVE (papers/README.md only; recoverable
+                  from git history at commit a02b751)
 catalogs/        lookup tables (atomic integers, constants,
                  periodic table, falsifiers)
 tools/           automation (audit, regress, FORBIDDEN)
@@ -131,7 +134,9 @@ books/math/
 │                          Universal Lens metatheory
 ├── cohomology-213.md     K_{3,2}^{(c=2)}, Δ⁴ Leibniz,
 │                          Hodge ⋆⋆, fractal α_GUT
-└── linalg-213.md         Paper 1 Chiral Compression (rank ≤ 5)
+├── linalg-213.md         Paper 1 Chiral Compression (rank ≤ 5)
+├── probability-213.md    measure-on-cuts blueprint
+└── universal-lens-213.md G1 universal-lens paper-style exposition
 ```
 
 See `books/math/INDEX.md` for reading order.

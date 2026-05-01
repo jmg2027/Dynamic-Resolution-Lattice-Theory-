@@ -36,12 +36,12 @@ Quick navigation for major Lean capstones.  Updated 2026-05-01.
 ## Pisano-CRT framework (number theory)
 
 ### 3 recurrence families
-- `Math/Cohomology/DyadicThreeFamilyCapstone.three_family_pisano_capstone`
+- `Math/Cohomology/Dyadic/ThreeFamilyCapstone.three_family_pisano_capstone`
 - Pell: 23 primes (3 sub-tight at p=29, 47, 89, 101)
 - Pell-proper: 8 primes
 - Fibonacci: 8 primes
 - Tribonacci: 4 moduli
-- Cross-recurrence: `DyadicFibPellRelation.fib_predict_eq_two_pell_predict`
+- Cross-recurrence: `Math/Cohomology/Dyadic/Fib/PellRelation.fib_predict_eq_two_pell_predict`
 
 ## Hodge involution (Open Problem #5)
 - `Math/Cohomology/HodgeInvolutionCapstone.hodge_involution_5strata_capstone`
@@ -61,11 +61,11 @@ Quick navigation for major Lean capstones.  Updated 2026-05-01.
 
 ## Real213 precision artifact closures (F6 doc)
 
-- `Research/Real213CutMulConstConst.cutMul_const_const_forward`
-- `Research/Real213CutSumGeneral.cutSum_same/diff_denom_forward`
-- `Research/Real213BracketCauchyModulus.dyadic_bracket_cauchy_modulus`
-- `Research/Real213PartialSumGeneral.partialSum_const_b_forward`
-- `Research/Real213CutMulConstSum.cutMul_const_distrib_forward`
+- `Research/Real213/CutMulConstConst.cutMul_const_const_forward`
+- `Research/Real213/CutSumGeneral.cutSum_same/diff_denom_forward`
+- `Research/Real213/BracketCauchyModulus.dyadic_bracket_cauchy_modulus`
+- `Research/Real213/PartialSumGeneral.partialSum_const_b_forward`
+- `Research/Real213/CutMulConstSum.cutMul_const_distrib_forward`
 
 ## Substrate / metalogic
 

@@ -375,7 +375,7 @@ Cross-recurrence: Fib predictor = 2 × Pell predictor (universal).
   4. `Physics/NUniverseFractalDepth.n_universe_self_consistent`
   5. `Math/Cohomology/HodgeInvolutionCapstone`
   6. `Meta/UniversalLensTripleCapstone`
-  7. `Math/Cohomology/DyadicThreeFamilyCapstone`
+  7. `Math/Cohomology/Dyadic/ThreeFamilyCapstone`
 
 ## File map (key reference docs)
 
