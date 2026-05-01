@@ -23,28 +23,33 @@ formal fact.
   📋 `math/00_DIRECTORY_PROPOSAL.md`  — Math track directory proposal
   📋 `physics/00_PHYSICS_RESPONSE.md` — Physics track response (full agreement)
 
-  Final architecture consensus:
+  Final architecture (2026-05-01 actual state):
   - `seed/` (axioms + philosophy + falsifiability)
-  - `lean/E213/` (namespace preserved)
-  - `lean/E213/Math/{Analysis, Probability, ...}` sub-dirs
-  - `lean/E213/Physics/{Foundation, Atoms, ...}` sub-dirs
-  - `lean/E213/Library/` catalog module
-  - `papers/`, `books/{math,physics}/`, `catalogs/`,
-    `examples/`, `blueprints/{math,physics}/`, `tools/`
-  - **no `archive/`** (CLAUDE.md "delete deprecated")
+  - `lean/E213/` (namespace preserved; ~810 .lean files;
+    layered Kernel/Firmware/OS/Hypervisor/Meta/App/Math/Physics/Research/
+    Infinity/Tactic/Tools — see `lean/E213/INDEX.md`)
+  - `books/{math,physics}/`, `catalogs/`,
+    `blueprints/{math,physics,meta}/`, `tools/`,
+    `research-notes/`, `guide/`, `rust-engine/`
+  - `papers/` — DELETED (was DEPRECATED ARCHIVE; commit a02b751);
+    `papers/README.md` retains the historical marker + recovery info
+  - **no `archive/`, no `examples/`** (CLAUDE.md "delete deprecated";
+    `examples/` was proposed but never created)
 
 ## Division of Work
 
-  - Math track: lean/E213/Math/, books/math/, math/01-12,14
-  - Physics track: lean/E213/Physics/, books/physics/, physics/all
-  - Common: seed/, catalogs/, papers/, examples/, tools/
+  - Math track: lean/E213/Math/, books/math/, blueprints/math/01-12,14
+  - Physics track: lean/E213/Physics/, books/physics/, blueprints/physics/all
+  - Common: seed/, catalogs/, tools/, research-notes/
 
 ## Realization snapshot (2026-04-30)
 
 ### Math (3 of 15 fields realized)
 
-- ✅ **07 Number Theory 213** — REALIZED (77 Dyadic files, see
-  `books/math/number-theory-213.md`)
+- ✅ **07 Number Theory 213** — REALIZED (~120 files in
+  `lean/E213/Math/Cohomology/Dyadic/` after Phase 3 reorg, organized
+  into 8 sub-clusters: ArithFSM/, BitFSM/, Pell/, Fib/, Trib/,
+  Legendre/, Pisano/, Archive/.  See `books/math/number-theory-213.md`)
 - ✅ **13 213 Meta** — CORE CLOSED (Universal Lens at ℕ²/ℚ²,
   HANDOFF Open Problem #6 closed)
 - ✅ **15 Cohomology 213** — CORE CLOSED (147 files, A/B/C/D/E

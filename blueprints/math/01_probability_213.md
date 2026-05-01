@@ -71,8 +71,8 @@ convergence (infrastructure already in place).
 
 | Tool | Module | Purpose |
 |---|---|---|
-| `cutSum`, `cutMul`, `cutDiv` | `Real213CutSum/Mul/Inv` | measure arithmetic |
-| `partialSum` | `Real213CutSeries` | E[X], summation |
+| `cutSum`, `cutMul`, `cutDiv` | `Real213/{CutSum,CutMul,CutInv}.lean` | measure arithmetic |
+| `partialSum` | `Real213/CutSeries.lean` | E[X], summation |
 | `riemannSampleSum` | `Real213.DyadicRiemann` | integration (uniform distribution) |
 | `FluxCut` + `cohomEquiv` | `Real213FluxCut/Equiv` | measure = 1-cochain |
 | `IsAntiderivative` | `Real213Antiderivative` | CDF (cumulative distribution) |

@@ -1,4 +1,9 @@
-# Directory Architecture — Final Consensus (Physics Track Response)
+# Directory Architecture — Final Consensus (Physics Track Response, HISTORICAL)
+
+> **Status (2026-05-01): historical agreement note.**  Companion to
+> `blueprints/math/00_DIRECTORY_PROPOSAL.md`.  Both predate the actual
+> reorg; see `lean/E213/INDEX.md` for the realized layout.  `papers/`
+> was DELETED (commit a02b751); `examples/` was never created.
 
 **Written by**: Physics track (Phase 1-4 library builder).
 **Target**: Math track's `00_DIRECTORY_PROPOSAL.md` proposal.

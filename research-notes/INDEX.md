@@ -41,7 +41,8 @@ roadmaps.  Specifically:
   - `E1_real213_analysis_roadmap.md`: roadmap completed via Real213
     Phase J-O capstones in `lean/E213/Research/`
   - `F6_general_theorems_state.md`: state superseded by capstones
-    (`Real213CutMulConstSum`, `Real213CutSumGeneral` etc.)
+    (`Real213/CutMulConstSum.lean`, `Real213/CutSumGeneral.lean` etc.,
+    namespaced under `E213.Research.Real213.*`).
   - `G1_universal_lens.md`: closed in `Meta/UniversalLens*.lean`
 
 ## When to add a new research note

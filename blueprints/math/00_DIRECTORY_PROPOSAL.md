@@ -1,4 +1,12 @@
-# Directory Structure Proposal — 213 Library Consensus
+# Directory Structure Proposal — 213 Library Consensus (HISTORICAL)
+
+> **Status (2026-05-01): historical proposal.**  Recorded the inter-
+> track architecture negotiation.  The actual realized layout differs
+> — see `lean/E213/INDEX.md` and `blueprints/INDEX.md` "Final
+> architecture" for the current state.  Notable deltas vs this draft:
+> `Real213*.lean` stayed in `Research/Real213/` (not migrated to
+> `Math/Analysis/`); `papers/` was DELETED (not "journal .tex flat");
+> `examples/` was never created.
 
 **Written by**: Math track (Analysis 213 marathon completer).
 **Compared against**: Physics track directory proposal.
