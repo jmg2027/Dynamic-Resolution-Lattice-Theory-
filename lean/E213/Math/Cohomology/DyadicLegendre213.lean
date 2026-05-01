@@ -32,7 +32,7 @@ def legendreFSM (D p : Nat) (hp : 0 < p) : ArithFSM1 p where
       1 = QR (split, terminal = 1)
       2 = NQR (inert, terminal = p-1) -/
 def legendre213 (D p : Nat) (hp : 1 < p) : Fin 3 :=
-  let v := ((legendreFSM D p (by omega)).run ((p - 1) / 2)).val
+  let v := ((legendreFSM D p (Nat.zero_lt_of_lt hp)).run ((p - 1) / 2)).val
   if v = 0 then ⟨0, by decide⟩
   else if v = 1 then ⟨1, by decide⟩
   else ⟨2, by decide⟩

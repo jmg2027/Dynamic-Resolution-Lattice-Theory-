@@ -31,44 +31,47 @@ namespace E213.Math.Cohomology.DyadicConjecture
 
 /-- ★★★★★ Legendre 5 mod 13 = NQR (inert). -/
 theorem fib_legendre_5_mod_13 :
-    legendre213 5 13 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 13 (by decide) = ⟨2, by decide⟩ := by decide
 
 /-- ★★★★★ Legendre 5 mod 17 = NQR (inert). -/
 theorem fib_legendre_5_mod_17 :
-    legendre213 5 17 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 17 (by decide) = ⟨2, by decide⟩ := by decide
 
 /-- ★★★★★ Legendre 5 mod 19 = QR (split). -/
 theorem fib_legendre_5_mod_19 :
-    legendre213 5 19 (by omega) = ⟨1, by decide⟩ := by decide
+    legendre213 5 19 (by decide) = ⟨1, by decide⟩ := by decide
 
 /-- ★★★★★ Legendre 5 mod 23 = NQR (inert). -/
 theorem fib_legendre_5_mod_23 :
-    legendre213 5 23 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 23 (by decide) = ⟨2, by decide⟩ := by decide
 
 /-- ★★★★★★★ Fibonacci predictor REALISES Pell period at 8 primes. -/
 theorem fib_pisano_predict_realises_8 :
-    (∀ k, fibFSMmod3.bits (k + fib_pisano_predict 3 (by omega))
+    (∀ k, fibFSMmod3.bits (k + fib_pisano_predict 3 (by decide))
         = fibFSMmod3.bits k)
-    ∧ (∀ k, fibFSMmod5.bits (k + fib_pisano_predict 5 (by omega))
+    ∧ (∀ k, fibFSMmod5.bits (k + fib_pisano_predict 5 (by decide))
         = fibFSMmod5.bits k)
-    ∧ (∀ k, fibFSMmod7.bits (k + fib_pisano_predict 7 (by omega))
+    ∧ (∀ k, fibFSMmod7.bits (k + fib_pisano_predict 7 (by decide))
         = fibFSMmod7.bits k)
-    ∧ (∀ k, fibFSMmod11.bits (k + fib_pisano_predict 11 (by omega))
+    ∧ (∀ k, fibFSMmod11.bits (k + fib_pisano_predict 11 (by decide))
         = fibFSMmod11.bits k)
-    ∧ (∀ k, fibFSMmod13.bits (k + fib_pisano_predict 13 (by omega))
+    ∧ (∀ k, fibFSMmod13.bits (k + fib_pisano_predict 13 (by decide))
         = fibFSMmod13.bits k)
-    ∧ (∀ k, fibFSMmod17.bits (k + fib_pisano_predict 17 (by omega))
+    ∧ (∀ k, fibFSMmod17.bits (k + fib_pisano_predict 17 (by decide))
         = fibFSMmod17.bits k)
-    ∧ (∀ k, fibFSMmod19.bits (k + fib_pisano_predict 19 (by omega))
+    ∧ (∀ k, fibFSMmod19.bits (k + fib_pisano_predict 19 (by decide))
         = fibFSMmod19.bits k)
-    ∧ (∀ k, fibFSMmod23.bits (k + fib_pisano_predict 23 (by omega))
+    ∧ (∀ k, fibFSMmod23.bits (k + fib_pisano_predict 23 (by decide))
         = fibFSMmod23.bits k) := by
-  have h13 : fib_pisano_predict 13 (by omega) = 28 := by decide
-  have h17 : fib_pisano_predict 17 (by omega) = 36 := by decide
-  have h19 : fib_pisano_predict 19 (by omega) = 18 := by decide
-  have h23 : fib_pisano_predict 23 (by omega) = 48 := by decide
-  obtain ⟨h3, h5, h7, h11⟩ := fib_pisano_predict_realises
-  refine ⟨h3, h5, h7, h11, ?_, ?_, ?_, ?_⟩
+  have h13 : fib_pisano_predict 13 (by decide) = 28 := by decide
+  have h17 : fib_pisano_predict 17 (by decide) = 36 := by decide
+  have h19 : fib_pisano_predict 19 (by decide) = 18 := by decide
+  have h23 : fib_pisano_predict 23 (by decide) = 48 := by decide
+  refine ⟨fib_pisano_predict_realises.1,
+          fib_pisano_predict_realises.2.1,
+          fib_pisano_predict_realises.2.2.1,
+          fib_pisano_predict_realises.2.2.2,
+          ?_, ?_, ?_, ?_⟩
   · intro k; rw [h13]; exact fibFSMmod13_bits_period_28 k
   · intro k; rw [h17]; exact fibFSMmod17_bits_period_36 k
   · intro k; rw [h19]; exact fibFSMmod19_bits_period_18 k

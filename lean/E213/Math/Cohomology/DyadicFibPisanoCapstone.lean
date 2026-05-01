@@ -40,28 +40,27 @@ def fib_pisano_predict (p : Nat) (hp : 1 < p) : Nat :=
 
 /-- ★★★★★★ Predictor matches TIGHT Fibonacci period at all 4 cases. -/
 theorem fib_pisano_predict_correct :
-    fib_pisano_predict 3 (by omega) = 8
-    ∧ fib_pisano_predict 5 (by omega) = 20
-    ∧ fib_pisano_predict 7 (by omega) = 16
-    ∧ fib_pisano_predict 11 (by omega) = 10 := by
+    fib_pisano_predict 3 (by decide) = 8
+    ∧ fib_pisano_predict 5 (by decide) = 20
+    ∧ fib_pisano_predict 7 (by decide) = 16
+    ∧ fib_pisano_predict 11 (by decide) = 10 := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
 /-- ★★★★★★★ The Legendre lens-driven Fibonacci predictor REALISES
     the actual Fibonacci bit periods at all 4 primes. -/
 theorem fib_pisano_predict_realises :
-    (∀ k, fibFSMmod3.bits (k + fib_pisano_predict 3 (by omega))
+    (∀ k, fibFSMmod3.bits (k + fib_pisano_predict 3 (by decide))
         = fibFSMmod3.bits k)
-    ∧ (∀ k, fibFSMmod5.bits (k + fib_pisano_predict 5 (by omega))
+    ∧ (∀ k, fibFSMmod5.bits (k + fib_pisano_predict 5 (by decide))
         = fibFSMmod5.bits k)
-    ∧ (∀ k, fibFSMmod7.bits (k + fib_pisano_predict 7 (by omega))
+    ∧ (∀ k, fibFSMmod7.bits (k + fib_pisano_predict 7 (by decide))
         = fibFSMmod7.bits k)
-    ∧ (∀ k, fibFSMmod11.bits (k + fib_pisano_predict 11 (by omega))
+    ∧ (∀ k, fibFSMmod11.bits (k + fib_pisano_predict 11 (by decide))
         = fibFSMmod11.bits k) := by
-  obtain ⟨h3, h5, h7, h11⟩ := fib_pisano_predict_correct
   refine ⟨?_, ?_, ?_, ?_⟩
-  · intro k; rw [h3]; exact fibFSMmod3_bits_period_8 k
-  · intro k; rw [h5]; exact fibFSMmod5_bits_period_20 k
-  · intro k; rw [h7]; exact fibFSMmod7_bits_period_16 k
-  · intro k; rw [h11]; exact fibFSMmod11_bits_period_10 k
+  · intro k; rw [fib_pisano_predict_correct.1]; exact fibFSMmod3_bits_period_8 k
+  · intro k; rw [fib_pisano_predict_correct.2.1]; exact fibFSMmod5_bits_period_20 k
+  · intro k; rw [fib_pisano_predict_correct.2.2.1]; exact fibFSMmod7_bits_period_16 k
+  · intro k; rw [fib_pisano_predict_correct.2.2.2]; exact fibFSMmod11_bits_period_10 k
 
 end E213.Math.Cohomology.DyadicConjecture
