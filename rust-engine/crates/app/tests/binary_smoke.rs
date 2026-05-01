@@ -29,6 +29,7 @@ const BINS: &[(&str, &[&str])] = &[
     ("gap-explorer", &["100"]),
     ("generations", &[]),
     ("golden-ratio", &[]),
+    ("hadron-bigrading", &[]),
     ("hierarchy-towers", &[]),
     ("higgs-master", &[]),
     ("higgs-quartic", &[]),

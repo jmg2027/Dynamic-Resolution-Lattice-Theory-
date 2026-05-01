@@ -247,3 +247,7 @@ path = "src/bin/koide_check.rs"
 [[bin]]
 name = "proton-g"
 path = "src/bin/proton_g.rs"
+
+[[bin]]
+name = "hadron-bigrading"
+path = "src/bin/hadron_bigrading.rs"
