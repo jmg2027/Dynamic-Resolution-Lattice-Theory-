@@ -237,3 +237,31 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 
 **가드레일**: "213 chooses to be finitist" 식 표현 틀림.
 "ZFC infinity가 213을 깨뜨림이 정리.  finitism은 결과" 가 정확.
+
+---
+
+## 교훈 12: omega→0-axiom 패턴 일반화
+
+**근본**: `omega` tactic은 propext + Quot.sound 의존성을 도입.
+대체 가능한 경우 STRICT 0-AXIOM upgrade.
+
+**대체 룰 (실증)**:
+
+| 패턴 | 대체 |
+|---|---|
+| `k + N = (k + n) + n` (N=2n, doubling) | `(Nat.add_assoc k n n).symm` |
+| `k + N = ((k+n)+n)+n` (N=3n, tripling) | `rfl` (literal Nat reduces) |
+| `k+1+N = (k+N)+1` | `Nat.succ_add k N` |
+| `0 + N = N` | `Nat.zero_add` |
+
+**핵심 발견** (commit 9e811cb):
+변수 좌측 + Nat literal 우측의 add 식은 정의적으로 reduce 됨.
+즉 `((k+16)+16)+16 = k + 48` 도 단순히 `rfl`.  by omega 불필요.
+
+**적용 결과**: cohomology 디렉토리의 reshape 패턴
+omega 의존성 100% 제거.  남은 `by omega` (~15건) 은 모두
+subtraction reasoning / refine subgoal — 다른 카테고리.
+
+**가드레일**: 새 reshape 작성시 먼저 `rfl` 시도, 실패시
+`(Nat.add_assoc ...).symm` 또는 `Nat.succ_add` 조합.
+omega는 최후 수단.
