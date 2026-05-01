@@ -1,7 +1,7 @@
 # Session Handoff — ★★★ FIRST MILESTONE CLOSED ★★★
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed + pushed; head = `61e3260`).
+`claude/213-rust-engine-SloKB` (committed; head = `1cc9667`).
 
 ## ★ Phase 5 batch 1 axiom-upgrade results (2026-05-01)
 
@@ -34,7 +34,7 @@ v1/v2 capstones above strict {propext} — now eliminated.
 | `lake build` | ✅ clean | full lib (incl. Physics + Math) |
 | `lean-rust-diff` | ✅ 43/43 | Lean ↔ Rust BigUint exact equality across α_em chain |
 | Phase 1 (versioning consolidation) | 🟡 partial | NumberTheory213 v1+v2+v3 merged; PisanoPredictor "9→1" determined N/A — chain is each-adds-new-primes (P→P6→P7→P8→P11→P14→P17→P20→P22), not redundant versioning, audit guide outdated |
-| Phase 5 (omega → decide/omega213) | 🟡 partial | 343 → 232 calls (-111, -32%); batch 1 commits 08b02e1; omega213 extended (Nat.le_trans, Nat.add_sub_of_le, etc.) |
+| Phase 5 (omega → decide/omega213) | 🟡 partial | 343 → 223 calls (-120, -35%); batch 1 commit 08b02e1 (trivial bounds), batch 2 commit 1cc9667 (BitFSM core Nat-lemma); omega213 extended (Nat.le_trans, Nat.add_sub_of_le, etc.) |
 | Native213 deeper | ⚪ pending | Nat.div_* avoidance via `q*n+r=x ∧ r<n` decomposition |
 | File-by-file classification | ⚪ deferred | per user — after all current phases close |
 

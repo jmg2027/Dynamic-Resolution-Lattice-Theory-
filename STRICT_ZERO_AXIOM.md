@@ -20,13 +20,23 @@ Verified via `#print axioms <theorem>` returning:
 | `alpha_em_so10_capstone` | SO(10) tail correction |
 | `alpha_em_gram_capstone` | Gram self-energy correction |
 
-## STRICT 0-AXIOM additions from Phase 5 batch 1 (2026-05-01)
+## STRICT 0-AXIOM additions from Phase 5 batch 1+2 (2026-05-01)
+
+Batch 1 (commit 08b02e1, omega→decide on trivial bounds):
 
 | theorem | content |
 |---|---|
 | `pellFSMmod3_has_degree2` | Pell-mod-3 has algebraic degree ≤ 2 |
 | `tribFSMmod2_has_degree3` | Tribonacci-mod-2 has algebraic degree ≤ 3 |
 | `pisano_crt_framework_complete` | full Pisano CRT framework (was strict 0 already, retained) |
+
+Batch 2 (commit 1cc9667, omega→Nat-lemma in BitFSM core):
+
+| theorem | content |
+|---|---|
+| `fsmJointAt` | joint state encoding for BitFSM signature trajectory |
+| `jointState`  | joint state encoding (general, ForwardPeriodicity) |
+| `bs_periodic_multiple` | bs(n+kp)=bs(n) at multiples of period |
 
 (Sample — full list grows as we audit downstream theorems whose
 last-mile dependency was a trivial `by omega` decidable bound.)

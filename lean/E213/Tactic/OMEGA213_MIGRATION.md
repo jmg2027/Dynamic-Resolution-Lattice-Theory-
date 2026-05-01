@@ -95,6 +95,8 @@ never inflating beyond what 213 uses.
   Initial inventory: 343 `by omega` calls across ~62 files in lean/E213/
   After Math/Cohomology trivial-bound batch (commit 08b02e1):
     232 calls / 61 files (-111, -32%).
+  After BitFSM core batch (commit 1cc9667):
+    223 calls / 59 files (-120 cumulative, -35%).
 
 Densest clusters:
   - lean/E213/Research/Real213*.lean (cut algebra)
