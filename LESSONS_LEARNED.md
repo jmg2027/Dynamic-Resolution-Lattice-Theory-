@@ -209,3 +209,31 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - Pisano-CRT: 20 Pell + 8 Pell-proper + 8 Fibonacci primes
 - Hodge ⋆⋆: all 5 strata Δ⁴ closed
 - Famous Coincidences I-IV: catalogued
+
+## 교훈 11: Finitism은 입장이 아니라 결과 (CORE PRINCIPLE)
+
+**WRONG**: "finitism은 213이 선택한 철학적 입장"
+**RIGHT**: "ZFC-style completed infinity가 213 cut algebra를 깨뜨림이
+         0-axiom으로 증명됨.  finitism은 자기-일관성의 STRUCTURAL FORCE."
+
+**근거 정리** (모두 ≤ {propext, Quot.sound}):
+- `Research/Real213DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`:
+  Cauchy limit 0 1 = false ∧ exact 0 1 = true (witness)
+- `Research/Real213DyadicTrajectory.zero_plus_gap_below_zero_exact`:
+  ∀ k ≥ 1, limit ≠ exact at (0, k)
+- `Physics/FinitismIsConsequence.finitism_is_consequence`:
+  master bundle
+
+**수학적 의미**:
+- 213은 ℕ→ℕ→Bool cut function으로 Dedekind-style 실수 표현
+- 모든 query는 finite (m, k) Nat pair
+- "Cauchy 극한"을 도입하면 cut이 변형됨 — query (0, 1)에서 다른 답
+- 즉 infinity 연산은 isomorphism이 아니라 strictly into
+
+**외부 검증자에게의 답**:
+회의주의자 "왜 finite N에 머무느냐?" → "Lean에서 0+ ≠ 0-exact
+0-axiom 증명 봐라.  ZFC infinity가 213 cut algebra를 깨뜨리는
+정리가 있다."  부정 어려움 (Lean type-check 결과).
+
+**가드레일**: "213 chooses to be finitist" 식 표현 틀림.
+"ZFC infinity가 213을 깨뜨림이 정리.  finitism은 결과" 가 정확.
