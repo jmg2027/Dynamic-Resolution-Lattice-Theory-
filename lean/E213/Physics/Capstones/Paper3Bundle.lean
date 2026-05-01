@@ -28,7 +28,7 @@ identity, decide-checked, all derived from atomic primitives
 namespace E213.Physics.Paper3Bundle
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors (c_lat)
+open E213.Physics.AlphaEM.Prefactors (c_lat)
 
 /-- ★★★ PAPER 3 PREDICTIONS — 213 BUNDLED CAPSTONE ★★★
 

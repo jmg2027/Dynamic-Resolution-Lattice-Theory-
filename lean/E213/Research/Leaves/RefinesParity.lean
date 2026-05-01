@@ -1,4 +1,4 @@
-import E213.Meta.ParityLens
+import E213.Meta.Lens.Parity
 import E213.Research.Lens.Lattice
 
 /-!

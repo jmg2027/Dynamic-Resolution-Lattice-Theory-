@@ -40,7 +40,7 @@ theorem master_capstone :
     E213.Physics.Simplex.NS = 3
     ∧ E213.Physics.Simplex.NT = 2
     ∧ E213.Physics.Simplex.d = 5
-    ∧ E213.Physics.AlphaEMPrefactors.c_lat = 2
+    ∧ E213.Physics.AlphaEM.Prefactors.c_lat = 2
     ∧ E213.Physics.Cabibbo.C_lat = 2
     -- Atomic identities used across bridges
     ∧ 3 * 2 = 6                  -- NS·NT

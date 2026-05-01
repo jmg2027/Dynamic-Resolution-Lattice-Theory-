@@ -36,10 +36,10 @@ complex K_{NS,NT}^{(c)} ⊂ Δ⁴.
   Each equality is not a generic graph identity — atomic config forces it.
 -/
 
-namespace E213.Physics.AlphaEMSimplicial
+namespace E213.Physics.AlphaEM.Simplicial
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 open E213.Physics.PhotonKernel
 open E213.Physics.FaceTerms
 
@@ -92,4 +92,4 @@ theorem alpha_em_simplicial_capstone :
    all five terms are self-derived from the lattice, and the running
    gap itself is a simplicial cohomology decomposition. -/
 
-end E213.Physics.AlphaEMSimplicial
+end E213.Physics.AlphaEM.Simplicial

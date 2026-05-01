@@ -44,7 +44,7 @@ DRLT formula (lib/drlt.py:810, ch13 sec 9.2):
 namespace E213.Physics.DarkEnergy
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 
 /-- Trace-correction factor (1 + α_GUT/d) — universal pattern. -/
 def trace_correction_denom : Nat := d  -- α_GUT/d uses denom d

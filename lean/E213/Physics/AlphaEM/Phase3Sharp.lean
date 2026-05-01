@@ -8,7 +8,7 @@ import E213.Physics.Simplex.Counts
 
 **Layer: App**.
 
-DRLT result (Phase 1 AlphaEM137.lean): 1/α_em = 137 ∈ rational
+DRLT result (Phase 1 AlphaEM.V137.lean): 1/α_em = 137 ∈ rational
 bracket from atomic primitives.  Observed: 137.0359992 (CODATA 2018).
 
 DRLT precision: ppm level (coarser than experimental precision 0.81 × 10⁻¹⁰).
@@ -38,9 +38,9 @@ sufficiently tight?  How the next-order correction of the current 5-term sum
 closes is the critical path.
 -/
 
-namespace E213.Physics.Phase3.AlphaEMSharp
+namespace E213.Physics.AlphaEM.Phase3Sharp
 
-open E213.Physics.AlphaEM137
+open E213.Physics.AlphaEM.V137
 open E213.Physics.Simplex
 
 /-- 137 ∈ DRLT bracket (N=10). -/
@@ -73,4 +73,4 @@ theorem alpha_em_falsifier :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.AlphaEMSharp
+end E213.Physics.AlphaEM.Phase3Sharp

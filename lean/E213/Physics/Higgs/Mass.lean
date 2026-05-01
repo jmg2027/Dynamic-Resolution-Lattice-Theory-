@@ -34,7 +34,7 @@ DRLT formula (lib/drlt.py:633, ch21):
 namespace E213.Physics.Higgs
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 open E213.Physics.Dyson
 open E213.Physics.FaceTerms
 

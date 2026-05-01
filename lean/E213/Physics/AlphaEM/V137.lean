@@ -45,7 +45,7 @@ that 213 has matured, attempting self-derivation from the lattice.
   Currently: open hypothesis with strong numerical match.
 -/
 
-namespace E213.Physics.AlphaEM137
+namespace E213.Physics.AlphaEM.V137
 
 open E213.Physics.Simplex
 open E213.Physics.Basel
@@ -101,4 +101,4 @@ theorem candidate_formula_contains_137 :
     ∧ (hi.1 < 138 * hi.2)
     ∧ (131 * lo.2 < lo.1) := by decide
 
-end E213.Physics.AlphaEM137
+end E213.Physics.AlphaEM.V137

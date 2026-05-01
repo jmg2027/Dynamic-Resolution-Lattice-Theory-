@@ -15,10 +15,10 @@ Threshold 1/10⁴ = 1e-4 ≈ 100 ppm; the augmented chain residual
 is 0.18 ppb at asymptote — 5×10⁵ tighter than required.
 -/
 
-namespace E213.Physics.AlphaEMMilestone
+namespace E213.Physics.AlphaEM.Milestone
 
-open E213.Physics.AlphaEMGram
-open E213.Physics.AlphaEMSO10
+open E213.Physics.AlphaEM.GramSelfEnergy
+open E213.Physics.AlphaEM.SO10
 
 /-- ★★★★★★ FIRST MILESTONE — `|inv_alpha_em - 137.036| < 1/10⁴`.
 
@@ -53,4 +53,4 @@ theorem alpha_em_milestone :
   · decide
   · decide
 
-end E213.Physics.AlphaEMMilestone
+end E213.Physics.AlphaEM.Milestone

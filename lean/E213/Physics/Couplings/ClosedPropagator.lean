@@ -44,7 +44,7 @@ DRLT *exact* Dyson resummation (ch09):
 namespace E213.Physics.Propagator
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 
 /-- Numerator of P(x): 1 + 2x.  Coefficient on x is 2 = c_lat. -/
 def P_numer_x_coef : Nat := 2

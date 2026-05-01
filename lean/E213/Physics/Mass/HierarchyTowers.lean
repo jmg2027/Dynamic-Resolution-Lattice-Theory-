@@ -38,7 +38,7 @@ import E213.Physics.Higgs.Vacuum
 namespace E213.Physics.Hierarchies
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 open E213.Physics.MuOverE
 open E213.Physics.TauMu
 open E213.Physics.QuarkHierarchy

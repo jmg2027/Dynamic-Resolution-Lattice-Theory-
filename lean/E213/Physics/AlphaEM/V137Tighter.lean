@@ -15,9 +15,9 @@ Observed 1/α_em ≈ 137.036 — the gap 0.007 is the α_GUT/(NS+1)
 Dyson-tail term not in this five-term sum.
 -/
 
-namespace E213.Physics.AlphaEM137Tighter
+namespace E213.Physics.AlphaEM.V137Tighter
 
-open E213.Physics.AlphaEMUnified
+open E213.Physics.AlphaEM.Unified
 
 /-- ★★★ 137 ∈ unified bracket at N=50 (width ~1.2). -/
 theorem unified_137_in_at_50 :
@@ -36,4 +36,4 @@ theorem upper_excludes_138_at_100 :
     let hi := alpha_em_unified_upper 100
     hi.1 < 138 * hi.2 := by decide
 
-end E213.Physics.AlphaEM137Tighter
+end E213.Physics.AlphaEM.V137Tighter

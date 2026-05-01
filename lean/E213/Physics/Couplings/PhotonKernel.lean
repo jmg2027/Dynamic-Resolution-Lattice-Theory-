@@ -37,7 +37,7 @@ Three different cohomologies on one lattice.
 namespace E213.Physics.PhotonKernel
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 
 /-- Number of edges in the K_{NS,NT}^{(c)} multigraph where the photon lives.
     c-fold multiplicity = directed K_{NS,NT}. -/

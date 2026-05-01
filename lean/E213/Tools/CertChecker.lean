@@ -7,9 +7,9 @@ Imports the Lean theorems cited by `rust-engine/.../alpha_em_bracket`:
 
   * `Physics.Basel.S`           — partial Basel sum (0-axiom)
   * `Physics.Basel.upper`       — telescoping upper bound (0-axiom)
-  * `Physics.AlphaEM137.inv_full_upper`           (0-axiom)
-  * `Physics.AlphaEM137Tight.inv_lower_tight`     (0-axiom)
-  * `Physics.AlphaEM137Tight.bracket_137_in_at_20_tight` (0-axiom)
+  * `Physics.AlphaEM.V137.inv_full_upper`           (0-axiom)
+  * `Physics.AlphaEM.V137Tight.inv_lower_tight`     (0-axiom)
+  * `Physics.AlphaEM.V137Tight.bracket_137_in_at_20_tight` (0-axiom)
 
 Phase 4 scope: this file's `lake build` + 0-axiom audit *is* the
 trust-closure point.  Rust outputs (Apply, Bound) steps; Lean has
@@ -22,7 +22,7 @@ each Apply via the cited def, compare bit-for-bit.
 
 namespace E213.Tools.CertChecker
 
-open E213.Physics.AlphaEM137Tight (capstone_n20 inv_lower_tight inv_upper)
+open E213.Physics.AlphaEM.V137Tight (capstone_n20 inv_lower_tight inv_upper)
 
 /-- ★ Trust-closure capstone for the Rust α_em bracket at N=20. -/
 theorem cert_anchor_n20 :

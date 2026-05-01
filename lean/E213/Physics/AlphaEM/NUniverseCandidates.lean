@@ -34,7 +34,7 @@ deviation — well within Validation Standard #1 even without
 SO(10)/Gram corrections.
 -/
 
-namespace E213.Physics.AlphaEMNUniverseCandidates
+namespace E213.Physics.AlphaEM.NUniverseCandidates
 
 open E213.Physics.Simplex
 
@@ -50,4 +50,4 @@ theorem candidate_hierarchy : d ^ (d * d) = 298023223876953125 := by decide
 /-- Candidate 4: d^(NS·d) = 5^15. -/
 theorem candidate_d_to_NS_d : d ^ (NS * d) = 30517578125 := by decide
 
-end E213.Physics.AlphaEMNUniverseCandidates
+end E213.Physics.AlphaEM.NUniverseCandidates

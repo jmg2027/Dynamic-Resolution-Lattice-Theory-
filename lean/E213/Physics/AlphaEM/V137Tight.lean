@@ -4,7 +4,7 @@ import E213.Physics.Basel.BoundTight
 /-!
 # Tightened bracket on the 1/α_em(IR) candidate formula
 
-`AlphaEM137.lean` proves `137 ∈ candidate-bracket` at N=10 with width
+`AlphaEM.V137.lean` proves `137 ∈ candidate-bracket` at N=10 with width
 ~6 (lower=`60·S(N)+30+25/3`, upper=`60·upper(N)+30+25/3`).
 
 This file replaces the lower endpoint by `60·lower_tight(N)+30+25/3`
@@ -23,7 +23,7 @@ is implicit (~0.006); the focus is bracketing
 `60·ζ(2) + 30 + 25/3 ≈ 137.0294`.
 -/
 
-namespace E213.Physics.AlphaEM137Tight
+namespace E213.Physics.AlphaEM.V137Tight
 
 open E213.Physics.Basel
 open E213.Physics.BaselTight
@@ -34,8 +34,8 @@ def inv_lower_tight (N : Nat) : (Nat × Nat) :=
   (180 * s.1 * (N + 1) + s.2 * (180 + 115 * (N + 1)),
    3 * s.2 * (N + 1))
 
-/-- Upper endpoint kept from `AlphaEM137.lean`. -/
-def inv_upper (N : Nat) : (Nat × Nat) := AlphaEM137.inv_full_upper N
+/-- Upper endpoint kept from `AlphaEM.V137.lean`. -/
+def inv_upper (N : Nat) : (Nat × Nat) := AlphaEM.V137.inv_full_upper N
 
 /-- Cross-mult comparison. -/
 def lt (p q : Nat × Nat) : Bool := p.1 * q.2 < q.1 * p.2
@@ -74,4 +74,4 @@ theorem capstone_n20 :
     (lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1)
     ∧ (hi.1 < 138 * hi.2) := by decide
 
-end E213.Physics.AlphaEM137Tight
+end E213.Physics.AlphaEM.V137Tight

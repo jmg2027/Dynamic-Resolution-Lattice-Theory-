@@ -33,7 +33,7 @@ DRLT derivation chain:
 namespace E213.Physics.HiggsMaster
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 open E213.Physics.Higgs
 open E213.Physics.HiggsQuartic
 open E213.Physics.HiggsVacuum

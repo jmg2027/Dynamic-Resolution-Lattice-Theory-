@@ -71,7 +71,7 @@ in which precision quantity.
 namespace E213.Physics.MasterCatalog
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 
 /-- ★★★ MASTER CATALOG ★★★
 

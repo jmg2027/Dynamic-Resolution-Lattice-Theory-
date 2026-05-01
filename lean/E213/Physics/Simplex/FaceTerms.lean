@@ -37,7 +37,7 @@ import E213.Physics.Couplings.PhotonKernel
 namespace E213.Physics.FaceTerms
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 open E213.Physics.PhotonKernel
 
 /-- 4-cycle count in K_{NS, NT}.  In bipartite K_{n,m}, 4-cycles

@@ -18,7 +18,7 @@ Same for α_GUT/(NS²·d).
 residual ≈ 4×10⁻⁶ comes from P-chain terms at deeper ratios.
 -/
 
-namespace E213.Physics.AlphaEMPropagator
+namespace E213.Physics.AlphaEM.Propagator
 
 /-- Numerator of P(x): N_p(x) = den + 2·num where x = num/den. -/
 def p_num (x : Nat × Nat) : Nat := x.2 + 2 * x.1
@@ -61,7 +61,7 @@ theorem em_p_chain_skeleton :
     ∧ pm1_num (1, 1) = 1                -- (P(1)−1) num
     ∧ pm1_den (1, 1) = 2 := by decide   -- (P(1)−1) den (= 1/2)
 
-end E213.Physics.AlphaEMPropagator
+end E213.Physics.AlphaEM.Propagator
 
-#print axioms E213.Physics.AlphaEMPropagator.p_at_1
-#print axioms E213.Physics.AlphaEMPropagator.em_p_chain_skeleton
+#print axioms E213.Physics.AlphaEM.Propagator.p_at_1
+#print axioms E213.Physics.AlphaEM.Propagator.em_p_chain_skeleton

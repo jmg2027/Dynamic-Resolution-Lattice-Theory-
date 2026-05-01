@@ -18,10 +18,10 @@ Dyson tail shifts the bracket asymptote 137.0294 → 137.0354, and at
 small N the wider bracket contains observed 137.036 = (137036, 1000).
 -/
 
-namespace E213.Physics.AlphaEMWithTail
+namespace E213.Physics.AlphaEM.WithTail
 
-open E213.Physics.AlphaEM137 (inv_full_upper)
-open E213.Physics.AlphaEM137Tight (inv_lower_tight)
+open E213.Physics.AlphaEM.V137 (inv_full_upper)
+open E213.Physics.AlphaEM.V137Tight (inv_lower_tight)
 open E213.Physics.Basel (S upper)
 
 /-- inv_lower_tight(N) + 1/(100·upper(N)) as `(num, den)`. -/
@@ -55,8 +55,8 @@ theorem n20_with_tail_contains_candidate :
     let hi := inv_upper_with_tail 20
     lo.1 * 10000 < 1370354 * lo.2 ∧ 1370354 * hi.2 < 10000 * hi.1 := by decide
 
-end E213.Physics.AlphaEMWithTail
+end E213.Physics.AlphaEM.WithTail
 
-#print axioms E213.Physics.AlphaEMWithTail.n20_with_tail_contains_observed
-#print axioms E213.Physics.AlphaEMWithTail.n50_with_tail_contains_observed
-#print axioms E213.Physics.AlphaEMWithTail.n20_with_tail_contains_candidate
+#print axioms E213.Physics.AlphaEM.WithTail.n20_with_tail_contains_observed
+#print axioms E213.Physics.AlphaEM.WithTail.n50_with_tail_contains_observed
+#print axioms E213.Physics.AlphaEM.WithTail.n20_with_tail_contains_candidate

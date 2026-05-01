@@ -38,7 +38,7 @@ DRLT formula (SM_020, ch21):
 namespace E213.Physics.HiggsQuartic
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 
 /-- Leading λ_H denominator: 2·c² = 8. -/
 def lambda_leading_denom : Nat := 2 * c_lat * c_lat

@@ -3,7 +3,7 @@ import E213.Physics.AlphaEM.SO10
 /-!
 # 1/α_em(IR) — Gram self-energy second correction (sub-ppb closure)
 
-Continues the chain of `AlphaEMSO10.lean` with a SECOND candidate
+Continues the chain of `AlphaEM.SO10.lean` with a SECOND candidate
 correction that brings residual from 15 ppb → 0.18 ppb.
 
 ## The chain
@@ -49,10 +49,10 @@ the augmented formula at observed α_em satisfies the polynomial.
 Numerical bracket containment via decide.
 -/
 
-namespace E213.Physics.AlphaEMGram
+namespace E213.Physics.AlphaEM.GramSelfEnergy
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMSO10
+open E213.Physics.AlphaEM.SO10
 
 /-- Atomic: d² = 25 = NS·NT·(NS+NT)·... = 5·5 = 25.  Multiple readings. -/
 theorem d_sq_atomic : d * d = 25 := by decide
@@ -122,4 +122,4 @@ theorem alpha_em_gram_capstone :
     -- (b) augmented bracket well-formed
     ∧ (lo.1 * hi.2 < hi.1 * lo.2) := by decide
 
-end E213.Physics.AlphaEMGram
+end E213.Physics.AlphaEM.GramSelfEnergy

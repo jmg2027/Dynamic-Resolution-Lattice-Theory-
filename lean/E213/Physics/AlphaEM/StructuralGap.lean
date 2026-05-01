@@ -3,7 +3,7 @@ import E213.Physics.AlphaEM.V137Tight
 /-!
 # Structural gap of the 1/α_em(IR) candidate formula
 
-`AlphaEM137.lean` proposes
+`AlphaEM.V137.lean` proposes
     1/α_em(IR) = 60·ζ(2) + 30 + 25/3 + α_GUT/(NS+1)
                 ≈ 137.0354548                 [asymptotic, perfect ζ(2)]
 Observed:        1/α_em(0) = 137.0359991      [PDG 2024]
@@ -18,7 +18,7 @@ zero-width bracket on the Basel sum, the candidate formula's value
 
 * **1a (computational):** tighten the rational bracket on ζ(2) so the
   candidate-formula bracket has width ≤ 10⁻⁴ of 137.  Implemented in
-  `BaselBoundTight.lean` + `AlphaEM137Tight.lean` up to N=50; full
+  `BaselBoundTight.lean` + `AlphaEM.V137Tight.lean` up to N=50; full
   10⁻⁴ requires N ≈ 350+ which exceeds Lean's default `maxRecDepth`.
 
 * **1b (structural, RESEARCH):** identify the missing ~5.4×10⁻⁴
@@ -40,9 +40,9 @@ This file makes the gap a **first-class, rationally-stated falsifier**
 target so any future marathon resolves it as a single Lean theorem.
 -/
 
-namespace E213.Physics.AlphaEMGap
+namespace E213.Physics.AlphaEM.StructuralGap
 
-open E213.Physics.AlphaEM137Tight
+open E213.Physics.AlphaEM.V137Tight
 
 /-- Observed 1/α_em(0) ≈ 137.0359991, expressed as 137036/1000
     (4 significant figures past 137).  The 4/27-standard target is
@@ -69,4 +69,4 @@ theorem n50_bracket_contains_candidate :
     lo.1 * 10000 < 1370354 * lo.2
     ∧ 1370354 * hi.2 < 10000 * hi.1 := by decide
 
-end E213.Physics.AlphaEMGap
+end E213.Physics.AlphaEM.StructuralGap

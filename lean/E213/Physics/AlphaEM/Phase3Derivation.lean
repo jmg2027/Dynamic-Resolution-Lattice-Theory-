@@ -56,9 +56,9 @@ NS+1 = 4 = d-1.  4-simplex face dimension.  α_GUT/4 ≈ 0.006.
   Handled as *rational bracket* in Phase 1 BaselBound.
 -/
 
-namespace E213.Physics.Phase3.AlphaEMDerivation
+namespace E213.Physics.AlphaEM.Phase3Derivation
 
-open E213.Physics.AlphaEMUnified
+open E213.Physics.AlphaEM.Unified
 open E213.Physics.Basel
 open E213.Physics.Simplex
 
@@ -127,4 +127,4 @@ theorem alpha_em_137_derivation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.AlphaEMDerivation
+end E213.Physics.AlphaEM.Phase3Derivation

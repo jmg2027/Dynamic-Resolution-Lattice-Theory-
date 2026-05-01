@@ -1,6 +1,6 @@
 import E213.Hypervisor.Lens
 import E213.Research.Lens.Factoring
-import E213.Meta.ParityLens
+import E213.Meta.Lens.Parity
 
 /-!
 # Research.LeafLens: observing whether a Raw term is a leaf via a Lens

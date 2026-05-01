@@ -58,10 +58,8 @@ import E213.Physics.Higgs.Master
 import E213.Physics.Simplex.GenerationStructure
 import E213.Physics.Nuclear.Shells
 import E213.Physics.Mixing.CPViolation
-import E213.Physics.Phase1Final
-import E213.Physics.Phase2
-import E213.Physics.Phase3
-import E213.Physics.Phase4
+import E213.Physics.Capstones.AbsoluteAtomicCapstone
+import E213.Physics.Substrate
 import E213.Physics.Foundations.MasslessParticles
 import E213.Physics.Cosmology.GravityShadow
 import E213.Physics.Cosmology.HubbleConstant
@@ -101,7 +99,7 @@ Two branches of this track:
   * `Physics.MagicNumbers`   — HO n(n+1)(n+2)/3 integer closed form
 
   * `Physics.Phase1Final`    — Phase 1 single entry (both precision tracks)
-  * `Physics.Phase2`         — Phase 2 single entry (axiom-level track)
+  * `Physics.Substrate`         — Phase 2 single entry (axiom-level track)
 
 Total 0 sorry, 0 axiom.  PureNat-style extreme purity.
 -/

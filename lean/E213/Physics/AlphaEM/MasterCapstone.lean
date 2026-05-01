@@ -32,11 +32,11 @@ Bundles the full α_em derivation chain:
   N_U = d^(d²) = 5²⁵ = lens cardinality at self-ref fractal depth
 -/
 
-namespace E213.Physics.AlphaEMMaster
+namespace E213.Physics.AlphaEM.MasterCapstone
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMSO10
-open E213.Physics.AlphaEMGram
+open E213.Physics.AlphaEM.SO10
+open E213.Physics.AlphaEM.GramSelfEnergy
 open E213.Physics.NUniverseFractalDepth
 
 /-- ★★★★★★★★★ α_em FINITIST MASTER CAPSTONE ★★★★★★★★★
@@ -70,4 +70,4 @@ theorem alpha_em_master_capstone :
        ∧ 137035999 * hi.2 < 1000000 * hi.1) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.AlphaEMMaster
+end E213.Physics.AlphaEM.MasterCapstone

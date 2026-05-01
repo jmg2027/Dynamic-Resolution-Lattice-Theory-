@@ -38,7 +38,7 @@ DRLT formula (lib/drlt.py:680, ch09):
 namespace E213.Physics.TauMu
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 
 /-- Base prefactor: c^NS · NT.  Pure integer from {c, NS, NT}. -/
 def base_prefactor : Nat := c_lat ^ NS * NT

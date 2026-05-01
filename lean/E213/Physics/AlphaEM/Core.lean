@@ -23,7 +23,7 @@ This file:
     (correctly distinguishes bare vs Ξ-corrected, no fudging)
 -/
 
-namespace E213.Physics.AlphaEM
+namespace E213.Physics.AlphaEM.Core
 
 open E213.Physics.Simplex
 open E213.Physics.Basel
@@ -82,4 +82,4 @@ theorem corrected_137_outside_bare_bracket :
     let hi := inv_alpha_em_bare_upper 5
     hi.1 < 137 * hi.2 := by decide
 
-end E213.Physics.AlphaEM
+end E213.Physics.AlphaEM.Core

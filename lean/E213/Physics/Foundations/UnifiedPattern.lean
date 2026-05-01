@@ -62,7 +62,7 @@ sin²θ_W, Ω_Λ, CH₄/NH₃/H₂O bond angles are *all* derived from the same 
 namespace E213.Physics.Unified
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 open E213.Physics.PhotonKernel
 open E213.Physics.FaceTerms
 open E213.Physics.MuOverE

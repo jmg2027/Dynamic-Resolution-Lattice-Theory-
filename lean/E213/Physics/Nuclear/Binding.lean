@@ -34,7 +34,7 @@ DRLT formulae (NUC_010, ch10):
 namespace E213.Physics.Nuclear
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 
 /-- a_V coefficient: 6 = NS·NT = d+1.
     600-cell coordination number / 2 = 12/2 = 6. -/

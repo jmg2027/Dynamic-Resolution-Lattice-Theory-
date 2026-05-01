@@ -1,6 +1,6 @@
 import E213.Research.Lens.AB
 import E213.Research.Leaves.RefinesParity
-import E213.Meta.BoolLens
+import E213.Meta.Lens.Bool
 
 /-!
 # Research.ABLensRefines: abLens ⊏ parityLens, abLens ⊏ boolXorLens

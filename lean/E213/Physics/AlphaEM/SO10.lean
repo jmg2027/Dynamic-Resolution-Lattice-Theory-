@@ -44,11 +44,11 @@ derivation of why the SO(10)-level Dyson tail has prefactor 1
 demonstrates the bracket containment as a Lean-certified fact.
 -/
 
-namespace E213.Physics.AlphaEMSO10
+namespace E213.Physics.AlphaEM.SO10
 
 open E213.Physics.Basel
-open E213.Physics.AlphaEM137Tight
-open E213.Physics.AlphaEM137
+open E213.Physics.AlphaEM.V137Tight
+open E213.Physics.AlphaEM.V137
 
 /-- Atomic decomposition: 45 = NS² · d. -/
 theorem fortyfive_atomic : 3 * 3 * 5 = 45 := by decide
@@ -114,4 +114,4 @@ theorem alpha_em_so10_capstone :
     -- (c) 138 strictly above bracket
     ∧ (hi.1 < 138 * hi.2) := by decide
 
-end E213.Physics.AlphaEMSO10
+end E213.Physics.AlphaEM.SO10

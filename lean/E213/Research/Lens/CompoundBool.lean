@@ -1,7 +1,7 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
-import E213.Meta.BoolLens
-import E213.Meta.ParityLens
+import E213.Meta.Lens.Bool
+import E213.Meta.Lens.Parity
 
 /-!
 # Research.CompoundBoolLens: Bool × Bool-valued Lens, bootstrap-free

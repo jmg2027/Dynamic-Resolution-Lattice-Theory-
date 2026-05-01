@@ -35,7 +35,7 @@ All three verified → all prefactors of unified formula come directly from
   → α_2 prefactor's (12·NT) part *is* adjoint SU(5).  Hidden link.
 -/
 
-namespace E213.Physics.AlphaEMPrefactors
+namespace E213.Physics.AlphaEM.Prefactors
 
 open E213.Physics.Simplex
 
@@ -107,4 +107,4 @@ theorem all_prefactors_structural :
     five terms add to 137) requires kernel formulation in Lean. -/
 theorem photon_kernel_open : True := trivial
 
-end E213.Physics.AlphaEMPrefactors
+end E213.Physics.AlphaEM.Prefactors

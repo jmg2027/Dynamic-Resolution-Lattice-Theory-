@@ -33,7 +33,7 @@ The same Dyson resummation denominator d-1 = NS+1 = 4 appears in several precisi
 namespace E213.Physics.Dyson
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 open E213.Physics.FaceTerms
 
 /-- Dyson denominator: d - 1 = 4 in atomic config. -/

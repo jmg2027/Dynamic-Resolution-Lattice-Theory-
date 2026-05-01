@@ -74,7 +74,7 @@ from the same atomicity-locked atoms into a single theorem.
 namespace E213.Physics.Complete
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 open E213.Physics.PhotonKernel
 open E213.Physics.FaceTerms
 open E213.Physics.MuOverE

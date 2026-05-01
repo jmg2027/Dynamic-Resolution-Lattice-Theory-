@@ -35,11 +35,11 @@ Therefore writing `1/α_em = 137.xxx` in Lean from DRLT alone
 formalizes only the pure-DRLT bare value.
 -/
 
-namespace E213.Physics.AlphaEMTight
+namespace E213.Physics.AlphaEM.Tight
 
 open E213.Physics.Simplex
 open E213.Physics.Basel
-open E213.Physics.AlphaEM
+open E213.Physics.AlphaEM.Core
 
 /-- 128 strictly inside bare bracket at N = 10. -/
 theorem bracket_128_in_10 :
@@ -86,4 +86,4 @@ theorem alpha_em_bare_pure_drlt :
     -- gap is 9
     ∧ (137 - 128 = 9) := by decide
 
-end E213.Physics.AlphaEMTight
+end E213.Physics.AlphaEM.Tight

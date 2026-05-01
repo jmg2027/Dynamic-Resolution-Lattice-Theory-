@@ -36,7 +36,7 @@ DRLT formula (SM_022, ch09):
 namespace E213.Physics.NeutronProton
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 
 /-- Prefactor 12 = c·NS·NT — same as PhotonKernel edge count. -/
 def prefactor_12 : Nat := c_lat * NS * NT

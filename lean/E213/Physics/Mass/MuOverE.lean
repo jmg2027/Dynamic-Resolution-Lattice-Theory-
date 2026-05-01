@@ -38,7 +38,7 @@ namespace E213.Physics.MuOverE
 
 open E213.Physics.Simplex
 open E213.Physics.Basel
-open E213.Physics.AlphaEM137
+open E213.Physics.AlphaEM.V137
 
 /-- Leading r₀ = NS/(NT·α_em) lower bracket.
     = (NS · 1/α_em) / NT

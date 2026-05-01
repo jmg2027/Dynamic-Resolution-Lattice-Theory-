@@ -33,7 +33,7 @@ from Raw + Lens axioms + other prior theorems.
   That is, 25/3 = 1/α_3 + 1/NS — decomposed as a sum of two known lattice quantities.
 -/
 
-namespace E213.Physics.AlphaEMUnified
+namespace E213.Physics.AlphaEM.Unified
 
 open E213.Physics.Simplex
 open E213.Physics.Basel
@@ -111,4 +111,4 @@ theorem unified_single_sum_form :
        let hi := alpha_em_unified_upper 10
        lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1) := by decide
 
-end E213.Physics.AlphaEMUnified
+end E213.Physics.AlphaEM.Unified

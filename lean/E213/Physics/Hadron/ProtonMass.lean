@@ -40,7 +40,7 @@ DRLT formula (ch09 §proton, lib/drlt.py:611):
 namespace E213.Physics.Proton
 
 open E213.Physics.Simplex
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 
 /-- Closed propagator argument: x = α_GUT · NS / d.
     NS/d = 3/5 = atomic ratio (inverse of Y-norm 5/3). -/

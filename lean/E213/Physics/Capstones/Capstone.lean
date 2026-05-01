@@ -25,7 +25,7 @@ namespace E213.Physics.Capstone
 
 open E213.Physics.Simplex
 open E213.Physics.AlphaGUT
-open E213.Physics.AlphaEM
+open E213.Physics.AlphaEM.Core
 open E213.Physics.Generations
 open E213.Physics.Magic
 open E213.Physics.Tighten

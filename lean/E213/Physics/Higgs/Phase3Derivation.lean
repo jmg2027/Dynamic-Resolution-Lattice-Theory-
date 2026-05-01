@@ -43,7 +43,7 @@ The same cofactor 4 appears in:
 namespace E213.Physics.Phase3.HiggsMassDerivation
 
 open E213.Physics.Higgs
-open E213.Physics.AlphaEMPrefactors
+open E213.Physics.AlphaEM.Prefactors
 open E213.Physics.Simplex
 
 /-- Leading 1/c_lat = 1/2. -/
