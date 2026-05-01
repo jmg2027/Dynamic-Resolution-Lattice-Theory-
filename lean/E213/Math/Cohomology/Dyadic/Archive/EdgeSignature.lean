@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.SubwordComplexity
+import E213.Math.Cohomology.Dyadic.Archive.SubwordComplexity
 
 /-!
 # Edge-based K_{3,2}^{(2)} signature variant
