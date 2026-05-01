@@ -270,3 +270,32 @@ subtraction reasoning / refine subgoal — 다른 카테고리.
 **가드레일**: 새 reshape 작성시 먼저 `rfl` 시도, 실패시
 `(Nat.add_assoc ...).symm` 또는 `Nat.succ_add` 조합.
 omega는 최후 수단.
+
+---
+
+## 교훈 13: obtain pattern + by omega → STRICT 0-AXIOM 차단요인
+
+**근본**:
+  - `by omega` → propext + Quot.sound 도입
+  - `obtain ⟨_,_,_,_⟩ := H` (And-destructuring) → propext 도입
+
+**대체 룰**:
+
+| 패턴 | 대체 |
+|---|---|
+| `(by omega : 1 < 13)` 같은 numeric literal | `(by decide)` |
+| `(by omega : 1 < p) → 0 < p` (function arg) | 명시 lemma `Nat.zero_lt_of_lt hp` |
+| `obtain ⟨a, b, c, d⟩ := H` | `H.1, H.2.1, H.2.2.1, H.2.2.2` 직접 projection |
+
+**근거**: `obtain` 는 분리된 hypothesis 를 생성하기 위해 propext 를
+사용하지만, projection 은 순수 term-level operation.
+
+**ripple-fix 사례** (commit 7c8d0e7):
+  legendre213 `by omega` → `Nat.zero_lt_of_lt` 1 spot 만 고쳐도
+  fib_legendre_*, fib_pisano_predict_*, fib_pisano_predict_realises,
+  fib_pisano_predict_realises_8 등 8 개 theorem 동시 격상.
+
+**가드레일**: 새 정리 작성시
+  1. numeric literal 부등식 → `by decide`
+  2. function arg 의존 부등식 → 명시 Nat lemma 호출
+  3. And/Conj 분해 → projection 우선, obtain 은 last resort
