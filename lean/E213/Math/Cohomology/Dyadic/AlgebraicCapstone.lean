@@ -1,5 +1,5 @@
-import E213.Math.Cohomology.Dyadic.PellCapstone
-import E213.Math.Cohomology.Dyadic.TribCapstone
+import E213.Math.Cohomology.Dyadic.Pell.Capstone
+import E213.Math.Cohomology.Dyadic.Trib.Capstone
 
 /-!
 # Unified algebraic Tier 1 capstone

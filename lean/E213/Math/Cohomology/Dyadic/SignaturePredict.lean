@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.PisanoPredictor7
+import E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 
 /-!
 # Signature-period predictor — bipartite parity doubling layer

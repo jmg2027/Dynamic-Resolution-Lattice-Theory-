@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.PellLensPairs
+import E213.Math.Cohomology.Dyadic.Pell.LensPairs
 import E213.Math.Cohomology.Dyadic.ArithFSM3Bound
 
 /-!

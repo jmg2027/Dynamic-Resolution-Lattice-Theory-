@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.NumberTheory213v2
-import E213.Math.Cohomology.Dyadic.PellProperBridge
+import E213.Math.Cohomology.Dyadic.Pell.ProperBridge
 
 /-!
 # 213-native number theory v3 — Pisano + parametric discriminant

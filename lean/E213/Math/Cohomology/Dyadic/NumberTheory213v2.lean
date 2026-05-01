@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.NumberTheory213
-import E213.Math.Cohomology.Dyadic.PisanoPredictor7
+import E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 
 /-!
 # 213-native number theory — v2 master capstone (with 7-prime evidence)

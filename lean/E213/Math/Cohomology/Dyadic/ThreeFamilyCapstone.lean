@@ -1,6 +1,6 @@
-import E213.Math.Cohomology.Dyadic.PisanoPredictor8
-import E213.Math.Cohomology.Dyadic.PellProper8
-import E213.Math.Cohomology.Dyadic.FibPisano8
+import E213.Math.Cohomology.Dyadic.Pisano.Predictor8
+import E213.Math.Cohomology.Dyadic.Pell.Proper8
+import E213.Math.Cohomology.Dyadic.Fib.Pisano8
 
 /-!
 # Three-family Pisano capstone — Galois lens universality

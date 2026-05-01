@@ -1,7 +1,7 @@
-import E213.Math.Cohomology.Dyadic.PisanoPredictor17
-import E213.Math.Cohomology.Dyadic.FibPisanoCapstone
-import E213.Math.Cohomology.Dyadic.FibPellRelation
-import E213.Math.Cohomology.Dyadic.TribCRT4Capstone
+import E213.Math.Cohomology.Dyadic.Pisano.Predictor17
+import E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
+import E213.Math.Cohomology.Dyadic.Fib.PellRelation
+import E213.Math.Cohomology.Dyadic.Trib.CRT4Capstone
 
 /-!
 # Unified Pisano-CRT capstone — three recurrence families

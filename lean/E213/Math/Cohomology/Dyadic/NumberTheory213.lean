@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ProductFSMPeriod
-import E213.Math.Cohomology.Dyadic.PisanoPredictor
+import E213.Math.Cohomology.Dyadic.Pisano.Predictor
 import E213.Math.Cohomology.Dyadic.AlgebraicDegree
 
 /-!
