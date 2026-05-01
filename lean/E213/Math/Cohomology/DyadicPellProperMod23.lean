@@ -10,24 +10,24 @@ namespace E213.Math.Cohomology.DyadicConjecture
 
 set_option maxRecDepth 1024 in
 theorem pellProper23_run_period_22 :
-    ∀ k, (pellProperFSMmod 23 (by omega)).run (k + 22)
-        = (pellProperFSMmod 23 (by omega)).run k := by
+    ∀ k, (pellProperFSMmod 23 (by decide)).run (k + 22)
+        = (pellProperFSMmod 23 (by decide)).run k := by
   intro k
   induction k with
   | zero => decide
   | succ k' ih =>
-    show (pellProperFSMmod 23 (by omega)).step _
-        = (pellProperFSMmod 23 (by omega)).step _
+    show (pellProperFSMmod 23 (by decide)).step _
+        = (pellProperFSMmod 23 (by decide)).step _
     rw [ih]
 
 theorem pellProper23_bits_period_22 :
-    ∀ k, (pellProperFSMmod 23 (by omega)).bits (k + 22)
-        = (pellProperFSMmod 23 (by omega)).bits k := by
+    ∀ k, (pellProperFSMmod 23 (by decide)).bits (k + 22)
+        = (pellProperFSMmod 23 (by decide)).bits k := by
   intro k
-  show (pellProperFSMmod 23 (by omega)).out
-        ((pellProperFSMmod 23 (by omega)).run (k + 22))
-       = (pellProperFSMmod 23 (by omega)).out
-        ((pellProperFSMmod 23 (by omega)).run k)
+  show (pellProperFSMmod 23 (by decide)).out
+        ((pellProperFSMmod 23 (by decide)).run (k + 22))
+       = (pellProperFSMmod 23 (by decide)).out
+        ((pellProperFSMmod 23 (by decide)).run k)
   rw [pellProper23_run_period_22]
 
 end E213.Math.Cohomology.DyadicConjecture

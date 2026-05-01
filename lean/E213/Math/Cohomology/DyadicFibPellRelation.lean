@@ -65,17 +65,17 @@ theorem fib_predict_eq_two_pell_predict
 
 /-- ★★★★★ Concrete instance: predictor doubling at p = 11 (split). -/
 theorem fib_pell_at_11 :
-    fib_pisano_predict 11 (by omega) = 2 * pisano_predict 11 (by omega) := by
+    fib_pisano_predict 11 (by decide) = 2 * pisano_predict 11 (by decide) := by
   decide
 
 /-- ★★★★★ Concrete instance: predictor doubling at p = 7 (inert). -/
 theorem fib_pell_at_7 :
-    fib_pisano_predict 7 (by omega) = 2 * pisano_predict 7 (by omega) := by
+    fib_pisano_predict 7 (by decide) = 2 * pisano_predict 7 (by decide) := by
   decide
 
 /-- ★★★★★ Concrete instance: predictor doubling at p = 5 (ramified). -/
 theorem fib_pell_at_5 :
-    fib_pisano_predict 5 (by omega) = 2 * pisano_predict 5 (by omega) := by
+    fib_pisano_predict 5 (by decide) = 2 * pisano_predict 5 (by decide) := by
   decide
 
 end E213.Math.Cohomology.DyadicConjecture

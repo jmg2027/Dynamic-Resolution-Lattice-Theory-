@@ -44,26 +44,28 @@ namespace E213.Math.Cohomology.DyadicConjecture
     Galois branches × 3 recurrence families. -/
 theorem three_family_pisano_capstone :
     -- (1) Pell mod 7 (inert), period 8 = p+1
-    (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by omega))
+    (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by decide))
         = pellFSMmod7.bits k)
     -- (2) Pell mod 11 (split), period 5 = (p-1)/2
-    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by omega))
+    ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by decide))
         = pellFSMmod11.bits k)
     -- (3) Pell-proper mod 11 (inert), period 24 = 2(p+1)
-    ∧ (∀ k, (pellProperFSMmod 11 (by omega)).bits (k + 24)
-        = (pellProperFSMmod 11 (by omega)).bits k)
+    ∧ (∀ k, (pellProperFSMmod 11 (by decide)).bits (k + 24)
+        = (pellProperFSMmod 11 (by decide)).bits k)
     -- (4) Pell-proper mod 17 (split), period 16 = p-1
-    ∧ (∀ k, (pellProperFSMmod 17 (by omega)).bits (k + 16)
-        = (pellProperFSMmod 17 (by omega)).bits k)
+    ∧ (∀ k, (pellProperFSMmod 17 (by decide)).bits (k + 16)
+        = (pellProperFSMmod 17 (by decide)).bits k)
     -- (5) Fibonacci mod 7 (inert), period 16 = 2(p+1)
-    ∧ (∀ k, fibFSMmod7.bits (k + fib_pisano_predict 7 (by omega))
+    ∧ (∀ k, fibFSMmod7.bits (k + fib_pisano_predict 7 (by decide))
         = fibFSMmod7.bits k)
     -- (6) Fibonacci mod 11 (split), period 10 = p-1
-    ∧ (∀ k, fibFSMmod11.bits (k + fib_pisano_predict 11 (by omega))
+    ∧ (∀ k, fibFSMmod11.bits (k + fib_pisano_predict 11 (by decide))
         = fibFSMmod11.bits k) := by
-  obtain ⟨_, _, h7p, h11p, _, _, _, _⟩ := pisano_predict_realises_pell_8
-  obtain ⟨_, _, _, hpp11, _, hpp17, _, _⟩ := pellProper_8prime_capstone
-  obtain ⟨_, _, h7f, h11f, _, _, _, _⟩ := fib_pisano_predict_realises_8
-  exact ⟨h7p, h11p, hpp11, hpp17, h7f, h11f⟩
+  let P := pisano_predict_realises_pell_8
+  let Q := pellProper_8prime_capstone
+  let F := fib_pisano_predict_realises_8
+  exact ⟨P.2.2.1, P.2.2.2.1,
+         Q.2.2.2.1, Q.2.2.2.2.2.1,
+         F.2.2.1, F.2.2.2.1⟩
 
 end E213.Math.Cohomology.DyadicConjecture

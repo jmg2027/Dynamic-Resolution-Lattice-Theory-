@@ -37,22 +37,22 @@ namespace E213.Math.Cohomology.DyadicConjecture
 
 /-- ★★★★★★★★ Pell-proper 8-prime capstone (all bit periods). -/
 theorem pellProper_8prime_capstone :
-    (∀ k, (pellProperFSMmod 3 (by omega)).run (k + 8)
-        = (pellProperFSMmod 3 (by omega)).run k)
-    ∧ (∀ k, (pellProperFSMmod 5 (by omega)).run (k + 12)
-        = (pellProperFSMmod 5 (by omega)).run k)
-    ∧ (∀ k, (pellProperFSMmod 7 (by omega)).run (k + 6)
-        = (pellProperFSMmod 7 (by omega)).run k)
-    ∧ (∀ k, (pellProperFSMmod 11 (by omega)).bits (k + 24)
-        = (pellProperFSMmod 11 (by omega)).bits k)
-    ∧ (∀ k, (pellProperFSMmod 13 (by omega)).bits (k + 28)
-        = (pellProperFSMmod 13 (by omega)).bits k)
-    ∧ (∀ k, (pellProperFSMmod 17 (by omega)).bits (k + 16)
-        = (pellProperFSMmod 17 (by omega)).bits k)
-    ∧ (∀ k, (pellProperFSMmod 19 (by omega)).bits (k + 40)
-        = (pellProperFSMmod 19 (by omega)).bits k)
-    ∧ (∀ k, (pellProperFSMmod 23 (by omega)).bits (k + 22)
-        = (pellProperFSMmod 23 (by omega)).bits k) :=
+    (∀ k, (pellProperFSMmod 3 (by decide)).run (k + 8)
+        = (pellProperFSMmod 3 (by decide)).run k)
+    ∧ (∀ k, (pellProperFSMmod 5 (by decide)).run (k + 12)
+        = (pellProperFSMmod 5 (by decide)).run k)
+    ∧ (∀ k, (pellProperFSMmod 7 (by decide)).run (k + 6)
+        = (pellProperFSMmod 7 (by decide)).run k)
+    ∧ (∀ k, (pellProperFSMmod 11 (by decide)).bits (k + 24)
+        = (pellProperFSMmod 11 (by decide)).bits k)
+    ∧ (∀ k, (pellProperFSMmod 13 (by decide)).bits (k + 28)
+        = (pellProperFSMmod 13 (by decide)).bits k)
+    ∧ (∀ k, (pellProperFSMmod 17 (by decide)).bits (k + 16)
+        = (pellProperFSMmod 17 (by decide)).bits k)
+    ∧ (∀ k, (pellProperFSMmod 19 (by decide)).bits (k + 40)
+        = (pellProperFSMmod 19 (by decide)).bits k)
+    ∧ (∀ k, (pellProperFSMmod 23 (by decide)).bits (k + 22)
+        = (pellProperFSMmod 23 (by decide)).bits k) :=
   ⟨pellProper3_run_period_8,
    pellProper5_run_period_12,
    pellProper7_run_period_6,
