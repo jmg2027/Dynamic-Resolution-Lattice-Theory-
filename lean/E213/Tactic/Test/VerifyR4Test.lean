@@ -1,8 +1,8 @@
 import E213.Tactic.VerifyR4
-import E213.Research.CayleyDickson.ZIInstance
-import E213.Research.CayleyDickson.Z2Instance
-import E213.Research.CayleyDickson.ZOmegaInstance
-import E213.Research.CayleyDickson.ZSqrtInstance
+import E213.Math.CayleyDickson.ZIInstance
+import E213.Math.CayleyDickson.Z2Instance
+import E213.Math.CayleyDickson.ZOmegaInstance
+import E213.Math.CayleyDickson.ZSqrtInstance
 
 /-!
 # Tests: `#verify_r4` scans all six R4Codomain witnesses.

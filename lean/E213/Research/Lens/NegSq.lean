@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens
-import E213.Research.Diagonal.Classification
+import E213.Math.Diagonal.Classification
 
 /-!
 # Research.NegSqLens: fifth category of diagonal classification
@@ -27,7 +27,7 @@ id / linear / quadratic; involution is a fifth possibility.
 
 namespace E213.Research.Lens.NegSq
 
-open E213.Firmware E213.Hypervisor E213.Research.DiagonalClassification
+open E213.Firmware E213.Hypervisor E213.Math.DiagonalClassification
 
 /-- Negation-sq Lens on Bool.  !v on the diagonal, true off-diagonal. -/
 def negSqLens : Lens Bool where

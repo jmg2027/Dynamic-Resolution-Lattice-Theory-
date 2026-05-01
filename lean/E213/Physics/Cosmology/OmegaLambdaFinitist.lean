@@ -1,6 +1,6 @@
 import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Foundations.NUniverseFractalDepth
-import E213.Research.Cauchy.WallisSharper
+import E213.Math.Cauchy.WallisSharper
 
 /-!
 # Ω_Λ — finitist closure (no external π)

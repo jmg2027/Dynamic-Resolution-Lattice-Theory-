@@ -1,10 +1,10 @@
-import E213.Research.Real213.CutSeries
-import E213.Research.Real213.CutGeomSeries
-import E213.Research.Real213.CutExp
-import E213.Research.Real213.CutTrig
-import E213.Research.Real213.CutSeriesConv
-import E213.Research.Real213.CutSeriesZero
-import E213.Research.Real213.CutSeriesConst
+import E213.Math.Real213.CutSeries
+import E213.Math.Real213.CutGeomSeries
+import E213.Math.Real213.CutExp
+import E213.Math.Real213.CutTrig
+import E213.Math.Real213.CutSeriesConv
+import E213.Math.Real213.CutSeriesZero
+import E213.Math.Real213.CutSeriesConst
 
 /-!
 # E213.Math.Series: series + specific functions

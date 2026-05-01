@@ -1,4 +1,4 @@
-import E213.Research.Diagonal.Classification
+import E213.Math.Diagonal.Classification
 import E213.Research.Lens.NegSq
 
 /-!
@@ -22,7 +22,7 @@ functions), the diagonal behavior is exactly 4 cases.  For a general
 
 namespace E213.Research.Morphism.BoolSqClassification
 
-open E213.Firmware E213.Hypervisor E213.Research.DiagonalClassification
+open E213.Firmware E213.Hypervisor E213.Math.DiagonalClassification
 
 /-- Class where sq is negation. -/
 def NegSq {α : Type} (L : Lens α) (f : α → α) : Prop :=

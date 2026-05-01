@@ -1,4 +1,4 @@
-import E213.Research.Diagonal.Classification
+import E213.Math.Diagonal.Classification
 
 /-!
 # Research.IdempotentConstancy: Idempotent + swap-blind ⟹ constant
@@ -21,7 +21,7 @@ of Note 35 and the near-top (constant view Lens) of Note 37.
 
 namespace E213.Research.IdempotentConstancy
 
-open E213.Firmware E213.Hypervisor E213.Research.DiagonalClassification
+open E213.Firmware E213.Hypervisor E213.Math.DiagonalClassification
 
 /-- **Idempotent + swap-blind base → constant view**. -/
 theorem idempotent_swap_blind_const {α : Type} (L : Lens α)
