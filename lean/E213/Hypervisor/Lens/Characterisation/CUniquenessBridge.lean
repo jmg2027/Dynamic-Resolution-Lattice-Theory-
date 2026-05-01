@@ -20,6 +20,8 @@ Failure case: swap-invariant Lenses (LensCatalog).
 
 namespace E213.Hypervisor.Lens.Characterisation.CUniquenessBridge
 open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Characterisation.Catalog
+open E213.Meta.SelfRecognising
 
 /-- ★ Involution. -/
 theorem r4_conj_involution {α : Type} [Zero α] [R4Codomain α] :

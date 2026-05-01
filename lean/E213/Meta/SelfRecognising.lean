@@ -51,6 +51,7 @@ end E213.Meta.SelfRecognising
 namespace E213.Meta.SelfRecognising
 
 open E213.Firmware E213.Hypervisor R12Codomain
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 -- ═══ Tier 2: R3 (NonVanishing / no zero divisors) ═══
 

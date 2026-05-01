@@ -31,6 +31,7 @@ level.
 
 namespace E213.Hypervisor.Lens.Instances.Parity
 open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 /-- **Parity lens.**  `a ↦ true`, `b ↦ true`, combine = xor.
     View = `true` iff `Raw.leaves` is odd. -/
@@ -57,6 +58,7 @@ theorem parityLens_swap_invariant (r : Raw) :
 end E213.Hypervisor.Lens.Instances.Parity
 namespace E213.Hypervisor.Lens.Instances.Parity
 open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 /-- **R5 fails.**  `Raw.a ≠ Raw.b` but both map to `true`. -/
 theorem parityLens_not_injective :

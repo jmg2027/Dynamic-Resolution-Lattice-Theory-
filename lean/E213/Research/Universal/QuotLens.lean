@@ -149,7 +149,7 @@ theorem universalLens_recovers (α : Type) (M : Lens α)
   · intro x y h; exact h.symm
   · intro x y z h1 h2; exact h1.trans h2
   · intro x x' y y' hxy hx'y' hxx' hyy'
-    exact E213.Research.KernelCongruence.Lens.equiv_slash_congruence
+    exact E213.Research.Kernel.Congruence.Lens.equiv_slash_congruence
       M hMsym x x' y y' hxy hx'y' hxx' hyy'
 
 /-- **Idempotence**: applying universalLens twice yields the same kernel.
@@ -164,7 +164,7 @@ theorem universalLens_idempotent (α : Type) (M : Lens α)
   · intro x y h; exact h.symm
   · intro x y z h1 h2; exact h1.trans h2
   · intro x x' y y' hxy hx'y' hxx' hyy'
-    exact E213.Research.KernelCongruence.Lens.equiv_slash_congruence
+    exact E213.Research.Kernel.Congruence.Lens.equiv_slash_congruence
       (universalLens M.equiv) (universalLens_combine_sym M.equiv)
       x x' y y' hxy hx'y' hxx' hyy'
 

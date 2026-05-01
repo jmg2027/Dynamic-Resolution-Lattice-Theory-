@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Atomic.BondAngles
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Translation: Molecular bond angles → DRLT atomic (Phase 1 BondAngles deep-dive)

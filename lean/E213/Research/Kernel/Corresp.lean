@@ -41,7 +41,7 @@ theorem lens_kernel_is_slash_cong {α : Type} (L : Lens α)
   · intro r r' h; exact h.symm
   · intro r r' r'' h1 h2; exact h1.trans h2
   · intros x x' y y' h h' hxx hyy
-    exact KernelCongruence.Lens.equiv_slash_congruence L hsym
+    exact Kernel.Congruence.Lens.equiv_slash_congruence L hsym
       x x' y y' h h' hxx hyy
 
 end E213.Research.Kernel.Corresp

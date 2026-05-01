@@ -29,10 +29,10 @@ group), ℍ fails R3 (non-commutative). Only ℂ survives.
 
 Raw + swap automorphism + atomicity yields:
 
-- d = 5 as **theorem** (`OS/Atomicity.lean`): unique 2a+3b decomposition
+- d = 5 as **theorem** (`Firmware/Atomicity/Five.lean`): unique 2a+3b decomposition
   with both odd, irreducible by Bézout shifts.
 - (NT, NS, d) = (2, 3, 5) = (F₃, F₄, F₅): consecutive Fibonacci
-  (`Physics/FibonacciAtomic.lean`, Phase 1 Discovery 1).
+  (`Physics/Foundations/FibonacciAtomic.lean`, Phase 1 Discovery 1).
 - R1–R4 codomain typeclass hierarchy (`Meta/R4Codomain.lean`) +
   `#verify_r4` command — checks any candidate codomain at compile time.
 
@@ -64,5 +64,5 @@ the T3 path, not re-derived in 213.
 - `papers/paper1_chiral_decomposition.tex` — ℂ⁵ = ℂ²⊕ℂ³ uniqueness.
 - `papers/paper2_frobenius_to_gauge.tex` — full T3 substrate argument.
 - `papers/drlt-book/chapters/ch01_whyC.tex` — narrative version.
-- `lean/E213/OS/Atomicity.lean` — d=5 theorem.
+- `lean/E213/Firmware/Atomicity/Five.lean` — d=5 theorem.
 - `lean/E213/Meta/R4Codomain.lean` — R1–R4 typeclass.

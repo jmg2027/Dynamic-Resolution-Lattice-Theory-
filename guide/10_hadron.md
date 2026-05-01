@@ -3,7 +3,7 @@
 **Tier:** T2
 **Status:** Several closed at sub-percent; full spectrum not yet a
 single Lean theorem.
-**Lean:** `Physics/HadronMasses.lean`, `Physics/ColorConfinement.lean`,
+**Lean:** `Physics/Hadron/Masses.lean`, `Physics/Couplings/ColorConfinement.lean`,
 `Physics/QCD.lean` (selected).
 
 ## Best current statement
@@ -27,7 +27,7 @@ Each closed `by decide` against observed values.
 
 `ColorConfinement.lean` derives 1/α₃ = NS² − 1 = 8 (Discovery 2;
 photon = cycle space of K_{3,2}). This is the *confined* coupling.
-Asymptotic freedom is `Physics/AsymptoticFreedom.lean` — α₃(Q) running
+Asymptotic freedom is `Physics/Couplings/AsymptoticFreedom.lean` — α₃(Q) running
 matched to 5-loop QCD at the percent level.
 
 ### Hyperfine and decay constants
@@ -56,5 +56,5 @@ Narrative-only in `paper3` and `drlt-book ch19`. Formalization pending.
 
 - `papers/paper3_zero_parameter_predictions.tex` (hadron table)
 - `papers/drlt-book/chapters/ch19_qcd.tex`
-- `lean/E213/Physics/HadronMasses.lean`, `ColorConfinement.lean`,
+- `lean/E213/Physics/Hadron/Masses.lean`, `ColorConfinement.lean`,
   `AsymptoticFreedom.lean`, `QCD.lean`.

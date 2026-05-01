@@ -1,5 +1,5 @@
-import E213.Physics.Nuclear.Binding.Binding
-import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Nuclear.Binding
+import E213.Physics.Nuclear.MagicNumbers
 
 /-!
 # Nuclear ↔ Diamond bridge

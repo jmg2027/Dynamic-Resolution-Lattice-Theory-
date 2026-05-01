@@ -2,7 +2,7 @@ import E213.Physics.Foundations.UnifiedPattern
 import E213.Physics.Hadron.ProtonMass
 import E213.Physics.Hadron.Masses
 import E213.Physics.Mixing.NeutrinoMixing
-import E213.Physics.Nuclear.Binding.Binding
+import E213.Physics.Nuclear.Binding
 import E213.Physics.Higgs.Quartic
 import E213.Physics.Hadron.NeutronProton
 

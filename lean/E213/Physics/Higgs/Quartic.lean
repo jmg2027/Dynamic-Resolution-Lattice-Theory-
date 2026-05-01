@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass.Mass
+import E213.Physics.Higgs.Mass
 
 /-!
 # λ_H = Higgs quartic coupling — clean leading 1/(2c²) (0 axioms)

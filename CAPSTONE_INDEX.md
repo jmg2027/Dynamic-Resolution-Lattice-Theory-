@@ -5,32 +5,32 @@ Quick navigation for major Lean capstones.  Updated 2026-05-01.
 ## Top-level achievements
 
 ### Validation Standard satisfied (root)
-- `Physics/ValidationStandardOne.validation_standard_capstone`
+- `Physics/Capstones/ValidationStandardOne.validation_standard_capstone`
   — CLAUDE.md #1+#2 explicit, 13 conjuncts, STRICT 0-AXIOM
 
 ### Pure atomic closure (strongest)
-- `Physics/PureAtomicObservables.pure_atomic_observables_capstone`
+- `Physics/Capstones/PureAtomicObservables.pure_atomic_observables_capstone`
   — 17 conjuncts, no N_U dependence, pure rational
 
 ## Finitist N_U chain (Standard #1)
 
 ### α_em chain
-- `Physics/AlphaEMSO10.alpha_em_so10_capstone` — 4 ppm → 15 ppb
-- `Physics/AlphaEMGramSelfEnergy.alpha_em_gram_capstone` — 15 ppb → 0.18 ppb
-- `Physics/AlphaEMMasterCapstone.alpha_em_master_capstone` — 8-conjunct master
+- `Physics/AlphaEM/SO10.alpha_em_so10_capstone` — 4 ppm → 15 ppb
+- `Physics/AlphaEM/GramSelfEnergy.alpha_em_gram_capstone` — 15 ppb → 0.18 ppb
+- `Physics/AlphaEM/MasterCapstone.alpha_em_master_capstone` — 8-conjunct master
 
 ### N_universe identification
-- `Physics/NUniverseFromFractal.n_universe_atomic_decomposition`
-- `Physics/NUniverseFractalDepth.n_universe_self_consistent`
+- `Physics/Foundations/NUniverseFromFractal.n_universe_atomic_decomposition`
+- `Physics/Foundations/NUniverseFractalDepth.n_universe_self_consistent`
   — L = d² self-referential
-- `Physics/FractalLensCardinality.fractal_lens_cardinality_capstone`
+- `Physics/Foundations/FractalLensCardinality.fractal_lens_cardinality_capstone`
   — Lens count at fractal level
 
 ### Other observables (inherit N_U)
-- `Physics/MuOverEFinitist.mu_over_e_finitist`
-- `Physics/OmegaLambdaFinitist.omega_lambda_finitist`
-- `Physics/HiggsMassFinitist.higgs_finitist`
-- `Physics/FinitistObservableChain.finitist_observable_chain`
+- `Physics/Mass/MuOverEFinitist.mu_over_e_finitist`
+- `Physics/Cosmology/OmegaLambdaFinitist.omega_lambda_finitist`
+- `Physics/Higgs/MassFinitist.higgs_finitist`
+- `Physics/Capstones/FinitistObservableChain.finitist_observable_chain`
   — 4-observable bundle
 
 ## Pisano-CRT framework (number theory)
@@ -48,16 +48,16 @@ Quick navigation for major Lean capstones.  Updated 2026-05-01.
   — Δ⁴ all 5 strata
 
 ## Universal Lens metatheory (Open Problem #6)
-- `Meta/UniversalLensTripleCapstone.universal_lens_triple_capstone`
-- `Meta/UniversalLensPaddingCapstone.padding_capstone`
+- `Meta/UniversalLens/TripleCapstone.universal_lens_triple_capstone`
+- `Meta/UniversalLens/PaddingCapstone.padding_capstone`
   — abstract padding lemma + 4 instances
 
 ## Class C atomic catalog (Famous Coincidences)
-- `Physics/FamousCoincidences.famous_coincidences_capstone` — Lenz, Koide, r_p, hierarchy
-- `Physics/FamousCoincidencesII.class_c_atomic_catalog`
-- `Physics/FamousCoincidencesIII.famous_coincidences_III_capstone` — gauge + reps
-- `Physics/FamousCoincidencesIV.famous_coincidences_IV_capstone` — exceptional Lie groups
-- `Physics/MagicNumbersAtomic.nuclear_magic_atomic_capstone` — 7/7 magic
+- `Physics/FamousCoincidences/V1.famous_coincidences_capstone` — Lenz, Koide, r_p, hierarchy
+- `Physics/FamousCoincidences/V2.class_c_atomic_catalog`
+- `Physics/FamousCoincidences/V3.famous_coincidences_III_capstone` — gauge + reps
+- `Physics/FamousCoincidences/V4.famous_coincidences_IV_capstone` — exceptional Lie groups
+- `Physics/Nuclear/MagicNumbersAtomic.nuclear_magic_atomic_capstone` — 7/7 magic
 
 ## Real213 precision artifact closures (F6 doc)
 
@@ -78,8 +78,8 @@ Quick navigation for major Lean capstones.  Updated 2026-05-01.
 
 ## Falsifiability
 
-- `Physics/Generations` — N_gen = 3, no 4th gen
-- `Physics/ThetaQCD.theta_QCD_pattern` — θ_QCD < J·α⁴ < bound
+- `Physics/Simplex/Generations` — N_gen = 3, no 4th gen
+- `Physics/Couplings/ThetaQCD.theta_QCD_pattern` — θ_QCD < J·α⁴ < bound
 - `seed/FALSIFIABILITY.md` — 7 observational falsifiers
 
 ## Documentation files

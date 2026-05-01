@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.YangMills.Gap.WeinbergAngle
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Translation: Weinberg angle deep-dive → DRLT atomic

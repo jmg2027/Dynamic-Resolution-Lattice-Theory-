@@ -5,7 +5,7 @@
 to ppm width. Headline 1/α_em = 137.036 *not yet* 4/27-passing.
 **Open Problem #1 status (2026-04-27 update):** split into 1a (bracket
 tightening, computational) + 1b (5.4×10⁻⁴ structural gap, research).
-**Lean:** `Physics/AlphaGUT`, `AlphaEM`, `AlphaEM137`, `AlphaEM137Tight`,
+**Lean:** `Physics/Couplings/AlphaGUT`, `AlphaEM`, `AlphaEM/V137`, `AlphaEM/V137Tight`,
 `BaselBound`, `BaselBoundTight`, `AlphaEMStructuralGap`.
 
 ## Best current statement
@@ -46,7 +46,7 @@ Discovery 2 (photon = cycle space of K_{3,2}).
 
 **1a (computational, decide-checked).** `BaselBoundTight` adds the
 two-sided telescoping bound: `S(N) + 1/(N+1) ≤ ζ(2) ≤ S(N) + 1/N`,
-giving width `1/(N(N+1))` — quadratic improvement. `AlphaEM137Tight`
+giving width `1/(N(N+1))` — quadratic improvement. `AlphaEM/V137Tight`
 applies it: at N=20 the candidate-formula bracket has width 0.14
 (vs 6.0 baseline at N=10, a 43× improvement). N=50 reaches width
 0.024. N>50 hits Lean's default `maxRecDepth` for `S` unfolding.
@@ -74,5 +74,5 @@ formula is the wrong structural form for 1/α_em at the IR scale.
 - `papers/paper4_zeta_beta.tex` (coupling running)
 - `papers/paper6_simplex_coupling.tex`
 - `papers/drlt-book/chapters/ch08_couplings.tex`
-- `lean/E213/Physics/AlphaGUT.lean`, `AlphaEM137.lean`,
+- `lean/E213/Physics/Couplings/AlphaGUT.lean`, `AlphaEM/V137.lean`,
   `BaselBound.lean`, `PhotonKernel.lean`.

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Golden ratio φ — naturally emerging from d = 5 lattice (0 axioms)

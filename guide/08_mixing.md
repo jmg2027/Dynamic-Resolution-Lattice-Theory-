@@ -2,8 +2,8 @@
 
 **Tier:** T2
 **Status:** Partial — Cabibbo angle and sin²θ₁₃ match; full PMNS open.
-**Lean:** `Physics/CabibboAngle.lean`, `Physics/CKMHierarchy.lean`,
-`Physics/NeutrinoMixing.lean`, `Physics/CPViolation.lean`.
+**Lean:** `Physics/Mixing/CabibboAngle.lean`, `Physics/Mixing/CKMHierarchy.lean`,
+`Physics/Mixing/NeutrinoMixing.lean`, `Physics/Mixing/CPViolation.lean`.
 
 ## Best current statement
 
@@ -61,6 +61,6 @@ mrad. Passing 4/27 standard at sub-percent.
 
 - `papers/paper3_zero_parameter_predictions.tex` (mixing entries)
 - `papers/drlt-book/chapters/ch11_mixing.tex`
-- `lean/E213/Physics/CabibboAngle.lean`, `CKMHierarchy.lean`,
+- `lean/E213/Physics/Mixing/CabibboAngle.lean`, `CKMHierarchy.lean`,
   `NeutrinoMixing.lean`, `CPViolation.lean`.
 - `seed/FALSIFIABILITY.md` § 4–5 (PMNS, Cabibbo).

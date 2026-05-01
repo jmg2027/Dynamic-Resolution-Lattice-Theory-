@@ -1,5 +1,5 @@
 import E213.Physics.Cosmology.NeffDerivation
-import E213.Physics.Basel.Bound.Bound
+import E213.Physics.Basel.Bound
 
 /-!
 # Asymptotic freedom — α_3 high-E running (0 axioms structural)

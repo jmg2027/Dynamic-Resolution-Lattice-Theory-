@@ -55,6 +55,7 @@ theorem slash_ab_swap_fixed :
 end E213.Hypervisor.Lens.Instances.Max
 namespace E213.Hypervisor.Lens.Instances.Max
 open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 -- ═══ R4 fails: two Raw terms force inconsistent `conj 1` values ═══
 

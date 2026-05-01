@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Period 6 (Z=55~86) — Cs ~ Rn atomic catalog

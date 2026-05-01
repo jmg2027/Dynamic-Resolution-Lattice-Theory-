@@ -1,4 +1,4 @@
-import E213.Physics.Basel.Bound.Bound
+import E213.Physics.Basel.Bound
 
 /-!
 # α_GUT — first DRLT physics constant formal theorem

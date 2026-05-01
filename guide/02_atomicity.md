@@ -2,7 +2,7 @@
 
 **Tier:** T0
 **Status:** Closed Lean theorem + Phase 1 Discovery 1 (Fibonacci).
-**Lean:** `OS/Atomicity.lean`, `Physics/FibonacciAtomic.lean`.
+**Lean:** `Firmware/Atomicity/Five.lean`, `Physics/Foundations/FibonacciAtomic.lean`.
 
 ## Best current statement
 
@@ -70,6 +70,6 @@ of K_{3,2}; b₁ = NS²−1 = 8 = 1/α₃ (confined). This identification holds
 
 - `papers/paper1_chiral_decomposition.tex`
 - `papers/drlt-book/chapters/ch02_whyd5.tex`
-- `lean/E213/OS/Atomicity.lean`
-- `lean/E213/Physics/FibonacciAtomic.lean`
-- `lean/E213/Physics/PhotonKernel.lean`
+- `lean/E213/Firmware/Atomicity/Five.lean`
+- `lean/E213/Physics/Foundations/FibonacciAtomic.lean`
+- `lean/E213/Physics/Couplings/PhotonKernel.lean`

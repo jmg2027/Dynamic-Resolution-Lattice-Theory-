@@ -20,17 +20,17 @@ multiple tiers per section.
 
 | # | Observable | Precision | Lean module | Guide |
 |---|-----------|-----------|-------------|-------|
-| 1 | IE_H = m_e·c²·α²/2 | 4.3 ppb | `Phase4/HydrogenIEPPM` | Ch. 04 |
-| 2 | m_μ / m_e | 0.48 ppb | `MuOverE` | Ch. 06 |
-| 3 | m_p | exact | `ProtonMass` | Ch. 06 |
-| 4 | m_H | +0.02% | `HiggsMass` | Ch. 06 |
-| 5 | sin² θ₁₃ | −0.07σ | `NeutrinoMixing` | Ch. 08 |
-| 6 | m₃ / m₂ (ν) | +0.04% | `NeutrinoMixing` | Ch. 08 |
-| 7 | Ω_Λ | 0.0008% | `DarkEnergy` | Ch. 09 |
-| 8 | Magic numbers 7/7 | exact | `MagicNumbers` | Ch. 11 |
-| 9 | d = 5 atomicity | exact (theorem) | `OS/Atomicity` | Ch. 02 |
+| 1 | IE_H = m_e·c²·α²/2 | 4.3 ppb | `Atomic/IE/HydrogenPPM` | Ch. 04 |
+| 2 | m_μ / m_e | 0.48 ppb | `Mass/MuOverE` | Ch. 06 |
+| 3 | m_p | exact | `Hadron/ProtonMass` | Ch. 06 |
+| 4 | m_H | +0.02% | `Higgs/Mass` | Ch. 06 |
+| 5 | sin² θ₁₃ | −0.07σ | `Mixing/NeutrinoMixing` | Ch. 08 |
+| 6 | m₃ / m₂ (ν) | +0.04% | `Mixing/NeutrinoMixing` | Ch. 08 |
+| 7 | Ω_Λ | 0.0008% | `Cosmology/DarkEnergy` | Ch. 09 |
+| 8 | Magic numbers 7/7 | exact | `Nuclear/MagicNumbers` | Ch. 11 |
+| 9 | d = 5 atomicity | exact (theorem) | `Firmware/Atomicity/Five` | Ch. 02 |
 | 10 | 1/α₃ = 8 | exact | `PhotonKernel` | Ch. 05/Ch. 10 |
-| 11 | Periodic table Z=1..118 | ppb-level | `Phase4/Library` | Ch. 07 |
+| 11 | Periodic table Z=1..118 | ppb-level | `Library` | Ch. 07 |
 | 12 | CH₄/H₂O/NH₃ angles | exact | `BondAngles` | Ch. 07 |
 ```
 
@@ -46,7 +46,7 @@ multiple tiers per section.
 | Cohomology 213 marathon | **CLOSED + Audit/Bridge + Chiral + L-Fractal + TopologyCompare** (23 files, ~85 theorems, 0 axiom). | Paper 1/2/3 reconstruction continues | Ch. 14 |
 | **Linalg213 marathon** | **CLOSED (L1-L6)** (7 files, ~32 theorems, ≤ {propext, Quot.sound}). ★★★ `paper1_chiral_compression` capstone bundles atomicity + Linalg chiral split + Cohomology bigrading + Bridge + Physics b_1=8 + topology uniqueness. | (next math marathon) | Ch. 14 |
 | α_GUT = 6/(25π²) | bracket [N=3] width ~8 | width < 10⁻⁴ | Ch. 05 |
-| AlphaEM137 d²/NS=25/3 | conjectural-tagged | derive from Raw | Ch. 05 |
+| AlphaEM/V137 d²/NS=25/3 | conjectural-tagged | derive from Raw | Ch. 05 |
 | η_B | 0.5% narrative | ppb | Ch. 09 |
 | Cabibbo λ = 5/22 | bracket only | ppm | Ch. 08 |
 | YM mass gap (continuum) | statement closed | full proof | Ch. 12 |

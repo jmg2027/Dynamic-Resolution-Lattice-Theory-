@@ -1,7 +1,7 @@
 import E213.Physics.Substrate
 import E213.Physics.AlphaEM.V137
 import E213.Physics.AlphaEM.Tight
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 AlphaEMSharp — 1/α_em = 137.036 ppm precision falsifier

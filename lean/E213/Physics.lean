@@ -1,10 +1,10 @@
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 import E213.Physics.Simplex.Counts.FoccSpectrum
-import E213.Physics.Basel.Bound.Bound
+import E213.Physics.Basel.Bound
 import E213.Physics.Couplings.AlphaGUT
 import E213.Physics.AlphaEM.Core
 import E213.Physics.Simplex.Generations
-import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Foundations.TightenBracket
 import E213.Physics.Mixing.CabibboAngle
 import E213.Physics.Foundations.ResolutionDepth
@@ -22,7 +22,7 @@ import E213.Physics.Simplex.FaceTerms
 import E213.Physics.AlphaEM.Simplicial
 import E213.Physics.Mass.MuOverE
 import E213.Physics.Couplings.DysonStructure
-import E213.Physics.Higgs.Mass.Mass
+import E213.Physics.Higgs.Mass
 import E213.Physics.Mass.TauOverMu
 import E213.Physics.YangMills.Gap.WeinbergAngle
 import E213.Physics.Cosmology.DarkEnergy
@@ -31,7 +31,7 @@ import E213.Physics.Foundations.UnifiedPattern
 import E213.Physics.Hadron.ProtonMass
 import E213.Physics.Hadron.Masses
 import E213.Physics.Mixing.NeutrinoMixing
-import E213.Physics.Nuclear.Binding.Binding
+import E213.Physics.Nuclear.Binding
 import E213.Physics.Higgs.Quartic
 import E213.Physics.Hadron.NeutronProton
 import E213.Physics.Capstones.MasterCatalog
@@ -63,7 +63,7 @@ import E213.Physics.Substrate
 import E213.Physics.Foundations.MasslessParticles
 import E213.Physics.Cosmology.GravityShadow
 import E213.Physics.Cosmology.HubbleConstant
-import E213.Physics.YangMills.Gap.Gap
+import E213.Physics.YangMills.Gap
 import E213.Physics.Couplings.AsymptoticFreedom
 import E213.Physics.YangMills.Gap.SU5Roots
 import E213.Physics.Capstones.Capstone

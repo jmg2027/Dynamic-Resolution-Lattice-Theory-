@@ -1,7 +1,7 @@
 import E213.Physics.Capstones.MasterCatalog
 import E213.Physics.AlphaEM.Simplicial
 import E213.Physics.Mass.MuOverE
-import E213.Physics.Higgs.Mass.Mass
+import E213.Physics.Higgs.Mass
 import E213.Physics.Mass.TauOverMu
 import E213.Physics.YangMills.Gap.WeinbergAngle
 import E213.Physics.Cosmology.DarkEnergy
@@ -9,14 +9,14 @@ import E213.Physics.Atomic.BondAngles
 import E213.Physics.Hadron.ProtonMass
 import E213.Physics.Hadron.Masses
 import E213.Physics.Mixing.NeutrinoMixing
-import E213.Physics.Nuclear.Binding.Binding
+import E213.Physics.Nuclear.Binding
 import E213.Physics.Higgs.Quartic
 import E213.Physics.Hadron.NeutronProton
 import E213.Physics.Atomic.Hydrogen
 import E213.Physics.Atomic.Screening
 import E213.Physics.Couplings.ClosedPropagator
 import E213.Physics.Simplex.Generations
-import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Mixing.CabibboAngle
 
 /-!

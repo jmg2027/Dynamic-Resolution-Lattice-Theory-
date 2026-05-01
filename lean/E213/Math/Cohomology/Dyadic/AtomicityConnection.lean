@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.SignatureBipartite
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # K_{3,2}^{(2)} signature ↔ DRLT atomicity (NS, NT, d)

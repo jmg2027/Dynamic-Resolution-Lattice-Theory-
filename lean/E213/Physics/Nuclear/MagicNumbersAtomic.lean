@@ -1,4 +1,4 @@
-import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Nuclear.MagicNumbers
 
 /-!
 # Nuclear magic numbers — atomic decomposition

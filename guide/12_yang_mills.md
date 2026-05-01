@@ -2,8 +2,8 @@
 
 **Tier:** T1/T3 hybrid (T1 for mass gap statement; T3 for full proof)
 **Status:** Mass gap *statement* formalized in Lean; full proof open.
-**Lean:** `Physics/YangMillsGap.lean`, `Physics/PhotonKernel.lean`,
-`Physics/AsymptoticFreedom.lean`.
+**Lean:** `Physics/YangMillsGap.lean`, `Physics/Couplings/PhotonKernel.lean`,
+`Physics/Couplings/AsymptoticFreedom.lean`.
 
 ## Best current statement
 

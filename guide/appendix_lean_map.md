@@ -31,18 +31,18 @@ chapter(s) where its content is treated.
 |-----------------------|---------------|
 | `SimplexCounts`, `FoccSpectrum` | Ch. 03 |
 | `BaselBound`, `WhyBasel` | Ch. 03, Ch. 05 |
-| `AlphaGUT`, `AlphaEM`, `AlphaEM137`, `AlphaEM137Tight`, `BaselBoundTight`, `AlphaEMStructuralGap`, `GUTUnification` | Ch. 05 |
-| `MuOverE`, `TauOverMu`, `ProtonMass`, `HiggsMass` | Ch. 06 |
+| `AlphaGUT`, `AlphaEM`, `AlphaEM/V137`, `AlphaEM/V137Tight`, `BaselBoundTight`, `AlphaEMStructuralGap`, `GUTUnification` | Ch. 05 |
+| `Mass/MuOverE`, `TauOverMu`, `Hadron/ProtonMass`, `Higgs/Mass` | Ch. 06 |
 | `QuarkHierarchy`, `HierarchyTowers` | Ch. 06 |
-| `CabibboAngle`, `CKMHierarchy`, `NeutrinoMixing`, `CPViolation` | Ch. 08 |
-| `HadronMasses`, `ColorConfinement`, `AsymptoticFreedom`, `QCD` | Ch. 10 |
-| `MagicNumbers`, `NuclearBinding`, `NuclearShells`, `DeuteronBinding` | Ch. 11 |
-| `Phase4/HydrogenIEPPM`, `Phase4/Library/Period{1..7}IE` | Ch. 04, Ch. 07 |
-| `Phase4/Library/AtomicMassLibrary` | Ch. 07 |
+| `Mixing/CabibboAngle`, `CKMHierarchy`, `Mixing/NeutrinoMixing`, `CPViolation` | Ch. 08 |
+| `Hadron/Masses`, `ColorConfinement`, `AsymptoticFreedom`, `QCD` | Ch. 10 |
+| `Nuclear/MagicNumbers`, `Nuclear/Binding`, `NuclearShells`, `DeuteronBinding` | Ch. 11 |
+| `Atomic/IE/HydrogenPPM`, `Atomic/IE/Period{3,4,5,6,7}` | Ch. 04, Ch. 07 |
+| `Library/AtomicMassLibrary` | Ch. 07 |
 | `AtomicScreening`, `BondAngles`, `HydrogenAtom`, `HeliumAtom` | Ch. 07 |
-| `DarkEnergy`, `HubbleConstant`, `GravityShadow` | Ch. 09 |
+| `Cosmology/DarkEnergy`, `HubbleConstant`, `GravityShadow` | Ch. 09 |
 | `BaryonAsymmetry` | Ch. 09 |
-| `YangMillsGap`, `PhotonKernel` | Ch. 12 |
+| `YangMills/Gap`, `PhotonKernel` | Ch. 12 |
 | `FibonacciAtomic`, `FibonacciExtended` | Ch. 02 |
 | `GenerationStructure`, `SU5Roots` | Ch. 02, Ch. 08 |
 | `DysonStructure`, `ClosedPropagator`, `FaceTerms` | Ch. 03 |
@@ -65,5 +65,5 @@ chapter(s) where its content is treated.
   are all external-only.
 - `Research/Real213*` (176 files) is the single largest body of
   213-internal mathematics; treated in Ch. 14.
-- `lean/E213/Physics/Phase4/Library/` covers periodic table to ppb;
+- `lean/E213/Physics/Atomic/IE/Library/` covers periodic table to ppb;
   treated in Ch. 04 (formula) + Ch. 07 (table).

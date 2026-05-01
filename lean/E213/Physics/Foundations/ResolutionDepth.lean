@@ -1,5 +1,5 @@
-import E213.Physics.Basel.Bound.Bound
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Basel.Bound
+import E213.Physics.Simplex.Counts
 
 /-!
 # Resolution depth — why α_3, α_2 are exact and α_1 is bracketed

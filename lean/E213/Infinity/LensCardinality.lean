@@ -36,7 +36,7 @@ the precise content of "cardinality is Lens-output".
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Hypervisor E213.Meta
+open E213.Firmware E213.Hypervisor
 
 -- ═══ leaves surjective onto ℕ≥1 ═══
 
@@ -67,7 +67,7 @@ end E213.Firmware.Internal
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Firmware.Internal E213.Hypervisor E213.Meta
+open E213.Firmware E213.Firmware.Internal E213.Hypervisor
 
 -- ═══ depth surjective onto ℕ ═══
 
@@ -83,7 +83,11 @@ end E213.Infinity
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Hypervisor E213.Meta
+open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Instances.Bool
+open E213.Hypervisor.Lens.Instances.Parity
+open E213.Hypervisor.Lens.Instances.Max
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 -- ═══ Finite-image Lenses ═══
 
@@ -145,7 +149,8 @@ end E213.Firmware.Internal
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Firmware.Internal E213.Hypervisor E213.Meta
+open E213.Firmware E213.Firmware.Internal E213.Hypervisor
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 /-- **signedLens surjective onto `{z : ℤ | z ≥ -1}`** via
     `rawTower`.  The full `ℤ` surjectivity (covering `z ≤ -2`)

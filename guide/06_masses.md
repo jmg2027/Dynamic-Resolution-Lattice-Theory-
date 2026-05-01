@@ -2,9 +2,9 @@
 
 **Tier:** T2/T1 hybrid (T1 for closed cases; T2 for derivation chain)
 **Status:** Multiple 4/27 passes; full chain open.
-**Lean:** `Physics/MuOverE.lean`, `Physics/TauOverMu.lean`,
-`Physics/ProtonMass.lean`, `Physics/HiggsMass.lean`,
-`Physics/QuarkHierarchy.lean`.
+**Lean:** `Physics/Mass/MuOverE.lean`, `Physics/Mass/TauOverMu.lean`,
+`Physics/Hadron/ProtonMass.lean`, `Physics/Higgs/Mass.lean`,
+`Physics/Hadron/QuarkHierarchy.lean`.
 
 ## Best current statement
 
@@ -64,5 +64,5 @@ parameters. Match is at percent-level, not yet ppm.
 - `papers/paper1_chiral_decomposition.tex` (chiral mass structure)
 - `papers/paper3_zero_parameter_predictions.tex` (catalog)
 - `papers/drlt-book/chapters/ch09_masses.tex`
-- `lean/E213/Physics/MuOverE.lean`, `ProtonMass.lean`,
+- `lean/E213/Physics/Mass/MuOverE.lean`, `ProtonMass.lean`,
   `HiggsMass.lean`, `TauOverMu.lean`, `QuarkHierarchy.lean`.

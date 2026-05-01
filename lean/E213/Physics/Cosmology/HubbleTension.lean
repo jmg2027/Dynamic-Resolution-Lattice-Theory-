@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Cosmology.DarkEnergy
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 HubbleTension — H_0 resolution

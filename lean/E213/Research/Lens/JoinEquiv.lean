@@ -54,7 +54,7 @@ end E213.Research.Lens.JoinEquiv
 namespace E213.Research.Lens.JoinEquiv
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.KernelCongruence
+open E213.Research.Kernel.Congruence
 
 /-- **Join universal property**: if both L and M refine N (i.e.,
     N.equiv contains both L.equiv and M.equiv) and N's combine is

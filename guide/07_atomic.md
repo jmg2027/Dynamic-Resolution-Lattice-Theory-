@@ -3,8 +3,8 @@
 **Tier:** T1
 **Status:** Passing — Z = 1..118 closed at ppb in Phase 4 Library;
 five super-heavy candidates (Z ≤ 168) extrapolated.
-**Lean:** `Physics/Phase4/Library/Period{1..7}IE.lean`,
-`Physics/Phase4/Library/AtomicMassLibrary.lean`,
+**Lean:** `Physics/Atomic/IE/Period{3,4,5,6,7}.lean`,
+`Physics/Atomic/IE/Library/AtomicMassLibrary.lean`,
 `Physics/AtomicScreening.lean`, `Physics/BondAngles.lean`.
 
 ## Best current statement
@@ -16,7 +16,7 @@ counting plus the IE_H formula (Ch. 04) plus screening:
 IE(Z, n) = m_e · c² · α² · Z_eff(Z, n)² / (2 n²)
 ```
 
-`Phase4/Library` covers all 118 known elements (periods 1–7) with each
+`Library` covers all 118 known elements (periods 1–7) with each
 ionization energy closed `by decide` against PDG tables. Five
 super-heavy candidates Z = 119..168 extend the same chain into yet-
 unsynthesized territory — falsifiable predictions for future labs.
@@ -41,7 +41,7 @@ exactly from simplex geometry on 4-simplex hinges. Match observed.
   shell saturation at d = 5 plus relativistic correction; predicts an
   island of stability and a hard wall, not a smooth extension.
 - Helium first ionization energy: 24.587 eV, −0.09% (observed 24.589
-  eV) — `Phase4/Library/HeliumIE.lean`.
+  eV) — `Atomic/IE/Helium.lean`.
 
 ## Open / next
 
@@ -55,7 +55,7 @@ exactly from simplex geometry on 4-simplex hinges. Match observed.
 
 - `papers/drlt-book/chapters/ch10_atoms.tex`
 - `papers/drlt-book/chapters/ch20_hydrogen.tex`
-- `lean/E213/Physics/Phase4/Library/`
+- `lean/E213/Physics/Atomic/IE/Library/`
 - `lean/E213/Physics/AtomicScreening.lean`
 - `lean/E213/Physics/BondAngles.lean`
 - `books/physics/periodic-table.md` (213-internal narration)

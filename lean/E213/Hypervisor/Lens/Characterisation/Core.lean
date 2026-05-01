@@ -33,6 +33,7 @@ clean "necessary and sufficient" toolkit.
 
 namespace E213.Hypervisor.Lens.Characterisation.Core
 open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 -- ═══ Characterisation 1: swap-invariance ═══
 
@@ -56,6 +57,7 @@ theorem swap_invariant_of_base_eq_comm
 end E213.Hypervisor.Lens.Characterisation.Core
 namespace E213.Hypervisor.Lens.Characterisation.Core
 open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 /-- **Full characterisation under commutative combine.**  The
     Lens is swap-invariant iff its base values coincide.  The
@@ -103,6 +105,7 @@ theorem R4_conj_unique_of_surjective
 end E213.Hypervisor.Lens.Characterisation.Core
 namespace E213.Hypervisor.Lens.Characterisation.Core
 open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 -- ═══ Characterisation 3: R3 lifts from base to Raw ═══
 
