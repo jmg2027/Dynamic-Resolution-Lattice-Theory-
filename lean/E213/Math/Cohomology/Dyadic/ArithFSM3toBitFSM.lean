@@ -12,7 +12,7 @@ Mirrors the ArithFSM2 → BitFSM(n²) construction, giving Tier 1
 bound becomes 5n³.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 private theorem encode3_bound {n : Nat} (a b c : Fin n) :
     a.val * (n * n) + b.val * n + c.val < n * n * n := by
@@ -91,4 +91,4 @@ def ArithFSM3.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) :
     let c : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     m.out (a, b, c)
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

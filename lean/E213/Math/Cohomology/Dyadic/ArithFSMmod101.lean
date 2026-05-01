@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 101 — TIGHT period 25, predict 50 (×2 SUB-TIGHT)
@@ -13,7 +13,7 @@ Pattern: split ×2 sub-tight at primes where p ≡ 1 mod 4 AND
 specific Frobenius structure.  Now confirmed at p ∈ {29, 89, 101}.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 def pellFSMmod101 : ArithFSM2 101 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)
@@ -48,4 +48,4 @@ theorem pellFSMmod101_bits_period_50 :
   have hreshape : k + 50 = (k + 25) + 25 := rfl
   rw [hreshape, h1, h2]
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

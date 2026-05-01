@@ -12,7 +12,7 @@ hence its K_{3,2}^{(2)} signature is eventually periodic with
 explicit period ≤ 5n² (via `fsm_signature_period_bound`).
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 private theorem encode_div {n : Nat} (hn : 0 < n) (a b : Fin n) :
     (a.val * n + b.val) / n = a.val := by
@@ -104,4 +104,4 @@ theorem pellFSMmod5_signature_period_bound :
     arithFSM2_signature_period_bound (n := 5) (by omega) pellFSMmod5
   exact ⟨N, P, hP, by omega, hk⟩
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

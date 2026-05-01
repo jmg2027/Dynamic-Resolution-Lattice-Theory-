@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 79 — period 39 (SPLIT, TIGHT)
@@ -7,7 +7,7 @@ import E213.Math.Cohomology.DyadicConcretePellSig
 79 mod 5 = 4, QR ⇒ SPLIT. Predict (p-1)/2 = 39. TIGHT.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 def pellFSMmod79 : ArithFSM2 79 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)
@@ -34,4 +34,4 @@ theorem pellFSMmod79_bits_period_39 :
       = pellFSMmod79.out (pellFSMmod79.run k)
   rw [pellFSMmod79_run_period_39]
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

@@ -16,7 +16,7 @@ Implication: any bit stream whose signature has UNBOUNDED period
 This is the formal shape of "Tier 2 ⊄ BitFSM-class".
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Joint state (signature, run) at step k, encoded into Fin (5n). -/
 def fsmJointAt {n : Nat} (m : BitFSM n) (hn : 0 < n) (k : Fin (5 * n + 1))
@@ -99,4 +99,4 @@ theorem fsm_signature_period_bound {n : Nat} (m : BitFSM n) (hn : 0 < n) :
       show m.step (m.run (i + d' + (j - i))) = m.step (m.run (i + d'))
       rw [ih_run]
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

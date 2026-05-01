@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM3Bound
-import E213.Math.Cohomology.DyadicTier2Hardness
+import E213.Math.Cohomology.Dyadic.Tier2Hardness
 
 /-!
 # ArithFSM3 hardness — aperiodic bit streams are not ArithFSM3-generable
@@ -10,7 +10,7 @@ ArithFSM3-generable then it would be BitFSM-generable, contradicting
 `aperiodic_bits_imp_no_BitFSM`.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- ★★★★★ Aperiodic ⇒ no ArithFSM3 generates it (any modulus). -/
 theorem aperiodic_bits_imp_not_ArithFSM3 (bs : Nat → Bool)
@@ -35,4 +35,4 @@ theorem ArithFSM3_generable_imp_eventually_periodic (bs : Nat → Bool) :
   rw [toBitFSM3_bits_eq hn m k]
   exact hmatch k
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

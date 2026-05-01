@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 19 — period 9 (SPLIT case, second instance)
@@ -17,7 +17,7 @@ formula (p-1)/2 at a larger size.  Bit period 9 (odd); signature
 period 18 (doubled by bipartite parity coupling).
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Pell-style FSM mod 19. -/
 def pellFSMmod19 : ArithFSM2 19 where
@@ -67,4 +67,4 @@ theorem pellFSMmod19_signature_period_18 :
   signature_period_of_bits_period_and_anchor pellFSMmod19.bits 18
     pellFSMmod19_bits_period_18 (by decide)
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

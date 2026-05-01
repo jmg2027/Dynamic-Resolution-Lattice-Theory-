@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.DyadicLCMClosure
+import E213.Math.Cohomology.Dyadic.LCMClosure
 
 /-!
 # ArithFSM₁ — 0-dimensional arithmetic FSM (single state Fin n)
@@ -21,7 +21,7 @@ becomes a member of the ArithFSM family rather than an external
 number-theoretic fact.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- 1-state arithmetic FSM with state Fin n. -/
 structure ArithFSM1 (n : Nat) where
@@ -38,4 +38,4 @@ def ArithFSM1.run {n : Nat} (m : ArithFSM1 n) : Nat → Fin n
 def ArithFSM1.bits {n : Nat} (m : ArithFSM1 n) (k : Nat) : Bool :=
   m.out (m.run k)
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

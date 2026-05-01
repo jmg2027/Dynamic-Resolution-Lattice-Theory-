@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 43 — period 44 (INERT case, sixth instance)
@@ -14,7 +14,7 @@ across all six sizes.  Bit period 44 (even); signature period 44
 (no doubling).
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Pell-style FSM mod 43. -/
 def pellFSMmod43 : ArithFSM2 43 where
@@ -51,4 +51,4 @@ theorem pellFSMmod43_signature_period_44 :
   signature_period_of_bits_period_and_anchor pellFSMmod43.bits 44
     pellFSMmod43_bits_period_44 (by decide)
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

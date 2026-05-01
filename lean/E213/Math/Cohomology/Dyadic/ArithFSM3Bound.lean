@@ -8,7 +8,7 @@ Completes the cubic-class chain:
   ⇒ signature period ≤ 5n³.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- ★★★★ ArithFSM3.toBitFSM bit stream equals original. -/
 theorem toBitFSM3_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) :
@@ -66,4 +66,4 @@ theorem tribFSMmod2_signature_period_bound :
     arithFSM3_signature_period_bound (n := 2) (by omega) tribFSMmod2
   exact ⟨N, P, hP, by omega, hk⟩
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

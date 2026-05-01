@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 41 — period 20 (SPLIT case, fifth instance)
@@ -13,7 +13,7 @@ Fifth SPLIT instance (after p=11, 19, 29, 31).  Bit period 20
 (even); signature period 20 (no doubling).
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Pell-style FSM mod 41. -/
 def pellFSMmod41 : ArithFSM2 41 where
@@ -49,4 +49,4 @@ theorem pellFSMmod41_signature_period_20 :
   signature_period_of_bits_period_and_anchor pellFSMmod41.bits 20
     pellFSMmod41_bits_period_20 (by decide)
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

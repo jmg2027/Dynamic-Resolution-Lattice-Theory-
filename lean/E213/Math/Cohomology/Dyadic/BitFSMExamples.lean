@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.BitFSMBound
-import E213.Math.Cohomology.DyadicTierBridge
+import E213.Math.Cohomology.Dyadic.TierBridge
 
 /-!
 # Concrete BitFSM examples — Tier 0 (rationals)
@@ -15,7 +15,7 @@ period.  Shows Tier 0 ⊂ BitFSM-class with explicit state count
 = dyadic period.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- BitFSM for 1/3 (period 2): 2-state cycle. -/
 def fsm_one_third : BitFSM 2 where
@@ -104,4 +104,4 @@ theorem fsm_one_third_eq_bit13 (k : Nat) :
   show ((fsm_one_third.run k).val == 1) = (k % 2 == 1)
   rw [fsm_one_third_run_val]
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

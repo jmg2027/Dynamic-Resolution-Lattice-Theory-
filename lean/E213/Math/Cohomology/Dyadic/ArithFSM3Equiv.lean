@@ -7,7 +7,7 @@ Provides decode-mod-n helper and the inner-div helper used by
 the run_encode and bits_eq theorems.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Encoded value modulo n recovers c. -/
 theorem encode3_mod_n {n : Nat} (a b c : Fin n) :
@@ -87,4 +87,4 @@ theorem toBitFSM3_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) 
     rw [hdec]
     rfl
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicTier2Hardness
+import E213.Math.Cohomology.Dyadic.Tier2Hardness
 
 /-!
 # ArithFSM2 hardness: aperiodic bit streams are NOT ArithFSM-generable
@@ -15,7 +15,7 @@ This formally places Pell/algebraic streams strictly below
 transcendental streams in the Tier hierarchy *via the ArithFSM lens*.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- ★★★★★ Aperiodic ⇒ no ArithFSM2 generates it (any modulus). -/
 theorem aperiodic_bits_imp_not_ArithFSM2 (bs : Nat → Bool)
@@ -39,4 +39,4 @@ theorem ArithFSM2_generable_imp_eventually_periodic (bs : Nat → Bool) :
   rw [toBitFSM_bits_eq hn m k]
   exact hmatch k
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

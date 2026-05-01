@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 11 — period 5 (SPLIT case)
@@ -16,7 +16,7 @@ This is the FIRST split-case Pell instance, complementing the
 previous inert/ramified cases (mod 3, 5, 7).
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Pell-style FSM mod 11. -/
 def pellFSMmod11 : ArithFSM2 11 where
@@ -79,4 +79,4 @@ theorem pellFSMmod11_signature_period_bound :
     arithFSM2_signature_period_bound (n := 11) (by omega) pellFSMmod11
   exact ⟨N, P, hP, by omega, hk⟩
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

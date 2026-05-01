@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 7 — period 8
@@ -14,7 +14,7 @@ Bound 5n² = 5·49 = 245 (universal); TIGHT signature period
 will be matched after computation.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Pell-style FSM mod 7. -/
 def pellFSMmod7 : ArithFSM2 7 where
@@ -67,4 +67,4 @@ theorem pellFSMmod7_signature_period_bound :
     arithFSM2_signature_period_bound (n := 7) (by decide) pellFSMmod7
   exact ⟨N, P, hP, hbound, hk⟩
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

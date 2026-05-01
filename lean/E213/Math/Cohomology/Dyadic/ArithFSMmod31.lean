@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 31 — period 15 (SPLIT case, fourth instance)
@@ -13,7 +13,7 @@ Fourth SPLIT instance (after p=11, 19, 29).  Bit period 15 (odd);
 signature period 30 (doubled by bipartite parity coupling).
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Pell-style FSM mod 31. -/
 def pellFSMmod31 : ArithFSM2 31 where
@@ -64,4 +64,4 @@ theorem pellFSMmod31_signature_period_30 :
   signature_period_of_bits_period_and_anchor pellFSMmod31.bits 30
     pellFSMmod31_bits_period_30 (by decide)
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

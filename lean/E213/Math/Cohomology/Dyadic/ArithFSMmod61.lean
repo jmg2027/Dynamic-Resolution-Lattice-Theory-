@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 61 — period 30 (SPLIT, TIGHT)
@@ -10,7 +10,7 @@ Predict (p-1)/2 = 30, TIGHT (matches exactly).
 Bit period 30 (even) ⇒ signature period 30 (no doubling).
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Pell-style FSM mod 61. -/
 def pellFSMmod61 : ArithFSM2 61 where
@@ -47,4 +47,4 @@ theorem pellFSMmod61_signature_period_30 :
   signature_period_of_bits_period_and_anchor pellFSMmod61.bits 30
     pellFSMmod61_bits_period_30 (by decide)
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

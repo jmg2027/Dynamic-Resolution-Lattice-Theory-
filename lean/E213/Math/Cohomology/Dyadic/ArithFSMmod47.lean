@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicConcretePellSig
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!
 # Pell ArithFSM mod 47 — period 16 (INERT, predict 48 = 3·16)
@@ -24,7 +24,7 @@ Bit period 16 (even); signature period 16 (no doubling); plus
 predicted-period 48 derived by composition.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Pell-style FSM mod 47. -/
 def pellFSMmod47 : ArithFSM2 47 where
@@ -70,4 +70,4 @@ theorem pellFSMmod47_signature_period_16 :
   signature_period_of_bits_period_and_anchor pellFSMmod47.bits 16
     pellFSMmod47_bits_period_16 (by decide)
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.DyadicForwardEventual
+import E213.Math.Cohomology.Dyadic.ForwardEventual
 
 /-!
 # BitFSM — finite-state-machine generated bit streams
@@ -14,7 +14,7 @@ Implication: Tier 0 ∪ Tier 1 ⊂ {bit streams generable by some
 BitFSM}.  Tier 2 (e, π, etc.) is conjecturally OUTSIDE this class.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- A BitFSM with `n` states. -/
 structure BitFSM (n : Nat) where
@@ -80,4 +80,4 @@ theorem fsm_signature_eventually_periodic {n : Nat} (m : BitFSM n) :
   exact signature_eventually_periodic_of_eventually_periodic_bits
     m.bits P N₀ hP (fun n hn => hbits n hn)
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture

@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSMmod5
-import E213.Math.Cohomology.DyadicForwardEventual
+import E213.Math.Cohomology.Dyadic.ForwardEventual
 
 /-!
 # ArithFSM ⇒ K_{3,2}^{(2)} signature eventually periodic
@@ -12,7 +12,7 @@ Pell mod-N bit streams are universally periodic from step 0,
 so the eventual-period theorem applies with N₀ = 0.
 -/
 
-namespace E213.Math.Cohomology.DyadicConjecture
+namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- ★★★ Pell mod-2 signature is eventually (in fact: from step 0)
     periodic. -/
@@ -53,4 +53,4 @@ theorem pell_family_signatures_eventually_periodic :
    pellFSMmod3_signature_eventually_periodic,
    pellFSMmod5_signature_eventually_periodic⟩
 
-end E213.Math.Cohomology.DyadicConjecture
+end E213.Math.Cohomology.Dyadic.Conjecture
