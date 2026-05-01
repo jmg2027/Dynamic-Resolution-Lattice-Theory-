@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.BitFSMBound
+import E213.Math.Cohomology.Dyadic.BitFSM.Bound
 import E213.Math.Cohomology.Dyadic.TierBridge
 
 /-!

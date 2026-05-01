@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.SignatureInj
-import E213.Math.Cohomology.Dyadic.BitFSMExamples
+import E213.Math.Cohomology.Dyadic.BitFSM.Examples
 import E213.Math.Cohomology.Dyadic.Tier2Hardness
 
 /-!

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.BitFSMBound
+import E213.Math.Cohomology.Dyadic.BitFSM.Bound
 
 /-!
 # BitFSM converse — periodic bit stream ⇒ ∃ BitFSM

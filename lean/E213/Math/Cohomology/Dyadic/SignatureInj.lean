@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.BitFSMConverse
+import E213.Math.Cohomology.Dyadic.BitFSM.Converse
 
 /-!
 # Signature is lossless: matching signatures ⇒ matching bit streams
