@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.Legendre.213
+import E213.Math.Cohomology.Dyadic.Legendre.V213
 
 /-!
 # Concrete Legendre values for the Pell discriminant D = 5

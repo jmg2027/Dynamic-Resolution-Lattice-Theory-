@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor
-import E213.Math.Cohomology.Dyadic.Legendre.13_19
+import E213.Math.Cohomology.Dyadic.Legendre.V13_19
 
 /-!
 # Pisano predictor — extended to 6 primes
