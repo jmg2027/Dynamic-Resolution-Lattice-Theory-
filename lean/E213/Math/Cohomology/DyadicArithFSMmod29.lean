@@ -55,7 +55,7 @@ theorem pellFSMmod29_bits_period_14 :
   intro k
   have h1 := pellFSMmod29_bits_period_7 (k + 7)
   have h2 := pellFSMmod29_bits_period_7 k
-  have hreshape : k + 14 = (k + 7) + 7 := by omega
+  have hreshape : k + 14 = (k + 7) + 7 := (Nat.add_assoc k 7 7).symm
   rw [hreshape, h1, h2]
 
 /-- ★★★★★ Pell mod-29 signature has period 14 (TIGHT, doubled). -/
