@@ -1,4 +1,4 @@
-import E213.Research.Real213
+import E213.Research.Real213.Core
 
 /-!
 # Research.Real213Equiv: equivalence properties of Real213.equiv (D3-A)
@@ -17,7 +17,7 @@ structure*.
 multiplication, etc. — separate work.)
 -/
 
-namespace E213.Research.Real213
+namespace E213.Research.Real213.Core
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -53,4 +53,4 @@ instance setoid : Setoid Real213 where
       symm := fun {x y} => equiv_symm x y
       trans := fun {x y z} => equiv_trans x y z }
 
-end E213.Research.Real213
+end E213.Research.Real213.Core

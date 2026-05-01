@@ -26,7 +26,7 @@ Equivalence relation + quotient — Lean's quotient depends on Quot.sound.
 Workaround: setoid-style approach or raw subtype.
 -/
 
-namespace E213.Research.Real213
+namespace E213.Research.Real213.Core
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -46,4 +46,4 @@ def Real213.equiv (r r' : Real213) : Prop :=
       E213.Research.ArchimedeanCauchy.orderProj m k
         (E213.Research.ABLens.abLens.view (r'.xs i))
 
-end E213.Research.Real213
+end E213.Research.Real213.Core

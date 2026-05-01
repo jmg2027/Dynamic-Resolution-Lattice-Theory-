@@ -22,7 +22,7 @@ Phase A5 milestone of `E1_real213_analysis_roadmap.md`.
   algorithmic separation.
 -/
 
-namespace E213.Research.Real213
+namespace E213.Research.Real213.Core
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -45,4 +45,4 @@ theorem const_a_positive : positive (const Raw.a) := by
   · show orderProj 1 1 (abLens.view Raw.a) = false
     rfl
 
-end E213.Research.Real213
+end E213.Research.Real213.Core

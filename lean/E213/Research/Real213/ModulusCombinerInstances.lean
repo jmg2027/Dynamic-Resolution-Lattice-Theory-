@@ -9,7 +9,7 @@ These are *trivial* combines that verify the kernel's well-formedness.
 Actual addition / multiplication is separate work.
 -/
 
-namespace E213.Research.Real213
+namespace E213.Research.Real213.Core
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -46,4 +46,4 @@ def constCombiner (c : Raw) : ModulusCombiner (fun _ _ => c) where
     intro _ _ _ _ _ _ _ _ _
     rfl
 
-end E213.Research.Real213
+end E213.Research.Real213.Core

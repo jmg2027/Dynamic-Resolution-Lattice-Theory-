@@ -14,7 +14,7 @@ compatibility with equiv.  Only the order side here (arithmetic is separate).
 These are the first step in showing le/lt is *equivalence-relation compatible*.
 -/
 
-namespace E213.Research.Real213
+namespace E213.Research.Real213.Core
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -66,4 +66,4 @@ theorem equiv_of_le_le (r r' : Real213) :
     exact Bool.noConfusion this
   · rfl
 
-end E213.Research.Real213
+end E213.Research.Real213.Core
