@@ -60,13 +60,19 @@ macro_rules
         | exact Nat.le_refl _
         | exact Nat.zero_le _
         | exact Nat.zero_lt_succ _
+        | exact Nat.lt_succ_self _
         | (apply Nat.le_succ_of_le; assumption)
         | (apply Nat.lt_succ_of_le; assumption)
+        | (apply Nat.lt_succ_of_lt; assumption)
+        | (apply Nat.succ_lt_succ; assumption)
+        | (apply Nat.succ_le_succ; assumption)
         | (apply Nat.mul_le_mul_left; assumption)
         | (apply Nat.mul_le_mul_right; assumption)
         | (apply Nat.pos_of_ne_zero; assumption)
         | (apply Nat.add_sub_of_le; assumption)
         | (apply Nat.le_of_lt; assumption)
+        | (apply Nat.le_of_lt_succ; assumption)
+        | (apply Nat.lt_of_lt_of_le <;> assumption)
         | (apply Nat.lt_of_le_of_lt <;> assumption)
         | (apply Nat.le_trans <;> assumption))
 
