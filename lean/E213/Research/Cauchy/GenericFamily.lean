@@ -120,15 +120,15 @@ open E213.Firmware E213.Hypervisor
 theorem profinite_factorial_is_GFCauchy
     (xs : Nat → Raw)
     (hLeaves : ∀ n, Lens.leaves.view (xs n)
-                 = E213.Research.ProfiniteSeq.factorial (n + 1)) :
+                 = E213.Research.Cauchy.ProfiniteSeq.factorial (n + 1)) :
     GFCauchy Lens.leaves (fun (m : Nat) (n : Nat) => n % (m + 1)) xs := by
   intro m
   refine ⟨m + 1, ?_⟩
   intro k l hk hl
   show Lens.leaves.view (xs k) % (m + 1) = Lens.leaves.view (xs l) % (m + 1)
   rw [hLeaves k, hLeaves l]
-  rw [E213.Research.ProfiniteSeq.factorial_eventually_zero_mod (m+1) (by omega) k (by omega),
-      E213.Research.ProfiniteSeq.factorial_eventually_zero_mod (m+1) (by omega) l (by omega)]
+  rw [E213.Research.Cauchy.ProfiniteSeq.factorial_eventually_zero_mod (m+1) (by omega) k (by omega),
+      E213.Research.Cauchy.ProfiniteSeq.factorial_eventually_zero_mod (m+1) (by omega) l (by omega)]
 
 end E213.Research.Cauchy.GenericFamily
 

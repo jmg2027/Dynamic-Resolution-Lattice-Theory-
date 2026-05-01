@@ -1,6 +1,6 @@
 import E213.Meta.UniversalLens.Core
-import E213.Meta.UniversalLens.Core.Nat2
-import E213.Meta.UniversalLens.Core.Nat2Inj
+import E213.Meta.UniversalLens.Nat2
+import E213.Meta.UniversalLens.Nat2Inj
 
 /-!
 # Universal Lens at ℕ³ — triple-codomain universality

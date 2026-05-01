@@ -148,7 +148,7 @@ end E213.Research.Lens.Cauchy
 
 namespace E213.Research.Lens.Cauchy
 
-open E213.Firmware E213.Hypervisor E213.Research.UniversalQuotLens
+open E213.Firmware E213.Hypervisor E213.Research.Universal.QuotLens
 
 /-- **Tail congruence**: minimum slash-congruence starting from the
     tail of sequence xs.  All tail elements (xs m, xs k) for m, k ≥ N

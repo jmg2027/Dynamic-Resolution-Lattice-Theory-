@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop
+import E213.Math.Cohomology.Universal.Prop
 
 /-!
 # Universal δ²=0 Prop-lift at (3, 1)
@@ -52,8 +52,8 @@ theorem prop_lift_capstone :
     (∀ σ : Cochain 3 0, ∀ i, delta (delta σ) i = false)
     ∧ (∀ σ : Cochain 5 0, ∀ i, delta (delta σ) i = false)
     ∧ (∀ σ : Cochain 3 1, ∀ i, delta (delta σ) i = false) :=
-  ⟨E213.Math.Cohomology.Universal.Core.Prop.dsq_zero_prop_3_0,
-   E213.Math.Cohomology.Universal.Core.Prop.dsq_zero_prop_5_0,
+  ⟨E213.Math.Cohomology.Universal.Prop.dsq_zero_prop_3_0,
+   E213.Math.Cohomology.Universal.Prop.dsq_zero_prop_5_0,
    dsq_zero_prop_3_1⟩
 
 end E213.Math.Cohomology.Universal.Prop31

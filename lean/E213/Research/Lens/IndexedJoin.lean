@@ -22,7 +22,7 @@ Provides new expressiveness for infinite families.
 namespace E213.Research.Lens.IndexedJoin
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.JoinEquiv E213.Research.UniversalQuotLens
+open E213.Research.JoinEquiv E213.Research.Universal.QuotLens
 
 /-- Indexed join equivalence: smallest slash-congruence containing
     each L_i.equiv, for an arbitrary family of Lenses. -/

@@ -26,7 +26,7 @@ Self-reference is built into the framework.
 
 namespace E213.Research.Universal.Flat
 
-open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
+open E213.Firmware E213.Hypervisor E213.Research.Lens.Identity
 
 /-- **Yoneda-like factoring**: the view of every Lens L factors through
     idLens.view.  That is, L.view r = (L.view) (idLens.view r). -/

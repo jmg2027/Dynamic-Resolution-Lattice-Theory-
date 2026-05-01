@@ -10,7 +10,7 @@ Explicit theorem for the finest element claim of PAPER1 §3.3.
 namespace E213.Research.Kernel.IdLensEq
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.IdentityLens
+open E213.Research.Lens.Identity
 
 /-- The kernel of idLens is exactly equality on Raw. -/
 theorem idLens_equiv_eq (x y : Raw) : idLens.equiv x y ↔ x = y := by

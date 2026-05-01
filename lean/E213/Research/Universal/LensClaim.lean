@@ -40,8 +40,8 @@ open E213.Research.SemanticAtom
 theorem every_distinguishing_is_lens_codomain
     (α : Type) [d : HasDistinguishing α] :
     ∃ (L : Lens α), ∀ r : Raw, L.view r = @universalMorphism α d r := by
-  refine ⟨@E213.Research.UniversalReflection.universalAsLens α d, ?_⟩
+  refine ⟨@E213.Research.Universal.Reflection.universalAsLens α d, ?_⟩
   intro r
-  exact E213.Research.UniversalReflection.universalAsLens_view α r
+  exact E213.Research.Universal.Reflection.universalAsLens_view α r
 
 end E213.Research.Universal.LensClaim

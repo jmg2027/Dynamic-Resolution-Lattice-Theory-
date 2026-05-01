@@ -18,7 +18,7 @@ Not distinguishable by (leaves, depth), but distinguishable by idLens.
 namespace E213.Research.ProdBelowId
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.IdentityLens E213.Research.LensMeet
+open E213.Research.Lens.Identity E213.Research.LensMeet
 
 /-- Witness A: `a / (a / (a/b))`. -/
 def rA : Raw :=

@@ -10,7 +10,7 @@ constLens's equiv is true for every (x, y) pair.
 namespace E213.Research.Lens.ConstLensTotalKernel
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.LensLattice
+open E213.Research.Lens.Lattice
 
 /-- Kernel of constLens: every Raw pair is equivalent. -/
 theorem constLens_equiv_total {α : Type} (e : α) (x y : Raw) :

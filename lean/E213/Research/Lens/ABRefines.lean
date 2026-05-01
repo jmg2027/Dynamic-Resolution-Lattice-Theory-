@@ -28,7 +28,7 @@ of these "derived" observations.
 namespace E213.Research.Lens.ABRefines
 
 open E213.Firmware E213.Hypervisor E213.Meta
-open E213.Research.ABLens E213.Research.LensFactoring
+open E213.Research.ABLens E213.Research.Lens.Factoring
 
 /-- Factor function: (a, b) ↦ parity of sum. -/
 private def sumParityFactor (p : Nat × Nat) : Bool :=
@@ -48,7 +48,7 @@ end E213.Research.Lens.ABRefines
 namespace E213.Research.Lens.ABRefines
 
 open E213.Firmware E213.Hypervisor E213.Meta
-open E213.Research.ABLens E213.Research.LensFactoring
+open E213.Research.ABLens E213.Research.Lens.Factoring
 
 /-- Factor function: (a, b) ↦ parity of a. -/
 private def aParityFactor (p : Nat × Nat) : Bool :=

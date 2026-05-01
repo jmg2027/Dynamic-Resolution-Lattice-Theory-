@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop31
+import E213.Math.Cohomology.Universal.Prop31
 
 /-!
 # Universal δ²=0 Prop-lift at (5, 1) — Δ⁴ vertex cochain case

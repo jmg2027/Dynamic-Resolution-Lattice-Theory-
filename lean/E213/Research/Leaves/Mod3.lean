@@ -21,7 +21,7 @@ infinitely many elements.
 
 namespace E213.Research.Leaves.Mod3
 
-open E213.Firmware E213.Hypervisor E213.Research.LensFactoring
+open E213.Firmware E213.Hypervisor E213.Research.Lens.Factoring
 
 /-- Fin 3 addition (mod 3). -/
 private def f3add (a b : Fin 3) : Fin 3 :=
@@ -63,7 +63,7 @@ end E213.Research.Leaves.Mod3
 
 namespace E213.Research.Leaves.Mod3
 
-open E213.Firmware E213.Hypervisor E213.Research.LensFactoring
+open E213.Firmware E213.Hypervisor E213.Research.Lens.Factoring
 
 /-- Factor function: leaves count → Fin 3. -/
 private def mod3Factor (n : Nat) : Fin 3 :=

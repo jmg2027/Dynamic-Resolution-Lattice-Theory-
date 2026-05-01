@@ -53,7 +53,7 @@ namespace E213.Research.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
-open E213.Research.ProfiniteSeq
+open E213.Research.Cauchy.ProfiniteSeq
 
 end E213.Research.Hyper.Padic
 
@@ -61,7 +61,7 @@ namespace E213.Research.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
-open E213.Research.ProfiniteSeq
+open E213.Research.Cauchy.ProfiniteSeq
 
 /-! ### Power lemmas (based on Lean 4 core) -/
 
@@ -93,7 +93,7 @@ namespace E213.Research.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
-open E213.Research.ProfiniteSeq
+open E213.Research.Cauchy.ProfiniteSeq
 
 /-! ### p-adic Lens family -/
 
@@ -135,7 +135,7 @@ namespace E213.Research.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
-open E213.Research.ProfiniteSeq
+open E213.Research.Cauchy.ProfiniteSeq
 
 /-- Family-Cauchy w.r.t. the entire p-adic tower. -/
 theorem padic_familyCauchy (p : Nat) (hp : p ≥ 2)

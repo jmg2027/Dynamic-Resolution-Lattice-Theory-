@@ -25,7 +25,7 @@ universalLens E.
 
 namespace E213.Research.Choice.Resolved
 
-open E213.Firmware E213.Hypervisor E213.Research.UniversalQuotLens
+open E213.Firmware E213.Hypervisor E213.Research.Universal.QuotLens
 
 /-- **Choice resolved**: For any slash-congruence E, a concrete Lens
     exists (0 external axioms).  Universal construction without

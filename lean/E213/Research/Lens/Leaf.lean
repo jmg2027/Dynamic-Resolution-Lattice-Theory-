@@ -19,7 +19,7 @@ coarser than leaves (less information), and incomparable with parity.
 
 namespace E213.Research.Lens.Leaf
 
-open E213.Firmware E213.Hypervisor E213.Research.LensFactoring
+open E213.Firmware E213.Hypervisor E213.Research.Lens.Factoring
 
 /-- Is r a leaf (Raw.a or Raw.b)? -/
 def leafLens : Lens Bool where

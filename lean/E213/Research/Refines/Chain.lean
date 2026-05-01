@@ -22,8 +22,8 @@ namespace E213.Research.Refines.Chain
 
 open E213.Firmware E213.Hypervisor
 open E213.Meta
-open E213.Research.IdentityLens
-open E213.Research.LensLattice
+open E213.Research.Lens.Identity
+open E213.Research.Lens.Lattice
 open E213.Research.LeavesRefinesParity
 
 /-- **4-step chain**: idLens → leaves → parity → constLens true. -/

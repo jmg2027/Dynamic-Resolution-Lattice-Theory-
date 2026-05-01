@@ -43,6 +43,6 @@ def fromLens {α : Type} (L : Lens α)
 
 /-- KernelSpace → Lens (Raw → Prop) realisation via universalLens. -/
 def toLens (K : KernelSpace) : Lens (Raw → Prop) :=
-  E213.Research.UniversalQuotLens.universalLens K.val
+  E213.Research.Universal.QuotLens.universalLens K.val
 
 end E213.Research.Kernel.Space

@@ -1,5 +1,5 @@
-import E213.Meta.UniversalLens.Core.Q213
-import E213.Meta.UniversalLens.Core.Q213Inj
+import E213.Meta.UniversalLens.Q213
+import E213.Meta.UniversalLens.Q213Inj
 
 /-!
 # Universal Lens at Q213³ — triple Q213 codomain universality

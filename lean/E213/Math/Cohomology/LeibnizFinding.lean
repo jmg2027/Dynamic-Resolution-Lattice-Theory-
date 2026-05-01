@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop51
+import E213.Math.Cohomology.Universal.Prop51
 import E213.Math.Cohomology.Cup.Leibniz
 
 /-!
@@ -57,7 +57,7 @@ in our setup — as a 0-axiom theorem.
 namespace E213.Math.Cohomology.LeibnizFinding
 
 open E213.Physics.Simplex.Counts (binom)
-open E213.Math.Cohomology.Universal.Core.Prop51 (pattern)
+open E213.Math.Cohomology.Universal.Prop51 (pattern)
 
 /-- ★ Honest negative: there EXISTS (a, b) ∈ {true, false}^5 ×
     {true, false}^5 and i ∈ Fin (binom 5 3) such that Leibniz

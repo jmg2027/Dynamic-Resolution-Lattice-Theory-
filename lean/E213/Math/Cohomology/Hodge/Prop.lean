@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop51
+import E213.Math.Cohomology.Universal.Prop51
 
 /-!
 # ⋆⋆ = id Prop-lift at (5, 1) and (5, 2)

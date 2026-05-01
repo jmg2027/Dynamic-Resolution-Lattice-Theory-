@@ -21,7 +21,7 @@ each level of the refines preorder").
 
 namespace E213.Research.Lens.AB
 
-open E213.Firmware E213.Hypervisor E213.Research.LensFactoring
+open E213.Firmware E213.Hypervisor E213.Research.Lens.Factoring
 
 /-- Track Raw.a count and Raw.b count componentwise. -/
 def abLens : Lens (Nat × Nat) where

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop51
+import E213.Math.Cohomology.Universal.Prop51
 
 /-!
 # Universal δ²=0 Prop-lift at (5, 2) — Δ⁴ edge cochain case

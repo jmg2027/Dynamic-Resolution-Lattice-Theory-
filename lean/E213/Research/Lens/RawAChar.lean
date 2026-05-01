@@ -68,7 +68,7 @@ end E213.Research.Lens.RawAChar
 
 namespace E213.Research.Lens.RawAChar
 
-open E213.Firmware E213.Hypervisor E213.Research.LeafLens
+open E213.Firmware E213.Hypervisor E213.Research.Lens.Leaf
 
 /-- Raw.a vs Raw.b: leafLens equates them, rawACharLens distinguishes them. -/
 theorem leafLens_equates_a_b :

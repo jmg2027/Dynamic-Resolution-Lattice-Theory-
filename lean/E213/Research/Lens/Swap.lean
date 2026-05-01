@@ -25,7 +25,7 @@ RawMatchingLens.lean).  Swapping just the base yields view = Raw.swap.
 
 namespace E213.Research.Lens.Swap
 
-open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
+open E213.Firmware E213.Hypervisor E213.Research.Lens.Identity
 
 /-- Swap Lens: Lens whose view is Raw.swap. -/
 def swapLens : Lens Raw where
@@ -73,7 +73,7 @@ end E213.Research.Lens.Swap
 namespace E213.Research.Lens.Swap
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.IdentityLens
+open E213.Research.Lens.Identity
 
 /-- idLens and swapLens are refines-equivalent.  Both are injective,
     so this follows from injective_equiv in InjectiveLensClass.lean. -/

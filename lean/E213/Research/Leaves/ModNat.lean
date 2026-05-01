@@ -17,7 +17,7 @@ Concrete structure of the countably infinite lower bound from note 41 §4.
 
 namespace E213.Research.Leaves.ModNat
 
-open E213.Firmware E213.Hypervisor E213.Research.LensFactoring
+open E213.Firmware E213.Hypervisor E213.Research.Lens.Factoring
 
 /-- Leaves mod m Lens (m ≥ 2).  view r = leaves r % m. -/
 def leavesModNat (m : Nat) : Lens Nat where
@@ -54,7 +54,7 @@ end E213.Research.Leaves.ModNat
 
 namespace E213.Research.Leaves.ModNat
 
-open E213.Firmware E213.Hypervisor E213.Research.LensFactoring
+open E213.Firmware E213.Hypervisor E213.Research.Lens.Factoring
 
 /-- divisibility → refinement: k ∣ m ⟹ mod m refines mod k. -/
 theorem divides_refines (m k : Nat) (hmk : k ∣ m) :

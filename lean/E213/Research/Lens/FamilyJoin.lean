@@ -23,7 +23,7 @@ of the complete-lattice structure: the set of slash-congruences is a
 namespace E213.Research.Lens.FamilyJoin
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.UniversalQuotLens
+open E213.Research.Universal.QuotLens
 
 /-- Index-wise family join: smallest slash-congruence
     containing all `E i`. -/
@@ -44,7 +44,7 @@ end E213.Research.Lens.FamilyJoin
 namespace E213.Research.Lens.FamilyJoin
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.UniversalQuotLens
+open E213.Research.Universal.QuotLens
 
 /-- **Family join via universalLens**: the join of an arbitrary family
     is expressed as the kernel of a single Lens.  FamilyJoinEquiv

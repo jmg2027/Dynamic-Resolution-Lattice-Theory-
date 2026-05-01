@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop52
+import E213.Math.Cohomology.Universal.Prop52
 
 /-!
 # ⋆⋆ = id Prop-lift at (5, 2) — Δ⁴ edge cochain involution

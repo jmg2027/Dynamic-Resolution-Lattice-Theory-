@@ -24,8 +24,8 @@ Heavy lifting reused from `Research.IdentityLens` (existence:
 namespace E213.Meta.UniversalLens.Core
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.IdentityLens (idLens idLens_injective)
-open E213.Research.LensLattice (refines_idLens_iff_injective)
+open E213.Research.Lens.Identity (idLens idLens_injective)
+open E213.Research.Lens.Lattice (refines_idLens_iff_injective)
 
 /-- A Lens is *universal* iff its view is injective on Raw. -/
 def IsUniversal {α : Type} (L : Lens α) : Prop :=

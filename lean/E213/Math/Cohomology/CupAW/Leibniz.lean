@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.CupAW.Core
-import E213.Math.Cohomology.Universal.Core.Prop51
+import E213.Math.Cohomology.Universal.Prop51
 
 /-!
 # Cup Leibniz universal at (5, 1, 1) — AW cup version
@@ -18,7 +18,7 @@ Pattern enumeration: 32 × 32 = 1024 (α, β) pairs × 10 indices.
 namespace E213.Math.Cohomology.CupAW.Leibniz
 
 open E213.Physics.Simplex.Counts (binom)
-open E213.Math.Cohomology.Universal.Core.Prop51 (pattern)
+open E213.Math.Cohomology.Universal.Prop51 (pattern)
 
 set_option maxHeartbeats 16000000 in
 /-- Leibniz on every pattern pair — decide-checked. -/

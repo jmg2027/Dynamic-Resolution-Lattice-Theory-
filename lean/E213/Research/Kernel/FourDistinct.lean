@@ -15,7 +15,7 @@ Therefore leaves-equiv, but idLens is not-equiv.
 namespace E213.Research.Kernel.FourDistinct
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.IdentityLens
+open E213.Research.Lens.Identity
 
 /-- Kernels of idLens and Lens.leaves are pairwise distinct.
     Witness pair (Raw.a, Raw.b): same leaves count (both 1)

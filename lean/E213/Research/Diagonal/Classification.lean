@@ -92,7 +92,7 @@ end E213.Research.Diagonal.Classification
 
 namespace E213.Research.Diagonal.Classification
 
-open E213.Firmware E213.Hypervisor E213.Research.F9Lens
+open E213.Firmware E213.Hypervisor E213.Research.Lens.F9
 
 /-! ## §4. Classification of F9 Lens — Multiply -/
 
