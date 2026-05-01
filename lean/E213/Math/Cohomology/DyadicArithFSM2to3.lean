@@ -45,7 +45,6 @@ theorem padTo3_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
     (m.padTo3 hn).bits k = m.bits k := by
   show m.out (((m.padTo3 hn).run k).1, ((m.padTo3 hn).run k).2.1)
       = m.out (m.run k)
-  obtain ⟨h1, h2⟩ := padTo3_run_components hn m k
-  rw [h1, h2]
+  rw [(padTo3_run_components hn m k).1, (padTo3_run_components hn m k).2]
 
 end E213.Math.Cohomology.DyadicConjecture

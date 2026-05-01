@@ -57,7 +57,6 @@ theorem product_bits_eq {n m : Nat} (hm : 0 < m)
         (f1.out (decodeFinFirst hm ((BitFSM.product hm f1 f2 g).run k)))
         (f2.out (decodeFinSecond hm ((BitFSM.product hm f1 f2 g).run k)))
       = g (f1.out (f1.run k)) (f2.out (f2.run k))
-  obtain ⟨h1, h2⟩ := product_run_decode hm f1 f2 g k
-  rw [h1, h2]
+  rw [(product_run_decode hm f1 f2 g k).1, (product_run_decode hm f1 f2 g k).2]
 
 end E213.Math.Cohomology.DyadicConjecture
