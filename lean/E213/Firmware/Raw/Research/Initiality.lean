@@ -22,7 +22,7 @@ If an arbitrary function f : Raw → α satisfies the Lens homomorphism
 conditions, then f = Lens.view.
 -/
 
-namespace E213.Research.Raw.Initiality
+namespace E213.Firmware.Raw.Research.Initiality
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,9 +62,9 @@ theorem Lens.view_unique {α : Type} (L : Lens α)
       show L.view (Raw.slash x y h) = L.combine (L.view x) (L.view y)
       exact Raw.fold_slash L.base_a L.base_b L.combine hsym x y h
 
-end E213.Research.Raw.Initiality
+end E213.Firmware.Raw.Research.Initiality
 
-namespace E213.Research.Raw.Initiality
+namespace E213.Firmware.Raw.Research.Initiality
 
 open E213.Firmware E213.Hypervisor
 
@@ -118,4 +118,4 @@ theorem Lens.initiality {α : Type} (L : Lens α)
     funext r
     exact Lens.view_unique L hsym g ha hb hslash r
 
-end E213.Research.Raw.Initiality
+end E213.Firmware.Raw.Research.Initiality

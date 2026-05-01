@@ -25,7 +25,7 @@ Phase 1 (this file):
 Phase 2 (future): bijection RawBy cmp1 ≃ RawBy cmp2.
 -/
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -69,9 +69,9 @@ theorem cmpRev_props (cmp : Tree → Tree → Ordering) (h : CmpProps cmp) :
     unfold cmpRev
     rw [h.swap x y, Ordering_swap_swap]
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -108,9 +108,9 @@ theorem RawBy_Tree_cmp_iff (t : Tree) :
 def RawBy.a (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.a, rfl⟩
 def RawBy.b (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.b, rfl⟩
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -206,9 +206,9 @@ theorem RawBy.slash_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
   exact slashTree_comm cmp h x.val y.val
     (fun heq => hxy (Subtype.ext heq))
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -224,9 +224,9 @@ theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
   | .eq => rw [hm] at hlt_raw; cases hlt_raw
   | .gt => rw [hm] at hlt_raw; cases hlt_raw
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -283,9 +283,9 @@ noncomputable def RawBy.rec {cmp : Tree → Tree → Ordering}
     (r : RawBy cmp) : motive r :=
   RawBy.recAux hP a_case b_case slash_case r.val r.property
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -310,9 +310,9 @@ noncomputable def transport (cmp1 cmp2 : Tree → Tree → Ordering)
       else RawBy.a cmp2)
     r
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -326,9 +326,9 @@ theorem transport_b (cmp1 cmp2 : Tree → Tree → Ordering)
     (h1 : CmpProps cmp1) (h2 : CmpProps cmp2) :
     transport cmp1 cmp2 h1 h2 (RawBy.b cmp1) = RawBy.b cmp2 := rfl
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -337,9 +337,9 @@ open E213.Firmware E213.Firmware.Internal
 -- Subtype.ext demotion + recAux Tree-level reduction + Eq.mpr cleanup.
 -- Phase 3.5 in progress — concrete attempt deferred.
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -355,9 +355,9 @@ open E213.Firmware E213.Firmware.Internal
 -- The manual orchestration of this part is the final closure of
 -- transport_slash.  Additional simp [Eq.mpr, cast] may help.
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -371,9 +371,9 @@ def transportTree (cmp2 : Tree → Tree → Ordering) : Tree → Tree
   | .b => .b
   | .slash x y => slashTree cmp2 (transportTree cmp2 x) (transportTree cmp2 y)
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -388,9 +388,9 @@ theorem transportTree_slash (cmp2 : Tree → Tree → Ordering) (x y : Tree) :
     transportTree cmp2 (.slash x y)
       = slashTree cmp2 (transportTree cmp2 x) (transportTree cmp2 y) := rfl
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -418,9 +418,9 @@ theorem slashTree_of_pair_eq {cmp : Tree → Tree → Ordering}
     unfold slashTree
     rw [hus]
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -476,9 +476,9 @@ theorem transportTree_roundtrip
           rw [(h2.eq_iff u u).mpr rfl] at hsu
           cases hsu
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -539,9 +539,9 @@ theorem transportTree_canonical
           rw [hus]
           rfl
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence
 
-namespace E213.Research.CmpIndependence
+namespace E213.Firmware.Raw.Research.CmpIndependence
 
 open E213.Firmware E213.Firmware.Internal
 
@@ -573,4 +573,4 @@ theorem RawBy_bijection (cmp1 cmp2 : Tree → Tree → Ordering)
           (transportRawBy cmp2 cmp1 h2 h1 r) = r :=
   transportRawBy_roundtrip cmp1 cmp2 h1 h2
 
-end E213.Research.CmpIndependence
+end E213.Firmware.Raw.Research.CmpIndependence

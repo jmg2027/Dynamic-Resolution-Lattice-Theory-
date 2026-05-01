@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens
-import E213.Research.Raw.Initiality
+import E213.Firmware.Raw.Research.Initiality
 import E213.Meta.AxiomMinimality
 import E213.Hypervisor.Lens.Research.Morphism.FoldStructured
 import E213.Hypervisor.Lens.Research.Morphism.DepthParityNotFold
@@ -369,7 +369,7 @@ end E213.Meta.SemanticAtom
 namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.RawInitiality
+open E213.Firmware.Raw.Research.Initiality
 
 /-! ### Universal property of `HasDistinguishing` category
 
