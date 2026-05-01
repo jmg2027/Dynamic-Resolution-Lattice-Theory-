@@ -319,10 +319,51 @@ Imports flow top→bottom.  Theorems compose bottom→top.
 
   - `tools/sync_namespaces.py` — auto namespace↔path alignment
     (sentinel-protected single pass; no sed-cascade errors).
+  - `tools/layer_audit.py` — derive each file's natural layer from
+    its import closure.  **A file's layer is not a philosophical
+    question** — it is mechanically determined: `layer(F) ≥
+    max(layer(I))` over all `E213.*` imports `I` of `F`.
+    Output:
+      - **violations** (`path_layer < natural_layer`): architectural
+        inversions — file claims to be foundational but pulls in
+        something higher.  These must be fixed.
+      - **downgrade hints** (`path_layer > natural_layer`):
+        informational — file *could* be moved down.  Not necessarily
+        a problem; semantic placement may legitimately exceed
+        mechanical placement (see §6.1).
+    Run after any structural change.
   - `tools/kernel_regress.sh` — verify Kernel/ stays 0-axiom.
   - `tools/audit_axioms.py` — full-tree axiom survey.
   - `tools/port_candidates.py` — find unported Lean theorems for
     rust-engine mirror.
+
+### 6.1 Mechanical vs semantic layer placement
+
+`layer_audit.py` reports cases where a file's path layer is strictly
+*above* its natural (import-derived) layer.  These are NOT violations
+— a few classes of intentional over-placement:
+
+  - `Firmware/Atomicity/{Five, PairForcing, NonDecomposable, Alive,
+    ArityForcing, ArityForcingGeneral, PrimitiveSizes}` — pure-ℕ
+    forced-uniqueness proofs that mechanically belong at Kernel.
+    Kept at Firmware because they document *Raw's forced shape*
+    (see `seed/AXIOM.md §1.3`); semantic adjacency to Raw outweighs
+    mechanical depth.
+  - `Hypervisor/Lens.lean` — only imports Firmware mechanically, but
+    is the umbrella entry point for the entire Hypervisor layer.
+  - `App/Simplex.lean` — only imports Firmware mechanically, but is
+    a 213 *application* (counting on the simplex), so App is the
+    semantic home.
+  - `Meta/{BitPatternUniqueness, RawInductionDemo, SelfRecognising,
+    UniversalLens/Core}` — meta-level statements about Raw whose
+    proofs happen to not require Hypervisor/Meta facilities.  Kept
+    at Meta because the *claim* is metatheoretic.
+
+**Rule for new files**: place by import depth first (run
+`layer_audit.py`), then promote upward only if the file's *purpose*
+is meta-relative-to-its-imports (e.g., a forced-shape proof, a
+universality claim, an application).  Promotion-without-reason is
+discouraged.
 
 ## 7. History (for context only — do not use as current state)
 
@@ -332,6 +373,11 @@ Imports flow top→bottom.  Theorems compose bottom→top.
     Physics/ 121→4 flat, namespace↔path alignment).
   - 2026-05-XX: OS/ dissolved (atomicity proofs → Firmware/Atomicity/,
     Pigeonhole → Math/).  Established this document as canonical.
+  - 2026-05-XX: `tools/layer_audit.py` added.  Surfaced 1 violation
+    (`Hypervisor/Lens/Characterisation/CUniquenessBridge.lean`
+    imported Meta.SelfRecognising) — moved to `Meta/CUniquenessBridge.lean`.
+    Tree now has **0 layer violations**; remaining 12 over-placements
+    are intentional semantic placements (see §6.1).
   - (Pending): Meta/ concrete-Lens-instances → Hypervisor/Lens/Instances/.
 
 ## 8. How to evolve this document
