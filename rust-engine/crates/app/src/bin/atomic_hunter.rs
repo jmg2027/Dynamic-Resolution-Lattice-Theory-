@@ -46,6 +46,9 @@ fn atomic_ints() -> Vec<(&'static str, u64)> {
         ("17·NT=34",  34), ("19·NT=38",  38), ("31·NT=62",  62),
         ("17·NS=51",  51), ("19·NS=57",  57), ("31·NS=93",  93),
         ("17·d=85",   85), ("19·d=95",   95),
+        // Hint 3: K_{25} L=2 fractal global Betti / volume — W boson scale
+        ("b₁(K₂₅)=276", 276), ("numE(K₂₅)=300", 300), ("(d²)²=625", 625),
+        ("d^d=3125",  3125),  ("d^d·NT=6250", 6250),
     ]
 }
 
@@ -62,6 +65,16 @@ fn atomic_fractions() -> Vec<(&'static str, u64, u64)> {
         ("(d²−1)/(NS²−1)",24,8), ("NS²/(d²−1)", 9, 24), ("NT²/(d²−1)",4,24),
         ("(NS²+1)/d",  10, 5), ("(d+1)/NT",   6, 2),  ("(NS+NT+1)/d²", 6, 25),
         ("NS/(d²−1)",  3, 24), ("NT/(d²−1)",  2, 24), ("NS·NT/(d²−1)",6,24),
+        // Hint 2: chiralDim transition ratios (Paper1Chiral.lean bigrading)
+        // chiralDim(i,j) = C(NS,i)·C(NT,j); ratios = u↔d swap signature
+        ("C(NS,2)/C(NT,2)",   3, 1), ("C(NT,2)/C(NS,2)",   1, 3),
+        ("C(NS,1)/C(NT,1)",   3, 2), ("C(NS,2)/C(NS,1)",   3, 3),
+        ("C(NS,1)/C(NS,2)",   3, 3), ("C(NT,1)/C(NT,0)",   2, 1),
+        ("C(NS,3)/C(NS,2)",   1, 3), ("C(NS,2)/C(NS,3)",   3, 1),
+        // S↔T swap micro-ratio for n/p mass split
+        ("(NS²−NT²)/(NS·NT·d)",  5, 30),
+        ("(NS−NT)/(NS·NT·d)",    1, 30),
+        ("NS²/(d²·NT^d)",        9, 800),
     ]
 }
 
@@ -174,6 +187,72 @@ fn apply_alpha_sq(q: &Q, k: i32, zeta: &Q) -> Q {
     }
 }
 
+/// α_em as Q-pair from CODATA 1/α_em = 137.0359991.
+fn alpha_em_q() -> Q {
+    (nat(10_000_000u64), nat(1370359991u64))
+}
+
+/// Apply q · (1 + α_em·k) correction.
+fn apply_alpha_em(q: &Q, k: i32) -> Q {
+    if k == 0 { return q.clone(); }
+    let aem = alpha_em_q();
+    let ak = k.unsigned_abs() as u64;
+    // q · α_em · k = q · k · 10^7 / 1370359991
+    let corr_num = &q.0 * nat(ak) * &aem.0;
+    let corr_den = &q.1 * &aem.1;
+    if k > 0 {
+        let n = &q.0 * &corr_den + &q.1 * &corr_num;
+        let d = &q.1 * &corr_den;
+        (n, d)
+    } else {
+        let lhs = &q.0 * &corr_den;
+        let rhs = &q.1 * &corr_num;
+        let n = if lhs > rhs { lhs - rhs } else { rhs - lhs };
+        (n, &q.1 * &corr_den)
+    }
+}
+
+/// Class F cross-coupling: q · (1 + α_em·k_em) · (1 + α_GUT·k_gut).
+/// Multiplicative form (orthogonal mixing).
+fn apply_alpha_cross_mul(q: &Q, k_em: i32, k_gut: i32, zeta: &Q) -> Q {
+    let q1 = apply_alpha_em(q, k_em);
+    apply_alpha(&q1, k_gut, zeta)
+}
+
+/// Quotient form: q · (1 + α_GUT·k_gut) / (1 + α_em·k_em).
+fn apply_alpha_cross_quot(q: &Q, k_em: i32, k_gut: i32, zeta: &Q) -> Q {
+    let num = apply_alpha(q, k_gut, zeta);
+    if k_em == 0 { return num; }
+    // divide by (1 + α_em·k_em): swap num/den of (1 + α_em·k_em)
+    let one: Q = (nat(1), nat(1));
+    let denom = apply_alpha_em(&one, k_em);
+    // num · denom^(-1) = (num.0 · denom.1) / (num.1 · denom.0)
+    (num.0 * &denom.1, num.1 * &denom.0)
+}
+
+fn alpha_cross_corrections() -> Vec<(&'static str, i32, i32, bool)> {
+    // (label, k_em, k_gut, is_quotient)
+    vec![
+        // multiplicative (1+α_em·k_em)·(1+α_GUT·k_gut)
+        ("·(1+α_em)(1+α_GUT)",        1, 1, false),
+        ("·(1+NSα_em)(1+NTα_GUT)",    3, 2, false),
+        ("·(1+NTα_em)(1+NSα_GUT)",    2, 3, false),
+        ("·(1+α_em)(1+NS·NTα_GUT)",   1, 6, false),
+        ("·(1+NS²α_em)(1+α_GUT)",     9, 1, false),
+        ("·(1−NSα_em)(1+NSα_GUT)",   -3, 3, false),
+        ("·(1+NTα_em)(1+NT²α_GUT)",   2, 4, false),
+        ("·(1+NS·NTα_em)(1+α_GUT)",   6, 1, false),
+        ("·(1−α_em)(1+α_GUT)",       -1, 1, false),
+        ("·(1+α_em)(1−α_GUT)",        1,-1, false),
+        // quotient form (Pythagorean / orthogonal)
+        ("·(1+α_GUT)/(1−α_em)",      -1, 1, true),
+        ("·(1+α_GUT)/(1+α_em)",       1, 1, true),
+        ("·(1+NSα_GUT)/(1+NTα_em)",   2, 3, true),
+        ("·(1+NS²α_GUT)/(1+α_em)",    1, 9, true),
+        ("·(1−α_em)/(1+α_GUT)",      -1, 1, true),
+    ]
+}
+
 /// Class F-2 paired α correction: (1 + α·k₁)(1 + α·k₂).
 /// Captures 2-internal-interface gluing in multi-simplex composite.
 fn alpha_pair_corrections() -> Vec<(&'static str, i32, i32)> {
@@ -263,6 +342,39 @@ fn hunt(label: &str, target: &Q, pi: &Q, zeta: &Q) {
                 let cand = apply_alpha_pair(&base, k1, k2, zeta);
                 let ppm = ppm_diff(target, &cand);
                 best.push((ppm, format!("{f_lab}{t_lab}{p_lab}"), cand));
+            }
+        }
+    }
+    // Pass 5: Class F α_em × α_GUT cross-coupling (CupRing.lean
+    // multi-coupling cup product), int + fraction prefactors.
+    for (k_lab, k) in atomic_ints() {
+        for (t_lab, pi_p, ze_p) in trans_subset {
+            let base = candidate(k, *pi_p, *ze_p, pi, zeta);
+            for (c_lab, k_em, k_gut, is_quot) in alpha_cross_corrections() {
+                let cand = if is_quot {
+                    apply_alpha_cross_quot(&base, k_em, k_gut, zeta)
+                } else {
+                    apply_alpha_cross_mul(&base, k_em, k_gut, zeta)
+                };
+                let ppm = ppm_diff(target, &cand);
+                best.push((ppm, format!("{k_lab}{t_lab}{c_lab}"), cand));
+            }
+        }
+    }
+    for (f_lab, p_num, p_den) in atomic_fractions() {
+        for (t_lab, pi_p, ze_p) in trans_subset {
+            let pi_part = q_pow(pi, *pi_p);
+            let z_part = q_pow(zeta, *ze_p);
+            let base: Q = (nat(p_num) * &pi_part.0 * &z_part.0,
+                           nat(p_den) * &pi_part.1 * &z_part.1);
+            for (c_lab, k_em, k_gut, is_quot) in alpha_cross_corrections() {
+                let cand = if is_quot {
+                    apply_alpha_cross_quot(&base, k_em, k_gut, zeta)
+                } else {
+                    apply_alpha_cross_mul(&base, k_em, k_gut, zeta)
+                };
+                let ppm = ppm_diff(target, &cand);
+                best.push((ppm, format!("{f_lab}{t_lab}{c_lab}"), cand));
             }
         }
     }
