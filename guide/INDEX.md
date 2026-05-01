@@ -18,7 +18,7 @@
 | 11 | Nuclear (magic, binding) | T1 | passing for magic 7/7 | Physics/MagicNumbers, NuclearBinding | ch16 |
 | 12 | Yang–Mills & gauge | T1/T3 | partial (mass gap statement) | Physics/YangMillsGap | paper8, ch15 |
 | 13 | Critical line & RH | T3/T2 | not yet | (none) | paper5, paper7, paper9 |
-| 14 | Cohomological calculus | T0/T1 | passing (analysis213) | Research/Real213Flux* | (new — not in papers) |
+| 14 | Cohomological calculus | T0/T1 | passing (analysis213) | Research/Real213/Flux* | (new — not in papers) |
 | 15 | Metalogic — R1–R4 & falsifiability | T0 | passing | Meta/R4Codomain, Tactic/VerifyR4 | seed/AXIOM, FALSIFIABILITY |
 | A1 | Paper origins (reverse map) | — | — | — | — |
 | A2 | Lean module map | — | — | — | — |

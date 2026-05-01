@@ -2,9 +2,10 @@
 
 The *readable book* form of Lean theorems + catalogs, written in
 **213-internal vocabulary** (Raw, swap, Cut, FluxCut, atomicity,
-R1–R4 typeclass, etc.). For external-vocabulary exposition of the
-same conclusions, see `papers/`. For the deductively-ordered
-master guide that bridges both, see `guide/` at the repository root.
+R1–R4 typeclass, etc.).  The `papers/` directory was a deprecated
+external-vocabulary exposition layer and has been DELETED (commit
+a02b751); see `papers/README.md` for git-history recovery.  For the
+deductively-ordered master guide, see `guide/` at the repository root.
 
 ## Structure
 

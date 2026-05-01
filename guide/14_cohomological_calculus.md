@@ -26,7 +26,7 @@ dyadic-axiom in fact. ZFC ℝ replaced by `(Nat → Raw) × HasModulus` in
 
 - **F1 Cohomological calculus.** Differentiation = local divergence,
   MVT = path flux equality, FTC = boundary integral — three aspects
-  of one cohomological object (`Real213FluxDivergence`).
+  of one cohomological object (`Real213/FluxDivergence.lean`).
 - **F2 Setoid bridge.** `cohomEquiv` bridges `cutEq` (pointwise) and
   `propEq` without `Quotient` collapse. Preserves dyadic structure.
 - **F3 Sharp (n−1)·k resolution depth.** Polynomial differentiation
