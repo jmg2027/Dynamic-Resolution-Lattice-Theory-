@@ -31,7 +31,7 @@ theorem signature_period_of_bits_period_and_anchor
   | zero => show signature bs (0 + P) = signature bs 0
             rw [Nat.zero_add]; exact hsig
   | succ k' ih =>
-    have hreorder : k' + 1 + P = (k' + P) + 1 := by omega
+    have hreorder : k' + 1 + P = (k' + P) + 1 := Nat.succ_add k' P
     rw [hreorder]
     show nextVertex (signature bs (k' + P)) (bs (k' + P))
         = nextVertex (signature bs k') (bs k')
@@ -57,20 +57,22 @@ theorem signature_period_of_bits_period_and_anchor_from
     (hbs : ∀ k, bs (k + P) = bs k)
     (hsig : signature bs (N₀ + P) = signature bs N₀) :
     ∀ k, k ≥ N₀ → signature bs (k + P) = signature bs k := by
+  have key : ∀ d, signature bs (N₀ + d + P) = signature bs (N₀ + d) := by
+    intro d
+    induction d with
+    | zero => show signature bs (N₀ + 0 + P) = signature bs (N₀ + 0)
+              rw [Nat.add_zero]; exact hsig
+    | succ d' ih =>
+      have hreorder : N₀ + (d' + 1) + P = (N₀ + d' + P) + 1 :=
+        Nat.succ_add (N₀ + d') P
+      have hsucc : N₀ + (d' + 1) = (N₀ + d') + 1 := rfl
+      rw [hreorder, hsucc]
+      show nextVertex (signature bs (N₀ + d' + P)) (bs (N₀ + d' + P))
+          = nextVertex (signature bs (N₀ + d')) (bs (N₀ + d'))
+      rw [ih, hbs]
   intro k hk
-  obtain ⟨d, rfl⟩ : ∃ d, k = N₀ + d :=
-    ⟨k - N₀, (Nat.add_sub_cancel' hk).symm⟩
-  clear hk
-  induction d with
-  | zero => show signature bs (N₀ + 0 + P) = signature bs (N₀ + 0)
-            rw [Nat.add_zero]; exact hsig
-  | succ d' ih =>
-    have hreorder : N₀ + (d' + 1) + P = (N₀ + d' + P) + 1 := by omega
-    have hsucc : N₀ + (d' + 1) = (N₀ + d') + 1 := by omega
-    rw [hreorder, hsucc]
-    show nextVertex (signature bs (N₀ + d' + P)) (bs (N₀ + d' + P))
-        = nextVertex (signature bs (N₀ + d')) (bs (N₀ + d'))
-    rw [ih, hbs]
+  have hk_eq : k = N₀ + (k - N₀) := (Nat.add_sub_cancel' hk).symm
+  rw [hk_eq]; exact key (k - N₀)
 
 /-- ★★★★ Pell mod-2 signature has period 6 from step 1 (TIGHT;
     pre-period 1, then 2×3-fold cycle). -/
@@ -82,7 +84,7 @@ theorem pellFSMmod2_signature_period_6_from_1 :
   · intro k
     have hp3 := pellFSMmod2_bits_period_3 (k + 3)
     have hp3' := pellFSMmod2_bits_period_3 k
-    have heq : k + 6 = (k + 3) + 3 := by omega
+    have heq : k + 6 = (k + 3) + 3 := (Nat.add_assoc k 3 3).symm
     rw [heq, hp3, hp3']
   · decide
 
