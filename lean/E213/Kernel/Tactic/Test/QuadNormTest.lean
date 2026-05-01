@@ -1,4 +1,4 @@
-import E213.Tactic.QuadNorm
+import E213.Kernel.Tactic.QuadNorm
 
 /-!
 # Tests: `quad_norm` on Diophantus-style identities

@@ -1,7 +1,7 @@
 import E213.Meta.SelfRecognising
 import E213.Math.CayleyDickson.ZSqrt2
 import E213.Math.CayleyDickson.ZSqrt2Domain
-import E213.Tactic.DeriveR4Codomain
+import E213.Meta.Tactic.DeriveR4Codomain
 
 /-!
 # Research: `Z2 = ℤ[√-2]` as `R4Codomain` instance

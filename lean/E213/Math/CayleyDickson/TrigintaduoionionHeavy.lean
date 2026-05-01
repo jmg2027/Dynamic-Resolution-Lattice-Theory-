@@ -1,6 +1,6 @@
 import E213.Math.CayleyDickson.Trigintaduonion
 import E213.Math.CayleyDickson.SedenionHeavy
-import E213.Tactic.HurwitzRing
+import E213.Math.Tactic.HurwitzRing
 
 /-!
 # Research: Trigintaduonion "heavy" identities

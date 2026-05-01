@@ -1,7 +1,7 @@
 import E213.Math.CayleyDickson.Cayley
 import E213.Math.IntHelpers
 import E213.Math.CayleyDickson.LipschitzHeavy
-import E213.Tactic.HurwitzRing
+import E213.Math.Tactic.HurwitzRing
 
 namespace E213.Math.CayleyDickson.CayleyHeavy
 

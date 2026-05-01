@@ -1,5 +1,5 @@
 import E213.Math.CayleyDickson.Pathion
-import E213.Tactic.HurwitzRing
+import E213.Math.Tactic.HurwitzRing
 
 /-!
 # Research: Pathion layer 5 heavy identities

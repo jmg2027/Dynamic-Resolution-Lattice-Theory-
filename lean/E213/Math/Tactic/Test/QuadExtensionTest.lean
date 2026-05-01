@@ -1,5 +1,5 @@
-import E213.Tactic.QuadExtension
-import E213.Tactic.VerifyR4
+import E213.Math.Tactic.QuadExtension
+import E213.Meta.Tactic.VerifyR4
 
 /-!
 # Tests: `quad_extension D` parametric macro + `#verify_r4`

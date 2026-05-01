@@ -1,7 +1,7 @@
 import E213.Math.CayleyDickson.Sedenion
 import E213.Math.IntHelpers
 import E213.Math.CayleyDickson.CayleyHeavy
-import E213.Tactic.HurwitzRing
+import E213.Math.Tactic.HurwitzRing
 
 /-!
 # Research: Sedenion "heavy" identities — observing tactic limits

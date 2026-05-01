@@ -1,7 +1,7 @@
 import E213.Meta.SelfRecognising
 import E213.Math.CayleyDickson.ZOmega
 import E213.Math.CayleyDickson.ZOmegaDomain
-import E213.Tactic.DeriveR4Codomain
+import E213.Meta.Tactic.DeriveR4Codomain
 
 /-!
 # Research: `ZOmega` (Eisenstein integers ℤ[ω]) as `R4Codomain`

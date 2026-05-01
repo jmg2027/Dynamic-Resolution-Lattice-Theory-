@@ -1,4 +1,4 @@
-import E213.Tactic.VerifyR4
+import E213.Meta.Tactic.VerifyR4
 import E213.Math.CayleyDickson.ZIInstance
 import E213.Math.CayleyDickson.Z2Instance
 import E213.Math.CayleyDickson.ZOmegaInstance

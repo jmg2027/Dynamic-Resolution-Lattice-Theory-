@@ -2,7 +2,7 @@ import E213.Meta.SelfRecognising
 import E213.Math.CayleyDickson.ZI
 import E213.Math.CayleyDickson.ZIDomain
 import E213.Math.CayleyDickson.ZIHom
-import E213.Tactic.DeriveR4Codomain
+import E213.Meta.Tactic.DeriveR4Codomain
 
 /-!
 # Research: `ZI` as `R4Codomain` instance

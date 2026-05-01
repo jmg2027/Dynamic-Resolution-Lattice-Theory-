@@ -1,7 +1,7 @@
 import E213.Physics.AlphaEM.V137Tight
 
 /-!
-# E213.Tools.CertChecker — anchor for Rust α_em bracket certificate.
+# E213.Firmware.Tools.CertChecker — anchor for Rust α_em bracket certificate.
 
 Imports the Lean theorems cited by `rust-engine/.../alpha_em_bracket`:
 
@@ -20,7 +20,7 @@ Phase 5+ adds JSON ingestion: parse the Rust certificate, re-run
 each Apply via the cited def, compare bit-for-bit.
 -/
 
-namespace E213.Tools.CertChecker
+namespace E213.Firmware.Tools.CertChecker
 
 open E213.Physics.AlphaEM.V137Tight (capstone_n20 inv_lower_tight inv_upper)
 
@@ -31,6 +31,6 @@ theorem cert_anchor_n20 :
     (lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1) ∧ (hi.1 < 138 * hi.2) :=
   capstone_n20
 
-end E213.Tools.CertChecker
+end E213.Firmware.Tools.CertChecker
 
-#print axioms E213.Tools.CertChecker.cert_anchor_n20
+#print axioms E213.Firmware.Tools.CertChecker.cert_anchor_n20

@@ -33,5 +33,5 @@ import E213.App.Simplex
 import E213.Math.Pigeonhole
 
 -- Tactic / Tools
-import E213.Tactic.Omega213
-import E213.Tools.CertChecker
+import E213.Kernel.Tactic.Omega213
+import E213.Firmware.Tools.CertChecker

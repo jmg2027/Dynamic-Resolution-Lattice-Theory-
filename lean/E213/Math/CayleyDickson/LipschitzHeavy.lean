@@ -1,6 +1,6 @@
 import E213.Math.CayleyDickson.CDDouble
 import E213.Math.IntHelpers
-import E213.Tactic.HurwitzRing
+import E213.Math.Tactic.HurwitzRing
 
 /-!
 # Research: Lipschitz "heavy" identities via `hurwitz_ring`

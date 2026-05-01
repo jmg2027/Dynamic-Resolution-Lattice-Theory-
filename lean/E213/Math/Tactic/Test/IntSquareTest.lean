@@ -1,4 +1,4 @@
-import E213.Tactic.IntSquare
+import E213.Math.Tactic.IntSquare
 
 open E213.Tactic
 
