@@ -414,3 +414,7 @@ lean = "E213.Physics.HadronBigrading.class_F_hadron_skeleton"
 [[op]]
 rust = "drlt_app::bin::mn_mp_split"
 lean = "E213.Physics.HadronBigrading.mn_mp_split_atomic"
+
+[[op]]
+rust = "drlt_app::bin::mn_minus_mp_over_me"
+lean = "E213.Physics.HadronBigrading.mn_minus_mp_over_me_atomic"

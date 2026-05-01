@@ -255,3 +255,7 @@ path = "src/bin/hadron_bigrading.rs"
 [[bin]]
 name = "mn-mp-split"
 path = "src/bin/mn_mp_split.rs"
+
+[[bin]]
+name = "mn-minus-mp-over-me"
+path = "src/bin/mn_minus_mp_over_me.rs"

@@ -47,6 +47,7 @@ const BINS: &[(&str, &[&str])] = &[
     ("magic-numbers", &[]),
     ("massless-particles", &[]),
     ("mb-mc-sweep", &["100"]),
+    ("mn-minus-mp-over-me", &["200"]),
     ("mn-mp-split", &[]),
     ("mt-mc-cohomology", &["100"]),
     ("top-yukawa", &["100"]),
