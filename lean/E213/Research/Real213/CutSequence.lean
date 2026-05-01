@@ -17,7 +17,7 @@ limitOf cs h := the eventual cut value (well-defined by Cauchy).
 Cauchy structure, axiom-free.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSequence
 
 open E213.Firmware E213.Hypervisor
 
@@ -44,4 +44,4 @@ def constCauchySeqCut (c : Nat → Nat → Bool) : CauchySeqCut where
 theorem constCauchySeqCut_limit (c : Nat → Nat → Bool) :
     (constCauchySeqCut c).limit = c := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSequence

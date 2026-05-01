@@ -14,7 +14,7 @@ For cos(x) = Σ (-1)^n x^(2n) / (2n)!:
 Both formalized via series partial sums.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.SinCosAtZero
 
 open E213.Firmware E213.Hypervisor
 
@@ -61,4 +61,4 @@ theorem sinCosAtZero_capstone (n : Nat) :
     ∧ partialSum cosTermsAtZero (n+1) = constCut 1 1 :=
   ⟨sinAtZero_partial n, cosAtZero_partial_succ n⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.SinCosAtZero

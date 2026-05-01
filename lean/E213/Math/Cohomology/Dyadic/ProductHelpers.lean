@@ -8,7 +8,7 @@ Generalises the ArithFSM2 encoding to asymmetric (n, m).
 Used to define BitFSM.product across two BitFSMs of different sizes.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ProductHelpers
 
 /-- Encode pair `(a, b) : Fin n × Fin m` into `Fin (n * m)`. -/
 def encodeFinPair {n m : Nat} (a : Fin n) (b : Fin m) : Fin (n * m) :=
@@ -49,4 +49,4 @@ theorem decode_encode_second {n m : Nat} (hm : 0 < m)
   rw [Nat.mul_comm a.val m, Nat.add_comm, Nat.add_mul_mod_self_left,
       Nat.mod_eq_of_lt b.isLt]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ProductHelpers

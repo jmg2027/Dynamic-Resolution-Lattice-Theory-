@@ -29,7 +29,7 @@ structure** Raw.slash x y h is not distinguishable by a "top-down" Lens.
 Lens only permits fold-compositional observation.
 -/
 
-namespace E213.Research.SlashCharNotFold
+namespace E213.Research.Morphism.SlashCharNotFold
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.FoldStructured
@@ -44,9 +44,9 @@ def outerR : Raw :=
 /-- f r := decide (r = slashAB). -/
 def slashCharFn (r : Raw) : Bool := decide (r = slashAB)
 
-end E213.Research.SlashCharNotFold
+end E213.Research.Morphism.SlashCharNotFold
 
-namespace E213.Research.SlashCharNotFold
+namespace E213.Research.Morphism.SlashCharNotFold
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.FoldStructured
@@ -83,4 +83,4 @@ theorem slashCharFn_not_fold_structured :
   rw [← h1] at h2
   exact absurd h2 (by decide)
 
-end E213.Research.SlashCharNotFold
+end E213.Research.Morphism.SlashCharNotFold

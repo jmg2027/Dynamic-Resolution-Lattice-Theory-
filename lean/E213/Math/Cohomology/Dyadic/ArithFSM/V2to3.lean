@@ -7,7 +7,7 @@ Every 2-state arithmetic FSM can be embedded into a 3-state one
 by adding an inert third component.  Inclusion is bit-stream-faithful.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.V2to3
 
 /-- Pad ArithFSM2(n) into ArithFSM3(n) by adding an inert
     third component.  init = (a, b, 0), step ignores it. -/
@@ -47,4 +47,4 @@ theorem padTo3_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
       = m.out (m.run k)
   rw [(padTo3_run_components hn m k).1, (padTo3_run_components hn m k).2]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.V2to3

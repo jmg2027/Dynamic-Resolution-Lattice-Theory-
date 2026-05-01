@@ -8,7 +8,7 @@ for n = 2, 3, 4, 5.  Each row checks face counts + that δ preserves
 the zero cochain.  All theorems 0-axiom, `decide`-checked.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.TrivialCases
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -64,4 +64,4 @@ theorem phase_CA_capstone :
     ∧ (∀ i : Fin (binom 5 4), delta (Cochain.zero 5 3) i = false) := by
   decide
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.TrivialCases

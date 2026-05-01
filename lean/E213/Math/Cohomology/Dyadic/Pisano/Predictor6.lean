@@ -18,7 +18,7 @@ computes the period for all 6 verified primes:
 100% match across split, inert, and ramified branches.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor6
 
 /-- ★★★★★★ Predictor matches concrete period at extended primes. -/
 theorem pisano_predict_correct_6 :
@@ -58,4 +58,4 @@ theorem pisano_predict_realises_pell_6 :
   · intro k; rw [pisano_predict_correct_6.2.2.2.2.2]
     exact pellFSMmod19_bits_period_9 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pisano.Predictor6

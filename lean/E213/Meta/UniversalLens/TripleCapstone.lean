@@ -21,7 +21,7 @@ long as the existing components are unchanged in the combine
 operator (separability of the catamorphism).
 -/
 
-namespace E213.Meta.UniversalLensTripleCapstone
+namespace E213.Meta.UniversalLens.TripleCapstone
 
 open E213.Meta.UniversalLens
 
@@ -46,4 +46,4 @@ theorem universal_lens_triple_capstone :
    E213.Meta.UniversalLensNat3.expSumLens3_is_universal,
    E213.Meta.UniversalLensQ213_3.q213Lens3_is_universal⟩
 
-end E213.Meta.UniversalLensTripleCapstone
+end E213.Meta.UniversalLens.TripleCapstone

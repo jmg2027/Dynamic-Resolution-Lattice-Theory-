@@ -25,7 +25,7 @@ The basic Raw information extraction (a-count, b-count) contains all
 of these "derived" observations.
 -/
 
-namespace E213.Research.ABLensRefines
+namespace E213.Research.Lens.ABRefines
 
 open E213.Firmware E213.Hypervisor E213.Meta
 open E213.Research.ABLens E213.Research.LensFactoring
@@ -43,9 +43,9 @@ theorem abLens_refines_parityLens : abLens.refines parityLens := by
        = decide (((abLens.view r).1 + (abLens.view r).2) % 2 = 1)
   rw [abLens_sum_eq_leaves]
 
-end E213.Research.ABLensRefines
+end E213.Research.Lens.ABRefines
 
-namespace E213.Research.ABLensRefines
+namespace E213.Research.Lens.ABRefines
 
 open E213.Firmware E213.Hypervisor E213.Meta
 open E213.Research.ABLens E213.Research.LensFactoring
@@ -84,4 +84,4 @@ theorem abLens_refines_boolXorLens : abLens.refines boolXorLens := by
   intro r
   exact boolXorLens_view_eq r
 
-end E213.Research.ABLensRefines
+end E213.Research.Lens.ABRefines

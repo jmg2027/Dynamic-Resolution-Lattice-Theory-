@@ -19,7 +19,7 @@ This captures the Dedekind cut of √2 not abstractly but as a
 **constructive witness**.
 -/
 
-namespace E213.Research.PellSeq
+namespace E213.Research.Cauchy.PellSeq
 
 open E213.Firmware E213.Hypervisor E213.Research.ABLens E213.Research.Sqrt2Cut
 
@@ -97,9 +97,9 @@ theorem pell_invariant (n : Nat) : IsPellSol (pellX n) (pellY n) := by
       rw [Nat.mul_assoc]
       exact h_step
 
-end E213.Research.PellSeq
+end E213.Research.Cauchy.PellSeq
 
-namespace E213.Research.PellSeq
+namespace E213.Research.Cauchy.PellSeq
 
 open E213.Firmware E213.Hypervisor E213.Research.ABLens
 
@@ -167,9 +167,9 @@ theorem abLens_surjective : ∀ (s a b : Nat),
           rw [abLens_slash, abLens_b, hr]
           simp; omega
 
-end E213.Research.PellSeq
+end E213.Research.Cauchy.PellSeq
 
-namespace E213.Research.PellSeq
+namespace E213.Research.Cauchy.PellSeq
 
 open E213.Firmware E213.Hypervisor E213.Research.ABLens
 
@@ -216,9 +216,9 @@ def abLens_witness (s : Nat) : ∀ (a b : Nat),
           rw [abLens_slash, abLens_b, hr]
           simp; omega
 
-end E213.Research.PellSeq
+end E213.Research.Cauchy.PellSeq
 
-namespace E213.Research.PellSeq
+namespace E213.Research.Cauchy.PellSeq
 
 open E213.Firmware E213.Hypervisor E213.Research.ABLens E213.Research.Sqrt2Cut
 
@@ -262,9 +262,9 @@ theorem pellRaw_isPellSol (n : Nat) :
   rw [pellRaw_view]
   exact pell_invariant n
 
-end E213.Research.PellSeq
+end E213.Research.Cauchy.PellSeq
 
-namespace E213.Research.PellSeq
+namespace E213.Research.Cauchy.PellSeq
 
 open E213.Firmware E213.Hypervisor E213.Research.ABLens E213.Research.Sqrt2Cut
 open E213.Research.ArchimedeanCauchy
@@ -306,4 +306,4 @@ theorem pellRaw_cut_below (m k : Nat) (hk : k ≥ 1) (hmsq : m * m < 2 * k * k)
   exact pell_orderProj_below (pellX n) (pellY n) m k
     (pell_invariant n) hk hmsq
 
-end E213.Research.PellSeq
+end E213.Research.Cauchy.PellSeq

@@ -33,7 +33,7 @@ from witnessing exact boundary cases.
 These are the previously-missing **safe directions** at b ≥ 3.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSumGeneral
 
 open E213.Firmware E213.Hypervisor
 
@@ -178,4 +178,4 @@ theorem cutSum_fifths_artifact :
     ∧ constCut 5 5 1 1 = true := by
   refine ⟨?_, ?_⟩ <;> decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSumGeneral

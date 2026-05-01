@@ -6,7 +6,7 @@ import E213.Research.CayleyDickson.Trigintaduonion
 `Pathion = Trigintaduonion × Trigintaduonion`, 64-dim.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.Pathion
 
 structure Pathion where
   re : Trigintaduonion
@@ -49,4 +49,4 @@ theorem zero_im : (0 : Pathion).im = 0 := rfl
 
 end Pathion
 
-end E213.Research
+end E213.Research.CayleyDickson.Pathion

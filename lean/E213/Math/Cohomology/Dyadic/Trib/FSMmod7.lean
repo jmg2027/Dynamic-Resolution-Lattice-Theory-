@@ -19,7 +19,7 @@ mixed Galois behaviour (not pure prime cycles).
 Cubic CRT extended to {2, 3, 5, 7} → lcm(4, 13, 31, 48) = 25584.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Trib.FSMmod7
 
 /-- Tribonacci shift mod 7. -/
 def tribFSMmod7 : ArithFSM3 7 where
@@ -57,4 +57,4 @@ theorem tribFSMmod7_signature_period_48_from_1 :
   signature_period_of_bits_period_and_anchor_from
     tribFSMmod7.bits 48 1 tribFSMmod7_bits_period_48 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Trib.FSMmod7

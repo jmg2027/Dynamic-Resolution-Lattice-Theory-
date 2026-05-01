@@ -13,7 +13,7 @@ RatioBound: |a_{n+1}| ≤ r * |a_n| for some r < 1, eventually.
 ComparisonBound: |a_n| ≤ b_n.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSeriesConv
 
 open E213.Firmware E213.Hypervisor
 
@@ -30,9 +30,9 @@ structure RatioBound (terms : Nat → Nat → Nat → Bool)
 structure ComparisonBound (terms_a terms_b : Nat → Nat → Nat → Bool) where
   bound_at : Nat → Unit  -- placeholder
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSeriesConv
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSeriesConv
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,4 +54,4 @@ structure GeometricConvergent (r_num r_den : Nat) where
   ratio_lt_one : r_num < r_den
   series_data : Unit  -- placeholder for explicit Cauchy data
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSeriesConv

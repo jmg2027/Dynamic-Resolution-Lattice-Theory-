@@ -17,7 +17,7 @@ AD-2 (closed forms), AD-3 (resolution depth) into one statement.
   (7) cutPow_derivative_step recurrence at (n+1)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseADCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -44,4 +44,4 @@ theorem phaseAD_unified_capstone (n k : Nat) (c x : Nat → Nat → Bool) :
    cutPowFn_derivative_modulus n k,
    cutPow_derivative_step n x⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseADCapstone

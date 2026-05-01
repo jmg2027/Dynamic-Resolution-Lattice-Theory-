@@ -12,7 +12,7 @@ Edge e ∈ Fin 12: S-idx = (e/2)/2 ∈ {0,1,2}, T-idx = (e/2)%2 ∈
 {0,1}, multiplicity = e%2.  Vertices: S = 0,1,2; T = 3,4.
 -/
 
-namespace E213.Math.Cohomology.Bip32
+namespace E213.Math.Cohomology.Bipartite.V32
 
 /-- Source vertex (S-idx) of edge e. -/
 def srcOf (e : Nat) : Nat := (e / 2) / 2
@@ -69,4 +69,4 @@ theorem delta0_v0_at_edge0 : delta0 v0V ⟨0, by decide⟩ = true := by decide
 /-- δ₀(v0V) on edge 11 (S=2, T=4): false XOR false = false. -/
 theorem delta0_v0_at_edge11 : delta0 v0V ⟨11, by decide⟩ = false := by decide
 
-end E213.Math.Cohomology.Bip32
+end E213.Math.Cohomology.Bipartite.V32

@@ -29,7 +29,7 @@ Sequence of cuts Cauchy → *direct* limit construction.  The 213 form
 of Bishop completeness is trivial.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CauchyComplete
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ArchimedeanCauchy
@@ -51,9 +51,9 @@ theorem CauchyCutSeq.limit_eq_at (ccs : CauchyCutSeq)
   unfold CauchyCutSeq.limit
   exact ccs.cauchy m k (ccs.N m k) i (Nat.le_refl _) hi
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CauchyComplete
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CauchyComplete
 
 open E213.Firmware E213.Hypervisor
 
@@ -69,4 +69,4 @@ def constCauchyCutSeq (c : Nat → Nat → Bool) : CauchyCutSeq where
 theorem constCauchyCutSeq_limit (c : Nat → Nat → Bool) :
     (constCauchyCutSeq c).limit = c := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CauchyComplete

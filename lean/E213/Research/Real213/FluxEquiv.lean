@@ -23,7 +23,7 @@ This is the Setoid that bridges *propositional* equality to dyadic
   cohomEquiv_of_eq       : propositional eq implies cohomEquiv
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxEquiv
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,4 +62,4 @@ example (a : FluxCut) : a ≈ a := cohomEquiv_refl a
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxEquiv

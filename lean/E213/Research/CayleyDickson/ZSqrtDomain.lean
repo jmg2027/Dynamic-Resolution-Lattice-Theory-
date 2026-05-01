@@ -13,7 +13,7 @@ Generic proofs over `D : Int`.  `normSq_nonneg`,
 `0 ≤ D` (positive-semidefinite norm).
 -/
 
-namespace E213.Research.ZSqrt
+namespace E213.Research.CayleyDickson.ZSqrtDomain
 
 variable {D : Int}
 
@@ -53,9 +53,9 @@ theorem normSq_nonneg (hD : 0 ≤ D) (u : ZSqrt D) :
   have h3 : 0 ≤ D * (u.im * u.im) := Int.mul_nonneg hD h2
   omega
 
-end E213.Research.ZSqrt
+end E213.Research.CayleyDickson.ZSqrtDomain
 
-namespace E213.Research.ZSqrt
+namespace E213.Research.CayleyDickson.ZSqrtDomain
 
 variable {D : Int}
 
@@ -91,4 +91,4 @@ theorem no_zero_div (hD : 0 < D) (u v : ZSqrt D) :
   · exact Or.inl ((normSq_eq_zero_iff hD u).mp h)
   · exact Or.inr ((normSq_eq_zero_iff hD v).mp h)
 
-end E213.Research.ZSqrt
+end E213.Research.CayleyDickson.ZSqrtDomain

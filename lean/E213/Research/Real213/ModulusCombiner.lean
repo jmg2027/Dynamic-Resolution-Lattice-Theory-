@@ -17,7 +17,7 @@ All Cauchy bookkeeping is isolated in this one theorem.
 Per-operation (add, mul, ...) supplies only a ModulusCombiner instance.
 -/
 
-namespace E213.Research.Real213.Core
+namespace E213.Research.Real213.ModulusCombiner
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -39,9 +39,9 @@ structure ModulusCombiner (combine : Raw → Raw → Raw) where
       orderProj m k (abLens.view (combine x1 y1))
         = orderProj m k (abLens.view (combine x2 y2))
 
-end E213.Research.Real213.Core
+end E213.Research.Real213.ModulusCombiner
 
-namespace E213.Research.Real213.Core
+namespace E213.Research.Real213.ModulusCombiner
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -75,4 +75,4 @@ def combineModulus {xs ys : Nat → Raw}
                  (mc.precY_k_pos m k hk) i j hi_y hj_y
     exact mc.preserves m k hk (xs i) (xs j) (ys i) (ys j) hx hy
 
-end E213.Research.Real213.Core
+end E213.Research.Real213.ModulusCombiner

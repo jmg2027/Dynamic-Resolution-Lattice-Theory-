@@ -18,7 +18,7 @@ Phase AD-3 (difference-quotient bound).
   cutPow_derivative_step    : recurrence for d/dx [x^(n+1)]
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DerivativeForms
 
 open E213.Firmware E213.Hypervisor
 
@@ -67,4 +67,4 @@ example (x : Nat → Nat → Bool) :
 example (c x : Nat → Nat → Bool) :
     (constIsDifferentiable c).derivative x = constCut 0 1 := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DerivativeForms

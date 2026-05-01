@@ -83,8 +83,8 @@ recursion.  Cost: a proportionally large refactor.  Current ratio:
 approximately ~30% of theorems are already axiom-free.
 -/
 
-namespace E213.Research.KernelFreeAudit
+namespace E213.Research.Kernel.FreeAudit
 
 -- This module records the audit results — no new theorems are added.
 
-end E213.Research.KernelFreeAudit
+end E213.Research.Kernel.FreeAudit

@@ -10,7 +10,7 @@ Continues the pattern: every polynomial chain has matching
 IsDifferentiable + Passthrough → ClassicCalc.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ClassicCalcExtreme
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,4 +64,4 @@ def hexadecic_calc :
 
 end ClassicCalc
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ClassicCalcExtreme

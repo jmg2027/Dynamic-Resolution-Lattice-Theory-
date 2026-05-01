@@ -23,7 +23,7 @@ Proof: ⟨universalLens E, universalLens_kernel_eq_E E ...⟩.
 universalLens E.
 -/
 
-namespace E213.Research.ChoiceResolved
+namespace E213.Research.Choice.Resolved
 
 open E213.Firmware E213.Hypervisor E213.Research.UniversalQuotLens
 
@@ -46,4 +46,4 @@ theorem choice_as_lens_spec (E : Raw → Raw → Prop)
 def witness_explicit (E : Raw → Raw → Prop) :
     Lens (Raw → Prop) := universalLens E
 
-end E213.Research.ChoiceResolved
+end E213.Research.Choice.Resolved

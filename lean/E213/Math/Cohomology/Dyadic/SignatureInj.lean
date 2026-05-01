@@ -17,7 +17,7 @@ If sig (k+1) = sig (k+1) for both streams, and sig k matches,
 then the bits at step k must agree.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.SignatureInj
 
 /-- ★★★★★ Signature is injective on Bool streams: matching
     signature trajectories at every step ⇒ matching bit streams. -/
@@ -62,4 +62,4 @@ theorem signature_injective_eventual (bs₁ bs₂ : Nat → Bool) (N : Nat)
                   = signature bs₂ (k + 1) := rfl
   rw [hstep1, h (k + 1) (by omega), ← hstep2, h k hk]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.SignatureInj

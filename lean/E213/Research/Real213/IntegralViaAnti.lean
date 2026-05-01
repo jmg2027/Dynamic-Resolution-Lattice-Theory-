@@ -15,7 +15,7 @@ This is the FTC at the symbolic level — integration becomes flux
 of the antiderivative.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IntegralViaAnti
 
 open E213.Firmware E213.Hypervisor
 
@@ -58,4 +58,4 @@ theorem integral_via_anti_capstone :
    IsAntiderivative.integral_zero_unit_balanced,
    fun _ _ _ _ _ => rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IntegralViaAnti

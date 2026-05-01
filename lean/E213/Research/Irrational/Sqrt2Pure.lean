@@ -15,7 +15,7 @@ Direct construction of the sqrt2 irrationality descent on top of
 `PureNat`'s axiom-free Nat library.  No omega, no propext-using lemmas.
 -/
 
-namespace E213.Research.Sqrt2IrrationalPure
+namespace E213.Research.Irrational.Sqrt2Pure
 
 open E213.Research.PureNat
 
@@ -95,4 +95,4 @@ theorem sqrt2_irrational (k : Nat) (hk : k ≥ 1) (m : Nat) :
   rw [h] at hk
   exact Nat.not_succ_le_zero 0 hk
 
-end E213.Research.Sqrt2IrrationalPure
+end E213.Research.Irrational.Sqrt2Pure

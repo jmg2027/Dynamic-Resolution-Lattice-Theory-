@@ -12,7 +12,7 @@ Phase AR: completing the (n-1)·k pattern for high-order polynomials
   d/dx [x¹⁶] modulus = 15k
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ConcreteDerivativeModulusFinal
 
 open E213.Firmware E213.Hypervisor
 
@@ -74,4 +74,4 @@ theorem concrete_higher_polynomial_derivative_capstone (k : Nat) :
    dodecicIsDifferentiable_derivative_modulus k,
    hexadecicIsDifferentiable_derivative_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ConcreteDerivativeModulusFinal

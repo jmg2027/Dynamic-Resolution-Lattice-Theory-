@@ -13,7 +13,7 @@ The modulus is max of the input moduli, and the joint Cauchy property
 follows from the input Cauchy properties evaluated pointwise on Bool.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CauchyLattice
 
 open E213.Firmware E213.Hypervisor
 
@@ -157,4 +157,4 @@ theorem CauchyCutSeq.cutMin_assoc_limit (a b c : CauchyCutSeq) :
   rw [cutMin_limit, cutMin_limit, cutMin_limit, cutMin_limit]
   exact E213.Research.Real213.CutSum.cutMin_assoc _ _ _
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CauchyLattice

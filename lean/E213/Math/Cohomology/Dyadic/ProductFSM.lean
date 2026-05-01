@@ -12,7 +12,7 @@ The "lens composition" structure: combine via product state space,
 read out via g.  Universal — no coprimality needed.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ProductFSM
 
 /-- ★★★ Generic product BitFSM via pair-encoding. -/
 def BitFSM.product {n m : Nat} (hm : 0 < m)
@@ -26,4 +26,4 @@ def BitFSM.product {n m : Nat} (hm : 0 < m)
     (f1.out (decodeFinFirst hm v))
     (f2.out (decodeFinSecond hm v))
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ProductFSM

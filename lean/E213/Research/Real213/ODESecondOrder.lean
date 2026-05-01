@@ -14,7 +14,7 @@ satisfy y'' = 0.
 This is the simplest second-order ODE solved propositionally.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ODESecondOrder
 
 open E213.Firmware E213.Hypervisor
 
@@ -51,4 +51,4 @@ theorem ode_second_order_capstone (a : Nat) (c : Nat → Nat → Bool) :
         = constCutFn (constCut 0 1) :=
   ⟨rfl, rfl, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ODESecondOrder

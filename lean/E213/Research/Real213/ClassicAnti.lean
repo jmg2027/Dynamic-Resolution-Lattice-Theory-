@@ -9,7 +9,7 @@ Every ClassicCalc instance trivially yields an IsAntiderivative
 of its computed derivative, plus the integral via flux.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ClassicAnti
 
 open E213.Firmware E213.Hypervisor
 
@@ -46,4 +46,4 @@ theorem integralCC_capstone :
 
 end ClassicCalc
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ClassicAnti

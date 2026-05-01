@@ -16,7 +16,7 @@ This is the FIRST split-case Pell instance, complementing the
 previous inert/ramified cases (mod 3, 5, 7).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod11
 
 /-- Pell-style FSM mod 11. -/
 def pellFSMmod11 : ArithFSM2 11 where
@@ -79,4 +79,4 @@ theorem pellFSMmod11_signature_period_bound :
     arithFSM2_signature_period_bound (n := 11) (by decide) pellFSMmod11
   exact ⟨N, P, hP, hbound, hk⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod11

@@ -17,7 +17,7 @@ Chain +1 step: r → (leaves r + 3 via L_3) → (leaves r + 1 via L_2).
 Induction on |leaves r' - leaves r| for an arbitrary leaves difference.
 -/
 
-namespace E213.Research.ModJoinCoprime
+namespace E213.Research.ModArith.JoinCoprime
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -58,9 +58,9 @@ private theorem same_leaves {α : Type} (N : Lens α)
   show (leavesModNat 2).view r = (leavesModNat 2).view r'
   rw [leavesModNat_view_eq, leavesModNat_view_eq, hr]
 
-end E213.Research.ModJoinCoprime
+end E213.Research.ModArith.JoinCoprime
 
-namespace E213.Research.ModJoinCoprime
+namespace E213.Research.ModArith.JoinCoprime
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -89,9 +89,9 @@ theorem step_plus_k {α : Type} (N : Lens α)
         omega
       exact step1.trans step2
 
-end E213.Research.ModJoinCoprime
+end E213.Research.ModArith.JoinCoprime
 
-namespace E213.Research.ModJoinCoprime
+namespace E213.Research.ModArith.JoinCoprime
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -111,4 +111,4 @@ theorem mod_2_3_refines_const {α : Type} (N : Lens α)
               + (Lens.leaves.view r - Lens.leaves.view r') := by omega
     exact (step_plus_k N h2 h3 r' _ r heq).symm
 
-end E213.Research.ModJoinCoprime
+end E213.Research.ModArith.JoinCoprime

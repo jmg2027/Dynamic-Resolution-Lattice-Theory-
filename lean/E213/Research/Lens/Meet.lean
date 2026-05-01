@@ -21,7 +21,7 @@ The view is the pair `(L.view r, M.view r)` and the kernel is
 - `prod_is_meet` — universal property (greatest lower bound).
 -/
 
-namespace E213.Research.LensMeet
+namespace E213.Research.Lens.Meet
 
 open E213.Firmware E213.Hypervisor
 
@@ -57,9 +57,9 @@ theorem prodLens_view {α β : Type} (L : Lens α) (M : Lens β)
       rw [hfsP, hfsL, hfsM, ihx, ihy]
       rfl
 
-end E213.Research.LensMeet
+end E213.Research.Lens.Meet
 
-namespace E213.Research.LensMeet
+namespace E213.Research.Lens.Meet
 
 open E213.Firmware E213.Hypervisor
 
@@ -89,9 +89,9 @@ theorem prodLens_refines_snd {α β : Type} (L : Lens α) (M : Lens β)
     rw [← hx, ← hy]; exact hxy
   exact congrArg Prod.snd hp
 
-end E213.Research.LensMeet
+end E213.Research.Lens.Meet
 
-namespace E213.Research.LensMeet
+namespace E213.Research.Lens.Meet
 
 open E213.Firmware E213.Hypervisor
 
@@ -111,4 +111,4 @@ theorem prodLens_is_meet {α β γ : Type}
   have hM : M.view x = M.view y := hNM x y hxy
   rw [hL, hM]
 
-end E213.Research.LensMeet
+end E213.Research.Lens.Meet

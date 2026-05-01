@@ -18,7 +18,7 @@ Verified instances: signedLens (Int with neg).
 Failure case: swap-invariant Lenses (LensCatalog).
 -/
 
-namespace E213.Meta.CUniquenessBridge
+namespace E213.Meta.Lens.CUniquenessBridge
 
 open E213.Firmware E213.Hypervisor
 
@@ -61,4 +61,4 @@ theorem c_likeness_bundle {α : Type} [Zero α] [R4Codomain α] :
   ⟨r4_conj_involution, r4_conj_distributes,
    r4_conj_swap_a, r4_conj_nontrivial⟩
 
-end E213.Meta.CUniquenessBridge
+end E213.Meta.Lens.CUniquenessBridge

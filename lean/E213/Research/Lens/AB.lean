@@ -19,7 +19,7 @@ This is one concrete layer of note 41 Q41.3 ("number of kernels at
 each level of the refines preorder").
 -/
 
-namespace E213.Research.ABLens
+namespace E213.Research.Lens.AB
 
 open E213.Firmware E213.Hypervisor E213.Research.LensFactoring
 
@@ -64,9 +64,9 @@ theorem abLens_refines_leaves : abLens.refines Lens.leaves := by
   intro r
   exact (abLens_sum_eq_leaves r).symm
 
-end E213.Research.ABLens
+end E213.Research.Lens.AB
 
-namespace E213.Research.ABLens
+namespace E213.Research.Lens.AB
 
 open E213.Firmware E213.Hypervisor
 
@@ -88,4 +88,4 @@ theorem leaves_not_refines_abLens : ¬ Lens.leaves.refines abLens := by
   intro h
   exact abLens_distinguishes (h rAAB rABB leaves_equates)
 
-end E213.Research.ABLens
+end E213.Research.Lens.AB

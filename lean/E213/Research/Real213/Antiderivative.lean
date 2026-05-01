@@ -16,7 +16,7 @@ Atomic instances:
   constant c is antiderivative of constant 0
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.Antiderivative
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,4 +54,4 @@ theorem antiderivative_capstone (c : Nat → Nat → Bool) :
    ⟨id, idIsDifferentiable, constCutFn (constCut 1 1),
     IsAntiderivative.id_anti⟩⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.Antiderivative

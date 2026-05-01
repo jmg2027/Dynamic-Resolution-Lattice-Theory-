@@ -9,7 +9,7 @@ Full omega-elimination from the inductive proof is expensive, but
 verification at specific values is axiom-free via `decide`.
 -/
 
-namespace E213.Research.WallisSharperKernelFree
+namespace E213.Research.Cauchy.WallisSharperKernelFree
 
 open E213.Research.WallisSeq
 
@@ -19,4 +19,4 @@ theorem wallis_sharper_n2 : 45 * wallisNum 2 ≥ 64 * wallisDen 2 := by decide
 /-- W_3 ≥ 64/45 (one step beyond base, axiom-free). -/
 theorem wallis_sharper_n3 : 45 * wallisNum 3 ≥ 64 * wallisDen 3 := by decide
 
-end E213.Research.WallisSharperKernelFree
+end E213.Research.Cauchy.WallisSharperKernelFree

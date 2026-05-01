@@ -18,7 +18,7 @@ Summarizes the entire post-bottleneck arc covering:
   BY: FTC via Riemann sum for id
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseBZMegaOmega
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,4 +62,4 @@ theorem phaseBZ_megaOmega_capstone (n : Nat) (a : FluxCut) :
    riemann_id_derivative_unit n,
    ftc_riemann_id_depth_zero⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseBZMegaOmega

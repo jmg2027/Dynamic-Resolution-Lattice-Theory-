@@ -13,7 +13,7 @@ Mathematical observation: f(x) = (x + x²)/2 has derivative (1+2x)/2,
 which equals 1 when x = 1/2.  Witness c = 1/2 dyadic.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTMore
 
 open E213.Firmware E213.Hypervisor
 
@@ -57,4 +57,4 @@ theorem mvt_witness_extended_capstone :
    square_has_dyadic_witness,
    mid_id_square_has_dyadic_witness⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTMore

@@ -8,7 +8,7 @@ import E213.Research.Real213.CutSumZero
 cutPow (constCut a b) 0 = 1, cutPow (constCut a b) 1 = (constCut a b).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutPowConst
 
 open E213.Firmware E213.Hypervisor
 
@@ -39,4 +39,4 @@ theorem cutPow_one_n (n : Nat) :
     rw [ih]
     exact cutMul_one_one
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutPowConst

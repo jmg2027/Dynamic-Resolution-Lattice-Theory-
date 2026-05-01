@@ -23,7 +23,7 @@ Establishes the Fibonacci-Pisano predictor as a *new structural
 identity* in the 213 atomic framework.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod3
 
 /-- Fibonacci-style FSM mod 3. -/
 def fibFSMmod3 : ArithFSM2 3 where
@@ -60,4 +60,4 @@ theorem fibFSMmod3_signature_period_8_from_1 :
   signature_period_of_bits_period_and_anchor_from
     fibFSMmod3.bits 8 1 fibFSMmod3_bits_period_8 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Fib.FSMmod3

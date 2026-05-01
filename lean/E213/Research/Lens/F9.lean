@@ -25,7 +25,7 @@ form.
 ## §1. 𝔽₃ = Fin 3 (Mathlib-free)
 -/
 
-namespace E213.Research.F9Lens
+namespace E213.Research.Lens.F9
 
 abbrev F3 := Fin 3
 
@@ -57,9 +57,9 @@ theorem F3.add_comm : ∀ a b : F3, F3.add a b = F3.add b a := by
   show (⟨(a + b) % 3, _⟩ : F3) = ⟨(b + a) % 3, _⟩
   congr 1; rw [Nat.add_comm]
 
-end E213.Research.F9Lens
+end E213.Research.Lens.F9
 
-namespace E213.Research.F9Lens
+namespace E213.Research.Lens.F9
 
 /-! ## §2. 𝔽₉ = 𝔽₃[i]/(i²+1)
 
@@ -90,9 +90,9 @@ def F9.mul (p q : F9) : F9 :=
     Concretely: (a, b) ↦ (a, -b). -/
 def F9.conj (p : F9) : F9 := (p.1, F3.neg p.2)
 
-end E213.Research.F9Lens
+end E213.Research.Lens.F9
 
-namespace E213.Research.F9Lens
+namespace E213.Research.Lens.F9
 
 /-! ## §3. Core witnesses (decidable concrete facts) -/
 
@@ -120,9 +120,9 @@ theorem F9.one_ne_zero : F9.one ≠ F9.zero := by decide
 /-- **Distinct base values**: 1 ≠ i. -/
 theorem F9.one_ne_i : F9.one ≠ F9.i := by decide
 
-end E213.Research.F9Lens
+end E213.Research.Lens.F9
 
-namespace E213.Research.F9Lens
+namespace E213.Research.Lens.F9
 
 open E213.Firmware E213.Hypervisor
 
@@ -166,9 +166,9 @@ theorem f9Lens_view_ab :
   rw [Raw.fold_slash F9.one F9.i F9.mul F9.mul_comm Raw.a Raw.b (by decide)]
   rfl
 
-end E213.Research.F9Lens
+end E213.Research.Lens.F9
 
-namespace E213.Research.F9Lens
+namespace E213.Research.Lens.F9
 
 /-! ## §5. Summary: R1-R5 counter-example status
 
@@ -222,4 +222,4 @@ established.
 
 -/
 
-end E213.Research.F9Lens
+end E213.Research.Lens.F9

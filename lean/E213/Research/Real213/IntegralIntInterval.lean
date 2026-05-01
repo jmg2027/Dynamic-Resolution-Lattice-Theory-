@@ -11,7 +11,7 @@ Via id_anti: F = id, F(n) - F(0) = n - 0 = n.
 In flux form: fluxAlong id (bracket [0, n]) = ofCut (constCut n 1).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IntegralIntInterval
 
 open E213.Firmware E213.Hypervisor
 
@@ -55,4 +55,4 @@ theorem integral_int_interval_capstone (n : Nat) :
         = { forward := constCut n 1, backward := constCut 0 1 } :=
   ⟨rfl, rfl, rfl, rfl, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IntegralIntInterval

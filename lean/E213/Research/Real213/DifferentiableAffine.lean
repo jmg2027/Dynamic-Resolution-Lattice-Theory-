@@ -14,7 +14,7 @@ f(x) = ax + b or f(x) = x² + ax + b.
   squarePlusAffineIsDifferentiable    : x ↦ x² + ax + b
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DifferentiableAffine
 
 open E213.Firmware E213.Hypervisor
 
@@ -76,4 +76,4 @@ theorem polynomial_sum_capstone (a b k : Nat) :
    squarePlusIdIsDifferentiable_modulus k,
    cubePlusSquareIsDifferentiable_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DifferentiableAffine

@@ -13,7 +13,7 @@ Strategy:
 - Requires k ≥ 1 (RatioCut needs k1 ≥ 1).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMidMono
 
 open E213.Firmware E213.Hypervisor
 
@@ -79,4 +79,4 @@ theorem cutLe_cutMid_b_at (a b : Nat → Nat → Bool)
       exact Nat.le_refl _
     · exact hb
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMidMono

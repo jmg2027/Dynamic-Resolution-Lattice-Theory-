@@ -7,7 +7,7 @@ Explicit witness for the BoolSqClassification claim in PAPER1 §3.4:
 parityLens.combine x x = false for all x.
 -/
 
-namespace E213.Research.ParityLensCollapseFalse
+namespace E213.Research.Lens.ParityCollapseFalse
 
 open E213.Hypervisor
 open E213.Meta
@@ -17,4 +17,4 @@ theorem parityLens_collapse_false (x : Bool) :
     parityLens.combine x x = false := by
   cases x <;> rfl
 
-end E213.Research.ParityLensCollapseFalse
+end E213.Research.Lens.ParityCollapseFalse

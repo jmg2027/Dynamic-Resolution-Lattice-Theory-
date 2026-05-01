@@ -18,7 +18,7 @@ walk-construction by induction; deferred while the canonicity
 question is open.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.WalkUniversal
 
 /-- Constructive edge selector by `v.val`. -/
 def chooseEdge (v : Fin 5) (b : Bool) : Fin 12 :=
@@ -47,4 +47,4 @@ theorem chooseEdge_bit_full :
     ∧ (∀ b : Bool, ((chooseEdge ⟨4, by decide⟩ b).val % 2 == 1) = b) := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> intro b <;> cases b <;> rfl
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.WalkUniversal

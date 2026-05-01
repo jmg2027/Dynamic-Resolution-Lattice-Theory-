@@ -14,7 +14,7 @@ Third SPLIT instance (after p=11, 19), confirming the split formula
 14 (doubled by bipartite parity coupling).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod29
 
 /-- Pell-style FSM mod 29. -/
 def pellFSMmod29 : ArithFSM2 29 where
@@ -65,4 +65,4 @@ theorem pellFSMmod29_signature_period_14 :
   signature_period_of_bits_period_and_anchor pellFSMmod29.bits 14
     pellFSMmod29_bits_period_14 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod29

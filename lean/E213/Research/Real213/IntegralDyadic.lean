@@ -17,7 +17,7 @@ endpoint interval — the most general FTC propEq we can achieve
 within the polynomial chain at this point.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IntegralDyadic
 
 open E213.Firmware E213.Hypervisor
 
@@ -65,4 +65,4 @@ theorem integral_dyadic_capstone (numA numB E : Nat) (h : numA ≤ numB) :
             backward := constCut numA (2^E) } :=
   ⟨rfl, rfl, rfl, rfl, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IntegralDyadic

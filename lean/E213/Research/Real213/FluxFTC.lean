@@ -23,7 +23,7 @@ The cohomEquiv between these is the FTC.
   fluxAlong_id_unitBracket : id flux gives endpoint pair (0, 1)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxFTC
 
 open E213.Firmware E213.Hypervisor
 
@@ -73,4 +73,4 @@ theorem ftc_concrete_capstone (c : Nat → Nat → Bool) (db : DyadicBracket) :
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxFTC

@@ -9,7 +9,7 @@ constCut a b = constCut (a*c) (b*c) for c ≥ 1.
 Equivalent rationals (1/2 = 2/4 = 3/6 = ...) yield same cut function.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ConstCutScale
 
 open E213.Firmware E213.Hypervisor
 
@@ -61,4 +61,4 @@ theorem constCut_zero_eq (b : Nat) (hb : b ≥ 1) :
   rw [Nat.zero_mul, Nat.one_mul] at h
   exact h
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ConstCutScale

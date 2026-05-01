@@ -14,7 +14,7 @@ each level is *identical* — the same as the cardinality of the image
 of α.
 -/
 
-namespace E213.Research.LensTowerLevel3
+namespace E213.Research.Lens.TowerLevel3
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -44,4 +44,4 @@ theorem lensUniversalMorphism_factors_level3
   unfold constComposite2
   rfl
 
-end E213.Research.LensTowerLevel3
+end E213.Research.Lens.TowerLevel3

@@ -9,7 +9,7 @@ cutSignedSum: case analysis on signs.
 cutSignedSub: cutSignedSum with negated second arg.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.SignedSum
 
 open E213.Firmware E213.Hypervisor
 
@@ -91,4 +91,4 @@ theorem cutNeg_cutSignedSum (sx sy : SignedCut) :
     | mk sysign sycut =>
       cases sxsign <;> cases sysign <;> rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.SignedSum

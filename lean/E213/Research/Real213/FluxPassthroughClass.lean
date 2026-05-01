@@ -19,7 +19,7 @@ endpoint witnesses + combinators making MVT/FTC instant.
     Passthrough.ftc      : LD = fluxAlong (FTC bridge)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxPassthroughClass
 
 open E213.Firmware E213.Hypervisor
 
@@ -69,4 +69,4 @@ end Passthrough
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxPassthroughClass

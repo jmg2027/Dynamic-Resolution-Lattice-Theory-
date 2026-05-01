@@ -23,7 +23,7 @@ Collapse + Idempotent holding simultaneously forces |α| = 1.
 Mutually exclusive.
 -/
 
-namespace E213.Research.DiagonalClassification
+namespace E213.Research.Diagonal.Classification
 
 open E213.Firmware E213.Hypervisor
 
@@ -50,9 +50,9 @@ theorem collapse_idempotent_trivial {α : Type} (L : Lens α) (e : α)
   have h2 : L.combine v v = v := hI v
   exact h2.symm.trans h1
 
-end E213.Research.DiagonalClassification
+end E213.Research.Diagonal.Classification
 
-namespace E213.Research.DiagonalClassification
+namespace E213.Research.Diagonal.Classification
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -70,9 +70,9 @@ theorem boolAndLens_idempotent : Idempotent boolAndLens := by
 theorem boolOrLens_idempotent : Idempotent boolOrLens := by
   intro v; cases v <;> rfl
 
-end E213.Research.DiagonalClassification
+end E213.Research.Diagonal.Classification
 
-namespace E213.Research.DiagonalClassification
+namespace E213.Research.Diagonal.Classification
 
 open E213.Firmware E213.Hypervisor
 
@@ -88,9 +88,9 @@ theorem leaves_not_idempotent : ¬ Idempotent Lens.leaves := by
   have h : (1 : Nat) + 1 = 1 := hI 1
   cases h
 
-end E213.Research.DiagonalClassification
+end E213.Research.Diagonal.Classification
 
-namespace E213.Research.DiagonalClassification
+namespace E213.Research.Diagonal.Classification
 
 open E213.Firmware E213.Hypervisor E213.Research.F9Lens
 
@@ -115,4 +115,4 @@ theorem f9Lens_not_collapse : ¬ ∃ e : F9, Collapse f9Lens e := by
   have hne : F9.mul F9.one F9.one ≠ F9.mul F9.i F9.i := by decide
   exact hne (h1.trans h2.symm)
 
-end E213.Research.DiagonalClassification
+end E213.Research.Diagonal.Classification

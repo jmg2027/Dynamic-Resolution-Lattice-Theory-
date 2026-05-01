@@ -24,7 +24,7 @@ map to Lenses.  The exact form of self-application of a semantic
 atom.
 -/
 
-namespace E213.Research.LensOnLens
+namespace E213.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -42,9 +42,9 @@ theorem const_lenses_distinct : constTrueLens ≠ constFalseLens := by
     congrArg Lens.base_a h
   exact Bool.noConfusion h_base_a
 
-end E213.Research.LensOnLens
+end E213.Research.Lens.OnLens
 
-namespace E213.Research.LensOnLens
+namespace E213.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -63,9 +63,9 @@ theorem lensXor_comm (L M : Lens Bool) : lensXor L M = lensXor M L := by
   · funext x y
     cases L.combine x y <;> cases M.combine x y <;> rfl
 
-end E213.Research.LensOnLens
+end E213.Research.Lens.OnLens
 
-namespace E213.Research.LensOnLens
+namespace E213.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -78,9 +78,9 @@ def lensBoolHasDistinguishing : HasDistinguishing (Lens Bool) where
   combine := lensXor
   combine_sym := lensXor_comm
 
-end E213.Research.LensOnLens
+end E213.Research.Lens.OnLens
 
-namespace E213.Research.LensOnLens
+namespace E213.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -107,9 +107,9 @@ theorem lensUniversalMorphism_slash (x y : Raw) (h : x ≠ y) :
       = lensXor (lensUniversalMorphism x) (lensUniversalMorphism y) :=
   @universalMorphism_slash (Lens Bool) lensBoolHasDistinguishing x y h
 
-end E213.Research.LensOnLens
+end E213.Research.Lens.OnLens
 
-namespace E213.Research.LensOnLens
+namespace E213.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -147,9 +147,9 @@ theorem lensCombineGeneric_comm {α : Type} (c : α → α → α)
   · exact hsym _ _
   · funext x y; exact hsym _ _
 
-end E213.Research.LensOnLens
+end E213.Research.Lens.OnLens
 
-namespace E213.Research.LensOnLens
+namespace E213.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -168,9 +168,9 @@ def lensHasDistinguishing (α : Type) [d : HasDistinguishing α] :
   combine := lensCombineGeneric d.combine
   combine_sym := lensCombineGeneric_comm d.combine d.combine_sym
 
-end E213.Research.LensOnLens
+end E213.Research.Lens.OnLens
 
-namespace E213.Research.LensOnLens
+namespace E213.Research.Lens.OnLens
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -210,4 +210,4 @@ def universalMorphismLevelTwo : Raw → Lens (Lens Bool) :=
 def universalMorphismLevelThree : Raw → Lens (Lens (Lens Bool)) :=
   @universalMorphism (Lens (Lens (Lens Bool))) levelThree
 
-end E213.Research.LensOnLens
+end E213.Research.Lens.OnLens

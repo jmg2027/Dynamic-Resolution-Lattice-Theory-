@@ -10,7 +10,7 @@ Classical) on Bool-valued `collisionTest` keeps everything at
 ≤ {propext, Quot.sound}.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ForwardPeriodicity
 
 open E213.OS.Pigeonhole
 
@@ -109,4 +109,4 @@ theorem joint_state_collision (bs : Nat → Bool) (p : Nat) (hp : 0 < p) :
     by rw [h_sig_val_eq]
   omega
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ForwardPeriodicity

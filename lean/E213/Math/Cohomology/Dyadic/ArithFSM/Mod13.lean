@@ -18,7 +18,7 @@ Period 14, exactly p+1.  Bit period 14 (even); signature period
 also 14 (no parity doubling needed).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod13
 
 /-- Pell-style FSM mod 13. -/
 def pellFSMmod13 : ArithFSM2 13 where
@@ -60,4 +60,4 @@ theorem pellFSMmod13_signature_period_14 :
   signature_period_of_bits_period_and_anchor pellFSMmod13.bits 14
     pellFSMmod13_bits_period_14 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod13

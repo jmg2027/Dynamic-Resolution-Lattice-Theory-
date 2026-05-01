@@ -18,7 +18,7 @@ Therefore the signature lens isn't arbitrary — it's the
 *atomically forced* lens for the DRLT framework.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.AtomicityConnection
 
 /-- ★ K_{3,2}^{(2)} signature uses exactly NS S-vertices. -/
 theorem signature_S_count : E213.Physics.Simplex.Counts.NS = 3 := rfl
@@ -61,4 +61,4 @@ theorem signature_atomicity_capstone :
         = E213.Physics.Simplex.Counts.d :=
   ⟨signature_S_count, signature_T_count, signature_d_count, by decide⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.AtomicityConnection

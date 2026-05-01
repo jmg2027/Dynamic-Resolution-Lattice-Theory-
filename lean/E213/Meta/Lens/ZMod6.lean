@@ -25,7 +25,7 @@ The ℤ/6 arithmetic is reproduced on `Nat` rather than
 and `Nat.mod`, which is all we need.
 -/
 
-namespace E213.Meta
+namespace E213.Meta.Lens.ZMod6
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,9 +54,9 @@ theorem zmod6Lens_R3_fails : ¬ NonVanishing zmod6Lens := by
   have : zmod6Lens.combine 2 3 = 0 := by decide
   exact hne this
 
-end E213.Meta
+end E213.Meta.Lens.ZMod6
 
-namespace E213.Meta
+namespace E213.Meta.Lens.ZMod6
 
 open E213.Firmware E213.Hypervisor
 
@@ -80,4 +80,4 @@ example :
       = zmod6Lens.view (Raw.slash Raw.b (Raw.slash Raw.a Raw.b (by decide))
         (by decide)) := by decide
 
-end E213.Meta
+end E213.Meta.Lens.ZMod6

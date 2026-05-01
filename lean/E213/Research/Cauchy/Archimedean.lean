@@ -23,7 +23,7 @@ Mingu (C) direction (2026-04-25): abLens + order-projection family.
 - No external metric — ordering only, as a fold-structured Bool family.
 -/
 
-namespace E213.Research.ArchimedeanCauchy
+namespace E213.Research.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.LensCauchy
@@ -40,9 +40,9 @@ def isOrderCauchy (xs : Nat → Raw) : Prop :=
   ∀ m k, k ≥ 1 → ∃ N, ∀ i j, i ≥ N → j ≥ N →
     orderProj m k (abLens.view (xs i)) = orderProj m k (abLens.view (xs j))
 
-end E213.Research.ArchimedeanCauchy
+end E213.Research.Cauchy.Archimedean
 
-namespace E213.Research.ArchimedeanCauchy
+namespace E213.Research.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -61,9 +61,9 @@ theorem diagonal_seq_orderProj_const (m k : Nat) (n : Nat) (hn : n ≥ 1) :
       exact hkm (Nat.le_of_mul_le_mul_left h' hn)
     simp [hkm, this]
 
-end E213.Research.ArchimedeanCauchy
+end E213.Research.Cauchy.Archimedean
 
-namespace E213.Research.ArchimedeanCauchy
+namespace E213.Research.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.LensCauchy
@@ -87,9 +87,9 @@ theorem cut_eq_tail {xs : Nat → Raw} (cd : OrderCauchyData xs)
   unfold OrderCauchyData.cut
   exact cd.cauchy m k n (cd.N m k) hk hn (Nat.le_refl _)
 
-end E213.Research.ArchimedeanCauchy
+end E213.Research.Cauchy.Archimedean
 
-namespace E213.Research.ArchimedeanCauchy
+namespace E213.Research.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -126,9 +126,9 @@ theorem diagonal_seq_cut (xs : Nat → Raw)
   rw [h 0]
   exact diagonal_seq_orderProj_const m k 1 (by omega)
 
-end E213.Research.ArchimedeanCauchy
+end E213.Research.Cauchy.Archimedean
 
-namespace E213.Research.ArchimedeanCauchy
+namespace E213.Research.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -181,9 +181,9 @@ theorem ratio_one_below_orderProj_eventually
       omega
     simp [hkm, hnotle]
 
-end E213.Research.ArchimedeanCauchy
+end E213.Research.Cauchy.Archimedean
 
-namespace E213.Research.ArchimedeanCauchy
+namespace E213.Research.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -211,9 +211,9 @@ theorem ratio_one_below_cut_eq_diagonal (xs ys : Nat → Raw)
   intro m k
   rw [hcdx, hcdy]
 
-end E213.Research.ArchimedeanCauchy
+end E213.Research.Cauchy.Archimedean
 
-namespace E213.Research.ArchimedeanCauchy
+namespace E213.Research.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -248,9 +248,9 @@ theorem rational_seq_cut (p q : Nat) (xs : Nat → Raw)
   rw [h 0]
   exact rational_seq_orderProj_const p q m k 1 (by omega)
 
-end E213.Research.ArchimedeanCauchy
+end E213.Research.Cauchy.Archimedean
 
-namespace E213.Research.ArchimedeanCauchy
+namespace E213.Research.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -284,9 +284,9 @@ theorem half_seq_cut (xs : Nat → Raw)
   show decide (1 * k ≤ 2 * m) = decide (k ≤ 2 * m)
   rw [Nat.one_mul]
 
-end E213.Research.ArchimedeanCauchy
+end E213.Research.Cauchy.Archimedean
 
-namespace E213.Research.ArchimedeanCauchy
+namespace E213.Research.Cauchy.Archimedean
 
 open E213.Firmware E213.Hypervisor
 
@@ -319,4 +319,4 @@ def OrderCauchyData.toRealCut {xs : Nat → Raw}
     (cd : OrderCauchyData xs) : RealCut :=
   cd.cut
 
-end E213.Research.ArchimedeanCauchy
+end E213.Research.Cauchy.Archimedean

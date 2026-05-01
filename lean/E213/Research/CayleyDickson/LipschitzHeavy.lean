@@ -11,7 +11,7 @@ new `hurwitz_ring` tactic which descends through
 AC-normalisation + `omega`.
 -/
 
-namespace E213.Research.Lipschitz
+namespace E213.Research.CayleyDickson.LipschitzHeavy
 
 open E213.Tactic
 
@@ -21,9 +21,9 @@ open E213.Tactic
 theorem mul_assoc (u v w : Lipschitz) :
     (u * v) * w = u * (v * w) := by hurwitz_ring
 
-end E213.Research.Lipschitz
+end E213.Research.CayleyDickson.LipschitzHeavy
 
-namespace E213.Research.Lipschitz
+namespace E213.Research.CayleyDickson.LipschitzHeavy
 
 open E213.Tactic E213.Research.ZI
 
@@ -38,9 +38,9 @@ theorem normSq_mul (u v : Lipschitz) :
   unfold ZI.normSq
   hurwitz_ring
 
-end E213.Research.Lipschitz
+end E213.Research.CayleyDickson.LipschitzHeavy
 
-namespace E213.Research.Lipschitz
+namespace E213.Research.CayleyDickson.LipschitzHeavy
 
 open E213.Tactic E213.Research.ZI
 
@@ -93,9 +93,9 @@ theorem normSq_eq_zero_iff (u : Lipschitz) : normSq u = 0 ↔ u = 0 := by
         rcases Int.mul_eq_zero.mp hsq with h | h <;> exact h
   · rintro rfl; rfl
 
-end E213.Research.Lipschitz
+end E213.Research.CayleyDickson.LipschitzHeavy
 
-namespace E213.Research.Lipschitz
+namespace E213.Research.CayleyDickson.LipschitzHeavy
 
 open E213.Research.ZI
 
@@ -116,4 +116,4 @@ theorem no_zero_div (u v : Lipschitz) :
   · left; exact (normSq_eq_zero_iff u).mp h
   · right; exact (normSq_eq_zero_iff v).mp h
 
-end E213.Research.Lipschitz
+end E213.Research.CayleyDickson.LipschitzHeavy

@@ -16,7 +16,7 @@ multiplication) is not commutative, so R2 fails.
 codomains, connecting the Lens framework to CD tower layer 1.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.LipschitzLens
 
 open E213.Firmware E213.Hypervisor E213.Meta Lipschitz
 
@@ -42,9 +42,9 @@ theorem lipLens_combine_not_commutative :
   have : (1 : Int) = -1 := (ZI.mk.injEq ..).mp this |>.2
   exact absurd this (by decide)
 
-end E213.Research
+end E213.Research.CayleyDickson.LipschitzLens
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.LipschitzLens
 
 open E213.Firmware E213.Hypervisor E213.Meta Lipschitz
 
@@ -78,4 +78,4 @@ theorem lipLens_image_has_ijk :
   · rw [lipLens_view_slash_ab_eq_K]; decide
   · rw [lipLens_view_slash_ab_eq_K]; decide
 
-end E213.Research
+end E213.Research.CayleyDickson.LipschitzLens

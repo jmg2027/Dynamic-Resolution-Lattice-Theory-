@@ -9,7 +9,7 @@ import E213.Research.Real213.CutSeries
 Σ_{i=0}^∞ (1/2)^i = 2 (limit, declarative).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutGeomSeries
 
 open E213.Firmware E213.Hypervisor
 
@@ -37,4 +37,4 @@ example : partialSum geomHalfSeries 2 1 1 = false := by decide
 -- Note: for deeper n tests, maximum recursion depth (Lean reduction limit,
 -- not framework limit).
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutGeomSeries

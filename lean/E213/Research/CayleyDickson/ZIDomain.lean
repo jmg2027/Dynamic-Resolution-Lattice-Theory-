@@ -15,7 +15,7 @@ is closed by `simp` with AC-arith + `omega` for cross-term
 cancellation.
 -/
 
-namespace E213.Research.ZI
+namespace E213.Research.CayleyDickson.ZIDomain
 
 theorem mul_comm (u v : ZI) : u * v = v * u := by
   apply ext
@@ -38,9 +38,9 @@ theorem normSq_nonneg (u : ZI) : 0 ≤ u.normSq := by
   have h2 := IntHelpers.mul_self_nonneg u.im
   omega
 
-end E213.Research.ZI
+end E213.Research.CayleyDickson.ZIDomain
 
-namespace E213.Research.ZI
+namespace E213.Research.CayleyDickson.ZIDomain
 
 theorem normSq_eq_zero_iff (u : ZI) : u.normSq = 0 ↔ u = 0 := by
   refine ⟨?_, ?_⟩
@@ -70,4 +70,4 @@ theorem no_zero_div (u v : ZI) : u * v = 0 → u = 0 ∨ v = 0 := by
 theorem mul_ne_zero_of_ne_zero {u v : ZI} (hu : u ≠ 0) (hv : v ≠ 0) :
     u * v ≠ 0 := fun h => (no_zero_div u v h).elim hu hv
 
-end E213.Research.ZI
+end E213.Research.CayleyDickson.ZIDomain

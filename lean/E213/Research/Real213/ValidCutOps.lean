@@ -10,7 +10,7 @@ import E213.Research.Real213.CutSumComm
 cutMax/cutMin/cutHalf/cutDouble/cutSum preserve ValidCut.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ValidCutOps
 
 open E213.Firmware E213.Hypervisor
 
@@ -107,4 +107,4 @@ theorem cutMid_valid (cx cy : Nat → Nat → Bool)
     (hx : ValidCut cx) (hy : ValidCut cy) : ValidCut (cutMid cx cy) :=
   cutHalf_valid (cutSum cx cy) (cutSum_valid cx cy hx hy)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ValidCutOps

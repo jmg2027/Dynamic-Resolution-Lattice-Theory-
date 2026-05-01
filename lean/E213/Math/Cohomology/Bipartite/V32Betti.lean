@@ -20,7 +20,7 @@ dim H¹ = dim C¹ − dim im δ₀ = 12 − 4 = **8** = NS² − 1.
 This re-establishes `PhotonKernel.b_1_eq_8` at full cochain level.
 -/
 
-namespace E213.Math.Cohomology.Bip32
+namespace E213.Math.Cohomology.Bipartite.V32Betti
 
 /-- The i-th vertex cochain via binary encoding. -/
 def cochVAt (i : Nat) : CochV := fun j => (i / 2^j.val) % 2 == 1
@@ -75,4 +75,4 @@ theorem phase_CE_capstone :
     ∧ 256 = 2^8
     ∧ 8 = 3 * 3 - 1 := by decide
 
-end E213.Math.Cohomology.Bip32
+end E213.Math.Cohomology.Bipartite.V32Betti

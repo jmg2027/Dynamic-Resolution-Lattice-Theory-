@@ -15,7 +15,7 @@ Higher-order RHS (y' = ax, y' = x², etc.) require cohomEquiv since
 the solution involves rational coefficients.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ODECatalog
 
 open E213.Firmware E213.Hypervisor
 
@@ -53,4 +53,4 @@ theorem ode_catalog_capstone (a b : Nat) (c : Nat → Nat → Bool) :
     ∧ cutHalfIsDifferentiable.derivative = constCutFn (constCut 1 2) :=
   ⟨rfl, rfl, ode_constant_a_solution a b, rfl, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ODECatalog

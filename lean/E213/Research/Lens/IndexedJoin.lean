@@ -19,7 +19,7 @@ For a finite family the result equals iterated binary join.
 Provides new expressiveness for infinite families.
 -/
 
-namespace E213.Research.IndexedJoinLens
+namespace E213.Research.Lens.IndexedJoin
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.JoinEquiv E213.Research.UniversalQuotLens
@@ -89,9 +89,9 @@ theorem iJoinLens_is_least {ι : Type} {γ : Type}
   have hJE : IJoinEquiv F r r' := (iJoinLens_kernel F r r').mp h
   exact ijoin_implies_N F N hNsym hAll r r' hJE
 
-end E213.Research.IndexedJoinLens
+end E213.Research.Lens.IndexedJoin
 
-namespace E213.Research.IndexedJoinLens
+namespace E213.Research.Lens.IndexedJoin
 
 open E213.Firmware E213.Hypervisor
 
@@ -161,4 +161,4 @@ theorem iProdLens_is_greatest {ι : Type} {α : Type}
   funext i
   exact hAll i r r' h
 
-end E213.Research.IndexedJoinLens
+end E213.Research.Lens.IndexedJoin

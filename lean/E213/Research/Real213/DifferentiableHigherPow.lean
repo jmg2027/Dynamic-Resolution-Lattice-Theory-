@@ -7,7 +7,7 @@ Phase AF: IsDifferentiable polynomial coverage to degrees 5-8
 (parity with quinticIsSmooth..octicIsSmooth chain).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DifferentiableHigherPow
 
 open E213.Firmware E213.Hypervisor
 
@@ -71,4 +71,4 @@ theorem polynomial_higher_pow_capstone (k : Nat) :
   ⟨quinticIsDifferentiable_modulus k, sexticIsDifferentiable_modulus k,
    septicIsDifferentiable_modulus k, octicIsDifferentiable_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DifferentiableHigherPow

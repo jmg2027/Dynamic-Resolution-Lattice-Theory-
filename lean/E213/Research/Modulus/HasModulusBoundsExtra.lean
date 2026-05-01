@@ -7,7 +7,7 @@ Derived results natural to `HasModulus xs` — modulus monotonicity,
 fixed-N versions, etc.
 -/
 
-namespace E213.Research.HasModulusBoundsExtra
+namespace E213.Research.Modulus.HasModulusBoundsExtra
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -22,4 +22,4 @@ theorem cauchy_at_larger_N (xs : Nat → Raw) (h : HasModulus xs)
     orderProj m k (abLens.view (xs j)) :=
   h.cauchy_at m k hk i j (Nat.le_trans hM hi) (Nat.le_trans hM hj)
 
-end E213.Research.HasModulusBoundsExtra
+end E213.Research.Modulus.HasModulusBoundsExtra

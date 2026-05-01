@@ -3,7 +3,7 @@ import E213.Research.IntHelpers
 import E213.Research.CayleyDickson.LipschitzHeavy
 import E213.Tactic.HurwitzRing
 
-namespace E213.Research.Cayley
+namespace E213.Research.CayleyDickson.CayleyHeavy
 
 open E213.Tactic
 
@@ -11,9 +11,9 @@ open E213.Tactic
 theorem alt_left (a b : Cayley) : (a * a) * b = a * (a * b) := by
   hurwitz_ring
 
-end E213.Research.Cayley
+end E213.Research.CayleyDickson.CayleyHeavy
 
-namespace E213.Research.Cayley
+namespace E213.Research.CayleyDickson.CayleyHeavy
 
 open E213.Tactic
 
@@ -25,9 +25,9 @@ theorem alt_right (a b : Cayley) : a * (b * b) = (a * b) * b := by
 theorem flexible (a b : Cayley) : (a * b) * a = a * (b * a) := by
   hurwitz_ring
 
-end E213.Research.Cayley
+end E213.Research.CayleyDickson.CayleyHeavy
 
-namespace E213.Research.Cayley
+namespace E213.Research.CayleyDickson.CayleyHeavy
 
 open E213.Tactic E213.Research.Lipschitz E213.Research.ZI
 
@@ -50,9 +50,9 @@ theorem normSq_mul (u v : Cayley) :
   unfold ZI.normSq
   hurwitz_ring
 
-end E213.Research.Cayley
+end E213.Research.CayleyDickson.CayleyHeavy
 
-namespace E213.Research.Cayley
+namespace E213.Research.CayleyDickson.CayleyHeavy
 
 open E213.Tactic E213.Research.Lipschitz E213.Research.ZI
 
@@ -100,4 +100,4 @@ theorem no_zero_div (u v : Cayley) :
   · left; exact (normSq_eq_zero_iff u).mp h
   · right; exact (normSq_eq_zero_iff v).mp h
 
-end E213.Research.Cayley
+end E213.Research.CayleyDickson.CayleyHeavy

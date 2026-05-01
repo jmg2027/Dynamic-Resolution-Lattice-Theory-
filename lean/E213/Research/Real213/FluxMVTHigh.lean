@@ -11,7 +11,7 @@ Hence localDivergence x^n unit = fluxAlong x^n unit = ofCut 1
 for any n ≥ 1.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTHigh
 
 open E213.Firmware E213.Hypervisor
 
@@ -67,4 +67,4 @@ theorem phaseBD_capstone :
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTHigh

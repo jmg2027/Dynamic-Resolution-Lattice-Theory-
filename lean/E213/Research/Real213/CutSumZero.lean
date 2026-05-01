@@ -9,7 +9,7 @@ import E213.Research.Real213.CutBisection
 Specific algebraic identity: 0 + 0 = 0 at cut level.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSumZero
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,4 +64,4 @@ example : cutSum (constCut 2 1) (constCut 3 1) 5 1 = true := by decide
 /-- 2 * 3 = 6, NOT ≤ 5/1. -/
 example : cutMul (constCut 2 1) (constCut 3 1) 5 1 = false := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSumZero

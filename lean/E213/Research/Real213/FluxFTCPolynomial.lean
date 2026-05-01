@@ -16,7 +16,7 @@ equality between rate (divergence) and boundary (flux) forms.
   ftc_bridge_cube_unitBracket   : LD = fluxAlong (FTC propEq)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxFTCPolynomial
 
 open E213.Firmware E213.Hypervisor
 
@@ -67,4 +67,4 @@ theorem polynomial_ftc_bridge_capstone :
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxFTCPolynomial

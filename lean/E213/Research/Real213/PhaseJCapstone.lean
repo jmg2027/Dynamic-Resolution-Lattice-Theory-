@@ -25,7 +25,7 @@ dyadic search trajectory + resolution-depth filter".
 (vii) IsSmooth filter: x↦(a/b)*x is smooth (linearityModulus = id).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseJCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -123,4 +123,4 @@ theorem consistentOracle_exists_on_collapsed
     ∃ co : ConsistentOracle db, co.oracle = oracle :=
   ⟨ConsistentOracle.collapsed db h oracle, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseJCapstone

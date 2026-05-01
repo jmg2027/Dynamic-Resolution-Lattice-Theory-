@@ -29,7 +29,7 @@ closure of Paper 1.
 `#print axioms`: [propext] only.
 -/
 
-namespace E213.Research.MonotonicBoundedCauchy
+namespace E213.Research.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -55,9 +55,9 @@ def IsAbMonotonic (xs : Nat → Raw) : Prop :=
 def IsAbPositiveB (xs : Nat → Raw) : Prop :=
   ∀ n, 1 ≤ (abLens.view (xs n)).2
 
-end E213.Research.MonotonicBoundedCauchy
+end E213.Research.Cauchy.MonotonicBounded
 
-namespace E213.Research.MonotonicBoundedCauchy
+namespace E213.Research.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -133,9 +133,9 @@ theorem ab_monotonic_chain (xs : Nat → Raw)
         subst hp
         exact Nat.le_refl _
 
-end E213.Research.MonotonicBoundedCauchy
+end E213.Research.Cauchy.MonotonicBounded
 
-namespace E213.Research.MonotonicBoundedCauchy
+namespace E213.Research.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -188,9 +188,9 @@ theorem orderProj_false_propagates (xs : Nat → Raw)
   rw [he3] at h3
   exact Nat.le_of_mul_le_mul_right' _ _ _ hbi h3
 
-end E213.Research.MonotonicBoundedCauchy
+end E213.Research.Cauchy.MonotonicBounded
 
-namespace E213.Research.MonotonicBoundedCauchy
+namespace E213.Research.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -237,4 +237,4 @@ theorem orderCauchy_from_true_forever (xs : Nat → Raw)
   refine ⟨0, ?_⟩
   intro i j _ _; rw [h i, h j]
 
-end E213.Research.MonotonicBoundedCauchy
+end E213.Research.Cauchy.MonotonicBounded

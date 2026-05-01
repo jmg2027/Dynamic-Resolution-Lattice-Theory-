@@ -12,7 +12,7 @@ cutEq cx cy := pointwise Bool equality.
 Native order on RealCut in 213.  Cut form of Bishop's ≤.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutPoset
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,9 +64,9 @@ theorem cutEq_of_cutLe_both (cx cy : Nat → Nat → Bool) :
       exact Bool.noConfusion hcx
     | false => rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutPoset
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutPoset
 
 open E213.Firmware E213.Hypervisor
 
@@ -127,4 +127,4 @@ theorem cutMin_glb (cx cy cz : Nat → Nat → Bool)
     | true => exact hzy m k hcy
     | false => rw [hcx, hcy] at hor; cases hor
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutPoset

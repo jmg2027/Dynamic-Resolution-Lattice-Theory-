@@ -16,7 +16,7 @@ just cohomEquiv.  The framework provides propEq when reachable,
 cohomEquiv when structural reduction blocks it.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseBACapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -49,4 +49,4 @@ theorem phaseBA_capstone (a b c d : FluxCut) (hab : FluxCut.cohomEquiv a b)
    FluxCut.ftc_bridge_id_unitBracket,
    FluxCut.localDivergence_const_balanced cf db⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseBACapstone

@@ -32,7 +32,7 @@ only by half (2), which is the part that cannot be formalised
 inside the axiom's Raw. This is the smuggling channel.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.R5Vacuity
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -51,4 +51,4 @@ theorem foldTotality_vacuous {α : Type} :
     ∀ L : Lens α, ∀ r : Raw, ∃ a : α, L.view r = a :=
   fun L r => foldTotality L r
 
-end E213.Research
+end E213.Research.CayleyDickson.R5Vacuity

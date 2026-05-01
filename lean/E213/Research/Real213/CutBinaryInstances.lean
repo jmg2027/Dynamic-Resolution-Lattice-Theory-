@@ -8,7 +8,7 @@ Demonstrates 213-style generic kernel: specific operations as
 parameterizations of `cutBinary`.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBinaryInstances
 
 open E213.Firmware E213.Hypervisor
 
@@ -36,4 +36,4 @@ example : cutMulViaBinary (constCut 1 1) (constCut 1 1) 1 1 = true := by decide
 /-- (1/2)*(1/2) = 1/4 ≤ 1/4, via generic. -/
 example : cutMulViaBinary (constCut 1 2) (constCut 1 2) 1 4 = true := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBinaryInstances

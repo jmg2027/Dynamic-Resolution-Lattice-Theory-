@@ -10,7 +10,7 @@ both sides by 2^min(m,p) and observe an odd-vs-even contradiction.
 213-native (≤ {propext, Quot.sound}, no Mathlib).
 -/
 
-namespace E213.Meta.BitPattern
+namespace E213.Meta.BitPatternUniqueness
 
 /-- ★★★★★★ Key uniqueness lemma: if 2^m + 2^n = 2^p + 2^q with
     m < n and p < q, then m = p and n = q. -/
@@ -157,4 +157,4 @@ theorem two_pow_sum_inj_full
   two_pow_sum_inj_unordered m n p q hmn
     (two_pow_sum_distinct_forces_distinct m n p q hmn heq) heq
 
-end E213.Meta.BitPattern
+end E213.Meta.BitPatternUniqueness

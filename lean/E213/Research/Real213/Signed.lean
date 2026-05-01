@@ -27,7 +27,7 @@ Negation = sign flip.
 - Bishop also defines signed reals as |abs| × sign.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.Signed
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ArchimedeanCauchy
@@ -105,4 +105,4 @@ theorem cutNeg_cutSignedMul_right (sx sy : SignedCut) :
   congr 1
   cases sx.sign <;> cases sy.sign <;> rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.Signed

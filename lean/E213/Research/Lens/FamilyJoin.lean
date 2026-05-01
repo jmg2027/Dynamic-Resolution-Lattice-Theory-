@@ -20,7 +20,7 @@ of the complete-lattice structure: the set of slash-congruences is a
 *complete lattice*.
 -/
 
-namespace E213.Research.FamilyJoin
+namespace E213.Research.Lens.FamilyJoin
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
@@ -39,9 +39,9 @@ inductive FamilyJoinEquiv {I : Type} (E : I → Raw → Raw → Prop) :
       FamilyJoinEquiv E x x' → FamilyJoinEquiv E y y' →
       FamilyJoinEquiv E (Raw.slash x y h) (Raw.slash x' y' h')
 
-end E213.Research.FamilyJoin
+end E213.Research.Lens.FamilyJoin
 
-namespace E213.Research.FamilyJoin
+namespace E213.Research.Lens.FamilyJoin
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
@@ -71,4 +71,4 @@ theorem familyJoin_contains {I : Type} (E : I → Raw → Raw → Prop)
     (familyJoinLens E).view r = (familyJoinLens E).view r' :=
   (familyJoinLens_kernel E r r').mpr (FamilyJoinEquiv.ofI i h)
 
-end E213.Research.FamilyJoin
+end E213.Research.Lens.FamilyJoin

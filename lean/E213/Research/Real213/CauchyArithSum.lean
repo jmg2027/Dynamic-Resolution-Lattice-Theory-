@@ -11,7 +11,7 @@ the search range j ∈ [0, 2m] of a.N j (2k) and b.N j (2k).
 Key lemma: cutSumAux_congr (existing in Real213CutSumDetermined).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CauchyArithSum
 
 open E213.Firmware E213.Hypervisor
 
@@ -99,4 +99,4 @@ theorem CauchyCutSeq.cutSum_comm_limit (a b : CauchyCutSeq) :
   funext m k
   exact cutSum_comm a.limit b.limit m k
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CauchyArithSum

@@ -15,7 +15,7 @@ yields a stream with period dividing `lcm(p, q)` — the formal
 content of CRT period multiplicativity.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.LCMClosure
 
 /-- Nat.lcm positivity. -/
 theorem Nat.lcm_pos {p q : Nat} (hp : 0 < p) (hq : 0 < q) : 0 < Nat.lcm p q := by
@@ -73,4 +73,4 @@ theorem bs_combined_periodic_lcm (bs1 bs2 : Nat → Bool) (p q : Nat)
     bs_periodic_of_dvd bs2 q (Nat.lcm p q) hq (_root_.Nat.dvd_lcm_right p q) h2 k
   rw [h1', h2']
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.LCMClosure

@@ -13,7 +13,7 @@ This file defines the type + zero + add (XOR) only.
 δ (coboundary) lives in `CohomologyDelta.lean` (file 3).
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Cochain.Core
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -73,4 +73,4 @@ theorem dim_C3 : binom d 3 = 10 := by decide
 theorem dim_C4 : binom d 4 = 5  := by decide
 theorem dim_C5 : binom d 5 = 1  := by decide
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Cochain.Core

@@ -9,7 +9,7 @@ Single conjunctive theorem: differentiation + MVT + FTC +
 integration + ODE + Newton + series + 7 transcendentals at zero.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseDKUltimate
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,4 +62,4 @@ theorem phaseDK_ultimate_capstone (n k a b numA numB E : Nat)
    coshAtZero_partial_succ n,
    logAtOne_partial n⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseDKUltimate

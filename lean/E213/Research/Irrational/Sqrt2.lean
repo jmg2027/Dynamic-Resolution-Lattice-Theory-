@@ -15,7 +15,7 @@ Proof: 2-adic descent.  m² = 2k² → m even → m = 2m' →
 k' < k so apply induction hypothesis.
 -/
 
-namespace E213.Research.Sqrt2Irrational
+namespace E213.Research.Irrational.Sqrt2
 
 /-- The parity of `m * m` matches the parity of `m`. -/
 theorem mul_self_mod_two (m : Nat) : m * m % 2 = m % 2 := by
@@ -37,9 +37,9 @@ theorem mul_self_mod_two (m : Nat) : m * m % 2 = m % 2 := by
       rw [e0, e1, e2, e3]; omega
     rw [h1]; omega
 
-end E213.Research.Sqrt2Irrational
+end E213.Research.Irrational.Sqrt2
 
-namespace E213.Research.Sqrt2Irrational
+namespace E213.Research.Irrational.Sqrt2
 
 /-- Descent step for `m * m = 2 * k * k`:
     m even → m = 2m', 2 * (m'*m') = k*k. -/
@@ -51,9 +51,9 @@ private theorem descent_step (m k : Nat) (heq : m * m = 2 * (k * k))
   -- 4 * (m' * m') = 2 * (k * k) → 2 * (m' * m') = k * k
   omega
 
-end E213.Research.Sqrt2Irrational
+end E213.Research.Irrational.Sqrt2
 
-namespace E213.Research.Sqrt2Irrational
+namespace E213.Research.Irrational.Sqrt2
 
 /-- **Auxiliary descent**: bounded by `s` (s ≥ k), descent
     works step-by-step.  If k is even then m is even; halving both
@@ -86,9 +86,9 @@ theorem sqrt2_no_rational_aux :
         have hk'_zero : k' = 0 := ih k' m' hk'_le h4
         omega
 
-end E213.Research.Sqrt2Irrational
+end E213.Research.Irrational.Sqrt2
 
-namespace E213.Research.Sqrt2Irrational
+namespace E213.Research.Irrational.Sqrt2
 
 /-- **Irrationality of √2, framework-internal**: ∀ k, m: ℕ,
     m² = 2 k² → k = 0.
@@ -105,4 +105,4 @@ theorem sqrt2_irrational (k : Nat) (hk : k ≥ 1) (m : Nat) :
   have h := sqrt2_no_rational_aux k k m (Nat.le_refl _) heq
   omega
 
-end E213.Research.Sqrt2Irrational
+end E213.Research.Irrational.Sqrt2

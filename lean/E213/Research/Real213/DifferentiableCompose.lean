@@ -14,7 +14,7 @@ instances yield closed-form moduli via the chain rule.
   cubeOfSquareIsDifferentiable       : (x²)³ ≡ x⁶, modulus = 6k
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DifferentiableCompose
 
 open E213.Firmware E213.Hypervisor
 
@@ -67,4 +67,4 @@ theorem polynomial_compose_capstone (k : Nat) :
     ∧ cubeOfSquareIsDifferentiable.linearityModulus k = 6 * k :=
   ⟨squareOfSquare_modulus k, squareOfCube_modulus k, cubeOfSquare_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DifferentiableCompose

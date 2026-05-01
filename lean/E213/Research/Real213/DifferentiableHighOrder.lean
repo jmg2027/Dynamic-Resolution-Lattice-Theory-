@@ -11,7 +11,7 @@ Phase AK: IsDifferentiable selected high-order polynomials.
   hexadecic : x¹⁶ = x⁸·x⁸, modulus = 16k
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DifferentiableHighOrder
 
 open E213.Firmware E213.Hypervisor
 
@@ -78,4 +78,4 @@ theorem polynomial_high_order_capstone (k : Nat) :
   ⟨nonicIsDifferentiable_modulus k, decicIsDifferentiable_modulus k,
    dodecicIsDifferentiable_modulus k, hexadecicIsDifferentiable_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DifferentiableHighOrder

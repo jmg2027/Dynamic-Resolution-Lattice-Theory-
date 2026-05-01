@@ -9,7 +9,7 @@ Bundles all known constructive dyadic MVT witnesses + the
 HasDyadicMVTWitness class infrastructure.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseBXCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -39,4 +39,4 @@ theorem phaseBX_witness_capstone (c : Nat → Nat → Bool) :
    HasDyadicMVTWitness.id_compose_square.proof,
    square_has_dyadic_witness⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseBXCapstone

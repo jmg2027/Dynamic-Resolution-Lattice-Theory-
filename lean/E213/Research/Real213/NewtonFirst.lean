@@ -16,7 +16,7 @@ Our framework formalizes this propEq:
   - acceleration: second derivative = 0
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.NewtonFirst
 
 open E213.Firmware E213.Hypervisor
 
@@ -51,4 +51,4 @@ theorem newton_first_law_capstone (v0 x0 : Nat) (t : Nat → Nat → Bool) :
    by rw [velocity_is_v0]; rfl,
    rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.NewtonFirst

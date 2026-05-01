@@ -21,7 +21,7 @@ EulerCombinatorialPure's e bound and WallisSharper's π bound are already
 partial building blocks.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.Functions
 
 open E213.Firmware E213.Hypervisor
 
@@ -40,4 +40,4 @@ def sinCut (x : Nat → Nat → Bool) : Nat → Nat → Bool :=
 def cosCut (x : Nat → Nat → Bool) : Nat → Nat → Bool :=
   fun _ _ => true
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.Functions

@@ -24,7 +24,7 @@ Lenses.  The refines preorder provides the structure of the Lens
 world.
 -/
 
-namespace E213.Research.LensLattice
+namespace E213.Research.Lens.Lattice
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
@@ -46,9 +46,9 @@ theorem constLens_view {α : Type} (e : α) (r : Raw) :
         Raw.fold_slash _ _ _ (by intro _ _; rfl) x y h
       rw [hfs]; rfl
 
-end E213.Research.LensLattice
+end E213.Research.Lens.Lattice
 
-namespace E213.Research.LensLattice
+namespace E213.Research.Lens.Lattice
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
@@ -70,9 +70,9 @@ theorem all_refine_constLens {α : Type} (e : α) (L : Lens α) :
   show (constLens e).view x = (constLens e).view y
   rw [constLens_view, constLens_view]
 
-end E213.Research.LensLattice
+end E213.Research.Lens.Lattice
 
-namespace E213.Research.LensLattice
+namespace E213.Research.Lens.Lattice
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
@@ -101,4 +101,4 @@ theorem constLens_refines_iff_const {α β : Type} (e : α) (L : Lens β) :
   · intro hconst x y _
     exact hconst x y
 
-end E213.Research.LensLattice
+end E213.Research.Lens.Lattice

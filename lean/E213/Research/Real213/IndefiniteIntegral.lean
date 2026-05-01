@@ -15,7 +15,7 @@ This represents ∫_0^x f dt cohomologically.
   indefIntFromZero hF (constCut 0 1) = balanced (= 0)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IndefiniteIntegral
 
 namespace IsAntiderivative
 
@@ -65,4 +65,4 @@ theorem indefIntFromZero_capstone (a : Nat) :
    IsAntiderivative.indefIntFromZero_at_zero IsAntiderivative.id_anti,
    rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IndefiniteIntegral

@@ -27,7 +27,7 @@ Raw.a is small; Raw.slash Raw.a Raw.b is not small.  Therefore
 they are separated by JoinEquiv.
 -/
 
-namespace E213.Research.LeavesDepthJoin
+namespace E213.Research.Leaves.DepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
@@ -154,9 +154,9 @@ theorem class_of_a_iff_small (r : Raw) :
   · intro hs
     exact JoinEquiv.symm (small_joinEquiv_a r hs)
 
-end E213.Research.LeavesDepthJoin
+end E213.Research.Leaves.DepthJoin
 
-namespace E213.Research.LeavesDepthJoin
+namespace E213.Research.Leaves.DepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
@@ -365,9 +365,9 @@ private theorem tier_slash_from_inputs (x y x' y' : Raw)
     tier (Raw.slash x y hxy) = tier (Raw.slash x' y' hx'y') := by
   rw [tier_slash, tier_slash, htx, hty]
 
-end E213.Research.LeavesDepthJoin
+end E213.Research.Leaves.DepthJoin
 
-namespace E213.Research.LeavesDepthJoin
+namespace E213.Research.Leaves.DepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
@@ -387,9 +387,9 @@ theorem tier_invariant (r r' : Raw)
   | slash_cong hxy hx'y' _ _ ih1 ih2 =>
       exact tier_slash_from_inputs _ _ _ _ hxy hx'y' ih1 ih2
 
-end E213.Research.LeavesDepthJoin
+end E213.Research.Leaves.DepthJoin
 
-namespace E213.Research.LeavesDepthJoin
+namespace E213.Research.Leaves.DepthJoin
 
 open E213.Firmware E213.Hypervisor
 
@@ -425,9 +425,9 @@ theorem tierLens_view_eq_tier (r : Raw) : tierLens.view r = tier r := by
            = (if tier x = 0 ∧ tier y = 0 then 1 else 2)
       rfl
 
-end E213.Research.LeavesDepthJoin
+end E213.Research.Leaves.DepthJoin
 
-namespace E213.Research.LeavesDepthJoin
+namespace E213.Research.Leaves.DepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
@@ -491,9 +491,9 @@ theorem three_classes_distinct :
     rw [repr0_tier, repr2_tier] at this
     exact absurd this (by decide)
 
-end E213.Research.LeavesDepthJoin
+end E213.Research.Leaves.DepthJoin
 
-namespace E213.Research.LeavesDepthJoin
+namespace E213.Research.Leaves.DepthJoin
 
 open E213.Firmware E213.Hypervisor E213.Research.JoinEquiv
 
@@ -530,4 +530,4 @@ theorem joinEquiv_subset_tierLens (r r' : Raw)
   rw [tierLens_view_eq_tier, tierLens_view_eq_tier]
   exact tier_invariant r r' h
 
-end E213.Research.LeavesDepthJoin
+end E213.Research.Leaves.DepthJoin

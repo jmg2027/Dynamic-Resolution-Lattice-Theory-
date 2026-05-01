@@ -13,7 +13,7 @@ buildable from these gets MVT/FTC at unit + explicit derivative
   ClassicCalc.mul_calc        : cutMul f g if both ClassicCalc
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ClassicCalcCombinators
 
 open E213.Firmware E213.Hypervisor
 
@@ -60,4 +60,4 @@ theorem combinators_capstone :
 
 end ClassicCalc
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ClassicCalcCombinators

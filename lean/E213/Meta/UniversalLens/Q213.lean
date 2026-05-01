@@ -19,7 +19,7 @@ This file constructs `Lens ((Term × Term) × (Term × Term))` using
 the same exp-sum encoding, lifted from ℕ × ℕ.
 -/
 
-namespace E213.Meta.UniversalLensQ213
+namespace E213.Meta.UniversalLens.Q213
 
 open E213.Firmware E213.Hypervisor E213.Kernel
 
@@ -77,4 +77,4 @@ theorem q213Lens_distinguishes_a_b :
   show False
   exact absurd h3 (by decide)
 
-end E213.Meta.UniversalLensQ213
+end E213.Meta.UniversalLens.Q213

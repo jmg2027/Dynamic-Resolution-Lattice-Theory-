@@ -9,7 +9,7 @@ three facts are the hypotheses needed to apply
 `Raw.fold_swap_hom` to obtain R4 for `ziLens`.
 -/
 
-namespace E213.Research.ZI
+namespace E213.Research.CayleyDickson.ZIHom
 
 /-- `conj` sends `I` to `-I`. -/
 theorem conj_I : ZI.conj I = negI := by
@@ -33,4 +33,4 @@ theorem conj_mul (u v : ZI) : conj (u * v) = conj u * conj v := by
        = u.re * (-v.im) + (-u.im) * v.re
     rw [Int.mul_neg, Int.neg_mul, ← Int.neg_add]
 
-end E213.Research.ZI
+end E213.Research.CayleyDickson.ZIHom

@@ -24,7 +24,7 @@ ANY b.
       ⇒ constCut (n * a) b m k = true.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PartialSumGeneral
 
 open E213.Firmware E213.Hypervisor
 
@@ -87,4 +87,4 @@ theorem partialSum_fifths_forward (n m k : Nat) :
   have := partialSum_const_b_forward 1 5 n m k h
   rwa [Nat.mul_one] at this
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PartialSumGeneral

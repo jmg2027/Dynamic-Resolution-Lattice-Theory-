@@ -10,7 +10,7 @@ This is the Δ³ vertex cochain Universal δ²=0 — bridges the (3, 1)
 and (5, 1) cases.
 -/
 
-namespace E213.Math.Cohomology.Universal.Core.Prop41
+namespace E213.Math.Cohomology.Universal.Prop41
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -44,4 +44,4 @@ theorem dsq_zero_prop_4_1 (σ : Cochain 4 1)
   rw [pattern_eq σ]
   exact dsq_pattern _ _ _ _ i
 
-end E213.Math.Cohomology.Universal.Core.Prop41
+end E213.Math.Cohomology.Universal.Prop41

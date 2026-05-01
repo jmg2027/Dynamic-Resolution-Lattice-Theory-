@@ -25,7 +25,7 @@ The 4-way classification covers the cases where `sq` is constant /
 id / linear / quadratic; involution is a fifth possibility.
 -/
 
-namespace E213.Research.NegSqLens
+namespace E213.Research.Lens.NegSq
 
 open E213.Firmware E213.Hypervisor E213.Research.DiagonalClassification
 
@@ -62,4 +62,4 @@ theorem negSqLens_symmetric :
     ∀ u v : Bool, negSqLens.combine u v = negSqLens.combine v u := by
   intro u v; cases u <;> cases v <;> rfl
 
-end E213.Research.NegSqLens
+end E213.Research.Lens.NegSq

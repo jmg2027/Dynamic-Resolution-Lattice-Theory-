@@ -15,7 +15,7 @@ This corresponds to the **Join (least upper bound)** of the refines
 preorder — the smallest congruence that refines both kernels.
 -/
 
-namespace E213.Research.JoinEquiv
+namespace E213.Research.Lens.JoinEquiv
 
 open E213.Firmware E213.Hypervisor
 
@@ -49,9 +49,9 @@ theorem JoinEquiv_slash_cong {α β : Type} (L : Lens α) (M : Lens β)
     JoinEquiv L M (Raw.slash x y hxy) (Raw.slash x' y' hx'y') :=
   JoinEquiv.slash_cong hxy hx'y' hxx' hyy'
 
-end E213.Research.JoinEquiv
+end E213.Research.Lens.JoinEquiv
 
-namespace E213.Research.JoinEquiv
+namespace E213.Research.Lens.JoinEquiv
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.KernelCongruence
@@ -77,4 +77,4 @@ theorem JoinEquiv_is_least {α β γ : Type} (L : Lens α) (M : Lens β) (N : Le
   | slash_cong hxy hx'y' _ _ ih1 ih2 =>
       exact Lens.equiv_slash_congruence N hNsym _ _ _ _ hxy hx'y' ih1 ih2
 
-end E213.Research.JoinEquiv
+end E213.Research.Lens.JoinEquiv

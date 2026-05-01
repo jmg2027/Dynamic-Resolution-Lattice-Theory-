@@ -34,7 +34,7 @@ of sequences or tree structures — naturally captured by the 213 framework.
 Only *arbitrary subsets* (power sets) are rejected by the framework.
 -/
 
-namespace E213.Research.Hyper213
+namespace E213.Research.Hyper.Hyper213
 
 open E213.Firmware
 
@@ -61,9 +61,9 @@ theorem cofinite_trans (xs ys zs : Hyper213) :
   have hN2 : n ≥ N2 := Nat.le_trans (Nat.le_max_right N1 N2) hn
   exact (h1 n hN1).trans (h2 n hN2)
 
-end E213.Research.Hyper213
+end E213.Research.Hyper.Hyper213
 
-namespace E213.Research.Hyper213
+namespace E213.Research.Hyper.Hyper213
 
 open E213.Firmware
 
@@ -78,4 +78,4 @@ theorem const_equiv_iff (r r' : Raw) :
     exact h N (Nat.le_refl N)
   · intro h; rw [h]; exact cofinite_refl _
 
-end E213.Research.Hyper213
+end E213.Research.Hyper.Hyper213

@@ -25,7 +25,7 @@ Frobenius-orbit interpretation: predictor is upper bound, tight
 period coincides iff no Frobenius-stable proper subgroup.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor22
 
 theorem legendre_5_mod_79 :
     legendre213 5 79 (by decide) = ⟨1, by decide⟩ := by decide
@@ -33,4 +33,4 @@ theorem legendre_5_mod_79 :
 theorem legendre_5_mod_89 :
     legendre213 5 89 (by decide) = ⟨1, by decide⟩ := by decide
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pisano.Predictor22

@@ -12,7 +12,7 @@ arithmetic chain — even with the base case alone, the *existence* of
 the sharper bound is formalized axiom-free.
 -/
 
-namespace E213.Research.EulerSharperKernelFree
+namespace E213.Research.Cauchy.EulerSharperKernelFree
 
 open E213.Research.EulerSeq
 
@@ -27,4 +27,4 @@ theorem euler_sharper_lower_n4 :
     2 * eulerNum 4 ≥ 5 * eulerDen 4 + 1 := by
   decide
 
-end E213.Research.EulerSharperKernelFree
+end E213.Research.Cauchy.EulerSharperKernelFree

@@ -11,7 +11,7 @@ to collapse Cup Leibniz from O(2^N · 2^M) decide cases to
 ~N · M basis-pair cases.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Delta.Linear
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -74,4 +74,4 @@ theorem delta_linear_capstone (n k : Nat)
       = xor (delta σ τ_idx) (delta τ τ_idx) :=
   delta_add n k σ τ τ_idx
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Delta.Linear

@@ -16,7 +16,7 @@ single conjunctive theorem.
        cutScale, cutHalf differentiable (linear functions)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseAESuperCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -55,4 +55,4 @@ theorem phaseAE_super_capstone (n k a b : Nat) (x : Nat → Nat → Bool) :
    quarticIsDifferentiable_modulus k,
    rfl, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseAESuperCapstone

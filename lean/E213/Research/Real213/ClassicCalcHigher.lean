@@ -8,7 +8,7 @@ Phase BM: ClassicCalc to polynomial chain degrees 4-8.
 Each gets explicit derivative + Passthrough + one-liner MVT/FTC.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ClassicCalcHigher
 
 open E213.Firmware E213.Hypervisor
 
@@ -79,4 +79,4 @@ theorem classic_calc_higher_capstone :
 
 end ClassicCalc
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ClassicCalcHigher

@@ -5,7 +5,7 @@ import E213.Research.Real213.CutMulOne
 # Research.Real213CutSumOne: cutSum (1)(1) = constCut 2 1 (general theorem)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSumOne
 
 open E213.Firmware E213.Hypervisor
 
@@ -387,4 +387,4 @@ theorem cutSum_self (a b : Nat) :
       rw [this]
       exact decide_eq_true h_a2k_bm
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSumOne

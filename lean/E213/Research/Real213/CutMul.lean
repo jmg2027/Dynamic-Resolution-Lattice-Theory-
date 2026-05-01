@@ -19,7 +19,7 @@ m1*m2 ≤ m*k.
 bound = (m+1)*(k+1) — sufficient search space.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMul
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ArchimedeanCauchy
@@ -41,4 +41,4 @@ def cutMul (cx cy : Nat → Nat → Bool) (m k : Nat) : Bool :=
   let bound := (m + 1) * (k + 1)
   cutMulOuter cx cy k m bound bound
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMul

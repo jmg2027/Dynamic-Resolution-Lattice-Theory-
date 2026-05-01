@@ -28,7 +28,7 @@ prevent zero divisors; R3 is an independent constraint on
 the codomain ring.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.ZSqrtProduct
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -47,9 +47,9 @@ def zSqrtProdLens (D₁ D₂ : Int) :
 def zSqrtProdConj (p : ZSqrt D₁ × ZSqrt D₂) : ZSqrt D₁ × ZSqrt D₂ :=
   (ZSqrt.conj p.1, ZSqrt.conj p.2)
 
-end E213.Research
+end E213.Research.CayleyDickson.ZSqrtProduct
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.ZSqrtProduct
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -99,9 +99,9 @@ theorem zSqrtProdLens_R4 :
       show (u.1 * v.1, u.2 * v.2) = (v.1 * u.1, v.2 * u.2)
       rw [ZSqrt.mul_comm u.1 v.1, ZSqrt.mul_comm u.2 v.2]) r
 
-end E213.Research
+end E213.Research.CayleyDickson.ZSqrtProduct
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.ZSqrtProduct
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -149,4 +149,4 @@ theorem zSqrtProdLens_R3_fails :
     · show (0 : Int) * 0 - D₂ * (0 * 1) = 0; simp
     · show (0 : Int) * 1 + 0 * 0 = 0; simp
 
-end E213.Research
+end E213.Research.CayleyDickson.ZSqrtProduct

@@ -21,7 +21,7 @@ orderProj m k (a, b) = decide (a*k ≤ b*m) — cross-mult form.
   explicit modulus-form evidence.
 -/
 
-namespace E213.Research.Real213.Core
+namespace E213.Research.Real213.Order
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -41,9 +41,9 @@ def lt (r r' : Real213) : Prop :=
     orderProj m k (abLens.view (r.xs i)) = true ∧
     orderProj m k (abLens.view (r'.xs i)) = false
 
-end E213.Research.Real213.Core
+end E213.Research.Real213.Order
 
-namespace E213.Research.Real213.Core
+namespace E213.Research.Real213.Order
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -74,4 +74,4 @@ theorem lt_irrefl (r : Real213) : ¬ lt r r := by
   rw [ht] at hf
   exact Bool.noConfusion hf
 
-end E213.Research.Real213.Core
+end E213.Research.Real213.Order

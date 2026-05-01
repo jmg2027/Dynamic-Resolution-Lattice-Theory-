@@ -35,7 +35,7 @@ Working evidence for "all frameworks ... Lenses" in CLAUDE.md:
 Only ZFC's *arbitrary subsets* (Dedekind cuts) are *external* to the framework.
 -/
 
-namespace E213.Research.Hyper213Tower
+namespace E213.Research.Hyper.Hyper213Tower
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -72,4 +72,4 @@ theorem hyperTower_refl {α : Type} [HasDistinguishing α] {n : Nat}
 def constHyperTower {α : Type} [HasDistinguishing α] {n : Nat}
     (a : LensTower α n) : HyperTower α n := fun _ => a
 
-end E213.Research.Hyper213Tower
+end E213.Research.Hyper.Hyper213Tower

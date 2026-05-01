@@ -30,7 +30,7 @@ claim in CLAUDE.md (partial — limited to α having HasDistinguishing).
   only an *interpretive reading* (PAPER1 §9).
 -/
 
-namespace E213.Research.UniversalLensClaim
+namespace E213.Research.Universal.LensClaim
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -44,4 +44,4 @@ theorem every_distinguishing_is_lens_codomain
   intro r
   exact E213.Research.UniversalReflection.universalAsLens_view α r
 
-end E213.Research.UniversalLensClaim
+end E213.Research.Universal.LensClaim

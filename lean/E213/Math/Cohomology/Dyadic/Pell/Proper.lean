@@ -23,7 +23,7 @@ This shift reflects that Pell-proper sequences are NOT Fibonacci-
 squared — eigenvalues 1±√2 (units of ℤ[√2]) instead of φ²/ψ².
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.Proper
 
 /-- Pell proper FSM mod n: state (a_n, a_{n-1}) → (a_{n+1}, a_n). -/
 def pellProperFSMmod (n : Nat) (hn : 0 < n) : ArithFSM2 n where
@@ -40,4 +40,4 @@ def pisano_predict_proper (p : Nat) (hp : 1 < p) : Nat :=
   else if leg = 1 then p - 1     -- split
   else 2 * (p + 1)               -- inert
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.Proper

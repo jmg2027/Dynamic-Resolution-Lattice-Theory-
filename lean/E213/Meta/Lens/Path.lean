@@ -35,7 +35,7 @@ deliberately *non-commutative* witness.
    needed for the R12-failure point.
 -/
 
-namespace E213.Meta
+namespace E213.Meta.Lens.Path
 
 open E213.Firmware E213.Hypervisor
 
@@ -59,9 +59,9 @@ theorem pathLens_view_ba_via_comm :
       = [false, true] := by
   rw [Raw.slash_comm]; rfl
 
-end E213.Meta
+end E213.Meta.Lens.Path
 
-namespace E213.Meta
+namespace E213.Meta.Lens.Path
 
 open E213.Firmware E213.Hypervisor
 
@@ -109,4 +109,4 @@ example :
           (Raw.slash Raw.b (Raw.slash Raw.a Raw.b (by decide))
             (by decide)) := by decide
 
-end E213.Meta
+end E213.Meta.Lens.Path

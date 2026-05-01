@@ -22,7 +22,7 @@ the image is the 2-element subset
 (in the Bool case).
 -/
 
-namespace E213.Research.LensOnLensImageLevel2
+namespace E213.Research.Lens.OnLensImageLevel2
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -52,4 +52,4 @@ theorem lensUniversalMorphism_factors_level2
   rw [step2]
   rfl
 
-end E213.Research.LensOnLensImageLevel2
+end E213.Research.Lens.OnLensImageLevel2

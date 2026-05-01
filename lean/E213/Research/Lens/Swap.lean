@@ -23,7 +23,7 @@ This is one element of the Raw-matching Lens family (generalized in
 RawMatchingLens.lean).  Swapping just the base yields view = Raw.swap.
 -/
 
-namespace E213.Research.SwapLens
+namespace E213.Research.Lens.Swap
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
@@ -68,9 +68,9 @@ theorem swapLens_injective : Function.Injective swapLens.view := by
   rw [swapLens_view_eq_swap, swapLens_view_eq_swap] at hxy
   exact Raw.swap_injective hxy
 
-end E213.Research.SwapLens
+end E213.Research.Lens.Swap
 
-namespace E213.Research.SwapLens
+namespace E213.Research.Lens.Swap
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.IdentityLens
@@ -93,4 +93,4 @@ theorem idLens_swapLens_refines_equiv :
     rw [swapLens_view_eq_swap, swapLens_view_eq_swap] at h
     exact Raw.swap_injective h
 
-end E213.Research.SwapLens
+end E213.Research.Lens.Swap

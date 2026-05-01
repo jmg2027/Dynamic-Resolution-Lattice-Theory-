@@ -14,7 +14,7 @@ then so are:
 Hence MVT/FTC propEq extend to these via Phase BF.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTClosure
 
 open E213.Firmware E213.Hypervisor
 
@@ -75,4 +75,4 @@ theorem mvt_mul_passthrough
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTClosure

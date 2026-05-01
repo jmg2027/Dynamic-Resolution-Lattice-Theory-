@@ -10,7 +10,7 @@ import E213.Research.Real213.CutMulComm
 Well-definedness of cutSum modulo cutEq.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSumEq
 
 open E213.Firmware E213.Hypervisor
 
@@ -42,9 +42,9 @@ theorem cutMul_cutEq_right (cx cy cy' : Nat → Nat → Bool)
   obtain ⟨N, hN⟩ := cutMul_locallyDetermined m k
   exact hN cx cx cy cy' (fun _ _ _ _ => rfl) (fun m' k' _ _ => h m' k')
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSumEq
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSumEq
 
 open E213.Firmware E213.Hypervisor
 
@@ -111,4 +111,4 @@ theorem cutMul_cutLe_right (cx cy1 cy2 : Nat → Nat → Bool)
     cutLe (cutMul cx cy1) (cutMul cx cy2) :=
   cutMul_cutLe_both cx cx cy1 cy2 (cutLe_refl cx) hy
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSumEq

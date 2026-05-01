@@ -16,7 +16,7 @@ fully populated by the differentiable class.
   fromDifferentiable : IsDifferentiable F → IsAntiderivative F _ _
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.AntiderivativeStructural
 
 open E213.Firmware E213.Hypervisor
 
@@ -60,4 +60,4 @@ theorem antiderivative_structural_capstone :
     ∧ FluxCut.fluxAlong id unitBracket = FluxCut.ofCut (constCut 1 1) :=
   ⟨rfl, rfl, FluxCut.fluxAlong_id_unitBracket⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.AntiderivativeStructural

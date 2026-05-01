@@ -11,7 +11,7 @@ Together with PellHasModulus, this is the second concrete instance —
 a demonstration of the applicability of the HasModulus typeclass.
 -/
 
-namespace E213.Research.DiagonalHasModulus
+namespace E213.Research.Diagonal.HasModulus
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -29,4 +29,4 @@ def diagonalHasModulus (xs : Nat → Raw)
     rw [diagonal_seq_orderProj_const m k (i+1) (Nat.succ_le_succ (Nat.zero_le _)),
         diagonal_seq_orderProj_const m k (j+1) (Nat.succ_le_succ (Nat.zero_le _))]
 
-end E213.Research.DiagonalHasModulus
+end E213.Research.Diagonal.HasModulus

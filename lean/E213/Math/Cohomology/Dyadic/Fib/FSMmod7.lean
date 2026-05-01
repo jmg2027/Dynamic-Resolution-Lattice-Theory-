@@ -11,7 +11,7 @@ Second INERT instance for Fibonacci (after p=3, π=8), confirming
 the 2(p+1) Fibonacci-Pisano formula at a larger size.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod7
 
 /-- Fibonacci-style FSM mod 7. -/
 def fibFSMmod7 : ArithFSM2 7 where
@@ -47,4 +47,4 @@ theorem fibFSMmod7_signature_period_16_from_1 :
   signature_period_of_bits_period_and_anchor_from
     fibFSMmod7.bits 16 1 fibFSMmod7_bits_period_16 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Fib.FSMmod7

@@ -19,7 +19,7 @@ that the structural derivative reduces to expected Boolean values.
   d/dx [x³] structural — decide-checked at simple points
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DerivativeDecide
 
 open E213.Firmware E213.Hypervisor
 
@@ -60,4 +60,4 @@ example :
     idIsDifferentiable.derivative (constCut 5 7) 0 1
       ≠ (constIsDifferentiable (constCut 0 1)).derivative (constCut 5 7) 0 1 := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DerivativeDecide

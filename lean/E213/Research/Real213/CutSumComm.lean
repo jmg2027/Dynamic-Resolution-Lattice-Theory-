@@ -7,7 +7,7 @@ import E213.Research.Real213.CutSumTest
 Strategy: prove iff existential, then bijection j = M - i.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSumComm
 
 open E213.Firmware E213.Hypervisor
 
@@ -78,9 +78,9 @@ theorem cutSumAux_eq_true_iff (cx cy : Nat → Nat → Bool) (k M : Nat) (n : Na
         rw [rec_true]
         cases (cx (j+1) (2*k) && cy (M - (j+1)) (2*k)) <;> rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSumComm
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSumComm
 
 open E213.Firmware E213.Hypervisor
 
@@ -134,4 +134,4 @@ theorem cutSum_mono_left (cx cx' cy : Nat → Nat → Bool)
   rw [cutSum_comm]
   exact this
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSumComm

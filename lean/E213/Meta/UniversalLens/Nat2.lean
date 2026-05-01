@@ -18,7 +18,7 @@ Note on ℚ²: Lean 4.16.0 core does not export `Rat`, so a true
 witness within current 213-native infrastructure.
 -/
 
-namespace E213.Meta.UniversalLensNat2
+namespace E213.Meta.UniversalLens.Nat2
 
 open E213.Firmware E213.Hypervisor
 
@@ -77,4 +77,4 @@ theorem expSumLens_injective_small :
 theorem slash_view_minimum :
     (expSumLens.view (Raw.slash Raw.a Raw.b (by decide))).1 = 6 := rfl
 
-end E213.Meta.UniversalLensNat2
+end E213.Meta.UniversalLens.Nat2

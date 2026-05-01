@@ -12,7 +12,7 @@ We use a pointwise (at fixed (m, k)) form of cutLe to avoid the
 k = 0 edge case in the global cutLe.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IVTContainment
 
 open E213.Firmware E213.Hypervisor
 
@@ -52,4 +52,4 @@ theorem cutLeAt_trans (cx cy cz : Nat → Nat → Bool) (m k : Nat)
     (hxy : cutLeAt cx cy m k) (hyz : cutLeAt cy cz m k) :
     cutLeAt cx cz m k := fun h => hxy (hyz h)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IVTContainment

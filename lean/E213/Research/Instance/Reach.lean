@@ -31,7 +31,7 @@ can carry "unreachable" elements above it.  This makes the framework's
 Note 80 analysis.
 -/
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -57,9 +57,9 @@ theorem fin3_image_in_01 (r : Raw) :
       rw [universalMorphism_slash (Fin 3) x y h]
       rfl
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -75,9 +75,9 @@ theorem fin3_image_strict :
   · rw [h] at hr; exact absurd hr (by decide)
   · rw [h] at hr; exact absurd hr (by decide)
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -103,9 +103,9 @@ theorem bool_image_surjective :
   | true => exact ⟨Raw.a, universalMorphism_a Bool⟩
   | false => exact ⟨Raw.b, universalMorphism_b Bool⟩
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -131,9 +131,9 @@ theorem image_closed_under_distinct_combine (α : Type) [d : HasDistinguishing �
         = d.combine (universalMorphism α rx) (universalMorphism α ry) :=
   ⟨Raw.slash rx ry h, universalMorphism_slash α rx ry h⟩
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -157,9 +157,9 @@ instance natHasDistinguishing : HasDistinguishing Nat where
   combine := (· + ·)
   combine_sym := Nat.add_comm
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -179,9 +179,9 @@ theorem nat_image_via_slash_ab :
   rw [universalMorphism_a Nat, universalMorphism_b Nat]
   rfl
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -217,9 +217,9 @@ private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
   rw [h_a] at hview
   omega
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -252,9 +252,9 @@ private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
   rw [h_b] at hview
   omega
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -267,9 +267,9 @@ private theorem natWitness_ne_b_helper (r : Raw)
   · subst hra; decide
   · subst hsl; exact slash_ne_b x y h'
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -300,9 +300,9 @@ theorem nat_image_surjective :
   obtain ⟨r, hview, _⟩ := nat_surjective_with_form n
   exact ⟨r, hview⟩
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach
 
-namespace E213.Research.InstanceReach
+namespace E213.Research.Instance.Reach
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -349,4 +349,4 @@ theorem int_image_strict :
   rw [hr] at h_nonneg
   exact absurd h_nonneg (by decide)
 
-end E213.Research.InstanceReach
+end E213.Research.Instance.Reach

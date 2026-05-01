@@ -17,7 +17,7 @@ This is the operational form of "Pisano CRT lifted through the
 K_{3,2}^{(2)} signature lens".
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.TwoLayerPredictor
 
 /-- ★★★★★★★★ Two-layer predictor capstone: both bit and signature
     Pell periods predicted by trajectory-walking the Legendre lens. -/
@@ -54,4 +54,4 @@ theorem two_layer_predictor_capstone :
           = signature pellFSMmod19.bits k)) :=
   ⟨pisano_predict_realises_pell_7, signature_predict_realises_pell_7⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.TwoLayerPredictor

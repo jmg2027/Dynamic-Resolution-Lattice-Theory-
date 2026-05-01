@@ -32,7 +32,7 @@ with both periods.  Predictor gives an upper bound on the true
 bit-period, not necessarily tight in the split branch.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor11
 
 /-- ★★★★★ Legendre 5 mod 29 = QR (split). -/
 theorem legendre_5_mod_29 :
@@ -91,4 +91,4 @@ theorem pisano_predict_realises_pell_11 :
   · intro k; rw [h31]; exact pellFSMmod31_bits_period_15 k
   · intro k; rw [h37]; exact pellFSMmod37_bits_period_38 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pisano.Predictor11

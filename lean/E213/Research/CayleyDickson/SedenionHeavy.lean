@@ -12,7 +12,7 @@ This file explores which polynomial identities `hurwitz_ring`
 can still close at layer 3.
 -/
 
-namespace E213.Research.Sedenion
+namespace E213.Research.CayleyDickson.SedenionHeavy
 
 open E213.Tactic E213.Research.Cayley E213.Research.Lipschitz
 
@@ -22,9 +22,9 @@ set_option maxHeartbeats 2000000 in
 theorem conj_conj (u : Sedenion) : conj (conj u) = u := by
   hurwitz_ring
 
-end E213.Research.Sedenion
+end E213.Research.CayleyDickson.SedenionHeavy
 
-namespace E213.Research.Sedenion
+namespace E213.Research.CayleyDickson.SedenionHeavy
 
 open E213.Tactic
 
@@ -36,9 +36,9 @@ set_option maxHeartbeats 8000000 in
 theorem flexible (a b : Sedenion) : (a * b) * a = a * (b * a) := by
   hurwitz_ring
 
-end E213.Research.Sedenion
+end E213.Research.CayleyDickson.SedenionHeavy
 
-namespace E213.Research.Sedenion
+namespace E213.Research.CayleyDickson.SedenionHeavy
 
 open E213.Tactic
 
@@ -50,9 +50,9 @@ theorem conj_mul_anti (u v : Sedenion) :
     conj (u * v) = conj v * conj u := by
   hurwitz_ring
 
-end E213.Research.Sedenion
+end E213.Research.CayleyDickson.SedenionHeavy
 
-namespace E213.Research.Sedenion
+namespace E213.Research.CayleyDickson.SedenionHeavy
 
 open E213.Research.Cayley E213.Research.Lipschitz
 
@@ -82,4 +82,4 @@ theorem normSq_mul_fails :
   rw [zd_product_zero, normSq_zero]
   decide
 
-end E213.Research.Sedenion
+end E213.Research.CayleyDickson.SedenionHeavy

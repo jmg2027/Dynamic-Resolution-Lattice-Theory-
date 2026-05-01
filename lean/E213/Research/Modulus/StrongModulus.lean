@@ -21,7 +21,7 @@ not only orderProj stability but also bounded *ratio variation* of the view.
   but not conversely.
 -/
 
-namespace E213.Research.StrongModulusNS
+namespace E213.Research.Modulus.StrongModulus
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -37,9 +37,9 @@ structure StrongModulus (xs : Nat → Raw) where
       ≤ (abLens.view (xs i)).1 * (abLens.view (xs j)).2 * k
         + (abLens.view (xs i)).2 * (abLens.view (xs j)).2
 
-end E213.Research.StrongModulusNS
+end E213.Research.Modulus.StrongModulus
 
-namespace E213.Research.StrongModulusNS
+namespace E213.Research.Modulus.StrongModulus
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -58,4 +58,4 @@ def diagonalStrongModulus (xs : Nat → Raw)
     · exact Nat.le_add_right _ _
     · exact Nat.le_add_right _ _
 
-end E213.Research.StrongModulusNS
+end E213.Research.Modulus.StrongModulus

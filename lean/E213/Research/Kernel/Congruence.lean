@@ -24,7 +24,7 @@ This theorem + `NoDepthParity` → the space of Lens kernels is a
 is slash-compatible).
 -/
 
-namespace E213.Research.KernelCongruence
+namespace E213.Research.Kernel.Congruence
 
 open E213.Firmware E213.Hypervisor
 
@@ -48,4 +48,4 @@ theorem Lens.equiv_slash_congruence {α : Type} (L : Lens α)
   have hyy'' : L.view y = L.view y' := hyy'
   rw [hxx'', hyy'']
 
-end E213.Research.KernelCongruence
+end E213.Research.Kernel.Congruence

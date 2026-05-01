@@ -16,7 +16,7 @@ results, but via structural unification rather than ad-hoc proof.
   mvt_cube_via_passthrough       : x³ passthrough → MVT
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTApplications
 
 open E213.Firmware E213.Hypervisor
 
@@ -68,4 +68,4 @@ theorem passthrough_applications_capstone (n : Nat) :
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTApplications

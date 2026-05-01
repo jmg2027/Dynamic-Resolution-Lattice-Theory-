@@ -26,7 +26,7 @@ branch's physics derivations."
 (VI)  Universal bracket invariants (oracle-independent).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseLCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -170,4 +170,4 @@ theorem sixPhase_super_super_capstone (n : Nat) :
   ⟨squareIsSmooth_modulus n, cubeIsSmooth_modulus n,
    quarticIsSmooth_modulus n, rfl, rfl, rfl, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseLCapstone

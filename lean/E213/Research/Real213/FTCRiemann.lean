@@ -18,7 +18,7 @@ gives `constCut (2^n) 1` (= 2^n unnormalized).  Dividing by 2^n
 gives 1, matching `fluxAlong id unitBracket` (boundary).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FTCRiemann
 
 open E213.Firmware E213.Hypervisor
 
@@ -61,4 +61,4 @@ theorem ftc_riemann_capstone :
    ftc_riemann_id_depth_zero,
    FluxCut.fluxAlong_id_unitBracket⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FTCRiemann

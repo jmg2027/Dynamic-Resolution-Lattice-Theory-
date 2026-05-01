@@ -23,7 +23,7 @@ This makes Lucas a third recurrence family in 213's Pisano-CRT
 framework, distinct from Pell and Fibonacci.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.LucasFSMmod5
 
 /-- Lucas-style FSM mod 5. -/
 def lucasFSMmod5 : ArithFSM2 5 where
@@ -56,4 +56,4 @@ theorem lucasFSMmod5_bits_period_4 :
       = lucasFSMmod5.out (lucasFSMmod5.run k)
   rw [lucasFSMmod5_run_period_4]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.LucasFSMmod5

@@ -8,7 +8,7 @@ cutMid = cutHalf ∘ cutSum, so cutEq/cutLe compatibility lifts from
 cutSum (cutSum_cutEq_left/right etc.) by composition.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMidEq
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,4 +54,4 @@ theorem cutMid_cutLe_both (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
   cutLe_trans _ _ _ (cutMid_cutLe_left cx1 cx2 cy1 hx)
                     (cutMid_cutLe_right cx2 cy1 cy2 hy)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMidEq

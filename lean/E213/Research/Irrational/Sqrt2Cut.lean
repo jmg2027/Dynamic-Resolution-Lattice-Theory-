@@ -23,7 +23,7 @@ So x*k ≤ y*m iff 2y²k² + k² ≤ y²*m² iff k² ≤ y² * (m² - 2k²).
 For m² > 2k²: (m² - 2k²) ≥ 1, so y² ≥ k² → conclusion.
 -/
 
-namespace E213.Research.Sqrt2Cut
+namespace E213.Research.Irrational.Sqrt2Cut
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -47,9 +47,9 @@ private theorem nat_le_iff_sq_le (a b : Nat) : a ≤ b ↔ a * a ≤ b * b := by
       have h3 : b * b < a * a := Nat.lt_of_le_of_lt h2 h1
       omega
 
-end E213.Research.Sqrt2Cut
+end E213.Research.Irrational.Sqrt2Cut
 
-namespace E213.Research.Sqrt2Cut
+namespace E213.Research.Irrational.Sqrt2Cut
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -108,9 +108,9 @@ theorem pell_orderProj_above (x y m k : Nat)
   rw [eA] at step1
   omega
 
-end E213.Research.Sqrt2Cut
+end E213.Research.Irrational.Sqrt2Cut
 
-namespace E213.Research.Sqrt2Cut
+namespace E213.Research.Irrational.Sqrt2Cut
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -193,4 +193,4 @@ theorem pell_orderProj_below (x y m k : Nat)
     simp at this
     omega
 
-end E213.Research.Sqrt2Cut
+end E213.Research.Irrational.Sqrt2Cut

@@ -17,7 +17,7 @@ Raw is a leaf iff view = true (decidable).
 BoolSqClassification: since combine x x = false, this is Collapse-False.
 -/
 
-namespace E213.Research.IsLeafLens
+namespace E213.Research.Lens.IsLeaf
 
 open E213.Firmware E213.Hypervisor
 
@@ -31,4 +31,4 @@ theorem isLeafLens_combine_sym :
     ∀ u v, isLeafLens.combine u v = isLeafLens.combine v u := by
   intros _ _; rfl
 
-end E213.Research.IsLeafLens
+end E213.Research.Lens.IsLeaf

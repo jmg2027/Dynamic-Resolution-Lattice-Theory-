@@ -11,7 +11,7 @@ this equals `expSumNat r`.  Then injectivity follows from
 Key bridge lemma: `(Q213.ofNat n).1.eval = n` (round-trip).
 -/
 
-namespace E213.Meta.UniversalLensQ213
+namespace E213.Meta.UniversalLens.Q213Inj
 
 open E213.Firmware E213.Hypervisor E213.Kernel
 open E213.Meta.UniversalLensNat2
@@ -72,4 +72,4 @@ theorem q213Lens_is_universal :
     E213.Meta.UniversalLens.IsUniversal q213Lens :=
   q213Lens_view_inj
 
-end E213.Meta.UniversalLensQ213
+end E213.Meta.UniversalLens.Q213Inj

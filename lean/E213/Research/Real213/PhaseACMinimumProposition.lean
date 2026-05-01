@@ -18,7 +18,7 @@ no remaining freedom — no parameter, no exception, no smoothing.
 (AC-3) The "0+" boundary is forced to be Boolean-distinct from 0.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseACMinimumProposition
 
 open E213.Firmware E213.Hypervisor
 
@@ -75,4 +75,4 @@ theorem phaseAC_minimum_proposition (n k a b : Nat) :
          alwaysTrueUnit_limit_distinct_from_zero.2] at h
      exact Bool.noConfusion h⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseACMinimumProposition

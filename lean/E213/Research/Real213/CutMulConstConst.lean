@@ -36,7 +36,7 @@ disappears.
   true but cutMul false), which the F5/F6 docs already characterized.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulConstConst
 
 open E213.Firmware E213.Hypervisor
 
@@ -134,4 +134,4 @@ theorem precision_compatible_2_3_4_5_at_k15 :
     cutMul (constCut 2 3) (constCut 4 5) 1 15
       = constCut (2 * 4) (3 * 5) 1 15 := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulConstConst

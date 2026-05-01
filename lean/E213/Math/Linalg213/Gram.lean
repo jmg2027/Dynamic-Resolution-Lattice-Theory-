@@ -21,7 +21,7 @@ The rank theorem itself awaits a 213-native rank definition, the
 next foundational piece (`Rank.lean`).
 -/
 
-namespace E213.Math.Linalg213
+namespace E213.Math.Linalg213.Gram
 
 /-- Inner product (213-native): Σ vᵢ · wᵢ over ℕ, computed via
     `List.range` for `decide`-friendliness. -/
@@ -65,4 +65,4 @@ theorem gram_orthonormal_2 :
     213-internal form.  Awaits `Rank.lean`. -/
 theorem rank_5_compression_target : True := trivial
 
-end E213.Math.Linalg213
+end E213.Math.Linalg213.Gram

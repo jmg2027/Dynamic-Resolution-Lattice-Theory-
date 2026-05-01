@@ -18,7 +18,7 @@ naive Pisano formula), reflecting that φ has order dividing
 (p-1)/gcd((p-1), 2) in the multiplicative group.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Legendre.PisanoExt
 
 /-- ★★★★★★★ Extended bridge: Legendre lens predicts Pell period
     across all four branch types {inert, ramified, split, ...}. -/
@@ -40,4 +40,4 @@ theorem legendre_pisano_extended_bridge :
    ⟨legendre_5_mod_7, pellFSMmod7_bits_period_8⟩,
    ⟨legendre_5_mod_11, pellFSMmod11_bits_period_5⟩⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Legendre.PisanoExt

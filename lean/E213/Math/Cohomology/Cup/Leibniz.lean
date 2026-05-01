@@ -16,7 +16,7 @@ This file verifies the identity at concrete cochains on Δ⁴
 DecidablePred on `Cochain n k`, deferred.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Cup.Leibniz
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -62,4 +62,4 @@ theorem phase_CD_leibniz_capstone :
                  (cup 5 1 2 all_true_5_1 (delta v0_5) i)) :=
   ⟨leibniz_v0_v0_pointwise, leibniz_at_v0_pointwise⟩
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Cup.Leibniz

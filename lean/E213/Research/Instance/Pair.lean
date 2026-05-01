@@ -18,7 +18,7 @@ distinguishing-framework category — the product structure of semantic
 atoms.
 -/
 
-namespace E213.Research.PairInstance
+namespace E213.Research.Instance.Pair
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -36,9 +36,9 @@ def pairHasDistinguishing (α β : Type) [d_α : HasDistinguishing α]
          = (d_α.combine q.1 p.1, d_β.combine q.2 p.2)
     rw [d_α.combine_sym, d_β.combine_sym]
 
-end E213.Research.PairInstance
+end E213.Research.Instance.Pair
 
-namespace E213.Research.PairInstance
+namespace E213.Research.Instance.Pair
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -80,9 +80,9 @@ theorem universalMorphism_pair_commute (α β : Type)
       rw [h_pair, h_α, h_β, ihx, ihy]
       rfl
 
-end E213.Research.PairInstance
+end E213.Research.Instance.Pair
 
-namespace E213.Research.PairInstance
+namespace E213.Research.Instance.Pair
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -124,9 +124,9 @@ theorem pair_forget_second_combine (α β : Type)
     Prod.snd ((pairHasDistinguishing α β).combine p q)
       = d_β.combine (Prod.snd p) (Prod.snd q) := rfl
 
-end E213.Research.PairInstance
+end E213.Research.Instance.Pair
 
-namespace E213.Research.PairInstance
+namespace E213.Research.Instance.Pair
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -149,4 +149,4 @@ theorem universalMorphism_second (α β : Type)
       = universalMorphism β r := by
   rw [universalMorphism_pair_commute]
 
-end E213.Research.PairInstance
+end E213.Research.Instance.Pair

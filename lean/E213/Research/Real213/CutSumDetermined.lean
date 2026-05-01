@@ -20,7 +20,7 @@ elaboration corner case (decide auto-coercion) — cleaner approach in
 a separate session.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSumDetermined
 
 open E213.Firmware E213.Hypervisor
 
@@ -67,4 +67,4 @@ theorem cutSum_locallyDetermined : isLocallyDetermined2 cutSum := by
                        (Nat.le_max_right _ _)
   · exact Nat.le_refl _
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSumDetermined

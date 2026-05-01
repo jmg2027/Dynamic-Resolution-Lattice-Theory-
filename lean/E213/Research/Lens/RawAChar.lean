@@ -26,7 +26,7 @@ Implemented with combine = const false.
 existing catalog's leafLens ({leaves} vs {slashes}).
 -/
 
-namespace E213.Research.RawACharLens
+namespace E213.Research.Lens.RawAChar
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,9 +64,9 @@ theorem rawACharLens_view_eq :
             ((E213.Firmware.Internal.Tree.cmp_eq_iff _ _).mp hcmp))
       rw [decide_eq_false hne]
 
-end E213.Research.RawACharLens
+end E213.Research.Lens.RawAChar
 
-namespace E213.Research.RawACharLens
+namespace E213.Research.Lens.RawAChar
 
 open E213.Firmware E213.Hypervisor E213.Research.LeafLens
 
@@ -94,4 +94,4 @@ theorem rawACharLens_not_refines_leafLens :
   have : leafLens.view Raw.b = leafLens.view sab := h _ _ hrawa_eq
   exact absurd this (by decide)
 
-end E213.Research.RawACharLens
+end E213.Research.Lens.RawAChar

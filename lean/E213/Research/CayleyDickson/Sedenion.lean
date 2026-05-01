@@ -14,7 +14,7 @@ the algebraic boundary below which CD still preserves
 Non-commutativity and non-associativity are inherited.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.Sedenion
 
 open Cayley
 
@@ -56,7 +56,7 @@ instance : Mul Sedenion := ⟨mul⟩
 
 end Sedenion
 
-end E213.Research
+end E213.Research.CayleyDickson.Sedenion
 
 /-
 **Classical fact (not yet formalised).**  Sedenions have

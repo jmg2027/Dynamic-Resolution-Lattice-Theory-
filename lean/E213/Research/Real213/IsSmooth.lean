@@ -40,7 +40,7 @@ construct linearityModulus + the linearity certificate at use-site.
 This inverts the ZFC bias and matches lattice ontology.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IsSmooth
 
 open E213.Firmware E213.Hypervisor
 
@@ -305,4 +305,4 @@ def fourteenthIsSmooth :
                                                 (cutMul (cutMul x x) (cutMul x x))) x)) :=
   mulIsSmooth sexticIsSmooth octicIsSmooth
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IsSmooth

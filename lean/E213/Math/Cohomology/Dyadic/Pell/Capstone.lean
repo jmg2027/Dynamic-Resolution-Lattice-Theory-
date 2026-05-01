@@ -17,7 +17,7 @@ theorem with the following 6 conjuncts:
 All conjuncts at ≤ {propext, Quot.sound}.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.Capstone
 
 /-- ★★★★★★★ Pell capstone: Tier 1 (algebraic, Pell-style)
     fully characterised in the K_{3,2}^{(2)} signature lens.
@@ -62,4 +62,4 @@ theorem pell_capstone :
    @arithFSM2_signature_period_bound,
    aperiodic_bits_imp_not_ArithFSM2⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.Capstone

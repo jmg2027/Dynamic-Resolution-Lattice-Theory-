@@ -13,7 +13,7 @@ Math: f(x) = (3x + x²)/4 = mid(x, mid(x, x²)).
 Witness c = 1/2 propagates through nested mid combinators.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTNested
 
 open E213.Firmware E213.Hypervisor
 
@@ -58,4 +58,4 @@ theorem nested_mid_witness_capstone :
   ⟨mid_id_mid_id_square_derivative_at_half,
    mid_id_mid_id_square_has_dyadic_witness⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTNested

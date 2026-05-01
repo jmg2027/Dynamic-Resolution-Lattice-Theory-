@@ -13,7 +13,7 @@ Average rate of x^n over [0,1] = (1-0)/1 = 1, exactly matching what
 n·c^(n-1) gives at the MVT point c.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTPolynomial
 
 open E213.Firmware E213.Hypervisor
 
@@ -57,4 +57,4 @@ theorem polynomial_mvt_unitBracket_capstone :
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTPolynomial

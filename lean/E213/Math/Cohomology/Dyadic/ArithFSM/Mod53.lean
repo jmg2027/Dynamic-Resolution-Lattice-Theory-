@@ -8,7 +8,7 @@ import E213.Math.Cohomology.Dyadic.ConcretePellSig
 Predict p+1 = 54, TIGHT.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod53
 
 /-- Pell-style FSM mod 53. -/
 def pellFSMmod53 : ArithFSM2 53 where
@@ -46,4 +46,4 @@ theorem pellFSMmod53_signature_period_54 :
   signature_period_of_bits_period_and_anchor pellFSMmod53.bits 54
     pellFSMmod53_bits_period_54 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod53

@@ -18,7 +18,7 @@ computation are structurally straightforward (inherit from
 layer 1 via the `I'`/`J'` lifts) but verbose; deferred.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.Cayley
 
 open Lipschitz
 
@@ -56,7 +56,7 @@ def conj (u : Cayley) : Cayley := ⟨u.re.conj, -u.im⟩
 
 end Cayley
 
-end E213.Research
+end E213.Research.CayleyDickson.Cayley
 
 namespace E213.Research.Cayley
 

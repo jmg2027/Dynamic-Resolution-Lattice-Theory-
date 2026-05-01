@@ -17,7 +17,7 @@ coarser than leaves (less information), and incomparable with parity.
 - `leaves_refines_leafLens`: leaves refines leafLens.
 -/
 
-namespace E213.Research.LeafLens
+namespace E213.Research.Lens.Leaf
 
 open E213.Firmware E213.Hypervisor E213.Research.LensFactoring
 
@@ -67,9 +67,9 @@ theorem leaves_refines_leafLens : Lens.leaves.refines leafLens :=
   refines_of_factor Lens.leaves leafLens
     (fun n => decide (n ≥ 2)) leafLens_view_eq
 
-end E213.Research.LeafLens
+end E213.Research.Lens.Leaf
 
-namespace E213.Research.LeafLens
+namespace E213.Research.Lens.Leaf
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -111,4 +111,4 @@ theorem parityLens_not_refines_leafLens :
   exact leafLens_distinguishes_leaf_slash
     (h Raw.a rAAB parity_equates_leaf_slash)
 
-end E213.Research.LeafLens
+end E213.Research.Lens.Leaf

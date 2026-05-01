@@ -18,7 +18,7 @@ DiffModulus f x f': for ε ≥ 1, ∃ δ-cut, |f(x+h)-f(x))/h - f'(x)| < 1/ε
 Cut form of differentiation — Bishop modulus carried as data.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutDiffQuotient
 
 open E213.Firmware E213.Hypervisor
 
@@ -37,9 +37,9 @@ def differenceQuotient (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
   -- Note: cutSum (·) (cutInv ·) is hacky subtraction —
   -- proper signed difference quotient is a separate arc.
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutDiffQuotient
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutDiffQuotient
 
 open E213.Firmware E213.Hypervisor
 
@@ -67,4 +67,4 @@ theorem differenceQuotient_const (c : Nat → Nat → Bool) (x h : Nat → Nat �
     = cutDiv (cutSum c (cutInv c)) h := by
   rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutDiffQuotient

@@ -16,7 +16,7 @@ Each inclusion preserves the bit stream, so the *minimal degree*
 in which a stream appears = its 213-native algebraic degree.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.V1to2
 
 /-- Pad ArithFSM₁(n) into ArithFSM₂(n) by adding an inert
     second component.  init = (a, 0), step ignores it. -/
@@ -43,4 +43,4 @@ theorem padTo2_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM1 n) (k : Nat) :
   show m.out ((m.padTo2 hn).run k).1 = m.out (m.run k)
   rw [padTo2_run_components hn m k]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.V1to2

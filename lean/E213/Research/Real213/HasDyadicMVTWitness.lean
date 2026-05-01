@@ -17,7 +17,7 @@ ground type) from CLASSICAL existence (witness in real continuum).
 For x², we have the former; for x³, only the latter.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.HasDyadicMVTWitness
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,4 +62,4 @@ theorem mvt_witness_capstone :
     ∧ ∃ c, squareIsDifferentiable.derivative c = constCut 1 1:=
   ⟨rfl, HasDyadicMVTWitness.square.proof, square_has_dyadic_witness⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.HasDyadicMVTWitness

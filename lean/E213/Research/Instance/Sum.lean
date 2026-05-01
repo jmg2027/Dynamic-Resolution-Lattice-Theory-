@@ -35,7 +35,7 @@ category.
 content — interesting to analyze.)
 -/
 
-namespace E213.Research.SumInstance
+namespace E213.Research.Instance.Sum
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -55,9 +55,9 @@ theorem sumCombine_comm {α β : Type} [d_α : HasDistinguishing α]
     sumCombine x y = sumCombine y x := by
   cases x <;> cases y <;> simp [sumCombine, d_α.combine_sym, d_β.combine_sym]
 
-end E213.Research.SumInstance
+end E213.Research.Instance.Sum
 
-namespace E213.Research.SumInstance
+namespace E213.Research.Instance.Sum
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -76,4 +76,4 @@ def sumUniversalMorphism (α β : Type) [d_α : HasDistinguishing α]
     [d_β : HasDistinguishing β] : Raw → Sum α β :=
   @universalMorphism (Sum α β) (sumHasDistinguishing α β)
 
-end E213.Research.SumInstance
+end E213.Research.Instance.Sum

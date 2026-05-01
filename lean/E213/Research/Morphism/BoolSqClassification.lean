@@ -20,7 +20,7 @@ functions), the diagonal behavior is exactly 4 cases.  For a general
 α, the size of `α → α` determines the count.
 -/
 
-namespace E213.Research.BoolSqClassification
+namespace E213.Research.Morphism.BoolSqClassification
 
 open E213.Firmware E213.Hypervisor E213.Research.DiagonalClassification
 
@@ -51,4 +51,4 @@ theorem bool_sq_classification (L : Lens Bool) :
     left
     intro v; cases v; exact h2; exact h1
 
-end E213.Research.BoolSqClassification
+end E213.Research.Morphism.BoolSqClassification

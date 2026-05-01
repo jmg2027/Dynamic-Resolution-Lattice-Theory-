@@ -8,7 +8,7 @@ import E213.Math.Cohomology.Dyadic.Pell.Proper
 First SPLIT instance for Pell-proper.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.ProperMod17
 
 theorem pellProper17_run_period_16 :
     ∀ k, (pellProperFSMmod 17 (by decide)).run (k + 16)
@@ -31,4 +31,4 @@ theorem pellProper17_bits_period_16 :
         ((pellProperFSMmod 17 (by decide)).run k)
   rw [pellProper17_run_period_16]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.ProperMod17

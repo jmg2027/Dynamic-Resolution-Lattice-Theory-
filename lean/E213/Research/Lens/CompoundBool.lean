@@ -21,7 +21,7 @@ both components use `xor` as combine, but with different
 base values (matching each inner Lens).
 -/
 
-namespace E213.Research.CompoundBoolLens
+namespace E213.Research.Lens.CompoundBool
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -59,9 +59,9 @@ theorem parityXor_fst_eq_parity (r : Raw) :
           Raw.fold_slash _ _ _ hsym_xor x y h]
       simp [ihx, ihy]
 
-end E213.Research.CompoundBoolLens
+end E213.Research.Lens.CompoundBool
 
-namespace E213.Research.CompoundBoolLens
+namespace E213.Research.Lens.CompoundBool
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -96,9 +96,9 @@ theorem parityXor_is_pair (r : Raw) :
   · exact parityXor_fst_eq_parity r
   · exact parityXor_snd_eq_boolXor r
 
-end E213.Research.CompoundBoolLens
+end E213.Research.Lens.CompoundBool
 
-namespace E213.Research.CompoundBoolLens
+namespace E213.Research.Lens.CompoundBool
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -138,9 +138,9 @@ theorem parityXor_image_ge_three :
   refine ⟨Raw.a, Raw.b, ab, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Research.CompoundBoolLens
+end E213.Research.Lens.CompoundBool
 
-namespace E213.Research.CompoundBoolLens
+namespace E213.Research.Lens.CompoundBool
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -180,4 +180,4 @@ bootstrap**.  Two Lenses with equal depth may be:
 
 -/
 
-end E213.Research.CompoundBoolLens
+end E213.Research.Lens.CompoundBool

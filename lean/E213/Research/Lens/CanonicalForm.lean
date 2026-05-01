@@ -24,7 +24,7 @@ Explicit refines-equivalence wrapping of `universalLens_recovers`
 Analysis of Note 78.
 -/
 
-namespace E213.Research.LensCanonicalForm
+namespace E213.Research.Lens.CanonicalForm
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
@@ -40,9 +40,9 @@ theorem refinesEquiv_symm {α β} {L : Lens α} {M : Lens β} :
     refinesEquiv L M → refinesEquiv M L
   | ⟨h1, h2⟩ => ⟨h2, h1⟩
 
-end E213.Research.LensCanonicalForm
+end E213.Research.Lens.CanonicalForm
 
-namespace E213.Research.LensCanonicalForm
+namespace E213.Research.Lens.CanonicalForm
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
@@ -73,4 +73,4 @@ theorem lens_canonical_idempotent {α : Type} (M : Lens α) :
     show (universalLens M.equiv).view x = (universalLens M.equiv).view y
     exact (universalLens_idempotent α M x y).mp hxy
 
-end E213.Research.LensCanonicalForm
+end E213.Research.Lens.CanonicalForm

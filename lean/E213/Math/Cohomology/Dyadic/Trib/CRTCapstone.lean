@@ -26,7 +26,7 @@ Cubic class status (Tier 1 hardness):
   * Tier 2 (aperiodic ⇒ ¬ ArithFSM3) closed via DyadicTribCapstone.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Trib.CRTCapstone
 
 /-- ★★★★★★★★ Tribonacci CRT 3-modulus capstone.
 
@@ -59,4 +59,4 @@ theorem trib_crt_capstone :
    tribFSMmod5_bits_period_31,
    tribFSMmod5_signature_period_62_from_1⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Trib.CRTCapstone

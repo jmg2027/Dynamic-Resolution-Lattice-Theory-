@@ -13,7 +13,7 @@ of a constCut), the limit of their sum/mul equals the corresponding
 const-cut closed form.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CauchyConstLimit
 
 open E213.Firmware E213.Hypervisor
 
@@ -103,4 +103,4 @@ theorem CauchyCutSeq.cutMid_limit (a b : CauchyCutSeq) :
        = E213.Research.Real213.CutSum.cutHalf (E213.Research.Real213.CutSum.cutSum a.limit b.limit)
   rw [CauchyCutSeq.cutHalf_limit, CauchyCutSeq.cutSum_limit]
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CauchyConstLimit

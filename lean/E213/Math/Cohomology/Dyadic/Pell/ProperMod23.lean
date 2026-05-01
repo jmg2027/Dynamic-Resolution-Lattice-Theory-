@@ -6,7 +6,7 @@ import E213.Math.Cohomology.Dyadic.Pell.Proper
 23 mod 8 = 7 (= -1), QR ⇒ SPLIT.  Predict: p-1 = 22.  TIGHT.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.ProperMod23
 
 set_option maxRecDepth 1024 in
 theorem pellProper23_run_period_22 :
@@ -30,4 +30,4 @@ theorem pellProper23_bits_period_22 :
         ((pellProperFSMmod 23 (by decide)).run k)
   rw [pellProper23_run_period_22]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.ProperMod23

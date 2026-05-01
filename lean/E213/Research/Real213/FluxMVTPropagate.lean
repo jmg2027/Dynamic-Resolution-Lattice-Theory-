@@ -12,7 +12,7 @@ abstract theorem encapsulates the entire mid combinator chain.
   mid_witness_propagates : both f, g witness at 1/2 → mid(f, g) too
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTPropagate
 
 open E213.Firmware E213.Hypervisor
 
@@ -52,4 +52,4 @@ theorem propagation_capstone :
      mid_id_square_derivative_at_half
      squareDerivative_at_half⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTPropagate

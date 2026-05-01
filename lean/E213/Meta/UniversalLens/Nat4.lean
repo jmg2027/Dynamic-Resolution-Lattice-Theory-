@@ -20,7 +20,7 @@ demonstrates that arbitrary additional readings can be packed
 without affecting injectivity.
 -/
 
-namespace E213.Meta.UniversalLensNat4
+namespace E213.Meta.UniversalLens.Nat4
 
 open E213.Firmware E213.Hypervisor E213.Meta.UniversalLensNat2
 
@@ -85,4 +85,4 @@ theorem expSumLens4_is_universal :
   E213.Meta.UniversalLens.view_inj_of_inj_proj
     expSumLens4 Prod.fst expSumNat expSumNat_inj expSumLens4_view_fst
 
-end E213.Meta.UniversalLensNat4
+end E213.Meta.UniversalLens.Nat4

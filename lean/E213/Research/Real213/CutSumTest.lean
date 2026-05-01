@@ -16,7 +16,7 @@ Dedekind cut for ratio a/b.  Sum a/b + a'/b' = (a*b' + a'*b)/(b*b').
 - 1/2 + 1/3 = 5/6
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSumTest
 
 /-- Const cut for ratio a/b. -/
 def constCut (a b : Nat) : Nat → Nat → Bool :=
@@ -43,4 +43,4 @@ example : cutSum (constCut 1 2) (constCut 1 3) 1 1 = true := by decide
 /-- 1/2 + 1/3 = 5/6: cutSum at (5, 6) = "5/6 ≤ 5/6" = true. -/
 example : cutSum (constCut 1 2) (constCut 1 3) 5 6 = true := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSumTest

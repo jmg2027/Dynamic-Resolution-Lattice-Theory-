@@ -25,7 +25,7 @@ depth 1: codomain = Bool, Bool's constructors map directly
 to Raw's `a, b`.  No `Nat` needed, no bootstrap.
 -/
 
-namespace E213.Research.BootstrapWitness
+namespace E213.Research.Choice.BootstrapWitness
 
 open E213.Firmware E213.Hypervisor
 
@@ -42,9 +42,9 @@ theorem boolXor_no_bootstrap :
     ∀ r : Raw, boolXorLensRaw.view r = boolXorLensRaw.view r := by
   intro r; rfl
 
-end E213.Research.BootstrapWitness
+end E213.Research.Choice.BootstrapWitness
 
-namespace E213.Research.BootstrapWitness
+namespace E213.Research.Choice.BootstrapWitness
 
 open E213.Firmware E213.Hypervisor
 
@@ -87,9 +87,9 @@ theorem naiveLeaves_is_fixed_point_of_Nat_definition :
     ∀ r : Raw, naiveLeavesLens.view r = naiveLeavesLens.view r := by
   intro r; rfl
 
-end E213.Research.BootstrapWitness
+end E213.Research.Choice.BootstrapWitness
 
-namespace E213.Research.BootstrapWitness
+namespace E213.Research.Choice.BootstrapWitness
 
 open E213.Firmware E213.Hypervisor
 
@@ -127,4 +127,4 @@ inductive StructurallyNat : Type
 theorem StructurallyNat_equiv_Nat_informal :
     True := trivial  -- placeholder
 
-end E213.Research.BootstrapWitness
+end E213.Research.Choice.BootstrapWitness

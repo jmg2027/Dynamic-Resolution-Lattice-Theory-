@@ -24,7 +24,7 @@ Stratum sizes:
   (5, 4): 5 × 32                       =   160
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Hodge.InvolutionCapstone
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -57,4 +57,4 @@ theorem hodge_involution_5strata_capstone :
    HodgeProp53.hodge_involution_capstone_5_3,
    HodgeProp54.hodge_involution_capstone_5_4⟩
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Hodge.InvolutionCapstone

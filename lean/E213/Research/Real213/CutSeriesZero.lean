@@ -7,7 +7,7 @@ import E213.Research.Real213.CutSumZero
 Σ_{i<n} 0 = 0 at cut level.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSeriesZero
 
 open E213.Firmware E213.Hypervisor
 
@@ -35,4 +35,4 @@ theorem zeroSeriesCauchy_limit : zeroSeriesCauchy.limit = constCut 0 1 := by
   show partialSum _ 0 m k = constCut 0 1 m k
   rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSeriesZero

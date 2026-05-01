@@ -14,7 +14,7 @@ Standard integration laws expressed in 213-native form:
 These follow structurally from the antiderivative class combinators.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IntegralProperties
 
 open E213.Firmware E213.Hypervisor
 
@@ -65,4 +65,4 @@ theorem integral_properties_capstone (db : DyadicBracket) :
           backward := cutMid (db.leftCut) (db.leftCut) } :=
   ⟨rfl, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IntegralProperties

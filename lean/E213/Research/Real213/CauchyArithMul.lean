@@ -9,7 +9,7 @@ cutMul of two CauchyCutSeqs is Cauchy.  Modulus uses the max over
 the search range j ∈ [0, B] of a.N j k where B = (m+1)*(k+1).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CauchyArithMul
 
 open E213.Firmware E213.Hypervisor
 
@@ -103,4 +103,4 @@ theorem CauchyCutSeq.cutMul_comm_limit (a b : CauchyCutSeq) :
   funext m k
   exact cutMul_comm a.limit b.limit m k
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CauchyArithMul

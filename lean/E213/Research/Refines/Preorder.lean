@@ -7,7 +7,7 @@ Explicit theorems for the preorder claim in PAPER1 §3.3:
 reflexivity + transitivity.
 -/
 
-namespace E213.Research.RefinesPreorder
+namespace E213.Research.Refines.Preorder
 
 open E213.Firmware E213.Hypervisor
 
@@ -21,4 +21,4 @@ theorem refines_trans {α β γ : Type}
     (h1 : L.refines M) (h2 : M.refines N) : L.refines N := by
   intro x y h; exact h2 x y (h1 x y h)
 
-end E213.Research.RefinesPreorder
+end E213.Research.Refines.Preorder

@@ -7,7 +7,7 @@ Explicit theorems that `Lens.equiv` satisfies reflexivity + symmetry +
 transitivity, as stated in PAPER1 §3.2.
 -/
 
-namespace E213.Research.LensEquivProperties
+namespace E213.Research.Lens.EquivProperties
 
 open E213.Firmware E213.Hypervisor
 
@@ -22,4 +22,4 @@ theorem lens_equiv_trans {α : Type} (L : Lens α) (x y z : Raw) :
     L.equiv x y → L.equiv y z → L.equiv x z := by
   intros h1 h2; exact h1.trans h2
 
-end E213.Research.LensEquivProperties
+end E213.Research.Lens.EquivProperties

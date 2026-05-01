@@ -16,7 +16,7 @@ period P AND sig P = sig 0 ⇒ sig is purely periodic with period P.
 Then applies it to the Pell mod-3 and Pell mod-5 instances.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-- Universal closure: if bits are purely periodic with period P
     and the signature returns to ⟨0⟩ at step P, then the signature
@@ -88,4 +88,4 @@ theorem pellFSMmod2_signature_period_6_from_1 :
     rw [heq, hp3, hp3']
   · decide
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ConcretePellSig

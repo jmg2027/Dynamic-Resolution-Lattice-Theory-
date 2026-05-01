@@ -20,7 +20,7 @@ and the refinement application of `hLm`, `hLk` is replaced with the
 `ofL`, `ofM` constructors.
 -/
 
-namespace E213.Research.ModJoinEquivGCD
+namespace E213.Research.ModArith.JoinEquivGCD
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.JoinEquiv E213.Research.ModJoinGCD
@@ -261,4 +261,4 @@ theorem gcd_equiv_joinEquiv (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
   ⟨gcd_subset_joinEquiv m k hm hk r r',
    E213.Research.ModJoinGCD.joinEquiv_subset_gcd m k r r'⟩
 
-end E213.Research.ModJoinEquivGCD
+end E213.Research.ModArith.JoinEquivGCD

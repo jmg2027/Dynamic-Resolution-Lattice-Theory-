@@ -14,7 +14,7 @@ This gives a Fin 12 trajectory with up to 12 distinct values vs
 5 for vertex signature.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Archive.EdgeSignature
 
 /-- Edge from vertex v with bit b in K_{3,2}^{(2)}.  Canonical
     selection: each (v, b) pair maps to a unique edge that:
@@ -59,4 +59,4 @@ theorem thueMorse_edge_signature_first4 :
 theorem edge_signatures_differ_at_2 :
     edgeSignature bit13 2 ≠ edgeSignature thueMorse 2 := by decide
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Archive.EdgeSignature

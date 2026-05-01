@@ -14,7 +14,7 @@ No induction needed at the framework layer — the cut-level lemmas
 already do all the work.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTGeneric
 
 open E213.Firmware E213.Hypervisor
 
@@ -63,4 +63,4 @@ theorem phaseBE_capstone (n : Nat) :
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTGeneric

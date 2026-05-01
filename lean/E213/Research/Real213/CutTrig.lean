@@ -10,7 +10,7 @@ cos(x) = Σ (-1)^i x^(2i)/(2i)!
 π/4 = Σ (-1)^i / (2i+1) (Leibniz)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutTrig
 
 open E213.Firmware E213.Hypervisor
 
@@ -47,4 +47,4 @@ def leibnizPiPartial : Nat → SignedCut
   | 0 => { sign := true, cut := constCut 0 1 }
   | n+1 => cutSignedSum (leibnizPiPartial n) (leibnizPiTerm n)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutTrig

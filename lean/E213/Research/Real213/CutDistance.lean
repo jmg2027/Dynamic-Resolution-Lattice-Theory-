@@ -11,7 +11,7 @@ cutAbs s := { sign := true, cut := s.cut } — absolute value.
 cutDistance sx sy := cutAbs (cutSignedSub sx sy).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutDistance
 
 open E213.Firmware E213.Hypervisor
 
@@ -47,4 +47,4 @@ theorem cutAbs_cutSignedMul (sx sy : SignedCut) :
     cutAbs (cutSignedMul sx sy)
     = cutSignedMul (cutAbs sx) (cutAbs sy) := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutDistance

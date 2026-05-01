@@ -19,7 +19,7 @@ Pattern: any function buildable via { id, x², mid, id-compose }
 combinators has dyadic MVT witness c = 1/2.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTPattern
 
 open E213.Firmware E213.Hypervisor
 
@@ -60,4 +60,4 @@ theorem dyadic_witness_existential_capstone :
    id_compose_square_has_dyadic_witness,
    mid_id_mid_id_square_has_dyadic_witness⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTPattern

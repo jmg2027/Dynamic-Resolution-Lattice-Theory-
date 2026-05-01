@@ -16,7 +16,7 @@ A Lean witness that the two meet representations (prodLens and L_lcm)
 yield exactly the same kernel.
 -/
 
-namespace E213.Research.ModLensCRT
+namespace E213.Research.ModArith.LensCRT
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensMeet
@@ -62,4 +62,4 @@ theorem prod_refines_L6 :
   rw [leavesModNat_view_eq 6, leavesModNat_view_eq 6]
   omega
 
-end E213.Research.ModLensCRT
+end E213.Research.ModArith.LensCRT

@@ -15,7 +15,7 @@ Once first-component injectivity is established, full view injectivity
 follows trivially (Prod.mk_injective.left).
 -/
 
-namespace E213.Meta.UniversalLensNat2
+namespace E213.Meta.UniversalLens.Nat2Inj
 
 open E213.Firmware E213.Hypervisor E213.Meta.BitPattern
 
@@ -129,4 +129,4 @@ theorem expSumLens_is_universal :
     E213.Meta.UniversalLens.IsUniversal expSumLens :=
   expSumLens_view_inj
 
-end E213.Meta.UniversalLensNat2
+end E213.Meta.UniversalLens.Nat2Inj

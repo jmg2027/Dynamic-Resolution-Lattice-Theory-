@@ -16,7 +16,7 @@ applied — analysis of the squaring kernel of (Z/5)*.
 Squaring kernel = {0}.  Only 0 squares to 0.
 -/
 
-namespace E213.Research.PureNatMod5
+namespace E213.Research.ModArith.PureNatMod5
 
 open E213.Research.PureNat
 
@@ -144,4 +144,4 @@ theorem mod5_self_mul_zero (m : Nat) :
     rw [show (4 : Nat) * 4 = 16 from rfl] at h
     exact Nat.noConfusion h
 
-end E213.Research.PureNatMod5
+end E213.Research.ModArith.PureNatMod5

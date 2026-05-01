@@ -22,7 +22,7 @@ which (combined with the bipartite chirality of paper 2) forces
 the universe shape to K_{3,2}^{(2)} as formalized cohomologically.
 -/
 
-namespace E213.Math.Linalg213
+namespace E213.Math.Linalg213.Vector
 
 open E213.Physics.Simplex.Counts (d NS NT)
 
@@ -66,4 +66,4 @@ theorem atomic_chiral_split :
     ∧ E213.Physics.Simplex.Counts.NS = 3
     ∧ E213.Physics.Simplex.Counts.NT = 2 := by decide
 
-end E213.Math.Linalg213
+end E213.Math.Linalg213.Vector

@@ -8,7 +8,7 @@ Bind all cut operations into a single struct.  Reusable abstraction
 for cut-level rational arithmetic.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutAlgebraStruct
 
 open E213.Firmware E213.Hypervisor
 
@@ -40,4 +40,4 @@ example : stdCutAlgebra.add stdCutAlgebra.one stdCutAlgebra.one 2 1 = true := by
 /-- Verification that the cut for 0 is "always true". -/
 example : stdCutAlgebra.zero 0 1 = true := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutAlgebraStruct

@@ -14,7 +14,7 @@ In framework:
   - Matches fluxAlong x² unitBracket forward = 1²= 1
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FTCRiemannSquare
 
 open E213.Firmware E213.Hypervisor
 
@@ -53,4 +53,4 @@ theorem ftc_riemann_square_capstone :
   ⟨rfl, ftc_riemann_square_depth_zero,
    FluxCut.fluxAlong_square_unitBracket⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FTCRiemannSquare

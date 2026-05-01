@@ -16,7 +16,7 @@ three branch types (inert, split, ramified) with multiple
 instances each.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Legendre.V13_19
 
 /-- ★★★★★ Pell discriminant 5 is NQR mod 13 (inert). -/
 theorem legendre_5_mod_13 :
@@ -53,4 +53,4 @@ theorem legendre_pisano_6prime_bridge :
    ⟨legendre_5_mod_13, pellFSMmod13_bits_period_14⟩,
    ⟨legendre_5_mod_19, pellFSMmod19_bits_period_9⟩⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Legendre.V13_19

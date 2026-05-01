@@ -21,7 +21,7 @@ constructive proof is a separate arc (bisection sequence + Cauchy convergence
 This file is *interface* only — IVT statement + supporting types.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IVT
 
 open E213.Firmware E213.Hypervisor
 
@@ -42,4 +42,4 @@ def IVTStatement (h : IVTHypothesis) : Prop :=
     -- framework-internal form of "a ≤ c ≤ b" and "f(c) ≈ 0"
     True  -- Placeholder — full statement needs cut order + zero approximation
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IVT

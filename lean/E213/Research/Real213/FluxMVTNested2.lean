@@ -10,7 +10,7 @@ Math: f(x) = mid(mid(x, x²), x²) = (x + 3x²)/4.
 - f'(x) = (1 + 6x)/4. = 1 when 6x = 3 → x = 1/2 dyadic.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTNested2
 
 open E213.Firmware E213.Hypervisor
 
@@ -55,4 +55,4 @@ theorem mid_mid_id_square_square_capstone :
   ⟨mid_mid_id_square_square_derivative_at_half,
    mid_mid_id_square_square_has_dyadic_witness⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTNested2

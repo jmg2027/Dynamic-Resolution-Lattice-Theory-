@@ -36,7 +36,7 @@ True integral = sample_sum * (width) = sample_sum * lenNum / 2^(E+depth+1).
 The pure sample sum is the natural primitive.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DyadicRiemann
 
 open E213.Firmware E213.Hypervisor
 
@@ -328,4 +328,4 @@ theorem riemann_const_depth_zero (c : Nat → Nat → Bool) (db : DyadicBracket)
 theorem riemann_id_depth_zero (db : DyadicBracket) :
     riemannSampleSum id db 0 = db.midCut := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DyadicRiemann

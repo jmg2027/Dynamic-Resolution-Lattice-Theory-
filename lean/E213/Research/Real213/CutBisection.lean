@@ -12,7 +12,7 @@ Mid: (x+y)/2 cut.
 Substrate of the IVT bisection algorithm.  Root finding on Real213.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBisection
 
 open E213.Firmware E213.Hypervisor
 
@@ -24,9 +24,9 @@ def cutHalf (c : Nat → Nat → Bool) : Nat → Nat → Bool :=
 def cutMid (cx cy : Nat → Nat → Bool) : Nat → Nat → Bool :=
   cutHalf (cutSum cx cy)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBisection
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBisection
 
 open E213.Firmware E213.Hypervisor
 
@@ -71,4 +71,4 @@ theorem cutHalf_constCut (a b : Nat) :
   congr 1
   rw [← Nat.mul_assoc, Nat.mul_comm b 2]
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBisection

@@ -12,7 +12,7 @@ giving direct computational access.
   localDivergence_pow_form  : x ↦ cutPow x n flux at db (generic)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxPolynomial
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,4 +64,4 @@ theorem polynomial_flux_capstone (n : Nat) (db : DyadicBracket) :
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxPolynomial

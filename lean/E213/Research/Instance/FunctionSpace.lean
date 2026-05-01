@@ -17,7 +17,7 @@ A function type is also a framework instance — a trivial result
 analogous to Lens.
 -/
 
-namespace E213.Research.FunctionSpace
+namespace E213.Research.Instance.FunctionSpace
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -42,9 +42,9 @@ def funHasDistinguishing (α β : Type) [Inhabited α]
     funext x
     exact d_β.combine_sym _ _
 
-end E213.Research.FunctionSpace
+end E213.Research.Instance.FunctionSpace
 
-namespace E213.Research.FunctionSpace
+namespace E213.Research.Instance.FunctionSpace
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -60,4 +60,4 @@ def funUniversalMorphism (α β : Type) [Inhabited α]
 def boolFunUniversal : Raw → (Bool → Bool) :=
   @funUniversalMorphism Bool Bool _ boolHasDistinguishing
 
-end E213.Research.FunctionSpace
+end E213.Research.Instance.FunctionSpace

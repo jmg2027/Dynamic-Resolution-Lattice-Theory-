@@ -12,7 +12,7 @@ This sharper bound + e < 3 → e ∈ (8/3, 3).  No integer a/3 in
 (8/3, 3) → e ≠ a/3 for any positive integer a.
 -/
 
-namespace E213.Research.EulerSharperPure
+namespace E213.Research.Cauchy.EulerSharperPure
 
 open E213.Research.PureNat
 open E213.Research.EulerSeq
@@ -139,4 +139,4 @@ theorem e_partial_neq_third_a (a : Nat) (ha : a ≥ 1) (N : Nat) (hN : N ≥ 4) 
   have h3le0 : 3 ≤ 0 := Nat.le_of_add_le_add_left this
   exact Nat.not_succ_le_zero 2 h3le0
 
-end E213.Research.EulerSharperPure
+end E213.Research.Cauchy.EulerSharperPure

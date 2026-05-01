@@ -11,7 +11,7 @@ witness c = 1/2, passthrough endpoints, hence FTC-Riemann at depth 0
 follows automatically from the generic theorem.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FTCRiemannChain
 
 open E213.Firmware E213.Hypervisor
 
@@ -63,4 +63,4 @@ theorem ftc_riemann_chain_capstone :
    ftc_riemann_generic_for_id_compose_square,
    ftc_riemann_generic_for_mid⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FTCRiemannChain

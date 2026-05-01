@@ -20,7 +20,7 @@ structural overhead, so concrete instances are sharper.
   quarticIsDifferentiable_derivative_modulus   : 3k
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ConcreteDerivativeModulus
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,4 +62,4 @@ theorem concrete_polynomial_derivative_modulus_sharp (k : Nat) :
    cubeIsDifferentiable_derivative_modulus k,
    quarticIsDifferentiable_derivative_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ConcreteDerivativeModulus

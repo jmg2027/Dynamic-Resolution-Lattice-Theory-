@@ -11,7 +11,7 @@ In framework: structural reduction via cutMul_zero_zero +
 cutMul_one_const + cutSum_zero_zero gives propEq.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CubeDerivativeAtZero
 
 open E213.Firmware E213.Hypervisor
 
@@ -57,4 +57,4 @@ theorem polynomial_derivative_at_zero_capstone :
               (cutMul (constCut 0 1) (constCut 1 1)) = constCut 0 1
   simp only [cutMul_one_const, cutMul_const_one, cutSum_zero_zero]
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CubeDerivativeAtZero

@@ -19,7 +19,7 @@ resolution depth** of a smooth function.  Polynomial of degree d
 needs d dyadic levels per output unit.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ResolutionDepth
 
 open E213.Firmware E213.Hypervisor
 
@@ -442,4 +442,4 @@ theorem polynomial_slope_coverage (n : Nat) :
           octicIsSmooth_modulus n⟩
   rw [Nat.one_mul]; exact idIsSmooth_modulus n
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ResolutionDepth

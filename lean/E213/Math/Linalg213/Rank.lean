@@ -8,7 +8,7 @@ core's `Int` is constructive.  Target: rank ≤ d for any
 collection (paper 1 compression theorem).
 -/
 
-namespace E213.Math.Linalg213
+namespace E213.Math.Linalg213.Rank
 
 /-- Integer coefficient vector. -/
 def IntCoeffs (N : Nat) : Type := Fin N → Int
@@ -68,4 +68,4 @@ theorem e0_e1_LI_bounded :
 /-- ★ Target (Linalg213 capstone, restated): rank(Gram vs) ≤ 5. -/
 theorem rank_5_target_L2 : True := trivial
 
-end E213.Math.Linalg213
+end E213.Math.Linalg213.Rank

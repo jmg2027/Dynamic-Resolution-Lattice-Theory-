@@ -33,7 +33,7 @@ No classical reasoning used; only funext + propext (Lean 4 core
 baseline).
 -/
 
-namespace E213.Research.UniversalQuotLens
+namespace E213.Research.Universal.QuotLens
 
 open E213.Firmware E213.Hypervisor
 
@@ -130,9 +130,9 @@ theorem universalLens_kernel_eq_E
     · intro hrs; exact htrans _ _ _ (hsymm _ _ hrr') hrs
     · intro hr's; exact htrans _ _ _ hrr' hr's
 
-end E213.Research.UniversalQuotLens
+end E213.Research.Universal.QuotLens
 
-namespace E213.Research.UniversalQuotLens
+namespace E213.Research.Universal.QuotLens
 
 open E213.Firmware E213.Hypervisor
 
@@ -168,4 +168,4 @@ theorem universalLens_idempotent (α : Type) (M : Lens α)
       (universalLens M.equiv) (universalLens_combine_sym M.equiv)
       x x' y y' hxy hx'y' hxx' hyy'
 
-end E213.Research.UniversalQuotLens
+end E213.Research.Universal.QuotLens

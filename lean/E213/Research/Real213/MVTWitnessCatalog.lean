@@ -14,7 +14,7 @@ is a witness.  For x², c = 1/2.  For mid(x, x²), c = 1/2.
   HasDyadicMVTWitness.id_at_one     : c = 1
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.MVTWitnessCatalog
 
 open E213.Firmware E213.Hypervisor
 
@@ -56,4 +56,4 @@ theorem mvt_witness_catalog_capstone :
   ⟨rfl, rfl, rfl, squareDerivative_at_half,
    mid_id_square_derivative_at_half⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.MVTWitnessCatalog

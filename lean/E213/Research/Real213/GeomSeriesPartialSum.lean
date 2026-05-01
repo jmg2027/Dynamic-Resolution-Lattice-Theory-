@@ -15,7 +15,7 @@ For Σ (1/2)^i:
 Each propEq via cutSum lemmas chain.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.GeomSeriesPartialSum
 
 open E213.Firmware E213.Hypervisor
 
@@ -46,4 +46,4 @@ theorem partialSum_geomHalf_capstone :
     ∧ partialSum geomHalfSeries 2 = constCut 3 2 :=
   ⟨partialSum_geomHalf_at_one, partialSum_geomHalf_at_two⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.GeomSeriesPartialSum

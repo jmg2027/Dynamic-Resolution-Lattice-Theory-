@@ -17,7 +17,7 @@ The converse direction is non-constructive (requires AC).  This file
 provides only the constructive direction.
 -/
 
-namespace E213.Research.LensFactoring
+namespace E213.Research.Lens.Factoring
 
 open E213.Firmware E213.Hypervisor
 
@@ -31,4 +31,4 @@ theorem refines_of_factor {α β : Type} (L : Lens α) (M : Lens β)
   show M.view x = M.view y
   rw [hfactor x, hfactor y, hxy']
 
-end E213.Research.LensFactoring
+end E213.Research.Lens.Factoring

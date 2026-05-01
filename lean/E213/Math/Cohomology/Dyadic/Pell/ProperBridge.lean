@@ -17,7 +17,7 @@ the Legendre-Pisano framework is *parametric* in the discriminant
 and D = 8 (Pell proper).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.ProperBridge
 
 /-- ★★★★★ Legendre 8 mod 3 = NQR. -/
 theorem legendre_8_mod_3 :
@@ -56,4 +56,4 @@ theorem pellProper_legendre_bridge :
    ⟨legendre_8_mod_5, pellProper5_run_period_12⟩,
    ⟨legendre_8_mod_7, pellProper7_run_period_6⟩⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.ProperBridge

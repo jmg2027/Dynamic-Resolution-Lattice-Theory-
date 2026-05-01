@@ -24,7 +24,7 @@ pullback of the image of `α` — the same collapse occurs at every
 level of the recursive Lens^n α tower.
 -/
 
-namespace E213.Research.LensOnLensImageGeneric
+namespace E213.Research.Lens.OnLensImageGeneric
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -35,9 +35,9 @@ theorem lensCombineGeneric_const {α : Type} (c : α → α → α) (a b : α) :
     lensCombineGeneric c (constLens a) (constLens b) = constLens (c a b) := by
   unfold lensCombineGeneric constLens; rfl
 
-end E213.Research.LensOnLensImageGeneric
+end E213.Research.Lens.OnLensImageGeneric
 
-namespace E213.Research.LensOnLensImageGeneric
+namespace E213.Research.Lens.OnLensImageGeneric
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -65,9 +65,9 @@ theorem constComposite_slash (α : Type) [d : HasDistinguishing α]
   rw [@universalMorphism_slash α d x y h]
   exact (lensCombineGeneric_const d.combine _ _).symm
 
-end E213.Research.LensOnLensImageGeneric
+end E213.Research.Lens.OnLensImageGeneric
 
-namespace E213.Research.LensOnLensImageGeneric
+namespace E213.Research.Lens.OnLensImageGeneric
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -91,4 +91,4 @@ theorem lensUniversalMorphism_factors_generic
     (constComposite_slash α) r
   exact this.symm
 
-end E213.Research.LensOnLensImageGeneric
+end E213.Research.Lens.OnLensImageGeneric

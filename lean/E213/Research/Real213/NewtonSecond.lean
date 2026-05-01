@@ -15,7 +15,7 @@ The position equation x = at²/2 + v0t + x0 has the 1/2 issue
 (rational coefficient) and is left for cohomEquiv treatment.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.NewtonSecond
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,4 +54,4 @@ theorem newton_second_capstone (a v0 : Nat) (t : Nat → Nat → Bool) :
    velocity_derivative_at a v0 t,
    rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.NewtonSecond

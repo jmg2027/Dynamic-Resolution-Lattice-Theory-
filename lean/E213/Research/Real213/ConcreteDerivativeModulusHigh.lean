@@ -13,7 +13,7 @@ Phase AQ: extending Phase AP to degrees 5-8.
 Pattern: derivative of x^n has modulus (n-1)·k.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ConcreteDerivativeModulusHigh
 
 open E213.Firmware E213.Hypervisor
 
@@ -69,4 +69,4 @@ theorem concrete_high_polynomial_derivative_capstone (k : Nat) :
    septicIsDifferentiable_derivative_modulus k,
    octicIsDifferentiable_derivative_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ConcreteDerivativeModulusHigh

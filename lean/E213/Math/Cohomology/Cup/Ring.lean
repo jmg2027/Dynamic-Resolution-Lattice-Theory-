@@ -15,7 +15,7 @@ Universal-∀ versions deferred (Fintype/DecidablePred constraint
 discussed in Phase CB lessons).
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Cup.Ring
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -73,4 +73,4 @@ theorem phase_CD_capstone :
   ⟨cup_unit_left_v0, cup_unit_right_v0, cup_assoc_all_true,
    cup_not_pointwise_comm⟩
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Cup.Ring

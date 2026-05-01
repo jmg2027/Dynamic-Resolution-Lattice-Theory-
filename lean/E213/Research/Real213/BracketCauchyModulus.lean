@@ -33,7 +33,7 @@ This gives an explicit, computable, quantitative Cauchy modulus
 for the dyadic bracket convergence — closing the open problem.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.BracketCauchyModulus
 
 open E213.Firmware E213.Hypervisor
 
@@ -115,4 +115,4 @@ theorem bracket_10_steps_le_hundredth :
 theorem bracket_3_24steps_le_eighth :
     dyadicCut 3 (2 + 24) 1 8 = true := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.BracketCauchyModulus

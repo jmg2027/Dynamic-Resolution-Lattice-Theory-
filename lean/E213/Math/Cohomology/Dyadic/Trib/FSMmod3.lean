@@ -20,7 +20,7 @@ period despite the modulus being prime, suggesting non-trivial
 Galois behaviour for the cubic plastic-style recurrence.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Trib.FSMmod3
 
 /-- Tribonacci shift mod 3: state (a, b, c) → (b, c, a + b + c).
     Out: parity of a (bit = a == 1). -/
@@ -73,4 +73,4 @@ theorem tribFSMmod3_signature_period_26_from_1 :
   signature_period_of_bits_period_and_anchor_from
     tribFSMmod3.bits 26 1 tribFSMmod3_bits_period_26 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Trib.FSMmod3

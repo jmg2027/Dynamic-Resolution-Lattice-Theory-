@@ -29,7 +29,7 @@ This file is the framework starting point — the full ℝ-construction
 is separate.
 -/
 
-namespace E213.Research.LensCauchy
+namespace E213.Research.Lens.Cauchy
 
 open E213.Firmware E213.Hypervisor
 
@@ -69,9 +69,9 @@ theorem eventually_class_unique {α : Type} (L : Lens α) (xs : Nat → Raw)
   have hMN' : M ≥ N' := Nat.le_max_right N N'
   rw [← hN M hMN, hN' M hMN']
 
-end E213.Research.LensCauchy
+end E213.Research.Lens.Cauchy
 
-namespace E213.Research.LensCauchy
+namespace E213.Research.Lens.Cauchy
 
 open E213.Firmware E213.Hypervisor
 
@@ -104,9 +104,9 @@ theorem cauchy_data_of {α : Type} (L : Lens α) (xs : Nat → Raw)
   obtain ⟨N, hN⟩ := h
   exact ⟨⟨N, hN⟩, trivial⟩
 
-end E213.Research.LensCauchy
+end E213.Research.Lens.Cauchy
 
-namespace E213.Research.LensCauchy
+namespace E213.Research.Lens.Cauchy
 
 open E213.Firmware E213.Hypervisor
 
@@ -125,9 +125,9 @@ def LimitAssignment.limit {ι : Type} {F : ι → (α : Type) × Lens α}
     {xs : Nat → Raw} (la : LimitAssignment F xs) (i : ι) : (F i).1 :=
   limitClass (la.data i)
 
-end E213.Research.LensCauchy
+end E213.Research.Lens.Cauchy
 
-namespace E213.Research.LensCauchy
+namespace E213.Research.Lens.Cauchy
 
 open E213.Firmware E213.Hypervisor E213.Research.IndexedJoinLens
 
@@ -144,9 +144,9 @@ theorem pointwise_limit_match {ι : Type} (F : ι → (α : Type) × Lens α)
   rw [iProdLens_view F hAllSym (xs n)]
   exact limitClass_eq_tail (F i).2 xs (la.data i) n hn
 
-end E213.Research.LensCauchy
+end E213.Research.Lens.Cauchy
 
-namespace E213.Research.LensCauchy
+namespace E213.Research.Lens.Cauchy
 
 open E213.Firmware E213.Hypervisor E213.Research.UniversalQuotLens
 
@@ -226,4 +226,4 @@ theorem limitLens_is_least {α : Type} (N : Lens α)
   have hTC : TailCong xs M r r' := (limitLens_kernel xs M r r').mp h
   exact tailCong_implies_equiv N hNsym xs M hCollapse r r' hTC
 
-end E213.Research.LensCauchy
+end E213.Research.Lens.Cauchy

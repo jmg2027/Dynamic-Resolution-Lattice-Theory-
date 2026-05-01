@@ -14,7 +14,7 @@ Then any σ : Cochain 3 1 = pattern (σ⟨0⟩, σ⟨1⟩, σ⟨2⟩) by
 funext, lift via this representation.
 -/
 
-namespace E213.Math.Cohomology.Universal.Core.Prop31
+namespace E213.Math.Cohomology.Universal.Prop31
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -56,4 +56,4 @@ theorem prop_lift_capstone :
    E213.Math.Cohomology.Universal.Core.Prop.dsq_zero_prop_5_0,
    dsq_zero_prop_3_1⟩
 
-end E213.Math.Cohomology.Universal.Core.Prop31
+end E213.Math.Cohomology.Universal.Prop31

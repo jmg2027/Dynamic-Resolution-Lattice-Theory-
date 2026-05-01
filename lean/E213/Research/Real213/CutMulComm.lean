@@ -6,7 +6,7 @@ import E213.Research.Real213.CutMul
 Strategy: iff existential characterization + bijection (m1, m2) → (m2, m1).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulComm
 
 open E213.Firmware E213.Hypervisor
 
@@ -88,9 +88,9 @@ theorem cutMulInner_eq_true_iff (cx cy : Nat → Nat → Bool)
         rw [rec_true]
         cases (cx m1 k && cy (j+1) k && decide (m1 * (j+1) ≤ m * k)) <;> rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulComm
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulComm
 
 open E213.Firmware E213.Hypervisor
 
@@ -145,9 +145,9 @@ theorem cutMulOuter_eq_true_iff (cx cy : Nat → Nat → Bool)
         rw [outer_true]
         cases cutMulInner cx cy k m (j+1) m2Bound <;> rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulComm
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulComm
 
 open E213.Firmware E213.Hypervisor
 
@@ -200,4 +200,4 @@ theorem cutMul_mono_left (cx cx' cy : Nat → Nat → Bool)
   rw [cutMul_comm]
   exact this
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulComm

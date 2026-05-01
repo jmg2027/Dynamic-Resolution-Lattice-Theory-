@@ -14,7 +14,7 @@ min(x, y) ≤ m/k iff x ≤ m/k OR y ≤ m/k → cut := cx ∨ cy.
 determined.  Continuity is also trivially obvious.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMaxMin
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,4 +64,4 @@ theorem cutMin_assoc (cx cy cz : Nat → Nat → Bool) :
   show ((cx m k || cy m k) || cz m k) = (cx m k || (cy m k || cz m k))
   cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMaxMin

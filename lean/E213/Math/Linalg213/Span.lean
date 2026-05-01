@@ -17,7 +17,7 @@ rest = 0, so the identity reduces to v(k) · 1 + 0 + ... = v(k).
 Proven by `omega` (Nat linear arithmetic).
 -/
 
-namespace E213.Math.Linalg213
+namespace E213.Math.Linalg213.Span
 
 /-- Standard basis vectors at d=5. -/
 def e2_5 : Vec 5 := Vec.basis ⟨2, by decide⟩
@@ -76,4 +76,4 @@ theorem vec5_basis_span (v : Vec 5) :
     ∧ basisDecompAt v ⟨4, by decide⟩ = v ⟨4, by decide⟩ :=
   ⟨decomp_at_0 v, decomp_at_1 v, decomp_at_2 v, decomp_at_3 v, decomp_at_4 v⟩
 
-end E213.Math.Linalg213
+end E213.Math.Linalg213.Span

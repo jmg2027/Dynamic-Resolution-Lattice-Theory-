@@ -49,15 +49,15 @@ domain.
   a direct sub-tower of ProfiniteSeq.
 -/
 
-namespace E213.Research.Padic
+namespace E213.Research.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
 open E213.Research.ProfiniteSeq
 
-end E213.Research.Padic
+end E213.Research.Hyper.Padic
 
-namespace E213.Research.Padic
+namespace E213.Research.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
@@ -87,9 +87,9 @@ private theorem pow_succ_dvd (p : Nat) (k : Nat) :
   show p^(k+1) ∣ p^(k+1) * p
   exact ⟨p, rfl⟩
 
-end E213.Research.Padic
+end E213.Research.Hyper.Padic
 
-namespace E213.Research.Padic
+namespace E213.Research.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
@@ -129,9 +129,9 @@ theorem padic_tower_refines (p : Nat) (k : Nat) :
     (padicFamily p (k+1)).refines (padicFamily p k) :=
   divides_refines (p^(k+2)) (p^(k+1)) (pow_succ_dvd p k)
 
-end E213.Research.Padic
+end E213.Research.Hyper.Padic
 
-namespace E213.Research.Padic
+namespace E213.Research.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
@@ -160,4 +160,4 @@ theorem padic_limit_all_zero (p : Nat) (hp : p ≥ 2)
     exact limitClass_eq_tail (padicFamily p k) xs (la.data k) n hn
   exact eventually_class_unique (padicFamily p k) xs (la.limit k) 0 hL h0
 
-end E213.Research.Padic
+end E213.Research.Hyper.Padic

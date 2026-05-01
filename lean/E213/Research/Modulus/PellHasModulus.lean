@@ -23,7 +23,7 @@ constructively without LEM.  The first concrete instance of the
 `HasModulus xs → isOrderCauchy xs` infrastructure.
 -/
 
-namespace E213.Research.PellHasModulus
+namespace E213.Research.Modulus.PellHasModulus
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -39,9 +39,9 @@ def pellRawSeq : Nat → Raw := fun n => (pellRaw n).val
 def pellModulusN (m k : Nat) : Nat :=
   if 2 * k * k < m * m then k else 0
 
-end E213.Research.PellHasModulus
+end E213.Research.Modulus.PellHasModulus
 
-namespace E213.Research.PellHasModulus
+namespace E213.Research.Modulus.PellHasModulus
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -84,9 +84,9 @@ theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
     rw [pellRaw_cut_below m k hk hbelow i,
         pellRaw_cut_below m k hk hbelow j]
 
-end E213.Research.PellHasModulus
+end E213.Research.Modulus.PellHasModulus
 
-namespace E213.Research.PellHasModulus
+namespace E213.Research.Modulus.PellHasModulus
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ArchimedeanCauchy
@@ -105,4 +105,4 @@ def pellHasModulus : HasModulus pellRawSeq where
 theorem pell_isOrderCauchy : isOrderCauchy pellRawSeq :=
   isOrderCauchy_of_hasModulus pellRawSeq pellHasModulus
 
-end E213.Research.PellHasModulus
+end E213.Research.Modulus.PellHasModulus

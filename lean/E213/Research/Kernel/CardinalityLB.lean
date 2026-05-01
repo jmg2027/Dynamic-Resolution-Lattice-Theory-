@@ -19,7 +19,7 @@ The exact cardinality is an open conjecture (note 47).  But the
 of the two Lenses differ (separated at some r, r').
 -/
 
-namespace E213.Research.KernelCardinalityLB
+namespace E213.Research.Kernel.CardinalityLB
 
 open E213.Firmware E213.Hypervisor E213.Research.LeavesModNat
 
@@ -67,9 +67,9 @@ private theorem mod_kernel_separates (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
       -- 1 ≠ 0
       decide
 
-end E213.Research.KernelCardinalityLB
+end E213.Research.Kernel.CardinalityLB
 
-namespace E213.Research.KernelCardinalityLB
+namespace E213.Research.Kernel.CardinalityLB
 
 open E213.Firmware E213.Hypervisor E213.Research.LeavesModNat
 
@@ -115,4 +115,4 @@ theorem leavesModNat_kernel_neq (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     obtain ⟨r, r', heqk, hneqm⟩ := mod_kernel_separates k m hk hm hnotdvd
     exact ⟨r, r', fun h => hneqm (h.mpr heqk)⟩
 
-end E213.Research.KernelCardinalityLB
+end E213.Research.Kernel.CardinalityLB

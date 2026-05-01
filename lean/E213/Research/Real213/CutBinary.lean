@@ -33,7 +33,7 @@ The *cardinality* of CutOp is the 4D parameter space of
 it.  Bishop's ε-precision choice is also a special form within it.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBinary
 
 open E213.Firmware E213.Hypervisor
 
@@ -56,9 +56,9 @@ def cutBinary (P : Nat → Nat → Bool) (k1 k2 M1 M2 : Nat)
     (cx cy : Nat → Nat → Bool) : Bool :=
   cutBinaryOuter P k1 k2 M2 cx cy M1
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBinary
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBinary
 
 open E213.Firmware E213.Hypervisor
 
@@ -83,9 +83,9 @@ theorem cutBinaryInner_congr (P : Nat → Nat → Bool) (k1 k2 m1 M2 : Nat)
             || cutBinaryInner P k1 k2 cx2 cy2 m1 i)
     rw [hx, hy (i+1) hn, ih hi]
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBinary
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBinary
 
 open E213.Firmware E213.Hypervisor
 
@@ -123,4 +123,4 @@ theorem cutBinary_locallyDetermined (P : Nat → Nat → Bool) (k1 k2 M1 M2 : Na
      = cutBinaryOuter P k1 k2 M2 cx2 cy2 M1
   exact cutBinaryOuter_congr P k1 k2 M1 M2 cx1 cx2 cy1 cy2 hx hy M1 (Nat.le_refl _)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBinary

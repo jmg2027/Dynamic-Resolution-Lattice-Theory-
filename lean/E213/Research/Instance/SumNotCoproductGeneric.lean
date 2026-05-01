@@ -19,7 +19,7 @@ But morphism requires: `h (combine ...) = and (h ...) (h ...)` =
 and true false = false.  Contradiction (true ≠ false).
 -/
 
-namespace E213.Research.SumNotCoproductGeneric
+namespace E213.Research.Instance.SumNotCoproductGeneric
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -48,4 +48,4 @@ theorem sum_not_coproduct_and :
   rw [h1, h2] at h4
   simp at h4
 
-end E213.Research.SumNotCoproductGeneric
+end E213.Research.Instance.SumNotCoproductGeneric

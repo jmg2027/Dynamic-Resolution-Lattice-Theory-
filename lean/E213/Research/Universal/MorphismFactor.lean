@@ -17,7 +17,7 @@ universalMorphism can always be expressed as the view of some Lens.
 Direct consequence of the universalAsLens definition in `UniversalReflection.lean`.
 -/
 
-namespace E213.Research.UniversalMorphismFactor
+namespace E213.Research.Universal.MorphismFactor
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -32,4 +32,4 @@ theorem constComposite_a_unfold (α : Type) [d : HasDistinguishing α] :
 theorem constComposite_b_unfold (α : Type) [d : HasDistinguishing α] :
     constComposite α Raw.b = constLens d.b := constComposite_b α
 
-end E213.Research.UniversalMorphismFactor
+end E213.Research.Universal.MorphismFactor

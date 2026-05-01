@@ -10,7 +10,7 @@ This is the **Δ⁴ edge cochain** Universal δ²=0 — relevant to
 α_em + Yang-Mills mass gap (1-cochain on K_{3,2}^{(2)} edges).
 -/
 
-namespace E213.Math.Cohomology.Universal.Core.Prop52
+namespace E213.Math.Cohomology.Universal.Prop52
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -64,4 +64,4 @@ theorem dsq_zero_prop_5_2 (σ : Cochain 5 2)
   rw [pattern_eq σ]
   exact dsq_pattern _ _ _ _ _ _ _ _ _ _ i
 
-end E213.Math.Cohomology.Universal.Core.Prop52
+end E213.Math.Cohomology.Universal.Prop52

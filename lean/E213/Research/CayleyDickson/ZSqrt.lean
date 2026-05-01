@@ -15,7 +15,7 @@ single one-line instance per D — no per-D structure
 duplication.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.ZSqrt
 
 structure ZSqrt (D : Int) where
   re : Int
@@ -65,4 +65,4 @@ theorem conj_negI : conj (negI : ZSqrt D) = I := by
 
 end ZSqrt
 
-end E213.Research
+end E213.Research.CayleyDickson.ZSqrt

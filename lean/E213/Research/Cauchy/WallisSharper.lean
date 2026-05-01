@@ -20,7 +20,7 @@ Additional threshold cuts in (4/3, 64/45) can also be added
 case-by-case.
 -/
 
-namespace E213.Research.WallisSharper
+namespace E213.Research.Cauchy.WallisSharper
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.WallisSeq
@@ -45,9 +45,9 @@ private theorem poly_ineq (k : Nat) :
     rw [h0, h1, h2, h3]; omega
   rw [e1, e2]; omega
 
-end E213.Research.WallisSharper
+end E213.Research.Cauchy.WallisSharper
 
-namespace E213.Research.WallisSharper
+namespace E213.Research.Cauchy.WallisSharper
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.WallisSeq
@@ -85,4 +85,4 @@ theorem wallis_sharper_lower (n : Nat) (hn : n ≥ 2) :
         rw [eq1, eq2]
         exact Nat.le_trans h2 h1
 
-end E213.Research.WallisSharper
+end E213.Research.Cauchy.WallisSharper

@@ -16,7 +16,7 @@ For genuine transcendentals (e, π), conjecturally their binary
 expansions are aperiodic, so they're not BitFSM-generable.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Tier2Hardness
 
 /-- ★★★★★ Aperiodic bs ⇒ no BitFSM generates it. -/
 theorem aperiodic_bits_imp_not_BitFSM (bs : Nat → Bool)
@@ -53,4 +53,4 @@ theorem BitFSM_generable_imp_eventually_periodic (bs : Nat → Bool) :
   rw [← hmatch (k + P), ← hmatch k]
   exact h_per k hk
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Tier2Hardness

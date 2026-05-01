@@ -12,7 +12,7 @@ The `derive_r4_codomain` elab finds `conj_Omega` and
 `conj_Omega2` by name-suffix convention.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.ZOmega
 
 structure ZOmega where
   re : Int
@@ -65,4 +65,4 @@ theorem conj_Omega2 : conj Omega2 = Omega := by
 
 end ZOmega
 
-end E213.Research
+end E213.Research.CayleyDickson.ZOmega

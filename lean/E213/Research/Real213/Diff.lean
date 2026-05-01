@@ -18,7 +18,7 @@ cut form: bound provided via explicit modulus N(m, k).
 Interface + types — full implementation is separate.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.Diff
 
 open E213.Firmware E213.Hypervisor
 
@@ -34,4 +34,4 @@ def constDifferentiable (c : Nat → Nat → Bool) (p : Nat → Nat → Bool) :
   derivative := constCut 0 1  -- "0/1" cut representation (always true)
   modulus := fun _ _ => 0
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.Diff

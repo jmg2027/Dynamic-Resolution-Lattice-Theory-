@@ -25,7 +25,7 @@ specific position of Raw is a separate axiom (RawInitiality /
 universalMorphism in SemanticAtom).
 -/
 
-namespace E213.Research.DistMorphism
+namespace E213.Research.Morphism.Dist
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -39,9 +39,9 @@ structure DistMorphism (α β : Type) [d_α : HasDistinguishing α]
   preserves_combine : ∀ x y, toFun (d_α.combine x y)
                               = d_β.combine (toFun x) (toFun y)
 
-end E213.Research.DistMorphism
+end E213.Research.Morphism.Dist
 
-namespace E213.Research.DistMorphism
+namespace E213.Research.Morphism.Dist
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -82,4 +82,4 @@ theorem comp_id {α β : Type} [HasDistinguishing α] [HasDistinguishing β]
     (f : DistMorphism α β) :
     comp f (id β) = f := rfl
 
-end E213.Research.DistMorphism
+end E213.Research.Morphism.Dist

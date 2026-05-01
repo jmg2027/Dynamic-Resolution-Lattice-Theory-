@@ -8,7 +8,7 @@ used in `ZILens.lean` to test whether R1–R4 alone force `ℂ`.
 Pure Lean 4 core; no Mathlib, no `ring`.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.ZI
 
 /-- Gaussian integer `re + im · i`. -/
 structure ZI where
@@ -58,4 +58,4 @@ theorem conj_ne_id : conj ≠ id := by
 
 end ZI
 
-end E213.Research
+end E213.Research.CayleyDickson.ZI

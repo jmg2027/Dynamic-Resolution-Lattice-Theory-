@@ -8,7 +8,7 @@ Cochain 4 2 = Fin 6 → Bool, 2⁶ = 64 functions.  Pattern via
 = Fin 1.  64 × 1 = 64 evals.
 -/
 
-namespace E213.Math.Cohomology.Universal.Core.Prop42
+namespace E213.Math.Cohomology.Universal.Prop42
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -47,4 +47,4 @@ theorem dsq_zero_prop_4_2 (σ : Cochain 4 2)
   rw [pattern_eq σ]
   exact dsq_pattern _ _ _ _ _ _ i
 
-end E213.Math.Cohomology.Universal.Core.Prop42
+end E213.Math.Cohomology.Universal.Prop42

@@ -12,7 +12,7 @@ partialSum s : Nat → RealCut — partial sums Σ_{i<n} s i.
 SeriesCauchy: explicit modulus form.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSeries
 
 open E213.Firmware E213.Hypervisor
 
@@ -47,4 +47,4 @@ theorem partialSum_zero_unfold (s : Nat → (Nat → Nat → Bool)) :
 theorem partialSum_succ (s : Nat → (Nat → Nat → Bool)) (n : Nat) :
     partialSum s (n+1) = cutSum (partialSum s n) (s n) := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSeries

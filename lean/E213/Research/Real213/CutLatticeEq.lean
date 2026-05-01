@@ -7,7 +7,7 @@ import E213.Research.Real213.CutPoset
 Compatibility of lattice ops with the cut order/equiv structure.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutLatticeEq
 
 open E213.Firmware E213.Hypervisor
 
@@ -111,4 +111,4 @@ theorem cutMin_cutLe_both (cx1 cx2 cy1 cy2 : Nat → Nat → Bool)
   cutLe_trans _ _ _ (cutMin_cutLe_left cx1 cx2 cy1 hx)
                     (cutMin_cutLe_right cx2 cy1 cy2 hy)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutLatticeEq

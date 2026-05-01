@@ -19,7 +19,7 @@ representative results from Phase J through AG in one statement.
   Bridge: NT=2 atom ↔ binary bisection
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseAHGrandCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -60,4 +60,4 @@ theorem phaseAH_grand_capstone (n k a b : Nat) (x : Nat → Nat → Bool) :
    octicIsDifferentiable_modulus k,
    riemannSampleSum_constCut a b unitBracket n⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseAHGrandCapstone

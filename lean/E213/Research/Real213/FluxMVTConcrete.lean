@@ -16,7 +16,7 @@ unit bracket case.
   mvt_const_balanced    : constant function divergence is balanced (any bracket)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTConcrete
 
 open E213.Firmware E213.Hypervisor
 
@@ -65,4 +65,4 @@ theorem mvt_const_self_cohomEquiv (c : Nat → Nat → Bool) (db : DyadicBracket
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTConcrete

@@ -35,7 +35,7 @@ proof.  This result is a component of that proof:
   determined framework-internally.
 -/
 
-namespace E213.Research.ImageMinimum
+namespace E213.Research.Lens.ImageMinimum
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -60,4 +60,4 @@ theorem image_minimum_property (α : Type) [d : HasDistinguishing α]
       rw [universalMorphism_slash α x y h]
       exact hSclosed _ _ ihx ihy
 
-end E213.Research.ImageMinimum
+end E213.Research.Lens.ImageMinimum

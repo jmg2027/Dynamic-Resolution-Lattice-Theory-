@@ -21,7 +21,7 @@ incomparable.  This shows that the Lens kernel space contains
 - `r2 vs r5`: same mod 3 (2), different parity (even vs odd).
 -/
 
-namespace E213.Research.Mod2Mod3Incomparable
+namespace E213.Research.ModArith.Mod2Mod3Incomparable
 
 open E213.Firmware E213.Hypervisor E213.Meta
 open E213.Research.LeavesMod3
@@ -69,4 +69,4 @@ theorem mod3_not_refines_parity :
   intro h
   exact parity_distinguishes_r2_r5 (h r2 r5 mod3_equates_r2_r5)
 
-end E213.Research.Mod2Mod3Incomparable
+end E213.Research.ModArith.Mod2Mod3Incomparable

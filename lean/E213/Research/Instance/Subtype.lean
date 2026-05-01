@@ -18,7 +18,7 @@ also a Subtype) for the formal commutativity of the default combine
 design requires additional work due to Lean infrastructure constraints.
 -/
 
-namespace E213.Research.SubtypeInstance
+namespace E213.Research.Instance.Subtype
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -39,9 +39,9 @@ def subtypeHasDistinguishing (P : Raw → Prop)
   combine := fun _ _ => ⟨Raw.a, h_a⟩
   combine_sym := fun _ _ => rfl
 
-end E213.Research.SubtypeInstance
+end E213.Research.Instance.Subtype
 
-namespace E213.Research.SubtypeInstance
+namespace E213.Research.Instance.Subtype
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -53,4 +53,4 @@ def subtypeUniversalMorphism (P : Raw → Prop)
     (h_a : P Raw.a) (h_b : P Raw.b) : Raw → {r : Raw // P r} :=
   @universalMorphism {r : Raw // P r} (subtypeHasDistinguishing P h_a h_b)
 
-end E213.Research.SubtypeInstance
+end E213.Research.Instance.Subtype

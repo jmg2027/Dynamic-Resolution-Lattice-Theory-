@@ -18,7 +18,7 @@ hypothetical function passing through both bracket endpoints —
 including sin(πx/2), tanh, or any custom dyadic function.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTPassthrough
 
 open E213.Firmware E213.Hypervisor
 
@@ -71,4 +71,4 @@ theorem phaseBF_capstone (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTPassthrough

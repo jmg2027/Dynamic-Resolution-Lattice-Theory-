@@ -21,7 +21,7 @@ Theorem chain (all ≤ {propext, Quot.sound}):
     BitFSM(n) ⇒ signature period ≤ 5n
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Archive.Capstone
 
 /-- ★★★★★★★ Dyadic / K_{3,2}^{(2)} signature capstone. -/
 theorem dyadic_signature_capstone :
@@ -63,4 +63,4 @@ theorem dyadic_signature_capstone :
    ⟨fsm_one_fifth, by decide, by decide⟩,
    ⟨fsm_one_seventh, by decide, by decide⟩⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Archive.Capstone

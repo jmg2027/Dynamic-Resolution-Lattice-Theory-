@@ -7,7 +7,7 @@ import E213.Research.Real213.CutSumDetermined
 locally-determined property of cutMul — bounded 2D search.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulDetermined
 
 open E213.Firmware E213.Hypervisor
 
@@ -31,9 +31,9 @@ theorem cutMulInner_congr (k m m1 m2Bound : Nat)
             || cutMulInner cx2 cy2 k m m1 i)
     rw [hx, hy (i+1) hn, ih hi]
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulDetermined
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulDetermined
 
 open E213.Firmware E213.Hypervisor
 
@@ -61,9 +61,9 @@ theorem cutMulOuter_congr (k m m1Bound m2Bound : Nat)
         (hx (i+1) hn) hy m2Bound (Nat.le_refl _)
     rw [step1, ih hi]
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulDetermined
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulDetermined
 
 open E213.Firmware E213.Hypervisor
 
@@ -86,4 +86,4 @@ theorem cutMul_locallyDetermined : isLocallyDetermined2 cutMul := by
     exact hy m' k hm' hk_le
   · exact Nat.le_refl _
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulDetermined

@@ -13,7 +13,7 @@ is constant 1 (i.e., g = id), the chain-rule witness is f's witness.
   id ∘ x² witness: c = 1/2
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.MVTWitnessChain
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,4 +54,4 @@ theorem chain_rule_witness_capstone :
   ⟨id_compose_square_derivative_at_half,
    id_compose_square_has_dyadic_witness⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.MVTWitnessChain

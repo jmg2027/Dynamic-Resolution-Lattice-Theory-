@@ -20,7 +20,7 @@ injective Lens is equivalent to idLens.
 That is, the "space" of injective Lenses is a single point (up to equivalence).
 -/
 
-namespace E213.Research.InjectiveLensClass
+namespace E213.Research.Lens.InjectiveClass
 
 open E213.Firmware E213.Hypervisor
 
@@ -38,4 +38,4 @@ theorem injective_equiv {α β : Type} (L : Lens α) (M : Lens β)
     show L.view x = L.view y
     rw [heq]
 
-end E213.Research.InjectiveLensClass
+end E213.Research.Lens.InjectiveClass

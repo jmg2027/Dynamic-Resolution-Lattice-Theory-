@@ -17,7 +17,7 @@ Anything constructed as ClassicCalc gets:
   ClassicCalc f := { diff : IsDifferentiable f, pass : Passthrough f }
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ClassicCalc
 
 open E213.Firmware E213.Hypervisor
 
@@ -76,4 +76,4 @@ theorem classic_calc_capstone (f) (cc : ClassicCalc f) :
 
 end ClassicCalc
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ClassicCalc

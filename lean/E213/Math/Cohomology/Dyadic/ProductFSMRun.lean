@@ -12,7 +12,7 @@ And consequently:
   (product f1 f2).bits k = g (f1.bits k) (f2.bits k)
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ProductFSMRun
 
 /-- ★★★★ Product FSM run decodes to component runs. -/
 theorem product_run_decode {n m : Nat} (hm : 0 < m)
@@ -59,4 +59,4 @@ theorem product_bits_eq {n m : Nat} (hm : 0 < m)
       = g (f1.out (f1.run k)) (f2.out (f2.run k))
   rw [(product_run_decode hm f1 f2 g k).1, (product_run_decode hm f1 f2 g k).2]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ProductFSMRun

@@ -20,7 +20,7 @@ of the refines preorder.
 - `joinLens_is_least`: least upper bound (universal property).
 -/
 
-namespace E213.Research.JoinLens
+namespace E213.Research.Lens.Join
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.JoinEquiv E213.Research.UniversalQuotLens
@@ -89,4 +89,4 @@ theorem joinLens_is_least {α β γ : Type}
   have hJE : JoinEquiv L M r r' := (joinLens_kernel L M r r').mp h
   exact JoinEquiv_is_least L M N hNsym hLN hMN r r' hJE
 
-end E213.Research.JoinLens
+end E213.Research.Lens.Join

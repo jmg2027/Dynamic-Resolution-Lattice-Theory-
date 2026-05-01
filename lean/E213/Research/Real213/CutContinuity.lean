@@ -19,7 +19,7 @@ This form is the cut-level counterpart of standard ε-δ continuity —
 consistent with Bishop locatedness.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutContinuity
 
 open E213.Firmware E213.Hypervisor
 
@@ -41,9 +41,9 @@ theorem id_locallyDetermined : isLocallyDetermined id := by
   intro cx cy h
   exact h m k (Nat.le_max_left _ _) (Nat.le_max_right _ _)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutContinuity
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutContinuity
 
 open E213.Firmware E213.Hypervisor
 
@@ -56,4 +56,4 @@ theorem constCutFn_locallyDetermined (c : Nat → Nat → Bool) :
   intro _ _
   exact ⟨0, fun _ _ _ => rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutContinuity

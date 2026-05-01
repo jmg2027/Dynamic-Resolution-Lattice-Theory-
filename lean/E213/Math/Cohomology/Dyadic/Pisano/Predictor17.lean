@@ -25,7 +25,7 @@ Sub-tight cases remain at 2 of 17:
   p=47 (inert, ×3): predict 48 = 3 · tight 16
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor17
 
 /-- ★★★★★ Legendre 5 mod 53 = NQR (inert). -/
 theorem legendre_5_mod_53 :
@@ -93,4 +93,4 @@ theorem pisano_predict_realises_pell_17 :
   · intro k; rw [h59]; exact pellFSMmod59_bits_period_29 k
   · intro k; rw [h61]; exact pellFSMmod61_bits_period_30 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pisano.Predictor17

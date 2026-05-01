@@ -33,7 +33,7 @@ Three Pisano framework families now established at 8-prime baseline:
   - Fibonacci (Δ=5):   8 primes (commit 355dc4d)
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.Proper8
 
 /-- ★★★★★★★★ Pell-proper 8-prime capstone (all bit periods). -/
 theorem pellProper_8prime_capstone :
@@ -62,4 +62,4 @@ theorem pellProper_8prime_capstone :
    pellProper19_bits_period_40,
    pellProper23_bits_period_22⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.Proper8

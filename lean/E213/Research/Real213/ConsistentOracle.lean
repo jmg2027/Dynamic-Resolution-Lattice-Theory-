@@ -33,7 +33,7 @@ ConsistentOracle is a type-level contract guaranteeing the trajectory
 is sufficiently stable.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ConsistentOracle
 
 open E213.Firmware E213.Hypervisor
 
@@ -86,4 +86,4 @@ def ConsistentOracle.collapsed
     rw [DyadicBracket.bisectN_collapsed_midCut_form oracle db h n1 m k,
         DyadicBracket.bisectN_collapsed_midCut_form oracle db h n2 m k]
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ConsistentOracle

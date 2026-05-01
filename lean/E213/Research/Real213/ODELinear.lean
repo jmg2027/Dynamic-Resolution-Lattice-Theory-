@@ -15,7 +15,7 @@ This is the simplest first-order ODE solved propositionally
 in 213 native form.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ODELinear
 
 open E213.Firmware E213.Hypervisor
 
@@ -58,4 +58,4 @@ theorem linear_ode_capstone (a b : Nat) :
     ∧ idIsDifferentiable.derivative = constCutFn (constCut 1 1) :=
   ⟨linearWithIntercept_derivative a b, rfl, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ODELinear

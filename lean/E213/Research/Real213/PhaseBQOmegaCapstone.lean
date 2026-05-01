@@ -11,7 +11,7 @@ Bundles every result from the cohomEquiv → MVT → FTC → ClassicCalc
 framework into one mega-conjunctive theorem.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseBQOmegaCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,4 +62,4 @@ theorem phaseBQ_omega_capstone (n : Nat) (a : FluxCut)
    seriesFlux_zero geomHalfSeries,
    geomHalfFlux_backward_at n⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseBQOmegaCapstone

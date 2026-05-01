@@ -14,7 +14,7 @@ Bundles every result from the propEq MVT/FTC at unit bracket arc:
   - explicit dyadic witnesses (5+ instances at c = 1/2)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseCMFinalCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -67,4 +67,4 @@ theorem phaseCM_final_capstone (n : Nat)
    @id_compose_witness_propagates,
    square_has_dyadic_witness⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseCMFinalCapstone

@@ -9,7 +9,7 @@ Cayley–Dickson doubling (`Research.CDDouble`).  Core Lean 4
 only, componentwise on `Int`.
 -/
 
-namespace E213.Research.ZI
+namespace E213.Research.CayleyDickson.ZIArith
 
 instance : Add ZI := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
 instance : Neg ZI := ⟨fun u => ⟨-u.re, -u.im⟩⟩
@@ -55,9 +55,9 @@ theorem add_comm (u v : ZI) : u + v = v + u := by
   · show u.re + v.re = v.re + u.re; omega
   · show u.im + v.im = v.im + u.im; omega
 
-end E213.Research.ZI
+end E213.Research.CayleyDickson.ZIArith
 
-namespace E213.Research.ZI
+namespace E213.Research.CayleyDickson.ZIArith
 
 -- Conj compatibility with add/sub.
 
@@ -91,9 +91,9 @@ theorem neg_neg (u : ZI) : -(-u) = u := by
 theorem sub_neg_neg (u v : ZI) : u - (-(-v)) = u - v := by
   rw [neg_neg]
 
-end E213.Research.ZI
+end E213.Research.CayleyDickson.ZIArith
 
-namespace E213.Research.ZI
+namespace E213.Research.CayleyDickson.ZIArith
 
 open E213.Tactic
 
@@ -108,9 +108,9 @@ theorem mul_assoc (u v w : ZI) : (u * v) * w = u * (v * w) := by
        = u.re * (v.re * w.im + v.im * w.re) + u.im * (v.re * w.re - v.im * w.im)
     quad_norm
 
-end E213.Research.ZI
+end E213.Research.CayleyDickson.ZIArith
 
-namespace E213.Research.ZI
+namespace E213.Research.CayleyDickson.ZIArith
 
 -- ═══ Projection simp lemmas for tactic (hurwitz_ring) ═══
 
@@ -140,4 +140,4 @@ theorem negI_re : (ZI.negI).re = 0 := rfl
 /-- `.im` of `ZI.negI`. -/
 theorem negI_im : (ZI.negI).im = -1 := rfl
 
-end E213.Research.ZI
+end E213.Research.CayleyDickson.ZIArith

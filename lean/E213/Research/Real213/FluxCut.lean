@@ -17,7 +17,7 @@ edge.  Sign emerges from edge *orientation*, not from arithmetic.
 Bishop signed-cut pairing reinterpreted as flux on dyadic tree.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxCut
 
 open E213.Firmware E213.Hypervisor
 
@@ -71,4 +71,4 @@ theorem neg_ofCut (c : Nat → Nat → Bool) :
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxCut

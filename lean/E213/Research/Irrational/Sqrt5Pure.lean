@@ -18,7 +18,7 @@ The case-count grows for each prime p, but the 5-step template is
 trivial.
 -/
 
-namespace E213.Research.Sqrt5IrrationalPure
+namespace E213.Research.Irrational.Sqrt5Pure
 
 open E213.Research.PureNat
 open E213.Research.PureNatMod5
@@ -89,4 +89,4 @@ theorem sqrt5_irrational (k : Nat) (hk : k ≥ 1) (m : Nat) :
   rw [h] at hk
   exact Nat.not_succ_le_zero 0 hk
 
-end E213.Research.Sqrt5IrrationalPure
+end E213.Research.Irrational.Sqrt5Pure

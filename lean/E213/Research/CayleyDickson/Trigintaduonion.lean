@@ -9,7 +9,7 @@ structural failure modes of Sedenion (non-alt, zero divs)
 and adds more.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.Trigintaduonion
 
 /-- CD layer 4: the 32-dim trigintaduonions. -/
 structure Trigintaduonion where
@@ -60,4 +60,4 @@ theorem zero_im : (0 : Trigintaduonion).im = 0 := rfl
 
 end Trigintaduonion
 
-end E213.Research
+end E213.Research.CayleyDickson.Trigintaduonion

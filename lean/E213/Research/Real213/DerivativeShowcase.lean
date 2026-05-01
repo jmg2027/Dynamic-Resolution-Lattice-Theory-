@@ -13,7 +13,7 @@ ML gradient descent ground truth.
   d/dx [x²] at x = 3/4  queried Boolean values
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DerivativeShowcase
 
 open E213.Firmware E213.Hypervisor
 
@@ -58,4 +58,4 @@ example (c : Nat → Nat → Bool) :
 example (c x : Nat → Nat → Bool) :
     (constIsDifferentiable c).derivative x = constCut 0 1 := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DerivativeShowcase

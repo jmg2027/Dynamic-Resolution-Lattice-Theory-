@@ -14,7 +14,7 @@ study.  Next step is sqrt3_irrational, then a generic prime-mod descent
 template.
 -/
 
-namespace E213.Research.PureNatMod3
+namespace E213.Research.ModArith.PureNatMod3
 
 /-- Custom mod-3, structural recursion. -/
 def mod3 : Nat → Nat
@@ -72,9 +72,9 @@ theorem nat_trichotomy (n : Nat) :
               left
               exact ⟨k + 1, by rw [hk, Nat.mul_succ]⟩
 
-end E213.Research.PureNatMod3
+end E213.Research.ModArith.PureNatMod3
 
-namespace E213.Research.PureNatMod3
+namespace E213.Research.ModArith.PureNatMod3
 
 open E213.Research.PureNat
 
@@ -149,4 +149,4 @@ theorem mod3_self_mul_zero (m : Nat) :
           rw [hk, three_mul_two_sq, mod3_three_mul_one] at h
           exact Nat.noConfusion h
 
-end E213.Research.PureNatMod3
+end E213.Research.ModArith.PureNatMod3

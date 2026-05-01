@@ -31,7 +31,7 @@ family choice.  Same limitLens mechanism."
 This file is the formal expression of that unification.
 -/
 
-namespace E213.Research.GenericFamilyCauchy
+namespace E213.Research.Cauchy.GenericFamily
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,9 +62,9 @@ theorem limitAssign_eq_tail {α β : Type} {ι : Type}
     F i (L.view (xs n)) = cd.limitAssign i :=
   cd.cauchy i n (cd.N i) hn (Nat.le_refl _)
 
-end E213.Research.GenericFamilyCauchy
+end E213.Research.Cauchy.GenericFamily
 
-namespace E213.Research.GenericFamilyCauchy
+namespace E213.Research.Cauchy.GenericFamily
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LensCauchy
@@ -80,9 +80,9 @@ theorem lensCauchy_is_GFCauchy {α : Type} (L : Lens α)
   intro k l hk hl
   exact hN k l hk hl
 
-end E213.Research.GenericFamilyCauchy
+end E213.Research.Cauchy.GenericFamily
 
-namespace E213.Research.GenericFamilyCauchy
+namespace E213.Research.Cauchy.GenericFamily
 
 open E213.Firmware E213.Hypervisor
 
@@ -108,9 +108,9 @@ theorem orderCauchy_is_GFCauchy
     rw [hk0]
     simp
 
-end E213.Research.GenericFamilyCauchy
+end E213.Research.Cauchy.GenericFamily
 
-namespace E213.Research.GenericFamilyCauchy
+namespace E213.Research.Cauchy.GenericFamily
 
 open E213.Firmware E213.Hypervisor
 
@@ -130,9 +130,9 @@ theorem profinite_factorial_is_GFCauchy
   rw [E213.Research.ProfiniteSeq.factorial_eventually_zero_mod (m+1) (by omega) k (by omega),
       E213.Research.ProfiniteSeq.factorial_eventually_zero_mod (m+1) (by omega) l (by omega)]
 
-end E213.Research.GenericFamilyCauchy
+end E213.Research.Cauchy.GenericFamily
 
-namespace E213.Research.GenericFamilyCauchy
+namespace E213.Research.Cauchy.GenericFamily
 
 open E213.Firmware E213.Hypervisor
 
@@ -177,9 +177,9 @@ theorem projectionLens_view {α β ι : Type} (L : Lens α) (F : ι → α → �
       rw [hfsL]
       exact (compat i (L.view x) (L.view y)).symm
 
-end E213.Research.GenericFamilyCauchy
+end E213.Research.Cauchy.GenericFamily
 
-namespace E213.Research.GenericFamilyCauchy
+namespace E213.Research.Cauchy.GenericFamily
 
 open E213.Firmware E213.Hypervisor
 
@@ -198,4 +198,4 @@ theorem leavesModAllLens_view (r : Raw) :
   · intro _ u v; rw [Nat.add_comm u v]
   · intro m u v; exact Nat.add_mod u v (m + 1)
 
-end E213.Research.GenericFamilyCauchy
+end E213.Research.Cauchy.GenericFamily

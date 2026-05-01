@@ -30,7 +30,7 @@ instance.  The admitted asymmetry in PAPER1 §5.6, §9.4 is elevated to
 a formal negative theorem.
 -/
 
-namespace E213.Research.SumNotCoproduct
+namespace E213.Research.Instance.SumNotCoproduct
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -60,4 +60,4 @@ theorem sum_not_coproduct_xor :
   -- h4 : true = xor true true.  xor true true = false → true = false → False
   simp at h4
 
-end E213.Research.SumNotCoproduct
+end E213.Research.Instance.SumNotCoproduct

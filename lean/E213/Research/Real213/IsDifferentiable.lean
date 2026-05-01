@@ -17,7 +17,7 @@ difference-quotient bound theorem is deferred to Phase AD-3.
   cutPowFnIsDifferentiable polynomial via product rule
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IsDifferentiable
 
 open E213.Firmware E213.Hypervisor
 
@@ -74,4 +74,4 @@ def cutPowFnIsDifferentiable : ∀ n, IsDifferentiable (fun x => cutPow x n)
   | 0 => constIsDifferentiable (constCut 1 1)
   | n+1 => mulIsDifferentiable (cutPowFnIsDifferentiable n) idIsDifferentiable
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IsDifferentiable

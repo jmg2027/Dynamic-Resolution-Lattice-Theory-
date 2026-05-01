@@ -9,7 +9,7 @@ Single instance covers ALL polynomial degrees x^(n+1) at once.
 One-liner MVT/FTC for arbitrary n via `.mvt` and `.ftc`.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ClassicCalcGeneric
 
 open E213.Firmware E213.Hypervisor
 
@@ -45,4 +45,4 @@ theorem cutPow_calc_capstone (n : Nat) :
 
 end ClassicCalc
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ClassicCalcGeneric

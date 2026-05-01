@@ -23,7 +23,7 @@ This dual is `Lens.view L : Raw → α` viewed from the Raw side.
 - §2. Injective Lens witness.  `r ↦ Raw.eval r idLens` is injective.
 -/
 
-namespace E213.Research.IdentityLens
+namespace E213.Research.Lens.Identity
 
 open E213.Firmware E213.Hypervisor
 
@@ -46,9 +46,9 @@ theorem idLens_symmetric :
     rw [dif_pos h, dif_pos (Ne.symm h)]
     exact Raw.slash_comm u v h
 
-end E213.Research.IdentityLens
+end E213.Research.Lens.Identity
 
-namespace E213.Research.IdentityLens
+namespace E213.Research.Lens.Identity
 
 open E213.Firmware E213.Hypervisor
 
@@ -67,9 +67,9 @@ theorem idLens_is_id : ∀ r : Raw, idLens.view r = r := by
            = Raw.slash x y h
       rw [dif_pos h]
 
-end E213.Research.IdentityLens
+end E213.Research.Lens.Identity
 
-namespace E213.Research.IdentityLens
+namespace E213.Research.Lens.Identity
 
 open E213.Firmware E213.Hypervisor
 
@@ -89,4 +89,4 @@ theorem raw_distinguished_by_idLens :
     Function.Injective (fun r : Raw => Raw.eval r idLens) :=
   idLens_injective
 
-end E213.Research.IdentityLens
+end E213.Research.Lens.Identity

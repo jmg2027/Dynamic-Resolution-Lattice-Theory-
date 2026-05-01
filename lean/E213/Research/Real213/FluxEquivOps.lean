@@ -15,7 +15,7 @@ Operations on FluxCut all preserve the cohomEquiv Setoid structure
   ofCut_cohomEquiv    : cutEq c c' → ofCut c ≈ ofCut c'
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxEquivOps
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,4 +62,4 @@ theorem flux_ops_capstone (a b c d : FluxCut)
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxEquivOps

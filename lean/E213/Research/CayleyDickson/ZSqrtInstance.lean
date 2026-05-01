@@ -15,7 +15,7 @@ separate types `Z3`, `Z5`, `Z7`, we instantiate the
 `ZSqrt D` family with specific `D` values.
 -/
 
-namespace E213.Research.ZSqrt
+namespace E213.Research.CayleyDickson.ZSqrtInstance
 
 open E213.Meta
 
@@ -35,7 +35,7 @@ def R4_of_pos {D : Int} (hD : 0 < D) : R4Codomain (ZSqrt D) where
   conj_swap_a     := ZSqrt.conj_I
   conj_swap_b     := ZSqrt.conj_negI
 
-end E213.Research.ZSqrt
+end E213.Research.CayleyDickson.ZSqrtInstance
 
 namespace E213.Research
 

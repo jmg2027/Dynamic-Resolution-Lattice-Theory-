@@ -14,7 +14,7 @@ Advance of the method — generalization of sqrt2: sqrt p is irrational
 for any prime p, descent via mod-p.  Concrete instance for p = 3.
 -/
 
-namespace E213.Research.Sqrt3IrrationalPure
+namespace E213.Research.Irrational.Sqrt3Pure
 
 open E213.Research.PureNat
 open E213.Research.PureNatMod3
@@ -103,4 +103,4 @@ theorem sqrt3_irrational (k : Nat) (hk : k ≥ 1) (m : Nat) :
   rw [h] at hk
   exact Nat.not_succ_le_zero 0 hk
 
-end E213.Research.Sqrt3IrrationalPure
+end E213.Research.Irrational.Sqrt3Pure

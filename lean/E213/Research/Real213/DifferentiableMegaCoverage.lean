@@ -22,7 +22,7 @@ Phase AM: total polynomial-differentiation coverage 0-16 in a single
   Degree 16:  hexadecicIsDifferentiable    modulus = 16k
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DifferentiableMegaCoverage
 
 open E213.Firmware E213.Hypervisor
 
@@ -50,4 +50,4 @@ theorem polynomial_diff_full_coverage (k : Nat) :
    decicIsDifferentiable_modulus k, dodecicIsDifferentiable_modulus k,
    hexadecicIsDifferentiable_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DifferentiableMegaCoverage

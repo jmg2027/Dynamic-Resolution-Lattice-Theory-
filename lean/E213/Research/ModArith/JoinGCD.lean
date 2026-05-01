@@ -26,7 +26,7 @@ Since `leavesModNat 1` has view = 0 for every r, refines is
 equivalent to "N constant."  Hence coprimality implies "N is constant."
 -/
 
-namespace E213.Research.ModJoinGCD
+namespace E213.Research.ModArith.JoinGCD
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.ModJoinBezout
@@ -57,9 +57,9 @@ private theorem gcd_succ_self (k : Nat) (hk : k ≥ 2) :
   rw [Nat.mod_one]
   rfl
 
-end E213.Research.ModJoinGCD
+end E213.Research.ModArith.JoinGCD
 
-namespace E213.Research.ModJoinGCD
+namespace E213.Research.ModArith.JoinGCD
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.ModJoinBezout
@@ -122,9 +122,9 @@ theorem join_refines_gcd {α : Type} (N : Lens α) (m k : Nat)
     rw [Nat.gcd_comm]
     exact join_refines_gcd_sorted N (k + m) k m (Nat.le_refl _) hkm hk hm hLk hLm
 
-end E213.Research.ModJoinGCD
+end E213.Research.ModArith.JoinGCD
 
-namespace E213.Research.ModJoinGCD
+namespace E213.Research.ModArith.JoinGCD
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -156,9 +156,9 @@ example {α : Type} (N : Lens α)
   show (leavesModNat 1).view r = (leavesModNat 1).view r'
   rw [leavesModNat_view_eq, leavesModNat_view_eq, Nat.mod_one, Nat.mod_one]
 
-end E213.Research.ModJoinGCD
+end E213.Research.ModArith.JoinGCD
 
-namespace E213.Research.ModJoinGCD
+namespace E213.Research.ModArith.JoinGCD
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.JoinEquiv
@@ -181,4 +181,4 @@ theorem joinEquiv_subset_gcd (m k : Nat)
     (gcd_upper_bound m k).2
   exact JoinEquiv_is_least _ _ _ hsym hLm_gcd hLk_gcd x y h
 
-end E213.Research.ModJoinGCD
+end E213.Research.ModArith.JoinGCD

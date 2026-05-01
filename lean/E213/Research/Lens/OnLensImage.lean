@@ -25,7 +25,7 @@ Bool [boolXorHasDistinguishing]`.  The recursive structure of
 Lens-on-Lens collapses at the image level to the a-leaf parity.
 -/
 
-namespace E213.Research.LensOnLensImage
+namespace E213.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -39,9 +39,9 @@ def boolToConstLens (b : Bool) : Lens Bool :=
 theorem boolToConstLens_true : boolToConstLens true = constTrueLens := rfl
 theorem boolToConstLens_false : boolToConstLens false = constFalseLens := rfl
 
-end E213.Research.LensOnLensImage
+end E213.Research.Lens.OnLensImage
 
-namespace E213.Research.LensOnLensImage
+namespace E213.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -62,9 +62,9 @@ theorem lensXor_FT : lensXor constFalseLens constTrueLens = constTrueLens := by
 theorem lensXor_FF : lensXor constFalseLens constFalseLens = constFalseLens := by
   unfold lensXor constFalseLens; rfl
 
-end E213.Research.LensOnLensImage
+end E213.Research.Lens.OnLensImage
 
-namespace E213.Research.LensOnLensImage
+namespace E213.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -78,9 +78,9 @@ theorem boolToConstLens_xor (x y : Bool) :
   cases x <;> cases y <;>
     simp [boolToConstLens, lensXor_TT, lensXor_TF, lensXor_FT, lensXor_FF]
 
-end E213.Research.LensOnLensImage
+end E213.Research.Lens.OnLensImage
 
-namespace E213.Research.LensOnLensImage
+namespace E213.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -110,9 +110,9 @@ theorem composite_slash (x y : Raw) (h : x ≠ y) :
   rw [@universalMorphism_slash Bool boolXorHasDistinguishing x y h]
   exact boolToConstLens_xor _ _
 
-end E213.Research.LensOnLensImage
+end E213.Research.Lens.OnLensImage
 
-namespace E213.Research.LensOnLensImage
+namespace E213.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -128,9 +128,9 @@ theorem lensUniversalMorphism_factors (r : Raw) :
     composite composite_a composite_b composite_slash r
   exact h.symm
 
-end E213.Research.LensOnLensImage
+end E213.Research.Lens.OnLensImage
 
-namespace E213.Research.LensOnLensImage
+namespace E213.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -148,4 +148,4 @@ theorem lensUniversalMorphism_image (r : Raw) :
   · right; rfl
   · left; rfl
 
-end E213.Research.LensOnLensImage
+end E213.Research.Lens.OnLensImage

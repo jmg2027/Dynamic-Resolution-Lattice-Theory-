@@ -18,7 +18,7 @@ Closed forms (by induction):
 - alwaysFalse from (0, 1, 0): bracket (2^n-1, 2^n, n). [1-1/2^n, 1].
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DyadicTrajectory
 
 open E213.Firmware E213.Hypervisor
 
@@ -697,4 +697,4 @@ theorem trajectory_capstone (n : Nat) :
    alwaysFalse_unit_numA n, alwaysFalse_unit_numB n,
    alwaysFalse_unit_expE n, alwaysFalse_unit_midCut n⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DyadicTrajectory

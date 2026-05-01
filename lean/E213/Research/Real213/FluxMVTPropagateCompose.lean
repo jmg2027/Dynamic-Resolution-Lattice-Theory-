@@ -12,7 +12,7 @@ so derivative = f'(x).  Hence id ∘ f's witness = f's witness.
   id_compose_witness_propagates : sf witness 1/2 → id ∘ f witness 1/2
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTPropagateCompose
 
 open E213.Firmware E213.Hypervisor
 
@@ -48,4 +48,4 @@ theorem id_compose_propagation_capstone :
      (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
      mid_id_square_derivative_at_half⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTPropagateCompose

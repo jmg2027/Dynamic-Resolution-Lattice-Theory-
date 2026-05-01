@@ -24,7 +24,7 @@ description** of Raw.
 Self-reference is built into the framework.
 -/
 
-namespace E213.Research.UniverseFlat
+namespace E213.Research.Universal.Flat
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
@@ -51,4 +51,4 @@ theorem idLens_is_bottom {α : Type} (L : Lens α) :
   rw [idLens_is_id r, idLens_is_id r'] at hview
   rw [hview]
 
-end E213.Research.UniverseFlat
+end E213.Research.Universal.Flat

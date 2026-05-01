@@ -21,7 +21,7 @@ Heavy lifting reused from `Research.IdentityLens` (existence:
 `idLens` itself) and `Research.LensLattice` (refinement lattice).
 -/
 
-namespace E213.Meta.UniversalLens
+namespace E213.Meta.UniversalLens.Core
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.IdentityLens (idLens idLens_injective)
@@ -67,4 +67,4 @@ theorem universal_lens_capstone :
          IsUniversal L → L.refines M) :=
   ⟨universal_exists, fun L M h => refines_all L M h⟩
 
-end E213.Meta.UniversalLens
+end E213.Meta.UniversalLens.Core

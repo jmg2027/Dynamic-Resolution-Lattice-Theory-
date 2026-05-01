@@ -22,7 +22,7 @@ every concrete polynomial IsDifferentiable instance.
   x¹⁶          16k                15k                  15/16
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ConcreteDerivativeMega
 
 open E213.Firmware E213.Hypervisor
 
@@ -53,4 +53,4 @@ theorem concrete_derivative_sharp_pattern (k : Nat) :
    dodecicIsDifferentiable_derivative_modulus k,
    hexadecicIsDifferentiable_derivative_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ConcreteDerivativeMega

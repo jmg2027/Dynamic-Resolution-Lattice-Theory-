@@ -21,7 +21,7 @@ Raw-level diagonal") is inaccurate.  Whether the diagonal is hit is
 determined by the injectivity of view.
 -/
 
-namespace E213.Research.DiagonalIrrelevance
+namespace E213.Research.Diagonal.Irrelevance
 
 open E213.Firmware E213.Hypervisor
 
@@ -73,4 +73,4 @@ theorem diagonal_reached_of_collision {α : Type} (L : Lens α)
     Raw.fold_slash L.base_a L.base_b L.combine hLsym x y h
   rw [hfs, ← hcol]
 
-end E213.Research.DiagonalIrrelevance
+end E213.Research.Diagonal.Irrelevance

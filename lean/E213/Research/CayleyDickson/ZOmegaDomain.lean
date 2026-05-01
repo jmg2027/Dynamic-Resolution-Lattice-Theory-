@@ -12,7 +12,7 @@ open E213.Tactic
 `2·(a² - ab + b²) = a² + b² + (a + -b)²`.
 -/
 
-namespace E213.Research.ZOmega
+namespace E213.Research.CayleyDickson.ZOmegaDomain
 
 theorem mul_comm (u v : ZOmega) : u * v = v * u := by
   apply ext
@@ -52,9 +52,9 @@ theorem conj_mul (u v : ZOmega) :
                Int.mul_neg, Int.neg_neg]
     omega
 
-end E213.Research.ZOmega
+end E213.Research.CayleyDickson.ZOmegaDomain
 
-namespace E213.Research.ZOmega
+namespace E213.Research.CayleyDickson.ZOmegaDomain
 
 /-- Sign-case analysis on `re*im`: 0 ≤ a² - ab + b². -/
 theorem normSq_nonneg (u : ZOmega) : 0 ≤ u.normSq := by
@@ -114,4 +114,4 @@ theorem no_zero_div (u v : ZOmega) : u * v = 0 → u = 0 ∨ v = 0 := by
   · exact Or.inl ((normSq_eq_zero_iff u).mp h)
   · exact Or.inr ((normSq_eq_zero_iff v).mp h)
 
-end E213.Research.ZOmega
+end E213.Research.CayleyDickson.ZOmegaDomain

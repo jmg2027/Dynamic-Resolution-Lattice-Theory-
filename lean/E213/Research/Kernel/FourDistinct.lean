@@ -12,7 +12,7 @@ Witness: `Raw.a, Raw.b` — same leaf count (both 1) but Raw.a ≠ Raw.b.
 Therefore leaves-equiv, but idLens is not-equiv.
 -/
 
-namespace E213.Research.FourDistinctKernels
+namespace E213.Research.Kernel.FourDistinct
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.IdentityLens
@@ -29,4 +29,4 @@ theorem id_neq_leaves :
       rw [← idLens_is_id Raw.a, ← idLens_is_id Raw.b]; exact h
     exact (by decide : (Raw.a : Raw) ≠ Raw.b) hab
 
-end E213.Research.FourDistinctKernels
+end E213.Research.Kernel.FourDistinct

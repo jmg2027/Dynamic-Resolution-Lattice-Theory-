@@ -28,7 +28,7 @@ accommodate even transcendentals via constructive Cauchy.
 - 2026-04-25: EulerSeq.lean written.  e ∈ (2, 3) cuts.
 -/
 
-namespace E213.Research.EulerSeq
+namespace E213.Research.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -62,9 +62,9 @@ theorem eulerNum_pos (n : Nat) : 1 ≤ eulerNum n := by
       show 1 ≤ (k + 1) * eulerNum k + 1
       omega
 
-end E213.Research.EulerSeq
+end E213.Research.Cauchy.EulerSeq
 
-namespace E213.Research.EulerSeq
+namespace E213.Research.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -106,9 +106,9 @@ theorem euler_upper_inv (n : Nat) : 3 * eulerDen n ≥ eulerNum n + 1 := by
       · have hk1 : k + 1 ≥ 2 := by omega
         omega
 
-end E213.Research.EulerSeq
+end E213.Research.Cauchy.EulerSeq
 
-namespace E213.Research.EulerSeq
+namespace E213.Research.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -140,9 +140,9 @@ theorem euler_lower_inv (n : Nat) (hn : n ≥ 2) :
         rw [h2] at h1
         omega
 
-end E213.Research.EulerSeq
+end E213.Research.Cauchy.EulerSeq
 
-namespace E213.Research.EulerSeq
+namespace E213.Research.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -179,9 +179,9 @@ theorem euler_orderProj_above_3 (m k : Nat) (h3km : 3 * k ≤ m) (n : Nat) :
     Nat.mul_le_mul_left (eulerDen n) h3km
   exact Nat.le_trans h1 h3
 
-end E213.Research.EulerSeq
+end E213.Research.Cauchy.EulerSeq
 
-namespace E213.Research.EulerSeq
+namespace E213.Research.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -230,9 +230,9 @@ theorem euler_orderCauchy_at_concrete (m k : Nat) (hk : k ≥ 1)
   · rw [euler_orderProj_below_2 m k hk hm2k p hp,
         euler_orderProj_below_2 m k hk hm2k q hq]
 
-end E213.Research.EulerSeq
+end E213.Research.Cauchy.EulerSeq
 
-namespace E213.Research.EulerSeq
+namespace E213.Research.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -265,4 +265,4 @@ theorem euler_isAbPositiveB : IsAbPositiveB eulerRawSeq := by
   rw [eulerRaw_view]
   exact eulerDen_pos n
 
-end E213.Research.EulerSeq
+end E213.Research.Cauchy.EulerSeq

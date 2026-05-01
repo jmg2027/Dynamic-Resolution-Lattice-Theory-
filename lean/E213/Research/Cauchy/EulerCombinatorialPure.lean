@@ -21,7 +21,7 @@ The foundational inequality for *Hermite-style analysis* of the typical
 e.  The basis showing the possibility of axiom-free formalization.
 -/
 
-namespace E213.Research.EulerCombinatorialPure
+namespace E213.Research.Cauchy.EulerCombinatorialPure
 
 open E213.Research.PureNat
 open E213.Research.EulerSeq
@@ -120,4 +120,4 @@ theorem euler_in_open_2_3 (n : Nat) (hn : n ≥ 2) :
     have := euler_upper_pure n
     exact Nat.lt_of_succ_le this
 
-end E213.Research.EulerCombinatorialPure
+end E213.Research.Cauchy.EulerCombinatorialPure

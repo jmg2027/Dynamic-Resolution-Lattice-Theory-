@@ -20,7 +20,7 @@ Base is Lean's `Bool` with `xor` as addition and `and` as
 multiplication.  Involution is identity.
 -/
 
-namespace E213.Research.F2CDTower
+namespace E213.Research.CayleyDickson.F2CDTower
 
 /-- Bool as 𝔽₂ — addition = xor. -/
 abbrev F2 := Bool
@@ -40,9 +40,9 @@ theorem F2.conj_involutive : ∀ a : F2, F2.conj (F2.conj a) = a := by
 theorem F2.add_self : ∀ a : F2, F2.add a a = false := by
   intro a; cases a <;> rfl
 
-end E213.Research.F2CDTower
+end E213.Research.CayleyDickson.F2CDTower
 
-namespace E213.Research.F2CDTower
+namespace E213.Research.CayleyDickson.F2CDTower
 
 /-! ## §2. Layer 1: 𝔽₂[ε]/(ε²) — dual numbers
 
@@ -90,9 +90,9 @@ theorem F2D.e_sq_is_one : F2D.mul F2D.e F2D.e = F2D.one := by
 theorem F2D.eps_sq_is_zero : F2D.mul F2D.eps F2D.eps = F2D.zero := by
   decide
 
-end E213.Research.F2CDTower
+end E213.Research.CayleyDickson.F2CDTower
 
-namespace E213.Research.F2CDTower
+namespace E213.Research.CayleyDickson.F2CDTower
 
 /-! ## §3. Structural properties of F2D
 
@@ -132,9 +132,9 @@ theorem F2D.eps_has_no_inverse :
   rintro ⟨⟨a, b⟩, hy⟩
   cases a <;> cases b <;> (revert hy; decide)
 
-end E213.Research.F2CDTower
+end E213.Research.CayleyDickson.F2CDTower
 
-namespace E213.Research.F2CDTower
+namespace E213.Research.CayleyDickson.F2CDTower
 
 /-! ## §4. Summary: What CD-over-𝔽₂ Layer 1 is
 
@@ -172,4 +172,4 @@ Layer 2 would be 16-element 𝔽₂-algebra.  Deferred to follow-up
 session if productive.
 -/
 
-end E213.Research.F2CDTower
+end E213.Research.CayleyDickson.F2CDTower

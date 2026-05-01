@@ -15,7 +15,7 @@ specific (m, k) thresholds.
   partialSum_geomHalf_n_below_2 : ∀ n, partial sum < 2 (declarative)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxSeries
 
 open E213.Firmware E213.Hypervisor
 
@@ -50,4 +50,4 @@ example : (geomHalfFlux 2).forward 3 2 = true := by decide
 theorem geomHalfFlux_backward_at (n : Nat) :
     (geomHalfFlux n).backward = constCut 0 1 := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxSeries

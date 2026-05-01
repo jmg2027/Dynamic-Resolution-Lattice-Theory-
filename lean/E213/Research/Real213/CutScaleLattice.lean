@@ -10,7 +10,7 @@ cutHalf and cutDouble shift independent slots (m or k) while
 cutMax/cutMin are pointwise Bool operations.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutScaleLattice
 
 open E213.Firmware E213.Hypervisor
 
@@ -30,4 +30,4 @@ theorem cutDouble_cutMax (cx cy : Nat → Nat → Bool) :
 theorem cutDouble_cutMin (cx cy : Nat → Nat → Bool) :
     cutDouble (cutMin cx cy) = cutMin (cutDouble cx) (cutDouble cy) := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutScaleLattice

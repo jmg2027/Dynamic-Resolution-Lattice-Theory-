@@ -9,7 +9,7 @@ For integers a ≤ b, the bracket [a, b] yields ∫_a^b 1 dx = b - a
 cohomologically via id antiderivative.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.IntegralGeneralInt
 
 open E213.Firmware E213.Hypervisor
 
@@ -60,4 +60,4 @@ theorem integral_general_int_capstone (a b : Nat) (h : a ≤ b) :
         = { forward := constCut b 1, backward := constCut a 1 } :=
   ⟨rfl, rfl, rfl, rfl, rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.IntegralGeneralInt

@@ -24,7 +24,7 @@ with sign change, iterative midpoint refinement.  Output: bracket
 sequence converging to root.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBisectionAlgo
 
 open E213.Firmware E213.Hypervisor
 
@@ -46,9 +46,9 @@ def bisectN (a b : Nat → Nat → Bool) (oracle : Nat → Nat → Bool → Bool
     if oracle m k (mid m k) then bisectN a mid oracle n m k
     else bisectN mid b oracle n m k
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBisectionAlgo
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBisectionAlgo
 
 open E213.Firmware E213.Hypervisor
 
@@ -88,4 +88,4 @@ theorem bisectN_succ_false (a b : Nat → Nat → Bool)
        = bisectN (cutMid a b) b oracle n m k
   rw [h]; rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBisectionAlgo

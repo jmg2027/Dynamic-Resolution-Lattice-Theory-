@@ -15,7 +15,7 @@ S-side and T-side.  Therefore the signature trajectory:
 This is the formal statement of bipartite alternation.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.SignatureBipartite
 
 /-- Predicate: vertex is on S-side. -/
 def isS (v : Fin 5) : Prop := v.val < 3
@@ -74,4 +74,4 @@ theorem signature_bipartite_alternation (bs : Nat → Bool) (k : Nat) :
       have hk' : k' % 2 = 0 := by omega
       exact nextVertex_S_to_T (signature bs k') (ih.1 hk') (bs k')
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.SignatureBipartite

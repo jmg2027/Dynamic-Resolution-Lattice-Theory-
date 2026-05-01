@@ -13,7 +13,7 @@ elaboration errors when chained through `hodgeStar` (Nat-sub
 in result type).
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Hodge.Involution
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -69,4 +69,4 @@ theorem phase_CB_hodge_involution :
          hodgeStar 5 3 2 (hodgeStar 5 2 3 all_true_5_2) i = all_true_5_2 i) :=
   ⟨hodge_sq_v0_5, hodge_sq_e0_5, hodge_sq_all_true_5_2⟩
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Hodge.Involution

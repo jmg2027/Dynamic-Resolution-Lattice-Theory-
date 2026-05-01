@@ -10,7 +10,7 @@ cutPow, ∘, cutMul yields automatic MVT + FTC at unit bracket
 through one-liner combinator chains.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxPassthroughCatalog
 
 open E213.Firmware E213.Hypervisor
 
@@ -71,4 +71,4 @@ theorem catalog_mvt_capstone :
 
 end FluxCut.Passthrough
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxPassthroughCatalog

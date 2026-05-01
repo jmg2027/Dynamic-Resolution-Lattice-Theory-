@@ -11,7 +11,7 @@ but finitely describable via popcount.  Not BitFSM-generable
 (if conjectured aperiodicity holds).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ThueMorse
 
 /-- Thue-Morse: parity of binary popcount. -/
 def thueMorse (n : Nat) : Bool :=
@@ -91,4 +91,4 @@ theorem thueMorse_signature_first8 :
     ∧ signature thueMorse 6 = ⟨1, by decide⟩
     ∧ signature thueMorse 7 = ⟨3, by decide⟩ := by decide
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ThueMorse

@@ -11,7 +11,7 @@ General step via iteration of `ModJoinBezout.chain_step_sub`.
 That is, the Euclidean step operates at the Lens refinement level.
 -/
 
-namespace E213.Research.ModJoinEuclidean
+namespace E213.Research.ModArith.JoinEuclidean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.ModJoinBezout
@@ -66,9 +66,9 @@ theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
         omega
       exact step1.trans step2
 
-end E213.Research.ModJoinEuclidean
+end E213.Research.ModArith.JoinEuclidean
 
-namespace E213.Research.ModJoinEuclidean
+namespace E213.Research.ModArith.JoinEuclidean
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.ModJoinBezout
@@ -117,4 +117,4 @@ theorem euclidean_step {α : Type} (N : Lens α) (m k : Nat)
   · exact (step_plus_nd N m k hk hmk hLm hLk r' _ r
       (key _ _ h_mod hle)).symm
 
-end E213.Research.ModJoinEuclidean
+end E213.Research.ModArith.JoinEuclidean

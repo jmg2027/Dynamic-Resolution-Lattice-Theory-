@@ -18,7 +18,7 @@ Partial sum approximation of e^x at cut level.  Convergence proof is a
 separate arc.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutExp
 
 open E213.Firmware E213.Hypervisor
 
@@ -38,4 +38,4 @@ def expCutPartial (x : Nat → Nat → Bool) (n : Nat) : Nat → Nat → Bool :=
 /-- expCutPartial 0 = 0 (empty sum). -/
 example (x) : expCutPartial x 0 = constCut 0 1 := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutExp

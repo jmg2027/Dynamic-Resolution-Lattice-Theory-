@@ -13,7 +13,7 @@ Fourth INERT instance (after p=3, 7, 13, 17), matching p+1 across
 all four sizes.  Bit period 24 (even); signature period 24.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod23
 
 /-- Pell-style FSM mod 23. -/
 def pellFSMmod23 : ArithFSM2 23 where
@@ -49,4 +49,4 @@ theorem pellFSMmod23_signature_period_24 :
   signature_period_of_bits_period_and_anchor pellFSMmod23.bits 24
     pellFSMmod23_bits_period_24 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod23

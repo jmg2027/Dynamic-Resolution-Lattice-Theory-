@@ -19,7 +19,7 @@ r = Raw.a (leaves 1), r' is a Raw with leaves 3.  Chain:
 Combined: N.view Raw.a = N.view r'.
 -/
 
-namespace E213.Research.ModJoinExample
+namespace E213.Research.ModArith.JoinExample
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -43,9 +43,9 @@ theorem mod_4_6_chain_example {α : Type} (N : Lens α)
   have step2 : N.view r_7 = N.view r := h4 _ _ h_7_3
   exact step1.trans step2
 
-end E213.Research.ModJoinExample
+end E213.Research.ModArith.JoinExample
 
-namespace E213.Research.ModJoinExample
+namespace E213.Research.ModArith.JoinExample
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -109,9 +109,9 @@ theorem mod_4_6_step_2k {α : Type} (N : Lens α)
         omega
       exact step1.trans step2
 
-end E213.Research.ModJoinExample
+end E213.Research.ModArith.JoinExample
 
-namespace E213.Research.ModJoinExample
+namespace E213.Research.ModArith.JoinExample
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -137,4 +137,4 @@ theorem mod_4_6_refines_parity {α : Type} (N : Lens α)
       omega
     exact (mod_4_6_step_2k N h4 h6 r' k r hk).symm
 
-end E213.Research.ModJoinExample
+end E213.Research.ModArith.JoinExample

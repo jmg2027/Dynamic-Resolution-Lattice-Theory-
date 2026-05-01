@@ -16,7 +16,7 @@ theorem.  Bundles every major result from Phase J through CY:
   - Polynomial derivatives at boundary (x = 0)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseDAOmegaOmega
 
 open E213.Firmware E213.Hypervisor
 
@@ -76,4 +76,4 @@ theorem phaseDA_omega_omega_capstone (n k v0 x0 a b : Nat)
    cubeDerivative_at_zero,
    quarticDerivative_at_zero⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseDAOmegaOmega

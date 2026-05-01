@@ -10,7 +10,7 @@ Predict (p-1)/2 = 30, TIGHT (matches exactly).
 Bit period 30 (even) ⇒ signature period 30 (no doubling).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod61
 
 /-- Pell-style FSM mod 61. -/
 def pellFSMmod61 : ArithFSM2 61 where
@@ -47,4 +47,4 @@ theorem pellFSMmod61_signature_period_30 :
   signature_period_of_bits_period_and_anchor pellFSMmod61.bits 30
     pellFSMmod61_bits_period_30 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod61

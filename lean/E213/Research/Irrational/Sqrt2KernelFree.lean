@@ -16,7 +16,7 @@ One level above the pure type-checker realm (propext is an essential axiom
 of Lean 4 core — Prop equality).
 -/
 
-namespace E213.Research.Sqrt2IrrationalKernelFree
+namespace E213.Research.Irrational.Sqrt2KernelFree
 
 /-- `m * m % 2 = m % 2`. Pure mod-2 case analysis. -/
 theorem mul_self_mod_two (m : Nat) : m * m % 2 = m % 2 := by
@@ -31,9 +31,9 @@ theorem mul_self_mod_two (m : Nat) : m * m % 2 = m % 2 := by
       have h2 : n + 1 ≤ 0 := Nat.le_of_succ_le_succ h1
       exact Nat.not_succ_le_zero n h2
 
-end E213.Research.Sqrt2IrrationalKernelFree
+end E213.Research.Irrational.Sqrt2KernelFree
 
-namespace E213.Research.Sqrt2IrrationalKernelFree
+namespace E213.Research.Irrational.Sqrt2KernelFree
 
 /-- m * m = 2 * (k * k) → m even. -/
 theorem m_even_of_sq (m k : Nat) (heq : m * m = 2 * (k * k)) :
@@ -53,9 +53,9 @@ theorem descent_step (m k : Nat) (heq : m * m = 2 * (k * k))
   rw [h_assoc] at heq
   exact Nat.eq_of_mul_eq_mul_left (by decide : 0 < 2) heq
 
-end E213.Research.Sqrt2IrrationalKernelFree
+end E213.Research.Irrational.Sqrt2KernelFree
 
-namespace E213.Research.Sqrt2IrrationalKernelFree
+namespace E213.Research.Irrational.Sqrt2KernelFree
 
 /-- m even → ∃ m', m = 2 * m'.  Uses Nat.div_add_mod. -/
 private theorem even_split (m : Nat) (h : m % 2 = 0) :
@@ -83,9 +83,9 @@ private theorem half_lt_succ (k' n : Nat) (hbnd : 2 * k' ≤ n + 1)
   have h2 : k' + 1 ≤ k' + k' := Nat.add_le_add_left hk_pos k'
   exact Nat.le_of_succ_le_succ (Nat.le_trans h2 hbnd)
 
-end E213.Research.Sqrt2IrrationalKernelFree
+end E213.Research.Irrational.Sqrt2KernelFree
 
-namespace E213.Research.Sqrt2IrrationalKernelFree
+namespace E213.Research.Irrational.Sqrt2KernelFree
 
 /-- **Bounded descent**: ∀ s, k ≤ s, m * m = 2 * (k * k) → k = 0.
     No omega — manual Nat arithmetic. -/
@@ -125,9 +125,9 @@ theorem sqrt2_no_rational_aux :
           have hk'_le : k' ≤ n := half_lt_succ k' n hbnd hk'_pos
           exact hk'_zero (ih k' m' hk'_le h3)
 
-end E213.Research.Sqrt2IrrationalKernelFree
+end E213.Research.Irrational.Sqrt2KernelFree
 
-namespace E213.Research.Sqrt2IrrationalKernelFree
+namespace E213.Research.Irrational.Sqrt2KernelFree
 
 /-- **√2 irrationality, omega-free**: ∀ k ≥ 1, m, m * m ≠ 2 * (k * k).
     Axiom budget = `[propext]` only (no Quot.sound). -/
@@ -139,4 +139,4 @@ theorem sqrt2_irrational (k : Nat) (hk : k ≥ 1) (m : Nat) :
   rw [h] at hk
   exact Nat.not_succ_le_zero 0 hk
 
-end E213.Research.Sqrt2IrrationalKernelFree
+end E213.Research.Irrational.Sqrt2KernelFree

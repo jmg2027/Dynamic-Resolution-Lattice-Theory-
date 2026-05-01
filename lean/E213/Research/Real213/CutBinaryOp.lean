@@ -13,7 +13,7 @@ via `CutBinaryOp`.  Both cutSum and cutMul are instances.
 - New operations require only an instance definition.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBinaryOp
 
 open E213.Firmware E213.Hypervisor
 
@@ -32,9 +32,9 @@ def CutBinaryOp.apply (op : CutBinaryOp) (cx cy : Nat → Nat → Bool) :
     cutBinary (op.predicate m k) (op.k1 m k) (op.k2 m k)
               (op.M1 m k) (op.M2 m k) cx cy
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBinaryOp
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBinaryOp
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,9 +54,9 @@ def cutMulOp : CutBinaryOp where
   M1 := fun m k => (m + 1) * (k + 1)
   M2 := fun m k => (m + 1) * (k + 1)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBinaryOp
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutBinaryOp
 
 open E213.Firmware E213.Hypervisor
 
@@ -72,4 +72,4 @@ theorem CutBinaryOp.apply_locallyDetermined (op : CutBinaryOp)
                  (op.M1 m k) (op.M2 m k) cx2 cy2
   exact cutBinary_locallyDetermined _ _ _ _ _ cx1 cx2 cy1 cy2 hx hy
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutBinaryOp

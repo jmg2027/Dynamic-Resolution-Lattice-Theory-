@@ -45,7 +45,7 @@ transcendental domain.  e: factorial denominator.  π: even²/odd² product.
 - 2026-04-25: WallisSeq.lean written.  π/2 ∈ (1, 2) cuts.
 -/
 
-namespace E213.Research.WallisSeq
+namespace E213.Research.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -89,9 +89,9 @@ theorem wallisDen_pos (n : Nat) : 1 ≤ wallisDen n := by
       calc 1 = 1 * 1 := rfl
         _ ≤ wallisDen k * ((2 * k + 1) * (2 * k + 3)) := Nat.mul_le_mul ih h1
 
-end E213.Research.WallisSeq
+end E213.Research.Cauchy.WallisSeq
 
-namespace E213.Research.WallisSeq
+namespace E213.Research.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -146,9 +146,9 @@ theorem wallis_lower_inv (n : Nat) (hn : n ≥ 1) :
           Nat.mul_le_mul_left (3 * wallisNum k) hkk
         exact Nat.le_trans step1 step2
 
-end E213.Research.WallisSeq
+end E213.Research.Cauchy.WallisSeq
 
-namespace E213.Research.WallisSeq
+namespace E213.Research.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -189,9 +189,9 @@ theorem wallis_monotonic (n : Nat) :
           Nat.mul_le_mul (wallisNum_pos n) (wallisDen_pos n)
   exact Nat.mul_lt_mul_of_pos_left hkk_strict h_pos
 
-end E213.Research.WallisSeq
+end E213.Research.Cauchy.WallisSeq
 
-namespace E213.Research.WallisSeq
+namespace E213.Research.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -255,9 +255,9 @@ theorem wallis_orderProj_below_1 (m k : Nat) (hk : k ≥ 1) (hmk : m ≤ k)
     Nat.le_of_mul_le_mul_left h_swap (by omega : 0 < wallisDen n * k)
   omega
 
-end E213.Research.WallisSeq
+end E213.Research.Cauchy.WallisSeq
 
-namespace E213.Research.WallisSeq
+namespace E213.Research.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
 
@@ -308,9 +308,9 @@ theorem wallis_poly_identity (k : Nat) :
   generalize k * k = K
   omega
 
-end E213.Research.WallisSeq
+end E213.Research.Cauchy.WallisSeq
 
-namespace E213.Research.WallisSeq
+namespace E213.Research.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -373,9 +373,9 @@ theorem wallis_upper_inv (n : Nat) :
       rw [hRHS_goal]
       exact h7
 
-end E213.Research.WallisSeq
+end E213.Research.Cauchy.WallisSeq
 
-namespace E213.Research.WallisSeq
+namespace E213.Research.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -430,9 +430,9 @@ theorem wallis_orderProj_above_2 (m k : Nat) (h2km : 2 * k ≤ m) (n : Nat) :
     Nat.mul_le_mul_left (wallisDen n) h2km
   exact Nat.le_trans h5 h7
 
-end E213.Research.WallisSeq
+end E213.Research.Cauchy.WallisSeq
 
-namespace E213.Research.WallisSeq
+namespace E213.Research.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -453,9 +453,9 @@ theorem wallis_orderCauchy_at_concrete (m k : Nat) (hk : k ≥ 1)
   · rw [wallis_orderProj_below_1 m k hk hmk p hp,
         wallis_orderProj_below_1 m k hk hmk q hq]
 
-end E213.Research.WallisSeq
+end E213.Research.Cauchy.WallisSeq
 
-namespace E213.Research.WallisSeq
+namespace E213.Research.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens E213.Research.ArchimedeanCauchy
@@ -508,4 +508,4 @@ theorem wallis_isAbPositiveB : IsAbPositiveB wallisRawSeq := by
   rw [wallisRaw_view]
   exact wallisDen_pos n
 
-end E213.Research.WallisSeq
+end E213.Research.Cauchy.WallisSeq

@@ -11,7 +11,7 @@ The typeclass-based formalization of `DistMorphism` lacks synthesis
 for multiple Prop instances — formalized directly via an explicit record.
 -/
 
-namespace E213.Research.BoolPropMorphism
+namespace E213.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -36,9 +36,9 @@ theorem boolToProp_and (x y : Bool) :
   unfold boolToProp
   cases x <;> cases y <;> simp
 
-end E213.Research.BoolPropMorphism
+end E213.Research.Morphism.BoolProp
 
-namespace E213.Research.BoolPropMorphism
+namespace E213.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -75,9 +75,9 @@ theorem universalMorphism_commute (r : Raw) :
         universalMorphism_slash Bool x y h
       rw [h1, h2, boolToProp_and, ihx, ihy]
 
-end E213.Research.BoolPropMorphism
+end E213.Research.Morphism.BoolProp
 
-namespace E213.Research.BoolPropMorphism
+namespace E213.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -136,9 +136,9 @@ theorem universalMorphism_commute_xor (r : Raw) :
         @universalMorphism_slash Bool boolXorHasDistinguishing x y h
       rw [h1, h2, boolToProp_xor, ihx, ihy]
 
-end E213.Research.BoolPropMorphism
+end E213.Research.Morphism.BoolProp
 
-namespace E213.Research.BoolPropMorphism
+namespace E213.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -188,9 +188,9 @@ theorem universalMorphism_commute_or (r : Raw) :
         @universalMorphism_slash Bool boolOrHasDistinguishing x y h
       rw [h1, h2, boolToProp_or, ihx, ihy]
 
-end E213.Research.BoolPropMorphism
+end E213.Research.Morphism.BoolProp
 
-namespace E213.Research.BoolPropMorphism
+namespace E213.Research.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -239,4 +239,4 @@ theorem universalMorphism_commute_iff (r : Raw) :
         @universalMorphism_slash Bool boolIffHasDistinguishing x y h
       rw [h1, h2, boolToProp_iff, ihx, ihy]
 
-end E213.Research.BoolPropMorphism
+end E213.Research.Morphism.BoolProp

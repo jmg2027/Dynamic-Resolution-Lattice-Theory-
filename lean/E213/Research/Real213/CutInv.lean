@@ -10,7 +10,7 @@ cutInv c m k = "1/c ≤ m/k" via "c > k/m" (strict).
 Note: at exact rational boundary "c = k/m", returns false (lower bound).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutInv
 
 open E213.Firmware E213.Hypervisor
 
@@ -43,4 +43,4 @@ theorem cutInv_cutInv (c : Nat → Nat → Bool) :
   · rfl
   · rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutInv

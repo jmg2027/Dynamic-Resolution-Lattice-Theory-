@@ -13,7 +13,7 @@ calculus-textbook framework to averaged functions.
   mid_id_square_calc          : mid(id, x²) calc instance
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ClassicCalcMid
 
 open E213.Firmware E213.Hypervisor
 
@@ -74,4 +74,4 @@ theorem mid_capstone :
 
 end ClassicCalc
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ClassicCalcMid

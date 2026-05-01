@@ -24,7 +24,7 @@ representative results from Phase AC through AM in one statement.
   AM : full coverage 0-16
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseANOmegaCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,4 +64,4 @@ theorem phaseAN_omega_capstone (n a b k : Nat) (x : Nat → Nat → Bool) :
            alwaysTrueUnit_limit_distinct_from_zero.2]
        exact fun h => Bool.noConfusion h)⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseANOmegaCapstone

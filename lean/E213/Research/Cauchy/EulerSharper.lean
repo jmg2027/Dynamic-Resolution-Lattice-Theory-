@@ -20,7 +20,7 @@ for `m/k = 5/2`.  Narrows the (1, 2) ∪ (5/2, 3) cuts with this
 incremental bound.
 -/
 
-namespace E213.Research.EulerSharper
+namespace E213.Research.Cauchy.EulerSharper
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.EulerSeq
@@ -53,4 +53,4 @@ theorem euler_sharper_lower (n : Nat) (hn : n ≥ 3) :
         rw [h2] at h1
         omega
 
-end E213.Research.EulerSharper
+end E213.Research.Cauchy.EulerSharper

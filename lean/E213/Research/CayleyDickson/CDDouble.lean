@@ -39,7 +39,7 @@ identities in 4 integer coordinates, amenable to `quad_norm`-
 style tactics; deferred.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.CDDouble
 
 open ZI
 
@@ -61,7 +61,7 @@ def I' : Lipschitz := ⟨ZI.I, 0⟩
 
 end Lipschitz
 
-end E213.Research
+end E213.Research.CayleyDickson.CDDouble
 
 namespace E213.Research.Lipschitz
 

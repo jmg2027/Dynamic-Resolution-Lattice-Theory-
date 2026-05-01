@@ -17,7 +17,7 @@ The general statement requires the difference quotient bound theorem
   localDivergence_id_form  : id divergence at any bracket
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVT
 
 open E213.Firmware E213.Hypervisor
 
@@ -57,4 +57,4 @@ theorem fluxBalance_symm (a b : FluxCut) :
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVT

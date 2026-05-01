@@ -8,7 +8,7 @@ import E213.Tactic.HurwitzRing
 Testing `hurwitz_ring` at CD layer 4 (32-dim, 64 Int coords).
 -/
 
-namespace E213.Research.Trigintaduonion
+namespace E213.Research.CayleyDickson.TrigintaduoionionHeavy
 
 open E213.Tactic
 
@@ -18,9 +18,9 @@ set_option maxHeartbeats 8000000 in
 theorem conj_conj (u : Trigintaduonion) : conj (conj u) = u := by
   hurwitz_ring
 
-end E213.Research.Trigintaduonion
+end E213.Research.CayleyDickson.TrigintaduoionionHeavy
 
-namespace E213.Research.Trigintaduonion
+namespace E213.Research.CayleyDickson.TrigintaduoionionHeavy
 
 open E213.Tactic
 
@@ -31,7 +31,7 @@ theorem conj_mul_anti (u v : Trigintaduonion) :
     conj (u * v) = conj v * conj u := by
   hurwitz_ring
 
-end E213.Research.Trigintaduonion
+end E213.Research.CayleyDickson.TrigintaduoionionHeavy
 
 /-
 **Trigintaduonion flexibility** `(a·b)·a = a·(b·a)` is a

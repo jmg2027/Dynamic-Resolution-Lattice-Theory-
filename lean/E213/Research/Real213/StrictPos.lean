@@ -27,7 +27,7 @@ structure Real213StrictPos extends Real213 where
   requires sequence reshuffling).
 -/
 
-namespace E213.Research.Real213.Core
+namespace E213.Research.Real213.StrictPos
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -38,9 +38,9 @@ open E213.Research.ArchimedeanCauchy
 structure Real213StrictPos extends Real213 where
   view_pos : ∀ i, 1 ≤ (abLens.view (xs i)).1 ∧ 1 ≤ (abLens.view (xs i)).2
 
-end E213.Research.Real213.Core
+end E213.Research.Real213.StrictPos
 
-namespace E213.Research.Real213.Core
+namespace E213.Research.Real213.StrictPos
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -69,4 +69,4 @@ def diagonalReal : Real213StrictPos where
     exact ⟨Nat.succ_le_succ (Nat.zero_le _),
            Nat.succ_le_succ (Nat.zero_le _)⟩
 
-end E213.Research.Real213.Core
+end E213.Research.Real213.StrictPos

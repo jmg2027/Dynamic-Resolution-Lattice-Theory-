@@ -34,7 +34,7 @@ also possible).
 - All use axiom budget = `[propext]` only (no Quot.sound).
 -/
 
-namespace E213.Research.EulerGenericPure
+namespace E213.Research.Cauchy.EulerGenericPure
 
 open E213.Research.PureNat
 open E213.Research.EulerSeq
@@ -268,4 +268,4 @@ theorem e_neq_a_quarter (a : Nat) (n : Nat) (hn : n ≥ 4) :
   · exact Or.inl (Nat.le_of_lt_succ h)
   · exact Or.inr h
 
-end E213.Research.EulerGenericPure
+end E213.Research.Cauchy.EulerGenericPure

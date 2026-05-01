@@ -31,7 +31,7 @@ clean "necessary and sufficient" toolkit.
   by induction.
 -/
 
-namespace E213.Meta
+namespace E213.Meta.Lens.Characterisation
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,9 +54,9 @@ theorem swap_invariant_of_base_eq_comm
     (fun _ _ => rfl) hcomm r
   exact h
 
-end E213.Meta
+end E213.Meta.Lens.Characterisation
 
-namespace E213.Meta
+namespace E213.Meta.Lens.Characterisation
 
 open E213.Firmware E213.Hypervisor
 
@@ -103,9 +103,9 @@ theorem R4_conj_unique_of_surjective
   rw [hr] at this
   exact this
 
-end E213.Meta
+end E213.Meta.Lens.Characterisation
 
-namespace E213.Meta
+namespace E213.Meta.Lens.Characterisation
 
 open E213.Firmware E213.Hypervisor
 
@@ -143,4 +143,4 @@ theorem R3_view_nonVanishing
       · exact ihx hx0
       · exact ihy hy0
 
-end E213.Meta
+end E213.Meta.Lens.Characterisation

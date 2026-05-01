@@ -13,7 +13,7 @@ Bundles every result on the IsAntiderivative class:
   CR: ClassicCalc → IsAntiderivative connection
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseCSCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -48,4 +48,4 @@ theorem phaseCS_antiderivative_capstone (db : DyadicBracket) :
    ClassicCalc.integralCC_id_unit,
    ClassicCalc.integralCC_square_unit⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseCSCapstone

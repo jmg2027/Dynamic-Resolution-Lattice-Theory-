@@ -7,7 +7,7 @@ import E213.Research.Real213.CutSumTest
 Accuracy verification of cutMul from `Real213CutMul.lean` on const cuts (rationals).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulTest
 
 /-- 1 * 1 = 1 ≤ 1/1 = true. -/
 example : cutMul (constCut 1 1) (constCut 1 1) 1 1 = true := by decide
@@ -30,4 +30,4 @@ example : cutMul (constCut 2 1) (constCut 3 1) 6 1 = true := by decide
 /-- 2 * 3 = 6, NOT ≤ 5/1. -/
 example : cutMul (constCut 2 1) (constCut 3 1) 5 1 = false := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulTest

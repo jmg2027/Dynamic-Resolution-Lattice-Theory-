@@ -15,7 +15,7 @@ matches the boundary value f(1) = constCut 1 1.
 Single abstract theorem covering x², mid(x, x²), id ∘ x², etc.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FTCRiemannGeneric
 
 open E213.Firmware E213.Hypervisor
 
@@ -50,4 +50,4 @@ theorem ftc_riemann_generic_for_square :
     (fun x => cutMul x x) squareIsDifferentiable
     HasDyadicMVTWitness.square rfl cutMul_one_one
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FTCRiemannGeneric

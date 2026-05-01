@@ -16,7 +16,7 @@ Interface — full algorithm (Riemann sum sequence + Cauchy completeness)
 is separate work.  Lebesgue is outside the framework (measure theory absent).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.Integration
 
 open E213.Firmware E213.Hypervisor
 
@@ -32,4 +32,4 @@ def constRiemannIntegrable (c : Nat → Nat → Bool) (a b : Nat → Nat → Boo
   integral := c  -- ∫[a, b] c dx = c * (b - a) — placeholder
   modulus := fun _ _ => 0
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.Integration

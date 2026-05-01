@@ -22,7 +22,7 @@ view.  This is a stronger expression of the Note 34-35 observation that
 "diagonal is meaningful only when present in view."
 -/
 
-namespace E213.Research.RawMatchingLens
+namespace E213.Research.Lens.RawMatching
 
 open E213.Firmware E213.Hypervisor E213.Research.IdentityLens
 
@@ -50,4 +50,4 @@ theorem rawMatching_view_is_id (L : Lens Raw)
       -- Now need: L.combine x y = Raw.slash x y h
       exact hslash x y h
 
-end E213.Research.RawMatchingLens
+end E213.Research.Lens.RawMatching

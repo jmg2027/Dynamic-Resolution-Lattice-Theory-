@@ -11,7 +11,7 @@ This file restates them in the `Function.Injective` / `Function.Surjective`
 form (for use within the Lens framework).
 -/
 
-namespace E213.Research.SwapSlash
+namespace E213.Research.Raw.SwapSlash
 
 open E213.Firmware
 
@@ -23,4 +23,4 @@ theorem Raw.swap_injective' : Function.Injective Raw.swap :=
 theorem Raw.swap_surjective : Function.Surjective Raw.swap :=
   fun y => ⟨Raw.swap y, Raw.swap_swap y⟩
 
-end E213.Research.SwapSlash
+end E213.Research.Raw.SwapSlash

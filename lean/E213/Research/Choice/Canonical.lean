@@ -20,7 +20,7 @@ In settings where ZFC Choice is used for representative selection,
   well-defined-on-quotient property of a choice function.
 -/
 
-namespace E213.Research.CanonicalChoice
+namespace E213.Research.Choice.Canonical
 
 open E213.Firmware
 open E213.Firmware.Internal
@@ -41,4 +41,4 @@ theorem canonical_trichotomy (x y : Raw) (h : x ≠ y) :
       exfalso
       exact h (Subtype.ext ((Tree.cmp_eq_iff _ _).mp hc))
 
-end E213.Research.CanonicalChoice
+end E213.Research.Choice.Canonical

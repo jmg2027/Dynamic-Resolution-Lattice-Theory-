@@ -12,7 +12,7 @@ is further confirmed: ℤ[√-2] is another countable quadratic
 extension that is self-recognising under R1–R4 alone.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.ZSqrt2
 
 /-- Elements of `ℤ[√-2]`: pairs `re + im · √-2`. -/
 structure Z2 where
@@ -58,4 +58,4 @@ theorem conj_ne_id : conj ≠ id := by
 
 end Z2
 
-end E213.Research
+end E213.Research.CayleyDickson.ZSqrt2

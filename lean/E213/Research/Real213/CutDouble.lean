@@ -10,7 +10,7 @@ import E213.Research.Real213.CutPoset
 cutDouble c := "2x ≤ m/k" iff "x ≤ m/(2k)" → c m (2k).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutDouble
 
 open E213.Firmware E213.Hypervisor
 
@@ -114,4 +114,4 @@ theorem cutDouble_cutMid (cx cy : Nat → Nat → Bool) :
   rw [← cutDouble_cutSum]
   exact cutDouble_cutHalf_comm _
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutDouble

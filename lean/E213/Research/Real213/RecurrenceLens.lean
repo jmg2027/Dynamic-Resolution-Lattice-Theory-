@@ -17,7 +17,7 @@ structure RecurrenceLens (state : Type) where
 State + transition + output = Lens recurrence specification.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.RecurrenceLens
 
 open E213.Firmware E213.Hypervisor
 
@@ -38,9 +38,9 @@ def RecurrenceLens.cutAt {state : Type}
     (rl : RecurrenceLens state) (n : Nat) : Nat → Nat → Bool :=
   rl.output (rl.unfoldState n)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.RecurrenceLens
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.RecurrenceLens
 
 open E213.Firmware E213.Hypervisor
 
@@ -58,4 +58,4 @@ def eRecurrenceLens : RecurrenceLens Nat where
   transition := fun n => n + 1
   output := fun n => expCutPartial (constCut 1 1) n
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.RecurrenceLens

@@ -27,7 +27,7 @@ swap-fixed composite (`view (a/b)`).  The same pattern would
 break any lattice-valued Lens with non-discrete base values.
 -/
 
-namespace E213.Meta
+namespace E213.Meta.Lens.Max
 
 open E213.Firmware E213.Hypervisor
 
@@ -53,9 +53,9 @@ theorem slash_ab_swap_fixed :
       = Raw.slash Raw.a Raw.b (by decide) := by
   apply Subtype.ext; rfl
 
-end E213.Meta
+end E213.Meta.Lens.Max
 
-namespace E213.Meta
+namespace E213.Meta.Lens.Max
 
 open E213.Firmware E213.Hypervisor
 
@@ -104,4 +104,4 @@ theorem maxLens_not_injective :
   have : Raw.b = r := hinj heq
   exact absurd (congrArg Subtype.val this) (by decide)
 
-end E213.Meta
+end E213.Meta.Lens.Max

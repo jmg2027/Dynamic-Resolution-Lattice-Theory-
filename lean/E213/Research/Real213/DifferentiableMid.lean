@@ -15,7 +15,7 @@ also differentiable, with derivative = mid(f', g') = (f' + g')/2.
   midIsDifferentiable_modulus  modulus = max (sf.mod) (sg.mod)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DifferentiableMid
 
 open E213.Firmware E213.Hypervisor
 
@@ -70,4 +70,4 @@ theorem midpoint_capstone (k : Nat) :
     ∧ midIdSquareIsDifferentiable.linearityModulus k = 2 * k :=
   ⟨midSquareCube_modulus k, midIdSquare_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DifferentiableMid

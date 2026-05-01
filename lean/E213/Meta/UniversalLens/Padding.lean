@@ -21,7 +21,7 @@ Result: future universal-lens constructions at richer codomains
 become a one-liner application of `view_inj_of_inj_proj`.
 -/
 
-namespace E213.Meta.UniversalLens
+namespace E213.Meta.UniversalLens.Padding
 
 open E213.Firmware E213.Hypervisor
 
@@ -71,4 +71,4 @@ theorem view_inj_of_fst_eq_universal_triple {α β γ : Type}
     IsUniversal M :=
   view_inj_of_inj_proj M Prod.fst L.view hL hproj
 
-end E213.Meta.UniversalLens
+end E213.Meta.UniversalLens.Padding

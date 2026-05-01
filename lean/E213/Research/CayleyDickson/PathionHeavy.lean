@@ -8,7 +8,7 @@ Testing `hurwitz_ring` at CD layer 5 (64-dim, 128 Int coords).
 1-variable identity = 128 Int vars.
 -/
 
-namespace E213.Research.Pathion
+namespace E213.Research.CayleyDickson.PathionHeavy
 
 open E213.Tactic
 
@@ -17,4 +17,4 @@ set_option maxHeartbeats 128000000 in
 theorem conj_conj (u : Pathion) : conj (conj u) = u := by
   hurwitz_ring
 
-end E213.Research.Pathion
+end E213.Research.CayleyDickson.PathionHeavy

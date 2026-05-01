@@ -8,7 +8,7 @@ import E213.Math.Cohomology.Dyadic.ConcretePellSig
 Fibonacci predict: p-1 = 18.  TIGHT.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod19
 
 def fibFSMmod19 : ArithFSM2 19 where
   init := (⟨0, by decide⟩, ⟨1, by decide⟩)
@@ -39,4 +39,4 @@ theorem fibFSMmod19_signature_period_18_from_1 :
   signature_period_of_bits_period_and_anchor_from
     fibFSMmod19.bits 18 1 fibFSMmod19_bits_period_18 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Fib.FSMmod19

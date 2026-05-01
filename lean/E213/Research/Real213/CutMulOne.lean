@@ -7,7 +7,7 @@ import E213.Research.Real213.CutSumComm
 via iff existential characterization + Nat arithmetic on bounds.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulOne
 
 open E213.Firmware E213.Hypervisor
 
@@ -118,4 +118,4 @@ theorem cutMul_const_one (a b : Nat) :
   rw [cutMul_comm (constCut a b) (constCut 1 1) m k]
   exact congrFun (congrFun (cutMul_one_const a b) m) k
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulOne

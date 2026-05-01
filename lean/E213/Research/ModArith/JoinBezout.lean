@@ -16,7 +16,7 @@ This lemma + induction suffices to construct an arbitrary Bezout-like
 chain.
 -/
 
-namespace E213.Research.ModJoinBezout
+namespace E213.Research.ModArith.JoinBezout
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -51,9 +51,9 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
     rw [this, Nat.add_mod_right]
   exact (hLm _ _ h_r_w).trans (hLk _ _ h_w_r')
 
-end E213.Research.ModJoinBezout
+end E213.Research.ModArith.JoinBezout
 
-namespace E213.Research.ModJoinBezout
+namespace E213.Research.ModArith.JoinBezout
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -92,9 +92,9 @@ theorem consecutive_step_plus_n {α : Type} (N : Lens α) (m k : Nat)
         omega
       exact step1.trans step2
 
-end E213.Research.ModJoinBezout
+end E213.Research.ModArith.JoinBezout
 
-namespace E213.Research.ModJoinBezout
+namespace E213.Research.ModArith.JoinBezout
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat
@@ -115,4 +115,4 @@ theorem consecutive_refines_const {α : Type} (N : Lens α) (m k : Nat)
               + (Lens.leaves.view r - Lens.leaves.view r') := by omega
     exact (consecutive_step_plus_n N m k hk hmk hLm hLk r' _ r heq).symm
 
-end E213.Research.ModJoinBezout
+end E213.Research.ModArith.JoinBezout

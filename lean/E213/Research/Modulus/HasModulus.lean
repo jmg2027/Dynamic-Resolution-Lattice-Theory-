@@ -26,7 +26,7 @@ derived without LEM.
   must be elevated to a framework-internal lemma — separate arc).
 -/
 
-namespace E213.Research.HasModulusNS
+namespace E213.Research.Modulus.HasModulus
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.ABLens
@@ -46,4 +46,4 @@ theorem isOrderCauchy_of_hasModulus (xs : Nat → Raw)
   intro m k hk
   exact ⟨h.N m k, h.cauchy_at m k hk⟩
 
-end E213.Research.HasModulusNS
+end E213.Research.Modulus.HasModulus

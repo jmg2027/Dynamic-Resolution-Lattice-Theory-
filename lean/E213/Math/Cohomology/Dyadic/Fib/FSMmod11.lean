@@ -11,7 +11,7 @@ First SPLIT instance for Fibonacci.  Bit period 10 (even) ⇒
 signature period 10 (no doubling, even bit period).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod11
 
 /-- Fibonacci-style FSM mod 11. -/
 def fibFSMmod11 : ArithFSM2 11 where
@@ -47,4 +47,4 @@ theorem fibFSMmod11_signature_period_10_from_1 :
   signature_period_of_bits_period_and_anchor_from
     fibFSMmod11.bits 10 1 fibFSMmod11_bits_period_10 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Fib.FSMmod11

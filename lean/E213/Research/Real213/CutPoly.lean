@@ -6,7 +6,7 @@ import E213.Research.Real213.CutPow
 Σ_{i=0}^n a_i x^i — cut-level polynomial evaluation.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutPoly
 
 open E213.Firmware E213.Hypervisor
 
@@ -22,4 +22,4 @@ def evalPoly (coeffs : Nat → Nat) (degree : Nat) (x : Nat → Nat → Bool) :
 example : evalPoly (fun i => if i = 0 then 1 else if i = 1 then 1 else 0)
                    1 (constCut 1 1) 2 1 = true := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutPoly

@@ -13,7 +13,7 @@ Composition (F ∘ G) is antiderivative of (F'∘G) · G' (chain rule
 INVERSE direction — not quite as clean).
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.AntiderivativeCombinators
 
 open E213.Firmware E213.Hypervisor
 
@@ -62,4 +62,4 @@ theorem antiderivative_combinators_capstone :
 
 end IsAntiderivative
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.AntiderivativeCombinators

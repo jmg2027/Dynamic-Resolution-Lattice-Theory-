@@ -19,7 +19,7 @@ modulus equality.
   d/dx [x^n]    modulus = n*k   (matches f modulus)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DerivativeDepth
 
 open E213.Firmware E213.Hypervisor
 
@@ -69,4 +69,4 @@ theorem polynomial_function_and_derivative_modulus (n k : Nat) :
     ∧ (cutPowFnIsDifferentiable n).derivativeSmooth.linearityModulus k = n * k :=
   ⟨cutPowFnIsDifferentiable_modulus n k, cutPowFn_derivative_modulus n k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DerivativeDepth

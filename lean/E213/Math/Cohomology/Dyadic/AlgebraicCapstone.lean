@@ -17,7 +17,7 @@ This is the formal expression of "Tier 1 (algebraic) ⊊ Tier 2
 both quadratic and cubic algebraic classes.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.AlgebraicCapstone
 
 /-- ★★★★★★★★ Unified algebraic capstone: quadratic Pell + cubic
     Tribonacci both fully closed in the K_{3,2}^{(2)} signature
@@ -53,4 +53,4 @@ theorem algebraic_tier1_capstone :
     @arithFSM3_signature_period_bound,
     aperiodic_bits_imp_not_ArithFSM3⟩⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.AlgebraicCapstone

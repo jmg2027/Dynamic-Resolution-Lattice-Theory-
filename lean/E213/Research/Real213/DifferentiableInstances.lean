@@ -18,7 +18,7 @@ their derivative closed forms and modulus equalities.
   Each derivative shares the function's linearityModulus = degree × k.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DifferentiableInstances
 
 open E213.Firmware E213.Hypervisor
 
@@ -88,4 +88,4 @@ theorem polynomial_differentiable_instances_capstone (k : Nat) :
   ⟨squareIsDifferentiable_modulus k, cubeIsDifferentiable_modulus k,
    quarticIsDifferentiable_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DifferentiableInstances

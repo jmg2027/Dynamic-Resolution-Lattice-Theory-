@@ -35,7 +35,7 @@ are odd vs even — different.  **Slash-congruence fails.**
 Therefore depth parity cannot be extracted by any Lens.
 -/
 
-namespace E213.Research.NoDepthParity
+namespace E213.Research.Morphism.NoDepthParity
 
 open E213.Firmware E213.Hypervisor
 
@@ -75,4 +75,4 @@ theorem depth_parity_not_congruence :
   · rfl
   · decide
 
-end E213.Research.NoDepthParity
+end E213.Research.Morphism.NoDepthParity

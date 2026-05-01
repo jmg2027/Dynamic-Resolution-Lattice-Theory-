@@ -16,7 +16,7 @@ well-defined + commutative.
 Replaces the degenerate combine of `SubtypeInstance.lean`.
 -/
 
-namespace E213.Research.SubtypeInstanceClosed
+namespace E213.Research.Instance.SubtypeClosed
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -25,9 +25,9 @@ open E213.Research.SemanticAtom
 class SlashClosed (P : Raw → Prop) : Prop where
   closed : ∀ {x y : Raw} (h : x ≠ y), P x → P y → P (Raw.slash x y h)
 
-end E213.Research.SubtypeInstanceClosed
+end E213.Research.Instance.SubtypeClosed
 
-namespace E213.Research.SubtypeInstanceClosed
+namespace E213.Research.Instance.SubtypeClosed
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -54,9 +54,9 @@ theorem subtypeCombine_comm (P : Raw → Prop) [SlashClosed P]
     apply Subtype.ext
     exact Raw.slash_comm _ _ h
 
-end E213.Research.SubtypeInstanceClosed
+end E213.Research.Instance.SubtypeClosed
 
-namespace E213.Research.SubtypeInstanceClosed
+namespace E213.Research.Instance.SubtypeClosed
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -78,9 +78,9 @@ def subtypeHasDistinguishingClosed (P : Raw → Prop) [SlashClosed P]
   combine := subtypeCombine P h_a
   combine_sym := subtypeCombine_comm P h_a
 
-end E213.Research.SubtypeInstanceClosed
+end E213.Research.Instance.SubtypeClosed
 
-namespace E213.Research.SubtypeInstanceClosed
+namespace E213.Research.Instance.SubtypeClosed
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.SemanticAtom
@@ -99,4 +99,4 @@ instance trueSlashClosed : SlashClosed (fun _ => True) where
 def trueSubtypeInstance : HasDistinguishing {r : Raw // True} :=
   subtypeHasDistinguishingClosed (fun _ => True) trivial trivial
 
-end E213.Research.SubtypeInstanceClosed
+end E213.Research.Instance.SubtypeClosed

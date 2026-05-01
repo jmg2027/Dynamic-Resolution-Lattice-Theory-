@@ -19,7 +19,7 @@ structure LocallyDeterminedData (f : CutFunction) where
 ```
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
 
@@ -42,9 +42,9 @@ def constLDD (c : Nat → Nat → Bool) : LocallyDeterminedData (constCutFn c) w
   N := fun _ _ => 0
   prop := fun _ _ _ _ _ => rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutFnData
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
 
@@ -94,9 +94,9 @@ theorem maxRange_ge (f : Nat → Nat → Nat) (M K i j : Nat)
       show f i j ≤ max (maxRangeRow f (k+1) K) (maxRange f k K)
       exact Nat.le_trans (ih hik) (Nat.le_max_right _ _)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutFnData
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
 
@@ -118,9 +118,9 @@ def composeLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     · exact Nat.le_trans hk''
         (maxRange_ge lg.N (lf.N m k) (lf.N m k) m' k' hm' hk')
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutFnData
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
 
@@ -132,9 +132,9 @@ def cutHalfLDD : LocallyDeterminedData cutHalf where
     show cx (2*m) k = cy (2*m) k
     exact h (2*m) k (Nat.le_max_left _ _) (Nat.le_max_right _ _)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutFnData
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
 
@@ -152,4 +152,4 @@ def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where
     · intro m' hm'; exact h m' k hm' hk_le
     · exact Nat.le_refl _
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutFnData

@@ -17,7 +17,7 @@ is the 1-cochain value at that oriented edge:
   fluxAlong_compose : flux respects function composition
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxCochain
 
 open E213.Firmware E213.Hypervisor
 
@@ -73,4 +73,4 @@ theorem fluxAlong_const_isBalanced (c : Nat → Nat → Bool)
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxCochain

@@ -6,7 +6,7 @@ import E213.Research.Real213.CutMaxMin
 Lattice properties of cutMax, cutMin + cut zero/one properties.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutAlgebraic
 
 open E213.Firmware E213.Hypervisor
 
@@ -78,4 +78,4 @@ theorem cutMin_absorb (cx cy : Nat → Nat → Bool) :
   show (cx m k || (cx m k && cy m k)) = cx m k
   cases cx m k <;> cases cy m k <;> rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutAlgebraic

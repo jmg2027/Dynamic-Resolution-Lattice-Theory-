@@ -17,7 +17,7 @@ search trajectory generating ever-finer brackets.  Resolution
 convergence, not point existence.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DyadicBracket
 
 open E213.Firmware E213.Hypervisor
 
@@ -467,4 +467,4 @@ theorem DyadicBracket.bisectN_collapsed_midCut_form
     rw [h1, h2]
     exact Nat.mul_le_mul_left (2^(n+1)) hle
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DyadicBracket

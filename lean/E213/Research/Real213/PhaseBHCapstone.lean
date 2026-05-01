@@ -18,7 +18,7 @@ MVT/FTC propositional resolution at unit bracket.
   BG     polynomial cases as corollaries of passthrough
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhaseBHCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -56,4 +56,4 @@ theorem phaseBH_grand_capstone (n : Nat) (a : FluxCut)
    FluxCut.fluxAlong_passthrough_unit f h_left h_right,
    FluxCut.ftc_bridge_passthrough_unit f h_left h_right⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhaseBHCapstone

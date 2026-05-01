@@ -25,7 +25,7 @@ Both expressions reach the SAME forward bound — distributivity at
 the rational level is preserved by the cut forward direction.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMulConstSum
 
 open E213.Firmware E213.Hypervisor
 
@@ -87,4 +87,4 @@ theorem cutMul_const_distrib_forward
     fun m' k' => cutSum_same_denom_forward c d e m' k'
   exact cutMul_const_bounded_forward a b (c + e) d m k _ h_inner_bound h
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMulConstSum

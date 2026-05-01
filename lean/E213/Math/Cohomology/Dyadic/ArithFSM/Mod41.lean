@@ -13,7 +13,7 @@ Fifth SPLIT instance (after p=11, 19, 29, 31).  Bit period 20
 (even); signature period 20 (no doubling).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod41
 
 /-- Pell-style FSM mod 41. -/
 def pellFSMmod41 : ArithFSM2 41 where
@@ -49,4 +49,4 @@ theorem pellFSMmod41_signature_period_20 :
   signature_period_of_bits_period_and_anchor pellFSMmod41.bits 20
     pellFSMmod41_bits_period_20 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod41

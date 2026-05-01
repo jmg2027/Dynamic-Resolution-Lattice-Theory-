@@ -15,7 +15,7 @@ This is the FIRST transcendental function value formalized propEq
 in the 213 framework.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ExpAtZero
 
 open E213.Firmware E213.Hypervisor
 
@@ -66,4 +66,4 @@ theorem expAtZero_capstone (n : Nat) :
   ⟨expAtZero_partial_zero, expAtZero_partial_one,
    expAtZero_partial_succ n⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ExpAtZero

@@ -27,7 +27,7 @@ at layer 0 is `ZI.mul_comm`.
 All six components below are formally proved.
 -/
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.CDTower
 
 open E213.Research.ZI E213.Research.Lipschitz E213.Research.Cayley
      E213.Research.Sedenion
@@ -49,9 +49,9 @@ theorem CD_tower_drops :
    Cayley.mul_not_associative,
    Sedenion.R3_fails_on_sedenion⟩
 
-end E213.Research
+end E213.Research.CayleyDickson.CDTower
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.CDTower
 
 open E213.Research.Lipschitz E213.Research.Cayley E213.Research.Sedenion
 
@@ -82,9 +82,9 @@ theorem CD_tower_extended :
    Sedenion.R3_fails_on_sedenion,
    Sedenion.not_alternative⟩
 
-end E213.Research
+end E213.Research.CayleyDickson.CDTower
 
-namespace E213.Research
+namespace E213.Research.CayleyDickson.CDTower
 
 open E213.Research.Lipschitz E213.Research.Cayley E213.Research.Sedenion
 
@@ -123,4 +123,4 @@ theorem CD_tower_full :
    Cayley.normSq_mul, Cayley.no_zero_div,
    Sedenion.R3_fails_on_sedenion, Sedenion.not_alternative⟩
 
-end E213.Research
+end E213.Research.CayleyDickson.CDTower

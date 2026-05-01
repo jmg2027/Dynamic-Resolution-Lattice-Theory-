@@ -10,7 +10,7 @@ For a dyadic bracket of expE n, measure = 2^(-n), so divergence
 density, no limits, no arithmetic ratio.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxDivergence
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,4 +64,4 @@ theorem localDivergence_backward
 
 end FluxCut
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxDivergence

@@ -24,7 +24,7 @@ All three primes confirm the Pisano-style branch law via the
 trajectory-walking Legendre lens.  No external number theory used.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Legendre.Pisano
 
 /-- ★★★★★★ Bridge: at p ∈ {3, 7} (NQR, inert), the Pell period
     matches the inert formula p + 1.  At p = 5 (ramified), the
@@ -52,4 +52,4 @@ theorem legendre_pisano_bridge_table :
     have h : (7 : Nat) + 1 = 8 := by decide
     rw [h]; exact pellFSMmod7_bits_period_8 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Legendre.Pisano

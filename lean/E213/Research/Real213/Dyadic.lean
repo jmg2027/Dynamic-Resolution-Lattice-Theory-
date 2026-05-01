@@ -22,7 +22,7 @@ boundary (tight precision at k1 ≥ 2).  Moving to dyadic makes that
 issue vanish naturally.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.Dyadic
 
 open E213.Firmware E213.Hypervisor
 
@@ -65,4 +65,4 @@ theorem cutDouble_dyadicCut (M E : Nat) :
     cutDouble (dyadicCut M E) = dyadicCut (2 * M) E :=
   cutDouble_constCut M (2^E)
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.Dyadic

@@ -6,7 +6,7 @@ import E213.Math.Cohomology.Dyadic.Pell.Proper
 13 mod 8 = 5 (= -3), NQR ⇒ INERT.  Predict: 2(p+1) = 28.  TIGHT.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.ProperMod13
 
 set_option maxRecDepth 1024 in
 theorem pellProper13_run_period_28 :
@@ -30,4 +30,4 @@ theorem pellProper13_bits_period_28 :
         ((pellProperFSMmod 13 (by decide)).run k)
   rw [pellProper13_run_period_28]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.ProperMod13

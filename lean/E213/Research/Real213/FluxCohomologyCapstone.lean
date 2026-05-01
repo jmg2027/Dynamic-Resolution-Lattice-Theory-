@@ -13,7 +13,7 @@ Bundles every result on the 213-native cohomological structure:
 - AW: explicit polynomial divergence forms
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxCohomologyCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -46,4 +46,4 @@ theorem cohomology_arc_capstone (n : Nat) (db : DyadicBracket)
    FluxCut.localDivergence_id_form db,
    rfl⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxCohomologyCapstone

@@ -7,7 +7,7 @@ import E213.Research.Real213.CutSumTest
 Cut-level verification of various rational arithmetic.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMoreTests
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,4 +64,4 @@ example : cutMul (cutMul (constCut 1 1) (constCut 1 1)) (constCut 1 1) 1 1
         = cutMul (constCut 1 1) (cutMul (constCut 1 1) (constCut 1 1)) 1 1
   := by decide
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMoreTests

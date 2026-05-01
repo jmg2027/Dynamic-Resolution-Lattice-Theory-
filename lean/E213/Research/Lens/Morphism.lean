@@ -21,7 +21,7 @@ file is the stronger form of **factoring that preserves algebraic
 structure**.
 -/
 
-namespace E213.Research.LensMorphism
+namespace E213.Research.Lens.Morphism
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,9 +54,9 @@ theorem view_factors_through_morphism {α β : Type}
         Raw.fold_slash _ _ _ hLsym x y hxy
       rw [hfsM, hfsL, ihx, ihy, ← hcomb]
 
-end E213.Research.LensMorphism
+end E213.Research.Lens.Morphism
 
-namespace E213.Research.LensMorphism
+namespace E213.Research.Lens.Morphism
 
 open E213.Firmware E213.Hypervisor
 
@@ -76,4 +76,4 @@ theorem refines_of_morphism {α β : Type} (L : Lens α) (M : Lens β)
   show M.view x = M.view y
   rw [hx, hy, hxy']
 
-end E213.Research.LensMorphism
+end E213.Research.Lens.Morphism

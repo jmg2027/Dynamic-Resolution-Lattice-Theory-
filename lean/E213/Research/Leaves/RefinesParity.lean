@@ -14,7 +14,7 @@ In the refines preorder from note 37: `Lens.leaves ⊑ parityLens`
 (leaves is finer).
 -/
 
-namespace E213.Research.LeavesRefinesParity
+namespace E213.Research.Leaves.RefinesParity
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -52,9 +52,9 @@ theorem leaves_refines_parity : Lens.leaves.refines parityLens := by
   show parityLens.view x = parityLens.view y
   rw [parityLens_view_eq_leaves_odd x, parityLens_view_eq_leaves_odd y, hxy']
 
-end E213.Research.LeavesRefinesParity
+end E213.Research.Leaves.RefinesParity
 
-namespace E213.Research.LeavesRefinesParity
+namespace E213.Research.Leaves.RefinesParity
 
 open E213.Firmware E213.Hypervisor E213.Meta
 
@@ -75,4 +75,4 @@ theorem parity_not_refines_leaves : ¬ parityLens.refines Lens.leaves := by
   rw [h1, h3] at hleaves
   cases hleaves
 
-end E213.Research.LeavesRefinesParity
+end E213.Research.Leaves.RefinesParity

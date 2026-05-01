@@ -16,7 +16,7 @@ Phase DJ: ★★ comprehensive transcendental function values at zero ★★
 All formalized via series partial sums propEq.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.TranscendentalAtZero
 
 open E213.Firmware E213.Hypervisor
 
@@ -70,4 +70,4 @@ theorem transcendental_at_zero_capstone (n : Nat) :
    sinhAtZero_partial n, coshAtZero_partial_succ n,
    logAtOne_partial n⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.TranscendentalAtZero

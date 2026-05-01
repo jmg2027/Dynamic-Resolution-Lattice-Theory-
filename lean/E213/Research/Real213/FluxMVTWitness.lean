@@ -18,7 +18,7 @@ For x³, c = 1/√3 is not dyadic; the witness becomes existential
 (Cauchy approximation).  This file isolates the lucky x² case.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FluxMVTWitness
 
 open E213.Firmware E213.Hypervisor
 
@@ -57,4 +57,4 @@ theorem mvt_square_with_witness_capstone :
   ⟨FluxCut.mvt_square_unitBracket, squareDerivative_at_half,
    ⟨constCut 1 2, squareDerivative_at_half⟩⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FluxMVTWitness

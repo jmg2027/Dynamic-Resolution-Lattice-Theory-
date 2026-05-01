@@ -12,7 +12,7 @@ cutMid (constCut a b) (constCut a b) = constCut a b for b ≥ 1.
 Via cutSum_self + cutHalf_constCut + constCut_scale.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutMidSelf
 
 open E213.Firmware E213.Hypervisor
 
@@ -86,4 +86,4 @@ example : cutMul (constCut 0 1) (constCut 0 1) = constCut 0 1 :=
 example : cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1 :=
   cutMul_one_one
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutMidSelf

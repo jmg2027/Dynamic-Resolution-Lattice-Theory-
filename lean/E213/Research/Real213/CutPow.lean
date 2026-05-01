@@ -12,7 +12,7 @@ cutPow x n := x^n cut.
 cutScale a b cx := (a/b) * cx.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutPow
 
 open E213.Firmware E213.Hypervisor
 
@@ -45,4 +45,4 @@ theorem cutPow_zero (x : Nat → Nat → Bool) : cutPow x 0 = constCut 1 1 := rf
 theorem cutPow_succ (x : Nat → Nat → Bool) (n : Nat) :
     cutPow x (n+1) = cutMul (cutPow x n) x := rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutPow

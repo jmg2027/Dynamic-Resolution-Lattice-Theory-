@@ -20,7 +20,7 @@ trivial modulus (N = 0).
 - This is the *minimal* element constructor for Real213.
 -/
 
-namespace E213.Research.Real213.Core
+namespace E213.Research.Real213.Const
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.HasModulusNS
@@ -55,4 +55,4 @@ theorem const_equiv_iff (r r' : Raw) :
 theorem const_equiv_self (r : Raw) : Real213.equiv (const r) (const r) :=
   equiv_refl (const r)
 
-end E213.Research.Real213.Core
+end E213.Research.Real213.Const

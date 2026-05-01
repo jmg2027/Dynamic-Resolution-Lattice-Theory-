@@ -22,7 +22,7 @@ R5 is omitted (R5b is vacuous over inductive Raw — see
 `E213.Research.R5Vacuity` and `notes/02_r5_vacuity.md`).
 -/
 
-namespace E213.Meta
+namespace E213.Meta.SelfRecognising
 
 open E213.Firmware E213.Hypervisor
 
@@ -46,9 +46,9 @@ def specLens : Lens α where
 
 end R12Codomain
 
-end E213.Meta
+end E213.Meta.SelfRecognising
 
-namespace E213.Meta
+namespace E213.Meta.SelfRecognising
 
 open E213.Firmware E213.Hypervisor R12Codomain
 
@@ -100,4 +100,4 @@ theorem specLens_swapMatching :
 
 end R4Codomain
 
-end E213.Meta
+end E213.Meta.SelfRecognising

@@ -27,7 +27,7 @@ file is `import`-ready as a single line.
 (B-4) `nt2_atomic_yields_dyadic` — conjunctive bridge capstone.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PhysicsBridgeNT2
 
 open E213.Firmware E213.Hypervisor
 
@@ -63,4 +63,4 @@ theorem nt2_atomic_yields_dyadic (n a b : Nat) :
   ⟨alwaysFalse_unit_numB n, alwaysTrue_unit_expE n,
    riemannSampleSum_constCut a b unitBracket n⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PhysicsBridgeNT2

@@ -10,7 +10,7 @@ Same propEq pattern as x² extends to mid(x, x²) since both
 have MVT witness c = 1/2 = unitBracket midpoint.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.FTCRiemannMid
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,4 +64,4 @@ theorem ftc_riemann_mid_capstone :
    fluxAlong_mid_id_square_unit,
    ftc_riemann_mid_id_square_zero⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.FTCRiemannMid

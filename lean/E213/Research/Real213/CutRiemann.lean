@@ -17,7 +17,7 @@ riemannIntegral f a b := lim_n riemannSum f a b n.
 Cut-level form of Riemann integration — partition + sum + limit.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutRiemann
 
 open E213.Firmware E213.Hypervisor
 
@@ -73,4 +73,4 @@ def constRiemann (c : Nat → Nat → Bool) (a b : Nat → Nat → Bool) :
   modulus := fun _ _ => 0
   bound_data := ()
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutRiemann

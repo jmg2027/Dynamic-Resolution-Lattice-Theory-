@@ -7,7 +7,7 @@ import E213.Research.Real213.CutSumOne
 partialSum (fun _ => c) n at small n via verified cutSum identities.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.CutSeriesConst
 
 open E213.Firmware E213.Hypervisor
 
@@ -140,4 +140,4 @@ theorem partialSum_halves (n : Nat) :
     partialSum (fun _ => constCut 1 2) (n+1) = constCut (n+1) 2 := by
   rw [partialSum_const_half 1 n, Nat.mul_one]
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.CutSeriesConst

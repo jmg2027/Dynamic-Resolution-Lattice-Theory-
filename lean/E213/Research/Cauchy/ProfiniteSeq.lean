@@ -29,7 +29,7 @@ The iProdLens of the leavesModNat family is exactly the ℤ̂-like
 profinite completion.  A concrete instance of Lens-as-completion.
 -/
 
-namespace E213.Research.ProfiniteSeq
+namespace E213.Research.Cauchy.ProfiniteSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LensCauchy
@@ -69,9 +69,9 @@ theorem factorial_dvd (m n : Nat) (h : 1 ≤ m) (hmn : m ≤ n) :
         rw [hmk1]
         exact ⟨factorial k, rfl⟩
 
-end E213.Research.ProfiniteSeq
+end E213.Research.Cauchy.ProfiniteSeq
 
-namespace E213.Research.ProfiniteSeq
+namespace E213.Research.Cauchy.ProfiniteSeq
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.LeavesModNat E213.Research.LensCauchy
@@ -137,4 +137,4 @@ theorem factorial_seq_limit_all_zero (xs : Nat → Raw)
     exact limitClass_eq_tail (leavesModNat m) xs (la.data ⟨m, hm⟩) n hn
   exact eventually_class_unique (leavesModNat m) xs (la.limit ⟨m, hm⟩) 0 hL h0
 
-end E213.Research.ProfiniteSeq
+end E213.Research.Cauchy.ProfiniteSeq

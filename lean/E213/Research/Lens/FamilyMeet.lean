@@ -22,7 +22,7 @@ Formalization of the *complete meet-semilattice* structure of the
 Lens-kernel space.
 -/
 
-namespace E213.Research.FamilyMeet
+namespace E213.Research.Lens.FamilyMeet
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
@@ -55,9 +55,9 @@ theorem familyMeet_slash {I : Type} (E : I → Raw → Raw → Prop)
     familyMeet E (Raw.slash x y h) (Raw.slash x' y' h') :=
   fun hxx hyy i => hslash i x x' y y' h h' (hxx i) (hyy i)
 
-end E213.Research.FamilyMeet
+end E213.Research.Lens.FamilyMeet
 
-namespace E213.Research.FamilyMeet
+namespace E213.Research.Lens.FamilyMeet
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.UniversalQuotLens
@@ -86,4 +86,4 @@ theorem familyMeet_kernel_eq
     (familyMeet_trans E htrans)
     (familyMeet_slash E hslash) r r'
 
-end E213.Research.FamilyMeet
+end E213.Research.Lens.FamilyMeet

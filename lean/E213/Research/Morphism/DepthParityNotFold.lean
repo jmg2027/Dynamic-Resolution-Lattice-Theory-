@@ -16,7 +16,7 @@ slash-congruence ⟺ the function is not fold-structured.
 Concrete application of both perspectives (note 42 §1).
 -/
 
-namespace E213.Research.DepthParityNotFold
+namespace E213.Research.Morphism.DepthParityNotFold
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.FoldStructured E213.Research.NoDepthParity
@@ -52,4 +52,4 @@ theorem depthParityFn_not_fold_structured :
   rw [← h12] at h32
   cases h32
 
-end E213.Research.DepthParityNotFold
+end E213.Research.Morphism.DepthParityNotFold

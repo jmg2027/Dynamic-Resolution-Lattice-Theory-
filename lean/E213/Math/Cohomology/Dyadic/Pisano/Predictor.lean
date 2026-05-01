@@ -20,7 +20,7 @@ This is the *operational* form of the Pisano CRT — the lens
 that, given a prime, decides which Pisano formula to apply.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor
 
 /-- 213-native Pisano period predictor for the Pell-5 discriminant. -/
 def pisano_predict (p : Nat) (hp : 1 < p) : Nat :=
@@ -55,4 +55,4 @@ theorem pisano_predict_realises_pell :
   · intro k; rw [pisano_predict_correct.2.2.1]; exact pellFSMmod7_bits_period_8 k
   · intro k; rw [pisano_predict_correct.2.2.2]; exact pellFSMmod11_bits_period_5 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pisano.Predictor

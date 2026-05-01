@@ -14,7 +14,7 @@ sum of those.
   d/dx [(x²)³] = 3(x²)²·2x ≡ 6x⁵ modulus = 5k (= 6-1)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.ComposeDerivativeModulus
 
 open E213.Firmware E213.Hypervisor
 
@@ -59,4 +59,4 @@ theorem compose_derivative_capstone (k : Nat) :
    squareOfCube_derivative_modulus k,
    cubeOfSquare_derivative_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.ComposeDerivativeModulus

@@ -10,7 +10,7 @@ composing cutMul_one_one, cutMul_zero_zero, cutMul_one_const into
 signed identities.
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.SignedMulConst
 
 open E213.Firmware E213.Hypervisor
 
@@ -64,4 +64,4 @@ theorem cutSignedMul_one_const_pos (a b : Nat) :
   rw [cutMul_one_const]
   rfl
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.SignedMulConst

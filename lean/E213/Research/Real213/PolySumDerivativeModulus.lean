@@ -16,7 +16,7 @@ mathematical degree.
   cubePlusSquareIsDifferentiable_derivative_modulus : 2k (quadratic deriv)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.PolySumDerivativeModulus
 
 open E213.Firmware E213.Hypervisor
 
@@ -54,4 +54,4 @@ theorem polynomial_sum_derivative_capstone (a b k : Nat) :
    squarePlusIdIsDifferentiable_derivative_modulus k,
    cubePlusSquareIsDifferentiable_derivative_modulus k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.PolySumDerivativeModulus

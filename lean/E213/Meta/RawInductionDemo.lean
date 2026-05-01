@@ -17,7 +17,7 @@ directly; the `slash` case delegates to `Raw.fold_swap_hom`
 as a black-box (public API only, no Tree internals).
 -/
 
-namespace E213.Meta
+namespace E213.Meta.RawInductionDemo
 
 open E213.Firmware E213.Hypervisor
 
@@ -44,4 +44,4 @@ theorem raw_fold_signed_swap_demo (r : Raw) :
         (fun u v => by show u + v = v + u; omega)
         (Raw.slash x y h)
 
-end E213.Meta
+end E213.Meta.RawInductionDemo

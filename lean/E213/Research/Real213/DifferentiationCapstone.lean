@@ -22,7 +22,7 @@ modulus equalities in one conjunctive theorem.
   - cutPowFnIsDifferentiable n             modulus = n·k (generic)
 -/
 
-namespace E213.Research.Real213.CutSum
+namespace E213.Research.Real213.DifferentiationCapstone
 
 open E213.Firmware E213.Hypervisor
 
@@ -52,4 +52,4 @@ theorem polynomial_diff_0_to_8_modulus (n k : Nat) :
    cutPowFnIsDifferentiable_modulus n k,
    cutPowFn_derivative_modulus n k⟩
 
-end E213.Research.Real213.CutSum
+end E213.Research.Real213.DifferentiationCapstone

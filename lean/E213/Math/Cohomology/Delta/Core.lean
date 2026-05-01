@@ -15,7 +15,7 @@ sign (-1)^i becomes identity, so the alternating sum collapses to
 XOR — which is exactly what makes δ²=0 still hold in mod-2.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Delta.Core
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -63,4 +63,4 @@ theorem delta_vertex0_n3_02 :
 theorem delta_vertex0_n3_12 :
     delta vertex0_n3 ⟨2, by decide⟩ = false := by decide
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Delta.Core

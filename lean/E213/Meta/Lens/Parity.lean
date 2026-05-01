@@ -29,7 +29,7 @@ split of swap-visibility × R4-admissibility at the Bool/Int
 level.
 -/
 
-namespace E213.Meta
+namespace E213.Meta.Lens.Parity
 
 open E213.Firmware E213.Hypervisor
 
@@ -55,9 +55,9 @@ theorem parityLens_swap_invariant (r : Raw) :
     r
   exact h
 
-end E213.Meta
+end E213.Meta.Lens.Parity
 
-namespace E213.Meta
+namespace E213.Meta.Lens.Parity
 
 open E213.Firmware E213.Hypervisor
 
@@ -102,4 +102,4 @@ theorem parityLens_R4_fails :
     · exact htrue
   exact hmatch.2.1 hid
 
-end E213.Meta
+end E213.Meta.Lens.Parity
