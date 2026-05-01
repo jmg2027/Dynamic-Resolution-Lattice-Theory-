@@ -63,6 +63,25 @@ encoded as a pair of 213-native rationals via a symmetric commutative
 magma operation — the formal expression of the G1 thesis
 ("213 is the precondition for any describing").
 
+## Quick navigation (INDEX files)
+
+For a *5-second* entry into any sub-area, read its `INDEX.md`:
+
+| Dir | INDEX | Purpose |
+|---|---|---|
+| `seed/` | `seed/INDEX.md` | axioms + philosophy reading order |
+| `lean/E213/` | `lean/E213/INDEX.md` | layer architecture + capstone map |
+| `catalogs/` | `catalogs/README.md` | grep-able lookup tables |
+| `research-notes/` | `research-notes/INDEX.md` | numbered exploratory notes |
+| `blueprints/` | `blueprints/INDEX.md` | math/physics/meta blueprints |
+| `papers/` | `papers/README.md` | ⚠ DEPRECATED ARCHIVE |
+| `rust-engine/` | `rust-engine/docs/architecture.md` | runtime + binaries |
+
+Top-level Lean theorem index: `CAPSTONE_INDEX.md`.
+Strict-zero-axiom achievements: `STRICT_ZERO_AXIOM.md`.
+Current session state: `HANDOFF.md`.
+Agent guardrails: `LESSONS_LEARNED.md`.
+
 ## Directory
 
 ```
@@ -88,7 +107,7 @@ books/           narrative hierarchy
   └── math/      analysis213 + number-theory-213 + cohomology-213
                  + linalg-213
   └── physics/   periodic-table + (more in rust-engine docs)
-papers/          archived journal-style .tex papers
+papers/          ⚠ DEPRECATED ARCHIVE (see papers/README.md)
 catalogs/        lookup tables (atomic integers, constants,
                  periodic table, falsifiers)
 tools/           automation (audit, regress, FORBIDDEN)
