@@ -24,16 +24,16 @@ namespace E213.Math.Cohomology.Dyadic.Conjecture
     across all four branch types {inert, ramified, split, ...}. -/
 theorem legendre_pisano_extended_bridge :
     -- p = 3: NQR + inert, period = p+1 = 4
-    (legendre213 5 3 (by omega) = ⟨2, by decide⟩
+    (legendre213 5 3 (by decide) = ⟨2, by decide⟩
       ∧ ∀ k, pellFSMmod3.bits (k + 4) = pellFSMmod3.bits k)
     -- p = 5: ramified, period = 2p = 10
-    ∧ (legendre213 5 5 (by omega) = ⟨0, by decide⟩
+    ∧ (legendre213 5 5 (by decide) = ⟨0, by decide⟩
         ∧ ∀ k, pellFSMmod5.bits (k + 10) = pellFSMmod5.bits k)
     -- p = 7: NQR + inert, period = p+1 = 8
-    ∧ (legendre213 5 7 (by omega) = ⟨2, by decide⟩
+    ∧ (legendre213 5 7 (by decide) = ⟨2, by decide⟩
         ∧ ∀ k, pellFSMmod7.bits (k + 8) = pellFSMmod7.bits k)
     -- p = 11: QR + split, period = (p-1)/2 = 5  (NEW)
-    ∧ (legendre213 5 11 (by omega) = ⟨1, by decide⟩
+    ∧ (legendre213 5 11 (by decide) = ⟨1, by decide⟩
         ∧ ∀ k, pellFSMmod11.bits (k + 5) = pellFSMmod11.bits k) :=
   ⟨⟨legendre_5_mod_3, pellFSMmod3_bits_period_4⟩,
    ⟨legendre_5_mod_5, pellFSMmod5_bits_period_10⟩,

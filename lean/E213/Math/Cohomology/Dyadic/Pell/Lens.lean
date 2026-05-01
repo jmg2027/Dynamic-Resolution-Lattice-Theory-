@@ -35,13 +35,13 @@ theorem pellLens_3x5_period_20 :
             (pellFSMmod5.toBitFSM (by decide))
             xor).bits k := by
   intro k
-  have hbits3 : ∀ k, (pellFSMmod3.toBitFSM (by omega : (0:Nat) < 3)).bits (k + 4)
-                    = (pellFSMmod3.toBitFSM (by omega : (0:Nat) < 3)).bits k := by
+  have hbits3 : ∀ k, (pellFSMmod3.toBitFSM (by decide : (0:Nat) < 3)).bits (k + 4)
+                    = (pellFSMmod3.toBitFSM (by decide : (0:Nat) < 3)).bits k := by
     intro k
     rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
     exact pellFSMmod3_bits_period_4 k
-  have hbits5 : ∀ k, (pellFSMmod5.toBitFSM (by omega : (0:Nat) < 5)).bits (k + 10)
-                    = (pellFSMmod5.toBitFSM (by omega : (0:Nat) < 5)).bits k := by
+  have hbits5 : ∀ k, (pellFSMmod5.toBitFSM (by decide : (0:Nat) < 5)).bits (k + 10)
+                    = (pellFSMmod5.toBitFSM (by decide : (0:Nat) < 5)).bits k := by
     intro k
     rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
     exact pellFSMmod5_bits_period_10 k

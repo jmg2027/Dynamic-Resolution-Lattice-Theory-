@@ -32,13 +32,13 @@ namespace E213.Math.Cohomology.Dyadic.Conjecture
     period via trajectory branch law. -/
 theorem legendre_pisano_bridge_table :
     -- p = 3: NQR + inert, period = p+1 = 4
-    (legendre213 5 3 (by omega) = ⟨2, by decide⟩
+    (legendre213 5 3 (by decide) = ⟨2, by decide⟩
       ∧ ∀ k, pellFSMmod3.bits (k + (3 + 1)) = pellFSMmod3.bits k)
     -- p = 5: ramified, period = 2p = 10
-    ∧ (legendre213 5 5 (by omega) = ⟨0, by decide⟩
+    ∧ (legendre213 5 5 (by decide) = ⟨0, by decide⟩
         ∧ ∀ k, pellFSMmod5.bits (k + (2 * 5)) = pellFSMmod5.bits k)
     -- p = 7: NQR + inert, period = p+1 = 8
-    ∧ (legendre213 5 7 (by omega) = ⟨2, by decide⟩
+    ∧ (legendre213 5 7 (by decide) = ⟨2, by decide⟩
         ∧ ∀ k, pellFSMmod7.bits (k + (7 + 1)) = pellFSMmod7.bits k) := by
   refine ⟨⟨legendre_5_mod_3, ?_⟩, ⟨legendre_5_mod_5, ?_⟩,
           ⟨legendre_5_mod_7, ?_⟩⟩

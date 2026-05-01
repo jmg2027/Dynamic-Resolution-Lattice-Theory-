@@ -42,16 +42,16 @@ namespace E213.Math.Cohomology.Dyadic.Conjecture
   on this branch. -/
 theorem pisano_crt_framework_complete :
     -- (a) Pell 17-prime predictor realisation
-    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by omega))
+    (∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
         = pellFSMmod3.bits k)
     -- (b) Fibonacci 4-prime predictor realisation
-    ∧ (∀ k, fibFSMmod3.bits (k + fib_pisano_predict 3 (by omega))
+    ∧ (∀ k, fibFSMmod3.bits (k + fib_pisano_predict 3 (by decide))
         = fibFSMmod3.bits k)
     -- (c) Tribonacci 4-modulus periodic
     ∧ (∀ k, tribFSMmod3.bits (k + 13) = tribFSMmod3.bits k)
     -- (d) Cross-recurrence: Fib = 2 × Pell at p=11 (concrete)
-    ∧ fib_pisano_predict 11 (by omega)
-        = 2 * pisano_predict 11 (by omega) := by
+    ∧ fib_pisano_predict 11 (by decide)
+        = 2 * pisano_predict 11 (by decide) := by
   refine ⟨?_, ?_, ?_, ?_⟩
   · exact pisano_predict_realises_pell_17.1
   · exact fib_pisano_predict_realises.1

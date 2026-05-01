@@ -65,11 +65,11 @@ theorem legendreFSM_has_degree1 (D p : Nat) (hp : 0 < p) :
 /-- ★★★★★★ pellFSMmod_p has degree ≤ 2 (quadratic algebraic). -/
 theorem pellFSMmod3_has_degree2 :
     HasDegree2 pellFSMmod3.bits :=
-  ⟨3, by omega, pellFSMmod3, fun _ => rfl⟩
+  ⟨3, by decide, pellFSMmod3, fun _ => rfl⟩
 
 /-- ★★★★★★ tribFSMmod2 has degree ≤ 3 (cubic algebraic). -/
 theorem tribFSMmod2_has_degree3 :
     HasDegree3 tribFSMmod2.bits :=
-  ⟨2, by omega, tribFSMmod2, fun _ => rfl⟩
+  ⟨2, by decide, tribFSMmod2, fun _ => rfl⟩
 
 end E213.Math.Cohomology.Dyadic.Conjecture

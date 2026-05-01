@@ -21,16 +21,16 @@ namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Lifted Pell mod 11 bit periodicity (BitFSM form). -/
 theorem pellMod11_BitFSM_bits_period_5 :
-    ∀ k, (pellFSMmod11.toBitFSM (by omega : (0:Nat) < 11)).bits (k + 5)
-        = (pellFSMmod11.toBitFSM (by omega : (0:Nat) < 11)).bits k := by
+    ∀ k, (pellFSMmod11.toBitFSM (by decide : (0:Nat) < 11)).bits (k + 5)
+        = (pellFSMmod11.toBitFSM (by decide : (0:Nat) < 11)).bits k := by
   intro k
   rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
   exact pellFSMmod11_bits_period_5 k
 
 /-- Lifted Pell mod 19 bit periodicity. -/
 theorem pellMod19_BitFSM_bits_period_9 :
-    ∀ k, (pellFSMmod19.toBitFSM (by omega : (0:Nat) < 19)).bits (k + 9)
-        = (pellFSMmod19.toBitFSM (by omega : (0:Nat) < 19)).bits k := by
+    ∀ k, (pellFSMmod19.toBitFSM (by decide : (0:Nat) < 19)).bits (k + 9)
+        = (pellFSMmod19.toBitFSM (by decide : (0:Nat) < 19)).bits k := by
   intro k
   rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
   exact pellFSMmod19_bits_period_9 k
@@ -38,20 +38,20 @@ theorem pellMod19_BitFSM_bits_period_9 :
 /-- ★★★★★★ Pell mod 11 × mod 19 (XOR): period | lcm(5, 9) = 45.
     First SPLIT × SPLIT composition. -/
 theorem pellLens_11x19_period_45 :
-    ∀ k, (BitFSM.product (n := 11 * 11) (m := 19 * 19) (by omega)
-            (pellFSMmod11.toBitFSM (by omega))
-            (pellFSMmod19.toBitFSM (by omega))
+    ∀ k, (BitFSM.product (n := 11 * 11) (m := 19 * 19) (by decide)
+            (pellFSMmod11.toBitFSM (by decide))
+            (pellFSMmod19.toBitFSM (by decide))
             xor).bits (k + 45)
-        = (BitFSM.product (n := 11 * 11) (m := 19 * 19) (by omega)
-            (pellFSMmod11.toBitFSM (by omega))
-            (pellFSMmod19.toBitFSM (by omega))
+        = (BitFSM.product (n := 11 * 11) (m := 19 * 19) (by decide)
+            (pellFSMmod11.toBitFSM (by decide))
+            (pellFSMmod19.toBitFSM (by decide))
             xor).bits k := by
   intro k
   have hresult := lens_composition_period
-    (n := 11 * 11) (m := 19 * 19) (by omega)
-    (pellFSMmod11.toBitFSM (by omega))
-    (pellFSMmod19.toBitFSM (by omega))
-    xor 5 9 (by omega) (by omega)
+    (n := 11 * 11) (m := 19 * 19) (by decide)
+    (pellFSMmod11.toBitFSM (by decide))
+    (pellFSMmod19.toBitFSM (by decide))
+    xor 5 9 (by decide) (by decide)
     pellMod11_BitFSM_bits_period_5 pellMod19_BitFSM_bits_period_9 k
   have hlcm : Nat.lcm 5 9 = 45 := by decide
   rwa [hlcm] at hresult

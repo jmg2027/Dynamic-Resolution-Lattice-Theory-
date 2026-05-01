@@ -12,7 +12,7 @@ namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- Inner product (mod 3 × mod 5). -/
 def pellInner35 : BitFSM (9 * 25) :=
-  BitFSM.product (by omega : (0:Nat) < 25)
+  BitFSM.product (by decide : (0:Nat) < 25)
     (pellFSMmod3.toBitFSM (by decide))
     (pellFSMmod5.toBitFSM (by decide))
     xor

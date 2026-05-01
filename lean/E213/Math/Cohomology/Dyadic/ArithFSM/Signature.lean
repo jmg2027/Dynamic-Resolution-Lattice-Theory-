@@ -20,7 +20,7 @@ theorem pellFSMmod2_signature_eventually_periodic :
     ∃ N P, 0 < P ∧ ∀ n, n ≥ N →
       signature pellFSMmod2.bits (n + P) = signature pellFSMmod2.bits n :=
   signature_eventually_periodic_of_eventually_periodic_bits
-    pellFSMmod2.bits 3 0 (by omega)
+    pellFSMmod2.bits 3 0 (by decide)
     (fun n _ => pellFSMmod2_bits_period_3 n)
 
 /-- ★★★ Pell mod-3 signature is eventually periodic. -/
@@ -28,7 +28,7 @@ theorem pellFSMmod3_signature_eventually_periodic :
     ∃ N P, 0 < P ∧ ∀ n, n ≥ N →
       signature pellFSMmod3.bits (n + P) = signature pellFSMmod3.bits n :=
   signature_eventually_periodic_of_eventually_periodic_bits
-    pellFSMmod3.bits 4 0 (by omega)
+    pellFSMmod3.bits 4 0 (by decide)
     (fun n _ => pellFSMmod3_bits_period_4 n)
 
 /-- ★★★ Pell mod-5 signature is eventually periodic. -/
@@ -36,7 +36,7 @@ theorem pellFSMmod5_signature_eventually_periodic :
     ∃ N P, 0 < P ∧ ∀ n, n ≥ N →
       signature pellFSMmod5.bits (n + P) = signature pellFSMmod5.bits n :=
   signature_eventually_periodic_of_eventually_periodic_bits
-    pellFSMmod5.bits 10 0 (by omega)
+    pellFSMmod5.bits 10 0 (by decide)
     (fun n _ => pellFSMmod5_bits_period_10 n)
 
 /-- ★★★★★ All three Pell ArithFSM streams (mod 2, 3, 5) yield

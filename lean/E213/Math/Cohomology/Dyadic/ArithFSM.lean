@@ -106,8 +106,8 @@ theorem pellMod_periods_differ :
       ∀ k, pellFSMmod2.bits (k + p) = pellFSMmod2.bits k)
     ∧ (∃ p : Nat, p > 0 ∧ p = 4 ∧
       ∀ k, pellFSMmod3.bits (k + p) = pellFSMmod3.bits k) :=
-  ⟨⟨3, by omega, rfl, pellFSMmod2_bits_period_3⟩,
-   ⟨4, by omega, rfl, pellFSMmod3_bits_period_4⟩⟩
+  ⟨⟨3, by decide, rfl, pellFSMmod2_bits_period_3⟩,
+   ⟨4, by decide, rfl, pellFSMmod3_bits_period_4⟩⟩
 
 /-- ★★ ArithFSM2 reduces to BitFSM(n²) via pair-encoding —
     same pigeonhole argument applies. -/

@@ -63,7 +63,7 @@ theorem tribFSMmod2_signature_period_bound :
       ∧ ∀ k, k ≥ N →
         signature tribFSMmod2.bits (k + P) = signature tribFSMmod2.bits k := by
   obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM3_signature_period_bound (n := 2) (by omega) tribFSMmod2
-  exact ⟨N, P, hP, by omega, hk⟩
+    arithFSM3_signature_period_bound (n := 2) (by decide) tribFSMmod2
+  exact ⟨N, P, hP, hbound, hk⟩
 
 end E213.Math.Cohomology.Dyadic.Conjecture

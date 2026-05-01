@@ -34,13 +34,13 @@ theorem number_theory_213_capstone :
         g (bs1 (k + Nat.lcm p q)) (bs2 (k + Nat.lcm p q))
         = g (bs1 k) (bs2 k))
     -- Step 2: Pisano predictor realises Pell period at all 4 primes
-    ∧ ((∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by omega))
+    ∧ ((∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
           = pellFSMmod3.bits k)
-        ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by omega))
+        ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by decide))
           = pellFSMmod5.bits k)
-        ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by omega))
+        ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by decide))
           = pellFSMmod7.bits k)
-        ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by omega))
+        ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by decide))
           = pellFSMmod11.bits k))
     -- Step 3: Algebraic degree tower (containments + concrete witnesses)
     ∧ ((∀ bs, HasDegree1 bs → HasDegree2 bs)
@@ -64,19 +64,19 @@ theorem number_theory_213_capstone_v2 :
         g (bs1 (k + Nat.lcm p q)) (bs2 (k + Nat.lcm p q))
         = g (bs1 k) (bs2 k))
     -- Step 2: Pisano predictor at 7 primes
-    ∧ ((∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by omega))
+    ∧ ((∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
           = pellFSMmod3.bits k)
-        ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by omega))
+        ∧ (∀ k, pellFSMmod5.bits (k + pisano_predict 5 (by decide))
           = pellFSMmod5.bits k)
-        ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by omega))
+        ∧ (∀ k, pellFSMmod7.bits (k + pisano_predict 7 (by decide))
           = pellFSMmod7.bits k)
-        ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by omega))
+        ∧ (∀ k, pellFSMmod11.bits (k + pisano_predict 11 (by decide))
           = pellFSMmod11.bits k)
-        ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by omega))
+        ∧ (∀ k, pellFSMmod13.bits (k + pisano_predict 13 (by decide))
           = pellFSMmod13.bits k)
-        ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by omega))
+        ∧ (∀ k, pellFSMmod17.bits (k + pisano_predict 17 (by decide))
           = pellFSMmod17.bits k)
-        ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by omega))
+        ∧ (∀ k, pellFSMmod19.bits (k + pisano_predict 19 (by decide))
           = pellFSMmod19.bits k))
     -- Step 3: degree tower with concrete witnesses
     ∧ ((∀ bs, HasDegree1 bs → HasDegree2 bs)
@@ -100,12 +100,12 @@ theorem number_theory_213_capstone_v3 :
         g (bs1 (k + Nat.lcm p q)) (bs2 (k + Nat.lcm p q))
         = g (bs1 k) (bs2 k))
     -- Pell proper (D=8) at 3 primes, both branches
-    ∧ (legendre213 8 3 (by omega) = ⟨2, by decide⟩
-        ∧ legendre213 8 5 (by omega) = ⟨2, by decide⟩
-        ∧ legendre213 8 7 (by omega) = ⟨1, by decide⟩
-        ∧ pisano_predict_proper 3 (by omega) = 8
-        ∧ pisano_predict_proper 5 (by omega) = 12
-        ∧ pisano_predict_proper 7 (by omega) = 6) := by
+    ∧ (legendre213 8 3 (by decide) = ⟨2, by decide⟩
+        ∧ legendre213 8 5 (by decide) = ⟨2, by decide⟩
+        ∧ legendre213 8 7 (by decide) = ⟨1, by decide⟩
+        ∧ pisano_predict_proper 3 (by decide) = 8
+        ∧ pisano_predict_proper 5 (by decide) = 12
+        ∧ pisano_predict_proper 7 (by decide) = 6) := by
   refine ⟨bs_combined_periodic_lcm, ?_⟩
   refine ⟨legendre_8_mod_3, legendre_8_mod_5, legendre_8_mod_7,
           ?_, ?_, ?_⟩ <;> decide

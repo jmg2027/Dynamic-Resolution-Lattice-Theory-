@@ -25,7 +25,7 @@ theorem pell_mod3_xor_mod5_period_20 :
             (pellFSMmod5.bits (k + Nat.lcm 4 10))
         = xor (pellFSMmod3.bits k) (pellFSMmod5.bits k) :=
   bs_combined_periodic_lcm pellFSMmod3.bits pellFSMmod5.bits 4 10
-    (by omega) (by omega)
+    (by decide) (by decide)
     pellFSMmod3_bits_period_4 pellFSMmod5_bits_period_10 xor
 
 /-- ★★★★★ Pell mod 3 ⊕ mod 7 combined stream: period | lcm(4,8) = 8. -/
@@ -34,7 +34,7 @@ theorem pell_mod3_xor_mod7_period_8 :
             (pellFSMmod7.bits (k + Nat.lcm 4 8))
         = xor (pellFSMmod3.bits k) (pellFSMmod7.bits k) :=
   bs_combined_periodic_lcm pellFSMmod3.bits pellFSMmod7.bits 4 8
-    (by omega) (by omega)
+    (by decide) (by decide)
     pellFSMmod3_bits_period_4 pellFSMmod7_bits_period_8 xor
 
 /-- ★★★★★ Pell mod 5 ⊕ mod 7 combined stream: period | lcm(10,8) = 40. -/
@@ -43,7 +43,7 @@ theorem pell_mod5_xor_mod7_period_40 :
             (pellFSMmod7.bits (k + Nat.lcm 10 8))
         = xor (pellFSMmod5.bits k) (pellFSMmod7.bits k) :=
   bs_combined_periodic_lcm pellFSMmod5.bits pellFSMmod7.bits 10 8
-    (by omega) (by omega)
+    (by decide) (by decide)
     pellFSMmod5_bits_period_10 pellFSMmod7_bits_period_8 xor
 
 /-- Concrete LCM values for verification. -/

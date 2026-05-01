@@ -12,24 +12,24 @@ namespace E213.Math.Cohomology.Dyadic.Conjecture
 
 /-- ★★★★★ Lifted bit periodicity for Pell mod 3 (BitFSM form). -/
 theorem pellMod3_BitFSM_bits_period_4 :
-    ∀ k, (pellFSMmod3.toBitFSM (by omega : (0:Nat) < 3)).bits (k + 4)
-        = (pellFSMmod3.toBitFSM (by omega : (0:Nat) < 3)).bits k := by
+    ∀ k, (pellFSMmod3.toBitFSM (by decide : (0:Nat) < 3)).bits (k + 4)
+        = (pellFSMmod3.toBitFSM (by decide : (0:Nat) < 3)).bits k := by
   intro k
   rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
   exact pellFSMmod3_bits_period_4 k
 
 /-- ★★★★★ Lifted bit periodicity for Pell mod 5. -/
 theorem pellMod5_BitFSM_bits_period_10 :
-    ∀ k, (pellFSMmod5.toBitFSM (by omega : (0:Nat) < 5)).bits (k + 10)
-        = (pellFSMmod5.toBitFSM (by omega : (0:Nat) < 5)).bits k := by
+    ∀ k, (pellFSMmod5.toBitFSM (by decide : (0:Nat) < 5)).bits (k + 10)
+        = (pellFSMmod5.toBitFSM (by decide : (0:Nat) < 5)).bits k := by
   intro k
   rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
   exact pellFSMmod5_bits_period_10 k
 
 /-- ★★★★★ Lifted bit periodicity for Pell mod 7. -/
 theorem pellMod7_BitFSM_bits_period_8 :
-    ∀ k, (pellFSMmod7.toBitFSM (by omega : (0:Nat) < 7)).bits (k + 8)
-        = (pellFSMmod7.toBitFSM (by omega : (0:Nat) < 7)).bits k := by
+    ∀ k, (pellFSMmod7.toBitFSM (by decide : (0:Nat) < 7)).bits (k + 8)
+        = (pellFSMmod7.toBitFSM (by decide : (0:Nat) < 7)).bits k := by
   intro k
   rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
   exact pellFSMmod7_bits_period_8 k

@@ -24,8 +24,8 @@ theorem pellFSMmod2_signature_period_bound :
       ∧ ∀ k, k ≥ N →
         signature pellFSMmod2.bits (k + P) = signature pellFSMmod2.bits k := by
   obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 2) (by omega) pellFSMmod2
-  exact ⟨N, P, hP, by omega, hk⟩
+    arithFSM2_signature_period_bound (n := 2) (by decide) pellFSMmod2
+  exact ⟨N, P, hP, hbound, hk⟩
 
 /-- ★★★★ Pell mod-3 signature period bound: 45 = 5·9. -/
 theorem pellFSMmod3_signature_period_bound :
@@ -33,8 +33,8 @@ theorem pellFSMmod3_signature_period_bound :
       ∧ ∀ k, k ≥ N →
         signature pellFSMmod3.bits (k + P) = signature pellFSMmod3.bits k := by
   obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 3) (by omega) pellFSMmod3
-  exact ⟨N, P, hP, by omega, hk⟩
+    arithFSM2_signature_period_bound (n := 3) (by decide) pellFSMmod3
+  exact ⟨N, P, hP, hbound, hk⟩
 
 /-- ★★★★★ Pell family bound table — GUARANTEE row (5n²). -/
 theorem pell_family_signature_period_bounds :
