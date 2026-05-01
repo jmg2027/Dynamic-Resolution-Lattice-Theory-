@@ -44,7 +44,7 @@ theorem signature_periodic_implies_bits_periodic
   have hsig_n : signature bs (n + p) = signature bs n := h_sig n hn
   have hsig_n1 : signature bs (n + 1 + p) = signature bs (n + 1) :=
     h_sig (n + 1) hn1
-  have heq_idx : n + 1 + p = n + p + 1 := by omega
+  have heq_idx : n + 1 + p = n + p + 1 := Nat.succ_add n p
   have hkey : nextVertex (signature bs n) (bs n)
                 = nextVertex (signature bs n) (bs (n + p)) := by
     rw [← h1, ← hsig_n1, heq_idx, h2, hsig_n]

@@ -83,8 +83,9 @@ theorem fsm_signature_period_bound {n : Nat} (m : BitFSM n) (hn : 0 < n) :
       rw [Nat.add_zero, show i + (j - i) = j by omega]; exact hrun.symm
   | succ d' ih =>
     obtain ⟨ih_sig, ih_run⟩ := ih
-    have h1 : i + (d' + 1) + (j - i) = (i + d' + (j - i)) + 1 := by omega
-    have h2 : i + (d' + 1) = (i + d') + 1 := by omega
+    have h1 : i + (d' + 1) + (j - i) = (i + d' + (j - i)) + 1 :=
+      Nat.succ_add (i + d') (j - i)
+    have h2 : i + (d' + 1) = (i + d') + 1 := rfl
     refine ⟨?_, ?_⟩
     · rw [h1, h2]
       show nextVertex (signature m.bits (i + d' + (j - i)))

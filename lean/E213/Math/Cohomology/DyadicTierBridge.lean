@@ -61,7 +61,7 @@ theorem one_third_signature_periodic :
     · have hn' : n' ≥ 1 := by omega
       have ih' : signature bit13 (n' + 2) = signature bit13 n' := ih hn'
       have hbs_eq : bit13 (n' + 2) = bit13 n' := bit13_period_2 n'
-      have h_idx : n' + 1 + 2 = n' + 2 + 1 := by omega
+      have h_idx : n' + 1 + 2 = n' + 2 + 1 := Nat.succ_add n' 2
       rw [h_idx]
       show nextVertex (signature bit13 (n' + 2)) (bit13 (n' + 2))
         = nextVertex (signature bit13 n') (bit13 n')
