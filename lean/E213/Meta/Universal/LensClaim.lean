@@ -1,5 +1,5 @@
-import E213.Research.SemanticAtom
-import E213.Research.Universal.Reflection
+import E213.Meta.SemanticAtom
+import E213.Meta.Universal.Reflection
 
 /-!
 # Research.UniversalLensClaim: "every framework is a Lens" formal
@@ -30,18 +30,18 @@ claim in CLAUDE.md (partial — limited to α having HasDistinguishing).
   only an *interpretive reading* (PAPER1 §9).
 -/
 
-namespace E213.Research.Universal.LensClaim
+namespace E213.Meta.Universal.LensClaim
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 
 /-- **Restated claim**: every HasDistinguishing instance is the codomain
     of a framework Lens.  Witness: universalAsLens. -/
 theorem every_distinguishing_is_lens_codomain
     (α : Type) [d : HasDistinguishing α] :
     ∃ (L : Lens α), ∀ r : Raw, L.view r = @universalMorphism α d r := by
-  refine ⟨@E213.Research.Universal.Reflection.universalAsLens α d, ?_⟩
+  refine ⟨@E213.Meta.Universal.Reflection.universalAsLens α d, ?_⟩
   intro r
-  exact E213.Research.Universal.Reflection.universalAsLens_view α r
+  exact E213.Meta.Universal.Reflection.universalAsLens_view α r
 
-end E213.Research.Universal.LensClaim
+end E213.Meta.Universal.LensClaim

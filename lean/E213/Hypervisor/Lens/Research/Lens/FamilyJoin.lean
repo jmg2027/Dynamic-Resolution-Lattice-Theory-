@@ -1,4 +1,4 @@
-import E213.Research.Universal.QuotLens
+import E213.Meta.Universal.QuotLens
 
 /-!
 # Research.FamilyJoin: slash-congruence join of an arbitrary-index family
@@ -23,7 +23,7 @@ of the complete-lattice structure: the set of slash-congruences is a
 namespace E213.Hypervisor.Lens.Research.Lens.FamilyJoin
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.Universal.QuotLens
+open E213.Meta.Universal.QuotLens
 
 /-- Index-wise family join: smallest slash-congruence
     containing all `E i`. -/
@@ -44,7 +44,7 @@ end E213.Hypervisor.Lens.Research.Lens.FamilyJoin
 namespace E213.Hypervisor.Lens.Research.Lens.FamilyJoin
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.Universal.QuotLens
+open E213.Meta.Universal.QuotLens
 
 /-- **Family join via universalLens**: the join of an arbitrary family
     is expressed as the kernel of a single Lens.  FamilyJoinEquiv

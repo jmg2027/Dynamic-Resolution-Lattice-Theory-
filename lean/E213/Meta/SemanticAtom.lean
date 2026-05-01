@@ -1,6 +1,6 @@
 import E213.Hypervisor.Lens
 import E213.Research.Raw.Initiality
-import E213.Research.AxiomMinimality
+import E213.Meta.AxiomMinimality
 import E213.Hypervisor.Lens.Research.Morphism.FoldStructured
 import E213.Hypervisor.Lens.Research.Morphism.DepthParityNotFold
 
@@ -34,7 +34,7 @@ abstraction of the meaning framework — Raw is the strict minimum of this
 abstraction (the 4 cases of AxiomMinimality are the negative direction).
 -/
 
-namespace E213.Research.SemanticAtom
+namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
@@ -55,9 +55,9 @@ class HasDistinguishing (α : Type) where
   combine : α → α → α
   combine_sym : ∀ x y, combine x y = combine y x
 
-end E213.Research.SemanticAtom
+end E213.Meta.SemanticAtom
 
-namespace E213.Research.SemanticAtom
+namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
@@ -77,9 +77,9 @@ instance : HasDistinguishing Raw where
     · simp [h, Ne.symm h]
       apply Raw.slash_comm
 
-end E213.Research.SemanticAtom
+end E213.Meta.SemanticAtom
 
-namespace E213.Research.SemanticAtom
+namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
@@ -111,9 +111,9 @@ theorem universalMorphism_slash (α : Type) [d : HasDistinguishing α]
   unfold universalMorphism
   apply Raw.fold_slash _ _ _ d.combine_sym
 
-end E213.Research.SemanticAtom
+end E213.Meta.SemanticAtom
 
-namespace E213.Research.SemanticAtom
+namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
@@ -140,9 +140,9 @@ def lensToHasDistinguishing {α : Type} (L : Lens α)
   combine := L.combine
   combine_sym := h_sym
 
-end E213.Research.SemanticAtom
+end E213.Meta.SemanticAtom
 
-namespace E213.Research.SemanticAtom
+namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
@@ -219,9 +219,9 @@ theorem canonicalTruthMap_slash (x y : Raw) (h : x ≠ y) :
       = propXor (canonicalTruthMap x) (canonicalTruthMap y) :=
   @universalMorphism_slash Prop propAsDistinguishing x y h
 
-end E213.Research.SemanticAtom
+end E213.Meta.SemanticAtom
 
-namespace E213.Research.SemanticAtom
+namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 
@@ -315,9 +315,9 @@ theorem canonicalIffMap_slash (x y : Raw) (h : x ≠ y) :
       = (canonicalIffMap x ↔ canonicalIffMap y) :=
   @universalMorphism_slash Prop propAsDistinguishingIff x y h
 
-end E213.Research.SemanticAtom
+end E213.Meta.SemanticAtom
 
-namespace E213.Research.SemanticAtom
+namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.FoldStructured
@@ -364,9 +364,9 @@ theorem exists_non_lens_expressible :
   rw [isLensExpressible_iff_foldStructured]
   exact E213.Research.DepthParityNotFold.depthParityFn_not_fold_structured
 
-end E213.Research.SemanticAtom
+end E213.Meta.SemanticAtom
 
-namespace E213.Research.SemanticAtom
+namespace E213.Meta.SemanticAtom
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.RawInitiality
@@ -417,4 +417,4 @@ theorem raw_initial (α : Type) [d : HasDistinguishing α] :
     funext r
     exact universalMorphism_unique α g hga hgb hgslash r
 
-end E213.Research.SemanticAtom
+end E213.Meta.SemanticAtom

@@ -20,7 +20,7 @@ Therefore both bases (Raw.a, Raw.b) are essential.
 - Theorem: ∀ r : RawA, r.val = TreeA.a.
 -/
 
-namespace E213.Research.AxiomMinimality
+namespace E213.Meta.AxiomMinimality
 
 /-- Hypothetical tree without Raw.b.  Diagonal slashes are
     syntactically allowed but excluded by the RawA subtype. -/
@@ -68,9 +68,9 @@ theorem rawA_trivial : ∀ r : RawA, r = RawA.a := by
   subst this
   rfl
 
-end E213.Research.AxiomMinimality
+end E213.Meta.AxiomMinimality
 
-namespace E213.Research.AxiomMinimality.NoA
+namespace E213.Meta.AxiomMinimality.NoA
 
 /-! ### Case 2: Removing `a` (only b remains) — trivially symmetric -/
 
@@ -113,9 +113,9 @@ theorem rawB_trivial : ∀ r : RawB, r = RawB.b := by
   have : t = TreeB.b := treeB_no_diag_only_b t h
   subst this; rfl
 
-end E213.Research.AxiomMinimality.NoA
+end E213.Meta.AxiomMinimality.NoA
 
-namespace E213.Research.AxiomMinimality.NoSlash
+namespace E213.Meta.AxiomMinimality.NoSlash
 
 /-! ### Case 3: Removing `slash` — static, no new element generation -/
 
@@ -146,9 +146,9 @@ theorem rawAB_card_eq_two :
   | a => exact List.mem_cons_self _ _
   | b => exact List.mem_cons_of_mem _ (List.mem_cons_self _ _)
 
-end E213.Research.AxiomMinimality.NoSlash
+end E213.Meta.AxiomMinimality.NoSlash
 
-namespace E213.Research.AxiomMinimality.NoDistinct
+namespace E213.Meta.AxiomMinimality.NoDistinct
 
 /-! ### Case 4: Removing `distinctness` (x ≠ y) — degenerate
 
@@ -179,9 +179,9 @@ def selfChain : Nat → TreeFree
 theorem selfChain_self_paired (n : Nat) :
     selfChain (n + 1) = TreeFree.slash (selfChain n) (selfChain n) := rfl
 
-end E213.Research.AxiomMinimality.NoDistinct
+end E213.Meta.AxiomMinimality.NoDistinct
 
-namespace E213.Research.AxiomMinimality
+namespace E213.Meta.AxiomMinimality
 
 /-! ### Hub: Complete integration of all 4 cases
 
@@ -206,4 +206,4 @@ framework with [propext] only → **self-justified minimality**.
 Part of the formalization of Note 75 ("semantic atom").
 -/
 
-end E213.Research.AxiomMinimality
+end E213.Meta.AxiomMinimality

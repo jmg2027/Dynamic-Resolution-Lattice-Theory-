@@ -25,7 +25,7 @@ the image is the 2-element subset
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImageLevel2
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Hypervisor.Lens.Research.LensOnLensImageGeneric
 

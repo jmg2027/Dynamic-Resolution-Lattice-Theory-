@@ -1,4 +1,4 @@
-import E213.Research.SemanticAtom
+import E213.Meta.SemanticAtom
 
 /-!
 # Research.ImageMinimum: minimum closure of the universalMorphism image
@@ -38,7 +38,7 @@ proof.  This result is a component of that proof:
 namespace E213.Hypervisor.Lens.Research.Lens.ImageMinimum
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 
 /-- **Image minimum property**: the image of `universalMorphism α` is
     contained in *every* distinguishing-closed subset.  That is, the

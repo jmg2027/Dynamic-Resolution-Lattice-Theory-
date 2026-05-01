@@ -1,4 +1,4 @@
-import E213.Research.SemanticAtom
+import E213.Meta.SemanticAtom
 import E213.Hypervisor.Lens.Research.Lens.OnLens
 import E213.Hypervisor.Lens.Research.Lens.OnLensImageGeneric
 
@@ -17,10 +17,10 @@ universalMorphism can always be expressed as the view of some Lens.
 Direct consequence of the universalAsLens definition in `UniversalReflection.lean`.
 -/
 
-namespace E213.Research.Universal.MorphismFactor
+namespace E213.Meta.Universal.MorphismFactor
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Hypervisor.Lens.Research.LensOnLensImageGeneric
 
@@ -32,4 +32,4 @@ theorem constComposite_a_unfold (α : Type) [d : HasDistinguishing α] :
 theorem constComposite_b_unfold (α : Type) [d : HasDistinguishing α] :
     constComposite α Raw.b = constLens d.b := constComposite_b α
 
-end E213.Research.Universal.MorphismFactor
+end E213.Meta.Universal.MorphismFactor

@@ -1,4 +1,4 @@
-import E213.Research.AxiomMinimality
+import E213.Meta.AxiomMinimality
 
 /-!
 # Axiom Minimality — single capstone theorem
@@ -25,7 +25,7 @@ This is **self-justified minimality**: the formal demonstration
 that Raw = strict minimum, without external metatheory.
 -/
 
-namespace E213.Research.AxiomMinimalityCapstone
+namespace E213.Meta.AxiomMinimalityCapstone
 
 /-- ★★★ AXIOM MINIMALITY CAPSTONE ★★★
 
@@ -50,4 +50,4 @@ theorem raw_strict_minimum :
     -- Strictness: 4 separate negative results
     raw_minimality_capstone = raw_minimality_capstone := rfl
 
-end E213.Research.AxiomMinimalityCapstone
+end E213.Meta.AxiomMinimalityCapstone

@@ -28,7 +28,7 @@ Lens-on-Lens collapses at the image level to the a-leaf parity.
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
@@ -44,7 +44,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLensImage
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
@@ -67,7 +67,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLensImage
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
@@ -83,7 +83,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLensImage
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
@@ -115,7 +115,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLensImage
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 
@@ -133,7 +133,7 @@ end E213.Hypervisor.Lens.Research.Lens.OnLensImage
 namespace E213.Hypervisor.Lens.Research.Lens.OnLensImage
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Research.BoolPropMorphism
 

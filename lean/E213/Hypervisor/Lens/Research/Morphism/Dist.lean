@@ -1,4 +1,4 @@
-import E213.Research.SemanticAtom
+import E213.Meta.SemanticAtom
 
 /-!
 # Research.DistMorphism: Morphisms of the distinguishing-framework category
@@ -28,7 +28,7 @@ universalMorphism in SemanticAtom).
 namespace E213.Hypervisor.Lens.Research.Morphism.Dist
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 
 /-- **Distinguishing-framework morphism** (abstract, all cases). -/
 structure DistMorphism (α β : Type) [d_α : HasDistinguishing α]
@@ -44,7 +44,7 @@ end E213.Hypervisor.Lens.Research.Morphism.Dist
 namespace E213.Hypervisor.Lens.Research.Morphism.Dist
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 
 /-- Identity distinguishing morphism. -/
 def id (α : Type) [HasDistinguishing α] : DistMorphism α α where

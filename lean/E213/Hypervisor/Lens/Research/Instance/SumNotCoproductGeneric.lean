@@ -22,7 +22,7 @@ and true false = false.  Contradiction (true ≠ false).
 namespace E213.Hypervisor.Lens.Research.Instance.SumNotCoproductGeneric
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Research.SumInstance
 open E213.Research.BoolPropMorphism
 

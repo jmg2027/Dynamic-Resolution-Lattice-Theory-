@@ -1,4 +1,4 @@
-import E213.Research.SemanticAtom
+import E213.Meta.SemanticAtom
 
 /-!
 # Research.UniversalReflection: Lens reflection of universalMorphism
@@ -20,10 +20,10 @@ view : Raw → α.  The same universalMorphism is expressible in two forms.
 reflects as a data-level Lens.
 -/
 
-namespace E213.Research.Universal.Reflection
+namespace E213.Meta.Universal.Reflection
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 
 /-- Reflection of a HasDistinguishing instance as a Lens. -/
 def universalAsLens (α : Type) [d : HasDistinguishing α] : Lens α :=
@@ -39,4 +39,4 @@ theorem universalAsLens_combine_sym (α : Type) [d : HasDistinguishing α] :
     ∀ u v, (universalAsLens α).combine u v = (universalAsLens α).combine v u :=
   d.combine_sym
 
-end E213.Research.Universal.Reflection
+end E213.Meta.Universal.Reflection

@@ -1,4 +1,4 @@
-import E213.Research.SemanticAtom
+import E213.Meta.SemanticAtom
 
 /-!
 # Research.SubtypeInstance: sub-instance of a distinguishing-closed predicate
@@ -21,7 +21,7 @@ design requires additional work due to Lean infrastructure constraints.
 namespace E213.Hypervisor.Lens.Research.Instance.Subtype
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 
 /-- Sub-instance for a distinguishing-closed predicate (degenerate
     combine).  The combine result is always a (first base) — degenerate
@@ -44,7 +44,7 @@ end E213.Hypervisor.Lens.Research.Instance.Subtype
 namespace E213.Hypervisor.Lens.Research.Instance.Subtype
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 
 /-- Universal morphism Raw → {r : Raw // P r} via degenerate
     sub-instance.  Most Raws collapse to a — the natural result of

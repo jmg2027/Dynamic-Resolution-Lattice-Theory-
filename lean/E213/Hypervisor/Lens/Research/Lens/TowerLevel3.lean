@@ -17,7 +17,7 @@ of α.
 namespace E213.Hypervisor.Lens.Research.Lens.TowerLevel3
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.SemanticAtom
+open E213.Meta.SemanticAtom
 open E213.Hypervisor.Lens.Research.LensOnLens
 open E213.Hypervisor.Lens.Research.LensOnLensImageGeneric
 open E213.Hypervisor.Lens.Research.LensOnLensImageLevel2
