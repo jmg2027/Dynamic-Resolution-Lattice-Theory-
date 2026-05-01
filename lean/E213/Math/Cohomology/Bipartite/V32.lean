@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Cup.Core.Ring
+import E213.Math.Cohomology.Cup.Ring
 
 /-!
 # Cohomology — K_{3,2}^{(2)} bipartite multigraph (Phase CE, file 1)

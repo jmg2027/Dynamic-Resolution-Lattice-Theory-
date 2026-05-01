@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Bipartite.V32Betti
-import E213.Math.Cohomology.Delta.Core.SqZero
+import E213.Math.Cohomology.Delta.SqZero
 import E213.Math.Cohomology.TrivialCases
 
 /-!

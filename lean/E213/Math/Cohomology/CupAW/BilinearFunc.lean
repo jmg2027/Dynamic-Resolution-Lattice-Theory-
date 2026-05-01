@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.CupAW.Bilinear
-import E213.Math.Cohomology.Delta.Core.Linear
+import E213.Math.Cohomology.Delta.Linear
 
 /-!
 # Function-level versions of bilinearity / linearity
