@@ -1,6 +1,6 @@
 import E213.Research.Real213.Core
 import E213.Research.PellSeq
-import E213.Research.DiagonalHasModulus
+import E213.Research.Diagonal.HasModulus
 
 /-!
 # Research.Real213StrictPos: addition-friendly subtype (solution (i) to E2)

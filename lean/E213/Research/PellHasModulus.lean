@@ -1,6 +1,6 @@
 import E213.Research.HasModulus
 import E213.Research.PellSeq
-import E213.Research.Sqrt2IrrationalKernelFree
+import E213.Research.Irrational.Sqrt2KernelFree
 
 /-!
 # Research.PellHasModulus: HasModulus instance for the Pell sequence

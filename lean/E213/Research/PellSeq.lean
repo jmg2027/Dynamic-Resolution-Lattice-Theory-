@@ -1,4 +1,4 @@
-import E213.Research.Sqrt2Cut
+import E213.Research.Irrational.Sqrt2Cut
 import E213.Infinity.LensCardinality
 
 /-!

@@ -1,5 +1,5 @@
 import E213.Research.HasModulus
-import E213.Research.DiagonalHasModulus
+import E213.Research.Diagonal.HasModulus
 
 /-!
 # Research.StrongModulus: bounded view-variation modulus (attempt (B) for E3)

@@ -1,4 +1,4 @@
-import E213.Research.DiagonalClassification
+import E213.Research.Diagonal.Classification
 import E213.Research.NegSqLens
 
 /-!
