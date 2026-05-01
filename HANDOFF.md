@@ -1,33 +1,65 @@
-# Session Handoff — rust-engine + Tier-4 Path (c) closures (54 bins)
+# Session Handoff — rust-engine + Tier-4 + L3 closures (54 bins)
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed + pushed; head = `0794c98`).
+`claude/213-rust-engine-SloKB` (committed + pushed; head = `f2478e5`).
 
-## ★ 2026-05-01 update — Tier-4 CLOSED via Path (c)
+## ★ 2026-05-01 update — 5 observables closed via L1-L5 lessons
 
-All three previously stuck composite-particle observables now
-closed (commits fceeeee, 75d0d44, 0794c98):
+All three Tier-4 stuck composite-particle observables, plus two
+electroweak mixing observables, closed in one session:
 
-| observable        | before    | after        | improvement |
-|-------------------|-----------|--------------|-------------|
-| m_n/m_p           | 195 ppm   | ~1 ppb       | 195×        |
-| (m_n − m_p)/m_e   | 1264 ppm  | ~24 ppm      | 53×         |
-| g_p               | 828 ppm   | ~0.097 ppm   | 8500×       |
+| observable        | before    | after        | improvement | commit  |
+|-------------------|-----------|--------------|-------------|---------|
+| m_n/m_p           | 195 ppm   | ~1 ppb       | 195×        | fceeeee |
+| (m_n − m_p)/m_e   | 1264 ppm  | ~24 ppm      | 53×         | 75d0d44 |
+| g_p               | 828 ppm   | ~0.097 ppm   | 8500×       | 0794c98 |
+| sin²θ₁₃           | 3550 ppm  | ~14 ppm      | 250×        | 1ab2d2a |
+| sin²θ_W           | 8200 ppm  | ~34 ppm      | 240×        | f33100e |
 
-New 0-axiom Lean theorems (all `does not depend on any axioms`):
-- `HadronBigrading.mn_mp_split_atomic` — (9/32)·α_em·(1 − 45·α_em)
-- `HadronBigrading.mn_minus_mp_over_me_atomic` — Class C × Class F
-- `ProtonG.g_p_v2_atomic` — (22/4)·triple-α Class D
+Closed forms (all 0-axiom in Lean):
 
-Two new bins: `mn-mp-split`, `mn-minus-mp-over-me`; updated `proton-g`.
-Whitelist 99 → 101 OK.
+  m_n/m_p − 1     = (NS²/(NT²(NS²−1))) · α_em · (1 − NS²·d · α_em)
+                  = (9/32)·α_em·(1 − 45·α_em)
+  (m_n − m_p)/m_e = (m_p/m_e) · (m_n/m_p − 1)  [Class C × Class F]
+  g_p             = (d²−NS)/NT² · (1+NS·NT·α_GUT) · (1−NS·d·α_em)
+                                · (1−NS²·NT·d·α_em²)
+                  = (22/4)·(1+6α_GUT)·(1−15α_em)·(1−90α_em²)
+  sin²θ₁₃         = α_GUT · (1−NT²·α_GUT) · (1+NS·NT·α_GUT²)
+                  = α_GUT·(1−4α_GUT)·(1+6α_GUT²)
+  sin²θ_W         = (30/(60·ζ(2)+30)) · (1 − α_GUT/NS)
 
-**Methodology lessons** (`docs/gaps-and-todos.md` §10):
-- L1 — π / ζ(2) are derived from finite Leibniz/Basel partials, not axiomatic
-- L2 — When stuck, strip transcendentals and re-search pure-rational bases
-- L3 — Composite (3-quark) targets need Class D triple cup-chains
-- L4 — Coefficient reuse across observables is structural evidence
-- L5 — Compositional closure (Class C × Class F) is free; check before hunter
+Coefficient reuse (L4): NT² = 4 in (sin²θ₁₃, m_b/m_c), NS·NT = 6
+in (sin²θ₁₃, g_p, 1/α_em), NS²·d = 45 in (1/α_em α/45 tail,
+m_n/m_p, g_p α_em² coef as 90 = NT·45) — all the same K_25
+cup-chain anchors.
+
+New 0-axiom Lean theorems:
+- `HadronBigrading.mn_mp_split_atomic`
+- `HadronBigrading.mn_minus_mp_over_me_atomic`
+- `ProtonG.g_p_v2_atomic`
+- `NeutrinoMixing.sin2_13_v2_atomic`
+- `WeinbergAngle.sin2_W_v2_atomic`
+
+Two new bins: `mn-mp-split`, `mn-minus-mp-over-me`.  Updated:
+`proton-g`, `neutrino-mixing`, `weinberg-angle`.  Whitelist 99 → 101.
+
+**Methodology lessons** (`docs/gaps-and-todos.md` §10, also
+`CLAUDE.md` "Hunter Methodology Lessons"):
+- L1 — *Everything in DRLT is rational-complex.*  G_ij has rational
+  magnitude AND rational sin/cos (Pythagorean-triple style); π,
+  ζ(2), e are limits of finite rational lattice sums (Leibniz,
+  Basel) — bracketable shadows, not axioms.
+- L2 — When stuck, strip transcendentals and re-search pure-
+  rational bases.  g_p went 828 → 0.097 ppm by replacing ζ(2)²
+  with (d²−NS)/NT².
+- L3 — Composite-particle and mixing observables are Class D
+  triple cup-chains (1+α_GUT)·(1+α_em)·(1+α_em²) or similar.
+  Single-α searches structurally cannot close them.
+- L4 — Coefficient reuse across observables is structural evidence.
+  When a hit uses a coefficient already established elsewhere
+  (45 = NS²·d, 6 = NS·NT, etc.), prefer it.
+- L5 — Compositional closure is free.  Always check if target =
+  (already-closed-A) × (already-closed-B) before hunter.
 
 ## State
 
