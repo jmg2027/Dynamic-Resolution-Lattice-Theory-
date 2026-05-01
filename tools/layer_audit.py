@@ -4,6 +4,13 @@
 Insight (Mingu, 2026-05-XX): a file's architectural layer is not a
 philosophical question — it is mechanically determined by its import
 closure.  F's natural layer >= max(layer of each E213.* it imports).
+
+Corollary (Mingu, same day): EVERY file has a vertical layer.  The
+"horizontal" trees (Math/, Physics/, Research/, Infinity/, Tactic/,
+Tools/) are topical groupings, NOT separate axes — each file inside
+them lives in some Kernel/Firmware/Hypervisor/Meta/App layer
+determined by its imports.  This script computes that layer for
+every file and reports per-folder distributions.
 """
 from __future__ import annotations
 
@@ -91,8 +98,47 @@ def main() -> int:
             downgrades.append((p, path_label, path_rank, nat_label, nat_rank))
 
     rc = report(files, violations, downgrades, horizontal_high)
+    every_file_layer_report(files, imports, by_path)
     horizontal_depth_report(files, imports)
     return rc
+
+
+def every_file_layer_report(files, imports, by_path):
+    """Compute natural vertical layer for EVERY file (including Math,
+    Physics, Research, …) and print per-top-folder distribution."""
+    print("\n## Per-file natural vertical layer")
+    print("(every file lives in Kernel/Firmware/Hypervisor/Meta/App;")
+    print(" computed from import closure)\n")
+    natural = {}
+    for f in files:
+        seg = f.relative_to(LEAN_ROOT).parts[0]
+        if seg in VERTICAL:
+            natural[f] = VERTICAL[seg]
+
+    def get(f, stack):
+        if f in natural:
+            return natural[f]
+        if f in stack:
+            return 0
+        stack.add(f)
+        deps = [d for d in imports.get(f, []) if d in imports]
+        natural[f] = max((get(d, stack) for d in deps), default=0)
+        stack.discard(f)
+        return natural[f]
+    for f in files:
+        get(f, set())
+
+    label_of = {v: k for k, v in VERTICAL.items()}
+    by_seg = {}
+    for f in files:
+        seg = f.relative_to(LEAN_ROOT).parts[0]
+        by_seg.setdefault(seg, [0, 0, 0, 0, 0])
+        by_seg[seg][natural[f]] += 1
+
+    print(f"  {'top-folder':<14} " + "  ".join(f"{label_of[r]:>10}" for r in range(5)) + "   total")
+    for seg in sorted(by_seg.keys()):
+        row = by_seg[seg]
+        print(f"  {seg:<14} " + "  ".join(f"{n:>10}" for n in row) + f"   {sum(row):>5}")
 
 
 def horizontal_depth_report(files, imports):

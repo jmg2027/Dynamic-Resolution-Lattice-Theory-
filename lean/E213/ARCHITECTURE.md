@@ -7,22 +7,46 @@ READMEs) follows from this.
 
 Last revised: 2026-05-XX (post-OS-dissolution, post-Meta-audit).
 
-## 0. The two axes
+## 0. One axis: vertical layers + topical labels
 
-213's layout has *two orthogonal axes*:
+**Correction (Mingu, 2026-05-XX)**: previous versions of this
+document spoke of "horizontal vs vertical" as if Math/Physics/
+Research were a separate axis.  That was wrong.
 
-  **Vertical (epistemic dependency)** — Kernel ↑ Firmware ↑ Hypervisor ↑ Meta
-    Each layer is *defined in terms of* the layer below.  Imports
-    flow up.  Theoretical role differs per layer.
+  **Every file has exactly one vertical layer** —
+  Kernel / Firmware / Hypervisor / Meta / App — mechanically
+  determined by its import closure.  `tools/layer_audit.py`
+  computes it.
 
-  **Horizontal (topical content)** — Math / Physics / Research
-    All sit at App-level (above Hypervisor + Meta).  They USE the
-    Lens framework + metatheorems to do mathematics, physics, or
-    exploration.  No epistemic dependency between them.
+  **Math / Physics / Research / Infinity / Tactic / Tools are
+  topical labels**, NOT layers.  A `Math/X.lean` file might be
+  Kernel-level (no E213 imports), Firmware-level (uses Raw),
+  Hypervisor-level (uses Lens), or Meta-level (uses metatheorems)
+  — depending on what it imports.  The folder name only says
+  "this is mathematics-flavored", not "this is at layer X".
 
-Vertical layer takes precedence for naming conflicts (a "math" file
-that's actually a Hypervisor-layer Lens utility belongs in
-Hypervisor, not Math/).
+Concrete distribution as of 2026-05-XX:
+
+| top-folder | Kernel | Firmware | Hypervisor | Meta | App |
+|---|---|---|---|---|---|
+| Math/ (212) | 2 | 202 | 8 | 0 | 0 |
+| Physics/ (275) | 2 | 168 | 105 | 0 | 0 |
+| Research/ (337) | 33 | 7 | 293 | 4 | 0 |
+| Infinity/ (9) | 1 | 6 | 2 | 0 | 0 |
+| Tactic/ (11) | 8 | 0 | 0 | 3 | 0 |
+| Tools/ (1) | 0 | 1 | 0 | 0 | 0 |
+
+So most "Math" files are Firmware-level (using Raw), most "Physics"
+are split Firmware/Hypervisor, most "Research" is Hypervisor-level
+(using Lens framework), and all of `Tactic/Test/` reaches Meta.
+
+**Implication for reorganization** (open question — see §3):
+should the directory structure mirror the vertical layer assignment,
+e.g., `Hypervisor/Math/Cohomology/...` instead of `Math/Cohomology/...`?
+Pro: directory matches mechanical layer.  Con: cross-cuts topical
+locality (one logical "Math" tree split across 3 layers).  Current
+state: keep topical top-level, layer is metadata exposed by
+`layer_audit.py`.
 
 ## 1. Vertical layers (canonical definitions)
 
@@ -137,7 +161,12 @@ from Atomicity (V_A = {0,1,2}, V_B = {3,4} from canonical_partition).
 **Currently**: 1 file.  Capstones currently live in Physics/Capstones/
 but conceptually some belong here.  Open question (see §3).
 
-## 2. Horizontal layers (App-level topical content)
+## 2. Topical labels (NOT a separate axis — see §0)
+
+The folders below are *topical groupings*, not layers.  Each file
+inside has its own vertical layer (Kernel/Firmware/Hypervisor/Meta)
+determined by import closure.  Run `tools/layer_audit.py` for the
+authoritative per-file assignment.
 
 ### Math/
 
@@ -157,7 +186,9 @@ providing framework).
     foundations
   `Math/Pigeonhole.lean` — universal Fin pigeonhole infrastructure
 
-**Imports**: Hypervisor + (parts of) Firmware/Atomicity for d=5.
+**Layer distribution** (212 files): 2 Kernel, 202 Firmware, 8 Hypervisor.
+Most "Math" content sits at Firmware-level (uses Raw + Atomicity);
+the Hypervisor-level minority uses the Lens framework.
 
 ### Physics/
 
@@ -179,7 +210,9 @@ Standard-Model values when applicable.
 labels (Phase2, Phase3, Phase4) are forbidden for long-lived
 names.  Content has been redistributed by topic.
 
-**Imports**: Math + Hypervisor + Firmware.
+**Layer distribution** (275 files): 2 Kernel, 168 Firmware,
+105 Hypervisor.  Roughly 60% Firmware (atomicity-based mass/coupling
+formulas), 38% Hypervisor (full Lens-based observable construction).
 
 ### Research/
 
@@ -190,11 +223,11 @@ Contains:
   - 15 sub-clusters of lens metatheory, modular arithmetic,
     irrationality proofs, etc. (post-2026-05-01 reorg)
 
-**Imports**: Various (mostly Hypervisor + Math).
-
-**Open question**: some Research/ files have layer-affinity to
-Hypervisor (Research/Lens/) or Meta (Research/Kernel/, Research/
-Universal/).  See §3.
+**Layer distribution** (337 files): 33 Kernel, 7 Firmware, 293
+Hypervisor, 4 Meta.  Heavily Hypervisor-skewed because most
+exploratory work uses Lenses on top of Raw.  The 4 Meta-level
+files (Research/Lens/* using R*Codomain) and 33 Kernel-level
+files (pure-ℕ exploration) are the ends of the distribution.
 
 ## 2.5. Orthogonal infrastructure (no axis)
 
@@ -365,9 +398,9 @@ is meta-relative-to-its-imports (e.g., a forced-shape proof, a
 universality claim, an application).  Promotion-without-reason is
 discouraged.
 
-### 6.2 Horizontal cluster sub-layering (within-cluster depth)
+### 6.2 Topical cluster sub-layering (within-cluster depth)
 
-The same import-depth rule applies *within* a horizontal cluster.
+The same import-depth rule applies *within* a topical cluster.
 For each file in `Math/`, `Physics/`, `Research/`, `layer_audit.py`
 computes its topological depth restricted to imports from the same
 cluster.  Sub-folders whose depth span is wide (≥ 15) are
