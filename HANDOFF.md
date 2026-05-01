@@ -1,7 +1,26 @@
 # Session Handoff — ★★★ FIRST MILESTONE CLOSED ★★★
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed; head = `f326b56`).
+`claude/213-rust-engine-SloKB` (committed; head = `cd6aa89`).
+
+## Repo-wide cleanup (Phase A-G, 2026-05-01)
+
+Equivalent of E213 Phase 1-7 cleanup, applied to the rest of the repo
+(non-Lean directories).
+
+| Phase | Result | Commit |
+|---|---|---|
+| A — Survey | 9 top-level dirs sized + flagged: papers/(3.2MB DEPRECATED), books/(156KB), guide/(88KB), blueprints/(196KB), research-notes/(188KB), catalogs/(48KB), seed/(164KB), tools/(24KB), rust-engine/(1.7G with cache) | — |
+| B — `papers/` deletion | 81 files deleted (16 .tex papers + 60-file drlt-book/ + 5 supplementary); 3.2MB → 8KB; only `papers/README.md` retained as historical marker + git-recovery pointer | a02b751 |
+| C — research-notes/ classification | INDEX.md F6 reference updated from old flat (`Real213CutMulConstSum`) to new sub-cluster (`Real213/CutMulConstSum.lean`) | 8909af9 |
+| D — blueprints/ status | INDEX.md "Final architecture" rewritten to match realized layout (Real213 stayed in Research/, papers/ deleted, examples/ never created); 00_DIRECTORY_PROPOSAL + 00_PHYSICS_RESPONSE marked HISTORICAL with delta notes; 01_probability_213 path updated | 8909af9 |
+| E — books/ + guide/ | books/README papers/ description corrected; books/math/INDEX expanded with probability-213 + universal-lens-213 volumes; books/math/papers/UniversalLens213.md → books/math/universal-lens-213.md (out of misplaced subdir); guide/INDEX + guide/14 Real213Flux* path fixed | 0c424cd |
+| F — catalogs/ + rust-engine/docs/ | math-branch-physics-notes 3 Real213X.lean refs updated; gaps-and-todos historical papers/ context corrected to "(now deleted, commit a02b751)" | 699eced |
+| G — Top-level docs | README + CLAUDE + CAPSTONE_INDEX + HANDOFF papers/ marked DELETED; Math layer count 51 → 211 files; Real213X dotted-namespace fixes in CLAUDE "Finitism" section | cd6aa89 |
+
+**Total**: 7 commits (a02b751 → cd6aa89), 81 files deleted, ~25 files
+edited, all stale "Dyadic[A-Z]flatname" + "Real213[A-Z]flatname" refs
+across the non-Lean tree updated to post-Phase-3 sub-cluster paths.
 
 ## Repo-wide cleanup (2026-05-01) — extension beyond lean/E213/
 
