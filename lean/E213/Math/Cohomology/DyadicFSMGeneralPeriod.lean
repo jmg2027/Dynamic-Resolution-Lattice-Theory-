@@ -49,7 +49,7 @@ namespace E213.Math.Cohomology.DyadicConjecture
 /-- ★★★★★★★ General FSM period theorem (ArithFSM2):
     if running for N steps returns to init, then bits cycle with period N.
 
-    Single proof replaces ~30 per-prime instances. -/
+    Proof avoids omega — uses Nat.succ_add directly for STRICT 0-AXIOM. -/
 theorem ArithFSM2.run_period_of_init {n : Nat} (m : ArithFSM2 n) (N : Nat)
     (h : m.run N = m.init) :
     ∀ k, m.run (k + N) = m.run k := by
@@ -60,8 +60,7 @@ theorem ArithFSM2.run_period_of_init {n : Nat} (m : ArithFSM2 n) (N : Nat)
     rw [Nat.zero_add]; exact h
   | succ k' ih =>
     show m.run (k' + 1 + N) = m.run (k' + 1)
-    have : k' + 1 + N = (k' + N) + 1 := by omega
-    rw [this]
+    rw [Nat.succ_add k' N]
     show m.step (m.run (k' + N)) = m.step (m.run k')
     rw [ih]
 
@@ -86,8 +85,7 @@ theorem ArithFSM3.run_period_of_init {n : Nat} (m : ArithFSM3 n) (N : Nat)
     rw [Nat.zero_add]; exact h
   | succ k' ih =>
     show m.run (k' + 1 + N) = m.run (k' + 1)
-    have : k' + 1 + N = (k' + N) + 1 := by omega
-    rw [this]
+    rw [Nat.succ_add k' N]
     show m.step (m.run (k' + N)) = m.step (m.run k')
     rw [ih]
 
