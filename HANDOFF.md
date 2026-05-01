@@ -18,15 +18,23 @@ DRLT-allowed `{propext, Quot.sound}` baseline).
 Progress this session:
   - 213-native helper trio in `Kernel/Tactic/`: Omega213 (extended),
     Nat213 (11 lemmas), Fin213 (1 lemma).
-  - 4 leaf files migrated: `Math/Pigeonhole.lean`,
-    `Firmware/Atomicity/NonDecomposable.lean`,
-    `Firmware/Atomicity/ArityForcing.lean`,
-    `Math/Infinity/Pair.lean`.  Total 12 public theorems verified
-    strict ∅-axiom this session (24 including helpers).
+  - 5 files migrated (4 full, 1 partial):
+      * `Math/Pigeonhole.lean`              (2/2 ∅-axiom)
+      * `Firmware/Atomicity/NonDecomposable.lean` (3/3 ∅-axiom)
+      * `Firmware/Atomicity/ArityForcing.lean`    (2/2 ∅-axiom)
+      * `Math/Infinity/Pair.lean`                 (5/5 ∅-axiom)
+      * `Firmware/Atomicity/Five.lean`            (5/7 ∅-axiom;
+        atomic_implies_five + atomic_iff_five deferred — Bézout
+        shift needs Nat-sub distributivity helpers + mod-2 odd
+        residue helpers not yet in Nat213)
+  - 14 public theorems verified strict ∅-axiom (29 including
+    helper modules and private lemmas).
   - `tools/scan_axioms.py` — efficient per-theorem axiom auditor.
   - Catalog of axiom-leak surfaces in
     `lean/E213/Kernel/Tactic/AXIOM_FREE_STATUS.md` (read first
     before continuing).
+  - Pre-existing namespace mismatches surfaced and fixed in 13
+    files (commit `eae6bb6`).
 
 Remaining: hundreds of files.  Each requires:
   1. Replace `omega` / `simp` / `simpa` with 213-native equivalents.
@@ -145,11 +153,14 @@ Pre-build commonly-needed 213-native versions of:
 
 Each addition unblocks dozens of files.
 
-### C. Build `Int213.lean`
+### C. Build `Int213.lean` (substantial)
 
-Same pattern as Nat213 but for Int.  Math/IntHelpers needs:
-  - `Int213.le_of_neg_pos`  / similar omega-replacements
-  - `Int213.mul_self_eq_zero` (one-direction)
+Most Lean-core Int lemmas bring `propext` (Int.mul_nonneg,
+Int.neg_mul, Int.mul_neg, Int.le_of_lt, Int.mul_eq_zero, …).  Only
+`Int.neg_neg` was clean in this session's probe.  Building Int213
+requires re-proving large parts of Int arithmetic 213-natively,
+including le/lt and multiplicative monotonicity.  This unblocks
+`Math/IntHelpers.lean` and downstream Linalg213/CayleyDickson/etc.
 
 ### D. Force-clean rebuild + fix source bugs
 
@@ -160,6 +171,8 @@ This will make scan_axioms reliable.
 ## Recent commits (this session)
 
 ```
+429e0d3  Firmware/Atomicity/Five: atomic_five + canonical_partition migrated
+9387073  HANDOFF: comprehensive axiom-strip session log; Nat213 TODO
 128b5a8  AXIOM_FREE_STATUS: catalog Nat213 + 4 migrated files
 eae6bb6  Fix pre-existing namespace mismatches surfaced by axiom probing
 a126133  Nat213: add_left/right_cancel; Math/Infinity/Pair migrated
@@ -169,8 +182,9 @@ a2bfefd  Kernel/Tactic: factor Nat213, Fin213 helpers (modularization)
 f0591b2  Math/Pigeonhole: first ∅-axiom migration
 ```
 
-7 commits, +24 ∅-axiom theorems verified, 11 Nat213 + 1 Fin213
-helpers cataloged, 13 pre-existing namespace bugs fixed.
+9 commits, +29 ∅-axiom theorems verified (including helpers
+and private lemmas), 11 Nat213 + 1 Fin213 helpers cataloged,
+13 pre-existing namespace bugs fixed.
 
 ## Key precision results (unchanged this session)
 
