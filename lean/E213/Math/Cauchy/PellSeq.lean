@@ -1,5 +1,5 @@
 import E213.Math.Irrational.Sqrt2Cut
-import E213.Infinity.LensCardinality
+import E213.Math.Infinity.LensCardinality
 
 /-!
 # Research.PellSeq: Pell sequence Raw construction

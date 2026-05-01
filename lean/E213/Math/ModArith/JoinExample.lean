@@ -30,7 +30,7 @@ theorem mod_4_6_chain_example {α : Type} (N : Lens α)
     (h6 : (leavesModNat 6).refines N) :
     ∀ r : Raw, Lens.leaves.view r = 3 → N.view Raw.a = N.view r := by
   intro r hr
-  obtain ⟨r_7, hr_7⟩ := E213.Infinity.leaves_surjective_pos 7 (by omega)
+  obtain ⟨r_7, hr_7⟩ := E213.Math.Infinity.leaves_surjective_pos 7 (by omega)
   have h_leaves_a : Lens.leaves.view Raw.a = 1 := rfl
   -- Step 1: Raw.a ~_L_6 r_7  (1 ≡ 7 mod 6)
   have h_1_7 : (leavesModNat 6).view Raw.a = (leavesModNat 6).view r_7 := by
@@ -56,7 +56,7 @@ theorem mod_4_6_step_two {α : Type} (N : Lens α)
     (h6 : (leavesModNat 6).refines N)
     (r r' : Raw) (hdiff : Lens.leaves.view r' = Lens.leaves.view r + 2) :
     N.view r = N.view r' := by
-  obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
+  obtain ⟨w, hw⟩ := E213.Math.Infinity.leaves_surjective_pos
     (Lens.leaves.view r + 6) (by omega)
   have h_r_w : (leavesModNat 6).view r = (leavesModNat 6).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw]
@@ -101,7 +101,7 @@ theorem mod_4_6_step_2k {α : Type} (N : Lens α)
       intro r' hr'
       have h_r_ge := leaves_ge_one r
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos
+        E213.Math.Infinity.leaves_surjective_pos
           (Lens.leaves.view r + 2 * k) (by omega)
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have step2 : N.view r'' = N.view r' := by

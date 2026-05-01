@@ -1,6 +1,6 @@
 import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Research.Lens.Factoring
-import E213.Infinity.LensCardinality
+import E213.Math.Infinity.LensCardinality
 
 /-!
 # Research.LeavesModNat: divisibility → refinement for leaves mod m
@@ -81,7 +81,7 @@ open E213.Firmware E213.Hypervisor
 theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     (hrefines : (leavesModNat m).refines (leavesModNat k)) :
     k ∣ m := by
-  obtain ⟨r, hr⟩ := E213.Infinity.leaves_surjective_pos (m + 1) (by omega)
+  obtain ⟨r, hr⟩ := E213.Math.Infinity.leaves_surjective_pos (m + 1) (by omega)
   have h_leaves_a : Lens.leaves.view Raw.a = 1 := rfl
   -- In mod m, Raw.a and r are equal (both have leaves ≡ 1 mod m)
   have hm_eq : (leavesModNat m).view Raw.a = (leavesModNat m).view r := by

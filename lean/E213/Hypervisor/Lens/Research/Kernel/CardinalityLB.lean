@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens.Research.Leaves.ModNat
-import E213.Infinity.LensCardinality
+import E213.Math.Infinity.LensCardinality
 
 /-!
 # Research.KernelCardinalityLB: lower bound on the Lens kernel space (≥ ℵ₀)
@@ -35,7 +35,7 @@ private theorem mod_kernel_separates (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     ∃ r r' : Raw,
       (leavesModNat m).view r = (leavesModNat m).view r' ∧
       (leavesModNat k).view r ≠ (leavesModNat k).view r' := by
-  obtain ⟨r', hr'⟩ := E213.Infinity.leaves_surjective_pos (m + 1) (by omega)
+  obtain ⟨r', hr'⟩ := E213.Math.Infinity.leaves_surjective_pos (m + 1) (by omega)
   refine ⟨Raw.a, r', ?_, ?_⟩
   · -- leavesModNat m: 1 % m = (m+1) % m = 1
     show (leavesModNat m).view Raw.a = (leavesModNat m).view r'

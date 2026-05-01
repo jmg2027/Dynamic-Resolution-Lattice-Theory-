@@ -1,6 +1,6 @@
 import E213.Hypervisor.Lens.Research.Lens.Cauchy
 import E213.Hypervisor.Lens.Research.Leaves.ModNat
-import E213.Infinity.LensCardinality
+import E213.Math.Infinity.LensCardinality
 
 /-!
 # Research.ProfiniteSeq: Cauchy instance for the leavesModNat family

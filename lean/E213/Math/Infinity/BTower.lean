@@ -1,5 +1,5 @@
-import E213.Infinity.Countable
-import E213.Infinity.LensCardinality
+import E213.Math.Infinity.Countable
+import E213.Math.Infinity.LensCardinality
 import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Prelude
 

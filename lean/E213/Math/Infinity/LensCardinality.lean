@@ -1,6 +1,6 @@
-import E213.Infinity.Countable
-import E213.Infinity.Cantor
-import E213.Infinity.Godel
+import E213.Math.Infinity.Countable
+import E213.Math.Infinity.Cantor
+import E213.Math.Infinity.Godel
 import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Hypervisor.Lens.Instances.Bool

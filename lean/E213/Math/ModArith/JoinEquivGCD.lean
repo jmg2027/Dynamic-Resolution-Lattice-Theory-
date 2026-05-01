@@ -42,7 +42,7 @@ private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
 theorem chain_step_sub_JE (m k : Nat) (hk : k ≥ 2) (hmk : m > k)
     (r r' : Raw) (hdiff : Lens.leaves.view r' = Lens.leaves.view r + (m - k)) :
     JoinEquiv (leavesModNat m) (leavesModNat k) r r' := by
-  obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
+  obtain ⟨w, hw⟩ := E213.Math.Infinity.leaves_surjective_pos
     (Lens.leaves.view r + m) (by omega)
   have h_rw_m : (leavesModNat m).equiv r w := by
     show (leavesModNat m).view r = (leavesModNat m).view w
@@ -81,7 +81,7 @@ theorem step_plus_nd_JE (m k : Nat) (hk : k ≥ 2) (hmk : m > k)
         have : 0 ≤ n * (m - k) := Nat.zero_le _
         omega
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos
+        E213.Math.Infinity.leaves_surjective_pos
           (Lens.leaves.view r + n * (m - k)) h_bound
       have step1 : JoinEquiv (leavesModNat m) (leavesModNat k) r r'' :=
         ih r'' hr''
