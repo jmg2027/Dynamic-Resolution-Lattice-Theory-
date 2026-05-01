@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.DyadicLegendreSmall
-import E213.Math.Cohomology.DyadicArithFSMmod7
+import E213.Math.Cohomology.Dyadic.ArithFSMmod7
 import E213.Math.Cohomology.DyadicPellFamily
 
 /-!

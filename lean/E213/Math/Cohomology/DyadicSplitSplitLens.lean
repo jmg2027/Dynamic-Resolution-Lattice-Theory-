@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.DyadicProductFSMPeriod
-import E213.Math.Cohomology.DyadicArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicArithFSMmod11
-import E213.Math.Cohomology.DyadicArithFSMmod19
+import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
+import E213.Math.Cohomology.Dyadic.ArithFSMmod11
+import E213.Math.Cohomology.Dyadic.ArithFSMmod19
 
 /-!
 # Lens composition — split × split (Pell mod 11 × mod 19)

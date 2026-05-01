@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.DyadicProductFSMPeriod
-import E213.Math.Cohomology.DyadicArithFSMtoBitFSM
-import E213.Math.Cohomology.DyadicArithFSMmod7
+import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
+import E213.Math.Cohomology.Dyadic.ArithFSMmod7
 import E213.Math.Cohomology.DyadicPellFamily
 
 /-!

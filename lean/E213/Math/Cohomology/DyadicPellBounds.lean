@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.DyadicArithFSMtoBitFSM
+import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
 
 /-!
 # Concrete signature period bounds for Pell mod {2, 3}

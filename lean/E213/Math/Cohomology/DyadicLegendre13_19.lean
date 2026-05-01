@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.DyadicLegendreSmall
-import E213.Math.Cohomology.DyadicArithFSMmod13
-import E213.Math.Cohomology.DyadicArithFSMmod19
+import E213.Math.Cohomology.Dyadic.ArithFSMmod13
+import E213.Math.Cohomology.Dyadic.ArithFSMmod19
 import E213.Math.Cohomology.DyadicLegendrePisanoExt
 import E213.Math.Cohomology.DyadicPisanoPredictor
 

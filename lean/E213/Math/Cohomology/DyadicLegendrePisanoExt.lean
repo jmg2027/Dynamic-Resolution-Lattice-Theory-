@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.DyadicLegendrePisano
-import E213.Math.Cohomology.DyadicArithFSMmod11
+import E213.Math.Cohomology.Dyadic.ArithFSMmod11
 
 /-!
 # Legendre-Pisano bridge — extended to the SPLIT case (p = 11)

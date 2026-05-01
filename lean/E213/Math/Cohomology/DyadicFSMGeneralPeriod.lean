@@ -1,5 +1,5 @@
-import E213.Math.Cohomology.DyadicArithFSM
-import E213.Math.Cohomology.DyadicArithFSM3
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM3
 
 /-!
 # General FSM period theorem — A task (Pisano predictor reframe)

@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.DyadicTwoLayerPredictor
-import E213.Math.Cohomology.DyadicArithFSMmod23
+import E213.Math.Cohomology.Dyadic.ArithFSMmod23
 
 /-!
 # Pisano predictor — 8-prime evidence + signature layer
