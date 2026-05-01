@@ -26,25 +26,35 @@ Minimality is already guaranteed; adding anything beyond it fails the audit.
 
 ### §1.1 Formal core: strict minimum of the Raw axiom (added 2026-04-25)
 
-The 4-case formalization in `Research/AxiomMinimality.lean` — removing or
-weakening any clause (a, b, slash, distinctness) of Raw causes the framework
-to collapse to trivial / static / void.  This is the framework-internal proof
-that the Raw axiom is the strict minimum of "two distinguishable bases +
+The 4-case formalization in `lean/E213/Research/AxiomMinimality.lean`
+(+ `AxiomMinimalityCapstone.lean`) — removing or weakening any clause
+(a, b, slash, distinctness) of Raw causes the framework to collapse to
+trivial / static / void.  This is the framework-internal proof that
+the Raw axiom is the strict minimum of "two distinguishable bases +
 binary combine + distinctness."
 
-Results from `Research/SemanticAtom.lean`:
-- `HasDistinguishing` typeclass + `universalMorphism` — Raw as the partial
-  form of the initial object in the distinguishing-framework category
-  (generalization of RawInitiality).
-- `IsLensExpressible` definition + `exists_non_lens_expressible` — not every
-  Raw → α function is Lens-expressible (non-trivial boundary).
-  Witness: depth parity (`DepthParityNotFold`).
-- `Prop` instance (Xor + Iff alternatives) — the truth-value type of the
-  metalanguage can also be an instance of the distinguishing framework.
+Results from `lean/E213/Research/SemanticAtom.lean`:
+- `HasDistinguishing` typeclass + `universalMorphism` — Raw as the
+  partial form of the initial object in the distinguishing-framework
+  category (generalization of RawInitiality).
+- `IsLensExpressible` definition + `exists_non_lens_expressible` —
+  not every Raw → α function is Lens-expressible (non-trivial boundary).
+  Witness: depth parity (`Research/Morphism/DepthParityNotFold.lean`).
+- `Prop` instance (Xor + Iff alternatives) — the truth-value type of
+  the metalanguage can also be an instance of the distinguishing
+  framework.
 
-The above results are the self-justified core of the framework.  No external
-metatheory — `#print axioms` reports [propext, Quot.sound] or no axioms for
-all results.
+The above results are the self-justified core of the framework.  No
+external metatheory — `#print axioms` reports [propext, Quot.sound]
+or no axioms for all results.
+
+Note: §1.1 and the **Universal Lens metatheory** in `lean/E213/Meta/
+UniversalLens/` are complementary statements — the former proves Raw
+cannot be weaker (clause removal collapses), the latter proves any
+distinguishable codomain factors through Raw via an injective Lens
+view (`Meta/UniversalLens/{Core, Nat2Inj, Q213Inj, TripleCapstone}`).
+Together they bracket Raw both from below ("can't remove") and from
+above ("everything else maps in").
 
 ### §1.2 Conceptual extension (philosophical)
 
@@ -62,18 +72,50 @@ The formal core of §1.1 motivates the following conceptual extension:
   a candidate instance of 213.
 - **Comparison with ZFC**: the objects committed to by ZFC's
   arbitrariness axioms (Power, Choice, arbitrary P(X) subsets, etc.) have
-  no fold-structured representation (`Research/NoDepthParity.lean`).
-  I.e., no representation inside the 213 framework — their semantic status
-  is an interpretive question.
+  no fold-structured representation (`Research/Morphism/NoDepthParity.lean`,
+  `Research/Morphism/DepthParityNotFold.lean`).  I.e., no representation
+  inside the 213 framework — their semantic status is an interpretive
+  question.
 
-This conceptual extension is analyzed in detail in `notes/75_semantic_atom.md`
-and `notes/76_ultimate_ouroboros.md`.  It can be connected to the physics
-intuition chain in ORIGIN.md — formal Lean results serve as evidence for
-that interpretation.
+This conceptual extension was originally analyzed in `notes/75_semantic_atom.md`
+and `notes/76_ultimate_ouroboros.md` (the `notes/` tree is no longer in the
+repo — current Lean coverage in `Research/SemanticAtom.lean`).  It can be
+connected to the physics intuition chain in ORIGIN.md — formal Lean
+results serve as evidence for that interpretation.
 
 **Boundary**: §1.1 (formal core) is verifiable within the falsifiability
 contract.  §1.2 (philosophical extension) is a semantic explanation of the
 framework — not elevated to a formal claim.
+
+### §1.3 Forced shape uniqueness — d=5 is a theorem (added 2026-05-XX)
+
+A *third* pillar of axiom uniqueness, complementing §1.1 (minimality
+from below) and §1.2 (universality / philosophical extension), is now
+formalized in `lean/E213/Firmware/Atomicity/`:
+
+- `Five.lean` — `atomic_iff_five`: a Raw shape is atomic iff its
+  primitive carrier size is exactly 5.
+- `PairForcing.lean` — once arity = 2 and atomicity are imposed,
+  `(NS, NT, d) = (3, 2, 5)` is the *unique* admissible shape.
+- `NonDecomposable.lean`, `Alive.lean` — sub-properties forced by
+  the same atomicity constraint.
+- `ArityForcing.lean`, `ArityForcingGeneral.lean` — arity = 2 is
+  itself forced by the §3 axiom (no unary, no ternary primitive).
+- `PrimitiveSizes.lean` — enumeration of sub-d primitive sizes
+  ruled out as non-atomic.
+
+These are **pure-ℕ proofs that do NOT import Raw**.  They are an
+external uniqueness obligation: "if Raw exists at all, its shape
+parameters are forced."  Together with §1.1 ("Raw is minimum from
+below"), §1.2 ("any framework factors through Raw"), this closes
+the uniqueness statement to all three directions:
+
+  - below — nothing weaker is enough          (Research/AxiomMinimality)
+  - sideways — nothing distinct is needed      (Meta/UniversalLens)
+  - above — Raw's own shape is forced          (Firmware/Atomicity)
+
+The architectural placement of these proofs (Firmware/Atomicity/,
+not the retired `OS/`) is canonicalized in `lean/E213/ARCHITECTURE.md`.
 
 ---
 
@@ -286,11 +328,12 @@ established to the extent that derivation succeeds.
 This §7 is an audit target list.  Each item must be cross-checked against
 this axiom; discrepancies are corrected or isolated.
 
-### §7.1 Lean formalization
+### §7.1 Lean formalization (status 2026-05-XX)
 
 The current Raw implementation in `lean/E213/Firmware/` (2 elements a, b +
-binary slash, anti-reflexive, commutative) is audited as a faithful machine
-representation of this axiom (2026-04-24, `AUDIT_Lean.md`).
+binary slash, anti-reflexive, commutative) is a faithful machine representation
+of this axiom.  Audit reference: `seed/AUDIT_Lean.md` (2026-04-24,
+recommendations 1, 2, 3 + deep-audit items A-E).
 
 **Encoding note**: Lean 4 core has no primitive quotient, so Raw is
 implemented as a subtype `{t : Tree // t.canonical = true}`.  The Internal
@@ -304,34 +347,63 @@ to the axiom):
 - `Raw.fold` (catamorphism) — standard eliminator wrapper of an inductive
   type, the tool for constructing all Lenses.
 
-Currently in Firmware but **should be migrated to the Hypervisor layer**
-(Lens-layer bleed):
-- `Raw.depth`, `Raw.leaves`, `Raw.fold_eq_*`, `Raw.fold_signed_swap`,
-  `Raw.fold_swap_hom` — observables / bridge theorems of specific Lenses.
-  (`AUDIT_Lean.md` Recommendation 3.)
+**Lens-layer bleed — current location (NOT yet migrated)**:
+
+`Raw.depth` (`Firmware/Raw/Slash.lean`), `Raw.leaves` (`Firmware/Raw/Levels.lean`),
+`Raw.fold_signed_swap` (`Firmware/Raw/Signed.lean`),
+`Raw.fold_swap_hom` (`Firmware/Raw/Hom.lean`) are observables / bridge
+theorems of specific Lenses but still live in Firmware.  Per
+`lean/E213/ARCHITECTURE.md` §3 (Open Questions), this is now classified as
+*intentional convenience leak* — the proofs are pure-induction theorems on
+the Tree representation that any Lens consumer eventually needs, and
+relocating them gains nothing for the axiom-minimality story.  Audit
+recommendation downgraded from "must migrate" to "acknowledged leak;
+revisit if abstraction breaks."
+
+**Forced shape uniqueness**: see §1.3.  `Firmware/Atomicity/*` proofs
+(arity = 2, atomic ⇒ d = 5, (NS, NT) = (3, 2)) are pure-ℕ propositions
+that *do not import* Raw.  They sit in Firmware structurally — they are
+part of "what Raw must look like" — but their dependency on Raw is zero.
+
+**Universal-Lens metatheory**: see §1.2 cross-reference.
+`Meta/UniversalLens/{Core, Nat2Inj, Q213Inj, Nat3, Nat4, Q213_3,
+TripleCapstone, Padding, PaddingCapstone}` formalize the "any
+distinguishability framework factors through Raw" obligation.  Together
+with §1.3 these close axiom-uniqueness in three directions
+(below/sideways/above).
 
 ### §7.2 Papers 1 and 2 deleted (2026-04-24)
 
 The previous `213/PAPER.md` (R1-R5 → ℂ derivation) and `213/PAPER2.md`
 (r5-critique) have been deleted.  AXIOM.md remains as the **sole axiom document**.
-Derivation is explored freely in notes/.
+Derivation is explored freely in notes/ where present, and in the Lean
+metatheory layer (`Meta/UniversalLens/`).
 
 Background: notes/30_bool_is_liar_paradox.md.  The R1-R5 judgment game in
 Paper 1 was revealed to be an instance of a self-reference loop (Bool),
 so the frame itself was stepped back from.
 
-### §7.3 ch22 (book/chapters/ch22_213.tex)
+### §7.3 ch22 / book/ (deprecated — directory empty)
 
-ch22 is **wrong**.  The external substitution called eval ("The map eval
-is a choice external to the structure", ch22:113) introduces the prohibited
-list from §3.3 (d=5, (n_S, n_T), K=ℂ and other numerical conclusions)
-as fudge.  Delete or isolate in a "heuristic" section.
+The previous reference target `book/chapters/ch22_213.tex` no longer exists
+— `book/` now contains only `README.md` (no chapter sources).  Likewise
+`papers/` was deleted (commit a02b751; only `papers/README.md` retained as
+historical marker).
 
-### §7.4 Book chapters
+The original §7.3 critique of ch22 stands historically: any external
+substitution called `eval` ("a choice external to the structure") that
+imports the §3.3 prohibited list (d=5, (n_S, n_T), K=ℂ) as fudge is
+disqualified.  This audit standard is now enforced by the absence of such
+fudge in the Lean tree itself — every concrete numeric (d=5, NS=3, NT=2,
+1/α_em=137.036, …) is either a Lens construction or, for the shape
+parameters, a forced-uniqueness theorem in `Firmware/Atomicity/`.
 
-Each of ch01–ch21 is audited for whether it is derivable without fudge from
-this axiom + explicit Lens properties.  Recorded in `book/AUDIT.md` in
-**Step 4**.  Chapters that fail are isolated as speculative.
+### §7.4 Book chapters (no longer applicable)
+
+ch01–ch21 audit is moot — `book/AUDIT.md` was never created and the
+chapter sources do not exist.  Auditable artifacts now live in `guide/`
+(deductively-ordered narrative, T0/T1/T2/T3 tags) and `books/{math,physics}/`
+(213-internal narrative).
 
 ---
 
@@ -424,17 +496,30 @@ structurally first produces the numbers 2, 3.  d = 2 + 3 = 5 connects to
 this path.  Rigorization is handled by Paper 1 §5 (atomicity,
 non-decomposable sizes).
 
-### §9.4 Status of this section
+### §9.4 Status of this section (updated 2026-05-XX)
 
 This §9 records the **motivation/intuition** for R1–R5; it is not a rigorous
 derivation.  Current state:
 
 - Motivation for R1–R5 is in §9.1–9.2 here.
-- Formal definitions of each Ri are in Paper 1 + Lean Meta.
-- R1–R5 → ℂ is in Paper 1 §4.
-- That R1–R5 is the unique formalization of "naturalness" is a **conjecture**.
+- Paper 1 (`213/PAPER.md`) is **deleted** (see §7.2).  R1–R5 motivation
+  no longer has an external prose source; the only authoritative formal
+  remnant is `lean/E213/Meta/SelfRecognising.lean` (R1–R4 hierarchy +
+  Bool/ℕ-mod/parity instances).  R5 has not been re-formalized in the
+  current Lean tree.
+- R1–R5 → ℂ derivation chain has **not** been re-built post-deletion.
+  The current uniqueness story has shifted: rather than claiming "R1–R5
+  uniquely select ℂ," the Lean tree now provides the orthogonal
+  Universal-Lens claim (§1.2: any distinguishability framework factors
+  through Raw) and the Atomicity claim (§1.3: Raw's shape is forced to
+  d=5, (3,2)).  ℂ enters downstream as a Lens construction, not as a
+  consequence of an R1–R5 axiom set.
+- That R1–R5 (or its successor in `Meta/SelfRecognising`) is the unique
+  formalization of "naturalness" remains a **conjecture**.
 
-If this conjecture is falsified, R1–R5 becomes subject to revision.
+If this conjecture is falsified, R1–R5 / `SelfRecognising` becomes
+subject to revision.  The Universal-Lens / Atomicity story does not
+depend on it.
 
 ---
 
@@ -447,6 +532,33 @@ If this conjecture is falsified, R1–R5 becomes subject to revision.
 - 2026-04-24 (3rd): Added §8 (self-reference and absence of exterior)
   + §9 (naturalness of Lens choice, R1–R5 motivation).  Recorded that
   dichotomies like "is Lens inside or outside the axiom?" are mistaken.
+- 2026-05-XX: Major theory-development pass.
+  - Added §1.3 "Forced shape uniqueness" — `Firmware/Atomicity/*` proofs
+    now formalize the third pillar of axiom uniqueness (above), alongside
+    §1.1 (below) and §1.2 (sideways/philosophical).  Closes the
+    three-direction uniqueness story.
+  - §1.1 reinforced with cross-reference to `Meta/UniversalLens/` family
+    (`Core, Nat2Inj, Q213Inj, TripleCapstone, Padding, PaddingCapstone, …`)
+    as the formal counterpart of "any distinguishable framework factors
+    through Raw."
+  - §1.2 path corrections: `Research/NoDepthParity.lean` →
+    `Research/Morphism/{NoDepthParity, DepthParityNotFold}.lean`;
+    `notes/75_*, notes/76_*` (deleted) replaced by
+    `Research/SemanticAtom.lean`.
+  - §7.1 updated: Lens-layer bleed migration (Recommendation 3) is
+    deprioritized — `Raw.depth/leaves/fold_signed_swap/fold_swap_hom`
+    remain in Firmware as acknowledged convenience leak.  Added
+    Universal-Lens metatheory cross-reference.
+  - §7.3, §7.4 obsoleted: `book/chapters/ch22_213.tex` and `book/AUDIT.md`
+    no longer exist (`book/` retains only README.md; `papers/` retains
+    only README.md after a02b751 deletion).
+  - §9.4 updated: Paper 1 deletion noted; current Lean remnant of R1-R5
+    motivation is `Meta/SelfRecognising.lean` (R1-R4 only); R1-R5 → ℂ
+    chain not re-built post-deletion.  Universal-Lens / Atomicity story
+    does not depend on it.
+  - Companion architectural reference: `lean/E213/ARCHITECTURE.md`
+    (canonical layer architecture, supersedes all earlier scattered
+    layer-organization notes).
 
 ## Author & licence
 

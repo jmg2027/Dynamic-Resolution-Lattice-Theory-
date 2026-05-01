@@ -449,7 +449,7 @@ proving the same theorems.  Only the possibility of user misuse changes.
 - (short-term) Lens-layer bleed migration — move Raw.depth,
   Raw.leaves, etc. to Hypervisor (§4, AUDIT_Lean §3 Recommendation 3).
 - (extension, completed) p-adic ℤ_p sub-tower formalization
-  (`Research/Padic.lean`, note 71): leavesModNat sub-family
+  (`Research/Hyper/Padic.lean`): leavesModNat sub-family
   + factorial seq instance.  ZFC reduction scope extended to
   number-theoretic limit territory.
 
@@ -461,6 +461,17 @@ All of these tasks are **safeguard reinforcement**, not axiom changes.
 
 - 2026-04-24: Initial draft.  Session
   `claude/lean-infinity-explanation-QqnSp`.
+- 2026-05-XX: §7.3 path correction (`Research/Padic.lean` →
+  `Research/Hyper/Padic.lean` after the Research/Hyper/ sub-cluster
+  split).  No content changes — implementation classification (α/β/γ/δ)
+  is unaffected by sub-cluster reorganization.
+
+  Companion theoretical context now in `lean/E213/ARCHITECTURE.md`:
+  - Firmware layer scope (Raw + Atomicity sub-cluster);
+  - Hypervisor layer scope (Lens framework + sub-clusters Instances,
+    Characterisation);
+  - Recommendation 3 (Lens-layer bleed migration) is **deprioritized**
+    — see `AXIOM.md §7.1` for current status.
 
 ## Author
 

@@ -60,8 +60,8 @@ module is also a separate folder (outside Firmware).
 
 **Caution point (A)**.  The Internal namespace contains `Tree.cmp`
 (`Firmware/Raw/Core.lean:23–36`).  This is an **encoding device** for
-selecting canonical forms, not a property of Raw.  PAPER.md
-§1.2 already states *"the ordering is the encoding's selection
+selecting canonical forms, not a property of Raw.  PAPER1.md
+(archival) §1.2 already states *"the ordering is the encoding's selection
 function, not a property of the axiom"*.
 
 However, this point is not stated in AXIOM.md.
@@ -88,7 +88,10 @@ Not present in Firmware itself.  The `Lens` in Hypervisor is a separate module.
 ### Mode of existence
 
 Lean `inductive` is by definition compatible with either Platonic or stepwise
-interpretation.  See `Infinity/notes/17_existence_mode_lens.md`.
+interpretation.  Companion narrative formerly in
+`Infinity/notes/17_existence_mode_lens.md` (deleted with `notes/`).
+Current Lean coverage: `lean/E213/Infinity/Tower.lean`,
+`lean/E213/Infinity/Chain.lean`, and `lean/E213/Physics/Foundations/FiniteUniverse.lean`.
 
 **Verdict**: ✓ Compliant.
 
@@ -200,11 +203,16 @@ a Lean refactor requiring `lake build` to be re-run.
   Recommendation 3, most are retained as-is.  The proof content itself need
   not change.
 
-### Next steps (after Step 3)
+### Next steps (status as of 2026-05-XX)
 
-- Step 3: Replace PAPER.md §1 with AXIOM.md.  Split §2-§4 (R1-R5 + ℂ)
-  into a separate paper.
-- Step 4: `book/AUDIT.md` — Audit ch01-ch21.
+- ~~Step 3: Replace PAPER.md §1 with AXIOM.md.  Split §2-§4 (R1-R5 + ℂ)
+  into a separate paper.~~ — **superseded**: PAPER.md / PAPER2.md deleted
+  (see `AXIOM.md §7.2`); AXIOM.md is now the sole axiom document, and the
+  R1-R5 → ℂ derivation chain has not been re-built (see `AXIOM.md §9.4`).
+- ~~Step 4: `book/AUDIT.md` — Audit ch01-ch21.~~ — **superseded**:
+  `book/` no longer contains chapter sources (only README.md retained);
+  audit role transferred to `guide/` (deductively-ordered narrative)
+  and `lean/E213/ARCHITECTURE.md` (canonical theory architecture).
 
 ---
 
@@ -212,6 +220,12 @@ a Lean refactor requiring `lake build` to be re-run.
 
 - 2026-04-24: Initial audit.  Session
   `claude/lean-infinity-explanation-QqnSp`.
+- 2026-05-XX: Stale-reference cleanup.  PAPER.md → PAPER1.md (archival);
+  `Infinity/notes/17_existence_mode_lens.md` (deleted) replaced by current
+  Lean coverage (`Infinity/Tower.lean`, `Chain.lean`,
+  `Physics/Foundations/FiniteUniverse.lean`); §3 Steps 3/4 deprecated
+  (book/, papers/ deleted; superseded by AXIOM.md + guide/ + ARCHITECTURE.md).
+  Audit verdict (faithful, no structural revision) is unchanged.
 
 ## Author
 
