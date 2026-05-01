@@ -17,8 +17,7 @@ made here in prose.
 | 5 | `FALSIFIABILITY.md` | 14 measurement propositions that would refute DRLT | When discussing experimental tests |
 | 6 | `IMPLEMENTATION.md` | Mapping seed → `lean/E213/Firmware/Raw` | When tracing axiom-to-code |
 | 7 | `AUDIT_Lean.md` | Audit guide for verifying Lean ↔ seed correspondence | When auditing |
-| 8 | `PAPER1.md` | Origin paper draft — superseded by `lean/E213/Math/Cohomology/Paper1Chiral.lean` | Historical |
-| 9 | `CLAUDE-213.md` | Older Claude guide — superseded by root `CLAUDE.md` | Historical |
+| 8 | `PAPER1.md` | Original seed paper (Raw + Lens, ZFC commitments, Cauchy completeness, demonstrations, falsifiability) — broader than `lean/E213/Math/Cohomology/Paper1Chiral.lean` (which only covers chiral compression).  Substantive narrative kept. | Historical / reference |
 
 ## What seed/ is NOT
 
@@ -47,4 +46,7 @@ made here in prose.
 
   - `ORIGIN.md`, `AXIOM.md`, `PHILOSOPHY.md`, `NOTATION.md`: stable
   - `IMPLEMENTATION.md`, `AUDIT_Lean.md`: should track Lean refactors
-  - `PAPER1.md`, `CLAUDE-213.md`: archival, not maintained
+  - `PAPER1.md`: archival reference, not actively maintained
+  - (Previously: `CLAUDE-213.md` was retained as older session guide;
+     deleted 2026-05-XX — content fully superseded by root `CLAUDE.md`
+     and `PHILOSOPHY.md`.  Recoverable from git history.)
