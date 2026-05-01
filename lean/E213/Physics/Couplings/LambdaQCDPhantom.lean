@@ -1,5 +1,5 @@
 import E213.Physics.Simplex.Counts
-import E213.Physics.Phase2
+import E213.Physics.Substrate
 
 /-!
 # Λ_QCD as topological projection — phantom elimination
