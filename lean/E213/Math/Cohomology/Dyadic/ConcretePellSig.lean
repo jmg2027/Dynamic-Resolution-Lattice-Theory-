@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.ArithFSMSignature
+import E213.Math.Cohomology.Dyadic.ArithFSM.Signature
 
 /-!
 # Concrete signature periods for the Pell ArithFSM family

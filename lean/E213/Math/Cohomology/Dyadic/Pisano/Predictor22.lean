@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor20
-import E213.Math.Cohomology.Dyadic.ArithFSMmod79
-import E213.Math.Cohomology.Dyadic.ArithFSMmod89
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod79
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod89
 
 /-!
 # Pisano predictor — 22-prime evidence + sub-tight pattern

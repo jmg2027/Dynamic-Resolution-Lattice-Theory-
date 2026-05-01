@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 import E213.Math.Cohomology.Dyadic.Legendre.V213
 

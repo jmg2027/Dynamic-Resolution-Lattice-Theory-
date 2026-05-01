@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.ArithFSM1
+import E213.Math.Cohomology.Dyadic.ArithFSM.V1
 
 /-!
 # Legendre symbol as ArithFSM₁ trajectory (213-native)

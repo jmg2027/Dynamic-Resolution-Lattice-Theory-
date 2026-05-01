@@ -1,5 +1,5 @@
-import E213.Math.Cohomology.Dyadic.ArithFSM3
-import E213.Math.Cohomology.Dyadic.ArithFSMtoBitFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
+import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!

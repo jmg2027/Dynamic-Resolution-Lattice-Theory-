@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.ArithFSMHardness
+import E213.Math.Cohomology.Dyadic.ArithFSM.Hardness
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 /-!

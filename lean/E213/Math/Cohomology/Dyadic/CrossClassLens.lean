@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.Pell.LensPairs
-import E213.Math.Cohomology.Dyadic.ArithFSM3Bound
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
 
 /-!
 # Cross-class lens — Pell (quadratic) × Tribonacci (cubic)

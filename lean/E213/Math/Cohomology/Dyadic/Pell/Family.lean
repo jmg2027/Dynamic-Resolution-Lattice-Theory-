@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.ArithFSMmod7
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
 import E213.Math.Cohomology.Dyadic.Pell.Bounds
 
 /-!

@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor6
-import E213.Math.Cohomology.Dyadic.ArithFSMmod17
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
 
 /-!
 # Pisano predictor — extended to 7 primes (adding p=17)

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.ArithFSMHierarchy
+import E213.Math.Cohomology.Dyadic.ArithFSM.Hierarchy
 import E213.Math.Cohomology.Dyadic.Legendre.V213
 
 /-!

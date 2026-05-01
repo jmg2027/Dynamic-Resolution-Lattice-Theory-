@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.ArithFSM3
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
 import E213.Math.Cohomology.Dyadic.Trib.FSMmod3
 import E213.Math.Cohomology.Dyadic.Trib.FSMmod5
 

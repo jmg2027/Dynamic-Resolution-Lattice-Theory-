@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Dyadic.ArithFSM3Hardness
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3Hardness
 
 /-!
 # Tribonacci ArithFSM3 family — capstone
