@@ -8,11 +8,21 @@ The DRLT-allowed Lean kernel base is `{propext, Quot.sound}`.  The
 stronger.  This file records the catalog of standard-Lean constructs
 that block strict ∅-axiom, and the 213-native replacements for each.
 
+## 213-native helper modules (`Kernel/Tactic/`)
+
+  - `Omega213.lean`  — `omega213` tactic (linear ℕ arithmetic).
+  - `Nat213.lean`    — `Nat`-arithmetic helpers (`sub_one_add_one`,
+                       `ne_zero_of_le_ne`, `sub_one_lt_of_lt_succ_ne`).
+  - `Fin213.lean`    — `Fin` helpers (`absurd0` for `Fin 0` elim).
+
+All theorems in these modules are individually verified ∅-axiom.
+Pull from them instead of redefining locally per file.
+
 ## Migrated files (∅-axiom verified)
 
 | File | Theorems | Notes |
 |---|---|---|
-| `Math/Pigeonhole.lean` | `no_inj_succ`, `no_inj_lt` | 20 omega + 2 simp + Fin.elim0 + literal `(0 : Fin 1)` all replaced |
+| `Math/Pigeonhole.lean` | `no_inj_succ`, `no_inj_lt` | 20 omega + 2 simp + Fin.elim0 + literal `(0 : Fin 1)` all replaced via `Omega213`/`Nat213`/`Fin213` |
 
 ## Catalog of axiom leaks discovered
 

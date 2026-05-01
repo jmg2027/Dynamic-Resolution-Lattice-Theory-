@@ -1,40 +1,19 @@
 import E213.Kernel.Tactic.Omega213
+import E213.Kernel.Tactic.Nat213
+import E213.Kernel.Tactic.Fin213
 /-!
 # Pigeonhole for `Fin`: no injection `Fin (N+1) → Fin N`
 
-213-native (axiom-free) pigeonhole.  Originally used `omega` + `simp`
+213-native (∅-axiom) pigeonhole.  Originally used `omega` + `simp`
 which forced `[propext, Quot.sound]` into every downstream theorem.
-Rewritten using explicit `Nat.*` core lemmas + `dif_pos`/`dif_neg`
-rewrites + `omega213` so the closure is strict ∅-axiom.
+Now uses explicit `Nat.*` core lemmas + `dif_pos`/`dif_neg` rewrites
++ `omega213` + `Nat213`/`Fin213` helpers so the closure is strict
+∅-axiom.
 -/
 
-open E213.Tactic
+open E213.Tactic E213.Tactic.Nat213 E213.Tactic.Fin213
 
 namespace E213.Math.Pigeonhole
-
-private theorem ne_zero_of_lt_of_le {a b : Nat}
-    (hge : b ≤ a) (hne : a ≠ b) : a ≠ 0 := by
-  intro h0
-  have hlt : b < a := Nat.lt_of_le_of_ne hge (Ne.symm hne)
-  exact Nat.not_lt_zero _ (h0 ▸ hlt)
-
-private theorem sub_one_lt_of_lt_succ_ne {a b n : Nat}
-    (hge : b ≤ a) (hne : a ≠ b) (hlt : a < n + 1) : a - 1 < n := by
-  have hpos : a ≠ 0 := ne_zero_of_lt_of_le hge hne
-  have hsub : a - 1 < a := Nat.sub_one_lt hpos
-  exact Nat.lt_of_lt_of_le hsub (Nat.le_of_lt_succ hlt)
-
-/-- 213-native replacement for `Nat.sub_add_cancel` at b = 1.
-    The Lean-core `Nat.sub_add_cancel` proof brings `propext`. -/
-private theorem nat_sub_one_add_one {n : Nat} (h : n ≠ 0) : n - 1 + 1 = n := by
-  cases n with
-  | zero => exact absurd rfl h
-  | succ k => rfl
-
-/-- 213-native `Fin 0` elimination.  The Lean-core `Fin.elim0` brings
-    `propext`, as does the `(0 : Fin 1)` literal via the `OfNat` instance. -/
-private def fin0_absurd {α : Sort _} (h : Fin 0) : α :=
-  absurd h.isLt (Nat.not_lt_zero h.val)
 
 /-- Reindex `Fin (n+1) \ {v}` into `Fin n`: drop `v`, relabel. -/
 private def shiftAround {n : Nat} (v w : Fin (n+1)) (h : w ≠ v) : Fin n :=
@@ -93,10 +72,10 @@ private theorem shiftAround_inj {n : Nat} (v : Fin (n+1))
       have heqv : w₁.val - 1 = w₂.val - 1 := e₁ ▸ e₂ ▸ hval
       have hge₁ : v.val ≤ w₁.val := Nat.le_of_not_lt hlt₁
       have hge₂ : v.val ≤ w₂.val := Nat.le_of_not_lt hlt₂
-      have hp₁ : w₁.val ≠ 0 := ne_zero_of_lt_of_le hge₁ hv₁
-      have hp₂ : w₂.val ≠ 0 := ne_zero_of_lt_of_le hge₂ hv₂
-      have hs₁ : w₁.val - 1 + 1 = w₁.val := nat_sub_one_add_one hp₁
-      have hs₂ : w₂.val - 1 + 1 = w₂.val := nat_sub_one_add_one hp₂
+      have hp₁ : w₁.val ≠ 0 := ne_zero_of_le_ne hge₁ hv₁
+      have hp₂ : w₂.val ≠ 0 := ne_zero_of_le_ne hge₂ hv₂
+      have hs₁ : w₁.val - 1 + 1 = w₁.val := sub_one_add_one hp₁
+      have hs₂ : w₂.val - 1 + 1 = w₂.val := sub_one_add_one hp₂
       have hadd : w₁.val - 1 + 1 = w₂.val - 1 + 1 := congrArg (· + 1) heqv
       exact Fin.ext (hs₁ ▸ hs₂ ▸ hadd)
 
@@ -109,7 +88,7 @@ theorem no_inj_succ : ∀ (N : Nat) (g : Fin (N+1) → Fin N),
     (∀ i j : Fin (N+1), i ≠ j → g i ≠ g j) → False := by
   intro N
   induction N with
-  | zero => intro g _; exact fin0_absurd (g ⟨0, Nat.zero_lt_succ 0⟩)
+  | zero => intro g _; exact absurd0 (g ⟨0, Nat.zero_lt_succ 0⟩)
   | succ m ih =>
       intro g hinj
       let v : Fin (m+1) := g ⟨m+1, Nat.lt_succ_self _⟩
