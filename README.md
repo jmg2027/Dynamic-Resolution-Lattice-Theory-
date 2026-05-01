@@ -70,7 +70,7 @@ For a *5-second* entry into any sub-area, read its `INDEX.md`:
 | Dir | INDEX | Purpose |
 |---|---|---|
 | `seed/` | `seed/INDEX.md` | axioms + philosophy reading order |
-| `lean/E213/` | `lean/E213/INDEX.md` | layer architecture + capstone map |
+| `lean/E213/` | `lean/E213/ARCHITECTURE.md` (theory) + `lean/E213/INDEX.md` (navigation) | canonical layer definitions + capstone map |
 | `catalogs/` | `catalogs/README.md` | grep-able lookup tables |
 | `research-notes/` | `research-notes/INDEX.md` | numbered exploratory notes |
 | `blueprints/` | `blueprints/INDEX.md` | math/physics/meta blueprints |
@@ -86,22 +86,31 @@ Agent guardrails: `LESSONS_LEARNED.md`.
 
 ```
 seed/            axioms + philosophy + falsifiability
-lean/E213/       Lean 4 formal library (~800 files)
-  ├── Kernel/    ★ deep-embedded 213 (Term, Compare, Pair, Rat,
-  │              NormalForm)
-  ├── Firmware/  Raw (canonical-form), Lens
-  ├── Hypervisor/ Lens instances; chiral K_{3,2}^{(c=2)}
-  ├── OS/        Atomicity, PairForcing, Pigeonhole
-  ├── App/       Simplex, BaselBound, AlphaGUT, AlphaEM, ...
+lean/E213/       Lean 4 formal library (~840 files)
+                 — see `lean/E213/ARCHITECTURE.md` for canonical
+                   theoretical layer definitions
+  ├── Kernel/    ★ Lean-side scaffolding (deep-embedded Term,
+  │              0-axiom self-bootstrap path; 14 files, 101 thms)
+  ├── Firmware/  Raw axiom (4-clause) + Atomicity/ sub-cluster
+  │              (forced shape uniqueness — d=5, NS=3, NT=2,
+  │              proven from outside without Raw import)
+  ├── Hypervisor/ Lens framework (catamorphism Raw → α) +
+  │              Lens/{Instances, Characterisation}/ sub-clusters
+  ├── Meta/      true metatheory: UniversalLens family,
+  │              SelfRecognising (R1-R4), BitPatternUniqueness
+  ├── App/       concrete applications (Simplex)
   ├── Math/      Cohomology (~175 files in 10 sub-clusters),
-  │              Linalg213, Cauchy
-  ├── Physics/   267 files; couplings, masses, mixing, atoms,
-  │              hadrons, nuclei, cosmology
+  │              Linalg213, Cauchy/Real213 plumbing, Pigeonhole
+  ├── Physics/   267 files in 18 topical sub-clusters (AlphaEM,
+  │              Couplings, Hadron, Higgs, Mass, Mixing, Nuclear,
+  │              Cosmology, Atomic, Simplex, Basel, FamousCoincidences,
+  │              YangMills, Capstones, Library, Substrate,
+  │              AtomicCorrespondences, Foundations)
   ├── Research/  research / exploratory (332 files; Real213/ alone is
-  │              180 of those)
-  ├── Meta/      Universal Lens metatheory + variants
-  ├── Infinity/  limit / compactification
-  └── Tactic/    custom tactics
+  │              180 of those, 17 sub-clusters total)
+  ├── Infinity/  limit / compactification (external bridges)
+  ├── Tactic/    custom tactics (Omega213, VerifyR4, ...)
+  └── Tools/     Lean-side analysis tools (CertChecker)
 rust-engine/     Independent ℕ-only verification (53 binaries,
                  184 tests, 94 citations)
 blueprints/      math/14 + physics/14 + meta/2 (status snapshots)

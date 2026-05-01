@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 4 Period3IE — Period 3 (Na ~ Ar) IE atomic chain

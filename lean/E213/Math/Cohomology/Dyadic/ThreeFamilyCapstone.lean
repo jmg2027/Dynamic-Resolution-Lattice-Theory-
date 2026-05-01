@@ -37,7 +37,7 @@ Total: 24 prime-period instances on the same prime set, three
 parallel recurrence families.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ThreeFamilyCapstone
 
 /-- ★★★★★★★★★ Three-family Pisano capstone — universal Galois lens
     framework verified at 3 representative primes covering all 3
@@ -68,4 +68,4 @@ theorem three_family_pisano_capstone :
          Q.2.2.2.1, Q.2.2.2.2.2.1,
          F.2.2.1, F.2.2.2.1⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ThreeFamilyCapstone

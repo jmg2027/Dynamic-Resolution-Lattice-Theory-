@@ -16,7 +16,7 @@ the input arities a, b ≥ 1 correspond to standard cochains and
 output a+b-1 ≥ 1 corresponds to the standard sum.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.CupAW.Core
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -59,4 +59,4 @@ theorem cupAW_smoke_capstone :
   ⟨cupAW_v0_v0_at_0, cupAW_v0_v0_off_diagonal,
    cupAW_zero_left_5_1_1⟩
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.CupAW.Core

@@ -10,7 +10,7 @@ Predict (p-1)/2 = 29, TIGHT (matches exactly).
 Bit period 29 (odd) ⇒ signature period 58 (doubled).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod59
 
 /-- Pell-style FSM mod 59. -/
 def pellFSMmod59 : ArithFSM2 59 where
@@ -56,4 +56,4 @@ theorem pellFSMmod59_signature_period_58 :
   signature_period_of_bits_period_and_anchor pellFSMmod59.bits 58
     pellFSMmod59_bits_period_58 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod59

@@ -16,7 +16,7 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
 7 of 7 primes verified.  All <= {propext, Quot.sound}.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 
 /-- ★★★★★ Legendre 5 mod 17 = NQR (inert). -/
 theorem legendre_5_mod_17 :
@@ -54,4 +54,4 @@ theorem pisano_predict_realises_pell_7 :
   · intro k; rw [pisano_predict_correct_6.2.2.2.2.2]
     exact pellFSMmod19_bits_period_9 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pisano.Predictor7

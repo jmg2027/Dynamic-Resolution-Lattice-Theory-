@@ -15,7 +15,7 @@ This formally places Pell/algebraic streams strictly below
 transcendental streams in the Tier hierarchy *via the ArithFSM lens*.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Hardness
 
 /-- ★★★★★ Aperiodic ⇒ no ArithFSM2 generates it (any modulus). -/
 theorem aperiodic_bits_imp_not_ArithFSM2 (bs : Nat → Bool)
@@ -39,4 +39,4 @@ theorem ArithFSM2_generable_imp_eventually_periodic (bs : Nat → Bool) :
   rw [toBitFSM_bits_eq hn m k]
   exact hmatch k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Hardness

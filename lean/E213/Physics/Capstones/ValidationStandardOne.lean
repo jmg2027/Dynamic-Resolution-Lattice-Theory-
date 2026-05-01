@@ -4,7 +4,7 @@ import E213.Physics.Cosmology.OmegaLambdaFinitist
 import E213.Physics.Capstones.FinitistObservableChain
 import E213.Physics.Foundations.NUniverseFractalDepth
 import E213.Physics.Simplex.Generations
-import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Nuclear.MagicNumbers
 
 /-!
 # CLAUDE.md Validation Standard #1 — Lean-certified achievement

@@ -14,7 +14,7 @@ Pell mod 3 × Tribonacci mod 2:
   - Product:     BitFSM(72), period | lcm(4, 4) = 4
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.CrossClassLens
 
 /-- Lifted bit periodicity for Tribonacci mod 2 (BitFSM form). -/
 theorem tribMod2_BitFSM_bits_period_4 :
@@ -62,4 +62,4 @@ theorem crossLens_pell5_trib2_period_20 :
   have hlcm : Nat.lcm 10 4 = 20 := by decide
   rwa [hlcm] at hresult
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.CrossClassLens

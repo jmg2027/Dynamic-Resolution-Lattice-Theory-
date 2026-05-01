@@ -15,7 +15,7 @@ This file gives concrete decidable computations of subword counts
 for periodic and aperiodic example signatures.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Archive.SubwordComplexity
 
 /-- Length-L substrings of trajectory `s` starting at position
     0..M-1. -/
@@ -64,4 +64,4 @@ theorem subword_growth_separation :
     ∧ subwordCount (signature bit13) 4 16
         < subwordCount (signature thueMorse) 4 16 := by decide
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Archive.SubwordComplexity

@@ -15,7 +15,7 @@ the inert formula p+1 across multiple sizes.  Bit period 18 (even);
 signature period also 18.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
 
 /-- Pell-style FSM mod 17. -/
 def pellFSMmod17 : ArithFSM2 17 where
@@ -57,4 +57,4 @@ theorem pellFSMmod17_signature_period_18 :
   signature_period_of_bits_period_and_anchor pellFSMmod17.bits 18
     pellFSMmod17_bits_period_18 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod17

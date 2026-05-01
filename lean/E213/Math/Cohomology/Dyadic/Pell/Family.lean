@@ -14,7 +14,7 @@ TIGHT signature periods and universal 5n² guarantees.
   |  7  | 49 |    8      |    8      |    245       |
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.Family
 
 /-- ★★★★★★ Pell family closure: bit + signature periods +
     guarantees, all four moduli. -/
@@ -56,4 +56,4 @@ theorem pell_family_closure :
    pellFSMmod5_signature_period_bound,
    pellFSMmod7_signature_period_bound⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.Family

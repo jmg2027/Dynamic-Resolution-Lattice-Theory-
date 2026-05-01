@@ -1,4 +1,4 @@
-import E213.Physics.YangMills.Gap.Gap
+import E213.Physics.YangMills.Gap
 import E213.Physics.Couplings.PhotonKernel
 
 /-!

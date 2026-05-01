@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass.Mass
+import E213.Physics.Higgs.Mass
 import E213.Physics.Higgs.Quartic
 import E213.Physics.Higgs.Vacuum
 

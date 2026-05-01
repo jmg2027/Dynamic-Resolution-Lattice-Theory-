@@ -44,5 +44,4 @@ XorPairCombine
 
 - `INDEX.md` — this file
 - `../INDEX.md` (lean/E213/INDEX.md) — full library map
-- `AUDIT_GUIDE.md` (root) — original cleanup roadmap
 - `STRICT_ZERO_AXIOM.md` (root) — strict-0-axiom achievements

@@ -21,7 +21,7 @@ becomes a member of the ArithFSM family rather than an external
 number-theoretic fact.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.V1
 
 /-- 1-state arithmetic FSM with state Fin n. -/
 structure ArithFSM1 (n : Nat) where
@@ -38,4 +38,4 @@ def ArithFSM1.run {n : Nat} (m : ArithFSM1 n) : Nat → Fin n
 def ArithFSM1.bits {n : Nat} (m : ArithFSM1 n) (k : Nat) : Bool :=
   m.out (m.run k)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.V1

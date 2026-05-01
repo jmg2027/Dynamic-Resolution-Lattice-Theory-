@@ -11,7 +11,7 @@ that arise from cubic irrationals (plastic ratio etc.).
 Joint state space: Fin n × Fin n × Fin n with n³ values.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3
 
 /-- 3-state arithmetic FSM.  State vector in (Fin n)³. -/
 structure ArithFSM3 (n : Nat) where
@@ -71,4 +71,4 @@ theorem tribFSMmod2_signature_period_4_from_1 :
   signature_period_of_bits_period_and_anchor_from
     tribFSMmod2.bits 4 1 tribFSMmod2_bits_period_4 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.V3

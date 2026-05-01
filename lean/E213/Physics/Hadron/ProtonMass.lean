@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass.Mass
+import E213.Physics.Higgs.Mass
 
 /-!
 # m_p = 938.27 MeV — closed propagator + atomic structure (0 axioms)

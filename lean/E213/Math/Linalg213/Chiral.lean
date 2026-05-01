@@ -9,7 +9,7 @@ Vec_T = Fin 2 → Nat (NT=2 temporal).  Indices {0,1,2} S-type,
 {3,4} T-type.  Atomic split: NS+NT=d=5.
 -/
 
-namespace E213.Math.Linalg213
+namespace E213.Math.Linalg213.Chiral
 
 open E213.Physics.Simplex.Counts (NS NT)
 
@@ -77,4 +77,4 @@ theorem phase_L4_capstone :
          combine (projS v) (projT v) k = v k) :=
   ⟨by decide, by decide, by decide, combine_proj_eq⟩
 
-end E213.Math.Linalg213
+end E213.Math.Linalg213.Chiral

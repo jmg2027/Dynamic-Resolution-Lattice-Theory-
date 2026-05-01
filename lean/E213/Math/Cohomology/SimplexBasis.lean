@@ -14,7 +14,7 @@ The first family has size `binom n k`, the second `binom n (k-1)`.
 So `binom (n+1) k = binom n k + binom n (k-1)` (Pascal).
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.SimplexBasis
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -74,4 +74,4 @@ theorem kSubset_2_length_d5 :
     ∧ (kSubset 5 2 5).length = 2
     ∧ (kSubset 5 2 9).length = 2 := by decide
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.SimplexBasis

@@ -15,7 +15,7 @@ is informative.  Each Bool stream gets a *signature*:
   signature bs (n+1) = nextVertex (signature bs n) (bs n)
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Signature
 
 /-- Deterministic vertex transition.  S → T determined by bit.
     T → S cycles through S_0/S_1 from T_0; S_1/S_2 from T_1. -/
@@ -80,4 +80,4 @@ theorem signature_eq_of_pointwise_eq (bs₁ bs₂ : Nat → Bool)
         = nextVertex (signature bs₂ n) (bs₂ n)
     by rw [signature_eq_of_pointwise_eq bs₁ bs₂ h n, h n]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Signature

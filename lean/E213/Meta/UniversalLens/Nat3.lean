@@ -1,6 +1,6 @@
 import E213.Meta.UniversalLens.Core
-import E213.Meta.UniversalLens.Core.Nat2
-import E213.Meta.UniversalLens.Core.Nat2Inj
+import E213.Meta.UniversalLens.Nat2
+import E213.Meta.UniversalLens.Nat2Inj
 
 /-!
 # Universal Lens at ℕ³ — triple-codomain universality
@@ -19,7 +19,7 @@ Closes part of HANDOFF Open Continuation #5 (Universal Lens at
 higher codomains).
 -/
 
-namespace E213.Meta.UniversalLensNat3
+namespace E213.Meta.UniversalLens.Nat3
 
 open E213.Firmware E213.Hypervisor E213.Meta.UniversalLensNat2
 
@@ -86,4 +86,4 @@ theorem expSumLens3_is_universal :
     E213.Meta.UniversalLens.IsUniversal expSumLens3 :=
   expSumLens3_view_inj
 
-end E213.Meta.UniversalLensNat3
+end E213.Meta.UniversalLens.Nat3

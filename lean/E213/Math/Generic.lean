@@ -1,6 +1,6 @@
-import E213.Research.Real213.CutBinary
-import E213.Research.Real213.CutBinaryOp
-import E213.Research.Real213.CutBinaryInstances
+import E213.Math.Real213.CutBinary
+import E213.Math.Real213.CutBinaryOp
+import E213.Math.Real213.CutBinaryInstances
 
 /-!
 # E213.Math.Generic: generic kernel for binary cut operations

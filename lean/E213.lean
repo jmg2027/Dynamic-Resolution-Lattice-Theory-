@@ -1,18 +1,14 @@
 -- Layered entry point for 213.
+-- Canonical theoretical layer architecture: lean/E213/ARCHITECTURE.md
 --
--- Original 4-layer architecture:
---   Firmware   : E213/Firmware/*.lean   (Raw API)
---   Hypervisor : E213/Hypervisor/*.lean (Lens framework)
---   OS         : E213/OS/*.lean         (axiom-driven theorems)
---   App        : E213/App/*.lean        (applications, e.g. Simplex)
--- Plus:
---   Meta       : E213/Meta/*.lean       (typeclass hierarchies,
---                                        lens catalogue)
---   Tactic     : E213/Tactic/*.lean     (custom macros + elabs)
---   Research   : E213/Research/*.lean   (r5-critique track:
---                                        ZI, Z2, ZOmega witnesses)
+-- This umbrella file imports the *vertical-layer* foundation modules
+-- (Kernel, Firmware, Hypervisor, Meta, App) + key infrastructure.
+-- Topical-cluster files under Math/, Physics/ (and the per-layer
+-- Tactic/, Tools/, Research/ sub-folders) are NOT imported here en
+-- masse — their dependency closures are large and cross-cutting;
+-- consumers should import the specific module they need.
 
--- Kernel (deep-embedded 213, 0 Lean axioms — vision floor)
+-- Kernel (Lean-side scaffolding for 213 — 0 axiom)
 import E213.Kernel.Term
 import E213.Kernel.Compare
 import E213.Kernel.Pair
@@ -20,92 +16,23 @@ import E213.Kernel.Rat
 import E213.Kernel.Decide
 import E213.Kernel.Sound
 import E213.Kernel.Demo
-import E213.Kernel.Cap_PeriodicTable
-import E213.Kernel.Cap_PhysicsBrackets
-import E213.Kernel.Cap_PhysicsObservables
-import E213.Kernel.Cap_PhysicsFalsifiers
-import E213.Kernel.Cap_PhysicsAtomicIE
-import E213.Kernel.Cap_AtomicComplexity
-import E213.Kernel.Cap_MathArithmetic
 
--- Firmware
+-- Firmware (Raw axiom + forced shape uniqueness)
 import E213.Firmware.Raw
 import E213.Firmware.RawSwap
 import E213.Firmware.RawLevels
+import E213.Firmware.Atomicity.Five
+import E213.Firmware.Atomicity.PairForcing
 
--- Hypervisor
+-- Hypervisor (Lens framework)
 import E213.Hypervisor.Lens
 
--- OS
-import E213.OS.Pigeonhole
-import E213.OS.ArityForcing
-import E213.OS.ArityForcingGeneral
-import E213.OS.NonDecomposable
-import E213.OS.PrimitiveSizes
-import E213.OS.Alive
-import E213.OS.Atomicity
-import E213.OS.PairForcing
-
--- App
+-- App (concrete applications)
 import E213.App.Simplex
 
--- Meta
-import E213.Meta.LensCatalog
-import E213.Meta.BoolLens
-import E213.Meta.ParityLens
-import E213.Meta.PathLens
-import E213.Meta.MaxLens
-import E213.Meta.ZMod6Lens
-import E213.Meta.LensCharacterisation
-import E213.Meta.SelfRecognising
-import E213.Meta.RawInductionDemo
+-- Math infrastructure (universal — used by Physics + Research)
+import E213.Math.Pigeonhole
 
--- Tactic
-import E213.Tactic.QuadNorm
-import E213.Tactic.IntSquare
-import E213.Tactic.DeriveR4Codomain
-import E213.Tactic.VerifyR4
-import E213.Tactic.QuadExtension
-import E213.Tactic.HurwitzRing
-
--- Infinity (infinity-as-lens research track)
-import E213.Infinity.Cantor
-import E213.Infinity.Countable
-import E213.Infinity.Pair
-import E213.Infinity.Godel
-import E213.Infinity.Tower
-import E213.Infinity.LensCardinality
-import E213.Infinity.BTower
-import E213.Infinity.BoolSpace
-import E213.Infinity.Chain
-
--- Research (r5-critique)
-import E213.Research.IntHelpers
-import E213.Research.CayleyDickson.ZI
-import E213.Research.CayleyDickson.ZIDomain
-import E213.Research.CayleyDickson.ZIHom
-import E213.Research.CayleyDickson.ZIInstance
-import E213.Research.CayleyDickson.ZSqrt2
-import E213.Research.CayleyDickson.ZSqrt2Domain
-import E213.Research.CayleyDickson.Z2Instance
-import E213.Research.CayleyDickson.ZOmega
-import E213.Research.CayleyDickson.ZOmegaDomain
-import E213.Research.CayleyDickson.ZOmegaInstance
-import E213.Research.CayleyDickson.ZSqrt
-import E213.Research.CayleyDickson.ZSqrtDomain
-import E213.Research.CayleyDickson.ZSqrtInstance
-import E213.Research.CayleyDickson.ZSqrtProduct
-import E213.Research.CayleyDickson.ZIArith
-import E213.Research.CayleyDickson.CDDouble
-import E213.Research.CayleyDickson.LipschitzHeavy
-import E213.Research.CayleyDickson.CayleyHeavy
-import E213.Research.CayleyDickson.SedenionHeavy
-import E213.Research.CayleyDickson.Trigintaduonion
-import E213.Research.CayleyDickson.TrigintaduoionionHeavy
-import E213.Research.CayleyDickson.Pathion
-import E213.Research.CayleyDickson.PathionHeavy
-import E213.Research.CayleyDickson.LipschitzLens
-import E213.Research.CayleyDickson.Cayley
-import E213.Research.CayleyDickson.Sedenion
-import E213.Research.CayleyDickson.CDTower
-import E213.Research.CayleyDickson.R5Vacuity
+-- Tactic / Tools
+import E213.Kernel.Tactic.Omega213
+import E213.Firmware.Tools.CertChecker

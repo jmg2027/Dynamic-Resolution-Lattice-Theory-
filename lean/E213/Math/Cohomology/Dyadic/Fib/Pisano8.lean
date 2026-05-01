@@ -27,7 +27,7 @@ same prime set, with predictor formula 2× scaled (cross-recurrence
 relation, commit 35bef8d).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Fib.Pisano8
 
 /-- ★★★★★ Legendre 5 mod 13 = NQR (inert). -/
 theorem fib_legendre_5_mod_13 :
@@ -77,4 +77,4 @@ theorem fib_pisano_predict_realises_8 :
   · intro k; rw [h19]; exact fibFSMmod19_bits_period_18 k
   · intro k; rw [h23]; exact fibFSMmod23_bits_period_48 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Fib.Pisano8

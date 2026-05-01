@@ -8,7 +8,7 @@ encoded into BitFSM(9·25·49) = BitFSM(11025).
 Inherits period | lcm(4, 10, 8) = 40.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.LensTriple
 
 /-- Inner product (mod 3 × mod 5). -/
 def pellInner35 : BitFSM (9 * 25) :=
@@ -42,4 +42,4 @@ theorem pellLens_3x5x7_period_40 :
   have hlcm : Nat.lcm 20 8 = 40 := by decide
   rwa [hlcm] at hresult
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.LensTriple

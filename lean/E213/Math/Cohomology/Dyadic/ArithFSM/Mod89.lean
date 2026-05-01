@@ -21,7 +21,7 @@ on tight period; tightness depends on absence of Frobenius-stable
 subgroups in Pell trajectory.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod89
 
 def pellFSMmod89 : ArithFSM2 89 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)
@@ -56,4 +56,4 @@ theorem pellFSMmod89_bits_period_44 :
   have hreshape : k + 44 = (k + 22) + 22 := rfl
   rw [hreshape, h1, h2]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod89

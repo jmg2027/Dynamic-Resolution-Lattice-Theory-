@@ -28,7 +28,7 @@ Verified at all 7 primes:
   | 19 |     9  odd |    18  (=2·9)    |   18    |
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.SignaturePredict
 
 /-- Signature-period predictor: doubles the bit-period predictor
     when the bit period is odd (bipartite parity coupling). -/
@@ -75,4 +75,4 @@ theorem signature_predict_realises_pell_7 :
   · intro k; rw [H.2.2.2.2.2.1]; exact pellFSMmod17_signature_period_18 k
   · intro k; rw [H.2.2.2.2.2.2]; exact pellFSMmod19_signature_period_18 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.SignaturePredict

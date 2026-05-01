@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.CupAW.Core
-import E213.Math.Cohomology.Universal.Core.Prop41
+import E213.Math.Cohomology.Universal.Prop41
 
 /-!
 # Cup Leibniz at (4, 1, 1) — AW cup, Δ³ tetrahedral
@@ -13,7 +13,7 @@ Pattern: 16 × 16 = 256 pairs × 6 indices = 1536 evals.
 namespace E213.Math.Cohomology.CupAW.LeibnizMid
 
 open E213.Physics.Simplex.Counts (binom)
-open E213.Math.Cohomology.Universal.Core.Prop41 (pattern)
+open E213.Math.Cohomology.Universal.Prop41 (pattern)
 
 /-- Leibniz on every (4, 1, 1) pattern pair. -/
 theorem leibniz_pattern_4_1_1 :

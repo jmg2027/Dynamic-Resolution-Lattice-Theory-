@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Lepton Mass Library — lepton mass ratio atomic catalog

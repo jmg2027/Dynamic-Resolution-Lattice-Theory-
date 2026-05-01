@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 import E213.Prelude
-import E213.Research.Lens.Identity
-import E213.Research.Lens.Lattice
+import E213.Hypervisor.Lens.Instances.Identity
+import E213.Hypervisor.Lens.Lattice.Lattice
 
 /-!
 # Meta.UniversalLens — Universal Lens metatheory
@@ -21,11 +21,11 @@ Heavy lifting reused from `Research.IdentityLens` (existence:
 `idLens` itself) and `Research.LensLattice` (refinement lattice).
 -/
 
-namespace E213.Meta.UniversalLens
+namespace E213.Meta.UniversalLens.Core
 
 open E213.Firmware E213.Hypervisor
-open E213.Research.IdentityLens (idLens idLens_injective)
-open E213.Research.LensLattice (refines_idLens_iff_injective)
+open E213.Hypervisor.Lens.Instances.Identity (idLens idLens_injective)
+open E213.Hypervisor.Lens.Lattice.Lattice (refines_idLens_iff_injective)
 
 /-- A Lens is *universal* iff its view is injective on Raw. -/
 def IsUniversal {α : Type} (L : Lens α) : Prop :=
@@ -67,4 +67,4 @@ theorem universal_lens_capstone :
          IsUniversal L → L.refines M) :=
   ⟨universal_exists, fun L M h => refines_all L M h⟩
 
-end E213.Meta.UniversalLens
+end E213.Meta.UniversalLens.Core

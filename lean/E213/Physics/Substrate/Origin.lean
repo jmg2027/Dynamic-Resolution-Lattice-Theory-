@@ -1,4 +1,4 @@
-import E213.OS.Atomicity
+import E213.Firmware.Atomicity.Five
 
 /-!
 # Phase 2 Origin — first question: how many dimensions does the universe have?
@@ -13,7 +13,7 @@ from atomic primitives.  Phase 2 forgets all that and asks again:
 This file is the *first line* of Phase 2.
 
 No Phase 1 imports.  No existing physics frame.  No Mathlib.
-Only: `E213.OS.Atomicity` (direct consequence of 213 axioms).
+Only: `E213.Firmware.Atomicity.Five` (direct consequence of 213 axioms).
 
 ## What 213 can say
 
@@ -34,7 +34,7 @@ exists → d = 5.
 
 namespace E213.Physics.Substrate.Origin
 
-open E213.OS.Atomicity
+open E213.Firmware.Atomicity.Five
 
 /-- d=5 *has* the atomic property: existence. -/
 theorem cosmos_dim_5_exists : Atomic 5 := atomic_five

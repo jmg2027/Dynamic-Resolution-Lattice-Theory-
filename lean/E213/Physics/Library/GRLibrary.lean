@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # GR Library — gravity and general relativity atomic catalog

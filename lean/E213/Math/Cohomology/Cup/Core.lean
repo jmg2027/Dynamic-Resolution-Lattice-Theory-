@@ -10,7 +10,7 @@ over a sorted (k+l)-subset τ.  In ℤ/2 (Bool) `·` is AND.
 All three arities (n, k, l) explicit to avoid metavariables.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Cup.Core
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -62,4 +62,4 @@ theorem phase_CD_cup_smoke :
     ∧ (cup 5 1 1 all_true_5_1 all_true_5_1 ⟨0, by decide⟩ = true) :=
   ⟨cup_zero_left_5_1_1, cup_zero_right_5_1_1, cup_all_true_5_1_at_edge0⟩
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Cup.Core

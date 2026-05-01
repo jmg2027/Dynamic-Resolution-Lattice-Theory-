@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop51
+import E213.Math.Cohomology.Universal.Prop51
 import E213.Math.Cohomology.BettiKernel
 
 /-!
@@ -20,7 +20,7 @@ the enumeration-based Bool-level (Universal).
 namespace E213.Math.Cohomology.EncodingBijection
 
 open E213.Physics.Simplex.Counts (binom)
-open E213.Math.Cohomology.Universal.Core.Prop51 (pattern)
+open E213.Math.Cohomology.Universal.Prop51 (pattern)
 
 /-- Bool-to-Nat helper. -/
 def boolToNat (b : Bool) : Nat := if b then 1 else 0

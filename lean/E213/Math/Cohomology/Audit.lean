@@ -29,7 +29,7 @@ from **partial** (concrete cases, deferred universal).
 (see theorems below)
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Audit
 
 /-! ## Discovery 1: Graph H^k = 0 for k ≥ 2 (formal) -/
 
@@ -66,4 +66,4 @@ theorem alpha_3_two_derivations :
     ∧ 16 * 256 = 4096 := by
   refine ⟨E213.Physics.Couplings.PhotonKernel.b_1_eq_8, ?_, ?_⟩ <;> decide
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Audit

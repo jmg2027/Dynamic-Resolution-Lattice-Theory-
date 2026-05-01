@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Period 7 (Z=87~118) — Fr ~ Og atomic catalog

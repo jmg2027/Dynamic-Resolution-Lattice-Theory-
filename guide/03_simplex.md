@@ -2,7 +2,7 @@
 
 **Tier:** T1
 **Status:** Closed for combinatorial counts; passing 4/27 standard.
-**Lean:** `Physics/SimplexCounts.lean`, `Physics/FaceTerms.lean`,
+**Lean:** `Physics/Simplex/Counts.lean`, `Physics/Simplex/FaceTerms.lean`,
 `Physics/FoccSpectrum.lean`.
 
 ## Best current statement
@@ -72,5 +72,5 @@ signed — the sign carries orientation, not arithmetic negation
 - `papers/paper6_simplex_coupling.tex`
 - `papers/drlt-book/chapters/ch04_simplex_geometry.tex`
 - `papers/drlt-book/chapters/ch06_geometry.tex`
-- `lean/E213/Physics/SimplexCounts.lean`
+- `lean/E213/Physics/Simplex/Counts.lean`
 - `lean/E213/Physics/FoccSpectrum.lean`

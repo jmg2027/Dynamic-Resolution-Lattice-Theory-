@@ -18,7 +18,7 @@ This file:
   * `kerSizeDelta n k` — count of σ ∈ Cᵏ with δσ = 0
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.BettiKernel
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -74,4 +74,4 @@ theorem cochainAt_31_5_1_v0 :
 theorem cochainAt_31_5_1_v4 :
     cochainAt 5 1 31 ⟨4, by decide⟩ = true := by decide
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.BettiKernel

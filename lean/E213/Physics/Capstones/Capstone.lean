@@ -1,7 +1,7 @@
 import E213.Physics.Couplings.AlphaGUT
 import E213.Physics.AlphaEM.Core
 import E213.Physics.Simplex.Generations
-import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Foundations.TightenBracket
 import E213.Physics.Mixing.CabibboAngle
 

@@ -60,7 +60,7 @@ verification + Lean theorem citations.
 | # | Field | Status | Evidence |
 |---|---|---|---|
 | 05 | **Gauge Theory 213** | ✅ **REALIZED** | 1/α_em = 137.0359895 (0.07 ppm), 1/α_3 = 8 (NS²−1), 1/α_2 = 30. `Physics/{TripleCoupling, AlphaEM*}.lean` + `rust-engine/triple-coupling`. |
-| 01 | **Atomic Physics 213** | ✅ **REALIZED** | H ionization 13.605693 eV (4.3 ppb), magic numbers 2,8,20 exact, hydrogen geometry. `Physics/Phase4/Library/`. |
+| 01 | **Atomic Physics 213** | ✅ **REALIZED** | H ionization 13.605693 eV (4.3 ppb), magic numbers 2,8,20 exact, hydrogen geometry. `Physics/Library/`. |
 | 02 | **Hadron Physics 213** | ✅ **REALIZED** | m_p = 938.27 MeV (1.56 ppm), m_π = 137.6 MeV, m_ω, m_J/ψ, Δ-N split. `rust-engine/m-proton`, etc. |
 | 09 | **Particle Physics 213** | ✅ **CORE REALIZED** | m_μ/m_e = 206.7682837 (0.49 ppb), m_τ/m_μ = 16.817 (6.77 ppm), m_t/m_b = 1/α_GUT, m_b/m_c, Top y_t. |
 | 10 | **Falsifier Track 213** | ✅ **EVIDENCE BASE** | Lenz coincidence m_p/m_e = 6π⁵ (19 ppm) → DRLT derivation, Koide 2/3 = NT/NS, r_p · m_p/(ℏc) = 4 (195 ppm). 75-year coincidences elevated. |

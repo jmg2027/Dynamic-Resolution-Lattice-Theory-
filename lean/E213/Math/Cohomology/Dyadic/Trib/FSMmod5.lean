@@ -20,7 +20,7 @@ Three-modulus CRT base case: {2, 3, 5} → periods {4, 13, 31}.
 Wall–Sun lcm = lcm(4, 13, 31) = 1612.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Trib.FSMmod5
 
 /-- Tribonacci shift mod 5: state (a, b, c) → (b, c, a + b + c).
     Out: parity of a (bit = a == 1). -/
@@ -73,4 +73,4 @@ theorem tribFSMmod5_signature_period_62_from_1 :
   signature_period_of_bits_period_and_anchor_from
     tribFSMmod5.bits 62 1 tribFSMmod5_bits_period_62 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Trib.FSMmod5

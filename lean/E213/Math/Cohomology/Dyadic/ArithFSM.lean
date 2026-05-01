@@ -14,7 +14,7 @@ For Pell sequence (√2): (a_{k+1}, b_{k+1}) = (2a + b, a + b)
 has finite state mod any fixed N (CRT-style closure).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM
 
 /-- 2-state arithmetic FSM with state vector in Fin n × Fin n. -/
 structure ArithFSM2 (n : Nat) where
@@ -143,4 +143,4 @@ def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     m.out (a, b)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM

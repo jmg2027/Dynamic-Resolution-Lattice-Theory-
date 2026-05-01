@@ -13,7 +13,7 @@ Verifies the Legendre-Pisano framework for Pell proper:
 All three TIGHT periods exactly match the Legendre-predicted values.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.ProperSmall
 
 /-- ★★★ Pell proper mod 3: period 8 = 2(p+1) (inert). -/
 theorem pellProper3_run_period_8 :
@@ -51,4 +51,4 @@ theorem pellProper7_run_period_6 :
         = (pellProperFSMmod 7 (by decide)).step _
     rw [ih]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.ProperSmall

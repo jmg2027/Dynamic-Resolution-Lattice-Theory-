@@ -22,7 +22,7 @@ For the streams we have:
   - tribFSMmod_n ∈ ArithFSM₃ (degree 3, cubic algebraic)
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Hierarchy
 
 /-- Composed padding: ArithFSM₁(n) ↪ ArithFSM₃(n) via ArithFSM₂. -/
 def ArithFSM1.padTo3 {n : Nat} (hn : 0 < n) (m : ArithFSM1 n) : ArithFSM3 n :=
@@ -51,4 +51,4 @@ theorem arithFSM_hierarchy_capstone :
         (m.padTo3 hn).bits k = m.bits k) :=
   ⟨@padTo2_bits_eq, @padTo3_bits_eq, @padTo3_via_2_bits_eq⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Hierarchy

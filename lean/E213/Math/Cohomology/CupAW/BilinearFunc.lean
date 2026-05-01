@@ -10,7 +10,7 @@ the inner cochain is treated as a function), we need
 function-level (funext'd) versions.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.CupAW.BilinearFunc
 
 /-- Function-level cupAW left bilinearity. -/
 theorem cupAW_add_left_eq (n a b : Nat)
@@ -39,4 +39,4 @@ theorem delta_add_eq (n k : Nat) (σ τ : Cochain n k) :
   show delta (Cochain.add σ τ) τ_idx = xor (delta σ τ_idx) (delta τ τ_idx)
   exact delta_add n k σ τ τ_idx
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.CupAW.BilinearFunc

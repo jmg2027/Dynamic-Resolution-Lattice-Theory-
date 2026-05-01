@@ -17,7 +17,7 @@ Bundles 6 conjuncts:
 All conjuncts at ≤ {propext, Quot.sound}.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Trib.Capstone
 
 /-- ★★★★★★★ Tribonacci capstone: Tier 1 (cubic, Tribonacci-style)
     fully characterised in the K_{3,2}^{(2)} signature lens. -/
@@ -50,4 +50,4 @@ theorem tribonacci_capstone :
    tribFSMmod2_signature_period_bound,
    aperiodic_bits_imp_not_ArithFSM3⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Trib.Capstone

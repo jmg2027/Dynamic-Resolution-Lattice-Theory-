@@ -1,9 +1,9 @@
-import E213.Research.Real213.Core
-import E213.Research.Real213.Equiv
-import E213.Research.Real213.Const
-import E213.Research.Real213.Order
-import E213.Research.Real213.OrderExtra
-import E213.Research.Real213.Sign
+import E213.Math.Real213.Core
+import E213.Math.Real213.Equiv
+import E213.Math.Real213.Const
+import E213.Math.Real213.Order
+import E213.Math.Real213.OrderExtra
+import E213.Math.Real213.Sign
 
 /-!
 # E213.Math.Foundation: Real213 type-level foundation (Phase A)

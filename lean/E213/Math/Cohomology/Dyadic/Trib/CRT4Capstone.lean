@@ -25,7 +25,7 @@ suggests deeper Galois-orbit structure in the Tribonacci recurrence.
 Future moduli (mod 11: 110, mod 13: 168) reinforce this mix.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Trib.CRT4Capstone
 
 /-- ★★★★★★★★ Tribonacci CRT 4-modulus capstone.
 
@@ -54,4 +54,4 @@ theorem trib_crt_4_capstone :
    tribFSMmod7_bits_period_48,
    tribFSMmod7_signature_period_48_from_1⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Trib.CRT4Capstone

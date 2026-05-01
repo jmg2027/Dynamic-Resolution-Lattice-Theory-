@@ -2,8 +2,8 @@
 
 **Tier:** T2/T3 hybrid (T2 for Ω_Λ; T3 for H₀, T_CMB context)
 **Status:** Ω_Λ passes 4/27 at 0.0008%; η_B at 0.5%; rest narrative.
-**Lean:** `Physics/DarkEnergy.lean`, `Physics/HubbleConstant.lean`,
-`Physics/GravityShadow.lean`.
+**Lean:** `Physics/Cosmology/DarkEnergy.lean`, `Physics/Cosmology/HubbleConstant.lean`,
+`Physics/Cosmology/GravityShadow.lean`.
 
 ## Best current statement
 
@@ -62,6 +62,6 @@ quantization but not yet formalized.
 - `papers/paper3_zero_parameter_predictions.tex` (Ω_Λ, η_B, T_CMB)
 - `papers/drlt-book/chapters/ch13_cosmology.tex`
 - `papers/drlt-book/chapters/ch17_webb_dipole.tex`
-- `lean/E213/Physics/DarkEnergy.lean`, `HubbleConstant.lean`,
+- `lean/E213/Physics/Cosmology/DarkEnergy.lean`, `HubbleConstant.lean`,
   `GravityShadow.lean`.
 - `seed/FALSIFIABILITY.md` (cosmology section).

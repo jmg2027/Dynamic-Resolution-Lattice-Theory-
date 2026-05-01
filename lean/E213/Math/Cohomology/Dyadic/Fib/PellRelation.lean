@@ -31,7 +31,7 @@ The order of the matrix in GL₂(F_p) doubles between the two cases.
 Proven for all odd primes p ≥ 3.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Fib.PellRelation
 
 /-- Auxiliary: predictor body as if-then-else (Pell). -/
 private def pellBody (v p : Nat) : Nat :=
@@ -78,4 +78,4 @@ theorem fib_pell_at_5 :
     fib_pisano_predict 5 (by decide) = 2 * pisano_predict 5 (by decide) := by
   decide
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Fib.PellRelation

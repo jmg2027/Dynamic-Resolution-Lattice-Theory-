@@ -24,7 +24,7 @@ Bit period 16 (even); signature period 16 (no doubling); plus
 predicted-period 48 derived by composition.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod47
 
 /-- Pell-style FSM mod 47. -/
 def pellFSMmod47 : ArithFSM2 47 where
@@ -70,4 +70,4 @@ theorem pellFSMmod47_signature_period_16 :
   signature_period_of_bits_period_and_anchor pellFSMmod47.bits 16
     pellFSMmod47_bits_period_16 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod47

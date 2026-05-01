@@ -18,7 +18,7 @@ expansion) ⇒ aperiodic signature.  This is the formal core of
 "signature classifies rationality".
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Classifier
 
 /-- nextVertex distinguishes the bit at every vertex. -/
 theorem nextVertex_bit_inj (v : Fin 5) (b₁ b₂ : Bool) :
@@ -62,4 +62,4 @@ theorem aperiodic_bits_imp_aperiodic_signature
   exact hne (signature_periodic_implies_bits_periodic bs p N hp
               h_sig_per n hn)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Classifier

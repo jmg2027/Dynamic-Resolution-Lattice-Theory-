@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Cosmology.DarkEnergy
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 DarkEnergyDerivation — deep-dive on *why Ω_Λ = 0.685*

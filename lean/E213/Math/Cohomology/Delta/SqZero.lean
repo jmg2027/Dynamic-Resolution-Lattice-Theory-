@@ -13,7 +13,7 @@ DecidablePred instance for `Cochain n k` that core Lean 4 does
 not provide by default; revisit in Phase CB.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Delta.SqZero
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -69,4 +69,4 @@ theorem phase_CA_delta_sq_zero :
     ∧ (∀ i : Fin (binom 5 4), delta (delta edge01_n5) i = false) := by
   decide
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Delta.SqZero

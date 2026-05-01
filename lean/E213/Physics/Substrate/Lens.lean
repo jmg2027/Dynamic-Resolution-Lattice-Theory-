@@ -80,8 +80,8 @@ theorem phase2_lens_demo :
     ∧ (bCountLens.view Raw.a = 0)
     ∧ (bCountLens.view Raw.b = 1)
     -- d=5 cosmos (Origin)
-    ∧ E213.OS.Atomicity.Atomic 5 := by
+    ∧ E213.Firmware.Atomicity.Five.Atomic 5 := by
   refine ⟨rfl, rfl, rfl, rfl, ?_⟩
-  exact E213.OS.Atomicity.atomic_five
+  exact E213.Firmware.Atomicity.Five.atomic_five
 
 end E213.Physics.Substrate.Lens

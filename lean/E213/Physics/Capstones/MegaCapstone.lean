@@ -1,7 +1,7 @@
 import E213.Physics.Capstones.FinalCapstone
 import E213.Physics.Capstones.UltraCapstone
 import E213.Physics.AtomicCorrespondences.Capstone
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 MEGA CAPSTONE — 39 milestone autonomous progress summary

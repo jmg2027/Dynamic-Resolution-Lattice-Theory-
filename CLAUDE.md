@@ -122,12 +122,21 @@ metrics.
   7. **INDEX.md per non-trivial sub-tree.**  Every sub-cluster ≥ 5
      files gets an INDEX.md or README.md naming convention notes,
      "what lives here", "where to add new".
-  8. **The vertical-vs-horizontal axis tension is real.**  Kernel/,
-     Firmware/, OS/, Hypervisor/, Meta/, App/, Tactic/, Tools/ are
-     vertical (dependency layers).  Math/, Physics/, Research/ are
-     horizontal (topical).  When in doubt: vertical layer takes
-     precedence (foundation files belong in their layer dir, even
-     if they happen to be "math" or "physics").
+  8. **One vertical axis + Math/Physics topical labels (post-2026-05-XX
+     deep reorg).**  Kernel/, Firmware/, Hypervisor/, Meta/, App/ are
+     the vertical dependency layers.  Math/ and Physics/ are
+     topical-content roots whose individual files each live at
+     some vertical layer (computed by `tools/layer_audit.py` from the
+     import closure).  No "horizontal axis" exists — Math/Physics are
+     just topical labels, not layers.  Previous `Research/`, `Infinity/`,
+     `Tactic/`, `Tools/` top-level dirs were fully distributed by content
+     into the vertical layers + Math/Physics.  Canonical definitions
+     in `lean/E213/ARCHITECTURE.md`.
+
+     Note: `OS/` was retired (2026-05-XX) — its files were either
+     forced-shape-uniqueness proofs (moved to `Firmware/Atomicity/`)
+     or universal Fin pigeonhole infra (moved to `Math/Pigeonhole.lean`).
+     There is no genuine "OS layer" between Firmware and Hypervisor.
 
 ### When deletion is right
 
@@ -146,6 +155,12 @@ to the recovery commit.
 ---
 
 ## Repository Architecture (current, 2026-05-01)
+
+> **Canonical theoretical architecture: `lean/E213/ARCHITECTURE.md`.**
+> That file is the authoritative statement of what each Lean layer IS,
+> the dependency graph, naming conventions, and open questions.
+> Always consult ARCHITECTURE.md before making structural changes;
+> update it FIRST when the architecture evolves.
 
 ### Source of Truth — Lean theorems in `lean/E213/`
 
@@ -188,20 +203,44 @@ OPERATIONAL:
 
 ### Lean Library Structure (`lean/E213/`)
 
+> Canonical layer definitions in `lean/E213/ARCHITECTURE.md`.
+
 ```
-Kernel/      ★ 14 files, 101 theorems literally 0 axiom (deep embedding)
-Firmware/    Raw axiom layer (Raw, RawLevels, RawSwap)
-OS/          Atomicity + canonical structures
-Hypervisor/  cross-layer bridge
-App/         applications
-Physics/     267 files (currently flat + Phase{2,3,4}/ — pending topical reorg)
-Research/    332 files (Real213 marathon + dyadic predictors + exploratory)
-Math/        211 files (Cohomology/ in 10 sub-clusters, Linalg213/, Cauchy/)
-Meta/        meta-theory utilities
-Tactic/      custom tactics
-Infinity/    limit / compactification (mostly 213-external bridges)
-Tools/       Lean tooling
+Kernel/      18 files (101 thms literally 0-axiom) + Tactic/Omega213
+             (Lean-side scaffolding; Kernel-level tactics)
+Firmware/    Raw axiom (4-clause) + Atomicity/ sub-cluster (forced
+             shape uniqueness; pure-ℕ proofs that don't import Raw)
+             + Tools/CertChecker
+Hypervisor/  78 files: Lens framework (catamorphism Raw → α) +
+             topical sub-clusters: Instances/, Characterisation/,
+             Lattice/ (Join/Meet/IndexedJoin), Compose/ (OnLens,
+             ImageMinimum, Factoring), Properties/ (refines,
+             EquivProperties, ConstLensTotalKernel, etc.),
+             Morphism/, Leaves/, Refines/, Kernel/, Universal/,
+             plus top-level Initiality.lean + SemanticAtom.lean
+Meta/        23 files: true metatheory (UniversalLens family,
+             SelfRecognising R1-R4 hierarchy, BitPatternUniqueness,
+             RawInductionDemo, AxiomMinimality, CUniquenessBridge)
+             + Tactic/{VerifyR4, DeriveR4Codomain}
+App/         applications (Simplex)
+Math/        484 files (after 2026-05-XX absorption of Research math
+             content + Infinity/): Cohomology/, Linalg213/, Real213/
+             marathon, CayleyDickson/, Cauchy/, ModArith/, Modulus/,
+             Diagonal/, Irrational/, Hyper/, Choice/, Infinity/,
+             Tactic/{HurwitzRing, IntSquare, QuadExtension}, Pigeonhole
+Physics/     275 files in 18 topical sub-clusters (AlphaEM, Couplings,
+             Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology, Atomic,
+             Simplex, Basel, FamousCoincidences, YangMills, Capstones,
+             Library, Substrate, AtomicCorrespondences, Foundations)
 ```
+
+**Architectural axis (corrected 2026-05-XX)**: ONE vertical axis
+(Kernel/Firmware/Hypervisor/Meta/App).  Math/ and Physics/ are
+*topical labels*, NOT a separate axis — every file inside them has a
+vertical layer determined by its import closure.  Run
+`python3 tools/layer_audit.py` to see each file's mechanical layer.
+Previous Research/, Infinity/, Tactic/, Tools/ top-level dirs were
+distributed by content + import-derived layer (337+9+11+1 files).
 
 (Counts as of 2026-05-01.  Earlier CLAUDE.md versions listed
 sub-project directories `foundations/`, `standard-model/`, `atoms/`,
@@ -223,7 +262,7 @@ into named sub-folders is a pending architectural task.)
 - Session start: read root `HANDOFF.md` first.
 - Commit after every meaningful change.  Never amend.
 - Physics edits → `lean/E213/Physics/` or `rust-engine/`.
-- Math edits → `lean/E213/Math/` or `lean/E213/Research/`.
+- Math edits → `lean/E213/Math/`.
 - Documentation: edit the appropriate top-level dir per layout above.
 
 ---

@@ -34,7 +34,7 @@ combinations projected onto its skeleton.
 See `books/physics/diamond.md` for narrative + figures.
 -/
 
-namespace E213.Math.Cohomology.Diamond
+namespace E213.Math.Cohomology.DiamondShape
 
 open E213.Physics.Simplex.Counts
 
@@ -76,4 +76,4 @@ theorem diamond_crystal_structure :
           by decide, ?_, by decide⟩
   exact E213.Physics.Couplings.PhotonKernel.b_1_eq_8
 
-end E213.Math.Cohomology.Diamond
+end E213.Math.Cohomology.DiamondShape

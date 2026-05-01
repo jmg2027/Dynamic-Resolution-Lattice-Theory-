@@ -1,4 +1,5 @@
 import E213.Math.Cohomology.SimplexBasis
+import E213.Math.Cohomology.Cochain.Core
 
 /-!
 # Cohomology — coboundary δ : Cᵏ → Cᵏ⁺¹ (Phase CA, file 3)
@@ -15,9 +16,11 @@ sign (-1)^i becomes identity, so the alternating sum collapses to
 XOR — which is exactly what makes δ²=0 still hold in mod-2.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Delta.Core
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
+open E213.Math.Cohomology.SimplexBasis
+open E213.Math.Cohomology.Cochain.Core
 
 /-- The colex index of a sorted k-subset `s` of {0..n-1}.
     Brute-force linear search through `Fin (binom n k)`.
@@ -63,4 +66,4 @@ theorem delta_vertex0_n3_02 :
 theorem delta_vertex0_n3_12 :
     delta vertex0_n3 ⟨2, by decide⟩ = false := by decide
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Delta.Core

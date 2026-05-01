@@ -11,7 +11,7 @@ Notable: at the ramified prime p=5 (= Δ), the Fibonacci period is
 This reflects the special degeneracy of the discriminant at ramification.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod5
 
 /-- Fibonacci-style FSM mod 5. -/
 def fibFSMmod5 : ArithFSM2 5 where
@@ -47,4 +47,4 @@ theorem fibFSMmod5_signature_period_20_from_1 :
   signature_period_of_bits_period_and_anchor_from
     fibFSMmod5.bits 20 1 fibFSMmod5_bits_period_20 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Fib.FSMmod5

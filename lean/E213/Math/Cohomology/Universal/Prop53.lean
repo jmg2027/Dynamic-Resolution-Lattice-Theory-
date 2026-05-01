@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop52
+import E213.Math.Cohomology.Universal.Prop52
 
 /-!
 # Universal δ²=0 Prop-lift at (5, 3) — Δ⁴ 3-cochain (top-stratum)
@@ -12,7 +12,7 @@ UniversalProp51 (5,1) and UniversalProp52 (5,2), this completes
 δ²=0 over all interior strata of Δ⁴.
 -/
 
-namespace E213.Math.Cohomology.Universal.Core.Prop53
+namespace E213.Math.Cohomology.Universal.Prop53
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -66,4 +66,4 @@ theorem dsq_zero_prop_5_3 (σ : Cochain 5 3)
   rw [pattern_eq σ]
   exact dsq_pattern _ _ _ _ _ _ _ _ _ _ i
 
-end E213.Math.Cohomology.Universal.Core.Prop53
+end E213.Math.Cohomology.Universal.Prop53

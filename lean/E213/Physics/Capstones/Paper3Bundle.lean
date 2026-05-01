@@ -1,4 +1,4 @@
-import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Mass.MuOverE
 import E213.Physics.Atomic.IE.HydrogenPPM

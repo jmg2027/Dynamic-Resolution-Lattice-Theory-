@@ -16,7 +16,7 @@ Pell family signature period table (TIGHT vs GUARANTEE):
   |  5  | 25 |  10   |    125       |
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.Bounds
 
 /-- ★★★★ Pell mod-2 signature period bound: 20 = 5·4. -/
 theorem pellFSMmod2_signature_period_bound :
@@ -51,4 +51,4 @@ theorem pell_family_signature_period_bounds :
    pellFSMmod3_signature_period_bound,
    pellFSMmod5_signature_period_bound⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.Bounds

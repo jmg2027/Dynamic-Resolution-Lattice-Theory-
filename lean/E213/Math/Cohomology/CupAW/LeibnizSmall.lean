@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.CupAW.Core
-import E213.Math.Cohomology.Universal.Core.Prop31
+import E213.Math.Cohomology.Universal.Prop31
 
 /-!
 # Cup Leibniz at small atomic substrates — AW cup
@@ -14,7 +14,7 @@ across multiple atomic substrates.
 namespace E213.Math.Cohomology.CupAW.LeibnizSmall
 
 open E213.Physics.Simplex.Counts (binom)
-open E213.Math.Cohomology.Universal.Core.Prop31 (pattern)
+open E213.Math.Cohomology.Universal.Prop31 (pattern)
 
 /-- Leibniz on every (3, 1, 1) pattern pair. -/
 theorem leibniz_pattern_3_1_1 :

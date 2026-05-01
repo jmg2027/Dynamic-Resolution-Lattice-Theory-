@@ -1,4 +1,4 @@
-import E213.Physics.Nuclear.Binding.Binding
+import E213.Physics.Nuclear.Binding
 
 /-!
 # Deuteron binding E_d = Λ_QCD · α_GUT / π (0 axioms structural)

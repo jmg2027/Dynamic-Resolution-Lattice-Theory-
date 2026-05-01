@@ -26,8 +26,11 @@ formal fact.
   Final architecture (2026-05-01 actual state):
   - `seed/` (axioms + philosophy + falsifiability)
   - `lean/E213/` (namespace preserved; ~810 .lean files;
-    layered Kernel/Firmware/OS/Hypervisor/Meta/App/Math/Physics/Research/
-    Infinity/Tactic/Tools — see `lean/E213/INDEX.md`)
+    layered Kernel/Firmware/Hypervisor/Meta/App + horizontal
+    Math/Physics/Research/Infinity/Tactic/Tools — see
+    `lean/E213/ARCHITECTURE.md` (canonical layer architecture) and
+    `lean/E213/INDEX.md`.  Note: `OS/` was retired 2026-05-XX —
+    its files dissolved into Firmware/Atomicity/ and Math/Pigeonhole.)
   - `books/{math,physics}/`, `catalogs/`,
     `blueprints/{math,physics,meta}/`, `tools/`,
     `research-notes/`, `guide/`, `rust-engine/`

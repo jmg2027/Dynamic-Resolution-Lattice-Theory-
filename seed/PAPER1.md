@@ -7,6 +7,24 @@
 `Quot.sound`).  Acknowledgments and contributor attributions
 appear in §8.4.
 
+> **Archival reference (2026-05-XX).** This is the original 2026-04
+> seed paper, retained as historical narrative.  When this document
+> and the Lean tree disagree, **Lean wins**.  Notable deltas:
+>
+> - Declaration paths predate the Phase{2,3,4} → topical-cluster
+>   reorganization (e.g., `Research/Padic.lean` is now
+>   `Research/Hyper/Padic.lean`).  Consult `lean/E213/ARCHITECTURE.md`
+>   for the canonical current architecture.
+> - The R1-R5 → ℂ derivation chain (§4) was the basis of the
+>   now-deleted `213/PAPER.md`; the current uniqueness story is split
+>   into three pillars — `Meta/UniversalLens/` (sideways
+>   factorization), `Firmware/Atomicity/` (forced-shape from above),
+>   and `Research/AxiomMinimality.lean` (minimality from below).
+>   See `AXIOM.md §1.3, §9.4`.
+> - The prose "atomicity → d=5" argument in §5 here is now formal:
+>   `Firmware/Atomicity/{Five, PairForcing, NonDecomposable, Alive,
+>   ArityForcing, ArityForcingGeneral, PrimitiveSizes}`.
+
 ---
 
 ## Abstract
@@ -1328,7 +1346,7 @@ the surrounding mathematical and historical context.
 - `213/PAPER1_OUTLINE.md` — this paper's structural outline.
 - `213/research/infinity-as-lens/notes/` — numbered analysis
   notes 00-99.
-- `213/framework/E213/` — Lean 4 formalization (no Mathlib
+- `lean/E213/` — Lean 4 formalization (no Mathlib
   dependency).
 
 ### Tools

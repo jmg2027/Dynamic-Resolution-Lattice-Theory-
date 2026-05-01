@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass.Mass
+import E213.Physics.Higgs.Mass
 
 /-!
 # m_τ/m_μ — same atomicity-locked geometric series (0 axioms)

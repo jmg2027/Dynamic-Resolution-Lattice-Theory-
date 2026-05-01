@@ -10,7 +10,7 @@ this gives the full bidirectional Tier 0 equivalence.
 All theorems at ≤ {propext, Quot.sound} (Classical.choice removed).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ForwardClosure
 
 /-- If i % p = j % p and i ≤ j, then j - i is a multiple of p. -/
 theorem sub_is_multiple_of_p (i j p : Nat) (hp : 0 < p)
@@ -78,4 +78,4 @@ theorem signature_eventually_periodic_of_periodic_bits
     rw [hk]
     exact bs_periodic_multiple bs p hbs k (i + d')
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ForwardClosure

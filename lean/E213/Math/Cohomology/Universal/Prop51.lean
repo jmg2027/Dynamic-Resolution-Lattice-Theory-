@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop31
+import E213.Math.Cohomology.Universal.Prop31
 
 /-!
 # Universal δ²=0 Prop-lift at (5, 1) — Δ⁴ vertex cochain case
@@ -11,7 +11,7 @@ most directly relevant to physics (vertex functions on the
 5-vertex atomic substrate).
 -/
 
-namespace E213.Math.Cohomology.Universal.Core.Prop51
+namespace E213.Math.Cohomology.Universal.Prop51
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -55,4 +55,4 @@ theorem prop_lift_5_1_capstone :
       delta (delta σ) i = false :=
   dsq_zero_prop_5_1
 
-end E213.Math.Cohomology.Universal.Core.Prop51
+end E213.Math.Cohomology.Universal.Prop51

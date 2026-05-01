@@ -17,7 +17,7 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.Mod23
 Inert verified at 5 sizes (p+1 formula): 3, 7, 13, 17, 23.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor8
 
 /-- ★★★★★ Legendre 5 mod 23 = NQR (inert). -/
 theorem legendre_5_mod_23 :
@@ -52,4 +52,4 @@ theorem pisano_predict_realises_pell_8 :
           ?_⟩
   intro k; rw [h23]; exact pellFSMmod23_bits_period_24 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pisano.Predictor8

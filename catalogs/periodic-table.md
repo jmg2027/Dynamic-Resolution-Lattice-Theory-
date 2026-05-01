@@ -54,5 +54,5 @@
 ## Usage
 
 ```lean
-import E213.Physics.Phase4.Library.CompletePeriodicTable
+import E213.Physics.Library.CompletePeriodicTable
 ```

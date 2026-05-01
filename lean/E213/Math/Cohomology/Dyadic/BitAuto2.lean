@@ -14,7 +14,7 @@ For Thue-Morse: 2-state DFA, init = parity 0, step = XOR with
 input bit, out = parity bit.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.BitAuto2
 
 /-- 2-automatic bit stream generator.  Reads binary digits via DFA. -/
 structure BitAuto2 (n : Nat) where
@@ -75,4 +75,4 @@ theorem isPow2Auto_first16 :
     ∧ isPow2Auto.bits 4 8 = true ∧ isPow2Auto.bits 4 9 = false
     ∧ isPow2Auto.bits 4 15 = false := by decide
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.BitAuto2

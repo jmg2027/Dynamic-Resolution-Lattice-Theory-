@@ -17,7 +17,7 @@ LCM of component periods.  This is the structural content of
 Pisano CRT specialised to our Fibonacci-squared matrix family.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pell.CRT
 
 /-- ★★★★★ Pell mod 3 ⊕ mod 5 combined stream: period | lcm(4,10) = 20. -/
 theorem pell_mod3_xor_mod5_period_20 :
@@ -69,4 +69,4 @@ theorem pell_crt_capstone :
   · intro k; have := pell_mod5_xor_mod7_period_40 k
     rwa [pell_lcm_table.2.2] at this
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pell.CRT

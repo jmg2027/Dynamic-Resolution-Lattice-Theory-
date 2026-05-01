@@ -14,7 +14,7 @@ Companion volume to `analysis213.md`, `number-theory-213.md`,
 atomic count, dyadic depth, FluxCut, bisectN, riemannSampleSum.
 
 All theorems referenced are 0-sorry, 0-Mathlib, 0-Classical,
-≤ {propext, Quot.sound}, as verified in `lean/E213/Physics/Phase2/`,
+≤ {propext, Quot.sound}, as verified in `lean/E213/Physics/Substrate/`,
 `lean/E213/Research/Real213*Cut*.lean`, and related files.
 
 **Status**: This volume is *partially realised*.  Foundation paths
@@ -91,7 +91,7 @@ In the *vertex-pair* counting (not edge-pair):
   - AB pairs (mixed): 3 · 2 = 6  out of 10               → 6/10
 
 These are *not* defined probabilities — they are *counted* atomic
-ratios.  See `Physics/Phase2/Pairs.lean`.
+ratios.  See `Physics/Substrate/Pairs.lean`.
 
 ### Chapter 4.  Atomic distribution as Lens output
 
@@ -304,7 +304,7 @@ Foundation theorems (all ≤ {propext, Quot.sound}):
 - `q213Lens_is_universal` — Lens-output distribution faithfulness
 
 Source files:
-- `Physics/Phase2/Pairs.lean`
+- `Physics/Substrate/Pairs.lean`
 - `Research/Real213*.lean` (FluxCut, bisection, sampling)
 - `Math/Cohomology/Dyadic*.lean` (signature trajectories)
 - `Meta/UniversalLensQ213Inj.lean`

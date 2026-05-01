@@ -1,5 +1,5 @@
-import E213.Physics.Nuclear.Binding.MagicNumbers
-import E213.Physics.Nuclear.Binding.Binding
+import E213.Physics.Nuclear.MagicNumbers
+import E213.Physics.Nuclear.Binding
 
 /-!
 # Nuclear magic numbers 7/7 — HO + spin-orbit splitting (0 axioms)

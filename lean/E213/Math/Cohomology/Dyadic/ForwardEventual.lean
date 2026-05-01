@@ -14,7 +14,7 @@ by pigeonhole; periodicity follows from N₀ + i onwards.
 All theorems at ≤ {propext, Quot.sound}.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ForwardEventual
 
 /-- bs eventually periodic at multiple of p, from N₀ onwards. -/
 theorem bs_periodic_multiple_from (bs : Nat → Bool) (p N₀ : Nat)
@@ -104,4 +104,4 @@ theorem signature_eventually_periodic_of_eventually_periodic_bits
     rw [hk]
     exact bs_periodic_multiple_from bs p N₀ hbs k (N₀ + i + d') (by omega)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ForwardEventual

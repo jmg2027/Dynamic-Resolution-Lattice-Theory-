@@ -8,7 +8,7 @@ import E213.Math.Cohomology.Dyadic.ConcretePellSig
 Fibonacci predict: 2(p+1) = 36.  TIGHT.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod17
 
 def fibFSMmod17 : ArithFSM2 17 where
   init := (⟨0, by decide⟩, ⟨1, by decide⟩)
@@ -41,4 +41,4 @@ theorem fibFSMmod17_signature_period_36_from_1 :
   signature_period_of_bits_period_and_anchor_from
     fibFSMmod17.bits 36 1 fibFSMmod17_bits_period_36 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Fib.FSMmod17

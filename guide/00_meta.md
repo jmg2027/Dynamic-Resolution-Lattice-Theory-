@@ -2,7 +2,7 @@
 
 **Tier:** T0 (foundation — only in 213-internal vocabulary)
 **Status:** Foundation; defines the 4/27 standard.
-**Lean:** `Firmware/Raw.lean`, `OS/Atomicity.lean`, `Meta/AxiomMinimality`.
+**Lean:** `Firmware/Raw.lean`, `Firmware/Atomicity/Five.lean`, `Meta/AxiomMinimality`.
 
 ## Best current statement
 
@@ -62,7 +62,7 @@ content** (every theorem computable; falsifiability mechanical).
 - `papers/paper14_213.tex` — self-describing structure (current).
 - `papers/drlt-book/chapters/ch22_213.tex` — monograph version.
 - `lean/E213/Firmware/Raw.lean` — Raw type with smart constructor.
-- `lean/E213/OS/Atomicity.lean` — d=5 proven as theorem.
+- `lean/E213/Firmware/Atomicity/Five.lean` — d=5 proven as theorem.
 
 ## Open / next
 

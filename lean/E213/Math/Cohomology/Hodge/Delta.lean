@@ -15,7 +15,7 @@ the result of `hodgeStar`.
 Phase CB closes here.  Phase CC (Betti numbers via decide) follows.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Hodge.Delta
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -64,4 +64,4 @@ theorem phase_CB_capstone :
          codiff_5_3 (Cochain.zero 5 3) i = false) :=
   ⟨hodge_sq_v0_5, hodge_sq_e0_5, codiff_zero_5_2, codiff_zero_5_3⟩
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Hodge.Delta

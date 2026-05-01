@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
-import E213.Meta.Lens.Catalog
+import E213.Hypervisor.Lens.Characterisation.Catalog
 
 /-!
 # Meta: R1–R4 typeclass hierarchy (4-tier `extends`)
@@ -19,10 +19,10 @@ R4Codomain    ← +R4: nontrivial swap-matching involution
 ```
 
 R5 is omitted (R5b is vacuous over inductive Raw — see
-`E213.Research.R5Vacuity` and `notes/02_r5_vacuity.md`).
+`E213.Math.CayleyDickson.R5Vacuity` and `notes/02_r5_vacuity.md`).
 -/
 
-namespace E213.Meta
+namespace E213.Meta.SelfRecognising
 
 open E213.Firmware E213.Hypervisor
 
@@ -46,11 +46,12 @@ def specLens : Lens α where
 
 end R12Codomain
 
-end E213.Meta
+end E213.Meta.SelfRecognising
 
-namespace E213.Meta
+namespace E213.Meta.SelfRecognising
 
 open E213.Firmware E213.Hypervisor R12Codomain
+open E213.Hypervisor.Lens.Characterisation.Catalog
 
 -- ═══ Tier 2: R3 (NonVanishing / no zero divisors) ═══
 
@@ -100,4 +101,4 @@ theorem specLens_swapMatching :
 
 end R4Codomain
 
-end E213.Meta
+end E213.Meta.SelfRecognising

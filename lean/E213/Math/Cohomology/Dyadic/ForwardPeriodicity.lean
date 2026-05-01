@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.TierBridge
-import E213.OS.Pigeonhole
+import E213.Math.Pigeonhole
 
 /-!
 # Forward direction (general): periodic bits ⇒ ev-periodic signature
@@ -10,9 +10,9 @@ Classical) on Bool-valued `collisionTest` keeps everything at
 ≤ {propext, Quot.sound}.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ForwardPeriodicity
 
-open E213.OS.Pigeonhole
+open E213.Math.Pigeonhole
 
 /-- Bool-valued collision test (decidable, no Classical). -/
 def collisionTest {N k : Nat} (g : Fin k → Fin N) (i j : Nat) : Bool :=
@@ -109,4 +109,4 @@ theorem joint_state_collision (bs : Nat → Bool) (p : Nat) (hp : 0 < p) :
     by rw [h_sig_val_eq]
   omega
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ForwardPeriodicity

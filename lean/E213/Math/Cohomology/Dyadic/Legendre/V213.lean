@@ -18,7 +18,7 @@ This is the bottom of the ArithFSM hierarchy:
   ArithFSM₁ ⊂ ArithFSM₂ (Pell) ⊂ ArithFSM₃ (Tribonacci) ⊂ ...
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Legendre.V213
 
 /-- Legendre FSM: walk x ↦ D·x mod p, starting from 1. -/
 def legendreFSM (D p : Nat) (hp : 0 < p) : ArithFSM1 p where
@@ -37,4 +37,4 @@ def legendre213 (D p : Nat) (hp : 1 < p) : Fin 3 :=
   else if v = 1 then ⟨1, by decide⟩
   else ⟨2, by decide⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Legendre.V213

@@ -1,7 +1,7 @@
-import E213.Meta.UniversalLens.Core.Padding
-import E213.Meta.UniversalLens.Core.Nat3
-import E213.Meta.UniversalLens.Core.Q213_3
-import E213.Meta.UniversalLens.Core.Nat4
+import E213.Meta.UniversalLens.Padding
+import E213.Meta.UniversalLens.Nat3
+import E213.Meta.UniversalLens.Q213_3
+import E213.Meta.UniversalLens.Nat4
 
 /-!
 # Universal Lens padding capstone — abstract + concrete bundle
@@ -17,7 +17,7 @@ form: future universal-lens constructions at any codomain become
 trivial applications of the meta-theorem.
 -/
 
-namespace E213.Meta.UniversalLensPaddingCapstone
+namespace E213.Meta.UniversalLens.PaddingCapstone
 
 open E213.Firmware E213.Hypervisor E213.Meta.UniversalLens
 
@@ -41,4 +41,4 @@ theorem padding_capstone :
    E213.Meta.UniversalLensQ213_3.q213Lens3_is_universal,
    E213.Meta.UniversalLensNat4.expSumLens4_is_universal⟩
 
-end E213.Meta.UniversalLensPaddingCapstone
+end E213.Meta.UniversalLens.PaddingCapstone

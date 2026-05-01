@@ -1,7 +1,7 @@
 import E213.Physics.Substrate
 import E213.Physics.Mixing.CKMHierarchy
 import E213.Physics.Mixing.CabibboAngle
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Translation: CKM Wolfenstein deep-dive

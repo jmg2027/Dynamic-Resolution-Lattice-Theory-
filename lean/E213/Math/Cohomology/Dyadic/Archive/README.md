@@ -1,8 +1,9 @@
 # Dyadic/Archive/ — exploratory / superseded files
 
 These files are preserved for historical record but no longer
-load-bearing in the active proof tree.  Per AUDIT_GUIDE.md
-"Exploratory file archival candidates":
+load-bearing in the active proof tree.  Originally tagged
+"Exploratory file archival candidates" by the (now-deleted)
+root AUDIT_GUIDE.md cleanup roadmap:
 
   - `Capstone.lean` — superseded by NumberTheory213 capstones
   - `EdgeSignature.lean` — Fin 12 edge variant, exploratory

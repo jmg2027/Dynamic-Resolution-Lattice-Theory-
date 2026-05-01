@@ -29,7 +29,7 @@ recurrence (no `2a` term) versus Pell.  The Legendre lens fires
 identically, but the period scaling differs.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
 
 /-- 213-native Fibonacci-Pisano period predictor for Δ = 5. -/
 def fib_pisano_predict (p : Nat) (hp : 1 < p) : Nat :=
@@ -63,4 +63,4 @@ theorem fib_pisano_predict_realises :
   · intro k; rw [fib_pisano_predict_correct.2.2.1]; exact fibFSMmod7_bits_period_16 k
   · intro k; rw [fib_pisano_predict_correct.2.2.2]; exact fibFSMmod11_bits_period_10 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone

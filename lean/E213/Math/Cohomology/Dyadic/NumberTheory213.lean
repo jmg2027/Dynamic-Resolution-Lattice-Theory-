@@ -22,7 +22,7 @@ Three capstone theorems retained for backward compatibility:
   - `number_theory_213_capstone_v3`  (v3, parametric discriminant)
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.NumberTheory213
 
 /-- ★★★★★★★★ v1: 213-native number theory edifice (4-prime). -/
 theorem number_theory_213_capstone :
@@ -110,4 +110,4 @@ theorem number_theory_213_capstone_v3 :
   refine ⟨legendre_8_mod_3, legendre_8_mod_5, legendre_8_mod_7,
           ?_, ?_, ?_⟩ <;> decide
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.NumberTheory213

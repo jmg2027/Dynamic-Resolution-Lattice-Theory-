@@ -19,7 +19,7 @@ gives a concrete decidable Lean definition.
 *action* level.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Hodge.Star
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -72,4 +72,4 @@ theorem hodge_vertex0_n3_at_12 :
 theorem hodge_vertex0_n3_at_01 :
     hodgeStar 3 1 2 vertex0_n3 ⟨0, by decide⟩ = false := by decide
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Hodge.Star

@@ -33,7 +33,7 @@ upper bound, with sub-tight cases reflecting subtle algebraic
 splitting in the trajectory.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor14
 
 /-- ★★★★★ Legendre 5 mod 41 = QR (split). -/
 theorem legendre_5_mod_41 :
@@ -106,4 +106,4 @@ theorem pisano_predict_realises_pell_14 :
   · intro k; rw [h43]; exact pellFSMmod43_bits_period_44 k
   · intro k; rw [h47]; exact pellFSMmod47_bits_period_48 k
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.Pisano.Predictor14

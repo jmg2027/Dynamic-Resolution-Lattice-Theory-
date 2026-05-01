@@ -7,7 +7,7 @@ import E213.Math.Cohomology.Dyadic.ConcretePellSig
 67 mod 5 = 2, NQR ⇒ INERT. Predict p+1 = 68. TIGHT.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod67
 
 def pellFSMmod67 : ArithFSM2 67 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)
@@ -34,4 +34,4 @@ theorem pellFSMmod67_bits_period_68 :
       = pellFSMmod67.out (pellFSMmod67.run k)
   rw [pellFSMmod67_run_period_68]
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod67

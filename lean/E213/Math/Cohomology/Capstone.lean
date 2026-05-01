@@ -38,7 +38,7 @@ Closes the Cohomology 213 marathon as a self-contained branch of
   * Rank-nullity ⇒ b₁ = 12 − 4 = 8 = NS² − 1
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.Capstone
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
@@ -76,4 +76,4 @@ theorem cohomology_213_marathon :
    Bip32.kerSizeDelta0_eq_2,
    Bip32.b1_eq_NS_sq_minus_1⟩
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.Capstone

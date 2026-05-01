@@ -49,7 +49,7 @@ Questions answered by each file + comprehensive single theorem.
 
 namespace E213.Physics.Substrate.Capstone
 
-open E213.OS.Atomicity
+open E213.Firmware.Atomicity.Five
 open E213.Physics.Substrate.Existence
 open E213.Physics.Substrate.Pairs
 

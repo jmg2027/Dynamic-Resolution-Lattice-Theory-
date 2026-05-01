@@ -14,7 +14,7 @@ This is the key lens that collapses Leibniz from O(2^N · 2^M)
 case enumeration to ~N · M basis-pair cases.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.CupAW.Bilinear
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -64,4 +64,4 @@ theorem cupAW_bilinear_capstone (n a b : Nat)
   ⟨cupAW_add_left n a b α α' β τ_idx,
    cupAW_add_right n a b α β β' τ_idx⟩
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.CupAW.Bilinear

@@ -2,7 +2,7 @@
 
 **Tier:** T1
 **Status:** Partial; quantization step closed for IE_H at 4.3 ppb.
-**Lean:** `Physics/Phase4/HydrogenIEPPM.lean`, `Physics/Phase4/Library/*`.
+**Lean:** `Physics/Atomic/IE/HydrogenPPM.lean`, `Physics/Library/*`.
 
 ## Best current statement
 
@@ -18,7 +18,7 @@ The first 4/27-standard pass for a quantization-derived observable:
 IE_H = m_e · c² · α² / 2
 ```
 
-`Phase4/HydrogenIEPPM.lean` proves the inequality
+`Atomic/IE/HydrogenPPM.lean` proves the inequality
 
 ```
 2 · IE_H_micro · (1/α_milli)² ∈ [m_e_centi · 10¹⁰ − 3·10⁹,
@@ -28,7 +28,7 @@ IE_H = m_e · c² · α² / 2
 by `decide`, with m_e and α given to ppm precision. Width gives a
 relative bound of 4.3 ppb — within the 4/27 ppb threshold.
 
-### Periodic table extension (`Phase4/Library/`)
+### Periodic table extension (`Library/`)
 
 Phase 4 extends the IE formula across periods 1–7 (Z = 1..118) plus
 five super-heavy candidates (Z = 119..168). Each row is closed by
@@ -68,6 +68,6 @@ five super-heavy candidates (Z = 119..168). Each row is closed by
 
 - `papers/drlt-book/chapters/ch07_hbar.tex`
 - `papers/paper4_zeta_beta.tex` (related: coupling running)
-- `lean/E213/Physics/Phase4/HydrogenIEPPM.lean`
-- `lean/E213/Physics/Phase4/Library/Period1IE.lean` … `Period7IE.lean`
+- `lean/E213/Physics/Atomic/IE/HydrogenPPM.lean`
+- `lean/E213/Physics/Atomic/IE/Period1.lean` … `Period7IE.lean`
 - `catalogs/atomic-integers.md`

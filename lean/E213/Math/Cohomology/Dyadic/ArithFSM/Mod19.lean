@@ -17,7 +17,7 @@ formula (p-1)/2 at a larger size.  Bit period 9 (odd); signature
 period 18 (doubled by bipartite parity coupling).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod19
 
 /-- Pell-style FSM mod 19. -/
 def pellFSMmod19 : ArithFSM2 19 where
@@ -67,4 +67,4 @@ theorem pellFSMmod19_signature_period_18 :
   signature_period_of_bits_period_and_anchor pellFSMmod19.bits 18
     pellFSMmod19_bits_period_18 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod19

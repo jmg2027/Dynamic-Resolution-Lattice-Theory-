@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal.Core.Prop
+import E213.Math.Cohomology.Universal.Prop
 
 /-!
 # Universal δ²=0 Prop-lift at (3, 1)
@@ -14,7 +14,7 @@ Then any σ : Cochain 3 1 = pattern (σ⟨0⟩, σ⟨1⟩, σ⟨2⟩) by
 funext, lift via this representation.
 -/
 
-namespace E213.Math.Cohomology.Universal.Core.Prop31
+namespace E213.Math.Cohomology.Universal.Prop31
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -52,8 +52,8 @@ theorem prop_lift_capstone :
     (∀ σ : Cochain 3 0, ∀ i, delta (delta σ) i = false)
     ∧ (∀ σ : Cochain 5 0, ∀ i, delta (delta σ) i = false)
     ∧ (∀ σ : Cochain 3 1, ∀ i, delta (delta σ) i = false) :=
-  ⟨E213.Math.Cohomology.Universal.Core.Prop.dsq_zero_prop_3_0,
-   E213.Math.Cohomology.Universal.Core.Prop.dsq_zero_prop_5_0,
+  ⟨E213.Math.Cohomology.Universal.Prop.dsq_zero_prop_3_0,
+   E213.Math.Cohomology.Universal.Prop.dsq_zero_prop_5_0,
    dsq_zero_prop_3_1⟩
 
-end E213.Math.Cohomology.Universal.Core.Prop31
+end E213.Math.Cohomology.Universal.Prop31

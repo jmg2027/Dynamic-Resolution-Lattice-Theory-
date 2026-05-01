@@ -1,5 +1,5 @@
-import E213.Meta.UniversalLens.Core.Q213
-import E213.Meta.UniversalLens.Core.Q213Inj
+import E213.Meta.UniversalLens.Q213
+import E213.Meta.UniversalLens.Q213Inj
 
 /-!
 # Universal Lens at Q213³ — triple Q213 codomain universality
@@ -14,7 +14,7 @@ universal Q213-codomain lens preserves universality** in the
 Closes part of HANDOFF Open Continuation #5.
 -/
 
-namespace E213.Meta.UniversalLensQ213_3
+namespace E213.Meta.UniversalLens.Q213_3
 
 open E213.Firmware E213.Hypervisor E213.Kernel
 open E213.Meta.UniversalLensNat2 E213.Meta.UniversalLensQ213
@@ -104,4 +104,4 @@ theorem q213Lens3_is_universal :
     E213.Meta.UniversalLens.IsUniversal q213Lens3 :=
   q213Lens3_view_inj
 
-end E213.Meta.UniversalLensQ213_3
+end E213.Meta.UniversalLens.Q213_3

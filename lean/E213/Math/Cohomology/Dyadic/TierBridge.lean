@@ -12,7 +12,7 @@ This file connects the K_{3,2}^{(2)} signature classifier to that
 hierarchy via the *eventually-periodic* abstraction.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.TierBridge
 
 /-- Eventually periodic: from some pre-period N onward, period p. -/
 def EventuallyPeriodic {α : Type} (f : Nat → α) (p : Nat) : Prop :=
@@ -91,4 +91,4 @@ forces a cycle within ≤ 5p+1 steps after pre-period N.
 (Available via `OS.Pigeonhole.no_inj_lt`; full formalisation
 is the natural next step.) -/
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.TierBridge

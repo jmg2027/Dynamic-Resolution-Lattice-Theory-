@@ -4,39 +4,71 @@ The authoritative state of 213.  All other documents (guide/, books/,
 papers/, research-notes/, blueprints/) are entry points INTO this
 body of work or derived artifacts.
 
-## Layered architecture
+> **Theoretical architecture** is canonically documented in
+> `ARCHITECTURE.md` (this directory).  That file defines what each
+> layer IS, the dependency graph, naming conventions, and open
+> questions.  This INDEX.md is a *navigation* document; for *theory*,
+> read ARCHITECTURE.md first.
+
+## Layered architecture (post-2026-05-XX deep reorg)
+
+ONE vertical axis (Kernel → App), Math/ and Physics/ as topical
+roots whose individual files each live at one of the vertical
+layers (computed by `tools/layer_audit.py` from import closure).
 
 ```
-Kernel/      ★ deep-embedded 213 kernel (literally 0 axiom)
+Kernel/      ★ 18 files, 101 theorems literally 0-axiom
+             + Tactic/Omega213, QuadNorm
   ↓
-Firmware/    Raw axiom layer (a, b, slash, slash_comm)
+Firmware/    Raw axiom (a, b, slash, slash_comm)
+             + Atomicity/ (forced d=5, (NS,NT)=(3,2))
+             + Tools/CertChecker
   ↓
-OS/          Atomicity (d=5) + canonical structures (PairForcing → NS=3, NT=2)
+Hypervisor/  Lens framework (78 files):
+             Lens.lean umbrella + Lens/{Instances, Characterisation,
+             Lattice, Compose, Properties, Morphism, Leaves, Refines,
+             Kernel, Universal}/ + Initiality.lean + SemanticAtom.lean
   ↓
-Hypervisor/  Lens framework (cross-layer bridge)
+Meta/        true metatheory (23 files): UniversalLens family,
+             SelfRecognising R1-R4, AxiomMinimality{,Capstone},
+             BitPatternUniqueness, RawInductionDemo,
+             CUniquenessBridge + Tactic/{VerifyR4, DeriveR4Codomain}
   ↓
-Meta/        Universal Lens, AxiomMinimality, R4Codomain hierarchy
-  ↓
-Math/        formalized math (Cohomology, Linalg)
-Physics/     formalized physics (267 files)
-Research/    exploratory + Real213 marathon (332 files)
+App/         applications (Simplex)
+
+Math/        484 files (topical): Cohomology/, Linalg213/, Real213/,
+             CayleyDickson/, Cauchy/, ModArith/, Modulus/, Diagonal/,
+             Irrational/, Hyper/, Choice/, Infinity/, Tactic/
+             (HurwitzRing, IntSquare, QuadExtension), Pigeonhole, …
+Physics/     275 files (topical): AlphaEM, Couplings, Hadron, Higgs,
+             Mass, Mixing, Nuclear, Cosmology, Atomic, Simplex,
+             Basel, FamousCoincidences, YangMills, Capstones,
+             Library, Substrate, AtomicCorrespondences, Foundations
 ```
+
+See `ARCHITECTURE.md` (this directory) for canonical theoretical
+definitions of each layer + the per-file layer-derivation rule.
 
 ## Layer roles
 
 | Layer | Purpose | Axiom load |
 |---|---|---|
-| Kernel/ | 14 files, 101 theorems literally 0 axiom | none |
-| Firmware/ | Raw type with 4 definitional commitments | none |
-| OS/ | atomicity (d=5) + (NS,NT)=(3,2) derived | none |
-| Hypervisor/ | Lens framework (Lens, R4Codomain) | none |
-| Meta/ | Universal Lens, kernel meta-theory | mostly none |
-| Math/ | Cohomology, Linalg | mixed |
-| Physics/ | 213 physics formalization | mixed |
-| Research/ | Real213 marathon, dyadic predictors, exploratory | mixed |
-| Infinity/ | limit/compactification (mostly external bridges) | mixed |
-| Tactic/ | custom tactics (Omega213, VerifyR4, ...) | none |
-| App/ | applications | none |
+| Kernel/ | 18 files, 101 thms literally 0 axiom (scaffolding + Tactic/Omega213, QuadNorm) | none |
+| Firmware/ | Raw axiom (4-clause) + Atomicity/ + Tools/CertChecker | none |
+| Hypervisor/ | Lens framework (78 files: framework + 9 sub-clusters) | none |
+| Meta/ | metatheorems + Tactic/{VerifyR4, DeriveR4Codomain} | mostly none |
+| App/ | applications (Simplex) | none |
+| Math/ | 484 files topical math (Cohomology, Real213, …); each file at its natural vertical layer | mixed |
+| Physics/ | 275 files topical physics; each file at its natural vertical layer | mixed |
+
+> **Architectural note (2026-05-XX)**: the previous `OS/` directory
+> was a misnomer.  Its 7 atomicity-shape proofs were independent ℕ-
+> arithmetic theorems (no Raw import) that *predict* the Raw axiom's
+> shape — they belong inside Firmware as the axiom's forced-uniqueness
+> proof obligation, NOT as a separate "OS layer" between Firmware
+> and Hypervisor.  See `Firmware/Atomicity/README.md` for theory.
+> The general-purpose `Pigeonhole.lean` (universal Fin infrastructure,
+> atomicity-agnostic) moved to `Math/Pigeonhole.lean`.
 
 ## Capstone navigation
 
@@ -54,14 +86,15 @@ Top achievements:
 
 | Question | Where to look |
 |---|---|
-| "What does DRLT compute?" | `Physics/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
-| "How does α_em derive?" | `Physics/AlphaEM*.lean` chain (5 files) |
-| "Where is N_universe?" | `Physics/NUniverseFractalDepth.lean` |
-| "Why finite N only?" | `Research/Real213DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` 교훈 1 |
-| "What are the atomic primitives?" | `OS/Atomicity.lean` + `OS/PairForcing.lean` |
-| "How is the kernel 0-axiom?" | `Kernel/` 14 files + `tools/kernel_regress.sh` |
-| "Cohomology classes?" | `Math/Cohomology/` (147 files) + `rust-engine/docs/cohomology-classes.md` |
-| "Lens framework?" | `Hypervisor/` + `Meta/UniversalLens*.lean` |
+| "What does DRLT compute?" | `Physics/Capstones/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
+| "How does α_em derive?" | `Physics/AlphaEM/` chain (18 files) |
+| "Where is N_universe?" | `Physics/Foundations/NUniverseFractalDepth.lean` |
+| "Why finite N only?" | `Math/Real213/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
+| "What are the atomic primitives?" | `Firmware/Atomicity/Five.lean` + `Firmware/Atomicity/PairForcing.lean` |
+| "How is the kernel 0-axiom?" | `Kernel/` 18 files + `tools/kernel_regress.sh` |
+| "Cohomology classes?" | `Math/Cohomology/` (~190 files in 10 sub-clusters) + `rust-engine/docs/cohomology-classes.md` |
+| "Lens framework?" | `Hypervisor/Lens.lean` + `Hypervisor/Lens/{Instances,Characterisation,Lattice,Compose,Properties,Morphism,Leaves,Refines,Kernel,Universal}/` + `Meta/UniversalLens/` |
+| "Theoretical architecture?" | `ARCHITECTURE.md` (this directory) |
 
 ## Build
 
@@ -73,48 +106,44 @@ lake env lean -e '...'           # eval (used by lean-rust-diff)
 
 ## Tooling
 
-  - `Tactic/Omega213.lean` — axiom-free Nat arithmetic (drop-in for omega)
-  - `Tactic/VerifyR4.lean` — R4Codomain instance diagnostic
-  - `Tools/CertChecker.lean` — Lean-side certificate verifier
+  - `Kernel/Tactic/Omega213.lean` — axiom-free Nat arithmetic
+    (drop-in for omega; macro lives in `namespace E213.Tactic`
+    short-form for ergonomic `open E213.Tactic`)
+  - `Meta/Tactic/VerifyR4.lean` — R4Codomain instance diagnostic
+  - `Firmware/Tools/CertChecker.lean` — Lean-side certificate verifier
+  - `tools/layer_audit.py` (repo root) — derive each file's natural
+    vertical layer from import closure; reports violations + topical
+    cluster depth
 
-## Cleanup status (2026-05-01, post Phase 3+7+Research-reorg)
+## Cleanup status (2026-05-XX, post deep reorg)
 
-Lean tree count: ~810 files (unchanged in count; reorganized in
-structure).
+Lean tree: 907 files.  Top-level `Research/`, `Infinity/`, `Tactic/`,
+`Tools/` retired and fully distributed by content into Math/Physics +
+the vertical layers.  Math/ and Physics/ are the only topical roots.
 
-Sub-clustered (across all sessions):
-  - `Math/Cohomology/Dyadic/` — 8 sub-clusters (ArithFSM, BitFSM,
-    Pell, Fib, Trib, Legendre, Pisano, Archive)
-  - `Math/Cohomology/{Bipartite, Cochain, Cup, CupAW, Delta,
-    Fractal, Hodge, Universal}/` — 8 sub-clusters
-  - `Research/Real213/` — 180 files (Bishop analysis marathon)
-  - `Research/CayleyDickson/` — 29 files (Cayley-Dickson tower)
-  - `Research/{Lens, Cauchy, ModArith, Kernel, Instance, Morphism,
-    Irrational, Universal, Leaves, Modulus, Choice, Diagonal, Raw,
-    Hyper, Refines}/` — 15 sub-clusters (114 of 127 flat files
-    moved 2026-05-01); 13 misc files retained at root.  See
-    `Research/INDEX.md`.
+Distribution (per `tools/layer_audit.py`):
 
-Pending:
-  - Phase 1 versioning consolidation (PisanoPredictor 9→1) —
-    determined N/A (chain is each-adds-new-primes, not redundant)
-  - Phase 5 omega migration: 343 → 223 calls (-35%); diminishing
-    returns reached
-  - Native213 deeper: Nat.div_* avoidance via `q*n + r = x ∧ r < n`
-    decomposition
+| top-folder | Kernel | Firmware | Hypervisor | Meta | App | total |
+|---|---|---|---|---|---|---|
+| Kernel/      | 18 |   0 |   0 |  0 | 0 | 18  |
+| Firmware/    |  0 |  25 |   0 |  0 | 0 | 25  |
+| Hypervisor/  |  0 |   0 |  78 |  0 | 0 | 78  |
+| Meta/        |  0 |   0 |   0 | 23 | 0 | 23  |
+| App/         |  0 |   0 |   0 |  0 | 1 |  1  |
+| Math/        | 36 | 211 | 231 |  6 | 0 | 484 |
+| Physics/     |  2 | 168 | 105 |  0 | 0 | 275 |
 
-Hands-off layers (well-organized): Kernel, Firmware, OS, Hypervisor,
-App, Meta, Tactic, Tools, Infinity.
-
-Still under the lens (potential future work):
-  - `Physics/Phase{2,3,4}/` topical decomposition (currently 121
-    flat at Physics/ root + 91 in Phase3/ + 52 in Phase4/ + 13 in
-    Phase2/)
-  - `Physics/Phase4/Library/` 27 small "X Library" stubs (each
-    ≤50 lines) candidates for consolidation into a single
-    `Phase4/Catalog.lean` or topical bundles
-  - `Math/Cohomology/` 19 flat-root utility files — small enough
-    they might fold into existing sub-clusters or stay at root
+Architecture audits (completed 2026-05-XX):
+  - OS/ dissolved → Firmware/Atomicity/ + Math/Pigeonhole
+  - Phase{2,3,4} retired → distributed across Physics/ topical clusters
+  - Research/ marker eliminated → Math/Real213/, Math/CayleyDickson/,
+    Math/Cauchy/, Hypervisor/Lens/{Lattice,Compose,Properties,…}/,
+    Meta/{AxiomMinimality,Universal/}, Firmware/Raw/{DecEq, …}
+  - Infinity/ → Math/Infinity/
+  - Tactic/ distributed by import-derived layer (Kernel, Math, Meta)
+  - Tools/ → Firmware/Tools/
+  - namespace ↔ path alignment via `tools/sync_namespaces.py`
+  - Layer audit zero-violations enforced via `tools/layer_audit.py`
 
 ## Branches
 

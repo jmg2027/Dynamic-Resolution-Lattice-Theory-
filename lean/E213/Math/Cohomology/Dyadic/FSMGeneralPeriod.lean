@@ -44,7 +44,7 @@ This replaces ~30 induction proofs across the Pisano-CRT framework
 with ONE general theorem + 30 decide instances.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.FSMGeneralPeriod
 
 /-- ★★★★★★★ General FSM period theorem (ArithFSM2):
     if running for N steps returns to init, then bits cycle with period N.
@@ -110,4 +110,4 @@ example : ∀ k, pellFSMmod5.run (k + 10) = pellFSMmod5.run k :=
 example : ∀ k, tribFSMmod2.run (k + 4) = tribFSMmod2.run k :=
   tribFSMmod2.run_period_of_init 4 (by decide)
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.FSMGeneralPeriod

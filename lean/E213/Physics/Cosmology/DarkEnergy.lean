@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass.Mass
+import E213.Physics.Higgs.Mass
 
 /-!
 # Ω_Λ = (1 − 1/π)·(1 + α_GUT/d) — same atomic cofactor (0 axioms part)

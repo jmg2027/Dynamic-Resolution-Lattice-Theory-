@@ -1,6 +1,6 @@
 import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Foundations.NUniverseFractalDepth
-import E213.Research.Cauchy.WallisSharper
+import E213.Math.Cauchy.WallisSharper
 
 /-!
 # Ω_Λ — finitist closure (no external π)
@@ -29,7 +29,7 @@ namespace E213.Physics.Cosmology.OmegaLambdaFinitist
 open E213.Physics.Simplex.Counts
 open E213.Physics.Foundations.NUniverseFractalDepth
 open E213.Physics.Cosmology.DarkEnergy
-open E213.Research.WallisSeq
+open E213.Math.Cauchy.WallisSeq
 
 /-- ★ The trace correction denominator d = 5 — atomic. -/
 theorem trace_corr_atomic : d = 5 := by decide

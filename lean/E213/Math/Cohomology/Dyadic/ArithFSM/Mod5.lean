@@ -15,7 +15,7 @@ period 10 < 25 (no full visitation, but algebraic structure
 still gives a "moderate" period vs naive |state|² bound).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Conjecture
+namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
 
 /-- Pell-style FSM mod 5: (a_{k+1}, b_{k+1}) = (2a + b, a + b) mod 5. -/
 def pellFSMmod5 : ArithFSM2 5 where
@@ -67,4 +67,4 @@ theorem pell_period_growth :
    pellFSMmod3_bits_period_4,
    pellFSMmod5_bits_period_10⟩
 
-end E213.Math.Cohomology.Dyadic.Conjecture
+end E213.Math.Cohomology.Dyadic.ArithFSM.Mod5

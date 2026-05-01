@@ -1,6 +1,6 @@
 import E213.Physics.Cosmology.NeffDerivation
 import E213.Physics.AlphaEM.Core
-import E213.Physics.Basel.Bound.Bound
+import E213.Physics.Basel.Bound
 
 /-!
 # Hop Hypothesis — paper 4 §3.1 single capstone

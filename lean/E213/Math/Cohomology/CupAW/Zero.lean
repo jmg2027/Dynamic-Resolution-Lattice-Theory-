@@ -12,7 +12,7 @@ lift of Leibniz: when a basis component is "0", the whole
 cup/delta product collapses.
 -/
 
-namespace E213.Math.Cohomology
+namespace E213.Math.Cohomology.CupAW.Zero
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -69,4 +69,4 @@ theorem delta_zero (n k : Nat)
       simp [h, hstep, ih]
     · simp [h, ih]
 
-end E213.Math.Cohomology
+end E213.Math.Cohomology.CupAW.Zero

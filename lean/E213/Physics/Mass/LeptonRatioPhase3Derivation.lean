@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Mass.MuOverE
-import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Simplex.Counts
 
 /-!
 # Phase 3 LeptonRatioDerivation — deep-dive on *why m_μ/m_e = 206.768 ppb*
