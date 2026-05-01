@@ -25,7 +25,7 @@ which requires a bit-encoding lemma (deferred).
   by decide
 -/
 
-namespace E213.Math.Cohomology.Universal
+namespace E213.Math.Cohomology.Universal.Core
 
 open E213.Physics.Simplex (binom)
 
@@ -67,4 +67,4 @@ theorem universal_dsq_zero_capstone :
     ∧ dsqz_universal_bool 5 0 = true
     ∧ dsqz_universal_bool 5 1 = true := by decide
 
-end E213.Math.Cohomology.Universal
+end E213.Math.Cohomology.Universal.Core

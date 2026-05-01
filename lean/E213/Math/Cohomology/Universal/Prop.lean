@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Universal
+import E213.Math.Cohomology.Universal.Core
 
 /-!
 # Universal δ²=0 — Prop-level lift at (n, 0)
@@ -9,7 +9,7 @@ Cochain n 0 = Fin 1 → Bool has only 2 functions. Case-split on
 Pulls in funext (≤ {propext, Quot.sound}).
 -/
 
-namespace E213.Math.Cohomology.UniversalProp
+namespace E213.Math.Cohomology.Universal.Core.Prop
 
 open E213.Physics.Simplex (binom)
 
@@ -75,4 +75,4 @@ theorem dsq_zero_prop_n0_capstone :
     ∧ (∀ σ : Cochain 5 0, ∀ i, delta (delta σ) i = false) :=
   ⟨dsq_zero_prop_3_0, dsq_zero_prop_5_0⟩
 
-end E213.Math.Cohomology.UniversalProp
+end E213.Math.Cohomology.Universal.Core.Prop

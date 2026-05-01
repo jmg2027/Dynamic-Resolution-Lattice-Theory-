@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.UniversalProp52
+import E213.Math.Cohomology.Universal.Core.Prop52
 import E213.Math.Cohomology.BettiKernel
 
 /-!
@@ -11,7 +11,7 @@ to 10 Bool slots: σ : Cochain 5 2 ≃ encode σ : Nat ∈ [0, 1024).
 namespace E213.Math.Cohomology.EncodingBijection52
 
 open E213.Physics.Simplex (binom)
-open E213.Math.Cohomology.UniversalProp52 (pattern)
+open E213.Math.Cohomology.Universal.Core.Prop52 (pattern)
 
 /-- Bool-to-Nat helper. -/
 def boolToNat (b : Bool) : Nat := if b then 1 else 0

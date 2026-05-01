@@ -1,6 +1,6 @@
-import E213.Math.Cohomology.UniversalProp51
-import E213.Math.Cohomology.UniversalProp52
-import E213.Math.Cohomology.UniversalProp53
+import E213.Math.Cohomology.Universal.Core.Prop51
+import E213.Math.Cohomology.Universal.Core.Prop52
+import E213.Math.Cohomology.Universal.Core.Prop53
 import E213.Math.Cohomology.HodgeProp
 import E213.Math.Cohomology.HodgeProp52
 import E213.Math.Cohomology.CupAW.Leibniz

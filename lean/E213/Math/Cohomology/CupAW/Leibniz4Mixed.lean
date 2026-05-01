@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.CupAW.Core
-import E213.Math.Cohomology.UniversalProp41
-import E213.Math.Cohomology.UniversalProp42
+import E213.Math.Cohomology.Universal.Core.Prop41
+import E213.Math.Cohomology.Universal.Core.Prop42
 
 /-!
 # Cup AW Leibniz at mixed arities on Δ³ (n = 4)
@@ -17,8 +17,8 @@ universal across all interior strata of Δ², Δ³.
 namespace E213.Math.Cohomology.CupAW.Leibniz4Mixed
 
 open E213.Physics.Simplex (binom)
-open E213.Math.Cohomology.UniversalProp41 (pattern)
-open E213.Math.Cohomology.UniversalProp42 renaming pattern → patternE
+open E213.Math.Cohomology.Universal.Core.Prop41 (pattern)
+open E213.Math.Cohomology.Universal.Core.Prop42 renaming pattern → patternE
 
 set_option maxHeartbeats 16000000 in
 /-- ★ Pattern-level Leibniz at (4, 1, 2). -/
