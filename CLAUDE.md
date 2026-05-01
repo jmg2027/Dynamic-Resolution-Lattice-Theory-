@@ -44,6 +44,19 @@ Physics track critical path:
 
 The day that last theorem closes with 0 sorry = the first milestone of "rewriting physics from scratch".
 
+## Finitism is Forced, Not Chosen (2026-05-01)
+
+The finitist position in 213 is not a philosophical preference — it is a **consequence of Lean theorems** (DRLT-axiom set ⊆ {propext, Quot.sound}) showing ZFC-style completed infinity breaks the lattice's cut-function algebra:
+
+- `Real213DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`: the Cauchy *limit* of "always-true unit" sequence is **strictly different** from constructive zero.  Witness at (m=0, k=1): limit gives `false`, exact gives `true`.  Source comment: *"'limit point exists' is a ZFC fiction"*.
+- `Real213DyadicTrajectory.zero_plus_gap_below_zero_exact`: limit-cut sits below exact-cut at every (0, k≥1) query — `InfinitesimalGap` is structural, not numerical artifact.
+- `Real213CutInv.cutDiv` documents boundary precision artifacts when combining cutMul + cutInv across infinity-flavored operations.
+- `Real213CutMulConstSum`, `Real213CutSumGeneral` close *forward direction only* — backward direction breaks via the same gap.
+
+**Therefore**: staying at finite `N_U = d^(d²) = 5²⁵` is *forced by self-consistency*, not stipulated.  External "N→∞ asymptote" framing is a ZFC translation that doesn't survive 213's cut algebra.  The 213-internal answer is always the specific finite rational at N_U.
+
+Note: physics-track capstones (`validation_standard_capstone`, `pure_atomic_observables_capstone`, `alpha_em_master_capstone`) achieve the strict form "does not depend on any axioms".  The cut-algebra contradiction proofs above use the standard Lean kernel base {propext, Quot.sound} — which is the DRLT-allowed set.  Both standards are stronger than typical "0-axiom" claims in mathematical physics.
+
 ## The Axiom
 - **Things exist with pairwise relations.** G_ij = ⟨ψ_i|ψ_j⟩.
 - ℂ⁵ is derived (Frobenius → ℂ, atomic → d=5), not the axiom.
