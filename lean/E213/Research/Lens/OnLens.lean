@@ -1,5 +1,5 @@
 import E213.Research.SemanticAtom
-import E213.Research.InstanceReach
+import E213.Research.Instance.Reach
 
 /-!
 # Research.LensOnLens: Lens itself as an instance of the semantic framework

@@ -1,5 +1,5 @@
 import E213.Research.Lens.OnLens
-import E213.Research.BoolPropMorphism
+import E213.Research.Morphism.BoolProp
 
 /-!
 # Research.LensOnLensImage: tower collapse of Lens-on-Lens

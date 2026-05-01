@@ -1,4 +1,4 @@
-import E213.Research.ArchimedeanCauchy
+import E213.Research.Cauchy.Archimedean
 
 /-!
 # Research.Real213CutBinary: generic 2D bounded-search cut operation

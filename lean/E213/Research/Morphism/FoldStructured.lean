@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens
-import E213.Research.RawInitiality
+import E213.Research.Raw.Initiality
 
 /-!
 # Research.FoldStructured: exact characterization of Lens-expressible functions

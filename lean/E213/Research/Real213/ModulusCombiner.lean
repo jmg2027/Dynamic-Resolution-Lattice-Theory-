@@ -1,5 +1,5 @@
 import E213.Research.Real213.Core
-import E213.Research.HasModulus
+import E213.Research.Modulus.HasModulus
 
 /-!
 # Research.Real213ModulusCombiner: Generic kernel for combining HasModulus

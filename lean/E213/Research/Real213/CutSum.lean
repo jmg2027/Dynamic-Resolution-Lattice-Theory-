@@ -1,4 +1,4 @@
-import E213.Research.ArchimedeanCauchy
+import E213.Research.Cauchy.Archimedean
 
 /-!
 # Research.Real213CutSum: cut-level addition (F1 of E5)

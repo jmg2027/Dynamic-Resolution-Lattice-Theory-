@@ -1,4 +1,4 @@
-import E213.Research.UniversalQuotLens
+import E213.Research.Universal.QuotLens
 
 /-!
 # Research.FamilyJoin: slash-congruence join of an arbitrary-index family

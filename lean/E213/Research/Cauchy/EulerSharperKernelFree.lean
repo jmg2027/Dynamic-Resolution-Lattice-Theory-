@@ -1,4 +1,4 @@
-import E213.Research.EulerSeq
+import E213.Research.Cauchy.EulerSeq
 
 /-!
 # Research.EulerSharperKernelFree: omega-free Euler sharper bound (partial)

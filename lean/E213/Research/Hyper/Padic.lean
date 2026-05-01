@@ -1,6 +1,6 @@
 import E213.Research.Leaves.ModNat
 import E213.Research.Lens.Cauchy
-import E213.Research.ProfiniteSeq
+import E213.Research.Cauchy.ProfiniteSeq
 
 /-!
 # Research.Padic: p-adic ℤ_p as Lens sub-family

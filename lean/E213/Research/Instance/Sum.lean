@@ -1,5 +1,5 @@
 import E213.Research.SemanticAtom
-import E213.Research.InstanceReach
+import E213.Research.Instance.Reach
 
 /-!
 # Research.SumInstance: priority-based combine instance for Sum type

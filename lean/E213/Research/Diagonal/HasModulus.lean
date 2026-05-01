@@ -1,4 +1,4 @@
-import E213.Research.HasModulus
+import E213.Research.Modulus.HasModulus
 
 /-!
 # Research.DiagonalHasModulus: HasModulus for the diagonal sequence

@@ -1,5 +1,5 @@
 import E213.Research.SemanticAtom
-import E213.Research.UniversalReflection
+import E213.Research.Universal.Reflection
 
 /-!
 # Research.UniversalLensClaim: "every framework is a Lens" formal

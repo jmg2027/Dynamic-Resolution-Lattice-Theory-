@@ -1,4 +1,4 @@
-import E213.Research.HasModulus
+import E213.Research.Modulus.HasModulus
 import E213.Research.Diagonal.HasModulus
 
 /-!

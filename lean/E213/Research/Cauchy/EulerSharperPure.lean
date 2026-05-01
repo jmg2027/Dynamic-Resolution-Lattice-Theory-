@@ -1,6 +1,6 @@
 import E213.Research.PureNat
-import E213.Research.EulerSeq
-import E213.Research.EulerCombinatorialPure
+import E213.Research.Cauchy.EulerSeq
+import E213.Research.Cauchy.EulerCombinatorialPure
 
 /-!
 # Research.EulerSharperPure: e > 8/3 strict (axiom-free)

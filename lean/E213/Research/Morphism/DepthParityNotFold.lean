@@ -1,5 +1,5 @@
-import E213.Research.FoldStructured
-import E213.Research.NoDepthParity
+import E213.Research.Morphism.FoldStructured
+import E213.Research.Morphism.NoDepthParity
 
 /-!
 # Research.DepthParityNotFold: depth parity function is not fold-structured

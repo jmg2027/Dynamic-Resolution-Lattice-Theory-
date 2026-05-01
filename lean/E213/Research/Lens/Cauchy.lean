@@ -1,4 +1,4 @@
-import E213.Research.UniversalQuotLens
+import E213.Research.Universal.QuotLens
 import E213.Research.Lens.IndexedJoin
 
 /-!

@@ -1,7 +1,7 @@
 import E213.Research.Lens.Cauchy
 import E213.Research.Lens.AB
-import E213.Research.ArchimedeanCauchy
-import E213.Research.ProfiniteSeq
+import E213.Research.Cauchy.Archimedean
+import E213.Research.Cauchy.ProfiniteSeq
 
 /-!
 # Research.GenericFamilyCauchy: Unified framework for Lens + post-processing

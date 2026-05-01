@@ -1,5 +1,5 @@
 import E213.Research.Lens.AB
-import E213.Research.ArchimedeanCauchy
+import E213.Research.Cauchy.Archimedean
 
 /-!
 # Research.MonotonicBoundedCauchy: monotonic ab-sequence → orderCauchy

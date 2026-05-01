@@ -1,5 +1,5 @@
 import E213.Research.PureNat
-import E213.Research.EulerSeq
+import E213.Research.Cauchy.EulerSeq
 
 /-!
 # Research.EulerCombinatorialPure: Euler bounds, axiom-free

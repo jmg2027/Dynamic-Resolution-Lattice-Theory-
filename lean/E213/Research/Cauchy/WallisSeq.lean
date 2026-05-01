@@ -1,6 +1,6 @@
-import E213.Research.PellSeq
-import E213.Research.ArchimedeanCauchy
-import E213.Research.MonotonicBoundedCauchy
+import E213.Research.Cauchy.PellSeq
+import E213.Research.Cauchy.Archimedean
+import E213.Research.Cauchy.MonotonicBounded
 
 /-!
 # Research.WallisSeq: π/2 Dedekind cut via Wallis product

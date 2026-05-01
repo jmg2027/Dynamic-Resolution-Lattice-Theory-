@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens
-import E213.Research.ArchimedeanCauchy
+import E213.Research.Cauchy.Archimedean
 
 /-!
 # Research.Real213AsLensOutput: real = Lens output (User insight 2026-04-26)

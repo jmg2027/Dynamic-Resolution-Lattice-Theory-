@@ -1,4 +1,4 @@
-import E213.Research.ArchimedeanCauchy
+import E213.Research.Cauchy.Archimedean
 
 /-!
 # Research.Sqrt2Cut: Dedekind cut of √2 (213 irrational instance)

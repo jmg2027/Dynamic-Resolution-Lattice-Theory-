@@ -1,4 +1,4 @@
-import E213.Research.FoldStructured
+import E213.Research.Morphism.FoldStructured
 import E213.Research.Lens.RawAChar
 
 /-!

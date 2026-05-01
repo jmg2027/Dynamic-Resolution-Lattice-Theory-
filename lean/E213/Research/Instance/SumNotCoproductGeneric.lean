@@ -1,5 +1,5 @@
-import E213.Research.SumInstance
-import E213.Research.BoolPropMorphism
+import E213.Research.Instance.Sum
+import E213.Research.Morphism.BoolProp
 
 /-!
 # Research.SumNotCoproductGeneric: generic case of Sum α β coproduct failure

@@ -1,5 +1,5 @@
 import E213.Research.SemanticAtom
-import E213.Research.InstanceReach
+import E213.Research.Instance.Reach
 
 /-!
 # Research.FunctionSpace: function space `α → β` as a meaning-framework instance

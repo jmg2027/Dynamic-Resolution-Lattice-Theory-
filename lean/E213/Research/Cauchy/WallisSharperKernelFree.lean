@@ -1,4 +1,4 @@
-import E213.Research.WallisSeq
+import E213.Research.Cauchy.WallisSeq
 
 /-!
 # Research.WallisSharperKernelFree: Wallis sharper at concrete n

@@ -1,4 +1,4 @@
-import E213.Research.HasModulus
+import E213.Research.Modulus.HasModulus
 
 /-!
 # Research.Real213: framework-internal Real number type

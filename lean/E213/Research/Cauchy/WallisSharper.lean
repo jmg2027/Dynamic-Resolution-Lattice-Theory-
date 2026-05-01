@@ -1,4 +1,4 @@
-import E213.Research.WallisSeq
+import E213.Research.Cauchy.WallisSeq
 
 /-!
 # Research.WallisSharper: π/2 > 64/45 strict bound (n ≥ 2)

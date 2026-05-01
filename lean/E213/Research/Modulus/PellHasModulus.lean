@@ -1,5 +1,5 @@
-import E213.Research.HasModulus
-import E213.Research.PellSeq
+import E213.Research.Modulus.HasModulus
+import E213.Research.Cauchy.PellSeq
 import E213.Research.Irrational.Sqrt2KernelFree
 
 /-!

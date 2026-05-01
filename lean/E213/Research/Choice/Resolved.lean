@@ -1,4 +1,4 @@
-import E213.Research.UniversalQuotLens
+import E213.Research.Universal.QuotLens
 
 /-!
 # Research.ChoiceResolved: Formal version of "choice = Lens specification"

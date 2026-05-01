@@ -1,4 +1,4 @@
-import E213.Research.HasModulus
+import E213.Research.Modulus.HasModulus
 
 /-!
 # Research.HasModulusBoundsExtra: trivial wrapping results for HasModulus
