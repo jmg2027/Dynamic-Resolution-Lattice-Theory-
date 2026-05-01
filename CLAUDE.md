@@ -44,6 +44,21 @@ Physics track critical path:
 
 The day that last theorem closes with 0 sorry = the first milestone of "rewriting physics from scratch".
 
+## Finitism is Forced, Not Chosen (2026-05-01)
+
+The finitist position in 213 is not a philosophical preference — it is a **consequence of Lean theorems** (DRLT-axiom set ⊆ {propext, Quot.sound}) showing ZFC-style completed infinity breaks the lattice's cut-function algebra:
+
+- `Real213.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`: the Cauchy *limit* of "always-true unit" sequence is **strictly different** from constructive zero.  Witness at (m=0, k=1): limit gives `false`, exact gives `true`.  Source comment: *"'limit point exists' is a ZFC fiction"*.
+- `Real213.DyadicTrajectory.zero_plus_gap_below_zero_exact`: limit-cut sits below exact-cut at every (0, k≥1) query — `InfinitesimalGap` is structural, not numerical artifact.
+- `Real213.CutInv.cutDiv` documents boundary precision artifacts when combining cutMul + cutInv across infinity-flavored operations.
+- `Real213.CutMulConstSum`, `Real213.CutSumGeneral` close *forward direction only* — backward direction breaks via the same gap.
+
+**Therefore**: staying at finite `N_U = d^(d²) = 5²⁵` is *forced by self-consistency*, not stipulated.  External "N→∞ asymptote" framing is a ZFC translation that doesn't survive 213's cut algebra.  The 213-internal answer is always the specific finite rational at N_U.
+
+Note: physics-track capstones (`validation_standard_capstone`, `pure_atomic_observables_capstone`, `alpha_em_master_capstone`) achieve the strict form "does not depend on any axioms".  The cut-algebra contradiction proofs above use the standard Lean kernel base {propext, Quot.sound} — which is the DRLT-allowed set.  Both standards are stronger than typical "0-axiom" claims in mathematical physics.
+
+**Tooling: `omega213`** (`lean/E213/Tactic/Omega213.lean`).  Lean's `omega` tactic introduces `[propext, Quot.sound]` into every theorem that uses it.  `omega213` is a 213-native axiom-free replacement for the linear-arithmetic patterns 213 actually uses (decide + curated `Nat.*` core lemmas).  Drop-in: `by omega → by omega213` reduces the axiom set from `[propext, Quot.sound]` to ∅ for covered patterns.  Migration guide: `lean/E213/Tactic/OMEGA213_MIGRATION.md`.  195 omega calls across 50 files are candidates for incremental conversion.
+
 ## The Axiom
 - **Things exist with pairwise relations.** G_ij = ⟨ψ_i|ψ_j⟩.
 - ℂ⁵ is derived (Frobenius → ℂ, atomic → d=5), not the axiom.
@@ -62,6 +77,67 @@ The day that last theorem closes with 0 sorry = the first milestone of "rewritin
 - Lesson: ATM_026-028 (3 consecutive continuous variation failures) → ATM_029 (α_GUT derived via topological counting)
 - Pattern: d²=25 (arithmetic) → α_GUT (physics), ζ(2) (number theory) → propagator (analysis), f_occ (algebra) → coupling (physics)
 
+## Hunter Methodology Lessons (2026-05-01, Tier-4 Path (c) closure)
+- **L1**: π, ζ(2), e, all transcendentals are *limits* of finite rational lattice sums (Leibniz, Basel, etc.) — not axiomatic. **Everything in DRLT is rational-complex**: G_ij = ⟨ψ_i|ψ_j⟩ has rational magnitude AND rational sin/cos for the phase (Pythagorean-triple style). Transcendentals are convenient shorthand for "N→∞ limit of a rational bracket"; the *true* DRLT closed form should be rational. When a form contains π/ζ(2), look for the underlying rational structure.
+- **L2**: When a hunter form has ζ(2)^k or π^k and won't tighten, **strip the transcendentals and re-search pure-rational bases**. g_p went 828 ppm → 0.097 ppm by replacing (NS²/d)·ζ(2)² with (d²−NS)/NT² + extra α corrections.
+- **L3**: Composite (3-quark hadron) observables are **Class D triple cup-chains**, not single-α leakages. Single-α searches structurally cannot close them.
+- **L4**: Coefficient reuse across observables is **structural evidence**, not coincidence. The integer 45 = NS²·d appears in 1/α_em (α/45), m_n/m_p (α_em²·45), and g_p (α_em²·90 = NT·45) — same K_25 anchor.
+- **L5**: **Always check compositional closure first.** Before launching a fresh hunter, ask: is the target = (already-closed-A) × (already-closed-B)? (m_n − m_p)/m_e closed at 53× improvement just by being m_p/m_e × (m_n/m_p − 1).
+- Full lessons: `rust-engine/docs/gaps-and-todos.md` §10.
+- **Closure algorithm + conjecture**: `rust-engine/docs/closure-algorithm.md` — the meta-pattern of L1-L5 written as explicit pseudocode + the *DRLT Closure Form conjecture* (every K_{3,2}^{(c=2)} observable = R(NS,NT,d,c)·Π(1+κ_i·α_i^{n_i}) with κ_i from a small anchor catalog), backed by 9 session-empirical closures.
+
+## Repository Organization Philosophy (2026-05-01, Mingu directive)
+
+> "이 레포지토리는 학문 몇 개를 다시 세우는 수준의 일을 하고 있다."
+
+213 reconstructs multiple disciplines (math, physics, metalogic) from a
+single 4-clause Raw axiom.  As a living research codebase at that scope,
+optimize for **readability, extensibility, modularity, well-formed
+classification** — NOT for file count, line count, or merge-density
+metrics.
+
+### Concrete consequences for repo edits
+
+  1. **One coherent topic per file** — when a file accumulates two
+     unrelated topics, split it.  Two topics in one file hurts
+     discoverability + breaks the "1 import = 1 concept" mental model.
+  2. **Sub-cluster as soon as 3+ thematically-related files appear.**
+     Don't wait for 10+ — early sub-clustering is cheap; flat-root
+     accumulation is hard to undo.
+  3. **Naming reflects classification.**  Drop redundant prefixes when
+     they appear in the parent dir (`Lens/Factoring.lean`, not
+     `Lens/LensFactoring.lean`).  V-prefix on digit-start (`V137`,
+     not `137`).
+  4. **Don't merge files just to reduce count.**  If 27 distinct topics
+     are each a single small file, that's *good modularity* — leave
+     them.  The Phase4/Library 27→6 merge was a misjudgment under
+     this principle.
+  5. **Path = namespace, ideally.**  When `Physics/AlphaEM/V137.lean`
+     declares `namespace E213.Physics.AlphaEM137`, that's a
+     classification leak.  Either rename the namespace or rename the
+     path so they match.
+  6. **No "phase" or "session-number" in long-lived names.**  Phase
+     labels reflect WHEN the work happened, not WHAT it does.  Reorganize
+     `Phase{2,3,4}/` by content category at first opportunity.
+  7. **INDEX.md per non-trivial sub-tree.**  Every sub-cluster ≥ 5
+     files gets an INDEX.md or README.md naming convention notes,
+     "what lives here", "where to add new".
+  8. **The vertical-vs-horizontal axis tension is real.**  Kernel/,
+     Firmware/, OS/, Hypervisor/, Meta/, App/, Tactic/, Tools/ are
+     vertical (dependency layers).  Math/, Physics/, Research/ are
+     horizontal (topical).  When in doubt: vertical layer takes
+     precedence (foundation files belong in their layer dir, even
+     if they happen to be "math" or "physics").
+
+### When deletion is right
+
+Deprecated content with no active dependents (e.g., the `papers/`
+archive at commit a02b751) should be deleted, not kept "just in case".
+Git history retains everything; the working tree should reflect
+*current* state.  But: never delete content under active use, and
+always preserve a README or marker in the deleted directory pointing
+to the recovery commit.
+
 ## Authors
 - Mingu Jeong (Independent Researcher) — theory originator, physical intuition
 - Claude (Anthropic) — mathematical formalization, numerical experiments, code
@@ -69,81 +145,86 @@ The day that last theorem closes with 0 sorry = the first milestone of "rewritin
 
 ---
 
-## Repository Architecture
+## Repository Architecture (current, 2026-05-01)
 
-### Single Source of Truth
-- **`book/` is the ONLY authoritative theory.** Book > everything else.
-- `papers/` = standalone copies for journal submission.
-- `research-notes/` = historical drafts (may be superseded).
+### Source of Truth — Lean theorems in `lean/E213/`
 
-### Sub-Projects (Independent workspace per field)
+The authoritative state of 213 is the set of 0-axiom Lean theorems
+in `lean/E213/`.  Everything else (narrative, papers, notes) is
+either an entry-point INTO that body of work or a derived artifact.
 
-> **Note:** These directories are **planned** but do not yet exist in the repo.
-> All current work lives in `lean/E213/` (Lean) and top-level `research-notes/`.
-> Create a sub-project when starting a focused experiment campaign.
+### Top-level layout
 
-| Directory | Prefix | Status | Experiments | Domain |
-|-----------|--------|--------|-------------|--------|
-| `foundations/` | `FND_` | (planned) | 37 planned | Derivation chain (math-physics bridge): simplex geometry, variation, f_occ, Grassmannian, Binet–Cauchy, confluence |
-| `standard-model/` | `SM_` | (planned) | 24 planned | couplings, masses, mixing |
-| `atoms/` | `ATM_` | (planned) | 69 planned | atoms, periodic table, wedge screening |
-| `cosmology/` | `COS_` | (planned) | 3 planned | η_B, Ω_Λ, Webb |
-| `cosmic-structure/` | `CST_` | (planned) | 22 planned | LSS, BH jets, H₀, T_CMB, BBN |
-| `critical-line/` | `RH_` | (planned) | 79 planned | critical line, RH, GRH, L-functions, Galois, Lean |
-| `nuclear/` | `NUC_` | (planned) | 15 planned | magic numbers, 600-cell, binding |
-| `hadron/` | `HAD_` | (planned) | 9 planned | meson/baryon spectrum, hyperfine |
-| `predictions/` | `PRD_` | (planned) | 8 planned | unmeasured predictions (JUNO, θ_QCD, Berry phase) |
-| `quantum-gravity/` | `QG_` | (planned) | 7 planned | spacetime emergence, holographic |
-| `yang-mills/` | `YM_` | (planned) | Lean ~58 thms | mass gap, NS regularity, Lean 4 formalization |
-| `discrete-harmonic/` | `DHA_` | (planned) | 19 planned | discrete harmonic analysis, spectrum, S₅ representation theory |
-| `drlt-elements/` | `ELM_` | (planned) | Lean 7 files 26 thms | elements: Entity→Eq→Logic→Nat→Arith→Order→Bridge |
-
-### Sub-Project Required Structure
 ```
-{sub-project}/
-  CLAUDE.md          — field context, constants, experiment list (required)
-  HANDOFF.md         — status, open problems, next steps (required)
-  experiments/       — {PREFIX}_NNN_name.py (required)
-  results/           — experiment output (required)
-  theory/            — theory documents .tex/.md (optional)
-  lib/               — field-specific library (optional)
-```
+ENTRY (read these first):
+  README.md            30-second overview
+  HANDOFF.md           current session state (volatile)
+  CLAUDE.md            this file — agent instructions + principles
+  LESSONS_LEARNED.md   guardrails (finitist framing, etc.)
 
-### Shared Infrastructure
-```
-books/             — narrative books (math/, physics/)
-papers/            — standalone .tex for journal submission (16 papers + drlt-book/)
-.claude/skills/    — Agent skills
+FORMAL CORE (the actual 213):
+  lean/E213/           720 .lean files, 0-axiom standard
+  rust-engine/         Rust runtime (52 binaries, ℕ-only) + docs/
+
+NARRATIVE / NAVIGATION:
+  guide/               master deductive guide (16 chapters, T0/T1/T2/T3 tags)
+  books/               213-internal narrative (math/, physics/)
+  catalogs/            quick-lookup tables (atoms, falsifiers, constants)
+
+META / HISTORY:
+  blueprints/          architectural plans (math/, meta/, physics/)
+  research-notes/      exploratory notes (E1-F6 numbered)
+  seed/                axioms / philosophy / falsifiability snapshots
+
+REMOVED:
+  papers/              ⚠ DELETED ARCHIVE — files removed (commit a02b751);
+                       only papers/README.md retained as historical
+                       marker + git-history recovery info.
+
+OPERATIONAL:
+  tools/               audit scripts (kernel_regress.sh, FORBIDDEN.md, …)
+  .claude/skills/      Agent skills
 ```
 
-### Lean Library Structure (lean/E213/)
+### Lean Library Structure (`lean/E213/`)
+
 ```
-Kernel/     ★ deep-embedded 213 kernel (14 files, 101 theorems, 0 axiom)
-Physics/    physics formalization (227 files)
-Research/   research / exploratory proofs (331 files)
-Math/       mathematics (8 files)
-Firmware/   Raw axiom layer: Raw, RawLevels, RawSwap (13 files)
-OS/         Atomicity + canonical structures (8 files)
-App/        applications (1 file)
-Hypervisor/ cross-layer bridge (1 file)
-Infinity/   limit / compactification (9 files)
-Meta/       meta-theory utilities (9 files)
-Tactic/     custom tactics (10 files)
+Kernel/      ★ 14 files, 101 theorems literally 0 axiom (deep embedding)
+Firmware/    Raw axiom layer (Raw, RawLevels, RawSwap)
+OS/          Atomicity + canonical structures
+Hypervisor/  cross-layer bridge
+App/         applications
+Physics/     267 files (currently flat + Phase{2,3,4}/ — pending topical reorg)
+Research/    332 files (Real213 marathon + dyadic predictors + exploratory)
+Math/        211 files (Cohomology/ in 10 sub-clusters, Linalg213/, Cauchy/)
+Meta/        meta-theory utilities
+Tactic/      custom tactics
+Infinity/    limit / compactification (mostly 213-external bridges)
+Tools/       Lean tooling
 ```
+
+(Counts as of 2026-05-01.  Earlier CLAUDE.md versions listed
+sub-project directories `foundations/`, `standard-model/`, `atoms/`,
+etc. as "planned" — none were created.  Topical reorg of Phase{2,3,4}
+into named sub-folders is a pending architectural task.)
+
+### Branches
+
+  - `main`                                 — base
+  - `claude/213-rust-engine-SloKB`         — current work head
+  - `claude/review-paper-directory-nDw9L`  — math-track parallel
+                                              (frequent cherry-picks
+                                               into rust-engine branch)
 
 ---
 
-## Naming
-- Experiments: `{PREFIX}_{NNN}_{desc}.py` (inside sub-project/experiments/)
-- Results: `EXP_{PREFIX}_{NNN}_{Title}.txt` (auto-generated, sub-project/results/)
-- New sub-project: prefix + CLAUDE.md + HANDOFF.md + experiments/ + results/
+## Workflow
 
----
-
-## Organization
-- Experiments/results go inside sub-projects only. No EXP_*.txt in root results/.
-- Theory consolidated in book/. Sub-projects are workspaces.
-- Session start: read root HANDOFF → then sub-project HANDOFF in order.
+- Session start: read root `HANDOFF.md` first.
+- Commit after every meaningful change.  Never amend.
+- Physics edits → `lean/E213/Physics/` or `rust-engine/`.
+- Math edits → `lean/E213/Math/` or `lean/E213/Research/`.
+- Documentation: edit the appropriate top-level dir per layout above.
 
 ---
 
@@ -177,11 +258,13 @@ S(2) = 5/4    S(∞) = π²/6 ≈ 1.6449
 | m_J/ψ | 3081.6 MeV | 3096.9 MeV | **-0.5%** |
 | Δ-N split | 295.7 MeV | 294 MeV | **+0.6%** |
 
-## Workflow
-- After editing book/, sync math/ + physics/ and regenerate single .tex.
-- Commit after every meaningful change. Never amend.
+## Paper Authorship Rule (when papers are eventually re-introduced)
 
-## Paper Authorship Rule
+`papers/` is currently DELETED ARCHIVE (commit a02b751; only
+`papers/README.md` retained for historical marker).  For any future
+external-communication artifacts (re-built from current 0-axiom
+Lean theorems, *not* by reviving the deleted drafts):
+
 - **Author: "Mingu Jeong" only.** Claude is a tool, not an author.
 - **In Acknowledgments:** "This work was developed in dialogue with Claude (Anthropic)."
 - `\author{...Claude...}` is forbidden. Grounds for arXiv desk reject.

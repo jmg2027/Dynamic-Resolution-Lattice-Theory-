@@ -170,7 +170,7 @@ cutMul_cutEq_*     : same (Real213CutSumEq)
 
 ## 3. Dyadic structure — Bracket + Bisection
 
-### 3.1 DyadicBracket (`Real213DyadicBracket`)
+### 3.1 DyadicBracket (`Real213.DyadicBracket`)
 
 ```lean
 structure DyadicBracket where
@@ -191,7 +191,7 @@ DyadicBracket.leftHalf  : left half bracket
 DyadicBracket.rightHalf : right half bracket
 ```
 
-### 3.2 Bisection (`Real213DyadicTrajectory`)
+### 3.2 Bisection (`Real213.DyadicTrajectory`)
 
 ```lean
 def DyadicOracle := Nat → Nat → Bool
@@ -217,7 +217,7 @@ alwaysFalse_unit_numB n : ... .numB = 2^n
 alwaysFalse_unit_expE n : ... .expE = n
 ```
 
-### 3.3 Riemann sample sum (`Real213DyadicRiemann`)
+### 3.3 Riemann sample sum (`Real213.DyadicRiemann`)
 
 ```lean
 def riemannSampleSum

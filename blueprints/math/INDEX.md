@@ -53,6 +53,12 @@ the *template*. Each field proceeds under the same *tightness + propEq
 | 13 | **213 self-deepening** | `13_213_meta.md` | ★★★ |
 | 14 | **Logic / Proof Theory 213** | `14_logic_213.md` | ★ |
 
+### Phase E — Cohomology (added 2026-04-27)
+
+| # | Field | File | Priority |
+|---|---|---|---|
+| 15 | **Cohomology 213** | `15_cohomology_213.md` + `15_cohomology_213_phases.md` | ★★★ Top priority (motivated by α_em 5.4×10⁻⁴ gap) |
+
 ### Additional — Directory Proposal
 
 - `00_DIRECTORY_PROPOSAL.md` — Physics/math track consensus.
@@ -61,8 +67,39 @@ the *template*. Each field proceeds under the same *tightness + propEq
 
 ## Completed (2026-04-27)
 
-✅ All 16 documents written (INDEX + 00 directory + fields 01-14).
-Average ~100-150 lines per field.
+✅ Original 16 documents (INDEX + 00 directory + fields 01-14)
+written; average ~100-150 lines per field.
+
+✅ Field 15 (Cohomology 213) added 2026-04-27 — first marathon
+motivated by a specific physics open problem (α_em structural gap).
+Split into base spec + phases file (`15_cohomology_213.md` +
+`15_cohomology_213_phases.md`) per 80-line hook.
+
+---
+
+## Realization status (2026-04-30)
+
+| # | Field | Status | Evidence |
+|---|---|---|---|
+| 07 | **Number Theory 213** | ✅ **REALIZED** | 77 `Dyadic*.lean` files; Pell mod {2..23} + Pell proper (D=8) + Tribonacci; 8-prime Pisano predictor; Lens composition theorem; bit-pattern uniqueness lemma. See `books/math/number-theory-213.md` (in progress). |
+| 13 | **213 self-deepening** | ✅ **CORE CLOSED** | Universal Lens at ℕ × ℕ AND Q213 × Q213 fully universal (`Meta/UniversalLensNat2Inj`, `Meta/UniversalLensQ213Inj`). HANDOFF Open Problem #6 closed. |
+| 15 | **Cohomology 213** | ✅ **CORE CLOSED** | 147 files in `Math/Cohomology/`; Δ⁴ Leibniz coverage; CupAW bilinearity; K_{3,2}^{(c=2)} structure; A/B/C/D/E classification. |
+| 09 | **Linear Algebra 213** | 🟡 **CORE BUILT** | `Math/Linalg213/` with capstones; Gram matrix machinery in place. |
+| 10 | **Combinatorics 213** | 🟡 **PARTIAL** | Pell ArithFSM hierarchy + Pisano CRT lcm closure realised. Generating-function side open. |
+| 01 | Probability 213 | ⏳ **Pending** | Next-marathon candidate. |
+| 02 | Multivariable 213 | ⏳ **Pending** | Next-marathon candidate. |
+| 03 | Topology 213 | ⏳ **Pending** | Next-marathon candidate. |
+| 04 | Complex Analysis 213 | ⏳ **Pending** | Cayley framework foundation in cohomology. |
+| 05 | Measure Theory 213 | ⏳ **Pending** | Bishop-style approach. |
+| 06 | Differential Equations 213 | ⏳ **Pending** | |
+| 08 | Functional Analysis 213 | ⏳ **Pending** | |
+| 11 | Group Theory 213 | ⏳ **Pending** | |
+| 12 | Information Theory 213 | ⏳ **Pending** | |
+| 14 | Logic / Proof Theory 213 | ⏳ **Pending** | Long-term: self-bootstrapping `Kernel.Proof` to eliminate propext + Quot.sound. |
+
+Summary: **3 of 15 fields fully or substantially realized**.
+Originally planned ★★★ priorities Phase A (01-03) deferred behind
+opportunistic completions in 07, 13, 15.
 
 ---
 

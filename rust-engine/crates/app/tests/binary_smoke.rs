@@ -1,0 +1,106 @@
+//! Binary smoke tests — every certified binary in `src/bin/` must
+//! exit 0 and produce non-empty stdout.  Catches the most common
+//! regression: a shared helper change that crashes one binary while
+//! the rest still build.
+//!
+//! Maps to gaps-and-todos.md §6 ("no per-binary unit tests").  Does
+//! *not* assert numeric output (binaries print at different
+//! precisions); pair with `binary_snapshots.rs` for fixed-headline
+//! assertions on representative cases.
+
+use std::process::Command;
+
+const BINS: &[(&str, &[&str])] = &[
+    ("alpha-em-augmented", &["100"]),
+    ("alpha-em-bracket", &["20"]),
+    ("alpha-em-decompose", &["20"]),
+    ("asymptotic-freedom", &[]),
+    ("atomic-correspondences", &[]),
+    ("atomic-hunter", &["200", "1000"]),
+    ("bond-angles", &[]),
+    ("cabibbo-angle", &[]),
+    ("cf-generator", &[]),
+    ("ckm-wolfenstein", &[]),
+    ("color-confinement", &[]),
+    ("dark-energy", &["100"]),
+    ("deuteron-binding", &[]),
+    ("drlt-zero-parameters", &[]),
+    ("fibonacci-atomic", &[]),
+    ("finite-resonance", &[]),
+    ("gap-explorer", &["100"]),
+    ("generations", &[]),
+    ("golden-ratio", &[]),
+    ("hadron-bigrading", &[]),
+    ("hierarchy-towers", &[]),
+    ("higgs-master", &[]),
+    ("higgs-quartic", &[]),
+    ("higgs-vacuum", &[]),
+    ("hop-hypothesis", &[]),
+    ("horizon-info", &[]),
+    ("hydrogen-atom", &[]),
+    ("ie-capstone", &[]),
+    ("impedance-search", &["50"]),
+    ("k32-inspect", &[]),
+    ("koide-check", &[]),
+    ("lambda-qcd-search", &[]),
+    ("m-proton", &["100"]),
+    ("m-tau-mu", &["100"]),
+    ("magic-numbers", &[]),
+    ("massless-particles", &[]),
+    ("mb-mc-sweep", &["100"]),
+    ("mn-minus-mp-over-me", &["200"]),
+    ("mn-mp-split", &[]),
+    ("mt-mc-cohomology", &["100"]),
+    ("top-yukawa", &["100"]),
+    ("scale-ladder-classify", &[]),
+    ("master-catalog", &[]),
+    ("mu-electron", &["100"]),
+    ("muon-lifetime", &[]),
+    ("neutrino-mixing", &[]),
+    ("neutron-proton", &[]),
+    ("nuclear-binding", &[]),
+    ("overlap-series", &["20"]),
+    ("parity-check", &[]),
+    ("propagator-form", &[]),
+    ("proton-g", &[]),
+    ("proton-radius", &[]),
+    ("quark-hierarchy", &["100"]),
+    ("series-truncation", &["50"]),
+    ("simplex-inventory", &[]),
+    ("theta-qcd", &[]),
+    ("triple-coupling", &["100"]),
+    ("weinberg-angle", &[]),
+    ("why-basel", &["20"]),
+    ("wz-bosons", &[]),
+];
+
+fn bin_path(name: &str) -> String {
+    let key = format!("CARGO_BIN_EXE_{name}");
+    std::env::var(&key).unwrap_or_else(|_| panic!("env {key} missing"))
+}
+
+fn run(name: &str, args: &[&str]) -> Result<(), String> {
+    let path = bin_path(name);
+    let out = Command::new(&path).args(args).output()
+        .map_err(|e| format!("spawn {name}: {e}"))?;
+    if !out.status.success() {
+        return Err(format!(
+            "{name} exit {:?}\nstderr: {}",
+            out.status.code(), String::from_utf8_lossy(&out.stderr)));
+    }
+    if out.stdout.is_empty() {
+        return Err(format!("{name} produced empty stdout"));
+    }
+    Ok(())
+}
+
+#[test]
+fn all_binaries_smoke() {
+    let mut failed = Vec::new();
+    for (name, args) in BINS {
+        if let Err(e) = run(name, args) { failed.push(e); }
+    }
+    assert!(failed.is_empty(),
+        "{} of {} failed:\n{}",
+        failed.len(), BINS.len(), failed.join("\n"));
+}

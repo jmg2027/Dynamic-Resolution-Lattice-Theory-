@@ -23,40 +23,56 @@ formal fact.
   📋 `math/00_DIRECTORY_PROPOSAL.md`  — Math track directory proposal
   📋 `physics/00_PHYSICS_RESPONSE.md` — Physics track response (full agreement)
 
-  Final architecture consensus:
+  Final architecture (2026-05-01 actual state):
   - `seed/` (axioms + philosophy + falsifiability)
-  - `lean/E213/` (namespace preserved)
-  - `lean/E213/Math/{Analysis, Probability, ...}` sub-dirs
-  - `lean/E213/Physics/{Foundation, Atoms, ...}` sub-dirs
-  - `lean/E213/Library/` catalog module
-  - `papers/`, `books/{math,physics}/`, `catalogs/`,
-    `examples/`, `blueprints/{math,physics}/`, `tools/`
-  - **no `archive/`** (CLAUDE.md "delete deprecated")
+  - `lean/E213/` (namespace preserved; ~810 .lean files;
+    layered Kernel/Firmware/OS/Hypervisor/Meta/App/Math/Physics/Research/
+    Infinity/Tactic/Tools — see `lean/E213/INDEX.md`)
+  - `books/{math,physics}/`, `catalogs/`,
+    `blueprints/{math,physics,meta}/`, `tools/`,
+    `research-notes/`, `guide/`, `rust-engine/`
+  - `papers/` — DELETED (was DEPRECATED ARCHIVE; commit a02b751);
+    `papers/README.md` retains the historical marker + recovery info
+  - **no `archive/`, no `examples/`** (CLAUDE.md "delete deprecated";
+    `examples/` was proposed but never created)
 
 ## Division of Work
 
-  - Math track: lean/E213/Math/, books/math/, math/01-12,14
-  - Physics track: lean/E213/Physics/, books/physics/, physics/all
-  - Common: seed/, catalogs/, papers/, examples/, tools/
+  - Math track: lean/E213/Math/, books/math/, blueprints/math/01-12,14
+  - Physics track: lean/E213/Physics/, books/physics/, blueprints/physics/all
+  - Common: seed/, catalogs/, tools/, research-notes/
 
-## Progress Priorities (★★★ Top Priority)
+## Realization snapshot (2026-04-30)
 
-### Math
-- 01 Probability (FluxCut already done)
-- 02 Multivariable
-- 03 Topology
-- 10 Combinatorics (atomic native)
-- 13 213 Meta
+### Math (3 of 15 fields realized)
 
-### Physics
-- 01 Atomic Physics (Phase 4 already done)
-- 02 Hadron (m_p 0.000%)
-- 03 Nuclear (magic 7/7)
-- 04 Cosmology (Ω_Λ 0.0008%)
-- 05 Gauge (137 ppm)
-- 07 Yang-Mills (Clay)
-- 10 Falsifier (CLAUDE.md criterion 2)
-- 13 Beyond SM (refutation)
+- ✅ **07 Number Theory 213** — REALIZED (~120 files in
+  `lean/E213/Math/Cohomology/Dyadic/` after Phase 3 reorg, organized
+  into 8 sub-clusters: ArithFSM/, BitFSM/, Pell/, Fib/, Trib/,
+  Legendre/, Pisano/, Archive/.  See `books/math/number-theory-213.md`)
+- ✅ **13 213 Meta** — CORE CLOSED (Universal Lens at ℕ²/ℚ²,
+  HANDOFF Open Problem #6 closed)
+- ✅ **15 Cohomology 213** — CORE CLOSED (147 files, A/B/C/D/E
+  classification)
+- 🟡 **09 Linear Algebra** / **10 Combinatorics** — partial
+- ⏳ Remaining 10 fields pending
+
+### Physics (5 REALIZED, 6 PARTIAL — see `physics/INDEX.md` for detail)
+
+- ✅ **01 Atomic** (H ionization 4.3 ppb)
+- ✅ **02 Hadron** (m_p 1.56 ppm)
+- ✅ **05 Gauge** (1/α_em 0.07 ppm)
+- ✅ **09 Particle** (m_μ/m_e 0.49 ppb)
+- ✅ **10 Falsifier** (4 famous coincidences elevated to derivations)
+
+### Famous coincidences elevated to derivations
+
+| Coincidence | Year | DRLT form |
+|---|---|---|
+| 1/α_em ≈ 137 (Eddington) | 1929 | 60·ζ(2) + 30 + 25/3 + α_GUT corr. |
+| m_p/m_e ≈ 6π⁵ (Lenz) | 1951 | NS · NT · π⁵ |
+| Koide 2/3 | 1981 | NT / NS |
+| Hierarchy M_Pl/v_H | 1980s | d^(d²) / (d+1) = 5^25/6 |
 
 ## How to Use
 

@@ -1,0 +1,18 @@
+[package]
+name = "drlt-hypervisor"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "DRLT 213 Hypervisor — Lens instances, cohomology. Mirrors lean/E213/Math/Cohomology/ + canonical lenses."
+
+[dependencies]
+drlt-kernel   = { path = "../kernel" }
+drlt-firmware = { path = "../firmware" }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+float_arithmetic = "deny"

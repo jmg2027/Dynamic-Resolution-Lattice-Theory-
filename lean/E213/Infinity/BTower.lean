@@ -1,6 +1,6 @@
 import E213.Infinity.Countable
 import E213.Infinity.LensCardinality
-import E213.Meta.LensCatalog
+import E213.Meta.Lens.Catalog
 import E213.Prelude
 
 /-!

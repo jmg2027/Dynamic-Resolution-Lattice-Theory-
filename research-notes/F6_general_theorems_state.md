@@ -161,7 +161,7 @@ These are the FIRST cut-level mixed-op distributivity theorems.
 
 ### cutMax/cutMin × cutEq / cutLe (NEW)
 
-Real213CutLatticeEq.lean — full substitution structure:
+Real213/CutLatticeEq.lean — full substitution structure:
 
 - `cutMax_cutEq_left/right/both`, `cutMin_cutEq_left/right/both`.
 - `cutMax_cutLe_left/right/both`, `cutMin_cutLe_left/right/both`.
@@ -248,11 +248,11 @@ User insight: 213's universe is a binary tree.  cutMid is bit-shift,
 not continuous halving.  IVT is search trajectory, not point
 existence.  Smooth functions are special, not default.
 
-Real213Dyadic.lean:
+Real213/Dyadic.lean:
 - def dyadicCut M E := constCut M (2^E).
 - dyadicCut_ratio, dyadicCut_valid (inherited).
 
-Real213DyadicBracket.lean:
+Real213/DyadicBracket.lean:
 - structure DyadicBracket : (numA, numB, expE) with numA ≤ numB.
 - bisectStep, bisectN : oracle-driven binary tree descent.
 - bisectN_expE : after n steps, expE += n exactly.
@@ -263,7 +263,7 @@ Real213DyadicBracket.lean:
 - **bisectN_contains_left/right** : n-step containment via induction
   + cutLe_trans.  No RatioCut closure, no precision artifact.
 
-Real213IsSmooth.lean:
+Real213/IsSmooth.lean:
 - structure IsSmooth f extends LDD : linearityModulus : Nat → Nat.
   Differentiability as constructive filter requiring explicit
   dyadic modulus.
@@ -278,7 +278,7 @@ Bracket midpoint sequence at fixed (m, k):
 - Case C (boundary) : RESOLVED via ConsistentOracle protocol —
   oracle carries its own thresholdN(m, k) data + consistency cert.
 
-Real213ConsistentOracle.lean:
+Real213/ConsistentOracle.lean:
 - structure ConsistentOracle (db : DyadicBracket) :
     oracle, thresholdN, consistency.
 - ConsistentOracle.toCauchyCutSeq : the 213-native IVT trajectory
@@ -296,13 +296,13 @@ User Phase J Sec 2 + 3:
 - "Integration before differentiation": dyadic Riemann sample-sum
   trajectory native first.
 
-Real213IsSmooth.lean additions:
+Real213/IsSmooth.lean additions:
 - addLDD, addIsSmooth : pointwise sum of smooth.
   linearityModulus = max (sf.l) (sg.l).
 - mulLDD, mulIsSmooth : pointwise product of smooth.
   linearityModulus = sf.l + sg.l (compounding errors).
 
-Real213DyadicRiemann.lean:
+Real213/DyadicRiemann.lean:
 - riemannSampleSum f db n : tree-recursive accumulator over 2^n
   sub-brackets via cutSum.
 - riemannSampleSum_constCut : Σ over depth n of constCut a b
@@ -314,10 +314,10 @@ Real213DyadicRiemann.lean:
 
 ### Phase K — Polynomial IsSmooth + ConsistentOracle concrete instance
 
-Real213IsSmooth.lean Phase K additions:
+Real213/IsSmooth.lean Phase K additions:
 - squareIsSmooth, cubeIsSmooth, quarticIsSmooth (polynomial chain).
 
-Real213DyadicBracket.lean Phase K additions (collapsed bracket):
+Real213/DyadicBracket.lean Phase K additions (collapsed bracket):
 - bisectStep_collapsed : numA = numB preserved by bisectStep.
 - bisectN_collapsed : preserved by bisectN.
 - bisectStep_collapsed_numA : numA doubles each step.
@@ -325,7 +325,7 @@ Real213DyadicBracket.lean Phase K additions (collapsed bracket):
 - **bisectN_collapsed_midCut_form** : midCut value invariant in n
   (equals decide(numA*k ≤ 2^E*m) regardless of n).
 
-Real213ConsistentOracle.lean Phase K addition:
+Real213/ConsistentOracle.lean Phase K addition:
 - **ConsistentOracle.collapsed** : FIRST sorry-free concrete instance,
   showing the protocol has content.  thresholdN = 0 for collapsed db.
 
@@ -338,7 +338,7 @@ substrate.  The sister branch's `FiniteUniverse.lean` and
 (no completed-infinity primitives, depth-resolution principle) in
 the physics domain.  Our analysis-track parallel:
 
-Real213PhaseJCapstone.lean:
+Real213/PhaseJCapstone.lean:
 - phaseJ_capstone : 7-fact conjunctive theorem bundling all main
   Phase J results (bisectN structure, containment, Riemann constant).
 - dyadic_bracket_finite_rational : every bisectN step is finite Nat
@@ -348,7 +348,7 @@ Real213PhaseJCapstone.lean:
 - phaseJ_no_infinity : combined finite-N marker.
 - consistentOracle_exists_on_collapsed : Phase K instance witness.
 
-Real213ResolutionDepth.lean:
+Real213/ResolutionDepth.lean:
 - 5 explicit linearityModulus theorems for polynomial chain:
   * idIsSmooth_modulus : depth 1 (= n).
   * constIsSmooth_modulus : depth 0.
@@ -359,18 +359,18 @@ Real213ResolutionDepth.lean:
 - polynomial_resolution_depth_principle : capstone showing
   polynomial degree d → linearityModulus n = d * n.
 
-Real213DyadicRiemann.lean Phase L addition:
+Real213/DyadicRiemann.lean Phase L addition:
 - riemannSampleSum_const_normalized : average sample = constant
   integrand (constCut_scale rescaling).
 
-Real213Dyadic.lean Phase L addition:
+Real213/Dyadic.lean Phase L addition:
 - cutSum_dyadicCut_self : doubling preserves dyadic.
 - cutHalf_dyadicCut : exponent +1.
 - cutDouble_dyadicCut : numerator * 2.
 
 ### Phase L Round 3 — Trajectory closed forms + 3 ConsistentOracle instances
 
-Real213DyadicTrajectory.lean (NEW, large module):
+Real213/DyadicTrajectory.lean (NEW, large module):
 
 Concrete trajectory examples + closed forms:
 - alwaysTrue, alwaysFalse oracles, unitBracket = (0, 1, 0).

@@ -1,0 +1,265 @@
+[package]
+name = "drlt-app"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "DRLT 213 App — Simplex, Basel, AlphaEM, magic numbers. Mirrors lean/E213/App/ + Physics/."
+
+[[bin]]
+name = "alpha-em-bracket"
+path = "src/bin/alpha_em_bracket.rs"
+
+[[bin]]
+name = "gap-explorer"
+path = "src/bin/gap_explorer.rs"
+
+[[bin]]
+name = "k32-inspect"
+path = "src/bin/k32_inspect.rs"
+
+[[bin]]
+name = "alpha-em-decompose"
+path = "src/bin/alpha_em_decompose.rs"
+
+[[bin]]
+name = "simplex-inventory"
+path = "src/bin/simplex_inventory.rs"
+
+[[bin]]
+name = "impedance-search"
+path = "src/bin/impedance_search.rs"
+
+[[bin]]
+name = "triple-coupling"
+path = "src/bin/triple_coupling.rs"
+
+[[bin]]
+name = "overlap-series"
+path = "src/bin/overlap_series.rs"
+
+[[bin]]
+name = "series-truncation"
+path = "src/bin/series_truncation.rs"
+
+[[bin]]
+name = "cf-generator"
+path = "src/bin/cf_generator.rs"
+
+[[bin]]
+name = "propagator-form"
+path = "src/bin/propagator_form.rs"
+
+[[bin]]
+name = "finite-resonance"
+path = "src/bin/finite_resonance.rs"
+
+[[bin]]
+name = "parity-check"
+path = "src/bin/parity_check.rs"
+
+[[bin]]
+name = "mu-electron"
+path = "src/bin/mu_electron.rs"
+
+[[bin]]
+name = "m-proton"
+path = "src/bin/m_proton.rs"
+
+[[bin]]
+name = "magic-numbers"
+path = "src/bin/magic_numbers.rs"
+
+[[bin]]
+name = "higgs-quartic"
+path = "src/bin/higgs_quartic.rs"
+
+[[bin]]
+name = "m-tau-mu"
+path = "src/bin/m_tau_mu.rs"
+
+[[bin]]
+name = "higgs-master"
+path = "src/bin/higgs_master.rs"
+
+[[bin]]
+name = "master-catalog"
+path = "src/bin/master_catalog.rs"
+
+[[bin]]
+name = "weinberg-angle"
+path = "src/bin/weinberg_angle.rs"
+
+[[bin]]
+name = "hydrogen-atom"
+path = "src/bin/hydrogen_atom.rs"
+
+[[bin]]
+name = "neutron-proton"
+path = "src/bin/neutron_proton.rs"
+
+[[bin]]
+name = "neutrino-mixing"
+path = "src/bin/neutrino_mixing.rs"
+
+[[bin]]
+name = "dark-energy"
+path = "src/bin/dark_energy.rs"
+
+[[bin]]
+name = "wz-bosons"
+path = "src/bin/wz_bosons.rs"
+
+[[bin]]
+name = "cabibbo-angle"
+path = "src/bin/cabibbo_angle.rs"
+
+[[bin]]
+name = "generations"
+path = "src/bin/generations.rs"
+
+[[bin]]
+name = "hierarchy-towers"
+path = "src/bin/hierarchy_towers.rs"
+
+[[bin]]
+name = "theta-qcd"
+path = "src/bin/theta_qcd.rs"
+
+[[bin]]
+name = "muon-lifetime"
+path = "src/bin/muon_lifetime.rs"
+
+[[bin]]
+name = "ckm-wolfenstein"
+path = "src/bin/ckm_wolfenstein.rs"
+
+[[bin]]
+name = "atomic-correspondences"
+path = "src/bin/atomic_correspondences.rs"
+
+[[bin]]
+name = "fibonacci-atomic"
+path = "src/bin/fibonacci_atomic.rs"
+
+[[bin]]
+name = "drlt-zero-parameters"
+path = "src/bin/drlt_zero_parameters.rs"
+
+[[bin]]
+name = "higgs-vacuum"
+path = "src/bin/higgs_vacuum.rs"
+
+[[bin]]
+name = "horizon-info"
+path = "src/bin/horizon_info.rs"
+
+[[bin]]
+name = "asymptotic-freedom"
+path = "src/bin/asymptotic_freedom.rs"
+
+[[bin]]
+name = "deuteron-binding"
+path = "src/bin/deuteron_binding.rs"
+
+[[bin]]
+name = "bond-angles"
+path = "src/bin/bond_angles.rs"
+
+[[bin]]
+name = "nuclear-binding"
+path = "src/bin/nuclear_binding.rs"
+
+[[bin]]
+name = "golden-ratio"
+path = "src/bin/golden_ratio.rs"
+
+[[bin]]
+name = "ie-capstone"
+path = "src/bin/ie_capstone.rs"
+
+[[bin]]
+name = "quark-hierarchy"
+path = "src/bin/quark_hierarchy.rs"
+
+[[bin]]
+name = "massless-particles"
+path = "src/bin/massless_particles.rs"
+
+[[bin]]
+name = "color-confinement"
+path = "src/bin/color_confinement.rs"
+
+[[bin]]
+name = "why-basel"
+path = "src/bin/why_basel.rs"
+
+[[bin]]
+name = "hop-hypothesis"
+path = "src/bin/hop_hypothesis.rs"
+
+[dependencies]
+drlt-kernel     = { path = "../kernel" }
+drlt-firmware   = { path = "../firmware" }
+drlt-hypervisor = { path = "../hypervisor" }
+drlt-os         = { path = "../os" }
+num-bigint      = { workspace = true }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+float_arithmetic = "deny"
+
+[[bin]]
+name = "lambda-qcd-search"
+path = "src/bin/lambda_qcd_search.rs"
+
+[[bin]]
+name = "mb-mc-sweep"
+path = "src/bin/mb_mc_sweep.rs"
+
+[[bin]]
+name = "mt-mc-cohomology"
+path = "src/bin/mt_mc_cohomology.rs"
+
+[[bin]]
+name = "top-yukawa"
+path = "src/bin/top_yukawa.rs"
+
+[[bin]]
+name = "scale-ladder-classify"
+path = "src/bin/scale_ladder_classify.rs"
+
+[[bin]]
+name = "proton-radius"
+path = "src/bin/proton_radius.rs"
+
+[[bin]]
+name = "atomic-hunter"
+path = "src/bin/atomic_hunter.rs"
+
+[[bin]]
+name = "koide-check"
+path = "src/bin/koide_check.rs"
+
+[[bin]]
+name = "proton-g"
+path = "src/bin/proton_g.rs"
+
+[[bin]]
+name = "hadron-bigrading"
+path = "src/bin/hadron_bigrading.rs"
+
+[[bin]]
+name = "mn-mp-split"
+path = "src/bin/mn_mp_split.rs"
+
+[[bin]]
+name = "mn-minus-mp-over-me"
+path = "src/bin/mn_minus_mp_over_me.rs"
+
+[[bin]]
+name = "alpha-em-augmented"
+path = "src/bin/alpha_em_augmented.rs"

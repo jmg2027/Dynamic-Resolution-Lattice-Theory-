@@ -1,8 +1,8 @@
 import E213.Hypervisor.Lens
-import E213.Research.RawInitiality
+import E213.Research.Raw.Initiality
 import E213.Research.AxiomMinimality
-import E213.Research.FoldStructured
-import E213.Research.DepthParityNotFold
+import E213.Research.Morphism.FoldStructured
+import E213.Research.Morphism.DepthParityNotFold
 
 /-!
 # Research.SemanticAtom: 213 = the atom of meaning (formal hub)

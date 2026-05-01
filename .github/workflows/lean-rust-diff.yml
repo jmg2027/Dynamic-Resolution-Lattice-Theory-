@@ -1,0 +1,54 @@
+name: Lean ↔ Rust differential equivalence
+
+on:
+  push:
+    branches:
+      - main
+      - 'claude/**'
+    paths:
+      - 'lean/E213/**'
+      - 'rust-engine/**'
+      - '.github/workflows/lean-rust-diff.yml'
+  pull_request:
+    paths:
+      - 'lean/E213/**'
+      - 'rust-engine/**'
+  workflow_dispatch:
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lean (elan)
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: lean
+          build-args: ''
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            rust-engine/target
+          key: cargo-${{ hashFiles('rust-engine/Cargo.lock') }}
+
+      - name: Build verify-citations
+        working-directory: rust-engine
+        run: cargo build --release --manifest-path tools/verify-citations/Cargo.toml
+
+      - name: Build lean-rust-diff
+        working-directory: rust-engine
+        run: cargo build --release --manifest-path tools/lean-rust-diff/Cargo.toml
+
+      - name: Run verify-citations (theorem-name resolution)
+        working-directory: rust-engine
+        run: cargo run --release --manifest-path tools/verify-citations/Cargo.toml
+
+      - name: Run lean-rust-diff (BigUint exact equality)
+        working-directory: rust-engine/tools/lean-rust-diff
+        run: ../../target/release/lean-rust-diff

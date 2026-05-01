@@ -1,5 +1,5 @@
-import E213.Research.IdentityLens
-import E213.Research.LensMeet
+import E213.Research.Lens.Identity
+import E213.Research.Lens.Meet
 
 /-!
 # Research.ProdBelowId: witness for Q39.2

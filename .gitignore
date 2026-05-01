@@ -1,9 +1,28 @@
+# Python
 __pycache__/
 *.pyc
 *.egg-info/
+
+# LaTeX build artifacts
 *.pdf
 *.aux
 *.log
 *.toc
 *.out
 *.synctex.gz
+
+# Rust build artifacts
+target/
+**/target/
+
+# Lean build artifacts
+.lake/
+*.olean
+*.ilean
+*.lean.cache
+
+# Editor / OS
+.DS_Store
+*~
+.idea/
+.vscode/
