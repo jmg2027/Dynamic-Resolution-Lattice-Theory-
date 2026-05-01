@@ -82,6 +82,12 @@ theorem add_left_cancel {a b c : Nat} (h : a + b = a + c) : b = c :=
   let h' : b + a = c + a := (Nat.add_comm b a).trans (h.trans (Nat.add_comm a c))
   add_right_cancel h'
 
+-- TODO: div / mod helpers.  `Nat.div_mul_le_self`, `Nat.div_add_mod`,
+-- `Nat.mod_add_div` all bring `propext` from Lean-core proofs, blocking
+-- ∅-axiom div_lt_of_lt_mul / le_div_of_mul_le.  Need to reprove the
+-- division-algorithm identity ∅-axiom via recursion, then derive the
+-- bounds.
+
 /-- From `b ≤ a` and `a ≠ b` deduce `a ≠ 0`. -/
 theorem ne_zero_of_le_ne {a b : Nat}
     (hge : b ≤ a) (hne : a ≠ b) : a ≠ 0 := by
