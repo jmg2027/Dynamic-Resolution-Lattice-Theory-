@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.DyadicLCMClosure
-import E213.Math.Cohomology.DyadicBitFSM
+import E213.Math.Cohomology.Dyadic.BitFSM
 
 /-!
 # Generic Fin pair encoding (Fin n × Fin m ↔ Fin (n * m))

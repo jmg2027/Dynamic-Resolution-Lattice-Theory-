@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.DyadicBitFSM
+import E213.Math.Cohomology.Dyadic.BitFSM
 
 /-!
 # Explicit signature period bound for BitFSM-generated streams

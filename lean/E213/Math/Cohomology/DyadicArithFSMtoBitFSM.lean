@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.DyadicArithFSMmod5
-import E213.Math.Cohomology.DyadicBitFSMBound
+import E213.Math.Cohomology.Dyadic.BitFSMBound
 
 /-!
 # ArithFSM2(n) ⊂ BitFSM(n²) — bit-stream equivalence

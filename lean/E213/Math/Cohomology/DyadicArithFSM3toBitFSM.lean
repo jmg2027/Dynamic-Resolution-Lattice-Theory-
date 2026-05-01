@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.DyadicArithFSM3
-import E213.Math.Cohomology.DyadicBitFSMBound
+import E213.Math.Cohomology.Dyadic.BitFSMBound
 
 /-!
 # ArithFSM3(n) ⊂ BitFSM(n³) — bit-stream-faithful encoding
