@@ -1,11 +1,37 @@
-# Session Handoff — rust-engine + 25+ precision cross-checks (53 bins)
+# Session Handoff — rust-engine + Tier-4 Path (c) closures (54 bins)
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed + pushed).
+`claude/213-rust-engine-SloKB` (committed + pushed; head = `0794c98`).
+
+## ★ 2026-05-01 update — Tier-4 CLOSED via Path (c)
+
+All three previously stuck composite-particle observables now
+closed (commits fceeeee, 75d0d44, 0794c98):
+
+| observable        | before    | after        | improvement |
+|-------------------|-----------|--------------|-------------|
+| m_n/m_p           | 195 ppm   | ~1 ppb       | 195×        |
+| (m_n − m_p)/m_e   | 1264 ppm  | ~24 ppm      | 53×         |
+| g_p               | 828 ppm   | ~0.097 ppm   | 8500×       |
+
+New 0-axiom Lean theorems (all `does not depend on any axioms`):
+- `HadronBigrading.mn_mp_split_atomic` — (9/32)·α_em·(1 − 45·α_em)
+- `HadronBigrading.mn_minus_mp_over_me_atomic` — Class C × Class F
+- `ProtonG.g_p_v2_atomic` — (22/4)·triple-α Class D
+
+Two new bins: `mn-mp-split`, `mn-minus-mp-over-me`; updated `proton-g`.
+Whitelist 99 → 101 OK.
+
+**Methodology lessons** (`docs/gaps-and-todos.md` §10):
+- L1 — π / ζ(2) are derived from finite Leibniz/Basel partials, not axiomatic
+- L2 — When stuck, strip transcendentals and re-search pure-rational bases
+- L3 — Composite (3-quark) targets need Class D triple cup-chains
+- L4 — Coefficient reuse across observables is structural evidence
+- L5 — Compositional closure (Class C × Class F) is free; check before hunter
 
 ## State
 
-### 1. rust-engine — 48 binaries, ℕ-only ☞ Lean 0-axiom trust path
+### 1. rust-engine — 51 binaries, ℕ-only ☞ Lean 0-axiom trust path
 - 5-crate workspace: kernel ← firmware ← hypervisor ← os ← app
 - 182/182 tests pass | 89/89 citations resolve at theorem-id level
 - BigUint only, no floats anywhere in runtime crates
