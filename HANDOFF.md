@@ -56,11 +56,47 @@ Physics/ flat root: **121 → 4** (-97%; remaining = Phase{1Final,2,3,4}.lean
 namespace aggregators).
 Created `Physics/INDEX.md`.
 
+### Phase4/Library consolidation (2026-05-01)
+
+27 small "X Library" stubs (each 27-72 lines, mostly with 2-5 trivial
+`decide` theorems) consolidated into 6 thematic files:
+
+  IE.lean         (192) — IEMethodology + AtomicFunctions +
+                          PeriodicCatalog (Z=1-36) + Period{5,6,7}IE
+                          + CompletePeriodicTable (7 originals)
+  Field.lean      (184) — QFT + QG + GR + StatPhys + Information +
+                          Optics + CondensedMatter + Topology +
+                          Particle (9 originals)
+  Material.lean   (111) — AtomicMass + Coupling + Hadron + Lepton +
+                          Molecular masses (5 originals)
+  Methodology.lean (63) — Math + Geometry (2 originals)
+  Mixing.lean      (50) — CKM + PMNS (2 originals)
+  Astro.lean       (51) — Cosmology + Nuclear (2 originals)
+
+Each merged file groups its sub-namespaces under explicit `--`
+banner sections; original namespaces preserved verbatim so that
+downstream `#print axioms E213.Physics.Phase4.Library.OpticsLibrary.X`
+still resolves.
+
+Phase4/Library result: **27 → 6 files** (-78%, content trimmed from
+1136 → 651 lines via boilerplate de-duplication).
+
 ### Verified post-reorg
 
   - `lake build` clean across full E213 tree
   - `lean-rust-diff` 43/43 OK (after updating diff harness lean_module
     paths to new sub-cluster locations)
+  - `tools/kernel_regress.sh`: 101 kernel theorems remain 0-axiom
+
+### Not consolidated (intentional)
+
+  - Math/Cohomology root: 19 utility files (50-80 lines each, distinct
+    purposes — Bridges, Encoding, Diamond, Audit, etc.).  Already
+    appropriately sized.
+  - Phase3/ root: 33 substantive derivation/capstone files
+    (60-180 lines each).
+  - Phase3/Translation/: 58 domain-distinct translation files —
+    semantic boundaries justify per-file structure.
 
 ### Notes
 
