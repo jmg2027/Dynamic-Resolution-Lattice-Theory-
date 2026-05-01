@@ -27,21 +27,39 @@ fn main() {
     println!("60·ζ(2)      ≈ {}", decimal(&sixty_zeta, 9));
     println!("30 + 60·ζ(2) ≈ {}", decimal(&denom, 9));
 
-    // sin²θ_W = 30 / (30 + 60·ζ(2))
-    let sin2_w: Q = (&thirty.0 * &denom.1, &thirty.1 * &denom.0);
-    // cos²θ_W = 60·ζ(2) / (30 + 60·ζ(2))
-    let cos2_w: Q = (&sixty_zeta.0 * &denom.1, &sixty_zeta.1 * &denom.0);
+    // sin²θ_W = 30 / (30 + 60·ζ(2)) — bare Class C
+    let sin2_w_bare: Q =
+        (&thirty.0 * &denom.1, &thirty.1 * &denom.0);
+    // α_GUT = 1 / (25·ζ(2))
+    let agut: Q = (zeta_tight.1.clone(), nat(25) * &zeta_tight.0);
+    // (1 − α_GUT/NS) Class B leak
+    let agut_3: Q = (agut.0.clone(), &agut.1 * nat(3));
+    let one: Q = (nat(1), nat(1));
+    let leak_num = &one.0 * &agut_3.1 - &agut_3.0 * &one.1;
+    let leak: Q = (leak_num, &one.1 * &agut_3.1);
+    // sin²θ_W tighter
+    let sin2_w: Q =
+        (&sin2_w_bare.0 * &leak.0, &sin2_w_bare.1 * &leak.1);
+    // cos²θ_W = 1 − sin²θ_W
+    let cos2_w_num =
+        &sin2_w.1 - &sin2_w.0;
+    let cos2_w: Q = (cos2_w_num, sin2_w.1.clone());
 
     println!();
-    println!("DRLT sin²θ_W (M_Z) = {}    ★", decimal(&sin2_w, 9));
-    println!("Observed (PDG)      ≈ 0.2312 ± 0.0001");
-    let obs_sin: Q = (nat(2312), nat(10000));
+    println!("Bare 30/(30+60ζ²)   = {}", decimal(&sin2_w_bare, 9));
+    println!("(1 − α_GUT/NS)      = {}  (k=NS=3)", decimal(&leak, 9));
+    println!();
+    println!("DRLT sin²θ_W (v2)  = {}    ★",
+        decimal(&sin2_w, 9));
+    println!("PDG MS-bar          ≈ 0.23121 ± 0.00012");
+    let obs_sin: Q = (nat(23121), nat(100000));
     let l = &sin2_w.0 * &obs_sin.1; let r = &obs_sin.0 * &sin2_w.1;
     let dn = if l > r { l - r } else { r - l };
     let diff: Q = (dn, &sin2_w.1 * &obs_sin.1);
-    let pct: Q = (&diff.0 * nat(10000) * &obs_sin.1, &diff.1 * &obs_sin.0);
-    println!("|Δ|                ≈ {} ({} ×10⁻⁴)",
-        decimal(&diff, 6), decimal(&pct, 2));
+    let ppm: Q = (&diff.0 * nat(1_000_000) * &obs_sin.1,
+                  &diff.1 * &obs_sin.0);
+    println!("|Δ|                ≈ {} ({} ppm — was 8200)",
+        decimal(&diff, 8), decimal(&ppm, 1));
 
     println!();
     println!("DRLT cos²θ_W      = {}    (= 1 − sin²θ_W)",
@@ -51,14 +69,15 @@ fn main() {
     // sqrt is irrational so report squared form.
     println!("DRLT m_W²/m_Z²    = {}    (= cos²θ_W)",
         decimal(&cos2_w, 9));
-    println!("Observed m_W²/m_Z² ≈ 0.7686");
-    let obs_cos: Q = (nat(7686), nat(10000));
+    println!("Observed m_W²/m_Z² ≈ 0.76879 (1 - 0.23121)");
+    let obs_cos: Q = (nat(76879), nat(100000));
     let l = &cos2_w.0 * &obs_cos.1; let r = &obs_cos.0 * &cos2_w.1;
     let dn = if l > r { l - r } else { r - l };
     let diff: Q = (dn, &cos2_w.1 * &obs_cos.1);
-    let pct: Q = (&diff.0 * nat(10000) * &obs_cos.1, &diff.1 * &obs_cos.0);
-    println!("|Δ|                ≈ {} ({} ×10⁻⁴)",
-        decimal(&diff, 6), decimal(&pct, 2));
+    let ppm: Q = (&diff.0 * nat(1_000_000) * &obs_cos.1,
+                  &diff.1 * &obs_cos.0);
+    println!("|Δ|                ≈ {} ({} ppm)",
+        decimal(&diff, 8), decimal(&ppm, 1));
 
-    println!("\nLean cite: WeinbergAngle.weinberg_simplicial_pattern (0-axiom)");
+    println!("\nLean cite: WeinbergAngle.sin2_W_v2_atomic (0-axiom)");
 }

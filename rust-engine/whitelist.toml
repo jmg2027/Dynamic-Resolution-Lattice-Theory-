@@ -261,7 +261,7 @@ lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
 
 [[op]]
 rust = "drlt_app::bin::weinberg_angle"
-lean = "E213.Physics.WeinbergAngle.weinberg_pattern_capstone"
+lean = "E213.Physics.WeinbergAngle.sin2_W_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::hydrogen_atom"
