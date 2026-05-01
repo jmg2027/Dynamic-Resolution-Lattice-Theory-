@@ -1328,7 +1328,7 @@ the surrounding mathematical and historical context.
 - `213/PAPER1_OUTLINE.md` — this paper's structural outline.
 - `213/research/infinity-as-lens/notes/` — numbered analysis
   notes 00-99.
-- `213/framework/E213/` — Lean 4 formalization (no Mathlib
+- `lean/E213/` — Lean 4 formalization (no Mathlib
   dependency).
 
 ### Tools

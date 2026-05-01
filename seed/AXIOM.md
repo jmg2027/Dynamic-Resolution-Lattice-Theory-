@@ -288,7 +288,7 @@ this axiom; discrepancies are corrected or isolated.
 
 ### §7.1 Lean formalization
 
-The current Raw implementation in `framework/E213/Firmware/` (2 elements a, b +
+The current Raw implementation in `lean/E213/Firmware/` (2 elements a, b +
 binary slash, anti-reflexive, commutative) is audited as a faithful machine
 representation of this axiom (2026-04-24, `AUDIT_Lean.md`).
 

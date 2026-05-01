@@ -1,6 +1,6 @@
 # AUDIT_Lean.md — Lean framework × AXIOM.md cross-check
 
-**Audit target**: `framework/E213/Firmware/`
+**Audit target**: `lean/E213/Firmware/`
 **Reference document**: `AXIOM.md` (2026-04-24)
 **Audit date**: 2026-04-24
 **Overall verdict**: **Faithful**.  No structural revision required.

@@ -3,7 +3,7 @@
 ## Abstract
 
 This document structurally demonstrates that the Raw framework implemented
-in `framework/E213/Firmware/` is a **faithful emulator** of the `AXIOM.md`
+in `lean/E213/Firmware/` is a **faithful emulator** of the `AXIOM.md`
 axiom.  Specifically:
 
 1. Each implementation device in Lean 4 core (inductive type, subtype,

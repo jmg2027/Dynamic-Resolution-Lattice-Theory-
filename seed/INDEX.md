@@ -32,11 +32,16 @@ made here in prose.
 ## Cross-references
 
 - `lean/E213/Firmware/Raw*.lean` — formal counterpart of `AXIOM.md`
-- `lean/E213/OS/Atomicity.lean` + `OS/PairForcing.lean` — formal
-  counterpart of "atomicity forces (NS=3, NT=2, d=5)"
-- `lean/E213/Physics/FiniteUniverse.lean` — formal counterpart
-  of `PHILOSOPHY.md` finitist position
+- `lean/E213/Firmware/Atomicity/Five.lean` +
+  `lean/E213/Firmware/Atomicity/PairForcing.lean` — formal
+  counterpart of "atomicity forces (NS=3, NT=2, d=5)".
+  (These were previously at `OS/` until 2026-05-XX dissolution;
+  see `lean/E213/ARCHITECTURE.md` for theory.)
+- `lean/E213/Physics/Foundations/FiniteUniverse.lean` — formal
+  counterpart of `PHILOSOPHY.md` finitist position
 - `LESSONS_LEARNED.md` (root) — guardrails extending PHILOSOPHY.md
+- `lean/E213/ARCHITECTURE.md` — canonical layer architecture
+  (where Firmware/Atomicity sub-cluster sits in the dependency graph)
 
 ## Status
 

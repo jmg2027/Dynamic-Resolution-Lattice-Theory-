@@ -1,16 +1,19 @@
-# CLAUDE.md — 213
+# CLAUDE-213.md — older session guide (HISTORICAL)
 
-## Status of this file
-
-Every session dealing with 213 must read this file before starting.
-The content may appear "philosophical," but skipping it causes more than
-one hour of confusion to recur every session (demonstrated across many
-past sessions).
+> **Status (2026-05-XX): superseded by root `CLAUDE.md`.**
+>
+> This file is the early session-guide draft.  The current
+> operational manual for agents is `CLAUDE.md` at the repository
+> root.  The current canonical theoretical architecture is
+> `lean/E213/ARCHITECTURE.md`.
+>
+> Retained for historical reference (seed-stage philosophy framing).
+> Do not consult as the current operational guide.
 
 **This file is a session guide; the axiom itself is in `AXIOM.md`.**
-The formal audit standard is `AXIOM.md` (seed document).  CLAUDE.md is
-the operational manual for preventing that axiom from being
-unconsciously violated during session work.
+The formal audit standard is `AXIOM.md` (seed document).  This older
+CLAUDE-213.md was the session manual prior to the root `CLAUDE.md`
+that now incorporates organizational philosophy + agent instructions.
 
 ## Identity of 213
 
@@ -196,7 +199,7 @@ derivation).  Derivation is explored freely in `research/notes/`
 - `IMPLEMENTATION.md` — Raw + Firmware implementation audit study.
 - `AUDIT_Lean.md` — Lean × AXIOM cross-check audit.
 - `research/notes/` — 5 reference notes (17, 19, 30, 75, 76).
-- `framework/E213/` — Lean 4 core formalization.
+- `lean/E213/` — Lean 4 core formalization.
 - Root `../HANDOFF.md` — session arc continuity.
 
 ## Author & licence
