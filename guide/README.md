@@ -7,11 +7,15 @@ formalized 213-internal derivation.
 
 ## Why this guide exists
 
-`papers/` contains 16 .tex papers + the 22-chapter `drlt-book/` monograph.
-They were written before 213 reached its present form, and many were
-phrased in pre-213 vocabulary (Frobenius classification, π₁ topology,
-SU(N) representation theory). Research grew faster than the papers were
-re-edited, leaving the deductive sequence scattered.
+`papers/` is now a **DEPRECATED ARCHIVE** (see `papers/README.md`):
+16 .tex papers + the 22-chapter `drlt-book/` monograph, written before
+213 reached its present form and phrased in pre-213 vocabulary
+(Frobenius classification, π₁ topology, SU(N) representation theory).
+The current authoritative material is in `lean/E213/` + the root docs
+(`HANDOFF.md`, `LESSONS_LEARNED.md`, `STRICT_ZERO_AXIOM.md`).  Cross-
+references to `papers/...` below remain valid as pointers to
+archived narrative content, but should not be taken as the current
+state of 213.
 
 `lean/E213/` is the formalized 213 theory body — Mathlib-free,
 axiom-free for Kernel and Phase 1 Physics. But its 634 files are not

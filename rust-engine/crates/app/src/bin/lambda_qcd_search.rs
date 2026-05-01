@@ -20,6 +20,11 @@
 //! Whitelist row points at `lambda_qcd_phantom_count` (the counting
 //! decomposition the binary prints).  The numerical-search portion
 //! over alternative atomic monomials remains exploratory.
+//!
+//! Diagnostic/search tool: scheme-dependent ratio printout uses f64
+//! for percentage-deviation display only.  Production trust path is
+//! the BigUint count `d²·NT²·(NS²−1) = 800` via Lean.
+#![allow(clippy::float_arithmetic)]
 
 fn main() {
     // Observed:  v_H ≈ 246 GeV (EW vev),  Λ_QCD ≈ 308 MeV (MSbar).

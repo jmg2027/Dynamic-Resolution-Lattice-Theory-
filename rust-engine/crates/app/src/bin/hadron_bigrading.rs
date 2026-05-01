@@ -8,6 +8,11 @@
 //! Initial assumption: w(B) = chiralDim(i, j) = C(NS, i)·C(NT, j).
 //! Iterate over all S↔T-swap pairs, report best match to
 //! observed m_n/m_p = 1.001378.
+//!
+//! Diagnostic/search tool: ratio comparison uses f64 for sortable
+//! "best match" output.  Production trust path remains BigUint via
+//! the corresponding Lean theorems (`HadronBigrading.lean`).
+#![allow(clippy::float_arithmetic)]
 
 fn binom(n: u64, k: u64) -> u64 {
     if k > n { return 0; }
