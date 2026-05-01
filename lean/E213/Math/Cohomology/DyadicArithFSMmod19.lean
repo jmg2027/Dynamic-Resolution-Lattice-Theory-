@@ -57,7 +57,7 @@ theorem pellFSMmod19_bits_period_18 :
   intro k
   have h1 := pellFSMmod19_bits_period_9 (k + 9)
   have h2 := pellFSMmod19_bits_period_9 k
-  have hreshape : k + 18 = (k + 9) + 9 := by omega
+  have hreshape : k + 18 = (k + 9) + 9 := (Nat.add_assoc k 9 9).symm
   rw [hreshape, h1, h2]
 
 /-- ★★★★★ Pell mod-19 signature has period 18 (TIGHT, doubled). -/
