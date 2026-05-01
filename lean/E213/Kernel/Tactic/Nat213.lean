@@ -72,6 +72,16 @@ theorem cases_lt_three {n : Nat} (h : n < 3) :
   | Or.inr hge =>
     Or.inr (Or.inr (Nat.le_antisymm (Nat.le_of_lt_succ h) hge))
 
+/-- `a + c = b + c → a = b`.  ∅-axiom (Lean-core brings propext). -/
+theorem add_right_cancel : ∀ {a b c : Nat}, a + c = b + c → a = b
+  | _, _, 0, h => h
+  | _, _, _+1, h => add_right_cancel (Nat.succ.inj h)
+
+/-- `a + b = a + c → b = c`.  ∅-axiom. -/
+theorem add_left_cancel {a b c : Nat} (h : a + b = a + c) : b = c :=
+  let h' : b + a = c + a := (Nat.add_comm b a).trans (h.trans (Nat.add_comm a c))
+  add_right_cancel h'
+
 /-- From `b ≤ a` and `a ≠ b` deduce `a ≠ 0`. -/
 theorem ne_zero_of_le_ne {a b : Nat}
     (hge : b ≤ a) (hne : a ≠ b) : a ≠ 0 := by
