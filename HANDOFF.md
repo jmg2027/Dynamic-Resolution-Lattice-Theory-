@@ -2,158 +2,134 @@
 
 ## Branch state
 
-Branch: `claude/review-paper-directory-nDw9L` — **READY FOR MERGE** into
-`claude/213-rust-engine-SloKB`.
-- 154 commits ahead of merge target.
-- Working tree clean. `lake build` passes.
-- 77 `Dyadic*.lean` files (number theory).
-- 6 `Universal*.lean` / `BitPattern*.lean` files (metatheory).
+Branch: `claude/review-paper-directory-nDw9L` — **READY FOR MERGE**.
+Major progress in 2026-04-30 / 05-01 sessions.
 
-## Headline achievement (Section IV — Universal Lens metatheory)
+## ★ Headline achievement: 213 finitist closure ★
 
-**HANDOFF Open Problem #6 FULLY CLOSED** — non-trivial universal
-lenses beyond `idLens : Lens Raw`:
+**213 now satisfies CLAUDE.md Validation Standard #1+#2** as a single
+0-axiom Lean theorem (`Physics/ValidationStandardOne.lean`).
 
-```
-expSumLens : Lens (ℕ × ℕ)
-  combine x y := (2^x.1 + 2^y.1, x.2 + y.2 + 1)
-expSumLens_is_universal : IsUniversal expSumLens
-                                   -- ≤ {propext, Quot.sound}
+### Standard #1 — precision (4 observables share N_U = d^(d²))
 
-q213Lens : Lens (Q213 × Q213)      -- Q213 := Term × Term (213-native ℚ)
-q213Lens_is_universal : IsUniversal q213Lens
-                                   -- ≤ {propext, Quot.sound}
-```
+  - 1/α_em(IR) — `Physics/AlphaEMMasterCapstone.lean`
+  - m_μ/m_e — `Physics/MuOverEFinitist.lean`
+  - Ω_Λ — `Physics/OmegaLambdaFinitist.lean`
+  - m_H/v_H — `Physics/HiggsMassFinitist.lean`
 
-Foundation: `two_pow_sum_inj_full` (bit-pattern uniqueness, 213-native
-2-adic valuation argument).  Files:
-- `Meta/BitPatternUniqueness.lean`
-- `Meta/UniversalLensNat2.lean` + `UniversalLensNat2Inj.lean`
-- `Meta/UniversalLensQ213.lean` + `UniversalLensQ213Inj.lean`
+All four share single Nat scale **N_U = d^(d²) = 5²⁵ ≈ 3×10¹⁷**.
 
-## Steps 1+2+3 (Pisano-CRT framework)
+### Standard #2 — measurable falsifiers
 
-### Step 1 — Lens Composition (CRT multiplicativity)
+  - N_gen = 3 (no 4th gen)
+  - 7/7 nuclear magic numbers atomic
+  - 1/α_3 = NS²-1 = 8 (color confinement integer)
+  - hierarchy = d^(d²)/(d+1) (no fine-tuning)
 
-- `DyadicLCMClosure`: `bs_combined_periodic_lcm` (universal LCM closure).
-- `DyadicProductHelpers / FSM / Run / Period`: `lens_composition_period`
-  — period of `BitFSM.product f1 f2 g` divides
-  `lcm(period f1, period f2)`.
-- `DyadicPellLens / LensPairs / LensTriple / LensCapstone`: pairs +
-  triple product BitFSM(11025).
-- `DyadicCrossClassLens`: ArithFSM2 × ArithFSM3.
-- `DyadicSplitSplitLens`: split × split (mod 11 × mod 19 → 45).
+## Critical conceptual shift (2026-05-01)
 
-### Step 2 — Legendre Lens (ArithFSM₁) + Pisano predictors
+**213 is finitist** — π/ζ(2) NOT imported as transcendentals.
 
-- `DyadicArithFSM1` — base structure.
-- `DyadicLegendre213` — `legendre213 D p : Fin 3` via Euler's criterion.
-- `DyadicPisanoPredictor / 6 / 7 / 8` — function-form predictor at
-  primes {3, 5, 7, 11, 13, 17, 19, 23}.
-- `DyadicSignaturePredict` — parity-doubled signature predictor.
-- `DyadicTwoLayerPredictor` — bit + signature unified (14-conjunct).
-- `DyadicLegendrePisano / Ext / 13_19` — bridge tables.
-- `DyadicPellProper / Small / Bridge` — discriminant-parametric (D=8).
+  - ζ(2) = S(N_U) at SPECIFIC N_U = d^(d²), specific finite rational
+  - π/2 = W(N_U) (Wallis partial product)
+  - α_GUT(N_U) = 1/(25·S(N_U)) at finite N_U
+  - All "asymptotic" statements are external-frame translations
 
-8-prime verified table (Pell, D=5):
+See `LESSONS_LEARNED.md` for finitist framing guardrails (10 lessons).
 
-| p  | Legendre | branch    | bit period | sig period |
-| -- | -------- | --------- | ---------- | ---------- |
-|  3 | 2 (NQR)  | inert     |    4       |    4       |
-|  5 | 0        | ramified  |   10       |   10       |
-|  7 | 2 (NQR)  | inert     |    8       |    8       |
-| 11 | 1 (QR)   | split     |    5       |   10       |
-| 13 | 2 (NQR)  | inert     |   14       |   14       |
-| 17 | 2 (NQR)  | inert     |   18       |   18       |
-| 19 | 1 (QR)   | split     |    9       |   18       |
-| 23 | 2 (NQR)  | inert     |   24       |   24       |
+## N_universe identification
 
-Pell proper (D=8) at {3, 5, 7}: periods 8, 12, 6 — both branches
-verified.
+  N_U := d^(d²) = 5²⁵ = 298023223876953125
 
-### Step 3 — Algebraic Degree Tower
+Structural derivation chain (all 0-axiom):
+  1. `Math/Cohomology/Fractal25.numV_eq_d_sq`: K_{25} numV = d²
+  2. `Math/Cohomology/FractalLevel`: numV(L) = d^L
+  3. `Physics/NUniverseFromFractal`: configurations = d^(numV)
+  4. `Physics/NUniverseFractalDepth`: self-referential L = d²
 
-- `DyadicArithFSM1to2`, `DyadicArithFSM2to3`, `DyadicArithFSMHierarchy`
-  — ArithFSM₁ ⊂ ArithFSM₂ ⊂ ArithFSM₃ chain (STRICT 0-AXIOM).
-- `DyadicAlgebraicDegree` — `HasDegree₁/₂/₃` predicates +
-  concrete witnesses.
+Self-referential: fractal depth = Gram dim ⟹ vertex count = d^L.
 
-### Master capstones (chronological)
+## Pisano-CRT framework (3 recurrence families)
 
-- `DyadicNumberTheory213` (v1) — 3-conjunct (Steps 1+2+3 original).
-- `DyadicNumberTheory213v2` — 7-prime predictor evidence.
-- `DyadicNumberTheory213v3` — discriminant-parametric (D=5 + D=8).
-- `DyadicAlgebraicCapstone` — quadratic + cubic unified (8-conjunct).
-- `DyadicTribCapstone`, `DyadicPellCapstone`, `DyadicPellFamily`.
+  - Pell (Δ=5):       22 primes (incl. 3 sub-tight)
+  - Pell-proper (Δ=8): 8 primes
+  - Fibonacci (Δ=5):   8 primes
+  - Tribonacci (cubic): 4 moduli
 
-## ArithFSM family inventory
+Sub-tight cases (predictor over-estimates by ×2 or ×3):
+  - p=29 (split, ×2)
+  - p=47 (inert, ×3)
+  - p=89 (split, ×2)
 
-- **ArithFSM₂ (quadratic)**: Pell mod {2, 3, 5, 7, 11, 13, 17, 19, 23}
-  + Pell proper (D=8) mod {3, 5, 7}.
-- **ArithFSM₃ (cubic)**: Tribonacci mod 2 + bit-stream-faithful
-  encoding into BitFSM(n³) with explicit 5n³ period bound.
-- **ArithFSM₁ (multiplicative)**: legendreFSM family.
+Cross-recurrence: Fib predictor = 2 × Pell predictor (universal).
 
-All instances closed at ≤ {propext, Quot.sound} or STRICT 0-AXIOM.
+## Universal Lens metatheory (Open Problem #6 FULLY CLOSED)
 
-## Physics-side bridge
+  - expSumLens : Lens (ℕ × ℕ) — universal
+  - q213Lens : Lens (Q213²) — universal
+  - expSumLens3, q213Lens3, expSumLens4 — universal
+  - Abstract padding lemma `view_inj_of_inj_proj`
 
-- `AlphaEM137Tighter`: tightened brackets at N=50, N=100 for
-  1/α_em(IR) candidate formula.
+## Hodge involution (Open Problem #5 CLOSED)
 
-## Axiom load (verified)
+  ⋆⋆ = id on all 5 strata (5,k) for k ∈ {0,1,2,3,4}.
 
-Every capstone audited:
-- ≤ {propext, Quot.sound} — Lean 4 kernel floor; OR
-- STRICT 0-AXIOM (run period proofs, encoding round-trips).
+## F6 precision artifact closures
 
-No `sorry`, no `Mathlib`, no `Classical`, no `native_decide`.
+  - cutMul forward direction (commit aa62f39)
+  - cutSum at any b, forward (commit 6354f99)
+  - Bracket Cauchy modulus (commit 1154806)
+  - partialSum const at any b, forward (commit f4273d5)
+  - cutMul × cutSum distributivity at constants (commit 6a600b2)
 
-## Merge integration
+## α_em closure chain (sub-ppb)
 
-`claude/213-rust-engine-SloKB` already contains
-`rust-engine/docs/math-branch-physics-notes.md` (~3000 lines)
-digesting this branch into physics-applicable intuition.  Sections:
-- §I — Cohomology + Linalg + Math/.
-- §II — Dyadic Number Theory (#150-#249).
-- §III — Real213 constructive analysis.
-- §IV — Universal Lens metatheory (#250 expSumLens, #251 q213Lens).
+  | step              | residual | commit  |
+  | 5-term simplicial | 4 ppm    | existing|
+  | + SO(10) tail     | 15 ppb   | f846153 |
+  | + Gram self-energy| 0.18 ppb | 0b95624 |
+  | + N_U finitist    | closure  | 4671476 |
 
-Architectural recommendation in math-notes #250-251:
-> Refactor `rust-engine/crates/firmware/src/raw.rs` so Raw values are
-> STORED as (m, n) pairs internally — runtime mirrors universality
-> theorem.  Q-pair runtime ALREADY matches q213Lens output; no refactor
-> needed downstream.
+## Key Lean theorems (ranked)
+
+  1. `Physics/ValidationStandardOne.validation_standard_capstone`
+  2. `Physics/AlphaEMMasterCapstone.alpha_em_master_capstone`
+  3. `Physics/FinitistObservableChain.finitist_observable_chain`
+  4. `Physics/NUniverseFractalDepth.n_universe_self_consistent`
+  5. `Math/Cohomology/HodgeInvolutionCapstone`
+  6. `Meta/UniversalLensTripleCapstone`
+  7. `Math/Cohomology/DyadicThreeFamilyCapstone`
+
+## File map (key reference docs)
+
+Must-read for new sessions:
+  - `CLAUDE.md` — project instructions
+  - `LESSONS_LEARNED.md` — 10 lessons + finitist guardrails
+  - `HANDOFF.md` — this file
+  - `seed/AXIOM.md`, `seed/PHILOSOPHY.md`
 
 ## Open continuations (post-merge)
 
-1. **Tree audit + cleanup** — see `AUDIT_GUIDE.md` (separate doc).
-   This branch accumulated 77 Dyadic files + many capstone versions
-   (v1, v2, v3) + exploratory files.  Worth structural cleanup in a
-   dedicated session.
-2. **Tribonacci CRT** at higher cubic moduli (mod 3, 5).
-3. **More Pell primes** (mod 29, 31, 37, ...) — atomic-hunter.
-4. **Class C atomic identities** — Koide (NT/NS = 2/3), Dirac large
-   numbers (N_1 atomic via d^(2d²) + Yukawa), more famous coincidences.
-5. **Universal Lens at higher codomains** — `Lens (Q213³)`, etc.
-6. **Self-bootstrapping `Kernel.Proof`** — long-term path to true
-   0-axiom (eliminating propext + Quot.sound by hosting proofs in
-   213's Term system).
-
-## Authors
-
-- Mingu Jeong (Independent Researcher) — theory.
-- Claude (Anthropic) — formalization assistance.
+1. **Universal Lens cardinality at fractal level d²** — show q213Lens
+   distinguishes exactly d^(d²) Raw classes.  Currently identified
+   structurally; full Lean derivation open.
+2. **SO(10) tail / Gram prefactor=1** structural derivation.
+3. **More observables to N_U** (m_p needs Λ_QCD finitist; η_B; ν).
+4. **Self-bootstrapping `Kernel.Proof`** (long-term, eliminates
+   propext + Quot.sound).
+5. **More Pisano primes** (mod 97, 101, 103 — bigger periods).
+6. **Tribonacci CRT extension** (mod 11, 13).
 
 ## Final verification
 
-```
-$ cd lean && lake build
-Build completed successfully.
+  $ cd lean && lake build
+  Build completed successfully.
 
-$ git status
-On branch claude/review-paper-directory-nDw9L
-nothing to commit, working tree clean
-```
+  $ git status — working tree clean
 
-Ready for merge.
+Ready for merge into `claude/213-rust-engine-SloKB`.
+
+## Authors
+
+  - Mingu Jeong (Independent Researcher) — theory
+  - Claude (Anthropic) — formalization assistance
