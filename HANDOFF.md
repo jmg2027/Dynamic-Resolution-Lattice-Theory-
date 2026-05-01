@@ -1,7 +1,21 @@
 # Session Handoff — ★★★ FIRST MILESTONE CLOSED ★★★
 
 ## Branch
-`claude/213-rust-engine-SloKB` (committed + pushed; head = `eb9bcd2`).
+`claude/213-rust-engine-SloKB` (committed; head = `f326b56`).
+
+## Repo-wide cleanup (2026-05-01) — extension beyond lean/E213/
+
+| Area | Status | Note |
+|---|---|---|
+| `AUDIT_GUIDE.md` | ✅ marked SUPERSEDED | explicit phase outcomes recorded; narrative preserved |
+| `guide/README.md` | ✅ updated | DEPRECATED ARCHIVE callout for `papers/` |
+| Stale Lean file refs in narrative docs | ✅ fixed (8ed0800) | books/, blueprints/, research-notes/, catalogs/, rust-engine/docs/: 12+ DyadicX.lean and Real213X.lean references updated to post-Phase-3 sub-cluster paths |
+| `tools/kernel_regress.sh` smoke | ✅ | 101 kernel theorems verified 0-axiom |
+| `cargo build` | ✅ clean | 5-crate workspace + 61 binaries |
+| `cargo test --lib` | ✅ 13/13 | library tests |
+| `cargo test --tests --skip all_binaries_smoke` | ✅ 183/183 | integration tests (skips slow 48-binary smoke) |
+| `cargo clippy` errors | ✅ 0 (was 5) | f326b56: `#![allow(clippy::float_arithmetic)]` on diagnostic-only binaries `hadron_bigrading` and `lambda_qcd_search` (production trust path is BigUint via Lean) |
+| `cargo clippy` warnings | 🟡 12 advisory | minor stylistic (redundant_closure, manual is_multiple_of, etc.) — not blocking |
 
 ## Phase Closure (2026-05-01) — all in-scope phases SETTLED
 
