@@ -69,4 +69,15 @@ theorem signatures_distinct :
         ≠ signature (periodicBit [false, false, true]) 9 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
+/-- ★ Pointwise-equality lemma — replacement for `funext` in
+    contexts where two bit-streams agree pointwise.  Strict-zero
+    axiom: structural induction, no propext / no Quot.sound. -/
+theorem signature_eq_of_pointwise_eq (bs₁ bs₂ : Nat → Bool)
+    (h : ∀ k, bs₁ k = bs₂ k) : ∀ n, signature bs₁ n = signature bs₂ n
+  | 0 => rfl
+  | n + 1 =>
+    show nextVertex (signature bs₁ n) (bs₁ n)
+        = nextVertex (signature bs₂ n) (bs₂ n)
+    by rw [signature_eq_of_pointwise_eq bs₁ bs₂ h n, h n]
+
 end E213.Math.Cohomology.DyadicConjecture

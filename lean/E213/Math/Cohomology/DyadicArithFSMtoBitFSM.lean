@@ -74,7 +74,8 @@ theorem toBitFSM_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
   show m.out (aDec, bDec) = _
   rw [hdec]
 
-/-- ★★★★★ ArithFSM2(n) signature has explicit period bound 5n². -/
+/-- ★★★★★ ArithFSM2(n) signature has explicit period bound 5n².
+    Strict-zero axiom (uses signature_eq_of_pointwise_eq instead of funext). -/
 theorem arithFSM2_signature_period_bound {n : Nat} (hn : 0 < n)
     (m : ArithFSM2 n) :
     ∃ N P, 0 < P ∧ N + P ≤ 5 * (n * n)
@@ -84,11 +85,15 @@ theorem arithFSM2_signature_period_bound {n : Nat} (hn : 0 < n)
     fsm_signature_period_bound (m.toBitFSM hn) hnn
   refine ⟨N, P, hP, hbound, ?_⟩
   intro k hk_ge
-  have hbits_fn_eq : (m.toBitFSM hn).bits = m.bits :=
-    funext (toBitFSM_bits_eq hn m)
+  have h_pt : ∀ j, (m.toBitFSM hn).bits j = m.bits j := toBitFSM_bits_eq hn m
   have ⟨h_sig, _⟩ := hk k hk_ge
-  rw [hbits_fn_eq] at h_sig
-  exact h_sig
+  -- h_sig : signature (m.toBitFSM hn).bits (k+P) = signature (m.toBitFSM hn).bits k
+  -- Use pointwise equality lemma (strict-zero axiom) instead of funext.
+  have h1 : signature (m.toBitFSM hn).bits (k + P) = signature m.bits (k + P) :=
+    signature_eq_of_pointwise_eq _ _ h_pt (k + P)
+  have h2 : signature (m.toBitFSM hn).bits k = signature m.bits k :=
+    signature_eq_of_pointwise_eq _ _ h_pt k
+  exact h1.symm.trans (h_sig.trans h2)
 
 /-- ★★★★★★ Pell mod-5 signature: explicit period bound 125 = 5·25. -/
 theorem pellFSMmod5_signature_period_bound :
