@@ -16,6 +16,8 @@
 | m_n/m_e (cascade) | 19 ppm    | ~0.06 ppm    | L5 free     | 46cd34e |
 | m_τ/m_e (cascade) | 106 ppm   | ~3 ppm       | L5 free     | c3f2953 |
 | r_p · m_p / ℏc    | 195 ppm   | ~0.84 ppm    | 232×        | 58ce59e |
+| 1/α_em (math import)| 70 ppb  | **0.18 ppb** | 388×        | 16281c4 |
+| sin²θ₁₂ Pythagorean| 8500 ppm | **2255 ppm** | 4× (L1-strong) | 8c372f0 |
 
 Closed forms (all 0-axiom in Lean):
 
@@ -51,6 +53,10 @@ evidence of unified K_{3,2}^{(c=2)} cohomology, not coincidence:
 | 90     | NT·45 = NS²·NT·d     | g_p α_em² coef                       |
 | 125    | d³ = 3D vol          | r_p Class B leak                     |
 | 1296   | (NS·NT)⁴ = 6⁴        | m_p/m_e 4-edge cup-chain             |
+| 13     | NS² + NT² (Pythag)   | sin²θ₁₂ = NT²/(NS²+NT²) (NEW L1-strong) |
+| 27     | NS³ = E6 fundamental | (FamousCoincidencesIV cherry-pick)   |
+| 120    | d! = S₅ = 600-cell   | (FamousCoincidencesIV cherry-pick)   |
+| 240    | E8 root count        | (FamousCoincidencesIV cherry-pick)   |
 
 New 0-axiom Lean theorems (all `does not depend on any axioms`):
 - `HadronBigrading.{mn_mp_split,mn_minus_mp_over_me,mn_over_me_cascade}_atomic`
