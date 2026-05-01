@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAW
+import E213.Math.Cohomology.CupAW.Core
 import E213.Math.Cohomology.UniversalProp31
 
 /-!
@@ -11,7 +11,7 @@ Confirms the AW overlap convention is consistent with Leibniz
 across multiple atomic substrates.
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibnizSmall
+namespace E213.Math.Cohomology.CupAW.LeibnizSmall
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.UniversalProp31 (pattern)
@@ -37,4 +37,4 @@ theorem leibniz_universal_3_1_1
   rw [UniversalProp31.pattern_eq α, UniversalProp31.pattern_eq β]
   exact leibniz_pattern_3_1_1 _ _ _ _ _ _ i
 
-end E213.Math.Cohomology.CupAWLeibnizSmall
+end E213.Math.Cohomology.CupAW.LeibnizSmall

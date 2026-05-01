@@ -1,14 +1,14 @@
-import E213.Math.Cohomology.CupAWLeibnizAlgLift21
-import E213.Math.Cohomology.CupAWLeibnizAlgLift21Alpha
-import E213.Math.Cohomology.CupAWLeibniz22Bridge
+import E213.Math.Cohomology.CupAW.LeibnizAlgLift21
+import E213.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha
+import E213.Math.Cohomology.CupAW.Leibniz22Bridge
 
 /-!
 # bz5_1 ↔ basis/zero rewrite for (5, 2, 1) lift
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibniz21Bridge
+namespace E213.Math.Cohomology.CupAW.Leibniz21Bridge
 
-open E213.Math.Cohomology.CupAWBasisLeibniz (basis)
+open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Math.Cohomology.Cochain5_1DecompR (bz5_1)
 
 /-- bz5_1 with β k = false reduces to Cochain.zero. -/
@@ -31,4 +31,4 @@ theorem bz5_1_true (β : Cochain 5 1) (k : Fin 5)
   show ((k.val == j.val) && true) = (k.val == j.val)
   cases (k.val == j.val) <;> rfl
 
-end E213.Math.Cohomology.CupAWLeibniz21Bridge
+end E213.Math.Cohomology.CupAW.Leibniz21Bridge

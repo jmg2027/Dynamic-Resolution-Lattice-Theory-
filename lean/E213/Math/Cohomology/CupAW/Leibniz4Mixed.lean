@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAW
+import E213.Math.Cohomology.CupAW.Core
 import E213.Math.Cohomology.UniversalProp41
 import E213.Math.Cohomology.UniversalProp42
 
@@ -14,7 +14,7 @@ Together with (4, 1, 1) and (3, 1, 1), this closes Cup Leibniz
 universal across all interior strata of Δ², Δ³.
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibniz4Mixed
+namespace E213.Math.Cohomology.CupAW.Leibniz4Mixed
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.UniversalProp41 (pattern)
@@ -66,4 +66,4 @@ theorem leibniz_universal_4_2_2
   rw [UniversalProp42.pattern_eq α, UniversalProp42.pattern_eq β]
   exact leibniz_pattern_4_2_2 _ _ _ _ _ _ _ _ _ _ _ _ i
 
-end E213.Math.Cohomology.CupAWLeibniz4Mixed
+end E213.Math.Cohomology.CupAW.Leibniz4Mixed

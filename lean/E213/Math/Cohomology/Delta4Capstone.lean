@@ -3,7 +3,7 @@ import E213.Math.Cohomology.UniversalProp52
 import E213.Math.Cohomology.UniversalProp53
 import E213.Math.Cohomology.HodgeProp
 import E213.Math.Cohomology.HodgeProp52
-import E213.Math.Cohomology.CupAWLeibniz
+import E213.Math.Cohomology.CupAW.Leibniz
 import E213.Math.Cohomology.EncodingBijection
 
 /-!

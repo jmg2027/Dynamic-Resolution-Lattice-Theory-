@@ -1,6 +1,6 @@
-import E213.Math.Cohomology.CupAWLeibniz
-import E213.Math.Cohomology.CupAWLeibnizSmall
-import E213.Math.Cohomology.CupAWLeibnizMid
+import E213.Math.Cohomology.CupAW.Leibniz
+import E213.Math.Cohomology.CupAW.LeibnizSmall
+import E213.Math.Cohomology.CupAW.LeibnizMid
 import E213.Math.Cohomology.EncodingBijection52
 
 /-!
@@ -28,7 +28,7 @@ Encoding bijection at (5, 2) is now closed (`EncodingBijection52`)
 and provides the bridge for any future Bool-level (5, 1, 2) result.
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibnizScaling
+namespace E213.Math.Cohomology.CupAW.LeibnizScaling
 
 open E213.Physics.Simplex (binom)
 
@@ -51,4 +51,4 @@ theorem leibniz_aw_universal_closed_cases :
    CupAWLeibnizMid.leibniz_universal_4_1_1,
    CupAWLeibniz.leibniz_universal_5_1_1⟩
 
-end E213.Math.Cohomology.CupAWLeibnizScaling
+end E213.Math.Cohomology.CupAW.LeibnizScaling

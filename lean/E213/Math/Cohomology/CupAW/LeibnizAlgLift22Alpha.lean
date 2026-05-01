@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAWLeibnizAlgLift22
+import E213.Math.Cohomology.CupAW.LeibnizAlgLift22
 
 /-!
 # Algebraic Leibniz lift at (5, 2, 2) — α-side lens
@@ -7,7 +7,7 @@ For β fixed (typically `basis 5 2 q`), decompose α : Cochain 5 2
 into 10 basis components and apply bilinearity in α.
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibnizAlgLift22Alpha
+namespace E213.Math.Cohomology.CupAW.LeibnizAlgLift22Alpha
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.Cochain5_2Decomp (decomp_5_2 decomp_5_2_eq bz5_2)
@@ -49,4 +49,4 @@ theorem leibniz_via_α_decomp_22
     (cupAW 5 2 3 (bz5_2 α ⟨8, by decide⟩) (delta β) i)
     (cupAW 5 2 3 (bz5_2 α ⟨9, by decide⟩) (delta β) i)
 
-end E213.Math.Cohomology.CupAWLeibnizAlgLift22Alpha
+end E213.Math.Cohomology.CupAW.LeibnizAlgLift22Alpha

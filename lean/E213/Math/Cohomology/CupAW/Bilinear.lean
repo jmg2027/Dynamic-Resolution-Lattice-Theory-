@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAW
+import E213.Math.Cohomology.CupAW.Core
 
 /-!
 # Cup AW — Bool-bilinearity (XOR distributes both sides)

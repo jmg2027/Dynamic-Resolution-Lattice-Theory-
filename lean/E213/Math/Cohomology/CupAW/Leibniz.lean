@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAW
+import E213.Math.Cohomology.CupAW.Core
 import E213.Math.Cohomology.UniversalProp51
 
 /-!
@@ -15,7 +15,7 @@ cup failed (per LeibnizFinding).
 Pattern enumeration: 32 × 32 = 1024 (α, β) pairs × 10 indices.
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibniz
+namespace E213.Math.Cohomology.CupAW.Leibniz
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.UniversalProp51 (pattern)
@@ -42,4 +42,4 @@ theorem leibniz_universal_5_1_1
   rw [UniversalProp51.pattern_eq α, UniversalProp51.pattern_eq β]
   exact leibniz_pattern_5_1_1 _ _ _ _ _ _ _ _ _ _ i
 
-end E213.Math.Cohomology.CupAWLeibniz
+end E213.Math.Cohomology.CupAW.Leibniz

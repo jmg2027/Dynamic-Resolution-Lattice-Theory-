@@ -1,6 +1,6 @@
-import E213.Math.Cohomology.CupAWBilinearFunc
-import E213.Math.Cohomology.CupAWZero
-import E213.Math.Cohomology.CupAWBasisLeibniz
+import E213.Math.Cohomology.CupAW.BilinearFunc
+import E213.Math.Cohomology.CupAW.Zero
+import E213.Math.Cohomology.CupAW.BasisLeibniz
 import E213.Math.Cohomology.Cochain5_1DecompR
 import E213.Math.Cohomology.Cochain5_2Decomp
 import E213.Math.Cohomology.XorPairCombine
@@ -13,7 +13,7 @@ reduce to per-component (∀ α, basis_k) Leibniz, close residual
 via `combine_5`.
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibnizAlgLift21
+namespace E213.Math.Cohomology.CupAW.LeibnizAlgLift21
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.Cochain5_1DecompR (decomp_5_1 decomp_5_1_eq bz5_1)
@@ -45,4 +45,4 @@ theorem leibniz_via_β_decomp_21
     (cupAW 5 2 2 α (delta (bz5_1 β ⟨3, by decide⟩)) i)
     (cupAW 5 2 2 α (delta (bz5_1 β ⟨4, by decide⟩)) i)
 
-end E213.Math.Cohomology.CupAWLeibnizAlgLift21
+end E213.Math.Cohomology.CupAW.LeibnizAlgLift21

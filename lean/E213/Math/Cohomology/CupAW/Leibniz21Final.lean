@@ -1,18 +1,18 @@
-import E213.Math.Cohomology.CupAWLeibniz21Bridge
+import E213.Math.Cohomology.CupAW.Leibniz21Bridge
 
 /-!
 # (5, 2, 1) Universal Cup AW Leibniz — closed via two-lens lift
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibniz21Final
+namespace E213.Math.Cohomology.CupAW.Leibniz21Final
 
 open E213.Physics.Simplex (binom)
-open E213.Math.Cohomology.CupAWBasisLeibniz (basis basis_leibniz_5_2_1)
+open E213.Math.Cohomology.CupAW.BasisLeibniz (basis basis_leibniz_5_2_1)
 open E213.Math.Cohomology.Cochain5_1DecompR (bz5_1)
 open E213.Math.Cohomology.Cochain5_2Decomp (bz5_2)
-open E213.Math.Cohomology.CupAWLeibniz22Bridge (cupAW_zero_left_fn
+open E213.Math.Cohomology.CupAW.Leibniz22Bridge (cupAW_zero_left_fn
   cupAW_zero_right_fn delta_zero_fn bz5_2_false bz5_2_true)
-open E213.Math.Cohomology.CupAWLeibniz21Bridge (bz5_1_false bz5_1_true)
+open E213.Math.Cohomology.CupAW.Leibniz21Bridge (bz5_1_false bz5_1_true)
 
 /-- Per-α-component Leibniz at (bz5_2 α p, basis 5 1 k). -/
 theorem h_components_α (α : Cochain 5 2) (k : Fin 5)
@@ -78,4 +78,4 @@ theorem leibniz_universal_5_2_1
   CupAWLeibnizAlgLift21.leibniz_via_β_decomp_21
     α β i (h_components_β α β i)
 
-end E213.Math.Cohomology.CupAWLeibniz21Final
+end E213.Math.Cohomology.CupAW.Leibniz21Final

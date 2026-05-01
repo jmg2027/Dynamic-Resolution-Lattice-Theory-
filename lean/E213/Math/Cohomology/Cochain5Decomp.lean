@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAWBasisLeibniz
+import E213.Math.Cohomology.CupAW.BasisLeibniz
 
 /-!
 # Cochain 5 1 / Cochain 5 2 — basis decomposition
@@ -11,7 +11,7 @@ Pointwise verified by funext + match j + cases on each (σ ⟨k, _⟩).
 
 namespace E213.Math.Cohomology.Cochain5Decomp
 
-open E213.Math.Cohomology.CupAWBasisLeibniz (basis)
+open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
 
 /-- Conditional basis or zero. -/
 def bz5_1 (α : Cochain 5 1) (k : Fin 5) : Cochain 5 1 :=

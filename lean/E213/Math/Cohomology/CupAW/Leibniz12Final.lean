@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAWLeibnizAlgLift
+import E213.Math.Cohomology.CupAW.LeibnizAlgLift
 import E213.Math.Cohomology.UniversalProp51
 
 /-!
@@ -13,11 +13,11 @@ Closes ∀ α β Leibniz at (5, 1, 2) through the bilinearity lens:
 Total decide work: 3200 cases, vs the 327k blow-up of direct.
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibniz12Final
+namespace E213.Math.Cohomology.CupAW.Leibniz12Final
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.UniversalProp51 (pattern pattern_eq)
-open E213.Math.Cohomology.CupAWBasisLeibniz (basis)
+open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Math.Cohomology.Cochain5_2Decomp (bz5_2)
 
 /-- α-pattern × basis level Leibniz at (5, 1, 2): 3200-case decide. -/
@@ -81,4 +81,4 @@ theorem leibniz_universal_5_1_2
             (cupAW 5 1 3 α (delta β) i) :=
   CupAWLeibnizAlgLift.leibniz_via_β_decomp_lens α β i (h_components α β i)
 
-end E213.Math.Cohomology.CupAWLeibniz12Final
+end E213.Math.Cohomology.CupAW.Leibniz12Final

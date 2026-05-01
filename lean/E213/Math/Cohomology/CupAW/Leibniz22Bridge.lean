@@ -1,5 +1,5 @@
-import E213.Math.Cohomology.CupAWLeibnizAlgLift22
-import E213.Math.Cohomology.CupAWLeibnizAlgLift22Alpha
+import E213.Math.Cohomology.CupAW.LeibnizAlgLift22
+import E213.Math.Cohomology.CupAW.LeibnizAlgLift22Alpha
 
 /-!
 # (5, 2, 2) Cup AW Leibniz Universal — bz5_2 ↔ basis/zero bridge
@@ -10,10 +10,10 @@ function rewrites + the per-component cases that feed into
 both lenses.
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibniz22Bridge
+namespace E213.Math.Cohomology.CupAW.Leibniz22Bridge
 
 open E213.Physics.Simplex (binom)
-open E213.Math.Cohomology.CupAWBasisLeibniz (basis)
+open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Math.Cohomology.Cochain5_2Decomp (bz5_2)
 
 /-- bz5_2 with β k = false reduces to Cochain.zero. -/
@@ -49,4 +49,4 @@ theorem delta_zero_fn (n k : Nat) :
     delta (Cochain.zero n k) = Cochain.zero n (k + 1) := by
   funext τ; exact delta_zero _ _ _
 
-end E213.Math.Cohomology.CupAWLeibniz22Bridge
+end E213.Math.Cohomology.CupAW.Leibniz22Bridge

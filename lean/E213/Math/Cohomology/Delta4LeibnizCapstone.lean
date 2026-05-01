@@ -1,7 +1,7 @@
-import E213.Math.Cohomology.CupAWLeibniz
-import E213.Math.Cohomology.CupAWLeibniz12Final
-import E213.Math.Cohomology.CupAWLeibniz21Final
-import E213.Math.Cohomology.CupAWLeibniz22Final
+import E213.Math.Cohomology.CupAW.Leibniz
+import E213.Math.Cohomology.CupAW.Leibniz12Final
+import E213.Math.Cohomology.CupAW.Leibniz21Final
+import E213.Math.Cohomology.CupAW.Leibniz22Final
 
 /-!
 # Δ⁴ Cup AW Leibniz — full coverage capstone

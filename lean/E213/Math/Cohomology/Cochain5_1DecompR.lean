@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAWBasisLeibniz
+import E213.Math.Cohomology.CupAW.BasisLeibniz
 
 /-!
 # Cochain 5 1 — basis decomposition (right-nested, AND-form)

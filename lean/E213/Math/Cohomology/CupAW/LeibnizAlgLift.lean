@@ -1,6 +1,6 @@
-import E213.Math.Cohomology.CupAWBilinearFunc
-import E213.Math.Cohomology.CupAWZero
-import E213.Math.Cohomology.CupAWBasisLeibniz
+import E213.Math.Cohomology.CupAW.BilinearFunc
+import E213.Math.Cohomology.CupAW.Zero
+import E213.Math.Cohomology.CupAW.BasisLeibniz
 import E213.Math.Cohomology.Cochain5_2Decomp
 import E213.Math.Cohomology.XorPairCombine
 
@@ -20,7 +20,7 @@ Pipeline inside the proof:
     close the residual 20-Bool combinatorial identity
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibnizAlgLift
+namespace E213.Math.Cohomology.CupAW.LeibnizAlgLift
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.Cochain5_2Decomp (decomp_5_2 decomp_5_2_eq)
@@ -65,4 +65,4 @@ theorem leibniz_via_β_decomp_lens
     (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨8, by decide⟩)) i)
     (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨9, by decide⟩)) i)
 
-end E213.Math.Cohomology.CupAWLeibnizAlgLift
+end E213.Math.Cohomology.CupAW.LeibnizAlgLift

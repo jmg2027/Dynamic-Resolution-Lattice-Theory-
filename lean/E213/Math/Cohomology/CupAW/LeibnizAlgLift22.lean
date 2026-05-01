@@ -1,6 +1,6 @@
-import E213.Math.Cohomology.CupAWBilinearFunc
-import E213.Math.Cohomology.CupAWZero
-import E213.Math.Cohomology.CupAWBasisLeibniz
+import E213.Math.Cohomology.CupAW.BilinearFunc
+import E213.Math.Cohomology.CupAW.Zero
+import E213.Math.Cohomology.CupAW.BasisLeibniz
 import E213.Math.Cohomology.Cochain5_2Decomp
 import E213.Math.Cohomology.XorPairCombine
 
@@ -16,7 +16,7 @@ Two lenses:
     (basis_p, basis_q) — closed by `basis_leibniz_5_2_2`
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibnizAlgLift22
+namespace E213.Math.Cohomology.CupAW.LeibnizAlgLift22
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.Cochain5_2Decomp (decomp_5_2 decomp_5_2_eq bz5_2)
@@ -58,4 +58,4 @@ theorem leibniz_via_β_decomp_22
     (cupAW 5 2 3 α (delta (bz5_2 β ⟨8, by decide⟩)) i)
     (cupAW 5 2 3 α (delta (bz5_2 β ⟨9, by decide⟩)) i)
 
-end E213.Math.Cohomology.CupAWLeibnizAlgLift22
+end E213.Math.Cohomology.CupAW.LeibnizAlgLift22

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAW
+import E213.Math.Cohomology.CupAW.Core
 
 /-!
 # Basis-pair Leibniz at (5, 1, 2) — small enumeration
@@ -13,7 +13,7 @@ Combined with `cupAW_add_left/right` (bilinearity) and
 universal lift would run.
 -/
 
-namespace E213.Math.Cohomology.CupAWBasisLeibniz
+namespace E213.Math.Cohomology.CupAW.BasisLeibniz
 
 open E213.Physics.Simplex (binom)
 
@@ -48,4 +48,4 @@ theorem basis_leibniz_5_2_1 :
               (cupAW 5 2 2 (basis 5 2 p) (delta (basis 5 1 k)) i) := by
   decide
 
-end E213.Math.Cohomology.CupAWBasisLeibniz
+end E213.Math.Cohomology.CupAW.BasisLeibniz

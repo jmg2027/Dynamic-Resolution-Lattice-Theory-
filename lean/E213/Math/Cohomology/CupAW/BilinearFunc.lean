@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAWBilinear
+import E213.Math.Cohomology.CupAW.Bilinear
 import E213.Math.Cohomology.DeltaLinear
 
 /-!

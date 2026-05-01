@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupAW
+import E213.Math.Cohomology.CupAW.Core
 import E213.Math.Cohomology.UniversalProp41
 
 /-!
@@ -10,7 +10,7 @@ import E213.Math.Cohomology.UniversalProp41
 Pattern: 16 × 16 = 256 pairs × 6 indices = 1536 evals.
 -/
 
-namespace E213.Math.Cohomology.CupAWLeibnizMid
+namespace E213.Math.Cohomology.CupAW.LeibnizMid
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.UniversalProp41 (pattern)
@@ -36,4 +36,4 @@ theorem leibniz_universal_4_1_1
   rw [UniversalProp41.pattern_eq α, UniversalProp41.pattern_eq β]
   exact leibniz_pattern_4_1_1 _ _ _ _ _ _ _ _ i
 
-end E213.Math.Cohomology.CupAWLeibnizMid
+end E213.Math.Cohomology.CupAW.LeibnizMid
