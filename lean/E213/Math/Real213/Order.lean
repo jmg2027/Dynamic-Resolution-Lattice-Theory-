@@ -25,7 +25,7 @@ namespace E213.Math.Real213.Order
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 
 /-- **Real213 le**: for every rational m/k cut, eventually
@@ -47,7 +47,7 @@ namespace E213.Math.Real213.Order
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 
 /-- Reflexivity of le. -/

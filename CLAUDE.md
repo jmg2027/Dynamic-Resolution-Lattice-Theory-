@@ -122,13 +122,16 @@ metrics.
   7. **INDEX.md per non-trivial sub-tree.**  Every sub-cluster ≥ 5
      files gets an INDEX.md or README.md naming convention notes,
      "what lives here", "where to add new".
-  8. **The vertical-vs-horizontal axis tension is real.**  Kernel/,
-     Firmware/, Hypervisor/, Meta/, App/, Tactic/, Tools/, Infinity/
-     are vertical (dependency layers).  Math/, Physics/, Research/
-     are horizontal (topical).  When in doubt: vertical layer takes
-     precedence (foundation files belong in their layer dir, even
-     if they happen to be "math" or "physics").  Canonical
-     definitions in `lean/E213/ARCHITECTURE.md`.
+  8. **One vertical axis + Math/Physics topical labels (post-2026-05-XX
+     deep reorg).**  Kernel/, Firmware/, Hypervisor/, Meta/, App/ are
+     the vertical dependency layers.  Math/ and Physics/ are
+     topical-content roots whose individual files each live at
+     some vertical layer (computed by `tools/layer_audit.py` from the
+     import closure).  No "horizontal axis" exists — Math/Physics are
+     just topical labels, not layers.  Previous `Research/`, `Infinity/`,
+     `Tactic/`, `Tools/` top-level dirs were fully distributed by content
+     into the vertical layers + Math/Physics.  Canonical definitions
+     in `lean/E213/ARCHITECTURE.md`.
 
      Note: `OS/` was retired (2026-05-XX) — its files were either
      forced-shape-uniqueness proofs (moved to `Firmware/Atomicity/`)
@@ -209,10 +212,12 @@ Firmware/    Raw axiom (4-clause) + Atomicity/ sub-cluster (forced
              shape uniqueness; pure-ℕ proofs that don't import Raw)
              + Tools/CertChecker
 Hypervisor/  78 files: Lens framework (catamorphism Raw → α) +
-             Lens/{Instances, Characterisation, Research}/
-             sub-clusters.  Lens/Research/ contains Lens-framework
-             exploration (Lens, Morphism, Instance, Leaves, Refines,
-             Kernel, Universal, SemanticAtom, Initiality)
+             topical sub-clusters: Instances/, Characterisation/,
+             Lattice/ (Join/Meet/IndexedJoin), Compose/ (OnLens,
+             ImageMinimum, Factoring), Properties/ (refines,
+             EquivProperties, ConstLensTotalKernel, etc.),
+             Morphism/, Leaves/, Refines/, Kernel/, Universal/,
+             plus top-level Initiality.lean + SemanticAtom.lean
 Meta/        23 files: true metatheory (UniversalLens family,
              SelfRecognising R1-R4 hierarchy, BitPatternUniqueness,
              RawInductionDemo, AxiomMinimality, CUniquenessBridge)
@@ -257,7 +262,7 @@ into named sub-folders is a pending architectural task.)
 - Session start: read root `HANDOFF.md` first.
 - Commit after every meaningful change.  Never amend.
 - Physics edits → `lean/E213/Physics/` or `rust-engine/`.
-- Math edits → `lean/E213/Math/` or `lean/E213/Research/`.
+- Math edits → `lean/E213/Math/`.
 - Documentation: edit the appropriate top-level dir per layout above.
 
 ---

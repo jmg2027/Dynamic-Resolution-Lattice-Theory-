@@ -31,7 +31,7 @@ namespace E213.Math.Real213.StrictPos
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 
 /-- Real213 with all sequence views strictly positive ((a, b) with a, b ≥ 1). -/
@@ -44,7 +44,7 @@ namespace E213.Math.Real213.StrictPos
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 
 /-- Diagonal sequence: xs n = Raw with view (n+1, n+1) via abLens_witness. -/

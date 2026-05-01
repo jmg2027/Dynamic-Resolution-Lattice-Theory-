@@ -1,5 +1,5 @@
-import E213.Hypervisor.Lens.Research.Lens.Cauchy
-import E213.Hypervisor.Lens.Research.Lens.AB
+import E213.Hypervisor.Lens.Instances.Cauchy
+import E213.Hypervisor.Lens.Instances.AB
 import E213.Math.Cauchy.Archimedean
 import E213.Math.Cauchy.ProfiniteSeq
 
@@ -67,7 +67,7 @@ end E213.Math.Cauchy.GenericFamily
 namespace E213.Math.Cauchy.GenericFamily
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LensCauchy
+open E213.Hypervisor.Lens.Instances.Cauchy
 
 /-- **LensCauchy is GFCauchy instance** with trivial family
     (single Lens, identity post-processing). -/
@@ -91,7 +91,7 @@ open E213.Firmware E213.Hypervisor
 theorem orderCauchy_is_GFCauchy
     (xs : Nat → Raw)
     (h : E213.Math.Cauchy.Archimedean.isOrderCauchy xs) :
-    GFCauchy E213.Hypervisor.Lens.Research.Lens.AB.abLens
+    GFCauchy E213.Hypervisor.Lens.Instances.AB.abLens
       (fun (mk : Nat × Nat) (p : Nat × Nat) =>
          E213.Math.Cauchy.Archimedean.orderProj mk.1 mk.2 p) xs := by
   intro mk

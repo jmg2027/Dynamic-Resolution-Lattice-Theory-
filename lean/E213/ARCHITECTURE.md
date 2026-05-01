@@ -21,17 +21,30 @@ Meta-level (uses metatheorems) — depending on what it imports.  The
 folder name only says "this is mathematics-flavored" / "this is
 physics-flavored", not "this is at layer X".
 
-Other top-level trees that previously existed have been distributed
-into the vertical-layer dirs as Tactic/ / Tools/ / Research/
-sub-folders:
-  - `Research/` (337 files) → Math/* (math research) + Hypervisor/Lens/Research/
-    (Lens framework research) + Meta/* (universality / axiom-minimality
-    metatheorems) + Firmware/Raw/Research/ (Raw encoding research)
-  - `Infinity/` (9 files) → Math/Infinity/
-  - `Tactic/` (11 files + tests) → Kernel/Tactic/ (Omega213, QuadNorm) +
-    Meta/Tactic/ (VerifyR4, DeriveR4Codomain) +
-    Math/Tactic/ (HurwitzRing, IntSquare, QuadExtension)
-  - `Tools/` (1 file) → Firmware/Tools/CertChecker.lean
+Other top-level trees that previously existed have been fully
+distributed into the vertical-layer dirs and Math/Physics by content.
+The marker name `Research/` is also gone — its files were absorbed
+into the topical sub-clusters of their target layer:
+
+  - `Research/` (337 files):
+    - math content → `Math/{Real213, CayleyDickson, Cauchy, ModArith,
+      Modulus, Diagonal, Irrational, Hyper, Choice, Infinity}/` +
+      9 loose Math/* files
+    - Lens framework research → distributed into `Hypervisor/Lens/`
+      sub-clusters: `Lattice/`, `Compose/`, `Properties/`,
+      `Morphism/`, `Leaves/`, `Refines/`, `Kernel/`, `Universal/`,
+      and merged into `Instances/` (16 added) + top-level
+      `Initiality.lean`, `SemanticAtom.lean` under `Hypervisor/Lens/`
+    - axiom-uniqueness metatheorems → `Meta/{AxiomMinimality,
+      AxiomMinimalityCapstone, Universal/{LensClaim,
+      MorphismFactor, Reflection}}.lean`
+    - Raw encoding research → flattened into `Firmware/Raw/{DecEq,
+      ComplexityClass, CmpIndependence, SwapSlashInjective}.lean`
+  - `Infinity/` (9 files) → `Math/Infinity/`
+  - `Tactic/` (11 files + tests) → `Kernel/Tactic/` (Omega213, QuadNorm)
+    + `Meta/Tactic/` (VerifyR4, DeriveR4Codomain) + `Math/Tactic/`
+    (HurwitzRing, IntSquare, QuadExtension)
+  - `Tools/` (1 file) → `Firmware/Tools/CertChecker.lean`
 
 Distribution after the 2026-05-XX reorg:
 
@@ -225,18 +238,20 @@ formulas), 38% Hypervisor (full Lens-based observable construction).
 
 ### Where the old top-level dirs went (2026-05-XX reorg)
 
-  - **Research/** (337 files) — fully distributed:
+  - **Research/** (337 files) — fully distributed (no more `Research/`
+    marker dir; files absorbed into topical sub-clusters):
     - mathematics-flavored exploration → `Math/{Real213, CayleyDickson,
       Cauchy, ModArith, Modulus, Diagonal, Irrational, Hyper, Choice}/`
       + 9 loose Math/* files
-    - Lens-framework research → `Hypervisor/Lens/Research/{Lens,
-      Morphism, Instance, Leaves, Refines, Kernel, Universal,
-      SemanticAtom, Initiality}/`
+    - Lens-framework research → distributed into `Hypervisor/Lens/`
+      sub-clusters (Lattice/, Compose/, Properties/, Morphism/,
+      Leaves/, Refines/, Kernel/, Universal/, Instances/) and
+      top-level `Initiality.lean`, `SemanticAtom.lean`.
     - axiom-uniqueness metatheorems → `Meta/{AxiomMinimality,
       AxiomMinimalityCapstone, Universal/{LensClaim,
       MorphismFactor, Reflection}}.lean`
-    - Raw encoding research → `Firmware/Raw/Research/{DecEq, SwapSlash,
-      ComplexityClass, CmpIndependence}/`
+    - Raw encoding research → flattened into `Firmware/Raw/{DecEq,
+      ComplexityClass, CmpIndependence, SwapSlashInjective}.lean`
   - **Infinity/** (9 files: Cantor, Gödel, Tower, …) → `Math/Infinity/`
   - **Tactic/** (11 + tests):
     - `Omega213`, `QuadNorm`, `OMEGA213_MIGRATION.md` → `Kernel/Tactic/`

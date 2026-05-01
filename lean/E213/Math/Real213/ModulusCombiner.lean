@@ -21,7 +21,7 @@ namespace E213.Math.Real213.ModulusCombiner
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 
 /-- **ModulusCombiner**: abstract kernel for sequence combine + Cauchy preservation. -/
@@ -45,7 +45,7 @@ namespace E213.Math.Real213.ModulusCombiner
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 
 /-- **Generic combine theorem**: ModulusCombiner + two HasModulus → combined HasModulus. -/

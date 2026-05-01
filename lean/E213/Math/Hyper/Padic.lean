@@ -1,5 +1,5 @@
-import E213.Hypervisor.Lens.Research.Leaves.ModNat
-import E213.Hypervisor.Lens.Research.Lens.Cauchy
+import E213.Hypervisor.Lens.Leaves.ModNat
+import E213.Hypervisor.Lens.Instances.Cauchy
 import E213.Math.Cauchy.ProfiniteSeq
 
 /-!
@@ -52,7 +52,7 @@ domain.
 namespace E213.Math.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LeavesModNat E213.Hypervisor.Lens.Research.LensCauchy
+open E213.Hypervisor.Lens.LeavesModNat E213.Hypervisor.Lens.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
 end E213.Math.Hyper.Padic
@@ -60,7 +60,7 @@ end E213.Math.Hyper.Padic
 namespace E213.Math.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LeavesModNat E213.Hypervisor.Lens.Research.LensCauchy
+open E213.Hypervisor.Lens.LeavesModNat E213.Hypervisor.Lens.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
 /-! ### Power lemmas (based on Lean 4 core) -/
@@ -92,7 +92,7 @@ end E213.Math.Hyper.Padic
 namespace E213.Math.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LeavesModNat E213.Hypervisor.Lens.Research.LensCauchy
+open E213.Hypervisor.Lens.LeavesModNat E213.Hypervisor.Lens.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
 /-! ### p-adic Lens family -/
@@ -134,7 +134,7 @@ end E213.Math.Hyper.Padic
 namespace E213.Math.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LeavesModNat E213.Hypervisor.Lens.Research.LensCauchy
+open E213.Hypervisor.Lens.LeavesModNat E213.Hypervisor.Lens.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
 /-- Family-Cauchy w.r.t. the entire p-adic tower. -/

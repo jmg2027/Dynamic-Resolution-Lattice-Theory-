@@ -28,7 +28,7 @@ VERTICAL = {
     "Meta": 3,
     "App": 4,
 }
-HORIZONTAL = {"Math", "Physics", "Research", "Infinity", "Tactic", "Tools"}
+HORIZONTAL = {"Math", "Physics"}
 
 
 def first_segment(path: Path) -> str:

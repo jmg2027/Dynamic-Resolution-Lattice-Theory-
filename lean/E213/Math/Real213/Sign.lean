@@ -26,7 +26,7 @@ namespace E213.Math.Real213.Sign
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Lens.Research.Lens.AB
+open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 
 /-- **Real213 zero**: const Raw.b (abLens.view = (0, 1), ratio 0). -/

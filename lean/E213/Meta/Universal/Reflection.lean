@@ -1,4 +1,4 @@
-import E213.Hypervisor.Lens.Research.SemanticAtom
+import E213.Hypervisor.Lens.SemanticAtom
 
 /-!
 # Research.UniversalReflection: Lens reflection of universalMorphism
@@ -23,7 +23,7 @@ reflects as a data-level Lens.
 namespace E213.Meta.Universal.Reflection
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.SemanticAtom
+open E213.Hypervisor.Lens.SemanticAtom
 
 /-- Reflection of a HasDistinguishing instance as a Lens. -/
 def universalAsLens (α : Type) [d : HasDistinguishing α] : Lens α :=

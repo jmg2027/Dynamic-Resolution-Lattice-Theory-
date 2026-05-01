@@ -1,5 +1,5 @@
-import E213.Hypervisor.Lens.Research.Lens.Cauchy
-import E213.Hypervisor.Lens.Research.Leaves.ModNat
+import E213.Hypervisor.Lens.Instances.Cauchy
+import E213.Hypervisor.Lens.Leaves.ModNat
 import E213.Math.Infinity.LensCardinality
 
 /-!
@@ -32,7 +32,7 @@ profinite completion.  A concrete instance of Lens-as-completion.
 namespace E213.Math.Cauchy.ProfiniteSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LensCauchy
+open E213.Hypervisor.Lens.Instances.Cauchy
 
 /-- Local factorial (absent from Lean 4 core). -/
 def factorial : Nat → Nat
@@ -74,7 +74,7 @@ end E213.Math.Cauchy.ProfiniteSeq
 namespace E213.Math.Cauchy.ProfiniteSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Research.LeavesModNat E213.Hypervisor.Lens.Research.LensCauchy
+open E213.Hypervisor.Lens.LeavesModNat E213.Hypervisor.Lens.Instances.Cauchy
 
 /-- The factorial sequence is eventually 0 mod m (when n + 1 ≥ m). -/
 theorem factorial_eventually_zero_mod (m : Nat) (hm : 1 ≤ m)
