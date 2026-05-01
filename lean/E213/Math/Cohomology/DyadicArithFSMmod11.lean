@@ -61,7 +61,7 @@ theorem pellFSMmod11_bits_period_10 :
   intro k
   have h1 := pellFSMmod11_bits_period_5 (k + 5)
   have h2 := pellFSMmod11_bits_period_5 k
-  have hreshape : k + 10 = (k + 5) + 5 := (Nat.add_assoc k 5 5).symm
+  have hreshape : k + 10 = (k + 5) + 5 := rfl
   rw [hreshape, h1, h2]
 
 /-- ★★★★★ Pell mod-11 signature has period 10 (TIGHT, doubled by parity). -/

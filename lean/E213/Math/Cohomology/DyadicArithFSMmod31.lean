@@ -54,7 +54,7 @@ theorem pellFSMmod31_bits_period_30 :
   intro k
   have h1 := pellFSMmod31_bits_period_15 (k + 15)
   have h2 := pellFSMmod31_bits_period_15 k
-  have hreshape : k + 30 = (k + 15) + 15 := (Nat.add_assoc k 15 15).symm
+  have hreshape : k + 30 = (k + 15) + 15 := rfl
   rw [hreshape, h1, h2]
 
 /-- ★★★★★ Pell mod-31 signature has period 30 (TIGHT, doubled). -/

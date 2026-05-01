@@ -45,7 +45,7 @@ theorem pellFSMmod59_bits_period_58 :
   intro k
   have h1 := pellFSMmod59_bits_period_29 (k + 29)
   have h2 := pellFSMmod59_bits_period_29 k
-  have hreshape : k + 58 = (k + 29) + 29 := (Nat.add_assoc k 29 29).symm
+  have hreshape : k + 58 = (k + 29) + 29 := rfl
   rw [hreshape, h1, h2]
 
 set_option maxRecDepth 2048 in
