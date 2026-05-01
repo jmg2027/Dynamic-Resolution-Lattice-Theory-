@@ -21,6 +21,35 @@ Major progress in 2026-04-30 / 05-01 sessions.
       App.Simplex import 추가하여 default build 에 포함
   - Real213 zero_plus_gap omega → Nat.not_le_of_lt (commit ea26cb0)
       (propext 잔여는 Cauchy machinery 자체가 필요)
+  - **★ Mass STRICT 0-AXIOM upgrade campaign ★** — 패턴 발견:
+      • `obtain ⟨_,_,_⟩ := X` → `X.1, X.2.1, X.2.2.1, ...` projection
+      • `(by omega : 1 < 13)` → `(by decide)` for numeric literal
+      • `(by omega : 1 < p) → 0 < p` → 명시 `Nat.zero_lt_of_lt`
+      Result (commit 7c8d0e7, 6ec2b10, 7673b13, 755ffc6, fd9da53):
+      - `legendre213` 자체: STRICT 0-AXIOM (Pisano 전체 framework anchor)
+      - Pisano predictor 6/7/8/11/14/17 all STRICT 0-AXIOM
+      - Fibonacci predictor 8 STRICT 0-AXIOM
+      - Pell-proper 8-prime + small + mod{11,13,17,19,23} STRICT 0-AXIOM
+      - **★★★★★★★★★ three_family_pisano_capstone STRICT 0-AXIOM**
+      - signature_predict_realises_pell_7 STRICT 0-AXIOM
+      - 14 legendre_5_mod_X 모두 STRICT 0-AXIOM
+      - ArithFSM2.toBitFSM + encodeFinPair Quot.sound 제거
+      LESSONS 교훈 13 (commit 586cc61) — obtain pattern 차단요인 룰
+
+## Major capstone STRICT 0-AXIOM status (2026-05-01)
+
+  | capstone | status |
+  |---|---|
+  | validation_standard_capstone | **STRICT 0-AXIOM** ✓ |
+  | alpha_em_master_capstone | **STRICT 0-AXIOM** ✓ |
+  | pure_atomic_observables_capstone | **STRICT 0-AXIOM** ✓ |
+  | fractal_lens_cardinality_capstone | **STRICT 0-AXIOM** ✓ |
+  | finitist_observable_chain | **STRICT 0-AXIOM** ✓ |
+  | n_universe_self_consistent | **STRICT 0-AXIOM** ✓ |
+  | nuclear_magic_atomic_capstone | **STRICT 0-AXIOM** ✓ |
+  | three_family_pisano_capstone | **STRICT 0-AXIOM** ✓ NEW |
+  | hodge_involution_5strata_capstone | {propext, Quot.sound} (funext 필수) |
+  | universal_lens_triple_capstone | {propext, Quot.sound} (Function.Injective) |
 
 ## ★ Headline achievement: 213 finitist closure ★
 
