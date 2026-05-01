@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
-import E213.Meta.Lens.Catalog
+import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Research.CayleyDickson.CDDouble
 import E213.Prelude
 

@@ -147,6 +147,12 @@ to the recovery commit.
 
 ## Repository Architecture (current, 2026-05-01)
 
+> **Canonical theoretical architecture: `lean/E213/ARCHITECTURE.md`.**
+> That file is the authoritative statement of what each Lean layer IS,
+> the dependency graph, naming conventions, and open questions.
+> Always consult ARCHITECTURE.md before making structural changes;
+> update it FIRST when the architecture evolves.
+
 ### Source of Truth — Lean theorems in `lean/E213/`
 
 The authoritative state of 213 is the set of 0-axiom Lean theorems

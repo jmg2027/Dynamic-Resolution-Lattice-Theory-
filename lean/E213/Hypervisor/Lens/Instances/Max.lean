@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
-import E213.Meta.Lens.Catalog
+import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Prelude
 
 /-!
@@ -27,8 +27,7 @@ swap-fixed composite (`view (a/b)`).  The same pattern would
 break any lattice-valued Lens with non-discrete base values.
 -/
 
-namespace E213.Meta.Lens.Max
-
+namespace E213.Hypervisor.Lens.Instances.Max
 open E213.Firmware E213.Hypervisor
 
 /-- **Max lens.**  `a ↦ 0`, `b ↦ 1`, combine = max. -/
@@ -53,10 +52,8 @@ theorem slash_ab_swap_fixed :
       = Raw.slash Raw.a Raw.b (by decide) := by
   apply Subtype.ext; rfl
 
-end E213.Meta.Lens.Max
-
-namespace E213.Meta.Lens.Max
-
+end E213.Hypervisor.Lens.Instances.Max
+namespace E213.Hypervisor.Lens.Instances.Max
 open E213.Firmware E213.Hypervisor
 
 -- ═══ R4 fails: two Raw terms force inconsistent `conj 1` values ═══
@@ -104,4 +101,4 @@ theorem maxLens_not_injective :
   have : Raw.b = r := hinj heq
   exact absurd (congrArg Subtype.val this) (by decide)
 
-end E213.Meta.Lens.Max
+end E213.Hypervisor.Lens.Instances.Max

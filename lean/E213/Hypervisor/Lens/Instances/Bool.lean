@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
-import E213.Meta.Lens.Catalog
+import E213.Hypervisor.Lens.Characterisation.Catalog
 
 /-!
 # Meta.BoolLens: Bool-valued lenses — swap-blind vs swap-visible
@@ -21,8 +21,7 @@ self-recognising Lens.  By contrast, the `signedLens` on `Int`
 paper's claim that R4 is a strong restriction.
 -/
 
-namespace E213.Meta.Lens.Bool
-
+namespace E213.Hypervisor.Lens.Instances.Bool
 open E213.Firmware E213.Hypervisor
 
 -- ═══ Swap-blind Bool lenses ═══
@@ -60,10 +59,8 @@ theorem boolOrLens_view_const (r : Raw) : boolOrLens.view r = true := by
           ihx, ihy]
       decide
 
-end E213.Meta.Lens.Bool
-
-namespace E213.Meta.Lens.Bool
-
+end E213.Hypervisor.Lens.Instances.Bool
+namespace E213.Hypervisor.Lens.Instances.Bool
 open E213.Firmware E213.Hypervisor
 
 -- ═══ Swap-visible Bool lens: XOR ═══
@@ -99,4 +96,4 @@ theorem boolXorLens_not_homomorphism :
   -- LHS = !true = false; RHS = xor false true = true
   revert this; decide
 
-end E213.Meta.Lens.Bool
+end E213.Hypervisor.Lens.Instances.Bool

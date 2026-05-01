@@ -2,10 +2,10 @@ import E213.Infinity.Countable
 import E213.Infinity.Cantor
 import E213.Infinity.Godel
 import E213.Hypervisor.Lens
-import E213.Meta.Lens.Catalog
-import E213.Meta.Lens.Bool
-import E213.Meta.Lens.Parity
-import E213.Meta.Lens.Max
+import E213.Hypervisor.Lens.Characterisation.Catalog
+import E213.Hypervisor.Lens.Instances.Bool
+import E213.Hypervisor.Lens.Instances.Parity
+import E213.Hypervisor.Lens.Instances.Max
 import E213.Prelude
 
 /-!

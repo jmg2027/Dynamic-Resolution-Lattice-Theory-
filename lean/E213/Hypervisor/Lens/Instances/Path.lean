@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
-import E213.Meta.Lens.Catalog
+import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Prelude
 
 /-!
@@ -35,8 +35,7 @@ deliberately *non-commutative* witness.
    needed for the R12-failure point.
 -/
 
-namespace E213.Meta.Lens.Path
-
+namespace E213.Hypervisor.Lens.Instances.Path
 open E213.Firmware E213.Hypervisor
 
 /-- **Path lens.**  `a ↦ [false]`, `b ↦ [true]`, combine = append. -/
@@ -59,10 +58,8 @@ theorem pathLens_view_ba_via_comm :
       = [false, true] := by
   rw [Raw.slash_comm]; rfl
 
-end E213.Meta.Lens.Path
-
-namespace E213.Meta.Lens.Path
-
+end E213.Hypervisor.Lens.Instances.Path
+namespace E213.Hypervisor.Lens.Instances.Path
 open E213.Firmware E213.Hypervisor
 
 theorem pathLens_view_a_slash_ab :
@@ -109,4 +106,4 @@ example :
           (Raw.slash Raw.b (Raw.slash Raw.a Raw.b (by decide))
             (by decide)) := by decide
 
-end E213.Meta.Lens.Path
+end E213.Hypervisor.Lens.Instances.Path

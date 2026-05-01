@@ -1,5 +1,5 @@
-import E213.Meta.Lens.Parity
-import E213.Meta.Lens.Bool
+import E213.Hypervisor.Lens.Instances.Parity
+import E213.Hypervisor.Lens.Instances.Bool
 
 /-!
 # Research.ParityXorIncomparable

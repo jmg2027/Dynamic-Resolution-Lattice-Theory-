@@ -23,8 +23,10 @@ DEFAULT_SKIP = {
     "lean/E213/Firmware/Raw.lean",
     "lean/E213/Firmware/RawLevels.lean",
     "lean/E213/Firmware/RawSwap.lean",
+    # Hypervisor/Lens.lean uses `E213.Hypervisor` umbrella (single file
+    # at root); but Hypervisor/Lens/ sub-cluster should be aligned.
+    "lean/E213/Hypervisor/Lens.lean",
     # Other vertical-layer umbrellas
-    "lean/E213/Hypervisor",
     "lean/E213/Infinity",
     "lean/E213/Tactic",
     "lean/E213/Kernel",

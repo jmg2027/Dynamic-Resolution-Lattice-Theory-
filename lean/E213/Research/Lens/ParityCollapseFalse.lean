@@ -1,4 +1,4 @@
-import E213.Meta.Lens.Parity
+import E213.Hypervisor.Lens.Instances.Parity
 
 /-!
 # Research.ParityLensCollapseFalse: parityLens is Collapse-False

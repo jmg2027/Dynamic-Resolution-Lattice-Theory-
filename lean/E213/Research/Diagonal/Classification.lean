@@ -1,6 +1,6 @@
 import E213.Hypervisor.Lens
-import E213.Meta.Lens.Parity
-import E213.Meta.Lens.Bool
+import E213.Hypervisor.Lens.Instances.Parity
+import E213.Hypervisor.Lens.Instances.Bool
 import E213.Research.Lens.F9
 
 /-!

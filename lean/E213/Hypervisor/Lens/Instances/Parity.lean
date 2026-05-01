@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
-import E213.Meta.Lens.Catalog
+import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Prelude
 
 /-!
@@ -29,8 +29,7 @@ split of swap-visibility × R4-admissibility at the Bool/Int
 level.
 -/
 
-namespace E213.Meta.Lens.Parity
-
+namespace E213.Hypervisor.Lens.Instances.Parity
 open E213.Firmware E213.Hypervisor
 
 /-- **Parity lens.**  `a ↦ true`, `b ↦ true`, combine = xor.
@@ -55,10 +54,8 @@ theorem parityLens_swap_invariant (r : Raw) :
     r
   exact h
 
-end E213.Meta.Lens.Parity
-
-namespace E213.Meta.Lens.Parity
-
+end E213.Hypervisor.Lens.Instances.Parity
+namespace E213.Hypervisor.Lens.Instances.Parity
 open E213.Firmware E213.Hypervisor
 
 /-- **R5 fails.**  `Raw.a ≠ Raw.b` but both map to `true`. -/
@@ -102,4 +99,4 @@ theorem parityLens_R4_fails :
     · exact htrue
   exact hmatch.2.1 hid
 
-end E213.Meta.Lens.Parity
+end E213.Hypervisor.Lens.Instances.Parity

@@ -1,0 +1,352 @@
+# lean/E213/ARCHITECTURE.md — 213 layer architecture (canonical)
+
+This document captures the **theoretical structure** of the 213 Lean
+library: which layers exist, what each is *for*, and how they fit
+together.  Everything else (INDEX.md, CLAUDE.md, sub-cluster
+READMEs) follows from this.
+
+Last revised: 2026-05-XX (post-OS-dissolution, post-Meta-audit).
+
+## 0. The two axes
+
+213's layout has *two orthogonal axes*:
+
+  **Vertical (epistemic dependency)** — Kernel ↑ Firmware ↑ Hypervisor ↑ Meta
+    Each layer is *defined in terms of* the layer below.  Imports
+    flow up.  Theoretical role differs per layer.
+
+  **Horizontal (topical content)** — Math / Physics / Research
+    All sit at App-level (above Hypervisor + Meta).  They USE the
+    Lens framework + metatheorems to do mathematics, physics, or
+    exploration.  No epistemic dependency between them.
+
+Vertical layer takes precedence for naming conflicts (a "math" file
+that's actually a Hypervisor-layer Lens utility belongs in
+Hypervisor, not Math/).
+
+## 1. Vertical layers (canonical definitions)
+
+### Kernel/
+
+**Role**: Lean-side scaffolding to *run* 213 inside Lean 4.  Provides
+deep-embedded `Term` type + total functions (compare, eval, normal
+form) so that 213 facts can be checked by Lean's kernel reduction
+without using ANY of Lean's axioms (propext, Quot.sound,
+Classical.choice).
+
+**Key property**: All 101 Kernel theorems are *literally 0-axiom*.
+Verified by `tools/kernel_regress.sh`.
+
+**Imports**: Only Lean core (Nat, Bool, Prop, structural induction).
+
+**Files**: 14 — `Term`, `Compare`, `Pair`, `Rat`, `Decide`, `Sound`,
+`MonomialAxioms`, `Demo`, `Cap_*` capstones (capability collection).
+
+**Naming convention**: `Cap_X.lean` files use `namespace E213.Kernel.Cap.X`
+(intentional — Cap is a deliberate sub-namespace, file name uses `_`
+for grouping in directory listing).  `{Term,Compare,Pair,Rat}.lean`
+share `namespace E213.Kernel.Term` umbrella (also intentional).
+
+### Firmware/
+
+**Role**: The 213 axiom — Raw type + 4-clause definitional commitments
+(a, b, slash, slash_comm).  This is the actual epistemic commitment
+of 213.  Plus the proofs that this shape is *forced uniquely*.
+
+**Sub-clusters**:
+
+  `Firmware/Raw/` (8 files) — internal implementation of Raw +
+    eliminator, fold, swap, comparison.  Internal namespace
+    `E213.Firmware.Internal` (umbrella shared, intentional).
+
+  `Firmware/Raw.lean`, `RawLevels.lean`, `RawSwap.lean` (3 files at
+    root) — public Raw API + level-bounded variants + swap
+    automorphism.  All under `namespace E213.Firmware` umbrella.
+
+  `Firmware/Atomicity/` (7 files) — **forced shape uniqueness
+    proofs**.  Pure-ℕ theorems that don't import Raw.  They prove
+    that any *abstract* atomic structure with the right conditions
+    must instantiate as the Raw axiom's choice (d=5, NS=3, NT=2,
+    sizes {2,3}, alive (1,1), arity k=2).  This is the axiom's
+    proof obligation: "Raw is THE shape, not A shape."
+
+**Imports**: None outside Firmware (or Lean core for Atomicity).
+
+**Why "Firmware"?**: In computer terms, firmware is the immutable
+commitment burned into the system.  213's Raw axiom + its
+forced-uniqueness proofs play the same role.
+
+### Hypervisor/
+
+**Role**: Lens framework — the *catamorphism mechanism* that turns
+Raw into any α-codomain via `Lens.view = Raw.fold`.  Provides the
+universal "viewing" mechanism.
+
+**Files**: `Lens.lean` (the `Lens α` type + `view` + R4Codomain
+machinery).  Currently 1 file at root.
+
+**Imports**: Firmware/.
+
+**Why "Hypervisor"?**: A hypervisor sits between firmware and
+applications, providing virtualization.  Lens is the same:
+between Raw axiom and any concrete α, providing a *view*
+abstraction.  Different α = different "VM" of 213.
+
+### Meta/
+
+**Role**: **Metatheorems about the Lens framework** + Raw structural
+metatheorems.  Things that say "for all Lens, ...", "the codomain
+spec is R1-R4 hierarchy", "Raw bit patterns are unique".
+
+**True meta files** (after planned cleanup):
+
+  `Meta/UniversalLens/` (11 files) — "universal Lens" claim:
+    a Lens is universal iff its view is injective.  Concrete
+    universal Lenses constructed at codomains {ℕ², ℕ³, ℕ⁴, Q213,
+    Q213³} + padding theorems + triple capstone.  This is the
+    formal core of the thesis "any distinguishing act IS 213"
+    (Universal-Lens metatheory).
+
+  `Meta/SelfRecognising.lean` — R1-R4 codomain spec hierarchy
+    (4-tier typeclass extends chain).
+
+  `Meta/BitPatternUniqueness.lean` — key lemma `2^m+2^n = 2^p+2^q`
+    uniqueness used by UniversalLens injectivity proofs.
+
+  `Meta/RawInductionDemo.lean` — induction principle demo for Raw.
+
+**Currently misplaced** (pending move to Hypervisor/Lens/Instances/):
+
+  `Meta/Lens/{Bool,Path,Max,Parity,ZMod6}.lean` — concrete Lens
+    *instances* (BoolLens, PathLens, etc.).  These are *uses* of
+    Lens, not claims about Lens — belong in Hypervisor.
+
+  `Meta/Lens/{Catalog,Characterisation,CUniquenessBridge}.lean` —
+    Lens-level characterisations.  Borderline; will move to
+    Hypervisor/Lens/Characterisation/ for cleaner separation.
+
+**Imports**: Hypervisor (uses Lens type) → so dependency-wise
+above Hypervisor.
+
+**Why "Meta"?**: Metatheory of Hypervisor.  A claim like "all Lens
+factor through identity Lens" lives here.
+
+### App/
+
+**Role**: Concrete applications that USE everything below to do
+specific work.  `Simplex.lean` — the 4-simplex structure derived
+from Atomicity (V_A = {0,1,2}, V_B = {3,4} from canonical_partition).
+
+**Imports**: Firmware/Atomicity (uses atomic_iff_five etc.).
+
+**Currently**: 1 file.  Capstones currently live in Physics/Capstones/
+but conceptually some belong here.  Open question (see §3).
+
+## 2. Horizontal layers (App-level topical content)
+
+### Math/
+
+**Role**: 213-internal mathematics — derived from Lens + Atomicity
+by USING the framework to construct mathematical content (not
+providing framework).
+
+**Sub-clusters**:
+
+  `Math/Cohomology/` — K_{3,2}^{(c=2)} cohomology, Δ⁴ Leibniz,
+    Hodge ⋆⋆, fractal α_GUT, Universal Property, Pell-CRT family
+    (Dyadic/), bipartite, cup product
+  `Math/Linalg213/` — Vec 5 (because d=5), basis span, chiral
+    decomposition (Paper 1)
+  `Math/{Cauchy,Foundation,Continuity,CutOps,Series,Generic,Analysis,
+    Analysis213}.lean` — Real213 plumbing, real-analysis
+    foundations
+  `Math/Pigeonhole.lean` — universal Fin pigeonhole infrastructure
+
+**Imports**: Hypervisor + (parts of) Firmware/Atomicity for d=5.
+
+### Physics/
+
+**Role**: 213-internal physics — derivations of α_em, masses,
+mixing, magic numbers, etc., with explicit ppm-level matches to
+Standard-Model values when applicable.
+
+**Sub-clusters** (18, post-2026-05-01 reorg):
+
+  `AlphaEM/`, `Couplings/`, `Foundations/`, `Hadron/`, `Mass/`,
+  `Higgs/`, `Nuclear/`, `Mixing/`, `Cosmology/`, `Atomic/`,
+  `Simplex/`, `Basel/`, `FamousCoincidences/`, `YangMills/`,
+  `Capstones/`, `Library/` (atomic catalog), `Substrate/`
+  (Phase-2 substrate-genesis), `AtomicCorrespondences/`
+  (formerly Phase-3 Translation — domain-by-domain SM→DRLT
+  correspondence).
+
+**No "PhaseN"**: per CLAUDE.md philosophy, all session-numbered
+labels (Phase2, Phase3, Phase4) are forbidden for long-lived
+names.  Content has been redistributed by topic.
+
+**Imports**: Math + Hypervisor + Firmware.
+
+### Research/
+
+**Role**: Exploratory work that may or may not formalize fully.
+Contains:
+  - `Real213/` — Bishop-style real analysis marathon (180 files)
+  - `CayleyDickson/` — division-algebra tower
+  - 15 sub-clusters of lens metatheory, modular arithmetic,
+    irrationality proofs, etc. (post-2026-05-01 reorg)
+
+**Imports**: Various (mostly Hypervisor + Math).
+
+**Open question**: some Research/ files have layer-affinity to
+Hypervisor (Research/Lens/) or Meta (Research/Kernel/, Research/
+Universal/).  See §3.
+
+## 2.5. Orthogonal infrastructure (no axis)
+
+### Tactic/
+
+**Role**: Custom Lean tactics (Omega213, VerifyR4, ...).  Cross-
+cutting infrastructure used at any layer.  Files share `namespace
+E213.Tactic` umbrella (intentional).
+
+### Tools/
+
+**Role**: Lean-side analysis tools (CertChecker.lean for certificate
+verification).
+
+### Infinity/
+
+**Role**: Limit / compactification bridges to ZFC-style infinitary
+mathematics (Cantor, Gödel, Tower, Countable, BoolSpace, ...).
+Mostly external bridges; not load-bearing for 213's finitist core.
+
+## 3. Open architectural questions
+
+### Q1. Universal Lens — Firmware-strengthening or Hypervisor-meta?
+
+User intuition: "any distinguishing IS 213" sounds like an axiom-
+level claim (Firmware-strengthening: "Raw is THE axiom, not AN
+axiom").
+
+Resolution: keep in Meta/.  Reason — Universal Lens *imports*
+Hypervisor.Lens; putting it in Firmware would invert the
+dependency graph.  Document the *interpretation* as
+"Firmware-strengthening realised through a Hypervisor-level
+metatheorem" in the Meta/UniversalLens README.
+
+### Q2. Capstones — App or Physics/?
+
+Current: `Physics/Capstones/{ValidationStandardOne, PureAtomic
+Observables, FinitistObservableChain, ...}` lives in Physics/.
+
+Conceptually, capstones are App-level (they USE Math + Physics
+to produce specific theorems).  But they're physics-flavored,
+so co-locating with Physics/ aids discoverability.
+
+Decision: leave in Physics/Capstones/ for now.  If App/ grows
+substantively (more applications), revisit.
+
+### Q3. Meta/ concrete-Lens-instance cleanup
+
+`Meta/Lens/{Bool,Path,Max,Parity,ZMod6}.lean` are concrete Lens
+instances, not metatheory.  Plan: move to
+`Hypervisor/Lens/Instances/`.  Pending.
+
+`Meta/Lens/{Catalog,Characterisation,CUniquenessBridge}.lean` are
+borderline (Lens-level characterisations).  Plan: move to
+`Hypervisor/Lens/Characterisation/`.  Pending.
+
+After these moves, Meta/ contains only true metatheorems.
+
+### Q4. Research/ layer-mixed sub-clusters
+
+`Research/Lens/` (32 files) — Hypervisor metatheorems exploration.
+`Research/Kernel/`, `Research/Universal/` — Meta-layer exploration.
+
+These could move to vertical layers (Hypervisor/, Meta/).  Decision
+deferred — they remain in Research/ to preserve "exploratory" status
+labeling.  They're treated as *Research-tier* contributions to
+Hypervisor/Meta even though physically in Research/.
+
+### Q5. Math/Physics/Research → OS as wrapper?
+
+Earlier proposal: rename App/ → OS/ (math/physics frameworks as
+"system services").  Decision: rejected.  Math/Physics/Research are
+already at App-level by import direction; no need to rename.  The
+old `OS/` was a misnomer for what's now `Firmware/Atomicity/`, which
+has been corrected.
+
+## 4. Dependency graph (canonical)
+
+```
+                    ┌─────── Lean 4 core ─────────┐
+                    ↓                             ↓
+              Kernel/                    [Tactic, Tools, Infinity]
+                    ↓                             ↑ (orthogonal,
+              Firmware/Raw                          used at any layer)
+              Firmware/Atomicity (no Raw import — proves Raw shape)
+                    ↓
+              Hypervisor/Lens
+                ↓        ↓
+              Meta/    Math/  Physics/  Research/
+                          ↓      ↓        ↑
+                          └───→ App/  ←───┘
+```
+
+Imports flow top→bottom.  Theorems compose bottom→top.
+
+## 5. Naming conventions (canonical)
+
+  1. **Path = namespace** — `Math/Cohomology/Universal/Prop53.lean`
+     declares `namespace E213.Math.Cohomology.Universal.Prop53`.
+     Enforced by `tools/sync_namespaces.py` (skips intentional
+     umbrella-shared dirs).
+
+  2. **No session-numbered labels** — no `Phase2/`, `Phase3/`,
+     `Phase4/` for long-lived dirs.  Reorganise by content.
+
+  3. **Drop redundant prefix** — `Lens/Factoring.lean`, not
+     `Lens/LensFactoring.lean` (cluster name appears in path).
+
+  4. **V-prefix on digit-start** — `V137.lean` (Lean module names
+     cannot start with digit), `V2.lean` (FamousCoincidences/V2.lean
+     was originally `FamousCoincidencesII.lean`).
+
+  5. **One topic per file** — when a file accumulates two
+     unrelated topics, split.  When 3+ thematically-related files
+     appear, sub-cluster early (cheap; flat-root accumulation is
+     hard to undo).
+
+  6. **INDEX.md per non-trivial sub-tree** (≥ 5 files).
+
+## 6. Tooling
+
+  - `tools/sync_namespaces.py` — auto namespace↔path alignment
+    (sentinel-protected single pass; no sed-cascade errors).
+  - `tools/kernel_regress.sh` — verify Kernel/ stays 0-axiom.
+  - `tools/audit_axioms.py` — full-tree axiom survey.
+  - `tools/port_candidates.py` — find unported Lean theorems for
+    rust-engine mirror.
+
+## 7. History (for context only — do not use as current state)
+
+  - 2026-05-01: First Phase 0-7 cleanup (sub-clustering,
+    documentation sync).
+  - 2026-05-XX: Deep file-by-file reorg (Research/ 127→13 flat,
+    Physics/ 121→4 flat, namespace↔path alignment).
+  - 2026-05-XX: OS/ dissolved (atomicity proofs → Firmware/Atomicity/,
+    Pigeonhole → Math/).  Established this document as canonical.
+  - (Pending): Meta/ concrete-Lens-instances → Hypervisor/Lens/Instances/.
+
+## 8. How to evolve this document
+
+When the architecture changes (a layer added, removed, redefined):
+
+  1. Update this file FIRST.
+  2. Update `lean/E213/INDEX.md` to reference the new state.
+  3. Update CLAUDE.md if the change affects agent behavior.
+  4. Run `tools/sync_namespaces.py` to align paths.
+  5. Update HANDOFF.md with the architectural change record.
+
+This document is the canonical statement of *what 213's structure
+IS*.  All other docs follow.
