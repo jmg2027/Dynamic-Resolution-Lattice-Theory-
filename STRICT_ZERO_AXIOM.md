@@ -33,6 +33,23 @@ Verified via `#print axioms <theorem>` returning:
 | `tribFSMmod{3,5,19,29,31}_bits_period_X` | Tribonacci doubling bits |
 | `pellFSMmod47_bits_period_48` | triple-anchor reshape via rfl |
 
+## Pisano predictor + Legendre (STRICT 0-AXIOM after obtain→.proj)
+
+| theorem | content |
+|---|---|
+| `legendre213` | 213-native Legendre symbol (definition) |
+| `pisano_predict` / `_correct` | Pell-5 predictor base |
+| `pisano_predict_realises_pell` | 4-prime Pell match |
+| `pisano_predict_correct_6` / `_realises_pell_6` | 6-prime Pell |
+| `pisano_predict_realises_pell_7` | 7-prime Pell |
+| `pisano_predict_realises_pell_8` | 8-prime Pell |
+| `pisano_predict_realises_pell_11` | 11-prime Pell |
+| `pisano_predict_realises_pell_14` | 14-prime Pell |
+| `pisano_predict_realises_pell_17` | 17-prime Pell |
+| `signature_predict_realises_pell_7` | 7-prime signature |
+| `fib_pisano_predict_realises_8` | 8-prime Fibonacci |
+| `legendre_5_mod_X` (X=13..89) | 14 Legendre symbols |
+
 ## Atomic identities (all STRICT 0-AXIOM via decide)
 
   - All Famous Coincidences (I-IV)
