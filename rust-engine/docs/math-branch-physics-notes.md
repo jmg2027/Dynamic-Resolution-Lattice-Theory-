@@ -1480,7 +1480,7 @@ encapsulation strategy as physics-side master capstones.
 binary listing every Dyadic-track sub-result in one table
 (analog to `scale-ladder-classify` in physics).
 
-## 40. `Cohomology/DyadicConjecture.lean` — the main open conjecture
+## 40. `Cohomology/Dyadic/Conjecture.lean` — the main open conjecture
 
 **What's there** (inferred): The conjecture statement that ties
 the Dyadic track to a falsifiable open prediction — likely
@@ -1508,7 +1508,7 @@ audit` binary that takes a Q-pair sequence and checks whether
 its leading bits match any small BitFSM (brute-force search up
 to n ≤ 16 states or so).
 
-## 41-44. `Cohomology/DyadicArithFSM{,1,1to2,2to3,Hierarchy}.lean`
+## 41-44. `Cohomology/Dyadic/ArithFSM{,/V1,/V1to2,/V2to3,/Hierarchy}.lean`
 
 **What's there**: ArithFSM hierarchy = state machines whose state
 space is `(Fin n)^d` (d-tuple).  ArithFSM_d captures
@@ -1560,7 +1560,7 @@ search.  Outputs the degree `d` and the recurrence's matrix.
 This becomes a **complexity-class diagnostic** for atomic
 observables.
 
-## 45-48. `Cohomology/DyadicArithFSMmod{5,7,11,13}.lean` — Pell mod p
+## 45-48. `Cohomology/Dyadic/ArithFSM/Mod{5,7,11,13}.lean` — Pell mod p
 
 **What's there**: Concrete Pell ArithFSM₂ instances at primes
 p ∈ {5, 7, 11, 13} (and 17, 19, 23 in further files).  Recurrence
@@ -1614,7 +1614,7 @@ Legendre / Pisano classification + atomic decomposition.
 Becomes a quick reference for any binary that uses mod-p
 arithmetic in atomic identities.
 
-## 49-52. `Cohomology/DyadicPisanoPredictor{,6,7,8}.lean`
+## 49-52. `Cohomology/Dyadic/Pisano/Predictor{,6,7,8}.lean`
 
 **What's there**: `pisano_predict : Nat → Nat` — a single 213-
 native function that takes a prime p and outputs the predicted
@@ -1664,7 +1664,7 @@ period, atomic decomposition).  Trivially implementable from
 the math-branch theorem; immediately useful for any subsequent
 mod-p physics work.
 
-## 53-56. `Cohomology/DyadicLegendre213 + LegendrePisano + PellLens + PellLensCapstone`
+## 53-56. `Cohomology/Dyadic/{Legendre/V213, Legendre/Pisano, Pell/Lens, Pell/LensCapstone}`
 
 **What's there**: Four files completing the Legendre/Pell stack.
 

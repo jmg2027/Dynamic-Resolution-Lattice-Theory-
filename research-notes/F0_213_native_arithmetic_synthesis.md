@@ -100,6 +100,6 @@ separate work.
 - `framework/E213/Research/Real213.lean` — type definition.
 - `framework/E213/Research/Real213{Equiv,Const,Order,Sign,OrderExtra}.lean`
   — Phase A complete.
-- `framework/E213/Research/Real213CutSum.lean` — F1 cutSum.
-- `framework/E213/Research/Real213CutSumTest.lean` — verifications.
+- `framework/E213/Research/Real213/CutSum.lean` — F1 cutSum.
+- `framework/E213/Research/Real213/CutSumTest.lean` — verifications.
 - `notes/D3, E1-E5` — context.

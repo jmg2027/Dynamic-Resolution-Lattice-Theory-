@@ -23,46 +23,46 @@ import E213.Math.Analysis       -- existing umbrella
 ### A.1 Ground type
 
 ```lean
-import E213.Research.Real213CutSumTest
+import E213.Research.Real213.CutSumTest
 -- def constCut (a b : Nat) : Nat → Nat → Bool := fun m k => decide (a*k ≤ b*m)
 ```
 
 ### A.2 Sum / Mul
 
 ```lean
-import E213.Research.Real213CutSum     -- cutSum, cutSumAux
-import E213.Research.Real213CutMul     -- cutMul, cutMulOuter, cutMulInner
-import E213.Research.Real213CutSumComm -- cutSum_comm
-import E213.Research.Real213CutMulComm -- cutMul_comm
-import E213.Research.Real213CutSumEq   -- cutSum_cutEq_*, cutMul_cutEq_*
+import E213.Research.Real213.CutSum     -- cutSum, cutSumAux
+import E213.Research.Real213.CutMul     -- cutMul, cutMulOuter, cutMulInner
+import E213.Research.Real213.CutSumComm -- cutSum_comm
+import E213.Research.Real213.CutMulComm -- cutMul_comm
+import E213.Research.Real213.CutSumEq   -- cutSum_cutEq_*, cutMul_cutEq_*
 ```
 
 ### A.3 Core propEq theorems
 
 ```lean
-import E213.Research.Real213CutSumZero  -- cutSum_zero_zero, cutMul_zero_zero, cutMid_zero_zero
-import E213.Research.Real213CutSumOne   -- cutSum_zero_const, cutSum_const_zero,
+import E213.Research.Real213.CutSumZero  -- cutSum_zero_zero, cutMul_zero_zero, cutMid_zero_zero
+import E213.Research.Real213.CutSumOne   -- cutSum_zero_const, cutSum_const_zero,
                                          -- cutSum_int_int, cutSum_half_general,
                                          -- cutSum_half_half, cutSum_int_half, etc.
-import E213.Research.Real213CutMulOne   -- cutMul_one_one, cutMul_one_const,
+import E213.Research.Real213.CutMulOne   -- cutMul_one_one, cutMul_one_const,
                                          -- cutMul_const_one
-import E213.Research.Real213CutMidSelf  -- cutMid_self_constCut, cutMid_int_int,
+import E213.Research.Real213.CutMidSelf  -- cutMid_self_constCut, cutMid_int_int,
                                          -- cutMid_half_general
 ```
 
 ### A.4 Half / Double / Mid
 
 ```lean
-import E213.Research.Real213CutBisection  -- cutHalf
-import E213.Research.Real213CutDouble     -- cutDouble
-import E213.Research.Real213CutPow        -- cutScale a b cx, cutPow x n
-import E213.Research.Real213CutPowConst   -- cutPow_one_n, cutPow_zero_succ
+import E213.Research.Real213.CutBisection  -- cutHalf
+import E213.Research.Real213.CutDouble     -- cutDouble
+import E213.Research.Real213.CutPow        -- cutScale a b cx, cutPow x n
+import E213.Research.Real213.CutPowConst   -- cutPow_one_n, cutPow_zero_succ
 ```
 
 ### A.5 Equivalence / Order
 
 ```lean
-import E213.Research.Real213CutPoset      -- cutEq, cutLe, cutEq_refl/symm/trans
+import E213.Research.Real213.CutPoset      -- cutEq, cutLe, cutEq_refl/symm/trans
 ```
 
 ---
@@ -72,7 +72,7 @@ import E213.Research.Real213CutPoset      -- cutEq, cutLe, cutEq_refl/symm/trans
 ### B.1 DyadicBracket
 
 ```lean
-import E213.Research.Real213DyadicBracket
+import E213.Research.Real213.DyadicBracket
 -- structure DyadicBracket where numA numB expE : Nat; hLe : numA ≤ numB
 -- DyadicBracket.leftCut, rightCut, midCut, leftHalf, rightHalf, bisectN
 ```
@@ -80,7 +80,7 @@ import E213.Research.Real213DyadicBracket
 ### B.2 Bisection trajectory
 
 ```lean
-import E213.Research.Real213DyadicTrajectory
+import E213.Research.Real213.DyadicTrajectory
 -- alwaysTrue, alwaysFalse, unitBracket
 -- alwaysTrue_unit_numA/numB/expE n  closed forms
 -- alwaysFalse_unit_numA/numB/expE n closed forms
@@ -90,7 +90,7 @@ import E213.Research.Real213DyadicTrajectory
 ### B.3 Riemann sum
 
 ```lean
-import E213.Research.Real213DyadicRiemann
+import E213.Research.Real213.DyadicRiemann
 -- riemannSampleSum f db n
 -- riemannSampleSum_constCut a b db n : closed form for constants
 ```
@@ -98,9 +98,9 @@ import E213.Research.Real213DyadicRiemann
 ### B.4 Dyadic interval brackets (★ non-unit FTC)
 
 ```lean
-import E213.Research.Real213IntegralIntInterval    -- intInterval n = [0, n]
-import E213.Research.Real213IntegralGeneralInt     -- intIntervalAB a b h = [a, b]
-import E213.Research.Real213IntegralDyadic         -- ★★ dyadicIntervalAB numA numB E h
+import E213.Research.Real213.IntegralIntInterval    -- intInterval n = [0, n]
+import E213.Research.Real213.IntegralGeneralInt     -- intIntervalAB a b h = [a, b]
+import E213.Research.Real213.IntegralDyadic         -- ★★ dyadicIntervalAB numA numB E h
                                                      -- = [numA/2^E, numB/2^E] universal
 ```
 
@@ -111,8 +111,8 @@ import E213.Research.Real213IntegralDyadic         -- ★★ dyadicIntervalAB nu
 ### C.1 IsSmooth filter
 
 ```lean
-import E213.Research.Real213CutFnData              -- LocallyDeterminedData, addLDD, mulLDD, etc.
-import E213.Research.Real213IsSmooth
+import E213.Research.Real213.CutFnData              -- LocallyDeterminedData, addLDD, mulLDD, etc.
+import E213.Research.Real213.IsSmooth
 -- structure IsSmooth f extends LocallyDeterminedData f where linearityModulus : Nat → Nat
 -- idIsSmooth, constIsSmooth, cutScaleIsSmooth, cutHalfIsSmooth
 -- addIsSmooth, mulIsSmooth, composeIsSmooth, midIsSmooth
@@ -123,7 +123,7 @@ import E213.Research.Real213IsSmooth
 ### C.2 Resolution depth
 
 ```lean
-import E213.Research.Real213ResolutionDepth
+import E213.Research.Real213.ResolutionDepth
 -- cutPowFnIsSmooth_modulus n k : (cutPowFnIsSmooth n).linearityModulus k = n*k
 -- squareIsSmooth_modulus, cubeIsSmooth_modulus, ..., quarticIsSmooth_modulus
 ```
@@ -131,24 +131,24 @@ import E213.Research.Real213ResolutionDepth
 ### C.3 IsDifferentiable
 
 ```lean
-import E213.Research.Real213IsDifferentiable
+import E213.Research.Real213.IsDifferentiable
 -- structure IsDifferentiable f extends IsSmooth f where
 --   derivative : Cut → Cut; derivativeSmooth : IsSmooth derivative
 -- idIsDifferentiable, constIsDifferentiable, addIsDifferentiable,
 -- mulIsDifferentiable, composeIsDifferentiable, cutPowFnIsDifferentiable n
 
-import E213.Research.Real213DifferentiableInstances  -- square, cube, quartic + cutScale, cutHalf
-import E213.Research.Real213DifferentiableHigherPow  -- nonic, decic, dodecic, hexadecic
-import E213.Research.Real213DifferentiableHighOrder  -- 9, 10, 12, 16
-import E213.Research.Real213DifferentiableMid        -- midIsDifferentiable + instances
-import E213.Research.Real213DifferentiableAffine     -- affine, polynomial sums
-import E213.Research.Real213DifferentiableCompose    -- compose instances
+import E213.Research.Real213.DifferentiableInstances  -- square, cube, quartic + cutScale, cutHalf
+import E213.Research.Real213.DifferentiableHigherPow  -- nonic, decic, dodecic, hexadecic
+import E213.Research.Real213.DifferentiableHighOrder  -- 9, 10, 12, 16
+import E213.Research.Real213.DifferentiableMid        -- midIsDifferentiable + instances
+import E213.Research.Real213.DifferentiableAffine     -- affine, polynomial sums
+import E213.Research.Real213.DifferentiableCompose    -- compose instances
 ```
 
 ### C.4 Derivative closed forms
 
 ```lean
-import E213.Research.Real213DerivativeForms
+import E213.Research.Real213.DerivativeForms
 -- id_derivative_form, const_derivative_form, add_derivative_form,
 -- mul_derivative_form, compose_derivative_form
 -- cutPow_derivative_step (recurrence)
@@ -157,11 +157,11 @@ import E213.Research.Real213DerivativeForms
 ### C.5 ★ Sharp resolution depth
 
 ```lean
-import E213.Research.Real213DerivativeDepth                  -- cutPowFn_derivative_modulus
-import E213.Research.Real213ConcreteDerivativeModulus        -- square, cube, quartic
-import E213.Research.Real213ConcreteDerivativeModulusHigh    -- 5-8
-import E213.Research.Real213ConcreteDerivativeModulusFinal   -- 9, 10, 12, 16
-import E213.Research.Real213ConcreteDerivativeMega           -- ★ 11-fact bundle
+import E213.Research.Real213.DerivativeDepth                  -- cutPowFn_derivative_modulus
+import E213.Research.Real213.ConcreteDerivativeModulus        -- square, cube, quartic
+import E213.Research.Real213.ConcreteDerivativeModulusHigh    -- 5-8
+import E213.Research.Real213.ConcreteDerivativeModulusFinal   -- 9, 10, 12, 16
+import E213.Research.Real213.ConcreteDerivativeMega           -- ★ 11-fact bundle
 ```
 
 ---
@@ -171,31 +171,31 @@ import E213.Research.Real213ConcreteDerivativeMega           -- ★ 11-fact bund
 ### D.1 FluxCut + 1-cochain
 
 ```lean
-import E213.Research.Real213FluxCut          -- FluxCut, neg, add, sub, ofCut, zero
+import E213.Research.Real213.FluxCut          -- FluxCut, neg, add, sub, ofCut, zero
                                               -- neg_neg, neg_add, sub_self_balanced
-import E213.Research.Real213FluxCochain      -- fluxAlong f db
-import E213.Research.Real213FluxDivergence   -- localDivergence, fluxScale
+import E213.Research.Real213.FluxCochain      -- fluxAlong f db
+import E213.Research.Real213.FluxDivergence   -- localDivergence, fluxScale
 ```
 
 ### D.2 Setoid bridge (★ no Quotient)
 
 ```lean
-import E213.Research.Real213FluxEquiv        -- cohomEquiv Setoid (0 axioms!)
-import E213.Research.Real213FluxEquivOps     -- neg/add/sub respect cohomEquiv
+import E213.Research.Real213.FluxEquiv        -- cohomEquiv Setoid (0 axioms!)
+import E213.Research.Real213.FluxEquivOps     -- neg/add/sub respect cohomEquiv
 ```
 
 ### D.3 Polynomial flux + MVT framework
 
 ```lean
-import E213.Research.Real213FluxPolynomial   -- localDivergence_square/cube/quartic etc.
-import E213.Research.Real213FluxMVT          -- fluxBalance + concrete cases
-import E213.Research.Real213FluxMVTConcrete  -- mvt_id_unitBracket (propEq)
-import E213.Research.Real213FluxMVTPolynomial -- square, cube at unit (propEq)
-import E213.Research.Real213FluxMVTHigh      -- quartic at unit
-import E213.Research.Real213FluxMVTGeneric   -- ★ ∀n cutPow x^(n+1) MVT
-import E213.Research.Real213FluxMVTPassthrough  -- ★★ general passthrough MVT
-import E213.Research.Real213FluxMVTApplications -- passthrough corollaries
-import E213.Research.Real213FluxMVTClosure   -- passthrough closure (compose, mul)
+import E213.Research.Real213.FluxPolynomial   -- localDivergence_square/cube/quartic etc.
+import E213.Research.Real213.FluxMVT          -- fluxBalance + concrete cases
+import E213.Research.Real213.FluxMVTConcrete  -- mvt_id_unitBracket (propEq)
+import E213.Research.Real213.FluxMVTPolynomial -- square, cube at unit (propEq)
+import E213.Research.Real213.FluxMVTHigh      -- quartic at unit
+import E213.Research.Real213.FluxMVTGeneric   -- ★ ∀n cutPow x^(n+1) MVT
+import E213.Research.Real213.FluxMVTPassthrough  -- ★★ general passthrough MVT
+import E213.Research.Real213.FluxMVTApplications -- passthrough corollaries
+import E213.Research.Real213.FluxMVTClosure   -- passthrough closure (compose, mul)
 ```
 
 ---
@@ -205,37 +205,37 @@ import E213.Research.Real213FluxMVTClosure   -- passthrough closure (compose, mu
 ### E.1 Passthrough class
 
 ```lean
-import E213.Research.Real213FluxPassthroughClass    -- Passthrough struct, id_pass, cutPow_pass,
+import E213.Research.Real213.FluxPassthroughClass    -- Passthrough struct, id_pass, cutPow_pass,
                                                      -- compose_pass, mul_pass + .mvt, .ftc
-import E213.Research.Real213FluxPassthroughCatalog  -- 7-instance catalog
+import E213.Research.Real213.FluxPassthroughCatalog  -- 7-instance catalog
 ```
 
 ### E.2 ★ HasDyadicMVTWitness
 
 ```lean
-import E213.Research.Real213FluxMVTWitness       -- ★ squareDerivative_at_half (c=1/2)
-import E213.Research.Real213HasDyadicMVTWitness  -- HasDyadicMVTWitness class
-import E213.Research.Real213FluxMVTMore          -- mid(x, x²) witness
-import E213.Research.Real213MVTWitnessCatalog    -- id at any c, x², mid(x,x²), id∘x²
-import E213.Research.Real213MVTWitnessChain      -- chain rule witness propagation
-import E213.Research.Real213FluxMVTNested        -- nested mid witness chain
-import E213.Research.Real213FluxMVTNested2       -- mid(mid, x²) witness
-import E213.Research.Real213FluxMVTPattern       -- 5-instance catalog
-import E213.Research.Real213FluxMVTPropagate     -- ★ generic mid propagation
-import E213.Research.Real213FluxMVTPropagateCompose -- ★ generic id-compose propagation
+import E213.Research.Real213.FluxMVTWitness       -- ★ squareDerivative_at_half (c=1/2)
+import E213.Research.Real213.HasDyadicMVTWitness  -- HasDyadicMVTWitness class
+import E213.Research.Real213.FluxMVTMore          -- mid(x, x²) witness
+import E213.Research.Real213.MVTWitnessCatalog    -- id at any c, x², mid(x,x²), id∘x²
+import E213.Research.Real213.MVTWitnessChain      -- chain rule witness propagation
+import E213.Research.Real213.FluxMVTNested        -- nested mid witness chain
+import E213.Research.Real213.FluxMVTNested2       -- mid(mid, x²) witness
+import E213.Research.Real213.FluxMVTPattern       -- 5-instance catalog
+import E213.Research.Real213.FluxMVTPropagate     -- ★ generic mid propagation
+import E213.Research.Real213.FluxMVTPropagateCompose -- ★ generic id-compose propagation
 ```
 
 ### E.3 ★ ClassicCalc unified class
 
 ```lean
-import E213.Research.Real213ClassicCalc           -- ClassicCalc f := { diff, pass }
+import E213.Research.Real213.ClassicCalc           -- ClassicCalc f := { diff, pass }
                                                    -- id_calc, square_calc, cube_calc + .mvt, .ftc
-import E213.Research.Real213ClassicCalcHigher     -- degrees 4-8
-import E213.Research.Real213ClassicCalcExtreme    -- 9, 10, 12, 16
-import E213.Research.Real213ClassicCalcGeneric    -- ★ cutPow_calc n (∀ n)
-import E213.Research.Real213ClassicCalcMid        -- mid_calc + instances
-import E213.Research.Real213ClassicCalcCombinators -- compose_calc, mul_calc
-import E213.Research.Real213ClassicAnti           -- ClassicCalc → IsAntiderivative
+import E213.Research.Real213.ClassicCalcHigher     -- degrees 4-8
+import E213.Research.Real213.ClassicCalcExtreme    -- 9, 10, 12, 16
+import E213.Research.Real213.ClassicCalcGeneric    -- ★ cutPow_calc n (∀ n)
+import E213.Research.Real213.ClassicCalcMid        -- mid_calc + instances
+import E213.Research.Real213.ClassicCalcCombinators -- compose_calc, mul_calc
+import E213.Research.Real213.ClassicAnti           -- ClassicCalc → IsAntiderivative
 ```
 
 ---
@@ -245,38 +245,38 @@ import E213.Research.Real213ClassicAnti           -- ClassicCalc → IsAntideriv
 ### F.1 IsAntiderivative class
 
 ```lean
-import E213.Research.Real213Antiderivative
+import E213.Research.Real213.Antiderivative
 -- structure IsAntiderivative F sF f := { eq : sF.derivative = f }
 -- IsAntiderivative.id_anti, const_anti
 
-import E213.Research.Real213AntiderivativeCombinators  -- mid_anti, add_anti
-import E213.Research.Real213AntiderivativeStructural   -- fromDifferentiable (★ all IsDiff)
+import E213.Research.Real213.AntiderivativeCombinators  -- mid_anti, add_anti
+import E213.Research.Real213.AntiderivativeStructural   -- fromDifferentiable (★ all IsDiff)
 ```
 
 ### F.2 Integral = flux of antiderivative
 
 ```lean
-import E213.Research.Real213IntegralViaAnti
+import E213.Research.Real213.IntegralViaAnti
 -- IsAntiderivative.integral hF db := fluxAlong F db
 
-import E213.Research.Real213IntegralProperties     -- integral_add, integral_mid, zero_length
-import E213.Research.Real213IndefiniteIntegral     -- indefIntFromZero
+import E213.Research.Real213.IntegralProperties     -- integral_add, integral_mid, zero_length
+import E213.Research.Real213.IndefiniteIntegral     -- indefIntFromZero
 
-import E213.Research.Real213IntegralIntInterval    -- ∫_0^n
-import E213.Research.Real213IntegralGeneralInt     -- ∫_a^b
-import E213.Research.Real213IntegralDyadic         -- ★★ ∫ over [a/2^E, b/2^E]
+import E213.Research.Real213.IntegralIntInterval    -- ∫_0^n
+import E213.Research.Real213.IntegralGeneralInt     -- ∫_a^b
+import E213.Research.Real213.IntegralDyadic         -- ★★ ∫ over [a/2^E, b/2^E]
 ```
 
 ### F.3 FTC + Riemann
 
 ```lean
-import E213.Research.Real213FluxFTC                -- ftc_bridge_id_unitBracket
-import E213.Research.Real213FluxFTCPolynomial      -- square/cube/quartic FTC bridges
-import E213.Research.Real213FTCRiemann             -- id depth-0 FTC propEq
-import E213.Research.Real213FTCRiemannSquare       -- x² depth-0
-import E213.Research.Real213FTCRiemannMid          -- mid(x, x²) depth-0
-import E213.Research.Real213FTCRiemannGeneric      -- ★ generic via witness
-import E213.Research.Real213FTCRiemannChain        -- chain instances
+import E213.Research.Real213.FluxFTC                -- ftc_bridge_id_unitBracket
+import E213.Research.Real213.FluxFTCPolynomial      -- square/cube/quartic FTC bridges
+import E213.Research.Real213.FTCRiemann             -- id depth-0 FTC propEq
+import E213.Research.Real213.FTCRiemannSquare       -- x² depth-0
+import E213.Research.Real213.FTCRiemannMid          -- mid(x, x²) depth-0
+import E213.Research.Real213.FTCRiemannGeneric      -- ★ generic via witness
+import E213.Research.Real213.FTCRiemannChain        -- chain instances
 ```
 
 ---
@@ -284,12 +284,12 @@ import E213.Research.Real213FTCRiemannChain        -- chain instances
 ## G. ODE + physics
 
 ```lean
-import E213.Research.Real213ODELinear              -- y' = a (linear)
-import E213.Research.Real213ODECatalog             -- 5-class trivial RHS
-import E213.Research.Real213ODESecondOrder         -- y'' = 0 for linear
-import E213.Research.Real213NewtonFirst            -- F=0 → constant velocity
-import E213.Research.Real213NewtonSecond           -- v' = a (Newton's 2nd in velocity form)
-import E213.Research.Real213CubeDerivativeAtZero   -- (x^n)' at 0 = 0
+import E213.Research.Real213.ODELinear              -- y' = a (linear)
+import E213.Research.Real213.ODECatalog             -- 5-class trivial RHS
+import E213.Research.Real213.ODESecondOrder         -- y'' = 0 for linear
+import E213.Research.Real213.NewtonFirst            -- F=0 → constant velocity
+import E213.Research.Real213.NewtonSecond           -- v' = a (Newton's 2nd in velocity form)
+import E213.Research.Real213.CubeDerivativeAtZero   -- (x^n)' at 0 = 0
 ```
 
 ---
@@ -299,22 +299,22 @@ import E213.Research.Real213CubeDerivativeAtZero   -- (x^n)' at 0 = 0
 ### H.1 Series infrastructure
 
 ```lean
-import E213.Research.Real213CutSequence       -- CutSequence (Cauchy)
-import E213.Research.Real213CutSeries         -- partialSum, SeriesCauchy
-import E213.Research.Real213CutSeriesConst    -- partialSum constant closed forms
-import E213.Research.Real213CutSeriesZero     -- partialSum 0 series
-import E213.Research.Real213CutSeriesConv     -- ratio/comparison test scaffold
-import E213.Research.Real213CutGeomSeries     -- geomHalfSeries
-import E213.Research.Real213FluxSeries        -- seriesFlux, geomHalfFlux
-import E213.Research.Real213GeomSeriesPartialSum  -- ★ S_1, S_2 propEq
+import E213.Research.Real213.CutSequence       -- CutSequence (Cauchy)
+import E213.Research.Real213.CutSeries         -- partialSum, SeriesCauchy
+import E213.Research.Real213.CutSeriesConst    -- partialSum constant closed forms
+import E213.Research.Real213.CutSeriesZero     -- partialSum 0 series
+import E213.Research.Real213.CutSeriesConv     -- ratio/comparison test scaffold
+import E213.Research.Real213.CutGeomSeries     -- geomHalfSeries
+import E213.Research.Real213.FluxSeries        -- seriesFlux, geomHalfFlux
+import E213.Research.Real213.GeomSeriesPartialSum  -- ★ S_1, S_2 propEq
 ```
 
 ### H.2 ★★ Transcendentals at zero
 
 ```lean
-import E213.Research.Real213ExpAtZero          -- ★ exp(0) = 1
-import E213.Research.Real213SinCosAtZero       -- ★ sin(0) = 0, cos(0) = 1
-import E213.Research.Real213TranscendentalAtZero  -- ★★ 7 functions bundle
+import E213.Research.Real213.ExpAtZero          -- ★ exp(0) = 1
+import E213.Research.Real213.SinCosAtZero       -- ★ sin(0) = 0, cos(0) = 1
+import E213.Research.Real213.TranscendentalAtZero  -- ★★ 7 functions bundle
                                                    -- exp/sin/cos/tan/sinh/cosh/log
 ```
 
@@ -352,7 +352,7 @@ Mega theorems *directly callable* when using the library:
 
 ```lean
 import E213.Math.Analysis213
-open E213.Research.Real213CutSum
+open E213.Research.Real213.CutSum
 
 -- polynomial modulus
 example : (cutPowFnIsSmooth 5).linearityModulus 3 = 15 :=
@@ -445,7 +445,7 @@ example (n k v0 x0 a b numA numB E : Nat)
 
 ```lean
 import E213.Math.Analysis213
-open E213.Research.Real213CutSum
+open E213.Research.Real213.CutSum
 
 #print axioms phaseDK_ultimate_capstone
 -- 'phaseDK_ultimate_capstone' depends on axioms: [propext, Quot.sound]

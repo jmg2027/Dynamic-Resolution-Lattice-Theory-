@@ -137,11 +137,11 @@ finite Raw tree under the right encoding.
 
 **Status (2026-04-30 follow-up).**  Formalised as:
 
-  - `lean/E213/Math/Cohomology/DyadicConjecture.lean`:
+  - `lean/E213/Math/Cohomology/Dyadic/Conjecture.lean`:
     bit-walk language, period validation for 1/3 (period 2),
     1/5 (period 4), 1/7 (period 3) — all realised as
     K_{3,2}^{(2)} bit-walks, all STRICT 0-axiom.
-  - `lean/E213/Math/Cohomology/DyadicWalkUniversal.lean`:
+  - `lean/E213/Math/Cohomology/Dyadic/WalkUniversal.lean`:
     `chooseEdge : Fin 5 → Bool → Fin 12` constructive
     selector + `chooseEdge_bit_full` (10-case 0-axiom bundle).
 
@@ -177,7 +177,7 @@ K_{3,2}^{(2)} lens rather than ε-δ.
 "무리수 종류 자체를 이걸로 구분할 수도 있을 듯" — distinct
 irrationals have distinct K_{3,2}^{(2)} signatures.
 
-Realised in `DyadicSignature.lean` + `DyadicClassifier.lean`:
+Realised in `Dyadic/Signature.lean` + `Dyadic/Classifier.lean`:
 
 ```
 def nextVertex : Fin 5 → Bool → Fin 5
@@ -279,7 +279,7 @@ Reference: `research-notes/D2_complexity_class_hierarchy.md` —
   - ★★★★★★ `tier0_equiv_bitfsm`: bs purely periodic ⇒ ∃ BitFSM(p).
   Tier 0 = BitFSM-class formal equivalence.
 
-**Lossless invariant** (`DyadicSignatureInj.lean`):
+**Lossless invariant** (`Dyadic/SignatureInj.lean`):
   - ★★★★★ `signature_injective`: matching signatures ⇒ matching
     bit streams.
   - ★★★★★★ `signature_eq_iff_bits_eq`: bidirectional —
@@ -308,7 +308,7 @@ BitFSM at the BIT STREAM level captures *exactly* Tier 0
 (transcendental e, π) have aperiodic bit streams, hence are
 NOT BitFSM-generable at the bit level.
 
-**Thue-Morse witness** (`DyadicThueMorse.lean`):
+**Thue-Morse witness** (`Dyadic/ThueMorse.lean`):
   - `thueMorse n := parity of popcount(n)` via testBit fold.
   - First 8 values 0,1,1,0,1,0,0,1 verified.
   - `thueMorse_aperiodic_short`: not periodic with period 1..8
@@ -341,7 +341,7 @@ witness.
   - 1/3 vs Thue-Morse traverse different K_{3,2}^{(2)} edges
     starting from step 2.
 
-**ArithFSM (Pell-style)** (`DyadicArithFSM.lean`):
+**ArithFSM (Pell-style)** (`Math/Cohomology/Dyadic/ArithFSM.lean`):
   - `ArithFSM2 (n)` with state vector (Fin n × Fin n) updating
     by linear recurrence mod n.
   - `pellFSMmod2 : ArithFSM2 2` (period 3, STRICT 0-AXIOM).
@@ -357,7 +357,7 @@ requires UNBOUNDED modulus growth (Pell modulus → ∞ as
 precision → ∞), which doesn't fit any single BitFSM.  This
 matches D2's Tier 1 vs Tier 2 distinction.
 
-**Bipartite invariant** (`DyadicSignatureBipartite.lean`):
+**Bipartite invariant** (`Dyadic/SignatureBipartite.lean`):
   - `nextVertex_S_to_T`, `nextVertex_T_to_S`: transitions flip sides.
   - ★★★ `signature_bipartite_alternation`: even step → S-side
     (val < 3), odd step → T-side (val ≥ 3).  Universal property.
@@ -422,9 +422,9 @@ or Kolmogorov-style finite-witness bound.
 - **Lean formalisation.**
   - `lean/E213/Meta/UniversalLens.lean` — Universal Lens
     metatheory.  ≤ {propext}; `refines_all` strict 0-axiom.
-  - `lean/E213/Math/Cohomology/DyadicConjecture.lean` —
+  - `lean/E213/Math/Cohomology/Dyadic/Conjecture.lean` —
     bit-walk language + 1/3, 1/5, 1/7 walks (0-axiom).
-  - `lean/E213/Math/Cohomology/DyadicWalkUniversal.lean` —
+  - `lean/E213/Math/Cohomology/Dyadic/WalkUniversal.lean` —
     chooseEdge witness (0-axiom).
 - **Memo doc.** This file.
 - **Open.**

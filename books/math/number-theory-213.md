@@ -59,8 +59,8 @@ Each level has structural inclusion into the next:
   padTo2 : ArithFSM₁(n) ↪ ArithFSM₂(n)   bit-stream-faithful
   padTo3 : ArithFSM₂(n) ↪ ArithFSM₃(n)   bit-stream-faithful
 
-Both inclusions are STRICT 0-AXIOM (`Math/Cohomology/DyadicArithFSM
-1to2.lean`, `DyadicArithFSM2to3.lean`).  The chain encodes the
+Both inclusions are STRICT 0-AXIOM (`Math/Cohomology/Dyadic/ArithFSM/V1to2.lean`,
+`Dyadic/ArithFSM/V2to3.lean`).  The chain encodes the
 *algebraic degree* of a trajectory: linear, quadratic, cubic, ...
 
 Each ArithFSM_d also embeds bit-stream-faithfully into BitFSM(n^d):
@@ -69,8 +69,9 @@ Each ArithFSM_d also embeds bit-stream-faithfully into BitFSM(n^d):
   ArithFSM₃(n) ↪ BitFSM(n³)               via (a, b, c) ↦ a·n² + b·n + c
 
 This gives the *quantitative bound* `signature_period ≤ 5·n^d` via
-joint-state pigeonhole (`DyadicArithFSMtoBitFSM`, `DyadicArithFSM3
-Bound`).  All bit-stream equivalences proven at ≤ {propext, Quot.sound}.
+joint-state pigeonhole (`Dyadic/ArithFSM/ToBitFSM.lean`,
+`Dyadic/ArithFSM/V3Bound.lean`).  All bit-stream equivalences proven
+at ≤ {propext, Quot.sound}.
 
 ---
 
@@ -98,7 +99,7 @@ quadratic-residue structure:
 | 23 | 2 (NQR)      | inert     |    24      |    24      |
 
 Eight primes verified at ≤ {propext, Quot.sound}; run periods
-STRICT 0-AXIOM (`DyadicArithFSMmod{5,7,11,13,17,19,23}.lean`).
+STRICT 0-AXIOM (`Dyadic/ArithFSM/Mod{5,7,11,13,17,19,23}.lean`).
 
 The period-doubling at p ∈ {11, 19} comes from bipartite parity
 coupling of the K_{3,2}^{(c=2)} signature lens — when bit period
@@ -116,7 +117,7 @@ period formulas shift:
 | 5 (Pell-Fib²) | (p-1)/2 | p+1 | 2p |
 | 8 (Pell proper) | p-1 | 2(p+1) | special (p=2) |
 
-Verified at p ∈ {3, 5, 7} (`DyadicPellProper{,Small,Bridge}.lean`):
+Verified at p ∈ {3, 5, 7} (`Dyadic/Pell/Proper{,Small,Bridge}.lean`):
 
 | p | (8/p) | branch | period | formula |
 |---|---|---|---|---|
@@ -138,19 +139,19 @@ combine function `g : Bool → Bool → Bool`:
     state = pair-encoding (f1.state, f2.state)
     bits k = g (f1.bits k) (f2.bits k)
 
-**lens_composition_period** (`DyadicProductFSMPeriod.lean`):
+**lens_composition_period** (`Dyadic/ProductFSMPeriod.lean`):
 
   period(BitFSM.product f1 f2 g) ∣ lcm(period(f1), period(f2))
 
 Consequence: any squarefree-modulus combination of Pell instances
 is automatically bounded.  E.g., Pell mod 3 × Pell mod 5 (XOR
 readout) has period ∣ lcm(4, 10) = 20, verified directly
-(`DyadicPellLensCapstone.lean`).
+(`Dyadic/Pell/LensCapstone.lean`).
 
 The framework is *universal*: same theorem applies to ArithFSM₂ ×
-ArithFSM₃ (cross-class, `DyadicCrossClassLens.lean`), to split ×
-split (`DyadicSplitSplitLens.lean`), to triple products like
-mod 3 × mod 5 × mod 7 → BitFSM(11025) (`DyadicPellLensTriple.lean`).
+ArithFSM₃ (cross-class, `Dyadic/CrossClassLens.lean`), to split ×
+split (`Dyadic/SplitSplitLens.lean`), to triple products like
+mod 3 × mod 5 × mod 7 → BitFSM(11025) (`Dyadic/Pell/LensTriple.lean`).
 
 ---
 
@@ -173,7 +174,7 @@ By Euler:
 - p-1 if D is NQR mod p (inert)
 
 The Lens encoding `legendre213 D p : Fin 3` packages this as
-a 3-valued readout (`DyadicLegendre213.lean`).
+a 3-valued readout (`Dyadic/Legendre/V213.lean`).
 
 This realises the user's slogan: **"Legendre is not a static
 constant — it is a finite trajectory whose terminal state is
@@ -192,8 +193,8 @@ by the standard Pisano formula:
     else p + 1                   -- inert (NQR)
 
 Verified: `pisano_predict_realises_pell_8` matches the TIGHT
-period at all 8 primes {3, 5, 7, 11, 13, 17, 19, 23} (`DyadicPisano
-Predictor8.lean`).
+period at all 8 primes {3, 5, 7, 11, 13, 17, 19, 23}
+(`Dyadic/Pisano/Predictor8.lean`).
 
 This is the *operational* form of Pisano CRT: a function that,
 given a prime, walks the Legendre trajectory and outputs the
@@ -207,7 +208,7 @@ The signature trajectory adds bipartite parity coupling:
     let bp := pisano_predict p hp
     if bp % 2 = 0 then bp else 2 · bp
 
-**signature_predict_realises_pell_7** (`DyadicSignaturePredict.lean`)
+**signature_predict_realises_pell_7** (`Dyadic/SignaturePredict.lean`)
 matches actual TIGHT signature periods:
 
 | p  | bit | sig | predict |
@@ -357,9 +358,9 @@ the bit-stream level for finite-modulus instances, all eventually-
 periodic streams collapse into HasDegree₁ via counter FSMs.
 
 The genuine separation lives at the *aperiodic* boundary — Tier 2
-hardness (`DyadicArithFSMHardness`, `DyadicArithFSM3Hardness`)
+hardness (`Dyadic/ArithFSM/Hardness.lean`, `Dyadic/ArithFSM/V3Hardness.lean`)
 shows that any aperiodic stream lies *outside* every ArithFSM_d
-class.  Thue-Morse is the canonical witness (`DyadicThueMorse`).
+class.  Thue-Morse is the canonical witness (`Dyadic/ThueMorse.lean`).
 
 ### Chapter 16.  Class-C atomic identities
 

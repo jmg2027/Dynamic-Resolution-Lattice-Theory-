@@ -37,7 +37,7 @@ Most notes describe **already-closed** problems or **superseded**
 roadmaps.  Specifically:
 
   - `D1_zfc_real_as_final_boss.md`: formalized as
-    `Real213DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`
+    `Real213.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`
   - `E1_real213_analysis_roadmap.md`: roadmap completed via Real213
     Phase J-O capstones in `lean/E213/Research/`
   - `F6_general_theorems_state.md`: state superseded by capstones

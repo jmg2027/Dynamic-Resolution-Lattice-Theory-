@@ -73,7 +73,7 @@ convergence (infrastructure already in place).
 |---|---|---|
 | `cutSum`, `cutMul`, `cutDiv` | `Real213CutSum/Mul/Inv` | measure arithmetic |
 | `partialSum` | `Real213CutSeries` | E[X], summation |
-| `riemannSampleSum` | `Real213DyadicRiemann` | integration (uniform distribution) |
+| `riemannSampleSum` | `Real213.DyadicRiemann` | integration (uniform distribution) |
 | `FluxCut` + `cohomEquiv` | `Real213FluxCut/Equiv` | measure = 1-cochain |
 | `IsAntiderivative` | `Real213Antiderivative` | CDF (cumulative distribution) |
 | `dyadicIntervalAB` | `Real213IntegralDyadic` | arbitrary dyadic interval |

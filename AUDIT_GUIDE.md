@@ -1,4 +1,31 @@
-# AUDIT_GUIDE — Lean tree cleanup roadmap
+# AUDIT_GUIDE — Lean tree cleanup roadmap (HISTORICAL)
+
+> **Status (2026-05-01): SUPERSEDED.**  Phases 0–7 of this audit are
+> closed.  See `HANDOFF.md` "Phase Closure" table for the current state.
+> Specific outcomes of executed audit sessions:
+> - **Phase 1 (versioning consolidation)**: NumberTheory213 v1+v2+v3
+>   merged in one file; PisanoPredictor "9→1" determined N/A — the
+>   `Predictor → Predictor6 → … → Predictor22` chain is each-adds-new-
+>   primes (not redundant).  Audit assumption ("only the latest is
+>   needed downstream") was outdated as of 2026-05-01.
+> - **Phase 3 (directory reorg)**: `Math/Cohomology/` → 10 sub-clusters
+>   (`Bipartite/`, `Cochain/`, `Cup/`, `CupAW/`, `Delta/`, `Fractal/`,
+>   `Hodge/`, `Universal/`, `Dyadic/`; `Dyadic/` further split into 8
+>   sub-sub-clusters).  `Research/Real213/` holds 180 files.  Layout
+>   differs from the "Proposed directory structure" below in places
+>   (CupAW/ is its own top-level sub-cluster, not nested in `Cup/`;
+>   Tribonacci is `Trib/`; Hierarchy / Foundation / Capstones / Lens /
+>   Misc are not separate dirs but fold into the named sub-clusters
+>   or live at the `Math/Cohomology/Dyadic/` root).  See
+>   `lean/E213/Math/Cohomology/INDEX.md` for the actual structure.
+> - **Phases 0, 2, 6, 7**: closed (janitorial, INDEX layer,
+>   exploratory archival, CupAW/Universal reorg).
+> - **Phase 5 (post-audit, omega→decide/Nat-lemma)**: 343 → 223
+>   `by omega` calls (-35%), commits 08b02e1 + 1cc9667.  Yielded
+>   5+ strict-0-axiom upgrades on capstone-adjacent theorems and
+>   dropped Quot.sound from `number_theory_213_capstone` v1, v2.
+>
+> The narrative below is preserved for archeological reference.
 
 Audit scope: 812 Lean files across `lean/E213/`.  This is a guide for
 a **dedicated cleanup session** to perform after the merge.  Do NOT
