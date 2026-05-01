@@ -1,4 +1,5 @@
-
+import E213.Kernel.Tactic.Nat213
+open E213.Tactic.Nat213
 
 /-!
 # Arity Forcing: `k = 2` is the unique non-degenerate, non-vacuous choice
@@ -52,10 +53,14 @@ theorem reachable3_only_object {x : Raw3} (h : Reachable3 x) :
         fun h => hyz (congrArg Raw3.object (Fin.ext h))
       have hxz' : ix.val ≠ iz.val :=
         fun h => hxz (congrArg Raw3.object (Fin.ext h))
-      have hix : ix.val < 2 := ix.isLt
-      have hiy : iy.val < 2 := iy.isLt
-      have hiz : iz.val < 2 := iz.isLt
-      omega
+      -- Pigeonhole: three pairwise-distinct values, all < 2 → contradiction.
+      match cases_lt_two ix.isLt, cases_lt_two iy.isLt, cases_lt_two iz.isLt with
+      | Or.inl hx0, Or.inl hy0, _ => exact hxy' (hx0.trans hy0.symm)
+      | Or.inr hx1, Or.inr hy1, _ => exact hxy' (hx1.trans hy1.symm)
+      | _, Or.inl hy0, Or.inl hz0 => exact hyz' (hy0.trans hz0.symm)
+      | _, Or.inr hy1, Or.inr hz1 => exact hyz' (hy1.trans hz1.symm)
+      | Or.inl hx0, _, Or.inl hz0 => exact hxz' (hx0.trans hz0.symm)
+      | Or.inr hx1, _, Or.inr hz1 => exact hxz' (hx1.trans hz1.symm)
 
 /-- Corollary: no arity-3 relation term is ever Reachable3. -/
 theorem no_reachable_rel3 (x y z : Raw3) : ¬ Reachable3 (.rel3 x y z) := by

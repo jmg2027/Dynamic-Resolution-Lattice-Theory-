@@ -56,6 +56,22 @@ theorem le_sub_of_add_le {a b c : Nat} (h : a + b ≤ c) : a ≤ c - b :=
   let h2 : (a + b) - b = a := add_sub_cancel_right a b
   h2 ▸ h1
 
+/-- `n < 2 → n = 0 ∨ n = 1`.  ∅-axiom. -/
+theorem cases_lt_two {n : Nat} (h : n < 2) : n = 0 ∨ n = 1 :=
+  match Nat.lt_or_ge n 1 with
+  | Or.inl hlt =>
+    Or.inl (Nat.le_antisymm (Nat.le_of_lt_succ hlt) (Nat.zero_le _))
+  | Or.inr hge =>
+    Or.inr (Nat.le_antisymm (Nat.le_of_lt_succ h) hge)
+
+/-- `n < 3 → n = 0 ∨ n = 1 ∨ n = 2`.  ∅-axiom. -/
+theorem cases_lt_three {n : Nat} (h : n < 3) :
+    n = 0 ∨ n = 1 ∨ n = 2 :=
+  match Nat.lt_or_ge n 2 with
+  | Or.inl hlt => (cases_lt_two hlt).imp id Or.inl
+  | Or.inr hge =>
+    Or.inr (Or.inr (Nat.le_antisymm (Nat.le_of_lt_succ h) hge))
+
 /-- From `b ≤ a` and `a ≠ b` deduce `a ≠ 0`. -/
 theorem ne_zero_of_le_ne {a b : Nat}
     (hge : b ≤ a) (hne : a ≠ b) : a ≠ 0 := by
