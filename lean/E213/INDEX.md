@@ -77,27 +77,44 @@ lake env lean -e '...'           # eval (used by lean-rust-diff)
   - `Tactic/VerifyR4.lean` — R4Codomain instance diagnostic
   - `Tools/CertChecker.lean` — Lean-side certificate verifier
 
-## Cleanup status (2026-05-01, post Phase 3+7)
+## Cleanup status (2026-05-01, post Phase 3+7+Research-reorg)
 
 Lean tree count: ~810 files (unchanged in count; reorganized in
 structure).
 
-Sub-clustered (this session):
+Sub-clustered (across all sessions):
   - `Math/Cohomology/Dyadic/` — 8 sub-clusters (ArithFSM, BitFSM,
     Pell, Fib, Trib, Legendre, Pisano, Archive)
   - `Math/Cohomology/{Bipartite, Cochain, Cup, CupAW, Delta,
     Fractal, Hodge, Universal}/` — 8 sub-clusters
   - `Research/Real213/` — 180 files (Bishop analysis marathon)
+  - `Research/CayleyDickson/` — 29 files (Cayley-Dickson tower)
+  - `Research/{Lens, Cauchy, ModArith, Kernel, Instance, Morphism,
+    Irrational, Universal, Leaves, Modulus, Choice, Diagonal, Raw,
+    Hyper, Refines}/` — 15 sub-clusters (114 of 127 flat files
+    moved 2026-05-01); 13 misc files retained at root.  See
+    `Research/INDEX.md`.
 
 Pending:
-  - Phase 1 versioning consolidation (PisanoPredictor 9→1, etc.) —
-    requires content migration, deferred
-  - Phase 5 omega → omega213 migration: 195 calls / 50 files
+  - Phase 1 versioning consolidation (PisanoPredictor 9→1) —
+    determined N/A (chain is each-adds-new-primes, not redundant)
+  - Phase 5 omega migration: 343 → 223 calls (-35%); diminishing
+    returns reached
   - Native213 deeper: Nat.div_* avoidance via `q*n + r = x ∧ r < n`
     decomposition
 
 Hands-off layers (well-organized): Kernel, Firmware, OS, Hypervisor,
-App, Meta, Physics.
+App, Meta, Tactic, Tools, Infinity.
+
+Still under the lens (potential future work):
+  - `Physics/Phase{2,3,4}/` topical decomposition (currently 121
+    flat at Physics/ root + 91 in Phase3/ + 52 in Phase4/ + 13 in
+    Phase2/)
+  - `Physics/Phase4/Library/` 27 small "X Library" stubs (each
+    ≤50 lines) candidates for consolidation into a single
+    `Phase4/Catalog.lean` or topical bundles
+  - `Math/Cohomology/` 19 flat-root utility files — small enough
+    they might fold into existing sub-clusters or stay at root
 
 ## Branches
 
