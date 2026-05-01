@@ -17,7 +17,7 @@ Pattern enumeration: 32 × 32 = 1024 (α, β) pairs × 10 indices.
 
 namespace E213.Math.Cohomology.CupAW.Leibniz
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Core.Prop51 (pattern)
 
 set_option maxHeartbeats 16000000 in

@@ -1,5 +1,5 @@
-import E213.Physics.Basel.Bound
-import E213.Physics.Simplex.Counts
+import E213.Physics.Basel.Bound.Bound
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Resolution depth — why α_3, α_2 are exact and α_1 is bracketed
@@ -26,10 +26,10 @@ This file formalizes:
 All theorems 0-axiom decide-checked.
 -/
 
-namespace E213.Physics.Resolution
+namespace E213.Physics.Foundations.ResolutionDepth
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- α_3 at correct depth N=1: 1/α_3 = (NS²-1) · S(1) = 8 ·
     (1/1) = 8.  Integer because S(1) denominator = 1. -/
@@ -86,4 +86,4 @@ theorem depth_principle_witnesses :
     ∧ (12 * NT * (S 2).1 = 30 * (S 2).2)
     ∧ ((S 3).1 < (upper 3).1) := by decide
 
-end E213.Physics.Resolution
+end E213.Physics.Foundations.ResolutionDepth

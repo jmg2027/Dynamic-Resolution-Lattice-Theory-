@@ -14,7 +14,7 @@ parallels (5, 2).
 
 namespace E213.Math.Cohomology.Hodge.Prop53
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 5 3 parametrized (re-exported from UniversalProp53). -/
 abbrev pattern53 := UniversalProp53.pattern

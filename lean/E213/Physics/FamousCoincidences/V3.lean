@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Famous Coincidences III — gauge group + representation ladder
@@ -16,9 +16,9 @@ Each integer admits multiple distinct atomic readings — Class C
 signature.  All theorems STRICT 0-AXIOM via decide.
 -/
 
-namespace E213.Physics.FamousCoincidencesIII
+namespace E213.Physics.FamousCoincidences.V3
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-! ### 1.  dim G_SM = 12 — Standard Model gauge multiplet count
 
@@ -179,4 +179,4 @@ theorem famous_coincidences_III_capstone :
           ⟨?_, ?_, ?_, ?_⟩, ⟨?_, ?_, ?_, ?_, ?_, ?_⟩,
           ⟨?_, ?_⟩, ⟨?_, ?_, ?_⟩⟩ <;> decide
 
-end E213.Physics.FamousCoincidencesIII
+end E213.Physics.FamousCoincidences.V3

@@ -34,11 +34,11 @@ import E213.Physics.Couplings.PhotonKernel
   The place for the true single-sum derivation.
 -/
 
-namespace E213.Physics.FaceTerms
+namespace E213.Physics.Simplex.FaceTerms
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
-open E213.Physics.PhotonKernel
+open E213.Physics.Couplings.PhotonKernel
 
 /-- 4-cycle count in K_{NS, NT}.  In bipartite K_{n,m}, 4-cycles
     are (s₁ → t₁ → s₂ → t₂ → s₁) using 2 spatial + 2 temporal.
@@ -115,4 +115,4 @@ theorem five_terms_simplicial_origin :
     ∧ (b_1 = 8) ∧ (four_cycles_count = 3)
     ∧ (tetrahedra_per_vertex = 4) := by decide
 
-end E213.Physics.FaceTerms
+end E213.Physics.Simplex.FaceTerms

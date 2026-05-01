@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Fractal.V25
 import E213.Physics.Foundations.NUniverseFractalDepth
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Fractal Lens Cardinality — Universal Lens count at level d²
@@ -31,9 +31,9 @@ So **N_U = configurations of d-state on K_{d²} vertices**.
 The third equation is the lens cardinality interpretation.
 -/
 
-namespace E213.Physics.FractalLensCardinality
+namespace E213.Physics.Foundations.FractalLensCardinality
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Math.Cohomology.Fractal.V25
 
 /-- Number of d-colorings of n-vertex graph: d^n. -/
@@ -77,4 +77,4 @@ theorem fractal_lens_cardinality_capstone :
   · intro n; exact coloring_count_succ n d
   · decide
 
-end E213.Physics.FractalLensCardinality
+end E213.Physics.Foundations.FractalLensCardinality

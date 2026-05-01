@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Key QFT theorems → DRLT atomic
@@ -15,9 +15,9 @@ Milestone 2: Atomic Lean formalization of key QFT theorems.
   5. Confinement: QCD coupling diverge IR → 1/α_3 = 8 atomic-locked
 -/
 
-namespace E213.Physics.Phase3.Translation.QFTTheorems
+namespace E213.Physics.AtomicCorrespondences.QFTTheorems
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ 1. CPT theorem atomic ★
@@ -76,4 +76,4 @@ theorem qft_theorems_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.QFTTheorems
+end E213.Physics.AtomicCorrespondences.QFTTheorems

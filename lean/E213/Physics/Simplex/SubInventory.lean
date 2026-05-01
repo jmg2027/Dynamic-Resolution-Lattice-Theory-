@@ -21,7 +21,7 @@ Per-simplex-dimension breakdown (k+1 = i+j vertices):
 All `rfl`-closed via chiralDim = binom(NS, i)·binom(NT, j).
 -/
 
-namespace E213.Physics.SubSimplexInventory
+namespace E213.Physics.Simplex.SubInventory
 
 open E213.Math.Cohomology.Paper1Chiral (chiralDim)
 
@@ -54,7 +54,7 @@ theorem total_non_empty :
 /-- 31 = 2^d − 1 with d = 5. -/
 theorem thirty_one_is_two_d_minus_1 : 2 ^ 5 - 1 = 31 := by decide
 
-end E213.Physics.SubSimplexInventory
+end E213.Physics.Simplex.SubInventory
 
-#print axioms E213.Physics.SubSimplexInventory.total_non_empty
-#print axioms E213.Physics.SubSimplexInventory.thirty_one_is_two_d_minus_1
+#print axioms E213.Physics.Simplex.SubInventory.total_non_empty
+#print axioms E213.Physics.Simplex.SubInventory.thirty_one_is_two_d_minus_1

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: *Numerical identity* catalog of the atomic lattice
@@ -22,9 +22,9 @@ It holds *only when* NS - NT = 1.
    → Direct consequence of atomic asymmetry NS-NT = 1.
 -/
 
-namespace E213.Physics.Phase3.Translation.AtomicIdentities
+namespace E213.Physics.AtomicCorrespondences.AtomicIdentities
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- (1) NS - NT = 1 atomic asymmetry. -/
 theorem id_1 : NS - NT = 1 := by decide
@@ -64,4 +64,4 @@ theorem atomic_identities :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.AtomicIdentities
+end E213.Physics.AtomicCorrespondences.AtomicIdentities

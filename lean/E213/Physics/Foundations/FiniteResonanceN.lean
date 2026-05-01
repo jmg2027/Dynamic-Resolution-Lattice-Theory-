@@ -21,7 +21,7 @@ Numerical match (Rust binary `finite-resonance`) at v2 residuals:
   1/α_em ≈ 3×10⁻⁶ vs  series(41)/(41−5)⁴ = 2.75×10⁻⁶  (×1.06) ★
 -/
 
-namespace E213.Physics.FiniteResonanceN
+namespace E213.Physics.Foundations.FiniteResonanceN
 
 /-- 1/α_2 finite-N = b_1 of K_{3,2}^{(2)} = 8.
     Cite: TopologyCompare.K32_c2_b1. -/
@@ -59,7 +59,7 @@ theorem n_self_referential :
     -- 4 = NS+1 = the face dimension that also appears in α_GUT/(NS+1).
     ∧ 4 = 3 + 1 := by decide
 
-end E213.Physics.FiniteResonanceN
+end E213.Physics.Foundations.FiniteResonanceN
 
-#print axioms E213.Physics.FiniteResonanceN.finite_resonance_n_skeleton
-#print axioms E213.Physics.FiniteResonanceN.n_self_referential
+#print axioms E213.Physics.Foundations.FiniteResonanceN.finite_resonance_n_skeleton
+#print axioms E213.Physics.Foundations.FiniteResonanceN.n_self_referential

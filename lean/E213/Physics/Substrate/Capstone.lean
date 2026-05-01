@@ -47,11 +47,11 @@ Questions answered by each file + comprehensive single theorem.
   and Fibonacci F_5/F_4
 -/
 
-namespace E213.Physics.Phase2.Capstone
+namespace E213.Physics.Substrate.Capstone
 
 open E213.OS.Atomicity
-open E213.Physics.Phase2.Existence
-open E213.Physics.Phase2.Pairs
+open E213.Physics.Substrate.Existence
+open E213.Physics.Substrate.Pairs
 
 /-- ★★★ PHASE 2 ABSOLUTE CAPSTONE ★★★
 
@@ -84,18 +84,18 @@ theorem phase2_absolute :
     -- (3/2) cross-mult (NS · NT_other = NT · NS_other)
     ∧ (3 * 2 = 2 * 3)
     -- (8) Force: 3 channels (AA, BB, AB)
-    ∧ (E213.Physics.Phase2.Force.num_channels = 3)
+    ∧ (E213.Physics.Substrate.Force.num_channels = 3)
     -- (9) Edges: c=2 doubling, 12 directed, b_1 = 8 = NS²-1
-    ∧ (E213.Physics.Phase2.Edges.c_lattice = 2)
-    ∧ (E213.Physics.Phase2.Edges.num_directed_edges = 12)
-    ∧ (E213.Physics.Phase2.Edges.num_directed_edges - 5 + 1 = 8)
-    ∧ (8 = E213.Physics.Phase2.Edges.NS_atomic
-            * E213.Physics.Phase2.Edges.NS_atomic - 1)
+    ∧ (E213.Physics.Substrate.Edges.c_lattice = 2)
+    ∧ (E213.Physics.Substrate.Edges.num_directed_edges = 12)
+    ∧ (E213.Physics.Substrate.Edges.num_directed_edges - 5 + 1 = 8)
+    ∧ (8 = E213.Physics.Substrate.Edges.NS_atomic
+            * E213.Physics.Substrate.Edges.NS_atomic - 1)
     -- (10) Lens: Hypervisor explicit Lens demo
-    ∧ (E213.Physics.Phase2.Lens.parityLens.view E213.Firmware.Raw.a = false)
-    ∧ (E213.Physics.Phase2.Lens.parityLens.view E213.Firmware.Raw.b = true)
-    ∧ (E213.Physics.Phase2.Lens.bCountLens.view E213.Firmware.Raw.a = 0)
-    ∧ (E213.Physics.Phase2.Lens.bCountLens.view E213.Firmware.Raw.b = 1) := by
+    ∧ (E213.Physics.Substrate.Lens.parityLens.view E213.Firmware.Raw.a = false)
+    ∧ (E213.Physics.Substrate.Lens.parityLens.view E213.Firmware.Raw.b = true)
+    ∧ (E213.Physics.Substrate.Lens.bCountLens.view E213.Firmware.Raw.a = 0)
+    ∧ (E213.Physics.Substrate.Lens.bCountLens.view E213.Firmware.Raw.b = 1) := by
   refine ⟨atomic_five, fun n => atomic_implies_five n, ?_⟩
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
           ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
@@ -134,4 +134,4 @@ theorem phase2_absolute :
 
   The two tracks are *mutually consistent*. -/
 
-end E213.Physics.Phase2.Capstone
+end E213.Physics.Substrate.Capstone

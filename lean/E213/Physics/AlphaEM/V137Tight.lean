@@ -25,8 +25,8 @@ is implicit (~0.006); the focus is bracketing
 
 namespace E213.Physics.AlphaEM.V137Tight
 
-open E213.Physics.Basel
-open E213.Physics.BaselTight
+open E213.Physics.Basel.Bound
+open E213.Physics.Basel.BoundTight
 
 /-- Tight lower endpoint for `60·ζ(2) + 30 + 25/3`. -/
 def inv_lower_tight (N : Nat) : (Nat × Nat) :=

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Scattering theory → DRLT atomic
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   6. Phase shift δ_l atomic
 -/
 
-namespace E213.Physics.Phase3.Translation.Scattering
+namespace E213.Physics.AtomicCorrespondences.Scattering
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Optical theorem 4π factor = (d-1)·π atomic. -/
 theorem optical_atomic : d - 1 = 4 := by decide
@@ -34,4 +34,4 @@ theorem scattering_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Scattering
+end E213.Physics.AtomicCorrespondences.Scattering

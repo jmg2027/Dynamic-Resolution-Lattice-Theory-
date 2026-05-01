@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Hadron.ProtonMass
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 ProtonMassDerivation — deep-dive on *why 938.27 MeV*
@@ -24,10 +24,10 @@ Numerical values:
 Observed: 938.272 MeV (CODATA 2018)  → **0.000% match** (lattice precision).
 -/
 
-namespace E213.Physics.Phase3.ProtonMassDerivation
+namespace E213.Physics.Hadron.ProtonMassPhase3Derivation
 
-open E213.Physics.Proton
-open E213.Physics.Simplex
+open E213.Physics.Hadron.ProtonMass
+open E213.Physics.Simplex.Counts
 
 /-- NS = 3: 3 valence quarks atomic. -/
 theorem three_quark_count : NS = 3 := by decide
@@ -65,4 +65,4 @@ theorem proton_mass_derivation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.ProtonMassDerivation
+end E213.Physics.Hadron.ProtonMassPhase3Derivation

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # v_H/M_Pl = (d+1)/d^(d²) — hierarchy from atomic exponent (0 axioms)
@@ -31,9 +31,9 @@ DRLT formula (lib/drlt.py:654, ch09 sec 6.1):
   the atomic degree d²
 -/
 
-namespace E213.Physics.HiggsVacuum
+namespace E213.Physics.Higgs.Vacuum
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Hierarchy numerator: d + 1 = 6 (bipartite edges). -/
 def hier_num : Nat := d + 1
@@ -100,4 +100,4 @@ theorem hierarchy_atomic :
     -- All atomic
     ∧ (d = 5) := by decide
 
-end E213.Physics.HiggsVacuum
+end E213.Physics.Higgs.Vacuum

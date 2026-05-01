@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 BerylliumIE — Be IE atomic chain
@@ -27,9 +27,9 @@ import E213.Physics.Simplex.Counts
 ProtonMass, m_H, etc.).
 -/
 
-namespace E213.Physics.Phase4.BerylliumIE
+namespace E213.Physics.Atomic.IE.Beryllium
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- IE(Be) observed in μeV = 9322699. -/
 def IE_Be_micro : Nat := 9322699
@@ -48,4 +48,4 @@ theorem Z_eff_Be_atomic : (33 : Nat) = 33 ∧ (20 : Nat) = 20 := by decide
 /-- σ_2s_to_2s = NS/d = 3/5 atomic = inverse Y-norm. -/
 theorem sigma_2s_atomic : NS * 5 = 3 * d := by decide
 
-end E213.Physics.Phase4.BerylliumIE
+end E213.Physics.Atomic.IE.Beryllium

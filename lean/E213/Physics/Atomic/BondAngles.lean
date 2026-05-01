@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Molecular bond angles — pure rational cos θ (0 axioms)
@@ -32,9 +32,9 @@ DRLT formula (lib/drlt.py:713, ch10 sec 7.6):
   - NH₃ cos = -4/13 (integer -4/13)
 -/
 
-namespace E213.Physics.BondAngles
+namespace E213.Physics.Atomic.BondAngles
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- CH₄ cosine denominator: NS = 3.  -1/NS = -1/3. -/
 def CH4_cos_denom : Nat := NS
@@ -99,4 +99,4 @@ theorem bond_angles_capstone :
     -- all NS-derived
     ∧ (NS = 3) := by decide
 
-end E213.Physics.BondAngles
+end E213.Physics.Atomic.BondAngles

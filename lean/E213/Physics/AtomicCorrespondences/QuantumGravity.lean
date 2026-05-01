@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Quantum gravity → DRLT atomic
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   6. Loop quantum gravity area spectrum → atomic
 -/
 
-namespace E213.Physics.Phase3.Translation.QuantumGravity
+namespace E213.Physics.AtomicCorrespondences.QuantumGravity
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- BH entropy 1/4 factor = 1/(d-1) atomic. -/
 theorem bh_entropy_atomic : d - 1 = 4 := by decide
@@ -35,4 +35,4 @@ theorem qg_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.QuantumGravity
+end E213.Physics.AtomicCorrespondences.QuantumGravity

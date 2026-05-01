@@ -37,9 +37,9 @@ This file: *what is between those 10 pairs?*
 This file is *axiom-free* — a natural consequence of Existence + Shape results.
 -/
 
-namespace E213.Physics.Phase2.Pairs
+namespace E213.Physics.Substrate.Pairs
 
-open E213.Physics.Phase2.Existence
+open E213.Physics.Substrate.Existence
 
 /-- Which classification a pair of two vertices belongs to.
     AA: both big block.  BB: both small.  AB: cross. -/
@@ -103,4 +103,4 @@ theorem cosmos_pair_structure :
     -- Total 10
     ∧ (allPairs.length = 10) := by decide
 
-end E213.Physics.Phase2.Pairs
+end E213.Physics.Substrate.Pairs

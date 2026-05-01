@@ -31,12 +31,12 @@ DRLT formula (lib/drlt.py:633, ch21):
   is the common building block in *five precision formulas*.
 -/
 
-namespace E213.Physics.Higgs
+namespace E213.Physics.Higgs.Mass
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
-open E213.Physics.Dyson
-open E213.Physics.FaceTerms
+open E213.Physics.Couplings.DysonStructure
+open E213.Physics.Simplex.FaceTerms
 
 /-- Leading Higgs/v_H ratio at α_GUT → 0: 1/c = 1/2. -/
 def leading_ratio : (Nat × Nat) := (1, c_lat)
@@ -102,4 +102,4 @@ theorem higgs_simplicial_pattern :
     -- Observed 0.5097 in 1% bracket [0.50, 0.52]
     ∧ (50 * 10000 < 5097 * 100 ∧ 5097 * 100 < 52 * 10000) := by decide
 
-end E213.Physics.Higgs
+end E213.Physics.Higgs.Mass

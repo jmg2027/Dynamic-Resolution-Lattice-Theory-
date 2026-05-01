@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Standard equation forms → DRLT atomic
@@ -15,9 +15,9 @@ Milestone 3: Atomic derivation of the *form* (coefficients, constants) of core p
   5. Klein-Gordon: (□ + m²)ψ = 0 → 5-simplex Laplacian
 -/
 
-namespace E213.Physics.Phase3.Translation.EquationsAtomic
+namespace E213.Physics.AtomicCorrespondences.EquationsAtomic
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ 1. Schrödinger eq: iħ∂_t ψ = Ĥψ ★
@@ -119,4 +119,4 @@ theorem equations_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.EquationsAtomic
+end E213.Physics.AtomicCorrespondences.EquationsAtomic

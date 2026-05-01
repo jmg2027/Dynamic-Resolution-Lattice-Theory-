@@ -39,7 +39,7 @@ Restating bridge results in physics track *language* + connecting to Phase 2 nar
 All actual proofs are already in the bridge — this file is a thin wrapper.
 -/
 
-namespace E213.Physics.Phase2.Time
+namespace E213.Physics.Substrate.Time
 
 open E213.Firmware E213.Hypervisor
 open E213.Research.Real213.CutSum
@@ -91,4 +91,4 @@ theorem time_is_NT_unfolded :
   refine ⟨rfl, rfl, ?_⟩
   exact fun n => nt2_step_count n
 
-end E213.Physics.Phase2.Time
+end E213.Physics.Substrate.Time

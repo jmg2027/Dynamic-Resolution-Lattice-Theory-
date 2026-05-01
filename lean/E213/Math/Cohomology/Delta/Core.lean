@@ -17,7 +17,7 @@ XOR — which is exactly what makes δ²=0 still hold in mod-2.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- The colex index of a sorted k-subset `s` of {0..n-1}.
     Brute-force linear search through `Fin (binom n k)`.

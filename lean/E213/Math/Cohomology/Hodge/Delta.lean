@@ -17,7 +17,7 @@ Phase CB closes here.  Phase CC (Betti numbers via decide) follows.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- Codifferential at (n=5, k=2): C² → C¹ via ⋆ δ ⋆. -/
 def codiff_5_2 (σ : Cochain 5 2) : Cochain 5 1 :=

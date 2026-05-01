@@ -1,4 +1,4 @@
-import E213.Physics.Basel.Bound
+import E213.Physics.Basel.Bound.Bound
 
 /-!
 # Tighter Basel bracket — two-sided telescoping
@@ -19,9 +19,9 @@ a quadratic improvement over the trivial `width = 1/N` bracket.
 All theorems 0-axiom, `decide`-checked.
 -/
 
-namespace E213.Physics.BaselTight
+namespace E213.Physics.Basel.BoundTight
 
-open E213.Physics.Basel
+open E213.Physics.Basel.Bound
 
 /-- Tight lower bound: S(N) + 1/(N+1) as `(num, den)`. -/
 def lower_tight (N : Nat) : (Nat × Nat) :=
@@ -81,4 +81,4 @@ theorem bracket_50 :
 -- candidate formula has an intrinsic 5.4×10⁻⁴ gap to the observed
 -- 1/α_em that no amount of bracket tightening can close.
 
-end E213.Physics.BaselTight
+end E213.Physics.Basel.BoundTight

@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Simplex.Generations
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 NoFourthGen — N_gen = 3 sharp falsifier
@@ -27,10 +27,10 @@ DRLT gives N_gen = 3 *without exception*.  *Discovery of 4th generation
 particle at any collider → 213 immediately discarded*.
 -/
 
-namespace E213.Physics.Phase3.NoFourthGen
+namespace E213.Physics.Mass.NoFourthGen
 
-open E213.Physics.Generations
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Generations
+open E213.Physics.Simplex.Counts
 
 /-- Phase 3 sharp form: N_gen = 3 exactly. -/
 theorem n_gen_sharp : N_gen = 3 := n_gen_eq_three
@@ -57,4 +57,4 @@ theorem fourth_gen_falsifier :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.NoFourthGen
+end E213.Physics.Mass.NoFourthGen

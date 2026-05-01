@@ -2,7 +2,7 @@ import E213.Physics.Foundations.UnifiedPattern
 import E213.Physics.Hadron.ProtonMass
 import E213.Physics.Hadron.Masses
 import E213.Physics.Mixing.NeutrinoMixing
-import E213.Physics.Nuclear.Binding
+import E213.Physics.Nuclear.Binding.Binding
 import E213.Physics.Higgs.Quartic
 import E213.Physics.Hadron.NeutronProton
 
@@ -68,9 +68,9 @@ in which precision quantity.
 - sin²θ₂₃ leading 1/NT = 1/2 (NeutrinoMixing)
 -/
 
-namespace E213.Physics.MasterCatalog
+namespace E213.Physics.Capstones.MasterCatalog
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
 
 /-- ★★★ MASTER CATALOG ★★★
@@ -114,4 +114,4 @@ theorem master_atomic_catalog :
   This is the true meaning of DRLT's "0 free parameters":
   all results are *simultaneously* forced from a single atomic configuration. -/
 
-end E213.Physics.MasterCatalog
+end E213.Physics.Capstones.MasterCatalog

@@ -15,7 +15,7 @@ universal lift would run.
 
 namespace E213.Math.Cohomology.CupAW.BasisLeibniz
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Indicator basis cochain at (n, k): 1 at the i-th k-subset,
     0 elsewhere. -/

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 SuperHeavyPredictions — Period 8+ atomic predictions
@@ -32,9 +32,9 @@ All period closures are atomic primitives.
   When observed (~2050s technology): DRLT verification.
 -/
 
-namespace E213.Physics.Phase4.SuperHeavyPredictions
+namespace E213.Physics.Atomic.SuperHeavyPredictions
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Period 8 size = 2·d² = 50. -/
 theorem period_8_size : 2 * d * d = 50 := by decide
@@ -62,4 +62,4 @@ theorem super_heavy_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.SuperHeavyPredictions
+end E213.Physics.Atomic.SuperHeavyPredictions

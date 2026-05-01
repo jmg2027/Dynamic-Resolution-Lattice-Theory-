@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # CKM Library — Quark mixing atomic catalog
@@ -17,9 +17,9 @@ import E213.Physics.Simplex.Counts
   observed 0.225 ∈ DRLT bracket [0.226, 0.230] (+0.9%)
 -/
 
-namespace E213.Physics.Phase4.Library.CKMLibrary
+namespace E213.Physics.Library.CKMLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- λ_num = d atomic. -/
 def lambda_num : Nat := d
@@ -32,4 +32,4 @@ theorem lambda_den_eq_22 : lambda_den = 22 := by decide
 /-- λ² = 25/484 atomic. -/
 theorem lambda_sq_atomic : lambda_num * lambda_num = 25 := by decide
 
-end E213.Physics.Phase4.Library.CKMLibrary
+end E213.Physics.Library.CKMLibrary

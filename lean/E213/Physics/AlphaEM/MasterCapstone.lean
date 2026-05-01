@@ -34,10 +34,10 @@ Bundles the full α_em derivation chain:
 
 namespace E213.Physics.AlphaEM.MasterCapstone
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.SO10
 open E213.Physics.AlphaEM.GramSelfEnergy
-open E213.Physics.NUniverseFractalDepth
+open E213.Physics.Foundations.NUniverseFractalDepth
 
 /-- ★★★★★★★★★ α_em FINITIST MASTER CAPSTONE ★★★★★★★★★
 

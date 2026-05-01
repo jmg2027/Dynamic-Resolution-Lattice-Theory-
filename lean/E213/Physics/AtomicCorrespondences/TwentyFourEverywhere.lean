@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: *All* physical appearances of integer 24
@@ -18,9 +18,9 @@ import E213.Physics.Simplex.Counts
   8. 24-cell regular polytope (4-dim)
 -/
 
-namespace E213.Physics.Phase3.Translation.TwentyFourEverywhere
+namespace E213.Physics.AtomicCorrespondences.TwentyFourEverywhere
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 24 = d² - 1. -/
 theorem tf_atomic : d * d - 1 = 24 := by decide
@@ -49,4 +49,4 @@ theorem twentyfour_everywhere :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.TwentyFourEverywhere
+end E213.Physics.AtomicCorrespondences.TwentyFourEverywhere

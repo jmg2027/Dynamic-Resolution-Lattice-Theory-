@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 ComplexAsTime — *complex i = time axis, wave/probability are misnomers*
@@ -65,9 +65,9 @@ Why does this normalize to 1?
 → Not probability.  *Unit specification of atomic readout*.
 -/
 
-namespace E213.Physics.Phase3.ComplexAsTime
+namespace E213.Physics.Foundations.ComplexAsTime
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## Macroscopic/microscopic split — atomic integer ratio
@@ -144,4 +144,4 @@ theorem complex_as_time :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.ComplexAsTime
+end E213.Physics.Foundations.ComplexAsTime

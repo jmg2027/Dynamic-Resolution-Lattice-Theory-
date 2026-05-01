@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Geometry Library — 5-simplex Δ⁴ atomic catalog
@@ -24,9 +24,9 @@ import E213.Physics.Simplex.Counts
   cycle    = E - V + 1 = 12 - 5 + 1 = 8 = NS²-1 ★
 -/
 
-namespace E213.Physics.Phase4.Library.GeometryLibrary
+namespace E213.Physics.Library.GeometryLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Δ⁴ vertex count = d. -/
 theorem vertex_count : d = 5 := by decide
@@ -40,4 +40,4 @@ theorem hodge_2_3 : d * (d - 1) / 2 = d * (d - 1) * (d - 2) / 6 := by decide
 /-- K_{3,2}^(c=2) cycle space = 8 atomic. -/
 theorem cycle_space : 2 * NS * NT - d + 1 = 8 := by decide
 
-end E213.Physics.Phase4.Library.GeometryLibrary
+end E213.Physics.Library.GeometryLibrary

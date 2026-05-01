@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.Simplex.GenerationStructure
 
 /-!
@@ -38,9 +38,9 @@ DRLT (ch11):
   All SU(5) numbers (4, 5, 10, 20, 24) from {NS, NT, d}.
 -/
 
-namespace E213.Physics.SU5
+namespace E213.Physics.YangMills.SU5Roots
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- SU(5) rank = d - 1 = 4. -/
 def su5_rank : Nat := d - 1
@@ -84,4 +84,4 @@ theorem su5_atomic :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.SU5
+end E213.Physics.YangMills.SU5Roots

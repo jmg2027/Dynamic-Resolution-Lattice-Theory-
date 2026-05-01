@@ -10,7 +10,7 @@ to 10 Bool slots: σ : Cochain 5 2 ≃ encode σ : Nat ∈ [0, 1024).
 
 namespace E213.Math.Cohomology.EncodingBijection52
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Core.Prop52 (pattern)
 
 /-- Bool-to-Nat helper. -/

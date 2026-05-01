@@ -65,7 +65,7 @@ This file formalizes only *numerical facts*.  Atomicity forces d=5 →
 binomial counts follow automatically.  10, 5, 1 are all atomic-forced.
 -/
 
-namespace E213.Physics.Phase2.Shape
+namespace E213.Physics.Substrate.Shape
 
 /-- d = 5 (Phase 2 Origin result). -/
 def d : Nat := 5
@@ -120,4 +120,4 @@ theorem cosmos_shape_minimal :
     ∧ (big_block_pairs = 3) ∧ (small_block_pairs = 1)
     ∧ (cross_pairs = 6) := by decide
 
-end E213.Physics.Phase2.Shape
+end E213.Physics.Substrate.Shape

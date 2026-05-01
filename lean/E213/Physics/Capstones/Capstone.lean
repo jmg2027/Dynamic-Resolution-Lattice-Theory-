@@ -1,7 +1,7 @@
 import E213.Physics.Couplings.AlphaGUT
 import E213.Physics.AlphaEM.Core
 import E213.Physics.Simplex.Generations
-import E213.Physics.Nuclear.MagicNumbers
+import E213.Physics.Nuclear.Binding.MagicNumbers
 import E213.Physics.Foundations.TightenBracket
 import E213.Physics.Mixing.CabibboAngle
 
@@ -21,15 +21,15 @@ CLAUDE.md absolute principles (2026-04-27):
   Intersection ✓ (Cabibbo: 5/22 integer derivation + measurable)
 -/
 
-namespace E213.Physics.Capstone
+namespace E213.Physics.Capstones.Capstone
 
-open E213.Physics.Simplex
-open E213.Physics.AlphaGUT
+open E213.Physics.Simplex.Counts
+open E213.Physics.Couplings.AlphaGUT
 open E213.Physics.AlphaEM.Core
-open E213.Physics.Generations
-open E213.Physics.Magic
-open E213.Physics.Tighten
-open E213.Physics.Cabibbo
+open E213.Physics.Simplex.Generations
+open E213.Physics.Nuclear.MagicNumbers
+open E213.Physics.Foundations.TightenBracket
+open E213.Physics.Mixing.CabibboAngle
 
 /-- **DRLT physics formalization milestone master theorem**.
 
@@ -72,4 +72,4 @@ theorem drlt_physics_milestone :
     falsifiable results.  Future strengthening: tighter brackets at
     higher N, additional new-physics theorems. -/
 
-end E213.Physics.Capstone
+end E213.Physics.Capstones.Capstone

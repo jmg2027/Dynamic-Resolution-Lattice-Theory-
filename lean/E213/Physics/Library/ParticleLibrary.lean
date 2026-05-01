@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Particle Library — particle physics atomic catalog
@@ -16,9 +16,9 @@ import E213.Physics.Simplex.Counts
 ## Lifetimes / Cross-sections atomic
 -/
 
-namespace E213.Physics.Phase4.Library.ParticleLibrary
+namespace E213.Physics.Library.ParticleLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Muon lifetime prefactor 192 = (NS²-1)·(d²-1) atomic. -/
 theorem muon_lifetime_192 : (NS * NS - 1) * (d * d - 1) = 192 := by decide
@@ -26,4 +26,4 @@ theorem muon_lifetime_192 : (NS * NS - 1) * (d * d - 1) = 192 := by decide
 /-- Z partial count = 2·NS·NT atomic. -/
 theorem z_partial_count : 2 * NS * NT = 12 := by decide
 
-end E213.Physics.Phase4.Library.ParticleLibrary
+end E213.Physics.Library.ParticleLibrary

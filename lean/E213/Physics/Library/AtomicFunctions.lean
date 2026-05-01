@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 Library — Atomic Functions (reusable)
@@ -15,9 +15,9 @@ import E213.Physics.Simplex.Counts
 Each function closes over atomic primitives only.
 -/
 
-namespace E213.Physics.Phase4.Library.AtomicFunctions
+namespace E213.Physics.Library.AtomicFunctions
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- σ_total of inner shells (in 60ths to share denom). -/
 def sigma_inner_60 (n_1s n_2s n_2p : Nat) : Nat :=
@@ -53,4 +53,4 @@ theorem library_consistent :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.Library.AtomicFunctions
+end E213.Physics.Library.AtomicFunctions

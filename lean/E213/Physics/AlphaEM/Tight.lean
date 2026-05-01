@@ -37,8 +37,8 @@ formalizes only the pure-DRLT bare value.
 
 namespace E213.Physics.AlphaEM.Tight
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 open E213.Physics.AlphaEM.Core
 
 /-- 128 strictly inside bare bracket at N = 10. -/

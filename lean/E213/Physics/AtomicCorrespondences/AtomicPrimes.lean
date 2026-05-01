@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Prime structure of atomic integers
@@ -35,9 +35,9 @@ import E213.Physics.Simplex.Counts
 ★ Prime distribution over DRLT atomic: 2, 3, 5, 7, 13, 41, 137 all prime ★
 -/
 
-namespace E213.Physics.Phase3.Translation.AtomicPrimes
+namespace E213.Physics.AtomicCorrespondences.AtomicPrimes
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 5 = d prime atomic. -/
 theorem five_atomic : d = 5 := by decide
@@ -71,4 +71,4 @@ theorem atomic_primes_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.AtomicPrimes
+end E213.Physics.AtomicCorrespondences.AtomicPrimes

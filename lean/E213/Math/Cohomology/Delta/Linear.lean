@@ -13,7 +13,7 @@ to collapse Cup Leibniz from O(2^N · 2^M) decide cases to
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- foldl-XOR distributivity over a Decidable conditional. -/
 private theorem List.foldl_xor_dist

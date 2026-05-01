@@ -43,10 +43,10 @@ import E213.Physics.Foundations.GoldenRatio
   F_7/F_6 = 13/8 (NH₃/α_3)
 -/
 
-namespace E213.Physics.FibAtomic
+namespace E213.Physics.Foundations.FibonacciAtomic
 
-open E213.Physics.Simplex
-open E213.Physics.Golden
+open E213.Physics.Simplex.Counts
+open E213.Physics.Foundations.GoldenRatio
 
 /-- ★ NT = F_3 = 2 ★ -/
 theorem NT_eq_F3 : NT = fib 3 := by decide
@@ -115,4 +115,4 @@ theorem atomicity_is_fibonacci :
     ∧ (fib 3 = 2) ∧ (fib 4 = 3) ∧ (fib 5 = 5)
     ∧ (fib 6 = 8) ∧ (fib 7 = 13) := by decide
 
-end E213.Physics.FibAtomic
+end E213.Physics.Foundations.FibonacciAtomic

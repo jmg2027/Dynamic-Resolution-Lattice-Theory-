@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Hadron bigrading composite — 3-quark glued sub-cohomology on K_{25}
@@ -21,9 +21,9 @@ u and d quarks differ by ONE S↔T swap on inner bigrading —
 the discrete-lattice translation of "isospin doublet".
 -/
 
-namespace E213.Physics.HadronBigrading
+namespace E213.Physics.Hadron.Bigrading
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Bigrading position on K_5: chiralDim(i, j) = C(NS, i)·C(NT, j). -/
 structure Bigrading where
@@ -198,4 +198,4 @@ theorem mn_over_me_cascade :
     ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.HadronBigrading
+end E213.Physics.Hadron.Bigrading

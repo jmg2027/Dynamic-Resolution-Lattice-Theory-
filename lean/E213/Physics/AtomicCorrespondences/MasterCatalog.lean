@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation Master Catalog — *Multi-framework occurrences of all atomic integers*
@@ -18,9 +18,9 @@ import E213.Physics.Simplex.Counts
   Maxwell eq, Dirac γ, Bekenstein, Dyson tail, Δ⁴ tetrahedra
 -/
 
-namespace E213.Physics.Phase3.Translation.MasterCatalog
+namespace E213.Physics.AtomicCorrespondences.MasterCatalog
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## Integer 5 = d = NS + NT = F_5
@@ -77,4 +77,4 @@ theorem master_atomic_catalog :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.MasterCatalog
+end E213.Physics.AtomicCorrespondences.MasterCatalog

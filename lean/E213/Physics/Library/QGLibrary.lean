@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Quantum Gravity Library — quantum gravity atomic catalog
@@ -13,9 +13,9 @@ import E213.Physics.Simplex.Counts
   Holographic c = atomic Lens
 -/
 
-namespace E213.Physics.Phase4.Library.QGLibrary
+namespace E213.Physics.Library.QGLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- BH entropy 1/4 factor = d - 1 atomic. -/
 theorem bh_entropy : d - 1 = 4 := by decide
@@ -29,4 +29,4 @@ theorem lqg_spin : NT = 2 := by decide
 /-- Bekenstein 4 = d - 1 atomic. -/
 theorem bekenstein : d - 1 = 4 := by decide
 
-end E213.Physics.Phase4.Library.QGLibrary
+end E213.Physics.Library.QGLibrary

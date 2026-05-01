@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Beyond Standard Model → DRLT atomic
@@ -21,9 +21,9 @@ Extra dim: absent (NS+NT=d forced)
    ¬ Atomic 4, 6, 11, 26 (Phase 3 Falsifier).
 -/
 
-namespace E213.Physics.Phase3.Translation.BeyondSM
+namespace E213.Physics.AtomicCorrespondences.BeyondSM
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- SUSY: *absent* in NT=2 atomic — fermion-boson partner irrelevant. -/
 theorem susy_absent : NT = 2 := by decide
@@ -45,4 +45,4 @@ theorem bsm_atomic_refutation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.BeyondSM
+end E213.Physics.AtomicCorrespondences.BeyondSM

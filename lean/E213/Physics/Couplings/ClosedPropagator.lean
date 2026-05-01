@@ -41,9 +41,9 @@ DRLT *exact* Dyson resummation (ch09):
   → The same α_GUT combines with different atomic ratios.  All from lattice.
 -/
 
-namespace E213.Physics.Propagator
+namespace E213.Physics.Couplings.ClosedPropagator
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
 
 /-- Numerator of P(x): 1 + 2x.  Coefficient on x is 2 = c_lat. -/
@@ -94,4 +94,4 @@ theorem renormalization_auto :
     -- Closure of P guaranteed by atomic structure
     True := trivial
 
-end E213.Physics.Propagator
+end E213.Physics.Couplings.ClosedPropagator

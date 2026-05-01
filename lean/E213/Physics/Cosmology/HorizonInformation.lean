@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Horizon Information — N from holographic count
@@ -26,9 +26,9 @@ This is the **holographic N**: number of hinges in the cosmic
 simplicial complex.  Each hinge carries 1 bit.  Total ≈ 10¹²².
 -/
 
-namespace E213.Physics.HorizonInformation
+namespace E213.Physics.Cosmology.HorizonInformation
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- Information per hinge (Holevo bound, ch07 thm:holevo). -/
 def hinge_bits : Nat := 1
@@ -74,4 +74,4 @@ theorem holographic_N_atomic :
     -- Total exterior dim
     ∧ 1 + 5 + 10 + 10 + 5 + 1 = 32 := by decide
 
-end E213.Physics.HorizonInformation
+end E213.Physics.Cosmology.HorizonInformation

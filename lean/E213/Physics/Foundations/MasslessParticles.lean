@@ -37,11 +37,11 @@ DRLT massless particle classification (ch08 + ch12):
   ★ Massless = absent rank exhaustion ★
 -/
 
-namespace E213.Physics.Massless
+namespace E213.Physics.Foundations.MasslessParticles
 
-open E213.Physics.Simplex
-open E213.Physics.PhotonKernel
-open E213.Physics.Neff
+open E213.Physics.Simplex.Counts
+open E213.Physics.Couplings.PhotonKernel
+open E213.Physics.Cosmology.NeffDerivation
 
 /-- Photon N_eff = ∞ (no rank exhaustion).
     Cross-sector U(1), borrows from V_A and V_B. -/
@@ -97,4 +97,4 @@ theorem massless_capstone :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.Massless
+end E213.Physics.Foundations.MasslessParticles

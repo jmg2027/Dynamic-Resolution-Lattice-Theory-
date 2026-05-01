@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass
+import E213.Physics.Higgs.Mass.Mass
 
 /-!
 # m_τ/m_μ — same atomicity-locked geometric series (0 axioms)
@@ -35,9 +35,9 @@ DRLT formula (lib/drlt.py:680, ch09):
   → "d+1 cofactor universality" confirmed once more.
 -/
 
-namespace E213.Physics.TauMu
+namespace E213.Physics.Mass.TauOverMu
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
 
 /-- Base prefactor: c^NS · NT.  Pure integer from {c, NS, NT}. -/
@@ -102,4 +102,4 @@ theorem tau_mu_simplicial_pattern :
     -- All from atomic primitives
     ∧ (c_lat = 2) ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.TauMu
+end E213.Physics.Mass.TauOverMu

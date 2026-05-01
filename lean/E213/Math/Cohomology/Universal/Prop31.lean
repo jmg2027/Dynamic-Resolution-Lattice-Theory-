@@ -16,7 +16,7 @@ funext, lift via this representation.
 
 namespace E213.Math.Cohomology.Universal.Core.Prop31
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 3 1 parametrized by 3 Bool values. -/
 def pattern (b0 b1 b2 : Bool) : Cochain 3 1 := fun i =>

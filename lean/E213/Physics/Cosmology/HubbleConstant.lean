@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Hubble constant H_0 — DRLT structural form (0 axioms partial)
@@ -29,9 +29,9 @@ DRLT prediction: approximately 67-70 range (depending on derivation route).
   Currently speculative.
 -/
 
-namespace E213.Physics.Hubble
+namespace E213.Physics.Cosmology.HubbleConstant
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Cosmic dimension constant: H_0 has units 1/time.
     DRLT scale: v_H/M_Pl × M_Pl ~ v_H ~ 245.8 GeV.
@@ -42,4 +42,4 @@ theorem hubble_uses_v_H : True := trivial
 theorem hubble_atomic :
     (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.Hubble
+end E213.Physics.Cosmology.HubbleConstant

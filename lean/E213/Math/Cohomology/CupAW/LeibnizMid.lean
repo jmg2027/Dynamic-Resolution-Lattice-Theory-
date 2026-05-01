@@ -12,7 +12,7 @@ Pattern: 16 × 16 = 256 pairs × 6 indices = 1536 evals.
 
 namespace E213.Math.Cohomology.CupAW.LeibnizMid
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Core.Prop41 (pattern)
 
 /-- Leibniz on every (4, 1, 1) pattern pair. -/

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Gravitational waves → DRLT atomic
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   6. GW150914 (first detection) → graviton not needed (DRLT)
 -/
 
-namespace E213.Physics.Phase3.Translation.GravitationalWaves
+namespace E213.Physics.AtomicCorrespondences.GravitationalWaves
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- GW polarization count = NT atomic. -/
 theorem gw_pol_count : NT = 2 := by decide
@@ -34,4 +34,4 @@ theorem gw_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.GravitationalWaves
+end E213.Physics.AtomicCorrespondences.GravitationalWaves

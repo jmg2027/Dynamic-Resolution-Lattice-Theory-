@@ -22,9 +22,9 @@ Physical integers 6, 8, 10, 16, 25 all ∈ Atomic-1.
 Random integers 11, 13, 17, 19, 23 mostly ∉ Atomic-1.
 -/
 
-namespace E213.Physics.Phase4.Atomic1Complete
+namespace E213.Physics.Atomic.Complete1
 
-open E213.Physics.Phase4.AtomicExpr
+open E213.Physics.Atomic.Expr
 
 /-- Complete enumeration (pow exp ≤ 5).  There are more in reality, but this is the key sample. -/
 def atomic_1_complete : List Nat :=
@@ -69,4 +69,4 @@ theorem sparsity_30 :
     -- 14 / 30 = 47% (decidable)
     (1 : Nat) ∈ atomic_1_complete := by decide
 
-end E213.Physics.Phase4.Atomic1Complete
+end E213.Physics.Atomic.Complete1

@@ -27,10 +27,10 @@ All four share N_U = d^(d²).  No external π / transcendentals.
   fitting — but a single combinatorial scale governing all.
 -/
 
-namespace E213.Physics.FinitistChain
+namespace E213.Physics.Capstones.FinitistObservableChain
 
-open E213.Physics.Simplex
-open E213.Physics.NUniverseFractalDepth
+open E213.Physics.Simplex.Counts
+open E213.Physics.Foundations.NUniverseFractalDepth
 
 /-- ★★★★★★★★★ Finitist Observable Chain — universal N_U capstone.
 
@@ -59,4 +59,4 @@ theorem finitist_observable_chain :
     ∧ NS + NT = d := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.FinitistChain
+end E213.Physics.Capstones.FinitistObservableChain

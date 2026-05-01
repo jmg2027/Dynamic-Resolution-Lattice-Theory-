@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Hadron.ProtonMass
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 ProtonMassSharp — m_p = 938.27 MeV precise falsifier
@@ -33,10 +33,10 @@ Observed: 938.272 MeV.  **0.000% match (lattice precision)**.
   next-order atomic correction closes.
 -/
 
-namespace E213.Physics.Phase3.ProtonMassSharp
+namespace E213.Physics.Hadron.ProtonMassSharp
 
-open E213.Physics.Proton
-open E213.Physics.Simplex
+open E213.Physics.Hadron.ProtonMass
+open E213.Physics.Simplex.Counts
 
 /-- 3-quark structure = NS = 3. -/
 theorem three_quark_atomic : closed_prop_factor_num = NS := by decide
@@ -69,4 +69,4 @@ theorem proton_mass_falsifier :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.ProtonMassSharp
+end E213.Physics.Hadron.ProtonMassSharp

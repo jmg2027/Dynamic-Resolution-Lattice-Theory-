@@ -36,9 +36,9 @@ DRLT formulae (HAD_001, HAD_005, ch09):
   - Closed propagator P(x) for heavy quarks
 -/
 
-namespace E213.Physics.Hadrons
+namespace E213.Physics.Hadron.Masses
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- GMOR n_eff = NS² = 9.  This integer is the prefactor in the m_π² formula. -/
 def gmor_n_eff : Nat := NS * NS
@@ -94,4 +94,4 @@ theorem hadron_simplicial_pattern :
     ∧ (NS * NS - 1 = 8)  -- 1/α_3
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.Hadrons
+end E213.Physics.Hadron.Masses

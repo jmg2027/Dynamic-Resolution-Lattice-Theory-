@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Generation count — formalized new physics (criterion 2)
@@ -21,9 +21,9 @@ no one can dispute the new physics): this file is one instance of it.
 All theorems 0-axiom, decide-checked.
 -/
 
-namespace E213.Physics.Generations
+namespace E213.Physics.Simplex.Generations
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Generation count: C(NS, NT) = C(3, 2). -/
 def N_gen : Nat := binom NS NT
@@ -73,4 +73,4 @@ theorem drlt_no_4th_gen_falsifier :
     DRLT:  N_gen = C(NS, NT) = 3 (forced by PairForcing → Atomicity)
     Falsifier: 4th lepton observed at any energy. -/
 
-end E213.Physics.Generations
+end E213.Physics.Simplex.Generations

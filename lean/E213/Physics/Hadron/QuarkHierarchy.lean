@@ -42,10 +42,10 @@ DRLT quark masses (ch09 sec 6, SM_024):
   m_b/m_t observed 0.0242 contained in α_GUT bracket.
 -/
 
-namespace E213.Physics.QuarkHierarchy
+namespace E213.Physics.Hadron.QuarkHierarchy
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- m_t/m_b ≈ 1/α_GUT = d²·ζ(2). -/
 def mt_mb_ratio : Nat := d * d  -- = 25, multiplied by ζ(2)
@@ -258,4 +258,4 @@ theorem top_yukawa_skeleton :
     ∧ NS * (d * d) = NS * (d * d) := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.QuarkHierarchy
+end E213.Physics.Hadron.QuarkHierarchy

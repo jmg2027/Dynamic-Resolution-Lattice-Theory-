@@ -1,7 +1,7 @@
 import E213.Physics.Substrate
 import E213.Physics.AlphaEM.V137
 import E213.Physics.AlphaEM.Tight
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 AlphaEMSharp — 1/α_em = 137.036 ppm precision falsifier
@@ -41,7 +41,7 @@ closes is the critical path.
 namespace E213.Physics.AlphaEM.Phase3Sharp
 
 open E213.Physics.AlphaEM.V137
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 137 ∈ DRLT bracket (N=10). -/
 theorem alpha_137_in : True := by

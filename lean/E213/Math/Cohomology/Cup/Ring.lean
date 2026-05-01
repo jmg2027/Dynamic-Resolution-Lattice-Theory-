@@ -17,7 +17,7 @@ discussed in Phase CB lessons).
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- Multiplicative unit at (n=5, k=0): true on the unique 0-subset. -/
 def unit_5 : Cochain 5 0 := fun _ => true

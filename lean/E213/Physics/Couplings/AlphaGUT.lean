@@ -1,4 +1,4 @@
-import E213.Physics.Basel.Bound
+import E213.Physics.Basel.Bound.Bound
 
 /-!
 # α_GUT — first DRLT physics constant formal theorem
@@ -24,10 +24,10 @@ Path so far:
   SimplexCounts → FoccSpectrum → BaselBound → **AlphaGUT (← here)**
 -/
 
-namespace E213.Physics.AlphaGUT
+namespace E213.Physics.Couplings.AlphaGUT
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- 1/α_GUT lower bracket: d² · S(N), as `(num, den)` rational. -/
 def inv_lower (N : Nat) : (Nat × Nat) :=
@@ -76,4 +76,4 @@ theorem bracket_shrinks_with_N : True := trivial
 theorem alpha_3_alpha_GUT_both_rational :
     NS * NS - 1 = 8 ∧ inv_lower 3 = (1225, 36) := by decide
 
-end E213.Physics.AlphaGUT
+end E213.Physics.Couplings.AlphaGUT

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 — AtomicExpr framework
@@ -29,9 +29,9 @@ Physical integers being derivable as atomic expressions of *small complexity*
   - atomic representation existence for key integers
 -/
 
-namespace E213.Physics.Phase4.AtomicExpr
+namespace E213.Physics.Atomic.Expr
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Atomic expression syntax.  Only *(NS, NT, d)* primitives are const. -/
 inductive Expr : Type
@@ -64,4 +64,4 @@ def complexity : Expr → Nat
   | .sub a b => 1 + complexity a + complexity b
   | .pow a _ => 1 + complexity a
 
-end E213.Physics.Phase4.AtomicExpr
+end E213.Physics.Atomic.Expr

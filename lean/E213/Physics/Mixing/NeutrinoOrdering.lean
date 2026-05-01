@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 NeutrinoOrdering — JUNO resolution falsifier
@@ -29,9 +29,9 @@ of m₃/m₂ is Lens output on top of Phase 1 NeutrinoMixing.  Here only the ord
 binary (normal / inverted) *proxy* is formalized.
 -/
 
-namespace E213.Physics.Phase3.NeutrinoOrdering
+namespace E213.Physics.Mixing.NeutrinoOrdering
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Atomic asymmetry: NS > NT. -/
 theorem NS_gt_NT : NT < NS := by decide
@@ -58,4 +58,4 @@ theorem juno_falsifier :
   refine ⟨?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.NeutrinoOrdering
+end E213.Physics.Mixing.NeutrinoOrdering

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Lagrangian formalism → DRLT atomic
@@ -34,9 +34,9 @@ Each piece atomic:
   → Euler-Lagrange eq = atomic step relation.
 -/
 
-namespace E213.Physics.Phase3.Translation.Lagrangian
+namespace E213.Physics.AtomicCorrespondences.Lagrangian
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- L_gauge prefactor: -¼ atomic = -1/(d-1) = -1/4. -/
 theorem gauge_prefactor : d - 1 = 4 := by decide
@@ -53,4 +53,4 @@ theorem lagrangian_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Lagrangian
+end E213.Physics.AtomicCorrespondences.Lagrangian

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Fluid mechanics → DRLT atomic
@@ -11,9 +11,9 @@ import E213.Physics.Simplex.Counts
   5. Bernoulli: P + ½ρv² + ρgh = const
 -/
 
-namespace E213.Physics.Phase3.Translation.FluidMechanics
+namespace E213.Physics.AtomicCorrespondences.FluidMechanics
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Bernoulli ½ factor = 1/NT atomic. -/
 theorem bernoulli_factor : NT = 2 := by decide
@@ -32,4 +32,4 @@ theorem fluid_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.FluidMechanics
+end E213.Physics.AtomicCorrespondences.FluidMechanics

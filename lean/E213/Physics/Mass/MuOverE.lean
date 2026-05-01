@@ -34,10 +34,10 @@ DRLT formula (lib/drlt.py:662, ch09):
   - NS/NT = 3/2 = spatial/temporal atomic ratio
 -/
 
-namespace E213.Physics.MuOverE
+namespace E213.Physics.Mass.MuOverE
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 open E213.Physics.AlphaEM.V137
 
 /-- Leading r₀ = NS/(NT·α_em) lower bracket.
@@ -111,4 +111,4 @@ theorem mu_over_e_simplicial_pattern :
     -- NS/NT atomic ratio
     ∧ (NS * 2 = 3 * NT) := by decide
 
-end E213.Physics.MuOverE
+end E213.Physics.Mass.MuOverE

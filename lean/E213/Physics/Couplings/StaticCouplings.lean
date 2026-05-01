@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Couplings.RunningGap
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 StaticCouplings — *"running" is a SM artifact*
@@ -68,9 +68,9 @@ statement of this framing: difference between layers = orientation sign + flux d
 Not continuous derivative (β-function) but *discrete simplicial*.
 -/
 
-namespace E213.Physics.Phase3.StaticCouplings
+namespace E213.Physics.Couplings.StaticCouplings
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- d² decomposition: d² = NS² + 2·NS·NT + NT². -/
 theorem d_squared_decomp : d * d = NS * NS + 2 * NS * NT + NT * NT := by
@@ -120,4 +120,4 @@ theorem static_couplings :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.StaticCouplings
+end E213.Physics.Couplings.StaticCouplings

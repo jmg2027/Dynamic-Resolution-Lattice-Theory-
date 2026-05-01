@@ -52,9 +52,9 @@ DRLT-derived coupling constants:
   Hidden link: weak coupling prefactor = full GUT adjoint.
 -/
 
-namespace E213.Physics.CouplingSpectrum
+namespace E213.Physics.Couplings.SpectrumComplete
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- α_3 channel: NS² - 1 = 8 (adjoint SU(NS)). -/
 def alpha_3_channel : Nat := NS * NS - 1
@@ -109,4 +109,4 @@ theorem coupling_ratios :
     -- α_2/α_3 ratio = 3 = NS! atomic
     ∧ (NS = 3) := by decide
 
-end E213.Physics.CouplingSpectrum
+end E213.Physics.Couplings.SpectrumComplete

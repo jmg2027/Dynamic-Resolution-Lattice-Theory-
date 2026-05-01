@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Period 6 (Z=55~86) — Cs ~ Rn atomic catalog
@@ -25,9 +25,9 @@ import E213.Physics.Simplex.Counts
   Pb 7.417   Bi 7.286    Po 8.414   Rn 10.748
 -/
 
-namespace E213.Physics.Phase4.Library.Period6IE
+namespace E213.Physics.Library.Period6IE
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 theorem Z_Ba : (NS * NS - 1) * (NS * NS - NT) = 56 := by decide
 theorem Z_Nd : d * d * NT + d * NT = 60 := by decide
@@ -41,4 +41,4 @@ theorem Z_Rn : 2 * NS * NS * NS + NT * NT * NT * NT * NT = 86 := by decide
 /-- ★ Period 6 closure Rn = 2·NS³ + NT^d atomic. -/
 theorem period_6_close : 86 = 86 := by decide
 
-end E213.Physics.Phase4.Library.Period6IE
+end E213.Physics.Library.Period6IE

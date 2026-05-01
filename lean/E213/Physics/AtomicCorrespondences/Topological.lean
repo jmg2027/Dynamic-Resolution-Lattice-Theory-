@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Topological phases → DRLT atomic
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   6. SPT phase classification (group cohomology) → atomic
 -/
 
-namespace E213.Physics.Phase3.Translation.Topological
+namespace E213.Physics.AtomicCorrespondences.Topological
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Z_2 topological invariant = NT atomic. -/
 theorem z2_atomic : NT = 2 := by decide
@@ -36,4 +36,4 @@ theorem topological_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Topological
+end E213.Physics.AtomicCorrespondences.Topological

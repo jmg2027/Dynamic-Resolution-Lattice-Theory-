@@ -59,10 +59,10 @@ This file only states *natural emergence of 3 channels*.  Strength proportionali
 is delegated to Phase 1 results (CouplingSpectrumComplete, etc.).
 -/
 
-namespace E213.Physics.Phase2.Force
+namespace E213.Physics.Substrate.Force
 
-open E213.Physics.Phase2.Pairs
-open E213.Physics.Phase2.Existence
+open E213.Physics.Substrate.Pairs
+open E213.Physics.Substrate.Existence
 
 /-- 3 channel = 3 pair type. -/
 def num_channels : Nat := 3
@@ -117,4 +117,4 @@ theorem three_forces_natural :
     -- Total 10 pairs (consistency)
     ∧ (allPairs.length = 10) := by decide
 
-end E213.Physics.Phase2.Force
+end E213.Physics.Substrate.Force

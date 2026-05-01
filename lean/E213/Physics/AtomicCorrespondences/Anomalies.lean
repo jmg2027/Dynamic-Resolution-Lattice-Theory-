@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Anomalies → DRLT atomic
@@ -20,9 +20,9 @@ import E213.Physics.Simplex.Counts
     lepton: (-1, -1) + (0)  ... sum = 0 atomic.
 -/
 
-namespace E213.Physics.Phase3.Translation.Anomalies
+namespace E213.Physics.AtomicCorrespondences.Anomalies
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- SU(5) anomaly cancellation count: 16 fermion per gen, 3 gens. -/
 theorem anomaly_count : 16 * NS = 48 := by decide
@@ -41,4 +41,4 @@ theorem anomaly_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Anomalies
+end E213.Physics.AtomicCorrespondences.Anomalies

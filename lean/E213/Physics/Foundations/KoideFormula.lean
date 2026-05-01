@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Koide formula — atomic structural identity
@@ -33,9 +33,9 @@ chiral split.  The Koide ratio NT/NS reads off the SAME (3, 2)
 split as a pure ratio.
 -/
 
-namespace E213.Physics.Koide
+namespace E213.Physics.Foundations.KoideFormula
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★★★★★★★ Koide formula = NT/NS atomic ratio.
 
@@ -70,4 +70,4 @@ theorem koide_geometric_skeleton :
     ∧ 3 * NT = NS * NT := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.Koide
+end E213.Physics.Foundations.KoideFormula

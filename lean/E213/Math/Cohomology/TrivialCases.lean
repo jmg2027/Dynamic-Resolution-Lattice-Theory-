@@ -10,7 +10,7 @@ the zero cochain.  All theorems 0-axiom, `decide`-checked.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-! ## Δ¹ (n=2) -/
 

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Quantum field theory (QFT) → DRLT  (★ skeleton + TODO ★)
@@ -35,9 +35,9 @@ Full translation of all QFT frames onto DRLT.
 | Path integral ∫Dφ | Sum over Lens sequences |
 -/
 
-namespace E213.Physics.Phase3.Translation.QFT
+namespace E213.Physics.AtomicCorrespondences.QuantumField
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Pair-type 3 = gauge boson types. -/
 theorem pair_types : (3 : Nat) = 3 := by decide
@@ -103,4 +103,4 @@ theorem qft_translation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.QFT
+end E213.Physics.AtomicCorrespondences.QuantumField

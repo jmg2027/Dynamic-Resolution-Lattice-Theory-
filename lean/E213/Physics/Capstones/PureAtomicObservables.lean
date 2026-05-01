@@ -1,8 +1,8 @@
 import E213.Physics.Mixing.CabibboAngle
-import E213.Physics.Simplex.Counts
-import E213.Physics.Nuclear.MagicNumbers
+import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Nuclear.Binding.MagicNumbers
 import E213.Physics.Nuclear.MagicNumbersAtomic
-import E213.Physics.FamousCoincidences.V1
+import E213.Physics.FamousCoincidences.V1.V1
 import E213.Physics.Foundations.NUniverseFractalDepth
 
 /-!
@@ -27,10 +27,10 @@ This is the strongest "atomic-only" closure level: **finitist not
 even necessary**.  No interpretation needed — pure Nat arithmetic.
 -/
 
-namespace E213.Physics.PureAtomic
+namespace E213.Physics.Capstones.PureAtomicObservables
 
-open E213.Physics.Simplex
-open E213.Physics.Cabibbo
+open E213.Physics.Simplex.Counts
+open E213.Physics.Mixing.CabibboAngle
 
 /-- ★★★★★★★★★★★ PURE ATOMIC OBSERVABLES CAPSTONE.
 
@@ -64,4 +64,4 @@ theorem pure_atomic_observables_capstone :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
     <;> decide
 
-end E213.Physics.PureAtomic
+end E213.Physics.Capstones.PureAtomicObservables

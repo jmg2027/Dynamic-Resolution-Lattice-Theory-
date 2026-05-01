@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Golden ratio φ — naturally emerging from d = 5 lattice (0 axioms)
@@ -32,9 +32,9 @@ recurrence encodes the d = 5 atomic structure.
   Cross-mult bracket via Pell sequence.
 -/
 
-namespace E213.Physics.Golden
+namespace E213.Physics.Foundations.GoldenRatio
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Cross-mult of φ² = φ + 1: (2φ-1)² = 5 = d. -/
 theorem phi_d_link :
@@ -119,4 +119,4 @@ theorem golden_ratio_atomic :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.Golden
+end E213.Physics.Foundations.GoldenRatio

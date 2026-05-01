@@ -10,7 +10,7 @@ cochains to Prop-level ∀ σ.
 
 namespace E213.Math.Cohomology.Hodge.Prop
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 5 1 parametrized (re-exported from UniversalProp51). -/
 abbrev pattern51 := UniversalProp51.pattern

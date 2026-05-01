@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 IntegerLockings — catalog of DRLT forced integer identities
@@ -35,9 +35,9 @@ gives a different value, 213 is discarded.
 This file = 7 theorems + single capstone.
 -/
 
-namespace E213.Physics.Phase3.IntegerLockings
+namespace E213.Physics.Foundations.IntegerLockings
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Lattice "speed" c = 2 (same as Phase 2 Edges). -/
 def c_lat : Nat := 2
@@ -82,4 +82,4 @@ theorem all_lockings :
    the meaning of *why these two integers must be equal*.  All Phase 1 precision
    quantities (1/α_3, 12NT, 36, etc.) are *manifestations* of these lockings. -/
 
-end E213.Physics.Phase3.IntegerLockings
+end E213.Physics.Foundations.IntegerLockings

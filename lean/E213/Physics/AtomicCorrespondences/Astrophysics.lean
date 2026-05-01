@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Astrophysics → DRLT atomic
@@ -14,9 +14,9 @@ import E213.Physics.Simplex.Counts
   6. Schwarzschild radius r_s = 2GM/c² → atomic 2 = NT
 -/
 
-namespace E213.Physics.Phase3.Translation.Astrophysics
+namespace E213.Physics.AtomicCorrespondences.Astrophysics
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ Schwarzschild radius factor 2 atomic ★
@@ -76,4 +76,4 @@ theorem astrophysics_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Astrophysics
+end E213.Physics.AtomicCorrespondences.Astrophysics

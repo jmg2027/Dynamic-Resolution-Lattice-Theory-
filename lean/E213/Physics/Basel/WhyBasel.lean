@@ -1,5 +1,5 @@
-import E213.Physics.Simplex.Counts
-import E213.Physics.Basel.Bound
+import E213.Physics.Simplex.Counts.Counts
+import E213.Physics.Basel.Bound.Bound
 import E213.Physics.Foundations.ResolutionDepth
 
 /-!
@@ -32,10 +32,10 @@ in NS-dimensional space, with NS = 3 axiom-forced.
   given and provides only the propagator-weight derivation.
 -/
 
-namespace E213.Physics.WhyBasel
+namespace E213.Physics.Basel.WhyBasel
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- The propagator exponent: NS - 1.  This is the "spatial
     dimension minus one" that appears in solid-angle laws. -/
@@ -96,4 +96,4 @@ theorem N_eff_assignments_open :
     -- requires Gram-rank machinery not yet in Lean.
     True := trivial
 
-end E213.Physics.WhyBasel
+end E213.Physics.Basel.WhyBasel

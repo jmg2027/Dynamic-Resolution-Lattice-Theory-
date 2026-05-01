@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Anomalous magnetic moment g-2 → DRLT atomic
@@ -25,9 +25,9 @@ DRLT atomic:
   anomaly or lattice — is correct.  Currently unresolved.
 -/
 
-namespace E213.Physics.Phase3.Translation.AnomalousMoment
+namespace E213.Physics.AtomicCorrespondences.AnomalousMoment
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- g-factor 2 = NT atomic. -/
 theorem g_factor_atomic : NT = 2 := by decide
@@ -47,4 +47,4 @@ theorem anomalous_moment_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.AnomalousMoment
+end E213.Physics.AtomicCorrespondences.AnomalousMoment

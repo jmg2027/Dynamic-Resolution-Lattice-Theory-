@@ -35,7 +35,7 @@ def Lens.view (L : Lens α) (r : Raw) : α :=
 needs a more complex definition, outside this file's scope.)
 -/
 
-namespace E213.Physics.Phase2.Lens
+namespace E213.Physics.Substrate.Lens
 
 open E213.Firmware E213.Hypervisor
 
@@ -84,4 +84,4 @@ theorem phase2_lens_demo :
   refine ⟨rfl, rfl, rfl, rfl, ?_⟩
   exact E213.OS.Atomicity.atomic_five
 
-end E213.Physics.Phase2.Lens
+end E213.Physics.Substrate.Lens

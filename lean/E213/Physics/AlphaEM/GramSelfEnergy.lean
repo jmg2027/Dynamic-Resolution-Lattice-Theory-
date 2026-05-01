@@ -51,7 +51,7 @@ Numerical bracket containment via decide.
 
 namespace E213.Physics.AlphaEM.GramSelfEnergy
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.SO10
 
 /-- Atomic: d² = 25 = NS·NT·(NS+NT)·... = 5·5 = 25.  Multiple readings. -/

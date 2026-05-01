@@ -15,7 +15,7 @@ via `combine_5`.
 
 namespace E213.Math.Cohomology.CupAW.LeibnizAlgLift21
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Cochain.V5_1DecompR (decomp_5_1 decomp_5_1_eq bz5_1)
 open E213.Math.XorPairCombine (combine_5)
 

@@ -19,11 +19,11 @@ All theorems 0-axiom decide-checked.  No real numbers involved —
 just larger rationals with same `S/upper` recursion.
 -/
 
-namespace E213.Physics.Tighten
+namespace E213.Physics.Foundations.TightenBracket
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
-open E213.Physics.AlphaGUT
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
+open E213.Physics.Couplings.AlphaGUT
 
 /-- N=10 lower bracket on 1/α_GUT. -/
 theorem inv_lower_10 :
@@ -71,4 +71,4 @@ theorem width_10_lt_width_3 :
     (hi3.1 * lo3.2 - lo3.1 * hi3.2) * hi10.2 * lo10.2
     > (hi10.1 * lo10.2 - lo10.1 * hi10.2) * hi3.2 * lo3.2 := by decide
 
-end E213.Physics.Tighten
+end E213.Physics.Foundations.TightenBracket

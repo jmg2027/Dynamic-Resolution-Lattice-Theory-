@@ -35,8 +35,8 @@ from Raw + Lens axioms + other prior theorems.
 
 namespace E213.Physics.AlphaEM.Unified
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- Two-term decomposition of d²/NS: d²/NS = (NS² - 1) + 1/NS.
 

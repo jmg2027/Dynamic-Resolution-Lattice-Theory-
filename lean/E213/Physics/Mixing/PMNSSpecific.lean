@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Mixing.NeutrinoMixing
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 PMNSSpecific — neutrino mixing integer falsifier
@@ -34,10 +34,10 @@ DUNE/HK (~2030) improves precision 5-10× → direct verification of DRLT intege
 *If leading order denom of any PMNS angle is an integer outside {NS, NT, d²-1} → discarded*.
 -/
 
-namespace E213.Physics.Phase3.PMNSSpecific
+namespace E213.Physics.Mixing.PMNSSpecific
 
-open E213.Physics.PMNS
-open E213.Physics.Simplex
+open E213.Physics.Mixing.NeutrinoMixing
+open E213.Physics.Simplex.Counts
 
 /-- sin²θ_12 leading denom = NS = 3. -/
 theorem theta_12_atomic : sin2_12_leading_denom = NS := by decide
@@ -68,4 +68,4 @@ theorem pmns_falsifier :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.PMNSSpecific
+end E213.Physics.Mixing.PMNSSpecific

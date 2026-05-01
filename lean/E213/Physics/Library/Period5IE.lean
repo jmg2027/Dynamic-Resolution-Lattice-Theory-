@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Period 5 (Z=37~54) — Rb ~ Xe atomic catalog
@@ -25,9 +25,9 @@ import E213.Physics.Simplex.Counts
   I  10.451 Xe 12.130
 -/
 
-namespace E213.Physics.Phase4.Library.Period5IE
+namespace E213.Physics.Library.Period5IE
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Z atomic clean cases. -/
 theorem Z_Zr : (NS * NS - 1) * d = 40 := by decide
@@ -38,4 +38,4 @@ theorem Z_In : (NS * NS - NT) * (NS * NS - NT) = 49 := by decide
 theorem Z_Sn : 2 * d * d = 50 := by decide
 theorem Z_Xe : 2 * NS * NS * NS = 54 := by decide
 
-end E213.Physics.Phase4.Library.Period5IE
+end E213.Physics.Library.Period5IE

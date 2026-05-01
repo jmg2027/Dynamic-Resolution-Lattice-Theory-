@@ -1,4 +1,4 @@
-import E213.Physics.Nuclear.MagicNumbers
+import E213.Physics.Nuclear.Binding.MagicNumbers
 
 /-!
 # Nuclear magic numbers — atomic decomposition
@@ -25,9 +25,9 @@ the empirical magic numbers to the K_{3,2}^{(c=2)} atomicity.
 All STRICT 0-AXIOM via decide.
 -/
 
-namespace E213.Physics.MagicAtomic
+namespace E213.Physics.Nuclear.MagicNumbersAtomic
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-! ### First 3 magic numbers — clean atomic forms
 
@@ -114,4 +114,4 @@ theorem nuclear_magic_atomic_capstone :
     ∧ NT * (NT ^ (d + 1) - 1) = 126 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.MagicAtomic
+end E213.Physics.Nuclear.MagicNumbersAtomic

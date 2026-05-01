@@ -12,7 +12,7 @@ both lenses.
 
 namespace E213.Math.Cohomology.CupAW.Leibniz22Bridge
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
 

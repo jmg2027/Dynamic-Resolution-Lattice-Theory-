@@ -21,7 +21,7 @@ Topology gives ratios; specific N value still cosmological.
 
 namespace E213.Math.Cohomology.ClosureExtension
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- N=3 cells glued: Euler χ depends on shared boundary count.
     Concrete configuration: 3 Δ⁴'s sharing pairwise tetrahedra. -/

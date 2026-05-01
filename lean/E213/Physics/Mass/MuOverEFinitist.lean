@@ -27,10 +27,10 @@ Each δ involves α_em or α_GUT which are finitist at N_U.
 Therefore m_μ/m_e is fully finitist at N_U = d^(d²).
 -/
 
-namespace E213.Physics.MuOverEFinitist
+namespace E213.Physics.Mass.MuOverEFinitist
 
-open E213.Physics.Simplex
-open E213.Physics.NUniverseFractalDepth
+open E213.Physics.Simplex.Counts
+open E213.Physics.Foundations.NUniverseFractalDepth
 
 /-- ★ Spatial-temporal ratio NS/NT = 3/2 (atomic). -/
 theorem ns_over_nt_atomic : 2 * NS = 3 * NT := by decide
@@ -55,4 +55,4 @@ theorem mu_over_e_finitist :
     ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.MuOverEFinitist
+end E213.Physics.Mass.MuOverEFinitist

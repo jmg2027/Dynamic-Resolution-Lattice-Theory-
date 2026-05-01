@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 Artifacts — catalog of SM/QM terms that are *Lens artifacts*
@@ -15,9 +15,9 @@ The *entirety* of 213 axiom: Raw + Lens.
 Primitive distinction + Lens output.  *Everything else* = Lens output names.
 -/
 
-namespace E213.Physics.Phase3.Artifacts
+namespace E213.Physics.Foundations.Artifacts
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## List of SM/QM Lens artifacts
@@ -91,4 +91,4 @@ theorem axiom_only_fundamentals :
   refine ⟨?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Artifacts
+end E213.Physics.Foundations.Artifacts

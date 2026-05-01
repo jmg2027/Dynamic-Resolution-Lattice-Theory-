@@ -28,9 +28,9 @@ DRLT derivation (atoms/CLAUDE.md, ATM series):
   screening constants precisely agree under atomicity forcing.
 -/
 
-namespace E213.Physics.AtomicScreening
+namespace E213.Physics.Atomic.Screening
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- σ_1s → outer: 7/8 = 1 − NS/(d²−1). -/
 def sigma_1s_num : Nat := 7
@@ -106,4 +106,4 @@ theorem all_screening_atomic :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.AtomicScreening
+end E213.Physics.Atomic.Screening

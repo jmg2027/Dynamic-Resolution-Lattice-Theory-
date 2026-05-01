@@ -37,7 +37,7 @@ All three verified → all prefactors of unified formula come directly from
 
 namespace E213.Physics.AlphaEM.Prefactors
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- c_lattice = 2 (ch06). -/
 def c_lat : Nat := 2

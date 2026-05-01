@@ -14,7 +14,7 @@ UniversalProp51 (5,1) and UniversalProp52 (5,2), this completes
 
 namespace E213.Math.Cohomology.Universal.Core.Prop53
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 5 3 parametrized by 10 Bool values. -/
 def pattern (b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 : Bool) : Cochain 5 3 :=

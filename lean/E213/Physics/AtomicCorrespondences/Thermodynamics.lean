@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Thermodynamics and statistical mechanics → DRLT  (★ skeleton + TODO ★)
@@ -45,9 +45,9 @@ import E213.Physics.Simplex.Counts
   a direct consequence of the lattice axiom.
 -/
 
-namespace E213.Physics.Phase3.Translation.Thermo
+namespace E213.Physics.AtomicCorrespondences.Thermodynamics
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 2nd law atomic origin: NT < NS asymmetry → arrow of time. -/
 theorem second_law_atomic : NT < NS := by decide
@@ -122,4 +122,4 @@ theorem thermo_translation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Thermo
+end E213.Physics.AtomicCorrespondences.Thermodynamics

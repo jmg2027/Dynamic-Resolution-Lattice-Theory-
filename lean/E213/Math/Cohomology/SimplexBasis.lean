@@ -16,7 +16,7 @@ So `binom (n+1) k = binom n k + binom n (k-1)` (Pascal).
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- The i-th k-subset of {0..n-1} in colex order, as a sorted
     list of length k.  Recursion on n.

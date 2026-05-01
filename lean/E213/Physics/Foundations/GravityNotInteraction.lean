@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Cosmology.GravityShadow
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 GravityNotInteraction — *gravity is not an interaction*
@@ -47,10 +47,10 @@ DRLT force = *pair classification + phase*:
    Graviton detection attempts = category error.
 -/
 
-namespace E213.Physics.Phase3.GravityNotInteraction
+namespace E213.Physics.Foundations.GravityNotInteraction
 
-open E213.Physics.GravityShadow
-open E213.Physics.Simplex
+open E213.Physics.Cosmology.GravityShadow
+open E213.Physics.Simplex.Counts
 
 /-- W = |G|²/d normalization: 1/d = 1/5 (lattice cardinality reciprocal). -/
 theorem gravity_normalization : d = 5 := by decide
@@ -81,4 +81,4 @@ theorem gravity_not_interaction :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.GravityNotInteraction
+end E213.Physics.Foundations.GravityNotInteraction

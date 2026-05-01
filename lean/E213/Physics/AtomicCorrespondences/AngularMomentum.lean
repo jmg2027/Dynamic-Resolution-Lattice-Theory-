@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Angular momentum · spin → DRLT atomic
@@ -11,9 +11,9 @@ import E213.Physics.Simplex.Counts
   Clebsch-Gordan coefficients atomic
 -/
 
-namespace E213.Physics.Phase3.Translation.AngularMomentum
+namespace E213.Physics.AtomicCorrespondences.AngularMomentum
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Spin 1/2 = 1/NT atomic (NT slot). -/
 theorem spin_half : NT = 2 := by decide
@@ -43,4 +43,4 @@ theorem angular_momentum_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.AngularMomentum
+end E213.Physics.AtomicCorrespondences.AngularMomentum

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Coupling Library — coupling constants atomic catalog
@@ -23,9 +23,9 @@ Each coupling constant expressed in atomic primitives (reusable).
   1/α_GUT denominator = 25 = d²
 -/
 
-namespace E213.Physics.Phase4.Library.CouplingLibrary
+namespace E213.Physics.Library.CouplingLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 1/α_3 = 8 atomic. -/
 def inv_alpha_3 : Nat := NS * NS - 1
@@ -45,4 +45,4 @@ theorem alpha_gut_denom_eq_25 : alpha_gut_denom_int = 25 := by decide
 /-- 1/α_em ≈ 137 (Phase 1 ppm). -/
 def inv_alpha_em_int : Nat := 137
 
-end E213.Physics.Phase4.Library.CouplingLibrary
+end E213.Physics.Library.CouplingLibrary

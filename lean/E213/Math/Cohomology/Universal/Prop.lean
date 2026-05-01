@@ -11,7 +11,7 @@ Pulls in funext (≤ {propext, Quot.sound}).
 
 namespace E213.Math.Cohomology.Universal.Core.Prop
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Helper: δ²(zero 3 0) = 0 (∀ form). -/
 theorem aux_zero_3_0 :

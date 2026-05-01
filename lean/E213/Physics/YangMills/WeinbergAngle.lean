@@ -34,10 +34,10 @@ DRLT formula (lib/drlt.py:583, ch08 sec 5.5):
     Observed 0.2312 just outside — running gap signature.
 -/
 
-namespace E213.Physics.Weinberg
+namespace E213.Physics.YangMills.WeinbergAngle
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- sin²θ_W lower bracket: 30/(30 + 60·upper(N)). -/
 def sin2_W_lower (N : Nat) : (Nat × Nat) :=
@@ -132,4 +132,4 @@ theorem sin2_W_v2_atomic :
     ∧ NS = 3 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.Weinberg
+end E213.Physics.YangMills.WeinbergAngle

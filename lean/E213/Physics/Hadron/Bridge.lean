@@ -12,7 +12,7 @@ Per `Physics/HadronMasses.lean`:
   hyperfine = d/NT = 5/2
 -/
 
-namespace E213.Physics.HadronBridge
+namespace E213.Physics.Hadron.Bridge
 
 /-- GMOR pion exponent: NS² = 9. -/
 theorem gmor_atomic : (3 * 3 : Nat) = 9 := by decide
@@ -36,11 +36,11 @@ theorem hadron_unified_diamond :
 
 /-- ★★★ Hadron bridge capstone — atomic-source verification. -/
 theorem hadron_bridge_capstone :
-    E213.Physics.Simplex.NS = 3
-    ∧ E213.Physics.Simplex.NT = 2
-    ∧ E213.Physics.Simplex.d = 5
-    ∧ E213.Physics.Hadrons.gmor_n_eff = 9
+    E213.Physics.Simplex.Counts.NS = 3
+    ∧ E213.Physics.Simplex.Counts.NT = 2
+    ∧ E213.Physics.Simplex.Counts.d = 5
+    ∧ E213.Physics.Hadron.Masses.gmor_n_eff = 9
     ∧ 3 * 3 = 9
     ∧ 3 * 3 - 1 = 8 := by decide
 
-end E213.Physics.HadronBridge
+end E213.Physics.Hadron.Bridge

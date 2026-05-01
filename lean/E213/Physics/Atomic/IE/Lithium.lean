@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.Atomic.Screening
 
 /-!
@@ -34,9 +34,9 @@ import E213.Physics.Atomic.Screening
 ppm precision: atomic refinement of σ_1s needed (Phase 5 work).
 -/
 
-namespace E213.Physics.Phase4.LithiumIE
+namespace E213.Physics.Atomic.IE.Lithium
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- IE(Li) observed in μeV = 5391715. -/
 def IE_Li_micro : Nat := 5391715
@@ -55,4 +55,4 @@ theorem Z_eff_Li_atomic : d * 4 = (NS + 1) * 5 := by decide
 /-- 25/64 = d² / (NT² · NT²) = d² / 16. -/
 theorem ratio_atomic : d * d * 16 = 25 * 16 := by decide
 
-end E213.Physics.Phase4.LithiumIE
+end E213.Physics.Atomic.IE.Lithium

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Particle decay rates → DRLT atomic
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   6. Higgs branching BR(H→bb) ≈ 0.58 atomic
 -/
 
-namespace E213.Physics.Phase3.Translation.DecayRates
+namespace E213.Physics.AtomicCorrespondences.DecayRates
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Muon lifetime exponent 5 = d atomic. -/
 theorem muon_lifetime_exp : d = 5 := by decide
@@ -39,4 +39,4 @@ theorem decay_rates_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.DecayRates
+end E213.Physics.AtomicCorrespondences.DecayRates

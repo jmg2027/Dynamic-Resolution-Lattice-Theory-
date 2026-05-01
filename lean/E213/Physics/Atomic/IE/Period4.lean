@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 Period4IE — Period 4 (K ~ Kr) atomic catalog
@@ -28,9 +28,9 @@ Period 4 closure: Kr at Z = 36 = 6² = (NS·NT)² atomic.
   Kr (36) = (NS·NT)² atomic = 6² ★ Period 4 closure
 -/
 
-namespace E213.Physics.Phase4.Period4IE
+namespace E213.Physics.Atomic.IE.Period4
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Z atomic forms (clean cases). -/
 theorem Z_K_atomic : NS * NS * NS - NT * NT * NT = 19 := by decide
@@ -51,4 +51,4 @@ theorem period_4_size : 2 * NS * NS = 18 := by decide
 /-- Period 4 closure = Period 3 close + Period 4 size. -/
 theorem period_4_closure : 18 + 18 = 36 := by decide
 
-end E213.Physics.Phase4.Period4IE
+end E213.Physics.Atomic.IE.Period4

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Symmetry and gauge → DRLT  (★ skeleton + TODO ★)
@@ -45,9 +45,9 @@ import E213.Physics.Simplex.Counts
   DRLT: same decomposition atomic-forced (Phase 1 SU5Roots.lean).
 -/
 
-namespace E213.Physics.Phase3.Translation.Symmetry
+namespace E213.Physics.AtomicCorrespondences.Symmetry
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- SU(3) color: NS² - 1 = 8 generators. -/
 theorem su3_atomic : NS * NS - 1 = 8 := by decide
@@ -130,4 +130,4 @@ theorem symmetry_translation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Symmetry
+end E213.Physics.AtomicCorrespondences.Symmetry

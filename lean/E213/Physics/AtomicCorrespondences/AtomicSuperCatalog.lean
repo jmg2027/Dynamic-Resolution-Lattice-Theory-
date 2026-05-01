@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # AtomicSuperCatalog — single file for all atomic integer appearances
@@ -50,9 +50,9 @@ import E213.Physics.Simplex.Counts
   938 = m_p MeV
 -/
 
-namespace E213.Physics.Phase3.Translation.AtomicSuperCatalog
+namespace E213.Physics.AtomicCorrespondences.AtomicSuperCatalog
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★ Super Catalog Capstone ★
     Selected atomic integers multi-output. -/
@@ -73,4 +73,4 @@ theorem super_catalog :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.AtomicSuperCatalog
+end E213.Physics.AtomicCorrespondences.AtomicSuperCatalog

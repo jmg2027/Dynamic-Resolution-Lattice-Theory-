@@ -1,22 +1,22 @@
 import E213.Physics.Capstones.MasterCatalog
 import E213.Physics.AlphaEM.Simplicial
 import E213.Physics.Mass.MuOverE
-import E213.Physics.Higgs.Mass
+import E213.Physics.Higgs.Mass.Mass
 import E213.Physics.Mass.TauOverMu
-import E213.Physics.YangMills.WeinbergAngle
+import E213.Physics.YangMills.Gap.WeinbergAngle
 import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Atomic.BondAngles
 import E213.Physics.Hadron.ProtonMass
 import E213.Physics.Hadron.Masses
 import E213.Physics.Mixing.NeutrinoMixing
-import E213.Physics.Nuclear.Binding
+import E213.Physics.Nuclear.Binding.Binding
 import E213.Physics.Higgs.Quartic
 import E213.Physics.Hadron.NeutronProton
 import E213.Physics.Atomic.Hydrogen
 import E213.Physics.Atomic.Screening
 import E213.Physics.Couplings.ClosedPropagator
 import E213.Physics.Simplex.Generations
-import E213.Physics.Nuclear.MagicNumbers
+import E213.Physics.Nuclear.Binding.MagicNumbers
 import E213.Physics.Mixing.CabibboAngle
 
 /-!
@@ -71,28 +71,28 @@ from the same atomicity-locked atoms into a single theorem.
     λ_H Higgs quartic
 -/
 
-namespace E213.Physics.Complete
+namespace E213.Physics.Capstones.PhysicsTrackComplete
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
-open E213.Physics.PhotonKernel
-open E213.Physics.FaceTerms
-open E213.Physics.MuOverE
-open E213.Physics.Higgs
-open E213.Physics.TauMu
-open E213.Physics.BondAngles
-open E213.Physics.Proton
-open E213.Physics.Hadrons
-open E213.Physics.PMNS
-open E213.Physics.Nuclear
-open E213.Physics.HiggsQuartic
-open E213.Physics.NeutronProton
-open E213.Physics.Hydrogen
-open E213.Physics.AtomicScreening
-open E213.Physics.Propagator
-open E213.Physics.Generations
-open E213.Physics.Magic
-open E213.Physics.Cabibbo
+open E213.Physics.Couplings.PhotonKernel
+open E213.Physics.Simplex.FaceTerms
+open E213.Physics.Mass.MuOverE
+open E213.Physics.Higgs.Mass
+open E213.Physics.Mass.TauOverMu
+open E213.Physics.Atomic.BondAngles
+open E213.Physics.Hadron.ProtonMass
+open E213.Physics.Hadron.Masses
+open E213.Physics.Mixing.NeutrinoMixing
+open E213.Physics.Nuclear.Binding
+open E213.Physics.Higgs.Quartic
+open E213.Physics.Hadron.NeutronProton
+open E213.Physics.Atomic.Hydrogen
+open E213.Physics.Atomic.Screening
+open E213.Physics.Couplings.ClosedPropagator
+open E213.Physics.Simplex.Generations
+open E213.Physics.Nuclear.MagicNumbers
+open E213.Physics.Mixing.CabibboAngle
 
 /-- ★★★ PHASE 1 COMPLETE CAPSTONE ★★★
 
@@ -136,4 +136,4 @@ theorem phase1_complete :
     -- Atomic config
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
 
-end E213.Physics.Complete
+end E213.Physics.Capstones.PhysicsTrackComplete

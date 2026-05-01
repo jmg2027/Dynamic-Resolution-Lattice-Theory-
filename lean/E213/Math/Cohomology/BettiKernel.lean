@@ -20,7 +20,7 @@ This file:
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- j-th bit (Bool) of `i : Nat`. -/
 def bitFn (i j : Nat) : Bool := (i / 2^j) % 2 == 1

@@ -32,7 +32,7 @@ import E213.Physics.AtomicCorrespondences.SixEverywhere
 import E213.Physics.AtomicCorrespondences.EightEverywhere
 import E213.Physics.AtomicCorrespondences.TwentyFourEverywhere
 import E213.Physics.AtomicCorrespondences.GravitationalWaves
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation Capstone — modern physics 5+1 translation summary
@@ -59,9 +59,9 @@ and turn everything into theorems."
 ## Single capstone — all frames of modern physics
 -/
 
-namespace E213.Physics.Phase3.Translation.Capstone
+namespace E213.Physics.AtomicCorrespondences.Capstone
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★★★ Modern physics 5+1 translation single capstone ★★★
     *All* fields derived from identical atomic primitives. -/
@@ -83,4 +83,4 @@ theorem all_modern_physics_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Capstone
+end E213.Physics.AtomicCorrespondences.Capstone

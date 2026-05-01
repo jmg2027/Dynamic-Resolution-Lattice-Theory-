@@ -25,8 +25,8 @@ This file:
 
 namespace E213.Physics.AlphaEM.Core
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- 1/α_3 (confined, exact integer) = NS² - 1 = 8. -/
 def inv_alpha_3 : Nat := NS * NS - 1

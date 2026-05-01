@@ -1,5 +1,5 @@
-import E213.Physics.Nuclear.MagicNumbers
-import E213.Physics.Nuclear.Binding
+import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Nuclear.Binding.Binding
 
 /-!
 # Nuclear magic numbers 7/7 — HO + spin-orbit splitting (0 axioms)
@@ -42,10 +42,10 @@ DRLT derivation (NUC_003, ch10):
   No fitting parameters.
 -/
 
-namespace E213.Physics.NuclearShells
+namespace E213.Physics.Nuclear.Shells
 
-open E213.Physics.Simplex
-open E213.Physics.Magic
+open E213.Physics.Simplex.Counts
+open E213.Physics.Nuclear.MagicNumbers
 
 /-- HO and Nuclear magic numbers as lists. -/
 def HO_magic_first_4 : List Nat := [2, 8, 20, 40]
@@ -102,4 +102,4 @@ theorem nuclear_magic_capstone :
     ∧ (ho_magic 4 - 28 = 12)
     ∧ (ho_magic 6 - 82 = 30) := by decide
 
-end E213.Physics.NuclearShells
+end E213.Physics.Nuclear.Shells

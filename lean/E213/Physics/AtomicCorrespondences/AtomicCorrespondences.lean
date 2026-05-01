@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: *Reappearance* catalog of atomic integers
@@ -58,9 +58,9 @@ If they were *truly separate* theories, the shared integers would be coincidence
 If DRLT is the origin of all frames, it is *necessary*.
 -/
 
-namespace E213.Physics.Phase3.Translation.AtomicCorrespondences
+namespace E213.Physics.AtomicCorrespondences.AtomicCorrespondences
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 6 = NS · NT (cross sector atomic). -/
 theorem six_atomic : NS * NT = 6 := by decide
@@ -103,4 +103,4 @@ theorem atomic_reincarnation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.AtomicCorrespondences
+end E213.Physics.AtomicCorrespondences.AtomicCorrespondences

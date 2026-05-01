@@ -4,7 +4,7 @@ import E213.Physics.Cosmology.OmegaLambdaFinitist
 import E213.Physics.Capstones.FinitistObservableChain
 import E213.Physics.Foundations.NUniverseFractalDepth
 import E213.Physics.Simplex.Generations
-import E213.Physics.Nuclear.MagicNumbers
+import E213.Physics.Nuclear.Binding.MagicNumbers
 
 /-!
 # CLAUDE.md Validation Standard #1 — Lean-certified achievement
@@ -33,10 +33,10 @@ This file demonstrates 213 satisfies **BOTH** standards via:
   - hierarchy ratio = d^(d²)/(d+1) (no fine-tuning)
 -/
 
-namespace E213.Physics.ValidationStandard
+namespace E213.Physics.Capstones.ValidationStandardOne
 
-open E213.Physics.Simplex
-open E213.Physics.NUniverseFractalDepth
+open E213.Physics.Simplex.Counts
+open E213.Physics.Foundations.NUniverseFractalDepth
 
 /-- ★★★★★★★★★★ CLAUDE.md Validation Standard #1+#2 capstone.
 
@@ -66,4 +66,4 @@ theorem validation_standard_capstone :
     ∧ NS + NT = d := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.ValidationStandard
+end E213.Physics.Capstones.ValidationStandardOne

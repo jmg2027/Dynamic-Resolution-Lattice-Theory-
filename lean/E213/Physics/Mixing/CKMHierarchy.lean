@@ -36,10 +36,10 @@ DRLT formulae (PRD_007, ch11):
   All pure rational, atomic-derived.
 -/
 
-namespace E213.Physics.CKMHierarchy
+namespace E213.Physics.Mixing.CKMHierarchy
 
-open E213.Physics.Simplex
-open E213.Physics.Cabibbo
+open E213.Physics.Simplex.Counts
+open E213.Physics.Mixing.CabibboAngle
 
 /-- λ = sin θ_C = 5/22. -/
 def lambda_num : Nat := 5
@@ -105,4 +105,4 @@ theorem wolfenstein_atomic_capstone :
     ∧ (lambda_sq_num = 25) ∧ (lambda_sq_den = 484)
     ∧ (lambda_cb_num = 125) ∧ (lambda_cb_den = 10648) := by decide
 
-end E213.Physics.CKMHierarchy
+end E213.Physics.Mixing.CKMHierarchy

@@ -1,5 +1,5 @@
 import E213.Physics.Foundations.FiniteUniverse
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.AlphaEM.V137
 
 /-!
@@ -36,7 +36,7 @@ SO(10)/Gram corrections.
 
 namespace E213.Physics.AlphaEM.NUniverseCandidates
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Candidate 1: d! = 120 (factorial of atomic dimension). -/
 theorem candidate_dfactorial : 5 * 4 * 3 * 2 * 1 = 120 := by decide

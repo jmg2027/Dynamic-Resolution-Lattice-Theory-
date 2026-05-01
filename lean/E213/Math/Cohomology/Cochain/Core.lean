@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Cohomology — k-cochain type with ℤ/2 coefficients (Phase CA, file 1)
@@ -15,7 +15,7 @@ This file defines the type + zero + add (XOR) only.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- k-cochain on Δⁿ⁻¹ (n vertices total): a function from k-th
     subsets to Bool.  Number of k-subsets = `binom n k`. -/

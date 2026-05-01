@@ -30,7 +30,7 @@ and provides the bridge for any future Bool-level (5, 1, 2) result.
 
 namespace E213.Math.Cohomology.CupAW.LeibnizScaling
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- ★★★ AW Cup Leibniz universal Prop-lift — closed configurations
     (3, 1, 1), (4, 1, 1), (5, 1, 1).  Each ≤ {propext, Quot.sound}. -/

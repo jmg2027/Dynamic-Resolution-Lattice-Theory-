@@ -16,7 +16,7 @@ case enumeration to ~N · M basis-pair cases.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Bool-level distributivity (left): (a ⊕ b) ∧ c = (a∧c) ⊕ (b∧c). -/
 theorem Bool.and_xor_distrib_right (a b c : Bool) :

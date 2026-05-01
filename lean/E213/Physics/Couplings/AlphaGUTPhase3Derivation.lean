@@ -1,7 +1,7 @@
 import E213.Physics.Substrate
 import E213.Physics.Couplings.AlphaGUT
-import E213.Physics.Basel.Bound
-import E213.Physics.Simplex.Counts
+import E213.Physics.Basel.Bound.Bound
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 AlphaGUTDerivation — deep-dive on *why α_GUT = 6/(25π²)*
@@ -46,11 +46,11 @@ DRLT key trick: avoid using π² directly, handle with ζ(2) bracket.
   Current LHC + Tevatron data: ~41.5, inside DRLT bracket ✓.
 -/
 
-namespace E213.Physics.Phase3.AlphaGUTDerivation
+namespace E213.Physics.Couplings.AlphaGUTPhase3Derivation
 
-open E213.Physics.AlphaGUT
-open E213.Physics.Basel
-open E213.Physics.Simplex
+open E213.Physics.Couplings.AlphaGUT
+open E213.Physics.Basel.Bound
+open E213.Physics.Simplex.Counts
 
 /-- d² = 25 (5-simplex face). -/
 theorem d_squared : d * d = 25 := by decide
@@ -82,4 +82,4 @@ theorem alpha_gut_derivation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.AlphaGUTDerivation
+end E213.Physics.Couplings.AlphaGUTPhase3Derivation

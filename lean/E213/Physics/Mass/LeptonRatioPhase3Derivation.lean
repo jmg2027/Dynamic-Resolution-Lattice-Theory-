@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Mass.MuOverE
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 LeptonRatioDerivation — deep-dive on *why m_μ/m_e = 206.768 ppb*
@@ -22,10 +22,10 @@ m_μ/m_e = NS/(NT · α_em) · P · (1 + Σδ)
   Observed: 206.7682838 (CODATA 2018) → **0.48 ppb match**.
 -/
 
-namespace E213.Physics.Phase3.LeptonRatioDerivation
+namespace E213.Physics.Mass.LeptonRatioPhase3Derivation
 
-open E213.Physics.MuOverE
-open E213.Physics.Simplex
+open E213.Physics.Mass.MuOverE
+open E213.Physics.Simplex.Counts
 
 /-- Leading: NS · 137 / NT = 3·137/2 = 411/2 = 205.5. -/
 theorem leading_atomic : NS * 137 = 411 ∧ NT = 2 := by
@@ -65,4 +65,4 @@ theorem lepton_ratio_derivation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.LeptonRatioDerivation
+end E213.Physics.Mass.LeptonRatioPhase3Derivation

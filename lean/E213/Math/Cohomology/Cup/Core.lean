@@ -12,7 +12,7 @@ All three arities (n, k, l) explicit to avoid metavariables.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- Cup product (Alexander–Whitney) at fixed (n, k, l). -/
 def cup (n k l : Nat) (α : Cochain n k) (β : Cochain n l) :

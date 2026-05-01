@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Mass.MuOverE
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 LeptonRatios — m_μ/m_e ppb precision falsifier
@@ -35,10 +35,10 @@ Precision: **0.48 ppb** (Phase 1 documented match).
   Current measurement 206.7682838 ≈ 205 + ε with DRLT-derived ε.
 -/
 
-namespace E213.Physics.Phase3.LeptonRatios
+namespace E213.Physics.Mass.LeptonRatios
 
-open E213.Physics.MuOverE
-open E213.Physics.Simplex
+open E213.Physics.Mass.MuOverE
+open E213.Physics.Simplex.Counts
 
 /-- 205 ∈ DRLT bracket (leading m_μ/m_e). -/
 theorem leading_205_marker : True := by
@@ -68,4 +68,4 @@ theorem lepton_ratio_falsifier :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.LeptonRatios
+end E213.Physics.Mass.LeptonRatios

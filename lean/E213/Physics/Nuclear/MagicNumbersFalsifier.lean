@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
-import E213.Physics.Nuclear.MagicNumbers
-import E213.Physics.Simplex.Counts
+import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 MagicNumbersFalsifier — 7/7 retrofit + future falsifiers
@@ -32,10 +32,10 @@ DRLT (Phase 1 MagicNumbers.lean):
   Spin-orbit shift gives the (observed) values for the next 4.
 -/
 
-namespace E213.Physics.Phase3.MagicNumbersFalsifier
+namespace E213.Physics.Nuclear.MagicNumbersFalsifier
 
-open E213.Physics.Magic
-open E213.Physics.Simplex
+open E213.Physics.Nuclear.MagicNumbers
+open E213.Physics.Simplex.Counts
 
 /-- HO closed form gives first 3 magic numbers exactly. -/
 theorem ho_first_3 : ho_magic 1 = 2 ∧ ho_magic 2 = 8 ∧ ho_magic 3 = 20 := by
@@ -68,4 +68,4 @@ theorem magic_falsifier :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.MagicNumbersFalsifier
+end E213.Physics.Nuclear.MagicNumbersFalsifier

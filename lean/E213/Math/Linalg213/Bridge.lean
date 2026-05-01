@@ -29,7 +29,7 @@ analogue for — that lifts to Phase L6.
 
 namespace E213.Math.Linalg213.Bridge
 
-open E213.Physics.Simplex (NS NT)
+open E213.Physics.Simplex.Counts (NS NT)
 open E213.Math.Cohomology.Paper1Chiral (chiralDim)
 
 /-- VecS dimension = NS (atomic spatial count). -/

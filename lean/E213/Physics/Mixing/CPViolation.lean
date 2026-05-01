@@ -39,11 +39,11 @@ DRLT formulae (PRD_007, ch11):
   φ² + 1/φ² = NS = atomic invariant.
 -/
 
-namespace E213.Physics.CPViolation
+namespace E213.Physics.Mixing.CPViolation
 
-open E213.Physics.Simplex
-open E213.Physics.Cabibbo
-open E213.Physics.Golden
+open E213.Physics.Simplex.Counts
+open E213.Physics.Mixing.CabibboAngle
+open E213.Physics.Foundations.GoldenRatio
 
 /-- δ_CKM ≈ 68.75° (approximate Lean form via Pell-like).
     π/φ² with φ = (1+√5)/2.
@@ -99,4 +99,4 @@ theorem CP_violation_atomic :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.CPViolation
+end E213.Physics.Mixing.CPViolation

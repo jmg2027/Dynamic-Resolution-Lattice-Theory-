@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Euler characteristic — closed 4-manifold from Δ⁴ gluing
@@ -19,7 +19,7 @@ N but doesn't pin specific value.
 
 namespace E213.Math.Cohomology.EulerClosed
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Single Δ⁴ Euler characteristic = f_0 − f_1 + f_2 − f_3 + f_4. -/
 def chi_delta4 : Int :=

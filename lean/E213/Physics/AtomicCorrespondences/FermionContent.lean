@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: SU(5) fermion content → DRLT atomic
@@ -26,9 +26,9 @@ DRLT atomic: 16 = NT^(d-1) = 2^4 atomic.
   16 = NT^(d-1) (atomic exponent d-1 = 4)
 -/
 
-namespace E213.Physics.Phase3.Translation.FermionContent
+namespace E213.Physics.AtomicCorrespondences.FermionContent
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 5̄ representation count = d atomic. -/
 theorem fermion_5bar : d = 5 := by decide
@@ -61,4 +61,4 @@ theorem fermion_content_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.FermionContent
+end E213.Physics.AtomicCorrespondences.FermionContent

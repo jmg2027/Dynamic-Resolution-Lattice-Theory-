@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Mass hierarchy → DRLT atomic chain
@@ -19,9 +19,9 @@ Standard SM 3-generation masses:
 The same atomic integers (137, 41) appear in both fine structure and mass ratios.
 -/
 
-namespace E213.Physics.Phase3.Translation.MassHierarchy
+namespace E213.Physics.AtomicCorrespondences.MassHierarchy
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- m_μ/m_e leading = NS·137/NT atomic. -/
 theorem mu_e_atomic : NS * 137 = 411 := by decide
@@ -49,4 +49,4 @@ theorem mass_hierarchy_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.MassHierarchy
+end E213.Physics.AtomicCorrespondences.MassHierarchy

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 Period3IE — Period 3 (Na ~ Ar) IE atomic chain
@@ -37,9 +37,9 @@ Atomic primitives only, without borrowing standard quantum numbers.
 Each period closing = atomic integer (see Phase 3 MasterCatalog).
 -/
 
-namespace E213.Physics.Phase4.Period3IE
+namespace E213.Physics.Atomic.IE.Period3
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- IE values in 10⁻⁶ eV (μeV). -/
 def IE_Na : Nat := 5139076
@@ -64,4 +64,4 @@ theorem Z_Ar_atomic : 2 * NS * NS = 18 := by decide
 /-- Period 3 closes at Ar = 2·NS² atomic ★. -/
 theorem period_3_close_atomic : 2 * NS * NS = 18 := by decide
 
-end E213.Physics.Phase4.Period3IE
+end E213.Physics.Atomic.IE.Period3

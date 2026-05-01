@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass
+import E213.Physics.Higgs.Mass.Mass
 import E213.Physics.Foundations.NUniverseFractalDepth
 import E213.Physics.AlphaEM.MasterCapstone
 
@@ -26,10 +26,10 @@ All atomic factors:
   - α_GUT, α_GUT² at N_U finitist
 -/
 
-namespace E213.Physics.HiggsMassFinitist
+namespace E213.Physics.Higgs.MassFinitist
 
-open E213.Physics.Simplex
-open E213.Physics.NUniverseFractalDepth
+open E213.Physics.Simplex.Counts
+open E213.Physics.Foundations.NUniverseFractalDepth
 
 /-- ★ Cofactor (d-1)/d = 4/5 same as SU(5) face. -/
 theorem cofactor_4_5 : 5 * (d - 1) = 4 * d := by decide
@@ -46,4 +46,4 @@ theorem higgs_finitist :
     ∧ d - 1 = NS + 1 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.HiggsMassFinitist
+end E213.Physics.Higgs.MassFinitist

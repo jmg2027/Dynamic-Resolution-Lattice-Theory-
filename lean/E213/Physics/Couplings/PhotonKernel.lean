@@ -34,9 +34,9 @@ All three prefactors generated from the *same graph* K_{NS,NT}^{(c)} by differen
 Three different cohomologies on one lattice.
 -/
 
-namespace E213.Physics.PhotonKernel
+namespace E213.Physics.Couplings.PhotonKernel
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
 
 /-- Number of edges in the K_{NS,NT}^{(c)} multigraph where the photon lives.
@@ -112,4 +112,4 @@ theorem three_prefactors_from_one_graph :
     -- Concrete check
     ∧ (num_edges = 12) ∧ (b_1 = 8) := by decide
 
-end E213.Physics.PhotonKernel
+end E213.Physics.Couplings.PhotonKernel

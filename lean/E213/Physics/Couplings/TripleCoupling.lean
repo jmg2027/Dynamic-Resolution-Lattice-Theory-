@@ -19,7 +19,7 @@ agreement with PDG/CODATA verified by Rust binary `triple-coupling`:
   1/α_2  ≈ 29.573     PDG    29.6           Δ ~ 0.1%
 -/
 
-namespace E213.Physics.TripleCoupling
+namespace E213.Physics.Couplings.TripleCoupling
 
 /-- 1/α_em coefficient `60` = E·d for K_{3,2}^{(2)}. -/
 theorem em_60_is_E_d : 12 * 5 = 60 := by decide
@@ -55,7 +55,7 @@ theorem alpha_2_thirty_via_inventory :
     let total_non_empty := 31
     total_non_empty - 1 = 30 := by decide
 
-end E213.Physics.TripleCoupling
+end E213.Physics.Couplings.TripleCoupling
 
-#print axioms E213.Physics.TripleCoupling.triple_skeleton_bundle
-#print axioms E213.Physics.TripleCoupling.alpha_2_thirty_via_inventory
+#print axioms E213.Physics.Couplings.TripleCoupling.triple_skeleton_bundle
+#print axioms E213.Physics.Couplings.TripleCoupling.alpha_2_thirty_via_inventory

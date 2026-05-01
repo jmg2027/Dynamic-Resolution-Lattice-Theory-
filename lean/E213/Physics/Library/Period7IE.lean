@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Period 7 (Z=87~118) — Fr ~ Og atomic catalog
@@ -29,9 +29,9 @@ Most lanthanides/actinides have the same valence (s² or s²f^k)
 → IE increases slowly with Z.
 -/
 
-namespace E213.Physics.Phase4.Library.Period7IE
+namespace E213.Physics.Library.Period7IE
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 theorem Z_Th : NS * NS * NT * d = 90 := by decide
 theorem Z_Cm : NT * NT * NT * NT * NT * NS = 96 := by decide
@@ -42,4 +42,4 @@ theorem Z_Hs : NT * NT * NS * NS * NS = 108 := by decide
 /-- ★ Og Period 7 closure = 2·NS³ + 2·NT^d atomic. -/
 theorem Z_Og : 2 * NS * NS * NS + 2 * (NT * NT * NT * NT * NT) = 118 := by decide
 
-end E213.Physics.Phase4.Library.Period7IE
+end E213.Physics.Library.Period7IE

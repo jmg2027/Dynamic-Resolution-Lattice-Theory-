@@ -40,9 +40,9 @@ All achieved *without numerical analysis* via Lean rational arithmetic + decide.
 User's "absence of strange correction terms" is *correct*.
 -/
 
-namespace E213.Physics.Phase4.IECapstone
+namespace E213.Physics.Atomic.IE.Capstone
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★ IE Capstone — H ~ B atomic chain summary ★ -/
 theorem IE_periodic_atomic :
@@ -62,4 +62,4 @@ theorem IE_periodic_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.IECapstone
+end E213.Physics.Atomic.IE.Capstone

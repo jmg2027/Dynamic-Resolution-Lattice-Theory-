@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Molecular Library — molecular atomic catalog
@@ -16,9 +16,9 @@ import E213.Physics.Simplex.Counts
   cos denom NH₃ = NS² + NS + 1 = 13 = F_7
 -/
 
-namespace E213.Physics.Phase4.Library.MolecularLibrary
+namespace E213.Physics.Library.MolecularLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- CH₄ bond angle cos denom = NS = 3. -/
 def CH4_denom : Nat := NS
@@ -35,4 +35,4 @@ theorem NH3_eq_13 : NH3_denom = 13 := by decide
 /-- NH₃ denom = NS² + NT² atomic identity. -/
 theorem NH3_eq_alt : NS * NS + NT * NT = 13 := by decide
 
-end E213.Physics.Phase4.Library.MolecularLibrary
+end E213.Physics.Library.MolecularLibrary

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # GR Library — gravity and general relativity atomic catalog
@@ -15,9 +15,9 @@ import E213.Physics.Simplex.Counts
   G_N normalization: 1/d = 1/5
 -/
 
-namespace E213.Physics.Phase4.Library.GRLibrary
+namespace E213.Physics.Library.GRLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- c = NT lattice speed. -/
 theorem c_atomic : NT = 2 := by decide
@@ -34,4 +34,4 @@ theorem schwarzschild_2 : NT = 2 := by decide
 /-- No-hair 3 parameter = NS atomic. -/
 theorem no_hair : NS = 3 := by decide
 
-end E213.Physics.Phase4.Library.GRLibrary
+end E213.Physics.Library.GRLibrary

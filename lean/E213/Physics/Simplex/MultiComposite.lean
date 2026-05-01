@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Multi-simplex composite — Class F structural placeholder (2026-04-30)
@@ -53,9 +53,9 @@ m_n − m_p = projection-difference between (udd) and (uud) Class F
 observables on the same K_{25} substrate.
 -/
 
-namespace E213.Physics.MultiSimplexComposite
+namespace E213.Physics.Simplex.MultiComposite
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★ Atomic skeleton for Class F readiness:
     the K_{25} fractal level supports 3-quark composite cohomology.
@@ -76,4 +76,4 @@ theorem class_F_skeleton :
     ∧ NS = 3 := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.MultiSimplexComposite
+end E213.Physics.Simplex.MultiComposite

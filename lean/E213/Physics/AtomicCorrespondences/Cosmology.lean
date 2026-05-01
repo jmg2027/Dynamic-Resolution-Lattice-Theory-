@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Cosmology → DRLT  (★ skeleton + TODO ★)
@@ -47,9 +47,9 @@ import E213.Physics.Simplex.Counts
   Hubble (HubbleConstant.lean) → marker
 -/
 
-namespace E213.Physics.Phase3.Translation.Cosmology
+namespace E213.Physics.AtomicCorrespondences.Cosmology
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Flatness: NS + NT = d (no overflow). -/
 theorem flatness_atomic : NS + NT = d := partition_sum
@@ -123,4 +123,4 @@ theorem cosmology_translation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Cosmology
+end E213.Physics.AtomicCorrespondences.Cosmology

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Coupling unification → DRLT atomic
@@ -29,9 +29,9 @@ Instead, projection onto a single lattice of atomic primitives.
 This is the direct atomic derivation of "why GUT scale is ~10¹⁶ GeV".
 -/
 
-namespace E213.Physics.Phase3.Translation.CouplingUnification
+namespace E213.Physics.AtomicCorrespondences.CouplingUnification
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 1/α_3 = 8 atomic. -/
 theorem inv_alpha3 : NS * NS - 1 = 8 := by decide
@@ -55,4 +55,4 @@ theorem coupling_unif_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.CouplingUnification
+end E213.Physics.AtomicCorrespondences.CouplingUnification

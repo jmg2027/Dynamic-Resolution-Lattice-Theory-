@@ -36,9 +36,9 @@ DRLT GUT unification (ch08 sec 5):
   Pure rational with single transcendental π² (or ζ(2)).
 -/
 
-namespace E213.Physics.GUT
+namespace E213.Physics.Couplings.GUTUnification
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Total Gram channels at GUT scale: d² = 25. -/
 def total_channels : Nat := d * d
@@ -76,4 +76,4 @@ theorem gut_mechanism :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.GUT
+end E213.Physics.Couplings.GUTUnification

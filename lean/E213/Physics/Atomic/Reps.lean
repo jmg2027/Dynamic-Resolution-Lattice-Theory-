@@ -23,9 +23,9 @@ Compare with average description length ~ log N for random integer N.
   137 = ?            (Phase 1 5-term sum, complexity ~ 5-6)
 -/
 
-namespace E213.Physics.Phase4.AtomicReps
+namespace E213.Physics.Atomic.Reps
 
-open E213.Physics.Phase4.AtomicExpr
+open E213.Physics.Atomic.Expr
 
 /-- 6 = NS·NT, complexity = 1. -/
 def six_expr : Expr := .mul .NSc .NTc
@@ -95,4 +95,4 @@ def oneNinetytwo_expr : Expr :=
 theorem oneNinetytwo_eval : eval oneNinetytwo_expr = 192 := by decide
 theorem oneNinetytwo_complexity : complexity oneNinetytwo_expr ≤ 5 := by decide
 
-end E213.Physics.Phase4.AtomicReps
+end E213.Physics.Atomic.Reps

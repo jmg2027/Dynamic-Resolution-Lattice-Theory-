@@ -1,5 +1,5 @@
 import E213.Physics.Substrate.Existence
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 PureLens213 — IE construction without borrowing standard physics
@@ -33,10 +33,10 @@ Closed → atomic invariant.
 derived as fold sums of atomic Lens.
 -/
 
-namespace E213.Physics.Phase4.PureLens213
+namespace E213.Physics.Foundations.PureLens213
 
-open E213.Physics.Simplex
-open E213.Physics.Phase2.Existence
+open E213.Physics.Simplex.Counts
+open E213.Physics.Substrate.Existence
 
 /-- ElectronConfig: electron count at each vertex (Fin 5). -/
 def ElectronConfig := Vertex → Nat
@@ -75,4 +75,4 @@ theorem pure_lens_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.PureLens213
+end E213.Physics.Foundations.PureLens213

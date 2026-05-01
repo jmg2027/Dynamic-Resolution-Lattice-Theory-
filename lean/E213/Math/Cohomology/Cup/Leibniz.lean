@@ -18,7 +18,7 @@ DecidablePred on `Cochain n k`, deferred.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- Leibniz on (v0_5 ⌣ v0_5) — both sides agree pointwise. -/
 theorem leibniz_v0_v0_pointwise :

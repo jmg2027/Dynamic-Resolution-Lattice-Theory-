@@ -24,11 +24,11 @@ Both Wallis (W) and Basel (S) evaluated at same lattice resolution
 N_U = d^(d²).  No external π, no external ζ(2).
 -/
 
-namespace E213.Physics.OmegaLambdaFinitist
+namespace E213.Physics.Cosmology.OmegaLambdaFinitist
 
-open E213.Physics.Simplex
-open E213.Physics.NUniverseFractalDepth
-open E213.Physics.DarkEnergy
+open E213.Physics.Simplex.Counts
+open E213.Physics.Foundations.NUniverseFractalDepth
+open E213.Physics.Cosmology.DarkEnergy
 open E213.Research.WallisSeq
 
 /-- ★ The trace correction denominator d = 5 — atomic. -/
@@ -50,4 +50,4 @@ theorem omega_lambda_finitist :
     ∧ trace_correction_denom = d := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.OmegaLambdaFinitist
+end E213.Physics.Cosmology.OmegaLambdaFinitist

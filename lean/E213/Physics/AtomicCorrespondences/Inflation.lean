@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Inflation → DRLT atomic
@@ -11,9 +11,9 @@ import E213.Physics.Simplex.Counts
   5. Inflaton potential V(φ) → atomic Lens depth
 -/
 
-namespace E213.Physics.Phase3.Translation.Inflation
+namespace E213.Physics.AtomicCorrespondences.Inflation
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Spectral index: n_s = 1 - 1/d?  1 - 1/5 = 0.8 vs observed 0.965.
     Refined: n_s ≈ 1 - 2/(d² - 1) = 1 - 2/24 = 0.917. Closer.
@@ -34,4 +34,4 @@ theorem inflation_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Inflation
+end E213.Physics.AtomicCorrespondences.Inflation

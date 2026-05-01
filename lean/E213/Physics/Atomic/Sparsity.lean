@@ -25,10 +25,10 @@ Physics integers (137, 192, 60, etc.) have K ≤ 5 → *statistically significan
   - Sparsity catalog
 -/
 
-namespace E213.Physics.Phase4.Sparsity
+namespace E213.Physics.Atomic.Sparsity
 
-open E213.Physics.Phase4.AtomicExpr
-open E213.Physics.Phase4.AtomicReps
+open E213.Physics.Atomic.Expr
+open E213.Physics.Atomic.Reps
 
 /-- N is atomic-K-derivable.  ∃ e of complexity ≤ K with eval e = N. -/
 def is_atomic_K (N K : Nat) : Prop :=
@@ -74,4 +74,4 @@ theorem sixty_in_atomic_5 : is_atomic_K 60 5 :=
 theorem oneNinetytwo_in_atomic_5 : is_atomic_K 192 5 :=
   ⟨oneNinetytwo_expr, oneNinetytwo_eval, oneNinetytwo_complexity⟩
 
-end E213.Physics.Phase4.Sparsity
+end E213.Physics.Atomic.Sparsity

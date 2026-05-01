@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Math Library — mathematics atomic catalog
@@ -38,9 +38,9 @@ No standard mathematics borrowing.  Atomic integers only.
   SU(NS) roots = NS·(NS-1) = 6 = NS·NT
 -/
 
-namespace E213.Physics.Phase4.Library.MathLibrary
+namespace E213.Physics.Library.MathLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Atomic primes catalog. -/
 theorem primes_catalog :
@@ -69,4 +69,4 @@ theorem group_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.Library.MathLibrary
+end E213.Physics.Library.MathLibrary

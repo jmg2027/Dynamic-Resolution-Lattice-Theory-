@@ -1,5 +1,5 @@
 import E213.Physics.AlphaEM.V137
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 HydrogenIEPPM — H IE 13.605693 eV bracket
@@ -20,9 +20,9 @@ bracket: m_e/(2·137.07²) ≤ IE ≤ m_e/(2·137.00²)
 observed 13.605693 ∈ bracket ✓
 -/
 
-namespace E213.Physics.Phase4.HydrogenIEPPM
+namespace E213.Physics.Atomic.IE.HydrogenPPM
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- m_e c² in 0.01 eV units = 51099895. -/
 def m_e_centi_eV : Nat := 51099895
@@ -85,4 +85,4 @@ theorem IE_diff_ppb :
     2 * IE_H_micro * inv_alpha_milli * inv_alpha_milli
     - m_e_centi * 10000000000 = 2211460256 := by decide
 
-end E213.Physics.Phase4.HydrogenIEPPM
+end E213.Physics.Atomic.IE.HydrogenPPM

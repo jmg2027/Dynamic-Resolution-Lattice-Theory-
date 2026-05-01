@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # QFT Library — quantum field theory atomic catalog
@@ -14,9 +14,9 @@ import E213.Physics.Simplex.Counts
   Asymptotic freedom: NS² - 1 > 0 atomic
 -/
 
-namespace E213.Physics.Phase4.Library.QFTLibrary
+namespace E213.Physics.Library.QFTLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Closed propagator coefficients (2, 1) atomic. -/
 theorem prop_coeffs : NT = 2 ∧ NS - NT = 1 := by
@@ -29,4 +29,4 @@ theorem wilson_cycle : NS * NS - 1 = 8 := by decide
 /-- 3 channels = 3 forces atomic. -/
 theorem three_channels : (3 : Nat) = NS := by decide
 
-end E213.Physics.Phase4.Library.QFTLibrary
+end E213.Physics.Library.QFTLibrary

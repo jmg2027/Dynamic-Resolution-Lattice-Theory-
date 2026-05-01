@@ -36,11 +36,11 @@ DRLT formula (ATM_013, ch10):
   Within 0.1% of observed 24.587 eV.
 -/
 
-namespace E213.Physics.Helium
+namespace E213.Physics.Atomic.Helium
 
-open E213.Physics.Simplex
-open E213.Physics.Hydrogen
-open E213.Physics.AtomicScreening
+open E213.Physics.Simplex.Counts
+open E213.Physics.Atomic.Hydrogen
+open E213.Physics.Atomic.Screening
 
 /-- Helium nuclear charge Z = 2 = NT. -/
 def Z_He : Nat := NT
@@ -93,4 +93,4 @@ theorem helium_simplicial_pattern :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.Helium
+end E213.Physics.Atomic.Helium

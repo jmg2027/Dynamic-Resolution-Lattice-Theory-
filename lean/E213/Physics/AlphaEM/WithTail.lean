@@ -22,7 +22,7 @@ namespace E213.Physics.AlphaEM.WithTail
 
 open E213.Physics.AlphaEM.V137 (inv_full_upper)
 open E213.Physics.AlphaEM.V137Tight (inv_lower_tight)
-open E213.Physics.Basel (S upper)
+open E213.Physics.Basel.Bound (S upper)
 
 /-- inv_lower_tight(N) + 1/(100·upper(N)) as `(num, den)`. -/
 def inv_lower_with_tail (N : Nat) : (Nat × Nat) :=

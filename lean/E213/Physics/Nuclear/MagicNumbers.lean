@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Magic numbers — HO shells from triangular geometry (0 axioms)
@@ -23,7 +23,7 @@ or doesn't admit SO-splitting integer pattern at high n breaks the
 derivation.
 -/
 
-namespace E213.Physics.Magic
+namespace E213.Physics.Nuclear.MagicNumbers
 
 /-- Pronic sum: Σ_{k=1}^n k·(k+1).  This is the cumulative capacity
     of HO shells, where shell k has degeneracy k·(k+1) (with spin). -/
@@ -77,4 +77,4 @@ theorem so_shift_pattern :
     ∧ [12, 20, 30, 42]
       = [2*3*(3-1), 2*4*(4-1)+(-4), 2*5*(5-1)+(-10), 2*6*(6-1)+(-18)] := by decide
 
-end E213.Physics.Magic
+end E213.Physics.Nuclear.MagicNumbers

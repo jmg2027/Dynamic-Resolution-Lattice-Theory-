@@ -1,7 +1,7 @@
 import E213.Physics.Substrate
 import E213.Physics.Foundations.FibonacciAtomic
 import E213.Physics.Foundations.GoldenRatio
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 CassiniLink — Fibonacci lock
@@ -34,11 +34,11 @@ n = 3: F_3·F_5 - F_4² = 2·5 - 9 = 1.  *DRLT atomic integers lie exactly
   Currently: α_3 ≈ 0.118 → 1/α_3 ≈ 8.5 (running, IR limit ≈ 8 consistent).
 -/
 
-namespace E213.Physics.Phase3.CassiniLink
+namespace E213.Physics.Couplings.CassiniLink
 
-open E213.Physics.FibAtomic
-open E213.Physics.Golden
-open E213.Physics.Simplex
+open E213.Physics.Foundations.FibonacciAtomic
+open E213.Physics.Foundations.GoldenRatio
+open E213.Physics.Simplex.Counts
 
 /-- Cassini at n=3: F_3 · F_5 - F_4² = +1. -/
 theorem cassini_at_3 : fib 3 * fib 5 - fib 4 * fib 4 = 1 := by decide
@@ -70,4 +70,4 @@ theorem cassini_falsifier :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.CassiniLink
+end E213.Physics.Couplings.CassiniLink

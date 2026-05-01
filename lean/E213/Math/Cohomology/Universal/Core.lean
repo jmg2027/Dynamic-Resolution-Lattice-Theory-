@@ -27,7 +27,7 @@ which requires a bit-encoding lemma (deferred).
 
 namespace E213.Math.Cohomology.Universal.Core
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Bool predicate: enumerate all 2^(binom n k) cochains via
     cochainAt, verify δ²σ = 0 at each (k+2)-index. -/

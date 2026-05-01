@@ -50,7 +50,7 @@ the d² = (d-1)(d+1) + 1 factorisation directly points to the lattice cofactors.
 
 namespace E213.Physics.AlphaEM.Derivation
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Term 4 alternative form: 1/NS = NT/(d+1).
     Cross-mult: NS·NT = d+1 = 6 ✓ (since 3·2=6, NS+NT+1=6). -/

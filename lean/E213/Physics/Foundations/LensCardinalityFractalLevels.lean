@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Fractal.Level
 import E213.Physics.Foundations.NUniverseFractalDepth
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Lens cardinality across fractal levels — structural enumeration
@@ -28,9 +28,9 @@ discrete state information.
 All theorems STRICT 0-AXIOM via decide (numV at finite levels).
 -/
 
-namespace E213.Physics.LensCardinality
+namespace E213.Physics.Foundations.LensCardinalityFractalLevels
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Math.Cohomology.Fractal.Level
 
 /-- Vertex count at level 0 (trivial). -/
@@ -74,4 +74,4 @@ theorem level_recursive_cardinality (L : Nat) :
   show 5 ^ (L + 1) = 5 * 5 ^ L
   rw [Nat.pow_succ, Nat.mul_comm]
 
-end E213.Physics.LensCardinality
+end E213.Physics.Foundations.LensCardinalityFractalLevels

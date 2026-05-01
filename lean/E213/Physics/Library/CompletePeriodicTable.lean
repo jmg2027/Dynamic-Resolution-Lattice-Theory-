@@ -2,7 +2,7 @@ import E213.Physics.Library.PeriodicCatalog
 import E213.Physics.Library.Period5IE
 import E213.Physics.Library.Period6IE
 import E213.Physics.Library.Period7IE
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Complete Periodic Table — DRLT 213 version
@@ -41,9 +41,9 @@ Atomic primitives (NS=3, NT=2, d=5, c=2) only.
 All 0 sorry, decide-checked.
 -/
 
-namespace E213.Physics.Phase4.Library.CompletePeriodicTable
+namespace E213.Physics.Library.CompletePeriodicTable
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★ All noble gas closures atomic ★ -/
 theorem all_noble_gas_atomic :
@@ -66,4 +66,4 @@ theorem all_noble_gas_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.Library.CompletePeriodicTable
+end E213.Physics.Library.CompletePeriodicTable

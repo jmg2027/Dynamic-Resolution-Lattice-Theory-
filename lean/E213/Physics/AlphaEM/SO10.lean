@@ -46,7 +46,7 @@ demonstrates the bracket containment as a Lean-certified fact.
 
 namespace E213.Physics.AlphaEM.SO10
 
-open E213.Physics.Basel
+open E213.Physics.Basel.Bound
 open E213.Physics.AlphaEM.V137Tight
 open E213.Physics.AlphaEM.V137
 

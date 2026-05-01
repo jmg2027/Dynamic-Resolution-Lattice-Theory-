@@ -1,8 +1,8 @@
 import E213.Physics.AlphaEM.Simplicial
 import E213.Physics.Mass.MuOverE
-import E213.Physics.Higgs.Mass
+import E213.Physics.Higgs.Mass.Mass
 import E213.Physics.Mass.TauOverMu
-import E213.Physics.YangMills.WeinbergAngle
+import E213.Physics.YangMills.Gap.WeinbergAngle
 import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Atomic.BondAngles
 
@@ -59,16 +59,16 @@ sin²θ_W, Ω_Λ, CH₄/NH₃/H₂O bond angles are *all* derived from the same 
   No other combination of (NS, NT, d, c) satisfies them *simultaneously*.
 -/
 
-namespace E213.Physics.Unified
+namespace E213.Physics.Foundations.UnifiedPattern
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
-open E213.Physics.PhotonKernel
-open E213.Physics.FaceTerms
-open E213.Physics.MuOverE
-open E213.Physics.Higgs
-open E213.Physics.TauMu
-open E213.Physics.BondAngles
+open E213.Physics.Couplings.PhotonKernel
+open E213.Physics.Simplex.FaceTerms
+open E213.Physics.Mass.MuOverE
+open E213.Physics.Higgs.Mass
+open E213.Physics.Mass.TauOverMu
+open E213.Physics.Atomic.BondAngles
 
 /-- ★★★ MASTER CAPSTONE ★★★
 
@@ -113,4 +113,4 @@ theorem master_unified_pattern :
 
    This is the true meaning of DRLT's "0 free parameter" claim. -/
 
-end E213.Physics.Unified
+end E213.Physics.Foundations.UnifiedPattern

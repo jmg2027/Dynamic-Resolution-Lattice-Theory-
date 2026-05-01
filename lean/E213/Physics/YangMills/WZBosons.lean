@@ -1,4 +1,4 @@
-import E213.Physics.YangMills.WeinbergAngle
+import E213.Physics.YangMills.Gap.WeinbergAngle
 
 /-!
 # W/Z mass ratio — cos²θ_W structural form (0 axioms)
@@ -34,10 +34,10 @@ DRLT formula:
     cos²θ_W ∈ [6·S(N)/(3 + 6·S(N)), 6·upper(N)/(3 + 6·upper(N))]
 -/
 
-namespace E213.Physics.WZBosons
+namespace E213.Physics.YangMills.WZBosons
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- m_W²/m_Z² lower bracket using S(N) = lower ζ → lower cos². -/
 def cos2_W_lower (N : Nat) : (Nat × Nat) :=
@@ -90,4 +90,4 @@ theorem WZ_simplicial_pattern :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.WZBosons
+end E213.Physics.YangMills.WZBosons

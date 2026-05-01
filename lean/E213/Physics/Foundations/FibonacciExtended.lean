@@ -38,11 +38,11 @@ More atomic matches — Fibonacci sequence deeply penetrates *the entire* coupli
   Fibonacci recurrence's intrinsic nature + atomic config together.
 -/
 
-namespace E213.Physics.FibExtended
+namespace E213.Physics.Foundations.FibonacciExtended
 
-open E213.Physics.Simplex
-open E213.Physics.Golden
-open E213.Physics.FibAtomic
+open E213.Physics.Simplex.Counts
+open E213.Physics.Foundations.GoldenRatio
+open E213.Physics.Foundations.FibonacciAtomic
 
 /-- F_8 = 21 = (d² - 1) - NS = σ_1s unreduced numerator. -/
 theorem F8_eq_21 : fib 8 = 21 := by decide
@@ -97,4 +97,4 @@ theorem fibonacci_deep_atomicity :
     ∧ (fib 9 = 2 * (d * (d - 1) - NS))
     ∧ (fib 10 = d * (NS * NS + NT)) := by decide
 
-end E213.Physics.FibExtended
+end E213.Physics.Foundations.FibonacciExtended

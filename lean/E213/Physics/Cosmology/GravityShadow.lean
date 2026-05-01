@@ -38,9 +38,9 @@ DRLT gravity definition (lib/drlt.py:86, ch06):
   This file covers only the *structure* — phase/modulus separation.
 -/
 
-namespace E213.Physics.GravityShadow
+namespace E213.Physics.Cosmology.GravityShadow
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- W normalization: 1/d factor in W = |G|²/d. -/
 def W_normalization : Nat := d
@@ -79,4 +79,4 @@ theorem gravity_simplicial :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.GravityShadow
+end E213.Physics.Cosmology.GravityShadow

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 HydrogenicIE — H-like ions IE = R·Z² *exact*
@@ -24,9 +24,9 @@ R∞ · Z² atomic chain → Z² atomic integer product.
   Ne⁹+ 1362.199   (Z=10)
 -/
 
-namespace E213.Physics.Phase4.HydrogenicIE
+namespace E213.Physics.Atomic.IE.Hydrogenic
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- IE values in 10⁻³ eV (mEV). -/
 def IE_He_plus : Nat := 54417760    -- 54.41776
@@ -70,4 +70,4 @@ theorem hydrogenic_atomic_chain :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.HydrogenicIE
+end E213.Physics.Atomic.IE.Hydrogenic

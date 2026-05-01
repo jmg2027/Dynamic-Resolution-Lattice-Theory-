@@ -37,9 +37,9 @@ Experimental bound (nEDM, 2026):
   Multiply by J ≈ 3·10⁻⁵ to get θ_QCD bracket.
 -/
 
-namespace E213.Physics.ThetaQCD
+namespace E213.Physics.Couplings.ThetaQCD
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- α_GUT^4 exponent: (d-1) = 4. ★ Same Dyson denom ★ -/
 def alpha_pow : Nat := d - 1
@@ -88,4 +88,4 @@ theorem theta_QCD_pattern :
     -- All atomic
     ∧ (d = 5) ∧ (NS = 3) ∧ (NT = 2) := by decide
 
-end E213.Physics.ThetaQCD
+end E213.Physics.Couplings.ThetaQCD

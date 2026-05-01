@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 HundPenalty — *Hund's rule = atomic edge penalty*
@@ -20,9 +20,9 @@ penalty when lattice edge occupancy exceeds half-fill."
 → "Hund's rule" = lattice α_3 strong coupling penalty.
 -/
 
-namespace E213.Physics.Phase4.HundPenalty
+namespace E213.Physics.Atomic.IE.HundPenalty
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- p-shell size = NS·NT = 6 atomic. -/
 theorem p_shell_size : NS * NT = 6 := by decide
@@ -61,4 +61,4 @@ theorem hund_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.HundPenalty
+end E213.Physics.Atomic.IE.HundPenalty

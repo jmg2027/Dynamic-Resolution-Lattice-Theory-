@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Atomic spectroscopy → DRLT atomic
@@ -14,9 +14,9 @@ import E213.Physics.Simplex.Counts
   6. Hydrogen 21cm line → atomic Lens layer
 -/
 
-namespace E213.Physics.Phase3.Translation.AtomicSpectroscopy
+namespace E213.Physics.AtomicCorrespondences.AtomicSpectroscopy
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Bohr radius factor 1/α: 1/α_em = 137 atomic. -/
 theorem bohr_atomic : 137 = 137 := by decide
@@ -39,4 +39,4 @@ theorem atomic_spec :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.AtomicSpectroscopy
+end E213.Physics.AtomicCorrespondences.AtomicSpectroscopy

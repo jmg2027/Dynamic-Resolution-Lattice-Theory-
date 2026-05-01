@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.Substrate
 
 /-!
@@ -34,9 +34,9 @@ This file formalizes two things:
 All 0-axiom Nat decidables.
 -/
 
-namespace E213.Physics.LambdaQCDPhantom
+namespace E213.Physics.Couplings.LambdaQCDPhantom
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- The 32 chiral cells of K_{3,2}^{(c=2)} count as NT^d. -/
 theorem chiral_cells_eq_NT_pow_d : NT ^ d = 32 := by decide
@@ -68,4 +68,4 @@ theorem lambda_qcd_phantom_count :
     ∧ NT ^ d = NT * NT * (NS * NS - 1) := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.LambdaQCDPhantom
+end E213.Physics.Couplings.LambdaQCDPhantom

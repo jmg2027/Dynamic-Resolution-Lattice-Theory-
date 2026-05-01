@@ -1,7 +1,7 @@
 import E213.Physics.Substrate
-import E213.Physics.Higgs.Mass
+import E213.Physics.Higgs.Mass.Mass
 import E213.Physics.AlphaEM.Prefactors
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 HiggsMassDerivation — deep-dive on *why m_H = 125.28 GeV*
@@ -40,11 +40,11 @@ The same cofactor 4 appears in:
   - Δ⁴ tetrahedra per vertex
 -/
 
-namespace E213.Physics.Phase3.HiggsMassDerivation
+namespace E213.Physics.Higgs.Phase3Derivation
 
-open E213.Physics.Higgs
+open E213.Physics.Higgs.Mass
 open E213.Physics.AlphaEM.Prefactors
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Leading 1/c_lat = 1/2. -/
 theorem leading_atomic : leading_ratio = (1, 2) := leading_eq_1_2
@@ -79,4 +79,4 @@ theorem higgs_mass_derivation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.HiggsMassDerivation
+end E213.Physics.Higgs.Phase3Derivation

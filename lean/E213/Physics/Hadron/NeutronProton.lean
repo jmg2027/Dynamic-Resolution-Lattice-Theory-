@@ -33,9 +33,9 @@ DRLT formula (SM_022, ch09):
   Result: Δm_np ≈ 1.275 MeV vs observed 1.293 (-1.5%)
 -/
 
-namespace E213.Physics.NeutronProton
+namespace E213.Physics.Hadron.NeutronProton
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
 
 /-- Prefactor 12 = c·NS·NT — same as PhotonKernel edge count. -/
@@ -58,4 +58,4 @@ theorem np_simplicial :
     (prefactor_12 = 12)
     ∧ (prefactor_12 = c_lat * NS * NT) := by decide
 
-end E213.Physics.NeutronProton
+end E213.Physics.Hadron.NeutronProton

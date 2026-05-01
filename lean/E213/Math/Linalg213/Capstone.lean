@@ -29,7 +29,7 @@ is forced and unique" at multiple complementary levels.
 
 namespace E213.Math.Linalg213.Capstone
 
-open E213.Physics.Simplex (NS NT d)
+open E213.Physics.Simplex.Counts (NS NT d)
 open E213.Math.Cohomology.Paper1Chiral (chiralDim)
 open E213.Math.Cohomology.TopologyCompare (b1_bipartite b1_complete)
 
@@ -54,7 +54,7 @@ theorem paper1_chiral_compression :
     ∧ (Bridge.dimVecS = chiralDim 1 0
        ∧ Bridge.dimVecT = chiralDim 0 1)
     -- (v) Physics: b_1 = 8 = NS² − 1 = 1/α_3
-    ∧ (E213.Physics.PhotonKernel.b_1 = 8
+    ∧ (E213.Physics.Couplings.PhotonKernel.b_1 = 8
        ∧ (8 : Nat) = NS * NS - 1)
     -- (vi) Topology uniqueness: K_{3,2}^{(2)} matches; K_5 doesn't
     ∧ (b1_bipartite 3 2 2 = 8
@@ -63,7 +63,7 @@ theorem paper1_chiral_compression :
    combine_proj_eq,
    ⟨by decide, by decide, by decide⟩,
    ⟨Bridge.dimVecS_eq_chiral, Bridge.dimVecT_eq_chiral⟩,
-   ⟨E213.Physics.PhotonKernel.b_1_eq_8, by decide⟩,
+   ⟨E213.Physics.Couplings.PhotonKernel.b_1_eq_8, by decide⟩,
    ⟨by decide, by decide⟩⟩
 
 end E213.Math.Linalg213.Capstone

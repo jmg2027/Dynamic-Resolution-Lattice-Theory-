@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 PropagatorFamily — P(x/k) atomic family
@@ -15,9 +15,9 @@ Each atom IE correction: IE(Z) = R·Z_eff²/n² · P(x/k_Z)
 Each P(x/k) is an atomic Lens output.
 -/
 
-namespace E213.Physics.Phase4.PropagatorFamily
+namespace E213.Physics.Couplings.PropagatorFamily
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- P(x) per 10⁵: 101437 (= 1.01437 = (1+2x)/(1+x), x = 0.01458). -/
 def P_x : Nat := 101437
@@ -37,4 +37,4 @@ theorem Li_diff : 5391715 - Li_corrected = 607 := by decide
 /-- Be precision: |9327300 - 9322699| = 4601 μeV ≈ 493 ppm. -/
 theorem Be_diff : Be_corrected - 9322699 = 4601 := by decide
 
-end E213.Physics.Phase4.PropagatorFamily
+end E213.Physics.Couplings.PropagatorFamily

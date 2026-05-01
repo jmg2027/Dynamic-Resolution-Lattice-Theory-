@@ -25,8 +25,8 @@ The bridge theorem unifies them.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.PhotonKernel
-open E213.Physics.Simplex (NS)
+open E213.Physics.Couplings.PhotonKernel
+open E213.Physics.Simplex.Counts (NS)
 
 /-- The two derivations of b₁(K_{3,2}^{(2)}) coincide:
     PhotonKernel scalar Euler formula and Bip32 chain-level

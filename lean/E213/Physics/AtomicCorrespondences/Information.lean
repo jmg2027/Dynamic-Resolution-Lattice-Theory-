@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Information theory and quantum information → DRLT atomic
@@ -14,9 +14,9 @@ import E213.Physics.Simplex.Counts
   6. Bekenstein bound: I ≤ A/(4·ln2) → atomic 4
 -/
 
-namespace E213.Physics.Phase3.Translation.Information
+namespace E213.Physics.AtomicCorrespondences.Information
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ Qubit = NT atomic ★
@@ -72,4 +72,4 @@ theorem information_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Information
+end E213.Physics.AtomicCorrespondences.Information

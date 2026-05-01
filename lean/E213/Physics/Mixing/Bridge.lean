@@ -17,7 +17,7 @@ Per `Physics/NeutrinoMixing.lean`:
   δ_CP denom → d²−1 = 24 = adjoint SU(5)
 -/
 
-namespace E213.Physics.MixingBridge
+namespace E213.Physics.Mixing.Bridge
 
 /-- Cabibbo bare denom: 5²−5+2 = 22.  Atomic factor structure. -/
 theorem cabibbo_denom_atomic : 5 * 5 - 5 + 2 = 22 := by decide
@@ -27,10 +27,10 @@ theorem delta_cp_atomic : 5 * 5 - 1 = 24 := by decide
 
 /-- Atomic-source agreement check via Simplex constants. -/
 theorem atomic_check :
-    E213.Physics.Simplex.NS = 3
-    ∧ E213.Physics.Simplex.NT = 2
-    ∧ E213.Physics.Simplex.d = 5
-    ∧ E213.Physics.Cabibbo.C_lat = 2 := by decide
+    E213.Physics.Simplex.Counts.NS = 3
+    ∧ E213.Physics.Simplex.Counts.NT = 2
+    ∧ E213.Physics.Simplex.Counts.d = 5
+    ∧ E213.Physics.Mixing.CabibboAngle.C_lat = 2 := by decide
 
 /-- ★ Cabibbo + PMNS share Diamond atomic source. -/
 theorem mixing_unified_diamond :
@@ -42,12 +42,12 @@ theorem mixing_unified_diamond :
 /-- ★★★ Mixing-matrix Diamond bridge capstone — all 4 mixing
     quantities factor through NS, NT, d, c primitives. -/
 theorem mixing_bridge_capstone :
-    E213.Physics.Simplex.NS = 3
-    ∧ E213.Physics.Simplex.NT = 2
-    ∧ E213.Physics.Simplex.d = 5
-    ∧ E213.Physics.Cabibbo.C_lat = 2
+    E213.Physics.Simplex.Counts.NS = 3
+    ∧ E213.Physics.Simplex.Counts.NT = 2
+    ∧ E213.Physics.Simplex.Counts.d = 5
+    ∧ E213.Physics.Mixing.CabibboAngle.C_lat = 2
     ∧ 5 * 5 - 5 + 2 = 22
     ∧ 5 * 5 - 1 = 24
     ∧ (3 + 2 : Nat) = 5 := by decide
 
-end E213.Physics.MixingBridge
+end E213.Physics.Mixing.Bridge

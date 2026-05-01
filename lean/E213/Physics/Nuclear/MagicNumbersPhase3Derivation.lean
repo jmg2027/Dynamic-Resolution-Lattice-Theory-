@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
-import E213.Physics.Nuclear.MagicNumbers
-import E213.Physics.Simplex.Counts
+import E213.Physics.Nuclear.Binding.MagicNumbers
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 MagicNumbersDerivation — *why 2, 8, 20, 28, 50, 82, 126*
@@ -48,10 +48,10 @@ has (k, k+1) dimension product → cumulative = tetrahedral.
   Compare DRLT HO formula extrapolation with measurement → resolution.
 -/
 
-namespace E213.Physics.Phase3.MagicNumbersDerivation
+namespace E213.Physics.Nuclear.MagicNumbersPhase3Derivation
 
-open E213.Physics.Magic
-open E213.Physics.Simplex
+open E213.Physics.Nuclear.MagicNumbers
+open E213.Physics.Simplex.Counts
 
 /-- Closed form at n=1: 3·ho_magic(1) = 1·2·3. -/
 theorem ho_closed_1 : 3 * ho_magic 1 = 1 * 2 * 3 := by decide
@@ -79,4 +79,4 @@ theorem magic_numbers_derivation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.MagicNumbersDerivation
+end E213.Physics.Nuclear.MagicNumbersPhase3Derivation

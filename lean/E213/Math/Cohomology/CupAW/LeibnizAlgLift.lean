@@ -22,7 +22,7 @@ Pipeline inside the proof:
 
 namespace E213.Math.Cohomology.CupAW.LeibnizAlgLift
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Cochain.V5_2Decomp (decomp_5_2 decomp_5_2_eq)
 open E213.Math.XorPairCombine (combine_10)
 

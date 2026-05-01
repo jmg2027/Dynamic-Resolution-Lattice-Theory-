@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass
+import E213.Physics.Higgs.Mass.Mass
 
 /-!
 # Ω_Λ = (1 − 1/π)·(1 + α_GUT/d) — same atomic cofactor (0 axioms part)
@@ -41,9 +41,9 @@ DRLT formula (lib/drlt.py:810, ch13 sec 9.2):
   separate work.
 -/
 
-namespace E213.Physics.DarkEnergy
+namespace E213.Physics.Cosmology.DarkEnergy
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
 
 /-- Trace-correction factor (1 + α_GUT/d) — universal pattern. -/
@@ -95,4 +95,4 @@ theorem dark_energy_pattern_capstone :
     -- Same as m_H, Ω_Λ, He IE
     ∧ (NS + NT = d) := by decide
 
-end E213.Physics.DarkEnergy
+end E213.Physics.Cosmology.DarkEnergy

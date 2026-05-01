@@ -22,7 +22,7 @@ Paper 1's level-1 statement ℂ⁵ = ℂ² ⊕ ℂ³ becomes:
 
 namespace E213.Math.Cohomology.Paper1Chiral
 
-open E213.Physics.Simplex (binom NS NT d)
+open E213.Physics.Simplex.Counts (binom NS NT d)
 
 /-- Chiral cochain dimension at bigrading (i, j). -/
 def chiralDim (i j : Nat) : Nat := binom NS i * binom NT j

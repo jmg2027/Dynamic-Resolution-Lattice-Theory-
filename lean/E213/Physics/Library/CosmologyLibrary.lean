@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Cosmology Library — cosmology atomic catalog
@@ -21,9 +21,9 @@ Each cosmology result expressed in atomic primitives.
   Dark matter candidate mass → atomic
 -/
 
-namespace E213.Physics.Phase4.Library.CosmologyLibrary
+namespace E213.Physics.Library.CosmologyLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Ω_Λ in 0.001 units = 685. -/
 def omega_lambda_milli : Nat := 685
@@ -37,4 +37,4 @@ theorem cassini_atomic : d * NT - NS * NS = 1 := by decide
 /-- Flatness Ω_total = 1: NS+NT = d atomic. -/
 theorem flatness_atomic : NS + NT = d := by decide
 
-end E213.Physics.Phase4.Library.CosmologyLibrary
+end E213.Physics.Library.CosmologyLibrary

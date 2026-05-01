@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.Atomic.Screening
 import E213.Physics.Couplings.AlphaGUT
 
@@ -32,9 +32,9 @@ DRLT = 24.566 eV (Phase 1 -0.09%).
 For ppm refinement: α_GUT atomic bracket → IE(He) bracket.
 -/
 
-namespace E213.Physics.Phase4.HeliumIEPPM
+namespace E213.Physics.Atomic.IE.HeliumPPM
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- IE(He) observed = 24.587387 eV in 10⁻⁶ eV (μeV). -/
 def IE_He_micro : Nat := 24587387
@@ -83,4 +83,4 @@ theorem helium_IE_atomic :
   refine ⟨?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.HeliumIEPPM
+end E213.Physics.Atomic.IE.HeliumPPM

@@ -69,9 +69,9 @@ Phase 1 Lean formalization results:
   Fibonacci F_3..F_10 = 8 atomic integers
 -/
 
-namespace E213.Physics.ZeroParam
+namespace E213.Physics.Foundations.DrltZeroParameters
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★ Single formal theorem for the DRLT *zero free parameter* claim ★
 
@@ -105,4 +105,4 @@ theorem drlt_zero_parameter_claim :
     ∧ (5 * NS = 3 * d)      -- 5/3 Y-norm = d/NS
     := by decide
 
-end E213.Physics.ZeroParam
+end E213.Physics.Foundations.DrltZeroParameters

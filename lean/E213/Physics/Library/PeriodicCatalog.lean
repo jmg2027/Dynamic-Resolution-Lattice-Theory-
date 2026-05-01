@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 Library — Periodic Table Catalog (Z=1 to 36, atomic only)
@@ -41,9 +41,9 @@ Each row: Z, atomic_form, observed_IE_μeV.
  36 Kr   Z=(NS·NT)²          ★ P4 closure
 -/
 
-namespace E213.Physics.Phase4.Library.PeriodicCatalog
+namespace E213.Physics.Library.PeriodicCatalog
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Verification of all Z (1-36) atomic representations. -/
 theorem all_Z_atomic :
@@ -67,4 +67,4 @@ theorem all_Z_atomic :
           ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.Library.PeriodicCatalog
+end E213.Physics.Library.PeriodicCatalog

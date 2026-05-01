@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Hadron physics → DRLT atomic
@@ -13,9 +13,9 @@ import E213.Physics.Simplex.Counts
   7. J/ψ, Υ heavy quarkonia → atomic chain
 -/
 
-namespace E213.Physics.Phase3.Translation.Hadron
+namespace E213.Physics.AtomicCorrespondences.Hadron
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 3 valence quark per baryon = NS atomic. -/
 theorem quark_baryon : NS = 3 := by decide
@@ -38,4 +38,4 @@ theorem hadron_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Hadron
+end E213.Physics.AtomicCorrespondences.Hadron

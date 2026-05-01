@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Famous Coincidences IV — exceptional Lie groups + factorial chain
@@ -17,9 +17,9 @@ Each integer admits multiple distinct atomic readings — Class C
 signature.  All theorems STRICT 0-AXIOM via decide.
 -/
 
-namespace E213.Physics.FamousCoincidencesIV
+namespace E213.Physics.FamousCoincidences.V4
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-! ### 1.  The integer 27 — E6 fundamental representation
 
@@ -154,4 +154,4 @@ theorem famous_coincidences_IV_capstone :
   refine ⟨⟨?_, ?_, ?_, ?_⟩, ⟨?_, ?_, ?_, ?_, ?_⟩,
           ⟨?_, ?_, ?_, ?_, ?_⟩, ⟨?_, ?_, ?_, ?_⟩⟩ <;> decide
 
-end E213.Physics.FamousCoincidencesIV
+end E213.Physics.FamousCoincidences.V4

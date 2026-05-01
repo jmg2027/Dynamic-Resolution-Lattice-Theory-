@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.Simplex.Generations
 
 /-!
@@ -38,10 +38,10 @@ DRLT derivation (ch11 SU(5)):
   Pure combinatorial.
 -/
 
-namespace E213.Physics.GenStructure
+namespace E213.Physics.Simplex.GenerationStructure
 
-open E213.Physics.Simplex
-open E213.Physics.Generations
+open E213.Physics.Simplex.Counts
+open E213.Physics.Simplex.Generations
 
 /-- 1 generation fermion count: ∧¹ + ∧² = 5 + 10 = 15. -/
 def gen_fermion_count : Nat := lambda_dim 1 + lambda_dim 2
@@ -109,4 +109,4 @@ theorem matter_content_capstone :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.GenStructure
+end E213.Physics.Simplex.GenerationStructure

@@ -1,5 +1,5 @@
 import E213.Physics.Capstones.UltraCapstone
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 FINAL CAPSTONE — synthesis of 30 autonomous milestones
@@ -47,9 +47,9 @@ DRLT single origin = necessity.
 ★ "Modern physics = 213 atomic primitive arithmetic" ★
 -/
 
-namespace E213.Physics.Phase3.FinalCapstone
+namespace E213.Physics.Capstones.FinalCapstone
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★★★ Phase 3 FINAL CAPSTONE ★★★ -/
 theorem phase3_final :
@@ -72,4 +72,4 @@ theorem phase3_final :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.FinalCapstone
+end E213.Physics.Capstones.FinalCapstone

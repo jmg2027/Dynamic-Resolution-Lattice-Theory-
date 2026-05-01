@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Hadron Mass Library — hadron mass atomic catalog
@@ -22,9 +22,9 @@ import E213.Physics.Simplex.Counts
   baryon decuplet    = 10 = C(d,2)
 -/
 
-namespace E213.Physics.Phase4.Library.HadronMassLibrary
+namespace E213.Physics.Library.HadronMassLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- m_p atomic prefactor = NS. -/
 theorem mp_prefactor : NS = 3 := by decide
@@ -35,4 +35,4 @@ theorem meson_octet_8 : NS * NS - 1 = 8 := by decide
 /-- Baryon decuplet 10 atomic. -/
 theorem baryon_decuplet_10 : d * (d - 1) / 2 = 10 := by decide
 
-end E213.Physics.Phase4.Library.HadronMassLibrary
+end E213.Physics.Library.HadronMassLibrary

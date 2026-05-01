@@ -20,22 +20,22 @@ This file bundles the formal Lean parts of (ii)-(iv):
 fractal-cohomology identification of α_GUT factors (6, 25, π²).
 -/
 
-namespace E213.Physics.Paper2Bundle
+namespace E213.Physics.Capstones.Paper2Bundle
 
 /-- ★★★ PAPER 2 GAUGE STRUCTURE — 213 BUNDLED CAPSTONE ★★★ -/
 theorem paper2_gauge_structure :
     -- (ii) Atomic chiral substrate from paper 1
-    (E213.Physics.Simplex.NS = 3
-     ∧ E213.Physics.Simplex.NT = 2
-     ∧ E213.Physics.Simplex.d = 5
-     ∧ E213.Physics.Simplex.NS + E213.Physics.Simplex.NT
-        = E213.Physics.Simplex.d)
+    (E213.Physics.Simplex.Counts.NS = 3
+     ∧ E213.Physics.Simplex.Counts.NT = 2
+     ∧ E213.Physics.Simplex.Counts.d = 5
+     ∧ E213.Physics.Simplex.Counts.NS + E213.Physics.Simplex.Counts.NT
+        = E213.Physics.Simplex.Counts.d)
     -- (iii) Gauge group factors: α_3 (color, NS), α_2 (weak, NT)
     ∧ (E213.Physics.AlphaEM.inv_alpha_3 = 8
        ∧ E213.Physics.AlphaEM.inv_alpha_2 = 30)
     -- (iv) α_GUT bracket containing 41 (= d²·ζ(2) ≈ 41.123)
-    ∧ (let lo := E213.Physics.AlphaGUT.inv_lower 3
-       let hi := E213.Physics.AlphaGUT.inv_upper 3
+    ∧ (let lo := E213.Physics.Couplings.AlphaGUT.inv_lower 3
+       let hi := E213.Physics.Couplings.AlphaGUT.inv_upper 3
        lo.1 < 41 * lo.2 ∧ 41 * hi.2 < hi.1)
     -- Fractal-cohomology identification of α_GUT factors
     ∧ (E213.Math.Cohomology.Fractal.V25.numV = 5 * 5
@@ -45,7 +45,7 @@ theorem paper2_gauge_structure :
        let hi := E213.Physics.AlphaEM.inv_alpha_em_bare_upper 5
        lo.1 < 128 * lo.2 ∧ 128 * hi.2 < hi.1) := by
   refine ⟨by decide, by decide, ?_, ?_, ?_⟩
-  · exact E213.Physics.AlphaGUT.standard_41_in_bracket
+  · exact E213.Physics.Couplings.AlphaGUT.standard_41_in_bracket
   · exact ⟨E213.Math.Cohomology.Fractal.V25.numV_eq_d_sq,
            E213.Math.Cohomology.K5.kerSize_K5⟩
   · exact E213.Physics.AlphaEM.bare_128_in_bracket
@@ -58,4 +58,4 @@ theorem alpha_GUT_three_identifications :
     ∧ E213.Math.Cohomology.Fractal.V25.numV = 25
     ∧ E213.Math.Cohomology.Fractal.V25.numE = 12 * 25 := by decide
 
-end E213.Physics.Paper2Bundle
+end E213.Physics.Capstones.Paper2Bundle

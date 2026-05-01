@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Standard unsolved problems → DRLT atomic resolution catalog
@@ -16,9 +16,9 @@ import E213.Physics.Simplex.Counts
   10. Dark matter: Phase 2 unaccounted Lens
 -/
 
-namespace E213.Physics.Phase3.Translation.UnsolvedProblems
+namespace E213.Physics.AtomicCorrespondences.UnsolvedProblems
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Hierarchy denom = d + 1 atomic. -/
 theorem hierarchy_denom : d + 1 = 6 := by decide
@@ -36,4 +36,4 @@ theorem unsolved_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.UnsolvedProblems
+end E213.Physics.AtomicCorrespondences.UnsolvedProblems

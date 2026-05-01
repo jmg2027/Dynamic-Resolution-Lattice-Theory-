@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Lie algebra and group representations → DRLT atomic
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   6. Young tableaux dimensions
 -/
 
-namespace E213.Physics.Phase3.Translation.GroupTheory
+namespace E213.Physics.AtomicCorrespondences.GroupTheory
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- SU(NS) dimension = NS² - 1 = 8 atomic. -/
 theorem su_NS_dim : NS * NS - 1 = 8 := by decide
@@ -48,4 +48,4 @@ theorem group_theory_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.GroupTheory
+end E213.Physics.AtomicCorrespondences.GroupTheory

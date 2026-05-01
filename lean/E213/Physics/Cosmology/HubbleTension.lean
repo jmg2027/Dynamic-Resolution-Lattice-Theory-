@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Cosmology.DarkEnergy
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 HubbleTension — H_0 resolution
@@ -38,10 +38,10 @@ If DRLT determines H_0 to one value → one measurement verified, other resolved
 This file is marked *currently open*.  Further derivation needed as Phase 3 proceeds.
 -/
 
-namespace E213.Physics.Phase3.HubbleTension
+namespace E213.Physics.Cosmology.HubbleTension
 
-open E213.Physics.DarkEnergy
-open E213.Physics.Simplex
+open E213.Physics.Cosmology.DarkEnergy
+open E213.Physics.Simplex.Counts
 
 /-- Ω_Λ atomic verification (reusing Phase 1 DarkEnergy result). -/
 theorem omega_lambda_observed :
@@ -68,4 +68,4 @@ theorem hubble_tension_marker :
   refine ⟨omega_lambda_observed, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.HubbleTension
+end E213.Physics.Cosmology.HubbleTension

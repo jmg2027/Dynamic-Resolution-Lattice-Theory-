@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: All *physical occurrences* of the integer 8
@@ -23,9 +23,9 @@ import E213.Physics.Simplex.Counts
  11. SU(3) flavor octet = 8 mesons (η, π⁰,...) [Hadron]
 -/
 
-namespace E213.Physics.Phase3.Translation.EightEverywhere
+namespace E213.Physics.AtomicCorrespondences.EightEverywhere
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 8 = NS² - 1 atomic. -/
 theorem eight_atomic : NS * NS - 1 = 8 := by decide
@@ -54,4 +54,4 @@ theorem eight_everywhere :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.EightEverywhere
+end E213.Physics.AtomicCorrespondences.EightEverywhere

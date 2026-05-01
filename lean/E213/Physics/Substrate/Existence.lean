@@ -24,7 +24,7 @@ This file: *what are those 5, and what is the information between them?*
   Only *block sizes* are determined by axiom.
 -/
 
-namespace E213.Physics.Phase2.Existence
+namespace E213.Physics.Substrate.Existence
 
 /-- Type of d=5 things — Fin 5.  Minimal Lens output. -/
 def Vertex : Type := Fin 5
@@ -81,4 +81,4 @@ theorem cosmos_existence_minimal :
        + ((List.finRange 5).filter (fun v => inSmallBlock v)).length
        = 5) := by decide
 
-end E213.Physics.Phase2.Existence
+end E213.Physics.Substrate.Existence

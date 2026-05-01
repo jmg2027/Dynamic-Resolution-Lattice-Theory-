@@ -12,7 +12,7 @@ and (5, 1) cases.
 
 namespace E213.Math.Cohomology.Universal.Core.Prop41
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 4 1 parametrized by 4 Bool values. -/
 def pattern (b0 b1 b2 b3 : Bool) : Cochain 4 1 := fun i =>

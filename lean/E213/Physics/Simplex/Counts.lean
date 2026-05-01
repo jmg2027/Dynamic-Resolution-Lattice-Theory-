@@ -17,7 +17,7 @@ The "transcendentals" of the standard formulation (π², ζ(2), ...) appear
 only as bounded rational approximations in later files.
 -/
 
-namespace E213.Physics.Simplex
+namespace E213.Physics.Simplex.Counts
 
 /-- Lattice dimension (Atomicity → d = 5). -/
 def d : Nat := 5
@@ -80,4 +80,4 @@ theorem total_exterior :
     lambda_dim 0 + lambda_dim 1 + lambda_dim 2
     + lambda_dim 3 + lambda_dim 4 + lambda_dim 5 = 32 := by decide
 
-end E213.Physics.Simplex
+end E213.Physics.Simplex.Counts

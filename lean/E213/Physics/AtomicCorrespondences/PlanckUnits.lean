@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Planck units → DRLT atomic
@@ -13,9 +13,9 @@ import E213.Physics.Simplex.Counts
 DRLT lattice structure: c = NT = 2 → all c^n are atomic integers.
 -/
 
-namespace E213.Physics.Phase3.Translation.PlanckUnits
+namespace E213.Physics.AtomicCorrespondences.PlanckUnits
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- c³ = NT³ = 8 atomic. -/
 theorem c_cubed : NT * NT * NT = 8 := by decide
@@ -42,4 +42,4 @@ theorem planck_units_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.PlanckUnits
+end E213.Physics.AtomicCorrespondences.PlanckUnits

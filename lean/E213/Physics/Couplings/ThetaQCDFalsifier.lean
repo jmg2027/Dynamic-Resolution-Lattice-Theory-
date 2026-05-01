@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Couplings.ThetaQCD
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 ThetaQCDFalsifier — nEDM resolution
@@ -33,10 +33,10 @@ The (d-1) power of α^(d-1) is atomic-forced (same as Dyson family
 cofactor).
 -/
 
-namespace E213.Physics.Phase3.ThetaQCDFalsifier
+namespace E213.Physics.Couplings.ThetaQCDFalsifier
 
-open E213.Physics.ThetaQCD
-open E213.Physics.Simplex
+open E213.Physics.Couplings.ThetaQCD
+open E213.Physics.Simplex.Counts
 
 /-- α power = d - 1 = 4 (atomic-forced, same as Dyson cofactor). -/
 theorem alpha_power_atomic : alpha_pow = d - 1 := alpha_pow_eq_d_minus_1
@@ -70,4 +70,4 @@ theorem nedm_falsifier :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.ThetaQCDFalsifier
+end E213.Physics.Couplings.ThetaQCDFalsifier

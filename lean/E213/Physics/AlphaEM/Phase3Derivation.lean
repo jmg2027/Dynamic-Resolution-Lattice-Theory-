@@ -1,7 +1,7 @@
 import E213.Physics.Substrate
 import E213.Physics.AlphaEM.Unified
-import E213.Physics.Basel.Bound
-import E213.Physics.Simplex.Counts
+import E213.Physics.Basel.Bound.Bound
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 AlphaEMDerivation — deep-dive on *why 137.036*
@@ -59,8 +59,8 @@ NS+1 = 4 = d-1.  4-simplex face dimension.  α_GUT/4 ≈ 0.006.
 namespace E213.Physics.AlphaEM.Phase3Derivation
 
 open E213.Physics.AlphaEM.Unified
-open E213.Physics.Basel
-open E213.Physics.Simplex
+open E213.Physics.Basel.Bound
+open E213.Physics.Simplex.Counts
 
 /-- Term 1: 1/α_3 = NS² - 1 = 8 atomic. -/
 theorem term1_alpha3 : NS * NS - 1 = 8 := by decide

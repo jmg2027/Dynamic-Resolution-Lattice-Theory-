@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.Basel.WhyBasel
 
 /-!
@@ -20,9 +20,9 @@ Together with `WhyBasel.lean` (form 1/n²), this completes the
 "why three forces use Basel" derivation chain in Lean.
 -/
 
-namespace E213.Physics.Neff
+namespace E213.Physics.Cosmology.NeffDerivation
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- α_3 confinement: AAA hinge has C(NS, NS) = 1 independent
     configuration. Hop 2 reuses → determinant zero → propagation
@@ -93,4 +93,4 @@ theorem basel_formula_axiom_derived :
     -- α_2 depth (rank)
     ∧ NT = 2 := by decide
 
-end E213.Physics.Neff
+end E213.Physics.Cosmology.NeffDerivation

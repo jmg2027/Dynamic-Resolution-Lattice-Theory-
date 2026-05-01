@@ -61,9 +61,9 @@ end Bip32
         so b₁ = 8.
     Both = NS² − 1 = 1/α_3 (confined coupling). -/
 theorem alpha_3_two_derivations :
-    E213.Physics.PhotonKernel.b_1 = 8
+    E213.Physics.Couplings.PhotonKernel.b_1 = 8
     ∧ Bip32.kerSizeDelta0 = 2
     ∧ 16 * 256 = 4096 := by
-  refine ⟨E213.Physics.PhotonKernel.b_1_eq_8, ?_, ?_⟩ <;> decide
+  refine ⟨E213.Physics.Couplings.PhotonKernel.b_1_eq_8, ?_, ?_⟩ <;> decide
 
 end E213.Math.Cohomology

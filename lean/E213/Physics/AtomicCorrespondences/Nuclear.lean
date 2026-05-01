@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Nuclear physics → DRLT atomic
@@ -13,9 +13,9 @@ import E213.Physics.Simplex.Counts
   5. Binding per nucleon ≈ 8 MeV → atomic 1/α_3
 -/
 
-namespace E213.Physics.Phase3.Translation.Nuclear
+namespace E213.Physics.AtomicCorrespondences.Nuclear
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ Binding per nucleon ≈ 8 MeV atomic ★
@@ -71,4 +71,4 @@ theorem nuclear_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Nuclear
+end E213.Physics.AtomicCorrespondences.Nuclear

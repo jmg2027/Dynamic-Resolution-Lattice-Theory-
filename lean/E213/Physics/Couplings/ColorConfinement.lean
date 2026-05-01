@@ -36,11 +36,11 @@ DRLT strong confinement mechanism (ch08 §sec:Neff):
   *the same atomicity* constraint.
 -/
 
-namespace E213.Physics.Confinement
+namespace E213.Physics.Couplings.ColorConfinement
 
-open E213.Physics.Simplex
-open E213.Physics.PhotonKernel
-open E213.Physics.Neff
+open E213.Physics.Simplex.Counts
+open E213.Physics.Couplings.PhotonKernel
+open E213.Physics.Cosmology.NeffDerivation
 
 /-- Color sector AAA dimension: NS² = 9. -/
 def AAA_sector_dim : Nat := NS * NS
@@ -94,4 +94,4 @@ theorem confinement_is_combinatorial :
     -- All atomic
     ∧ (NS = 3) := by decide
 
-end E213.Physics.Confinement
+end E213.Physics.Couplings.ColorConfinement

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Phase 1 results ↔ Translation cross-link
@@ -32,9 +32,9 @@ atomic correspondence in Phase 3 Translation.
 → All Phase 1 results appear atomically in Phase 3 Translation.
 -/
 
-namespace E213.Physics.Phase3.Translation.Phase1CrossLink
+namespace E213.Physics.AtomicCorrespondences.Phase1CrossLink
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- All Phase 1 results reside on the atomic lattice — single origin. -/
 theorem all_phase1_atomic :
@@ -53,4 +53,4 @@ theorem all_phase1_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Phase1CrossLink
+end E213.Physics.AtomicCorrespondences.Phase1CrossLink

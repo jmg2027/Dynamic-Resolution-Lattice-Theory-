@@ -15,7 +15,7 @@ not provide by default; revisit in Phase CB.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- δ²(zero) at (3, 0). -/
 theorem delta_sq_zero_zero_3_0 :

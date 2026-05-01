@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Proton g-factor — first DRLT atomic identification (2026-04-30)
@@ -31,9 +31,9 @@ chained-α corrections (composite-particle higher cohomology),
 deferred to next iteration.
 -/
 
-namespace E213.Physics.ProtonG
+namespace E213.Physics.Hadron.ProtonG
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★ Proton g-factor atomic skeleton.
     g_p ≈ (NS²/d) · ζ(2)² · (1 + NS·NT · α_GUT)
@@ -102,4 +102,4 @@ theorem g_p_v2_atomic :
     ∧ NS ^ 2 * NT * d = NT * (NS ^ 2 * d) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.ProtonG
+end E213.Physics.Hadron.ProtonG

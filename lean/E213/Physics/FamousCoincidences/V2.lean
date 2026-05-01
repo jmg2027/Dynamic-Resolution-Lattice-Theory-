@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Class C atomic identity catalog — multiple readings of magic integers
@@ -19,9 +19,9 @@ Koide, r_p, hierarchy).
 All theorems STRICT 0-AXIOM via decide.
 -/
 
-namespace E213.Physics.FamousCoincidencesII
+namespace E213.Physics.FamousCoincidences.V2
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-! ### 1.  The integer 8 (color confinement, 1/α_3, b_1)
 
@@ -147,4 +147,4 @@ theorem class_c_atomic_catalog :
   refine ⟨⟨?_, ?_, ?_⟩, ⟨?_, ?_, ?_⟩, ⟨?_, ?_⟩,
           ⟨?_, ?_⟩, ?_, ⟨?_, ?_, ?_⟩⟩ <;> decide
 
-end E213.Physics.FamousCoincidencesII
+end E213.Physics.FamousCoincidences.V2

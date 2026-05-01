@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Nuclear Library — nuclear atomic catalog
@@ -25,9 +25,9 @@ import E213.Physics.Simplex.Counts
   Nuclear radius r₀ ≈ 1.25 fm = d/(NS+1) atomic
 -/
 
-namespace E213.Physics.Phase4.Library.NuclearLibrary
+namespace E213.Physics.Library.NuclearLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- HO magic number 1 = NT (smallest atom). -/
 theorem ho_magic_1 : NT = 2 := by decide
@@ -44,4 +44,4 @@ theorem ho_magic_7 : 7 * 8 * 9 / 3 = 168 := by decide
 /-- Nuclear binding ~ 1/α_3 = 8 MeV atomic. -/
 theorem binding_atomic : NS * NS - 1 = 8 := by decide
 
-end E213.Physics.Phase4.Library.NuclearLibrary
+end E213.Physics.Library.NuclearLibrary

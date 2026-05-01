@@ -1,4 +1,4 @@
-import E213.Physics.Nuclear.MagicNumbers
+import E213.Physics.Nuclear.Binding.MagicNumbers
 import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Mass.MuOverE
 import E213.Physics.Atomic.IE.HydrogenPPM
@@ -25,9 +25,9 @@ identity, decide-checked, all derived from atomic primitives
   Atomic forcing:   NS=3, NT=2, d=5, c=2 (Atomicity theorem)
 -/
 
-namespace E213.Physics.Paper3Bundle
+namespace E213.Physics.Capstones.Paper3Bundle
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors (c_lat)
 
 /-- ★★★ PAPER 3 PREDICTIONS — 213 BUNDLED CAPSTONE ★★★
@@ -37,9 +37,9 @@ open E213.Physics.AlphaEM.Prefactors (c_lat)
     theorems.  All derive from atomic primitives. -/
 theorem paper3_predictions :
     -- Magic numbers (first 3 = HO)
-    (E213.Physics.Magic.ho_magic 1 = 2
-     ∧ E213.Physics.Magic.ho_magic 2 = 8
-     ∧ E213.Physics.Magic.ho_magic 3 = 20)
+    (E213.Physics.Nuclear.MagicNumbers.ho_magic 1 = 2
+     ∧ E213.Physics.Nuclear.MagicNumbers.ho_magic 2 = 8
+     ∧ E213.Physics.Nuclear.MagicNumbers.ho_magic 3 = 20)
     -- Ω_Λ ≈ 685/1000 (cosmology)
     ∧ (684 < 685 ∧ 685 < 686)
     -- 1/α_3 = 8 = NS² − 1 (strong, hop=1)
@@ -49,7 +49,7 @@ theorem paper3_predictions :
     ∧ (E213.Physics.AlphaEM.inv_alpha_2 = 30
        ∧ (30 : Nat) = 12 * NT * 5 / 4)
     -- IE_H formula at ppb (numerical)
-    ∧ (E213.Physics.Phase4.HydrogenIEPPM.IE_H_micro = 13605693)
+    ∧ (E213.Physics.Atomic.IE.HydrogenPPM.IE_H_micro = 13605693)
     -- Atomic forcing — root of all predictions
     ∧ (NS = 3 ∧ NT = 2 ∧ d = 5 ∧ c_lat = 2 ∧ NS + NT = d) := by decide
 
@@ -74,4 +74,4 @@ theorem atomic_signatures :
     -- α_GUT numerator: 6 = NS · NT (also = b_1(K_5))
     ∧ NS * NT = 6 := by decide
 
-end E213.Physics.Paper3Bundle
+end E213.Physics.Capstones.Paper3Bundle

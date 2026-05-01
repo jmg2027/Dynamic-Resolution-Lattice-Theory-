@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Multi-output of integer 12
@@ -17,9 +17,9 @@ import E213.Physics.Simplex.Counts
   7. 12 hours / 12 months (cultural, not physics)
 -/
 
-namespace E213.Physics.Phase3.Translation.TwelveEverywhere
+namespace E213.Physics.AtomicCorrespondences.TwelveEverywhere
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 12 = c·NS·NT atomic. -/
 theorem twelve_atomic : 2 * NS * NT = 12 := by decide
@@ -41,4 +41,4 @@ theorem twelve_everywhere :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.TwelveEverywhere
+end E213.Physics.AtomicCorrespondences.TwelveEverywhere

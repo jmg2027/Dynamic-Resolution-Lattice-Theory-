@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
-import E213.Physics.YangMills.WZBosons
-import E213.Physics.Simplex.Counts
+import E213.Physics.YangMills.Gap.WZBosons
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 WMassFalsifier — CDF anomaly verdict
@@ -32,10 +32,10 @@ falsified.  Currently both PDG and CDF are inside → DRLT validated
 (which of the two is correct is a separate question).
 -/
 
-namespace E213.Physics.Phase3.WMassFalsifier
+namespace E213.Physics.YangMills.WMassFalsifier
 
-open E213.Physics.WZBosons
-open E213.Physics.Simplex
+open E213.Physics.YangMills.WZBosons
+open E213.Physics.Simplex.Counts
 
 /-- DRLT cos²θ_W ∈ [0.75, 0.78] bracket (Phase 1 verified). -/
 theorem drlt_bracket :
@@ -76,4 +76,4 @@ theorem w_mass_falsifier :
   refine ⟨drlt_bracket, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.WMassFalsifier
+end E213.Physics.YangMills.WMassFalsifier

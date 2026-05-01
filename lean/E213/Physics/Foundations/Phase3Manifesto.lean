@@ -20,11 +20,11 @@ Each file = *one sharp prediction*.
 This file is the *entry manifesto* — no formal content.
 -/
 
-namespace E213.Physics.Phase3.Manifesto
+namespace E213.Physics.Foundations.Phase3Manifesto
 
 /-- ★ Phase 3 hypothesis ★
     Free algebra over Atomic (3, 2) matches *all* measurable integers.
     This proposition is falsifiable by definition. -/
 theorem phase3_hypothesis_marker : True := trivial
 
-end E213.Physics.Phase3.Manifesto
+end E213.Physics.Foundations.Phase3Manifesto

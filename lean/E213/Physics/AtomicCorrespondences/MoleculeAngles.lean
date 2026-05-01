@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Atomic.BondAngles
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Molecular bond angles → DRLT atomic (Phase 1 BondAngles deep-dive)
@@ -20,10 +20,10 @@ DRLT atomic (Phase 1):
 NH₃: NS² + NS + 1 = 13 = F_7 (Fibonacci atomic).
 -/
 
-namespace E213.Physics.Phase3.Translation.MoleculeAngles
+namespace E213.Physics.AtomicCorrespondences.MoleculeAngles
 
-open E213.Physics.BondAngles
-open E213.Physics.Simplex
+open E213.Physics.Atomic.BondAngles
+open E213.Physics.Simplex.Counts
 
 /-- CH₄ cos denom = NS atomic. -/
 theorem ch4_atomic : CH4_cos_denom = NS := by decide
@@ -55,4 +55,4 @@ theorem molecule_angles_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.MoleculeAngles
+end E213.Physics.AtomicCorrespondences.MoleculeAngles

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Relativity → DRLT  (★ skeleton + TODO ★)
@@ -41,9 +41,9 @@ All frames of special + general relativity translated onto DRLT.
 | Big Bang | Lens layer 0 |
 -/
 
-namespace E213.Physics.Phase3.Translation.Relativity
+namespace E213.Physics.AtomicCorrespondences.Relativity
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Spacetime (3+1) ↔ DRLT (NS, NT) = (3, 2). -/
 theorem spacetime_atomic : NS + NT = 5 ∧ NS = 3 := by
@@ -120,4 +120,4 @@ theorem relativity_translation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Relativity
+end E213.Physics.AtomicCorrespondences.Relativity

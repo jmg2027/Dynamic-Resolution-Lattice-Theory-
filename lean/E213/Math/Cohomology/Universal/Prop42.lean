@@ -10,7 +10,7 @@ Cochain 4 2 = Fin 6 → Bool, 2⁶ = 64 functions.  Pattern via
 
 namespace E213.Math.Cohomology.Universal.Core.Prop42
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 4 2 parametrized by 6 Bool values. -/
 def pattern (b0 b1 b2 b3 b4 b5 : Bool) : Cochain 4 2 := fun i =>

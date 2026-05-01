@@ -40,7 +40,7 @@ Closes the Cohomology 213 marathon as a self-contained branch of
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- ★★★ COHOMOLOGY 213 MARATHON CAPSTONE ★★★
 

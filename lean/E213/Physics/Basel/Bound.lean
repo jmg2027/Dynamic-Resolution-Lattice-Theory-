@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Basel partial sum S(N) — rational approximation to ζ(2)
@@ -22,7 +22,7 @@ Convention: rationals as unreduced `(Nat × Nat)` = `(num, den)`,
 matching `ABLens.view`.  Comparison via cross-multiplication.
 -/
 
-namespace E213.Physics.Basel
+namespace E213.Physics.Basel.Bound
 
 /-- Partial Basel sum S(N) = Σ_{n=1}^N 1/n² as `(num, den)`.
     Recursion: S(n+1) = S(n) + 1/(n+1)². -/
@@ -78,4 +78,4 @@ theorem bracket_width_3 :
 theorem bracket_endpoints_3 :
     S 3 = (49, 36) ∧ upper 3 = (183, 108) := by decide
 
-end E213.Physics.Basel
+end E213.Physics.Basel.Bound

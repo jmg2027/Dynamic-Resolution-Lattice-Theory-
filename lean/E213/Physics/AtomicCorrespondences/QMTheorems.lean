@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Key quantum mechanics theorems → DRLT atomic
@@ -16,9 +16,9 @@ Milestone 2: Atomic forced derivation of key QM theorems.
 The atomic answer to each *why is this so*.
 -/
 
-namespace E213.Physics.Phase3.Translation.QMTheorems
+namespace E213.Physics.AtomicCorrespondences.QMTheorems
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ 1. Heisenberg uncertainty atomic ★
@@ -129,4 +129,4 @@ theorem qm_theorems_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.QMTheorems
+end E213.Physics.AtomicCorrespondences.QMTheorems

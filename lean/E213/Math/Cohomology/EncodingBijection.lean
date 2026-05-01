@@ -19,7 +19,7 @@ the enumeration-based Bool-level (Universal).
 
 namespace E213.Math.Cohomology.EncodingBijection
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Core.Prop51 (pattern)
 
 /-- Bool-to-Nat helper. -/

@@ -35,14 +35,14 @@ import E213.Physics.Higgs.Vacuum
   The "large gap" in a hierarchy is *lattice cardinality*, not *fine-tuning*.
 -/
 
-namespace E213.Physics.Hierarchies
+namespace E213.Physics.Mass.HierarchyTowers
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
-open E213.Physics.MuOverE
-open E213.Physics.TauMu
-open E213.Physics.QuarkHierarchy
-open E213.Physics.HiggsVacuum
+open E213.Physics.Mass.MuOverE
+open E213.Physics.Mass.TauOverMu
+open E213.Physics.Hadron.QuarkHierarchy
+open E213.Physics.Higgs.Vacuum
 
 /-- Lepton hierarchy: m_τ/m_μ atomic base ≈ 16. -/
 theorem lepton_hierarchy_atomic :
@@ -98,4 +98,4 @@ theorem hierarchy_from_cardinality :
     -- meaning: d^(d²) huge → v_H ≪ M_Pl naturally
     := by decide
 
-end E213.Physics.Hierarchies
+end E213.Physics.Mass.HierarchyTowers

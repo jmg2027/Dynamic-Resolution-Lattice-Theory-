@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Physical constants → DRLT atomic catalog
@@ -26,9 +26,9 @@ import E213.Physics.Simplex.Counts
   T_CMB                = atomic scale
 -/
 
-namespace E213.Physics.Phase3.Translation.Constants
+namespace E213.Physics.AtomicCorrespondences.Constants
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- α_em integer 137. -/
 theorem alpha_em_int : 137 = 137 := by decide
@@ -62,4 +62,4 @@ theorem constants_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Constants
+end E213.Physics.AtomicCorrespondences.Constants

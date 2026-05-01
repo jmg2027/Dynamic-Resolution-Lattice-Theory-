@@ -37,11 +37,11 @@ User: "Compute atomic IE below ppm without numerical calculation"
 This file: formal chain start.
 -/
 
-namespace E213.Physics.Phase4.IonizationEnergies
+namespace E213.Physics.Atomic.IE.IonizationEnergies
 
-open E213.Physics.Phase4.AtomicExpr
-open E213.Physics.Hydrogen
-open E213.Physics.Simplex
+open E213.Physics.Atomic.Expr
+open E213.Physics.Atomic.Hydrogen
+open E213.Physics.Simplex.Counts
 
 /-- IE(H) leading factor 1/NT atomic. -/
 theorem H_IE_factor : NT = 2 := by decide
@@ -71,4 +71,4 @@ theorem H_IE_chain_atomic :
   refine ⟨?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.IonizationEnergies
+end E213.Physics.Atomic.IE.IonizationEnergies

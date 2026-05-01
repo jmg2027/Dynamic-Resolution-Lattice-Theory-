@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Cosmology.DarkEnergy
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 DarkEnergyDerivation — deep-dive on *why Ω_Λ = 0.685*
@@ -35,10 +35,10 @@ The same (1 ± α_GUT/d) factor appears in:
 DRLT geometric residue: horizon cut of 4-simplex Δ⁴.
 -/
 
-namespace E213.Physics.Phase3.DarkEnergyDerivation
+namespace E213.Physics.Cosmology.DarkEnergyPhase3Derivation
 
-open E213.Physics.DarkEnergy
-open E213.Physics.Simplex
+open E213.Physics.Cosmology.DarkEnergy
+open E213.Physics.Simplex.Counts
 
 /-- Trace correction denom = d. -/
 theorem trace_corr_atomic : trace_correction_denom = d :=
@@ -67,4 +67,4 @@ theorem dark_energy_derivation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.DarkEnergyDerivation
+end E213.Physics.Cosmology.DarkEnergyPhase3Derivation

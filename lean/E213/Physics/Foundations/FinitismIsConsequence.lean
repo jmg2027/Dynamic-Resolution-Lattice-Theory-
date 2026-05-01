@@ -38,7 +38,7 @@ infinity" 와 양립하지 않음.  "Cauchy limit = exact value"가
      ZFC infinity가 213을 깨뜨림이 증명됨.  finitism은 결과."
 -/
 
-namespace E213.Physics.FinitismConsequence
+namespace E213.Physics.Foundations.FinitismIsConsequence
 
 open E213.Research.Real213.CutSum
 
@@ -71,4 +71,4 @@ theorem finitism_is_consequence :
   ⟨alwaysTrueUnit_limit_distinct_from_zero,
    zero_plus_gap_below_zero_exact⟩
 
-end E213.Physics.FinitismConsequence
+end E213.Physics.Foundations.FinitismIsConsequence

@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
-import E213.Physics.Basel.Bound
-import E213.Physics.Simplex.Counts
+import E213.Physics.Basel.Bound.Bound
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.Mixing.NeutrinoMixing
 
 /-!
@@ -58,10 +58,10 @@ This file: Lean formalization of atomic form + bracket for Steps 1, 2.
 Steps 3, 4 are documentation only (eigenvalue calc involves √NT).
 -/
 
-namespace E213.Physics.Phase3.NeutrinoRatioDerivation
+namespace E213.Physics.Mass.NeutrinoRatioPhase3Derivation
 
-open E213.Physics.Basel
-open E213.Physics.Simplex
+open E213.Physics.Basel.Bound
+open E213.Physics.Simplex.Counts
 
 /- Step 1: T₂₃ atomic numerator = π² + NS (atomic).
    rational lower bound: numerator at ζ(2) = S(N=3) = 49/36. -/

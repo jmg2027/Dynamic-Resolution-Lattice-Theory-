@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Statistical Physics Library — statistical mechanics atomic catalog
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   2nd law origin: NT < NS asymmetry
 -/
 
-namespace E213.Physics.Phase4.Library.StatPhysLibrary
+namespace E213.Physics.Library.StatPhysLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Stefan-Boltzmann denom = d·NS = 15. -/
 theorem stefan_atomic : d * NS = 15 := by decide
@@ -25,4 +25,4 @@ theorem cv_monatomic : NS = 3 := by decide
 /-- 2nd law atomic origin. -/
 theorem second_law : NT < NS := by decide
 
-end E213.Physics.Phase4.Library.StatPhysLibrary
+end E213.Physics.Library.StatPhysLibrary

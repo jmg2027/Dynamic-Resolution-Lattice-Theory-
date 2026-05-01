@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
-import E213.Physics.YangMills.WeinbergAngle
-import E213.Physics.Simplex.Counts
+import E213.Physics.YangMills.Gap.WeinbergAngle
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Weinberg angle deep-dive → DRLT atomic
@@ -22,10 +22,10 @@ DRLT atomic (Phase 1 WeinbergAngle):
 This is the *atomic direct derivation* of sin²θ_W — no running.
 -/
 
-namespace E213.Physics.Phase3.Translation.WeinbergDerivation
+namespace E213.Physics.AtomicCorrespondences.WeinbergDerivation
 
-open E213.Physics.Weinberg
-open E213.Physics.Simplex
+open E213.Physics.YangMills.WeinbergAngle
+open E213.Physics.Simplex.Counts
 
 /-- 30 = α_2 atomic. -/
 theorem weinberg_30 : 12 * NT * 5 = 30 * 4 := by decide
@@ -53,4 +53,4 @@ theorem weinberg_derivation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.WeinbergDerivation
+end E213.Physics.AtomicCorrespondences.WeinbergDerivation

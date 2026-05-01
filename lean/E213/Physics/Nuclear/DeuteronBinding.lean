@@ -1,4 +1,4 @@
-import E213.Physics.Nuclear.Binding
+import E213.Physics.Nuclear.Binding.Binding
 
 /-!
 # Deuteron binding E_d = Λ_QCD · α_GUT / π (0 axioms structural)
@@ -28,9 +28,9 @@ DRLT formula (NUC_008, ch10):
   6·Λ/(25π³) ≈ 6·308/775 ≈ 2.38 MeV
 -/
 
-namespace E213.Physics.Deuteron
+namespace E213.Physics.Nuclear.DeuteronBinding
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- E_d formula numerator: 6 = NS·NT (or d+1).
     Same atomic atom as 1/NS reciprocal, m_τ x³ coef denom. -/
@@ -56,4 +56,4 @@ theorem deuteron_simplicial :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.Deuteron
+end E213.Physics.Nuclear.DeuteronBinding

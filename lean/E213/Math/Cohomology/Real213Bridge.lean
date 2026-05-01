@@ -30,7 +30,7 @@ Deep formal isomorphism deferred (different value types).
 
 namespace E213.Math.Cohomology.Real213Bridge
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Δ⁴ has C(5,2) = 10 edges. -/
 theorem cohomology_edge_count : binom 5 2 = 10 := by decide

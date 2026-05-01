@@ -40,7 +40,7 @@ Further quantities (mass, energy, coupling, ...) arise when Lens is added.
 This file collects only the *values* of the 9 quantities.  Comprehensive theorem.
 -/
 
-namespace E213.Physics.Phase2.Observable
+namespace E213.Physics.Substrate.Observable
 
 /-- List of 9 axiom-level observable values. -/
 def cosmos_observables : List (String × Nat) :=
@@ -91,4 +91,4 @@ theorem phase2_observable_summary :
     -- sum = 35 (sanity check)
     ∧ ((cosmos_observables.map (·.2)).foldl (· + ·) 0 = 35) := by decide
 
-end E213.Physics.Phase2.Observable
+end E213.Physics.Substrate.Observable

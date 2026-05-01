@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Cabibbo angle — sin θ_C = 5/22 (pure rational from DRLT integers)
@@ -27,9 +27,9 @@ CLAUDE.md criteria 1+2 intersection:
     ever excludes the rational 5/22 entirely.
 -/
 
-namespace E213.Physics.Cabibbo
+namespace E213.Physics.Mixing.CabibboAngle
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Lattice speed-of-light parameter c = 2 (ch06). -/
 def C_lat : Nat := 2
@@ -78,4 +78,4 @@ theorem falsifier_within_1_percent :
     let p := sin_theta_C_bare
     p.2 * 224 < p.1 * 1000 ∧ p.1 * 1000 < p.2 * 230 := by decide
 
-end E213.Physics.Cabibbo
+end E213.Physics.Mixing.CabibboAngle

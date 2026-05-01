@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 CorrectionAsLens — *correction terms = atomic edge sum*
@@ -42,9 +42,9 @@ Slater rules vs DRLT P(x):
   DRLT P(x): ~100 ppm precision, single atomic Lens
 -/
 
-namespace E213.Physics.Phase4.CorrectionAsLens
+namespace E213.Physics.Foundations.CorrectionAsLens
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /- Closed propagator small parameter x = α_GUT · NS/d.
    x = 18/(125·π²) atomic. -/
@@ -89,4 +89,4 @@ theorem unified_with_proton_mass :
   refine ⟨?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.CorrectionAsLens
+end E213.Physics.Foundations.CorrectionAsLens

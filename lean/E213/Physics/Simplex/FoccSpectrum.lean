@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # f_occ spectrum — pattern occupation fractions on the (3, 2) 5-simplex
@@ -13,9 +13,9 @@ are slot/face counts {1, 2, 3, 4, 5}.  Hodge-paired entries
 This file is 0-axiom, decide-checked throughout.  No real numbers.
 -/
 
-namespace E213.Physics.Focc
+namespace E213.Physics.Simplex.FoccSpectrum
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- The 10-entry f_occ spectrum on the (3, 2) 5-simplex.
 
@@ -79,4 +79,4 @@ theorem higgs_dominant :
 theorem matter_count : (spectrum.get? 0).map (·.2) = some d := by decide
 theorem confined_count : (spectrum.get? 9).map (·.1) = some (1, 1) := by decide
 
-end E213.Physics.Focc
+end E213.Physics.Simplex.FoccSpectrum

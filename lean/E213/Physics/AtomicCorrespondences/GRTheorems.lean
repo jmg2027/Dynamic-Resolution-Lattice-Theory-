@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: General relativity key theorems → DRLT atomic
@@ -16,9 +16,9 @@ Milestone 2: Atomic Lean formalization of key GR theorems.
   6. Hawking radiation: BH evaporation → Lens layer transition
 -/
 
-namespace E213.Physics.Phase3.Translation.GRTheorems
+namespace E213.Physics.AtomicCorrespondences.GRTheorems
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ 1. Equivalence principle atomic ★
@@ -84,4 +84,4 @@ theorem gr_theorems_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.GRTheorems
+end E213.Physics.AtomicCorrespondences.GRTheorems

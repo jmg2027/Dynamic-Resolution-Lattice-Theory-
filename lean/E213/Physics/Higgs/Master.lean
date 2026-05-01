@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass
+import E213.Physics.Higgs.Mass.Mass
 import E213.Physics.Higgs.Quartic
 import E213.Physics.Higgs.Vacuum
 
@@ -30,13 +30,13 @@ DRLT derivation chain:
   adjoint dimension reciprocal.  At the lattice cohomology level.
 -/
 
-namespace E213.Physics.HiggsMaster
+namespace E213.Physics.Higgs.Master
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
-open E213.Physics.Higgs
-open E213.Physics.HiggsQuartic
-open E213.Physics.HiggsVacuum
+open E213.Physics.Higgs.Mass
+open E213.Physics.Higgs.Quartic
+open E213.Physics.Higgs.Vacuum
 
 /-- ★ Higgs sector unified atomic structure ★ -/
 theorem higgs_master_atomic :
@@ -82,4 +82,4 @@ theorem higgs_zero_param :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) := by decide
 
-end E213.Physics.HiggsMaster
+end E213.Physics.Higgs.Master

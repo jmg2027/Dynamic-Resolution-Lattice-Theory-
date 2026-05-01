@@ -15,7 +15,7 @@ Total decide work: 3200 cases, vs the 327k blow-up of direct.
 
 namespace E213.Math.Cohomology.CupAW.Leibniz12Final
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Core.Prop51 (pattern pattern_eq)
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)

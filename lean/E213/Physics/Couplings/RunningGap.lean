@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.AlphaEM.Core
 
 /-!
@@ -61,9 +61,9 @@ observed(IR).
   * `decomp_per_sector`: 9 + 4 + 12 = 25 explicit
 -/
 
-namespace E213.Physics.RunningGap
+namespace E213.Physics.Couplings.RunningGap
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Gram channel count = d². -/
 def gram_channels : Nat := d * d
@@ -116,4 +116,4 @@ theorem running_gap_pure_DRLT :
     ∧ d * d = NS * NS + NT * NT + 2 * NS * NT
     ∧ d = NS + NT := by decide
 
-end E213.Physics.RunningGap
+end E213.Physics.Couplings.RunningGap

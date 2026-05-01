@@ -38,10 +38,10 @@ complex K_{NS,NT}^{(c)} ⊂ Δ⁴.
 
 namespace E213.Physics.AlphaEM.Simplicial
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
-open E213.Physics.PhotonKernel
-open E213.Physics.FaceTerms
+open E213.Physics.Couplings.PhotonKernel
+open E213.Physics.Simplex.FaceTerms
 
 /-- ★★★ 22-file capstone: all five terms have simplicial origin ★★★
 

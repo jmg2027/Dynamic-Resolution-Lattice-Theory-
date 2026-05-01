@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Condensed matter → DRLT atomic
@@ -14,9 +14,9 @@ import E213.Physics.Simplex.Counts
   6. Superconductivity 2Δ/k_BT_c ≈ 3.5 → atomic 7/2
 -/
 
-namespace E213.Physics.Phase3.Translation.CondensedMatter
+namespace E213.Physics.AtomicCorrespondences.CondensedMatter
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ 1. BEC: T_c ∝ n^(2/3) atomic ★
@@ -92,4 +92,4 @@ theorem condensed_matter_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.CondensedMatter
+end E213.Physics.AtomicCorrespondences.CondensedMatter

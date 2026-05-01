@@ -14,7 +14,7 @@ cup/delta product collapses.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- cupAW with zero left = zero, universally. -/
 theorem cupAW_zero_left (n a b : Nat) (β : Cochain n b)

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Chemistry → DRLT atomic
@@ -11,9 +11,9 @@ import E213.Physics.Simplex.Counts
   5. Atomic orbital quantum numbers (n, l, m, s)
 -/
 
-namespace E213.Physics.Phase3.Translation.Chemistry
+namespace E213.Physics.AtomicCorrespondences.Chemistry
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Periodic table 1st filling = 2 = NT atomic. -/
 theorem period_first : NT = 2 := by decide
@@ -36,4 +36,4 @@ theorem chemistry_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Chemistry
+end E213.Physics.AtomicCorrespondences.Chemistry

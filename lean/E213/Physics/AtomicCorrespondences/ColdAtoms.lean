@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Cold atoms · quantum simulation → DRLT atomic
@@ -11,9 +11,9 @@ import E213.Physics.Simplex.Counts
   5. Feshbach resonance → atomic Lens layer
 -/
 
-namespace E213.Physics.Phase3.Translation.ColdAtoms
+namespace E213.Physics.AtomicCorrespondences.ColdAtoms
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Optical lattice depth: V₀ ∝ atomic NS atom count. -/
 theorem lattice_depth : NS = 3 := by decide
@@ -32,4 +32,4 @@ theorem cold_atoms_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.ColdAtoms
+end E213.Physics.AtomicCorrespondences.ColdAtoms

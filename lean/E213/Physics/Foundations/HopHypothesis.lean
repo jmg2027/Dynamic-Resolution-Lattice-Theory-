@@ -1,6 +1,6 @@
 import E213.Physics.Cosmology.NeffDerivation
 import E213.Physics.AlphaEM.Core
-import E213.Physics.Basel.Bound
+import E213.Physics.Basel.Bound.Bound
 
 /-!
 # Hop Hypothesis — paper 4 §3.1 single capstone
@@ -21,11 +21,11 @@ Bundles `NeffDerivation` (atomic-forced N_eff), `BaselBound`
 into one 0-axiom capstone.
 -/
 
-namespace E213.Physics.HopHypothesis
+namespace E213.Physics.Foundations.HopHypothesis
 
-open E213.Physics.Simplex (NS NT d)
-open E213.Physics.Basel (S)
-open E213.Physics.Neff (alpha_3_Neff alpha_2_Neff)
+open E213.Physics.Simplex.Counts (NS NT d)
+open E213.Physics.Basel.Bound (S)
+open E213.Physics.Cosmology.NeffDerivation (alpha_3_Neff alpha_2_Neff)
 
 /-- S(0) = 0 (vacuous). -/
 theorem S_0_val : S 0 = (0, 1) := by decide
@@ -63,4 +63,4 @@ theorem hop_hypothesis_capstone :
     -- EM: depth ∞ (no Nat saturation); atomic source check
     ∧ (NS = 3 ∧ NT = 2 ∧ NS + NT = d ∧ d = 5) := by decide
 
-end E213.Physics.HopHypothesis
+end E213.Physics.Foundations.HopHypothesis

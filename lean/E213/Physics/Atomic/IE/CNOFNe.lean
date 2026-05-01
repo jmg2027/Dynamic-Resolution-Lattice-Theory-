@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 CNOFNeIE — C, N, O, F, Ne IE atomic chain
@@ -28,9 +28,9 @@ Precision in 1000-3000 ppm range (additional σ_atomic refinement needed).
 Atomic σ refinement for each element = future Phase 5.
 -/
 
-namespace E213.Physics.Phase4.CNOFNeIE
+namespace E213.Physics.Atomic.IE.CNOFNe
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Z atomic forms. -/
 theorem Z_C_atomic : NS * NT = 6 := by decide
@@ -61,4 +61,4 @@ theorem cnofne_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.CNOFNeIE
+end E213.Physics.Atomic.IE.CNOFNe

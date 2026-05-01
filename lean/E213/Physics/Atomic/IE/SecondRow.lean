@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 SecondRowIE — B, C, N, O, F, Ne IE atomic chain
@@ -23,9 +23,9 @@ Compared to standard Slater rules precision ~5-10% → DRLT atomic ~1-3%
 is far more precise.  Phase 5 work needed for ppm.
 -/
 
-namespace E213.Physics.Phase4.SecondRowIE
+namespace E213.Physics.Atomic.IE.SecondRow
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- IE values in μeV. -/
 def IE_B : Nat := 8298019
@@ -62,4 +62,4 @@ theorem second_row_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.SecondRowIE
+end E213.Physics.Atomic.IE.SecondRow

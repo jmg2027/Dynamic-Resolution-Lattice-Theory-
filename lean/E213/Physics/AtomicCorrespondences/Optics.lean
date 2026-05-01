@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Optics → DRLT atomic
@@ -13,9 +13,9 @@ import E213.Physics.Simplex.Counts
   5. Wien displacement: λ_max·T = const → atomic ratio
 -/
 
-namespace E213.Physics.Phase3.Translation.Optics
+namespace E213.Physics.AtomicCorrespondences.Optics
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ Stefan-Boltzmann atomic ★
@@ -53,4 +53,4 @@ theorem optics_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Optics
+end E213.Physics.AtomicCorrespondences.Optics

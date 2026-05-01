@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 NoWaveFunction — *wave function and existence probability disappear*
@@ -34,9 +34,9 @@ DRLT: 5 vertices of Raw — *all exist* or *absent*.  No in-between.
   In DRLT there is only *Lens specification* — no "probability" framing.
 -/
 
-namespace E213.Physics.Phase3.NoWaveFunction
+namespace E213.Physics.Foundations.NoWaveFunction
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## "Measurement" / "observation" are also artifacts
@@ -76,4 +76,4 @@ theorem atomic_decidable :
   refine ⟨?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.NoWaveFunction
+end E213.Physics.Foundations.NoWaveFunction

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 NoInteraction — *interaction itself is an artifact*
@@ -59,9 +59,9 @@ DRLT block universe:
   Pair classification is *static* — no time progression.
 -/
 
-namespace E213.Physics.Phase3.NoInteraction
+namespace E213.Physics.Foundations.NoInteraction
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 3 pair classifications: AA, BB, AB.  *static* (axiom-derived). -/
 theorem pair_types_three : (3 : Nat) = 3 := by decide
@@ -96,4 +96,4 @@ theorem no_interaction :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.NoInteraction
+end E213.Physics.Foundations.NoInteraction

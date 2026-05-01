@@ -18,7 +18,7 @@ output a+b-1 ≥ 1 corresponds to the standard sum.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- Alexander–Whitney cup with overlap at v_{a-1}. -/
 def cupAW (n a b : Nat) (α : Cochain n a) (β : Cochain n b) :

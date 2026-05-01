@@ -3,7 +3,7 @@ import E213.Physics.Foundations.Artifacts
 import E213.Physics.Foundations.GravityNotInteraction
 import E213.Physics.Foundations.NoWaveFunction
 import E213.Physics.Foundations.NoInteraction
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 Reframing — *all SM/QM frames become artifacts*
@@ -45,9 +45,9 @@ The *entire frame* of standard SM/QM/QFT is the name of Lens output on the latti
   S-matrix, gauge, ...
 -/
 
-namespace E213.Physics.Phase3.Reframing
+namespace E213.Physics.Foundations.Phase3Reframing
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- ★ Reframing Capstone ★
     Single theorem of atomic core of 5 artifact-removals. -/
@@ -67,4 +67,4 @@ theorem reframing_capstone :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Reframing
+end E213.Physics.Foundations.Phase3Reframing

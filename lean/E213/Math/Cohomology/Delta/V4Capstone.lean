@@ -19,7 +19,7 @@ import E213.Math.Cohomology.EncodingBijection
 
 namespace E213.Math.Cohomology.Delta.V4Capstone
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- ★★★ Δ⁴ Universal δ²=0 over all interior strata. -/
 theorem dsq_zero_universal_delta4 :

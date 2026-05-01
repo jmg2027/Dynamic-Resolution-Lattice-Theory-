@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # PMNS Library — Neutrino mixing atomic catalog
@@ -18,9 +18,9 @@ import E213.Physics.Simplex.Counts
   δ_CP denom = d²-1 = 24 (adjoint SU(d))
 -/
 
-namespace E213.Physics.Phase4.Library.PMNSLibrary
+namespace E213.Physics.Library.PMNSLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- sin²θ₁₂ denom = NS. -/
 def theta_12_denom : Nat := NS
@@ -37,4 +37,4 @@ theorem delta_cp_eq_24 : delta_cp_denom = 24 := by decide
 /-- δ_CP value = 195° atomic. -/
 theorem delta_cp_value : 180 + 360 / 24 = 195 := by decide
 
-end E213.Physics.Phase4.Library.PMNSLibrary
+end E213.Physics.Library.PMNSLibrary

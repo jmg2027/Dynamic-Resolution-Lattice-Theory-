@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # 213 Linear Algebra — Vector type (foundation)
@@ -24,7 +24,7 @@ the universe shape to K_{3,2}^{(2)} as formalized cohomologically.
 
 namespace E213.Math.Linalg213
 
-open E213.Physics.Simplex (d NS NT)
+open E213.Physics.Simplex.Counts (d NS NT)
 
 /-- A 213-native vector at dimension `n`. -/
 def Vec (n : Nat) : Type := Fin n → Nat
@@ -58,12 +58,12 @@ theorem basis_add_d5 :
   decide
 
 /-- 213's atomic dimension is d = 5 (`OS.Atomicity` theorem). -/
-theorem atomic_d_eq_5 : E213.Physics.Simplex.d = 5 := by decide
+theorem atomic_d_eq_5 : E213.Physics.Simplex.Counts.d = 5 := by decide
 
 /-- The chiral split of d = 5 into (NS, NT) = (3, 2). -/
 theorem atomic_chiral_split :
-    E213.Physics.Simplex.d = E213.Physics.Simplex.NS + E213.Physics.Simplex.NT
-    ∧ E213.Physics.Simplex.NS = 3
-    ∧ E213.Physics.Simplex.NT = 2 := by decide
+    E213.Physics.Simplex.Counts.d = E213.Physics.Simplex.Counts.NS + E213.Physics.Simplex.Counts.NT
+    ∧ E213.Physics.Simplex.Counts.NS = 3
+    ∧ E213.Physics.Simplex.Counts.NT = 2 := by decide
 
 end E213.Math.Linalg213

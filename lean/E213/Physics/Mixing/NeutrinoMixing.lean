@@ -38,9 +38,9 @@ DRLT formulae (ch11 sec 8.3, lib/drlt.py:749):
   → **adjoint SU(5) also appears in PMNS** (δ_CP denominator).
 -/
 
-namespace E213.Physics.PMNS
+namespace E213.Physics.Mixing.NeutrinoMixing
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- sin²θ₁₂ leading: 1/NS = 1/3. -/
 def sin2_12_leading_denom : Nat := NS
@@ -181,4 +181,4 @@ theorem sin2_12_v2_atomic :
     ∧ NT ^ 2 * 13 = 4 * (NS ^ 2 + NT ^ 2) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.PMNS
+end E213.Physics.Mixing.NeutrinoMixing

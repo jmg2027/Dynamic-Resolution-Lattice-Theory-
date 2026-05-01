@@ -47,8 +47,8 @@ that 213 has matured, attempting self-derivation from the lattice.
 
 namespace E213.Physics.AlphaEM.V137
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- Candidate lower bracket: 60·S(N) + 30 + 25/3
     = (180·S(N).1 + 115·S(N).2) / (3·S(N).2) -/

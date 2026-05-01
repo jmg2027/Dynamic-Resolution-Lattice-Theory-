@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass
+import E213.Physics.Higgs.Mass.Mass
 
 /-!
 # m_p = 938.27 MeV — closed propagator + atomic structure (0 axioms)
@@ -37,9 +37,9 @@ DRLT formula (ch09 §proton, lib/drlt.py:611):
   → The same d/NS atomicity appears again.
 -/
 
-namespace E213.Physics.Proton
+namespace E213.Physics.Hadron.ProtonMass
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
 
 /-- Closed propagator argument: x = α_GUT · NS / d.
@@ -149,4 +149,4 @@ theorem r_p_v2_atomic :
     ∧ NS = 3 ∧ NT = 2 ∧ d = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.Proton
+end E213.Physics.Hadron.ProtonMass

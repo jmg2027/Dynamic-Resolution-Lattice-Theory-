@@ -14,7 +14,7 @@ Closes the top-1 stratum of the Hodge involution chain.
 
 namespace E213.Math.Cohomology.Hodge.Prop54
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 5 4 parametrized by 5 Bool values. -/
 def pattern (b0 b1 b2 b3 b4 : Bool) : Cochain 5 4 :=

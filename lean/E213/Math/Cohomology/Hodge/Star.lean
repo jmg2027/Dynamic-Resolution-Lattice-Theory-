@@ -21,7 +21,7 @@ gives a concrete decidable Lean definition.
 
 namespace E213.Math.Cohomology
 
-open E213.Physics.Simplex (binom d NS NT)
+open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- Set-theoretic complement of a sorted subset within {0..n-1}.
     Returns the sorted list of vertices NOT in `s`. -/

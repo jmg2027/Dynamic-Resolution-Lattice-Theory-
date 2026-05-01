@@ -1,4 +1,4 @@
-import E213.Physics.Higgs.Mass
+import E213.Physics.Higgs.Mass.Mass
 
 /-!
 # λ_H = Higgs quartic coupling — clean leading 1/(2c²) (0 axioms)
@@ -35,9 +35,9 @@ DRLT formula (SM_020, ch21):
   Same atomic primitive — closed propagator family.
 -/
 
-namespace E213.Physics.HiggsQuartic
+namespace E213.Physics.Higgs.Quartic
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
 
 /-- Leading λ_H denominator: 2·c² = 8. -/
@@ -90,4 +90,4 @@ theorem lambda_H_simplicial_pattern :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (c_lat = 2) := by decide
 
-end E213.Physics.HiggsQuartic
+end E213.Physics.Higgs.Quartic

@@ -36,7 +36,7 @@ See `books/physics/diamond.md` for narrative + figures.
 
 namespace E213.Math.Cohomology.Diamond
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 5 vertices = NS + NT. -/
 theorem total_vertices : NS + NT = 5 := by decide
@@ -59,9 +59,9 @@ theorem total_edges :
 
 /-- Cycle dim b_1 = 8 = NS²−1 = 1/α_3. -/
 theorem diamond_b1 :
-    E213.Physics.PhotonKernel.b_1 = 8
+    E213.Physics.Couplings.PhotonKernel.b_1 = 8
     ∧ (8 : Nat) = NS * NS - 1 :=
-  ⟨E213.Physics.PhotonKernel.b_1_eq_8, by decide⟩
+  ⟨E213.Physics.Couplings.PhotonKernel.b_1_eq_8, by decide⟩
 
 /-- ★★★ DIAMOND CRYSTAL CAPSTONE ★★★ -/
 theorem diamond_crystal_structure :
@@ -70,10 +70,10 @@ theorem diamond_crystal_structure :
     ∧ NS * NT = 6
     ∧ E213.Physics.AlphaEM.Prefactors.c_lat = 2
     ∧ E213.Physics.AlphaEM.Prefactors.c_lat * NS * NT = 12
-    ∧ E213.Physics.PhotonKernel.b_1 = 8
+    ∧ E213.Physics.Couplings.PhotonKernel.b_1 = 8
     ∧ (8 : Nat) = NS * NS - 1 := by
   refine ⟨by decide, by decide, by decide, by decide, by decide,
           by decide, ?_, by decide⟩
-  exact E213.Physics.PhotonKernel.b_1_eq_8
+  exact E213.Physics.Couplings.PhotonKernel.b_1_eq_8
 
 end E213.Math.Cohomology.Diamond

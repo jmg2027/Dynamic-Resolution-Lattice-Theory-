@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Quantum optics → DRLT atomic
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   6. JCB model atomic
 -/
 
-namespace E213.Physics.Phase3.Translation.QuantumOptics
+namespace E213.Physics.AtomicCorrespondences.QuantumOptics
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Photon vacuum |0⟩ = NT atomic baseline. -/
 theorem vacuum_atomic : NT = 2 := by decide
@@ -33,4 +33,4 @@ theorem qopt_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.QuantumOptics
+end E213.Physics.AtomicCorrespondences.QuantumOptics

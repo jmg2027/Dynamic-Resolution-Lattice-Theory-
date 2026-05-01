@@ -1,6 +1,6 @@
 import E213.Physics.Substrate
 import E213.Physics.Mixing.CKMHierarchy
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 3 CKMSpecific — quark mixing integer falsifier
@@ -33,10 +33,10 @@ Each Wolfenstein order = λ^k (atomic-derived).
   In particular, refinement of |V_us|/|V_ud| directly affects λ.
 -/
 
-namespace E213.Physics.Phase3.CKMSpecific
+namespace E213.Physics.Mixing.CKMSpecific
 
-open E213.Physics.CKMHierarchy
-open E213.Physics.Simplex
+open E213.Physics.Mixing.CKMHierarchy
+open E213.Physics.Simplex.Counts
 
 /-- λ_num = 5 = d. -/
 theorem lambda_num_atomic : lambda_num = d := by decide
@@ -66,4 +66,4 @@ theorem ckm_falsifier :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.CKMSpecific
+end E213.Physics.Mixing.CKMSpecific

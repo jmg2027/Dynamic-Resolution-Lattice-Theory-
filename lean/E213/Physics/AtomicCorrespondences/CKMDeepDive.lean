@@ -1,7 +1,7 @@
 import E213.Physics.Substrate
 import E213.Physics.Mixing.CKMHierarchy
 import E213.Physics.Mixing.CabibboAngle
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: CKM Wolfenstein deep-dive
@@ -23,10 +23,10 @@ DRLT atomic (Phase 1 CKMHierarchy):
 Each λ^k is a power of atomic integers.
 -/
 
-namespace E213.Physics.Phase3.Translation.CKMDeepDive
+namespace E213.Physics.AtomicCorrespondences.CKMDeepDive
 
-open E213.Physics.CKMHierarchy
-open E213.Physics.Simplex
+open E213.Physics.Mixing.CKMHierarchy
+open E213.Physics.Simplex.Counts
 
 /-- λ_num = d atomic. -/
 theorem lambda_num_eq_d : lambda_num = d := by decide
@@ -59,4 +59,4 @@ theorem ckm_deep_dive_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.CKMDeepDive
+end E213.Physics.AtomicCorrespondences.CKMDeepDive

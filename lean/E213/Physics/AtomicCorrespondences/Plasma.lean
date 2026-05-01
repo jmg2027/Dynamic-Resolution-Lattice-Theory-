@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Plasma physics → DRLT atomic
@@ -13,9 +13,9 @@ import E213.Physics.Simplex.Counts
   5. Alfvén speed v_A = B/sqrt(μ₀ ρ) → atomic
 -/
 
-namespace E213.Physics.Phase3.Translation.Plasma
+namespace E213.Physics.AtomicCorrespondences.Plasma
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Plasma parameter 4π/3 factor: 4 = d-1, 3 = NS atomic. -/
 theorem plasma_param_atomic :
@@ -38,4 +38,4 @@ theorem plasma_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.Plasma
+end E213.Physics.AtomicCorrespondences.Plasma

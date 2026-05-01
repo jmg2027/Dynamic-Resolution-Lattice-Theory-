@@ -30,11 +30,11 @@ The same Dyson resummation denominator d-1 = NS+1 = 4 appears in several precisi
   the integer 4 from four different combinatorial origins *coincide*.
 -/
 
-namespace E213.Physics.Dyson
+namespace E213.Physics.Couplings.DysonStructure
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
-open E213.Physics.FaceTerms
+open E213.Physics.Simplex.FaceTerms
 
 /-- Dyson denominator: d - 1 = 4 in atomic config. -/
 def dyson_denom : Nat := d - 1
@@ -86,4 +86,4 @@ theorem four_atomic_coincidence :
         = 5 + 10 + 10 + 5)
     ∧ (5 + 10 + 10 + 5 = 30) := by decide
 
-end E213.Physics.Dyson
+end E213.Physics.Couplings.DysonStructure

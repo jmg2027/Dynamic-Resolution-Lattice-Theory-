@@ -13,7 +13,7 @@ import E213.Physics.Substrate.Phase1Bridge
 import E213.Physics.Substrate.Falsifier
 
 /-!
-# E213.Physics.Phase2 — root entry
+# E213.Physics.Substrate.Origin — root entry
 
 Phase 2 single import entry point.  Includes all 13 submodules.
 

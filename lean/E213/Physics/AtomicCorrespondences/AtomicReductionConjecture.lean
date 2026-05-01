@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Atomic Reduction Conjecture (meta-statement)
@@ -47,9 +47,9 @@ This file: formal proof catalog of each case for 31+ atomic integers.
 | 205 | 5·41 | m_μ/m_e leading |
 -/
 
-namespace E213.Physics.Phase3.Translation.AtomicReductionConjecture
+namespace E213.Physics.AtomicCorrespondences.AtomicReductionConjecture
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Conjecture marker: all physics integers = atomic expression. -/
 theorem reduction_marker : True := trivial
@@ -66,4 +66,4 @@ theorem catalog_verified :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.AtomicReductionConjecture
+end E213.Physics.AtomicCorrespondences.AtomicReductionConjecture

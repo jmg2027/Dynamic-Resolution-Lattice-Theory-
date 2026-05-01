@@ -46,9 +46,9 @@ DRLT formula (ch10 sec 7.3, lib/drlt.py:736):
   All share the common 1/NT factor — atomicity-derived.
 -/
 
-namespace E213.Physics.Hydrogen
+namespace E213.Physics.Atomic.Hydrogen
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Bohr formula denominator NT = 2.  *Atomicity-forced*. -/
 def bohr_denom : Nat := NT
@@ -95,4 +95,4 @@ theorem hydrogen_atomic_pattern :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.Hydrogen
+end E213.Physics.Atomic.Hydrogen

@@ -56,7 +56,7 @@ in our setup — as a 0-axiom theorem.
 
 namespace E213.Math.Cohomology.LeibnizFinding
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Core.Prop51 (pattern)
 
 /-- ★ Honest negative: there EXISTS (a, b) ∈ {true, false}^5 ×

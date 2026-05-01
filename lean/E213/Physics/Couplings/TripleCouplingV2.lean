@@ -24,7 +24,7 @@ Numerical verification (Rust binary `triple-coupling`, N=2000):
 Integer skeletons closed at 0 axiom via `decide`.
 -/
 
-namespace E213.Physics.TripleCouplingV2
+namespace E213.Physics.Couplings.TripleCouplingV2
 
 open E213.Math.Cohomology.Paper1Chiral (chiralDim)
 
@@ -58,7 +58,7 @@ theorem triple_v2_skeleton :
     ∧ chiralDim 3 1 = 2                    -- A-dom tetra
     := by decide
 
-end E213.Physics.TripleCouplingV2
+end E213.Physics.Couplings.TripleCouplingV2
 
-#print axioms E213.Physics.TripleCouplingV2.triple_v2_skeleton
-#print axioms E213.Physics.TripleCouplingV2.h3_chirality_imbalance
+#print axioms E213.Physics.Couplings.TripleCouplingV2.triple_v2_skeleton
+#print axioms E213.Physics.Couplings.TripleCouplingV2.h3_chirality_imbalance

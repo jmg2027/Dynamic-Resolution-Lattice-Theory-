@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: *All* physical appearances of integer 6
@@ -32,9 +32,9 @@ Integer 6 = NS·NT appears *repeatedly* in physics frameworks that
   Single lattice origin → necessity.
 -/
 
-namespace E213.Physics.Phase3.Translation.SixEverywhere
+namespace E213.Physics.AtomicCorrespondences.SixEverywhere
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- 6 = NS · NT atomic. -/
 theorem six_atomic : NS * NT = 6 := by decide
@@ -65,4 +65,4 @@ theorem six_everywhere :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.SixEverywhere
+end E213.Physics.AtomicCorrespondences.SixEverywhere

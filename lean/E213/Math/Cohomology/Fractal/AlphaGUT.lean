@@ -28,7 +28,7 @@ identified as b_1 and numV of fractal-simplex levels 1 and 2.
 namespace E213.Math.Cohomology.Fractal.AlphaGUT
 
 open E213.Math.Cohomology
-open E213.Physics.Simplex (d)
+open E213.Physics.Simplex.Counts (d)
 
 /-- α_GUT numerator = b_1 of K_5 (single 4-simplex 1-skeleton). -/
 theorem numerator_eq_b1_K5 :

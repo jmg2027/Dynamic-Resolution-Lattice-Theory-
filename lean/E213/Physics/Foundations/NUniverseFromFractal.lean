@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Fractal.V25
 import E213.Physics.Foundations.FiniteUniverse
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.AlphaEM.NUniverseCandidates
 
 /-!
@@ -27,9 +27,9 @@ CANDIDATE structural derivation.  Sub-ppb finite-N residual
 (36/(d^(d²)) ≈ 1.21×10⁻¹⁶).
 -/
 
-namespace E213.Physics.NUniverseFromFractal
+namespace E213.Physics.Foundations.NUniverseFromFractal
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Math.Cohomology.Fractal.V25
 
 /-- ★ Vertex count of fractal level 2 = d² (already closed). -/
@@ -67,4 +67,4 @@ theorem n_universe_structural :
     ∧ n_universe_candidate ≥ 10 ^ 17 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.NUniverseFromFractal
+end E213.Physics.Foundations.NUniverseFromFractal

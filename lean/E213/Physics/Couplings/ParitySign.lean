@@ -22,7 +22,7 @@ Numerical match (Rust binary `triple-coupling`, v2 vs base):
   EM    : 137.029 → 137.036   Δ = +0.007  sign = +  ✓
 -/
 
-namespace E213.Physics.ParitySign
+namespace E213.Physics.Couplings.ParitySign
 
 /-- Reflection sign at finite-N boundary: (−1)^kT,
     represented as Int (+1 or −1). -/
@@ -59,7 +59,7 @@ theorem parity_skeleton :
     ∧ reflection_sign kT_em = 1
     ∧ kT_strong < kT_weak ∧ kT_weak < kT_em := by decide
 
-end E213.Physics.ParitySign
+end E213.Physics.Couplings.ParitySign
 
-#print axioms E213.Physics.ParitySign.weak_alone_violates_parity
-#print axioms E213.Physics.ParitySign.parity_skeleton
+#print axioms E213.Physics.Couplings.ParitySign.weak_alone_violates_parity
+#print axioms E213.Physics.Couplings.ParitySign.parity_skeleton

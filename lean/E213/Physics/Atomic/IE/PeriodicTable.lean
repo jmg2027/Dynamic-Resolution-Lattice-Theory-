@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 import E213.Physics.Atomic.Screening
 
 /-!
@@ -25,9 +25,9 @@ DRLT atomic chain for each element:
 This file: atomic integer representation + bracket for each element's observed IE.
 -/
 
-namespace E213.Physics.Phase4.PeriodicTableIE
+namespace E213.Physics.Atomic.IE.PeriodicTable
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /- IE values in 10⁻⁶ eV (μeV). -/
 
@@ -106,4 +106,4 @@ theorem B_H_ratio_bracket :
 theorem C_H_ratio_bracket :
     82 * IE_H < 100 * IE_C ∧ 100 * IE_C < 84 * IE_H := by decide
 
-end E213.Physics.Phase4.PeriodicTableIE
+end E213.Physics.Atomic.IE.PeriodicTable

@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Fractal.Level
 import E213.Physics.Foundations.NUniverseFromFractal
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # N_universe = d^(d²) via SELF-REFERENTIAL fractal depth L = d²
@@ -24,9 +24,9 @@ At this self-referential level:
   - N_universe value: 5²⁵ = 298023223876953125
 -/
 
-namespace E213.Physics.NUniverseFractalDepth
+namespace E213.Physics.Foundations.NUniverseFractalDepth
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Math.Cohomology.Fractal.Level
 
 /-- ★ The self-referential fractal level: L = d² = 25. -/
@@ -58,7 +58,7 @@ theorem n_universe_self_consistent :
     ∧ numV universe_level = 298023223876953125
     -- (d) matches NUniverseFromFractal candidate
     ∧ numV universe_level
-       = E213.Physics.NUniverseFromFractal.n_universe_candidate := by
+       = E213.Physics.Foundations.NUniverseFromFractal.n_universe_candidate := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.NUniverseFractalDepth
+end E213.Physics.Foundations.NUniverseFractalDepth

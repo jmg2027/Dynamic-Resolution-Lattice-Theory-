@@ -33,11 +33,11 @@ DRLT answer (yang-mills/ + ch08):
   structural only.
 -/
 
-namespace E213.Physics.YangMills
+namespace E213.Physics.YangMills.Gap
 
-open E213.Physics.Simplex
-open E213.Physics.PhotonKernel
-open E213.Physics.Neff
+open E213.Physics.Simplex.Counts
+open E213.Physics.Couplings.PhotonKernel
+open E213.Physics.Cosmology.NeffDerivation
 
 /-- Mass gap exists ↔ N_eff finite. -/
 theorem mass_gap_iff_N_eff_finite :
@@ -55,4 +55,4 @@ theorem mass_gap_combinatorial :
     -- Atomicity
     ∧ (NS = 3) := by decide
 
-end E213.Physics.YangMills
+end E213.Physics.YangMills.Gap

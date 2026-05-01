@@ -33,9 +33,9 @@ Physical integers (6, 8, 10, 25, ...) → all in Atomic-1.
 This is the meaning of *statistical significance*, not cherry-picking.
 -/
 
-namespace E213.Physics.Phase4.Enumeration
+namespace E213.Physics.Atomic.Enumeration
 
-open E213.Physics.Phase4.AtomicExpr
+open E213.Physics.Atomic.Expr
 
 /-- Atomic-0 elements: just constants {NS, NT, d}. -/
 def atomic_0 : List Nat := [3, 2, 5]
@@ -67,4 +67,4 @@ theorem eleven_not_in_sample : ¬ ((11 : Nat) ∈ atomic_1_sample) := by decide
 /-- Random non-atomic 17 ∉ Atomic-1 sample. -/
 theorem seventeen_not_in_sample : ¬ ((17 : Nat) ∈ atomic_1_sample) := by decide
 
-end E213.Physics.Phase4.Enumeration
+end E213.Physics.Atomic.Enumeration

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 PeriodClosures — *all period closures atomic*
@@ -29,9 +29,9 @@ NS·NT = 6 (Phase 3 SixEverywhere) is Kr itself.
     32 = NT^d = NT^(NS+NT)
 -/
 
-namespace E213.Physics.Phase4.PeriodClosures
+namespace E213.Physics.Atomic.IE.PeriodClosures
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Period 1 closure = NT. -/
 theorem P1 : NT = 2 := by decide
@@ -65,4 +65,4 @@ theorem all_closures :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase4.PeriodClosures
+end E213.Physics.Atomic.IE.PeriodClosures

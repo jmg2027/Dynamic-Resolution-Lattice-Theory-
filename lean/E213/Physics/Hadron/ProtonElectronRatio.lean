@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # m_p / m_e atomic identity — NS·NT·π⁵ closed form (added 2026-04-30)
@@ -32,9 +32,9 @@ deeper triple identity NS·NT = (NS+1)·(NT) − NT = (d+1) · 1.
 Verifies as decidable Nat skeleton.
 -/
 
-namespace E213.Physics.ProtonElectronRatio
+namespace E213.Physics.Hadron.ProtonElectronRatio
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- The integer 6 emerges as NS·NT and (d+1) atomically. -/
 theorem six_atomic_dual : NS * NT = 6 ∧ d + 1 = 6 := by decide
@@ -174,4 +174,4 @@ theorem m_tau_over_m_e_composition :
     ∧ d = 5 := by
   refine ⟨?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.ProtonElectronRatio
+end E213.Physics.Hadron.ProtonElectronRatio

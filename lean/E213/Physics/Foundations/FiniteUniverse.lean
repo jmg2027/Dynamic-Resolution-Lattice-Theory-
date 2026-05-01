@@ -29,10 +29,10 @@ This file:
   * Demonstrates that π appears nowhere — only ℕ + ℚ
 -/
 
-namespace E213.Physics.FiniteN
+namespace E213.Physics.Foundations.FiniteUniverse
 
-open E213.Physics.Simplex
-open E213.Physics.Basel
+open E213.Physics.Simplex.Counts
+open E213.Physics.Basel.Bound
 
 /-- 1/α_em on a finite-N lattice: 12·NS·S(N) as `(num, den)`.
     This is the *true* DRLT-axiom-derivable form.  Rational at
@@ -88,4 +88,4 @@ theorem N_universe_open_problem :
   intro N_U
   rfl
 
-end E213.Physics.FiniteN
+end E213.Physics.Foundations.FiniteUniverse

@@ -13,7 +13,7 @@ Closes the bottom stratum of the Hodge involution chain
 
 namespace E213.Math.Cohomology.Hodge.Prop50
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 5 0 parametrized by 1 Bool value. -/
 def pattern (b0 : Bool) : Cochain 5 0 :=

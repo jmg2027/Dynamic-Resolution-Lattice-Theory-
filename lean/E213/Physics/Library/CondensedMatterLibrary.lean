@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Condensed Matter Library — condensed matter atomic catalog
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   Berry phase 2π = NT·π atomic
 -/
 
-namespace E213.Physics.Phase4.Library.CondensedMatterLibrary
+namespace E213.Physics.Library.CondensedMatterLibrary
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- BEC exponent 2/3 = NT/NS atomic. -/
 theorem bec_atomic : NT * NS = 2 * NS := by decide
@@ -25,4 +25,4 @@ theorem hall_atomic : NS = 3 := by decide
 /-- TI Z₂ = NT atomic. -/
 theorem ti_z2 : NT = 2 := by decide
 
-end E213.Physics.Phase4.Library.CondensedMatterLibrary
+end E213.Physics.Library.CondensedMatterLibrary

@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 BoronIE — B IE atomic chain + P(x)
@@ -31,9 +31,9 @@ import E213.Physics.Simplex.Counts
 Additional σ_2s_to_2p atomic refinement needed to reach ppm.
 -/
 
-namespace E213.Physics.Phase4.BoronIE
+namespace E213.Physics.Atomic.IE.Boron
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- B leading IE (no propagator) = R · 961/1600 μeV. -/
 def B_leading : Nat := 8171919
@@ -51,4 +51,4 @@ theorem B_with_P_x_diff :
 /-- σ_2s_to_2p atomic: 17/(4·d) = 17/20.  17 = NS² + (NS²-1). -/
 theorem sigma_atomic : NS * NS + (NS * NS - 1) = 17 := by decide
 
-end E213.Physics.Phase4.BoronIE
+end E213.Physics.Atomic.IE.Boron

@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Dark matter → DRLT atomic
@@ -12,9 +12,9 @@ import E213.Physics.Simplex.Counts
   6. Bullet cluster gravitational lensing → DRLT gravity atomic
 -/
 
-namespace E213.Physics.Phase3.Translation.DarkMatter
+namespace E213.Physics.AtomicCorrespondences.DarkMatter
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Ω_DM/Ω_m ≈ 5/6 atomic: 5 = d, 6 = NS·NT. -/
 theorem dm_ratio_atomic : d * NS * NT = 5 * 6 := by decide
@@ -35,4 +35,4 @@ theorem dark_matter_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.DarkMatter
+end E213.Physics.AtomicCorrespondences.DarkMatter

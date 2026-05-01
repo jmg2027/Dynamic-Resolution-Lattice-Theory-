@@ -16,7 +16,7 @@ universal across all interior strata of Δ², Δ³.
 
 namespace E213.Math.Cohomology.CupAW.Leibniz4Mixed
 
-open E213.Physics.Simplex (binom)
+open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Core.Prop41 (pattern)
 open E213.Math.Cohomology.Universal.Core.Prop42 renaming pattern → patternE
 

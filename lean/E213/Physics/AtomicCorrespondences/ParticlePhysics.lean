@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Particle physics phenomenology → DRLT atomic
@@ -11,9 +11,9 @@ import E213.Physics.Simplex.Counts
   5. Mass hierarchy → using Phase 1 deep-dive
 -/
 
-namespace E213.Physics.Phase3.Translation.ParticlePhysics
+namespace E213.Physics.AtomicCorrespondences.ParticlePhysics
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Z partial count = 2·NS·NT = 12 (3 lepton + 3 ν + 6 quark). -/
 theorem z_partial_count : 2 * NS * NT = 12 := by decide
@@ -33,4 +33,4 @@ theorem particle_phys_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.ParticlePhysics
+end E213.Physics.AtomicCorrespondences.ParticlePhysics

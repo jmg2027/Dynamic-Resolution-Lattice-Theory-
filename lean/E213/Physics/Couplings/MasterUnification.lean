@@ -5,7 +5,7 @@ import E213.Physics.Mixing.Bridge
 import E213.Physics.Hadron.Bridge
 import E213.Physics.Cosmology.Bridge
 import E213.Physics.Nuclear.Bridge
-import E213.Physics.YangMills.Bridge
+import E213.Physics.YangMills.Gap.Bridge
 import E213.Physics.Atomic.Bridge
 
 /-!
@@ -29,7 +29,7 @@ into a single decide-checkable atomic-source verification.
 All factor through the SAME (NS, NT, d, c) = (3, 2, 5, 2).
 -/
 
-namespace E213.Physics.MasterUnification
+namespace E213.Physics.Couplings.MasterUnification
 
 /-- ★★★ MASTER UNIFICATION CAPSTONE ★★★
 
@@ -37,11 +37,11 @@ namespace E213.Physics.MasterUnification
     capstone agrees on atomic primitives.  Equivalent to: the
     entire 213 framework is internally consistent.  -/
 theorem master_capstone :
-    E213.Physics.Simplex.NS = 3
-    ∧ E213.Physics.Simplex.NT = 2
-    ∧ E213.Physics.Simplex.d = 5
+    E213.Physics.Simplex.Counts.NS = 3
+    ∧ E213.Physics.Simplex.Counts.NT = 2
+    ∧ E213.Physics.Simplex.Counts.d = 5
     ∧ E213.Physics.AlphaEM.Prefactors.c_lat = 2
-    ∧ E213.Physics.Cabibbo.C_lat = 2
+    ∧ E213.Physics.Mixing.CabibboAngle.C_lat = 2
     -- Atomic identities used across bridges
     ∧ 3 * 2 = 6                  -- NS·NT
     ∧ 3 * 3 - 1 = 8              -- α_3, YM gap
@@ -51,13 +51,13 @@ theorem master_capstone :
     ∧ 5 + 1 = 6                  -- d+1, a_V
     ∧ 12 * 2 * 5 / 4 = 30        -- α_2 = 12·NT·5/4
     ∧ 5 * 5 - 5 + 2 = 22         -- Cabibbo denom
-    ∧ E213.Physics.PhotonKernel.b_1 = 8  -- cycle space
+    ∧ E213.Physics.Couplings.PhotonKernel.b_1 = 8  -- cycle space
     -- Confirm all sub-capstones agree on atomic source
-    ∧ E213.Physics.Hydrogen.bohr_denom = 2
-    ∧ E213.Physics.Nuclear.a_V_coef = 6 := by
+    ∧ E213.Physics.Atomic.Hydrogen.bohr_denom = 2
+    ∧ E213.Physics.Nuclear.Binding.a_V_coef = 6 := by
   refine ⟨by decide, by decide, by decide, by decide, by decide,
           by decide, by decide, by decide, by decide, by decide,
           by decide, by decide, by decide, ?_, by decide, by decide⟩
-  exact E213.Physics.PhotonKernel.b_1_eq_8
+  exact E213.Physics.Couplings.PhotonKernel.b_1_eq_8
 
-end E213.Physics.MasterUnification
+end E213.Physics.Couplings.MasterUnification

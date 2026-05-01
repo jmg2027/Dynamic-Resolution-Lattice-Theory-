@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Statistical mechanics → DRLT atomic
@@ -13,9 +13,9 @@ import E213.Physics.Simplex.Counts
   5. Mean field: critical exponent = 1/2, 1, 3 atomic
 -/
 
-namespace E213.Physics.Phase3.Translation.StatMech
+namespace E213.Physics.AtomicCorrespondences.StatMech
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-!
 ## ★ Mean field critical exponents atomic ★
@@ -52,4 +52,4 @@ theorem statmech_atomic :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.StatMech
+end E213.Physics.AtomicCorrespondences.StatMech

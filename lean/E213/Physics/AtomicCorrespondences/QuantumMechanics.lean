@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Translation: Quantum Mechanics → DRLT  (★ skeleton + TODO ★)
@@ -33,9 +33,9 @@ All frames of standard QM explicitly translated onto the DRLT lattice.
 | Wave-particle duality | ℂ Lens vs ℝ Lens |
 -/
 
-namespace E213.Physics.Phase3.Translation.QM
+namespace E213.Physics.AtomicCorrespondences.QuantumMechanics
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- Spin 1/2 = NT/2 = 1 (atomic).  Pauli generator count = NT² - 1 = 3. -/
 theorem spin_atomic : NT * NT - 1 = 3 := by decide
@@ -110,4 +110,4 @@ theorem qm_translation :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Phase3.Translation.QM
+end E213.Physics.AtomicCorrespondences.QuantumMechanics

@@ -31,9 +31,9 @@ DRLT formulae (NUC_010, ch10):
   But the *integer prefactors* are exactly atomic.
 -/
 
-namespace E213.Physics.Nuclear
+namespace E213.Physics.Nuclear.Binding
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
 
 /-- a_V coefficient: 6 = NS·NT = d+1.
@@ -96,4 +96,4 @@ theorem nuclear_simplicial_pattern :
     -- All atomic
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) := by decide
 
-end E213.Physics.Nuclear
+end E213.Physics.Nuclear.Binding

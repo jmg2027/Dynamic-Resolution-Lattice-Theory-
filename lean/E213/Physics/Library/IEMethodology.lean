@@ -1,4 +1,4 @@
-import E213.Physics.Simplex.Counts
+import E213.Physics.Simplex.Counts.Counts
 
 /-!
 # Phase 4 Library — IE Calculation Methodology (reusable)
@@ -44,9 +44,9 @@ Each atomic IE file applies the procedure above:
   Z atomic → σ chain → Z_eff → leading → P(x) → Hund → bracket.
 -/
 
-namespace E213.Physics.Phase4.Library.IEMethodology
+namespace E213.Physics.Library.IEMethodology
 
-open E213.Physics.Simplex
+open E213.Physics.Simplex.Counts
 
 /-- R∞ in 10⁻⁶ eV (Phase 4 verified to 4.3 ppb). -/
 def R_micro : Nat := 13605693
@@ -60,4 +60,4 @@ theorem p_half : NS * NT / 2 = NS := by decide
 /-- ε_pair atomic ratio: 3/8 = NS/(NS²-1). -/
 theorem epsilon_pair_ratio : NS * 8 = 3 * (NS * NS - 1) := by decide
 
-end E213.Physics.Phase4.Library.IEMethodology
+end E213.Physics.Library.IEMethodology
