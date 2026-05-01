@@ -26,20 +26,20 @@ Minimality is already guaranteed; adding anything beyond it fails the audit.
 
 ### §1.1 Formal core: strict minimum of the Raw axiom (added 2026-04-25)
 
-The 4-case formalization in `lean/E213/Research/AxiomMinimality.lean`
+The 4-case formalization in `lean/E213/Meta/AxiomMinimality.lean`
 (+ `AxiomMinimalityCapstone.lean`) — removing or weakening any clause
 (a, b, slash, distinctness) of Raw causes the framework to collapse to
 trivial / static / void.  This is the framework-internal proof that
 the Raw axiom is the strict minimum of "two distinguishable bases +
 binary combine + distinctness."
 
-Results from `lean/E213/Research/SemanticAtom.lean`:
+Results from `lean/E213/Hypervisor/Lens/SemanticAtom.lean`:
 - `HasDistinguishing` typeclass + `universalMorphism` — Raw as the
   partial form of the initial object in the distinguishing-framework
   category (generalization of RawInitiality).
 - `IsLensExpressible` definition + `exists_non_lens_expressible` —
   not every Raw → α function is Lens-expressible (non-trivial boundary).
-  Witness: depth parity (`Research/Morphism/DepthParityNotFold.lean`).
+  Witness: depth parity (`Hypervisor/Lens/Morphism/DepthParityNotFold.lean`).
 - `Prop` instance (Xor + Iff alternatives) — the truth-value type of
   the metalanguage can also be an instance of the distinguishing
   framework.
@@ -72,14 +72,14 @@ The formal core of §1.1 motivates the following conceptual extension:
   a candidate instance of 213.
 - **Comparison with ZFC**: the objects committed to by ZFC's
   arbitrariness axioms (Power, Choice, arbitrary P(X) subsets, etc.) have
-  no fold-structured representation (`Research/Morphism/NoDepthParity.lean`,
-  `Research/Morphism/DepthParityNotFold.lean`).  I.e., no representation
+  no fold-structured representation (`Hypervisor/Lens/Morphism/NoDepthParity.lean`,
+  `Hypervisor/Lens/Morphism/DepthParityNotFold.lean`).  I.e., no representation
   inside the 213 framework — their semantic status is an interpretive
   question.
 
 This conceptual extension is analyzed in `research-notes/75_semantic_atom.md`
 and `research-notes/76_ultimate_ouroboros.md`; current Lean coverage in
-`Research/SemanticAtom.lean`.  It can be connected to the physics
+`Hypervisor/Lens/SemanticAtom.lean`.  It can be connected to the physics
 intuition chain in ORIGIN.md — formal Lean results serve as evidence
 for that interpretation.
 
@@ -110,7 +110,7 @@ parameters are forced."  Together with §1.1 ("Raw is minimum from
 below"), §1.2 ("any framework factors through Raw"), this closes
 the uniqueness statement to all three directions:
 
-  - below — nothing weaker is enough          (Research/AxiomMinimality)
+  - below — nothing weaker is enough          (Meta/AxiomMinimality)
   - sideways — nothing distinct is needed      (Meta/UniversalLens)
   - above — Raw's own shape is forced          (Firmware/Atomicity)
 
@@ -542,10 +542,10 @@ depend on it.
     as the formal counterpart of "any distinguishable framework factors
     through Raw."
   - §1.2 path corrections: `Research/NoDepthParity.lean` →
-    `Research/Morphism/{NoDepthParity, DepthParityNotFold}.lean`;
+    `Hypervisor/Lens/Morphism/{NoDepthParity, DepthParityNotFold}.lean`;
     `notes/75_*, notes/76_*` → `research-notes/75_*, research-notes/76_*`
     (relocated, not deleted); current Lean counterpart
-    `Research/SemanticAtom.lean`.
+    `Hypervisor/Lens/SemanticAtom.lean`.
   - §7.1 updated: Lens-layer bleed migration (Recommendation 3) is
     deprioritized — `Raw.depth/leaves/fold_signed_swap/fold_swap_hom`
     remain in Firmware as acknowledged convenience leak.  Added
