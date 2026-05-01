@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
 import E213.Hypervisor.Lens
-import E213.Meta.LensCatalog
+import E213.Meta.Lens.Catalog
 
 /-!
 # Meta.BoolLens: Bool-valued lenses — swap-blind vs swap-visible

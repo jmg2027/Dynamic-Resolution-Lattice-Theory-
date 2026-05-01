@@ -1,6 +1,6 @@
-import E213.Meta.UniversalLensPadding
-import E213.Meta.UniversalLensNat2
-import E213.Meta.UniversalLensNat2Inj
+import E213.Meta.UniversalLens.Core.Padding
+import E213.Meta.UniversalLens.Core.Nat2
+import E213.Meta.UniversalLens.Core.Nat2Inj
 
 /-!
 # Universal Lens at ℕ⁴ — quadruple-codomain via padding lemma

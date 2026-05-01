@@ -1,7 +1,7 @@
-import E213.Meta.UniversalLensPadding
-import E213.Meta.UniversalLensNat3
-import E213.Meta.UniversalLensQ213_3
-import E213.Meta.UniversalLensNat4
+import E213.Meta.UniversalLens.Core.Padding
+import E213.Meta.UniversalLens.Core.Nat3
+import E213.Meta.UniversalLens.Core.Q213_3
+import E213.Meta.UniversalLens.Core.Nat4
 
 /-!
 # Universal Lens padding capstone — abstract + concrete bundle

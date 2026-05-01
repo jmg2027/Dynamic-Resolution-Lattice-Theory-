@@ -1,4 +1,4 @@
-import E213.Meta.UniversalLens
+import E213.Meta.UniversalLens.Core
 
 /-!
 # Universal Lens at ℕ × ℕ — non-trivial witness

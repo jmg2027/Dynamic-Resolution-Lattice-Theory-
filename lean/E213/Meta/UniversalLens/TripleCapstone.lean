@@ -1,5 +1,5 @@
-import E213.Meta.UniversalLensNat3
-import E213.Meta.UniversalLensQ213_3
+import E213.Meta.UniversalLens.Core.Nat3
+import E213.Meta.UniversalLens.Core.Q213_3
 
 /-!
 # Triple-codomain Universal Lens capstone

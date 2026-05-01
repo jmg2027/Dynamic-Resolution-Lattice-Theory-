@@ -1,5 +1,5 @@
-import E213.Meta.UniversalLensQ213
-import E213.Meta.UniversalLensNat2Inj
+import E213.Meta.UniversalLens.Core.Q213
+import E213.Meta.UniversalLens.Core.Nat2Inj
 
 /-!
 # q213Lens.view full injectivity (Open Problem #6 ℚ²-discrete CLOSED)

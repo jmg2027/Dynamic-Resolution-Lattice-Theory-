@@ -1,4 +1,4 @@
-import E213.Meta.LensCatalog
+import E213.Meta.Lens.Catalog
 import E213.Meta.SelfRecognising
 
 /-!

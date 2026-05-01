@@ -1,4 +1,4 @@
-import E213.Meta.UniversalLens
+import E213.Meta.UniversalLens.Core
 import E213.Kernel.Rat
 
 /-!
