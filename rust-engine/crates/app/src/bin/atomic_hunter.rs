@@ -158,7 +158,6 @@ fn alpha_sq_corrections() -> Vec<(&'static str, i32)> {
 fn apply_alpha_sq(q: &Q, k: i32, zeta: &Q) -> Q {
     if k == 0 { return q.clone(); }
     let ak = k.unsigned_abs() as u64;
-    // α² denominator = 625·zeta.0².  numerator = zeta.1².
     let zeta_sq_num = &zeta.1 * &zeta.1;
     let zeta_sq_den = &zeta.0 * &zeta.0;
     let corr_num = &q.0 * nat(ak) * &zeta_sq_num;
@@ -173,6 +172,27 @@ fn apply_alpha_sq(q: &Q, k: i32, zeta: &Q) -> Q {
         let n = if lhs > rhs { lhs - rhs } else { rhs - lhs };
         (n, &q.1 * &corr_den)
     }
+}
+
+/// Class F-2 paired α correction: (1 + α·k₁)(1 + α·k₂).
+/// Captures 2-internal-interface gluing in multi-simplex composite.
+fn alpha_pair_corrections() -> Vec<(&'static str, i32, i32)> {
+    vec![
+        ("·(1+α)(1+α)",       1, 1),  ("·(1+NTα)(1+NTα)",      2, 2),
+        ("·(1+NSα)(1+NSα)",   3, 3),  ("·(1+NT²α)(1+NT²α)",    4, 4),
+        ("·(1+α)(1+NTα)",     1, 2),  ("·(1+α)(1+NSα)",        1, 3),
+        ("·(1+NTα)(1+NSα)",   2, 3),  ("·(1+NTα)(1+NT²α)",     2, 4),
+        ("·(1+NSα)(1+NT²α)",  3, 4),  ("·(1+NTα)(1+dα)",       2, 5),
+        ("·(1+NSα)(1+dα)",    3, 5),  ("·(1+α)(1+NS·NTα)",     1, 6),
+        ("·(1+NSα)(1+NS²α)",  3, 9),  ("·(1+NTα)(1+NS²α)",     2, 9),
+        ("·(1+α)(1−α)",       1,-1),  ("·(1+NSα)(1−NTα)",      3,-2),
+    ]
+}
+
+/// Apply q · (1 + α·k₁) · (1 + α·k₂) Class F-2 correction.
+fn apply_alpha_pair(q: &Q, k1: i32, k2: i32, zeta: &Q) -> Q {
+    let q1 = apply_alpha(q, k1, zeta);
+    apply_alpha(&q1, k2, zeta)
 }
 
 fn hunt(label: &str, target: &Q, pi: &Q, zeta: &Q) {
@@ -215,6 +235,32 @@ fn hunt(label: &str, target: &Q, pi: &Q, zeta: &Q) {
                 let cand = apply_alpha_sq(&base, a_k, zeta);
                 let ppm = ppm_diff(target, &cand);
                 best.push((ppm, format!("{k_lab}{t_lab}{a_lab}"), cand));
+            }
+        }
+    }
+    // Pass 4: Class F-2 paired α correction (multi-simplex composite).
+    // Limited transcendental subset for tractability.
+    for (k_lab, k) in atomic_ints() {
+        for (t_lab, pi_p, ze_p) in trans_subset {
+            let base = candidate(k, *pi_p, *ze_p, pi, zeta);
+            for (p_lab, k1, k2) in alpha_pair_corrections() {
+                let cand = apply_alpha_pair(&base, k1, k2, zeta);
+                let ppm = ppm_diff(target, &cand);
+                best.push((ppm, format!("{k_lab}{t_lab}{p_lab}"), cand));
+            }
+        }
+    }
+    // Pass 4b: Class F-2 paired α with rational prefactors.
+    for (f_lab, p_num, p_den) in atomic_fractions() {
+        for (t_lab, pi_p, ze_p) in trans_subset {
+            let pi_part = q_pow(pi, *pi_p);
+            let z_part = q_pow(zeta, *ze_p);
+            let base: Q = (nat(p_num) * &pi_part.0 * &z_part.0,
+                           nat(p_den) * &pi_part.1 * &z_part.1);
+            for (p_lab, k1, k2) in alpha_pair_corrections() {
+                let cand = apply_alpha_pair(&base, k1, k2, zeta);
+                let ppm = ppm_diff(target, &cand);
+                best.push((ppm, format!("{f_lab}{t_lab}{p_lab}"), cand));
             }
         }
     }
