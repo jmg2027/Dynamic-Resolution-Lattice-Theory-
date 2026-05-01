@@ -10,7 +10,7 @@ definitional reduction; right-nested for consistency with
   bz5_1_r β k j := (k.val == j.val) && β k
 -/
 
-namespace E213.Math.Cohomology.Cochain5_1DecompR
+namespace E213.Math.Cohomology.Cochain.V5_1DecompR
 
 /-- AND-form conditional basis-or-zero at (5, 1). -/
 def bz5_1 (β : Cochain 5 1) (k : Fin 5) : Cochain 5 1 := fun j =>
@@ -43,4 +43,4 @@ private theorem decomp_step (β : Cochain 5 1) (j : Fin 5) :
 theorem decomp_5_1_eq (β : Cochain 5 1) : decomp_5_1 β = β := by
   funext j; exact decomp_step β j
 
-end E213.Math.Cohomology.Cochain5_1DecompR
+end E213.Math.Cohomology.Cochain.V5_1DecompR

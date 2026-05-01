@@ -19,7 +19,7 @@ structure on Δ⁴ for `cupAW` with the standard simplicial
 Alexander–Whitney overlap convention.
 -/
 
-namespace E213.Math.Cohomology.Delta4LeibnizCapstone
+namespace E213.Math.Cohomology.Delta.Core.V4LeibnizCapstone
 
 open E213.Physics.Simplex (binom)
 
@@ -46,4 +46,4 @@ theorem delta4_leibniz_capstone :
    CupAWLeibniz21Final.leibniz_universal_5_2_1,
    CupAWLeibniz22Final.leibniz_universal_5_2_2⟩
 
-end E213.Math.Cohomology.Delta4LeibnizCapstone
+end E213.Math.Cohomology.Delta.Core.V4LeibnizCapstone

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeStar
+import E213.Math.Cohomology.Hodge.Star
 import E213.Math.Cohomology.Universal.Core.Prop53
 
 /-!
@@ -12,7 +12,7 @@ By Hodge duality binom 5 3 = binom 5 2 = 10, so the structure
 parallels (5, 2).
 -/
 
-namespace E213.Math.Cohomology.HodgeProp53
+namespace E213.Math.Cohomology.Hodge.Prop53
 
 open E213.Physics.Simplex (binom)
 
@@ -40,4 +40,4 @@ theorem hodge_involution_capstone_5_3 :
       hodgeStar 5 2 3 (hodgeStar 5 3 2 σ) i = σ i :=
   hodge_sq_prop_5_3
 
-end E213.Math.Cohomology.HodgeProp53
+end E213.Math.Cohomology.Hodge.Prop53

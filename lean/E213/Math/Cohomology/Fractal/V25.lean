@@ -32,7 +32,7 @@ A leaf at level 2 is a pair (i, j) ∈ Fin 5 × Fin 5, encoded
 by `5*i + j ∈ Fin 25`.
 -/
 
-namespace E213.Math.Cohomology.Fractal25
+namespace E213.Math.Cohomology.Fractal.V25
 
 /-- Number of leaf vertices at level 2: 5 × 5 = 25 = d². -/
 def numV : Nat := 25
@@ -75,4 +75,4 @@ theorem fractal25_cohomology :
     ∧ numE = 300
     ∧ numE - numV + 1 = 276 := by decide
 
-end E213.Math.Cohomology.Fractal25
+end E213.Math.Cohomology.Fractal.V25

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Cochain
+import E213.Math.Cohomology.Cochain.Core
 
 /-!
 # Cohomology — k-subset enumeration (Phase CA, file 2)

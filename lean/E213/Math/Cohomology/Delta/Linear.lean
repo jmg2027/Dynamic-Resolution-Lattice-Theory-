@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Delta
+import E213.Math.Cohomology.Delta.Core
 
 /-!
 # δ is XOR-linear: δ(σ + τ) = δσ + δτ

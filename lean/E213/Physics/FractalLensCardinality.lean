@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Fractal25
+import E213.Math.Cohomology.Fractal.V25
 import E213.Physics.NUniverseFractalDepth
 import E213.Physics.SimplexCounts
 
@@ -34,7 +34,7 @@ The third equation is the lens cardinality interpretation.
 namespace E213.Physics.FractalLensCardinality
 
 open E213.Physics.Simplex
-open E213.Math.Cohomology.Fractal25
+open E213.Math.Cohomology.Fractal.V25
 
 /-- Number of d-colorings of n-vertex graph: d^n. -/
 def coloring_count (n d : Nat) : Nat := d ^ n

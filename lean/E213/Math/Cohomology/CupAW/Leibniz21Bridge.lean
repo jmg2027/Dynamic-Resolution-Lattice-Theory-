@@ -9,7 +9,7 @@ import E213.Math.Cohomology.CupAW.Leibniz22Bridge
 namespace E213.Math.Cohomology.CupAW.Leibniz21Bridge
 
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
-open E213.Math.Cohomology.Cochain5_1DecompR (bz5_1)
+open E213.Math.Cohomology.Cochain.V5_1DecompR (bz5_1)
 
 /-- bz5_1 with β k = false reduces to Cochain.zero. -/
 theorem bz5_1_false (β : Cochain 5 1) (k : Fin 5)

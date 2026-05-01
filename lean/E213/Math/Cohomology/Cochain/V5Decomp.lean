@@ -9,7 +9,7 @@ import E213.Math.Cohomology.CupAW.BasisLeibniz
 Pointwise verified by funext + match j + cases on each (σ ⟨k, _⟩).
 -/
 
-namespace E213.Math.Cohomology.Cochain5Decomp
+namespace E213.Math.Cohomology.Cochain.V5Decomp
 
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
 
@@ -64,4 +64,4 @@ theorem decomp_5_1_eq (α : Cochain 5 1) : decomp_5_1 α = α := by
       cases (α ⟨2, by decide⟩) <;> cases (α ⟨3, by decide⟩) <;>
       cases (α ⟨4, by decide⟩) <;> rfl
 
-end E213.Math.Cohomology.Cochain5Decomp
+end E213.Math.Cohomology.Cochain.V5Decomp

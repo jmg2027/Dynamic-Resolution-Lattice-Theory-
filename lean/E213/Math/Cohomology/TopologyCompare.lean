@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.FractalLevel
+import E213.Math.Cohomology.Fractal.Level
 
 /-!
 # Topology comparison — which graph yields b_1 = 8?

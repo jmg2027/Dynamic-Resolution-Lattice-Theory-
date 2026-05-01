@@ -14,7 +14,7 @@ namespace E213.Math.Cohomology.CupAW.Leibniz22Final
 
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis basis_leibniz_5_2_2)
-open E213.Math.Cohomology.Cochain5_2Decomp (bz5_2)
+open E213.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
 open E213.Math.Cohomology.CupAW.Leibniz22Bridge (bz5_2_false bz5_2_true
   cupAW_zero_left_fn cupAW_zero_right_fn delta_zero_fn)
 

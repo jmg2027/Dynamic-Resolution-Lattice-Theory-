@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.FractalLevel
+import E213.Math.Cohomology.Fractal.Level
 import E213.Physics.NUniverseFractalDepth
 import E213.Physics.SimplexCounts
 
@@ -31,7 +31,7 @@ All theorems STRICT 0-AXIOM via decide (numV at finite levels).
 namespace E213.Physics.LensCardinality
 
 open E213.Physics.Simplex
-open E213.Math.Cohomology.FractalLevel
+open E213.Math.Cohomology.Fractal.Level
 
 /-- Vertex count at level 0 (trivial). -/
 theorem level0_count : numV 0 = 1 := by decide

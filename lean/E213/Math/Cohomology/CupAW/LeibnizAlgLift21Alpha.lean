@@ -10,7 +10,7 @@ into 10 basis components and apply bilinearity in α.
 namespace E213.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha
 
 open E213.Physics.Simplex (binom)
-open E213.Math.Cohomology.Cochain5_2Decomp (decomp_5_2 decomp_5_2_eq bz5_2)
+open E213.Math.Cohomology.Cochain.V5_2Decomp (decomp_5_2 decomp_5_2_eq bz5_2)
 open E213.Math.XorPairCombine (combine_10)
 
 /-- ★ α-decomp lens at (5, 2, 1). -/

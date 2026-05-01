@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Cup
+import E213.Math.Cohomology.Cup.Core
 
 /-!
 # Alexander–Whitney cup with overlap (cupAW)

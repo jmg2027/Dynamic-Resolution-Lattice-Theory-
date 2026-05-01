@@ -1,8 +1,8 @@
-import E213.Math.Cohomology.HodgeProp50
-import E213.Math.Cohomology.HodgeProp
-import E213.Math.Cohomology.HodgeProp52
-import E213.Math.Cohomology.HodgeProp53
-import E213.Math.Cohomology.HodgeProp54
+import E213.Math.Cohomology.Hodge.Prop50
+import E213.Math.Cohomology.Hodge.Prop
+import E213.Math.Cohomology.Hodge.Prop52
+import E213.Math.Cohomology.Hodge.Prop53
+import E213.Math.Cohomology.Hodge.Prop54
 
 /-!
 # Hodge involution ⋆⋆ = id — Δ⁴ all-strata capstone

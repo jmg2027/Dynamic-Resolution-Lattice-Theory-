@@ -1,8 +1,8 @@
 import E213.Math.Cohomology.Universal.Core.Prop51
 import E213.Math.Cohomology.Universal.Core.Prop52
 import E213.Math.Cohomology.Universal.Core.Prop53
-import E213.Math.Cohomology.HodgeProp
-import E213.Math.Cohomology.HodgeProp52
+import E213.Math.Cohomology.Hodge.Prop
+import E213.Math.Cohomology.Hodge.Prop52
 import E213.Math.Cohomology.CupAW.Leibniz
 import E213.Math.Cohomology.EncodingBijection
 
@@ -17,7 +17,7 @@ import E213.Math.Cohomology.EncodingBijection
 ≤ {propext, Quot.sound}.
 -/
 
-namespace E213.Math.Cohomology.Delta4Capstone
+namespace E213.Math.Cohomology.Delta.Core.V4Capstone
 
 open E213.Physics.Simplex (binom)
 
@@ -77,4 +77,4 @@ theorem delta4_cohomology_capstone :
    HodgeProp52.hodge_sq_prop_5_2,
    CupAWLeibniz.leibniz_universal_5_1_1⟩
 
-end E213.Math.Cohomology.Delta4Capstone
+end E213.Math.Cohomology.Delta.Core.V4Capstone

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Delta
+import E213.Math.Cohomology.Delta.Core
 
 /-!
 # Cohomology — Hodge ⋆ at cochain level (Phase CB, file 1)

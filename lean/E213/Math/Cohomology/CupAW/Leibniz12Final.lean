@@ -18,7 +18,7 @@ namespace E213.Math.Cohomology.CupAW.Leibniz12Final
 open E213.Physics.Simplex (binom)
 open E213.Math.Cohomology.Universal.Core.Prop51 (pattern pattern_eq)
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
-open E213.Math.Cohomology.Cochain5_2Decomp (bz5_2)
+open E213.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
 
 /-- α-pattern × basis level Leibniz at (5, 1, 2): 3200-case decide. -/
 theorem leibniz_α_basis_pattern :

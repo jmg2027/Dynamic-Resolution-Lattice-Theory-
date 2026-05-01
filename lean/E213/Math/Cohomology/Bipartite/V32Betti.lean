@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Bipartite32
+import E213.Math.Cohomology.Bipartite.V32
 
 /-!
 # Cohomology — Betti numbers of K_{3,2}^{(2)} (Phase CE, file 2)

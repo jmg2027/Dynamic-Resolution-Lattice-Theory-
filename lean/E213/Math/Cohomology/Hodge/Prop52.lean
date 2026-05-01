@@ -9,7 +9,7 @@ the involution on the two physically meaningful strata of Δ⁴:
 vertex (5,1) and edge (5,2) cochains.
 -/
 
-namespace E213.Math.Cohomology.HodgeProp52
+namespace E213.Math.Cohomology.Hodge.Prop52
 
 open E213.Physics.Simplex (binom)
 
@@ -37,4 +37,4 @@ theorem hodge_involution_capstone_5_2 :
       hodgeStar 5 3 2 (hodgeStar 5 2 3 σ) i = σ i :=
   hodge_sq_prop_5_2
 
-end E213.Math.Cohomology.HodgeProp52
+end E213.Math.Cohomology.Hodge.Prop52

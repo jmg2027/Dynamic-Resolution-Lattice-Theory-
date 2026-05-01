@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeStar
+import E213.Math.Cohomology.Hodge.Star
 
 /-!
 # Cohomology — ⋆⋆ = id (Phase CB, file 2)

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Cochain
+import E213.Math.Cohomology.Cochain.Core
 
 /-!
 # Phase E partial — Real213 ↔ Cohomology 213 structural bridge

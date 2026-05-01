@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeDelta
+import E213.Math.Cohomology.Hodge.Delta
 
 /-!
 # Cohomology — kernel enumeration on cochain spaces (Phase CC, file 1)

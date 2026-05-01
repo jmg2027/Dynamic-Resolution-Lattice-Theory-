@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.CupLeibniz
+import E213.Math.Cohomology.Cup.Core.Leibniz
 
 /-!
 # Cohomology — ring structure on H* (Phase CD, file 3)

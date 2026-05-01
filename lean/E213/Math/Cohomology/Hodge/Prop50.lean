@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeStar
+import E213.Math.Cohomology.Hodge.Star
 
 /-!
 # ⋆⋆ = id Prop-lift at (5, 0) — Δ⁴ scalar cochain (trivial stratum)
@@ -11,7 +11,7 @@ Closes the bottom stratum of the Hodge involution chain
 (5, 0) → (5, 1) → (5, 2) → (5, 3) → (5, 4) over Δ⁴.
 -/
 
-namespace E213.Math.Cohomology.HodgeProp50
+namespace E213.Math.Cohomology.Hodge.Prop50
 
 open E213.Physics.Simplex (binom)
 
@@ -47,4 +47,4 @@ theorem hodge_involution_capstone_5_0 :
       hodgeStar 5 5 0 (hodgeStar 5 0 5 σ) i = σ i :=
   hodge_sq_prop_5_0
 
-end E213.Math.Cohomology.HodgeProp50
+end E213.Math.Cohomology.Hodge.Prop50

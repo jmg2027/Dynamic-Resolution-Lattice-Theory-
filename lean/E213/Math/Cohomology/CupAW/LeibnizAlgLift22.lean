@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.CupAW.BilinearFunc
 import E213.Math.Cohomology.CupAW.Zero
 import E213.Math.Cohomology.CupAW.BasisLeibniz
-import E213.Math.Cohomology.Cochain5_2Decomp
+import E213.Math.Cohomology.Cochain.V5_2Decomp
 import E213.Math.Cohomology.XorPairCombine
 
 /-!
@@ -19,7 +19,7 @@ Two lenses:
 namespace E213.Math.Cohomology.CupAW.LeibnizAlgLift22
 
 open E213.Physics.Simplex (binom)
-open E213.Math.Cohomology.Cochain5_2Decomp (decomp_5_2 decomp_5_2_eq bz5_2)
+open E213.Math.Cohomology.Cochain.V5_2Decomp (decomp_5_2 decomp_5_2_eq bz5_2)
 open E213.Math.XorPairCombine (combine_10)
 
 /-- ★ β-decomp lens at (5, 2, 2). -/

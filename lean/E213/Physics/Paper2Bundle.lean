@@ -2,7 +2,7 @@ import E213.Physics.AlphaGUT
 import E213.Physics.AlphaEM
 import E213.Physics.AlphaEMTight
 import E213.Physics.AlphaEMSimplicial
-import E213.Math.Cohomology.FractalAlphaGUT
+import E213.Math.Cohomology.Fractal.AlphaGUT
 
 /-!
 # Paper 2 Bundle — gauge structure capstone
@@ -38,7 +38,7 @@ theorem paper2_gauge_structure :
        let hi := E213.Physics.AlphaGUT.inv_upper 3
        lo.1 < 41 * lo.2 ∧ 41 * hi.2 < hi.1)
     -- Fractal-cohomology identification of α_GUT factors
-    ∧ (E213.Math.Cohomology.Fractal25.numV = 5 * 5
+    ∧ (E213.Math.Cohomology.Fractal.V25.numV = 5 * 5
        ∧ E213.Math.Cohomology.K5.kerSizeDelta0 = 2)
     -- α_em(bare) bracket containing 128 (Weinberg 60·ζ(2) + 30)
     ∧ (let lo := E213.Physics.AlphaEM.inv_alpha_em_bare_lower 5
@@ -46,7 +46,7 @@ theorem paper2_gauge_structure :
        lo.1 < 128 * lo.2 ∧ 128 * hi.2 < hi.1) := by
   refine ⟨by decide, by decide, ?_, ?_, ?_⟩
   · exact E213.Physics.AlphaGUT.standard_41_in_bracket
-  · exact ⟨E213.Math.Cohomology.Fractal25.numV_eq_d_sq,
+  · exact ⟨E213.Math.Cohomology.Fractal.V25.numV_eq_d_sq,
            E213.Math.Cohomology.K5.kerSize_K5⟩
   · exact E213.Physics.AlphaEM.bare_128_in_bracket
 
@@ -55,7 +55,7 @@ theorem alpha_GUT_three_identifications :
     (3 * 2 : Nat) = 6
     ∧ ((10 - 5 + 1) : Nat) = 6
     ∧ (5 * 5 : Nat) = 25
-    ∧ E213.Math.Cohomology.Fractal25.numV = 25
-    ∧ E213.Math.Cohomology.Fractal25.numE = 12 * 25 := by decide
+    ∧ E213.Math.Cohomology.Fractal.V25.numV = 25
+    ∧ E213.Math.Cohomology.Fractal.V25.numE = 12 * 25 := by decide
 
 end E213.Physics.Paper2Bundle

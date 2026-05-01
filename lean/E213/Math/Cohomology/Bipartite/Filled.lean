@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Bipartite32Betti
+import E213.Math.Cohomology.Bipartite.V32Betti
 import E213.Math.Cohomology.Audit
 
 /-!
@@ -37,7 +37,7 @@ Phase D shows the *mechanism* algebraically; physical
 identification deferred.
 -/
 
-namespace E213.Math.Cohomology.BipartiteFilled
+namespace E213.Math.Cohomology.Bipartite.Filled
 
 /-- 4-cycles in K_{3,2}^{(2)}: C(NS,2) · C(NT,2) = 3·1 = 3. -/
 theorem four_cycles_count : 3 * 1 = 3 := by decide
@@ -77,4 +77,4 @@ theorem phase_D_partial :
     ∧ (∀ σ τ : Bip32.CochAbove, ∀ e, σ e = τ e) :=
   ⟨by decide, by decide, by decide, Bip32.b_k_graph_trivial⟩
 
-end E213.Math.Cohomology.BipartiteFilled
+end E213.Math.Cohomology.Bipartite.Filled

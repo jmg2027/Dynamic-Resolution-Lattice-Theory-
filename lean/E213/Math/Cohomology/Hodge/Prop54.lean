@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeStar
+import E213.Math.Cohomology.Hodge.Star
 
 /-!
 # ⋆⋆ = id Prop-lift at (5, 4) — Δ⁴ 4-cochain (Hodge dual of (5, 1))
@@ -12,7 +12,7 @@ Closes the top-1 stratum of the Hodge involution chain.
 32 patterns × 5 indices = 160 evaluations.
 -/
 
-namespace E213.Math.Cohomology.HodgeProp54
+namespace E213.Math.Cohomology.Hodge.Prop54
 
 open E213.Physics.Simplex (binom)
 
@@ -59,4 +59,4 @@ theorem hodge_involution_capstone_5_4 :
       hodgeStar 5 1 4 (hodgeStar 5 4 1 σ) i = σ i :=
   hodge_sq_prop_5_4
 
-end E213.Math.Cohomology.HodgeProp54
+end E213.Math.Cohomology.Hodge.Prop54

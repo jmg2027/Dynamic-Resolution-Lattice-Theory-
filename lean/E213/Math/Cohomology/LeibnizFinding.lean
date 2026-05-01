@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Universal.Core.Prop51
-import E213.Math.Cohomology.CupLeibniz
+import E213.Math.Cohomology.Cup.Core.Leibniz
 
 /-!
 # Leibniz universal — HONEST NEGATIVE finding

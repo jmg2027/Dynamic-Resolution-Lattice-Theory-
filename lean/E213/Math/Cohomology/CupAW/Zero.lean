@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.CupAW.Core
-import E213.Math.Cohomology.Delta
+import E213.Math.Cohomology.Delta.Core
 
 /-!
 # Zero lemmas for cupAW and delta

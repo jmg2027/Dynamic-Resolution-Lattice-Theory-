@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.FractalLevel
+import E213.Math.Cohomology.Fractal.Level
 import E213.Physics.NUniverseFromFractal
 import E213.Physics.SimplexCounts
 
@@ -27,7 +27,7 @@ At this self-referential level:
 namespace E213.Physics.NUniverseFractalDepth
 
 open E213.Physics.Simplex
-open E213.Math.Cohomology.FractalLevel
+open E213.Math.Cohomology.Fractal.Level
 
 /-- ★ The self-referential fractal level: L = d² = 25. -/
 def universe_level : Nat := d * d

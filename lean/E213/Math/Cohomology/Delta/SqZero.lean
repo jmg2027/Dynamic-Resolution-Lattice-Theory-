@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Delta
+import E213.Math.Cohomology.Delta.Core
 
 /-!
 # Cohomology — δ² = 0 (Phase CA, file 4)

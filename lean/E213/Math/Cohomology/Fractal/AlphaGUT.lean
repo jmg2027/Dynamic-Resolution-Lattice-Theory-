@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Fractal25
+import E213.Math.Cohomology.Fractal.V25
 import E213.Physics.AlphaGUT
 
 /-!
@@ -25,7 +25,7 @@ This is the **first paper-1/2 result reformulated via Cohomology
 identified as b_1 and numV of fractal-simplex levels 1 and 2.
 -/
 
-namespace E213.Math.Cohomology.FractalAlphaGUT
+namespace E213.Math.Cohomology.Fractal.AlphaGUT
 
 open E213.Math.Cohomology
 open E213.Physics.Simplex (d)
@@ -67,4 +67,4 @@ theorem alpha_GUT_fractal_form :
     b_1 = C(d-1, 2) = (d-1)(d-2)/2.  Smoke at d=5: gives 6. -/
 theorem b1_complete_graph_d5 : ((5 - 1) * (5 - 2) / 2 : Nat) = 6 := by decide
 
-end E213.Math.Cohomology.FractalAlphaGUT
+end E213.Math.Cohomology.Fractal.AlphaGUT

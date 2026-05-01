@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Cup
+import E213.Math.Cohomology.Cup.Core
 
 /-!
 # Cohomology — cup-product Leibniz rule (Phase CD, file 2)

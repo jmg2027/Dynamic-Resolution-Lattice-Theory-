@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Fractal25
+import E213.Math.Cohomology.Fractal.V25
 import E213.Physics.FiniteUniverse
 import E213.Physics.SimplexCounts
 import E213.Physics.AlphaEMNUniverseCandidates
@@ -30,7 +30,7 @@ CANDIDATE structural derivation.  Sub-ppb finite-N residual
 namespace E213.Physics.NUniverseFromFractal
 
 open E213.Physics.Simplex
-open E213.Math.Cohomology.Fractal25
+open E213.Math.Cohomology.Fractal.V25
 
 /-- ★ Vertex count of fractal level 2 = d² (already closed). -/
 theorem fractal_level2_vertex_count : numV = d * d := by decide

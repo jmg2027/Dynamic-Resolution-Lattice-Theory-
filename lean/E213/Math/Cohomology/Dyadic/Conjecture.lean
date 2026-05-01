@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Bipartite32
+import E213.Math.Cohomology.Bipartite.V32
 
 /-!
 # Dyadic-bit / K_{3,2}^{(2)} conjecture — formal scaffold

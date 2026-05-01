@@ -8,7 +8,7 @@ technique as Universal δ²=0 lifts ⋆⋆ = id from concrete
 cochains to Prop-level ∀ σ.
 -/
 
-namespace E213.Math.Cohomology.HodgeProp
+namespace E213.Math.Cohomology.Hodge.Prop
 
 open E213.Physics.Simplex (binom)
 
@@ -34,4 +34,4 @@ theorem hodge_involution_capstone :
       hodgeStar 5 4 1 (hodgeStar 5 1 4 σ) i = σ i :=
   hodge_sq_prop_5_1
 
-end E213.Math.Cohomology.HodgeProp
+end E213.Math.Cohomology.Hodge.Prop

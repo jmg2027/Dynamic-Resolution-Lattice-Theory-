@@ -33,7 +33,7 @@ spectrum** of the block universe.  Each level corresponds to a
 finer resolution of spacetime lattice.
 -/
 
-namespace E213.Math.Cohomology.FractalLevel
+namespace E213.Math.Cohomology.Fractal.Level
 
 /-- Vertex count at fractal level L: 5^L. -/
 def numV (L : Nat) : Nat := 5^L
@@ -75,4 +75,4 @@ theorem fractal_betti_spectrum :
     -- depth L = log_5(N), all N connected as K_N
     ∧ numV 4 = 625 := by decide
 
-end E213.Math.Cohomology.FractalLevel
+end E213.Math.Cohomology.Fractal.Level

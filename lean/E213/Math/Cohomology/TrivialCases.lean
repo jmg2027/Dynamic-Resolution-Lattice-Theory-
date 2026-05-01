@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.DeltaSqZero
+import E213.Math.Cohomology.Delta.Core.SqZero
 
 /-!
 # Cohomology — Phase CA capstone: smoke tests across d ≤ 5 (file 5)
