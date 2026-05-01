@@ -114,22 +114,30 @@ theorem pellMod_periods_differ :
 def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
     BitFSM (n * n) where
   init := ⟨m.init.1.val * n + m.init.2.val, by
-    have h1 := m.init.1.isLt; have h2 := m.init.2.isLt
-    have hsucc : (m.init.1.val + 1) * n = m.init.1.val * n + n :=
-      Nat.succ_mul _ _
-    have hbound : (m.init.1.val + 1) * n ≤ n * n :=
-      Nat.mul_le_mul_right n (by omega)
-    omega⟩
+    have h1 := Nat.succ_le_of_lt m.init.1.isLt  -- m.init.1.val + 1 ≤ n
+    have h2 := m.init.2.isLt                    -- m.init.2.val < n
+    have step1 : m.init.1.val * n + m.init.2.val
+                  < m.init.1.val * n + n :=
+      Nat.add_lt_add_left h2 _
+    have step2 : m.init.1.val * n + n = (m.init.1.val + 1) * n :=
+      (Nat.succ_mul m.init.1.val n).symm
+    have step3 : (m.init.1.val + 1) * n ≤ n * n :=
+      Nat.mul_le_mul_right n h1
+    exact Nat.lt_of_lt_of_le step1 (step2 ▸ step3)⟩
   step v :=
     let a : Fin n := ⟨v.val / n, (Nat.div_lt_iff_lt_mul hn).mpr v.isLt⟩
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     let (a', b') := m.step (a, b)
     ⟨a'.val * n + b'.val, by
-      have h1 := a'.isLt; have h2 := b'.isLt
-      have hsucc : (a'.val + 1) * n = a'.val * n + n := Nat.succ_mul _ _
-      have hbound : (a'.val + 1) * n ≤ n * n :=
-        Nat.mul_le_mul_right n (by omega)
-      omega⟩
+      have h1 := Nat.succ_le_of_lt a'.isLt
+      have h2 := b'.isLt
+      have step1 : a'.val * n + b'.val < a'.val * n + n :=
+        Nat.add_lt_add_left h2 _
+      have step2 : a'.val * n + n = (a'.val + 1) * n :=
+        (Nat.succ_mul a'.val n).symm
+      have step3 : (a'.val + 1) * n ≤ n * n :=
+        Nat.mul_le_mul_right n h1
+      exact Nat.lt_of_lt_of_le step1 (step2 ▸ step3)⟩
   out v :=
     let a : Fin n := ⟨v.val / n, (Nat.div_lt_iff_lt_mul hn).mpr v.isLt⟩
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩

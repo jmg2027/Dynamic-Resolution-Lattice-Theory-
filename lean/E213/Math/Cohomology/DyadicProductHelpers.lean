@@ -15,9 +15,13 @@ def encodeFinPair {n m : Nat} (a : Fin n) (b : Fin m) : Fin (n * m) :=
   ⟨a.val * m + b.val, by
     have ha : a.val + 1 ≤ n := a.isLt
     have hb : b.val < m := b.isLt
-    have h1 : (a.val + 1) * m ≤ n * m := Nat.mul_le_mul_right m ha
-    have h2 : (a.val + 1) * m = a.val * m + m := Nat.succ_mul _ _
-    omega⟩
+    have step1 : a.val * m + b.val < a.val * m + m :=
+      Nat.add_lt_add_left hb _
+    have step2 : a.val * m + m = (a.val + 1) * m :=
+      (Nat.succ_mul a.val m).symm
+    have step3 : (a.val + 1) * m ≤ n * m :=
+      Nat.mul_le_mul_right m ha
+    exact Nat.lt_of_lt_of_le step1 (step2 ▸ step3)⟩
 
 /-- Decode first coordinate. -/
 def decodeFinFirst {n m : Nat} (hm : 0 < m) (v : Fin (n * m)) : Fin n :=

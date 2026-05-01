@@ -14,30 +14,30 @@ namespace E213.Math.Cohomology.DyadicConjecture
 
 /-- ★★★★★★★ Full Pell-CRT FSM-level capstone. -/
 theorem pell_crt_fsm_capstone :
-    (∀ k, (BitFSM.product (n := 9) (m := 25) (by omega)
-            (pellFSMmod3.toBitFSM (by omega))
-            (pellFSMmod5.toBitFSM (by omega)) xor).bits (k + 20)
-        = (BitFSM.product (n := 9) (m := 25) (by omega)
-            (pellFSMmod3.toBitFSM (by omega))
-            (pellFSMmod5.toBitFSM (by omega)) xor).bits k)
-    ∧ (∀ k, (BitFSM.product (n := 9) (m := 49) (by omega)
-            (pellFSMmod3.toBitFSM (by omega))
-            (pellFSMmod7.toBitFSM (by omega)) xor).bits (k + 8)
-        = (BitFSM.product (n := 9) (m := 49) (by omega)
-            (pellFSMmod3.toBitFSM (by omega))
-            (pellFSMmod7.toBitFSM (by omega)) xor).bits k)
-    ∧ (∀ k, (BitFSM.product (n := 25) (m := 49) (by omega)
-            (pellFSMmod5.toBitFSM (by omega))
-            (pellFSMmod7.toBitFSM (by omega)) xor).bits (k + 40)
-        = (BitFSM.product (n := 25) (m := 49) (by omega)
-            (pellFSMmod5.toBitFSM (by omega))
-            (pellFSMmod7.toBitFSM (by omega)) xor).bits k)
-    ∧ (∀ k, (BitFSM.product (n := 9 * 25) (m := 49) (by omega)
+    (∀ k, (BitFSM.product (n := 9) (m := 25) (by decide)
+            (pellFSMmod3.toBitFSM (by decide))
+            (pellFSMmod5.toBitFSM (by decide)) xor).bits (k + 20)
+        = (BitFSM.product (n := 9) (m := 25) (by decide)
+            (pellFSMmod3.toBitFSM (by decide))
+            (pellFSMmod5.toBitFSM (by decide)) xor).bits k)
+    ∧ (∀ k, (BitFSM.product (n := 9) (m := 49) (by decide)
+            (pellFSMmod3.toBitFSM (by decide))
+            (pellFSMmod7.toBitFSM (by decide)) xor).bits (k + 8)
+        = (BitFSM.product (n := 9) (m := 49) (by decide)
+            (pellFSMmod3.toBitFSM (by decide))
+            (pellFSMmod7.toBitFSM (by decide)) xor).bits k)
+    ∧ (∀ k, (BitFSM.product (n := 25) (m := 49) (by decide)
+            (pellFSMmod5.toBitFSM (by decide))
+            (pellFSMmod7.toBitFSM (by decide)) xor).bits (k + 40)
+        = (BitFSM.product (n := 25) (m := 49) (by decide)
+            (pellFSMmod5.toBitFSM (by decide))
+            (pellFSMmod7.toBitFSM (by decide)) xor).bits k)
+    ∧ (∀ k, (BitFSM.product (n := 9 * 25) (m := 49) (by decide)
             pellInner35
-            (pellFSMmod7.toBitFSM (by omega)) xor).bits (k + 40)
-        = (BitFSM.product (n := 9 * 25) (m := 49) (by omega)
+            (pellFSMmod7.toBitFSM (by decide)) xor).bits (k + 40)
+        = (BitFSM.product (n := 9 * 25) (m := 49) (by decide)
             pellInner35
-            (pellFSMmod7.toBitFSM (by omega)) xor).bits k) :=
+            (pellFSMmod7.toBitFSM (by decide)) xor).bits k) :=
   ⟨pellLens_3x5_period_20,
    pellLens_3x7_period_8,
    pellLens_5x7_period_40,

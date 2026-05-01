@@ -26,13 +26,13 @@ namespace E213.Math.Cohomology.DyadicConjecture
 
 /-- ★★★★★★ Lens-composed Pell mod 3 × mod 5 (XOR readout): period | 20. -/
 theorem pellLens_3x5_period_20 :
-    ∀ k, (BitFSM.product (n := 9) (m := 25) (by omega)
-            (pellFSMmod3.toBitFSM (by omega))
-            (pellFSMmod5.toBitFSM (by omega))
+    ∀ k, (BitFSM.product (n := 9) (m := 25) (by decide)
+            (pellFSMmod3.toBitFSM (by decide))
+            (pellFSMmod5.toBitFSM (by decide))
             xor).bits (k + 20)
-        = (BitFSM.product (n := 9) (m := 25) (by omega)
-            (pellFSMmod3.toBitFSM (by omega))
-            (pellFSMmod5.toBitFSM (by omega))
+        = (BitFSM.product (n := 9) (m := 25) (by decide)
+            (pellFSMmod3.toBitFSM (by decide))
+            (pellFSMmod5.toBitFSM (by decide))
             xor).bits k := by
   intro k
   have hbits3 : ∀ k, (pellFSMmod3.toBitFSM (by omega : (0:Nat) < 3)).bits (k + 4)
@@ -45,10 +45,10 @@ theorem pellLens_3x5_period_20 :
     intro k
     rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
     exact pellFSMmod5_bits_period_10 k
-  have hresult := lens_composition_period (n := 9) (m := 25) (by omega)
-    (pellFSMmod3.toBitFSM (by omega))
-    (pellFSMmod5.toBitFSM (by omega))
-    xor 4 10 (by omega) (by omega) hbits3 hbits5 k
+  have hresult := lens_composition_period (n := 9) (m := 25) (by decide)
+    (pellFSMmod3.toBitFSM (by decide))
+    (pellFSMmod5.toBitFSM (by decide))
+    xor 4 10 (by decide) (by decide) hbits3 hbits5 k
   have hlcm : Nat.lcm 4 10 = 20 := by decide
   rwa [hlcm] at hresult
 

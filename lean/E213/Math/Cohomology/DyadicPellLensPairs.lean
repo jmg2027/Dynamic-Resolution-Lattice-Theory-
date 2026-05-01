@@ -36,38 +36,38 @@ theorem pellMod7_BitFSM_bits_period_8 :
 
 /-- ★★★★★★ Pell mod 3 × mod 7 (XOR): period | 8. -/
 theorem pellLens_3x7_period_8 :
-    ∀ k, (BitFSM.product (n := 9) (m := 49) (by omega)
-            (pellFSMmod3.toBitFSM (by omega))
-            (pellFSMmod7.toBitFSM (by omega))
+    ∀ k, (BitFSM.product (n := 9) (m := 49) (by decide)
+            (pellFSMmod3.toBitFSM (by decide))
+            (pellFSMmod7.toBitFSM (by decide))
             xor).bits (k + 8)
-        = (BitFSM.product (n := 9) (m := 49) (by omega)
-            (pellFSMmod3.toBitFSM (by omega))
-            (pellFSMmod7.toBitFSM (by omega))
+        = (BitFSM.product (n := 9) (m := 49) (by decide)
+            (pellFSMmod3.toBitFSM (by decide))
+            (pellFSMmod7.toBitFSM (by decide))
             xor).bits k := by
   intro k
-  have hresult := lens_composition_period (n := 9) (m := 49) (by omega)
-    (pellFSMmod3.toBitFSM (by omega))
-    (pellFSMmod7.toBitFSM (by omega))
-    xor 4 8 (by omega) (by omega)
+  have hresult := lens_composition_period (n := 9) (m := 49) (by decide)
+    (pellFSMmod3.toBitFSM (by decide))
+    (pellFSMmod7.toBitFSM (by decide))
+    xor 4 8 (by decide) (by decide)
     pellMod3_BitFSM_bits_period_4 pellMod7_BitFSM_bits_period_8 k
   have hlcm : Nat.lcm 4 8 = 8 := by decide
   rwa [hlcm] at hresult
 
 /-- ★★★★★★ Pell mod 5 × mod 7 (XOR): period | 40. -/
 theorem pellLens_5x7_period_40 :
-    ∀ k, (BitFSM.product (n := 25) (m := 49) (by omega)
-            (pellFSMmod5.toBitFSM (by omega))
-            (pellFSMmod7.toBitFSM (by omega))
+    ∀ k, (BitFSM.product (n := 25) (m := 49) (by decide)
+            (pellFSMmod5.toBitFSM (by decide))
+            (pellFSMmod7.toBitFSM (by decide))
             xor).bits (k + 40)
-        = (BitFSM.product (n := 25) (m := 49) (by omega)
-            (pellFSMmod5.toBitFSM (by omega))
-            (pellFSMmod7.toBitFSM (by omega))
+        = (BitFSM.product (n := 25) (m := 49) (by decide)
+            (pellFSMmod5.toBitFSM (by decide))
+            (pellFSMmod7.toBitFSM (by decide))
             xor).bits k := by
   intro k
-  have hresult := lens_composition_period (n := 25) (m := 49) (by omega)
-    (pellFSMmod5.toBitFSM (by omega))
-    (pellFSMmod7.toBitFSM (by omega))
-    xor 10 8 (by omega) (by omega)
+  have hresult := lens_composition_period (n := 25) (m := 49) (by decide)
+    (pellFSMmod5.toBitFSM (by decide))
+    (pellFSMmod7.toBitFSM (by decide))
+    xor 10 8 (by decide) (by decide)
     pellMod5_BitFSM_bits_period_10 pellMod7_BitFSM_bits_period_8 k
   have hlcm : Nat.lcm 10 8 = 40 := by decide
   rwa [hlcm] at hresult
