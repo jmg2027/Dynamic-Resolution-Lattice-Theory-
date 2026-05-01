@@ -1,4 +1,5 @@
 import E213.OS.Atomicity
+import E213.OS.PairForcing
 
 /-!
 # 4-simplex structure: 5 vertices, (3,2) partition, Aut-invariant weights

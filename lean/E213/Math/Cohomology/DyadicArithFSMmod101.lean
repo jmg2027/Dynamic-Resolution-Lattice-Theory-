@@ -45,7 +45,7 @@ theorem pellFSMmod101_bits_period_50 :
   intro k
   have h1 := pellFSMmod101_bits_period_25 (k + 25)
   have h2 := pellFSMmod101_bits_period_25 k
-  have hreshape : k + 50 = (k + 25) + 25 := by omega
+  have hreshape : k + 50 = (k + 25) + 25 := rfl
   rw [hreshape, h1, h2]
 
 end E213.Math.Cohomology.DyadicConjecture

@@ -1,63 +1,98 @@
 # 213 Library
 
-> Derive all of mathematics and physics from *primitive distinction* — Lean 4 core only, Mathlib-free.
+> Derive all of mathematics and physics from *primitive distinction* —
+> Lean 4 core only, Mathlib-free, ℕ-only Rust verification engine.
 
 ## What It Is
 
-**213** = Starting from the *minimal residue* with 4-clause raw axiom.
+**213** = Starting from the *minimal residue* with a 3-clause Raw axiom
+(plus directionless slash_comm).
 
 ```
 DRLT (Dynamic Resolution Lattice Theory)
-  = Raw axiom (a, b, /, distinctness)
+  = Raw axiom (a, b, slash, slash_comm)
   + Lens framework
-  → Atomicity (NS=3, NT=2, d=5)
-  → Derive all of Math + Physics
+  → Atomicity (d = 5 unique, NS = 3, NT = 2 forced)
+  → K_{3,2}^{(c=2)} graph (canonical)
+  → Mathematics + Physics derived
 ```
 
-## Core Stakes
+## Core stakes
 
-- **0 sorry, 0 external axiom** (Lean 4 core only)
-- ≤ propext + Quot.sound (most at 0 axioms)
-- ★ **213 Kernel: 101 theorems *literally 0 axiom*** (deep embedding,
-  neither propext/Quot.sound is load-bearing)
-  → Formal proof of "Lean = syntactic host, 213 = real foundation"
-  → Verify: `./tools/kernel_regress.sh`
-- *No numerical analysis* — rational arithmetic + decide
-- *Mathlib-free*
-- *Measurement falsifiers* 14+ (1 observation violation → discard, 8 of these axiom-free)
+- **0 sorry, 0 Mathlib, 0 Classical, 0 native_decide**
+- ≤ {propext, Quot.sound} (Lean 4 kernel floor; many results STRICT 0-AXIOM)
+- ★ **Kernel layer 0-axiom**: deep-embedded `Term` system; neither
+  propext nor Quot.sound is load-bearing for the kernel itself.
+  Verify: `./tools/kernel_regress.sh`
+- *No numerical analysis* — ℕ + ℚ-as-(ℕ, ℕ) only.  π via Wallis brackets,
+  ζ(2) via Basel — no transcendental hardcodes.
+- *Mathlib-free* throughout.
+- *Independent Rust verification engine* — 53 binaries, 184 tests,
+  94 Lean-theorem citations resolved at theorem-id level.
+
+## Headline results (sub-ppm physics)
+
+| Observable | DRLT | Observed | Δ |
+|---|---|---|---|
+| 1/α_em | 137.0359895 | 137.0359991 | **0.07 ppm** |
+| m_μ/m_e | 206.7682837 | 206.7682838 | **0.49 ppb** |
+| m_p | 938.271472 MeV | 938.2700 MeV | **1.56 ppm** |
+| H ionization | 13.605693 eV | 13.605693 eV | **4.3 ppb** |
+| Magic numbers 2,8,20 | exact | exact | EXACT |
+| Muon prefactor 192 | exact | 192 | EXACT |
+
+## Famous coincidences elevated to derivations
+
+| Coincidence | Year | DRLT form |
+|---|---|---|
+| 1/α_em ≈ 137 (Eddington) | 1929 | 60·ζ(2) + 30 + 25/3 + α_GUT corr. |
+| m_p/m_e ≈ 6π⁵ (Lenz) | 1951 | NS · NT · π⁵ |
+| Koide 2/3 | 1981 | NT / NS |
+| Hierarchy M_Pl/v_H | 1980s | d^(d²) / (d+1) = 5^25/6 |
+
+## Universal Lens metatheory
+
+```
+expSumLens : Lens (ℕ × ℕ)        Function.Injective expSumLens.view
+q213Lens   : Lens (Q213 × Q213)  Function.Injective q213Lens.view
+                                  (Q213 := Term × Term, 213-native ℚ)
+```
+
+Both at ≤ {propext, Quot.sound}.  Every Raw element is uniquely
+encoded as a pair of 213-native rationals via a symmetric commutative
+magma operation — the formal expression of the G1 thesis
+("213 is the precondition for any describing").
 
 ## Directory
 
 ```
-seed/            seeds (axioms + philosophy + falsifiability)
-lean/E213/       Lean 4 formal library (634 files)
-  ├── Kernel/    ★ deep-embedded 213 kernel (14 files, 101 theorems 0 axiom)
-  ├── Physics/   physics formalization (227 files)
-  ├── Research/  research / exploratory (331 files)
-  ├── Math/      mathematics (8 files)
-  ├── Firmware/  low-level layer: Raw axioms, RawLevels, RawSwap (13 files)
-  ├── OS/        atomicity + canonical structures (8 files)
-  ├── App/       applications: simplex geometry (1 file)
-  ├── Hypervisor/ cross-layer bridge (1 file)
-  ├── Infinity/  limit / compactification layer (9 files)
-  ├── Meta/      meta-theory utilities (9 files)
-  └── Tactic/    custom tactics (10 files)
-blueprints/      meta/2 + math/14 + physics/14
-books/           narrative hierarchy (math/, physics/)
-papers/          16 journal .tex papers + drlt-book/
-catalogs/        lookup tables (atomic integers, constants, periodic table, falsifiers)
-tools/           automation (audit, port_candidates, auto_port, regress, FORBIDDEN)
+seed/            axioms + philosophy + falsifiability
+lean/E213/       Lean 4 formal library (~800 files)
+  ├── Kernel/    ★ deep-embedded 213 (Term, Compare, Pair, Rat,
+  │              NormalForm)
+  ├── Firmware/  Raw (canonical-form), Lens
+  ├── Hypervisor/ Lens instances; chiral K_{3,2}^{(c=2)}
+  ├── OS/        Atomicity, PairForcing, Pigeonhole
+  ├── App/       Simplex, BaselBound, AlphaGUT, AlphaEM, ...
+  ├── Math/      Cohomology (147 files), Linalg213, Analysis
+  ├── Physics/   86 files; couplings, masses, mixing, atoms,
+  │              hadrons, nuclei, cosmology
+  ├── Research/  research / exploratory (~300 files)
+  ├── Meta/      Universal Lens metatheory + variants
+  ├── Infinity/  limit / compactification
+  └── Tactic/    custom tactics
+rust-engine/     Independent ℕ-only verification (53 binaries,
+                 184 tests, 94 citations)
+blueprints/      math/14 + physics/14 + meta/2 (status snapshots)
+books/           narrative hierarchy
+  └── math/      analysis213 + number-theory-213 + cohomology-213
+                 + linalg-213
+  └── physics/   periodic-table + (more in rust-engine docs)
+papers/          archived journal-style .tex papers
+catalogs/        lookup tables (atomic integers, constants,
+                 periodic table, falsifiers)
+tools/           automation (audit, regress, FORBIDDEN)
 research-notes/  research notes
-```
-
-## Usage
-
-```lean
-import E213.Physics.Phase4.Library
-
-open E213.Physics.Phase4.Library.IELibrary
-
-#check IE_H_micro       -- 13598434 μeV (4.3 ppb formal)
 ```
 
 ## Build
@@ -65,22 +100,22 @@ open E213.Physics.Phase4.Library.IELibrary
 ```bash
 cd lean/
 lake build E213
+# → ≤ {propext, Quot.sound}, no Mathlib, no Classical, no sorry
 ```
 
-## Key Results
+## Math books
 
-### Physics
-- 1/α_em = 137.036 (ppm, 5-term simplicial sum)
-- m_p = 938.27 MeV (0.000% lattice precision)
-- m_μ/m_e = 206.768 (0.48 ppb)
-- Ω_Λ = 0.685 (0.0008%)
-- Magic numbers 7/7 exact
-- Periodic table 113 + 5 super-heavy atomic
+```
+books/math/
+├── analysis213.md        Undergraduate year-1 calculus (100%)
+├── number-theory-213.md  Pell, Pisano CRT, Legendre lens,
+│                          Universal Lens metatheory
+├── cohomology-213.md     K_{3,2}^{(c=2)}, Δ⁴ Leibniz,
+│                          Hodge ⋆⋆, fractal α_GUT
+└── linalg-213.md         Paper 1 Chiral Compression (rank ≤ 5)
+```
 
-### Math
-- Undergraduate calculus 100% (Real213 Phase J→DK)
-- 213-native derivative = cohomological flux
-- exp(0), sin(0), cos(0) atomic
+See `books/math/INDEX.md` for reading order.
 
 ## Authors
 
@@ -95,8 +130,8 @@ Check the license before use.
 
 | Scope | License | Meaning |
 |---|---|---|
-| `lean/`, `tools/`, `.claude/` (code) | **PolyForm Noncommercial 1.0.0** | Free academic/non-commercial use & modification; commercial use *prohibited* |
-| `book/`, `papers/`, `blueprints/`, `seed/`, `catalogs/`, `books/`, `research-notes/` (prose) | **CC BY-NC-ND 4.0** | Attribution + non-commercial + *no derivatives* |
+| `lean/`, `tools/`, `.claude/`, `rust-engine/` (code) | **PolyForm Noncommercial 1.0.0** | Free academic/non-commercial use & modification; commercial use *prohibited* |
+| `books/`, `papers/`, `blueprints/`, `seed/`, `catalogs/`, `research-notes/` (prose) | **CC BY-NC-ND 4.0** | Attribution + non-commercial + *no derivatives* |
 
 Details: [`LICENSE`](LICENSE) (code) · [`LICENSE-DOCS`](LICENSE-DOCS) (prose)
 

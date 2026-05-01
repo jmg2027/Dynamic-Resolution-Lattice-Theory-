@@ -452,7 +452,7 @@ theorem zero_plus_gap_below_zero_exact :
   refine ⟨?_, ?_⟩
   · rw [alwaysTrueUnit_limit_value 0 k, Nat.mul_zero]
     show decide (k ≤ 0) = false
-    exact decide_eq_false (by omega)
+    exact decide_eq_false (Nat.not_le_of_lt hk)
   · show decide (0 * k ≤ 1 * 0) = true
     rw [Nat.zero_mul, Nat.mul_zero]
     rfl

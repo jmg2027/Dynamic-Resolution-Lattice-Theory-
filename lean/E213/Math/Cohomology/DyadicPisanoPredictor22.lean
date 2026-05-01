@@ -28,9 +28,9 @@ period coincides iff no Frobenius-stable proper subgroup.
 namespace E213.Math.Cohomology.DyadicConjecture
 
 theorem legendre_5_mod_79 :
-    legendre213 5 79 (by omega) = ⟨1, by decide⟩ := by decide
+    legendre213 5 79 (by decide) = ⟨1, by decide⟩ := by decide
 
 theorem legendre_5_mod_89 :
-    legendre213 5 89 (by omega) = ⟨1, by decide⟩ := by decide
+    legendre213 5 89 (by decide) = ⟨1, by decide⟩ := by decide
 
 end E213.Math.Cohomology.DyadicConjecture

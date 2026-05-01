@@ -53,7 +53,7 @@ theorem pellFSMmod89_bits_period_44 :
   intro k
   have h1 := pellFSMmod89_bits_period_22 (k + 22)
   have h2 := pellFSMmod89_bits_period_22 k
-  have hreshape : k + 44 = (k + 22) + 22 := by omega
+  have hreshape : k + 44 = (k + 22) + 22 := rfl
   rw [hreshape, h1, h2]
 
 end E213.Math.Cohomology.DyadicConjecture

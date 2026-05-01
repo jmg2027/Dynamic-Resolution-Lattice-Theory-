@@ -62,17 +62,29 @@ namespace E213.OS.PairForcing
 /-- Helper: in ℕ, `a * b = 1` with `a ≥ 1` and `b ≥ 1` forces `a = 1 ∧ b = 1`. -/
 private theorem mul_eq_one_of_pos (a b : Nat) (ha : 1 ≤ a) (hb : 1 ≤ b)
     (h : a * b = 1) : a = 1 ∧ b = 1 := by
-  constructor
-  · by_contra hne
-    have ha2 : 2 ≤ a := by omega
-    have : 2 * b ≤ a * b := Nat.mul_le_mul_right b ha2
-    have : 2 * b ≤ 1 := h ▸ this
-    omega
-  · by_contra hne
-    have hb2 : 2 ≤ b := by omega
-    have : a * 2 ≤ a * b := Nat.mul_le_mul_left a hb2
-    have : a * 2 ≤ 1 := h ▸ this
-    omega
+  refine ⟨?_, ?_⟩
+  · cases a with
+    | zero => omega
+    | succ n =>
+      cases n with
+      | zero => rfl
+      | succ m =>
+        exfalso
+        have hge : 2 * b ≤ (m + 2) * b :=
+          Nat.mul_le_mul_right b (by omega : 2 ≤ m + 2)
+        have : 2 * b ≤ 1 := h ▸ hge
+        omega
+  · cases b with
+    | zero => omega
+    | succ n =>
+      cases n with
+      | zero => rfl
+      | succ m =>
+        exfalso
+        have hge : a * 2 ≤ a * (m + 2) :=
+          Nat.mul_le_mul_left a (by omega : 2 ≤ m + 2)
+        have : a * 2 ≤ 1 := h ▸ hge
+        omega
 
 /-- Arithmetic fact: ⌊p/2⌋ = 1 iff p ∈ {2, 3}, for p ≥ 2. -/
 private theorem div_two_eq_one_iff (p : Nat) (hp : 2 ≤ p) :

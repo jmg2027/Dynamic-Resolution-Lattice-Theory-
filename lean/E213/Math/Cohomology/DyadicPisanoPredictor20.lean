@@ -28,12 +28,12 @@ These 2 sub-tight remain isolated up to p=73.
 namespace E213.Math.Cohomology.DyadicConjecture
 
 theorem legendre_5_mod_67 :
-    legendre213 5 67 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 67 (by decide) = ⟨2, by decide⟩ := by decide
 
 theorem legendre_5_mod_71 :
-    legendre213 5 71 (by omega) = ⟨1, by decide⟩ := by decide
+    legendre213 5 71 (by decide) = ⟨1, by decide⟩ := by decide
 
 theorem legendre_5_mod_73 :
-    legendre213 5 73 (by omega) = ⟨2, by decide⟩ := by decide
+    legendre213 5 73 (by decide) = ⟨2, by decide⟩ := by decide
 
 end E213.Math.Cohomology.DyadicConjecture
