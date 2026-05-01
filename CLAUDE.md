@@ -123,11 +123,17 @@ metrics.
      files gets an INDEX.md or README.md naming convention notes,
      "what lives here", "where to add new".
   8. **The vertical-vs-horizontal axis tension is real.**  Kernel/,
-     Firmware/, OS/, Hypervisor/, Meta/, App/, Tactic/, Tools/ are
-     vertical (dependency layers).  Math/, Physics/, Research/ are
-     horizontal (topical).  When in doubt: vertical layer takes
+     Firmware/, Hypervisor/, Meta/, App/, Tactic/, Tools/, Infinity/
+     are vertical (dependency layers).  Math/, Physics/, Research/
+     are horizontal (topical).  When in doubt: vertical layer takes
      precedence (foundation files belong in their layer dir, even
-     if they happen to be "math" or "physics").
+     if they happen to be "math" or "physics").  Canonical
+     definitions in `lean/E213/ARCHITECTURE.md`.
+
+     Note: `OS/` was retired (2026-05-XX) — its files were either
+     forced-shape-uniqueness proofs (moved to `Firmware/Atomicity/`)
+     or universal Fin pigeonhole infra (moved to `Math/Pigeonhole.lean`).
+     There is no genuine "OS layer" between Firmware and Hypervisor.
 
 ### When deletion is right
 
@@ -194,19 +200,30 @@ OPERATIONAL:
 
 ### Lean Library Structure (`lean/E213/`)
 
+> Canonical layer definitions in `lean/E213/ARCHITECTURE.md`.
+
 ```
-Kernel/      ★ 14 files, 101 theorems literally 0 axiom (deep embedding)
-Firmware/    Raw axiom layer (Raw, RawLevels, RawSwap)
-OS/          Atomicity + canonical structures
-Hypervisor/  cross-layer bridge
-App/         applications
-Physics/     267 files (currently flat + Phase{2,3,4}/ — pending topical reorg)
-Research/    332 files (Real213 marathon + dyadic predictors + exploratory)
-Math/        211 files (Cohomology/ in 10 sub-clusters, Linalg213/, Cauchy/)
-Meta/        meta-theory utilities
-Tactic/      custom tactics
+Kernel/      ★ 14 files, 101 theorems literally 0 axiom
+             (Lean-side scaffolding for running 213)
+Firmware/    Raw axiom (4-clause) + Atomicity/ sub-cluster
+             (forced shape uniqueness; pure-ℕ proofs that don't
+             import Raw — they prove Raw's shape is forced)
+Hypervisor/  Lens framework (catamorphism Raw → α) +
+             Lens/{Instances, Characterisation}/ sub-clusters
+Meta/        true metatheory (UniversalLens family, SelfRecognising
+             R1-R4 hierarchy, BitPatternUniqueness, RawInductionDemo)
+App/         applications (Simplex)
+Physics/     267 files in 18 topical sub-clusters (AlphaEM, Couplings,
+             Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology, Atomic,
+             Simplex, Basel, FamousCoincidences, YangMills, Capstones,
+             Library, Substrate, AtomicCorrespondences, Foundations)
+Research/    332 files in 17 sub-clusters (Real213/ marathon = 180 of
+             those, CayleyDickson, Lens, Cauchy, ModArith, Kernel, ...)
+Math/        211 files (Cohomology/ in 10 sub-clusters, Linalg213/,
+             Cauchy/Real213-plumbing, Pigeonhole)
+Tactic/      custom tactics (Omega213, VerifyR4, ...)
 Infinity/    limit / compactification (mostly 213-external bridges)
-Tools/       Lean tooling
+Tools/       Lean tooling (CertChecker)
 ```
 
 (Counts as of 2026-05-01.  Earlier CLAUDE.md versions listed

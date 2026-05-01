@@ -27,9 +27,9 @@ infinity는 213 cut-algebra를 *깨뜨림*이 증명됨.
 - `Real213DyadicTrajectory.zero_plus_gap_below_zero_exact`
   (0-axiom): limit-cut < exact-cut at every (0, k≥1) query —
   `InfinitesimalGap` is *structural*, not numerical.
-- `Real213CutInv.cutDiv` 주석: cutMul + cutInv 결합 시
+- `Real213.CutInv.cutDiv` 주석: cutMul + cutInv 결합 시
   *boundary precision artifact* 발생 (infinity-flavored ops).
-- `Real213CutMulConstSum`, `Real213CutSumGeneral`: forward direction
+- `Real213.CutMulConstSum`, `Real213.CutSumGeneral`: forward direction
   만 닫힘 — backward는 같은 gap 때문에 깨짐.
 
 **즉**: 213이 finite N_U에 머무는 건 *공리적 stipulation*이 아니라
@@ -119,8 +119,9 @@ CD layer = ZI = ℤ[i].  Higher (Lipschitz, Cayley, Sedenion)는
 3. slash_comm — PROVEN theorem
 4. IsAlive parity definition
 
-NS=3, NT=2, d=5는 **derived theorems** (`atomic_iff_five`,
-`count_eq_one_iff` in OS/PairForcing.lean).  Lean kernel 기준
+NS=3, NT=2, d=5는 **derived theorems** (`atomic_iff_five` in
+`Firmware/Atomicity/Five.lean`, `count_eq_one_iff` in
+`Firmware/Atomicity/PairForcing.lean`).  Lean kernel 기준
 0개 axiom (host axioms 별개).
 
 **가드레일**: "the four axioms NS=3 NT=2 d=5 c=2"는 잘못.
@@ -225,9 +226,9 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `seed/PHILOSOPHY.md` — 213 철학
 - `lean/E213/Physics/FiniteUniverse.lean` — finitist 입장
 - `lean/E213/Physics/AlphaEMMasterCapstone.lean` — α_em 닫힘
-- `lean/E213/Physics/NUniverseFractalDepth.lean` — N_U = d^(d²)
-- `lean/E213/Meta/AxiomMinimality.lean` — 4-clause minimality
-- `lean/E213/OS/PairForcing.lean` — (NS,NT,d) derivation
+- `lean/E213/Physics/Foundations/NUniverseFractalDepth.lean` — N_U = d^(d²)
+- `lean/E213/Research/AxiomMinimalityCapstone.lean` — 4-clause minimality
+- `lean/E213/Firmware/Atomicity/PairForcing.lean` — (NS,NT,d) derivation
 - `guide/01_substrate.md` — substrate 도출 path
 - `guide/15_metalogic.md` — falsifiability + R4 framework
 

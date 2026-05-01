@@ -69,12 +69,12 @@ Quick navigation for major Lean capstones.  Updated 2026-05-01.
 
 ## Substrate / metalogic
 
-- `OS/Atomicity.atomic_iff_five` — d=5 unique
-- `OS/PairForcing.pair_forcing` — (2,3) coprime pair unique
-- `Research/AxiomMinimality.raw_minimality_capstone` — 4 clauses essential
-- `Meta/UniversalLens.universal_lens_capstone` — universal lens existence
+- `Firmware/Atomicity/Five.atomic_iff_five` — d=5 unique
+- `Firmware/Atomicity/PairForcing.pair_forcing` — (2,3) coprime pair unique
+- `Research/AxiomMinimalityCapstone.raw_minimality_capstone` — 4 clauses essential
+- `Meta/UniversalLens/Core.universal_lens_capstone` — universal lens existence
 - `Meta/SelfRecognising` — R12/R3/R4Codomain hierarchy
-- `Meta/BoolLens.boolXorLens_not_homomorphism` — XOR fails R4
+- `Hypervisor/Lens/Instances/Bool.boolXorLens_not_homomorphism` — XOR fails R4
 
 ## Falsifiability
 
@@ -96,13 +96,13 @@ Must-read for new sessions:
 ```
 lean/E213/
   Kernel/    — deep-embedded 213 kernel (101 thms, 0 axiom)
-  Firmware/  — Raw axiom layer (a, b, slash, slash_comm)
-  OS/        — Atomicity + PairForcing (d=5, (NS,NT)=(3,2))
-  Hypervisor/— Lens framework
-  Meta/      — Universal Lens, AxiomMinimality, R4Codomain
-  Math/      — math (Cohomology, Linalg)
-  Physics/   — physics formalization
-  Research/  — exploratory proofs
+  Firmware/  — Raw axiom (a, b, slash, slash_comm) +
+               Atomicity/ (d=5, (NS,NT)=(3,2) forced uniqueness)
+  Hypervisor/— Lens framework + Lens/{Instances, Characterisation}/
+  Meta/      — UniversalLens, SelfRecognising R1-R4, BitPatternUniqueness
+  Math/      — math (Cohomology, Linalg, Pigeonhole)
+  Physics/   — physics formalization (18 sub-clusters)
+  Research/  — exploratory proofs (17 sub-clusters)
   Infinity/  — limit/compactification
   App/       — applications
   Tactic/    — custom tactics

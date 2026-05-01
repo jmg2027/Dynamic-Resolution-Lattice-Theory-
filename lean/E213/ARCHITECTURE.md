@@ -115,15 +115,10 @@ spec is R1-R4 hierarchy", "Raw bit patterns are unique".
 
   `Meta/RawInductionDemo.lean` — induction principle demo for Raw.
 
-**Currently misplaced** (pending move to Hypervisor/Lens/Instances/):
-
-  `Meta/Lens/{Bool,Path,Max,Parity,ZMod6}.lean` — concrete Lens
-    *instances* (BoolLens, PathLens, etc.).  These are *uses* of
-    Lens, not claims about Lens — belong in Hypervisor.
-
-  `Meta/Lens/{Catalog,Characterisation,CUniquenessBridge}.lean` —
-    Lens-level characterisations.  Borderline; will move to
-    Hypervisor/Lens/Characterisation/ for cleaner separation.
+(Concrete Lens instances and Lens-level characterisations that
+previously lived in `Meta/Lens/` were migrated to
+`Hypervisor/Lens/Instances/` and `Hypervisor/Lens/Characterisation/`
+respectively — see §3 Q3.  Meta/ is now pure metatheory.)
 
 **Imports**: Hypervisor (uses Lens type) → so dependency-wise
 above Hypervisor.
@@ -246,17 +241,18 @@ so co-locating with Physics/ aids discoverability.
 Decision: leave in Physics/Capstones/ for now.  If App/ grows
 substantively (more applications), revisit.
 
-### Q3. Meta/ concrete-Lens-instance cleanup
+### Q3. Meta/ concrete-Lens-instance cleanup ✅ RESOLVED 2026-05-XX
 
-`Meta/Lens/{Bool,Path,Max,Parity,ZMod6}.lean` are concrete Lens
-instances, not metatheory.  Plan: move to
-`Hypervisor/Lens/Instances/`.  Pending.
+Concrete Lens instances `{Bool, Path, Max, Parity, ZMod6}.lean`
+were moved out of `Meta/Lens/` to `Hypervisor/Lens/Instances/`
+(they are uses of Lens, not claims about Lens).
 
-`Meta/Lens/{Catalog,Characterisation,CUniquenessBridge}.lean` are
-borderline (Lens-level characterisations).  Plan: move to
-`Hypervisor/Lens/Characterisation/`.  Pending.
+Lens-level characterisations `{Catalog, Characterisation,
+CUniquenessBridge}.lean` were moved to `Hypervisor/Lens/Characterisation/`.
 
-After these moves, Meta/ contains only true metatheorems.
+`Meta/` now contains only true metatheorems: `UniversalLens/` (11
+files), `SelfRecognising.lean`, `BitPatternUniqueness.lean`,
+`RawInductionDemo.lean`.
 
 ### Q4. Research/ layer-mixed sub-clusters
 

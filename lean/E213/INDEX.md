@@ -15,18 +15,22 @@ body of work or derived artifacts.
 ```
 Kernel/      ★ deep-embedded 213 kernel (literally 0 axiom)
   ↓
-Firmware/    Raw axiom layer (a, b, slash, slash_comm)
+Firmware/    Raw axiom (a, b, slash, slash_comm)
+             + Atomicity/ (forced shape uniqueness — d=5, (NS,NT)=(3,2)
+                            proven from outside, no Raw import)
   ↓
-OS/          Atomicity (d=5) + canonical structures (PairForcing → NS=3, NT=2)
+Hypervisor/  Lens framework + Lens/{Instances, Characterisation}/
   ↓
-Hypervisor/  Lens framework (cross-layer bridge)
+Meta/        true metatheory: UniversalLens family, SelfRecognising
+             (R1-R4 hierarchy), BitPatternUniqueness, RawInductionDemo
   ↓
-Meta/        Universal Lens, AxiomMinimality, R4Codomain hierarchy
-  ↓
-Math/        formalized math (Cohomology, Linalg)
-Physics/     formalized physics (267 files)
-Research/    exploratory + Real213 marathon (332 files)
+Math/        formalized math (Cohomology, Linalg, Pigeonhole)
+Physics/     formalized physics (267 files, 18 sub-clusters)
+Research/    exploratory + Real213 marathon (332 files, 17 sub-clusters)
 ```
+
+See `ARCHITECTURE.md` (this directory) for canonical theoretical
+definitions of each layer.
 
 ## Layer roles
 
@@ -68,14 +72,15 @@ Top achievements:
 
 | Question | Where to look |
 |---|---|
-| "What does DRLT compute?" | `Physics/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
-| "How does α_em derive?" | `Physics/AlphaEM*.lean` chain (5 files) |
-| "Where is N_universe?" | `Physics/NUniverseFractalDepth.lean` |
-| "Why finite N only?" | `Research/Real213DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` 교훈 1 |
-| "What are the atomic primitives?" | `OS/Atomicity.lean` + `OS/PairForcing.lean` |
+| "What does DRLT compute?" | `Physics/Capstones/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
+| "How does α_em derive?" | `Physics/AlphaEM/` chain (18 files) |
+| "Where is N_universe?" | `Physics/Foundations/NUniverseFractalDepth.lean` |
+| "Why finite N only?" | `Research/Real213/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` 교훈 1 |
+| "What are the atomic primitives?" | `Firmware/Atomicity/Five.lean` + `Firmware/Atomicity/PairForcing.lean` |
 | "How is the kernel 0-axiom?" | `Kernel/` 14 files + `tools/kernel_regress.sh` |
-| "Cohomology classes?" | `Math/Cohomology/` (147 files) + `rust-engine/docs/cohomology-classes.md` |
-| "Lens framework?" | `Hypervisor/` + `Meta/UniversalLens*.lean` |
+| "Cohomology classes?" | `Math/Cohomology/` (175 files in 10 sub-clusters) + `rust-engine/docs/cohomology-classes.md` |
+| "Lens framework?" | `Hypervisor/Lens.lean` + `Hypervisor/Lens/{Instances,Characterisation}/` + `Meta/UniversalLens/` |
+| "Theoretical architecture?" | `ARCHITECTURE.md` (this directory) |
 
 ## Build
 
@@ -117,16 +122,20 @@ Pending:
   - Native213 deeper: Nat.div_* avoidance via `q*n + r = x ∧ r < n`
     decomposition
 
-Hands-off layers (well-organized): Kernel, Firmware, OS, Hypervisor,
+Hands-off layers (well-organized): Kernel, Firmware (with
+Atomicity/), Hypervisor (with Lens/{Instances,Characterisation}/),
 App, Meta, Tactic, Tools, Infinity.
 
-Still under the lens (potential future work):
-  - `Physics/Phase{2,3,4}/` topical decomposition (currently 121
-    flat at Physics/ root + 91 in Phase3/ + 52 in Phase4/ + 13 in
-    Phase2/)
-  - `Physics/Phase4/Library/` 27 small "X Library" stubs (each
-    ≤50 lines) candidates for consolidation into a single
-    `Phase4/Catalog.lean` or topical bundles
+Architecture audits (completed 2026-05-XX):
+  - OS/ dissolved (was a misnomer) — atomicity proofs migrated to
+    Firmware/Atomicity/, Pigeonhole to Math/Pigeonhole.lean
+  - Phase{2,3,4} retired — Substrate/, AtomicCorrespondences/,
+    distributed across topical clusters
+  - Phase4/Library kept as 27 separate per-topic stubs (the earlier
+    27→6 merge was reverted as bad-for-modularity)
+  - Meta/Lens concrete instances → Hypervisor/Lens/Instances/;
+    characterisations → Hypervisor/Lens/Characterisation/
+  - namespace ↔ path alignment via tools/sync_namespaces.py
   - `Math/Cohomology/` 19 flat-root utility files — small enough
     they might fold into existing sub-clusters or stay at root
 
