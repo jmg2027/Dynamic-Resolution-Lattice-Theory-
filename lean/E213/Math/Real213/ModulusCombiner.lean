@@ -1,3 +1,4 @@
+import E213.Math.Max213
 import E213.Math.Real213.Core
 import E213.Math.Modulus.HasModulus
 
@@ -64,13 +65,13 @@ def combineModulus {xs ys : Nat → Raw}
     show orderProj m k (abLens.view (combine (xs i) (ys i)))
        = orderProj m k (abLens.view (combine (xs j) (ys j)))
     have hi_x : i ≥ mod_x.N (mc.precX m k).1 (mc.precX m k).2 :=
-      Nat.le_trans (Nat.le_max_left _ _) hi
+      Nat.le_trans (E213.Math.Max213.le_max_left _ _) hi
     have hi_y : i ≥ mod_y.N (mc.precY m k).1 (mc.precY m k).2 :=
-      Nat.le_trans (Nat.le_max_right _ _) hi
+      Nat.le_trans (E213.Math.Max213.le_max_right _ _) hi
     have hj_x : j ≥ mod_x.N (mc.precX m k).1 (mc.precX m k).2 :=
-      Nat.le_trans (Nat.le_max_left _ _) hj
+      Nat.le_trans (E213.Math.Max213.le_max_left _ _) hj
     have hj_y : j ≥ mod_y.N (mc.precY m k).1 (mc.precY m k).2 :=
-      Nat.le_trans (Nat.le_max_right _ _) hj
+      Nat.le_trans (E213.Math.Max213.le_max_right _ _) hj
     have hx := mod_x.cauchy_at (mc.precX m k).1 (mc.precX m k).2
                  (mc.precX_k_pos m k hk) i j hi_x hj_x
     have hy := mod_y.cauchy_at (mc.precY m k).1 (mc.precY m k).2

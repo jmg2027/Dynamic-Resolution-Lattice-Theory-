@@ -77,6 +77,16 @@ theorem add_sub_add_right (a k b : Nat) : (a + k) - (b + k) = a - b :=
     (Nat.add_comm k b) ▸ (Nat.add_comm k a) ▸ rfl
   h1.trans (add_sub_add_left k a b)
 
+/-- `(a + b) * c = a * c + b * c`.  ∅-axiom replacement for
+    `Nat.add_mul` (Lean-core proof brings propext).  Term-mode
+    via `Nat.mul_comm` + `Nat.mul_add`. -/
+theorem add_mul (a b c : Nat) : (a + b) * c = a * c + b * c :=
+  let h1 : (a + b) * c = c * (a + b) := Nat.mul_comm (a + b) c
+  let h2 : c * (a + b) = c * a + c * b := Nat.mul_add c a b
+  let h3 : c * a + c * b = a * c + b * c :=
+    (Nat.mul_comm c a) ▸ (Nat.mul_comm c b) ▸ rfl
+  h1.trans (h2.trans h3)
+
 /-- `a + b ≤ c → a ≤ c - b`.  ∅-axiom replacement. -/
 theorem le_sub_of_add_le {a b c : Nat} (h : a + b ≤ c) : a ≤ c - b :=
   let h1 : (a + b) - b ≤ c - b := Nat.sub_le_sub_right h b

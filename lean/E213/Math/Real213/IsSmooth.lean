@@ -1,3 +1,4 @@
+import E213.Math.Max213
 import E213.Math.Real213.CutFnData
 import E213.Math.Real213.Dyadic
 import E213.Math.Real213.CutSumDetermined
@@ -125,20 +126,20 @@ def addLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
       apply hagree
       · exact Nat.le_trans hm''
           (Nat.le_trans (maxRange_ge sf.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (Nat.le_max_left _ _))
+            hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_left _ _))
       · exact Nat.le_trans hk''
           (Nat.le_trans (maxRange_ge sf.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (Nat.le_max_left _ _))
+            hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_left _ _))
     · intro m' hm'
       apply sg.prop
       intro m'' k'' hm'' hk''
       apply hagree
       · exact Nat.le_trans hm''
           (Nat.le_trans (maxRange_ge sg.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (Nat.le_max_right _ _))
+            hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_right _ _))
       · exact Nat.le_trans hk''
           (Nat.le_trans (maxRange_ge sg.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (Nat.le_max_right _ _))
+            hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_right _ _))
     · exact Nat.le_refl _
 
 /-- **Pointwise sum of smooth is smooth**.  Per user's Phase J Sec 2:
@@ -176,20 +177,20 @@ def mulLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
       apply hagree
       · exact Nat.le_trans hm''
           (Nat.le_trans (maxRange_ge sf.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (Nat.le_max_left _ _))
+            hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_left _ _))
       · exact Nat.le_trans hk''
           (Nat.le_trans (maxRange_ge sf.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (Nat.le_max_left _ _))
+            hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_left _ _))
     · intro m' hm'
       apply sg.prop
       intro m'' k'' hm'' hk''
       apply hagree
       · exact Nat.le_trans hm''
           (Nat.le_trans (maxRange_ge sg.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (Nat.le_max_right _ _))
+            hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_right _ _))
       · exact Nat.le_trans hk''
           (Nat.le_trans (maxRange_ge sg.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (Nat.le_max_right _ _))
+            hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_right _ _))
     · exact Nat.le_refl _
 
 /-- **Pointwise product of smooth is smooth**.  Per user's Phase J Sec 2:
