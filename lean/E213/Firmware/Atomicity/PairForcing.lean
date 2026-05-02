@@ -1,4 +1,5 @@
 import E213.Firmware.Atomicity.Five
+import E213.Kernel.Tactic.Mod213
 
 /-!
 # Pair Forcing: (2, 3) is the unique coprime pair with a unique atomic n
@@ -32,8 +33,10 @@ open Nat
 /-- n decomposes as p*a + q*b. -/
 def Decomp (p q n a b : Nat) : Prop := n = p * a + q * b
 
-/-- Alive: both parts odd (positive). -/
-def IsAlive (a b : Nat) : Prop := a % 2 = 1 ∧ b % 2 = 1
+/-- Alive: both parts odd (positive).  213-native via cohomological
+    parity (Mod213.parity) — matches Five.IsAlive. -/
+def IsAlive (a b : Nat) : Prop :=
+  E213.Tactic.Mod213.parity a = true ∧ E213.Tactic.Mod213.parity b = true
 
 /-- n is atomic under atom pair (p, q): unique decomp AND alive. -/
 def Atomic (p q n : Nat) : Prop :=
