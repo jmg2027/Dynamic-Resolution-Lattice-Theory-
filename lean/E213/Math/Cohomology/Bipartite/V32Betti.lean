@@ -22,6 +22,8 @@ This re-establishes `PhotonKernel.b_1_eq_8` at full cochain level.
 
 namespace E213.Math.Cohomology.Bipartite.V32Betti
 
+open E213.Math.Cohomology.Bipartite.V32 (CochV CochE delta0)
+
 /-- The i-th vertex cochain via binary encoding. -/
 def cochVAt (i : Nat) : CochV := fun j => (i / 2^j.val) % 2 == 1
 

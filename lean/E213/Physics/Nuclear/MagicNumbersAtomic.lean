@@ -63,26 +63,26 @@ theorem so_shift_pronic_atomic :
 
 /-- ★★★★★ Magic 28 = HO_4 − NS·(d-1) shift = 40 − 12. -/
 theorem magic_28_atomic :
-    Magic.ho_magic 4 - NS * (d - 1) = 28
-    ∧ Magic.ho_magic 4 = 40                  -- HO at level 4
+    E213.Physics.Nuclear.MagicNumbers.ho_magic 4 - NS * (d - 1) = 28
+    ∧ E213.Physics.Nuclear.MagicNumbers.ho_magic 4 = 40                  -- HO at level 4
     ∧ NS * (d - 1) = 12 := by decide         -- f-shell shift
 
 /-- ★★★★★ Magic 50 = HO_5 − (d-1)·d = 70 − 20. -/
 theorem magic_50_atomic :
-    Magic.ho_magic 5 - (d - 1) * d = 50
-    ∧ Magic.ho_magic 5 = 70
+    E213.Physics.Nuclear.MagicNumbers.ho_magic 5 - (d - 1) * d = 50
+    ∧ E213.Physics.Nuclear.MagicNumbers.ho_magic 5 = 70
     ∧ NT * d * d = 50 := by decide           -- alt: NT · d²
 
 /-- ★★★★★ Magic 82 = HO_6 − d·(d+1) = 112 − 30. -/
 theorem magic_82_atomic :
-    Magic.ho_magic 6 - d * (d + 1) = 82
-    ∧ Magic.ho_magic 6 = 112
+    E213.Physics.Nuclear.MagicNumbers.ho_magic 6 - d * (d + 1) = 82
+    ∧ E213.Physics.Nuclear.MagicNumbers.ho_magic 6 = 112
     ∧ NT * d * d + 2 ^ d = 82 := by decide   -- alt: NT·d² + 2^d
 
 /-- ★★★★★ Magic 126 = HO_7 − (d+1)·(d+2) = 168 − 42. -/
 theorem magic_126_atomic :
-    Magic.ho_magic 7 - (d + 1) * (d + 2) = 126
-    ∧ Magic.ho_magic 7 = 168
+    E213.Physics.Nuclear.MagicNumbers.ho_magic 7 - (d + 1) * (d + 2) = 126
+    ∧ E213.Physics.Nuclear.MagicNumbers.ho_magic 7 = 168
     ∧ NT * (NT ^ (d + 1) - 1) = 126 := by decide   -- alt: 2·63
 
 /-! ### All 7 nuclear magic numbers — atomic master capstone -/
@@ -105,7 +105,7 @@ theorem nuclear_magic_atomic_capstone :
     -- Magic 20 = (d-1)·d
     ∧ (d - 1) * d = 20
     -- Magic 28 = HO₄ - NS·(d-1) = 40 - 12
-    ∧ Magic.ho_magic 4 - NS * (d - 1) = 28
+    ∧ E213.Physics.Nuclear.MagicNumbers.ho_magic 4 - NS * (d - 1) = 28
     -- Magic 50 = NT · d²
     ∧ NT * d * d = 50
     -- Magic 82 = NT·d² + 2^d
