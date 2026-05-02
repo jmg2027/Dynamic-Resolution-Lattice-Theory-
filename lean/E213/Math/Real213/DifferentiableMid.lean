@@ -68,7 +68,8 @@ theorem midSquareCube_modulus (k : Nat) :
   show max (squareIsDifferentiable.linearityModulus k)
            (cubeIsDifferentiable.linearityModulus k) = 3 * k
   rw [squareIsDifferentiable_modulus, cubeIsDifferentiable_modulus]
-  exact Nat.max_eq_right (by omega)
+  -- 2*k ≤ 3*k via Nat.mul_le_mul_right.
+  exact Nat.max_eq_right (Nat.mul_le_mul_right k (Nat.le_succ 2))
 
 /-- Concrete: mid(id, x²) modulus = max(k, 2k) = 2k. -/
 def midIdSquareIsDifferentiable :
@@ -80,7 +81,10 @@ theorem midIdSquare_modulus (k : Nat) :
     midIdSquareIsDifferentiable.linearityModulus k = 2 * k := by
   show max k (squareIsDifferentiable.linearityModulus k) = 2 * k
   rw [squareIsDifferentiable_modulus]
-  exact Nat.max_eq_right (by omega)
+  -- k ≤ 2*k via 1*k ≤ 2*k.
+  exact Nat.max_eq_right
+    (Nat.le_trans (Nat.le_of_eq (Nat.one_mul k).symm)
+      (Nat.mul_le_mul_right k (Nat.le_succ 1)))
 
 /-- Phase AL capstone: mid combinator + concrete instances. -/
 theorem midpoint_capstone (k : Nat) :

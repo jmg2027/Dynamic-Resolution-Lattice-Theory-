@@ -50,6 +50,22 @@ open E213.Math.Real213.DifferentiableHighOrder
    hexadecicIsDifferentiable
    nonicIsDifferentiable_modulus decicIsDifferentiable_modulus
    dodecicIsDifferentiable_modulus hexadecicIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableAffine
+  (affineIsDifferentiable squarePlusIdIsDifferentiable
+   cubePlusSquareIsDifferentiable
+   affineIsDifferentiable_modulus squarePlusIdIsDifferentiable_modulus
+   cubePlusSquareIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableMid
+  (midIsDifferentiable midSquareCubeIsDifferentiable midIdSquareIsDifferentiable
+   midSquareCube_modulus midIdSquare_modulus)
+open E213.Math.Real213.DifferentiableCompose
+  (squareOfSquareIsDifferentiable squareOfCubeIsDifferentiable
+   cubeOfSquareIsDifferentiable
+   squareOfSquare_modulus squareOfCube_modulus cubeOfSquare_modulus)
+open E213.Math.Real213.DerivativeDepth
+  (cutPowFnIsDifferentiable_modulus cutPowFn_derivative_modulus)
+open E213.Math.Real213.DyadicTrajectory
+  (alwaysTrueUnit_limit_distinct_from_zero ConsistentOracle.alwaysTrueUnit)
 
 /-- **Phase AN omega capstone**: 13-fact bundle spanning AC-AM. -/
 theorem phaseAN_omega_capstone (n a b k : Nat) (x : Nat → Nat → Bool) :
