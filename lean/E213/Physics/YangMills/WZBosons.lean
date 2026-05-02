@@ -1,4 +1,4 @@
-import E213.Physics.YangMills.Gap.WeinbergAngle
+import E213.Physics.YangMills.WeinbergAngle
 
 /-!
 # W/Z mass ratio — cos²θ_W structural form (0 axioms)

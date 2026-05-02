@@ -1,5 +1,5 @@
 import E213.Physics.Substrate
-import E213.Physics.YangMills.Gap.WZBosons
+import E213.Physics.YangMills.WZBosons
 import E213.Physics.Simplex.Counts
 
 /-!

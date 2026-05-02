@@ -10,6 +10,9 @@ via iff existential characterization + Nat arithmetic on bounds.
 namespace E213.Math.Real213.CutMulOne
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutMulComm (cutMulOuter_eq_true_iff cutMul_comm)
 
 private theorem bool_eq_of_iff_true_v3 (a b : Bool)
     (h : a = true ↔ b = true) : a = b := by
