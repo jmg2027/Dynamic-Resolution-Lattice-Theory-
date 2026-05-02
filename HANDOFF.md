@@ -76,6 +76,15 @@ Progress (cumulative across sessions):
     before continuing).
   - Pre-existing namespace mismatches surfaced and fixed in many
     files across 4 commits (eae6bb6, 0f21381, 0941595).
+  - **Raw.slash itself ∅-axiom** (commit 206bb2e) — the foundational
+    trajectory primitive cleaned at source.  Replaced `simp` with
+    `unfold + rw + rfl` chain; replaced iff destructors
+    (`cmp_eq_iff.mp`, `cmp_gt_iff_lt_swap.mp`) with new direct
+    one-direction lemmas (`cmp_eq_to_eq`, `cmp_gt_to_lt_swap`)
+    in `Firmware/Raw/Cmp.lean`.  **Cascade effect**: NoDepthParity
+    went 0/10 → 10/10 ∅-axiom *automatically without file edit*;
+    Alive went auto-clean.  Many more downstream consumers expected
+    to follow.  Demonstrates G2 trajectory principle in action.
 
 Remaining: hundreds of files.  Each requires:
   1. Replace `omega` / `simp` / `simpa` with 213-native equivalents.
@@ -239,6 +248,8 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+206bb2e  Firmware/Raw.slash: ∅-axiom — propext-free smart constructor
+         (cascades: NoDepthParity 10/10, Alive 2/2 auto-clean)
 3987709  PhaseChiralBridge: chiralPair + table — usable d=5 anchor
 49170f0  G4 + Math/Trajectory/PhaseChiralBridge: d=5 chiral/phase duality
 1488bce  Nat213: absorb le_of_mul_le_mul_right helper from MonotonicBounded
