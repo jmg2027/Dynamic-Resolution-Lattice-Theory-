@@ -1,4 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ForwardPeriodicity
+import E213.Kernel.Tactic.Nat213
 
 /-!
 # Forward closure: bits periodic ⇒ signature eventually periodic
@@ -48,35 +49,43 @@ theorem sub_is_multiple_of_p (i j p : Nat) (hp : 0 < p)
   rw [Nat.mul_comm] at h2
   exact h2.symm
 
-/-- ★★★ Forward direction: bits periodic ⇒ signature eventually periodic. -/
+/-- ∅-axiom replacement for `Nat.sub_pos_of_lt`. -/
+private theorem sub_pos_of_lt_213_local : ∀ {a b : Nat}, a < b → 0 < b - a
+  | 0, _, h => by rw [Nat.sub_zero]; exact h
+  | _+1, 0, h => absurd h (Nat.not_succ_le_zero _)
+  | _+1, _+1, h => by
+    rw [Nat.succ_sub_succ_eq_sub]
+    exact sub_pos_of_lt_213_local (Nat.lt_of_succ_lt_succ h)
+
+/-- ★★★ Forward direction: bits periodic ⇒ signature eventually periodic.
+    STRICT ∅-AXIOM. -/
 theorem signature_eventually_periodic_of_periodic_bits
     (bs : Nat → Bool) (p : Nat) (hp : 0 < p)
     (hbs : ∀ n, bs (n + p) = bs n) :
     ∃ N P, 0 < P ∧ ∀ n, n ≥ N → signature bs (n + P) = signature bs n := by
   obtain ⟨i, _, j, _, hij, hsig, hmod⟩ := joint_state_collision bs p hp
-  refine ⟨i, j - i, by omega, ?_⟩
+  refine ⟨i, j - i, sub_pos_of_lt_213_local hij, ?_⟩
   obtain ⟨k, hk⟩ := sub_is_multiple_of_p i j p hp (Nat.le_of_lt hij) hmod
   intro n hn
-  -- Induction on (n - i)
-  obtain ⟨d, rfl⟩ : ∃ d, n = i + d := ⟨n - i, (Nat.add_sub_cancel' hn).symm⟩
+  obtain ⟨d, rfl⟩ : ∃ d, n = i + d :=
+    ⟨n - i, (E213.Tactic.Nat213.add_sub_of_le hn).symm⟩
   clear hn
+  have hij_le : i ≤ j := Nat.le_of_lt hij
+  have hij_eq : i + (j - i) = j := E213.Tactic.Nat213.add_sub_of_le hij_le
   induction d with
   | zero =>
     show signature bs (i + 0 + (j - i)) = signature bs (i + 0)
-    rw [Nat.add_zero, Nat.add_comm i (j - i), Nat.sub_add_cancel (Nat.le_of_lt hij)]
+    rw [Nat.add_zero, hij_eq]
     exact hsig.symm
   | succ d' ih =>
     show signature bs (i + (d' + 1) + (j - i)) = signature bs (i + (d' + 1))
+    have hidx : i + (d' + 1) + (j - i) = (i + d' + (j - i)) + 1 :=
+      Nat.succ_add (i + d') (j - i)
     have h1 : signature bs (i + (d' + 1) + (j - i))
                 = nextVertex (signature bs (i + d' + (j - i)))
-                    (bs (i + d' + (j - i))) := by
-      have hidx : i + (d' + 1) + (j - i) = (i + d' + (j - i)) + 1 := by omega
-      rw [hidx]; rfl
+                    (bs (i + d' + (j - i))) := by rw [hidx]; rfl
     have h2 : signature bs (i + (d' + 1))
-                = nextVertex (signature bs (i + d')) (bs (i + d')) := by
-      show signature bs (i + d' + 1)
-            = nextVertex (signature bs (i + d')) (bs (i + d'))
-      rfl
+                = nextVertex (signature bs (i + d')) (bs (i + d')) := rfl
     rw [h1, h2, ih]
     congr 1
     rw [hk]

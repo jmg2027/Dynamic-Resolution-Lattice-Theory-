@@ -1,4 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3Equiv
+import E213.Math.NatDiv213
 
 /-!
 # ArithFSM3.toBitFSM bits equivalence + signature period bound
@@ -16,6 +17,7 @@ open E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3Equiv (toBitFSM3_run_encode encode3_div_nn_pub encode3_inner_div_pub encode3_mod_n)
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (tribFSMmod2)
 open E213.Math.Cohomology.Dyadic.BitFSM.Bound (fsm_signature_period_bound)
+open E213.Math.Cohomology.Dyadic.Signature (signature_eq_of_pointwise_eq)
 
 
 /-- ★★★★ ArithFSM3.toBitFSM bit stream equals original. -/
@@ -32,12 +34,11 @@ theorem toBitFSM3_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) :
     rw [hv]; exact encode3_inner_div_pub hn _ _ _
   have hvc : ((ArithFSM3.toBitFSM hn m).run k).val % n = (m.run k).2.2.val := by
     rw [hv]; exact encode3_mod_n _ _ _
-  let aDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k).val / (n * n), by
-    have : n * n * n = n * (n * n) := Nat.mul_assoc n n n
-    exact (Nat.div_lt_iff_lt_mul hnn).mpr (by omega)⟩
-  let bDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k).val % (n * n) / n, by
-    exact (Nat.div_lt_iff_lt_mul hn).mpr (by
-      have := Nat.mod_lt ((ArithFSM3.toBitFSM hn m).run k).val hnn; omega)⟩
+  let aDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k).val / (n * n),
+    E213.Math.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
+  let bDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k).val % (n * n) / n,
+    E213.Math.NatDiv213.div_lt_of_lt_mul
+      (Nat.mod_lt ((ArithFSM3.toBitFSM hn m).run k).val hnn)⟩
   let cDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k).val % n, Nat.mod_lt _ hn⟩
   have hdec : (aDec, bDec, cDec)
               = ((m.run k).1, (m.run k).2.1, (m.run k).2.2) := by
@@ -59,11 +60,16 @@ theorem arithFSM3_signature_period_bound {n : Nat} (hn : 0 < n)
     fsm_signature_period_bound (ArithFSM3.toBitFSM hn m) hnnn
   refine ⟨N, P, hP, hbound, ?_⟩
   intro k hk_ge
-  have hbits_fn_eq : (ArithFSM3.toBitFSM hn m).bits = m.bits :=
-    funext (toBitFSM3_bits_eq hn m)
+  have h_pt : ∀ j, (ArithFSM3.toBitFSM hn m).bits j = m.bits j :=
+    toBitFSM3_bits_eq hn m
   have ⟨h_sig, _⟩ := hk k hk_ge
-  rw [hbits_fn_eq] at h_sig
-  exact h_sig
+  have h1 : signature (ArithFSM3.toBitFSM hn m).bits (k + P)
+              = signature m.bits (k + P) :=
+    signature_eq_of_pointwise_eq _ _ h_pt (k + P)
+  have h2 : signature (ArithFSM3.toBitFSM hn m).bits k
+              = signature m.bits k :=
+    signature_eq_of_pointwise_eq _ _ h_pt k
+  exact h1.symm.trans (h_sig.trans h2)
 
 /-- ★★★★★★ Tribonacci mod-2 signature: explicit period bound 40 = 5·8. -/
 theorem tribFSMmod2_signature_period_bound :
