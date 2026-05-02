@@ -129,3 +129,41 @@ theorem mod6_mod3 : ∀ n, mod3 (mod6 n) = mod3 n
   | n + 6 => mod6_mod3 n
 
 end E213.Tactic.Mod213
+
+namespace E213.Tactic.Mod213
+
+/-! ### parity bridge lemmas — addition + powers of 2
+
+Bridges connecting `parity` to additive (XOR) and multiplicative
+(powers of 2) cohomology.  Used to replace Lean's well-founded
+`% 2` arithmetic — which brings `propext` via `Nat.mul_mod_left`
+and friends.  Kernel-pure: no `rw` / `simp` / `decide`; only
+`Eq.subst` (`▸`), `cases`, structural induction, and term-mode.
+-/
+
+/-- Additive cohomology character: `parity (n + m) = parity n ⊕ parity m`.
+    Expresses `parity : ℕ → ℤ/2` as a group homomorphism. -/
+theorem parity_add : ∀ n m : Nat, parity (n + m) = (parity n != parity m)
+  | n, 0     => by show parity n = (parity n != false); cases parity n <;> rfl
+  | n, 1     => by
+      show parity (n + 1) = (parity n != true)
+      have hps : parity (n + 1) = !parity n := parity_succ n
+      have aux : (!parity n) = (parity n != true) := by cases parity n <;> rfl
+      exact hps.trans aux
+  | n, m + 2 => parity_add n m
+
+/-- `parity (2^0) = parity 1 = true`.  Single base case. -/
+@[simp] theorem parity_pow_two_zero : parity (2^0) = true := rfl
+
+/-- `parity (2^(k+1)) = false`.  Trajectory completed at least one
+    half-cycle, so cohomological residue is 0.  Term-mode via
+    `Nat.pow_succ` then `Nat.mul_comm` cast. -/
+theorem parity_pow_two_succ (k : Nat) : parity (2^(k+1)) = false :=
+  Nat.pow_succ 2 k ▸ Nat.mul_comm 2 (2^k) ▸ parity_double (2^k)
+
+/-- `parity (2^k) = false` whenever `k ≥ 1`. -/
+theorem parity_pow_two_pos : ∀ (k : Nat), 0 < k → parity (2^k) = false
+  | 0,     h => absurd h (Nat.lt_irrefl 0)
+  | j + 1, _ => parity_pow_two_succ j
+
+end E213.Tactic.Mod213

@@ -56,6 +56,11 @@ All theorems in these modules are individually verified ∅-axiom.
   - `mod6_step`, `mod6_lt_six`
   - **`mod6_parity`**     `parity (mod6 n) = parity n`  (CRT half 1)
   - **`mod6_mod3`**       `mod3   (mod6 n) = mod3 n`    (CRT half 2)
+  - **`parity_add`**      `parity (n+m) = parity n != parity m`  (XOR group hom)
+  - `parity_pow_two_zero` `parity (2^0) = true`
+  - **`parity_pow_two_succ`** `parity (2^(k+1)) = false`
+  - **`parity_pow_two_pos`**  `0 < k → parity (2^k) = false`
+                              (replaces `% 2 = 0` for power-of-2 reasoning)
 
 ## Migrated files (∅-axiom verified)
 
