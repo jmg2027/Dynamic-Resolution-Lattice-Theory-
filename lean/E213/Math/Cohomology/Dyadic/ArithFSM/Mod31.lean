@@ -15,7 +15,7 @@ signature period 30 (doubled by bipartite parity coupling).
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod31
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

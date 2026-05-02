@@ -17,7 +17,7 @@ transcendental streams in the Tier hierarchy *via the ArithFSM lens*.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Hardness
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 
 
 /-- ★★★★★ Aperiodic ⇒ no ArithFSM2 generates it (any modulus). -/

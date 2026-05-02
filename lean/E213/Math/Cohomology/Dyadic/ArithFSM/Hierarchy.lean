@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V1to2
-import E213.Math.Cohomology.Dyadic.ArithFSM.V2to3
+import E213.Math.Cohomology.Dyadic.ArithFSMto3
 
 /-!
 # ArithFSM hierarchy — algebraic degree tower
@@ -25,7 +25,7 @@ For the streams we have:
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Hierarchy
 
 open E213.Math.Cohomology.Dyadic.ArithFSM.V1 (ArithFSM1)
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
 
 

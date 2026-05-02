@@ -23,7 +23,7 @@ in terms of trajectory state-space dimension.
 namespace E213.Math.Cohomology.Dyadic.AlgebraicDegree
 
 open E213.Math.Cohomology.Dyadic.ArithFSM.V1 (ArithFSM1)
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendreFSM)
 

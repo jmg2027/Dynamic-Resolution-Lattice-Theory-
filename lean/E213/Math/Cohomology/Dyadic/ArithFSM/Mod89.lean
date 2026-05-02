@@ -23,7 +23,7 @@ subgroups in Pell trajectory.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod89
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 
 
 def pellFSMmod89 : ArithFSM2 89 where

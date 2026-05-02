@@ -14,7 +14,7 @@ explicit period ≤ 5n² (via `fsm_signature_period_bound`).
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

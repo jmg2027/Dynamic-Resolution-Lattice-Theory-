@@ -19,7 +19,7 @@ in which a stream appears = its 213-native algebraic degree.
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V1to2
 
 open E213.Math.Cohomology.Dyadic.ArithFSM.V1 (ArithFSM1)
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 
 
 /-- Pad ArithFSM₁(n) into ArithFSM₂(n) by adding an inert

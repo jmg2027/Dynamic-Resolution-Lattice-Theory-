@@ -25,7 +25,7 @@ framework, distinct from Pell and Fibonacci.
 
 namespace E213.Math.Cohomology.Dyadic.LucasFSMmod5
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 
 
 /-- Lucas-style FSM mod 5. -/

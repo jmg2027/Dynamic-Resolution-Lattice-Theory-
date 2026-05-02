@@ -19,7 +19,7 @@ both quadratic and cubic algebraic classes.
 
 namespace E213.Math.Cohomology.Dyadic.AlgebraicCapstone
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 

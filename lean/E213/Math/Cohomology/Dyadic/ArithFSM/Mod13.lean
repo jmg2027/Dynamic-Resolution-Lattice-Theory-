@@ -20,7 +20,7 @@ also 14 (no parity doubling needed).
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod13
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

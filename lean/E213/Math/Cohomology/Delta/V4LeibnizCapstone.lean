@@ -44,9 +44,9 @@ theorem delta4_leibniz_capstone :
          delta (cupAW 5 2 2 α β) i
            = xor (cupAW 5 3 2 (delta α) β i)
                  (cupAW 5 2 3 α (delta β) i)) :=
-  ⟨CupAWLeibniz.leibniz_universal_5_1_1,
-   CupAWLeibniz12Final.leibniz_universal_5_1_2,
-   CupAWLeibniz21Final.leibniz_universal_5_2_1,
-   CupAWLeibniz22Final.leibniz_universal_5_2_2⟩
+  ⟨E213.Math.Cohomology.CupAW.Leibniz.leibniz_universal_5_1_1,
+   E213.Math.Cohomology.CupAW.Leibniz12Final.leibniz_universal_5_1_2,
+   E213.Math.Cohomology.CupAW.Leibniz21Final.leibniz_universal_5_2_1,
+   E213.Math.Cohomology.CupAW.Leibniz22Final.leibniz_universal_5_2_2⟩
 
 end E213.Math.Cohomology.Delta.V4LeibnizCapstone

@@ -15,7 +15,7 @@ specific Frobenius structure.  Now confirmed at p ∈ {29, 89, 101}.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod101
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 
 
 def pellFSMmod101 : ArithFSM2 101 where

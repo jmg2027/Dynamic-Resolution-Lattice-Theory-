@@ -10,7 +10,7 @@ Fibonacci predict: 2(p+1) = 36.  TIGHT.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod17
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

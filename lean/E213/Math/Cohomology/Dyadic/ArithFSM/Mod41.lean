@@ -15,7 +15,7 @@ Fifth SPLIT instance (after p=11, 19, 29, 31).  Bit period 20
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod41
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

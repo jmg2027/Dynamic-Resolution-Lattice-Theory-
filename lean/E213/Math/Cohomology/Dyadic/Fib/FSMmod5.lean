@@ -13,7 +13,7 @@ This reflects the special degeneracy of the discriminant at ramification.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod5
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

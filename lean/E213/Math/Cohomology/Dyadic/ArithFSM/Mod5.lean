@@ -17,7 +17,7 @@ still gives a "moderate" period vs naive |state|² bound).
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 
 
 /-- Pell-style FSM mod 5: (a_{k+1}, b_{k+1}) = (2a + b, a + b) mod 5. -/

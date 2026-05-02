@@ -25,7 +25,7 @@ squared — eigenvalues 1±√2 (units of ℤ[√2]) instead of φ²/ψ².
 
 namespace E213.Math.Cohomology.Dyadic.Pell.Proper
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
 
 

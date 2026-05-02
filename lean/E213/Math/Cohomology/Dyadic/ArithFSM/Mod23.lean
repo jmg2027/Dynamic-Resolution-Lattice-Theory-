@@ -15,7 +15,7 @@ all four sizes.  Bit period 24 (even); signature period 24.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod23
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

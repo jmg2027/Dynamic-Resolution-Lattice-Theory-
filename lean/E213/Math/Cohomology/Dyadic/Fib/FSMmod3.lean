@@ -25,7 +25,7 @@ identity* in the 213 atomic framework.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod3
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

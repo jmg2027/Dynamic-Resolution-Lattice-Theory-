@@ -19,7 +19,7 @@ All conjuncts at ≤ {propext, Quot.sound}.
 
 namespace E213.Math.Cohomology.Dyadic.Pell.Capstone
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

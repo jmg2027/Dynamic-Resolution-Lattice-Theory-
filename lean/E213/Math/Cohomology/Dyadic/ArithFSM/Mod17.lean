@@ -17,7 +17,7 @@ signature period also 18.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 

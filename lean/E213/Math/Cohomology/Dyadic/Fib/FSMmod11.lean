@@ -13,7 +13,7 @@ signature period 10 (no doubling, even bit period).
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod11
 
-open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 
