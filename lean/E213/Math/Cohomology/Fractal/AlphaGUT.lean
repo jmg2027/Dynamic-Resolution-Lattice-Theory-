@@ -38,15 +38,15 @@ theorem numerator_eq_b1_K5 :
 
 /-- α_GUT denominator integer = numV of 2-level fractal K_{25}. -/
 theorem denominator_eq_numV_fractal :
-    (25 : Nat) = Fractal25.numV
-    ∧ Fractal25.numV = d * d := by
+    (25 : Nat) = E213.Math.Cohomology.Fractal.V25.numV
+    ∧ E213.Math.Cohomology.Fractal.V25.numV = d * d := by
   refine ⟨rfl, ?_⟩
-  exact Fractal25.numV_eq_d_sq
+  exact E213.Math.Cohomology.Fractal.V25.numV_eq_d_sq
 
 /-- Atomic factorization of K_{25} edge count: 300 = c·NS·NT·d²,
     where (c, NS, NT, d) = (2, 3, 2, 5).  Proven by decide. -/
 theorem fractal_edge_atomic :
-    Fractal25.numE = 2 * 3 * 2 * 5 * 5 := by decide
+    E213.Math.Cohomology.Fractal.V25.numE = 2 * 3 * 2 * 5 * 5 := by decide
 
 /-- ★ Bridge: α_GUT structural identification.
       6  = b_1(K_5)           = numerator
@@ -56,7 +56,7 @@ theorem fractal_edge_atomic :
     which matches `Physics.AlphaGUT` (Basel-sum bracket). -/
 theorem alpha_GUT_fractal_form :
     -- 25 = numV(fractal level 2)
-    Fractal25.numV = 25
+    E213.Math.Cohomology.Fractal.V25.numV = 25
     -- 6 is numerator of α_GUT, also the K_5 cycle count
     ∧ (10 - 5 + 1 : Nat) = 6
     -- Relation: 25π² / 6 = 1/α_GUT (asymptotic)
