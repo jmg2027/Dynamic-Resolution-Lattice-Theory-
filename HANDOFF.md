@@ -55,6 +55,27 @@ is *transitive* via `omega` / `simp` / `funext`, which the
 ongoing `omega213` / `Mod213` / `Nat213` / `Fin213` migration
 already attacks.
 
+**Capstone audit (post-cascade clean, commit 6487a82)**:
+Three top-level capstones now `#print axioms` → "does not
+depend on any axioms":
+
+  - `E213.Math.Cohomology.Capstone.cohomology_213_marathon`
+    (full Phase CA-CE chain: δ²=0, ⋆⋆=id, kernel sizes,
+     Leibniz, cup unit, K_{3,2}^{(2)} Betti b_1 = NS² − 1)
+  - `E213.Physics.Capstones.PureAtomicObservables`
+     `.pure_atomic_observables_capstone`
+    (atom-derived observable predictions)
+  - `E213.Physics.Capstones.ValidationStandardOne`
+     `.validation_standard_capstone`
+    (DRLT validation criterion: precision computed value
+     matches observation; the central physics-track claim)
+
+These are STRICT ∅-axiom (stronger than the DRLT-allowed
+`{propext, Quot.sound}` baseline).  This is the central
+verification claim of DRLT: the physics observable predictions
+are kernel-checked theorems without recourse to any non-
+constructive axiom.
+
 **Mod213 extension (commit 5b24cb4)**: added 4 ∅-axiom parity
 bridge lemmas — kernel-pure (no rw/simp/decide; only `Eq.subst`
 (`▸`), `cases`, structural recursion, term-mode):
@@ -346,6 +367,12 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+6487a82  Final capstone unblocking: all 3 capstones STRICT ∅-AXIOM
+         (cohomology_213_marathon, pure_atomic_observables_capstone,
+          validation_standard_capstone)
+7cc0930  Final cluster: Physics + remaining Cohomology unblocked
+         — full lake build clean
+43e99c3  HANDOFF: Real213 cluster unblocked recorded
 c0b2e6d  Real213 cluster: open-gap fixes unblock 14 files
 60bfe62  HANDOFF: Cohomology cascade unblocked
 5d1cc62  Cohomology/CupAW + EncodingBijection: open-gap cascade
