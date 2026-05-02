@@ -55,6 +55,21 @@ is *transitive* via `omega` / `simp` / `funext`, which the
 ongoing `omega213` / `Mod213` / `Nat213` / `Fin213` migration
 already attacks.
 
+**Mod213 extension (commit 5b24cb4)**: added 4 ∅-axiom parity
+bridge lemmas — kernel-pure (no rw/simp/decide; only `Eq.subst`
+(`▸`), `cases`, structural recursion, term-mode):
+  - `parity_add` — XOR rule:
+      `parity (n+m) = parity n != parity m`  (group hom ℕ → ℤ/2)
+  - `parity_pow_two_zero` — `parity (2^0) = true`
+  - `parity_pow_two_succ` — `parity (2^(k+1)) = false`
+  - `parity_pow_two_pos`  — `0 < k → parity (2^k) = false`
+
+These unblock `Meta/BitPatternUniqueness.lean` and any other
+file that would otherwise need Lean's well-founded `% 2` (which
+brings propext via `Nat.mul_mod_left` etc.).  Pattern: replace
+`x % 2 = 0` with `parity x = false`, `x % 2 = 1` with
+`parity x = true`.
+
 Progress (cumulative across sessions):
   - 213-native helpers in `Kernel/Tactic/` — modularized by topic
     (one coherent concern per file):
@@ -250,6 +265,14 @@ was migrated.  Future axiom-elimination work is **purely
 transitive** — kill `omega` / `simp` / `funext` via 213-native
 helpers and the rest cascade-cleans.
 
+**Pre-staged bridges for next session** (commit 5b24cb4):
+`Mod213.parity_add`, `parity_pow_two_succ`, `parity_pow_two_pos`.
+With these in hand, `Meta/BitPatternUniqueness.lean` is the
+natural next migration target — replace `% 2` by `parity` and
+ride the new bridges.  The file's other axiom leaks (omega +
+Nat.pow_le_pow_right + Nat.dvd_sub + Nat.le_of_dvd + Nat.pow_dvd_pow)
+remain to be replaced by 213-native versions.
+
 ### B. Extend Nat213 catalog (high-leverage)
 
 Pre-build commonly-needed 213-native versions of:
@@ -301,6 +324,8 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+5b24cb4  Mod213: parity_add + parity_pow_two_{zero,succ,pos} (4 ∅)
+a513176  HANDOFF: G5 + ArityForcingGeneral milestone
 7408433  ArityForcingGeneral: Classical.choice → ∅-axiom (G5 §3)
 eba9587  G5: 213-Lean as sub-language of Lean (research note)
 25d4832  HANDOFF: Tree.swap + PairForcing + Substrate cascade
