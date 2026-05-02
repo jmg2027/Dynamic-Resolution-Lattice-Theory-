@@ -84,20 +84,21 @@ are scheduled for migration in priority order.  Each entry lists the
 specific blocker(s); cleanup requires non-trivial refactor at the
 listed root, not just leaf-level edits.
 
-  1. **`ForwardPeriodicity.pigeonhole_collision`** root — uses
-     `Decidable.byContradiction` over a bounded existential, which
-     pulls `propext` via `Decidable` instance synthesis even when all
-     direct dependencies (`no_inj_lt`, `Fin.ext`, `Nat.lt_or_ge`,
-     `decide_eq_true`) are individually PURE.  *Concrete obstruction
-     identified 2026-05-02*: simply replacing leaves doesn't help —
-     `Decidable.byContradiction` itself, applied to the existential
-     goal, brings `propext + Quot.sound`.  Cleanup requires rewriting
-     `pigeonhole_collision` as a constructive recursive search
-     (returning `Σ` witness directly, not via byContradiction).
-     Blocks ~30 downstream theorems including
-     `BitFSM.Bound.fsm_signature_period_bound`,
+  1. ~~**`ForwardPeriodicity.pigeonhole_collision`** root — uses
+     `Decidable.byContradiction` ...~~ ✔ CLOSED (2026-05-02 part 4):
+     replaced with constructive `searchInner`/`searchOuter`
+     recursive Σ-search.  No `Decidable.byContradiction` anywhere.
+     Cascade unblocked: `BitFSM.Bound.fsm_signature_period_bound`,
      `arithFSM2_signature_period_bound`, `Pell.Capstone`,
-     `Trib.Capstone`, `AlgebraicCapstone`, `Tier2Hardness`.
+     `Trib.Capstone`, `AlgebraicCapstone`, `Tier2Hardness`,
+     `ArithFSM.Hardness`, `ArithFSM.V3{toBitFSM, Equiv, Bound,
+     Hardness}` — all PURE.  ~25+ downstream theorems flipped.
+
+     Remaining lower-priority DIRTY in this neighbourhood:
+     `ForwardClosure.sub_is_multiple_of_p` (needs ∅-axiom
+     `Nat.add_mod` replacement), and downstream
+     `signature_eventually_periodic_of_periodic_bits` and
+     `BitFSM.fsm_signature_eventually_periodic` chain.
 
   2. ~~**`Hodge.Prop51-54`** — `funext` in `pattern_eq`.~~ ✔ CLOSED
      (2026-05-02): rewrote each `hodge_sq_prop_5_k` to bypass

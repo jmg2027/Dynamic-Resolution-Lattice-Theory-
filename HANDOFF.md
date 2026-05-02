@@ -1,5 +1,51 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★ Latest cascade (2026-05-02 part 4): pigeonhole_collision unblocked
+
+**~25 capstones flipped DIRTY → PURE in one batch**, after rewriting
+`ForwardPeriodicity.pigeonhole_collision` as constructive Σ-search:
+
+- Constructive replacement: `searchInner`/`searchOuter` recursive
+  PSum (Σ-witness ∨ proof-of-no-collision) over all (i, j) pairs.
+  No `Decidable.byContradiction` (which pulled propext+Quot.sound
+  from instance synthesis).
+- Helpers exported (`collTest_imp_val_eq`, `encode_inj`) for reuse.
+
+Cascade-cleaned PURE:
+- `ForwardPeriodicity.{pigeonhole_collision, joint_state_collision}`
+- `BitFSM.Bound.{fsm_joint_collision, fsm_signature_period_bound}`
+  (also fixed `Nat.sub_pos_of_lt`, `Nat.add_sub_cancel'`)
+- `BitFSM.{fsm_run_collision, fsm_run_eventually_periodic,
+  fsm_bits_eventually_periodic}`
+- `ArithFSM.ToBitFSM.arithFSM2_signature_period_bound +
+  pellFSMmod5_signature_period_bound`
+- `ArithFSM.Mod7/11.pellFSMmod*_signature_period_bound`
+- `ArithFSM.V3{Equiv, toBitFSM, Bound, Hardness}` all theorems
+- `ArithFSM.Hardness.{aperiodic_bits_imp_not_ArithFSM2,
+  ArithFSM2_generable_imp_eventually_periodic}`
+- `Tier2Hardness.{aperiodic_bits_imp_not_BitFSM,
+  aperiodic_bits_imp_no_BitFSM,
+  BitFSM_generable_imp_eventually_periodic}`
+- `ForwardEventual.{bs_periodic_multiple_from, jointStateAt,
+  joint_state_collision_at}`
+- `Pell.Capstone.pell_capstone`
+- `Trib.Capstone.tribonacci_capstone`
+- `AlgebraicCapstone.algebraic_tier1_capstone`
+
+Foundational cleanups landed:
+- `add_mul_213` (private) replacing Lean-core `Nat.add_mul`
+- `sub_pos_of_lt_213` (private, in 3 files) replacing
+  `Nat.sub_pos_of_lt`
+- `Nat213.add_sub_of_le` for `Nat.add_sub_cancel'` cleanup
+
+CLAUDE.md migration backlog #1 retired.
+
+Cumulative session: **~110+ strict ∅-axiom theorems** above prior
+baseline.
+
+Commits: `e119fd2` (pigeonhole core + immediate cascade),
+`ad1f0c9` (V3 cluster + Pell/Trib/Algebraic capstones).
+
 ## Latest cleanup batch (2026-05-02 part 3): Hodge involution
 
 **13 strict ∅-axiom theorems closed in `Math/Cohomology/Hodge/`**:
