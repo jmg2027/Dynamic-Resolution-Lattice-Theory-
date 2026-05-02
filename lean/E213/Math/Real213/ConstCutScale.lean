@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 
@@ -22,9 +23,9 @@ theorem constCut_scale (a b c : Nat) (hc : c ≥ 1) :
   by_cases h : a*k ≤ b*m
   · have h' : (a*c)*k ≤ (b*c)*m := by
       have e1 : (a*c)*k = c*(a*k) := by
-        rw [Nat.mul_comm a c, Nat.mul_assoc]
+        rw [Nat.mul_comm a c, E213.Tactic.Nat213.mul_assoc]
       have e2 : (b*c)*m = c*(b*m) := by
-        rw [Nat.mul_comm b c, Nat.mul_assoc]
+        rw [Nat.mul_comm b c, E213.Tactic.Nat213.mul_assoc]
       rw [e1, e2]
       exact Nat.mul_le_mul_left c h
     rw [decide_eq_true h, decide_eq_true h']
@@ -32,9 +33,9 @@ theorem constCut_scale (a b c : Nat) (hc : c ≥ 1) :
       intro habs
       apply h
       have e1 : (a*c)*k = c*(a*k) := by
-        rw [Nat.mul_comm a c, Nat.mul_assoc]
+        rw [Nat.mul_comm a c, E213.Tactic.Nat213.mul_assoc]
       have e2 : (b*c)*m = c*(b*m) := by
-        rw [Nat.mul_comm b c, Nat.mul_assoc]
+        rw [Nat.mul_comm b c, E213.Tactic.Nat213.mul_assoc]
       rw [e1, e2] at habs
       exact Nat.le_of_mul_le_mul_left habs hc
     rw [decide_eq_false h, decide_eq_false h']

@@ -2,6 +2,7 @@ import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.CutSumOne
 import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.ConstCutScale
+import E213.Kernel.Tactic.Nat213
 
 /-!
 # Research.Real213DyadicRiemann: dyadic Riemann sample-sum trajectory
@@ -94,7 +95,7 @@ theorem riemannSampleSum_constCut (a b : Nat) (db : DyadicBracket) :
     rw [cutSum_self]
     show constCut (2 * (2^n * a)) b = constCut (2^(n+1) * a) b
     have h : 2 * (2^n * a) = 2^(n+1) * a := by
-      rw [Nat.pow_succ, Nat.mul_comm (2^n) 2, Nat.mul_assoc]
+      rw [Nat.pow_succ, Nat.mul_comm (2^n) 2, E213.Tactic.Nat213.mul_assoc]
     rw [h]
 
 /-- **Riemann sum of zero function** = 0 at every depth. -/
@@ -239,7 +240,8 @@ theorem riemann_const_doubling (a b : Nat) (db : DyadicBracket) (n : Nat) :
   rw [cutSum_self]
   show constCut (2^(n+1) * a) b = constCut (2 * (2^n * a)) b
   congr 1
-  rw [Nat.pow_succ, Nat.mul_assoc, Nat.mul_left_comm]
+  rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc,
+      E213.Tactic.Nat213.mul_left_comm]
 
 /-! ### R2: Riemann sums at higher depths (8, 10) -/
 

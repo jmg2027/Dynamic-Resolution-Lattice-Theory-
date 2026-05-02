@@ -147,6 +147,16 @@ theorem mul_assoc : ∀ (a b c : Nat), a * b * c = a * (b * c)
       congrArg (· + a * b) ih
     lhs_eq.trans (Nat.mul_add a (b * c) b).symm
 
+/-- `a * (b * c) = b * (a * c)`.  ∅-axiom replacement for
+    `Nat.mul_left_comm` (Lean-core proof brings propext).  Term-mode
+    via `mul_assoc` + `Nat.mul_comm` + `Eq.subst` only. -/
+theorem mul_left_comm (a b c : Nat) : a * (b * c) = b * (a * c) :=
+  let s1 : a * (b * c) = a * b * c := (mul_assoc a b c).symm
+  let s2 : a * b * c = b * a * c :=
+    (Nat.mul_comm a b) ▸ (rfl : a * b * c = a * b * c)
+  let s3 : b * a * c = b * (a * c) := mul_assoc b a c
+  s1.trans (s2.trans s3)
+
 /-! ### Multiplicative cancellation + distributivity -/
 
 /-- Right-cancellation under positive multiplier (Lean-core has only

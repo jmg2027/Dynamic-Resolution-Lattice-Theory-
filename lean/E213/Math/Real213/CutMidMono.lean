@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.ValidCutOps
 import E213.Math.Real213.CutPoset
 
@@ -38,14 +39,14 @@ theorem cutLe_a_cutMid_at (a b : Nat → Nat → Bool)
   by_cases hcase : i ≤ 2*m
   · have hratio : i * k ≤ m * (2*k) := by
       have e : m * (2*k) = 2*m*k := by
-        rw [← Nat.mul_assoc, Nat.mul_comm m 2]
+        rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m 2]
       rw [e]
       exact Nat.mul_le_mul_right k hcase
     exact hra.ratioMono i (2*k) m k h_2k hratio hai
   · have h_4m_i : 2*(2*m) - i ≤ 2*m := by omega
     have hratio : (2*(2*m) - i) * k ≤ m * (2*k) := by
       have e : m * (2*k) = 2*m*k := by
-        rw [← Nat.mul_assoc, Nat.mul_comm m 2]
+        rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m 2]
       rw [e]
       exact Nat.mul_le_mul_right k h_4m_i
     exact hra.ratioMono (2*(2*m) - i) (2*k) m k h_2k hratio ha2
@@ -68,7 +69,7 @@ theorem cutLe_cutMid_b_at (a b : Nat → Nat → Bool)
       apply hrb.ratioMono m k (2*m) (2*k) hk
       · -- m * (2k) ≤ (2m) * k.  Both = 2mk.
         have e1 : m * (2*k) = 2*m*k := by
-          rw [← Nat.mul_assoc, Nat.mul_comm m 2]
+          rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m 2]
         have e2 : (2*m) * k = 2*m*k := rfl
         rw [e1, e2]
         exact Nat.le_refl _
@@ -79,7 +80,7 @@ theorem cutLe_cutMid_b_at (a b : Nat → Nat → Bool)
     rw [heq]
     apply hrb.ratioMono m k (2*m) (2*k) hk
     · have e1 : m * (2*k) = 2*m*k := by
-        rw [← Nat.mul_assoc, Nat.mul_comm m 2]
+        rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m 2]
       have e2 : (2*m) * k = 2*m*k := rfl
       rw [e1, e2]
       exact Nat.le_refl _

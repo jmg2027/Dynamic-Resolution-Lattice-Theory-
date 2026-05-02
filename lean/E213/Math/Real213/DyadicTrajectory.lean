@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.ConsistentOracle
 
@@ -88,7 +89,7 @@ theorem alwaysFalse_numB (n : Nat) (db : DyadicBracket) :
        = 2^(k+1) * db.numB
     rw [alwaysFalse_step, ih]
     show 2^k * (2 * db.numB) = 2^(k+1) * db.numB
-    rw [Nat.pow_succ, Nat.mul_assoc]
+    rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc]
 
 /-- **alwaysTrue trajectory: numA scales as 2^n × initial.numA**. -/
 theorem alwaysTrue_numA (n : Nat) (db : DyadicBracket) :
@@ -102,7 +103,7 @@ theorem alwaysTrue_numA (n : Nat) (db : DyadicBracket) :
        = 2^(k+1) * db.numA
     rw [alwaysTrue_step, ih]
     show 2^k * (2 * db.numA) = 2^(k+1) * db.numA
-    rw [Nat.pow_succ, Nat.mul_assoc]
+    rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc]
 
 /-! ### Unit bracket trajectory corollaries
 

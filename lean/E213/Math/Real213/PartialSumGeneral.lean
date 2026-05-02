@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.CutSeries
 import E213.Math.Real213.CutSumGeneral
 
@@ -65,14 +66,14 @@ theorem partialSum_const_b_forward (a b : Nat) :
     rw [h_rhs] at h_add
     have h_lhs : (n*a)*(2*k) + a*(2*k) = 2 * ((n+1) * a * k) := by
       have e1 : (n*a)*(2*k) = 2*((n*a)*k) := by
-        rw [Nat.mul_comm (n*a), Nat.mul_assoc, Nat.mul_comm k]
+        rw [Nat.mul_comm (n*a), E213.Tactic.Nat213.mul_assoc, Nat.mul_comm k]
       have e2 : a*(2*k) = 2*(a*k) := by
-        rw [Nat.mul_comm a, Nat.mul_assoc, Nat.mul_comm k]
+        rw [Nat.mul_comm a, E213.Tactic.Nat213.mul_assoc, Nat.mul_comm k]
       have e3 : (n+1) * a * k = (n*a)*k + a*k := by
         rw [Nat.succ_mul n a, Nat.add_mul]
       omega
     have h_rhs2 : b * (2 * m) = 2 * (b * m) := by
-      rw [Nat.mul_comm b, Nat.mul_assoc, Nat.mul_comm m]
+      rw [Nat.mul_comm b, E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m]
     rw [h_lhs, h_rhs2] at h_add
     exact Nat.le_of_mul_le_mul_left h_add (by decide : 0 < 2)
 

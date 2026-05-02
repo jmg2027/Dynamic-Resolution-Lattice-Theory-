@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 import E213.Math.Real213.CutSumOne
@@ -29,7 +30,7 @@ theorem cutDouble_constCut (a b : Nat) :
     cutDouble (constCut a b) = constCut (2*a) b := by
   funext m k
   show decide (a * (2*k) ≤ b * m) = decide (2 * a * k ≤ b * m)
-  rw [← Nat.mul_assoc, Nat.mul_comm a 2]
+  rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm a 2]
 
 /-- 2 * (1/2) = 1: cutDouble (1/2) = constCut 2 2.  Cut-equivalent to 1. -/
 example : cutDouble (constCut 1 2) = constCut 2 2 := cutDouble_constCut 1 2
@@ -44,7 +45,7 @@ theorem cutDouble_cutDouble (c : Nat → Nat → Bool) :
   funext m k
   show c m (2*(2*k)) = c m (4*k)
   congr 1
-  rw [← Nat.mul_assoc]
+  rw [← E213.Tactic.Nat213.mul_assoc]
 
 /-- **cutSum c c = cutDouble c** for c = constCut a b. -/
 theorem cutSum_self_eq_cutDouble (a b : Nat) :
@@ -60,14 +61,14 @@ theorem cutHalf_cutHalf_constCut (a b : Nat) :
     cutHalf (cutHalf (constCut a b)) = constCut a (4*b) := by
   rw [cutHalf_constCut, cutHalf_constCut]
   congr 1
-  rw [← Nat.mul_assoc]
+  rw [← E213.Tactic.Nat213.mul_assoc]
 
 /-- **cutDouble (cutDouble (a/b)) = (4a)/b**: double-double quadruples. -/
 theorem cutDouble_cutDouble_constCut (a b : Nat) :
     cutDouble (cutDouble (constCut a b)) = constCut (4*a) b := by
   rw [cutDouble_constCut, cutDouble_constCut]
   congr 1
-  rw [← Nat.mul_assoc]
+  rw [← E213.Tactic.Nat213.mul_assoc]
 
 /-- cutDouble preserves cutEq. -/
 theorem cutDouble_cutEq (cx cy : Nat → Nat → Bool)

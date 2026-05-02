@@ -1,5 +1,7 @@
 import E213.Math.Real213.Dyadic
 import E213.Math.Real213.CutPoset
+import E213.Kernel.Tactic.Nat213
+import E213.Kernel.Tactic.Pow213
 
 /-!
 # Research.Real213DyadicBracket: dyadic IVT bracket
@@ -73,18 +75,20 @@ def DyadicBracket.rightHalf (db : DyadicBracket) : DyadicBracket where
     exact Nat.add_le_add_right db.hLe db.numB
 
 /-- **lenNum invariant under leftHalf**: numerator difference unchanged.
-    Real length = lenNum/2^E halves because expE increases by 1. -/
+    Real length = lenNum/2^E halves because expE increases by 1.
+    ∅-axiom: `(a + b) - 2a = (a + b) - (a + a) = b - a` via
+    `Nat.two_mul` + `Nat.add_sub_add_left`. -/
 theorem DyadicBracket.leftHalf_lenNum (db : DyadicBracket) :
     db.leftHalf.lenNum = db.lenNum := by
   show (db.numA + db.numB) - 2 * db.numA = db.numB - db.numA
-  omega
+  rw [Nat.two_mul, Nat.add_sub_add_left]
 
 /-- **lenNum invariant under rightHalf**: same as left.
-    Real length halves via expE increment. -/
+    ∅-axiom: `2b - (a + b) = (b + b) - (a + b) = b - a`. -/
 theorem DyadicBracket.rightHalf_lenNum (db : DyadicBracket) :
     db.rightHalf.lenNum = db.lenNum := by
   show 2 * db.numB - (db.numA + db.numB) = db.numB - db.numA
-  omega
+  rw [Nat.two_mul, Nat.add_sub_add_right]
 
 /-- expE increases by 1 on left half. -/
 theorem DyadicBracket.leftHalf_expE (db : DyadicBracket) :
@@ -149,7 +153,9 @@ theorem DyadicBracket.bisectN_lenNum (oracle : DyadicOracle) :
 
 /-- **Dyadic comparison lemma**: cutLe between two dyadicCuts via
     cross-multiplication.  numA / 2^E ≤ numB / 2^F iff
-    numA * 2^F ≤ numB * 2^E. -/
+    numA * 2^F ≤ numB * 2^E.  ∅-axiom: `Nat213.mul_assoc` instead
+    of `Nat.mul_assoc` (which leaks propext); `Nat.zero_lt_succ 1`
+    instead of `by decide : 0 < 2`. -/
 theorem cutLe_dyadicCut (numA E numB F : Nat)
     (h : numA * 2^F ≤ numB * 2^E) :
     cutLe (dyadicCut numA E) (dyadicCut numB F) := by
@@ -157,29 +163,22 @@ theorem cutLe_dyadicCut (numA E numB F : Nat)
   have hBk : numB * k ≤ 2^F * m := of_decide_eq_true hbk
   show decide (numA * k ≤ 2^E * m) = true
   apply decide_eq_true
-  -- numA * k ≤ 2^E * m via numA * 2^F ≤ numB * 2^E and numB * k ≤ 2^F * m.
-  -- Multiply h by k: numA * 2^F * k ≤ numB * 2^E * k.
-  -- Multiply hBk by 2^E: numB * 2^E * k ≤ 2^F * m * 2^E.
   have step1 : numA * 2^F * k ≤ numB * 2^E * k :=
     Nat.mul_le_mul_right k h
   have step2 : numB * 2^E * k ≤ 2^F * m * 2^E := by
     have e : numB * 2^E * k = numB * k * 2^E := by
-      rw [Nat.mul_assoc, Nat.mul_comm (2^E) k, ← Nat.mul_assoc]
+      rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (2^E) k,
+          ← E213.Tactic.Nat213.mul_assoc]
     rw [e]
     exact Nat.mul_le_mul_right (2^E) hBk
   have step3 : numA * 2^F * k ≤ 2^F * m * 2^E := Nat.le_trans step1 step2
-  -- step3: numA * 2^F * k ≤ 2^F * m * 2^E.
-  -- Want: numA * k ≤ 2^E * m.  Rearrange both sides.
-  -- LHS: numA * 2^F * k = 2^F * (numA * k).
-  -- RHS: 2^F * m * 2^E = 2^F * (2^E * m).
-  -- So 2^F * (numA * k) ≤ 2^F * (2^E * m).
-  -- Cancel 2^F (which is ≥ 1 always since 2^anything ≥ 1).
   have hLHS : numA * 2^F * k = 2^F * (numA * k) := by
-    rw [Nat.mul_comm numA (2^F), Nat.mul_assoc]
+    rw [Nat.mul_comm numA (2^F), E213.Tactic.Nat213.mul_assoc]
   have hRHS : 2^F * m * 2^E = 2^F * (2^E * m) := by
-    rw [Nat.mul_assoc, Nat.mul_comm m (2^E)]
+    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m (2^E)]
   rw [hLHS, hRHS] at step3
-  exact Nat.le_of_mul_le_mul_left step3 (Nat.pos_pow_of_pos F (by decide : 0 < 2))
+  exact Nat.le_of_mul_le_mul_left step3
+    (Nat.pos_pow_of_pos F (Nat.zero_lt_succ 1))
 
 /-- Helper: numA * 2^(E+1) = 2 * numA * 2^E. -/
 private theorem dyadic_pow_succ_eq (n E : Nat) :

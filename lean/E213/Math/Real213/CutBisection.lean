@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 
@@ -72,6 +73,6 @@ theorem cutHalf_constCut (a b : Nat) :
   funext m k
   show decide (a*k ≤ b*(2*m)) = decide (a*k ≤ (2*b)*m)
   congr 1
-  rw [← Nat.mul_assoc, Nat.mul_comm b 2]
+  rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b 2]
 
 end E213.Math.Real213.CutBisection
