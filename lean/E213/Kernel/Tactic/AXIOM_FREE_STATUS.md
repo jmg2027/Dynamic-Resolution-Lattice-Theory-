@@ -22,6 +22,11 @@ Modular by topic — each file has *one* coherent concern:
                        See `research-notes/G2_trajectory_principle.md`,
                        `G3_raw_as_universal_trajectory.md`.
   - `Fin213.lean`   — `Fin` helpers (`absurd0`).
+  - **`Pow213.lean`** — power-of-2 + divisibility helpers
+                        (∅-axiom replacements for
+                        `Nat.pow_lt_pow_of_lt`, `Nat.pow_dvd_pow`,
+                        `Nat.le_of_dvd`, `Nat.dvd_sub`).
+                        **6 theorems**.
 
 All theorems in these modules are individually verified ∅-axiom.
 
@@ -62,6 +67,16 @@ All theorems in these modules are individually verified ∅-axiom.
   - **`parity_pow_two_pos`**  `0 < k → parity (2^k) = false`
                               (replaces `% 2 = 0` for power-of-2 reasoning)
 
+### Pow213 catalog (power-of-2 + divisibility)
+
+  - `pow_lt_succ`         `2^a < 2^(a+1)`               (single step)
+  - **`pow_lt_pow_two`**  `a < b → 2^a < 2^b`           (replaces `Nat.pow_lt_pow_of_lt`)
+  - `pow_add_two`         `2^(n+k) = 2^n * 2^k`         (additive composition)
+  - **`pow_dvd_pow_two`** `n ≤ m → 2^n ∣ 2^m`           (replaces `Nat.pow_dvd_pow`)
+  - **`le_of_dvd_pos`**   `0 < b → a ∣ b → a ≤ b`       (replaces `Nat.le_of_dvd`)
+  - **`dvd_sub_two`**     `c ≤ b → a ∣ b → a ∣ c → a ∣ b - c`
+                          (replaces `Nat.dvd_sub`)
+
 ## Migrated files (∅-axiom verified)
 
 | File | Theorems | Notes |
@@ -98,6 +113,10 @@ the 213-native form on the right.
 | `simp [defn, hypothesis]` (canonical-form proof) | propext | `unfold defn + rw [hyp] + rfl` |
 | `Tree.cmp_eq_iff.mp` (iff destructor) | propext | direct `Tree.cmp_eq_to_eq` (one-direction) |
 | `Tree.cmp_gt_iff_lt_swap.mp` | propext | direct `Tree.cmp_gt_to_lt_swap` |
+| `Nat.pow_lt_pow_of_lt` | propext | `Pow213.pow_lt_pow_two` |
+| `Nat.pow_dvd_pow` | propext | `Pow213.pow_dvd_pow_two` |
+| `Nat.le_of_dvd` | propext | `Pow213.le_of_dvd_pos` |
+| `Nat.dvd_sub` | propext | `Pow213.dvd_sub_two` |
 | `Exists.choose` / `(h : ∃ b, P b).choose` | **Classical.choice** | Bool-guard `isB : α → Bool` + total `getB : (x : α) → isB x = true → β` (structural pattern match).  Re-state the inductive theorem in `Bool`-form first, then recover the `∃`-form by `⟨getB x h, getB_eq x _⟩` — `Exists.intro` doesn't need choice. See `Firmware/Atomicity/ArityForcingGeneral.lean` for the canonical pattern. |
 | `(h : ∃ b, P b).choose_spec` | **Classical.choice** | the witness equation packaged into the same `Bool`-guard helper (e.g. `getBase_eq`) — proved by `rfl` per constructor |
 
