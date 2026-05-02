@@ -1,5 +1,63 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★ Major milestone (2026-05-02 part 6): 4/5 backlog clusters retired
+
+**This session retired 4 of 5 remaining DIRTY backlog clusters**:
+backlogs #1 (Universal.Prop51-54), #3 (BitAuto2/ThueMorse),
+#4 (CrossClassLens), #5 (scattered EncodingBijection52 / LeibnizFinding).
+Only #2 (Real213.Phase*Capstone) remains, and it is explicitly
+math-track / off-physics-critical-path.
+
+**~50 new strict ∅-axiom theorems** above the previous part-5 baseline.
+
+New 213-native infrastructure (∅-axiom):
+
+  - `Math/Cohomology/Delta/Pointwise.lean` (3 thms):
+      `foldl_step_eq`, `deltaAt_pointwise_eq`, `delta_pointwise_eq`
+      — replaces `funext`-based reductions in cohomology proofs.
+  - `Math/Cohomology/CupAW/Pointwise.lean` (1 thm):
+      `cupAW_pointwise_eq` — Alexander–Whitney cup, both arguments.
+  - `Kernel/Tactic/Nat213.lean`: `cases_lt_four`, `cases_lt_five`,
+      `cases_lt_ten` — Fin n decomposition without core `Fin.cases`.
+  - `Math/Cohomology/Dyadic/ThueMorse.lean`: `bit213` —
+      `(n / 2^j) % 2 == 1`, ∅-axiom replacement for `Nat.testBit`.
+
+Strict ∅-axiom closures this session (cluster summary):
+
+  - **CrossClassLens** (3 PURE, backlog #4 retired):
+      crossLens_pell3_trib2_period_4, crossLens_pell5_trib2_period_20,
+      tribMod2_BitFSM_bits_period_4 — migrated from
+      `lens_composition_period` (Nat.lcm) to `lens_composition_period_dvd`
+      with explicit `⟨k, rfl⟩` dvd witnesses.
+
+  - **Universal.Prop51-53** (13 PURE, backlog #1 retired):
+      pattern (Nat-match), pattern_eq_at, dsq_pattern,
+      dsq_zero_prop_5_{1,2,3}, prop_lift_5_1_capstone.
+      Recipe: pattern def via `match i.val` (Nat) + pattern_eq_at
+      via `obtain + cases_lt_{five,ten} + subst + rfl` + dsq lift
+      via `delta_pointwise_eq` chain (no funext).
+
+  - **CupAW.Leibniz** (cascade): leibniz_universal_5_1_1 PURE
+      via `cupAW_pointwise_eq` + `delta_pointwise_eq`.
+
+  - **EncodingBijection / EncodingBijection52** (cascade): 10 PURE.
+
+  - **LeibnizFinding** (cascade): leibniz_universal_false PURE.
+
+  - **ThueMorse / BitAuto2** (17 PURE, backlog #3 retired):
+      `Nat.testBit` → `bit213` (Nat./, Nat.%, Nat.pow only).
+      `omega` in Fin-bound proofs → explicit
+      `Nat.lt_of_le_of_lt + Nat.sub_le + Nat.lt_succ_self` chain.
+
+CLAUDE.md migration backlogs #1, #3, #4, #5 retired this session.
+
+Remaining DIRTY (single cluster, deferred):
+
+  - **Real213.Phase*Capstone (J/L/etc.)** — large omega-pervasive
+    Bishop-style constructive analysis marathon.  ~14 capstones ×
+    dozens of theorems each.  **Off the physics critical path**;
+    deferred to a math-track session.
+
 ## ★ Major milestone (2026-05-02 part 5): All 11 marquee capstones PURE
 
 **Strict ∅-AXIOM verified for all 11 major capstones**:
@@ -46,33 +104,17 @@ Cascade-cleaned PURE this session:
 CLAUDE.md migration backlog #1 (pigeonhole_collision) and #2 (Hodge
 funext) BOTH retired this session.
 
-## Remaining DIRTY (lower priority, not on marquee path)
+## Remaining DIRTY (single cluster, lower priority, off physics path)
 
-These clusters carry [propext, Quot.sound] from architectural
-constraints and don't block any marquee capstone:
+After this session's part-6 cleanup, only one cluster remains
+DIRTY, and it is explicitly off the physics critical path:
 
-  1. **Universal.Prop51/52/53/54**: `pattern` def's match on
-     `Fin (binom n k)` brings axioms even at `def`-level.  Cleaning
-     requires inlining binom or using Fin.cases-style recursion.
-     Distinct from `Hodge.Prop51-54` which were unblockable by the
-     `complementIdx` involution trick (no cochain pattern dependency).
+  - **Real213.Phase*Capstone (J/L/etc.)**: large omega-pervasive
+    marathon (Bishop-style constructive analysis).  ~14 capstones ×
+    dozens of theorems each.  **Math-track**, not on physics
+    critical path.  Deferred to a future math-track session.
 
-  2. **Real213.Phase*Capstone (J/L/etc.)**: large omega-pervasive
-     marathon (Bishop-style constructive analysis).  Math-track
-     work, not on physics critical path.  ~14 capstones × dozens
-     of theorems each.
-
-  3. **BitAuto2.thueMorseAuto, ThueMorse.***: `Nat.testBit` leaks
-     propext at definition level.  Cleaning requires writing
-     ∅-axiom popcount via div-by-2 recursion.
-
-  4. **CrossClassLens.crossLens_***: uses
-     `lens_composition_period` which depends on `Nat.lcm` (propext
-     in Lean kernel).  Could migrate to `lens_composition_period_dvd`
-     but typeclass elaboration timeouts at the cross-class level.
-
-  5. **EncodingBijection52, LeibnizFinding.***: smaller scattered
-     theorems, each requires individual investigation.
+(Backlogs #1, #3, #4, #5 retired in part 6 — see milestone above.)
 
 ## ★ Latest cascade (2026-05-02 part 4): pigeonhole_collision unblocked
 
