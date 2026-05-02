@@ -15,18 +15,26 @@ Goal: every theorem in `lean/E213/` should `#print axioms` → "does
 not depend on any axioms" (strict ∅-axiom, stronger than the
 DRLT-allowed `{propext, Quot.sound}` baseline).
 
-Progress (cumulative across two sessions):
-  - 213-native helper trio in `Kernel/Tactic/`: Omega213 (extended),
-    Nat213 (12 lemmas including `mul_assoc`), Fin213 (1 lemma).
-  - 6 files migrated (4 full, 2 partial):
-      * `Math/Pigeonhole.lean`              (2/2 ∅-axiom)
-      * `Firmware/Atomicity/NonDecomposable.lean` (3/3 ∅-axiom)
-      * `Firmware/Atomicity/ArityForcing.lean`    (2/2 ∅-axiom)
-      * `Math/Infinity/Pair.lean`                 (5/5 ∅-axiom)
-      * `Firmware/Atomicity/Five.lean`            (5/7 ∅-axiom;
-        atomic_implies_five + atomic_iff_five deferred)
-      * `Math/Cauchy/EulerSharper.lean`           (1/1 ∅-axiom)
-  - 15 public theorems verified strict ∅-axiom (30 including
+Progress (cumulative across sessions):
+  - 213-native helpers in `Kernel/Tactic/`: Omega213 (extended),
+    Nat213 (17 lemmas incl. `parity`/`mul_assoc`/`mul_sub_distrib`),
+    Fin213 (1 lemma).
+  - **Cohomological parity** (Mingu insight): instead of Lean-core
+    `Nat.mod` (well-founded → propext), define `parity` by step-2
+    recursion as the "uncompleted half-cycle" residue.  ∅-axiom by
+    structural reduction.  Used in Five.atomic_implies_five.
+  - 6 files migrated (5 full, 1 with helpers split out):
+      * `Math/Pigeonhole.lean`                     (2/2 ∅-axiom)
+      * `Firmware/Atomicity/NonDecomposable.lean`  (3/3 ∅-axiom)
+      * `Firmware/Atomicity/ArityForcing.lean`     (2/2 ∅-axiom)
+      * `Math/Infinity/Pair.lean`                  (5/5 ∅-axiom)
+      * `Firmware/Atomicity/Five.lean`             (7/7 ∅-axiom)
+        — Bézout shifts via `Nat213.mul_sub_distrib` + Bool parity
+        for IsAlive (replaces `% 2`).
+      * `Math/Cauchy/EulerSharper.lean`            (1/1 ∅-axiom)
+  - New helper module `Firmware/Atomicity/FiveHelpers.lean`
+    (4/4 ∅-axiom: add_two/three_ne_self, bezout_left/right).
+  - 20 public theorems verified strict ∅-axiom (38 including
     helper modules and private lemmas).
   - `tools/scan_axioms.py` — efficient per-theorem axiom auditor.
   - Catalog of axiom-leak surfaces in
@@ -169,27 +177,49 @@ including le/lt and multiplicative monotonicity.  This unblocks
 Fix as encountered — namespace mismatches, broken refs, etc.
 This will make scan_axioms reliable.
 
-## Recent commits (this/prior sessions)
+## Recent commits (cumulative)
 
 ```
+3334e3d  Five.atomic_implies_five: ∅-axiom via cohomological parity
+cd18767  Nat213.mul_sub_distrib: ∅-axiom multiplicative sub-distrib
 0941595  Cohomology/Hodge: fix pre-existing 'open' gaps
 162cafe  Math/Cauchy/EulerSharper: ∅-axiom; Nat213.mul_assoc helper
 0f21381  Real213: add 'open ... (cutSum)' to 22 files
-45758bf2 HANDOFF: include Five partial migration + Int213 deferred
-429e0d3  Firmware/Atomicity/Five: atomic_five + canonical_partition migrated
-9387073  HANDOFF: comprehensive axiom-strip session log
-128b5a8  AXIOM_FREE_STATUS: catalog Nat213 + 4 migrated files
-eae6bb6  Fix pre-existing namespace mismatches surfaced by axiom probing
-a126133  Nat213: add_left/right_cancel; Math/Infinity/Pair migrated
-4e6f6c0  Nat213.cases_lt_two/three; ArityForcing migrated to ∅-axiom
-b8bdd8a  Nat213 expanded; NonDecomposable migrated to ∅-axiom
-a2bfefd  Kernel/Tactic: factor Nat213, Fin213 helpers (modularization)
+429e0d3  Firmware/Atomicity/Five: atomic_five + canonical_partition
+eae6bb6  Fix pre-existing namespace mismatches surfaced by probing
+a126133  Nat213: add_left/right_cancel; Pair migrated to ∅-axiom
+4e6f6c0  Nat213.cases_lt_two/three; ArityForcing migrated
+b8bdd8a  Nat213 expanded; NonDecomposable migrated
+a2bfefd  Kernel/Tactic: factor Nat213, Fin213 helpers
 f0591b2  Math/Pigeonhole: first ∅-axiom migration
 ```
 
-13 commits across two sessions, +30 ∅-axiom theorems verified,
-12 Nat213 + 1 Fin213 helpers cataloged, ~50 pre-existing
-namespace/source bugs fixed.
+15+ commits across sessions, +38 ∅-axiom theorems verified,
+17 Nat213 + 1 Fin213 + 4 FiveHelpers helpers cataloged,
+~50 pre-existing namespace/source bugs fixed.
+
+## Cohomological parity insight (Mingu, this session)
+
+Realisation: Lean-core `Nat.mod` is well-founded recursion → all
+its reduction lemmas (`Nat.add_mod_right`, `Nat.zero_mod`, etc.)
+go through `propext`.  In 213's view, mod IS naturally
+*cohomological/geometric* — "how much a path hasn't completed a
+half-cycle".  Define directly by step-2 recursion:
+
+```lean
+def parity : Nat → Bool
+  | 0     => false
+  | 1     => true
+  | n + 2 => parity n
+```
+
+All key facts (`parity_step`, `parity_succ`, `parity_double`,
+`parity_double_succ`) are ∅-axiom by structural reduction.  This
+unblocks any odd/even reasoning (used in Five.atomic_implies_five).
+
+Pattern: when Lean's `% n` would be needed, define `mod_n` by
+step-n recursion in the relevant Nat213 file.  The "geometric
+walk along a finite cycle" interpretation is 213-native.
 
 ## Key precision results (unchanged this session)
 
