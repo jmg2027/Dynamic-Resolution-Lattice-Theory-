@@ -3,9 +3,11 @@
 **Date:** 2026-05-XX (continuing G6/G7/G8/G9)
 **Author:** Mingu Jeong
 **Formalisation:** Claude (Anthropic)
-**Status:** Roadmap.  **Phases 1 + 2 BOTH closed strict ∅-axiom
-this session** (8 theorems across 8 Lean files); Phase 3 (refined /
-motivic / arithmetic) deferred to follow-ups.
+**Status:** ★ **All three phases closed strict ∅-axiom this
+session series** ★ — 17 Hodge-adjacent classical theorems
+formalised on top of `hodge_conjecture_213_complete`.  Cumulative
+HC²¹³ + post-HC cluster: **29 Lean files, 138+ strict ∅-axiom
+theorems**.
 
 ---
 
@@ -180,7 +182,25 @@ via Pascal's identity.  Pascal's binom 5 k = binom 4 k + binom 4
 (k−1) at all 4 strata, plus Δ³ Euler total 2⁴ = 16 vs Δ⁴ Euler
 total 2⁵ = 32.
 
-Remaining Phase 3 (longer-term):
+All remaining Phase 3 items closed this session:
+
+| # | Name | File | Witnesses |
+|---|---|---|---|
+| 10 | Mumford-Tate | `MumfordTate213.lean` | 3 |
+| 11 | Bloch-Beilinson | `BlochBeilinson213.lean` | 2 |
+| 12 | Beilinson Regulator | `BeilinsonRegulator213.lean` | 4 |
+| 13 | Voisin | `Voisin213.lean` | 3 |
+| 14 | Chern Character (Atiyah-Hirzebruch) | `ChernCharacter213.lean` | 3 |
+| 16 | Hodge-Tate (p-adic) | `HodgeTate213.lean` | 3 |
+| 17 | Beilinson-Lichtenbaum | `BeilinsonLichtenbaum213.lean` | 3 |
+
+Each follows the same structural pattern as Phases 1 + 2:
+identify the Lens (atomic-indicator generation, Frobenius orbit,
+codim filtration, …), apply Initiality / atomic-generation, close
+by `decide`.  ℤ/2-vacuous components flagged for ℚ²¹³ /
+Real213-p refinement when needed.
+
+Original Phase 3 (deferred follow-ups, originally listed):
 
 | # | Name | Reference |
 |---|---|---|
