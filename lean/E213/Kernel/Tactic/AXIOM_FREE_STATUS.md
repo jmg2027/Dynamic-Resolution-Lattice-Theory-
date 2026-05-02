@@ -65,6 +65,7 @@ All theorems in these modules are individually verified ∅-axiom.
 | `Firmware/Atomicity/NonDecomposable.lean` | 3 | omega + rcases + match-on-value pattern |
 | `Firmware/Atomicity/ArityForcing.lean` | 2 | omega-pigeonhole on Fin 2 → 6-case `cases_lt_two` |
 | `Math/Infinity/Pair.lean` | 5 | 5 omega + Nat.add_left/right_cancel + Prod.mk.injEq |
+| `Firmware/Atomicity/ArityForcingGeneral.lean` | 6 | **Classical.choice** → `isBase`/`getBase` constructive extraction (G5 §3 in code) |
 
 ## Catalog of axiom leaks discovered
 
@@ -92,6 +93,8 @@ the 213-native form on the right.
 | `simp [defn, hypothesis]` (canonical-form proof) | propext | `unfold defn + rw [hyp] + rfl` |
 | `Tree.cmp_eq_iff.mp` (iff destructor) | propext | direct `Tree.cmp_eq_to_eq` (one-direction) |
 | `Tree.cmp_gt_iff_lt_swap.mp` | propext | direct `Tree.cmp_gt_to_lt_swap` |
+| `Exists.choose` / `(h : ∃ b, P b).choose` | **Classical.choice** | Bool-guard `isB : α → Bool` + total `getB : (x : α) → isB x = true → β` (structural pattern match).  Re-state the inductive theorem in `Bool`-form first, then recover the `∃`-form by `⟨getB x h, getB_eq x _⟩` — `Exists.intro` doesn't need choice. See `Firmware/Atomicity/ArityForcingGeneral.lean` for the canonical pattern. |
+| `(h : ∃ b, P b).choose_spec` | **Classical.choice** | the witness equation packaged into the same `Bool`-guard helper (e.g. `getBase_eq`) — proved by `rfl` per constructor |
 
 ## Lean-core lemmas verified ∅-axiom
 
