@@ -21,7 +21,10 @@ open E213.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Math.Cohomology.Delta.Core (delta)
 open E213.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Math.Cohomology.Cochain.V5_1DecompR (decomp_5_1 decomp_5_1_eq bz5_1)
-open E213.Math.XorPairCombine (combine_5)
+open E213.Math.Cohomology.XorPairCombine (combine_5)
+open E213.Math.Cohomology.CupAW.BilinearFunc (cupAW_add_right_eq cupAW_add_left_eq delta_add_eq)
+open E213.Math.Cohomology.CupAW.Bilinear (cupAW_add_left cupAW_add_right)
+open E213.Math.Cohomology.Delta.Linear (delta_add)
 
 /-- ★ β-decomp lens at (5, 2, 1). -/
 theorem leibniz_via_β_decomp_21

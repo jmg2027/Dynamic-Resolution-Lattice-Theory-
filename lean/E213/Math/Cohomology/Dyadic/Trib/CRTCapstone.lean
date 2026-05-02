@@ -28,6 +28,9 @@ Cubic class status (Tier 1 hardness):
 
 namespace E213.Math.Cohomology.Dyadic.Trib.CRTCapstone
 
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- ★★★★★★★★ Tribonacci CRT 3-modulus capstone.
 
   Independent cubic-class periodic instances at the first three

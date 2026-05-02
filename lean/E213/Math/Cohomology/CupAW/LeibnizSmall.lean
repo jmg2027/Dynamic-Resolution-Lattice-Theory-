@@ -19,6 +19,7 @@ open E213.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Math.Cohomology.Delta.Core (delta)
 open E213.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Math.Cohomology.Universal.Prop31 (pattern)
+open E213.Math.Cohomology.Cup.Core (cup)
 
 /-- Leibniz on every (3, 1, 1) pattern pair. -/
 theorem leibniz_pattern_3_1_1 :

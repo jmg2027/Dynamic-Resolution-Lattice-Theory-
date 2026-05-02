@@ -25,6 +25,10 @@ identity* in the 213 atomic framework.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod3
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Fibonacci-style FSM mod 3. -/
 def fibFSMmod3 : ArithFSM2 3 where
   init := (⟨0, by decide⟩, ⟨1, by decide⟩)

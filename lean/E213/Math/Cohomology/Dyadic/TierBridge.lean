@@ -16,6 +16,7 @@ namespace E213.Math.Cohomology.Dyadic.TierBridge
 
 open E213.Math.Cohomology.Dyadic.Signature (signature nextVertex)
 open E213.Math.Cohomology.Dyadic.Classifier (signature_periodic_implies_bits_periodic)
+open E213.Math.Cohomology.Dyadic.Conjecture (periodicBit)
 
 /-- Eventually periodic: from some pre-period N onward, period p. -/
 def EventuallyPeriodic {α : Type} (f : Nat → α) (p : Nat) : Prop :=

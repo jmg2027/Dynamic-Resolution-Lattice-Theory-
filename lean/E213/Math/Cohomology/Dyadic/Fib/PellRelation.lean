@@ -33,6 +33,9 @@ Proven for all odd primes p ≥ 3.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.PellRelation
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- Auxiliary: predictor body as if-then-else (Pell). -/
 private def pellBody (v p : Nat) : Nat :=
   if v = 0 then 2 * p else if v = 1 then (p - 1) / 2 else p + 1

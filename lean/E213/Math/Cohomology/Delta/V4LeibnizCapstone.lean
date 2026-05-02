@@ -22,6 +22,9 @@ Alexander–Whitney overlap convention.
 namespace E213.Math.Cohomology.Delta.V4LeibnizCapstone
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.Core (cupAW)
+open E213.Math.Cohomology.Delta.Core (delta)
 
 /-- ★★★★★ Δ⁴ full Cup AW Leibniz capstone — ∀ α β ∀ i. -/
 theorem delta4_leibniz_capstone :

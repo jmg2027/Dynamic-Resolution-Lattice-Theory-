@@ -31,6 +31,9 @@ from **partial** (concrete cases, deferred universal).
 
 namespace E213.Math.Cohomology.Audit
 
+open E213.Math.Cohomology.Cup.Core (cup)
+
+
 /-! ## Discovery 1: Graph H^k = 0 for k ≥ 2 (formal) -/
 
 namespace Bip32

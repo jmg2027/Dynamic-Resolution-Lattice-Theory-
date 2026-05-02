@@ -16,6 +16,10 @@ BitFSM}.  Tier 2 (e, π, etc.) is conjecturally OUTSIDE this class.
 
 namespace E213.Math.Cohomology.Dyadic.BitFSM
 
+open E213.Math.Cohomology.Dyadic.ForwardPeriodicity (pigeonhole_collision collisionTest)
+open E213.Math.Cohomology.Dyadic.Signature (signature nextVertex)
+open E213.Math.Cohomology.Dyadic.ForwardEventual (signature_eventually_periodic_of_eventually_periodic_bits)
+
 /-- A BitFSM with `n` states. -/
 structure BitFSM (n : Nat) where
   init : Fin n

@@ -14,6 +14,10 @@ so the eventual-period theorem applies with N₀ = 0.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Signature
 
+open E213.Math.Cohomology.Dyadic.ForwardEventual (signature_eventually_periodic_of_eventually_periodic_bits)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- ★★★ Pell mod-2 signature is eventually (in fact: from step 0)
     periodic. -/
 theorem pellFSMmod2_signature_eventually_periodic :

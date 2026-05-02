@@ -14,6 +14,9 @@ bound becomes 5n³.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+
+
 private theorem encode3_bound {n : Nat} (a b c : Fin n) :
     a.val * (n * n) + b.val * n + c.val < n * n * n := by
   have ha : a.val + 1 ≤ n := a.isLt

@@ -26,6 +26,9 @@ trajectory-walking Legendre lens.  No external number theory used.
 
 namespace E213.Math.Cohomology.Dyadic.Legendre.Pisano
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- ★★★★★★ Bridge: at p ∈ {3, 7} (NQR, inert), the Pell period
     matches the inert formula p + 1.  At p = 5 (ramified), the
     period matches 2p.  The Legendre lens *predicts* the Pell

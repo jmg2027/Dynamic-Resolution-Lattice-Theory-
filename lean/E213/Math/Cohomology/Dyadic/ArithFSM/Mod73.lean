@@ -9,6 +9,9 @@ import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod73
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+
+
 def pellFSMmod73 : ArithFSM2 73 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)
   step p := let (a, b) := p

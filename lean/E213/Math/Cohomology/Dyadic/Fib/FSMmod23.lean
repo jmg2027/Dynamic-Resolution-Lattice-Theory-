@@ -10,6 +10,10 @@ Fibonacci predict: 2(p+1) = 48.  TIGHT.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod23
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 def fibFSMmod23 : ArithFSM2 23 where
   init := (⟨0, by decide⟩, ⟨1, by decide⟩)
   step p := let (a, b) := p

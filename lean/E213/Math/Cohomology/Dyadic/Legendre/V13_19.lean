@@ -18,6 +18,9 @@ instances each.
 
 namespace E213.Math.Cohomology.Dyadic.Legendre.V13_19
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- ★★★★★ Pell discriminant 5 is NQR mod 13 (inert). -/
 theorem legendre_5_mod_13 :
     legendre213 5 13 (by decide) = ⟨2, by decide⟩ := by decide

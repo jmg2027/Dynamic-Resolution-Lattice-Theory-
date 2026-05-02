@@ -27,6 +27,9 @@ period coincides iff no Frobenius-stable proper subgroup.
 
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor22
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 theorem legendre_5_mod_79 :
     legendre213 5 79 (by decide) = ⟨1, by decide⟩ := by decide
 

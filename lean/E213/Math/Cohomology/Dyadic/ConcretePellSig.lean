@@ -18,6 +18,9 @@ Then applies it to the Pell mod-3 and Pell mod-5 instances.
 
 namespace E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+open E213.Math.Cohomology.Dyadic.Signature (nextVertex signature)
+
+
 /-- Universal closure: if bits are purely periodic with period P
     and the signature returns to ⟨0⟩ at step P, then the signature
     is purely periodic with the same period. -/

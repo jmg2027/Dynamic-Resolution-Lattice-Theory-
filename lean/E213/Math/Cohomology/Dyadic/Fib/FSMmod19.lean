@@ -10,6 +10,10 @@ Fibonacci predict: p-1 = 18.  TIGHT.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod19
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 def fibFSMmod19 : ArithFSM2 19 where
   init := (⟨0, by decide⟩, ⟨1, by decide⟩)
   step p := let (a, b) := p

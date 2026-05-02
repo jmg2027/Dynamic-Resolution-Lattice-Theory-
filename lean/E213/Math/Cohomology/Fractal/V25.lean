@@ -34,6 +34,9 @@ by `5*i + j ∈ Fin 25`.
 
 namespace E213.Math.Cohomology.Fractal.V25
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+
+
 /-- Number of leaf vertices at level 2: 5 × 5 = 25 = d². -/
 def numV : Nat := 25
 

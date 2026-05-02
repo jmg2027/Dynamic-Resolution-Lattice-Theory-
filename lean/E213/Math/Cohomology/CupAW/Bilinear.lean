@@ -21,6 +21,8 @@ open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Math.Cohomology.Delta.Core (delta)
 open E213.Math.Cohomology.Hodge.Involution (v0_5)
+open E213.Math.Cohomology.Delta.Core (subsetIdx)
+open E213.Math.Cohomology.SimplexBasis (kSubset)
 
 /-- Bool-level distributivity (left): (a ⊕ b) ∧ c = (a∧c) ⊕ (b∧c). -/
 theorem Bool.and_xor_distrib_right (a b c : Bool) :

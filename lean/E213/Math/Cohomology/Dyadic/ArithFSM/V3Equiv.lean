@@ -9,6 +9,9 @@ the run_encode and bits_eq theorems.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3Equiv
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+
+
 /-- Encoded value modulo n recovers c. -/
 theorem encode3_mod_n {n : Nat} (a b c : Fin n) :
     (a.val * (n * n) + b.val * n + c.val) % n = c.val := by

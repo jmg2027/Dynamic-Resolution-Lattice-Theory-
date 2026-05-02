@@ -17,6 +17,9 @@ content of CRT period multiplicativity.
 
 namespace E213.Math.Cohomology.Dyadic.LCMClosure
 
+open E213.Math.Cohomology.Dyadic.ForwardPeriodicity (bs_periodic_multiple)
+
+
 /-- Nat.lcm positivity. -/
 theorem Nat.lcm_pos {p q : Nat} (hp : 0 < p) (hq : 0 < q) : 0 < Nat.lcm p q := by
   show 0 < p * q / _root_.Nat.gcd p q

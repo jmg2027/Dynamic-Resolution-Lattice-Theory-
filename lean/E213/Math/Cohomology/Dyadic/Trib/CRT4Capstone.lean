@@ -27,6 +27,9 @@ Future moduli (mod 11: 110, mod 13: 168) reinforce this mix.
 
 namespace E213.Math.Cohomology.Dyadic.Trib.CRT4Capstone
 
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- ★★★★★★★★ Tribonacci CRT 4-modulus capstone.
 
   Extends 3-modulus capstone with mod 7 instance.  All bit + sig

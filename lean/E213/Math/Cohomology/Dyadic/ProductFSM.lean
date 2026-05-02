@@ -1,4 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ProductHelpers
+import E213.Math.Cohomology.Dyadic.ArithFSM.V1
 
 /-!
 # BitFSM.product — universal lens composition at FSM level
@@ -13,6 +14,10 @@ read out via g.  Universal — no coprimality needed.
 -/
 
 namespace E213.Math.Cohomology.Dyadic.ProductFSM
+
+open E213.Math.Cohomology.Dyadic.ArithFSM.V1 (ArithFSM1)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+open E213.Math.Cohomology.Dyadic.ProductHelpers (encodeFinPair decodeFinFirst decodeFinSecond)
 
 /-- ★★★ Generic product BitFSM via pair-encoding. -/
 def BitFSM.product {n m : Nat} (hm : 0 < m)

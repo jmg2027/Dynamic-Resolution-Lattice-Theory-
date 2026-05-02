@@ -10,6 +10,10 @@ Completes the cubic-class chain:
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- ★★★★ ArithFSM3.toBitFSM bit stream equals original. -/
 theorem toBitFSM3_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) :
     (m.toBitFSM hn).bits k = m.bits k := by

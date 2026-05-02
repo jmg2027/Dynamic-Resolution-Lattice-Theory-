@@ -13,6 +13,10 @@ signature period 10 (no doubling, even bit period).
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod11
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Fibonacci-style FSM mod 11. -/
 def fibFSMmod11 : ArithFSM2 11 where
   init := (⟨0, by decide⟩, ⟨1, by decide⟩)

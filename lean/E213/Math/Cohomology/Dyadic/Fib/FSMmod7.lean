@@ -13,6 +13,10 @@ the 2(p+1) Fibonacci-Pisano formula at a larger size.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod7
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Fibonacci-style FSM mod 7. -/
 def fibFSMmod7 : ArithFSM2 7 where
   init := (⟨0, by decide⟩, ⟨1, by decide⟩)

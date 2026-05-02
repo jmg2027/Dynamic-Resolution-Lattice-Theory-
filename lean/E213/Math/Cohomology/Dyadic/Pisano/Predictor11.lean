@@ -34,6 +34,9 @@ bit-period, not necessarily tight in the split branch.
 
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor11
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- ★★★★★ Legendre 5 mod 29 = QR (split). -/
 theorem legendre_5_mod_29 :
     legendre213 5 29 (by decide) = ⟨1, by decide⟩ := by decide

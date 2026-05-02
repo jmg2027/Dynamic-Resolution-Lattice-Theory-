@@ -28,18 +28,21 @@ open E213.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Math.Cohomology.Delta.Core (delta)
 open E213.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Math.Cohomology.Cochain.V5_2Decomp (decomp_5_2 decomp_5_2_eq)
-open E213.Math.XorPairCombine (combine_10)
+open E213.Math.Cohomology.XorPairCombine (combine_10)
+open E213.Math.Cohomology.CupAW.BilinearFunc (cupAW_add_right_eq cupAW_add_left_eq delta_add_eq)
+open E213.Math.Cohomology.CupAW.Bilinear (cupAW_add_left cupAW_add_right)
+open E213.Math.Cohomology.Delta.Linear (delta_add)
 
 /-- ★ Bilinearity-driven Leibniz reduction at (5, 1, 2). -/
 theorem leibniz_via_β_decomp_lens
     (α : Cochain 5 1) (β : Cochain 5 2) (i : Fin (binom 5 3))
     (h_components : ∀ k : Fin 10,
       delta (cupAW 5 1 2 α
-        (Cochain5_2Decomp.bz5_2 β k)) i
+        (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β k)) i
         = xor (cupAW 5 2 2 (delta α)
-                (Cochain5_2Decomp.bz5_2 β k) i)
+                (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β k) i)
               (cupAW 5 1 3 α
-                (delta (Cochain5_2Decomp.bz5_2 β k)) i)) :
+                (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β k)) i)) :
     delta (cupAW 5 1 2 α β) i
       = xor (cupAW 5 2 2 (delta α) β i)
             (cupAW 5 1 3 α (delta β) i) := by
@@ -48,25 +51,25 @@ theorem leibniz_via_β_decomp_lens
   simp only [cupAW_add_right_eq, delta_add_eq,
              cupAW_add_right, delta_add, h_components]
   exact combine_10
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨0, by decide⟩) i)
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨1, by decide⟩) i)
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨2, by decide⟩) i)
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨3, by decide⟩) i)
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨4, by decide⟩) i)
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨5, by decide⟩) i)
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨6, by decide⟩) i)
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨7, by decide⟩) i)
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨8, by decide⟩) i)
-    (cupAW 5 2 2 (delta α) (Cochain5_2Decomp.bz5_2 β ⟨9, by decide⟩) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨0, by decide⟩)) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨1, by decide⟩)) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨2, by decide⟩)) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨3, by decide⟩)) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨4, by decide⟩)) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨5, by decide⟩)) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨6, by decide⟩)) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨7, by decide⟩)) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨8, by decide⟩)) i)
-    (cupAW 5 1 3 α (delta (Cochain5_2Decomp.bz5_2 β ⟨9, by decide⟩)) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨0, by decide⟩) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨1, by decide⟩) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨2, by decide⟩) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨3, by decide⟩) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨4, by decide⟩) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨5, by decide⟩) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨6, by decide⟩) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨7, by decide⟩) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨8, by decide⟩) i)
+    (cupAW 5 2 2 (delta α) (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨9, by decide⟩) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨0, by decide⟩)) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨1, by decide⟩)) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨2, by decide⟩)) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨3, by decide⟩)) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨4, by decide⟩)) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨5, by decide⟩)) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨6, by decide⟩)) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨7, by decide⟩)) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨8, by decide⟩)) i)
+    (cupAW 5 1 3 α (delta (E213.Math.Cohomology.Cochain.V5_2Decomp.bz5_2 β ⟨9, by decide⟩)) i)
 
 end E213.Math.Cohomology.CupAW.LeibnizAlgLift

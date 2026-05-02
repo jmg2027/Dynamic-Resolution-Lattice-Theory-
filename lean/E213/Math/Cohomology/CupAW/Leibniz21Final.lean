@@ -46,7 +46,7 @@ theorem leibniz_α_basis (α : Cochain 5 2) (k : Fin 5)
     delta (cupAW 5 2 1 α (basis 5 1 k)) i
       = xor (cupAW 5 3 1 (delta α) (basis 5 1 k) i)
             (cupAW 5 2 2 α (delta (basis 5 1 k)) i) :=
-  CupAWLeibnizAlgLift21Alpha.leibniz_via_α_decomp_21
+  E213.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha.leibniz_via_α_decomp_21
     α (basis 5 1 k) i (h_components_α α k i)
 
 /-- Per-β-component Leibniz: cases on β k. -/
@@ -79,7 +79,7 @@ theorem leibniz_universal_5_2_1
     delta (cupAW 5 2 1 α β) i
       = xor (cupAW 5 3 1 (delta α) β i)
             (cupAW 5 2 2 α (delta β) i) :=
-  CupAWLeibnizAlgLift21.leibniz_via_β_decomp_21
+  E213.Math.Cohomology.CupAW.LeibnizAlgLift21.leibniz_via_β_decomp_21
     α β i (h_components_β α β i)
 
 end E213.Math.Cohomology.CupAW.Leibniz21Final

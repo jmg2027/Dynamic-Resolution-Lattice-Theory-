@@ -26,6 +26,10 @@ predicted-period 48 derived by composition.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod47
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Pell-style FSM mod 47. -/
 def pellFSMmod47 : ArithFSM2 47 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)

@@ -14,6 +14,9 @@ to collapse Cup Leibniz from O(2^N · 2^M) decide cases to
 namespace E213.Math.Cohomology.Delta.Linear
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Delta.Core (delta deltaAt subsetIdx)
+open E213.Math.Cohomology.SimplexBasis (kSubset)
 
 /-- foldl-XOR distributivity over a Decidable conditional. -/
 private theorem List.foldl_xor_dist

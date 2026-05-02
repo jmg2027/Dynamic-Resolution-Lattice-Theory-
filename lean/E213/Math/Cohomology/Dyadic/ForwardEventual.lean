@@ -16,6 +16,10 @@ All theorems at ≤ {propext, Quot.sound}.
 
 namespace E213.Math.Cohomology.Dyadic.ForwardEventual
 
+open E213.Math.Cohomology.Dyadic.Signature (signature nextVertex)
+open E213.Math.Cohomology.Dyadic.ForwardPeriodicity (pigeonhole_collision collisionTest)
+open E213.Math.Cohomology.Dyadic.ForwardClosure (sub_is_multiple_of_p)
+
 /-- bs eventually periodic at multiple of p, from N₀ onwards. -/
 theorem bs_periodic_multiple_from (bs : Nat → Bool) (p N₀ : Nat)
     (hbs : ∀ n, n ≥ N₀ → bs (n + p) = bs n) :

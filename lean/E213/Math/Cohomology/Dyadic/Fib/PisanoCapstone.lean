@@ -31,6 +31,9 @@ identically, but the period scaling differs.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- 213-native Fibonacci-Pisano period predictor for Δ = 5. -/
 def fib_pisano_predict (p : Nat) (hp : 1 < p) : Nat :=
   let leg := (legendre213 5 p hp).val

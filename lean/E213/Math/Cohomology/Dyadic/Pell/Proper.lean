@@ -25,6 +25,10 @@ squared — eigenvalues 1±√2 (units of ℤ[√2]) instead of φ²/ψ².
 
 namespace E213.Math.Cohomology.Dyadic.Pell.Proper
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- Pell proper FSM mod n: state (a_n, a_{n-1}) → (a_{n+1}, a_n). -/
 def pellProperFSMmod (n : Nat) (hn : 0 < n) : ArithFSM2 n where
   init := (⟨1 % n, Nat.mod_lt _ hn⟩, ⟨0, hn⟩)

@@ -17,6 +17,9 @@ for periodic and aperiodic example signatures.
 
 namespace E213.Math.Cohomology.Dyadic.Archive.SubwordComplexity
 
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Length-L substrings of trajectory `s` starting at position
     0..M-1. -/
 def subwords (s : Nat → Fin 5) (L M : Nat) : List (List (Fin 5)) :=

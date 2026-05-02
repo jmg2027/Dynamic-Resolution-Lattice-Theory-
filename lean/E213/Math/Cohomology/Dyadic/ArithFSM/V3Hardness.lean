@@ -12,6 +12,9 @@ ArithFSM3-generable then it would be BitFSM-generable, contradicting
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3Hardness
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+
+
 /-- ★★★★★ Aperiodic ⇒ no ArithFSM3 generates it (any modulus). -/
 theorem aperiodic_bits_imp_not_ArithFSM3 (bs : Nat → Bool)
     (h_aperiodic : ∀ N P, 0 < P → ∃ k, k ≥ N ∧ bs (k + P) ≠ bs k) :

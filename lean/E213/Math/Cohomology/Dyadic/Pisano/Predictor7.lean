@@ -18,6 +18,9 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
 
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- ★★★★★ Legendre 5 mod 17 = NQR (inert). -/
 theorem legendre_5_mod_17 :
     legendre213 5 17 (by decide) = ⟨2, by decide⟩ := by decide

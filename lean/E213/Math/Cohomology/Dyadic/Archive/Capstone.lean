@@ -23,6 +23,11 @@ Theorem chain (all ≤ {propext, Quot.sound}):
 
 namespace E213.Math.Cohomology.Dyadic.Archive.Capstone
 
+open E213.Math.Cohomology.Dyadic.Classifier (signature_periodic_implies_bits_periodic)
+open E213.Math.Cohomology.Dyadic.ForwardEventual (signature_eventually_periodic_of_eventually_periodic_bits)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- ★★★★★★★ Dyadic / K_{3,2}^{(2)} signature capstone. -/
 theorem dyadic_signature_capstone :
     -- (1) Lossless: signatures match ⇔ bit streams match

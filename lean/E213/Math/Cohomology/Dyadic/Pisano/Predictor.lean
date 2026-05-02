@@ -22,6 +22,9 @@ that, given a prime, decides which Pisano formula to apply.
 
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- 213-native Pisano period predictor for the Pell-5 discriminant. -/
 def pisano_predict (p : Nat) (hp : 1 < p) : Nat :=
   let leg := (legendre213 5 p hp).val

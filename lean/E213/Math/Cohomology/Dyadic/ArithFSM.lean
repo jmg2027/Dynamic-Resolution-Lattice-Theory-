@@ -16,6 +16,10 @@ has finite state mod any fixed N (CRT-style closure).
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM
 
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
+
+
 /-- 2-state arithmetic FSM with state vector in Fin n × Fin n. -/
 structure ArithFSM2 (n : Nat) where
   init : Fin n × Fin n

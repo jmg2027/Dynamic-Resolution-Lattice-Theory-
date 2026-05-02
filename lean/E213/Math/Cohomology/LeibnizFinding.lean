@@ -58,6 +58,8 @@ namespace E213.Math.Cohomology.LeibnizFinding
 
 open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Prop51 (pattern)
+open E213.Math.Cohomology.Cup.Core (cup)
+open E213.Math.Cohomology.Delta.Core (delta)
 
 /-- ★ Honest negative: there EXISTS (a, b) ∈ {true, false}^5 ×
     {true, false}^5 and i ∈ Fin (binom 5 3) such that Leibniz

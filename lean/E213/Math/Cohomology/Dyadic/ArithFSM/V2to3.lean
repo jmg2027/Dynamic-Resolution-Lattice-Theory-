@@ -9,6 +9,10 @@ by adding an inert third component.  Inclusion is bit-stream-faithful.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V2to3
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+
+
 /-- Pad ArithFSM2(n) into ArithFSM3(n) by adding an inert
     third component.  init = (a, b, 0), step ignores it. -/
 def ArithFSM2.padTo3 {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) : ArithFSM3 n where

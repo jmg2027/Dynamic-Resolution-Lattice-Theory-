@@ -13,6 +13,10 @@ This reflects the special degeneracy of the discriminant at ramification.
 
 namespace E213.Math.Cohomology.Dyadic.Fib.FSMmod5
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Fibonacci-style FSM mod 5. -/
 def fibFSMmod5 : ArithFSM2 5 where
   init := (⟨0, by decide⟩, ⟨1, by decide⟩)

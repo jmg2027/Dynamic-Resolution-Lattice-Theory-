@@ -12,6 +12,9 @@ definitional reduction; right-nested for consistency with
 
 namespace E213.Math.Cohomology.Cochain.V5_1DecompR
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
+
 /-- AND-form conditional basis-or-zero at (5, 1). -/
 def bz5_1 (β : Cochain 5 1) (k : Fin 5) : Cochain 5 1 := fun j =>
   (k.val == j.val) && β k

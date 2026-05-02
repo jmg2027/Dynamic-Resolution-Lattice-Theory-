@@ -19,6 +19,7 @@ open E213.Math.Cohomology.Delta.Core (delta)
 open E213.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
+open E213.Math.Cohomology.CupAW.Zero (cupAW_zero_left cupAW_zero_right delta_zero)
 
 /-- bz5_2 with β k = false reduces to Cochain.zero. -/
 theorem bz5_2_false (β : Cochain 5 2) (k : Fin 10)

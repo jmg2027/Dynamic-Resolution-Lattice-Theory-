@@ -23,6 +23,7 @@ open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Math.Cohomology.Delta.Core (delta)
 open E213.Math.Cohomology.Hodge.Involution (v0_5)
+open E213.Math.Cohomology.Cup.Core (cup)
 
 set_option maxHeartbeats 16000000 in
 /-- Leibniz on every pattern pair — decide-checked. -/

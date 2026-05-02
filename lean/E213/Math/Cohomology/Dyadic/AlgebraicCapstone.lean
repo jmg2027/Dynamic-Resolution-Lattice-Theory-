@@ -19,6 +19,11 @@ both quadratic and cubic algebraic classes.
 
 namespace E213.Math.Cohomology.Dyadic.AlgebraicCapstone
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- ★★★★★★★★ Unified algebraic capstone: quadratic Pell + cubic
     Tribonacci both fully closed in the K_{3,2}^{(2)} signature
     lens with polynomial period bounds and Tier 2 hardness. -/

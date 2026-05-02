@@ -29,6 +29,9 @@ relation, commit 35bef8d).
 
 namespace E213.Math.Cohomology.Dyadic.Fib.Pisano8
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- ★★★★★ Legendre 5 mod 13 = NQR (inert). -/
 theorem fib_legendre_5_mod_13 :
     legendre213 5 13 (by decide) = ⟨2, by decide⟩ := by decide

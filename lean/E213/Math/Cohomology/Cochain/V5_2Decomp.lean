@@ -14,6 +14,9 @@ on (β j) needed to close.
 
 namespace E213.Math.Cohomology.Cochain.V5_2Decomp
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
+
 /-- Conditional basis-or-zero at (5, 2), AND-form (definitional). -/
 def bz5_2 (β : Cochain 5 2) (k : Fin 10) : Cochain 5 2 := fun j =>
   (k.val == j.val) && β k

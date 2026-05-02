@@ -13,6 +13,9 @@ but finitely describable via popcount.  Not BitFSM-generable
 
 namespace E213.Math.Cohomology.Dyadic.ThueMorse
 
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Thue-Morse: parity of binary popcount. -/
 def thueMorse (n : Nat) : Bool :=
   (List.range (n + 1)).foldl (fun acc i => xor acc (n.testBit i)) false

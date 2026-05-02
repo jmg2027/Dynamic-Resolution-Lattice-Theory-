@@ -19,6 +19,10 @@ All conjuncts at ≤ {propext, Quot.sound}.
 
 namespace E213.Math.Cohomology.Dyadic.Trib.Capstone
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- ★★★★★★★ Tribonacci capstone: Tier 1 (cubic, Tribonacci-style)
     fully characterised in the K_{3,2}^{(2)} signature lens. -/
 theorem tribonacci_capstone :

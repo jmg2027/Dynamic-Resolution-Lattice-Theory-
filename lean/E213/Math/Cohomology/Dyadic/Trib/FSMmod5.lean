@@ -22,6 +22,10 @@ Wall–Sun lcm = lcm(4, 13, 31) = 1612.
 
 namespace E213.Math.Cohomology.Dyadic.Trib.FSMmod5
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Tribonacci shift mod 5: state (a, b, c) → (b, c, a + b + c).
     Out: parity of a (bit = a == 1). -/
 def tribFSMmod5 : ArithFSM3 5 where

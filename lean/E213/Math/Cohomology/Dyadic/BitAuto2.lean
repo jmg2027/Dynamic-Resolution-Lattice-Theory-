@@ -16,6 +16,8 @@ input bit, out = parity bit.
 
 namespace E213.Math.Cohomology.Dyadic.BitAuto2
 
+open E213.Math.Cohomology.Dyadic.ThueMorse (thueMorse)
+
 /-- 2-automatic bit stream generator.  Reads binary digits via DFA. -/
 structure BitAuto2 (n : Nat) where
   init : Fin n

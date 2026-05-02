@@ -20,6 +20,8 @@ Manual trajectory verification (Euler's criterion D^((p-1)/2) mod p):
 
 namespace E213.Math.Cohomology.Dyadic.Legendre.Small
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendreFSM legendre213)
+
 /-- ★★★★★ Pell discriminant 5 is NQR mod 3 (inert). -/
 theorem legendre_5_mod_3 : legendre213 5 3 (by decide) = ⟨2, by decide⟩ := by
   decide

@@ -19,6 +19,9 @@ K_{3,2}^{(2)} signature lens".
 
 namespace E213.Math.Cohomology.Dyadic.TwoLayerPredictor
 
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- ★★★★★★★★ Two-layer predictor capstone: both bit and signature
     Pell periods predicted by trajectory-walking the Legendre lens. -/
 theorem two_layer_predictor_capstone :

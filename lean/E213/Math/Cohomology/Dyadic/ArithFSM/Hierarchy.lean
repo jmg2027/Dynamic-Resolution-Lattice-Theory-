@@ -24,6 +24,11 @@ For the streams we have:
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Hierarchy
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V1 (ArithFSM1)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V2 (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+
+
 /-- Composed padding: ArithFSM₁(n) ↪ ArithFSM₃(n) via ArithFSM₂. -/
 def ArithFSM1.padTo3 {n : Nat} (hn : 0 < n) (m : ArithFSM1 n) : ArithFSM3 n :=
   (m.padTo2 hn).padTo3 hn

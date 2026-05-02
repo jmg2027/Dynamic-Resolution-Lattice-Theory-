@@ -35,6 +35,9 @@ splitting in the trajectory.
 
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor14
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- ★★★★★ Legendre 5 mod 41 = QR (split). -/
 theorem legendre_5_mod_41 :
     legendre213 5 41 (by decide) = ⟨1, by decide⟩ := by decide

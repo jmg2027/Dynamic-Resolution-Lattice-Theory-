@@ -20,6 +20,9 @@ naive Pisano formula), reflecting that φ has order dividing
 
 namespace E213.Math.Cohomology.Dyadic.Legendre.PisanoExt
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- ★★★★★★★ Extended bridge: Legendre lens predicts Pell period
     across all four branch types {inert, ramified, split, ...}. -/
 theorem legendre_pisano_extended_bridge :

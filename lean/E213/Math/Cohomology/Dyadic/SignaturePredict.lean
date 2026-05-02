@@ -30,6 +30,9 @@ Verified at all 7 primes:
 
 namespace E213.Math.Cohomology.Dyadic.SignaturePredict
 
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Signature-period predictor: doubles the bit-period predictor
     when the bit period is odd (bipartite parity coupling). -/
 def signature_predict (p : Nat) (hp : 1 < p) : Nat :=

@@ -22,6 +22,10 @@ Galois behaviour for the cubic plastic-style recurrence.
 
 namespace E213.Math.Cohomology.Dyadic.Trib.FSMmod3
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- Tribonacci shift mod 3: state (a, b, c) → (b, c, a + b + c).
     Out: parity of a (bit = a == 1). -/
 def tribFSMmod3 : ArithFSM3 3 where
