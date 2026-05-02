@@ -17,7 +17,8 @@ follows trivially (Prod.mk_injective.left).
 
 namespace E213.Meta.UniversalLens.Nat2Inj
 
-open E213.Firmware E213.Hypervisor E213.Meta.BitPattern
+open E213.Firmware E213.Hypervisor E213.Meta.BitPatternUniqueness
+open E213.Meta.UniversalLens.Nat2 (expSumLens expSumLens_symmetric)
 
 /-- First-component encoding: `expSumNat = (expSumLens.view _).1`. -/
 def expSumNat (r : Raw) : Nat := (expSumLens.view r).1
@@ -100,7 +101,7 @@ theorem expSumNat_inj_aux : ∀ r s : Raw, expSumNat r = expSumNat s → r = s :
       rw [expSumNat_slash, expSumNat_slash] at hs
       have hxy_distinct : expSumNat x ≠ expSumNat y :=
         fun heq => h (ihx y heq)
-      rcases E213.Meta.BitPattern.two_pow_sum_inj_full
+      rcases E213.Meta.BitPatternUniqueness.two_pow_sum_inj_full
               (expSumNat x) (expSumNat y) (expSumNat x') (expSumNat y')
               hxy_distinct hs with ⟨h1, h2⟩ | ⟨h1, h2⟩
       · have hxx : x = x' := ihx x' h1
@@ -126,7 +127,7 @@ theorem expSumLens_view_inj : Function.Injective expSumLens.view := by
     `E213.Meta.UniversalLens.IsUniversal`).  This is the first
     non-trivial universal lens — codomain ℕ × ℕ rather than Raw. -/
 theorem expSumLens_is_universal :
-    E213.Meta.UniversalLens.IsUniversal expSumLens :=
+    E213.Meta.UniversalLens.Core.IsUniversal expSumLens :=
   expSumLens_view_inj
 
 end E213.Meta.UniversalLens.Nat2Inj
