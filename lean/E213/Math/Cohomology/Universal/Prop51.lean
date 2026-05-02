@@ -26,12 +26,24 @@ def pattern (b0 b1 b2 b3 b4 : Bool) : Cochain 5 1 := fun i =>
   | ⟨3, _⟩ => b3
   | ⟨4, _⟩ => b4
 
-/-- Any σ : Cochain 5 1 equals its pattern. -/
+/-- Any σ : Cochain 5 1 equals its pattern (funext form, leaks Quot.sound). -/
 theorem pattern_eq (σ : Cochain 5 1) :
     σ = pattern (σ ⟨0, by decide⟩) (σ ⟨1, by decide⟩)
                 (σ ⟨2, by decide⟩) (σ ⟨3, by decide⟩)
                 (σ ⟨4, by decide⟩) := by
   funext k
+  match k with
+  | ⟨0, _⟩ => rfl
+  | ⟨1, _⟩ => rfl
+  | ⟨2, _⟩ => rfl
+  | ⟨3, _⟩ => rfl
+  | ⟨4, _⟩ => rfl
+
+/-- Pointwise pattern equality: ∅-axiom version. -/
+theorem pattern_eq_at (σ : Cochain 5 1) (k : Fin (binom 5 1)) :
+    σ k = pattern (σ ⟨0, by decide⟩) (σ ⟨1, by decide⟩)
+                  (σ ⟨2, by decide⟩) (σ ⟨3, by decide⟩)
+                  (σ ⟨4, by decide⟩) k := by
   match k with
   | ⟨0, _⟩ => rfl
   | ⟨1, _⟩ => rfl

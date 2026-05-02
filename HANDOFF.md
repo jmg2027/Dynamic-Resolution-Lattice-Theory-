@@ -1,5 +1,79 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★ Major milestone (2026-05-02 part 5): All 11 marquee capstones PURE
+
+**Strict ∅-AXIOM verified for all 11 major capstones**:
+- `Math.Cohomology.Dyadic.Pell.Capstone.pell_capstone`
+- `Math.Cohomology.Dyadic.Trib.Capstone.tribonacci_capstone`
+- `Math.Cohomology.Dyadic.AlgebraicCapstone.algebraic_tier1_capstone`
+- `Math.Cohomology.Hodge.InvolutionCapstone.hodge_involution_5strata_capstone`
+- `Math.Cohomology.Capstone.cohomology_213_marathon`
+- `Physics.Capstones.Capstone.drlt_physics_milestone`
+- `Meta.UniversalLens.PaddingCapstone.padding_capstone`
+- `Meta.UniversalLens.TripleCapstone.universal_lens_triple_capstone`
+- `Meta.AxiomMinimalityCapstone.{raw_minimality_capstone, raw_strict_minimum}`
+
+**This session cumulative: ~155+ new strict ∅-axiom theorems** above
+prior baseline.  Total above the original `{propext, Quot.sound}`
+baseline (now retired): ~225+.
+
+New 213-native infrastructure landed:
+- `Math/AddMod213.lean`: add_mod_left, add_mod, mod_mod, zero_mod,
+  mod_add_mod, div_add_mod, max_comm (∅-axiom replacements for
+  Nat.add_mod, Nat.div_add_mod, Nat.max_comm, etc.)
+- `Math/NatDiv213.lean`: add_div_right_pos, add_mod_right_pos,
+  div_mul_le_self, div_lt_of_lt_mul
+- `Math/EncodePair213.lean`: encode_div, encode_mod
+- `Cohomology/Dyadic/ProductFSMPeriodDvd.lean`: lens_composition_period_dvd
+
+Cascade-cleaned PURE this session:
+- ForwardPeriodicity (5/5), ForwardClosure (3/3), ForwardEventual (4/4),
+  BitFSM (5/5), BitFSM.Bound (3/3), BitFSM.Converse (5/5)
+- ArithFSM.{ToBitFSM, V3Equiv, V3toBitFSM, V3Bound, V3Hardness} all PURE
+- ArithFSM.Hardness, Tier2Hardness all PURE
+- Pell.{Lens, LensPairs, LensTriple, LensCapstone, Capstone}
+- Trib.{Capstone, CRTCapstone, CRT4Capstone}, AlgebraicCapstone
+- Pisano.{Predictor, Predictor6/7/8/11/14/17/20/22}
+- Fib.{FSMmod3/5/7/11/13/17/19/23, PisanoCapstone, Pisano8, PellRelation}
+- ThreeFamilyCapstone, TwoLayerPredictor, UnifiedPisanoCapstone
+- SignaturePredict, Classifier, TierBridge, SignatureBipartite
+- Hodge.Prop50/Prop/Prop52/Prop53/Prop54 + InvolutionCapstone
+- ConcretePellSig, ProductHelpers, ProductFSMRun, LCMClosure
+  (PURE for the dvd-friendly subset)
+- UniversalLens.{Nat2/Nat2Inj, Nat3, Nat4, Q213/Q213Inj, Q213_3,
+  TripleCapstone, PaddingCapstone}
+
+CLAUDE.md migration backlog #1 (pigeonhole_collision) and #2 (Hodge
+funext) BOTH retired this session.
+
+## Remaining DIRTY (lower priority, not on marquee path)
+
+These clusters carry [propext, Quot.sound] from architectural
+constraints and don't block any marquee capstone:
+
+  1. **Universal.Prop51/52/53/54**: `pattern` def's match on
+     `Fin (binom n k)` brings axioms even at `def`-level.  Cleaning
+     requires inlining binom or using Fin.cases-style recursion.
+     Distinct from `Hodge.Prop51-54` which were unblockable by the
+     `complementIdx` involution trick (no cochain pattern dependency).
+
+  2. **Real213.Phase*Capstone (J/L/etc.)**: large omega-pervasive
+     marathon (Bishop-style constructive analysis).  Math-track
+     work, not on physics critical path.  ~14 capstones × dozens
+     of theorems each.
+
+  3. **BitAuto2.thueMorseAuto, ThueMorse.***: `Nat.testBit` leaks
+     propext at definition level.  Cleaning requires writing
+     ∅-axiom popcount via div-by-2 recursion.
+
+  4. **CrossClassLens.crossLens_***: uses
+     `lens_composition_period` which depends on `Nat.lcm` (propext
+     in Lean kernel).  Could migrate to `lens_composition_period_dvd`
+     but typeclass elaboration timeouts at the cross-class level.
+
+  5. **EncodingBijection52, LeibnizFinding.***: smaller scattered
+     theorems, each requires individual investigation.
+
 ## ★ Latest cascade (2026-05-02 part 4): pigeonhole_collision unblocked
 
 **~25 capstones flipped DIRTY → PURE in one batch**, after rewriting
