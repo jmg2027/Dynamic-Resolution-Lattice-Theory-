@@ -50,6 +50,33 @@ theorem add_sub_cancel_right : ∀ (a b : Nat), a + b - b = a
     let ih : (a + b) - b = a := add_sub_cancel_right a b
     step.trans ih
 
+/-- `(k + n) - (k + m) = n - m`.  ∅-axiom replacement for
+    `Nat.add_sub_add_left` (Lean-core proof brings propext).
+    Term-mode via Nat.zero_add + Nat.succ_add + Nat.succ_sub_succ. -/
+theorem add_sub_add_left : ∀ (k n m : Nat), (k + n) - (k + m) = n - m
+  | 0, n, m =>
+    let h1 : (0 + n) - (0 + m) = n - (0 + m) :=
+      congrArg (fun x => x - (0 + m)) (Nat.zero_add n)
+    let h2 : n - (0 + m) = n - m :=
+      congrArg (fun x => n - x) (Nat.zero_add m)
+    h1.trans h2
+  | k+1, n, m =>
+    let h1 : (k + 1) + n = (k + n) + 1 := Nat.succ_add k n
+    let h2 : (k + 1) + m = (k + m) + 1 := Nat.succ_add k m
+    let h3 : ((k + n) + 1) - ((k + m) + 1) = (k + n) - (k + m) :=
+      Nat.succ_sub_succ_eq_sub (k + n) (k + m)
+    let ih : (k + n) - (k + m) = n - m := add_sub_add_left k n m
+    let step1 : (k + 1) + n - ((k + 1) + m) = ((k + n) + 1) - ((k + m) + 1) :=
+      h2 ▸ h1 ▸ rfl
+    step1.trans (h3.trans ih)
+
+/-- `(a + k) - (b + k) = a - b`.  ∅-axiom — companion to
+    `add_sub_add_left`, derived via `Nat.add_comm`. -/
+theorem add_sub_add_right (a k b : Nat) : (a + k) - (b + k) = a - b :=
+  let h1 : (a + k) - (b + k) = (k + a) - (k + b) :=
+    (Nat.add_comm k b) ▸ (Nat.add_comm k a) ▸ rfl
+  h1.trans (add_sub_add_left k a b)
+
 /-- `a + b ≤ c → a ≤ c - b`.  ∅-axiom replacement. -/
 theorem le_sub_of_add_le {a b c : Nat} (h : a + b ≤ c) : a ≤ c - b :=
   let h1 : (a + b) - b ≤ c - b := Nat.sub_le_sub_right h b

@@ -76,19 +76,18 @@ def DyadicBracket.rightHalf (db : DyadicBracket) : DyadicBracket where
 
 /-- **lenNum invariant under leftHalf**: numerator difference unchanged.
     Real length = lenNum/2^E halves because expE increases by 1.
-    ∅-axiom: `(a + b) - 2a = (a + b) - (a + a) = b - a` via
-    `Nat.two_mul` + `Nat.add_sub_add_left`. -/
+    ∅-axiom: `Nat.two_mul` + `Nat213.add_sub_add_left`. -/
 theorem DyadicBracket.leftHalf_lenNum (db : DyadicBracket) :
     db.leftHalf.lenNum = db.lenNum := by
   show (db.numA + db.numB) - 2 * db.numA = db.numB - db.numA
-  rw [Nat.two_mul, Nat.add_sub_add_left]
+  rw [Nat.two_mul, E213.Tactic.Nat213.add_sub_add_left]
 
 /-- **lenNum invariant under rightHalf**: same as left.
-    ∅-axiom: `2b - (a + b) = (b + b) - (a + b) = b - a`. -/
+    ∅-axiom: `Nat.two_mul` + `Nat213.add_sub_add_right`. -/
 theorem DyadicBracket.rightHalf_lenNum (db : DyadicBracket) :
     db.rightHalf.lenNum = db.lenNum := by
   show 2 * db.numB - (db.numA + db.numB) = db.numB - db.numA
-  rw [Nat.two_mul, Nat.add_sub_add_right]
+  rw [Nat.two_mul, E213.Tactic.Nat213.add_sub_add_right]
 
 /-- expE increases by 1 on left half. -/
 theorem DyadicBracket.leftHalf_expE (db : DyadicBracket) :
@@ -103,10 +102,14 @@ theorem DyadicBracket.rightHalf_expE (db : DyadicBracket) :
     take left half (root in [a, mid]), false → take right half. -/
 abbrev DyadicOracle := (Nat → Nat → Bool) → Bool
 
-/-- **Single bisection step**: oracle decides left or right half. -/
+/-- **Single bisection step**: oracle decides left or right half.
+    Uses `bif` (= `Bool.cond`) instead of `if-then-else` to avoid
+    the `Decidable (Bool = true)` instance leaking propext into
+    downstream theorems.  `Bool.cond` is structural recursion on
+    Bool, ∅-axiom by kernel reduction. -/
 def DyadicBracket.bisectStep (db : DyadicBracket)
     (oracle : DyadicOracle) : DyadicBracket :=
-  if oracle db.midCut then db.leftHalf else db.rightHalf
+  bif oracle db.midCut then db.leftHalf else db.rightHalf
 
 /-- **n-step bisection**: iterate bisectStep n times. -/
 def DyadicBracket.bisectN
@@ -126,12 +129,10 @@ theorem DyadicBracket.bisectN_expE (oracle : DyadicOracle) :
        = db.expE + (n+1)
     rw [DyadicBracket.bisectN_expE oracle n (db.bisectStep oracle)]
     have hstep : (db.bisectStep oracle).expE = db.expE + 1 := by
-      show (if oracle db.midCut
+      show (bif oracle db.midCut
             then db.leftHalf else db.rightHalf).expE
             = db.expE + 1
-      by_cases h : oracle db.midCut = true
-      · rw [if_pos h]; rfl
-      · rw [if_neg h]; rfl
+      cases oracle db.midCut <;> rfl
     rw [hstep, Nat.add_assoc, Nat.add_comm 1 n]
 
 /-- After n bisection steps, lenNum stays the same.
@@ -146,7 +147,7 @@ theorem DyadicBracket.bisectN_lenNum (oracle : DyadicOracle) :
        = db.lenNum
     rw [DyadicBracket.bisectN_lenNum oracle n (db.bisectStep oracle)]
     show (db.bisectStep oracle).lenNum = db.lenNum
-    show (if oracle db.midCut
+    show (bif oracle db.midCut
           then db.leftHalf else db.rightHalf).lenNum
           = db.lenNum
     cases oracle db.midCut with
@@ -239,21 +240,21 @@ theorem DyadicBracket.bisectStep_contains_left
     (db : DyadicBracket) (oracle : DyadicOracle) :
     cutLe db.leftCut (db.bisectStep oracle).leftCut := by
   show cutLe db.leftCut
-        (if oracle db.midCut then db.leftHalf else db.rightHalf).leftCut
-  by_cases h : oracle db.midCut = true
-  · rw [if_pos h]; exact db.leftHalf_left_contains
-  · rw [if_neg h]; exact db.rightHalf_left_contains
+        (bif oracle db.midCut then db.leftHalf else db.rightHalf).leftCut
+  cases oracle db.midCut
+  · exact db.rightHalf_left_contains
+  · exact db.leftHalf_left_contains
 
 /-- **One-step bisectStep containment (right)**: bisectStep's right
     endpoint ≤ original right endpoint, regardless of oracle. -/
 theorem DyadicBracket.bisectStep_contains_right
     (db : DyadicBracket) (oracle : DyadicOracle) :
     cutLe (db.bisectStep oracle).rightCut db.rightCut := by
-  show cutLe (if oracle db.midCut
+  show cutLe (bif oracle db.midCut
               then db.leftHalf else db.rightHalf).rightCut db.rightCut
-  by_cases h : oracle db.midCut = true
-  · rw [if_pos h]; exact db.leftHalf_right_contains
-  · rw [if_neg h]; exact db.rightHalf_right_contains
+  cases oracle db.midCut
+  · exact db.rightHalf_right_contains
+  · exact db.leftHalf_right_contains
 
 /-- **n-step bisection bracket containment (left)**: ∀ n, original
     left endpoint ≤ bisectN's left endpoint. -/
@@ -367,14 +368,12 @@ theorem DyadicBracket.bisectN_midCut_constFalse
 theorem DyadicBracket.bisectStep_collapsed (db : DyadicBracket)
     (oracle : DyadicOracle) (h : db.numA = db.numB) :
     (db.bisectStep oracle).numA = (db.bisectStep oracle).numB := by
-  show (if oracle db.midCut then db.leftHalf else db.rightHalf).numA
-     = (if oracle db.midCut then db.leftHalf else db.rightHalf).numB
-  by_cases hor : oracle db.midCut = true
-  · rw [if_pos hor]
-    show 2 * db.numA = db.numA + db.numB
+  show (bif oracle db.midCut then db.leftHalf else db.rightHalf).numA
+     = (bif oracle db.midCut then db.leftHalf else db.rightHalf).numB
+  cases oracle db.midCut
+  · show db.numA + db.numB = 2 * db.numB
     rw [Nat.two_mul, h]
-  · rw [if_neg hor]
-    show db.numA + db.numB = 2 * db.numB
+  · show 2 * db.numA = db.numA + db.numB
     rw [Nat.two_mul, h]
 
 /-- **bisectN preserves collapsed**: by induction on n. -/
@@ -393,13 +392,11 @@ theorem DyadicBracket.bisectN_collapsed (oracle : DyadicOracle) :
 theorem DyadicBracket.bisectStep_collapsed_numA
     (db : DyadicBracket) (oracle : DyadicOracle) (h : db.numA = db.numB) :
     (db.bisectStep oracle).numA = 2 * db.numA := by
-  show (if oracle db.midCut then db.leftHalf else db.rightHalf).numA = 2 * db.numA
-  by_cases hor : oracle db.midCut = true
-  · rw [if_pos hor]
-    rfl
-  · rw [if_neg hor]
-    show db.numA + db.numB = 2 * db.numA
+  show (bif oracle db.midCut then db.leftHalf else db.rightHalf).numA = 2 * db.numA
+  cases oracle db.midCut
+  · show db.numA + db.numB = 2 * db.numA
     rw [Nat.two_mul, h]
+  · rfl
 
 /-- **bisectN on collapsed: numA scales as 2^n**. -/
 theorem DyadicBracket.bisectN_collapsed_numA (oracle : DyadicOracle) :
@@ -417,10 +414,20 @@ theorem DyadicBracket.bisectN_collapsed_numA (oracle : DyadicOracle) :
     rw [DyadicBracket.bisectStep_collapsed_numA db oracle h]
     rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc]
 
+/-- Local Bool extensionality: bypasses `propext` for `Bool = Bool`
+    proofs derivable from `(a = true ↔ b = true)`. -/
+private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) : a = b := by
+  cases a <;> cases b
+  · rfl
+  · exact h.mpr rfl
+  · exact (h.mp rfl).symm
+  · rfl
+
 /-- **Collapsed bracket midCut form**: for collapsed db, the midCut
     value at (m, k) at step n = decide(numA * k ≤ 2^expE * m),
-    independent of n.  This is the formal payoff of all the
-    structural lemmas. -/
+    independent of n.  ∅-axiom: uses `bool_eq_iff` instead of
+    `propext`, `Pow213.pow_add_two` instead of `Nat.pow_add`,
+    Nat.add_assoc/Nat.add_comm chain instead of `omega`. -/
 theorem DyadicBracket.bisectN_collapsed_midCut_form
     (oracle : DyadicOracle) (db : DyadicBracket)
     (h : db.numA = db.numB) (n : Nat) (m k : Nat) :
@@ -441,33 +448,40 @@ theorem DyadicBracket.bisectN_collapsed_midCut_form
        ≤ 2^((DyadicBracket.bisectN oracle n db).expE + 1) * m)
        = decide (db.numA * k ≤ 2^db.expE * m)
   rw [← hcoll, hnumA, hexpE]
-  -- Goal: decide ((2^n * db.numA + 2^n * db.numA) * k ≤ 2^(db.expE + n + 1) * m)
-  --     = decide (db.numA * k ≤ 2^db.expE * m)
   have e1 : 2^n * db.numA + 2^n * db.numA = 2^(n+1) * db.numA := by
-    rw [← Nat.two_mul, ← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm 2 (2^n), ← Nat.pow_succ]
+    rw [← Nat.two_mul, ← E213.Tactic.Nat213.mul_assoc,
+        Nat.mul_comm 2 (2^n), ← Nat.pow_succ]
+  -- Reorder db.expE + n + 1 to (n+1) + db.expE without omega.
+  have eN : db.expE + n + 1 = (n+1) + db.expE := by
+    rw [Nat.add_assoc, Nat.add_comm n 1, Nat.add_comm db.expE (1+n),
+        Nat.add_assoc]
   have e2 : (2:Nat)^(db.expE + n + 1) = 2^(n+1) * 2^db.expE := by
-    rw [show db.expE + n + 1 = (n+1) + db.expE from by omega, Nat.pow_add]
+    rw [eN]; exact E213.Tactic.Pow213.pow_add_two (n+1) db.expE
   rw [e1, e2]
-  -- Goal: decide (2^(n+1) * db.numA * k ≤ 2^(n+1) * 2^db.expE * m)
-  --     = decide (db.numA * k ≤ 2^db.expE * m)
-  congr 1
-  apply propext
+  apply bool_eq_iff
+  -- Goal: decide(P) = true ↔ decide(Q) = true
+  -- where P : 2^(n+1) * db.numA * k ≤ 2^(n+1) * 2^db.expE * m
+  --       Q : db.numA * k ≤ 2^db.expE * m
   constructor
-  · intro hle
-    have : 2^(n+1) * db.numA * k = 2^(n+1) * (db.numA * k) :=
+  · intro hPdec
+    have hP := of_decide_eq_true hPdec
+    have hpow : 2^(n+1) * db.numA * k = 2^(n+1) * (db.numA * k) :=
       E213.Tactic.Nat213.mul_assoc _ _ _
-    rw [this] at hle
-    have h2 : 2^(n+1) * 2^db.expE * m = 2^(n+1) * (2^db.expE * m) :=
+    rw [hpow] at hP
+    have hpow2 : 2^(n+1) * 2^db.expE * m = 2^(n+1) * (2^db.expE * m) :=
       E213.Tactic.Nat213.mul_assoc _ _ _
-    rw [h2] at hle
-    exact Nat.le_of_mul_le_mul_left hle
-      (Nat.pos_pow_of_pos (n+1) (by decide : 0 < 2))
-  · intro hle
-    have h1 : 2^(n+1) * db.numA * k = 2^(n+1) * (db.numA * k) :=
+    rw [hpow2] at hP
+    apply decide_eq_true
+    exact Nat.le_of_mul_le_mul_left hP
+      (Nat.pos_pow_of_pos (n+1) (Nat.zero_lt_succ 1))
+  · intro hQdec
+    have hQ := of_decide_eq_true hQdec
+    apply decide_eq_true
+    have hpow : 2^(n+1) * db.numA * k = 2^(n+1) * (db.numA * k) :=
       E213.Tactic.Nat213.mul_assoc _ _ _
-    have h2 : 2^(n+1) * 2^db.expE * m = 2^(n+1) * (2^db.expE * m) :=
+    have hpow2 : 2^(n+1) * 2^db.expE * m = 2^(n+1) * (2^db.expE * m) :=
       E213.Tactic.Nat213.mul_assoc _ _ _
-    rw [h1, h2]
-    exact Nat.mul_le_mul_left (2^(n+1)) hle
+    rw [hpow, hpow2]
+    exact Nat.mul_le_mul_left (2^(n+1)) hQ
 
 end E213.Math.Real213.DyadicBracket
