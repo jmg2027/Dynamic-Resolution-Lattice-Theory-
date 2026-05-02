@@ -1,5 +1,31 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## Latest progress (2026-05-02 continuation)
+
+Cumulative session wins after last HANDOFF refresh:
+
+- **Pell.Lens cluster** (9 strict ∅-axiom theorems, 2026-05-02 part 1)
+- **Trib.CRT cluster** (10 strict ∅-axiom theorems)
+- **Pisano.Predictor14/17 + UnifiedPisanoCapstone** (10+ theorems)
+- **Meta.AxiomMinimalityCapstone** (2 theorems strict ∅-axiom)
+- **Meta.UniversalLens cluster** (Nat2Inj/Nat3/Nat4/Q213Inj/Q213_3/
+  TripleCapstone/PaddingCapstone build restored — 5 cluster
+  modules; build-blocker namespace cascade resolved)
+
+Total new strict ∅-axiom theorems: ~70+.  Total session: ~70+ above
+prior baseline.
+
+Key architectural wins:
+- New 213-native helpers in `Math/`:
+  * `NatDiv213.lean` (4 ∅-axiom div/mod helpers)
+  * `EncodePair213.lean` (encode_div / encode_mod for pair encoding)
+- New cohomology infra:
+  * `ProductFSMPeriodDvd.lean` (lens_composition_period_dvd, ∅-axiom
+    via tactic-free body + explicit dvd witnesses, bypassing
+    `Nat.dvd_lcm_left/right` propext)
+- Critical lesson documented in CLAUDE.md / HANDOFF: `(by decide : a ∣ b)`
+  brings propext via Nat.instDecidableDvd; use `⟨k, rfl⟩` instead.
+
 ## Latest progress — Pell.Lens cluster + Trib CRT cluster STRICT ∅-AXIOM
 
 **Context (2026-05-02 resume)**: extended cascade clean to remaining
