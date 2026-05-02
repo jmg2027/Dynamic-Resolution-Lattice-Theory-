@@ -10,6 +10,7 @@ cutSum (cutSum_cutEq_left/right etc.) by composition.
 
 namespace E213.Math.Real213.CutMidEq
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- cutMid preserves cutEq on left arg. -/

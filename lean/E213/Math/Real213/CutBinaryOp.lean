@@ -15,6 +15,7 @@ via `CutBinaryOp`.  Both cutSum and cutMul are instances.
 
 namespace E213.Math.Real213.CutBinaryOp
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- **CutBinaryOp**: parameters of a binary cut operation. -/

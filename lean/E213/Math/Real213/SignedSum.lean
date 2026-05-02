@@ -11,6 +11,7 @@ cutSignedSub: cutSignedSum with negated second arg.
 
 namespace E213.Math.Real213.SignedSum
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- **cutSignedSum**: signed addition.  Same sign: cutSum on |abs|.

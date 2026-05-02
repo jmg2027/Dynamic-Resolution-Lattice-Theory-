@@ -38,6 +38,7 @@ The pure sample sum is the natural primitive.
 
 namespace E213.Math.Real213.DyadicRiemann
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- **Dyadic Riemann sample sum** at depth `n`: accumulates f(midCut)

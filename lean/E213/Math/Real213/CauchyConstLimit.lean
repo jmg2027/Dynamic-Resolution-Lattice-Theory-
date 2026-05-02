@@ -15,6 +15,7 @@ const-cut closed form.
 
 namespace E213.Math.Real213.CauchyConstLimit
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- Limit of (constCauchy a/1) + (constCauchy b/1) = (a+b)/1. -/

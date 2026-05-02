@@ -24,6 +24,7 @@ issue vanish naturally.
 
 namespace E213.Math.Real213.Dyadic
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- **dyadicCut M E**: rational M / 2^E as a 213 cut function.

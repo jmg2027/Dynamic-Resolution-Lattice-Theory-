@@ -13,6 +13,7 @@ Key lemma: cutSumAux_congr (existing in Real213CutSumDetermined).
 
 namespace E213.Math.Real213.CauchyArithSum
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- max of a.N j (2*k) for j ∈ [0, M]. -/

@@ -12,6 +12,7 @@ Well-definedness of cutSum modulo cutEq.
 
 namespace E213.Math.Real213.CutSumEq
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- cutSum respects cutEq in cx (left). -/

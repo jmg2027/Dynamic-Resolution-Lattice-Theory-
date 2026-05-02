@@ -9,6 +9,7 @@ partialSum (fun _ => c) n at small n via verified cutSum identities.
 
 namespace E213.Math.Real213.CutSeriesConst
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- partialSum of constant a/b at n = 1 = a/b. -/

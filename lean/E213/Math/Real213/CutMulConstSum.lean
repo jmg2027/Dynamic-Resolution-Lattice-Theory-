@@ -27,6 +27,7 @@ the rational level is preserved by the cut forward direction.
 
 namespace E213.Math.Real213.CutMulConstSum
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 private theorem mul_4_reassoc_v2 (x y z w : Nat) :

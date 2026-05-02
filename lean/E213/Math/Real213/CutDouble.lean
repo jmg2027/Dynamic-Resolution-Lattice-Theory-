@@ -12,6 +12,7 @@ cutDouble c := "2x ≤ m/k" iff "x ≤ m/(2k)" → c m (2k).
 
 namespace E213.Math.Real213.CutDouble
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- **cutDouble**: 2x cut. -/

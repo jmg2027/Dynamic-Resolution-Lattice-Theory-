@@ -20,6 +20,7 @@ Cut form of differentiation — Bishop modulus carried as data.
 
 namespace E213.Math.Real213.CutDiffQuotient
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- **Difference quotient at signed level**.

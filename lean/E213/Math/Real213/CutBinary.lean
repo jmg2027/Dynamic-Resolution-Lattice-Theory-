@@ -35,6 +35,7 @@ it.  Bishop's ε-precision choice is also a special form within it.
 
 namespace E213.Math.Real213.CutBinary
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- Inner loop: m2 ∈ [0, n], m1 fixed. -/

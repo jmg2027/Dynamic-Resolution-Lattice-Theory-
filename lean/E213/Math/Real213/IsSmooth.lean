@@ -42,6 +42,7 @@ This inverts the ZFC bias and matches lattice ontology.
 
 namespace E213.Math.Real213.IsSmooth
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- **IsSmooth** : differentiability as a constructive filter.

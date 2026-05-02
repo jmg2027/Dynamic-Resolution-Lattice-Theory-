@@ -26,6 +26,7 @@ ANY b.
 
 namespace E213.Math.Real213.PartialSumGeneral
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- ★★★★★★ partialSum of constant cut, forward direction at any b. -/

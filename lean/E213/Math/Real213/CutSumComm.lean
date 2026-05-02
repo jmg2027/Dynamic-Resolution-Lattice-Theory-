@@ -9,6 +9,7 @@ Strategy: prove iff existential, then bijection j = M - i.
 
 namespace E213.Math.Real213.CutSumComm
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- cutSumAux is true iff an existential witness exists. -/

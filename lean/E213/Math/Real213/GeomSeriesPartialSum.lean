@@ -17,6 +17,7 @@ Each propEq via cutSum lemmas chain.
 
 namespace E213.Math.Real213.GeomSeriesPartialSum
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- ★ Σ_{i=0}^0 (1/2)^i = (1/2)^0 = 1. -/

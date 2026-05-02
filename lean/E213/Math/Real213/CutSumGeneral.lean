@@ -35,6 +35,7 @@ These are the previously-missing **safe directions** at b ≥ 3.
 
 namespace E213.Math.Real213.CutSumGeneral
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 private theorem bool_eq_iff_v2 (a b : Bool)

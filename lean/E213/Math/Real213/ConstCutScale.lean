@@ -12,6 +12,7 @@ Equivalent rationals (1/2 = 2/4 = 3/6 = ...) yield same cut function.
 namespace E213.Math.Real213.ConstCutScale
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **constCut scaling**: constCut a b = constCut (a*c) (b*c) for c ≥ 1. -/
 theorem constCut_scale (a b c : Nat) (hc : c ≥ 1) :

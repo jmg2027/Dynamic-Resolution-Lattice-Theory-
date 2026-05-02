@@ -19,6 +19,7 @@ Bishop signed-cut pairing reinterpreted as flux on dyadic tree.
 
 namespace E213.Math.Real213.FluxCut
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- Dyadic cut + cohomological orientation: forward / backward pair. -/
