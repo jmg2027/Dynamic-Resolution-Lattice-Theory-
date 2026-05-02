@@ -12,7 +12,15 @@ cutMax/cutMin/cutHalf/cutDouble/cutSum preserve ValidCut.
 
 namespace E213.Math.Real213.ValidCutOps
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf cutMid)
+open E213.Math.Real213.CutMaxMin (cutMax cutMin)
+open E213.Math.Real213.CutSum (cutSumAux)
+open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff)
+open E213.Math.Real213.ValidCut (ValidCut)
+open E213.Math.Real213.CutDouble (cutDouble)
 
 /-- cutMax preserves ValidCut. -/
 theorem cutMax_valid (cx cy : Nat → Nat → Bool)

@@ -14,46 +14,39 @@ Closes the top-1 stratum of the Hodge involution chain.
 
 namespace E213.Math.Cohomology.Hodge.Prop54
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
+
 open E213.Physics.Simplex.Counts (binom)
 
-/-- Cochain 5 4 parametrized by 5 Bool values. -/
-def pattern (b0 b1 b2 b3 b4 : Bool) : Cochain 5 4 :=
-  fun i =>
-    match i with
-    | ⟨0, _⟩ => b0
-    | ⟨1, _⟩ => b1
-    | ⟨2, _⟩ => b2
-    | ⟨3, _⟩ => b3
-    | ⟨4, _⟩ => b4
+open E213.Math.Cohomology.Hodge.Star (complementIdx)
 
-/-- Any σ : Cochain 5 4 equals its pattern. -/
-theorem pattern_eq (σ : Cochain 5 4) :
-    σ = pattern
-      (σ ⟨0, by decide⟩) (σ ⟨1, by decide⟩)
-      (σ ⟨2, by decide⟩) (σ ⟨3, by decide⟩)
-      (σ ⟨4, by decide⟩) := by
-  funext i
-  match i with
-  | ⟨0, _⟩ => rfl
-  | ⟨1, _⟩ => rfl
-  | ⟨2, _⟩ => rfl
-  | ⟨3, _⟩ => rfl
-  | ⟨4, _⟩ => rfl
+private theorem c1_lt_binom1_5_4 :
+    ∀ i : Fin (binom 5 4), complementIdx 5 4 i.val < binom 5 1 := by decide
 
-/-- ⋆⋆ = id on every (5, 4) pattern: 32 patterns × 5 indices. -/
-theorem hodge_sq_pattern_5_4 :
-    ∀ b0 b1 b2 b3 b4 : Bool, ∀ i : Fin (binom 5 4),
-      hodgeStar 5 1 4 (hodgeStar 5 4 1 (pattern b0 b1 b2 b3 b4)) i
-        = pattern b0 b1 b2 b3 b4 i := by decide
+private theorem c2_lt_binom4_5_4 :
+    ∀ i : Fin (binom 5 4),
+      complementIdx 5 1 (complementIdx 5 4 i.val) < binom 5 4 := by decide
 
-/-- ★★★ Prop-level ∀ σ : Cochain 5 4, ⋆⋆σ = σ. -/
+private theorem c2_eq_i_5_4 :
+    ∀ i : Fin (binom 5 4),
+      complementIdx 5 1 (complementIdx 5 4 i.val) = i.val := by decide
+
+/-- ★★★ Prop-level ∀ σ : Cochain 5 4, ⋆⋆σ = σ.  STRICT ∅-AXIOM. -/
 theorem hodge_sq_prop_5_4 (σ : Cochain 5 4)
     (i : Fin (binom 5 4)) :
     hodgeStar 5 1 4 (hodgeStar 5 4 1 σ) i = σ i := by
-  rw [pattern_eq σ]
-  exact hodge_sq_pattern_5_4 _ _ _ _ _ i
+  show (if h : complementIdx 5 4 i.val < binom 5 1 then
+          (hodgeStar 5 4 1 σ) ⟨complementIdx 5 4 i.val, h⟩
+        else false) = σ i
+  rw [dif_pos (c1_lt_binom1_5_4 i)]
+  show (if h : complementIdx 5 1 (complementIdx 5 4 i.val) < binom 5 4 then
+          σ ⟨complementIdx 5 1 (complementIdx 5 4 i.val), h⟩
+        else false) = σ i
+  rw [dif_pos (c2_lt_binom4_5_4 i)]
+  exact congrArg σ (Fin.ext (c2_eq_i_5_4 i))
 
-/-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 4). -/
+/-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 4).  STRICT ∅-AXIOM. -/
 theorem hodge_involution_capstone_5_4 :
     ∀ σ : Cochain 5 4, ∀ i : Fin (binom 5 4),
       hodgeStar 5 1 4 (hodgeStar 5 4 1 σ) i = σ i :=

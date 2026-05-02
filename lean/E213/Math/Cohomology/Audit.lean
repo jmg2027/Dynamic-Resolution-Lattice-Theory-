@@ -11,7 +11,7 @@ from **partial** (concrete cases, deferred universal).
 * `Cochain.add_self`, `add_zero`, `zero_add`, `add_comm` — XOR
   group structure ∀ σ.
 * `Cochain.xor_self_eq_false`, `xor_false_right` — Bool ids.
-* `Bip32.CochAbove.unique` (this file) — ∀ σ τ : Empty → Bool.
+* `E213.Math.Cohomology.Bipartite.V32Betti.CochAbove.unique` (this file) — ∀ σ τ : Empty → Bool.
 
 ## Partial (concrete cochains, deferred universal)
 
@@ -30,6 +30,9 @@ from **partial** (concrete cases, deferred universal).
 -/
 
 namespace E213.Math.Cohomology.Audit
+
+open E213.Math.Cohomology.Cup.Core (cup)
+
 
 /-! ## Discovery 1: Graph H^k = 0 for k ≥ 2 (formal) -/
 
@@ -62,7 +65,7 @@ end Bip32
     Both = NS² − 1 = 1/α_3 (confined coupling). -/
 theorem alpha_3_two_derivations :
     E213.Physics.Couplings.PhotonKernel.b_1 = 8
-    ∧ Bip32.kerSizeDelta0 = 2
+    ∧ E213.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 = 2
     ∧ 16 * 256 = 4096 := by
   refine ⟨E213.Physics.Couplings.PhotonKernel.b_1_eq_8, ?_, ?_⟩ <;> decide
 

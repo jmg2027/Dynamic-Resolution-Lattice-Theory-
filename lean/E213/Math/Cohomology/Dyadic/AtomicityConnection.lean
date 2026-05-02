@@ -20,6 +20,9 @@ Therefore the signature lens isn't arbitrary — it's the
 
 namespace E213.Math.Cohomology.Dyadic.AtomicityConnection
 
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+
+
 /-- ★ K_{3,2}^{(2)} signature uses exactly NS S-vertices. -/
 theorem signature_S_count : E213.Physics.Simplex.Counts.NS = 3 := rfl
 

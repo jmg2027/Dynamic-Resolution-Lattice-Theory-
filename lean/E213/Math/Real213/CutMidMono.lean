@@ -16,6 +16,12 @@ Strategy:
 namespace E213.Math.Real213.CutMidMono
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutPoset (cutLe)
+open E213.Math.Real213.CutSum (cutSumAux)
+open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff)
+open E213.Math.Real213.ValidCut (RatioCut)
 
 /-- cutLe a (cutMid a b) at fixed (m, k) with k ≥ 1, for RatioCut a
     and cutLe a b.  Stated as pointwise (Bool equality form). -/

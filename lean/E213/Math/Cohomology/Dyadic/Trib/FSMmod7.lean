@@ -21,6 +21,12 @@ Cubic CRT extended to {2, 3, 5, 7} → lcm(4, 13, 31, 48) = 25584.
 
 namespace E213.Math.Cohomology.Dyadic.Trib.FSMmod7
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+
+
 /-- Tribonacci shift mod 7. -/
 def tribFSMmod7 : ArithFSM3 7 where
   init := (⟨0, by decide⟩, ⟨1, by decide⟩, ⟨1, by decide⟩)

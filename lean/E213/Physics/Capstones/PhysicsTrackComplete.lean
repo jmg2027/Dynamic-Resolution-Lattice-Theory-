@@ -3,7 +3,7 @@ import E213.Physics.AlphaEM.Simplicial
 import E213.Physics.Mass.MuOverE
 import E213.Physics.Higgs.Mass
 import E213.Physics.Mass.TauOverMu
-import E213.Physics.YangMills.Gap.WeinbergAngle
+import E213.Physics.YangMills.WeinbergAngle
 import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Atomic.BondAngles
 import E213.Physics.Hadron.ProtonMass

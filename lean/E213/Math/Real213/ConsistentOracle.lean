@@ -36,6 +36,8 @@ is sufficiently stable.
 namespace E213.Math.Real213.ConsistentOracle
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.DyadicBracket
+open E213.Math.Real213.CauchyComplete (CauchyCutSeq)
 
 /-- **ConsistentOracle**: an oracle protocol carrying its own
     consistency threshold function.

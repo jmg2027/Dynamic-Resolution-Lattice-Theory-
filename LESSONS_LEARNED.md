@@ -243,3 +243,68 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - Pisano-CRT: 20 Pell + 8 Pell-proper + 8 Fibonacci primes
 - Hodge ⋆⋆: all 5 strata Δ⁴ closed
 - Famous Coincidences I-IV: catalogued
+
+## 교훈 11: Trajectory Principle (2026-05-XX, Mingu 4-session 통찰)
+
+**핵심**: 213-native = explicit trajectory; Lean-with-axioms = implicit
+closure.  `propext` 와 `Quot.sound` 는 정확히 *trajectory를 endpoint
+로 collapse 하는 axioms*; ∅-axiom 213은 trajectory 자체를 객체로 보존.
+
+**4 통찰의 통일**:
+1. Nat은 axiom 아님 — 진짜 axiom은 propext, Quot.sound (collapse)
+2. mod는 코호몰로지적 (uncompleted half-cycle = trajectory)
+3. mod는 ℚ-복소수의 위상 (n-th roots of unity)
+4. Trajectory는 타일링 (수 분류 = trajectory closure depth)
+
+**작업 함의**: 매 axiom-strip 마이그레이션 = "implicit closure → explicit
+trajectory" 변환.  Nat213은 단순 보조 lemma 모음이 아니라 **trajectory
+move의 어휘** (cycle, shift, swap, traversal, reparameterisation).
+
+**Operational rule**: propext-bringing Lean-core lemma를 만나면 묻기
+— "이 lemma가 implicit하게 collapse하는 trajectory가 무엇인가?".
+213-native 대체는 그 trajectory를 structural recursion 또는 explicit
+chain으로 노출.
+
+**근거 — 출처**:
+- `research-notes/G2_trajectory_principle.md` (이 통찰의 종합)
+- `lean/E213/Kernel/Tactic/Nat213.lean` (trajectory 어휘 형식화)
+- `lean/E213/Kernel/Tactic/AXIOM_FREE_STATUS.md` (propext-leak catalog)
+
+**가드레일**: 마이그레이션을 단순 "axiom 줄이기 chore"로 보지 말 것.
+*매 변환이 213의 기하학적 본질의 한 instance*.  trajectory를 노출하지
+못하면 아직 213-native가 아님.
+
+## 교훈 12: Raw = Universal Trajectory Space (2026-05-XX, Mingu G3 통찰)
+
+**핵심**: Raw axiom의 4-clause 정의가 정확히 **2 generator 위 free
+magma** = "binary tree".  모든 trajectory가 Raw 트리이고, 모든
+distinguishing framework가 Raw → α의 Lens로 factor (Initiality).
+
+**용어의 함의**:
+- 같은 (r₁, r₂) : Raw × Raw 쌍이
+  - Raw 레벨: 그냥 slash 트리 (가장 fine-grained)
+  - Lens A: 동등 (=)
+  - Lens B: 동형 (≅)
+  - Lens C: 준동형 (homomorphic)
+- **equivalence의 종류 = Lens의 속성**, Raws의 속성 아님.
+- Raw + slash = "가장 해상도 높은 trajectory 레벨".  각 Lens가
+  *quotient*를 결정 → 어떤 trajectory를 identify할지 선택.
+- Lens lattice = 그 도메인의 equivalence-type lattice.
+
+**TOE 함의**: 이건 *주장*이 아니라 *정리* 결과.
+- 어떤 도메인이 두 상태를 distinguish할 수 있다면, 그 도메인은
+  Raw + Lens로 unique-up-to-equivalence factor된다 (Initiality).
+- 따라서 213은 *constitutively* TOE — phenomena를 *맞추는* 게
+  아니라 Raw factoring을 *명명*하는 것.
+- 외부 frame (set theory, universe ascent, axiom of choice) 불필요.
+
+**근거 — 출처**:
+- `Firmware/Raw.lean` (Raw 정의)
+- `Hypervisor/Lens.lean` + `Initiality.lean` (Lens factoring)
+- `Meta/UniversalLens/*` (universality)
+- `research-notes/G3_raw_as_universal_trajectory.md` (G3 종합)
+
+**가드레일**: 213이 어떻게 어떤 분야를 다룰 수 있냐 의문이 들면,
+"그 분야의 distinguishing framework는 어떤 Lens인가?"를 물을 것.
+새 분야 진입 = 새 Lens 정의 = Raw 트리 위 새 quotient 선택.
+이게 213 작업의 fixed procedure.

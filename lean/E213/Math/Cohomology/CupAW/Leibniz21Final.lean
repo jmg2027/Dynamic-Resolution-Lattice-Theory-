@@ -7,6 +7,10 @@ import E213.Math.Cohomology.CupAW.Leibniz21Bridge
 namespace E213.Math.Cohomology.CupAW.Leibniz21Final
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.Core (cupAW)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis basis_leibniz_5_2_1)
 open E213.Math.Cohomology.Cochain.V5_1DecompR (bz5_1)
 open E213.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
@@ -42,7 +46,7 @@ theorem leibniz_α_basis (α : Cochain 5 2) (k : Fin 5)
     delta (cupAW 5 2 1 α (basis 5 1 k)) i
       = xor (cupAW 5 3 1 (delta α) (basis 5 1 k) i)
             (cupAW 5 2 2 α (delta (basis 5 1 k)) i) :=
-  CupAWLeibnizAlgLift21Alpha.leibniz_via_α_decomp_21
+  E213.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha.leibniz_via_α_decomp_21
     α (basis 5 1 k) i (h_components_α α k i)
 
 /-- Per-β-component Leibniz: cases on β k. -/
@@ -75,7 +79,7 @@ theorem leibniz_universal_5_2_1
     delta (cupAW 5 2 1 α β) i
       = xor (cupAW 5 3 1 (delta α) β i)
             (cupAW 5 2 2 α (delta β) i) :=
-  CupAWLeibnizAlgLift21.leibniz_via_β_decomp_21
+  E213.Math.Cohomology.CupAW.LeibnizAlgLift21.leibniz_via_β_decomp_21
     α β i (h_components_β α β i)
 
 end E213.Math.Cohomology.CupAW.Leibniz21Final

@@ -27,6 +27,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
 open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- **Real213 le**: for every rational m/k cut, eventually
     r' ≤ m/k implies r ≤ m/k.  Bishop-style constructive le. -/
@@ -49,6 +50,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
 open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- Reflexivity of le. -/
 theorem le_refl (r : Real213) : le r r := by

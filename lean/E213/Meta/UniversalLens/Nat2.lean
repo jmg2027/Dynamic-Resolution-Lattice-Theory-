@@ -29,7 +29,7 @@ def expSumLens : Lens (Nat × Nat) where
   base_b := (2, 0)
   combine x y := (2^x.1 + 2^y.1, x.2 + y.2 + 1)
 
-/-- expSumLens.combine is symmetric. -/
+/-- expSumLens.combine is symmetric.  STRICT ∅-AXIOM. -/
 theorem expSumLens_symmetric :
     ∀ u v : Nat × Nat,
       expSumLens.combine u v = expSumLens.combine v u := by
@@ -38,7 +38,7 @@ theorem expSumLens_symmetric :
       = (2^v.1 + 2^u.1, v.2 + u.2 + 1)
   congr 1
   · exact Nat.add_comm _ _
-  · omega
+  · congr 1; exact Nat.add_comm _ _
 
 /-- Concrete: view a = (1, 0). -/
 theorem expSumLens_view_a : expSumLens.view Raw.a = (1, 0) := rfl

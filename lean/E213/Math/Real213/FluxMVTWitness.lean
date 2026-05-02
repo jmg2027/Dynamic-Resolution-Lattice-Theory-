@@ -21,6 +21,10 @@ For x³, c = 1/√3 is not dyadic; the witness becomes existential
 namespace E213.Math.Real213.FluxMVTWitness
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ d/dx [x²] at x = 1/2 = 1, propositionally. -/
 theorem squareDerivative_at_half :

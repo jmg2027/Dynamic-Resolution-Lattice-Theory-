@@ -14,6 +14,12 @@ This is the **FSM-level CRT multiplicativity** — the structural
 
 namespace E213.Math.Cohomology.Dyadic.ProductFSMPeriod
 
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+open E213.Math.Cohomology.Dyadic.ProductFSM
+open E213.Math.Cohomology.Dyadic.ProductFSMRun (product_bits_eq)
+open E213.Math.Cohomology.Dyadic.LCMClosure (bs_combined_periodic_lcm)
+
+
 /-- ★★★★★★ Lens Composition Theorem — period of product divides LCM
     of component periods. -/
 theorem lens_composition_period {n m : Nat} (hm : 0 < m)

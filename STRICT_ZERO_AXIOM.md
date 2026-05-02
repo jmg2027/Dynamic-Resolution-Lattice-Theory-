@@ -1,11 +1,23 @@
-# STRICT 0-AXIOM Capstones — absolute best epistemic position
+# STRICT ∅-AXIOM — the DRLT Axiom Standard
 
-This file lists Lean theorems that are **STRICT 0-AXIOM**:
-they depend on NO axioms whatsoever (not propext, not Quot.sound,
-not Classical.choice, not native_decide).
+**This is the canonical DRLT axiom standard** (formalized 2026-05-02,
+CLAUDE.md `## DRLT Axiom Standard`).  The DRLT axiom set is ∅.
 
-Verified via `#print axioms <theorem>` returning:
+A theorem in `lean/E213/` meets the standard iff `#print axioms`
+returns:
 > "does not depend on any axioms"
+
+Equivalently: no `propext`, no `Quot.sound`, no `Classical.choice`,
+no `native_decide`, no `sorryAx`.
+
+This file maintains the running catalog of theorems that meet the
+standard.  Theorems still on the migration backlog
+(carrying `[propext, Quot.sound]` from `omega` / `funext` / etc.) are
+listed in CLAUDE.md `## DRLT Axiom Standard → Migration backlog`.
+
+Verification: `python3 tools/scan_axioms.py <module>` — every
+theorem reports `[PURE]` (meets the standard) or `[DIRTY]` with
+the exact axiom dependency listed.
 
 ## Top-level achievements (all STRICT 0-AXIOM)
 

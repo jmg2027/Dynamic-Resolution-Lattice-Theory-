@@ -1,4 +1,5 @@
 import E213.Meta.UniversalLens.Padding
+import E213.Math.AddMod213
 import E213.Meta.UniversalLens.Nat2
 import E213.Meta.UniversalLens.Nat2Inj
 
@@ -22,7 +23,8 @@ without affecting injectivity.
 
 namespace E213.Meta.UniversalLens.Nat4
 
-open E213.Firmware E213.Hypervisor E213.Meta.UniversalLensNat2
+open E213.Firmware E213.Hypervisor
+open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_slash expSumNat_inj)
 
 abbrev Nat4 : Type := Nat × Nat × Nat × Nat
 
@@ -37,7 +39,7 @@ def expSumLens4 : Lens Nat4 where
      x.2.2.1 + y.2.2.1,
      Nat.max x.2.2.2 y.2.2.2 + 1)
 
-/-- Combine is symmetric. -/
+/-- Combine is symmetric.  STRICT ∅-AXIOM. -/
 theorem expSumLens4_symmetric :
     ∀ u v : Nat4, expSumLens4.combine u v = expSumLens4.combine v u := by
   intro u v
@@ -48,10 +50,10 @@ theorem expSumLens4_symmetric :
   congr 1
   · exact Nat.add_comm _ _
   congr 1
-  · omega
+  · congr 1; exact Nat.add_comm _ _
   congr 1
-  · omega
-  · congr 1; exact Nat.max_comm _ _
+  · exact Nat.add_comm _ _
+  · congr 1; exact E213.Math.AddMod213.max_comm _ _
 
 /-- Concrete: view a = (1, 0, 1, 0). -/
 theorem expSumLens4_view_a : expSumLens4.view Raw.a = (1, 0, 1, 0) := rfl
@@ -70,7 +72,7 @@ theorem expSumLens4_view_fst (r : Raw) :
                 = expSumLens4.combine
                     (expSumLens4.view x) (expSumLens4.view y) :=
       Raw.fold_slash _ _ _ expSumLens4_symmetric x y h
-    rw [hfs, expSumNat_slash]
+    rw [hfs, expSumNat_slash _ _ h]
     show 2^(expSumLens4.view x).1 + 2^(expSumLens4.view y).1
        = 2^(expSumNat x) + 2^(expSumNat y)
     rw [ihx, ihy]
@@ -81,8 +83,8 @@ theorem expSumLens4_view_fst (r : Raw) :
   This proof is *one line* by leveraging the padding theory.
   Compare to the 100+ LOC induction in `UniversalLensNat2Inj`. -/
 theorem expSumLens4_is_universal :
-    E213.Meta.UniversalLens.IsUniversal expSumLens4 :=
-  E213.Meta.UniversalLens.view_inj_of_inj_proj
+    E213.Meta.UniversalLens.Core.IsUniversal expSumLens4 :=
+  E213.Meta.UniversalLens.Padding.view_inj_of_inj_proj
     expSumLens4 Prod.fst expSumNat expSumNat_inj expSumLens4_view_fst
 
 end E213.Meta.UniversalLens.Nat4

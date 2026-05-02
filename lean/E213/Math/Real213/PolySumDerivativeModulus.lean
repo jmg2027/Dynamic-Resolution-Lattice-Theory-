@@ -19,6 +19,7 @@ mathematical degree.
 namespace E213.Math.Real213.PolySumDerivativeModulus
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- d/dx [a·x + b] modulus = 0 (derivative is constant a). -/
 theorem affineIsDifferentiable_derivative_modulus (a b k : Nat) :

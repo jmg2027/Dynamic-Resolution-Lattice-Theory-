@@ -19,6 +19,10 @@ Pisano CRT specialised to our Fibonacci-squared matrix family.
 
 namespace E213.Math.Cohomology.Dyadic.Pell.CRT
 
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+
+
 /-- ★★★★★ Pell mod 3 ⊕ mod 5 combined stream: period | lcm(4,10) = 20. -/
 theorem pell_mod3_xor_mod5_period_20 :
     ∀ k, xor (pellFSMmod3.bits (k + Nat.lcm 4 10))

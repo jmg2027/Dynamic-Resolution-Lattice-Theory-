@@ -12,6 +12,8 @@ HasDyadicMVTWitness class infrastructure.
 namespace E213.Math.Real213.PhaseBXCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ **Phase BX constructive MVT witness capstone**: 7-fact bundle. -/
 theorem phaseBX_witness_capstone (c : Nat → Nat → Bool) :

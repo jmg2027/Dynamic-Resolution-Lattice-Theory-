@@ -18,6 +18,17 @@ All conjuncts at ≤ {propext, Quot.sound}.
 -/
 
 namespace E213.Math.Cohomology.Dyadic.Trib.Capstone
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (tribFSMmod2 tribFSMmod2_bits_period_4 tribFSMmod2_signature_period_4_from_1)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound (tribFSMmod2_signature_period_bound toBitFSM3_bits_eq arithFSM3_signature_period_bound)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3Hardness (aperiodic_bits_imp_not_ArithFSM3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
+
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
 
 /-- ★★★★★★★ Tribonacci capstone: Tier 1 (cubic, Tribonacci-style)
     fully characterised in the K_{3,2}^{(2)} signature lens. -/
@@ -29,7 +40,7 @@ theorem tribonacci_capstone :
         signature tribFSMmod2.bits (k + 4) = signature tribFSMmod2.bits k)
     -- ArithFSM3(n) ⊂ BitFSM(n³) bit-stream equivalence
     ∧ (∀ {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat),
-        (m.toBitFSM hn).bits k = m.bits k)
+        (ArithFSM3.toBitFSM hn m).bits k = m.bits k)
     -- ArithFSM3(n) signature period ≤ 5n³
     ∧ (∀ {n : Nat} (hn : 0 < n) (m : ArithFSM3 n),
         ∃ N P, 0 < P ∧ N + P ≤ 5 * (n * n * n)

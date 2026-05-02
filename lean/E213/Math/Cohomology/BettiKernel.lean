@@ -21,6 +21,8 @@ This file:
 namespace E213.Math.Cohomology.BettiKernel
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Delta.Core (delta)
 
 /-- j-th bit (Bool) of `i : Nat`. -/
 def bitFn (i j : Nat) : Bool := (i / 2^j) % 2 == 1

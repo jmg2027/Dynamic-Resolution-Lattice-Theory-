@@ -16,6 +16,9 @@ Bundles every result on the 213-native cohomological structure:
 namespace E213.Math.Real213.FluxCohomologyCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPow (cutPow cutScale)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- **Phase AX cohomology arc capstone**: 7-fact bundle. -/
 theorem cohomology_arc_capstone (n : Nat) (db : DyadicBracket)

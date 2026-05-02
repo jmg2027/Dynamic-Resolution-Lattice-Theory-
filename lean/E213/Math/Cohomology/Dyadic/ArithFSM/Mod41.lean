@@ -15,6 +15,12 @@ Fifth SPLIT instance (after p=11, 19, 29, 31).  Bit period 20
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod41
 
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+
+
 /-- Pell-style FSM mod 41. -/
 def pellFSMmod41 : ArithFSM2 41 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)

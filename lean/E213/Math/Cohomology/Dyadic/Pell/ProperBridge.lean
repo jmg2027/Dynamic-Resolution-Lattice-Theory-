@@ -19,6 +19,9 @@ and D = 8 (Pell proper).
 
 namespace E213.Math.Cohomology.Dyadic.Pell.ProperBridge
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 /-- ★★★★★ Legendre 8 mod 3 = NQR. -/
 theorem legendre_8_mod_3 :
     legendre213 8 3 (by decide) = ⟨2, by decide⟩ := by decide

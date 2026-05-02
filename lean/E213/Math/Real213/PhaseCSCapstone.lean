@@ -16,6 +16,11 @@ Bundles every result on the IsAntiderivative class:
 namespace E213.Math.Real213.PhaseCSCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- ★★ **Phase CS antiderivative arc capstone**: 8-fact bundle ★★ -/
 theorem phaseCS_antiderivative_capstone (db : DyadicBracket) :

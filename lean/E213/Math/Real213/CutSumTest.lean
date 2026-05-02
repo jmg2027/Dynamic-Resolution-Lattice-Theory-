@@ -18,6 +18,8 @@ Dedekind cut for ratio a/b.  Sum a/b + a'/b' = (a*b' + a'*b)/(b*b').
 
 namespace E213.Math.Real213.CutSumTest
 
+open E213.Math.Real213.CutSum (cutSum)
+
 /-- Const cut for ratio a/b. -/
 def constCut (a b : Nat) : Nat → Nat → Bool :=
   fun m k => decide (a * k ≤ b * m)

@@ -13,6 +13,8 @@ This is the **Δ⁴ edge cochain** Universal δ²=0 — relevant to
 namespace E213.Math.Cohomology.Universal.Prop52
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
 
 /-- Cochain 5 2 parametrized by 10 Bool values. -/
 def pattern (b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 : Bool) : Cochain 5 2 :=

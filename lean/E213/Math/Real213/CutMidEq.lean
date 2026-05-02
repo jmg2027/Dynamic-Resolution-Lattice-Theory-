@@ -10,7 +10,11 @@ cutSum (cutSum_cutEq_left/right etc.) by composition.
 
 namespace E213.Math.Real213.CutMidEq
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutPoset (cutEq cutEq_trans cutLe cutLe_trans)
 
 /-- cutMid preserves cutEq on left arg. -/
 theorem cutMid_cutEq_left (cx cx' cy : Nat → Nat → Bool)

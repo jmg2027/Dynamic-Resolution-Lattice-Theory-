@@ -18,6 +18,9 @@ in the 213 framework.
 namespace E213.Math.Real213.ExpAtZero
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ exp series terms at x = 0: only n=0 term is non-zero. -/
 def expTermsAtZero : Nat → (Nat → Nat → Bool)

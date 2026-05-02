@@ -1,4 +1,5 @@
 import E213.Math.Cohomology.Dyadic.BitAuto2
+import E213.Math.NatDiv213
 
 /-!
 # ArithFSM — multi-state arithmetic recurrence (Tier 1 abstraction)
@@ -15,6 +16,10 @@ has finite state mod any fixed N (CRT-style closure).
 -/
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM
+
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
+
 
 /-- 2-state arithmetic FSM with state vector in Fin n × Fin n. -/
 structure ArithFSM2 (n : Nat) where
@@ -125,7 +130,7 @@ def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
       Nat.mul_le_mul_right n h1
     exact Nat.lt_of_lt_of_le step1 (step2 ▸ step3)⟩
   step v :=
-    let a : Fin n := ⟨v.val / n, (Nat.div_lt_iff_lt_mul hn).mpr v.isLt⟩
+    let a : Fin n := ⟨v.val / n, E213.Math.NatDiv213.div_lt_of_lt_mul v.isLt⟩
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     let (a', b') := m.step (a, b)
     ⟨a'.val * n + b'.val, by
@@ -139,7 +144,7 @@ def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
         Nat.mul_le_mul_right n h1
       exact Nat.lt_of_lt_of_le step1 (step2 ▸ step3)⟩
   out v :=
-    let a : Fin n := ⟨v.val / n, (Nat.div_lt_iff_lt_mul hn).mpr v.isLt⟩
+    let a : Fin n := ⟨v.val / n, E213.Math.NatDiv213.div_lt_of_lt_mul v.isLt⟩
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     m.out (a, b)
 

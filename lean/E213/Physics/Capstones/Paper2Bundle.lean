@@ -31,8 +31,8 @@ theorem paper2_gauge_structure :
      ∧ E213.Physics.Simplex.Counts.NS + E213.Physics.Simplex.Counts.NT
         = E213.Physics.Simplex.Counts.d)
     -- (iii) Gauge group factors: α_3 (color, NS), α_2 (weak, NT)
-    ∧ (E213.Physics.AlphaEM.inv_alpha_3 = 8
-       ∧ E213.Physics.AlphaEM.inv_alpha_2 = 30)
+    ∧ (E213.Physics.AlphaEM.Core.inv_alpha_3 = 8
+       ∧ E213.Physics.AlphaEM.Core.inv_alpha_2 = 30)
     -- (iv) α_GUT bracket containing 41 (= d²·ζ(2) ≈ 41.123)
     ∧ (let lo := E213.Physics.Couplings.AlphaGUT.inv_lower 3
        let hi := E213.Physics.Couplings.AlphaGUT.inv_upper 3
@@ -41,14 +41,14 @@ theorem paper2_gauge_structure :
     ∧ (E213.Math.Cohomology.Fractal.V25.numV = 5 * 5
        ∧ E213.Math.Cohomology.K5.kerSizeDelta0 = 2)
     -- α_em(bare) bracket containing 128 (Weinberg 60·ζ(2) + 30)
-    ∧ (let lo := E213.Physics.AlphaEM.inv_alpha_em_bare_lower 5
-       let hi := E213.Physics.AlphaEM.inv_alpha_em_bare_upper 5
+    ∧ (let lo := E213.Physics.AlphaEM.Core.inv_alpha_em_bare_lower 5
+       let hi := E213.Physics.AlphaEM.Core.inv_alpha_em_bare_upper 5
        lo.1 < 128 * lo.2 ∧ 128 * hi.2 < hi.1) := by
   refine ⟨by decide, by decide, ?_, ?_, ?_⟩
   · exact E213.Physics.Couplings.AlphaGUT.standard_41_in_bracket
   · exact ⟨E213.Math.Cohomology.Fractal.V25.numV_eq_d_sq,
            E213.Math.Cohomology.K5.kerSize_K5⟩
-  · exact E213.Physics.AlphaEM.bare_128_in_bracket
+  · exact E213.Physics.AlphaEM.Core.bare_128_in_bracket
 
 /-- ★ α_GUT three identifications: 6/(25π²) factors. -/
 theorem alpha_GUT_three_identifications :

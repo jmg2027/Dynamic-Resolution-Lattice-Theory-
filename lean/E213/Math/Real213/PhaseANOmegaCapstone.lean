@@ -27,6 +27,10 @@ representative results from Phase AC through AM in one statement.
 namespace E213.Math.Real213.PhaseANOmegaCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPow (cutScale)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- **Phase AN omega capstone**: 13-fact bundle spanning AC-AM. -/
 theorem phaseAN_omega_capstone (n a b k : Nat) (x : Nat → Nat → Bool) :

@@ -15,7 +15,13 @@ Total decide work: 3200 cases, vs the 327k blow-up of direct.
 
 namespace E213.Math.Cohomology.CupAW.Leibniz12Final
 
+open E213.Math.Cohomology.CupAW.Zero (cupAW_zero_left cupAW_zero_right delta_zero)
+
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.Core (cupAW)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Math.Cohomology.Universal.Prop51 (pattern pattern_eq)
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
 open E213.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)
@@ -79,6 +85,6 @@ theorem leibniz_universal_5_1_2
     delta (cupAW 5 1 2 α β) i
       = xor (cupAW 5 2 2 (delta α) β i)
             (cupAW 5 1 3 α (delta β) i) :=
-  CupAWLeibnizAlgLift.leibniz_via_β_decomp_lens α β i (h_components α β i)
+  E213.Math.Cohomology.CupAW.LeibnizAlgLift.leibniz_via_β_decomp_lens α β i (h_components α β i)
 
 end E213.Math.Cohomology.CupAW.Leibniz12Final

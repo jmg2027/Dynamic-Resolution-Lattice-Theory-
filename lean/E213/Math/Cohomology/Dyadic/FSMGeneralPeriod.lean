@@ -46,6 +46,12 @@ with ONE general theorem + 30 decide instances.
 
 namespace E213.Math.Cohomology.Dyadic.FSMGeneralPeriod
 
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
+
+
 /-- ★★★★★★★ General FSM period theorem (ArithFSM2):
     if running for N steps returns to init, then bits cycle with period N.
 

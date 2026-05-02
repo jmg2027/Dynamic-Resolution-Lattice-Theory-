@@ -19,6 +19,11 @@ output a+b-1 ≥ 1 corresponds to the standard sum.
 namespace E213.Math.Cohomology.CupAW.Core
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.SimplexBasis (kSubset)
+open E213.Math.Cohomology.Delta.Core (subsetIdx)
+open E213.Math.Cohomology.Hodge.Involution (v0_5)
+open E213.Math.Cohomology.Cup.Core (cup)
 
 /-- Alexander–Whitney cup with overlap at v_{a-1}. -/
 def cupAW (n a b : Nat) (α : Cochain n a) (β : Cochain n b) :

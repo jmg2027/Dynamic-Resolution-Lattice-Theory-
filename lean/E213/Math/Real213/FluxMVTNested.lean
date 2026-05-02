@@ -16,6 +16,9 @@ Witness c = 1/2 propagates through nested mid combinators.
 namespace E213.Math.Real213.FluxMVTNested
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ d/dx [mid(x, mid(x, x²))] at x = 1/2 = 1 propEq. -/
 theorem mid_id_mid_id_square_derivative_at_half :

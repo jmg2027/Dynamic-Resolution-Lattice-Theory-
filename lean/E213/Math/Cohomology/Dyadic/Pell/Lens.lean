@@ -1,12 +1,13 @@
 import E213.Math.Cohomology.Dyadic.ProductFSMPeriod
+import E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
-import E213.Math.Cohomology.Dyadic.Pell.Family
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
 
 /-!
 # Pell lens composition — concrete CRT applications
 
-Compose the Pell ArithFSM2 instances via BitFSM.product.
+Compose the Pell ArithFSM2 instances via E213.Math.Cohomology.Dyadic.ProductFSM.BitFSM.product.
 
 For Pell mod a × Pell mod b (gcd-free), the resulting product
 BitFSM has period dividing lcm(period(mod a), period(mod b))
@@ -24,32 +25,35 @@ just the stream level.
 
 namespace E213.Math.Cohomology.Dyadic.Pell.Lens
 
-/-- ★★★★★★ Lens-composed Pell mod 3 × mod 5 (XOR readout): period | 20. -/
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3_bits_period_4)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ProductFSM
+open E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd (lens_composition_period_dvd)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (toBitFSM_bits_eq)
+
+
+/-- ★★★★★★ Lens-composed Pell mod 3 × mod 5 (XOR readout): period | 20.
+    Tactic-free to keep ∅-axiom. -/
 theorem pellLens_3x5_period_20 :
-    ∀ k, (BitFSM.product (n := 9) (m := 25) (by decide)
-            (pellFSMmod3.toBitFSM (by decide))
-            (pellFSMmod5.toBitFSM (by decide))
+    ∀ k, (E213.Math.Cohomology.Dyadic.ProductFSM.BitFSM.product (n := 9) (m := 25) (by decide)
+            (ArithFSM2.toBitFSM (by decide : 0 < 3) pellFSMmod3)
+            (ArithFSM2.toBitFSM (by decide : 0 < 5) pellFSMmod5)
             xor).bits (k + 20)
-        = (BitFSM.product (n := 9) (m := 25) (by decide)
-            (pellFSMmod3.toBitFSM (by decide))
-            (pellFSMmod5.toBitFSM (by decide))
-            xor).bits k := by
-  intro k
-  have hbits3 : ∀ k, (pellFSMmod3.toBitFSM (by decide : (0:Nat) < 3)).bits (k + 4)
-                    = (pellFSMmod3.toBitFSM (by decide : (0:Nat) < 3)).bits k := by
-    intro k
-    rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
-    exact pellFSMmod3_bits_period_4 k
-  have hbits5 : ∀ k, (pellFSMmod5.toBitFSM (by decide : (0:Nat) < 5)).bits (k + 10)
-                    = (pellFSMmod5.toBitFSM (by decide : (0:Nat) < 5)).bits k := by
-    intro k
-    rw [toBitFSM_bits_eq, toBitFSM_bits_eq]
-    exact pellFSMmod5_bits_period_10 k
-  have hresult := lens_composition_period (n := 9) (m := 25) (by decide)
-    (pellFSMmod3.toBitFSM (by decide))
-    (pellFSMmod5.toBitFSM (by decide))
-    xor 4 10 (by decide) (by decide) hbits3 hbits5 k
-  have hlcm : Nat.lcm 4 10 = 20 := by decide
-  rwa [hlcm] at hresult
+        = (E213.Math.Cohomology.Dyadic.ProductFSM.BitFSM.product (n := 9) (m := 25) (by decide)
+            (ArithFSM2.toBitFSM (by decide : 0 < 3) pellFSMmod3)
+            (ArithFSM2.toBitFSM (by decide : 0 < 5) pellFSMmod5)
+            xor).bits k := fun k =>
+  lens_composition_period_dvd (n := 9) (m := 25) (by decide)
+    (ArithFSM2.toBitFSM (by decide : 0 < 3) pellFSMmod3)
+    (ArithFSM2.toBitFSM (by decide : 0 < 5) pellFSMmod5)
+    xor 4 10 20 (by decide) (by decide) ⟨5, rfl⟩ ⟨2, rfl⟩
+    (fun k => (toBitFSM_bits_eq _ _ (k + 4)).trans
+        ((pellFSMmod3_bits_period_4 k).trans (toBitFSM_bits_eq _ _ k).symm))
+    (fun k => (toBitFSM_bits_eq _ _ (k + 10)).trans
+        ((pellFSMmod5_bits_period_10 k).trans (toBitFSM_bits_eq _ _ k).symm))
+    k
 
 end E213.Math.Cohomology.Dyadic.Pell.Lens

@@ -18,6 +18,9 @@ The position equation x = at²/2 + v0t + x0 has the 1/2 issue
 namespace E213.Math.Real213.NewtonSecond
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- ★ Velocity function for constant acceleration: v(t) = a·t + v0. -/
 def velocity_constant_force (a v0 : Nat) :

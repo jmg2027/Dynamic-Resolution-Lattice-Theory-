@@ -15,6 +15,8 @@ All three TIGHT periods exactly match the Legendre-predicted values.
 
 namespace E213.Math.Cohomology.Dyadic.Pell.ProperSmall
 
+open E213.Math.Cohomology.Dyadic.Pell.Proper (pellProperFSMmod)
+
 /-- ★★★ Pell proper mod 3: period 8 = 2(p+1) (inert). -/
 theorem pellProper3_run_period_8 :
     ∀ k, (pellProperFSMmod 3 (by decide)).run (k + 8)

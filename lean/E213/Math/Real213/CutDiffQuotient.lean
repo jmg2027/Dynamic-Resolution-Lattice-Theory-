@@ -20,7 +20,10 @@ Cut form of differentiation — Bishop modulus carried as data.
 
 namespace E213.Math.Real213.CutDiffQuotient
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutInv (cutInv)
 
 /-- **Difference quotient at signed level**.
 
@@ -42,6 +45,10 @@ end E213.Math.Real213.CutDiffQuotient
 namespace E213.Math.Real213.CutDiffQuotient
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutInv (cutInv)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **Differentiability with modulus** (declarative). -/
 structure DifferentiableModulus (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))

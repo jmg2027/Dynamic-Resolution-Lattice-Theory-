@@ -29,6 +29,19 @@ branch's physics derivations."
 namespace E213.Math.Real213.PhaseLCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutBisection (cutHalf)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPoset (cutLe)
+open E213.Math.Real213.CutPow (cutScale)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.DyadicBracket
+open E213.Math.Real213.ConsistentOracle
+open E213.Math.Real213.CauchyComplete (CauchyCutSeq)
+open E213.Math.Real213.DyadicTrajectory
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut riemannSampleSum_const_normalized no_pi_in_finite_riemann)
+open E213.Math.Real213.IsSmooth (IsSmooth idIsSmooth squareIsSmooth cubeIsSmooth quarticIsSmooth constIsSmooth cutScaleIsSmooth cutHalfIsSmooth midIsSmooth addIsSmooth mulIsSmooth composeIsSmooth cutPowFnIsSmooth)
+open E213.Math.Real213.ResolutionDepth (squareIsSmooth_modulus cubeIsSmooth_modulus cutPowFnIsSmooth_modulus quarticIsSmooth_modulus)
 
 /-- **Phase L Unified Capstone**: 8-fact summary of Phase L. -/
 theorem phaseL_unified_capstone (n : Nat) (a b : Nat) :

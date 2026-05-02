@@ -20,6 +20,7 @@ State + transition + output = Lens recurrence specification.
 namespace E213.Math.Real213.RecurrenceLens
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **RecurrenceLens**: state-bearing Lens for unfolding a real. -/
 structure RecurrenceLens (state : Type) where
@@ -43,6 +44,8 @@ end E213.Math.Real213.RecurrenceLens
 namespace E213.Math.Real213.RecurrenceLens
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **Constant Lens**: trivial recurrence (no state change).
     For rational reals.  state = Unit. -/

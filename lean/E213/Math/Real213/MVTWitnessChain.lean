@@ -16,6 +16,9 @@ is constant 1 (i.e., g = id), the chain-rule witness is f's witness.
 namespace E213.Math.Real213.MVTWitnessChain
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ id ∘ x² derivative at c = 1/2 = 1 (propEq).
     Same function as x² but constructed via chain rule. -/

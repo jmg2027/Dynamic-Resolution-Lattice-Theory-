@@ -14,7 +14,12 @@ across multiple atomic substrates.
 namespace E213.Math.Cohomology.CupAW.LeibnizSmall
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.Core (cupAW)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Math.Cohomology.Universal.Prop31 (pattern)
+open E213.Math.Cohomology.Cup.Core (cup)
 
 /-- Leibniz on every (3, 1, 1) pattern pair. -/
 theorem leibniz_pattern_3_1_1 :
@@ -34,7 +39,7 @@ theorem leibniz_universal_3_1_1
     delta (cupAW 3 1 1 α β) i
       = xor (cupAW 3 2 1 (delta α) β i)
             (cupAW 3 1 2 α (delta β) i) := by
-  rw [UniversalProp31.pattern_eq α, UniversalProp31.pattern_eq β]
+  rw [E213.Math.Cohomology.Universal.Prop31.pattern_eq α, E213.Math.Cohomology.Universal.Prop31.pattern_eq β]
   exact leibniz_pattern_3_1_1 _ _ _ _ _ _ i
 
 end E213.Math.Cohomology.CupAW.LeibnizSmall

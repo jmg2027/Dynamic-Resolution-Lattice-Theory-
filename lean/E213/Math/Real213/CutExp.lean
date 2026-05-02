@@ -21,6 +21,9 @@ separate arc.
 namespace E213.Math.Real213.CutExp
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPow (cutPow cutScale)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- Factorial. -/
 def factorial : Nat → Nat

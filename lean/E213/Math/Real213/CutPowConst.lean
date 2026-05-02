@@ -11,6 +11,10 @@ cutPow (constCut a b) 0 = 1, cutPow (constCut a b) 1 = (constCut a b).
 namespace E213.Math.Real213.CutPowConst
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- (a/b)^1 = a/b for any a, b. -/
 theorem cutPow_one_const (a b : Nat) :

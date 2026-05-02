@@ -19,6 +19,8 @@ is separate work.  Lebesgue is outside the framework (measure theory absent).
 namespace E213.Math.Real213.Integration
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- Riemann integration data. -/
 structure RiemannIntegrable (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))

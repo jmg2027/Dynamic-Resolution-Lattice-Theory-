@@ -22,6 +22,7 @@ structure LocallyDeterminedData (f : CutFunction) where
 namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- **LocallyDeterminedData**: explicit modulus carried as data. -/
 structure LocallyDeterminedData (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
@@ -123,6 +124,7 @@ end E213.Math.Real213.CutFnData
 namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutBisection (cutHalf)
 
 /-- LocallyDeterminedData for cutHalf. -/
 def cutHalfLDD : LocallyDeterminedData cutHalf where
@@ -137,6 +139,10 @@ end E213.Math.Real213.CutFnData
 namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutScale)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- LocallyDeterminedData for cutScale a b (via cutMul_locallyDetermined). -/
 def cutScaleLDD (a b : Nat) : LocallyDeterminedData (cutScale a b) where

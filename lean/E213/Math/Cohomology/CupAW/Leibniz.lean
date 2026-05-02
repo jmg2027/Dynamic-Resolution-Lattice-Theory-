@@ -19,6 +19,11 @@ namespace E213.Math.Cohomology.CupAW.Leibniz
 
 open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Prop51 (pattern)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.Core (cupAW)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Hodge.Involution (v0_5)
+open E213.Math.Cohomology.Cup.Core (cup)
 
 set_option maxHeartbeats 16000000 in
 /-- Leibniz on every pattern pair — decide-checked. -/
@@ -39,7 +44,7 @@ theorem leibniz_universal_5_1_1
     delta (cupAW 5 1 1 α β) i
       = xor (cupAW 5 2 1 (delta α) β i)
             (cupAW 5 1 2 α (delta β) i) := by
-  rw [UniversalProp51.pattern_eq α, UniversalProp51.pattern_eq β]
+  rw [E213.Math.Cohomology.Universal.Prop51.pattern_eq α, E213.Math.Cohomology.Universal.Prop51.pattern_eq β]
   exact leibniz_pattern_5_1_1 _ _ _ _ _ _ _ _ _ _ i
 
 end E213.Math.Cohomology.CupAW.Leibniz

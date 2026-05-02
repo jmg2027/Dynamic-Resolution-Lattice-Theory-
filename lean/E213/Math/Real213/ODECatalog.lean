@@ -18,6 +18,11 @@ the solution involves rational coefficients.
 namespace E213.Math.Real213.ODECatalog
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf)
+open E213.Math.Real213.CutPow (cutScale)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- y' = 0: constant function is solution. -/
 theorem ode_zero_solution (c : Nat → Nat → Bool) :

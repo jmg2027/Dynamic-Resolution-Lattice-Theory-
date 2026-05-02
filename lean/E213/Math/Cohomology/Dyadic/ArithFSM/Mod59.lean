@@ -12,6 +12,12 @@ Bit period 29 (odd) ⇒ signature period 58 (doubled).
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod59
 
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+
+
 /-- Pell-style FSM mod 59. -/
 def pellFSMmod59 : ArithFSM2 59 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)

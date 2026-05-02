@@ -21,6 +21,14 @@ no remaining freedom — no parameter, no exception, no smoothing.
 namespace E213.Math.Real213.PhaseACMinimumProposition
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
+open E213.Math.Real213.IsSmooth (IsSmooth cutPowFnIsSmooth)
+open E213.Math.Real213.ResolutionDepth (cutPowFnIsSmooth_modulus)
+open E213.Math.Real213.DyadicBracket
+open E213.Math.Real213.ConsistentOracle
+open E213.Math.Real213.DyadicTrajectory
 
 /-- **AC-1: only one resolution law**.
 

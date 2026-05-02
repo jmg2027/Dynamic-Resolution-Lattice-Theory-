@@ -10,6 +10,12 @@ Predict p+1 = 54, TIGHT.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod53
 
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+
+
 /-- Pell-style FSM mod 53. -/
 def pellFSMmod53 : ArithFSM2 53 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)

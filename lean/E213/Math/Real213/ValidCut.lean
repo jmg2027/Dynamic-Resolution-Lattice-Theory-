@@ -15,6 +15,8 @@ i.e., true iff x ≤ m/k.  This means:
 
 namespace E213.Math.Real213.ValidCut
 
+open E213.Math.Real213.CutSumTest (constCut)
+
 open E213.Firmware E213.Hypervisor
 
 /-- **ValidCut**: cut function with the two monotonicity properties

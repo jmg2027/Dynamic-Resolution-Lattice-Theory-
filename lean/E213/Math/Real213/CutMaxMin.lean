@@ -17,6 +17,7 @@ determined.  Continuity is also trivially obvious.
 namespace E213.Math.Real213.CutMaxMin
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **cutMax**: max cut. -/
 def cutMax (cx cy : Nat → Nat → Bool) : Nat → Nat → Bool :=

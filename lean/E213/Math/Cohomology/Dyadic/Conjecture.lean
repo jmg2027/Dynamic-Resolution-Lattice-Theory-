@@ -11,7 +11,7 @@ without yet proving the universal statement.
 
 namespace E213.Math.Cohomology.Dyadic.Conjecture
 
-open E213.Math.Cohomology.Bip32 (srcFin tgtFin)
+open E213.Math.Cohomology.Bipartite.V32 (srcFin tgtFin)
 
 /-- The k-th binary digit of a natural number. -/
 def dyadicBit (n k : Nat) : Bool := (n / 2 ^ k) % 2 == 1

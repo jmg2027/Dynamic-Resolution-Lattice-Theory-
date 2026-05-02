@@ -22,6 +22,8 @@ combinators has dyadic MVT witness c = 1/2.
 namespace E213.Math.Real213.FluxMVTPattern
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ Phase CG capstone: 5-instance dyadic witness catalog at c = 1/2. -/
 theorem dyadic_witness_pattern_capstone :

@@ -16,6 +16,12 @@ across all six sizes.  Bit period 44 (even); signature period 44
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod43
 
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+
+
 /-- Pell-style FSM mod 43. -/
 def pellFSMmod43 : ArithFSM2 43 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)

@@ -26,6 +26,9 @@ Stratum sizes:
 
 namespace E213.Math.Cohomology.Hodge.InvolutionCapstone
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
+
 open E213.Physics.Simplex.Counts (binom)
 
 /-- ★★★★★★★★ Hodge ⋆⋆ = id on Δ⁴ (all five strata) — bundle.
@@ -51,10 +54,10 @@ theorem hodge_involution_5strata_capstone :
     -- (5, 4)
     ∧ (∀ σ : Cochain 5 4, ∀ i : Fin (binom 5 4),
         hodgeStar 5 1 4 (hodgeStar 5 4 1 σ) i = σ i) :=
-  ⟨HodgeProp50.hodge_involution_capstone_5_0,
-   HodgeProp.hodge_involution_capstone,
-   HodgeProp52.hodge_involution_capstone_5_2,
-   HodgeProp53.hodge_involution_capstone_5_3,
-   HodgeProp54.hodge_involution_capstone_5_4⟩
+  ⟨E213.Math.Cohomology.Hodge.Prop50.hodge_involution_capstone_5_0,
+   E213.Math.Cohomology.Hodge.Prop.hodge_involution_capstone,
+   E213.Math.Cohomology.Hodge.Prop52.hodge_involution_capstone_5_2,
+   E213.Math.Cohomology.Hodge.Prop53.hodge_involution_capstone_5_3,
+   E213.Math.Cohomology.Hodge.Prop54.hodge_involution_capstone_5_4⟩
 
 end E213.Math.Cohomology.Hodge.InvolutionCapstone

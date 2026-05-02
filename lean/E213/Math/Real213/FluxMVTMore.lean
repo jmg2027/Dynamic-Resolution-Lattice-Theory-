@@ -16,6 +16,11 @@ which equals 1 when x = 1/2.  Witness c = 1/2 dyadic.
 namespace E213.Math.Real213.FluxMVTMore
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ d/dx [(x + x²)/2] at x = 1/2 = 1, propositionally. -/
 theorem mid_id_square_derivative_at_half :

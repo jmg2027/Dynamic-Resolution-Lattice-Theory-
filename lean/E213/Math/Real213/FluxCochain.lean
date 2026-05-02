@@ -20,6 +20,8 @@ is the 1-cochain value at that oriented edge:
 namespace E213.Math.Real213.FluxCochain
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 namespace FluxCut
 

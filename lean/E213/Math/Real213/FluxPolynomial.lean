@@ -15,6 +15,9 @@ giving direct computational access.
 namespace E213.Math.Real213.FluxPolynomial
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutPow cutScale)
 
 namespace FluxCut
 

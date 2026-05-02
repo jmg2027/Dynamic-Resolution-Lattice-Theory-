@@ -15,6 +15,7 @@ Phase AR: completing the (n-1)·k pattern for high-order polynomials
 namespace E213.Math.Real213.ConcreteDerivativeModulusFinal
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 theorem nonicIsDifferentiable_derivative_modulus (k : Nat) :
     nonicIsDifferentiable.derivativeSmooth.linearityModulus k = 8 * k := by

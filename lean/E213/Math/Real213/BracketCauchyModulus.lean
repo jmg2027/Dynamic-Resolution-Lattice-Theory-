@@ -36,6 +36,8 @@ for the dyadic bracket convergence — closing the open problem.
 namespace E213.Math.Real213.BracketCauchyModulus
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.Dyadic (dyadicCut)
 
 /-- Lemma: n + 1 ≤ 2^n for all n.  (Tight at n=1: 2 ≤ 2.) -/
 private theorem succ_le_two_pow : ∀ n, n + 1 ≤ 2^n

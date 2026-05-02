@@ -14,6 +14,7 @@ Substrate of the IVT bisection algorithm.  Root finding on Real213.
 
 namespace E213.Math.Real213.CutBisection
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 
 /-- **cutHalf**: c/2 cut. -/
@@ -29,6 +30,8 @@ end E213.Math.Real213.CutBisection
 namespace E213.Math.Real213.CutBisection
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- midpoint of (1, 1) is 1: cut at (1, 1) true. -/
 example : cutMid (constCut 1 1) (constCut 1 1) 1 1 = true := by decide

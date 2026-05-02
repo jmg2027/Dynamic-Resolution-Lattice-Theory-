@@ -55,7 +55,7 @@ theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
         have : 0 ≤ n * (m - k) := Nat.zero_le _
         omega
       obtain ⟨r'', hr''⟩ :=
-        E213.Math.Infinity.leaves_surjective_pos
+        E213.Infinity.leaves_surjective_pos
           (Lens.leaves.view r + n * (m - k)) h_bound
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have hexpand : (n + 1) * (m - k) = n * (m - k) + (m - k) :=

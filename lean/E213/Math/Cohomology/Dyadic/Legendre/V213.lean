@@ -20,6 +20,8 @@ This is the bottom of the ArithFSM hierarchy:
 
 namespace E213.Math.Cohomology.Dyadic.Legendre.V213
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V1 (ArithFSM1)
+
 /-- Legendre FSM: walk x ↦ D·x mod p, starting from 1. -/
 def legendreFSM (D p : Nat) (hp : 0 < p) : ArithFSM1 p where
   init := ⟨1 % p, Nat.mod_lt _ hp⟩

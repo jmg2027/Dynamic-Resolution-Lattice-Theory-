@@ -17,6 +17,13 @@ Phase CB closes here.  Phase CC (Betti numbers via decide) follows.
 
 namespace E213.Math.Cohomology.Hodge.Delta
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Hodge.Involution
+  (v0_5 e0_5 all_true_5_2 at_3_1_h hodge_sq_v0_5 hodge_sq_e0_5
+   hodge_sq_zero_5_1 hodge_sq_zero_5_2)
+
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
 /-- Codifferential at (n=5, k=2): C² → C¹ via ⋆ δ ⋆. -/

@@ -13,6 +13,9 @@ cos(x) = Σ (-1)^i x^(2i)/(2i)!
 namespace E213.Math.Real213.CutTrig
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPow (cutPow cutScale)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- Sign of (-1)^i. -/
 def altSign (i : Nat) : Bool := i % 2 = 0

@@ -15,6 +15,14 @@ Via cutSum_self + cutHalf_constCut + constCut_scale.
 namespace E213.Math.Real213.CutMidSelf
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf cutHalf_constCut cutMid)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumOne (cutSum_self)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.ConstCutScale (constCut_scale)
+open E213.Math.Real213.CutSumOne (cutSum_half_general cutSum_int_int)
 
 /-- **midpoint(c, c) = c** for c = a/b. -/
 theorem cutMid_self_constCut (a b : Nat) (hb : b ≥ 1) :

@@ -12,6 +12,12 @@ integration + ODE + Newton + series + 7 transcendentals at zero.
 namespace E213.Math.Real213.PhaseDKUltimate
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum)
 
 /-- ★★★★ Phase DK ULTIMATE: 18-fact full coverage. -/
 theorem phaseDK_ultimate_capstone (n k a b numA numB E : Nat)

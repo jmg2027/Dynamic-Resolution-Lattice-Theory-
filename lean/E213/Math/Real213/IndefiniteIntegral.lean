@@ -17,6 +17,10 @@ This represents ∫_0^x f dt cohomologically.
 
 namespace E213.Math.Real213.IndefiniteIntegral
 
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 namespace IsAntiderivative
 
 /-- ★ Indefinite integral from 0 to x via flux. -/

@@ -41,6 +41,15 @@ Closes the Cohomology 213 marathon as a self-contained branch of
 namespace E213.Math.Cohomology.Capstone
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Cup.Core (cup)
+open E213.Math.Cohomology.Cup.Ring (unit_5 cup_unit_left_v0)
+open E213.Math.Cohomology.Cup.Leibniz (leibniz_v0_v0_pointwise)
+open E213.Math.Cohomology.Hodge.Involution (v0_5 hodge_sq_v0_5)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
+open E213.Math.Cohomology.Delta.SqZero (delta_sq_vertex0_n5 vertex0_n5)
+open E213.Math.Cohomology.BettiKernel (kerSize_5_0 kerSize_5_1 kerSizeDelta)
 
 /-- ★★★ COHOMOLOGY 213 MARATHON CAPSTONE ★★★
 
@@ -64,7 +73,7 @@ theorem cohomology_213_marathon :
     ∧ (∀ i : Fin (binom 5 1),
          cup 5 0 1 unit_5 v0_5 i = v0_5 i)
     -- CE: K_{3,2}^{(2)} kernel computed
-    ∧ Bip32.kerSizeDelta0 = 2
+    ∧ E213.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0 = 2
     -- CE: Betti b_1 = NS² − 1
     ∧ (8 : Nat) = 3 * 3 - 1 :=
   ⟨delta_sq_vertex0_n5,
@@ -73,7 +82,7 @@ theorem cohomology_213_marathon :
    kerSize_5_1,
    leibniz_v0_v0_pointwise,
    cup_unit_left_v0,
-   Bip32.kerSizeDelta0_eq_2,
-   Bip32.b1_eq_NS_sq_minus_1⟩
+   E213.Math.Cohomology.Bipartite.V32Betti.kerSizeDelta0_eq_2,
+   E213.Math.Cohomology.Bipartite.V32Betti.b1_eq_NS_sq_minus_1⟩
 
 end E213.Math.Cohomology.Capstone

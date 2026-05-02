@@ -27,6 +27,8 @@ that Raw = strict minimum, without external metatheory.
 
 namespace E213.Meta.AxiomMinimalityCapstone
 
+open E213.Meta.AxiomMinimality (RawA rawA_trivial)
+
 /-- ★★★ AXIOM MINIMALITY CAPSTONE ★★★
 
     Single statement: each of the 4 Raw clauses is essential.
@@ -35,14 +37,21 @@ theorem raw_minimality_capstone :
     -- Case 1: remove `b` → all elements equal `a`
     (∀ r : RawA, r = RawA.a)
     -- Case 2: remove `a` → all elements equal `b`
-    ∧ (∀ r : NoA.RawB, r = NoA.RawB.b)
+    ∧ (∀ r : E213.Meta.AxiomMinimality.NoA.RawB,
+         r = E213.Meta.AxiomMinimality.NoA.RawB.b)
     -- Case 3: remove `slash` → only 2 elements (a or b)
-    ∧ (∀ r : NoSlash.RawAB, r = NoSlash.TreeAB.a ∨ r = NoSlash.TreeAB.b)
+    ∧ (∀ r : E213.Meta.AxiomMinimality.NoSlash.RawAB,
+         r = E213.Meta.AxiomMinimality.NoSlash.TreeAB.a
+         ∨ r = E213.Meta.AxiomMinimality.NoSlash.TreeAB.b)
     -- Case 4: remove `distinctness` → self-pairing collapses
-    ∧ (∃ r : NoDistinct.TreeFree,
-         r = NoDistinct.TreeFree.a.slash NoDistinct.TreeFree.a) :=
-  ⟨rawA_trivial, NoA.rawB_trivial, NoSlash.rawAB_only_two,
-   NoDistinct.self_pairing_exists⟩
+    ∧ (∃ r : E213.Meta.AxiomMinimality.NoDistinct.TreeFree,
+         r = E213.Meta.AxiomMinimality.NoDistinct.TreeFree.slash
+               E213.Meta.AxiomMinimality.NoDistinct.TreeFree.a
+               E213.Meta.AxiomMinimality.NoDistinct.TreeFree.a) :=
+  ⟨rawA_trivial,
+   E213.Meta.AxiomMinimality.NoA.rawB_trivial,
+   E213.Meta.AxiomMinimality.NoSlash.rawAB_only_two,
+   E213.Meta.AxiomMinimality.NoDistinct.self_pairing_exists⟩
 
 /-- Decision-theoretic restatement: Raw axiom is **the strict
     minimum** of "distinguishable + generative + meaningful". -/

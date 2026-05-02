@@ -18,6 +18,8 @@ expansions are aperiodic, so they're not BitFSM-generable.
 
 namespace E213.Math.Cohomology.Dyadic.Tier2Hardness
 
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM fsm_bits_eventually_periodic)
+
 /-- ★★★★★ Aperiodic bs ⇒ no BitFSM generates it. -/
 theorem aperiodic_bits_imp_not_BitFSM (bs : Nat → Bool)
     (h_aperiodic : ∀ N P, 0 < P → ∃ k, k ≥ N ∧ bs (k + P) ≠ bs k) :

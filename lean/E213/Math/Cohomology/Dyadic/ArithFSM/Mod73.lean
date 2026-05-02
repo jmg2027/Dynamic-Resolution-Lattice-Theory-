@@ -9,6 +9,12 @@ import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod73
 
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
+
+
 def pellFSMmod73 : ArithFSM2 73 where
   init := (⟨1, by decide⟩, ⟨1, by decide⟩)
   step p := let (a, b) := p

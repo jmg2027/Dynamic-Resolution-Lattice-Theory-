@@ -16,6 +16,8 @@ not provide by default; revisit in Phase CB.
 namespace E213.Math.Cohomology.Delta.SqZero
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Delta.Core (delta)
 
 /-- δ²(zero) at (3, 0). -/
 theorem delta_sq_zero_zero_3_0 :

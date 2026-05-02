@@ -16,6 +16,8 @@ in result type).
 namespace E213.Math.Cohomology.Hodge.Involution
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
 
 /-- Vertex-0 indicator on n=5, Bool-pure. -/
 def v0_5 : Cochain 5 1 := fun i => i.val == 0

@@ -13,6 +13,9 @@ Math: f(x) = mid(mid(x, x²), x²) = (x + 3x²)/4.
 namespace E213.Math.Real213.FluxMVTNested2
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ d/dx [mid(mid(x, x²), x²)] at x = 1/2 = 1. -/
 theorem mid_mid_id_square_square_derivative_at_half :

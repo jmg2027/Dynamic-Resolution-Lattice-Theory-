@@ -1,4 +1,6 @@
 import E213.Math.Cohomology.Dyadic.BitFSM
+import E213.Math.EncodePair213
+import E213.Kernel.Tactic.Nat213
 
 /-!
 # Explicit signature period bound for BitFSM-generated streams
@@ -18,6 +20,12 @@ This is the formal shape of "Tier 2 ⊄ BitFSM-class".
 
 namespace E213.Math.Cohomology.Dyadic.BitFSM.Bound
 
+open E213.Math.Cohomology.Dyadic.ForwardPeriodicity
+  (collisionTest pigeonhole_collision collTest_imp_val_eq encode_inj)
+open E213.Math.Cohomology.Dyadic.Signature (nextVertex signature)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
+
 /-- Joint state (signature, run) at step k, encoded into Fin (5n). -/
 def fsmJointAt {n : Nat} (m : BitFSM n) (hn : 0 < n) (k : Fin (5 * n + 1))
     : Fin (5 * n) :=
@@ -33,7 +41,7 @@ def fsmJointAt {n : Nat} (m : BitFSM n) (hn : 0 < n) (k : Fin (5 * n + 1))
       _ = (4 + 1) * n := (Nat.succ_mul 4 n).symm
       _ = 5 * n := rfl⟩
 
-/-- ★ Joint (sig, run) collision via pigeonhole. -/
+/-- ★ Joint (sig, run) collision via pigeonhole.  STRICT ∅-AXIOM. -/
 theorem fsm_joint_collision {n : Nat} (m : BitFSM n) (hn : 0 < n) :
     ∃ i, i ≤ 5 * n ∧ ∃ j, j ≤ 5 * n ∧ i < j
       ∧ signature m.bits i = signature m.bits j
@@ -41,51 +49,52 @@ theorem fsm_joint_collision {n : Nat} (m : BitFSM n) (hn : 0 < n) :
   have hlt : 5 * n < 5 * n + 1 := Nat.lt_succ_self _
   obtain ⟨i, hi, j, hj, hij, hcoll⟩ :=
     pigeonhole_collision hlt (fsmJointAt m hn)
-  have hjs_eq : (fsmJointAt m hn ⟨i, hi⟩).val
-                  = (fsmJointAt m hn ⟨j, hj⟩).val := by
-    unfold collisionTest at hcoll
-    simp [hi, hj] at hcoll
-    omega
+  have hval_eq : (fsmJointAt m hn ⟨i, hi⟩).val
+                = (fsmJointAt m hn ⟨j, hj⟩).val :=
+    collTest_imp_val_eq (fsmJointAt m hn) i j hi hj hcoll
   have hval : (signature m.bits i).val * n + (m.run i).val
-                = (signature m.bits j).val * n + (m.run j).val := hjs_eq
+              = (signature m.bits j).val * n + (m.run j).val := hval_eq
   have hri : (m.run i).val < n := (m.run i).isLt
   have hrj : (m.run j).val < n := (m.run j).isLt
-  have hdiv_i : ((signature m.bits i).val * n + (m.run i).val) / n
-                  = (signature m.bits i).val := by
-    rw [Nat.mul_comm (signature m.bits i).val n, Nat.add_comm,
-        Nat.add_mul_div_left _ _ hn, Nat.div_eq_of_lt hri, Nat.zero_add]
-  have hdiv_j : ((signature m.bits j).val * n + (m.run j).val) / n
-                  = (signature m.bits j).val := by
-    rw [Nat.mul_comm (signature m.bits j).val n, Nat.add_comm,
-        Nat.add_mul_div_left _ _ hn, Nat.div_eq_of_lt hrj, Nat.zero_add]
-  have h_sig_eq : (signature m.bits i).val = (signature m.bits j).val := by
-    rw [← hdiv_i, ← hdiv_j, hval]
-  refine ⟨i, Nat.lt_succ_iff.mp hi, j, Nat.lt_succ_iff.mp hj, hij,
-          Fin.ext h_sig_eq, ?_⟩
-  have h_offset : (signature m.bits i).val * n
-                    = (signature m.bits j).val * n := by rw [h_sig_eq]
-  apply Fin.ext
-  show (m.run i).val = (m.run j).val
-  omega
+  obtain ⟨h_sig_eq, h_run_eq⟩ :=
+    encode_inj hn (signature m.bits i).val (signature m.bits j).val
+      (m.run i).val (m.run j).val hri hrj hval
+  exact ⟨i, Nat.lt_succ_iff.mp hi, j, Nat.lt_succ_iff.mp hj, hij,
+         Fin.ext h_sig_eq, Fin.ext h_run_eq⟩
 
-/-- ★★★★★ Tight bound: BitFSM(n) signature has pre-period + period ≤ 5n. -/
+/-- ∅-axiom replacement for `Nat.sub_pos_of_lt` (which leaks propext). -/
+private theorem sub_pos_of_lt_213 : ∀ {a b : Nat}, a < b → 0 < b - a
+  | 0, _, h => by rw [Nat.sub_zero]; exact h
+  | k+1, 0, h => absurd h (Nat.not_succ_le_zero _)
+  | k+1, m+1, h => by
+    rw [Nat.succ_sub_succ_eq_sub]
+    exact sub_pos_of_lt_213 (Nat.lt_of_succ_lt_succ h)
+
+/-- ★★★★★ Tight bound: BitFSM(n) signature has pre-period + period ≤ 5n.
+    STRICT ∅-AXIOM via 213-native helpers (no omega / no Nat.add_sub_cancel'). -/
 theorem fsm_signature_period_bound {n : Nat} (m : BitFSM n) (hn : 0 < n) :
     ∃ N P, 0 < P ∧ N + P ≤ 5 * n
       ∧ ∀ k, k ≥ N → signature m.bits (k + P) = signature m.bits k
       ∧ m.run (k + P) = m.run k := by
-  obtain ⟨i, _, j, hj, hij, hsig, hrun⟩ := fsm_joint_collision m hn
-  refine ⟨i, j - i, by omega, by omega, ?_⟩
+  obtain ⟨i, hi, j, hj, hij, hsig, hrun⟩ := fsm_joint_collision m hn
+  have hP : 0 < j - i := sub_pos_of_lt_213 hij
+  have hi_le_j : i ≤ j := Nat.le_of_lt hij
+  have hbound : i + (j - i) ≤ 5 * n :=
+    Nat.le_trans
+      (Nat.le_of_eq (E213.Tactic.Nat213.add_sub_of_le hi_le_j)) hj
+  refine ⟨i, j - i, hP, hbound, ?_⟩
   intro k hk
   obtain ⟨d, rfl⟩ : ∃ d, k = i + d :=
-    ⟨k - i, (Nat.add_sub_cancel' hk).symm⟩
+    ⟨k - i, (E213.Tactic.Nat213.add_sub_of_le hk).symm⟩
   clear hk
+  have hij_eq : i + (j - i) = j := E213.Tactic.Nat213.add_sub_of_le hi_le_j
   induction d with
   | zero =>
     refine ⟨?_, ?_⟩
     · show signature m.bits (i + 0 + (j - i)) = signature m.bits (i + 0)
-      rw [Nat.add_zero, show i + (j - i) = j by omega]; exact hsig.symm
+      rw [Nat.add_zero, hij_eq]; exact hsig.symm
     · show m.run (i + 0 + (j - i)) = m.run (i + 0)
-      rw [Nat.add_zero, show i + (j - i) = j by omega]; exact hrun.symm
+      rw [Nat.add_zero, hij_eq]; exact hrun.symm
   | succ d' ih =>
     obtain ⟨ih_sig, ih_run⟩ := ih
     have h1 : i + (d' + 1) + (j - i) = (i + d' + (j - i)) + 1 :=

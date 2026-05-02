@@ -43,10 +43,10 @@ theorem paper3_predictions :
     -- Ω_Λ ≈ 685/1000 (cosmology)
     ∧ (684 < 685 ∧ 685 < 686)
     -- 1/α_3 = 8 = NS² − 1 (strong, hop=1)
-    ∧ (E213.Physics.AlphaEM.inv_alpha_3 = 8
+    ∧ (E213.Physics.AlphaEM.Core.inv_alpha_3 = 8
        ∧ (8 : Nat) = NS * NS - 1)
     -- 1/α_2 = 30 = 12·NT·5/4 (weak, hop=NT=2)
-    ∧ (E213.Physics.AlphaEM.inv_alpha_2 = 30
+    ∧ (E213.Physics.AlphaEM.Core.inv_alpha_2 = 30
        ∧ (30 : Nat) = 12 * NT * 5 / 4)
     -- IE_H formula at ppb (numerical)
     ∧ (E213.Physics.Atomic.IE.HydrogenPPM.IE_H_micro = 13605693)

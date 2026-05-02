@@ -20,6 +20,8 @@ within the polynomial chain at this point.
 namespace E213.Math.Real213.IntegralDyadic
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ Arbitrary dyadic bracket [numA/2^E, numB/2^E]. -/
 def dyadicIntervalAB (numA numB E : Nat) (h : numA ≤ numB) : DyadicBracket where

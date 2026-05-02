@@ -22,6 +22,8 @@ a separate session.
 
 namespace E213.Math.Real213.CutSumDetermined
 
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Firmware E213.Hypervisor
 
 /-- 2-arg locally-determined property. -/

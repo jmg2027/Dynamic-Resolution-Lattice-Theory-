@@ -35,6 +35,14 @@ Three Pisano framework families now established at 8-prime baseline:
 
 namespace E213.Math.Cohomology.Dyadic.Pell.Proper8
 
+open E213.Math.Cohomology.Dyadic.Pell.Proper (pellProperFSMmod)
+open E213.Math.Cohomology.Dyadic.Pell.ProperSmall (pellProper3_run_period_8 pellProper5_run_period_12 pellProper7_run_period_6)
+open E213.Math.Cohomology.Dyadic.Pell.ProperMod11 (pellProper11_bits_period_24)
+open E213.Math.Cohomology.Dyadic.Pell.ProperMod13 (pellProper13_bits_period_28)
+open E213.Math.Cohomology.Dyadic.Pell.ProperMod17 (pellProper17_bits_period_16)
+open E213.Math.Cohomology.Dyadic.Pell.ProperMod19 (pellProper19_bits_period_40)
+open E213.Math.Cohomology.Dyadic.Pell.ProperMod23 (pellProper23_bits_period_22)
+
 /-- ★★★★★★★★ Pell-proper 8-prime capstone (all bit periods). -/
 theorem pellProper_8prime_capstone :
     (∀ k, (pellProperFSMmod 3 (by decide)).run (k + 8)

@@ -31,7 +31,6 @@ Collects each sub-module's falsifier as a single theorem.
 
 namespace E213.Physics.Capstones.Phase3Capstone
 
-open E213.Physics.Phase3
 open E213.Physics.Simplex.Counts
 
 /-- ★ Single synthesis of Phase 3 falsifiers ★

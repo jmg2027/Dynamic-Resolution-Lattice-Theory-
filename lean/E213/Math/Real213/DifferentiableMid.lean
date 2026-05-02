@@ -18,6 +18,11 @@ also differentiable, with derivative = mid(f', g') = (f' + g')/2.
 namespace E213.Math.Real213.DifferentiableMid
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.IsSmooth (midIsSmooth)
 
 /-- Midpoint combinator: (f+g)/2 is differentiable, derivative = (f'+g')/2. -/
 def midIsDifferentiable {f g} (sf : IsDifferentiable f)

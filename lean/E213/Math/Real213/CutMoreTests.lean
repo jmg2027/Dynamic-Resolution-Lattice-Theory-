@@ -10,6 +10,10 @@ Cut-level verification of various rational arithmetic.
 namespace E213.Math.Real213.CutMoreTests
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.Core (Real213)
 
 /-- 1 + 1 + 1 = 3 ≤ 3/1. -/
 example : cutSum (cutSum (constCut 1 1) (constCut 1 1)) (constCut 1 1) 3 1 = true

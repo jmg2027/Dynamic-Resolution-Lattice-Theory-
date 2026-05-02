@@ -14,7 +14,8 @@ Key bridge lemma: `(Q213.ofNat n).1.eval = n` (round-trip).
 namespace E213.Meta.UniversalLens.Q213Inj
 
 open E213.Firmware E213.Hypervisor E213.Kernel
-open E213.Meta.UniversalLensNat2
+open E213.Meta.UniversalLens.Q213 (Q213 q213Lens q213Lens_symmetric q213Lens_view_a q213Lens_view_b)
+open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_a expSumNat_b expSumNat_inj)
 
 /-- Round-trip: encoding then evaluating recovers the Nat. -/
 theorem Q213_ofNat_eval (n : Nat) : (Q213.ofNat n).1.eval = n := by
@@ -48,7 +49,8 @@ theorem qNat_eq_expSumNat (r : Raw) : qNat r = expSumNat r := by
     rw [hview]
     show (Q213.ofNat (2 ^ qNat x + 2 ^ qNat y)).1.eval
         = expSumNat (Raw.slash x y h)
-    rw [Q213_ofNat_eval, expSumNat_slash, ihx, ihy]
+    rw [Q213_ofNat_eval,
+        E213.Meta.UniversalLens.Nat2Inj.expSumNat_slash _ _ h, ihx, ihy]
 
 /-- ★★★★★★★★ qNat is injective (via correspondence with expSumNat). -/
 theorem qNat_inj : Function.Injective qNat := by
@@ -69,7 +71,7 @@ theorem q213Lens_view_inj : Function.Injective q213Lens.view := by
     `IsUniversal` metatheory sense.  Open Problem #6 ℚ²-discrete
     refinement: STRUCTURALLY CLOSED. -/
 theorem q213Lens_is_universal :
-    E213.Meta.UniversalLens.IsUniversal q213Lens :=
+    E213.Meta.UniversalLens.Core.IsUniversal q213Lens :=
   q213Lens_view_inj
 
 end E213.Meta.UniversalLens.Q213Inj

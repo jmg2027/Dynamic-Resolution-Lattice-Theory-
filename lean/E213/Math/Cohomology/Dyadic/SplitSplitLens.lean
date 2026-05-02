@@ -19,6 +19,9 @@ Product BitFSM: BitFSM(11 · 19) = BitFSM(209).
 
 namespace E213.Math.Cohomology.Dyadic.SplitSplitLens
 
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
+
 /-- Lifted Pell mod 11 bit periodicity (BitFSM form). -/
 theorem pellMod11_BitFSM_bits_period_5 :
     ∀ k, (pellFSMmod11.toBitFSM (by decide : (0:Nat) < 11)).bits (k + 5)

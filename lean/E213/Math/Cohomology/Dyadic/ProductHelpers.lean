@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.LCMClosure
 import E213.Math.Cohomology.Dyadic.BitFSM
+import E213.Math.EncodePair213
 
 /-!
 # Generic Fin pair encoding (Fin n × Fin m ↔ Fin (n * m))
@@ -25,7 +26,7 @@ def encodeFinPair {n m : Nat} (a : Fin n) (b : Fin m) : Fin (n * m) :=
 
 /-- Decode first coordinate. -/
 def decodeFinFirst {n m : Nat} (hm : 0 < m) (v : Fin (n * m)) : Fin n :=
-  ⟨v.val / m, (Nat.div_lt_iff_lt_mul hm).mpr v.isLt⟩
+  ⟨v.val / m, E213.Math.NatDiv213.div_lt_of_lt_mul (Nat.mul_comm n m ▸ v.isLt)⟩
 
 /-- Decode second coordinate. -/
 def decodeFinSecond {n m : Nat} (hm : 0 < m) (v : Fin (n * m)) : Fin m :=
@@ -34,19 +35,13 @@ def decodeFinSecond {n m : Nat} (hm : 0 < m) (v : Fin (n * m)) : Fin m :=
 /-- Round-trip: decode first ∘ encode = first. -/
 theorem decode_encode_first {n m : Nat} (hm : 0 < m)
     (a : Fin n) (b : Fin m) :
-    decodeFinFirst hm (encodeFinPair a b) = a := by
-  apply Fin.ext
-  show (a.val * m + b.val) / m = a.val
-  rw [Nat.mul_comm a.val m, Nat.add_comm, Nat.add_mul_div_left _ _ hm,
-      Nat.div_eq_of_lt b.isLt, Nat.zero_add]
+    decodeFinFirst hm (encodeFinPair a b) = a :=
+  Fin.ext (E213.Math.EncodePair213.encode_div hm a.val b.val b.isLt)
 
 /-- Round-trip: decode second ∘ encode = second. -/
 theorem decode_encode_second {n m : Nat} (hm : 0 < m)
     (a : Fin n) (b : Fin m) :
-    decodeFinSecond hm (encodeFinPair a b) = b := by
-  apply Fin.ext
-  show (a.val * m + b.val) % m = b.val
-  rw [Nat.mul_comm a.val m, Nat.add_comm, Nat.add_mul_mod_self_left,
-      Nat.mod_eq_of_lt b.isLt]
+    decodeFinSecond hm (encodeFinPair a b) = b :=
+  Fin.ext (E213.Math.EncodePair213.encode_mod hm a.val b.val b.isLt)
 
 end E213.Math.Cohomology.Dyadic.ProductHelpers

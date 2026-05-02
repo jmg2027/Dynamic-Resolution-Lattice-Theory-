@@ -19,6 +19,9 @@ then the bits at step k must agree.
 
 namespace E213.Math.Cohomology.Dyadic.SignatureInj
 
+open E213.Math.Cohomology.Dyadic.Signature (nextVertex signature)
+
+
 /-- ★★★★★ Signature is injective on Bool streams: matching
     signature trajectories at every step ⇒ matching bit streams. -/
 theorem signature_injective (bs₁ bs₂ : Nat → Bool)

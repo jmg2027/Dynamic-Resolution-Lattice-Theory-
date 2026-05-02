@@ -27,6 +27,9 @@ These 2 sub-tight remain isolated up to p=73.
 
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor20
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+
+
 theorem legendre_5_mod_67 :
     legendre213 5 67 (by decide) = ⟨2, by decide⟩ := by decide
 

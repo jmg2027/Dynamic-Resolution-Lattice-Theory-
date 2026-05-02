@@ -1,3 +1,6 @@
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.CupAW.BasisLeibniz
+
 /-!
 # XOR pair combine — structural proof via List.foldr induction
 
@@ -14,6 +17,10 @@ This is the residual combinatorial step after bilinearity reduces
 -/
 
 namespace E213.Math.Cohomology.XorPairCombine
+
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.BasisLeibniz (basis)
+
 
 /-- Generic structural lemma: foldr-XOR of pair sums = pair of foldr-XORs.
     Generalised over starting accumulators a, b for induction. -/

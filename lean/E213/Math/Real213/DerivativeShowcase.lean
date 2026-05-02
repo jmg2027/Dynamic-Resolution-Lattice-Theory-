@@ -16,6 +16,8 @@ ML gradient descent ground truth.
 namespace E213.Math.Real213.DerivativeShowcase
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- d/dx [x²] at x = 0 query at (m=0, k=0): true (slope = 0 ≤ 0). -/
 example : squareIsDifferentiable.derivative (constCut 0 1) 0 0 = true := by decide

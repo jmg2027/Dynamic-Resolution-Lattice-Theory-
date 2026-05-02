@@ -15,6 +15,10 @@ abstract theorem encapsulates the entire mid combinator chain.
 namespace E213.Math.Real213.FluxMVTPropagate
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 
 /-- ★ Generic mid witness propagation at c = 1/2. -/
 theorem mid_witness_propagates {f g}

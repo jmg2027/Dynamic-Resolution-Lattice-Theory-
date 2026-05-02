@@ -17,6 +17,8 @@ is informative.  Each Bool stream gets a *signature*:
 
 namespace E213.Math.Cohomology.Dyadic.Signature
 
+open E213.Math.Cohomology.Dyadic.Conjecture (periodicBit)
+
 /-- Deterministic vertex transition.  S → T determined by bit.
     T → S cycles through S_0/S_1 from T_0; S_1/S_2 from T_1. -/
 def nextVertex (v : Fin 5) (b : Bool) : Fin 5 :=

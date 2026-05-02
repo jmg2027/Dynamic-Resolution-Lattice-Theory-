@@ -35,6 +35,26 @@ splitting in the trajectory.
 
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor14
 
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3 pellFSMmod3_bits_period_4 pellFSMmod2 pellFSMmod2_bits_period_3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod7 (pellFSMmod7 pellFSMmod7_bits_period_8)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod11 (pellFSMmod11 pellFSMmod11_bits_period_5 pellFSMmod11_bits_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod13 (pellFSMmod13 pellFSMmod13_bits_period_14)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod17 (pellFSMmod17 pellFSMmod17_bits_period_18)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod19 (pellFSMmod19 pellFSMmod19_bits_period_9 pellFSMmod19_bits_period_18)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod23 (pellFSMmod23 pellFSMmod23_bits_period_24)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod29 (pellFSMmod29 pellFSMmod29_bits_period_14)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod31 (pellFSMmod31 pellFSMmod31_bits_period_30)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod37 (pellFSMmod37 pellFSMmod37_bits_period_38)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod41 (pellFSMmod41 pellFSMmod41_bits_period_20)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod43 (pellFSMmod43 pellFSMmod43_bits_period_44)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod47 (pellFSMmod47 pellFSMmod47_bits_period_48)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor (pisano_predict)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor7 (pisano_predict_realises_pell_7)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor11 (pisano_predict_realises_pell_11)
+
+
 /-- ★★★★★ Legendre 5 mod 41 = QR (split). -/
 theorem legendre_5_mod_41 :
     legendre213 5 41 (by decide) = ⟨1, by decide⟩ := by decide

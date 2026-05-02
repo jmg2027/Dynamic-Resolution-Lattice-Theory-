@@ -29,6 +29,15 @@ framework as of this branch.  All instances closed at
 
 namespace E213.Math.Cohomology.Dyadic.UnifiedPisanoCapstone
 
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod3 (fibFSMmod3)
+open E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone (fib_pisano_predict fib_pisano_predict_realises)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod3 (tribFSMmod3 tribFSMmod3_bits_period_13)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor (pisano_predict)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor17 (pisano_predict_realises_pell_17)
+open E213.Math.Cohomology.Dyadic.Fib.PellRelation (fib_pell_at_11)
+
+
 /-- ★★★★★★★★★ Unified Pisano-CRT capstone — all three recurrence
     families + cross-recurrence relation in one bundle.
 

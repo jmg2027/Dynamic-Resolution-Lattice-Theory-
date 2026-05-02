@@ -17,6 +17,12 @@ Bundles every result from the propEq MVT/FTC at unit bracket arc:
 namespace E213.Math.Real213.PhaseCMFinalCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 
 /-- ★★★ **Phase CM final mega-mega capstone**: 12-fact bundle ★★★ -/
 theorem phaseCM_final_capstone (n : Nat)

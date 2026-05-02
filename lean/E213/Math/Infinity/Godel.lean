@@ -35,13 +35,13 @@ namespace E213.Firmware.Internal
 def Tree.toNat : Tree → Nat
   | .a         => 0
   | .b         => 1
-  | .slash x y => 2 + 2 * E213.Math.Infinity.pair (Tree.toNat x) (Tree.toNat y)
+  | .slash x y => 2 + 2 * E213.Infinity.pair (Tree.toNat x) (Tree.toNat y)
 
 theorem Tree.toNat_a : Tree.a.toNat = 0 := rfl
 theorem Tree.toNat_b : Tree.b.toNat = 1 := rfl
 theorem Tree.toNat_slash (x y : Tree) :
     (Tree.slash x y).toNat
-      = 2 + 2 * E213.Math.Infinity.pair x.toNat y.toNat := rfl
+      = 2 + 2 * E213.Infinity.pair x.toNat y.toNat := rfl
 
 end E213.Firmware.Internal
 

@@ -13,7 +13,13 @@ Key lemma: cutSumAux_congr (existing in Real213CutSumDetermined).
 
 namespace E213.Math.Real213.CauchyArithSum
 
+open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSum (cutSumAux)
+open E213.Math.Real213.CutSumComm (cutSum_comm)
+open E213.Math.Real213.CauchyComplete (CauchyCutSeq)
+open E213.Math.Real213.CutSumDetermined (cutSumAux_congr)
 
 /-- max of a.N j (2*k) for j ∈ [0, M]. -/
 def maxModulus (a_N : Nat → Nat → Nat) (k : Nat) : Nat → Nat

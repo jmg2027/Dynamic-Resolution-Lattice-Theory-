@@ -8,9 +8,9 @@ import E213.Math.Cohomology.EncodingBijection52
 
 ## Closed Prop-level Universal Leibniz (≤ {propext, Quot.sound})
 
-  - (3, 1, 1) — `CupAWLeibnizSmall.leibniz_universal_3_1_1`
-  - (4, 1, 1) — `CupAWLeibnizMid.leibniz_universal_4_1_1`
-  - (5, 1, 1) — `CupAWLeibniz.leibniz_universal_5_1_1`
+  - (3, 1, 1) — `E213.Math.Cohomology.CupAW.LeibnizSmall.leibniz_universal_3_1_1`
+  - (4, 1, 1) — `E213.Math.Cohomology.CupAW.LeibnizMid.leibniz_universal_4_1_1`
+  - (5, 1, 1) — `E213.Math.Cohomology.CupAW.Leibniz.leibniz_universal_5_1_1`
 
 ## Honest scaling note at (5, 1, 2)
 
@@ -31,6 +31,10 @@ and provides the bridge for any future Bool-level (5, 1, 2) result.
 namespace E213.Math.Cohomology.CupAW.LeibnizScaling
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.Core (cupAW)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Hodge.Involution (v0_5)
 
 /-- ★★★ AW Cup Leibniz universal Prop-lift — closed configurations
     (3, 1, 1), (4, 1, 1), (5, 1, 1).  Each ≤ {propext, Quot.sound}. -/
@@ -47,8 +51,8 @@ theorem leibniz_aw_universal_closed_cases :
          delta (cupAW 5 1 1 α β) i
            = xor (cupAW 5 2 1 (delta α) β i)
                  (cupAW 5 1 2 α (delta β) i)) :=
-  ⟨CupAWLeibnizSmall.leibniz_universal_3_1_1,
-   CupAWLeibnizMid.leibniz_universal_4_1_1,
-   CupAWLeibniz.leibniz_universal_5_1_1⟩
+  ⟨E213.Math.Cohomology.CupAW.LeibnizSmall.leibniz_universal_3_1_1,
+   E213.Math.Cohomology.CupAW.LeibnizMid.leibniz_universal_4_1_1,
+   E213.Math.Cohomology.CupAW.Leibniz.leibniz_universal_5_1_1⟩
 
 end E213.Math.Cohomology.CupAW.LeibnizScaling

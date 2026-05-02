@@ -18,6 +18,10 @@ in which a stream appears = its 213-native algebraic degree.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V1to2
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.V1 (ArithFSM1)
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
+
+
 /-- Pad ArithFSM₁(n) into ArithFSM₂(n) by adding an inert
     second component.  init = (a, 0), step ignores it. -/
 def ArithFSM1.padTo2 {n : Nat} (hn : 0 < n) (m : ArithFSM1 n) : ArithFSM2 n where

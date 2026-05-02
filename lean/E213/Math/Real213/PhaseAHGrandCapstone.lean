@@ -22,6 +22,10 @@ representative results from Phase J through AG in one statement.
 namespace E213.Math.Real213.PhaseAHGrandCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
 
 /-- **Phase AH grand capstone**: 17-phase unified analysis-track summary.
     Single conjunctive theorem with one representative result from each. -/

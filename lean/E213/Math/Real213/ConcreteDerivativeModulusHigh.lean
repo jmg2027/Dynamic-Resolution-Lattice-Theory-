@@ -16,6 +16,7 @@ Pattern: derivative of x^n has modulus (n-1)·k.
 namespace E213.Math.Real213.ConcreteDerivativeModulusHigh
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 theorem quinticIsDifferentiable_derivative_modulus (k : Nat) :
     quinticIsDifferentiable.derivativeSmooth.linearityModulus k = 4 * k := by

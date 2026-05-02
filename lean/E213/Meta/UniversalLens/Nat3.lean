@@ -21,7 +21,8 @@ higher codomains).
 
 namespace E213.Meta.UniversalLens.Nat3
 
-open E213.Firmware E213.Hypervisor E213.Meta.UniversalLensNat2
+open E213.Firmware E213.Hypervisor
+open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_slash expSumNat_inj)
 
 /-- Lens at ℕ³ = ℕ × (ℕ × ℕ).  Three independent encodings:
     - 1st: bit-pattern `2^x.1 + 2^y.1` (universal injector)
@@ -33,7 +34,7 @@ def expSumLens3 : Lens (Nat × Nat × Nat) where
   combine x y :=
     (2^x.1 + 2^y.1, x.2.1 + y.2.1 + 1, x.2.2 + y.2.2)
 
-/-- Combine is symmetric (componentwise). -/
+/-- Combine is symmetric (componentwise).  STRICT ∅-AXIOM. -/
 theorem expSumLens3_symmetric :
     ∀ u v : Nat × Nat × Nat,
       expSumLens3.combine u v = expSumLens3.combine v u := by
@@ -43,8 +44,8 @@ theorem expSumLens3_symmetric :
   congr 1
   · exact Nat.add_comm _ _
   congr 1
-  · omega
-  · omega
+  · congr 1; exact Nat.add_comm _ _
+  · exact Nat.add_comm _ _
 
 /-- Concrete: view a = (1, 0, 1). -/
 theorem expSumLens3_view_a : expSumLens3.view Raw.a = (1, 0, 1) := rfl
@@ -68,7 +69,7 @@ theorem expSumLens3_view_fst (r : Raw) :
                 = expSumLens3.combine
                     (expSumLens3.view x) (expSumLens3.view y) :=
       Raw.fold_slash _ _ _ expSumLens3_symmetric x y h
-    rw [hfs, expSumNat_slash]
+    rw [hfs, expSumNat_slash _ _ h]
     show 2^(expSumLens3.view x).1 + 2^(expSumLens3.view y).1
        = 2^(expSumNat x) + 2^(expSumNat y)
     rw [ihx, ihy]
@@ -83,7 +84,7 @@ theorem expSumLens3_view_inj : Function.Injective expSumLens3.view := by
 
 /-- ★★★★★★★★★ expSumLens3 is a Universal Lens at ℕ³ codomain. -/
 theorem expSumLens3_is_universal :
-    E213.Meta.UniversalLens.IsUniversal expSumLens3 :=
+    E213.Meta.UniversalLens.Core.IsUniversal expSumLens3 :=
   expSumLens3_view_inj
 
 end E213.Meta.UniversalLens.Nat3

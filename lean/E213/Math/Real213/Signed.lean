@@ -31,6 +31,10 @@ namespace E213.Math.Real213.Signed
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutMulComm (cutMul_comm)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- Signed cut: sign + absolute-value cut. -/
 structure SignedCut where

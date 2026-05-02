@@ -12,6 +12,13 @@ function-level (funext'd) versions.
 
 namespace E213.Math.Cohomology.CupAW.BilinearFunc
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.Core (cupAW)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.CupAW.Bilinear (cupAW_add_left cupAW_add_right)
+open E213.Math.Cohomology.Delta.Linear (delta_add)
+
+
 /-- Function-level cupAW left bilinearity. -/
 theorem cupAW_add_left_eq (n a b : Nat)
     (α α' : Cochain n a) (β : Cochain n b) :

@@ -20,6 +20,10 @@ The general statement requires the difference quotient bound theorem
 namespace E213.Math.Real213.FluxMVT
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPow (cutScale)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 namespace FluxCut
 

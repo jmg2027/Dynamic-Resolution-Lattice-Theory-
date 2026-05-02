@@ -8,6 +8,8 @@ import E213.Math.Cohomology.Dyadic.Pell.Proper
 
 namespace E213.Math.Cohomology.Dyadic.Pell.ProperMod23
 
+open E213.Math.Cohomology.Dyadic.Pell.Proper (pellProperFSMmod)
+
 set_option maxRecDepth 1024 in
 theorem pellProper23_run_period_22 :
     ∀ k, (pellProperFSMmod 23 (by decide)).run (k + 22)

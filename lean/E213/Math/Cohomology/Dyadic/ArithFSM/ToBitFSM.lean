@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
 import E213.Math.Cohomology.Dyadic.BitFSM.Bound
+import E213.Math.EncodePair213
 
 /-!
 # ArithFSM2(n) ⊂ BitFSM(n²) — bit-stream equivalence
@@ -14,15 +15,21 @@ explicit period ≤ 5n² (via `fsm_signature_period_bound`).
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 
-private theorem encode_div {n : Nat} (hn : 0 < n) (a b : Fin n) :
-    (a.val * n + b.val) / n = a.val := by
-  rw [Nat.mul_comm a.val n, Nat.add_comm, Nat.add_mul_div_left _ _ hn,
-      Nat.div_eq_of_lt b.isLt, Nat.zero_add]
+open E213.Math.Cohomology.Dyadic.BitFSM.Bound (fsm_signature_period_bound)
+open E213.Math.Cohomology.Dyadic.Signature (signature_eq_of_pointwise_eq)
 
-private theorem encode_mod {n : Nat} (a b : Fin n) :
-    (a.val * n + b.val) % n = b.val := by
-  rw [Nat.mul_comm a.val n, Nat.add_comm, Nat.add_mul_mod_self_left,
-      Nat.mod_eq_of_lt b.isLt]
+open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
+open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
+
+
+private theorem encode_div {n : Nat} (hn : 0 < n) (a b : Fin n) :
+    (a.val * n + b.val) / n = a.val :=
+  E213.Math.EncodePair213.encode_div hn a.val b.val b.isLt
+
+private theorem encode_mod {n : Nat} (hn : 0 < n) (a b : Fin n) :
+    (a.val * n + b.val) % n = b.val :=
+  E213.Math.EncodePair213.encode_mod hn a.val b.val b.isLt
 
 /-- ArithFSM2.toBitFSM run agrees with original (under pair-encoding). -/
 theorem toBitFSM_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
@@ -37,10 +44,10 @@ theorem toBitFSM_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
     have hva : ((m.toBitFSM hn).run k').val / n = (m.run k').1.val := by
       rw [ih]; exact encode_div hn _ _
     have hvb : ((m.toBitFSM hn).run k').val % n = (m.run k').2.val := by
-      rw [ih]; exact encode_mod _ _
+      rw [ih]; exact encode_mod hn _ _
     let aDec : Fin n :=
       ⟨((m.toBitFSM hn).run k').val / n,
-       (Nat.div_lt_iff_lt_mul hn).mpr hv_isLt⟩
+       E213.Math.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
     let bDec : Fin n :=
       ⟨((m.toBitFSM hn).run k').val % n, Nat.mod_lt _ hn⟩
     have hdec : (aDec, bDec) = ((m.run k').1, (m.run k').2) := by
@@ -61,10 +68,10 @@ theorem toBitFSM_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
   have hva : ((m.toBitFSM hn).run k).val / n = (m.run k).1.val := by
     rw [hv]; exact encode_div hn _ _
   have hvb : ((m.toBitFSM hn).run k).val % n = (m.run k).2.val := by
-    rw [hv]; exact encode_mod _ _
+    rw [hv]; exact encode_mod hn _ _
   let aDec : Fin n :=
     ⟨((m.toBitFSM hn).run k).val / n,
-     (Nat.div_lt_iff_lt_mul hn).mpr hv_isLt⟩
+     E213.Math.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
   let bDec : Fin n :=
     ⟨((m.toBitFSM hn).run k).val % n, Nat.mod_lt _ hn⟩
   have hdec : (aDec, bDec) = ((m.run k).1, (m.run k).2) := by

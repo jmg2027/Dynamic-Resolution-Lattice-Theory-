@@ -13,6 +13,9 @@ Note: at exact rational boundary "c = k/m", returns false (lower bound).
 namespace E213.Math.Real213.CutInv
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.Core (Real213)
 
 /-- **cutInv** (lower-bound form): "1/c < m/k" via "c > k/m".
     Misses exact boundary "1/c = m/k" — for strict inequality only. -/

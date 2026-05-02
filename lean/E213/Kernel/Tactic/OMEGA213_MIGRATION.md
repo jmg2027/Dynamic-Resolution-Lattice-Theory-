@@ -3,9 +3,11 @@
 ## Why
 
 Lean's standard `omega` tactic introduces `[propext, Quot.sound]`
-into every theorem that uses it.  These are part of the DRLT-allowed
-Lean kernel base, but the strict-zero standard ("does not depend on
-any axioms") used by physics-track capstones cannot accept them.
+into every theorem that uses it.  Those axioms are part of Lean's
+de-facto kernel default — but **not part of DRLT**: the DRLT axiom
+standard (formalized 2026-05-02) is the strict ∅-axiom set, i.e.
+`#print axioms` returning "does not depend on any axioms".  See
+`CLAUDE.md ## DRLT Axiom Standard`.
 
 `omega213` (in `E213.Kernel.Tactic.Omega213`) is an axiom-free replacement
 for the patterns 213 actually uses.

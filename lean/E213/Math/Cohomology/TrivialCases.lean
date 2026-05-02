@@ -11,6 +11,8 @@ the zero cochain.  All theorems 0-axiom, `decide`-checked.
 namespace E213.Math.Cohomology.TrivialCases
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Delta.Core (delta)
 
 /-! ## Δ¹ (n=2) -/
 

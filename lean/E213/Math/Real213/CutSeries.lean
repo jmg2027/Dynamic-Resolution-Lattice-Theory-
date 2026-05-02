@@ -15,6 +15,9 @@ SeriesCauchy: explicit modulus form.
 namespace E213.Math.Real213.CutSeries
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **partialSum**: Σ_{i<n} s i, defined recursively. -/
 def partialSum (s : Nat → (Nat → Nat → Bool)) : Nat → (Nat → Nat → Bool)

@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.Legendre.Pisano
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod11
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod13
 
 /-!
 # Legendre-Pisano bridge — extended to the SPLIT case (p = 11)
@@ -19,6 +20,15 @@ naive Pisano formula), reflecting that φ has order dividing
 -/
 
 namespace E213.Math.Cohomology.Dyadic.Legendre.PisanoExt
+
+open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3 pellFSMmod3_bits_period_4 pellFSMmod2 pellFSMmod2_bits_period_3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod7 (pellFSMmod7 pellFSMmod7_bits_period_8)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod11 (pellFSMmod11 pellFSMmod11_bits_period_5 pellFSMmod11_bits_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod13 (pellFSMmod13 pellFSMmod13_bits_period_14)
+open E213.Math.Cohomology.Dyadic.Legendre.Small (legendre_5_mod_3 legendre_5_mod_5 legendre_5_mod_7 legendre_5_mod_11)
+
 
 /-- ★★★★★★★ Extended bridge: Legendre lens predicts Pell period
     across all four branch types {inert, ramified, split, ...}. -/
