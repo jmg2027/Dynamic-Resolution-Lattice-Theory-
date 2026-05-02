@@ -76,15 +76,29 @@ Progress (cumulative across sessions):
     before continuing).
   - Pre-existing namespace mismatches surfaced and fixed in many
     files across 4 commits (eae6bb6, 0f21381, 0941595).
-  - **Raw.slash itself ∅-axiom** (commit 206bb2e) — the foundational
-    trajectory primitive cleaned at source.  Replaced `simp` with
-    `unfold + rw + rfl` chain; replaced iff destructors
-    (`cmp_eq_iff.mp`, `cmp_gt_iff_lt_swap.mp`) with new direct
-    one-direction lemmas (`cmp_eq_to_eq`, `cmp_gt_to_lt_swap`)
-    in `Firmware/Raw/Cmp.lean`.  **Cascade effect**: NoDepthParity
-    went 0/10 → 10/10 ∅-axiom *automatically without file edit*;
-    Alive went auto-clean.  Many more downstream consumers expected
-    to follow.  Demonstrates G2 trajectory principle in action.
+  - **Foundational Raw infra ∅-axiom** (commits 206bb2e, 2c496ce):
+      * `Raw.slash` (smart constructor)
+      * `Raw.fold_slash` (catamorphism + slash compatibility)
+      * `Raw.recAux` / `Raw.rec` (custom Raw eliminator)
+      * `Tree.canonical_slash_lt` (canonical-form extractor)
+    All cleaned via:
+      - `simp` → `unfold + rw + rfl` chains
+      - iff destructors → direct one-direction lemmas:
+        `Tree.cmp_eq_to_eq`, `cmp_gt_to_lt_swap`, `cmp_self_eq`,
+        `cmp_eq_of_eq`, `Bool.and_eq_true_to_pair`
+    **Massive cascade** (no file edits beyond foundational):
+      * `Hypervisor/Lens/Lattice/Lattice` 6/0 ∅-axiom
+      * `Hypervisor/Lens/Lattice/Meet` 5/0 ∅-axiom
+      * `Hypervisor/Lens/Properties/IsLeaf` 4/0 ∅-axiom
+      * `Hypervisor/Lens/Properties/ConstLensTotalKernel` 1/0 ∅-axiom
+      * `Hypervisor/Lens/Morphism/NoDepthParity` 10/0 ∅-axiom
+      * `Hypervisor/Lens/Morphism/Dist` 5/0 ∅-axiom
+      * `Hypervisor/Lens/Refines/Preorder` 2/0 ∅-axiom
+      * `Firmware/Atomicity/Alive` 5/0 ∅-axiom
+      * `Firmware/Atomicity/PrimitiveSizes` 5/0 ∅-axiom
+        (latter via `iff.mpr` direct, no `rw [iff]`)
+    Demonstrates G2 trajectory principle: clean foundation →
+    automatic propagation, no per-file editing required.
 
 Remaining: hundreds of files.  Each requires:
   1. Replace `omega` / `simp` / `simpa` with 213-native equivalents.
@@ -248,6 +262,8 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+2c496ce  Raw.rec + fold_slash + canonical_slash_lt: ∅-axiom cascade
+1e095fd  PrimitiveSizes: 5/5 ∅-axiom (rw [iff] → iff.mpr direct)
 206bb2e  Firmware/Raw.slash: ∅-axiom — propext-free smart constructor
          (cascades: NoDepthParity 10/10, Alive 2/2 auto-clean)
 3987709  PhaseChiralBridge: chiralPair + table — usable d=5 anchor
