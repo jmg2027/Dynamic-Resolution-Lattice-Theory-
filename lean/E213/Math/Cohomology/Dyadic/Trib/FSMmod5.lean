@@ -24,6 +24,8 @@ namespace E213.Math.Cohomology.Dyadic.Trib.FSMmod5
 
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
 
 /-- Tribonacci shift mod 5: state (a, b, c) → (b, c, a + b + c).

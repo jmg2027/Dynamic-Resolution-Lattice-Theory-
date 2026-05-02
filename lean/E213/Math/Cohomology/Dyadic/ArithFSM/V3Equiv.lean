@@ -10,6 +10,7 @@ the run_encode and bits_eq theorems.
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3Equiv
 
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
 
 
 /-- Encoded value modulo n recovers c. -/
@@ -56,28 +57,28 @@ theorem encode3_inner_div_pub {n : Nat} (hn : 0 < n) (a b c : Fin n) :
 
 /-- ★★★ ArithFSM3.toBitFSM run agrees with original (under triple-encoding). -/
 theorem toBitFSM3_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) :
-    ((m.toBitFSM hn).run k).val
+    ((ArithFSM3.toBitFSM hn m).run k).val
       = (m.run k).1.val * (n * n) + (m.run k).2.1.val * n + (m.run k).2.2.val := by
   induction k with
   | zero => rfl
   | succ k' ih =>
-    show ((m.toBitFSM hn).step ((m.toBitFSM hn).run k')).val = _
+    show ((ArithFSM3.toBitFSM hn m).step ((ArithFSM3.toBitFSM hn m).run k')).val = _
     have hnn : 0 < n * n := Nat.mul_pos hn hn
-    have hv_isLt : ((m.toBitFSM hn).run k').val < n * n * n :=
-      ((m.toBitFSM hn).run k').isLt
-    have hva : ((m.toBitFSM hn).run k').val / (n * n) = (m.run k').1.val := by
+    have hv_isLt : ((ArithFSM3.toBitFSM hn m).run k').val < n * n * n :=
+      ((ArithFSM3.toBitFSM hn m).run k').isLt
+    have hva : ((ArithFSM3.toBitFSM hn m).run k').val / (n * n) = (m.run k').1.val := by
       rw [ih]; exact encode3_div_nn_pub hn _ _ _
-    have hvb : ((m.toBitFSM hn).run k').val % (n * n) / n = (m.run k').2.1.val := by
+    have hvb : ((ArithFSM3.toBitFSM hn m).run k').val % (n * n) / n = (m.run k').2.1.val := by
       rw [ih]; exact encode3_inner_div_pub hn _ _ _
-    have hvc : ((m.toBitFSM hn).run k').val % n = (m.run k').2.2.val := by
+    have hvc : ((ArithFSM3.toBitFSM hn m).run k').val % n = (m.run k').2.2.val := by
       rw [ih]; exact encode3_mod_n _ _ _
-    let aDec : Fin n := ⟨((m.toBitFSM hn).run k').val / (n * n), by
+    let aDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k').val / (n * n), by
       have : n * n * n = n * (n * n) := Nat.mul_assoc n n n
       exact (Nat.div_lt_iff_lt_mul hnn).mpr (by omega)⟩
-    let bDec : Fin n := ⟨((m.toBitFSM hn).run k').val % (n * n) / n, by
+    let bDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k').val % (n * n) / n, by
       exact (Nat.div_lt_iff_lt_mul hn).mpr (by
-        have := Nat.mod_lt ((m.toBitFSM hn).run k').val hnn; omega)⟩
-    let cDec : Fin n := ⟨((m.toBitFSM hn).run k').val % n, Nat.mod_lt _ hn⟩
+        have := Nat.mod_lt ((ArithFSM3.toBitFSM hn m).run k').val hnn; omega)⟩
+    let cDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k').val % n, Nat.mod_lt _ hn⟩
     have hdec : (aDec, bDec, cDec)
                 = ((m.run k').1, (m.run k').2.1, (m.run k').2.2) := by
       apply Prod.ext

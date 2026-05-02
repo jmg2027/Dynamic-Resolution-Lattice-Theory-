@@ -10,6 +10,8 @@ First SPLIT instance for Pell-proper.
 
 namespace E213.Math.Cohomology.Dyadic.Pell.ProperMod17
 
+open E213.Math.Cohomology.Dyadic.Pell.Proper (pellProperFSMmod)
+
 theorem pellProper17_run_period_16 :
     ∀ k, (pellProperFSMmod 17 (by decide)).run (k + 16)
         = (pellProperFSMmod 17 (by decide)).run k := by

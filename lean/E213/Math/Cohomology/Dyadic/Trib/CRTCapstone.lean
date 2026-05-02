@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3
 import E213.Math.Cohomology.Dyadic.Trib.FSMmod3
 import E213.Math.Cohomology.Dyadic.Trib.FSMmod5
+import E213.Math.Cohomology.Dyadic.Trib.FSMmod7
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
 
 /-!
 # Tribonacci CRT capstone — 3 cubic moduli {2, 3, 5}
@@ -29,6 +31,13 @@ Cubic class status (Tier 1 hardness):
 namespace E213.Math.Cohomology.Dyadic.Trib.CRTCapstone
 
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (tribFSMmod2 tribFSMmod2_bits_period_4 tribFSMmod2_signature_period_4_from_1)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod3 (tribFSMmod3 tribFSMmod3_bits_period_13 tribFSMmod3_signature_period_26_from_1)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod5 (tribFSMmod5 tribFSMmod5_bits_period_31 tribFSMmod5_signature_period_62_from_1)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod7 (tribFSMmod7)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound (tribFSMmod2_signature_period_bound)
 
 
 /-- ★★★★★★★★ Tribonacci CRT 3-modulus capstone.
