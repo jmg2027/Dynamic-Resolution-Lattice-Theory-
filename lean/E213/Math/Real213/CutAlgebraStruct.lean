@@ -11,6 +11,11 @@ for cut-level rational arithmetic.
 namespace E213.Math.Real213.CutAlgebraStruct
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutBisection (cutMid cutHalf)
+open E213.Math.Real213.CutMaxMin (cutMax cutMin)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **CutAlgebra**: bundle of all standard cut operations. -/
 structure CutAlgebra where

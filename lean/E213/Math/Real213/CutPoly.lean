@@ -9,6 +9,10 @@ import E213.Math.Real213.CutPow
 namespace E213.Math.Real213.CutPoly
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutPow (cutScale)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **evalPoly**: polynomial Σ_{i=0}^degree (coeffs i) * x^i. -/
 def evalPoly (coeffs : Nat → Nat) (degree : Nat) (x : Nat → Nat → Bool) :

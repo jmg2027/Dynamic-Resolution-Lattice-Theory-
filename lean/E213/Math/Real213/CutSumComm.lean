@@ -10,6 +10,7 @@ Strategy: prove iff existential, then bijection j = M - i.
 namespace E213.Math.Real213.CutSumComm
 
 open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Firmware E213.Hypervisor
 
 /-- cutSumAux is true iff an existential witness exists. -/
@@ -84,6 +85,7 @@ end E213.Math.Real213.CutSumComm
 namespace E213.Math.Real213.CutSumComm
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.CutSum (cutSum cutSumAux)
 
 private theorem bool_eq_of_iff_true (a b : Bool)
     (h : a = true ↔ b = true) : a = b := by

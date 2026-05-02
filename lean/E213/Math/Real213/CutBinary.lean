@@ -1,4 +1,5 @@
 import E213.Math.Cauchy.Archimedean
+import E213.Math.Real213.CutSum
 
 /-!
 # Research.Real213CutBinary: generic 2D bounded-search cut operation

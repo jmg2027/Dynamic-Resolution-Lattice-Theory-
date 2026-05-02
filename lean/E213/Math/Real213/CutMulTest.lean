@@ -9,6 +9,9 @@ Accuracy verification of cutMul from `Real213CutMul.lean` on const cuts (rationa
 
 namespace E213.Math.Real213.CutMulTest
 
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
+
 /-- 1 * 1 = 1 ≤ 1/1 = true. -/
 example : cutMul (constCut 1 1) (constCut 1 1) 1 1 = true := by decide
 
