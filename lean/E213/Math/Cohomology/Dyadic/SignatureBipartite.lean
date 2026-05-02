@@ -17,6 +17,8 @@ This is the formal statement of bipartite alternation.
 
 namespace E213.Math.Cohomology.Dyadic.SignatureBipartite
 
+open E213.Math.Cohomology.Dyadic.Signature (nextVertex signature)
+
 /-- Predicate: vertex is on S-side. -/
 def isS (v : Fin 5) : Prop := v.val < 3
 

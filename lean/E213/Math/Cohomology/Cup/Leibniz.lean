@@ -19,6 +19,10 @@ DecidablePred on `Cochain n k`, deferred.
 namespace E213.Math.Cohomology.Cup.Leibniz
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
+open E213.Math.Cohomology.Cup.Core (cup all_true_5_1)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Hodge.Involution (v0_5)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
 
 /-- Leibniz on (v0_5 ⌣ v0_5) — both sides agree pointwise. -/
 theorem leibniz_v0_v0_pointwise :
