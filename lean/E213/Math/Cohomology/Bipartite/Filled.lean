@@ -74,7 +74,7 @@ theorem phase_D_partial :
     -- vs unfilled
     ∧ 12 - 5 + 1 = 8
     -- b_2 = 0 (δ_2 = 0 since no 3-cells)
-    ∧ (∀ σ τ : Bip32.CochAbove, ∀ e, σ e = τ e) :=
-  ⟨by decide, by decide, by decide, Bip32.b_k_graph_trivial⟩
+    ∧ (∀ σ τ : E213.Math.Cohomology.Audit.Bip32.CochAbove, ∀ e, σ e = τ e) :=
+  ⟨by decide, by decide, by decide, E213.Math.Cohomology.Audit.Bip32.b_k_graph_trivial⟩
 
 end E213.Math.Cohomology.Bipartite.Filled
