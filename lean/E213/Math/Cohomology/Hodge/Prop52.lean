@@ -17,7 +17,7 @@ open E213.Math.Cohomology.Hodge.Star (hodgeStar)
 open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 5 2 parametrized (re-exported from UniversalProp52). -/
-abbrev pattern52 := UniversalProp52.pattern
+abbrev pattern52 := E213.Math.Cohomology.Universal.Prop52.pattern
 
 set_option maxHeartbeats 8000000 in
 /-- ⋆⋆ = id on every (5, 2) pattern: 1024 patterns × 10 indices. -/
@@ -31,7 +31,7 @@ theorem hodge_sq_pattern_5_2 :
 theorem hodge_sq_prop_5_2 (σ : Cochain 5 2)
     (i : Fin (binom 5 2)) :
     hodgeStar 5 3 2 (hodgeStar 5 2 3 σ) i = σ i := by
-  rw [UniversalProp52.pattern_eq σ]
+  rw [E213.Math.Cohomology.Universal.Prop52.pattern_eq σ]
   exact hodge_sq_pattern_5_2 _ _ _ _ _ _ _ _ _ _ i
 
 /-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 2). -/

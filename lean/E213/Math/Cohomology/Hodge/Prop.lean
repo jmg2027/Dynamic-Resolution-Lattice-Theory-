@@ -11,9 +11,11 @@ cochains to Prop-level ∀ σ.
 namespace E213.Math.Cohomology.Hodge.Prop
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
 
-/-- Cochain 5 1 parametrized (re-exported from UniversalProp51). -/
-abbrev pattern51 := UniversalProp51.pattern
+/-- Cochain 5 1 parametrized (re-exported from E213.Math.Cohomology.Universal.Prop51). -/
+abbrev pattern51 := E213.Math.Cohomology.Universal.Prop51.pattern
 
 /-- ⋆⋆ = id on every (5, 1) pattern: 32 patterns × 5 indices. -/
 theorem hodge_sq_pattern_5_1 :
@@ -25,7 +27,7 @@ theorem hodge_sq_pattern_5_1 :
 theorem hodge_sq_prop_5_1 (σ : Cochain 5 1)
     (i : Fin (binom 5 1)) :
     hodgeStar 5 4 1 (hodgeStar 5 1 4 σ) i = σ i := by
-  rw [UniversalProp51.pattern_eq σ]
+  rw [E213.Math.Cohomology.Universal.Prop51.pattern_eq σ]
   exact hodge_sq_pattern_5_1 _ _ _ _ _ i
 
 /-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 1). -/
