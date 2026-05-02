@@ -8,7 +8,10 @@ encoded into BitFSM(9·25·49) = BitFSM(11025).
 Inherits period | lcm(4, 10, 8) = 40.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Pell.LensTriple
+namespace E213.Math.Cohomology.Dyadic.Pell.LensTripleopen E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
 
 /-- Inner product (mod 3 × mod 5). -/
 def pellInner35 : BitFSM (9 * 25) :=

@@ -22,6 +22,7 @@ namespace E213.Math.Cohomology.Dyadic.AlgebraicCapstone
 open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
 
 
 /-- ★★★★★★★★ Unified algebraic capstone: quadratic Pell + cubic

@@ -21,6 +21,7 @@ namespace E213.Math.Cohomology.Dyadic.Trib.Capstone
 
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 
 
 /-- ★★★★★★★ Tribonacci capstone: Tier 1 (cubic, Tribonacci-style)

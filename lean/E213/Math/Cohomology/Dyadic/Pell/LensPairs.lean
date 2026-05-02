@@ -8,7 +8,10 @@ Extends `pellLens_3x5_period_20` to the remaining pairs:
   - mod 5 × mod 7: lcm(10, 8) = 40
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Pell.LensPairs
+namespace E213.Math.Cohomology.Dyadic.Pell.LensPairsopen E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
 
 /-- ★★★★★ Lifted bit periodicity for Pell mod 3 (BitFSM form). -/
 theorem pellMod3_BitFSM_bits_period_4 :

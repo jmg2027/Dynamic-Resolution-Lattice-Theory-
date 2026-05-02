@@ -18,6 +18,7 @@ for periodic and aperiodic example signatures.
 namespace E213.Math.Cohomology.Dyadic.Archive.SubwordComplexity
 
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ThueMorse (thueMorse)
 
 
 /-- Length-L substrings of trajectory `s` starting at position

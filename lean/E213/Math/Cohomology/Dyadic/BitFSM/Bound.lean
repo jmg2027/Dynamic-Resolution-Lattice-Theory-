@@ -20,6 +20,7 @@ namespace E213.Math.Cohomology.Dyadic.BitFSM.Bound
 
 open E213.Math.Cohomology.Dyadic.ForwardPeriodicity (collisionTest pigeonhole_collision)
 open E213.Math.Cohomology.Dyadic.Signature (nextVertex signature)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 
 
 /-- Joint state (signature, run) at step k, encoded into Fin (5n). -/

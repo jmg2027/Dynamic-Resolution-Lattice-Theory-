@@ -20,6 +20,8 @@ Inert verified at 5 sizes (p+1 formula): 3, 7, 13, 17, 23.
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor8
 
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
 
 
 /-- ★★★★★ Legendre 5 mod 23 = NQR (inert). -/

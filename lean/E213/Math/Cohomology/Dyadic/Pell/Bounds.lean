@@ -18,7 +18,11 @@ Pell family signature period table (TIGHT vs GUARANTEE):
 
 namespace E213.Math.Cohomology.Dyadic.Pell.Bounds
 
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound pellFSMmod5_signature_period_bound)
+
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod2 pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
 
 
 /-- ★★★★ Pell mod-2 signature period bound: 20 = 5·4. -/

@@ -19,8 +19,16 @@ All conjuncts at ≤ {propext, Quot.sound}.
 
 namespace E213.Math.Cohomology.Dyadic.Pell.Capstone
 
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod2_bits_period_3 pellFSMmod3_bits_period_4)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (pellFSMmod3_signature_period_4 pellFSMmod5_signature_period_10 pellFSMmod2_signature_period_6_from_1)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (toBitFSM_bits_eq arithFSM2_signature_period_bound)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Hardness (aperiodic_bits_imp_not_ArithFSM2)
+
 open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod2 pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 
 
 /-- ★★★★★★★ Pell capstone: Tier 1 (algebraic, Pell-style)

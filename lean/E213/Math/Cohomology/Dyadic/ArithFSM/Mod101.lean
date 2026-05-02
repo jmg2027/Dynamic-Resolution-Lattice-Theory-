@@ -15,6 +15,9 @@ specific Frobenius structure.  Now confirmed at p ∈ {29, 89, 101}.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod101
 
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+
 open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 
 

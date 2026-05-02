@@ -15,7 +15,8 @@ period.  Shows Tier 0 ⊂ BitFSM-class with explicit state count
 = dyadic period.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.BitFSM.Examples
+namespace E213.Math.Cohomology.Dyadic.BitFSM.Examplesopen E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
 
 /-- BitFSM for 1/3 (period 2): 2-state cycle. -/
 def fsm_one_third : BitFSM 2 where

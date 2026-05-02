@@ -17,6 +17,8 @@ TIGHT signature periods and universal 5n² guarantees.
 namespace E213.Math.Cohomology.Dyadic.Pell.Family
 
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod2 pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 
 
 /-- ★★★★★★ Pell family closure: bit + signature periods +

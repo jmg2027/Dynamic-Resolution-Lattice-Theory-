@@ -19,6 +19,8 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 
 
 /-- ★★★★★ Legendre 5 mod 17 = NQR (inert). -/

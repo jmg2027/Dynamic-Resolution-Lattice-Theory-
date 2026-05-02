@@ -27,7 +27,8 @@ framework as of this branch.  All instances closed at
 ≤ {propext, Quot.sound}; tight bit periods STRICT 0-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.UnifiedPisanoCapstone
+namespace E213.Math.Cohomology.Dyadic.UnifiedPisanoCapstoneopen E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+
 
 /-- ★★★★★★★★★ Unified Pisano-CRT capstone — all three recurrence
     families + cross-recurrence relation in one bundle.

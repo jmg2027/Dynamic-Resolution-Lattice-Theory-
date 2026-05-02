@@ -25,6 +25,8 @@ Three capstone theorems retained for backward compatibility:
 namespace E213.Math.Cohomology.Dyadic.NumberTheory213
 
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
 
 
 /-- ★★★★★★★★ v1: 213-native number theory edifice (4-prime). -/

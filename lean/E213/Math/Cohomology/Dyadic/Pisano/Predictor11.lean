@@ -35,6 +35,8 @@ bit-period, not necessarily tight in the split branch.
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor11
 
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
 
 
 /-- ★★★★★ Legendre 5 mod 29 = QR (split). -/

@@ -23,6 +23,9 @@ subgroups in Pell trajectory.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Mod89
 
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+
 open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 
 

@@ -20,6 +20,8 @@ K_{3,2}^{(2)} signature lens".
 namespace E213.Math.Cohomology.Dyadic.TwoLayerPredictor
 
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
 
 
 /-- ★★★★★★★★ Two-layer predictor capstone: both bit and signature

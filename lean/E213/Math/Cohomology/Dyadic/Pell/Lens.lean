@@ -22,7 +22,10 @@ This achieves the full Pell-CRT closure at the FSM level, not
 just the stream level.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Pell.Lens
+namespace E213.Math.Cohomology.Dyadic.Pell.Lensopen E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
 
 /-- ★★★★★★ Lens-composed Pell mod 3 × mod 5 (XOR readout): period | 20. -/
 theorem pellLens_3x5_period_20 :

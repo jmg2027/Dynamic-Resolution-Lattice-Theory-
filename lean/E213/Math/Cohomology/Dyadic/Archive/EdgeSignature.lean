@@ -17,6 +17,7 @@ This gives a Fin 12 trajectory with up to 12 distinct values vs
 namespace E213.Math.Cohomology.Dyadic.Archive.EdgeSignature
 
 open E213.Math.Cohomology.Dyadic.Signature (nextVertex signature)
+open E213.Math.Cohomology.Dyadic.ThueMorse (thueMorse)
 
 
 /-- Edge from vertex v with bit b in K_{3,2}^{(2)}.  Canonical

@@ -18,7 +18,11 @@ Then applies it to the Pell mod-3 and Pell mod-5 instances.
 
 namespace E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3_bits_period_4 pellFSMmod2_bits_period_3)
+
 open E213.Math.Cohomology.Dyadic.Signature (nextVertex signature)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod2 pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 
 
 /-- Universal closure: if bits are purely periodic with period P

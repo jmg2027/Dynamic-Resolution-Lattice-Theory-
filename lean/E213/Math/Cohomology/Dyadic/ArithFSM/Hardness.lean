@@ -17,6 +17,9 @@ transcendental streams in the Tier hierarchy *via the ArithFSM lens*.
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.Hardness
 
+open E213.Math.Cohomology.Dyadic.Tier2Hardness (aperiodic_bits_imp_not_BitFSM BitFSM_generable_imp_eventually_periodic)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (toBitFSM_bits_eq)
+
 open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 
 

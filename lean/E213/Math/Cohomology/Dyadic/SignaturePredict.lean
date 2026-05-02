@@ -31,6 +31,8 @@ Verified at all 7 primes:
 namespace E213.Math.Cohomology.Dyadic.SignaturePredict
 
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
 
 
 /-- Signature-period predictor: doubles the bit-period predictor

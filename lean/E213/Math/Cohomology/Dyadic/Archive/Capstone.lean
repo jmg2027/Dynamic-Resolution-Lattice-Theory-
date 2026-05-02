@@ -26,6 +26,7 @@ namespace E213.Math.Cohomology.Dyadic.Archive.Capstone
 open E213.Math.Cohomology.Dyadic.Classifier (signature_periodic_implies_bits_periodic)
 open E213.Math.Cohomology.Dyadic.ForwardEventual (signature_eventually_periodic_of_eventually_periodic_bits)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 
 
 /-- ★★★★★★★ Dyadic / K_{3,2}^{(2)} signature capstone. -/

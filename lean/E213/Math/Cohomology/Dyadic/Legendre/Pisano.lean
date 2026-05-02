@@ -27,6 +27,8 @@ trajectory-walking Legendre lens.  No external number theory used.
 namespace E213.Math.Cohomology.Dyadic.Legendre.Pisano
 
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 
 
 /-- ★★★★★★ Bridge: at p ∈ {3, 7} (NQR, inert), the Pell period

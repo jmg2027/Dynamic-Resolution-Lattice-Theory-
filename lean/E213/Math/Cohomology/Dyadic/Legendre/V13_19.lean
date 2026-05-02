@@ -19,6 +19,8 @@ instances each.
 namespace E213.Math.Cohomology.Dyadic.Legendre.V13_19
 
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 
 
 /-- ★★★★★ Pell discriminant 5 is NQR mod 13 (inert). -/

@@ -15,6 +15,7 @@ bound becomes 5n³.
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
 
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 
 
 private theorem encode3_bound {n : Nat} (a b c : Fin n) :

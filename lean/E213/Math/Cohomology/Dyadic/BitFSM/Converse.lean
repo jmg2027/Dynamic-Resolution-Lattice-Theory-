@@ -16,6 +16,7 @@ v → ⟨(v+1) % p, _⟩; out v := bs v.
 namespace E213.Math.Cohomology.Dyadic.BitFSM.Converse
 
 open E213.Math.Cohomology.Dyadic.ForwardPeriodicity (bs_periodic_multiple)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 
 
 /-- BitFSM cyclic shift register for period-p stream. -/

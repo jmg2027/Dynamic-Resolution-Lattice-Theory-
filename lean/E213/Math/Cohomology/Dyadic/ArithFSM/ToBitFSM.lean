@@ -14,8 +14,12 @@ explicit period ≤ 5n² (via `fsm_signature_period_bound`).
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 
+open E213.Math.Cohomology.Dyadic.BitFSM.Bound (fsm_signature_period_bound)
+open E213.Math.Cohomology.Dyadic.Signature (signature_eq_of_pointwise_eq)
+
 open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
 
 
 private theorem encode_div {n : Nat} (hn : 0 < n) (a b : Fin n) :

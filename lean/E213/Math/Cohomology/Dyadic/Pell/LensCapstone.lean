@@ -10,7 +10,10 @@ Bundles all FSM-level lens compositions for Pell mod {3, 5, 7}:
 All ≤ {propext, Quot.sound}.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Pell.LensCapstone
+namespace E213.Math.Cohomology.Dyadic.Pell.LensCapstoneopen E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+
 
 /-- ★★★★★★★ Full Pell-CRT FSM-level capstone. -/
 theorem pell_crt_fsm_capstone :

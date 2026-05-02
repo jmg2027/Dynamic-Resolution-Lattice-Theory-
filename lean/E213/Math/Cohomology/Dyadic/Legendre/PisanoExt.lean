@@ -21,6 +21,8 @@ naive Pisano formula), reflecting that φ has order dividing
 namespace E213.Math.Cohomology.Dyadic.Legendre.PisanoExt
 
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 
 
 /-- ★★★★★★★ Extended bridge: Legendre lens predicts Pell period
