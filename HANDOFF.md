@@ -104,6 +104,45 @@ Cascade-cleaned PURE this session:
 CLAUDE.md migration backlog #1 (pigeonhole_collision) and #2 (Hodge
 funext) BOTH retired this session.
 
+## ★ Major milestone (2026-05-XX part 8): PhaseJCapstone 5/5 PURE
+
+**First Real213 Phase capstone fully strict ∅-axiom**.
+
+All 5 PhaseJ theorems now `#print axioms` → "does not depend on
+any axioms":
+  - `phaseJ_capstone` (★ 7-fact bundle, the marquee result)
+  - `phaseJ_no_infinity`
+  - `riemann_const_finite_rational`
+  - `dyadic_bracket_finite_rational`
+  - `consistentOracle_exists_on_collapsed`
+
+**Architectural fix**: discovered the funext blocker was actually
+a chain through `if`-Decidable + `Nat.add_sub_*` core lemmas:
+
+  1. **`bisectStep` def: `if` → `bif` (`Bool.cond`)**.  Lean's
+     `if (b : Bool) then x else y` desugars to `ite (b = true) x y`,
+     pulling `Decidable (b = true)` (which leaks `propext`).
+     `bif` / `Bool.cond` is structural Bool recursion, ∅-axiom by
+     kernel reduction.  All `by_cases h : oracle ... = true` +
+     `rw [if_pos h] / [if_neg h]` patterns updated to bare `cases`.
+
+  2. **`Math/Real213/DyadicBracket.lean`**: `bisectStep_collapsed`,
+     `bisectStep_collapsed_numA`, `leftHalf_lenNum`, `rightHalf_lenNum`,
+     `bisectN_collapsed_midCut_form` — all rewritten ∅-axiom.
+
+  3. **`Kernel/Tactic/Nat213.lean` +2**: `add_sub_add_left`,
+     `add_sub_add_right` (∅-axiom replacements for Lean-core
+     `Nat.add_sub_add_*` which leak propext).
+
+  4. **`bisectN_collapsed_midCut_form`**: removed `apply propext`
+     in favour of local `bool_eq_iff` Bool extensionality;
+     `Nat.pow_add` → `Pow213.pow_add_two`; `omega` reorder →
+     explicit Nat.add_assoc + Nat.add_comm chain.
+
+This demonstrates Bishop-style constructive analysis on finite
+rational lattices is fully formalisable in 213's strict ∅-axiom
+standard.
+
 ## Remaining DIRTY (architectural blocker, math-track)
 
 After part-6+7 cleanup, only Real213 Phase capstones remain DIRTY,
@@ -123,39 +162,36 @@ Foundation-layer cleanup landed:
   - **`IsDifferentiable.lean`**: pre-existing `import Core` source
     bug fixed (cached olean was masking).
 
-### Remaining Phase capstones DIRTY — funext architectural blocker
+### Remaining Phase capstones DIRTY (after part 8)
 
-PhaseJCapstone (4/5 DIRTY), PhaseLCapstone (6/6 DIRTY),
-PhaseAH/AN/AD/BA/BH/BX/CM/CS GrandCapstones still
-`[propext, Quot.sound]`.  Root cause:
+PhaseJCapstone is fully closed ∅-axiom (5/5).  Other Phase
+capstones (PhaseL/AH/AN/AD/BA/BH/BX/CM/CS) inherit deeper deps:
 
-  - `Math/Real213/CutSumOne.lean` uses **`funext`** ~10× per file
-    to prove cutSum-of-Cut equality (e.g.,
-    `cutSum (constCut a b) (constCut a b) = constCut (2*a) b` via
-    `funext m k; ...`).  Lean's `funext` depends on `propext` +
-    `Quot.sound`.
+  1. **`squareIsSmooth_modulus`** etc. — `[propext]` from
+     `Nat.pow_add` chain in `IsSmooth` filter.  Tractable via
+     same `Pow213.pow_add_two` recipe.
 
-  - All Phase capstones inherit this contamination through
-    `cutSum_self`, `cutSum_half_general`, `cutSum_int_int`, etc.
+  2. **`alwaysTrueUnit_limit_distinct_from_zero`** —
+     `[propext, Quot.sound]` from CauchyCutSeq + the
+     InfinitesimalGap structure.  Deeper (cut-distinctness chain).
 
-### To-do for next math-track session
+  3. **`riemannSampleSum_constCut`** (function-eq) still
+     `[Quot.sound]` from `funext`.  Use `_at` pointwise variant
+     instead in capstone statements (PhaseJ-style migration).
 
-The fix requires replacing **function-equality** statements with
-**pointwise-equality** (`cutEq`) statements throughout the cutSum
-API.  This is a major refactor:
+The architectural pattern is established (bif + cases + pointwise
+chain).  Each remaining Phase capstone needs a similar but
+proof-specific cleanup.
 
-  1. For each `cutSum_*` theorem in `CutSumOne.lean`, prove a
-     pointwise variant `cutSum_*_at : ∀ m k, ... m k = ... m k`
-     (no funext).
-  2. Migrate downstream callers (CutSeriesConst, CutMidSelf,
-     DyadicRiemann, Dyadic, CutDouble) from function `=` to
-     `cutEq` via the new pointwise lemmas.
-  3. Update Phase capstone statements from `cutSum c c = ...` to
-     `cutEq (cutSum c c) ...` or pointwise.
-  4. Verify each Phase capstone closes strict ∅-axiom.
+### Additional infrastructure landed (part 7-8)
 
-`cutEq` already exists in `Math/Real213/CutPoset.lean` — the API
-infrastructure is in place; what's needed is migration work.
+  - `Math/Real213/CutSumPointwise.lean` (2 ∅-axiom thms):
+      `cutSumAux_pointwise_eq`, `cutSum_pointwise_eq`
+  - `Math/Real213/CutSumOne.lean`: `cutSum_self_at` (pointwise)
+  - `Math/Real213/DyadicRiemann.lean`: `riemannSampleSum_constCut_at`
+  - `Math/Real213/PhaseJCapstone.lean`: full pointwise migration
+  - `Math/Real213/IsDifferentiable.lean`: pre-existing import bug fixed
+  - 13 Real213 files: batch Nat.mul_assoc → Nat213.mul_assoc
 
 (Backlogs #1, #3, #4, #5 retired in part 6 — see milestone above.)
 
