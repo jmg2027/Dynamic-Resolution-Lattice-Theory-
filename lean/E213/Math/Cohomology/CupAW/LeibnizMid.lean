@@ -13,6 +13,10 @@ Pattern: 16 × 16 = 256 pairs × 6 indices = 1536 evals.
 namespace E213.Math.Cohomology.CupAW.LeibnizMid
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.Core (cupAW)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Math.Cohomology.Universal.Prop41 (pattern)
 
 /-- Leibniz on every (4, 1, 1) pattern pair. -/
@@ -33,7 +37,7 @@ theorem leibniz_universal_4_1_1
     delta (cupAW 4 1 1 α β) i
       = xor (cupAW 4 2 1 (delta α) β i)
             (cupAW 4 1 2 α (delta β) i) := by
-  rw [UniversalProp41.pattern_eq α, UniversalProp41.pattern_eq β]
+  rw [E213.Math.Cohomology.Universal.Prop41.pattern_eq α, E213.Math.Cohomology.Universal.Prop41.pattern_eq β]
   exact leibniz_pattern_4_1_1 _ _ _ _ _ _ _ _ i
 
 end E213.Math.Cohomology.CupAW.LeibnizMid

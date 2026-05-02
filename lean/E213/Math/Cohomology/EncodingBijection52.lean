@@ -12,6 +12,8 @@ namespace E213.Math.Cohomology.EncodingBijection52
 
 open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Prop52 (pattern)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.BettiKernel (cochainAt)
 
 /-- Bool-to-Nat helper. -/
 def boolToNat (b : Bool) : Nat := if b then 1 else 0
@@ -47,7 +49,7 @@ theorem encode_pointwise_pattern :
 /-- ★★★ Encoding bijection at (5, 2). -/
 theorem encode_bijection (σ : Cochain 5 2) (j : Fin 10) :
     σ j = cochainAt 5 2 (encode_5_2 σ) j := by
-  rw [UniversalProp52.pattern_eq σ]
+  rw [E213.Math.Cohomology.Universal.Prop52.pattern_eq σ]
   exact encode_pointwise_pattern _ _ _ _ _ _ _ _ _ _ j
 
 end E213.Math.Cohomology.EncodingBijection52

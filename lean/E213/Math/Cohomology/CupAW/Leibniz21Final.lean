@@ -7,6 +7,10 @@ import E213.Math.Cohomology.CupAW.Leibniz21Bridge
 namespace E213.Math.Cohomology.CupAW.Leibniz21Final
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.CupAW.Core (cupAW)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Math.Cohomology.CupAW.BasisLeibniz (basis basis_leibniz_5_2_1)
 open E213.Math.Cohomology.Cochain.V5_1DecompR (bz5_1)
 open E213.Math.Cohomology.Cochain.V5_2Decomp (bz5_2)

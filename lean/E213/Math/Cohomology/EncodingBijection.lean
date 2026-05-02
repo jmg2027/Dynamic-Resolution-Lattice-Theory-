@@ -13,7 +13,7 @@ gives an alternative Prop-lift route via `cochainAt` from
 For each σ, define encode σ as the bit-pattern of σ values.
 Then σ pointwise equals cochainAt 5 1 (encode σ).
 
-This connects pattern-based Prop-lift (UniversalProp51) to
+This connects pattern-based Prop-lift (E213.Math.Cohomology.Universal.Prop51) to
 the enumeration-based Bool-level (Universal).
 -/
 
@@ -21,6 +21,8 @@ namespace E213.Math.Cohomology.EncodingBijection
 
 open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Universal.Prop51 (pattern)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.BettiKernel (cochainAt)
 
 /-- Bool-to-Nat helper. -/
 def boolToNat (b : Bool) : Nat := if b then 1 else 0
@@ -52,7 +54,7 @@ theorem encode_pointwise_pattern :
     For all σ, σ j = cochainAt 5 1 (encode σ) j pointwise. -/
 theorem encode_bijection (σ : Cochain 5 1) (j : Fin 5) :
     σ j = cochainAt 5 1 (encode_5_1 σ) j := by
-  rw [UniversalProp51.pattern_eq σ]
+  rw [E213.Math.Cohomology.Universal.Prop51.pattern_eq σ]
   exact encode_pointwise_pattern _ _ _ _ _ j
 
 end E213.Math.Cohomology.EncodingBijection
