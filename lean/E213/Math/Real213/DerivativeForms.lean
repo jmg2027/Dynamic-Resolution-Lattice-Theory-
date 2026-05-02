@@ -26,6 +26,8 @@ open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 
 /-- d/dx [x] = 1 as a constant function. -/
 theorem id_derivative_form :

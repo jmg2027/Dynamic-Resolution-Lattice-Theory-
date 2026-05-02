@@ -18,6 +18,7 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum)
 
 /-- ★ FTC-Riemann for id ∘ x² at unit depth 0 (via generic theorem). -/
 theorem ftc_riemann_generic_for_id_compose_square :

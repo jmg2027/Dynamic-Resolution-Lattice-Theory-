@@ -22,6 +22,7 @@ namespace E213.Math.Real213.HasDyadicMVTWitness
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 
 /-- ★ **HasDyadicMVTWitness** for an IsDifferentiable f: a *dyadic*
     cut c such that f'(c) = constCut 1 1. -/

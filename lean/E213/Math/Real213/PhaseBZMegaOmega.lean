@@ -24,6 +24,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum)
 
 /-- ★★ **Phase BZ mega-omega capstone**: 10-fact unified summary. -/
 theorem phaseBZ_megaOmega_capstone (n : Nat) (a : FluxCut) :

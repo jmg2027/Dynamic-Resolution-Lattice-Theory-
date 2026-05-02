@@ -26,6 +26,7 @@ namespace E213.Math.Real213.DifferentiableMegaCoverage
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 
 /-- **Polynomial differentiation total coverage 0-16**: all concrete
     polynomial IsDifferentiable instances + their modulus equalities

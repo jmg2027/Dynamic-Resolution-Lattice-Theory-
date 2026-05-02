@@ -23,6 +23,7 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 namespace FluxCut
 

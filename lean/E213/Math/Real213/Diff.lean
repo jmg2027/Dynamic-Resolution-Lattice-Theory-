@@ -23,6 +23,7 @@ namespace E213.Math.Real213.Diff
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- Differentiability hypothesis at a cut-point. -/
 structure DifferentiableAt (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))

@@ -23,6 +23,8 @@ namespace E213.Math.Real213.FTCRiemann
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
 
 /-- ★ Riemann sum of id.derivative over unitBracket = constCut (2^n · 1) 1. -/
 theorem riemann_id_derivative_unit (n : Nat) :

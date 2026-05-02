@@ -57,6 +57,7 @@ open E213.Math.Real213.CutMulComm (cutMul_comm)
 open E213.Math.Real213.CutPoset (cutEq cutLe)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumComm (cutSum_comm)
+open E213.Math.Real213.CutPoset (cutLe_refl)
 
 /-- cutEq commutativity of cutSum. -/
 theorem cutSum_comm_cutEq (cx cy : Nat → Nat → Bool) :

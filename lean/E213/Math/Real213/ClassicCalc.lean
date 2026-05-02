@@ -23,6 +23,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 
 /-- **ClassicCalc f**: differentiable AND passes through (0, 0), (1, 1). -/
 structure ClassicCalc

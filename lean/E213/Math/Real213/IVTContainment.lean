@@ -18,6 +18,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutPoset (cutLe)
+open E213.Math.Real213.ValidCut (RatioCut)
 
 /-- Pointwise cutLe at (m, k): cy m k → cx m k. -/
 def cutLeAt (cx cy : Nat → Nat → Bool) (m k : Nat) : Prop :=

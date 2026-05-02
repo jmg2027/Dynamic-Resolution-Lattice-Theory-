@@ -25,6 +25,8 @@ open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.IsSmooth (IsSmooth addIsSmooth composeIsSmooth constIsSmooth idIsSmooth mulIsSmooth)
 
 /-- **Differentiability filter**: smoothness + explicit derivative. -/
 structure IsDifferentiable (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))

@@ -22,6 +22,9 @@ open E213.Math.Real213.CutBisection (cutHalf cutMid)
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CauchyComplete (CauchyCutSeq)
+open E213.Math.Real213.CutDouble (cutDouble)
+open E213.Math.Real213.CutSumOne (cutSum_half_general cutSum_int_int)
 
 /-- Limit of (constCauchy a/1) + (constCauchy b/1) = (a+b)/1. -/
 theorem constCauchy_cutSum_int (a b : Nat) :

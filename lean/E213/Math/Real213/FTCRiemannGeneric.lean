@@ -21,6 +21,8 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 
 /-- ★★ **Generic FTC-Riemann at depth 0** via witness at midCut ★★ -/
 theorem ftc_riemann_generic_via_witness

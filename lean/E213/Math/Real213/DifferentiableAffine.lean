@@ -22,6 +22,8 @@ open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 
 /-- x ↦ a·x + b: linear scaling + constant offset. -/
 def affineIsDifferentiable (a b : Nat) :

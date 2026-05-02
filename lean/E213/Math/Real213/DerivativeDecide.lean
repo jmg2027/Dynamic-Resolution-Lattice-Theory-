@@ -24,6 +24,7 @@ namespace E213.Math.Real213.DerivativeDecide
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- d/dx [x] at any point evaluates to constCut 1 1 (rfl). -/
 example (x : Nat → Nat → Bool) (m k : Nat) :

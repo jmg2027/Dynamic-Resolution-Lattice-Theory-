@@ -15,6 +15,8 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul cutMulOuter)
 open E213.Math.Real213.CutMulComm (cutMul_comm)
+open E213.Math.Real213.CauchyComplete (CauchyCutSeq)
+open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 
 /-- max of a.N j k for j ∈ [0, M] (no precision doubling). -/
 def maxNAt (a_N : Nat → Nat → Nat) (kPrec : Nat) : Nat → Nat
