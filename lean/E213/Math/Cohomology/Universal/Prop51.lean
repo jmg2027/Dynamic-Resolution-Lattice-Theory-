@@ -14,6 +14,8 @@ most directly relevant to physics (vertex functions on the
 namespace E213.Math.Cohomology.Universal.Prop51
 
 open E213.Physics.Simplex.Counts (binom)
+open E213.Math.Cohomology.Delta.Core (delta)
+open E213.Math.Cohomology.Cochain.Core (Cochain)
 
 /-- Cochain 5 1 parametrized by 5 Bool values. -/
 def pattern (b0 b1 b2 b3 b4 : Bool) : Cochain 5 1 := fun i =>
