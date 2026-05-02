@@ -33,7 +33,8 @@ open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.DyadicBracket
 open E213.Math.Real213.CauchyComplete (CauchyCutSeq)
 open E213.Math.Real213.ConsistentOracle
-open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
+open E213.Math.Real213.DyadicRiemann
+  (riemannSampleSum riemannSampleSum_constCut riemannSampleSum_constCut_at)
 open E213.Math.Real213.IsSmooth (IsSmooth idIsSmooth)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Real213.Dyadic (dyadicCut)
@@ -42,7 +43,8 @@ open E213.Math.Real213.Dyadic (dyadicCut)
     resolution-depth filter foundation.
 
     All 7 facts are direct conjunctions of already-proved theorems.
-    This build = the formal completion of Phase J. -/
+    Strict ∅-axiom — uses `riemannSampleSum_constCut_at` (pointwise)
+    in conjunct (v) to bypass `funext`. -/
 theorem phaseJ_capstone (db : DyadicBracket) (oracle : DyadicOracle)
     (n : Nat) (a b : Nat) :
   -- (i) Binary tree depth: expE increases by exactly n.
@@ -55,8 +57,10 @@ theorem phaseJ_capstone (db : DyadicBracket) (oracle : DyadicOracle)
   -- (iv) Midpoint trapped in original bracket.
   ∧ cutLe db.leftCut (DyadicBracket.bisectN oracle n db).midCut
   ∧ cutLe (DyadicBracket.bisectN oracle n db).midCut db.rightCut
-  -- (v) Riemann constant closed form: Σ_{depth n} (a/b) = (2^n*a)/b.
-  ∧ riemannSampleSum (constCutFn (constCut a b)) db n = constCut (2^n * a) b
+  -- (v) Riemann constant closed form (POINTWISE):
+  --     ∀ m k, Σ_{depth n} (a/b) m k = (2^n*a)/b m k.
+  ∧ ∀ m k, riemannSampleSum (constCutFn (constCut a b)) db n m k
+         = constCut (2^n * a) b m k
   := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact DyadicBracket.bisectN_expE oracle n db
@@ -65,7 +69,7 @@ theorem phaseJ_capstone (db : DyadicBracket) (oracle : DyadicOracle)
   · exact DyadicBracket.bisectN_contains_right oracle n db
   · exact DyadicBracket.bisectN_midCut_above_left oracle n db
   · exact DyadicBracket.bisectN_midCut_below_right oracle n db
-  · exact riemannSampleSum_constCut a b db n
+  · exact riemannSampleSum_constCut_at a b db n
 
 /-! ### Finite-N markers — π / ∞ structurally absent
 
@@ -93,31 +97,29 @@ theorem dyadic_bracket_finite_rational
   ⟨rfl, rfl, rfl⟩
 
 /-- **Riemann sum of any constant is a finite rational at every depth**:
-    no transcendence creeps in through accumulation.  The 213-native
-    integral over a constant integrand is always an explicit (Nat, Nat). -/
+    no transcendence creeps in through accumulation.  Pointwise version —
+    strict ∅-axiom (no funext). -/
 theorem riemann_const_finite_rational
     (a b : Nat) (db : DyadicBracket) (n : Nat) :
-    ∃ M : Nat, riemannSampleSum (constCutFn (constCut a b)) db n
-             = constCut M b :=
-  ⟨2^n * a, riemannSampleSum_constCut a b db n⟩
+    ∃ M : Nat, ∀ m k, riemannSampleSum (constCutFn (constCut a b)) db n m k
+                    = constCut M b m k :=
+  ⟨2^n * a, riemannSampleSum_constCut_at a b db n⟩
 
 /-- **Phase J no-infinity capstone**: π / ∞ / classical limits all
     structurally absent from the dyadic apparatus.  All concrete
-    quantities are explicit Nat rationals. -/
+    quantities are explicit Nat rationals.  Pointwise — strict ∅-axiom. -/
 theorem phaseJ_no_infinity (db : DyadicBracket) (oracle : DyadicOracle)
     (n : Nat) (a b : Nat) :
-    -- Bracket endpoints rational at every step.
     (DyadicBracket.bisectN oracle n db).leftCut
     = dyadicCut (DyadicBracket.bisectN oracle n db).numA
                 (DyadicBracket.bisectN oracle n db).expE
     ∧ (DyadicBracket.bisectN oracle n db).rightCut
     = dyadicCut (DyadicBracket.bisectN oracle n db).numB
                 (DyadicBracket.bisectN oracle n db).expE
-    -- Riemann constant gives finite rational closed form.
-    ∧ ∃ M, riemannSampleSum (constCutFn (constCut a b)) db n
-         = constCut M b := by
-  refine ⟨rfl, rfl, ?_⟩
-  exact ⟨2^n * a, riemannSampleSum_constCut a b db n⟩
+    -- Riemann constant gives finite rational closed form (pointwise).
+    ∧ ∃ M, ∀ m k, riemannSampleSum (constCutFn (constCut a b)) db n m k
+                = constCut M b m k :=
+  ⟨rfl, rfl, ⟨2^n * a, riemannSampleSum_constCut_at a b db n⟩⟩
 
 /-! ### ConsistentOracle existence on collapsed brackets
 

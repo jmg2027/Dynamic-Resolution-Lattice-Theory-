@@ -1,5 +1,6 @@
 import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.CutSumOne
+import E213.Math.Real213.CutSumPointwise
 import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.ConstCutScale
 import E213.Kernel.Tactic.Nat213
@@ -42,7 +43,9 @@ namespace E213.Math.Real213.DyadicRiemann
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutPoset (cutEq)
-open E213.Math.Real213.CutSumOne (cutSum_self cutSum_half_general cutSum_int_int)
+open E213.Math.Real213.CutSumOne (cutSum_self cutSum_half_general
+  cutSum_int_int cutSum_self_at)
+open E213.Math.Real213.CutSumPointwise (cutSum_pointwise_eq)
 open E213.Math.Real213.ConstCutScale (constCut_scale)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.DyadicBracket
@@ -73,30 +76,54 @@ theorem riemannSampleSum_succ
     = cutSum (riemannSampleSum f db.leftHalf n)
              (riemannSampleSum f db.rightHalf n) := rfl
 
-/-- **Riemann sum of constant cut**: at depth n, sum = 2^n copies
-    of the constant.  By cutSum_self: constCut (2^n * a) b. -/
-theorem riemannSampleSum_constCut (a b : Nat) (db : DyadicBracket) :
-    ∀ n, riemannSampleSum (constCutFn (constCut a b)) db n
-       = constCut (2^n * a) b
-  | 0 => by
-    show constCut a b = constCut (2^0 * a) b
-    have h : (2 : Nat)^0 * a = a := by
-      show 1 * a = a
-      exact Nat.one_mul a
+/-- **Pointwise** version: ∀ m k, riemannSampleSum (...) db n m k
+    = constCut (2^n * a) b m k.  ∅-axiom — uses `cutSum_pointwise_eq`
+    + `cutSum_self_at` chain (no funext). -/
+theorem riemannSampleSum_constCut_at (a b : Nat) (db : DyadicBracket) :
+    ∀ n m k, riemannSampleSum (constCutFn (constCut a b)) db n m k
+           = constCut (2^n * a) b m k
+  | 0, m, k => by
+    show constCut a b m k = constCut (2^0 * a) b m k
+    have h : (2 : Nat)^0 * a = a := show 1 * a = a from Nat.one_mul a
     rw [h]
-  | n+1 => by
+  | n+1, m, k => by
     show cutSum (riemannSampleSum (constCutFn (constCut a b))
                   db.leftHalf n)
                 (riemannSampleSum (constCutFn (constCut a b))
-                  db.rightHalf n)
-       = constCut (2^(n+1) * a) b
-    rw [riemannSampleSum_constCut a b db.leftHalf n,
-        riemannSampleSum_constCut a b db.rightHalf n]
-    rw [cutSum_self]
-    show constCut (2 * (2^n * a)) b = constCut (2^(n+1) * a) b
+                  db.rightHalf n) m k
+       = constCut (2^(n+1) * a) b m k
+    let ih_l : ∀ m' k',
+        riemannSampleSum (constCutFn (constCut a b)) db.leftHalf n m' k'
+        = constCut (2^n * a) b m' k' :=
+      riemannSampleSum_constCut_at a b db.leftHalf n
+    let ih_r : ∀ m' k',
+        riemannSampleSum (constCutFn (constCut a b)) db.rightHalf n m' k'
+        = constCut (2^n * a) b m' k' :=
+      riemannSampleSum_constCut_at a b db.rightHalf n
+    have step1 :
+        cutSum (riemannSampleSum (constCutFn (constCut a b)) db.leftHalf n)
+               (riemannSampleSum (constCutFn (constCut a b)) db.rightHalf n)
+               m k
+        = cutSum (constCut (2^n * a) b) (constCut (2^n * a) b) m k :=
+      cutSum_pointwise_eq _ _ _ _ ih_l ih_r m k
+    have step2 :
+        cutSum (constCut (2^n * a) b) (constCut (2^n * a) b) m k
+        = constCut (2 * (2^n * a)) b m k :=
+      cutSum_self_at (2^n * a) b m k
     have h : 2 * (2^n * a) = 2^(n+1) * a := by
       rw [Nat.pow_succ, Nat.mul_comm (2^n) 2, E213.Tactic.Nat213.mul_assoc]
-    rw [h]
+    rw [step1, step2, h]
+
+/-- **Riemann sum of constant cut**: at depth n, sum = 2^n copies
+    of the constant.  Function-equality version (uses `funext` —
+    DIRTY); prefer `riemannSampleSum_constCut_at` (pointwise, ∅-axiom)
+    for new code. -/
+theorem riemannSampleSum_constCut (a b : Nat) (db : DyadicBracket)
+    (n : Nat) :
+    riemannSampleSum (constCutFn (constCut a b)) db n
+    = constCut (2^n * a) b :=
+  funext fun m => funext fun k =>
+    riemannSampleSum_constCut_at a b db n m k
 
 /-- **Riemann sum of zero function** = 0 at every depth. -/
 theorem riemannSampleSum_zero_fn (db : DyadicBracket) (n : Nat) :

@@ -115,15 +115,16 @@ def DyadicBracket.bisectN
   | 0, db => db
   | n+1, db => bisectN oracle n (db.bisectStep oracle)
 
-/-- After n bisection steps, expE increases by exactly n. -/
+/-- After n bisection steps, expE increases by exactly n.
+    ∅-axiom: term-mode `rfl` for base + Nat.add_assoc/Nat.add_comm
+    (Nat-core PURE) for step (replaces `simp`/`omega`). -/
 theorem DyadicBracket.bisectN_expE (oracle : DyadicOracle) :
     ∀ n db, (DyadicBracket.bisectN oracle n db).expE = db.expE + n
-  | 0, _ => by simp [DyadicBracket.bisectN]
+  | 0, db => show db.expE = db.expE + 0 from rfl
   | n+1, db => by
     show (DyadicBracket.bisectN oracle n (db.bisectStep oracle)).expE
        = db.expE + (n+1)
     rw [DyadicBracket.bisectN_expE oracle n (db.bisectStep oracle)]
-    -- (db.bisectStep oracle).expE = db.expE + 1
     have hstep : (db.bisectStep oracle).expE = db.expE + 1 := by
       show (if oracle db.midCut
             then db.leftHalf else db.rightHalf).expE
@@ -131,14 +132,15 @@ theorem DyadicBracket.bisectN_expE (oracle : DyadicOracle) :
       by_cases h : oracle db.midCut = true
       · rw [if_pos h]; rfl
       · rw [if_neg h]; rfl
-    rw [hstep]
-    omega
+    rw [hstep, Nat.add_assoc, Nat.add_comm 1 n]
 
 /-- After n bisection steps, lenNum stays the same.
-    The actual bracket length halves via expE increment. -/
+    The actual bracket length halves via expE increment.
+    ∅-axiom: term-mode + Bool-`cases` (no `by_cases`, which uses
+    Decidable instance that leaks propext). -/
 theorem DyadicBracket.bisectN_lenNum (oracle : DyadicOracle) :
     ∀ n db, (DyadicBracket.bisectN oracle n db).lenNum = db.lenNum
-  | 0, _ => by simp [DyadicBracket.bisectN]
+  | 0, _ => rfl
   | n+1, db => by
     show (DyadicBracket.bisectN oracle n (db.bisectStep oracle)).lenNum
        = db.lenNum
@@ -147,9 +149,9 @@ theorem DyadicBracket.bisectN_lenNum (oracle : DyadicOracle) :
     show (if oracle db.midCut
           then db.leftHalf else db.rightHalf).lenNum
           = db.lenNum
-    by_cases h : oracle db.midCut = true
-    · rw [if_pos h]; exact db.leftHalf_lenNum
-    · rw [if_neg h]; exact db.rightHalf_lenNum
+    cases oracle db.midCut with
+    | true  => exact db.leftHalf_lenNum
+    | false => exact db.rightHalf_lenNum
 
 /-- **Dyadic comparison lemma**: cutLe between two dyadicCuts via
     cross-multiplication.  numA / 2^E ≤ numB / 2^F iff
@@ -183,7 +185,7 @@ theorem cutLe_dyadicCut (numA E numB F : Nat)
 /-- Helper: numA * 2^(E+1) = 2 * numA * 2^E. -/
 private theorem dyadic_pow_succ_eq (n E : Nat) :
     n * 2^(E+1) = 2 * n * 2^E := by
-  rw [Nat.pow_succ, Nat.mul_comm (2^E) 2, ← Nat.mul_assoc, Nat.mul_comm n 2]
+  rw [Nat.pow_succ, Nat.mul_comm (2^E) 2, ← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm n 2]
 
 /-- **leftHalf bracket containment (left endpoint)**: original left
     endpoint is ≤ leftHalf's left endpoint (real-wise equal). -/
@@ -413,7 +415,7 @@ theorem DyadicBracket.bisectN_collapsed_numA (oracle : DyadicOracle) :
     rw [DyadicBracket.bisectN_collapsed_numA oracle n (db.bisectStep oracle)
           (DyadicBracket.bisectStep_collapsed db oracle h)]
     rw [DyadicBracket.bisectStep_collapsed_numA db oracle h]
-    rw [Nat.pow_succ, Nat.mul_assoc]
+    rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc]
 
 /-- **Collapsed bracket midCut form**: for collapsed db, the midCut
     value at (m, k) at step n = decide(numA * k ≤ 2^expE * m),
@@ -442,7 +444,7 @@ theorem DyadicBracket.bisectN_collapsed_midCut_form
   -- Goal: decide ((2^n * db.numA + 2^n * db.numA) * k ≤ 2^(db.expE + n + 1) * m)
   --     = decide (db.numA * k ≤ 2^db.expE * m)
   have e1 : 2^n * db.numA + 2^n * db.numA = 2^(n+1) * db.numA := by
-    rw [← Nat.two_mul, ← Nat.mul_assoc, Nat.mul_comm 2 (2^n), ← Nat.pow_succ]
+    rw [← Nat.two_mul, ← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm 2 (2^n), ← Nat.pow_succ]
   have e2 : (2:Nat)^(db.expE + n + 1) = 2^(n+1) * 2^db.expE := by
     rw [show db.expE + n + 1 = (n+1) + db.expE from by omega, Nat.pow_add]
   rw [e1, e2]
@@ -453,18 +455,18 @@ theorem DyadicBracket.bisectN_collapsed_midCut_form
   constructor
   · intro hle
     have : 2^(n+1) * db.numA * k = 2^(n+1) * (db.numA * k) :=
-      Nat.mul_assoc _ _ _
+      E213.Tactic.Nat213.mul_assoc _ _ _
     rw [this] at hle
     have h2 : 2^(n+1) * 2^db.expE * m = 2^(n+1) * (2^db.expE * m) :=
-      Nat.mul_assoc _ _ _
+      E213.Tactic.Nat213.mul_assoc _ _ _
     rw [h2] at hle
     exact Nat.le_of_mul_le_mul_left hle
       (Nat.pos_pow_of_pos (n+1) (by decide : 0 < 2))
   · intro hle
     have h1 : 2^(n+1) * db.numA * k = 2^(n+1) * (db.numA * k) :=
-      Nat.mul_assoc _ _ _
+      E213.Tactic.Nat213.mul_assoc _ _ _
     have h2 : 2^(n+1) * 2^db.expE * m = 2^(n+1) * (2^db.expE * m) :=
-      Nat.mul_assoc _ _ _
+      E213.Tactic.Nat213.mul_assoc _ _ _
     rw [h1, h2]
     exact Nat.mul_le_mul_left (2^(n+1)) hle
 
