@@ -88,4 +88,18 @@ theorem div_add_mod : ∀ (a b : Nat), b * (a / b) + a % b = a := fun a b =>
           rw [Nat.mod_eq]
           rw [if_neg (fun h => absurd h.1 (Nat.lt_irrefl _))]
 
+/-- 213-native `Nat.max_comm` (Lean-core leaks propext via max_eq_left). -/
+theorem max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
+  rcases Nat.le_total a b with hab | hba
+  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
+    rw [if_pos hab]
+    by_cases h : b ≤ a
+    · rw [if_pos h]; exact Nat.le_antisymm h hab
+    · rw [if_neg h]
+  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
+    rw [if_pos hba]
+    by_cases h : a ≤ b
+    · rw [if_pos h]; exact Nat.le_antisymm hba h
+    · rw [if_neg h]
+
 end E213.Math.AddMod213

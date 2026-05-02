@@ -55,7 +55,7 @@ theorem q213Lens_symmetric :
          Q213.ofNat (v.2.1.eval + u.2.1.eval + 1))
   congr 1
   · congr 1; exact Nat.add_comm _ _
-  · congr 1; omega
+  · congr 1; congr 1; exact Nat.add_comm _ _
 
 /-- Concrete view: a maps to (1/1, 0/1). -/
 theorem q213Lens_view_a :

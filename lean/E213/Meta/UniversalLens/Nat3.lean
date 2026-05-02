@@ -34,7 +34,7 @@ def expSumLens3 : Lens (Nat × Nat × Nat) where
   combine x y :=
     (2^x.1 + 2^y.1, x.2.1 + y.2.1 + 1, x.2.2 + y.2.2)
 
-/-- Combine is symmetric (componentwise). -/
+/-- Combine is symmetric (componentwise).  STRICT ∅-AXIOM. -/
 theorem expSumLens3_symmetric :
     ∀ u v : Nat × Nat × Nat,
       expSumLens3.combine u v = expSumLens3.combine v u := by
@@ -44,8 +44,8 @@ theorem expSumLens3_symmetric :
   congr 1
   · exact Nat.add_comm _ _
   congr 1
-  · omega
-  · omega
+  · congr 1; exact Nat.add_comm _ _
+  · exact Nat.add_comm _ _
 
 /-- Concrete: view a = (1, 0, 1). -/
 theorem expSumLens3_view_a : expSumLens3.view Raw.a = (1, 0, 1) := rfl

@@ -1,4 +1,5 @@
 import E213.Meta.UniversalLens.Padding
+import E213.Math.AddMod213
 import E213.Meta.UniversalLens.Nat2
 import E213.Meta.UniversalLens.Nat2Inj
 
@@ -38,7 +39,7 @@ def expSumLens4 : Lens Nat4 where
      x.2.2.1 + y.2.2.1,
      Nat.max x.2.2.2 y.2.2.2 + 1)
 
-/-- Combine is symmetric. -/
+/-- Combine is symmetric.  STRICT ∅-AXIOM. -/
 theorem expSumLens4_symmetric :
     ∀ u v : Nat4, expSumLens4.combine u v = expSumLens4.combine v u := by
   intro u v
@@ -49,10 +50,10 @@ theorem expSumLens4_symmetric :
   congr 1
   · exact Nat.add_comm _ _
   congr 1
-  · omega
+  · congr 1; exact Nat.add_comm _ _
   congr 1
-  · omega
-  · congr 1; exact Nat.max_comm _ _
+  · exact Nat.add_comm _ _
+  · congr 1; exact E213.Math.AddMod213.max_comm _ _
 
 /-- Concrete: view a = (1, 0, 1, 0). -/
 theorem expSumLens4_view_a : expSumLens4.view Raw.a = (1, 0, 1, 0) := rfl

@@ -48,8 +48,8 @@ theorem q213Lens3_symmetric :
   congr 1
   · congr 1; exact Nat.add_comm _ _
   congr 1
-  · congr 1; omega
-  · congr 1; omega
+  · congr 1; congr 1; exact Nat.add_comm _ _
+  · congr 1; exact Nat.add_comm _ _
 
 /-- Concrete view: a maps to (1, 0, 1) all in Q213. -/
 theorem q213Lens3_view_a :
@@ -84,7 +84,8 @@ theorem qNat3_eq_expSumNat (r : Raw) : qNat3 r = expSumNat r := by
     rw [hview]
     show (Q213.ofNat (2 ^ qNat3 x + 2 ^ qNat3 y)).1.eval
         = expSumNat (Raw.slash x y h)
-    rw [Q213_ofNat_eval, expSumNat_slash, ihx, ihy]
+    rw [Q213_ofNat_eval,
+        E213.Meta.UniversalLens.Nat2Inj.expSumNat_slash _ _ h, ihx, ihy]
 
 /-- ★★★★★★★★ qNat3 is injective. -/
 theorem qNat3_inj : Function.Injective qNat3 := by
