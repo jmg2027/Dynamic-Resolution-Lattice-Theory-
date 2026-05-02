@@ -29,13 +29,19 @@ Recorded as:
   - `LESSONS_LEARNED.md` Lessons 11 + 12 (operational guardrails)
 
 Progress (cumulative across sessions):
-  - 213-native helpers in `Kernel/Tactic/`: Omega213 (extended),
-    **Nat213 (24 lemmas)** — full trajectory primitive vocabulary:
-    parity (mod 2), mod3, mod6, mod6_parity / mod6_mod3 (CRT
-    pairing = explicit Eisenstein-6th-root walk), mul_assoc,
-    mul_sub_distrib, sub_add_cancel, add_left/right_cancel,
-    cases_lt_two/three, etc.
-  - Fin213 (1 lemma).
+  - 213-native helpers in `Kernel/Tactic/` — modularized by topic
+    (one coherent concern per file):
+      * `Omega213.lean` — `omega213` tactic
+      * `Nat213.lean` — pure ℕ-arithmetic (14 lemmas:
+        cancellation, sub/add, mul_assoc, mul_sub_distrib,
+        le_of_mul_le_mul_right, cases_lt_two/three, …)
+      * **`Mod213.lean`** — cohomological-trajectory primitives
+        (11 lemmas: parity, mod3, mod6 + CRT pairing
+        mod6_parity / mod6_mod3 = explicit Eisenstein-6th-root walk)
+      * `Fin213.lean` — `Fin` helpers (1 lemma: `absurd0`)
+      * `INDEX.md` — sub-cluster navigation
+  - **27 ∅-axiom helper theorems total** (Nat213 14 + Mod213 11
+    + Fin213 1 + omega213 macro), all individually verified.
   - **Cohomological parity** (Mingu insight): instead of Lean-core
     `Nat.mod` (well-founded → propext), define `parity` by step-2
     recursion as the "uncompleted half-cycle" residue.  ∅-axiom by
@@ -225,6 +231,10 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+1488bce  Nat213: absorb le_of_mul_le_mul_right helper from MonotonicBounded
+9dabcc8  Kernel/Tactic/INDEX.md — sub-cluster navigation
+08bfe63  Modularize Nat213: extract trajectory primitives → Mod213.lean
+6d435e3  HANDOFF: trajectory principle (G2/G3) + Cup/Core obstacle
 9343155  G3 §9: category theory, HoTT, Langlands all become mundane
 31fc851  G3 — Raw as Universal Trajectory Space (TOE-as-theorem)
 212ab4a  G2 Trajectory Principle + Nat213.mod3/mod6/CRT (24/24 ∅)
