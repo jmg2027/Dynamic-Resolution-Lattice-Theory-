@@ -87,6 +87,22 @@ theorem Tree.cmp_eq_to_eq : ∀ (x y : Tree), Tree.cmp x y = .eq → x = y
       | lt => rw [hcx] at h'; cases h'
       | gt => rw [hcx] at h'; cases h'
 
+/-- Direct: `Tree.cmp x x = .eq` (reflexivity, no iff). -/
+theorem Tree.cmp_self_eq : ∀ (x : Tree), Tree.cmp x x = .eq
+  | .a => rfl
+  | .b => rfl
+  | .slash x y => by
+      show (match Tree.cmp x x with
+            | .eq => Tree.cmp y y
+            | .lt => .lt
+            | .gt => .gt) = .eq
+      rw [Tree.cmp_self_eq x]
+      exact Tree.cmp_self_eq y
+
+/-- Direct: `x = y → Tree.cmp x y = .eq` (no iff). -/
+theorem Tree.cmp_eq_of_eq (x y : Tree) (h : x = y) : Tree.cmp x y = .eq :=
+  h ▸ Tree.cmp_self_eq x
+
 /-- Direct: `Tree.cmp x y = .gt → Tree.cmp y x = .lt` (no iff). -/
 theorem Tree.cmp_gt_to_lt_swap (x y : Tree) (h : Tree.cmp x y = .gt) :
     Tree.cmp y x = .lt := by
@@ -96,5 +112,12 @@ theorem Tree.cmp_gt_to_lt_swap (x y : Tree) (h : Tree.cmp x y = .gt) :
   | lt => rfl
   | eq => rw [hyx] at h; cases h
   | gt => rw [hyx] at h; cases h
+
+/-- ∅-axiom Bool destructor: `a && b = true → a = true ∧ b = true`. -/
+theorem Bool.and_eq_true_to_pair : ∀ {a b : Bool},
+    (a && b) = true → a = true ∧ b = true
+  | true, true, _ => ⟨rfl, rfl⟩
+  | false, _, h => by cases h
+  | true, false, h => by cases h
 
 end E213.Firmware.Internal

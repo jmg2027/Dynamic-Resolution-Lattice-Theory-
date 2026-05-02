@@ -47,8 +47,9 @@ private noncomputable def Raw.recAux {motive : Raw → Sort u}
   | slash x y ihx ihy =>
       intro hcanon
       have hc := hcanon
-      simp only [Tree.canonical, Bool.and_eq_true] at hc
-      obtain ⟨⟨hx, hy⟩, _⟩ := hc
+      unfold Tree.canonical at hc
+      obtain ⟨hxy, _⟩ := Bool.and_eq_true_to_pair hc
+      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy
       have hcmp := Tree.canonical_slash_lt hcanon
       let x' : Raw := ⟨x, hx⟩
       let y' : Raw := ⟨y, hy⟩
@@ -56,7 +57,7 @@ private noncomputable def Raw.recAux {motive : Raw → Sort u}
         intro heq
         have hxy : x = y := congrArg Subtype.val heq
         rw [hxy] at hcmp
-        rw [(Tree.cmp_eq_iff y y).mpr rfl] at hcmp
+        rw [Tree.cmp_self_eq y] at hcmp
         cases hcmp
       have heq : (⟨.slash x y, hcanon⟩ : Raw) = Raw.slash x' y' hne := by
         show (⟨.slash x y, hcanon⟩ : Raw) = Raw.slash ⟨x, hx⟩ ⟨y, hy⟩ hne

@@ -65,6 +65,6 @@ theorem Raw.fold_slash {α : Type}
   · show c (Tree.fold ba bb c y.val) (Tree.fold ba bb c x.val)
          = c (Tree.fold ba bb c x.val) (Tree.fold ba bb c y.val)
     exact hsym _ _
-  · exact absurd ((Tree.cmp_eq_iff _ _).mp hc) (fun e => h (Subtype.ext e))
+  · exact absurd (Tree.cmp_eq_to_eq _ _ hc) (fun e => h (Subtype.ext e))
 
 end E213.Firmware

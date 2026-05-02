@@ -83,8 +83,8 @@ namespace E213.Firmware.Internal
 theorem Tree.canonical_slash_lt
     {x y : Tree} (h : Tree.canonical (.slash x y) = true) :
     Tree.cmp x y = .lt := by
-  simp only [Tree.canonical, Bool.and_eq_true] at h
-  obtain ⟨_, hlt_raw⟩ := h
+  unfold Tree.canonical at h
+  obtain ⟨_, hlt_raw⟩ := Bool.and_eq_true_to_pair h
   match hm : Tree.cmp x y with
   | .lt => rfl
   | .eq => rw [hm] at hlt_raw; cases hlt_raw
