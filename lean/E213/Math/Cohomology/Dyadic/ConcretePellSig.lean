@@ -1,4 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.Signature
+import E213.Kernel.Tactic.Nat213
 
 /-!
 # Concrete signature periods for the Pell ArithFSM family
@@ -78,7 +79,7 @@ theorem signature_period_of_bits_period_and_anchor_from
           = nextVertex (signature bs (N₀ + d')) (bs (N₀ + d'))
       rw [ih, hbs]
   intro k hk
-  have hk_eq : k = N₀ + (k - N₀) := (Nat.add_sub_cancel' hk).symm
+  have hk_eq : k = N₀ + (k - N₀) := (E213.Tactic.Nat213.add_sub_of_le hk).symm
   rw [hk_eq]; exact key (k - N₀)
 
 /-- ★★★★ Pell mod-2 signature has period 6 from step 1 (TIGHT;
