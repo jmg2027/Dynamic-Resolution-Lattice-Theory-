@@ -17,7 +17,9 @@ Closes part of HANDOFF Open Continuation #5.
 namespace E213.Meta.UniversalLens.Q213_3
 
 open E213.Firmware E213.Hypervisor E213.Kernel
-open E213.Meta.UniversalLensNat2 E213.Meta.UniversalLensQ213
+open E213.Meta.UniversalLens.Q213 (Q213 q213Lens q213Lens_view_a q213Lens_view_b)
+open E213.Meta.UniversalLens.Q213Inj (Q213_ofNat_eval qNat qNat_eq_expSumNat)
+open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_a expSumNat_b expSumNat_slash expSumNat_inj)
 
 /-- Lens at Q213³ = Q213 × (Q213 × Q213).  Three independent
     encodings (mirrors expSumLens3 at Q213 codomain). -/
@@ -101,7 +103,7 @@ theorem q213Lens3_view_inj : Function.Injective q213Lens3.view := by
 
 /-- ★★★★★★★★★★ q213Lens3 IS a Universal Lens at Q213³. -/
 theorem q213Lens3_is_universal :
-    E213.Meta.UniversalLens.IsUniversal q213Lens3 :=
+    E213.Meta.UniversalLens.Core.IsUniversal q213Lens3 :=
   q213Lens3_view_inj
 
 end E213.Meta.UniversalLens.Q213_3
