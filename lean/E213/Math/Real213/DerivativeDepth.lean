@@ -43,21 +43,18 @@ theorem const_derivative_modulus (c : Nat → Nat → Bool) (k : Nat) :
 theorem cutPow0_derivative_modulus (k : Nat) :
     (cutPowFnIsDifferentiable 0).derivativeSmooth.linearityModulus k = 0 := rfl
 
-/-- Polynomial chain function modulus (via IsDifferentiable's IsSmooth). -/
+/-- Polynomial chain function modulus (via IsDifferentiable's IsSmooth).
+    ∅-axiom: `Nat213.add_mul` (replaces `Nat.add_mul` propext leak). -/
 theorem cutPowFnIsDifferentiable_modulus (n k : Nat) :
     (cutPowFnIsDifferentiable n).linearityModulus k = n * k := by
   induction n with
   | zero => show 0 = 0 * k; rw [Nat.zero_mul]
   | succ m ih =>
     show (cutPowFnIsDifferentiable m).linearityModulus k + k = (m + 1) * k
-    rw [ih, Nat.add_mul, Nat.one_mul]
+    rw [ih, E213.Tactic.Nat213.add_mul, Nat.one_mul]
 
 /-- **Polynomial derivative resolution depth**: matches the function.
-
-    For `cutPow x n`, the derivative's linearityModulus equals
-    `n * k` — the same scaling as the function itself.  This is
-    the 213 dyadic analog of "differentiation is a bounded
-    operation on the polynomial class". -/
+    ∅-axiom: `Nat213.add_mul` + `Max213.max_eq_left`. -/
 theorem cutPowFn_derivative_modulus (n k : Nat) :
     (cutPowFnIsDifferentiable n).derivativeSmooth.linearityModulus k = n * k := by
   induction n with
@@ -67,8 +64,8 @@ theorem cutPowFn_derivative_modulus (n k : Nat) :
              ((cutPowFnIsDifferentiable m).linearityModulus k + 0)
          = (m + 1) * k
     rw [ih, cutPowFnIsDifferentiable_modulus, Nat.add_zero,
-        Nat.add_mul, Nat.one_mul]
-    exact Nat.max_eq_left (Nat.le_add_right _ _)
+        E213.Tactic.Nat213.add_mul, Nat.one_mul]
+    exact E213.Math.Max213.max_eq_left (Nat.le_add_right _ _)
 
 /-- **AD-3 unified capstone**: polynomial chain — function and
     derivative both have linearityModulus = n*k. -/

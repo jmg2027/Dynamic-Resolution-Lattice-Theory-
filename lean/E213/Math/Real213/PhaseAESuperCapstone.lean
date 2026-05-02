@@ -22,6 +22,21 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   cutScaleIsDifferentiable cutHalfIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus)
+open E213.Math.Real213.IsSmooth (cutPowFnIsSmooth)
+open E213.Math.Real213.ResolutionDepth (cutPowFnIsSmooth_modulus)
+open E213.Math.Real213.DerivativeDepth (cutPowFn_derivative_modulus)
+open E213.Math.Real213.ConsistentOracle (ConsistentOracle)
+open E213.Math.Real213.DyadicTrajectory
+  (alwaysTrueUnit_limit_distinct_from_zero ConsistentOracle.alwaysTrueUnit)
 
 /-- **Phase AC + AD + AE super capstone**.
 
