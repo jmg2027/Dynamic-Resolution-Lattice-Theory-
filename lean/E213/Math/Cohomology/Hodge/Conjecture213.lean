@@ -4,14 +4,21 @@ import E213.Math.Cohomology.Delta.Core
 /-!
 # Hodge Conjecture in 213 — Variant (A): finite-discrete trivialisation
 
-213-translation of the classical Hodge conjecture.  In 213 the type
+213-rendering of the classical Hodge conjecture.  In 213 the type
 `Cochain n k = Fin (binom n k) → Bool` is *literally* the free
 ℤ/2-module on the indicator basis, so the "algebraic = Hodge"
 content of the standard conjecture collapses to a definitional
 equality.  STRICT ∅-axiom.
 
-(Variant (B) — non-trivial K_{3,2}^{(c=2)} lens-quotient version —
-lives in `Conjecture213Lens.lean`.)
+Cross-references:
+  * Variant (B) — K_{3,2}^{(c=2)} lens-quotient — `Conjecture213Lens.lean`
+  * Canonical capstone bundle (Δ⁴ + K_{3,2}) — `../HodgeConjecture213.lean`
+  * Standard ↔ 213 dictionary, motivation, Lens-initiality strategy —
+    `research-notes/G6_hodge_213_translation.md`
+  * Operational toolkit (support, fromList, round-trip, classifier,
+    Hodge ring, Hodge map) — sibling files `Toolkit.lean`,
+    `RoundTrip{,Mid}.lean`, `LensClassifier.lean`, `HodgeRing.lean`,
+    `HodgeMap.lean`
 -/
 
 namespace E213.Math.Cohomology.Hodge.Conjecture213

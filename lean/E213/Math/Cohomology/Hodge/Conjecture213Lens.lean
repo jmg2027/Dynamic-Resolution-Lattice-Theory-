@@ -14,6 +14,13 @@ In 213, edge cochains are `CochE = Fin 12 → Bool`, again the free
 ℤ/2-module on the edge-indicator basis.  H¹ has 2⁸ = 256 classes,
 all of which are represented by edge-algebraic cocycles.  STRICT
 ∅-axiom.
+
+Cross-references:
+  * Canonical HC²¹³ capstone (Δ⁴ + K_{3,2}^{(c=2)}) —
+    `../HodgeConjecture213.lean`
+  * Standard ↔ 213 translation dictionary —
+    `research-notes/G6_hodge_213_translation.md`
+  * K_{3,2} class catalog (256 classes) — `LensClassifier.lean`
 -/
 
 namespace E213.Math.Cohomology.Hodge.Conjecture213Lens
