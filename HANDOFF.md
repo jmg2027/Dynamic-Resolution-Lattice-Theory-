@@ -162,6 +162,33 @@ Foundation-layer cleanup landed:
   - **`IsDifferentiable.lean`**: pre-existing `import Core` source
     bug fixed (cached olean was masking).
 
+### Part-9 progress (2026-05-XX, follow-on)
+
+After part-8, additional cascade cleanup landed:
+
+  - **`Math/Max213.lean`** (3 ∅-axiom thms):
+    `max_eq_left {b ≤ a}`, `le_max_left`, `le_max_right`.
+    Replaces Lean-core `Nat.le_max_left/right` (DIRTY propext)
+    and `Nat.max_eq_left` (DIRTY).
+  - **`Kernel/Tactic/Nat213.lean` +2**: `add_mul`, `add_sub_assoc`.
+  - **13 Real213 files** batch: `Nat.le_max_*` → `Max213.le_max_*`.
+  - **`Math/Real213/CutFnData.lean`**: `idLDD`, `cutHalfLDD`,
+    `maxRangeRow_ge`, `maxRange_ge` cleaned.
+  - **`Math/Real213/ResolutionDepth.lean`**:
+    `squareIsSmooth_modulus`, `cubeIsSmooth_modulus`,
+    `quarticIsSmooth_modulus` PURE (Nat.add_mul → Nat213.add_mul,
+    omega → explicit Nat.add_assoc.symm).
+  - **`Math/Real213/DyadicTrajectory.lean`**:
+    * `alwaysFalse_unit_numA` PURE (sub_add_cancel chain)
+    * `alwaysFalse_unit_midCut` PURE (Nat213.add_sub_assoc + two_mul)
+    * `two_pow_ge_succ` PURE (omega → Nat.add_le_add)
+    * `ConsistentOracle.alwaysTrueUnit` def cleaned
+    * `alwaysTrueUnit_limit_value` PURE
+    * `alwaysTrueUnit_limit_distinct_from_zero` PURE  ← M1 marquee
+    * `zero_plus_gap_below_zero_exact` PURE  ← M2 marquee
+
+**PhaseL conjuncts (V) cut-distinctness now strict ∅-axiom**.
+
 ### Remaining Phase capstones DIRTY (after part 8)
 
 PhaseJCapstone is fully closed ∅-axiom (5/5).  Other Phase
