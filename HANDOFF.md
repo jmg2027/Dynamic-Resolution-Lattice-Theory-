@@ -104,15 +104,58 @@ Cascade-cleaned PURE this session:
 CLAUDE.md migration backlog #1 (pigeonhole_collision) and #2 (Hodge
 funext) BOTH retired this session.
 
-## Remaining DIRTY (single cluster, lower priority, off physics path)
+## Remaining DIRTY (architectural blocker, math-track)
 
-After this session's part-6 cleanup, only one cluster remains
-DIRTY, and it is explicitly off the physics critical path:
+After part-6+7 cleanup, only Real213 Phase capstones remain DIRTY,
+and they are blocked by a deeper architectural issue (NOT just
+omega calls or scattered Nat lemmas).
 
-  - **Real213.Phase*Capstone (J/L/etc.)**: large omega-pervasive
-    marathon (Bishop-style constructive analysis).  ~14 capstones ×
-    dozens of theorems each.  **Math-track**, not on physics
-    critical path.  Deferred to a future math-track session.
+### Real213 progress (part 7, 2026-05-XX)
+
+Foundation-layer cleanup landed:
+
+  - **`Kernel/Tactic/Nat213.lean`**: +`mul_left_comm` (∅-axiom,
+    via mul_assoc + Nat.mul_comm + Eq.subst, kernel-pure no `rw`).
+  - **`Math/Real213/DyadicBracket.lean`**: 35/35 strict ∅-axiom
+    (was 34/1 — `cutLe_dyadicCut` cleaned).
+  - **13 Real213 files**: batch `Nat.mul_assoc` → `Nat213.mul_assoc`,
+    `Nat.mul_left_comm` → `Nat213.mul_left_comm`.
+  - **`IsDifferentiable.lean`**: pre-existing `import Core` source
+    bug fixed (cached olean was masking).
+
+### Remaining Phase capstones DIRTY — funext architectural blocker
+
+PhaseJCapstone (4/5 DIRTY), PhaseLCapstone (6/6 DIRTY),
+PhaseAH/AN/AD/BA/BH/BX/CM/CS GrandCapstones still
+`[propext, Quot.sound]`.  Root cause:
+
+  - `Math/Real213/CutSumOne.lean` uses **`funext`** ~10× per file
+    to prove cutSum-of-Cut equality (e.g.,
+    `cutSum (constCut a b) (constCut a b) = constCut (2*a) b` via
+    `funext m k; ...`).  Lean's `funext` depends on `propext` +
+    `Quot.sound`.
+
+  - All Phase capstones inherit this contamination through
+    `cutSum_self`, `cutSum_half_general`, `cutSum_int_int`, etc.
+
+### To-do for next math-track session
+
+The fix requires replacing **function-equality** statements with
+**pointwise-equality** (`cutEq`) statements throughout the cutSum
+API.  This is a major refactor:
+
+  1. For each `cutSum_*` theorem in `CutSumOne.lean`, prove a
+     pointwise variant `cutSum_*_at : ∀ m k, ... m k = ... m k`
+     (no funext).
+  2. Migrate downstream callers (CutSeriesConst, CutMidSelf,
+     DyadicRiemann, Dyadic, CutDouble) from function `=` to
+     `cutEq` via the new pointwise lemmas.
+  3. Update Phase capstone statements from `cutSum c c = ...` to
+     `cutEq (cutSum c c) ...` or pointwise.
+  4. Verify each Phase capstone closes strict ∅-axiom.
+
+`cutEq` already exists in `Math/Real213/CutPoset.lean` — the API
+infrastructure is in place; what's needed is migration work.
 
 (Backlogs #1, #3, #4, #5 retired in part 6 — see milestone above.)
 
