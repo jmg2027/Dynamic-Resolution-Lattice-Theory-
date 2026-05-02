@@ -273,6 +273,14 @@ ride the new bridges.  The file's other axiom leaks (omega +
 Nat.pow_le_pow_right + Nat.dvd_sub + Nat.le_of_dvd + Nat.pow_dvd_pow)
 remain to be replaced by 213-native versions.
 
+**Done (commits 6d014cb + e1e28ab)**: the staged migration
+landed — `Pow213.lean` (6 ∅-axiom helpers replacing the four
+Nat lemma leaks) + `BitPatternUniqueness` (5/5 public theorems
+strict ∅-axiom).  The `% 2 → parity` translation worked exactly
+per G5 §3 / G2 trajectory: cohomological residue (parity = step-2
+recursion) replaces well-founded mod (which forced propext via
+`Nat.mul_mod_left`).
+
 ### B. Extend Nat213 catalog (high-leverage)
 
 Pre-build commonly-needed 213-native versions of:
@@ -324,6 +332,9 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+e1e28ab  BitPatternUniqueness: 5/5 ∅-axiom (% 2 → parity migration)
+6d014cb  Pow213: power-of-2 + divisibility helpers (6/6 ∅-axiom)
+4c5a478  HANDOFF: Mod213 parity bridge lemmas (commit 5b24cb4)
 5b24cb4  Mod213: parity_add + parity_pow_two_{zero,succ,pos} (4 ∅)
 a513176  HANDOFF: G5 + ArityForcingGeneral milestone
 7408433  ArityForcingGeneral: Classical.choice → ∅-axiom (G5 §3)
