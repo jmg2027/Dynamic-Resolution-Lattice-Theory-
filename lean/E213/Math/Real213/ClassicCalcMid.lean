@@ -16,6 +16,10 @@ calculus-textbook framework to averaged functions.
 namespace E213.Math.Real213.ClassicCalcMid
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
 
 namespace FluxCut.Passthrough
 

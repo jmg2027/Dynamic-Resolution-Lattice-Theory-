@@ -12,6 +12,9 @@ the search range j ∈ [0, B] of a.N j k where B = (m+1)*(k+1).
 namespace E213.Math.Real213.CauchyArithMul
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul cutMulOuter)
+open E213.Math.Real213.CutMulComm (cutMul_comm)
 
 /-- max of a.N j k for j ∈ [0, M] (no precision doubling). -/
 def maxNAt (a_N : Nat → Nat → Nat) (kPrec : Nat) : Nat → Nat

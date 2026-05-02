@@ -19,6 +19,10 @@ theorem.  Bundles every major result from Phase J through CY:
 namespace E213.Math.Real213.PhaseDAOmegaOmega
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★★★ **Phase DA omega-omega capstone**: 14-fact full coverage ★★★ -/
 theorem phaseDA_omega_omega_capstone (n k v0 x0 a b : Nat)

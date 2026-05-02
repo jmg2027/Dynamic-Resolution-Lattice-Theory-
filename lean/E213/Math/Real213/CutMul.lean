@@ -23,6 +23,7 @@ namespace E213.Math.Real213.CutMul
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- Inner: iterate m2 from 0 to m2Bound, m1 fixed. -/
 def cutMulInner (cx cy : Nat → Nat → Bool) (k m m1 : Nat) : Nat → Bool

@@ -18,6 +18,7 @@ namespace E213.Math.Real213.CutMaxMin
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.Core (Real213)
 
 /-- **cutMax**: max cut. -/
 def cutMax (cx cy : Nat → Nat → Bool) : Nat → Nat → Bool :=

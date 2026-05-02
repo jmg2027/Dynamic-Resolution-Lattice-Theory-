@@ -14,6 +14,9 @@ for any n ≥ 1.
 namespace E213.Math.Real213.FluxMVTHigh
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
 
 namespace FluxCut
 

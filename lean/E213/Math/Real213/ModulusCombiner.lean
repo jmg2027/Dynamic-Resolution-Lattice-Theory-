@@ -23,6 +23,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
 open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- **ModulusCombiner**: abstract kernel for sequence combine + Cauchy preservation. -/
 structure ModulusCombiner (combine : Raw → Raw → Raw) where
@@ -47,6 +48,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
 open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- **Generic combine theorem**: ModulusCombiner + two HasModulus → combined HasModulus. -/
 def combineModulus {xs ys : Nat → Raw}

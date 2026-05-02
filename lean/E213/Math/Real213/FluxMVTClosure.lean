@@ -17,6 +17,9 @@ Hence MVT/FTC propEq extend to these via Phase BF.
 namespace E213.Math.Real213.FluxMVTClosure
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
 
 namespace FluxCut
 

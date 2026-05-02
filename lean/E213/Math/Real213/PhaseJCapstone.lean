@@ -28,6 +28,9 @@ dyadic search trajectory + resolution-depth filter".
 namespace E213.Math.Real213.PhaseJCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPoset (cutLe)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **Phase J Capstone**: single theorem for the dyadic search trajectory +
     resolution-depth filter foundation.

@@ -14,6 +14,10 @@ cutMul_one_const + cutSum_zero_zero gives propEq.
 namespace E213.Math.Real213.CubeDerivativeAtZero
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ d/dx [x³] at x = 0 = 0 (propEq via structural reduction). -/
 theorem cubeDerivative_at_zero :

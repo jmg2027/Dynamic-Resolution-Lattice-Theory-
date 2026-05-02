@@ -21,6 +21,8 @@ gives 1, matching `fluxAlong id unitBracket` (boundary).
 namespace E213.Math.Real213.FTCRiemann
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ Riemann sum of id.derivative over unitBracket = constCut (2^n · 1) 1. -/
 theorem riemann_id_derivative_unit (n : Nat) :

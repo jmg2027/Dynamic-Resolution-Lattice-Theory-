@@ -16,6 +16,9 @@ follows from the input Cauchy properties evaluated pointwise on Bool.
 namespace E213.Math.Real213.CauchyLattice
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf)
+open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 
 /-- Pointwise cutMax of two CauchyCutSeqs is Cauchy. -/
 def CauchyCutSeq.cutMax (a b : CauchyCutSeq) : CauchyCutSeq where

@@ -22,6 +22,8 @@ modulus equality.
 namespace E213.Math.Real213.DerivativeDepth
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPow (cutPow)
 
 /-- Identity's derivative (= constant 1) has resolution depth 0. -/
 theorem id_derivative_modulus (k : Nat) :

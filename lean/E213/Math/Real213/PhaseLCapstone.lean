@@ -29,6 +29,12 @@ branch's physics derivations."
 namespace E213.Math.Real213.PhaseLCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPoset (cutLe)
+open E213.Math.Real213.CutPow (cutScale)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **Phase L Unified Capstone**: 8-fact summary of Phase L. -/
 theorem phaseL_unified_capstone (n : Nat) (a b : Nat) :

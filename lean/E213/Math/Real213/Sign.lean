@@ -28,6 +28,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
 open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- **Real213 zero**: const Raw.b (abLens.view = (0, 1), ratio 0). -/
 def zero : Real213 := const Raw.b

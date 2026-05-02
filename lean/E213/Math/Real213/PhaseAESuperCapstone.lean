@@ -19,6 +19,8 @@ single conjunctive theorem.
 namespace E213.Math.Real213.PhaseAESuperCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **Phase AC + AD + AE super capstone**.
 

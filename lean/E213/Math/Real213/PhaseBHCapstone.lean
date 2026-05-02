@@ -21,6 +21,9 @@ MVT/FTC propositional resolution at unit bracket.
 namespace E213.Math.Real213.PhaseBHCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **Phase BH grand capstone**: 8-fact unified bundle. -/
 theorem phaseBH_grand_capstone (n : Nat) (a : FluxCut)

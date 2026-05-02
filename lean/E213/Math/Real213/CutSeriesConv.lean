@@ -16,6 +16,7 @@ ComparisonBound: |a_n| ≤ b_n.
 namespace E213.Math.Real213.CutSeriesConv
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **Convergent series**: wrapper for SeriesCauchy. -/
 abbrev ConvergentSeries := SeriesCauchy
@@ -35,6 +36,7 @@ end E213.Math.Real213.CutSeriesConv
 namespace E213.Math.Real213.CutSeriesConv
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **Ratio test scaffold**: if |a_{n+1}/a_n| ≤ r < 1 eventually,
     series converges.  Full proof requires geometric bound + Cauchy

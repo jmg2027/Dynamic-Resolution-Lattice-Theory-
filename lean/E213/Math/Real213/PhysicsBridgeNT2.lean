@@ -30,6 +30,8 @@ file is `import`-ready as a single line.
 namespace E213.Math.Real213.PhysicsBridgeNT2
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **B-1: NT=2 atom → 2^n leaves at depth n**.
     Iterated 2-block produces 2^n distinguishable Lens-output states. -/

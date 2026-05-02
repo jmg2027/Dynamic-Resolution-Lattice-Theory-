@@ -19,6 +19,8 @@ Our framework formalizes this propEq:
 namespace E213.Math.Real213.NewtonFirst
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ Position function for constant velocity motion: x(t) = v0·t + x0. -/
 def position_constant_velocity (v0 x0 : Nat) :

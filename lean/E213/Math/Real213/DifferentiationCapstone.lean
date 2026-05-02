@@ -25,6 +25,7 @@ modulus equalities in one conjunctive theorem.
 namespace E213.Math.Real213.DifferentiationCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **Polynomial differentiation chain capstone**: degrees 0-8 in
     one conjunction.  Every concrete polynomial IsDifferentiable

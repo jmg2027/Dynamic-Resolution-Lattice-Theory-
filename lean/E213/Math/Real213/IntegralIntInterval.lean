@@ -14,6 +14,8 @@ In flux form: fluxAlong id (bracket [0, n]) = ofCut (constCut n 1).
 namespace E213.Math.Real213.IntegralIntInterval
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ Integer interval bracket [0, n] at depth 0. -/
 def intInterval (n : Nat) : DyadicBracket where

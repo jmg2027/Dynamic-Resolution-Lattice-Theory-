@@ -12,6 +12,13 @@ Specific algebraic identity: 0 + 0 = 0 at cut level.
 namespace E213.Math.Real213.CutSumZero
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf cutMid)
+open E213.Math.Real213.CutMul (cutMul cutMulOuter)
+open E213.Math.Real213.CutMulComm (cutMulOuter_eq_true_iff)
+open E213.Math.Real213.CutSum (cutSum cutSumAux)
+open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **cutSum 0 0 = 0** at cut level. -/
 theorem cutSum_zero_zero : cutSum (constCut 0 1) (constCut 0 1) = constCut 0 1 := by

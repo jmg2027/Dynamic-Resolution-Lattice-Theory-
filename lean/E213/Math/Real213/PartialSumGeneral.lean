@@ -28,6 +28,10 @@ namespace E213.Math.Real213.PartialSumGeneral
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSum (cutSumAux)
+open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★★★★★★ partialSum of constant cut, forward direction at any b. -/
 theorem partialSum_const_b_forward (a b : Nat) :

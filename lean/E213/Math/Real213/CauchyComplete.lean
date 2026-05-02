@@ -33,6 +33,7 @@ namespace E213.Math.Real213.CauchyComplete
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- **CauchyCutSeq**: Cauchy sequence of cuts with explicit modulus. -/
 structure CauchyCutSeq where
@@ -56,6 +57,7 @@ end E213.Math.Real213.CauchyComplete
 namespace E213.Math.Real213.CauchyComplete
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-! ### Constant Cauchy sequence — sanity check -/
 

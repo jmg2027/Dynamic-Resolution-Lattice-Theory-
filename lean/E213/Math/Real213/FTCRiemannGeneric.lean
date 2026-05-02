@@ -18,6 +18,9 @@ Single abstract theorem covering x², mid(x, x²), id ∘ x², etc.
 namespace E213.Math.Real213.FTCRiemannGeneric
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★★ **Generic FTC-Riemann at depth 0** via witness at midCut ★★ -/
 theorem ftc_riemann_generic_via_witness

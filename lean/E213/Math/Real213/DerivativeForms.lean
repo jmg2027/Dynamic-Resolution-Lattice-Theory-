@@ -21,6 +21,11 @@ Phase AD-3 (difference-quotient bound).
 namespace E213.Math.Real213.DerivativeForms
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- d/dx [x] = 1 as a constant function. -/
 theorem id_derivative_form :

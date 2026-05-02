@@ -11,6 +11,7 @@ namespace E213.Math.Real213.CutAlgebraic
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.Core (Real213)
 
 /-- constCut 0 1 always true ("0 ≤ everything"). -/
 theorem constCut_zero_always (m k : Nat) : constCut 0 1 m k = true := by

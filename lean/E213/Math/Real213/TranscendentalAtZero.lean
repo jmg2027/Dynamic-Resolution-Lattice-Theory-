@@ -19,6 +19,8 @@ All formalized via series partial sums propEq.
 namespace E213.Math.Real213.TranscendentalAtZero
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ tan(0) = 0: same series structure as sin (all zero at 0). -/
 def tanTermsAtZero : Nat → (Nat → Nat → Bool) := sinTermsAtZero

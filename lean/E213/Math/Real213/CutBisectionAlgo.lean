@@ -28,6 +28,7 @@ namespace E213.Math.Real213.CutBisectionAlgo
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.Core (Real213)
 
 /-- **Sign oracle**: cut-level "is f(x) ≤ 0 at given query"? -/
 abbrev SignOracle := (Nat → Nat → Bool) → Nat → Nat → Bool
@@ -53,6 +54,7 @@ namespace E213.Math.Real213.CutBisectionAlgo
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.Core (Real213)
 
 /-- **Bracket sequence at fixed (m, k)**: from bisectN, extract n-th
     bracket midpoint cut value. -/

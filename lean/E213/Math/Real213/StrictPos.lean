@@ -33,6 +33,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
 open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- Real213 with all sequence views strictly positive ((a, b) with a, b ≥ 1). -/
 structure Real213StrictPos extends Real213 where
@@ -46,6 +47,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
 open E213.Hypervisor.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- Diagonal sequence: xs n = Raw with view (n+1, n+1) via abLens_witness. -/
 def diagonalRaw (n : Nat) : Raw :=

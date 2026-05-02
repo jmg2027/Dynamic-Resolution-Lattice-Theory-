@@ -14,6 +14,10 @@ framework into one mega-conjunctive theorem.
 namespace E213.Math.Real213.PhaseBQOmegaCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★★ **Phase BQ omega capstone**: 12-fact mega bundle ★★ -/
 theorem phaseBQ_omega_capstone (n : Nat) (a : FluxCut)

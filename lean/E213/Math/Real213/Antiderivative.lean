@@ -19,6 +19,8 @@ Atomic instances:
 namespace E213.Math.Real213.Antiderivative
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ **IsAntiderivative**: F is differentiable, derivative equals f. -/
 structure IsAntiderivative

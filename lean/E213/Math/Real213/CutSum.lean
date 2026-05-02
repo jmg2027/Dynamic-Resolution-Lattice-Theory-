@@ -26,6 +26,7 @@ namespace E213.Math.Real213.CutSum
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Cauchy.Archimedean
+open E213.Math.Real213.Core (Real213)
 
 /-- Bounded search: whether there exists m1 ∈ [0, m1Max] such that
     cx m1 (2k) ∧ cy (m1Max - m1) (2k). -/

@@ -20,6 +20,7 @@ Cauchy structure, axiom-free.
 namespace E213.Math.Real213.CutSequence
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- Sequence of cuts. -/
 abbrev CutSeq := Nat → (Nat → Nat → Bool)

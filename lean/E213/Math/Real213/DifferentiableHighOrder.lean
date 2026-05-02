@@ -14,6 +14,8 @@ Phase AK: IsDifferentiable selected high-order polynomials.
 namespace E213.Math.Real213.DifferentiableHighOrder
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
 
 /-- x ↦ x⁹ = x⁴ · x⁵. -/
 def nonicIsDifferentiable :

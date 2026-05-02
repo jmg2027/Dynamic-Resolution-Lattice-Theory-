@@ -15,6 +15,9 @@ so derivative = f'(x).  Hence id ∘ f's witness = f's witness.
 namespace E213.Math.Real213.FluxMVTPropagateCompose
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ id-compose witness propagation at c = 1/2. -/
 theorem id_compose_witness_propagates {f} (sf : IsDifferentiable f)

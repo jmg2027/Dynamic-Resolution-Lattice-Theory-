@@ -22,6 +22,7 @@ consistent with Bishop locatedness.
 namespace E213.Math.Real213.CutContinuity
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **CutFunction**: cut → cut transformer. -/
 abbrev CutFunction := (Nat → Nat → Bool) → (Nat → Nat → Bool)
@@ -46,6 +47,7 @@ end E213.Math.Real213.CutContinuity
 namespace E213.Math.Real213.CutContinuity
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **Const cut function**: f cx = c (fixed). -/
 def constCutFn (c : Nat → Nat → Bool) : CutFunction := fun _ => c

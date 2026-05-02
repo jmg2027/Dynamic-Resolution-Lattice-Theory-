@@ -12,6 +12,7 @@ namespace E213.Math.Real213.CutLatticeEq
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutPoset (cutLe cutEq cutEq_trans cutLe_trans)
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
+open E213.Math.Real213.Core (Real213)
 
 /-- cutMax preserves cutEq on left arg. -/
 theorem cutMax_cutEq_left (cx cx' cy : Nat → Nat → Bool)

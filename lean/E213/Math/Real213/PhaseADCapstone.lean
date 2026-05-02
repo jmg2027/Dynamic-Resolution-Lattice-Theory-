@@ -20,6 +20,11 @@ AD-2 (closed forms), AD-3 (resolution depth) into one statement.
 namespace E213.Math.Real213.PhaseADCapstone
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **Phase AD unified capstone**: differentiation framework summary. -/
 theorem phaseAD_unified_capstone (n k : Nat) (c x : Nat → Nat → Bool) :

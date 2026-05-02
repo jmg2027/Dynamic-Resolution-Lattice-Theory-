@@ -17,6 +17,8 @@ This is the simplest second-order ODE solved propositionally.
 namespace E213.Math.Real213.ODESecondOrder
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ Second-derivative-able witness for linear function. -/
 def linearWithIntercept_secondDerivable (a : Nat) :

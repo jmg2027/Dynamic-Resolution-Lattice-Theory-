@@ -13,6 +13,9 @@ cutMax/cutMin are pointwise Bool operations.
 namespace E213.Math.Real213.CutScaleLattice
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf)
+open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 
 /-- cutHalf distributes over cutMax. -/
 theorem cutHalf_cutMax (cx cy : Nat → Nat → Bool) :

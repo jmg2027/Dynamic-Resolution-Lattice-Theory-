@@ -17,6 +17,9 @@ These follow structurally from the antiderivative class combinators.
 namespace E213.Math.Real213.IntegralProperties
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutSum (cutSum)
 
 namespace IsAntiderivative
 

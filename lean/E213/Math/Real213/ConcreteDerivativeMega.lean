@@ -25,6 +25,7 @@ every concrete polynomial IsDifferentiable instance.
 namespace E213.Math.Real213.ConcreteDerivativeMega
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **Concrete polynomial derivative full sharp pattern**: the
     (n-1)·k pattern is verified for every concrete polynomial

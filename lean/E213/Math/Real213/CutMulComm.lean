@@ -10,6 +10,7 @@ namespace E213.Math.Real213.CutMulComm
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
+open E213.Math.Real213.Core (Real213)
 
 /-- cutMulInner true iff existential witness on m2. -/
 theorem cutMulInner_eq_true_iff (cx cy : Nat → Nat → Bool)
@@ -95,6 +96,7 @@ namespace E213.Math.Real213.CutMulComm
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
+open E213.Math.Real213.Core (Real213)
 
 /-- cutMulOuter true iff ∃ m1 ≤ n, ∃ m2 ≤ m2Bound, witnesses. -/
 theorem cutMulOuter_eq_true_iff (cx cy : Nat → Nat → Bool)
@@ -153,6 +155,7 @@ namespace E213.Math.Real213.CutMulComm
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
+open E213.Math.Real213.Core (Real213)
 
 private theorem bool_eq_of_iff_true' (a b : Bool)
     (h : a = true ↔ b = true) : a = b := by

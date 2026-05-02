@@ -12,6 +12,9 @@ One-liner MVT/FTC for arbitrary n via `.mvt` and `.ftc`.
 namespace E213.Math.Real213.ClassicCalcGeneric
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPow (cutPow)
+open E213.Math.Real213.CutSumTest (constCut)
 
 namespace ClassicCalc
 

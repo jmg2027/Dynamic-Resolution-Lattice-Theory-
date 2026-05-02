@@ -17,6 +17,8 @@ instances yield closed-form moduli via the chain rule.
 namespace E213.Math.Real213.DifferentiableCompose
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
 
 /-- (x²)²: composition of square with itself.  Same function as
     quarticIsDifferentiable but constructed via chain rule. -/

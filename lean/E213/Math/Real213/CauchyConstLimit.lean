@@ -17,6 +17,11 @@ namespace E213.Math.Real213.CauchyConstLimit
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf cutMid)
+open E213.Math.Real213.CutMaxMin (cutMax cutMin)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- Limit of (constCauchy a/1) + (constCauchy b/1) = (a+b)/1. -/
 theorem constCauchy_cutSum_int (a b : Nat) :

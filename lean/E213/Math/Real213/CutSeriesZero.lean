@@ -10,6 +10,9 @@ import E213.Math.Real213.CutSumZero
 namespace E213.Math.Real213.CutSeriesZero
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- partialSum of zero series = zero (at any n). -/
 theorem partialSum_zero_series (n : Nat) :

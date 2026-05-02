@@ -37,6 +37,10 @@ namespace E213.Math.Real213.CutSumGeneral
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSum (cutSumAux)
+open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff)
+open E213.Math.Real213.CutSumTest (constCut)
 
 private theorem bool_eq_iff_v2 (a b : Bool)
     (h : a = true ↔ b = true) : a = b := by

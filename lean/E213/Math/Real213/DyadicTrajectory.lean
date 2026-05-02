@@ -21,6 +21,9 @@ Closed forms (by induction):
 namespace E213.Math.Real213.DyadicTrajectory
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPoset (cutEq cutLe)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **Always-true oracle**: regardless of cut, returns true.
     Steers bisection always to leftHalf. -/

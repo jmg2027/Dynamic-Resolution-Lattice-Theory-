@@ -16,6 +16,7 @@ namespace E213.Math.Real213.CutBisection
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **cutHalf**: c/2 cut. -/
 def cutHalf (c : Nat → Nat → Bool) : Nat → Nat → Bool :=
@@ -32,6 +33,7 @@ namespace E213.Math.Real213.CutBisection
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.Core (Real213)
 
 /-- midpoint of (1, 1) is 1: cut at (1, 1) true. -/
 example : cutMid (constCut 1 1) (constCut 1 1) 1 1 = true := by decide

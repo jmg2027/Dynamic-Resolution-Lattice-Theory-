@@ -18,6 +18,9 @@ specific (m, k) thresholds.
 namespace E213.Math.Real213.FluxSeries
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ FluxCut form of partial sum: each partial sum lifts to a FluxCut. -/
 def seriesFlux (s : Nat → (Nat → Nat → Bool)) (n : Nat) : FluxCut :=

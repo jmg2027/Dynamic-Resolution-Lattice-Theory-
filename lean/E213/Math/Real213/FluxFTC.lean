@@ -26,6 +26,8 @@ The cohomEquiv between these is the FTC.
 namespace E213.Math.Real213.FluxFTC
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 namespace FluxCut
 

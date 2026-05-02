@@ -25,6 +25,7 @@ Phase AM: total polynomial-differentiation coverage 0-16 in a single
 namespace E213.Math.Real213.DifferentiableMegaCoverage
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **Polynomial differentiation total coverage 0-16**: all concrete
     polynomial IsDifferentiable instances + their modulus equalities

@@ -11,6 +11,9 @@ namespace E213.Math.Real213.CutSeriesConst
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumOne (cutSum_self)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- partialSum of constant a/b at n = 1 = a/b. -/
 theorem partialSum_const_one (a b : Nat) :

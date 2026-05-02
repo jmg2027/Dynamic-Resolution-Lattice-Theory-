@@ -12,6 +12,8 @@ cohomologically via id antiderivative.
 namespace E213.Math.Real213.IntegralGeneralInt
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ General integer interval bracket [a, b] for a ≤ b. -/
 def intIntervalAB (a b : Nat) (h : a ≤ b) : DyadicBracket where

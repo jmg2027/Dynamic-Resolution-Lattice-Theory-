@@ -44,6 +44,12 @@ namespace E213.Math.Real213.IsSmooth
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf cutMid)
+open E213.Math.Real213.CutMul (cutMul cutMulOuter)
+open E213.Math.Real213.CutPow (cutPow cutScale)
+open E213.Math.Real213.CutSum (cutSumAux)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **IsSmooth** : differentiability as a constructive filter.
 

@@ -17,6 +17,7 @@ namespace E213.Math.Real213.CutBinaryOp
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **CutBinaryOp**: parameters of a binary cut operation. -/
 structure CutBinaryOp where
@@ -38,6 +39,9 @@ end E213.Math.Real213.CutBinaryOp
 namespace E213.Math.Real213.CutBinaryOp
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSum (cutSum)
 
 /-- **cutSumOp**: CutBinaryOp form of cutSum. -/
 def cutSumOp : CutBinaryOp where
@@ -60,6 +64,7 @@ end E213.Math.Real213.CutBinaryOp
 namespace E213.Math.Real213.CutBinaryOp
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- **CutBinaryOp.apply is locally determined** — generic. -/
 theorem CutBinaryOp.apply_locallyDetermined (op : CutBinaryOp)

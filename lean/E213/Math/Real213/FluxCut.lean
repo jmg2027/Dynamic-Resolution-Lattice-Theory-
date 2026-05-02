@@ -21,6 +21,9 @@ namespace E213.Math.Real213.FluxCut
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSumComm (cutSum_comm)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- Dyadic cut + cohomological orientation: forward / backward pair. -/
 structure FluxCut where

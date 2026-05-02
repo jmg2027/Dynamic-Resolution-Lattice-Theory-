@@ -24,6 +24,7 @@ This file is *interface* only — IVT statement + supporting types.
 namespace E213.Math.Real213.IVT
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- IVT hypothesis structure.
 

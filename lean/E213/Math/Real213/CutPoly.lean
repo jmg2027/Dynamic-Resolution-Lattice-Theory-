@@ -13,6 +13,7 @@ open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.Core (Real213)
 
 /-- **evalPoly**: polynomial Σ_{i=0}^degree (coeffs i) * x^i. -/
 def evalPoly (coeffs : Nat → Nat) (degree : Nat) (x : Nat → Nat → Bool) :

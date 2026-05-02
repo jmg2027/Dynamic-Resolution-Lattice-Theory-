@@ -21,6 +21,12 @@ their derivative closed forms and modulus equalities.
 namespace E213.Math.Real213.DifferentiableInstances
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutHalf)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutPow (cutScale)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- x ↦ x² = cutMul x x is differentiable; d/dx [x²] follows
     product rule: 1·x + x·1 (≈ 2x). -/

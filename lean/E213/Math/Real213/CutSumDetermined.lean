@@ -25,6 +25,7 @@ namespace E213.Math.Real213.CutSumDetermined
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- 2-arg locally-determined property. -/
 def isLocallyDetermined2

@@ -12,6 +12,7 @@ namespace E213.Math.Real213.CutMulDetermined
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSumDetermined (isLocallyDetermined2)
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
+open E213.Math.Real213.Core (Real213)
 
 /-- congruence of cutMulInner — m1 fixed, iterate m2. -/
 theorem cutMulInner_congr (k m m1 m2Bound : Nat)
@@ -40,6 +41,7 @@ namespace E213.Math.Real213.CutMulDetermined
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSumDetermined (isLocallyDetermined2)
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
+open E213.Math.Real213.Core (Real213)
 
 /-- congruence of cutMulOuter — iterate m1. -/
 theorem cutMulOuter_congr (k m m1Bound m2Bound : Nat)
@@ -72,6 +74,7 @@ namespace E213.Math.Real213.CutMulDetermined
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
 open E213.Math.Real213.CutSumDetermined (isLocallyDetermined2)
+open E213.Math.Real213.Core (Real213)
 
 /-- **cutMul is locally determined**: N = (m+1)*(k+1). -/
 theorem cutMul_locallyDetermined : isLocallyDetermined2 cutMul := by

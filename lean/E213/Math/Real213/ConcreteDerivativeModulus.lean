@@ -23,6 +23,7 @@ structural overhead, so concrete instances are sharper.
 namespace E213.Math.Real213.ConcreteDerivativeModulus
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- d/dx [x²] modulus = k (linear, degree 1). -/
 theorem squareIsDifferentiable_derivative_modulus (k : Nat) :

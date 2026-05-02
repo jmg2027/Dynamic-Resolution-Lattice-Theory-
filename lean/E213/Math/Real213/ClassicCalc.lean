@@ -20,6 +20,9 @@ Anything constructed as ClassicCalc gets:
 namespace E213.Math.Real213.ClassicCalc
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **ClassicCalc f**: differentiable AND passes through (0, 0), (1, 1). -/
 structure ClassicCalc

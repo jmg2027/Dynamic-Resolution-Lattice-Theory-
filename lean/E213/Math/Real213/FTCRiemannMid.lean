@@ -13,6 +13,10 @@ have MVT witness c = 1/2 = unitBracket midpoint.
 namespace E213.Math.Real213.FTCRiemannMid
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutBisection (cutMid)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- ★ Riemann sum of mid(x, x²)'s derivative at unitBracket depth 0 = 1. -/
 theorem riemann_mid_id_square_derivative_zero :

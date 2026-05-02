@@ -16,6 +16,7 @@ open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.Core (Real213)
 
 /-- **CutAlgebra**: bundle of all standard cut operations. -/
 structure CutAlgebra where

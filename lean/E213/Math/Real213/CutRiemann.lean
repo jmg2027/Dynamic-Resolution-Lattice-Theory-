@@ -20,6 +20,9 @@ Cut-level form of Riemann integration — partition + sum + limit.
 namespace E213.Math.Real213.CutRiemann
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutSum (cutSum)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **Riemann sum at sample points**: Σ_{i=0}^{n-1} f(xs i).
 Finite sum over given sample sequence xs.  Δx scaling is

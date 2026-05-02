@@ -38,6 +38,7 @@ namespace E213.Math.Real213.CutBinary
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- Inner loop: m2 ∈ [0, n], m1 fixed. -/
 def cutBinaryInner (P : Nat → Nat → Bool) (k1 k2 : Nat)
@@ -63,6 +64,7 @@ end E213.Math.Real213.CutBinary
 namespace E213.Math.Real213.CutBinary
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- Inner congruence — m1 fixed, m2 iterated. -/
 theorem cutBinaryInner_congr (P : Nat → Nat → Bool) (k1 k2 m1 M2 : Nat)
@@ -90,6 +92,7 @@ end E213.Math.Real213.CutBinary
 namespace E213.Math.Real213.CutBinary
 
 open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
 
 /-- Outer congruence — m1 iterated. -/
 theorem cutBinaryOuter_congr (P : Nat → Nat → Bool) (k1 k2 M1 M2 : Nat)
