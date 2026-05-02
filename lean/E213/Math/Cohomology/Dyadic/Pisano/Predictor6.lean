@@ -20,8 +20,14 @@ computes the period for all 6 verified primes:
 
 namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor6
 
-open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3 pellFSMmod3_bits_period_4 pellFSMmod2 pellFSMmod2_bits_period_3)
 open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod7 (pellFSMmod7 pellFSMmod7_bits_period_8)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod11 (pellFSMmod11 pellFSMmod11_bits_period_5 pellFSMmod11_bits_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod13 (pellFSMmod13 pellFSMmod13_bits_period_14)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod17 (pellFSMmod17 pellFSMmod17_bits_period_18)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod19 (pellFSMmod19 pellFSMmod19_bits_period_9)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor (pisano_predict)
 
 
 /-- ★★★★★★ Predictor matches concrete period at extended primes. -/

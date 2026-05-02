@@ -29,6 +29,15 @@ Verified at all 7 primes:
 -/
 
 namespace E213.Math.Cohomology.Dyadic.SignaturePredict
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor (pisano_predict)
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3 pellFSMmod3_bits_period_4)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (pellFSMmod3_signature_period_4 pellFSMmod5_signature_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod7 (pellFSMmod7 pellFSMmod7_bits_period_8 pellFSMmod7_signature_period_8)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod11 (pellFSMmod11 pellFSMmod11_bits_period_5 pellFSMmod11_bits_period_10 pellFSMmod11_signature_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod13 (pellFSMmod13 pellFSMmod13_bits_period_14 pellFSMmod13_signature_period_14)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod17 (pellFSMmod17 pellFSMmod17_bits_period_18 pellFSMmod17_signature_period_18)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod19 (pellFSMmod19 pellFSMmod19_bits_period_9 pellFSMmod19_signature_period_18)
 
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)

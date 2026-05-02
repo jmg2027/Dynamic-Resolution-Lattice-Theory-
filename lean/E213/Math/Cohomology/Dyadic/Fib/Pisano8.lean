@@ -29,6 +29,15 @@ relation, commit 35bef8d).
 
 namespace E213.Math.Cohomology.Dyadic.Fib.Pisano8
 
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod3 (fibFSMmod3 fibFSMmod3_bits_period_8)
+open E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone (fib_pisano_predict fib_pisano_predict_realises)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod5 (fibFSMmod5 fibFSMmod5_bits_period_20)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod7 (fibFSMmod7 fibFSMmod7_bits_period_16)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod11 (fibFSMmod11 fibFSMmod11_bits_period_10)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod17 (fibFSMmod17 fibFSMmod17_bits_period_36)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod19 (fibFSMmod19 fibFSMmod19_bits_period_18)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod13 (fibFSMmod13 fibFSMmod13_bits_period_28)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod23 (fibFSMmod23 fibFSMmod23_bits_period_48)
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
 
 

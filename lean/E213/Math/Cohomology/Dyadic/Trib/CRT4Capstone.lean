@@ -26,6 +26,12 @@ Future moduli (mod 11: 110, mod 13: 168) reinforce this mix.
 -/
 
 namespace E213.Math.Cohomology.Dyadic.Trib.CRT4Capstone
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (tribFSMmod2 tribFSMmod2_bits_period_4 tribFSMmod2_signature_period_4_from_1)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod3 (tribFSMmod3 tribFSMmod3_bits_period_13 tribFSMmod3_signature_period_26_from_1)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod5 (tribFSMmod5 tribFSMmod5_bits_period_31 tribFSMmod5_signature_period_62_from_1)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod7 (tribFSMmod7 tribFSMmod7_bits_period_48 tribFSMmod7_signature_period_48_from_1)
+open E213.Math.Cohomology.Dyadic.Trib.CRTCapstone (trib_crt_capstone)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound (tribFSMmod2_signature_period_bound)
 
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)

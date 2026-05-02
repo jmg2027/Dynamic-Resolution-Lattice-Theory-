@@ -11,6 +11,9 @@ ArithFSM3-generable then it would be BitFSM-generable, contradicting
 -/
 
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3Hardness
+open E213.Math.Cohomology.Dyadic.Tier2Hardness (aperiodic_bits_imp_not_BitFSM BitFSM_generable_imp_eventually_periodic)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound (toBitFSM3_bits_eq)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
 
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
 
@@ -22,7 +25,7 @@ theorem aperiodic_bits_imp_not_ArithFSM3 (bs : Nat → Bool)
       ¬ (∀ k, m.bits k = bs k) := by
   intro n hn m h_match
   apply aperiodic_bits_imp_not_BitFSM bs h_aperiodic (n * n * n)
-    (m.toBitFSM hn)
+    (ArithFSM3.toBitFSM hn m)
   intro k
   rw [toBitFSM3_bits_eq hn m k]
   exact h_match k
@@ -33,7 +36,7 @@ theorem ArithFSM3_generable_imp_eventually_periodic (bs : Nat → Bool) :
     → ∃ N P, 0 < P ∧ ∀ k, k ≥ N → bs (k + P) = bs k := by
   rintro ⟨n, hn, m, hmatch⟩
   apply BitFSM_generable_imp_eventually_periodic bs
-  refine ⟨n * n * n, m.toBitFSM hn, ?_⟩
+  refine ⟨n * n * n, ArithFSM3.toBitFSM hn m, ?_⟩
   intro k
   rw [toBitFSM3_bits_eq hn m k]
   exact hmatch k
