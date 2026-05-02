@@ -1,4 +1,5 @@
 import E213.Math.Real213.DifferentiableMid
+import E213.Math.Real213.DifferentiableHighOrder
 
 /-!
 # Research.Real213DifferentiableMegaCoverage
@@ -26,7 +27,25 @@ namespace E213.Math.Real213.DifferentiableMegaCoverage
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
-open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus
+   cutScaleIsDifferentiable cutHalfIsDifferentiable)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableHighOrder
+  (nonicIsDifferentiable decicIsDifferentiable dodecicIsDifferentiable
+   hexadecicIsDifferentiable
+   nonicIsDifferentiable_modulus decicIsDifferentiable_modulus
+   dodecicIsDifferentiable_modulus hexadecicIsDifferentiable_modulus)
 
 /-- **Polynomial differentiation total coverage 0-16**: all concrete
     polynomial IsDifferentiable instances + their modulus equalities

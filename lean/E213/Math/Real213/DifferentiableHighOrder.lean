@@ -16,7 +16,19 @@ namespace E213.Math.Real213.DifferentiableHighOrder
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
 
 /-- x ↦ x⁹ = x⁴ · x⁵. -/
 def nonicIsDifferentiable :
@@ -53,25 +65,29 @@ theorem nonicIsDifferentiable_modulus (k : Nat) :
     nonicIsDifferentiable.linearityModulus k = 9 * k := by
   show quarticIsDifferentiable.linearityModulus k
        + quinticIsDifferentiable.linearityModulus k = 9 * k
-  rw [quarticIsDifferentiable_modulus, quinticIsDifferentiable_modulus]; omega
+  rw [quarticIsDifferentiable_modulus, quinticIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 4 5 k).symm
 
 theorem decicIsDifferentiable_modulus (k : Nat) :
     decicIsDifferentiable.linearityModulus k = 10 * k := by
   show quinticIsDifferentiable.linearityModulus k
        + quinticIsDifferentiable.linearityModulus k = 10 * k
-  rw [quinticIsDifferentiable_modulus]; omega
+  rw [quinticIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 5 5 k).symm
 
 theorem dodecicIsDifferentiable_modulus (k : Nat) :
     dodecicIsDifferentiable.linearityModulus k = 12 * k := by
   show quarticIsDifferentiable.linearityModulus k
        + octicIsDifferentiable.linearityModulus k = 12 * k
-  rw [quarticIsDifferentiable_modulus, octicIsDifferentiable_modulus]; omega
+  rw [quarticIsDifferentiable_modulus, octicIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 4 8 k).symm
 
 theorem hexadecicIsDifferentiable_modulus (k : Nat) :
     hexadecicIsDifferentiable.linearityModulus k = 16 * k := by
   show octicIsDifferentiable.linearityModulus k
        + octicIsDifferentiable.linearityModulus k = 16 * k
-  rw [octicIsDifferentiable_modulus]; omega
+  rw [octicIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 8 8 k).symm
 
 theorem polynomial_high_order_capstone (k : Nat) :
     nonicIsDifferentiable.linearityModulus k = 9 * k

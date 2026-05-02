@@ -18,6 +18,8 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPoset (cutEq)
+open E213.Math.Real213.CutSumDetermined (cutSum_locallyDetermined)
+open E213.Math.Real213.CutMulDetermined (cutMul_locallyDetermined)
 
 /-- cutSum respects cutEq in cx (left). -/
 theorem cutSum_cutEq_left (cx cx' cy : Nat → Nat → Bool)
@@ -54,10 +56,10 @@ namespace E213.Math.Real213.CutSumEq
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Real213.CutMulComm (cutMul_comm)
+open E213.Math.Real213.CutMulComm (cutMul_comm cutMul_mono_left cutMul_mono_right)
 open E213.Math.Real213.CutPoset (cutEq cutLe)
 open E213.Math.Real213.CutSum (cutSum)
-open E213.Math.Real213.CutSumComm (cutSum_comm)
+open E213.Math.Real213.CutSumComm (cutSum_comm cutSum_mono_left cutSum_mono_right)
 open E213.Math.Real213.CutPoset (cutLe_refl)
 
 /-- cutEq commutativity of cutSum. -/

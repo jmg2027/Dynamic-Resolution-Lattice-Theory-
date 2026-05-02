@@ -31,6 +31,25 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus
+   cutScaleIsDifferentiable cutHalfIsDifferentiable)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableHighOrder
+  (nonicIsDifferentiable decicIsDifferentiable dodecicIsDifferentiable
+   hexadecicIsDifferentiable
+   nonicIsDifferentiable_modulus decicIsDifferentiable_modulus
+   dodecicIsDifferentiable_modulus hexadecicIsDifferentiable_modulus)
 
 /-- **Phase AN omega capstone**: 13-fact bundle spanning AC-AM. -/
 theorem phaseAN_omega_capstone (n a b k : Nat) (x : Nat → Nat → Bool) :

@@ -22,7 +22,20 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus
+   cutScaleIsDifferentiable cutHalfIsDifferentiable)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
 
 /-- ★ **IsAntiderivative**: F is differentiable, derivative equals f. -/
 structure IsAntiderivative
