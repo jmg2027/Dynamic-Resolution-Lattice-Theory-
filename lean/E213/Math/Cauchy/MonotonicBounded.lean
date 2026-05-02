@@ -35,13 +35,6 @@ namespace E213.Math.Cauchy.MonotonicBounded
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
-/-! ### Helper (Nat right-cancellation via commutativity) -/
-
-private theorem Nat.le_of_mul_le_mul_right' (a b c : Nat) (hc : 1 ≤ c)
-    (h : a * c ≤ b * c) : a ≤ b :=
-  Nat.le_of_mul_le_mul_left
-    (((Nat.mul_comm a c).symm ▸ (Nat.mul_comm b c).symm ▸ h)) hc
-
 /-! ### Hypotheses -/
 
 /-- ab-monotonically non-decreasing: a_n / b_n ≤ a_{n+1} / b_{n+1}.
@@ -127,7 +120,7 @@ theorem ab_monotonic_chain (xs : Nat → Raw)
           rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (abLens.view (xs k)).2,
               ← E213.Tactic.Nat213.mul_assoc]
         rw [hLHS, hRHS] at h3
-        exact Nat.le_of_mul_le_mul_right' _ _ _ hbk h3
+        exact E213.Tactic.Nat213.le_of_mul_le_mul_right hbk h3
       · -- p > k, but p ≤ k+1 → p = k+1
         have hpk_lt : k < p := Nat.lt_of_not_le hpk
         have hp_le : p ≤ k + 1 := hpq
@@ -190,7 +183,7 @@ theorem orderProj_false_propagates (xs : Nat → Raw)
              = (abLens.view (xs N)).1 * k * (abLens.view (xs i)).2 := by
     rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (abLens.view (xs i)).2 k, ← E213.Tactic.Nat213.mul_assoc]
   rw [he3] at h3
-  exact Nat.le_of_mul_le_mul_right' _ _ _ hbi h3
+  exact E213.Tactic.Nat213.le_of_mul_le_mul_right hbi h3
 
 end E213.Math.Cauchy.MonotonicBounded
 

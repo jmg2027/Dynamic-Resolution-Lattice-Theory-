@@ -92,7 +92,14 @@ theorem mul_assoc : ∀ (a b c : Nat), a * b * c = a * (b * c)
       congrArg (· + a * b) ih
     lhs_eq.trans (Nat.mul_add a (b * c) b).symm
 
-/-! ### Multiplicative subtraction distributivity -/
+/-! ### Multiplicative cancellation + distributivity -/
+
+/-- Right-cancellation under positive multiplier (Lean-core has only
+    the left form `Nat.le_of_mul_le_mul_left`).  ∅-axiom via comm. -/
+theorem le_of_mul_le_mul_right {a b c : Nat} (hc : 1 ≤ c)
+    (h : a * c ≤ b * c) : a ≤ b :=
+  Nat.le_of_mul_le_mul_left
+    ((Nat.mul_comm a c).symm ▸ (Nat.mul_comm b c).symm ▸ h) hc
 
 /-- `b ≤ a → c * (a - b) = c*a - c*b`.  ∅-axiom. -/
 theorem mul_sub_distrib {a b c : Nat} (h : b ≤ a) :
