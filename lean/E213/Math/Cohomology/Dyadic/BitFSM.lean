@@ -1,4 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ForwardEventual
+import E213.Kernel.Tactic.Nat213
 
 /-!
 # BitFSM — finite-state-machine generated bit streams
@@ -16,7 +17,8 @@ BitFSM}.  Tier 2 (e, π, etc.) is conjecturally OUTSIDE this class.
 
 namespace E213.Math.Cohomology.Dyadic.BitFSM
 
-open E213.Math.Cohomology.Dyadic.ForwardPeriodicity (pigeonhole_collision collisionTest)
+open E213.Math.Cohomology.Dyadic.ForwardPeriodicity
+  (pigeonhole_collision collisionTest collTest_imp_val_eq)
 open E213.Math.Cohomology.Dyadic.Signature (signature nextVertex)
 open E213.Math.Cohomology.Dyadic.ForwardEventual (signature_eventually_periodic_of_eventually_periodic_bits)
 
@@ -35,30 +37,38 @@ def BitFSM.run {n : Nat} (m : BitFSM n) : Nat → Fin n
 def BitFSM.bits {n : Nat} (m : BitFSM n) (k : Nat) : Bool :=
   m.out (m.run k)
 
-/-- ★ FSM run collision via pigeonhole. -/
+/-- ★ FSM run collision via pigeonhole.  STRICT ∅-AXIOM. -/
 theorem fsm_run_collision {n : Nat} (m : BitFSM n) :
     ∃ i, i ≤ n ∧ ∃ j, j ≤ n ∧ i < j ∧ m.run i = m.run j := by
   have hlt : n < n + 1 := Nat.lt_succ_self _
   let g : Fin (n+1) → Fin n := fun k => m.run k.val
   obtain ⟨i, hi, j, hj, hij, hcoll⟩ := pigeonhole_collision hlt g
   refine ⟨i, Nat.lt_succ_iff.mp hi, j, Nat.lt_succ_iff.mp hj, hij, ?_⟩
-  unfold collisionTest at hcoll
-  simp [hi, hj] at hcoll
-  exact Fin.ext hcoll
+  exact Fin.ext (collTest_imp_val_eq g i j hi hj hcoll)
 
-/-- ★★★ BitFSM run is eventually periodic. -/
+/-- ∅-axiom replacement for `Nat.sub_pos_of_lt` (which leaks propext). -/
+private theorem sub_pos_of_lt_213 : ∀ {a b : Nat}, a < b → 0 < b - a
+  | 0, _, h => by rw [Nat.sub_zero]; exact h
+  | _+1, 0, h => absurd h (Nat.not_succ_le_zero _)
+  | _+1, _+1, h => by
+    rw [Nat.succ_sub_succ_eq_sub]
+    exact sub_pos_of_lt_213 (Nat.lt_of_succ_lt_succ h)
+
+/-- ★★★ BitFSM run is eventually periodic.  STRICT ∅-AXIOM. -/
 theorem fsm_run_eventually_periodic {n : Nat} (m : BitFSM n) :
     ∃ N P, 0 < P ∧ ∀ k, k ≥ N → m.run (k + P) = m.run k := by
   obtain ⟨i, _, j, _, hij, heq⟩ := fsm_run_collision m
-  refine ⟨i, j - i, Nat.sub_pos_of_lt hij, ?_⟩
+  refine ⟨i, j - i, sub_pos_of_lt_213 hij, ?_⟩
   intro k hk
-  obtain ⟨d, rfl⟩ : ∃ d, k = i + d := ⟨k - i, (Nat.add_sub_cancel' hk).symm⟩
+  obtain ⟨d, rfl⟩ : ∃ d, k = i + d :=
+    ⟨k - i, (E213.Tactic.Nat213.add_sub_of_le hk).symm⟩
   clear hk
+  have hij_eq : i + (j - i) = j :=
+    E213.Tactic.Nat213.add_sub_of_le (Nat.le_of_lt hij)
   induction d with
   | zero =>
     show m.run (i + 0 + (j - i)) = m.run (i + 0)
-    rw [Nat.add_zero, Nat.add_comm i (j - i),
-        Nat.sub_add_cancel (Nat.le_of_lt hij)]
+    rw [Nat.add_zero, hij_eq]
     exact heq.symm
   | succ d' ih =>
     have h1 : i + (d' + 1) + (j - i) = (i + d' + (j - i)) + 1 :=
