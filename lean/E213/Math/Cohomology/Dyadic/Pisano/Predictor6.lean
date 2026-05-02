@@ -18,7 +18,9 @@ computes the period for all 6 verified primes:
 100% match across split, inert, and ramified branches.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor6open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+namespace E213.Math.Cohomology.Dyadic.Pisano.Predictor6
+
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
 open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 
 

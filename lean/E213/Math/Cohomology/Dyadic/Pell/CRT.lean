@@ -17,7 +17,9 @@ LCM of component periods.  This is the structural content of
 Pisano CRT specialised to our Fibonacci-squared matrix family.
 -/
 
-namespace E213.Math.Cohomology.Dyadic.Pell.CRTopen E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
+namespace E213.Math.Cohomology.Dyadic.Pell.CRT
+
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3)
 open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 
 

@@ -17,7 +17,9 @@ existing INERT × INERT (3 × 7 → 8) and SPLIT × SPLIT × INERT
 Product BitFSM: BitFSM(11 · 19) = BitFSM(209).
 -/
 
-namespace E213.Math.Cohomology.Dyadic.SplitSplitLensopen E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
+namespace E213.Math.Cohomology.Dyadic.SplitSplitLens
+
+open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 
 
 /-- Lifted Pell mod 11 bit periodicity (BitFSM form). -/
