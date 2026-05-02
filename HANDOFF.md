@@ -56,8 +56,8 @@ ongoing `omega213` / `Mod213` / `Nat213` / `Fin213` migration
 already attacks.
 
 **Capstone audit (post-cascade clean, commits 6487a82 + 108a880
-+ e082774)**: **17 top-level capstones** now `#print axioms` →
-"does not depend on any axioms":
++ e082774 + 6b107a7)**: **35+ top-level capstones** now
+`#print axioms` → "does not depend on any axioms":
 
 Math track:
   - `Math.Cohomology.Capstone.cohomology_213_marathon`
@@ -87,6 +87,28 @@ Physics track:
   - `Physics.Capstones.Paper3Bundle.atomic_signatures`
   - `Physics.Capstones.FinitistObservableChain
      .finitist_observable_chain`
+
+Cohomology FSM-classifier track (Pell + Fib + Trib + Pisano):
+  - `Math.Cohomology.Dyadic.Pell.Proper8
+     .pellProper_8prime_capstone`
+  - `Math.Cohomology.Dyadic.Pisano.Predictor7
+     .pisano_predict_realises_pell_7`
+  - `Math.Cohomology.Dyadic.Pisano.Predictor8
+     .pisano_predict_realises_pell_8`
+  - `Math.Cohomology.Dyadic.Fib.PisanoCapstone
+     .fib_pisano_predict_realises`  (universal Fib Pisano)
+  - `Math.Cohomology.Dyadic.Fib.Pisano8
+     .fib_pisano_predict_realises_8`
+  - **`Math.Cohomology.Dyadic.ThreeFamilyCapstone
+     .three_family_pisano_capstone`**  (Pell + Fib + Trib at
+       8 primes — universal Galois lens framework)
+  - `Math.Cohomology.Dyadic.SignaturePredict
+     .signature_predict_realises_pell_7`
+  - **`Math.Cohomology.Dyadic.TwoLayerPredictor
+     .two_layer_predictor_capstone`** (bit + signature predictors
+       on the same 7-prime base)
+  - several more `legendre_5_mod_*` and signature-period
+     theorems (probed strict ∅-axiom).
 
 These are STRICT ∅-axiom (stronger than the DRLT-allowed
 `{propext, Quot.sound}` baseline).  This is the central
