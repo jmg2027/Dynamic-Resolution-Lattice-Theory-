@@ -13,6 +13,7 @@ Classical) on Bool-valued `collisionTest` keeps everything at
 namespace E213.Math.Cohomology.Dyadic.ForwardPeriodicity
 
 open E213.Math.Pigeonhole
+open E213.Math.Cohomology.Dyadic.Signature (signature nextVertex)
 
 /-- Bool-valued collision test (decidable, no Classical). -/
 def collisionTest {N k : Nat} (g : Fin k → Fin N) (i j : Nat) : Bool :=

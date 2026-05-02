@@ -14,6 +14,9 @@ hierarchy via the *eventually-periodic* abstraction.
 
 namespace E213.Math.Cohomology.Dyadic.TierBridge
 
+open E213.Math.Cohomology.Dyadic.Signature (signature nextVertex)
+open E213.Math.Cohomology.Dyadic.Classifier (signature_periodic_implies_bits_periodic)
+
 /-- Eventually periodic: from some pre-period N onward, period p. -/
 def EventuallyPeriodic {α : Type} (f : Nat → α) (p : Nat) : Prop :=
   0 < p ∧ ∃ N, ∀ n, n ≥ N → f (n + p) = f n

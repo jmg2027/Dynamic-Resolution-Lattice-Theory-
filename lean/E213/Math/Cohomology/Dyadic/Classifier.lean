@@ -20,6 +20,8 @@ expansion) ⇒ aperiodic signature.  This is the formal core of
 
 namespace E213.Math.Cohomology.Dyadic.Classifier
 
+open E213.Math.Cohomology.Dyadic.Signature (nextVertex signature)
+
 /-- nextVertex distinguishes the bit at every vertex. -/
 theorem nextVertex_bit_inj (v : Fin 5) (b₁ b₂ : Bool) :
     nextVertex v b₁ = nextVertex v b₂ → b₁ = b₂ := by

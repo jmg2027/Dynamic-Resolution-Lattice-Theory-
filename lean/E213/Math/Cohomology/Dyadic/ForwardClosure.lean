@@ -12,6 +12,10 @@ All theorems at ≤ {propext, Quot.sound} (Classical.choice removed).
 
 namespace E213.Math.Cohomology.Dyadic.ForwardClosure
 
+open E213.Math.Cohomology.Dyadic.Signature (signature nextVertex)
+open E213.Math.Cohomology.Dyadic.ForwardPeriodicity
+  (joint_state_collision bs_periodic_multiple)
+
 /-- If i % p = j % p and i ≤ j, then j - i is a multiple of p. -/
 theorem sub_is_multiple_of_p (i j p : Nat) (hp : 0 < p)
     (hij : i ≤ j) (hmod : i % p = j % p) :
