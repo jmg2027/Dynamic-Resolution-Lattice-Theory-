@@ -16,6 +16,7 @@ open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.ProductFSM
 open E213.Math.Cohomology.Dyadic.ProductFSMPeriod (lens_composition_period)
+open E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd (lens_composition_period_dvd)
 open E213.Math.Cohomology.Dyadic.Pell.Lens (pellLens_3x5_period_20)
 open E213.Math.Cohomology.Dyadic.ArithFSM.Mod7 (pellFSMmod7)
 open E213.Math.Cohomology.Dyadic.Pell.LensPairs (pellMod7_BitFSM_bits_period_8)
@@ -33,7 +34,8 @@ theorem pellInner35_period_20 :
     ∀ k, pellInner35.bits (k + 20) = pellInner35.bits k :=
   pellLens_3x5_period_20
 
-/-- ★★★★★★★ Pell mod 3 × 5 × 7 (stacked XOR): period | 40. -/
+/-- ★★★★★★★ Pell mod 3 × 5 × 7 (stacked XOR): period | 40.
+    Tactic-free ∅-axiom. -/
 theorem pellLens_3x5x7_period_40 :
     ∀ k, (E213.Math.Cohomology.Dyadic.ProductFSM.BitFSM.product (n := 9 * 25) (m := 49) (by decide)
             pellInner35
@@ -42,15 +44,12 @@ theorem pellLens_3x5x7_period_40 :
         = (E213.Math.Cohomology.Dyadic.ProductFSM.BitFSM.product (n := 9 * 25) (m := 49) (by decide)
             pellInner35
             (ArithFSM2.toBitFSM (by decide : 0 < 7) pellFSMmod7)
-            xor).bits k := by
-  intro k
-  have hresult := lens_composition_period
+            xor).bits k := fun k =>
+  lens_composition_period_dvd
     (n := 9 * 25) (m := 49) (by decide)
     pellInner35
     (ArithFSM2.toBitFSM (by decide : 0 < 7) pellFSMmod7)
-    xor 20 8 (by decide) (by decide)
+    xor 20 8 40 (by decide) (by decide) ⟨2, rfl⟩ ⟨5, rfl⟩
     pellInner35_period_20 pellMod7_BitFSM_bits_period_8 k
-  have hlcm : Nat.lcm 20 8 = 40 := by decide
-  rwa [hlcm] at hresult
 
 end E213.Math.Cohomology.Dyadic.Pell.LensTriple

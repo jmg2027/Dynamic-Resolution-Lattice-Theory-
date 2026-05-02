@@ -1,5 +1,7 @@
+import E213.Math.Cohomology.Dyadic.ProductFSMPeriod
 import E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
 
 /-!
