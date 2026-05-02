@@ -1,4 +1,5 @@
 import E213.Math.Cohomology.Dyadic.Classifier
+import E213.Math.NatDiv213
 
 /-!
 # Dyadic-tier bridge — K_{3,2}^{(2)} signature ↔ D2 hierarchy
@@ -50,19 +51,22 @@ theorem aperiodic_bits_imp_aperiodic_sig
 /-- 1/3 dyadic bit pattern: 0,1,0,1,... -/
 def bit13 (k : Nat) : Bool := k % 2 == 1
 
+/-- STRICT ∅-AXIOM via 213-native add_mod_right_pos. -/
 theorem bit13_period_2 (k : Nat) : bit13 (k + 2) = bit13 k := by
-  unfold bit13; congr 1; omega
+  show ((k + 2) % 2 == 1) = (k % 2 == 1)
+  rw [E213.Math.NatDiv213.add_mod_right_pos (by decide : 0 < 2) k]
 
-/-- ★ Concrete forward: 1/3 signature has period 2 from step 1. -/
+/-- ★ Concrete forward: 1/3 signature has period 2 from step 1.
+    STRICT ∅-AXIOM (no omega). -/
 theorem one_third_signature_periodic :
     ∀ n, n ≥ 1 → signature bit13 (n + 2) = signature bit13 n := by
   intro n hn
   induction n with
-  | zero => omega
+  | zero => exact absurd hn (Nat.not_succ_le_zero _)
   | succ n' ih =>
     by_cases h : n' = 0
     · subst h; decide
-    · have hn' : n' ≥ 1 := by omega
+    · have hn' : n' ≥ 1 := Nat.pos_of_ne_zero h
       have ih' : signature bit13 (n' + 2) = signature bit13 n' := ih hn'
       have hbs_eq : bit13 (n' + 2) = bit13 n' := bit13_period_2 n'
       have h_idx : n' + 1 + 2 = n' + 2 + 1 := Nat.succ_add n' 2

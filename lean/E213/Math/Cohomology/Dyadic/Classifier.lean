@@ -22,16 +22,37 @@ namespace E213.Math.Cohomology.Dyadic.Classifier
 
 open E213.Math.Cohomology.Dyadic.Signature (nextVertex signature)
 
-/-- nextVertex distinguishes the bit at every vertex. -/
+/-- nextVertex distinguishes the bit at every vertex.  STRICT ∅-AXIOM
+    via direct match on Fin 5 × Bool².  Unreachable case ⟨n+5, _⟩ uses
+    Nat.le_of_succ_le_succ chain to derive False (no omega). -/
 theorem nextVertex_bit_inj (v : Fin 5) (b₁ b₂ : Bool) :
     nextVertex v b₁ = nextVertex v b₂ → b₁ = b₂ := by
-  obtain ⟨n, hn⟩ := v
-  match n, hn with
-  | 0, _ => intro h; cases b₁ <;> cases b₂ <;> simp_all [nextVertex]
-  | 1, _ => intro h; cases b₁ <;> cases b₂ <;> simp_all [nextVertex]
-  | 2, _ => intro h; cases b₁ <;> cases b₂ <;> simp_all [nextVertex]
-  | 3, _ => intro h; cases b₁ <;> cases b₂ <;> simp_all [nextVertex]
-  | 4, _ => intro h; cases b₁ <;> cases b₂ <;> simp_all [nextVertex]
+  intro h
+  match v, b₁, b₂ with
+  | ⟨0, _⟩, false, false => rfl
+  | ⟨0, _⟩, true,  true  => rfl
+  | ⟨0, _⟩, false, true  => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨0, _⟩, true,  false => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨1, _⟩, false, false => rfl
+  | ⟨1, _⟩, true,  true  => rfl
+  | ⟨1, _⟩, false, true  => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨1, _⟩, true,  false => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨2, _⟩, false, false => rfl
+  | ⟨2, _⟩, true,  true  => rfl
+  | ⟨2, _⟩, false, true  => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨2, _⟩, true,  false => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨3, _⟩, false, false => rfl
+  | ⟨3, _⟩, true,  true  => rfl
+  | ⟨3, _⟩, false, true  => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨3, _⟩, true,  false => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨4, _⟩, false, false => rfl
+  | ⟨4, _⟩, true,  true  => rfl
+  | ⟨4, _⟩, false, true  => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨4, _⟩, true,  false => exact absurd (Fin.mk.inj h) (by decide)
+  | ⟨_+5, hn⟩, _, _ =>
+    exact absurd hn (Nat.not_succ_le_zero _ ∘ Nat.le_of_succ_le_succ ∘
+                     Nat.le_of_succ_le_succ ∘ Nat.le_of_succ_le_succ ∘
+                     Nat.le_of_succ_le_succ ∘ Nat.le_of_succ_le_succ)
 
 /-- ★★★ Key theorem: signature periodicity ⇒ bit periodicity. -/
 theorem signature_periodic_implies_bits_periodic
