@@ -29,16 +29,20 @@ theorem Tree.swap_canonical :
   | a => decide
   | b => decide
   | slash x y ihx ihy =>
-      simp only [Tree.canonical, Bool.and_eq_true] at h
-      obtain ⟨⟨hx, hy⟩, _⟩ := h
+      unfold Tree.canonical at h
+      obtain ⟨hxy, _⟩ := Bool.and_eq_true_to_pair h
+      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy
       have ihx' := ihx hx
       have ihy' := ihy hy
-      simp only [Tree.swap]
+      show (match Tree.cmp (Tree.swap x) (Tree.swap y) with
+            | .lt => Tree.slash (Tree.swap x) (Tree.swap y)
+            | .gt => Tree.slash (Tree.swap y) (Tree.swap x)
+            | .eq => Tree.swap x).canonical = true
       split <;> rename_i hcmp
-      · simp only [Tree.canonical, Bool.and_eq_true, ihx', ihy', true_and]
-        rw [hcmp]
-      · simp only [Tree.canonical, Bool.and_eq_true, ihx', ihy', true_and]
-        rw [(Tree.cmp_gt_iff_lt_swap _ _).mp hcmp]
+      · unfold Tree.canonical
+        rw [ihx', ihy', hcmp]; rfl
+      · unfold Tree.canonical
+        rw [ihy', ihx', Tree.cmp_gt_to_lt_swap _ _ hcmp]; rfl
       · exact ihx'
 
 end E213.Firmware.Internal
@@ -52,8 +56,9 @@ theorem Tree.swap_swap : ∀ t : Tree,
   | a => rfl
   | b => rfl
   | slash x y ihx ihy =>
-      simp only [Tree.canonical, Bool.and_eq_true] at ht
-      obtain ⟨⟨hx, hy⟩, hlt_raw⟩ := ht
+      unfold Tree.canonical at ht
+      obtain ⟨hxy, hlt_raw⟩ := Bool.and_eq_true_to_pair ht
+      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy
       have hlt : Tree.cmp x y = .lt := by
         match hmatch : Tree.cmp x y with
         | .lt => rfl
@@ -61,18 +66,44 @@ theorem Tree.swap_swap : ∀ t : Tree,
         | .gt => rw [hmatch] at hlt_raw; cases hlt_raw
       have ihx' := ihx hx
       have ihy' := ihy hy
-      simp only [Tree.swap]
+      -- Tree.swap (Tree.slash x y) reduces by def; need to handle inner cmp
+      show Tree.swap (match Tree.cmp (Tree.swap x) (Tree.swap y) with
+                      | .lt => Tree.slash (Tree.swap x) (Tree.swap y)
+                      | .gt => Tree.slash (Tree.swap y) (Tree.swap x)
+                      | .eq => Tree.swap x) = Tree.slash x y
       split <;> rename_i hcmp_inner
-      · simp only [Tree.swap, ihx', ihy', hlt]
-      · simp only [Tree.swap, ihx', ihy']
-        have : Tree.cmp y x = .gt := (Tree.cmp_gt_iff_lt_swap y x).mpr hlt
+      · -- inner cmp .lt: swap of slash (swap x) (swap y) reduces
+        show (match Tree.cmp (Tree.swap (Tree.swap x))
+                              (Tree.swap (Tree.swap y)) with
+              | .lt => Tree.slash (Tree.swap (Tree.swap x))
+                                  (Tree.swap (Tree.swap y))
+              | .gt => Tree.slash (Tree.swap (Tree.swap y))
+                                  (Tree.swap (Tree.swap x))
+              | .eq => Tree.swap (Tree.swap x)) = Tree.slash x y
+        rw [ihx', ihy', hlt]
+      · -- inner cmp .gt: swap of slash (swap y) (swap x)
+        show (match Tree.cmp (Tree.swap (Tree.swap y))
+                              (Tree.swap (Tree.swap x)) with
+              | .lt => Tree.slash (Tree.swap (Tree.swap y))
+                                  (Tree.swap (Tree.swap x))
+              | .gt => Tree.slash (Tree.swap (Tree.swap x))
+                                  (Tree.swap (Tree.swap y))
+              | .eq => Tree.swap (Tree.swap y)) = Tree.slash x y
+        rw [ihx', ihy']
+        have : Tree.cmp y x = .gt := by
+          have := Tree.cmp_swap x y
+          rw [hlt] at this
+          cases hyx : Tree.cmp y x
+          all_goals rw [hyx] at this
+          all_goals first | rfl | cases this
         rw [this]
-      · exfalso
-        have hxy : Tree.swap x = Tree.swap y :=
-          (Tree.cmp_eq_iff _ _).mp hcmp_inner
-        have hxy' : x = y := by rw [← ihx', ← ihy', hxy]
-        rw [hxy'] at hlt
-        rw [show Tree.cmp y y = .eq from (Tree.cmp_eq_iff _ _).mpr rfl] at hlt
+      · -- inner cmp .eq: swap x = swap y, hence x = y, contradiction
+        exfalso
+        have hxy_swap : Tree.swap x = Tree.swap y :=
+          Tree.cmp_eq_to_eq _ _ hcmp_inner
+        have hxy_eq : x = y := by rw [← ihx', ← ihy', hxy_swap]
+        rw [hxy_eq] at hlt
+        rw [Tree.cmp_self_eq y] at hlt
         cases hlt
 
 end E213.Firmware.Internal
