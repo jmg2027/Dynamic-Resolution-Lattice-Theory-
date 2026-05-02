@@ -72,6 +72,61 @@ theorem cases_lt_three {n : Nat} (h : n < 3) :
   | Or.inr hge =>
     Or.inr (Or.inr (Nat.le_antisymm (Nat.le_of_lt_succ h) hge))
 
+/-- `n < 4 → n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3`.  ∅-axiom. -/
+theorem cases_lt_four {n : Nat} (h : n < 4) :
+    n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 :=
+  match Nat.lt_or_ge n 3 with
+  | Or.inl hlt => (cases_lt_three hlt).imp id (·.imp id Or.inl)
+  | Or.inr hge =>
+    Or.inr (Or.inr (Or.inr (Nat.le_antisymm (Nat.le_of_lt_succ h) hge)))
+
+/-- `n < 5 → n ∈ {0,1,2,3,4}`.  ∅-axiom — used for `Fin 5` decomposition
+    in the cohomology cochain `pattern_eq_at` chain (Universal.Prop51). -/
+theorem cases_lt_five {n : Nat} (h : n < 5) :
+    n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4 :=
+  match Nat.lt_or_ge n 4 with
+  | Or.inl hlt => (cases_lt_four hlt).imp id (·.imp id (·.imp id Or.inl))
+  | Or.inr hge =>
+    Or.inr (Or.inr (Or.inr (Or.inr
+      (Nat.le_antisymm (Nat.le_of_lt_succ h) hge))))
+
+/-- `n < 10 → n ∈ {0,…,9}`.  ∅-axiom — used for `Fin 10` decomposition
+    (Cochain 5 2/3 = Fin (binom 5 2/3) → Bool) in Universal.Prop52/53. -/
+theorem cases_lt_ten {n : Nat} (h : n < 10) :
+    n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4
+    ∨ n = 5 ∨ n = 6 ∨ n = 7 ∨ n = 8 ∨ n = 9 :=
+  match Nat.lt_or_ge n 5 with
+  | Or.inl hlt => (cases_lt_five hlt).imp id (·.imp id (·.imp id (·.imp id Or.inl)))
+  | Or.inr hge =>
+    -- 5 ≤ n < 10
+    match Nat.lt_or_ge n 9 with
+    | Or.inl hlt9 =>
+      match Nat.lt_or_ge n 8 with
+      | Or.inl hlt8 =>
+        match Nat.lt_or_ge n 7 with
+        | Or.inl hlt7 =>
+          match Nat.lt_or_ge n 6 with
+          | Or.inl hlt6 =>
+            -- n = 5
+            Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl
+              (Nat.le_antisymm (Nat.le_of_lt_succ hlt6) hge))))))
+          | Or.inr hge6 =>
+            -- n = 6
+            Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl
+              (Nat.le_antisymm (Nat.le_of_lt_succ hlt7) hge6)))))))
+        | Or.inr hge7 =>
+          -- n = 7
+          Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl
+            (Nat.le_antisymm (Nat.le_of_lt_succ hlt8) hge7))))))))
+      | Or.inr hge8 =>
+        -- n = 8
+        Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl
+          (Nat.le_antisymm (Nat.le_of_lt_succ hlt9) hge8)))))))))
+    | Or.inr hge9 =>
+      -- n = 9
+      Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr
+        (Nat.le_antisymm (Nat.le_of_lt_succ h) hge9)))))))))
+
 /-- `a + c = b + c → a = b`.  ∅-axiom (Lean-core brings propext). -/
 theorem add_right_cancel : ∀ {a b c : Nat}, a + c = b + c → a = b
   | _, _, 0, h => h

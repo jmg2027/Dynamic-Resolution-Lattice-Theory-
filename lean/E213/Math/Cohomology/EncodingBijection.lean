@@ -51,10 +51,16 @@ theorem encode_pointwise_pattern :
   decide
 
 /-- ★★★ Encoding bijection lifted to ∀ σ : Cochain 5 1.
-    For all σ, σ j = cochainAt 5 1 (encode σ) j pointwise. -/
+    For all σ, σ j = cochainAt 5 1 (encode σ) j pointwise.
+    ∅-axiom — chains `pattern_eq_at` (pointwise, no funext) with
+    `encode_pointwise_pattern`.  The two `encode_5_1` arguments
+    agree by `rfl` since `pattern (σ⟨i,_⟩...) ⟨i,_⟩ = σ⟨i,_⟩`. -/
 theorem encode_bijection (σ : Cochain 5 1) (j : Fin 5) :
-    σ j = cochainAt 5 1 (encode_5_1 σ) j := by
-  rw [E213.Math.Cohomology.Universal.Prop51.pattern_eq σ]
-  exact encode_pointwise_pattern _ _ _ _ _ j
+    σ j = cochainAt 5 1 (encode_5_1 σ) j :=
+  let h_pw : σ j = pattern (σ ⟨0, by decide⟩) (σ ⟨1, by decide⟩)
+                           (σ ⟨2, by decide⟩) (σ ⟨3, by decide⟩)
+                           (σ ⟨4, by decide⟩) j :=
+    E213.Math.Cohomology.Universal.Prop51.pattern_eq_at σ j
+  h_pw.trans (encode_pointwise_pattern _ _ _ _ _ j)
 
 end E213.Math.Cohomology.EncodingBijection
