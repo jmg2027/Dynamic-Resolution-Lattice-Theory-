@@ -247,3 +247,53 @@ This recovers, *internally to 213*, the entire content of
 category theory's hom-set / morphism / functor / natural-trans-
 formation hierarchy — without ever importing Set theory or
 universe ascent.  All from one free-magma + Lens-projection.
+
+---
+
+## 9. Why category theory, HoTT, Langlands all become mundane in 213
+
+The user's punch line: *카테고리, HoTT, Langlands도 213 안에서 범부가
+된다*.  All three reduce to the same (Raw, Lens, Initiality) triple —
+each is a single facet of the same machinery.
+
+**Category theory ↔ Lens lattice** (G3 §8)
+  - Hom(A, B)         = Lens lattice factoring through both
+  - Functor           = Lens transformation
+  - Natural transf.   = compatibility between Lens systems
+  - Yoneda lemma      = `Meta/UniversalLens/*` (Initiality §1.2 of AXIOM)
+  - Equivalence of cats = Lens-pullback identification
+
+**HoTT ↔ Raw inductive structure**
+  - Identity type a = b      = explicit bordism between Raw trees
+  - Path induction           = recursion on Raw structure
+  - **Univalence**           = **Initiality** (unique factoring)
+  - Higher inductive types   = Lens hierarchies
+  - ∞-groupoid               = trajectory composition graph
+  - Cubical interval `I`     = Raw's slash bracket (binary closure)
+  - Funext (HoTT axiom)      = Lens-pointwise equivalence (theorem!)
+
+**Langlands ↔ cross-Lens reciprocity**
+  - Automorphic form         = Lens reading on Raw symmetry orbit
+  - Galois representation    = Lens to discrete group
+  - L-function               = trajectory-counting Lens output
+  - **Functoriality**        = **Initiality** (every Lens factors through Raw)
+  - Reciprocity              = two different Lens readings of the same Raw
+                                 structure agree
+  - Modularity               = trajectory closure ↔ algebraic complexity
+                                 (D2 tier ↔ Pell FSM)
+
+The three "deep" theories in standard math share a common content
+that is *external* to set theory + universe ascent:
+  - category theory studies *equivalence-type lattices* (= Lens lattice)
+  - HoTT recognises *path structure inside types*       (= Raw is trees)
+  - Langlands states *cross-domain factoring*           (= Initiality)
+
+213 picks a base where all three are *automatic*:
+  - equivalence-type lattice = the Lens lattice (G3 §8)
+  - path structure           = Raw is literally the path/tree
+  - cross-domain factoring   = Initiality theorem (already proven)
+
+So **213 doesn't *prove* category theory / HoTT / Langlands** — it
+*makes them mundane* by structuring the foundation so that all three
+are facets of (Raw, Lens, Initiality).  ZFC + universe ascent has to
+*build* these as external machinery; 213 has them *built in*.
