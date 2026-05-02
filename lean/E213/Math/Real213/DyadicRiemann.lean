@@ -40,10 +40,12 @@ namespace E213.Math.Real213.DyadicRiemann
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPoset (cutEq)
-open E213.Math.Real213.CutSumOne (cutSum_self)
+open E213.Math.Real213.CutSumOne (cutSum_self cutSum_half_general cutSum_int_int)
+open E213.Math.Real213.ConstCutScale (constCut_scale)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.DyadicBracket
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- **Dyadic Riemann sample sum** at depth `n`: accumulates f(midCut)
     over the 2^n sub-brackets via tree recursion.
