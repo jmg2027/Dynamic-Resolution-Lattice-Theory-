@@ -23,7 +23,7 @@ Progress (cumulative across sessions):
     `Nat.mod` (well-founded → propext), define `parity` by step-2
     recursion as the "uncompleted half-cycle" residue.  ∅-axiom by
     structural reduction.  Used in Five.atomic_implies_five.
-  - 6 files migrated (5 full, 1 with helpers split out):
+  - 7 files migrated (full ∅-axiom):
       * `Math/Pigeonhole.lean`                     (2/2 ∅-axiom)
       * `Firmware/Atomicity/NonDecomposable.lean`  (3/3 ∅-axiom)
       * `Firmware/Atomicity/ArityForcing.lean`     (2/2 ∅-axiom)
@@ -32,9 +32,12 @@ Progress (cumulative across sessions):
         — Bézout shifts via `Nat213.mul_sub_distrib` + Bool parity
         for IsAlive (replaces `% 2`).
       * `Math/Cauchy/EulerSharper.lean`            (1/1 ∅-axiom)
+      * `Math/Cauchy/MonotonicBounded.lean`        (6/6 ∅-axiom)
+        — uses `decide_eq_false`/`of_decide_eq_false` instead of
+        propext-bringing `decide_eq_false_iff_not.mp`.
   - New helper module `Firmware/Atomicity/FiveHelpers.lean`
     (4/4 ∅-axiom: add_two/three_ne_self, bezout_left/right).
-  - 20 public theorems verified strict ∅-axiom (38 including
+  - 26 public theorems verified strict ∅-axiom (44 including
     helper modules and private lemmas).
   - `tools/scan_axioms.py` — efficient per-theorem axiom auditor.
   - Catalog of axiom-leak surfaces in
@@ -74,6 +77,10 @@ Remaining: hundreds of files.  Each requires:
     with constraint hypotheses) → propext + Quot.sound  (use
     `match Nat.lt_or_ge n k with | Or.inl ... | Or.inr ...` cascade
     + `Nat.le_antisymm`)
+11. `n % 2` (Lean's well-founded mod) → `Nat213.parity` (step-2 rec)
+12. `decide_eq_false_iff_not.mp` (iff destructor) → `of_decide_eq_false`
+    (and dual `decide_eq_false`/`of_decide_eq_true`/`decide_eq_true`)
+13. `Nat.mul_assoc` → `Nat213.mul_assoc`  (Nat-core via simp brings propext)
 
 ## Open Problems carried forward
 
