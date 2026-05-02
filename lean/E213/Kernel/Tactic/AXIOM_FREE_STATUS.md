@@ -86,6 +86,7 @@ All theorems in these modules are individually verified ∅-axiom.
 | `Firmware/Atomicity/ArityForcing.lean` | 2 | omega-pigeonhole on Fin 2 → 6-case `cases_lt_two` |
 | `Math/Infinity/Pair.lean` | 5 | 5 omega + Nat.add_left/right_cancel + Prod.mk.injEq |
 | `Firmware/Atomicity/ArityForcingGeneral.lean` | 6 | **Classical.choice** → `isBase`/`getBase` constructive extraction (G5 §3 in code) |
+| `Meta/BitPatternUniqueness.lean` | 5 (+ 4 private helpers) | `% 2` → `Mod213.parity`; `Nat.{pow_lt_pow_of_lt, pow_dvd_pow, le_of_dvd, dvd_sub}` → `Pow213.{pow_lt_pow_two, pow_dvd_pow_two, le_of_dvd_pos, dvd_sub_two}`; omega → explicit |
 
 ## Catalog of axiom leaks discovered
 
