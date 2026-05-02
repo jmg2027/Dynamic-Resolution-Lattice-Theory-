@@ -34,6 +34,8 @@ Proven for all odd primes p ≥ 3.
 namespace E213.Math.Cohomology.Dyadic.Fib.PellRelation
 
 open E213.Math.Cohomology.Dyadic.Legendre.V213 (legendre213)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor (pisano_predict)
+open E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone (fib_pisano_predict)
 
 
 /-- Auxiliary: predictor body as if-then-else (Pell). -/
