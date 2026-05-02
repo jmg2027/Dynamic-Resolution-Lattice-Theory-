@@ -1,4 +1,5 @@
 import E213.Kernel.Tactic.Nat213
+import E213.Firmware.Atomicity.FiveHelpers
 /-!
 # Atomicity: d = 5 as a theorem (not an axiom)
 
@@ -17,8 +18,11 @@ namespace E213.Firmware.Atomicity.Five
 /-- n decomposes as 2a + 3b. -/
 def Decomp (n a b : Nat) : Prop := n = 2 * a + 3 * b
 
-/-- Alive: both parts odd (survive swap annihilation). -/
-def IsAlive (a b : Nat) : Prop := a % 2 = 1 ∧ b % 2 = 1
+/-- Alive: both parts odd (survive swap annihilation).
+    213-native via cohomological parity (Nat213.parity) — direct
+    step-2 recursion, ∅-axiom, vs. Lean's well-founded `% 2`
+    which brings propext through `Nat.add_mod_right` etc. -/
+def IsAlive (a b : Nat) : Prop := parity a = true ∧ parity b = true
 
 /-- n is atomic: has a unique decomposition, and it is alive. -/
 def Atomic (n : Nat) : Prop :=
@@ -95,36 +99,46 @@ end E213.Firmware.Atomicity.Five
 
 namespace E213.Firmware.Atomicity.Five
 
+/-- `a < 3 ∧ parity a = true → a = 1`. -/
+private theorem a_lt_3_odd_eq_1 {a : Nat}
+    (h_lt : a < 3) (h_odd : parity a = true) : a = 1 :=
+  match cases_lt_three h_lt with
+  | Or.inl h0 => absurd (h0 ▸ h_odd) (by decide)
+  | Or.inr (Or.inl h1) => h1
+  | Or.inr (Or.inr h2) => absurd (h2 ▸ h_odd) (by decide)
+
+/-- `b < 2 ∧ parity b = true → b = 1`. -/
+private theorem b_lt_2_odd_eq_1 {b : Nat}
+    (h_lt : b < 2) (h_odd : parity b = true) : b = 1 :=
+  match cases_lt_two h_lt with
+  | Or.inl h0 => absurd (h0 ▸ h_odd) (by decide)
+  | Or.inr h1 => h1
+
 /-- Uniqueness: Atomic n implies n = 5 (Bézout shift argument).
-    NOTE: This proof retains `omega` / `simp` and is therefore
-    `[propext, Quot.sound]`-tainted.  Migration deferred to a
-    later session — the Bézout shift requires Nat-subtraction
-    distributivity helpers (`2*(a-3) = 2*a - 6` when `3 ≤ a`)
-    that are not yet in `Nat213`.
-    Mod-arithmetic for `a < 3 ∧ a % 2 = 1 → a = 1` also pending. -/
+    Now ∅-axiom via cohomological parity + explicit Bézout shifts. -/
 theorem atomic_implies_five (n : Nat) (h : Atomic n) : n = 5 := by
   obtain ⟨a, b, hdec, ⟨ha_odd, hb_odd⟩, huniq⟩ := h
   have ha_lt : a < 3 := by
-    rcases Nat.lt_or_ge a 3 with h | h
-    · exact h
-    · exfalso
-      have hdec' : Decomp n (a - 3) (b + 2) := by
-        simp [Decomp] at hdec ⊢; omega
-      have := huniq (a - 3) (b + 2) hdec'
-      omega
+    match Nat.lt_or_ge a 3 with
+    | Or.inl h => exact h
+    | Or.inr ha_ge =>
+      exfalso
+      have hdec' : Decomp n (a - 3) (b + 2) :=
+        hdec.trans (FiveHelpers.bezout_left ha_ge)
+      exact FiveHelpers.add_two_ne_self b (huniq (a - 3) (b + 2) hdec').2
   have hb_lt : b < 2 := by
-    rcases Nat.lt_or_ge b 2 with h | h
-    · exact h
-    · exfalso
-      have hdec' : Decomp n (a + 3) (b - 2) := by
-        simp [Decomp] at hdec ⊢; omega
-      have := huniq (a + 3) (b - 2) hdec'
-      omega
-  have ha1 : a = 1 := by omega
-  have hb1 : b = 1 := by omega
-  subst ha1; subst hb1
-  simp [Decomp] at hdec
-  omega
+    match Nat.lt_or_ge b 2 with
+    | Or.inl h => exact h
+    | Or.inr hb_ge =>
+      exfalso
+      have hdec' : Decomp n (a + 3) (b - 2) :=
+        hdec.trans (FiveHelpers.bezout_right hb_ge)
+      exact FiveHelpers.add_three_ne_self a (huniq (a + 3) (b - 2) hdec').1
+  have ha1 : a = 1 := a_lt_3_odd_eq_1 ha_lt ha_odd
+  have hb1 : b = 1 := b_lt_2_odd_eq_1 hb_lt hb_odd
+  have step1 : n = 2 * 1 + 3 * b := ha1 ▸ hdec
+  have step2 : n = 2 * 1 + 3 * 1 := hb1 ▸ step1
+  exact step2
 
 /-- Main theorem: atomicity singles out n = 5. -/
 theorem atomic_iff_five (n : Nat) : Atomic n ↔ n = 5 :=

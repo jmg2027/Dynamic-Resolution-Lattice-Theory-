@@ -92,6 +92,37 @@ theorem mul_assoc : ∀ (a b c : Nat), a * b * c = a * (b * c)
       congrArg (· + a * b) ih
     lhs_eq.trans (Nat.mul_add a (b * c) b).symm
 
+/-! ### Cohomological parity
+
+Lean-core `Nat.mod` is well-founded; its reduction lemmas (e.g.
+`Nat.add_mod_right`) bring `propext`.  213's view of mod-2 is
+*how much a path hasn't completed a half-cycle* — a Bool invariant
+defined by direct step-2 recursion.  All theorems below are
+∅-axiom by structural reduction. -/
+
+/-- 213-native parity: cohomological "uncompleted half-cycle" invariant. -/
+def parity : Nat → Bool
+  | 0     => false
+  | 1     => true
+  | n + 2 => parity n
+
+@[simp] theorem parity_step (n : Nat) : parity (n + 2) = parity n := rfl
+@[simp] theorem parity_zero : parity 0 = false := rfl
+@[simp] theorem parity_one : parity 1 = true := rfl
+
+theorem parity_succ : ∀ n, parity (n + 1) = !parity n
+  | 0     => rfl
+  | 1     => rfl
+  | n + 2 => parity_succ n
+
+theorem parity_double : ∀ n, parity (2 * n) = false
+  | 0     => rfl
+  | n + 1 => parity_double n
+
+theorem parity_double_succ : ∀ n, parity (2 * n + 1) = true
+  | 0     => rfl
+  | n + 1 => parity_double_succ n
+
 /-- `b ≤ a → c * (a - b) = c*a - c*b`.  ∅-axiom. -/
 theorem mul_sub_distrib {a b c : Nat} (h : b ≤ a) :
     c * (a - b) = c * a - c * b := by
