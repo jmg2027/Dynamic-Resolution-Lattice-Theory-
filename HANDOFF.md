@@ -1,5 +1,63 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★ Session continuation (2026-05-02 part 11): Real213 cascade repairs
+
+PhaseBA closure (prior commit) revealed a deeper pre-existing
+source-bug cascade: PhaseBQ, PhaseBX, PhaseCS, PhaseCM marquee
+capstones could not even *compile* due to ~39 files in the
+ClassicCalc / Passthrough / HasDyadicMVTWitness / Antiderivative /
+FTCRiemann chain missing standardized open clauses for FluxCut
+sub-namespaces.
+
+**This part-11 commit repairs all 39 files**: each file received
+the standardized opens
+
+```
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut zero)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong …)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_const)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero cutMid_zero_zero)
+…
+```
+
+plus a targeted strip of `FluxCut.` namespace prefix where it caused
+the struct-name vs containing-namespace lookup ambiguity.
+
+**Result**: PhaseBQOmegaCapstone, PhaseBXCapstone, PhaseCSCapstone,
+PhaseCMFinalCapstone all *build* successfully.  Axiom status
+remains DIRTY [propext, Quot.sound] because each transitively uses
+omega-laden foundational lemmas in CutMul / DyadicBracket that
+remain on the math-track marathon backlog (off physics critical
+path).
+
+39 files repaired in cascade order:
+  FluxMVTClosure → FluxPassthroughClass → FluxPassthroughCatalog →
+  ClassicCalc → ClassicCalcHigher → ClassicCalcExtreme →
+  ClassicCalcGeneric → ClassicCalcMid → ClassicCalcCombinators →
+  FluxSeries → CutGeomSeries → CutMidSelf → CutDistance →
+  FluxMVTWitness → MVTWitnessCatalog → MVTWitnessChain →
+  HasDyadicMVTWitness → FluxMVTMore → FluxMVTNested → FluxMVTNested2 →
+  FluxMVTPropagate → FluxMVTPropagateCompose →
+  FTCRiemann → FTCRiemannSquare → FTCRiemannMid →
+  FTCRiemannGeneric → FTCRiemannChain →
+  AntiderivativeCombinators → AntiderivativeStructural →
+  IntegralViaAnti → ClassicAnti →
+  PhaseBQOmegaCapstone → PhaseBXCapstone → PhaseBZMegaOmega →
+  PhaseCSCapstone → PhaseCMFinalCapstone
+  + FluxMVTApplications, FluxMVTPassthrough, PhaseBHCapstone (carry-over)
+
+The strict ∅-axiom migration for these 4 marquee capstones is now
+*unblocked but not yet completed*: each capstone's residual DIRTY
+status traces to omega calls in CutMul / CutBisection / etc., which
+is exactly what the omega213 migration backlog is designed to
+handle.  The bulk of this session was source-bug repair, not axiom
+migration — but the next wave of Phase-capstone PURE migrations
+can now actually iterate against compiling files.
+
 ## ★★★ Major milestone (2026-05-XX part 10): 16 Real213 Phase capstones PURE
 
 **Cumulative Real213 strict ∅-axiom Phase capstones**:
