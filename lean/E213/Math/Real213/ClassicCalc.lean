@@ -23,6 +23,16 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough
+  (id_pass cutPow_pass compose_pass mul_pass)
+open E213.Math.Real213.FluxPassthroughCatalog.FluxCut.Passthrough
+  (square_pass cube_pass quartic_pass quintic_pass)
 open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
@@ -42,34 +52,34 @@ open E213.Math.Real213.DifferentiableHigherPow
 structure ClassicCalc
     (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
   diff : IsDifferentiable f
-  pass : FluxCut.Passthrough f
+  pass : Passthrough f
 
 namespace ClassicCalc
 
 /-- id ∈ ClassicCalc with derivative 1, passes through endpoints. -/
 def id_calc : ClassicCalc id :=
-  { diff := idIsDifferentiable, pass := FluxCut.Passthrough.id_pass }
+  { diff := idIsDifferentiable, pass := Passthrough.id_pass }
 
 /-- x² ∈ ClassicCalc. -/
 def square_calc : ClassicCalc (fun x => cutMul x x) :=
   { diff := squareIsDifferentiable
-    pass := FluxCut.Passthrough.square_pass }
+    pass := square_pass }
 
 /-- x³ ∈ ClassicCalc. -/
 def cube_calc : ClassicCalc (fun x => cutMul x (cutMul x x)) :=
   { diff := cubeIsDifferentiable
-    pass := FluxCut.Passthrough.cube_pass }
+    pass := cube_pass }
 
 /-- Extract MVT (one-liner). -/
 theorem mvt {f} (cc : ClassicCalc f) :
-    FluxCut.localDivergence f unitBracket
-      = FluxCut.ofCut (constCut 1 1) :=
+    localDivergence f unitBracket
+      = ofCut (constCut 1 1) :=
   cc.pass.mvt
 
 /-- Extract FTC bridge (one-liner). -/
 theorem ftc {f} (cc : ClassicCalc f) :
-    FluxCut.localDivergence f unitBracket
-      = FluxCut.fluxAlong f unitBracket :=
+    localDivergence f unitBracket
+      = fluxAlong f unitBracket :=
   cc.pass.ftc
 
 /-- Extract derivative. -/
@@ -80,11 +90,11 @@ def derivative {f} (cc : ClassicCalc f) :
 /-- ★ Phase BL capstone: ClassicCalc gives MVT + FTC at unit. -/
 theorem classic_calc_capstone (f) (cc : ClassicCalc f) :
     -- (1) MVT propEq at unit
-    FluxCut.localDivergence f unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+    localDivergence f unitBracket
+       = ofCut (constCut 1 1)
     -- (2) FTC bridge propEq at unit
-    ∧ FluxCut.localDivergence f unitBracket
-       = FluxCut.fluxAlong f unitBracket
+    ∧ localDivergence f unitBracket
+       = fluxAlong f unitBracket
     -- (3) f passes through (0, 0)
     ∧ f (constCut 0 1) = constCut 0 1
     -- (4) f passes through (1, 1)

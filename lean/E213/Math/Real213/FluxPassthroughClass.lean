@@ -26,6 +26,17 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.CutMulOne (cutMul_one_one)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero)
+open E213.Math.Real213.CutPowConst (cutPow_one_n cutPow_zero_succ)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit ftc_bridge_passthrough_unit)
 
 namespace FluxCut
 

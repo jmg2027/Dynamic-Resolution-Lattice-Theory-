@@ -36,6 +36,22 @@ open E213.Math.Real213.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut (mvt_passthrough_unit)
+open E213.Math.Real213.ClassicCalcGeneric.ClassicCalc (cutPow_calc_mvt)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
+open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half)
+open E213.Math.Real213.MVTWitnessChain (id_compose_square_derivative_at_half)
+open E213.Math.Real213.FTCRiemann (ftc_riemann_id_depth_zero)
+open E213.Math.Real213.FTCRiemannGeneric (ftc_riemann_generic_for_square)
+open E213.Math.Real213.FluxMVTPropagate (mid_witness_propagates)
+open E213.Math.Real213.FluxMVTPropagateCompose (id_compose_witness_propagates)
+open E213.Math.Real213.HasDyadicMVTWitness (square_has_dyadic_witness)
 
 /-- ★★★ **Phase CM final mega-mega capstone**: 12-fact bundle ★★★ -/
 theorem phaseCM_final_capstone (n : Nat)
@@ -43,11 +59,11 @@ theorem phaseCM_final_capstone (n : Nat)
     (h_left : f (constCut 0 1) = constCut 0 1)
     (h_right : f (constCut 1 1) = constCut 1 1) :
     -- (BE) generic ∀n cutPow MVT
-    FluxCut.localDivergence (fun x => cutPow x (n+1)) unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+    localDivergence (fun x => cutPow x (n+1)) unitBracket
+       = ofCut (constCut 1 1)
     -- (BF) general passthrough MVT
-    ∧ FluxCut.localDivergence f unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+    ∧ localDivergence f unitBracket
+       = ofCut (constCut 1 1)
     -- (BR) explicit dyadic witness for x²
     ∧ squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1
     -- (BU/BR) mid(x, x²) witness
@@ -58,10 +74,10 @@ theorem phaseCM_final_capstone (n : Nat)
         ).derivative (constCut 1 2) = constCut 1 1
     -- (BY) FTC-Riemann for id, depth 0
     ∧ riemannSampleSum idIsDifferentiable.derivative unitBracket 0
-        = (FluxCut.fluxAlong id unitBracket).forward
+        = (fluxAlong id unitBracket).forward
     -- (CA) FTC-Riemann for x², depth 0
     ∧ riemannSampleSum squareIsDifferentiable.derivative unitBracket 0
-        = (FluxCut.fluxAlong (fun x => cutMul x x) unitBracket).forward
+        = (fluxAlong (fun x => cutMul x x) unitBracket).forward
     -- (CK) generic mid propagation works
     ∧ (∀ {f' g'} (sf' : IsDifferentiable f') (sg' : IsDifferentiable g'),
        sf'.derivative (constCut 1 2) = constCut 1 1 →
@@ -75,8 +91,8 @@ theorem phaseCM_final_capstone (n : Nat)
         (constCut 1 2) = constCut 1 1)
     -- (BR-CG) constructive MVT existence (5 functions with witness c=1/2)
     ∧ (∃ c, squareIsDifferentiable.derivative c = constCut 1 1) :=
-  ⟨ClassicCalc.cutPow_calc_mvt n,
-   FluxCut.mvt_passthrough_unit f h_left h_right,
+  ⟨cutPow_calc_mvt n,
+   mvt_passthrough_unit f h_left h_right,
    squareDerivative_at_half,
    mid_id_square_derivative_at_half,
    id_compose_square_derivative_at_half,

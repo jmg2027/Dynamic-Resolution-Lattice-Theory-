@@ -19,18 +19,30 @@ open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.DyadicRiemann (riemannSampleSum)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
+open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
+open E213.Math.Real213.MVTWitnessChain.HasDyadicMVTWitness (id_compose_square)
+open E213.Math.Real213.FluxMVTMore.HasDyadicMVTWitness (mid_id_square)
+open E213.Math.Real213.FTCRiemannGeneric
+  (ftc_riemann_generic_via_witness ftc_riemann_generic_for_square)
+open E213.Math.Real213.CutMulOne (cutMul_one_one)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut)
 
 /-- ★ FTC-Riemann for id ∘ x² at unit depth 0 (via generic theorem). -/
 theorem ftc_riemann_generic_for_id_compose_square :
     riemannSampleSum
         (composeIsDifferentiable squareIsDifferentiable
             idIsDifferentiable).derivative unitBracket 0
-      = (FluxCut.fluxAlong ((fun x => x) ∘ (fun x => cutMul x x))
+      = (fluxAlong ((fun x => x) ∘ (fun x => cutMul x x))
           unitBracket).forward :=
   ftc_riemann_generic_via_witness
     ((fun x => x) ∘ (fun x => cutMul x x))
     (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable)
-    HasDyadicMVTWitness.id_compose_square rfl
+    id_compose_square rfl
     (by show cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1
         exact cutMul_one_one)
 
@@ -39,12 +51,12 @@ theorem ftc_riemann_generic_for_mid :
     riemannSampleSum
         (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
             ).derivative unitBracket 0
-      = (FluxCut.fluxAlong (fun x => cutMid x (cutMul x x))
+      = (fluxAlong (fun x => cutMid x (cutMul x x))
           unitBracket).forward :=
   ftc_riemann_generic_via_witness
     (fun x => cutMid x (cutMul x x))
     (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-    HasDyadicMVTWitness.mid_id_square rfl
+    mid_id_square rfl
     (by show cutMid (constCut 1 1) (cutMul (constCut 1 1) (constCut 1 1))
             = constCut 1 1
         rw [cutMul_one_one]
@@ -53,16 +65,16 @@ theorem ftc_riemann_generic_for_mid :
 /-- Phase CD capstone: 3-instance generic FTC-Riemann application. -/
 theorem ftc_riemann_chain_capstone :
     riemannSampleSum squareIsDifferentiable.derivative unitBracket 0
-        = (FluxCut.fluxAlong (fun x => cutMul x x) unitBracket).forward
+        = (fluxAlong (fun x => cutMul x x) unitBracket).forward
     ∧ riemannSampleSum
         (composeIsDifferentiable squareIsDifferentiable
             idIsDifferentiable).derivative unitBracket 0
-        = (FluxCut.fluxAlong ((fun x => x) ∘ (fun x => cutMul x x))
+        = (fluxAlong ((fun x => x) ∘ (fun x => cutMul x x))
             unitBracket).forward
     ∧ riemannSampleSum
         (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
             ).derivative unitBracket 0
-        = (FluxCut.fluxAlong (fun x => cutMid x (cutMul x x))
+        = (fluxAlong (fun x => cutMid x (cutMul x x))
             unitBracket).forward :=
   ⟨ftc_riemann_generic_for_square,
    ftc_riemann_generic_for_id_compose_square,

@@ -25,6 +25,15 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.CutMulOne (cutMul_one_const cutMul_const_one)
+open E213.Math.Real213.CutSumOne (cutSum_half_half)
+open E213.Math.Real213.FluxMVTPolynomial.FluxCut (mvt_square_unitBracket)
 
 /-- ★ d/dx [x²] at x = 1/2 = 1, propositionally. -/
 theorem squareDerivative_at_half :
@@ -37,11 +46,11 @@ theorem squareDerivative_at_half :
 /-- ★ MVT for x² with explicit dyadic witness c = 1/2. -/
 theorem mvt_square_explicit :
     -- Average rate of x² over [0,1] = 1
-    FluxCut.localDivergence (fun x => cutMul x x) unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+    localDivergence (fun x => cutMul x x) unitBracket
+       = ofCut (constCut 1 1)
     -- Derivative at c = 1/2 equals 1 (matches average rate)
     ∧ squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1 :=
-  ⟨FluxCut.mvt_square_unitBracket, squareDerivative_at_half⟩
+  ⟨mvt_square_unitBracket, squareDerivative_at_half⟩
 
 /-- ★ MVT existence with explicit witness for x²: ∃ c, derivative c = 1. -/
 theorem mvt_square_explicit_witness :
@@ -54,11 +63,11 @@ theorem mvt_square_witness_in_interior :
 
 /-- Phase BR capstone: MVT for x² with constructive dyadic witness. -/
 theorem mvt_square_with_witness_capstone :
-    FluxCut.localDivergence (fun x => cutMul x x) unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+    localDivergence (fun x => cutMul x x) unitBracket
+       = ofCut (constCut 1 1)
     ∧ squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1
     ∧ ∃ c, squareIsDifferentiable.derivative c = constCut 1 1 :=
-  ⟨FluxCut.mvt_square_unitBracket, squareDerivative_at_half,
+  ⟨mvt_square_unitBracket, squareDerivative_at_half,
    ⟨constCut 1 2, squareDerivative_at_half⟩⟩
 
 end E213.Math.Real213.FluxMVTWitness

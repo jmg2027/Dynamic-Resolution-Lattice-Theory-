@@ -16,6 +16,15 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough
+  (id_pass cutPow_pass compose_pass mul_pass mvt ftc)
 
 namespace FluxCut.Passthrough
 

@@ -21,6 +21,23 @@ open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable)
+open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
+open E213.Math.Real213.Antiderivative (IsAntiderivative)
+open E213.Math.Real213.Antiderivative.IsAntiderivative (id_anti)
+open E213.Math.Real213.AntiderivativeStructural.IsAntiderivative
+  (fromDifferentiable)
+open E213.Math.Real213.IntegralViaAnti.IsAntiderivative
+  (integral integral_one_unit)
+open E213.Math.Real213.ClassicCalc (ClassicCalc)
+open E213.Math.Real213.ClassicCalc.ClassicCalc (id_calc square_calc)
+open E213.Math.Real213.ClassicAnti.ClassicCalc
+  (integralCC integralCC_id_unit integralCC_square_unit)
 
 /-- ★★ **Phase CS antiderivative arc capstone**: 8-fact bundle ★★ -/
 theorem phaseCS_antiderivative_capstone (db : DyadicBracket) :
@@ -39,18 +56,15 @@ theorem phaseCS_antiderivative_capstone (db : DyadicBracket) :
     ∧ Nonempty (IsAntiderivative id idIsDifferentiable
                   idIsDifferentiable.derivative)
     -- (CQ) integral of 1 over unit = 1
-    ∧ IsAntiderivative.integral IsAntiderivative.id_anti unitBracket
-        = FluxCut.ofCut (constCut 1 1)
+    ∧ integral id_anti unitBracket = ofCut (constCut 1 1)
     -- (CR) ClassicCalc → IsAntiderivative
-    ∧ ClassicCalc.integralCC ClassicCalc.id_calc unitBracket
-        = FluxCut.ofCut (constCut 1 1)
+    ∧ integralCC id_calc unitBracket = ofCut (constCut 1 1)
     -- (CR) integralCC for square at unit
-    ∧ ClassicCalc.integralCC ClassicCalc.square_calc unitBracket
-        = FluxCut.ofCut (constCut 1 1) :=
+    ∧ integralCC square_calc unitBracket = ofCut (constCut 1 1) :=
   ⟨rfl, rfl, rfl, rfl,
-   ⟨IsAntiderivative.fromDifferentiable idIsDifferentiable⟩,
-   IsAntiderivative.integral_one_unit,
-   ClassicCalc.integralCC_id_unit,
-   ClassicCalc.integralCC_square_unit⟩
+   ⟨fromDifferentiable idIsDifferentiable⟩,
+   integral_one_unit,
+   integralCC_id_unit,
+   integralCC_square_unit⟩
 
 end E213.Math.Real213.PhaseCSCapstone

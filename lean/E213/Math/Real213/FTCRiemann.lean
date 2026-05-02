@@ -25,6 +25,12 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxFTC.FluxCut (fluxAlong_id_unitBracket)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.IsDifferentiable (idIsDifferentiable)
 
 /-- ★ Riemann sum of id.derivative over unitBracket = constCut (2^n · 1) 1. -/
 theorem riemann_id_derivative_unit (n : Nat) :
@@ -46,7 +52,7 @@ theorem riemann_id_derivative_unit_zero :
     (boundary value).  This is FTC propositionally for id. -/
 theorem ftc_riemann_id_depth_zero :
     riemannSampleSum idIsDifferentiable.derivative unitBracket 0
-      = (FluxCut.fluxAlong id unitBracket).forward := by
+      = (fluxAlong id unitBracket).forward := by
   show constCut 1 1 = constCut 1 1
   rfl
 
@@ -57,12 +63,12 @@ theorem ftc_riemann_capstone :
             = constCut (2^n * 1) 1)
     -- (2) At depth 0: matches fluxAlong forward (FTC propEq)
     ∧ riemannSampleSum idIsDifferentiable.derivative unitBracket 0
-        = (FluxCut.fluxAlong id unitBracket).forward
+        = (fluxAlong id unitBracket).forward
     -- (3) fluxAlong id unitBracket = ofCut (constCut 1 1)
-    ∧ FluxCut.fluxAlong id unitBracket
-        = FluxCut.ofCut (constCut 1 1) :=
+    ∧ fluxAlong id unitBracket
+        = ofCut (constCut 1 1) :=
   ⟨riemann_id_derivative_unit,
    ftc_riemann_id_depth_zero,
-   FluxCut.fluxAlong_id_unitBracket⟩
+   fluxAlong_id_unitBracket⟩
 
 end E213.Math.Real213.FTCRiemann

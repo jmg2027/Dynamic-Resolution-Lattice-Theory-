@@ -34,6 +34,9 @@ open E213.Math.Real213.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
+open E213.Math.Real213.Antiderivative (IsAntiderivative)
+open E213.Math.Real213.Antiderivative.IsAntiderivative (id_anti)
 
 namespace IsAntiderivative
 

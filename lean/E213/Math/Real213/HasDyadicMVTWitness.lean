@@ -36,6 +36,7 @@ open E213.Math.Real213.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
 
 /-- ★ **HasDyadicMVTWitness** for an IsDifferentiable f: a *dyadic*
     cut c such that f'(c) = constCut 1 1. -/

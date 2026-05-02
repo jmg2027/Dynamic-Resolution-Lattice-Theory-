@@ -15,6 +15,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutSeries (partialSum)
 
 /-- (1/2)^i geometric series. -/
 def geomHalfSeries : Nat → (Nat → Nat → Bool) :=

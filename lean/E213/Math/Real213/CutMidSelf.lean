@@ -22,7 +22,10 @@ open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumOne (cutSum_self)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.ConstCutScale (constCut_scale)
-open E213.Math.Real213.CutSumOne (cutSum_half_general cutSum_int_int)
+open E213.Math.Real213.CutSumOne
+  (cutSum_half_general cutSum_int_int cutSum_int_half cutSum_half_int)
+open E213.Math.Real213.CutMulOne (cutMul_one_const cutMul_const_one cutMul_one_one)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero)
 
 /-- **midpoint(c, c) = c** for c = a/b. -/
 theorem cutMid_self_constCut (a b : Nat) (hb : b ≥ 1) :

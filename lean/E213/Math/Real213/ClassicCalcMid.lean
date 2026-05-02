@@ -20,6 +20,16 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.CutSumZero (cutMid_zero_zero)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough)
+open E213.Math.Real213.ClassicCalc (ClassicCalc)
+open E213.Math.Real213.ClassicCalc.ClassicCalc (id_calc square_calc cube_calc mvt)
+open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
 
 namespace FluxCut.Passthrough
 
@@ -42,7 +52,7 @@ namespace ClassicCalc
 def mid_calc {f g} (cf : ClassicCalc f) (cg : ClassicCalc g) :
     ClassicCalc (fun x => cutMid (f x) (g x)) :=
   { diff := midIsDifferentiable cf.diff cg.diff
-    pass := FluxCut.Passthrough.mid_pass cf.pass cg.pass }
+    pass := FluxCut.Passthrough.mid_pass (f := f) (g := g) cf.pass cg.pass }
 
 /-- mid(id, x²) ∈ ClassicCalc — example of new combinator. -/
 def mid_id_square_calc :
@@ -56,24 +66,24 @@ def mid_square_cube_calc :
 
 /-- mid(x, x²) MVT propEq. -/
 theorem mid_id_square_mvt :
-    FluxCut.localDivergence (fun x => cutMid x (cutMul x x)) unitBracket
-      = FluxCut.ofCut (constCut 1 1) :=
+    localDivergence (fun x => cutMid x (cutMul x x)) unitBracket
+      = ofCut (constCut 1 1) :=
   mid_id_square_calc.mvt
 
 /-- mid(x², x³) MVT propEq. -/
 theorem mid_square_cube_mvt :
-    FluxCut.localDivergence (fun x => cutMid (cutMul x x) (cutMul x (cutMul x x)))
+    localDivergence (fun x => cutMid (cutMul x x) (cutMul x (cutMul x x)))
                               unitBracket
-      = FluxCut.ofCut (constCut 1 1) :=
+      = ofCut (constCut 1 1) :=
   mid_square_cube_calc.mvt
 
 /-- Phase BS capstone: midpoint closure adds new MVT instances. -/
 theorem mid_capstone :
-    FluxCut.localDivergence (fun x => cutMid x (cutMul x x)) unitBracket
-        = FluxCut.ofCut (constCut 1 1)
-    ∧ FluxCut.localDivergence
+    localDivergence (fun x => cutMid x (cutMul x x)) unitBracket
+        = ofCut (constCut 1 1)
+    ∧ localDivergence
         (fun x => cutMid (cutMul x x) (cutMul x (cutMul x x))) unitBracket
-        = FluxCut.ofCut (constCut 1 1) :=
+        = ofCut (constCut 1 1) :=
   ⟨mid_id_square_mvt, mid_square_cube_mvt⟩
 
 end ClassicCalc

@@ -19,6 +19,13 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
+open E213.Math.Real213.HasDyadicMVTWitness (HasDyadicMVTWitness)
+open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
+open E213.Math.Real213.CutMulOne (cutMul_one_one)
 
 /-- ★ id ∘ x² derivative at c = 1/2 = 1 (propEq).
     Same function as x² but constructed via chain rule. -/

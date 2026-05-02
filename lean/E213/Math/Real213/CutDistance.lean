@@ -15,6 +15,9 @@ namespace E213.Math.Real213.CutDistance
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.Signed (SignedCut)
+open E213.Math.Real213.SignedSum (cutSignedSub cutSignedSum)
+open E213.Math.Real213.Signed (signedConstCut cutNeg cutSignedMul)
 
 /-- **cutAbs**: absolute value (flip sign to positive). -/
 def cutAbs (s : SignedCut) : SignedCut := { sign := true, cut := s.cut }

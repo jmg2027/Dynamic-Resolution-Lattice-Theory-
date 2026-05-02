@@ -32,6 +32,10 @@ open E213.Math.Real213.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
+open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut)
 
 /-- ★ Generic mid witness propagation at c = 1/2. -/
 theorem mid_witness_propagates {f g}

@@ -21,6 +21,16 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.DyadicRiemann (riemannSampleSum)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.DyadicBracket.DyadicBracket (midCut)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
+open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
+open E213.Math.Real213.CutMulOne (cutMul_one_one)
+open E213.Math.Real213.FluxFTCPolynomial.FluxCut (fluxAlong_square_unitBracket)
 
 /-- ★ unitBracket midpoint = constCut 1 2 (= 1/2). -/
 theorem unitBracket_midCut : unitBracket.midCut = constCut 1 2 := rfl
@@ -36,7 +46,7 @@ theorem riemann_square_derivative_unit_zero :
 /-- ★ FTC-Riemann for x²: depth-0 Riemann sum = boundary value forward. -/
 theorem ftc_riemann_square_depth_zero :
     riemannSampleSum squareIsDifferentiable.derivative unitBracket 0
-      = (FluxCut.fluxAlong (fun x => cutMul x x) unitBracket).forward := by
+      = (fluxAlong (fun x => cutMul x x) unitBracket).forward := by
   rw [riemann_square_derivative_unit_zero]
   show constCut 1 1 = cutMul (constCut 1 1) (constCut 1 1)
   rw [cutMul_one_one]
@@ -50,11 +60,11 @@ theorem ftc_riemann_square_capstone :
             = constCut 1 1)
     -- (2) FTC bridge for x² depth 0
     ∧ riemannSampleSum squareIsDifferentiable.derivative unitBracket 0
-        = (FluxCut.fluxAlong (fun x => cutMul x x) unitBracket).forward
+        = (fluxAlong (fun x => cutMul x x) unitBracket).forward
     -- (3) fluxAlong x² unitBracket = ofCut 1
-    ∧ FluxCut.fluxAlong (fun x => cutMul x x) unitBracket
-        = FluxCut.ofCut (constCut 1 1) :=
+    ∧ fluxAlong (fun x => cutMul x x) unitBracket
+        = ofCut (constCut 1 1) :=
   ⟨rfl, ftc_riemann_square_depth_zero,
-   FluxCut.fluxAlong_square_unitBracket⟩
+   fluxAlong_square_unitBracket⟩
 
 end E213.Math.Real213.FTCRiemannSquare

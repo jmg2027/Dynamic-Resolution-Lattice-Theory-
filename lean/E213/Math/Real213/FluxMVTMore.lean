@@ -21,6 +21,18 @@ open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable)
+open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
+open E213.Math.Real213.HasDyadicMVTWitness
+  (HasDyadicMVTWitness square_has_dyadic_witness)
+open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
+open E213.Math.Real213.CutMulOne (cutMul_one_const cutMul_const_one)
+open E213.Math.Real213.CutSumOne (cutSum_half_half)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut)
 
 /-- ★ d/dx [(x + x²)/2] at x = 1/2 = 1, propositionally. -/
 theorem mid_id_square_derivative_at_half :
