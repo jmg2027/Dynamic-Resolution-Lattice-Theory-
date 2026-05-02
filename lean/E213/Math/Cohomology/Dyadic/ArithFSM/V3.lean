@@ -14,6 +14,8 @@ Joint state space: Fin n × Fin n × Fin n with n³ values.
 namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3
 
 open E213.Math.Cohomology.Dyadic.Signature (signature)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 
 
 /-- 3-state arithmetic FSM.  State vector in (Fin n)³. -/

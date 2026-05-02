@@ -42,6 +42,7 @@ theorem pellFSMmod5_run_period_10 :
 /-- ★★★★ Pell mod-5 bits cycle with period 10 (universally). -/
 theorem pellFSMmod5_bits_period_10 :
     ∀ k, pellFSMmod5.bits (k + 10) = pellFSMmod5.bits k := by
+  intro k
   show pellFSMmod5.out (pellFSMmod5.run (k + 10))
       = pellFSMmod5.out (pellFSMmod5.run k)
   rw [pellFSMmod5_run_period_10]
