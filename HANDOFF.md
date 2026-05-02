@@ -15,26 +15,25 @@ Goal: every theorem in `lean/E213/` should `#print axioms` → "does
 not depend on any axioms" (strict ∅-axiom, stronger than the
 DRLT-allowed `{propext, Quot.sound}` baseline).
 
-Progress this session:
+Progress (cumulative across two sessions):
   - 213-native helper trio in `Kernel/Tactic/`: Omega213 (extended),
-    Nat213 (11 lemmas), Fin213 (1 lemma).
-  - 5 files migrated (4 full, 1 partial):
+    Nat213 (12 lemmas including `mul_assoc`), Fin213 (1 lemma).
+  - 6 files migrated (4 full, 2 partial):
       * `Math/Pigeonhole.lean`              (2/2 ∅-axiom)
       * `Firmware/Atomicity/NonDecomposable.lean` (3/3 ∅-axiom)
       * `Firmware/Atomicity/ArityForcing.lean`    (2/2 ∅-axiom)
       * `Math/Infinity/Pair.lean`                 (5/5 ∅-axiom)
       * `Firmware/Atomicity/Five.lean`            (5/7 ∅-axiom;
-        atomic_implies_five + atomic_iff_five deferred — Bézout
-        shift needs Nat-sub distributivity helpers + mod-2 odd
-        residue helpers not yet in Nat213)
-  - 14 public theorems verified strict ∅-axiom (29 including
+        atomic_implies_five + atomic_iff_five deferred)
+      * `Math/Cauchy/EulerSharper.lean`           (1/1 ∅-axiom)
+  - 15 public theorems verified strict ∅-axiom (30 including
     helper modules and private lemmas).
   - `tools/scan_axioms.py` — efficient per-theorem axiom auditor.
   - Catalog of axiom-leak surfaces in
     `lean/E213/Kernel/Tactic/AXIOM_FREE_STATUS.md` (read first
     before continuing).
-  - Pre-existing namespace mismatches surfaced and fixed in 13
-    files (commit `eae6bb6`).
+  - Pre-existing namespace mismatches surfaced and fixed in many
+    files across 4 commits (eae6bb6, 0f21381, 0941595).
 
 Remaining: hundreds of files.  Each requires:
   1. Replace `omega` / `simp` / `simpa` with 213-native equivalents.
@@ -72,21 +71,23 @@ Remaining: hundreds of files.  Each requires:
 
 ### From prior session (still relevant)
 
-  1. **Source-vs-cache discrepancy** (HANDOFF prior §1).  Several
-     pre-existing source-level breakages were surfaced this session
-     because axiom probing forces fresh re-elaboration that bypasses
-     olean cache:
-       - `Math/Cohomology/Hodge/Star.lean` — uses unqualified
-         `subsetIdx` / `kSubset` (need `open` of Delta.Core /
-         SimplexBasis).  Currently masked by olean cache.
-       - `E213.Math.Infinity.<sym>` references where namespace is
-         actually `E213.Infinity` — fixed in commit `eae6bb6` for
-         Godel.lean and ModArith/* (13 files).
-       - `E213.Hypervisor.Lens.LeavesModNat` should be
-         `E213.Hypervisor.Lens.Leaves.ModNat` — fixed in same
-         commit.
-     **TODO**: A force-clean rebuild (`rm -rf .lake/build && lake
-     build`) will surface remaining source bugs.
+  1. **Source-vs-cache discrepancy** (HANDOFF prior §1).  Many
+     pre-existing source-level breakages were surfaced as axiom
+     probing forces fresh re-elaboration that bypasses olean cache.
+     Fixed in this/prior session:
+       - 13 files: `E213.Math.Infinity.<sym>` →
+         `E213.Infinity.<sym>` namespace mismatches (eae6bb6).
+       - `LeavesModNat` → `Leaves.ModNat` cluster (eae6bb6).
+       - 22 files in Real213/ missing `open ... (cutSum)` (0f21381).
+       - 8 files in Cohomology/Hodge/ missing `open` for
+         `Cochain`, `hodgeStar`, `delta`, etc (0941595).
+       - `BettiKernel.lean` similar (latest commit).
+     **STILL BROKEN** (probing fails on these chains):
+       - `Math/Cohomology/Cup/Core.lean` and many CupAW files.
+       - `Hypervisor/Lens/Properties/Leaf.lean` etc.
+       - `Math/Real213/CutBisection.lean` succession (cutMid etc).
+     A full sweep via force-clean rebuild + iterative fixes is
+     still needed.  Each fix unblocks more files.
 
   2. **sync_namespaces.py multi-namespace bug** — unchanged.
 
@@ -168,11 +169,15 @@ including le/lt and multiplicative monotonicity.  This unblocks
 Fix as encountered — namespace mismatches, broken refs, etc.
 This will make scan_axioms reliable.
 
-## Recent commits (this session)
+## Recent commits (this/prior sessions)
 
 ```
+0941595  Cohomology/Hodge: fix pre-existing 'open' gaps
+162cafe  Math/Cauchy/EulerSharper: ∅-axiom; Nat213.mul_assoc helper
+0f21381  Real213: add 'open ... (cutSum)' to 22 files
+45758bf2 HANDOFF: include Five partial migration + Int213 deferred
 429e0d3  Firmware/Atomicity/Five: atomic_five + canonical_partition migrated
-9387073  HANDOFF: comprehensive axiom-strip session log; Nat213 TODO
+9387073  HANDOFF: comprehensive axiom-strip session log
 128b5a8  AXIOM_FREE_STATUS: catalog Nat213 + 4 migrated files
 eae6bb6  Fix pre-existing namespace mismatches surfaced by axiom probing
 a126133  Nat213: add_left/right_cancel; Math/Infinity/Pair migrated
@@ -182,9 +187,9 @@ a2bfefd  Kernel/Tactic: factor Nat213, Fin213 helpers (modularization)
 f0591b2  Math/Pigeonhole: first ∅-axiom migration
 ```
 
-9 commits, +29 ∅-axiom theorems verified (including helpers
-and private lemmas), 11 Nat213 + 1 Fin213 helpers cataloged,
-13 pre-existing namespace bugs fixed.
+13 commits across two sessions, +30 ∅-axiom theorems verified,
+12 Nat213 + 1 Fin213 helpers cataloged, ~50 pre-existing
+namespace/source bugs fixed.
 
 ## Key precision results (unchanged this session)
 
