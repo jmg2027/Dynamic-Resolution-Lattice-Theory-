@@ -40,8 +40,16 @@ Progress (cumulative across sessions):
         mod6_parity / mod6_mod3 = explicit Eisenstein-6th-root walk)
       * `Fin213.lean` — `Fin` helpers (1 lemma: `absurd0`)
       * `INDEX.md` — sub-cluster navigation
-  - **27 ∅-axiom helper theorems total** (Nat213 14 + Mod213 11
-    + Fin213 1 + omega213 macro), all individually verified.
+  - **34 ∅-axiom helper theorems total**:
+      * `Nat213` 14 (pure ℕ-arithmetic)
+      * `Mod213` 11 (cohomological-trajectory primitives)
+      * `Fin213` 1 (Fin helpers)
+      * `Math/Trajectory/PhaseChiralBridge` 7 (d=5 chiral/phase
+        duality: `chiral_count`, `phase_parity`, `phase_mod3`,
+        `atomic_five_dual`, `chiralPair`, `chiralPair_mod6`,
+        `chiralPair_table`)
+      * `omega213` macro
+    All individually verified.
   - **Cohomological parity** (Mingu insight): instead of Lean-core
     `Nat.mod` (well-founded → propext), define `parity` by step-2
     recursion as the "uncompleted half-cycle" residue.  ∅-axiom by
@@ -231,6 +239,8 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+3987709  PhaseChiralBridge: chiralPair + table — usable d=5 anchor
+49170f0  G4 + Math/Trajectory/PhaseChiralBridge: d=5 chiral/phase duality
 1488bce  Nat213: absorb le_of_mul_le_mul_right helper from MonotonicBounded
 9dabcc8  Kernel/Tactic/INDEX.md — sub-cluster navigation
 08bfe63  Modularize Nat213: extract trajectory primitives → Mod213.lean
