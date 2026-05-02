@@ -1,5 +1,46 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## Latest progress — Pell.Lens cluster + Trib CRT cluster STRICT ∅-AXIOM
+
+**Context (2026-05-02 resume)**: extended cascade clean to remaining
+DIRTY capstones at `[propext]` baseline.  Major wins:
+
+1. **Pell.Lens cluster** (9 theorems strict ∅-axiom):
+   * `Math/NatDiv213.lean` — new ∅-axiom replacements for Lean-core
+     div/mod helpers (`add_div_right_pos`, `add_mod_right_pos`,
+     `div_mul_le_self`, `div_lt_of_lt_mul`).  All leak propext in
+     core.
+   * `Math/EncodePair213.lean` — ∅-axiom `encode_div`, `encode_mod`
+     for the `(a*n + b)` pair encoding used by `ArithFSM2.toBitFSM`.
+   * `Cohomology/Dyadic/ProductFSMPeriodDvd.lean` — new
+     `lens_composition_period_dvd` taking explicit `L` + dvd
+     witnesses, bypassing `Nat.dvd_lcm_left/right` (propext).
+     **Tactic-free body** (no `rw`!) to avoid elaboration leaks.
+   * Cascade: `ArithFSM.toBitFSM`, `ProductHelpers.{decode_encode_*,
+     decodeFinFirst}`, `ToBitFSM.{toBitFSM_run_encode,bits_eq}` all
+     PURE.
+   * Capstones strict ∅-axiom: `pellLens_3x5_period_20`,
+     `pellLens_3x7_period_8`, `pellLens_5x7_period_40`,
+     `pellLens_3x5x7_period_40`, `pell_crt_fsm_capstone`, plus 4
+     supporting `pellModN_BitFSM_bits_period_*`.
+
+2. **Critical lesson — `(by decide : a ∣ b)` leaks propext**:
+   `Nat.instDecidableDvd` uses propext.  Replace with explicit
+   witness `⟨k, rfl⟩` (term-mode Exists.intro) for ∅-axiom.
+
+3. **Trib CRT cluster** (10 theorems strict ∅-axiom):
+   * Single foundational fix: `ConcretePellSig` swap of
+     `Nat.add_sub_cancel'` (propext) for `Nat213.add_sub_of_le`.
+   * Cascade: `signature_period_of_bits_period_and_anchor_from`,
+     `pellFSMmod2_signature_period_6_from_1`, all
+     `tribFSMmod{2,3,5,7}_signature_period_*_from_1` PURE.
+   * Capstones strict ∅-axiom: `trib_crt_capstone`,
+     `trib_crt_4_capstone`.
+
+**New strict ∅-axiom total: ~55+ capstones.**
+
+Commits: `aa681ab`, `1692fdd`, `cc6b567`.
+
 ## Branch
 
 `claude/start-session-zR5Nn`, pushed to origin, working tree clean.
