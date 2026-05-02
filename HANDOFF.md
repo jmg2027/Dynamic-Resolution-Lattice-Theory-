@@ -26,7 +26,34 @@ Recorded as:
   - `research-notes/G3_raw_as_universal_trajectory.md` (Raw = free
     magma; category theory / HoTT / Langlands all become *theorems
     from Initiality* — TOE-ness as theorem, not aspiration)
+  - `research-notes/G4_chiral_phase_duality.md` (d=5 dual views:
+    ℤ/6 ≅ ℤ/2 × ℤ/3 (CRT) ⟺ ℂ⁵ = ℂ³ ⊕ ℂ²)
+  - **`research-notes/G5_213_as_sublanguage.md`** (this session):
+    213-Lean *is* a strict-∅-axiom, trajectory-geometric
+    sub-language of standard Lean.  §3 explicitly: `propext`,
+    `Quot.sound`, and `Classical.choice` are *theorems* in 213,
+    not axioms — derivable from Lens-bordism / Lens commute lemma /
+    Reachable trajectory pattern-match.
   - `LESSONS_LEARNED.md` Lessons 11 + 12 (operational guardrails)
+
+**Concrete G5 §3 demonstration (this session, commit 7408433)**:
+`Firmware/Atomicity/ArityForcingGeneral.lean` was the *only* file
+with a direct `Exists.choose` site (pulled `Classical.choice`).
+Migrated by introducing a `Bool`-guard `isBase` + total
+`getBase : (x : RawNk N k) → isBase x = true → Fin N`, then
+re-proving the inductive core in `Bool`-form before recovering
+the `∃`-form via `Exists.intro`.  Result: 6/6 declarations strict
+∅-axiom.  This is "Classical.choice as theorem" made executable
+— for every `α` 213 distinguishes structurally, the witness is a
+named element extracted by case-analysis, not a Hilbert-ε.
+
+**Audit corollary**: a full grep for `Classical.` / `.choose` /
+`Nonempty.some` in `lean/E213/` shows zero remaining direct sites
+in code (only docstring mentions).  All remaining
+`Classical.choice`-or-`Quot.sound`-contamination in the codebase
+is *transitive* via `omega` / `simp` / `funext`, which the
+ongoing `omega213` / `Mod213` / `Nat213` / `Fin213` migration
+already attacks.
 
 Progress (cumulative across sessions):
   - 213-native helpers in `Kernel/Tactic/` — modularized by topic
@@ -217,6 +244,12 @@ Candidate next files (smallest first):
   - `Meta/BitPatternUniqueness.lean` (mod 2 + power-of-2 reasoning;
      8 omegas)
 
+Note (post-7408433): no remaining direct `Classical.choice`
+sites in code.  The only direct user (`ArityForcingGeneral`)
+was migrated.  Future axiom-elimination work is **purely
+transitive** — kill `omega` / `simp` / `funext` via 213-native
+helpers and the rest cascade-cleans.
+
 ### B. Extend Nat213 catalog (high-leverage)
 
 Pre-build commonly-needed 213-native versions of:
@@ -268,6 +301,9 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+7408433  ArityForcingGeneral: Classical.choice → ∅-axiom (G5 §3)
+eba9587  G5: 213-Lean as sub-language of Lean (research note)
+25d4832  HANDOFF: Tree.swap + PairForcing + Substrate cascade
 122ad23  PairForcing: IsAlive via Mod213.parity (matches Five.IsAlive)
 1e7ce4e  Tree.swap_canonical + Tree.swap_swap + Raw.swap_swap: ∅-axiom
 2c496ce  Raw.rec + fold_slash + canonical_slash_lt: ∅-axiom cascade
