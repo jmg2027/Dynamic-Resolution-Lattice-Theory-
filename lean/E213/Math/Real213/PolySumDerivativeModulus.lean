@@ -21,6 +21,23 @@ namespace E213.Math.Real213.PolySumDerivativeModulus
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableAffine
+  (affineIsDifferentiable squarePlusIdIsDifferentiable
+   cubePlusSquareIsDifferentiable
+   affineIsDifferentiable_modulus squarePlusIdIsDifferentiable_modulus
+   cubePlusSquareIsDifferentiable_modulus)
+open E213.Math.Real213.ConcreteDerivativeModulus
+  (squareIsDifferentiable_derivative_modulus
+   cubeIsDifferentiable_derivative_modulus
+   quarticIsDifferentiable_derivative_modulus)
 
 /-- d/dx [a·x + b] modulus = 0 (derivative is constant a). -/
 theorem affineIsDifferentiable_derivative_modulus (a b k : Nat) :

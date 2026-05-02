@@ -22,6 +22,8 @@ namespace E213.Math.Real213.FluxCochain
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
 
 namespace FluxCut
 

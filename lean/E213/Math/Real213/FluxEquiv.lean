@@ -27,7 +27,9 @@ namespace E213.Math.Real213.FluxEquiv
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
-open E213.Math.Real213.CutPoset (cutEq cutEq_trans)
+open E213.Math.Real213.CutPoset (cutEq cutEq_trans cutEq_refl cutEq_symm)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (add neg)
 
 namespace FluxCut
 

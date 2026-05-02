@@ -24,6 +24,14 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut
+  (fluxAlong isBalanced fluxAlong_const_isBalanced)
+open E213.Math.Real213.FluxDivergence.FluxCut
+  (fluxScale localDivergence fluxScale_balanced
+   localDivergence_const_balanced)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
 
 namespace FluxCut
 

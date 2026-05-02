@@ -17,6 +17,28 @@ namespace E213.Math.Real213.ConcreteDerivativeModulusHigh
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.ConcreteDerivativeModulus
+  (squareIsDifferentiable_derivative_modulus
+   cubeIsDifferentiable_derivative_modulus
+   quarticIsDifferentiable_derivative_modulus)
+
+/-- Helper: a*k + b*k = (a+b)*k via Nat213.add_mul.symm. -/
+private theorem coef_add (a b k : Nat) :
+    a * k + b * k = (a + b) * k :=
+  (E213.Tactic.Nat213.add_mul a b k).symm
 
 theorem quinticIsDifferentiable_derivative_modulus (k : Nat) :
     quinticIsDifferentiable.derivativeSmooth.linearityModulus k = 4 * k := by
@@ -27,7 +49,14 @@ theorem quinticIsDifferentiable_derivative_modulus (k : Nat) :
        = 4 * k
   rw [squareIsDifferentiable_derivative_modulus, cubeIsDifferentiable_modulus,
       squareIsDifferentiable_modulus, cubeIsDifferentiable_derivative_modulus]
-  omega
+  -- max (k + 3*k) (2*k + 2*k) = 4*k
+  have hL : k + 3 * k = 4 * k := by
+    have e := coef_add 1 3 k
+    rw [Nat.one_mul] at e
+    exact e
+  have hR : 2 * k + 2 * k = 4 * k := coef_add 2 2 k
+  rw [hL, hR]
+  exact Nat.max_self (4 * k)
 
 theorem sexticIsDifferentiable_derivative_modulus (k : Nat) :
     sexticIsDifferentiable.derivativeSmooth.linearityModulus k = 5 * k := by
@@ -37,7 +66,8 @@ theorem sexticIsDifferentiable_derivative_modulus (k : Nat) :
             + cubeIsDifferentiable.derivativeSmooth.linearityModulus k)
        = 5 * k
   rw [cubeIsDifferentiable_derivative_modulus, cubeIsDifferentiable_modulus]
-  omega
+  rw [coef_add 2 3 k, coef_add 3 2 k]
+  exact Nat.max_self (5 * k)
 
 theorem septicIsDifferentiable_derivative_modulus (k : Nat) :
     septicIsDifferentiable.derivativeSmooth.linearityModulus k = 6 * k := by
@@ -48,7 +78,8 @@ theorem septicIsDifferentiable_derivative_modulus (k : Nat) :
        = 6 * k
   rw [cubeIsDifferentiable_derivative_modulus, quarticIsDifferentiable_modulus,
       cubeIsDifferentiable_modulus, quarticIsDifferentiable_derivative_modulus]
-  omega
+  rw [coef_add 2 4 k, coef_add 3 3 k]
+  exact Nat.max_self (6 * k)
 
 theorem octicIsDifferentiable_derivative_modulus (k : Nat) :
     octicIsDifferentiable.derivativeSmooth.linearityModulus k = 7 * k := by
@@ -58,7 +89,8 @@ theorem octicIsDifferentiable_derivative_modulus (k : Nat) :
             + quarticIsDifferentiable.derivativeSmooth.linearityModulus k)
        = 7 * k
   rw [quarticIsDifferentiable_derivative_modulus, quarticIsDifferentiable_modulus]
-  omega
+  rw [coef_add 3 4 k, coef_add 4 3 k]
+  exact Nat.max_self (7 * k)
 
 theorem concrete_high_polynomial_derivative_capstone (k : Nat) :
     quinticIsDifferentiable.derivativeSmooth.linearityModulus k = 4 * k

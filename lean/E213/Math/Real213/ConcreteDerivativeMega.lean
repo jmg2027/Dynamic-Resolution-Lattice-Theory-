@@ -40,6 +40,25 @@ open E213.Math.Real213.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableHighOrder
+  (nonicIsDifferentiable decicIsDifferentiable dodecicIsDifferentiable
+   hexadecicIsDifferentiable
+   nonicIsDifferentiable_modulus decicIsDifferentiable_modulus
+   dodecicIsDifferentiable_modulus hexadecicIsDifferentiable_modulus)
+open E213.Math.Real213.ConcreteDerivativeModulus
+  (squareIsDifferentiable_derivative_modulus
+   cubeIsDifferentiable_derivative_modulus
+   quarticIsDifferentiable_derivative_modulus)
+open E213.Math.Real213.ConcreteDerivativeModulusHigh
+  (quinticIsDifferentiable_derivative_modulus
+   sexticIsDifferentiable_derivative_modulus
+   septicIsDifferentiable_derivative_modulus
+   octicIsDifferentiable_derivative_modulus)
+open E213.Math.Real213.ConcreteDerivativeModulusFinal
+  (nonicIsDifferentiable_derivative_modulus
+   decicIsDifferentiable_derivative_modulus
+   dodecicIsDifferentiable_derivative_modulus
+   hexadecicIsDifferentiable_derivative_modulus)
 
 /-- **Concrete polynomial derivative full sharp pattern**: the
     (n-1)·k pattern is verified for every concrete polynomial

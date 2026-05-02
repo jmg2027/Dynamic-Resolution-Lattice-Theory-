@@ -21,6 +21,9 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPoset (cutEq)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (add neg)
+open E213.Math.Real213.FluxEquiv.FluxCut (cohomEquiv)
 
 namespace FluxCut
 
