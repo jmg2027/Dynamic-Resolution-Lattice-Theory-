@@ -27,20 +27,18 @@ def pairSize : Nat := 2
 def closureSize : Nat := 3
 
 /-- The input pair size is non-decomposable. -/
-theorem pairSize_nondecomposable : NonDecomposable pairSize := by
-  rw [non_decomposable_iff]; exact Or.inl rfl
+theorem pairSize_nondecomposable : NonDecomposable pairSize :=
+  (non_decomposable_iff 2).mpr (Or.inl rfl)
 
 /-- The first closure size is non-decomposable. -/
-theorem closureSize_nondecomposable : NonDecomposable closureSize := by
-  rw [non_decomposable_iff]; exact Or.inr rfl
+theorem closureSize_nondecomposable : NonDecomposable closureSize :=
+  (non_decomposable_iff 3).mpr (Or.inr rfl)
 
 /-- **Coincidence of the two atom characterizations.**
     The sizes named by the primitive (`pairSize` and `closureSize`)
     are exactly the non-decomposable integers `≥ 2`. -/
 theorem primitive_sizes_eq_nondecomposable (n : Nat) :
-    (n = pairSize ∨ n = closureSize) ↔ NonDecomposable n := by
-  rw [non_decomposable_iff]
-  unfold pairSize closureSize
-  exact Iff.rfl
+    (n = pairSize ∨ n = closureSize) ↔ NonDecomposable n :=
+  (non_decomposable_iff n).symm
 
 end E213.Firmware.Atomicity.PrimitiveSizes

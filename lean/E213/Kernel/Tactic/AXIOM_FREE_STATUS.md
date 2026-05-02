@@ -88,6 +88,10 @@ the 213-native form on the right.
 | `Prod.mk.injEq.mpr` | propext | `congr (congrArg Prod.mk hx) hy` |
 | `match n, h2, h4 with \| 2,_,_ \| 3,_,_` (small-case match) | propext, Quot.sound | `match Nat.lt_or_ge n k with` cascade + `Nat.le_antisymm` |
 | `funext` (general) | Quot.sound | structural pointwise lemmas (per-construct) |
+| `rw [iff_thm]` (rewrite using `↔`) | propext (Iff→Eq) | `(iff_thm).mp` / `(iff_thm).mpr` directly — projections, not rewrite |
+| `simp [defn, hypothesis]` (canonical-form proof) | propext | `unfold defn + rw [hyp] + rfl` |
+| `Tree.cmp_eq_iff.mp` (iff destructor) | propext | direct `Tree.cmp_eq_to_eq` (one-direction) |
+| `Tree.cmp_gt_iff_lt_swap.mp` | propext | direct `Tree.cmp_gt_to_lt_swap` |
 
 ## Lean-core lemmas verified ∅-axiom
 
