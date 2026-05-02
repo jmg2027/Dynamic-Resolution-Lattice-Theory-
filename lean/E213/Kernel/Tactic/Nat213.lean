@@ -108,6 +108,73 @@ theorem add_sub_assoc :
     lhs.trans (ih.trans rhs.symm)
   | _, 0, _+1, h => absurd h (Nat.not_succ_le_zero _)
 
+/-- `0 < b - a` from `a < b`.  ∅-axiom replacement for
+    `Nat.sub_pos_of_lt` (Lean-core proof brings propext). -/
+theorem sub_pos_of_lt {a b : Nat} (h : a < b) : 0 < b - a :=
+  let step : (a + 1) - a ≤ b - a := Nat.sub_le_sub_right h a
+  let comm_eq : a + 1 = 1 + a := Nat.add_comm a 1
+  let cancel : 1 + a - a = 1 := add_sub_cancel_right 1 a
+  -- `(a + 1) - a = 1`: combine via congrArg + cancel.
+  let h_eq : (a + 1) - a = 1 :=
+    (congrArg (· - a) comm_eq).trans cancel
+  -- Substitute (a+1) - a → 1 in step: 1 ≤ b - a, i.e., 0 < b - a.
+  Eq.subst (motive := fun x => x ≤ b - a) h_eq step
+
+/-- `a + b ≤ a + c → b ≤ c`.  ∅-axiom replacement for
+    `Nat.le_of_add_le_add_left` (Lean-core proof brings propext). -/
+theorem le_of_add_le_add_left {a b c : Nat} (h : a + b ≤ a + c) : b ≤ c :=
+  let step : (a + b) - a ≤ (a + c) - a := Nat.sub_le_sub_right h a
+  -- (a+b) - a = b via add_comm + add_sub_cancel_right.
+  let hb : (a + b) - a = b :=
+    (congrArg (· - a) (Nat.add_comm a b)).trans (add_sub_cancel_right b a)
+  let hc : (a + c) - a = c :=
+    (congrArg (· - a) (Nat.add_comm a c)).trans (add_sub_cancel_right c a)
+  -- Substitute LHS by RHS in step: b ≤ (a+c)-a, then b ≤ c.
+  let step1 : b ≤ (a + c) - a :=
+    Eq.subst (motive := fun x => x ≤ (a + c) - a) hb step
+  Eq.subst (motive := fun x => b ≤ x) hc step1
+
+/-- `a * (b - c) = a * b - a * c`.  ∅-axiom replacement for
+    `Nat.mul_sub_left_distrib` (Lean-core proof brings propext).
+    Term-mode pattern match on (b, c). -/
+theorem mul_sub : ∀ (a b c : Nat), a * (b - c) = a * b - a * c
+  | a, b, 0 =>
+    -- a * (b - 0) = a * b = a * b - 0 = a * b - a * 0
+    let h1 : a * 0 = 0 := Nat.mul_zero a
+    let lhs : a * (b - 0) = a * b := rfl
+    let rhs : a * b - a * 0 = a * b := h1 ▸ rfl
+    lhs.trans rhs.symm
+  | a, 0, c+1 =>
+    -- a * (0 - (c+1)) = a * 0 = 0; a * 0 - a * (c+1) = 0 - a * (c+1) = 0
+    let h0sub : (0:Nat) - (c+1) = 0 := Nat.zero_sub (c+1)
+    let hmul0 : a * 0 = 0 := Nat.mul_zero a
+    let hzs : (0:Nat) - a * (c+1) = 0 := Nat.zero_sub (a * (c+1))
+    let lhs : a * (0 - (c+1)) = a * 0 := congrArg (a * ·) h0sub
+    let rhs : a * 0 - a * (c+1) = 0 - a * (c+1) :=
+      congrArg (· - a * (c+1)) hmul0
+    -- a * (0 - (c+1)) = a * 0 = 0
+    -- a * 0 - a * (c+1) = 0 - a * (c+1) = 0
+    -- Both = 0, so equal.
+    (lhs.trans hmul0).trans (hzs.symm.trans rhs.symm)
+  | a, b+1, c+1 =>
+    -- a * ((b+1) - (c+1)) = a * (b - c) [via Nat.succ_sub_succ_eq_sub]
+    -- = a * b - a * c [by IH]
+    -- = (a*b + a) - (a*c + a) [via add_sub_add_right.symm]
+    -- = a*(b+1) - a*(c+1) [via Nat.mul_succ.symm]
+    let s1 : (b+1) - (c+1) = b - c := Nat.succ_sub_succ_eq_sub b c
+    let s2 : a * (b+1) = a * b + a := Nat.mul_succ a b
+    let s3 : a * (c+1) = a * c + a := Nat.mul_succ a c
+    let s4 : (a*b + a) - (a*c + a) = a*b - a*c := add_sub_add_right (a*b) a (a*c)
+    let ih : a * (b - c) = a * b - a * c := mul_sub a b c
+    let lhs : a * ((b+1) - (c+1)) = a * (b - c) := congrArg (a * ·) s1
+    -- RHS: a * (b+1) - a * (c+1) = (a*b + a) - (a*c + a) = a*b - a*c
+    let r1 : a * (b+1) - a * (c+1) = (a*b + a) - a * (c+1) :=
+      congrArg (· - a * (c+1)) s2
+    let r2 : (a*b + a) - a * (c+1) = (a*b + a) - (a*c + a) :=
+      congrArg ((a*b + a) - ·) s3
+    let rhs : a * (b+1) - a * (c+1) = a*b - a*c := (r1.trans r2).trans s4
+    lhs.trans (ih.trans rhs.symm)
+
 /-- `a + b ≤ c → a ≤ c - b`.  ∅-axiom replacement. -/
 theorem le_sub_of_add_le {a b c : Nat} (h : a + b ≤ c) : a ≤ c - b :=
   let h1 : (a + b) - b ≤ c - b := Nat.sub_le_sub_right h b

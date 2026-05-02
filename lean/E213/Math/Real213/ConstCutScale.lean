@@ -15,30 +15,38 @@ namespace E213.Math.Real213.ConstCutScale
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSumTest (constCut)
 
-/-- **constCut scaling**: constCut a b = constCut (a*c) (b*c) for c ≥ 1. -/
-theorem constCut_scale (a b c : Nat) (hc : c ≥ 1) :
-    constCut a b = constCut (a*c) (b*c) := by
-  funext m k
+/-- **constCut scaling pointwise**: ∀ m k, constCut a b m k = constCut (a*c) (b*c) m k.
+    ∅-axiom: pointwise variant (no funext).  Decides on the underlying
+    Nat inequality `a*k ≤ b*m` via `Nat.le_or_lt` (avoids by_cases). -/
+theorem constCut_scale_at (a b c : Nat) (hc : c ≥ 1) (m k : Nat) :
+    constCut a b m k = constCut (a*c) (b*c) m k := by
   show decide (a*k ≤ b*m) = decide ((a*c)*k ≤ (b*c)*m)
-  by_cases h : a*k ≤ b*m
-  · have h' : (a*c)*k ≤ (b*c)*m := by
-      have e1 : (a*c)*k = c*(a*k) := by
-        rw [Nat.mul_comm a c, E213.Tactic.Nat213.mul_assoc]
-      have e2 : (b*c)*m = c*(b*m) := by
-        rw [Nat.mul_comm b c, E213.Tactic.Nat213.mul_assoc]
-      rw [e1, e2]
-      exact Nat.mul_le_mul_left c h
-    rw [decide_eq_true h, decide_eq_true h']
-  · have h' : ¬ ((a*c)*k ≤ (b*c)*m) := by
+  -- Bridge: (a*c)*k = c*(a*k), (b*c)*m = c*(b*m).
+  have e1 : (a*c)*k = c*(a*k) := by
+    rw [Nat.mul_comm a c, E213.Tactic.Nat213.mul_assoc]
+  have e2 : (b*c)*m = c*(b*m) := by
+    rw [Nat.mul_comm b c, E213.Tactic.Nat213.mul_assoc]
+  rcases Nat.lt_or_ge (b*m) (a*k) with hlt | hge
+  · -- a*k > b*m: both decide give false.
+    have hnot : ¬ (a*k ≤ b*m) := Nat.not_le_of_lt hlt
+    have hnot' : ¬ ((a*c)*k ≤ (b*c)*m) := by
       intro habs
-      apply h
-      have e1 : (a*c)*k = c*(a*k) := by
-        rw [Nat.mul_comm a c, E213.Tactic.Nat213.mul_assoc]
-      have e2 : (b*c)*m = c*(b*m) := by
-        rw [Nat.mul_comm b c, E213.Tactic.Nat213.mul_assoc]
+      apply hnot
       rw [e1, e2] at habs
       exact Nat.le_of_mul_le_mul_left habs hc
-    rw [decide_eq_false h, decide_eq_false h']
+    rw [decide_eq_false hnot, decide_eq_false hnot']
+  · -- a*k ≤ b*m: both decide give true.
+    have h' : (a*c)*k ≤ (b*c)*m := by
+      rw [e1, e2]
+      exact Nat.mul_le_mul_left c hge
+    rw [decide_eq_true hge, decide_eq_true h']
+
+/-- **constCut scaling**: constCut a b = constCut (a*c) (b*c) for c ≥ 1.
+    Function-equality form (uses `funext` — DIRTY).  Prefer the
+    pointwise `constCut_scale_at` for ∅-axiom downstream. -/
+theorem constCut_scale (a b c : Nat) (hc : c ≥ 1) :
+    constCut a b = constCut (a*c) (b*c) :=
+  funext fun m => funext fun k => constCut_scale_at a b c hc m k
 
 /-- 1/2 = 2/4. -/
 example : constCut 1 2 = constCut 2 4 := constCut_scale 1 2 2 (by decide)

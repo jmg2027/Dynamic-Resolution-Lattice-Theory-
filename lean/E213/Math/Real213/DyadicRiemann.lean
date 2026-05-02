@@ -197,7 +197,17 @@ theorem riemannSampleSum_const_normalized (a b : Nat) (n : Nat) :
     constCut (2^n * a) (b * 2^n) = constCut a b := by
   rw [Nat.mul_comm (2^n) a]
   exact (constCut_scale a b (2^n)
-    (Nat.pos_pow_of_pos n (by decide : 0 < 2))).symm
+    (Nat.pos_pow_of_pos n (Nat.zero_lt_succ 1))).symm
+
+/-- **Pointwise** version of `riemannSampleSum_const_normalized`:
+    ∀ m k, constCut (2^n * a) (b * 2^n) m k = constCut a b m k.
+    ∅-axiom — uses `constCut_scale_at` (pointwise, no funext). -/
+theorem riemannSampleSum_const_normalized_at
+    (a b : Nat) (n : Nat) (m k : Nat) :
+    constCut (2^n * a) (b * 2^n) m k = constCut a b m k := by
+  rw [Nat.mul_comm (2^n) a]
+  exact (E213.Math.Real213.ConstCutScale.constCut_scale_at a b (2^n)
+    (Nat.pos_pow_of_pos n (Nat.zero_lt_succ 1)) m k).symm
 
 /-- **Riemann sum on identity at depth 0**: the trivial single-sample
     case.  Just f(midpoint) = midpoint. -/

@@ -25,6 +25,13 @@ open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DerivativeDepth
+  (cutPowFnIsDifferentiable_modulus cutPowFn_derivative_modulus)
+open E213.Math.Real213.DerivativeForms (cutPow_derivative_step)
 
 /-- **Phase AD unified capstone**: differentiation framework summary. -/
 theorem phaseAD_unified_capstone (n k : Nat) (c x : Nat → Nat → Bool) :
