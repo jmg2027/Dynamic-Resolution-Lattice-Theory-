@@ -1,6 +1,13 @@
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor8
 import E213.Math.Cohomology.Dyadic.Pell.Proper8
 import E213.Math.Cohomology.Dyadic.Fib.Pisano8
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
+import E213.Math.Cohomology.Dyadic.Trib.FSMmod3
+import E213.Math.Cohomology.Dyadic.Trib.FSMmod5
+import E213.Math.Cohomology.Dyadic.Trib.Capstone
+import E213.Math.Cohomology.Dyadic.Trib.CRTCapstone
+import E213.Math.Cohomology.Dyadic.Trib.CRT4Capstone
+import E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
 
 /-!
 # Three-family Pisano capstone — Galois lens universality
@@ -38,6 +45,23 @@ parallel recurrence families.
 -/
 
 namespace E213.Math.Cohomology.Dyadic.ThreeFamilyCapstone
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3 pellFSMmod2)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod7 (pellFSMmod7)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod11 (pellFSMmod11)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod3 (fibFSMmod3)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod5 (fibFSMmod5)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod7 (fibFSMmod7)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod11 (fibFSMmod11)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (tribFSMmod2)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod3 (tribFSMmod3)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod5 (tribFSMmod5)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor (pisano_predict)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor8 (pisano_predict_realises_pell_8)
+open E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone (fib_pisano_predict)
+open E213.Math.Cohomology.Dyadic.Fib.Pisano8 (fib_pisano_predict_realises_8)
+open E213.Math.Cohomology.Dyadic.Pell.Proper (pellProperFSMmod)
+open E213.Math.Cohomology.Dyadic.Pell.Proper8 (pellProper_8prime_capstone)
 
 /-- ★★★★★★★★★ Three-family Pisano capstone — universal Galois lens
     framework verified at 3 representative primes covering all 3

@@ -1,5 +1,10 @@
 import E213.Math.Cohomology.Dyadic.Pell.Capstone
 import E213.Math.Cohomology.Dyadic.Trib.Capstone
+import E213.Math.Cohomology.Dyadic.Trib.FSMmod3
+import E213.Math.Cohomology.Dyadic.Trib.FSMmod5
+import E213.Math.Cohomology.Dyadic.Fib.FSMmod3
+import E213.Math.Cohomology.Dyadic.Fib.FSMmod5
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3Hardness
 
 /-!
 # Unified algebraic Tier 1 capstone
@@ -18,6 +23,19 @@ both quadratic and cubic algebraic classes.
 -/
 
 namespace E213.Math.Cohomology.Dyadic.AlgebraicCapstone
+open E213.Math.Cohomology.Dyadic.ArithFSM (pellFSMmod3 pellFSMmod3_bits_period_4 pellFSMmod2 pellFSMmod2_bits_period_3)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (tribFSMmod2 tribFSMmod2_bits_period_4)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod3 (tribFSMmod3 tribFSMmod3_bits_period_13)
+open E213.Math.Cohomology.Dyadic.Trib.FSMmod5 (tribFSMmod5 tribFSMmod5_bits_period_31)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod3 (fibFSMmod3 fibFSMmod3_bits_period_8)
+open E213.Math.Cohomology.Dyadic.Fib.FSMmod5 (fibFSMmod5 fibFSMmod5_bits_period_20)
+open E213.Math.Cohomology.Dyadic.ConcretePellSig (pellFSMmod3_signature_period_4)
+open E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Hardness (aperiodic_bits_imp_not_ArithFSM2)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (tribFSMmod2_signature_period_4_from_1)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound (arithFSM3_signature_period_bound)
+open E213.Math.Cohomology.Dyadic.ArithFSM.V3Hardness (aperiodic_bits_imp_not_ArithFSM3)
 
 open E213.Math.Cohomology.Dyadic.ArithFSM (ArithFSM2)
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)

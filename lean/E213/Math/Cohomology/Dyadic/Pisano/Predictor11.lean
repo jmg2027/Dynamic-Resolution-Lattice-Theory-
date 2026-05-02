@@ -43,8 +43,12 @@ open E213.Math.Cohomology.Dyadic.ArithFSM.Mod13 (pellFSMmod13 pellFSMmod13_bits_
 open E213.Math.Cohomology.Dyadic.ArithFSM.Mod17 (pellFSMmod17 pellFSMmod17_bits_period_18)
 open E213.Math.Cohomology.Dyadic.ArithFSM.Mod19 (pellFSMmod19 pellFSMmod19_bits_period_9 pellFSMmod19_bits_period_18)
 open E213.Math.Cohomology.Dyadic.ArithFSM.Mod23 (pellFSMmod23 pellFSMmod23_bits_period_24)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod29 (pellFSMmod29 pellFSMmod29_bits_period_14)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod31 (pellFSMmod31 pellFSMmod31_bits_period_15 pellFSMmod31_bits_period_30)
+open E213.Math.Cohomology.Dyadic.ArithFSM.Mod37 (pellFSMmod37 pellFSMmod37_bits_period_38)
 open E213.Math.Cohomology.Dyadic.Pisano.Predictor (pisano_predict)
 open E213.Math.Cohomology.Dyadic.Pisano.Predictor7 (pisano_predict_realises_pell_7)
+open E213.Math.Cohomology.Dyadic.Pisano.Predictor8 (pisano_predict_realises_pell_8)
 
 
 /-- ★★★★★ Legendre 5 mod 29 = QR (split). -/
