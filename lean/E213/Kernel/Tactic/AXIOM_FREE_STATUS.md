@@ -10,13 +10,22 @@ that block strict ∅-axiom, and the 213-native replacements for each.
 
 ## 213-native helper modules (`Kernel/Tactic/`)
 
-  - `Omega213.lean`  — `omega213` tactic (linear ℕ arithmetic).
-  - `Nat213.lean`    — `Nat`-arithmetic helpers (11 theorems).
-  - `Fin213.lean`    — `Fin` helpers (`absurd0`).
+Modular by topic — each file has *one* coherent concern:
+
+  - `Omega213.lean` — `omega213` tactic (linear ℕ arithmetic).
+  - `Nat213.lean`   — pure ℕ-arithmetic helpers (cancellation,
+                       sub/add, mul, distributivity).  13 theorems.
+  - **`Mod213.lean`**   — *cohomological-trajectory primitives*:
+                       parity (mod 2), mod3, mod6, CRT pairing
+                       (mod6 ↔ (parity, mod3) = Eisenstein-6th-roots
+                       phase walk).  **11 theorems**.
+                       See `research-notes/G2_trajectory_principle.md`,
+                       `G3_raw_as_universal_trajectory.md`.
+  - `Fin213.lean`   — `Fin` helpers (`absurd0`).
 
 All theorems in these modules are individually verified ∅-axiom.
 
-### Nat213 catalog
+### Nat213 catalog (pure arithmetic)
 
   - `sub_one_add_one`     `n ≠ 0 → n - 1 + 1 = n`
   - `sub_add_cancel`      `m ≤ n → n - m + m = n`         (general)
@@ -27,8 +36,26 @@ All theorems in these modules are individually verified ∅-axiom.
   - `cases_lt_three`      `n < 3 → n = 0 ∨ n = 1 ∨ n = 2`
   - `add_right_cancel`    `a + c = b + c → a = b`
   - `add_left_cancel`     `a + b = a + c → b = c`
+  - `mul_assoc`           `a * b * c = a * (b * c)`
+  - `mul_sub_distrib`     `b ≤ a → c * (a - b) = c*a - c*b`
   - `ne_zero_of_le_ne`    `b ≤ a → a ≠ b → a ≠ 0`
   - `sub_one_lt_of_lt_succ_ne`  `b ≤ a → a ≠ b → a < n+1 → a-1 < n`
+
+### Mod213 catalog (trajectory primitives)
+
+  - `parity`              `Nat → Bool`              (step-2 walk)
+  - `parity_step` / `_zero` / `_one`                (rfl)
+  - `parity_succ`         `parity (n+1) = !parity n`
+  - `parity_double`       `parity (2*n) = false`
+  - `parity_double_succ`  `parity (2*n+1) = true`
+  - `mod3`                `Nat → Nat`               (step-3 walk)
+  - `mod3_step` / `_zero` / `_one` / `_two`         (rfl)
+  - `mod3_lt_three`       `mod3 n < 3`
+  - `mod3_succ`           `mod3 (n+1) = (mod3 n + 1) % 3`
+  - `mod6`                `Nat → Nat`               (step-6 walk)
+  - `mod6_step`, `mod6_lt_six`
+  - **`mod6_parity`**     `parity (mod6 n) = parity n`  (CRT half 1)
+  - **`mod6_mod3`**       `mod3   (mod6 n) = mod3 n`    (CRT half 2)
 
 ## Migrated files (∅-axiom verified)
 

@@ -1,4 +1,5 @@
 import E213.Kernel.Tactic.Nat213
+import E213.Kernel.Tactic.Mod213
 import E213.Firmware.Atomicity.FiveHelpers
 /-!
 # Atomicity: d = 5 as a theorem (not an axiom)
@@ -12,6 +13,7 @@ is n = 5.
 -/
 
 open E213.Tactic.Nat213
+open E213.Tactic.Mod213
 
 namespace E213.Firmware.Atomicity.Five
 

@@ -92,36 +92,7 @@ theorem mul_assoc : ∀ (a b c : Nat), a * b * c = a * (b * c)
       congrArg (· + a * b) ih
     lhs_eq.trans (Nat.mul_add a (b * c) b).symm
 
-/-! ### Cohomological parity
-
-Lean-core `Nat.mod` is well-founded; its reduction lemmas (e.g.
-`Nat.add_mod_right`) bring `propext`.  213's view of mod-2 is
-*how much a path hasn't completed a half-cycle* — a Bool invariant
-defined by direct step-2 recursion.  All theorems below are
-∅-axiom by structural reduction. -/
-
-/-- 213-native parity: cohomological "uncompleted half-cycle" invariant. -/
-def parity : Nat → Bool
-  | 0     => false
-  | 1     => true
-  | n + 2 => parity n
-
-@[simp] theorem parity_step (n : Nat) : parity (n + 2) = parity n := rfl
-@[simp] theorem parity_zero : parity 0 = false := rfl
-@[simp] theorem parity_one : parity 1 = true := rfl
-
-theorem parity_succ : ∀ n, parity (n + 1) = !parity n
-  | 0     => rfl
-  | 1     => rfl
-  | n + 2 => parity_succ n
-
-theorem parity_double : ∀ n, parity (2 * n) = false
-  | 0     => rfl
-  | n + 1 => parity_double n
-
-theorem parity_double_succ : ∀ n, parity (2 * n + 1) = true
-  | 0     => rfl
-  | n + 1 => parity_double_succ n
+/-! ### Multiplicative subtraction distributivity -/
 
 /-- `b ≤ a → c * (a - b) = c*a - c*b`.  ∅-axiom. -/
 theorem mul_sub_distrib {a b c : Nat} (h : b ≤ a) :
@@ -129,86 +100,18 @@ theorem mul_sub_distrib {a b c : Nat} (h : b ≤ a) :
   have he : (a - b) + b = a := sub_add_cancel h
   have h1 : c * ((a - b) + b) = c * (a - b) + c * b := Nat.mul_add c (a - b) b
   have h2 : c * ((a - b) + b) = c * a := congrArg (c * ·) he
-  -- From h1: c * a = c * (a-b) + c*b after substituting via h2.symm
   have hcdist : c * a = c * (a - b) + c * b := h2.symm.trans h1
-  -- c * (a - b) = c * (a - b) + c * b - c * b
   have hcancel : c * (a - b) + c * b - c * b = c * (a - b) :=
     add_sub_cancel_right (c * (a - b)) (c * b)
-  -- = c * a - c * b
   exact hcancel.symm.trans (congrArg (· - c * b) hcdist.symm)
 
-/-! ### mod 3 — second cohomological-trajectory primitive
-
-Mirrors `parity` (mod 2).  Step-3 structural recursion → ∅-axiom.
-Together with `parity` covers the atomic alphabet {2, 3} of 213.
-Returns `Nat` (residue value), with bound theorems separately, to
-avoid `decide` for `Fin` proof obligations (Kernel purity rule). -/
-
-/-- 213-native mod 3.  Step-3 recursion = "walk on 3-cycle". -/
-def mod3 : Nat → Nat
-  | 0     => 0
-  | 1     => 1
-  | 2     => 2
-  | n + 3 => mod3 n
-
-@[simp] theorem mod3_step (n : Nat) : mod3 (n + 3) = mod3 n := rfl
-@[simp] theorem mod3_zero : mod3 0 = 0 := rfl
-@[simp] theorem mod3_one  : mod3 1 = 1 := rfl
-@[simp] theorem mod3_two  : mod3 2 = 2 := rfl
-
-/-- `mod3 n < 3` — bound theorem (∅-axiom via structural recursion). -/
-theorem mod3_lt_three : ∀ n, mod3 n < 3
-  | 0     => Nat.le.step (Nat.le.step Nat.le.refl)
-  | 1     => Nat.le.step Nat.le.refl
-  | 2     => Nat.le.refl
-  | n + 3 => mod3_lt_three n
-
-/-- mod3 cycles `0 → 1 → 2 → 0 → …` (succ recurrence). -/
-theorem mod3_succ : ∀ n, mod3 (n + 1) = (mod3 n + 1) % 3
-  | 0     => rfl
-  | 1     => rfl
-  | 2     => rfl
-  | n + 3 => mod3_succ n
-
-/-- 213-native mod 6 via step-6 recursion. -/
-def mod6 : Nat → Nat
-  | 0     => 0
-  | 1     => 1
-  | 2     => 2
-  | 3     => 3
-  | 4     => 4
-  | 5     => 5
-  | n + 6 => mod6 n
-
-@[simp] theorem mod6_step (n : Nat) : mod6 (n + 6) = mod6 n := rfl
-
-theorem mod6_lt_six : ∀ n, mod6 n < 6
-  | 0 => Nat.le.step (Nat.le.step (Nat.le.step (Nat.le.step
-           (Nat.le.step Nat.le.refl))))
-  | 1 => Nat.le.step (Nat.le.step (Nat.le.step (Nat.le.step Nat.le.refl)))
-  | 2 => Nat.le.step (Nat.le.step (Nat.le.step Nat.le.refl))
-  | 3 => Nat.le.step (Nat.le.step Nat.le.refl)
-  | 4 => Nat.le.step Nat.le.refl
-  | 5 => Nat.le.refl
-  | n + 6 => mod6_lt_six n
-
-/-- CRT pairing: parity of mod6 = parity of n. -/
-theorem mod6_parity : ∀ n, parity (mod6 n) = parity n
-  | 0 => rfl | 1 => rfl | 2 => rfl
-  | 3 => rfl | 4 => rfl | 5 => rfl
-  | n + 6 => mod6_parity n
-
-/-- CRT pairing: mod3 of mod6 = mod3 of n. -/
-theorem mod6_mod3 : ∀ n, mod3 (mod6 n) = mod3 n
-  | 0 => rfl | 1 => rfl | 2 => rfl
-  | 3 => rfl | 4 => rfl | 5 => rfl
-  | n + 6 => mod6_mod3 n
-
--- TODO: div / mod helpers.  `Nat.div_mul_le_self`, `Nat.div_add_mod`,
--- `Nat.mod_add_div` all bring `propext` from Lean-core proofs, blocking
--- ∅-axiom div_lt_of_lt_mul / le_div_of_mul_le.  Need to reprove the
--- division-algorithm identity ∅-axiom via recursion, then derive the
--- bounds.
+-- NOTE: cohomological-trajectory primitives (parity, mod3, mod6,
+-- CRT pairing) live in `Kernel/Tactic/Mod213.lean`.  They are
+-- conceptually a *different layer* from this file — Mod213 is the
+-- mod-cycle vocabulary, Nat213 is plain Nat-arithmetic helpers.
+--
+-- TODO: div / mod helpers.  `Nat.div_mul_le_self`, `Nat.div_add_mod`
+-- all bring `propext`.  Need ∅-axiom division algorithm.
 
 /-- From `b ≤ a` and `a ≠ b` deduce `a ≠ 0`. -/
 theorem ne_zero_of_le_ne {a b : Nat}
