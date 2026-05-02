@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor
 import E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
+import E213.Math.AddMod213
+import E213.Kernel.Tactic.Nat213
 
 /-!
 # Cross-recurrence relation: Fib predictor = 2 × Pell predictor
@@ -52,21 +54,55 @@ private theorem pisano_predict_eq (p : Nat) (hp : 1 < p) :
 private theorem fib_pisano_predict_eq (p : Nat) (hp : 1 < p) :
     fib_pisano_predict p hp = fibBody (legendre213 5 p hp).val p := rfl
 
+/-- Helper: `p - 1` is even when `p % 2 = 1`. -/
+private theorem p_minus_one_mod_two {p : Nat} (hp1 : 0 < p)
+    (hodd : p % 2 = 1) : (p - 1) % 2 = 0 := by
+  have h1 : p % 2 = (p - 1 + 1) % 2 := by
+    rw [E213.Tactic.Nat213.sub_one_add_one (Nat.pos_iff_ne_zero.mp hp1)]
+  rw [h1] at hodd
+  rw [E213.Math.AddMod213.add_mod_left (by decide : 0 < 2) (p - 1) 1] at hodd
+  -- hodd : ((p - 1) % 2 + 1) % 2 = 1
+  have hpm : (p - 1) % 2 < 2 := Nat.mod_lt _ (by decide)
+  rcases Nat.lt_or_ge ((p - 1) % 2) 1 with h0 | h1'
+  · exact Nat.le_zero.mp (Nat.le_of_lt_succ h0)
+  · have : (p - 1) % 2 = 1 := Nat.le_antisymm (Nat.le_of_lt_succ hpm) h1'
+    rw [this] at hodd; exact absurd hodd (by decide)
+
 private theorem fib_eq_two_pell_body
-    (v p : Nat) (hv : v < 3) (hodd : p % 2 = 1) :
+    (v p : Nat) (hv : v < 3) (hp : 1 < p) (hodd : p % 2 = 1) :
     fibBody v p = 2 * pellBody v p := by
-  match v, hv with
-  | 0, _ => show 4 * p = 2 * (2 * p); omega
-  | 1, _ => show p - 1 = 2 * ((p - 1) / 2); omega
-  | 2, _ => rfl
+  rcases Nat.lt_or_ge v 1 with hv0 | hv1
+  · -- v = 0
+    have hv_eq : v = 0 := Nat.le_zero.mp (Nat.le_of_lt_succ hv0)
+    subst hv_eq
+    show 4 * p = 2 * (2 * p)
+    rw [show (4 : Nat) = 2 * 2 from rfl, E213.Tactic.Nat213.mul_assoc]
+  · rcases Nat.lt_or_ge v 2 with hv1' | hv2
+    · -- v = 1
+      have hv_eq : v = 1 :=
+        Nat.le_antisymm (Nat.le_of_lt_succ hv1') hv1
+      subst hv_eq
+      show p - 1 = 2 * ((p - 1) / 2)
+      have hpos : 0 < p := Nat.lt_of_succ_lt hp
+      have hmod0 : (p - 1) % 2 = 0 := p_minus_one_mod_two hpos hodd
+      have h1 : 2 * ((p - 1) / 2) + (p - 1) % 2 = p - 1 :=
+        E213.Math.AddMod213.div_add_mod (p - 1) 2
+      rw [hmod0, Nat.add_zero] at h1
+      exact h1.symm
+    · -- v = 2
+      have hv_eq : v = 2 :=
+        Nat.le_antisymm (Nat.le_of_lt_succ hv) hv2
+      subst hv_eq
+      rfl
 
 /-- ★★★★★★ Cross-recurrence structural identity:
-    fib_pisano_predict(p) = 2 · pisano_predict(p) for all odd p ≥ 3. -/
+    fib_pisano_predict(p) = 2 · pisano_predict(p) for all odd p ≥ 3.
+    STRICT ∅-AXIOM. -/
 theorem fib_predict_eq_two_pell_predict
     (p : Nat) (hp : 1 < p) (hodd : p % 2 = 1) :
     fib_pisano_predict p hp = 2 * pisano_predict p hp := by
   rw [fib_pisano_predict_eq, pisano_predict_eq]
-  exact fib_eq_two_pell_body _ p (legendre213 5 p hp).isLt hodd
+  exact fib_eq_two_pell_body _ p (legendre213 5 p hp).isLt hp hodd
 
 /-- ★★★★★ Concrete instance: predictor doubling at p = 11 (split). -/
 theorem fib_pell_at_11 :

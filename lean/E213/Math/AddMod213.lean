@@ -42,6 +42,18 @@ theorem mod_mod (a n : Nat) : a % n % n = a % n := by
     subst hn0
     rw [Nat.mod_zero, Nat.mod_zero]
 
+/-- `0 % a = 0`.  ∅-axiom. -/
+theorem zero_mod (a : Nat) : 0 % a = 0 := by
+  by_cases h : 0 < a
+  · exact Nat.mod_eq_of_lt h
+  · have : a = 0 := Nat.eq_zero_of_not_pos h
+    subst this; rfl
+
+/-- `(a % b + c) % b = (a + c) % b` when `0 < b`.  ∅-axiom. -/
+theorem mod_add_mod {b : Nat} (hb : 0 < b) (a c : Nat) :
+    (a % b + c) % b = (a + c) % b :=
+  (add_mod_left hb a c).symm
+
 /-- `(a + b) % n = (a % n + b % n) % n` when `0 < n`.  ∅-axiom. -/
 theorem add_mod {n : Nat} (hn : 0 < n) (a b : Nat) :
     (a + b) % n = (a % n + b % n) % n := by
