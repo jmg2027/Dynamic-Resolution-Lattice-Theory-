@@ -3,10 +3,14 @@
 Tracking the systematic elimination of `propext` and `Quot.sound`
 from `lean/E213/`.  Companion to `OMEGA213_MIGRATION.md`.
 
-The DRLT-allowed Lean kernel base is `{propext, Quot.sound}`.  The
-*strict* ∅-axiom standard ("does not depend on any axioms") is
-stronger.  This file records the catalog of standard-Lean constructs
-that block strict ∅-axiom, and the 213-native replacements for each.
+**Standard (formalized 2026-05-02)**: the DRLT axiom set is **∅**.
+A theorem meets the DRLT standard iff `#print axioms` returns "does
+not depend on any axioms".  See `CLAUDE.md ## DRLT Axiom Standard`
+and `STRICT_ZERO_AXIOM.md`.  The previous transitional baseline
+`{propext, Quot.sound}` (Lean kernel default) has been retired.
+
+This file records the catalog of standard-Lean constructs that
+block strict ∅-axiom, and the 213-native replacements for each.
 
 ## 213-native helper modules (`Kernel/Tactic/`)
 

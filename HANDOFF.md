@@ -1,5 +1,27 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★ Standard upgrade (2026-05-02): DRLT axiom set = ∅
+
+**The DRLT-allowed axiom baseline `{propext, Quot.sound}` has been
+retired.**  The new canonical standard is **strict ∅-axiom**: every
+DRLT theorem must satisfy `#print axioms` → "does not depend on any
+axioms".
+
+- Canonical statement: `CLAUDE.md` `## DRLT Axiom Standard
+  (formalized 2026-05-02)`
+- Catalog: `STRICT_ZERO_AXIOM.md` (now the standard document, not an
+  achievement list)
+- Migration backlog: 4 cluster groups still carry
+  `[propext, Quot.sound]` from `omega` / `funext` / `Nat.add_mul_div_left`.
+  Listed in CLAUDE.md.  No fundamental obstruction — purely
+  transitive cleanup work.
+
+Why now: ~70+ capstones already meet the strict standard; 213-native
+helpers (`Omega213`, `Nat213`, `NatDiv213`, `EncodePair213`,
+`ProductFSMPeriodDvd`) cover every common axiom-leakage source.
+Maintaining the weaker baseline as "official" was no longer
+intellectually honest.
+
 ## Latest progress (2026-05-02 continuation)
 
 Cumulative session wins after last HANDOFF refresh:
@@ -79,8 +101,9 @@ This session began the systematic elimination of `propext` and
 ## TL;DR
 
 Goal: every theorem in `lean/E213/` should `#print axioms` → "does
-not depend on any axioms" (strict ∅-axiom, stronger than the
-DRLT-allowed `{propext, Quot.sound}` baseline).
+not depend on any axioms" (strict ∅-axiom — **the DRLT axiom
+standard as of 2026-05-02**; the older `{propext, Quot.sound}`
+baseline has been retired).
 
 **Conceptual capstone (this session)**: Mingu identified the
 unifying principle behind every migration — *213-native = explicit
@@ -177,11 +200,11 @@ Cohomology FSM-classifier track (Pell + Fib + Trib + Pisano):
   - several more `legendre_5_mod_*` and signature-period
      theorems (probed strict ∅-axiom).
 
-These are STRICT ∅-axiom (stronger than the DRLT-allowed
-`{propext, Quot.sound}` baseline).  This is the central
-verification claim of DRLT: the physics observable predictions
-are kernel-checked theorems without recourse to any non-
-constructive axiom.
+These are STRICT ∅-axiom — the DRLT axiom standard
+(formalized 2026-05-02).  The central verification claim of
+DRLT: physics observable predictions are kernel-checked
+theorems without recourse to any non-constructive axiom (no
+`propext`, no `Quot.sound`, no `Classical.choice`).
 
 **Mod213 extension (commit 5b24cb4)**: added 4 ∅-axiom parity
 bridge lemmas — kernel-pure (no rw/simp/decide; only `Eq.subst`
