@@ -58,11 +58,33 @@ theorem phase_mod3 (n : Nat) : mod3 (mod6 n) = mod3 n :=
     supports BOTH the chiral vertex-count split (NS + NT = d) AND
     the CRT phase-walk decomposition (mod6 ↔ (parity, mod3)).
     Both views are ∅-axiom; their co-existence is forced by
-    atomicity (3, 2, 5).  Import this theorem as the canonical
+    atomicity (3, 2, 5).  Import this capstone as the canonical
     bridge for any "d = 5" reasoning that uses either view. -/
 theorem atomic_five_dual :
     NS + NT = d
     ∧ (∀ n, parity (mod6 n) = parity n ∧ mod3 (mod6 n) = mod3 n) :=
   ⟨chiral_count, fun n => ⟨phase_parity n, phase_mod3 n⟩⟩
+
+/-! ### Chiral pair — combined (parity, mod3) read of an `n`
+
+`chiralPair n = (parity n, mod3 n)` is the canonical *combined*
+View-A coordinate of `n`.  By CRT it is in bijection with `mod6 n`
+on the range 0..5; the table makes the bijection explicit. -/
+
+/-- Chiral pair: the canonical (View A) decomposition. -/
+def chiralPair (n : Nat) : Bool × Nat := (parity n, mod3 n)
+
+/-- `chiralPair (mod6 n) = chiralPair n` — CRT in compact form. -/
+theorem chiralPair_mod6 (n : Nat) : chiralPair (mod6 n) = chiralPair n := by
+  unfold chiralPair
+  rw [phase_parity, phase_mod3]
+
+/-- The 6 distinct chiral pairs of `mod6 ∈ {0..5}`.  Concrete
+    enumeration witnesses the bijection ℤ/6 ↔ ℤ/2 × ℤ/3. -/
+theorem chiralPair_table :
+    chiralPair 0 = (false, 0) ∧ chiralPair 1 = (true, 1)
+    ∧ chiralPair 2 = (false, 2) ∧ chiralPair 3 = (true, 0)
+    ∧ chiralPair 4 = (false, 1) ∧ chiralPair 5 = (true, 2) :=
+  ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
 
 end E213.Math.Trajectory.PhaseChiralBridge
