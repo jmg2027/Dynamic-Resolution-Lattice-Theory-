@@ -113,11 +113,37 @@ listed root, not just leaf-level edits.
      for `omega213` swap, but Real213 is the math-track marathon
      (Bishop-style) and not on the physics critical path.
 
-  4. **`Meta.UniversalLens.{Nat2Inj, Q213Inj, Nat3, Q213_3, Nat4}`** —
-     `omega` + `Nat.pow_succ` + `Nat.pos_pow_of_pos` chain.  Builds
-     are restored (commits 835075e, 3ee5d04) but theorems remain
-     DIRTY.  Cleanup is incremental `omega → omega213` + 213-native
-     `Nat.pow_*` replacements.
+  4. ~~**`Meta.UniversalLens.{Nat2Inj, Q213Inj, Nat3, Q213_3, Nat4}`**~~
+     ✔ CLOSED (2026-05-02 part 5).  See HANDOFF.md.
+
+  5. ~~**`Universal.Prop51-54`** — `pattern` def's match on
+     `Fin (binom n k)` brings axioms even at def-level.~~ ✔ CLOSED
+     (2026-05-02 part 6): rewrote `pattern` def via `match i.val`
+     (Nat-match, ∅-axiom at def level).  `pattern_eq_at` (pointwise,
+     replaces funext-based `pattern_eq`) via `obtain ⟨n, hn⟩ := k;
+     rcases cases_lt_{five,ten} hn with h|…|h <;> subst h <;> rfl`.
+     `dsq_zero_prop_5_k` lifted via new `delta_pointwise_eq`
+     (`Math/Cohomology/Delta/Pointwise.lean`) chain — no funext.
+     All 13 theorems across Prop51/Prop52/Prop53 PURE.  Cascade:
+     `EncodingBijection`, `EncodingBijection52`, `CupAW.Leibniz`
+     (with new `cupAW_pointwise_eq`), `LeibnizFinding` all PURE.
+     Backlog #1, #5 retired.
+
+  6. ~~**`BitAuto2.thueMorseAuto, ThueMorse.***`** — `Nat.testBit`
+     leaks propext at definition level.~~ ✔ CLOSED (2026-05-02 part 6):
+     introduced `bit213 n j := (n / 2^j) % 2 == 1` (∅-axiom by Nat
+     arithmetic only) replacing `Nat.testBit`.  `omega` in Fin-bound
+     proofs replaced with explicit `Nat.lt_of_le_of_lt + Nat.sub_le
+     + Nat.lt_succ_self` chain.  `by decide` for Fin bounds replaced
+     with `Nat.zero_lt_succ` / `Nat.succ_lt_succ`.  17 theorems PURE.
+     Backlog #3 retired.
+
+  7. ~~**`CrossClassLens.crossLens_***`** — uses
+     `lens_composition_period` (Nat.lcm propext).~~ ✔ CLOSED
+     (2026-05-02 part 6): migrated to `lens_composition_period_dvd`
+     with explicit `L` + `⟨k, rfl⟩` dvd witnesses (no Nat.lcm).
+     2 cross-class capstones (Pell × Tribonacci) PURE.
+     Backlog #4 retired.
 
 When a migration target is closed, move its capstone(s) into
 `STRICT_ZERO_AXIOM.md`'s table and remove from the backlog above.
