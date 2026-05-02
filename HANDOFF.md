@@ -55,20 +55,38 @@ is *transitive* via `omega` / `simp` / `funext`, which the
 ongoing `omega213` / `Mod213` / `Nat213` / `Fin213` migration
 already attacks.
 
-**Capstone audit (post-cascade clean, commit 6487a82)**:
-Three top-level capstones now `#print axioms` → "does not
-depend on any axioms":
+**Capstone audit (post-cascade clean, commits 6487a82 + 108a880
++ e082774)**: **17 top-level capstones** now `#print axioms` →
+"does not depend on any axioms":
 
-  - `E213.Math.Cohomology.Capstone.cohomology_213_marathon`
-    (full Phase CA-CE chain: δ²=0, ⋆⋆=id, kernel sizes,
-     Leibniz, cup unit, K_{3,2}^{(2)} Betti b_1 = NS² − 1)
-  - `E213.Physics.Capstones.PureAtomicObservables`
+Math track:
+  - `Math.Cohomology.Capstone.cohomology_213_marathon`
+    (Phase CA-CE: δ²=0, ⋆⋆=id, kernels, Leibniz, cup unit,
+     K_{3,2}^{(2)} Betti b_1 = NS² − 1)
+  - `Math.Cohomology.AlphaEMBridge.b1_two_derivations_agree`
+  - `Math.Cohomology.AlphaEMBridge.alpha_em_cohomology_bridge`
+
+Physics track:
+  - `Physics.Capstones.PureAtomicObservables`
      `.pure_atomic_observables_capstone`
-    (atom-derived observable predictions)
-  - `E213.Physics.Capstones.ValidationStandardOne`
-     `.validation_standard_capstone`
-    (DRLT validation criterion: precision computed value
-     matches observation; the central physics-track claim)
+  - `Physics.Capstones.ValidationStandardOne`
+     `.validation_standard_capstone` (DRLT validation criterion)
+  - `Physics.Capstones.Capstone.drlt_physics_milestone`
+  - `Physics.Capstones.MasterCatalog.master_atomic_catalog`
+  - `Physics.Capstones.AbsoluteAtomicCapstone.phase1_absolute`
+  - `Physics.Capstones.MegaCapstone.phase3_mega`
+  - `Physics.Capstones.UltraCapstone.phase3_ultra`
+  - `Physics.Capstones.Phase3Capstone.phase3_falsifiers`
+    (19 falsifiers)
+  - `Physics.Capstones.FinalCapstone.phase3_final`
+  - `Physics.Capstones.PhysicsTrackComplete.phase1_complete`
+  - `Physics.Capstones.Paper2Bundle.paper2_gauge_structure`
+  - `Physics.Capstones.Paper2Bundle.alpha_GUT_three_identifications`
+  - `Physics.Capstones.Paper3Bundle.paper3_predictions`
+  - `Physics.Capstones.Paper3Bundle.unified_atomic_source`
+  - `Physics.Capstones.Paper3Bundle.atomic_signatures`
+  - `Physics.Capstones.FinitistObservableChain
+     .finitist_observable_chain`
 
 These are STRICT ∅-axiom (stronger than the DRLT-allowed
 `{propext, Quot.sound}` baseline).  This is the central
