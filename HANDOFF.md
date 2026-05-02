@@ -1,5 +1,61 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Major milestone (2026-05-XX part 10): 16 Real213 Phase capstones PURE
+
+**Cumulative Real213 strict ∅-axiom Phase capstones**:
+  - **PhaseJCapstone** (5 thms) — dyadic IVT bracket + Riemann
+  - **PhaseLCapstone** (6 thms) — 8-fact unified + MN cross-track +
+    AllPhase super + cutPowFnIsSmooth_universal +
+    all_smooth_instances_bundle + sixPhase_super_super_capstone
+  - **PhaseADCapstone** (1) — differentiation framework
+  - **PhaseAESuperCapstone** (1) — AC + AD + AE bundle
+  - **DifferentiationCapstone** (1) — polynomial degrees 0-8
+  - **PhaseAHGrandCapstone** (1) — 17-phase grand summary
+  - **PhaseANOmegaCapstone** (1) — 13-fact AC-AM bundle
+
+= **16 Real213 Phase capstones strict ∅-axiom** (was 0 at start of
+math-track session).
+
+**Universal recipes established**:
+  - `if (Bool) then ... else ...` → `bif`/`Bool.cond` (avoids
+    Decidable instance propext leak in struct constructors)
+  - Function-equality cutSum/riemannSampleSum → pointwise `_at`
+    variants chained through `cutSum_pointwise_eq` /
+    `delta_pointwise_eq` (avoids funext)
+  - `omega` → explicit `Nat213.add_mul` / `Nat213.mul_assoc.symm` /
+    `Nat213.add_sub_assoc` / `Max213.max_eq_left/right` chains
+  - `apply propext; constructor; ...` → `bool_eq_iff` Bool
+    extensionality helper
+  - `by decide : 0 < 2` → `Nat.zero_lt_succ 1`
+  - `Nat.le_max_left/right` → `Max213.le_max_left/right`
+  - `Nat.add_sub_assoc` → `Nat213.add_sub_assoc`
+  - `Nat.add_mul` → `Nat213.add_mul`
+  - `Nat.add_sub_cancel` → `Nat213.add_sub_cancel_right`
+  - `Nat.add_sub_of_le` → `Nat213.add_sub_of_le`
+  - `Nat.sub_pos_of_lt` → `Nat213.sub_pos_of_lt`
+  - `Nat.le_of_add_le_add_left` → `Nat213.le_of_add_le_add_left`
+  - `Nat.mul_sub_left_distrib` → `Nat213.mul_sub`
+
+**New 213-native infrastructure**:
+  - `Math/Max213.lean` (3 ∅-axiom thms): `max_eq_left`,
+    `le_max_left`, `le_max_right`.
+  - `Math/Real213/CutSumPointwise.lean` (2 thms):
+    `cutSumAux_pointwise_eq`, `cutSum_pointwise_eq`.
+  - Pointwise variants: `cutSum_self_at`, `constCut_scale_at`,
+    `riemannSampleSum_constCut_at`,
+    `riemannSampleSum_const_normalized_at`.
+  - Nat213 +6: `add_mul`, `add_sub_assoc`, `sub_pos_of_lt`,
+    `le_of_add_le_add_left`, `mul_sub`, `mul_left_comm`,
+    `cases_lt_four/five/ten`.
+
+**Remaining DIRTY** (deferred, all blocked by deeper omega chains
+or pre-existing source bugs):
+  - PhaseBA, PhaseBH, PhaseBQ, PhaseBX, PhaseCS, PhaseCM,
+    FluxCohomology — blocked by `ConcreteDerivativeModulusHigh`
+    (4 omegas with complex max-arithmetic) + similar files.
+  - These are tractable via the same recipes; just labour-intensive.
+
+
 ## ★ Major milestone (2026-05-02 part 6): 4/5 backlog clusters retired
 
 **This session retired 4 of 5 remaining DIRTY backlog clusters**:
