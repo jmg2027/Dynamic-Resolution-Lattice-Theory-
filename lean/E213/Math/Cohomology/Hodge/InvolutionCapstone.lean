@@ -26,6 +26,9 @@ Stratum sizes:
 
 namespace E213.Math.Cohomology.Hodge.InvolutionCapstone
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
+
 open E213.Physics.Simplex.Counts (binom)
 
 /-- ★★★★★★★★ Hodge ⋆⋆ = id on Δ⁴ (all five strata) — bundle.

@@ -14,6 +14,9 @@ parallels (5, 2).
 
 namespace E213.Math.Cohomology.Hodge.Prop53
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
+
 open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 5 3 parametrized (re-exported from UniversalProp53). -/

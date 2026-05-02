@@ -14,6 +14,9 @@ Closes the top-1 stratum of the Hodge involution chain.
 
 namespace E213.Math.Cohomology.Hodge.Prop54
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
+
 open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 5 4 parametrized by 5 Bool values. -/

@@ -11,6 +11,9 @@ vertex (5,1) and edge (5,2) cochains.
 
 namespace E213.Math.Cohomology.Hodge.Prop52
 
+open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Hodge.Star (hodgeStar)
+
 open E213.Physics.Simplex.Counts (binom)
 
 /-- Cochain 5 2 parametrized (re-exported from UniversalProp52). -/
