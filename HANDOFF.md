@@ -1,5 +1,34 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## Latest cleanup batch (2026-05-02 part 3): Hodge involution
+
+**13 strict ∅-axiom theorems closed in `Math/Cohomology/Hodge/`**:
+all five Δ⁴ Hodge involution strata Prop50/51/52/53/54 +
+`hodge_involution_5strata_capstone`.
+
+Cleanup pattern: bypass `pattern_eq σ` (funext-leaking) by computing
+the double Hodge `hodgeStar (hodgeStar σ) i = σ i` directly via
+`complementIdx` involution at n=5.  For each k ∈ {1,2,3,4}:
+1. Prove `complementIdx 5 (5-k) (complementIdx 5 k i.val) = i.val`
+   (decidable, ∅-axiom).
+2. Prove the two intermediate bound lemmas (`c1 < binom 5 (5-k)` and
+   `c2 < binom 5 k`).
+3. Unfold `hodgeStar` twice via `dif_pos` and conclude with
+   `congrArg σ (Fin.ext c2_eq_i)`.
+
+This pattern is ~30 LOC per stratum, completely bypasses funext.
+Backlog item #2 retired — `funext` was not the obstruction; the
+Hodge involution structure itself is finite-decidable.
+
+**Obstruction discovered (2026-05-02 part 3)**:
+`ForwardPeriodicity.pigeonhole_collision` is the deepest blocker.
+It uses `Decidable.byContradiction` over a bounded existential —
+even when ALL leaf dependencies are PURE (`no_inj_lt`, `Fin.ext`,
+`decide_eq_true`, `dif_pos`), the goal-instance synthesis pulls
+`propext + Quot.sound`.  Cleanup requires rewriting as constructive
+recursive search (Σ-type witness, no Decidable.byContradiction).
+Documented in CLAUDE.md migration backlog #1.
+
 ## ★ Standard upgrade (2026-05-02): DRLT axiom set = ∅
 
 **The DRLT-allowed axiom baseline `{propext, Quot.sound}` has been

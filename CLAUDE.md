@@ -79,20 +79,44 @@ recourse to propositional extensionality or quotient soundness.
 
 The strict ∅-axiom standard is fully met for the closed capstones in
 `STRICT_ZERO_AXIOM.md`.  Remaining clusters carry
-`[propext, Quot.sound]` from `omega` / `funext` and are scheduled for
-migration in priority order:
+`[propext, Quot.sound]` from infrastructure-level obstructions and
+are scheduled for migration in priority order.  Each entry lists the
+specific blocker(s); cleanup requires non-trivial refactor at the
+listed root, not just leaf-level edits.
 
-  1. **`BitFSM.Bound.fsm_signature_period_bound`** root — `omega` +
-     `Nat.add_mul_div_left` + `Nat.add_sub_cancel'`.  Unblocks
-     `Pell.Capstone`, `Trib.Capstone`, `AlgebraicCapstone`,
-     `Tier2Hardness`, all `arithFSM2_signature_period_bound` callers.
-  2. **`Hodge.Prop51-54`** — `funext` in `pattern_eq` for
-     `Cochain 5 k`.  Replace with pointwise `Fin` elimination
-     (template: `Hodge.Prop50` already PURE).
+  1. **`ForwardPeriodicity.pigeonhole_collision`** root — uses
+     `Decidable.byContradiction` over a bounded existential, which
+     pulls `propext` via `Decidable` instance synthesis even when all
+     direct dependencies (`no_inj_lt`, `Fin.ext`, `Nat.lt_or_ge`,
+     `decide_eq_true`) are individually PURE.  *Concrete obstruction
+     identified 2026-05-02*: simply replacing leaves doesn't help —
+     `Decidable.byContradiction` itself, applied to the existential
+     goal, brings `propext + Quot.sound`.  Cleanup requires rewriting
+     `pigeonhole_collision` as a constructive recursive search
+     (returning `Σ` witness directly, not via byContradiction).
+     Blocks ~30 downstream theorems including
+     `BitFSM.Bound.fsm_signature_period_bound`,
+     `arithFSM2_signature_period_bound`, `Pell.Capstone`,
+     `Trib.Capstone`, `AlgebraicCapstone`, `Tier2Hardness`.
+
+  2. ~~**`Hodge.Prop51-54`** — `funext` in `pattern_eq`.~~ ✔ CLOSED
+     (2026-05-02): rewrote each `hodge_sq_prop_5_k` to bypass
+     `pattern_eq` entirely.  Use the `complementIdx` involution
+     identity `complementIdx 5 (5-k) (complementIdx 5 k i.val) = i.val`
+     (decidable, ∅-axiom for n=5) to compute the double Hodge
+     pointwise without funext.  All 5 strata + `InvolutionCapstone`
+     STRICT ∅-AXIOM.
+
   3. **`Real213.Phase*Capstone`** — pervasive `omega` (constructive
-     analysis layer; large fan-out).
+     analysis layer; large fan-out).  Each `omega` call is candidate
+     for `omega213` swap, but Real213 is the math-track marathon
+     (Bishop-style) and not on the physics critical path.
+
   4. **`Meta.UniversalLens.{Nat2Inj, Q213Inj, Nat3, Q213_3, Nat4}`** —
-     `omega` + `Nat.pow_succ` + `Nat.pos_pow_of_pos` chain.
+     `omega` + `Nat.pow_succ` + `Nat.pos_pow_of_pos` chain.  Builds
+     are restored (commits 835075e, 3ee5d04) but theorems remain
+     DIRTY.  Cleanup is incremental `omega → omega213` + 213-native
+     `Nat.pow_*` replacements.
 
 When a migration target is closed, move its capstone(s) into
 `STRICT_ZERO_AXIOM.md`'s table and remove from the backlog above.

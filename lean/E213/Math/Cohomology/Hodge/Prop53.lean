@@ -19,25 +19,34 @@ open E213.Math.Cohomology.Hodge.Star (hodgeStar)
 
 open E213.Physics.Simplex.Counts (binom)
 
-/-- Cochain 5 3 parametrized (re-exported from E213.Math.Cohomology.Universal.Prop53). -/
-abbrev pattern53 := E213.Math.Cohomology.Universal.Prop53.pattern
+open E213.Math.Cohomology.Hodge.Star (complementIdx)
 
-set_option maxHeartbeats 8000000 in
-/-- ⋆⋆ = id on every (5, 3) pattern: 1024 patterns × 10 indices. -/
-theorem hodge_sq_pattern_5_3 :
-    ∀ b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 : Bool, ∀ i : Fin (binom 5 3),
-      hodgeStar 5 2 3
-        (hodgeStar 5 3 2 (pattern53 b0 b1 b2 b3 b4 b5 b6 b7 b8 b9)) i
-        = pattern53 b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 i := by decide
+private theorem c1_lt_binom2_5_3 :
+    ∀ i : Fin (binom 5 3), complementIdx 5 3 i.val < binom 5 2 := by decide
 
-/-- ★★★ Prop-level ∀ σ : Cochain 5 3, ⋆⋆σ = σ. -/
+private theorem c2_lt_binom3_5_3 :
+    ∀ i : Fin (binom 5 3),
+      complementIdx 5 2 (complementIdx 5 3 i.val) < binom 5 3 := by decide
+
+private theorem c2_eq_i_5_3 :
+    ∀ i : Fin (binom 5 3),
+      complementIdx 5 2 (complementIdx 5 3 i.val) = i.val := by decide
+
+/-- ★★★ Prop-level ∀ σ : Cochain 5 3, ⋆⋆σ = σ.  STRICT ∅-AXIOM. -/
 theorem hodge_sq_prop_5_3 (σ : Cochain 5 3)
     (i : Fin (binom 5 3)) :
     hodgeStar 5 2 3 (hodgeStar 5 3 2 σ) i = σ i := by
-  rw [E213.Math.Cohomology.Universal.Prop53.pattern_eq σ]
-  exact hodge_sq_pattern_5_3 _ _ _ _ _ _ _ _ _ _ i
+  show (if h : complementIdx 5 3 i.val < binom 5 2 then
+          (hodgeStar 5 3 2 σ) ⟨complementIdx 5 3 i.val, h⟩
+        else false) = σ i
+  rw [dif_pos (c1_lt_binom2_5_3 i)]
+  show (if h : complementIdx 5 2 (complementIdx 5 3 i.val) < binom 5 3 then
+          σ ⟨complementIdx 5 2 (complementIdx 5 3 i.val), h⟩
+        else false) = σ i
+  rw [dif_pos (c2_lt_binom3_5_3 i)]
+  exact congrArg σ (Fin.ext (c2_eq_i_5_3 i))
 
-/-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 3). -/
+/-- ★★★ Universal ⋆⋆=id Prop-lift capstone at (5, 3).  STRICT ∅-AXIOM. -/
 theorem hodge_involution_capstone_5_3 :
     ∀ σ : Cochain 5 3, ∀ i : Fin (binom 5 3),
       hodgeStar 5 2 3 (hodgeStar 5 3 2 σ) i = σ i :=
