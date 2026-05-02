@@ -87,6 +87,27 @@ theorem add_mul (a b c : Nat) : (a + b) * c = a * c + b * c :=
     (Nat.mul_comm c a) ▸ (Nat.mul_comm c b) ▸ rfl
   h1.trans (h2.trans h3)
 
+/-- `c ≤ b → a + b - c = a + (b - c)`.  ∅-axiom replacement for
+    `Nat.add_sub_assoc` (Lean-core proof brings propext). -/
+theorem add_sub_assoc :
+    ∀ (a : Nat) {b c : Nat}, c ≤ b → a + b - c = a + (b - c)
+  | _, _, 0, _ => rfl
+  | a, b+1, c+1, h =>
+    let h' : c ≤ b := Nat.le_of_succ_le_succ h
+    let ih : a + b - c = a + (b - c) := add_sub_assoc a h'
+    -- a + (b+1) - (c+1) = (a + b + 1) - (c+1) [Nat.add_succ]
+    --                   = a + b - c [Nat.succ_sub_succ_eq_sub]
+    --                   = a + (b - c) [ih]
+    --                   = a + ((b+1) - (c+1)) [Nat.succ_sub_succ_eq_sub.symm]
+    let step1 : a + (b + 1) = (a + b) + 1 := Nat.add_succ a b
+    let step2 : (a + b + 1) - (c + 1) = (a + b) - c :=
+      Nat.succ_sub_succ_eq_sub (a + b) c
+    let step3 : (b + 1) - (c + 1) = b - c := Nat.succ_sub_succ_eq_sub b c
+    let lhs : a + (b + 1) - (c + 1) = (a + b) - c := step1 ▸ step2
+    let rhs : a + ((b + 1) - (c + 1)) = a + (b - c) := step3 ▸ rfl
+    lhs.trans (ih.trans rhs.symm)
+  | _, 0, _+1, h => absurd h (Nat.not_succ_le_zero _)
+
 /-- `a + b ≤ c → a ≤ c - b`.  ∅-axiom replacement. -/
 theorem le_sub_of_add_le {a b c : Nat} (h : a + b ≤ c) : a ≤ c - b :=
   let h1 : (a + b) - b ≤ c - b := Nat.sub_le_sub_right h b
