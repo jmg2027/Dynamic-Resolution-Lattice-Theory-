@@ -76,11 +76,13 @@ Progress (cumulative across sessions):
     before continuing).
   - Pre-existing namespace mismatches surfaced and fixed in many
     files across 4 commits (eae6bb6, 0f21381, 0941595).
-  - **Foundational Raw infra ∅-axiom** (commits 206bb2e, 2c496ce):
+  - **Foundational Raw infra ∅-axiom** (commits 206bb2e, 2c496ce, 1e7ce4e):
       * `Raw.slash` (smart constructor)
       * `Raw.fold_slash` (catamorphism + slash compatibility)
       * `Raw.recAux` / `Raw.rec` (custom Raw eliminator)
       * `Tree.canonical_slash_lt` (canonical-form extractor)
+      * `Tree.swap_canonical` + `Tree.swap_swap` (involution lemmas)
+      * `Raw.swap` + `Raw.swap_swap` (smart involution)
     All cleaned via:
       - `simp` → `unfold + rw + rfl` chains
       - iff destructors → direct one-direction lemmas:
@@ -94,9 +96,13 @@ Progress (cumulative across sessions):
       * `Hypervisor/Lens/Morphism/NoDepthParity` 10/0 ∅-axiom
       * `Hypervisor/Lens/Morphism/Dist` 5/0 ∅-axiom
       * `Hypervisor/Lens/Refines/Preorder` 2/0 ∅-axiom
+      * `Hypervisor/Lens/Kernel/SwapInvariant` 2/0 ∅-axiom
+        (cascade from Raw.swap_swap clean)
       * `Firmware/Atomicity/Alive` 5/0 ∅-axiom
       * `Firmware/Atomicity/PrimitiveSizes` 5/0 ∅-axiom
-        (latter via `iff.mpr` direct, no `rw [iff]`)
+      * `Firmware/Atomicity/PairForcing` build error → 5/3 ∅-axiom
+        (IsAlive aligned with Five.IsAlive via Mod213.parity)
+      * `Physics/Substrate/Origin` 4/0 ∅-axiom (cascade)
     Demonstrates G2 trajectory principle: clean foundation →
     automatic propagation, no per-file editing required.
 
@@ -262,6 +268,8 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+122ad23  PairForcing: IsAlive via Mod213.parity (matches Five.IsAlive)
+1e7ce4e  Tree.swap_canonical + Tree.swap_swap + Raw.swap_swap: ∅-axiom
 2c496ce  Raw.rec + fold_slash + canonical_slash_lt: ∅-axiom cascade
 1e095fd  PrimitiveSizes: 5/5 ∅-axiom (rw [iff] → iff.mpr direct)
 206bb2e  Firmware/Raw.slash: ∅-axiom — propext-free smart constructor
