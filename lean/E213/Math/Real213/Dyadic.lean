@@ -26,11 +26,11 @@ namespace E213.Math.Real213.Dyadic
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutHalf cutHalf_constCut)
 open E213.Math.Real213.CutSumOne (cutSum_self)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Real213.ValidCut (ValidCut)
+open E213.Math.Real213.ValidCut (ValidCut RatioCut constCut_valid constCut_ratio)
+open E213.Math.Real213.CutDouble (cutDouble cutDouble_constCut)
 
 /-- **dyadicCut M E**: rational M / 2^E as a 213 cut function.
     Just constCut M (2^E). -/

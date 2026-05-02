@@ -20,8 +20,8 @@ convergence, not point existence.
 namespace E213.Math.Real213.DyadicBracket
 
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
-open E213.Math.Real213.CutPoset (cutLe cutLe_trans)
+open E213.Math.Real213.CutPoset (cutLe cutLe_trans cutLe_refl)
+open E213.Math.Real213.Dyadic (dyadicCut)
 
 /-- **DyadicBracket**: bracket [numA, numB] over common denom 2^E.
     Numerators ordered: numA ≤ numB. -/

@@ -37,10 +37,10 @@ theorem S_1_val : S 1 = (1, 1) := by decide
 theorem S_2_val : S 2 = (5, 4) := by decide
 
 /-- α_3 strong leading: 1/α_3 = NS² − 1 = 8. -/
-theorem strong_inv_coupling : E213.Physics.AlphaEM.inv_alpha_3 = 8 := by decide
+theorem strong_inv_coupling : E213.Physics.AlphaEM.Core.inv_alpha_3 = 8 := by decide
 
 /-- α_2 weak: 1/α_2 = 12·NT·S(NT) = 30. -/
-theorem weak_inv_coupling : E213.Physics.AlphaEM.inv_alpha_2 = 30 := by decide
+theorem weak_inv_coupling : E213.Physics.AlphaEM.Core.inv_alpha_2 = 30 := by decide
 
 /-- ★ Hop ↔ Basel cutoff: strong → S(1)=1, weak → S(2)=5/4. -/
 theorem hop_depth_basel_cutoff :
@@ -53,12 +53,12 @@ theorem hop_hypothesis_capstone :
     -- Strong: depth=1, S(1)=1, 1/α_3=8=NS²−1
     (alpha_3_Neff = 1
      ∧ S 1 = (1, 1)
-     ∧ E213.Physics.AlphaEM.inv_alpha_3 = 8
+     ∧ E213.Physics.AlphaEM.Core.inv_alpha_3 = 8
      ∧ (8 : Nat) = NS * NS - 1)
     -- Weak: depth=NT=2, S(2)=5/4, 1/α_2=30
     ∧ (alpha_2_Neff = 2
        ∧ S 2 = (5, 4)
-       ∧ E213.Physics.AlphaEM.inv_alpha_2 = 30
+       ∧ E213.Physics.AlphaEM.Core.inv_alpha_2 = 30
        ∧ (30 : Nat) = 12 * NT * 5 / 4)
     -- EM: depth ∞ (no Nat saturation); atomic source check
     ∧ (NS = 3 ∧ NT = 2 ∧ NS + NT = d ∧ d = 5) := by decide

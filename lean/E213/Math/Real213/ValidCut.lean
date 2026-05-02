@@ -18,7 +18,6 @@ namespace E213.Math.Real213.ValidCut
 open E213.Math.Real213.CutSumTest (constCut)
 
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
 
 /-- **ValidCut**: cut function with the two monotonicity properties
     of a real-number cut. -/

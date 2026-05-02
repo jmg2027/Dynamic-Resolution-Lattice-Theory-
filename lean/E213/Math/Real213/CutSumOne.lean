@@ -11,7 +11,6 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSum (cutSum cutSumAux)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff cutSum_comm)
-open E213.Math.Real213.Core (Real213)
 
 private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) : a = b := by
   cases a <;> cases b

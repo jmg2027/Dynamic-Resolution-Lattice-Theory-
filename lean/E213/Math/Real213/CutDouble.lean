@@ -19,7 +19,6 @@ open E213.Math.Real213.CutBisection (cutHalf cutHalf_constCut cutMid)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPoset (cutEq cutLe)
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
 
 /-- **cutDouble**: 2x cut. -/
 def cutDouble (c : Nat → Nat → Bool) : Nat → Nat → Bool :=

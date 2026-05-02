@@ -22,7 +22,7 @@ structure LocallyDeterminedData (f : CutFunction) where
 namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- **LocallyDeterminedData**: explicit modulus carried as data. -/
 structure LocallyDeterminedData (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
@@ -48,7 +48,6 @@ end E213.Math.Real213.CutFnData
 namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
 
 /-- Max over j ∈ [0, K] of f i j. -/
 def maxRangeRow (f : Nat → Nat → Nat) (i : Nat) : Nat → Nat
@@ -101,7 +100,6 @@ end E213.Math.Real213.CutFnData
 namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
 
 /-- **LDD composition closure**: f ∘ g is LDD if both f and g are LDD. -/
 def composeLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
@@ -126,7 +124,6 @@ end E213.Math.Real213.CutFnData
 namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutHalf)
 
 /-- LocallyDeterminedData for cutHalf. -/
@@ -142,7 +139,7 @@ end E213.Math.Real213.CutFnData
 namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSumTest (constCut)

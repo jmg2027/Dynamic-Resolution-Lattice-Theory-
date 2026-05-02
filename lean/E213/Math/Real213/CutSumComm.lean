@@ -12,7 +12,6 @@ namespace E213.Math.Real213.CutSumComm
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
 
 /-- cutSumAux is true iff an existential witness exists. -/
 theorem cutSumAux_eq_true_iff (cx cy : Nat → Nat → Bool) (k M : Nat) (n : Nat) :
@@ -87,7 +86,6 @@ namespace E213.Math.Real213.CutSumComm
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSum (cutSum cutSumAux)
-open E213.Math.Real213.Core (Real213)
 
 private theorem bool_eq_of_iff_true (a b : Bool)
     (h : a = true ↔ b = true) : a = b := by

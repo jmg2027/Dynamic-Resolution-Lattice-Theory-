@@ -16,7 +16,6 @@ namespace E213.Math.Real213.CutPoset
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
-open E213.Math.Real213.Core (Real213)
 
 /-- **cutEq**: pointwise Bool equality of cuts. -/
 def cutEq (cx cy : Nat → Nat → Bool) : Prop := ∀ m k, cx m k = cy m k
@@ -72,7 +71,6 @@ namespace E213.Math.Real213.CutPoset
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
-open E213.Math.Real213.Core (Real213)
 
 /-- **x ≤ max(x, y)**: cutLe cx (cutMax cx cy). -/
 theorem cutLe_cutMax_left (cx cy : Nat → Nat → Bool) : cutLe cx (cutMax cx cy) := by
