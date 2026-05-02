@@ -92,6 +92,20 @@ theorem mul_assoc : ∀ (a b c : Nat), a * b * c = a * (b * c)
       congrArg (· + a * b) ih
     lhs_eq.trans (Nat.mul_add a (b * c) b).symm
 
+/-- `b ≤ a → c * (a - b) = c*a - c*b`.  ∅-axiom. -/
+theorem mul_sub_distrib {a b c : Nat} (h : b ≤ a) :
+    c * (a - b) = c * a - c * b := by
+  have he : (a - b) + b = a := sub_add_cancel h
+  have h1 : c * ((a - b) + b) = c * (a - b) + c * b := Nat.mul_add c (a - b) b
+  have h2 : c * ((a - b) + b) = c * a := congrArg (c * ·) he
+  -- From h1: c * a = c * (a-b) + c*b after substituting via h2.symm
+  have hcdist : c * a = c * (a - b) + c * b := h2.symm.trans h1
+  -- c * (a - b) = c * (a - b) + c * b - c * b
+  have hcancel : c * (a - b) + c * b - c * b = c * (a - b) :=
+    add_sub_cancel_right (c * (a - b)) (c * b)
+  -- = c * a - c * b
+  exact hcancel.symm.trans (congrArg (· - c * b) hcdist.symm)
+
 -- TODO: div / mod helpers.  `Nat.div_mul_le_self`, `Nat.div_add_mod`,
 -- `Nat.mod_add_div` all bring `propext` from Lean-core proofs, blocking
 -- ∅-axiom div_lt_of_lt_mul / le_div_of_mul_le.  Need to reprove the
