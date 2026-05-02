@@ -19,6 +19,7 @@ open E213.Math.Real213.CutMulComm (cutMulOuter_eq_true_iff)
 open E213.Math.Real213.CutSum (cutSum cutSumAux)
 open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutAlgebraic (constCut_zero_always)
 
 /-- **cutSum 0 0 = 0** at cut level. -/
 theorem cutSum_zero_zero : cutSum (constCut 0 1) (constCut 0 1) = constCut 0 1 := by

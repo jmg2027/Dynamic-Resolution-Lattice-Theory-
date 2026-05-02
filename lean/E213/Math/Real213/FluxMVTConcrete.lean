@@ -24,6 +24,18 @@ open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut
+  (fluxAlong isBalanced fluxAlong_const_isBalanced)
+open E213.Math.Real213.FluxDivergence.FluxCut
+  (fluxScale localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_const)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut add neg)
+open E213.Math.Real213.FluxEquiv.FluxCut (cohomEquiv cohomEquiv_refl)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence_const_balanced)
+open E213.Math.Real213.IsDifferentiable (idIsDifferentiable)
 
 namespace FluxCut
 

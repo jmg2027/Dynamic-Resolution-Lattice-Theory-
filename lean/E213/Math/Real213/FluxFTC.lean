@@ -29,6 +29,15 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut
+  (fluxAlong fluxAlong_id fluxAlong_const_isBalanced isBalanced)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket)
+open E213.Math.Real213.FluxDivergence.FluxCut
+  (localDivergence localDivergence_const_balanced)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
 
 namespace FluxCut
 

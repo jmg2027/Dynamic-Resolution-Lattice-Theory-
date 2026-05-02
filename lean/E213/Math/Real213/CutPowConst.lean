@@ -15,6 +15,8 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_const)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero)
 
 /-- (a/b)^1 = a/b for any a, b. -/
 theorem cutPow_one_const (a b : Nat) :
