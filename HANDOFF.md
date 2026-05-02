@@ -209,15 +209,15 @@ Remaining: hundreds of files.  Each requires:
          fully-qualified `E213.Math.Cohomology.Universal.Prop{...}`
          + replacing `HodgeProp{50,52,53,54}` and
          `CupAWLeibniz{Small,Mid,}` short refs.
-     **STILL BROKEN** (Real213 chain — needs deeper structural fix,
-     not just opens):
-       - `Math/Real213/Equiv.lean` (invalid field notation on
-         `Real213.equiv`)
-       - `Math/Real213/CutBinary.lean`, `CutInv.lean`,
-         `CutSumComm.lean`, `CutMulComm.lean`, `CutPoly.lean`,
-         `CutSumDetermined.lean`, `ValidCut.lean`, `CutAlgebraic.lean`,
-         `CutAlgebraStruct.lean`, `CutLatticeEq.lean`,
-         `CutBisectionAlgo.lean`, `CutMoreTests.lean`, `CutMulTest.lean`
+     **Real213 cluster fixed** (commit c0b2e6d) — 14 files
+     unblocked via the same open-gap pattern: missing
+     `open Real213.{CutSum,CutMul,CutPoset,CutBisection,
+     CutSumTest,CutPow,CutMaxMin,Core}`.  Including the multi-
+     section pattern (CutSumComm, CutMulComm, CutBisectionAlgo
+     each had 2-3 namespace sections that each needed their own
+     `open`).
+     
+     **STILL BROKEN** (out-of-scope for this session):
        - `Hypervisor/Lens/Properties/Leaf.lean` etc.
 
   2. **sync_namespaces.py multi-namespace bug** — unchanged.
@@ -346,6 +346,8 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+c0b2e6d  Real213 cluster: open-gap fixes unblock 14 files
+60bfe62  HANDOFF: Cohomology cascade unblocked
 5d1cc62  Cohomology/CupAW + EncodingBijection: open-gap cascade
 758030f  Cohomology/{Hodge,CupAW}: open-gap fixes — Hodge 5-stratum
          InvolutionCapstone fully builds
