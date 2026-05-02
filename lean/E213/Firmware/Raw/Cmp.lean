@@ -58,4 +58,43 @@ theorem Tree.cmp_gt_iff_lt_swap (x y : Tree) :
   rw [Tree.cmp_swap x y]
   cases Tree.cmp y x <;> simp [Ordering.swap]
 
+/-! ### One-direction (∅-axiom) versions of the iff lemmas
+
+`cmp_eq_iff` and `cmp_gt_iff_lt_swap` use `simp` and bring `propext`.
+These direct one-direction lemmas avoid both. -/
+
+/-- Direct: `Tree.cmp x y = .eq → x = y` (no iff, no propext). -/
+theorem Tree.cmp_eq_to_eq : ∀ (x y : Tree), Tree.cmp x y = .eq → x = y
+  | .a, .a, _ => rfl
+  | .a, .b, h => by cases h
+  | .a, .slash _ _, h => by cases h
+  | .b, .a, h => by cases h
+  | .b, .b, _ => rfl
+  | .b, .slash _ _, h => by cases h
+  | .slash _ _, .a, h => by cases h
+  | .slash _ _, .b, h => by cases h
+  | .slash x₁ y₁, .slash x₂ y₂, h => by
+      have h' : (match Tree.cmp x₁ x₂ with
+                 | .eq => Tree.cmp y₁ y₂
+                 | .lt => .lt
+                 | .gt => .gt) = .eq := h
+      cases hcx : Tree.cmp x₁ x₂ with
+      | eq =>
+          rw [hcx] at h'
+          have hxe : x₁ = x₂ := Tree.cmp_eq_to_eq x₁ x₂ hcx
+          have hye : y₁ = y₂ := Tree.cmp_eq_to_eq y₁ y₂ h'
+          rw [hxe, hye]
+      | lt => rw [hcx] at h'; cases h'
+      | gt => rw [hcx] at h'; cases h'
+
+/-- Direct: `Tree.cmp x y = .gt → Tree.cmp y x = .lt` (no iff). -/
+theorem Tree.cmp_gt_to_lt_swap (x y : Tree) (h : Tree.cmp x y = .gt) :
+    Tree.cmp y x = .lt := by
+  have hsw : Tree.cmp x y = (Tree.cmp y x).swap := Tree.cmp_swap x y
+  rw [hsw] at h
+  cases hyx : Tree.cmp y x with
+  | lt => rfl
+  | eq => rw [hyx] at h; cases h
+  | gt => rw [hyx] at h; cases h
+
 end E213.Firmware.Internal

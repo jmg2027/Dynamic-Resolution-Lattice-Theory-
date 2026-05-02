@@ -20,12 +20,14 @@ open E213.Firmware.Internal
 def Raw.slash (x y : Raw) (h : x ≠ y) : Raw :=
   match hc : Tree.cmp x.val y.val with
   | .lt => ⟨.slash x.val y.val, by
-            simp [Tree.canonical, x.property, y.property, hc]⟩
+            unfold Tree.canonical
+            rw [x.property, y.property, hc]; rfl⟩
   | .gt => ⟨.slash y.val x.val, by
             have hlt : Tree.cmp y.val x.val = .lt :=
-              (Tree.cmp_gt_iff_lt_swap x.val y.val).mp hc
-            simp [Tree.canonical, y.property, x.property, hlt]⟩
-  | .eq => absurd ((Tree.cmp_eq_iff _ _).mp hc)
+              Tree.cmp_gt_to_lt_swap x.val y.val hc
+            unfold Tree.canonical
+            rw [y.property, x.property, hlt]; rfl⟩
+  | .eq => absurd (Tree.cmp_eq_to_eq _ _ hc)
             (fun e => h (Subtype.ext e))
 
 theorem Raw.slash_comm (x y : Raw) (h : x ≠ y) :
