@@ -199,12 +199,26 @@ Remaining: hundreds of files.  Each requires:
        - 8 files in Cohomology/Hodge/ missing `open` for
          `Cochain`, `hodgeStar`, `delta`, etc (0941595).
        - `BettiKernel.lean` similar (latest commit).
-     **STILL BROKEN** (probing fails on these chains):
-       - `Math/Cohomology/Cup/Core.lean` and many CupAW files.
+       - **Cohomology/Cup, CupAW, Dyadic, Universal, Hodge clusters**
+         fully unblocked this session via 5 commits (c8f66de,
+         4159b52, e43ad50, 758030f, 5d1cc62) — ~30 files now
+         build that didn't.  The pattern was always missing
+         `open Cochain.Core(Cochain)`, `open Delta.Core(delta)`,
+         `open Hodge.Involution(v0_5)`, `open SimplexBasis(kSubset)`,
+         + replacing `UniversalProp{31..53}` short refs with
+         fully-qualified `E213.Math.Cohomology.Universal.Prop{...}`
+         + replacing `HodgeProp{50,52,53,54}` and
+         `CupAWLeibniz{Small,Mid,}` short refs.
+     **STILL BROKEN** (Real213 chain — needs deeper structural fix,
+     not just opens):
+       - `Math/Real213/Equiv.lean` (invalid field notation on
+         `Real213.equiv`)
+       - `Math/Real213/CutBinary.lean`, `CutInv.lean`,
+         `CutSumComm.lean`, `CutMulComm.lean`, `CutPoly.lean`,
+         `CutSumDetermined.lean`, `ValidCut.lean`, `CutAlgebraic.lean`,
+         `CutAlgebraStruct.lean`, `CutLatticeEq.lean`,
+         `CutBisectionAlgo.lean`, `CutMoreTests.lean`, `CutMulTest.lean`
        - `Hypervisor/Lens/Properties/Leaf.lean` etc.
-       - `Math/Real213/CutBisection.lean` succession (cutMid etc).
-     A full sweep via force-clean rebuild + iterative fixes is
-     still needed.  Each fix unblocks more files.
 
   2. **sync_namespaces.py multi-namespace bug** — unchanged.
 
@@ -332,6 +346,14 @@ SignatureBipartite directly without the WalkUniversal route.
 ## Recent commits (cumulative)
 
 ```
+5d1cc62  Cohomology/CupAW + EncodingBijection: open-gap cascade
+758030f  Cohomology/{Hodge,CupAW}: open-gap fixes — Hodge 5-stratum
+         InvolutionCapstone fully builds
+e43ad50  Cohomology/Universal: Core/Prop/Prop3{1}/Prop4{1,2}/Prop5{1,2,3}
+4159b52  Cohomology/Dyadic: Classifier/TierBridge/Forward*/LCM unblocked
+c8f66de  Cohomology/{Cup,Dyadic}: open-gap fixes for Cup/Core, Cup/Leibniz,
+         Cup/Ring, Dyadic/{Conjecture,Signature,SignatureBipartite}
+f710165  HANDOFF: BitPatternUniqueness 5/5 ∅-axiom recorded
 e1e28ab  BitPatternUniqueness: 5/5 ∅-axiom (% 2 → parity migration)
 6d014cb  Pow213: power-of-2 + divisibility helpers (6/6 ∅-axiom)
 4c5a478  HANDOFF: Mod213 parity bridge lemmas (commit 5b24cb4)
