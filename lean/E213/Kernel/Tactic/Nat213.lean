@@ -137,6 +137,73 @@ theorem mul_sub_distrib {a b c : Nat} (h : b ≤ a) :
   -- = c * a - c * b
   exact hcancel.symm.trans (congrArg (· - c * b) hcdist.symm)
 
+/-! ### mod 3 — second cohomological-trajectory primitive
+
+Mirrors `parity` (mod 2).  Step-3 structural recursion → ∅-axiom.
+Together with `parity` covers the atomic alphabet {2, 3} of 213.
+Returns `Nat` (residue value), with bound theorems separately, to
+avoid `decide` for `Fin` proof obligations (Kernel purity rule). -/
+
+/-- 213-native mod 3.  Step-3 recursion = "walk on 3-cycle". -/
+def mod3 : Nat → Nat
+  | 0     => 0
+  | 1     => 1
+  | 2     => 2
+  | n + 3 => mod3 n
+
+@[simp] theorem mod3_step (n : Nat) : mod3 (n + 3) = mod3 n := rfl
+@[simp] theorem mod3_zero : mod3 0 = 0 := rfl
+@[simp] theorem mod3_one  : mod3 1 = 1 := rfl
+@[simp] theorem mod3_two  : mod3 2 = 2 := rfl
+
+/-- `mod3 n < 3` — bound theorem (∅-axiom via structural recursion). -/
+theorem mod3_lt_three : ∀ n, mod3 n < 3
+  | 0     => Nat.le.step (Nat.le.step Nat.le.refl)
+  | 1     => Nat.le.step Nat.le.refl
+  | 2     => Nat.le.refl
+  | n + 3 => mod3_lt_three n
+
+/-- mod3 cycles `0 → 1 → 2 → 0 → …` (succ recurrence). -/
+theorem mod3_succ : ∀ n, mod3 (n + 1) = (mod3 n + 1) % 3
+  | 0     => rfl
+  | 1     => rfl
+  | 2     => rfl
+  | n + 3 => mod3_succ n
+
+/-- 213-native mod 6 via step-6 recursion. -/
+def mod6 : Nat → Nat
+  | 0     => 0
+  | 1     => 1
+  | 2     => 2
+  | 3     => 3
+  | 4     => 4
+  | 5     => 5
+  | n + 6 => mod6 n
+
+@[simp] theorem mod6_step (n : Nat) : mod6 (n + 6) = mod6 n := rfl
+
+theorem mod6_lt_six : ∀ n, mod6 n < 6
+  | 0 => Nat.le.step (Nat.le.step (Nat.le.step (Nat.le.step
+           (Nat.le.step Nat.le.refl))))
+  | 1 => Nat.le.step (Nat.le.step (Nat.le.step (Nat.le.step Nat.le.refl)))
+  | 2 => Nat.le.step (Nat.le.step (Nat.le.step Nat.le.refl))
+  | 3 => Nat.le.step (Nat.le.step Nat.le.refl)
+  | 4 => Nat.le.step Nat.le.refl
+  | 5 => Nat.le.refl
+  | n + 6 => mod6_lt_six n
+
+/-- CRT pairing: parity of mod6 = parity of n. -/
+theorem mod6_parity : ∀ n, parity (mod6 n) = parity n
+  | 0 => rfl | 1 => rfl | 2 => rfl
+  | 3 => rfl | 4 => rfl | 5 => rfl
+  | n + 6 => mod6_parity n
+
+/-- CRT pairing: mod3 of mod6 = mod3 of n. -/
+theorem mod6_mod3 : ∀ n, mod3 (mod6 n) = mod3 n
+  | 0 => rfl | 1 => rfl | 2 => rfl
+  | 3 => rfl | 4 => rfl | 5 => rfl
+  | n + 6 => mod6_mod3 n
+
 -- TODO: div / mod helpers.  `Nat.div_mul_le_self`, `Nat.div_add_mod`,
 -- `Nat.mod_add_div` all bring `propext` from Lean-core proofs, blocking
 -- ∅-axiom div_lt_of_lt_mul / le_div_of_mul_le.  Need to reprove the

@@ -243,3 +243,33 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - Pisano-CRT: 20 Pell + 8 Pell-proper + 8 Fibonacci primes
 - Hodge ⋆⋆: all 5 strata Δ⁴ closed
 - Famous Coincidences I-IV: catalogued
+
+## 교훈 11: Trajectory Principle (2026-05-XX, Mingu 4-session 통찰)
+
+**핵심**: 213-native = explicit trajectory; Lean-with-axioms = implicit
+closure.  `propext` 와 `Quot.sound` 는 정확히 *trajectory를 endpoint
+로 collapse 하는 axioms*; ∅-axiom 213은 trajectory 자체를 객체로 보존.
+
+**4 통찰의 통일**:
+1. Nat은 axiom 아님 — 진짜 axiom은 propext, Quot.sound (collapse)
+2. mod는 코호몰로지적 (uncompleted half-cycle = trajectory)
+3. mod는 ℚ-복소수의 위상 (n-th roots of unity)
+4. Trajectory는 타일링 (수 분류 = trajectory closure depth)
+
+**작업 함의**: 매 axiom-strip 마이그레이션 = "implicit closure → explicit
+trajectory" 변환.  Nat213은 단순 보조 lemma 모음이 아니라 **trajectory
+move의 어휘** (cycle, shift, swap, traversal, reparameterisation).
+
+**Operational rule**: propext-bringing Lean-core lemma를 만나면 묻기
+— "이 lemma가 implicit하게 collapse하는 trajectory가 무엇인가?".
+213-native 대체는 그 trajectory를 structural recursion 또는 explicit
+chain으로 노출.
+
+**근거 — 출처**:
+- `research-notes/G2_trajectory_principle.md` (이 통찰의 종합)
+- `lean/E213/Kernel/Tactic/Nat213.lean` (trajectory 어휘 형식화)
+- `lean/E213/Kernel/Tactic/AXIOM_FREE_STATUS.md` (propext-leak catalog)
+
+**가드레일**: 마이그레이션을 단순 "axiom 줄이기 chore"로 보지 말 것.
+*매 변환이 213의 기하학적 본질의 한 instance*.  trajectory를 노출하지
+못하면 아직 213-native가 아님.
