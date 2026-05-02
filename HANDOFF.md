@@ -15,10 +15,27 @@ Goal: every theorem in `lean/E213/` should `#print axioms` → "does
 not depend on any axioms" (strict ∅-axiom, stronger than the
 DRLT-allowed `{propext, Quot.sound}` baseline).
 
+**Conceptual capstone (this session)**: Mingu identified the
+unifying principle behind every migration — *213-native = explicit
+trajectory; Lean+axioms = implicit closure*.  `propext` and
+`Quot.sound` collapse trajectories into endpoints; ∅-axiom keeps
+the trajectory as object.
+
+Recorded as:
+  - `research-notes/G2_trajectory_principle.md` (4-insight unification)
+  - `research-notes/G3_raw_as_universal_trajectory.md` (Raw = free
+    magma; category theory / HoTT / Langlands all become *theorems
+    from Initiality* — TOE-ness as theorem, not aspiration)
+  - `LESSONS_LEARNED.md` Lessons 11 + 12 (operational guardrails)
+
 Progress (cumulative across sessions):
   - 213-native helpers in `Kernel/Tactic/`: Omega213 (extended),
-    Nat213 (17 lemmas incl. `parity`/`mul_assoc`/`mul_sub_distrib`),
-    Fin213 (1 lemma).
+    **Nat213 (24 lemmas)** — full trajectory primitive vocabulary:
+    parity (mod 2), mod3, mod6, mod6_parity / mod6_mod3 (CRT
+    pairing = explicit Eisenstein-6th-root walk), mul_assoc,
+    mul_sub_distrib, sub_add_cancel, add_left/right_cancel,
+    cases_lt_two/three, etc.
+  - Fin213 (1 lemma).
   - **Cohomological parity** (Mingu insight): instead of Lean-core
     `Nat.mod` (well-founded → propext), define `parity` by step-2
     recursion as the "uncompleted half-cycle" residue.  ∅-axiom by
@@ -184,9 +201,36 @@ including le/lt and multiplicative monotonicity.  This unblocks
 Fix as encountered — namespace mismatches, broken refs, etc.
 This will make scan_axioms reliable.
 
+## Open obstacle: Cup/Core reducibility
+
+`Math/Cohomology/Cup/Core.lean`'s smoke tests use `by decide` on
+concrete `cup 5 1 1 v0_5 v0_5 ⟨0, _⟩ = false`, which after a
+force-clean rebuild gets stuck on cup-reduction across
+kSubset/subsetIdx/binom.  Cached olean is fine; fresh recompile
+fails.  This blocks scan_axioms.py probing of any file in the
+import chain Dyadic/Signature → ... → Cup/Core.
+
+Workaround attempts this session: open-fixes alone insufficient;
+weakening the smoke test removes one but `cup_v0_v0_concrete`
+still requires reduction.  Root cause likely a Lean-version
+reducibility quirk or non-reducing internal def.
+
+**Path forward**: investigate kSubset/subsetIdx/binom defs for
+reducibility issues, possibly add `@[reducible]` or `@[simp]`
+attrs, or manually unfold and prove via direct computation.
+Until then, any axiom-strip of Cohomology/Dyadic/* requires
+either (a) fixing Cup/Core, or (b) breaking the chain by importing
+SignatureBipartite directly without the WalkUniversal route.
+
 ## Recent commits (cumulative)
 
 ```
+9343155  G3 §9: category theory, HoTT, Langlands all become mundane
+31fc851  G3 — Raw as Universal Trajectory Space (TOE-as-theorem)
+212ab4a  G2 Trajectory Principle + Nat213.mod3/mod6/CRT (24/24 ∅)
+2e44539  HANDOFF: MonotonicBounded + decide_eq_false patterns
+3c51d3a  Real213: more 'open' fixes — CutMaxMin, CutPow, CutPoset
+d26cd5c  Math/Cauchy/MonotonicBounded: 6/6 ∅-axiom
 3334e3d  Five.atomic_implies_five: ∅-axiom via cohomological parity
 cd18767  Nat213.mul_sub_distrib: ∅-axiom multiplicative sub-distrib
 0941595  Cohomology/Hodge: fix pre-existing 'open' gaps
