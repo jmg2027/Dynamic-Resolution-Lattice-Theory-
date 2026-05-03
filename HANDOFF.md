@@ -1,5 +1,74 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 19: cutEq systematic migration — Core/Bridges discipline
+
+**User directive (2026-05-XX)**: "All pure가 될때까지 세션 중단 금지" —
+keep going until literally all 213 modules report `#print axioms`
+"does not depend on any axioms" (excluding the explicitly sealed
+Bridges/ directory).
+
+**Plan**: define funext213 / propext213 / quotSound213 as 213-native
+primitives, then systematically migrate every DIRTY function-eq
+theorem to a cutEq form (= `∀ m k, f m k = g m k`).  No funext, no
+omega, no `rw [iff]` (all of which drag in propext / Quot.sound from
+Lean's external commitments).
+
+### Architecture: AxiomLenses split
+
+```
+AxiomLenses/
+  Core/        ← PURE: funext213/propext213/quotSound213 primitives
+  Bridges/     ← DIRTY-by-design SEALED: Lean axiom-bridge demos
+```
+
+`tools/scan_all_axioms.py` recognises `Bridges/` as
+SEALED_DIRTY_PREFIXES — separate report section.
+
+### Recipe (canonical)
+
+For each function-eq theorem `f = g`:
+
+1. Statement: replace `f = g` with `cutEq f g` (= `∀ m k, ...`)
+2. Proof: replace `funext m k` with `intro m k`
+3. Replace `rw [foo_iff]` with `(foo_iff ...).mp / .mpr`
+4. Replace `omega` with manual `Nat.*` chains using
+   `E213.Tactic.Nat213.{add_sub_of_le, le_sub_of_add_le,
+                        add_sub_cancel_right, add_mul, mul_assoc}`
+5. Cascade: every downstream consumer gets refactored too
+
+### Clusters migrated (running tally)
+
+| Cluster | DIRTY before | DIRTY after | Commit |
+|---|---|---|---|
+| AxiomLenses Core/Bridges split | n/a | n/a (split done) | afbcbc6 |
+| DyadicRiemann | 25 | 0 (33 PURE) | d6a2236 |
+| CutDouble + Dyadic | 8 | 0 (20 PURE) | cc210ad |
+| CutAlgebraic | 8 | 0 (17 PURE) | b4fc671 |
+| CutSumOne (pilot) | 10 | 9 (1 PURE) | 57da439 |
+| CutSumOne (rest) | 9 | 0 (12 PURE total) | 006a955 |
+| CutMidSelf+PhaseAC+SignedSum+Dyadic | cascade | 0 | 35db516 |
+| **Real DIRTY removed** | | **52+** | |
+
+### Snapshot
+
+Whole-repo `lake build`: clean.
+Total DIRTY (excluding sealed): **~159 items** across ~50 modules.
+Per-axiom-set: 104 [propext, Quot.sound], 53 [propext], 2 split.
+
+### Top remaining DIRTY clusters (next targets)
+
+  - SemanticAtom (25): propext from Prop work — needs Prop isolation
+  - Compose.OnLens (14): pre-existing infra
+  - Cauchy seqs (38): WallisSeq/EulerSeq/PellSeq/Archimedean —
+    omega-heavy, needs omega213 expansion
+  - Real213 mid-tier: ClassicCalc family (35+), CutMaxMin (4),
+    CutSumZero (4), ResolutionDepth (5), Flux* family (~20)
+  - Hypervisor.Lens: ~25 across Lattice/Instances/Leaves/Universal
+  - Math.Infinity: LensCardinality (8), Countable (4)
+  - Math.Irrational.Sqrt2KernelFree (5)
+
+---
+
 ## ★★★ Part 18: Cluster audit + Real213 _at companion completion
 
 After parts 16-17 closed the integration plan + OS migration, this
