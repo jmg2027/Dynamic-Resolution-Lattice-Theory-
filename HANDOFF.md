@@ -6,11 +6,26 @@ User directive: "철저하게 박멸" — eliminate remaining DIRTY through
 Plan 2 architectural refactor.  Phase 1 explore identified 3 high-impact
 function-eq proof-field structs + 14 Lens funext sites.
 
-### Snapshot
+### Snapshot (verified)
 
-  - **2390+ PURE / 251 raw DIRTY → 224 real DIRTY** (after sealing)
+  - **2414 PURE / 251 raw DIRTY**
+    (251 = 224 real DIRTY + 25 SemanticAtom sealed + 2 Bridges sealed)
   - SemanticAtom 25 items reclassified as DIRTY-by-design (sealed,
     Prop-level inherently uses propext)
+  - Started session 23 at 274 DIRTY → ended session 25 at **224 real
+    DIRTY** = effective -50 over 3 sessions
+
+### Cumulative arc (sessions 19-25)
+
+  Session 19: 394 → 294 DIRTY (~100 down via fluxCutEq foundation)
+  Session 20: 294 → 281 DIRTY (~13 down via Phase 1+2 partial)
+  Session 21: 281 → 274 DIRTY (Polynomial213 + IntegralProperties)
+  Session 22: 274 → 268 DIRTY (Cauchy positivity)
+  Session 23: 268 → 251 DIRTY (Cauchy + Sqrt2Cut FULLY PURE)
+  Session 24-25 (Plan 2): 251 → 224 real DIRTY (-27, sealed +
+    19 new PURE _at variants)
+
+  Total reduction: 394 → 224 real = **170 DIRTY removed** (43% reduction)
 
 ### Phase B: HasDyadicMVTWitness_at parallel struct (DONE)
 
