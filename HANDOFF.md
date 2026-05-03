@@ -1,5 +1,52 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 15: Whole-repo scanner + 30+ axiom-elim flips across clusters
+
+New tooling: `tools/scan_all_axioms.py` — whole-repo `#print axioms`
+scan with per-axiom-set breakdown and per-module DIRTY counts.
+
+Initial scan found Real213 cluster carrying 235 DIRTY items split into
+13 [propext]-only, 195 [Quot.sound]-only, 27 [propext, Quot.sound].
+
+Round of mechanical cleanups via the established recipes:
+
+  Kernel.Tactic.Nat213.sub_sub_self  — new ∅-axiom helper.
+
+  CutSumComm: cutSum_comm + mono_left + mono_right  → PURE
+  CutMulComm: cutMul_mono_left + mono_right  → PURE
+  CutSumEq cascade: 7 cutSum_cutLe / cutMul_cutLe → PURE
+  FluxCut.sub_self_balanced → PURE (cascade)
+
+  CutAlgebraic: 8 cutMax/cutMin lattice _at variants PURE
+  ConstCutScale: constCut_one_one_eq_at, constCut_zero_eq_at PURE
+  CutMaxMin: cutMin/Max_comm/assoc_at  → 4 PURE
+  CutDouble: cutDouble_constCut_at, cutDouble_zero_at,
+             cutDouble_cutDouble_at  → 3 PURE
+
+  Cohomology.Hodge.Delta: codiff_e0_5_concrete, codiff_all_true → PURE
+    (cases <;> simp → cases + Or.inl/inr rfl)
+
+  Cohomology.Universal.Prop:
+    dsq_zero_prop_3_0 + 5_0 + n0_capstone  → 3 PURE
+    via cochain_n0_*_at helpers + delta_pointwise_eq twice +
+    manual `v < 1 → v = 0` (Nat.lt_one_iff is propext-laden).
+
+  Cohomology.Universal.Prop31:
+    pattern (Nat-match), pattern_eq_at, dsq_pattern,
+    dsq_zero_prop_3_1, prop_lift_capstone  → 5 PURE
+    (mirrors Universal.Prop51-54 retirement recipe)
+
+  PhysicsBridgeNT2.nt2_atomic_yields_dyadic_at  → PURE
+
+Total: 30+ new PURE flips this round, plus the Cohomology.Universal
+chain is now fully PURE through Prop31.
+
+Cumulative across the whole funext refactor (parts 9-15):
+  - 13 propext-only DIRTY → all PURE
+  - 30+ pointwise _at variants in core algebra
+  - 8 Cohomology theorems (Universal.Prop + Prop31 + Hodge.Delta) → PURE
+  - Whole-repo scanner now runs in CI-friendly form
+
 ## ★★★ Part 14: ClassicCalc_at + extended PhaseCS_at — chain fully PURE
 
 Builds on the part-7 Passthrough_at infrastructure (commit a3d915a)
