@@ -81,34 +81,91 @@ private theorem expand_2x3y (x y : Nat) :
       Nat.add_assoc (4*(x*x)) (6*(x*y)) (6*(x*y)),
       two_n_mul 6 (x*y)]
 
-/-- **Pell step**: the invariant is preserved by the recursion.
-    Proof skeleton via expand_3x4y / expand_2x3y + omega substitution.
-    Note: omega here is unavoidable without a multivariate Polynomial213
-    refactor (M, N as separate variables); the polynomial expand
-    lemmas are PURE, so the polynomial structure is captured. -/
+/-- Helper: linear-in-(M,N) bivariate canonical form for the Pell
+    identity.  After substitution by `h`, both sides reduce to
+    `34*N + 24*M + 9`.  PURE Nat arithmetic chain. -/
+private theorem pell_step_canonical (M N : Nat) :
+    9*(2*N+1) + 24*M + 16*N = 2*(4*(2*N+1) + 12*M + 9*N) + 1 := by
+  -- Reduce LHS to 34*N + 24*M + 9.
+  have hL : 9*(2*N+1) + 24*M + 16*N = 34*N + (24*M + 9) := by
+    rw [Nat.mul_add 9 (2*N) 1, Nat.mul_one,
+        ← E213.Tactic.Nat213.mul_assoc 9 2 N,
+        show (9 : Nat) * 2 = 18 from rfl]
+    -- Goal: 18*N + 9 + 24*M + 16*N = 34*N + (24*M + 9)
+    rw [Nat.add_assoc (18*N + 9) (24*M) (16*N),
+        Nat.add_comm (24*M) (16*N),
+        ← Nat.add_assoc (18*N + 9) (16*N) (24*M),
+        Nat.add_assoc (18*N) 9 (16*N),
+        Nat.add_comm 9 (16*N),
+        ← Nat.add_assoc (18*N) (16*N) 9,
+        ← E213.Tactic.Nat213.add_mul 18 16 N,
+        show (18+16 : Nat) = 34 from rfl,
+        Nat.add_assoc (34*N) 9 (24*M),
+        Nat.add_comm 9 (24*M),
+        ← Nat.add_assoc (34*N) (24*M) 9]
+  -- Reduce RHS to 34*N + (24*M + 9).
+  have hR : 2*(4*(2*N+1) + 12*M + 9*N) + 1 = 34*N + (24*M + 9) := by
+    rw [Nat.mul_add 4 (2*N) 1, Nat.mul_one,
+        ← E213.Tactic.Nat213.mul_assoc 4 2 N,
+        show (4 : Nat) * 2 = 8 from rfl]
+    -- Goal: 2*(8*N + 4 + 12*M + 9*N) + 1 = 34*N + (24*M + 9)
+    rw [Nat.mul_add 2 (8*N + 4 + 12*M) (9*N),
+        Nat.mul_add 2 (8*N + 4) (12*M),
+        Nat.mul_add 2 (8*N) 4,
+        ← E213.Tactic.Nat213.mul_assoc 2 8 N,
+        ← E213.Tactic.Nat213.mul_assoc 2 12 M,
+        ← E213.Tactic.Nat213.mul_assoc 2 9 N,
+        show (2 : Nat) * 8 = 16 from rfl,
+        show (2 : Nat) * 4 = 8 from rfl,
+        show (2 : Nat) * 12 = 24 from rfl,
+        show (2 : Nat) * 9 = 18 from rfl]
+    -- Goal: 16*N + 8 + 24*M + 18*N + 1 = 34*N + (24*M + 9)
+    rw [Nat.add_assoc (16*N + 8 + 24*M) (18*N) 1,
+        Nat.add_assoc (16*N + 8) (24*M) (18*N + 1),
+        Nat.add_comm (24*M) (18*N + 1),
+        ← Nat.add_assoc (16*N + 8) (18*N + 1) (24*M),
+        ← Nat.add_assoc (16*N + 8) (18*N) 1,
+        Nat.add_assoc (16*N) 8 (18*N),
+        Nat.add_comm 8 (18*N),
+        ← Nat.add_assoc (16*N) (18*N) 8,
+        ← E213.Tactic.Nat213.add_mul 16 18 N,
+        show (16+18 : Nat) = 34 from rfl,
+        Nat.add_assoc (34*N + 8) 1 (24*M),
+        Nat.add_comm 1 (24*M),
+        ← Nat.add_assoc (34*N + 8) (24*M) 1,
+        Nat.add_assoc (34*N) 8 (24*M),
+        Nat.add_comm 8 (24*M),
+        ← Nat.add_assoc (34*N) (24*M) 8,
+        Nat.add_assoc (34*N + 24*M) 8 1,
+        show (8+1 : Nat) = 9 from rfl,
+        Nat.add_assoc (34*N) (24*M) 9]
+  rw [hL, hR]
+
+/-- **Pell step**: the invariant is preserved by the recursion. -/
 theorem pell_step (x y : Nat) (h : x * x = 2 * (y * y) + 1) :
     (3 * x + 4 * y) * (3 * x + 4 * y)
       = 2 * ((2 * x + 3 * y) * (2 * x + 3 * y)) + 1 := by
-  rw [expand_3x4y, expand_2x3y]
-  omega
+  rw [expand_3x4y, expand_2x3y, h]
+  exact pell_step_canonical (x*y) (y*y)
 
 /-- **Pell invariant**: x_n² = 2 y_n² + 1. -/
 theorem pell_invariant (n : Nat) : IsPellSol (pellX n) (pellY n) := by
   induction n with
   | zero =>
-      unfold IsPellSol pellX pellY pellPair
+      show pellX 0 * pellX 0 = 2 * pellY 0 * pellY 0 + 1
       decide
   | succ k ih =>
-      unfold IsPellSol at *
+      unfold IsPellSol at ih ⊢
+      -- ih : pellX k * pellX k = 2 * pellY k * pellY k + 1
       have h_norm : pellX k * pellX k = 2 * (pellY k * pellY k) + 1 := by
-        have : 2 * pellY k * pellY k = 2 * (pellY k * pellY k) := by
-          rw [Nat.mul_assoc]
-        omega
+        have heq : 2 * pellY k * pellY k = 2 * (pellY k * pellY k) :=
+          E213.Tactic.Nat213.mul_assoc 2 (pellY k) (pellY k)
+        rw [heq] at ih; exact ih
       have h_step := pell_step (pellX k) (pellY k) h_norm
-      show pellX (k + 1) * pellX (k + 1) = 2 * pellY (k + 1) * pellY (k + 1) + 1
-      unfold pellX pellY pellPair
-      simp only
-      rw [Nat.mul_assoc]
+      show (3 * pellX k + 4 * pellY k) * (3 * pellX k + 4 * pellY k)
+        = 2 * (2 * pellX k + 3 * pellY k) * (2 * pellX k + 3 * pellY k) + 1
+      rw [E213.Tactic.Nat213.mul_assoc 2 (2 * pellX k + 3 * pellY k)
+            (2 * pellX k + 3 * pellY k)]
       exact h_step
 
 end E213.Math.Cauchy.PellSeq
@@ -316,10 +373,9 @@ theorem pellRaw_cut_above (m k : Nat) (hk : k ≥ 1) (hmsq : 2 * k * k < m * m) 
   refine ⟨k, ?_⟩
   intro n hn
   rw [pellRaw_view]
-  -- pellY n ≥ n + 2 ≥ k + 2 > k, so pellY n² ≥ k²
-  have hyn : pellY n ≥ k := by
-    have := pellY_lb n
-    omega
+  -- pellY n ≥ n + 2 ≥ n ≥ k
+  have hyn : pellY n ≥ k :=
+    Nat.le_trans hn (Nat.le_trans (Nat.le_add_right n 2) (pellY_lb n))
   have hyn_sq : k * k ≤ pellY n * pellY n := Nat.mul_le_mul hyn hyn
   exact pell_orderProj_above (pellX n) (pellY n) m k
     (pell_invariant n) hmsq hyn_sq
