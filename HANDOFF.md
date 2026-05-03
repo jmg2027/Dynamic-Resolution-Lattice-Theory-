@@ -1,5 +1,70 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 16: G12 7-cluster integration plan EXECUTED
+
+After parts 1-15 closed the funext refactor + part-15 added the
+whole-repo scanner, this session merged collatz-conjecture-x6hxh
+(HC²¹³ + 17 Hodge-adjacent + G6-G12 notes) and executed the full
+7-cluster integration plan from `/root/.claude/plans/tingly-
+enchanting-pelican.md`.
+
+### Clusters delivered (7/7)
+
+| # | Tier | Content | PURE adds | Commit |
+|---|------|---------|-----------|--------|
+| 1 | 1 D1-D5 | API shims (Kernel/Firmware/Hypervisor) + ARCH | n/a | 33ba918 |
+| 2 | 2 T1-T3 | layer_audit + sync_strict + 10 INDEX.md | n/a | 566c096 |
+| 3 | 3 F1 | ClassicCalc_at family (Mid/Higher/Combinators/Extreme) | +16 | 60a6f13 |
+| 4 | 3 F2 | 4 pattern Lens objects in Lens/Instances | +4 | a4e9121 |
+| 5 | 4 A1 | OS/ scaffolded (file moves deferred) | n/a | edb2344 |
+| 6 | 4 A2 ★ | AxiomLenses: propext/funext/Quot.sound as lenses | +4 | 2a885fd |
+| 7 | 5 C1-C4 ★ | AxiomSystems: Peano/ZFC/CA/CrossTheory as lens comp | +5 | d322178 |
+
+### Key milestones
+
+- **`hodge_conjecture_213_complete` PURE** (verified post-merge)
+- **`Hypervisor/Lens/AxiomLenses/`** — Lean axioms reformulated
+  as 213-internal lens choices (★★★ ENDGAME — propext, funext,
+  Quot.sound as explicit Lens objects, with their PURE alternatives
+  also explicit)
+- **`Math/AxiomSystems/`** — classical foundations (Peano, ZFC,
+  classical analysis) reformulated as lens compositions on THE
+  one Raw substrate.  `cohabit_peano_depth` PURE: same Raw
+  expression valid in multiple foundations simultaneously.
+- **OS layer scaffolded** in `lean/E213/OS/INDEX.md`; full file
+  moves deferred to dedicated migration session.
+
+### Cumulative session output
+
+  - 21+ marquee Phase capstones strict ∅-axiom (parts 1-8)
+  - 75+ pointwise `_at` variants (parts 1-15 + cluster 3)
+  - `Passthrough_at` + `ClassicCalc_at` parallel structures
+  - 4 explicit pattern Lens objects (cluster 4)
+  - 4 AxiomLens / 4 AxiomSystem demonstration files
+  - Whole-repo axiom scanner (`tools/scan_all_axioms.py`)
+  - STRICT_ZERO_AXIOM sync tool (`tools/sync_strict_zero_axiom.py`)
+  - layer_audit provider/consumer extension
+  - 10 Lens/ sub-cluster INDEX.md files
+  - 3 API shim files (Kernel/Firmware/Hypervisor)
+  - ARCHITECTURE.md §1.1/§1.2/§1.3 + new §1.4.5 OS layer
+
+### Next session candidate work
+
+  1. **OS layer file moves** (Tier 4 A1 finishing): bulk-sed of
+     ~15 importers, namespace updates in 20 source files.  Best
+     done in dedicated session with full pre/post axiom-status diff.
+  2. **DyadicRiemann _at variants**: 25 1-line wrappers to
+     riemannSampleSum_constCut_at (mechanical).
+  3. **Cauchy.WallisSeq/EulerSeq/PellSeq** (~38 DIRTY): separate
+     domain, may need new helpers.
+  4. **`Compose/OnLens.lean` + `Leaves/RefinesParity.lean`**:
+     pre-existing bf34de0 build errors; small typo fixes that
+     would let Hypervisor/API.lean re-export the full HV5/HV2.
+  5. **Run `tools/sync_strict_zero_axiom.py`** to update the
+     STRICT_ZERO_AXIOM.md catalog with the 30+ new PURE entries.
+
+
+
 ## ★★★ Part 15: Whole-repo scanner + 30+ axiom-elim flips across clusters
 
 New tooling: `tools/scan_all_axioms.py` — whole-repo `#print axioms`
