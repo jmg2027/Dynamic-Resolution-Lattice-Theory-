@@ -96,24 +96,28 @@ namespace E213.Math.Real213.CutMulComm
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
 
-/-- cutMulOuter true iff ∃ m1 ≤ n, ∃ m2 ≤ m2Bound, witnesses. -/
+/-- cutMulOuter true iff ∃ m1 ≤ n, ∃ m2 ≤ m2Bound, witnesses.
+    PURE (∅-axiom): avoids `induction` tactic, `rw [iff]`, and
+    `by_cases` to keep `propext` out of the proof body. -/
 theorem cutMulOuter_eq_true_iff (cx cy : Nat → Nat → Bool)
-    (k m m2Bound : Nat) (n : Nat) :
-    cutMulOuter cx cy k m m2Bound n = true ↔
+    (k m m2Bound : Nat) :
+    ∀ n, cutMulOuter cx cy k m m2Bound n = true ↔
     ∃ m1, m1 ≤ n ∧ ∃ m2, m2 ≤ m2Bound ∧
-      cx m1 k = true ∧ cy m2 k = true ∧ m1 * m2 ≤ m * k := by
-  induction n with
-  | zero =>
-    show cutMulInner cx cy k m 0 m2Bound = true ↔ _
-    rw [cutMulInner_eq_true_iff]
+      cx m1 k = true ∧ cy m2 k = true ∧ m1 * m2 ≤ m * k
+  | 0 => by
     constructor
-    · rintro ⟨m2, hm2, hcx, hcy, hmul⟩
+    · intro h
+      have h_inner : cutMulInner cx cy k m 0 m2Bound = true := h
+      obtain ⟨m2, hm2, hcx, hcy, hmul⟩ :=
+        (cutMulInner_eq_true_iff cx cy k m 0 m2Bound).mp h_inner
       exact ⟨0, Nat.le_refl _, m2, hm2, hcx, hcy, hmul⟩
     · rintro ⟨m1, hm1, m2, hm2, hcx, hcy, hmul⟩
-      have : m1 = 0 := Nat.le_zero.mp hm1
-      subst this
-      exact ⟨m2, hm2, hcx, hcy, hmul⟩
-  | succ j ih =>
+      have hm1_zero : m1 = 0 := Nat.le_zero.mp hm1
+      subst hm1_zero
+      show cutMulInner cx cy k m 0 m2Bound = true
+      exact (cutMulInner_eq_true_iff cx cy k m 0 m2Bound).mpr
+        ⟨m2, hm2, hcx, hcy, hmul⟩
+  | j+1 => by
     show (cutMulInner cx cy k m (j+1) m2Bound
             || cutMulOuter cx cy k m m2Bound j) = true ↔ _
     constructor
@@ -129,21 +133,25 @@ theorem cutMulOuter_eq_true_iff (cx cy : Nat → Nat → Bool)
           cases hrec : cutMulOuter cx cy k m m2Bound j with
           | true => rfl
           | false => rw [hrec] at h; cases h
-        obtain ⟨m1, hm1, rest⟩ := (ih).mp h'
+        obtain ⟨m1, hm1, rest⟩ :=
+          (cutMulOuter_eq_true_iff cx cy k m m2Bound j).mp h'
         exact ⟨m1, Nat.le_succ_of_le hm1, rest⟩
     · rintro ⟨m1, hm1, m2, hm2, hcx, hcy, hmul⟩
-      by_cases hm1_eq : m1 = j+1
-      · subst hm1_eq
+      match Nat.decEq m1 (j+1) with
+      | isTrue hm1_eq =>
+        subst hm1_eq
         have inner_true : cutMulInner cx cy k m (j+1) m2Bound = true :=
           (cutMulInner_eq_true_iff cx cy k m (j+1) m2Bound).mpr
             ⟨m2, hm2, hcx, hcy, hmul⟩
         rw [inner_true]; rfl
-      · have hm1' : m1 ≤ j := by
-          rcases Nat.lt_or_ge m1 (j+1) with h_lt | h_ge
-          · exact Nat.lt_succ_iff.mp h_lt
-          · exact absurd (Nat.le_antisymm hm1 h_ge) hm1_eq
+      | isFalse hm1_neq =>
+        have hm1' : m1 ≤ j :=
+          match Nat.lt_or_ge m1 (j+1) with
+          | Or.inl h_lt => Nat.lt_succ_iff.mp h_lt
+          | Or.inr h_ge => absurd (Nat.le_antisymm hm1 h_ge) hm1_neq
         have outer_true : cutMulOuter cx cy k m m2Bound j = true :=
-          (ih).mpr ⟨m1, hm1', m2, hm2, hcx, hcy, hmul⟩
+          (cutMulOuter_eq_true_iff cx cy k m m2Bound j).mpr
+            ⟨m1, hm1', m2, hm2, hcx, hcy, hmul⟩
         rw [outer_true]
         cases cutMulInner cx cy k m (j+1) m2Bound <;> rfl
 
@@ -166,10 +174,8 @@ private theorem bool_eq_of_iff_true' (a b : Bool)
 theorem cutMul_comm (cx cy : Nat → Nat → Bool) (m k : Nat) :
     cutMul cx cy m k = cutMul cy cx m k := by
   apply bool_eq_of_iff_true'
-  show cutMulOuter cx cy k m ((m+1)*(k+1)) ((m+1)*(k+1)) = true
-       ↔ cutMulOuter cy cx k m ((m+1)*(k+1)) ((m+1)*(k+1)) = true
-  rw [cutMulOuter_eq_true_iff cx cy k m ((m+1)*(k+1)) ((m+1)*(k+1))]
-  rw [cutMulOuter_eq_true_iff cy cx k m ((m+1)*(k+1)) ((m+1)*(k+1))]
+  refine Iff.trans (cutMulOuter_eq_true_iff cx cy k m _ _)
+    (Iff.trans ?_ (cutMulOuter_eq_true_iff cy cx k m _ _).symm)
   constructor
   · rintro ⟨m1, hm1, m2, hm2, hcx, hcy, hmul⟩
     refine ⟨m2, hm2, m1, hm1, hcy, hcx, ?_⟩
