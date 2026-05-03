@@ -29,6 +29,15 @@ By codomain category:
 **Reach** (image-construction infrastructure):
   - `Reach.lean`
 
+**Funext-refactor pattern lenses** (G12 Tier 3 F2, parts 1-15):
+  - `PointwiseProjection.lean` — function → query stream lens
+  - `EndpointBehavior.lean` — function → endpoint pair lens
+  - `BoundedContext.lean` — bounded query window lens
+  - `CochainEntry.lean` — cochain → per-entry lens
+  These formalise the implicit lens choices that distinguish
+  pointwise PURE views from function-eq DIRTY views in Real213
+  + Cohomology.
+
 ## Public API
 
 NOT bundled in `E213.Hypervisor.API` shim.  Import individually:
