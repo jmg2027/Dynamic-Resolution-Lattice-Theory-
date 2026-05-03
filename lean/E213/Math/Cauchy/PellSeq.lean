@@ -37,6 +37,10 @@ def pellPair : Nat → Nat × Nat
 def pellX (n : Nat) : Nat := (pellPair n).1
 def pellY (n : Nat) : Nat := (pellPair n).2
 
+/-- Helper: collapse `n*z + n*z = (2*n)*z` in monomial form. -/
+private theorem two_n_mul (n z : Nat) : n * z + n * z = (2 * n) * z := by
+  rw [Nat.two_mul, E213.Tactic.Nat213.add_mul]
+
 /-- Expand (3x + 4y)². -/
 private theorem expand_3x4y (x y : Nat) :
     (3 * x + 4 * y) * (3 * x + 4 * y)
@@ -51,7 +55,12 @@ private theorem expand_3x4y (x y : Nat) :
   have e3 : (4 * y) * (3 * x) = 12 * (x * y) := by
     rw [E213.Tactic.Nat213.mul_mul_mul_comm_213, Nat.mul_comm y x]
   have e4 : (4 * y) * (4 * y) = 16 * (y * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
-  rw [e1, e2, e3, e4]; omega
+  rw [e1, e2, e3, e4]
+  -- Goal: 9*(x*x) + 12*(x*y) + (12*(x*y) + 16*(y*y))
+  --     = 9*(x*x) + 24*(x*y) + 16*(y*y)
+  rw [← Nat.add_assoc (9*(x*x) + 12*(x*y)) (12*(x*y)) (16*(y*y)),
+      Nat.add_assoc (9*(x*x)) (12*(x*y)) (12*(x*y)),
+      two_n_mul 12 (x*y)]
 
 /-- Expand (2x + 3y)². -/
 private theorem expand_2x3y (x y : Nat) :
@@ -67,7 +76,10 @@ private theorem expand_2x3y (x y : Nat) :
   have e3 : (3 * y) * (2 * x) = 6 * (x * y) := by
     rw [E213.Tactic.Nat213.mul_mul_mul_comm_213, Nat.mul_comm y x]
   have e4 : (3 * y) * (3 * y) = 9 * (y * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
-  rw [e1, e2, e3, e4]; omega
+  rw [e1, e2, e3, e4]
+  rw [← Nat.add_assoc (4*(x*x) + 6*(x*y)) (6*(x*y)) (9*(y*y)),
+      Nat.add_assoc (4*(x*x)) (6*(x*y)) (6*(x*y)),
+      two_n_mul 6 (x*y)]
 
 /-- **Pell step**: the invariant is preserved by the recursion. -/
 theorem pell_step (x y : Nat) (h : x * x = 2 * (y * y) + 1) :
