@@ -66,16 +66,18 @@ theorem cutSum_one_one :
         rw [← Nat.two_mul]; exact h_4k_2m
       exact E213.Tactic.Nat213.le_sub_of_add_le h_sum
 
-/-- **cutSum (0)(constCut a b) = constCut a b** (zero left identity). -/
+/-- **cutSum (0)(constCut a b) ≡ constCut a b** (cutEq, zero left identity, PURE). -/
 theorem cutSum_zero_const (a b : Nat) :
-    cutSum (constCut 0 1) (constCut a b) = constCut a b := by
-  funext m k
+    cutEq (cutSum (constCut 0 1) (constCut a b)) (constCut a b) := by
+  intro m k
   apply bool_eq_iff
   show cutSumAux (constCut 0 1) (constCut a b) k (2*m) (2*m) = true
        ↔ constCut a b m k = true
-  rw [cutSumAux_eq_true_iff]
   constructor
-  · rintro ⟨i, _, _, hci2⟩
+  · intro hLHS
+    have hExt :=
+      (cutSumAux_eq_true_iff (constCut 0 1) (constCut a b) k (2*m) (2*m)).mp hLHS
+    obtain ⟨i, _, _, hci2⟩ := hExt
     have h0 : a * (2*k) ≤ b * (2*m - i) := of_decide_eq_true hci2
     have h_2bm : b * (2*m - i) ≤ b * (2*m) :=
       Nat.mul_le_mul_left b (Nat.sub_le _ _)
@@ -89,6 +91,7 @@ theorem cutSum_zero_const (a b : Nat) :
     exact decide_eq_true (Nat.le_of_mul_le_mul_left h_2ak_2bm (by decide : 0 < 2))
   · intro h
     have h_ak : a*k ≤ b*m := of_decide_eq_true h
+    apply (cutSumAux_eq_true_iff (constCut 0 1) (constCut a b) k (2*m) (2*m)).mpr
     refine ⟨0, Nat.zero_le _, ?_, ?_⟩
     · show decide (0 * (2*k) ≤ 1 * 0) = true
       exact decide_eq_true (by rw [Nat.zero_mul]; exact Nat.zero_le _)
@@ -102,13 +105,13 @@ theorem cutSum_zero_const (a b : Nat) :
       rw [e1, e2]
       exact Nat.mul_le_mul_left 2 h_ak
 
-/-- **cutSum (constCut a b) (constCut 0 1) = constCut a b** (right zero identity).
-    Via cutSum_comm + cutSum_zero_const. -/
+/-- **cutSum (constCut a b) (constCut 0 1) ≡ constCut a b**
+    (cutEq, right zero identity, PURE).  Via cutSum_comm + cutSum_zero_const. -/
 theorem cutSum_const_zero (a b : Nat) :
-    cutSum (constCut a b) (constCut 0 1) = constCut a b := by
-  funext m k
+    cutEq (cutSum (constCut a b) (constCut 0 1)) (constCut a b) := by
+  intro m k
   rw [cutSum_comm (constCut a b) (constCut 0 1) m k]
-  exact congrFun (congrFun (cutSum_zero_const a b) m) k
+  exact cutSum_zero_const a b m k
 
 /-- **cutSum (1/2) (1/2) = constCut 1 1** pointwise (∅-axiom).
     Avoids `funext`, `rw [iff]`. -/
@@ -163,22 +166,23 @@ theorem cutSum_half_half_at (m k : Nat) :
         exact E213.Tactic.Nat213.le_of_add_le_add_left h_kk_kSub
       exact Nat.mul_le_mul_left 2 h_k_2mk
 
-/-- **cutSum (1/2) (1/2) = constCut 1 1**: 1/2 + 1/2 = 1. -/
+/-- **cutSum (1/2) (1/2) ≡ constCut 1 1** (cutEq, PURE). -/
 theorem cutSum_half_half :
-    cutSum (constCut 1 2) (constCut 1 2) = constCut 1 1 := by
-  funext m k
-  exact cutSum_half_half_at m k
+    cutEq (cutSum (constCut 1 2) (constCut 1 2)) (constCut 1 1) :=
+  cutSum_half_half_at
 
-/-- **cutSum (1/3) (1/3) = constCut 2 3**: 1/3 + 1/3 = 2/3. -/
+/-- **cutSum (1/3) (1/3) ≡ constCut 2 3** (cutEq, PURE). -/
 theorem cutSum_third_third :
-    cutSum (constCut 1 3) (constCut 1 3) = constCut 2 3 := by
-  funext m k
+    cutEq (cutSum (constCut 1 3) (constCut 1 3)) (constCut 2 3) := by
+  intro m k
   apply bool_eq_iff
   show cutSumAux (constCut 1 3) (constCut 1 3) k (2*m) (2*m) = true
        ↔ constCut 2 3 m k = true
-  rw [cutSumAux_eq_true_iff]
   constructor
-  · rintro ⟨i, hi, hci, hcsi⟩
+  · intro hLHS
+    have hExt :=
+      (cutSumAux_eq_true_iff (constCut 1 3) (constCut 1 3) k (2*m) (2*m)).mp hLHS
+    obtain ⟨i, hi, hci, hcsi⟩ := hExt
     have h_2k_3i : 2*k ≤ 3*i := by
       have : 1*(2*k) ≤ 3*i := of_decide_eq_true hci
       rwa [Nat.one_mul] at this
@@ -187,37 +191,46 @@ theorem cutSum_third_third :
       rwa [Nat.one_mul] at this
     show decide (2*k ≤ 3*m) = true
     apply decide_eq_true
-    have h_add : (2*m - i) + i = 2*m := Nat.sub_add_cancel hi
-    have h_sum : 3*i + 3*(2*m - i) = 6*m := by
-      rw [Nat.add_comm]
-      rw [← Nat.mul_add]
-      rw [h_add]
-      omega
-    omega
+    have h_add : i + (2*m - i) = 2*m := E213.Tactic.Nat213.add_sub_of_le hi
+    have h_sum : 3*i + 3*(2*m - i) = 3*(2*m) := by
+      rw [← Nat.mul_add]; rw [h_add]
+    have h_4k_3sum : 2*k + 2*k ≤ 3*i + 3*(2*m - i) := Nat.add_le_add h_2k_3i h_2k_3mi
+    have h_4k_3_2m : 2*k + 2*k ≤ 3*(2*m) := h_sum ▸ h_4k_3sum
+    have h_2_2k : 2*(2*k) ≤ 3*(2*m) := by rw [Nat.two_mul]; exact h_4k_3_2m
+    have h_2_2k_3m : 2*(2*k) ≤ 2*(3*m) := by
+      have e : 3*(2*m) = 2*(3*m) := by
+        rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm 3 2,
+            E213.Tactic.Nat213.mul_assoc]
+      rw [← e]; exact h_2_2k
+    exact Nat.le_of_mul_le_mul_left h_2_2k_3m (by decide : 0 < 2)
   · intro h
     have h_2k_3m : 2*k ≤ 3*m := of_decide_eq_true h
+    apply (cutSumAux_eq_true_iff (constCut 1 3) (constCut 1 3) k (2*m) (2*m)).mpr
     refine ⟨m, ?_, ?_, ?_⟩
-    · -- m ≤ 2m
-      omega
+    · -- m ≤ 2*m via Nat.le_mul_of_pos_left
+      exact Nat.le_mul_of_pos_left m (by decide : 0 < 2)
     · show decide (1*(2*k) ≤ 3*m) = true
       rw [Nat.one_mul]
       exact decide_eq_true h_2k_3m
     · show decide (1*(2*k) ≤ 3*(2*m - m)) = true
       rw [Nat.one_mul]
-      have : 2*m - m = m := by omega
-      rw [this]
+      have hmm : 2*m - m = m := by
+        rw [Nat.two_mul]; exact E213.Tactic.Nat213.add_sub_cancel_right m m
+      rw [hmm]
       exact decide_eq_true h_2k_3m
 
 /-- **cutSum (a/2) (b/2) = (a+b)/2** for any a, b. -/
 theorem cutSum_half_general (a b : Nat) :
-    cutSum (constCut a 2) (constCut b 2) = constCut (a + b) 2 := by
-  funext m k
+    cutEq (cutSum (constCut a 2) (constCut b 2)) (constCut (a + b) 2) := by
+  intro m k
   apply bool_eq_iff
   show cutSumAux (constCut a 2) (constCut b 2) k (2*m) (2*m) = true
        ↔ constCut (a + b) 2 m k = true
-  rw [cutSumAux_eq_true_iff]
   constructor
-  · rintro ⟨i, hi, hci, hcsi⟩
+  · intro hLHS
+    have hExt :=
+      (cutSumAux_eq_true_iff (constCut a 2) (constCut b 2) k (2*m) (2*m)).mp hLHS
+    obtain ⟨i, hi, hci, hcsi⟩ := hExt
     have h_2ak_2i : a*(2*k) ≤ 2*i := of_decide_eq_true hci
     have h_2bk_2mi : b*(2*k) ≤ 2*(2*m - i) := of_decide_eq_true hcsi
     show decide ((a+b)*k ≤ 2*m) = true
@@ -233,14 +246,15 @@ theorem cutSum_half_general (a b : Nat) :
     have h_bk : b*k ≤ 2*m - i := Nat.le_of_mul_le_mul_left h_2bk_2mi (by decide : 0 < 2)
     have h_abk : a*k + b*k ≤ i + (2*m - i) := Nat.add_le_add h_ak h_bk
     rw [h_add] at h_abk
-    rw [show a*k + b*k = (a+b)*k from (Nat.add_mul a b k).symm] at h_abk
+    rw [show a*k + b*k = (a+b)*k from (E213.Tactic.Nat213.add_mul a b k).symm] at h_abk
     exact h_abk
   · intro h
     have h_abk_2m : (a+b)*k ≤ 2*m := of_decide_eq_true h
     have h_ak_le_2m : a*k ≤ 2*m := by
       have : a*k ≤ (a+b)*k := by
-        rw [Nat.add_mul]; exact Nat.le_add_right _ _
+        rw [E213.Tactic.Nat213.add_mul]; exact Nat.le_add_right _ _
       exact Nat.le_trans this h_abk_2m
+    apply (cutSumAux_eq_true_iff (constCut a 2) (constCut b 2) k (2*m) (2*m)).mpr
     refine ⟨a*k, h_ak_le_2m, ?_, ?_⟩
     · show decide (a*(2*k) ≤ 2*(a*k)) = true
       apply decide_eq_true
@@ -254,20 +268,26 @@ theorem cutSum_half_general (a b : Nat) :
         rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b, E213.Tactic.Nat213.mul_assoc]
       rw [e1]
       have h_abk' : a*k + b*k ≤ 2*m := by
-        rw [show a*k + b*k = (a+b)*k from (Nat.add_mul a b k).symm]
+        rw [show a*k + b*k = (a+b)*k from (E213.Tactic.Nat213.add_mul a b k).symm]
         exact h_abk_2m
-      omega
+      have h_bk_sub : b*k ≤ 2*m - a*k := by
+        have h_swap : b*k + a*k ≤ 2*m := by
+          rw [Nat.add_comm]; exact h_abk'
+        exact E213.Tactic.Nat213.le_sub_of_add_le h_swap
+      exact Nat.mul_le_mul_left 2 h_bk_sub
 
 /-- **cutSum (a/1) (b/2) = (2*a + b)/2** for any a, b. -/
 theorem cutSum_int_half (a b : Nat) :
-    cutSum (constCut a 1) (constCut b 2) = constCut (2*a + b) 2 := by
-  funext m k
+    cutEq (cutSum (constCut a 1) (constCut b 2)) (constCut (2*a + b) 2) := by
+  intro m k
   apply bool_eq_iff
   show cutSumAux (constCut a 1) (constCut b 2) k (2*m) (2*m) = true
        ↔ constCut (2*a + b) 2 m k = true
-  rw [cutSumAux_eq_true_iff]
   constructor
-  · rintro ⟨i, hi, hci, hcsi⟩
+  · intro hLHS
+    have hExt :=
+      (cutSumAux_eq_true_iff (constCut a 1) (constCut b 2) k (2*m) (2*m)).mp hLHS
+    obtain ⟨i, hi, hci, hcsi⟩ := hExt
     have h_2ak_i : 2*(a*k) ≤ i := by
       have h1 : a*(2*k) ≤ 1*i := of_decide_eq_true hci
       have e : a*(2*k) = 2*(a*k) := by
@@ -286,17 +306,20 @@ theorem cutSum_int_half (a b : Nat) :
       calc 2*(a*k) + b*k ≤ i + (2*m - i) := Nat.add_le_add h_2ak_i h_bk
         _ = 2*m := h_add
     have e_lhs : (2*a + b)*k = 2*(a*k) + b*k := by
-      rw [Nat.add_mul, E213.Tactic.Nat213.mul_assoc]
+      rw [E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.mul_assoc]
     rw [e_lhs]
     exact h_total
   · intro h
     have h_le : (2*a + b)*k ≤ 2*m := of_decide_eq_true h
     have h_total : 2*(a*k) + b*k ≤ 2*m := by
       have e : (2*a + b)*k = 2*(a*k) + b*k := by
-        rw [Nat.add_mul, E213.Tactic.Nat213.mul_assoc]
+        rw [E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.mul_assoc]
       rw [e] at h_le; exact h_le
+    apply (cutSumAux_eq_true_iff (constCut a 1) (constCut b 2) k (2*m) (2*m)).mpr
     refine ⟨2*(a*k), ?_, ?_, ?_⟩
-    · omega
+    · -- 2*(a*k) ≤ 2*m
+      have h_2ak_le : 2*(a*k) ≤ 2*(a*k) + b*k := Nat.le_add_right _ _
+      exact Nat.le_trans h_2ak_le h_total
     · show decide (a*(2*k) ≤ 1*(2*(a*k))) = true
       rw [Nat.one_mul]
       have : a*(2*k) = 2*(a*k) := by
@@ -308,26 +331,31 @@ theorem cutSum_int_half (a b : Nat) :
       have e : b*(2*k) = 2*(b*k) := by
         rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b, E213.Tactic.Nat213.mul_assoc]
       rw [e]
-      omega
+      have h_bk_sub : b*k ≤ 2*m - 2*(a*k) := by
+        have h_swap : b*k + 2*(a*k) ≤ 2*m := by
+          rw [Nat.add_comm]; exact h_total
+        exact E213.Tactic.Nat213.le_sub_of_add_le h_swap
+      exact Nat.mul_le_mul_left 2 h_bk_sub
 
-/-- **cutSum (a/2) (b/1) = (a + 2*b)/2**: half + int via comm. -/
+/-- **cutSum (a/2) (b/1) ≡ (a + 2*b)/2** (cutEq, half + int via comm, PURE). -/
 theorem cutSum_half_int (a b : Nat) :
-    cutSum (constCut a 2) (constCut b 1) = constCut (a + 2*b) 2 := by
-  funext m k
+    cutEq (cutSum (constCut a 2) (constCut b 1)) (constCut (a + 2*b) 2) := by
+  intro m k
   rw [cutSum_comm]
-  have h := congrFun (congrFun (cutSum_int_half b a) m) k
-  rw [h, Nat.add_comm (2*b) a]
+  rw [cutSum_int_half b a m k, Nat.add_comm (2*b) a]
 
 /-- **cutSum (a/1) (b/1) = (a+b)/1** for integers. -/
 theorem cutSum_int_int (a b : Nat) :
-    cutSum (constCut a 1) (constCut b 1) = constCut (a + b) 1 := by
-  funext m k
+    cutEq (cutSum (constCut a 1) (constCut b 1)) (constCut (a + b) 1) := by
+  intro m k
   apply bool_eq_iff
   show cutSumAux (constCut a 1) (constCut b 1) k (2*m) (2*m) = true
        ↔ constCut (a + b) 1 m k = true
-  rw [cutSumAux_eq_true_iff]
   constructor
-  · rintro ⟨i, hi, hci, hcsi⟩
+  · intro hLHS
+    have hExt :=
+      (cutSumAux_eq_true_iff (constCut a 1) (constCut b 1) k (2*m) (2*m)).mp hLHS
+    obtain ⟨i, hi, hci, hcsi⟩ := hExt
     have h_2ak_i : 2*(a*k) ≤ i := by
       have : a*(2*k) ≤ 1*i := of_decide_eq_true hci
       rw [Nat.one_mul] at this
@@ -349,18 +377,24 @@ theorem cutSum_int_int (a b : Nat) :
           ≤ i + (2*m - i) := Nat.add_le_add h_2ak_i h_2bk_2mi
         _ = 2*m := h_add
     have e : 2*(a*k) + 2*(b*k) = 2 * ((a+b)*k) := by
-      rw [← Nat.mul_add, Nat.add_mul]
+      rw [← Nat.mul_add, E213.Tactic.Nat213.add_mul]
     rw [e] at h_2abk_2m
     exact Nat.le_of_mul_le_mul_left h_2abk_2m (by decide : 0 < 2)
   · intro h
     have h_abk_m : (a+b)*k ≤ 1*m := of_decide_eq_true h
     rw [Nat.one_mul] at h_abk_m
-    refine ⟨2*(a*k), ?_, ?_, ?_⟩
-    · -- 2ak ≤ 2m
+    have h_ak_m : a*k ≤ m := by
       have : a*k ≤ (a+b)*k := by
-        rw [Nat.add_mul]; exact Nat.le_add_right _ _
-      have h_ak_m : a*k ≤ m := Nat.le_trans this h_abk_m
-      omega
+        rw [E213.Tactic.Nat213.add_mul]; exact Nat.le_add_right _ _
+      exact Nat.le_trans this h_abk_m
+    have h_bk_m : b*k ≤ m := by
+      have : b*k ≤ (a+b)*k := by
+        rw [E213.Tactic.Nat213.add_mul, Nat.add_comm]; exact Nat.le_add_right _ _
+      exact Nat.le_trans this h_abk_m
+    apply (cutSumAux_eq_true_iff (constCut a 1) (constCut b 1) k (2*m) (2*m)).mpr
+    refine ⟨2*(a*k), ?_, ?_, ?_⟩
+    · -- 2ak ≤ 2m, since ak ≤ m
+      exact Nat.mul_le_mul_left 2 h_ak_m
     · show decide (a*(2*k) ≤ 1*(2*(a*k))) = true
       rw [Nat.one_mul]
       have e : a*(2*k) = 2*(a*k) := by
@@ -373,10 +407,17 @@ theorem cutSum_int_int (a b : Nat) :
       have e : b*(2*k) = 2*(b*k) := by
         rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b, E213.Tactic.Nat213.mul_assoc]
       rw [e]
-      have h_abk' : a*k + b*k ≤ m := by
-        rw [show a*k + b*k = (a+b)*k from (Nat.add_mul a b k).symm]
-        exact h_abk_m
-      omega
+      have h_2bk_sub : 2*(b*k) ≤ 2*m - 2*(a*k) := by
+        have h_sum : 2*(b*k) + 2*(a*k) ≤ 2*m := by
+          have e2 : 2*(b*k) + 2*(a*k) = 2*(b*k + a*k) := (Nat.mul_add 2 _ _).symm
+          rw [e2]
+          have h_abk_le_m : a*k + b*k ≤ m := by
+            rw [show a*k + b*k = (a+b)*k from (E213.Tactic.Nat213.add_mul a b k).symm]
+            exact h_abk_m
+          have h_ba_le_m : b*k + a*k ≤ m := by rw [Nat.add_comm]; exact h_abk_le_m
+          exact Nat.mul_le_mul_left 2 h_ba_le_m
+        exact E213.Tactic.Nat213.le_sub_of_add_le h_sum
+      exact h_2bk_sub
 
 /-- **Pointwise** version of `cutSum_self`: ∅-axiom (no funext, no
     `rw [iff]`).  Uses `Iff.mp` / `Iff.mpr` directly to avoid
@@ -429,11 +470,9 @@ theorem cutSum_self_at (a b : Nat) (m k : Nat) :
       rw [h_2mm]
       exact decide_eq_true h_a2k_bm
 
-/-- **cutSum c c = 2c** for constant cut c = a/b.
-    Function-equality version (uses `funext` — DIRTY).  Prefer
-    `cutSum_self_at` (pointwise, ∅-axiom) for new code. -/
+/-- **cutSum c c ≡ 2c** for constant cut c = a/b (cutEq, PURE). -/
 theorem cutSum_self (a b : Nat) :
-    cutSum (constCut a b) (constCut a b) = constCut (2*a) b :=
-  funext fun m => funext fun k => cutSum_self_at a b m k
+    cutEq (cutSum (constCut a b) (constCut a b)) (constCut (2*a) b) :=
+  cutSum_self_at a b
 
 end E213.Math.Real213.CutSumOne
