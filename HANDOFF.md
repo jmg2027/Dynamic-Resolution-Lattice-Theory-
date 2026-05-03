@@ -1,5 +1,71 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 17: Tier 4 A1 OS layer file migration EXECUTED
+
+After part 16 scaffolded the OS/ layer (INDEX.md +
+ARCHITECTURE.md §1.4.5), this session completed the actual file
+relocations for both subsystems originally enumerated in the
+migration plan.
+
+### Migrations delivered (2/2)
+
+| # | Source → Dest | Files | Commit |
+|---|--------------|-------|--------|
+| 1 | `Math/Cohomology/HodgeConjecture/Bridge/*` → `OS/HodgeConjecture/Bridges/*` | 7 | 2b21a38 |
+| 2 | `Physics/Capstones/*` → `OS/Physics/Capstones/*` | 13 | 9252d10 |
+
+Total: 20 files relocated via `git mv` (history preserved).
+
+### Pre-existing typos fixed
+
+Three pre-existing build errors from the merged collatz branch
+(commits bf34de0 + 69a3b08) — surfaced when the migration
+re-checked transitive builds:
+
+  1. `Compose/OnLens.lean` line 177 — `InstancesReach` →
+     `Instances.Reach`
+  2. `Leaves/RefinesParity.lean` lines 19, 59 — removed bad
+     `open E213.Meta` (no such namespace member)
+  3. `Refines/Chain.lean` lines 23-27 — same Meta open + bad
+     `LeavesRefinesParity` namespace
+  4. `Couplings/MasterUnification.lean` line 8 —
+     `import E213.Physics.YangMills.Gap.Bridge` (no such file)
+     → `import E213.Physics.YangMills.Bridge`
+
+### DyadicRiemann _at variants
+
+10 mechanical 1-line wrappers added to `DyadicRiemann.lean`:
+half_depth_{2,3,10,14}, third_depth_{6,8,16}, threequarter_4,
+fiveSeventh_8, hundredth_12 — all PURE via
+`riemannSampleSum_constCut_at`.
+
+### Verification
+
+  - `cd lean && lake build` — clean (whole repo)
+  - PURE certificates re-verified post-move:
+    `hodge_conjecture_213_complete`, `tate_213_5_1`,
+    `master_atomic_catalog`, `drlt_physics_milestone`,
+    `phase1_absolute`, `master_capstone`,
+    `drlt_zero_parameter_claim`
+
+### OS layer status update
+
+`lean/E213/OS/INDEX.md` updated: Tier 4 A1 status flipped from
+"deferred" to **COMPLETE**.  OS/ now houses 20 orchestration
+files in 2 subsystems (HodgeConjecture/Bridges + Physics/Capstones).
+
+### Next session candidate work (unchanged)
+
+  1. **Cauchy.WallisSeq/EulerSeq/PellSeq** (~38 DIRTY): separate
+     domain, may need new helpers.
+  2. **Run `tools/sync_strict_zero_axiom.py`** to update the
+     STRICT_ZERO_AXIOM.md catalog with the 30+ new PURE entries
+     (including the 17+ from parts 16-17).
+  3. **Cluster 5 round-trip** of the C1-C4 axiom-system
+     demonstrations into PRD documentation.
+
+---
+
 ## ★★★ Part 16: G12 7-cluster integration plan EXECUTED
 
 After parts 1-15 closed the funext refactor + part-15 added the
