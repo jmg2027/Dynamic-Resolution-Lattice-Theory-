@@ -65,10 +65,11 @@ theorem cutHalf_dyadicCut (M E : Nat) :
   rw [show (2:Nat)^(E+1) = 2 * 2^E from by
     rw [Nat.pow_succ, Nat.mul_comm]]
 
-/-- **cutDouble of dyadicCut**: doubles numerator, exponent unchanged.
-    2 * (M / 2^E) = (2*M) / 2^E. -/
+/-- **cutDouble of dyadicCut** (cutEq, PURE): doubles numerator, exponent unchanged.
+    2 * (M / 2^E) ≡ (2*M) / 2^E. -/
 theorem cutDouble_dyadicCut (M E : Nat) :
-    cutDouble (dyadicCut M E) = dyadicCut (2 * M) E :=
+    E213.Math.Real213.CutPoset.cutEq
+      (cutDouble (dyadicCut M E)) (dyadicCut (2 * M) E) :=
   cutDouble_constCut M (2^E)
 
 end E213.Math.Real213.Dyadic
