@@ -51,7 +51,8 @@ For each function-eq theorem `f = g`:
 | ClassicCalcMid + CutMidSelf | 7 | 1 | b36cf61 |
 | ResolutionDepth | 5 | 0 (14 PURE) | e9e0c6e |
 | Math.Infinity.Countable | 4 | 0 (4 PURE) | e1c4baf |
-| **Real DIRTY removed** | | **~91** | |
+| CutBisection + Dyadic | 2 | 0 (13 PURE) | 2e81755 |
+| **Real DIRTY removed** | | **~93** | |
 
 ### Live snapshot (post commit b36cf61)
 
