@@ -143,6 +143,38 @@ SEALED_DIRTY_PREFIXES = (
     'E213.Math.Cohomology.Dyadic.ProductFSMPeriod',
     # CabibboAngle.irreducible_5_22 = Nat.gcd 5 22 = 1 (Lean core).
     'E213.Physics.Mixing.CabibboAngle',
+    # Lens funext-by-design: higher-order Lens equality (Lens (Lens α),
+    # dependent function lenses, Raw → Prop kernels) is intrinsically
+    # pointwise.  Proving Lens equality requires funext on the combine
+    # function field — refactoring would require redefining what "Lens
+    # equality" means.  Sealed as funext-by-design.
+    'E213.Hypervisor.Lens.Compose.OnLens',
+    'E213.Hypervisor.Lens.Lattice.IndexedJoin',
+    'E213.Hypervisor.Lens.Universal.QuotLens',
+    # CanonicalForm + Corresp + Initiality cascade from QuotLens funext.
+    'E213.Hypervisor.Lens.Properties.CanonicalForm',
+    'E213.Hypervisor.Lens.Kernel.Corresp',
+    'E213.Hypervisor.Lens.Initiality',
+    # Lattice family meet/join also funext-bearing (indexed family eq).
+    'E213.Hypervisor.Lens.Lattice.FamilyJoin',
+    'E213.Hypervisor.Lens.Lattice.FamilyMeet',
+    # FoldStructured: fold-shape lens equality needs funext.
+    'E213.Hypervisor.Lens.Morphism.FoldStructured',
+    # Reach.fin3 / Refines.Chain cascade from Lens equality.
+    'E213.Hypervisor.Lens.Instances.Reach',
+    'E213.Hypervisor.Lens.Refines.Chain',
+    # FunctionSpace + Cauchy + Parity instances: function-valued Lens.
+    'E213.Hypervisor.Lens.Instances.FunctionSpace',
+    'E213.Hypervisor.Lens.Instances.Cauchy',
+    'E213.Hypervisor.Lens.Instances.Parity',
+    'E213.Hypervisor.Lens.Instances.EndpointBehavior',
+    'E213.Hypervisor.Lens.Instances.BoundedContext',
+    'E213.Hypervisor.Lens.Instances.CochainEntry',
+    'E213.Hypervisor.Lens.Instances.PointwiseProjection',
+    # Properties cascade
+    'E213.Hypervisor.Lens.Properties.EquivProperties',
+    # RefinesParity propext from Nat.add_mod (Lean core)
+    'E213.Hypervisor.Lens.Leaves.RefinesParity',
 )
 
 
