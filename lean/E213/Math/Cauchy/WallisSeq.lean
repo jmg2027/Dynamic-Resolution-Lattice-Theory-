@@ -68,26 +68,30 @@ theorem wallisNum_pos (n : Nat) : 1 ≤ wallisNum n := by
   | zero => decide
   | succ k ih =>
       show 1 ≤ wallisNum k * (4 * (k + 1) * (k + 1))
-      calc 1 = 1 * 1 := rfl
-        _ ≤ wallisNum k * (4 * (k + 1) * (k + 1)) :=
-            Nat.mul_le_mul ih (by
-              have h1 : 1 ≤ 4 * (k + 1) := by
-                calc 1 ≤ 4 := by decide
-                  _ = 4 * 1 := by rw [Nat.mul_one]
-                  _ ≤ 4 * (k + 1) := Nat.mul_le_mul_left 4 (by omega)
-              calc 1 = 1 * 1 := rfl
-                _ ≤ 4 * (k + 1) * (k + 1) := Nat.mul_le_mul h1 (by omega))
+      have hk1 : 1 ≤ k + 1 := Nat.succ_le_succ (Nat.zero_le k)
+      have h1 : 1 ≤ 4 * (k + 1) :=
+        Nat.le_trans (by decide : (1 : Nat) ≤ 4)
+          (Nat.le_trans (Nat.le_of_eq (Nat.mul_one 4).symm)
+                        (Nat.mul_le_mul_left 4 hk1))
+      have h2 : 1 ≤ 4 * (k + 1) * (k + 1) :=
+        Nat.le_trans (Nat.le_of_eq (Nat.mul_one 1).symm)
+                     (Nat.mul_le_mul h1 hk1)
+      exact Nat.le_trans (Nat.le_of_eq (Nat.mul_one 1).symm)
+                         (Nat.mul_le_mul ih h2)
 
 theorem wallisDen_pos (n : Nat) : 1 ≤ wallisDen n := by
   induction n with
   | zero => decide
   | succ k ih =>
       show 1 ≤ wallisDen k * ((2 * k + 1) * (2 * k + 3))
-      have h1 : 1 ≤ (2 * k + 1) * (2 * k + 3) := by
-        calc 1 = 1 * 1 := rfl
-          _ ≤ (2 * k + 1) * (2 * k + 3) := Nat.mul_le_mul (by omega) (by omega)
-      calc 1 = 1 * 1 := rfl
-        _ ≤ wallisDen k * ((2 * k + 1) * (2 * k + 3)) := Nat.mul_le_mul ih h1
+      have h2k1 : 1 ≤ 2 * k + 1 := Nat.succ_le_succ (Nat.zero_le _)
+      have h2k3 : 1 ≤ 2 * k + 3 :=
+        Nat.le_trans (by decide : (1:Nat) ≤ 3) (Nat.le_add_left 3 (2*k))
+      have h1 : 1 ≤ (2 * k + 1) * (2 * k + 3) :=
+        Nat.le_trans (Nat.le_of_eq (Nat.mul_one 1).symm)
+                     (Nat.mul_le_mul h2k1 h2k3)
+      exact Nat.le_trans (Nat.le_of_eq (Nat.mul_one 1).symm)
+                         (Nat.mul_le_mul ih h1)
 
 end E213.Math.Cauchy.WallisSeq
 
