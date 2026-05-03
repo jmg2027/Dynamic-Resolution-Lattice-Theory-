@@ -33,9 +33,13 @@ open E213.Math.Real213.DifferentiableHigherPow
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
-open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half)
-open E213.Math.Real213.CutMulOne (cutMul_one_one)
+open E213.Math.Real213.FluxMVTWitness
+  (squareDerivative_at_half squareDerivative_at_half_at)
+open E213.Math.Real213.FluxMVTMore
+  (mid_id_square_derivative_at_half mid_id_square_derivative_at_half_at)
+open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_one_at)
+open E213.Math.Real213.CutMul (cutMulOuter)
+open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 
 /-- ★ id-compose witness propagation at c = 1/2. -/
 theorem id_compose_witness_propagates {f} (sf : IsDifferentiable f)
@@ -68,5 +72,43 @@ theorem id_compose_propagation_capstone :
    id_compose_witness_propagates
      (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
      mid_id_square_derivative_at_half⟩
+
+/-- ★ id-compose witness propagation at c = 1/2, pointwise (PURE). -/
+theorem id_compose_witness_propagates_at {f} (sf : IsDifferentiable f)
+    (hf : ∀ m k, sf.derivative (constCut 1 2) m k = constCut 1 1 m k)
+    (m k : Nat) :
+    (composeIsDifferentiable sf idIsDifferentiable).derivative
+        (constCut 1 2) m k = constCut 1 1 m k := by
+  show cutMul (constCut 1 1) (sf.derivative (constCut 1 2)) m k
+       = constCut 1 1 m k
+  show cutMulOuter (constCut 1 1) (sf.derivative (constCut 1 2))
+                   k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
+  have step :
+      cutMulOuter (constCut 1 1) (sf.derivative (constCut 1 2))
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      = cutMulOuter (constCut 1 1) (constCut 1 1)
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
+    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      (constCut 1 1) (constCut 1 1)
+      (sf.derivative (constCut 1 2)) (constCut 1 1)
+      (fun _ _ => rfl) (fun m' _ => hf m' k)
+      ((m+1)*(k+1)) (Nat.le_refl _)
+  rw [step]
+  exact cutMul_one_one_at m k
+
+/-- ★ Phase CL capstone (PURE) — id-compose propagation pointwise. -/
+theorem id_compose_propagation_capstone_pure :
+    (∀ m k, (composeIsDifferentiable squareIsDifferentiable
+              idIsDifferentiable).derivative (constCut 1 2) m k
+            = constCut 1 1 m k)
+    ∧ (∀ m k, (composeIsDifferentiable
+                (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
+                idIsDifferentiable).derivative (constCut 1 2) m k
+              = constCut 1 1 m k) :=
+  ⟨id_compose_witness_propagates_at squareIsDifferentiable
+     squareDerivative_at_half_at,
+   id_compose_witness_propagates_at
+     (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
+     mid_id_square_derivative_at_half_at⟩
 
 end E213.Math.Real213.FluxMVTPropagateCompose
