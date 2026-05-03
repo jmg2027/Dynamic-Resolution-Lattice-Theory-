@@ -17,6 +17,16 @@ theorem eval_shift (p : Poly) (x : Nat) :
     eval (shift p) x = x * eval p x :=
   Nat.zero_add (x * eval p x)
 
+/-- `eval (C c) x = c`. -/
+theorem eval_C (c x : Nat) : eval (C c) x = c := by
+  show c + x * 0 = c
+  rw [Nat.mul_zero, Nat.add_zero]
+
+/-- `eval X x = x`. -/
+theorem eval_X (x : Nat) : eval X x = x := by
+  show 0 + x * (1 + x * 0) = x
+  rw [Nat.mul_zero, Nat.add_zero, Nat.mul_one, Nat.zero_add]
+
 /-- `eval (add p q) x = eval p x + eval q x`. -/
 theorem eval_add : ∀ (p q : Poly) (x : Nat),
     eval (add p q) x = eval p x + eval q x
