@@ -324,4 +324,12 @@ theorem sub_one_lt_of_lt_succ_ne {a b n : Nat}
   have hsub : a - 1 < a := Nat.sub_one_lt hpos
   exact Nat.lt_of_lt_of_le hsub (Nat.le_of_lt_succ hlt)
 
+/-- ∅-axiom replacement for `Nat.sub_sub_self`: `m ≤ n → n - (n - m) = m`. -/
+theorem sub_sub_self {n m : Nat} (h : m ≤ n) : n - (n - m) = m :=
+  let h1 : n - m + m = n := sub_add_cancel h
+  let h2 : m + (n - m) = n - m + m := Nat.add_comm m (n - m)
+  let h3 : m + (n - m) = n := h2.trans h1
+  Eq.subst (motive := fun x => x - (n - m) = m) h3
+    (add_sub_cancel_right m (n - m))
+
 end E213.Tactic.Nat213

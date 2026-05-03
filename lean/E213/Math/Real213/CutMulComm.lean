@@ -184,19 +184,18 @@ theorem cutMul_comm (cx cy : Nat → Nat → Bool) (m k : Nat) :
     refine ⟨m2, hm2, m1, hm1, hcx, hcy, ?_⟩
     rw [Nat.mul_comm]; exact hmul
 
-/-- cutMul monotone in cy. -/
+/-- cutMul monotone in cy.  PURE. -/
 theorem cutMul_mono_right (cx cy cy' : Nat → Nat → Bool)
     (h : ∀ m' k', cy m' k' = true → cy' m' k' = true)
     (m k : Nat) :
     cutMul cx cy m k = true → cutMul cx cy' m k = true := by
   intro hmul
-  rw [show cutMul cx cy m k =
-      cutMulOuter cx cy k m ((m+1)*(k+1)) ((m+1)*(k+1)) from rfl] at hmul
-  rw [cutMulOuter_eq_true_iff] at hmul
-  obtain ⟨m1, hm1, m2, hm2, hcx, hcy, hmuv⟩ := hmul
+  have h_inner : cutMulOuter cx cy k m ((m+1)*(k+1)) ((m+1)*(k+1)) = true := hmul
+  obtain ⟨m1, hm1, m2, hm2, hcx, hcy, hmuv⟩ :=
+    (cutMulOuter_eq_true_iff cx cy k m _ _).mp h_inner
   show cutMulOuter cx cy' k m ((m+1)*(k+1)) ((m+1)*(k+1)) = true
-  rw [cutMulOuter_eq_true_iff]
-  exact ⟨m1, hm1, m2, hm2, hcx, h m2 k hcy, hmuv⟩
+  exact (cutMulOuter_eq_true_iff cx cy' k m _ _).mpr
+    ⟨m1, hm1, m2, hm2, hcx, h m2 k hcy, hmuv⟩
 
 /-- cutMul monotone in cx — via cutMul_comm. -/
 theorem cutMul_mono_left (cx cx' cy : Nat → Nat → Bool)

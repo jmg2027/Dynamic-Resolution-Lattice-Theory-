@@ -1,0 +1,157 @@
+#!/usr/bin/env python3
+"""Whole-repo scan of `#print axioms` status.
+
+Generates a probe file that imports E213.* modules and prints axioms
+for every public theorem/lemma/def.  Reports counts and per-axiom-set
+breakdown.
+
+Usage:
+    python3 tools/scan_all_axioms.py                # all of E213
+    python3 tools/scan_all_axioms.py --filter Real213
+    python3 tools/scan_all_axioms.py --csv out.csv
+"""
+import subprocess, re, sys, pathlib, argparse
+from collections import Counter, defaultdict
+
+LEAN_ROOT = pathlib.Path('lean/E213')
+DECL_RX = re.compile(
+    r'^(?:protected\s+)?(?:theorem|lemma|def)\s+([A-Za-z_][\w\']*)',
+    re.MULTILINE,
+)
+NAMESPACE_RX = re.compile(r'^namespace\s+(\S+)', re.MULTILINE)
+PROBE_PATH = LEAN_ROOT / '_AxiomScanProbe.lean'
+LINE_RX = re.compile(
+    r"'([^']+)' "
+    r"(does not depend on any axioms|"
+    r"depends on axioms: \[([^\]]+)\])"
+)
+
+
+def find_modules(filter_pat=None):
+    """Find all E213.* module names from the file tree."""
+    modules = []
+    for path in LEAN_ROOT.rglob('*.lean'):
+        if path.name.startswith('_'):
+            continue
+        rel = path.relative_to(LEAN_ROOT.parent)
+        parts = list(rel.with_suffix('').parts)
+        module = '.'.join(parts)
+        if filter_pat and filter_pat not in module:
+            continue
+        modules.append(module)
+    return sorted(modules)
+
+
+def find_decls(module):
+    """Parse file to find (decl, module) pairs with proper nested-namespace tracking."""
+    rel = pathlib.Path(*module.split('.')[1:]).with_suffix('.lean')
+    path = LEAN_ROOT.parent / 'E213' / rel
+    if not path.exists():
+        return []
+    src = path.read_text(errors='ignore')
+    decls = []
+    ns_stack = []
+    decl_pat = re.compile(
+        r'^(?:protected\s+)?(?:theorem|lemma|def)\s+([A-Za-z_][\w\']*)')
+    ns_pat = re.compile(r'^namespace\s+(\S+)')
+    end_pat = re.compile(r'^end\s+(\S+)')
+    for line in src.splitlines():
+        m = ns_pat.match(line)
+        if m:
+            ns_stack.append(m.group(1))
+            continue
+        m = end_pat.match(line)
+        if m:
+            if ns_stack:
+                ns_stack.pop()
+            continue
+        m = decl_pat.match(line)
+        if m:
+            n = m.group(1)
+            if n.startswith('_'):
+                continue
+            ns = '.'.join(ns_stack) if ns_stack else module
+            if not ns.startswith('E213'):
+                ns = module
+            decls.append((f'{ns}.{n}', module))
+    return decls
+
+
+def scan_batch(modules, batch_size=50):
+    """Scan one module per probe (slower but reliable)."""
+    results = []
+    print(f'# Scanning {len(modules)} modules', file=sys.stderr)
+    for i, mod in enumerate(modules):
+        decls = find_decls(mod)
+        if not decls:
+            continue
+        lines = [f'import {mod}']
+        lines.extend(f'#print axioms {d}' for d, _ in decls)
+        PROBE_PATH.write_text('\n'.join(lines) + '\n')
+        cmd = ['lake', 'env', 'lean',
+               str(PROBE_PATH.relative_to('lean'))]
+        try:
+            r = subprocess.run(cmd, cwd='lean', capture_output=True,
+                               text=True, timeout=180)
+            out = r.stdout + r.stderr
+        except subprocess.TimeoutExpired:
+            out = ''
+        for match in LINE_RX.finditer(out):
+            name = match.group(1)
+            if 'does not depend' in match.group(2):
+                results.append((name, mod, 'PURE', ''))
+            else:
+                axioms = match.group(3)
+                results.append((name, mod, 'DIRTY', axioms))
+        if (i + 1) % 10 == 0 or i + 1 == len(modules):
+            sys.stderr.write(f'  {i+1}/{len(modules)}: '
+                             f'{len(results)} results\n')
+            sys.stderr.flush()
+    PROBE_PATH.unlink(missing_ok=True)
+    return results
+
+
+def summarize(results):
+    pure = [r for r in results if r[2] == 'PURE']
+    dirty = [r for r in results if r[2] == 'DIRTY']
+    print(f'\n# {len(pure)} PURE / {len(dirty)} DIRTY ({len(results)} total)')
+    axiom_counter = Counter(r[3] for r in dirty)
+    print('\n# Axiom-set breakdown:')
+    for ax, n in axiom_counter.most_common():
+        print(f'  {n:5d}  [{ax}]')
+    module_dirty = defaultdict(int)
+    module_pure = defaultdict(int)
+    for name, mod, status, _ in results:
+        if status == 'DIRTY':
+            module_dirty[mod] += 1
+        else:
+            module_pure[mod] += 1
+    print('\n# Top 30 dirtiest modules:')
+    sorted_mods = sorted(module_dirty.items(), key=lambda x: -x[1])
+    for mod, n in sorted_mods[:30]:
+        p = module_pure.get(mod, 0)
+        print(f'  {n:4d} dirty / {p:4d} pure  {mod}')
+
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--filter', default=None)
+    ap.add_argument('--csv', default=None)
+    ap.add_argument('--batch-size', type=int, default=50)
+    ap.add_argument('--modules-only', action='store_true')
+    args = ap.parse_args()
+    modules = find_modules(args.filter)
+    print(f'# {len(modules)} modules matching filter={args.filter!r}',
+          file=sys.stderr)
+    if args.modules_only:
+        for m in modules:
+            print(m)
+        sys.exit(0)
+    results = scan_batch(modules, batch_size=args.batch_size)
+    summarize(results)
+    if args.csv:
+        with open(args.csv, 'w') as f:
+            f.write('decl,module,status,axioms\n')
+            for name, mod, status, ax in results:
+                f.write(f'"{name}",{mod},{status},"{ax}"\n')
+        print(f'\n# CSV: {args.csv}', file=sys.stderr)

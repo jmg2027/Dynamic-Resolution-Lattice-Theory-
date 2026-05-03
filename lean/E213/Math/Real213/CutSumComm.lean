@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 
@@ -95,23 +96,21 @@ private theorem bool_eq_of_iff_true (a b : Bool)
   · exact (h.mp rfl).symm
   · rfl
 
-/-- **cutSum commutativity** — via iff existential + bijection. -/
+/-- **cutSum commutativity** — via iff existential + bijection.  PURE. -/
 theorem cutSum_comm (cx cy : Nat → Nat → Bool) (m k : Nat) :
     cutSum cx cy m k = cutSum cy cx m k := by
   apply bool_eq_of_iff_true
-  show cutSumAux cx cy k (2*m) (2*m) = true
-       ↔ cutSumAux cy cx k (2*m) (2*m) = true
-  rw [cutSumAux_eq_true_iff cx cy k (2*m) (2*m)]
-  rw [cutSumAux_eq_true_iff cy cx k (2*m) (2*m)]
+  refine Iff.trans (cutSumAux_eq_true_iff cx cy k (2*m) (2*m))
+    (Iff.trans ?_ (cutSumAux_eq_true_iff cy cx k (2*m) (2*m)).symm)
   constructor
   · rintro ⟨i, hi, hcx, hcy⟩
     refine ⟨2*m - i, Nat.sub_le _ _, ?_, ?_⟩
     · exact hcy
-    · rw [Nat.sub_sub_self hi]; exact hcx
+    · rw [E213.Tactic.Nat213.sub_sub_self hi]; exact hcx
   · rintro ⟨j, hj, hcy, hcx⟩
     refine ⟨2*m - j, Nat.sub_le _ _, ?_, ?_⟩
     · exact hcx
-    · rw [Nat.sub_sub_self hj]; exact hcy
+    · rw [E213.Tactic.Nat213.sub_sub_self hj]; exact hcy
 
 /-- cutSum monotone in cy: cy implies cy' → cutSum cx cy implies cutSum cx cy'. -/
 theorem cutSum_mono_right (cx cy cy' : Nat → Nat → Bool)
@@ -119,12 +118,12 @@ theorem cutSum_mono_right (cx cy cy' : Nat → Nat → Bool)
     (m k : Nat) :
     cutSum cx cy m k = true → cutSum cx cy' m k = true := by
   intro hsum
-  rw [show cutSum cx cy m k = cutSumAux cx cy k (2*m) (2*m) from rfl] at hsum
-  rw [cutSumAux_eq_true_iff] at hsum
-  obtain ⟨i, hi, hcx, hcy⟩ := hsum
+  have h_inner : cutSumAux cx cy k (2*m) (2*m) = true := hsum
+  obtain ⟨i, hi, hcx, hcy⟩ :=
+    (cutSumAux_eq_true_iff cx cy k (2*m) (2*m)).mp h_inner
   show cutSumAux cx cy' k (2*m) (2*m) = true
-  rw [cutSumAux_eq_true_iff]
-  exact ⟨i, hi, hcx, h (2*m - i) (2*k) hcy⟩
+  exact (cutSumAux_eq_true_iff cx cy' k (2*m) (2*m)).mpr
+    ⟨i, hi, hcx, h (2*m - i) (2*k) hcy⟩
 
 /-- cutSum monotone in cx: symmetric via cutSum_comm. -/
 theorem cutSum_mono_left (cx cx' cy : Nat → Nat → Bool)
