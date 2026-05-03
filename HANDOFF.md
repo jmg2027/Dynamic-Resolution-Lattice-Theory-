@@ -1,5 +1,80 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 18: Cluster audit + Real213 _at companion completion
+
+After parts 16-17 closed the integration plan + OS migration, this
+session ran the whole-repo `tools/sync_strict_zero_axiom.py` to
+get a fresh DIRTY snapshot and addressed the easiest remaining
+gaps.
+
+### Snapshot (post-part-17)
+
+  - 2454 theorems scanned across 965 modules
+  - 2060 PURE / 394 DIRTY
+  - Top DIRTY clusters:
+      Hypervisor.Lens.SemanticAtom (25, mostly propext from Prop)
+      Math.Real213.DyadicRiemann (25, function-eq via funext)
+      Hypervisor.Lens.Compose.OnLens (14, pre-existing infra)
+      Math.Cauchy.WallisSeq/EulerSeq/PellSeq (38, omega-heavy
+        arithmetic identities — would need omega213 expansion)
+
+### Diagnosis
+
+The vast majority of DIRTY items are *function-equality* forms
+(`f = g`) whose pointwise PURE `_at` variants already exist or
+can be added.  These are DIRTY *by design* — Lean's `funext`
+introduces `Quot.sound` unconditionally.  The convention is:
+downstream code uses the `_at` variant; the function-eq form is
+a thin convenience wrapper.
+
+### This session: +6 PURE _at companion completions
+
+DyadicRiemann (+4 PURE):
+  riemann_sevenThirteenth_depth_20_at
+  riemann_half_depth_25_at
+  riemann_half_depth_30_at
+  fundamental_dyadic_calculus_const_at
+
+CutDouble (+2 PURE):
+  cutDouble_cutSum_at
+  cutDouble_cutMid_at
+
+Now every depth-N concrete riemann theorem + every cutDouble
+binary-op theorem has a PURE companion.
+
+### Verification
+
+  - `cd lean && lake build` — clean (whole repo)
+  - DyadicRiemann: 24 PURE / 25 DIRTY (was 20 PURE)
+  - CutDouble: 12 PURE / 8 DIRTY (was 10 PURE)
+
+### Cluster left intentionally untouched
+
+  - **Cauchy.WallisSeq/EulerSeq/PellSeq/Archimedean** (38
+    DIRTY): each theorem uses `omega` for quadratic arithmetic
+    identities (e.g., `(3x+4y)² = 2(2x+3y)² + 1` for the Pell
+    invariant).  These exceed `omega213`'s minimal coverage; full
+    migration needs either an `omega213` quadratic-expansion
+    extension or per-theorem manual `Nat.*` chains.  Deferred.
+  - **SemanticAtom** (25): `propext` comes from `Prop`-level
+    `iff` manipulations.  Not "fixable" without restructuring
+    the underlying `Prop`-vs-`Bool` story.
+  - **OnLens** (14): pre-existing infra; would need recipe-level
+    refactor.
+
+### Next session candidate work
+
+  1. **Cauchy migration** — needs omega213 extension OR manual
+     arithmetic.  Substantial.
+  2. **C1-C4 PRD round-trip** — promote the AxiomSystems
+     demonstrations into PRD documentation.
+  3. **STRICT_ZERO_AXIOM.md** — manually add the high-value new
+     entries (HC²¹³ migration, AxiomLenses, AxiomSystems +
+     `cohabit_peano_depth`, the new _at companions).  Auto-add
+     produces 2000-row diff (catalog is hand-curated).
+
+---
+
 ## ★★★ Part 17: Tier 4 A1 OS layer file migration EXECUTED
 
 After part 16 scaffolded the OS/ layer (INDEX.md +
