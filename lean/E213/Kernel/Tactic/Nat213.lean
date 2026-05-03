@@ -332,4 +332,28 @@ theorem sub_sub_self {n m : Nat} (h : m ≤ n) : n - (n - m) = m :=
   Eq.subst (motive := fun x => x - (n - m) = m) h3
     (add_sub_cancel_right m (n - m))
 
+/-- `a + 1 ≤ b → 1 ≤ b - a`.  ∅-axiom (term mode) — used in
+    Cauchy seq files for "n - 1 ≥ 1 when n ≥ 2" patterns. -/
+theorem le_pred_of_succ_le {a b : Nat} (h : a + 1 ≤ b) : 1 ≤ b - a :=
+  let step : (a + 1) - a ≤ b - a := Nat.sub_le_sub_right h a
+  let e1 : a + 1 = 1 + a := Nat.add_comm a 1
+  let e2 : (1 + a) - a = 1 := add_sub_cancel_right 1 a
+  let e3 : (a + 1) - a = 1 := e1 ▸ e2
+  e3 ▸ step
+
+/-- `1 ≤ a → (a + b) - 1 = (a - 1) + b`.  ∅-axiom (term mode) —
+    used for sum-constraint preservation. -/
+theorem add_sub_pred {a b : Nat} (ha : 1 ≤ a) :
+    (a + b) - 1 = (a - 1) + b :=
+  let e1 : a + b = b + a := Nat.add_comm a b
+  let h1 : b + a - 1 = b + (a - 1) := add_sub_assoc b ha
+  let e2 : b + (a - 1) = (a - 1) + b := Nat.add_comm b (a - 1)
+  let r1 : a + b - 1 = b + a - 1 := e1 ▸ rfl
+  r1.trans (h1.trans e2)
+
+/-- `(0 : Nat) ≠ n + 1`.  ∅-axiom — for contradiction-closure
+    patterns where standard `Nat.zero_ne_succ` would inflate axiom set. -/
+theorem zero_ne_succ_213 (n : Nat) : (0 : Nat) ≠ n + 1 :=
+  fun h => Nat.noConfusion h
+
 end E213.Tactic.Nat213
