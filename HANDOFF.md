@@ -1,5 +1,36 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 13: Passthrough_at + full witness arc PURE — refactor effectively complete
+
+After part-12 broke the marquee blocker, parts 13 (this session) cleared
+the remaining smaller-scale follow-up blockers:
+
+  - `cutSum_half_half_at` PURE — replaces `Nat.add_sub_cancel'` /
+    `Nat.le_of_add_le_add_left` (propext) with E213.Tactic.Nat213
+    equivalents.
+  - `squareDerivative_at_half_at` PURE — uses cutSumAux_congr to push
+    pointwise cutMul_one_const_at / cutMul_const_one_at through cutSum,
+    then cutSum_half_half_at.
+  - `cutMid_self_constCut_at` PURE — bool_eq_iff + Nat213.mul_assoc
+    instead of funext + Nat.mul_assoc (propext).
+  - `mid_id_square_derivative_at_half_at` PURE — nested cutSumAux_congr.
+  - `id_compose_square_derivative_at_half_at` PURE — cutMulOuter_congr.
+  - `cutHalf_constCut_at` PURE.
+  - **`Passthrough_at` parallel pointwise structure** added with PURE
+    combinators (id_pass / cutPow_pass / mul_pass / compose_pass).
+
+`PhaseCM_at` extended from 8 → 11 PURE facts (added BR/BU/BW witnesses).
+`PhaseBX_at` extended from 4 → 6 PURE facts (full BT/BU/BV/BW arc).
+
+The architectural refactor is effectively complete: the funext +
+propext leak sources (`induction` tactic, `rw [iff]`, `by_cases`,
+struct-level function equality on Cut) have all been characterized
+and bypassed via pointwise `_at` variants + `Passthrough_at`
+parallel structure.  Any remaining DIRTY downstream theorem in
+Real213 can be flipped to PURE by the same recipe: switch to a
+pointwise statement, use cutMulOuter_congr / cutSumAux_congr to
+push pointwise IH, use Passthrough_at instead of Passthrough.
+
 ## ★★★ Architectural blocker BROKEN: ALL 4 marquee capstones strict ∅-axiom (part 12)
 
 After part-11 documented the funext blocker as a multi-session
