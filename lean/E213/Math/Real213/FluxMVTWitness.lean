@@ -31,17 +31,42 @@ open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
-open E213.Math.Real213.CutMulOne (cutMul_one_const cutMul_const_one)
-open E213.Math.Real213.CutSumOne (cutSum_half_half)
+open E213.Math.Real213.CutSum (cutSumAux)
+open E213.Math.Real213.CutMulOne
+  (cutMul_one_const cutMul_one_const_at cutMul_const_one cutMul_const_one_at)
+open E213.Math.Real213.CutSumOne (cutSum_half_half cutSum_half_half_at)
+open E213.Math.Real213.CutSumDetermined (cutSumAux_congr)
 open E213.Math.Real213.FluxMVTPolynomial.FluxCut (mvt_square_unitBracket)
+
+/-- ★ d/dx [x²] at x = 1/2 = 1 — pointwise (∅-axiom). -/
+theorem squareDerivative_at_half_at (m k : Nat) :
+    squareIsDifferentiable.derivative (constCut 1 2) m k = constCut 1 1 m k := by
+  show cutSum (cutMul (constCut 1 1) (constCut 1 2))
+              (cutMul (constCut 1 2) (constCut 1 1)) m k
+       = constCut 1 1 m k
+  show cutSumAux (cutMul (constCut 1 1) (constCut 1 2))
+                 (cutMul (constCut 1 2) (constCut 1 1)) k (2*m) (2*m)
+       = constCut 1 1 m k
+  -- Push pointwise eq through cutSumAux: swap both inner cutMul's
+  -- to constCut 1 2 via cutSumAux_congr.
+  have step :
+      cutSumAux (cutMul (constCut 1 1) (constCut 1 2))
+                (cutMul (constCut 1 2) (constCut 1 1)) k (2*m) (2*m)
+      = cutSumAux (constCut 1 2) (constCut 1 2) k (2*m) (2*m) :=
+    cutSumAux_congr k (2*m)
+      (cutMul (constCut 1 1) (constCut 1 2)) (constCut 1 2)
+      (cutMul (constCut 1 2) (constCut 1 1)) (constCut 1 2)
+      (fun m' _ => cutMul_one_const_at 1 2 m' (2*k))
+      (fun m' _ => cutMul_const_one_at 1 2 m' (2*k))
+      (2*m) (Nat.le_refl _)
+  rw [step]
+  exact cutSum_half_half_at m k
 
 /-- ★ d/dx [x²] at x = 1/2 = 1, propositionally. -/
 theorem squareDerivative_at_half :
     squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1 := by
-  show cutSum (cutMul (constCut 1 1) (constCut 1 2))
-              (cutMul (constCut 1 2) (constCut 1 1))
-       = constCut 1 1
-  rw [cutMul_one_const 1 2, cutMul_const_one 1 2, cutSum_half_half]
+  funext m k
+  exact squareDerivative_at_half_at m k
 
 /-- ★ MVT for x² with explicit dyadic witness c = 1/2. -/
 theorem mvt_square_explicit :

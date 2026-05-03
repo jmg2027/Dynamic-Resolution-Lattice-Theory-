@@ -23,6 +23,7 @@ open E213.Math.Real213.HasDyadicMVTWitness
 open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (square)
 open E213.Math.Real213.FluxMVTMore.HasDyadicMVTWitness (mid_id_square)
 open E213.Math.Real213.MVTWitnessChain.HasDyadicMVTWitness (id_compose_square)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
 
 /-- ★ **Phase BX constructive MVT witness capstone**: 7-fact bundle. -/
 theorem phaseBX_witness_capstone (c : Nat → Nat → Bool) :
@@ -52,18 +53,19 @@ theorem phaseBX_witness_capstone (c : Nat → Nat → Bool) :
 
 /-- ★ **Phase BX pointwise PURE capstone** ★
 
-    Strict ∅-axiom restriction of `phaseBX_witness_capstone` to the
-    rfl-reducible (BV) facts: id's derivative is constant 1 at every
-    cut.  The (BT/BU/BW) facts use `squareDerivative_at_half` etc.
-    which are gated by the `cutMul_*_one*_at` chain — those continue
-    to live in the function-eq capstone above. -/
+    Strict ∅-axiom version covering the (BV) id-derivative facts and
+    the (BT) explicit dyadic witness for x² at c = 1/2.  The (BU/BW)
+    facts (mid + chain rule) use `cutMid_self_constCut`-style
+    function-eq dependencies and live in the function-eq capstone. -/
 theorem phaseBX_witness_capstone_at (c : Nat → Nat → Bool) (m k : Nat) :
+    -- (BT) ★ explicit dyadic MVT witness for x² at c = 1/2
+    squareIsDifferentiable.derivative (constCut 1 2) m k = constCut 1 1 m k
     -- (BV) id at c = 0
-    idIsDifferentiable.derivative (constCut 0 1) m k = constCut 1 1 m k
+    ∧ idIsDifferentiable.derivative (constCut 0 1) m k = constCut 1 1 m k
     -- (BV) id at c = 1
     ∧ idIsDifferentiable.derivative (constCut 1 1) m k = constCut 1 1 m k
     -- (BV) id at any c
     ∧ idIsDifferentiable.derivative c m k = constCut 1 1 m k :=
-  ⟨rfl, rfl, rfl⟩
+  ⟨squareDerivative_at_half_at m k, rfl, rfl, rfl⟩
 
 end E213.Math.Real213.PhaseBXCapstone
