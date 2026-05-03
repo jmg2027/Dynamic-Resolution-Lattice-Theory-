@@ -33,6 +33,12 @@ After Cauchy chain milestone, continued with single-target cleanups:
   - LensCardinality: 7/7 → 9/5 PURE/DIRTY (treeTower_depth +
     cascade)
 
+### Final whole-repo state (session 23 end)
+
+  - **2390 PURE / 251 DIRTY** + 2 sealed Bridges
+  - Net session 23 DIRTY removed: 274 → 251 (= 23 down)
+  - Combined session 22 + 23: 281 → 251 (= 30 down)
+
 ### Remaining DIRTY blockers (hard)
 
   - **Function-eq facade** (intentional DIRTY-by-design): 40+
