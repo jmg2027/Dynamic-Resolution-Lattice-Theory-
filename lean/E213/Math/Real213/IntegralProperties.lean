@@ -1,4 +1,6 @@
 import E213.Math.Real213.PhaseCSCapstone
+import E213.Math.Real213.AntiderivativeCombinators
+import E213.Math.Real213.IntegralViaAnti
 
 /-!
 # Research.Real213IntegralProperties
@@ -35,6 +37,14 @@ open E213.Math.Real213.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.Antiderivative
+  (IsAntiderivative)
+open E213.Math.Real213.Antiderivative.IsAntiderivative
+  (id_anti)
+open E213.Math.Real213.AntiderivativeCombinators.IsAntiderivative
+  (add_anti mid_anti)
+open E213.Math.Real213.IntegralViaAnti.IsAntiderivative (integral)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
 
 namespace IsAntiderivative
 
@@ -70,17 +80,15 @@ end IsAntiderivative
 /-- Phase CT capstone: integration linearity properties. -/
 theorem integral_properties_capstone (db : DyadicBracket) :
     -- (1) Additivity (rfl form via add_anti)
-    IsAntiderivative.integral
-        (IsAntiderivative.add_anti IsAntiderivative.id_anti
-                                    IsAntiderivative.id_anti) db
-      = { forward := cutSum (db.rightCut) (db.rightCut),
-          backward := cutSum (db.leftCut) (db.leftCut) }
+    integral (add_anti id_anti id_anti) db
+      = ({ forward := cutSum (db.rightCut) (db.rightCut),
+           backward := cutSum (db.leftCut) (db.leftCut) }
+              : E213.Math.Real213.FluxCut.FluxCut)
     -- (2) Midpoint (rfl form via mid_anti)
-    ∧ IsAntiderivative.integral
-        (IsAntiderivative.mid_anti IsAntiderivative.id_anti
-                                    IsAntiderivative.id_anti) db
-      = { forward := cutMid (db.rightCut) (db.rightCut),
-          backward := cutMid (db.leftCut) (db.leftCut) } :=
+    ∧ integral (mid_anti id_anti id_anti) db
+      = ({ forward := cutMid (db.rightCut) (db.rightCut),
+           backward := cutMid (db.leftCut) (db.leftCut) }
+              : E213.Math.Real213.FluxCut.FluxCut) :=
   ⟨rfl, rfl⟩
 
 end E213.Math.Real213.IntegralProperties
