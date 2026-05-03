@@ -1,5 +1,79 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 21: Plan-mode 3-prescription ZFC residue purge
+
+**Plan**: `/root/.claude/plans/tingly-enchanting-pelican.md`
+(rewritten as session 21 plan).  Three prescriptions:
+1. **IntegralProperties** import fix (TRIVIAL)
+2. **Polynomial213** reflection module (NEW INFRA)
+3. **Canonical Form** Lens refactor (DEFERRED to next session)
+
+### Snapshot
+
+  - Whole-repo `lake build`: clean
+  - Net DIRTY removed this session: 7 (281 → 274)
+  - Plus NEW PURE infrastructure: Polynomial213 module
+    (12 PURE defs/lemmas) reusable for any future ring-style proof
+
+### Commits (session 21, oldest → newest)
+
+  - 1664ba7  fix(IntegralProperties): repair namespace + import chain
+  - bbf225e  fix(Real213): repair PhaseDA dep chain (4 ODE/Cube modules)
+  - e9348af  feat(Polynomial213): add coefficient-array reflection
+  - 88e66e2  feat(Polynomial213.Sound): add eval_C, eval_X helpers
+  - 9c46a29  refactor(WallisSeq): wallis_poly_identity via Polynomial213
+  - b1b65a5  feat(Polynomial213/Ineq): inequality witness + Wallis refactors
+  - 115b436  refactor(PellSeq): expand_3x4y/expand_2x3y omega-free
+
+### P3 Results
+
+  ✔ IntegralProperties.lean: ImportViaAnti + namespace opens fixed
+  ✔ ODELinear, ODECatalog, NewtonFirst, CubeDerivativeAtZero:
+    pre-existing namespace breakages repaired
+  ⊝ PhaseDA / PhaseDK _pure variants: still blocked by 8+
+    cross-stack identifier resolution issues
+
+### P1 Results
+
+  ✔ `lean/E213/Math/Polynomial213.lean` (8 PURE defs)
+  ✔ `lean/E213/Math/Polynomial213/Sound.lean` (6 PURE lemmas)
+  ✔ `lean/E213/Math/Polynomial213/Ineq.lean` (2 PURE lemmas)
+  ✔ Wallis refactors (4 PURE flips):
+    - wallis_poly_identity: 40-line omega → 7-line poly (PURE)
+    - wallis_lower_inv: poly sub-step via kk_le_4_kp1_sq (PURE)
+    - wallis_monotonic: poly sub-step via kk_lt_4_kp1_sq (PURE)
+    - wallis_isAbMonotonic: poly clean, but DIRTY remains
+      due to abLens.view + Subtype propext leak (P2)
+  ✔ Pell refactors (2 PURE flips, private):
+    - expand_3x4y, expand_2x3y: omega → two_n_mul + add_assoc
+    - pell_step still uses omega (deferred)
+
+### Pattern reinforced this session
+
+  **Polynomial reflection via Coefficient Array** is now a 213-native
+  technique:
+  1. Build expression as Polynomial213 combinators (add/scale/mul/X/C)
+  2. Both sides Horner-normalize to identical `List Nat` literal
+  3. `wallisLhsPoly = wallisRhsPoly := rfl` closes the equality
+  4. Bridging via eval_add/eval_mul/eval_scale/eval_X/eval_C +
+     Nat213.mul_assoc connects to user-facing symbolic form
+
+  Compresses ~40-line omega-heavy polynomial proofs to ~5-7 lines.
+  Reusable for any future ring-style identity in 213.
+
+### Next session: P2 (Canonical Form Lens refactor)
+
+The big cascade — replace `funext`/`propext` in:
+  - Hypervisor.Lens.Universal.QuotLens (3 sites)
+  - Hypervisor.Lens.Lattice.IndexedJoin (3 sites)
+  - Hypervisor.Lens.Instances.Subtype (degenerate combine)
+  - 6 axiom-dependent Lens Instances
+
+Cauchy abLens-related DIRTY (~14 in WallisSeq + ~10 in PellSeq +
+~6 in EulerSeq) all flips to PURE once Subtype source is fixed.
+
+---
+
 ## ★★★ Part 20: Plan-mode 3-phase execution (Cauchy + Passthrough + sweep)
 
 **Plan**: `/root/.claude/plans/tingly-enchanting-pelican.md` —
