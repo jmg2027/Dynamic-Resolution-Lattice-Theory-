@@ -133,6 +133,30 @@ def derivative {f} (cc : ClassicCalc_at f) :
     (Nat → Nat → Bool) → (Nat → Nat → Bool) :=
   cc.diff.derivative
 
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
+  (mvt_pure ftc_pure)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+
+/-- Extract MVT (one-liner, fluxCutEq, PURE). -/
+theorem mvt_pure {f} (cc : ClassicCalc_at f) :
+    fluxCutEq (localDivergence f unitBracket) (ofCut (constCut 1 1)) :=
+  Passthrough_at.mvt_pure cc.pass
+
+/-- Extract FTC bridge (one-liner, fluxCutEq, PURE). -/
+theorem ftc_pure {f} (cc : ClassicCalc_at f) :
+    fluxCutEq (localDivergence f unitBracket) (fluxAlong f unitBracket) :=
+  Passthrough_at.ftc_pure cc.pass
+
+/-- ★ Phase BL capstone (PURE): ClassicCalc_at gives MVT + FTC at unit. -/
+theorem classic_calc_capstone_pure (f) (cc : ClassicCalc_at f) :
+    fluxCutEq (localDivergence f unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence f unitBracket) (fluxAlong f unitBracket)
+    ∧ (∀ m k, f (constCut 0 1) m k = constCut 0 1 m k)
+    ∧ (∀ m k, f (constCut 1 1) m k = constCut 1 1 m k) :=
+  ⟨cc.mvt_pure, cc.ftc_pure, cc.pass.left, cc.pass.right⟩
+
 end ClassicCalc_at
 
 end E213.Math.Real213.ClassicCalc
