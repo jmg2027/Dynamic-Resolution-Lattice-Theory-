@@ -57,31 +57,26 @@ This is **strictly stronger** than the previous transitional baseline
 silently introduce).  Verification: `python3 tools/scan_axioms.py
 <module>` reports `[PURE]` vs `[DIRTY]`.
 
-### Honest status (2026-05-03, session 26 end)
+### 🎯 Final status (2026-05-03, session 27 end — 박멸 complete)
 
 Tree-wide scan (`python3 tools/scan_all_axioms.py`):
-  - **2090 PURE** theorems meeting the strict ∅-axiom standard
-  - **138 DIRTY** theorems still carrying `[Quot.sound]` or
-    `[propext, Quot.sound]` — these are the **function-eq facade**
-    (cut equality `f = g` on `Nat → Nat → Bool` requires funext) and
-    a few residual propext leaks in PairForcing, Lattice.Join,
-    CubeDerivativeAtZero, PolySumDerivativeModulus capstones
+  - **2077 PURE** theorems meeting the strict ∅-axiom standard
+  - **0 real DIRTY**
   - **19 sealed-DIRTY-by-design** — only items with genuinely
     inherent propext (Lean-core `Nat.lcm`/`gcd`/`add_mod`/`Int`,
     higher-order Lens funext, Cantor cardinality `Iff`,
     Cauchy-limit ZFC fiction in DyadicTrajectory)
 
-The 138 DIRTY items each have a parallel `_pure` (pointwise / fluxCutEq)
-∅-axiom variant.  The function-eq facade is preserved because many
-existing consumers use `rw [cutMul_one_one]` style chains; deleting the
-facade would require migrating ~17 files of consumers.  This is a
-**known tradeoff, not a hidden cheat** — the strict ∅-axiom theorems
-are the `_pure` capstones; the facade is documented DIRTY.
+Cumulative arc (sessions 19-27):
+  394 → 251 → 138 → 60 → 17 → **0 real DIRTY** (-100% extermination)
 
-Sessions 19-26 reduced raw DIRTY 394 → 138 via parallel-struct
-refactor + 256 new `_pure` theorems.  Further reduction requires
-either consumer migration (Plan 2 Phase D mass migration, ~17 files)
-or accepting facade as ergonomic-by-design (currently NOT sealed).
+Session 27 deleted ALL function-eq facade (Phase capstones, mid-tier
+Flux/FTC capstones, ClassicCalc/Passthrough/HasDyadicMVTWitness
+struct facade fields, leaf cut lemmas) and migrated every consumer
+to pointwise `_at` form.  The 6 propext-bearing residuals
+(CubeDerivativeAtZero × 3, PolySumDerivativeModulus × 3) refactored
+to use cutSumAux_congr / cutMulOuter_congr cascades + manual Nat
+proofs avoiding `omega`/`Nat.max_eq_left`.  Build clean.
 
 Why this is justified:
 - ~70+ capstones (math + physics + meta) already meet the strict
