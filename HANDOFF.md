@@ -1,18 +1,19 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
-## ★★★ Part 22: P2 Cauchy cascade — Wallis+Euler fully PURE
+## ★★★ Part 22: P2 Cauchy cascade — All 3 Cauchy seqs nearly PURE
 
 **Continuation of session 21 plan**, P2 (Canonical Form) executed
-through omega-elimination in PellSeq.abLens_witness — triggering
-massive cascade across all 3 Cauchy seqs.
+through omega-elimination in PellSeq.abLens_witness + pell_step —
+triggering massive cascade across all 3 Cauchy seqs.
 
 ### Snapshot
 
   - Whole-repo `lake build`: clean
   - **EulerSeq fully PURE** (14 PURE / 0 DIRTY)
   - **WallisSeq fully PURE** (18 PURE / 0 DIRTY)
-  - PellSeq: 10 PURE / 5 DIRTY (chain via pell_step polynomial omega)
-  - Net DIRTY removed this session: ~17
+  - **PellSeq: 13 PURE / 2 DIRTY** (only Sqrt2Cut downstream chain)
+  - Cauchy total: 45 PURE / 2 DIRTY
+  - Net DIRTY removed this session: ~21
 
 ### Commits (session 22, oldest → newest)
 
@@ -21,6 +22,7 @@ massive cascade across all 3 Cauchy seqs.
   - 5f6aca0  refactor(Cauchy): orderProj theorems via decide_eq_{true,false}
   - b796c6a  refactor(WallisSeq): wallis_upper_inv → WallisSeq fully PURE
   - 206968d  refactor(PellSeq): abLens_surjective via abLens_witness
+  - 15696a9  refactor(PellSeq): pell_step + pell_invariant + cascade → PURE
 
 ### Key technique unlocked: abLens_witness PURE
 
@@ -42,14 +44,24 @@ Replacements used:
   - Nat.le_of_mul_le_mul_left → Nat213.le_of_mul_le_mul_right (with comm)
   - Nat.mul_assoc (DIRTY) → Nat213.mul_assoc (PURE)
 
-### Remaining Cauchy DIRTY (5 in PellSeq)
+### Remaining Cauchy DIRTY (only 2 in PellSeq)
 
-  - pell_step (polynomial omega, bivariate substitution)
-  - pell_invariant (cascades from pell_step)
-  - pellRaw_isPellSol, pellRaw_cut_above, pellRaw_cut_below (cascade)
+  - pellRaw_cut_above, pellRaw_cut_below — both chain through
+    `Sqrt2Cut.pell_orderProj_above` / `pell_orderProj_below` (DIRTY
+    in `Math.Irrational.Sqrt2Cut`).  To unblock: refactor those
+    upstream theorems (multiple omega + Nat.mul_assoc).  ~50-line
+    refactor, deferred.
 
-To eliminate: need multi-variate Polynomial213 OR explicit Nat-arith
-substitution chain (~80 lines manual).
+### pell_step PURE technique
+
+The `pell_step` (bivariate polynomial omega blocker) was solved
+via private `pell_step_canonical` helper that explicitly reduces
+both sides of the bivariate equation to canonical form
+`34*N + 24*M + 9` (where N = y*y, M = x*y) through ~30 lines of
+Nat.add_assoc + Nat.add_comm + Nat213.add_mul + Nat213.mul_assoc
+chain.  No `omega`, no `simp`.
+
+This unblocked cascade: pell_invariant + pellRaw_isPellSol → PURE.
 
 ---
 
