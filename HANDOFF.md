@@ -61,11 +61,52 @@ For each function-eq theorem `f = g`:
   - Per-axiom-set: 153 [Quot.sound], 104 [propext, Quot.sound],
     53 [propext], 2 split
 
-### Snapshot (post-session 19)
+### Snapshot (post-session 19, after deep refactor)
 
 Whole-repo `lake build`: clean.
-Total DIRTY (excluding sealed): **~285 items** across ~50 modules.
-Started session at 394 DIRTY → ended at 285 = **109 removed**.
+Total: 2277 PURE / 294 DIRTY (excluding 2 sealed Bridges).
+Started session at 394 DIRTY → ended at 294 = **~100 removed**.
+
+### Deep architectural refactor (Phase 6 of session 19)
+
+Per user direction "밑바닥에서 깊고 세심한 구조적 변경": built
+**fluxCutEq foundation** to enable cascade-safe DIRTY removal.
+
+**`FluxMVT.fluxCutEq` predicate** (= `fluxBalance` alias):
+  - Pointwise FluxCut equality, bypasses struct-eq's funext requirement
+  - `fluxCutEq_of_pointwise` constructor, `fluxCutEq_forward/_backward`
+    projections, `fluxBalance_trans` for chain composition
+
+**Pure MVT/FTC bridges** (`FluxMVTPassthrough`):
+  - `mvt_passthrough_unit_forward_at_pure` (∀ m k, ...)
+  - `mvt_passthrough_unit_backward_at_pure`
+  - `mvt_passthrough_unit_pure` (fluxCutEq form)
+  - `fluxAlong_passthrough_unit_pure`
+  - `ftc_bridge_passthrough_unit_pure`
+
+**Pure one-liners** (`FluxPassthroughClass`):
+  - `Passthrough_at.mvt_pure` / `Passthrough_at.ftc_pure`
+
+**Pure capstones** (~22 new PURE theorems):
+  - ClassicCalc_at: `mvt_pure / ftc_pure / classic_calc_capstone_pure`
+  - ClassicCalcMid: 3 mid-* pure capstones
+  - ClassicCalcHigher: `classic_calc_higher_capstone_pure`
+  - ClassicCalcCombinators: `combinators_capstone_pure`
+  - ClassicCalcExtreme: `extreme_capstone_pure`
+  - ClassicCalcGeneric: `cutPow_calc_at` + 3 pure variants
+  - FluxMVTConcrete: `mvt_id_unitBracket_pure`
+  - PhaseBACapstone: `phaseBA_capstone_pure` (7-fact)
+  - PhaseBZMegaOmega: `phaseBZ_megaOmega_capstone_pure` (7-fact)
+
+The original DIRTY function-eq capstones are kept alongside (for
+backward compatibility / future deletion).  Net: 22 PURE additions
+beyond the previous ~109 DIRTY removals.
+
+### Cumulative
+
+  Session 19: 394 → 294 DIRTY (~100 net removed)
+  Plus ~30 NEW PURE capstones built on the fluxCutEq foundation
+  Plus AxiomLenses Core/Bridges architectural separation
 
 ### Lessons learned (the hard way)
 
