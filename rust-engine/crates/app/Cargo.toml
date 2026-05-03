@@ -271,3 +271,7 @@ path = "src/bin/k5_spinglass.rs"
 [[bin]]
 name = "k5-decoder"
 path = "src/bin/k5_decoder.rs"
+
+[[bin]]
+name = "k5-discrete-geom"
+path = "src/bin/k5_discrete_geom.rs"
