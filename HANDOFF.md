@@ -1,5 +1,58 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 22: P2 Cauchy cascade — Wallis+Euler fully PURE
+
+**Continuation of session 21 plan**, P2 (Canonical Form) executed
+through omega-elimination in PellSeq.abLens_witness — triggering
+massive cascade across all 3 Cauchy seqs.
+
+### Snapshot
+
+  - Whole-repo `lake build`: clean
+  - **EulerSeq fully PURE** (14 PURE / 0 DIRTY)
+  - **WallisSeq fully PURE** (18 PURE / 0 DIRTY)
+  - PellSeq: 10 PURE / 5 DIRTY (chain via pell_step polynomial omega)
+  - Net DIRTY removed this session: ~17
+
+### Commits (session 22, oldest → newest)
+
+  - cddf3e0  refactor(PellSeq): pellX_pos/pellY_pos/pellY_lb omega-free
+  - 398669b  refactor(PellSeq): abLens_witness omega-free → CASCADE +13
+  - 5f6aca0  refactor(Cauchy): orderProj theorems via decide_eq_{true,false}
+  - b796c6a  refactor(WallisSeq): wallis_upper_inv → WallisSeq fully PURE
+  - 206968d  refactor(PellSeq): abLens_surjective via abLens_witness
+
+### Key technique unlocked: abLens_witness PURE
+
+The big cascade lever was `abLens_witness` — a recursive Σ-type
+constructor used by all 3 Cauchy seqs (wallisRaw, eulerRaw,
+pellRaw).  Refactoring its 11 omegas + 4 simps to PURE Nat-arithmetic
+flipped wallisRaw, eulerRaw, pellRaw, and ALL their downstream
+order-Cauchy theorems automatically.
+
+Replacements used:
+  - omega for `0 = a + b` contradiction → Nat.le_add_right + decide
+  - omega for `1 ≤ a - 1` → Nat213.le_pred_of_succ_le
+  - omega for `(a-1) + b = n` → Nat.add_assoc + Nat213.sub_one_add_one
+                               + Nat.succ.inj
+  - omega for case-on-a → cases a with succ pattern
+  - simp [h_ab.1, h_ab.2] → show + rw [h_ab.1, h_ab.2]
+  - rw [decide_eq_true_iff] → apply decide_eq_true / decide_eq_false
+  - Nat.le_of_add_le_add_left → Nat213.le_of_add_le_add_left
+  - Nat.le_of_mul_le_mul_left → Nat213.le_of_mul_le_mul_right (with comm)
+  - Nat.mul_assoc (DIRTY) → Nat213.mul_assoc (PURE)
+
+### Remaining Cauchy DIRTY (5 in PellSeq)
+
+  - pell_step (polynomial omega, bivariate substitution)
+  - pell_invariant (cascades from pell_step)
+  - pellRaw_isPellSol, pellRaw_cut_above, pellRaw_cut_below (cascade)
+
+To eliminate: need multi-variate Polynomial213 OR explicit Nat-arith
+substitution chain (~80 lines manual).
+
+---
+
 ## ★★★ Part 21: Plan-mode 3-prescription ZFC residue purge
 
 **Plan**: `/root/.claude/plans/tingly-enchanting-pelican.md`
