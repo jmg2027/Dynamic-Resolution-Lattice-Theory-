@@ -41,38 +41,6 @@ open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_one_at)
 open E213.Math.Real213.CutMul (cutMulOuter)
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 
-/-- ★ id-compose witness propagation at c = 1/2. -/
-theorem id_compose_witness_propagates {f} (sf : IsDifferentiable f)
-    (hf : sf.derivative (constCut 1 2) = constCut 1 1) :
-    (composeIsDifferentiable sf idIsDifferentiable).derivative
-        (constCut 1 2) = constCut 1 1 := by
-  show cutMul (idIsDifferentiable.derivative (f (constCut 1 2)))
-              (sf.derivative (constCut 1 2)) = constCut 1 1
-  show cutMul (constCut 1 1) (sf.derivative (constCut 1 2)) = constCut 1 1
-  rw [hf]
-  exact cutMul_one_one
-
-/-- ★ Phase CL capstone: id-compose propagation derives BW. -/
-theorem id_compose_propagation_capstone :
-    -- (1) Generic id-compose propagation
-    (∀ {f} (sf : IsDifferentiable f),
-      sf.derivative (constCut 1 2) = constCut 1 1 →
-      (composeIsDifferentiable sf idIsDifferentiable).derivative
-        (constCut 1 2) = constCut 1 1)
-    -- (2) Specific: id ∘ x² (BW) — derived via propagation
-    ∧ (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable
-        ).derivative (constCut 1 2) = constCut 1 1
-    -- (3) Specific: id ∘ mid(x, x²) — derived via propagation
-    ∧ (composeIsDifferentiable
-        (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-        idIsDifferentiable).derivative (constCut 1 2) = constCut 1 1 :=
-  ⟨@id_compose_witness_propagates,
-   id_compose_witness_propagates squareIsDifferentiable
-     squareDerivative_at_half,
-   id_compose_witness_propagates
-     (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-     mid_id_square_derivative_at_half⟩
-
 /-- ★ id-compose witness propagation at c = 1/2, pointwise (PURE). -/
 theorem id_compose_witness_propagates_at {f} (sf : IsDifferentiable f)
     (hf : ∀ m k, sf.derivative (constCut 1 2) m k = constCut 1 1 m k)

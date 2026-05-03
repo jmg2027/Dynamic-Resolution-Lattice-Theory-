@@ -59,35 +59,6 @@ theorem id_compose_square_derivative_at_half_at (m k : Nat) :
   rw [step]
   exact cutMul_one_one_at m k
 
-/-- ★ id ∘ x² derivative at c = 1/2 = 1 (propEq). -/
-theorem id_compose_square_derivative_at_half :
-    (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable).derivative
-        (constCut 1 2) = constCut 1 1 := by
-  funext m k
-  exact id_compose_square_derivative_at_half_at m k
-
-/-- HasDyadicMVTWitness instance for id ∘ x². -/
-def HasDyadicMVTWitness.id_compose_square :
-    HasDyadicMVTWitness
-      (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable) :=
-  { witness := constCut 1 2
-    proof := id_compose_square_derivative_at_half }
-
-/-- id ∘ x² has constructive MVT existence. -/
-theorem id_compose_square_has_dyadic_witness :
-    ∃ c, (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable
-            ).derivative c = constCut 1 1 :=
-  HasDyadicMVTWitness.mvt_exists HasDyadicMVTWitness.id_compose_square
-
-/-- Phase BW capstone: chain-rule MVT witness for id ∘ x². -/
-theorem chain_rule_witness_capstone :
-    (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable).derivative
-        (constCut 1 2) = constCut 1 1
-    ∧ (∃ c, (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable
-              ).derivative c = constCut 1 1) :=
-  ⟨id_compose_square_derivative_at_half,
-   id_compose_square_has_dyadic_witness⟩
-
 /-! ### PURE pointwise variants (∅-axiom) -/
 
 /-- HasDyadicMVTWitness_at instance for id ∘ x² (PURE). -/

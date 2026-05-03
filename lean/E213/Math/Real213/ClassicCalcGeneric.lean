@@ -29,23 +29,6 @@ open E213.Math.Real213.IsDifferentiable
 
 namespace ClassicCalc
 
-/-- ★ Generic polynomial chain ClassicCalc instance for any n. -/
-def cutPow_calc (n : Nat) : ClassicCalc (fun x => cutPow x (n+1)) :=
-  { diff := cutPowFnIsDifferentiable (n+1)
-    pass := cutPow_pass n }
-
-/-- ★ Generic MVT for x^(n+1) (∀ n) — one-liner via cutPow_calc. -/
-theorem cutPow_calc_mvt (n : Nat) :
-    localDivergence (fun x => cutPow x (n+1)) unitBracket
-      = ofCut (constCut 1 1) :=
-  (cutPow_calc n).mvt
-
-/-- ★ Generic FTC bridge for x^(n+1) (∀ n). -/
-theorem cutPow_calc_ftc (n : Nat) :
-    localDivergence (fun x => cutPow x (n+1)) unitBracket
-      = fluxAlong (fun x => cutPow x (n+1)) unitBracket :=
-  (cutPow_calc n).ftc
-
 /-- ★ Generic polynomial chain ClassicCalc_at instance for any n (PURE). -/
 def cutPow_calc_at (n : Nat) :
     E213.Math.Real213.ClassicCalc.ClassicCalc_at (fun x => cutPow x (n+1)) :=
@@ -79,17 +62,6 @@ theorem cutPow_calc_capstone_pure (n : Nat) :
     ∧ (∀ m k, (fun x => cutPow x (n+1)) (constCut 1 1) m k = constCut 1 1 m k) :=
   ⟨cutPow_calc_mvt_pure n, cutPow_calc_ftc_pure n,
    (cutPow_calc_at n).pass.left, (cutPow_calc_at n).pass.right⟩
-
-/-- Phase BP capstone: cutPow_calc gives MVT + FTC for any n. -/
-theorem cutPow_calc_capstone (n : Nat) :
-    localDivergence (fun x => cutPow x (n+1)) unitBracket
-        = ofCut (constCut 1 1)
-    ∧ localDivergence (fun x => cutPow x (n+1)) unitBracket
-        = fluxAlong (fun x => cutPow x (n+1)) unitBracket
-    ∧ (fun x => cutPow x (n+1)) (constCut 0 1) = constCut 0 1
-    ∧ (fun x => cutPow x (n+1)) (constCut 1 1) = constCut 1 1 :=
-  ⟨cutPow_calc_mvt n, cutPow_calc_ftc n,
-   (cutPow_calc n).pass.left, (cutPow_calc n).pass.right⟩
 
 end ClassicCalc
 

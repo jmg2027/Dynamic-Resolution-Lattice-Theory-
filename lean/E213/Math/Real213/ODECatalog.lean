@@ -39,12 +39,6 @@ theorem ode_zero_solution (c : Nat → Nat → Bool) :
 theorem ode_one_solution :
     idIsDifferentiable.derivative = constCutFn (constCut 1 1) := rfl
 
-/-- y' = a (constant a): linear function ax + b is solution. -/
-theorem ode_constant_a_solution (a b : Nat) :
-    (linearWithIntercept_isDifferentiable a b).derivative
-      = constCutFn (constCut a 1) :=
-  linearWithIntercept_derivative a b
-
 /-- y' = a/b (general rational constant): cutScale a b is solution. -/
 theorem ode_rational_solution (a b : Nat) :
     (cutScaleIsDifferentiable a b).derivative
@@ -53,17 +47,6 @@ theorem ode_rational_solution (a b : Nat) :
 /-- y' = 1/2: cutHalf is solution. -/
 theorem ode_half_solution :
     cutHalfIsDifferentiable.derivative = constCutFn (constCut 1 2) := rfl
-
-/-- ★ Phase CV ODE catalog capstone: 5 trivial ODE solutions. -/
-theorem ode_catalog_capstone (a b : Nat) (c : Nat → Nat → Bool) :
-    (constIsDifferentiable c).derivative = constCutFn (constCut 0 1)
-    ∧ idIsDifferentiable.derivative = constCutFn (constCut 1 1)
-    ∧ (linearWithIntercept_isDifferentiable a b).derivative
-        = constCutFn (constCut a 1)
-    ∧ (cutScaleIsDifferentiable a b).derivative
-        = constCutFn (constCut a b)
-    ∧ cutHalfIsDifferentiable.derivative = constCutFn (constCut 1 2) :=
-  ⟨rfl, rfl, ode_constant_a_solution a b, rfl, rfl⟩
 
 /-- ★ y' = a pointwise (PURE). -/
 theorem ode_constant_a_solution_at (a b : Nat) (t : Nat → Nat → Bool)

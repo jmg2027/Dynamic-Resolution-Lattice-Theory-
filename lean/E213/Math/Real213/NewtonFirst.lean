@@ -33,31 +33,10 @@ def position_constant_velocity (v0 x0 : Nat) :
     (Nat → Nat → Bool) → (Nat → Nat → Bool) :=
   linearWithIntercept v0 x0
 
-/-- ★ Velocity is the (constant) derivative of position. -/
-theorem velocity_is_v0 (v0 x0 : Nat) :
-    (linearWithIntercept_isDifferentiable v0 x0).derivative
-      = constCutFn (constCut v0 1) :=
-  linearWithIntercept_derivative v0 x0
-
 /-- ★ Acceleration = 0 (Newton's first law: no force). -/
 theorem acceleration_is_zero (v0 : Nat) :
     (linearWithIntercept_secondDerivable v0).derivative
       = constCutFn (constCut 0 1) := rfl
-
-/-- Phase CX capstone: Newton's first law formalized. -/
-theorem newton_first_law_capstone (v0 x0 : Nat) (t : Nat → Nat → Bool) :
-    -- (1) Position function is differentiable
-    (linearWithIntercept_isDifferentiable v0 x0).derivative
-        = constCutFn (constCut v0 1)
-    -- (2) Velocity is constant v0 at any t
-    ∧ (linearWithIntercept_isDifferentiable v0 x0).derivative t
-        = constCut v0 1
-    -- (3) Acceleration is 0 (no force)
-    ∧ (linearWithIntercept_secondDerivable v0).derivative
-        = constCutFn (constCut 0 1) :=
-  ⟨linearWithIntercept_derivative v0 x0,
-   by rw [velocity_is_v0]; rfl,
-   rfl⟩
 
 /-- ★ Velocity = v0 pointwise (PURE). -/
 theorem velocity_is_v0_at (v0 x0 : Nat) (t : Nat → Nat → Bool) (m k : Nat) :

@@ -39,41 +39,6 @@ open E213.Math.Real213.CutMidSelf
   (cutMid_self_constCut cutMid_self_constCut_at)
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
 
-/-- ★ Riemann sum of mid(x, x²)'s derivative at unitBracket depth 0 = 1. -/
-theorem riemann_mid_id_square_derivative_zero :
-    riemannSampleSum (midIsDifferentiable idIsDifferentiable
-                       squareIsDifferentiable).derivative unitBracket 0
-      = constCut 1 1 := by
-  show (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-          ).derivative unitBracket.midCut = constCut 1 1
-  rw [unitBracket_midCut]
-  exact mid_id_square_derivative_at_half
-
-/-- fluxAlong mid(x, x²) at unitBracket = ofCut 1 (propEq). -/
-theorem fluxAlong_mid_id_square_unit :
-    fluxAlong (fun x => cutMid x (cutMul x x)) unitBracket
-      = ofCut (constCut 1 1) := by
-  show ({ forward := cutMid (constCut 1 1)
-                            (cutMul (constCut 1 1) (constCut 1 1)),
-          backward := cutMid (constCut 0 1)
-                             (cutMul (constCut 0 1) (constCut 0 1)) }
-                  : FluxCut)
-       = { forward := constCut 1 1, backward := constCut 0 1 }
-  rw [cutMul_one_one, cutMul_zero_zero, cutMid_zero_zero]
-  show ({ forward := cutMid (constCut 1 1) (constCut 1 1),
-          backward := constCut 0 1 } : FluxCut)
-       = { forward := constCut 1 1, backward := constCut 0 1 }
-  rw [cutMid_self_constCut 1 1 (by decide)]
-
-/-- ★ FTC-Riemann for mid(x, x²): depth 0 = boundary forward. -/
-theorem ftc_riemann_mid_id_square_zero :
-    riemannSampleSum (midIsDifferentiable idIsDifferentiable
-                       squareIsDifferentiable).derivative unitBracket 0
-      = (fluxAlong (fun x => cutMid x (cutMul x x))
-          unitBracket).forward := by
-  rw [riemann_mid_id_square_derivative_zero, fluxAlong_mid_id_square_unit]
-  rfl
-
 /-! ### PURE pointwise variants (∅-axiom) -/
 
 /-- ★ Riemann sum of mid(x, x²)' at unitBracket depth 0, pointwise (PURE). -/
@@ -83,20 +48,6 @@ theorem riemann_mid_id_square_derivative_zero_at (m k : Nat) :
       = constCut 1 1 m k :=
   mid_id_square_derivative_at_half_at m k
 
-/-- Phase CB capstone: FTC-Riemann for mid(x, x²). -/
-theorem ftc_riemann_mid_capstone :
-    riemannSampleSum (midIsDifferentiable idIsDifferentiable
-                       squareIsDifferentiable).derivative unitBracket 0
-        = constCut 1 1
-    ∧ fluxAlong (fun x => cutMid x (cutMul x x)) unitBracket
-        = ofCut (constCut 1 1)
-    ∧ riemannSampleSum (midIsDifferentiable idIsDifferentiable
-                         squareIsDifferentiable).derivative unitBracket 0
-        = (fluxAlong (fun x => cutMid x (cutMul x x))
-            unitBracket).forward :=
-  ⟨riemann_mid_id_square_derivative_zero,
-   fluxAlong_mid_id_square_unit,
-   ftc_riemann_mid_id_square_zero⟩
 
 /-- ★ Phase CB capstone (PURE) — pointwise Riemann sum for mid(x, x²). -/
 theorem ftc_riemann_mid_capstone_pure :

@@ -30,46 +30,6 @@ open E213.Math.Real213.FluxMVTMore
   (mid_id_square_derivative_at_half mid_id_square_derivative_at_half_at)
 open E213.Math.Real213.CutMidSelf (cutMid_self_constCut cutMid_self_constCut_at)
 
-/-- ★ d/dx [mid(mid(x, x²), x²)] at x = 1/2 = 1. -/
-theorem mid_mid_id_square_square_derivative_at_half :
-    (midIsDifferentiable
-        (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-        squareIsDifferentiable).derivative (constCut 1 2)
-      = constCut 1 1 := by
-  show cutMid ((midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-                ).derivative (constCut 1 2))
-              (squareIsDifferentiable.derivative (constCut 1 2))
-       = constCut 1 1
-  rw [mid_id_square_derivative_at_half, squareDerivative_at_half]
-  exact cutMid_self_constCut 1 1 (by decide)
-
-/-- HasDyadicMVTWitness for mid(mid(x, x²), x²). -/
-def HasDyadicMVTWitness.mid_mid_id_square_square :
-    HasDyadicMVTWitness (midIsDifferentiable
-      (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-      squareIsDifferentiable) :=
-  { witness := constCut 1 2
-    proof := mid_mid_id_square_square_derivative_at_half }
-
-/-- ★ Phase CJ: existential witness for mid(mid(x, x²), x²). -/
-theorem mid_mid_id_square_square_has_dyadic_witness :
-    ∃ c, (midIsDifferentiable
-            (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-            squareIsDifferentiable).derivative c = constCut 1 1 :=
-  HasDyadicMVTWitness.mvt_exists
-    HasDyadicMVTWitness.mid_mid_id_square_square
-
-/-- Phase CJ capstone. -/
-theorem mid_mid_id_square_square_capstone :
-    (midIsDifferentiable
-        (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-        squareIsDifferentiable).derivative (constCut 1 2)
-        = constCut 1 1
-    ∧ (∃ c, (midIsDifferentiable
-              (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-              squareIsDifferentiable).derivative c = constCut 1 1) :=
-  ⟨mid_mid_id_square_square_derivative_at_half,
-   mid_mid_id_square_square_has_dyadic_witness⟩
 
 /-- ★ d/dx [mid(mid(x,x²), x²)] at 1/2 = 1, pointwise (PURE). -/
 theorem mid_mid_id_square_square_derivative_at_half_at (m k : Nat) :

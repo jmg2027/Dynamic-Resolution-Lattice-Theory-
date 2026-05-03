@@ -27,7 +27,7 @@ open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough_at)
 namespace FluxCut.Passthrough_at
 
 open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
-  (id_pass cutPow_pass compose_pass mul_pass mvt_pure)
+  (id_pass cutPow_pass mul_pass mvt_pure)
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
 
 /-- x ↦ x via id (pointwise). -/

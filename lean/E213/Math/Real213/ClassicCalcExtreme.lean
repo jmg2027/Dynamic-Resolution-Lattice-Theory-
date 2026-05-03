@@ -24,56 +24,6 @@ open E213.Math.Real213.DifferentiableHighOrder
   (nonicIsDifferentiable decicIsDifferentiable
    dodecicIsDifferentiable hexadecicIsDifferentiable)
 
-namespace ClassicCalc
-
-/-- x⁹ ∈ ClassicCalc (quartic · quintic). -/
-def nonic_calc :
-    ClassicCalc (fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
-        (cutMul (cutMul x x) (cutMul x (cutMul x x)))) :=
-  { diff := nonicIsDifferentiable
-    pass := mul_pass
-              quartic_pass
-              quintic_pass }
-
-/-- x¹⁰ ∈ ClassicCalc (quintic · quintic). -/
-def decic_calc :
-    ClassicCalc (fun x => cutMul (cutMul (cutMul x x)
-        (cutMul x (cutMul x x))) (cutMul (cutMul x x)
-        (cutMul x (cutMul x x)))) :=
-  { diff := decicIsDifferentiable
-    pass := mul_pass
-              quintic_pass
-              quintic_pass }
-
-/-- x¹² ∈ ClassicCalc (quartic · octic). -/
-def dodecic_calc :
-    ClassicCalc (fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
-        (cutMul (cutMul (cutMul x x) (cutMul x x))
-                (cutMul (cutMul x x) (cutMul x x)))) :=
-  { diff := dodecicIsDifferentiable
-    pass := mul_pass
-              quartic_pass
-              (mul_pass
-                quartic_pass
-                quartic_pass) }
-
-/-- x¹⁶ ∈ ClassicCalc (octic · octic via mul_pass). -/
-def hexadecic_calc :
-    ClassicCalc (fun x => cutMul (cutMul (cutMul (cutMul x x) (cutMul x x))
-        (cutMul (cutMul x x) (cutMul x x)))
-        (cutMul (cutMul (cutMul x x) (cutMul x x))
-        (cutMul (cutMul x x) (cutMul x x)))) :=
-  { diff := hexadecicIsDifferentiable
-    pass := mul_pass
-              (mul_pass
-                quartic_pass
-                quartic_pass)
-              (mul_pass
-                quartic_pass
-                quartic_pass) }
-
-end ClassicCalc
-
 namespace ClassicCalc_at
 
 open E213.Math.Real213.ClassicCalc (ClassicCalc_at)
