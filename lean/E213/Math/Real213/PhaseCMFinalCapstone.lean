@@ -163,4 +163,37 @@ theorem phaseCM_final_capstone_at (n : Nat)
    mid_id_square_derivative_at_half_at m k,
    id_compose_square_derivative_at_half_at m k⟩
 
+/-! ### fluxCutEq PURE variant (MVT/FTC subset) -/
+
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket_pure)
+open E213.Math.Real213.FluxMVTGeneric.FluxCut
+  (mvt_cutPow_unitBracket_pure fluxAlong_cutPow_unitBracket_pure)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit_pure fluxAlong_passthrough_unit_pure
+   ftc_bridge_passthrough_unit_pure)
+
+/-- ★★★ **Phase CM final capstone — fluxCutEq PURE** ★★★
+    Strict ∅-axiom (no propext, no Quot.sound).  Covers the MVT/FTC
+    marquee facts; pointwise dyadic-witness facts already PURE
+    in `_at` form above. -/
+theorem phaseCM_final_capstone_pure (n : Nat)
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k)
+    (h_right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k) :
+    fluxCutEq (localDivergence id unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+                (ofCut (constCut 1 1))
+    ∧ fluxCutEq (fluxAlong (fun x => cutPow x (n+1)) unitBracket)
+                (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence f unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (fluxAlong f unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence f unitBracket) (fluxAlong f unitBracket) :=
+  ⟨mvt_id_unitBracket_pure,
+   mvt_cutPow_unitBracket_pure n,
+   fluxAlong_cutPow_unitBracket_pure n,
+   mvt_passthrough_unit_pure f h_left h_right,
+   fluxAlong_passthrough_unit_pure f h_left h_right,
+   ftc_bridge_passthrough_unit_pure f h_left h_right⟩
+
 end E213.Math.Real213.PhaseCMFinalCapstone
