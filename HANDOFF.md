@@ -39,6 +39,49 @@ After Cauchy chain milestone, continued with single-target cleanups:
   - Net session 23 DIRTY removed: 274 → 251 (= 23 down)
   - Combined session 22 + 23: 281 → 251 (= 30 down)
 
+### Session 24: hit the natural floor
+
+Tried to find more low-hanging targets after Cauchy/Sqrt2Cut.
+Findings: remaining 251 DIRTY are structurally blocked.
+
+Breakdown of remaining 251 DIRTY:
+  - **156 Quot.sound only** — funext for Lens function-eq,
+    structures with function-eq proof fields (HasDyadicMVTWitness,
+    Passthrough), cutMul/cutSum function-eq facades
+  - **52 propext only** — Lean core operations:
+    * `Nat.add_mod` / `Nat.mul_mod` / `Nat.mod_two_eq_zero_or_one`
+      (5 in Sqrt2KernelFree, 2 in RefinesParity, etc.)
+    * `Nat.lcm` / `Nat.gcd` / `Nat.dvd_lcm_left/right`
+      (4 in ModNat, 2 in LCMClosure, 1 in Cabibbo)
+    * `Int` operations / `Raw.fold_signed_swap` / `Raw.swap_depth`
+      (4 in Catalog, 2 in LensCardinality)
+    * `Nat.max_eq_left` (asymmetric with right) — Reach, Cardinality
+    * Prop-level (22 in SemanticAtom, by-design)
+  - **43 both** — combinations of above
+
+What CANNOT be done from user-code:
+  - Replacing `Nat.add_mod` etc. (Lean 4 core lemmas)
+  - Removing Quot.sound from `funext` (built into kernel)
+  - Eliminating propext from `Iff` manipulation
+
+What WOULD require massive refactor:
+  - Replace ALL function-eq Lens proofs with pointwise predicates
+    (would touch ~150 files)
+  - Redefine `HasDyadicMVTWitness`/`Passthrough` structs to use
+    cutEq instead of function-eq fields (cascade through ~50 files)
+  - Replace `Lens.equiv` with canonize-based equality (requires
+    rebuilding Hypervisor layer)
+
+Conclusion: **251 DIRTY is the natural floor for incremental
+refactoring**.  Further reduction requires architectural redesign
+(Plan 2 territory: Canonical Form refactor, deferred since session 21).
+
+The DRLT mathematical core (Cauchy/Real213 chain → Cantor/Godel/
+SemanticAtom semantics) is **already at strict ∅-axiom** for the
+non-Lens-infrastructure portions.
+
+---
+
 ### Remaining DIRTY blockers (hard)
 
   - **Function-eq facade** (intentional DIRTY-by-design): 40+
