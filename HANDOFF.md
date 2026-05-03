@@ -1,5 +1,50 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 23: Cauchy + Sqrt2Cut FULLY PURE (50 PURE / 0 DIRTY)
+
+**Continuation of session 22**, completing the Cauchy chain by
+refactoring `Math.Irrational.Sqrt2Cut.lean` (the last upstream
+blocker for PellSeq's pellRaw_cut_above/below).
+
+### Snapshot
+
+  - Whole-repo `lake build`: clean
+  - **All 3 Cauchy seqs (Euler/Wallis/Pell) FULLY PURE**
+  - **Sqrt2Cut FULLY PURE** (3 PURE / 0 DIRTY)
+  - **Combined Cauchy + Sqrt2Cut: 50 PURE / 0 DIRTY** ★
+
+### Sqrt2Cut refactor (commit aa241bb)
+
+Eliminated:
+  - `nat_le_iff_sq_le` (Iff bringing propext) → split into
+    `nat_sq_le_of_le` (forward) + `nat_le_of_sq_le` (backward),
+    both PURE term-mode
+  - `rw [decide_eq_true_iff/decide_eq_false_iff_not]` →
+    `apply decide_eq_true / decide_eq_false`
+  - All `Nat.mul_assoc` → `E213.Tactic.Nat213.mul_assoc`
+  - 4 omegas:
+    * `0 < a` from `a > b` → `Nat.lt_of_le_of_lt (Nat.zero_le b) hab`
+    * `False` from `a ≤ b` ∧ `b < a` → `absurd ... (Nat.not_lt_of_le ...)`
+    * `IsPellSol` substitution → explicit `unfold` + `▸` + heq.trans
+    * Final contradiction in pell_orderProj_below restructured as
+      `(2*(y*y)+1)*(k*k) ≤ (y*y)*(m*m)` ∧ `(y*y)*(m*m+1) ≤ (y*y)*(2*(k*k))`
+      → chain showing `k*k + y*y ≤ 0`, contra `k*k ≥ 1`
+  - `simp at this` → explicit `Nat.zero_mul`, `Nat.zero_add` chain
+
+### Cumulative Cauchy state (from session 19 → 23)
+
+| File | session 19 start | session 23 end |
+|---|---|---|
+| EulerSeq | 0 PURE / 14 DIRTY | **14 PURE / 0 DIRTY** ✅ |
+| WallisSeq | 1 PURE / 17 DIRTY | **18 PURE / 0 DIRTY** ✅ |
+| PellSeq | 0 PURE / 15 DIRTY | **15 PURE / 0 DIRTY** ✅ |
+| Sqrt2Cut | 1 PURE / 2 DIRTY | **3 PURE / 0 DIRTY** ✅ |
+| **Total** | 2 PURE / 48 DIRTY | **50 PURE / 0 DIRTY** |
+
+**Net DIRTY removed in Cauchy chain**: 48 over 5 sessions.
+
+---
+
 ## ★★★ Part 22: P2 Cauchy cascade — All 3 Cauchy seqs nearly PURE
 
 **Continuation of session 21 plan**, P2 (Canonical Form) executed
