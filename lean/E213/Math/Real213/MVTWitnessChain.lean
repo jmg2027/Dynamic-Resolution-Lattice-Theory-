@@ -25,20 +25,43 @@ open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.HasDyadicMVTWitness (HasDyadicMVTWitness)
 open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
 open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
-open E213.Math.Real213.CutMulOne (cutMul_one_one)
+open E213.Math.Real213.CutMul (cutMulOuter)
+open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_one_at)
+open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
 
-/-- ★ id ∘ x² derivative at c = 1/2 = 1 (propEq).
-    Same function as x² but constructed via chain rule. -/
+/-- ★ id ∘ x² derivative at c = 1/2 = 1 — pointwise (∅-axiom). -/
+theorem id_compose_square_derivative_at_half_at (m k : Nat) :
+    (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable).derivative
+        (constCut 1 2) m k = constCut 1 1 m k := by
+  show cutMul (constCut 1 1)
+              (squareIsDifferentiable.derivative (constCut 1 2)) m k
+       = constCut 1 1 m k
+  -- Push pointwise eq through cutMulOuter: swap inner squareDeriv → constCut 1 1.
+  show cutMulOuter (constCut 1 1)
+                   (squareIsDifferentiable.derivative (constCut 1 2))
+                   k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
+  have step :
+      cutMulOuter (constCut 1 1)
+                  (squareIsDifferentiable.derivative (constCut 1 2))
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      = cutMulOuter (constCut 1 1) (constCut 1 1)
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
+    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      (constCut 1 1) (constCut 1 1)
+      (squareIsDifferentiable.derivative (constCut 1 2)) (constCut 1 1)
+      (fun _ _ => rfl)
+      (fun m' _ => squareDerivative_at_half_at m' k)
+      ((m+1)*(k+1)) (Nat.le_refl _)
+  rw [step]
+  exact cutMul_one_one_at m k
+
+/-- ★ id ∘ x² derivative at c = 1/2 = 1 (propEq). -/
 theorem id_compose_square_derivative_at_half :
     (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable).derivative
         (constCut 1 2) = constCut 1 1 := by
-  show cutMul (idIsDifferentiable.derivative ((fun x => cutMul x x)
-              (constCut 1 2)))
-              (squareIsDifferentiable.derivative (constCut 1 2))
-       = constCut 1 1
-  show cutMul (constCut 1 1) (squareIsDifferentiable.derivative (constCut 1 2))
-       = constCut 1 1
-  rw [squareDerivative_at_half, cutMul_one_one]
+  funext m k
+  exact id_compose_square_derivative_at_half_at m k
 
 /-- HasDyadicMVTWitness instance for id ∘ x². -/
 def HasDyadicMVTWitness.id_compose_square :

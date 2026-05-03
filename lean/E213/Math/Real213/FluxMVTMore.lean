@@ -30,20 +30,77 @@ open E213.Math.Real213.HasDyadicMVTWitness
   (HasDyadicMVTWitness square_has_dyadic_witness)
 open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
 open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
-open E213.Math.Real213.CutMulOne (cutMul_one_const cutMul_const_one)
-open E213.Math.Real213.CutSumOne (cutSum_half_half)
-open E213.Math.Real213.CutMidSelf (cutMid_self_constCut)
+open E213.Math.Real213.CutSum (cutSumAux)
+open E213.Math.Real213.CutMulOne
+  (cutMul_one_const cutMul_one_const_at cutMul_const_one cutMul_const_one_at)
+open E213.Math.Real213.CutSumOne (cutSum_half_half cutSum_half_half_at)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut cutMid_self_constCut_at)
+open E213.Math.Real213.CutSumDetermined (cutSumAux_congr)
+
+/-- ★ d/dx [(x + x²)/2] at x = 1/2 = 1 — pointwise (∅-axiom). -/
+theorem mid_id_square_derivative_at_half_at (m k : Nat) :
+    (midIsDifferentiable idIsDifferentiable squareIsDifferentiable).derivative
+        (constCut 1 2) m k = constCut 1 1 m k := by
+  show cutMid (constCut 1 1)
+              (cutSum (cutMul (constCut 1 1) (constCut 1 2))
+                      (cutMul (constCut 1 2) (constCut 1 1))) m k
+       = constCut 1 1 m k
+  -- cutMid X Y m k = cutSum X Y (2*m) k
+  show cutSum (constCut 1 1)
+              (cutSum (cutMul (constCut 1 1) (constCut 1 2))
+                      (cutMul (constCut 1 2) (constCut 1 1))) (2*m) k
+       = constCut 1 1 m k
+  -- Push pointwise eq through outer cutSumAux: swap inner cutSum to constCut 1 1.
+  show cutSumAux (constCut 1 1)
+                 (cutSum (cutMul (constCut 1 1) (constCut 1 2))
+                         (cutMul (constCut 1 2) (constCut 1 1)))
+                 k (2*(2*m)) (2*(2*m)) = constCut 1 1 m k
+  have step :
+      cutSumAux (constCut 1 1)
+                (cutSum (cutMul (constCut 1 1) (constCut 1 2))
+                        (cutMul (constCut 1 2) (constCut 1 1)))
+                k (2*(2*m)) (2*(2*m))
+      = cutSumAux (constCut 1 1) (constCut 1 1) k (2*(2*m)) (2*(2*m)) :=
+    cutSumAux_congr k (2*(2*m))
+      (constCut 1 1) (constCut 1 1)
+      (cutSum (cutMul (constCut 1 1) (constCut 1 2))
+              (cutMul (constCut 1 2) (constCut 1 1)))
+      (constCut 1 1)
+      (fun _ _ => rfl)
+      (fun m' _ => by
+        -- Show cutSum (cutMul ... ) (cutMul ...) m' (2*k) = constCut 1 1 m' (2*k)
+        -- via inner cutSumAux_congr + cutSum_half_half_at.
+        show cutSumAux (cutMul (constCut 1 1) (constCut 1 2))
+                       (cutMul (constCut 1 2) (constCut 1 1))
+                       (2*k) (2*m') (2*m') = constCut 1 1 m' (2*k)
+        have inner :
+            cutSumAux (cutMul (constCut 1 1) (constCut 1 2))
+                      (cutMul (constCut 1 2) (constCut 1 1))
+                      (2*k) (2*m') (2*m')
+            = cutSumAux (constCut 1 2) (constCut 1 2)
+                      (2*k) (2*m') (2*m') :=
+          cutSumAux_congr (2*k) (2*m')
+            (cutMul (constCut 1 1) (constCut 1 2)) (constCut 1 2)
+            (cutMul (constCut 1 2) (constCut 1 1)) (constCut 1 2)
+            (fun m'' _ => cutMul_one_const_at 1 2 m'' (2*(2*k)))
+            (fun m'' _ => cutMul_const_one_at 1 2 m'' (2*(2*k)))
+            (2*m') (Nat.le_refl _)
+        rw [inner]
+        exact cutSum_half_half_at m' (2*k))
+      (2*(2*m)) (Nat.le_refl _)
+  rw [step]
+  -- Goal: cutSumAux (constCut 1 1) (constCut 1 1) k (2*(2*m)) (2*(2*m)) = constCut 1 1 m k
+  -- = cutSum (constCut 1 1) (constCut 1 1) (2*m) k
+  -- = cutMid (constCut 1 1) (constCut 1 1) m k
+  show cutMid (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k
+  exact cutMid_self_constCut_at 1 1 m k (Nat.le_refl _)
 
 /-- ★ d/dx [(x + x²)/2] at x = 1/2 = 1, propositionally. -/
 theorem mid_id_square_derivative_at_half :
     (midIsDifferentiable idIsDifferentiable squareIsDifferentiable).derivative
         (constCut 1 2) = constCut 1 1 := by
-  show cutMid (constCut 1 1)
-              (cutSum (cutMul (constCut 1 1) (constCut 1 2))
-                      (cutMul (constCut 1 2) (constCut 1 1)))
-       = constCut 1 1
-  rw [cutMul_one_const 1 2, cutMul_const_one 1 2, cutSum_half_half]
-  exact cutMid_self_constCut 1 1 (by decide)
+  funext m k
+  exact mid_id_square_derivative_at_half_at m k
 
 /-- HasDyadicMVTWitness instance for mid(x, x²). -/
 def HasDyadicMVTWitness.mid_id_square :

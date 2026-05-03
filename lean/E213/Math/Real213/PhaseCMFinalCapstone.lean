@@ -53,9 +53,13 @@ open E213.Math.Real213.FluxMVTConcrete.FluxCut
 open E213.Math.Real213.FluxMVTGeneric.FluxCut
   (mvt_cutPow_unitBracket_forward_at mvt_cutPow_unitBracket_backward_at)
 open E213.Math.Real213.ClassicCalcGeneric.ClassicCalc (cutPow_calc_mvt)
-open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
-open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half)
-open E213.Math.Real213.MVTWitnessChain (id_compose_square_derivative_at_half)
+open E213.Math.Real213.FluxMVTWitness
+  (squareDerivative_at_half squareDerivative_at_half_at)
+open E213.Math.Real213.FluxMVTMore
+  (mid_id_square_derivative_at_half mid_id_square_derivative_at_half_at)
+open E213.Math.Real213.MVTWitnessChain
+  (id_compose_square_derivative_at_half
+   id_compose_square_derivative_at_half_at)
 open E213.Math.Real213.FTCRiemann (ftc_riemann_id_depth_zero)
 open E213.Math.Real213.FTCRiemannGeneric (ftc_riemann_generic_for_square)
 open E213.Math.Real213.FluxMVTPropagate (mid_witness_propagates)
@@ -138,7 +142,15 @@ theorem phaseCM_final_capstone_at (n : Nat)
     ∧ (fluxAlong f unitBracket).forward m k
        = (ofCut (constCut 1 1) : FluxCut).forward m k
     ∧ (fluxAlong f unitBracket).backward m k
-       = (ofCut (constCut 1 1) : FluxCut).backward m k :=
+       = (ofCut (constCut 1 1) : FluxCut).backward m k
+    -- (BR) explicit dyadic witness for x²
+    ∧ squareIsDifferentiable.derivative (constCut 1 2) m k = constCut 1 1 m k
+    -- (BU) mid(x, x²) witness
+    ∧ (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
+        ).derivative (constCut 1 2) m k = constCut 1 1 m k
+    -- (BW/CL) chain-rule witness via id-compose
+    ∧ (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable
+        ).derivative (constCut 1 2) m k = constCut 1 1 m k :=
   ⟨mvt_id_unitBracket_forward_at m k,
    mvt_id_unitBracket_backward_at m k,
    mvt_cutPow_unitBracket_forward_at n m k,
@@ -146,6 +158,9 @@ theorem phaseCM_final_capstone_at (n : Nat)
    mvt_passthrough_unit_forward_at f h_right m k,
    mvt_passthrough_unit_backward_at f h_left m k,
    fluxAlong_passthrough_unit_forward_at f h_right m k,
-   fluxAlong_passthrough_unit_backward_at f h_left m k⟩
+   fluxAlong_passthrough_unit_backward_at f h_left m k,
+   squareDerivative_at_half_at m k,
+   mid_id_square_derivative_at_half_at m k,
+   id_compose_square_derivative_at_half_at m k⟩
 
 end E213.Math.Real213.PhaseCMFinalCapstone
