@@ -57,6 +57,32 @@ This is **strictly stronger** than the previous transitional baseline
 silently introduce).  Verification: `python3 tools/scan_axioms.py
 <module>` reports `[PURE]` vs `[DIRTY]`.
 
+### Honest status (2026-05-03, session 26 end)
+
+Tree-wide scan (`python3 tools/scan_all_axioms.py`):
+  - **2090 PURE** theorems meeting the strict ∅-axiom standard
+  - **138 DIRTY** theorems still carrying `[Quot.sound]` or
+    `[propext, Quot.sound]` — these are the **function-eq facade**
+    (cut equality `f = g` on `Nat → Nat → Bool` requires funext) and
+    a few residual propext leaks in PairForcing, Lattice.Join,
+    CubeDerivativeAtZero, PolySumDerivativeModulus capstones
+  - **19 sealed-DIRTY-by-design** — only items with genuinely
+    inherent propext (Lean-core `Nat.lcm`/`gcd`/`add_mod`/`Int`,
+    higher-order Lens funext, Cantor cardinality `Iff`,
+    Cauchy-limit ZFC fiction in DyadicTrajectory)
+
+The 138 DIRTY items each have a parallel `_pure` (pointwise / fluxCutEq)
+∅-axiom variant.  The function-eq facade is preserved because many
+existing consumers use `rw [cutMul_one_one]` style chains; deleting the
+facade would require migrating ~17 files of consumers.  This is a
+**known tradeoff, not a hidden cheat** — the strict ∅-axiom theorems
+are the `_pure` capstones; the facade is documented DIRTY.
+
+Sessions 19-26 reduced raw DIRTY 394 → 138 via parallel-struct
+refactor + 256 new `_pure` theorems.  Further reduction requires
+either consumer migration (Plan 2 Phase D mass migration, ~17 files)
+or accepting facade as ergonomic-by-design (currently NOT sealed).
+
 Why this is justified:
 - ~70+ capstones (math + physics + meta) already meet the strict
   ∅-axiom standard (catalog: `STRICT_ZERO_AXIOM.md`).  The standard

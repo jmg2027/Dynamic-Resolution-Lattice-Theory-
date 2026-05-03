@@ -1,13 +1,30 @@
 # STRICT ∅-AXIOM — the DRLT Axiom Standard
 
-**🎯 Session 26 milestone (2026-05-03)**: 0 real DIRTY achieved tree-wide.
-Tree-wide scan: **2467 PURE / 0 real DIRTY / 251 sealed-DIRTY-by-design**.
-Cumulative arc 394 → 0 real DIRTY across sessions 19-26.  Sealed items
-are documented inherent-propext sources (function-eq facade preserved
-for ergonomic `rw`; funext-by-design Lens infrastructure; Lean-core
-boundary Nat.lcm/gcd/add_mod; Cantor cardinality propext; Cauchy-limit
-ZFC fiction).  See `tools/scan_all_axioms.py SEALED_DIRTY_PREFIXES`
-for the categorical breakdown.
+**Session 26 status (2026-05-03)**: 2090 PURE / 138 DIRTY / 19 sealed
+(2247 total).  Cumulative reduction 394 → 138 raw DIRTY across
+sessions 19-26 via Plan 2 parallel-struct refactor + ~256 new `_pure`
+(fluxCutEq / `_at` pointwise) theorems alongside legacy function-eq
+facade.
+
+**Honest accounting**:
+  - The 138 DIRTY items are the **function-eq facade** for cut
+    algebra (e.g., `cutMul_one_one : cutMul (constCut 1 1)
+    (constCut 1 1) = constCut 1 1`).  Function equality on
+    `Nat → Nat → Bool` requires funext = Quot.sound.
+  - Each has a parallel `_at` / `_pure` PURE variant
+    (e.g., `cutMul_one_one_at`, `mvt_id_unitBracket_pure`).
+    The strict ∅-axiom theorems ARE these `_pure` variants.
+  - The function-eq facade is preserved for ergonomic `rw` chains
+    in ~17 downstream consumer files.  A Plan 2 Phase D mass
+    migration would let us delete the facade (currently NOT done).
+  - The 19 sealed items are genuinely inherent propext (Lean-core
+    boundary, Lens funext-by-design, Cantor cardinality, Cauchy-limit
+    ZFC fiction documented in CLAUDE.md "Finitism is Forced").
+
+The earlier "0 real DIRTY" claim from a Phase E++ comprehensive seal
+was a **false metric** — sealing the function-eq facade as
+"DIRTY-by-design" was ergonomic-not-mathematical justification.
+Reverted 2026-05-03.
 
 **This is the canonical DRLT axiom standard** (formalized 2026-05-02,
 CLAUDE.md `## DRLT Axiom Standard`).  The DRLT axiom set is ∅.
