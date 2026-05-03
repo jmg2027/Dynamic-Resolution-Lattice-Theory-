@@ -191,43 +191,81 @@ open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Instances.AB
 def abLens_witness (s : Nat) : ∀ (a b : Nat),
     a + b = s → 1 ≤ a → 1 ≤ b → {r : Raw // abLens.view r = (a, b)} := by
   induction s with
-  | zero => intro a b hsum ha hb; exact False.elim (by omega)
+  | zero =>
+      intro a b hsum ha _
+      -- a + b = 0, but a ≥ 1 means a + b ≥ 1.  Contradiction.
+      exfalso
+      have : 1 ≤ 0 := hsum ▸ Nat.le_trans ha (Nat.le_add_right a b)
+      exact absurd this (by decide)
   | succ n ih =>
       intro a b hsum ha hb
       by_cases h_ab : a = 1 ∧ b = 1
       · refine ⟨Raw.slash Raw.a Raw.b (by decide), ?_⟩
         rw [abLens_slash, abLens_a, abLens_b]
-        simp [h_ab.1, h_ab.2]
+        show (1 + 0, 0 + 1) = (a, b)
+        rw [h_ab.1, h_ab.2]
       · by_cases h_a2 : a ≥ 2
-        · have ha' : 1 ≤ a - 1 := by omega
-          have hsum' : (a - 1) + b = n := by omega
+        · -- a ≥ 2 → recurse on (a-1, b)
+          have ha_ne : a ≠ 0 := by
+            intro hz; rw [hz] at ha; exact absurd ha (by decide)
+          have ha' : 1 ≤ a - 1 := E213.Tactic.Nat213.le_pred_of_succ_le h_a2
+          have hsum' : (a - 1) + b = n := by
+            have h1 : a - 1 + b + 1 = a + b := by
+              rw [Nat.add_assoc, Nat.add_comm b 1, ← Nat.add_assoc,
+                  E213.Tactic.Nat213.sub_one_add_one ha_ne]
+            exact Nat.succ.inj (h1.trans hsum)
           let ⟨r, hr⟩ := ih (a - 1) b hsum' ha' hb
           have hne : Raw.a ≠ r := by
             intro heq
             have := congrArg abLens.view heq
             rw [abLens_a, hr] at this
             have h0 : (0 : Nat) = b := congrArg Prod.snd this
-            omega
+            exact absurd (h0 ▸ hb) (by decide)
           refine ⟨Raw.slash Raw.a r hne, ?_⟩
           rw [abLens_slash, abLens_a, hr]
-          simp; omega
-        · have ha1 : a = 1 := by omega
+          show ((1 + (a - 1) : Nat), (0 + b : Nat)) = (a, b)
+          rw [Nat.add_comm 1 (a-1),
+              E213.Tactic.Nat213.sub_one_add_one ha_ne,
+              Nat.zero_add]
+        · -- a < 2, a ≥ 1 → a = 1.  Then b ≥ 2 (since not (1,1)).
+          have ha1 : a = 1 := by
+            cases a with
+            | zero => exact absurd ha (by decide)
+            | succ k =>
+              cases k with
+              | zero => rfl
+              | succ k' => exact absurd h_a2 (by
+                  show ¬ 2 ≤ k' + 1 + 1 → False
+                  intro h; exact h (Nat.succ_le_succ (Nat.succ_le_succ
+                    (Nat.zero_le k'))))
           have hb2 : b ≥ 2 := by
-            by_cases hb_eq : b = 1
-            · exact False.elim (h_ab ⟨ha1, hb_eq⟩)
-            · omega
-          have hb' : 1 ≤ b - 1 := by omega
-          have hsum' : a + (b - 1) = n := by omega
+            cases b with
+            | zero => exact absurd hb (by decide)
+            | succ k =>
+              cases k with
+              | zero => exact absurd (h_ab ⟨ha1, rfl⟩) (fun x => x)
+              | succ k' => exact Nat.succ_le_succ (Nat.succ_le_succ
+                  (Nat.zero_le k'))
+          have hb_ne : b ≠ 0 := by
+            intro hz; rw [hz] at hb; exact absurd hb (by decide)
+          have hb' : 1 ≤ b - 1 := E213.Tactic.Nat213.le_pred_of_succ_le hb2
+          have hsum' : a + (b - 1) = n := by
+            have h1 : a + (b - 1) + 1 = a + b := by
+              rw [Nat.add_assoc,
+                  E213.Tactic.Nat213.sub_one_add_one hb_ne]
+            exact Nat.succ.inj (h1.trans hsum)
           let ⟨r, hr⟩ := ih a (b - 1) hsum' ha hb'
           have hne : Raw.b ≠ r := by
             intro heq
             have := congrArg abLens.view heq
             rw [abLens_b, hr] at this
             have h0 : (0 : Nat) = a := congrArg Prod.fst this
-            omega
+            exact absurd (h0 ▸ ha) (by decide)
           refine ⟨Raw.slash Raw.b r hne, ?_⟩
           rw [abLens_slash, abLens_b, hr]
-          simp; omega
+          show ((0 + a : Nat), (1 + (b - 1) : Nat)) = (a, b)
+          rw [Nat.zero_add, Nat.add_comm 1 (b-1),
+              E213.Tactic.Nat213.sub_one_add_one hb_ne]
 
 end E213.Math.Cauchy.PellSeq
 
