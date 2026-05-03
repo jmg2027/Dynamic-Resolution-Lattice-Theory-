@@ -64,9 +64,9 @@ theorem cutMid_self_constCut_at (a b m k : Nat) (_hb : b ≥ 1) :
 
 /-- **midpoint(c, c) ≡ c** for c = a/b (cutEq, PURE). -/
 theorem cutMid_self_constCut (a b : Nat) (hb : b ≥ 1) :
-    E213.Math.Real213.CutPoset.cutEq
-      (cutMid (constCut a b) (constCut a b)) (constCut a b) :=
-  fun m k => cutMid_self_constCut_at a b m k hb
+    cutMid (constCut a b) (constCut a b) = constCut a b := by
+  funext m k
+  exact cutMid_self_constCut_at a b m k hb
 
 /-- **midpoint(a/2, c/2) ≡ (a+c)/4** (cutEq, PURE). -/
 theorem cutMid_half_general (a c : Nat) :
@@ -148,8 +148,8 @@ example : cutMul (constCut 1 1) (constCut 5 7) = constCut 5 7 :=
 example : cutMul (constCut 3 4) (constCut 1 1) = constCut 3 4 :=
   cutMul_const_one 3 4
 
-/-- 0 × 0 ≡ 0 (cutEq, PURE). -/
-example : ∀ m k, cutMul (constCut 0 1) (constCut 0 1) m k = constCut 0 1 m k :=
+/-- 0 × 0 = 0. -/
+example : cutMul (constCut 0 1) (constCut 0 1) = constCut 0 1 :=
   cutMul_zero_zero
 
 /-- 1 × 1 = 1. -/

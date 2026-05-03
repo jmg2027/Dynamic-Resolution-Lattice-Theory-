@@ -78,10 +78,8 @@ theorem id_compose_square_has_dyadic_witness :
 
 /-- Phase BW capstone: chain-rule MVT witness for id ∘ x². -/
 theorem chain_rule_witness_capstone :
-    -- (1) id ∘ x² witness at c = 1/2
     (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable).derivative
         (constCut 1 2) = constCut 1 1
-    -- (2) Existential MVT
     ∧ (∃ c, (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable
               ).derivative c = constCut 1 1) :=
   ⟨id_compose_square_derivative_at_half,

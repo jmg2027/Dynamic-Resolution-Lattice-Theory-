@@ -117,12 +117,9 @@ theorem mid_id_square_has_dyadic_witness :
 
 /-- Phase BU capstone: 2 functions with constructive dyadic MVT witnesses. -/
 theorem mvt_witness_extended_capstone :
-    -- (1) x² witness c = 1/2
     squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1
-    -- (2) mid(x, x²) witness c = 1/2
     ∧ (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
         ).derivative (constCut 1 2) = constCut 1 1
-    -- (3) Both yield existential MVT
     ∧ (∃ c, squareIsDifferentiable.derivative c = constCut 1 1)
     ∧ (∃ c, (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
               ).derivative c = constCut 1 1) :=

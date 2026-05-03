@@ -39,7 +39,8 @@ open E213.Math.Real213.DifferentiableHigherPow
 open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
 
 /-- ★ **HasDyadicMVTWitness** for an IsDifferentiable f: a *dyadic*
-    cut c such that f'(c) = constCut 1 1. -/
+    cut c such that f'(c) = constCut 1 1.  DIRTY-by-design (function-eq
+    proof field — needed for cross-file capstones using struct equality). -/
 structure HasDyadicMVTWitness {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     (sf : IsDifferentiable f) where
   witness : Nat → Nat → Bool
@@ -70,12 +71,9 @@ theorem square_witness_is_half :
 
 /-- Phase BT bundle: explicit witness + existential. -/
 theorem mvt_witness_capstone :
-    -- (1) x² has explicit dyadic witness c = 1/2
     HasDyadicMVTWitness.square.witness = constCut 1 2
-    -- (2) Witness validates: f'(1/2) = 1
     ∧ squareIsDifferentiable.derivative HasDyadicMVTWitness.square.witness
        = constCut 1 1
-    -- (3) Hence MVT existence (constructive)
     ∧ ∃ c, squareIsDifferentiable.derivative c = constCut 1 1:=
   ⟨rfl, HasDyadicMVTWitness.square.proof, square_has_dyadic_witness⟩
 
