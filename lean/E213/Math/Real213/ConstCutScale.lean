@@ -45,17 +45,20 @@ theorem constCut_scale_at (a b c : Nat) (hc : c ≥ 1) (m k : Nat) :
     Function-equality form (uses `funext` — DIRTY).  Prefer the
     pointwise `constCut_scale_at` for ∅-axiom downstream. -/
 theorem constCut_scale (a b c : Nat) (hc : c ≥ 1) :
-    constCut a b = constCut (a*c) (b*c) :=
-  funext fun m => funext fun k => constCut_scale_at a b c hc m k
+    ∀ m k, constCut a b m k = constCut (a*c) (b*c) m k :=
+  fun m k => constCut_scale_at a b c hc m k
 
-/-- 1/2 = 2/4. -/
-example : constCut 1 2 = constCut 2 4 := constCut_scale 1 2 2 (by decide)
+/-- 1/2 ≡ 2/4 (cutEq, PURE). -/
+example : ∀ m k, constCut 1 2 m k = constCut 2 4 m k :=
+  constCut_scale 1 2 2 (by decide)
 
-/-- 1/2 = 3/6. -/
-example : constCut 1 2 = constCut 3 6 := constCut_scale 1 2 3 (by decide)
+/-- 1/2 ≡ 3/6 (cutEq, PURE). -/
+example : ∀ m k, constCut 1 2 m k = constCut 3 6 m k :=
+  constCut_scale 1 2 3 (by decide)
 
-/-- 2/3 = 4/6. -/
-example : constCut 2 3 = constCut 4 6 := constCut_scale 2 3 2 (by decide)
+/-- 2/3 ≡ 4/6 (cutEq, PURE). -/
+example : ∀ m k, constCut 2 3 m k = constCut 4 6 m k :=
+  constCut_scale 2 3 2 (by decide)
 
 /-- constCut 1 1 m k = constCut a a m k pointwise (PURE). -/
 theorem constCut_one_one_eq_at (a : Nat) (ha : a ≥ 1) (m k : Nat) :
@@ -64,10 +67,10 @@ theorem constCut_one_one_eq_at (a : Nat) (ha : a ≥ 1) (m k : Nat) :
   rw [Nat.one_mul] at h
   exact h
 
-/-- constCut 1 1 = constCut a a (= "1") for a ≥ 1. -/
+/-- constCut 1 1 ≡ constCut a a (= "1") for a ≥ 1 (cutEq, PURE). -/
 theorem constCut_one_one_eq (a : Nat) (ha : a ≥ 1) :
-    constCut 1 1 = constCut a a := by
-  funext m k; exact constCut_one_one_eq_at a ha m k
+    ∀ m k, constCut 1 1 m k = constCut a a m k :=
+  constCut_one_one_eq_at a ha
 
 /-- constCut 0 1 m k = constCut 0 b m k pointwise (PURE). -/
 theorem constCut_zero_eq_at (b : Nat) (hb : b ≥ 1) (m k : Nat) :
@@ -78,7 +81,7 @@ theorem constCut_zero_eq_at (b : Nat) (hb : b ≥ 1) (m k : Nat) :
 
 /-- constCut 0 1 = constCut 0 b (= "0") for b ≥ 1. -/
 theorem constCut_zero_eq (b : Nat) (hb : b ≥ 1) :
-    constCut 0 1 = constCut 0 b := by
-  funext m k; exact constCut_zero_eq_at b hb m k
+    ∀ m k, constCut 0 1 m k = constCut 0 b m k :=
+  constCut_zero_eq_at b hb
 
 end E213.Math.Real213.ConstCutScale
