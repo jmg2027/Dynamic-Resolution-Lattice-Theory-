@@ -47,40 +47,6 @@ open E213.Math.Real213.FluxMVTPassthrough.FluxCut
    fluxAlong_passthrough_unit_forward_at
    fluxAlong_passthrough_unit_backward_at)
 
-/-- **Phase BH grand capstone**: 8-fact unified bundle. -/
-theorem phaseBH_grand_capstone (n : Nat) (a : FluxCut)
-    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
-    (h_left : f (constCut 0 1) = constCut 0 1)
-    (h_right : f (constCut 1 1) = constCut 1 1) :
-    -- AY-1: cohomEquiv reflexive
-    cohomEquiv a a
-    -- AY-3: id at unit propEq
-    ∧ localDivergence id unitBracket
-       = ofCut (constCut 1 1)
-    -- AZ: FTC bridge for id at unit propEq
-    ∧ localDivergence id unitBracket
-       = fluxAlong id unitBracket
-    -- BE: generic x^(n+1) MVT at unit
-    ∧ localDivergence (fun x => cutPow x (n+1)) unitBracket
-       = ofCut (constCut 1 1)
-    -- BE: generic x^(n+1) FTC bridge
-    ∧ localDivergence (fun x => cutPow x (n+1)) unitBracket
-       = fluxAlong (fun x => cutPow x (n+1)) unitBracket
-    -- BF: passthrough MVT (general functions)
-    ∧ localDivergence f unitBracket = ofCut (constCut 1 1)
-    -- BF: passthrough fluxAlong
-    ∧ fluxAlong f unitBracket = ofCut (constCut 1 1)
-    -- BF: passthrough FTC bridge
-    ∧ localDivergence f unitBracket = fluxAlong f unitBracket :=
-  ⟨cohomEquiv_refl a,
-   mvt_id_unitBracket,
-   ftc_bridge_id_unitBracket,
-   mvt_cutPow_unitBracket n,
-   ftc_bridge_cutPow_unitBracket n,
-   mvt_passthrough_unit f h_left h_right,
-   fluxAlong_passthrough_unit f h_left h_right,
-   ftc_bridge_passthrough_unit f h_left h_right⟩
-
 /-- ★★★ **Phase BH pointwise PURE capstone** ★★★
 
     Strict ∅-axiom version of `phaseBH_grand_capstone` expressed at

@@ -47,46 +47,6 @@ open E213.Math.Real213.MVTWitnessChain (id_compose_square_derivative_at_half)
 open E213.Math.Real213.FTCRiemann
   (riemann_id_derivative_unit ftc_riemann_id_depth_zero)
 
-/-- ★★ **Phase BZ mega-omega capstone**: 10-fact unified summary. -/
-theorem phaseBZ_megaOmega_capstone (n : Nat) (a : FluxCut) :
-    -- (AY) cohomEquiv Setoid (reflexive)
-    cohomEquiv a a
-    -- (AZ) id at unit propEq
-    ∧ localDivergence id unitBracket
-       = ofCut (constCut 1 1)
-    -- (BA/AZ) FTC bridge propEq
-    ∧ localDivergence id unitBracket
-       = fluxAlong id unitBracket
-    -- (BE/BP) ★ generic ∀n MVT for cutPow
-    ∧ localDivergence (fun x => cutPow x (n+1)) unitBracket
-       = ofCut (constCut 1 1)
-    -- (BR) ★ explicit dyadic MVT witness for x²
-    ∧ squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1
-    -- (BT) ★ HasDyadicMVTWitness class non-empty
-    ∧ HasDyadicMVTWitness.square.witness = constCut 1 2
-    -- (BU) mid(x, x²) witness c = 1/2
-    ∧ (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-        ).derivative (constCut 1 2) = constCut 1 1
-    -- (BW) chain-rule witness
-    ∧ (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable
-        ).derivative (constCut 1 2) = constCut 1 1
-    -- (BY) ★ FTC-Riemann: Riemann sum closed form
-    ∧ riemannSampleSum idIsDifferentiable.derivative unitBracket n
-       = constCut (2^n * 1) 1
-    -- (BY) FTC-Riemann at depth 0 = fluxAlong forward
-    ∧ riemannSampleSum idIsDifferentiable.derivative unitBracket 0
-       = (fluxAlong id unitBracket).forward :=
-  ⟨cohomEquiv_refl a,
-   mvt_id_unitBracket,
-   ftc_bridge_id_unitBracket,
-   cutPow_calc_mvt n,
-   squareDerivative_at_half,
-   rfl,
-   mid_id_square_derivative_at_half,
-   id_compose_square_derivative_at_half,
-   riemann_id_derivative_unit n,
-   ftc_riemann_id_depth_zero⟩
-
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
 open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket_pure)
 open E213.Math.Real213.ClassicCalcGeneric.ClassicCalc (cutPow_calc_mvt_pure)
