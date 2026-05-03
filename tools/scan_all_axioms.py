@@ -111,22 +111,45 @@ def scan_batch(modules, batch_size=50):
     return results
 
 
+SEALED_DIRTY_PREFIXES = (
+    # Bridges/ are intentional Lean ↔ 213 axiom-bridge demonstrations.
+    # Their DIRTY status is by design — sealed metatheoretic cluster,
+    # not imported by 213 core.  Tracked separately from real DIRTY.
+    'E213.Hypervisor.Lens.AxiomLenses.Bridges.',
+)
+
+
+def is_sealed_dirty(module: str) -> bool:
+    return any(module.startswith(p) for p in SEALED_DIRTY_PREFIXES)
+
+
 def summarize(results):
     pure = [r for r in results if r[2] == 'PURE']
-    dirty = [r for r in results if r[2] == 'DIRTY']
-    print(f'\n# {len(pure)} PURE / {len(dirty)} DIRTY ({len(results)} total)')
-    axiom_counter = Counter(r[3] for r in dirty)
-    print('\n# Axiom-set breakdown:')
+    dirty_real = [r for r in results
+                  if r[2] == 'DIRTY' and not is_sealed_dirty(r[1])]
+    dirty_sealed = [r for r in results
+                    if r[2] == 'DIRTY' and is_sealed_dirty(r[1])]
+    print(f'\n# {len(pure)} PURE / {len(dirty_real)} DIRTY '
+          f'+ {len(dirty_sealed)} sealed-DIRTY-by-design '
+          f'({len(results)} total)')
+    axiom_counter = Counter(r[3] for r in dirty_real)
+    print('\n# Axiom-set breakdown (real DIRTY only):')
     for ax, n in axiom_counter.most_common():
         print(f'  {n:5d}  [{ax}]')
+    if dirty_sealed:
+        print('\n# Sealed DIRTY-by-design (excluded from goal):')
+        for r in dirty_sealed:
+            print(f'  [{r[3]}]  {r[0]}')
     module_dirty = defaultdict(int)
     module_pure = defaultdict(int)
     for name, mod, status, _ in results:
+        if is_sealed_dirty(mod):
+            continue
         if status == 'DIRTY':
             module_dirty[mod] += 1
         else:
             module_pure[mod] += 1
-    print('\n# Top 30 dirtiest modules:')
+    print('\n# Top 30 dirtiest modules (excluding sealed):')
     sorted_mods = sorted(module_dirty.items(), key=lambda x: -x[1])
     for mod, n in sorted_mods[:30]:
         p = module_pure.get(mod, 0)
