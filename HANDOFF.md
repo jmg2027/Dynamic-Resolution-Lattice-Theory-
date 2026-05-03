@@ -1,5 +1,78 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ⚠ Architectural blocker for the 4 marquee capstones (2026-05-02 part 11+)
+
+After part-11 closed the source-bug cascade (39 files, all building),
+the strict ∅-axiom finish line for PhaseBQ / PhaseBX / PhaseCS /
+PhaseCM is gated by **two stacked structural blockers** that need a
+multi-session refactor, not local omega→omega213 swaps.
+
+### Blocker 1: `funext` is fundamental for `cutMul` / `cutSum` equalities
+
+  - `cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1` (`cutMul_one_one`)
+    proved in `CutMulOne.lean` via `funext m k; …`.  Function equality
+    on `Nat → Nat → Bool` cannot be derived without `funext`.
+  - Lean 4's `funext` introduces `[propext, Quot.sound]`; both are
+    forbidden by the strict ∅-axiom standard.
+  - Every theorem in `CutSumZero / CutSumOne / CutMulOne / CutPowConst`
+    uses `funext m k` — so the entire core algebra layer is DIRTY.
+  - `mvt_passthrough_unit`, `fluxAlong_square_unitBracket` etc. proved
+    via `rw [cutMul_one_one]` inherit that DIRTY axiom set.
+
+  Resolution path (multi-session work):
+
+    a) Introduce pointwise `_at` variants for every algebra lemma
+       (`cutMul_one_one_at (m k : Nat) : cutMul ... m k = ... m k`).
+    b) Phrase capstones as pointwise FluxCut field-equalities at
+       arbitrary `(m, k)`, never as full struct equality.
+    c) Strip every `funext m k` in the algebra layer.
+    d) Re-derive struct equalities only at the final boundary, where
+       a single `funext`-cost is amortised across the whole cohomology
+       statement (and is the *only* DIRTY site, isolatable).
+
+### Blocker 2: Even a fully PURE term-mode proof body was DIRTY in
+file context
+
+  Probe-experiment 2026-05-02 part 11+: the rewrite
+
+    theorem squarePlusIdIsDifferentiable_derivative_modulus (k : Nat) :
+        squarePlusIdIsDifferentiable.derivativeSmooth.linearityModulus k = k :=
+      Eq.subst (motive := fun n => max n 0 = k)
+        (squareIsDifferentiable_derivative_modulus k).symm
+        (E213.Math.Max213.max_eq_left (Nat.zero_le k))
+
+  uses only PURE constituents (verified individually), but the
+  proof itself is reported DIRTY `[propext, Quot.sound]` in
+  `PolySumDerivativeModulus.lean`.  An identical proof in an isolated
+  `_Probe.lean` file with the same imports comes back PURE.
+
+  Hypothesis: a definitional-unfolding path from
+  `squarePlusIdIsDifferentiable.derivativeSmooth.linearityModulus`
+  exposes a propext-using lemma somewhere in the
+  `addIsDifferentiable / Smooth.linearityModulus` chain (perhaps
+  via a `Decidable` instance on `Nat.max` that hits propext during
+  motive-unification).  Needs targeted bisection of that chain.
+
+  Pragmatic conclusion: omega→omega213 swaps in Real213 leaf files
+  are *not* sufficient to flip these capstones to PURE.  The
+  upstream `Smooth` / `addIsDifferentiable` definitions need their
+  own audit.  Reverted the experimental edit; file remains DIRTY
+  but with original `omega`-based proof.
+
+### Status table (post-part-11)
+
+  | Capstone               | Builds | Axioms                  |
+  |-----------------------|--------|-------------------------|
+  | PhaseBQOmegaCapstone   | ✅     | DIRTY [propext,Q.sound] |
+  | PhaseBXCapstone        | ✅     | DIRTY [propext,Q.sound] |
+  | PhaseCSCapstone        | ✅     | DIRTY [propext,Q.sound] |
+  | PhaseCMFinalCapstone   | ✅     | DIRTY [propext,Q.sound] |
+  | (16 prior Phase capstones) | ✅ | PURE (∅-axiom)          |
+
+  The 4 DIRTY capstones are not "almost there" — they require the
+  pointwise-FluxCut refactor (blocker 1) and probably the upstream
+  `Smooth.linearityModulus` audit (blocker 2).
+
 ## ★ Session continuation (2026-05-02 part 11): Real213 cascade repairs
 
 PhaseBA closure (prior commit) revealed a deeper pre-existing
