@@ -1,5 +1,29 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 14: ClassicCalc_at + extended PhaseCS_at — chain fully PURE
+
+Builds on the part-7 Passthrough_at infrastructure (commit a3d915a)
+to lift the entire ClassicCalc → ClassicAnti chain to strict ∅-axiom.
+
+PURE _at parallel instances added:
+
+  FluxPassthroughCatalog.Passthrough_at:
+    x_pass, square_pass, cube_pass, quartic_pass, quintic_pass
+
+  ClassicCalc.ClassicCalc_at:
+    id_calc, square_calc, cube_calc
+
+  ClassicAnti.ClassicCalc_at:
+    integralCC, integralCC_{id,square,cube}_unit_{forward,backward}_at
+
+PhaseCS_at: 5 → 9 PURE facts covering id + square + cube.
+
+The funext refactor is now structurally complete in BOTH the
+algebra layer (cutMul/cutSum/cutPow _at PURE via cutMulOuter_congr)
+AND the structured layers (Passthrough_at, ClassicCalc_at).
+Any remaining DIRTY downstream theorem in Real213 can be flipped to
+PURE by mechanical application of the established recipes.
+
 ## ★★★ Part 13: Passthrough_at + full witness arc PURE — refactor effectively complete
 
 After part-12 broke the marquee blocker, parts 13 (this session) cleared
