@@ -50,9 +50,10 @@ theorem dyadicCut_ratio (M E : Nat) : RatioCut (dyadicCut M E) :=
 theorem dyadicCut_valid (M E : Nat) : ValidCut (dyadicCut M E) :=
   constCut_valid M (2^E)
 
-/-- **cutSum_self on dyadicCut**: doubling stays dyadic. -/
+/-- **cutSum_self on dyadicCut** (cutEq, PURE): doubling stays dyadic. -/
 theorem cutSum_dyadicCut_self (M E : Nat) :
-    cutSum (dyadicCut M E) (dyadicCut M E) = dyadicCut (2 * M) E :=
+    E213.Math.Real213.CutPoset.cutEq
+      (cutSum (dyadicCut M E) (dyadicCut M E)) (dyadicCut (2 * M) E) :=
   cutSum_self M (2^E)
 
 /-- **cutHalf of dyadicCut**: increments exponent by 1.

@@ -57,32 +57,37 @@ theorem cutSignedSum_neg_neg (cx cy : Nat → Nat → Bool) :
         else _) = _
   rw [if_pos rfl]
 
-/-- **(+a/1) + (+c/1) = +(a+c)/1**: signed sum on positive integers. -/
+/-- Signed-cut pointwise equivalence: same sign + cutEq on cut field. -/
+def signedCutEq (sx sy : SignedCut) : Prop :=
+  sx.sign = sy.sign
+    ∧ E213.Math.Real213.CutPoset.cutEq sx.cut sy.cut
+
+/-- **(+a/1) + (+c/1) ≡ +(a+c)/1** (signedCutEq, PURE). -/
 theorem cutSignedSum_pos_int (a c : Nat) :
-    cutSignedSum (signedConstCut true a 1) (signedConstCut true c 1)
-    = signedConstCut true (a+c) 1 := by
-  show cutSignedSum {sign := true, cut := constCut a 1}
-                    {sign := true, cut := constCut c 1}
-    = {sign := true, cut := constCut (a+c) 1}
-  rw [cutSignedSum_pos_pos, cutSum_int_int]
+    signedCutEq (cutSignedSum (signedConstCut true a 1) (signedConstCut true c 1))
+                (signedConstCut true (a+c) 1) := by
+  refine ⟨rfl, ?_⟩
+  intro m k
+  show cutSum (constCut a 1) (constCut c 1) m k = constCut (a+c) 1 m k
+  exact cutSum_int_int a c m k
 
-/-- **(-a/1) + (-c/1) = -(a+c)/1**: signed sum on negative integers. -/
+/-- **(-a/1) + (-c/1) ≡ -(a+c)/1** (signedCutEq, PURE). -/
 theorem cutSignedSum_neg_int (a c : Nat) :
-    cutSignedSum (signedConstCut false a 1) (signedConstCut false c 1)
-    = signedConstCut false (a+c) 1 := by
-  show cutSignedSum {sign := false, cut := constCut a 1}
-                    {sign := false, cut := constCut c 1}
-    = {sign := false, cut := constCut (a+c) 1}
-  rw [cutSignedSum_neg_neg, cutSum_int_int]
+    signedCutEq (cutSignedSum (signedConstCut false a 1) (signedConstCut false c 1))
+                (signedConstCut false (a+c) 1) := by
+  refine ⟨rfl, ?_⟩
+  intro m k
+  show cutSum (constCut a 1) (constCut c 1) m k = constCut (a+c) 1 m k
+  exact cutSum_int_int a c m k
 
-/-- **(+a/2) + (+c/2) = +(a+c)/2**: signed sum on positive halves. -/
+/-- **(+a/2) + (+c/2) ≡ +(a+c)/2** (signedCutEq, PURE). -/
 theorem cutSignedSum_pos_half (a c : Nat) :
-    cutSignedSum (signedConstCut true a 2) (signedConstCut true c 2)
-    = signedConstCut true (a+c) 2 := by
-  show cutSignedSum {sign := true, cut := constCut a 2}
-                    {sign := true, cut := constCut c 2}
-    = {sign := true, cut := constCut (a+c) 2}
-  rw [cutSignedSum_pos_pos, cutSum_half_general]
+    signedCutEq (cutSignedSum (signedConstCut true a 2) (signedConstCut true c 2))
+                (signedConstCut true (a+c) 2) := by
+  refine ⟨rfl, ?_⟩
+  intro m k
+  show cutSum (constCut a 2) (constCut c 2) m k = constCut (a+c) 2 m k
+  exact cutSum_half_general a c m k
 
 /-- **−(x + y) = (−x) + (−y)**: cutNeg distributes over cutSignedSum.
     Holds in both branches (same-sign and cross-sign) of the partial

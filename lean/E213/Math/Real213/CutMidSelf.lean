@@ -62,52 +62,80 @@ theorem cutMid_self_constCut_at (a b m k : Nat) (_hb : b ≥ 1) :
       rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b 2, E213.Tactic.Nat213.mul_assoc]]
     exact h2
 
-/-- **midpoint(c, c) = c** for c = a/b. -/
+/-- **midpoint(c, c) ≡ c** for c = a/b (cutEq, PURE). -/
 theorem cutMid_self_constCut (a b : Nat) (hb : b ≥ 1) :
-    cutMid (constCut a b) (constCut a b) = constCut a b := by
-  funext m k
-  exact cutMid_self_constCut_at a b m k hb
+    E213.Math.Real213.CutPoset.cutEq
+      (cutMid (constCut a b) (constCut a b)) (constCut a b) :=
+  fun m k => cutMid_self_constCut_at a b m k hb
 
-/-- **midpoint(a/2, c/2) = (a+c)/4** for any a, c. -/
+/-- **midpoint(a/2, c/2) ≡ (a+c)/4** (cutEq, PURE). -/
 theorem cutMid_half_general (a c : Nat) :
-    cutMid (constCut a 2) (constCut c 2) = constCut (a+c) 4 := by
-  show cutHalf (cutSum (constCut a 2) (constCut c 2)) = constCut (a+c) 4
-  rw [cutSum_half_general, cutHalf_constCut]
+    E213.Math.Real213.CutPoset.cutEq
+      (cutMid (constCut a 2) (constCut c 2)) (constCut (a+c) 4) := by
+  intro m k
+  show cutHalf (cutSum (constCut a 2) (constCut c 2)) m k = constCut (a+c) 4 m k
+  show cutSum (constCut a 2) (constCut c 2) (2*m) k = constCut (a+c) 4 m k
+  rw [cutSum_half_general a c (2*m) k]
+  show constCut (a+c) 2 (2*m) k = constCut (a+c) 4 m k
+  show decide ((a+c) * k ≤ 2 * (2*m)) = decide ((a+c) * k ≤ 4 * m)
+  congr 2
+  rw [← E213.Tactic.Nat213.mul_assoc]
 
-/-- **midpoint(a/1, c/1) = (a+c)/2** for any integers a, c. -/
+/-- **midpoint(a/1, c/1) ≡ (a+c)/2** (cutEq, PURE). -/
 theorem cutMid_int_int (a c : Nat) :
-    cutMid (constCut a 1) (constCut c 1) = constCut (a+c) 2 := by
-  show cutHalf (cutSum (constCut a 1) (constCut c 1)) = constCut (a+c) 2
-  rw [cutSum_int_int, cutHalf_constCut]
+    E213.Math.Real213.CutPoset.cutEq
+      (cutMid (constCut a 1) (constCut c 1)) (constCut (a+c) 2) := by
+  intro m k
+  show cutHalf (cutSum (constCut a 1) (constCut c 1)) m k = constCut (a+c) 2 m k
+  show cutSum (constCut a 1) (constCut c 1) (2*m) k = constCut (a+c) 2 m k
+  rw [cutSum_int_int a c (2*m) k]
+  show decide ((a+c) * k ≤ 1 * (2*m)) = decide ((a+c) * k ≤ 2 * m)
+  rw [Nat.one_mul]
 
-/-- **midpoint(a/1, c/2) = (2a+c)/4**. -/
+/-- **midpoint(a/1, c/2) ≡ (2a+c)/4** (cutEq, PURE). -/
 theorem cutMid_int_half (a c : Nat) :
-    cutMid (constCut a 1) (constCut c 2) = constCut (2*a+c) 4 := by
-  show cutHalf (cutSum (constCut a 1) (constCut c 2)) = constCut (2*a+c) 4
-  rw [cutSum_int_half, cutHalf_constCut]
+    E213.Math.Real213.CutPoset.cutEq
+      (cutMid (constCut a 1) (constCut c 2)) (constCut (2*a+c) 4) := by
+  intro m k
+  show cutHalf (cutSum (constCut a 1) (constCut c 2)) m k = constCut (2*a+c) 4 m k
+  show cutSum (constCut a 1) (constCut c 2) (2*m) k = constCut (2*a+c) 4 m k
+  rw [cutSum_int_half a c (2*m) k]
+  show decide ((2*a+c) * k ≤ 2 * (2*m)) = decide ((2*a+c) * k ≤ 4 * m)
+  congr 2
+  rw [← E213.Tactic.Nat213.mul_assoc]
 
-/-- **midpoint(a/2, c/1) = (a+2c)/4**. -/
+/-- **midpoint(a/2, c/1) ≡ (a+2c)/4** (cutEq, PURE). -/
 theorem cutMid_half_int (a c : Nat) :
-    cutMid (constCut a 2) (constCut c 1) = constCut (a+2*c) 4 := by
-  show cutHalf (cutSum (constCut a 2) (constCut c 1)) = constCut (a+2*c) 4
-  rw [cutSum_half_int, cutHalf_constCut]
+    E213.Math.Real213.CutPoset.cutEq
+      (cutMid (constCut a 2) (constCut c 1)) (constCut (a+2*c) 4) := by
+  intro m k
+  show cutHalf (cutSum (constCut a 2) (constCut c 1)) m k = constCut (a+2*c) 4 m k
+  show cutSum (constCut a 2) (constCut c 1) (2*m) k = constCut (a+2*c) 4 m k
+  rw [cutSum_half_int a c (2*m) k]
+  show decide ((a+2*c) * k ≤ 2 * (2*m)) = decide ((a+2*c) * k ≤ 4 * m)
+  congr 2
+  rw [← E213.Tactic.Nat213.mul_assoc]
 
-/-! ### Concrete cutMid evaluations on integer pairs -/
+/-! ### Concrete cutMid evaluations on integer pairs (cutEq, PURE) -/
 
-/-- midpoint(0, 1) = 1/2. -/
-example : cutMid (constCut 0 1) (constCut 1 1) = constCut 1 2 :=
+/-- midpoint(0, 1) ≡ 1/2. -/
+example : E213.Math.Real213.CutPoset.cutEq
+    (cutMid (constCut 0 1) (constCut 1 1)) (constCut 1 2) :=
   cutMid_int_int 0 1
 
-/-- midpoint(0, 4) = 2. -/
-example : cutMid (constCut 0 1) (constCut 4 1) = constCut 4 2 :=
+/-- midpoint(0, 4) ≡ 2. -/
+example : E213.Math.Real213.CutPoset.cutEq
+    (cutMid (constCut 0 1) (constCut 4 1)) (constCut 4 2) :=
   cutMid_int_int 0 4
 
-/-- midpoint(1, 3) = 2. -/
-example : cutMid (constCut 1 1) (constCut 3 1) = constCut 4 2 :=
+/-- midpoint(1, 3) ≡ 2. -/
+example : E213.Math.Real213.CutPoset.cutEq
+    (cutMid (constCut 1 1) (constCut 3 1)) (constCut 4 2) :=
   cutMid_int_int 1 3
 
-/-- midpoint(2, 8) = 5. -/
-example : cutMid (constCut 2 1) (constCut 8 1) = constCut 10 2 :=
+/-- midpoint(2, 8) ≡ 5. -/
+example : E213.Math.Real213.CutPoset.cutEq
+    (cutMid (constCut 2 1) (constCut 8 1)) (constCut 10 2) :=
   cutMid_int_int 2 8
 
 /-! ### Y2: cutMul concrete applications -/
