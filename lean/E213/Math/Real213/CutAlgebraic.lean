@@ -1,5 +1,6 @@
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutMaxMin
+import E213.Math.Real213.CutPoset
 
 /-!
 # Research.Real213CutAlgebraic: algebraic properties of cut operations
@@ -13,6 +14,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutPoset (cutEq)
 
 /-- constCut 0 1 always true ("0 ≤ everything"). -/
 theorem constCut_zero_always (m k : Nat) : constCut 0 1 m k = true := by
@@ -26,9 +28,10 @@ theorem cutMax_idempotent_at (c : Nat → Nat → Bool) (m k : Nat) :
   show (c m k && c m k) = c m k
   cases c m k <;> rfl
 
-/-- cutMax idempotent: max(c, c) = c. -/
-theorem cutMax_idempotent (c : Nat → Nat → Bool) : cutMax c c = c := by
-  funext m k; exact cutMax_idempotent_at c m k
+/-- cutMax idempotent: max(c, c) ≡ c (cutEq, PURE). -/
+theorem cutMax_idempotent (c : Nat → Nat → Bool) :
+    cutEq (cutMax c c) c :=
+  cutMax_idempotent_at c
 
 /-- cutMin idempotent pointwise (PURE). -/
 theorem cutMin_idempotent_at (c : Nat → Nat → Bool) (m k : Nat) :
@@ -36,9 +39,10 @@ theorem cutMin_idempotent_at (c : Nat → Nat → Bool) (m k : Nat) :
   show (c m k || c m k) = c m k
   cases c m k <;> rfl
 
-/-- cutMin idempotent. -/
-theorem cutMin_idempotent (c : Nat → Nat → Bool) : cutMin c c = c := by
-  funext m k; exact cutMin_idempotent_at c m k
+/-- cutMin idempotent (cutEq, PURE). -/
+theorem cutMin_idempotent (c : Nat → Nat → Bool) :
+    cutEq (cutMin c c) c :=
+  cutMin_idempotent_at c
 
 /-- cutMax with zero (left identity for top): max(0-cut, c) = 0-cut.
     Wait — constCut 0 1 is "0 ≤ everything" = true.  max with always-true = c.
@@ -51,8 +55,8 @@ theorem cutMax_zero_left_at (c : Nat → Nat → Bool) (m k : Nat) :
   cases c m k <;> rfl
 
 theorem cutMax_zero_left (c : Nat → Nat → Bool) :
-    cutMax (constCut 0 1) c = c := by
-  funext m k; exact cutMax_zero_left_at c m k
+    cutEq (cutMax (constCut 0 1) c) c :=
+  cutMax_zero_left_at c
 
 theorem cutMin_zero_left_at (c : Nat → Nat → Bool) (m k : Nat) :
     cutMin (constCut 0 1) c m k = constCut 0 1 m k := by
@@ -60,10 +64,10 @@ theorem cutMin_zero_left_at (c : Nat → Nat → Bool) (m k : Nat) :
   rw [constCut_zero_always]
   cases c m k <;> rfl
 
-/-- cutMin with zero: min(0, c) = 0 (= always true cut). -/
+/-- cutMin with zero ≡ 0 (cutEq, PURE). -/
 theorem cutMin_zero_left (c : Nat → Nat → Bool) :
-    cutMin (constCut 0 1) c = constCut 0 1 := by
-  funext m k; exact cutMin_zero_left_at c m k
+    cutEq (cutMin (constCut 0 1) c) (constCut 0 1) :=
+  cutMin_zero_left_at c
 
 theorem cutMax_distrib_cutMin_at (cx cy cz : Nat → Nat → Bool) (m k : Nat) :
     cutMax cx (cutMin cy cz) m k
@@ -73,8 +77,10 @@ theorem cutMax_distrib_cutMin_at (cx cy cz : Nat → Nat → Bool) (m k : Nat) :
   cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
 
 theorem cutMax_distrib_cutMin (cx cy cz : Nat → Nat → Bool) :
-    cutMax cx (cutMin cy cz) = cutMin (cutMax cx cy) (cutMax cx cz) := by
-  funext m k; exact cutMax_distrib_cutMin_at cx cy cz m k
+    cutEq
+      (cutMax cx (cutMin cy cz))
+      (cutMin (cutMax cx cy) (cutMax cx cz)) :=
+  cutMax_distrib_cutMin_at cx cy cz
 
 theorem cutMin_distrib_cutMax_at (cx cy cz : Nat → Nat → Bool) (m k : Nat) :
     cutMin cx (cutMax cy cz) m k
@@ -84,8 +90,10 @@ theorem cutMin_distrib_cutMax_at (cx cy cz : Nat → Nat → Bool) (m k : Nat) :
   cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
 
 theorem cutMin_distrib_cutMax (cx cy cz : Nat → Nat → Bool) :
-    cutMin cx (cutMax cy cz) = cutMax (cutMin cx cy) (cutMin cx cz) := by
-  funext m k; exact cutMin_distrib_cutMax_at cx cy cz m k
+    cutEq
+      (cutMin cx (cutMax cy cz))
+      (cutMax (cutMin cx cy) (cutMin cx cz)) :=
+  cutMin_distrib_cutMax_at cx cy cz
 
 theorem cutMax_absorb_at (cx cy : Nat → Nat → Bool) (m k : Nat) :
     cutMax cx (cutMin cx cy) m k = cx m k := by
@@ -93,8 +101,8 @@ theorem cutMax_absorb_at (cx cy : Nat → Nat → Bool) (m k : Nat) :
   cases cx m k <;> cases cy m k <;> rfl
 
 theorem cutMax_absorb (cx cy : Nat → Nat → Bool) :
-    cutMax cx (cutMin cx cy) = cx := by
-  funext m k; exact cutMax_absorb_at cx cy m k
+    cutEq (cutMax cx (cutMin cx cy)) cx :=
+  cutMax_absorb_at cx cy
 
 theorem cutMin_absorb_at (cx cy : Nat → Nat → Bool) (m k : Nat) :
     cutMin cx (cutMax cx cy) m k = cx m k := by
@@ -102,7 +110,7 @@ theorem cutMin_absorb_at (cx cy : Nat → Nat → Bool) (m k : Nat) :
   cases cx m k <;> cases cy m k <;> rfl
 
 theorem cutMin_absorb (cx cy : Nat → Nat → Bool) :
-    cutMin cx (cutMax cx cy) = cx := by
-  funext m k; exact cutMin_absorb_at cx cy m k
+    cutEq (cutMin cx (cutMax cx cy)) cx :=
+  cutMin_absorb_at cx cy
 
 end E213.Math.Real213.CutAlgebraic
