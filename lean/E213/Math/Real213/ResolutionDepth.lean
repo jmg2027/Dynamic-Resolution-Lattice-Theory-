@@ -409,28 +409,32 @@ theorem quinticIsSmooth_modulus (n : Nat) :
     quinticIsSmooth.linearityModulus n = 5 * n := by
   show squareIsSmooth.linearityModulus n + cubeIsSmooth.linearityModulus n
        = 5 * n
-  rw [squareIsSmooth_modulus, cubeIsSmooth_modulus]; omega
+  rw [squareIsSmooth_modulus, cubeIsSmooth_modulus]
+  exact (E213.Tactic.Nat213.add_mul 2 3 n).symm
 
 /-- **x⁶ generic modulus**: linearityModulus n = 6 * n (slope 6). -/
 theorem sexticIsSmooth_modulus (n : Nat) :
     sexticIsSmooth.linearityModulus n = 6 * n := by
   show cubeIsSmooth.linearityModulus n + cubeIsSmooth.linearityModulus n
        = 6 * n
-  rw [cubeIsSmooth_modulus]; omega
+  rw [cubeIsSmooth_modulus]
+  exact (E213.Tactic.Nat213.add_mul 3 3 n).symm
 
 /-- **x⁷ generic modulus**: linearityModulus n = 7 * n (slope 7). -/
 theorem septicIsSmooth_modulus (n : Nat) :
     septicIsSmooth.linearityModulus n = 7 * n := by
   show cubeIsSmooth.linearityModulus n + quarticIsSmooth.linearityModulus n
        = 7 * n
-  rw [cubeIsSmooth_modulus, quarticIsSmooth_modulus]; omega
+  rw [cubeIsSmooth_modulus, quarticIsSmooth_modulus]
+  exact (E213.Tactic.Nat213.add_mul 3 4 n).symm
 
 /-- **x⁸ generic modulus**: linearityModulus n = 8 * n (slope 8). -/
 theorem octicIsSmooth_modulus (n : Nat) :
     octicIsSmooth.linearityModulus n = 8 * n := by
   show quarticIsSmooth.linearityModulus n + quarticIsSmooth.linearityModulus n
        = 8 * n
-  rw [quarticIsSmooth_modulus]; omega
+  rw [quarticIsSmooth_modulus]
+  exact (E213.Tactic.Nat213.add_mul 4 4 n).symm
 
 /-- **Polynomial slope coverage**: degree → modulus slope explicitly,
     for degrees 1-8.  Capstone of the full polynomial chain. -/
