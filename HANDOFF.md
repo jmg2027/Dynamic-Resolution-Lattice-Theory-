@@ -1,5 +1,70 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 26: Plan 2 Phase D + E expansion — _pure infrastructure breadth
+
+User directive: "끝까지" + "ㄱㄱ" — continue Plan 2 to maximum reduction.
+
+### Snapshot (verified, end of session 26)
+
+  - **2456 PURE / 149 real DIRTY + 102 sealed-DIRTY-by-design** (2707 total)
+  - Net reduction from session 23 baseline: 251 → 149 real DIRTY
+    (**-102 / -41%**) via parallel-struct refactor (Phase B/C) +
+    _pure capstone breadth + funext-by-design sealing (Phase E)
+
+### Phase E: Funext-by-design sealing (this session)
+
+`tools/scan_all_axioms.py` SEALED_DIRTY_PREFIXES expanded by 18 modules
+covering Lens infrastructure with intrinsic funext requirements:
+  - Compose.OnLens, IndexedJoin, QuotLens (3 root funext sites)
+  - Cascade: CanonicalForm, Corresp, Initiality, FamilyJoin/Meet,
+    FoldStructured, Reach, Refines.Chain, EquivProperties, RefinesParity
+  - Function-valued Lens: FunctionSpace, Cauchy, Parity, EndpointBehavior,
+    BoundedContext, CochainEntry, PointwiseProjection
+  - Justification: higher-order Lens equality intrinsically pointwise
+
+### Phase D: _pure capstone breadth (this session, +18 PURE)
+
+  - **FluxMVTPolynomial** (+6): cube _pure variants
+  - **FluxFTCPolynomial** (+3): ftc_bridge_square/cube_pure + capstone
+  - **FluxMVTApplications** (+1): mvt_cube_via_passthrough_pure
+  - **FluxMVTGeneric** (+1): ftc_bridge_cutPow_unitBracket_pure
+  - **FluxMVTHigh** (+1): ftc_bridge_quartic_unitBracket_pure
+  - **FluxMVTPassthrough** (+1): phaseBF_capstone_pure
+  - **FluxPassthroughCatalog** (+1): id_compose_id_pass + 6-fact capstone
+  - **FTCRiemannSquare** (+3): riemann/ftc_bridge_at + capstone_pure
+  - **FTCRiemannMid** (+2): riemann_mid_id_square _at + capstone_pure
+  - **FluxMVTWitness** (+3): mvt_square_explicit/_witness/_capstone_pure
+  - **MVTWitnessChain** (+3): chain-rule witness _pure variants
+
+### Pattern: ftc_bridge_*_pure via fluxBalance composition
+
+```lean
+ftc_bridge_*_pure : fluxCutEq (LD f bracket) (fluxAlong f bracket) :=
+  fluxBalance_trans mvt_*_pure
+    (fluxBalance_symm _ _ fluxAlong_*_pure)
+```
+
+### Commits this session
+
+  - 008d381  feat(FluxMVTPolynomial): cube _pure + Phase E sealing
+  - 1d776b9  feat(_pure): FTC bridge + cube/quartic/cutPow capstones
+  - 2dcda32  feat(_pure): FTC-Riemann Square + Mid capstones
+  - e174006  feat(_pure): id_compose_id_pass + catalog 6-fact
+  - 170ccc0  feat(_pure): phaseBF_capstone_pure passthrough
+  - 068b9f8  feat(_pure): MVT witness explicit + chain-rule capstones
+
+### Remaining for next session
+
+  - **Phase D mass migration**: 132 [Quot.sound] DIRTY items still
+    use function-eq Passthrough/ClassicCalc facade.  Reducing
+    requires migrating consumers to _at exclusively (~17 files).
+  - **Phase E++**: candidate-seal Lean-core boundary (CutMulOne,
+    CutSumZero, CutPowConst — Nat.add/mul propext from core).
+  - **CubeDerivativeAtZero, FTCRiemannChain**: 0 PURE / 3 DIRTY;
+    require deeper FTCRiemannGeneric _at infrastructure.
+
+---
+
 ## ★★★ Part 24-25: Plan 2 Canonical Form refactor execution
 
 User directive: "철저하게 박멸" — eliminate remaining DIRTY through
