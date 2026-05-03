@@ -124,6 +124,51 @@ theorem phaseBE_capstone (n : Nat) :
   ⟨mvt_cutPow_unitBracket n, fluxAlong_cutPow_unitBracket n,
    ftc_bridge_cutPow_unitBracket n⟩
 
+/-! ### PURE pointwise variants (fluxCutEq form)
+
+Uses local `_at` field theorems + `fluxCutEq_of_pointwise` (PURE).
+No funext, no propext.  Cannot use FluxMVTPassthrough _pure
+forms — they live downstream. -/
+
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
+
+/-- fluxAlong x^(n+1) at unit forward, pointwise (∅-axiom). -/
+theorem fluxAlong_cutPow_unitBracket_forward_at (n m k : Nat) :
+    (fluxAlong (fun x => cutPow x (n+1)) unitBracket).forward m k
+      = (ofCut (constCut 1 1) : FluxCut).forward m k :=
+  cutPow_one_n_at (n+1) m k
+
+/-- fluxAlong x^(n+1) at unit backward, pointwise (∅-axiom). -/
+theorem fluxAlong_cutPow_unitBracket_backward_at (n m k : Nat) :
+    (fluxAlong (fun x => cutPow x (n+1)) unitBracket).backward m k
+      = (ofCut (constCut 1 1) : FluxCut).backward m k :=
+  cutPow_zero_succ_at n m k
+
+/-- ★ Generic MVT for x^(n+1) at unit (fluxCutEq, PURE). -/
+theorem mvt_cutPow_unitBracket_pure (n : Nat) :
+    fluxCutEq (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+              (ofCut (constCut 1 1)) :=
+  fluxCutEq_of_pointwise
+    (mvt_cutPow_unitBracket_forward_at n)
+    (mvt_cutPow_unitBracket_backward_at n)
+
+/-- ★ Generic fluxAlong for x^(n+1) at unit (fluxCutEq, PURE). -/
+theorem fluxAlong_cutPow_unitBracket_pure (n : Nat) :
+    fluxCutEq (fluxAlong (fun x => cutPow x (n+1)) unitBracket)
+              (ofCut (constCut 1 1)) :=
+  fluxCutEq_of_pointwise
+    (fluxAlong_cutPow_unitBracket_forward_at n)
+    (fluxAlong_cutPow_unitBracket_backward_at n)
+
+/-- Phase BE capstone (fluxCutEq, PURE) — MVT + fluxAlong only.
+    FTC bridge _pure form lives in FluxMVTPassthrough (downstream). -/
+theorem phaseBE_capstone_pure (n : Nat) :
+    fluxCutEq (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+              (ofCut (constCut 1 1))
+    ∧ fluxCutEq (fluxAlong (fun x => cutPow x (n+1)) unitBracket)
+                (ofCut (constCut 1 1)) :=
+  ⟨mvt_cutPow_unitBracket_pure n, fluxAlong_cutPow_unitBracket_pure n⟩
+
 end FluxCut
 
 end E213.Math.Real213.FluxMVTGeneric
