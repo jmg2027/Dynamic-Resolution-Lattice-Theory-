@@ -56,13 +56,14 @@ theorem cutSum_dyadicCut_self (M E : Nat) :
       (cutSum (dyadicCut M E) (dyadicCut M E)) (dyadicCut (2 * M) E) :=
   cutSum_self M (2^E)
 
-/-- **cutHalf of dyadicCut**: increments exponent by 1.
-    M / 2^E divided by 2 = M / 2^(E+1). -/
+/-- **cutHalf of dyadicCut** (cutEq, PURE): increments exponent by 1.
+    M / 2^E divided by 2 ≡ M / 2^(E+1). -/
 theorem cutHalf_dyadicCut (M E : Nat) :
-    cutHalf (dyadicCut M E) = dyadicCut M (E+1) := by
-  show cutHalf (constCut M (2^E)) = constCut M (2^(E+1))
-  rw [cutHalf_constCut]
-  show constCut M (2 * 2^E) = constCut M (2^(E+1))
+    ∀ m k, cutHalf (dyadicCut M E) m k = dyadicCut M (E+1) m k := by
+  intro m k
+  show cutHalf (constCut M (2^E)) m k = constCut M (2^(E+1)) m k
+  rw [cutHalf_constCut M (2^E) m k]
+  show constCut M (2 * 2^E) m k = constCut M (2^(E+1)) m k
   rw [show (2:Nat)^(E+1) = 2 * 2^E from by
     rw [Nat.pow_succ, Nat.mul_comm]]
 

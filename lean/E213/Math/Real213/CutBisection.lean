@@ -74,10 +74,10 @@ theorem cutHalf_constCut_at (a b m k : Nat) :
   congr 1
   rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b 2]
 
-/-- **cutHalf (constCut a b) = constCut a (2*b)**: a/b / 2 = a/(2b). -/
+/-- **cutHalf (constCut a b) ≡ constCut a (2*b)** (cutEq, PURE):
+    a/b / 2 ≡ a/(2b) pointwise. -/
 theorem cutHalf_constCut (a b : Nat) :
-    cutHalf (constCut a b) = constCut a (2*b) := by
-  funext m k
-  exact cutHalf_constCut_at a b m k
+    ∀ m k, cutHalf (constCut a b) m k = constCut a (2*b) m k :=
+  cutHalf_constCut_at a b
 
 end E213.Math.Real213.CutBisection
