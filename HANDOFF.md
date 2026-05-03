@@ -4,12 +4,15 @@
 
 User directive: "끝까지" + "ㄱㄱ" — continue Plan 2 to maximum reduction.
 
-### Snapshot (verified, end of session 26)
+### Snapshot (verified, end of session 26 — Korean "ㄱㄱ" continuation)
 
-  - **2456 PURE / 149 real DIRTY + 102 sealed-DIRTY-by-design** (2707 total)
+  - **2467 PURE / 149 real DIRTY + 102 sealed-DIRTY-by-design** (2718 total)
   - Net reduction from session 23 baseline: 251 → 149 real DIRTY
     (**-102 / -41%**) via parallel-struct refactor (Phase B/C) +
     _pure capstone breadth + funext-by-design sealing (Phase E)
+  - Total session 26 PURE additions: **+29 new theorems** across 14 modules
+    (cube, quartic, FTC bridges, FTC-Riemann, MVT witness, ODE/Newton,
+    propagation, FluxMVTConcrete cohomEquiv)
 
 ### Phase E: Funext-by-design sealing (this session)
 
@@ -36,6 +39,22 @@ covering Lens infrastructure with intrinsic funext requirements:
   - **FluxMVTWitness** (+3): mvt_square_explicit/_witness/_capstone_pure
   - **MVTWitnessChain** (+3): chain-rule witness _pure variants
 
+### Phase D continuation (Korean "ㄱㄱ" extension, +11 PURE)
+
+  - **ODELinear** (+2): linearWithIntercept_derivative_at +
+    linear_ode_capstone_at (no funext, via cutSum_const_zero)
+  - **NewtonFirst** (+2): velocity_is_v0_at +
+    newton_first_law_capstone_pure (3-fact bundle)
+  - **ODECatalog** (+2): ode_constant_a_solution_at +
+    ode_catalog_capstone_pure (5-fact)
+  - **FluxMVTPropagate** (+2): mid_witness_propagates_at via
+    cutSumAux_congr + cutMid_self_constCut_at;
+    propagation_capstone_pure 2-fact
+  - **FluxMVTPropagateCompose** (+2): id_compose_witness_propagates_at
+    via cutMulOuter_congr + cutMul_one_one_at;
+    id_compose_propagation_capstone_pure 2-fact
+  - **FluxMVTConcrete** (+1): mvt_id_unitBracket_cohomEquiv_pure
+
 ### Pattern: ftc_bridge_*_pure via fluxBalance composition
 
 ```lean
@@ -52,6 +71,10 @@ ftc_bridge_*_pure : fluxCutEq (LD f bracket) (fluxAlong f bracket) :=
   - e174006  feat(_pure): id_compose_id_pass + catalog 6-fact
   - 170ccc0  feat(_pure): phaseBF_capstone_pure passthrough
   - 068b9f8  feat(_pure): MVT witness explicit + chain-rule capstones
+  - fc09aaf  docs(HANDOFF): record session 26 Plan 2 Phase D+E
+  - e3be3ca  feat(_pure): ODE/Newton pointwise capstones
+  - 1d7e0c9  feat(_pure): mid + id-compose witness propagation
+  - 4c5274e  feat(_pure): mvt_id_unitBracket_cohomEquiv_pure
 
 ### Remaining for next session
 
