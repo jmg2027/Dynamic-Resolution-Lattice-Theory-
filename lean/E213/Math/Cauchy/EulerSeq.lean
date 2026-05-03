@@ -188,11 +188,8 @@ theorem eulerRaw_view (n : Nat) :
 theorem euler_orderProj_above_3 (m k : Nat) (h3km : 3 * k ≤ m) (n : Nat) :
     orderProj m k (abLens.view (eulerRaw n).val) = true := by
   rw [eulerRaw_view]
-  unfold orderProj
   show decide (eulerNum n * k ≤ eulerDen n * m) = true
-  rw [decide_eq_true_iff]
   have hu := euler_upper_inv n
-  -- a_n + 1 ≤ 3 d_n, so a_n ≤ 3 d_n, so a_n * k ≤ (3 d_n) * k = d_n * (3 k) ≤ d_n * m.
   have h1 : eulerNum n * k ≤ 3 * eulerDen n * k :=
     Nat.mul_le_mul_right k (Nat.le_of_succ_le hu)
   have h2 : 3 * eulerDen n * k = eulerDen n * (3 * k) := by
@@ -200,7 +197,7 @@ theorem euler_orderProj_above_3 (m k : Nat) (h3km : 3 * k ≤ m) (n : Nat) :
   rw [h2] at h1
   have h3 : eulerDen n * (3 * k) ≤ eulerDen n * m :=
     Nat.mul_le_mul_left (eulerDen n) h3km
-  exact Nat.le_trans h1 h3
+  exact decide_eq_true (Nat.le_trans h1 h3)
 
 end E213.Math.Cauchy.EulerSeq
 
@@ -215,9 +212,8 @@ theorem euler_orderProj_below_2 (m k : Nat) (hk : k ≥ 1) (hm2k : m ≤ 2 * k)
     (n : Nat) (hn : n ≥ 2) :
     orderProj m k (abLens.view (eulerRaw n).val) = false := by
   rw [eulerRaw_view]
-  unfold orderProj
   show decide (eulerNum n * k ≤ eulerDen n * m) = false
-  rw [decide_eq_false_iff_not]
+  apply decide_eq_false
   intro hle
   have hl := euler_lower_inv n hn
   -- hl: a_n ≥ 2 * d_n + 1.
@@ -241,7 +237,7 @@ theorem euler_orderProj_below_2 (m k : Nat) (hk : k ≥ 1) (hm2k : m ≤ 2 * k)
   -- Cancel `2 * eulerDen n * k` from both sides: k ≤ 0.
   have chain_with_zero : 2 * eulerDen n * k + k ≤ 2 * eulerDen n * k + 0 := by
     rw [Nat.add_zero]; exact chain
-  have hk0 : k ≤ 0 := Nat.le_of_add_le_add_left chain_with_zero
+  have hk0 : k ≤ 0 := E213.Tactic.Nat213.le_of_add_le_add_left chain_with_zero
   exact absurd (Nat.le_trans hk hk0) (by decide)
 
 /-- **Order Cauchy** at thresholds m/k ≥ 3 ∨ m/k ≤ 2.
