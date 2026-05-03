@@ -1,5 +1,6 @@
 import E213.Hypervisor.Lens.Instances.Cauchy
 import E213.Hypervisor.Lens.Instances.AB
+import E213.Kernel.Tactic.Nat213
 
 /-!
 # Research.ArchimedeanCauchy: ℝ-like completion via Dedekind cut
@@ -54,12 +55,11 @@ theorem diagonal_seq_orderProj_const (m k : Nat) (n : Nat) (hn : n ≥ 1) :
   unfold orderProj
   show decide (n * k ≤ n * m) = decide (k ≤ m)
   by_cases hkm : k ≤ m
-  · have : n * k ≤ n * m := Nat.mul_le_mul_left n hkm
-    simp [hkm, this]
-  · have : ¬ n * k ≤ n * m := by
-      intro h'
-      exact hkm (Nat.le_of_mul_le_mul_left h' hn)
-    simp [hkm, this]
+  · have h : n * k ≤ n * m := Nat.mul_le_mul_left n hkm
+    exact (decide_eq_true h).trans (decide_eq_true hkm).symm
+  · have hnot : ¬ n * k ≤ n * m :=
+      fun h' => hkm (Nat.le_of_mul_le_mul_left h' hn)
+    exact (decide_eq_false hnot).trans (decide_eq_false hkm).symm
 
 end E213.Math.Cauchy.Archimedean
 
@@ -103,8 +103,8 @@ theorem diagonal_seq_orderCauchy (xs : Nat → Raw)
   refine ⟨0, ?_⟩
   intro i j _ _
   rw [h i, h j]
-  rw [diagonal_seq_orderProj_const m k (i+1) (by omega)]
-  rw [diagonal_seq_orderProj_const m k (j+1) (by omega)]
+  rw [diagonal_seq_orderProj_const m k (i+1) (Nat.succ_le_succ (Nat.zero_le _))]
+  rw [diagonal_seq_orderProj_const m k (j+1) (Nat.succ_le_succ (Nat.zero_le _))]
 
 /-- **Explicit OrderCauchyData for the diagonal sequence**. -/
 def diagonal_seq_data (xs : Nat → Raw)
@@ -114,8 +114,8 @@ def diagonal_seq_data (xs : Nat → Raw)
   cauchy := by
     intro m k i j _ _ _
     rw [h i, h j]
-    rw [diagonal_seq_orderProj_const m k (i+1) (by omega)]
-    rw [diagonal_seq_orderProj_const m k (j+1) (by omega)]
+    rw [diagonal_seq_orderProj_const m k (i+1) (Nat.succ_le_succ (Nat.zero_le _))]
+    rw [diagonal_seq_orderProj_const m k (j+1) (Nat.succ_le_succ (Nat.zero_le _))]
 
 /-- **Dedekind cut of the diagonal sequence = "ratio 1"**:
     cut(m, k) = decide (k ≤ m).  Dedekind representation of rational 1. -/
@@ -124,7 +124,7 @@ theorem diagonal_seq_cut (xs : Nat → Raw)
     (diagonal_seq_data xs h).cut m k = decide (k ≤ m) := by
   unfold OrderCauchyData.cut diagonal_seq_data
   rw [h 0]
-  exact diagonal_seq_orderProj_const m k 1 (by omega)
+  exact diagonal_seq_orderProj_const m k 1 (Nat.le_refl 1)
 
 end E213.Math.Cauchy.Archimedean
 
@@ -146,40 +146,42 @@ theorem ratio_one_below_orderProj_eventually
     unfold orderProj
     show decide ((n+1) * k ≤ (n+2) * m) = decide (k ≤ m)
     have h1 : (n+1) * k ≤ (n+1) * m := Nat.mul_le_mul_left (n+1) hkm
-    have h2 : (n+1) * m ≤ (n+2) * m := Nat.mul_le_mul_right m (by omega)
+    have h2 : (n+1) * m ≤ (n+2) * m := Nat.mul_le_mul_right m (Nat.le_succ _)
     have h3 : (n+1) * k ≤ (n+2) * m := Nat.le_trans h1 h2
-    simp [hkm, h3]
+    exact (decide_eq_true h3).trans (decide_eq_true hkm).symm
   · -- k > m case: false for sufficiently large n
     have hkmgt : k > m := Nat.lt_of_not_le hkm
     refine ⟨m + 1, ?_⟩
     intro n hn
     unfold orderProj
     show decide ((n+1) * k ≤ (n+2) * m) = decide (k ≤ m)
-    have hkmpos : k - m ≥ 1 := by omega
-    -- (n+1)*k = n*k + k = n*m + n*(k-m) + k
-    -- (n+2)*m = n*m + 2m
-    -- diff: n*(k-m) + k - 2m
-    -- For n ≥ m+1: n*(k-m) ≥ (m+1)*1 = m+1 > 2m - k (since k > m)
+    -- hkmgt : m < k, i.e. m + 1 ≤ k.  Then 1 ≤ k - m via Nat213.
+    have hkmpos : k - m ≥ 1 := E213.Tactic.Nat213.le_pred_of_succ_le hkmgt
     have hnotle : ¬ (n+1) * k ≤ (n+2) * m := by
       intro h'
-      -- (n+1)*k ≤ (n+2)*m = (n+1)*m + m
-      -- (n+1)*(k - m) ≤ m (after subtracting (n+1)*m from both sides)
       have hexp : (n+1) * k = (n+1) * m + (n+1) * (k - m) := by
         rw [← Nat.mul_add]
         congr 1
-        omega
+        exact (E213.Tactic.Nat213.add_sub_of_le (Nat.le_of_lt hkmgt)).symm
       have hexp2 : (n+2) * m = (n+1) * m + m := by
-        rw [show (n+2) = (n+1) + 1 from rfl, Nat.add_mul, Nat.one_mul]
+        rw [show (n+2) = (n+1) + 1 from rfl,
+            E213.Tactic.Nat213.add_mul, Nat.one_mul]
       rw [hexp, hexp2] at h'
-      have : (n+1) * (k - m) ≤ m := by omega
-      have : (n+1) ≤ m := by
-        have hk_ge : k - m ≥ 1 := hkmpos
+      have hcancel : (n+1) * (k - m) ≤ m :=
+        E213.Tactic.Nat213.le_of_add_le_add_left h'
+      have hbound : (n+1) ≤ m := by
         calc n + 1
             = (n + 1) * 1 := (Nat.mul_one _).symm
-          _ ≤ (n + 1) * (k - m) := Nat.mul_le_mul_left _ hk_ge
-          _ ≤ m := this
-      omega
-    simp [hkm, hnotle]
+          _ ≤ (n + 1) * (k - m) := Nat.mul_le_mul_left _ hkmpos
+          _ ≤ m := hcancel
+      -- hn : m + 1 ≤ n.  Combined with hbound : n + 1 ≤ m, contradiction.
+      have h_succ_le : m + 1 ≤ n := hn
+      have h_n_succ_le_m : n + 1 ≤ m := hbound
+      have : m + 2 ≤ m :=
+        Nat.le_trans (Nat.succ_le_succ h_succ_le) h_n_succ_le_m
+      exact Nat.not_succ_le_self m
+        (Nat.le_trans (Nat.le_succ _) this)
+    exact (decide_eq_false hnotle).trans (decide_eq_false hkm).symm
 
 end E213.Math.Cauchy.Archimedean
 
@@ -225,20 +227,22 @@ theorem rational_seq_orderProj_const (p q m k : Nat) (n : Nat) (hn : n ≥ 1) :
   unfold orderProj
   show decide (p * n * k ≤ q * n * m) = decide (p * k ≤ q * m)
   have hrw1 : p * n * k = (p * k) * n := by
-    rw [Nat.mul_assoc, Nat.mul_comm n k, ← Nat.mul_assoc]
+    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm n k,
+        ← E213.Tactic.Nat213.mul_assoc]
   have hrw2 : q * n * m = (q * m) * n := by
-    rw [Nat.mul_assoc, Nat.mul_comm n m, ← Nat.mul_assoc]
+    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm n m,
+        ← E213.Tactic.Nat213.mul_assoc]
   rw [hrw1, hrw2]
   by_cases hpq : p * k ≤ q * m
-  · have : (p * k) * n ≤ (q * m) * n := Nat.mul_le_mul_right n hpq
-    simp [hpq, this]
-  · have : ¬ (p * k) * n ≤ (q * m) * n := by
+  · have h : (p * k) * n ≤ (q * m) * n := Nat.mul_le_mul_right n hpq
+    exact (decide_eq_true h).trans (decide_eq_true hpq).symm
+  · have hnot : ¬ (p * k) * n ≤ (q * m) * n := by
       intro h'
       apply hpq
       have h'' : n * (p * k) ≤ n * (q * m) := by
         rw [Nat.mul_comm n (p*k), Nat.mul_comm n (q*m)]; exact h'
       exact Nat.le_of_mul_le_mul_left h'' hn
-    simp [hpq, this]
+    exact (decide_eq_false hnot).trans (decide_eq_false hpq).symm
 
 /-- **Dedekind cut of the general rational p/q sequence = "ratio p/q"**.
     Cut of the constant sequence (p*(n+1), q*(n+1)) = decide (p*k ≤ q*m). -/
@@ -246,7 +250,7 @@ theorem rational_seq_cut (p q : Nat) (xs : Nat → Raw)
     (h : ∀ n, abLens.view (xs n) = (p * (n+1), q * (n+1))) (m k : Nat) :
     orderProj m k (abLens.view (xs 0)) = decide (p * k ≤ q * m) := by
   rw [h 0]
-  exact rational_seq_orderProj_const p q m k 1 (by omega)
+  exact rational_seq_orderProj_const p q m k 1 (Nat.le_refl 1)
 
 end E213.Math.Cauchy.Archimedean
 
@@ -263,8 +267,10 @@ theorem half_seq_orderCauchy (xs : Nat → Raw)
   refine ⟨0, ?_⟩
   intro i j _ _
   rw [h i, h j]
-  have hi := rational_seq_orderProj_const 1 2 m k (i+1) (by omega)
-  have hj := rational_seq_orderProj_const 1 2 m k (j+1) (by omega)
+  have hi := rational_seq_orderProj_const 1 2 m k (i+1)
+    (Nat.succ_le_succ (Nat.zero_le _))
+  have hj := rational_seq_orderProj_const 1 2 m k (j+1)
+    (Nat.succ_le_succ (Nat.zero_le _))
   show orderProj m k (i + 1, 2 * (i + 1))
        = orderProj m k (j + 1, 2 * (j + 1))
   have hri : (i + 1, 2 * (i + 1)) = (1 * (i + 1), 2 * (i + 1)) := by
@@ -279,8 +285,8 @@ theorem half_seq_cut (xs : Nat → Raw)
     (m k : Nat) :
     orderProj m k (abLens.view (xs 0)) = decide (k ≤ 2 * m) := by
   rw [h 0]
-  have h_eq : (0 + 1, 2 * (0 + 1)) = (1 * 1, 2 * 1) := by simp
-  rw [h_eq, rational_seq_orderProj_const 1 2 m k 1 (by omega)]
+  have h_eq : (0 + 1, 2 * (0 + 1)) = (1 * 1, 2 * 1) := rfl
+  rw [h_eq, rational_seq_orderProj_const 1 2 m k 1 (Nat.le_refl 1)]
   show decide (1 * k ≤ 2 * m) = decide (k ≤ 2 * m)
   rw [Nat.one_mul]
 

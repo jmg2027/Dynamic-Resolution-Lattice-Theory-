@@ -32,7 +32,8 @@ namespace E213.Math.Real213.PhysicsBridgeNT2
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
+open E213.Math.Real213.DyadicRiemann
+  (riemannSampleSum riemannSampleSum_constCut riemannSampleSum_constCut_at)
 open E213.Math.Real213.DyadicBracket
 open E213.Math.Real213.ConsistentOracle
 open E213.Math.Real213.DyadicTrajectory
@@ -57,10 +58,19 @@ theorem nt2_right_trajectory (n : Nat) :
     (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n :=
   alwaysFalse_unit_numB n
 
+/-- **B-4 pointwise PURE**: same content as `nt2_atomic_yields_dyadic`
+    but the riemannSampleSum equality is stated pointwise at (m, k).  -/
+theorem nt2_atomic_yields_dyadic_at (n a b m k : Nat) :
+    (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n
+    ∧ (DyadicBracket.bisectN alwaysTrue n unitBracket).expE = n
+    ∧ riemannSampleSum (constCutFn (constCut a b)) unitBracket n m k
+        = constCut (2^n * a) b m k :=
+  ⟨alwaysFalse_unit_numB n, alwaysTrue_unit_expE n,
+   riemannSampleSum_constCut_at a b unitBracket n m k⟩
+
 /-- **B-4: NT=2 atomic block yields dyadic geometry** (bridge capstone).
-    Conjunctive cross-track interface: atomic 2-block iterated n times
-    realizes dyadic geometry (2^n leaves, endpoint closed forms,
-    Riemann accumulator forced). -/
+    Function-eq form (Quot.sound-DIRTY at the riemannSampleSum funext
+    boundary).  Prefer `nt2_atomic_yields_dyadic_at` for ∅-axiom. -/
 theorem nt2_atomic_yields_dyadic (n a b : Nat) :
     (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n
     ∧ (DyadicBracket.bisectN alwaysTrue n unitBracket).expE = n

@@ -39,11 +39,13 @@ open E213.Math.Real213.DyadicBracket
 open E213.Math.Real213.ConsistentOracle
 open E213.Math.Real213.CauchyComplete (CauchyCutSeq)
 open E213.Math.Real213.DyadicTrajectory
-open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut riemannSampleSum_const_normalized no_pi_in_finite_riemann)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut riemannSampleSum_constCut_at riemannSampleSum_const_normalized riemannSampleSum_const_normalized_at no_pi_in_finite_riemann)
 open E213.Math.Real213.IsSmooth (IsSmooth idIsSmooth squareIsSmooth cubeIsSmooth quarticIsSmooth constIsSmooth cutScaleIsSmooth cutHalfIsSmooth midIsSmooth addIsSmooth mulIsSmooth composeIsSmooth cutPowFnIsSmooth)
 open E213.Math.Real213.ResolutionDepth (squareIsSmooth_modulus cubeIsSmooth_modulus cutPowFnIsSmooth_modulus quarticIsSmooth_modulus)
 
-/-- **Phase L Unified Capstone**: 8-fact summary of Phase L. -/
+/-- **Phase L Unified Capstone**: 8-fact summary of Phase L.
+    ∅-axiom: (IV) Riemann conjunct uses pointwise variant
+    `riemannSampleSum_constCut_at` (avoids funext). -/
 theorem phaseL_unified_capstone (n : Nat) (a b : Nat) :
     -- (I) alwaysTrue trajectory: bracket (0, 1, n)
     (DyadicBracket.bisectN alwaysTrue n unitBracket).numA = 0
@@ -54,9 +56,9 @@ theorem phaseL_unified_capstone (n : Nat) (a b : Nat) :
     ∧ squareIsSmooth.linearityModulus n = 2 * n
     -- (III) ConsistentOracle exists on unit bracket.
     ∧ (∃ co : ConsistentOracle unitBracket, co.oracle = alwaysTrue)
-    -- (IV) Riemann finite-N: explicit rational closed form.
-    ∧ riemannSampleSum (constCutFn (constCut a b)) unitBracket n
-      = constCut (2^n * a) b
+    -- (IV) Riemann finite-N (POINTWISE): ∀ m k, sum = (2^n*a)/b at (m,k).
+    ∧ (∀ m k, riemannSampleSum (constCutFn (constCut a b)) unitBracket n m k
+            = constCut (2^n * a) b m k)
     -- (V) Cut-distinctness: 0+ ≠ 0-exact.
     ∧ (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit 0 1 = false
     ∧ (constCut 0 1) 0 1 = true :=
@@ -65,7 +67,7 @@ theorem phaseL_unified_capstone (n : Nat) (a b : Nat) :
    alwaysFalse_unit_numB n,
    squareIsSmooth_modulus n,
    ⟨ConsistentOracle.alwaysTrueUnit, rfl⟩,
-   riemannSampleSum_constCut a b unitBracket n,
+   riemannSampleSum_constCut_at a b unitBracket n,
    alwaysTrueUnit_limit_distinct_from_zero.1,
    alwaysTrueUnit_limit_distinct_from_zero.2⟩
 
@@ -80,14 +82,15 @@ theorem phaseMN_cross_track_parallel (m k : Nat) :
     -- (M1) Infinitesimal gap structure: 0+ ≠ 0 at boundary.
     InfinitesimalGap (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
                      (constCut 0 1)
-    -- (M2) Riemann finite-N: no π in dyadic accumulation.
-    ∧ (∀ a b db n, ∃ M : Nat,
-        riemannSampleSum (constCutFn (constCut a b)) db n = constCut M b)
+    -- (M2) Riemann finite-N (POINTWISE): no π in dyadic accumulation.
+    ∧ (∀ a b db n, ∃ M : Nat, ∀ m' k',
+        riemannSampleSum (constCutFn (constCut a b)) db n m' k'
+        = constCut M b m' k')
     -- (N3) Asymmetry: 1- = 1-exact at every (m, k).
     ∧ (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit m k
       = constCut 1 1 m k :=
   ⟨zero_plus_gap_below_zero_exact,
-   no_pi_in_finite_riemann,
+   fun a b db n => ⟨2^n * a, riemannSampleSum_constCut_at a b db n⟩,
    alwaysFalseUnit_limit_eq_one_one m k⟩
 
 /-- **Phase O1: All-Phase Super-Capstone**.
@@ -106,8 +109,8 @@ theorem allPhase_super_capstone (n a b m k : Nat) :
     ∧ (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n
     -- Phase L: ResolutionDepth (cube has slope 3)
     ∧ cubeIsSmooth.linearityModulus n = 3 * n
-    -- Phase L: Riemann normalized average
-    ∧ constCut (2^n * a) (b * 2^n) = constCut a b
+    -- Phase L: Riemann normalized average (POINTWISE).
+    ∧ (∀ m' k', constCut (2^n * a) (b * 2^n) m' k' = constCut a b m' k')
     -- Phase M1: 0+ infinitesimal gap below 0-exact
     ∧ InfinitesimalGap (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
                        (constCut 0 1)
@@ -120,7 +123,7 @@ theorem allPhase_super_capstone (n a b m k : Nat) :
     exact ⟨ConsistentOracle.collapsed db h alwaysTrue, rfl⟩
   · exact alwaysFalse_unit_numB n
   · exact cubeIsSmooth_modulus n
-  · exact riemannSampleSum_const_normalized a b n
+  · exact riemannSampleSum_const_normalized_at a b n
   · exact zero_plus_gap_below_zero_exact
   · exact alwaysFalseUnit_limit_eq_one_one m k
 

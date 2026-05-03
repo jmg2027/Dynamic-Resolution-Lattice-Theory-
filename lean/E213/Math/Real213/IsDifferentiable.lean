@@ -1,4 +1,5 @@
 import E213.Math.Real213.IsSmooth
+import E213.Math.Real213.Core
 
 /-!
 # Research.Real213IsDifferentiable: differentiation filter

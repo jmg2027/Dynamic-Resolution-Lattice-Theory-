@@ -12,7 +12,14 @@ namespace E213.Math.Real213.DifferentiableHigherPow
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus)
 
 /-- x ↦ x⁵ = x² · x³. -/
 def quinticIsDifferentiable :
@@ -42,28 +49,32 @@ theorem quinticIsDifferentiable_modulus (k : Nat) :
     quinticIsDifferentiable.linearityModulus k = 5 * k := by
   show squareIsDifferentiable.linearityModulus k
        + cubeIsDifferentiable.linearityModulus k = 5 * k
-  rw [squareIsDifferentiable_modulus, cubeIsDifferentiable_modulus]; omega
+  rw [squareIsDifferentiable_modulus, cubeIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 2 3 k).symm
 
 /-- Sextic modulus: 6k. -/
 theorem sexticIsDifferentiable_modulus (k : Nat) :
     sexticIsDifferentiable.linearityModulus k = 6 * k := by
   show cubeIsDifferentiable.linearityModulus k
        + cubeIsDifferentiable.linearityModulus k = 6 * k
-  rw [cubeIsDifferentiable_modulus]; omega
+  rw [cubeIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 3 3 k).symm
 
 /-- Septic modulus: 7k. -/
 theorem septicIsDifferentiable_modulus (k : Nat) :
     septicIsDifferentiable.linearityModulus k = 7 * k := by
   show cubeIsDifferentiable.linearityModulus k
        + quarticIsDifferentiable.linearityModulus k = 7 * k
-  rw [cubeIsDifferentiable_modulus, quarticIsDifferentiable_modulus]; omega
+  rw [cubeIsDifferentiable_modulus, quarticIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 3 4 k).symm
 
 /-- Octic modulus: 8k. -/
 theorem octicIsDifferentiable_modulus (k : Nat) :
     octicIsDifferentiable.linearityModulus k = 8 * k := by
   show quarticIsDifferentiable.linearityModulus k
        + quarticIsDifferentiable.linearityModulus k = 8 * k
-  rw [quarticIsDifferentiable_modulus]; omega
+  rw [quarticIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 4 4 k).symm
 
 /-- Phase AF capstone: degrees 5-8 modulus equalities. -/
 theorem polynomial_higher_pow_capstone (k : Nat) :

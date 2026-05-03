@@ -19,42 +19,66 @@ open E213.Math.Real213.CutMulComm (cutMulOuter_eq_true_iff)
 open E213.Math.Real213.CutSum (cutSum cutSumAux)
 open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.CutAlgebraic (constCut_zero_always)
 
-/-- **cutSum 0 0 = 0** at cut level. -/
-theorem cutSum_zero_zero : cutSum (constCut 0 1) (constCut 0 1) = constCut 0 1 := by
-  funext m k
-  show cutSum (constCut 0 1) (constCut 0 1) m k = constCut 0 1 m k
+/-- **cutSum 0 0 = 0** pointwise (∅-axiom).  Avoids `funext`. -/
+theorem cutSum_zero_zero_at (m k : Nat) :
+    cutSum (constCut 0 1) (constCut 0 1) m k = constCut 0 1 m k := by
   rw [constCut_zero_always]
   show cutSumAux (constCut 0 1) (constCut 0 1) k (2*m) (2*m) = true
-  rw [cutSumAux_eq_true_iff]
-  exact ⟨0, Nat.zero_le _,
-         constCut_zero_always 0 (2*k),
-         constCut_zero_always (2*m - 0) (2*k)⟩
+  refine (cutSumAux_eq_true_iff _ _ _ _ _).mpr
+    ⟨0, Nat.zero_le _, ?_, ?_⟩
+  · exact constCut_zero_always 0 (2*k)
+  · exact constCut_zero_always (2*m - 0) (2*k)
 
-/-- **cutMul 0 0 = 0**: 0 * 0 = 0. -/
-theorem cutMul_zero_zero : cutMul (constCut 0 1) (constCut 0 1) = constCut 0 1 := by
+/-- **cutSum 0 0 = 0** at cut level (function eq).  DIRTY-by-design;
+    PURE alternative: `cutSum_zero_zero_at`. -/
+theorem cutSum_zero_zero : cutSum (constCut 0 1) (constCut 0 1) = constCut 0 1 := by
   funext m k
-  show cutMul (constCut 0 1) (constCut 0 1) m k = constCut 0 1 m k
+  exact cutSum_zero_zero_at m k
+
+/-- **cutMul 0 0 = 0** pointwise (∅-axiom).  Avoids `funext`. -/
+theorem cutMul_zero_zero_at (m k : Nat) :
+    cutMul (constCut 0 1) (constCut 0 1) m k = constCut 0 1 m k := by
   rw [constCut_zero_always]
   show cutMulOuter (constCut 0 1) (constCut 0 1) k m ((m+1)*(k+1)) ((m+1)*(k+1))
        = true
-  rw [cutMulOuter_eq_true_iff]
-  refine ⟨0, Nat.zero_le _, 0, Nat.zero_le _, ?_, ?_, ?_⟩
+  refine (cutMulOuter_eq_true_iff _ _ k m _ _).mpr
+    ⟨0, Nat.zero_le _, 0, Nat.zero_le _, ?_, ?_, ?_⟩
   · exact constCut_zero_always 0 k
   · exact constCut_zero_always 0 k
   · rw [Nat.zero_mul]; exact Nat.zero_le _
 
-/-- **cutHalf zero = zero**: 0/2 = 0. -/
-theorem cutHalf_zero : cutHalf (constCut 0 1) = constCut 0 1 := by
+/-- **cutMul 0 0 = 0**: 0 * 0 = 0 (function eq).  DIRTY-by-design. -/
+theorem cutMul_zero_zero : cutMul (constCut 0 1) (constCut 0 1) = constCut 0 1 := by
   funext m k
+  exact cutMul_zero_zero_at m k
+
+/-- **cutHalf zero = zero** pointwise (∅-axiom). -/
+theorem cutHalf_zero_at (m k : Nat) :
+    cutHalf (constCut 0 1) m k = constCut 0 1 m k := by
   show constCut 0 1 (2*m) k = constCut 0 1 m k
   rw [constCut_zero_always, constCut_zero_always]
 
-/-- **cutMid zero zero = zero**: midpoint of 0 and 0 is 0. -/
+/-- **cutHalf zero = zero**: 0/2 = 0 (function eq).  DIRTY-by-design. -/
+theorem cutHalf_zero : cutHalf (constCut 0 1) = constCut 0 1 := by
+  funext m k
+  exact cutHalf_zero_at m k
+
+/-- **cutMid zero zero = zero** pointwise (∅-axiom). -/
+theorem cutMid_zero_zero_at (m k : Nat) :
+    cutMid (constCut 0 1) (constCut 0 1) m k = constCut 0 1 m k := by
+  show cutHalf (cutSum (constCut 0 1) (constCut 0 1)) m k = constCut 0 1 m k
+  show cutSum (constCut 0 1) (constCut 0 1) (2*m) k = constCut 0 1 m k
+  rw [cutSum_zero_zero_at]
+  rw [constCut_zero_always, constCut_zero_always]
+
+/-- **cutMid zero zero = zero**: midpoint of 0 and 0 is 0 (function eq).
+    DIRTY-by-design. -/
 theorem cutMid_zero_zero :
     cutMid (constCut 0 1) (constCut 0 1) = constCut 0 1 := by
-  show cutHalf (cutSum (constCut 0 1) (constCut 0 1)) = constCut 0 1
-  rw [cutSum_zero_zero, cutHalf_zero]
+  funext m k
+  exact cutMid_zero_zero_at m k
 
 /-- 1/2 + 1/2 = 1 at (1, 1) — concrete decide. -/
 example : cutSum (constCut 1 2) (constCut 1 2) 1 1 = constCut 1 1 1 1 := by decide

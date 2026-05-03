@@ -16,9 +16,14 @@ namespace E213.Math.Cohomology.Dyadic.ThueMorse
 open E213.Math.Cohomology.Dyadic.Signature (signature)
 
 
-/-- Thue-Morse: parity of binary popcount. -/
+/-- 213-native bit extractor (LSB at position 0).  ∅-axiom — uses
+    Nat./, Nat.%, Nat.pow only (no `Nat.testBit`, which leaks
+    propext via its Lean-core definition). -/
+def bit213 (n j : Nat) : Bool := (n / 2^j) % 2 == 1
+
+/-- Thue-Morse: parity of binary popcount.  ∅-axiom via `bit213`. -/
 def thueMorse (n : Nat) : Bool :=
-  (List.range (n + 1)).foldl (fun acc i => xor acc (n.testBit i)) false
+  (List.range (n + 1)).foldl (fun acc i => xor acc (bit213 n i)) false
 
 /-- First 8 values: 0,1,1,0,1,0,0,1. -/
 theorem thueMorse_first8 :

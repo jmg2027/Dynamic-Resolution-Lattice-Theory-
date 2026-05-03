@@ -18,6 +18,33 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut zero)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.FluxEquiv.FluxCut (cohomEquiv cohomEquiv_refl)
+open E213.Math.Real213.FluxMVTConcrete.FluxCut
+  (mvt_id_unitBracket
+   mvt_id_unitBracket_forward_at mvt_id_unitBracket_backward_at)
+open E213.Math.Real213.FluxFTC.FluxCut (ftc_bridge_id_unitBracket)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit
+   mvt_passthrough_unit_forward_at mvt_passthrough_unit_backward_at
+   fluxAlong_passthrough_unit_forward_at
+   fluxAlong_passthrough_unit_backward_at)
+open E213.Math.Real213.FluxMVTGeneric.FluxCut
+  (mvt_cutPow_unitBracket_forward_at mvt_cutPow_unitBracket_backward_at)
+open E213.Math.Real213.ClassicCalc (ClassicCalc)
+open E213.Math.Real213.ClassicCalc.ClassicCalc (id_calc cube_calc mvt)
+open E213.Math.Real213.ClassicCalcHigher.ClassicCalc (octic_calc)
+open E213.Math.Real213.ClassicCalcGeneric.ClassicCalc
+  (cutPow_calc_mvt cutPow_calc_ftc)
+open E213.Math.Real213.CutSeries (partialSum)
+open E213.Math.Real213.CutGeomSeries (geomHalfSeries)
+open E213.Math.Real213.FluxSeries
+  (seriesFlux seriesFlux_zero geomHalfFlux geomHalfFlux_backward_at)
 
 /-- ★★ **Phase BQ omega capstone**: 12-fact mega bundle ★★ -/
 theorem phaseBQ_omega_capstone (n : Nat) (a : FluxCut)
@@ -25,45 +52,111 @@ theorem phaseBQ_omega_capstone (n : Nat) (a : FluxCut)
     (h_left : f (constCut 0 1) = constCut 0 1)
     (h_right : f (constCut 1 1) = constCut 1 1) :
     -- (AY) cohomEquiv reflexive
-    FluxCut.cohomEquiv a a
+    cohomEquiv a a
     -- (AY/AZ) id at unit propEq
-    ∧ FluxCut.localDivergence id unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+    ∧ localDivergence id unitBracket
+       = ofCut (constCut 1 1)
     -- (AZ) FTC bridge for id at unit
-    ∧ FluxCut.localDivergence id unitBracket
-       = FluxCut.fluxAlong id unitBracket
+    ∧ localDivergence id unitBracket
+       = fluxAlong id unitBracket
     -- (BE/BP) generic ∀n, x^(n+1) MVT
-    ∧ FluxCut.localDivergence (fun x => cutPow x (n+1)) unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+    ∧ localDivergence (fun x => cutPow x (n+1)) unitBracket
+       = ofCut (constCut 1 1)
     -- (BP) generic FTC bridge
-    ∧ FluxCut.localDivergence (fun x => cutPow x (n+1)) unitBracket
-       = FluxCut.fluxAlong (fun x => cutPow x (n+1)) unitBracket
+    ∧ localDivergence (fun x => cutPow x (n+1)) unitBracket
+       = fluxAlong (fun x => cutPow x (n+1)) unitBracket
     -- (BF) general passthrough MVT
-    ∧ FluxCut.localDivergence f unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+    ∧ localDivergence f unitBracket
+       = ofCut (constCut 1 1)
     -- (BJ) Passthrough cube
-    ∧ FluxCut.localDivergence (fun x => cutMul x (cutMul x x)) unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+    ∧ localDivergence (fun x => cutMul x (cutMul x x)) unitBracket
+       = ofCut (constCut 1 1)
     -- (BO) Passthrough x⁸
-    ∧ FluxCut.localDivergence (fun x => cutMul (cutMul (cutMul x x)
+    ∧ localDivergence (fun x => cutMul (cutMul (cutMul x x)
         (cutMul x x)) (cutMul (cutMul x x) (cutMul x x))) unitBracket
-       = FluxCut.ofCut (constCut 1 1)
+       = ofCut (constCut 1 1)
     -- (BL) ClassicCalc.id_calc derivative at any point = 1
     ∧ ClassicCalc.id_calc.diff.derivative (constCut 0 1) = constCut 1 1
-    -- (BN) seriesFlux at zero = FluxCut.zero
-    ∧ seriesFlux geomHalfSeries 0 = FluxCut.zero
+    -- (BN) seriesFlux at zero = zero
+    ∧ seriesFlux geomHalfSeries 0 = zero
     -- (BN) geomHalfFlux backward is constant 0
     ∧ (geomHalfFlux n).backward = constCut 0 1 :=
-  ⟨FluxCut.cohomEquiv_refl a,
-   FluxCut.mvt_id_unitBracket,
-   FluxCut.ftc_bridge_id_unitBracket,
-   ClassicCalc.cutPow_calc_mvt n,
-   ClassicCalc.cutPow_calc_ftc n,
-   FluxCut.mvt_passthrough_unit f h_left h_right,
-   ClassicCalc.cube_calc.mvt,
-   ClassicCalc.octic_calc.mvt,
+  ⟨cohomEquiv_refl a,
+   mvt_id_unitBracket,
+   ftc_bridge_id_unitBracket,
+   cutPow_calc_mvt n,
+   cutPow_calc_ftc n,
+   mvt_passthrough_unit f h_left h_right,
+   cube_calc.mvt,
+   octic_calc.mvt,
    rfl,
    seriesFlux_zero geomHalfSeries,
    geomHalfFlux_backward_at n⟩
+
+/-- ★★ **Phase BQ pointwise PURE capstone** ★★
+
+    Strict ∅-axiom version of the BE/BF/passthrough localDivergence
+    bundle, expressed at pointwise field-equality level. -/
+theorem phaseBQ_omega_capstone_at (n : Nat)
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_left : f (constCut 0 1) = constCut 0 1)
+    (h_right : f (constCut 1 1) = constCut 1 1) (m k : Nat) :
+    (localDivergence id unitBracket).forward m k
+       = (ofCut (constCut 1 1) : FluxCut).forward m k
+    ∧ (localDivergence id unitBracket).backward m k
+       = (ofCut (constCut 1 1) : FluxCut).backward m k
+    ∧ (localDivergence (fun x => cutPow x (n+1)) unitBracket).forward m k
+       = (ofCut (constCut 1 1) : FluxCut).forward m k
+    ∧ (localDivergence (fun x => cutPow x (n+1)) unitBracket).backward m k
+       = (ofCut (constCut 1 1) : FluxCut).backward m k
+    ∧ (localDivergence f unitBracket).forward m k
+       = (ofCut (constCut 1 1) : FluxCut).forward m k
+    ∧ (localDivergence f unitBracket).backward m k
+       = (ofCut (constCut 1 1) : FluxCut).backward m k
+    ∧ (fluxAlong f unitBracket).forward m k
+       = (ofCut (constCut 1 1) : FluxCut).forward m k
+    ∧ (fluxAlong f unitBracket).backward m k
+       = (ofCut (constCut 1 1) : FluxCut).backward m k :=
+  ⟨mvt_id_unitBracket_forward_at m k,
+   mvt_id_unitBracket_backward_at m k,
+   mvt_cutPow_unitBracket_forward_at n m k,
+   mvt_cutPow_unitBracket_backward_at n m k,
+   mvt_passthrough_unit_forward_at f h_right m k,
+   mvt_passthrough_unit_backward_at f h_left m k,
+   fluxAlong_passthrough_unit_forward_at f h_right m k,
+   fluxAlong_passthrough_unit_backward_at f h_left m k⟩
+
+/-! ### fluxCutEq PURE variant -/
+
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket_pure)
+open E213.Math.Real213.FluxMVTGeneric.FluxCut
+  (mvt_cutPow_unitBracket_pure fluxAlong_cutPow_unitBracket_pure)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit_pure fluxAlong_passthrough_unit_pure
+   ftc_bridge_passthrough_unit_pure)
+
+/-- ★★ **Phase BQ omega capstone — fluxCutEq PURE** ★★
+    Strict ∅-axiom (no propext, no Quot.sound). -/
+theorem phaseBQ_omega_capstone_pure (n : Nat) (a : FluxCut)
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k)
+    (h_right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k) :
+    cohomEquiv a a
+    ∧ fluxCutEq (localDivergence id unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+                (ofCut (constCut 1 1))
+    ∧ fluxCutEq (fluxAlong (fun x => cutPow x (n+1)) unitBracket)
+                (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence f unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (fluxAlong f unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence f unitBracket) (fluxAlong f unitBracket) :=
+  ⟨cohomEquiv_refl a,
+   mvt_id_unitBracket_pure,
+   mvt_cutPow_unitBracket_pure n,
+   fluxAlong_cutPow_unitBracket_pure n,
+   mvt_passthrough_unit_pure f h_left h_right,
+   fluxAlong_passthrough_unit_pure f h_left h_right,
+   ftc_bridge_passthrough_unit_pure f h_left h_right⟩
 
 end E213.Math.Real213.PhaseBQOmegaCapstone

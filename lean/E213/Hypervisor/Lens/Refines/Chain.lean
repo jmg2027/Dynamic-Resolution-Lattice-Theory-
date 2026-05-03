@@ -21,10 +21,10 @@ leaves does not refine idLens — leaf counts agree but different Raws exist).
 namespace E213.Hypervisor.Lens.Refines.Chain
 
 open E213.Firmware E213.Hypervisor
-open E213.Meta
 open E213.Hypervisor.Lens.Instances.Identity
+open E213.Hypervisor.Lens.Instances.Parity (parityLens)
 open E213.Hypervisor.Lens.Lattice.Lattice
-open E213.Hypervisor.Lens.LeavesRefinesParity
+open E213.Hypervisor.Lens.Leaves.RefinesParity (leaves_refines_parity)
 
 /-- **4-step chain**: idLens → leaves → parity → constLens true. -/
 theorem refines_chain :

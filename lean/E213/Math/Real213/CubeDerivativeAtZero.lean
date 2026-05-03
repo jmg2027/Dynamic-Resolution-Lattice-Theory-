@@ -18,6 +18,10 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable)
+open E213.Math.Real213.CutMulOne (cutMul_one_const cutMul_const_one)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero cutSum_zero_zero)
 
 /-- ★ d/dx [x³] at x = 0 = 0 (propEq via structural reduction). -/
 theorem cubeDerivative_at_zero :

@@ -22,7 +22,28 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.DyadicRiemann (riemannSampleSum)
-open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus
+   cutScaleIsDifferentiable cutHalfIsDifferentiable)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.DyadicBracket.DyadicBracket (midCut)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.HasDyadicMVTWitness (HasDyadicMVTWitness)
+open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (square)
+open E213.Math.Real213.CutMulOne (cutMul_one_one)
 
 /-- ★★ **Generic FTC-Riemann at depth 0** via witness at midCut ★★ -/
 theorem ftc_riemann_generic_via_witness
@@ -31,7 +52,7 @@ theorem ftc_riemann_generic_via_witness
     (h_witness_at_mid : w.witness = unitBracket.midCut)
     (h_pass_one : f (constCut 1 1) = constCut 1 1) :
     riemannSampleSum sf.derivative unitBracket 0
-      = (FluxCut.fluxAlong f unitBracket).forward := by
+      = (fluxAlong f unitBracket).forward := by
   show sf.derivative unitBracket.midCut = f (constCut 1 1)
   rw [h_pass_one]
   rw [← h_witness_at_mid]
@@ -44,15 +65,15 @@ theorem ftc_riemann_generic_capstone
     (h_witness_at_mid : w.witness = unitBracket.midCut)
     (h_pass_one : f (constCut 1 1) = constCut 1 1) :
     riemannSampleSum sf.derivative unitBracket 0
-      = (FluxCut.fluxAlong f unitBracket).forward :=
+      = (fluxAlong f unitBracket).forward :=
   ftc_riemann_generic_via_witness f sf w h_witness_at_mid h_pass_one
 
 /-- Application: x² satisfies the generic FTC-Riemann. -/
 theorem ftc_riemann_generic_for_square :
     riemannSampleSum squareIsDifferentiable.derivative unitBracket 0
-      = (FluxCut.fluxAlong (fun x => cutMul x x) unitBracket).forward :=
+      = (fluxAlong (fun x => cutMul x x) unitBracket).forward :=
   ftc_riemann_generic_via_witness
     (fun x => cutMul x x) squareIsDifferentiable
-    HasDyadicMVTWitness.square rfl cutMul_one_one
+    square rfl cutMul_one_one
 
 end E213.Math.Real213.FTCRiemannGeneric

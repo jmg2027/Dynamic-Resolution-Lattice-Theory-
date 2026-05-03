@@ -49,6 +49,34 @@ def parse_imports(path: Path) -> list[str]:
     return out
 
 
+def classify_provider_consumer(path: Path) -> str:
+    """G12 T1 heuristic: a file is *provider* iff it introduces a
+    `def`/`structure`/`class` whose namespace matches its directory.
+    Otherwise *consumer* (uses level-N abstraction without adding new).
+
+    Returns 'provider', 'consumer', or 'mixed'.
+    """
+    try:
+        src = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return "consumer"
+    ns_rx = re.compile(r"^\s*namespace\s+(\S+)", re.MULTILINE)
+    decl_rx = re.compile(
+        r"^\s*(?:protected\s+|private\s+)?"
+        r"(?:def|structure|class|inductive|abbrev)\s+(\S+)",
+        re.MULTILINE)
+    namespaces = ns_rx.findall(src)
+    decls = decl_rx.findall(src)
+    if not decls:
+        return "consumer"
+    expected_dir_ns = ".".join(["E213"] + list(path.relative_to(LEAN_ROOT).parts[:-1]))
+    matching = sum(1 for ns in namespaces
+                   if ns == expected_dir_ns or ns.startswith(expected_dir_ns + "."))
+    if matching >= 1 and len(decls) >= 1:
+        return "provider"
+    return "consumer"
+
+
 def import_to_path(imp: str) -> Path:
     return LEAN_ROOT / (imp.replace(".", "/") + ".lean")
 
@@ -139,6 +167,23 @@ def every_file_layer_report(files, imports, by_path):
     for seg in sorted(by_seg.keys()):
         row = by_seg[seg]
         print(f"  {seg:<14} " + "  ".join(f"{n:>10}" for n in row) + f"   {sum(row):>5}")
+
+    # G12 T1: provider/consumer split per layer
+    print("\n## Per-layer provider/consumer split (G12 T1 heuristic)")
+    print("(provider = file introduces def/struct/class in its dir-namespace;")
+    print(" consumer = uses level-N abstraction without adding new)\n")
+    pc_by_layer = {0: [0, 0], 1: [0, 0], 2: [0, 0], 3: [0, 0], 4: [0, 0]}
+    for f in files:
+        layer = natural[f]
+        kind = classify_provider_consumer(f)
+        if kind == "provider":
+            pc_by_layer[layer][0] += 1
+        else:
+            pc_by_layer[layer][1] += 1
+    print(f"  {'layer':<14} {'provider':>10}  {'consumer':>10}   total")
+    for r in range(5):
+        p, c = pc_by_layer[r]
+        print(f"  {label_of[r]:<14} {p:>10}  {c:>10}   {p+c:>5}")
 
 
 def horizontal_depth_report(files, imports):

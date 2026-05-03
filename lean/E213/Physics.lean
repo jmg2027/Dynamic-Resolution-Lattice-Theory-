@@ -34,11 +34,11 @@ import E213.Physics.Mixing.NeutrinoMixing
 import E213.Physics.Nuclear.Binding
 import E213.Physics.Higgs.Quartic
 import E213.Physics.Hadron.NeutronProton
-import E213.Physics.Capstones.MasterCatalog
+import E213.OS.Physics.Capstones.MasterCatalog
 import E213.Physics.Couplings.ClosedPropagator
 import E213.Physics.Atomic.Hydrogen
 import E213.Physics.Atomic.Screening
-import E213.Physics.Capstones.PhysicsTrackComplete
+import E213.OS.Physics.Capstones.PhysicsTrackComplete
 import E213.Physics.Higgs.Vacuum
 import E213.Physics.Foundations.GoldenRatio
 import E213.Physics.Foundations.FibonacciAtomic
@@ -58,7 +58,7 @@ import E213.Physics.Higgs.Master
 import E213.Physics.Simplex.GenerationStructure
 import E213.Physics.Nuclear.Shells
 import E213.Physics.Mixing.CPViolation
-import E213.Physics.Capstones.AbsoluteAtomicCapstone
+import E213.OS.Physics.Capstones.AbsoluteAtomicCapstone
 import E213.Physics.Substrate
 import E213.Physics.Foundations.MasslessParticles
 import E213.Physics.Cosmology.GravityShadow
@@ -66,7 +66,7 @@ import E213.Physics.Cosmology.HubbleConstant
 import E213.Physics.YangMills.Gap
 import E213.Physics.Couplings.AsymptoticFreedom
 import E213.Physics.YangMills.Gap.SU5Roots
-import E213.Physics.Capstones.Capstone
+import E213.OS.Physics.Capstones.Capstone
 
 /-!
 # E213.Physics — DRLT physics formalization track

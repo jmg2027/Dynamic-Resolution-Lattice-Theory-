@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutMulComm
 import E213.Math.Real213.CutSumTest
@@ -55,8 +56,8 @@ private theorem bool_eq_of_iff_true_v3 (a b : Bool)
 /-- Helper: nat product reassociation. -/
 private theorem mul_4_reassoc (x y z w : Nat) :
     (x * z) * (y * w) = x * y * (z * w) := by
-  rw [Nat.mul_assoc, ← Nat.mul_assoc z y w, Nat.mul_comm z y,
-      Nat.mul_assoc y z w, ← Nat.mul_assoc]
+  rw [E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc z y w, Nat.mul_comm z y,
+      E213.Tactic.Nat213.mul_assoc y z w, ← E213.Tactic.Nat213.mul_assoc]
 
 /-- ★★★★★ Forward direction (always holds, no precondition).
 
@@ -93,9 +94,9 @@ theorem cutMul_const_const_forward (a b c d m k : Nat)
   | succ j =>
     -- a*c*(k*k) = (a*c*k)*k, b*d*(m*k) = (b*d*m)*k.  Cancel right k.
     have h_lhs_assoc : a * c * ((j + 1) * (j + 1)) = a * c * (j + 1) * (j + 1) :=
-      (Nat.mul_assoc _ _ _).symm
+      (E213.Tactic.Nat213.mul_assoc _ _ _).symm
     have h_rhs_assoc : b * d * (m * (j + 1)) = b * d * m * (j + 1) :=
-      (Nat.mul_assoc _ _ _).symm
+      (E213.Tactic.Nat213.mul_assoc _ _ _).symm
     rw [h_lhs_assoc, h_rhs_assoc] at h_combine
     -- Swap to the form k * X ≤ k * Y for left-cancellation.
     rw [Nat.mul_comm (a * c * (j + 1)) (j + 1),

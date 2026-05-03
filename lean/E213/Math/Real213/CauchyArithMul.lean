@@ -1,3 +1,4 @@
+import E213.Math.Max213
 import E213.Math.Real213.CauchyComplete
 import E213.Math.Real213.CutMulComm
 import E213.Math.Real213.CutMulDetermined
@@ -36,11 +37,11 @@ theorem maxNAt_ge (a_N : Nat → Nat → Nat) (kPrec : Nat) :
     | inl hjlt =>
       have hjle : j ≤ M := Nat.le_of_lt_succ hjlt
       exact Nat.le_trans (maxNAt_ge a_N kPrec M j hjle)
-                         (Nat.le_max_right _ _)
+                         (E213.Math.Max213.le_max_right _ _)
     | inr hjge =>
       have heq : j = M+1 := Nat.le_antisymm hj hjge
       rw [heq]
-      exact Nat.le_max_left _ _
+      exact E213.Math.Max213.le_max_left _ _
 
 /-- Pointwise cutMul of two CauchyCutSeqs is Cauchy.
     Modulus: max over the search range j ∈ [0, B]
@@ -60,21 +61,21 @@ def CauchyCutSeq.cutMul (a b : CauchyCutSeq) : CauchyCutSeq where
       have hia : i ≥ a.N m' k :=
         Nat.le_trans (Nat.le_trans
           (maxNAt_ge a.N k ((m+1)*(k+1)) m' hm')
-          (Nat.le_max_left _ _)) hi
+          (E213.Math.Max213.le_max_left _ _)) hi
       have hja : j ≥ a.N m' k :=
         Nat.le_trans (Nat.le_trans
           (maxNAt_ge a.N k ((m+1)*(k+1)) m' hm')
-          (Nat.le_max_left _ _)) hj
+          (E213.Math.Max213.le_max_left _ _)) hj
       exact a.cauchy m' k i j hia hja
     · intro m' hm'
       have hib : i ≥ b.N m' k :=
         Nat.le_trans (Nat.le_trans
           (maxNAt_ge b.N k ((m+1)*(k+1)) m' hm')
-          (Nat.le_max_right _ _)) hi
+          (E213.Math.Max213.le_max_right _ _)) hi
       have hjb : j ≥ b.N m' k :=
         Nat.le_trans (Nat.le_trans
           (maxNAt_ge b.N k ((m+1)*(k+1)) m' hm')
-          (Nat.le_max_right _ _)) hj
+          (E213.Math.Max213.le_max_right _ _)) hj
       exact b.cauchy m' k i j hib hjb
     · exact Nat.le_refl _
 
@@ -91,13 +92,13 @@ theorem CauchyCutSeq.cutMul_limit (a b : CauchyCutSeq) :
     show a.cs Nmax m' k = a.cs (a.N m' k) m' k
     have hbig : Nmax ≥ a.N m' k :=
       Nat.le_trans (maxNAt_ge a.N k ((m+1)*(k+1)) m' hm')
-                   (Nat.le_max_left _ _)
+                   (E213.Math.Max213.le_max_left _ _)
     exact a.cauchy m' k Nmax (a.N m' k) hbig (Nat.le_refl _)
   · intro m' hm'
     show b.cs Nmax m' k = b.cs (b.N m' k) m' k
     have hbig : Nmax ≥ b.N m' k :=
       Nat.le_trans (maxNAt_ge b.N k ((m+1)*(k+1)) m' hm')
-                   (Nat.le_max_right _ _)
+                   (E213.Math.Max213.le_max_right _ _)
     exact b.cauchy m' k Nmax (b.N m' k) hbig (Nat.le_refl _)
   · exact Nat.le_refl _
 

@@ -17,6 +17,14 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong fluxAlong_id)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_const)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero)
 
 namespace FluxCut
 
@@ -67,6 +75,16 @@ theorem phaseBD_capstone :
                   unitBracket :=
   ⟨mvt_quartic_unitBracket, fluxAlong_quartic_unitBracket,
    ftc_bridge_quartic_unitBracket⟩
+
+/-! ### PURE pointwise variants (fluxCutEq form) — quartic via Pow 4
+
+Note: x⁴ as `cutMul (cutMul x x) (cutMul x x)` is NOT definitionally
+equal to `cutPow x 4`.  The pure form here would require either:
+(a) restating via cutPow + cutPow_one_n_at, or
+(b) inlining cutMulOuter_congr cascades.
+Both are downstream from this file (need FluxMVTPassthrough or
+additional cutMul congruence helpers).  Skipping — defer to next
+session when the deeper FluxMVT stack is refactored. -/
 
 end FluxCut
 

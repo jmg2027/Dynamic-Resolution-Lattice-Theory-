@@ -23,7 +23,22 @@ open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus
+   cutScaleIsDifferentiable cutHalfIsDifferentiable)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.Antiderivative (IsAntiderivative)
+open E213.Math.Real213.CutSumOne (cutSum_const_zero)
 
 /-- ★ Linear function y = ax + b (constant intercept). -/
 def linearWithIntercept (a b : Nat) :
@@ -44,7 +59,8 @@ theorem linearWithIntercept_derivative (a b : Nat) :
        = constCutFn (constCut a 1)
   funext x
   show cutSum (constCut a 1) (constCut 0 1) = constCut a 1
-  exact cutSum_const_zero a 1
+  funext m k
+  exact cutSum_const_zero a 1 m k
 
 /-- ★ y = ax + b is antiderivative of constant a. -/
 def linear_anti (a b : Nat) :

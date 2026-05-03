@@ -22,17 +22,12 @@ private theorem bool_eq_of_iff_true_v3 (a b : Bool)
   · exact (h.mp rfl).symm
   · rfl
 
-/-- **cutMul (1)(1) = constCut 1 1**: 1 * 1 = 1 as cut function. -/
-theorem cutMul_one_one : cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1 := by
-  funext m k
+/-- **cutMul (1)(1) = constCut 1 1** pointwise (∅-axiom).  Avoids
+    `funext` and `rw [iff]` (both propext-laden). -/
+theorem cutMul_one_one_at (m k : Nat) :
+    cutMul (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k := by
   apply bool_eq_of_iff_true_v3
-  show cutMulOuter (constCut 1 1) (constCut 1 1) k m
-        ((m+1)*(k+1)) ((m+1)*(k+1)) = true
-       ↔ constCut 1 1 m k = true
-  rw [cutMulOuter_eq_true_iff]
-  show (∃ m1, m1 ≤ (m+1)*(k+1) ∧ ∃ m2, m2 ≤ (m+1)*(k+1) ∧
-         constCut 1 1 m1 k = true ∧ constCut 1 1 m2 k = true ∧ m1 * m2 ≤ m * k)
-       ↔ constCut 1 1 m k = true
+  refine Iff.trans (cutMulOuter_eq_true_iff _ _ k m _ _) ?_
   constructor
   · rintro ⟨m1, _, m2, _, hcx, hcy, hmul⟩
     have h_m1 : k ≤ m1 := by
@@ -66,15 +61,18 @@ theorem cutMul_one_one : cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1 := 
       exact decide_eq_true (Nat.le_refl _)
     · exact Nat.mul_le_mul_right k h_km
 
-/-- **cutMul (1) (constCut a b) = constCut a b**: 1 * (a/b) = a/b. -/
-theorem cutMul_one_const (a b : Nat) :
-    cutMul (constCut 1 1) (constCut a b) = constCut a b := by
+/-- **cutMul (1)(1) = constCut 1 1** function eq (uses funext + _at).
+    DIRTY-by-design — kept for downstream `rw` compatibility.
+    PURE alternative: `cutMul_one_one_at` (pointwise). -/
+theorem cutMul_one_one : cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1 := by
   funext m k
+  exact cutMul_one_one_at m k
+
+/-- **cutMul (1) (constCut a b) = constCut a b** pointwise (∅-axiom). -/
+theorem cutMul_one_const_at (a b m k : Nat) :
+    cutMul (constCut 1 1) (constCut a b) m k = constCut a b m k := by
   apply bool_eq_of_iff_true_v3
-  show cutMulOuter (constCut 1 1) (constCut a b) k m
-        ((m+1)*(k+1)) ((m+1)*(k+1)) = true
-       ↔ constCut a b m k = true
-  rw [cutMulOuter_eq_true_iff]
+  refine Iff.trans (cutMulOuter_eq_true_iff _ _ k m _ _) ?_
   constructor
   · rintro ⟨m1, _, m2, _, hcx, hcy, hmul⟩
     have h_m1 : k ≤ m1 := by
@@ -114,11 +112,25 @@ theorem cutMul_one_const (a b : Nat) :
     · -- k*m ≤ m*k
       rw [Nat.mul_comm]; exact Nat.le_refl _
 
-/-- **cutMul (constCut a b) (constCut 1 1) = constCut a b** (right identity). -/
+/-- **cutMul (1) (constCut a b) = constCut a b** function eq.
+    DIRTY-by-design — kept for downstream `rw` compatibility.
+    PURE alternative: `cutMul_one_const_at`. -/
+theorem cutMul_one_const (a b : Nat) :
+    cutMul (constCut 1 1) (constCut a b) = constCut a b := by
+  funext m k
+  exact cutMul_one_const_at a b m k
+
+/-- **cutMul (constCut a b) (constCut 1 1) = constCut a b** pointwise (∅-axiom). -/
+theorem cutMul_const_one_at (a b m k : Nat) :
+    cutMul (constCut a b) (constCut 1 1) m k = constCut a b m k := by
+  rw [cutMul_comm (constCut a b) (constCut 1 1) m k]
+  exact cutMul_one_const_at a b m k
+
+/-- **cutMul (constCut a b) (constCut 1 1) = constCut a b** function eq.
+    DIRTY-by-design.  PURE alternative: `cutMul_const_one_at`. -/
 theorem cutMul_const_one (a b : Nat) :
     cutMul (constCut a b) (constCut 1 1) = constCut a b := by
   funext m k
-  rw [cutMul_comm (constCut a b) (constCut 1 1) m k]
-  exact congrFun (congrFun (cutMul_one_const a b) m) k
+  exact cutMul_const_one_at a b m k
 
 end E213.Math.Real213.CutMulOne

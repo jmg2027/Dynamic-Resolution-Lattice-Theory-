@@ -16,14 +16,27 @@ In the refines preorder from note 37: `Lens.leaves ⊑ parityLens`
 
 namespace E213.Hypervisor.Lens.Leaves.RefinesParity
 
-open E213.Firmware E213.Hypervisor E213.Meta
+open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Instances.Parity (parityLens)
+
+/-- PURE Nat.mod-2 case-analysis (replaces Nat.mod_two_eq_zero_or_one). -/
+private theorem mod_two_pure (a : Nat) : a % 2 = 0 ∨ a % 2 = 1 := by
+  have h : a % 2 < 2 := Nat.mod_lt a (by decide)
+  match heq : a % 2, h with
+  | 0, _ => exact Or.inl rfl
+  | 1, _ => exact Or.inr rfl
+  | n+2, h2 =>
+    exfalso
+    exact absurd h2 (Nat.not_lt_of_le (Nat.le_add_left 2 n))
 
 private theorem bool_xor_parity (a b : Nat) :
     decide ((a + b) % 2 = 1)
       = xor (decide (a % 2 = 1)) (decide (b % 2 = 1)) := by
-  rcases Nat.mod_two_eq_zero_or_one a with ha | ha
-  all_goals rcases Nat.mod_two_eq_zero_or_one b with hb | hb
-  all_goals simp [Nat.add_mod, ha, hb]
+  have hadd : (a + b) % 2 = (a % 2 + b % 2) % 2 := Nat.add_mod a b 2
+  rw [hadd]
+  rcases mod_two_pure a with ha | ha <;>
+    rcases mod_two_pure b with hb | hb <;>
+    rw [ha, hb] <;> rfl
 
 /-- parityLens.view r = odd/even determination of the leaves count. -/
 theorem parityLens_view_eq_leaves_odd :
@@ -56,7 +69,8 @@ end E213.Hypervisor.Lens.Leaves.RefinesParity
 
 namespace E213.Hypervisor.Lens.Leaves.RefinesParity
 
-open E213.Firmware E213.Hypervisor E213.Meta
+open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Instances.Parity (parityLens)
 
 /-- Witness Raw element with leaves=3, parity=true. -/
 def sample3 : Raw :=

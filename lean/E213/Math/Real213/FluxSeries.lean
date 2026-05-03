@@ -21,6 +21,10 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut zero)
+open E213.Math.Real213.CutSeries (partialSum)
+open E213.Math.Real213.CutGeomSeries (geomHalfSeries)
 
 /-- ★ FluxCut form of partial sum: each partial sum lifts to a FluxCut. -/
 def seriesFlux (s : Nat → (Nat → Nat → Bool)) (n : Nat) : FluxCut :=

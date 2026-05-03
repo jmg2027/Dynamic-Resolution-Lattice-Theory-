@@ -93,6 +93,21 @@ Verified by `tools/kernel_regress.sh`.
 for grouping in directory listing).  `{Term,Compare,Pair,Rat}.lean`
 share `namespace E213.Kernel.Term` umbrella (also intentional).
 
+**Public API surface** (G12 §2.1, available via single-import
+`E213.Kernel.API`):
+
+  - **K1 — Data API**: `Term`, `Term.eval`, atomic constants
+    `Term.{nS, nT, d, c}`
+  - **K2 — Computation API** (Bool-returning, ∅-axiom):
+    `Term.{equiv, le_b, lt_b}`, `Term.{pair, offDiag}`,
+    `Term.{equivQ, leQ}`, `Decide.{allBelow, existsBelow}`
+  - **K3 — Soundness API** (Bool→Prop bridges):
+    `Sound.{of_equiv, of_le_b, of_lt_b, of_equivQ, of_leQ}`
+  - **K4 — Tactic API** (cross-cutting, separate import):
+    `Tactic.{Omega213, Nat213, Mod213, Pow213, Fin213, QuadNorm}`
+
+Sealed (NOT API): `Cap_*`, `Demo.lean`.
+
 ### Firmware/
 
 **Role**: The 213 axiom — Raw type + 4-clause definitional commitments
@@ -122,6 +137,25 @@ of 213.  Plus the proofs that this shape is *forced uniquely*.
 commitment burned into the system.  213's Raw axiom + its
 forced-uniqueness proofs play the same role.
 
+**Public API surface** (G12 §3.1, available via single-imports):
+
+  - **FW-A — Raw API** (`E213.Firmware.Raw`):
+    `Raw`, `Raw.{a, b, slash, slash_comm, depth, leaves, fold,
+    swap, rec}`, `Raw.fold_*`, `Raw.swap_*`, `RawLevels`, `RawSwap`
+  - **FW-B — Atomicity API** (`E213.Firmware.Atomicity`, NEW G12 D2):
+    `Atomicity.{Five.atomic_iff_five, canonical_partition,
+    PairForcing.pair_iff_two, NonDecomposable.closure_iff_three,
+    ArityForcing.arity_iff_two, PrimitiveSizes.{pairSize,
+    closureSize}, Alive.alive_iff_*, FiveHelpers.*}`
+
+Dual character: FW-A provides the axiom *data*; FW-B provides the
+*spec compliance* proof that this data is unique.  Both required
+for any Hypervisor consumer.
+
+Sealed (NOT API): `Firmware.Internal.Tree`, `Firmware/Raw/{DecEq,
+Cmp, ComplexityClass, ...}` internal proofs, `Firmware/Tools/
+CertChecker.lean`.
+
 ### Hypervisor/
 
 **Role**: Lens framework — the *catamorphism mechanism* that turns
@@ -137,6 +171,33 @@ machinery).  Currently 1 file at root.
 applications, providing virtualization.  Lens is the same:
 between Raw axiom and any concrete α, providing a *view*
 abstraction.  Different α = different "VM" of 213.
+
+**Public API surface** (G12 §4.1, available via single-import
+`E213.Hypervisor.API`):
+
+  - **HV1 — Type API**: `Lens (α : Type)`, `Lens.view`,
+    `Lens.{leaves, depth}`
+  - **HV2 — Equivalence API**: `Lens.equiv` + refl/symm/trans,
+    `Lens.refines` + refl/trans, `Refines.{Chain, Preorder}`
+  - **HV3 — Initiality API**: `Lens.view_unique`, `SemanticAtom.
+    {HasDistinguishing, Raw.instHasDistinguishing}`,
+    `Universal.Flat.every_lens_factors_through_idLens`
+  - **HV4 — Lattice API**: `joinLens`, `prodLens`, `Lattice.
+    {FamilyJoin, FamilyMeet, IndexedJoin, JoinEquiv}`
+  - **HV5 — Composition API**: `Compose.{Factoring, ImageMinimum,
+    OnLens}`
+  - **HV6 — Canonical Form API**: `Universal.QuotLens.
+    universalLens`, `Properties.CanonicalForm.universalLens_recovers`
+
+Optional separate imports (catalog/internal):
+
+  - **HV7 — Concrete Lens catalog**: `Hypervisor/Lens/Instances/*`
+    (25+ specific Lenses)
+  - **HV8 — Characterisation catalog**: `Hypervisor/Lens/
+    Characterisation/{Catalog, Core}`
+  - **Sealed (NOT API)**: `Lens/Kernel/{FreeAudit, FourDistinct,
+    SwapInvariant, ...}`, `Lens/Morphism/{BoolSqClassification,
+    DepthParityNotFold, ...}`
 
 ### Meta/
 
@@ -182,6 +243,48 @@ from Atomicity (V_A = {0,1,2}, V_B = {3,4} from canonical_partition).
 
 **Currently**: 1 file.  Capstones currently live in Physics/Capstones/
 but conceptually some belong here.  Open question (see §3).
+
+### OS/ (★ proposed, not yet realised — G12 §5)
+
+**Status**: PROPOSED.  Currently empty (or in-place via OS-tag in
+docstrings, depending on adopted option).  See `research-notes/
+G12_layered_api_classification.md` §5 for full discussion.
+
+**Role**: orchestration layer between Hypervisor and App.  Where
+Hypervisor provides a single Lens *abstraction*, OS *composes
+multiple Lens-derived subsystems* into stable APIs that downstream
+applications consume.
+
+**OS vs Meta** (parallel, not sequential):
+  - Meta: *propositions* about Hypervisor ("∀ Lens, …")
+  - OS: *compositions* of Hypervisor ("Cup-Lens × Hodge-Lens
+    orchestrated into HC²¹³ subsystem with public API")
+
+**OS vs App** (API surface vs concrete use):
+  - OS: stable interface (e.g., HC²¹³ Bridge to ℓ-adic users)
+  - App: specific result citing the OS API
+
+**Candidate inhabitants** (per G12 §5.2):
+  - `HodgeConjecture/API.lean` (already exists, OS-character)
+  - `HodgeConjecture/Bridge/*` (7 cross-discipline interfaces)
+  - `Physics/Capstones/*` (multi-observable orchestration)
+  - Future per-subsystem INDEX.md files
+
+**Realisation options** (per G12 §5.3):
+  - (α) Semantic OS-tag in-place (lowest disruption)
+  - (β) Physical `OS/` directory absorbs all OS-flavored files
+    (most disruptive, breaks Math/Physics topicality)
+  - (γ) Hybrid: `OS/` absorbs only Bridge + API + Capstones,
+    definitions stay in Math/Physics (★ G12 RECOMMENDED)
+
+**Dependency graph (when realised)**:
+```
+              Hypervisor
+                ↓     ↓
+              Meta    OS
+                      ↓
+                     App
+```
 
 ## 2. Topical labels (NOT a separate axis — see §0)
 

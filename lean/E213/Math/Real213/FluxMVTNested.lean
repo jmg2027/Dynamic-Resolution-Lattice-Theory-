@@ -19,6 +19,14 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
+open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
+open E213.Math.Real213.HasDyadicMVTWitness (HasDyadicMVTWitness)
+open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
+open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut)
 
 /-- ★ d/dx [mid(x, mid(x, x²))] at x = 1/2 = 1 propEq. -/
 theorem mid_id_mid_id_square_derivative_at_half :

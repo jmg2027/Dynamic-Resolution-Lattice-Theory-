@@ -1,4 +1,5 @@
 import E213.Math.Real213.FluxCochain
+import E213.Math.Real213.CutMulDetermined
 
 /-!
 # Research.Real213FluxDivergence
@@ -18,6 +19,11 @@ open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut
+  (fluxAlong isBalanced fluxAlong_const_isBalanced)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
 
 namespace FluxCut
 
@@ -32,14 +38,21 @@ def localDivergence (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (db : DyadicBracket) : FluxCut :=
   fluxScale (2^db.expE) 1 (fluxAlong f db)
 
-/-- Scaling preserves balance (cohomological vanishing carries through). -/
+/-- Scaling preserves balance (cohomological vanishing carries through, PURE). -/
 theorem fluxScale_balanced (a b : Nat) (fc : FluxCut) (h : isBalanced fc) :
     isBalanced (fluxScale a b fc) := by
   intro m k
   show cutMul (constCut a b) fc.forward m k
        = cutMul (constCut a b) fc.backward m k
-  congr 1
-  exact funext fun m' => funext fun k' => h m' k'
+  show E213.Math.Real213.CutMul.cutMulOuter (constCut a b) fc.forward k m
+         ((m+1)*(k+1)) ((m+1)*(k+1))
+     = E213.Math.Real213.CutMul.cutMulOuter (constCut a b) fc.backward k m
+         ((m+1)*(k+1)) ((m+1)*(k+1))
+  exact E213.Math.Real213.CutMulDetermined.cutMulOuter_congr
+    k m ((m+1)*(k+1)) ((m+1)*(k+1))
+    (constCut a b) (constCut a b) fc.forward fc.backward
+    (fun _ _ => rfl) (fun m' _ => h m' k)
+    ((m+1)*(k+1)) (Nat.le_refl _)
 
 /-- Constant function divergence is balanced (∂c = 0). -/
 theorem localDivergence_const_balanced (c : Nat → Nat → Bool)

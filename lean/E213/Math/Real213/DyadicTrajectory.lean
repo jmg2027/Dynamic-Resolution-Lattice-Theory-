@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.ConsistentOracle
 
@@ -88,7 +89,7 @@ theorem alwaysFalse_numB (n : Nat) (db : DyadicBracket) :
        = 2^(k+1) * db.numB
     rw [alwaysFalse_step, ih]
     show 2^k * (2 * db.numB) = 2^(k+1) * db.numB
-    rw [Nat.pow_succ, Nat.mul_assoc]
+    rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc]
 
 /-- **alwaysTrue trajectory: numA scales as 2^n × initial.numA**. -/
 theorem alwaysTrue_numA (n : Nat) (db : DyadicBracket) :
@@ -102,7 +103,7 @@ theorem alwaysTrue_numA (n : Nat) (db : DyadicBracket) :
        = 2^(k+1) * db.numA
     rw [alwaysTrue_step, ih]
     show 2^k * (2 * db.numA) = 2^(k+1) * db.numA
-    rw [Nat.pow_succ, Nat.mul_assoc]
+    rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc]
 
 /-! ### Unit bracket trajectory corollaries
 
@@ -171,22 +172,33 @@ theorem alwaysTrue_unit_numB (n : Nat) :
   alwaysTrue_zero_numB_invariant n unitBracket rfl
 
 /-- **alwaysFalse from unit: numA = 2^n - 1**.
-    Derived from numB = 2^n and lenNum invariant = 1. -/
+    Derived from numB = 2^n and lenNum invariant = 1.
+    ∅-axiom: term-mode via Nat213 helpers (replaces omega + by decide). -/
 theorem alwaysFalse_unit_numA (n : Nat) :
     (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 2^n - 1 := by
   have hB := alwaysFalse_unit_numB n
-  have hLen := DyadicBracket.bisectN_lenNum alwaysFalse n unitBracket
-  have h_unit_len : unitBracket.lenNum = 1 := rfl
-  rw [h_unit_len] at hLen
+  have hLen' := DyadicBracket.bisectN_lenNum alwaysFalse n unitBracket
+  -- lenNum unfolds to numB - numA.
+  have hLen : (DyadicBracket.bisectN alwaysFalse n unitBracket).numB
+            - (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 1 := hLen'
   have hLe := (DyadicBracket.bisectN alwaysFalse n unitBracket).hLe
-  have h2n : (2:Nat)^n ≥ 1 := Nat.pos_pow_of_pos n (by decide : 0 < 2)
-  show (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 2^n - 1
-  -- hLen: numB - numA = 1. hB: numB = 2^n.  hLe: numA ≤ numB.  h2n: 2^n ≥ 1.
-  show (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 2^n - 1
-  have hLen_unfold :
-    (DyadicBracket.bisectN alwaysFalse n unitBracket).numB
-    - (DyadicBracket.bisectN alwaysFalse n unitBracket).numA = 1 := hLen
-  omega
+  -- By sub_add_cancel hLe: numB - numA + numA = numB.
+  have step : (DyadicBracket.bisectN alwaysFalse n unitBracket).numB
+            - (DyadicBracket.bisectN alwaysFalse n unitBracket).numA
+            + (DyadicBracket.bisectN alwaysFalse n unitBracket).numA
+            = (DyadicBracket.bisectN alwaysFalse n unitBracket).numB :=
+    E213.Tactic.Nat213.sub_add_cancel hLe
+  rw [hLen] at step
+  -- step: 1 + numA = numB.  Substitute hB: 1 + numA = 2^n.
+  rw [hB] at step
+  -- step: 1 + numA = 2^n.  Want: numA = 2^n - 1.
+  have step2 : (1 + (DyadicBracket.bisectN alwaysFalse n unitBracket).numA)
+             - 1 = (DyadicBracket.bisectN alwaysFalse n unitBracket).numA := by
+    rw [Nat.add_comm]
+    exact E213.Tactic.Nat213.add_sub_cancel_right _ _
+  -- step2: (1 + numA) - 1 = numA.  Substitute step (1 + numA = 2^n): 2^n - 1 = numA.
+  rw [step] at step2
+  exact step2.symm
 
 /-- **alwaysTrue from unit: midCut = dyadicCut 1 (n+1)**.
     The midpoint at depth n is 1/2^(n+1), approaching 0 as n grows. -/
@@ -202,7 +214,7 @@ theorem alwaysTrue_unit_midCut (n : Nat) :
 
 /-- **alwaysFalse from unit: midCut = dyadicCut (2^(n+1) - 1) (n+1)**.
     The midpoint at depth n is (2^(n+1) - 1)/2^(n+1) = 1 - 1/2^(n+1),
-    approaching 1 as n grows. -/
+    approaching 1 as n grows.  ∅-axiom: term-mode arithmetic chain. -/
 theorem alwaysFalse_unit_midCut (n : Nat) :
     (DyadicBracket.bisectN alwaysFalse n unitBracket).midCut
     = dyadicCut (2^(n+1) - 1) (n+1) := by
@@ -212,10 +224,21 @@ theorem alwaysFalse_unit_midCut (n : Nat) :
        = dyadicCut (2^(n+1) - 1) (n+1)
   rw [alwaysFalse_unit_numA n, alwaysFalse_unit_numB n,
       alwaysFalse_unit_expE n]
-  have h2n : (2:Nat)^n ≥ 1 := Nat.pos_pow_of_pos n (by decide : 0 < 2)
+  have h2n : 1 ≤ (2:Nat)^n := Nat.pos_pow_of_pos n (Nat.zero_lt_succ 1)
+  -- Goal: dyadicCut ((2^n - 1) + 2^n) (n+1) = dyadicCut (2^(n+1) - 1) (n+1).
+  -- Reduce: (2^n - 1) + 2^n = 2^(n+1) - 1.
+  -- 2^(n+1) = 2^n * 2 = 2^n + 2^n (Nat.pow_succ + Nat.two_mul + Nat.mul_comm).
+  -- Then `(a - 1) + b` with `1 ≤ a` and `b = a` (think a := 2^n)
+  -- equals `(a + a) - 1` by Nat213.add_sub_assoc + Nat.add_comm.
   have h_eq : (2^n - 1) + 2^n = 2^(n+1) - 1 := by
-    rw [Nat.pow_succ]
-    omega
+    -- Step A: 2^(n+1) = 2^n + 2^n
+    have hA : (2:Nat)^(n+1) = 2^n + 2^n := by
+      rw [Nat.pow_succ, Nat.mul_comm (2^n) 2, Nat.two_mul]
+    rw [hA]
+    -- Goal: (2^n - 1) + 2^n = (2^n + 2^n) - 1
+    rw [Nat.add_comm (2^n - 1) (2^n)]
+    -- Goal: 2^n + (2^n - 1) = (2^n + 2^n) - 1
+    exact (E213.Tactic.Nat213.add_sub_assoc (2^n) h2n).symm
   rw [h_eq]
 
 /-- **Universal trajectory invariants on unit bracket**: regardless
@@ -236,11 +259,20 @@ theorem unit_universal_invariants (oracle : DyadicOracle) (n : Nat) :
     all x.  Used to bound consistency thresholds. -/
 private theorem two_pow_ge_succ (x : Nat) : x + 1 ≤ 2^(x+1) := by
   induction x with
-  | zero => decide
+  | zero =>
+    show (0 + 1) ≤ 2^(0 + 1)
+    show 1 ≤ 2
+    exact Nat.le_succ_of_le (Nat.le_refl 1)
   | succ y ih =>
     show y + 1 + 1 ≤ 2^(y+1+1)
-    rw [Nat.pow_succ]
-    omega
+    rw [Nat.pow_succ, Nat.mul_comm (2^(y+1)) 2, Nat.two_mul]
+    -- Goal: y + 1 + 1 ≤ 2^(y+1) + 2^(y+1)
+    -- ih: y + 1 ≤ 2^(y+1).
+    -- Need: y + 2 ≤ 2^(y+1) + 2^(y+1).
+    -- We have 1 ≤ 2^(y+1) (from ih chain).
+    have h1 : 1 ≤ 2^(y+1) :=
+      Nat.le_trans (Nat.zero_lt_succ y) ih
+    exact Nat.add_le_add ih h1
 
 /-- **alwaysTrue trajectory on unit bracket is a ConsistentOracle**.
     Threshold: thresholdN m k := k.  At depth n ≥ k, the midCut value
@@ -251,8 +283,8 @@ def ConsistentOracle.alwaysTrueUnit : ConsistentOracle unitBracket where
   thresholdN := fun _ k => k
   consistency := by
     intro m k n1 n2 hn1 hn2
-    have hk1 : n1 ≥ k := hn1
-    have hk2 : n2 ≥ k := hn2
+    have hk1 : k ≤ n1 := hn1
+    have hk2 : k ≤ n2 := hn2
     rw [alwaysTrue_unit_midCut n1, alwaysTrue_unit_midCut n2]
     show decide (1 * k ≤ 2^(n1+1) * m) = decide (1 * k ≤ 2^(n2+1) * m)
     cases m with
@@ -260,46 +292,65 @@ def ConsistentOracle.alwaysTrueUnit : ConsistentOracle unitBracket where
       show decide (1*k ≤ 2^(n1+1) * 0) = decide (1*k ≤ 2^(n2+1) * 0)
       rw [Nat.mul_zero, Nat.mul_zero]
     | succ j =>
-      have h_pow1 : 2^(n1+1) ≥ k + 1 := by
-        have h := two_pow_ge_succ n1; omega
-      have h_pow2 : 2^(n2+1) ≥ k + 1 := by
-        have h := two_pow_ge_succ n2; omega
+      -- 2^(n+1) ≥ k+1 from k+1 ≤ n+1 ≤ 2^(n+1).
+      have h_pow1 : k + 1 ≤ 2^(n1+1) :=
+        Nat.le_trans (Nat.succ_le_succ hk1) (two_pow_ge_succ n1)
+      have h_pow2 : k + 1 ≤ 2^(n2+1) :=
+        Nat.le_trans (Nat.succ_le_succ hk2) (two_pow_ge_succ n2)
+      -- 1*k = k ≤ k+1 ≤ 2^(n+1) ≤ 2^(n+1) * (j+1).
       have h_le1 : 1*k ≤ 2^(n1+1) * (j+1) := by
-        have : 2^(n1+1) * (j+1) ≥ 2^(n1+1) :=
-          Nat.le_mul_of_pos_right _ (Nat.succ_pos j)
-        omega
+        rw [Nat.one_mul]
+        exact Nat.le_trans (Nat.le_trans (Nat.le_succ k) h_pow1)
+          (Nat.le_mul_of_pos_right _ (Nat.succ_pos j))
       have h_le2 : 1*k ≤ 2^(n2+1) * (j+1) := by
-        have : 2^(n2+1) * (j+1) ≥ 2^(n2+1) :=
-          Nat.le_mul_of_pos_right _ (Nat.succ_pos j)
-        omega
+        rw [Nat.one_mul]
+        exact Nat.le_trans (Nat.le_trans (Nat.le_succ k) h_pow2)
+          (Nat.le_mul_of_pos_right _ (Nat.succ_pos j))
       rw [decide_eq_true h_le1, decide_eq_true h_le2]
 
 /-- Helper for alwaysFalseUnit: in m < k case, cut is false past
-    threshold.  The key inequality (2^(n+1) - 1) * k > 2^(n+1) * m
-    derived from 2^(n+1) ≥ k+1 and k - m ≥ 1. -/
+    threshold.  ∅-axiom: term-mode chain via Nat213 helpers
+    (replaces `omega`, `by decide : 0 < 2`, `Nat.mul_sub_left_distrib`). -/
 private theorem alwaysFalse_unit_cut_false_when_m_lt_k
     (n m k : Nat) (hn : 2^(n+1) ≥ k + 1) (hmk : m < k) :
     ¬ ((2^(n+1) - 1) * k ≤ 2^(n+1) * m) := by
   intro hle
-  -- Convert (2^(n+1) - 1) * k = 2^(n+1) * k - k via comm + Nat.mul_sub_left_distrib.
+  -- Step e: (2^(n+1) - 1) * k = 2^(n+1) * k - k.
   have e : (2^(n+1) - 1) * k = 2^(n+1) * k - k := by
-    rw [Nat.mul_comm, Nat.mul_sub_left_distrib, Nat.mul_one, Nat.mul_comm k]
+    rw [Nat.mul_comm, E213.Tactic.Nat213.mul_sub,
+        Nat.mul_one, Nat.mul_comm k]
   rw [e] at hle
   -- hle : 2^(n+1) * k - k ≤ 2^(n+1) * m
-  have hAk : 2^(n+1) * k ≥ k :=
-    Nat.le_mul_of_pos_left k (by
-      have := Nat.pos_pow_of_pos (n+1) (by decide : 0 < 2); omega)
-  have h_le : 2^(n+1) * k ≤ 2^(n+1) * m + k := by omega
+  have h2pos : 1 ≤ 2^(n+1) := Nat.pos_pow_of_pos (n+1) (Nat.zero_lt_succ 1)
+  have hAk : k ≤ 2^(n+1) * k := Nat.le_mul_of_pos_left k h2pos
+  -- h_le: 2^(n+1) * k ≤ 2^(n+1) * m + k via hle + hAk + sub_add_cancel.
+  have h_le : 2^(n+1) * k ≤ 2^(n+1) * m + k := by
+    have eq1 : (2^(n+1) * k - k) + k = 2^(n+1) * k :=
+      E213.Tactic.Nat213.sub_add_cancel hAk
+    have hle' : (2^(n+1) * k - k) + k ≤ 2^(n+1) * m + k :=
+      Nat.add_le_add_right hle k
+    exact eq1 ▸ hle'
+  -- h_split: 2^(n+1) * k = 2^(n+1) * m + 2^(n+1) * (k - m).
   have h_split : 2^(n+1) * k = 2^(n+1) * m + 2^(n+1) * (k - m) := by
-    rw [← Nat.mul_add]
-    congr 1
-    omega
+    have hmle : m ≤ k := Nat.le_of_lt hmk
+    have hsum : m + (k - m) = k := E213.Tactic.Nat213.add_sub_of_le hmle
+    have hexp : 2^(n+1) * (m + (k - m)) = 2^(n+1) * m + 2^(n+1) * (k - m) :=
+      Nat.mul_add (2^(n+1)) m (k - m)
+    -- 2^(n+1) * k = 2^(n+1) * (m + (k - m)) [via congrArg of hsum.symm]
+    -- = 2^(n+1) * m + 2^(n+1) * (k - m) [via hexp]
+    exact (congrArg (2^(n+1) * ·) hsum.symm).trans hexp
   rw [h_split] at h_le
-  -- h_le: 2^(n+1) * m + 2^(n+1) * (k - m) ≤ 2^(n+1) * m + k
-  have h_le2 : 2^(n+1) * (k - m) ≤ k := by omega
+  -- h_le: 2^(n+1) * m + 2^(n+1) * (k - m) ≤ 2^(n+1) * m + k.
+  have h_le2 : 2^(n+1) * (k - m) ≤ k :=
+    E213.Tactic.Nat213.le_of_add_le_add_left h_le
+  -- h_lower: 2^(n+1) ≤ 2^(n+1) * (k - m) via 0 < k - m from m < k.
+  have hkm_pos : 0 < k - m := E213.Tactic.Nat213.sub_pos_of_lt hmk
   have h_lower : 2^(n+1) ≤ 2^(n+1) * (k - m) :=
-    Nat.le_mul_of_pos_right (2^(n+1)) (by omega : 0 < k - m)
-  omega
+    Nat.le_mul_of_pos_right (2^(n+1)) hkm_pos
+  -- Combine h_lower (2^(n+1) ≤ ...) and h_le2 (... ≤ k): 2^(n+1) ≤ k.
+  -- But hn: k + 1 ≤ 2^(n+1), so k + 1 ≤ 2^(n+1) ≤ k, contradicting succ_le_self.
+  have h2k : 2^(n+1) ≤ k := Nat.le_trans h_lower h_le2
+  exact Nat.not_succ_le_self k (Nat.le_trans hn h2k)
 
 /-- **alwaysFalse trajectory on unit bracket is a ConsistentOracle**.
     Threshold: thresholdN m k := k.  Cut splits on (m vs k):
@@ -310,28 +361,32 @@ def ConsistentOracle.alwaysFalseUnit : ConsistentOracle unitBracket where
   thresholdN := fun _ k => k
   consistency := by
     intro m k n1 n2 hn1 hn2
-    have hk1 : n1 ≥ k := hn1
-    have hk2 : n2 ≥ k := hn2
+    have hk1 : k ≤ n1 := hn1
+    have hk2 : k ≤ n2 := hn2
     rw [alwaysFalse_unit_midCut n1, alwaysFalse_unit_midCut n2]
     show decide ((2^(n1+1) - 1) * k ≤ 2^(n1+1) * m)
        = decide ((2^(n2+1) - 1) * k ≤ 2^(n2+1) * m)
-    have h_pow1 : 2^(n1+1) ≥ k + 1 := by
-      have h := two_pow_ge_succ n1; omega
-    have h_pow2 : 2^(n2+1) ≥ k + 1 := by
-      have h := two_pow_ge_succ n2; omega
+    -- 2^(n+1) ≥ k+1 from k+1 ≤ n+1 ≤ 2^(n+1).
+    have h_pow1 : k + 1 ≤ 2^(n1+1) :=
+      Nat.le_trans (Nat.succ_le_succ hk1) (two_pow_ge_succ n1)
+    have h_pow2 : k + 1 ≤ 2^(n2+1) :=
+      Nat.le_trans (Nat.succ_le_succ hk2) (two_pow_ge_succ n2)
     rcases Nat.lt_or_ge m k with hmk | hkm
     · -- m < k: both cuts false.
       rw [decide_eq_false (alwaysFalse_unit_cut_false_when_m_lt_k n1 m k h_pow1 hmk),
           decide_eq_false (alwaysFalse_unit_cut_false_when_m_lt_k n2 m k h_pow2 hmk)]
     · -- k ≤ m: both cuts true.
-      have h1_true : (2^(n1+1) - 1) * k ≤ 2^(n1+1) * m := by
-        have h_le_2pow : (2^(n1+1) - 1) * k ≤ 2^(n1+1) * k := by
-          apply Nat.mul_le_mul_right; omega
-        exact Nat.le_trans h_le_2pow (Nat.mul_le_mul_left _ hkm)
-      have h2_true : (2^(n2+1) - 1) * k ≤ 2^(n2+1) * m := by
-        have h_le_2pow : (2^(n2+1) - 1) * k ≤ 2^(n2+1) * k := by
-          apply Nat.mul_le_mul_right; omega
-        exact Nat.le_trans h_le_2pow (Nat.mul_le_mul_left _ hkm)
+      -- 2^(n+1) ≥ 1 (since k+1 ≤ 2^(n+1) and k ≥ 0 ≥ 0, so 1 ≤ 2^(n+1)).
+      have h2pos1 : 1 ≤ 2^(n1+1) :=
+        Nat.le_trans (Nat.succ_le_succ (Nat.zero_le k)) h_pow1
+      have h2pos2 : 1 ≤ 2^(n2+1) :=
+        Nat.le_trans (Nat.succ_le_succ (Nat.zero_le k)) h_pow2
+      have h1_true : (2^(n1+1) - 1) * k ≤ 2^(n1+1) * m :=
+        Nat.le_trans (Nat.mul_le_mul_right k (Nat.sub_le _ _))
+          (Nat.mul_le_mul_left _ hkm)
+      have h2_true : (2^(n2+1) - 1) * k ≤ 2^(n2+1) * m :=
+        Nat.le_trans (Nat.mul_le_mul_right k (Nat.sub_le _ _))
+          (Nat.mul_le_mul_left _ hkm)
       rw [decide_eq_true h1_true, decide_eq_true h2_true]
 
 /-! ### Limit values of canonical ConsistentOracles -/
@@ -590,18 +645,18 @@ theorem alwaysFalseUnit_limit_eq_one_one (m k : Nat) :
   rw [alwaysFalseUnit_limit_value]
   show decide ((2^(k+1) - 1) * k ≤ 2^(k+1) * m) = decide (1 * k ≤ 1 * m)
   rw [Nat.one_mul, Nat.one_mul]
-  have h_pow : 2^(k+1) ≥ k + 1 := by have := two_pow_ge_succ k; omega
+  -- 2^(k+1) ≥ k+1 from two_pow_ge_succ k.
+  have h_pow : k + 1 ≤ 2^(k+1) := two_pow_ge_succ k
   rcases Nat.lt_or_ge m k with hmk | hkm
   · -- m < k: both false.
     have h_lhs_false : ¬ ((2^(k+1) - 1) * k ≤ 2^(k+1) * m) :=
       alwaysFalse_unit_cut_false_when_m_lt_k k m k h_pow hmk
-    have h_rhs_false : ¬ (k ≤ m) := by omega
+    have h_rhs_false : ¬ (k ≤ m) := Nat.not_le_of_lt hmk
     rw [decide_eq_false h_lhs_false, decide_eq_false h_rhs_false]
   · -- k ≤ m: both true.
-    have h_lhs_true : (2^(k+1) - 1) * k ≤ 2^(k+1) * m := by
-      have h1 : (2^(k+1) - 1) * k ≤ 2^(k+1) * k := by
-        apply Nat.mul_le_mul_right; omega
-      exact Nat.le_trans h1 (Nat.mul_le_mul_left _ hkm)
+    have h_lhs_true : (2^(k+1) - 1) * k ≤ 2^(k+1) * m :=
+      Nat.le_trans (Nat.mul_le_mul_right k (Nat.sub_le _ _))
+        (Nat.mul_le_mul_left _ hkm)
     rw [decide_eq_true h_lhs_true, decide_eq_true hkm]
 
 /-- **Strong N3**: alwaysFalseUnit.limit is cutEq (universally

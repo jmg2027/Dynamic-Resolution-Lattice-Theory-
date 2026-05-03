@@ -53,7 +53,7 @@ theorem treeTower_leaves :
       show Tree.a.leaves + (treeTower m).leaves = m + 1 + 1
       rw [ih]
       show 1 + (m + 1) = m + 1 + 1
-      omega
+      rw [Nat.add_comm 1 (m+1)]
 
 end E213.Firmware.Internal
 

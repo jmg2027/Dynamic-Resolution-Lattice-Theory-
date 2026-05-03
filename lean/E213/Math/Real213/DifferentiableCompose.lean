@@ -19,7 +19,20 @@ namespace E213.Math.Real213.DifferentiableCompose
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus
+   cutScaleIsDifferentiable cutHalfIsDifferentiable)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
 
 /-- (x²)²: composition of square with itself.  Same function as
     quarticIsDifferentiable but constructed via chain rule. -/
@@ -39,29 +52,29 @@ def cubeOfSquareIsDifferentiable :
                                       (cutMul (cutMul x x) (cutMul x x))) :=
   composeIsDifferentiable squareIsDifferentiable cubeIsDifferentiable
 
-/-- (x²)² modulus = 2·(2k) = 4k. -/
+/-- (x²)² modulus = 2·(2k) = 4k.  ∅-axiom: Nat213.mul_assoc.symm. -/
 theorem squareOfSquare_modulus (k : Nat) :
     squareOfSquareIsDifferentiable.linearityModulus k = 4 * k := by
   show squareIsDifferentiable.linearityModulus
        (squareIsDifferentiable.linearityModulus k) = 4 * k
   rw [squareIsDifferentiable_modulus, squareIsDifferentiable_modulus]
-  omega
+  exact (E213.Tactic.Nat213.mul_assoc 2 2 k).symm
 
-/-- (x³)² modulus = cube_mod(square_mod k) = 3·(2k) = 6k. -/
+/-- (x³)² modulus = 3·(2k) = 6k.  ∅-axiom. -/
 theorem squareOfCube_modulus (k : Nat) :
     squareOfCubeIsDifferentiable.linearityModulus k = 6 * k := by
   show cubeIsDifferentiable.linearityModulus
        (squareIsDifferentiable.linearityModulus k) = 6 * k
   rw [squareIsDifferentiable_modulus, cubeIsDifferentiable_modulus]
-  omega
+  exact (E213.Tactic.Nat213.mul_assoc 3 2 k).symm
 
-/-- (x²)³ modulus = square_mod(cube_mod k) = 2·(3k) = 6k. -/
+/-- (x²)³ modulus = 2·(3k) = 6k.  ∅-axiom. -/
 theorem cubeOfSquare_modulus (k : Nat) :
     cubeOfSquareIsDifferentiable.linearityModulus k = 6 * k := by
   show squareIsDifferentiable.linearityModulus
        (cubeIsDifferentiable.linearityModulus k) = 6 * k
   rw [cubeIsDifferentiable_modulus, squareIsDifferentiable_modulus]
-  omega
+  exact (E213.Tactic.Nat213.mul_assoc 2 3 k).symm
 
 /-- Phase AJ capstone: composition modulus = product of degrees. -/
 theorem polynomial_compose_capstone (k : Nat) :

@@ -16,7 +16,7 @@ input bit, out = parity bit.
 
 namespace E213.Math.Cohomology.Dyadic.BitAuto2
 
-open E213.Math.Cohomology.Dyadic.ThueMorse (thueMorse)
+open E213.Math.Cohomology.Dyadic.ThueMorse (thueMorse bit213)
 open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 
 /-- 2-automatic bit stream generator.  Reads binary digits via DFA. -/
@@ -25,18 +25,23 @@ structure BitAuto2 (n : Nat) where
   step : Fin n → Bool → Fin n
   out  : Fin n → Bool
 
-/-- Run on binary digits of k up to bound (LSB-first via testBit). -/
+/-- Run on binary digits of k up to bound (LSB-first via `bit213`,
+    a 213-native ∅-axiom replacement for `Nat.testBit`). -/
 def BitAuto2.run {n : Nat} (m : BitAuto2 n) (k bound : Nat) : Fin n :=
-  (List.range bound).foldl (fun s i => m.step s (k.testBit i)) m.init
+  (List.range bound).foldl (fun s i => m.step s (bit213 k i)) m.init
 
 /-- Bit at index k, with bound for digit count. -/
 def BitAuto2.bits {n : Nat} (m : BitAuto2 n) (bound k : Nat) : Bool :=
   m.out (m.run k bound)
 
-/-- Thue-Morse 2-state automaton. -/
+/-- Thue-Morse 2-state automaton.  ∅-axiom: explicit term-mode
+    proofs for Fin 2 bounds (avoid `omega` / `decide` propext leaks). -/
 def thueMorseAuto : BitAuto2 2 where
-  init := ⟨0, by decide⟩
-  step s b := bif b then ⟨1 - s.val, by have := s.isLt; omega⟩ else s
+  init := ⟨0, Nat.zero_lt_succ 1⟩
+  step s b := bif b then
+    ⟨1 - s.val,
+      Nat.lt_of_le_of_lt (Nat.sub_le 1 s.val) (Nat.lt_succ_self 1)⟩
+  else s
   out s := s.val == 1
 
 /-- Thue-Morse automaton matches thueMorse on first 8 indices
@@ -59,13 +64,16 @@ theorem thueMorseAuto_witnesses_bitAuto2 :
   refine ⟨thueMorseAuto, ?_⟩
   decide
 
-/-- isPow2 indicator: 1 iff n is a power of 2 (popcount = 1). -/
+/-- isPow2 indicator: 1 iff n is a power of 2 (popcount = 1).
+    ∅-axiom: explicit Nat.lt proofs (Nat.succ_lt_succ chain). -/
 def isPow2Auto : BitAuto2 3 where
-  init := ⟨0, by decide⟩  -- popcount = 0 (no 1-bits seen)
+  init := ⟨0, Nat.zero_lt_succ 2⟩  -- popcount = 0 (no 1-bits seen)
   step s b := bif b then
-    bif s.val == 0 then ⟨1, by decide⟩  -- 0 → 1 (first 1-bit)
-    else bif s.val == 1 then ⟨2, by decide⟩  -- 1 → 2 (second 1-bit)
-    else ⟨2, by decide⟩  -- 2 → 2 (saturate)
+    bif s.val == 0 then
+      ⟨1, Nat.succ_lt_succ (Nat.zero_lt_succ 1)⟩  -- 0 → 1
+    else bif s.val == 1 then
+      ⟨2, Nat.lt_succ_self 2⟩                     -- 1 → 2
+    else ⟨2, Nat.lt_succ_self 2⟩                  -- 2 → 2 saturate
   else s
   out s := s.val == 1  -- true iff exactly one 1-bit
 

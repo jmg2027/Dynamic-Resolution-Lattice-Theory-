@@ -35,11 +35,11 @@ theorem every_lens_factors_through_idLens {α : Type} (L : Lens α) :
   intro r
   rw [idLens_is_id r]
 
-/-- Sharp form: g := L.view, then L.view = g ∘ idLens.view. -/
+/-- Sharp form: g := L.view, then L.view r = (L.view ∘ idLens.view) r
+    pointwise (PURE — funext-free). -/
 theorem factoring_formula {α : Type} (L : Lens α) :
-    L.view = L.view ∘ idLens.view := by
-  funext r
-  exact every_lens_factors_through_idLens L r
+    ∀ r, L.view r = (L.view ∘ idLens.view) r :=
+  every_lens_factors_through_idLens L
 
 /-- **idLens is ⊥ (bottom of the refines preorder)**: idLens.refines L
     for every Lens L.  That is, idLens is the finest Lens. -/

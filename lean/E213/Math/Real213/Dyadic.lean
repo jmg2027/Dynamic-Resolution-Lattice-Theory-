@@ -50,25 +50,28 @@ theorem dyadicCut_ratio (M E : Nat) : RatioCut (dyadicCut M E) :=
 theorem dyadicCut_valid (M E : Nat) : ValidCut (dyadicCut M E) :=
   constCut_valid M (2^E)
 
-/-- **cutSum_self on dyadicCut**: doubling stays dyadic. -/
+/-- **cutSum_self on dyadicCut** (cutEq, PURE): doubling stays dyadic. -/
 theorem cutSum_dyadicCut_self (M E : Nat) :
-    cutSum (dyadicCut M E) (dyadicCut M E) = dyadicCut (2 * M) E :=
+    E213.Math.Real213.CutPoset.cutEq
+      (cutSum (dyadicCut M E) (dyadicCut M E)) (dyadicCut (2 * M) E) :=
   cutSum_self M (2^E)
 
-/-- **cutHalf of dyadicCut**: increments exponent by 1.
-    M / 2^E divided by 2 = M / 2^(E+1). -/
+/-- **cutHalf of dyadicCut** (cutEq, PURE): increments exponent by 1.
+    M / 2^E divided by 2 ≡ M / 2^(E+1). -/
 theorem cutHalf_dyadicCut (M E : Nat) :
-    cutHalf (dyadicCut M E) = dyadicCut M (E+1) := by
-  show cutHalf (constCut M (2^E)) = constCut M (2^(E+1))
-  rw [cutHalf_constCut]
-  show constCut M (2 * 2^E) = constCut M (2^(E+1))
+    ∀ m k, cutHalf (dyadicCut M E) m k = dyadicCut M (E+1) m k := by
+  intro m k
+  show cutHalf (constCut M (2^E)) m k = constCut M (2^(E+1)) m k
+  rw [cutHalf_constCut M (2^E) m k]
+  show constCut M (2 * 2^E) m k = constCut M (2^(E+1)) m k
   rw [show (2:Nat)^(E+1) = 2 * 2^E from by
     rw [Nat.pow_succ, Nat.mul_comm]]
 
-/-- **cutDouble of dyadicCut**: doubles numerator, exponent unchanged.
-    2 * (M / 2^E) = (2*M) / 2^E. -/
+/-- **cutDouble of dyadicCut** (cutEq, PURE): doubles numerator, exponent unchanged.
+    2 * (M / 2^E) ≡ (2*M) / 2^E. -/
 theorem cutDouble_dyadicCut (M E : Nat) :
-    cutDouble (dyadicCut M E) = dyadicCut (2 * M) E :=
+    E213.Math.Real213.CutPoset.cutEq
+      (cutDouble (dyadicCut M E)) (dyadicCut (2 * M) E) :=
   cutDouble_constCut M (2^E)
 
 end E213.Math.Real213.Dyadic

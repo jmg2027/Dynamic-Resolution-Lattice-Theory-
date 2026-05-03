@@ -174,7 +174,7 @@ namespace E213.Hypervisor.Lens.Compose.OnLens
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.InstancesReach
+open E213.Hypervisor.Lens.Instances.Reach
 
 /-! ### Tower demonstration: infinite recursive instances
 

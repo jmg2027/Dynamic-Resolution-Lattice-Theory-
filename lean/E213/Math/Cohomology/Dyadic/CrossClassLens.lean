@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Dyadic.Pell.LensPairs
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
-import E213.Math.Cohomology.Dyadic.ProductFSMPeriod
+import E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd
 
 /-!
 # Cross-class lens — Pell (quadratic) × Tribonacci (cubic)
@@ -26,7 +26,7 @@ open E213.Math.Cohomology.Dyadic.Pell.LensPairs
   (pellMod3_BitFSM_bits_period_4 pellMod5_BitFSM_bits_period_10)
 open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
 open E213.Math.Cohomology.Dyadic.ProductFSM
-open E213.Math.Cohomology.Dyadic.ProductFSMPeriod (lens_composition_period)
+open E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd (lens_composition_period_dvd)
 
 
 /-- Lifted bit periodicity for Tribonacci mod 2 (BitFSM form). -/
@@ -39,7 +39,9 @@ theorem tribMod2_BitFSM_bits_period_4 :
   rw [toBitFSM3_bits_eq, toBitFSM3_bits_eq]
   exact tribFSMmod2_bits_period_4 k
 
-/-- ★★★★★★ Cross-class: Pell mod 3 × Tribonacci mod 2: period | 4. -/
+/-- ★★★★★★ Cross-class: Pell mod 3 × Tribonacci mod 2: period | 4.
+    ∅-axiom via `lens_composition_period_dvd` (explicit `L = 4` with
+    dvd witnesses `⟨1, rfl⟩` for both `4 ∣ 4`). -/
 theorem crossLens_pell3_trib2_period_4 :
     ∀ k, (BitFSM.product (n := 9) (m := 8) (by decide)
             (pellFSMmod3.toBitFSM (by decide))
@@ -50,18 +52,17 @@ theorem crossLens_pell3_trib2_period_4 :
             (pellFSMmod3.toBitFSM (by decide))
             (E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM.ArithFSM3.toBitFSM
               (by decide) tribFSMmod2)
-            xor).bits k := by
-  intro k
-  have hresult := lens_composition_period (n := 9) (m := 8) (by decide)
+            xor).bits k := fun k =>
+  lens_composition_period_dvd (n := 9) (m := 8) (by decide)
     (pellFSMmod3.toBitFSM (by decide))
     (E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM.ArithFSM3.toBitFSM
               (by decide) tribFSMmod2)
-    xor 4 4 (by decide) (by decide)
+    xor 4 4 4 (by decide) (by decide) ⟨1, rfl⟩ ⟨1, rfl⟩
     pellMod3_BitFSM_bits_period_4 tribMod2_BitFSM_bits_period_4 k
-  have hlcm : Nat.lcm 4 4 = 4 := by decide
-  rwa [hlcm] at hresult
 
-/-- ★★★★★★ Cross-class: Pell mod 5 × Tribonacci mod 2: period | 20. -/
+/-- ★★★★★★ Cross-class: Pell mod 5 × Tribonacci mod 2: period | 20.
+    ∅-axiom via `lens_composition_period_dvd` (explicit `L = 20` with
+    dvd witnesses `⟨2, rfl⟩` for `10 ∣ 20` and `⟨5, rfl⟩` for `4 ∣ 20`). -/
 theorem crossLens_pell5_trib2_period_20 :
     ∀ k, (BitFSM.product (n := 25) (m := 8) (by decide)
             (pellFSMmod5.toBitFSM (by decide))
@@ -72,15 +73,12 @@ theorem crossLens_pell5_trib2_period_20 :
             (pellFSMmod5.toBitFSM (by decide))
             (E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM.ArithFSM3.toBitFSM
               (by decide) tribFSMmod2)
-            xor).bits k := by
-  intro k
-  have hresult := lens_composition_period (n := 25) (m := 8) (by decide)
+            xor).bits k := fun k =>
+  lens_composition_period_dvd (n := 25) (m := 8) (by decide)
     (pellFSMmod5.toBitFSM (by decide))
     (E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM.ArithFSM3.toBitFSM
               (by decide) tribFSMmod2)
-    xor 10 4 (by decide) (by decide)
+    xor 10 4 20 (by decide) (by decide) ⟨2, rfl⟩ ⟨5, rfl⟩
     pellMod5_BitFSM_bits_period_10 tribMod2_BitFSM_bits_period_4 k
-  have hlcm : Nat.lcm 10 4 = 20 := by decide
-  rwa [hlcm] at hresult
 
 end E213.Math.Cohomology.Dyadic.CrossClassLens

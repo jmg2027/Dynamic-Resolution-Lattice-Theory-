@@ -25,7 +25,34 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
+open E213.Math.Real213.DyadicRiemann
+  (riemannSampleSum riemannSampleSum_constCut riemannSampleSum_constCut_at)
+open E213.Math.Real213.DyadicBracket
+open E213.Math.Real213.ConsistentOracle (ConsistentOracle)
+open E213.Math.Real213.DyadicTrajectory
+  (alwaysTrue alwaysFalse unitBracket
+   alwaysTrue_unit_numA alwaysTrue_unit_numB
+   alwaysFalse_unit_numA alwaysFalse_unit_numB
+   alwaysFalseUnit_limit_eq_one_one alwaysTrueUnit_limit_distinct_from_zero
+   ConsistentOracle.alwaysTrueUnit ConsistentOracle.alwaysFalseUnit)
+open E213.Math.Real213.IsSmooth (cutPowFnIsSmooth)
+open E213.Math.Real213.ResolutionDepth (cutPowFnIsSmooth_modulus)
+open E213.Math.Real213.DerivativeDepth
+  (cutPowFnIsDifferentiable_modulus cutPowFn_derivative_modulus)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus
+   cutScaleIsDifferentiable cutHalfIsDifferentiable)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
 
 /-- **Phase AH grand capstone**: 17-phase unified analysis-track summary.
     Single conjunctive theorem with one representative result from each. -/
@@ -50,9 +77,9 @@ theorem phaseAH_grand_capstone (n k a b : Nat) (x : Nat → Nat → Bool) :
     ∧ squareIsDifferentiable.linearityModulus k = 2 * k
     ∧ cubeIsDifferentiable.linearityModulus k = 3 * k
     ∧ octicIsDifferentiable.linearityModulus k = 8 * k
-    -- Bridge: Riemann sample sum forced dyadic accumulator
-    ∧ riemannSampleSum (constCutFn (constCut a b)) unitBracket n
-        = constCut (2^n * a) b :=
+    -- Bridge: Riemann sample sum forced dyadic accumulator (POINTWISE).
+    ∧ (∀ m k, riemannSampleSum (constCutFn (constCut a b)) unitBracket n m k
+            = constCut (2^n * a) b m k) :=
   ⟨alwaysTrue_unit_numA n, alwaysFalse_unit_numB n,
    cutPowFnIsSmooth_modulus n k,
    (by rw [alwaysTrueUnit_limit_distinct_from_zero.1,
@@ -62,6 +89,6 @@ theorem phaseAH_grand_capstone (n k a b : Nat) (x : Nat → Nat → Bool) :
    rfl, cutPowFn_derivative_modulus n k,
    squareIsDifferentiable_modulus k, cubeIsDifferentiable_modulus k,
    octicIsDifferentiable_modulus k,
-   riemannSampleSum_constCut a b unitBracket n⟩
+   riemannSampleSum_constCut_at a b unitBracket n⟩
 
 end E213.Math.Real213.PhaseAHGrandCapstone

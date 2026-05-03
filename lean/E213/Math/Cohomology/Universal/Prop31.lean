@@ -1,3 +1,5 @@
+import E213.Kernel.Tactic.Nat213
+import E213.Math.Cohomology.Delta.Pointwise
 import E213.Math.Cohomology.Universal.Prop
 
 /-!
@@ -19,34 +21,43 @@ namespace E213.Math.Cohomology.Universal.Prop31
 open E213.Physics.Simplex.Counts (binom)
 open E213.Math.Cohomology.Delta.Core (delta)
 open E213.Math.Cohomology.Cochain.Core (Cochain)
+open E213.Math.Cohomology.Delta.Pointwise (delta_pointwise_eq)
 
-/-- Cochain 3 1 parametrized by 3 Bool values. -/
+/-- Cochain 3 1 parametrized by 3 Bool values.  PURE: matches on
+    `i.val : Nat` (Nat-decidable) instead of `i : Fin 3` (Fin-match
+    introduces propext at def level). -/
 def pattern (b0 b1 b2 : Bool) : Cochain 3 1 := fun i =>
-  match i with
-  | ⟨0, _⟩ => b0
-  | ⟨1, _⟩ => b1
-  | ⟨2, _⟩ => b2
+  match i.val with
+  | 0 => b0
+  | 1 => b1
+  | _ => b2
 
-/-- Any σ : Cochain 3 1 equals its pattern. -/
-theorem pattern_eq (σ : Cochain 3 1) :
-    σ = pattern (σ ⟨0, by decide⟩)
-                (σ ⟨1, by decide⟩)
-                (σ ⟨2, by decide⟩) := by
-  funext k
-  match k with
-  | ⟨0, _⟩ => rfl
-  | ⟨1, _⟩ => rfl
-  | ⟨2, _⟩ => rfl
+/-- Any σ : Cochain 3 1 equals its pattern at every i. -/
+theorem pattern_eq_at (σ : Cochain 3 1) (i : Fin 3) :
+    σ i = pattern (σ ⟨0, by decide⟩)
+                  (σ ⟨1, by decide⟩)
+                  (σ ⟨2, by decide⟩) i := by
+  obtain ⟨n, hn⟩ := i
+  rcases E213.Tactic.Nat213.cases_lt_three hn with h0 | h1 | h2
+  · subst h0; rfl
+  · subst h1; rfl
+  · subst h2; rfl
 
 /-- δ²=0 on every pattern, all 8 Bool triples × 1 index. -/
 theorem dsq_pattern :
     ∀ b0 b1 b2 : Bool, ∀ i : Fin (binom 3 3),
       delta (delta (pattern b0 b1 b2)) i = false := by decide
 
-/-- ★ Prop-level ∀ σ : Cochain 3 1, δ²σ = 0. -/
+/-- ★ Prop-level ∀ σ : Cochain 3 1, δ²σ = 0.  PURE via twice-applied
+    `delta_pointwise_eq` (no funext at the lift step). -/
 theorem dsq_zero_prop_3_1 (σ : Cochain 3 1)
     (i : Fin (binom 3 3)) : delta (delta σ) i = false := by
-  rw [pattern_eq σ]
+  let τ := pattern (σ ⟨0, by decide⟩) (σ ⟨1, by decide⟩) (σ ⟨2, by decide⟩)
+  have h_pat : ∀ j, σ j = τ j := pattern_eq_at σ
+  have h_outer : delta (delta σ) i = delta (delta τ) i :=
+    delta_pointwise_eq (delta σ) (delta τ)
+      (fun j => delta_pointwise_eq σ τ h_pat j) i
+  rw [h_outer]
   exact dsq_pattern _ _ _ i
 
 /-- ★★★ Capstone: Prop-level Universal δ²=0 extends to (3, 1). -/

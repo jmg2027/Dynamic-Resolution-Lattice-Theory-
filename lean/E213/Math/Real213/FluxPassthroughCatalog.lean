@@ -16,6 +16,15 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough Passthrough_at)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough
+  (id_pass cutPow_pass compose_pass mul_pass mvt ftc)
 
 namespace FluxCut.Passthrough
 
@@ -73,5 +82,38 @@ theorem catalog_mvt_capstone :
    id_compose_id_pass.mvt, square_compose_square_pass.mvt⟩
 
 end FluxCut.Passthrough
+
+namespace FluxCut.Passthrough_at
+
+open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
+  (id_pass cutPow_pass compose_pass mul_pass)
+
+/-- x ↦ x via id (pointwise). -/
+def x_pass : Passthrough_at id := id_pass
+
+/-- x ↦ x · x via mul (PURE pointwise). -/
+def square_pass : Passthrough_at (fun x => cutMul x x) :=
+  mul_pass id_pass id_pass
+
+/-- x ↦ x · (x · x) via mul + mul (PURE pointwise). -/
+def cube_pass : Passthrough_at (fun x => cutMul x (cutMul x x)) :=
+  mul_pass id_pass square_pass
+
+/-- x ↦ (x · x) · (x · x) via mul + mul (PURE pointwise). -/
+def quartic_pass :
+    Passthrough_at (fun x => cutMul (cutMul x x) (cutMul x x)) :=
+  mul_pass square_pass square_pass
+
+/-- x ↦ (x · x) · (x · x · x) — quintic (PURE pointwise). -/
+def quintic_pass :
+    Passthrough_at (fun x => cutMul (cutMul x x) (cutMul x (cutMul x x))) :=
+  mul_pass square_pass cube_pass
+
+/-- x ↦ id · x² = x · x² via mul (PURE pointwise). -/
+def id_mul_square_pass :
+    Passthrough_at (fun x => cutMul x (cutMul x x)) :=
+  mul_pass id_pass square_pass
+
+end FluxCut.Passthrough_at
 
 end E213.Math.Real213.FluxPassthroughCatalog

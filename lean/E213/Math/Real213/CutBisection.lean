@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 
@@ -66,12 +67,17 @@ theorem cutHalf_mono (c c' : Nat → Nat → Bool)
     (h : ∀ m' k', c m' k' = true → c' m' k' = true) (m k : Nat) :
     cutHalf c m k = true → cutHalf c' m k = true := fun hmk => h (2*m) k hmk
 
-/-- **cutHalf (constCut a b) = constCut a (2*b)**: a/b / 2 = a/(2b). -/
-theorem cutHalf_constCut (a b : Nat) :
-    cutHalf (constCut a b) = constCut a (2*b) := by
-  funext m k
+/-- **cutHalf (constCut a b) m k = constCut a (2*b) m k** pointwise (∅-axiom). -/
+theorem cutHalf_constCut_at (a b m k : Nat) :
+    cutHalf (constCut a b) m k = constCut a (2*b) m k := by
   show decide (a*k ≤ b*(2*m)) = decide (a*k ≤ (2*b)*m)
   congr 1
-  rw [← Nat.mul_assoc, Nat.mul_comm b 2]
+  rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b 2]
+
+/-- **cutHalf (constCut a b) ≡ constCut a (2*b)** (cutEq, PURE):
+    a/b / 2 ≡ a/(2b) pointwise. -/
+theorem cutHalf_constCut (a b : Nat) :
+    ∀ m k, cutHalf (constCut a b) m k = constCut a (2*b) m k :=
+  cutHalf_constCut_at a b
 
 end E213.Math.Real213.CutBisection

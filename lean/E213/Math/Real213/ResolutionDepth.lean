@@ -1,4 +1,5 @@
 import E213.Math.Real213.IsSmooth
+import E213.Kernel.Tactic.Nat213
 
 /-!
 # Research.Real213ResolutionDepth: linearityModulus = resolution depth
@@ -49,19 +50,22 @@ theorem cubeIsSmooth_modulus (n : Nat) :
     cubeIsSmooth.linearityModulus n = 3 * n := by
   show n + (n + n) = 3 * n
   have e3 : (3 : Nat) * n = n + n + n := by
-    rw [show (3 : Nat) = 1 + 1 + 1 from rfl, Nat.add_mul,
-        Nat.add_mul, Nat.one_mul]
+    rw [show (3 : Nat) = 1 + 1 + 1 from rfl, E213.Tactic.Nat213.add_mul,
+        E213.Tactic.Nat213.add_mul, Nat.one_mul]
   rw [e3, Nat.add_assoc]
 
-/-- **x ↦ x⁴ has resolution depth 4**: linearityModulus n = 4n. -/
+/-- **x ↦ x⁴ has resolution depth 4**: linearityModulus n = 4n.
+    ∅-axiom: `Nat.add_assoc` chain (replaces omega). -/
 theorem quarticIsSmooth_modulus (n : Nat) :
     quarticIsSmooth.linearityModulus n = 4 * n := by
   show (n + n) + (n + n) = 4 * n
   have e4 : (4 : Nat) * n = n + n + n + n := by
     rw [show (4 : Nat) = 1 + 1 + 1 + 1 from rfl,
-        Nat.add_mul, Nat.add_mul, Nat.add_mul, Nat.one_mul]
+        E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.add_mul,
+        E213.Tactic.Nat213.add_mul, Nat.one_mul]
   rw [e4]
-  omega
+  -- (n + n) + (n + n) = n + n + n + n via add_assoc
+  exact (Nat.add_assoc (n+n) n n).symm
 
 /-- **Resolution depth principle (capstone)**: polynomial functions
     of degree d have linearityModulus n = d * n.
@@ -194,7 +198,7 @@ theorem cutPowFnIsSmooth_modulus (n : Nat) (k : Nat) :
        + idIsSmooth.linearityModulus k
        = (m + 1) * k
     rw [ih, idIsSmooth_modulus]
-    rw [Nat.add_mul, Nat.one_mul]
+    rw [E213.Tactic.Nat213.add_mul, Nat.one_mul]
 
 /-! ### AA3: cutPowFnIsSmooth concrete modulus values via generic theorem -/
 
@@ -405,28 +409,32 @@ theorem quinticIsSmooth_modulus (n : Nat) :
     quinticIsSmooth.linearityModulus n = 5 * n := by
   show squareIsSmooth.linearityModulus n + cubeIsSmooth.linearityModulus n
        = 5 * n
-  rw [squareIsSmooth_modulus, cubeIsSmooth_modulus]; omega
+  rw [squareIsSmooth_modulus, cubeIsSmooth_modulus]
+  exact (E213.Tactic.Nat213.add_mul 2 3 n).symm
 
 /-- **x⁶ generic modulus**: linearityModulus n = 6 * n (slope 6). -/
 theorem sexticIsSmooth_modulus (n : Nat) :
     sexticIsSmooth.linearityModulus n = 6 * n := by
   show cubeIsSmooth.linearityModulus n + cubeIsSmooth.linearityModulus n
        = 6 * n
-  rw [cubeIsSmooth_modulus]; omega
+  rw [cubeIsSmooth_modulus]
+  exact (E213.Tactic.Nat213.add_mul 3 3 n).symm
 
 /-- **x⁷ generic modulus**: linearityModulus n = 7 * n (slope 7). -/
 theorem septicIsSmooth_modulus (n : Nat) :
     septicIsSmooth.linearityModulus n = 7 * n := by
   show cubeIsSmooth.linearityModulus n + quarticIsSmooth.linearityModulus n
        = 7 * n
-  rw [cubeIsSmooth_modulus, quarticIsSmooth_modulus]; omega
+  rw [cubeIsSmooth_modulus, quarticIsSmooth_modulus]
+  exact (E213.Tactic.Nat213.add_mul 3 4 n).symm
 
 /-- **x⁸ generic modulus**: linearityModulus n = 8 * n (slope 8). -/
 theorem octicIsSmooth_modulus (n : Nat) :
     octicIsSmooth.linearityModulus n = 8 * n := by
   show quarticIsSmooth.linearityModulus n + quarticIsSmooth.linearityModulus n
        = 8 * n
-  rw [quarticIsSmooth_modulus]; omega
+  rw [quarticIsSmooth_modulus]
+  exact (E213.Tactic.Nat213.add_mul 4 4 n).symm
 
 /-- **Polynomial slope coverage**: degree → modulus slope explicitly,
     for degrees 1-8.  Capstone of the full polynomial chain. -/

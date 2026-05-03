@@ -1,6 +1,8 @@
 import E213.Math.Cauchy.PellSeq
 import E213.Math.Cauchy.Archimedean
 import E213.Math.Cauchy.MonotonicBounded
+import E213.Math.Polynomial213.Sound
+import E213.Math.Polynomial213.Ineq
 
 /-!
 # Research.WallisSeq: π/2 Dedekind cut via Wallis product
@@ -68,26 +70,74 @@ theorem wallisNum_pos (n : Nat) : 1 ≤ wallisNum n := by
   | zero => decide
   | succ k ih =>
       show 1 ≤ wallisNum k * (4 * (k + 1) * (k + 1))
-      calc 1 = 1 * 1 := rfl
-        _ ≤ wallisNum k * (4 * (k + 1) * (k + 1)) :=
-            Nat.mul_le_mul ih (by
-              have h1 : 1 ≤ 4 * (k + 1) := by
-                calc 1 ≤ 4 := by decide
-                  _ = 4 * 1 := by rw [Nat.mul_one]
-                  _ ≤ 4 * (k + 1) := Nat.mul_le_mul_left 4 (by omega)
-              calc 1 = 1 * 1 := rfl
-                _ ≤ 4 * (k + 1) * (k + 1) := Nat.mul_le_mul h1 (by omega))
+      have hk1 : 1 ≤ k + 1 := Nat.succ_le_succ (Nat.zero_le k)
+      have h1 : 1 ≤ 4 * (k + 1) :=
+        Nat.le_trans (by decide : (1 : Nat) ≤ 4)
+          (Nat.le_trans (Nat.le_of_eq (Nat.mul_one 4).symm)
+                        (Nat.mul_le_mul_left 4 hk1))
+      have h2 : 1 ≤ 4 * (k + 1) * (k + 1) :=
+        Nat.le_trans (Nat.le_of_eq (Nat.mul_one 1).symm)
+                     (Nat.mul_le_mul h1 hk1)
+      exact Nat.le_trans (Nat.le_of_eq (Nat.mul_one 1).symm)
+                         (Nat.mul_le_mul ih h2)
 
 theorem wallisDen_pos (n : Nat) : 1 ≤ wallisDen n := by
   induction n with
   | zero => decide
   | succ k ih =>
       show 1 ≤ wallisDen k * ((2 * k + 1) * (2 * k + 3))
-      have h1 : 1 ≤ (2 * k + 1) * (2 * k + 3) := by
-        calc 1 = 1 * 1 := rfl
-          _ ≤ (2 * k + 1) * (2 * k + 3) := Nat.mul_le_mul (by omega) (by omega)
-      calc 1 = 1 * 1 := rfl
-        _ ≤ wallisDen k * ((2 * k + 1) * (2 * k + 3)) := Nat.mul_le_mul ih h1
+      have h2k1 : 1 ≤ 2 * k + 1 := Nat.succ_le_succ (Nat.zero_le _)
+      have h2k3 : 1 ≤ 2 * k + 3 :=
+        Nat.le_trans (by decide : (1:Nat) ≤ 3) (Nat.le_add_left 3 (2*k))
+      have h1 : 1 ≤ (2 * k + 1) * (2 * k + 3) :=
+        Nat.le_trans (Nat.le_of_eq (Nat.mul_one 1).symm)
+                     (Nat.mul_le_mul h2k1 h2k3)
+      exact Nat.le_trans (Nat.le_of_eq (Nat.mul_one 1).symm)
+                         (Nat.mul_le_mul ih h1)
+
+end E213.Math.Cauchy.WallisSeq
+
+namespace E213.Math.Cauchy.WallisSeq
+
+open E213.Firmware E213.Hypervisor
+open E213.Polynomial213 (Poly eval C X add scale mul
+                          eval_add eval_mul eval_scale eval_C eval_X
+                          eval_le_of_add eval_lt_of_add_succ)
+
+/-! ### Polynomial213 helpers for Wallis inequalities -/
+
+private def kkLhs : Poly :=
+  mul (add (scale 2 X) (C 1)) (add (scale 2 X) (C 3))
+private def kkRhs : Poly := scale 4 (mul (add X (C 1)) (add X (C 1)))
+
+/-- Both sides are degree-2 polys in k.  `kkLhs + [1] = kkRhs` (rfl). -/
+private theorem kkLhs_add_one_eq_kkRhs : add kkLhs (C 1) = kkRhs := rfl
+
+private theorem eval_kkLhs (k : Nat) :
+    eval kkLhs k = (2*k + 1) * (2*k + 3) := by
+  show eval (mul _ _) k = _
+  rw [eval_mul, eval_add, eval_scale, eval_X, eval_C,
+      eval_add, eval_scale, eval_X, eval_C]
+
+private theorem eval_kkRhs (k : Nat) :
+    eval kkRhs k = 4 * ((k+1) * (k+1)) := by
+  show eval (scale 4 _) k = _
+  rw [eval_scale, eval_mul, eval_add, eval_X, eval_C]
+
+/-- ★ `(2k+1)(2k+3) ≤ 4(k+1)²` via Polynomial213 (∅-axiom). -/
+theorem kk_le_4_kp1_sq (k : Nat) :
+    (2 * k + 1) * (2 * k + 3) ≤ 4 * ((k + 1) * (k + 1)) := by
+  rw [← eval_kkLhs k, ← eval_kkRhs k]
+  exact eval_le_of_add kkLhs kkRhs (C 1) k kkLhs_add_one_eq_kkRhs
+
+/-- ★ `(2k+1)(2k+3) < 4(k+1)²` (strict, ∅-axiom). -/
+theorem kk_lt_4_kp1_sq (k : Nat) :
+    (2 * k + 1) * (2 * k + 3) < 4 * ((k + 1) * (k + 1)) := by
+  rw [← eval_kkLhs k, ← eval_kkRhs k]
+  exact eval_lt_of_add_succ kkLhs kkRhs ([] : Poly) k
+    (by show add kkLhs (add [] (C 1)) = kkRhs
+        show add kkLhs (C 1) = kkRhs
+        exact kkLhs_add_one_eq_kkRhs)
 
 end E213.Math.Cauchy.WallisSeq
 
@@ -106,36 +156,27 @@ open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 theorem wallis_lower_inv (n : Nat) (hn : n ≥ 1) :
     3 * wallisNum n ≥ 4 * wallisDen n := by
   induction n with
-  | zero => omega
+  | zero => exact absurd hn (by decide)
   | succ k ih =>
       by_cases hk : k = 0
       · subst hk
         show 3 * wallisNum 1 ≥ 4 * wallisDen 1
         decide
-      · have hk1 : k ≥ 1 := by omega
+      · have hk1 : k ≥ 1 := Nat.pos_of_ne_zero hk
         have h_inv : 4 * wallisDen k ≤ 3 * wallisNum k := ih hk1
         show 4 * wallisDen (k + 1) ≤ 3 * wallisNum (k + 1)
         show 4 * (wallisDen k * ((2 * k + 1) * (2 * k + 3)))
               ≤ 3 * (wallisNum k * (4 * (k + 1) * (k + 1)))
         have hkk : (2 * k + 1) * (2 * k + 3) ≤ 4 * (k + 1) * (k + 1) := by
-          have eL_h1 : 4 * (k + 1) * (k + 1)
-                     = 4 * k * k + 4 * k * 1 + (4 * 1 * k + 4 * 1 * 1) := by
-            rw [Nat.mul_add 4 k 1, Nat.add_mul, Nat.mul_add, Nat.mul_add]
-          have eR_h1 : (2 * k + 1) * (2 * k + 3)
-                     = 2 * k * (2 * k) + 2 * k * 3 + (1 * (2 * k) + 1 * 3) := by
-            rw [Nat.add_mul, Nat.mul_add, Nat.mul_add]
-          have e_kk_4 : 4 * k * k = 4 * (k * k) := by rw [Nat.mul_assoc]
-          have e_kk_2 : 2 * k * (2 * k) = 4 * (k * k) := by
-            rw [Nat.mul_mul_mul_comm]
-          rw [eL_h1, eR_h1, e_kk_4, e_kk_2]
-          omega
+          rw [E213.Tactic.Nat213.mul_assoc 4 (k+1) (k+1)]
+          exact kk_le_4_kp1_sq k
         -- Reassociate: 4 * (D * Q) = (4 * D) * Q,  3 * (N * P) = (3 * N) * P.
         have hLB : 4 * (wallisDen k * ((2 * k + 1) * (2 * k + 3)))
                    = (4 * wallisDen k) * ((2 * k + 1) * (2 * k + 3)) :=
-          (Nat.mul_assoc _ _ _).symm
+          (E213.Tactic.Nat213.mul_assoc _ _ _).symm
         have hLA : 3 * (wallisNum k * (4 * (k + 1) * (k + 1)))
                    = (3 * wallisNum k) * (4 * (k + 1) * (k + 1)) :=
-          (Nat.mul_assoc _ _ _).symm
+          (E213.Tactic.Nat213.mul_assoc _ _ _).symm
         rw [hLA, hLB]
         -- (4 D) * (2k+1)(2k+3) ≤ (3 N) * (2k+1)(2k+3) ≤ (3 N) * 4(k+1)².
         have step1 : (4 * wallisDen k) * ((2 * k + 1) * (2 * k + 3))
@@ -163,25 +204,16 @@ theorem wallis_monotonic (n : Nat) :
   show wallisNum n * (wallisDen n * ((2 * n + 1) * (2 * n + 3)))
        < wallisNum n * (4 * (n + 1) * (n + 1)) * wallisDen n
   have hkk_strict : (2 * n + 1) * (2 * n + 3) < 4 * (n + 1) * (n + 1) := by
-    have eL_h1 : 4 * (n + 1) * (n + 1)
-               = 4 * n * n + 4 * n * 1 + (4 * 1 * n + 4 * 1 * 1) := by
-      rw [Nat.mul_add 4 n 1, Nat.add_mul, Nat.mul_add, Nat.mul_add]
-    have eR_h1 : (2 * n + 1) * (2 * n + 3)
-               = 2 * n * (2 * n) + 2 * n * 3 + (1 * (2 * n) + 1 * 3) := by
-      rw [Nat.add_mul, Nat.mul_add, Nat.mul_add]
-    have e_kk_4 : 4 * n * n = 4 * (n * n) := by rw [Nat.mul_assoc]
-    have e_kk_2 : 2 * n * (2 * n) = 4 * (n * n) := by
-      rw [Nat.mul_mul_mul_comm]
-    rw [eL_h1, eR_h1, e_kk_4, e_kk_2]
-    omega
+    rw [E213.Tactic.Nat213.mul_assoc 4 (n+1) (n+1)]
+    exact kk_lt_4_kp1_sq n
   -- Reassociate and chain.
   have hL : wallisNum n * (wallisDen n * ((2 * n + 1) * (2 * n + 3)))
-            = wallisNum n * wallisDen n * ((2 * n + 1) * (2 * n + 3)) := by
-    rw [← Nat.mul_assoc]
+            = wallisNum n * wallisDen n * ((2 * n + 1) * (2 * n + 3)) :=
+    (E213.Tactic.Nat213.mul_assoc _ _ _).symm
   have hR : wallisNum n * (4 * (n + 1) * (n + 1)) * wallisDen n
             = wallisNum n * wallisDen n * (4 * (n + 1) * (n + 1)) := by
-    rw [Nat.mul_assoc, Nat.mul_comm (4 * (n+1) * (n+1)) (wallisDen n),
-        ← Nat.mul_assoc]
+    rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (4 * (n+1) * (n+1)) (wallisDen n),
+        ← E213.Tactic.Nat213.mul_assoc]
   rw [hL, hR]
   have h_pos : 1 ≤ wallisNum n * wallisDen n := by
     calc 1 = 1 * 1 := rfl
@@ -216,97 +248,89 @@ theorem wallis_orderProj_below_1 (m k : Nat) (hk : k ≥ 1) (hmk : m ≤ k)
     (n : Nat) (hn : n ≥ 1) :
     orderProj m k (abLens.view (wallisRaw n).val) = false := by
   rw [wallisRaw_view]
-  unfold orderProj
   show decide (wallisNum n * k ≤ wallisDen n * m) = false
-  rw [decide_eq_false_iff_not]
+  apply decide_eq_false
   intro hle
-  -- hle: a_n * k ≤ d_n * m.
-  -- Lower inv: 3 * a_n ≥ 4 * d_n, i.e., a_n ≥ (4/3) d_n.
-  -- a_n * k ≥ (in some sense) (4/3) d_n * k > d_n * k ≥ d_n * m.  Contradiction.
   have hl := wallis_lower_inv n hn
-  -- 3 * a_n ≥ 4 * d_n.  Multiply hle by 3: 3 * (a_n * k) ≤ 3 * (d_n * m).
-  -- 3 * a_n * k ≤ 3 * d_n * m.  And 4 * d_n * k ≤ 3 * a_n * k (from lower inv * k).
-  -- So 4 * d_n * k ≤ 3 * d_n * m.
-  -- m ≤ k implies 3 * d_n * m ≤ 3 * d_n * k.  So 4 * d_n * k ≤ 3 * d_n * k.
-  -- Cancel d_n * k > 0: 4 ≤ 3.  Contra.
   have h1 : 4 * wallisDen n * k ≤ 3 * wallisNum n * k :=
     Nat.mul_le_mul_right k hl
   have h2 : 3 * (wallisNum n * k) ≤ 3 * (wallisDen n * m) :=
     Nat.mul_le_mul_left 3 hle
-  have h2' : 3 * wallisNum n * k = 3 * (wallisNum n * k) := Nat.mul_assoc _ _ _
+  have h2' : 3 * wallisNum n * k = 3 * (wallisNum n * k) :=
+    E213.Tactic.Nat213.mul_assoc _ _ _
   have h3 : 4 * wallisDen n * k ≤ 3 * (wallisDen n * m) := by
     rw [h2'] at h1; exact Nat.le_trans h1 h2
   have h4 : 3 * (wallisDen n * m) ≤ 3 * (wallisDen n * k) :=
     Nat.mul_le_mul_left 3 (Nat.mul_le_mul_left (wallisDen n) hmk)
   have h5 : 4 * wallisDen n * k ≤ 3 * (wallisDen n * k) := Nat.le_trans h3 h4
-  -- 4 * d * k ≤ 3 * (d * k), with d ≥ 1, k ≥ 1.  Contra.
   have hdpos : 1 ≤ wallisDen n := wallisDen_pos n
   have hdk : 1 ≤ wallisDen n * k := by
     calc 1 = 1 * 1 := rfl
       _ ≤ wallisDen n * k := Nat.mul_le_mul hdpos hk
   have h5' : 4 * (wallisDen n * k) ≤ 3 * (wallisDen n * k) := by
-    rw [show 4 * wallisDen n * k = 4 * (wallisDen n * k) from Nat.mul_assoc _ _ _] at h5
+    rw [show 4 * wallisDen n * k = 4 * (wallisDen n * k)
+          from E213.Tactic.Nat213.mul_assoc _ _ _] at h5
     exact h5
-  -- 4*X ≤ 3*X with X ≥ 1: contra.
-  have h_swap : (wallisDen n * k) * 4 ≤ (wallisDen n * k) * 3 := by
-    rw [Nat.mul_comm (wallisDen n * k) 4, Nat.mul_comm (wallisDen n * k) 3]
-    exact h5'
-  have h43 : 4 ≤ 3 :=
-    Nat.le_of_mul_le_mul_left h_swap (by omega : 0 < wallisDen n * k)
-  omega
+  -- 4*X ≤ 3*X with X ≥ 1 → False.  Cancel X via Nat213.le_of_mul_le_mul_right.
+  -- Or chain: 3*(d*k) + (d*k) = 4*(d*k) ≤ 3*(d*k), so d*k ≤ 0, contra hdk.
+  have h_chain : 3 * (wallisDen n * k) + (wallisDen n * k)
+               ≤ 3 * (wallisDen n * k) + 0 := by
+    rw [Nat.add_zero]
+    have h4eq : 4 * (wallisDen n * k) = 3 * (wallisDen n * k) + (wallisDen n * k) := by
+      rw [show (4 : Nat) = 3 + 1 from rfl, E213.Tactic.Nat213.add_mul, Nat.one_mul]
+    rw [← h4eq]; exact h5'
+  have h_dk_zero : wallisDen n * k ≤ 0 :=
+    E213.Tactic.Nat213.le_of_add_le_add_left h_chain
+  exact absurd (Nat.le_trans hdk h_dk_zero) (by decide)
 
 end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
+open E213.Polynomial213 (Poly eval C X add scale mul
+                          eval_add eval_mul eval_scale eval_C eval_X)
 
-/-! ### Upper invariant via Flat-Monomial Strategy -/
+/-! ### Upper invariant via Polynomial213 reflection -/
+
+private def wallisLhsPoly : Poly :=
+  add (mul (add (scale 4 X) (C 1))
+           (scale 4 (mul (add X (C 1)) (add X (C 1)))))
+      (C 1)
+
+private def wallisRhsPoly : Poly :=
+  mul (add (scale 4 X) (C 5))
+      (mul (add (scale 2 X) (C 1)) (add (scale 2 X) (C 1)))
+
+/-- Both sides Horner-normalize to `[5, 24, 36, 16]` — `rfl`. -/
+private theorem wallisLhsPoly_eq_wallisRhsPoly :
+    wallisLhsPoly = wallisRhsPoly := rfl
+
+/-- Bridge: eval LHS poly = symbolic LHS form (parenthesized). -/
+private theorem eval_wallisLhsPoly (k : Nat) :
+    eval wallisLhsPoly k = (4*k + 1) * (4 * ((k+1) * (k+1))) + 1 := by
+  show eval (add _ (C 1)) k = _
+  rw [eval_add, eval_C, eval_mul, eval_add, eval_scale, eval_X, eval_C,
+      eval_scale, eval_mul, eval_add, eval_X, eval_C]
+
+private theorem eval_wallisRhsPoly (k : Nat) :
+    eval wallisRhsPoly k = (4*k + 5) * ((2*k + 1) * (2*k + 1)) := by
+  show eval (mul _ _) k = _
+  rw [eval_mul, eval_add, eval_scale, eval_X, eval_C,
+      eval_mul, eval_add, eval_scale, eval_X, eval_C]
 
 /-- **Polynomial identity**: `(4k+1) · 4(k+1)² + 1 = (4k+5) · (2k+1)²`.
 
-    Closed without ring in Lean 4 core — flat-monomial normalization
-    + two-generalize (`K := k*k`, `M := k*(k*k)`) + omega.
-    Minimal instance of the strategy from note 72. -/
+    Now via `Polynomial213` reflection (∅-axiom).  Both sides
+    Horner-normalize to the same `List Nat` `[5, 24, 36, 16]`.
+    Compresses the original ~40-line omega-heavy proof to ~5 lines. -/
 theorem wallis_poly_identity (k : Nat) :
     (4 * k + 1) * (4 * (k + 1) * (k + 1)) + 1
       = (4 * k + 5) * ((2 * k + 1) * (2 * k + 1)) := by
-  have h_kp1_sq : (k + 1) * (k + 1) = k * k + 2 * k + 1 := by
-    rw [Nat.mul_add (k+1) k 1, Nat.mul_one, Nat.add_mul k 1 k, Nat.one_mul]
-    omega
-  have h_2kp1_sq : (2 * k + 1) * (2 * k + 1) = 4 * (k * k) + 4 * k + 1 := by
-    rw [Nat.mul_add (2*k+1) (2*k) 1, Nat.mul_one,
-        Nat.add_mul (2*k) 1 (2*k), Nat.one_mul]
-    rw [show 2 * k * (2 * k) = 4 * (k * k) from Nat.mul_mul_mul_comm 2 k 2 k]
-    omega
-  rw [show 4 * (k+1) * (k+1) = 4 * ((k+1) * (k+1)) from Nat.mul_assoc _ _ _]
-  rw [h_kp1_sq, h_2kp1_sq]
-  rw [show 4 * (k*k + 2*k + 1) = 4*(k*k) + 8*k + 4 by
-        rw [Nat.mul_add, Nat.mul_add]; omega]
-  have hLHS : (4*k + 1) * (4*(k*k) + 8*k + 4)
-            = 16*(k*(k*k)) + 32*(k*k) + 16*k + 4*(k*k) + 8*k + 4 := by
-    rw [Nat.add_mul (4*k) 1, Nat.one_mul]
-    rw [Nat.mul_add (4*k) (4*(k*k) + 8*k) 4]
-    rw [Nat.mul_add (4*k) (4*(k*k)) (8*k)]
-    rw [show 4*k*(4*(k*k)) = 16*(k*(k*k)) from Nat.mul_mul_mul_comm 4 k 4 (k*k)]
-    rw [show 4*k*(8*k) = 32*(k*k) from Nat.mul_mul_mul_comm 4 k 8 k]
-    rw [show 4*k*4 = 16*k from by rw [Nat.mul_comm (4*k) 4, ← Nat.mul_assoc]]
-    omega
-  have hRHS : (4*k + 5) * (4*(k*k) + 4*k + 1)
-            = 16*(k*(k*k)) + 16*(k*k) + 4*k + 20*(k*k) + 20*k + 5 := by
-    rw [Nat.add_mul (4*k) 5]
-    rw [Nat.mul_add (4*k) (4*(k*k) + 4*k) 1, Nat.mul_add (4*k) (4*(k*k)) (4*k)]
-    rw [Nat.mul_add 5 (4*(k*k) + 4*k) 1, Nat.mul_add 5 (4*(k*k)) (4*k)]
-    rw [Nat.mul_one (4*k), Nat.mul_one 5]
-    rw [show 4*k*(4*(k*k)) = 16*(k*(k*k)) from Nat.mul_mul_mul_comm 4 k 4 (k*k)]
-    rw [show 4*k*(4*k) = 16*(k*k) from Nat.mul_mul_mul_comm 4 k 4 k]
-    rw [show 5*(4*(k*k)) = 20*(k*k) by rw [← Nat.mul_assoc]]
-    rw [show (5:Nat)*(4*k) = 20*k by rw [← Nat.mul_assoc]]
-    omega
-  rw [hLHS, hRHS]
-  generalize k * (k * k) = M
-  generalize k * k = K
-  omega
+  rw [E213.Tactic.Nat213.mul_assoc 4 (k+1) (k+1),
+      ← eval_wallisLhsPoly k,
+      ← eval_wallisRhsPoly k,
+      congrArg (fun p => eval p k) wallisLhsPoly_eq_wallisRhsPoly]
 
 end E213.Math.Cauchy.WallisSeq
 
@@ -331,7 +355,7 @@ theorem wallis_upper_inv (n : Nat) :
       -- R=2k+3, S=4k+5, T=4k+1.
       have h_poly : (4*k + 1) * (4 * (k+1) * (k+1)) + 1
                   = (4*k + 5) * ((2*k+1) * (2*k+1)) := wallis_poly_identity k
-      have hQ_pos : 0 < 2*k + 1 := by omega
+      have hQ_pos : 0 < 2*k + 1 := Nat.zero_lt_succ _
       generalize hP : 4 * (k+1) * (k+1) = P at *
       generalize hQ : 2*k + 1 = Q at *
       generalize hR : 2*k + 3 = R at *
@@ -339,14 +363,16 @@ theorem wallis_upper_inv (n : Nat) :
       generalize hT : 4*k + 1 = T at *
       generalize hN : wallisNum k = N at *
       generalize hD : wallisDen k = D at *
-      -- Now: ih : N * Q ≤ T * D.  h_poly : T * P + 1 = S * (Q * Q).
-      -- Goal: N * P * R ≤ S * (D * (Q * R)).  hQ_pos : 0 < Q.
+      -- ih : N * Q ≤ T * D.  h_poly : T * P + 1 = S * (Q * Q).
       have h_poly_le : T * P ≤ S * Q * Q := by
-        have hsq : S * (Q * Q) = S * Q * Q := (Nat.mul_assoc _ _ _).symm
-        omega
+        have hsq : S * (Q * Q) = S * Q * Q := (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+        rw [← hsq]
+        -- T * P ≤ S * (Q * Q) since T * P + 1 = S * (Q * Q)
+        have h1 : T * P ≤ T * P + 1 := Nat.le_succ _
+        rw [h_poly] at h1; exact h1
       have h1 : N * Q * P ≤ T * D * P := Nat.mul_le_mul_right P ih
       have h2 : T * D * P = D * (T * P) := by
-        rw [Nat.mul_comm T D, Nat.mul_assoc]
+        rw [Nat.mul_comm T D, E213.Tactic.Nat213.mul_assoc]
       have h3 : D * (T * P) ≤ D * (S * Q * Q) := Nat.mul_le_mul_left D h_poly_le
       have h4 : N * Q * P ≤ D * (S * Q * Q) := by
         rw [h2] at h1; exact Nat.le_trans h1 h3
@@ -354,22 +380,28 @@ theorem wallis_upper_inv (n : Nat) :
         Nat.mul_le_mul_right R h4
       have hLHS_assoc : N * Q * P * R = N * P * R * Q := by
         have e1 : N * Q * P = N * P * Q := by
-          rw [Nat.mul_assoc N Q P, Nat.mul_comm Q P, ← Nat.mul_assoc]
+          rw [E213.Tactic.Nat213.mul_assoc N Q P, Nat.mul_comm Q P,
+              ← E213.Tactic.Nat213.mul_assoc]
         rw [e1]
-        rw [Nat.mul_assoc (N*P) Q R, Nat.mul_comm Q R, ← Nat.mul_assoc]
+        rw [E213.Tactic.Nat213.mul_assoc (N*P) Q R, Nat.mul_comm Q R,
+            ← E213.Tactic.Nat213.mul_assoc]
       have hRHS_assoc : D * (S * Q * Q) * R = S * D * Q * R * Q := by
         have e2 : D * (S * Q * Q) = S * D * Q * Q := by
-          rw [← Nat.mul_assoc D (S*Q) Q, ← Nat.mul_assoc D S Q, Nat.mul_comm D S]
+          rw [← E213.Tactic.Nat213.mul_assoc D (S*Q) Q,
+              ← E213.Tactic.Nat213.mul_assoc D S Q, Nat.mul_comm D S]
         rw [e2]
-        rw [Nat.mul_assoc (S*D*Q) Q R, Nat.mul_comm Q R, ← Nat.mul_assoc]
+        rw [E213.Tactic.Nat213.mul_assoc (S*D*Q) Q R, Nat.mul_comm Q R,
+            ← E213.Tactic.Nat213.mul_assoc]
       rw [hLHS_assoc, hRHS_assoc] at h5
       have h6 : Q * (N * P * R) ≤ Q * (S * D * Q * R) := by
         rw [Nat.mul_comm Q (N * P * R), Nat.mul_comm Q (S * D * Q * R)]
         exact h5
       have h7 : N * P * R ≤ S * D * Q * R :=
-        Nat.le_of_mul_le_mul_left h6 hQ_pos
+        E213.Tactic.Nat213.le_of_mul_le_mul_right hQ_pos
+          (by rw [Nat.mul_comm (N * P * R) Q, Nat.mul_comm (S * D * Q * R) Q]
+              exact h6)
       have hRHS_goal : S * (D * (Q * R)) = S * D * Q * R := by
-        rw [← Nat.mul_assoc, ← Nat.mul_assoc]
+        rw [← E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
       rw [hRHS_goal]
       exact h7
 
@@ -387,44 +419,41 @@ open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 theorem wallis_orderProj_above_2 (m k : Nat) (h2km : 2 * k ≤ m) (n : Nat) :
     orderProj m k (abLens.view (wallisRaw n).val) = true := by
   rw [wallisRaw_view]
-  unfold orderProj
   show decide (wallisNum n * k ≤ wallisDen n * m) = true
-  rw [decide_eq_true_iff]
-  -- From upper inv: W_n * (2n+1) ≤ (4n+1) * D_n.
-  -- (4n+1) ≤ 2*(2n+1) - 1, so W_n * (2n+1) ≤ (2*(2n+1) - 1) * D_n < 2*(2n+1)*D_n.
-  -- Hence W_n * (2n+1) ≤ 2 * D_n * (2n+1) - D_n.
-  -- Cancel (2n+1): W_n ≤ 2 * D_n (with strict, or ≤ - 1, but use ≤ form).
-  -- Cleaner: from W_n * (2n+1) ≤ (4n+1)*D_n ≤ 2(2n+1)*D_n - D_n, so
-  -- W_n * (2n+1) < 2*(2n+1)*D_n, which cancels (2n+1) > 0: W_n < 2*D_n.
-  -- For Nat: W_n + 1 ≤ 2 * D_n, hence W_n ≤ 2 * D_n.
+  apply decide_eq_true
   have hu := wallis_upper_inv n
-  have h_2n1_pos : 0 < 2*n + 1 := by omega
+  have h_2n1_pos : 0 < 2*n + 1 := Nat.zero_lt_succ _
   -- (4n+1) = 2*(2n+1) - 1, so (4n+1) * D_n + D_n = 2 * (2n+1) * D_n.
   have h_eq : (4*n + 1) * wallisDen n + wallisDen n
               = 2 * (2*n + 1) * wallisDen n := by
-    have h_e : 2 * (2*n + 1) = (4*n + 1) + 1 := by omega
-    rw [h_e, Nat.add_mul (4*n + 1) 1 (wallisDen n), Nat.one_mul]
+    have h_e : 2 * (2*n + 1) = (4*n + 1) + 1 := by
+      rw [Nat.mul_add 2 (2*n) 1, Nat.mul_one,
+          ← E213.Tactic.Nat213.mul_assoc 2 2 n,
+          show (2 : Nat) * 2 = 4 from rfl]
+    rw [h_e, E213.Tactic.Nat213.add_mul (4*n + 1) 1 (wallisDen n), Nat.one_mul]
   -- So W_n * (2n+1) + D_n ≤ 2 * (2n+1) * D_n.
   have h1 : wallisNum n * (2*n + 1) + wallisDen n ≤ 2 * (2*n + 1) * wallisDen n := by
     rw [← h_eq]
     exact Nat.add_le_add_right hu (wallisDen n)
   -- Hence W_n * (2n+1) ≤ 2 * D_n * (2n+1).
   have h2 : wallisNum n * (2*n+1) ≤ 2 * wallisDen n * (2*n+1) := by
-    have hdpos : 1 ≤ wallisDen n := wallisDen_pos n
     have h_RHS : 2 * (2*n+1) * wallisDen n = 2 * wallisDen n * (2*n+1) := by
-      rw [Nat.mul_assoc, Nat.mul_comm (2*n+1) (wallisDen n), ← Nat.mul_assoc]
+      rw [E213.Tactic.Nat213.mul_assoc, Nat.mul_comm (2*n+1) (wallisDen n),
+          ← E213.Tactic.Nat213.mul_assoc]
     rw [h_RHS] at h1
-    omega
-  -- Cancel (2n+1): W_n ≤ 2 * D_n.
+    -- h1 : wallisNum n * (2*n+1) + wallisDen n ≤ 2 * wallisDen n * (2*n+1)
+    -- Want: wallisNum n * (2*n+1) ≤ 2 * wallisDen n * (2*n+1)
+    exact Nat.le_trans (Nat.le_add_right _ _) h1
   have h3 : (2*n+1) * wallisNum n ≤ (2*n+1) * (2 * wallisDen n) := by
     rw [Nat.mul_comm (2*n+1) (wallisNum n), Nat.mul_comm (2*n+1) (2 * wallisDen n)]
     exact h2
   have h4 : wallisNum n ≤ 2 * wallisDen n :=
-    Nat.le_of_mul_le_mul_left h3 h_2n1_pos
-  -- Now goal: W_n * k ≤ D_n * m.  W_n * k ≤ 2 * D_n * k = D_n * (2*k) ≤ D_n * m.
+    E213.Tactic.Nat213.le_of_mul_le_mul_right h_2n1_pos
+      (by rw [Nat.mul_comm (wallisNum n) (2*n+1),
+              Nat.mul_comm (2 * wallisDen n) (2*n+1)]; exact h3)
   have h5 : wallisNum n * k ≤ 2 * wallisDen n * k := Nat.mul_le_mul_right k h4
   have h6 : 2 * wallisDen n * k = wallisDen n * (2 * k) := by
-    rw [Nat.mul_comm 2 (wallisDen n), Nat.mul_assoc]
+    rw [Nat.mul_comm 2 (wallisDen n), E213.Tactic.Nat213.mul_assoc]
   rw [h6] at h5
   have h7 : wallisDen n * (2 * k) ≤ wallisDen n * m :=
     Nat.mul_le_mul_left (wallisDen n) h2km
@@ -479,25 +508,17 @@ theorem wallis_isAbMonotonic : IsAbMonotonic wallisRawSeq := by
   -- Goal: N * (D * P) ≤ (N * Q) * D where P = (2n+1)(2n+3), Q = 4(n+1)².
   -- Since P ≤ Q (poly identity), N * D * P ≤ N * D * Q = (N * Q) * D.
   have hkk : (2 * n + 1) * (2 * n + 3) ≤ 4 * (n + 1) * (n + 1) := by
-    have eL_h1 : 4 * (n + 1) * (n + 1)
-               = 4 * n * n + 4 * n * 1 + (4 * 1 * n + 4 * 1 * 1) := by
-      rw [Nat.mul_add 4 n 1, Nat.add_mul, Nat.mul_add, Nat.mul_add]
-    have eR_h1 : (2 * n + 1) * (2 * n + 3)
-               = 2 * n * (2 * n) + 2 * n * 3 + (1 * (2 * n) + 1 * 3) := by
-      rw [Nat.add_mul, Nat.mul_add, Nat.mul_add]
-    have e_kk_4 : 4 * n * n = 4 * (n * n) := by rw [Nat.mul_assoc]
-    have e_kk_2 : 2 * n * (2 * n) = 4 * (n * n) := by
-      rw [Nat.mul_mul_mul_comm]
-    rw [eL_h1, eR_h1, e_kk_4, e_kk_2]
-    omega
+    rw [E213.Tactic.Nat213.mul_assoc 4 (n+1) (n+1)]
+    exact kk_le_4_kp1_sq n
   -- N * (D * P) = N * D * P ≤ N * D * Q = (N * Q) * D  (= goal RHS reassoc).
   have hLHS : wallisNum n * (wallisDen n * ((2 * n + 1) * (2 * n + 3)))
               = wallisNum n * wallisDen n * ((2 * n + 1) * (2 * n + 3)) :=
-    (Nat.mul_assoc _ _ _).symm
+    (E213.Tactic.Nat213.mul_assoc _ _ _).symm
   have hRHS : wallisNum n * (4 * (n + 1) * (n + 1)) * wallisDen n
               = wallisNum n * wallisDen n * (4 * (n + 1) * (n + 1)) := by
-    rw [Nat.mul_assoc, Nat.mul_comm (4 * (n + 1) * (n + 1)) (wallisDen n),
-        ← Nat.mul_assoc]
+    rw [E213.Tactic.Nat213.mul_assoc,
+        Nat.mul_comm (4 * (n + 1) * (n + 1)) (wallisDen n),
+        ← E213.Tactic.Nat213.mul_assoc]
   rw [hLHS, hRHS]
   exact Nat.mul_le_mul_left (wallisNum n * wallisDen n) hkk
 

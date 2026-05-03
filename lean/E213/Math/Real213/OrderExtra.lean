@@ -1,3 +1,4 @@
+import E213.Math.Max213
 import E213.Math.Real213.Order
 
 /-!
@@ -41,8 +42,8 @@ theorem lt_implies_not_equiv (r r' : Real213) :
   obtain ⟨m, k, hk, N1, hN1⟩ := hlt
   obtain ⟨N2, hN2⟩ := hequiv m k hk
   let i := max N1 N2
-  obtain ⟨ht, hf⟩ := hN1 i (Nat.le_max_left N1 N2)
-  have he := hN2 i (Nat.le_max_right N1 N2)
+  obtain ⟨ht, hf⟩ := hN1 i (E213.Math.Max213.le_max_left N1 N2)
+  have he := hN2 i (E213.Math.Max213.le_max_right N1 N2)
   rw [he] at ht
   rw [ht] at hf
   exact Bool.noConfusion hf
@@ -54,8 +55,8 @@ theorem equiv_of_le_le (r r' : Real213) :
   obtain ⟨N1, hN1⟩ := h1 m k hk
   obtain ⟨N2, hN2⟩ := h2 m k hk
   refine ⟨max N1 N2, fun i hi => ?_⟩
-  have hi1 : i ≥ N1 := Nat.le_trans (Nat.le_max_left N1 N2) hi
-  have hi2 : i ≥ N2 := Nat.le_trans (Nat.le_max_right N1 N2) hi
+  have hi1 : i ≥ N1 := Nat.le_trans (E213.Math.Max213.le_max_left N1 N2) hi
+  have hi2 : i ≥ N2 := Nat.le_trans (E213.Math.Max213.le_max_right N1 N2) hi
   cases h : orderProj m k (abLens.view (r.xs i)) <;>
     cases h' : orderProj m k (abLens.view (r'.xs i))
   · rfl

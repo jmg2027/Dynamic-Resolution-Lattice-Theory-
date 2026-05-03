@@ -1,3 +1,4 @@
+import E213.Math.Real213.Core
 import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSumTest
 import E213.Math.Real213.CutMulComm
@@ -84,14 +85,17 @@ example : (cutSignedMul (signedConstCut true 1 1)
 theorem cutNeg_signedConstCut (sign : Bool) (a b : Nat) :
     cutNeg (signedConstCut sign a b) = signedConstCut (!sign) a b := rfl
 
-/-- cutSignedMul commutativity. -/
+/-- cutSignedMul commutativity (signed-cutEq form, PURE):
+    same sign equality + pointwise cut equality. -/
 theorem cutSignedMul_comm (sx sy : SignedCut) :
-    cutSignedMul sx sy = cutSignedMul sy sx := by
-  show ({ sign := sx.sign == sy.sign, cut := cutMul sx.cut sy.cut } : SignedCut)
-     = { sign := sy.sign == sx.sign, cut := cutMul sy.cut sx.cut }
-  congr 1
-  · cases sx.sign <;> cases sy.sign <;> rfl
-  · funext m k; exact cutMul_comm _ _ m k
+    (cutSignedMul sx sy).sign = (cutSignedMul sy sx).sign
+    ∧ ∀ m k, (cutSignedMul sx sy).cut m k = (cutSignedMul sy sx).cut m k := by
+  refine ⟨?_, ?_⟩
+  · show (sx.sign == sy.sign) = (sy.sign == sx.sign)
+    cases sx.sign <;> cases sy.sign <;> rfl
+  · intro m k
+    show cutMul sx.cut sy.cut m k = cutMul sy.cut sx.cut m k
+    exact cutMul_comm _ _ m k
 
 /-- cutNeg distributes over cutSignedMul on the left. -/
 theorem cutNeg_cutSignedMul_left (sx sy : SignedCut) :

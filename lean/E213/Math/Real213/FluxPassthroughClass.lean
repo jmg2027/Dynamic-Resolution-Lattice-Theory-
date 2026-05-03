@@ -26,6 +26,20 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.CutMul (cutMulOuter)
+open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_one_at)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero cutMul_zero_zero_at)
+open E213.Math.Real213.CutPowConst
+  (cutPow_one_n cutPow_one_n_at cutPow_zero_succ cutPow_zero_succ_at)
+open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit ftc_bridge_passthrough_unit)
 
 namespace FluxCut
 
@@ -33,6 +47,12 @@ namespace FluxCut
 structure Passthrough (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
   left : f (constCut 0 1) = constCut 0 1
   right : f (constCut 1 1) = constCut 1 1
+
+/-- Pointwise passthrough — strict ∅-axiom variant (no funext required
+    in `left/right` fields). -/
+structure Passthrough_at (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
+  left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k
+  right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k
 
 namespace Passthrough
 
@@ -59,6 +79,86 @@ def mul_pass {f g} (pf : Passthrough f) (pg : Passthrough g) :
     right := by show cutMul (f (constCut 1 1)) (g (constCut 1 1)) = constCut 1 1
                 rw [pf.right, pg.right, cutMul_one_one] }
 
+end Passthrough
+
+namespace Passthrough_at
+
+/-- Identity is passthrough_at. -/
+def id_pass : Passthrough_at id := { left := fun _ _ => rfl, right := fun _ _ => rfl }
+
+/-- cutPow x^(n+1) is passthrough_at. -/
+def cutPow_pass (n : Nat) : Passthrough_at (fun x => cutPow x (n+1)) :=
+  { left := fun m k => cutPow_zero_succ_at n m k
+    right := fun m k => cutPow_one_n_at (n+1) m k }
+
+/-- Composition of passthrough_at's is passthrough_at — only needs
+    that g preserves pointwise eq, captured via `congrArg` chain.  But
+    in general we need the function-eq form of pf to substitute under
+    g.  This combinator therefore wraps the `Passthrough` form (DIRTY
+    Quot.sound).  Pure-pointwise composition would need either f to
+    be locally-determined or a stronger hypothesis. -/
+def compose_pass {f g} (pf : Passthrough f) (pg : Passthrough_at g) :
+    Passthrough_at (g ∘ f) :=
+  { left := fun m k => by
+      show g (f (constCut 0 1)) m k = constCut 0 1 m k
+      rw [pf.left]; exact pg.left m k
+    right := fun m k => by
+      show g (f (constCut 1 1)) m k = constCut 1 1 m k
+      rw [pf.right]; exact pg.right m k }
+
+/-- Product of passthrough_at's is passthrough_at — fully pointwise
+    via `cutMulOuter_congr`.  No funext, no propext, no Quot.sound. -/
+def mul_pass {f g} (pf : Passthrough_at f) (pg : Passthrough_at g) :
+    Passthrough_at (fun x => cutMul (f x) (g x)) :=
+  { left := fun m k => by
+      show cutMul (f (constCut 0 1)) (g (constCut 0 1)) m k = constCut 0 1 m k
+      show cutMulOuter (f (constCut 0 1)) (g (constCut 0 1))
+                       k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 0 1 m k
+      have step :
+          cutMulOuter (f (constCut 0 1)) (g (constCut 0 1))
+                      k m ((m+1)*(k+1)) ((m+1)*(k+1))
+          = cutMulOuter (constCut 0 1) (constCut 0 1)
+                      k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
+        cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
+          (f (constCut 0 1)) (constCut 0 1)
+          (g (constCut 0 1)) (constCut 0 1)
+          (fun m' _ => pf.left m' k)
+          (fun m' _ => pg.left m' k)
+          ((m+1)*(k+1)) (Nat.le_refl _)
+      rw [step]; exact cutMul_zero_zero_at m k
+    right := fun m k => by
+      show cutMul (f (constCut 1 1)) (g (constCut 1 1)) m k = constCut 1 1 m k
+      show cutMulOuter (f (constCut 1 1)) (g (constCut 1 1))
+                       k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
+      have step :
+          cutMulOuter (f (constCut 1 1)) (g (constCut 1 1))
+                      k m ((m+1)*(k+1)) ((m+1)*(k+1))
+          = cutMulOuter (constCut 1 1) (constCut 1 1)
+                      k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
+        cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
+          (f (constCut 1 1)) (constCut 1 1)
+          (g (constCut 1 1)) (constCut 1 1)
+          (fun m' _ => pf.right m' k)
+          (fun m' _ => pg.right m' k)
+          ((m+1)*(k+1)) (Nat.le_refl _)
+      rw [step]; exact cutMul_one_one_at m k }
+
+end Passthrough_at
+
+namespace Passthrough
+
+/-- ★ **Adapter**: every `Passthrough` is also a `Passthrough_at`.
+    Pointwise extraction from function-eq fields.  Bridge for
+    legacy code using function-eq form, allowing it to feed into
+    pure pointwise capstones.
+
+    Note: this adapter itself inherits Quot.sound from the input
+    `Passthrough` — but downstream consumers using only `_at` form
+    via this adapter avoid additional propext leakage. -/
+def toAt {f} (pf : Passthrough f) : Passthrough_at f :=
+  { left := fun m k => by rw [pf.left]
+    right := fun m k => by rw [pf.right] }
+
 /-- One-liner MVT for any Passthrough. -/
 theorem mvt {f} (pf : Passthrough f) :
     localDivergence f unitBracket = ofCut (constCut 1 1) :=
@@ -70,6 +170,25 @@ theorem ftc {f} (pf : Passthrough f) :
   ftc_bridge_passthrough_unit f pf.left pf.right
 
 end Passthrough
+
+namespace Passthrough_at
+
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit_pure fluxAlong_passthrough_unit_pure
+   ftc_bridge_passthrough_unit_pure)
+
+/-- One-liner MVT (fluxCutEq, PURE) for any Passthrough_at. -/
+theorem mvt_pure {f} (pf : Passthrough_at f) :
+    fluxCutEq (localDivergence f unitBracket) (ofCut (constCut 1 1)) :=
+  mvt_passthrough_unit_pure f pf.left pf.right
+
+/-- One-liner FTC bridge (fluxCutEq, PURE) for any Passthrough_at. -/
+theorem ftc_pure {f} (pf : Passthrough_at f) :
+    fluxCutEq (localDivergence f unitBracket) (fluxAlong f unitBracket) :=
+  ftc_bridge_passthrough_unit_pure f pf.left pf.right
+
+end Passthrough_at
 
 end FluxCut
 

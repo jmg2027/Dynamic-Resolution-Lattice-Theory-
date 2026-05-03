@@ -22,6 +22,11 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.ODELinear
+  (linearWithIntercept linearWithIntercept_isDifferentiable
+   linearWithIntercept_derivative)
+open E213.Math.Real213.ODESecondOrder
+  (linearWithIntercept_secondDerivable)
 
 /-- ★ Position function for constant velocity motion: x(t) = v0·t + x0. -/
 def position_constant_velocity (v0 x0 : Nat) :

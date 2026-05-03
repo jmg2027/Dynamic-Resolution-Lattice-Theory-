@@ -1,3 +1,4 @@
+import E213.Math.Max213
 import E213.Math.Real213.DifferentiationCapstone
 
 /-!
@@ -23,7 +24,20 @@ open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable constIsDifferentiable
+   addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
+   cutPowFnIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus
+   cutScaleIsDifferentiable cutHalfIsDifferentiable)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
 
 /-- x ↦ a·x + b: linear scaling + constant offset. -/
 def affineIsDifferentiable (a b : Nat) :
@@ -41,7 +55,7 @@ theorem affine_derivative_form (a b : Nat) (x : Nat → Nat → Bool) :
 theorem affineIsDifferentiable_modulus (a b k : Nat) :
     (affineIsDifferentiable a b).linearityModulus k = k := by
   show max k 0 = k
-  exact Nat.max_eq_left (Nat.zero_le _)
+  exact E213.Math.Max213.max_eq_left (Nat.zero_le _)
 
 /-- x ↦ x² + x. -/
 def squarePlusIdIsDifferentiable :
@@ -53,7 +67,10 @@ theorem squarePlusIdIsDifferentiable_modulus (k : Nat) :
     squarePlusIdIsDifferentiable.linearityModulus k = 2 * k := by
   show max (squareIsDifferentiable.linearityModulus k) k = 2 * k
   rw [squareIsDifferentiable_modulus]
-  exact Nat.max_eq_left (by omega)
+  -- 2*k ≥ k via Nat.le_mul_of_pos_left or k = 1*k ≤ 2*k.
+  exact E213.Math.Max213.max_eq_left
+    (Nat.le_trans (Nat.le_of_eq (Nat.one_mul k).symm)
+      (Nat.mul_le_mul_right k (Nat.le_succ 1)))
 
 /-- d/dx [x² + x] = (1·x + x·1) + 1. -/
 theorem squarePlusId_derivative_form (x : Nat → Nat → Bool) :
@@ -72,7 +89,9 @@ theorem cubePlusSquareIsDifferentiable_modulus (k : Nat) :
   show max (cubeIsDifferentiable.linearityModulus k)
            (squareIsDifferentiable.linearityModulus k) = 3 * k
   rw [cubeIsDifferentiable_modulus, squareIsDifferentiable_modulus]
-  exact Nat.max_eq_left (by omega)
+  -- 2*k ≤ 3*k via Nat.mul_le_mul_right with 2 ≤ 3.
+  exact E213.Math.Max213.max_eq_left
+    (Nat.mul_le_mul_right k (Nat.le_succ 2))
 
 /-- Phase AI capstone: polynomial sum moduli. -/
 theorem polynomial_sum_capstone (a b k : Nat) :

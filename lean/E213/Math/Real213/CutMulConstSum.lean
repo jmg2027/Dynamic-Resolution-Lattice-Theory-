@@ -1,3 +1,4 @@
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.CutMulConstConst
 import E213.Math.Real213.CutSumGeneral
 
@@ -36,8 +37,8 @@ open E213.Math.Real213.CutSumTest (constCut)
 
 private theorem mul_4_reassoc_v2 (x y z w : Nat) :
     (x * z) * (y * w) = x * y * (z * w) := by
-  rw [Nat.mul_assoc, ← Nat.mul_assoc z y w, Nat.mul_comm z y,
-      Nat.mul_assoc y z w, ← Nat.mul_assoc]
+  rw [E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc z y w, Nat.mul_comm z y,
+      E213.Tactic.Nat213.mul_assoc y z w, ← E213.Tactic.Nat213.mul_assoc]
 
 /-- ★★★★★★ Generic cutMul forward with rational upper bound on the
     second factor.  If cy m' k' is bounded by constCut C D, and
@@ -61,14 +62,14 @@ theorem cutMul_const_bounded_forward
   have h_prod : (a * k) * (C * k) ≤ (b * m1) * (D * m2) :=
     Nat.mul_le_mul h_am1 h_cy_bound
   have h_lhs : (a * k) * (C * k) = (a * C * k) * k := by
-    rw [mul_4_reassoc_v2 a C k k, ← Nat.mul_assoc]
+    rw [mul_4_reassoc_v2 a C k k, ← E213.Tactic.Nat213.mul_assoc]
   have h_rhs : (b * m1) * (D * m2) = (b * D) * (m1 * m2) :=
     mul_4_reassoc_v2 b D m1 m2
   rw [h_lhs, h_rhs] at h_prod
   have h_step : (b * D) * (m1 * m2) ≤ (b * D) * (m * k) :=
     Nat.mul_le_mul_left _ hmul
   have h_combine : (a * C * k) * k ≤ (b * D * m) * k := by
-    rw [show (b * D * m) * k = (b * D) * (m * k) from Nat.mul_assoc _ _ _]
+    rw [show (b * D * m) * k = (b * D) * (m * k) from E213.Tactic.Nat213.mul_assoc _ _ _]
     exact Nat.le_trans h_prod h_step
   cases k with
   | zero => simp

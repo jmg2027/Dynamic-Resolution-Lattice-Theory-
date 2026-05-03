@@ -40,16 +40,17 @@ theorem only_one_resolution_law (n k m : Nat) :
   ⟨fun h => h.symm.trans (cutPowFnIsSmooth_modulus n k),
    fun h => (cutPowFnIsSmooth_modulus n k).trans h.symm⟩
 
-/-- **AC-2: only one dyadic accumulator**.
+/-- **AC-2: only one dyadic accumulator** (cutEq form, PURE).
 
     For any rational `a/b` and any depth `n`, the binary-tree sum
     on a constant function is forced to land on `constCut (2^n * a) b`
-    — no π, no e, no transcendental smoothing.  -/
+    pointwise — no π, no e, no transcendental smoothing.  -/
 theorem only_one_dyadic_accumulator (a b n : Nat) (c : Nat → Nat → Bool) :
-    riemannSampleSum (constCutFn (constCut a b)) unitBracket n = c
-      ↔ c = constCut (2^n * a) b :=
-  ⟨fun h => h.symm.trans (riemannSampleSum_constCut a b unitBracket n),
-   fun h => (riemannSampleSum_constCut a b unitBracket n).trans h.symm⟩
+    E213.Math.Real213.CutPoset.cutEq
+      (riemannSampleSum (constCutFn (constCut a b)) unitBracket n) c
+      ↔ E213.Math.Real213.CutPoset.cutEq c (constCut (2^n * a) b) :=
+  ⟨fun h m k => (h m k).symm.trans (riemannSampleSum_constCut a b unitBracket n m k),
+   fun h m k => (riemannSampleSum_constCut a b unitBracket n m k).trans (h m k).symm⟩
 
 /-- **AC-3: only one 0+ witness**.
 
@@ -70,9 +71,10 @@ theorem only_one_zero_plus_witness :
 theorem phaseAC_minimum_proposition (n k a b : Nat) :
     -- (1) Resolution law forced
     (cutPowFnIsSmooth n).linearityModulus k = n * k
-    -- (2) Dyadic accumulator forced
-    ∧ riemannSampleSum (constCutFn (constCut a b)) unitBracket n
-        = constCut (2^n * a) b
+    -- (2) Dyadic accumulator forced (cutEq form)
+    ∧ E213.Math.Real213.CutPoset.cutEq
+        (riemannSampleSum (constCutFn (constCut a b)) unitBracket n)
+        (constCut (2^n * a) b)
     -- (3) 0+ Boolean-distinct from 0-exact
     ∧ (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit 0 1
         ≠ (constCut 0 1) 0 1 :=

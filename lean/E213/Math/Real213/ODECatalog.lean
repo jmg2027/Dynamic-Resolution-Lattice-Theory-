@@ -23,6 +23,13 @@ open E213.Math.Real213.CutBisection (cutHalf)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.IsDifferentiable
+  (idIsDifferentiable constIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (cutScaleIsDifferentiable cutHalfIsDifferentiable)
+open E213.Math.Real213.ODELinear
+  (linearWithIntercept_isDifferentiable
+   linearWithIntercept_derivative)
 
 /-- y' = 0: constant function is solution. -/
 theorem ode_zero_solution (c : Nat → Nat → Bool) :

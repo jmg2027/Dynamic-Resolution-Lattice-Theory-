@@ -19,6 +19,15 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPow (cutPow cutScale)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
+open E213.Math.Real213.FluxCut.FluxCut (add neg neg_neg neg_add)
+open E213.Math.Real213.FluxCochain.FluxCut
+  (fluxAlong isBalanced fluxAlong_const_isBalanced fluxAlong_id)
+open E213.Math.Real213.FluxMVT.FluxCut (localDivergence_id_form)
+open E213.Math.Real213.FluxDivergence.FluxCut
+  (fluxScale localDivergence fluxScale_balanced
+   localDivergence_const_balanced)
 
 /-- **Phase AX cohomology arc capstone**: 7-fact bundle. -/
 theorem cohomology_arc_capstone (n : Nat) (db : DyadicBracket)
@@ -26,27 +35,27 @@ theorem cohomology_arc_capstone (n : Nat) (db : DyadicBracket)
     -- (AV-1) Cohomological involution: neg² = id
     a.neg.neg = a
     -- (AV-1) Anti-morphism: neg distributes over add
-    ∧ (FluxCut.add a a).neg = FluxCut.add a.neg a.neg
+    ∧ (add a a).neg = add a.neg a.neg
     -- (AV-2) Constant flux is balanced (∂c = 0 on dyadic edge)
-    ∧ FluxCut.isBalanced (FluxCut.fluxAlong (constCutFn c) db)
+    ∧ isBalanced (fluxAlong (constCutFn c) db)
     -- (AV-2) Identity flux gives bracket endpoints
-    ∧ FluxCut.fluxAlong id db
+    ∧ fluxAlong id db
        = { forward := db.rightCut, backward := db.leftCut }
     -- (AV-3) Constant divergence is balanced
-    ∧ FluxCut.isBalanced (FluxCut.localDivergence (constCutFn c) db)
+    ∧ isBalanced (localDivergence (constCutFn c) db)
     -- (AV-3) Identity divergence form
-    ∧ FluxCut.localDivergence id db
+    ∧ localDivergence id db
        = { forward := cutScale (2^db.expE) 1 db.rightCut,
            backward := cutScale (2^db.expE) 1 db.leftCut }
     -- (AW) Polynomial flux explicit form
-    ∧ (FluxCut.localDivergence (fun x => cutPow x n) db).forward
+    ∧ (localDivergence (fun x => cutPow x n) db).forward
        = cutScale (2^db.expE) 1 (cutPow db.rightCut n) :=
-  ⟨FluxCut.neg_neg a,
-   FluxCut.neg_add a a,
-   FluxCut.fluxAlong_const_isBalanced c db,
-   FluxCut.fluxAlong_id db,
-   FluxCut.localDivergence_const_balanced c db,
-   FluxCut.localDivergence_id_form db,
+  ⟨neg_neg a,
+   neg_add a a,
+   fluxAlong_const_isBalanced c db,
+   fluxAlong_id db,
+   localDivergence_const_balanced c db,
+   localDivergence_id_form db,
    rfl⟩
 
 end E213.Math.Real213.FluxCohomologyCapstone
