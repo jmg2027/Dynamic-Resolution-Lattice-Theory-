@@ -86,7 +86,8 @@ end FluxCut.Passthrough
 namespace FluxCut.Passthrough_at
 
 open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
-  (id_pass cutPow_pass compose_pass mul_pass)
+  (id_pass cutPow_pass compose_pass mul_pass mvt_pure)
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
 
 /-- x ↦ x via id (pointwise). -/
 def x_pass : Passthrough_at id := id_pass
@@ -113,6 +114,24 @@ def quintic_pass :
 def id_mul_square_pass :
     Passthrough_at (fun x => cutMul x (cutMul x x)) :=
   mul_pass id_pass square_pass
+
+/-- ★ Catalog _at showcase: 7 Passthrough_at instances yield fluxCutEq
+    MVT.  PURE — strict ∅-axiom. -/
+theorem catalog_mvt_capstone_at :
+    fluxCutEq (localDivergence id unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutMul x x) unitBracket)
+                (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutMul x (cutMul x x))
+                                 unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutMul (cutMul x x)
+                                  (cutMul x x)) unitBracket)
+                (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutMul (cutMul x x)
+                                  (cutMul x (cutMul x x))) unitBracket)
+                (ofCut (constCut 1 1)) :=
+  ⟨mvt_pure x_pass, mvt_pure square_pass,
+   mvt_pure cube_pass, mvt_pure quartic_pass,
+   mvt_pure quintic_pass⟩
 
 end FluxCut.Passthrough_at
 
