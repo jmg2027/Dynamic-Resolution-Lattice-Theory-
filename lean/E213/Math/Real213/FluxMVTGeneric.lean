@@ -160,14 +160,25 @@ theorem fluxAlong_cutPow_unitBracket_pure (n : Nat) :
     (fluxAlong_cutPow_unitBracket_forward_at n)
     (fluxAlong_cutPow_unitBracket_backward_at n)
 
-/-- Phase BE capstone (fluxCutEq, PURE) — MVT + fluxAlong only.
-    FTC bridge _pure form lives in FluxMVTPassthrough (downstream). -/
+/-- ★ Generic FTC bridge for x^(n+1) at unit (fluxCutEq, PURE). -/
+theorem ftc_bridge_cutPow_unitBracket_pure (n : Nat) :
+    fluxCutEq (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+              (fluxAlong (fun x => cutPow x (n+1)) unitBracket) :=
+  E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_trans
+    (mvt_cutPow_unitBracket_pure n)
+    (E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_symm _ _
+      (fluxAlong_cutPow_unitBracket_pure n))
+
+/-- Phase BE capstone (fluxCutEq, PURE) — MVT + fluxAlong + FTC bridge. -/
 theorem phaseBE_capstone_pure (n : Nat) :
     fluxCutEq (localDivergence (fun x => cutPow x (n+1)) unitBracket)
               (ofCut (constCut 1 1))
     ∧ fluxCutEq (fluxAlong (fun x => cutPow x (n+1)) unitBracket)
-                (ofCut (constCut 1 1)) :=
-  ⟨mvt_cutPow_unitBracket_pure n, fluxAlong_cutPow_unitBracket_pure n⟩
+                (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+                (fluxAlong (fun x => cutPow x (n+1)) unitBracket) :=
+  ⟨mvt_cutPow_unitBracket_pure n, fluxAlong_cutPow_unitBracket_pure n,
+   ftc_bridge_cutPow_unitBracket_pure n⟩
 
 end FluxCut
 

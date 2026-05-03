@@ -1,4 +1,5 @@
 import E213.Math.Real213.FluxMVTPassthrough
+import E213.Math.Real213.FluxMVTPolynomial
 
 /-!
 # Research.Real213FluxMVTApplications
@@ -107,15 +108,25 @@ theorem mvt_square_via_passthrough_pure :
   mvt_passthrough_unit_pure (fun x => cutMul x x)
     cutMul_zero_zero_at cutMul_one_one_at
 
+/-- x³ MVT via passthrough (fluxCutEq, PURE). -/
+theorem mvt_cube_via_passthrough_pure :
+    fluxCutEq (localDivergence (fun x => cutMul x (cutMul x x)) unitBracket)
+              (ofCut (constCut 1 1)) :=
+  mvt_passthrough_unit_pure (fun x => cutMul x (cutMul x x))
+    (E213.Math.Real213.FluxMVTPolynomial.FluxCut.fluxAlong_cube_unitBracket_backward_at)
+    (E213.Math.Real213.FluxMVTPolynomial.FluxCut.fluxAlong_cube_unitBracket_forward_at)
+
 /-- Phase BG capstone (fluxCutEq, PURE). -/
 theorem passthrough_applications_capstone_pure (n : Nat) :
     fluxCutEq (localDivergence id unitBracket) (ofCut (constCut 1 1))
     ∧ fluxCutEq (localDivergence (fun x => cutPow x (n+1)) unitBracket)
                 (ofCut (constCut 1 1))
     ∧ fluxCutEq (localDivergence (fun x => cutMul x x) unitBracket)
+                (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutMul x (cutMul x x)) unitBracket)
                 (ofCut (constCut 1 1)) :=
   ⟨mvt_id_via_passthrough_pure, mvt_cutPow_via_passthrough_pure n,
-   mvt_square_via_passthrough_pure⟩
+   mvt_square_via_passthrough_pure, mvt_cube_via_passthrough_pure⟩
 
 end FluxCut
 

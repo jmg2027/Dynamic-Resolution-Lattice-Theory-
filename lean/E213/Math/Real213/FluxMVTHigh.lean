@@ -190,13 +190,30 @@ theorem mvt_quartic_unitBracket_pure :
     mvt_quartic_unitBracket_forward_at
     mvt_quartic_unitBracket_backward_at
 
-/-- Phase BD _pure capstone (fluxCutEq, PURE). -/
+/-- ★ FTC bridge for x⁴ at unit (fluxCutEq, PURE).  Chains
+    `mvt_quartic_pure` with `fluxAlong_quartic_pure` via fluxBalance. -/
+theorem ftc_bridge_quartic_unitBracket_pure :
+    fluxCutEq (localDivergence (fun x => cutMul (cutMul x x) (cutMul x x))
+                                unitBracket)
+              (fluxAlong (fun x => cutMul (cutMul x x) (cutMul x x))
+                          unitBracket) :=
+  E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_trans
+    mvt_quartic_unitBracket_pure
+    (E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_symm _ _
+      fluxAlong_quartic_unitBracket_pure)
+
+/-- Phase BD _pure capstone (fluxCutEq, PURE) — quartic MVT + flux + FTC. -/
 theorem phaseBD_capstone_pure :
     fluxCutEq (localDivergence (fun x => cutMul (cutMul x x) (cutMul x x))
                                 unitBracket) (ofCut (constCut 1 1))
     ∧ fluxCutEq (fluxAlong (fun x => cutMul (cutMul x x) (cutMul x x))
-                            unitBracket) (ofCut (constCut 1 1)) :=
-  ⟨mvt_quartic_unitBracket_pure, fluxAlong_quartic_unitBracket_pure⟩
+                            unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutMul (cutMul x x) (cutMul x x))
+                                  unitBracket)
+                (fluxAlong (fun x => cutMul (cutMul x x) (cutMul x x))
+                            unitBracket) :=
+  ⟨mvt_quartic_unitBracket_pure, fluxAlong_quartic_unitBracket_pure,
+   ftc_bridge_quartic_unitBracket_pure⟩
 
 end FluxCut
 
