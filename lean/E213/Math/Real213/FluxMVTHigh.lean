@@ -76,6 +76,16 @@ theorem phaseBD_capstone :
   ⟨mvt_quartic_unitBracket, fluxAlong_quartic_unitBracket,
    ftc_bridge_quartic_unitBracket⟩
 
+/-! ### PURE pointwise variants (fluxCutEq form) — quartic via Pow 4
+
+Note: x⁴ as `cutMul (cutMul x x) (cutMul x x)` is NOT definitionally
+equal to `cutPow x 4`.  The pure form here would require either:
+(a) restating via cutPow + cutPow_one_n_at, or
+(b) inlining cutMulOuter_congr cascades.
+Both are downstream from this file (need FluxMVTPassthrough or
+additional cutMul congruence helpers).  Skipping — defer to next
+session when the deeper FluxMVT stack is refactored. -/
+
 end FluxCut
 
 end E213.Math.Real213.FluxMVTHigh
