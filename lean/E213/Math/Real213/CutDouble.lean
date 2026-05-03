@@ -25,27 +25,42 @@ open E213.Firmware E213.Hypervisor
 def cutDouble (c : Nat → Nat → Bool) : Nat → Nat → Bool :=
   fun m k => c m (2*k)
 
+/-- cutDouble of const = const pointwise (PURE). -/
+theorem cutDouble_constCut_at (a b m k : Nat) :
+    cutDouble (constCut a b) m k = constCut (2*a) b m k := by
+  show decide (a * (2*k) ≤ b * m) = decide (2 * a * k ≤ b * m)
+  rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm a 2]
+
 /-- cutDouble of const = const with doubled numerator. -/
 theorem cutDouble_constCut (a b : Nat) :
     cutDouble (constCut a b) = constCut (2*a) b := by
-  funext m k
-  show decide (a * (2*k) ≤ b * m) = decide (2 * a * k ≤ b * m)
-  rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm a 2]
+  funext m k; exact cutDouble_constCut_at a b m k
 
 /-- 2 * (1/2) = 1: cutDouble (1/2) = constCut 2 2.  Cut-equivalent to 1. -/
 example : cutDouble (constCut 1 2) = constCut 2 2 := cutDouble_constCut 1 2
 
+/-- cutDouble of zero pointwise (PURE). -/
+theorem cutDouble_zero_at (m k : Nat) :
+    cutDouble (constCut 0 1) m k = constCut 0 1 m k := by
+  show constCut 0 1 m (2*k) = constCut 0 1 m k
+  show decide (0 * (2*k) ≤ 1 * m) = decide (0 * k ≤ 1 * m)
+  rw [Nat.zero_mul, Nat.zero_mul]
+
 /-- cutDouble of zero = zero. -/
 theorem cutDouble_zero : cutDouble (constCut 0 1) = constCut 0 1 := by
-  rw [cutDouble_constCut]
+  funext m k; exact cutDouble_zero_at m k
+
+/-- cutDouble of cutDouble pointwise (PURE). -/
+theorem cutDouble_cutDouble_at (c : Nat → Nat → Bool) (m k : Nat) :
+    cutDouble (cutDouble c) m k = c m (4*k) := by
+  show c m (2*(2*k)) = c m (4*k)
+  congr 1
+  rw [← E213.Tactic.Nat213.mul_assoc]
 
 /-- cutDouble of cutDouble = quadruple: c m (4k). -/
 theorem cutDouble_cutDouble (c : Nat → Nat → Bool) :
     cutDouble (cutDouble c) = (fun m k => c m (4*k)) := by
-  funext m k
-  show c m (2*(2*k)) = c m (4*k)
-  congr 1
-  rw [← E213.Tactic.Nat213.mul_assoc]
+  funext m k; exact cutDouble_cutDouble_at c m k
 
 /-- **cutSum c c = cutDouble c** for c = constCut a b. -/
 theorem cutSum_self_eq_cutDouble (a b : Nat) :
