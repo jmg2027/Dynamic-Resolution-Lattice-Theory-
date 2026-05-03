@@ -119,21 +119,34 @@ theorem cutSumAux_cutDouble (cx cy : Nat → Nat → Bool)
           || cutSumAux cx cy (2*k) m1Max n)
     rw [cutSumAux_cutDouble cx cy k m1Max n]
 
-/-- **cutDouble distributes over cutSum**. -/
-theorem cutDouble_cutSum (cx cy : Nat → Nat → Bool) :
-    cutDouble (cutSum cx cy) = cutSum (cutDouble cx) (cutDouble cy) := by
-  funext m k
+/-- **cutDouble distributes over cutSum**, pointwise (PURE). -/
+theorem cutDouble_cutSum_at (cx cy : Nat → Nat → Bool) (m k : Nat) :
+    cutDouble (cutSum cx cy) m k
+    = cutSum (cutDouble cx) (cutDouble cy) m k := by
   show cutSumAux cx cy (2*k) (2*m) (2*m)
      = cutSumAux (cutDouble cx) (cutDouble cy) k (2*m) (2*m)
   rw [cutSumAux_cutDouble]
+
+/-- **cutDouble distributes over cutSum**. -/
+theorem cutDouble_cutSum (cx cy : Nat → Nat → Bool) :
+    cutDouble (cutSum cx cy) = cutSum (cutDouble cx) (cutDouble cy) := by
+  funext m k; exact cutDouble_cutSum_at cx cy m k
+
+/-- **cutDouble distributes over cutMid**, pointwise (PURE).
+    Composes cutDouble_cutSum_at with cutDouble_cutHalf_comm. -/
+theorem cutDouble_cutMid_at (cx cy : Nat → Nat → Bool) (m k : Nat) :
+    cutDouble (cutMid cx cy) m k
+    = cutMid (cutDouble cx) (cutDouble cy) m k := by
+  show cutHalf (cutSum cx cy) m (2*k)
+     = cutHalf (cutSum (cutDouble cx) (cutDouble cy)) m k
+  show cutSum cx cy (2*m) (2*k)
+     = cutSum (cutDouble cx) (cutDouble cy) (2*m) k
+  exact cutDouble_cutSum_at cx cy (2*m) k
 
 /-- **cutDouble distributes over cutMid**.
     Composes cutDouble_cutSum with cutDouble_cutHalf_comm. -/
 theorem cutDouble_cutMid (cx cy : Nat → Nat → Bool) :
     cutDouble (cutMid cx cy) = cutMid (cutDouble cx) (cutDouble cy) := by
-  show cutDouble (cutHalf (cutSum cx cy))
-     = cutHalf (cutSum (cutDouble cx) (cutDouble cy))
-  rw [← cutDouble_cutSum]
-  exact cutDouble_cutHalf_comm _
+  funext m k; exact cutDouble_cutMid_at cx cy m k
 
 end E213.Math.Real213.CutDouble

@@ -436,4 +436,28 @@ theorem riemann_third_depth_16_at (db : DyadicBracket) (m k : Nat) :
     = constCut 65536 3 m k :=
   riemannSampleSum_constCut_at 1 3 db 16 m k
 
+/-- (7/13) at depth 20, pointwise (PURE). -/
+theorem riemann_sevenThirteenth_depth_20_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 7 13)) db 20 m k
+    = constCut 7340032 13 m k :=
+  riemannSampleSum_constCut_at 7 13 db 20 m k
+
+/-- (1/2) at depth 25, pointwise (PURE). -/
+theorem riemann_half_depth_25_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 25 m k
+    = constCut (2^25 * 1) 2 m k :=
+  riemannSampleSum_constCut_at 1 2 db 25 m k
+
+/-- (1/2) at depth 30, pointwise (PURE). -/
+theorem riemann_half_depth_30_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 30 m k
+    = constCut (2^30 * 1) 2 m k :=
+  riemannSampleSum_constCut_at 1 2 db 30 m k
+
+/-- **Fundamental theorem of dyadic calculus (constant case)**, pointwise PURE form.
+    Uses `_at` variant of `riemannSampleSum_const_normalized` to avoid Quot.sound. -/
+theorem fundamental_dyadic_calculus_const_at (a b : Nat) (n : Nat) :
+    cutEq (constCut (2^n * a) (b * 2^n)) (constCut a b) :=
+  fun m k => riemannSampleSum_const_normalized_at a b n m k
+
 end E213.Math.Real213.DyadicRiemann
