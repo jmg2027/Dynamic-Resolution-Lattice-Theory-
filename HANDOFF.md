@@ -61,11 +61,25 @@ For each function-eq theorem `f = g`:
   - Per-axiom-set: 153 [Quot.sound], 104 [propext, Quot.sound],
     53 [propext], 2 split
 
-### Snapshot
+### Snapshot (post-session 19)
 
 Whole-repo `lake build`: clean.
-Total DIRTY (excluding sealed): **~159 items** across ~50 modules.
-Per-axiom-set: 104 [propext, Quot.sound], 53 [propext], 2 split.
+Total DIRTY (excluding sealed): **~285 items** across ~50 modules.
+Started session at 394 DIRTY → ended at 285 = **109 removed**.
+
+### Lessons learned (the hard way)
+
+Three abortive cascade attempts in late session 19 (CutMulOne,
+CutPowConst, HasDyadicMVTWitness) succeeded in isolation but
+broke downstream `rw` chains and struct-eq capstones.  All three
+were reverted to function-eq (DIRTY-by-design) with PURE `_at`
+companions kept available.
+
+**Rule**: function-eq → cutEq conversion is safe ONLY when no
+downstream consumer uses the function-eq via `rw` or struct-eq
+field assignment.  Larger refactor (Passthrough struct, FluxCut
+struct → pointwise predicates) needed for the bulk of remaining
+DIRTY (~50 cluster).
 
 ### Top remaining DIRTY clusters (next-session work)
 
