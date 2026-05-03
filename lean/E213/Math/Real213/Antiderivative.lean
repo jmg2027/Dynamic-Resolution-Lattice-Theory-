@@ -44,6 +44,14 @@ structure IsAntiderivative
     (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
   eq : sF.derivative = f
 
+/-- ★ **PURE pointwise variant**: replaces function-eq `eq` field with
+    pointwise `eq_at`.  No funext, no Quot.sound. -/
+structure IsAntiderivative_at
+    (F : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (sF : IsDifferentiable F)
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
+  eq_at : ∀ x m k, sF.derivative x m k = f x m k
+
 namespace IsAntiderivative
 
 /-- ★ id is antiderivative of constant 1 (= constCutFn (constCut 1 1)). -/
@@ -59,6 +67,21 @@ def const_anti (c : Nat → Nat → Bool) :
 
 end IsAntiderivative
 
+namespace IsAntiderivative_at
+
+/-- ★ id_at: id is antiderivative of constant 1 (PURE pointwise). -/
+def id_anti_at : IsAntiderivative_at id idIsDifferentiable
+    (constCutFn (constCut 1 1)) :=
+  { eq_at := fun _ _ _ => rfl }
+
+/-- ★ const_at: constant function c is antiderivative of constant 0. -/
+def const_anti_at (c : Nat → Nat → Bool) :
+    IsAntiderivative_at (constCutFn c) (constIsDifferentiable c)
+      (constCutFn (constCut 0 1)) :=
+  { eq_at := fun _ _ _ => rfl }
+
+end IsAntiderivative_at
+
 /-- Phase CN capstone: antiderivative class non-empty. -/
 theorem antiderivative_capstone (c : Nat → Nat → Bool) :
     -- (1) id is antiderivative of constant 1
@@ -70,5 +93,16 @@ theorem antiderivative_capstone (c : Nat → Nat → Bool) :
   ⟨rfl, rfl,
    ⟨id, idIsDifferentiable, constCutFn (constCut 1 1),
     IsAntiderivative.id_anti⟩⟩
+
+/-- ★ Phase CN _at capstone: pointwise antiderivative class (PURE). -/
+theorem antiderivative_capstone_at (c : Nat → Nat → Bool) :
+    (∀ x m k, idIsDifferentiable.derivative x m k
+                = constCutFn (constCut 1 1) x m k)
+    ∧ (∀ x m k, (constIsDifferentiable c).derivative x m k
+                = constCutFn (constCut 0 1) x m k)
+    ∧ ∃ F sF f, IsAntiderivative_at F sF f :=
+  ⟨fun _ _ _ => rfl, fun _ _ _ => rfl,
+   ⟨id, idIsDifferentiable, constCutFn (constCut 1 1),
+    IsAntiderivative_at.id_anti_at⟩⟩
 
 end E213.Math.Real213.Antiderivative
