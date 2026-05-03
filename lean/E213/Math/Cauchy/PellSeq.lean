@@ -238,24 +238,28 @@ open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Instances.AB E213.Math.I
 /-- Pell X positivity. -/
 theorem pellX_pos (n : Nat) : 1 ≤ pellX n := by
   induction n with
-  | zero => unfold pellX pellPair; decide
+  | zero => decide
   | succ k ih =>
-      show 1 ≤ pellX (k + 1)
-      unfold pellX pellPair
-      simp only
+      show 1 ≤ 3 * (pellPair k).1 + 4 * (pellPair k).2
       have hxk : 1 ≤ (pellPair k).1 := ih
-      omega
+      have h3 : 3 ≤ 3 * (pellPair k).1 := by
+        have := Nat.mul_le_mul_left 3 hxk
+        rwa [Nat.mul_one] at this
+      exact Nat.le_trans (by decide : 1 ≤ 3)
+        (Nat.le_trans h3 (Nat.le_add_right _ _))
 
 /-- Pell Y positivity. -/
 theorem pellY_pos (n : Nat) : 1 ≤ pellY n := by
   induction n with
-  | zero => unfold pellY pellPair; decide
+  | zero => decide
   | succ k _ =>
-      show 1 ≤ pellY (k + 1)
-      unfold pellY pellPair
-      simp only
+      show 1 ≤ 2 * (pellPair k).1 + 3 * (pellPair k).2
       have hxk : 1 ≤ (pellPair k).1 := pellX_pos k
-      omega
+      have h2 : 2 ≤ 2 * (pellPair k).1 := by
+        have := Nat.mul_le_mul_left 2 hxk
+        rwa [Nat.mul_one] at this
+      exact Nat.le_trans (by decide : 1 ≤ 2)
+        (Nat.le_trans h2 (Nat.le_add_right _ _))
 
 /-- **Pell Raw sequence**: for each n, abLens.view (pellRaw n)
     = (pellX n, pellY n). -/
@@ -285,14 +289,27 @@ open E213.Math.Cauchy.Archimedean
 /-- Lower bound for Pell Y: y_n ≥ n + 2 (linear growth). -/
 theorem pellY_lb (n : Nat) : pellY n ≥ n + 2 := by
   induction n with
-  | zero => unfold pellY pellPair; decide
+  | zero => decide
   | succ k ih =>
-      show pellY (k + 1) ≥ k + 1 + 2
-      unfold pellY pellPair
-      simp only
-      have hX : 1 ≤ (pellPair k).1 := pellX_pos k
+      show 2 * (pellPair k).1 + 3 * (pellPair k).2 ≥ k + 1 + 2
       have hY : (pellPair k).2 ≥ k + 2 := ih
-      omega
+      -- Chain: k+3 ≤ k+6 ≤ 2k+6+k = 3*(k+2) ≤ 3*y ≤ 2x + 3y
+      have h_3y : 3 * (k + 2) ≤ 3 * (pellPair k).2 := Nat.mul_le_mul_left 3 hY
+      have h_3y_unfold : 3 * (k + 2) = k + 6 + 2 * k := by
+        rw [Nat.mul_add 3 k 2,
+            show 3 * k = k + 2 * k from by
+              rw [show 3 = 1 + 2 from rfl, E213.Tactic.Nat213.add_mul,
+                  Nat.one_mul],
+            show (3 : Nat) * 2 = 6 from rfl,
+            Nat.add_assoc k (2*k) 6, Nat.add_comm (2*k) 6,
+            ← Nat.add_assoc]
+      have h_kp3_le : k + 1 + 2 ≤ 3 * (k + 2) := by
+        rw [h_3y_unfold]
+        show k + 3 ≤ k + 6 + 2 * k
+        exact Nat.le_trans
+          (Nat.add_le_add_left (by decide : (3 : Nat) ≤ 6) k)
+          (Nat.le_add_right _ _)
+      exact Nat.le_trans h_kp3_le (Nat.le_trans h_3y (Nat.le_add_left _ _))
 
 /-- **√2 cut from Pell Raw seq (above)**: when 2k² < m², orderProj is
     true from a sufficiently large N. -/
