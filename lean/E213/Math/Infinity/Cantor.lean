@@ -28,7 +28,9 @@ theorem cantor_general {X : Type} :
   have hpoint : f k k = g k := congrFun hk k
   have hflip  : g k = ! (f k k) := rfl
   have hcontra : f k k = ! (f k k) := hpoint.trans hflip
-  cases h : f k k <;> rw [h] at hcontra <;> simp at hcontra
+  cases h : f k k
+  · rw [h] at hcontra; exact Bool.noConfusion hcontra
+  · rw [h] at hcontra; exact Bool.noConfusion hcontra
 
 /-- **Σ5 — Cantor on Raw.** -/
 theorem cantor_raw_bool :
