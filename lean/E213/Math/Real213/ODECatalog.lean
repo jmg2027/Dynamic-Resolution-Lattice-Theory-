@@ -29,7 +29,7 @@ open E213.Math.Real213.DifferentiableInstances
   (cutScaleIsDifferentiable cutHalfIsDifferentiable)
 open E213.Math.Real213.ODELinear
   (linearWithIntercept_isDifferentiable
-   linearWithIntercept_derivative)
+   linearWithIntercept_derivative linearWithIntercept_derivative_at)
 
 /-- y' = 0: constant function is solution. -/
 theorem ode_zero_solution (c : Nat → Nat → Bool) :
@@ -64,5 +64,28 @@ theorem ode_catalog_capstone (a b : Nat) (c : Nat → Nat → Bool) :
         = constCutFn (constCut a b)
     ∧ cutHalfIsDifferentiable.derivative = constCutFn (constCut 1 2) :=
   ⟨rfl, rfl, ode_constant_a_solution a b, rfl, rfl⟩
+
+/-- ★ y' = a pointwise (PURE). -/
+theorem ode_constant_a_solution_at (a b : Nat) (t : Nat → Nat → Bool)
+    (m k : Nat) :
+    (linearWithIntercept_isDifferentiable a b).derivative t m k
+      = constCutFn (constCut a 1) t m k :=
+  linearWithIntercept_derivative_at a b t m k
+
+/-- ★ Phase CV capstone (PURE) — 5 ODE catalog solutions pointwise. -/
+theorem ode_catalog_capstone_pure (a b : Nat) (c : Nat → Nat → Bool) :
+    (∀ t m k, (constIsDifferentiable c).derivative t m k
+              = constCutFn (constCut 0 1) t m k)
+    ∧ (∀ t m k, idIsDifferentiable.derivative t m k
+                = constCutFn (constCut 1 1) t m k)
+    ∧ (∀ t m k, (linearWithIntercept_isDifferentiable a b).derivative t m k
+                = constCutFn (constCut a 1) t m k)
+    ∧ (∀ t m k, (cutScaleIsDifferentiable a b).derivative t m k
+                = constCutFn (constCut a b) t m k)
+    ∧ (∀ t m k, cutHalfIsDifferentiable.derivative t m k
+                = constCutFn (constCut 1 2) t m k) :=
+  ⟨fun _ _ _ => rfl, fun _ _ _ => rfl,
+   ode_constant_a_solution_at a b,
+   fun _ _ _ => rfl, fun _ _ _ => rfl⟩
 
 end E213.Math.Real213.ODECatalog
