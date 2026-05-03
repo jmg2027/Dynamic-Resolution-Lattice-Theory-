@@ -57,18 +57,28 @@ example : constCut 1 2 = constCut 3 6 := constCut_scale 1 2 3 (by decide)
 /-- 2/3 = 4/6. -/
 example : constCut 2 3 = constCut 4 6 := constCut_scale 2 3 2 (by decide)
 
+/-- constCut 1 1 m k = constCut a a m k pointwise (PURE). -/
+theorem constCut_one_one_eq_at (a : Nat) (ha : a ≥ 1) (m k : Nat) :
+    constCut 1 1 m k = constCut a a m k := by
+  have h := constCut_scale_at 1 1 a ha m k
+  rw [Nat.one_mul] at h
+  exact h
+
 /-- constCut 1 1 = constCut a a (= "1") for a ≥ 1. -/
 theorem constCut_one_one_eq (a : Nat) (ha : a ≥ 1) :
     constCut 1 1 = constCut a a := by
-  have h := constCut_scale 1 1 a ha
-  rw [Nat.one_mul] at h
+  funext m k; exact constCut_one_one_eq_at a ha m k
+
+/-- constCut 0 1 m k = constCut 0 b m k pointwise (PURE). -/
+theorem constCut_zero_eq_at (b : Nat) (hb : b ≥ 1) (m k : Nat) :
+    constCut 0 1 m k = constCut 0 b m k := by
+  have h := constCut_scale_at 0 1 b hb m k
+  rw [Nat.zero_mul, Nat.one_mul] at h
   exact h
 
 /-- constCut 0 1 = constCut 0 b (= "0") for b ≥ 1. -/
 theorem constCut_zero_eq (b : Nat) (hb : b ≥ 1) :
     constCut 0 1 = constCut 0 b := by
-  have h := constCut_scale 0 1 b hb
-  rw [Nat.zero_mul, Nat.one_mul] at h
-  exact h
+  funext m k; exact constCut_zero_eq_at b hb m k
 
 end E213.Math.Real213.ConstCutScale
