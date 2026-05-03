@@ -30,10 +30,33 @@ open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong fluxAlong_id)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_const)
-open E213.Math.Real213.CutSumZero (cutMul_zero_zero)
+open E213.Math.Real213.CutMulOne
+  (cutMul_one_one cutMul_one_one_at cutMul_one_const cutMul_one_const_at)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero cutMul_zero_zero_at)
 
 namespace FluxCut
+
+/-- ★ Generic MVT for passthrough at unit bracket — forward field
+    pointwise (∅-axiom). -/
+theorem mvt_passthrough_unit_forward_at
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_right : f (constCut 1 1) = constCut 1 1) (m k : Nat) :
+    (localDivergence f unitBracket).forward m k
+      = (ofCut (constCut 1 1) : FluxCut).forward m k := by
+  show cutMul (constCut 1 1) (f (constCut 1 1)) m k = constCut 1 1 m k
+  rw [h_right]
+  exact cutMul_one_one_at m k
+
+/-- ★ Generic MVT for passthrough at unit bracket — backward field
+    pointwise (∅-axiom). -/
+theorem mvt_passthrough_unit_backward_at
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_left : f (constCut 0 1) = constCut 0 1) (m k : Nat) :
+    (localDivergence f unitBracket).backward m k
+      = (ofCut (constCut 1 1) : FluxCut).backward m k := by
+  show cutMul (constCut 1 1) (f (constCut 0 1)) m k = constCut 0 1 m k
+  rw [h_left]
+  exact cutMul_one_const_at 0 1 m k
 
 /-- ★ **Generic MVT for passthrough functions at unit bracket** ★
 
@@ -48,6 +71,24 @@ theorem mvt_passthrough_unit
           backward := cutMul (constCut 1 1) (f (constCut 0 1)) } : FluxCut)
        = { forward := constCut 1 1, backward := constCut 0 1 }
   rw [h_left, h_right, cutMul_one_one, cutMul_one_const 0 1]
+
+/-- ★ fluxAlong for passthrough at unit — forward pointwise (∅-axiom). -/
+theorem fluxAlong_passthrough_unit_forward_at
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_right : f (constCut 1 1) = constCut 1 1) (m k : Nat) :
+    (fluxAlong f unitBracket).forward m k
+      = (ofCut (constCut 1 1) : FluxCut).forward m k := by
+  show f (constCut 1 1) m k = constCut 1 1 m k
+  rw [h_right]
+
+/-- ★ fluxAlong for passthrough at unit — backward pointwise (∅-axiom). -/
+theorem fluxAlong_passthrough_unit_backward_at
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_left : f (constCut 0 1) = constCut 0 1) (m k : Nat) :
+    (fluxAlong f unitBracket).backward m k
+      = (ofCut (constCut 1 1) : FluxCut).backward m k := by
+  show f (constCut 0 1) m k = constCut 0 1 m k
+  rw [h_left]
 
 /-- ★ **fluxAlong for passthrough functions at unit bracket** ★ -/
 theorem fluxAlong_passthrough_unit
