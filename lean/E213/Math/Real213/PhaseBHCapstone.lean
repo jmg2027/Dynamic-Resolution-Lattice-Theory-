@@ -119,4 +119,32 @@ theorem phaseBH_grand_capstone_at (n : Nat)
    fluxAlong_passthrough_unit_forward_at f h_right m k,
    fluxAlong_passthrough_unit_backward_at f h_left m k⟩
 
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket_pure)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit_pure fluxAlong_passthrough_unit_pure
+   ftc_bridge_passthrough_unit_pure)
+
+/-- ★★★ **Phase BH grand capstone — fluxCutEq variant** (PURE).
+    Takes pointwise passthrough hypotheses, produces fluxCutEq
+    conclusions — no funext, no struct equality.
+
+    Note: cutPow MVT conjunct omitted (its pure variant is in
+    ClassicCalcGeneric, downstream of PhaseBH; available there
+    as `cutPow_calc_mvt_pure` / `cutPow_calc_capstone_pure`). -/
+theorem phaseBH_grand_capstone_pure (a : FluxCut)
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k)
+    (h_right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k) :
+    cohomEquiv a a
+    ∧ fluxCutEq (localDivergence id unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence f unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (fluxAlong f unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence f unitBracket) (fluxAlong f unitBracket) :=
+  ⟨cohomEquiv_refl a,
+   mvt_id_unitBracket_pure,
+   mvt_passthrough_unit_pure f h_left h_right,
+   fluxAlong_passthrough_unit_pure f h_left h_right,
+   ftc_bridge_passthrough_unit_pure f h_left h_right⟩
+
 end E213.Math.Real213.PhaseBHCapstone

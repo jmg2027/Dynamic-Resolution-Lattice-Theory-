@@ -147,6 +147,18 @@ end Passthrough_at
 
 namespace Passthrough
 
+/-- ★ **Adapter**: every `Passthrough` is also a `Passthrough_at`.
+    Pointwise extraction from function-eq fields.  Bridge for
+    legacy code using function-eq form, allowing it to feed into
+    pure pointwise capstones.
+
+    Note: this adapter itself inherits Quot.sound from the input
+    `Passthrough` — but downstream consumers using only `_at` form
+    via this adapter avoid additional propext leakage. -/
+def toAt {f} (pf : Passthrough f) : Passthrough_at f :=
+  { left := fun m k => by rw [pf.left]
+    right := fun m k => by rw [pf.right] }
+
 /-- One-liner MVT for any Passthrough. -/
 theorem mvt {f} (pf : Passthrough f) :
     localDivergence f unitBracket = ofCut (constCut 1 1) :=
