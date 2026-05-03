@@ -135,6 +135,31 @@ theorem polynomial_ftc_bridge_capstone :
    ftc_bridge_square_unitBracket,
    ftc_bridge_cube_unitBracket⟩
 
+/-! ### PURE pointwise variants (fluxCutEq form)
+
+Note: full FTC bridge pure variants live downstream
+(FluxMVTPassthrough), since this file is upstream and cannot
+import FluxMVTPassthrough.  Only the fluxAlong-pure forms are
+available here (they use local `_at` field theorems). -/
+
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
+
+/-- fluxAlong x² at unit (fluxCutEq, PURE). -/
+theorem fluxAlong_square_unitBracket_pure :
+    fluxCutEq (fluxAlong (fun x => cutMul x x) unitBracket)
+              (ofCut (constCut 1 1)) :=
+  fluxCutEq_of_pointwise
+    fluxAlong_square_unitBracket_forward_at
+    fluxAlong_square_unitBracket_backward_at
+
+/-- fluxAlong x³ at unit (fluxCutEq, PURE). -/
+theorem fluxAlong_cube_unitBracket_pure :
+    fluxCutEq (fluxAlong (fun x => cutMul x (cutMul x x)) unitBracket)
+              (ofCut (constCut 1 1)) :=
+  fluxCutEq_of_pointwise
+    fluxAlong_cube_unitBracket_forward_at
+    fluxAlong_cube_unitBracket_backward_at
+
 end FluxCut
 
 end E213.Math.Real213.FluxFTCPolynomial
