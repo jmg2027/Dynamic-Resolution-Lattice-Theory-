@@ -1,6 +1,7 @@
 import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.CutSumComm
 import E213.Math.Real213.CutMulOne
+import E213.Math.Real213.CutPoset
 
 /-!
 # Research.Real213CutSumOne: cutSum (1)(1) = constCut 2 1 (general theorem)
@@ -12,6 +13,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSum (cutSum cutSumAux)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff cutSum_comm)
+open E213.Math.Real213.CutPoset (cutEq)
 
 private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) : a = b := by
   cases a <;> cases b
@@ -22,14 +24,16 @@ private theorem bool_eq_iff (a b : Bool) (h : a = true ↔ b = true) : a = b := 
 
 /-- **cutSum (1)(1) = constCut 2 1**: 1 + 1 = 2 as cut function. -/
 theorem cutSum_one_one :
-    cutSum (constCut 1 1) (constCut 1 1) = constCut 2 1 := by
-  funext m k
+    cutEq (cutSum (constCut 1 1) (constCut 1 1)) (constCut 2 1) := by
+  intro m k
   apply bool_eq_iff
   show cutSumAux (constCut 1 1) (constCut 1 1) k (2*m) (2*m) = true
        ↔ constCut 2 1 m k = true
-  rw [cutSumAux_eq_true_iff]
   constructor
-  · rintro ⟨i, hi, hci, hcsi⟩
+  · intro hLHS
+    have hExt :=
+      (cutSumAux_eq_true_iff (constCut 1 1) (constCut 1 1) k (2*m) (2*m)).mp hLHS
+    obtain ⟨i, hi, hci, hcsi⟩ := hExt
     have h_2k_le_i : 2*k ≤ i := by
       have : 1*(2*k) ≤ 1*i := of_decide_eq_true hci
       rwa [Nat.one_mul, Nat.one_mul] at this
@@ -42,21 +46,25 @@ theorem cutSum_one_one :
     show decide (2*k ≤ 1*m) = true
     rw [Nat.one_mul]
     apply decide_eq_true
-    omega
+    have h_doubled : 2*(2*k) ≤ 2*m := by
+      rw [Nat.two_mul]; exact h_4k_le_2m
+    exact Nat.le_of_mul_le_mul_left h_doubled (by decide : 0 < 2)
   · intro h
     have h_2k_le_m : 2*k ≤ m := by
       have : 2*k ≤ 1*m := of_decide_eq_true h
       rwa [Nat.one_mul] at this
+    apply (cutSumAux_eq_true_iff (constCut 1 1) (constCut 1 1) k (2*m) (2*m)).mpr
     refine ⟨2*k, ?_, ?_, ?_⟩
-    · -- 2k ≤ 2m (from 2k ≤ m)
-      exact Nat.le_trans h_2k_le_m (Nat.le_mul_of_pos_left _ (by decide : 0 < 2))
+    · exact Nat.le_trans h_2k_le_m (Nat.le_mul_of_pos_left _ (by decide : 0 < 2))
     · show decide (1*(2*k) ≤ 1*(2*k)) = true
       exact decide_eq_true (Nat.le_refl _)
     · show decide (1*(2*k) ≤ 1*(2*m - 2*k)) = true
       rw [Nat.one_mul, Nat.one_mul]
       apply decide_eq_true
       have h_4k_2m : 2*(2*k) ≤ 2*m := Nat.mul_le_mul_left 2 h_2k_le_m
-      omega
+      have h_sum : 2*k + 2*k ≤ 2*m := by
+        rw [← Nat.two_mul]; exact h_4k_2m
+      exact E213.Tactic.Nat213.le_sub_of_add_le h_sum
 
 /-- **cutSum (0)(constCut a b) = constCut a b** (zero left identity). -/
 theorem cutSum_zero_const (a b : Nat) :
