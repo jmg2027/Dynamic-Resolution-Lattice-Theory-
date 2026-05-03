@@ -1,5 +1,6 @@
 import E213.Math.Irrational.Sqrt2Cut
 import E213.Math.Infinity.LensCardinality
+import E213.Kernel.Tactic.Nat213
 
 /-!
 # Research.PellSeq: Pell sequence Raw construction
@@ -43,13 +44,13 @@ private theorem expand_3x4y (x y : Nat) :
   have h1 : (3 * x + 4 * y) * (3 * x + 4 * y)
           = (3 * x) * (3 * x) + (3 * x) * (4 * y)
             + ((4 * y) * (3 * x) + (4 * y) * (4 * y)) := by
-    rw [Nat.add_mul, Nat.mul_add, Nat.mul_add]
+    rw [E213.Tactic.Nat213.add_mul, Nat.mul_add, Nat.mul_add]
   rw [h1]
-  have e1 : (3 * x) * (3 * x) = 9 * (x * x) := by rw [Nat.mul_mul_mul_comm]
-  have e2 : (3 * x) * (4 * y) = 12 * (x * y) := by rw [Nat.mul_mul_mul_comm]
+  have e1 : (3 * x) * (3 * x) = 9 * (x * x) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
+  have e2 : (3 * x) * (4 * y) = 12 * (x * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
   have e3 : (4 * y) * (3 * x) = 12 * (x * y) := by
-    rw [Nat.mul_mul_mul_comm, Nat.mul_comm y x]
-  have e4 : (4 * y) * (4 * y) = 16 * (y * y) := by rw [Nat.mul_mul_mul_comm]
+    rw [E213.Tactic.Nat213.mul_mul_mul_comm_213, Nat.mul_comm y x]
+  have e4 : (4 * y) * (4 * y) = 16 * (y * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
   rw [e1, e2, e3, e4]; omega
 
 /-- Expand (2x + 3y)². -/
@@ -59,13 +60,13 @@ private theorem expand_2x3y (x y : Nat) :
   have h1 : (2 * x + 3 * y) * (2 * x + 3 * y)
           = (2 * x) * (2 * x) + (2 * x) * (3 * y)
             + ((3 * y) * (2 * x) + (3 * y) * (3 * y)) := by
-    rw [Nat.add_mul, Nat.mul_add, Nat.mul_add]
+    rw [E213.Tactic.Nat213.add_mul, Nat.mul_add, Nat.mul_add]
   rw [h1]
-  have e1 : (2 * x) * (2 * x) = 4 * (x * x) := by rw [Nat.mul_mul_mul_comm]
-  have e2 : (2 * x) * (3 * y) = 6 * (x * y) := by rw [Nat.mul_mul_mul_comm]
+  have e1 : (2 * x) * (2 * x) = 4 * (x * x) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
+  have e2 : (2 * x) * (3 * y) = 6 * (x * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
   have e3 : (3 * y) * (2 * x) = 6 * (x * y) := by
-    rw [Nat.mul_mul_mul_comm, Nat.mul_comm y x]
-  have e4 : (3 * y) * (3 * y) = 9 * (y * y) := by rw [Nat.mul_mul_mul_comm]
+    rw [E213.Tactic.Nat213.mul_mul_mul_comm_213, Nat.mul_comm y x]
+  have e4 : (3 * y) * (3 * y) = 9 * (y * y) := by rw [E213.Tactic.Nat213.mul_mul_mul_comm_213]
   rw [e1, e2, e3, e4]; omega
 
 /-- **Pell step**: the invariant is preserved by the recursion. -/

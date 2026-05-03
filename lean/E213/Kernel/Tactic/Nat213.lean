@@ -356,4 +356,19 @@ theorem add_sub_pred {a b : Nat} (ha : 1 ≤ a) :
 theorem zero_ne_succ_213 (n : Nat) : (0 : Nat) ≠ n + 1 :=
   fun h => Nat.noConfusion h
 
+/-- `(a * b) * (c * d) = (a * c) * (b * d)`.  ∅-axiom replacement for
+    `Nat.mul_mul_mul_comm` (Lean-core proof brings propext).  Used in
+    quadratic identity expansions (Pell invariant, Wallis recurrence). -/
+theorem mul_mul_mul_comm_213 (a b c d : Nat) :
+    (a * b) * (c * d) = (a * c) * (b * d) :=
+  let h1 : (a * b) * (c * d) = a * (b * (c * d)) :=
+    mul_assoc a b (c * d)
+  let h2 : b * (c * d) = (b * c) * d := (mul_assoc b c d).symm
+  let h3 : (b * c) * d = (c * b) * d := congrArg (· * d) (Nat.mul_comm b c)
+  let h4 : (c * b) * d = c * (b * d) := mul_assoc c b d
+  let middle : b * (c * d) = c * (b * d) := h2.trans (h3.trans h4)
+  let h5 : a * (c * (b * d)) = (a * c) * (b * d) :=
+    (mul_assoc a c (b * d)).symm
+  h1.trans ((congrArg (a * ·) middle).trans h5)
+
 end E213.Tactic.Nat213
