@@ -31,18 +31,13 @@ open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.FluxMVTConcrete.FluxCut
-  (mvt_id_unitBracket
-   mvt_id_unitBracket_forward_at mvt_id_unitBracket_backward_at)
-open E213.Math.Real213.FluxFTC.FluxCut (ftc_bridge_id_unitBracket)
+  (mvt_id_unitBracket_forward_at mvt_id_unitBracket_backward_at)
 open E213.Math.Real213.FluxEquiv.FluxCut (cohomEquiv cohomEquiv_refl)
 open E213.Math.Real213.FluxMVTGeneric.FluxCut
-  (mvt_cutPow_unitBracket ftc_bridge_cutPow_unitBracket
-   mvt_cutPow_unitBracket_forward_at
+  (mvt_cutPow_unitBracket_forward_at
    mvt_cutPow_unitBracket_backward_at)
 open E213.Math.Real213.FluxMVTPassthrough.FluxCut
-  (mvt_passthrough_unit fluxAlong_passthrough_unit
-   ftc_bridge_passthrough_unit
-   mvt_passthrough_unit_forward_at
+  (mvt_passthrough_unit_forward_at
    mvt_passthrough_unit_backward_at
    fluxAlong_passthrough_unit_forward_at
    fluxAlong_passthrough_unit_backward_at)

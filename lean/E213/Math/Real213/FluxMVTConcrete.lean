@@ -54,30 +54,6 @@ theorem mvt_id_unitBracket_backward_at (m k : Nat) :
   show cutMul (constCut 1 1) (constCut 0 1) m k = constCut 0 1 m k
   exact cutMul_one_const_at 0 1 m k
 
-/-- **MVT for identity at unitBracket**: localDivergence id unitBracket
-    propositionally equals ofCut (constCut 1 1).  Since id.derivative
-    is constant 1, MVT holds with c being any point. -/
-theorem mvt_id_unitBracket :
-    localDivergence id unitBracket = ofCut (constCut 1 1) := by
-  show ({ forward := cutScale (2^0) 1 (constCut 1 1),
-          backward := cutScale (2^0) 1 (constCut 0 1) } : FluxCut)
-       = ofCut (constCut 1 1)
-  show ({ forward := cutMul (constCut 1 1) (constCut 1 1),
-          backward := cutMul (constCut 1 1) (constCut 0 1) } : FluxCut)
-       = { forward := constCut 1 1, backward := constCut 0 1 }
-  rw [cutMul_one_one, cutMul_one_const 0 1]
-
-/-- **MVT corollary**: id's localDivergence at unitBracket is
-    cohomEquiv to derivative flux. -/
-theorem mvt_id_unitBracket_cohomEquiv :
-    cohomEquiv (localDivergence id unitBracket)
-               (ofCut (idIsDifferentiable.derivative (constCut 0 1))) := by
-  show cohomEquiv (localDivergence id unitBracket)
-                  (ofCut ((idIsDifferentiable.derivative) (constCut 0 1)))
-  rw [mvt_id_unitBracket]
-  show cohomEquiv (ofCut (constCut 1 1)) (ofCut (constCut 1 1))
-  exact cohomEquiv_refl _
-
 /-- **MVT for constant at any bracket**: divergence is balanced. -/
 theorem mvt_const_balanced (c : Nat → Nat → Bool) (db : DyadicBracket) :
     isBalanced (localDivergence (constCutFn c) db) :=

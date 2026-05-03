@@ -29,48 +29,13 @@ open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.CutMulOne
   (cutMul_one_one cutMul_one_one_at cutMul_one_const cutMul_one_const_at)
 open E213.Math.Real213.FluxMVTConcrete.FluxCut
-  (mvt_id_unitBracket mvt_id_unitBracket_pure)
+  (mvt_id_unitBracket_pure)
 open E213.Math.Real213.CutSumZero (cutMul_zero_zero cutMul_zero_zero_at)
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
 
 namespace FluxCut
 
-/-- **MVT for x² at unitBracket**: localDivergence = ofCut 1 (propEq). -/
-theorem mvt_square_unitBracket :
-    localDivergence (fun x => cutMul x x) unitBracket
-      = ofCut (constCut 1 1) := by
-  show ({ forward := cutMul (constCut 1 1)
-            (cutMul (constCut 1 1) (constCut 1 1)),
-          backward := cutMul (constCut 1 1)
-            (cutMul (constCut 0 1) (constCut 0 1)) } : FluxCut)
-       = { forward := constCut 1 1, backward := constCut 0 1 }
-  rw [cutMul_one_one, cutMul_zero_zero,
-      cutMul_one_one, cutMul_one_const 0 1]
-
-/-- **MVT for x³ at unitBracket**: localDivergence = ofCut 1 (propEq). -/
-theorem mvt_cube_unitBracket :
-    localDivergence (fun x => cutMul x (cutMul x x)) unitBracket
-      = ofCut (constCut 1 1) := by
-  show ({ forward := cutMul (constCut 1 1)
-            (cutMul (constCut 1 1)
-              (cutMul (constCut 1 1) (constCut 1 1))),
-          backward := cutMul (constCut 1 1)
-            (cutMul (constCut 0 1)
-              (cutMul (constCut 0 1) (constCut 0 1))) } : FluxCut)
-       = { forward := constCut 1 1, backward := constCut 0 1 }
-  rw [cutMul_one_one, cutMul_zero_zero,
-      cutMul_one_one, cutMul_zero_zero,
-      cutMul_one_one, cutMul_one_const 0 1]
-
-/-- Phase BB capstone: polynomial MVT at unit bracket. -/
-theorem polynomial_mvt_unitBracket_capstone :
-    localDivergence id unitBracket = ofCut (constCut 1 1)
-    ∧ localDivergence (fun x => cutMul x x) unitBracket
-        = ofCut (constCut 1 1)
-    ∧ localDivergence (fun x => cutMul x (cutMul x x)) unitBracket
-        = ofCut (constCut 1 1) :=
-  ⟨mvt_id_unitBracket, mvt_square_unitBracket, mvt_cube_unitBracket⟩
 
 /-! ### PURE pointwise variants — square + cube via cutMulOuter_congr -/
 

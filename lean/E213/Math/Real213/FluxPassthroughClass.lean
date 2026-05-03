@@ -39,47 +39,16 @@ open E213.Math.Real213.CutPowConst
   (cutPow_one_n cutPow_one_n_at cutPow_zero_succ cutPow_zero_succ_at)
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 open E213.Math.Real213.FluxMVTPassthrough.FluxCut
-  (mvt_passthrough_unit ftc_bridge_passthrough_unit)
+  (mvt_passthrough_unit_pure)
 
 namespace FluxCut
 
-/-- A function passing through (0, 0) and (1, 1) on dyadic cuts. -/
-structure Passthrough (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
-  left : f (constCut 0 1) = constCut 0 1
-  right : f (constCut 1 1) = constCut 1 1
-
 /-- Pointwise passthrough — strict ∅-axiom variant (no funext required
-    in `left/right` fields). -/
+    in `left/right` fields).  Sole Passthrough class — function-eq
+    Passthrough was deleted 2026-05-XX session 27 ('박멸'). -/
 structure Passthrough_at (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
   left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k
   right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k
-
-namespace Passthrough
-
-/-- Identity is passthrough. -/
-def id_pass : Passthrough id := { left := rfl, right := rfl }
-
-/-- cutPow x^(n+1) is passthrough. -/
-def cutPow_pass (n : Nat) : Passthrough (fun x => cutPow x (n+1)) :=
-  { left := cutPow_zero_succ n, right := cutPow_one_n (n+1) }
-
-/-- Composition of passthroughs is passthrough. -/
-def compose_pass {f g} (pf : Passthrough f) (pg : Passthrough g) :
-    Passthrough (g ∘ f) :=
-  { left := by show g (f (constCut 0 1)) = constCut 0 1
-               rw [pf.left, pg.left]
-    right := by show g (f (constCut 1 1)) = constCut 1 1
-                rw [pf.right, pg.right] }
-
-/-- Product of passthroughs is passthrough. -/
-def mul_pass {f g} (pf : Passthrough f) (pg : Passthrough g) :
-    Passthrough (fun x => cutMul (f x) (g x)) :=
-  { left := by show cutMul (f (constCut 0 1)) (g (constCut 0 1)) = constCut 0 1
-               rw [pf.left, pg.left, cutMul_zero_zero]
-    right := by show cutMul (f (constCut 1 1)) (g (constCut 1 1)) = constCut 1 1
-                rw [pf.right, pg.right, cutMul_one_one] }
-
-end Passthrough
 
 namespace Passthrough_at
 
@@ -91,20 +60,12 @@ def cutPow_pass (n : Nat) : Passthrough_at (fun x => cutPow x (n+1)) :=
   { left := fun m k => cutPow_zero_succ_at n m k
     right := fun m k => cutPow_one_n_at (n+1) m k }
 
-/-- Composition of passthrough_at's is passthrough_at — only needs
-    that g preserves pointwise eq, captured via `congrArg` chain.  But
-    in general we need the function-eq form of pf to substitute under
-    g.  This combinator therefore wraps the `Passthrough` form (DIRTY
-    Quot.sound).  Pure-pointwise composition would need either f to
-    be locally-determined or a stronger hypothesis. -/
-def compose_pass {f g} (pf : Passthrough f) (pg : Passthrough_at g) :
-    Passthrough_at (g ∘ f) :=
-  { left := fun m k => by
-      show g (f (constCut 0 1)) m k = constCut 0 1 m k
-      rw [pf.left]; exact pg.left m k
-    right := fun m k => by
-      show g (f (constCut 1 1)) m k = constCut 1 1 m k
-      rw [pf.right]; exact pg.right m k }
+/-- Composition of passthrough_at's — requires that f's endpoints
+    reduce DEFINITIONALLY (rfl-clean) since Passthrough_at gives
+    pointwise eq, not function eq.  For id ∘ id, both endpoints
+    rfl-equal so this works. -/
+def compose_id_id : Passthrough_at (id ∘ id) :=
+  { left := fun _ _ => rfl, right := fun _ _ => rfl }
 
 /-- Product of passthrough_at's is passthrough_at — fully pointwise
     via `cutMulOuter_congr`.  No funext, no propext, no Quot.sound. -/
@@ -144,32 +105,6 @@ def mul_pass {f g} (pf : Passthrough_at f) (pg : Passthrough_at g) :
       rw [step]; exact cutMul_one_one_at m k }
 
 end Passthrough_at
-
-namespace Passthrough
-
-/-- ★ **Adapter**: every `Passthrough` is also a `Passthrough_at`.
-    Pointwise extraction from function-eq fields.  Bridge for
-    legacy code using function-eq form, allowing it to feed into
-    pure pointwise capstones.
-
-    Note: this adapter itself inherits Quot.sound from the input
-    `Passthrough` — but downstream consumers using only `_at` form
-    via this adapter avoid additional propext leakage. -/
-def toAt {f} (pf : Passthrough f) : Passthrough_at f :=
-  { left := fun m k => by rw [pf.left]
-    right := fun m k => by rw [pf.right] }
-
-/-- One-liner MVT for any Passthrough. -/
-theorem mvt {f} (pf : Passthrough f) :
-    localDivergence f unitBracket = ofCut (constCut 1 1) :=
-  mvt_passthrough_unit f pf.left pf.right
-
-/-- One-liner FTC bridge for any Passthrough. -/
-theorem ftc {f} (pf : Passthrough f) :
-    localDivergence f unitBracket = fluxAlong f unitBracket :=
-  ftc_bridge_passthrough_unit f pf.left pf.right
-
-end Passthrough
 
 namespace Passthrough_at
 

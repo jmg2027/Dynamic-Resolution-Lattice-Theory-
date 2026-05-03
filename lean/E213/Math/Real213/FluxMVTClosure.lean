@@ -28,7 +28,6 @@ open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_const)
 open E213.Math.Real213.CutSumZero (cutMul_zero_zero)
-open E213.Math.Real213.FluxMVTPassthrough.FluxCut (mvt_passthrough_unit)
 
 namespace FluxCut
 
@@ -46,44 +45,6 @@ theorem passthrough_compose
     rw [hf_left, hg_left]
   · show g (f (constCut 1 1)) = constCut 1 1
     rw [hf_right, hg_right]
-
-/-- Passthrough is closed under cutMul (pointwise product). -/
-theorem passthrough_mul
-    (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
-    (hf_left : f (constCut 0 1) = constCut 0 1)
-    (hf_right : f (constCut 1 1) = constCut 1 1)
-    (hg_left : g (constCut 0 1) = constCut 0 1)
-    (hg_right : g (constCut 1 1) = constCut 1 1) :
-    (fun x => cutMul (f x) (g x)) (constCut 0 1) = constCut 0 1
-    ∧ (fun x => cutMul (f x) (g x)) (constCut 1 1) = constCut 1 1 := by
-  refine ⟨?_, ?_⟩
-  · show cutMul (f (constCut 0 1)) (g (constCut 0 1)) = constCut 0 1
-    rw [hf_left, hg_left, cutMul_zero_zero]
-  · show cutMul (f (constCut 1 1)) (g (constCut 1 1)) = constCut 1 1
-    rw [hf_right, hg_right, cutMul_one_one]
-
-/-- MVT extends to composition of passthroughs. -/
-theorem mvt_compose_passthrough
-    (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
-    (hf_left : f (constCut 0 1) = constCut 0 1)
-    (hf_right : f (constCut 1 1) = constCut 1 1)
-    (hg_left : g (constCut 0 1) = constCut 0 1)
-    (hg_right : g (constCut 1 1) = constCut 1 1) :
-    localDivergence (g ∘ f) unitBracket = ofCut (constCut 1 1) :=
-  let ⟨h0, h1⟩ := passthrough_compose f g hf_left hf_right hg_left hg_right
-  mvt_passthrough_unit (g ∘ f) h0 h1
-
-/-- MVT extends to product of passthroughs. -/
-theorem mvt_mul_passthrough
-    (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
-    (hf_left : f (constCut 0 1) = constCut 0 1)
-    (hf_right : f (constCut 1 1) = constCut 1 1)
-    (hg_left : g (constCut 0 1) = constCut 0 1)
-    (hg_right : g (constCut 1 1) = constCut 1 1) :
-    localDivergence (fun x => cutMul (f x) (g x)) unitBracket
-      = ofCut (constCut 1 1) :=
-  let ⟨h0, h1⟩ := passthrough_mul f g hf_left hf_right hg_left hg_right
-  mvt_passthrough_unit (fun x => cutMul (f x) (g x)) h0 h1
 
 /-! ### PURE pointwise variants — strict ∅-axiom (mul case)
 
