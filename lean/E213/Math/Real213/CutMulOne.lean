@@ -61,10 +61,10 @@ theorem cutMul_one_one_at (m k : Nat) :
       exact decide_eq_true (Nat.le_refl _)
     · exact Nat.mul_le_mul_right k h_km
 
-/-- **cutMul (1)(1) = constCut 1 1** function eq (uses funext + _at). -/
-theorem cutMul_one_one : cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1 := by
-  funext m k
-  exact cutMul_one_one_at m k
+/-- **cutMul (1)(1) ≡ constCut 1 1** (cutEq, PURE). -/
+theorem cutMul_one_one :
+    ∀ m k, cutMul (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k :=
+  cutMul_one_one_at
 
 /-- **cutMul (1) (constCut a b) = constCut a b** pointwise (∅-axiom). -/
 theorem cutMul_one_const_at (a b m k : Nat) :
@@ -110,11 +110,10 @@ theorem cutMul_one_const_at (a b m k : Nat) :
     · -- k*m ≤ m*k
       rw [Nat.mul_comm]; exact Nat.le_refl _
 
-/-- **cutMul (1) (constCut a b) = constCut a b** function eq. -/
+/-- **cutMul (1) (constCut a b) ≡ constCut a b** (cutEq, PURE). -/
 theorem cutMul_one_const (a b : Nat) :
-    cutMul (constCut 1 1) (constCut a b) = constCut a b := by
-  funext m k
-  exact cutMul_one_const_at a b m k
+    ∀ m k, cutMul (constCut 1 1) (constCut a b) m k = constCut a b m k :=
+  cutMul_one_const_at a b
 
 /-- **cutMul (constCut a b) (constCut 1 1) = constCut a b** pointwise (∅-axiom). -/
 theorem cutMul_const_one_at (a b m k : Nat) :
@@ -122,10 +121,9 @@ theorem cutMul_const_one_at (a b m k : Nat) :
   rw [cutMul_comm (constCut a b) (constCut 1 1) m k]
   exact cutMul_one_const_at a b m k
 
-/-- **cutMul (constCut a b) (constCut 1 1) = constCut a b** (right identity). -/
+/-- **cutMul (constCut a b) (constCut 1 1) ≡ constCut a b** (cutEq, PURE). -/
 theorem cutMul_const_one (a b : Nat) :
-    cutMul (constCut a b) (constCut 1 1) = constCut a b := by
-  funext m k
-  exact cutMul_const_one_at a b m k
+    ∀ m k, cutMul (constCut a b) (constCut 1 1) m k = constCut a b m k :=
+  cutMul_const_one_at a b
 
 end E213.Math.Real213.CutMulOne
