@@ -1,4 +1,5 @@
 import E213.Math.Infinity.Countable
+import E213.Kernel.Tactic.Nat213
 import E213.Math.Infinity.Cantor
 import E213.Math.Infinity.Godel
 import E213.Hypervisor.Lens
@@ -43,7 +44,10 @@ open E213.Firmware E213.Hypervisor
 theorem leaves_surjective_pos :
     ∀ n : Nat, 1 ≤ n → ∃ r : Raw, Lens.leaves.view r = n := by
   intro n hn
-  have ⟨m, hm⟩ : ∃ m, n = m + 1 := ⟨n - 1, by omega⟩
+  have ⟨m, hm⟩ : ∃ m, n = m + 1 := ⟨n - 1, by
+    have h := E213.Tactic.Nat213.add_sub_of_le hn
+    rw [Nat.add_comm 1 (n - 1)] at h
+    exact h.symm⟩
   refine ⟨rawTower m, ?_⟩
   show Raw.fold 1 1 (· + ·) (rawTower m) = n
   rw [Raw.fold_eq_leaves, rawTower_leaves, hm]
