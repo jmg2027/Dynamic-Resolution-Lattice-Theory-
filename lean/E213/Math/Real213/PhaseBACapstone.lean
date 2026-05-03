@@ -65,4 +65,28 @@ theorem phaseBA_capstone (a b c d : FluxCut) (hab : cohomEquiv a b)
    ftc_bridge_id_unitBracket,
    localDivergence_const_balanced cf db⟩
 
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket_pure)
+
+/-- **Phase BA capstone — fluxCutEq variant** (PURE, strict ∅-axiom).
+    Replaces the function-eq MVT/FTC conjuncts with their pointwise
+    fluxCutEq forms. -/
+theorem phaseBA_capstone_pure (a b c d : FluxCut) (hab : cohomEquiv a b)
+    (hcd : cohomEquiv c d)
+    (cf : Nat → Nat → Bool) (db : DyadicBracket) :
+    cohomEquiv a a
+    ∧ cohomEquiv b a
+    ∧ cohomEquiv a.neg b.neg
+    ∧ cohomEquiv (add a c) (add b d)
+    ∧ cohomEquiv (sub a c) (sub b d)
+    ∧ fluxCutEq (localDivergence id unitBracket) (ofCut (constCut 1 1))
+    ∧ isBalanced (localDivergence (constCutFn cf) db) :=
+  ⟨cohomEquiv_refl a,
+   cohomEquiv_symm a b hab,
+   neg_cohomEquiv a b hab,
+   add_cohomEquiv a b c d hab hcd,
+   sub_cohomEquiv a b c d hab hcd,
+   mvt_id_unitBracket_pure,
+   localDivergence_const_balanced cf db⟩
+
 end E213.Math.Real213.PhaseBACapstone

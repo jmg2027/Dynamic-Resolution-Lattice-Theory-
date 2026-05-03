@@ -95,6 +95,14 @@ theorem mvt_const_self_cohomEquiv (c : Nat → Nat → Bool) (db : DyadicBracket
   · intro m k
     rfl
 
+/-- **MVT for identity at unitBracket** (fluxCutEq, PURE).
+    Built from existing pointwise field theorems. -/
+theorem mvt_id_unitBracket_pure :
+    E213.Math.Real213.FluxMVT.FluxCut.fluxCutEq
+      (localDivergence id unitBracket) (ofCut (constCut 1 1)) :=
+  E213.Math.Real213.FluxMVT.FluxCut.fluxCutEq_of_pointwise
+    mvt_id_unitBracket_forward_at mvt_id_unitBracket_backward_at
+
 end FluxCut
 
 end E213.Math.Real213.FluxMVTConcrete
