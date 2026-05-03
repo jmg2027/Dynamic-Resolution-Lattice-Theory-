@@ -35,9 +35,19 @@ open E213.Math.Real213.DyadicTrajectory (unitBracket)
 
 namespace FluxCut
 
-/-- Cohomological equality: both components match pointwise. -/
+/-- Cohomological equality: both components match pointwise.
+    This IS the 213-native FluxCut equivalence (avoids struct equality
+    which would require funext on the cut-function fields). -/
 def fluxBalance (a b : FluxCut) : Prop :=
   ∀ m k, a.forward m k = b.forward m k ∧ a.backward m k = b.backward m k
+
+/-- Alias for `fluxBalance` — cleaner name when used as cut-equality. -/
+abbrev fluxCutEq := fluxBalance
+
+/-- `fluxCutEq` derived from struct equality (PURE: no funext). -/
+theorem fluxCutEq_of_eq {a b : FluxCut} (h : a = b) : fluxCutEq a b := by
+  intro m k
+  exact ⟨by rw [h], by rw [h]⟩
 
 /-- MVT for constants: localDivergence balanced (∂c = 0). -/
 theorem mvt_const (c : Nat → Nat → Bool) (db : DyadicBracket) :
@@ -66,6 +76,28 @@ theorem fluxBalance_symm (a b : FluxCut) :
     fluxBalance a b → fluxBalance b a := by
   intro h m k
   exact ⟨(h m k).1.symm, (h m k).2.symm⟩
+
+/-- fluxBalance is transitive. -/
+theorem fluxBalance_trans {a b c : FluxCut}
+    (hab : fluxBalance a b) (hbc : fluxBalance b c) : fluxBalance a c :=
+  fun m k => ⟨(hab m k).1.trans (hbc m k).1,
+              (hab m k).2.trans (hbc m k).2⟩
+
+/-- Pointwise field projections to fluxCutEq. -/
+theorem fluxCutEq_of_pointwise {a b : FluxCut}
+    (hf : ∀ m k, a.forward m k = b.forward m k)
+    (hb : ∀ m k, a.backward m k = b.backward m k) : fluxCutEq a b :=
+  fun m k => ⟨hf m k, hb m k⟩
+
+/-- Forward projection from fluxCutEq. -/
+theorem fluxCutEq_forward {a b : FluxCut} (h : fluxCutEq a b) :
+    ∀ m k, a.forward m k = b.forward m k :=
+  fun m k => (h m k).1
+
+/-- Backward projection from fluxCutEq. -/
+theorem fluxCutEq_backward {a b : FluxCut} (h : fluxCutEq a b) :
+    ∀ m k, a.backward m k = b.backward m k :=
+  fun m k => (h m k).2
 
 end FluxCut
 

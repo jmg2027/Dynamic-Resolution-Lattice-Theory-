@@ -159,6 +159,25 @@ theorem ftc {f} (pf : Passthrough f) :
 
 end Passthrough
 
+namespace Passthrough_at
+
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit_pure fluxAlong_passthrough_unit_pure
+   ftc_bridge_passthrough_unit_pure)
+
+/-- One-liner MVT (fluxCutEq, PURE) for any Passthrough_at. -/
+theorem mvt_pure {f} (pf : Passthrough_at f) :
+    fluxCutEq (localDivergence f unitBracket) (ofCut (constCut 1 1)) :=
+  mvt_passthrough_unit_pure f pf.left pf.right
+
+/-- One-liner FTC bridge (fluxCutEq, PURE) for any Passthrough_at. -/
+theorem ftc_pure {f} (pf : Passthrough_at f) :
+    fluxCutEq (localDivergence f unitBracket) (fluxAlong f unitBracket) :=
+  ftc_bridge_passthrough_unit_pure f pf.left pf.right
+
+end Passthrough_at
+
 end FluxCut
 
 end E213.Math.Real213.FluxPassthroughClass
