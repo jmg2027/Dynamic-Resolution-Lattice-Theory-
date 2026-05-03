@@ -28,7 +28,7 @@ open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough Passthrough_at)
 open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough
   (id_pass cutPow_pass compose_pass mul_pass)
 open E213.Math.Real213.FluxPassthroughCatalog.FluxCut.Passthrough
@@ -53,6 +53,12 @@ structure ClassicCalc
     (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
   diff : IsDifferentiable f
   pass : Passthrough f
+
+/-- **ClassicCalc_at f**: pointwise PURE variant of ClassicCalc. -/
+structure ClassicCalc_at
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) where
+  diff : IsDifferentiable f
+  pass : Passthrough_at f
 
 namespace ClassicCalc
 
@@ -102,5 +108,31 @@ theorem classic_calc_capstone (f) (cc : ClassicCalc f) :
   ⟨cc.mvt, cc.ftc, cc.pass.left, cc.pass.right⟩
 
 end ClassicCalc
+
+namespace ClassicCalc_at
+
+open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
+  (id_pass cutPow_pass)
+open E213.Math.Real213.FluxPassthroughCatalog.FluxCut.Passthrough_at
+  (square_pass cube_pass quartic_pass quintic_pass)
+
+/-- id ∈ ClassicCalc_at (PURE pointwise). -/
+def id_calc : ClassicCalc_at id :=
+  { diff := idIsDifferentiable, pass := id_pass }
+
+/-- x² ∈ ClassicCalc_at (PURE pointwise). -/
+def square_calc : ClassicCalc_at (fun x => cutMul x x) :=
+  { diff := squareIsDifferentiable, pass := square_pass }
+
+/-- x³ ∈ ClassicCalc_at (PURE pointwise). -/
+def cube_calc : ClassicCalc_at (fun x => cutMul x (cutMul x x)) :=
+  { diff := cubeIsDifferentiable, pass := cube_pass }
+
+/-- Extract derivative. -/
+def derivative {f} (cc : ClassicCalc_at f) :
+    (Nat → Nat → Bool) → (Nat → Nat → Bool) :=
+  cc.diff.derivative
+
+end ClassicCalc_at
 
 end E213.Math.Real213.ClassicCalc

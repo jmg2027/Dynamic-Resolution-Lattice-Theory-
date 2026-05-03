@@ -39,10 +39,16 @@ open E213.Math.Real213.AntiderivativeStructural.IsAntiderivative
   (fromDifferentiable)
 open E213.Math.Real213.IntegralViaAnti.IsAntiderivative
   (integral integral_one_unit)
-open E213.Math.Real213.ClassicCalc (ClassicCalc)
+open E213.Math.Real213.ClassicCalc (ClassicCalc ClassicCalc_at)
 open E213.Math.Real213.ClassicCalc.ClassicCalc (id_calc square_calc)
 open E213.Math.Real213.ClassicAnti.ClassicCalc
   (integralCC integralCC_id_unit integralCC_square_unit)
+open E213.Math.Real213.ClassicAnti.ClassicCalc_at
+  (integralCC_id_unit_forward_at integralCC_id_unit_backward_at
+   integralCC_square_unit_forward_at integralCC_square_unit_backward_at
+   integralCC_cube_unit_forward_at integralCC_cube_unit_backward_at)
+open E213.Math.Real213.ClassicCalc.ClassicCalc_at
+  renaming id_calc → id_calc_at, square_calc → square_calc_at, cube_calc → cube_calc_at
 
 /-- ★★ **Phase CS antiderivative arc capstone**: 8-fact bundle ★★ -/
 theorem phaseCS_antiderivative_capstone (db : DyadicBracket) :
@@ -74,12 +80,8 @@ theorem phaseCS_antiderivative_capstone (db : DyadicBracket) :
 
 /-- ★★ **Phase CS pointwise PURE capstone** ★★
 
-    Strict ∅-axiom version of the antiderivative arc capstone for
-    `id` (the rfl-reducible cases), expressed at the pointwise
-    field-equality level.  The `square` cases are gated by the
-    Passthrough.mul_pass refactor (Quot.sound from `cutMul_zero_zero`
-    / `cutMul_one_one` function-eq inside `mul_pass`); they live in
-    the function-eq capstone above. -/
+    Strict ∅-axiom version of the antiderivative arc capstone,
+    extended via ClassicCalc_at to cover square and cube parts. -/
 theorem phaseCS_antiderivative_capstone_at (m k : Nat) :
     -- (CN) id antiderivative of constant 1
     idIsDifferentiable.derivative (constCut 0 1) m k = constCut 1 1 m k
@@ -89,12 +91,36 @@ theorem phaseCS_antiderivative_capstone_at (m k : Nat) :
     -- (CQ) integral of 1 over unit backward = constCut 0 1
     ∧ (integral id_anti unitBracket).backward m k
         = (ofCut (constCut 1 1) : FluxCut).backward m k
-    -- (CR) integralCC id at unit forward
-    ∧ (integralCC id_calc unitBracket).forward m k
+    -- (CR) integralCC id_calc_at at unit forward
+    ∧ (E213.Math.Real213.ClassicAnti.ClassicCalc_at.integralCC
+        id_calc_at unitBracket).forward m k
         = (ofCut (constCut 1 1) : FluxCut).forward m k
-    -- (CR) integralCC id at unit backward
-    ∧ (integralCC id_calc unitBracket).backward m k
+    -- (CR) integralCC id_calc_at at unit backward
+    ∧ (E213.Math.Real213.ClassicAnti.ClassicCalc_at.integralCC
+        id_calc_at unitBracket).backward m k
+        = (ofCut (constCut 1 1) : FluxCut).backward m k
+    -- (CR) integralCC square_calc_at at unit forward
+    ∧ (E213.Math.Real213.ClassicAnti.ClassicCalc_at.integralCC
+        square_calc_at unitBracket).forward m k
+        = (ofCut (constCut 1 1) : FluxCut).forward m k
+    -- (CR) integralCC square_calc_at at unit backward
+    ∧ (E213.Math.Real213.ClassicAnti.ClassicCalc_at.integralCC
+        square_calc_at unitBracket).backward m k
+        = (ofCut (constCut 1 1) : FluxCut).backward m k
+    -- (CR) integralCC cube_calc_at at unit forward
+    ∧ (E213.Math.Real213.ClassicAnti.ClassicCalc_at.integralCC
+        cube_calc_at unitBracket).forward m k
+        = (ofCut (constCut 1 1) : FluxCut).forward m k
+    -- (CR) integralCC cube_calc_at at unit backward
+    ∧ (E213.Math.Real213.ClassicAnti.ClassicCalc_at.integralCC
+        cube_calc_at unitBracket).backward m k
         = (ofCut (constCut 1 1) : FluxCut).backward m k :=
-  ⟨rfl, rfl, rfl, rfl, rfl⟩
+  ⟨rfl, rfl, rfl,
+   integralCC_id_unit_forward_at m k,
+   integralCC_id_unit_backward_at m k,
+   integralCC_square_unit_forward_at m k,
+   integralCC_square_unit_backward_at m k,
+   integralCC_cube_unit_forward_at m k,
+   integralCC_cube_unit_backward_at m k⟩
 
 end E213.Math.Real213.PhaseCSCapstone
