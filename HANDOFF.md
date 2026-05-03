@@ -49,7 +49,9 @@ For each function-eq theorem `f = g`:
 | CutMidSelf+PhaseAC+SignedSum+Dyadic cascade | cascade | 0 | 35db516 |
 | CutMaxMin + CutSumZero | 8 | 0 (18 PURE) | 018152d |
 | ClassicCalcMid + CutMidSelf | 7 | 1 | b36cf61 |
-| **Real DIRTY removed** | | **~82** | |
+| ResolutionDepth | 5 | 0 (14 PURE) | e9e0c6e |
+| Math.Infinity.Countable | 4 | 0 (4 PURE) | e1c4baf |
+| **Real DIRTY removed** | | **~91** | |
 
 ### Live snapshot (post commit b36cf61)
 
