@@ -65,7 +65,8 @@ theorem treeTower_depth : ∀ n, (treeTower n).depth = n := by
       show 1 + Nat.max Tree.a.depth (treeTower m).depth = m + 1
       rw [ih]
       show 1 + Nat.max 0 m = m + 1
-      simp [Nat.zero_max, Nat.add_comm]
+      have hzm : Nat.max 0 m = m := Nat.zero_max m
+      rw [hzm, Nat.add_comm 1 m]
 
 end E213.Firmware.Internal
 
