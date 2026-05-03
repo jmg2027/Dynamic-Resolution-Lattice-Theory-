@@ -37,12 +37,21 @@ open E213.Math.Real213.DifferentiableHigherPow
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
+open E213.Math.Real213.FluxCut (FluxCut)
 open E213.Math.Real213.FluxCut.FluxCut (ofCut)
 open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.FluxMVTPassthrough.FluxCut (mvt_passthrough_unit)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit
+   mvt_passthrough_unit_forward_at mvt_passthrough_unit_backward_at
+   fluxAlong_passthrough_unit_forward_at
+   fluxAlong_passthrough_unit_backward_at)
+open E213.Math.Real213.FluxMVTConcrete.FluxCut
+  (mvt_id_unitBracket_forward_at mvt_id_unitBracket_backward_at)
+open E213.Math.Real213.FluxMVTGeneric.FluxCut
+  (mvt_cutPow_unitBracket_forward_at mvt_cutPow_unitBracket_backward_at)
 open E213.Math.Real213.ClassicCalcGeneric.ClassicCalc (cutPow_calc_mvt)
 open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
 open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half)
@@ -101,5 +110,42 @@ theorem phaseCM_final_capstone (n : Nat)
    @mid_witness_propagates,
    @id_compose_witness_propagates,
    square_has_dyadic_witness⟩
+
+/-- ★★★ **Phase CM final mega-mega capstone, pointwise PURE form** ★★★
+
+    Strict ∅-axiom version of the 4-marquee BE+BF+passthrough+id MVT
+    bundle, expressed at the pointwise field-equality level. -/
+theorem phaseCM_final_capstone_at (n : Nat)
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_left : f (constCut 0 1) = constCut 0 1)
+    (h_right : f (constCut 1 1) = constCut 1 1) (m k : Nat) :
+    -- (AY-3) id at unit forward + backward
+    (localDivergence id unitBracket).forward m k
+       = (ofCut (constCut 1 1) : FluxCut).forward m k
+    ∧ (localDivergence id unitBracket).backward m k
+       = (ofCut (constCut 1 1) : FluxCut).backward m k
+    -- (BE) generic ∀n cutPow MVT pointwise
+    ∧ (localDivergence (fun x => cutPow x (n+1)) unitBracket).forward m k
+       = (ofCut (constCut 1 1) : FluxCut).forward m k
+    ∧ (localDivergence (fun x => cutPow x (n+1)) unitBracket).backward m k
+       = (ofCut (constCut 1 1) : FluxCut).backward m k
+    -- (BF) general passthrough MVT pointwise
+    ∧ (localDivergence f unitBracket).forward m k
+       = (ofCut (constCut 1 1) : FluxCut).forward m k
+    ∧ (localDivergence f unitBracket).backward m k
+       = (ofCut (constCut 1 1) : FluxCut).backward m k
+    -- (BF) passthrough fluxAlong pointwise
+    ∧ (fluxAlong f unitBracket).forward m k
+       = (ofCut (constCut 1 1) : FluxCut).forward m k
+    ∧ (fluxAlong f unitBracket).backward m k
+       = (ofCut (constCut 1 1) : FluxCut).backward m k :=
+  ⟨mvt_id_unitBracket_forward_at m k,
+   mvt_id_unitBracket_backward_at m k,
+   mvt_cutPow_unitBracket_forward_at n m k,
+   mvt_cutPow_unitBracket_backward_at n m k,
+   mvt_passthrough_unit_forward_at f h_right m k,
+   mvt_passthrough_unit_backward_at f h_left m k,
+   fluxAlong_passthrough_unit_forward_at f h_right m k,
+   fluxAlong_passthrough_unit_backward_at f h_left m k⟩
 
 end E213.Math.Real213.PhaseCMFinalCapstone

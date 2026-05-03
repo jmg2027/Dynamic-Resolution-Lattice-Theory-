@@ -50,4 +50,20 @@ theorem phaseBX_witness_capstone (c : Nat → Nat → Bool) :
    id_compose_square.proof,
    square_has_dyadic_witness⟩
 
+/-- ★ **Phase BX pointwise PURE capstone** ★
+
+    Strict ∅-axiom restriction of `phaseBX_witness_capstone` to the
+    rfl-reducible (BV) facts: id's derivative is constant 1 at every
+    cut.  The (BT/BU/BW) facts use `squareDerivative_at_half` etc.
+    which are gated by the `cutMul_*_one*_at` chain — those continue
+    to live in the function-eq capstone above. -/
+theorem phaseBX_witness_capstone_at (c : Nat → Nat → Bool) (m k : Nat) :
+    -- (BV) id at c = 0
+    idIsDifferentiable.derivative (constCut 0 1) m k = constCut 1 1 m k
+    -- (BV) id at c = 1
+    ∧ idIsDifferentiable.derivative (constCut 1 1) m k = constCut 1 1 m k
+    -- (BV) id at any c
+    ∧ idIsDifferentiable.derivative c m k = constCut 1 1 m k :=
+  ⟨rfl, rfl, rfl⟩
+
 end E213.Math.Real213.PhaseBXCapstone

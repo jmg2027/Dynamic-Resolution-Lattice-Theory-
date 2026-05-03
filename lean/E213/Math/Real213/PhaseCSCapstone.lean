@@ -21,7 +21,12 @@ open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.FluxCut (FluxCut)
 open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
+open E213.Math.Real213.FluxFTCPolynomial.FluxCut
+  (fluxAlong_square_unitBracket_forward_at
+   fluxAlong_square_unitBracket_backward_at)
 open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.IsDifferentiable
@@ -66,5 +71,30 @@ theorem phaseCS_antiderivative_capstone (db : DyadicBracket) :
    integral_one_unit,
    integralCC_id_unit,
    integralCC_square_unit⟩
+
+/-- ★★ **Phase CS pointwise PURE capstone** ★★
+
+    Strict ∅-axiom version of the antiderivative arc capstone for
+    `id` (the rfl-reducible cases), expressed at the pointwise
+    field-equality level.  The `square` cases are gated by the
+    Passthrough.mul_pass refactor (Quot.sound from `cutMul_zero_zero`
+    / `cutMul_one_one` function-eq inside `mul_pass`); they live in
+    the function-eq capstone above. -/
+theorem phaseCS_antiderivative_capstone_at (m k : Nat) :
+    -- (CN) id antiderivative of constant 1
+    idIsDifferentiable.derivative (constCut 0 1) m k = constCut 1 1 m k
+    -- (CQ) integral of 1 over unit forward = constCut 1 1
+    ∧ (integral id_anti unitBracket).forward m k
+        = (ofCut (constCut 1 1) : FluxCut).forward m k
+    -- (CQ) integral of 1 over unit backward = constCut 0 1
+    ∧ (integral id_anti unitBracket).backward m k
+        = (ofCut (constCut 1 1) : FluxCut).backward m k
+    -- (CR) integralCC id at unit forward
+    ∧ (integralCC id_calc unitBracket).forward m k
+        = (ofCut (constCut 1 1) : FluxCut).forward m k
+    -- (CR) integralCC id at unit backward
+    ∧ (integralCC id_calc unitBracket).backward m k
+        = (ofCut (constCut 1 1) : FluxCut).backward m k :=
+  ⟨rfl, rfl, rfl, rfl, rfl⟩
 
 end E213.Math.Real213.PhaseCSCapstone
