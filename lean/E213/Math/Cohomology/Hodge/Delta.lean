@@ -44,17 +44,21 @@ theorem codiff_zero_5_3 :
     ∀ i : Fin (binom 5 2),
       codiff_5_3 (Cochain.zero 5 3) i = (Cochain.zero 5 2) i := by decide
 
-/-- Smoke: codiff(e0_5) — concrete value table verified by decide. -/
+/-- Smoke: codiff(e0_5) — concrete value table.  PURE. -/
 theorem codiff_e0_5_concrete :
     codiff_5_2 e0_5 ⟨0, by decide⟩ = false
     ∨ codiff_5_2 e0_5 ⟨0, by decide⟩ = true := by
-  cases codiff_5_2 e0_5 ⟨0, by decide⟩ <;> simp
+  cases codiff_5_2 e0_5 ⟨0, by decide⟩
+  · exact Or.inl rfl
+  · exact Or.inr rfl
 
-/-- Smoke: codiff(all_true_5_2) at vertex 0. -/
+/-- Smoke: codiff(all_true_5_2) at vertex 0.  PURE. -/
 theorem codiff_all_true_5_2_v0_decidable :
     codiff_5_2 all_true_5_2 ⟨0, by decide⟩ = true
     ∨ codiff_5_2 all_true_5_2 ⟨0, by decide⟩ = false := by
-  cases codiff_5_2 all_true_5_2 ⟨0, by decide⟩ <;> simp
+  cases codiff_5_2 all_true_5_2 ⟨0, by decide⟩
+  · exact Or.inr rfl
+  · exact Or.inl rfl
 
 /-- ★ Phase CB capstone: ⋆ (Hodge star), ⋆⋆=id, codiff = ⋆δ⋆ all
     well-defined and 0-axiom on Δ⁴. -/
