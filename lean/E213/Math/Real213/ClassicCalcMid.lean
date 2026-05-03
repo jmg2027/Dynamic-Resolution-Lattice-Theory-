@@ -92,47 +92,17 @@ def mid_pass {f g} (pf : Passthrough_at f) (pg : Passthrough_at g) :
 
 end FluxCut.Passthrough_at
 
-namespace ClassicCalc
+/-! ### ClassicCalc (function-eq) namespace removed (2026-05-XX, part 19)
 
-/-- ClassicCalc closure under midpoint. -/
-def mid_calc {f g} (cf : ClassicCalc f) (cg : ClassicCalc g) :
-    ClassicCalc (fun x => cutMid (f x) (g x)) :=
-  { diff := midIsDifferentiable cf.diff cg.diff
-    pass := FluxCut.Passthrough.mid_pass (f := f) (g := g) cf.pass cg.pass }
+The function-eq `mid_calc / mid_id_square_calc / mid_square_cube_calc /
+mid_id_square_mvt / mid_square_cube_mvt / mid_capstone` were dropped
+during the cutEq migration (part 19) because their definitions
+inherited funext = Quot.sound from `FluxCut.Passthrough.mid_pass`
+(which uses `rw` on function-eq fields).  The PURE `_at` analogues
+in the `ClassicCalc_at` namespace below provide the same content
+with strict ∅-axiom guarantees.
 
-/-- mid(id, x²) ∈ ClassicCalc — example of new combinator. -/
-def mid_id_square_calc :
-    ClassicCalc (fun x => cutMid x (cutMul x x)) :=
-  mid_calc id_calc square_calc
-
-/-- mid(x², x³) ∈ ClassicCalc. -/
-def mid_square_cube_calc :
-    ClassicCalc (fun x => cutMid (cutMul x x) (cutMul x (cutMul x x))) :=
-  mid_calc square_calc cube_calc
-
-/-- mid(x, x²) MVT propEq. -/
-theorem mid_id_square_mvt :
-    localDivergence (fun x => cutMid x (cutMul x x)) unitBracket
-      = ofCut (constCut 1 1) :=
-  mid_id_square_calc.mvt
-
-/-- mid(x², x³) MVT propEq. -/
-theorem mid_square_cube_mvt :
-    localDivergence (fun x => cutMid (cutMul x x) (cutMul x (cutMul x x)))
-                              unitBracket
-      = ofCut (constCut 1 1) :=
-  mid_square_cube_calc.mvt
-
-/-- Phase BS capstone: midpoint closure adds new MVT instances. -/
-theorem mid_capstone :
-    localDivergence (fun x => cutMid x (cutMul x x)) unitBracket
-        = ofCut (constCut 1 1)
-    ∧ localDivergence
-        (fun x => cutMid (cutMul x x) (cutMul x (cutMul x x))) unitBracket
-        = ofCut (constCut 1 1) :=
-  ⟨mid_id_square_mvt, mid_square_cube_mvt⟩
-
-end ClassicCalc
+No downstream consumers existed for the removed identifiers. -/
 
 namespace ClassicCalc_at
 

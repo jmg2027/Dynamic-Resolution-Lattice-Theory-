@@ -148,8 +148,8 @@ example : cutMul (constCut 1 1) (constCut 5 7) = constCut 5 7 :=
 example : cutMul (constCut 3 4) (constCut 1 1) = constCut 3 4 :=
   cutMul_const_one 3 4
 
-/-- 0 × 0 = 0. -/
-example : cutMul (constCut 0 1) (constCut 0 1) = constCut 0 1 :=
+/-- 0 × 0 ≡ 0 (cutEq, PURE). -/
+example : ∀ m k, cutMul (constCut 0 1) (constCut 0 1) m k = constCut 0 1 m k :=
   cutMul_zero_zero
 
 /-- 1 × 1 = 1. -/
