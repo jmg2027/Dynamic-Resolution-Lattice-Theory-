@@ -15,11 +15,6 @@ namespace E213.Math.Real213.ClassicCalcExtreme
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Real213.ClassicCalc (ClassicCalc)
-open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough
-  (mul_pass)
-open E213.Math.Real213.FluxPassthroughCatalog.FluxCut.Passthrough
-  (quartic_pass quintic_pass)
 open E213.Math.Real213.DifferentiableHighOrder
   (nonicIsDifferentiable decicIsDifferentiable
    dodecicIsDifferentiable hexadecicIsDifferentiable)

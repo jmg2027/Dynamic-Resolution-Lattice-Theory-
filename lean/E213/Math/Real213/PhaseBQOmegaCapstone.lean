@@ -26,21 +26,13 @@ open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.FluxEquiv.FluxCut (cohomEquiv cohomEquiv_refl)
 open E213.Math.Real213.FluxMVTConcrete.FluxCut
-  (mvt_id_unitBracket
-   mvt_id_unitBracket_forward_at mvt_id_unitBracket_backward_at)
-open E213.Math.Real213.FluxFTC.FluxCut (ftc_bridge_id_unitBracket)
+  (mvt_id_unitBracket_forward_at mvt_id_unitBracket_backward_at)
 open E213.Math.Real213.FluxMVTPassthrough.FluxCut
-  (mvt_passthrough_unit
-   mvt_passthrough_unit_forward_at mvt_passthrough_unit_backward_at
+  (mvt_passthrough_unit_forward_at mvt_passthrough_unit_backward_at
    fluxAlong_passthrough_unit_forward_at
    fluxAlong_passthrough_unit_backward_at)
 open E213.Math.Real213.FluxMVTGeneric.FluxCut
   (mvt_cutPow_unitBracket_forward_at mvt_cutPow_unitBracket_backward_at)
-open E213.Math.Real213.ClassicCalc (ClassicCalc)
-open E213.Math.Real213.ClassicCalc.ClassicCalc (id_calc cube_calc mvt)
-open E213.Math.Real213.ClassicCalcHigher.ClassicCalc (octic_calc)
-open E213.Math.Real213.ClassicCalcGeneric.ClassicCalc
-  (cutPow_calc_mvt cutPow_calc_ftc)
 open E213.Math.Real213.CutSeries (partialSum)
 open E213.Math.Real213.CutGeomSeries (geomHalfSeries)
 open E213.Math.Real213.FluxSeries

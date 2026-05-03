@@ -25,15 +25,12 @@ open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable composeIsDifferentiable mulIsDifferentiable)
-open E213.Math.Real213.ClassicCalc (ClassicCalc)
-open E213.Math.Real213.ClassicCalc.ClassicCalc
-  (id_calc square_calc cube_calc mvt ftc)
 namespace ClassicCalc_at
 
 open E213.Math.Real213.ClassicCalc (ClassicCalc_at)
 open E213.Math.Real213.ClassicCalc.ClassicCalc_at (id_calc square_calc cube_calc)
 open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
-  renaming compose_pass → compose_pass_at, mul_pass → mul_pass_at
+  renaming mul_pass → mul_pass_at
 
 /-- ClassicCalc_at closure under product (PURE pointwise). -/
 def mul_calc {f g} (cf : ClassicCalc_at f) (cg : ClassicCalc_at g) :

@@ -35,17 +35,8 @@ open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Real213.HasDyadicMVTWitness (HasDyadicMVTWitness)
-open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (square)
 open E213.Math.Real213.FluxEquiv.FluxCut (cohomEquiv cohomEquiv_refl)
-open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket)
-open E213.Math.Real213.FluxFTC.FluxCut (ftc_bridge_id_unitBracket)
-open E213.Math.Real213.ClassicCalcGeneric.ClassicCalc (cutPow_calc_mvt)
-open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
-open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half)
-open E213.Math.Real213.MVTWitnessChain (id_compose_square_derivative_at_half)
-open E213.Math.Real213.FTCRiemann
-  (riemann_id_derivative_unit ftc_riemann_id_depth_zero)
+open E213.Math.Real213.FTCRiemann (ftc_riemann_id_depth_zero)
 
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
 open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket_pure)

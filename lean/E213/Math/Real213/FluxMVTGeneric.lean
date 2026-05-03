@@ -28,13 +28,9 @@ open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong fluxAlong_id)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.CutPowConst
-  (cutPow_one_const cutPow_one_n cutPow_one_n_at
-   cutPow_zero_succ cutPow_zero_succ_at)
+open E213.Math.Real213.CutPowConst (cutPow_one_n_at cutPow_zero_succ_at)
 open E213.Math.Real213.CutMul (cutMulOuter)
-open E213.Math.Real213.CutMulOne
-  (cutMul_one_one cutMul_one_one_at cutMul_one_const cutMul_one_const_at)
-open E213.Math.Real213.CutSumZero (cutMul_zero_zero)
+open E213.Math.Real213.CutMulOne (cutMul_one_one_at cutMul_one_const_at)
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 
 namespace FluxCut

@@ -28,8 +28,7 @@ open E213.Math.Real213.IsDifferentiable
 open E213.Math.Real213.DifferentiableInstances
   (cutScaleIsDifferentiable cutHalfIsDifferentiable)
 open E213.Math.Real213.ODELinear
-  (linearWithIntercept_isDifferentiable
-   linearWithIntercept_derivative linearWithIntercept_derivative_at)
+  (linearWithIntercept_isDifferentiable linearWithIntercept_derivative_at)
 
 /-- y' = 0: constant function is solution. -/
 theorem ode_zero_solution (c : Nat → Nat → Bool) :

@@ -18,11 +18,6 @@ open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Real213.HasDyadicMVTWitness
-  (HasDyadicMVTWitness square_has_dyadic_witness)
-open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (square)
-open E213.Math.Real213.FluxMVTMore.HasDyadicMVTWitness (mid_id_square)
-open E213.Math.Real213.MVTWitnessChain.HasDyadicMVTWitness (id_compose_square)
 open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
 open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half_at)
 open E213.Math.Real213.MVTWitnessChain

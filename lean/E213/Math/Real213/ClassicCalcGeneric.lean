@@ -20,10 +20,6 @@ open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.ClassicCalc (ClassicCalc)
-open E213.Math.Real213.ClassicCalc.ClassicCalc (mvt ftc)
-open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough
-  (cutPow_pass)
 open E213.Math.Real213.IsDifferentiable
   (cutPowFnIsDifferentiable)
 

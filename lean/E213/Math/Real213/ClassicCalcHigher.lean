@@ -19,13 +19,6 @@ open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.ClassicCalc (ClassicCalc)
-open E213.Math.Real213.ClassicCalc.ClassicCalc
-  (id_calc square_calc cube_calc mvt ftc)
-open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough
-  (id_pass cutPow_pass compose_pass mul_pass)
-open E213.Math.Real213.FluxPassthroughCatalog.FluxCut.Passthrough
-  (square_pass cube_pass quartic_pass quintic_pass)
 open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Math.Real213.DifferentiableInstances

@@ -27,17 +27,15 @@ open E213.Math.Real213.DifferentiableInstances
   (squareIsDifferentiable)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
 open E213.Math.Real213.HasDyadicMVTWitness
-  (HasDyadicMVTWitness HasDyadicMVTWitness_at
-   square_has_dyadic_witness square_has_dyadic_witness_at)
-open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
+  (HasDyadicMVTWitness_at square_has_dyadic_witness_at)
 open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
 open E213.Math.Real213.FluxMVTWitness
-  (squareDerivative_at_half squareDerivative_at_half_at)
+  (squareDerivative_at_half_at)
 open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Math.Real213.CutMulOne
-  (cutMul_one_const cutMul_one_const_at cutMul_const_one cutMul_const_one_at)
-open E213.Math.Real213.CutSumOne (cutSum_half_half cutSum_half_half_at)
-open E213.Math.Real213.CutMidSelf (cutMid_self_constCut cutMid_self_constCut_at)
+  (cutMul_one_const_at cutMul_const_one_at)
+open E213.Math.Real213.CutSumOne (cutSum_half_half_at)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut_at)
 open E213.Math.Real213.CutSumDetermined (cutSumAux_congr)
 
 /-- ★ d/dx [(x + x²)/2] at x = 1/2 = 1 — pointwise (∅-axiom). -/

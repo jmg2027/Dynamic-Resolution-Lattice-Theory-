@@ -28,15 +28,11 @@ open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Real213.FluxMVTMore
-  (mid_id_square_derivative_at_half mid_id_square_derivative_at_half_at)
+open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half_at)
 open E213.Math.Real213.FTCRiemannSquare (unitBracket_midCut)
-open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_one_at)
-open E213.Math.Real213.CutSumZero
-  (cutMul_zero_zero cutMid_zero_zero
-   cutMul_zero_zero_at cutMid_zero_zero_at)
-open E213.Math.Real213.CutMidSelf
-  (cutMid_self_constCut cutMid_self_constCut_at)
+open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero_at cutMid_zero_zero_at)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut_at)
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
 
 /-! ### PURE pointwise variants (∅-axiom) -/

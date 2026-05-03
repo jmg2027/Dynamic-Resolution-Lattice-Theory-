@@ -44,27 +44,17 @@ open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.FluxMVTPassthrough.FluxCut
-  (mvt_passthrough_unit
-   mvt_passthrough_unit_forward_at mvt_passthrough_unit_backward_at
+  (mvt_passthrough_unit_forward_at mvt_passthrough_unit_backward_at
    fluxAlong_passthrough_unit_forward_at
    fluxAlong_passthrough_unit_backward_at)
 open E213.Math.Real213.FluxMVTConcrete.FluxCut
   (mvt_id_unitBracket_forward_at mvt_id_unitBracket_backward_at)
 open E213.Math.Real213.FluxMVTGeneric.FluxCut
   (mvt_cutPow_unitBracket_forward_at mvt_cutPow_unitBracket_backward_at)
-open E213.Math.Real213.ClassicCalcGeneric.ClassicCalc (cutPow_calc_mvt)
-open E213.Math.Real213.FluxMVTWitness
-  (squareDerivative_at_half squareDerivative_at_half_at)
-open E213.Math.Real213.FluxMVTMore
-  (mid_id_square_derivative_at_half mid_id_square_derivative_at_half_at)
-open E213.Math.Real213.MVTWitnessChain
-  (id_compose_square_derivative_at_half
-   id_compose_square_derivative_at_half_at)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
+open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half_at)
+open E213.Math.Real213.MVTWitnessChain (id_compose_square_derivative_at_half_at)
 open E213.Math.Real213.FTCRiemann (ftc_riemann_id_depth_zero)
-open E213.Math.Real213.FTCRiemannGeneric (ftc_riemann_generic_for_square)
-open E213.Math.Real213.FluxMVTPropagate (mid_witness_propagates)
-open E213.Math.Real213.FluxMVTPropagateCompose (id_compose_witness_propagates)
-open E213.Math.Real213.HasDyadicMVTWitness (square_has_dyadic_witness)
 
 /-- ★★★ **Phase CM final mega-mega capstone, pointwise PURE form** ★★★
 

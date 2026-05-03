@@ -33,11 +33,9 @@ open E213.Math.Real213.DifferentiableHigherPow
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Real213.FluxMVTWitness
-  (squareDerivative_at_half squareDerivative_at_half_at)
-open E213.Math.Real213.FluxMVTMore
-  (mid_id_square_derivative_at_half mid_id_square_derivative_at_half_at)
-open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_one_at)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
+open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half_at)
+open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
 open E213.Math.Real213.CutMul (cutMulOuter)
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 

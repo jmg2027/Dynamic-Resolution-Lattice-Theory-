@@ -36,8 +36,7 @@ open E213.Math.Real213.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
-open E213.Math.Real213.FluxMVTWitness
-  (squareDerivative_at_half squareDerivative_at_half_at)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
 
 /-- ★ **PURE HasDyadicMVTWitness_at**: pointwise proof field
     (∀ m k, ...).  No funext, no Quot.sound.  Sole class — function-eq

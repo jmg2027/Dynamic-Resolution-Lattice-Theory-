@@ -24,7 +24,7 @@ open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Real213.ODELinear
   (linearWithIntercept linearWithIntercept_isDifferentiable
-   linearWithIntercept_derivative linearWithIntercept_derivative_at)
+   linearWithIntercept_derivative_at)
 open E213.Math.Real213.ODESecondOrder
   (linearWithIntercept_secondDerivable)
 

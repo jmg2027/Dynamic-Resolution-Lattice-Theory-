@@ -61,12 +61,8 @@ theorem cutMul_one_one_at (m k : Nat) :
       exact decide_eq_true (Nat.le_refl _)
     · exact Nat.mul_le_mul_right k h_km
 
-/-- **cutMul (1)(1) = constCut 1 1** function eq (uses funext + _at).
-    DIRTY-by-design — kept for downstream `rw` compatibility.
-    PURE alternative: `cutMul_one_one_at` (pointwise). -/
-theorem cutMul_one_one : cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1 := by
-  funext m k
-  exact cutMul_one_one_at m k
+-- DELETED 2026-05-XX session 27 ('박멸'): function-eq cutMul_one_one
+-- removed.  Use cutMul_one_one_at (pointwise PURE) instead.
 
 /-- **cutMul (1) (constCut a b) = constCut a b** pointwise (∅-axiom). -/
 theorem cutMul_one_const_at (a b m k : Nat) :
@@ -112,13 +108,8 @@ theorem cutMul_one_const_at (a b m k : Nat) :
     · -- k*m ≤ m*k
       rw [Nat.mul_comm]; exact Nat.le_refl _
 
-/-- **cutMul (1) (constCut a b) = constCut a b** function eq.
-    DIRTY-by-design — kept for downstream `rw` compatibility.
-    PURE alternative: `cutMul_one_const_at`. -/
-theorem cutMul_one_const (a b : Nat) :
-    cutMul (constCut 1 1) (constCut a b) = constCut a b := by
-  funext m k
-  exact cutMul_one_const_at a b m k
+-- DELETED: function-eq cutMul_one_const removed.
+-- Use cutMul_one_const_at (pointwise PURE) instead.
 
 /-- **cutMul (constCut a b) (constCut 1 1) = constCut a b** pointwise (∅-axiom). -/
 theorem cutMul_const_one_at (a b m k : Nat) :
@@ -126,11 +117,7 @@ theorem cutMul_const_one_at (a b m k : Nat) :
   rw [cutMul_comm (constCut a b) (constCut 1 1) m k]
   exact cutMul_one_const_at a b m k
 
-/-- **cutMul (constCut a b) (constCut 1 1) = constCut a b** function eq.
-    DIRTY-by-design.  PURE alternative: `cutMul_const_one_at`. -/
-theorem cutMul_const_one (a b : Nat) :
-    cutMul (constCut a b) (constCut 1 1) = constCut a b := by
-  funext m k
-  exact cutMul_const_one_at a b m k
+-- DELETED: function-eq cutMul_const_one removed.
+-- Use cutMul_const_one_at (pointwise PURE) instead.
 
 end E213.Math.Real213.CutMulOne

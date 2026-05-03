@@ -26,11 +26,10 @@ open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong fluxAlong_id)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.CutMulOne
-  (cutMul_one_one cutMul_one_one_at cutMul_one_const cutMul_one_const_at)
+open E213.Math.Real213.CutMulOne (cutMul_one_one_at cutMul_one_const_at)
 open E213.Math.Real213.FluxMVTConcrete.FluxCut
   (mvt_id_unitBracket_pure)
-open E213.Math.Real213.CutSumZero (cutMul_zero_zero cutMul_zero_zero_at)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero_at)
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
 

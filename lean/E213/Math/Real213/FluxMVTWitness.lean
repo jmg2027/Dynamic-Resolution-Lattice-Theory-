@@ -33,11 +33,11 @@ open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Math.Real213.CutMulOne
-  (cutMul_one_const cutMul_one_const_at cutMul_const_one cutMul_const_one_at)
-open E213.Math.Real213.CutSumOne (cutSum_half_half cutSum_half_half_at)
+  (cutMul_one_const_at cutMul_const_one_at)
+open E213.Math.Real213.CutSumOne (cutSum_half_half_at)
 open E213.Math.Real213.CutSumDetermined (cutSumAux_congr)
 open E213.Math.Real213.FluxMVTPolynomial.FluxCut
-  (mvt_square_unitBracket mvt_square_unitBracket_pure)
+  (mvt_square_unitBracket_pure)
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
 
 /-- ★ d/dx [x²] at x = 1/2 = 1 — pointwise (∅-axiom). -/

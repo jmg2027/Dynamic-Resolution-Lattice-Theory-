@@ -25,11 +25,5 @@ open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Real213.MVTWitnessChain.HasDyadicMVTWitness (id_compose_square)
-open E213.Math.Real213.FluxMVTMore.HasDyadicMVTWitness (mid_id_square)
-open E213.Math.Real213.FTCRiemannGeneric
-  (ftc_riemann_generic_via_witness ftc_riemann_generic_for_square)
-open E213.Math.Real213.CutMulOne (cutMul_one_one)
-open E213.Math.Real213.CutMidSelf (cutMid_self_constCut)
 
 end E213.Math.Real213.FTCRiemannChain

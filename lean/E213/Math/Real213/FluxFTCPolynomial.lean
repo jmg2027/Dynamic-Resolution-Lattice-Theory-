@@ -32,9 +32,8 @@ open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.FluxMVTPolynomial.FluxCut
   (mvt_square_unitBracket_pure mvt_cube_unitBracket_pure)
 open E213.Math.Real213.CutMul (cutMulOuter)
-open E213.Math.Real213.CutMulOne
-  (cutMul_one_one cutMul_one_one_at cutMul_one_const)
-open E213.Math.Real213.CutSumZero (cutMul_zero_zero cutMul_zero_zero_at)
+open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero_at)
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 
 namespace FluxCut

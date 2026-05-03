@@ -24,9 +24,6 @@ open E213.Math.Real213.FluxCut.FluxCut (ofCut)
 open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.CutSumZero (cutMid_zero_zero)
-open E213.Math.Real213.CutMidSelf (cutMid_self_constCut)
-open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
 
 namespace FluxCut.Passthrough_at

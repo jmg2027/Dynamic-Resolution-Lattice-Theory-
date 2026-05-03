@@ -25,8 +25,8 @@ open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.ConstCutScale (constCut_scale constCut_scale_at)
 open E213.Math.Real213.CutSumOne
   (cutSum_half_general cutSum_int_int cutSum_int_half cutSum_half_int)
-open E213.Math.Real213.CutMulOne (cutMul_one_const cutMul_const_one cutMul_one_one)
-open E213.Math.Real213.CutSumZero (cutMul_zero_zero)
+open E213.Math.Real213.CutMulOne (cutMul_one_const_at cutMul_const_one_at cutMul_one_one_at)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero_at)
 
 private theorem bool_eq_iff_local (a b : Bool) (h : a = true ↔ b = true) : a = b := by
   cases a <;> cases b
@@ -62,11 +62,7 @@ theorem cutMid_self_constCut_at (a b m k : Nat) (_hb : b ≥ 1) :
       rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm b 2, E213.Tactic.Nat213.mul_assoc]]
     exact h2
 
-/-- **midpoint(c, c) ≡ c** for c = a/b (cutEq, PURE). -/
-theorem cutMid_self_constCut (a b : Nat) (hb : b ≥ 1) :
-    cutMid (constCut a b) (constCut a b) = constCut a b := by
-  funext m k
-  exact cutMid_self_constCut_at a b m k hb
+-- DELETED: function-eq cutMid_self_constCut. Use cutMid_self_constCut_at.
 
 /-- **midpoint(a/2, c/2) ≡ (a+c)/4** (cutEq, PURE). -/
 theorem cutMid_half_general (a c : Nat) :
@@ -138,22 +134,26 @@ example : E213.Math.Real213.CutPoset.cutEq
     (cutMid (constCut 2 1) (constCut 8 1)) (constCut 10 2) :=
   cutMid_int_int 2 8
 
-/-! ### Y2: cutMul concrete applications -/
+/-! ### Y2: cutMul concrete applications (pointwise PURE) -/
 
-/-- 1 × (5/7) = 5/7. -/
-example : cutMul (constCut 1 1) (constCut 5 7) = constCut 5 7 :=
-  cutMul_one_const 5 7
+/-- 1 × (5/7) = 5/7 pointwise. -/
+example (m k : Nat) :
+    cutMul (constCut 1 1) (constCut 5 7) m k = constCut 5 7 m k :=
+  cutMul_one_const_at 5 7 m k
 
-/-- (3/4) × 1 = 3/4. -/
-example : cutMul (constCut 3 4) (constCut 1 1) = constCut 3 4 :=
-  cutMul_const_one 3 4
+/-- (3/4) × 1 = 3/4 pointwise. -/
+example (m k : Nat) :
+    cutMul (constCut 3 4) (constCut 1 1) m k = constCut 3 4 m k :=
+  cutMul_const_one_at 3 4 m k
 
-/-- 0 × 0 = 0. -/
-example : cutMul (constCut 0 1) (constCut 0 1) = constCut 0 1 :=
-  cutMul_zero_zero
+/-- 0 × 0 = 0 pointwise. -/
+example (m k : Nat) :
+    cutMul (constCut 0 1) (constCut 0 1) m k = constCut 0 1 m k :=
+  cutMul_zero_zero_at m k
 
-/-- 1 × 1 = 1. -/
-example : cutMul (constCut 1 1) (constCut 1 1) = constCut 1 1 :=
-  cutMul_one_one
+/-- 1 × 1 = 1 pointwise. -/
+example (m k : Nat) :
+    cutMul (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k :=
+  cutMul_one_one_at m k
 
 end E213.Math.Real213.CutMidSelf

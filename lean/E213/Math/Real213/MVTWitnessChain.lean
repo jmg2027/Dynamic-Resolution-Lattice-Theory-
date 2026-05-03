@@ -22,14 +22,11 @@ open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
-open E213.Math.Real213.HasDyadicMVTWitness
-  (HasDyadicMVTWitness HasDyadicMVTWitness_at)
-open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
+open E213.Math.Real213.HasDyadicMVTWitness (HasDyadicMVTWitness_at)
 open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness_at
   (mvt_exists_at)
-open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
 open E213.Math.Real213.CutMul (cutMulOuter)
-open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_one_at)
+open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
 

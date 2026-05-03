@@ -23,13 +23,10 @@ open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Real213.HasDyadicMVTWitness
-  (HasDyadicMVTWitness HasDyadicMVTWitness_at)
-open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
+open E213.Math.Real213.HasDyadicMVTWitness (HasDyadicMVTWitness_at)
 open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
-open E213.Math.Real213.FluxMVTMore
-  (mid_id_square_derivative_at_half mid_id_square_derivative_at_half_at)
-open E213.Math.Real213.CutMidSelf (cutMid_self_constCut cutMid_self_constCut_at)
+open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half_at)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut_at)
 
 /-- ★ d/dx [mid(x, mid(x, x²))] at x = 1/2 = 1, pointwise (PURE). -/
 theorem mid_id_mid_id_square_derivative_at_half_at (m k : Nat) :

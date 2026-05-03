@@ -39,10 +39,7 @@ open E213.Math.Real213.AntiderivativeStructural.IsAntiderivative
   (fromDifferentiable)
 open E213.Math.Real213.IntegralViaAnti.IsAntiderivative
   (integral integral_one_unit)
-open E213.Math.Real213.ClassicCalc (ClassicCalc ClassicCalc_at)
-open E213.Math.Real213.ClassicCalc.ClassicCalc (id_calc square_calc)
-open E213.Math.Real213.ClassicAnti.ClassicCalc
-  (integralCC integralCC_id_unit integralCC_square_unit)
+open E213.Math.Real213.ClassicCalc (ClassicCalc_at)
 open E213.Math.Real213.ClassicAnti.ClassicCalc_at
   (integralCC_id_unit_forward_at integralCC_id_unit_backward_at
    integralCC_square_unit_forward_at integralCC_square_unit_backward_at
