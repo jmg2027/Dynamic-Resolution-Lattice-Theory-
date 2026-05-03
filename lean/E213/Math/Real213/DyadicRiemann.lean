@@ -374,4 +374,66 @@ theorem riemann_const_depth_zero (c : Nat → Nat → Bool) (db : DyadicBracket)
 theorem riemann_id_depth_zero (db : DyadicBracket) :
     riemannSampleSum id db 0 = db.midCut := rfl
 
+/-! ### Pointwise PURE wrappers for the depth-N concrete theorems
+
+Each function-eq depth-N theorem (Σ_{depth n} c = constCut N b) has
+a pointwise variant via `riemannSampleSum_constCut_at` (PURE).
+These let downstream code reason at the cut-function level without
+inheriting Quot.sound from the funext bridge. -/
+
+/-- (1/2) at depth 2, pointwise (PURE). -/
+theorem riemann_half_depth_2_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 2 m k = constCut 4 2 m k :=
+  riemannSampleSum_constCut_at 1 2 db 2 m k
+
+/-- (1/2) at depth 3, pointwise (PURE). -/
+theorem riemann_half_depth_3_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 3 m k = constCut 8 2 m k :=
+  riemannSampleSum_constCut_at 1 2 db 3 m k
+
+/-- (3/4) at depth 4, pointwise (PURE). -/
+theorem riemann_threequarter_depth_4_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 3 4)) db 4 m k = constCut 48 4 m k :=
+  riemannSampleSum_constCut_at 3 4 db 4 m k
+
+/-- (1/3) at depth 6, pointwise (PURE). -/
+theorem riemann_third_depth_6_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 3)) db 6 m k = constCut 64 3 m k :=
+  riemannSampleSum_constCut_at 1 3 db 6 m k
+
+/-- (1/3) at depth 8, pointwise (PURE). -/
+theorem riemann_third_depth_8_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 3)) db 8 m k = constCut 256 3 m k :=
+  riemannSampleSum_constCut_at 1 3 db 8 m k
+
+/-- (1/2) at depth 10, pointwise (PURE). -/
+theorem riemann_half_depth_10_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 10 m k
+    = constCut 1024 2 m k :=
+  riemannSampleSum_constCut_at 1 2 db 10 m k
+
+/-- (5/7) at depth 8, pointwise (PURE). -/
+theorem riemann_fiveSeventh_depth_8_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 5 7)) db 8 m k
+    = constCut 1280 7 m k :=
+  riemannSampleSum_constCut_at 5 7 db 8 m k
+
+/-- (1/100) at depth 12, pointwise (PURE). -/
+theorem riemann_hundredth_depth_12_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 100)) db 12 m k
+    = constCut 4096 100 m k :=
+  riemannSampleSum_constCut_at 1 100 db 12 m k
+
+/-- (1/2) at depth 14, pointwise (PURE). -/
+theorem riemann_half_depth_14_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 2)) db 14 m k
+    = constCut 16384 2 m k :=
+  riemannSampleSum_constCut_at 1 2 db 14 m k
+
+/-- (1/3) at depth 16, pointwise (PURE). -/
+theorem riemann_third_depth_16_at (db : DyadicBracket) (m k : Nat) :
+    riemannSampleSum (constCutFn (constCut 1 3)) db 16 m k
+    = constCut 65536 3 m k :=
+  riemannSampleSum_constCut_at 1 3 db 16 m k
+
 end E213.Math.Real213.DyadicRiemann
