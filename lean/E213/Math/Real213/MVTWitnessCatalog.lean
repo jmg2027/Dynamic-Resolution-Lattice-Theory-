@@ -23,9 +23,12 @@ open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Real213.HasDyadicMVTWitness (HasDyadicMVTWitness)
-open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
-open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half)
+open E213.Math.Real213.HasDyadicMVTWitness
+  (HasDyadicMVTWitness HasDyadicMVTWitness_at)
+open E213.Math.Real213.FluxMVTWitness
+  (squareDerivative_at_half squareDerivative_at_half_at)
+open E213.Math.Real213.FluxMVTMore
+  (mid_id_square_derivative_at_half mid_id_square_derivative_at_half_at)
 
 namespace HasDyadicMVTWitness
 
@@ -48,6 +51,24 @@ def id_at_any (c : Nat → Nat → Bool) :
 
 end HasDyadicMVTWitness
 
+namespace HasDyadicMVTWitness_at
+
+/-- id derivative at any point = 1 (PURE _at form). -/
+def id_at_zero_at : HasDyadicMVTWitness_at idIsDifferentiable :=
+  { witness := constCut 0 1, proof_at := fun _ _ => rfl }
+
+def id_at_half_at : HasDyadicMVTWitness_at idIsDifferentiable :=
+  { witness := constCut 1 2, proof_at := fun _ _ => rfl }
+
+def id_at_one_at : HasDyadicMVTWitness_at idIsDifferentiable :=
+  { witness := constCut 1 1, proof_at := fun _ _ => rfl }
+
+def id_at_any_at (c : Nat → Nat → Bool) :
+    HasDyadicMVTWitness_at idIsDifferentiable :=
+  { witness := c, proof_at := fun _ _ => rfl }
+
+end HasDyadicMVTWitness_at
+
 /-- Phase BV capstone: at least 5 functions have constructive dyadic
     MVT witnesses (id at any of {0, 1/2, 1}, x² at 1/2, mid(x, x²) at 1/2). -/
 theorem mvt_witness_catalog_capstone :
@@ -64,5 +85,21 @@ theorem mvt_witness_catalog_capstone :
         ).derivative (constCut 1 2) = constCut 1 1 :=
   ⟨rfl, rfl, rfl, squareDerivative_at_half,
    mid_id_square_derivative_at_half⟩
+
+/-- ★ Phase BV _at capstone (PURE pointwise). -/
+theorem mvt_witness_catalog_capstone_at :
+    (∀ m k, idIsDifferentiable.derivative (constCut 0 1) m k
+              = constCut 1 1 m k)
+    ∧ (∀ m k, idIsDifferentiable.derivative (constCut 1 2) m k
+              = constCut 1 1 m k)
+    ∧ (∀ m k, idIsDifferentiable.derivative (constCut 1 1) m k
+              = constCut 1 1 m k)
+    ∧ (∀ m k, squareIsDifferentiable.derivative (constCut 1 2) m k
+              = constCut 1 1 m k)
+    ∧ (∀ m k, (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
+                ).derivative (constCut 1 2) m k = constCut 1 1 m k) :=
+  ⟨fun _ _ => rfl, fun _ _ => rfl, fun _ _ => rfl,
+   squareDerivative_at_half_at,
+   mid_id_square_derivative_at_half_at⟩
 
 end E213.Math.Real213.MVTWitnessCatalog
