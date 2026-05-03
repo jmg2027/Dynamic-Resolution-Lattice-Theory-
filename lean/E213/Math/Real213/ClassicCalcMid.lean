@@ -128,6 +128,33 @@ def mid_square_cube_calc :
     ClassicCalc_at (fun x => cutMid (cutMul x x) (cutMul x (cutMul x x))) :=
   mid_calc square_calc cube_calc
 
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+
+/-- mid(x, x²) MVT (fluxCutEq, PURE). -/
+theorem mid_id_square_mvt_pure :
+    fluxCutEq (localDivergence (fun x => cutMid x (cutMul x x)) unitBracket)
+              (ofCut (constCut 1 1)) :=
+  mid_id_square_calc.mvt_pure
+
+/-- mid(x², x³) MVT (fluxCutEq, PURE). -/
+theorem mid_square_cube_mvt_pure :
+    fluxCutEq (localDivergence (fun x => cutMid (cutMul x x)
+                                          (cutMul x (cutMul x x)))
+                              unitBracket)
+              (ofCut (constCut 1 1)) :=
+  mid_square_cube_calc.mvt_pure
+
+/-- Phase BS capstone (fluxCutEq, PURE). -/
+theorem mid_capstone_pure :
+    fluxCutEq (localDivergence (fun x => cutMid x (cutMul x x)) unitBracket)
+              (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutMid (cutMul x x)
+                                            (cutMul x (cutMul x x)))
+                                  unitBracket)
+                (ofCut (constCut 1 1)) :=
+  ⟨mid_id_square_mvt_pure, mid_square_cube_mvt_pure⟩
+
 end ClassicCalc_at
 
 end E213.Math.Real213.ClassicCalcMid

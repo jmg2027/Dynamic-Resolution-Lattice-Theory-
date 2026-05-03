@@ -142,6 +142,32 @@ def octic_calc :
   { diff := octicIsDifferentiable
     pass := mul_pass quartic_pass quartic_pass }
 
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+
+/-- ★ Classic calc higher capstone (fluxCutEq, PURE):
+    x⁴ through x⁸ all have MVT at unit. -/
+theorem classic_calc_higher_capstone_pure :
+    fluxCutEq (localDivergence (fun x => cutMul (cutMul x x) (cutMul x x))
+                               unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence
+        (fun x => cutMul (cutMul x x) (cutMul x (cutMul x x)))
+        unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence
+        (fun x => cutMul (cutMul x (cutMul x x))
+                         (cutMul x (cutMul x x))) unitBracket)
+        (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence
+        (fun x => cutMul (cutMul x (cutMul x x))
+                         (cutMul (cutMul x x) (cutMul x x))) unitBracket)
+        (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence
+        (fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                         (cutMul (cutMul x x) (cutMul x x))) unitBracket)
+        (ofCut (constCut 1 1)) :=
+  ⟨quartic_calc.mvt_pure, quintic_calc.mvt_pure, sextic_calc.mvt_pure,
+   septic_calc.mvt_pure, octic_calc.mvt_pure⟩
+
 end ClassicCalc_at
 
 end E213.Math.Real213.ClassicCalcHigher

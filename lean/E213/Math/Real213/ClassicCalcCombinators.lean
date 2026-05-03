@@ -92,6 +92,16 @@ def x_mul_square_calc :
     ClassicCalc_at (fun x => cutMul x (cutMul x x)) :=
   mul_calc id_calc square_calc
 
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+
+/-- ★ Combinators capstone (fluxCutEq, PURE): combinator-derived
+    ClassicCalc instances all yield MVT at unit. -/
+theorem combinators_capstone_pure :
+    fluxCutEq (localDivergence (fun x => cutMul x (cutMul x x)) unitBracket)
+              (ofCut (constCut 1 1)) :=
+  x_mul_square_calc.mvt_pure
+
 end ClassicCalc_at
 
 end E213.Math.Real213.ClassicCalcCombinators

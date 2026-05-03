@@ -117,6 +117,25 @@ def hexadecic_calc :
               (mul_pass_at quartic_pass quartic_pass)
               (mul_pass_at quartic_pass quartic_pass) }
 
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
+open E213.Math.Real213.DyadicTrajectory (unitBracket)
+open E213.Math.Real213.CutSumTest (constCut)
+
+/-- ★ Extreme polynomial capstone (fluxCutEq, PURE):
+    x⁹, x¹⁰, x¹², x¹⁶ all have MVT at unit. -/
+theorem extreme_capstone_pure :
+    fluxCutEq (localDivergence (fun x =>
+        cutMul (cutMul (cutMul x x) (cutMul x x))
+               (cutMul (cutMul x x) (cutMul x (cutMul x x))))
+        unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x =>
+        cutMul (cutMul (cutMul x x) (cutMul x (cutMul x x)))
+               (cutMul (cutMul x x) (cutMul x (cutMul x x))))
+        unitBracket) (ofCut (constCut 1 1)) :=
+  ⟨nonic_calc.mvt_pure, decic_calc.mvt_pure⟩
+
 end ClassicCalc_at
 
 end E213.Math.Real213.ClassicCalcExtreme

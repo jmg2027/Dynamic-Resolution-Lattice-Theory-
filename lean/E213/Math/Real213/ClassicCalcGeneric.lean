@@ -46,6 +46,40 @@ theorem cutPow_calc_ftc (n : Nat) :
       = fluxAlong (fun x => cutPow x (n+1)) unitBracket :=
   (cutPow_calc n).ftc
 
+/-- ★ Generic polynomial chain ClassicCalc_at instance for any n (PURE). -/
+def cutPow_calc_at (n : Nat) :
+    E213.Math.Real213.ClassicCalc.ClassicCalc_at (fun x => cutPow x (n+1)) :=
+  { diff := cutPowFnIsDifferentiable (n+1)
+    pass := E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at.cutPow_pass n }
+
+/-- ★ Generic MVT for x^(n+1) (fluxCutEq, PURE). -/
+theorem cutPow_calc_mvt_pure (n : Nat) :
+    E213.Math.Real213.FluxMVT.FluxCut.fluxCutEq
+      (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+      (ofCut (constCut 1 1)) :=
+  (cutPow_calc_at n).mvt_pure
+
+/-- ★ Generic FTC bridge for x^(n+1) (fluxCutEq, PURE). -/
+theorem cutPow_calc_ftc_pure (n : Nat) :
+    E213.Math.Real213.FluxMVT.FluxCut.fluxCutEq
+      (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+      (fluxAlong (fun x => cutPow x (n+1)) unitBracket) :=
+  (cutPow_calc_at n).ftc_pure
+
+/-- Phase BP capstone (PURE): cutPow_calc gives MVT + FTC for any n
+    (fluxCutEq + pointwise endpoints). -/
+theorem cutPow_calc_capstone_pure (n : Nat) :
+    E213.Math.Real213.FluxMVT.FluxCut.fluxCutEq
+        (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+        (ofCut (constCut 1 1))
+    ∧ E213.Math.Real213.FluxMVT.FluxCut.fluxCutEq
+        (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+        (fluxAlong (fun x => cutPow x (n+1)) unitBracket)
+    ∧ (∀ m k, (fun x => cutPow x (n+1)) (constCut 0 1) m k = constCut 0 1 m k)
+    ∧ (∀ m k, (fun x => cutPow x (n+1)) (constCut 1 1) m k = constCut 1 1 m k) :=
+  ⟨cutPow_calc_mvt_pure n, cutPow_calc_ftc_pure n,
+   (cutPow_calc_at n).pass.left, (cutPow_calc_at n).pass.right⟩
+
 /-- Phase BP capstone: cutPow_calc gives MVT + FTC for any n. -/
 theorem cutPow_calc_capstone (n : Nat) :
     localDivergence (fun x => cutPow x (n+1)) unitBracket
