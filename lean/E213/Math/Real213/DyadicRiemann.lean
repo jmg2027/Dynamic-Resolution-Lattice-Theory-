@@ -114,90 +114,64 @@ theorem riemannSampleSum_constCut_at (a b : Nat) (db : DyadicBracket) :
       rw [Nat.pow_succ, Nat.mul_comm (2^n) 2, E213.Tactic.Nat213.mul_assoc]
     rw [step1, step2, h]
 
-/-- **Riemann sum of constant cut**: at depth n, sum = 2^n copies
-    of the constant.  Function-equality version (uses `funext` —
-    DIRTY); prefer `riemannSampleSum_constCut_at` (pointwise, ∅-axiom)
-    for new code. -/
+/-- **Riemann sum of constant cut**, cutEq form (PURE).
+    At depth n, sum equals 2^n copies of the constant pointwise. -/
 theorem riemannSampleSum_constCut (a b : Nat) (db : DyadicBracket)
     (n : Nat) :
-    riemannSampleSum (constCutFn (constCut a b)) db n
-    = constCut (2^n * a) b :=
-  funext fun m => funext fun k =>
-    riemannSampleSum_constCut_at a b db n m k
+    cutEq (riemannSampleSum (constCutFn (constCut a b)) db n)
+          (constCut (2^n * a) b) :=
+  riemannSampleSum_constCut_at a b db n
 
-/-- **Riemann sum of zero function** = 0 at every depth. -/
+/-- **Riemann sum of zero function** ≡ 0 at every depth (cutEq, PURE). -/
 theorem riemannSampleSum_zero_fn (db : DyadicBracket) (n : Nat) :
-    riemannSampleSum (constCutFn (constCut 0 1)) db n = constCut 0 1 := by
-  rw [riemannSampleSum_constCut 0 1 db n]
+    cutEq (riemannSampleSum (constCutFn (constCut 0 1)) db n) (constCut 0 1) := by
+  intro m k
+  rw [riemannSampleSum_constCut_at 0 1 db n m k]
   rw [Nat.mul_zero]
 
-/-- **Riemann sum of constant 1** at depth n = (2^n)/1.
-    Sum of 2^n copies of 1 is 2^n. -/
+/-- **Riemann sum of constant 1** at depth n ≡ (2^n)/1 (cutEq, PURE). -/
 theorem riemannSampleSum_one_fn (db : DyadicBracket) (n : Nat) :
-    riemannSampleSum (constCutFn (constCut 1 1)) db n = constCut (2^n) 1 := by
-  rw [riemannSampleSum_constCut 1 1 db n]
+    cutEq (riemannSampleSum (constCutFn (constCut 1 1)) db n) (constCut (2^n) 1) := by
+  intro m k
+  rw [riemannSampleSum_constCut_at 1 1 db n m k]
   rw [Nat.mul_one]
 
-/-- **Riemann sum congruence**: pointwise-equal functions give
-    pointwise-equal Riemann sums at every depth and bracket. -/
+/-- **Riemann sum congruence**, cutEq form (PURE): if f, g agree
+    pointwise on every cut function input, their Riemann sums agree
+    pointwise at every depth and bracket. -/
 theorem riemannSampleSum_congr
     (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (db : DyadicBracket) (n : Nat)
-    (h : ∀ x, f x = g x) :
-    riemannSampleSum f db n = riemannSampleSum g db n := by
+    (h : ∀ x m k, f x m k = g x m k) :
+    cutEq (riemannSampleSum f db n) (riemannSampleSum g db n) := by
   induction n generalizing db with
   | zero =>
-    show f db.midCut = g db.midCut
-    exact h db.midCut
-  | succ k ih =>
-    show cutSum (riemannSampleSum f db.leftHalf k)
-                (riemannSampleSum f db.rightHalf k)
-       = cutSum (riemannSampleSum g db.leftHalf k)
-                (riemannSampleSum g db.rightHalf k)
-    rw [ih db.leftHalf, ih db.rightHalf]
+    intro m k
+    show f db.midCut m k = g db.midCut m k
+    exact h db.midCut m k
+  | succ j ih =>
+    intro m k
+    show cutSum (riemannSampleSum f db.leftHalf j)
+                (riemannSampleSum f db.rightHalf j) m k
+       = cutSum (riemannSampleSum g db.leftHalf j)
+                (riemannSampleSum g db.rightHalf j) m k
+    exact cutSum_pointwise_eq _ _ _ _
+      (ih db.leftHalf) (ih db.rightHalf) m k
 
-/-- **Riemann sum at depth 1**: explicit two-sample form. -/
+/-- **Riemann sum at depth 1**: explicit two-sample form (rfl, PURE). -/
 theorem riemannSampleSum_one_depth
     (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) (db : DyadicBracket) :
     riemannSampleSum f db 1
     = cutSum (f db.leftHalf.midCut) (f db.rightHalf.midCut) := rfl
 
-/-- **Riemann linearity on integer constants**: ∫(a + c) = ∫a + ∫c
-    for constant integer integrands. -/
-theorem riemannSampleSum_int_linear
-    (a c : Nat) (db : DyadicBracket) (n : Nat) :
-    cutSum (riemannSampleSum (constCutFn (constCut a 1)) db n)
-           (riemannSampleSum (constCutFn (constCut c 1)) db n)
-    = constCut (2^n * (a + c)) 1 := by
-  rw [riemannSampleSum_constCut a 1 db n,
-      riemannSampleSum_constCut c 1 db n]
-  rw [cutSum_int_int]
-  show constCut (2^n * a + 2^n * c) 1 = constCut (2^n * (a + c)) 1
-  rw [show 2^n * a + 2^n * c = 2^n * (a + c) from (Nat.mul_add (2^n) a c).symm]
+/-! ### Riemann linearity (deferred to CutSumOne refactor)
 
-/-- **Riemann linearity on half constants**: ∫((a + c)/2) = ∫(a/2) + ∫(c/2). -/
-theorem riemannSampleSum_half_linear
-    (a c : Nat) (db : DyadicBracket) (n : Nat) :
-    cutSum (riemannSampleSum (constCutFn (constCut a 2)) db n)
-           (riemannSampleSum (constCutFn (constCut c 2)) db n)
-    = constCut (2^n * (a + c)) 2 := by
-  rw [riemannSampleSum_constCut a 2 db n,
-      riemannSampleSum_constCut c 2 db n]
-  rw [cutSum_half_general]
-  show constCut (2^n * a + 2^n * c) 2 = constCut (2^n * (a + c)) 2
-  rw [show 2^n * a + 2^n * c = 2^n * (a + c) from (Nat.mul_add (2^n) a c).symm]
-
-/-- **Riemann sum normalized by sample count gives back the integrand**:
-    Σ_{depth n} (a/b) at sample count 2^n, viewed at denominator
-    scaled by 2^n, equals a/b cut-equivalently.
-
-    Real meaning: average sample value = constant integrand.
-    Proof: pure constCut_scale rescaling. -/
-theorem riemannSampleSum_const_normalized (a b : Nat) (n : Nat) :
-    constCut (2^n * a) (b * 2^n) = constCut a b := by
-  rw [Nat.mul_comm (2^n) a]
-  exact (constCut_scale a b (2^n)
-    (Nat.pos_pow_of_pos n (Nat.zero_lt_succ 1))).symm
+The `riemannSampleSum_int_linear` and `_half_linear` theorems were
+removed during the cutEq migration because they require
+`cutSum_int_int_at` / `cutSum_half_general_at` (PURE pointwise
+forms) which don't yet exist in `CutSumOne.lean`.  After the
+CutSumOne PURE migration adds those, the linearity theorems can
+be restored as cutEq forms.  No downstream consumers. -/
 
 /-- **Pointwise** version of `riemannSampleSum_const_normalized`:
     ∀ m k, constCut (2^n * a) (b * 2^n) m k = constCut a b m k.
@@ -208,6 +182,12 @@ theorem riemannSampleSum_const_normalized_at
   rw [Nat.mul_comm (2^n) a]
   exact (E213.Math.Real213.ConstCutScale.constCut_scale_at a b (2^n)
     (Nat.pos_pow_of_pos n (Nat.zero_lt_succ 1)) m k).symm
+
+/-- **Riemann sum normalized**, cutEq form (PURE).
+    Real meaning: average sample value ≡ constant integrand. -/
+theorem riemannSampleSum_const_normalized (a b : Nat) (n : Nat) :
+    cutEq (constCut (2^n * a) (b * 2^n)) (constCut a b) :=
+  riemannSampleSum_const_normalized_at a b n
 
 /-- **Riemann sum on identity at depth 0**: the trivial single-sample
     case.  Just f(midpoint) = midpoint. -/
@@ -220,148 +200,80 @@ Sister-branch `Physics/FiniteUniverse.no_pi_in_finite_alpha_em` style:
 explicitly mark that at every finite depth, the Riemann sum is a
 concrete (Nat, Nat) rational — no transcendence creeps in. -/
 
-/-- **Concrete Riemann sum at depth 3 on a generic bracket**:
-    constant 1/1 integrand gives sum = 8/1 (= 2³ samples). -/
+/-- **Concrete Riemann sum at depth 3 on a generic bracket**, cutEq (PURE).
+    constant 1/1 integrand gives sum ≡ 8/1 (= 2³ samples). -/
 theorem riemann_depth_3_concrete (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 1)) db 3 = constCut 8 1 :=
-  riemannSampleSum_constCut 1 1 db 3
+    cutEq (riemannSampleSum (constCutFn (constCut 1 1)) db 3) (constCut 8 1) :=
+  riemannSampleSum_constCut_at 1 1 db 3
 
-/-- **Concrete Riemann sum at depth 5**: sum = 32/1 = 2⁵. -/
+/-- **Concrete Riemann sum at depth 5**, cutEq (PURE): sum ≡ 32/1 = 2⁵. -/
 theorem riemann_depth_5_concrete (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 1)) db 5 = constCut 32 1 :=
-  riemannSampleSum_constCut 1 1 db 5
+    cutEq (riemannSampleSum (constCutFn (constCut 1 1)) db 5) (constCut 32 1) :=
+  riemannSampleSum_constCut_at 1 1 db 5
 
 /-- **No-π marker for Riemann**: every concrete Riemann sum on a
     constant integrand is an explicit (Nat, Nat) rational, with NO
-    transcendence (π, e, etc.) anywhere in the structure.
+    transcendence (π, e, etc.) anywhere in the structure (cutEq, PURE).
 
     Direct analog of physics-track `no_pi_in_finite_alpha_em`. -/
 theorem no_pi_in_finite_riemann (a b : Nat) (db : DyadicBracket) (n : Nat) :
-    ∃ M : Nat, riemannSampleSum (constCutFn (constCut a b)) db n
-             = constCut M b :=
-  ⟨2^n * a, riemannSampleSum_constCut a b db n⟩
+    ∃ M : Nat, cutEq (riemannSampleSum (constCutFn (constCut a b)) db n)
+                     (constCut M b) :=
+  ⟨2^n * a, riemannSampleSum_constCut_at a b db n⟩
 
-/-! ### O4: Riemann concrete sums for various constant integrands -/
+/-! ### O4–U2: Riemann concrete sums for various constant integrands
 
-/-- Σ_{depth 2} (1/2) at any bracket = 4/2.  4 samples × 1/2 = 2. -/
-theorem riemann_half_depth_2 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 2)) db 2 = constCut 4 2 :=
-  riemannSampleSum_constCut 1 2 db 2
+The depth-N concrete sum theorems for half / third / threequarter /
+fiveSeventh / hundredth / sevenThirteenth at depths 2..30 live as
+PURE `_at` variants below (Σ_{depth n} (a/b) ≡ (2^n·a)/b at every
+(m, k)).  See the "Pointwise PURE wrappers" section.
 
-/-- Σ_{depth 3} (1/2) = 8/2.  8 samples × 1/2 = 4. -/
-theorem riemann_half_depth_3 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 2)) db 3 = constCut 8 2 :=
-  riemannSampleSum_constCut 1 2 db 3
+Function-equality wrappers were removed (2026-05-XX, part 19) per
+the Core/Bridges discipline — they introduced `funext` =
+Quot.sound for no semantic gain over the cutEq formulation. -/
 
-/-- Σ_{depth 4} (3/4) = 48/4.  16 samples × 3/4 = 12. -/
-theorem riemann_threequarter_depth_4 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 3 4)) db 4 = constCut 48 4 :=
-  riemannSampleSum_constCut 3 4 db 4
-
-/-- Σ_{depth 6} (1/3) = 64/3.  64 samples × 1/3. -/
-theorem riemann_third_depth_6 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 3)) db 6 = constCut 64 3 :=
-  riemannSampleSum_constCut 1 3 db 6
-
-/-- **Riemann constant doubling recurrence**: at depth n+1, the sum
-    of constant a/b is the cutSum of the depth n sum with itself.
-
-    This expresses that doubling the sample count = doubling the sum
-    (constant integrand). -/
+/-- **Riemann constant doubling recurrence**, cutEq (PURE):
+    at depth n+1, the constant-a/b Riemann sum is the cutSum of
+    the depth-n sum with itself. -/
 theorem riemann_const_doubling (a b : Nat) (db : DyadicBracket) (n : Nat) :
-    riemannSampleSum (constCutFn (constCut a b)) db (n+1)
-    = cutSum (riemannSampleSum (constCutFn (constCut a b)) db n)
-             (riemannSampleSum (constCutFn (constCut a b)) db n) := by
-  rw [riemannSampleSum_constCut a b db (n+1)]
-  rw [riemannSampleSum_constCut a b db n]
-  rw [cutSum_self]
-  show constCut (2^(n+1) * a) b = constCut (2 * (2^n * a)) b
+    cutEq (riemannSampleSum (constCutFn (constCut a b)) db (n+1))
+          (cutSum (riemannSampleSum (constCutFn (constCut a b)) db n)
+                  (riemannSampleSum (constCutFn (constCut a b)) db n)) := by
+  intro m k
+  rw [riemannSampleSum_constCut_at a b db (n+1) m k]
+  show constCut (2^(n+1) * a) b m k
+     = cutSum (riemannSampleSum (constCutFn (constCut a b)) db n)
+              (riemannSampleSum (constCutFn (constCut a b)) db n) m k
+  rw [cutSum_pointwise_eq _ _ _ _
+       (riemannSampleSum_constCut_at a b db n)
+       (riemannSampleSum_constCut_at a b db n) m k]
+  rw [cutSum_self_at (2^n * a) b m k]
   congr 1
   rw [Nat.pow_succ, E213.Tactic.Nat213.mul_assoc,
       E213.Tactic.Nat213.mul_left_comm]
 
-/-! ### R2: Riemann sums at higher depths (8, 10) -/
+/-! ### W2: Riemann universal facts — pointwise bundle -/
 
-/-- Σ_{depth 8} (1/3) = 256/3.  256 samples × 1/3. -/
-theorem riemann_third_depth_8 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 3)) db 8 = constCut 256 3 :=
-  riemannSampleSum_constCut 1 3 db 8
-
-/-- Σ_{depth 10} (1/2) = 1024/2.  1024 samples × 1/2 = 512. -/
-theorem riemann_half_depth_10 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 2)) db 10 = constCut 1024 2 :=
-  riemannSampleSum_constCut 1 2 db 10
-
-/-- Σ_{depth 8} (5/7) = 1280/7.  256 samples × 5/7. -/
-theorem riemann_fiveSeventh_depth_8 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 5 7)) db 8 = constCut 1280 7 :=
-  riemannSampleSum_constCut 5 7 db 8
-
-/-- Σ_{depth 12} (1/100) = 4096/100. -/
-theorem riemann_hundredth_depth_12 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 100)) db 12
-    = constCut 4096 100 :=
-  riemannSampleSum_constCut 1 100 db 12
-
-/-! ### U2: Riemann sums at very deep depths (14, 16, 20) -/
-
-/-- Σ_{depth 14} (1/2) = 16384/2 = 8192. -/
-theorem riemann_half_depth_14 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 2)) db 14
-    = constCut 16384 2 :=
-  riemannSampleSum_constCut 1 2 db 14
-
-/-- Σ_{depth 16} (1/3) = 65536/3. -/
-theorem riemann_third_depth_16 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 3)) db 16
-    = constCut 65536 3 :=
-  riemannSampleSum_constCut 1 3 db 16
-
-/-- Σ_{depth 20} (7/13) = (1048576 × 7)/13 = 7340032/13. -/
-theorem riemann_sevenThirteenth_depth_20 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 7 13)) db 20
-    = constCut 7340032 13 :=
-  riemannSampleSum_constCut 7 13 db 20
-
-/-- Σ_{depth 25} (1/2) closed form: 2^25 / 2 = 33554432 / 2. -/
-theorem riemann_half_depth_25 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 2)) db 25
-    = constCut (2^25 * 1) 2 :=
-  riemannSampleSum_constCut 1 2 db 25
-
-/-- Σ_{depth 30} (1/2) closed form: 2^30 / 2 = 1073741824 / 2. -/
-theorem riemann_half_depth_30 (db : DyadicBracket) :
-    riemannSampleSum (constCutFn (constCut 1 2)) db 30
-    = constCut (2^30 * 1) 2 :=
-  riemannSampleSum_constCut 1 2 db 30
-
-/-- **Riemann universal facts bundle (W2)**: closed form +
-    doubling recurrence + normalized average for constant integrand. -/
+/-- **Riemann universal facts bundle**, cutEq form (PURE):
+    closed form + doubling recurrence + normalized average. -/
 theorem riemann_universal_facts (a b : Nat) (db : DyadicBracket) (n : Nat) :
-    -- (1) Closed form: Σ_{depth n} (a/b) = (2^n * a) / b.
-    riemannSampleSum (constCutFn (constCut a b)) db n = constCut (2^n * a) b
-    -- (2) Doubling recurrence: depth (n+1) = double depth n.
-    ∧ riemannSampleSum (constCutFn (constCut a b)) db (n+1)
-      = cutSum (riemannSampleSum (constCutFn (constCut a b)) db n)
-               (riemannSampleSum (constCutFn (constCut a b)) db n)
-    -- (3) Normalized average: scaled denom recovers original constant.
-    ∧ constCut (2^n * a) (b * 2^n) = constCut a b :=
-  ⟨riemannSampleSum_constCut a b db n,
+    cutEq (riemannSampleSum (constCutFn (constCut a b)) db n) (constCut (2^n * a) b)
+    ∧ cutEq (riemannSampleSum (constCutFn (constCut a b)) db (n+1))
+            (cutSum (riemannSampleSum (constCutFn (constCut a b)) db n)
+                    (riemannSampleSum (constCutFn (constCut a b)) db n))
+    ∧ cutEq (constCut (2^n * a) (b * 2^n)) (constCut a b) :=
+  ⟨riemannSampleSum_constCut_at a b db n,
    riemann_const_doubling a b db n,
-   riemannSampleSum_const_normalized a b n⟩
+   riemannSampleSum_const_normalized_at a b n⟩
 
 /-! ### Z1: Fundamental Dyadic Calculus Theorem (constant integrand) -/
 
-/-- **Fundamental theorem of dyadic calculus (constant case)**:
-    The sample sum at depth n, when interpreted at scaled denominator
-    b*2^n, equals the constant integrand a/b cut-EQ-uivalent.
-
-    Real meaning: ∫_a^b (constant c) dx = c × (b-a)
-    expressed via cut-equivalence.  Sister-branch FiniteUniverse
-    pattern at the calculus level. -/
+/-- **Fundamental theorem of dyadic calculus (constant case)** (cutEq, PURE).
+    Real meaning: ∫_a^b (constant c) dx = c × (b-a) expressed via
+    cut-equivalence. -/
 theorem fundamental_dyadic_calculus_const (a b : Nat) (n : Nat) :
     cutEq (constCut (2^n * a) (b * 2^n)) (constCut a b) :=
-  fun m k => by rw [riemannSampleSum_const_normalized]
+  riemannSampleSum_const_normalized_at a b n
 
 /-! ### AA1: Riemann sum at depth 0 explicit -/
 
@@ -453,11 +365,5 @@ theorem riemann_half_depth_30_at (db : DyadicBracket) (m k : Nat) :
     riemannSampleSum (constCutFn (constCut 1 2)) db 30 m k
     = constCut (2^30 * 1) 2 m k :=
   riemannSampleSum_constCut_at 1 2 db 30 m k
-
-/-- **Fundamental theorem of dyadic calculus (constant case)**, pointwise PURE form.
-    Uses `_at` variant of `riemannSampleSum_const_normalized` to avoid Quot.sound. -/
-theorem fundamental_dyadic_calculus_const_at (a b : Nat) (n : Nat) :
-    cutEq (constCut (2^n * a) (b * 2^n)) (constCut a b) :=
-  fun m k => riemannSampleSum_const_normalized_at a b n m k
 
 end E213.Math.Real213.DyadicRiemann
