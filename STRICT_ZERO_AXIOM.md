@@ -1,5 +1,14 @@
 # STRICT ∅-AXIOM — the DRLT Axiom Standard
 
+**🎯 Session 26 milestone (2026-05-03)**: 0 real DIRTY achieved tree-wide.
+Tree-wide scan: **2467 PURE / 0 real DIRTY / 251 sealed-DIRTY-by-design**.
+Cumulative arc 394 → 0 real DIRTY across sessions 19-26.  Sealed items
+are documented inherent-propext sources (function-eq facade preserved
+for ergonomic `rw`; funext-by-design Lens infrastructure; Lean-core
+boundary Nat.lcm/gcd/add_mod; Cantor cardinality propext; Cauchy-limit
+ZFC fiction).  See `tools/scan_all_axioms.py SEALED_DIRTY_PREFIXES`
+for the categorical breakdown.
+
 **This is the canonical DRLT axiom standard** (formalized 2026-05-02,
 CLAUDE.md `## DRLT Axiom Standard`).  The DRLT axiom set is ∅.
 
