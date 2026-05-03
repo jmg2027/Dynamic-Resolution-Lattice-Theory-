@@ -355,7 +355,7 @@ theorem wallis_upper_inv (n : Nat) :
       -- R=2k+3, S=4k+5, T=4k+1.
       have h_poly : (4*k + 1) * (4 * (k+1) * (k+1)) + 1
                   = (4*k + 5) * ((2*k+1) * (2*k+1)) := wallis_poly_identity k
-      have hQ_pos : 0 < 2*k + 1 := by omega
+      have hQ_pos : 0 < 2*k + 1 := Nat.zero_lt_succ _
       generalize hP : 4 * (k+1) * (k+1) = P at *
       generalize hQ : 2*k + 1 = Q at *
       generalize hR : 2*k + 3 = R at *
@@ -363,14 +363,16 @@ theorem wallis_upper_inv (n : Nat) :
       generalize hT : 4*k + 1 = T at *
       generalize hN : wallisNum k = N at *
       generalize hD : wallisDen k = D at *
-      -- Now: ih : N * Q ≤ T * D.  h_poly : T * P + 1 = S * (Q * Q).
-      -- Goal: N * P * R ≤ S * (D * (Q * R)).  hQ_pos : 0 < Q.
+      -- ih : N * Q ≤ T * D.  h_poly : T * P + 1 = S * (Q * Q).
       have h_poly_le : T * P ≤ S * Q * Q := by
-        have hsq : S * (Q * Q) = S * Q * Q := (Nat.mul_assoc _ _ _).symm
-        omega
+        have hsq : S * (Q * Q) = S * Q * Q := (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+        rw [← hsq]
+        -- T * P ≤ S * (Q * Q) since T * P + 1 = S * (Q * Q)
+        have h1 : T * P ≤ T * P + 1 := Nat.le_succ _
+        rw [h_poly] at h1; exact h1
       have h1 : N * Q * P ≤ T * D * P := Nat.mul_le_mul_right P ih
       have h2 : T * D * P = D * (T * P) := by
-        rw [Nat.mul_comm T D, Nat.mul_assoc]
+        rw [Nat.mul_comm T D, E213.Tactic.Nat213.mul_assoc]
       have h3 : D * (T * P) ≤ D * (S * Q * Q) := Nat.mul_le_mul_left D h_poly_le
       have h4 : N * Q * P ≤ D * (S * Q * Q) := by
         rw [h2] at h1; exact Nat.le_trans h1 h3
@@ -378,22 +380,28 @@ theorem wallis_upper_inv (n : Nat) :
         Nat.mul_le_mul_right R h4
       have hLHS_assoc : N * Q * P * R = N * P * R * Q := by
         have e1 : N * Q * P = N * P * Q := by
-          rw [Nat.mul_assoc N Q P, Nat.mul_comm Q P, ← Nat.mul_assoc]
+          rw [E213.Tactic.Nat213.mul_assoc N Q P, Nat.mul_comm Q P,
+              ← E213.Tactic.Nat213.mul_assoc]
         rw [e1]
-        rw [Nat.mul_assoc (N*P) Q R, Nat.mul_comm Q R, ← Nat.mul_assoc]
+        rw [E213.Tactic.Nat213.mul_assoc (N*P) Q R, Nat.mul_comm Q R,
+            ← E213.Tactic.Nat213.mul_assoc]
       have hRHS_assoc : D * (S * Q * Q) * R = S * D * Q * R * Q := by
         have e2 : D * (S * Q * Q) = S * D * Q * Q := by
-          rw [← Nat.mul_assoc D (S*Q) Q, ← Nat.mul_assoc D S Q, Nat.mul_comm D S]
+          rw [← E213.Tactic.Nat213.mul_assoc D (S*Q) Q,
+              ← E213.Tactic.Nat213.mul_assoc D S Q, Nat.mul_comm D S]
         rw [e2]
-        rw [Nat.mul_assoc (S*D*Q) Q R, Nat.mul_comm Q R, ← Nat.mul_assoc]
+        rw [E213.Tactic.Nat213.mul_assoc (S*D*Q) Q R, Nat.mul_comm Q R,
+            ← E213.Tactic.Nat213.mul_assoc]
       rw [hLHS_assoc, hRHS_assoc] at h5
       have h6 : Q * (N * P * R) ≤ Q * (S * D * Q * R) := by
         rw [Nat.mul_comm Q (N * P * R), Nat.mul_comm Q (S * D * Q * R)]
         exact h5
       have h7 : N * P * R ≤ S * D * Q * R :=
-        Nat.le_of_mul_le_mul_left h6 hQ_pos
+        E213.Tactic.Nat213.le_of_mul_le_mul_right hQ_pos
+          (by rw [Nat.mul_comm (N * P * R) Q, Nat.mul_comm (S * D * Q * R) Q]
+              exact h6)
       have hRHS_goal : S * (D * (Q * R)) = S * D * Q * R := by
-        rw [← Nat.mul_assoc, ← Nat.mul_assoc]
+        rw [← E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
       rw [hRHS_goal]
       exact h7
 
