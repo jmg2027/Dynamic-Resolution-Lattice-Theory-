@@ -200,6 +200,18 @@ theorem ftc_bridge_passthrough_unit_pure
     (E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_symm _ _
       (fluxAlong_passthrough_unit_pure f h_left h_right))
 
+/-- Phase BF capstone (fluxCutEq, PURE) — passthrough MVT/FTC. -/
+theorem phaseBF_capstone_pure
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (h_left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k)
+    (h_right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k) :
+    fluxCutEq (localDivergence f unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (fluxAlong f unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence f unitBracket) (fluxAlong f unitBracket) :=
+  ⟨mvt_passthrough_unit_pure f h_left h_right,
+   fluxAlong_passthrough_unit_pure f h_left h_right,
+   ftc_bridge_passthrough_unit_pure f h_left h_right⟩
+
 end FluxCut
 
 end E213.Math.Real213.FluxMVTPassthrough

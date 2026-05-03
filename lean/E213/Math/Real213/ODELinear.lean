@@ -62,6 +62,14 @@ theorem linearWithIntercept_derivative (a b : Nat) :
   funext m k
   exact cutSum_const_zero a 1 m k
 
+/-- ★ Derivative of y = ax + b is constant a, pointwise (PURE). -/
+theorem linearWithIntercept_derivative_at (a b : Nat)
+    (t : Nat → Nat → Bool) (m k : Nat) :
+    (linearWithIntercept_isDifferentiable a b).derivative t m k
+      = constCutFn (constCut a 1) t m k := by
+  show cutSum (constCut a 1) (constCut 0 1) m k = constCut a 1 m k
+  exact cutSum_const_zero a 1 m k
+
 /-- ★ y = ax + b is antiderivative of constant a. -/
 def linear_anti (a b : Nat) :
     IsAntiderivative (linearWithIntercept a b)
@@ -79,5 +87,14 @@ theorem linear_ode_capstone (a b : Nat) :
     -- (3) Specific case: y = x: derivative = 1
     ∧ idIsDifferentiable.derivative = constCutFn (constCut 1 1) :=
   ⟨linearWithIntercept_derivative a b, rfl, rfl⟩
+
+/-- ★ Phase CU capstone (PURE) — pointwise linear ODE. -/
+theorem linear_ode_capstone_at (a b : Nat) :
+    (∀ t m k, (linearWithIntercept_isDifferentiable a b).derivative t m k
+              = constCutFn (constCut a 1) t m k)
+    ∧ (∀ t m k, idIsDifferentiable.derivative t m k
+                = constCutFn (constCut 1 1) t m k) :=
+  ⟨linearWithIntercept_derivative_at a b,
+   fun _ _ _ => rfl⟩
 
 end E213.Math.Real213.ODELinear

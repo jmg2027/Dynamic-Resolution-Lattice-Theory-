@@ -36,7 +36,8 @@ open E213.Math.Real213.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
-open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
+open E213.Math.Real213.FluxMVTWitness
+  (squareDerivative_at_half squareDerivative_at_half_at)
 
 /-- ★ **HasDyadicMVTWitness** for an IsDifferentiable f: a *dyadic*
     cut c such that f'(c) = constCut 1 1.  DIRTY-by-design (function-eq
@@ -45,6 +46,14 @@ structure HasDyadicMVTWitness {f : (Nat → Nat → Bool) → (Nat → Nat → B
     (sf : IsDifferentiable f) where
   witness : Nat → Nat → Bool
   proof : sf.derivative witness = constCut 1 1
+
+/-- ★ **PURE pointwise variant**: replaces function-eq `proof` field
+    with pointwise `proof_at` (∀ m k, ...).  No funext, no Quot.sound. -/
+structure HasDyadicMVTWitness_at
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (sf : IsDifferentiable f) where
+  witness : Nat → Nat → Bool
+  proof_at : ∀ m k, sf.derivative witness m k = constCut 1 1 m k
 
 namespace HasDyadicMVTWitness
 
@@ -59,6 +68,20 @@ theorem mvt_exists {f sf} (w : @HasDyadicMVTWitness f sf) :
   ⟨w.witness, w.proof⟩
 
 end HasDyadicMVTWitness
+
+namespace HasDyadicMVTWitness_at
+
+/-- ★ x² has dyadic MVT witness c = 1/2 (PURE _at form). -/
+def square_at : HasDyadicMVTWitness_at squareIsDifferentiable :=
+  { witness := constCut 1 2
+    proof_at := squareDerivative_at_half_at }
+
+/-- Generic MVT existence (pointwise) from the _at class. -/
+theorem mvt_exists_at {f sf} (w : @HasDyadicMVTWitness_at f sf) :
+    ∃ c, ∀ m k, sf.derivative c m k = constCut 1 1 m k :=
+  ⟨w.witness, w.proof_at⟩
+
+end HasDyadicMVTWitness_at
 
 /-- Phase BT capstone: x² has constructive MVT existence. -/
 theorem square_has_dyadic_witness :
@@ -76,5 +99,24 @@ theorem mvt_witness_capstone :
        = constCut 1 1
     ∧ ∃ c, squareIsDifferentiable.derivative c = constCut 1 1:=
   ⟨rfl, HasDyadicMVTWitness.square.proof, square_has_dyadic_witness⟩
+
+/-- ★ PURE _at variant: x² has dyadic MVT witness pointwise. -/
+theorem square_has_dyadic_witness_at :
+    ∃ c, ∀ m k, squareIsDifferentiable.derivative c m k = constCut 1 1 m k :=
+  HasDyadicMVTWitness_at.mvt_exists_at HasDyadicMVTWitness_at.square_at
+
+/-- The witness for x²_at is exactly 1/2 (PURE — rfl on Nat → Nat → Bool). -/
+theorem square_witness_at_is_half :
+    HasDyadicMVTWitness_at.square_at.witness = constCut 1 2 := rfl
+
+/-- ★ Phase BT _at bundle (PURE). -/
+theorem mvt_witness_capstone_at :
+    HasDyadicMVTWitness_at.square_at.witness = constCut 1 2
+    ∧ (∀ m k, squareIsDifferentiable.derivative
+                HasDyadicMVTWitness_at.square_at.witness m k
+              = constCut 1 1 m k)
+    ∧ ∃ c, ∀ m k, squareIsDifferentiable.derivative c m k = constCut 1 1 m k :=
+  ⟨rfl, HasDyadicMVTWitness_at.square_at.proof_at,
+   square_has_dyadic_witness_at⟩
 
 end E213.Math.Real213.HasDyadicMVTWitness

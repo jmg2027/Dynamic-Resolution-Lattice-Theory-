@@ -103,6 +103,13 @@ theorem mvt_id_unitBracket_pure :
   E213.Math.Real213.FluxMVT.FluxCut.fluxCutEq_of_pointwise
     mvt_id_unitBracket_forward_at mvt_id_unitBracket_backward_at
 
+/-- ★ MVT corollary for id (fluxCutEq, PURE) — derivative form pointwise. -/
+theorem mvt_id_unitBracket_cohomEquiv_pure :
+    E213.Math.Real213.FluxMVT.FluxCut.fluxCutEq
+      (localDivergence id unitBracket)
+      (ofCut (idIsDifferentiable.derivative (constCut 0 1))) :=
+  mvt_id_unitBracket_pure
+
 end FluxCut
 
 end E213.Math.Real213.FluxMVTConcrete

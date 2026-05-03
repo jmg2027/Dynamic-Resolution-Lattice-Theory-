@@ -27,9 +27,12 @@ open E213.Math.Real213.DifferentiableInstances
   (squareIsDifferentiable)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
 open E213.Math.Real213.HasDyadicMVTWitness
-  (HasDyadicMVTWitness square_has_dyadic_witness)
+  (HasDyadicMVTWitness HasDyadicMVTWitness_at
+   square_has_dyadic_witness square_has_dyadic_witness_at)
 open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
-open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
+open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
+open E213.Math.Real213.FluxMVTWitness
+  (squareDerivative_at_half squareDerivative_at_half_at)
 open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Math.Real213.CutMulOne
   (cutMul_one_const cutMul_one_const_at cutMul_const_one cutMul_const_one_at)
@@ -127,5 +130,34 @@ theorem mvt_witness_extended_capstone :
    mid_id_square_derivative_at_half,
    square_has_dyadic_witness,
    mid_id_square_has_dyadic_witness⟩
+
+/-- HasDyadicMVTWitness_at instance for mid(x, x²) — PURE pointwise. -/
+def HasDyadicMVTWitness_at.mid_id_square_at :
+    HasDyadicMVTWitness_at (midIsDifferentiable idIsDifferentiable
+                            squareIsDifferentiable) :=
+  { witness := constCut 1 2
+    proof_at := mid_id_square_derivative_at_half_at }
+
+/-- mid(x, x²) has constructive MVT existence (PURE _at form). -/
+theorem mid_id_square_has_dyadic_witness_at :
+    ∃ c, ∀ m k, (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
+                  ).derivative c m k = constCut 1 1 m k :=
+  mvt_exists_at HasDyadicMVTWitness_at.mid_id_square_at
+
+/-- ★ Phase BU _at capstone (PURE).  Pointwise variants of the
+    extended MVT-witness bundle. -/
+theorem mvt_witness_extended_capstone_at :
+    (∀ m k, squareIsDifferentiable.derivative (constCut 1 2) m k
+              = constCut 1 1 m k)
+    ∧ (∀ m k, (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
+                ).derivative (constCut 1 2) m k = constCut 1 1 m k)
+    ∧ (∃ c, ∀ m k, squareIsDifferentiable.derivative c m k = constCut 1 1 m k)
+    ∧ (∃ c, ∀ m k, (midIsDifferentiable idIsDifferentiable
+                    squareIsDifferentiable).derivative c m k
+                  = constCut 1 1 m k) :=
+  ⟨squareDerivative_at_half_at,
+   mid_id_square_derivative_at_half_at,
+   square_has_dyadic_witness_at,
+   mid_id_square_has_dyadic_witness_at⟩
 
 end E213.Math.Real213.FluxMVTMore

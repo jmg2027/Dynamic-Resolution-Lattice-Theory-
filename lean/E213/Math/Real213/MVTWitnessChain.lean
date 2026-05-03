@@ -22,8 +22,11 @@ open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.IsDifferentiable
   (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
-open E213.Math.Real213.HasDyadicMVTWitness (HasDyadicMVTWitness)
+open E213.Math.Real213.HasDyadicMVTWitness
+  (HasDyadicMVTWitness HasDyadicMVTWitness_at)
 open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
+open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness_at
+  (mvt_exists_at)
 open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half)
 open E213.Math.Real213.CutMul (cutMulOuter)
 open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_one_at)
@@ -84,5 +87,30 @@ theorem chain_rule_witness_capstone :
               ).derivative c = constCut 1 1) :=
   ⟨id_compose_square_derivative_at_half,
    id_compose_square_has_dyadic_witness⟩
+
+/-! ### PURE pointwise variants (∅-axiom) -/
+
+/-- HasDyadicMVTWitness_at instance for id ∘ x² (PURE). -/
+def HasDyadicMVTWitness_at.id_compose_square :
+    HasDyadicMVTWitness_at
+      (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable) :=
+  { witness := constCut 1 2
+    proof_at := id_compose_square_derivative_at_half_at }
+
+/-- id ∘ x² has pointwise MVT existence (PURE). -/
+theorem id_compose_square_has_dyadic_witness_at :
+    ∃ c, ∀ m k, (composeIsDifferentiable squareIsDifferentiable
+                  idIsDifferentiable).derivative c m k = constCut 1 1 m k :=
+  mvt_exists_at HasDyadicMVTWitness_at.id_compose_square
+
+/-- ★ Phase BW capstone (PURE) — chain-rule MVT witness for id ∘ x². -/
+theorem chain_rule_witness_capstone_pure :
+    (∀ m k, (composeIsDifferentiable squareIsDifferentiable
+              idIsDifferentiable).derivative (constCut 1 2) m k
+            = constCut 1 1 m k)
+    ∧ (∃ c, ∀ m k, (composeIsDifferentiable squareIsDifferentiable
+                     idIsDifferentiable).derivative c m k = constCut 1 1 m k) :=
+  ⟨id_compose_square_derivative_at_half_at,
+   id_compose_square_has_dyadic_witness_at⟩
 
 end E213.Math.Real213.MVTWitnessChain

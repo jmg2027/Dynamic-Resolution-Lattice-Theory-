@@ -30,7 +30,8 @@ open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.FluxMVTPolynomial.FluxCut
-  (mvt_square_unitBracket mvt_cube_unitBracket)
+  (mvt_square_unitBracket mvt_cube_unitBracket
+   mvt_square_unitBracket_pure mvt_cube_unitBracket_pure)
 open E213.Math.Real213.CutMul (cutMulOuter)
 open E213.Math.Real213.CutMulOne
   (cutMul_one_one cutMul_one_one_at cutMul_one_const)
@@ -159,6 +160,36 @@ theorem fluxAlong_cube_unitBracket_pure :
   fluxCutEq_of_pointwise
     fluxAlong_cube_unitBracket_forward_at
     fluxAlong_cube_unitBracket_backward_at
+
+/-- ★ FTC bridge for x² at unit (fluxCutEq, PURE).  Chains
+    `mvt_square_pure` with `fluxAlong_square_pure` via fluxBalance_trans. -/
+theorem ftc_bridge_square_unitBracket_pure :
+    fluxCutEq (localDivergence (fun x => cutMul x x) unitBracket)
+              (fluxAlong (fun x => cutMul x x) unitBracket) :=
+  E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_trans
+    mvt_square_unitBracket_pure
+    (E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_symm _ _
+      fluxAlong_square_unitBracket_pure)
+
+/-- ★ FTC bridge for x³ at unit (fluxCutEq, PURE). -/
+theorem ftc_bridge_cube_unitBracket_pure :
+    fluxCutEq (localDivergence (fun x => cutMul x (cutMul x x)) unitBracket)
+              (fluxAlong (fun x => cutMul x (cutMul x x)) unitBracket) :=
+  E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_trans
+    mvt_cube_unitBracket_pure
+    (E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_symm _ _
+      fluxAlong_cube_unitBracket_pure)
+
+/-- ★ Phase BC capstone (fluxCutEq, PURE): polynomial FTC bridges. -/
+theorem polynomial_ftc_bridge_capstone_pure :
+    fluxCutEq (localDivergence id unitBracket) (fluxAlong id unitBracket)
+    ∧ fluxCutEq (localDivergence (fun x => cutMul x x) unitBracket)
+        (fluxAlong (fun x => cutMul x x) unitBracket)
+    ∧ fluxCutEq (localDivergence (fun x => cutMul x (cutMul x x)) unitBracket)
+        (fluxAlong (fun x => cutMul x (cutMul x x)) unitBracket) :=
+  ⟨E213.Math.Real213.FluxFTC.FluxCut.ftc_bridge_id_unitBracket_pure,
+   ftc_bridge_square_unitBracket_pure,
+   ftc_bridge_cube_unitBracket_pure⟩
 
 end FluxCut
 

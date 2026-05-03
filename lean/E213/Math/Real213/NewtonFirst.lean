@@ -24,7 +24,7 @@ open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Real213.ODELinear
   (linearWithIntercept linearWithIntercept_isDifferentiable
-   linearWithIntercept_derivative)
+   linearWithIntercept_derivative linearWithIntercept_derivative_at)
 open E213.Math.Real213.ODESecondOrder
   (linearWithIntercept_secondDerivable)
 
@@ -57,6 +57,24 @@ theorem newton_first_law_capstone (v0 x0 : Nat) (t : Nat → Nat → Bool) :
         = constCutFn (constCut 0 1) :=
   ⟨linearWithIntercept_derivative v0 x0,
    by rw [velocity_is_v0]; rfl,
+   rfl⟩
+
+/-- ★ Velocity = v0 pointwise (PURE). -/
+theorem velocity_is_v0_at (v0 x0 : Nat) (t : Nat → Nat → Bool) (m k : Nat) :
+    (linearWithIntercept_isDifferentiable v0 x0).derivative t m k
+      = constCut v0 1 m k :=
+  linearWithIntercept_derivative_at v0 x0 t m k
+
+/-- ★ Phase CX capstone (PURE) — Newton's first law pointwise. -/
+theorem newton_first_law_capstone_pure (v0 x0 : Nat) :
+    (∀ t m k, (linearWithIntercept_isDifferentiable v0 x0).derivative t m k
+              = constCutFn (constCut v0 1) t m k)
+    ∧ (∀ t m k, (linearWithIntercept_isDifferentiable v0 x0).derivative t m k
+                = constCut v0 1 m k)
+    ∧ (linearWithIntercept_secondDerivable v0).derivative
+        = constCutFn (constCut 0 1) :=
+  ⟨linearWithIntercept_derivative_at v0 x0,
+   velocity_is_v0_at v0 x0,
    rfl⟩
 
 end E213.Math.Real213.NewtonFirst
