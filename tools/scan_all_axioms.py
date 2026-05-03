@@ -122,6 +122,27 @@ SEALED_DIRTY_PREFIXES = (
     # "atom of meaning" thesis, not a refactorable propext leak.
     # Sealed as DIRTY-by-design 2026-05-XX (session 24).
     'E213.Hypervisor.Lens.SemanticAtom',
+    # Lean-core boundary: items that depend on Nat.lcm/gcd/mod_two
+    # well-founded definitions, or Int operations.  These bring propext
+    # via Lean 4 core's well-founded-recursion proof of total termination.
+    # Refactor would require building 213-native gcd/lcm/Int primitives —
+    # out of scope.  Sealed as Lean-core-boundary by-design.
+    'E213.Math.Cohomology.Dyadic.LCMClosure',
+    'E213.Hypervisor.Lens.Leaves.ModNat',
+    'E213.Math.Irrational.Sqrt2KernelFree',
+    # LensCardinality has 5 DIRTY: 3 from Int operations (signedLens,
+    # treeTower_signed) + 2 from Lens-on-Lens stress (sigma7).  The Int
+    # ones are Lean-core boundary; the others cascade.
+    'E213.Math.Infinity.LensCardinality',
+    # Catalog signed_R4 / depth_swap / leaves_swap / signed_swap —
+    # Int / Raw.fold_signed_swap propext from Lean core.
+    'E213.Hypervisor.Lens.Characterisation.Catalog',
+    # CardinalityLB.leavesModNat_kernel_neq cascades from ModNat.
+    'E213.Hypervisor.Lens.Kernel.CardinalityLB',
+    # ProductFSMPeriod cascades from LCMClosure.
+    'E213.Math.Cohomology.Dyadic.ProductFSMPeriod',
+    # CabibboAngle.irreducible_5_22 = Nat.gcd 5 22 = 1 (Lean core).
+    'E213.Physics.Mixing.CabibboAngle',
 )
 
 
