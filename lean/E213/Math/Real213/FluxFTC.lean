@@ -83,6 +83,31 @@ theorem ftc_concrete_capstone (c : Nat → Nat → Bool) (db : DyadicBracket) :
   ⟨ftc_id_unitBracket, ftc_bridge_id_unitBracket,
    fluxAlong_const_isBalanced c db, localDivergence_const_balanced c db⟩
 
+/-! ### PURE pointwise variants (fluxCutEq form) -/
+
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
+open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket_pure)
+
+/-- ★ FTC bridge for id at unit (fluxCutEq, PURE).  Uses
+    `mvt_id_unitBracket_pure` + `fluxAlong id unitBracket` = ofCut (1,0). -/
+theorem ftc_bridge_id_unitBracket_pure :
+    fluxCutEq (localDivergence id unitBracket) (fluxAlong id unitBracket) :=
+  E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_trans
+    mvt_id_unitBracket_pure
+    (E213.Math.Real213.FluxMVT.FluxCut.fluxBalance_symm _ _
+      (fluxCutEq_of_pointwise (fun _ _ => rfl) (fun _ _ => rfl)))
+
+/-- ★ Phase AZ-1 capstone (fluxCutEq, PURE). -/
+theorem ftc_concrete_capstone_pure (c : Nat → Nat → Bool)
+    (db : DyadicBracket) :
+    fluxCutEq (fluxAlong id unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence id unitBracket) (fluxAlong id unitBracket)
+    ∧ isBalanced (fluxAlong (constCutFn c) db)
+    ∧ isBalanced (localDivergence (constCutFn c) db) :=
+  ⟨fluxCutEq_of_pointwise (fun _ _ => rfl) (fun _ _ => rfl),
+   ftc_bridge_id_unitBracket_pure,
+   fluxAlong_const_isBalanced c db, localDivergence_const_balanced c db⟩
+
 end FluxCut
 
 end E213.Math.Real213.FluxFTC
