@@ -31,21 +31,20 @@ open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 /-- Pell-like condition. -/
 def IsPellSol (x y : Nat) : Prop := x * x = 2 * y * y + 1
 
-/-- Helper: Nat squared comparison.  a ≤ b iff a*a ≤ b*b. -/
-private theorem nat_le_iff_sq_le (a b : Nat) : a ≤ b ↔ a * a ≤ b * b := by
-  constructor
-  · intro h
-    exact Nat.mul_le_mul h h
-  · intro hsq
-    by_cases hba : b ≥ a
-    · exact hba
-    · exfalso
-      have hab : a > b := Nat.lt_of_not_le hba
-      have hapos : 0 < a := by omega
-      have h1 : b * a < a * a := Nat.mul_lt_mul_of_pos_right hab hapos
-      have h2 : b * b ≤ b * a := Nat.mul_le_mul_left b (Nat.le_of_lt hab)
-      have h3 : b * b < a * a := Nat.lt_of_le_of_lt h2 h1
-      omega
+/-- Helper (forward): a ≤ b → a*a ≤ b*b. -/
+private theorem nat_sq_le_of_le {a b : Nat} (h : a ≤ b) : a * a ≤ b * b :=
+  Nat.mul_le_mul h h
+
+/-- Helper (backward): a*a ≤ b*b → a ≤ b. -/
+private theorem nat_le_of_sq_le {a b : Nat} (hsq : a * a ≤ b * b) : a ≤ b := by
+  by_cases hba : b ≥ a
+  · exact hba
+  · exfalso
+    have hab : a > b := Nat.lt_of_not_le hba
+    have hapos : 0 < a := Nat.lt_of_le_of_lt (Nat.zero_le b) hab
+    have h1 : b * a < a * a := Nat.mul_lt_mul_of_pos_right hab hapos
+    have h2 : b * b ≤ b * a := Nat.mul_le_mul_left b (Nat.le_of_lt hab)
+    exact absurd (Nat.lt_of_le_of_lt h2 h1) (Nat.not_lt_of_le hsq)
 
 end E213.Math.Irrational.Sqrt2Cut
 
@@ -60,53 +59,43 @@ theorem pell_orderProj_above (x y m k : Nat)
     (hPell : IsPellSol x y) (hmsq : 2 * k * k < m * m)
     (hy_large : k * k ≤ y * y) :
     orderProj m k (x, y) = true := by
-  unfold orderProj
   show decide (x * k ≤ y * m) = true
-  rw [decide_eq_true_iff]
-  rw [nat_le_iff_sq_le]
-  -- (x * k) * (x * k) = x * x * k * k = (2y² + 1) * k²
-  -- (y * m) * (y * m) = y² * m²
-  -- Goal after rw: x * k * (x * k) ≤ y * m * (y * m)
-  -- = x*x*k*k vs y*y*m*m by Nat.mul comm/assoc
-  -- x*x = 2*y*y + 1
-  -- LHS = (2y²+1) * k², RHS = y² * m²
-  -- LHS ≤ RHS iff k² ≤ y²(m² - 2k²)
-  -- m² - 2k² ≥ 1, y² ≥ k² → y²(m² - 2k²) ≥ y² ≥ k². ✓
+  apply decide_eq_true
+  apply nat_le_of_sq_le
+  -- Goal: (x * k) * (x * k) ≤ (y * m) * (y * m)
   have hPell' : x * x = 2 * (y * y) + 1 := by
     unfold IsPellSol at hPell
-    have : 2 * y * y = 2 * (y * y) := by rw [Nat.mul_assoc]
-    omega
-  -- Define Q := y*y, K := k*k, M := m*m for omega
+    have heq : 2 * y * y = 2 * (y * y) := E213.Tactic.Nat213.mul_assoc 2 y y
+    rw [heq] at hPell; exact hPell
   have hxsq : x * k * (x * k) = (2 * (y * y) + 1) * (k * k) := by
     have e1 : x * k * (x * k) = (x * x) * (k * k) := by
-      rw [Nat.mul_assoc, ← Nat.mul_assoc k x k, Nat.mul_comm k x,
-          Nat.mul_assoc, ← Nat.mul_assoc]
+      rw [E213.Tactic.Nat213.mul_assoc x k (x*k),
+          ← E213.Tactic.Nat213.mul_assoc k x k, Nat.mul_comm k x,
+          E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
     rw [e1, hPell']
   have hysq : y * m * (y * m) = (y * y) * (m * m) := by
-    rw [Nat.mul_assoc, ← Nat.mul_assoc m y m, Nat.mul_comm m y,
-        Nat.mul_assoc, ← Nat.mul_assoc]
+    rw [E213.Tactic.Nat213.mul_assoc y m (y*m),
+        ← E213.Tactic.Nat213.mul_assoc m y m, Nat.mul_comm m y,
+        E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
   rw [hxsq, hysq]
-  -- Goal: (2*(y*y) + 1) * (k*k) ≤ (y*y) * (m*m)
-  -- Set Y := y*y, K := k*k, M := m*m.  hy_large: k*k ≤ y*y.  hmsq: 2*k*k < m*m.
-  -- (2Y + 1) * K = 2YK + K.  Y * M ≥ Y * (2K + 1) = 2YK + Y.  Since Y ≥ K, 2YK + Y ≥ 2YK + K.
   have hmm : 2 * (k * k) + 1 ≤ m * m := by
-    have : 2 * k * k = 2 * (k * k) := by rw [Nat.mul_assoc]
-    omega
+    have heq : 2 * k * k = 2 * (k * k) := E213.Tactic.Nat213.mul_assoc 2 k k
+    rw [heq] at hmsq; exact hmsq
   have step1 : (y * y) * (2 * (k * k) + 1) ≤ (y * y) * (m * m) :=
     Nat.mul_le_mul_left (y * y) hmm
-  -- (y*y) * (2*(k*k) + 1) = 2 * (y*y) * (k*k) + y*y
-  -- (2*(y*y) + 1) * (k*k) = 2 * (y*y) * (k*k) + k*k
-  -- Diff: y*y - k*k ≥ 0 (hy_large).
   have eA : (y * y) * (2 * (k * k) + 1) = 2 * (y * y) * (k * k) + y * y := by
     rw [Nat.mul_add, Nat.mul_one]
     congr 1
-    rw [show 2 * (k * k) = 2 * (k * k) from rfl,
-        ← Nat.mul_assoc (y*y) 2, Nat.mul_comm (y*y) 2, Nat.mul_assoc]
+    rw [← E213.Tactic.Nat213.mul_assoc (y*y) 2, Nat.mul_comm (y*y) 2,
+        E213.Tactic.Nat213.mul_assoc]
   have eB : (2 * (y * y) + 1) * (k * k) = 2 * (y * y) * (k * k) + k * k := by
-    rw [Nat.add_mul, Nat.one_mul]
+    rw [E213.Tactic.Nat213.add_mul, Nat.one_mul]
   rw [eB]
   rw [eA] at step1
-  omega
+  -- step1 : 2*(y*y)*(k*k) + y*y ≤ (y*y)*(m*m)
+  -- Goal: 2*(y*y)*(k*k) + k*k ≤ (y*y)*(m*m)
+  -- Chain: k*k ≤ y*y → 2*(y*y)*(k*k) + k*k ≤ 2*(y*y)*(k*k) + y*y ≤ (y*y)*(m*m)
+  exact Nat.le_trans (Nat.add_le_add_left hy_large _) step1
 
 end E213.Math.Irrational.Sqrt2Cut
 
@@ -120,77 +109,73 @@ open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 theorem pell_orderProj_below (x y m k : Nat)
     (hPell : IsPellSol x y) (hk : k ≥ 1) (hmsq : m * m < 2 * k * k) :
     orderProj m k (x, y) = false := by
-  unfold orderProj
   show decide (x * k ≤ y * m) = false
-  rw [decide_eq_false_iff_not]
-  -- Need: ¬ x * k ≤ y * m, i.e., y * m < x * k.
-  -- (y*m)² ≤ (y*m+1) * (y*m + ...) — direct: show (y*m)² < (x*k)².
-  -- (x*k)² = (2y² + 1) * k² = 2y²k² + k².
-  -- (y*m)² = y² * m².
-  -- Goal: y² * m² < 2y²k² + k².
-  -- Since m² ≤ 2k² - 1 (since m² < 2k² strict, integer):
-  --   y² * m² ≤ y² * (2k² - 1) = 2y²k² - y² ≤ 2y²k² - 0 = 2y²k².
-  -- So y² * m² < 2y²k² + k² (since k² ≥ 1).
+  apply decide_eq_false
   intro hle
-  rw [nat_le_iff_sq_le] at hle
+  -- (x*k)² ≤ (y*m)² from hle
+  have hle_sq : (x * k) * (x * k) ≤ (y * m) * (y * m) := nat_sq_le_of_le hle
   have hPell' : x * x = 2 * (y * y) + 1 := by
     unfold IsPellSol at hPell
-    have : 2 * y * y = 2 * (y * y) := by rw [Nat.mul_assoc]
-    omega
+    have heq : 2 * y * y = 2 * (y * y) := E213.Tactic.Nat213.mul_assoc 2 y y
+    rw [heq] at hPell; exact hPell
   have hxsq : x * k * (x * k) = (2 * (y * y) + 1) * (k * k) := by
     have e1 : x * k * (x * k) = (x * x) * (k * k) := by
-      rw [Nat.mul_assoc, ← Nat.mul_assoc k x k, Nat.mul_comm k x,
-          Nat.mul_assoc, ← Nat.mul_assoc]
+      rw [E213.Tactic.Nat213.mul_assoc x k (x*k),
+          ← E213.Tactic.Nat213.mul_assoc k x k, Nat.mul_comm k x,
+          E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
     rw [e1, hPell']
   have hysq : y * m * (y * m) = (y * y) * (m * m) := by
-    rw [Nat.mul_assoc, ← Nat.mul_assoc m y m, Nat.mul_comm m y,
-        Nat.mul_assoc, ← Nat.mul_assoc]
-  rw [hxsq, hysq] at hle
-  -- hle: x * k * (x*k) ≤ y * m * (y*m), reformulated
-  -- Goal: False. Use m² < 2k² and k ≥ 1.
+    rw [E213.Tactic.Nat213.mul_assoc y m (y*m),
+        ← E213.Tactic.Nat213.mul_assoc m y m, Nat.mul_comm m y,
+        E213.Tactic.Nat213.mul_assoc, ← E213.Tactic.Nat213.mul_assoc]
+  rw [hxsq, hysq] at hle_sq
+  -- hle_sq : (2*(y*y)+1) * (k*k) ≤ (y*y) * (m*m)
   have hmm_le : m * m + 1 ≤ 2 * (k * k) := by
-    have : 2 * k * k = 2 * (k * k) := by rw [Nat.mul_assoc]
-    omega
-  have hkk_pos : 1 ≤ k * k := by
-    have : 0 < k := by omega
-    exact Nat.mul_pos this this
-  -- (y*y) * (m*m) < (2 * (y*y) + 1) * (k*k)
-  -- Equivalent: (y*y) * (m*m + 1) ≤ (y*y) * (2*(k*k))
-  -- And (y*y) * (2*(k*k)) + 1*(k*k) ≤ (2*(y*y) + 1) * (k*k) = 2*(y*y)*(k*k) + k*k
-  have step1 : (y * y) * (m * m) < (y * y) * (2 * (k * k)) ∨ y * y = 0 := by
-    rcases Nat.eq_zero_or_pos (y * y) with hy0 | hypos
-    · right; exact hy0
-    · left
-      have := Nat.mul_le_mul_left (y * y) hmm_le
-      have h2 : (y * y) * (m * m + 1) ≤ (y * y) * (2 * (k * k)) := this
-      have h3 : (y * y) * (m * m + 1) = (y * y) * (m * m) + (y * y) := by
-        rw [Nat.mul_add, Nat.mul_one]
-      omega
-  rcases step1 with hlt | hy0
-  · -- (y*y)(m*m) < (y*y)(2*(k*k)) ≤ (2*(y*y) + 1)*(k*k) - 1 something...
-    -- Actually: 2*(y*y)*(k*k) ≤ 2*(y*y)*(k*k) + k*k, but ≤ trivial.
-    -- Goal: y² m² ≤ (2y²+1) k² = 2y²k² + k² ?
-    -- We have y² m² < y² * 2k² = 2y² k².  So y² m² < 2y² k² ≤ 2y² k² + k² = (2y²+1) k².
-    have hgoal : (y * y) * (m * m) < (2 * (y * y) + 1) * (k * k) := by
-      have step2 : (y * y) * (2 * (k * k)) ≤ (2 * (y * y) + 1) * (k * k) := by
-        have eA : (y * y) * (2 * (k * k)) = (2 * (y * y)) * (k * k) := by
-          rw [← Nat.mul_assoc, Nat.mul_comm (y*y) 2, Nat.mul_assoc]
-        rw [eA]
-        have eB : (2 * (y * y) + 1) * (k * k)
-                    = (2 * (y * y)) * (k * k) + k * k := by
-          rw [Nat.add_mul, Nat.one_mul]
-        omega
-      omega
-    omega
-  · -- y = 0 case: y² m² = 0, (2y²+1) k² = k² ≥ 1.  0 ≤ k², no strict bound.
-    -- hle becomes 0 ≤ 0, tautology, but we need strict inequality somewhere.
-    -- Wait, hle was ≤ (not strict), and we need to find ¬ ≤ for False.
-    -- Hmm.  Actually hle says x*k*(x*k) ≤ y*m*(y*m).  After rw to (2y²+1)k² ≤ y² m².
-    -- If y = 0: LHS = (2*0 + 1) * k² = k² ≥ 1.  RHS = 0 * m² = 0.  k² ≤ 0 → k² = 0 → k = 0.
-    -- But k ≥ 1, contradiction.
-    have : (2 * (y * y) + 1) * (k * k) ≤ (y * y) * (m * m) := hle
-    rw [hy0] at this
-    simp at this
-    omega
+    have heq : 2 * k * k = 2 * (k * k) := E213.Tactic.Nat213.mul_assoc 2 k k
+    rw [heq] at hmsq; exact hmsq
+  -- (y*y) * (m*m) ≤ (y*y) * (2*(k*k)) - (y*y) when y*y ≥ 1.
+  -- Goal: derive False.  Strategy: show (2*(y*y)+1)*(k*k) > (y*y)*(m*m).
+  --   (2*(y*y)+1)*(k*k) = 2*(y*y)*(k*k) + k*k
+  --   (y*y)*(m*m) ≤ (y*y)*(2*(k*k)-1) when m*m ≤ 2*(k*k)-1.
+  --   That's not pleasant in Nat.  Alternative: use hmm_le to bound.
+  --   (y*y)*(m*m+1) ≤ (y*y)*(2*(k*k))
+  --   (y*y)*(m*m) + (y*y) ≤ 2*(y*y)*(k*k)
+  --   So (y*y)*(m*m) ≤ 2*(y*y)*(k*k) - (y*y) (Nat sub).
+  --   Combined with hle_sq: 2*(y*y)*(k*k) + k*k ≤ 2*(y*y)*(k*k) - (y*y).
+  --   Add (y*y) both sides: 2*(y*y)*(k*k) + k*k + y*y ≤ 2*(y*y)*(k*k).
+  --   Cancel: k*k + y*y ≤ 0.  k*k ≥ 1 → contra.
+  have hkk_pos : 1 ≤ k * k := Nat.mul_pos hk hk
+  -- (y*y)*(m*m+1) ≤ (y*y)*(2*(k*k))
+  have h_yMul : (y * y) * (m * m + 1) ≤ (y * y) * (2 * (k * k)) :=
+    Nat.mul_le_mul_left (y * y) hmm_le
+  have h_yMul_eq : (y * y) * (m * m + 1) = (y * y) * (m * m) + (y * y) := by
+    rw [Nat.mul_add, Nat.mul_one]
+  rw [h_yMul_eq] at h_yMul
+  -- h_yMul : (y*y)*(m*m) + (y*y) ≤ (y*y) * (2*(k*k))
+  -- (y*y)*(2*(k*k)) = 2*(y*y)*(k*k)
+  have h_2y_eq : (y * y) * (2 * (k * k)) = 2 * (y * y) * (k * k) := by
+    rw [← E213.Tactic.Nat213.mul_assoc (y*y) 2, Nat.mul_comm (y*y) 2,
+        E213.Tactic.Nat213.mul_assoc]
+  rw [h_2y_eq] at h_yMul
+  -- h_yMul : (y*y)*(m*m) + (y*y) ≤ 2*(y*y)*(k*k)
+  -- hle_sq : (2*(y*y)+1) * (k*k) ≤ (y*y) * (m*m)
+  -- (2*(y*y)+1)*(k*k) = 2*(y*y)*(k*k) + k*k
+  have h_hle_eq : (2 * (y * y) + 1) * (k * k) = 2 * (y * y) * (k * k) + k * k := by
+    rw [E213.Tactic.Nat213.add_mul, Nat.one_mul]
+  rw [h_hle_eq] at hle_sq
+  -- hle_sq : 2*(y*y)*(k*k) + k*k ≤ (y*y) * (m*m)
+  -- Add (y*y) to both: 2*(y*y)*(k*k) + k*k + (y*y) ≤ (y*y)*(m*m) + (y*y) ≤ 2*(y*y)*(k*k)
+  -- Cancel 2*(y*y)*(k*k): k*k + (y*y) ≤ 0.  k*k ≥ 1 → False.
+  have h_chain : 2*(y*y)*(k*k) + k*k + (y*y) ≤ 2*(y*y)*(k*k) :=
+    Nat.le_trans (Nat.add_le_add_right hle_sq (y*y)) h_yMul
+  -- Add 0 to RHS: 2*(y*y)*(k*k) + k*k + (y*y) ≤ 2*(y*y)*(k*k) + 0
+  have h_chain' : 2*(y*y)*(k*k) + (k*k + (y*y)) ≤ 2*(y*y)*(k*k) + 0 := by
+    rw [Nat.add_zero, ← Nat.add_assoc]; exact h_chain
+  -- Cancel: k*k + y*y ≤ 0
+  have h_zero : k*k + (y*y) ≤ 0 :=
+    E213.Tactic.Nat213.le_of_add_le_add_left h_chain'
+  -- k*k ≥ 1 → k*k + y*y ≥ 1, contra h_zero.
+  exact absurd (Nat.le_trans hkk_pos
+    (Nat.le_trans (Nat.le_add_right (k*k) (y*y)) h_zero)) (by decide)
 
 end E213.Math.Irrational.Sqrt2Cut
