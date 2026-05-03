@@ -21,10 +21,9 @@ open E213.Math.Real213.CutMulOne
 open E213.Math.Real213.CutSumZero (cutMul_zero_zero cutMul_zero_zero_at)
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 
-/-- (a/b)^1 ≡ a/b for any a, b (cutEq, PURE). -/
+/-- (a/b)^1 = a/b for any a, b (function eq).  DIRTY-by-design. -/
 theorem cutPow_one_const (a b : Nat) :
-    ∀ m k, cutPow (constCut a b) 1 m k = constCut a b m k :=
-  cutMul_one_const a b
+    cutPow (constCut a b) 1 = constCut a b := cutMul_one_const a b
 
 /-- (a/b)^1 = a/b pointwise (∅-axiom). -/
 theorem cutPow_one_const_at (a b m k : Nat) :
@@ -61,10 +60,11 @@ theorem cutPow_zero_succ_at :
     rw [step]
     exact cutMul_zero_zero_at m k
 
-/-- **0^(n+1) ≡ 0** for cut zero (cutEq, PURE). -/
+/-- **0^(n+1) = 0** for cut zero (function eq).  DIRTY-by-design. -/
 theorem cutPow_zero_succ (n : Nat) :
-    ∀ m k, cutPow (constCut 0 1) (n+1) m k = constCut 0 1 m k :=
-  cutPow_zero_succ_at n
+    cutPow (constCut 0 1) (n+1) = constCut 0 1 := by
+  funext m k
+  exact cutPow_zero_succ_at n m k
 
 /-- **1^n = 1** pointwise (∅-axiom).  Uses `cutMulOuter_congr`. -/
 theorem cutPow_one_n_at :
@@ -89,9 +89,10 @@ theorem cutPow_one_n_at :
     rw [step]
     exact cutMul_one_one_at m k
 
-/-- **1^n ≡ 1** for any n (cutEq, PURE). -/
+/-- **1^n = 1** for any n (function eq).  DIRTY-by-design. -/
 theorem cutPow_one_n (n : Nat) :
-    ∀ m k, cutPow (constCut 1 1) n m k = constCut 1 1 m k :=
-  cutPow_one_n_at n
+    cutPow (constCut 1 1) n = constCut 1 1 := by
+  funext m k
+  exact cutPow_one_n_at n m k
 
 end E213.Math.Real213.CutPowConst
