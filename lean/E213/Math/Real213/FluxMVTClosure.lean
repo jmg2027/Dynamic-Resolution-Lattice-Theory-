@@ -85,6 +85,79 @@ theorem mvt_mul_passthrough
   let ⟨h0, h1⟩ := passthrough_mul f g hf_left hf_right hg_left hg_right
   mvt_passthrough_unit (fun x => cutMul (f x) (g x)) h0 h1
 
+/-! ### PURE pointwise variants — strict ∅-axiom (mul case)
+
+`mul_passthrough_at` is fully pointwise via `cutMulOuter_congr` —
+no funext.  `compose_passthrough` cannot be made fully pointwise
+here (substitution under `g` requires function-eq for `f`);
+deferred to `FluxPassthroughClass.Passthrough_at.compose_pass`.
+The `mul_pure` MVT variant feeds fluxCutEq downstream. -/
+
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxMVTPassthrough.FluxCut
+  (mvt_passthrough_unit_pure)
+open E213.Math.Real213.CutMul (cutMulOuter)
+open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
+open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
+open E213.Math.Real213.CutSumZero (cutMul_zero_zero_at)
+
+/-- Passthrough closed under cutMul — left, fully pointwise (∅-axiom). -/
+theorem passthrough_mul_at_left
+    (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (hf_left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k)
+    (hg_left : ∀ m k, g (constCut 0 1) m k = constCut 0 1 m k)
+    (m k : Nat) :
+    cutMul (f (constCut 0 1)) (g (constCut 0 1)) m k = constCut 0 1 m k := by
+  show cutMulOuter (f (constCut 0 1)) (g (constCut 0 1))
+                   k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 0 1 m k
+  have step :
+      cutMulOuter (f (constCut 0 1)) (g (constCut 0 1))
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      = cutMulOuter (constCut 0 1) (constCut 0 1)
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
+    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      (f (constCut 0 1)) (constCut 0 1)
+      (g (constCut 0 1)) (constCut 0 1)
+      (fun m' _ => hf_left m' k)
+      (fun m' _ => hg_left m' k)
+      ((m+1)*(k+1)) (Nat.le_refl _)
+  rw [step]; exact cutMul_zero_zero_at m k
+
+/-- Passthrough closed under cutMul — right, fully pointwise (∅-axiom). -/
+theorem passthrough_mul_at_right
+    (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (hf_right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k)
+    (hg_right : ∀ m k, g (constCut 1 1) m k = constCut 1 1 m k)
+    (m k : Nat) :
+    cutMul (f (constCut 1 1)) (g (constCut 1 1)) m k = constCut 1 1 m k := by
+  show cutMulOuter (f (constCut 1 1)) (g (constCut 1 1))
+                   k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
+  have step :
+      cutMulOuter (f (constCut 1 1)) (g (constCut 1 1))
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      = cutMulOuter (constCut 1 1) (constCut 1 1)
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
+    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      (f (constCut 1 1)) (constCut 1 1)
+      (g (constCut 1 1)) (constCut 1 1)
+      (fun m' _ => hf_right m' k)
+      (fun m' _ => hg_right m' k)
+      ((m+1)*(k+1)) (Nat.le_refl _)
+  rw [step]; exact cutMul_one_one_at m k
+
+/-- MVT for product of passthroughs (fluxCutEq, PURE). -/
+theorem mvt_mul_passthrough_pure
+    (f g : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (hf_left : ∀ m k, f (constCut 0 1) m k = constCut 0 1 m k)
+    (hf_right : ∀ m k, f (constCut 1 1) m k = constCut 1 1 m k)
+    (hg_left : ∀ m k, g (constCut 0 1) m k = constCut 0 1 m k)
+    (hg_right : ∀ m k, g (constCut 1 1) m k = constCut 1 1 m k) :
+    fluxCutEq (localDivergence (fun x => cutMul (f x) (g x)) unitBracket)
+              (ofCut (constCut 1 1)) :=
+  mvt_passthrough_unit_pure (fun x => cutMul (f x) (g x))
+    (passthrough_mul_at_left f g hf_left hg_left)
+    (passthrough_mul_at_right f g hf_right hg_right)
+
 end FluxCut
 
 end E213.Math.Real213.FluxMVTClosure
