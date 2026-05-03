@@ -81,14 +81,15 @@ private theorem expand_2x3y (x y : Nat) :
       Nat.add_assoc (4*(x*x)) (6*(x*y)) (6*(x*y)),
       two_n_mul 6 (x*y)]
 
-/-- **Pell step**: the invariant is preserved by the recursion. -/
+/-- **Pell step**: the invariant is preserved by the recursion.
+    Proof skeleton via expand_3x4y / expand_2x3y + omega substitution.
+    Note: omega here is unavoidable without a multivariate Polynomial213
+    refactor (M, N as separate variables); the polynomial expand
+    lemmas are PURE, so the polynomial structure is captured. -/
 theorem pell_step (x y : Nat) (h : x * x = 2 * (y * y) + 1) :
     (3 * x + 4 * y) * (3 * x + 4 * y)
       = 2 * ((2 * x + 3 * y) * (2 * x + 3 * y)) + 1 := by
   rw [expand_3x4y, expand_2x3y]
-  -- Goal: 9 * (x*x) + 24 * (x*y) + 16 * (y*y) = 2 * (4*(x*x) + 12*(x*y) + 9*(y*y)) + 1
-  -- = 8*(x*x) + 24*(x*y) + 18*(y*y) + 1
-  -- iff (x*x) = 2*(y*y) + 1 (= h after normalizing).
   omega
 
 /-- **Pell invariant**: x_n² = 2 y_n² + 1. -/
@@ -128,57 +129,8 @@ private theorem abLens_slash (x y : Raw) (h : x ≠ y) :
   show (u.1 + v.1, u.2 + v.2) = (v.1 + u.1, v.2 + u.2)
   rw [Nat.add_comm u.1 v.1, Nat.add_comm u.2 v.2]
 
-/-- abLens surjective on positive (a, b).  Strong induction on a + b. -/
-theorem abLens_surjective : ∀ (s a b : Nat),
-    a + b = s → 1 ≤ a → 1 ≤ b → ∃ r : Raw, abLens.view r = (a, b) := by
-  intro s
-  induction s with
-  | zero => intro a b hsum ha hb; exact False.elim (by omega)
-  | succ n ih =>
-      intro a b hsum ha hb
-      by_cases h_ab : a = 1 ∧ b = 1
-      · refine ⟨Raw.slash Raw.a Raw.b (by decide), ?_⟩
-        rw [abLens_slash, abLens_a, abLens_b]
-        simp [h_ab.1, h_ab.2]
-      · -- (a, b) ≠ (1, 1).  Either a ≥ 2 or b ≥ 2.
-        by_cases h_a2 : a ≥ 2
-        · -- Recurse on (a-1, b)
-          have ha' : 1 ≤ a - 1 := by omega
-          have hsum' : (a - 1) + b = n := by omega
-          obtain ⟨r, hr⟩ := ih (a - 1) b hsum' ha' hb
-          have hne : Raw.a ≠ r := by
-            intro heq
-            have := congrArg abLens.view heq
-            rw [abLens_a, hr] at this
-            -- (1, 0) = (a-1, b).  But b ≥ 1, so b ≠ 0.
-            have h0 : (0 : Nat) = b := by
-              have := congrArg Prod.snd this
-              exact this
-            omega
-          refine ⟨Raw.slash Raw.a r hne, ?_⟩
-          rw [abLens_slash, abLens_a, hr]
-          simp; omega
-        · -- a = 1, b ≥ 2
-          have ha1 : a = 1 := by omega
-          have hb2 : b ≥ 2 := by
-            by_cases hb_eq : b = 1
-            · exfalso; exact h_ab ⟨ha1, hb_eq⟩
-            · omega
-          have hb' : 1 ≤ b - 1 := by omega
-          have hsum' : a + (b - 1) = n := by omega
-          obtain ⟨r, hr⟩ := ih a (b - 1) hsum' ha hb'
-          have hne : Raw.b ≠ r := by
-            intro heq
-            have := congrArg abLens.view heq
-            rw [abLens_b, hr] at this
-            -- (0, 1) = (a, b-1).  a ≥ 1, so 0 ≠ a.
-            have h0 : (0 : Nat) = a := by
-              have := congrArg Prod.fst this
-              exact this
-            omega
-          refine ⟨Raw.slash Raw.b r hne, ?_⟩
-          rw [abLens_slash, abLens_b, hr]
-          simp; omega
+-- abLens_surjective is now defined AFTER abLens_witness (below) as a
+-- direct PURE consequence, eliminating ~13 omega/simp uses.
 
 end E213.Math.Cauchy.PellSeq
 
@@ -266,6 +218,13 @@ def abLens_witness (s : Nat) : ∀ (a b : Nat),
           show ((0 + a : Nat), (1 + (b - 1) : Nat)) = (a, b)
           rw [Nat.zero_add, Nat.add_comm 1 (b-1),
               E213.Tactic.Nat213.sub_one_add_one hb_ne]
+
+/-- abLens surjective on positive (a, b).  PURE via abLens_witness —
+    directly extract the Σ-typed witness into an ∃-typed claim. -/
+theorem abLens_surjective (s a b : Nat) (hsum : a + b = s) (ha : 1 ≤ a)
+    (hb : 1 ≤ b) : ∃ r : Raw, abLens.view r = (a, b) :=
+  let ⟨r, hr⟩ := abLens_witness s a b hsum ha hb
+  ⟨r, hr⟩
 
 end E213.Math.Cauchy.PellSeq
 
