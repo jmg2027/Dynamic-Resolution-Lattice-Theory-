@@ -22,42 +22,40 @@ OS and Meta are **parallel**, not sequential:
   - OS = *compositions* of Hypervisor ("Cup-Lens × Hodge-Lens
     orchestrated into HC²¹³ subsystem with public API")
 
-## Current realisation status (Tier 4 A1, in progress)
+## Current realisation status (Tier 4 A1, ✔ COMPLETE)
 
 This directory currently contains:
-  - **INDEX.md** (this file) — OS layer concept + migration plan
+  - **INDEX.md** (this file) — OS layer concept + migration record
+  - **HodgeConjecture/Bridges/** (7 files) — cross-discipline
+    interfaces for HC²¹³ (migrated 2026-05-XX)
+  - **Physics/Capstones/** (13 files) — physics-track orchestration
+    capstones (migrated 2026-05-XX)
 
-**Migration plan** (deferred to dedicated session per the
-delicate import-update requirements):
+## Migration record (2026-05-XX)
 
-  1. `OS/HodgeConjecture/Bridges/`
-     ← move from `Math/Cohomology/HodgeConjecture/Bridge/*` (7 files)
+  1. `OS/HodgeConjecture/Bridges/` ← from
+     `Math/Cohomology/HodgeConjecture/Bridge/*` (7 files)
      - Tate, MumfordTate, BlochBeilinson, BeilinsonRegulator,
        BeilinsonLichtenbaum, ChernCharacter, HodgeTate
-     - Downstream importers: 3 files (HodgeConjecture/API.lean +
-       2 sibling Bridge files cross-import)
+     - Verification: `hodge_conjecture_213_complete` PURE,
+       `tate_213_5_1` PURE, lake build clean
 
-  2. `OS/Physics/Capstones/`
-     ← move from `Physics/Capstones/*` (13 files)
+  2. `OS/Physics/Capstones/` ← from `Physics/Capstones/*` (13 files)
      - AbsoluteAtomicCapstone, Capstone, FinalCapstone,
        FinitistObservableChain, MasterCatalog, MegaCapstone,
        Paper2Bundle, Paper3Bundle, Phase3Capstone,
        PhysicsTrackComplete, PureAtomicObservables, UltraCapstone,
        ValidationStandardOne
-     - Downstream importers: 10+ files (Physics.lean + various)
-
-## Why the move is deferred
-
-The G12 Option γ realisation requires:
-  1. `git mv` of 20 source files
-  2. Namespace updates (`E213.Physics.Capstones.X` → `E213.OS.Physics.Capstones.X`)
-  3. Bulk-sed of ~15 downstream `import` statements
-  4. Verification: `lake build` clean + `scan_all_axioms.py`
-     reports no PURE→DIRTY regression
-
-The structural commitment is made (this INDEX.md + ARCHITECTURE.md
-§1.4.5).  Actual file moves should be done in a session dedicated
-specifically to the migration, with full pre/post axiom-status diff.
+     - Downstream importers updated: `Physics.lean`,
+       `Math/Cohomology/DiamondAudit.lean`,
+       `Physics/Foundations/DrltZeroParameters.lean`,
+       `Physics/Couplings/MasterUnification.lean` (+
+       fixed pre-existing typo `YangMills.Gap.Bridge`
+       → `YangMills.Bridge` from commit 69a3b08)
+     - Verification: `master_atomic_catalog`, `drlt_physics_milestone`,
+       `phase1_absolute`, `master_capstone`,
+       `drlt_zero_parameter_claim` all PURE; whole-repo
+       `lake build` clean
 
 ## Future inhabitants
 

@@ -1,4 +1,4 @@
-import E213.Physics.Capstones.MasterCatalog
+import E213.OS.Physics.Capstones.MasterCatalog
 import E213.Physics.AlphaEM.Simplicial
 import E213.Physics.Mass.MuOverE
 import E213.Physics.Higgs.Mass
@@ -71,7 +71,7 @@ from the same atomicity-locked atoms into a single theorem.
     λ_H Higgs quartic
 -/
 
-namespace E213.Physics.Capstones.PhysicsTrackComplete
+namespace E213.OS.Physics.Capstones.PhysicsTrackComplete
 
 open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
@@ -136,4 +136,4 @@ theorem phase1_complete :
     -- Atomic config
     ∧ (NS = 3) ∧ (NT = 2) ∧ (d = 5) ∧ (c_lat = 2) := by decide
 
-end E213.Physics.Capstones.PhysicsTrackComplete
+end E213.OS.Physics.Capstones.PhysicsTrackComplete

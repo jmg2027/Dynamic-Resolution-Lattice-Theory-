@@ -1,5 +1,5 @@
-import E213.Physics.Capstones.FinalCapstone
-import E213.Physics.Capstones.UltraCapstone
+import E213.OS.Physics.Capstones.FinalCapstone
+import E213.OS.Physics.Capstones.UltraCapstone
 import E213.Physics.AtomicCorrespondences.Capstone
 import E213.Physics.Simplex.Counts
 
@@ -49,7 +49,7 @@ describing and proving all of physics using 213."
   192 = (NS²-1)(d²-1) (Muon lifetime)
 -/
 
-namespace E213.Physics.Capstones.MegaCapstone
+namespace E213.OS.Physics.Capstones.MegaCapstone
 
 open E213.Physics.Simplex.Counts
 
@@ -73,4 +73,4 @@ theorem phase3_mega :
           ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Capstones.MegaCapstone
+end E213.OS.Physics.Capstones.MegaCapstone

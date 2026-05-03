@@ -20,7 +20,7 @@ This file bundles the formal Lean parts of (ii)-(iv):
 fractal-cohomology identification of α_GUT factors (6, 25, π²).
 -/
 
-namespace E213.Physics.Capstones.Paper2Bundle
+namespace E213.OS.Physics.Capstones.Paper2Bundle
 
 /-- ★★★ PAPER 2 GAUGE STRUCTURE — 213 BUNDLED CAPSTONE ★★★ -/
 theorem paper2_gauge_structure :
@@ -58,4 +58,4 @@ theorem alpha_GUT_three_identifications :
     ∧ E213.Math.Cohomology.Fractal.V25.numV = 25
     ∧ E213.Math.Cohomology.Fractal.V25.numE = 12 * 25 := by decide
 
-end E213.Physics.Capstones.Paper2Bundle
+end E213.OS.Physics.Capstones.Paper2Bundle

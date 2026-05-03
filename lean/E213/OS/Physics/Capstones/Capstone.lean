@@ -21,7 +21,7 @@ CLAUDE.md absolute principles (2026-04-27):
   Intersection ✓ (Cabibbo: 5/22 integer derivation + measurable)
 -/
 
-namespace E213.Physics.Capstones.Capstone
+namespace E213.OS.Physics.Capstones.Capstone
 
 open E213.Physics.Simplex.Counts
 open E213.Physics.Couplings.AlphaGUT
@@ -72,4 +72,4 @@ theorem drlt_physics_milestone :
     falsifiable results.  Future strengthening: tighter brackets at
     higher N, additional new-physics theorems. -/
 
-end E213.Physics.Capstones.Capstone
+end E213.OS.Physics.Capstones.Capstone

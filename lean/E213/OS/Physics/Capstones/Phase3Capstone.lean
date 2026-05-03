@@ -29,7 +29,7 @@ Collects each sub-module's falsifier as a single theorem.
 *Any single violation* → 213 immediately discarded.
 -/
 
-namespace E213.Physics.Capstones.Phase3Capstone
+namespace E213.OS.Physics.Capstones.Phase3Capstone
 
 open E213.Physics.Simplex.Counts
 
@@ -72,4 +72,4 @@ theorem phase3_falsifiers :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Capstones.Phase3Capstone
+end E213.OS.Physics.Capstones.Phase3Capstone

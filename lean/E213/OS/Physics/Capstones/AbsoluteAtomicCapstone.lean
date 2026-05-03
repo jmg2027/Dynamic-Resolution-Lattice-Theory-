@@ -1,5 +1,5 @@
-import E213.Physics.Capstones.PhysicsTrackComplete
-import E213.Physics.Capstones.MasterCatalog
+import E213.OS.Physics.Capstones.PhysicsTrackComplete
+import E213.OS.Physics.Capstones.MasterCatalog
 import E213.Physics.Mass.HierarchyTowers
 import E213.Physics.Foundations.FibonacciExtended
 import E213.Physics.Mixing.CPViolation
@@ -49,7 +49,7 @@ Single absolute capstone accumulating 61-file Phase 1.
   Photon = K_{NS,NT}^{(c)} cycle space, dim = 1/α_3 (atomicity-locked)
 -/
 
-namespace E213.Physics.Capstones.AbsoluteAtomicCapstone
+namespace E213.OS.Physics.Capstones.AbsoluteAtomicCapstone
 
 open E213.Physics.Simplex.Counts
 
@@ -100,4 +100,4 @@ theorem phase1_absolute :
 
   This is the formal meaning of "DRLT Physics Track Phase 1 Complete". -/
 
-end E213.Physics.Capstones.AbsoluteAtomicCapstone
+end E213.OS.Physics.Capstones.AbsoluteAtomicCapstone

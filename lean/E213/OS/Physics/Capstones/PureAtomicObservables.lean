@@ -27,7 +27,7 @@ This is the strongest "atomic-only" closure level: **finitist not
 even necessary**.  No interpretation needed — pure Nat arithmetic.
 -/
 
-namespace E213.Physics.Capstones.PureAtomicObservables
+namespace E213.OS.Physics.Capstones.PureAtomicObservables
 
 open E213.Physics.Simplex.Counts
 open E213.Physics.Mixing.CabibboAngle
@@ -64,4 +64,4 @@ theorem pure_atomic_observables_capstone :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
     <;> decide
 
-end E213.Physics.Capstones.PureAtomicObservables
+end E213.OS.Physics.Capstones.PureAtomicObservables

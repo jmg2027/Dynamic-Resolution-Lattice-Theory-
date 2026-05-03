@@ -1,5 +1,5 @@
 import E213.Physics.AtomicCorrespondences.Capstone
-import E213.Physics.Capstones.Phase3Capstone
+import E213.OS.Physics.Capstones.Phase3Capstone
 import E213.Physics.Foundations.Phase3Reframing
 import E213.Physics.Foundations.ComplexAsTime
 import E213.Physics.Simplex.Counts
@@ -28,7 +28,7 @@ Single capstone for *all* Phase 3 work.
   - complex_as_time: 7-conjunct
 -/
 
-namespace E213.Physics.Capstones.UltraCapstone
+namespace E213.OS.Physics.Capstones.UltraCapstone
 
 open E213.Physics.Simplex.Counts
 
@@ -54,4 +54,4 @@ theorem phase3_ultra :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Capstones.UltraCapstone
+end E213.OS.Physics.Capstones.UltraCapstone

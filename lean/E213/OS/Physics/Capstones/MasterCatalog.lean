@@ -68,7 +68,7 @@ in which precision quantity.
 - sin²θ₂₃ leading 1/NT = 1/2 (NeutrinoMixing)
 -/
 
-namespace E213.Physics.Capstones.MasterCatalog
+namespace E213.OS.Physics.Capstones.MasterCatalog
 
 open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
@@ -114,4 +114,4 @@ theorem master_atomic_catalog :
   This is the true meaning of DRLT's "0 free parameters":
   all results are *simultaneously* forced from a single atomic configuration. -/
 
-end E213.Physics.Capstones.MasterCatalog
+end E213.OS.Physics.Capstones.MasterCatalog

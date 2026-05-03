@@ -27,7 +27,7 @@ All four share N_U = d^(d²).  No external π / transcendentals.
   fitting — but a single combinatorial scale governing all.
 -/
 
-namespace E213.Physics.Capstones.FinitistObservableChain
+namespace E213.OS.Physics.Capstones.FinitistObservableChain
 
 open E213.Physics.Simplex.Counts
 open E213.Physics.Foundations.NUniverseFractalDepth
@@ -59,4 +59,4 @@ theorem finitist_observable_chain :
     ∧ NS + NT = d := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Physics.Capstones.FinitistObservableChain
+end E213.OS.Physics.Capstones.FinitistObservableChain

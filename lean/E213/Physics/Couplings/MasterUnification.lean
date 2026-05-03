@@ -1,11 +1,11 @@
 import E213.Physics.Foundations.HopHypothesis
-import E213.Physics.Capstones.Paper2Bundle
-import E213.Physics.Capstones.Paper3Bundle
+import E213.OS.Physics.Capstones.Paper2Bundle
+import E213.OS.Physics.Capstones.Paper3Bundle
 import E213.Physics.Mixing.Bridge
 import E213.Physics.Hadron.Bridge
 import E213.Physics.Cosmology.Bridge
 import E213.Physics.Nuclear.Bridge
-import E213.Physics.YangMills.Gap.Bridge
+import E213.Physics.YangMills.Bridge
 import E213.Physics.Atomic.Bridge
 
 /-!

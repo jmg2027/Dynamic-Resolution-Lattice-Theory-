@@ -1,4 +1,4 @@
-import E213.Physics.Capstones.UltraCapstone
+import E213.OS.Physics.Capstones.UltraCapstone
 import E213.Physics.Simplex.Counts
 
 /-!
@@ -47,7 +47,7 @@ DRLT single origin = necessity.
 ★ "Modern physics = 213 atomic primitive arithmetic" ★
 -/
 
-namespace E213.Physics.Capstones.FinalCapstone
+namespace E213.OS.Physics.Capstones.FinalCapstone
 
 open E213.Physics.Simplex.Counts
 
@@ -72,4 +72,4 @@ theorem phase3_final :
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.Capstones.FinalCapstone
+end E213.OS.Physics.Capstones.FinalCapstone

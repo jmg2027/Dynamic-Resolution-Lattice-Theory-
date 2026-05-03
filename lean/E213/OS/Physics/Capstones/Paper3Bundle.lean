@@ -25,7 +25,7 @@ identity, decide-checked, all derived from atomic primitives
   Atomic forcing:   NS=3, NT=2, d=5, c=2 (Atomicity theorem)
 -/
 
-namespace E213.Physics.Capstones.Paper3Bundle
+namespace E213.OS.Physics.Capstones.Paper3Bundle
 
 open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors (c_lat)
@@ -74,4 +74,4 @@ theorem atomic_signatures :
     -- α_GUT numerator: 6 = NS · NT (also = b_1(K_5))
     ∧ NS * NT = 6 := by decide
 
-end E213.Physics.Capstones.Paper3Bundle
+end E213.OS.Physics.Capstones.Paper3Bundle
