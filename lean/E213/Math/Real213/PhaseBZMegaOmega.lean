@@ -87,4 +87,38 @@ theorem phaseBZ_megaOmega_capstone (n : Nat) (a : FluxCut) :
    riemann_id_derivative_unit n,
    ftc_riemann_id_depth_zero⟩
 
+open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
+open E213.Math.Real213.FluxMVTConcrete.FluxCut (mvt_id_unitBracket_pure)
+open E213.Math.Real213.ClassicCalcGeneric.ClassicCalc (cutPow_calc_mvt_pure)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
+open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half_at)
+open E213.Math.Real213.MVTWitnessChain (id_compose_square_derivative_at_half_at)
+open E213.Math.Real213.DyadicRiemann (riemannSampleSum_constCut_at)
+open E213.Math.Real213.CutContinuity (constCutFn)
+
+/-- ★★ **Phase BZ mega-omega capstone — fluxCutEq variant** (PURE, ∅-axiom).
+    Replaces all 6 function-eq MVT/FTC/derivative conjuncts with their
+    pointwise PURE forms.  HasDyadicMVTWitness reference removed
+    (it transitively brings Quot.sound via its function-eq proof field). -/
+theorem phaseBZ_megaOmega_capstone_pure (n : Nat) (a : FluxCut) :
+    cohomEquiv a a
+    ∧ fluxCutEq (localDivergence id unitBracket) (ofCut (constCut 1 1))
+    ∧ fluxCutEq (localDivergence (fun x => cutPow x (n+1)) unitBracket)
+                (ofCut (constCut 1 1))
+    ∧ (∀ m k, squareIsDifferentiable.derivative (constCut 1 2) m k
+              = constCut 1 1 m k)
+    ∧ (∀ m k, (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
+        ).derivative (constCut 1 2) m k = constCut 1 1 m k)
+    ∧ (∀ m k, (composeIsDifferentiable squareIsDifferentiable idIsDifferentiable
+        ).derivative (constCut 1 2) m k = constCut 1 1 m k)
+    ∧ (∀ m k, riemannSampleSum idIsDifferentiable.derivative unitBracket n m k
+              = constCut (2^n * 1) 1 m k) :=
+  ⟨cohomEquiv_refl a,
+   mvt_id_unitBracket_pure,
+   cutPow_calc_mvt_pure n,
+   squareDerivative_at_half_at,
+   mid_id_square_derivative_at_half_at,
+   id_compose_square_derivative_at_half_at,
+   riemannSampleSum_constCut_at 1 1 unitBracket n⟩
+
 end E213.Math.Real213.PhaseBZMegaOmega
