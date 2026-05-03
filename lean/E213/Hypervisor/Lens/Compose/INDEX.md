@@ -10,16 +10,13 @@ relates to the `refines` preorder.
   - `ImageMinimum.lean` — universal Lens via image
   - `Morphism.lean` — composition as morphism in the Lens category
   - `OnLens.lean` — Lens `α → β` derived from morphism
-    [⚠ pre-existing build error: typo `InstancesReach` should
-     be `Instances.Reach` (bf34de0); not in API shim until fixed]
   - `OnLensImage.lean` — image construction
   - `OnLensImageGeneric.lean` — generic image (any α)
   - `OnLensImageLevel2.lean` — level-2 image specialisation
 
 ## Public API
 
-Re-exported via `E213.Hypervisor.API` (HV5 category, partial —
-OnLens excluded due to pre-existing build error).
+Re-exported via `E213.Hypervisor.API` (HV5 category — full).
 
 ## Where to add new composition theorems
 

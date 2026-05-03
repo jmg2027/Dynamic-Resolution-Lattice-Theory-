@@ -10,16 +10,11 @@ import E213.Hypervisor.Lens.Lattice.IndexedJoin
 import E213.Hypervisor.Lens.Lattice.JoinEquiv
 import E213.Hypervisor.Lens.Compose.Factoring
 import E213.Hypervisor.Lens.Compose.ImageMinimum
--- Note: Compose.OnLens excluded (pre-existing build error,
--- bf34de0 typo: `InstancesReach` should be `Instances.Reach`).
--- Add back once fixed.
+import E213.Hypervisor.Lens.Compose.OnLens
 import E213.Hypervisor.Lens.Universal.Flat
 import E213.Hypervisor.Lens.Universal.QuotLens
 import E213.Hypervisor.Lens.Properties.CanonicalForm
--- Note: Refines.Chain excluded (transitively imports
--- Leaves/RefinesParity.lean which has pre-existing bf34de0 errors:
--- unknown namespace 'E213.Meta', sorry-bridged Raw.parity).
--- Add back once fixed.
+import E213.Hypervisor.Lens.Refines.Chain
 import E213.Hypervisor.Lens.Refines.Preorder
 
 /-!

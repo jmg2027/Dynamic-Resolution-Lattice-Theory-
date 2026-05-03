@@ -12,8 +12,6 @@ characterisations, and depth/leaves comparisons.
   - `Mod3.lean` — leaves modulo 3 lens
   - `ModNat.lean` — leaves modulo arbitrary Nat lens
   - `RefinesParity.lean` — parity-related refinement
-    [⚠ pre-existing build error: bf34de0 — unknown namespace
-     `E213.Meta`; needs fix; not in API shim until fixed]
 
 ## Public API
 

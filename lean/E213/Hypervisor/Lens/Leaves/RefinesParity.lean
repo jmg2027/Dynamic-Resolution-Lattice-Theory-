@@ -16,7 +16,8 @@ In the refines preorder from note 37: `Lens.leaves ⊑ parityLens`
 
 namespace E213.Hypervisor.Lens.Leaves.RefinesParity
 
-open E213.Firmware E213.Hypervisor E213.Meta
+open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Instances.Parity (parityLens)
 
 private theorem bool_xor_parity (a b : Nat) :
     decide ((a + b) % 2 = 1)
@@ -56,7 +57,8 @@ end E213.Hypervisor.Lens.Leaves.RefinesParity
 
 namespace E213.Hypervisor.Lens.Leaves.RefinesParity
 
-open E213.Firmware E213.Hypervisor E213.Meta
+open E213.Firmware E213.Hypervisor
+open E213.Hypervisor.Lens.Instances.Parity (parityLens)
 
 /-- Witness Raw element with leaves=3, parity=true. -/
 def sample3 : Raw :=
