@@ -1,6 +1,7 @@
 import E213.Math.Cauchy.PellSeq
 import E213.Math.Cauchy.Archimedean
 import E213.Math.Cauchy.MonotonicBounded
+import E213.Math.Polynomial213.Sound
 
 /-!
 # Research.WallisSeq: π/2 Dedekind cut via Wallis product
@@ -264,53 +265,49 @@ end E213.Math.Cauchy.WallisSeq
 namespace E213.Math.Cauchy.WallisSeq
 
 open E213.Firmware E213.Hypervisor
+open E213.Polynomial213 (Poly eval C X add scale mul
+                          eval_add eval_mul eval_scale eval_C eval_X)
 
-/-! ### Upper invariant via Flat-Monomial Strategy -/
+/-! ### Upper invariant via Polynomial213 reflection -/
+
+private def wallisLhsPoly : Poly :=
+  add (mul (add (scale 4 X) (C 1))
+           (scale 4 (mul (add X (C 1)) (add X (C 1)))))
+      (C 1)
+
+private def wallisRhsPoly : Poly :=
+  mul (add (scale 4 X) (C 5))
+      (mul (add (scale 2 X) (C 1)) (add (scale 2 X) (C 1)))
+
+/-- Both sides Horner-normalize to `[5, 24, 36, 16]` — `rfl`. -/
+private theorem wallisLhsPoly_eq_wallisRhsPoly :
+    wallisLhsPoly = wallisRhsPoly := rfl
+
+/-- Bridge: eval LHS poly = symbolic LHS form (parenthesized). -/
+private theorem eval_wallisLhsPoly (k : Nat) :
+    eval wallisLhsPoly k = (4*k + 1) * (4 * ((k+1) * (k+1))) + 1 := by
+  show eval (add _ (C 1)) k = _
+  rw [eval_add, eval_C, eval_mul, eval_add, eval_scale, eval_X, eval_C,
+      eval_scale, eval_mul, eval_add, eval_X, eval_C]
+
+private theorem eval_wallisRhsPoly (k : Nat) :
+    eval wallisRhsPoly k = (4*k + 5) * ((2*k + 1) * (2*k + 1)) := by
+  show eval (mul _ _) k = _
+  rw [eval_mul, eval_add, eval_scale, eval_X, eval_C,
+      eval_mul, eval_add, eval_scale, eval_X, eval_C]
 
 /-- **Polynomial identity**: `(4k+1) · 4(k+1)² + 1 = (4k+5) · (2k+1)²`.
 
-    Closed without ring in Lean 4 core — flat-monomial normalization
-    + two-generalize (`K := k*k`, `M := k*(k*k)`) + omega.
-    Minimal instance of the strategy from note 72. -/
+    Now via `Polynomial213` reflection (∅-axiom).  Both sides
+    Horner-normalize to the same `List Nat` `[5, 24, 36, 16]`.
+    Compresses the original ~40-line omega-heavy proof to ~5 lines. -/
 theorem wallis_poly_identity (k : Nat) :
     (4 * k + 1) * (4 * (k + 1) * (k + 1)) + 1
       = (4 * k + 5) * ((2 * k + 1) * (2 * k + 1)) := by
-  have h_kp1_sq : (k + 1) * (k + 1) = k * k + 2 * k + 1 := by
-    rw [Nat.mul_add (k+1) k 1, Nat.mul_one, Nat.add_mul k 1 k, Nat.one_mul]
-    omega
-  have h_2kp1_sq : (2 * k + 1) * (2 * k + 1) = 4 * (k * k) + 4 * k + 1 := by
-    rw [Nat.mul_add (2*k+1) (2*k) 1, Nat.mul_one,
-        Nat.add_mul (2*k) 1 (2*k), Nat.one_mul]
-    rw [show 2 * k * (2 * k) = 4 * (k * k) from Nat.mul_mul_mul_comm 2 k 2 k]
-    omega
-  rw [show 4 * (k+1) * (k+1) = 4 * ((k+1) * (k+1)) from Nat.mul_assoc _ _ _]
-  rw [h_kp1_sq, h_2kp1_sq]
-  rw [show 4 * (k*k + 2*k + 1) = 4*(k*k) + 8*k + 4 by
-        rw [Nat.mul_add, Nat.mul_add]; omega]
-  have hLHS : (4*k + 1) * (4*(k*k) + 8*k + 4)
-            = 16*(k*(k*k)) + 32*(k*k) + 16*k + 4*(k*k) + 8*k + 4 := by
-    rw [Nat.add_mul (4*k) 1, Nat.one_mul]
-    rw [Nat.mul_add (4*k) (4*(k*k) + 8*k) 4]
-    rw [Nat.mul_add (4*k) (4*(k*k)) (8*k)]
-    rw [show 4*k*(4*(k*k)) = 16*(k*(k*k)) from Nat.mul_mul_mul_comm 4 k 4 (k*k)]
-    rw [show 4*k*(8*k) = 32*(k*k) from Nat.mul_mul_mul_comm 4 k 8 k]
-    rw [show 4*k*4 = 16*k from by rw [Nat.mul_comm (4*k) 4, ← Nat.mul_assoc]]
-    omega
-  have hRHS : (4*k + 5) * (4*(k*k) + 4*k + 1)
-            = 16*(k*(k*k)) + 16*(k*k) + 4*k + 20*(k*k) + 20*k + 5 := by
-    rw [Nat.add_mul (4*k) 5]
-    rw [Nat.mul_add (4*k) (4*(k*k) + 4*k) 1, Nat.mul_add (4*k) (4*(k*k)) (4*k)]
-    rw [Nat.mul_add 5 (4*(k*k) + 4*k) 1, Nat.mul_add 5 (4*(k*k)) (4*k)]
-    rw [Nat.mul_one (4*k), Nat.mul_one 5]
-    rw [show 4*k*(4*(k*k)) = 16*(k*(k*k)) from Nat.mul_mul_mul_comm 4 k 4 (k*k)]
-    rw [show 4*k*(4*k) = 16*(k*k) from Nat.mul_mul_mul_comm 4 k 4 k]
-    rw [show 5*(4*(k*k)) = 20*(k*k) by rw [← Nat.mul_assoc]]
-    rw [show (5:Nat)*(4*k) = 20*k by rw [← Nat.mul_assoc]]
-    omega
-  rw [hLHS, hRHS]
-  generalize k * (k * k) = M
-  generalize k * k = K
-  omega
+  rw [E213.Tactic.Nat213.mul_assoc 4 (k+1) (k+1),
+      ← eval_wallisLhsPoly k,
+      ← eval_wallisRhsPoly k,
+      congrArg (fun p => eval p k) wallisLhsPoly_eq_wallisRhsPoly]
 
 end E213.Math.Cauchy.WallisSeq
 
