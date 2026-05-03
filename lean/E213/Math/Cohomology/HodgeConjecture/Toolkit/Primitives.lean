@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.Conjecture
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
 
 /-!
 # Hodge Toolkit T1 — practical primitives

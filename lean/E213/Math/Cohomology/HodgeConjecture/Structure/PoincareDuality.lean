@@ -19,7 +19,7 @@ already proven on all 5 Δ⁴ strata.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.PoincareDuality
+namespace E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality
 
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Math.Cohomology.Hodge.Star (hodgeStar)
@@ -66,4 +66,4 @@ theorem dim_symmetry_delta4 :
     ∧ binom 5 1 = binom 5 4
     ∧ binom 5 2 = binom 5 3 := by decide
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.PoincareDuality
+end E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality

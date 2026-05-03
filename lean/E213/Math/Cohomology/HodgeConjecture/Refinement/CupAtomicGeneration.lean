@@ -15,7 +15,7 @@ non-zero only on edge τ = [a, b] with a < b.
 decidable by `decide`.  STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.CupAtomicGeneration
+namespace E213.Math.Cohomology.HodgeConjecture.Refinement.CupAtomicGeneration
 
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Math.Cohomology.Cup.Core (cup)
@@ -78,4 +78,4 @@ theorem cup_atomic_generation_capstone :
   ⟨cup_v_unsorted_zero, cup_v_sorted_nonzero, cup_v0_v1_at_e0,
    by decide, by decide, by decide, by decide, by decide⟩
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.CupAtomicGeneration
+end E213.Math.Cohomology.HodgeConjecture.Refinement.CupAtomicGeneration

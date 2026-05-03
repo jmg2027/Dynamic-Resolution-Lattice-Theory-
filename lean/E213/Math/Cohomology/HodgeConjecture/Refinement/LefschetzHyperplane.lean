@@ -14,7 +14,7 @@ restriction map.
 STRICT ∅-AXIOM by `decide`.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.LefschetzHyperplane
+namespace E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzHyperplane
 
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Physics.Simplex.Counts (binom)
@@ -64,4 +64,4 @@ theorem lefschetz_hyperplane_213_capstone :
     ∧ 2 ^ 5 = 2 * 2 ^ 4 :=
   ⟨pascal_5_4, by decide, by decide, by decide⟩
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.LefschetzHyperplane
+end E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzHyperplane

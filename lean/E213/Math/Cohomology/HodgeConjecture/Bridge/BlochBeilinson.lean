@@ -1,5 +1,5 @@
-import E213.Math.Cohomology.HodgeConjecture.PostHC.GeneralizedHodge
-import E213.Math.Cohomology.HodgeConjecture.Core.LensCata
+import E213.Math.Cohomology.HodgeConjecture.Refinement.GeneralizedHodge
+import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
 
 /-!
 # Bloch-Beilinson Conjectures in 213
@@ -20,9 +20,9 @@ filtration depths, which are exactly the binom(n, p) counts.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.BlochBeilinson
+namespace E213.Math.Cohomology.HodgeConjecture.Bridge.BlochBeilinson
 
-open E213.Math.Cohomology.HodgeConjecture.Core.LensCata (atomicGens)
+open E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata (atomicGens)
 open E213.Physics.Simplex.Counts (binom)
 
 /-- Filtration depth at codim p on Δ⁴: number of atomic generators
@@ -56,4 +56,4 @@ theorem bloch_beilinson_213_capstone :
     -- Total Chow group cardinality
     ∧ 1 + 5 + 10 + 10 + 5 + 1 = 2 ^ 5 := by decide
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.BlochBeilinson
+end E213.Math.Cohomology.HodgeConjecture.Bridge.BlochBeilinson

@@ -1,46 +1,52 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.Conjecture
-import E213.Math.Cohomology.HodgeConjecture.Core.ConjectureLens
-import E213.Math.Cohomology.HodgeConjecture.Core.Canonical
-import E213.Math.Cohomology.HodgeConjecture.Core.Filled
-import E213.Math.Cohomology.HodgeConjecture.Core.LensCata
-import E213.Math.Cohomology.HodgeConjecture.Core.Complete
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
+import E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Filled
+import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.Primitives
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTrip
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTripMid
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.Ring
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.Map
-import E213.Math.Cohomology.HodgeConjecture.PostHC.LefschetzOneOne
-import E213.Math.Cohomology.HodgeConjecture.PostHC.PoincareDuality
-import E213.Math.Cohomology.HodgeConjecture.PostHC.GeneralizedHodge
-import E213.Math.Cohomology.HodgeConjecture.PostHC.StandardConjectures
-import E213.Math.Cohomology.HodgeConjecture.PostHC.HardLefschetz
-import E213.Math.Cohomology.HodgeConjecture.PostHC.Tate
-import E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeIndex
-import E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeRiemann
-import E213.Math.Cohomology.HodgeConjecture.PostHC.CupAtomicGeneration
-import E213.Math.Cohomology.HodgeConjecture.PostHC.LefschetzHyperplane
-import E213.Math.Cohomology.HodgeConjecture.PostHC.MumfordTate
-import E213.Math.Cohomology.HodgeConjecture.PostHC.BlochBeilinson
-import E213.Math.Cohomology.HodgeConjecture.PostHC.BeilinsonRegulator
-import E213.Math.Cohomology.HodgeConjecture.PostHC.Voisin
-import E213.Math.Cohomology.HodgeConjecture.PostHC.ChernCharacter
-import E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeTate
-import E213.Math.Cohomology.HodgeConjecture.PostHC.BeilinsonLichtenbaum
+import E213.Math.Cohomology.HodgeConjecture.Structure.Ring
+import E213.Math.Cohomology.HodgeConjecture.Structure.Map
+import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzOneOne
+import E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality
+import E213.Math.Cohomology.HodgeConjecture.Refinement.GeneralizedHodge
+import E213.Math.Cohomology.HodgeConjecture.Refinement.StandardConjectures
+import E213.Math.Cohomology.HodgeConjecture.Structure.HardLefschetz
+import E213.Math.Cohomology.HodgeConjecture.Bridge.Tate
+import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex
+import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann
+import E213.Math.Cohomology.HodgeConjecture.Refinement.CupAtomicGeneration
+import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzHyperplane
+import E213.Math.Cohomology.HodgeConjecture.Bridge.MumfordTate
+import E213.Math.Cohomology.HodgeConjecture.Bridge.BlochBeilinson
+import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
+import E213.Math.Cohomology.HodgeConjecture.Refinement.Voisin
+import E213.Math.Cohomology.HodgeConjecture.Bridge.ChernCharacter
+import E213.Math.Cohomology.HodgeConjecture.Bridge.HodgeTate
+import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonLichtenbaum
 
 /-!
 # HodgeConjecture API — single import for the whole HC²¹³ + post-HC cluster
 
-`import E213.Math.Cohomology.HodgeConjecture.API` exposes all 29 sub-
-modules of the HC²¹³ + post-HC²¹³ programme:
+`import E213.Math.Cohomology.HodgeConjecture.API` exposes all 29
+sub-modules of the HC²¹³ + post-HC²¹³ programme, organised into
+six functional layers (architectural view):
 
-  · `Core/`     — 6 files: HC²¹³ statement, K_{3,2} variant, canonical
-                  capstone, filled extension, Lens-cata blueprint,
-                  master capstone (★ `hodge_conjecture_213_complete`)
-  · `Toolkit/`  — 6 files: support/fromList, round-trip, classifier,
-                  Hodge ring, Hodge map
-  · `PostHC/`   — 17 files: every classical Hodge-adjacent theorem
-                  closed strict ∅-axiom this session series
+  · **Foundation/**  (6) — the HC²¹³ claim itself + master capstone
+  · **Toolkit/**     (4) — operational primitives (compute layer)
+  · **Structure/**   (4) — multiplicative + duality structure
+  · **Refinement/**  (6) — stronger / graded HC²¹³ statements
+  · **Pairing/**     (2) — bilinear forms (Hodge Index, Hodge-Riemann)
+  · **Bridge/**      (7) ★ — interfaces to other classical domains
+                            (ℓ-adic, Galois, motivic, K-theory, p-adic,
+                             L-functions, étale ↔ motivic)
+
+The **Bridge/** layer is the public API surface — each file is a
+classical-area entry point a non-213 mathematician can recognise
+and start from.
 
 See `INDEX.md` for navigation, `research-notes/G6-G11` for the
 philosophical / programme notes.
@@ -52,10 +58,10 @@ namespace E213.Math.Cohomology.HodgeConjecture.API
 
     The single citable theorem closing the Hodge conjecture in 213.
     Equivalent to
-    `E213.Math.Cohomology.HodgeConjecture.Core.Complete.hodge_conjecture_213_complete`.
+    `E213.Math.Cohomology.HodgeConjecture.Foundation.Complete.hodge_conjecture_213_complete`.
 
     Type: `HC_Universal ∧ HC_K32 ∧ HC_Involution`. -/
 @[reducible] def HC213 :=
-  @E213.Math.Cohomology.HodgeConjecture.Core.Complete.hodge_conjecture_213_complete
+  @E213.Math.Cohomology.HodgeConjecture.Foundation.Complete.hodge_conjecture_213_complete
 
 end E213.Math.Cohomology.HodgeConjecture.API

@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.Canonical
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier
 
 /-!
@@ -17,7 +17,7 @@ detailed in `research-notes/G7_lens_initiality_cup_blueprint.md`.
 STRICT ∅-AXIOM by `decide` on cardinalities.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Core.LensCata
+namespace E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
 
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Physics.Simplex.Counts (binom)
@@ -74,4 +74,4 @@ theorem hc213_lens_cata_capstone :
     ∧ E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier.edgeBasis.length = 12 := by
   decide
 
-end E213.Math.Cohomology.HodgeConjecture.Core.LensCata
+end E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata

@@ -28,7 +28,7 @@ Filled K_{3,2} extension and the Lens-initiality uniform proof are
 deferred (G6 §7).
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Core.Canonical
+namespace E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
 
 open E213.Physics.Simplex.Counts (binom NS NT)
 open E213.Math.Cohomology.Cochain.Core (Cochain)
@@ -107,4 +107,4 @@ theorem hodge_conjecture_213_canonical :
    hc213_K32_dim_witnesses,
    hodge_involution_5_0⟩
 
-end E213.Math.Cohomology.HodgeConjecture.Core.Canonical
+end E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical

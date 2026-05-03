@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeIndex
+import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex
 
 /-!
 # Hodge-Riemann Bilinear Relations in 213
@@ -20,9 +20,9 @@ This file ships:
 STRICT ∅-AXIOM (vacuous on ℤ/2; refined version pending).
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeRiemann
+namespace E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann
 
-open E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeIndex (hodge_index_213_capstone)
+open E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex (hodge_index_213_capstone)
 
 /-- Primitive cohomology in 213/ℤ/2: same as full cohomology since
     the Lefschetz operator L = ω ⌣ - has trivial kernel structure
@@ -56,4 +56,4 @@ theorem hodge_riemann_213_capstone :
     ∧ True := by
   refine ⟨?_, ?_, trivial, trivial⟩ <;> decide
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeRiemann
+end E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann

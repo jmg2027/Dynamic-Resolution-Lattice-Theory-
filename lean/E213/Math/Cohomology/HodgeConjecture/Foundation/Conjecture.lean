@@ -21,7 +21,7 @@ Cross-references:
     `HodgeMap.lean`
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Core.Conjecture
+namespace E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
 
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Math.Cohomology.Hodge.Star (hodgeStar)
@@ -72,4 +72,4 @@ theorem hodge_conjecture_213
     (_h : @IsHodgeClass n k m σ) : IsAlgebraic σ :=
   ⟨σ, fun _ => rfl⟩
 
-end E213.Math.Cohomology.HodgeConjecture.Core.Conjecture
+end E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture

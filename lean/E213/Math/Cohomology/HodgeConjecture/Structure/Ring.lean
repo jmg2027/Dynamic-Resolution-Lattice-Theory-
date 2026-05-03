@@ -12,7 +12,7 @@ under ⌣ and admits the Hodge involution ⋆ : H^k → H^{n-k}.
 All identities decided pointwise on Δ⁴; STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Toolkit.Ring
+namespace E213.Math.Cohomology.HodgeConjecture.Structure.Ring
 
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Math.Cohomology.Cup.Core (cup all_true_5_1)
@@ -62,4 +62,4 @@ theorem hodge_ring_capstone :
   ⟨hodgeStar_unit_5, hodgeStar_allTrue_5_1, unit_cup_unit,
    star_cup_unit, star_cup_v0_unit_eq_star_v0⟩
 
-end E213.Math.Cohomology.HodgeConjecture.Toolkit.Ring
+end E213.Math.Cohomology.HodgeConjecture.Structure.Ring

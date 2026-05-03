@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.ConjectureLens
+import E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens
 import E213.Math.Cohomology.Bipartite.V32Betti
 
 /-!
@@ -23,7 +23,7 @@ edge-algebraic cocycle (variant (B): `hodge_conjecture_213_lens`).
 namespace E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier
 
 open E213.Math.Cohomology.Bipartite.V32 (CochE)
-open E213.Math.Cohomology.HodgeConjecture.Core.ConjectureLens (edgeIndicator IsEdgeAlgebraic)
+open E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens (edgeIndicator IsEdgeAlgebraic)
 
 /-- The i-th edge cochain via binary encoding.  Iterating
     `i = 0..4095` enumerates all of C¹. -/

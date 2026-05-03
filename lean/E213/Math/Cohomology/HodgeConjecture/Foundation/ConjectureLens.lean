@@ -23,7 +23,7 @@ Cross-references:
   * K_{3,2} class catalog (256 classes) — `LensClassifier.lean`
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Core.ConjectureLens
+namespace E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens
 
 open E213.Math.Cohomology.Bipartite.V32 (CochE delta0)
 
@@ -78,4 +78,4 @@ theorem b1_classes_count : 256 = 2 ^ 8 := by decide
     and `PhotonKernel.b_1_eq_8`). -/
 theorem b1_eq_NS_sq_minus_one : 8 = 3 * 3 - 1 := by decide
 
-end E213.Math.Cohomology.HodgeConjecture.Core.ConjectureLens
+end E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens

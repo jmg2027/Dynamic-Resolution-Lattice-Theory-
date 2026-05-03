@@ -1,5 +1,5 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.Complete
-import E213.Math.Cohomology.HodgeConjecture.PostHC.PoincareDuality
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
+import E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality
 
 /-!
 # Hard Lefschetz Theorem in 213
@@ -24,9 +24,9 @@ T² × T² shadow).  Δ⁴ is contractible (H^k = 0 for k ≥ 1), so
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.HardLefschetz
+namespace E213.Math.Cohomology.HodgeConjecture.Structure.HardLefschetz
 
-open E213.Math.Cohomology.HodgeConjecture.Core.Complete
+open E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
   (HC_Involution hodge_conjecture_213_complete)
 open E213.Physics.Simplex.Counts (binom)
 
@@ -66,4 +66,4 @@ theorem hard_lefschetz_capstone :
         + binom 5 4 + binom 5 5 = 2 ^ 5 :=
   ⟨hard_lefschetz_delta4, hard_lefschetz_dim_table, by decide⟩
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.HardLefschetz
+end E213.Math.Cohomology.HodgeConjecture.Structure.HardLefschetz

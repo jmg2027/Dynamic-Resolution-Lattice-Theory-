@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.Complete
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
 
 /-!
 # Hodge-Tate Decomposition (p-adic Hodge) in 213
@@ -21,9 +21,9 @@ so the decomposition trivially holds.
 STRICT ∅-AXIOM (vacuous on ℤ/2; ℤ_p²¹³ refinement deferred).
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeTate
+namespace E213.Math.Cohomology.HodgeConjecture.Bridge.HodgeTate
 
-open E213.Math.Cohomology.HodgeConjecture.Core.Complete (HC_Involution)
+open E213.Math.Cohomology.HodgeConjecture.Foundation.Complete (HC_Involution)
 open E213.Physics.Simplex.Counts (binom)
 
 /-- ℤ/2 Hodge-Tate is vacuous: the p-adic filtration collapses. -/
@@ -56,4 +56,4 @@ theorem hodge_tate_213_capstone :
     ∧ (1 + 5 + 10 + 10 + 5 + 1 = 2 ^ 5) := by
   refine ⟨trivial, ?_, ?_⟩ <;> decide
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeTate
+end E213.Math.Cohomology.HodgeConjecture.Bridge.HodgeTate

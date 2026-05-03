@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.LensCata
+import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
 
 /-!
 # Chern Character / Atiyah-Hirzebruch Isomorphism in 213
@@ -19,9 +19,9 @@ same indicator viewed as a cocycle.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.ChernCharacter
+namespace E213.Math.Cohomology.HodgeConjecture.Bridge.ChernCharacter
 
-open E213.Math.Cohomology.HodgeConjecture.Core.LensCata (atomicGens)
+open E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata (atomicGens)
 open E213.Physics.Simplex.Counts (binom)
 
 /-- K-theory rank at level k on Δ⁴: equal to the cohomology rank
@@ -64,4 +64,4 @@ theorem chern_character_213_capstone :
     ∧ (1 + 5 + 10 + 10 + 5 + 1 = 2 ^ 5) :=
   ⟨K_rank_eq_H_rank_delta4, ch_target_even_delta4, by decide⟩
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.ChernCharacter
+end E213.Math.Cohomology.HodgeConjecture.Bridge.ChernCharacter

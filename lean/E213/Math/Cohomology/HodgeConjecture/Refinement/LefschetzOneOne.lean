@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.Conjecture
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
 
 /-!
 # Lefschetz (1,1) Theorem in 213
@@ -16,10 +16,10 @@ HC²¹³, and follows immediately from `hodge_conjecture_213`.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.LefschetzOneOne
+namespace E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzOneOne
 
 open E213.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Math.Cohomology.HodgeConjecture.Core.Conjecture
+open E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
   (IsHodgeClass IsAlgebraic hodge_conjecture_213)
 
 /-- ★★★★★ Lefschetz (1,1) Theorem in 213.  STRICT ∅-AXIOM.
@@ -44,4 +44,4 @@ theorem lefschetz_one_one_213_delta4 (m : Nat) (σ : Cochain 5 2)
     (h : @IsHodgeClass 5 2 m σ) : IsAlgebraic σ :=
   lefschetz_one_one_213 σ h
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.LefschetzOneOne
+end E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzOneOne

@@ -1,13 +1,13 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.Conjecture
-import E213.Math.Cohomology.HodgeConjecture.Core.ConjectureLens
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
+import E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTrip
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTripMid
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.Ring
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.Map
-import E213.Math.Cohomology.HodgeConjecture.Core.Canonical
-import E213.Math.Cohomology.HodgeConjecture.Core.Filled
-import E213.Math.Cohomology.HodgeConjecture.Core.LensCata
+import E213.Math.Cohomology.HodgeConjecture.Structure.Ring
+import E213.Math.Cohomology.HodgeConjecture.Structure.Map
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Filled
+import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
 
 /-!
 # Hodge Conjecture in 213 — COMPLETE (master ∅-axiom capstone)
@@ -42,7 +42,7 @@ have failed; it hasn't.
 STRICT ∅-AXIOM (`#print axioms` → "does not depend on any axioms").
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Core.Complete
+namespace E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
 
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Math.Cohomology.Bipartite.V32 (CochE)
@@ -52,14 +52,14 @@ open E213.Physics.Simplex.Counts (binom)
 /-- (i) Universal HC²¹³ on Δⁿ⁻¹ — every Hodge class is algebraic. -/
 abbrev HC_Universal : Prop :=
   ∀ {n k m : Nat} (σ : Cochain n k),
-    @E213.Math.Cohomology.HodgeConjecture.Core.Conjecture.IsHodgeClass n k m σ →
-    E213.Math.Cohomology.HodgeConjecture.Core.Conjecture.IsAlgebraic σ
+    @E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture.IsHodgeClass n k m σ →
+    E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture.IsAlgebraic σ
 
 /-- (ii) K_{3,2}^{(c=2)} HC²¹³ — every Hodge class is edge-algebraic. -/
 abbrev HC_K32 : Prop :=
   ∀ (σ : CochE),
-    E213.Math.Cohomology.HodgeConjecture.Core.ConjectureLens.IsLensHodgeClass σ →
-    E213.Math.Cohomology.HodgeConjecture.Core.ConjectureLens.IsEdgeAlgebraic σ
+    E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens.IsLensHodgeClass σ →
+    E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens.IsEdgeAlgebraic σ
 
 /-- (iii) Hodge involution ⋆⋆ = id on all 5 Δ⁴ strata. -/
 abbrev HC_Involution : Prop :=
@@ -120,8 +120,8 @@ abbrev HC_Involution : Prop :=
     (closure note). -/
 theorem hodge_conjecture_213_complete :
     HC_Universal ∧ HC_K32 ∧ HC_Involution :=
-  ⟨@E213.Math.Cohomology.HodgeConjecture.Core.Conjecture.hodge_conjecture_213,
-   E213.Math.Cohomology.HodgeConjecture.Core.ConjectureLens.hodge_conjecture_213_lens,
+  ⟨@E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture.hodge_conjecture_213,
+   E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens.hodge_conjecture_213_lens,
    E213.Math.Cohomology.Hodge.InvolutionCapstone.hodge_involution_5strata_capstone⟩
 
-end E213.Math.Cohomology.HodgeConjecture.Core.Complete
+end E213.Math.Cohomology.HodgeConjecture.Foundation.Complete

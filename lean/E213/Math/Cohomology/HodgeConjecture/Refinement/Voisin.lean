@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Bipartite.V32Betti
-import E213.Math.Cohomology.HodgeConjecture.Core.LensCata
+import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
 
 /-!
 # Voisin's Conjectures in 213
@@ -19,9 +19,9 @@ motivic decomposition.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.Voisin
+namespace E213.Math.Cohomology.HodgeConjecture.Refinement.Voisin
 
-open E213.Math.Cohomology.HodgeConjecture.Core.LensCata (atomicGens)
+open E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata (atomicGens)
 open E213.Physics.Simplex.Counts (binom)
 
 /-- Motive of Δ⁴: finite-dim, totalling 2⁵ = 32 generators. -/
@@ -52,4 +52,4 @@ theorem voisin_213_capstone :
         + (atomicGens 5 4).length + (atomicGens 5 5).length = 32 := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.Voisin
+end E213.Math.Cohomology.HodgeConjecture.Refinement.Voisin

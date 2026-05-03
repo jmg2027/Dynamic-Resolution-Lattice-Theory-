@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Hodge.InvolutionCapstone
-import E213.Math.Cohomology.HodgeConjecture.Core.Conjecture
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
 
 /-!
 # Hodge Toolkit T5 — Hodge map ⋆ : H^k → H^{n-k}
@@ -16,7 +16,7 @@ Establishes that ⋆ descends to a well-defined ℤ/2-linear bijection
 H^k(Δ⁴) ≅ H^{4-k}(Δ⁴) on cohomology classes.  STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Toolkit.Map
+namespace E213.Math.Cohomology.HodgeConjecture.Structure.Map
 
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Math.Cohomology.Hodge.Star (hodgeStar complementIdx)
@@ -71,4 +71,4 @@ theorem hodge_map_capstone :
            = xor (hodgeStar 5 1 4 σ i) (hodgeStar 5 1 4 τ i)) :=
   ⟨hodge_bijection_5_1, hodgeStar_zero_5_1, hodgeStar_xor_5_1⟩
 
-end E213.Math.Cohomology.HodgeConjecture.Toolkit.Map
+end E213.Math.Cohomology.HodgeConjecture.Structure.Map

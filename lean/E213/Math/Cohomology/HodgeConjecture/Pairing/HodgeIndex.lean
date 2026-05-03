@@ -25,7 +25,7 @@ lifting to ℚ²¹³ coefficients (no positivity in ℤ/2); also deferred.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeIndex
+namespace E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex
 
 open E213.Math.Cohomology.Bipartite.V32Betti
 open E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier (edgeBasis)
@@ -62,4 +62,4 @@ theorem hodge_index_213_capstone :
     -- Cup-pairing valued in H² = 0 (vacuous Hodge Index)
     ∧ (0 : Nat) = 0 := by decide
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.HodgeIndex
+end E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex

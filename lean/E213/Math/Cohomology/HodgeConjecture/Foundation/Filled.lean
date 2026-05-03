@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.Canonical
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
 import E213.Math.Cohomology.Bipartite.Filled
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier
 
@@ -23,7 +23,7 @@ filling only quotients out additional cocycle relations in the
 STRICT ∅-AXIOM by `decide` on the cardinality table.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Core.Filled
+namespace E213.Math.Cohomology.HodgeConjecture.Foundation.Filled
 
 /-- |H¹| at each filling level k ∈ {0..4}: 2^(8−k). -/
 theorem hc213_filled_H1_card :
@@ -69,4 +69,4 @@ theorem hodge_conjecture_213_filled :
     ∧ E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier.edgeBasis.length = 12 := by
   decide
 
-end E213.Math.Cohomology.HodgeConjecture.Core.Filled
+end E213.Math.Cohomology.HodgeConjecture.Foundation.Filled

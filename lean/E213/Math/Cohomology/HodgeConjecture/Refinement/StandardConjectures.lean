@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.HodgeConjecture.Core.Complete
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
 
 /-!
 # Grothendieck's Standard Conjectures in 213
@@ -31,9 +31,9 @@ trivially true:
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.PostHC.StandardConjectures
+namespace E213.Math.Cohomology.HodgeConjecture.Refinement.StandardConjectures
 
-open E213.Math.Cohomology.HodgeConjecture.Core.Complete
+open E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
   (HC_Universal HC_K32 HC_Involution hodge_conjecture_213_complete)
 
 /-- (A) Lefschetz standard conjecture in 213: ⋆ on Δ⁴ is induced by
@@ -71,4 +71,4 @@ theorem grothendieck_standard_conjectures_213 :
    hodge_conjecture_213_complete.1,
    trivial⟩
 
-end E213.Math.Cohomology.HodgeConjecture.PostHC.StandardConjectures
+end E213.Math.Cohomology.HodgeConjecture.Refinement.StandardConjectures
