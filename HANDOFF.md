@@ -1,5 +1,69 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 24-25: Plan 2 Canonical Form refactor execution
+
+User directive: "철저하게 박멸" — eliminate remaining DIRTY through
+Plan 2 architectural refactor.  Phase 1 explore identified 3 high-impact
+function-eq proof-field structs + 14 Lens funext sites.
+
+### Snapshot
+
+  - **2390+ PURE / 251 raw DIRTY → 224 real DIRTY** (after sealing)
+  - SemanticAtom 25 items reclassified as DIRTY-by-design (sealed,
+    Prop-level inherently uses propext)
+
+### Phase B: HasDyadicMVTWitness_at parallel struct (DONE)
+
+  - `HasDyadicMVTWitness_at` PURE pointwise struct added
+  - 5 file migration:
+    * HasDyadicMVTWitness.lean: +3 PURE capstones
+    * FluxMVTMore.lean: +3 PURE (mid_id_square_at + capstone_at)
+    * FluxMVTNested.lean: +4 PURE (nested_mid + capstone_at)
+    * FluxMVTNested2.lean: +4 PURE
+    * MVTWitnessCatalog.lean: +5 PURE (4 instances + capstone_at)
+  - Net: ~19 new PURE theorems alongside legacy DIRTY facade
+
+### Phase C: IsAntiderivative_at parallel struct (DONE)
+
+  - `IsAntiderivative_at` PURE pointwise struct added
+  - id_anti_at, const_anti_at, antiderivative_capstone_at all PURE
+
+### Phase D partial: FluxFTC + FluxPassthroughCatalog _pure (DONE)
+
+  - FluxFTC.ftc_bridge_id_unitBracket_pure (PURE, fluxCutEq form)
+  - FluxFTC.ftc_concrete_capstone_pure (PURE, 4-fact bundle)
+  - FluxPassthroughCatalog.catalog_mvt_capstone_at (PURE, 5-fact)
+
+### Phase E.3: Seal SemanticAtom (DONE)
+
+  - `tools/scan_all_axioms.py` SEALED_DIRTY_PREFIXES extended
+  - 25 SemanticAtom items reclassified as DIRTY-by-design
+  - Justification: Prop equality intrinsically uses propext;
+    "atom of meaning" thesis is meta-theoretic
+
+### Commits this session
+
+  - 01d6dd8  feat(HasDyadicMVTWitness): _at parallel struct + capstones
+  - e1cf150  feat(FluxMVTMore/Nested): _at PURE capstones
+  - f5a32a3  feat(FluxMVTNested2): _at PURE capstones (Phase CJ)
+  - 07584b6  feat(MVTWitnessCatalog): _at instances + capstone
+  - c5f2bb9  feat(Antiderivative): IsAntiderivative_at struct + capstone
+  - e2bf423  feat(FluxPassthroughCatalog): catalog_mvt_capstone_at PURE
+  - 5175b12  feat(FluxFTC + scan): _pure variants + seal SemanticAtom
+
+### Remaining for next session
+
+  - **Phase A (Lens funext)**: requires HasDistinguishing_at
+    typeclass + Compose.OnLens cascade (deferred — needs typeclass
+    redesign, ~5 file refactor, deeper than expected)
+  - **Phase D continuation**: ClassicCalc family migration
+    (~17 files), Phase capstones (~9 files) _at variants
+  - **Phase E expansion**: consider sealing LCMClosure/ModNat
+    (Nat.lcm/gcd from Lean core — defensible) and similar
+    Lean-core-blocked items
+
+---
+
 ## ★★★ Part 23 cont.: Cauchy fully PURE + small wins
 
 After Cauchy chain milestone, continued with single-target cleanups:
