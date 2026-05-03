@@ -242,10 +242,16 @@ metrics.
      into the vertical layers + Math/Physics.  Canonical definitions
      in `lean/E213/ARCHITECTURE.md`.
 
-     Note: `OS/` was retired (2026-05-XX) — its files were either
-     forced-shape-uniqueness proofs (moved to `Firmware/Atomicity/`)
-     or universal Fin pigeonhole infra (moved to `Math/Pigeonhole.lean`).
-     There is no genuine "OS layer" between Firmware and Hypervisor.
+     Note (2026-05-XX, two-step history): `OS/` was first retired
+     (atomicity proofs → `Firmware/Atomicity/`, Fin pigeonhole infra
+     → `Math/Pigeonhole.lean`).  Subsequently, `OS/` was re-instated
+     as the **orchestration layer** between Hypervisor and App
+     (G12 §5).  Where Hypervisor provides a single Lens abstraction,
+     OS composes multiple Lens-derived subsystems into stable APIs.
+     Current inhabitants: `OS/HodgeConjecture/Bridges/` (7 files,
+     cross-discipline interfaces) + `OS/Physics/Capstones/` (13
+     files, multi-observable orchestration capstones).  See
+     `lean/E213/OS/INDEX.md` for the migration record.
 
 ### When deletion is right
 
@@ -331,6 +337,11 @@ Meta/        23 files: true metatheory (UniversalLens family,
              SelfRecognising R1-R4 hierarchy, BitPatternUniqueness,
              RawInductionDemo, AxiomMinimality, CUniquenessBridge)
              + Tactic/{VerifyR4, DeriveR4Codomain}
+OS/          21 files: orchestration layer (re-instated 2026-05-XX).
+             HodgeConjecture/Bridges/ (7 cross-discipline interfaces)
+             + Physics/Capstones/ (13 multi-observable orchestration)
+             + INDEX.md.  Stable APIs composing Lens-derived
+             subsystems for downstream consumers.
 App/         applications (Simplex)
 Math/        484 files (after 2026-05-XX absorption of Research math
              content + Infinity/): Cohomology/, Linalg213/, Real213/
@@ -344,7 +355,9 @@ Physics/     275 files in 18 topical sub-clusters (AlphaEM, Couplings,
 ```
 
 **Architectural axis (corrected 2026-05-XX)**: ONE vertical axis
-(Kernel/Firmware/Hypervisor/Meta/App).  Math/ and Physics/ are
+(Kernel/Firmware/Hypervisor/{Meta,OS}/App; Meta and OS are parallel
+not sequential — Meta = propositions about Hypervisor, OS =
+orchestration of Hypervisor compositions).  Math/ and Physics/ are
 *topical labels*, NOT a separate axis — every file inside them has a
 vertical layer determined by its import closure.  Run
 `python3 tools/layer_audit.py` to see each file's mechanical layer.
