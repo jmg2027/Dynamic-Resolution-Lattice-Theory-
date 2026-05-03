@@ -9,8 +9,8 @@ Goal: 294 → ~210-240 DIRTY.
 ### Snapshot
 
   - Whole-repo `lake build`: clean
-  - Total: **2308 PURE / 285 DIRTY** + 2 sealed Bridges
-  - Net progress this session: 294 → 285 (= 9 DIRTY removed)
+  - Total: **2312 PURE / 281 DIRTY** + 2 sealed Bridges
+  - Net progress this session: 294 → 281 (= 13 DIRTY removed)
   - Plus ~16 NEW PURE _pure variants added (downstream-ready)
 
 ### Commits (this session, oldest → newest)
@@ -23,6 +23,8 @@ Goal: 294 → ~210-240 DIRTY.
   - e2a127a  FluxMVTHigh: doc-only quartic _pure deferral note
   - 1866629  FluxMVTGeneric: +5 PURE _pure variants for cutPow MVT
   - 355e093  FluxMVTClosure: +3 PURE _pure variants for mul-passthrough
+  - a8a6755  EulerSeq: 9 omegas → 0; 4 → 6 PURE (4 lemmas converted)
+  - 7f2e3ae  WallisSeq: wallisNum_pos / wallisDen_pos → PURE
 
 ### Phase 1 (Cauchy + Nat213)
 
@@ -30,8 +32,15 @@ Goal: 294 → ~210-240 DIRTY.
         `le_pred_of_succ_le`, `add_sub_pred`,
         `zero_ne_succ_213`, `mul_mul_mul_comm_213`
   ✔ 1.2: Archimedean.lean — 10 omega calls → 0 DIRTY (20 PURE)
-  ⊝ 1.3-1.5: PellSeq/WallisSeq/EulerSeq deferred — 30+ omegas
-        each.  Partial PellSeq groundwork committed.
+  ✔ 1.5: EulerSeq.lean — 9 omegas → 0; algebraic invariants PURE.
+        eulerDen_pos, eulerNum_pos, euler_upper_inv,
+        euler_lower_inv all PURE.  Remaining 8 DIRTY all stem
+        from abLens infrastructure (Subtype + Lens propext).
+  ◐ 1.4: WallisSeq.lean (partial) — wallisNum_pos / wallisDen_pos
+        PURE.  Remaining 12 DIRTY contain polynomial omega
+        expansions (deg-2/3 in k via Flat-Monomial Strategy)
+        + abLens infrastructure.
+  ⊝ 1.3: PellSeq deferred (30 omegas).
 
 ### Phase 2 (Passthrough struct unification)
 
