@@ -20,6 +20,34 @@ After Cauchy chain milestone, continued with single-target cleanups:
   - 4c1151f  refactor(RefinesParity): bool_xor_parity Quot.sound-free
   - b5fd14a  refactor(Cantor): replace simp with Bool.noConfusion → PURE
   - 1e58c65  refactor(Godel): Tree.toNat_injective omega-free
+  - bd71ce7  docs(HANDOFF): mid-session update
+  - f98b5b4  refactor(LensCardinality): treeTower_depth → PURE
+
+### Net session 23 wins
+
+  - Sqrt2Cut: 1 PURE / 2 DIRTY → 3 PURE / 0 DIRTY (FULLY)
+  - PellSeq: 13 PURE / 2 DIRTY → 15 PURE / 0 DIRTY (FULLY)
+  - Cantor: 0 PURE / 2 DIRTY → 2 PURE / 0 DIRTY (FULLY)
+  - Godel: 0 PURE / 2 DIRTY → still DIRTY (Quot.sound removed)
+  - RefinesParity: still DIRTY (Quot.sound removed)
+  - LensCardinality: 7/7 → 9/5 PURE/DIRTY (treeTower_depth +
+    cascade)
+
+### Remaining DIRTY blockers (hard)
+
+  - **Function-eq facade** (intentional DIRTY-by-design): 40+
+    items in FluxFTC, FluxMVT*, ClassicCalc*, FluxPassthroughCatalog
+  - **Nat.add_mod, Nat.mul_mod, Nat.mod_two_eq_zero_or_one** propext
+    in Lean core: 5+ items in Sqrt2KernelFree, RefinesParity, etc.
+  - **Nat.lcm / Nat.gcd / Nat.dvd_lcm_left** propext: ~7 items in
+    LCMClosure, ModNat
+  - **Nat.max_eq_left** brings propext (asymmetric with right): ~3
+    items in Reach, Cardinality
+  - **funext / Quot.sound for Lens function equality**: ~30 items
+    in Compose.OnLens, IndexedJoin, FamilyJoin
+  - **SemanticAtom Prop-level**: 25 items, separate plan needed
+  - **Int operations** in LensCardinality: 3 items
+  - **Subtype + Lens infrastructure** in some Cauchy-related: ~5
 
 ---
 
