@@ -31,13 +31,28 @@ open E213.Math.Real213.FluxCochain.FluxCut
 open E213.Math.Real213.FluxDivergence.FluxCut
   (fluxScale localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_const)
+open E213.Math.Real213.CutMulOne
+  (cutMul_one_one cutMul_one_one_at cutMul_one_const cutMul_one_const_at)
 open E213.Math.Real213.FluxCut.FluxCut (ofCut add neg)
 open E213.Math.Real213.FluxEquiv.FluxCut (cohomEquiv cohomEquiv_refl)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence_const_balanced)
 open E213.Math.Real213.IsDifferentiable (idIsDifferentiable)
 
 namespace FluxCut
+
+/-- MVT for id at unit — forward field pointwise (∅-axiom). -/
+theorem mvt_id_unitBracket_forward_at (m k : Nat) :
+    (localDivergence id unitBracket).forward m k
+      = (ofCut (constCut 1 1) : FluxCut).forward m k := by
+  show cutMul (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k
+  exact cutMul_one_one_at m k
+
+/-- MVT for id at unit — backward field pointwise (∅-axiom). -/
+theorem mvt_id_unitBracket_backward_at (m k : Nat) :
+    (localDivergence id unitBracket).backward m k
+      = (ofCut (constCut 1 1) : FluxCut).backward m k := by
+  show cutMul (constCut 1 1) (constCut 0 1) m k = constCut 0 1 m k
+  exact cutMul_one_const_at 0 1 m k
 
 /-- **MVT for identity at unitBracket**: localDivergence id unitBracket
     propositionally equals ofCut (constCut 1 1).  Since id.derivative
