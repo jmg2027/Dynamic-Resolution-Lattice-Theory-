@@ -64,10 +64,11 @@ Cup-pairings: signature, kernel, positivity.
   · `HodgeIndex.lean`        Cup-pairing signature on H¹
   · `HodgeRiemann.lean`      Bilinear positivity (ℚ²¹³ pending)
 
-### 5. `Bridge/` ★  (7 files) — *interfaces to other classical domains*
+### 5. ~~`Bridge/`~~ → **MOVED to `lean/E213/OS/HodgeConjecture/Bridges/`**
 
-**The most important architectural layer**: each file is a public
-interface connecting HC²¹³ to a classical area of mathematics.
+The 7 cross-discipline interface files have been migrated to the
+new OS layer per G12 §5 Option γ.  They now live at namespace
+`E213.OS.HodgeConjecture.Bridges.*`:
 
   · `Tate.lean`                  → ℓ-adic / Frobenius / char-p
   · `MumfordTate.lean`           → Galois algebraic groups
@@ -77,9 +78,11 @@ interface connecting HC²¹³ to a classical area of mathematics.
   · `ChernCharacter.lean`        → K-theory ↔ cohomology
   · `HodgeTate.lean`             → p-adic Hodge (Real213-p deferred)
 
-A non-213 mathematician working in any of these areas can start
-*here*: each Bridge file is the entry point for that classical
-discipline's 213-native form.
+Rationale: Bridges are *orchestration* of the HC²¹³ subsystem
+into adapters consumed by other classical disciplines — that is
+exactly the OS layer's role (per ARCHITECTURE.md §1.4.5 and G12
+§5).  Foundation/Toolkit/Structure/Refinement/Pairing remain in
+Math/ as they are *definitional* content (Hypervisor-flavored).
 
 ---
 
@@ -93,8 +96,8 @@ HodgeConjecture/
 ├── Toolkit/     (4) — compute layer
 ├── Structure/   (4) — algebra + duality
 ├── Refinement/  (6) — stronger HC²¹³
-├── Pairing/     (2) — bilinear forms
-└── Bridge/      (7) ★ — public interfaces to other classical domains
+└── Pairing/     (2) — bilinear forms
+   (Bridge/* MOVED to lean/E213/OS/HodgeConjecture/Bridges/)
 ```
 
 Total: 29 .lean files, ~140 strict ∅-axiom theorems.

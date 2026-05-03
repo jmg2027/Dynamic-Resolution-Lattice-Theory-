@@ -15,18 +15,18 @@ import E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality
 import E213.Math.Cohomology.HodgeConjecture.Refinement.GeneralizedHodge
 import E213.Math.Cohomology.HodgeConjecture.Refinement.StandardConjectures
 import E213.Math.Cohomology.HodgeConjecture.Structure.HardLefschetz
-import E213.Math.Cohomology.HodgeConjecture.Bridge.Tate
+import E213.OS.HodgeConjecture.Bridges.Tate
 import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex
 import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann
 import E213.Math.Cohomology.HodgeConjecture.Refinement.CupAtomicGeneration
 import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzHyperplane
-import E213.Math.Cohomology.HodgeConjecture.Bridge.MumfordTate
-import E213.Math.Cohomology.HodgeConjecture.Bridge.BlochBeilinson
-import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
+import E213.OS.HodgeConjecture.Bridges.MumfordTate
+import E213.OS.HodgeConjecture.Bridges.BlochBeilinson
+import E213.OS.HodgeConjecture.Bridges.BeilinsonRegulator
 import E213.Math.Cohomology.HodgeConjecture.Refinement.Voisin
-import E213.Math.Cohomology.HodgeConjecture.Bridge.ChernCharacter
-import E213.Math.Cohomology.HodgeConjecture.Bridge.HodgeTate
-import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonLichtenbaum
+import E213.OS.HodgeConjecture.Bridges.ChernCharacter
+import E213.OS.HodgeConjecture.Bridges.HodgeTate
+import E213.OS.HodgeConjecture.Bridges.BeilinsonLichtenbaum
 
 /-!
 # HodgeConjecture API — single import for the whole HC²¹³ + post-HC cluster

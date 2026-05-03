@@ -21,7 +21,7 @@ so the decomposition trivially holds.
 STRICT ∅-AXIOM (vacuous on ℤ/2; ℤ_p²¹³ refinement deferred).
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Bridge.HodgeTate
+namespace E213.OS.HodgeConjecture.Bridges.HodgeTate
 
 open E213.Math.Cohomology.HodgeConjecture.Foundation.Complete (HC_Involution)
 open E213.Physics.Simplex.Counts (binom)
@@ -56,4 +56,4 @@ theorem hodge_tate_213_capstone :
     ∧ (1 + 5 + 10 + 10 + 5 + 1 = 2 ^ 5) := by
   refine ⟨trivial, ?_, ?_⟩ <;> decide
 
-end E213.Math.Cohomology.HodgeConjecture.Bridge.HodgeTate
+end E213.OS.HodgeConjecture.Bridges.HodgeTate

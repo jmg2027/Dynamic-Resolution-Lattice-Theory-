@@ -23,7 +23,7 @@ to be approximated); content lives at the *finite-rational
 expression* level.  STRICT ∅-AXIOM.
 -/
 
-namespace E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
+namespace E213.OS.HodgeConjecture.Bridges.BeilinsonRegulator
 
 open E213.Physics.Simplex.Counts (binom)
 
@@ -60,4 +60,4 @@ theorem beilinson_regulator_213_capstone :
     ∧ binom 5 2 = 10 := by
   refine ⟨rfl, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
+end E213.OS.HodgeConjecture.Bridges.BeilinsonRegulator
