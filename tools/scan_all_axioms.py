@@ -115,13 +115,13 @@ SEALED_DIRTY_PREFIXES = (
     # Bridges/ are intentional Lean ↔ 213 axiom-bridge demonstrations.
     # Their DIRTY status is by design — sealed metatheoretic cluster,
     # not imported by 213 core.  Tracked separately from real DIRTY.
-    'E213.Hypervisor.Lens.AxiomLenses.Bridges.',
+    'E213.Hypervisor.Lens.AxiomLenses.Bridges',
     # SemanticAtom is Prop-level (propAsDistinguishing, canonicalIffMap,
     # iff_comm_eq, etc.).  Working with Prop equality intrinsically uses
     # propext — this is mathematically inherent to the meta-theoretic
     # "atom of meaning" thesis, not a refactorable propext leak.
     # Sealed as DIRTY-by-design 2026-05-XX (session 24).
-    'E213.Hypervisor.Lens.SemanticAtom.',
+    'E213.Hypervisor.Lens.SemanticAtom',
 )
 
 
