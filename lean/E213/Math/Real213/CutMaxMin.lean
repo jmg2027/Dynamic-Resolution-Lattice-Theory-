@@ -44,7 +44,8 @@ theorem cutMin_comm_at (cx cy : Nat → Nat → Bool) (m k : Nat) :
   cases cx m k <;> cases cy m k <;> rfl
 
 theorem cutMin_comm (cx cy : Nat → Nat → Bool) :
-    cutMin cx cy = cutMin cy cx := by funext m k; exact cutMin_comm_at cx cy m k
+    ∀ m k, cutMin cx cy m k = cutMin cy cx m k :=
+  cutMin_comm_at cx cy
 
 /-- commutativity of max, pointwise (PURE). -/
 theorem cutMax_comm_at (cx cy : Nat → Nat → Bool) (m k : Nat) :
@@ -53,7 +54,8 @@ theorem cutMax_comm_at (cx cy : Nat → Nat → Bool) (m k : Nat) :
   cases cx m k <;> cases cy m k <;> rfl
 
 theorem cutMax_comm (cx cy : Nat → Nat → Bool) :
-    cutMax cx cy = cutMax cy cx := by funext m k; exact cutMax_comm_at cx cy m k
+    ∀ m k, cutMax cx cy m k = cutMax cy cx m k :=
+  cutMax_comm_at cx cy
 
 /-- associativity of max, pointwise (PURE). -/
 theorem cutMax_assoc_at (cx cy cz : Nat → Nat → Bool) (m k : Nat) :
@@ -62,8 +64,8 @@ theorem cutMax_assoc_at (cx cy cz : Nat → Nat → Bool) (m k : Nat) :
   cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
 
 theorem cutMax_assoc (cx cy cz : Nat → Nat → Bool) :
-    cutMax (cutMax cx cy) cz = cutMax cx (cutMax cy cz) := by
-  funext m k; exact cutMax_assoc_at cx cy cz m k
+    ∀ m k, cutMax (cutMax cx cy) cz m k = cutMax cx (cutMax cy cz) m k :=
+  cutMax_assoc_at cx cy cz
 
 /-- associativity of min, pointwise (PURE). -/
 theorem cutMin_assoc_at (cx cy cz : Nat → Nat → Bool) (m k : Nat) :
@@ -72,7 +74,7 @@ theorem cutMin_assoc_at (cx cy cz : Nat → Nat → Bool) (m k : Nat) :
   cases cx m k <;> cases cy m k <;> cases cz m k <;> rfl
 
 theorem cutMin_assoc (cx cy cz : Nat → Nat → Bool) :
-    cutMin (cutMin cx cy) cz = cutMin cx (cutMin cy cz) := by
-  funext m k; exact cutMin_assoc_at cx cy cz m k
+    ∀ m k, cutMin (cutMin cx cy) cz m k = cutMin cx (cutMin cy cz) m k :=
+  cutMin_assoc_at cx cy cz
 
 end E213.Math.Real213.CutMaxMin
