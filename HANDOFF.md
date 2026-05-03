@@ -40,14 +40,23 @@ For each function-eq theorem `f = g`:
 
 | Cluster | DIRTY before | DIRTY after | Commit |
 |---|---|---|---|
-| AxiomLenses Core/Bridges split | n/a | n/a (split done) | afbcbc6 |
+| AxiomLenses Core/Bridges split | n/a | n/a | afbcbc6 |
 | DyadicRiemann | 25 | 0 (33 PURE) | d6a2236 |
 | CutDouble + Dyadic | 8 | 0 (20 PURE) | cc210ad |
 | CutAlgebraic | 8 | 0 (17 PURE) | b4fc671 |
-| CutSumOne (pilot) | 10 | 9 (1 PURE) | 57da439 |
-| CutSumOne (rest) | 9 | 0 (12 PURE total) | 006a955 |
-| CutMidSelf+PhaseAC+SignedSum+Dyadic | cascade | 0 | 35db516 |
-| **Real DIRTY removed** | | **52+** | |
+| CutSumOne pilot | 10 | 9 | 57da439 |
+| CutSumOne rest | 9 | 0 (12 PURE) | 006a955 |
+| CutMidSelf+PhaseAC+SignedSum+Dyadic cascade | cascade | 0 | 35db516 |
+| CutMaxMin + CutSumZero | 8 | 0 (18 PURE) | 018152d |
+| ClassicCalcMid + CutMidSelf | 7 | 1 | b36cf61 |
+| **Real DIRTY removed** | | **~82** | |
+
+### Live snapshot (post commit b36cf61)
+
+  - Whole-repo `lake build`: clean
+  - Total: **2231 PURE / 312 DIRTY** + 2 sealed Bridges
+  - Per-axiom-set: 153 [Quot.sound], 104 [propext, Quot.sound],
+    53 [propext], 2 split
 
 ### Snapshot
 
@@ -55,17 +64,56 @@ Whole-repo `lake build`: clean.
 Total DIRTY (excluding sealed): **~159 items** across ~50 modules.
 Per-axiom-set: 104 [propext, Quot.sound], 53 [propext], 2 split.
 
-### Top remaining DIRTY clusters (next targets)
+### Top remaining DIRTY clusters (next-session work)
+
+**Hardest (need substantial infra refactor):**
 
   - SemanticAtom (25): propext from Prop work — needs Prop isolation
+    or Prop→Bool reformulation
   - Compose.OnLens (14): pre-existing infra
   - Cauchy seqs (38): WallisSeq/EulerSeq/PellSeq/Archimedean —
-    omega-heavy, needs omega213 expansion
-  - Real213 mid-tier: ClassicCalc family (35+), CutMaxMin (4),
-    CutSumZero (4), ResolutionDepth (5), Flux* family (~20)
-  - Hypervisor.Lens: ~25 across Lattice/Instances/Leaves/Universal
-  - Math.Infinity: LensCardinality (8), Countable (4)
-  - Math.Irrational.Sqrt2KernelFree (5)
+    omega-heavy, needs omega213 expansion (quadratic + Nat.add_mul
+    + Nat.mul_add patterns)
+
+**Medium (cascading conversions, multi-file):**
+
+  - Real213 ClassicCalc/Flux family (~50): all stem from
+    `Passthrough` struct using function-eq fields.  Refactoring
+    `Passthrough` to use `Passthrough_at` semantics cascades through
+    many capstones (PhaseBQOmegaCapstone, PhaseBZMegaOmega,
+    PhaseCMFinalCapstone, FTCRiemannMid, FluxMVT*).
+  - Hypervisor.Lens family (~30): Lattice.{IndexedJoin (6), Join (4)},
+    Instances.{Reach (6), Cauchy (5)}, Leaves.ModNat (5),
+    Universal.QuotLens (5), Characterisation.Catalog (4) — all
+    involve Lens kernel/equiv which is fundamentally function-eq
+
+**Smaller (~17 DIRTY):**
+
+  - Math.Infinity.LensCardinality (8), Countable (4)
+  - Math.Irrational.Sqrt2KernelFree (5) — uses `Nat.mul_mod` which
+    itself brings propext
+
+### What was accomplished this session
+
+  - **Architectural foundation laid**: AxiomLenses Core/Bridges
+    split with sealed marker; scanner recognises the discipline.
+    funext213 / propext213 / quotSound213 are now formal 213-native
+    primitives (in Core/) ready for adoption everywhere.
+  - **Recipe established**: canonical conversion procedure
+    documented in HANDOFF + commit messages.  Mechanical to apply.
+  - **~82 DIRTY removed** across 9 cluster commits, all whole-repo
+    `lake build` clean post each.
+  - Whole-repo state went from ~394 DIRTY → 312 DIRTY + 2 sealed.
+
+### Next session: prioritized continuation
+
+1. Real213 ClassicCalc/Flux (~50 DIRTY, biggest single wave)
+   — refactor Passthrough struct + cascade
+2. Hypervisor.Lens family (~30 DIRTY) — different patterns,
+   Lens-equiv based
+3. Cauchy seqs (38 DIRTY) — extend omega213, then mechanical
+4. SemanticAtom (25 DIRTY) — Prop-level isolation, harder
+5. Math.Infinity / Math.Irrational (~17 DIRTY) — small batches
 
 ---
 
