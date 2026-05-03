@@ -53,7 +53,8 @@ theorem abLens_sum_eq_leaves :
       show (abLens.view x).1 + (abLens.view y).1
            + ((abLens.view x).2 + (abLens.view y).2)
            = Lens.leaves.view x + Lens.leaves.view y
-      omega
+      rw [Nat.add_assoc, Nat.add_left_comm (abLens.view y).1,
+          ← Nat.add_assoc, ihx, ihy]
 
 /-- Factor function sum: (a, b) ↦ a + b. -/
 private def sumFactor (p : Nat × Nat) : Nat := p.1 + p.2
