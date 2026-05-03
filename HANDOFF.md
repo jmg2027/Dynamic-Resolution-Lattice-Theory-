@@ -1,5 +1,82 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 20: Plan-mode 3-phase execution (Cauchy + Passthrough + sweep)
+
+**Plan**: `/root/.claude/plans/tingly-enchanting-pelican.md` —
+3-phase deep refactor: Cauchy + Passthrough + residual sweep.
+Goal: 294 → ~210-240 DIRTY.
+
+### Snapshot
+
+  - Whole-repo `lake build`: clean
+  - Total: **2308 PURE / 285 DIRTY** + 2 sealed Bridges
+  - Net progress this session: 294 → 285 (= 9 DIRTY removed)
+  - Plus ~16 NEW PURE _pure variants added (downstream-ready)
+
+### Commits (this session, oldest → newest)
+
+  - 519e74c  Phase 1.1+1.2: Nat213 +3 helpers, Archimedean 10→0 DIRTY
+  - 75c22b1  Nat213: +mul_mul_mul_comm_213, PellSeq partial fixes
+  - 914bbc0  Phase 2.1+2.2 (partial): Passthrough.toAt + PhaseBH _pure
+  - e46fd8a  FluxMVTApplications: +4 PURE _pure variants
+  - 39acab8  FluxFTCPolynomial: +2 PURE fluxAlong _pure variants
+  - e2a127a  FluxMVTHigh: doc-only quartic _pure deferral note
+  - 1866629  FluxMVTGeneric: +5 PURE _pure variants for cutPow MVT
+  - 355e093  FluxMVTClosure: +3 PURE _pure variants for mul-passthrough
+
+### Phase 1 (Cauchy + Nat213)
+
+  ✔ 1.1: Added 4 PURE Nat213 helpers (term-mode):
+        `le_pred_of_succ_le`, `add_sub_pred`,
+        `zero_ne_succ_213`, `mul_mul_mul_comm_213`
+  ✔ 1.2: Archimedean.lean — 10 omega calls → 0 DIRTY (20 PURE)
+  ⊝ 1.3-1.5: PellSeq/WallisSeq/EulerSeq deferred — 30+ omegas
+        each.  Partial PellSeq groundwork committed.
+
+### Phase 2 (Passthrough struct unification)
+
+  ✔ 2.1: Added `Passthrough.toAt` adapter (PURE):
+        bridges legacy function-eq Passthrough → Passthrough_at.
+  ✔ 2.2: PhaseBH _pure variant added (5-fact bundle).
+        ⊝ Deferred: PhaseBQ/DA/DK/CM (sub-pure deps needed).
+  ✔ 2.3: Five files received _pure variants:
+        - FluxMVTApplications: 4 _pure variants
+        - FluxFTCPolynomial: 2 fluxAlong _pure variants
+        - FluxMVTGeneric: 5 _pure variants (incl phaseBE_pure)
+        - FluxMVTClosure: 3 mul-passthrough _pure variants
+        - FluxMVTHigh: doc-only deferral (quartic ≠ cutPow 4)
+
+### Phase 3 (residual sweep)
+
+Investigated single-DIRTY items.  Most are intentional
+DIRTY-by-design: function-eq facade kept alongside PURE _at/_pure
+companion (Passthrough.cutPow_pass, mvt_compose_passthrough,
+Phase capstones).  True remaining single-DIRTY items need
+dedicated structural work (Nat.gcd/lcm propext, SemanticAtom
+Prop isolation, Compose.OnLens infra refactor) — out of scope
+for residual sweep.
+
+### Patterns reinforced
+
+1. **Term-mode required in Kernel**: `Eq.subst (▸)`, `Eq.trans`,
+   `congrArg` — `rw` blocked by purity hook.
+2. **`fluxCutEq_of_pointwise` + `cutMulOuter_congr`**: PURE pattern
+   for any cutMul-via-Passthrough chain (used 3× this session).
+3. **`_pure` variants alongside legacy DIRTY**: zero-risk pattern,
+   keeps existing call sites working while exposing PURE form.
+
+### Next session: continuation
+
+1. **Phase 1.3-1.5 (Cauchy seqs)**: PellSeq/WallisSeq/EulerSeq —
+   30+ omegas each.  Mechanical but slow.  ~30-40 DIRTY potential.
+2. **Passthrough struct deep refactor**: redefine left/right fields
+   as pointwise (`∀ m k, ...`) at source.  Cascading but eliminates
+   5+ DIRTY at root.
+3. **Phase BQ/DA/DK/CM _pure variants**: requires building deeper
+   sub-pure dependencies first.
+
+---
+
 ## ★★★ Part 19: cutEq systematic migration — Core/Bridges discipline
 
 **User directive (2026-05-XX)**: "All pure가 될때까지 세션 중단 금지" —
