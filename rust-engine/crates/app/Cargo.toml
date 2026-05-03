@@ -267,3 +267,7 @@ path = "src/bin/alpha_em_augmented.rs"
 [[bin]]
 name = "k5-spinglass"
 path = "src/bin/k5_spinglass.rs"
+
+[[bin]]
+name = "k5-decoder"
+path = "src/bin/k5_decoder.rs"
