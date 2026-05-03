@@ -74,4 +74,49 @@ def hexadecic_calc :
 
 end ClassicCalc
 
+namespace ClassicCalc_at
+
+open E213.Math.Real213.ClassicCalc (ClassicCalc_at)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
+  renaming mul_pass → mul_pass_at
+open E213.Math.Real213.FluxPassthroughCatalog.FluxCut.Passthrough_at
+  (quartic_pass quintic_pass)
+
+/-- x⁹ ∈ ClassicCalc_at — PURE pointwise. -/
+def nonic_calc :
+    ClassicCalc_at (fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+        (cutMul (cutMul x x) (cutMul x (cutMul x x)))) :=
+  { diff := nonicIsDifferentiable
+    pass := mul_pass_at quartic_pass quintic_pass }
+
+/-- x¹⁰ ∈ ClassicCalc_at — PURE pointwise. -/
+def decic_calc :
+    ClassicCalc_at (fun x => cutMul (cutMul (cutMul x x)
+        (cutMul x (cutMul x x))) (cutMul (cutMul x x)
+        (cutMul x (cutMul x x)))) :=
+  { diff := decicIsDifferentiable
+    pass := mul_pass_at quintic_pass quintic_pass }
+
+/-- x¹² ∈ ClassicCalc_at — PURE pointwise. -/
+def dodecic_calc :
+    ClassicCalc_at (fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+        (cutMul (cutMul (cutMul x x) (cutMul x x))
+                (cutMul (cutMul x x) (cutMul x x)))) :=
+  { diff := dodecicIsDifferentiable
+    pass := mul_pass_at quartic_pass
+              (mul_pass_at quartic_pass quartic_pass) }
+
+/-- x¹⁶ ∈ ClassicCalc_at — PURE pointwise. -/
+def hexadecic_calc :
+    ClassicCalc_at (fun x => cutMul (cutMul (cutMul (cutMul x x) (cutMul x x))
+        (cutMul (cutMul x x) (cutMul x x)))
+        (cutMul (cutMul (cutMul x x) (cutMul x x))
+        (cutMul (cutMul x x) (cutMul x x)))) :=
+  { diff := hexadecicIsDifferentiable
+    pass := mul_pass_at
+              (mul_pass_at quartic_pass quartic_pass)
+              (mul_pass_at quartic_pass quartic_pass) }
+
+end ClassicCalc_at
+
 end E213.Math.Real213.ClassicCalcExtreme

@@ -101,4 +101,47 @@ theorem classic_calc_higher_capstone :
 
 end ClassicCalc
 
+namespace ClassicCalc_at
+
+open E213.Math.Real213.ClassicCalc (ClassicCalc_at)
+open E213.Math.Real213.ClassicCalc.ClassicCalc_at (square_calc cube_calc)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
+  (mul_pass)
+open E213.Math.Real213.FluxPassthroughCatalog.FluxCut.Passthrough_at
+  (square_pass cube_pass quartic_pass quintic_pass)
+
+/-- x⁴ ∈ ClassicCalc_at — PURE pointwise. -/
+def quartic_calc :
+    ClassicCalc_at (fun x => cutMul (cutMul x x) (cutMul x x)) :=
+  { diff := quarticIsDifferentiable, pass := quartic_pass }
+
+/-- x⁵ ∈ ClassicCalc_at — PURE pointwise. -/
+def quintic_calc :
+    ClassicCalc_at (fun x => cutMul (cutMul x x)
+                                    (cutMul x (cutMul x x))) :=
+  { diff := quinticIsDifferentiable, pass := quintic_pass }
+
+/-- x⁶ ∈ ClassicCalc_at (cube · cube) — PURE pointwise. -/
+def sextic_calc :
+    ClassicCalc_at (fun x => cutMul (cutMul x (cutMul x x))
+                                    (cutMul x (cutMul x x))) :=
+  { diff := sexticIsDifferentiable
+    pass := mul_pass cube_pass cube_pass }
+
+/-- x⁷ ∈ ClassicCalc_at (cube · quartic) — PURE pointwise. -/
+def septic_calc :
+    ClassicCalc_at (fun x => cutMul (cutMul x (cutMul x x))
+                                    (cutMul (cutMul x x) (cutMul x x))) :=
+  { diff := septicIsDifferentiable
+    pass := mul_pass cube_pass quartic_pass }
+
+/-- x⁸ ∈ ClassicCalc_at (quartic · quartic) — PURE pointwise. -/
+def octic_calc :
+    ClassicCalc_at (fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                                    (cutMul (cutMul x x) (cutMul x x))) :=
+  { diff := octicIsDifferentiable
+    pass := mul_pass quartic_pass quartic_pass }
+
+end ClassicCalc_at
+
 end E213.Math.Real213.ClassicCalcHigher

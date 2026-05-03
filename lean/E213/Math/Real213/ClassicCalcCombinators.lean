@@ -74,4 +74,24 @@ theorem combinators_capstone :
 
 end ClassicCalc
 
+namespace ClassicCalc_at
+
+open E213.Math.Real213.ClassicCalc (ClassicCalc_at)
+open E213.Math.Real213.ClassicCalc.ClassicCalc_at (id_calc square_calc cube_calc)
+open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
+  renaming compose_pass → compose_pass_at, mul_pass → mul_pass_at
+
+/-- ClassicCalc_at closure under product (PURE pointwise). -/
+def mul_calc {f g} (cf : ClassicCalc_at f) (cg : ClassicCalc_at g) :
+    ClassicCalc_at (fun x => cutMul (f x) (g x)) :=
+  { diff := mulIsDifferentiable cf.diff cg.diff
+    pass := mul_pass_at cf.pass cg.pass }
+
+/-- x · x² ∈ ClassicCalc_at — PURE pointwise. -/
+def x_mul_square_calc :
+    ClassicCalc_at (fun x => cutMul x (cutMul x x)) :=
+  mul_calc id_calc square_calc
+
+end ClassicCalc_at
+
 end E213.Math.Real213.ClassicCalcCombinators
