@@ -321,12 +321,12 @@ OPERATIONAL:
 > Canonical layer definitions in `lean/E213/ARCHITECTURE.md`.
 
 ```
-Kernel/      18 files (101 thms literally 0-axiom) + Tactic/Omega213
+Kernel/      23 files (101 thms literally 0-axiom) + Tactic/Omega213
              (Lean-side scaffolding; Kernel-level tactics)
-Firmware/    Raw axiom (4-clause) + Atomicity/ sub-cluster (forced
-             shape uniqueness; pure-ℕ proofs that don't import Raw)
-             + Tools/CertChecker
-Hypervisor/  78 files: Lens framework (catamorphism Raw → α) +
+Firmware/    27 files: Raw axiom (4-clause) + Atomicity/ sub-cluster
+             (forced shape uniqueness; pure-ℕ proofs that don't
+             import Raw) + Tools/CertChecker
+Hypervisor/  88 files: Lens framework (catamorphism Raw → α) +
              topical sub-clusters: Instances/, Characterisation/,
              Lattice/ (Join/Meet/IndexedJoin), Compose/ (OnLens,
              ImageMinimum, Factoring), Properties/ (refines,
@@ -337,18 +337,18 @@ Meta/        23 files: true metatheory (UniversalLens family,
              SelfRecognising R1-R4 hierarchy, BitPatternUniqueness,
              RawInductionDemo, AxiomMinimality, CUniquenessBridge)
              + Tactic/{VerifyR4, DeriveR4Codomain}
-OS/          21 files: orchestration layer (re-instated 2026-05-XX).
+OS/          20 files: orchestration layer (re-instated 2026-05-XX).
              HodgeConjecture/Bridges/ (7 cross-discipline interfaces)
              + Physics/Capstones/ (13 multi-observable orchestration)
              + INDEX.md.  Stable APIs composing Lens-derived
              subsystems for downstream consumers.
-App/         applications (Simplex)
-Math/        484 files (after 2026-05-XX absorption of Research math
+App/         1 file: applications (Simplex)
+Math/        523 files (after 2026-05-XX absorption of Research math
              content + Infinity/): Cohomology/, Linalg213/, Real213/
              marathon, CayleyDickson/, Cauchy/, ModArith/, Modulus/,
              Diagonal/, Irrational/, Hyper/, Choice/, Infinity/,
              Tactic/{HurwitzRing, IntSquare, QuadExtension}, Pigeonhole
-Physics/     275 files in 18 topical sub-clusters (AlphaEM, Couplings,
+Physics/     262 files in 18 topical sub-clusters (AlphaEM, Couplings,
              Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology, Atomic,
              Simplex, Basel, FamousCoincidences, YangMills, Capstones,
              Library, Substrate, AtomicCorrespondences, Foundations)
@@ -364,7 +364,8 @@ vertical layer determined by its import closure.  Run
 Previous Research/, Infinity/, Tactic/, Tools/ top-level dirs were
 distributed by content + import-derived layer (337+9+11+1 files).
 
-(Counts as of 2026-05-01.  Earlier CLAUDE.md versions listed
+(Counts as of 2026-05-03 / session 26 end — 970 .lean files total.
+Earlier CLAUDE.md versions listed
 sub-project directories `foundations/`, `standard-model/`, `atoms/`,
 etc. as "planned" — none were created.  Topical reorg of Phase{2,3,4}
 into named sub-folders is a pending architectural task.)

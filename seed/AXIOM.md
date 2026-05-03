@@ -114,8 +114,12 @@ the uniqueness statement to all three directions:
   - sideways — nothing distinct is needed      (Meta/UniversalLens)
   - above — Raw's own shape is forced          (Firmware/Atomicity)
 
-The architectural placement of these proofs (Firmware/Atomicity/,
-not the retired `OS/`) is canonicalized in `lean/E213/ARCHITECTURE.md`.
+The architectural placement of these proofs (Firmware/Atomicity/) is
+canonicalized in `lean/E213/ARCHITECTURE.md`.  Historical note: an
+earlier `OS/` directory was first retired (atomicity proofs absorbed
+into Firmware/Atomicity/) and later re-instated as the orchestration
+layer (HodgeConjecture/Bridges/ + Physics/Capstones/).  The atomicity
+material did not move back.
 
 ---
 
