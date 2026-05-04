@@ -273,4 +273,20 @@ structure LocalityForcedValue (Idx : Type) (Val : Type) where
   /-- Coherence: `f_at` satisfies `cond` at every index. -/
   witness      : ∀ i, cond i (f_at i)
 
+/-- Typeclass × Aggregation = bundle of N interfaces.  Codebase
+    candidate: ClassicCalc family (multiple typeclass-style instances
+    bundled per phase). -/
+abbrev InterfaceAggregate (α : Type) := Aggregate (InterfaceWitness α)
+
+/-- Cata × Aggregation = "fan-out" bundle of N catamorphisms all
+    targeting the same `α`.  Differs from Cohabitation in two ways:
+    (i) Aggregate has uniform target type; Cohabitation has
+    heterogeneous targets (α and β).  (ii) Cata × Aggregate has no
+    "shared base" coherence; each catamorphism is an independent
+    witness.  So Cohabitation properly generalises Cata × Aggregate
+    (heterogeneous targets + base-sharing). -/
+abbrev CataAggregate (α : Type) := Aggregate (CatamorphismWitness α)
+
+-- Note: Dynamical × Aggregation = `DynamicalAggregate`, defined above.
+
 end E213.Math.PatternCatalog

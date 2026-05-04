@@ -223,6 +223,31 @@ def boolNatLocalityForced : LocalityForcedValue Bool Nat :=
     forced      := fun _ _ => Iff.rfl
     witness     := fun _ => rfl }
 
+/-! ## CataAggregate instance — three Nat-targeting catamorphisms
+
+Bundle three CatamorphismWitness Nat instances (placeholders for
+peanoLens / depthLens / leavesLens shape).  This is the "fan-out"
+pattern: multiple lenses on the same target type. -/
+
+open E213.Math.PatternCatalog (CataAggregate)
+
+/-- Trivial Nat catamorphism witness. -/
+def trivCata (k : Nat) : CatamorphismWitness Nat :=
+  { reduce := (· + ·)
+    base_a := k
+    base_b := k
+    view   := fun _ => k }
+
+/-- Three-cata bundle, fan-out shape. -/
+def fanOutCataAggregate : CataAggregate Nat :=
+  { phase := "fanout"
+    arity := 3
+    facts := fun n => match n with
+      | 0 => trivCata 0
+      | 1 => trivCata 1
+      | 2 => trivCata 2
+      | _ => trivCata 0 }
+
 /-! ## Analysis
 
 The dynamical game is **structurally distinct** from the four
