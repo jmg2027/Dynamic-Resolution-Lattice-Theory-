@@ -72,8 +72,6 @@ Total: ~2700 lines of narrative covering ~700 Lean files.
   verification; cross-checks Lean theorems via citation manifest.
 - **Blueprints**: `blueprints/math/` — planning roadmaps for
   remaining fields (probability, multivariable, topology, ...).
-- **Focused papers**: `books/math/papers/` — academic-paper-style
-  expositions of standalone results.
 - **Catalogs**: `catalogs/` — atomic-integer reference + falsifier
   ledger.
 

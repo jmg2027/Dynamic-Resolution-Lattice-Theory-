@@ -118,7 +118,7 @@ blueprints/      math/14 + physics/14 + meta/2 (status snapshots)
 books/           narrative hierarchy
   └── math/      analysis213 + number-theory-213 + cohomology-213
                  + linalg-213 + probability-213 + universal-lens-213
-  └── physics/   periodic-table + diamond + (more in rust-engine docs)
+  └── physics/   periodic-table + diamond crystal narrative
 papers/          ⚠ DELETED ARCHIVE (papers/README.md only; recoverable
                   from git history at commit a02b751)
 catalogs/        lookup tables (atomic integers, constants,
