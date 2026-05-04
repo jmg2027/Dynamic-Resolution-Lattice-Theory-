@@ -3,29 +3,48 @@ import E213.Math.CascadeCalculus
 /-!
 # 213 Pattern Catalog
 
-The 213 codebase exhibits four dominant *language games*.  Survey
-counts (2026-05-XX, 970 .lean files):
+Initial 4-game survey (2026-05-XX, 970 .lean files): Locality
+(`_at`/`_pure`/`_congr`), Aggregation (`*_capstone*`), Typeclass
+(`structure`/`class`), Catamorphism (`Raw.fold`/`Raw.rec`).  Two
+additions discovered by H1 sweep: Dynamical (FSM cluster), ForcedUniq
+(Atomicity cluster).  One composite (Cohabitation) discovered in
+AxiomSystems cluster.
 
-  | Game           | Marker                  | Frequency        |
-  |----------------|-------------------------|------------------|
-  | Locality       | `_at`/`_pure`/`_congr`  | 123 + 57 thms,   |
-  |                |                         | 25 files         |
-  | Aggregation    | `*_capstone*`           | 171 thms         |
-  | Typeclass      | `structure`/`class`     | 72 + 7 decls     |
-  | Catamorphism   | `Raw.fold`/`Raw.rec`    | 259 use sites    |
+H2 (composition rules) work then yielded **two self-corrections**:
 
-This file abstracts each game as a typeclass-style structure,
-providing the *meta-vocabulary* for talking about 213 codebase
-patterns inside 213 itself.
+  1. **`Aggregation` is not atomic** — it is a higher-order operator
+     `Aggregate W : Type` that bundles N witnesses of any other game.
+     LocalityAggregate ≡ Aggregate (LocalityWitness Idx Val);
+     DynamicalAggregate ≡ Aggregate (DynamicalWitness S Out); etc.
 
-The four games are not orthogonal: they compose into the
-**dependency-DAG / cascade-delete calculus** of `CascadeCalculus.lean`:
+  2. **`ForcedUniq` is not atomic** — it is a higher-order operator
+     `Forced T : Type` that asserts uniqueness on type T.  ForcedValue
+     Witness Param ≡ Forced Param.  CataForcedForm and
+     LocalityForcedValue use Forced lifted by view / by index.
 
-  - Locality nodes        ↔ leaf nodes      (most-imported)
-  - Aggregation nodes     ↔ terminal nodes  (consumer-free)
-  - Typeclass nodes       ↔ infrastructure  (provide fields)
-  - Catamorphism morphism ↔ edges           (Raw → α direction)
--/
+Refined stratification:
+
+  Atomic games (4): Locality | Typeclass | Cata | Dynamical
+  Operators (2):    Aggregate W  (bundle)
+                    Forced    T  (uniqueness)
+  Composites:       Lens             = Typeclass × Cata + compatibility
+                    Cohabitation     = Lens × Lens + cohabit witness
+                    LocalityAggregate, DynamicalAggregate,
+                    InterfaceAggregate, CataAggregate
+                    LocalityForcedValue, CataForcedForm,
+                    DynamicalForcedPeriod
+
+Each composite has a concrete instance in `PatternCatalogInstance.lean`,
+all `#print axioms` ∅-axiom.  The catalog stratifies: codebase patterns
+are exactly small Cartesian products of {atomic} × {atomic, Aggregate-,
+Forced-of-atomic}, with at most one explicit coherence constraint.
+
+The four original games still compose into the dependency-DAG of
+`CascadeCalculus.lean` (Locality ↔ leaves, Aggregation ↔ terminals,
+Typeclass ↔ infrastructure, Catamorphism ↔ edges) — that mapping
+predates the H2 self-corrections and remains valid at the cascade
+level even though Aggregation / ForcedUniq are now operator-level
+rather than atomic. -/
 
 namespace E213.Math.PatternCatalog
 
