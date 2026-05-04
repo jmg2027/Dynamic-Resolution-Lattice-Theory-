@@ -109,4 +109,26 @@ structure ForcedValueWitness (Param : Type) where
   /-- Forced uniqueness: `cond p ↔ p = value`. -/
   forced    : ∀ p, cond p ↔ p = value
 
+/-- **Cohabitation pattern** (composite, NOT a 7th atomic game):
+    a single base substrate viewable through *two different*
+    Catamorphisms simultaneously, each yielding a distinct value.
+
+    Captures `Math/AxiomSystems/`: same Raw expression validates
+    Peano-theorem AND ZFC-theorem AND depth-theorem at once.
+    Per Mingu (2026-05-XX):
+      "다른 수학 이론들 심지어 공리계라는 것도 렌즈들의 조합인거지"
+
+    Structurally this is **Catamorphism × Catamorphism** plus a
+    Forced-Uniqueness witness of cohabitation.  Emergent, not
+    primitive.  First sign that the catalog has *composition rules*
+    on top of atomic games. -/
+structure CohabitationWitness (Base α β : Type) where
+  base       : Base
+  view_α     : Base → α
+  view_β     : Base → β
+  expected_α : α
+  expected_β : β
+  eq_α       : view_α base = expected_α
+  eq_β       : view_β base = expected_β
+
 end E213.Math.PatternCatalog

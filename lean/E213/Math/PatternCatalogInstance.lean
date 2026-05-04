@@ -1,6 +1,7 @@
 import E213.Math.PatternCatalog
 import E213.Math.Real213.CutMulOne
 import E213.Firmware.Atomicity.Five
+import E213.Math.AxiomSystems.CrossTheoryCohabit
 
 /-!
 # PatternCatalog — instance check
@@ -75,6 +76,32 @@ def fiveIsForced : ForcedValueWitness Nat :=
   { value  := 5
     cond   := E213.Firmware.Atomicity.Five.Atomic
     forced := E213.Firmware.Atomicity.Five.atomic_iff_five }
+
+/-! ## CohabitationWitness instance — Peano × Depth on the same Raw
+
+The Raw expression `r := slash a b h` validates simultaneously:
+  - the Peano theorem `peanoLens.view r = 2`  (= 1 + 1)
+  - the depth theorem `Lens.depth.view r = 1` (tree height)
+
+with no conflict.  This is `Catamorphism × Catamorphism` cohabitation
+witnessed by `cohabit_peano_depth`. -/
+
+open E213.Firmware (Raw)
+open E213.Hypervisor (Lens)
+open E213.Math.AxiomSystems.Peano (peanoLens)
+open E213.Math.AxiomSystems.CrossTheoryCohabit (r peano_view depth_view)
+
+/-- Concrete cohabitation: `slash a b h` viewed as both Peano-2 and
+    depth-1.  Direct lift of `cohabit_peano_depth`. -/
+def peanoDepthCohabit (h : Raw.a ≠ Raw.b) :
+    CohabitationWitness Raw Nat Nat :=
+  { base       := r h
+    view_α     := peanoLens.view
+    view_β     := Lens.depth.view
+    expected_α := 2
+    expected_β := 1
+    eq_α       := peano_view h
+    eq_β       := depth_view h }
 
 /-! ## Analysis
 
