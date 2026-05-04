@@ -51,8 +51,8 @@ Lean implementation:
 ### Size / Cardinality / Finiteness / Infinity
 
 Firmware itself has no notion of size.  `leaves` and `depth` are defined
-but these are **observation results** via `Raw.fold`, not axioms.  The `Infinity/`
-module is also a separate folder (outside Firmware).
+but these are **observation results** via `Raw.fold`, not axioms.  The
+`Math/Infinity/` module is also a separate folder (outside Firmware).
 
 **Verdict**: ✓ Compliant.
 
@@ -88,9 +88,9 @@ Not present in Firmware itself.  The `Lens` in Hypervisor is a separate module.
 ### Mode of existence
 
 Lean `inductive` is by definition compatible with either Platonic or stepwise
-interpretation.  Companion narrative: `research-notes/17_existence_mode_lens.md`.
-Current Lean coverage: `lean/E213/Infinity/Tower.lean`,
-`lean/E213/Infinity/Chain.lean`, and `lean/E213/Physics/Foundations/FiniteUniverse.lean`.
+interpretation.  Companion narrative: `research-notes/archive/17_existence_mode_lens.md`.
+Current Lean coverage: `lean/E213/Math/Infinity/Tower.lean`,
+`lean/E213/Math/Infinity/Chain.lean`, and `lean/E213/Physics/Foundations/FiniteUniverse.lean`.
 
 **Verdict**: ✓ Compliant.
 
@@ -220,7 +220,7 @@ a Lean refactor requiring `lake build` to be re-run.
 - 2026-04-24: Initial audit.  Session
   `claude/lean-infinity-explanation-QqnSp`.
 - 2026-05-XX: Stale-reference cleanup.  PAPER.md → PAPER1.md (archival);
-  `Infinity/notes/17_existence_mode_lens.md` → `research-notes/17_existence_mode_lens.md`
+  `Infinity/notes/17_existence_mode_lens.md` → `research-notes/archive/17_existence_mode_lens.md`
   (renamed/relocated, not deleted); §3 Steps 3/4 deprecated (book/,
   papers/ deleted; superseded by AXIOM.md + guide/ + ARCHITECTURE.md).
   Audit verdict (faithful, no structural revision) is unchanged.

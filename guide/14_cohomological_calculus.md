@@ -65,7 +65,7 @@ witness + propagation), FTC (Riemann + antiderivative), ODE (linear,
   5.4×10⁻⁴ structural gap (Ch. 05). Six phases CA→CF, target dir
   `lean/E213/Math/Cohomology/`.
 - General `cutMul (a/b) (c/d)` propEq — search-bound, unsolved.
-  Phase B "wall" per `research-notes/E1_real213_analysis_roadmap.md`.
+  Phase B "wall" per `research-notes/archive/E1_real213_analysis_roadmap.md`.
 - Multi-variable calculus (Phase C–H).
 - Measure theory beyond dyadic.
 
@@ -75,4 +75,4 @@ witness + propagation), FTC (Riemann + antiderivative), ODE (linear,
 - `lean/E213/Research/Real213*.lean` (176 modules)
 - `lean/E213/Math/Foundation.lean`, `Analysis213.lean`,
   `CutOps.lean`, `Series.lean`, `Continuity.lean`, `Cauchy.lean`.
-- `research-notes/E1_real213_analysis_roadmap.md`
+- `research-notes/archive/E1_real213_analysis_roadmap.md`

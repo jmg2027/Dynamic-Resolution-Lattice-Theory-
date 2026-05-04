@@ -173,10 +173,11 @@ closed form — is forced before any computation begins.
 
 ## Formal cohomology grounding (math-branch refinement)
 
-The math-track branch `claude/review-paper-directory-nDw9L` carries
-a completed **Cohomology 213 marathon** (Phases CA–CE) and the
-**Linalg213** (L1–L6) chain.  With those theorems in hand, the
-A/B/C/D/E classes are not heuristics — they are explicit cochain
+The completed **Cohomology 213 marathon** (Phases CA–CE) and the
+**Linalg213** (L1–L6) chain — originally on the math-track branch
+`claude/review-paper-directory-nDw9L`, now integrated into
+`lean/E213/Math/{Cohomology,Linalg213}/` — make A/B/C/D/E classes
+not heuristics but explicit cochain
 operations on the K_{3,2}^{(c=2)} simplicial complex:
 
 | Class | Cohomology operation                                  | Reference (math branch)         |
@@ -232,10 +233,11 @@ are operations on cochains, and cochains exist at every L.  Hence
 the same five operations classify every observable from sub-atomic
 to cosmological.
 
-(Citations in the table above point at the math-branch
-`claude/review-paper-directory-nDw9L`, not yet merged into main.
-Once merged, `whitelist.toml` will gain rows pinning each Class's
-formal cohomology operation to its Lean theorem.)
+(Citations in the table above point at modules now under
+`lean/E213/Math/{Cohomology,Linalg213}/`, integrated from the
+former math-track branch.  `whitelist.toml` rows pinning each
+Class's formal cohomology operation to its Lean theorem are
+incrementally added as the rust-engine binaries cross-cite.)
 
 ## Class F — multi-simplex composite (added 2026-04-30)
 

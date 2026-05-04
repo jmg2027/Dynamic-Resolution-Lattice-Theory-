@@ -59,9 +59,11 @@ algebraic form alone — predictor algorithm in
   algorithm, fractal scale ladder b_1(L) = (5^L−1)(5^L−2)/2.
 - `docs/gaps-and-todos.md` — engineering audit, all entries
   closed (✅ §1-§6) or honestly flagged (🟡 §7c m_t/m_c).
+- `docs/closure-algorithm.md` — DRLT Closure Form pattern (Hunter
+  methodology, cited from CLAUDE.md as the L1–L5 closure lessons).
 - `docs/math-branch-physics-notes.md` — ~3000-line accumulator of
-  physics-applicable intuition mined from `claude/review-paper-
-  directory-nDw9L`: ~250 Lean files digested across three
+  physics-applicable intuition mined from the (now-integrated)
+  math-track branch.  ~250 Lean files cross-walked across three
   sections (Cohomology + Linalg + Math/, Dyadic Number Theory,
   Real213 constructive analysis).
 - `docs/architecture.md`, `layers.md`, `trust-contract.md`,

@@ -383,7 +383,7 @@ The previous `213/PAPER.md` (R1-R5 → ℂ derivation) and `213/PAPER2.md`
 Derivation is explored freely in notes/ where present, and in the Lean
 metatheory layer (`Meta/UniversalLens/`).
 
-Background: `research-notes/30_bool_is_liar_paradox.md`.  The R1-R5 judgment game in
+Background: `research-notes/archive/30_bool_is_liar_paradox.md`.  The R1-R5 judgment game in
 Paper 1 was revealed to be an instance of a self-reference loop (Bool),
 so the frame itself was stepped back from.
 
@@ -554,9 +554,10 @@ depend on it.
     deprioritized — `Raw.depth/leaves/fold_signed_swap/fold_swap_hom`
     remain in Firmware as acknowledged convenience leak.  Added
     Universal-Lens metatheory cross-reference.
-  - §7.3, §7.4 obsoleted: `book/chapters/ch22_213.tex` and `book/AUDIT.md`
-    no longer exist (`book/` retains only README.md; `papers/` retains
-    only README.md after a02b751 deletion).
+  - §7.3, §7.4 obsoleted: the legacy `book/chapters/ch22_213.tex` and
+    `book/AUDIT.md` no longer exist (the directory was reorganized into
+    `books/{math,physics}/` plus `guide/`; `papers/` retains only
+    README.md after a02b751 deletion).
   - §9.4 updated: Paper 1 deletion noted; current Lean remnant of R1-R5
     motivation is `Meta/SelfRecognising.lean` (R1-R4 only); R1-R5 → ℂ
     chain not re-built post-deletion.  Universal-Lens / Atomicity story

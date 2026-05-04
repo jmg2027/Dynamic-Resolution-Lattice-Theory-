@@ -18,7 +18,7 @@ trajectory frame.
 
   - `D2TierClassifier.lean` — formalise the rational/algebraic/
     transcendental classifier via trajectory-closure depth
-    (research-notes/D2_complexity_class_hierarchy.md).
+    (research-notes/archive/D2_complexity_class_hierarchy.md).
   - `RawFoldChain.lean` — explicit Raw-trajectory composition
     theorem (G3 §6).
   - `TrajectoryBordism.lean` — Lens-bordism as constructive
