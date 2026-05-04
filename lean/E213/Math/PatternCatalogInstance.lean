@@ -248,6 +248,29 @@ def fanOutCataAggregate : CataAggregate Nat :=
       | 2 => trivCata 2
       | _ => trivCata 0 }
 
+/-! ## Forced + DynamicalForcedPeriod instances
+
+Demonstrate the second self-correction: `Forced T` as the uniqueness
+operator (mirror of `Aggregate W`).  Concrete uses: a Forced Nat (the
+unique Nat = 3) and a DynamicalForcedPeriod attaching it to the
+period-3 modCounter FSM. -/
+
+open E213.Math.PatternCatalog (Forced DynamicalForcedPeriod)
+
+/-- Trivially: 3 is the unique Nat = 3.  Demonstrates `Forced Nat`. -/
+def threeIsForced : Forced Nat :=
+  { cond    := fun n => n = 3
+    witness := 3
+    forced  := fun _ => Iff.rfl }
+
+/-- Period-3 modCounter (defined above), with the forced-period
+    witness wired in.  `agree` proves the forced witness coincides
+    with the dynamical's period. -/
+def modCounter3WithForcedPeriod : DynamicalForcedPeriod Nat Nat :=
+  { dyn       := modCounter 3
+    forcedNat := threeIsForced
+    agree     := rfl }
+
 /-! ## Analysis
 
 The dynamical game is **structurally distinct** from the four

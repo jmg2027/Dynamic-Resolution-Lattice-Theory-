@@ -289,4 +289,49 @@ abbrev CataAggregate (α : Type) := Aggregate (CatamorphismWitness α)
 
 -- Note: Dynamical × Aggregation = `DynamicalAggregate`, defined above.
 
+/-- **`Forced T`** — second higher-order operator (catalog's second
+    self-correction, mirroring `Aggregate W`).
+
+    Three ForcedUniq composites have now appeared:
+      atomic ForcedValueWitness  — value-level forcing on `Param`
+      LocalityForcedValue        — per-index forcing on `Val`
+      CataForcedForm             — form-level forcing given view value
+
+    All three share the same uniqueness *core*:
+      `∀ t, cond t ↔ t = witness`.
+
+    Naming this core as a higher-order operator:
+
+      `Forced T := { cond : T → Prop, witness : T,
+                     forced : ∀ t, cond t ↔ t = witness }`
+
+    Then `ForcedValueWitness Param ≡ Forced Param`.  `LocalityForced
+    Value Idx Val` is `Idx → Forced Val` with a coherent witness
+    function.  `CataForcedForm`'s `(extract, inject, forced)` triple
+    is `Forced` applied to the form-witness type, lifted by view.
+
+    `Forced` is the *uniqueness* operator; `Aggregate` is the *bundle*
+    operator.  Together they explain why so many composites exist:
+    each atomic game pair (X, Y) yields composites X × Aggregate-of-Y,
+    X × Forced-on-Y, and X × Y direct (Lens, Cohabitation, …). -/
+structure Forced (T : Type) where
+  /-- Forcing predicate. -/
+  cond    : T → Prop
+  /-- The forced unique value. -/
+  witness : T
+  /-- The uniqueness equation. -/
+  forced  : ∀ t, cond t ↔ t = witness
+
+/-- Dynamical × ForcedUniq = period uniqueness witness on a dynamical
+    system.  Codebase candidate: pisano_predict_correct (the predicted
+    period IS the unique valid period for the corresponding FSM at the
+    Legendre-derived prime). -/
+structure DynamicalForcedPeriod (S : Type) (Out : Type) where
+  /-- The dynamical system. -/
+  dyn       : DynamicalWitness S Out
+  /-- Period uniqueness on `Nat`. -/
+  forcedNat : Forced Nat
+  /-- Coherence: the forced witness is exactly the dyn's period. -/
+  agree     : forcedNat.witness = dyn.period_witness.2
+
 end E213.Math.PatternCatalog
