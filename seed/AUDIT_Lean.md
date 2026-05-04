@@ -51,8 +51,8 @@ Lean implementation:
 ### Size / Cardinality / Finiteness / Infinity
 
 Firmware itself has no notion of size.  `leaves` and `depth` are defined
-but these are **observation results** via `Raw.fold`, not axioms.  The `Infinity/`
-module is also a separate folder (outside Firmware).
+but these are **observation results** via `Raw.fold`, not axioms.  The
+`Math/Infinity/` module is also a separate folder (outside Firmware).
 
 **Verdict**: ✓ Compliant.
 
@@ -89,8 +89,8 @@ Not present in Firmware itself.  The `Lens` in Hypervisor is a separate module.
 
 Lean `inductive` is by definition compatible with either Platonic or stepwise
 interpretation.  Companion narrative: `research-notes/archive/17_existence_mode_lens.md`.
-Current Lean coverage: `lean/E213/Infinity/Tower.lean`,
-`lean/E213/Infinity/Chain.lean`, and `lean/E213/Physics/Foundations/FiniteUniverse.lean`.
+Current Lean coverage: `lean/E213/Math/Infinity/Tower.lean`,
+`lean/E213/Math/Infinity/Chain.lean`, and `lean/E213/Physics/Foundations/FiniteUniverse.lean`.
 
 **Verdict**: ✓ Compliant.
 
