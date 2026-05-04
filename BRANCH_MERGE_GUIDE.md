@@ -9,7 +9,7 @@ Meta-work only:
 
 - `CLAUDE.md` — full hierarchical rewrite with boot sequence,
   meta-principle, hard-rules table, failure-modes catalog
-- `research-notes/G17_audit_raw.csv` + `G17–G28` audit/inspection notes
+- `research-notes/audit/` (G17 audit + G18–G27 iterations) + `research-notes/G28`/`G29`
 - `research-notes/G29_residue.md` — clean foundational text
   ("the residue of pointing")
 - Cleanup deletions: `G6/G7/G8/G9*.md` + corresponding malformed

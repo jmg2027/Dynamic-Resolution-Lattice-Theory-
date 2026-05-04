@@ -383,7 +383,7 @@ The previous `213/PAPER.md` (R1-R5 → ℂ derivation) and `213/PAPER2.md`
 Derivation is explored freely in notes/ where present, and in the Lean
 metatheory layer (`Meta/UniversalLens/`).
 
-Background: `research-notes/30_bool_is_liar_paradox.md`.  The R1-R5 judgment game in
+Background: `research-notes/archive/30_bool_is_liar_paradox.md`.  The R1-R5 judgment game in
 Paper 1 was revealed to be an instance of a self-reference loop (Bool),
 so the frame itself was stepped back from.
 
