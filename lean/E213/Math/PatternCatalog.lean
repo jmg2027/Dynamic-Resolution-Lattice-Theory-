@@ -215,4 +215,35 @@ structure Aggregate (W : Type) where
 abbrev DynamicalAggregate (S : Type) (Out : Type) :=
   Aggregate (DynamicalWitness S Out)
 
+/-- **Cata × ForcedUniq composite** — `CataForcedForm`.
+
+    Catamorphism view + forcing on view-results + extractor +
+    injector + the forcing equation.  Anchor specimen:
+    `getBase_eq` (`Firmware/Atomicity/ArityForcingGeneral.lean`):
+
+    ```
+    ∀ (x : RawNk N k) (h : isBase x = true), x = .object (getBase x h)
+    ```
+
+    Reading: when the catamorphism `isBase` returns `true`, the source
+    `x` is forced into the unique form `.object i` for some specific
+    `i = getBase x h`.  Forcing is on the *form* (which constructor)
+    rather than on a value, distinguishing this from atomic
+    `ForcedValueWitness` (value-level forcing).
+
+    These are NOT reducible to each other — atomic ForcedUniq forces
+    *which value*; Cata × ForcedUniq forces *which form* given a view
+    value.  Different axes. -/
+structure CataForcedForm (Source α β : Type) where
+  /-- Catamorphism view (from Cata game). -/
+  view    : Source → α
+  /-- Trigger predicate on view-results (from ForcedUniq game). -/
+  trigger : α → Prop
+  /-- Witness extractor when trigger fires. -/
+  extract : (s : Source) → trigger (view s) → β
+  /-- Canonical-form injector. -/
+  inject  : β → Source
+  /-- The forcing equation: source equals injection of extracted witness. -/
+  forced  : ∀ s h, s = inject (extract s h)
+
 end E213.Math.PatternCatalog

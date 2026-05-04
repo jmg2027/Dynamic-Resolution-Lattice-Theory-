@@ -175,6 +175,37 @@ def pisanoLikeAggregate : DynamicalAggregate Nat Nat :=
       | 2 => modCounter 7
       | _ => modCounter 1 }
 
+/-! ## CataForcedForm instance — Option Nat (toy mirror of getBase_eq)
+
+Real codebase specimen: `getBase_eq` in `Firmware/Atomicity/
+ArityForcingGeneral.lean` — when the catamorphism `isBase` returns
+`true`, the `RawNk N k` source is forced into form `.object i`.
+We mirror that shape on `Option Nat` to keep imports minimal: when
+`Option.isSome o = true`, `o` is forced into form `some n`. -/
+
+open E213.Math.PatternCatalog (CataForcedForm)
+
+/-- Witness extractor: pull `n` out of a `some n` whose `isSome = true`. -/
+def optExtract : (o : Option Nat) → o.isSome = true → Nat
+  | some n, _ => n
+  | none,   h => by cases h
+
+/-- The forcing equation for Option. -/
+theorem optForced :
+    ∀ (o : Option Nat) (h : o.isSome = true), o = some (optExtract o h)
+  | some _, _ => rfl
+  | none,   h => by cases h
+
+/-- Cata × ForcedUniq instance on Option Nat.  Mirrors `getBase_eq`
+    structurally — the codebase real specimen would import
+    `RawNk` infrastructure; this toy keeps imports flat. -/
+def optionCataForcedForm : CataForcedForm (Option Nat) Bool Nat :=
+  { view    := Option.isSome
+    trigger := fun b => b = true
+    extract := optExtract
+    inject  := Option.some
+    forced  := optForced }
+
 /-! ## Analysis
 
 The dynamical game is **structurally distinct** from the four
