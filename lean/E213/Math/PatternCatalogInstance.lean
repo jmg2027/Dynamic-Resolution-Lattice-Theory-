@@ -271,6 +271,39 @@ def modCounter3WithForcedPeriod : DynamicalForcedPeriod Nat Nat :=
     forcedNat := threeIsForced
     agree     := rfl }
 
+/-! ## Operator composition instances — non-commutativity exhibit
+
+`AggregateForced T` and `ForcedAggregate W` are NOT isomorphic.
+We demonstrate by:
+
+  - constructing an `AggregateForced Nat` via the diagonal lift
+    of `threeIsForced` (3 is unique) — content: 5 copies of the
+    same uniqueness assertion.
+  - constructing a `ForcedAggregate Nat` whose unique bundle is a
+    specific 3-element aggregate — content: ONE bundle uniquely
+    identified by an aggregate-level condition.
+
+The shapes carry different information; no obvious bijection. -/
+
+open E213.Math.PatternCatalog (AggregateForced ForcedAggregate)
+
+/-- Diagonal lift of threeIsForced at arity 5. -/
+def aggForcedDemo : AggregateForced Nat :=
+  AggregateForced.diagonal threeIsForced 5 "diag"
+
+/-- A specific 3-aggregate (bundle of trivLoc 0/1/2 reused as
+    placeholder Nat-Forced witnesses).  We then forge it as the
+    unique-such-bundle. -/
+def specificBundle : Aggregate (Forced Nat) :=
+  AggregateForced.diagonal threeIsForced 3 "specific"
+
+/-- A `ForcedAggregate` whose unique witness is `specificBundle`,
+    distinguished by a tautological `cond := (· = specificBundle)`. -/
+def forcedAggDemo : ForcedAggregate (Forced Nat) :=
+  { cond    := fun a => a = specificBundle
+    witness := specificBundle
+    forced  := fun _ => Iff.rfl }
+
 /-! ## Analysis
 
 The dynamical game is **structurally distinct** from the four

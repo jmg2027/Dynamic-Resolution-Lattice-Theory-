@@ -353,4 +353,32 @@ structure DynamicalForcedPeriod (S : Type) (Out : Type) where
   /-- Coherence: the forced witness is exactly the dyn's period. -/
   agree     : forcedNat.witness = dyn.period_witness.2
 
+/-! ## Operator composition (C4)
+
+`Aggregate W` and `Forced T` are the two higher-order operators.
+Question: do they commute, i.e. is `Aggregate (Forced T)` the same
+as `Forced (Aggregate W)`?
+
+  `AggregateForced T` = bundle of N independent uniqueness witnesses
+  `ForcedAggregate W` = unique bundle satisfying some condition
+
+These are NOT isomorphic.  An aggregate-of-foreds carries N separate
+(cond, witness, forced) triples; a forced-aggregate carries one
+condition on the entire bundle.  Different content, different shape.
+
+What does hold: a *diagonal* lift sends `Forced T → AggregateForced T`
+by repeating the same witness across all indices.  The reverse
+direction collapses only when all facts agree (a witness, not a
+theorem of the abbreviations themselves).
+-/
+
+abbrev AggregateForced (T : Type) := Aggregate (Forced T)
+abbrev ForcedAggregate (W : Type) := Forced (Aggregate W)
+
+/-- Diagonal lift: a single `Forced T` becomes a constant
+    `AggregateForced T` at any arity. -/
+def AggregateForced.diagonal {T : Type} (f : Forced T)
+    (n : Nat) (φ : String) : AggregateForced T :=
+  { phase := φ, arity := n, facts := fun _ => f }
+
 end E213.Math.PatternCatalog
