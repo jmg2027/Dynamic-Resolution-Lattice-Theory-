@@ -263,3 +263,15 @@ path = "src/bin/mn_minus_mp_over_me.rs"
 [[bin]]
 name = "alpha-em-augmented"
 path = "src/bin/alpha_em_augmented.rs"
+
+[[bin]]
+name = "k5-spinglass"
+path = "src/bin/k5_spinglass.rs"
+
+[[bin]]
+name = "k5-decoder"
+path = "src/bin/k5_decoder.rs"
+
+[[bin]]
+name = "k5-discrete-geom"
+path = "src/bin/k5_discrete_geom.rs"
