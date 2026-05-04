@@ -49,4 +49,41 @@ def cutMulOneOne_witness :
   { f_at := fun ⟨m, k⟩ =>
               cutMul (constCut 1 1) (constCut 1 1) m k }
 
+/-! ## DynamicalWitness instance — toy 2-state oscillator
+
+The simplest concrete dynamical: states `Bool`, step = `not`,
+output = identity.  Period = 2, start = 0.  This is the "atom"
+of the dynamical game. -/
+
+/-- 2-state oscillator: 0 → 1 → 0 → 1 → ... -/
+def boolOscillator : DynamicalWitness Bool Bool :=
+  { init           := false
+    step           := fun b => !b
+    output         := fun b => b
+    period_witness := (0, 2) }
+
+/-! ## Analysis
+
+The dynamical game is **structurally distinct** from the four
+time-less games:
+
+  1. *Time as a dimension*: `Nat → S` evolution.  Catamorphism game
+     also uses Nat (tree encoding) but it's a *single fold*; here
+     time is iterated `step`-application.
+
+  2. *Eventual periodicity is the central theorem-shape*: every
+     concrete instance gets a `period_X` theorem (e.g.,
+     `pellFSMmod11_bits_period_10`, `lens_composition_period_dvd`).
+
+  3. *Composition is monoid-like*: `BitFSM.product` combines two
+     FSMs into one whose period divides `lcm` of inputs.  This is
+     a richer compositional structure than the 4 time-less games.
+
+  4. *Pell/Pisano/Fib/Trib are all instances*: number-theoretic
+     recurrences fit this shape uniformly.  91 files in this single
+     cluster — comparable to all of Real213 (182 files).
+
+→ Five games total: Locality / Aggregation / Typeclass /
+   Catamorphism / Dynamical. -/
+
 end E213.Math.PatternCatalogInstance

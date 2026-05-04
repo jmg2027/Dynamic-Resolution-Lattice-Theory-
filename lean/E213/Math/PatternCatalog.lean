@@ -68,4 +68,23 @@ structure CatamorphismWitness (α : Type) where
       function from a nat-encoded tree. -/
   view   : Nat → α
 
+/-- **Dynamical game** (5th game, discovered via FSM cluster):
+    state evolution over time, eventually periodic.
+    Captures `BitFSM`/`ArithFSM`/`Pell`/`Pisano`/`Fib`/`Trib` cluster
+    (91 files in `Math/Cohomology/Dyadic/`).
+
+    Time `k : Nat` is a NEW dimension absent from the first four
+    games (which were time-less).  213's Finitism principle —
+    "infinite ℕ-iteration on a finite state set must cycle" —
+    lives here. -/
+structure DynamicalWitness (S : Type) (Out : Type) where
+  init   : S
+  step   : S → S
+  output : S → Out
+  /-- Evidence of eventual periodicity: there exist `start` and
+      `period > 0` s.t. for all `k ≥ start`, output at k = output at
+      k + period.  Only the witness shape recorded; concrete proof
+      lives in cluster files like `pellFSMmod11_bits_period_10`. -/
+  period_witness : Nat × Nat  -- (start, period)
+
 end E213.Math.PatternCatalog
