@@ -131,4 +131,27 @@ structure CohabitationWitness (Base α β : Type) where
   eq_α       : view_α base = expected_α
   eq_β       : view_β base = expected_β
 
+/-- **Lens composite** = `Typeclass × Catamorphism` with field
+    compatibility.  An `InterfaceWitness` provides `(base1, base2,
+    combine)`; a `CatamorphismWitness` provides `(base_a, base_b,
+    reduce, view)`.  The two records share the same shape on
+    `(base, base, combine/reduce)`.  When the shapes agree, we have
+    a Lens.
+
+    This composite is NOT a 7th atomic game — it is the **canonical
+    pairing** of the existing Typeclass and Catamorphism games.  The
+    fact that 213's `Lens` is exactly this pairing explains why Lens
+    is the central abstraction: it is the smallest non-trivial
+    composite the catalog can form.
+
+    With `LensWitness` defined, `CohabitationWitness` can also be
+    re-read as `LensWitness × LensWitness + cohabit witness`.
+    Composition rules thus stratify: atomic → Lens → Cohabitation. -/
+structure LensWitness (α : Type) where
+  interface       : InterfaceWitness α
+  catamorphism    : CatamorphismWitness α
+  base_compat_1   : interface.base1 = catamorphism.base_a
+  base_compat_2   : interface.base2 = catamorphism.base_b
+  combine_compat  : interface.combine = catamorphism.reduce
+
 end E213.Math.PatternCatalog

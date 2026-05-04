@@ -103,6 +103,25 @@ def peanoDepthCohabit (h : Raw.a ≠ Raw.b) :
     eq_α       := peano_view h
     eq_β       := depth_view h }
 
+/-! ## LensWitness instance — peanoLens as Typeclass × Catamorphism
+
+`peanoLens = Lens.leaves = ⟨1, 1, (·+·)⟩`.  Both `InterfaceWitness`
+fields and `CatamorphismWitness` fields are populated from the SAME
+underlying triple — that is the whole point of the composite. -/
+
+open E213.Math.PatternCatalog (InterfaceWitness CatamorphismWitness LensWitness)
+
+/-- peanoLens lifted into the LensWitness composite.  All three
+    compatibility proofs are `rfl` because both sides come from the
+    same underlying Lens triple. -/
+def peanoLensWitness : LensWitness Nat :=
+  { interface       := { base1 := 1, base2 := 1, combine := (· + ·) }
+    catamorphism    := { reduce := (· + ·), base_a := 1, base_b := 1
+                         view   := fun _ => 0 }
+    base_compat_1   := rfl
+    base_compat_2   := rfl
+    combine_compat  := rfl }
+
 /-! ## Analysis
 
 The dynamical game is **structurally distinct** from the four
