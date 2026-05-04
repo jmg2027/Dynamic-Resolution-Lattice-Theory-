@@ -246,4 +246,31 @@ structure CataForcedForm (Source α β : Type) where
   /-- The forcing equation: source equals injection of extracted witness. -/
   forced  : ∀ s h, s = inject (extract s h)
 
+/-- **Locality × ForcedUniq composite** — `LocalityForcedValue`.
+
+    At each index `i`, the value is forced unique: there is a per-index
+    condition `cond i : Val → Prop` and a `forcedValue i` such that
+    only `forcedValue i` satisfies `cond i`.  The locality function
+    `f_at` happens to satisfy `cond i (f_at i)` at every index, hence
+    `f_at i = forcedValue i` for all i (derivable from `forced` +
+    `witness`).
+
+    Distinguishes from atomic ForcedUniq by the *family-of-conditions*
+    indexed structure.  Atomic ForcedUniq has one condition; here we
+    have `Idx`-many conditions, one per locality index.  Every
+    function-eq lemma in cut algebra has this latent shape — the
+    "value at (m,k) of cutMul (constCut 1 1) (constCut 1 1)" is forced
+    to 1 by the cut-algebra rules at each (m,k). -/
+structure LocalityForcedValue (Idx : Type) (Val : Type) where
+  /-- The locality witness function. -/
+  f_at         : Idx → Val
+  /-- Per-index forcing condition. -/
+  cond         : Idx → Val → Prop
+  /-- Per-index forced unique value. -/
+  forcedValue  : Idx → Val
+  /-- Forcing: at each index, `cond i v ↔ v = forcedValue i`. -/
+  forced       : ∀ i v, cond i v ↔ v = forcedValue i
+  /-- Coherence: `f_at` satisfies `cond` at every index. -/
+  witness      : ∀ i, cond i (f_at i)
+
 end E213.Math.PatternCatalog

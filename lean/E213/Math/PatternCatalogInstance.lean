@@ -206,6 +206,23 @@ def optionCataForcedForm : CataForcedForm (Option Nat) Bool Nat :=
     inject  := Option.some
     forced  := optForced }
 
+/-! ## LocalityForcedValue instance — toy Bool → Nat with per-index forcing
+
+At index `b : Bool`, the unique Nat satisfying `n = (if b then 1 else 0)`
+is exactly `if b then 1 else 0`.  Trivially forced; demonstrates the
+type.  Real codebase candidates: cut-algebra `_at` lemmas where each
+(m, k) position has a forced cut value. -/
+
+open E213.Math.PatternCatalog (LocalityForcedValue)
+
+/-- Toy Locality × ForcedUniq instance on Bool → Nat. -/
+def boolNatLocalityForced : LocalityForcedValue Bool Nat :=
+  { f_at        := fun b => if b then 1 else 0
+    cond        := fun b n => n = (if b then 1 else 0)
+    forcedValue := fun b => if b then 1 else 0
+    forced      := fun _ _ => Iff.rfl
+    witness     := fun _ => rfl }
+
 /-! ## Analysis
 
 The dynamical game is **structurally distinct** from the four
