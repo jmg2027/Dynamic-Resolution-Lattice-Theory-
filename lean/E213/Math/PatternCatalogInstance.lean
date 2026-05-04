@@ -149,6 +149,32 @@ def demoLocalityAggregate : LocalityAggregate Nat Nat :=
       | 2 => trivLoc 2
       | _ => trivLoc 0 }
 
+/-! ## DynamicalAggregate instance — toy 3-FSM Pisano-style bundle
+
+Mirroring `pisano_predict_realises_pell_N` shape (multiple FSMs, each
+with its own period, bundled under one capstone).  We use mod-`p`
+counter FSMs with period `p`. -/
+
+open E213.Math.PatternCatalog (Aggregate DynamicalAggregate)
+
+/-- Mod-`p` counter FSM: state `Nat`, step = `(· + 1) % p`,
+    output = state.  Period = `p` (start = 0). -/
+def modCounter (p : Nat) : DynamicalWitness Nat Nat :=
+  { init           := 0
+    step           := fun s => (s + 1) % p
+    output         := fun s => s
+    period_witness := (0, p) }
+
+/-- Pisano-flavored bundle: three FSMs at periods 3, 5, 7. -/
+def pisanoLikeAggregate : DynamicalAggregate Nat Nat :=
+  { phase := "BU-toy"
+    arity := 3
+    facts := fun n => match n with
+      | 0 => modCounter 3
+      | 1 => modCounter 5
+      | 2 => modCounter 7
+      | _ => modCounter 1 }
+
 /-! ## Analysis
 
 The dynamical game is **structurally distinct** from the four

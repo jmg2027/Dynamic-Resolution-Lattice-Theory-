@@ -180,4 +180,39 @@ structure LocalityAggregate (Idx : Type) (Val : Type) where
   /-- Indexed family of Locality witnesses. -/
   facts  : Nat → LocalityWitness Idx Val
 
+/-- **Aggregate `W`**: polymorphic bundle generator.
+
+    Adding a third composition rule (Dynamical × Aggregation, evidenced
+    by Pisano marathon Type B capstones in `Math/Cohomology/Dyadic/
+    Pisano/`) reveals a meta-pattern: `LocalityAggregate` and the
+    new `DynamicalAggregate` differ only in the *witness type* they
+    bundle.  Both wrap `(phase, arity, Nat → W)` for some atomic-
+    game witness `W`.
+
+    Refining the catalog accordingly: **Aggregation is not an atomic
+    game on equal footing with the others — it is a higher-order
+    operator that lifts any atomic-game witness into a bundle.**
+    `LocalityAggregate Idx Val` is exactly `Aggregate (LocalityWitness
+    Idx Val)`; `DynamicalAggregate` is `Aggregate (DynamicalWitness
+    S Out)`; etc.
+
+    This is the catalog's first self-correction: the original
+    `CapstoneBundle` (just `(arity, phase)`) was a degenerate case
+    where the bundled content was elided.  `Aggregate W` makes the
+    content explicit and parametric. -/
+structure Aggregate (W : Type) where
+  /-- Phase tag (e.g., "BB", "BU"). -/
+  phase  : String
+  /-- Bundle cardinality. -/
+  arity  : Nat
+  /-- Indexed family of underlying witnesses. -/
+  facts  : Nat → W
+
+/-- Dynamical × Aggregation as a specialisation of `Aggregate`.
+    Anchor specimen: `pisano_predict_realises_pell_N` (Pisano
+    marathon Type B), bundling N FSM-period witnesses under one
+    capstone. -/
+abbrev DynamicalAggregate (S : Type) (Out : Type) :=
+  Aggregate (DynamicalWitness S Out)
+
 end E213.Math.PatternCatalog
