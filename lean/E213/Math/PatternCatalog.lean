@@ -154,4 +154,30 @@ structure LensWitness (α : Type) where
   base_compat_2   : interface.base2 = catamorphism.base_b
   combine_compat  : interface.combine = catamorphism.reduce
 
+/-- **`_capstone_pure` composite** = `Locality × Aggregation`.
+
+    The pattern dominant across `Math/Real213/`: a phase capstone
+    that bundles N pointwise (`*_pure` / `*_at`) witnesses into one
+    ∧-conjunction, e.g. `polynomial_mvt_unitBracket_capstone_pure`
+    (FluxMVTPolynomial, arity 3, phase "BB") whose proof is the anon
+    constructor `⟨mvt_id_unitBracket_pure, mvt_square_unitBracket_pure,
+    mvt_cube_unitBracket_pure⟩`.
+
+    The composite stores Aggregation's `(phase, arity)` together with
+    an indexed family of Locality witnesses — one per conjunct in the
+    bundle.  No Fin/List required: the family is a plain
+    `Nat → LocalityWitness Idx Val`, with `arity` recording how many
+    indices are intended to carry meaning.
+
+    This is the second composition rule (after Lens = Typeclass × Cata)
+    and the most populous one in the codebase: ~232 sealed-then-deleted
+    capstone facade theorems all instantiated this composite. -/
+structure LocalityAggregate (Idx : Type) (Val : Type) where
+  /-- Phase tag inherited from Aggregation game. -/
+  phase  : String
+  /-- Bundle cardinality from Aggregation game. -/
+  arity  : Nat
+  /-- Indexed family of Locality witnesses. -/
+  facts  : Nat → LocalityWitness Idx Val
+
 end E213.Math.PatternCatalog

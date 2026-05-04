@@ -122,6 +122,33 @@ def peanoLensWitness : LensWitness Nat :=
     base_compat_2   := rfl
     combine_compat  := rfl }
 
+/-! ## LocalityAggregate instance — synthetic 3-bundle
+
+A toy example mirroring the real-codebase `polynomial_mvt_unitBracket_
+capstone_pure` shape (FluxMVTPolynomial, arity 3, phase "BB").  We
+bundle three trivial Locality witnesses on `(Nat, Nat)`, each the
+self-instance `f := f_at`. -/
+
+open E213.Math.PatternCatalog (LocalityAggregate)
+
+/-- Trivial Locality witness on Nat: `f i = i`, agrees by rfl. -/
+def trivLoc (k : Nat) : LocalityWitness Nat Nat :=
+  { f      := fun i => i + k
+    f_at   := fun i => i + k
+    agrees := fun _ => rfl }
+
+/-- Synthetic 3-bundle: arity 3, phase "demo".  Indices 0, 1, 2
+    select trivLoc 0 / trivLoc 1 / trivLoc 2; other indices reuse
+    trivLoc 0 (only the first `arity` matter, by convention). -/
+def demoLocalityAggregate : LocalityAggregate Nat Nat :=
+  { phase := "demo"
+    arity := 3
+    facts := fun n => match n with
+      | 0 => trivLoc 0
+      | 1 => trivLoc 1
+      | 2 => trivLoc 2
+      | _ => trivLoc 0 }
+
 /-! ## Analysis
 
 The dynamical game is **structurally distinct** from the four
