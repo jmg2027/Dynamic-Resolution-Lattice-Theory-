@@ -1,5 +1,6 @@
 import E213.Math.PatternCatalog
 import E213.Math.Real213.CutMulOne
+import E213.Firmware.Atomicity.Five
 
 /-!
 # PatternCatalog — instance check
@@ -61,6 +62,19 @@ def boolOscillator : DynamicalWitness Bool Bool :=
     step           := fun b => !b
     output         := fun b => b
     period_witness := (0, 2) }
+
+/-! ## ForcedValueWitness instance — d = 5 from atomicity
+
+The Raw axiom does NOT stipulate `d = 5`.  Instead, given atoms
+{2, 3}, the unique n with a single alive decomposition is 5.
+This is what `atomic_iff_five` proves. -/
+
+/-- d = 5 as a ForcedValueWitness instance.  Direct lift of
+    `E213.Firmware.Atomicity.Five.atomic_iff_five`. -/
+def fiveIsForced : ForcedValueWitness Nat :=
+  { value  := 5
+    cond   := E213.Firmware.Atomicity.Five.Atomic
+    forced := E213.Firmware.Atomicity.Five.atomic_iff_five }
 
 /-! ## Analysis
 

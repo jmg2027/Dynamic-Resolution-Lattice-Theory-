@@ -87,4 +87,26 @@ structure DynamicalWitness (S : Type) (Out : Type) where
       lives in cluster files like `pellFSMmod11_bits_period_10`. -/
   period_witness : Nat × Nat  -- (start, period)
 
+/-- **Forced-Uniqueness game** (6th game, discovered via
+    Atomicity cluster).  Captures the `*_iff_value` pattern:
+    "the unique X satisfying condition C is V".
+
+    Examples (all in `Firmware/Atomicity/`):
+      atomic_iff_five     : Atomic n ↔ n = 5
+      atomic_23_iff_five  : Atomic 2 3 n ↔ n = 5
+      arity_iff_two       : (cond) ↔ k = 2
+      pair_iff_two        : (cond) ↔ p = 2
+
+    This game is 213's **epistemic core**: numbers like
+    d=5, NS=3, NT=2, arity=2 are *theorems*, not axioms.
+    The Raw axiom doesn't stipulate "5"; uniqueness derivation
+    forces it. -/
+structure ForcedValueWitness (Param : Type) where
+  /-- The forced value. -/
+  value     : Param
+  /-- Predicate the value satisfies uniquely. -/
+  cond      : Param → Prop
+  /-- Forced uniqueness: `cond p ↔ p = value`. -/
+  forced    : ∀ p, cond p ↔ p = value
+
 end E213.Math.PatternCatalog
