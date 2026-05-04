@@ -33,15 +33,6 @@ open E213.Math.Real213.FluxFTC.FluxCut (fluxAlong_id_unitBracket)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.IsDifferentiable (idIsDifferentiable)
 
-/-- ★ Riemann sum of id.derivative over unitBracket = constCut (2^n · 1) 1
-    (function-eq via funext from cutEq form — DIRTY-by-design wrapper). -/
-theorem riemann_id_derivative_unit (n : Nat) :
-    riemannSampleSum idIsDifferentiable.derivative unitBracket n
-      = constCut (2^n * 1) 1 := by
-  show riemannSampleSum (constCutFn (constCut 1 1)) unitBracket n
-       = constCut (2^n * 1) 1
-  funext m k; exact riemannSampleSum_constCut_at 1 1 unitBracket n m k
-
 /-- ★ Riemann sum of id.derivative over unitBracket — pointwise (PURE). -/
 theorem riemann_id_derivative_unit_at (n : Nat) :
     ∀ m k, riemannSampleSum idIsDifferentiable.derivative unitBracket n m k
@@ -63,20 +54,5 @@ theorem ftc_riemann_id_depth_zero :
       = (fluxAlong id unitBracket).forward := by
   show constCut 1 1 = constCut 1 1
   rfl
-
-/-- Phase BY capstone: FTC-Riemann connection for id at depth 0. -/
-theorem ftc_riemann_capstone :
-    -- (1) Riemann sum closed form (∀ n)
-    (∀ n, riemannSampleSum idIsDifferentiable.derivative unitBracket n
-            = constCut (2^n * 1) 1)
-    -- (2) At depth 0: matches fluxAlong forward (FTC propEq)
-    ∧ riemannSampleSum idIsDifferentiable.derivative unitBracket 0
-        = (fluxAlong id unitBracket).forward
-    -- (3) fluxAlong id unitBracket = ofCut (constCut 1 1)
-    ∧ fluxAlong id unitBracket
-        = ofCut (constCut 1 1) :=
-  ⟨riemann_id_derivative_unit,
-   ftc_riemann_id_depth_zero,
-   fluxAlong_id_unitBracket⟩
 
 end E213.Math.Real213.FTCRiemann

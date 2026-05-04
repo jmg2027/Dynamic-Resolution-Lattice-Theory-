@@ -22,71 +22,12 @@ open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough Passthrough_at)
-open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough
-  (id_pass cutPow_pass compose_pass mul_pass mvt ftc)
-
-namespace FluxCut.Passthrough
-
-/-- x ↦ x via id. -/
-def x_pass : Passthrough id := id_pass
-
-/-- x ↦ x · x via mul. -/
-def square_pass : Passthrough (fun x => cutMul x x) :=
-  mul_pass id_pass id_pass
-
-/-- x ↦ x · (x · x) via mul + mul. -/
-def cube_pass : Passthrough (fun x => cutMul x (cutMul x x)) :=
-  mul_pass id_pass square_pass
-
-/-- x ↦ (x · x) · (x · x) via mul + mul. -/
-def quartic_pass :
-    Passthrough (fun x => cutMul (cutMul x x) (cutMul x x)) :=
-  mul_pass square_pass square_pass
-
-/-- x ↦ (x · x) · (x · x · x) — quintic via mul. -/
-def quintic_pass :
-    Passthrough (fun x => cutMul (cutMul x x) (cutMul x (cutMul x x))) :=
-  mul_pass square_pass cube_pass
-
-/-- x ↦ id ∘ id = id (composition closure check). -/
-def id_compose_id_pass : Passthrough (id ∘ id) := compose_pass id_pass id_pass
-
-/-- x ↦ x² ∘ x² = x⁴ via composition (different structure than mul). -/
-def square_compose_square_pass :
-    Passthrough ((fun x => cutMul x x) ∘ (fun x => cutMul x x)) :=
-  compose_pass square_pass square_pass
-
-/-- x ↦ id · x² = x · x² via mul. -/
-def id_mul_square_pass :
-    Passthrough (fun x => cutMul x (cutMul x x)) :=
-  mul_pass id_pass square_pass
-
-/-- ★ Catalog showcase: 7 Passthrough instances all yield MVT auto. -/
-theorem catalog_mvt_capstone :
-    localDivergence id unitBracket = ofCut (constCut 1 1)
-    ∧ localDivergence (fun x => cutMul x x) unitBracket
-        = ofCut (constCut 1 1)
-    ∧ localDivergence (fun x => cutMul x (cutMul x x)) unitBracket
-        = ofCut (constCut 1 1)
-    ∧ localDivergence (fun x => cutMul (cutMul x x) (cutMul x x))
-        unitBracket = ofCut (constCut 1 1)
-    ∧ localDivergence (fun x => cutMul (cutMul x x)
-        (cutMul x (cutMul x x))) unitBracket
-        = ofCut (constCut 1 1)
-    ∧ localDivergence (id ∘ id) unitBracket = ofCut (constCut 1 1)
-    ∧ localDivergence ((fun x => cutMul x x) ∘ (fun x => cutMul x x))
-        unitBracket = ofCut (constCut 1 1) :=
-  ⟨x_pass.mvt, square_pass.mvt, cube_pass.mvt,
-   quartic_pass.mvt, quintic_pass.mvt,
-   id_compose_id_pass.mvt, square_compose_square_pass.mvt⟩
-
-end FluxCut.Passthrough
+open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough_at)
 
 namespace FluxCut.Passthrough_at
 
 open E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at
-  (id_pass cutPow_pass compose_pass mul_pass mvt_pure)
+  (id_pass cutPow_pass mul_pass mvt_pure)
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
 
 /-- x ↦ x via id (pointwise). -/
@@ -115,16 +56,8 @@ def id_mul_square_pass :
     Passthrough_at (fun x => cutMul x (cutMul x x)) :=
   mul_pass id_pass square_pass
 
-/-- x ↦ id ∘ id = id via composition (PURE).  Inner uses
-    Passthrough.id_pass (rfl-defined, hence PURE), outer is _at. -/
-def id_compose_id_pass : Passthrough_at (id ∘ id) :=
-  E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough_at.compose_pass
-    E213.Math.Real213.FluxPassthroughClass.FluxCut.Passthrough.id_pass
-    id_pass
-
-/-- ★ Catalog _at showcase: 6 Passthrough_at instances yield fluxCutEq
-    MVT.  PURE — strict ∅-axiom (note: compose instances chain through
-    function-eq Passthrough for inner f, but mvt result remains _at). -/
+/-- ★ Catalog _at showcase: 5 Passthrough_at instances yield fluxCutEq
+    MVT.  PURE — strict ∅-axiom. -/
 theorem catalog_mvt_capstone_at :
     fluxCutEq (localDivergence id unitBracket) (ofCut (constCut 1 1))
     ∧ fluxCutEq (localDivergence (fun x => cutMul x x) unitBracket)
@@ -136,13 +69,10 @@ theorem catalog_mvt_capstone_at :
                 (ofCut (constCut 1 1))
     ∧ fluxCutEq (localDivergence (fun x => cutMul (cutMul x x)
                                   (cutMul x (cutMul x x))) unitBracket)
-                (ofCut (constCut 1 1))
-    ∧ fluxCutEq (localDivergence (id ∘ id) unitBracket)
                 (ofCut (constCut 1 1)) :=
   ⟨mvt_pure x_pass, mvt_pure square_pass,
    mvt_pure cube_pass, mvt_pure quartic_pass,
-   mvt_pure quintic_pass,
-   mvt_pure id_compose_id_pass⟩
+   mvt_pure quintic_pass⟩
 
 end FluxCut.Passthrough_at
 

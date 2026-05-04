@@ -28,32 +28,14 @@ open E213.Math.Real213.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
 open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
-open E213.Math.Real213.FluxMVTWitness
-  (squareDerivative_at_half squareDerivative_at_half_at)
-open E213.Math.Real213.CutMulOne (cutMul_one_one cutMul_one_one_at)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
+open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
 open E213.Math.Real213.FluxFTCPolynomial.FluxCut
-  (fluxAlong_square_unitBracket fluxAlong_square_unitBracket_pure
-   fluxAlong_square_unitBracket_forward_at)
+  (fluxAlong_square_unitBracket_pure fluxAlong_square_unitBracket_forward_at)
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq fluxCutEq_of_pointwise)
 
 /-- ★ unitBracket midpoint = constCut 1 2 (= 1/2). -/
 theorem unitBracket_midCut : unitBracket.midCut = constCut 1 2 := rfl
-
-/-- ★ Riemann sum of x²'s derivative at unitBracket depth 0 = 1. -/
-theorem riemann_square_derivative_unit_zero :
-    riemannSampleSum squareIsDifferentiable.derivative unitBracket 0
-      = constCut 1 1 := by
-  show squareIsDifferentiable.derivative unitBracket.midCut = constCut 1 1
-  rw [unitBracket_midCut]
-  exact squareDerivative_at_half
-
-/-- ★ FTC-Riemann for x²: depth-0 Riemann sum = boundary value forward. -/
-theorem ftc_riemann_square_depth_zero :
-    riemannSampleSum squareIsDifferentiable.derivative unitBracket 0
-      = (fluxAlong (fun x => cutMul x x) unitBracket).forward := by
-  rw [riemann_square_derivative_unit_zero]
-  show constCut 1 1 = cutMul (constCut 1 1) (constCut 1 1)
-  rw [cutMul_one_one]
 
 /-! ### PURE pointwise variants (∅-axiom) -/
 
@@ -69,22 +51,6 @@ theorem ftc_riemann_square_depth_zero_at (m k : Nat) :
       = (fluxAlong (fun x => cutMul x x) unitBracket).forward m k := by
   rw [riemann_square_derivative_unit_zero_at]
   exact (cutMul_one_one_at m k).symm
-
-/-- Phase CA capstone: FTC-Riemann for x² at unitBracket depth 0. -/
-theorem ftc_riemann_square_capstone :
-    -- (1) Midpoint sampling: derivative at 1/2 = 1
-    riemann_square_derivative_unit_zero ▸ rfl =
-        (riemann_square_derivative_unit_zero ▸ rfl :
-          riemannSampleSum squareIsDifferentiable.derivative unitBracket 0
-            = constCut 1 1)
-    -- (2) FTC bridge for x² depth 0
-    ∧ riemannSampleSum squareIsDifferentiable.derivative unitBracket 0
-        = (fluxAlong (fun x => cutMul x x) unitBracket).forward
-    -- (3) fluxAlong x² unitBracket = ofCut 1
-    ∧ fluxAlong (fun x => cutMul x x) unitBracket
-        = ofCut (constCut 1 1) :=
-  ⟨rfl, ftc_riemann_square_depth_zero,
-   fluxAlong_square_unitBracket⟩
 
 /-- ★ Phase CA capstone (PURE) — pointwise FTC-Riemann + fluxAlong. -/
 theorem ftc_riemann_square_capstone_pure :

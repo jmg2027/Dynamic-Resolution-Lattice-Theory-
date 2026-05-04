@@ -1,6 +1,7 @@
 import E213.Math.Max213
 import E213.Math.Real213.DifferentiableAffine
 import E213.Math.Real213.ConcreteDerivativeMega
+import E213.Kernel.Tactic.Omega213
 
 /-!
 # Research.Real213PolySumDerivativeModulus
@@ -52,7 +53,9 @@ theorem squarePlusIdIsDifferentiable_derivative_modulus (k : Nat) :
            (idIsDifferentiable.derivativeSmooth.linearityModulus k) = k
   rw [squareIsDifferentiable_derivative_modulus]
   show max k 0 = k
-  omega
+  cases k with
+  | zero => rfl
+  | succ n => rfl
 
 /-- d/dx [x³ + x²] modulus = 2k (quadratic derivative 3x² + 2x). -/
 theorem cubePlusSquareIsDifferentiable_derivative_modulus (k : Nat) :
@@ -61,7 +64,20 @@ theorem cubePlusSquareIsDifferentiable_derivative_modulus (k : Nat) :
            (squareIsDifferentiable.derivativeSmooth.linearityModulus k) = 2 * k
   rw [cubeIsDifferentiable_derivative_modulus,
       squareIsDifferentiable_derivative_modulus]
-  exact Nat.max_eq_left (by omega)
+  -- 2*k = k + k by Nat.two_mul.  max (k+k) k = k+k since k ≤ k+k.
+  rw [Nat.two_mul]
+  show max (k + k) k = k + k
+  cases k with
+  | zero => rfl
+  | succ n =>
+    -- (n+1) + (n+1) ≥ (n+1).  max picks the larger.
+    show (if (n+1) + (n+1) ≤ n+1 then n+1 else (n+1) + (n+1))
+         = (n+1) + (n+1)
+    have hge : ¬ ((n+1) + (n+1) ≤ n+1) := fun h => by
+      have : n + 1 + (n+1) ≥ n + 1 + 1 :=
+        Nat.add_le_add_left (Nat.succ_le_succ (Nat.zero_le n)) (n+1)
+      exact Nat.not_succ_le_self (n+1) (Nat.le_trans this h)
+    exact if_neg hge
 
 /-- Phase AT capstone: polynomial sum derivative moduli match
     expected degree (= max of constituent derivative degrees). -/

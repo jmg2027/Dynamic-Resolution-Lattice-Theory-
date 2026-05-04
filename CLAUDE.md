@@ -62,7 +62,7 @@ Every theorem in `lean/E213/` satisfies:
 
 This is **bare-metal type theory** — no `propext`, no `Quot.sound`, no `Classical.choice`.
 
-**Status (session 26)**: 0 real DIRTY achieved. 251 sealed-DIRTY-by-design items remain in 10 documented categories (Real213 cut-eq facade, Lens funext-by-design, SemanticAtom Iff, Lean-core boundary, etc.). Each sealed item has a `_pure` parallel achieving the same content via pointwise/Bool equality.
+**Status (session 27, 2077 PURE / 0 real DIRTY / 19 sealed)**: ~232 sealed function-eq capstones deleted across stages 1-5; the 19 remaining sealed items are mathematically inherent (Lens funext-by-design — not facade). See `STRICT_ZERO_AXIOM.md` for the current scan + categorization.
 
 **Audit tools**:
 - `tools/scan_axioms.py <module>` — per-module audit
@@ -144,7 +144,7 @@ When deletion is right: deprecated content with no active dependents → delete 
 | ENTRY | `README.md` | 30-second overview |
 | ENTRY | `HANDOFF.md` | current session state (volatile) |
 | ENTRY | `CLAUDE.md` | this file |
-| FORMAL | `lean/E213/` | the actual 213 (~985 .lean files, 0-axiom) |
+| FORMAL | `lean/E213/` | the actual 213 (~985 .lean files, 0-axiom).  Layers: `Kernel/` `Firmware/` `Hypervisor/` `Meta/` `OS/` `App/`.  `Math/`, `Physics/` are topical labels (vertical layer determined by import closure, see `lean/E213/ARCHITECTURE.md`). |
 | FORMAL | `rust-engine/` | Rust runtime (52+ binaries, ℕ-only) |
 | NARRATIVE | `guide/` | master deductive guide (16 chapters) |
 | NARRATIVE | `books/` | 213-internal narrative (math/, physics/) |

@@ -24,27 +24,7 @@ open E213.Math.Real213.FluxCut.FluxCut (ofCut)
 open E213.Math.Real213.DyadicBracket (DyadicBracket)
 open E213.Math.Real213.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Real213.DyadicTrajectory (unitBracket)
-open E213.Math.Real213.CutSumZero (cutMid_zero_zero)
-open E213.Math.Real213.CutMidSelf (cutMid_self_constCut)
-open E213.Math.Real213.FluxPassthroughClass.FluxCut (Passthrough)
-open E213.Math.Real213.ClassicCalc (ClassicCalc)
-open E213.Math.Real213.ClassicCalc.ClassicCalc (id_calc square_calc cube_calc mvt)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
-
-namespace FluxCut.Passthrough
-
-/-- Midpoint of two passthroughs is passthrough. -/
-def mid_pass {f g} (pf : Passthrough f) (pg : Passthrough g) :
-    Passthrough (fun x => cutMid (f x) (g x)) :=
-  { left := by
-      show cutMid (f (constCut 0 1)) (g (constCut 0 1)) = constCut 0 1
-      rw [pf.left, pg.left, cutMid_zero_zero]
-    right := by
-      show cutMid (f (constCut 1 1)) (g (constCut 1 1)) = constCut 1 1
-      rw [pf.right, pg.right]
-      exact cutMid_self_constCut 1 1 (by decide) }
-
-end FluxCut.Passthrough
 
 namespace FluxCut.Passthrough_at
 

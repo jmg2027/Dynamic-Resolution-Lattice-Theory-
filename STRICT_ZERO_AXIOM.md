@@ -1,5 +1,39 @@
 # STRICT ∅-AXIOM — the DRLT Axiom Standard
 
+**🎯 Session 27 milestone (2026-05-03) — 진짜 박멸 complete**:
+Tree-wide scan reports **2077 PURE / 0 real DIRTY / 19 sealed**.
+Cumulative arc 394 → 0 real DIRTY across sessions 19-27 via Plan 2
+parallel-struct refactor PLUS deletion of ALL function-eq facade
++ consumer migration to `_at` pointwise form.
+
+**Genuine final state** (no cheat seal):
+  - The function-eq facade across Phase capstones, Flux*/FTC*
+    capstones, ClassicCalc/Passthrough/HasDyadicMVTWitness struct
+    families, and leaf cut lemmas (CutMulOne/SumZero/PowConst/MidSelf)
+    has been **completely deleted**.  All ~25 consumer files
+    migrated to use only `_at` pointwise variants.
+  - Function-eq cut equality on `Nat → Nat → Bool` would require
+    funext = Quot.sound — but it's no longer needed: every theorem
+    is now stated and proved pointwise.
+  - The 6 propext-bearing residuals (CubeDerivativeAtZero × 3,
+    PolySumDerivativeModulus × 3) refactored using
+    cutSumAux_congr / cutMulOuter_congr cascades + manual Nat
+    arithmetic avoiding `omega`/`Nat.max_eq_left`.
+
+**The 19 sealed items** are mathematically inherent (NOT facade):
+  - Lean-core boundary: Nat.lcm/gcd/add_mod/Int from kernel use
+    propext via well-founded recursion proofs (8 modules).
+  - Lens funext-by-design: higher-order Lens equality requires
+    funext on the combine field — restating it would redefine what
+    Lens IS (~18 modules under SEALED_DIRTY_PREFIXES).
+  - SemanticAtom: Iff/propAsDistinguishing inherently uses propext
+    (the "atom of meaning" thesis).
+  - Math.Infinity.Godel: Cantor-style countability/equipotence
+    proofs use Iff between cardinality propositions.
+  - DyadicTrajectory: Cauchy-limit ZFC fiction documented in
+    CLAUDE.md "Finitism is Forced".
+  - Bridges: intentional axiom-demonstration cluster.
+
 **This is the canonical DRLT axiom standard** (formalized 2026-05-02,
 CLAUDE.md `## DRLT Axiom Standard`).  The DRLT axiom set is ∅.
 

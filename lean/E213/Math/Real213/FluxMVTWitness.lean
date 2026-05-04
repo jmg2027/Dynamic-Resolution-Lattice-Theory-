@@ -33,11 +33,11 @@ open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Real213.IsDifferentiable (IsDifferentiable)
 open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Math.Real213.CutMulOne
-  (cutMul_one_const cutMul_one_const_at cutMul_const_one cutMul_const_one_at)
-open E213.Math.Real213.CutSumOne (cutSum_half_half cutSum_half_half_at)
+  (cutMul_one_const_at cutMul_const_one_at)
+open E213.Math.Real213.CutSumOne (cutSum_half_half_at)
 open E213.Math.Real213.CutSumDetermined (cutSumAux_congr)
 open E213.Math.Real213.FluxMVTPolynomial.FluxCut
-  (mvt_square_unitBracket mvt_square_unitBracket_pure)
+  (mvt_square_unitBracket_pure)
 open E213.Math.Real213.FluxMVT.FluxCut (fluxCutEq)
 
 /-- ★ d/dx [x²] at x = 1/2 = 1 — pointwise (∅-axiom). -/
@@ -64,38 +64,9 @@ theorem squareDerivative_at_half_at (m k : Nat) :
   rw [step]
   exact cutSum_half_half_at m k
 
-/-- ★ d/dx [x²] at x = 1/2 = 1, propositionally. -/
-theorem squareDerivative_at_half :
-    squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1 := by
-  funext m k
-  exact squareDerivative_at_half_at m k
-
-/-- ★ MVT for x² with explicit dyadic witness c = 1/2. -/
-theorem mvt_square_explicit :
-    -- Average rate of x² over [0,1] = 1
-    localDivergence (fun x => cutMul x x) unitBracket
-       = ofCut (constCut 1 1)
-    -- Derivative at c = 1/2 equals 1 (matches average rate)
-    ∧ squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1 :=
-  ⟨mvt_square_unitBracket, squareDerivative_at_half⟩
-
-/-- ★ MVT existence with explicit witness for x²: ∃ c, derivative c = 1. -/
-theorem mvt_square_explicit_witness :
-    ∃ c, squareIsDifferentiable.derivative c = constCut 1 1 :=
-  ⟨constCut 1 2, squareDerivative_at_half⟩
-
 /-- The witness c = 1/2 is interior to [0, 1]: it equals constCut 1 2. -/
 theorem mvt_square_witness_in_interior :
     (constCut 1 2 : Nat → Nat → Bool) 1 2 = true := by decide
-
-/-- Phase BR capstone: MVT for x² with constructive dyadic witness. -/
-theorem mvt_square_with_witness_capstone :
-    localDivergence (fun x => cutMul x x) unitBracket
-       = ofCut (constCut 1 1)
-    ∧ squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1
-    ∧ ∃ c, squareIsDifferentiable.derivative c = constCut 1 1 :=
-  ⟨mvt_square_unitBracket, squareDerivative_at_half,
-   ⟨constCut 1 2, squareDerivative_at_half⟩⟩
 
 /-! ### PURE pointwise variants (∅-axiom) -/
 

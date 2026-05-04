@@ -41,6 +41,21 @@ DEFAULT_SKIP = {
     # helper access (multi-namespace files), which the auto-aligner
     # mis-handles.  Keep the umbrella stable.
     "lean/E213/Math/Infinity",
+    # Math/Polynomial213/ — namespace `E213.Polynomial213` is the
+    # canonical reflection AST (top-level, like E213.Tactic).  Path
+    # is under Math/ for layer-classification, namespace is short.
+    "lean/E213/Math/Polynomial213.lean",
+    "lean/E213/Math/Polynomial213",
+    # Math/AxiomSystems/*AsLens.lean — file names use the "X AS LENS"
+    # description; namespaces use the bare X (e.g.,
+    # ZFCExtensionalityAsLens.lean → namespace E213.Math.AxiomSystems
+    # .ZFCExtensionality).  Intentional: file = exposition, namespace
+    # = subject matter.
+    "lean/E213/Math/AxiomSystems",
+    # ArithFSM/V2to3.lean — namespace ArithFSMto3 reflects the
+    # cross-FSM bridge concept (V2 → V3); the file path encodes
+    # the V2to3 sub-cluster.
+    "lean/E213/Math/Cohomology/Dyadic/ArithFSM/V2to3.lean",
 }
 
 

@@ -31,11 +31,8 @@ theorem cutSum_zero_zero_at (m k : Nat) :
   · exact constCut_zero_always 0 (2*k)
   · exact constCut_zero_always (2*m - 0) (2*k)
 
-/-- **cutSum 0 0 = 0** at cut level (function eq).  DIRTY-by-design;
-    PURE alternative: `cutSum_zero_zero_at`. -/
-theorem cutSum_zero_zero : cutSum (constCut 0 1) (constCut 0 1) = constCut 0 1 := by
-  funext m k
-  exact cutSum_zero_zero_at m k
+-- DELETED 2026-05-XX session 27 ('박멸'): function-eq cutSum_zero_zero
+-- removed.  Use cutSum_zero_zero_at (pointwise PURE) instead.
 
 /-- **cutMul 0 0 = 0** pointwise (∅-axiom).  Avoids `funext`. -/
 theorem cutMul_zero_zero_at (m k : Nat) :
@@ -49,10 +46,7 @@ theorem cutMul_zero_zero_at (m k : Nat) :
   · exact constCut_zero_always 0 k
   · rw [Nat.zero_mul]; exact Nat.zero_le _
 
-/-- **cutMul 0 0 = 0**: 0 * 0 = 0 (function eq).  DIRTY-by-design. -/
-theorem cutMul_zero_zero : cutMul (constCut 0 1) (constCut 0 1) = constCut 0 1 := by
-  funext m k
-  exact cutMul_zero_zero_at m k
+-- DELETED: function-eq cutMul_zero_zero. Use cutMul_zero_zero_at.
 
 /-- **cutHalf zero = zero** pointwise (∅-axiom). -/
 theorem cutHalf_zero_at (m k : Nat) :
@@ -60,10 +54,7 @@ theorem cutHalf_zero_at (m k : Nat) :
   show constCut 0 1 (2*m) k = constCut 0 1 m k
   rw [constCut_zero_always, constCut_zero_always]
 
-/-- **cutHalf zero = zero**: 0/2 = 0 (function eq).  DIRTY-by-design. -/
-theorem cutHalf_zero : cutHalf (constCut 0 1) = constCut 0 1 := by
-  funext m k
-  exact cutHalf_zero_at m k
+-- DELETED: function-eq cutHalf_zero. Use cutHalf_zero_at.
 
 /-- **cutMid zero zero = zero** pointwise (∅-axiom). -/
 theorem cutMid_zero_zero_at (m k : Nat) :
@@ -73,12 +64,7 @@ theorem cutMid_zero_zero_at (m k : Nat) :
   rw [cutSum_zero_zero_at]
   rw [constCut_zero_always, constCut_zero_always]
 
-/-- **cutMid zero zero = zero**: midpoint of 0 and 0 is 0 (function eq).
-    DIRTY-by-design. -/
-theorem cutMid_zero_zero :
-    cutMid (constCut 0 1) (constCut 0 1) = constCut 0 1 := by
-  funext m k
-  exact cutMid_zero_zero_at m k
+-- DELETED: function-eq cutMid_zero_zero. Use cutMid_zero_zero_at.
 
 /-- 1/2 + 1/2 = 1 at (1, 1) — concrete decide. -/
 example : cutSum (constCut 1 2) (constCut 1 2) 1 1 = constCut 1 1 1 1 := by decide

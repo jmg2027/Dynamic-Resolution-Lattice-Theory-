@@ -27,17 +27,15 @@ open E213.Math.Real213.DifferentiableInstances
   (squareIsDifferentiable)
 open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
 open E213.Math.Real213.HasDyadicMVTWitness
-  (HasDyadicMVTWitness HasDyadicMVTWitness_at
-   square_has_dyadic_witness square_has_dyadic_witness_at)
-open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness (mvt_exists)
+  (HasDyadicMVTWitness_at square_has_dyadic_witness_at)
 open E213.Math.Real213.HasDyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
 open E213.Math.Real213.FluxMVTWitness
-  (squareDerivative_at_half squareDerivative_at_half_at)
+  (squareDerivative_at_half_at)
 open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Math.Real213.CutMulOne
-  (cutMul_one_const cutMul_one_const_at cutMul_const_one cutMul_const_one_at)
-open E213.Math.Real213.CutSumOne (cutSum_half_half cutSum_half_half_at)
-open E213.Math.Real213.CutMidSelf (cutMid_self_constCut cutMid_self_constCut_at)
+  (cutMul_one_const_at cutMul_const_one_at)
+open E213.Math.Real213.CutSumOne (cutSum_half_half_at)
+open E213.Math.Real213.CutMidSelf (cutMid_self_constCut_at)
 open E213.Math.Real213.CutSumDetermined (cutSumAux_congr)
 
 /-- ★ d/dx [(x + x²)/2] at x = 1/2 = 1 — pointwise (∅-axiom). -/
@@ -97,39 +95,6 @@ theorem mid_id_square_derivative_at_half_at (m k : Nat) :
   -- = cutMid (constCut 1 1) (constCut 1 1) m k
   show cutMid (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k
   exact cutMid_self_constCut_at 1 1 m k (Nat.le_refl _)
-
-/-- ★ d/dx [(x + x²)/2] at x = 1/2 = 1, propositionally. -/
-theorem mid_id_square_derivative_at_half :
-    (midIsDifferentiable idIsDifferentiable squareIsDifferentiable).derivative
-        (constCut 1 2) = constCut 1 1 := by
-  funext m k
-  exact mid_id_square_derivative_at_half_at m k
-
-/-- HasDyadicMVTWitness instance for mid(x, x²). -/
-def HasDyadicMVTWitness.mid_id_square :
-    HasDyadicMVTWitness (midIsDifferentiable idIsDifferentiable
-                          squareIsDifferentiable) :=
-  { witness := constCut 1 2
-    proof := mid_id_square_derivative_at_half }
-
-/-- mid(x, x²) has constructive MVT existence. -/
-theorem mid_id_square_has_dyadic_witness :
-    ∃ c, (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-            ).derivative c = constCut 1 1 :=
-  HasDyadicMVTWitness.mvt_exists HasDyadicMVTWitness.mid_id_square
-
-/-- Phase BU capstone: 2 functions with constructive dyadic MVT witnesses. -/
-theorem mvt_witness_extended_capstone :
-    squareIsDifferentiable.derivative (constCut 1 2) = constCut 1 1
-    ∧ (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-        ).derivative (constCut 1 2) = constCut 1 1
-    ∧ (∃ c, squareIsDifferentiable.derivative c = constCut 1 1)
-    ∧ (∃ c, (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-              ).derivative c = constCut 1 1) :=
-  ⟨squareDerivative_at_half,
-   mid_id_square_derivative_at_half,
-   square_has_dyadic_witness,
-   mid_id_square_has_dyadic_witness⟩
 
 /-- HasDyadicMVTWitness_at instance for mid(x, x²) — PURE pointwise. -/
 def HasDyadicMVTWitness_at.mid_id_square_at :

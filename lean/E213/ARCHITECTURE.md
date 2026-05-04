@@ -244,11 +244,22 @@ from Atomicity (V_A = {0,1,2}, V_B = {3,4} from canonical_partition).
 **Currently**: 1 file.  Capstones currently live in Physics/Capstones/
 but conceptually some belong here.  Open question (see §3).
 
-### OS/ (★ proposed, not yet realised — G12 §5)
+### OS/ (★ REALISED via option γ — G12 §5)
 
-**Status**: PROPOSED.  Currently empty (or in-place via OS-tag in
-docstrings, depending on adopted option).  See `research-notes/
-G12_layered_api_classification.md` §5 for full discussion.
+**Status**: REALISED 2026-05-XX (Tier 4 A1 complete).  Hybrid option (γ):
+`OS/` absorbs Bridges + Capstones; definitions stay in Math/Physics.
+Current inhabitants:
+  - `OS/HodgeConjecture/Bridges/` (7 cross-discipline interfaces:
+    Tate, MumfordTate, BlochBeilinson, BeilinsonRegulator,
+    BeilinsonLichtenbaum, ChernCharacter, HodgeTate)
+  - `OS/Physics/Capstones/` (13 multi-observable orchestration:
+    AbsoluteAtomicCapstone, Capstone, FinalCapstone, MasterCatalog,
+    MegaCapstone, PhysicsTrackComplete, PureAtomicObservables,
+    ValidationStandardOne, etc.)
+  - `OS/INDEX.md` (migration record + concept).
+
+See `lean/E213/OS/INDEX.md` for the full migration record.
+Original concept doc: `research-notes/G12_layered_api_classification.md` §5.
 
 **Role**: orchestration layer between Hypervisor and App.  Where
 Hypervisor provides a single Lens *abstraction*, OS *composes
@@ -556,13 +567,20 @@ sub-cluster; wide span → split candidate*.
     documentation sync).
   - 2026-05-XX: Deep file-by-file reorg (Research/ 127→13 flat,
     Physics/ 121→4 flat, namespace↔path alignment).
-  - 2026-05-XX: OS/ dissolved (atomicity proofs → Firmware/Atomicity/,
+  - 2026-05-XX: OS/ first dissolved (atomicity proofs → Firmware/Atomicity/,
     Pigeonhole → Math/).  Established this document as canonical.
   - 2026-05-XX: `tools/layer_audit.py` added.  Surfaced 1 violation
     (`Hypervisor/Lens/Characterisation/CUniquenessBridge.lean`
     imported Meta.SelfRecognising) — moved to `Meta/CUniquenessBridge.lean`.
     Tree now has **0 layer violations**; remaining 12 over-placements
     are intentional semantic placements (see §6.1).
+  - 2026-05-XX (Tier 4 A1): OS/ **re-instated** as orchestration layer
+    via option (γ).  HodgeConjecture/Bridges/ (7 files) and
+    Physics/Capstones/ (13 files) migrated into OS/.  See
+    `lean/E213/OS/INDEX.md`.
+  - 2026-05-XX (sessions 19-26): Strict ∅-axiom standard achieved.
+    Cumulative DIRTY reduction 394 → 0 real DIRTY via Plan 2 parallel
+    _pure infrastructure + funext/propext-by-design sealing.
   - (Pending): Meta/ concrete-Lens-instances → Hypervisor/Lens/Instances/.
 
 ## 8. How to evolve this document

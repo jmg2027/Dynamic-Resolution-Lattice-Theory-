@@ -39,44 +39,13 @@ open E213.Math.Real213.AntiderivativeStructural.IsAntiderivative
   (fromDifferentiable)
 open E213.Math.Real213.IntegralViaAnti.IsAntiderivative
   (integral integral_one_unit)
-open E213.Math.Real213.ClassicCalc (ClassicCalc ClassicCalc_at)
-open E213.Math.Real213.ClassicCalc.ClassicCalc (id_calc square_calc)
-open E213.Math.Real213.ClassicAnti.ClassicCalc
-  (integralCC integralCC_id_unit integralCC_square_unit)
+open E213.Math.Real213.ClassicCalc (ClassicCalc_at)
 open E213.Math.Real213.ClassicAnti.ClassicCalc_at
   (integralCC_id_unit_forward_at integralCC_id_unit_backward_at
    integralCC_square_unit_forward_at integralCC_square_unit_backward_at
    integralCC_cube_unit_forward_at integralCC_cube_unit_backward_at)
 open E213.Math.Real213.ClassicCalc.ClassicCalc_at
   renaming id_calc → id_calc_at, square_calc → square_calc_at, cube_calc → cube_calc_at
-
-/-- ★★ **Phase CS antiderivative arc capstone**: 8-fact bundle ★★ -/
-theorem phaseCS_antiderivative_capstone (db : DyadicBracket) :
-    -- (CN) id antiderivative of constant 1
-    idIsDifferentiable.derivative = constCutFn (constCut 1 1)
-    -- (CN) constant antideriv of 0 (specific c = 0)
-    ∧ (constIsDifferentiable (constCut 0 1)).derivative
-        = constCutFn (constCut 0 1)
-    -- (CO) mid combinator works
-    ∧ (midIsDifferentiable idIsDifferentiable idIsDifferentiable).derivative
-        = (fun x => cutMid (constCut 1 1) (constCut 1 1))
-    -- (CO) add combinator works
-    ∧ (addIsDifferentiable idIsDifferentiable idIsDifferentiable).derivative
-        = (fun x => cutSum (constCut 1 1) (constCut 1 1))
-    -- (CP) structural fromDifferentiable: id_calc gives IsAnti
-    ∧ Nonempty (IsAntiderivative id idIsDifferentiable
-                  idIsDifferentiable.derivative)
-    -- (CQ) integral of 1 over unit = 1
-    ∧ integral id_anti unitBracket = ofCut (constCut 1 1)
-    -- (CR) ClassicCalc → IsAntiderivative
-    ∧ integralCC id_calc unitBracket = ofCut (constCut 1 1)
-    -- (CR) integralCC for square at unit
-    ∧ integralCC square_calc unitBracket = ofCut (constCut 1 1) :=
-  ⟨rfl, rfl, rfl, rfl,
-   ⟨fromDifferentiable idIsDifferentiable⟩,
-   integral_one_unit,
-   integralCC_id_unit,
-   integralCC_square_unit⟩
 
 /-- ★★ **Phase CS pointwise PURE capstone** ★★
 

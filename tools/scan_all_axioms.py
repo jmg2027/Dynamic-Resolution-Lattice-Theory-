@@ -175,87 +175,16 @@ SEALED_DIRTY_PREFIXES = (
     'E213.Hypervisor.Lens.Properties.EquivProperties',
     # RefinesParity propext from Nat.add_mod (Lean core)
     'E213.Hypervisor.Lens.Leaves.RefinesParity',
-    # Real213 cut-function-eq facade (DIRTY-by-design):
-    # Each module has full ∅-axiom _pure parallel infrastructure
-    # (fluxCutEq / _at variants).  The function-eq facade is preserved
-    # for ergonomic `rw` consumption, but cut-function equality
-    # (Nat → Nat → Bool function eq) intrinsically requires funext
-    # = Quot.sound by mathematical necessity.  Sealed under same
-    # rationale as Lens funext-by-design.
-    'E213.Math.Real213.FluxFTC',
-    'E213.Math.Real213.FluxFTCPolynomial',
-    'E213.Math.Real213.FluxMVTApplications',
-    'E213.Math.Real213.FluxMVTConcrete',
-    'E213.Math.Real213.FluxMVTGeneric',
-    'E213.Math.Real213.FluxMVTHigh',
-    'E213.Math.Real213.FluxMVTPassthrough',
-    'E213.Math.Real213.FluxMVTPolynomial',
-    'E213.Math.Real213.FluxMVTPropagate',
-    'E213.Math.Real213.FluxMVTPropagateCompose',
-    'E213.Math.Real213.FluxMVTWitness',
-    'E213.Math.Real213.FluxMVTNested',
-    'E213.Math.Real213.FluxMVTNested2',
-    'E213.Math.Real213.FluxMVTMore',
-    'E213.Math.Real213.FluxMVTClosure',
-    'E213.Math.Real213.FluxPassthroughCatalog',
-    'E213.Math.Real213.FluxPassthroughClass',
-    'E213.Math.Real213.FTCRiemann',
-    'E213.Math.Real213.FTCRiemannMid',
-    'E213.Math.Real213.FTCRiemannSquare',
-    'E213.Math.Real213.FTCRiemannChain',
-    'E213.Math.Real213.FTCRiemannGeneric',
-    'E213.Math.Real213.HasDyadicMVTWitness',
-    'E213.Math.Real213.MVTWitnessCatalog',
-    'E213.Math.Real213.MVTWitnessChain',
-    'E213.Math.Real213.NewtonFirst',
-    'E213.Math.Real213.ODECatalog',
-    'E213.Math.Real213.ODELinear',
-    'E213.Math.Real213.ClassicCalc',
-    'E213.Math.Real213.ClassicCalcCombinators',
-    'E213.Math.Real213.ClassicCalcExtreme',
-    'E213.Math.Real213.ClassicCalcGeneric',
-    'E213.Math.Real213.ClassicCalcHigher',
-    'E213.Math.Real213.ClassicCalcMid',
-    'E213.Math.Real213.ClassicAnti',
-    # Cut foundational lemmas (function-eq form requires funext on
-    # cut Nat → Nat → Bool; _at pointwise variants are PURE).
-    'E213.Math.Real213.CutMulOne',
-    'E213.Math.Real213.CutSumZero',
-    'E213.Math.Real213.CutPowConst',
-    'E213.Math.Real213.CutMidSelf',
-    # Phase capstones aggregate function-eq facade results.  Each
-    # has _pure parallel via fluxCutEq.
-    'E213.Math.Real213.PhaseBACapstone',
-    'E213.Math.Real213.PhaseBHCapstone',
-    'E213.Math.Real213.PhaseBQOmegaCapstone',
-    'E213.Math.Real213.PhaseBXCapstone',
-    'E213.Math.Real213.PhaseBZMegaOmega',
-    'E213.Math.Real213.PhaseCMFinalCapstone',
-    'E213.Math.Real213.PhaseCSCapstone',
-    # PairForcing: Prop-level atomicity-forcing arguments use Iff
-    # (inherently propext).  Same rationale as SemanticAtom.
-    'E213.Firmware.Atomicity.PairForcing',
-    # Lens.Lattice.Join: lens-of-lens universal property proofs need
-    # funext + Iff (Lens funext-by-design family).
-    'E213.Hypervisor.Lens.Lattice.Join',
     # E213.Math.Infinity.Godel: Cantor-style countability /
     # equipotence proofs use propext intrinsically (Iff between
     # cardinality propositions; raw_at_most_countable +
-    # raw_equipotent_nat).
+    # raw_equipotent_nat).  Genuinely structural, not facade.
     'E213.Math.Infinity.Godel',
-    # CubeDerivativeAtZero: polynomial derivative at x=0 via
-    # cutMul/cutSum chain — propext propagates from cut-equation
-    # rewrite chains.  Has _pure analogues via cutSumAux_congr +
-    # cutMulOuter_congr inlining (deferred — out of scope this round).
-    'E213.Math.Real213.CubeDerivativeAtZero',
     # DyadicTrajectory: limit-cut distinctness proofs (documented in
-    # CLAUDE.md as Cauchy-limit algebra; propext from Iff chains
-    # comparing structural cuts).  Sealed by-design.
+    # CLAUDE.md "Finitism is Forced, Not Chosen" as Cauchy-limit
+    # algebra ZFC fiction; propext from Iff chains comparing
+    # structural cuts).  Genuinely structural by-design.
     'E213.Math.Real213.DyadicTrajectory',
-    # PolySumDerivativeModulus: ε-bound polynomial modulus proofs,
-    # propext from inequality / Iff chains.  Function-eq facade
-    # similar to other modulus proofs.
-    'E213.Math.Real213.PolySumDerivativeModulus',
 )
 
 
