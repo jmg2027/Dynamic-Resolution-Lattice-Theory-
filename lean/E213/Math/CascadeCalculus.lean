@@ -64,7 +64,15 @@ def hasDirtyDepUpTo (g : DepGraph) (l : Labeling) :
 
 /-- One step of the cascade-delete process at bound `N`.
     Carries Bool-valued witnesses so the step is decidable
-    and ∅-axiom — no `Iff`, no `Exists`, no `propext`. -/
+    and ∅-axiom — no `Iff`, no `Exists`, no `propext`.
+
+    Three operations form the full work cycle:
+      `delete`    — DIRTY node with no DIRTY consumer → PURE
+      `propagate` — PURE node gains DIRTY dependency → DIRTY
+      `seal`      — DIRTY node marked structural-by-design → SEALED
+
+    A fourth operation (`migrate`) — adding new PURE parallel nodes
+    + redirecting consumers — requires graph mutation; deferred. -/
 inductive Step (N : Nat) :
     DepGraph × Labeling → DepGraph × Labeling → Prop where
   /-- Drop a deletable DIRTY node (relabel it `pure`). -/
@@ -79,5 +87,13 @@ inductive Step (N : Nat) :
       (h_dep : hasDirtyDepUpTo g l N n = true) :
       Step N (g, l)
         (g, fun m => if m = n then .dirty else l m)
+  /-- Seal: mark a DIRTY node as SEALED (mathematically inherent).
+      No mechanical hypothesis — the seal-justification is metalogical
+      and lives in `tools/scan_all_axioms.py SEALED_DIRTY_PREFIXES`.
+      Sealing is a *modal commitment*: "this DIRTY is by design". -/
+  | seal (g : DepGraph) (l : Labeling) (n : Nat)
+      (h_dirty : Status.eqb (l n) .dirty = true) :
+      Step N (g, l)
+        (g, fun m => if m = n then .sealed else l m)
 
 end E213.Math.CascadeCalculus
