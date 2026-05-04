@@ -40,16 +40,19 @@ abbrev DepGraph := Nat → Nat → Bool
 /-- Label assignment over nodes. -/
 abbrev Labeling := Nat → Status
 
-/-- "No consumer ≤ N depends on n" — direct Nat recursion. -/
-def hasNoConsumerUpTo (g : DepGraph) : Nat → Nat → Bool
-  | 0,     n => !(g 0 n)
-  | N + 1, n => !(g (N + 1) n) && hasNoConsumerUpTo g N n
+/-- "No DIRTY consumer ≤ N depends on n" — direct Nat recursion.
+    PURE consumers are inert (they don't propagate DIRTY). -/
+def hasNoDirtyConsumerUpTo (g : DepGraph) (l : Labeling) :
+    Nat → Nat → Bool
+  | 0,     n => !(g 0 n && Status.eqb (l 0) .dirty)
+  | N + 1, n => !(g (N+1) n && Status.eqb (l (N+1)) .dirty)
+                && hasNoDirtyConsumerUpTo g l N n
 
-/-- A DIRTY node `n` is deletable at bound N iff no consumer
+/-- A DIRTY node `n` is deletable at bound N iff no DIRTY consumer
     in [0, N] depends on it. -/
 def isDeletable (g : DepGraph) (l : Labeling) (N n : Nat) : Bool :=
   match l n with
-  | .dirty => hasNoConsumerUpTo g N n
+  | .dirty => hasNoDirtyConsumerUpTo g l N n
   | _      => false
 
 /-- "Some dependency of n is DIRTY", Bool-recursive over [0, N]. -/
