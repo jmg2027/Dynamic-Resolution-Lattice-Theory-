@@ -44,7 +44,7 @@ Math/        484 files (topical): Cohomology/, Linalg213/, Real213/,
              (HurwitzRing, IntSquare, QuadExtension), Pigeonhole, …
 Physics/     275 files (topical): AlphaEM, Couplings, Hadron, Higgs,
              Mass, Mixing, Nuclear, Cosmology, Atomic, Simplex,
-             Basel, FamousCoincidences, YangMills, Capstones,
+             Basel, YangMills, Capstones,
              Library, Substrate, AtomicCorrespondences, Foundations
 ```
 

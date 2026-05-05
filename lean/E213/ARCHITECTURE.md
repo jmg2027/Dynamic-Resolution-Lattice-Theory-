@@ -336,9 +336,11 @@ Standard-Model values when applicable.
 
   `AlphaEM/`, `Couplings/`, `Foundations/`, `Hadron/`, `Mass/`,
   `Higgs/`, `Nuclear/`, `Mixing/`, `Cosmology/`, `Atomic/`,
-  `Simplex/`, `Basel/`, `FamousCoincidences/`, `YangMills/`,
+  `Simplex/`, `Basel/`, `YangMills/`,
   `Capstones/`, `Library/` (atomic catalog), `Substrate/`
-  (Phase-2 substrate-genesis), `AtomicCorrespondences/`
+  (Phase-2 substrate-genesis), `AtomicCorrespondences/` (multi-
+  reading magic-integer SuperCatalog, absorbs former
+  `FamousCoincidences/`)
   (formerly Phase-3 Translation — domain-by-domain SM→DRLT
   correspondence).
 
@@ -471,10 +473,12 @@ Imports flow top→bottom.  Theorems compose bottom→top.
   4. **V-prefix on digit-start** — `V137.lean` (Lean module names
      cannot start with digit, so `V137` substitutes for "1/137").
      Avoid V-prefix when not digit-driven; for sequential naming
-     prefer descriptive topic names (e.g. previous
-     `FamousCoincidences/V1-V4` was renamed to topic-named files
-     `Atomic`, `MultiReading`, `GaugeGroup`, `ExceptionalLie` per
-     2026-05-05 audit pass).
+     prefer descriptive topic names.  (Earlier
+     `FamousCoincidences/V1-V4` was first renamed to descriptive
+     `Atomic`/`MultiReading`/`GaugeGroup`/`ExceptionalLie`, then
+     the entire cluster was absorbed into
+     `AtomicCorrespondences/AtomicSuperCatalog` per 2026-05-05
+     audit — most content was already-stated elsewhere.)
 
   5. **One topic per file** — when a file accumulates two
      unrelated topics, split.  When 3+ thematically-related files

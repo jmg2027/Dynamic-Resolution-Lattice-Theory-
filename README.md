@@ -104,7 +104,7 @@ lean/E213/       Lean 4 formal library (~840 files)
   │              Linalg213, Cauchy/Real213 plumbing, Pigeonhole
   ├── Physics/   267 files in 18 topical sub-clusters (AlphaEM,
   │              Couplings, Hadron, Higgs, Mass, Mixing, Nuclear,
-  │              Cosmology, Atomic, Simplex, Basel, FamousCoincidences,
+  │              Cosmology, Atomic, Simplex, Basel,
   │              YangMills, Capstones, Library, Substrate,
   │              AtomicCorrespondences, Foundations)
   ├── Research/  research / exploratory (332 files; Real213/ alone is

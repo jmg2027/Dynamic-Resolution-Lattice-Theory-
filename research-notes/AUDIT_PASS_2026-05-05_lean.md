@@ -80,7 +80,7 @@ structure, not session sediment.
 ### Physics/ (262 files in 16 sub-trees)
 
 Sub-trees: AlphaEM, Atomic, AtomicCorrespondences, Basel, Cosmology,
-Couplings, FamousCoincidences, Foundations, Hadron, Higgs, Library,
+Couplings, Foundations, Hadron, Higgs, Library,
 Mass, Mixing, Nuclear, Simplex, Substrate, YangMills.  Each
 thematic.  `INDEX.md` at top maintains navigation.  No
 consolidation needed.
