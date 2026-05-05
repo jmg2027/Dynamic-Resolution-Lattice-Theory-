@@ -1,5 +1,83 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 27: AUDIT_PASS 2026-05-05 (closing the audit prompt arc)
+
+User directive (verbatim):
+> "directory-by-directory survey, write `research-notes/AUDIT_PASS_<datetag>_<cluster>.md` per cluster ... per-stage atomic commit (revertable)"
+
+Branch: `claude/fix-propext-constraints-Rdn1r`.
+
+### What was executed
+
+  1. **Wording sweep** (12 files) — replaced deprecated framings
+     ("Finitism is forced", "completed infinity rejected", "ZFC
+     fiction") with pointers to `seed/RESOLUTION_LIMIT_SPEC.md` §1
+     (Cauchy type-distinction) + §3 (resolution-limit invariant
+     framing).  Touches: HANDOFF.md, LESSONS_LEARNED.md,
+     STRICT_ZERO_AXIOM.md, papers/README.md, seed/INDEX.md, three
+     research-notes INDEX/G6/G12, two Lean docstrings (PatternCatalog,
+     FinitismIsConsequence), one OS Capstones INDEX.
+     Theorem names preserved (`completed_infinity_fails`,
+     `finitism_is_consequence` retained).
+
+  2. **Directory survey** — three audit notes in `research-notes/`:
+     - `AUDIT_PASS_2026-05-05_research-notes.md` — 18-row table of
+       active vs closed notes; G30 added to top-level INDEX.
+     - `AUDIT_PASS_2026-05-05_lean.md` — 994-file Lean tree by layer
+       (Kernel 23 / Firmware 27 / Hypervisor 88 / Meta 27 / OS 20 /
+       Math 543 / Physics 262 / App 1); five open issues catalogued.
+     - `AUDIT_PASS_2026-05-05_narrative.md` — seed/guide/books;
+       wording-sweep grep returned no hits in guide/ or books/.
+
+### Items deferred (require user review)
+
+  1. **R-prefix typeclass rename** — REJECT recommendation logged.
+     `R12Codomain`/`R3Codomain`/`R4Codomain` are load-bearing
+     nomenclature: cross-referenced from `seed/AXIOM.md` §5 +
+     `seed/PAPER1.md` "R-axiom set".  Stripping the prefix would
+     break the axiom-label↔Lean-typeclass cite chain.  Suggested
+     alternative: add a docstring line in
+     `Meta/SelfRecognising.lean` linking R12/R3/R4 to AXIOM.md §5.
+
+  2. **`FinitismIsConsequence.lean` filename + theorem rename** —
+     deferred.  Docstrings reframed; filename + theorem names
+     retained for stable references.  Future stage (with explicit
+     user approval) could rename to `ResolutionLimitConsequences.lean`
+     / `cauchy_trajectory_distinct_from_exact`.
+
+  3. **Hodge-cluster note grouping** (G6-G11 → research-notes/hodge/) —
+     deferred.  Would require a cite-chain audit since several G
+     notes are referenced from Lean module doc-comments.
+
+### Build / axiom invariants (verified per stage)
+
+  - `lake build` ⇒ "Build completed successfully." (every commit)
+  - 479 PURE / 2 DIRTY (NativeGuard meta-tool internals) / 18
+    sealed-DIRTY-by-design — UNCHANGED from baseline across all
+    audit-pass commits.
+  - PureGuardTest + NativeGuardTest: no `✗` or `error` lines.
+
+### Commits this audit pass
+
+  - `91ca294` — audit/wording-sweep: 12 files, 124 insertions, 82 deletions
+  - `9e9379c` — audit/survey: 3 audit notes + INDEX.md G30 row
+
+### Next-session prep
+
+The architecture-phase work proposed in the original audit prompt
+(file consolidation, cluster INDEX.md additions, archive moves,
+R-prefix rename) is **awaiting user decision**:
+
+  - Reject R-prefix rename (recommendation), OR proceed with rename
+    + update `seed/AXIOM.md` §5 + `seed/PAPER1.md` cross-references
+    in lockstep.
+  - Decide on Hodge-cluster grouping path.
+  - Decide on `FinitismIsConsequence.lean` rename.
+
+Until then: branch is in clean publishable state, can be merged or
+rebased onto main without further work.
+
+
 ## ★★★ Part 26: Plan 2 Phase D + E — _pure infrastructure breadth
 
 User directives this session: "끝까지" + "ㄱㄱ" + "쌔끈하게 끝내버혀"
