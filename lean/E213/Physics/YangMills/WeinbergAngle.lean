@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.Core
+import E213.Physics.AlphaEM.Bare
 
 /-!
 # sin²θ_W = α_em/α_2 — same simplicial pattern (0 axioms)

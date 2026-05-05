@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.Core
+import E213.Physics.AlphaEM.Bare
 
 /-!
 # 1/α_em(IR) candidate — pure DRLT formula attempt for 137.036

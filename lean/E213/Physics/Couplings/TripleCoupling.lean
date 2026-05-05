@@ -1,5 +1,5 @@
 import E213.Physics.Simplex.SubInventory
-import E213.Physics.AlphaEM.Structure
+import E213.Physics.AlphaEM.IntegerSkeleton
 import E213.Math.Cohomology.Paper1Chiral
 
 /-!

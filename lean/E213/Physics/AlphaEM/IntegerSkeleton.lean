@@ -18,7 +18,7 @@ Each integer coefficient traces to a 213 lattice quantity:
 All `rfl` — these are *literally* the same Nat under Term.eval.
 -/
 
-namespace E213.Physics.AlphaEM.Structure
+namespace E213.Physics.AlphaEM.IntegerSkeleton
 
 /-- Edge count of K_{3,2}^{(c=2)}: c·NS·NT. -/
 def edge_count : Nat := 2 * 3 * 2
@@ -55,8 +55,8 @@ theorem alpha_em_integer_origins :
     ∧ 3 + 1 = 4
     ∧ 3 * 3 * 5 = 45 := by decide
 
-end E213.Physics.AlphaEM.Structure
+end E213.Physics.AlphaEM.IntegerSkeleton
 
-#print axioms E213.Physics.AlphaEM.Structure.sixty_is_E_times_d
-#print axioms E213.Physics.AlphaEM.Structure.fortyfive_is_NS_sq_times_d
-#print axioms E213.Physics.AlphaEM.Structure.alpha_em_integer_origins
+#print axioms E213.Physics.AlphaEM.IntegerSkeleton.sixty_is_E_times_d
+#print axioms E213.Physics.AlphaEM.IntegerSkeleton.fortyfive_is_NS_sq_times_d
+#print axioms E213.Physics.AlphaEM.IntegerSkeleton.alpha_em_integer_origins

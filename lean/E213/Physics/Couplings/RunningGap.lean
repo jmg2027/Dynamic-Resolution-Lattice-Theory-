@@ -1,5 +1,5 @@
 import E213.Physics.Simplex.Counts
-import E213.Physics.AlphaEM.Core
+import E213.Physics.AlphaEM.Bare
 
 /-!
 # Running gap d²/NS = 25/3 — structural derivation attempt

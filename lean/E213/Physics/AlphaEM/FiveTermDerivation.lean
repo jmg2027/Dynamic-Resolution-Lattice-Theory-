@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.Unified
+import E213.Physics.AlphaEM.UnifiedSum
 import E213.Physics.Cosmology.NeffDerivation
 
 /-!
@@ -48,7 +48,7 @@ the d² = (d-1)(d+1) + 1 factorisation directly points to the lattice cofactors.
   Currently only established: "each term is a prior quantity" and "sum is ppm match".
 -/
 
-namespace E213.Physics.AlphaEM.Derivation
+namespace E213.Physics.AlphaEM.FiveTermDerivation
 
 open E213.Physics.Simplex.Counts
 
@@ -109,4 +109,4 @@ theorem five_terms_traceable :
     is separate work.  -/
 theorem derivation_open : True := trivial
 
-end E213.Physics.AlphaEM.Derivation
+end E213.Physics.AlphaEM.FiveTermDerivation

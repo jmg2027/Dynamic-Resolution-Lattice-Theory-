@@ -1,5 +1,5 @@
 import E213.Physics.Simplex.FaceTerms
-import E213.Physics.AlphaEM.Unified
+import E213.Physics.AlphaEM.UnifiedSum
 
 /-!
 # 1/α_em(IR) — single simplicial cohomology decomposition (final capstone)
@@ -36,7 +36,7 @@ complex K_{NS,NT}^{(c)} ⊂ Δ⁴.
   Each equality is not a generic graph identity — atomic config forces it.
 -/
 
-namespace E213.Physics.AlphaEM.Simplicial
+namespace E213.Physics.AlphaEM.SimplicialDecomp
 
 open E213.Physics.Simplex.Counts
 open E213.Physics.AlphaEM.Prefactors
@@ -76,8 +76,8 @@ theorem alpha_em_simplicial_capstone :
     ∧ (b_1 = 8) ∧ (num_edges = 12)
     ∧ (four_cycles_count = 3) ∧ (tetrahedra_per_vertex = 4)
     -- And the numerical bracket containing 137 at modest N
-    ∧ (let lo := E213.Physics.AlphaEM.Unified.alpha_em_unified_lower 10
-       let hi := E213.Physics.AlphaEM.Unified.alpha_em_unified_upper 10
+    ∧ (let lo := E213.Physics.AlphaEM.UnifiedSum.alpha_em_unified_lower 10
+       let hi := E213.Physics.AlphaEM.UnifiedSum.alpha_em_unified_upper 10
        lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1) := by
   decide
 
@@ -92,4 +92,4 @@ theorem alpha_em_simplicial_capstone :
    all five terms are self-derived from the lattice, and the running
    gap itself is a simplicial cohomology decomposition. -/
 
-end E213.Physics.AlphaEM.Simplicial
+end E213.Physics.AlphaEM.SimplicialDecomp

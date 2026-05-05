@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.Derivation
+import E213.Physics.AlphaEM.FiveTermDerivation
 
 /-!
 # 1/α_em(IR) — lattice primitive derivation of all prefactors (0 axioms)

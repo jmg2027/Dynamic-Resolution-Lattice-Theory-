@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.Core
+import E213.Physics.AlphaEM.Bare
 import E213.Physics.Couplings.RunningGap
 
 /-!
@@ -33,7 +33,7 @@ from Raw + Lens axioms + other prior theorems.
   That is, 25/3 = 1/α_3 + 1/NS — decomposed as a sum of two known lattice quantities.
 -/
 
-namespace E213.Physics.AlphaEM.Unified
+namespace E213.Physics.AlphaEM.UnifiedSum
 
 open E213.Physics.Simplex.Counts
 open E213.Physics.Basel.Bound
@@ -111,7 +111,7 @@ theorem unified_single_sum_form :
        let hi := alpha_em_unified_upper 10
        lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1) := by decide
 
-end E213.Physics.AlphaEM.Unified
+end E213.Physics.AlphaEM.UnifiedSum
 
 -- ═══ V137Tighter — bracket tightening at higher N (formerly V137Tighter.lean) ═══
 
@@ -130,7 +130,7 @@ set_option maxRecDepth 4096
   same V137/V137Tight/V137Tighter Basel-pattern.
 -/
 
-namespace E213.Physics.AlphaEM.Unified
+namespace E213.Physics.AlphaEM.UnifiedSum
 
 /-- ★★★ 137 ∈ unified bracket at N=50 (width ~1.2). -/
 theorem unified_137_in_at_50 :
@@ -149,4 +149,4 @@ theorem upper_excludes_138_at_100 :
     let hi := alpha_em_unified_upper 100
     hi.1 < 138 * hi.2 := by decide
 
-end E213.Physics.AlphaEM.Unified
+end E213.Physics.AlphaEM.UnifiedSum

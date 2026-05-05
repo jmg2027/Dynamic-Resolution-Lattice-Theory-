@@ -15,7 +15,7 @@ Threshold 1/10⁴ = 1e-4 ≈ 100 ppm; the augmented chain residual
 is 0.18 ppb at asymptote — 5×10⁵ tighter than required.
 -/
 
-namespace E213.Physics.AlphaEM.Milestone
+namespace E213.Physics.AlphaEM.MilestoneAt137
 
 open E213.Physics.AlphaEM.GramSelfEnergy
 open E213.Physics.AlphaEM.SO10
@@ -53,4 +53,4 @@ theorem alpha_em_milestone :
   · decide
   · decide
 
-end E213.Physics.AlphaEM.Milestone
+end E213.Physics.AlphaEM.MilestoneAt137

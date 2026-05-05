@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.Simplicial
+import E213.Physics.AlphaEM.SimplicialDecomp
 import E213.Physics.Mass.MuOverE
 import E213.Physics.Higgs.Mass
 import E213.Physics.Mass.TauOverMu

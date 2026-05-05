@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.Core
+import E213.Physics.AlphaEM.Bare
 
 /-!
 # Finite-N universe — π² is a limit-label, not a 213 primitive
