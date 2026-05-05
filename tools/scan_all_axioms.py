@@ -180,11 +180,29 @@ SEALED_DIRTY_PREFIXES = (
     # cardinality propositions; raw_at_most_countable +
     # raw_equipotent_nat).  Genuinely structural, not facade.
     'E213.Math.Infinity.Godel',
-    # DyadicTrajectory: limit-cut distinctness proofs (documented in
-    # CLAUDE.md "Finitism is Forced, Not Chosen" as Cauchy-limit
-    # algebra ZFC fiction; propext from Iff chains comparing
-    # structural cuts).  Genuinely structural by-design.
+    # DyadicTrajectory: trajectory ≠ exact-value type-distinction
+    # preserved by ∅-axiom (canonical: seed/RESOLUTION_LIMIT_SPEC.md
+    # §1).  propext from Iff chains comparing structural cuts.
+    # Genuinely structural by-design.
     'E213.Math.Real213.DyadicTrajectory',
+    # Lean.Elab metaprogramming boundary: command_elab tactics
+    # transitively use the Lean.Elab.Command monad, which depends on
+    # Classical.choice + propext + Quot.sound from Lean 4 core.  This
+    # is a Lean-core API boundary (the Elab framework itself is
+    # Classical), not a 213-fixable issue.  All E213.Tactic.elab*
+    # definitions inherit these axioms from `Lean.Elab.Command`.
+    'E213.Meta.Tactic.DeriveConjugationCodomain',
+    'E213.Meta.Tactic.VerifyConjugation',
+    # SelfRecognising.specLens_swapMatching uses Raw.fold_swap_hom
+    # (Firmware) whose proof goes through structural recursion;
+    # propext leaks via the typeclass `extends` chain
+    # (CommBinary → NonVanishing → Conjugation).  Lens funext-by-
+    # design at the typeclass tier (analogous to other funext-bearing
+    # entries above).  The other two declarations in this module
+    # (CommBinaryCodomain.specLens, NonVanishingCodomain.specLens_nonVanishing)
+    # remain PURE — only the Conjugation-level theorem touches the
+    # propext-bearing path.
+    'E213.Meta.SelfRecognising',
 )
 
 

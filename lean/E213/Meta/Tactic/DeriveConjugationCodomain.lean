@@ -1,29 +1,28 @@
 import Lean
 
 /-!
-# Tactic: `derive_r4_codomain`
+# Tactic: `derive_conjugation_codomain`
 
 A `command_elab` that synthesises the 13-field
-`instance : E213.Meta.R4Codomain α` declaration by naming
-convention.
+`instance : E213.Meta.SelfRecognising.ConjugationCodomain α`
+declaration by naming convention.
 
 The elab does **not** import `E213.Meta.SelfRecognising` — it
 only generates *syntax* that references the class.  At the
-client site (where `derive_r4_codomain` is invoked), the
+client site (where `derive_conjugation_codomain` is invoked), the
 import must already be in place.  This avoids transitively
-rebuilding `Firmware/Raw.lean` when the elab itself is
-edited.
+rebuilding `Firmware/Raw.lean` when the elab itself is edited.
 
 ## Usage
 
 ```
 open E213.Tactic
-derive_r4_codomain ZI with_bases I negI
+derive_conjugation_codomain ZI with_bases I negI
 ```
 
 This expands to:
 ```
-instance : R4Codomain ZI where
+instance : ConjugationCodomain ZI where
   base_a := ZI.I
   base_b := ZI.negI
   combine := ZI.mul
@@ -41,22 +40,28 @@ instance : R4Codomain ZI where
 
 ## Naming convention required
 
-For `derive_r4_codomain α with_bases b₁ b₂` the namespace `α`
-must contain (in addition to the type itself):
+For `derive_conjugation_codomain α with_bases b₁ b₂` the namespace
+`α` must contain (in addition to the type itself):
 - `α.b₁`, `α.b₂` — base values
 - `α.mul` — combine
 - `α.conj` — involution
 - `α.mul_comm`, `α.no_zero_div`, `α.conj_conj`, `α.conj_ne_id`,
   `α.conj_mul`
 - `α.conj_b₁`, `α.conj_b₂` — `conj` action on bases
+
+## Naming history
+
+This tactic was previously `derive_r4_codomain` referring to the
+"R4 axiom" in the deprecated R1–R5 judgment-game frame
+(`seed/AXIOM.md` §9).  Renamed per AXIOM.md §9.1 audit pass.
 -/
 
 namespace E213.Tactic
 
 open Lean Elab Command
 
-scoped syntax (name := deriveR4Codomain)
-  "derive_r4_codomain " ident "with_bases" ident ident : command
+scoped syntax (name := deriveConjugationCodomain)
+  "derive_conjugation_codomain " ident "with_bases" ident ident : command
 
 end E213.Tactic
 
@@ -64,10 +69,10 @@ namespace E213.Tactic
 
 open Lean Elab Command
 
-@[command_elab deriveR4Codomain]
-def elabDeriveR4 : CommandElab := fun stx => do
+@[command_elab deriveConjugationCodomain]
+def elabDeriveConjugation : CommandElab := fun stx => do
   match stx with
-  | `(derive_r4_codomain $α:ident with_bases $b1:ident $b2:ident) => do
+  | `(derive_conjugation_codomain $α:ident with_bases $b1:ident $b2:ident) => do
     let αN := α.getId
     let mk (s : Name) := mkIdentFrom α (αN ++ s)
     let baseA  := mk b1.getId
@@ -85,11 +90,12 @@ def elabDeriveR4 : CommandElab := fun stx => do
     let cSwapA := mk (Name.mkSimple s!"conj_{b1.getId}")
     let cSwapB := mk (Name.mkSimple s!"conj_{b2.getId}")
     -- `mkIdent` bypasses macro hygiene; the quoted
-    -- `E213.Meta.R4Codomain` would otherwise be rewritten to
-    -- `E213.Meta.R4Codomain✝` (an inaccessible daggered copy)
-    -- and fail to resolve at the client site.
-    let r4Id := mkIdent `E213.Meta.R4Codomain
-    let cmd ← `(instance : $r4Id $α where
+    -- `E213.Meta.ConjugationCodomain` would otherwise be
+    -- rewritten to a daggered copy and fail to resolve at the
+    -- client site.  (Short path matches the original
+    -- `E213.Meta.R4Codomain` convention from before this rename.)
+    let cId := mkIdent `E213.Meta.ConjugationCodomain
+    let cmd ← `(instance : $cId $α where
                   base_a          := $baseA
                   base_b          := $baseB
                   combine         := $mul

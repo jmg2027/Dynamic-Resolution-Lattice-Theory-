@@ -11,7 +11,7 @@ Structural derivation of why N_universe = d^(d²) is the natural
 ## The counting argument
 
   Fractal level L = d² has numV(d²) = d^(d²) leaf vertices.
-  Each leaf carries d-valued state (R4Codomain valued).
+  Each leaf carries d-valued state (ConjugationCodomain valued).
   Total distinct lattice configurations = d^numV.
 
 Wait — this needs care.  Let me re-state precisely:

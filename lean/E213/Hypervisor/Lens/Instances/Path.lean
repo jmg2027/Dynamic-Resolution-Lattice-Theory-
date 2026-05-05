@@ -16,7 +16,7 @@ deliberately *non-commutative* witness.
 
 **Consequences.**
 
-1. `pathLens` is **not** an instance of `R12Codomain`
+1. `pathLens` is **not** an instance of `CommBinaryCodomain`
    (which bundles `combine_comm`).  Its combine is genuinely
    asymmetric: `append [false] [true] ≠ append [true] [false]`.
 

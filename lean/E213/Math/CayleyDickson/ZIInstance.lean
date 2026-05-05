@@ -2,13 +2,13 @@ import E213.Meta.SelfRecognising
 import E213.Math.CayleyDickson.ZI
 import E213.Math.CayleyDickson.ZIDomain
 import E213.Math.CayleyDickson.ZIHom
-import E213.Meta.Tactic.DeriveR4Codomain
+import E213.Meta.Tactic.DeriveConjugationCodomain
 
 /-!
-# Research: `ZI` as `R4Codomain` instance
+# Research: `ZI` as `ConjugationCodomain` instance
 
-The instance is **derived** by the `derive_r4_codomain` elab
-(Phase B1).  By naming convention, the elab finds:
+The instance is **derived** by the `derive_conjugation_codomain`
+elab (Phase B1).  By naming convention, the elab finds:
 - `ZI.I`, `ZI.negI` (bases)
 - `ZI.mul`, `ZI.conj`
 - `ZI.mul_comm`, `ZI.no_zero_div`,
@@ -20,4 +20,4 @@ and synthesises the 13-field `instance`.
 
 open E213.Tactic E213.Research
 
-derive_r4_codomain ZI with_bases I negI
+derive_conjugation_codomain ZI with_bases I negI

@@ -30,9 +30,11 @@ Hypervisor/  Lens framework (78 files):
              Kernel, Universal}/ + Initiality.lean + SemanticAtom.lean
   ↓
 Meta/        true metatheory (23 files): UniversalLens family,
-             SelfRecognising R1-R4, AxiomMinimality{,Capstone},
-             BitPatternUniqueness, RawInductionDemo,
-             CUniquenessBridge + Tactic/{VerifyR4, DeriveR4Codomain}
+             SelfRecognising codomain hierarchy
+             (CommBinary/NonVanishing/Conjugation),
+             AxiomMinimality{,Capstone}, BitPatternUniqueness,
+             RawInductionDemo, CUniquenessBridge +
+             Tactic/{VerifyConjugation, DeriveConjugationCodomain}
   ↓
 App/         applications (Simplex)
 
@@ -56,7 +58,7 @@ definitions of each layer + the per-file layer-derivation rule.
 | Kernel/ | 18 files, 101 thms literally 0 axiom (scaffolding + Tactic/Omega213, QuadNorm) | none |
 | Firmware/ | Raw axiom (4-clause) + Atomicity/ + Tools/CertChecker | none |
 | Hypervisor/ | Lens framework (78 files: framework + 9 sub-clusters) | none |
-| Meta/ | metatheorems + Tactic/{VerifyR4, DeriveR4Codomain} | mostly none |
+| Meta/ | metatheorems + Tactic/{VerifyConjugation, DeriveConjugationCodomain} | mostly none |
 | App/ | applications (Simplex) | none |
 | Math/ | 484 files topical math (Cohomology, Real213, …); each file at its natural vertical layer | mixed |
 | Physics/ | 275 files topical physics; each file at its natural vertical layer | mixed |
@@ -109,7 +111,8 @@ lake env lean -e '...'           # eval (used by lean-rust-diff)
   - `Kernel/Tactic/Omega213.lean` — axiom-free Nat arithmetic
     (drop-in for omega; macro lives in `namespace E213.Tactic`
     short-form for ergonomic `open E213.Tactic`)
-  - `Meta/Tactic/VerifyR4.lean` — R4Codomain instance diagnostic
+  - `Meta/Tactic/VerifyConjugation.lean` — `ConjugationCodomain`
+    instance diagnostic (`#verify_conjugation MyType`)
   - `Firmware/Tools/CertChecker.lean` — Lean-side certificate verifier
   - `tools/layer_audit.py` (repo root) — derive each file's natural
     vertical layer from import closure; reports violations + topical

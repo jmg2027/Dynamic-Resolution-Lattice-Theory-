@@ -6,7 +6,7 @@ import E213.Physics.Simplex.Counts
 # Lens cardinality across fractal levels — structural enumeration
 
 Each fractal level L has numV(L) = d^L vertices.  At each vertex,
-the Lens codomain (R4Codomain instance, ZI = ℤ[i]) carries
+the Lens codomain (ConjugationCodomain instance, ZI = ℤ[i]) carries
 discrete state information.
 
 ## Cardinality at each level

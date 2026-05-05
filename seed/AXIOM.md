@@ -485,19 +485,35 @@ The current uniqueness story does NOT route through R1–R5:
 ℂ enters downstream as a Lens construction (`Math/CayleyDickson/`),
 NOT as a consequence of any R1–R5 axiom set.
 
-### §9.1 Lean remnant (active)
+### §9.1 Lean remnant — renamed (2026-05-05 audit pass)
 
-A typeclass hierarchy persists in
-`lean/E213/Meta/SelfRecognising.lean` under names
-`R12Codomain` / `R3Codomain` / `R4Codomain`.  Five files import it
-(CayleyDickson Z2/ZOmega/ZI/ZSqrt instances + CUniquenessBridge).
-The names are *historical*; the *content* (commutative combine,
-no-zero-divisors, swap-matching involution) is independent of the
-deprecated R1–R5 frame and is used as a generic codomain spec.
+The typeclass hierarchy in
+`lean/E213/Meta/SelfRecognising.lean` was renamed to drop the
+historical R-prefix while preserving semantics:
 
-A future audit pass may rename these typeclasses to remove the
-historical R-prefix while preserving semantics.  Until then, the
-typeclasses are kept active (5 consumers).
+  | Before (historical R-frame) | After (descriptive)        |
+  | ---                          | ---                        |
+  | `R12Codomain`                | `CommBinaryCodomain`       |
+  | `R3Codomain`                 | `NonVanishingCodomain`     |
+  | `R4Codomain`                 | `ConjugationCodomain`      |
+
+Companion macros and tactics renamed in lockstep:
+
+  | Before                       | After                        |
+  | ---                          | ---                          |
+  | `derive_r4_codomain`         | `derive_conjugation_codomain` |
+  | `#verify_r4`                 | `#verify_conjugation`        |
+  | `Meta/Tactic/DeriveR4Codomain.lean` | `DeriveConjugationCodomain.lean` |
+  | `Meta/Tactic/VerifyR4.lean`  | `VerifyConjugation.lean`     |
+  | `Meta/Tactic/Test/VerifyR4Test.lean` | `VerifyConjugationTest.lean` |
+  | `r4_conj_*` (CUniquenessBridge) | `conjugation_*`           |
+  | `ZSqrt.R4_of_pos`            | `ZSqrt.conjugation_of_pos`   |
+
+The *content* (commutative combine, no-zero-divisors, swap-matching
+involution) is independent of the deprecated R1–R5 frame and is
+used as a generic codomain spec.  Five files consume it
+(CayleyDickson Z2/ZOmega/ZI/ZSqrt instances + CUniquenessBridge);
+all updated.  Build clean, axiom scan unchanged.
 
 ### §9.2 Removed content
 
@@ -548,10 +564,14 @@ R1–R5 as the canonical uniqueness story.
     R-game judgment frame is stepped back from (per archive
     `30_bool_is_liar_paradox.md`).  The current uniqueness story is
     Universal-Lens + Atomicity + Resolution-limit (4-way invariant
-    N_U); R1–R5 is no longer canonical.  Lean remnant
-    (`Meta/SelfRecognising.lean`'s `R12Codomain` / `R3Codomain` /
-    `R4Codomain` typeclasses) kept active for 5 consumer files; rename
-    deferred to architecture-cleanup pass.
+    N_U); R1–R5 is no longer canonical.
+- 2026-05-05: §9.1 typeclass rename executed.
+  `Meta/SelfRecognising.lean`'s `R12Codomain` / `R3Codomain` /
+  `R4Codomain` → `CommBinaryCodomain` / `NonVanishingCodomain` /
+  `ConjugationCodomain`.  Companion macros, tactics, filenames,
+  theorem prefixes (`r4_conj_*` → `conjugation_*`) renamed in
+  lockstep across 16 files.  Build clean, axiom scan unchanged
+  (no semantic change, only nomenclature).
   - Companion architectural reference: `lean/E213/ARCHITECTURE.md`
     (canonical layer architecture, supersedes all earlier scattered
     layer-organization notes).

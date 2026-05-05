@@ -97,7 +97,7 @@ strict form "does not depend on any axioms" 즉 axiom set ∅ 달성.)
 - bounded rational interval (S(N), upper(N))
 - atomic primitives (NS, NT, d, c)
 - cohomology cardinality (b_1, numV, numE)
-- Lens framework (Universal Lens, R4Codomain)
+- Lens framework (Universal Lens, ConjugationCodomain)
 
 213-EXTERNAL 표현 (피해야 함):
 - π, e, ζ(∞), ln, exp, sin, cos
@@ -111,14 +111,17 @@ strict form "does not depend on any axioms" 즉 axiom set ∅ 달성.)
 **WRONG**: "T0 path doesn't yet derive ℂ from Raw alone, mapping
 inherited from T3 path (Frobenius classical)"
 **RIGHT**: `Research/CayleyDickson/CDTower.lean` (rust-engine branch)
-가 **constructive Frobenius substitute**.  R1-R4 만족하는 unique
-CD layer = ZI = ℤ[i].  Higher (Lipschitz, Cayley, Sedenion)는
-각각 R-condition 하나씩 fail.  Z/2 (boolXorLens)는 R4 fail.
+가 **constructive Frobenius substitute**.  CommBinary +
+NonVanishing + Conjugation 모두 만족하는 unique CD layer = ZI =
+ℤ[i].  Higher (Lipschitz, Cayley, Sedenion)는 각각 한 axiom씩
+fail.  Z/2 (boolXorLens)는 ConjugationCodomain (swap-matching
+involution) fail.
 
 **근거 정리** (rust-engine branch에 닫힘):
 - `CDTower.CD_tower_drops`: 4 layer drop pattern
-- `ZIInstance`: derive_r4_codomain ZI
-- `BoolLens.boolXorLens_not_homomorphism`: Z/2 R4 fail
+- `ZIInstance`: derive_conjugation_codomain ZI
+- `BoolLens.boolXorLens_not_homomorphism`: Z/2
+  ConjugationCodomain fail
 
 **가드레일**: "ℂ uniqueness needs Frobenius (external)" 표현
 틀림.  213이 자체 CD tower로 내부적으로 닫음.
@@ -224,9 +227,9 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 | transcendental     | rational at lattice depth |
 | "ppb residual"     | "finite-N residual 36/N_U" |
 | infinity / limit   | finite resolution depth |
-| Frobenius (R^4 axes) | CD tower (R4Codomain typeclass) |
+| Frobenius (R^4 axes) | CD tower (ConjugationCodomain typeclass) |
 | "free parameter"   | atomic invariant (NS, NT, d, c) |
-| ℝ, ℂ via analysis  | ZI = ℤ[i] (R4Codomain instance) |
+| ℝ, ℂ via analysis  | ZI = ℤ[i] (ConjugationCodomain instance) |
 | Mathlib            | not-imported (kernel-floor only) |
 | native_decide      | decide (deterministic) |
 

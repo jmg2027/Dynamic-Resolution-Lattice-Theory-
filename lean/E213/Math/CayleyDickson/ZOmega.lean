@@ -8,7 +8,7 @@ Third E2 witness (cross-term `-ab` Eisenstein norm).
 - Norm: `a² - ab + b²` (multiplicative).
 
 Bases for the Lens: `Omega = ω`, `Omega2 = ω² = -1 - ω`.
-The `derive_r4_codomain` elab finds `conj_Omega` and
+The `derive_conjugation_codomain` elab finds `conj_Omega` and
 `conj_Omega2` by name-suffix convention.
 -/
 

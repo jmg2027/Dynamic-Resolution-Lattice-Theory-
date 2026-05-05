@@ -20,12 +20,13 @@ and involution
   conj (α, β) = (conj α, -β).
 
 **Relationship to the Lens framework.**  CD doubling *exits*
-the `R4Codomain` typeclass: the result is **non-commutative**
-(fails R2), so it cannot serve as a Lens codomain satisfying
-R1–R4 in the paper's sense.  It is therefore a concrete
-example of how to extend the algebraic zoo *past* what the
-Lens-admissibility conditions single out — ℂ is the unique
-commutative R4 endpoint; CD doubling continues into
+the `ConjugationCodomain` typeclass: the result is
+**non-commutative** (fails the commutative-binary-combine
+axiom), so it cannot serve as a Lens codomain satisfying the
+codomain hierarchy.  It is therefore a concrete example of how
+to extend the algebraic zoo *past* what the Lens-admissibility
+conditions single out — ℂ is the unique commutative
+ConjugationCodomain endpoint; CD doubling continues into
 non-commutative territory (ℍ-like) and beyond.
 
 **Session scope.**  We formalise:

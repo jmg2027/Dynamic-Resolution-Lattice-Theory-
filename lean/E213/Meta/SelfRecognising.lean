@@ -3,91 +3,98 @@ import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Characterisation.Catalog
 
 /-!
-# Meta: R1–R4 typeclass hierarchy (4-tier `extends`)
+# Meta: codomain typeclass hierarchy (3-tier `extends`)
 
 Spec / Implementation separation for codomain candidates.
 
-The R1–R4 conditions are split across **four classes**, each
+The conditions are split across **three classes**, each
 extending the previous, so an instance can be partial (e.g.,
-`R3Codomain` for non-self-recognising injective Lenses).
+`NonVanishingCodomain` for non-self-recognising injective Lenses).
 Generic theorems for each tier are proved once and inherited.
 
 ```
-R12Codomain   ← R1 + R2: combine + commutativity
-R3Codomain    ← +R3: no zero divisors
-R4Codomain    ← +R4: nontrivial swap-matching involution
+CommBinaryCodomain   ← commutative binary combine
+NonVanishingCodomain ← + no zero divisors
+ConjugationCodomain  ← + nontrivial swap-matching involution
 ```
 
-R5 is omitted (R5b is vacuous over inductive Raw — see
-`E213.Math.CayleyDickson.R5Vacuity` and `notes/02_r5_vacuity.md`).
+Historical note: prior names `R12Codomain` / `R3Codomain` /
+`R4Codomain` came from an R1–R5 judgment-game frame (now
+deprecated — see `seed/AXIOM.md` §9 "Naturalness of Lens choice
+(deprecated R1–R5 frame)" and
+`research-notes/archive/30_bool_is_liar_paradox.md`).  The
+*content* (commutative combine, no-zero-divisors, swap-matching
+involution) is independent of that frame and is used as a
+generic codomain spec; the typeclasses are renamed here per
+AXIOM.md §9.1 audit recommendation.
 -/
 
 namespace E213.Meta.SelfRecognising
 
 open E213.Firmware E213.Hypervisor
 
--- ═══ Tier 1: R1 + R2 (binary commutative combine) ═══
+-- ═══ Tier 1: commutative binary combine ═══
 
-class R12Codomain (α : Type) where
+class CommBinaryCodomain (α : Type) where
   base_a       : α
   base_b       : α
   combine      : α → α → α
   combine_comm : ∀ u v, combine u v = combine v u
 
-namespace R12Codomain
+namespace CommBinaryCodomain
 
-variable {α : Type} [R12Codomain α]
+variable {α : Type} [CommBinaryCodomain α]
 
-/-- Generic Lens construction at the R12 tier. -/
+/-- Generic Lens construction at the commutative-binary tier. -/
 def specLens : Lens α where
   base_a  := base_a (α := α)
   base_b  := base_b (α := α)
   combine := combine (α := α)
 
-end R12Codomain
+end CommBinaryCodomain
 
 end E213.Meta.SelfRecognising
 
 namespace E213.Meta.SelfRecognising
 
-open E213.Firmware E213.Hypervisor R12Codomain
+open E213.Firmware E213.Hypervisor CommBinaryCodomain
 open E213.Hypervisor.Lens.Characterisation.Catalog
 
--- ═══ Tier 2: R3 (NonVanishing / no zero divisors) ═══
+-- ═══ Tier 2: NonVanishing (no zero divisors) ═══
 
-class R3Codomain (α : Type) [Zero α] extends R12Codomain α where
-  base_a_ne_zero : R12Codomain.base_a (α := α) ≠ 0
-  base_b_ne_zero : R12Codomain.base_b (α := α) ≠ 0
-  no_zero_div    : ∀ u v : α, R12Codomain.combine u v = 0 → u = 0 ∨ v = 0
+class NonVanishingCodomain (α : Type) [Zero α] extends CommBinaryCodomain α where
+  base_a_ne_zero : CommBinaryCodomain.base_a (α := α) ≠ 0
+  base_b_ne_zero : CommBinaryCodomain.base_b (α := α) ≠ 0
+  no_zero_div    : ∀ u v : α, CommBinaryCodomain.combine u v = 0 → u = 0 ∨ v = 0
 
-namespace R3Codomain
+namespace NonVanishingCodomain
 
-variable {α : Type} [Zero α] [R3Codomain α]
+variable {α : Type} [Zero α] [NonVanishingCodomain α]
 
-/-- **R3 (NonVanishing) — generic.** -/
+/-- **NonVanishing — generic.** -/
 theorem specLens_nonVanishing : NonVanishing (specLens (α := α)) :=
   fun u v hu hv hcomb => (no_zero_div u v hcomb).elim hu hv
 
-end R3Codomain
+end NonVanishingCodomain
 
--- ═══ Tier 3: R4 (SwapMatching with conjugation) ═══
+-- ═══ Tier 3: Conjugation (SwapMatching with involution) ═══
 
-class R4Codomain (α : Type) [Zero α] extends R3Codomain α where
+class ConjugationCodomain (α : Type) [Zero α] extends NonVanishingCodomain α where
   conj            : α → α
   conj_involution : ∀ u : α, conj (conj u) = u
   conj_ne_id      : conj ≠ id
-  conj_dist       : ∀ u v : α, conj (R12Codomain.combine u v)
-                                = R12Codomain.combine (conj u) (conj v)
-  conj_swap_a     : conj (R12Codomain.base_a (α := α))
-                       = R12Codomain.base_b (α := α)
-  conj_swap_b     : conj (R12Codomain.base_b (α := α))
-                       = R12Codomain.base_a (α := α)
+  conj_dist       : ∀ u v : α, conj (CommBinaryCodomain.combine u v)
+                                = CommBinaryCodomain.combine (conj u) (conj v)
+  conj_swap_a     : conj (CommBinaryCodomain.base_a (α := α))
+                       = CommBinaryCodomain.base_b (α := α)
+  conj_swap_b     : conj (CommBinaryCodomain.base_b (α := α))
+                       = CommBinaryCodomain.base_a (α := α)
 
-namespace R4Codomain
+namespace ConjugationCodomain
 
-variable {α : Type} [Zero α] [R4Codomain α]
+variable {α : Type} [Zero α] [ConjugationCodomain α]
 
-/-- **R4 (SwapMatching) — generic.**  Uses `Raw.fold_swap_hom`. -/
+/-- **SwapMatching — generic.**  Uses `Raw.fold_swap_hom`. -/
 theorem specLens_swapMatching :
     SwapMatching (specLens (α := α)) (conj (α := α)) := by
   refine ⟨conj_involution, conj_ne_id, ?_⟩
@@ -99,6 +106,6 @@ theorem specLens_swapMatching :
   exact Raw.fold_swap_hom _ _ _ _ conj_swap_a conj_swap_b
     conj_dist combine_comm r
 
-end R4Codomain
+end ConjugationCodomain
 
 end E213.Meta.SelfRecognising

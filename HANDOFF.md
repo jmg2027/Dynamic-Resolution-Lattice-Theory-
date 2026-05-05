@@ -31,13 +31,16 @@ Branch: `claude/fix-propext-constraints-Rdn1r`.
 
 ### Items deferred (require user review)
 
-  1. **R-prefix typeclass rename** — REJECT recommendation logged.
-     `R12Codomain`/`R3Codomain`/`R4Codomain` are load-bearing
-     nomenclature: cross-referenced from `seed/AXIOM.md` §5 +
-     `seed/PAPER1.md` "R-axiom set".  Stripping the prefix would
-     break the axiom-label↔Lean-typeclass cite chain.  Suggested
-     alternative: add a docstring line in
-     `Meta/SelfRecognising.lean` linking R12/R3/R4 to AXIOM.md §5.
+  ~~1. **R-prefix typeclass rename** — REJECT recommendation
+     logged.~~  *Reversed in subsequent stage*: AXIOM.md §9.1
+     **explicitly invites** the rename ("A future audit pass may
+     rename these typeclasses to remove the historical R-prefix
+     while preserving semantics").  R-prefix was a *historical
+     artifact* of the deprecated R1–R5 judgment-game frame
+     (§9.0), not load-bearing.  Rename executed in the same
+     audit pass: `R12Codomain` → `CommBinaryCodomain`,
+     `R3Codomain` → `NonVanishingCodomain`, `R4Codomain` →
+     `ConjugationCodomain` (+ macro/file/theorem renames).
 
   2. **`FinitismIsConsequence.lean` filename + theorem rename** —
      deferred.  Docstrings reframed; filename + theorem names

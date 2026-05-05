@@ -25,10 +25,10 @@ clean "necessary and sufficient" toolkit.
   point; uniqueness of `conj` up to the image of the Lens.
 
 * `R3_view_nonVanishing`
-  Under R3Codomain-style assumptions lifted to the Lens level
-  (no-zero-divisor combine + nonzero base values), every
-  view(r) is nonzero — R3 lifts from base-level to Raw-level
-  by induction.
+  Under NonVanishingCodomain-style assumptions lifted to the Lens
+  level (no-zero-divisor combine + nonzero base values), every
+  view(r) is nonzero — non-vanishing lifts from base-level to
+  Raw-level by induction.
 -/
 
 namespace E213.Hypervisor.Lens.Characterisation.Core

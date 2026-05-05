@@ -42,7 +42,7 @@ into the topical sub-clusters of their target layer:
       ComplexityClass, CmpIndependence, SwapSlashInjective}.lean`
   - `Infinity/` (9 files) → `Math/Infinity/`
   - `Tactic/` (11 files + tests) → `Kernel/Tactic/` (Omega213, QuadNorm)
-    + `Meta/Tactic/` (VerifyR4, DeriveR4Codomain) + `Math/Tactic/`
+    + `Meta/Tactic/` (VerifyConjugation, DeriveConjugationCodomain) + `Math/Tactic/`
     (HurwitzRing, IntSquare, QuadExtension)
   - `Tools/` (1 file) → `Firmware/Tools/CertChecker.lean`
 
@@ -162,8 +162,8 @@ CertChecker.lean`.
 Raw into any α-codomain via `Lens.view = Raw.fold`.  Provides the
 universal "viewing" mechanism.
 
-**Files**: `Lens.lean` (the `Lens α` type + `view` + R4Codomain
-machinery).  Currently 1 file at root.
+**Files**: `Lens.lean` (the `Lens α` type + `view` +
+ConjugationCodomain machinery).  Currently 1 file at root.
 
 **Imports**: Firmware/.
 
@@ -369,7 +369,7 @@ formulas), 38% Hypervisor (full Lens-based observable construction).
   - **Infinity/** (9 files: Cantor, Gödel, Tower, …) → `Math/Infinity/`
   - **Tactic/** (11 + tests):
     - `Omega213`, `QuadNorm`, `OMEGA213_MIGRATION.md` → `Kernel/Tactic/`
-    - `VerifyR4`, `DeriveR4Codomain` → `Meta/Tactic/`
+    - `VerifyConjugation`, `DeriveConjugationCodomain` → `Meta/Tactic/`
     - `HurwitzRing`, `IntSquare`, `QuadExtension` → `Math/Tactic/`
   - **Tools/** (1 file: CertChecker.lean) → `Firmware/Tools/`
 

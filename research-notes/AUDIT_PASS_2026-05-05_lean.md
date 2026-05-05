@@ -87,25 +87,42 @@ consolidation needed.
 
 ## Open Issues identified during survey
 
-### Issue 1: R-prefix typeclass rename (deferred)
+### Issue 1: R-prefix typeclass rename — RESOLVED in same pass
 
-`Meta/SelfRecognising.lean` defines three typeclasses
-`R12Codomain`, `R3Codomain`, `R4Codomain` — the R-prefix encodes
-**axiom labels R1 + R2 / R3 / R4** documented in `seed/AXIOM.md`
-§5.x and `seed/PAPER1.md` "R-axiom set".
+Initial recommendation in this note was to **REJECT** the rename
+on the grounds that R12/R3/R4 was "load-bearing" cross-reference
+to seed/AXIOM.md.
 
-The Priority 3a rename (drop R-prefix) was proposed in the audit
-prompt as a "5 consumer file" change.  Actual scope on inspection:
-**16 files** (1 source, 9 substantive consumers, 6 doc-comment-only
-references), plus the meta-tactic syntax names `#verify_r4` and
-`deriveR4Codomain` and three filenames `VerifyR4.lean`,
-`VerifyR4Test.lean`, `DeriveR4Codomain.lean`.
+That recommendation was **wrong** and is reversed.  Re-reading
+seed/AXIOM.md §9 directly:
 
-The R-prefix is **load-bearing nomenclature**: stripping it loses
-the cross-reference to AXIOM.md's R-axiom table.  Recommendation:
-keep the R-prefix; if pedagogical clarity is wanted, add a
-docstring line in `SelfRecognising.lean` linking R12/R3/R4 to
-AXIOM.md §5 explicitly.  Logged for user review.
+  - §9.0 declares the R1–R5 frame **stepped back from**
+    (deprecated; cf. `archive/30_bool_is_liar_paradox.md`).
+  - §9.1 explicitly states the R-prefix is *historical*: "A
+    future audit pass may rename these typeclasses to remove
+    the historical R-prefix while preserving semantics."
+
+So AXIOM.md itself **invites** the rename.  The "load-bearing"
+framing was Claude importing a software-engineering frame that
+seed/AXIOM.md does not endorse.
+
+**Rename executed in the same audit pass** (16-file change):
+
+| Before | After |
+|---|---|
+| `R12Codomain` | `CommBinaryCodomain` |
+| `R3Codomain` | `NonVanishingCodomain` |
+| `R4Codomain` | `ConjugationCodomain` |
+| `derive_r4_codomain` | `derive_conjugation_codomain` |
+| `#verify_r4` | `#verify_conjugation` |
+| `DeriveR4Codomain.lean` | `DeriveConjugationCodomain.lean` |
+| `VerifyR4.lean` | `VerifyConjugation.lean` |
+| `VerifyR4Test.lean` | `VerifyConjugationTest.lean` |
+| `r4_conj_*` theorems in CUniquenessBridge | `conjugation_*` |
+| `ZSqrt.R4_of_pos` | `ZSqrt.conjugation_of_pos` |
+
+Build clean, axiom scan unchanged.  AXIOM.md §9.1 itself updated
+to mark the rename as completed.
 
 ### Issue 2: `FinitismIsConsequence.lean` filename + theorem names
 
