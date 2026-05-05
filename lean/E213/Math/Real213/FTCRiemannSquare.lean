@@ -1,4 +1,3 @@
-import E213.Math.Real213.PhaseBZMegaOmega
 
 /-!
 # Research.Real213FTCRiemannSquare

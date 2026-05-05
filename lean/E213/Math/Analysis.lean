@@ -21,18 +21,13 @@ import E213.Math.Real213.PhysicsBridgeNT2
 import E213.Math.Real213.IsDifferentiable
 import E213.Math.Real213.DerivativeForms
 import E213.Math.Real213.DerivativeDepth
-import E213.Math.Real213.PhaseADCapstone
 import E213.Math.Real213.DifferentiableInstances
-import E213.Math.Real213.PhaseAESuperCapstone
 import E213.Math.Real213.DifferentiableHigherPow
-import E213.Math.Real213.DifferentiationCapstone
-import E213.Math.Real213.PhaseAHGrandCapstone
 import E213.Math.Real213.DifferentiableAffine
 import E213.Math.Real213.DifferentiableCompose
 import E213.Math.Real213.DifferentiableHighOrder
 import E213.Math.Real213.DifferentiableMid
 import E213.Math.Real213.DifferentiableMegaCoverage
-import E213.Math.Real213.PhaseANOmegaCapstone
 import E213.Math.Real213.DerivativeDecide
 import E213.Math.Real213.ConcreteDerivativeModulus
 import E213.Math.Real213.ConcreteDerivativeModulusHigh
@@ -45,19 +40,16 @@ import E213.Math.Real213.FluxCochain
 import E213.Math.Real213.FluxDivergence
 import E213.Math.Real213.FluxMVT
 import E213.Math.Real213.FluxPolynomial
-import E213.Math.Real213.FluxCohomologyCapstone
 import E213.Math.Real213.FluxEquiv
 import E213.Math.Real213.FluxEquivOps
 import E213.Math.Real213.FluxMVTConcrete
 import E213.Math.Real213.FluxFTC
-import E213.Math.Real213.PhaseBACapstone
 import E213.Math.Real213.FluxMVTPolynomial
 import E213.Math.Real213.FluxFTCPolynomial
 import E213.Math.Real213.FluxMVTHigh
 import E213.Math.Real213.FluxMVTGeneric
 import E213.Math.Real213.FluxMVTPassthrough
 import E213.Math.Real213.FluxMVTApplications
-import E213.Math.Real213.PhaseBHCapstone
 import E213.Math.Real213.FluxMVTClosure
 import E213.Math.Real213.FluxPassthroughClass
 import E213.Math.Real213.FluxPassthroughCatalog
@@ -66,16 +58,13 @@ import E213.Math.Real213.ClassicCalcHigher
 import E213.Math.Real213.FluxSeries
 import E213.Math.Real213.ClassicCalcExtreme
 import E213.Math.Real213.ClassicCalcGeneric
-import E213.Math.Real213.PhaseBQOmegaCapstone
 import E213.Math.Real213.FluxMVTWitness
 import E213.Math.Real213.ClassicCalcMid
 import E213.Math.Real213.HasDyadicMVTWitness
 import E213.Math.Real213.FluxMVTMore
 import E213.Math.Real213.MVTWitnessCatalog
 import E213.Math.Real213.MVTWitnessChain
-import E213.Math.Real213.PhaseBXCapstone
 import E213.Math.Real213.FTCRiemann
-import E213.Math.Real213.PhaseBZMegaOmega
 import E213.Math.Real213.FTCRiemannSquare
 import E213.Math.Real213.FTCRiemannMid
 import E213.Math.Real213.FTCRiemannGeneric
@@ -87,20 +76,17 @@ import E213.Math.Real213.DerivativeShowcase
 import E213.Math.Real213.FluxMVTNested2
 import E213.Math.Real213.FluxMVTPropagate
 import E213.Math.Real213.FluxMVTPropagateCompose
-import E213.Math.Real213.PhaseCMFinalCapstone
 import E213.Math.Real213.Antiderivative
 import E213.Math.Real213.AntiderivativeCombinators
 import E213.Math.Real213.AntiderivativeStructural
 import E213.Math.Real213.IntegralViaAnti
 import E213.Math.Real213.ClassicAnti
-import E213.Math.Real213.PhaseCSCapstone
 import E213.Math.Real213.IntegralProperties
 import E213.Math.Real213.ODELinear
 import E213.Math.Real213.ODECatalog
 import E213.Math.Real213.ODESecondOrder
 import E213.Math.Real213.NewtonFirst
 import E213.Math.Real213.CubeDerivativeAtZero
-import E213.Math.Real213.PhaseDAOmegaOmega
 import E213.Math.Real213.NewtonSecond
 import E213.Math.Real213.IndefiniteIntegral
 import E213.Math.Real213.IntegralIntInterval
@@ -110,7 +96,6 @@ import E213.Math.Real213.GeomSeriesPartialSum
 import E213.Math.Real213.ExpAtZero
 import E213.Math.Real213.SinCosAtZero
 import E213.Math.Real213.TranscendentalAtZero
-import E213.Math.Real213.PhaseDKUltimate
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)

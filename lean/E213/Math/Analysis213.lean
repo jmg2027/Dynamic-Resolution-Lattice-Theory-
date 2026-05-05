@@ -38,7 +38,6 @@ import E213.Math.Real213.DifferentiableMid
 import E213.Math.Real213.DifferentiableAffine
 import E213.Math.Real213.DifferentiableCompose
 import E213.Math.Real213.DifferentiableMegaCoverage
-import E213.Math.Real213.DifferentiationCapstone
 import E213.Math.Real213.ConcreteDerivativeModulus
 import E213.Math.Real213.ConcreteDerivativeModulusHigh
 import E213.Math.Real213.ConcreteDerivativeModulusFinal
@@ -50,7 +49,6 @@ import E213.Math.Real213.FluxCochain
 import E213.Math.Real213.FluxDivergence
 import E213.Math.Real213.FluxMVT
 import E213.Math.Real213.FluxPolynomial
-import E213.Math.Real213.FluxCohomologyCapstone
 import E213.Math.Real213.FluxEquiv
 import E213.Math.Real213.FluxEquivOps
 
@@ -127,18 +125,6 @@ import E213.Math.Real213.TranscendentalAtZero
 -- K. Capstone theorem collection
 import E213.Math.Real213.PhaseLCapstone
 import E213.Math.Real213.PhaseACMinimumProposition
-import E213.Math.Real213.PhaseADCapstone
-import E213.Math.Real213.PhaseAESuperCapstone
-import E213.Math.Real213.PhaseAHGrandCapstone
-import E213.Math.Real213.PhaseANOmegaCapstone
-import E213.Math.Real213.PhaseBACapstone
-import E213.Math.Real213.PhaseBHCapstone
-import E213.Math.Real213.PhaseBQOmegaCapstone
-import E213.Math.Real213.PhaseBXCapstone
-import E213.Math.Real213.PhaseCMFinalCapstone
-import E213.Math.Real213.PhaseCSCapstone
-import E213.Math.Real213.PhaseDAOmegaOmega
-import E213.Math.Real213.PhaseDKUltimate
 
 -- L. Bridge to physics track
 import E213.Math.Real213.PhysicsBridgeNT2

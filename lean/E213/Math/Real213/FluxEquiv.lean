@@ -1,4 +1,3 @@
-import E213.Math.Real213.FluxCohomologyCapstone
 import E213.Math.Real213.CutPoset
 
 /-!
