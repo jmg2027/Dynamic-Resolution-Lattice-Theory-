@@ -37,11 +37,7 @@ import E213.Math.Real213.FluxMVTConcrete
 import E213.Math.Real213.FluxFTC
 import E213.Math.Real213.FluxMVTPolynomial
 import E213.Math.Real213.FluxFTCPolynomial
-import E213.Math.Real213.FluxMVTHigh
-import E213.Math.Real213.FluxMVTGeneric
 import E213.Math.Real213.FluxMVTPassthrough
-import E213.Math.Real213.FluxMVTApplications
-import E213.Math.Real213.FluxMVTClosure
 import E213.Math.Real213.FluxPassthroughClass
 import E213.Math.Real213.FluxPassthroughCatalog
 import E213.Math.Real213.ClassicCalc

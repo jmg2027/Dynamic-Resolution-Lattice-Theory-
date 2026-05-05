@@ -1,4 +1,3 @@
-import E213.Math.Real213.FluxMVTClosure
 
 /-!
 # Research.Real213FluxPassthroughClass
