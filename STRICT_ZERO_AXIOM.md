@@ -1,10 +1,45 @@
 # STRICT ∅-AXIOM — the DRLT Axiom Standard
 
-**🎯 Session 27 milestone (2026-05-03) — 진짜 박멸 complete**:
-Tree-wide scan reports **2077 PURE / 0 real DIRTY / 19 sealed**.
-Cumulative arc 394 → 0 real DIRTY across sessions 19-27 via Plan 2
-parallel-struct refactor PLUS deletion of ALL function-eq facade
-+ consumer migration to `_at` pointwise form.
+> **Canonical definitions (single source of truth):** see "Terms"
+> section below.  When other documents (HANDOFF.md, CLAUDE.md,
+> scan_all_axioms.py comments) drift from these definitions, this
+> file wins.  Falsifiability anchor: `seed/AXIOM.md` §5.2.1.
+
+## Terms (canonical)
+
+| Term | Definition |
+|---|---|
+| **PURE** | `#print axioms <thm>` returns "does not depend on any axioms".  Identical to "strict ∅-axiom".  This is the standard target. |
+| **DIRTY** | `#print axioms` returns "depends on axioms: [...]" with a non-empty list.  Any of `propext`, `Quot.sound`, `Classical.choice`, `Lean.ofReduceBool` (from `native_decide`), `sorryAx`. |
+| **sealed-DIRTY-by-design** | A DIRTY theorem accepted because (a) Lean-core boundary (well-founded recursion, Lean.Elab metaprogramming inheriting Classical.choice via the Lean.Elab.Command monad), or (b) Lens funext-by-design (higher-order Lens equality requires funext on the combine field, refactoring would redefine what "Lens equality" means).  Listed in `tools/scan_all_axioms.py` `SEALED_DIRTY_PREFIXES`. |
+| **real DIRTY** | DIRTY ∧ NOT sealed-by-design.  This is the regression budget. |
+
+**The DRLT axiom set is ∅** — a theorem meets the standard iff PURE.
+
+**Forbidden absolutely** (per `seed/AXIOM.md` §5.2.1, falsifiability
+trigger): `Classical.choice` and `Lean.ofReduceBool` in **213
+mathematical content** (theorems about Raw, Lens, observables).
+Tactic files (`E213.Meta.Tactic.*`) that inherit Classical.choice
+purely via the Lean.Elab.Command monad are *plumbing*, not 213-math
+content; sealed under (a) above with explicit justification.
+
+**Always allowed but not target**: `propext` and `Quot.sound` are
+part of the Lean 4 core kernel base.  213 aims to avoid them where
+possible (PURE target) but does not falsify if a result requires
+them via Lean-core well-founded recursion proofs.
+
+---
+
+## Latest scan
+
+(Numbers vary by run due to scanner timeouts on slow modules; refer
+to HANDOFF.md "current state" for the freshest reading.)
+
+Earlier session 27 milestone (2026-05-03): tree-wide scan reported
+**2077 PURE / 0 real DIRTY / 19 sealed**.  Cumulative arc 394 → 0
+real DIRTY across sessions 19-27 via Plan 2 parallel-struct refactor
+PLUS deletion of ALL function-eq facade + consumer migration to `_at`
+pointwise form.
 
 **Genuine final state** (no cheat seal):
   - The function-eq facade across Phase capstones, Flux*/FTC*
