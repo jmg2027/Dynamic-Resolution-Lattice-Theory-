@@ -29,6 +29,23 @@ made here in prose.
 - **NOT a paper draft.**  See `papers/README.md` (deprecated
   archive — content moved to Lean + guide).
 
+## Naming policy: 213 / DRLT / E213 (canonical)
+
+| Name | Meaning | Where used |
+|---|---|---|
+| **213** | the formal axiom framework — Raw + 4-clause axiom + Lens framework + ∅-axiom commitment.  The mathematical / type-theoretic side. | seed/AXIOM.md uses "213 axiom" throughout; metatheorems and Lean tree are about 213. |
+| **DRLT** | "Dynamic Resolution Lattice Theory" — the physics deployment of 213.  Coined from the Zeno → pixels intuition (`ORIGIN.md` §3, table line "Zeno → pixels  →  DRLT's 'Dynamic Resolution' name"). | Physics constants table (CLAUDE.md), `Physics/` Lean tree, papers, "DRLT zero-parameters" capstones. |
+| **E213** | the Lean namespace.  Mechanical artifact (`namespace E213.Firmware`, `namespace E213.Hypervisor.Lens`, …). | Lean source only. |
+
+**Disambiguation rule.** Use **213** when discussing the axiom or
+mathematical framework (Raw, Lens, ∅-axiom standard, AXIOM.md, …).
+Use **DRLT** when discussing physics (constants, observables,
+predictions, the lattice/resolution picture from ORIGIN.md).  Use
+**E213** only inside Lean code or when referring to specific
+Lean modules.  When in doubt about a math/physics-boundary claim,
+prefer **213** (it's the broader name; DRLT is a physics
+specialization of 213).
+
 ## Cross-references
 
 - `lean/E213/Firmware/Raw*.lean` — formal counterpart of `AXIOM.md`

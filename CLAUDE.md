@@ -11,6 +11,22 @@ Operating instructions for Claude on the DRLT 213 codebase.
 3. **`HANDOFF.md`** (if exists) — current session state.
 4. **This file** — operating principles + hard rules.
 
+## Naming: 213 / DRLT / E213
+
+Canonical policy (`seed/INDEX.md` "Naming policy"):
+
+  - **213** = the formal axiom framework (Raw + 4-clause axiom + Lens
+    + ∅-axiom standard).  Use for math / type-theoretic / framework
+    statements.
+  - **DRLT** = "Dynamic Resolution Lattice Theory", the physics
+    deployment of 213 (Zeno → pixels intuition per `ORIGIN.md`).  Use
+    for physics constants, observables, predictions.
+  - **E213** = Lean namespace (mechanical artifact).  Use only inside
+    Lean code or when citing specific modules.
+
+When unsure about a math/physics boundary, prefer **213** (broader);
+DRLT is a physics specialization.
+
 ---
 
 ## Meta-principle (non-negotiable)
