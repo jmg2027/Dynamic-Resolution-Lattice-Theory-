@@ -6,7 +6,7 @@ import E213.Physics.Simplex.Counts
 Standard nuclear shell magic numbers: 2, 8, 20, 28, 50, 82, 126.
 HO (harmonic-oscillator) shell magic numbers: 2, 8, 20, 40, 70, 112, 168.
 
-DRLT derivation (NUC_003): Sym²(j=(n-1)/2) angular momenta exactly
+DRLT derivation: Sym²(j=(n-1)/2) angular momenta exactly
 match HO shell n-1 angular momenta.  Cumulative shell capacity:
 
     HO_magic(n) = Σ_{k=1}^n k·(k+1) = n(n+1)(n+2)/3

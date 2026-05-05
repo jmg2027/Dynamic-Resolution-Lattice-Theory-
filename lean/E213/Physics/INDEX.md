@@ -41,6 +41,9 @@ Physics/
 │                              deleted 2026-05-05 as orphan traces)
 ├── Nuclear/             6  — DeuteronBinding, MagicNumbers{,Atomic},
 │                              Binding, Bridge, Shells
+│                              (MagicNumbersFalsifier +
+│                              MagicNumbersPhase3Derivation deleted
+│                              2026-05-05 as alias-only orphans)
 ├── Mixing/              5  — CKMHierarchy, CPViolation, CabibboAngle,
 │                              Bridge, NeutrinoMixing
 ├── Cosmology/           7  — Bridge, DarkEnergy, HubbleConstant,

@@ -3,7 +3,7 @@ import E213.Physics.Hadron.Masses
 /-!
 # Nuclear binding — semi-empirical mass formula (0 axioms)
 
-DRLT formulae (NUC_010, ch10):
+DRLT formulae:
 
   a_V (volume)   = 6 · E_d        = (NS·NT)·E_d = (d+1)·E_d
   a_S (surface)  = (d-1) · E_d                         [4 · E_d]

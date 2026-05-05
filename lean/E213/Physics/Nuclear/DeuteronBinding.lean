@@ -3,7 +3,7 @@ import E213.Physics.Nuclear.Binding
 /-!
 # Deuteron binding E_d = Λ_QCD · α_GUT / π (0 axioms structural)
 
-DRLT formula (NUC_008, ch10):
+DRLT formula:
 
   E_d = Λ_QCD · α_GUT / π
 
@@ -14,7 +14,7 @@ DRLT formula (NUC_008, ch10):
 
 ## Same atomic primitives
 
-  Λ_QCD = QCD scale (HAD_005 derived ≈ 308 MeV)
+  Λ_QCD = QCD scale (HAD derivation ≈ 308 MeV)
   α_GUT = 6/(25π²)
   π appearance: same Wallis-bracketed transcendental
 

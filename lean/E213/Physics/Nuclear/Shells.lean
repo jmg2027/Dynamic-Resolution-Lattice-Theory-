@@ -4,7 +4,7 @@ import E213.Physics.Nuclear.Binding
 /-!
 # Nuclear magic numbers 7/7 — HO + spin-orbit splitting (0 axioms)
 
-DRLT derivation (NUC_003, ch10):
+DRLT derivation:
 
   HO magic:      2, 8, 20, 40, 70, 112, 168
   Nuclear magic: 2, 8, 20, 28, 50, 82, 126

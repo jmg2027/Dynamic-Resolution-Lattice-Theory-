@@ -5,7 +5,7 @@ import E213.Physics.Mixing.NeutrinoOrdering
 import E213.Physics.Couplings.ThetaQCDFalsifier
 import E213.Physics.YangMills.WMassFalsifier
 import E213.Physics.Cosmology.HubbleTension
-import E213.Physics.Nuclear.MagicNumbersFalsifier
+import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Mixing.PMNSSpecific
 import E213.Physics.Couplings.CassiniLink
 import E213.Physics.AlphaEM.Phase3Sharp
