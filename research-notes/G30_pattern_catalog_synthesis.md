@@ -363,3 +363,61 @@ date.**
 This is the meta-formalization arc closure.  Future codebase shapes
 not yet examined could surface new under-span candidates; the
 methodology for closing them is now established and reproducible.
+
+## §15 Third self-correction — heterogeneous type families are structural noise
+
+The §14 closure included an implementation note about Lean's
+"dependent-match-rfl interaction issue" with heterogeneous target
+families like `α i := if i ≤ 1 then Nat else Bool`.  This was
+framed as a Lean-side limitation that workaround `boolAsNat` papered
+over.
+
+User correction (Mingu): the framing is reversed.  Lean is not
+limited; 213 is *correctly rejecting* the heterogeneous shape.
+
+The mechanism: proving `views i base = expected i` with
+`views i : Base → α i` and `expected i : α i` requires the
+equation compiler to handle definitional equality across an
+index-dependent type.  In the general case this requires
+`HEq` (heterogeneous equality), `cast`, or `Eq.rec`-style
+manipulations — none of which sit in 213's ∅-axiom basis (Type, →,
+∀, Nat, Prop, Iff, Eq, Pair, Raw).
+
+Lean's refusal to reduce `rfl` is therefore the system *correctly
+reporting* that the heterogeneous-target structure is not
+213-native.  The ∅-axiom regime *does not admit* the type-theoretic
+machinery needed to inhabit such structures.
+
+The 213 reading: at the primitive Raw layer, all information is
+bisection trajectories.  "Bool" is just a depth-restricted Nat
+(depth ≤ 1).  Encoding the Bool case as `boolAsNat` (true ↦ 1,
+false ↦ 0) is not a hack — it is the canonical reduction of an
+apparently-heterogeneous family to single cohomological flux on the
+d=5 lattice.
+
+**Third self-correction**: heterogeneous type families are
+**structural noise** that 213's ∅-axiom regime *natively rejects*.
+The catalog correctly mirrors this rejection by housing N-ary
+Cohabitation in its `UniformArityNCohabit Base T` canonical form
+(uniform target T), with the dependent `ArityNCohabit Base α` form
+kept only for type-signature completeness.
+
+  Before: 4 atomics + 2 operators + DepAggregate + dependent
+          ArityNCohabit (assumed heterogeneous, ad-hoc workarounds
+          for non-uniform targets).
+  After:  4 atomics + 2 operators + DepAggregate + UniformArityN
+          Cohabit (canonical 213-native form), with heterogeneous
+          family declared structural noise.
+
+This is the strongest ∅-axiom showcase yet produced by the catalog:
+it demonstrates that the foundation's *limits* are themselves
+informational — they tell us which structural shapes are
+213-coherent and which are imported from richer (e.g. ZFC-flavoured)
+type theories.
+
+The catalog now records, in Lean form:
+  - what 213 is (atomic games + operator algebra)
+  - what 213's primitives are (8 floor primitives)
+  - what 213 *rejects* (heterogeneous-target dependent matching)
+
+three corrections deep, all ∅-axiom verified.

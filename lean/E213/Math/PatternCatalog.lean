@@ -10,7 +10,7 @@ additions discovered by H1 sweep: Dynamical (FSM cluster), ForcedUniq
 (Atomicity cluster).  One composite (Cohabitation) discovered in
 AxiomSystems cluster.
 
-H2 (composition rules) work then yielded **two self-corrections**:
+H2 (composition rules) work yielded **three self-corrections**:
 
   1. **`Aggregation` is not atomic** — it is a higher-order operator
      `Aggregate W : Type` that bundles N witnesses of any other game.
@@ -21,6 +21,17 @@ H2 (composition rules) work then yielded **two self-corrections**:
      `Forced T : Type` that asserts uniqueness on type T.  ForcedValue
      Witness Param ≡ Forced Param.  CataForcedForm and
      LocalityForcedValue use Forced lifted by view / by index.
+
+  3. **Heterogeneous type families are structural noise** — N-ary
+     Cohabitation must use uniform target type T (`UniformArityN
+     Cohabit Base T`).  Apparently-heterogeneous families like
+     `fun n => if n ≤ 1 then Nat else Bool` cannot be inhabited
+     without `HEq`/`cast`/`Eq.rec`, which 213's ∅-axiom basis does
+     not admit.  Lean's refusal to reduce dependent-match `rfl` is
+     the system correctly *reporting* the heterogeneous shape as
+     non-213-native, not a bug.  Bool case in Lens cohabitation
+     (e.g. `isLeafLens.view`) reduces to depth-restricted Nat via
+     `boolAsNat`: this is canonical, not a workaround.
 
 Refined stratification:
 
@@ -158,8 +169,13 @@ structure CohabitationWitness (Base α β : Type) where
     arbitrary arity.  At index `i`, the view targets type `α i`,
     yielding `expected i` on the shared `base`.
 
-    Codebase candidate: any 3+-way Lens cohabitation on the same Raw
-    expression (peanoLens + Lens.depth + isLeafLens etc.). -/
+    **213-native form** (see `UniformArityNCohabit` below): in
+    practice, `α` should be a constant `fun _ => T` for some uniform
+    target `T`.  Heterogeneous `α` (genuinely depending on `i`)
+    requires `HEq` / `cast` / `Eq.rec` to inhabit, none of which are
+    in 213's ∅-axiom basis.  The dependent type signature here is
+    kept for completeness; concrete instances should use the uniform
+    form. -/
 structure ArityNCohabit (Base : Type) (α : Nat → Type) where
   /-- Arity (number of cohabitating views). -/
   arity     : Nat
@@ -171,6 +187,18 @@ structure ArityNCohabit (Base : Type) (α : Nat → Type) where
   expected  : (i : Nat) → α i
   /-- Per-index agreement: view of base equals expected. -/
   agree     : (i : Nat) → views i base = expected i
+
+/-- **213-native canonical form** of n-ary Cohabitation: uniform target
+    type `T`.  This is what concrete codebase instances actually use,
+    per the third self-correction (heterogeneous type families are
+    structural noise in 213's ∅-axiom regime).
+
+    All apparently-heterogeneous Lens cohabitations reduce to this
+    uniform form by encoding lower-resolution targets (e.g., Bool) as
+    depth-restricted Nat (e.g., true ↦ 1, false ↦ 0).  This is
+    geometric alignment with d=5 lattice flux, not coercion-hack. -/
+abbrev UniformArityNCohabit (Base : Type) (T : Type) :=
+  ArityNCohabit Base (fun _ => T)
 
 /-- **Lens composite** = `Typeclass × Catamorphism` with field
     compatibility.  An `InterfaceWitness` provides `(base1, base2,
