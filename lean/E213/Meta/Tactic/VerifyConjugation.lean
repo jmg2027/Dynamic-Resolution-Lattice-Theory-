@@ -4,7 +4,7 @@ import Lean
 # Tactic: `#verify_conjugation`
 
 A command-level diagnostic that attempts to synthesise an
-`E213.Meta.ConjugationCodomain α` instance for a given type
+`E213.Meta.SelfRecognising.ConjugationCodomain α` instance for a given type
 `α` and reports whether the spec is satisfied.
 
 This does **not** re-prove anything — it merely asks Lean's
@@ -67,7 +67,7 @@ def elabVerifyConjugation : CommandElab := fun stx => do
           throwError m!"✗ ConjugationCodomain {αExpr} : no `Zero {αExpr}` instance"
       | some zeroInst =>
           let clsExpr ← Meta.mkAppOptM
-              `E213.Meta.ConjugationCodomain #[some αExpr, some zeroInst]
+              `E213.Meta.SelfRecognising.ConjugationCodomain #[some αExpr, some zeroInst]
           let result ← synthInstance? clsExpr
           match result with
           | some _ =>

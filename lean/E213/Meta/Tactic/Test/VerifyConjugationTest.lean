@@ -16,7 +16,11 @@ transitively on `Firmware.Raw` (for `Raw.fold_swap_hom`).
 Full verification therefore requires the Raw build.
 -/
 
-open E213.Tactic E213.Research
+open E213.Tactic
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZSqrt2
+open E213.Math.CayleyDickson.ZOmega
+open E213.Math.CayleyDickson.ZSqrt
 
 -- Three concrete witnesses
 #verify_conjugation ZI
