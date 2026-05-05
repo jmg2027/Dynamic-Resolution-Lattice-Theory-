@@ -53,10 +53,10 @@ Quick navigation for major Lean capstones.  Updated 2026-05-01.
   — abstract padding lemma + 4 instances
 
 ## Class C atomic catalog (Famous Coincidences)
-- `Physics/FamousCoincidences/V1.famous_coincidences_capstone` — Lenz, Koide, r_p, hierarchy
-- `Physics/FamousCoincidences/V2.class_c_atomic_catalog`
-- `Physics/FamousCoincidences/V3.famous_coincidences_III_capstone` — gauge + reps
-- `Physics/FamousCoincidences/V4.famous_coincidences_IV_capstone` — exceptional Lie groups
+- `Physics/FamousCoincidences/Atomic.famous_coincidences_capstone` — Lenz, Koide, r_p, hierarchy
+- `Physics/FamousCoincidences/MultiReading.class_c_atomic_catalog`
+- `Physics/FamousCoincidences/GaugeGroup.famous_coincidences_III_capstone` — gauge + reps
+- `Physics/FamousCoincidences/ExceptionalLie.famous_coincidences_IV_capstone` — exceptional Lie groups
 - `Physics/Nuclear/MagicNumbersAtomic.nuclear_magic_atomic_capstone` — 7/7 magic
 
 ## Real213 precision artifact closures (F6 doc)

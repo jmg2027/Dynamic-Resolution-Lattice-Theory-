@@ -2,7 +2,7 @@ import E213.Physics.Mixing.CabibboAngle
 import E213.Physics.Simplex.Counts
 import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Nuclear.MagicNumbersAtomic
-import E213.Physics.FamousCoincidences.V1
+import E213.Physics.FamousCoincidences.Atomic
 import E213.Physics.Foundations.NUniverseFractalDepth
 
 /-!

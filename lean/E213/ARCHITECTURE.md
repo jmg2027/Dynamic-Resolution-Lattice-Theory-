@@ -469,8 +469,12 @@ Imports flow top→bottom.  Theorems compose bottom→top.
      `Lens/LensFactoring.lean` (cluster name appears in path).
 
   4. **V-prefix on digit-start** — `V137.lean` (Lean module names
-     cannot start with digit), `V2.lean` (FamousCoincidences/V2.lean
-     was originally `FamousCoincidencesII.lean`).
+     cannot start with digit, so `V137` substitutes for "1/137").
+     Avoid V-prefix when not digit-driven; for sequential naming
+     prefer descriptive topic names (e.g. previous
+     `FamousCoincidences/V1-V4` was renamed to topic-named files
+     `Atomic`, `MultiReading`, `GaugeGroup`, `ExceptionalLie` per
+     2026-05-05 audit pass).
 
   5. **One topic per file** — when a file accumulates two
      unrelated topics, split.  When 3+ thematically-related files

@@ -25,7 +25,7 @@ Basel brackets in companion files (`AlphaGUT`, `BaselBound`,
 All identities closed at ≤ {propext, Quot.sound} via decide.
 -/
 
-namespace E213.Physics.FamousCoincidences.V1
+namespace E213.Physics.FamousCoincidences.Atomic
 
 open E213.Physics.Simplex.Counts
 
@@ -143,4 +143,4 @@ theorem famous_coincidences_capstone :
     ∧ (d ^ (d * d) = 298023223876953125 ∧ d + 1 = 6) := by
   refine ⟨?_, ?_, ⟨?_, ?_, ?_⟩, ⟨?_, ?_⟩⟩ <;> decide
 
-end E213.Physics.FamousCoincidences.V1
+end E213.Physics.FamousCoincidences.Atomic

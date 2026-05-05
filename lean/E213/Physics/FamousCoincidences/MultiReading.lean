@@ -13,13 +13,13 @@ reading integers (like 4 = NT² = d−1 = NS+1 in r_p) are forced by
 the lattice structure, not by happy numerical coincidence.
 
 This file catalogs the famous magic integers and their atomic
-decompositions, complementing `FamousCoincidences.lean` (Lenz,
-Koide, r_p, hierarchy).
+decompositions, complementing `Atomic.lean` (Lenz, Koide, r_p,
+hierarchy) in the same directory.
 
 All theorems STRICT 0-AXIOM via decide.
 -/
 
-namespace E213.Physics.FamousCoincidences.V2
+namespace E213.Physics.FamousCoincidences.MultiReading
 
 open E213.Physics.Simplex.Counts
 
@@ -147,4 +147,4 @@ theorem class_c_atomic_catalog :
   refine ⟨⟨?_, ?_, ?_⟩, ⟨?_, ?_, ?_⟩, ⟨?_, ?_⟩,
           ⟨?_, ?_⟩, ?_, ⟨?_, ?_, ?_⟩⟩ <;> decide
 
-end E213.Physics.FamousCoincidences.V2
+end E213.Physics.FamousCoincidences.MultiReading

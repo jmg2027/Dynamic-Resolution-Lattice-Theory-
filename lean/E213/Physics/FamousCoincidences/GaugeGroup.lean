@@ -1,9 +1,10 @@
 import E213.Physics.Simplex.Counts
 
 /-!
-# Famous Coincidences III — gauge group + representation ladder
+# FamousCoincidences/GaugeGroup — gauge group + representation ladder
 
-Continuing the Class C atomic catalog (`FamousCoincidences{,II}`),
+Continuing the Class C atomic catalog (companion files `Atomic`,
+`MultiReading` in this directory),
 this file elevates **gauge-theoretic** integers to atomic identities
 on (NS, NT, d):
 
@@ -16,7 +17,7 @@ Each integer admits multiple distinct atomic readings — Class C
 signature.  All theorems STRICT 0-AXIOM via decide.
 -/
 
-namespace E213.Physics.FamousCoincidences.V3
+namespace E213.Physics.FamousCoincidences.GaugeGroup
 
 open E213.Physics.Simplex.Counts
 
@@ -179,4 +180,4 @@ theorem famous_coincidences_III_capstone :
           ⟨?_, ?_, ?_, ?_⟩, ⟨?_, ?_, ?_, ?_, ?_, ?_⟩,
           ⟨?_, ?_⟩, ⟨?_, ?_, ?_⟩⟩ <;> decide
 
-end E213.Physics.FamousCoincidences.V3
+end E213.Physics.FamousCoincidences.GaugeGroup

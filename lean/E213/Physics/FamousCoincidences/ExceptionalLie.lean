@@ -1,9 +1,10 @@
 import E213.Physics.Simplex.Counts
 
 /-!
-# Famous Coincidences IV — exceptional Lie groups + factorial chain
+# FamousCoincidences/ExceptionalLie — exceptional Lie groups + factorial chain
 
-Continuing the Class C atomic catalog (FamousCoincidences{,II,III}),
+Continuing the Class C atomic catalog (companion files `Atomic`,
+`MultiReading`, `GaugeGroup` in this directory),
 this file elevates **exceptional Lie group dimensions** and the
 **d! factorial chain** to multi-reading atomic identities.
 
@@ -17,7 +18,7 @@ Each integer admits multiple distinct atomic readings — Class C
 signature.  All theorems STRICT 0-AXIOM via decide.
 -/
 
-namespace E213.Physics.FamousCoincidences.V4
+namespace E213.Physics.FamousCoincidences.ExceptionalLie
 
 open E213.Physics.Simplex.Counts
 
@@ -154,4 +155,4 @@ theorem famous_coincidences_IV_capstone :
   refine ⟨⟨?_, ?_, ?_, ?_⟩, ⟨?_, ?_, ?_, ?_, ?_⟩,
           ⟨?_, ?_, ?_, ?_, ?_⟩, ⟨?_, ?_, ?_, ?_⟩⟩ <;> decide
 
-end E213.Physics.FamousCoincidences.V4
+end E213.Physics.FamousCoincidences.ExceptionalLie
