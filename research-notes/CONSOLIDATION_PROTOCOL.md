@@ -131,12 +131,40 @@ expectation: most leaf-directory variant content is redundant.
 | Pattern | Likely meaning | Action |
 |---|---|---|
 | `V137`, `V137Tight`, `V137Tighter` | progressive precision attempts toward 1/α_em | usually consolidate into `MasterCapstone` (or whichever holds full term-stack) |
-| `Phase3Derivation`, `Phase3Sharp`, `Phase3Manifesto` | stale Phase-3 marathon trace | check whether absorbed; if yes, delete |
-| `Bound`, `BoundTight` | tight bound progression | keep tighter version, delete looser if not cited |
-| `Mass`, `MassFinitist` | finitist re-derivation of same observable | check semantic equivalence; consolidate |
+| `Phase3Derivation`, `Phase3Sharp`, `Phase3Manifesto` | stale Phase-3 marathon trace | **almost always delete** if 0 importers (verified pattern from Leaf 3 Higgs/Phase3Derivation: literal aliases of canonical theorems) |
+| `Bound`, `BoundTight` | tight bound *extension* (not progression) — adds lower bound to canonical | merge into the canonical (Leaf 2 verified: BoundTight is strict superset of Bound) |
+| `Mass`, `MassFinitist` | finitist re-derivation of same observable | usually 0 importers — atomic-identity restatements already covered by canonical (Leaf 3 verified) |
 | `MagicNumbers`, `MagicNumbersAtomic`, `MagicNumbersFalsifier`, `MagicNumbersPhase3Derivation` | observable + atomic reading + falsifier + phase trace | typically: atomic + falsifier are real artifacts, Phase3 is trace |
 | `V1`, `V2`, `V3`, `V4` (no number-encoding role) | could be sub-topics OR variants | inspect each file's actual content |
 | `WithTail`, `WithoutTail`, `Unified` | term-coverage variants | usually `MasterCapstone` is the canonical with all terms |
+
+## Stale-citation sweep (do as you go)
+
+Files often contain docstring citations to artifacts that were
+deleted in earlier audit passes.  Sweep these whenever editing a
+file's docstring:
+
+| Stale citation | Status | Replacement |
+|---|---|---|
+| `lib/drlt.py:NNN` | deleted (Python ref impl removed) | drop the citation entirely |
+| `ch01-ch22`, `ch09 sec 6.1` | `book/chapters/` deleted (per Stage 6 audit) | drop or replace with `lean/E213/` module path if still relevant |
+| `SM_NNN`, `eq NN` | old paper-marker (papers/ deleted) | drop |
+| `PAPER.md`, `PAPER2.md` | superseded by `seed/AXIOM.md` (per AXIOM.md §7.2) | redirect to `seed/AXIOM.md §<ref>` |
+| `Finitism is Forced` (heading) | deprecated framing (per `seed/RESOLUTION_LIMIT_SPEC.md`) | redirect to `seed/RESOLUTION_LIMIT_SPEC.md` |
+| `R12Codomain`, `R3Codomain`, `R4Codomain` | renamed 2026-05-05 (AXIOM.md §9.1) | use `CommBinaryCodomain` / `NonVanishingCodomain` / `ConjugationCodomain` |
+| `derive_r4_codomain`, `#verify_r4` | tactic renamed | `derive_conjugation_codomain` / `#verify_conjugation` |
+
+## "Orphan + alias" rule of thumb
+
+If a file has **0 importers** AND its theorems are mostly:
+  - `theorem foo := canonical_theorem_name`  (literal alias)
+  - `theorem foo : <atomic identity already in Kernel/MonomialAxioms or AtomicSuperCatalog>`
+  - `*_capstone` bundles repackaging existing canonical theorems
+
+→ **Confidently delete.**  No need to "find a home" — the content
+is fully absorbed in canonical files.  This was the pattern for
+`Higgs/MassFinitist.lean` and `Higgs/Phase3Derivation.lean`
+(Leaf 3, both deleted).
 
 ## What NOT to do (lessons from FamousCoincidences/)
 
