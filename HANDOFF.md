@@ -1,5 +1,81 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 29: M11 — Layer-umbrella sweep + hierarchical placement (2026-05-05)
+
+User directive (verbatim):
+> "이런 식으로 E213디렉토리 밑의 모든 lean 파일들을 전부 수정 /
+>  Analysis가 제일 모범케이스인듯 아마도 / 그러고 나면 이제
+>  본질적으로 계층적 설계에 대해서 완전하게 어느것이 어디로
+>  들어가야하는지 모두 결정 가능할 것 - 이것까지 수행 /
+>  난 잘테니 멀티 커밋을 하면서 자율적으로 수행"
+
+Branch: `claude/fix-propext-constraints-Rdn1r`.
+
+### What was executed (10 commits, M11a–M11j)
+
+  1. **M11a** — Add App/Kernel/Firmware umbrella entries
+     (3 layers; +88 lines).
+  2. **M11b** — Add Meta umbrella + fix `#verify_conjugation`
+     macro (mkAppOptM emitted hardcoded `E213.Meta.
+     ConjugationCodomain`; relocated to `E213.Meta.
+     SelfRecognising.ConjugationCodomain`).  All 6 verifications
+     now pass.
+  3. **M11c** — Add OS umbrella (11/12 initially; HodgeTate
+     blocked by Cohomology cascade).
+  4. **M11d** — Add Hypervisor umbrella (79/89) + namespace
+     typo sweep: `InstancesReach` → `Instances.Reach` (3
+     files), `KernelCorresp` → `Kernel.Corresp` (1 file),
+     `LeavesRefinesParity` → `Leaves.RefinesParity` (1 file).
+     ABRefines.lean still breaks on cascading deeper issues.
+  5. **M11e** — Root `E213.lean` collapsed from hand-curated
+     module list to clean import of 6 layer umbrellas + 1
+     Math.Pigeonhole infrastructure import.
+  6. **M11f** — Fix `E213/Physics.lean` import-order error
+     (docstring before imports — Lean 4 violation).
+  7. **M11g** — CayleyDickson 17 → 20 clean: Sedenion.lean
+     + Trigintaduonion.lean + Pathion.lean.  Two surgical
+     fixes: (a) Sedenion's `Cayley.{I',J'}` paths were one
+     namespace level too shallow (3 segments missing); (b)
+     Sedenion's `def conj` + projection lemmas were in the
+     OUTER namespace, wrapped in `namespace Sedenion ... end`
+     so dot-notation resolves; (c) Pathion missing
+     `open ...Trigintaduonion[.Trigintaduonion]`.
+  8. **M11h** — Cohomology Bipartite/Filled.lean + 6
+     HodgeConjecture cascades.  Single fix: dropped
+     `phase_D_partial`'s 4th conjunct depending on deleted
+     `Audit.Bip32.{CochAbove,b_k_graph_trivial}` symbols
+     (Stage M7b orphan sweep).  Unblocks 5 HodgeConjecture
+     files plus OS HodgeTate.
+  9. **M11i** — Math/Cauchy + Math/Tactic full coverage.
+     Cauchy umbrella: 2 → 14 imports.  Tactic umbrella:
+     1 → 5.  `quad_extension` macro fixed analogous to M11b.
+ 10. **M11j** — `research-notes/HIERARCHICAL_PLACEMENT.md`
+     (229 lines) records final state: 8 top-level + 17 Math
+     + 14 Physics umbrellas, 0 layer-claim violations, 28
+     informational downgrade hints, 28-file deferred
+     inventory by cluster, R1–R11 rule compliance checklist.
+
+### Final umbrella coverage tally
+
+  * Layer umbrellas: 8/8 (Kernel/Firmware/Hypervisor/Meta/
+    App/OS/Math/Physics).
+  * Math/ sub-trees: 17/17 (Analysis, AxiomSystems, Cauchy,
+    CayleyDickson, Choice, Cohomology, Diagonal, Hyper,
+    Infinity, Irrational, Linalg213, ModArith, Modulus,
+    Polynomial213, Real213, Tactic, Trajectory).
+  * Physics/ sub-trees: 14/14 (all clean, 0 broken).
+
+### Deferred / known-broken (28 files total)
+
+  * Hypervisor: 10 (open E213.Meta + Raw rename + lens-API drift)
+  * CayleyDickson: 9 (hurwitz_ring tactic + LipschitzLens/R5Vacuity)
+  * Cohomology: 9 (Universal.Prop31 + Dyadic API + Pell.ProperBridge)
+
+All deferred items are pre-existing API drift documented inline
+in each umbrella; not regressions caused by M11.
+
+---
+
 ## ★★★ Part 27: AUDIT_PASS 2026-05-05 (closing the audit prompt arc)
 
 User directive (verbatim):
