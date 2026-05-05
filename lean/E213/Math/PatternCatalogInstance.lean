@@ -304,6 +304,47 @@ def forcedAggDemo : ForcedAggregate (Forced Nat) :=
     witness := specificBundle
     forced  := fun _ => Iff.rfl }
 
+/-! ## Operator self-composition instances
+
+Demonstrate non-idempotence concretely:
+
+  - Build an `Aggregate (Aggregate Nat)` of arity 2 (two inner bundles
+    of Forced witnesses) and project to its first inner bundle.
+  - Construct a `Forced (Forced Nat)`: the unique `Forced Nat` whose
+    witness is 3.  This is meta-uniqueness — it pins down WHICH
+    uniqueness statement we mean, and is genuinely different from
+    `Forced Nat` itself. -/
+
+open E213.Math.PatternCatalog (Aggregate Forced)
+
+/-- Aggregate of two AggregateForced bundles. -/
+def aggOfAgg : Aggregate (Aggregate (Forced Nat)) :=
+  { phase := "outer"
+    arity := 2
+    facts := fun n => match n with
+      | 0 => specificBundle
+      | _ => aggForcedDemo }
+
+/-- Project to first inner — non-idempotence witness. -/
+def aggOfAgg_first : Aggregate (Forced Nat) :=
+  Aggregate.firstInner aggOfAgg
+
+/-- A `Forced (Forced Nat)` instance via the *tautological* condition
+    `(· = threeIsForced)`.
+
+    Note: weaker conditions like `(·.witness = 3)` cannot inhabit
+    `Forced (Forced Nat)` without further extensionality — two
+    `Forced Nat` values with witness 3 may differ in their `cond` /
+    `forced` fields, so witness-equality does not force structure
+    equality.  This failure is itself the empirical content of
+    non-idempotence: `Forced (Forced T)` is strictly richer than
+    `Forced T` because it pins down WHICH uniqueness statement is
+    meant, not just which value. -/
+def forcedOfForced : Forced (Forced Nat) :=
+  { cond    := fun f => f = threeIsForced
+    witness := threeIsForced
+    forced  := fun _ => Iff.rfl }
+
 /-! ## Analysis
 
 The dynamical game is **structurally distinct** from the four

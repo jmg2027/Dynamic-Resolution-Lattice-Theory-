@@ -381,4 +381,33 @@ def AggregateForced.diagonal {T : Type} (f : Forced T)
     (n : Nat) (φ : String) : AggregateForced T :=
   { phase := φ, arity := n, facts := fun _ => f }
 
+/-! ## Operator self-composition
+
+Q: Is `Aggregate (Aggregate W)` reducible to `Aggregate W`?
+   Is `Forced (Forced T)`     reducible to `Forced T`?
+
+Empirically, neither is idempotent at the type level (the structures
+are formally different).  However:
+
+  - `Aggregate` admits a **flatten**: `Aggregate (Aggregate W)` can be
+    collapsed to `Aggregate W` by reading off the *first inner bundle*
+    and discarding the rest.  More faithful flattenings (e.g.
+    concatenation) require summing arities; we record the simplest
+    canonical projection here.
+
+  - `Forced (Forced T)` does NOT admit a clean reduction.  It carries
+    the additional content "which Forced-T statement we mean", which
+    the inner Forced T does not.  This asymmetry mirrors the
+    Aggregate-vs-Forced non-commutativity from C4.
+
+Together these show: **the catalog operators are not idempotent.**
+Self-composition produces strictly richer types. -/
+
+/-- Project an `Aggregate (Aggregate W)` onto its first inner bundle.
+    Loses information about the other bundles; this is a witness of
+    *non-idempotence*, not a flatten morphism. -/
+def Aggregate.firstInner {W : Type} (a : Aggregate (Aggregate W)) :
+    Aggregate W :=
+  a.facts 0
+
 end E213.Math.PatternCatalog
