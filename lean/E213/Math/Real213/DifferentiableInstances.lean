@@ -1,20 +1,37 @@
 
 /-!
-# Research.Real213DifferentiableInstances
+# Polynomial-chain `IsDifferentiable` instances — degrees 1-16
 
-Phase AE-1: concrete polynomial IsDifferentiable instances mirroring
-the IsSmooth instances (`squareIsSmooth`, `cubeIsSmooth`, etc.) plus
-their derivative closed forms and modulus equalities.
+Concrete `IsDifferentiable` instances paralleling the `IsSmooth` chain
+(`squareIsSmooth`, `cubeIsSmooth`, …).  Each derivative shares the
+function's `linearityModulus = degree × k`.
 
-## Instances
+Sub-namespaces preserved (cross-layer `open` declarations):
 
-  squareIsDifferentiable    : x ↦ x²,     d/dx = 2x
-  cubeIsDifferentiable      : x ↦ x³,     d/dx = 3x²
-  quarticIsDifferentiable   : x ↦ x⁴,     d/dx = 4x³
+  * `E213.Math.Real213.DifferentiableInstances`  — degrees 1-4 + scale/half
+  * `E213.Math.Real213.DifferentiableHigherPow`  — degrees 5-8
+  * `E213.Math.Real213.DifferentiableHighOrder`  — degrees 9, 10, 12, 16
 
-## Modulus
+(Consolidated 2026-05-05 from 3 phase files: DifferentiableInstances
+[Phase AE-1, deg 1-4] + DifferentiableHigherPow [Phase AF, deg 5-8] +
+DifferentiableHighOrder [Phase AK, deg 9-16].  Per-stage capstone
+bundles dropped.  Sub-namespaces kept so existing `open … HigherPow`
+/ `open … HighOrder` declarations across the codebase stay valid.)
 
-  Each derivative shares the function's linearityModulus = degree × k.
+| degree | instance                  | modulus |
+|-------:|---------------------------|--------:|
+|      1 | (id from `IsDifferentiable`) | k    |
+|      2 | `squareIsDifferentiable`  | 2k      |
+|      3 | `cubeIsDifferentiable`    | 3k      |
+|      4 | `quarticIsDifferentiable` | 4k      |
+|      5 | `quinticIsDifferentiable` | 5k      |
+|      6 | `sexticIsDifferentiable`  | 6k      |
+|      7 | `septicIsDifferentiable`  | 7k      |
+|      8 | `octicIsDifferentiable`   | 8k      |
+|      9 | `nonicIsDifferentiable`   | 9k      |
+|     10 | `decicIsDifferentiable`   | 10k     |
+|     12 | `dodecicIsDifferentiable` | 12k     |
+|     16 | `hexadecicIsDifferentiable` | 16k   |
 -/
 
 namespace E213.Math.Real213.DifferentiableInstances
@@ -33,33 +50,30 @@ open E213.Math.Real213.IsDifferentiable
    cutPowFnIsDifferentiable)
 open E213.Math.Real213.IsSmooth (constIsSmooth cutHalfIsSmooth cutScaleIsSmooth)
 
-/-- x ↦ x² = cutMul x x is differentiable; d/dx [x²] follows
-    product rule: 1·x + x·1 (≈ 2x). -/
+/-- x² differentiable. -/
 def squareIsDifferentiable : IsDifferentiable (fun x => cutMul x x) :=
   mulIsDifferentiable idIsDifferentiable idIsDifferentiable
 
-/-- x ↦ x³ = cutMul x (cutMul x x) is differentiable. -/
+/-- x³ differentiable. -/
 def cubeIsDifferentiable :
     IsDifferentiable (fun x => cutMul x (cutMul x x)) :=
   mulIsDifferentiable idIsDifferentiable squareIsDifferentiable
 
-/-- x ↦ x⁴ = cutMul (x²) (x²) is differentiable. -/
+/-- x⁴ differentiable. -/
 def quarticIsDifferentiable :
     IsDifferentiable (fun x => cutMul (cutMul x x) (cutMul x x)) :=
   mulIsDifferentiable squareIsDifferentiable squareIsDifferentiable
 
-/-- Square derivative closed form: 1·x + x·1. -/
+/-- d/dx [x²] closed form: 1·x + x·1. -/
 theorem square_derivative_form (x : Nat → Nat → Bool) :
     squareIsDifferentiable.derivative x
       = cutSum (cutMul (constCut 1 1) x) (cutMul x (constCut 1 1)) := rfl
 
-/-- Square modulus: linearityModulus k = 2k.  ∅-axiom: Nat.two_mul. -/
 theorem squareIsDifferentiable_modulus (k : Nat) :
     squareIsDifferentiable.linearityModulus k = 2 * k := by
   show k + k = 2 * k
   rw [Nat.two_mul]
 
-/-- Cube modulus: linearityModulus k = 3k.  ∅-axiom: Nat213.add_mul. -/
 theorem cubeIsDifferentiable_modulus (k : Nat) :
     cubeIsDifferentiable.linearityModulus k = 3 * k := by
   show k + (k + k) = 3 * k
@@ -68,7 +82,6 @@ theorem cubeIsDifferentiable_modulus (k : Nat) :
         E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.add_mul, Nat.one_mul]
   rw [e3, Nat.add_assoc]
 
-/-- Quartic modulus: linearityModulus k = 4k.  ∅-axiom. -/
 theorem quarticIsDifferentiable_modulus (k : Nat) :
     quarticIsDifferentiable.linearityModulus k = 4 * k := by
   show (k + k) + (k + k) = 4 * k
@@ -79,32 +92,164 @@ theorem quarticIsDifferentiable_modulus (k : Nat) :
   rw [e4]
   exact (Nat.add_assoc (k+k) k k).symm
 
-/-- x ↦ (a/b)·x linear scaling: differentiable, derivative = a/b. -/
+/-- (a/b)·x linear scaling. -/
 def cutScaleIsDifferentiable (a b : Nat) : IsDifferentiable (cutScale a b) where
   toIsSmooth := cutScaleIsSmooth a b
   derivative := constCutFn (constCut a b)
   derivativeSmooth := constIsSmooth (constCut a b)
 
-/-- x ↦ x/2 halving: differentiable, derivative = 1/2. -/
 def cutHalfIsDifferentiable : IsDifferentiable cutHalf where
   toIsSmooth := cutHalfIsSmooth
   derivative := constCutFn (constCut 1 2)
   derivativeSmooth := constIsSmooth (constCut 1 2)
 
-/-- d/dx [(a/b)·x] = a/b. -/
 theorem cutScale_derivative_form (a b : Nat) :
     (cutScaleIsDifferentiable a b).derivative = constCutFn (constCut a b) := rfl
 
-/-- d/dx [x/2] = 1/2. -/
 theorem cutHalf_derivative_form :
     cutHalfIsDifferentiable.derivative = constCutFn (constCut 1 2) := rfl
 
-/-- Phase AE-1 capstone: square/cube/quartic moduli. -/
-theorem polynomial_differentiable_instances_capstone (k : Nat) :
-    squareIsDifferentiable.linearityModulus k = 2 * k
-    ∧ cubeIsDifferentiable.linearityModulus k = 3 * k
-    ∧ quarticIsDifferentiable.linearityModulus k = 4 * k :=
-  ⟨squareIsDifferentiable_modulus k, cubeIsDifferentiable_modulus k,
-   quarticIsDifferentiable_modulus k⟩
-
 end E213.Math.Real213.DifferentiableInstances
+
+namespace E213.Math.Real213.DifferentiableHigherPow
+
+open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable mulIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus)
+
+/-- x⁵ = x²·x³. -/
+def quinticIsDifferentiable :
+    IsDifferentiable (fun x => cutMul (cutMul x x) (cutMul x (cutMul x x))) :=
+  mulIsDifferentiable squareIsDifferentiable cubeIsDifferentiable
+
+/-- x⁶ = x³·x³. -/
+def sexticIsDifferentiable :
+    IsDifferentiable (fun x => cutMul (cutMul x (cutMul x x))
+                                      (cutMul x (cutMul x x))) :=
+  mulIsDifferentiable cubeIsDifferentiable cubeIsDifferentiable
+
+/-- x⁷ = x³·x⁴. -/
+def septicIsDifferentiable :
+    IsDifferentiable (fun x => cutMul (cutMul x (cutMul x x))
+                                      (cutMul (cutMul x x) (cutMul x x))) :=
+  mulIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+
+/-- x⁸ = x⁴·x⁴. -/
+def octicIsDifferentiable :
+    IsDifferentiable (fun x => cutMul (cutMul (cutMul x x) (cutMul x x))
+                                      (cutMul (cutMul x x) (cutMul x x))) :=
+  mulIsDifferentiable quarticIsDifferentiable quarticIsDifferentiable
+
+theorem quinticIsDifferentiable_modulus (k : Nat) :
+    quinticIsDifferentiable.linearityModulus k = 5 * k := by
+  show squareIsDifferentiable.linearityModulus k
+       + cubeIsDifferentiable.linearityModulus k = 5 * k
+  rw [squareIsDifferentiable_modulus, cubeIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 2 3 k).symm
+
+theorem sexticIsDifferentiable_modulus (k : Nat) :
+    sexticIsDifferentiable.linearityModulus k = 6 * k := by
+  show cubeIsDifferentiable.linearityModulus k
+       + cubeIsDifferentiable.linearityModulus k = 6 * k
+  rw [cubeIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 3 3 k).symm
+
+theorem septicIsDifferentiable_modulus (k : Nat) :
+    septicIsDifferentiable.linearityModulus k = 7 * k := by
+  show cubeIsDifferentiable.linearityModulus k
+       + quarticIsDifferentiable.linearityModulus k = 7 * k
+  rw [cubeIsDifferentiable_modulus, quarticIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 3 4 k).symm
+
+theorem octicIsDifferentiable_modulus (k : Nat) :
+    octicIsDifferentiable.linearityModulus k = 8 * k := by
+  show quarticIsDifferentiable.linearityModulus k
+       + quarticIsDifferentiable.linearityModulus k = 8 * k
+  rw [quarticIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 4 4 k).symm
+
+end E213.Math.Real213.DifferentiableHigherPow
+
+namespace E213.Math.Real213.DifferentiableHighOrder
+
+open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable mulIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances
+  (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
+   squareIsDifferentiable_modulus cubeIsDifferentiable_modulus
+   quarticIsDifferentiable_modulus)
+open E213.Math.Real213.DifferentiableHigherPow
+  (quinticIsDifferentiable sexticIsDifferentiable septicIsDifferentiable
+   octicIsDifferentiable
+   quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
+   septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+
+/-- x⁹ = x⁴·x⁵. -/
+def nonicIsDifferentiable :
+    IsDifferentiable (fun x =>
+      cutMul (cutMul (cutMul x x) (cutMul x x))
+             (cutMul (cutMul x x) (cutMul x (cutMul x x)))) :=
+  mulIsDifferentiable quarticIsDifferentiable quinticIsDifferentiable
+
+/-- x¹⁰ = x⁵·x⁵. -/
+def decicIsDifferentiable :
+    IsDifferentiable (fun x =>
+      cutMul (cutMul (cutMul x x) (cutMul x (cutMul x x)))
+             (cutMul (cutMul x x) (cutMul x (cutMul x x)))) :=
+  mulIsDifferentiable quinticIsDifferentiable quinticIsDifferentiable
+
+/-- x¹² = x⁴·x⁸. -/
+def dodecicIsDifferentiable :
+    IsDifferentiable (fun x =>
+      cutMul (cutMul (cutMul x x) (cutMul x x))
+             (cutMul (cutMul (cutMul x x) (cutMul x x))
+                     (cutMul (cutMul x x) (cutMul x x)))) :=
+  mulIsDifferentiable quarticIsDifferentiable octicIsDifferentiable
+
+/-- x¹⁶ = x⁸·x⁸. -/
+def hexadecicIsDifferentiable :
+    IsDifferentiable (fun x =>
+      cutMul (cutMul (cutMul (cutMul x x) (cutMul x x))
+                     (cutMul (cutMul x x) (cutMul x x)))
+             (cutMul (cutMul (cutMul x x) (cutMul x x))
+                     (cutMul (cutMul x x) (cutMul x x)))) :=
+  mulIsDifferentiable octicIsDifferentiable octicIsDifferentiable
+
+theorem nonicIsDifferentiable_modulus (k : Nat) :
+    nonicIsDifferentiable.linearityModulus k = 9 * k := by
+  show quarticIsDifferentiable.linearityModulus k
+       + quinticIsDifferentiable.linearityModulus k = 9 * k
+  rw [quarticIsDifferentiable_modulus, quinticIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 4 5 k).symm
+
+theorem decicIsDifferentiable_modulus (k : Nat) :
+    decicIsDifferentiable.linearityModulus k = 10 * k := by
+  show quinticIsDifferentiable.linearityModulus k
+       + quinticIsDifferentiable.linearityModulus k = 10 * k
+  rw [quinticIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 5 5 k).symm
+
+theorem dodecicIsDifferentiable_modulus (k : Nat) :
+    dodecicIsDifferentiable.linearityModulus k = 12 * k := by
+  show quarticIsDifferentiable.linearityModulus k
+       + octicIsDifferentiable.linearityModulus k = 12 * k
+  rw [quarticIsDifferentiable_modulus, octicIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 4 8 k).symm
+
+theorem hexadecicIsDifferentiable_modulus (k : Nat) :
+    hexadecicIsDifferentiable.linearityModulus k = 16 * k := by
+  show octicIsDifferentiable.linearityModulus k
+       + octicIsDifferentiable.linearityModulus k = 16 * k
+  rw [octicIsDifferentiable_modulus]
+  exact (E213.Tactic.Nat213.add_mul 8 8 k).symm
+
+end E213.Math.Real213.DifferentiableHighOrder

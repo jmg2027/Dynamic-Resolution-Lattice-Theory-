@@ -32,12 +32,9 @@ import E213.Math.Real213.IsDifferentiable
 import E213.Math.Real213.DerivativeForms
 import E213.Math.Real213.DerivativeDepth
 import E213.Math.Real213.DifferentiableInstances
-import E213.Math.Real213.DifferentiableHigherPow
-import E213.Math.Real213.DifferentiableHighOrder
 import E213.Math.Real213.DifferentiableMid
 import E213.Math.Real213.DifferentiableAffine
 import E213.Math.Real213.DifferentiableCompose
-import E213.Math.Real213.DifferentiableMegaCoverage
 import E213.Math.Real213.ConcreteDerivativeModulus
 
 -- D. Cohomological framework

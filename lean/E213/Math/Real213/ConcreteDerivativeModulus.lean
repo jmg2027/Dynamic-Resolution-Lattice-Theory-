@@ -1,6 +1,4 @@
 import E213.Math.Real213.DifferentiableInstances
-import E213.Math.Real213.DifferentiableHigherPow
-import E213.Math.Real213.DifferentiableHighOrder
 
 /-!
 # Concrete polynomial derivative modulus — sharp `(n-1)·k` pattern

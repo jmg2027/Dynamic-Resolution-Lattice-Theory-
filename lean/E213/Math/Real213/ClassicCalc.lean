@@ -1,7 +1,5 @@
 import E213.Math.Real213.FluxPassthroughCatalog
 import E213.Math.Real213.DifferentiableInstances
-import E213.Math.Real213.DifferentiableHigherPow
-import E213.Math.Real213.DifferentiableHighOrder
 
 /-!
 # Classical calculus structure — `ClassicCalc_at`
