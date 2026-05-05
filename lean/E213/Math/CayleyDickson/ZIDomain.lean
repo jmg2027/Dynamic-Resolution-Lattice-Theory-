@@ -17,6 +17,9 @@ cancellation.
 
 namespace E213.Math.CayleyDickson.ZIDomain
 
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI.ZI
+
 theorem mul_comm (u v : ZI) : u * v = v * u := by
   apply ext
   · show u.re * v.re - u.im * v.im = v.re * u.re - v.im * u.im
@@ -37,10 +40,6 @@ theorem normSq_nonneg (u : ZI) : 0 ≤ u.normSq := by
   have h1 := IntHelpers.mul_self_nonneg u.re
   have h2 := IntHelpers.mul_self_nonneg u.im
   omega
-
-end E213.Math.CayleyDickson.ZIDomain
-
-namespace E213.Math.CayleyDickson.ZIDomain
 
 theorem normSq_eq_zero_iff (u : ZI) : u.normSq = 0 ↔ u = 0 := by
   refine ⟨?_, ?_⟩

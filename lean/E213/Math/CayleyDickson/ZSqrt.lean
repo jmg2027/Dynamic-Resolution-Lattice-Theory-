@@ -17,6 +17,7 @@ duplication.
 
 namespace E213.Math.CayleyDickson.ZSqrt
 
+
 structure ZSqrt (D : Int) where
   re : Int
   im : Int

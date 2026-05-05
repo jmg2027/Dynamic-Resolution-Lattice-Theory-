@@ -15,6 +15,9 @@ Generic proofs over `D : Int`.  `normSq_nonneg`,
 
 namespace E213.Math.CayleyDickson.ZSqrtDomain
 
+
+open E213.Math.CayleyDickson.ZSqrt
+open E213.Math.CayleyDickson.ZSqrt.ZSqrt
 variable {D : Int}
 
 theorem mul_comm (u v : ZSqrt D) : u * v = v * u := by
@@ -52,10 +55,6 @@ theorem normSq_nonneg (hD : 0 ≤ D) (u : ZSqrt D) :
   have h2 := IntHelpers.mul_self_nonneg u.im
   have h3 : 0 ≤ D * (u.im * u.im) := Int.mul_nonneg hD h2
   omega
-
-end E213.Math.CayleyDickson.ZSqrtDomain
-
-namespace E213.Math.CayleyDickson.ZSqrtDomain
 
 variable {D : Int}
 

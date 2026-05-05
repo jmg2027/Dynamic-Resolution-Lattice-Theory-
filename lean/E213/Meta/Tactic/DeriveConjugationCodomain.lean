@@ -90,11 +90,11 @@ def elabDeriveConjugation : CommandElab := fun stx => do
     let cSwapA := mk (Name.mkSimple s!"conj_{b1.getId}")
     let cSwapB := mk (Name.mkSimple s!"conj_{b2.getId}")
     -- `mkIdent` bypasses macro hygiene; the quoted
-    -- `E213.Meta.ConjugationCodomain` would otherwise be
+    -- `E213.Meta.SelfRecognising.ConjugationCodomain` would otherwise be
     -- rewritten to a daggered copy and fail to resolve at the
     -- client site.  (Short path matches the original
     -- `E213.Meta.R4Codomain` convention from before this rename.)
-    let cId := mkIdent `E213.Meta.ConjugationCodomain
+    let cId := mkIdent `E213.Meta.SelfRecognising.ConjugationCodomain
     let cmd ← `(instance : $cId $α where
                   base_a          := $baseA
                   base_b          := $baseB

@@ -14,6 +14,7 @@ The `derive_conjugation_codomain` elab finds `conj_Omega` and
 
 namespace E213.Math.CayleyDickson.ZOmega
 
+
 structure ZOmega where
   re : Int
   im : Int

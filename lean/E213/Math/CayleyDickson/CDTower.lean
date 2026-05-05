@@ -29,6 +29,8 @@ All six components below are formally proved.
 
 namespace E213.Math.CayleyDickson.CDTower
 
+
+open E213.Math.CayleyDickson.ZI.ZI
 open E213.Math.CayleyDickson.ZI E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.Cayley
      E213.Math.CayleyDickson.Sedenion
 
@@ -48,10 +50,6 @@ theorem CD_tower_drops :
    Lipschitz.mul_not_commutative,
    Cayley.mul_not_associative,
    Sedenion.R3_fails_on_sedenion⟩
-
-end E213.Math.CayleyDickson.CDTower
-
-namespace E213.Math.CayleyDickson.CDTower
 
 open E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.Sedenion
 
@@ -81,10 +79,6 @@ theorem CD_tower_extended :
    Cayley.mul_not_associative,
    Sedenion.R3_fails_on_sedenion,
    Sedenion.not_alternative⟩
-
-end E213.Math.CayleyDickson.CDTower
-
-namespace E213.Math.CayleyDickson.CDTower
 
 open E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.Sedenion
 

@@ -13,6 +13,8 @@ AC-normalisation + `omega`.
 
 namespace E213.Math.CayleyDickson.LipschitzHeavy
 
+
+open E213.Math.CayleyDickson.ZI.ZI
 open E213.Tactic
 
 /-- **Universal associativity** of Lipschitz multiplication.
@@ -20,10 +22,6 @@ open E213.Tactic
     identity.  Closed by `hurwitz_ring`. -/
 theorem mul_assoc (u v w : Lipschitz) :
     (u * v) * w = u * (v * w) := by hurwitz_ring
-
-end E213.Math.CayleyDickson.LipschitzHeavy
-
-namespace E213.Math.CayleyDickson.LipschitzHeavy
 
 open E213.Tactic E213.Math.CayleyDickson.ZI
 
@@ -37,10 +35,6 @@ theorem normSq_mul (u v : Lipschitz) :
      = (u.re.normSq + u.im.normSq) * (v.re.normSq + v.im.normSq)
   unfold ZI.normSq
   hurwitz_ring
-
-end E213.Math.CayleyDickson.LipschitzHeavy
-
-namespace E213.Math.CayleyDickson.LipschitzHeavy
 
 open E213.Tactic E213.Math.CayleyDickson.ZI
 
@@ -92,10 +86,6 @@ theorem normSq_eq_zero_iff (u : Lipschitz) : normSq u = 0 ↔ u = 0 := by
         have hsq : u.im.im * u.im.im = 0 := by omega
         rcases Int.mul_eq_zero.mp hsq with h | h <;> exact h
   · rintro rfl; rfl
-
-end E213.Math.CayleyDickson.LipschitzHeavy
-
-namespace E213.Math.CayleyDickson.LipschitzHeavy
 
 open E213.Math.CayleyDickson.ZI
 

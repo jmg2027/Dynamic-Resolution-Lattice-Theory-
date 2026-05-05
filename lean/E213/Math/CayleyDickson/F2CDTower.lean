@@ -40,10 +40,6 @@ theorem F2.conj_involutive : ∀ a : F2, F2.conj (F2.conj a) = a := by
 theorem F2.add_self : ∀ a : F2, F2.add a a = false := by
   intro a; cases a <;> rfl
 
-end E213.Math.CayleyDickson.F2CDTower
-
-namespace E213.Math.CayleyDickson.F2CDTower
-
 /-! ## §2. Layer 1: 𝔽₂[ε]/(ε²) — dual numbers
 
 CD doubling: F2D := F2 × F2.  Multiplication (char-2 adjusted):
@@ -90,10 +86,6 @@ theorem F2D.e_sq_is_one : F2D.mul F2D.e F2D.e = F2D.one := by
 theorem F2D.eps_sq_is_zero : F2D.mul F2D.eps F2D.eps = F2D.zero := by
   decide
 
-end E213.Math.CayleyDickson.F2CDTower
-
-namespace E213.Math.CayleyDickson.F2CDTower
-
 /-! ## §3. Structural properties of F2D
 
 Layer 1 over 𝔽₂ is commutative (unlike quaternions!),
@@ -131,10 +123,6 @@ theorem F2D.eps_has_no_inverse :
     ¬ ∃ y : F2D, F2D.mul F2D.eps y = F2D.one := by
   rintro ⟨⟨a, b⟩, hy⟩
   cases a <;> cases b <;> (revert hy; decide)
-
-end E213.Math.CayleyDickson.F2CDTower
-
-namespace E213.Math.CayleyDickson.F2CDTower
 
 /-! ## §4. Summary: What CD-over-𝔽₂ Layer 1 is
 

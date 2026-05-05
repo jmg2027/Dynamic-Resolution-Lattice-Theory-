@@ -8,8 +8,10 @@ import E213.Math.Hyper
 import E213.Math.Infinity
 import E213.Math.Irrational
 import E213.Math.Linalg213
+import E213.Math.CayleyDickson
 import E213.Math.ModArith
 import E213.Math.Modulus
+import E213.Math.Tactic
 import E213.Math.Trajectory
 import E213.Math.PatternCatalog
 import E213.Math.PatternCatalogAlgebra

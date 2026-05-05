@@ -14,6 +14,7 @@ extension that is self-recognising under R1–R4 alone.
 
 namespace E213.Math.CayleyDickson.ZSqrt2
 
+
 /-- Elements of `ℤ[√-2]`: pairs `re + im · √-2`. -/
 structure Z2 where
   re : Int

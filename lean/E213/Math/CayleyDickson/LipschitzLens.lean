@@ -18,6 +18,12 @@ codomains, connecting the Lens framework to CD tower layer 1.
 
 namespace E213.Math.CayleyDickson.LipschitzLens
 
+open E213.Math.CayleyDickson.CDDouble
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
+
+
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI.ZI
 open E213.Firmware E213.Hypervisor E213.Meta Lipschitz
 
 /-- Lens with codomain `Lipschitz`.  `a ↦ i`, `b ↦ j`,
@@ -41,10 +47,6 @@ theorem lipLens_combine_not_commutative :
   have : ZI.I = ZI.negI := hr
   have : (1 : Int) = -1 := (ZI.mk.injEq ..).mp this |>.2
   exact absurd this (by decide)
-
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
 
 open E213.Firmware E213.Hypervisor E213.Meta Lipschitz
 

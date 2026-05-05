@@ -42,6 +42,8 @@ style tactics; deferred.
 
 namespace E213.Math.CayleyDickson.CDDouble
 
+
+open E213.Math.CayleyDickson.ZI.ZI
 open ZI
 
 /-- The Lipschitz integer quaternion: CD-double of ZI. -/
@@ -66,7 +68,10 @@ end E213.Math.CayleyDickson.CDDouble
 
 namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.CDDouble
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
+
+open E213.Math.CayleyDickson.ZI
 
 /-- **CD multiplication** on `Lipschitz`. -/
 def mul (u v : Lipschitz) : Lipschitz :=
@@ -104,11 +109,7 @@ theorem conj_ne_id : (conj : Lipschitz → Lipschitz) ≠ id := by
   have : (-1 : Int) = 1 := (ZI.mk.injEq ..).mp this |>.1
   exact absurd this (by decide)
 
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
-
-open E213.Research E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI
 
 -- ═══ Non-commutativity of CD multiplication ═══
 
@@ -156,11 +157,7 @@ theorem mul_not_commutative : ∃ u v : Lipschitz, u * v ≠ v * u := by
   have : (1 : Int) = -1 := (ZI.mk.injEq ..).mp this |>.2
   exact absurd this (by decide)
 
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
-
-open E213.Research E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI
 
 /-- **Anti-distributivity of `conj` over `mul`** — the CD
     signature: `conj(u·v) = conj v · conj u` with *reversed*
@@ -173,17 +170,17 @@ open E213.Research E213.Math.CayleyDickson.ZI
     mul_neg/neg_neg/mul_comm`.  The im component similarly via
     `conj_conj/neg_mul` plus Int arithmetic. -/
 theorem conj_mul_anti (u v : Lipschitz) :
-    Lipschitz.conj (u * v) = Lipschitz.conj v * Lipschitz.conj u := by
+    conj (u * v) = conj v * conj u := by
   apply ext
   · show (u.re * v.re - v.im.conj * u.im).conj
          = v.re.conj * u.re.conj - (-u.im).conj * (-v.im)
-    rw [ZI.conj_sub, ZI.conj_mul, ZI.conj_mul, ZI.conj_conj,
-        ZI.conj_neg, ZI.neg_mul, ZI.mul_neg, ZI.neg_neg,
-        ZI.mul_comm u.re.conj v.re.conj,
-        ZI.mul_comm v.im u.im.conj]
+    rw [E213.Math.CayleyDickson.ZIArith.conj_sub, E213.Math.CayleyDickson.ZIHom.conj_mul, E213.Math.CayleyDickson.ZIHom.conj_mul, ZI.conj_conj,
+        E213.Math.CayleyDickson.ZIArith.conj_neg, E213.Math.CayleyDickson.ZIArith.neg_mul, E213.Math.CayleyDickson.ZIArith.mul_neg, E213.Math.CayleyDickson.ZIArith.neg_neg,
+        E213.Math.CayleyDickson.ZIDomain.mul_comm u.re.conj v.re.conj,
+        E213.Math.CayleyDickson.ZIDomain.mul_comm v.im u.im.conj]
   · show -(v.im * u.re + u.im * v.re.conj)
          = (-u.im) * v.re.conj + (-v.im) * (u.re.conj).conj
-    rw [ZI.conj_conj, ZI.neg_mul, ZI.neg_mul]
+    rw [ZI.conj_conj, E213.Math.CayleyDickson.ZIArith.neg_mul, E213.Math.CayleyDickson.ZIArith.neg_mul]
     apply ZI.ext
     · show -(v.im.re * u.re.re - v.im.im * u.re.im +
               (u.im.re * v.re.re - u.im.im * (-v.re.im)))
@@ -195,10 +192,6 @@ theorem conj_mul_anti (u v : Lipschitz) :
            = -(u.im.re * (-v.re.im) + u.im.im * v.re.re)
              + -(v.im.re * u.re.im + v.im.im * u.re.re)
       omega
-
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
 
 open E213.Math.CayleyDickson.ZI
 
@@ -239,10 +232,6 @@ theorem mul_generators_ne_zero :
     I' * J ≠ 0 ∧ J * I' ≠ 0 ∧ I' * I' ≠ 0 ∧ J * J ≠ 0 := by
   refine ⟨?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
-
 /-- **Hamilton's identity** at the Lipschitz level: `(ij)² = -1`.
     Since `i · j = k` (via `I_mul_J`), this computes the square
     of the derived third generator and confirms it equals
@@ -258,10 +247,6 @@ theorem J_squared : J * J = ⟨⟨-1, 0⟩, 0⟩ := by decide
 
 /-- `i² = -1`. -/
 theorem I_squared : I' * I' = ⟨⟨-1, 0⟩, 0⟩ := by decide
-
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
 
 -- ═══ Quaternion group Q_8 relations ═══
 -- `K := I' * J` is the derived third generator (quaternion k).
@@ -289,10 +274,6 @@ theorem K_mul_J : (I' * J) * J = -I' := by decide
 /-- `i · k = -j`. -/
 theorem I_mul_K : I' * (I' * J) = -J := by decide
 
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
-
 -- ═══ Associativity at quaternion basis triples ═══
 -- Lipschitz IS associative (quaternion associativity);
 -- universal proof deferred.  Basis-level instances via `decide`.
@@ -308,10 +289,6 @@ theorem assoc_I_I_J : (I' * I') * J = I' * (I' * J) := by decide
 
 /-- `(j·i)·j = j·(i·j)`. -/
 theorem assoc_J_I_J : (J * I') * J = J * (I' * J) := by decide
-
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
 
 open E213.Math.CayleyDickson.ZI
 
@@ -348,10 +325,6 @@ theorem normSq_neg (u : Lipschitz) : normSq (-u) = normSq u := by
       Int.neg_mul_neg, Int.neg_mul_neg,
       Int.neg_mul_neg, Int.neg_mul_neg]
 
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
-
 open E213.Math.CayleyDickson.ZI E213.Tactic
 
 /-- `|I' * J|² = |I'|² * |J|²` at concrete basis.  Sanity
@@ -380,7 +353,7 @@ A dedicated tactic extension is deferred.
 
 namespace E213.Math.CayleyDickson.LipschitzLens
 
-open E213.Research E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI
 
 -- ═══ Projection simp lemmas for hurwitz_ring tactic ═══
 
@@ -403,10 +376,6 @@ theorem zero_re : (0 : Lipschitz).re = 0 := rfl
 
 /-- `.im` of Lipschitz `0`. -/
 theorem zero_im : (0 : Lipschitz).im = 0 := rfl
-
-end E213.Math.CayleyDickson.LipschitzLens
-
-namespace E213.Math.CayleyDickson.LipschitzLens
 
 open E213.Math.CayleyDickson.ZI
 

@@ -11,6 +11,9 @@ three facts are the hypotheses needed to apply
 
 namespace E213.Math.CayleyDickson.ZIHom
 
+
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI.ZI
 /-- `conj` sends `I` to `-I`. -/
 theorem conj_I : ZI.conj I = negI := by
   show (⟨0, -1⟩ : ZI) = ⟨0, -1⟩

@@ -16,6 +16,9 @@ Non-commutativity and non-associativity are inherited.
 
 namespace E213.Math.CayleyDickson.Sedenion
 
+
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI.ZI
 open Cayley
 
 /-- CD layer 3: the integer sedenions. -/
@@ -85,7 +88,7 @@ ladder across the first four CD layers:
 
 namespace E213.Math.CayleyDickson.Sedenion
 
-open E213.Research E213.Math.CayleyDickson.Cayley
+open E213.Math.CayleyDickson.Cayley
 
 instance : Add Sedenion := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
 instance : Neg Sedenion := ⟨fun u => ⟨-u.re, -u.im⟩⟩
@@ -114,11 +117,7 @@ def zd_left : Sedenion := e3 + e10
 /-- `e_6 - e_15` — other side. -/
 def zd_right : Sedenion := e6 - e15
 
-end E213.Math.CayleyDickson.Sedenion
-
-namespace E213.Math.CayleyDickson.Sedenion
-
-open E213.Research E213.Math.CayleyDickson.Cayley
+open E213.Math.CayleyDickson.Cayley
 
 /-- **Moreno's sedenion zero divisor** (1998).
     `(e_3 + e_10) · (e_6 - e_15) = 0` in the standard
@@ -142,10 +141,6 @@ theorem R3_fails_on_sedenion :
   ⟨zd_left, zd_right, zd_left_ne_zero, zd_right_ne_zero,
    zd_product_zero⟩
 
-end E213.Math.CayleyDickson.Sedenion
-
-namespace E213.Math.CayleyDickson.Sedenion
-
 /-- Generators at sedenion level: Cayley generators lifted. -/
 def I' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.I', 0⟩
 def J' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.J', 0⟩
@@ -164,10 +159,6 @@ theorem mul_not_commutative :
 theorem mul_not_associative :
     ∃ u v w : Sedenion, (u * v) * w ≠ u * (v * w) := by
   refine ⟨I', J', L', ?_⟩; decide
-
-end E213.Math.CayleyDickson.Sedenion
-
-namespace E213.Math.CayleyDickson.Sedenion
 
 -- ═══ Alternativity failure at Sedenion level ═══
 -- Octonions (CD layer 2) are classically alternative.
@@ -189,10 +180,6 @@ theorem alt_fails_at_zd :
 theorem not_alternative :
     ∃ a b : Sedenion, (a * a) * b ≠ a * (a * b) :=
   ⟨zd_left, zd_right, alt_fails_at_zd⟩
-
-end E213.Math.CayleyDickson.Sedenion
-
-namespace E213.Math.CayleyDickson.Sedenion
 
 open E213.Math.CayleyDickson.Cayley
 

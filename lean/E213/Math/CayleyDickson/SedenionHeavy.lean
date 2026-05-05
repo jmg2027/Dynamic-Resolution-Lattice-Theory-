@@ -14,6 +14,9 @@ can still close at layer 3.
 
 namespace E213.Math.CayleyDickson.SedenionHeavy
 
+
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI.ZI
 open E213.Tactic E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.LipschitzLens
 
 set_option maxHeartbeats 2000000 in
@@ -21,10 +24,6 @@ set_option maxHeartbeats 2000000 in
     identity, 16 Int coordinates. -/
 theorem conj_conj (u : Sedenion) : conj (conj u) = u := by
   hurwitz_ring
-
-end E213.Math.CayleyDickson.SedenionHeavy
-
-namespace E213.Math.CayleyDickson.SedenionHeavy
 
 open E213.Tactic
 
@@ -36,10 +35,6 @@ set_option maxHeartbeats 8000000 in
 theorem flexible (a b : Sedenion) : (a * b) * a = a * (b * a) := by
   hurwitz_ring
 
-end E213.Math.CayleyDickson.SedenionHeavy
-
-namespace E213.Math.CayleyDickson.SedenionHeavy
-
 open E213.Tactic
 
 set_option maxHeartbeats 8000000 in
@@ -49,10 +44,6 @@ set_option maxHeartbeats 8000000 in
 theorem conj_mul_anti (u v : Sedenion) :
     conj (u * v) = conj v * conj u := by
   hurwitz_ring
-
-end E213.Math.CayleyDickson.SedenionHeavy
-
-namespace E213.Math.CayleyDickson.SedenionHeavy
 
 open E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.LipschitzLens
 

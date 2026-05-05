@@ -21,6 +21,9 @@ renamed per AXIOM.md §9.1 audit pass.
 
 namespace E213.Math.CayleyDickson.ZSqrt
 
+
+open E213.Math.CayleyDickson.ZSqrt
+open E213.Math.CayleyDickson.ZSqrt.ZSqrt
 open E213.Meta
 
 /-- Generic ConjugationCodomain witness for `ZSqrt D` when `D > 0`. -/

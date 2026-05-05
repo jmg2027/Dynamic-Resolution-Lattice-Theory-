@@ -10,6 +10,9 @@ Testing `hurwitz_ring` at CD layer 4 (32-dim, 64 Int coords).
 
 namespace E213.Math.CayleyDickson.TrigintaduoionionHeavy
 
+
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI.ZI
 open E213.Tactic
 
 set_option maxHeartbeats 8000000 in
@@ -17,10 +20,6 @@ set_option maxHeartbeats 8000000 in
     coords.  Stress test. -/
 theorem conj_conj (u : Trigintaduonion) : conj (conj u) = u := by
   hurwitz_ring
-
-end E213.Math.CayleyDickson.TrigintaduoionionHeavy
-
-namespace E213.Math.CayleyDickson.TrigintaduoionionHeavy
 
 open E213.Tactic
 

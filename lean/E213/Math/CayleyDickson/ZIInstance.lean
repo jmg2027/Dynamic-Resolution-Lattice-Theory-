@@ -18,6 +18,6 @@ elab (1).  By naming convention, the elab finds:
 and synthesises the 13-field `instance`.
 -/
 
-open E213.Tactic E213.Research
+open E213.Tactic
 
 derive_conjugation_codomain ZI with_bases I negI

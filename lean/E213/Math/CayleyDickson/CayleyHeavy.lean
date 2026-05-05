@@ -5,15 +5,14 @@ import E213.Math.Tactic.HurwitzRing
 
 namespace E213.Math.CayleyDickson.CayleyHeavy
 
+
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI.ZI
 open E213.Tactic
 
 /-- **Left alternativity** (universal): `(a·a)·b = a·(a·b)`. -/
 theorem alt_left (a b : Cayley) : (a * a) * b = a * (a * b) := by
   hurwitz_ring
-
-end E213.Math.CayleyDickson.CayleyHeavy
-
-namespace E213.Math.CayleyDickson.CayleyHeavy
 
 open E213.Tactic
 
@@ -24,10 +23,6 @@ theorem alt_right (a b : Cayley) : a * (b * b) = (a * b) * b := by
 /-- **Flexibility** (universal): `(a·b)·a = a·(b·a)`. -/
 theorem flexible (a b : Cayley) : (a * b) * a = a * (b * a) := by
   hurwitz_ring
-
-end E213.Math.CayleyDickson.CayleyHeavy
-
-namespace E213.Math.CayleyDickson.CayleyHeavy
 
 open E213.Tactic E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.ZI
 
@@ -49,10 +44,6 @@ theorem normSq_mul (u v : Cayley) :
   unfold Lipschitz.normSq
   unfold ZI.normSq
   hurwitz_ring
-
-end E213.Math.CayleyDickson.CayleyHeavy
-
-namespace E213.Math.CayleyDickson.CayleyHeavy
 
 open E213.Tactic E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.ZI
 

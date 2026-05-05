@@ -14,6 +14,9 @@ open E213.Tactic
 
 namespace E213.Math.CayleyDickson.ZOmegaDomain
 
+
+open E213.Math.CayleyDickson.ZOmega
+open E213.Math.CayleyDickson.ZOmega.ZOmega
 theorem mul_comm (u v : ZOmega) : u * v = v * u := by
   apply ext
   · show u.re * v.re - u.im * v.im = v.re * u.re - v.im * u.im
@@ -51,10 +54,6 @@ theorem conj_mul (u v : ZOmega) :
     simp only [Int.sub_mul, Int.mul_sub, Int.neg_mul,
                Int.mul_neg, Int.neg_neg]
     omega
-
-end E213.Math.CayleyDickson.ZOmegaDomain
-
-namespace E213.Math.CayleyDickson.ZOmegaDomain
 
 /-- Sign-case analysis on `re*im`: 0 ≤ a² - ab + b². -/
 theorem normSq_nonneg (u : ZOmega) : 0 ≤ u.normSq := by

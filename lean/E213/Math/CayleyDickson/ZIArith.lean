@@ -1,6 +1,9 @@
 import E213.Math.CayleyDickson.ZI
 import E213.Math.CayleyDickson.ZIDomain
 
+
+import E213.Math.CayleyDickson.ZIDomain
+
 /-!
 # Research: ZI ring-arithmetic supplement
 
@@ -11,6 +14,10 @@ only, componentwise on `Int`.
 
 namespace E213.Math.CayleyDickson.ZIArith
 
+
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI.ZI
+open E213.Math.CayleyDickson.ZIDomain
 instance : Add ZI := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
 instance : Neg ZI := ⟨fun u => ⟨-u.re, -u.im⟩⟩
 instance : Sub ZI := ⟨fun u v => u + (-v)⟩
@@ -55,10 +62,6 @@ theorem add_comm (u v : ZI) : u + v = v + u := by
   · show u.re + v.re = v.re + u.re; omega
   · show u.im + v.im = v.im + u.im; omega
 
-end E213.Math.CayleyDickson.ZIArith
-
-namespace E213.Math.CayleyDickson.ZIArith
-
 -- Conj compatibility with add/sub.
 
 theorem conj_add (u v : ZI) : (u + v).conj = u.conj + v.conj := by
@@ -91,10 +94,6 @@ theorem neg_neg (u : ZI) : -(-u) = u := by
 theorem sub_neg_neg (u v : ZI) : u - (-(-v)) = u - v := by
   rw [neg_neg]
 
-end E213.Math.CayleyDickson.ZIArith
-
-namespace E213.Math.CayleyDickson.ZIArith
-
 open E213.Tactic
 
 /-- **ZI multiplication is associative.**  Polynomial identity
@@ -107,10 +106,6 @@ theorem mul_assoc (u v w : ZI) : (u * v) * w = u * (v * w) := by
   · show (u.re * v.re - u.im * v.im) * w.im + (u.re * v.im + u.im * v.re) * w.re
        = u.re * (v.re * w.im + v.im * w.re) + u.im * (v.re * w.re - v.im * w.im)
     quad_norm
-
-end E213.Math.CayleyDickson.ZIArith
-
-namespace E213.Math.CayleyDickson.ZIArith
 
 -- ═══ Projection simp lemmas for tactic (hurwitz_ring) ═══
 

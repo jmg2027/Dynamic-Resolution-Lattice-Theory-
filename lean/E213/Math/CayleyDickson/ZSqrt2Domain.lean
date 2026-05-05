@@ -15,6 +15,9 @@ over multiplication — all via `simp`+`omega` (no `ring`).
 
 namespace E213.Math.CayleyDickson.ZSqrt2Domain
 
+
+open E213.Math.CayleyDickson.ZSqrt2
+open E213.Math.CayleyDickson.ZSqrt2.Z2
 theorem mul_comm (u v : Z2) : u * v = v * u := by
   apply ext
   · show u.re * v.re - 2 * (u.im * v.im)
@@ -46,10 +49,6 @@ theorem conj_I : Z2.conj I = negI := rfl
 theorem conj_negI : Z2.conj negI = I := by
   show (⟨0, -(-1)⟩ : Z2) = ⟨0, 1⟩
   apply ext <;> simp
-
-end E213.Math.CayleyDickson.ZSqrt2Domain
-
-namespace E213.Math.CayleyDickson.ZSqrt2Domain
 
 theorem normSq_nonneg (u : Z2) : 0 ≤ u.normSq := by
   show 0 ≤ u.re * u.re + 2 * (u.im * u.im)
