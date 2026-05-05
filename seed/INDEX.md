@@ -12,7 +12,7 @@ made here in prose.
 |---|---|---|---|
 | 1 | `ORIGIN.md` | DRLT origin story — minimal residue, 4-clause Raw axiom | First |
 | 2 | `AXIOM.md` | The axiom in English: relations, distinctness, /, depth | After ORIGIN |
-| 3 | `PHILOSOPHY.md` | Position of the axiom, atomicity, residual import; for cardinality / N_U see `RESOLUTION_LIMIT_SPEC.md` | Before any Real213 work |
+| 3 | `PHILOSOPHY.md` | Position of the axiom; "primitive distinction" as primitive (not "relation"); 213 above every framework that points; linguistic inevitability + minimum-commitment expressions; derive-not-reconcile; status of "something" left open | Before any Real213 work |
 | 3a | `RESOLUTION_LIMIT_SPEC.md` | Canonical mechanical-spec: cardinality as lens output, N_U as four-domain convergent invariant, type-preservation under ∅-axiom (Cantor + Cauchy) | Before any Real213 work |
 | 4 | `NOTATION.md` | Symbol conventions: NS, NT, d, c, α_GUT, K_{3,2}^{(2)} | Reference |
 | 5 | `FALSIFIABILITY.md` | 14 measurement propositions that would refute DRLT | When discussing experimental tests |
@@ -38,7 +38,8 @@ made here in prose.
   (These were previously at `OS/` until 2026-05-XX dissolution;
   see `lean/E213/ARCHITECTURE.md` for theory.)
 - `lean/E213/Physics/Foundations/FiniteUniverse.lean` — formal
-  counterpart of `PHILOSOPHY.md` finitist position
+  counterpart of `RESOLUTION_LIMIT_SPEC.md` (1/α_em rational at every
+  finite N_U; π² is limit-label, not a 213 primitive)
 - `LESSONS_LEARNED.md` (root) — guardrails extending PHILOSOPHY.md
 - `lean/E213/ARCHITECTURE.md` — canonical layer architecture
   (where Firmware/Atomicity sub-cluster sits in the dependency graph)
