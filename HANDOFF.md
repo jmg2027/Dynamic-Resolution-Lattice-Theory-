@@ -2427,3 +2427,56 @@ HasDyadicMVTWitness → DyadicMVTWitness, Diff → DifferenceQuotient).
 
 Same convention applied to Physics/ (already done in earlier
 sessions: AlphaEM/ → 6 chapters, etc.).
+
+## Stages M7–M7b (CayleyDickson partial + Cohomology orphan cleanup)
+
+### M7 — CayleyDickson surgical fixes (commit `7eafd3f`)
+
+CayleyDickson had been deferred in M6 due to nested-namespace
+complexity.  Surgical fixes now applied:
+
+  - 4 core type-defining files clean (ZI, ZSqrt, ZSqrt2, ZOmega)
+  - 11/29 files in umbrella; 18 excluded due to:
+    * `derive_conjugation_codomain α` tactic expects `α.mul_comm`
+      etc. but the *Domain files put theorems in `<Type>Domain`
+      namespace not `<Type>` namespace
+    * Lean 4 instance-resolution `failed to synthesize` errors on
+      Lipschitz / Sedenion CDDouble cascade
+  - Tactic IntSquare clean; HurwitzRing + QuadExtension still
+    blocked by CayleyDickson dependents
+
+  - Fixed Meta/Tactic/DeriveConjugationCodomain (was emitting
+    `E213.Meta.ConjugationCodomain`, should be
+    `E213.Meta.SelfRecognising.ConjugationCodomain`)
+
+### M7b — Cohomology orphan deletion (commit `d8f5d54`)
+
+Deleted 9 Cohomology research scaffolds with 0 external symbol
+usage (Audit, CupAW/Leibniz12Final, Dyadic/AtomicityConnection,
+Dyadic/ArithFSM/V2to3, Dyadic/BitFSM/Examples,
+Dyadic/FSMGeneralPeriod, Dyadic/Pell/CRT, Dyadic/SignatureInj,
+Dyadic/SplitSplitLens).  Per CLAUDE.md "deprecated content with
+no active dependents → delete".
+
+Cohomology now 217 files (was 226); umbrella covers 202 with 15
+remaining files excluded (have external dependents).
+
+### CONSOLIDATION_PROTOCOL.md extended
+
+Rules R9–R11 codified:
+  R9 — Iterative umbrella with broken-file exclusion
+  R10 — Nested-type-namespace caveat (Lean 4 doubled namespace paths)
+  R11 — Tactic-emitted hardcoded paths (audit `mkIdent` literals)
+
+## Final state — Math/ tree umbrella coverage
+
+  21 sub-tree umbrellas + 10 standalone modules + 1 partial
+  (CayleyDickson 11/29) all building clean via `lake build E213.Math`.
+
+  Math.lean root umbrella covers 38 imports (added CayleyDickson +
+  Tactic in M7).
+
+  Pre-existing breakage requiring future surgical work:
+    - 18 CayleyDickson files (CDDouble cascade + Instance derivations)
+    - 15 Cohomology files (rename references + dependencies)
+    - QuadExtension + HurwitzRing in Tactic (await CayleyDickson)
