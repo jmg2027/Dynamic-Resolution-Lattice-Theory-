@@ -3,7 +3,7 @@ import E213.Physics.Higgs.Mass
 /-!
 # λ_H = Higgs quartic coupling — clean leading 1/(2c²) (0 axioms)
 
-DRLT formula (SM_020, ch21):
+DRLT formula:
 
   √(2λ) = f_occ(AABB) · V(x_H) = (1/c) · (1 + α_GUT)
   λ_H   = [(1 + α_GUT) / c]² / 2

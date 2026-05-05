@@ -36,7 +36,9 @@ Physics/
 │                              ProtonElectronRatio, ProtonG, ProtonMass,
 │                              QuarkHierarchy
 ├── Mass/                4  — MuOverE{,Finitist}, TauOverMu, HierarchyTowers
-├── Higgs/               5  — Mass{,Finitist}, Master, Quartic, Vacuum
+├── Higgs/               4  — Mass, Master, Quartic, Vacuum
+│                              (MassFinitist + Phase3Derivation
+│                              deleted 2026-05-05 as orphan traces)
 ├── Nuclear/             6  — DeuteronBinding, MagicNumbers{,Atomic},
 │                              Binding, Bridge, Shells
 ├── Mixing/              5  — CKMHierarchy, CPViolation, CabibboAngle,

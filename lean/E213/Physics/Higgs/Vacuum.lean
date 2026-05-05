@@ -3,7 +3,7 @@ import E213.Physics.Simplex.Counts
 /-!
 # v_H/M_Pl = (d+1)/d^(d²) — hierarchy from atomic exponent (0 axioms)
 
-DRLT formula (lib/drlt.py:654, ch09 sec 6.1):
+DRLT formula:
 
   v_H = (d + 1) · M_Pl / d^(d²)
       = 6 · M_Pl / 5^25
