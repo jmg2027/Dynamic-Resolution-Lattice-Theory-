@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.AlphaEMBridge
 import E213.Math.Cohomology.BettiKernel
+import E213.Math.Cohomology.Bipartite.Filled
 import E213.Math.Cohomology.Bipartite.V32
 import E213.Math.Cohomology.Bipartite.V32Betti
 import E213.Math.Cohomology.Capstone
@@ -154,6 +155,7 @@ import E213.Math.Cohomology.Hodge.Prop52
 import E213.Math.Cohomology.Hodge.Prop53
 import E213.Math.Cohomology.Hodge.Prop54
 import E213.Math.Cohomology.Hodge.Star
+import E213.Math.Cohomology.HodgeConjecture.API
 import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
 import E213.Math.Cohomology.HodgeConjecture.Bridge.DiscreteGeometry
 import E213.Math.Cohomology.HodgeConjecture.Bridge.G6Vacuity
@@ -166,8 +168,10 @@ import E213.Math.Cohomology.HodgeConjecture.Bridge.Potts
 import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlass
 import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlassGroundState
 import E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
 import E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
 import E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens
+import E213.Math.Cohomology.HodgeConjecture.Foundation.Filled
 import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
 import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex
 import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann
@@ -175,7 +179,9 @@ import E213.Math.Cohomology.HodgeConjecture.Refinement.CupAtomicGeneration
 import E213.Math.Cohomology.HodgeConjecture.Refinement.GeneralizedHodge
 import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzHyperplane
 import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzOneOne
+import E213.Math.Cohomology.HodgeConjecture.Refinement.StandardConjectures
 import E213.Math.Cohomology.HodgeConjecture.Refinement.Voisin
+import E213.Math.Cohomology.HodgeConjecture.Structure.HardLefschetz
 import E213.Math.Cohomology.HodgeConjecture.Structure.Map
 import E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality
 import E213.Math.Cohomology.HodgeConjecture.Structure.Ring
@@ -201,35 +207,22 @@ import E213.Math.Cohomology.Universal.Prop53
 import E213.Math.Cohomology.WhyDimFive
 import E213.Math.Cohomology.XorPairCombine
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology`.
+/-! Spec-as-code entry point for `E213.Math/Cohomology` — Cohomology library.
 
-  Cohomology of K_NS,NT^(c) — DRLT topological apparatus.
+  Cohomology / cup-product / Leibniz / spectral sequences over 213.
 
   ## Status
 
-  202 files included; 15 files excluded
-  (pre-existing breakage requires file-specific archaeology;
-  references to renamed/deleted symbols from earlier sessions):
+  208 files included.  9 files excluded
+  (pre-existing breakage):
 
-    - Bipartite/Filled
-    - CupAW/LeibnizScaling
-    - CupAW/LeibnizSmall
-    - Dyadic/AlgebraicDegree
-    - Dyadic/Archive/EdgeSignature
-    - Dyadic/Archive/SubwordComplexity
-    - Dyadic/ArithFSM/Hierarchy
-    - Dyadic/ArithFSM/V1to2
-    - Dyadic/NumberTheory213
-    - Dyadic/Pell/ProperBridge
-    - HodgeConjecture/API
-    - HodgeConjecture/Foundation/Complete
-    - HodgeConjecture/Foundation/Filled
-    - HodgeConjecture/Refinement/StandardConjectures
-    - HodgeConjecture/Structure/HardLefschetz
-
-  9 clearly-orphan broken files (0 external usage) deleted in M7
-  cleanup: Audit, CupAW/Leibniz12Final, Dyadic/AtomicityConnection,
-  Dyadic/ArithFSM/V2to3, Dyadic/BitFSM/Examples,
-  Dyadic/FSMGeneralPeriod, Dyadic/Pell/CRT, Dyadic/SignatureInj,
-  Dyadic/SplitSplitLens.
+    - Cohomology.CupAW.LeibnizScaling
+    - Cohomology.CupAW.LeibnizSmall
+    - Cohomology.Dyadic.AlgebraicDegree
+    - Cohomology.Dyadic.Archive.EdgeSignature
+    - Cohomology.Dyadic.Archive.SubwordComplexity
+    - Cohomology.Dyadic.ArithFSM.Hierarchy
+    - Cohomology.Dyadic.ArithFSM.V1to2
+    - Cohomology.Dyadic.NumberTheory213
+    - Cohomology.Dyadic.Pell.ProperBridge
 -/
