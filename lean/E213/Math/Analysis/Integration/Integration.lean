@@ -2,6 +2,7 @@ import E213.Math.Analysis.Differentiation.DifferenceQuotient
 
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutContinuity
+import E213.Math.Real213.CutSumTest
 /-!
 # Real213Integration: Riemann integration
 
@@ -23,6 +24,7 @@ namespace E213.Math.Analysis.Integration.Integration
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutContinuity (constCutFn)
+open E213.Math.Real213.CutSumTest (constCut)
 
 /-- Riemann integration data. -/
 structure RiemannIntegrable (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
@@ -30,10 +32,15 @@ structure RiemannIntegrable (f : (Nat → Nat → Bool) → (Nat → Nat → Boo
   integral : Nat → Nat → Bool  -- ∫[a, b] f, as a cut
   modulus : Nat → Nat → Nat  -- precision
 
-/-- Constant integration (trivial case). -/
-def constRiemannIntegrable (c : Nat → Nat → Bool) (a b : Nat → Nat → Bool) :
-    RiemannIntegrable (constCutFn c) a b where
-  integral := c  -- ∫[a, b] c dx = c * (b - a) — placeholder
+/-- **Constant integration on the unit interval [0, 1]**:
+    ∫[0, 1] c dx = c · (1 − 0) = c.  Concrete unit-interval witness with
+    the integral cut equal to `c` itself.  The general form
+    ∫[a, b] c dx = c · (b − a) requires cut subtraction (signed) and is
+    a separate arc; specializing to `(a, b) = (0, 1)` gives the only
+    case where `integral := c` is mathematically correct. -/
+def unitConstRiemannIntegrable (c : Nat → Nat → Bool) :
+    RiemannIntegrable (constCutFn c) (constCut 0 1) (constCut 1 1) where
+  integral := c
   modulus := fun _ _ => 0
 
 end E213.Math.Analysis.Integration.Integration

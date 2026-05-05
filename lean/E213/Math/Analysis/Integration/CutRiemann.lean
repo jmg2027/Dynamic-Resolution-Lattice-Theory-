@@ -63,20 +63,60 @@ theorem riemannSumOnSamples_succ
     riemannSumOnSamples f xs (n+1)
     = cutSum (riemannSumOnSamples f xs n) (f (xs n)) := rfl
 
-/-- **Riemann integral data** (carries n + sum + modulus). -/
+/-- **Riemann integral data** (carries the n-th approximation, a Cauchy
+    modulus, and the Cauchy stabilisation bound).
+
+    `bound_data` is the cut-level Cauchy property: for any target
+    precision `(m, k)`, beyond `modulus m k` the approximations
+    pointwise agree at `(m, k)`.  This is the same shape as
+    `CauchyCutSeq.cauchy` in `Math/Analysis/CauchyComplete.lean`
+    (the `approx` family forms a Cauchy sequence of cuts whose limit
+    is the Riemann integral). -/
 structure RiemannIntegralData
     (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
     (a b : Nat → Nat → Bool) where
-  approx : Nat → Nat → Nat → Bool   -- nth approximation
-  modulus : Nat → Nat → Nat          -- precision modulus
-  bound_data : Unit  -- placeholder for convergence proof
+  approx : Nat → Nat → Nat → Bool   -- n-th Riemann approximation
+  modulus : Nat → Nat → Nat          -- Cauchy modulus N(m, k)
+  bound_data :                        -- Cauchy stabilisation bound
+    ∀ m k i j, modulus m k ≤ i → modulus m k ≤ j →
+      approx i m k = approx j m k
 
-/-- **Constant integration**: ∫[a, b] c dx = c * (b - a).
-Cut-level implementation is separate. -/
-def constRiemann (c : Nat → Nat → Bool) (a b : Nat → Nat → Bool) :
-    RiemannIntegralData (fun _ => c) a b where
-  approx := fun _ => c   -- placeholder
+/-- Extract the limit of the Riemann approximations as a single cut.
+    Pointwise: read `approx` at the modulus index. -/
+def RiemannIntegralData.limit
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    {a b : Nat → Nat → Bool}
+    (d : RiemannIntegralData f a b) : Nat → Nat → Bool :=
+  fun m k => d.approx (d.modulus m k) m k
+
+/-- **Limit stability**: limit equals approx at any index past modulus. -/
+theorem RiemannIntegralData.limit_eq_at
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    {a b : Nat → Nat → Bool}
+    (d : RiemannIntegralData f a b)
+    (m k i : Nat) (hi : d.modulus m k ≤ i) :
+    d.limit m k = d.approx i m k :=
+  d.bound_data m k (d.modulus m k) i (Nat.le_refl _) hi
+
+/-- **Constant integration on the unit interval [0, 1]**:
+    ∫[0, 1] c dx = c · 1 = c.  The Riemann sum of a constant on `[0, 1]`
+    is identically `c` at every refinement level (each sample contributes
+    `c · (1/n)` and there are `n` of them), so the approximation sequence
+    is the constant sequence `c`, the Cauchy modulus is `0`, and the
+    stabilisation bound is discharged by `rfl`.
+
+    The general ∫[a, b] c dx = c · (b − a) requires cut subtraction
+    (signed) and is a separate arc; restricting to `(a, b) = (0, 1)`
+    gives the only case where `approx := fun _ => c` is mathematically
+    correct. -/
+def unitConstRiemann (c : Nat → Nat → Bool) :
+    RiemannIntegralData (fun _ => c) (constCut 0 1) (constCut 1 1) where
+  approx := fun _ => c
   modulus := fun _ _ => 0
-  bound_data := ()
+  bound_data := fun _ _ _ _ _ _ => rfl
+
+/-- The unit constant Riemann integral converges to `c`. -/
+theorem unitConstRiemann_limit (c : Nat → Nat → Bool) :
+    (unitConstRiemann c).limit = c := rfl
 
 end E213.Math.Analysis.Integration.CutRiemann
