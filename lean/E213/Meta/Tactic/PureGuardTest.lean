@@ -2,6 +2,7 @@ import E213.Meta.Tactic.PureGuard
 import E213.Math.PatternCatalogInstance
 import E213.Math.PatternCatalogSpan
 import E213.Math.PatternCatalogAlgebra
+import E213.Math.ResolutionLimit
 
 /-!
 # PureGuard regression tests for the Pattern Catalog
@@ -47,5 +48,12 @@ open E213.Meta.Tactic.PureGuard
 #guard_pure E213.Math.PatternCatalogAlgebra.OpWord.aggCount_append
 #guard_pure E213.Math.PatternCatalogAlgebra.Locality.anchor
 #guard_pure E213.Math.PatternCatalogSpan.finalVerdict
+
+-- ResolutionLimit (canonical infinity/N_U spec, formalised)
+#guard_pure E213.Math.ResolutionLimit.N_U
+#guard_pure E213.Math.ResolutionLimit.N_U_value
+#guard_pure E213.Math.ResolutionLimit.N_U_tensor
+#guard_pure E213.Math.ResolutionLimit.cantor_inhabitant_absence
+#guard_pure E213.Math.ResolutionLimit.resolutionInvariantWitness
 
 end E213.Meta.Tactic.PureGuardTest

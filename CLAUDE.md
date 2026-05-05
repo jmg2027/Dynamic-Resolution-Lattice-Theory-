@@ -86,15 +86,47 @@ Below this threshold = below current standard. Python expressions + reported num
 
 ---
 
-## Finitism is forced (not chosen)
+## Resolution limit is a structural invariant (not "finitism")
 
-This is a **consequence of 213-internal theorems**, not a philosophical preference. ZFC-style completed-infinity breaks the cut-function algebra at finite N_U = d^(d²) = 5²⁵. See:
-- `Real213.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`
-- `Real213.DyadicTrajectory.zero_plus_gap_below_zero_exact`
+Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  When this section
+drifts from that spec, the spec wins.
 
-External "N→∞ asymptote" framing is a ZFC translation that doesn't survive 213's cut algebra. The 213-internal answer is always the specific finite rational at N_U.
+213's axiom set commits to NO cardinality / finite / infinite property at
+the T0 (Raw) layer.  Cardinality is a **lens output**, not a primitive
+(`seed/AXIOM.md` §3.3, `Math/Infinity/LensCardinality.lean`).
 
-For physics formalization, ÷ ∫ π e ζ(2) etc. are *unnecessary* — what's needed is ℕ + ℚ + finite simplex combinatorics + interval bound. The Real213 marathon (Bishop-style constructive analysis) is math-track, not on the physics critical path.
+The constant `N_U = d^(d²) = 5²⁵` is a **system invariant**, not a cap.
+It arises independently in 4 mathematical domains, all converging to
+`5^25`:
+
+  1. **Lean formalization**: fractal lens cardinality at level 2
+     (`Physics/Foundations/NUniverseFromFractal.lean`)
+  2. **Combinatorics**: K₂₅ graph coloring count
+     (`Physics/Foundations/FractalLensCardinality.lean`)
+  3. **Geometry**: rank-2 tensor degrees of freedom over d=5
+  4. **Type theory**: maximum injective projection space at d=5
+
+ZFC results in 213 are received via type-theoretic distinction, not
+philosophical rejection:
+
+  - **Cantor's theorem** holds in 213 by **inhabitant absence** —
+    `Math/Infinity/Cantor.lean` proves `¬ ∃ f, Surjective f` under
+    ∅-axiom (no Classical, no propext).  Diagonal construction
+    constructively prevents any `f` from being assembled.
+  - **Cauchy limit ≠ exact value** by **structural inequality preservation** —
+    `Real213.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`
+    and `zero_plus_gap_below_zero_exact`.  ZFC merges trajectory and
+    limit via `propext` / `Quot.sound`; ∅-axiom regime does not admit
+    these, so the type distinction stands.  Bishop-style Real213
+    operates entirely on the trajectory side and passes ∅-axiom.
+
+For physics formalization, ÷ ∫ π e ζ(2) etc. are *unnecessary* — what's
+needed is ℕ + ℚ + finite simplex combinatorics + interval bound at the
+N_U resolution.  The Real213 marathon (Bishop-style constructive
+analysis) is math-track, not on the physics critical path.
+
+Lean formalization of this spec: **`lean/E213/Math/Foundations/ResolutionLimit.lean`**
+(∅-axiom + 213-native verified).
 
 ---
 

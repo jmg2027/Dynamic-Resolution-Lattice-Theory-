@@ -2,6 +2,7 @@ import E213.Meta.Tactic.NativeGuard
 import E213.Math.PatternCatalogInstance
 import E213.Math.PatternCatalogAlgebra
 import E213.Math.PatternCatalogSpan
+import E213.Math.ResolutionLimit
 
 /-!
 # NativeGuard regression tests for the Pattern Catalog
@@ -53,5 +54,10 @@ open E213.Meta.Tactic.NativeGuard
 
 -- Span verdict
 #guard_native E213.Math.PatternCatalogSpan.finalVerdict
+
+-- ResolutionLimit (canonical infinity/N_U spec)
+#guard_native E213.Math.ResolutionLimit.N_U
+#guard_native E213.Math.ResolutionLimit.cantor_inhabitant_absence
+#guard_native E213.Math.ResolutionLimit.resolutionInvariantWitness
 
 end E213.Meta.Tactic.NativeGuardTest

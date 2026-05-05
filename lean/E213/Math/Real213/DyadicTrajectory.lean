@@ -478,9 +478,20 @@ theorem alwaysTrue_le_alwaysFalse_at_limit :
     at (m=0, k=1): 0+ gives false ("0+ > 0/1"), while constCut 0 1
     gives true ("0 ≤ 0").
 
-    Constructive insight: completed-infinity equality (Cauchy limit
-    = exact value) does NOT hold in 213.  The trajectory IS the
-    constructive content; "limit point exists" is a ZFC fiction. -/
+    Structural inequality (canonical reading: `seed/RESOLUTION_LIMIT_SPEC.md`
+    §1 "Cauchy: structural inequality preservation"):
+
+    The trajectory object (`Cauchy seq → Cut`) and a putative "exact
+    value" object (constant `Cut`) live at different types.  ZFC merges
+    them by truncating the trajectory's `cond` field via `propext` /
+    `Quot.sound` (quotient by Cauchy equivalence).  ∅-axiom regime does
+    not admit `propext` or `Quot.sound`, so no truncation occurs;
+    trajectory and exact value remain structurally inequal.
+
+    This is type-preservation under ∅-axiom, NOT "ZFC fiction
+    rejection".  Bishop-style Real213 operates on the trajectory side
+    and passes ∅-axiom.  The theorem below witnesses the type
+    distinction explicitly. -/
 theorem alwaysTrueUnit_limit_distinct_from_zero :
     (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit 0 1 = false
     ∧ (constCut 0 1) 0 1 = true := by
@@ -505,7 +516,13 @@ def InfinitesimalGap (a b : Nat → Nat → Bool) : Prop :=
 /-- **0+ has infinitesimal gap below 0-exact**: alwaysTrueUnit's
     limit (the "0+" cut) sits below constCut 0 1 (the "0-exact"
     cut) at every infinitesimal-precision query (0, k) for k ≥ 1.
-    Formal expression of: "0+ is positive infinitesimal." -/
+    Formal expression of: "0+ is positive infinitesimal."
+
+    Reading per `seed/RESOLUTION_LIMIT_SPEC.md` §1: this gap is the
+    type distinction between trajectory and exact value, preserved by
+    ∅-axiom regime.  ZFC eliminates it via propext on the equivalence
+    `0+ ~ 0`; 213 does not have propext, so the gap remains visible
+    as a definitional fact at every (0, k≥1) query. -/
 theorem zero_plus_gap_below_zero_exact :
     InfinitesimalGap (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
                      (constCut 0 1) := by

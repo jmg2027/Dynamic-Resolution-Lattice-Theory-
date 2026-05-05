@@ -24,7 +24,7 @@ A truly "213-pure" theorem passes BOTH guards.
 def defaultAllowList : Array String := #[
   "E213",
   "Nat", "Bool", "Prop", "Type", "Sort", "String", "Char",
-  "True", "False", "And", "Or", "Not", "Eq", "Iff",
+  "True", "False", "And", "Or", "Not", "Eq", "Iff", "Exists",
   "Prod", "PProd", "Subtype", "Sum", "Option",
   "Decidable", "decide",
   "OfNat", "Mul", "Add", "Sub", "Div", "Mod", "Pow", "Neg",
