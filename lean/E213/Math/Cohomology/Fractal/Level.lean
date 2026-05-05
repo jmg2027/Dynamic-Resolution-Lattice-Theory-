@@ -1,4 +1,3 @@
-import E213.Math.Cohomology.Paper1Chiral
 
 /-!
 # Fractal-simplex at L levels — K_{5^L} cohomology

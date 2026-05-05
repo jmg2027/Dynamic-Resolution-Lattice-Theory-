@@ -31,7 +31,7 @@ The place where "time" can be used as a Lens-output label.
 - `nt2_step_count`: depth-n bisection → 2^n leaves
 - `nt2_left_trajectory`: left closed form (0, 1, n)
 - `nt2_right_trajectory`: right closed form (numB = 2^n)
-- `nt2_atomic_yields_dyadic`: comprehensive capstone
+- `nt2_atomic_yields_dyadic_at`: comprehensive capstone
 
 ## This file's contribution
 
@@ -45,7 +45,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSum
 open E213.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory
-open E213.Math.Analysis.PhysicsBridgeNT2 (nt2_step_count nt2_left_trajectory nt2_atomic_yields_dyadic)
+open E213.Math.Analysis.PhysicsBridgeNT2 (nt2_step_count nt2_left_trajectory nt2_atomic_yields_dyadic_at)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
@@ -73,12 +73,12 @@ theorem NT_left_endpoint_closed (n : Nat) :
 
 /-- ★ NT sector atomicity → dyadic geometry (bridge B-4) ★
     Phase 2 capstone for "what is NT/time-sector?". -/
-theorem NT_unfolds_to_dyadic (n a b : Nat) :
+theorem NT_unfolds_to_dyadic (n a b m k : Nat) :
     (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n
     ∧ (DyadicBracket.bisectN alwaysTrue n unitBracket).expE = n
-    ∧ riemannSampleSum (constCutFn (constCut a b)) unitBracket n
-        = constCut (2^n * a) b :=
-  nt2_atomic_yields_dyadic n a b
+    ∧ riemannSampleSum (constCutFn (constCut a b)) unitBracket n m k
+        = constCut (2^n * a) b m k :=
+  nt2_atomic_yields_dyadic_at n a b m k
 
 /-- ★ Phase 2 Time — comprehensive proposition ★
 

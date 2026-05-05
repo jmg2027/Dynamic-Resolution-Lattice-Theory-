@@ -1,7 +1,3 @@
-/-! Spec-as-code entry point for E213.Physics.Atomic.
-    Atomic-physics observables (Bohr, Bond angles, Helium, Hydrogen,
-    Screening) + IE/ ionization-energy library. -/
-
 import E213.Physics.Atomic.BondAngles
 import E213.Physics.Atomic.Bridge
 import E213.Physics.Atomic.Helium
@@ -22,3 +18,7 @@ import E213.Physics.Atomic.IE.Period4
 import E213.Physics.Atomic.IE.PeriodClosures
 import E213.Physics.Atomic.IE.PeriodicTable
 import E213.Physics.Atomic.IE.SecondRow
+
+/-! Spec-as-code entry point for E213.Physics.Atomic.
+    Atomic-physics observables (Bohr, Bond angles, Helium, Hydrogen,
+    Screening) + IE/ ionization-energy library. -/

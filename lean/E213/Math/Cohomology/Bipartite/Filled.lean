@@ -1,5 +1,4 @@
 import E213.Math.Cohomology.Bipartite.V32Betti
-import E213.Math.Cohomology.Audit
 
 /-!
 # — higher cohomology via 2-cell filling

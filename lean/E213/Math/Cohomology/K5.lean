@@ -1,4 +1,4 @@
-import E213.Math.Cohomology.Audit
+import E213.Math.Cohomology.Bipartite.V32
 
 /-!
 # Cohomology of K₅ — single 4-simplex 1-skeleton

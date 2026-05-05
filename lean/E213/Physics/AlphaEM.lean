@@ -1,3 +1,10 @@
+import E213.Physics.AlphaEM.Augmented
+import E213.Physics.AlphaEM.Bare
+import E213.Physics.AlphaEM.Brackets
+import E213.Physics.AlphaEM.Capstone
+import E213.Physics.AlphaEM.NUniverseCandidates
+import E213.Physics.AlphaEM.StructuralGap
+
 /-! Spec-as-code entry point for E213.Physics.AlphaEM.
 
   1/α_em derivation cluster — six topical files (sorted ls = topic index):
@@ -11,10 +18,3 @@
 
   Importing this single module pulls in all six.
 -/
-
-import E213.Physics.AlphaEM.Augmented
-import E213.Physics.AlphaEM.Bare
-import E213.Physics.AlphaEM.Brackets
-import E213.Physics.AlphaEM.Capstone
-import E213.Physics.AlphaEM.NUniverseCandidates
-import E213.Physics.AlphaEM.StructuralGap

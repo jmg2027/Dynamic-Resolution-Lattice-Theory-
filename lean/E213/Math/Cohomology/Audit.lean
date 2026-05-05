@@ -1,4 +1,3 @@
-import E213.Math.Cohomology.AlphaEMBridge
 
 /-!
 # Cohomology 213 — Audit of completed vs deferred theorems

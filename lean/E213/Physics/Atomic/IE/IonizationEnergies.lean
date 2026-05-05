@@ -1,4 +1,3 @@
-import E213.Physics.Atomic.Reps
 import E213.Physics.Atomic.Hydrogen
 import E213.Physics.Atomic.Helium
 
@@ -39,7 +38,6 @@ This file: formal chain start.
 
 namespace E213.Physics.Atomic.IE.IonizationEnergies
 
-open E213.Physics.Atomic.Expr
 open E213.Physics.Atomic.Hydrogen
 open E213.Physics.Simplex.Counts
 
