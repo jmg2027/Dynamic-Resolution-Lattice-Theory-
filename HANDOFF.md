@@ -42,11 +42,15 @@ Branch: `claude/fix-propext-constraints-Rdn1r`.
      `R3Codomain` → `NonVanishingCodomain`, `R4Codomain` →
      `ConjugationCodomain` (+ macro/file/theorem renames).
 
-  2. **`FinitismIsConsequence.lean` filename + theorem rename** —
-     deferred.  Docstrings reframed; filename + theorem names
-     retained for stable references.  Future stage (with explicit
-     user approval) could rename to `ResolutionLimitConsequences.lean`
-     / `cauchy_trajectory_distinct_from_exact`.
+  ~~2. **`FinitismIsConsequence.lean` filename + theorem rename** —
+     deferred.~~  *Resolved in subsequent stage*: file deleted
+     (Stage 2).  The two theorems were pure aliases of
+     `Real213.DyadicTrajectory.{alwaysTrueUnit_limit_distinct_from_zero,
+     zero_plus_gap_below_zero_exact}` — no mathematical content
+     beyond renaming.  Under the RESOLUTION_LIMIT_SPEC framing the
+     "Finitism is a consequence" packaging was a frame artifact, not
+     a derivation; the underlying theorems remain on the trajectory
+     side in DyadicTrajectory.lean.  Removed from `Physics/INDEX.md`.
 
   3. **Hodge-cluster note grouping** (G6-G11 → research-notes/hodge/) —
      deferred.  Would require a cite-chain audit since several G

@@ -25,8 +25,8 @@ Physics/
 │                              RunningGap, TripleCoupling{,V2}, ClosedPropagator,
 │                              DysonStructure, ThetaQCD, LambdaQCDPhantom,
 │                              ParitySign, PhotonKernel
-├── Foundations/         17 — DrltZeroParameters, FinitismIsConsequence,
-│                              MasslessParticles, FractalLensCardinality,
+├── Foundations/         16 — DrltZeroParameters, MasslessParticles,
+│                              FractalLensCardinality,
 │                              NUniverseFractalDepth/FromFractal,
 │                              ResolutionDepth, FiniteUniverse/ResonanceN,
 │                              LensCardinalityFractalLevels, GoldenRatio,
