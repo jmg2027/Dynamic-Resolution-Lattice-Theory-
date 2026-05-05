@@ -8,7 +8,7 @@ A command-level macro that registers a `ConjugationCodomain
 (ZSqrt D)` instance for a positive natural `D`.  Equivalent to:
 
 ```
-instance : E213.Meta.ConjugationCodomain (E213.Math.CayleyDickson.ZSqrt D) :=
+instance : E213.Meta.SelfRecognising.ConjugationCodomain (E213.Math.CayleyDickson.ZSqrt.ZSqrt D) :=
   E213.Math.CayleyDickson.ZSqrt.conjugation_of_pos (by decide)
 ```
 
@@ -53,7 +53,7 @@ def elabQuadExtension : CommandElab := fun stx => do
                     ℤ[√0] = ℤ has no nontrivial involution, so the \
                     swap-matching axiom fails"
       let cmd ← `(command|
-        instance : E213.Meta.ConjugationCodomain (E213.Math.CayleyDickson.ZSqrt $d) :=
+        instance : E213.Meta.SelfRecognising.ConjugationCodomain (E213.Math.CayleyDickson.ZSqrt.ZSqrt $d) :=
           E213.Math.CayleyDickson.ZSqrt.conjugation_of_pos (by decide))
       elabCommand cmd
       logInfo m!"✓ quad_extension {dVal}: ConjugationCodomain (ZSqrt {dVal}) registered"

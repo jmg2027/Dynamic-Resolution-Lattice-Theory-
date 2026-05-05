@@ -10,16 +10,17 @@ We verify with both strong checks:
 - `#verify_conjugation` (command-level diagnostic)
 -/
 
-open E213.Tactic E213.Research
+open E213.Tactic
+open E213.Math.CayleyDickson.ZSqrt
 
 quad_extension 11
 quad_extension 13
 quad_extension 17
 
 -- inferInstance forces full term-level elaboration + synthesis.
-example : E213.Meta.ConjugationCodomain (ZSqrt 11) := inferInstance
-example : E213.Meta.ConjugationCodomain (ZSqrt 13) := inferInstance
-example : E213.Meta.ConjugationCodomain (ZSqrt 17) := inferInstance
+example : E213.Meta.SelfRecognising.ConjugationCodomain (ZSqrt 11) := inferInstance
+example : E213.Meta.SelfRecognising.ConjugationCodomain (ZSqrt 13) := inferInstance
+example : E213.Meta.SelfRecognising.ConjugationCodomain (ZSqrt 17) := inferInstance
 
 -- `#verify_conjugation` should succeed for each registered instance.
 #verify_conjugation (ZSqrt 11)
