@@ -8,6 +8,8 @@
   - `lean/E213/Math/PatternCatalog.lean` (catalog as Lean structures)
   - `lean/E213/Math/PatternCatalogInstance.lean` (concrete instances)
   - `lean/E213/Math/PatternCatalogCrossAxis.lean` (G24 × catalog)
+  - `lean/E213/Math/PatternCatalogAlgebra.lean` (free-monoid + anchors)
+  - `lean/E213/Math/PatternCatalogSpan.lean` (span analysis)
 
 ## §0 Origin
 
@@ -214,3 +216,112 @@ empirically and self-corrects under instantiation pressure.
 The "그림" that became visible through this arc is not a graph
 theorem but a typed combinatorial object: small, finite, complete
 enough to host every recurring 213 pattern observed so far.
+
+## §10 Free-monoid formalization (PatternCatalogAlgebra.lean)
+
+The free-monoid claim of §4 is now ∅-axiom typed:
+
+  `OpWord` — inductive `nil | A | F`, words over alphabet {A, F}.
+  `OpWord.append` — concatenation, with proven laws:
+    * `append_nil`     : `u ++ nil = u`         (right identity)
+    * `nil_append`     : `nil ++ v = v`         (left identity, rfl)
+    * `append_assoc`   : `(u ++ v) ++ w = u ++ (v ++ w)`
+
+  `OpWord.aggCount`, `OpWord.forCount` count letters; additivity
+  under append is proven (`aggCount_append`).
+
+  `OpWord.apply : OpWord → Type → Type` — applies a word as a
+  type-constructor stack, sending `nil ↦ id`, `A ↦ Aggregate`,
+  `F ↦ Forced`.
+
+The induced "operator algebra of types" is the image of `apply`.
+Free-monoid ≡ no reduction laws on words ≡ catalog grows linearly
+in word length without collapse.
+
+## §11 213-원론 anchors (PatternCatalogAlgebra.lean §Anchors)
+
+The catalog is anchored on **9 type-theoretic primitives**:
+
+  `type, arrow, pi, nat, prop, iff, eq, pair, raw`
+
+A `GameAnchor` record tags each game's signature with a
+characteristic function `Primitive → Bool`.  Six anchor records
+populate the catalog:
+
+  Locality      : {type, arrow, pi, eq}
+  Typeclass     : {type, arrow}
+  Catamorphism  : {type, arrow, nat}
+  Dynamical     : {type, arrow, nat, pair}
+  Aggregate-op  : {type, arrow, nat}
+  Forced-op     : {type, arrow, pi, prop, iff}
+
+`Primitive.inFloor` checks membership in the union of all six
+anchor sets.  Verified by `rfl`-decidable examples — each of the
+8 floor primitives returns `true`, `raw` returns `false`.
+
+The **catalog floor** is exactly the 8-primitive subset
+{type, arrow, pi, nat, prop, iff, eq, pair}.  `raw` is not in the
+floor — it surfaces only in concrete instances (e.g.,
+`peanoLensWitness` references `Lens.leaves`, which folds over Raw).
+Every named atomic game / operator depends on at least one of the
+8 floor primitives; removing any one would drop ≥ 1 game from the
+catalog.
+
+This is the 213-원론 anchor analysis: the catalog is built directly
+on the type-theoretic primitives 213's kernel admits, with no
+appeal to higher abstractions (no quotients, no propext, no
+classical, no Mathlib).
+
+## §12 Span verdict (PatternCatalogSpan.lean)
+
+Three granularities, three verdicts:
+
+  · **Game level**  : `gameLevelVerdict = .exactSpan`
+                      (every named game has ≥ 1 concrete instance)
+
+  · **Cell level**  : `cellLevelVerdict = .overSpan`
+                      (~13 / 126 cross-axis cells populated, 10%)
+
+  · **Escape check**: 2 honest under-span candidates surfaced:
+      - `EscapeCandidate.depAggregate`  (Σ-typed bundles, W per i)
+      - `EscapeCandidate.nAryCohabit`   (4+-way Lens cohabitation)
+
+The composite verdict in `finalVerdict := .underSpan` (honesty-
+first: any escape category outweighs over-span at the cell level).
+
+What this means concretely:
+  - **Catalog FITS** the patterns it currently hosts (game level).
+  - **Catalog OVER-ALLOCATES** the Cartesian cell space (cell level).
+  - **Catalog UNDER-EXTENDS** in two specific directions
+    (depAggregate, nAryCohabit) where future formalization can close
+    the gap.
+
+The under-span is *not* a flaw — it is a precise frontier marker.
+Two extension proposals are typed in `proposedExtensions`:
+
+  `DepAggregate (W : Idx → Type)`  — heterogeneous-witness bundles
+  `ArityNCohabit (n : Nat)`        — n-way base-shared cohabitation
+
+Both are ∅-axiom-feasible (no propext / Quot.sound required).
+The next round of formalization can close them in 2-3 commits.
+
+## §13 Closure (revised, formal artifacts in place)
+
+Final state of the meta-formalization arc:
+
+  4 atomic games (Locality, Typeclass, Cata, Dynamical)
+  2 operators (Aggregate, Forced) — non-commutative, non-idempotent
+  ≈ 22 typed patterns + ≈ 24 concrete instances, all ∅-axiom
+  Free-monoid `OpWord` formalized with associativity + identity
+  9 primitives anchor the catalog; 8 form the catalog floor
+  Span verdict: under-span by 2 specific extensions
+
+The "그래프이론같으면서도비스무레한무언가" intuition resolved as:
+**a free monoid of operator words on a 4-atomic-game basis,
+anchored on 8 type-theoretic primitives, currently under-spanning
+by 2 specific named extensions (DepAggregate, ArityNCohabit).**
+
+213's recurring codebase patterns are not graph-theoretic; they are
+combinatorial-type-theoretic.  The catalog records that fact in
+Lean form, ∅-axiom certified, with the gap to full closure
+explicitly typed.
