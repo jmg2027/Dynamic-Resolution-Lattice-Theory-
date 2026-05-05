@@ -58,7 +58,6 @@ import E213.Physics.Higgs.Master
 import E213.Physics.Simplex.GenerationStructure
 import E213.Physics.Nuclear.Shells
 import E213.Physics.Mixing.CPViolation
-import E213.OS.Physics.Capstones.AbsoluteAtomicCapstone
 import E213.Physics.Substrate
 import E213.Physics.Foundations.MasslessParticles
 import E213.Physics.Cosmology.GravityShadow
@@ -66,7 +65,6 @@ import E213.Physics.Cosmology.HubbleConstant
 import E213.Physics.YangMills.Gap
 import E213.Physics.Couplings.AsymptoticFreedom
 import E213.Physics.YangMills.Gap.SU5Roots
-import E213.OS.Physics.Capstones.Capstone
 
 /-!
 # E213.Physics — DRLT physics formalization track
