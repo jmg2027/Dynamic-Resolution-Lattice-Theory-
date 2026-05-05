@@ -1,5 +1,5 @@
 import E213.Physics.AlphaEM.V137
-import E213.Physics.Basel.BoundTight
+import E213.Physics.Basel.Bound
 
 /-!
 # Tightened bracket on the 1/α_em(IR) candidate formula
@@ -26,7 +26,6 @@ is implicit (~0.006); the focus is bracketing
 namespace E213.Physics.AlphaEM.V137Tight
 
 open E213.Physics.Basel.Bound
-open E213.Physics.Basel.BoundTight
 
 /-- Tight lower endpoint for `60·ζ(2) + 30 + 25/3`. -/
 def inv_lower_tight (N : Nat) : (Nat × Nat) :=

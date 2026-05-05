@@ -6,7 +6,7 @@ to ppm width. Headline 1/α_em = 137.036 *not yet* 4/27-passing.
 **Open Problem #1 status (2026-04-27 update):** split into 1a (bracket
 tightening, computational) + 1b (5.4×10⁻⁴ structural gap, research).
 **Lean:** `Physics/Couplings/AlphaGUT`, `AlphaEM`, `AlphaEM/V137`, `AlphaEM/V137Tight`,
-`BaselBound`, `BaselBoundTight`, `AlphaEMStructuralGap`.
+`BaselBound`, `Basel/Bound` (BoundTight merged in 2026-05-05), `AlphaEMStructuralGap`.
 
 ## Best current statement
 
@@ -44,7 +44,7 @@ Discovery 2 (photon = cycle space of K_{3,2}).
 
 ## Open / next — Open Problem #1 split
 
-**1a (computational, decide-checked).** `BaselBoundTight` adds the
+**1a (computational, decide-checked).** `Basel/Bound` (BoundTight merged in 2026-05-05) adds the
 two-sided telescoping bound: `S(N) + 1/(N+1) ≤ ζ(2) ≤ S(N) + 1/N`,
 giving width `1/(N(N+1))` — quadratic improvement. `AlphaEM/V137Tight`
 applies it: at N=20 the candidate-formula bracket has width 0.14

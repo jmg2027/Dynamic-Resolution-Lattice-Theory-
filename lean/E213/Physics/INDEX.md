@@ -47,9 +47,9 @@ Physics/
 ├── Atomic/              5  — Bridge, Screening, BondAngles, Helium, Hydrogen
 ├── Simplex/             7  — Counts, SubInventory, FoccSpectrum, FaceTerms,
 │                              MultiComposite, GenerationStructure, Generations
-├── Basel/               3  — Bound, BoundTight, WhyBasel
-├── FamousCoincidences/  4  — V{1,2,3,4} (V prefix because Lean module names
-│                              cannot start with digit)
+├── Basel/               2  — Bound (S(N) + upper + lower_tight,
+│                              merged from BoundTight 2026-05-05),
+│                              WhyBasel (1/n² propagator justification)
 ├── YangMills/           5  — WZBosons, WeinbergAngle, Bridge, Gap, SU5Roots
 └── Capstones/           8  — Capstone, MasterCatalog, ValidationStandardOne,
                               PureAtomicObservables, FinitistObservableChain,
@@ -62,8 +62,11 @@ When a sub-cluster name appears as a prefix in a file name, the
 prefix is dropped (e.g., `HadronBridge.lean` → `Hadron/Bridge.lean`,
 `NuclearBinding.lean` → `Nuclear/Binding.lean`).
 
-V-prefix on digit-start names (`FamousCoincidencesII.lean` →
-`FamousCoincidences/V2.lean`).
+V-prefix on digit-start names (`V137.lean` substitutes for "1/137"
+since Lean module names cannot start with digit).  See
+`lean/E213/ARCHITECTURE.md` §"V-prefix on digit-start" for guidance
+on when V-prefix is appropriate; sequential variants prefer
+descriptive topic names instead.
 
 ## Internal namespace declarations
 
