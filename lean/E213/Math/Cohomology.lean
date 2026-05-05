@@ -207,8 +207,29 @@ import E213.Math.Cohomology.XorPairCombine
 
   ## Status
 
-  202 files included.  24 files excluded
-  (pre-existing breakage + transitive cascade): require surgical
-  archaeology (renamed/deleted symbols from earlier sessions) which
-  is deferred to future commits.
+  202 files included; 15 files excluded
+  (pre-existing breakage requires file-specific archaeology;
+  references to renamed/deleted symbols from earlier sessions):
+
+    - Bipartite/Filled
+    - CupAW/LeibnizScaling
+    - CupAW/LeibnizSmall
+    - Dyadic/AlgebraicDegree
+    - Dyadic/Archive/EdgeSignature
+    - Dyadic/Archive/SubwordComplexity
+    - Dyadic/ArithFSM/Hierarchy
+    - Dyadic/ArithFSM/V1to2
+    - Dyadic/NumberTheory213
+    - Dyadic/Pell/ProperBridge
+    - HodgeConjecture/API
+    - HodgeConjecture/Foundation/Complete
+    - HodgeConjecture/Foundation/Filled
+    - HodgeConjecture/Refinement/StandardConjectures
+    - HodgeConjecture/Structure/HardLefschetz
+
+  9 clearly-orphan broken files (0 external usage) deleted in M7
+  cleanup: Audit, CupAW/Leibniz12Final, Dyadic/AtomicityConnection,
+  Dyadic/ArithFSM/V2to3, Dyadic/BitFSM/Examples,
+  Dyadic/FSMGeneralPeriod, Dyadic/Pell/CRT, Dyadic/SignatureInj,
+  Dyadic/SplitSplitLens.
 -/

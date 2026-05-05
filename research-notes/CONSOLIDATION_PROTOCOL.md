@@ -353,3 +353,54 @@ After each merge stage:
   - M3 (FluxMVT chains): commits `6a5cf5b` + `14bdd47` + `66e50dd`
   - M4 (full Math tree build fix): commit `4faa0a9`
   - M5a (Real213 umbrella): this commit
+
+---
+
+# Additional rules R9–R11 (M6–M7 lessons, 2026-05-05)
+
+## R9 — Iterative umbrella with broken-file exclusion
+
+When a sub-tree has many pre-existing broken files, build umbrella
+**iteratively**: try with all files → identify broken set →
+cascade-find transitive importers of broken → exclude all → document
+in docstring.  Used in M6f (Cohomology 202/226) and M7
+(CayleyDickson 11/29).
+
+## R10 — Nested-type-namespace caveat
+
+Lean 4 `structure X` inside `namespace X` creates path ambiguity:
+
+```
+namespace E213.Math.Foo.X    -- module
+  structure X where ...      -- full name E213.Math.Foo.X.X
+  namespace X                 -- nested
+    def ext : ...              -- E213.Math.Foo.X.X.ext
+  end X
+end E213.Math.Foo.X
+```
+
+External files need BOTH `open E213.Math.Foo.X` AND
+`open E213.Math.Foo.X.X` to access bare `ext`.  The type-defining
+file should NOT open itself.
+
+When method theorems (`mul_comm`, `conj_mul`) live in a separate
+`XDomain.lean` rather than in the X namespace, type-class derivation
+tactics fail.  **Move method theorems into the type namespace**.
+
+## R11 — Tactic-emitted hardcoded paths
+
+When namespace structure changes, audit custom tactics that emit
+hardcoded fully-qualified names (e.g., `mkIdent
+\`E213.Meta.ConjugationCodomain`).  Update tactic source to match
+the actual class location.
+
+## Cross-reference (extended)
+
+  - M6a Cohomology Capstone deletes: `7851172`
+  - M6b Physics + Cohomology cycle break: `7436e0b`
+  - M6c Hyper / Diagonal: `b08bfb6`
+  - M6d ModArith / Infinity: `c1a7b6f`
+  - M6e Linalg213 missing-open cascade: `479c601`
+  - M6f Cohomology iterative umbrella: `b8e3157`
+  - M6g Math root umbrella: `b77f190`
+  - M7 CayleyDickson partial + Tactic: `7eafd3f`
