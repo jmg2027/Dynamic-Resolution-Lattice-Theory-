@@ -5,7 +5,7 @@ import E213.Physics.Foundations.GoldenRatio
 /-!
 # CP violation — δ_CKM = π/φ², Jarlskog J (0 axioms)
 
-DRLT formulae (PRD_007, ch11):
+DRLT formulae:
 
   δ_CKM = π/φ² ≈ 1.20 rad ≈ 68.75°
   J = c₁₂·s₁₂·c₂₃·s₂₃·c₁₃²·s₁₃·sin(δ)

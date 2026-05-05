@@ -65,6 +65,9 @@ Physics/
 │                              2026-05-05 as alias-only orphans)
 ├── Mixing/              5  — CKMHierarchy, CPViolation, CabibboAngle,
 │                              Bridge, NeutrinoMixing
+│                              (CKMSpecific, NeutrinoOrdering,
+│                              PMNSSpecific deleted 2026-05-05 as
+│                              transitive-only Phase3 falsifier wrappers)
 ├── Cosmology/           6  — Bridge, DarkEnergy, HubbleConstant,
 │                              NeffDerivation, GravityShadow,
 │                              HorizonInformation

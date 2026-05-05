@@ -4,7 +4,7 @@ import E213.Physics.Foundations.GoldenRatio
 /-!
 # CKM Wolfenstein hierarchy — λ^k powers (0 axioms)
 
-DRLT formulae (PRD_007, ch11):
+DRLT formulae:
 
   λ = sin θ_C = 5/22  (CabibboAngle.lean)
   A = φ/c = (1 + √5)/(2c)  (golden ratio over c)

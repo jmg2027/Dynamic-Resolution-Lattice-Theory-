@@ -1,15 +1,14 @@
 import E213.Physics.Foundations.IntegerLockings
 import E213.Physics.Simplex.Generations
-import E213.Physics.Mixing.NeutrinoOrdering
+import E213.Physics.Mixing.NeutrinoMixing
 import E213.Physics.Couplings.ThetaQCD
 import E213.Physics.YangMills.WMassFalsifier
 import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Nuclear.MagicNumbers
-import E213.Physics.Mixing.PMNSSpecific
 import E213.Physics.Couplings.CassiniLink
 import E213.Physics.AlphaEM.V137
 import E213.Physics.Mass.MuOverE
-import E213.Physics.Mixing.CKMSpecific
+import E213.Physics.Mixing.CKMHierarchy
 import E213.Physics.Hadron.ProtonMass
 
 /-!

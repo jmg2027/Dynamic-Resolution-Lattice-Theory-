@@ -3,7 +3,7 @@ import E213.Physics.Hadron.Masses
 /-!
 # PMNS mixing angles — cleanest leading orders (0 axioms)
 
-DRLT formulae (ch11 sec 8.3, lib/drlt.py:749):
+DRLT formulae:
 
   sin²θ₁₂ = 1/NS − α·(...)     [leading 1/NS = 1/3]
   sin²θ₂₃ = 1/NT + 2α − (...)  [leading 1/NT = 1/2]

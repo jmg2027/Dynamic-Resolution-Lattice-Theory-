@@ -3,7 +3,7 @@ import E213.Physics.Simplex.Counts
 /-!
 # Cabibbo angle — sin θ_C = 5/22 (pure rational from DRLT integers)
 
-DRLT (ch11 sec 8.1):
+DRLT formula:
     sin θ_C (bare) = D / (D² - D + C_lattice) = 5 / (25 - 5 + 2) = 5/22
 
 This is the cleanest possible 0-param DRLT prediction:
@@ -13,7 +13,7 @@ transcendentals, no matrix inverse.
 Numerical check vs observation (PDG 2024):
     sin θ_C^obs ≈ 0.22650(48)
     5/22       ≈ 0.22727...
-    Δ = +0.34% (just outside 1σ; Ξ correction in `lib/drlt.py`
+    Δ = +0.34% (just outside 1σ; Ξ correction in companion derivation
     brings it to within 1σ but is *not* required for the bare claim).
 
 This file proves the rational form 5/22 exactly + numerical
@@ -31,7 +31,7 @@ namespace E213.Physics.Mixing.CabibboAngle
 
 open E213.Physics.Simplex.Counts
 
-/-- Lattice speed-of-light parameter c = 2 (ch06). -/
+/-- Lattice speed-of-light parameter c = 2. -/
 def C_lat : Nat := 2
 
 /-- sin θ_C bare value: D / (D² - D + C_lat) as `(num, den)`. -/
