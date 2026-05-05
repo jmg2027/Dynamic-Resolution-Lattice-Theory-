@@ -1,4 +1,3 @@
-import E213.Physics.Foundations.Phase3Manifesto
 import E213.Physics.Foundations.IntegerLockings
 import E213.Physics.Simplex.Generations
 import E213.Physics.Mixing.NeutrinoOrdering

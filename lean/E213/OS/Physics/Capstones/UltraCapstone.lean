@@ -1,7 +1,5 @@
 import E213.Physics.AtomicCorrespondences.Capstone
 import E213.OS.Physics.Capstones.Phase3Capstone
-import E213.Physics.Foundations.Phase3Reframing
-import E213.Physics.Foundations.ComplexAsTime
 import E213.Physics.Simplex.Counts
 
 /-!

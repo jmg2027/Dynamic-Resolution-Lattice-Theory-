@@ -4,7 +4,7 @@ import E213.Physics.Cosmology.NeffDerivation
 /-!
 # Massless particles — photon, gluon, graviton (0 axioms)
 
-DRLT massless particle classification (ch08 + ch12):
+DRLT massless particle classification:
 
   Photon (γ):     N_eff = ∞, cross-sector U(1)
   Gluon (g):      N_eff = 1, AAA confined  (massless asymptotic free)

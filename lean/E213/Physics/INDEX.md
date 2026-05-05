@@ -32,13 +32,19 @@ Physics/
 │                              (AlphaGUTPhase3Derivation +
 │                              ThetaQCDFalsifier deleted, TripleCouplingV2
 │                              merged into TripleCoupling 2026-05-05)
-├── Foundations/         16 — DrltZeroParameters, MasslessParticles,
+├── Foundations/         19 — DrltZeroParameters, MasslessParticles,
 │                              FractalLensCardinality,
 │                              NUniverseFractalDepth/FromFractal,
 │                              ResolutionDepth, FiniteUniverse/ResonanceN,
 │                              LensCardinalityFractalLevels, GoldenRatio,
 │                              FibonacciAtomic/Extended, KoideFormula,
-│                              HopHypothesis, TightenBracket, UnifiedPattern
+│                              HopHypothesis, TightenBracket, UnifiedPattern,
+│                              IntegerLockings, CorrectionAsLens,
+│                              PureLens213
+│                              (Phase3Manifesto, Phase3Reframing,
+│                              Artifacts, ComplexAsTime, NoInteraction,
+│                              NoWaveFunction, GravityNotInteraction
+│                              deleted 2026-05-05 as Phase3-chain trace)
 ├── Hadron/              8  — Bigrading, Bridge, Masses, NeutronProton,
 │                              ProtonElectronRatio, ProtonG, ProtonMass,
 │                              QuarkHierarchy
