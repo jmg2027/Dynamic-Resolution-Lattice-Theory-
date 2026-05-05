@@ -3,8 +3,6 @@ import E213.Physics.Atomic.IE.HeliumPPM
 import E213.Physics.Atomic.IE.Lithium
 import E213.Physics.Atomic.IE.Beryllium
 import E213.Physics.Atomic.IE.Boron
-import E213.Physics.Foundations.CorrectionAsLens
-import E213.Physics.Couplings.PropagatorFamily
 
 /-!
 # Phase 4 IE Capstone — H ~ B periodic table atomic IE summary

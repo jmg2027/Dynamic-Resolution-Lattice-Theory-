@@ -60,7 +60,7 @@ files (`ProtonElectronRatio`, `KoideFormula`, `ProtonMass`,
   938 = m_p MeV
 -/
 
-namespace E213.Physics.AtomicCorrespondences.AtomicSuperCatalog
+namespace E213.Physics.Foundations.AtomicSuperCatalog
 
 open E213.Physics.Simplex.Counts
 
@@ -114,4 +114,4 @@ theorem super_catalog :
           ?_, ?_, ?_, ?_⟩
   all_goals decide
 
-end E213.Physics.AtomicCorrespondences.AtomicSuperCatalog
+end E213.Physics.Foundations.AtomicSuperCatalog
