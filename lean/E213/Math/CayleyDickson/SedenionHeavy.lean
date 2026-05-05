@@ -17,7 +17,7 @@ namespace E213.Math.CayleyDickson.SedenionHeavy
 
 open E213.Math.CayleyDickson.ZI
 open E213.Math.CayleyDickson.ZI.ZI
-open E213.Tactic E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.LipschitzLens
+open E213.Tactic E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 set_option maxHeartbeats 2000000 in
 /-- **Sedenion conjugation is involutive**: 1-variable
@@ -45,7 +45,7 @@ theorem conj_mul_anti (u v : Sedenion) :
     conj (u * v) = conj v * conj u := by
   hurwitz_ring
 
-open E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.LipschitzLens
+open E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 /-- Sedenion norm-squared: `re.normSq + im.normSq` at
     Cayley level. -/

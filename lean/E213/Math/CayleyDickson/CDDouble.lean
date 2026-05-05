@@ -66,7 +66,7 @@ end Lipschitz
 
 end E213.Math.CayleyDickson.CDDouble
 
-namespace E213.Math.CayleyDickson.LipschitzLens
+namespace E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 open E213.Math.CayleyDickson.CDDouble
 open E213.Math.CayleyDickson.CDDouble.Lipschitz
@@ -206,7 +206,7 @@ theorem add_im (u v : Lipschitz) : (u + v).im = u.im + v.im := rfl
 theorem neg_re (u : Lipschitz) : (-u).re = -u.re := rfl
 theorem neg_im (u : Lipschitz) : (-u).im = -u.im := rfl
 
-end E213.Math.CayleyDickson.LipschitzLens
+end E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 /-
 **Lipschitz universal associativity** `(u·v)·w = u·(v·w)` is a
@@ -217,7 +217,7 @@ per-variable scope of `omega`'s linear decision procedure.  A
 dedicated "tri-factor" tactic would close it.  Deferred.
 -/
 
-namespace E213.Math.CayleyDickson.LipschitzLens
+namespace E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 open E213.Math.CayleyDickson.CDDouble
 open E213.Math.CayleyDickson.CDDouble.Lipschitz
@@ -344,7 +344,7 @@ theorem normSq_mul_sum_basis :
     normSq ((⟨⟨1, 0⟩, 0⟩ + I') * J)
       = normSq (⟨⟨1, 0⟩, 0⟩ + I') * normSq J := by decide
 
-end E213.Math.CayleyDickson.LipschitzLens
+end E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 /-
 **Lipschitz universal norm multiplicativity** `|uv|² =
@@ -354,7 +354,7 @@ polynomial identity with ~100 terms on each side.  Beyond
 A dedicated tactic extension is deferred.
 -/
 
-namespace E213.Math.CayleyDickson.LipschitzLens
+namespace E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 open E213.Math.CayleyDickson.CDDouble
 open E213.Math.CayleyDickson.CDDouble.Lipschitz
@@ -389,4 +389,4 @@ theorem sub_re (u v : Lipschitz) : (u - v).re = u.re - v.re := rfl
 
 theorem sub_im (u v : Lipschitz) : (u - v).im = u.im - v.im := rfl
 
-end E213.Math.CayleyDickson.LipschitzLens
+end E213.Math.CayleyDickson.CDDouble.Lipschitz

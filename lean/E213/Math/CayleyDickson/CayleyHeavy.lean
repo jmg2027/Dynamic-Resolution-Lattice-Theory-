@@ -24,7 +24,7 @@ theorem alt_right (a b : Cayley) : a * (b * b) = (a * b) * b := by
 theorem flexible (a b : Cayley) : (a * b) * a = a * (b * a) := by
   hurwitz_ring
 
-open E213.Tactic E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.ZI
+open E213.Tactic E213.Math.CayleyDickson.CDDouble.Lipschitz E213.Math.CayleyDickson.ZI
 
 /-- Cayley (octonion) norm-squared:
     `re.normSq + im.normSq` at Lipschitz level. -/
@@ -45,7 +45,7 @@ theorem normSq_mul (u v : Cayley) :
   unfold ZI.normSq
   hurwitz_ring
 
-open E213.Tactic E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.ZI
+open E213.Tactic E213.Math.CayleyDickson.CDDouble.Lipschitz E213.Math.CayleyDickson.ZI
 
 /-- `Lipschitz.normSq ≥ 0` (sum of integer squares). -/
 private theorem lip_normSq_nonneg (u : Lipschitz) :

@@ -16,16 +16,13 @@ import E213.Math.CayleyDickson.ZSqrtDomain
 import E213.Math.CayleyDickson.ZSqrtInstance
 
 /-! Spec-as-code entry point for `E213.Math.CayleyDickson` —
-  Cayley-Dickson construction (octonion / sedenion / quaternion-style
-  algebras over 213).
+  Cayley-Dickson construction over 213.
 
   ## Status
 
   16 files included.  13 files excluded
-  (Lipschitz cascade — the `conj` method is defined in
-  `LipschitzLens` namespace not `Lipschitz`, so dot-notation
-  `u.conj` for `u : Lipschitz` fails; needs structural namespace
-  reorganization deferred to future work):
+  (Lipschitz/Cayley/Sedenion cascade still has overload ambiguity
+  with `ext`/`mul_comm` resolving to multiple namespaces; deferred):
 
     - CDTower
     - Cayley

@@ -20,6 +20,8 @@ layer 1 via the `I'`/`J'` lifts) but verbose; deferred.
 
 namespace E213.Math.CayleyDickson.Cayley
 
+open Cayley
+
 
 open E213.Math.CayleyDickson.ZI
 open E213.Math.CayleyDickson.ZI.ZI
@@ -59,12 +61,13 @@ instance : Mul Cayley := ⟨mul⟩
 def conj (u : Cayley) : Cayley := ⟨u.re.conj, -u.im⟩
 
 end Cayley
+open Cayley
 
-open E213.Math.CayleyDickson.LipschitzLens
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 /-- `Cayley.conj` is involutive. -/
 theorem conj_conj (u : Cayley) : conj (conj u) = u := by
-  apply ext
+  apply Cayley.ext
   · show u.re.conj.conj = u.re
     exact Lipschitz.conj_conj u.re
   · show -(-u.im) = u.im
@@ -107,7 +110,9 @@ formula through three layers of nested `mul`; deferred.
 
 namespace E213.Math.CayleyDickson.Cayley
 
-open E213.Math.CayleyDickson.LipschitzLens
+open Cayley
+
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 /-- **Non-associativity of Cayley multiplication.**  Three
     generators `I', J', L` of the integer octonions satisfy
@@ -119,7 +124,7 @@ theorem mul_not_associative :
   refine ⟨I', J', L, ?_⟩
   decide
 
-open E213.Math.CayleyDickson.LipschitzLens
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 /-- **Non-commutativity of Cayley multiplication.**
     `I' * J' ≠ J' * I'` at the Cayley level (inherited from
@@ -129,7 +134,7 @@ theorem mul_not_commutative :
   refine ⟨I', J', ?_⟩
   decide
 
-open E213.Math.CayleyDickson.LipschitzLens
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 /-- `I' ≠ 0` in Cayley. -/
 theorem I'_ne_zero : I' ≠ (0 : Cayley) := by decide
@@ -182,7 +187,7 @@ theorem alt_L_L_I : (L * L) * I' = L * (L * I') := by decide
 /-- Right alternativity at `(I', J')`: `I'·(J'·J') = (I'·J')·J'`. -/
 theorem alt_right_I_J_J : I' * (J' * J') = (I' * J') * J' := by decide
 
-open E213.Math.CayleyDickson.LipschitzLens
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 -- ═══ Cayley Add/Neg/Sub (needed for hurwitz_ring) ═══
 

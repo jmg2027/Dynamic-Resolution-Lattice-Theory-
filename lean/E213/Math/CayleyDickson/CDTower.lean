@@ -31,7 +31,7 @@ namespace E213.Math.CayleyDickson.CDTower
 
 
 open E213.Math.CayleyDickson.ZI.ZI
-open E213.Math.CayleyDickson.ZI E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.Cayley
+open E213.Math.CayleyDickson.ZI E213.Math.CayleyDickson.CDDouble.Lipschitz E213.Math.CayleyDickson.Cayley
      E213.Math.CayleyDickson.Sedenion
 
 /-- **CD tower structural drop pattern.**  Each successive
@@ -51,7 +51,7 @@ theorem CD_tower_drops :
    Cayley.mul_not_associative,
    Sedenion.R3_fails_on_sedenion⟩
 
-open E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.Sedenion
+open E213.Math.CayleyDickson.CDDouble.Lipschitz E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.Sedenion
 
 /-- **Extended CD tower drop pattern** — adds the
     alternativity axiom drop at layer 3.  Shows the full
@@ -80,7 +80,7 @@ theorem CD_tower_extended :
    Sedenion.R3_fails_on_sedenion,
    Sedenion.not_alternative⟩
 
-open E213.Math.CayleyDickson.LipschitzLens E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.Sedenion
+open E213.Math.CayleyDickson.CDDouble.Lipschitz E213.Math.CayleyDickson.Cayley E213.Math.CayleyDickson.Sedenion
 
 /-- **FULL CD tower structural theorem** with composition-
     algebra status now included via Track A's `hurwitz_ring`

@@ -16,7 +16,7 @@ multiplication) is not commutative, so R2 fails.
 codomains, connecting the Lens framework to CD tower layer 1.
 -/
 
-namespace E213.Math.CayleyDickson.LipschitzLens
+namespace E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 open E213.Math.CayleyDickson.CDDouble
 open E213.Math.CayleyDickson.CDDouble.Lipschitz
@@ -80,4 +80,4 @@ theorem lipLens_image_has_ijk :
   · rw [lipLens_view_slash_ab_eq_K]; decide
   · rw [lipLens_view_slash_ab_eq_K]; decide
 
-end E213.Math.CayleyDickson.LipschitzLens
+end E213.Math.CayleyDickson.CDDouble.Lipschitz

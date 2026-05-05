@@ -49,7 +49,7 @@ scoped macro "hurwitz_ring" : tactic => `(tactic|
    (try apply E213.Math.CayleyDickson.Trigintaduonion.ext) <;>
    (try apply E213.Math.CayleyDickson.Sedenion.ext) <;>
    (try apply E213.Math.CayleyDickson.Cayley.ext) <;>
-   (try apply E213.Math.CayleyDickson.LipschitzLens.ext) <;>
+   (try apply E213.Math.CayleyDickson.CDDouble.Lipschitz.ext) <;>
    (try apply E213.Math.CayleyDickson.ZI.ext) <;>
    simp only [
      E213.Math.CayleyDickson.Pathion.mul_re, E213.Math.CayleyDickson.Pathion.mul_im,
@@ -76,12 +76,12 @@ scoped macro "hurwitz_ring" : tactic => `(tactic|
      E213.Math.CayleyDickson.Cayley.sub_re, E213.Math.CayleyDickson.Cayley.sub_im,
      E213.Math.CayleyDickson.Cayley.neg_re, E213.Math.CayleyDickson.Cayley.neg_im,
      E213.Math.CayleyDickson.Cayley.zero_re, E213.Math.CayleyDickson.Cayley.zero_im,
-     E213.Math.CayleyDickson.LipschitzLens.mul_re, E213.Math.CayleyDickson.LipschitzLens.mul_im,
-     E213.Math.CayleyDickson.LipschitzLens.conj_re, E213.Math.CayleyDickson.LipschitzLens.conj_im,
-     E213.Math.CayleyDickson.LipschitzLens.add_re, E213.Math.CayleyDickson.LipschitzLens.add_im,
-     E213.Math.CayleyDickson.LipschitzLens.sub_re, E213.Math.CayleyDickson.LipschitzLens.sub_im,
-     E213.Math.CayleyDickson.LipschitzLens.neg_re, E213.Math.CayleyDickson.LipschitzLens.neg_im,
-     E213.Math.CayleyDickson.LipschitzLens.zero_re, E213.Math.CayleyDickson.LipschitzLens.zero_im,
+     E213.Math.CayleyDickson.CDDouble.Lipschitz.mul_re, E213.Math.CayleyDickson.CDDouble.Lipschitz.mul_im,
+     E213.Math.CayleyDickson.CDDouble.Lipschitz.conj_re, E213.Math.CayleyDickson.CDDouble.Lipschitz.conj_im,
+     E213.Math.CayleyDickson.CDDouble.Lipschitz.add_re, E213.Math.CayleyDickson.CDDouble.Lipschitz.add_im,
+     E213.Math.CayleyDickson.CDDouble.Lipschitz.sub_re, E213.Math.CayleyDickson.CDDouble.Lipschitz.sub_im,
+     E213.Math.CayleyDickson.CDDouble.Lipschitz.neg_re, E213.Math.CayleyDickson.CDDouble.Lipschitz.neg_im,
+     E213.Math.CayleyDickson.CDDouble.Lipschitz.zero_re, E213.Math.CayleyDickson.CDDouble.Lipschitz.zero_im,
      E213.Math.CayleyDickson.ZI.mul_re, E213.Math.CayleyDickson.ZI.mul_im,
      E213.Math.CayleyDickson.ZI.conj_re, E213.Math.CayleyDickson.ZI.conj_im,
      E213.Math.CayleyDickson.ZI.add_re, E213.Math.CayleyDickson.ZI.add_im,
