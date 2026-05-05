@@ -57,18 +57,18 @@ open E213.Math.CayleyDickson.CDDouble.Lipschitz E213.Math.CayleyDickson.Cayley E
     alternativity axiom drop at layer 3.  Shows the full
     structural ladder:
 
-    L0: R2 ✓, R3 ✓, assoc ✓, alt ✓ — ZI
-    L1: R2 ✗, R3 ✓, assoc ✓, alt ✓ — Lipschitz
-    L2: R2 ✗, R3 ✓, assoc ✗, alt ✓ — Cayley
+    CDTower.L0: R2 ✓, R3 ✓, assoc ✓, alt ✓ — ZI
+    CDTower.L1: R2 ✗, R3 ✓, assoc ✓, alt ✓ — Lipschitz
+    CDTower.L2: R2 ✗, R3 ✓, assoc ✗, alt ✓ — Cayley
     L3: R2 ✗, R3 ✗, assoc ✗, alt ✗ — Sedenion
 
     Each layer drops exactly one axiom class from above. -/
 theorem CD_tower_extended :
-    -- L0 is commutative
+    -- CDTower.L0 is commutative
     (∀ u v : ZI, u * v = v * u)
-    -- L1 is non-commutative
+    -- CDTower.L1 is non-commutative
     ∧ (∃ u v : Lipschitz, u * v ≠ v * u)
-    -- L2 is non-associative
+    -- CDTower.L2 is non-associative
     ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))
     -- L3 has zero divisors
     ∧ (∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0)
@@ -87,27 +87,27 @@ open E213.Math.CayleyDickson.CDDouble.Lipschitz E213.Math.CayleyDickson.Cayley E
     tactic.  This single statement packages the entire
     CD tower's formal behaviour up to Sedenion:
 
-    L0 (ZI):        comm ✓ , assoc ✓ , comp-alg ✓ , R3 ✓
-    L1 (Lipschitz): comm ✗ , assoc ✓ , comp-alg ✓ , R3 ✓
-    L2 (Cayley):    comm ✗ , assoc ✗ , comp-alg ✓ , R3 ✓
+    CDTower.L0 (ZI):        comm ✓ , assoc ✓ , comp-alg ✓ , R3 ✓
+    CDTower.L1 (Lipschitz): comm ✗ , assoc ✓ , comp-alg ✓ , R3 ✓
+    CDTower.L2 (Cayley):    comm ✗ , assoc ✗ , comp-alg ✓ , R3 ✓
     L3 (Sedenion):  comm ✗ , assoc ✗ , comp-alg ✗ , R3 ✗
 
     Each "✗" has a concrete counterexample.
     Each "✓" has a universal Lean proof. -/
 theorem CD_tower_full :
-    (∀ u v : ZI, u * v = v * u)                                -- L0 comm
-    ∧ (∀ u v w : ZI, (u * v) * w = u * (v * w))                -- L0 assoc
-    ∧ (∀ u v : ZI, ZI.normSq (u * v) = ZI.normSq u * ZI.normSq v) -- L0 comp
-    ∧ (∃ u v : Lipschitz, u * v ≠ v * u)                       -- L1 NOT comm
-    ∧ (∀ u v w : Lipschitz, (u * v) * w = u * (v * w))         -- L1 assoc
+    (∀ u v : ZI, u * v = v * u)                                -- CDTower.L0 comm
+    ∧ (∀ u v w : ZI, (u * v) * w = u * (v * w))                -- CDTower.L0 assoc
+    ∧ (∀ u v : ZI, ZI.normSq (u * v) = ZI.normSq u * ZI.normSq v) -- CDTower.L0 comp
+    ∧ (∃ u v : Lipschitz, u * v ≠ v * u)                       -- CDTower.L1 NOT comm
+    ∧ (∀ u v w : Lipschitz, (u * v) * w = u * (v * w))         -- CDTower.L1 assoc
     ∧ (∀ u v : Lipschitz, Lipschitz.normSq (u * v)
-                           = Lipschitz.normSq u * Lipschitz.normSq v) -- L1 comp
-    ∧ (∀ u v : Lipschitz, u * v = 0 → u = 0 ∨ v = 0)           -- L1 R3
-    ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))            -- L2 NOT assoc
-    ∧ (∀ a b : Cayley, (a * a) * b = a * (a * b))              -- L2 alt left
+                           = Lipschitz.normSq u * Lipschitz.normSq v) -- CDTower.L1 comp
+    ∧ (∀ u v : Lipschitz, u * v = 0 → u = 0 ∨ v = 0)           -- CDTower.L1 R3
+    ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))            -- CDTower.L2 NOT assoc
+    ∧ (∀ a b : Cayley, (a * a) * b = a * (a * b))              -- CDTower.L2 alt left
     ∧ (∀ u v : Cayley, Cayley.normSq (u * v)
-                        = Cayley.normSq u * Cayley.normSq v)   -- L2 comp
-    ∧ (∀ u v : Cayley, u * v = 0 → u = 0 ∨ v = 0)              -- L2 R3
+                        = Cayley.normSq u * Cayley.normSq v)   -- CDTower.L2 comp
+    ∧ (∀ u v : Cayley, u * v = 0 → u = 0 ∨ v = 0)              -- CDTower.L2 R3
     ∧ (∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0)            -- L3 NOT R3
     ∧ (∃ a b : Sedenion, (a * a) * b ≠ a * (a * b)) :=         -- L3 NOT alt
   ⟨ZI.mul_comm, ZI.mul_assoc, ZI.normSq_mul,

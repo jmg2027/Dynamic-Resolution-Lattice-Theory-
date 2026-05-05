@@ -2480,3 +2480,56 @@ Rules R9–R11 codified:
     - 18 CayleyDickson files (CDDouble cascade + Instance derivations)
     - 15 Cohomology files (rename references + dependencies)
     - QuadExtension + HurwitzRing in Tactic (await CayleyDickson)
+
+## Stages M8–M10 (CayleyDickson namespace surgery)
+
+### M8 (`dad5fd6`) — Domain → Type namespace relocation
+
+Per R10: when type-class derivation tactics expect `<Type>.method`
+paths, theorems must live IN the type namespace, not in a separate
+`*Domain` namespace.
+
+  - ZIDomain / ZIArith / ZIHom → `E213.Math.CayleyDickson.ZI.ZI`
+  - ZSqrt2Domain → `E213.Math.CayleyDickson.ZSqrt2.Z2`
+  - ZSqrtDomain → `E213.Math.CayleyDickson.ZSqrt.ZSqrt`
+  - ZOmegaDomain → `E213.Math.CayleyDickson.ZOmega.ZOmega`
+
+  Newly clean: ZIInstance, Z2Instance, ZOmegaInstance, ZSqrtInstance,
+  CDDouble (5 files unlocked).  CD umbrella 11 → 16 files.
+
+### M9 (`bf07f8b`) — LipschitzLens → CDDouble.Lipschitz bulk relocate
+
+Renamed `E213.Math.CayleyDickson.LipschitzLens` →
+`E213.Math.CayleyDickson.CDDouble.Lipschitz` across 7 files (CDDouble,
+CDTower, Cayley, CayleyHeavy, SedenionHeavy, LipschitzLens,
+Tactic/HurwitzRing).  This puts `conj`, `mul`, etc. methods INTO
+the type's namespace where dot-notation `u.conj` for
+`u : Lipschitz` resolves.
+
+  Plus: `open Cayley` propagation (multiple namespace blocks),
+  `apply Cayley.ext` disambiguation.
+
+### M10 (this commit) — Cayley/Sedenion bulk disambiguation
+
+Bulk regex replacement: bare `I'`, `J'` → `Cayley.I'`, `Cayley.J'`
+in Cayley.lean (16 substitutions).  Cayley.lean now builds clean
+(was 32 errors).
+
+Same pattern applied to Sedenion / Pathion / etc., reducing each
+from 32 → 7 errors.  Remaining errors are specific path issues
+(`E213.Math.CayleyDickson.Cayley.I'` vs `Cayley.Cayley.I'`).
+
+  CD umbrella 16 → 17 files (Cayley clean).
+
+## Final CayleyDickson status (M10)
+
+  17/29 files clean.  12 still excluded:
+
+  Lipschitz cascade (Lipschitz`Heavy`, LipschitzLens broken with
+  E213.Meta references), Sedenion/Pathion/Trigintaduonion family
+  (need wrong-path Cayley.X → Cayley.Cayley.X qualification),
+  CDTower/CayleyHeavy (similar disambiguation), Z2Instance R5Vacuity
+  ZSqrtProduct (other specific issues), ZSqrtInstance.
+
+  Each remaining file requires per-line surgery rather than bulk
+  pattern.  Deferred for case-by-case work.

@@ -142,23 +142,23 @@ theorem R3_fails_on_sedenion :
    zd_product_zero⟩
 
 /-- Generators at sedenion level: Cayley generators lifted. -/
-def I' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.I', 0⟩
-def J' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.J', 0⟩
-def L' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.L, 0⟩
+def Sedenion.I' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.I', 0⟩
+def Sedenion.J' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.J', 0⟩
+def Sedenion.L' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.L, 0⟩
 /-- New generator at sedenion level (the "M" imaginary). -/
 def M  : Sedenion := ⟨0, ⟨⟨⟨1, 0⟩, 0⟩, 0⟩⟩
 
 /-- **Sedenion multiplication is not commutative**
-    (inherited via Cayley I'/J'). -/
+    (inherited via Cayley Sedenion.I'/Sedenion.J'). -/
 theorem mul_not_commutative :
     ∃ u v : Sedenion, u * v ≠ v * u := by
-  refine ⟨I', J', ?_⟩; decide
+  refine ⟨Sedenion.I', Sedenion.J', ?_⟩; decide
 
 /-- **Sedenion multiplication is not associative**
-    (inherited via Cayley I', J', L). -/
+    (inherited via Cayley Sedenion.I', Sedenion.J', L). -/
 theorem mul_not_associative :
     ∃ u v w : Sedenion, (u * v) * w ≠ u * (v * w) := by
-  refine ⟨I', J', L', ?_⟩; decide
+  refine ⟨Sedenion.I', Sedenion.J', Sedenion.L', ?_⟩; decide
 
 -- ═══ Alternativity failure at Sedenion level ═══
 -- Octonions (CD layer 2) are classically alternative.

@@ -1,4 +1,5 @@
 import E213.Math.CayleyDickson.CDDouble
+import E213.Math.CayleyDickson.Cayley
 import E213.Math.CayleyDickson.F2CDTower
 import E213.Math.CayleyDickson.Z2Instance
 import E213.Math.CayleyDickson.ZI
@@ -20,12 +21,12 @@ import E213.Math.CayleyDickson.ZSqrtInstance
 
   ## Status
 
-  16 files included.  13 files excluded
-  (Lipschitz/Cayley/Sedenion cascade still has overload ambiguity
-  with `ext`/`mul_comm` resolving to multiple namespaces; deferred):
+  17 files included.  12 files excluded
+  (cascade still has minor issues — wrong-path qualifications
+  inserted by bulk regex, plus `decide` failures on combinator-
+  derived expressions; deferred):
 
     - CDTower
-    - Cayley
     - CayleyHeavy
     - LipschitzHeavy
     - LipschitzLens
