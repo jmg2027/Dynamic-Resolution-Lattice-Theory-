@@ -192,7 +192,7 @@ When deletion is right: deprecated content with no active dependents → delete 
 | ENTRY | `README.md` | 30-second overview |
 | ENTRY | `HANDOFF.md` | current session state (volatile) |
 | ENTRY | `CLAUDE.md` | this file |
-| FORMAL | `lean/E213/` | the actual 213 (~985 .lean files, 0-axiom).  Layers: `Kernel/` `Firmware/` `Hypervisor/` `Meta/` `OS/` `App/`.  `Math/`, `Physics/` are topical labels (vertical layer determined by import closure, see `lean/E213/ARCHITECTURE.md`). |
+| FORMAL | `lean/E213/` | the actual 213 (~994 .lean files, ∅-axiom standard).  Layers: `Kernel/` `Firmware/` `Hypervisor/` `Meta/` `OS/` `App/`.  `Math/`, `Physics/` are topical labels (vertical layer determined by import closure, see `lean/E213/ARCHITECTURE.md`). |
 | FORMAL | `rust-engine/` | Rust runtime (52+ binaries, ℕ-only) |
 | NARRATIVE | `guide/` | master deductive guide (16 chapters) |
 | NARRATIVE | `books/` | 213-internal narrative (math/, physics/) |

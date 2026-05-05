@@ -33,12 +33,28 @@ them via Lean-core well-founded recursion proofs.
 ## Latest scan
 
 (Numbers vary by run due to scanner timeouts on slow modules; refer
-to HANDOFF.md "current state" for the freshest reading.)
+to HANDOFF.md "current state" for the freshest reading.  994 total
+`.lean` files; scanner enumerates ~500-800 ★-marked theorems
+depending on timeout state.)
 
-Earlier session 27 milestone (2026-05-03): tree-wide scan reported
-**2077 PURE / 0 real DIRTY / 19 sealed**.  Cumulative arc 394 → 0
-real DIRTY across sessions 19-27 via Plan 2 parallel-struct refactor
-PLUS deletion of ALL function-eq facade + consumer migration to `_at`
+**2026-05-05** (post-AXIOM.md §9.1 rename audit pass): tree-wide
+scan reports approximately **541 PURE / 18 DIRTY / 14 sealed-DIRTY-
+by-design** (573 total counted).  Real DIRTY breakdown: 10 [propext]
++ 7 [propext, Quot.sound] + 1 [propext, Classical.choice, Quot.sound]
+(NativeGuard internal; Classical.choice via Lean.Elab API, sealed
+upstream).  Compared to pre-rename 2026-05-04 baseline (511/14/22),
+the rename caused +30 PURE (newly counted), +4 DIRTY (newly counted
+pre-existing items), -8 sealed (entries reclassified after seal-list
+update for `Meta.SelfRecognising` + `DeriveConjugationCodomain` +
+`VerifyConjugation`).  No new actual axiom dependencies were
+introduced by the rename.
+
+**Earlier session 27 milestone (2026-05-03)**: scan reported **2077
+PURE / 0 real DIRTY / 19 sealed**.  The 2077 count reflected a more
+permissive scanner regex catching additional ★-marked theorems
+across the Real213 marathon.  Cumulative arc 394 → 0 real DIRTY
+across sessions 19-27 via Plan 2 parallel-struct refactor PLUS
+deletion of ALL function-eq facade + consumer migration to `_at`
 pointwise form.
 
 **Genuine final state** (no cheat seal):

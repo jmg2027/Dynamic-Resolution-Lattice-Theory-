@@ -9,13 +9,13 @@ six vertical layers + 21 INDEX.md files.
 |---|---|---|
 | `Kernel/` | 23 | Type-theoretic kernel (Term213, Nat213 tactic) |
 | `Firmware/` | 27 | Raw axiom + atomicity primitives |
-| `Hypervisor/` | 88 | Lens (specification + characterisation), 11 sub-trees |
+| `Hypervisor/` | 89 | Lens (specification + characterisation), 11 sub-trees + Morphism/SlashSwap (added 2026-05-05) |
 | `Meta/` | 27 | Metatheory (UniversalLens*, SelfRecognising, tactics) |
 | `OS/` | 20 | Cross-layer capstones (HodgeConjecture/, Physics/) |
 | `Math/` | 543 | Topical math (Cohomology 233, Real213 ~180, etc.) |
-| `Physics/` | 262 | Topical physics (16 sub-trees) |
+| `Physics/` | 261 | Topical physics (16 sub-trees; FinitismIsConsequence deleted 2026-05-05) |
 | `App/` | 1 | (placeholder) |
-| **Total** | **991** | + ARCHITECTURE.md, INDEX.md, three top-level imports |
+| **Total** | **991** | + ARCHITECTURE.md, INDEX.md, three top-level imports = 994 .lean files |
 
 ## Top-of-tree health
 
