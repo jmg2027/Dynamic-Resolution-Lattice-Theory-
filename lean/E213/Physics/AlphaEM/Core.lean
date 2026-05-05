@@ -3,7 +3,7 @@ import E213.Physics.Couplings.AlphaGUT
 /-!
 # 1/α_em(bare) — Weinberg sum + rational bracket
 
-DRLT formulae (ch08):
+DRLT formulae:
   1/α_3 = 1 · (NS² - 1) · S(1)            = 8         (exact ℤ)
   1/α_2 = 12 · NT · S(2)                  = 30        (exact ℤ)
   1/α_1 = 12 · NS · S(∞)                  = 36 · ζ(2) (bracket)

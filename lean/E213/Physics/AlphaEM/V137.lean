@@ -4,7 +4,7 @@ import E213.Physics.AlphaEM.Core
 # 1/α_em(IR) candidate — pure DRLT formula attempt for 137.036
 
 User directive (2026-04-27): "The book is no longer the ToE and SSOT.
-Raw/Lens is the ToE and SSOT."  The explicit statement in ch08:289 "QED running is not
+Raw/Lens is the ToE and SSOT."  The explicit statement earlier (deprecated) framing said "QED running is not
 DRLT topology" was a self-acknowledged limitation *at the time the book was written*, and now
 that 213 has matured, attempting self-derivation from the lattice.
 

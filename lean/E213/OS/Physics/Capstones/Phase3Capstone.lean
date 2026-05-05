@@ -8,7 +8,7 @@ import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Nuclear.MagicNumbers
 import E213.Physics.Mixing.PMNSSpecific
 import E213.Physics.Couplings.CassiniLink
-import E213.Physics.AlphaEM.Phase3Sharp
+import E213.Physics.AlphaEM.V137
 import E213.Physics.Mass.MuOverE
 import E213.Physics.Mixing.CKMSpecific
 import E213.Physics.Hadron.ProtonMass

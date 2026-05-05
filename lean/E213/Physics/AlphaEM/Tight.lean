@@ -23,7 +23,7 @@ Observed at low energy: 1/α_em(0) = 137.036.
 Observed at M_Z:        1/α_em(M_Z) = 127.95.
 
 The gap 137 − 128 = 9 is the **standard QED vacuum polarization**
-running from M_Z to Q = 0.  Per ch08 line 289:
+running from M_Z to Q = 0.  Earlier framing:
 > "The QED vacuum polarization Δ_QED ≈ 9.1 is a standard QED
 >  contribution... This is NOT part of the DRLT topological
 >  calculation — it is established physics that applies regardless
@@ -75,7 +75,7 @@ theorem qed_running_gap : (137 : Nat) - 128 = 9 := by decide
 
 /-- **Capstone**: pure-DRLT 1/α_em(M_Z) bare value is bracketed
     sharply at 128 (within ±1 at N=20).  137 cannot be cleanly
-    derived without invoking non-DRLT QED running per book ch08. -/
+    derived without invoking non-DRLT QED running per the book framing. -/
 theorem alpha_em_bare_pure_drlt :
     let lo := inv_alpha_em_bare_lower 20
     let hi := inv_alpha_em_bare_upper 20

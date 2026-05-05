@@ -87,7 +87,7 @@ theorem alpha_em_simplicial_capstone :
     * 137 ∈ rational bracket at modest precision ✓
    This theorem building is exactly the formal meaning of
    "DRLT derives 137 as a single simplicial cohomology sum".
-   The book's statement "QED running ≠ DRLT topology" (ch08:289)
+   The book's statement "QED running ≠ DRLT topology" (deprecated framing)
    was a limitation of the book's perspective.  With Raw/Lens as SSOT now,
    all five terms are self-derived from the lattice, and the running
    gap itself is a simplicial cohomology decomposition. -/

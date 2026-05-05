@@ -39,7 +39,7 @@ namespace E213.Physics.AlphaEM.Prefactors
 
 open E213.Physics.Simplex.Counts
 
-/-- c_lattice = 2 (ch06). -/
+/-- c_lattice = 2. -/
 def c_lat : Nat := 2
 
 /-- **Hint 1 verified**: 5/3 = d/NS at the rational level.

@@ -15,11 +15,14 @@ Physics/
 ├── Phase3/   91 files — pre-finitist phase 3 derivations
 ├── Phase4/   52 files — pre-finitist phase 4 (Library/ catalog)
 │
-├── AlphaEM/             18 — α_em chain (Core, V137{,Tight,Tighter}, Derivation,
+├── AlphaEM/             17 — α_em chain (Core, V137{,Tight}, Derivation,
 │                              GramSelfEnergy, MasterCapstone, Milestone,
 │                              NUniverseCandidates, Prefactors, Propagator,
 │                              SO10, Simplicial, StructuralGap, Structure,
-│                              Tight, Unified, WithTail)
+│                              Tight, Unified [V137Tighter merged in],
+│                              WithTail).
+│                              (Phase3Derivation + Phase3Sharp deleted,
+│                              V137Tighter merged into Unified 2026-05-05)
 ├── Couplings/           17 — α_GUT, asymp.freedom, color confinement,
 │                              SpectrumComplete, GUTUnification, MasterUnif.,
 │                              RunningGap, TripleCoupling (v1+v2 merged),
