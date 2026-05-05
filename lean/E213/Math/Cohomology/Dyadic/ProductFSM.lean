@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.Dyadic.ProductHelpers
 import E213.Math.Cohomology.Dyadic.ArithFSM.V1
 
+import E213.Math.Cohomology.Dyadic.BitFSM
 /-!
 # BitFSM.product — universal lens composition at FSM level
 

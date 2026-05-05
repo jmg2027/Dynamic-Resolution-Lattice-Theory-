@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Hodge Toolkit T1 — practical primitives
 

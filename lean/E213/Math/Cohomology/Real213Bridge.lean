@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Cochain.Core
 
+import E213.Physics.Simplex.Counts
 /-!
 # partial — Real213 ↔ Cohomology 213 structural bridge
 

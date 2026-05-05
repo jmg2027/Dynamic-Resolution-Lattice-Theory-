@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Pell ArithFSM mod 13 — period 14 (INERT case, second instance)
 

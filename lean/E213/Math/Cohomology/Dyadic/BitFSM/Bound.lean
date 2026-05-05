@@ -2,6 +2,8 @@ import E213.Math.Cohomology.Dyadic.BitFSM
 import E213.Math.EncodePair213
 import E213.Kernel.Tactic.Nat213
 
+import E213.Math.Cohomology.Dyadic.ForwardPeriodicity
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Explicit signature period bound for BitFSM-generated streams
 

@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.Dyadic.Archive.SubwordComplexity
 
+import E213.Math.Cohomology.Dyadic.Signature
+import E213.Math.Cohomology.Dyadic.ThueMorse
 /-!
 # Edge-based K_{3,2}^{(2)} signature variant
 

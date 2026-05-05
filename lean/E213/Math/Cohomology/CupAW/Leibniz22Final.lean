@@ -1,5 +1,12 @@
 import E213.Math.Cohomology.CupAW.Leibniz22Bridge
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Cochain.V5_2Decomp
+import E213.Math.Cohomology.CupAW.BasisLeibniz
+import E213.Math.Cohomology.CupAW.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # (5, 2, 2) Universal Cup AW Leibniz — closed via two-lens lift
 

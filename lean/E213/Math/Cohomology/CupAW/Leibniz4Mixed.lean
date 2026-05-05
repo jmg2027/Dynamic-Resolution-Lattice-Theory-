@@ -2,6 +2,10 @@ import E213.Math.Cohomology.CupAW.Core
 import E213.Math.Cohomology.Universal.Prop41
 import E213.Math.Cohomology.Universal.Prop42
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Cup AW Leibniz at mixed arities on Δ³ (n = 4)
 

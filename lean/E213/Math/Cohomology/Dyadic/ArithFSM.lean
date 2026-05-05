@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.Dyadic.BitAuto2
 import E213.Math.NatDiv213
 
+import E213.Math.Cohomology.Dyadic.BitFSM
 /-!
 # ArithFSM — multi-state arithmetic recurrence (Tier 1 abstraction)
 

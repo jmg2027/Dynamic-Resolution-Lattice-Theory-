@@ -5,6 +5,7 @@ import E213.Math.Cohomology.Dyadic.Pell.ProperMod17
 import E213.Math.Cohomology.Dyadic.Pell.ProperMod19
 import E213.Math.Cohomology.Dyadic.Pell.ProperMod23
 
+import E213.Math.Cohomology.Dyadic.Pell.Proper
 /-!
 # Pell-proper (Δ=8) — 8-prime evidence capstone
 

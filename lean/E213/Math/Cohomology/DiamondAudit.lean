@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.DiamondShape
 import E213.Physics.Foundations.HopHypothesis
 
+import E213.Physics.Simplex.Counts
 /-!
 # Diamond Crystal — Verification Audit
 

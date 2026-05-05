@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.CupAW.BasisLeibniz
 
+import E213.Math.Cohomology.Cochain.Core
 /-!
 # Cochain 5 1 / Cochain 5 2 — basis decomposition
 

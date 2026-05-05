@@ -1,6 +1,9 @@
 import E213.Math.Cohomology.CupAW.Bilinear
 import E213.Math.Cohomology.Delta.Linear
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.CupAW.Core
+import E213.Math.Cohomology.Delta.Core
 /-!
 # Function-level versions of bilinearity / linearity
 

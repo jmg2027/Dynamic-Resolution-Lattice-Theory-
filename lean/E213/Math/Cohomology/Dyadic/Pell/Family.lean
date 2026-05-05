@@ -1,6 +1,11 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
 import E213.Math.Cohomology.Dyadic.Pell.Bounds
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
+import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Pell ArithFSM family — full 4-modulus closure
 

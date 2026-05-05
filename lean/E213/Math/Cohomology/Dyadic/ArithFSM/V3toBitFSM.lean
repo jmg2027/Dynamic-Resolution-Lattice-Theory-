@@ -4,6 +4,7 @@ import E213.Math.NatDiv213
 import E213.Math.EncodePair213
 import E213.Kernel.Tactic.Nat213
 
+import E213.Math.Cohomology.Dyadic.BitFSM
 /-!
 # ArithFSM3(n) ⊂ BitFSM(n³) — bit-stream-faithful encoding
 

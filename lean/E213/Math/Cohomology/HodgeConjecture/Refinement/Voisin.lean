@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.Bipartite.V32Betti
 import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
 
+import E213.Physics.Simplex.Counts
 /-!
 # Voisin's Conjectures in 213
 

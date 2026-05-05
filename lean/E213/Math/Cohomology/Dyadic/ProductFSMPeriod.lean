@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.Dyadic.ProductFSMRun
 
+import E213.Math.Cohomology.Dyadic.BitFSM
+import E213.Math.Cohomology.Dyadic.LCMClosure
+import E213.Math.Cohomology.Dyadic.ProductFSM
 /-!
 # Lens Composition Theorem — period | lcm
 

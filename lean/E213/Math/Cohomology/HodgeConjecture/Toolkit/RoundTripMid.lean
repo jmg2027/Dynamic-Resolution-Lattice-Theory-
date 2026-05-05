@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.Primitives
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Hodge Toolkit T2 mid-strata — round-trip on (5, 2) and (5, 3)
 

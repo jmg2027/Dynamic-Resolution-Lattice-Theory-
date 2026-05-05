@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.BettiKernel
 
+import E213.Math.Cohomology.Delta.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Universal δ²=0 via enumeration (partial)
 

@@ -2,6 +2,10 @@ import E213.Math.Cohomology.Cup.Ring
 import E213.Math.Cohomology.Hodge.Star
 import E213.Math.Cohomology.Hodge.InvolutionCapstone
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Cup.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Hodge Toolkit T4 — Hodge ring action (⋆ on cup product)
 

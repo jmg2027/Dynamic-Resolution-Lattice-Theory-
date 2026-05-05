@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens
 import E213.Math.Cohomology.Bipartite.V32Betti
 
+import E213.Math.Cohomology.Bipartite.V32
 /-!
 # Hodge Toolkit T3 — K_{3,2}^{(c=2)} class classifier
 

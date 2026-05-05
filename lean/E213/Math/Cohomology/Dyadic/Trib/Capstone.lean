@@ -1,5 +1,12 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3Hardness
 
+import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
+import E213.Math.Cohomology.Dyadic.BitFSM
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Tribonacci ArithFSM3 family — capstone
 

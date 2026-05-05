@@ -2,6 +2,7 @@ import E213.Math.Cohomology.Dyadic.TierBridge
 import E213.Math.Pigeonhole
 import E213.Math.EncodePair213
 
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Forward direction (general): periodic bits ⇒ ev-periodic signature
 

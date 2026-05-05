@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.Ising
 
+import E213.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting
+import E213.Physics.Simplex.Counts
 /-!
 # Potts (q=3) model on K_5 in 213-native form
 

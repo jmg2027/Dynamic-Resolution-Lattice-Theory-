@@ -2,6 +2,12 @@ import E213.Math.Cohomology.Dyadic.Pell.LensPairs
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
 import E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
+import E213.Math.Cohomology.Dyadic.BitFSM
+import E213.Math.Cohomology.Dyadic.ProductFSM
 /-!
 # Cross-class lens — Pell (quadratic) × Tribonacci (cubic)
 

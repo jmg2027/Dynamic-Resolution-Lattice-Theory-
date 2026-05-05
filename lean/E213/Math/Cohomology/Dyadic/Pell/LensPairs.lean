@@ -1,5 +1,13 @@
 import E213.Math.Cohomology.Dyadic.Pell.Lens
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
+import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
+import E213.Math.Cohomology.Dyadic.BitFSM
+import E213.Math.Cohomology.Dyadic.ProductFSM
+import E213.Math.Cohomology.Dyadic.ProductFSMPeriod
+import E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd
 /-!
 # Pell lens — all pairwise compositions
 

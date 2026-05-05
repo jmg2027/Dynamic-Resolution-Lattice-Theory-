@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.K5
 
+import E213.Math.Cohomology.Cochain.Core
 /-!
 # Fractal-simplex level 2 — K_{25} cohomology
 

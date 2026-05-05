@@ -1,5 +1,9 @@
 import E213.Math.Cohomology.CupAW.Core
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Basis-pair Leibniz at (5, 1, 2) — small enumeration
 

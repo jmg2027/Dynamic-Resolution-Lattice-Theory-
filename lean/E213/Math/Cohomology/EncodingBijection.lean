@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Universal.Prop51
 import E213.Math.Cohomology.BettiKernel
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Encoding bijection at (5, 1) — alternative Prop-lift route
 

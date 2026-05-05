@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Capstone
 import E213.Physics.AlphaEM.Capstone
 
+import E213.Physics.Couplings.PhotonKernel
+import E213.Physics.Simplex.Counts
 /-!
 # Cohomology 213 ↔ AlphaEMSimplicial bridge
 

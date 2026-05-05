@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Cochain.Core
 
+import E213.Physics.Simplex.Counts
 /-!
 # Lefschetz Hyperplane Theorem in 213
 

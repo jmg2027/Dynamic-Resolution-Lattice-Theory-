@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Fibonacci ArithFSM mod 5 — period 20 (RAMIFIED case)
 

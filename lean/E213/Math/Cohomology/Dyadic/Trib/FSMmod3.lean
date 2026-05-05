@@ -2,6 +2,7 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.V3
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Tribonacci ArithFSM3 mod 3 — period 13 (cubic class, second instance)
 

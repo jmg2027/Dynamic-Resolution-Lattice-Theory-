@@ -1,4 +1,5 @@
 
+import E213.Math.Cohomology.Cup.Core
 /-!
 # Cohomology 213 — Audit of completed vs deferred theorems
 

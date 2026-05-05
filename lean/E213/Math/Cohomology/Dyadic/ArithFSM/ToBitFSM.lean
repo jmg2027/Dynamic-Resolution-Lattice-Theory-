@@ -2,6 +2,8 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
 import E213.Math.Cohomology.Dyadic.BitFSM.Bound
 import E213.Math.EncodePair213
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # ArithFSM2(n) ⊂ BitFSM(n²) — bit-stream equivalence
 

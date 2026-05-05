@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Fibonacci ArithFSM mod 23 — period 48 (INERT, fifth instance)
 

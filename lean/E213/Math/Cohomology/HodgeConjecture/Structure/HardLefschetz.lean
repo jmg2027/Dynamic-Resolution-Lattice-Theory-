@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
 import E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality
 
+import E213.Physics.Simplex.Counts
 /-!
 # Hard Lefschetz Theorem in 213
 

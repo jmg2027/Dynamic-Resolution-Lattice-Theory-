@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.ForwardClosure
 
+import E213.Math.Cohomology.Dyadic.ForwardPeriodicity
 /-!
 # LCM closure — periodic streams combine multiplicatively
 

@@ -1,5 +1,15 @@
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod11
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod13
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod19
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
+import E213.Math.Cohomology.Dyadic.Pisano.Predictor
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Signature-period predictor — bipartite parity doubling layer
 

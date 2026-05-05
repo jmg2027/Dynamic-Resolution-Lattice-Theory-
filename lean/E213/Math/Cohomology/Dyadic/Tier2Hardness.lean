@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.BitFSM.Converse
 
+import E213.Math.Cohomology.Dyadic.BitFSM
 /-!
 # Tier 2 hardness: aperiodic bit streams are NOT BitFSM-generable
 

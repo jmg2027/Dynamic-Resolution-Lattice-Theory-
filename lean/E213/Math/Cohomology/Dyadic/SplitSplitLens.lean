@@ -3,6 +3,7 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod11
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod19
 
+import E213.Math.Cohomology.Dyadic.BitFSM
 /-!
 # Lens composition — split × split (Pell mod 11 × mod 19)
 

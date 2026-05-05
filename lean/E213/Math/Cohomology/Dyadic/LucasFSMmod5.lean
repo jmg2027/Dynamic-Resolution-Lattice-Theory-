@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
 /-!
 # Lucas ArithFSM mod 5 — period 4 (RAMIFIED, KEY divergence from Fibonacci)
 

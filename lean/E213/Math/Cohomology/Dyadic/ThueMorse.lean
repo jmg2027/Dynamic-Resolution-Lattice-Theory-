@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.Tier2Hardness
 
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Thue-Morse — aperiodic 2-automatic bit stream
 

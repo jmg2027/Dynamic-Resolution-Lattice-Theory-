@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Hodge.Star
 import E213.Math.Cohomology.Universal.Prop53
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Physics.Simplex.Counts
 /-!
 # ⋆⋆ = id Prop-lift at (5, 3) — Δ⁴ 3-cochain stratum
 

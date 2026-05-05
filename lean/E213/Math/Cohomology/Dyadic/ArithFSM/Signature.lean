@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
 import E213.Math.Cohomology.Dyadic.ForwardEventual
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # ArithFSM ⇒ K_{3,2}^{(2)} signature eventually periodic
 

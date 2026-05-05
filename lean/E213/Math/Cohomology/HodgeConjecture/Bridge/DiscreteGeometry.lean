@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.MLDecoder
 
+import E213.Math.Cohomology.HodgeConjecture.Bridge.Ising
+import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlass
+import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlassGroundState
 /-!
 # Discrete differential geometry on K_5 — same scheme, DG content
 

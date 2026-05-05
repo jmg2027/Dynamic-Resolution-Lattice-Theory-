@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
 /-!
 # Pell ArithFSM mod 79 — period 39 (SPLIT, TIGHT)
 

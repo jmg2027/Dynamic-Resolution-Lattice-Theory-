@@ -1,6 +1,14 @@
 import E213.Math.Cohomology.CupAW.LeibnizAlgLift
 import E213.Math.Cohomology.Universal.Prop51
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Cochain.V5_2Decomp
+import E213.Math.Cohomology.CupAW.BasisLeibniz
+import E213.Math.Cohomology.CupAW.Core
+import E213.Math.Cohomology.CupAW.Zero
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Universal Cup AW Leibniz at (5, 1, 2) — closed via algebraic lift
 

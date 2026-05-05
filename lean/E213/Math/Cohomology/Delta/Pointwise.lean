@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.Delta.Core
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.SimplexBasis
+import E213.Physics.Simplex.Counts
 /-!
 # Coboundary δ — pointwise extensionality (∅-axiom)
 

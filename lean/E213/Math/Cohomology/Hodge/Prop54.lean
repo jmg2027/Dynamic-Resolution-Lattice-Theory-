@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.Hodge.Star
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Physics.Simplex.Counts
 /-!
 # ⋆⋆ = id Prop-lift at (5, 4) — Δ⁴ 4-cochain (Hodge dual of (5, 1))
 

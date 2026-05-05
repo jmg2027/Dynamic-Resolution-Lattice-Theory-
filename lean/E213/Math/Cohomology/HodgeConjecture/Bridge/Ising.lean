@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting
 
+import E213.Math.Cohomology.HodgeConjecture.Bridge.GaloisCounterfactual
+import E213.Physics.Simplex.Counts
 /-!
 # Ising model on K_5 in 213-native form
 

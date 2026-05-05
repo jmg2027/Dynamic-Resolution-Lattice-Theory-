@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.ThueMorse
 
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Subword complexity of K_{3,2}^{(2)} signature trajectories
 

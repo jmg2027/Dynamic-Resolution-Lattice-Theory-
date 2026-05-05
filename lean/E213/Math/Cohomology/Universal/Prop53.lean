@@ -1,6 +1,9 @@
 import E213.Math.Cohomology.Universal.Prop52
 import E213.Math.Cohomology.Delta.Pointwise
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Universal δ²=0 Prop-lift at (5, 3) — Δ⁴ 3-cochain (top-stratum)
 

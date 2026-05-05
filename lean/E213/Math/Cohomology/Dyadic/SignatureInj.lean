@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.BitFSM.Converse
 
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Signature is lossless: matching signatures ⇒ matching bit streams
 

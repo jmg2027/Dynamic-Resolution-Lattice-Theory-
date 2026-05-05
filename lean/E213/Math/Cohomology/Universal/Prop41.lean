@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.Universal.Prop31
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Universal δ²=0 Prop-lift at (4, 1) — Δ³ vertex cochain
 

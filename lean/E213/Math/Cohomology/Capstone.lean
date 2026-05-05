@@ -2,6 +2,15 @@ import E213.Math.Cohomology.Bipartite.V32Betti
 import E213.Math.Cohomology.Delta.SqZero
 import E213.Math.Cohomology.TrivialCases
 
+import E213.Math.Cohomology.BettiKernel
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Cup.Core
+import E213.Math.Cohomology.Cup.Leibniz
+import E213.Math.Cohomology.Cup.Ring
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Math.Cohomology.Hodge.Star
+import E213.Physics.Simplex.Counts
 /-!
 # Cohomology 213 — Marathon capstone ()
 

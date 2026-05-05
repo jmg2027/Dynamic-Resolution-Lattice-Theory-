@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.Pell.ProperSmall
 
+import E213.Math.Cohomology.Dyadic.Legendre.V213
 /-!
 # Pell proper Legendre-Pisano bridge (D = 8)
 

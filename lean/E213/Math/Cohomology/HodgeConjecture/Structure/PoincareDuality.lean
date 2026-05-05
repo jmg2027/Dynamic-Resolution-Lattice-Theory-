@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.Hodge.InvolutionCapstone
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Hodge.Star
+import E213.Physics.Simplex.Counts
 /-!
 # Poincaré Duality in 213
 

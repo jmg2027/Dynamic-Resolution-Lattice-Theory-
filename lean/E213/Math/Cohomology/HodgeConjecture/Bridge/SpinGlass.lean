@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.Potts
 
+import E213.Math.Cohomology.HodgeConjecture.Bridge.Ising
 /-!
 # Spin glass on K_5 — frustration as cohomology obstruction
 

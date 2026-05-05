@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.LCMClosure
 import E213.Math.Cohomology.Dyadic.Pell.Family
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
 /-!
 # Pell family CRT-style period multiplicativity
 

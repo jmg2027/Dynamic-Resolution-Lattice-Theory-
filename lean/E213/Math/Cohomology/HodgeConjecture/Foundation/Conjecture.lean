@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Hodge.Star
 import E213.Math.Cohomology.Delta.Core
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Hodge Conjecture in 213 — Variant (A): finite-discrete trivialisation
 

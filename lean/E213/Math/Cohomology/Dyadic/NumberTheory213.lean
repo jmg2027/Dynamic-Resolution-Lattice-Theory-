@@ -4,6 +4,9 @@ import E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 import E213.Math.Cohomology.Dyadic.AlgebraicDegree
 import E213.Math.Cohomology.Dyadic.Pell.ProperBridge
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
+import E213.Math.Cohomology.Dyadic.Legendre.V213
 /-!
 # 213-native number theory — consolidated v1 + v2 + v3 master capstones
 

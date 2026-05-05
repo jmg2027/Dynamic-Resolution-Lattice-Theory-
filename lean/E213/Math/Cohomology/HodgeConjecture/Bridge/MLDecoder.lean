@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlassGroundState
 
+import E213.Math.Cohomology.HodgeConjecture.Bridge.Ising
+import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlass
 /-!
 # Maximum-Likelihood decoder for the K_5 (10, 4, 4) ℤ/2-linear code
 

@@ -4,6 +4,9 @@ import E213.Math.Cohomology.Hodge.Prop52
 import E213.Math.Cohomology.Hodge.Prop53
 import E213.Math.Cohomology.Hodge.Prop54
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Hodge.Star
+import E213.Physics.Simplex.Counts
 /-!
 # Hodge involution ⋆⋆ = id — Δ⁴ all-strata capstone
 

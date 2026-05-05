@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # ArithFSM3 — 3-state arithmetic FSM (cubic / Tribonacci class)
 

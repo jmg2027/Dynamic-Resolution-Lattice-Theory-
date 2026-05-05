@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.SimplexBasis
 import E213.Math.Cohomology.Cochain.Core
 
+import E213.Physics.Simplex.Counts
 /-!
 # Cohomology — coboundary δ : Cᵏ → Cᵏ⁺¹ (, file 3)
 

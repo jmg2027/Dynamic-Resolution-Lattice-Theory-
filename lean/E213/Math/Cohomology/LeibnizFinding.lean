@@ -1,6 +1,9 @@
 import E213.Math.Cohomology.Universal.Prop51
 import E213.Math.Cohomology.Cup.Leibniz
 
+import E213.Math.Cohomology.Cup.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Leibniz universal — HONEST NEGATIVE finding
 

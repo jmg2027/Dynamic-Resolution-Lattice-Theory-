@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
 /-!
 # Pell ArithFSM mod 89 — TIGHT period 22, predict 44 (×2 SUB-TIGHT)
 

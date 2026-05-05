@@ -4,6 +4,13 @@ import E213.Math.Cohomology.CupAW.BasisLeibniz
 import E213.Math.Cohomology.Cochain.V5_2Decomp
 import E213.Math.Cohomology.XorPairCombine
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.CupAW.Bilinear
+import E213.Math.Cohomology.CupAW.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Delta.Linear
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Algebraic Leibniz lift framework — bilinearity-driven
 

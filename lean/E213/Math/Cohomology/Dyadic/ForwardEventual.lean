@@ -2,6 +2,8 @@ import E213.Math.Cohomology.Dyadic.ForwardClosure
 import E213.Math.EncodePair213
 import E213.Kernel.Tactic.Nat213
 
+import E213.Math.Cohomology.Dyadic.ForwardPeriodicity
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Forward direction (eventual): eventually periodic bits ⇒
   eventually periodic signature

@@ -5,6 +5,11 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
 import E213.Math.Cohomology.Dyadic.Legendre.PisanoExt
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod11
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
+import E213.Math.Cohomology.Dyadic.Legendre.V213
 /-!
 # Legendre lens at p ∈ {13, 19} + extended Pisano bridge (6 primes)
 

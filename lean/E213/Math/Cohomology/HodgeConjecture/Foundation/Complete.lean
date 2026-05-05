@@ -9,6 +9,10 @@ import E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
 import E213.Math.Cohomology.HodgeConjecture.Foundation.Filled
 import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
 
+import E213.Math.Cohomology.Bipartite.V32
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Hodge.Star
+import E213.Physics.Simplex.Counts
 /-!
 # Hodge Conjecture in 213 — COMPLETE (master ∅-axiom capstone)
 

@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Cochain.Core
 
+import E213.Physics.Simplex.Counts
 /-!
 # Cohomology — k-subset enumeration (, file 2)
 

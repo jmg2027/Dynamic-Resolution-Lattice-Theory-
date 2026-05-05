@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.Delta.SqZero
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Cohomology — capstone: smoke tests across d ≤ 5 (file 5)
 

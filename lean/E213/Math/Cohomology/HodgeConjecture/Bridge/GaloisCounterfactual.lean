@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
 
+import E213.Physics.Simplex.Counts
 /-!
 # Galois Counterfactual on Δⁿ⁻¹ trajectory zeta
 

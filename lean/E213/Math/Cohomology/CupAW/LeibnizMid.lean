@@ -1,6 +1,11 @@
 import E213.Math.Cohomology.CupAW.Core
 import E213.Math.Cohomology.Universal.Prop41
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Cup.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Cup Leibniz at (4, 1, 1) — AW cup, Δ³ tetrahedral
 

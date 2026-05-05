@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.BitFSM.Bound
 import E213.Math.AddMod213
 
+import E213.Math.Cohomology.Dyadic.BitFSM
+import E213.Math.Cohomology.Dyadic.ForwardPeriodicity
 /-!
 # BitFSM converse — periodic bit stream ⇒ ∃ BitFSM
 

@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.Universal.Prop52
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Hodge.Star
+import E213.Physics.Simplex.Counts
 /-!
 # ⋆⋆ = id Prop-lift at (5, 2) — Δ⁴ edge cochain involution
 

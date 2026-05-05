@@ -2,6 +2,12 @@ import E213.Math.Cohomology.CupAW.LeibnizAlgLift21
 import E213.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha
 import E213.Math.Cohomology.CupAW.Leibniz22Bridge
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Cochain.V5_1DecompR
+import E213.Math.Cohomology.CupAW.BasisLeibniz
+import E213.Math.Cohomology.CupAW.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
 /-!
 # bz5_1 ↔ basis/zero rewrite for (5, 2, 1) lift
 -/

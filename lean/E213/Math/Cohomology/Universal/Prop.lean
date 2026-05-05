@@ -2,6 +2,9 @@ import E213.Kernel.Tactic.Nat213
 import E213.Math.Cohomology.Delta.Pointwise
 import E213.Math.Cohomology.Universal.Core
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Universal δ²=0 — Prop-level lift at (n, 0)
 

@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.Classifier
 import E213.Math.NatDiv213
 
+import E213.Math.Cohomology.Dyadic.Conjecture
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Dyadic-tier bridge — K_{3,2}^{(2)} signature ↔ D2 hierarchy
 

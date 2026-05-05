@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.Cochain.V5Decomp
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.CupAW.BasisLeibniz
 /-!
 # Cochain 5 2 — basis decomposition (10-term, definitional reduction)
 

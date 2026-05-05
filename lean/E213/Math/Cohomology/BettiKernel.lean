@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.Hodge.Delta
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Physics.Simplex.Counts
 /-!
 # Cohomology — kernel enumeration on cochain spaces (, file 1)
 

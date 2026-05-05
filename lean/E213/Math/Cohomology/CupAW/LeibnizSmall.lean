@@ -1,6 +1,11 @@
 import E213.Math.Cohomology.CupAW.Core
 import E213.Math.Cohomology.Universal.Prop31
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Cup.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Cup Leibniz at small atomic substrates — AW cup
 

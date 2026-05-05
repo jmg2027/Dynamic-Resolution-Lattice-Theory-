@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.WalkUniversal
 
+import E213.Math.Cohomology.Dyadic.Conjecture
 /-!
 # Dyadic signature — irrational classifier via K_{3,2}^{(2)} trajectory
 

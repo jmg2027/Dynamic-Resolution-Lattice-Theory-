@@ -1,5 +1,9 @@
 import E213.Math.Cohomology.Cup.Core
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Cohomology — cup-product Leibniz rule (, file 2)
 

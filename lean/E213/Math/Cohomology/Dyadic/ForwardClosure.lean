@@ -2,6 +2,7 @@ import E213.Math.Cohomology.Dyadic.ForwardPeriodicity
 import E213.Kernel.Tactic.Nat213
 import E213.Math.AddMod213
 
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # Forward closure: bits periodic ⇒ signature eventually periodic
 

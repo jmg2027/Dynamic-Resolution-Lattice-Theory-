@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.Dyadic.ProductFSM
 
+import E213.Math.Cohomology.Dyadic.BitFSM
+import E213.Math.Cohomology.Dyadic.ProductHelpers
 /-!
 # Product FSM run/bit decomposition
 

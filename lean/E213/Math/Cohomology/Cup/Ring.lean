@@ -1,5 +1,9 @@
 import E213.Math.Cohomology.Cup.Leibniz
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Cup.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Cohomology — ring structure on H* (, file 3)
 

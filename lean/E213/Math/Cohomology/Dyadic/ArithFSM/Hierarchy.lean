@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V1to2
-import E213.Math.Cohomology.Dyadic.ArithFSMto3
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.V1
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
 /-!
 # ArithFSM hierarchy — algebraic degree tower
 

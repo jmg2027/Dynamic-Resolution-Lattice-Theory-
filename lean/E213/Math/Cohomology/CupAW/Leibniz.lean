@@ -3,6 +3,11 @@ import E213.Math.Cohomology.CupAW.Pointwise
 import E213.Math.Cohomology.Delta.Pointwise
 import E213.Math.Cohomology.Universal.Prop51
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Cup.Core
+import E213.Math.Cohomology.Delta.Core
+import E213.Math.Cohomology.Hodge.Involution
+import E213.Physics.Simplex.Counts
 /-!
 # Cup Leibniz universal at (5, 1, 1) — AW cup version
 

@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.Fractal.V25
 import E213.Physics.Couplings.AlphaGUT
 
+import E213.Physics.Simplex.Counts
 /-!
 # Fractal-cohomology reformulation of α_GUT
 

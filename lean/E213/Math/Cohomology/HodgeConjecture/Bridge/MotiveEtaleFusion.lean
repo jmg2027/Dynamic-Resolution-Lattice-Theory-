@@ -1,5 +1,7 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.GaloisCounterfactual
 
+import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
+import E213.Physics.Simplex.Counts
 /-!
 # Motive ↔ Étale Cohomology Fusion (Beilinson-Lichtenbaum²¹³)
 

@@ -4,6 +4,11 @@ import E213.Math.Cohomology.Dyadic.Fib.FSMmod17
 import E213.Math.Cohomology.Dyadic.Fib.FSMmod19
 import E213.Math.Cohomology.Dyadic.Fib.FSMmod23
 
+import E213.Math.Cohomology.Dyadic.Fib.FSMmod11
+import E213.Math.Cohomology.Dyadic.Fib.FSMmod3
+import E213.Math.Cohomology.Dyadic.Fib.FSMmod5
+import E213.Math.Cohomology.Dyadic.Fib.FSMmod7
+import E213.Math.Cohomology.Dyadic.Legendre.V213
 /-!
 # Fibonacci-Pisano predictor — 8-prime evidence (mod 13, 17, 19, 23 added)
 

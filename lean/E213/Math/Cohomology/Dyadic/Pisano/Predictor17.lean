@@ -3,6 +3,23 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.Mod53
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod59
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod61
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod11
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod13
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod19
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod23
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod29
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod31
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod37
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod41
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod43
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod47
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
+import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
+import E213.Math.Cohomology.Dyadic.Legendre.V213
+import E213.Math.Cohomology.Dyadic.Pisano.Predictor
+import E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 /-!
 # Pisano predictor — 17-prime evidence (mod 53, 59, 61 added)
 

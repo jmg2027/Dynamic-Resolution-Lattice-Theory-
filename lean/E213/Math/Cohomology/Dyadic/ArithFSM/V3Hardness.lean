@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
 import E213.Math.Cohomology.Dyadic.Tier2Hardness
 
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
 /-!
 # ArithFSM3 hardness — aperiodic bit streams are not ArithFSM3-generable
 

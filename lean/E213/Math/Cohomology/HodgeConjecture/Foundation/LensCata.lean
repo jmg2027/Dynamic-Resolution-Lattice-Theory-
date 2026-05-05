@@ -1,6 +1,8 @@
 import E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Physics.Simplex.Counts
 /-!
 # HC²¹³ §7.C — Lens-initiality + cup-subring atomic generation
 

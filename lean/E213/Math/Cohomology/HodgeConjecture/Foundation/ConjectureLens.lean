@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Bipartite.V32Betti
 
+import E213.Math.Cohomology.Bipartite.V32
 /-!
 # Hodge Conjecture in 213 — Variant (B): K_{3,2}^{(c=2)} lens-quotient
 

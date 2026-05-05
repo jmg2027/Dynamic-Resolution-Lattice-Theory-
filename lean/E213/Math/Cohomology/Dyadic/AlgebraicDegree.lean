@@ -1,6 +1,9 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.Hierarchy
 import E213.Math.Cohomology.Dyadic.Legendre.V213
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.V1
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
 /-!
 # 213-native algebraic degree
 

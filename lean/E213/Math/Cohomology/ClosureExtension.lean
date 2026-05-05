@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.EulerClosed
 
+import E213.Physics.Simplex.Counts
 /-!
 # Closed 4-manifold extensions — N from 213?
 

@@ -1,6 +1,9 @@
 import E213.Math.Cohomology.Hodge.InvolutionCapstone
 import E213.Math.Cohomology.Bipartite.V32Betti
 
+import E213.Math.Cohomology.Cochain.Core
+import E213.Math.Cohomology.Hodge.Star
+import E213.Physics.Simplex.Counts
 /-!
 # Hodge Conjecture (213-internal form) — HC²¹³
 

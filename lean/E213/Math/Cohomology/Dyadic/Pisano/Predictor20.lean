@@ -3,6 +3,7 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.Mod67
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod71
 import E213.Math.Cohomology.Dyadic.ArithFSM.Mod73
 
+import E213.Math.Cohomology.Dyadic.Legendre.V213
 /-!
 # Pisano predictor — 20-prime evidence (mod 67, 71, 73 added)
 

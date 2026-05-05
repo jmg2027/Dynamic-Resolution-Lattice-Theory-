@@ -1,6 +1,13 @@
 import E213.Math.Cohomology.Dyadic.Trib.CRTCapstone
 import E213.Math.Cohomology.Dyadic.Trib.FSMmod7
 
+import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
+import E213.Math.Cohomology.Dyadic.ConcretePellSig
+import E213.Math.Cohomology.Dyadic.Signature
+import E213.Math.Cohomology.Dyadic.Trib.FSMmod3
+import E213.Math.Cohomology.Dyadic.Trib.FSMmod5
 /-!
 # Tribonacci CRT — 4 cubic moduli {2, 3, 5, 7}
 

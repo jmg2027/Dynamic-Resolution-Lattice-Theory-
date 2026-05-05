@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
 /-!
 # ArithFSM2 ⊂ ArithFSM3 — padding inclusion
 

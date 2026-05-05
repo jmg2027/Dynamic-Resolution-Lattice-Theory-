@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlass
 
+import E213.Math.Cohomology.HodgeConjecture.Bridge.Ising
 /-!
 # K_5 ℤ/2 Spin glass ground state — NP-hard problem solved exactly
 

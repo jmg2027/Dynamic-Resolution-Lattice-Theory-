@@ -1,5 +1,6 @@
 import E213.Math.Cohomology.Dyadic.ThueMorse
 
+import E213.Math.Cohomology.Dyadic.BitFSM
 /-!
 # 2-automatic bit streams — abstraction richer than BitFSM
 

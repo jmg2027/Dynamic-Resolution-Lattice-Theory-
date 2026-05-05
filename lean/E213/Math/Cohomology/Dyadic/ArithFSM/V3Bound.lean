@@ -1,6 +1,10 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3Equiv
 import E213.Math.NatDiv213
 
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3
+import E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
+import E213.Math.Cohomology.Dyadic.BitFSM.Bound
+import E213.Math.Cohomology.Dyadic.Signature
 /-!
 # ArithFSM3.toBitFSM bits equivalence + signature period bound
 

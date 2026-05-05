@@ -2,6 +2,7 @@ import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 import E213.Math.Cohomology.Dyadic.Legendre.V213
 
+import E213.Math.Cohomology.Dyadic.ArithFSM
 /-!
 # Pell proper (discriminant 8) — Legendre lens framework
 

@@ -3,6 +3,7 @@ import E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
 import E213.Math.AddMod213
 import E213.Kernel.Tactic.Nat213
 
+import E213.Math.Cohomology.Dyadic.Legendre.V213
 /-!
 # Cross-recurrence relation: Fib predictor = 2 × Pell predictor
 

@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.Dyadic.BitFSM.Bound
 import E213.Math.Cohomology.Dyadic.TierBridge
 
+import E213.Math.Cohomology.Dyadic.BitFSM
 /-!
 # Concrete BitFSM examples — Tier 0 (rationals)
 

@@ -1,5 +1,8 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.MotiveEtaleFusion
 
+import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
+import E213.Math.Cohomology.HodgeConjecture.Bridge.GaloisCounterfactual
+import E213.Physics.Simplex.Counts
 /-!
 # — same lattice, different trajectory routes
 
