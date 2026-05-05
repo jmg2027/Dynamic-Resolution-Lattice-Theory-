@@ -1,4 +1,4 @@
-import E213.Math.Real213.PhaseACMinimumProposition
+import E213.Math.Real213.MinimumProposition
 
 /-!
 # Research.Real213PhysicsBridgeNT2

@@ -123,8 +123,7 @@ import E213.Math.Real213.SinCosAtZero
 import E213.Math.Real213.TranscendentalAtZero
 
 -- K. Capstone theorem collection
-import E213.Math.Real213.PhaseLCapstone
-import E213.Math.Real213.PhaseACMinimumProposition
+import E213.Math.Real213.MinimumProposition
 
 -- L. Bridge to physics track
 import E213.Math.Real213.PhysicsBridgeNT2

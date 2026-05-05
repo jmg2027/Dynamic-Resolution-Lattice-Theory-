@@ -12,11 +12,9 @@ import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.IsSmooth
 import E213.Math.Real213.ConsistentOracle
 import E213.Math.Real213.DyadicRiemann
-import E213.Math.Real213.PhaseJCapstone
 import E213.Math.Real213.ResolutionDepth
 import E213.Math.Real213.DyadicTrajectory
-import E213.Math.Real213.PhaseLCapstone
-import E213.Math.Real213.PhaseACMinimumProposition
+import E213.Math.Real213.MinimumProposition
 import E213.Math.Real213.PhysicsBridgeNT2
 import E213.Math.Real213.IsDifferentiable
 import E213.Math.Real213.DerivativeForms
