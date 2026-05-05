@@ -4,7 +4,7 @@ import E213.Physics.Cosmology.NeffDerivation
 /-!
 # Color confinement — rank exhaustion at NS² (0 axioms)
 
-DRLT strong confinement mechanism (ch08 §sec:Neff):
+DRLT strong confinement mechanism:
 
   α_3 propagation: AAA hinge sector.
   Hop 1:  unique AAA configuration (NS² independent vectors).
@@ -83,7 +83,7 @@ theorem photon_alpha_3_link :
   configuration".  A combinatorial fact.
 
   The KSS bound η/s = 1/(4π) of quark-gluon plasma sQGP also arises
-  naturally from the same atomicity (ch08 remark).  -/
+  naturally from the same atomicity (structural remark).  -/
 theorem confinement_is_combinatorial :
     -- Single AAA configuration
     (binom NS NS = 1)

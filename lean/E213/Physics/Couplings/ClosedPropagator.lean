@@ -4,7 +4,7 @@ import E213.Physics.Hadron.ProtonMass
 /-!
 # Closed propagator P(x) = (1+2x)/(1+x) — universal pattern (0 axioms)
 
-DRLT *exact* Dyson resummation (ch09):
+DRLT *exact* Dyson resummation:
 
   P(x) = (1 + 2x) / (1 + x)
        = 1 + x - x² + x³ - ...  (alternating series after cancel)
@@ -13,10 +13,10 @@ DRLT *exact* Dyson resummation (ch09):
 ## Where P(x) appears (universality)
 
   1. **m_p = NS · Λ · P(α·NS/d)**    (ProtonMass)
-  2. **General fermion masses**     (ch09 mass table)
+  2. **General fermion masses**     (general fermion mass)
   3. **λ_H Higgs quartic**:
        √(2λ) uses V(x) = 1+2x = numerator(P)   (HiggsQuartic)
-  4. **Higgs vertex dressing**       (ch21)
+  4. **Higgs vertex dressing**       (see Higgs/Quartic)
   5. **Heavy quarkonia**             (HAD heavy mesons)
 
 ## ★ Closed-form vs continuum QFT ★

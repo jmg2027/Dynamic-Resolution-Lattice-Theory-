@@ -4,7 +4,7 @@ import E213.Physics.Mixing.CabibboAngle
 /-!
 # θ_QCD bound — J · α_GUT⁴ < nEDM bound (0 axioms)
 
-DRLT prediction (PRD_007):
+DRLT prediction:
   θ_QCD ~ J · α_GUT⁴
 
   where J = Jarlskog invariant from CKM matrix.

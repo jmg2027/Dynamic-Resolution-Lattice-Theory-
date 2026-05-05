@@ -9,7 +9,7 @@ The same Dyson resummation denominator d-1 = NS+1 = 4 appears in several precisi
 
 ## Where the same y = α_GUT/(d-1) Dyson tail appears
 
-  1. **m_μ/m_e** (lib/drlt.py:662):
+  1. **m_μ/m_e** (see Mass/MuOverE):
        P = 1/(1 - α_GUT/(NS+1))     [NS+1 = d-1 = 4]
   2. **Cabibbo Ξ correction**:
        δ-tree contains α_GUT/(NS+1) factor

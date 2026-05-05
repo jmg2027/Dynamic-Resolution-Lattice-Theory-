@@ -4,7 +4,7 @@ import E213.Physics.Cosmology.NeffDerivation
 /-!
 # GUT Unification — α_3, α_2, α_1 → α_GUT (0 axioms)
 
-DRLT GUT unification (ch08 sec 5):
+DRLT GUT unification:
 
   At GUT scale (high E, all N_eff → ∞):
     All d² = 25 Gram channels see same Basel sum ζ(2).

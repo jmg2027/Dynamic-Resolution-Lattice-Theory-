@@ -20,11 +20,15 @@ Physics/
 │                              NUniverseCandidates, Prefactors, Propagator,
 │                              SO10, Simplicial, StructuralGap, Structure,
 │                              Tight, Unified, WithTail)
-├── Couplings/           15 — α_GUT, asymp.freedom, color confinement,
+├── Couplings/           17 — α_GUT, asymp.freedom, color confinement,
 │                              SpectrumComplete, GUTUnification, MasterUnif.,
-│                              RunningGap, TripleCoupling{,V2}, ClosedPropagator,
-│                              DysonStructure, ThetaQCD, LambdaQCDPhantom,
-│                              ParitySign, PhotonKernel
+│                              RunningGap, TripleCoupling (v1+v2 merged),
+│                              ClosedPropagator, DysonStructure, ThetaQCD,
+│                              LambdaQCDPhantom, ParitySign, PhotonKernel,
+│                              CassiniLink, PropagatorFamily, StaticCouplings
+│                              (AlphaGUTPhase3Derivation +
+│                              ThetaQCDFalsifier deleted, TripleCouplingV2
+│                              merged into TripleCoupling 2026-05-05)
 ├── Foundations/         16 — DrltZeroParameters, MasslessParticles,
 │                              FractalLensCardinality,
 │                              NUniverseFractalDepth/FromFractal,
