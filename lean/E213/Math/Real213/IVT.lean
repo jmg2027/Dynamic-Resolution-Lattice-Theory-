@@ -1,6 +1,7 @@
 import E213.Math.Real213.CutFnData
 import E213.Math.Real213.SignedSum
 
+import E213.Math.Real213.Core
 /-!
 # Research.Real213IVT: Intermediate Value Theorem (declarative form)
 

@@ -42,10 +42,6 @@ theorem id_locallyDetermined : isLocallyDetermined id := by
   intro cx cy h
   exact h m k (E213.Math.Max213.le_max_left _ _) (E213.Math.Max213.le_max_right _ _)
 
-end E213.Math.Real213.CutContinuity
-
-namespace E213.Math.Real213.CutContinuity
-
 open E213.Firmware E213.Hypervisor
 
 /-- **Const cut function**: f cx = c (fixed). -/

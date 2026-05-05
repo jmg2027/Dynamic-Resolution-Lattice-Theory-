@@ -1,5 +1,7 @@
 import E213.Math.Real213.Diff
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutContinuity
 /-!
 # Research.Real213Integration: Riemann integration (Phase F)
 

@@ -4,6 +4,8 @@ import E213.Math.Real213.CutMulDetermined
 import E213.Math.Real213.CutPow
 import E213.Math.Max213
 
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutFnData: data-bearing local determinedness
 
@@ -45,10 +47,6 @@ def idLDD : LocallyDeterminedData id where
 def constLDD (c : Nat → Nat → Bool) : LocallyDeterminedData (constCutFn c) where
   N := fun _ _ => 0
   prop := fun _ _ _ _ _ => rfl
-
-end E213.Math.Real213.CutFnData
-
-namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
 
@@ -98,10 +96,6 @@ theorem maxRange_ge (f : Nat → Nat → Nat) (M K i j : Nat)
       show f i j ≤ max (maxRangeRow f (k+1) K) (maxRange f k K)
       exact Nat.le_trans (ih hik) (E213.Math.Max213.le_max_right _ _)
 
-end E213.Math.Real213.CutFnData
-
-namespace E213.Math.Real213.CutFnData
-
 open E213.Firmware E213.Hypervisor
 
 /-- **LDD composition closure**: f ∘ g is LDD if both f and g are LDD. -/
@@ -122,10 +116,6 @@ def composeLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     · exact Nat.le_trans hk''
         (maxRange_ge lg.N (lf.N m k) (lf.N m k) m' k' hm' hk')
 
-end E213.Math.Real213.CutFnData
-
-namespace E213.Math.Real213.CutFnData
-
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutBisection (cutHalf)
 
@@ -136,10 +126,6 @@ def cutHalfLDD : LocallyDeterminedData cutHalf where
     intro m k cx cy h
     show cx (2*m) k = cy (2*m) k
     exact h (2*m) k (E213.Math.Max213.le_max_left _ _) (E213.Math.Max213.le_max_right _ _)
-
-end E213.Math.Real213.CutFnData
-
-namespace E213.Math.Real213.CutFnData
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)

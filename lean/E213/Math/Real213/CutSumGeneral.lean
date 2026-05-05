@@ -3,6 +3,7 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumComm
 import E213.Math.Real213.CutSumTest
 
+import E213.Math.Real213.Core
 /-!
 # Real213CutSumGeneral — generic cutSum over any denominator
 

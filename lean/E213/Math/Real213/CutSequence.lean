@@ -1,5 +1,6 @@
 import E213.Math.Real213.CutDistance
 
+import E213.Math.Real213.Core
 /-!
 # Research.Real213CutSequence: Real213-valued sequences + Cauchy + limit
 

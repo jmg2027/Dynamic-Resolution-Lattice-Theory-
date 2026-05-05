@@ -1,6 +1,8 @@
 import E213.Math.Real213.IsSmooth
 import E213.Kernel.Tactic.Nat213
 
+import E213.Math.Real213.CutPow
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213ResolutionDepth: linearityModulus = resolution depth
 

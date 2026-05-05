@@ -86,14 +86,8 @@ import E213.Math.Real213.CubeDerivativeAtZero
 -- J. Series + 7 transcendental functions at zero
 import E213.Math.Real213.CutSequence
 import E213.Math.Real213.CutSeries
-import E213.Math.Real213.CutSeriesConst
-import E213.Math.Real213.CutSeriesZero
 import E213.Math.Real213.CutGeomSeries
 import E213.Math.Real213.FluxSeries
-import E213.Math.Real213.GeomSeriesPartialSum
-import E213.Math.Real213.ExpAtZero
-import E213.Math.Real213.SinCosAtZero
-import E213.Math.Real213.TranscendentalAtZero
 
 -- K. Capstone theorem collection
 import E213.Math.Real213.MinimumProposition

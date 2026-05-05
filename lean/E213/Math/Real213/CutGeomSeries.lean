@@ -1,6 +1,8 @@
 import E213.Math.Real213.CutPow
 import E213.Math.Real213.CutSeries
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutGeomSeries: geometric series + concrete examples
 

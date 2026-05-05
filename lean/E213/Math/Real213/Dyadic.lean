@@ -3,6 +3,9 @@ import E213.Math.Real213.CutSumOne
 import E213.Math.Real213.CutBisection
 import E213.Math.Real213.CutDouble
 
+import E213.Math.Real213.CutPoset
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213Dyadic: dyadic cuts (denominator = 2^E)
 

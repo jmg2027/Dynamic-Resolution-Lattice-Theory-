@@ -1,6 +1,12 @@
+import E213.Math.Real213.FluxCut
+import E213.Math.Real213.Antiderivative
 import E213.Math.Real213.DifferentiableInstances
 import E213.Math.Real213.NewtonSecond
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Research.Real213IndefiniteIntegral
 
@@ -35,6 +41,12 @@ open E213.Math.Real213.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
+open E213.Math.Real213.Antiderivative (IsAntiderivative)
+open E213.Math.Real213.Antiderivative.IsAntiderivative (id_anti)
+open E213.Math.Real213.AntiderivativeCombinators.IsAntiderivative (add_anti)
+open E213.Math.Real213.FluxCut (FluxCut)
+open E213.Math.Real213.FluxCut.FluxCut (ofCut)
+
 namespace IsAntiderivative
 
 /-- ★ Indefinite integral from 0 to x via flux. -/
@@ -65,22 +77,5 @@ theorem indefIntFromZero_add {F G f g}
 
 end IsAntiderivative
 
-/-- Phase DC capstone: indefinite integral properties. -/
-theorem indefIntFromZero_capstone (a : Nat) :
-    -- (1) ∫_0^1 1 dx = 1 (id_anti at x = 1)
-    IsAntiderivative.indefIntFromZero IsAntiderivative.id_anti
-        (constCut 1 1) = FluxCut.ofCut (constCut 1 1)
-    -- (2) ∫_0^0 (id_anti) = balanced (zero-length)
-    ∧ (IsAntiderivative.indefIntFromZero IsAntiderivative.id_anti
-        (constCut 0 1)).forward
-        = (IsAntiderivative.indefIntFromZero IsAntiderivative.id_anti
-        (constCut 0 1)).backward
-    -- (3) ∫_0^1 a (constant a via linear_anti) form
-    ∧ IsAntiderivative.indefIntFromZero (linear_anti a 0) (constCut 1 1)
-        = { forward := linearWithIntercept a 0 (constCut 1 1),
-            backward := linearWithIntercept a 0 (constCut 0 1) } :=
-  ⟨IsAntiderivative.indefIntFromZero_one_at_one,
-   IsAntiderivative.indefIntFromZero_at_zero IsAntiderivative.id_anti,
-   rfl⟩
 
 end E213.Math.Real213.IndefiniteIntegral

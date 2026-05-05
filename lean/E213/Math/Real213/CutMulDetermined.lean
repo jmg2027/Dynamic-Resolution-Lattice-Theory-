@@ -33,10 +33,6 @@ theorem cutMulInner_congr (k m m1 m2Bound : Nat)
             || cutMulInner cx2 cy2 k m m1 i)
     rw [hx, hy (i+1) hn, ih hi]
 
-end E213.Math.Real213.CutMulDetermined
-
-namespace E213.Math.Real213.CutMulDetermined
-
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSumDetermined (isLocallyDetermined2)
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
@@ -64,10 +60,6 @@ theorem cutMulOuter_congr (k m m1Bound m2Bound : Nat)
       cutMulInner_congr k m (i+1) m2Bound cx1 cx2 cy1 cy2
         (hx (i+1) hn) hy m2Bound (Nat.le_refl _)
     rw [step1, ih hi]
-
-end E213.Math.Real213.CutMulDetermined
-
-namespace E213.Math.Real213.CutMulDetermined
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)

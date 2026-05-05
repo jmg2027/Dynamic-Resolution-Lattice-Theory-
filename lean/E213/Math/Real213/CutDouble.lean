@@ -5,6 +5,7 @@ import E213.Math.Real213.CutSumOne
 import E213.Math.Real213.CutBisection
 import E213.Math.Real213.CutPoset
 
+import E213.Math.Real213.CutMul
 /-!
 # Research.Real213CutDouble: 2x cut function
 

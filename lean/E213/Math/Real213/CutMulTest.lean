@@ -1,6 +1,7 @@
 import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSumTest
 
+import E213.Math.Real213.Core
 /-!
 # Research.Real213CutMulTest: cutMul verification on rational products
 

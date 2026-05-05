@@ -51,10 +51,6 @@ theorem CauchyCutSeq.limit_eq_at (ccs : CauchyCutSeq)
   unfold CauchyCutSeq.limit
   exact ccs.cauchy m k (ccs.N m k) i (Nat.le_refl _) hi
 
-end E213.Math.Real213.CauchyComplete
-
-namespace E213.Math.Real213.CauchyComplete
-
 open E213.Firmware E213.Hypervisor
 
 /-! ### Constant Cauchy sequence — sanity check -/

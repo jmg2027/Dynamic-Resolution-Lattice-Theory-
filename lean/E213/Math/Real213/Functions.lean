@@ -1,5 +1,6 @@
 import E213.Math.Real213.Integration
 
+import E213.Math.Real213.Core
 /-!
 # Research.Real213Functions: exp / log / sin / cos / π (Phase G)
 

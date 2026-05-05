@@ -2,6 +2,10 @@ import E213.Math.Max213
 import E213.Math.Real213.DifferentiableAffine
 import E213.Kernel.Tactic.Omega213
 
+import E213.Math.Real213.ConcreteDerivativeModulus
+import E213.Math.Real213.Core
+import E213.Math.Real213.DifferentiableInstances
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Research.Real213PolySumDerivativeModulus
 

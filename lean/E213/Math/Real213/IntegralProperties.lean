@@ -2,6 +2,13 @@ import E213.Math.Real213.Antiderivative
 import E213.Math.Real213.DifferentiableInstances
 import E213.Math.Real213.IntegralViaAnti
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutBisection
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.Dyadic
+import E213.Math.Real213.DyadicBracket
+import E213.Math.Real213.FluxCut
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Research.Real213IntegralProperties
 

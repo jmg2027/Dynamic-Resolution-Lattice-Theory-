@@ -1,12 +1,9 @@
 import E213.Math.Real213.CutBisectionAlgo
-import E213.Math.Real213.CutDiffQuotient
 import E213.Math.Real213.CutRiemann
 import E213.Math.Real213.AsLensOutput
-import E213.Math.Real213.RecurrenceLens
 import E213.Math.Real213.ValidCut
 import E213.Math.Real213.ValidCutOps
 import E213.Math.Real213.CutMidMono
-import E213.Math.Real213.IVTContainment
 import E213.Math.Real213.Dyadic
 import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.IsSmooth
@@ -25,7 +22,6 @@ import E213.Math.Real213.DifferentiableCompose
 import E213.Math.Real213.DifferentiableMid
 import E213.Math.Real213.ConcreteDerivativeModulus
 import E213.Math.Real213.PolySumDerivativeModulus
-import E213.Math.Real213.ComposeDerivativeModulus
 import E213.Math.Real213.FluxCut
 import E213.Math.Real213.FluxCochain
 import E213.Math.Real213.FluxDivergence
@@ -61,10 +57,6 @@ import E213.Math.Real213.IndefiniteIntegral
 import E213.Math.Real213.IntegralIntInterval
 import E213.Math.Real213.IntegralGeneralInt
 import E213.Math.Real213.IntegralDyadic
-import E213.Math.Real213.GeomSeriesPartialSum
-import E213.Math.Real213.ExpAtZero
-import E213.Math.Real213.SinCosAtZero
-import E213.Math.Real213.TranscendentalAtZero
 
 /-!
 # E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)

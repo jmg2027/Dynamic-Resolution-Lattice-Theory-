@@ -1,9 +1,5 @@
 import E213.Math.Real213.CauchyComplete
 import E213.Math.Real213.CutSequence
-import E213.Math.Real213.CauchyLattice
-import E213.Math.Real213.CauchyArithSum
-import E213.Math.Real213.CauchyArithMul
-import E213.Math.Real213.CauchyConstLimit
 
 /-!
 # E213.Math.Cauchy: Cauchy sequence + completeness

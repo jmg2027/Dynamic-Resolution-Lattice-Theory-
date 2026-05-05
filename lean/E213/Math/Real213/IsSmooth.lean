@@ -4,6 +4,12 @@ import E213.Math.Real213.Dyadic
 import E213.Math.Real213.CutSumDetermined
 import E213.Math.Real213.CutMulDetermined
 
+import E213.Math.Real213.CutBisection
+import E213.Math.Real213.CutContinuity
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutPow
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213IsSmooth: smoothness as resolution-compression filter
 

@@ -1,5 +1,11 @@
 import E213.Math.Real213.MinimumProposition
 
+import E213.Math.Real213.ConsistentOracle
+import E213.Math.Real213.CutContinuity
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.DyadicBracket
+import E213.Math.Real213.DyadicRiemann
+import E213.Math.Real213.DyadicTrajectory
 /-!
 # Research.Real213PhysicsBridgeNT2
 
@@ -68,15 +74,5 @@ theorem nt2_atomic_yields_dyadic_at (n a b m k : Nat) :
   ⟨alwaysFalse_unit_numB n, alwaysTrue_unit_expE n,
    riemannSampleSum_constCut_at a b unitBracket n m k⟩
 
-/-- **B-4: NT=2 atomic block yields dyadic geometry** (bridge capstone).
-    Function-eq form (Quot.sound-DIRTY at the riemannSampleSum funext
-    boundary).  Prefer `nt2_atomic_yields_dyadic_at` for ∅-axiom. -/
-theorem nt2_atomic_yields_dyadic (n a b : Nat) :
-    (DyadicBracket.bisectN alwaysFalse n unitBracket).numB = 2^n
-    ∧ (DyadicBracket.bisectN alwaysTrue n unitBracket).expE = n
-    ∧ riemannSampleSum (constCutFn (constCut a b)) unitBracket n
-        = constCut (2^n * a) b :=
-  ⟨alwaysFalse_unit_numB n, alwaysTrue_unit_expE n,
-   riemannSampleSum_constCut a b unitBracket n⟩
 
 end E213.Math.Real213.PhysicsBridgeNT2

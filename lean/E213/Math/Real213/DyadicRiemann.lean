@@ -5,6 +5,9 @@ import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.ConstCutScale
 import E213.Kernel.Tactic.Nat213
 
+import E213.Math.Real213.CutPoset
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213DyadicRiemann: dyadic Riemann sample-sum trajectory
 

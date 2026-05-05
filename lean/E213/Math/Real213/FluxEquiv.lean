@@ -1,5 +1,7 @@
+import E213.Math.Real213.FluxCut
 import E213.Math.Real213.CutPoset
 
+import E213.Math.Real213.Core
 /-!
 # Research.Real213FluxEquiv
 

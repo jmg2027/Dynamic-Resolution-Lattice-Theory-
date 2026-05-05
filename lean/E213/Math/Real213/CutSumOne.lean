@@ -3,6 +3,8 @@ import E213.Math.Real213.CutSumComm
 import E213.Math.Real213.CutMulOne
 import E213.Math.Real213.CutPoset
 
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutSumOne: cutSum (1)(1) = constCut 2 1 (general theorem)
 -/

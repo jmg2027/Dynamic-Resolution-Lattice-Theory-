@@ -1,6 +1,7 @@
 import E213.Math.Real213.CutBisection
 import E213.Math.Real213.CutPoset
 
+import E213.Math.Real213.Core
 /-!
 # Research.Real213CutBisectionAlgo: bisection iteration + IVT scaffold
 
@@ -47,10 +48,6 @@ def bisectN (a b : Nat → Nat → Bool) (oracle : Nat → Nat → Bool → Bool
     let mid := cutMid a b
     if oracle m k (mid m k) then bisectN a mid oracle n m k
     else bisectN mid b oracle n m k
-
-end E213.Math.Real213.CutBisectionAlgo
-
-namespace E213.Math.Real213.CutBisectionAlgo
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutBisection (cutMid)

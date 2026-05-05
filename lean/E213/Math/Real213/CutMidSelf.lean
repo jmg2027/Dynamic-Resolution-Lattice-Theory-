@@ -5,6 +5,11 @@ import E213.Math.Real213.CutBisection
 import E213.Math.Real213.CutMulOne
 import E213.Math.Real213.CutSumZero
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutPoset
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutMidSelf: midpoint(c, c) = c for const cut
 

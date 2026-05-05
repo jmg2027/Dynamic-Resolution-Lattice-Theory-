@@ -1,5 +1,12 @@
+import E213.Math.Real213.Antiderivative
+import E213.Math.Real213.IntegralViaAnti
+import E213.Math.Real213.FluxCochain
+import E213.Math.Real213.FluxCut
+import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.IntegralGeneralInt
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213IntegralDyadic
 
@@ -18,6 +25,8 @@ within the polynomial chain at this point.
 -/
 
 namespace E213.Math.Real213.IntegralDyadic
+
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
@@ -40,13 +49,13 @@ theorem dyadicIntervalAB_rightCut (numA numB E : Nat) (h : numA ≤ numB) :
 
 /-- ★ fluxAlong id over arbitrary dyadic interval. -/
 theorem fluxAlong_id_dyadicAB (numA numB E : Nat) (h : numA ≤ numB) :
-    FluxCut.fluxAlong id (dyadicIntervalAB numA numB E h)
+    E213.Math.Real213.FluxCochain.FluxCut.fluxAlong id (dyadicIntervalAB numA numB E h)
       = { forward := constCut numB (2^E),
           backward := constCut numA (2^E) } := rfl
 
 /-- ★★ Integral of constant 1 over any dyadic interval [a/2^E, b/2^E]. -/
 theorem integral_one_dyadic (numA numB E : Nat) (h : numA ≤ numB) :
-    IsAntiderivative.integral IsAntiderivative.id_anti
+    E213.Math.Real213.IntegralViaAnti.IsAntiderivative.integral E213.Math.Real213.Antiderivative.IsAntiderivative.id_anti
         (dyadicIntervalAB numA numB E h)
       = { forward := constCut numB (2^E),
           backward := constCut numA (2^E) } := rfl
@@ -61,7 +70,7 @@ theorem integral_dyadic_capstone (numA numB E : Nat) (h : numA ≤ numB) :
     ∧ (dyadicIntervalAB numA numB E h).leftCut = constCut numA (2^E)
     ∧ (dyadicIntervalAB numA numB E h).rightCut = constCut numB (2^E)
     -- (4) ★★ Universal FTC: ∫_(a/2^E)^(b/2^E) 1 dx via id propEq
-    ∧ IsAntiderivative.integral IsAntiderivative.id_anti
+    ∧ E213.Math.Real213.IntegralViaAnti.IsAntiderivative.integral E213.Math.Real213.Antiderivative.IsAntiderivative.id_anti
         (dyadicIntervalAB numA numB E h)
         = { forward := constCut numB (2^E),
             backward := constCut numA (2^E) } :=

@@ -1,6 +1,7 @@
 import E213.Math.Cauchy.Archimedean
 import E213.Math.Real213.CutSum
 
+import E213.Math.Real213.Core
 /-!
 # Research.Real213CutBinary: generic 2D bounded-search cut operation
 
@@ -59,10 +60,6 @@ def cutBinary (P : Nat → Nat → Bool) (k1 k2 M1 M2 : Nat)
     (cx cy : Nat → Nat → Bool) : Bool :=
   cutBinaryOuter P k1 k2 M2 cx cy M1
 
-end E213.Math.Real213.CutBinary
-
-namespace E213.Math.Real213.CutBinary
-
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 
@@ -86,10 +83,6 @@ theorem cutBinaryInner_congr (P : Nat → Nat → Bool) (k1 k2 m1 M2 : Nat)
        = ((P m1 (i+1) && cx2 m1 k1 && cy2 (i+1) k2)
             || cutBinaryInner P k1 k2 cx2 cy2 m1 i)
     rw [hx, hy (i+1) hn, ih hi]
-
-end E213.Math.Real213.CutBinary
-
-namespace E213.Math.Real213.CutBinary
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)

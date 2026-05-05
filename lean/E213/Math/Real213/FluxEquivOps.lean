@@ -1,6 +1,10 @@
 import E213.Math.Real213.FluxEquiv
 import E213.Math.Real213.CutSumEq
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutPoset
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.FluxCut
 /-!
 # Research.Real213FluxEquivOps
 

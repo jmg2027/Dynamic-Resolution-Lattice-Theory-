@@ -2,6 +2,10 @@ import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.ConsistentOracle
 
+import E213.Math.Real213.CauchyComplete
+import E213.Math.Real213.CutPoset
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.Dyadic
 /-!
 # Research.Real213DyadicTrajectory: concrete bisection trajectories
 

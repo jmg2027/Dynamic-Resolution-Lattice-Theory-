@@ -1,6 +1,9 @@
 import E213.Math.Real213.DifferentiableInstances
 import E213.Math.Real213.DifferentiableAffine
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Research.Real213DifferentiableCompose
 

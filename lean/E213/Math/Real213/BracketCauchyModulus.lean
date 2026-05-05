@@ -1,6 +1,8 @@
 import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.ConsistentOracle
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.Dyadic
 /-!
 # Real213BracketCauchyModulus — quantitative bracket-length halving
 

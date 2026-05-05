@@ -89,10 +89,6 @@ theorem cutMulInner_eq_true_iff (cx cy : Nat → Nat → Bool)
         rw [rec_true]
         cases (cx m1 k && cy (j+1) k && decide (m1 * (j+1) ≤ m * k)) <;> rfl
 
-end E213.Math.Real213.CutMulComm
-
-namespace E213.Math.Real213.CutMulComm
-
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
 
@@ -154,10 +150,6 @@ theorem cutMulOuter_eq_true_iff (cx cy : Nat → Nat → Bool)
             ⟨m1, hm1', m2, hm2, hcx, hcy, hmul⟩
         rw [outer_true]
         cases cutMulInner cx cy k m (j+1) m2Bound <;> rfl
-
-end E213.Math.Real213.CutMulComm
-
-namespace E213.Math.Real213.CutMulComm
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)

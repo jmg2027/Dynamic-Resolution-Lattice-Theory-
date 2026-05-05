@@ -1,6 +1,10 @@
 import E213.Math.Real213.CutMaxMin
 import E213.Math.Real213.CutBisection
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutAlgebraStruct: structured cut algebra
 

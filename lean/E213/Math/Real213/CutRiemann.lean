@@ -1,6 +1,9 @@
 import E213.Math.Real213.CutPow
 import E213.Math.Real213.CutInv
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutRiemann: Riemann integration algorithm
 

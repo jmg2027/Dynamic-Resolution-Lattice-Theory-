@@ -1,6 +1,15 @@
 import E213.Math.Real213.MVTWitnessCatalog
 import E213.Math.Real213.DifferentiableCompose
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutMulDetermined
+import E213.Math.Real213.CutMulOne
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.DifferentiableInstances
+import E213.Math.Real213.FluxMVTWitness
+import E213.Math.Real213.HasDyadicMVTWitness
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Research.Real213MVTWitnessChain
 

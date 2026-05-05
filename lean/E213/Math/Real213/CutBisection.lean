@@ -26,10 +26,6 @@ def cutHalf (c : Nat → Nat → Bool) : Nat → Nat → Bool :=
 def cutMid (cx cy : Nat → Nat → Bool) : Nat → Nat → Bool :=
   cutHalf (cutSum cx cy)
 
-end E213.Math.Real213.CutBisection
-
-namespace E213.Math.Real213.CutBisection
-
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)

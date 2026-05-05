@@ -1,6 +1,11 @@
 import E213.Math.Real213.IsSmooth
 import E213.Math.Real213.Core
 
+import E213.Math.Real213.CutContinuity
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutPow
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213IsDifferentiable: differentiation filter
 

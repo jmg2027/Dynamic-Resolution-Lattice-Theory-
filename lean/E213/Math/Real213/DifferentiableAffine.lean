@@ -1,6 +1,13 @@
 import E213.Math.Real213.DifferentiableInstances
 import E213.Math.Max213
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutContinuity
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutPow
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Research.Real213DifferentiableAffine
 

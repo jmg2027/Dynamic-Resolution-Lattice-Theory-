@@ -1,5 +1,12 @@
+import E213.Math.Real213.FluxMVTWitnessCombinators
 import E213.Math.Real213.FluxMVTWitness
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.DifferentiableInstances
+import E213.Math.Real213.DifferentiableMid
+import E213.Math.Real213.HasDyadicMVTWitness
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Research.Real213MVTWitnessCatalog
 

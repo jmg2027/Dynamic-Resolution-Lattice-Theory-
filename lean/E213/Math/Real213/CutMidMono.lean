@@ -2,6 +2,11 @@ import E213.Kernel.Tactic.Nat213
 import E213.Math.Real213.ValidCutOps
 import E213.Math.Real213.CutPoset
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutBisection
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumComm
+import E213.Math.Real213.ValidCut
 /-!
 # Research.Real213CutMidMono: cutMid monotonicity (RatioCut)
 

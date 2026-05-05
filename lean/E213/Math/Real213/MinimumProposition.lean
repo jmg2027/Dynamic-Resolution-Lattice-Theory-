@@ -3,6 +3,11 @@ import E213.Math.Real213.DyadicRiemann
 import E213.Math.Real213.ConsistentOracle
 import E213.Math.Real213.DyadicTrajectory
 
+import E213.Math.Real213.CutContinuity
+import E213.Math.Real213.CutPoset
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.DyadicBracket
+import E213.Math.Real213.IsSmooth
 /-!
 # 213-line minimum proposition — three forced iff statements
 

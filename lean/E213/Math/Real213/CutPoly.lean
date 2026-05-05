@@ -1,5 +1,8 @@
 import E213.Math.Real213.CutPow
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutPoly: polynomial evaluation at cut level
 

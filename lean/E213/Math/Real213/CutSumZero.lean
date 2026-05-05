@@ -3,6 +3,10 @@ import E213.Math.Real213.CutMulComm
 import E213.Math.Real213.CutAlgebraic
 import E213.Math.Real213.CutBisection
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutSumZero: cutSum (zero) (zero) = zero
 

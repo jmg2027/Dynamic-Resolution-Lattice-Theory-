@@ -1,5 +1,8 @@
 import E213.Math.Real213.ODE
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutContinuity
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213NewtonFirst
 

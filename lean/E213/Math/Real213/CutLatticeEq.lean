@@ -1,6 +1,7 @@
 import E213.Math.Real213.CutMaxMin
 import E213.Math.Real213.CutPoset
 
+import E213.Math.Real213.Core
 /-!
 # Research.Real213CutLatticeEq: cutMax/cutMin preserve cutEq + cutLe
 

@@ -3,6 +3,9 @@ import E213.Math.Real213.CutMulOne
 import E213.Math.Real213.CutSumZero
 import E213.Math.Real213.CutMulDetermined
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutPowConst: cutPow on const cuts
 

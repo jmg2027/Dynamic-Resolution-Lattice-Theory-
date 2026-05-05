@@ -1,6 +1,10 @@
 import E213.Math.Real213.DifferentiableInstances
 import E213.Math.Real213.ClassicCalcMid
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.FluxMVTWitness
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Research.Real213HasDyadicMVTWitness
 

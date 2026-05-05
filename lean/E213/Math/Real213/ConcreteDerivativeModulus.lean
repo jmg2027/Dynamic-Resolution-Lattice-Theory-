@@ -1,5 +1,7 @@
 import E213.Math.Real213.DifferentiableInstances
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Concrete polynomial derivative modulus — sharp `(n-1)·k` pattern
 
@@ -95,9 +97,9 @@ theorem quarticIsDifferentiable_derivative_modulus (k : Nat) :
   rw [e1, e2]
   exact Nat.max_self (3 * k)
 
-end E213.Math.Real213.ConcreteDerivativeModulus
 
-namespace E213.Math.Real213.ConcreteDerivativeModulus
+
+
 
 /-- d/dx [x⁵] modulus = 4k. -/
 theorem quinticIsDifferentiable_derivative_modulus (k : Nat) :
@@ -154,9 +156,9 @@ theorem octicIsDifferentiable_derivative_modulus (k : Nat) :
   rw [coef_add 3 4 k, coef_add 4 3 k]
   exact Nat.max_self (7 * k)
 
-end E213.Math.Real213.ConcreteDerivativeModulus
 
-namespace E213.Math.Real213.ConcreteDerivativeModulus
+
+
 
 /-- d/dx [x⁹] modulus = 8k. -/
 theorem nonicIsDifferentiable_derivative_modulus (k : Nat) :

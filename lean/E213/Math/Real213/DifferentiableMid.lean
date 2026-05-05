@@ -1,5 +1,10 @@
 import E213.Math.Real213.DifferentiableInstances
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutBisection
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.IsDifferentiable
+import E213.Math.Real213.IsSmooth
 /-!
 # Research.Real213DifferentiableMid
 

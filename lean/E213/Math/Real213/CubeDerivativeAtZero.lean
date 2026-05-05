@@ -1,5 +1,14 @@
 import E213.Math.Real213.NewtonFirst
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutMulDetermined
+import E213.Math.Real213.CutMulOne
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumDetermined
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.CutSumZero
+import E213.Math.Real213.DifferentiableInstances
 /-!
 # Research.Real213CubeDerivativeAtZero
 

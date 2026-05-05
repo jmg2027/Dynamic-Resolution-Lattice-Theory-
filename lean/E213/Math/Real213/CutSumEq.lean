@@ -5,6 +5,8 @@ import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSumComm
 import E213.Math.Real213.CutMulComm
 
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutSum
 /-!
 # Research.Real213CutSumEq: cutSum / cutMul respect cutEq
 
@@ -48,10 +50,6 @@ theorem cutMul_cutEq_right (cx cy cy' : Nat → Nat → Bool)
     cutMul cx cy m k = cutMul cx cy' m k := by
   obtain ⟨N, hN⟩ := cutMul_locallyDetermined m k
   exact hN cx cx cy cy' (fun _ _ _ _ => rfl) (fun m' k' _ _ => h m' k')
-
-end E213.Math.Real213.CutSumEq
-
-namespace E213.Math.Real213.CutSumEq
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)

@@ -3,6 +3,7 @@ import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutMulComm
 import E213.Math.Real213.CutSumTest
 
+import E213.Math.Real213.Core
 /-!
 # Real213CutMulConstConst — precision artifact characterization
 

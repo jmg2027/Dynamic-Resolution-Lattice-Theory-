@@ -81,10 +81,6 @@ theorem cutSumAux_eq_true_iff (cx cy : Nat → Nat → Bool) (k M : Nat) (n : Na
         rw [rec_true]
         cases (cx (j+1) (2*k) && cy (M - (j+1)) (2*k)) <;> rfl
 
-end E213.Math.Real213.CutSumComm
-
-namespace E213.Math.Real213.CutSumComm
-
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSum (cutSum cutSumAux)
 

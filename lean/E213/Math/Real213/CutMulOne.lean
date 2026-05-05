@@ -1,6 +1,8 @@
 import E213.Math.Real213.CutMulComm
 import E213.Math.Real213.CutSumComm
 
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutMulOne: cutMul (1)(1) = constCut 1 1 (general theorem)
 

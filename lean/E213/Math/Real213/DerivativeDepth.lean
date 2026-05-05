@@ -2,6 +2,10 @@ import E213.Math.Max213
 import E213.Math.Real213.DerivativeForms
 import E213.Math.Real213.ResolutionDepth
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutPow
+import E213.Math.Real213.IsDifferentiable
+import E213.Math.Real213.IsSmooth
 /-!
 # Research.Real213DerivativeDepth: derivative resolution depth
 

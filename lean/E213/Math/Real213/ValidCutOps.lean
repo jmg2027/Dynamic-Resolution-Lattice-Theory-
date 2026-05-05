@@ -4,6 +4,8 @@ import E213.Math.Real213.CutDouble
 import E213.Math.Real213.CutBisection
 import E213.Math.Real213.CutSumComm
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSum
 /-!
 # Research.Real213ValidCutOps: ValidCut closed under cut ops
 

@@ -2,6 +2,7 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutMaxMin
 import E213.Math.Real213.CutPoset
 
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutAlgebraic: algebraic properties of cut operations
 

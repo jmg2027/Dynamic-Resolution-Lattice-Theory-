@@ -1,6 +1,18 @@
 import E213.Math.Real213.FluxPassthroughCatalog
 import E213.Math.Real213.DifferentiableInstances
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutMul
+import E213.Math.Real213.CutPow
+import E213.Math.Real213.CutSumTest
+import E213.Math.Real213.DyadicBracket
+import E213.Math.Real213.DyadicTrajectory
+import E213.Math.Real213.FluxCochain
+import E213.Math.Real213.FluxCut
+import E213.Math.Real213.FluxDivergence
+import E213.Math.Real213.FluxMVT
+import E213.Math.Real213.FluxPassthroughClass
+import E213.Math.Real213.IsDifferentiable
 /-!
 # Classical calculus structure — `ClassicCalc_at`
 
@@ -205,10 +217,6 @@ def hexadecic_calc :
     pass := mul_pass
               (mul_pass quartic_pass quartic_pass)
               (mul_pass quartic_pass quartic_pass) }
-
-end E213.Math.Real213.ClassicCalc.ClassicCalc_at
-
-namespace E213.Math.Real213.ClassicCalc.ClassicCalc_at
 
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.IsDifferentiable (cutPowFnIsDifferentiable)

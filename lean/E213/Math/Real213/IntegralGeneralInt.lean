@@ -1,5 +1,12 @@
+import E213.Math.Real213.Antiderivative
+import E213.Math.Real213.IntegralViaAnti
+import E213.Math.Real213.FluxCochain
+import E213.Math.Real213.FluxCut
+import E213.Math.Real213.DyadicBracket
 import E213.Math.Real213.IntegralIntInterval
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213IntegralGeneralInt
 
@@ -10,6 +17,8 @@ cohomologically via id antiderivative.
 -/
 
 namespace E213.Math.Real213.IntegralGeneralInt
+
+open E213.Math.Real213.DyadicBracket (DyadicBracket)
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
@@ -32,17 +41,17 @@ theorem intIntervalAB_rightCut (a b : Nat) (h : a ≤ b) :
 
 /-- ★ fluxAlong id over [a, b] = (b, a). -/
 theorem fluxAlong_id_intIntervalAB (a b : Nat) (h : a ≤ b) :
-    FluxCut.fluxAlong id (intIntervalAB a b h)
+    E213.Math.Real213.FluxCochain.FluxCut.fluxAlong id (intIntervalAB a b h)
       = { forward := constCut b 1, backward := constCut a 1 } := rfl
 
 /-- ★ Integral of constant 1 over [a, b] via id antiderivative. -/
 theorem integral_one_intIntervalAB (a b : Nat) (h : a ≤ b) :
-    IsAntiderivative.integral IsAntiderivative.id_anti (intIntervalAB a b h)
+    E213.Math.Real213.IntegralViaAnti.IsAntiderivative.integral E213.Math.Real213.Antiderivative.IsAntiderivative.id_anti (intIntervalAB a b h)
       = { forward := constCut b 1, backward := constCut a 1 } := rfl
 
 /-- ★ Zero-length interval [a, a]: integral balanced. -/
 theorem integral_one_intIntervalAA (a : Nat) :
-    IsAntiderivative.integral IsAntiderivative.id_anti
+    E213.Math.Real213.IntegralViaAnti.IsAntiderivative.integral E213.Math.Real213.Antiderivative.IsAntiderivative.id_anti
         (intIntervalAB a a (Nat.le_refl a))
       = { forward := constCut a 1, backward := constCut a 1 } := rfl
 
@@ -57,7 +66,7 @@ theorem integral_general_int_capstone (a b : Nat) (h : a ≤ b) :
     -- (4) rightCut = b
     ∧ (intIntervalAB a b h).rightCut = constCut b 1
     -- (5) ∫_a^b 1 dx via id = (b, a) cohomologically
-    ∧ IsAntiderivative.integral IsAntiderivative.id_anti
+    ∧ E213.Math.Real213.IntegralViaAnti.IsAntiderivative.integral E213.Math.Real213.Antiderivative.IsAntiderivative.id_anti
         (intIntervalAB a b h)
         = { forward := constCut b 1, backward := constCut a 1 } :=
   ⟨rfl, rfl, rfl, rfl, rfl⟩

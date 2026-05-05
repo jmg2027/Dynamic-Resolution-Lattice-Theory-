@@ -1,6 +1,9 @@
 import E213.Math.Real213.CutSequence
 import E213.Math.Real213.CutAlgebraic
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutSum
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213CutSeries: series convergence framework
 

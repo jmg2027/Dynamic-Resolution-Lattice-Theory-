@@ -20,8 +20,6 @@ import E213.Math.Real213.CutSumEq
 import E213.Math.Real213.CutDouble
 import E213.Math.Real213.CutScaleLattice
 import E213.Math.Real213.CutLatticeEq
-import E213.Math.Real213.SignedMulConst
-import E213.Math.Real213.CutMidEq
 import E213.Math.Real213.CutSumOne
 import E213.Math.Real213.CutMulOne
 import E213.Math.Real213.CutMidSelf

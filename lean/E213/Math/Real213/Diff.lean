@@ -1,5 +1,8 @@
 import E213.Math.Real213.IVT
 
+import E213.Math.Real213.Core
+import E213.Math.Real213.CutContinuity
+import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213Diff: Differentiation (declarative form, Phase E)
 
