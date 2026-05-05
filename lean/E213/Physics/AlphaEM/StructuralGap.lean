@@ -18,7 +18,8 @@ zero-width bracket on the Basel sum, the candidate formula's value
 
 * **1a (computational):** tighten the rational bracket on ζ(2) so the
   candidate-formula bracket has width ≤ 10⁻⁴ of 137.  Implemented in
-  `BaselBoundTight.lean` + `AlphaEM.V137Tight.lean` up to N=50; full
+  `Basel/Bound.lean` (lower_tight) + `AlphaEM.V137Tight.lean` up to
+  N=50; full
   10⁻⁴ requires N ≈ 350+ which exceeds Lean's default `maxRecDepth`.
 
 * **1b (structural, RESEARCH):** identify the missing ~5.4×10⁻⁴

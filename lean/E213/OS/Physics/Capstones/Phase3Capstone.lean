@@ -19,10 +19,10 @@ Collects each sub-module's falsifier as a single theorem.
 ## Falsifier list
 
   (F1) NS+NT=d, d²-1=12NT, ... (IntegerLockings, 7 lockings)
-  (F2) N_gen = 3, no 4th gen slot (NoFourthGen)
-  (F3) Normal neutrino ordering proxy (NeutrinoOrdering, JUNO)
-  (F4) θ_QCD ∈ [2.5, 3.0]×10⁻¹¹ (ThetaQCDFalsifier, nEDM)
-  (F5) cos²θ_W ∈ [0.75, 0.78] (WMassFalsifier, precise W mass)
+  (F2) N_gen = 3, no 4th gen slot (Simplex/Generations)
+  (F3) Normal neutrino ordering proxy (Mixing/NeutrinoMixing, JUNO)
+  (F4) θ_QCD ∈ [2.5, 3.0]×10⁻¹¹ (Couplings/ThetaQCD, nEDM)
+  (F5) cos²θ_W ∈ [0.75, 0.78] (YangMills/WMassFalsifier, precise W mass)
 
 *Any single violation* → 213 immediately discarded.
 -/

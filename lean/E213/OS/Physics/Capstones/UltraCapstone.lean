@@ -9,21 +9,21 @@ Single capstone for *all* Phase 3 work.
 
 ## Integration targets
 
-  Phase 3 (54 modules):
-    - Manifesto + Capstone + Phase3.lean root        (3)
-    - 14 falsifiers (observational verdict)
-    - 8 deep-dive derivations (why that value?)
-    - 6 reframings + ComplexAsTime (terminology)
-    - 21 Translations (all modern physics fields)
-    - + sub-capstones, MasterCatalog
+After 2026-05-05 audit pass, the Phase3 reframing chain
+(Phase3Manifesto, Phase3Reframing, Artifacts, ComplexAsTime,
+NoInteraction, NoWaveFunction, GravityNotInteraction) was
+absorbed/deleted as alias-only narrative; UltraCapstone now
+relies on canonical sub-capstones directly:
+
+  - phase3_falsifiers (Phase3Capstone, 19-conjunct)
+  - all_modern_physics_atomic (AtomicCorrespondences/Capstone)
+  - master_atomic_catalog (MasterCatalog)
 
 ## Representative theorems
 
-  - phase3_falsifiers: 19-conjunct (Capstone)
+  - phase3_falsifiers: 19-conjunct
   - all_modern_physics_atomic: 13-conjunct (Translation Capstone)
-  - reframing_capstone: 8-conjunct
   - master_atomic_catalog: 10-conjunct (integer multi-output)
-  - complex_as_time: 7-conjunct
 -/
 
 namespace E213.OS.Physics.Capstones.UltraCapstone
@@ -43,7 +43,7 @@ theorem phase3_ultra :
     ∧ (NS * NT = 6)             -- Pauli ε / Lorentz / cross
     ∧ (NS * NS - 1 = 8)         -- α_3 / SU(3) / b_1 / Einstein
     ∧ (d * d - 1 = 24)          -- SU(5) / 4! / SM gauge sum
-    -- ComplexAsTime: i = NT axis
+    -- complex axis: i = NT (was ComplexAsTime, absorbed 2026-05-05)
     ∧ (NT = 2)
     -- Master catalog: all 11 atomic integers multi-output
     ∧ (d * d = 25)
