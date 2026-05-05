@@ -31,7 +31,7 @@ Physics/
 │                                       IonizationEnergies, Lithium,
 │                                       Period3, Period4, PeriodClosures,
 │                                       PeriodicTable, SecondRow}
-├── AtomicCorrespondences/  58 files — modern-physics translation
+├── AtomicCorrespondences/  57 files — modern-physics translation
 │                                       catalog (35+ topical files +
 │                                       Capstone, MasterCatalog,
 │                                       AtomicSuperCatalog;
