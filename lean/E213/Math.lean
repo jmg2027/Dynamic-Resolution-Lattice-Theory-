@@ -1,38 +1,32 @@
-import E213.Math.Foundation
-import E213.Math.CutOps
-import E213.Math.Generic
-import E213.Math.Continuity
-import E213.Math.Cauchy
-import E213.Math.Series
-import E213.Math.Analysis
+import E213.Math.Real213
 
-/-!
-# E213.Math: 213-native real analysis library (root entry)
+/-! Spec-as-code entry point for `E213.Math` — Real213 + topical kit.
 
-Library structure with namespace separation.
+Importing this single module pulls in the **entire 213-native
+real-number library** (`Math/Real213.lean` umbrella) plus the
+remaining math top-level files (PatternCatalog, ResolutionLimit, …)
+when they're imported separately.
 
-## Sub-modules
+## Sub-trees
 
-- **Foundation**: Real213 type-level (Phase A).
-- **CutOps**: cut-level rational arithmetic (Sum/Mul/MaxMin/Inv/Pow/...).
-- **Generic**: cutBinary universal kernel + CutBinaryOp.
-- **Continuity**: locally-determined + categorical closure.
-- **Cauchy**: completeness via direct construction.
-- **Series**: partialSum + geometric/exp/trig/π specific series.
-- **Analysis**: IVT bisection / differentiation / Riemann (scaffolded).
+- **`Real213`** — full 213-native real-analysis library (108 files).
+  Type foundation + Cut algebra + Differentiation + Integration +
+  Flux-MVT + Cauchy + Series + Dyadic search + ODE.
+
+- **Per-chapter sub-umbrellas** (still available for consumers
+  needing only a slice; each is a strict subset of Real213.lean):
+  `Math/Foundation`, `Math/CutOps`, `Math/Cauchy`, `Math/Series`,
+  `Math/Continuity`, `Math/Analysis`, `Math/Analysis213`,
+  `Math/Generic`.
+
+- **Other top-level Math files** (independent of Real213):
+  `Math/PatternCatalog*`, `Math/ResolutionLimit`, `Math/AddMod213`,
+  `Math/EncodePair213`, etc.  Importing this umbrella does NOT pull
+  these in — consumers must import them directly.
 
 ## Status
 
-All build successfully, 0 sorry, ≤ propext + Quot.sound (Lean 4 core
-only).
-
-Research-stage modules (incomplete proofs or scaffolding) are also
-imported — "library" status is stated explicitly in each doc-string.
-
-Working evidence for user directives:
-- "reals native to 213" → Real213 (Foundation)
-- "213-style via Generic" → Generic + CutOps
-- "make it a library" → this namespace structure
-- "Real = Lens output" → AsLensOutput (Analysis)
-- "transcendental Lens" → RecurrenceLens (Analysis)
+∅-axiom standard on the production critical path.  Pre-M5 research
+scaffold orphans (referencing session-27-deleted function-eq
+theorems) have been removed.
 -/
