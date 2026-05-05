@@ -11,7 +11,7 @@ import E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Math.Analysis.FluxMVT.FluxCochain
 import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxFTC
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
 # Antiderivative class — `IsAntiderivative`
 
@@ -29,9 +29,9 @@ IsAntiderivative F sf f := { eq : sf.derivative = f }
   * `E213.Math.Analysis.AntiderivativeCombinators` — mid / add / mul combinators
   * `E213.Math.Analysis.AntiderivativeStructural`  — every IsDifferentiable yields one
 
-(Consolidated 2026-05-05 from 3 phase files: Antiderivative [Phase CN]
-+ AntiderivativeCombinators [Phase CO] + AntiderivativeStructural
-[Phase CP].  Per-stage capstone bundles dropped.)
+(Consolidated 2026-05-05 from 3 Antiderivative []
++ AntiderivativeCombinators [] + AntiderivativeStructural
+[].  Per-stage capstone bundles dropped.)
 -/
 
 namespace E213.Math.Analysis.Integration.Antiderivative
@@ -40,7 +40,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
@@ -103,7 +103,7 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable addIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)
 open E213.Math.Analysis.Integration.Antiderivative (IsAntiderivative)
@@ -153,7 +153,7 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable (IsDifferentiable)
+open E213.Math.Analysis.Differentiation.Differentiable (IsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances
   (squareIsDifferentiable cubeIsDifferentiable)
 open E213.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)

@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.BettiKernel
 
 /-!
-# Cohomology — cup product (Phase CD, file 1)
+# Cohomology — cup product (, file 1)
 
 Alexander–Whitney cup product
     ⌣ : Cᵏ × Cˡ → Cᵏ⁺ˡ
@@ -56,7 +56,7 @@ def all_true_5_1 : Cochain 5 1 := fun _ => true
 theorem cup_all_true_5_1_at_edge0 :
     cup 5 1 1 all_true_5_1 all_true_5_1 ⟨0, by decide⟩ = true := by decide
 
-/-- ★ Phase CD intermediate capstone (file 1) — cup well-defined
+/-- ★ intermediate capstone (file 1) — cup well-defined
     and decide-checked; zero-on-either-side preserved. -/
 theorem phase_CD_cup_smoke :
     (∀ i : Fin (binom 5 2),

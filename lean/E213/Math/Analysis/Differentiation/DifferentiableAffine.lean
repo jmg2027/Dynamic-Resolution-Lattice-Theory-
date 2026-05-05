@@ -7,11 +7,10 @@ import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutPow
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213DifferentiableAffine
-
-Phase AI: affine and polynomial-sum IsDifferentiable instances using
+# DifferentiableAffine
+affine and polynomial-sum IsDifferentiable instances using
 `addIsDifferentiable`.  Useful for ML-style polynomial models like
 f(x) = ax + b or f(x) = x² + ax + b.
 
@@ -31,7 +30,7 @@ open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
@@ -100,7 +99,7 @@ theorem cubePlusSquareIsDifferentiable_modulus (k : Nat) :
   exact E213.Math.Max213.max_eq_left
     (Nat.mul_le_mul_right k (Nat.le_succ 2))
 
-/-- Phase AI capstone: polynomial sum moduli. -/
+/-- capstone: polynomial sum moduli. -/
 theorem polynomial_sum_capstone (a b k : Nat) :
     (affineIsDifferentiable a b).linearityModulus k = k
     ∧ squarePlusIdIsDifferentiable.linearityModulus k = 2 * k

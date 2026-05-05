@@ -2,7 +2,7 @@ import E213.Math.Analysis.FluxMVT.FluxMVTWitnessCombinators
 import E213.Math.Analysis.DyadicSearch.DyadicRiemann
 import E213.Math.Analysis.FluxMVT.FluxMVTWitness
 import E213.Math.Analysis.ClassicCalc.ClassicCalcMid
-import E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness
+import E213.Math.Analysis.FluxMVT.DyadicMVTWitness
 
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutContinuity
@@ -18,7 +18,7 @@ import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxFTC
 import E213.Math.Analysis.FluxMVT.FluxFTCPolynomial
 import E213.Math.Analysis.FluxMVT.FluxMVT
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
 # FTC via Riemann sum at unitBracket (depth 0)
 
@@ -36,13 +36,13 @@ midpoint) makes this propositional rather than asymptotic.
 
 ## Sub-namespaces (preserved for cross-file `open` declarations)
 
-  * `E213.Math.Analysis.FluxMVT.FTCRiemann`         — id (Phase BY)
-  * `E213.Math.Analysis.FTCRiemannSquare`   — x² (Phase CA)
-  * `E213.Math.Analysis.FTCRiemannMid`      — mid(x, x²) (Phase CB)
-  * `E213.Math.Analysis.FTCRiemannGeneric`  — generic via HasDyadicMVTWitness_at (Phase CC)
+  * `E213.Math.Analysis.FluxMVT.FTCRiemann`         — id ()
+  * `E213.Math.Analysis.FTCRiemannSquare`   — x² ()
+  * `E213.Math.Analysis.FTCRiemannMid`      — mid(x, x²) ()
+  * `E213.Math.Analysis.FTCRiemannGeneric`  — generic via HasDyadicMVTWitness_at ()
 
-(Consolidated 2026-05-05 from 4 phase files.  FTCRiemannChain
-[Phase CD] was an empty scaffold — DELETED.  Per-stage capstones
+(Consolidated 2026-05-05 from 4 .  FTCRiemannChain
+[] was an empty scaffold — DELETED.  Per-stage capstones
 dropped.)
 -/
 
@@ -58,7 +58,7 @@ open E213.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
 open E213.Math.Analysis.FluxMVT.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Analysis.FluxMVT.FluxFTC.FluxCut (fluxAlong_id_unitBracket)
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
-open E213.Math.Analysis.Differentiation.IsDifferentiable (idIsDifferentiable)
+open E213.Math.Analysis.Differentiation.Differentiable (idIsDifferentiable)
 
 /-- Riemann sum of id.derivative over unitBracket — pointwise. -/
 theorem riemann_id_derivative_unit_at (n : Nat) :
@@ -97,7 +97,7 @@ open E213.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket (midCut)
 open E213.Math.Analysis.FluxMVT.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
-open E213.Math.Analysis.Differentiation.IsDifferentiable (IsDifferentiable)
+open E213.Math.Analysis.Differentiation.Differentiable (IsDifferentiable)
 open E213.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
 open E213.Math.Analysis.FluxMVT.FluxFTCPolynomial.FluxCut
@@ -129,7 +129,7 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
-open E213.Math.Analysis.Differentiation.IsDifferentiable (idIsDifferentiable)
+open E213.Math.Analysis.Differentiation.Differentiable (idIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)
 open E213.Math.Analysis.FluxMVTMore (mid_id_square_derivative_at_half_at)
@@ -149,11 +149,11 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
-open E213.Math.Analysis.Differentiation.IsDifferentiable (IsDifferentiable)
+open E213.Math.Analysis.Differentiation.Differentiable (IsDifferentiable)
 open E213.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket (midCut)
 open E213.Math.Analysis.FluxMVT.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness (HasDyadicMVTWitness_at)
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness (HasDyadicMVTWitness_at)
 
 /-- Generic FTC-Riemann at depth 0 (PURE) via dyadic witness.
 

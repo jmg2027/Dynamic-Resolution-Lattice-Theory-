@@ -10,11 +10,10 @@ import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxDivergence
 import E213.Math.Analysis.FluxMVT.FluxMVT
 import E213.Math.Analysis.FluxMVT.FluxPassthroughClass
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213ClassicCalcCombinators
-
-Phase CE: ClassicCalc combinators (compose, mul, mid).
+# ClassicCalcCombinators
+ClassicCalc combinators (compose, mul, mid).
 
 ClassicCalc is closed under standard combinators: any function
 buildable from these gets MVT/FTC at unit + explicit derivative
@@ -34,7 +33,7 @@ open E213.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
 open E213.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable composeIsDifferentiable mulIsDifferentiable)
 namespace ClassicCalc_at
 

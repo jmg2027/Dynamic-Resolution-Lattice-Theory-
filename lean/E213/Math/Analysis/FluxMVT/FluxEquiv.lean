@@ -3,9 +3,8 @@ import E213.Math.Real213.CutPoset
 
 import E213.Math.Real213.Core
 /-!
-# Research.Real213FluxEquiv
-
-Phase AY-1: **Cohomological equivalence** for FluxCut as a Setoid
+# FluxEquiv
+-1: **Cohomological equivalence** for FluxCut as a Setoid
 (no Quotient — preserve 213 ontology).
 
 Two FluxCuts are cohomologically equivalent when their forward and

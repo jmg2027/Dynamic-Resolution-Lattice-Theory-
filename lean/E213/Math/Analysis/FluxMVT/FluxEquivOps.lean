@@ -6,9 +6,8 @@ import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSumTest
 import E213.Math.Analysis.FluxMVT.FluxCut
 /-!
-# Research.Real213FluxEquivOps
-
-Phase AY-2: flux operations respect cohomEquiv.
+# FluxEquivOps
+-2: flux operations respect cohomEquiv.
 
 Operations on FluxCut all preserve the cohomEquiv Setoid structure
 — functorial / well-defined modulo dyadic equivalence.
@@ -62,7 +61,7 @@ theorem zero_cohomEquiv_ofCut_zero :
     cohomEquiv zero (ofCut (constCut 0 1)) :=
   ⟨cutEq_refl _, cutEq_refl _⟩
 
-/-- Phase AY-2 capstone: flux operations form a Setoid-respecting algebra. -/
+/-- -2 capstone: flux operations form a Setoid-respecting algebra. -/
 theorem flux_ops_capstone (a b c d : FluxCut)
     (hab : cohomEquiv a b) (hcd : cohomEquiv c d) :
     cohomEquiv a.neg b.neg

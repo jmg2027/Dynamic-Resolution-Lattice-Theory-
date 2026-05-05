@@ -11,7 +11,7 @@ to a minimal 6-node graph.
 ```
  facade chain:           [DIRTY] 2 ─→ 1 ─→ 0
                             ↑       ↑     ↑
-                       phase  mid-tier  leaf
+                       -tier  leaf
                        capstone capstone cut
 
  parallel chain:        [PURE]  5 ─→ 4 ─→ 3

@@ -11,7 +11,7 @@ import E213.Firmware.Atomicity.Alive
 # Firmware: Atomicity API (re-export shim)
 
 G12 D2: single-import entry point for the Atomicity sub-cluster's
-public API.  Pattern mirrors `Firmware/Raw.lean` (Phase D shim).
+public API.  Pattern mirrors `Firmware/Raw.lean` (shim).
 
 Downstream code can `import E213.Firmware.Atomicity` and access
 the **forced shape uniqueness** API in one line.

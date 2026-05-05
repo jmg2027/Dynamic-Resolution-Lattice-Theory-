@@ -11,7 +11,7 @@ constCut (numerator over 2^E).  Each bisection step descends one
 level in the binary tree (E → E+1) and halves the bracket length
 exactly.
 
-## 213-native IVT philosophy (Phase J)
+## 213-native IVT philosophy ()
 
 User insight: 213 is a binary tree.  cutMid is bit-shift, not
 continuous halving.  IVT is not "exists c with f(c) = 0" but a

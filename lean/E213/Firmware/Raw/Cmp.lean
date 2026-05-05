@@ -6,7 +6,7 @@ import E213.Firmware.Raw.Core
 Three support lemmas in `E213.Firmware.Internal`, used by
 `Slash`, `Swap`, and `Rec` sub-modules.
 
-Extracted from monolithic `Raw.lean` (Phase D).
+Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Firmware.Internal

@@ -9,8 +9,8 @@ DRLT gravity definition:
   G_ij = ⟨ψ_i|ψ_j⟩    (complex Hermitian, holds phase + modulus)
   W_ij = |G_ij|²/d    (real, modulus shadow only)
 
-  → gauge = phase part of G (survives SU rotation)
-  → gravity = modulus part of W (phase forgotten)
+  → gauge = of G (survives SU rotation)
+  → gravity = modulus part of W ()
 
 ## ★ Phase-modulus separation ★
 
@@ -51,10 +51,10 @@ theorem W_norm_eq_5 : W_normalization = 5 := by decide
 theorem gravity_normalization_atomic :
     W_normalization = d ∧ d = 5 := by decide
 
-/-- ★ Phase vs Modulus separation — lattice natural ★
+/-- ★ Modulus separation — lattice natural ★
 
   G_ij ∈ ℂ (complex)
-  W_ij = |G_ij|²/d ∈ ℝ (real, phase forgotten)
+  W_ij = |G_ij|²/d ∈ ℝ (real, )
 
   Same lattice, two different pieces of information:
     Phase (SU invariant) → gauge coupling (α_3, α_2, α_1)

@@ -4,12 +4,12 @@ import E213.Math.Analysis.Differentiation.ResolutionDepth
 
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutPow
-import E213.Math.Analysis.Differentiation.IsDifferentiable
-import E213.Math.Analysis.Differentiation.IsSmooth
+import E213.Math.Analysis.Differentiation.Differentiable
+import E213.Math.Analysis.Differentiation.Smooth
 /-!
 # Research.Real213DerivativeDepth: derivative resolution depth
 
-Phase AD-3: linearityModulus of the derivative for each constructor.
+-3: linearityModulus of the derivative for each constructor.
 
 ## Resolution Depth Principle (extended)
 
@@ -29,11 +29,11 @@ namespace E213.Math.Analysis.Differentiation.DerivativeDepth
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPow (cutPow)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
-open E213.Math.Analysis.Differentiation.IsSmooth (IsSmooth)
+open E213.Math.Analysis.Differentiation.Smooth (IsSmooth)
 
 /-- Identity's derivative (= constant 1) has resolution depth 0. -/
 theorem id_derivative_modulus (k : Nat) :

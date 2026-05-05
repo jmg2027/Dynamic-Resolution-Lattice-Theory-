@@ -5,9 +5,8 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213FluxCut
-
-Phase AV-1: **Cohomological flux structure** for 213 dyadic cuts.
+# FluxCut
+-1: **Cohomological flux structure** for 213 dyadic cuts.
 
 In simplicial cohomology a 1-cochain assigns a value to each oriented
 edge.  Sign emerges from edge *orientation*, not from arithmetic.

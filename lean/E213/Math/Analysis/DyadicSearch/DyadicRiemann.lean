@@ -11,7 +11,7 @@ import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213DyadicRiemann: dyadic Riemann sample-sum trajectory
 
-## 213-native philosophy (Phase J Sec 3)
+## 213-native philosophy (Sec 3)
 
 User insight: "Riemann integration is simply the act of dyadically
 accumulating deterministic bracket cuts.  Since we have already

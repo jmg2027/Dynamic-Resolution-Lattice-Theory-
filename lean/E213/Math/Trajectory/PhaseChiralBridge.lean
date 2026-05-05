@@ -7,7 +7,7 @@ import E213.Physics.Simplex.Counts
 Formal bridge between the two ∅-axiom decompositions of the
 K_{3,2}^{(2)} skeleton (atomic shape (NS, NT, d) = (3, 2, 5)):
 
-  - **View A (phase walk, cyclotomic)**:
+  - **View A (, cyclotomic)**:
     `mod6 n ↔ (parity n, mod3 n)` — CRT
     ℤ/6 ≅ ℤ/2 × ℤ/3, the Eisenstein 6th-roots-of-unity walk.
     Lives in `Kernel/Tactic/Mod213.lean`.
@@ -37,7 +37,7 @@ open E213.Physics.Simplex.Counts
     temporal vertices.  ∅-axiom by `decide` on concrete constants. -/
 theorem chiral_count : NS + NT = d := by decide
 
-/-! ### View A — phase walk CRT decomposition
+/-! ### View A — CRT decomposition
 
 These restate `Mod213.mod6_parity` / `Mod213.mod6_mod3` at this
 canonical bridge site, giving downstream files a single import. -/

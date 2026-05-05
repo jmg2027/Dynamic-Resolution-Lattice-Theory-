@@ -2,7 +2,7 @@ import E213.Math.Cohomology.Bipartite.V32Betti
 import E213.Math.Cohomology.Audit
 
 /-!
-# Phase D — higher cohomology via 2-cell filling
+# — higher cohomology via 2-cell filling
 
 K_{3,2}^{(2)} as a 1-dim graph has b_1 = 8, b_k = 0 for k ≥ 2.
 But filling 4-cycles with 2-cells creates a 2-dim cell complex
@@ -33,7 +33,7 @@ Filling cycles is one way to extend K_{3,2}^{(2)} to a richer
 be filled is open — could relate to quark-gluon dynamics
 (non-trivial 2-cycles in QCD).
 
-Phase D shows the *mechanism* algebraically; physical
+shows the *mechanism* algebraically; physical
 identification deferred.
 -/
 
@@ -62,7 +62,7 @@ theorem b1_filling_table :
     ∧ (8 - 3 = 5)
     ∧ (8 - 4 = 4) := by decide
 
-/-- ★ Phase D capstone — 2-cell filling on K_{3,2}^{(2)}.
+/-- ★ capstone — 2-cell filling on K_{3,2}^{(2)}.
 
     Filling all 3 simple 4-cycles: b_1 drops to 5.
     Open: physical interpretation of "which cells filled". -/

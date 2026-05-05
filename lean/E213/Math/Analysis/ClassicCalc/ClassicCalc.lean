@@ -12,7 +12,7 @@ import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxDivergence
 import E213.Math.Analysis.FluxMVT.FluxMVT
 import E213.Math.Analysis.FluxMVT.FluxPassthroughClass
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
 # Classical calculus structure — `ClassicCalc_at`
 
@@ -47,7 +47,7 @@ ClassicCalc_at f := { diff : IsDifferentiable f, pass : Passthrough_at f }
 |     16 | `hexadecic_calc` | 15k                |
 |  n + 1 | `cutPow_calc_at` | `n·k`              |
 
-(Consolidated 2026-05-05 from 4 phase files: `ClassicCalc` [core +
+(Consolidated 2026-05-05 from 4 `ClassicCalc` [core +
 deg 1-3] + `ClassicCalcHigher` [deg 4-8] + `ClassicCalcExtreme`
 [deg 9, 10, 12, 16] + `ClassicCalcGeneric` [deg n+1].  Per-stage
 capstone bundles dropped — instances + core methods remain.)
@@ -66,7 +66,7 @@ open E213.Math.Analysis.FluxMVT.FluxCochain.FluxCut (fluxAlong)
 open E213.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
 open E213.Math.Analysis.FluxMVT.FluxPassthroughClass.FluxCut (Passthrough_at)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
@@ -123,7 +123,7 @@ end E213.Math.Analysis.ClassicCalc.ClassicCalc
 namespace E213.Math.Analysis.ClassicCalc.ClassicCalc.ClassicCalc_at
 
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Analysis.Differentiation.IsDifferentiable (idIsDifferentiable)
+open E213.Math.Analysis.Differentiation.Differentiable (idIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances
   (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable)
 open E213.Math.Analysis.DifferentiableHigherPow
@@ -219,7 +219,7 @@ def hexadecic_calc :
               (mul_pass quartic_pass quartic_pass) }
 
 open E213.Math.Real213.CutPow (cutPow)
-open E213.Math.Analysis.Differentiation.IsDifferentiable (cutPowFnIsDifferentiable)
+open E213.Math.Analysis.Differentiation.Differentiable (cutPowFnIsDifferentiable)
 open E213.Math.Analysis.FluxMVT.FluxPassthroughClass.FluxCut.Passthrough_at (cutPow_pass)
 open E213.Math.Analysis.FluxMVT.FluxMVT.FluxCut (fluxCutEq)
 open E213.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)

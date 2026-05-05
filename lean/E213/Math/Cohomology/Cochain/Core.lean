@@ -1,7 +1,7 @@
 import E213.Physics.Simplex.Counts
 
 /-!
-# Cohomology — k-cochain type with ℤ/2 coefficients (Phase CA, file 1)
+# Cohomology — k-cochain type with ℤ/2 coefficients (, file 1)
 
 213-internal cochain complex foundation, Mathlib-free, 0 axiom.
 

@@ -1,4 +1,4 @@
-import E213.Math.Analysis.Differentiation.IsSmooth
+import E213.Math.Analysis.Differentiation.Smooth
 import E213.Kernel.Tactic.Nat213
 
 import E213.Math.Real213.CutPow
@@ -6,7 +6,7 @@ import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213ResolutionDepth: linearityModulus = resolution depth
 
-## Cross-track parallel (Phase J + Physics)
+## Cross-track parallel (+ Physics)
 
 Sister branch's `Physics/ResolutionDepth.lean` formalized the
 principle for gauge couplings:
@@ -27,7 +27,7 @@ namespace E213.Math.Analysis.Differentiation.ResolutionDepth
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsSmooth (idIsSmooth squareIsSmooth cubeIsSmooth quarticIsSmooth quinticIsSmooth sexticIsSmooth septicIsSmooth octicIsSmooth IsSmooth constIsSmooth cutScaleIsSmooth composeIsSmooth midIsSmooth cutPowFnIsSmooth addIsSmooth mulIsSmooth cutHalfIsSmooth decicIsSmooth hexadecicIsSmooth nonicIsSmooth twelfthIsSmooth fifteenthIsSmooth eleventhIsSmooth thirteenthIsSmooth fourteenthIsSmooth)
+open E213.Math.Analysis.Differentiation.Smooth (idIsSmooth squareIsSmooth cubeIsSmooth quarticIsSmooth quinticIsSmooth sexticIsSmooth septicIsSmooth octicIsSmooth IsSmooth constIsSmooth cutScaleIsSmooth composeIsSmooth midIsSmooth cutPowFnIsSmooth addIsSmooth mulIsSmooth cutHalfIsSmooth decicIsSmooth hexadecicIsSmooth nonicIsSmooth twelfthIsSmooth fifteenthIsSmooth eleventhIsSmooth thirteenthIsSmooth fourteenthIsSmooth)
 
 /-- **Identity has resolution depth 1**: linearityModulus n = n. -/
 theorem idIsSmooth_modulus (n : Nat) :

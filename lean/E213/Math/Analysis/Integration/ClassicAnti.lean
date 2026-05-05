@@ -11,9 +11,8 @@ import E213.Math.Analysis.FluxMVT.FluxCochain
 import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxFTCPolynomial
 /-!
-# Research.Real213ClassicAnti
-
-Phase CR: ★ ClassicCalc → IsAntiderivative connection ★
+# ClassicAnti
+★ ClassicCalc → IsAntiderivative connection ★
 
 Every ClassicCalc instance trivially yields an IsAntiderivative
 of its computed derivative, plus the integral via flux.

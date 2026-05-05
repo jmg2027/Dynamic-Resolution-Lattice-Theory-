@@ -17,9 +17,8 @@ import E213.Math.Analysis.FluxMVT.FluxDivergence
 import E213.Math.Analysis.FluxMVT.FluxMVT
 import E213.Math.Analysis.FluxMVT.FluxPassthroughClass
 /-!
-# Research.Real213ClassicCalcMid
-
-Phase BS: Passthrough is closed under midpoint, extending the
+# ClassicCalcMid
+Passthrough is closed under midpoint, extending the
 calculus-textbook framework to averaged functions.
 
   Passthrough.mid_pass        : if f, g passthrough, so is mid(f, g)
@@ -139,7 +138,7 @@ theorem mid_square_cube_mvt_pure :
               (ofCut (constCut 1 1)) :=
   mid_square_cube_calc.mvt_pure
 
-/-- Phase BS capstone (fluxCutEq, PURE). -/
+/-- capstone (fluxCutEq, PURE). -/
 theorem mid_capstone_pure :
     fluxCutEq (localDivergence (fun x => cutMid x (cutMul x x)) unitBracket)
               (ofCut (constCut 1 1))

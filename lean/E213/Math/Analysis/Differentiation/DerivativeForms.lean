@@ -1,5 +1,5 @@
 import E213.Math.Real213.Core
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 
 import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.CutMul
@@ -9,9 +9,9 @@ import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213DerivativeForms: closed-form derivative theorems
 
-Phase AD-2: rfl-clean closed forms for the `IsDifferentiable.derivative`
+-2: rfl-clean closed forms for the `IsDifferentiable.derivative`
 field of each constructor.  These give a computational handle for
-Phase AD-3 (difference-quotient bound).
+-3 (difference-quotient bound).
 
 ## Theorems
 
@@ -33,7 +33,7 @@ open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)

@@ -13,7 +13,7 @@ import E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxDivergence
 import E213.Math.Analysis.FluxMVT.FluxMVT
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
 # Constructive dyadic MVT witnesses at `c = 1/2`
 
@@ -36,9 +36,9 @@ Sub-namespaces preserved (cross-file `open` declarations stay valid):
   * `E213.Math.Analysis.FluxMVTNested`   — mid(x, mid(x, x²))
   * `E213.Math.Analysis.FluxMVTNested2`  — mid(mid(x, x²), x²)
 
-(Consolidated 2026-05-05 from 5 phase files: FluxMVTWitness [Phase BR]
-+ FluxMVTMore [Phase BU] + FluxMVTNested [Phase CF] + FluxMVTNested2
-[Phase CJ] + FluxMVTPattern [Phase CG capstone — DELETED, was pure
+(Consolidated 2026-05-05 from 5 FluxMVTWitness []
++ FluxMVTMore [] + FluxMVTNested [] + FluxMVTNested2
+[] + FluxMVTPattern [capstone — DELETED, was pure
 bundle].  Per-stage capstone bundles dropped.)
 -/
 
@@ -54,7 +54,7 @@ open E213.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence)
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
-open E213.Math.Analysis.Differentiation.IsDifferentiable (IsDifferentiable)
+open E213.Math.Analysis.Differentiation.Differentiable (IsDifferentiable)
 open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Math.Real213.CutMulOne
   (cutMul_one_const_at cutMul_const_one_at)

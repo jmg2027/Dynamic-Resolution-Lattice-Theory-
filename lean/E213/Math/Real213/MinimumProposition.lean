@@ -7,7 +7,7 @@ import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSumTest
 import E213.Math.Analysis.DyadicSearch.DyadicBracket
-import E213.Math.Analysis.Differentiation.IsSmooth
+import E213.Math.Analysis.Differentiation.Smooth
 /-!
 # 213-line minimum proposition — three forced iff statements
 
@@ -34,7 +34,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
-open E213.Math.Analysis.Differentiation.IsSmooth (IsSmooth cutPowFnIsSmooth)
+open E213.Math.Analysis.Differentiation.Smooth (IsSmooth cutPowFnIsSmooth)
 open E213.Math.Analysis.Differentiation.ResolutionDepth (cutPowFnIsSmooth_modulus)
 open E213.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Math.Analysis.DyadicSearch.ConsistentOracle

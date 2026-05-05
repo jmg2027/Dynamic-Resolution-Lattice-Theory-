@@ -8,11 +8,10 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.Dyadic
 import E213.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Math.Analysis.FluxMVT.FluxCut
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213IntegralProperties
-
-Phase CT: ★ properties of the integral ★
+# IntegralProperties
+★ properties of the integral ★
 
 Standard integration laws expressed in 213-native form:
 
@@ -30,7 +29,7 @@ open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.Dyadic (dyadicCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
@@ -84,7 +83,7 @@ theorem integral_zero_length {F sF f}
 
 end IsAntiderivative
 
-/-- Phase CT capstone: integration linearity properties. -/
+/-- capstone: integration linearity properties. -/
 theorem integral_properties_capstone (db : DyadicBracket) :
     -- (1) Additivity (rfl form via add_anti)
     integral (add_anti id_anti id_anti) db

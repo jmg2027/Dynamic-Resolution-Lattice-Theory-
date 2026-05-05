@@ -10,9 +10,8 @@ import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxDivergence
 import E213.Math.Analysis.FluxMVT.FluxMVT
 /-!
-# Research.Real213FluxPassthroughCatalog
-
-Phase BK: catalog of Passthrough instances built via combinators.
+# FluxPassthroughCatalog
+catalog of Passthrough instances built via combinators.
 
 Demonstrates compositionality: any function buildable from id,
 cutPow, ∘, cutMul yields automatic MVT + FTC at unit bracket

@@ -6,9 +6,8 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 import E213.Math.Analysis.FluxMVT.FluxCut
 /-!
-# Research.Real213FluxSeries
-
-Phase BN: bridge series (∑) with FluxCut framework.
+# FluxSeries
+bridge series (∑) with FluxCut framework.
 
 Partial sums form a sequence of FluxCuts (via ofCut).  Convergence
 becomes "Cauchy in flux norm" — but for monotone series like

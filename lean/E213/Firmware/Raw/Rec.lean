@@ -8,7 +8,7 @@ Custom induction principle for Raw that destructures a canonical
 Raw term through three cases — `a`, `b`, `slash x y h ihx ihy` —
 with no Tree-level exposure required at use-sites.
 
-Introduced in Phase C3.  Raw-level induction is the intended
+Introduced in 3.  Raw-level induction is the intended
 way to reason about Raw values in Hypervisor / OS / App; client
 code writes `induction r using Raw.rec with | a | b | slash …`.
 

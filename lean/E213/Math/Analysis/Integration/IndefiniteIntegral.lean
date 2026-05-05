@@ -6,11 +6,10 @@ import E213.Math.Analysis.ODE.NewtonSecond
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213IndefiniteIntegral
-
-Phase DC: ★ indefinite integral as a flux-valued function ★
+# IndefiniteIntegral
+★ indefinite integral as a flux-valued function ★
 
 For F antiderivative of f, the indefinite integral from 0 to x is
 F(x) - F(0).  In flux form:
@@ -27,7 +26,7 @@ namespace E213.Math.Analysis.Integration.IndefiniteIntegral
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)

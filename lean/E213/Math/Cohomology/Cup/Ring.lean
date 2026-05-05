@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Cup.Leibniz
 
 /-!
-# Cohomology — ring structure on H* (Phase CD, file 3)
+# Cohomology — ring structure on H* (, file 3)
 
 Cup makes H*(Δⁿ⁻¹) into a graded-commutative ring.  We verify
 the key identities at concrete cochains on Δ⁴ (n=5):
@@ -12,7 +12,7 @@ the key identities at concrete cochains on Δ⁴ (n=5):
     (-1)^(kl) is always 1).
 
 Universal-∀ versions deferred (Fintype/DecidablePred constraint
-discussed in Phase CB lessons).
+discussed in lessons).
 -/
 
 namespace E213.Math.Cohomology.Cup.Ring
@@ -61,7 +61,7 @@ theorem cup_not_pointwise_comm :
     cup 5 1 1 all_true_5_1 v0_5 ⟨0, by decide⟩
       ≠ cup 5 1 1 v0_5 all_true_5_1 ⟨0, by decide⟩ := by decide
 
-/-- ★ Phase CD capstone — H* ring structure on Δ⁴ verified at
+/-- ★ capstone — H* ring structure on Δ⁴ verified at
     cochain level: unit (left + right), associativity at two
     cochain triples.  Plus the honest negative result that
     cup is *not* commutative as cochains (only on H*). -/

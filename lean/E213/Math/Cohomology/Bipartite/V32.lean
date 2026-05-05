@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Cup.Ring
 
 /-!
-# Cohomology — K_{3,2}^{(2)} bipartite multigraph (Phase CE, file 1)
+# Cohomology — K_{3,2}^{(2)} bipartite multigraph (, file 1)
 
 A separate cochain construction for the bipartite multigraph
 K_{3,2}^{(2)} (5 vertices: 3 S + 2 T; 12 edges, each S-T pair

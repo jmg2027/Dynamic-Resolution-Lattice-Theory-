@@ -3,11 +3,10 @@ import E213.Math.Analysis.Differentiation.DifferentiableAffine
 
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutMul
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213DifferentiableCompose
-
-Phase AJ: composition (chain rule) IsDifferentiable instances.
+# DifferentiableCompose
+composition (chain rule) IsDifferentiable instances.
 Demonstrates that composeIsDifferentiable + concrete polynomial
 instances yield closed-form moduli via the chain rule.
 
@@ -23,7 +22,7 @@ namespace E213.Math.Analysis.Differentiation.DifferentiableCompose
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
@@ -80,7 +79,7 @@ theorem cubeOfSquare_modulus (k : Nat) :
   rw [cubeIsDifferentiable_modulus, squareIsDifferentiable_modulus]
   exact (E213.Tactic.Nat213.mul_assoc 2 3 k).symm
 
-/-- Phase AJ capstone: composition modulus = product of degrees. -/
+/-- capstone: composition modulus = product of degrees. -/
 theorem polynomial_compose_capstone (k : Nat) :
     squareOfSquareIsDifferentiable.linearityModulus k = 4 * k
     ∧ squareOfCubeIsDifferentiable.linearityModulus k = 6 * k

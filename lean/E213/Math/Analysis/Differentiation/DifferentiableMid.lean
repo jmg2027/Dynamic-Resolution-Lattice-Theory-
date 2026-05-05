@@ -3,12 +3,11 @@ import E213.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutBisection
 import E213.Math.Real213.CutMul
-import E213.Math.Analysis.Differentiation.IsDifferentiable
-import E213.Math.Analysis.Differentiation.IsSmooth
+import E213.Math.Analysis.Differentiation.Differentiable
+import E213.Math.Analysis.Differentiation.Smooth
 /-!
-# Research.Real213DifferentiableMid
-
-Phase AL: midpoint combinator for IsDifferentiable.
+# DifferentiableMid
+midpoint combinator for IsDifferentiable.
 
 If f, g are differentiable, then mid(f, g)(x) = (f(x) + g(x))/2 is
 also differentiable, with derivative = mid(f', g') = (f' + g')/2.
@@ -26,7 +25,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
@@ -40,7 +39,7 @@ open E213.Math.Analysis.DifferentiableHigherPow
    octicIsDifferentiable
    quinticIsDifferentiable_modulus sexticIsDifferentiable_modulus
    septicIsDifferentiable_modulus octicIsDifferentiable_modulus)
-open E213.Math.Analysis.Differentiation.IsSmooth (midIsSmooth)
+open E213.Math.Analysis.Differentiation.Smooth (midIsSmooth)
 
 /-- Midpoint combinator: (f+g)/2 is differentiable, derivative = (f'+g')/2. -/
 def midIsDifferentiable {f g} (sf : IsDifferentiable f)
@@ -91,7 +90,7 @@ theorem midIdSquare_modulus (k : Nat) :
     (Nat.le_trans (Nat.le_of_eq (Nat.one_mul k).symm)
       (Nat.mul_le_mul_right k (Nat.le_succ 1)))
 
-/-- Phase AL capstone: mid combinator + concrete instances. -/
+/-- capstone: mid combinator + concrete instances. -/
 theorem midpoint_capstone (k : Nat) :
     midSquareCubeIsDifferentiable.linearityModulus k = 3 * k
     ∧ midIdSquareIsDifferentiable.linearityModulus k = 2 * k :=

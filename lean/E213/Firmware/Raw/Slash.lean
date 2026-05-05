@@ -8,7 +8,7 @@ Raw.slash canonicalises the child order using `Tree.cmp`;
 Raw.slash_comm reflects the axiom's directionless "between".
 Tree.depth is the basic structural observable.
 
-Extracted from monolithic `Raw.lean` (Phase D).
+Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Firmware

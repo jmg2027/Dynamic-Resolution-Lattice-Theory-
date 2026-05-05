@@ -101,7 +101,7 @@ Dimensionless ratio:
   r_p · m_p / (ℏc) = 4.0008  (CODATA 2022, computed)
 
 DRLT identity: r_p · m_p / (ℏc) = NT² = 4, with the integer 4
-carrying THREE independent atomic readings (chiral phase NT²,
+carrying THREE independent atomic readings (chiral ²,
 backbone d−1, beyond-NS step NS+1).
 -/
 
@@ -129,8 +129,7 @@ Bare r_p · m_p / (ℏc) = NT² = 4 leaves a 195 ppm gap vs CODATA
 Atomic reading of 125:
   d³ = 5³ = 125         — 3D spatial simplex volume
 
-Reading: proton's dimensionless r_p·m_p·c/ℏ = (chirality phase
-volume NT²) · (1 + spatial-volume-normalized α_GUT correction).
+Reading: proton's dimensionless r_p·m_p·c/ℏ = (chirality NT²) · (1 + spatial-volume-normalized α_GUT correction).
 Geometrically natural for a charge radius — α_GUT carries the
 electromagnetic coupling, /d³ normalizes by the spatial volume
 of the 3-quark glued simplex.

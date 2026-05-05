@@ -4,9 +4,8 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213NewtonFirst
-
-Phase CX: ★ Newton's first law in 213 native form ★
+# NewtonFirst
+★ Newton's first law in 213 native form ★
 
 Newton's first law: F = 0 → constant velocity.  In ODE form:
   x''(t) = a(t) = F(t)/m = 0  (zero force)
@@ -47,7 +46,7 @@ theorem velocity_is_v0_at (v0 x0 : Nat) (t : Nat → Nat → Bool) (m k : Nat) :
       = constCut v0 1 m k :=
   linearWithIntercept_derivative_at v0 x0 t m k
 
-/-- ★ Phase CX capstone (PURE) — Newton's first law pointwise. -/
+/-- ★ capstone (PURE) — Newton's first law pointwise. -/
 theorem newton_first_law_capstone_pure (v0 x0 : Nat) :
     (∀ t m k, (linearWithIntercept_isDifferentiable v0 x0).derivative t m k
               = constCutFn (constCut v0 1) t m k)

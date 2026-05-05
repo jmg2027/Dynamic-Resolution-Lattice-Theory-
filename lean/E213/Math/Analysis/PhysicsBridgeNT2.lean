@@ -7,8 +7,7 @@ import E213.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Math.Analysis.DyadicSearch.DyadicRiemann
 import E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 /-!
-# Research.Real213PhysicsBridgeNT2
-
+# PhysicsBridgeNT2
 **Cross-track bridge** for physics-track Phase 2 (atomic NT-sector = 2).
 
 Physics-track Phase 2 (`E213/Physics/Phase2/`) has established:

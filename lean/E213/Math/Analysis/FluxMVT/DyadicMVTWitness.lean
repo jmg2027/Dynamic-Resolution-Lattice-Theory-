@@ -4,11 +4,10 @@ import E213.Math.Analysis.ClassicCalc.ClassicCalcMid
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutSumTest
 import E213.Math.Analysis.FluxMVT.FluxMVTWitness
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213HasDyadicMVTWitness
-
-Phase BT: ★ class abstracting **constructive dyadic MVT witnesses** ★
+# HasDyadicMVTWitness
+★ class abstracting **constructive dyadic MVT witnesses** ★
 
 For some (lucky) functions, the MVT point c is itself a dyadic cut.
 This class bundles the witness with its proof of correctness.
@@ -22,12 +21,12 @@ ground type) from CLASSICAL existence (witness in real continuum).
 For x², we have the former; for x³, only the latter.
 -/
 
-namespace E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness
+namespace E213.Math.Analysis.FluxMVT.DyadicMVTWitness
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
@@ -75,7 +74,7 @@ theorem square_has_dyadic_witness_at :
 theorem square_witness_at_is_half :
     HasDyadicMVTWitness_at.square_at.witness = constCut 1 2 := rfl
 
-/-- ★ Phase BT _at bundle (PURE). -/
+/-- ★ _at bundle (PURE). -/
 theorem mvt_witness_capstone_at :
     HasDyadicMVTWitness_at.square_at.witness = constCut 1 2
     ∧ (∀ m k, squareIsDifferentiable.derivative
@@ -85,4 +84,4 @@ theorem mvt_witness_capstone_at :
   ⟨rfl, HasDyadicMVTWitness_at.square_at.proof_at,
    square_has_dyadic_witness_at⟩
 
-end E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness
+end E213.Math.Analysis.FluxMVT.DyadicMVTWitness

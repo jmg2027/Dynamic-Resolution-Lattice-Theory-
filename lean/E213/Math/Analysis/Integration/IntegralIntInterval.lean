@@ -7,9 +7,8 @@ import E213.Math.Analysis.Integration.IndefiniteIntegral
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213IntegralIntInterval
-
-Phase DD: ★ integration over integer intervals [0, n] ★
+# IntegralIntInterval
+★ integration over integer intervals [0, n] ★
 
 For a constant function f = 1, the integral over [0, n] equals n.
 Via id_anti: F = id, F(n) - F(0) = n - 0 = n.
@@ -55,7 +54,7 @@ theorem integral_one_intInterval (n : Nat) :
     E213.Math.Analysis.Integration.IntegralViaAnti.IsAntiderivative.integral E213.Math.Analysis.Integration.Antiderivative.IsAntiderivative.id_anti (intInterval n)
       = { forward := constCut n 1, backward := constCut 0 1 } := rfl
 
-/-- Phase DD capstone: integration over integer intervals. -/
+/-- capstone: integration over integer intervals. -/
 theorem integral_int_interval_capstone (n : Nat) :
     -- (1) Bracket structure
     (intInterval n).numA = 0

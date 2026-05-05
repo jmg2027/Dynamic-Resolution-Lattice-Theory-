@@ -9,20 +9,4 @@ import E213.Math.Analysis.Integration.IntegralProperties
 import E213.Math.Analysis.Integration.IntegralViaAnti
 import E213.Math.Analysis.Integration.Integration
 
-/-! Spec-as-code entry point for `E213.Math.Analysis.Integration` — Integration on cuts.
-
-  `IsAntiderivative`, integral classes, Riemann sum, indefinite + integer/dyadic intervals.
-
-  ## Files in this chapter
-
-    * `Antiderivative`
-    * `ClassicAnti`
-    * `CutRiemann`
-    * `IndefiniteIntegral`
-    * `IntegralDyadic`
-    * `IntegralGeneralInt`
-    * `IntegralIntInterval`
-    * `IntegralProperties`
-    * `IntegralViaAnti`
-    * `Integration`
--/
+/-! Spec-as-code entry point for `E213.Math.Analysis.Integration` — Integration on cuts. -/

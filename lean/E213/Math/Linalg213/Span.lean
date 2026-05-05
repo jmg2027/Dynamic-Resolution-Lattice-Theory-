@@ -1,7 +1,7 @@
 import E213.Math.Linalg213.Rank
 
 /-!
-# 213 Linear Algebra — basis span (Phase L3)
+# 213 Linear Algebra — basis span (3)
 
 Proves that any `v : Vec 5` decomposes as a ℕ-linear combination
 of the 5 standard basis vectors e_0, ..., e_4.  This is the
@@ -65,7 +65,7 @@ theorem decomp_at_4 (v : Vec 5) :
        + v ⟨3, _⟩ * 0 + v ⟨4, _⟩ * 1 = v ⟨4, _⟩
   omega
 
-/-- ★ Phase L3 capstone: every `v : Vec 5` admits the basis
+/-- ★ 3 capstone: every `v : Vec 5` admits the basis
     decomposition `v = Σ_{k=0}^{4} v(k) · e_k` pointwise.
     Constructive form of "Vec 5 is rank-5 over ℕ". -/
 theorem vec5_basis_span (v : Vec 5) :

@@ -9,15 +9,14 @@ import E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Math.Analysis.FluxMVT.FluxCochain
 import E213.Math.Analysis.FluxMVT.FluxCut
 /-!
-# Research.Real213FluxMVT
-
-Phase AV-4: **Mean Value Theorem** in flux form (concrete cases).
+# FluxMVT
+-4: **Mean Value Theorem** in flux form (concrete cases).
 
 213-native MVT: localDivergence f db cohomologically matches
 f.derivative at a trajectory midpoint.
 
 The general statement requires the difference quotient bound theorem
-(Phase AW+).  This file establishes concrete cases:
+(+).  This file establishes concrete cases:
 
   fluxBalance              : cohomological equality predicate
   mvt_const                : constants have balanced divergence

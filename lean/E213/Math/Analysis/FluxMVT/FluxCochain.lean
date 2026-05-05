@@ -4,9 +4,8 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutContinuity
 import E213.Math.Analysis.DyadicSearch.DyadicBracket
 /-!
-# Research.Real213FluxCochain
-
-Phase AV-2: **1-cochain construction** on dyadic brackets.
+# FluxCochain
+-2: **1-cochain construction** on dyadic brackets.
 
 For f : Cut → Cut and a dyadic bracket db, the flux of f along db
 is the 1-cochain value at that oriented edge:

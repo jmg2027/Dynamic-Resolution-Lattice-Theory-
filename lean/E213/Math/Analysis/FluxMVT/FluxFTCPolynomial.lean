@@ -14,9 +14,8 @@ import E213.Math.Analysis.FluxMVT.FluxDivergence
 import E213.Math.Analysis.FluxMVT.FluxFTC
 import E213.Math.Analysis.FluxMVT.FluxMVT
 /-!
-# Research.Real213FluxFTCPolynomial
-
-Phase BC: polynomial FTC bridge at unitBracket — propEq form.
+# FluxFTCPolynomial
+polynomial FTC bridge at unitBracket — propEq form.
 
 For each polynomial at unit bracket, both `localDivergence` and
 `fluxAlong` reduce to `ofCut (constCut 1 1)` via `cutMul_one_one` /
@@ -146,7 +145,7 @@ theorem ftc_bridge_cube_unitBracket_pure :
     (E213.Math.Analysis.FluxMVT.FluxMVT.FluxCut.fluxBalance_symm _ _
       fluxAlong_cube_unitBracket_pure)
 
-/-- ★ Phase BC capstone (fluxCutEq, PURE): polynomial FTC bridges. -/
+/-- ★ capstone (fluxCutEq, PURE): polynomial FTC bridges. -/
 theorem polynomial_ftc_bridge_capstone_pure :
     fluxCutEq (localDivergence id unitBracket) (fluxAlong id unitBracket)
     ∧ fluxCutEq (localDivergence (fun x => cutMul x x) unitBracket)

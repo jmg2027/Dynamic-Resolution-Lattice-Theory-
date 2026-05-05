@@ -15,9 +15,8 @@ import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxDivergence
 import E213.Math.Analysis.FluxMVT.FluxMVT
 /-!
-# Research.Real213FluxPassthroughClass
-
-Phase BJ: **Passthrough class** — bundle a function with its
+# FluxPassthroughClass
+Passthrough class** — bundle a function with its
 endpoint witnesses + combinators making MVT/FTC instant.
 
   Passthrough f := { left : f(0) = 0, right : f(1) = 1 }

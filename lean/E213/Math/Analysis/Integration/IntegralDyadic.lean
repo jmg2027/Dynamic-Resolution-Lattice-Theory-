@@ -8,9 +8,8 @@ import E213.Math.Analysis.Integration.IntegralGeneralInt
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213IntegralDyadic
-
-Phase DF: ★★ integration over arbitrary dyadic interval ★★
+# IntegralDyadic
+★★ integration over arbitrary dyadic interval ★★
 
 For any dyadic bracket [numA/2^E, numB/2^E] (numA ≤ numB), the
 integral of constant 1 (via id antiderivative) equals (numB - numA)/2^E
@@ -60,7 +59,7 @@ theorem integral_one_dyadic (numA numB E : Nat) (h : numA ≤ numB) :
       = { forward := constCut numB (2^E),
           backward := constCut numA (2^E) } := rfl
 
-/-- Phase DF capstone: most general dyadic FTC propEq. -/
+/-- capstone: most general dyadic FTC propEq. -/
 theorem integral_dyadic_capstone (numA numB E : Nat) (h : numA ≤ numB) :
     -- (1) Bracket structure
     (dyadicIntervalAB numA numB E h).numA = numA

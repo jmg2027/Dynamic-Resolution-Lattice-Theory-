@@ -10,9 +10,8 @@ import E213.Math.Real213.CutSumTest
 import E213.Math.Real213.CutSumZero
 import E213.Math.Analysis.Differentiation.DifferentiableInstances
 /-!
-# Research.Real213CubeDerivativeAtZero
-
-Phase CY: ★ x³ derivative at x = 0 = 0 propEq ★
+# CubeDerivativeAtZero
+★ x³ derivative at x = 0 = 0 propEq ★
 
 Math: d/dx [x³] at x = 0 = 3·0² = 0.
 
@@ -137,7 +136,7 @@ theorem cubeDerivative_at_zero_at (m k : Nat) :
   rw [h1]
   exact cutSum_zero_zero_at m k
 
-/-- ★ Phase CY capstone (PURE). -/
+/-- ★ capstone (PURE). -/
 theorem polynomial_derivative_at_zero_capstone_at :
     (∀ m k, squareIsDifferentiable.derivative (constCut 0 1) m k
               = constCut 0 1 m k)

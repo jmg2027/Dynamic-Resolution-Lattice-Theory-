@@ -10,7 +10,7 @@ import E213.Kernel.MonomialAxioms
 # Kernel: Public API (re-export shim)
 
 G12 D1: single-import entry point for the Kernel layer's public API.
-Pattern follows `Firmware/Raw.lean` precedent (Phase D refactor shim).
+Pattern follows `Firmware/Raw.lean` precedent (refactor shim).
 
 Downstream code can `import E213.Kernel.API` and access K1+K2+K3:
 

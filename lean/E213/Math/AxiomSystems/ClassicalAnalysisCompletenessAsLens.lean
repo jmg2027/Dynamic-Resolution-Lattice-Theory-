@@ -28,7 +28,7 @@ sequence/limit Raw substrate.
 
 ## 213's alternative
 
-213's Real213 marathon (Phase A-H) constructs ℝ-like objects
+213's Real213 marathon (-H) constructs ℝ-like objects
 *without* applying the completeness lens — keeping each Cauchy
 trajectory as an explicit object (per G2 trajectory principle).
 The InfinitesimalGap theorems (Real213.DyadicTrajectory.

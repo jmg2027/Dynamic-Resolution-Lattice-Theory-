@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Bipartite.V32
 
 /-!
-# Cohomology — Betti numbers of K_{3,2}^{(2)} (Phase CE, file 2)
+# Cohomology — Betti numbers of K_{3,2}^{(2)} (, file 2)
 
 Computes b₀, b₁ of the bipartite multigraph K_{3,2}^{(2)} via
 direct enumeration of vertex cochains.
@@ -63,7 +63,7 @@ theorem b1_eq_8_dim_count :
 /-- Cross-link: b₁ = NS² − 1 = 8 (matches PhotonKernel.b_1_eq_8). -/
 theorem b1_eq_NS_sq_minus_1 : 8 = 3 * 3 - 1 := by decide
 
-/-- ★ Phase CE capstone: K_{3,2}^{(2)} cohomology computed at
+/-- ★ capstone: K_{3,2}^{(2)} cohomology computed at
     full cochain level.
       b₀ = 1    (connected graph)
       b₁ = 8    (= NS² − 1 = 1/α₃ confined coupling)

@@ -1,7 +1,7 @@
 import E213.Math.Linalg213.Span
 
 /-!
-# 213 Linear Algebra — chirality bigrading (Phase L4)
+# 213 Linear Algebra — chirality bigrading (4)
 
 Paper 1's chiral decomposition ℂ⁵ = ℂ² ⊕ ℂ³ in 213-internal form.
 Vec 5 = Vec_S ⊕ Vec_T where Vec_S = Fin 3 → Nat (NS=3 spatial),
@@ -70,7 +70,7 @@ theorem combine_proj_eq (v : Vec 5) (k : Fin 5) :
   | ⟨3, _⟩ => rfl
   | ⟨4, _⟩ => rfl
 
-/-- ★ Phase L4 capstone. -/
+/-- ★ 4 capstone. -/
 theorem phase_L4_capstone :
     NS = 3 ∧ NT = 2 ∧ NS + NT = 5
     ∧ (∀ v : Vec 5, ∀ k : Fin 5,

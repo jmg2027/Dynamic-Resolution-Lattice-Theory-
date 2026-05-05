@@ -18,7 +18,7 @@ verify that `combine` is symmetric (∀ u v, combine u v = combine v u).
 The `fold_slash` theorem already documents this symmetry assumption.
 `AUDIT_Lean.md` §5.2(A).
 
-Extracted from monolithic `Raw.lean` (Phase D).
+Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Firmware.Internal

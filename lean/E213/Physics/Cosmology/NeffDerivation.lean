@@ -53,7 +53,7 @@ theorem alpha_2_temporal_rank :
     binom NT NT = 1 ∧ binom NT (NT + 1) = 0 := by decide
 
 /-- α_1 (EM) cross-sector: no Nat saturates the rank because U(1)
-    is the *relative* phase between V_A and V_B.  Neither G^S nor
+    is the *relative* V_A and V_B.  Neither G^S nor
     G^T is exhausted.  Encoded as: for any candidate finite N,
     EM does not saturate at N (since it doesn't live in either
     sector alone). -/

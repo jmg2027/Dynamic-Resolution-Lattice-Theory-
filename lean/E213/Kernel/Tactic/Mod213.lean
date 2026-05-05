@@ -21,8 +21,7 @@ cascade from `parity` (mod 2) and `mod3` (mod 3) — exactly what
 this module provides.
 
 `mod6` + the CRT pairing (`mod6_parity`, `mod6_mod3`) realise the
-ℤ/6 ≅ ℤ/2 × ℤ/3 walk — the Eisenstein-6th-roots-of-unity phase
-trajectory underlying the K_{3,2}^{(2)} signature graph.
+ℤ/6 ≅ ℤ/2 × ℤ/3 walk — the Eisenstein-6th-roots-of-unity underlying the K_{3,2}^{(2)} signature graph.
 -/
 
 namespace E213.Tactic.Mod213

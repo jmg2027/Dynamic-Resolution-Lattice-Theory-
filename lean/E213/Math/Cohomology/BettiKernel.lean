@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Hodge.Delta
 
 /-!
-# Cohomology — kernel enumeration on cochain spaces (Phase CC, file 1)
+# Cohomology — kernel enumeration on cochain spaces (, file 1)
 
 To compute Betti numbers `bₖ = dim H_k = dim ker δ_k − dim im δ_{k−1}`
 in ℤ/2 cohomology, we need to enumerate the finite cochain space

@@ -13,9 +13,9 @@ import E213.Math.Real213.CutSumTest
 /-!
 # Research.Real213IsSmooth: smoothness as resolution-compression filter
 
-## 213-native philosophy (Phase J)
+## 213-native philosophy ()
 
-User insight (Phase J Sec 3): on a finite fractal lattice, the
+User insight (Sec 3): on a finite fractal lattice, the
 DEFAULT trajectory is continuous-but-non-differentiable (Weierstrass-
 like).  Smoothness is a SPECIAL state where local zigzag noise
 cancels via algebraic regularity to look linear at the macro scale.
@@ -47,7 +47,7 @@ construct linearityModulus + the linearity certificate at use-site.
 This inverts the ZFC bias and matches lattice ontology.
 -/
 
-namespace E213.Math.Analysis.Differentiation.IsSmooth
+namespace E213.Math.Analysis.Differentiation.Smooth
 
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Firmware E213.Hypervisor
@@ -148,7 +148,7 @@ def addLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
             hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_right _ _))
     · exact Nat.le_refl _
 
-/-- **Pointwise sum of smooth is smooth**.  Per user's Phase J Sec 2:
+/-- **Pointwise sum of smooth is smooth**.  Per user's Sec 2:
     cutSum is dyadic-lens superposition, so the linearity modulus is
     the max of input moduli (with a single +1 step buffer).
 
@@ -199,7 +199,7 @@ def mulLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
             hm' (Nat.le_refl _)) (E213.Math.Max213.le_max_right _ _))
     · exact Nat.le_refl _
 
-/-- **Pointwise product of smooth is smooth**.  Per user's Phase J Sec 2:
+/-- **Pointwise product of smooth is smooth**.  Per user's Sec 2:
     cutMul has nonlinear error compound from input dynamic range.
     Linearity modulus = sum of input moduli (errors add multiplicatively
     in product, additively in log-form moduli).
@@ -322,4 +322,4 @@ def fourteenthIsSmooth :
                                                 (cutMul (cutMul x x) (cutMul x x))) x)) :=
   mulIsSmooth sexticIsSmooth octicIsSmooth
 
-end E213.Math.Analysis.Differentiation.IsSmooth
+end E213.Math.Analysis.Differentiation.Smooth

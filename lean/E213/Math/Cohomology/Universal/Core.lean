@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.BettiKernel
 
 /-!
-# Universal δ²=0 via enumeration (Phase C partial)
+# Universal δ²=0 via enumeration (partial)
 
 Lean 4 core lacks Pi-Fintype on `Cochain n k = Fin N → Bool`,
 so `∀ σ : Cochain n k, P σ` is not directly decidable.

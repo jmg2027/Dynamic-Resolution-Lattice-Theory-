@@ -7,7 +7,7 @@ import E213.Math.Real213.CutPow
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumOne
 import E213.Math.Real213.CutSumTest
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
 # 213-native ordinary differential equations — propositional solutions
 
@@ -30,8 +30,8 @@ the solution involves rational coefficients beyond constants.
   * `E213.Math.Analysis.ODECatalog`     — pointwise catalog (5 trivial RHS)
   * `E213.Math.Analysis.ODESecondOrder` — y'' = 0 (linear functions)
 
-(Consolidated 2026-05-05 from 3 phase files: ODELinear [Phase CU] +
-ODECatalog [Phase CV] + ODESecondOrder [Phase CW].  Per-stage
+(Consolidated 2026-05-05 from 3 ODELinear [] +
+ODECatalog [] + ODESecondOrder [].  Per-stage
 capstone bundles dropped.)
 -/
 
@@ -43,7 +43,7 @@ open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (cutScaleIsDifferentiable)
@@ -78,7 +78,7 @@ open E213.Math.Real213.CutBisection (cutHalf)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (idIsDifferentiable constIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances
   (cutScaleIsDifferentiable cutHalfIsDifferentiable)
@@ -117,7 +117,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable constIsDifferentiable)
 
 /-- Second-derivative witness for linear function. -/

@@ -1,4 +1,4 @@
-import E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness
+import E213.Math.Analysis.FluxMVT.DyadicMVTWitness
 import E213.Math.Analysis.FluxMVT.FluxMVTWitness
 import E213.Math.Analysis.Differentiation.DifferentiableMid
 
@@ -12,7 +12,7 @@ import E213.Math.Real213.CutSumDetermined
 import E213.Math.Real213.CutSumOne
 import E213.Math.Real213.CutSumTest
 import E213.Math.Analysis.Differentiation.DifferentiableInstances
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
 # Constructive dyadic MVT witnesses — combinator chain at `c = 1/2`
 
@@ -28,7 +28,7 @@ through `HasDyadicMVTWitness_at` instances:
 Each derivative is `1` at `c = 1/2`, so each function admits a
 `HasDyadicMVTWitness_at` instance.
 
-(Sub-namespaces preserved from Phase BU/CF/CJ.)
+(Sub-namespaces preserved from /CF/CJ.)
 -/
 namespace E213.Math.Analysis.FluxMVTMore
 
@@ -38,13 +38,13 @@ open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness
   (HasDyadicMVTWitness_at square_has_dyadic_witness_at)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
 open E213.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 open E213.Math.Real213.CutSum (cutSumAux)
 open E213.Math.Real213.CutMulOne
@@ -125,12 +125,12 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness (HasDyadicMVTWitness_at)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness (HasDyadicMVTWitness_at)
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
 open E213.Math.Analysis.FluxMVTMore (mid_id_square_derivative_at_half_at)
 open E213.Math.Real213.CutMidSelf (cutMid_self_constCut_at)
 
@@ -189,12 +189,12 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness (HasDyadicMVTWitness_at)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness (HasDyadicMVTWitness_at)
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness.HasDyadicMVTWitness_at (mvt_exists_at)
 open E213.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 open E213.Math.Analysis.FluxMVTMore (mid_id_square_derivative_at_half_at)
 open E213.Math.Real213.CutMidSelf (cutMid_self_constCut_at)

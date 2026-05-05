@@ -9,7 +9,7 @@ distributes over a symmetric `combine`, `Raw.fold` on `Raw.swap`
 equals `conj` applied to `Raw.fold`.  Consumers instantiate for
 their own codomain (e.g., ℤ[i] with conj = complex conj).
 
-Extracted from monolithic `Raw.lean` (Phase D).
+Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Firmware.Internal

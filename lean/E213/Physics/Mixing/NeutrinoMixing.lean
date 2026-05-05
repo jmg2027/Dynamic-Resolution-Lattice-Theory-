@@ -114,7 +114,7 @@ observables benefit from triple cup-chain structure:
   |Δ|   ≈ 14 ppm  ★ (was 3550 ppm — 250× tighter; 0.0005σ vs PDG)
 
 Atomic readings:
-  NT² = 4  : chirality phase volume (also = d−1 = NS+1)
+  NT² = 4  : chirality (also = d−1 = NS+1)
   NS·NT = 6: bipartite spoke count (also = d+1)
 
 Both coefficients reused from g_p (Class D triple cup) and

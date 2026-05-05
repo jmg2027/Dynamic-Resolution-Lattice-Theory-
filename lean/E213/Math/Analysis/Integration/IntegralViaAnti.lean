@@ -8,9 +8,8 @@ import E213.Math.Analysis.FluxMVT.FluxCochain
 import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxFTC
 /-!
-# Research.Real213IntegralViaAnti
-
-Phase CQ: ★ integration via antiderivative ★
+# IntegralViaAnti
+★ integration via antiderivative ★
 
 Defines `integralViaAntiderivative`: given an IsAntiderivative
 hypothesis, the "definite integral" of f over a bracket is the
@@ -61,7 +60,7 @@ theorem integral_zero_unit_balanced :
 
 end IsAntiderivative
 
-/-- Phase CQ capstone: integration via antiderivative. -/
+/-- capstone: integration via antiderivative. -/
 theorem integral_via_anti_capstone :
     -- (1) Integral of 1 over unit = 1 (in ofCut form)
     IsAntiderivative.integral IsAntiderivative.id_anti unitBracket

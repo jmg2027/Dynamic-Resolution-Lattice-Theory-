@@ -12,22 +12,22 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumDetermined
 import E213.Math.Real213.CutSumTest
 import E213.Math.Analysis.Differentiation.DifferentiableMid
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
 # Witness propagation under derivative combinators
 
 If two `IsDifferentiable` functions `f`, `g` both witness derivative `1`
 at `c = 1/2`, then so do the combinator-built functions:
 
-  - `mid(f, g)`            (Phase CK — `mid_witness_propagates_at`)
-  - `id ∘ f`               (Phase CL — `id_compose_witness_propagates_at`)
+  - `mid(f, g)`            (— `mid_witness_propagates_at`)
+  - `id ∘ f`               (— `id_compose_witness_propagates_at`)
 
 Sub-namespaces preserved (cross-file `open` declarations stay valid):
 
   * `E213.Math.Analysis.FluxMVT.FluxMVTPropagate`         — `mid` propagation
   * `E213.Math.Analysis.FluxMVTPropagateCompose`  — `id ∘ f` propagation
 
-(Consolidated 2026-05-05 from 2 phase files.  Per-stage capstone
+(Consolidated 2026-05-05 from 2 .  Per-stage capstone
 bundles dropped.)
 -/
 
@@ -37,7 +37,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
@@ -96,7 +96,7 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)

@@ -1,7 +1,7 @@
 import E213.Math.Linalg213.Gram
 
 /-!
-# 213 Linear Algebra — linear combination + dependence (Phase L2)
+# 213 Linear Algebra — linear combination + dependence (2)
 
 ℕ-valued Vec cannot cancel, so coefficients lift to Int.  Lean 4
 core's `Int` is constructive.  Target: rank ≤ d for any

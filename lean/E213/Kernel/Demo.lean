@@ -29,7 +29,7 @@ theorem d_sq_25 :
 /-- Reinforcement: eval of d·d is *literally* 25. -/
 theorem eval_d_sq : eval (mul d d) = 25 := rfl
 
-/-- (n_S · n_T)² = 36 — Phase dimension count squared. -/
+/-- (n_S · n_T)² = 36 — count squared. -/
 theorem nSnT_sq_36 : eval (mul (mul nS nT) (mul nS nT)) = 36 := rfl
 
 /-- 2 n_S² = 18  (Argon octet closure count). -/

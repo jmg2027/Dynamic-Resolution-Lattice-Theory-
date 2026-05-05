@@ -2,8 +2,7 @@ import E213.Hypervisor.Lens.Instances.Parity
 import E213.Hypervisor.Lens.Instances.Bool
 
 /-!
-# Research.ParityXorIncomparable
-
+# ParityXorIncomparable
 **Claim**: `parityLens ∥ boolXorLens` (incomparable in the refines
 preorder).
 

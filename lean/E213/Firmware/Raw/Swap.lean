@@ -6,7 +6,7 @@ import E213.Firmware.Raw.Cmp
 Swap preserves canonicality by re-ordering children after
 recursive swap.  `Raw.swap_swap` is Theorem 3.2 of the paper.
 
-Extracted from monolithic `Raw.lean` (Phase D).
+Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Firmware.Internal

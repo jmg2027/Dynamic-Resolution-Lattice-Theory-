@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Hodge.Involution
 
 /-!
-# Cohomology — codifferential δ* = ⋆δ⋆ (Phase CB, file 3)
+# Cohomology — codifferential δ* = ⋆δ⋆ (, file 3)
 
 The codifferential `codiff = ⋆ ∘ δ ∘ ⋆ : Cᵏ → Cᵏ⁻¹` lowers degree.
 Combined with the standard differential δ, it builds the Laplacian
@@ -12,7 +12,7 @@ This file defines `codiff` at concrete level (n=5, k=2) and (n=5, k=3)
 to avoid implicit type-elaboration issues with Nat subtraction in
 the result of `hodgeStar`.
 
-Phase CB closes here.  Phase CC (Betti numbers via decide) follows.
+closes here.  (Betti numbers via decide) follows.
 -/
 
 namespace E213.Math.Cohomology.Hodge.Delta
@@ -60,7 +60,7 @@ theorem codiff_all_true_5_2_v0_decidable :
   · exact Or.inr rfl
   · exact Or.inl rfl
 
-/-- ★ Phase CB capstone: ⋆ (Hodge star), ⋆⋆=id, codiff = ⋆δ⋆ all
+/-- ★ capstone: ⋆ (Hodge star), ⋆⋆=id, codiff = ⋆δ⋆ all
     well-defined and 0-axiom on Δ⁴. -/
 theorem phase_CB_capstone :
     -- ⋆⋆ = id on multiple cochains

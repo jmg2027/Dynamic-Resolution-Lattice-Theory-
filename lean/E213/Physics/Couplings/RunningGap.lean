@@ -31,7 +31,7 @@ Total Gram channels: d² = 25.  By PairForcing + Atomicity:
                  (factor 2 = c_lattice)
 
 The IR gauge boson (photon) is the cross-sector U(1) — relative
-phase between V_A and V_B.  At IR (Q=0), it couples to all d²
+V_A and V_B.  At IR (Q=0), it couples to all d²
 Gram channels through *spatial* propagation (NS dirs).
 
 **Per-spatial-direction Gram channel count = d² / NS = 25/3.**

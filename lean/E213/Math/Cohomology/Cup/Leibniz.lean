@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Cup.Core
 
 /-!
-# Cohomology — cup-product Leibniz rule (Phase CD, file 2)
+# Cohomology — cup-product Leibniz rule (, file 2)
 
 The compatibility identity making cup descend to H*:
 
@@ -52,7 +52,7 @@ theorem leibniz_zero_right :
         = xor (cup 5 2 1 (delta v0_5) (Cochain.zero 5 1) i)
               (cup 5 1 2 v0_5 (delta (Cochain.zero 5 1)) i) := by decide
 
-/-- ★ Phase CD intermediate capstone (file 2) — Leibniz rule
+/-- ★ intermediate capstone (file 2) — Leibniz rule
     `δ(α ⌣ β) = δα ⌣ β XOR α ⌣ δβ` verified at four cochain
     pairs on Δ⁴.  Confirms cup descends to H*. -/
 theorem phase_CD_leibniz_capstone :

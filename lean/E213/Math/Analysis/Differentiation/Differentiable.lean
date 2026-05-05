@@ -1,4 +1,4 @@
-import E213.Math.Analysis.Differentiation.IsSmooth
+import E213.Math.Analysis.Differentiation.Smooth
 import E213.Math.Real213.Core
 
 import E213.Math.Real213.CutContinuity
@@ -10,8 +10,8 @@ import E213.Math.Real213.CutSumTest
 # Research.Real213IsDifferentiable: differentiation filter
 
 Extends `IsSmooth` with an explicit **derivative function** as
-constructive data.  Phase AD-1 scope: structure + instances; the
-difference-quotient bound theorem is deferred to Phase AD-3.
+constructive data.  -1 scope: structure + instances; the
+difference-quotient bound theorem is deferred to -3.
 
 ## Instances (AD-1)
 
@@ -23,7 +23,7 @@ difference-quotient bound theorem is deferred to Phase AD-3.
   cutPowFnIsDifferentiable polynomial via product rule
 -/
 
-namespace E213.Math.Analysis.Differentiation.IsDifferentiable
+namespace E213.Math.Analysis.Differentiation.Differentiable
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
@@ -32,7 +32,7 @@ open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.Differentiation.IsSmooth (IsSmooth addIsSmooth composeIsSmooth constIsSmooth idIsSmooth mulIsSmooth)
+open E213.Math.Analysis.Differentiation.Smooth (IsSmooth addIsSmooth composeIsSmooth constIsSmooth idIsSmooth mulIsSmooth)
 
 /-- **Differentiability filter**: smoothness + explicit derivative. -/
 structure IsDifferentiable (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
@@ -87,4 +87,4 @@ def cutPowFnIsDifferentiable : ∀ n, IsDifferentiable (fun x => cutPow x n)
   | 0 => constIsDifferentiable (constCut 1 1)
   | n+1 => mulIsDifferentiable (cutPowFnIsDifferentiable n) idIsDifferentiable
 
-end E213.Math.Analysis.Differentiation.IsDifferentiable
+end E213.Math.Analysis.Differentiation.Differentiable

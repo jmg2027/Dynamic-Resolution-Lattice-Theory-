@@ -5,7 +5,7 @@ import E213.Firmware.Raw.Fold
 # Firmware.Raw.Levels: swap-depth / swap-leaves invariance
 + fold-bridges into depth / leaves observables.
 
-Extracted from monolithic `Raw.lean` (Phase D).
+Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Firmware.Internal

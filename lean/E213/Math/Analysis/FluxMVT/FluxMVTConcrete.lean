@@ -13,11 +13,10 @@ import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxDivergence
 import E213.Math.Analysis.FluxMVT.FluxEquiv
 import E213.Math.Analysis.FluxMVT.FluxMVT
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213FluxMVTConcrete
-
-Phase AY-3: **Concrete MVT** via cohomEquiv.
+# FluxMVTConcrete
+-3: **Concrete MVT** via cohomEquiv.
 
 For specific functions and brackets, the localDivergence cohomEquiv
 matches the (scaled) flux of the derivative.  Avoids the "general
@@ -48,7 +47,7 @@ open E213.Math.Real213.CutMulOne (cutMul_one_one_at cutMul_one_const_at)
 open E213.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut add neg)
 open E213.Math.Analysis.FluxMVT.FluxEquiv.FluxCut (cohomEquiv cohomEquiv_refl)
 open E213.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence_const_balanced)
-open E213.Math.Analysis.Differentiation.IsDifferentiable (idIsDifferentiable)
+open E213.Math.Analysis.Differentiation.Differentiable (idIsDifferentiable)
 
 namespace FluxCut
 

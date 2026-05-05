@@ -11,7 +11,7 @@ decomposes a `Raw` term through three cases
 access.
 
 This module re-proves `Raw.fold_signed_swap` using the new
-eliminator as a sanity-check that the Phase C3 refactor
+eliminator as a sanity-check that the 3 refactor
 actually works.  The `a` / `b` cases exercise `Raw.rec`
 directly; the `slash` case delegates to `Raw.fold_swap_hom`
 as a black-box (public API only, no Tree internals).

@@ -7,9 +7,8 @@ import E213.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxDivergence
 /-!
-# Research.Real213FluxPolynomial
-
-Phase AW: explicit local divergence forms for polynomial functions.
+# FluxPolynomial
+explicit local divergence forms for polynomial functions.
 Each polynomial's flux at a bracket has a structural rfl form
 giving direct computational access.
 
@@ -65,7 +64,7 @@ theorem localDivergence_quartic (db : DyadicBracket) :
                     (cutMul db.leftCut db.leftCut)) } :=
   rfl
 
-/-- Phase AW capstone: polynomial divergence forms (rfl-clean). -/
+/-- capstone: polynomial divergence forms (rfl-clean). -/
 theorem polynomial_flux_capstone (n : Nat) (db : DyadicBracket) :
     (localDivergence (fun x => cutMul x x) db).forward
       = cutScale (2^db.expE) 1 (cutMul db.rightCut db.rightCut)

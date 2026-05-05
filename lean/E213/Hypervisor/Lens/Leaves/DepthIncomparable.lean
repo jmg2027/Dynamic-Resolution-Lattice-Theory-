@@ -1,8 +1,7 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.LeavesDepthIncomparable
-
+# DepthIncomparable
 **Claim**: `Lens.leaves` and `Lens.depth` are **incomparable** in the
 refines preorder — neither refines the other.
 

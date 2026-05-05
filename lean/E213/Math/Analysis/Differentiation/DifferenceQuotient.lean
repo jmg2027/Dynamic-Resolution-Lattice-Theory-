@@ -4,7 +4,7 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213Diff: Differentiation (declarative form, Phase E)
+# Research.Real213Diff: Differentiation (declarative form, )
 
 Bishop-style differentiation in 213 cut form.
 
@@ -21,7 +21,7 @@ cut form: bound provided via explicit modulus N(m, k).
 Interface + types — full implementation is separate.
 -/
 
-namespace E213.Math.Analysis.Differentiation.Diff
+namespace E213.Math.Analysis.Differentiation.DifferenceQuotient
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
@@ -40,4 +40,4 @@ def constDifferentiable (c : Nat → Nat → Bool) (p : Nat → Nat → Bool) :
   derivative := constCut 0 1  -- "0/1" cut representation (always true)
   modulus := fun _ _ => 0
 
-end E213.Math.Analysis.Differentiation.Diff
+end E213.Math.Analysis.Differentiation.DifferenceQuotient

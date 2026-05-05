@@ -1,9 +1,9 @@
 import E213.Math.Cohomology.HodgeConjecture.Bridge.MotiveEtaleFusion
 
 /-!
-# Phase Routing — same lattice, different trajectory routes
+# — same lattice, different trajectory routes
 
-213-internal framing of "phase transitions":
+213-internal framing of "":
 NOT a discrete jump (finitist vocabulary, presupposes a continuum
 baseline that's been broken) NOR a non-analytic limit (infinitist
 vocabulary, presupposes completed infinity).  Both terms come from
@@ -65,7 +65,7 @@ theorem BL_routes_agree_2_at_1 : routesAgree (routeBL_motivic 2) (routeBL_etale 
 theorem BL_routes_agree_2_at_2 : routesAgree (routeBL_motivic 2) (routeBL_etale 2) 2 = true := by decide
 
 /-- BL routes RE-ROUTE at p = q+1 (motivic kills, étale survives).
-    This is the "phase boundary" — same lattice, different route. -/
+    This is the "" — same lattice, different route. -/
 theorem BL_routes_diverge_2_at_3 : routesDiverge (routeBL_motivic 2) (routeBL_etale 2) 3 = true := by decide
 theorem BL_routes_diverge_2_at_4 : routesDiverge (routeBL_motivic 2) (routeBL_etale 2) 4 = true := by decide
 theorem BL_routes_diverge_2_at_5 : routesDiverge (routeBL_motivic 2) (routeBL_etale 2) 5 = true := by decide
@@ -148,7 +148,7 @@ theorem filling_step_2_to_3 :
 
 /-- Routes diverge at degree 1, but agree at degrees 0 and ≥ 2:
     the cell-filling re-routes ONLY the H¹ trajectory, not the
-    others.  Phase localisation in route language. -/
+    others.  in route language. -/
 theorem filling_localised_at_degree_1 :
     routesAgree    (routeFilling 0) (routeFilling 3) 0 = true
     ∧ routesDiverge (routeFilling 0) (routeFilling 3) 1 = true
@@ -173,7 +173,7 @@ theorem BL_full_reroute_at_q0 :
     ∧ routesDiverge (routeBL_motivic 0) (routeBL_etale 0) 1 = true := by
   refine ⟨?_, ?_⟩ <;> decide
 
-/-! §6  ★★★★★ Phase routing capstone — STRICT ∅-AXIOM by decide.
+/-! §6  ★★★★★ capstone — STRICT ∅-AXIOM by decide.
 
     Three families of route-pairs on the same Δ⁴ + K_{3,2}^{(c=2)}
     lattice, each demonstrating the trajectory-routing framing

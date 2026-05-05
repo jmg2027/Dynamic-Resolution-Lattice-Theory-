@@ -2,7 +2,7 @@ import E213.Math.Linalg213.Chiral
 import E213.Math.Cohomology.Paper1Chiral
 
 /-!
-# Linalg213 ↔ Cohomology 213 Bridge (Phase L5)
+# Linalg213 ↔ Cohomology 213 Bridge (5)
 
 Formal identification between paper 1's chiral decomposition
 in two complementary 213-internal frameworks:
@@ -24,7 +24,7 @@ correspondence formal.
 The bridge is *exact at level 1* (cochain on vertices ≅ vector
 indexing).  Higher cochain levels (k ≥ 2) involve faces (edges,
 triangles, etc.) which Linalg213 does not yet have a direct
-analogue for — that lifts to Phase L6.
+analogue for — that lifts to 6.
 -/
 
 namespace E213.Math.Linalg213.Bridge
@@ -54,7 +54,7 @@ theorem atomic_split_consistent :
     dimVecS = NS ∧ dimVecT = NT
     ∧ chiralDim 1 0 = NS ∧ chiralDim 0 1 = NT := by decide
 
-/-- ★ Phase L5 capstone — paper 1's chiral split is the SAME
+/-- ★ 5 capstone — paper 1's chiral split is the SAME
     decomposition in both frameworks, formally identified. -/
 theorem phase_L5_capstone :
     -- Linalg side: dim agreement

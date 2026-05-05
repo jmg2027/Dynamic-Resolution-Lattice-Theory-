@@ -5,7 +5,7 @@ import E213.Math.Analysis.CauchyComplete
 # Research.Real213ConsistentOracle: oracle consistency as a typed
   protocol — the 213-native solution to Cauchy Case C.
 
-## User insight (Phase J Sec 1)
+## User insight (Sec 1)
 
 The ghost of ZFC IVT comes from the myth that "c exists exactly somewhere."
 213 rejects this, so instead of importing the oracle's *oscillation error
@@ -63,7 +63,7 @@ structure ConsistentOracle (db : DyadicBracket) where
 /-- **The 213-native IVT trajectory**: under a ConsistentOracle,
     the bracket midpoint sequence is a CauchyCutSeq.
 
-    This is the formal payoff of Phase J: the IVT is no longer a
+    This is the formal payoff of the IVT is no longer a
     point-existence claim but a Cauchy trajectory of dyadic
     midpoints, with explicit modulus baked in.  -/
 def ConsistentOracle.toCauchyCutSeq {db : DyadicBracket}

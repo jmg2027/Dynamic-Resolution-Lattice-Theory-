@@ -1,9 +1,9 @@
 import E213.Math.Real213.CutSum
 
 /-!
-# Research.Real213CauchyComplete: Cauchy completeness at cut level (Phase C3)
+# Research.Real213CauchyComplete: Cauchy completeness at cut level (3)
 
-Phase C3 of `E1`: Cauchy completeness of Real213.
+3 of `E1`: Cauchy completeness of Real213.
 
 User insight (E1): "Since Real213 itself is (sequence + modulus),
 Cauchy completeness is *almost trivial*".

@@ -3,36 +3,36 @@ import E213.Math.Cohomology.Delta.SqZero
 import E213.Math.Cohomology.TrivialCases
 
 /-!
-# Cohomology 213 — Marathon capstone (Phase CF)
+# Cohomology 213 — Marathon capstone ()
 
-Bundles the five phase capstones into a single 0-axiom theorem.
+Bundles the five into a single 0-axiom theorem.
 Closes the Cohomology 213 marathon as a self-contained branch of
 213-internal mathematics.
 
 ## What's inside (all decide-checked, 0 axiom)
 
-### Phase CA — cochain complex foundation
+### — cochain complex foundation
   * `Cochain n k = Fin (binom n k) → Bool`
   * `delta : Cᵏ → Cᵏ⁺¹` via XOR over face removals
   * δ²=0 verified at multiple concrete cochains on Δ⁴
 
-### Phase CB — Hodge ⋆
+### — Hodge ⋆
   * `hodgeStar n k m σ : Cⁿ → Cⁿ⁻ᵏ` via complement
   * ⋆⋆ = id verified at multiple Bool-pure cochains
   * `codiff = ⋆ ∘ δ ∘ ⋆ : Cᵏ → Cᵏ⁻¹` defined
 
-### Phase CC — Betti numbers via enumeration
+### — Betti numbers via enumeration
   * `kerSizeDelta n k` count of σ ∈ Cᵏ with δσ = 0
   * Δ⁴ contractible: kerSize 5 0 = 1, kerSize 5 1 = 2
     (b̃_0 = b̃_1 = 0 reduced ℤ/2)
 
-### Phase CD — cup product + ring
+### — cup product + ring
   * `cup n k l : Cᵏ × Cˡ → Cᵏ⁺ˡ` (Alexander–Whitney)
   * Leibniz: δ(α ⌣ β) = δα ⌣ β XOR α ⌣ δβ
   * Unit ε ∈ C⁰; associativity at concrete triples
   * Cochain-level non-commutativity (graded-comm only on H*)
 
-### Phase CE — bipartite multigraph cohomology
+### — bipartite multigraph cohomology
   * Separate cochain construction for K_{3,2}^{(2)}
   * |ker δ₀| = 2 ⇒ b₀ = 1
   * Rank-nullity ⇒ b₁ = 12 − 4 = 8 = NS² − 1

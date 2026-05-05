@@ -75,7 +75,7 @@ structure LocalityWitness (Idx : Type) (Val : Type) where
     that the bundle has cardinality `n` for cataloging. -/
 structure CapstoneBundle where
   arity   : Nat
-  /-- Phase tag (e.g., "BA", "BH", "CM") for cross-reference. -/
+  /-- (e.g., "BA", "BH", "CM") for cross-reference. -/
   phase   : String
   deriving Repr
 
@@ -226,8 +226,7 @@ structure LensWitness (α : Type) where
 
 /-- **`_capstone_pure` composite** = `Locality × Aggregation`.
 
-    The pattern dominant across `Math/Real213/`: a phase capstone
-    that bundles N pointwise (`*_pure` / `*_at`) witnesses into one
+    The pattern dominant across `Math/Real213/`: a that bundles N pointwise (`*_pure` / `*_at`) witnesses into one
     ∧-conjunction, e.g. `polynomial_mvt_unitBracket_capstone_pure`
     (FluxMVTPolynomial, arity 3, phase "BB") whose proof is the anon
     constructor `⟨mvt_id_unitBracket_pure, mvt_square_unitBracket_pure,
@@ -243,7 +242,7 @@ structure LensWitness (α : Type) where
     and the most populous one in the codebase: ~232 sealed-then-deleted
     capstone facade theorems all instantiated this composite. -/
 structure LocalityAggregate (Idx : Type) (Val : Type) where
-  /-- Phase tag inherited from Aggregation game. -/
+  /-- inherited from Aggregation game. -/
   phase  : String
   /-- Bundle cardinality from Aggregation game. -/
   arity  : Nat
@@ -271,7 +270,7 @@ structure LocalityAggregate (Idx : Type) (Val : Type) where
     where the bundled content was elided.  `Aggregate W` makes the
     content explicit and parametric. -/
 structure Aggregate (W : Type) where
-  /-- Phase tag (e.g., "BB", "BU"). -/
+  /-- (e.g., "BB", "BU"). -/
   phase  : String
   /-- Bundle cardinality. -/
   arity  : Nat
@@ -286,11 +285,11 @@ structure Aggregate (W : Type) where
     index: index `n` carries a witness of type `W n`.
 
     Codebase candidate: any capstone bundling theorems whose
-    *witness types* differ — e.g., a phase capstone collecting one
+    *witness types* differ — e.g., a collecting one
     Locality witness, one Interface witness, one Cata witness all
     in a single ∧-bundle. -/
 structure DepAggregate (W : Nat → Type) where
-  /-- Phase tag. -/
+  /-- . -/
   phase  : String
   /-- Bundle cardinality. -/
   arity  : Nat

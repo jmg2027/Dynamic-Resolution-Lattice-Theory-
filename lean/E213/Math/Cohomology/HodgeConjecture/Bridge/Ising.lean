@@ -6,7 +6,7 @@ import E213.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting
 Standard Ising: lattice of spins σ_i ∈ {±1}, Hamiltonian
    H(σ) = -J Σ_{<ij>} σ_i σ_j,
 partition function Z(β) = Σ_σ exp(-β H), with continuum T-driven
-phase transition at T_c (Onsager).
+at T_c (Onsager).
 
 213-native: there is no "T" continuum and no completed-infinity
 thermodynamic limit (these are ZFC-internal concepts that don't
@@ -23,7 +23,7 @@ arise here).  The Ising structure on K_5 is captured by:
     Z(1) = 32 equal-weight sum).
   · "Phase" = which sub-route on the same lattice (energy
     threshold E_max selects the reachable-config sub-route).
-    Phase boundaries = re-routings at E_max ∈ {0, 4, 6}.
+    = re-routings at E_max ∈ {0, 4, 6}.
   · Z/2 symmetry breaking: allUp and allDown are σ-reflection
     related and BOTH ground states; "breaking" = picking one.
 
@@ -137,7 +137,7 @@ theorem routeUpTo_5  : routeUpTo 5  = 12 := by decide
 theorem routeUpTo_6  : routeUpTo 6  = 32 := by decide
 theorem routeUpTo_10 : routeUpTo 10 = 32 := by decide
 
-/-! §8  Phase boundaries: re-routings at the three discrete levels. -/
+/-! §8  re-routings at the three discrete levels. -/
 
 theorem phase_boundary_at_E4 : routeUpTo 3 ≠ routeUpTo 4 := by decide
 theorem phase_boundary_at_E6 : routeUpTo 5 ≠ routeUpTo 6 := by decide
@@ -167,7 +167,7 @@ theorem partition_at_unity_eq_total  : Z 1 = routeUpTo 6 := by decide
     Bool sites, energy E(σ) ∈ {0, 4, 6} with multiplicities (2, 10, 20),
     partition function Z(t) = 2 + 10t⁴ + 20t⁶ as a Nat polynomial,
     Z/2 symmetry breaking as routeGroundUp ⊔ routeGroundDown, and
-    "phase boundary" = trajectory re-routing at the discrete level
+    "" = trajectory re-routing at the discrete level
     thresholds E_max ∈ {0, 4, 6}.  No exp, no continuum T, no
     thermodynamic limit. -/
 theorem ising_213_capstone :
@@ -183,7 +183,7 @@ theorem ising_213_capstone :
     ∧ levelMult 0 + levelMult 4 + levelMult 6 = 32
     -- Partition function values
     ∧ Z 0 = 2 ∧ Z 1 = 32 ∧ Z 2 = 1442
-    -- Phase boundaries: re-routings at exactly E ∈ {4, 6}
+    -- re-routings at exactly E ∈ {4, 6}
     ∧ routeUpTo 3 ≠ routeUpTo 4
     ∧ routeUpTo 5 ≠ routeUpTo 6
     ∧ routeUpTo 0 = routeUpTo 3      -- stable below E=4

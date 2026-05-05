@@ -10,9 +10,8 @@ import E213.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Math.Analysis.FluxMVT.FluxCut
 /-!
-# Research.Real213FluxDivergence
-
-Phase AV-3: **Local divergence** = flux per unit measure.
+# FluxDivergence
+-3: **Local divergence** = flux per unit measure.
 
 For a dyadic bracket of expE n, measure = 2^(-n), so divergence
 = flux × 2^n.  213-native form of *derivative*: cohomological flux

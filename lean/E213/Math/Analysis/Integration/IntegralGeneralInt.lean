@@ -8,9 +8,8 @@ import E213.Math.Analysis.Integration.IntegralIntInterval
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213IntegralGeneralInt
-
-Phase DE: ★ integration over arbitrary integer interval [a, b] ★
+# IntegralGeneralInt
+★ integration over arbitrary integer interval [a, b] ★
 
 For integers a ≤ b, the bracket [a, b] yields ∫_a^b 1 dx = b - a
 cohomologically via id antiderivative.
@@ -55,7 +54,7 @@ theorem integral_one_intIntervalAA (a : Nat) :
         (intIntervalAB a a (Nat.le_refl a))
       = { forward := constCut a 1, backward := constCut a 1 } := rfl
 
-/-- Phase DE capstone: general integer interval integration. -/
+/-- capstone: general integer interval integration. -/
 theorem integral_general_int_capstone (a b : Nat) (h : a ≤ b) :
     -- (1) numA = a
     (intIntervalAB a b h).numA = a

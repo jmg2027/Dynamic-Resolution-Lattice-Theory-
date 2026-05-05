@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Delta.SqZero
 
 /-!
-# Cohomology — Phase CA capstone: smoke tests across d ≤ 5 (file 5)
+# Cohomology — capstone: smoke tests across d ≤ 5 (file 5)
 
 Verifies that the cochain complex `(Cᵏ, δ)` on Δⁿ⁻¹ is well-formed
 for n = 2, 3, 4, 5.  Each row checks face counts + that δ preserves
@@ -54,7 +54,7 @@ theorem delta_zero_preserves_zero_5_2 :
 theorem delta_zero_preserves_zero_5_3 :
     ∀ i : Fin (binom 5 4), delta (Cochain.zero 5 3) i = false := by decide
 
-/-- ★ Phase CA capstone — face counts + Hodge dim duality + δ
+/-- ★ capstone — face counts + Hodge dim duality + δ
     preserves zero for the cochain complex on Δ⁴. -/
 theorem phase_CA_capstone :
     (binom 5 0 = 1 ∧ binom 5 1 = 5 ∧ binom 5 2 = 10

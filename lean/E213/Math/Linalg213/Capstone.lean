@@ -2,7 +2,7 @@ import E213.Math.Linalg213.Bridge
 import E213.Math.Cohomology.TopologyCompare
 
 /-!
-# Linalg213 — Phase L6 Capstone
+# Linalg213 — 6 Capstone
 
 **Paper 1 Chiral Compression Theorem** in 213-internal form.
 Bundles results from CA-CF Cohomology marathon + L1-L5 Linalg213

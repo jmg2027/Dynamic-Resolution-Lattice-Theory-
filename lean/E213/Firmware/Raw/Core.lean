@@ -6,7 +6,7 @@ the sub-namespace `E213.Firmware.Internal` so downstream code
 that does `open E213.Firmware` does NOT see it.  Sub-modules
 within `Firmware/Raw/` open `E213.Firmware.Internal` explicitly.
 
-Split out of monolithic `Raw.lean` (Phase D) for incremental
+Split out of monolithic `Raw.lean` () for incremental
 compilation.
 -/
 

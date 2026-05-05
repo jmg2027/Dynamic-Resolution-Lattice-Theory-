@@ -8,12 +8,11 @@ import E213.Math.Real213.CutMulOne
 import E213.Math.Real213.CutSumTest
 import E213.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Math.Analysis.FluxMVT.FluxMVTWitness
-import E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.FluxMVT.DyadicMVTWitness
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213MVTWitnessChain
-
-Phase BW: chain-rule MVT witnesses (compose).
+# MVTWitnessChain
+chain-rule MVT witnesses (compose).
 
 For composition g ∘ f with both passthrough, the chain-rule
 derivative is g'(f(c)) · f'(c).  When c is f's witness AND g'
@@ -28,11 +27,11 @@ open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness (HasDyadicMVTWitness_at)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness.HasDyadicMVTWitness_at
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness (HasDyadicMVTWitness_at)
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness.HasDyadicMVTWitness_at
   (mvt_exists_at)
 open E213.Math.Real213.CutMul (cutMulOuter)
 open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
@@ -80,7 +79,7 @@ theorem id_compose_square_has_dyadic_witness_at :
                   idIsDifferentiable).derivative c m k = constCut 1 1 m k :=
   mvt_exists_at HasDyadicMVTWitness_at.id_compose_square
 
-/-- ★ Phase BW capstone (PURE) — chain-rule MVT witness for id ∘ x². -/
+/-- ★ capstone (PURE) — chain-rule MVT witness for id ∘ x². -/
 theorem chain_rule_witness_capstone_pure :
     (∀ m k, (composeIsDifferentiable squareIsDifferentiable
               idIsDifferentiable).derivative (constCut 1 2) m k

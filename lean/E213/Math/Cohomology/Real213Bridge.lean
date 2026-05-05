@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Cochain.Core
 
 /-!
-# Phase E partial — Real213 ↔ Cohomology 213 structural bridge
+# partial — Real213 ↔ Cohomology 213 structural bridge
 
 User direction: connect Real213 (cohomological calculus on
 dyadic intervals) to Cohomology 213 (simplicial cochains).
@@ -38,7 +38,7 @@ theorem cohomology_edge_count : binom 5 2 = 10 := by decide
 /-- Hodge symmetry: dim C^k = dim C^(d-k). -/
 theorem hodge_dim_symmetry : binom 5 2 = binom 5 3 := by decide
 
-/-- ★ Phase E partial — structural bridge noted.
+/-- ★ partial — structural bridge noted.
     Both frameworks have 1-cochain spaces with δ²=0.
     Formal isomorphism deferred. -/
 theorem phase_E_partial :

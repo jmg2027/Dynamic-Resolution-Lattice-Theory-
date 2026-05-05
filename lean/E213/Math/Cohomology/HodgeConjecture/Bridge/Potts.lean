@@ -141,7 +141,7 @@ theorem routeUpTo_6  : routeUpTo 6  = 93  := by decide
 theorem routeUpTo_7  : routeUpTo 7  = 153 := by decide
 theorem routeUpTo_8  : routeUpTo 8  = 243 := by decide
 
-/-! §8  Phase boundaries: re-routings at E ∈ {4, 6, 7, 8}. -/
+/-! §8  re-routings at E ∈ {4, 6, 7, 8}. -/
 
 theorem boundary_at_E4 : routeUpTo 3 ≠ routeUpTo 4 := by decide
 theorem boundary_at_E6 : routeUpTo 5 ≠ routeUpTo 6 := by decide
@@ -173,7 +173,7 @@ theorem potts_213_capstone :
     ∧ (243 : Nat) = 3 ^ 5
     -- Partition function values
     ∧ Z 0 = 3 ∧ Z 1 = 243
-    -- Phase boundaries at exactly the 4 energy levels {4, 6, 7, 8}
+    -- at exactly the 4 energy levels {4, 6, 7, 8}
     ∧ routeUpTo 3 ≠ routeUpTo 4 ∧ routeUpTo 5 ≠ routeUpTo 6
     ∧ routeUpTo 6 ≠ routeUpTo 7 ∧ routeUpTo 7 ≠ routeUpTo 8
     -- Z/3 ground-state route partition (vs Ising's Z/2)

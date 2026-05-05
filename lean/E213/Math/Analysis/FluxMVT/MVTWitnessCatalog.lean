@@ -5,12 +5,11 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutSumTest
 import E213.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Math.Analysis.Differentiation.DifferentiableMid
-import E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.FluxMVT.DyadicMVTWitness
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213MVTWitnessCatalog
-
-Phase BV: catalog of HasDyadicMVTWitness instances.
+# MVTWitnessCatalog
+catalog of HasDyadicMVTWitness instances.
 
 The class is non-trivially populated: any *dyadic witness* point
 yields constructive MVT existence.  For id (linear) every point
@@ -26,11 +25,11 @@ namespace E213.Math.Analysis.FluxMVT.MVTWitnessCatalog
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)
-open E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness (HasDyadicMVTWitness_at)
+open E213.Math.Analysis.FluxMVT.DyadicMVTWitness (HasDyadicMVTWitness_at)
 open E213.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 open E213.Math.Analysis.FluxMVTMore (mid_id_square_derivative_at_half_at)
 
@@ -52,7 +51,7 @@ def id_at_any_at (c : Nat → Nat → Bool) :
 
 end HasDyadicMVTWitness_at
 
-/-- ★ Phase BV _at capstone (PURE pointwise). -/
+/-- ★ _at capstone (PURE pointwise). -/
 theorem mvt_witness_catalog_capstone_at :
     (∀ m k, idIsDifferentiable.derivative (constCut 0 1) m k
               = constCut 1 1 m k)

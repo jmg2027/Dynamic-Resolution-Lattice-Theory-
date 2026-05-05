@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Delta.Core
 
 /-!
-# Cohomology — Hodge ⋆ at cochain level (Phase CB, file 1)
+# Cohomology — Hodge ⋆ at cochain level (, file 1)
 
 The Hodge star ⋆: Cᵏ(Δⁿ⁻¹) → Cⁿ⁻ᵏ(Δⁿ⁻¹) maps each cochain on
 k-subsets to its set-theoretic-complement cochain on (n−k)-subsets.
@@ -11,7 +11,7 @@ collapses to identity, so ⋆ is simply
 
     (⋆σ)(T) = σ(complement T)
 
-at every (n−k)-subset T.  Combined with `subsetIdx` (Phase CA), this
+at every (n−k)-subset T.  Combined with `subsetIdx` (), this
 gives a concrete decidable Lean definition.
 
 `SimplexCounts.hodge_*` already proved Hodge dim duality

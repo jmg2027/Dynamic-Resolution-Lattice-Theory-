@@ -2,8 +2,7 @@ import E213.Hypervisor.Lens.Leaves.Mod3
 import E213.Hypervisor.Lens.Leaves.RefinesParity
 
 /-!
-# Research.Mod2Mod3Incomparable
-
+# Mod2Mod3Incomparable
 **Claim**: `parityLens ∥ leavesMod3Lens` — the kernels of mod 2 and
 mod 3 are incomparable.
 

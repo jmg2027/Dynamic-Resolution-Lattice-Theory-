@@ -139,8 +139,7 @@ the deviation from NS=3 is +0.291 (≈ +9.7%).
 
 DRLT atomic form: signal at the cycle-space edge b_1=8 leaks across
 the chiral-split boundary into the NT=2 sector.  The leading
-correction is *linear* in α_GUT with coefficient = NT² (chiral phase
-volume per cycle).  Verified by mb-mc-sweep: among 12 atomic
+correction is *linear* in α_GUT with coefficient = NT² (chiral per cycle).  Verified by mb-mc-sweep: among 12 atomic
 candidates × 2 functional forms, the linear `NS·(1 + α_GUT·NT²)`
 form wins at 142 ppm; nearest competitors miss by ≥ 2 percent.
 

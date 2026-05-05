@@ -1,7 +1,7 @@
 import E213.Math.Linalg213.Span
 
 /-!
-# Linalg213 — Concrete rank-5 compression instance (Phase L7)
+# Linalg213 — Concrete rank-5 compression instance (7)
 
 User direction: resolve hard deferred items.  Linalg213's rank-5
 compression theorem (any vs : Fin N → Vec 5 has Gram rank ≤ 5)

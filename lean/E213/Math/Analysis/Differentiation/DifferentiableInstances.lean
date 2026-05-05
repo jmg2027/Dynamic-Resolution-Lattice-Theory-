@@ -6,8 +6,8 @@ import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutPow
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
-import E213.Math.Analysis.Differentiation.IsDifferentiable
-import E213.Math.Analysis.Differentiation.IsSmooth
+import E213.Math.Analysis.Differentiation.Differentiable
+import E213.Math.Analysis.Differentiation.Smooth
 /-!
 # Polynomial-chain `IsDifferentiable` instances — degrees 1-16
 
@@ -21,9 +21,9 @@ Sub-namespaces preserved (cross-layer `open` declarations):
   * `E213.Math.Analysis.DifferentiableHigherPow`  — degrees 5-8
   * `E213.Math.Analysis.DifferentiableHighOrder`  — degrees 9, 10, 12, 16
 
-(Consolidated 2026-05-05 from 3 phase files: DifferentiableInstances
-[Phase AE-1, deg 1-4] + DifferentiableHigherPow [Phase AF, deg 5-8] +
-DifferentiableHighOrder [Phase AK, deg 9-16].  Per-stage capstone
+(Consolidated 2026-05-05 from 3 DifferentiableInstances
+[-1, deg 1-4] + DifferentiableHigherPow [, deg 5-8] +
+DifferentiableHighOrder [, deg 9-16].  Per-stage capstone
 bundles dropped.  Sub-namespaces kept so existing `open … HigherPow`
 / `open … HighOrder` declarations across the codebase stay valid.)
 
@@ -53,11 +53,11 @@ open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
-open E213.Math.Analysis.Differentiation.IsSmooth (constIsSmooth cutHalfIsSmooth cutScaleIsSmooth)
+open E213.Math.Analysis.Differentiation.Smooth (constIsSmooth cutHalfIsSmooth cutScaleIsSmooth)
 
 /-- x² differentiable. -/
 def squareIsDifferentiable : IsDifferentiable (fun x => cutMul x x) :=
@@ -125,7 +125,7 @@ namespace E213.Math.Analysis.DifferentiableHigherPow
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable mulIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances
   (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable
@@ -190,7 +190,7 @@ namespace E213.Math.Analysis.DifferentiableHighOrder
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable mulIsDifferentiable)
 open E213.Math.Analysis.Differentiation.DifferentiableInstances
   (squareIsDifferentiable cubeIsDifferentiable quarticIsDifferentiable

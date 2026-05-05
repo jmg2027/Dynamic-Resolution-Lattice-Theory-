@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Delta.Core
 
 /-!
-# Cohomology — δ² = 0 (Phase CA, file 4)
+# Cohomology — δ² = 0 (, file 4)
 
 The fundamental cochain identity.  In ℤ/2 (Bool, XOR), each
 (k+2)-subset's value under δ²σ counts each k-subset face twice
@@ -10,7 +10,7 @@ The fundamental cochain identity.  In ℤ/2 (Bool, XOR), each
 This file establishes δ²=0 by `decide` at concrete cochains. A
 universally-quantified version (∀ σ, ...) requires a Fintype +
 DecidablePred instance for `Cochain n k` that core Lean 4 does
-not provide by default; revisit in Phase CB.
+not provide by default; revisit in .
 -/
 
 namespace E213.Math.Cohomology.Delta.SqZero
@@ -63,7 +63,7 @@ theorem delta_sq_all_true_3_1 :
     ∀ i : Fin (binom 3 3), delta (delta all_true_3_1) i = false := by
   decide
 
-/-- ★ Phase CA capstone: δ²=0 at every tested cochain on Δ⁴. -/
+/-- ★ capstone: δ²=0 at every tested cochain on Δ⁴. -/
 theorem phase_CA_delta_sq_zero :
     (∀ i : Fin (binom 5 3), delta (delta (Cochain.zero 5 1)) i = false)
     ∧ (∀ i : Fin (binom 5 3), delta (delta vertex0_n5) i = false)

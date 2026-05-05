@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Cochain.Core
 
 /-!
-# Cohomology — k-subset enumeration (Phase CA, file 2)
+# Cohomology — k-subset enumeration (, file 2)
 
 To define the coboundary δ: Cᵏ → Cᵏ⁺¹, we need a fixed bijection
 between `Fin (binom n k)` and the k-element subsets of {0..n-1}.

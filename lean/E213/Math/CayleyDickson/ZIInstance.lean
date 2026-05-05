@@ -8,7 +8,7 @@ import E213.Meta.Tactic.DeriveConjugationCodomain
 # Research: `ZI` as `ConjugationCodomain` instance
 
 The instance is **derived** by the `derive_conjugation_codomain`
-elab (Phase B1).  By naming convention, the elab finds:
+elab (1).  By naming convention, the elab finds:
 - `ZI.I`, `ZI.negI` (bases)
 - `ZI.mul`, `ZI.conj`
 - `ZI.mul_comm`, `ZI.no_zero_div`,

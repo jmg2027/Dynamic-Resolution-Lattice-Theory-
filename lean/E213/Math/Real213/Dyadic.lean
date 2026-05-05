@@ -19,7 +19,7 @@ case vanish here because constCut is always RatioCut.
 
 ## Significance
 
-User insight (Phase J): what 213 resisted was the generality of
+User insight (): what 213 resisted was the generality of
 RatioCut closure — cutSum with arbitrary denominators breaks at the
 boundary (tight precision at k1 ≥ 2).  Moving to dyadic makes that
 issue vanish naturally.

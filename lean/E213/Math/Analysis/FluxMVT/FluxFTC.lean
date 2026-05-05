@@ -10,9 +10,8 @@ import E213.Math.Analysis.FluxMVT.FluxCut
 import E213.Math.Analysis.FluxMVT.FluxDivergence
 import E213.Math.Analysis.FluxMVT.FluxMVT
 /-!
-# Research.Real213FluxFTC
-
-Phase AZ: **Fundamental Theorem of Calculus** in 213-native flux form.
+# FluxFTC
+Fundamental Theorem of Calculus** in 213-native flux form.
 
 Classical FTC: ∫_a^b f'(x) dx = f(b) - f(a).
 
@@ -85,7 +84,7 @@ theorem ftc_bridge_id_unitBracket_pure :
     (E213.Math.Analysis.FluxMVT.FluxMVT.FluxCut.fluxBalance_symm _ _
       (fluxCutEq_of_pointwise (fun _ _ => rfl) (fun _ _ => rfl)))
 
-/-- ★ Phase AZ-1 capstone (fluxCutEq, PURE). -/
+/-- ★ -1 capstone (fluxCutEq, PURE). -/
 theorem ftc_concrete_capstone_pure (c : Nat → Nat → Bool)
     (db : DyadicBracket) :
     fluxCutEq (fluxAlong id unitBracket) (ofCut (constCut 1 1))

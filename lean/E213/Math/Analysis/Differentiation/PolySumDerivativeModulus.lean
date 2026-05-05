@@ -5,11 +5,10 @@ import E213.Kernel.Tactic.Omega213
 import E213.Math.Analysis.Differentiation.ConcreteDerivativeModulus
 import E213.Math.Real213.Core
 import E213.Math.Analysis.Differentiation.DifferentiableInstances
-import E213.Math.Analysis.Differentiation.IsDifferentiable
+import E213.Math.Analysis.Differentiation.Differentiable
 /-!
-# Research.Real213PolySumDerivativeModulus
-
-Phase AT: derivative resolution depth for polynomial sums (degree-n
+# PolySumDerivativeModulus
+derivative resolution depth for polynomial sums (degree-n
 polynomial + lower degree).  The derivative of x² + x is 2x + 1
 (linear), and the framework produces modulus = k matching the
 mathematical degree.
@@ -25,7 +24,7 @@ namespace E213.Math.Analysis.Differentiation.PolySumDerivativeModulus
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.Core (Real213)
-open E213.Math.Analysis.Differentiation.IsDifferentiable
+open E213.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
    cutPowFnIsDifferentiable)
@@ -82,7 +81,7 @@ theorem cubePlusSquareIsDifferentiable_derivative_modulus (k : Nat) :
       exact Nat.not_succ_le_self (n+1) (Nat.le_trans this h)
     exact if_neg hge
 
-/-- Phase AT capstone: polynomial sum derivative moduli match
+/-- capstone: polynomial sum derivative moduli match
     expected degree (= max of constituent derivative degrees). -/
 theorem polynomial_sum_derivative_capstone (a b k : Nat) :
     (affineIsDifferentiable a b).derivativeSmooth.linearityModulus k = 0

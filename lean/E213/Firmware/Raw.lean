@@ -11,7 +11,7 @@ import E213.Firmware.Raw.Rec
 /-!
 # Firmware: Raw API (re-export shim)
 
-Phase D refactor: the monolithic `Raw.lean` has been split
+refactor: the monolithic `Raw.lean` has been split
 into sub-modules under `Firmware/Raw/` for incremental
 compilation.  This file is a pure re-export for backwards
 compatibility — downstream code can still `import
@@ -29,7 +29,7 @@ E213.Firmware.Raw` and get the full public API.
 - `Raw.fold_eq_depth`, `Raw.fold_eq_leaves` — bridges
 - `Raw.fold_signed_swap` — signed Lens = negation
 - `Raw.fold_swap_hom` — general hom-swap
-- `Raw.rec` — custom eliminator (Phase C3)
+- `Raw.rec` — custom eliminator (3)
 
 **Forbidden to consumers:** the internal `Tree` scaffolding is
 in `E213.Firmware.Internal` — out of the way of `open

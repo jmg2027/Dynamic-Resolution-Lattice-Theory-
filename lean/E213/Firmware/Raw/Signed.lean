@@ -7,7 +7,7 @@ import E213.Firmware.Raw.Fold
 The signed Lens (base_a=1, base_b=-1, combine=+) realises swap
 as integer negation.  Used by Hypervisor / App layers.
 
-Extracted from monolithic `Raw.lean` (Phase D).
+Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Firmware.Internal

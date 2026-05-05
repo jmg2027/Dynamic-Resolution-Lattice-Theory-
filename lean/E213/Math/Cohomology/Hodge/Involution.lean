@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Hodge.Star
 
 /-!
-# Cohomology — ⋆⋆ = id (Phase CB, file 2)
+# Cohomology — ⋆⋆ = id (, file 2)
 
 In ℤ/2 cohomology the Hodge star is an involution:
   ⋆ : Cᵏ → Cⁿ⁻ᵏ,   ⋆⋆ : Cᵏ → Cᵏ
@@ -63,7 +63,7 @@ theorem hodge_sq_at_3_1_h :
     ∀ i : Fin (binom 3 1),
       hodgeStar 3 2 1 (hodgeStar 3 1 2 at_3_1_h) i = at_3_1_h i := by decide
 
-/-- ★ Phase CB intermediate capstone — ⋆⋆ = id on Δ⁴, bundled. -/
+/-- ★ intermediate capstone — ⋆⋆ = id on Δ⁴, bundled. -/
 theorem phase_CB_hodge_involution :
     (∀ i : Fin (binom 5 1), hodgeStar 5 4 1 (hodgeStar 5 1 4 v0_5) i = v0_5 i)
     ∧ (∀ i : Fin (binom 5 2), hodgeStar 5 3 2 (hodgeStar 5 2 3 e0_5) i = e0_5 i)
