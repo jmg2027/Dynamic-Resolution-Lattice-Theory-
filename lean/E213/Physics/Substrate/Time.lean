@@ -1,5 +1,5 @@
 import E213.Physics.Substrate.Pairs
-import E213.Math.Real213.PhysicsBridgeNT2
+import E213.Math.Analysis.PhysicsBridgeNT2
 
 /-!
 # Phase 2 Time — what does unfolding the NT=2 sector yield?
@@ -43,12 +43,12 @@ namespace E213.Physics.Substrate.Time
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSum
-open E213.Math.Real213.DyadicBracket
-open E213.Math.Real213.DyadicTrajectory
-open E213.Math.Real213.PhysicsBridgeNT2 (nt2_step_count nt2_left_trajectory nt2_atomic_yields_dyadic)
+open E213.Math.Analysis.DyadicBracket
+open E213.Math.Analysis.DyadicTrajectory
+open E213.Math.Analysis.PhysicsBridgeNT2 (nt2_step_count nt2_left_trajectory nt2_atomic_yields_dyadic)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Real213.DyadicRiemann (riemannSampleSum)
+open E213.Math.Analysis.DyadicRiemann (riemannSampleSum)
 
 /-- NT sector = atomic 2-block.  Phase 2 explicitly assigns Lens label
     "time-like" here. -/

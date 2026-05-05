@@ -1,5 +1,5 @@
 import E213.Math.Infinity.Cantor
-import E213.Math.Real213.DyadicTrajectory
+import E213.Math.Analysis.DyadicTrajectory
 
 /-!
 # ResolutionLimit — canonical Lean formalization
@@ -64,7 +64,7 @@ Witness: `alwaysTrueUnit_limit_distinct_from_zero` from
     DyadicTrajectory module — exposed here as the spec-level entry
     point. -/
 abbrev cauchy_structural_inequality :=
-  @E213.Math.Real213.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero
+  @E213.Math.Analysis.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero
 
 /-! ## §4 — Four-way convergence record
 

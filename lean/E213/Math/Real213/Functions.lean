@@ -1,4 +1,4 @@
-import E213.Math.Real213.Integration
+import E213.Math.Analysis.Integration
 
 import E213.Math.Real213.Core
 /-!

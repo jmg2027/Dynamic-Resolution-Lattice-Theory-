@@ -1,13 +1,13 @@
-import E213.Math.Real213.ResolutionDepth
-import E213.Math.Real213.DyadicRiemann
-import E213.Math.Real213.ConsistentOracle
-import E213.Math.Real213.DyadicTrajectory
+import E213.Math.Analysis.ResolutionDepth
+import E213.Math.Analysis.DyadicRiemann
+import E213.Math.Analysis.ConsistentOracle
+import E213.Math.Analysis.DyadicTrajectory
 
 import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSumTest
-import E213.Math.Real213.DyadicBracket
-import E213.Math.Real213.IsSmooth
+import E213.Math.Analysis.DyadicBracket
+import E213.Math.Analysis.IsSmooth
 /-!
 # 213-line minimum proposition — three forced iff statements
 
@@ -33,12 +33,12 @@ namespace E213.Math.Real213.MinimumProposition
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Real213.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
-open E213.Math.Real213.IsSmooth (IsSmooth cutPowFnIsSmooth)
-open E213.Math.Real213.ResolutionDepth (cutPowFnIsSmooth_modulus)
-open E213.Math.Real213.DyadicBracket
-open E213.Math.Real213.ConsistentOracle
-open E213.Math.Real213.DyadicTrajectory
+open E213.Math.Analysis.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)
+open E213.Math.Analysis.IsSmooth (IsSmooth cutPowFnIsSmooth)
+open E213.Math.Analysis.ResolutionDepth (cutPowFnIsSmooth_modulus)
+open E213.Math.Analysis.DyadicBracket
+open E213.Math.Analysis.ConsistentOracle
+open E213.Math.Analysis.DyadicTrajectory
 
 /-- **(1) Only one resolution law**.
 

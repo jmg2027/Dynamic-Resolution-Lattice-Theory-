@@ -1,5 +1,5 @@
 import E213.Math.Max213
-import E213.Math.Real213.CauchyComplete
+import E213.Math.Analysis.CauchyComplete
 
 /-!
 # Research.Real213CutContinuity: continuity of cut-functions (Phase D1-D2)

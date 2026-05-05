@@ -1,73 +1,95 @@
-import E213.Math.Real213.CutBisectionAlgo
-import E213.Math.Real213.CutRiemann
-import E213.Math.Real213.AsLensOutput
-import E213.Math.Real213.ValidCut
-import E213.Math.Real213.ValidCutOps
-import E213.Math.Real213.CutMidMono
-import E213.Math.Real213.Dyadic
-import E213.Math.Real213.DyadicBracket
-import E213.Math.Real213.IsSmooth
-import E213.Math.Real213.ConsistentOracle
-import E213.Math.Real213.DyadicRiemann
-import E213.Math.Real213.ResolutionDepth
-import E213.Math.Real213.DyadicTrajectory
-import E213.Math.Real213.MinimumProposition
-import E213.Math.Real213.PhysicsBridgeNT2
-import E213.Math.Real213.IsDifferentiable
-import E213.Math.Real213.DerivativeForms
-import E213.Math.Real213.DerivativeDepth
-import E213.Math.Real213.DifferentiableInstances
-import E213.Math.Real213.DifferentiableAffine
-import E213.Math.Real213.DifferentiableCompose
-import E213.Math.Real213.DifferentiableMid
-import E213.Math.Real213.ConcreteDerivativeModulus
-import E213.Math.Real213.PolySumDerivativeModulus
-import E213.Math.Real213.FluxCut
-import E213.Math.Real213.FluxCochain
-import E213.Math.Real213.FluxDivergence
-import E213.Math.Real213.FluxMVT
-import E213.Math.Real213.FluxPolynomial
-import E213.Math.Real213.FluxEquiv
-import E213.Math.Real213.FluxEquivOps
-import E213.Math.Real213.FluxMVTConcrete
-import E213.Math.Real213.FluxFTC
-import E213.Math.Real213.FluxMVTPolynomial
-import E213.Math.Real213.FluxFTCPolynomial
-import E213.Math.Real213.FluxMVTPassthrough
-import E213.Math.Real213.FluxPassthroughClass
-import E213.Math.Real213.FluxPassthroughCatalog
-import E213.Math.Real213.ClassicCalc
-import E213.Math.Real213.FluxSeries
-import E213.Math.Real213.FluxMVTWitness
-import E213.Math.Real213.ClassicCalcMid
-import E213.Math.Real213.HasDyadicMVTWitness
-import E213.Math.Real213.MVTWitnessCatalog
-import E213.Math.Real213.MVTWitnessChain
-import E213.Math.Real213.FTCRiemann
-import E213.Math.Real213.ClassicCalcCombinators
-import E213.Math.Real213.FluxMVTPropagate
-import E213.Math.Real213.Antiderivative
-import E213.Math.Real213.IntegralViaAnti
-import E213.Math.Real213.ClassicAnti
-import E213.Math.Real213.IntegralProperties
-import E213.Math.Real213.NewtonFirst
-import E213.Math.Real213.CubeDerivativeAtZero
-import E213.Math.Real213.NewtonSecond
-import E213.Math.Real213.IndefiniteIntegral
-import E213.Math.Real213.IntegralIntInterval
-import E213.Math.Real213.IntegralGeneralInt
-import E213.Math.Real213.IntegralDyadic
+import E213.Math.Real213
+import E213.Math.Analysis.Antiderivative
+import E213.Math.Analysis.BracketCauchyModulus
+import E213.Math.Analysis.CauchyComplete
+import E213.Math.Analysis.ClassicAnti
+import E213.Math.Analysis.ClassicCalc
+import E213.Math.Analysis.ClassicCalcCombinators
+import E213.Math.Analysis.ClassicCalcMid
+import E213.Math.Analysis.ConcreteDerivativeModulus
+import E213.Math.Analysis.ConsistentOracle
+import E213.Math.Analysis.CubeDerivativeAtZero
+import E213.Math.Analysis.CutGeomSeries
+import E213.Math.Analysis.CutRiemann
+import E213.Math.Analysis.CutSequence
+import E213.Math.Analysis.CutSeries
+import E213.Math.Analysis.DerivativeDepth
+import E213.Math.Analysis.DerivativeForms
+import E213.Math.Analysis.Diff
+import E213.Math.Analysis.DifferentiableAffine
+import E213.Math.Analysis.DifferentiableCompose
+import E213.Math.Analysis.DifferentiableInstances
+import E213.Math.Analysis.DifferentiableMid
+import E213.Math.Analysis.DyadicBracket
+import E213.Math.Analysis.DyadicRiemann
+import E213.Math.Analysis.DyadicTrajectory
+import E213.Math.Analysis.FTCRiemann
+import E213.Math.Analysis.FluxCochain
+import E213.Math.Analysis.FluxCut
+import E213.Math.Analysis.FluxDivergence
+import E213.Math.Analysis.FluxEquiv
+import E213.Math.Analysis.FluxEquivOps
+import E213.Math.Analysis.FluxFTC
+import E213.Math.Analysis.FluxFTCPolynomial
+import E213.Math.Analysis.FluxMVT
+import E213.Math.Analysis.FluxMVTConcrete
+import E213.Math.Analysis.FluxMVTPassthrough
+import E213.Math.Analysis.FluxMVTPolynomial
+import E213.Math.Analysis.FluxMVTPropagate
+import E213.Math.Analysis.FluxMVTWitness
+import E213.Math.Analysis.FluxMVTWitnessCombinators
+import E213.Math.Analysis.FluxPassthroughCatalog
+import E213.Math.Analysis.FluxPassthroughClass
+import E213.Math.Analysis.FluxPolynomial
+import E213.Math.Analysis.FluxSeries
+import E213.Math.Analysis.HasDyadicMVTWitness
+import E213.Math.Analysis.IVT
+import E213.Math.Analysis.IndefiniteIntegral
+import E213.Math.Analysis.IntegralDyadic
+import E213.Math.Analysis.IntegralGeneralInt
+import E213.Math.Analysis.IntegralIntInterval
+import E213.Math.Analysis.IntegralProperties
+import E213.Math.Analysis.IntegralViaAnti
+import E213.Math.Analysis.Integration
+import E213.Math.Analysis.IsDifferentiable
+import E213.Math.Analysis.IsSmooth
+import E213.Math.Analysis.MVTWitnessCatalog
+import E213.Math.Analysis.MVTWitnessChain
+import E213.Math.Analysis.ModulusCombiner
+import E213.Math.Analysis.NewtonFirst
+import E213.Math.Analysis.NewtonSecond
+import E213.Math.Analysis.ODE
+import E213.Math.Analysis.PhysicsBridgeNT2
+import E213.Math.Analysis.PolySumDerivativeModulus
+import E213.Math.Analysis.ResolutionDepth
 
-/-!
-# E213.Math.Analysis: analysis interfaces (IVT/Diff/Integration)
+/-! Spec-as-code entry point for `E213.Math.Analysis`.
 
-bisectStep / bisectN / bisectMidValue (IVT bisection algorithm).
-differenceQuotient / DifferentiableModulus (differentiation).
-riemannSumStep / RiemannIntegralData (integration).
-RealAsLensOutput (User reframe formal).
-RecurrenceLens (transcendental classification).
+  213-native analysis — calculus on top of `Math/Real213`.  Includes
+  Bishop-style differential calculus, Riemann integration, the
+  cohomological Mean Value Theorem (Flux form), Cauchy completeness,
+  series, dyadic-search IVT, ODE, Newton's laws.
 
-## Library status: SCAFFOLDED — interfaces + simple instances.
+  Importing this module pulls in the Real213 base type AND all of
+  Analysis on top.
 
-Full convergence/correctness proofs are a separate arc.
+  ## Sub-clusters (M5c will split into chapter sub-directories)
+
+    * **Differentiation**: `IsDifferentiable`, `IsSmooth`, polynomial
+      chain, derivatives, modulus combinators
+    * **Integration**: `IsAntiderivative`, integral classes, Riemann,
+      flux-FTC
+    * **Mean-value theorem**: `FluxMVT.*`, dyadic witnesses,
+      passthrough class
+    * **Dyadic search / IVT**: `DyadicBracket` bisection, `ConsistentOracle`,
+      `IVT`, search trajectories
+    * **Cauchy / completeness**: `CauchyComplete`, bracket modulus
+    * **Series**: `CutSeries`, `CutGeomSeries`, `FluxSeries`
+    * **ODE / Newton**: linear ODE, Newton's first/second laws
+    * **Bridge**: `PhysicsBridgeNT2` (NT=2 atomic block ↔ dyadic geometry)
+
+  ## Status
+
+  ∅-axiom standard on the production critical path.  63 files post
+  M5b split.
 -/

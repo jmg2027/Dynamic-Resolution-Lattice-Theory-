@@ -1,5 +1,5 @@
-import E213.Math.Real213.CauchyComplete
-import E213.Math.Real213.CutSequence
+import E213.Math.Analysis.CauchyComplete
+import E213.Math.Analysis.CutSequence
 
 /-!
 # E213.Math.Cauchy: Cauchy sequence + completeness
