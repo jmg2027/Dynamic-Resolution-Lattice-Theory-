@@ -1,16 +1,22 @@
+import E213.Math.Real213.FluxMVTWitness
 import E213.Math.Real213.DifferentiableInstances
-import E213.Math.Real213.FluxMVTNested2
 
 /-!
-# Research.Real213FluxMVTPropagate
+# Witness propagation under derivative combinators
 
-Phase CK: ★ **Generic mid witness propagation** ★
+If two `IsDifferentiable` functions `f`, `g` both witness derivative `1`
+at `c = 1/2`, then so do the combinator-built functions:
 
-If two IsDifferentiable functions f, g both have derivative = 1
-at c = 1/2, then mid(f, g) also has that property.  Single
-abstract theorem encapsulates the entire mid combinator chain.
+  - `mid(f, g)`            (Phase CK — `mid_witness_propagates_at`)
+  - `id ∘ f`               (Phase CL — `id_compose_witness_propagates_at`)
 
-  mid_witness_propagates : both f, g witness at 1/2 → mid(f, g) too
+Sub-namespaces preserved (cross-file `open` declarations stay valid):
+
+  * `E213.Math.Real213.FluxMVTPropagate`         — `mid` propagation
+  * `E213.Math.Real213.FluxMVTPropagateCompose`  — `id ∘ f` propagation
+
+(Consolidated 2026-05-05 from 2 phase files.  Per-stage capstone
+bundles dropped.)
 -/
 
 namespace E213.Math.Real213.FluxMVTPropagate
@@ -38,7 +44,7 @@ open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
 open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half_at)
 open E213.Math.Real213.CutMidSelf (cutMid_self_constCut_at)
 
-/-- ★ Generic mid witness propagation at c = 1/2, pointwise (PURE). -/
+/-- Generic mid witness propagation at c = 1/2 (pointwise PURE). -/
 theorem mid_witness_propagates_at {f g}
     (sf : IsDifferentiable f) (sg : IsDifferentiable g)
     (hf : ∀ m k, sf.derivative (constCut 1 2) m k = constCut 1 1 m k)
@@ -48,9 +54,6 @@ theorem mid_witness_propagates_at {f g}
       = constCut 1 1 m k := by
   show cutMid (sf.derivative (constCut 1 2))
               (sg.derivative (constCut 1 2)) m k = constCut 1 1 m k
-  -- We need: cutMid (sf.derivative ...) (sg.derivative ...) m k = constCut 1 1 m k
-  -- Using cutMid X Y m k = cutSum X Y (2*m) k, and cutSumAux_congr to reduce
-  -- both inner derivatives to constCut 1 1 pointwise.
   show E213.Math.Real213.CutSum.cutSum (sf.derivative (constCut 1 2))
                   (sg.derivative (constCut 1 2)) (2*m) k
        = constCut 1 1 m k
@@ -73,20 +76,47 @@ theorem mid_witness_propagates_at {f g}
   show cutMid (constCut 1 1) (constCut 1 1) m k = constCut 1 1 m k
   exact cutMid_self_constCut_at 1 1 m k (Nat.le_refl _)
 
-/-- ★ Phase CK capstone (PURE) — generic propagation pointwise. -/
-theorem propagation_capstone_pure :
-    (∀ m k, (midIsDifferentiable idIsDifferentiable squareIsDifferentiable
-              ).derivative (constCut 1 2) m k = constCut 1 1 m k)
-    ∧ (∀ m k, (midIsDifferentiable
-                (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-                squareIsDifferentiable).derivative (constCut 1 2) m k
-              = constCut 1 1 m k) :=
-  ⟨mid_witness_propagates_at idIsDifferentiable squareIsDifferentiable
-     (fun _ _ => rfl) squareDerivative_at_half_at,
-   mid_witness_propagates_at
-     (midIsDifferentiable idIsDifferentiable squareIsDifferentiable)
-     squareIsDifferentiable
-     mid_id_square_derivative_at_half_at
-     squareDerivative_at_half_at⟩
-
 end E213.Math.Real213.FluxMVTPropagate
+
+namespace E213.Math.Real213.FluxMVTPropagateCompose
+
+open E213.Firmware E213.Hypervisor
+open E213.Math.Real213.Core (Real213)
+open E213.Math.Real213.CutMul (cutMul)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Real213.IsDifferentiable
+  (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
+open E213.Math.Real213.DifferentiableInstances (squareIsDifferentiable)
+open E213.Math.Real213.DifferentiableMid (midIsDifferentiable)
+open E213.Math.Real213.FluxMVTWitness (squareDerivative_at_half_at)
+open E213.Math.Real213.FluxMVTMore (mid_id_square_derivative_at_half_at)
+open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
+open E213.Math.Real213.CutMul (cutMulOuter)
+open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
+
+/-- id-compose witness propagation at c = 1/2 (pointwise PURE).
+    For `g ∘ f` via `composeIsDifferentiable f g`, chain rule gives
+    `g'(f(x))·f'(x)`.  When `g = id`, `g'(·) = 1`, so derivative = `f'(x)`. -/
+theorem id_compose_witness_propagates_at {f} (sf : IsDifferentiable f)
+    (hf : ∀ m k, sf.derivative (constCut 1 2) m k = constCut 1 1 m k)
+    (m k : Nat) :
+    (composeIsDifferentiable sf idIsDifferentiable).derivative
+        (constCut 1 2) m k = constCut 1 1 m k := by
+  show cutMul (constCut 1 1) (sf.derivative (constCut 1 2)) m k
+       = constCut 1 1 m k
+  show cutMulOuter (constCut 1 1) (sf.derivative (constCut 1 2))
+                   k m ((m+1)*(k+1)) ((m+1)*(k+1)) = constCut 1 1 m k
+  have step :
+      cutMulOuter (constCut 1 1) (sf.derivative (constCut 1 2))
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      = cutMulOuter (constCut 1 1) (constCut 1 1)
+                  k m ((m+1)*(k+1)) ((m+1)*(k+1)) :=
+    cutMulOuter_congr k m ((m+1)*(k+1)) ((m+1)*(k+1))
+      (constCut 1 1) (constCut 1 1)
+      (sf.derivative (constCut 1 2)) (constCut 1 1)
+      (fun _ _ => rfl) (fun m' _ => hf m' k)
+      ((m+1)*(k+1)) (Nat.le_refl _)
+  rw [step]
+  exact cutMul_one_one_at m k
+
+end E213.Math.Real213.FluxMVTPropagateCompose

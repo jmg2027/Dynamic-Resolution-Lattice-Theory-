@@ -49,7 +49,6 @@ import E213.Math.Real213.FluxSeries
 import E213.Math.Real213.FluxMVTWitness
 import E213.Math.Real213.ClassicCalcMid
 import E213.Math.Real213.HasDyadicMVTWitness
-import E213.Math.Real213.FluxMVTMore
 import E213.Math.Real213.MVTWitnessCatalog
 import E213.Math.Real213.MVTWitnessChain
 import E213.Math.Real213.FTCRiemann
@@ -58,11 +57,7 @@ import E213.Math.Real213.FTCRiemannMid
 import E213.Math.Real213.FTCRiemannGeneric
 import E213.Math.Real213.FTCRiemannChain
 import E213.Math.Real213.ClassicCalcCombinators
-import E213.Math.Real213.FluxMVTNested
-import E213.Math.Real213.FluxMVTPattern
-import E213.Math.Real213.FluxMVTNested2
 import E213.Math.Real213.FluxMVTPropagate
-import E213.Math.Real213.FluxMVTPropagateCompose
 import E213.Math.Real213.Antiderivative
 import E213.Math.Real213.AntiderivativeCombinators
 import E213.Math.Real213.AntiderivativeStructural

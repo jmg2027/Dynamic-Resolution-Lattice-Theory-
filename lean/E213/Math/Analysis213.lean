@@ -58,14 +58,9 @@ import E213.Math.Real213.FluxPassthroughClass
 import E213.Math.Real213.FluxPassthroughCatalog
 import E213.Math.Real213.FluxMVTWitness
 import E213.Math.Real213.HasDyadicMVTWitness
-import E213.Math.Real213.FluxMVTMore
 import E213.Math.Real213.MVTWitnessCatalog
 import E213.Math.Real213.MVTWitnessChain
-import E213.Math.Real213.FluxMVTNested
-import E213.Math.Real213.FluxMVTNested2
-import E213.Math.Real213.FluxMVTPattern
 import E213.Math.Real213.FluxMVTPropagate
-import E213.Math.Real213.FluxMVTPropagateCompose
 
 -- F. ClassicCalc unified class
 import E213.Math.Real213.ClassicCalc
