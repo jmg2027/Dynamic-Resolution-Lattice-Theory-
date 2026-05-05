@@ -1,0 +1,120 @@
+# G31 — Minimal Root via Trajectory-as-Witness
+
+**Date:** 2026-05-05
+**Author:** Mingu Jeong (insight: "편한 길은 213이 아니지")
+**Formalisation:** Claude (Anthropic)
+**Status:** Skeleton landed in
+`Math/Analysis/DyadicSearch/MinimalRootLens.lean`; full
+root-certificate (lower / upper / zero) pending monotone-polynomial
+milestone (next).
+
+---
+
+## 0. Thesis
+
+**The Intermediate Value Theorem in 213 is not an existential claim
+but a typed protocol — `ConsistentOracle` — whose readout *is* the
+root cut.  "Minimal root" emerges deterministically from the lens's
+choice rule (always-prefer-left), not from any external decidability
+hypothesis.**
+
+This is G2 (trajectory-as-object) applied to bisection: the
+locatedness assumption that haunts Bishop-style IVT is replaced
+by a structural type-level commitment from the oracle.
+
+---
+
+## 1. The wrong path (rejected)
+
+Two tempting framings, both of which collapse the trajectory:
+
+  **(a) ε-δ approximation.**  ∀ m k, ∃ c, |f c| < 1/k at precision m.
+  Requires sign-decidability at every refinement → forces
+  `propext` via `Decidable` instance synthesis.  Not 213-native.
+
+  **(b) Isolated-root hypothesis.**  Add `IsolatedRoot f` predicate,
+  derive uniqueness, conclude exact `cutEq`.  Imports a
+  classical-style assumption that can't be discharged from the
+  Raw axiom set.  Not 213-native.
+
+Both routes treat the bisection sequence as *evidence for* an
+externally-existing point.  213 inverts this: the sequence *is*
+the point.
+
+---
+
+## 2. The 213-native form
+
+The lens-style answer reuses three already-closed pieces of
+infrastructure:
+
+  1. `DyadicBracket.bisectN` — recursive bisection driven by a
+     Bool-valued `DyadicOracle`.  No `Decidable` instance, no
+     `propext`.
+  2. `ConsistentOracle db` — typed protocol carrying its own
+     consistency threshold `thresholdN m k` and a proof that the
+     midpoint cut is stable past the threshold.
+  3. `CauchyCutSeq.limit` — explicit limit extraction from a
+     stabilised cut sequence.
+
+Composition:
+
+```
+  ConsistentOracle db ── toCauchyCutSeq ──► CauchyCutSeq ── .limit ──►
+    Nat → Nat → Bool   =   the minimal-root cut.
+```
+
+The "always-prefer-left" rule is concretised as
+`signedLeftOracle f := fun mid => f mid 0 1` — read f's cut at the
+unit precision (m=0, k=1, the rational 0); `true` ↔ "f(mid) ≥ 0
+in cut sense" ↔ go left.  No sign decision, no `Decidable` instance:
+the Bool comes directly from f's cut representation.
+
+---
+
+## 3. What the IVTRoot certificate becomes
+
+`IVTRoot` (defined in `DyadicSearch/IVT.lean`) packages
+`(c, lower, upper, zero)`.  Under the trajectory framing:
+
+  - `c := MinimalRootCut co` (the trajectory readout).
+  - `lower, upper` will follow by structural induction on
+    `bisectN` from bracket-monotone invariants
+    (`leftCut` of subbracket ≤ `midCut` ≤ `rightCut`).
+  - `zero` will follow from `dyadic_bracket_cauchy_modulus`
+    (already strict ∅-axiom in
+    `Math/Analysis/BracketCauchyModulus.lean`) plus the
+    sign-preservation invariant of `signedLeftOracle`.
+
+None of the three certificates require an external locatedness
+hypothesis — they are *theorems* downstream of the
+`ConsistentOracle` protocol witness.  The protocol carries its
+own modulus; the lens carries its own monotone bounds.
+
+---
+
+## 4. First milestone (this commit)
+
+Skeleton landed in
+`lean/E213/Math/Analysis/DyadicSearch/MinimalRootLens.lean`:
+
+  - `signedLeftOracle f` — the always-prefer-left oracle.
+  - `signedLeftOracle_constTrue / constFalse` — sanity reductions
+    to `alwaysTrue` / `alwaysFalse` (rfl-closed).
+  - `MinimalRootCut co` — the trajectory readout via
+    `ConsistentOracle.toCauchyCutSeq.limit`.
+  - `MinimalRootCut_eq_at` — precision-stability theorem.
+  - `MinimalRootCut_collapsed` — sanity: for a degenerate
+    (numA = numB) bracket, the readout equals the constant
+    midCut value.
+
+All declarations strict ∅-axiom.  → closed-skeleton in
+`Math/Analysis/DyadicSearch/MinimalRootLens.lean`.
+
+## 5. Next milestone
+
+`monotonicConsistentOracle f hMono db hAB` — for monotonic f with
+sign change on [a, b], construct `ConsistentOracle db` whose
+oracle is `signedLeftOracle f`.  Yields the full IVTRoot via the
+G31 readout pattern.  No locatedness, no `Decidable`, no
+`propext`.

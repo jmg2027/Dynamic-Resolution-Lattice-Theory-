@@ -34,6 +34,7 @@ research-notes/
 | `G3_raw_as_universal_trajectory.md` | Raw = free magma on 2 generators (universal trajectory) | Cited from `LESSONS_LEARNED.md` |
 | `G4_chiral_phase_duality.md` | d=5 dual views (chiral / phase) | Cited from `HANDOFF.md` |
 | `G5_213_as_sublanguage.md` | 213 as the sublanguage of mathematics | Cited from `HANDOFF.md` |
+| `G31_minimal_root_lens.md` | Trajectory-as-witness IVT — `ConsistentOracle` readout = minimal-root cut, no locatedness | Skeleton closed in `Math/Analysis/DyadicSearch/MinimalRootLens.lean`; full IVTRoot pending monotone-poly milestone |
 | `hodge/` (sub-tree, 6 notes) | Hodge program closure: G6 translation, G7 Lens initiality + cup blueprint, G8 standard-math bridge, G9 HC²¹³ closure, G10 17-theorem programme, G11 Galois historical | Closed in `Math/Cohomology/HodgeConjecture/`; see `hodge/INDEX.md` |
 | `G12_layered_api_classification.md` | Layered API classification (Hypervisor) | Cited from `Hypervisor/API.lean`, `OS/INDEX.md` |
 
@@ -59,5 +60,5 @@ research-notes/
 
 ## Adding a new note
 
-Use next available G prefix (currently G30+).  Once formalized, leave
+Use next available G prefix (currently G31+).  Once formalized, leave
 the note in place with a `→ closed in <Lean module>` marker.
