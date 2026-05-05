@@ -1,7 +1,9 @@
 import E213.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Math.Analysis.DyadicSearch.ConsistentOracle
+import E213.Math.Analysis.DyadicSearch.IVT
 import E213.Math.Analysis.CauchyComplete
+import E213.Math.Real213.CutFnData
 
 /-!
 # MinimalRootLens — trajectory-as-witness IVT readout
@@ -100,6 +102,72 @@ theorem MinimalRootCut_collapsed {db : DyadicBracket}
   rw [MinimalRootCut_eq_at co m k (co.thresholdN m k) (Nat.le_refl _)]
   exact DyadicBracket.bisectN_collapsed_midCut_form
           co.oracle db h (co.thresholdN m k) m k
+
+/-! ### Bracket bounds on the trajectory readout
+
+The minimal-root cut is squeezed between the starting bracket's
+endpoints — `db.leftCut ≤ MinimalRootCut co ≤ db.rightCut`.  These
+follow directly from the bracket-containment lemmas
+`bisectN_midCut_above_left` / `bisectN_midCut_below_right` (already
+strict ∅-axiom in `DyadicBracket.lean`) at the threshold depth. -/
+
+open E213.Math.Real213.CutPoset (cutLe)
+
+/-- **Lower bound**: `db.leftCut ≤ MinimalRootCut co` (cut-≤ form).
+
+Direct corollary of `bisectN_midCut_above_left` at the threshold
+depth, via `MinimalRootCut_eq_at`. -/
+theorem MinimalRootCut_lower {db : DyadicBracket}
+    (co : ConsistentOracle db) :
+    cutLe db.leftCut (MinimalRootCut co) := by
+  intro m k h
+  rw [MinimalRootCut_eq_at co m k (co.thresholdN m k) (Nat.le_refl _)] at h
+  exact DyadicBracket.bisectN_midCut_above_left
+          co.oracle (co.thresholdN m k) db m k h
+
+/-- **Upper bound**: `MinimalRootCut co ≤ db.rightCut` (cut-≤ form).
+
+Direct corollary of `bisectN_midCut_below_right` at the threshold
+depth, via `MinimalRootCut_eq_at`. -/
+theorem MinimalRootCut_upper {db : DyadicBracket}
+    (co : ConsistentOracle db) :
+    cutLe (MinimalRootCut co) db.rightCut := by
+  intro m k h
+  exact (MinimalRootCut_eq_at co m k (co.thresholdN m k) (Nat.le_refl _)).trans
+    (DyadicBracket.bisectN_midCut_below_right
+      co.oracle (co.thresholdN m k) db m k h)
+
+/-! ### IVTRoot bridge
+
+Combine the trajectory readout with a `zero` certificate to obtain
+the full `IVTRoot`.  Lower / upper come automatically from the
+trajectory's bracket-containment; the zero field is delivered by
+the caller (e.g., the future monotone-IVT certificate). -/
+
+open E213.Math.Real213.CutFnData (LocallyDeterminedData)
+open E213.Math.Real213.CutPoset (cutEq)
+open E213.Math.Real213.CutSumTest (constCut)
+open E213.Math.Analysis.DyadicSearch.IVT (IVTHypothesis IVTRoot)
+
+/-- **IVTRoot from a ConsistentOracle + zero proof**.
+
+For any starting bracket `db` and `f` locally-determined, a
+`ConsistentOracle db` gives the candidate root `c := MinimalRootCut co`
+and the bracket bounds `lower / upper`.  The caller supplies the
+`zero` certificate `cutEq (f c) (constCut 0 1)` (the IVT content
+proper) and gets a full `IVTRoot` for the IVTHypothesis whose
+endpoint cuts are `db.leftCut` / `db.rightCut`. -/
+def IVTRoot.fromConsistentOracle
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (lf : LocallyDeterminedData f) {db : DyadicBracket}
+    (co : ConsistentOracle db)
+    (hzero : cutEq (f (MinimalRootCut co)) (constCut 0 1)) :
+    IVTRoot { f := f, isLDD := lf,
+              a := db.leftCut, b := db.rightCut } where
+  c := MinimalRootCut co
+  lower := MinimalRootCut_lower co
+  upper := MinimalRootCut_upper co
+  zero := hzero
 
 end E213.Math.Analysis.DyadicSearch.MinimalRootLens
 
