@@ -105,7 +105,13 @@ This §8 prompt is effectively **the command that produced the repo's first comm
 
 ## Ideas transferred from this chain to the repo
 
-| Prompt idea | Repo landing point |
+> *Original 2026-04-24 snapshot.  Several target paths
+> (`book/chapters/`, `PAPER.md`, `quantum-gravity/`) have since been
+> reorganized; see `lean/E213/ARCHITECTURE.md` and `guide/INDEX.md`
+> for current landing locations.  The DRLT "Dynamic Resolution" name
+> (Zeno → pixels) and the lattice-information core remain anchored.*
+
+| Prompt idea | Repo landing point (2026-04-24, see note above) |
 |-------------|-------------------|
 | Commutativity failure → QM necessity | book/ch07 (ħ), PAPER.md |
 | Point impossible → QM necessity | book/ch07, foundations/ |

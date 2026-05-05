@@ -206,8 +206,11 @@ a Lean refactor requiring `lake build` to be re-run.
 
 - ~~Step 3: Replace PAPER.md §1 with AXIOM.md.  Split §2-§4 (R1-R5 + ℂ)
   into a separate paper.~~ — **superseded**: PAPER.md / PAPER2.md deleted
-  (see `AXIOM.md §7.2`); AXIOM.md is now the sole axiom document, and the
-  R1-R5 → ℂ derivation chain has not been re-built (see `AXIOM.md §9.4`).
+  (see `AXIOM.md §7.2`); AXIOM.md is now the sole axiom document.  The
+  R1-R5 → ℂ derivation chain is no longer the framing — the current
+  uniqueness story is Universal-Lens + Atomicity + Resolution-limit
+  triad (`AXIOM.md §1.1/§1.2/§1.3` + `RESOLUTION_LIMIT_SPEC.md`); R1-R5
+  is documented as deprecated in `AXIOM.md §9`.
 - ~~Step 4: `book/AUDIT.md` — Audit ch01-ch21.~~ — **superseded**:
   `book/` no longer contains chapter sources (only README.md retained);
   audit role transferred to `guide/` (deductively-ordered narrative)
@@ -311,8 +314,9 @@ Or add a grep rule to CI.
 #### (E) **Absence of `ValidLens` predicate / structure** — MEDIUM (future)
 
 The current `Lens` only requires `⟨base_a, base_b, combine⟩`.  Combine
-symmetry / base symmetry / R1-R5 satisfaction are not verified at Lens
-definition time.
+symmetry / base symmetry / codomain-tier satisfaction (CommBinary /
+NonVanishing / Conjugation, post-AXIOM.md §9.1 rename from R12/R3/R4)
+are not verified at Lens definition time.
 
 **Recommendation E**: Introduce a `ValidLens` predicate in
 `Hypervisor/Lens.lean`.  At minimum, make combine symmetry a field.
