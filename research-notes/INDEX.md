@@ -22,6 +22,7 @@ research-notes/
 |---|---|---|
 | `G29_residue.md` | Foundational text — the residue of pointing | **Active** (boot-sequence read) |
 | `G28_every_pattern_present.md` | Operational primitives: every stateable pattern lives in 213 | Active (corrects G27) |
+| `G30_pattern_catalog_synthesis.md` | Pattern catalog synthesis (metaformalization arc closure) | Active; companions in `Math/PatternCatalog*` |
 | `75_semantic_atom.md` | 213 as the atom of meaning + existence | Foundational thesis |
 | `76_ultimate_ouroboros.md` | `Prop` instance via `propAsDistinguishing` | Formalization companion to 75 |
 | `G1_universal_lens.md` | Universal-lens unification | Closed in `Meta/UniversalLens*.lean` |
