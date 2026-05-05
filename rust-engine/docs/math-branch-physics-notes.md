@@ -1059,7 +1059,7 @@ product).
 **Computation lever**: When approaching a "what's the foundational
 representation of X" question, the answer should always start from
 ℕ-vectors and lift only as needed.  Anything starting from ℝ/ℂ
-is borrowing more structure than DRLT axioms provide.
+is borrowing more structure than 213 axioms provide.
 
 **Rust-engine application**: post-merge, `crates/firmware` already
 mirrors this principle — every numeric value is BigUint (≥ 0).

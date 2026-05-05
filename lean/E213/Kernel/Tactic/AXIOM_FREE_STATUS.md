@@ -3,7 +3,7 @@
 Tracking the systematic elimination of `propext` and `Quot.sound`
 from `lean/E213/`.  Companion to `OMEGA213_MIGRATION.md`.
 
-**Standard (formalized 2026-05-02)**: the DRLT axiom set is **∅**.
+**Standard (formalized 2026-05-02)**: the 213 axiom set is **∅**.
 A theorem meets the DRLT standard iff `#print axioms` returns "does
 not depend on any axioms".  See `CLAUDE.md ## DRLT Axiom Standard`
 and `STRICT_ZERO_AXIOM.md`.  The previous transitional baseline

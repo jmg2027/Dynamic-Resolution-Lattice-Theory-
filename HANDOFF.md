@@ -1735,7 +1735,7 @@ even when ALL leaf dependencies are PURE (`no_inj_lt`, `Fin.ext`,
 recursive search (Σ-type witness, no Decidable.byContradiction).
 Documented in CLAUDE.md migration backlog #1.
 
-## ★ Standard upgrade (2026-05-02): DRLT axiom set = ∅
+## ★ Standard upgrade (2026-05-02): 213 axiom set = ∅
 
 **The DRLT-allowed axiom baseline `{propext, Quot.sound}` has been
 retired.**  The new canonical standard is **strict ∅-axiom**: every
@@ -1836,7 +1836,7 @@ This session began the systematic elimination of `propext` and
 ## TL;DR
 
 Goal: every theorem in `lean/E213/` should `#print axioms` → "does
-not depend on any axioms" (strict ∅-axiom — **the DRLT axiom
+not depend on any axioms" (strict ∅-axiom — **the 213 axiom
 standard as of 2026-05-02**; the older `{propext, Quot.sound}`
 baseline has been retired).
 
@@ -1935,7 +1935,7 @@ Cohomology FSM-classifier track (Pell + Fib + Trib + Pisano):
   - several more `legendre_5_mod_*` and signature-period
      theorems (probed strict ∅-axiom).
 
-These are STRICT ∅-axiom — the DRLT axiom standard
+These are STRICT ∅-axiom — the 213 axiom standard
 (formalized 2026-05-02).  The central verification claim of
 DRLT: physics observable predictions are kernel-checked
 theorems without recourse to any non-constructive axiom (no

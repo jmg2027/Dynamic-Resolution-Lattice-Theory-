@@ -15,7 +15,7 @@ These come from `Physics.SimplexCounts` and are forced by
 2,3-decomposition.
 
 Therefore the signature lens isn't arbitrary — it's the
-*atomically forced* lens for the DRLT framework.
+*atomically forced* lens for the 213 framework.
 -/
 
 namespace E213.Math.Cohomology.Dyadic.AtomicityConnection

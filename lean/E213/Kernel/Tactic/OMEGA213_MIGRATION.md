@@ -4,7 +4,7 @@
 
 Lean's standard `omega` tactic introduces `[propext, Quot.sound]`
 into every theorem that uses it.  Those axioms are part of Lean's
-de-facto kernel default — but **not part of DRLT**: the DRLT axiom
+de-facto kernel default — but **not part of DRLT**: the 213 axiom
 standard (formalized 2026-05-02) is the strict ∅-axiom set, i.e.
 `#print axioms` returning "does not depend on any axioms".  See
 `CLAUDE.md ## DRLT Axiom Standard`.

@@ -1,4 +1,4 @@
-# STRICT ∅-AXIOM — the DRLT Axiom Standard
+# STRICT ∅-AXIOM — the 213 axiom standard
 
 > **Canonical definitions (single source of truth):** see "Terms"
 > section below.  When other documents (HANDOFF.md, CLAUDE.md,
@@ -14,7 +14,7 @@
 | **sealed-DIRTY-by-design** | A DIRTY theorem accepted because (a) Lean-core boundary (well-founded recursion, Lean.Elab metaprogramming inheriting Classical.choice via the Lean.Elab.Command monad), or (b) Lens funext-by-design (higher-order Lens equality requires funext on the combine field, refactoring would redefine what "Lens equality" means).  Listed in `tools/scan_all_axioms.py` `SEALED_DIRTY_PREFIXES`. |
 | **real DIRTY** | DIRTY ∧ NOT sealed-by-design.  This is the regression budget. |
 
-**The DRLT axiom set is ∅** — a theorem meets the standard iff PURE.
+**The 213 axiom set is ∅** — a theorem meets the standard iff PURE.
 
 **Forbidden absolutely** (per `seed/AXIOM.md` §5.2.1, falsifiability
 trigger): `Classical.choice` and `Lean.ofReduceBool` in **213
@@ -85,8 +85,8 @@ pointwise form.
     ∅-axiom regime; documented in `seed/RESOLUTION_LIMIT_SPEC.md` §1.
   - Bridges: intentional axiom-demonstration cluster.
 
-**This is the canonical DRLT axiom standard** (formalized 2026-05-02,
-CLAUDE.md `## DRLT Axiom Standard`).  The DRLT axiom set is ∅.
+**This is the canonical 213 axiom standard** (formalized 2026-05-02,
+CLAUDE.md `## Strict ∅-axiom standard`).  The 213 axiom set is ∅.
 
 A theorem in `lean/E213/` meets the standard iff `#print axioms`
 returns:
@@ -98,7 +98,7 @@ no `native_decide`, no `sorryAx`.
 This file maintains the running catalog of theorems that meet the
 standard.  Theorems still on the migration backlog
 (carrying `[propext, Quot.sound]` from `omega` / `funext` / etc.) are
-listed in CLAUDE.md `## DRLT Axiom Standard → Migration backlog`.
+listed in CLAUDE.md `## Strict ∅-axiom standard → Migration backlog`.
 
 Verification: `python3 tools/scan_axioms.py <module>` — every
 theorem reports `[PURE]` (meets the standard) or `[DIRTY]` with

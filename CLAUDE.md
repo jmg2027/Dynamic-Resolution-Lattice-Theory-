@@ -150,7 +150,7 @@ Lean formalization of this spec: **`lean/E213/Math/Foundations/ResolutionLimit.l
 
 ### Theoretical integrity
 - Don't forcibly map existing physics/chemistry. If the result doesn't match, it doesn't match.
-- Don't import external structures that don't arise from DRLT axioms.
+- Don't import external structures that don't arise from the 213 axiom.
 - If a number differs from observation, acknowledge honestly and look for the missing physics.
 - Introducing "fit parameters" = no longer 0-parameter theory.
 

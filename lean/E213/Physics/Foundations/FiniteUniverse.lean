@@ -1,10 +1,13 @@
 import E213.Physics.AlphaEM.Core
 
 /-!
-# Finite-N universe — π² is a limit-label, not a DRLT primitive
+# Finite-N universe — π² is a limit-label, not a 213 primitive
 
-DRLT axiom: **finite discrete lattice**.  Therefore the *true*
-1/α_em at any actual lattice configuration is
+The 213 axiom commits to NO cardinality (`seed/AXIOM.md` §3.3); the
+DRLT physics deployment realizes the lattice picture as a four-domain
+convergent invariant `N_U = d^(d²) = 5²⁵`
+(`seed/RESOLUTION_LIMIT_SPEC.md` §2).  Therefore the *true* 1/α_em at
+any actual lattice configuration is
 
     1/α_em(N_U) = 12 · NS · S(N_U)         (rational at every N_U)
 
@@ -12,7 +15,7 @@ where N_U is the lattice's finite resolution depth.
 
 The standard expression "1/α_1 = 6π²" is the **N → ∞ limit-label**:
   ζ(2) = lim S(N) = π²/6
-This limit is convenient but **not** part of the DRLT axiom — π
+This limit is convenient but **not** part of the 213 framework — π
 appears nowhere in {Raw, Lens, simplex combinatorics}.
 
 Telescoping bound:
@@ -77,9 +80,9 @@ theorem no_pi_in_finite_alpha_em :
     ∧ inv_alpha_em_finite_upper 3 = (12 * NS * (upper 3).1, (upper 3).2) := by
   decide
 
-/-- N_universe is currently *unknown* in DRLT axiom.  If a future
-    derivation gives N_universe = some specific Nat (e.g., from
-    holographic bound or Lens cardinality), then 1/α_em becomes a
+/-- N_universe is determined by the four-domain convergent invariant
+    `N_U = d^(d²) = 5²⁵` (`seed/RESOLUTION_LIMIT_SPEC.md` §2).  Once
+    the specific resolution depth is plugged in, 1/α_em becomes a
     specific rational, with structural deviation from π²/6 of size
     36/N_universe.  Currently this is open work. -/
 theorem N_universe_open_problem :
