@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Capstone
-import E213.Physics.AlphaEM.SimplicialDecomp
+import E213.Physics.AlphaEM.Capstone
 
 /-!
 # Cohomology 213 ↔ AlphaEMSimplicial bridge

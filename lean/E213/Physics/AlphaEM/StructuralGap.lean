@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.V137Tight
+import E213.Physics.AlphaEM.Brackets
 
 /-!
 # Structural gap of the 1/α_em(IR) candidate formula

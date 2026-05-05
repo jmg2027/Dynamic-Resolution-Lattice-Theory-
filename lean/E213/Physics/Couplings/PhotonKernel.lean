@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.Prefactors
+import E213.Physics.AlphaEM.Bare
 
 /-!
 # Photon = K_{NS,NT}^{(c)} cycle space (0 axioms part)

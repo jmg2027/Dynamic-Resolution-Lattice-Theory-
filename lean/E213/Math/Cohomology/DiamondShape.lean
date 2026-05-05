@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Bipartite.V32Betti
 import E213.Physics.Couplings.PhotonKernel
-import E213.Physics.AlphaEM.Prefactors
+import E213.Physics.AlphaEM.Bare
 
 /-!
 # Diamond Crystal — geometric formalization

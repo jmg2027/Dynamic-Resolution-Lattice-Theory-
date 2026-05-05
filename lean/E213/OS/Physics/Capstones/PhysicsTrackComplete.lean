@@ -1,5 +1,5 @@
 import E213.OS.Physics.Capstones.MasterCatalog
-import E213.Physics.AlphaEM.SimplicialDecomp
+import E213.Physics.AlphaEM.Capstone
 import E213.Physics.Mass.MuOverE
 import E213.Physics.Higgs.Mass
 import E213.Physics.Mass.TauOverMu
