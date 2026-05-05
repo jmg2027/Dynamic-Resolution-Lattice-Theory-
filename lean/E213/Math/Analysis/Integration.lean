@@ -1,39 +1,28 @@
-import E213.Math.Analysis.Diff
+import E213.Math.Analysis.Integration.Antiderivative
+import E213.Math.Analysis.Integration.ClassicAnti
+import E213.Math.Analysis.Integration.CutRiemann
+import E213.Math.Analysis.Integration.IndefiniteIntegral
+import E213.Math.Analysis.Integration.IntegralDyadic
+import E213.Math.Analysis.Integration.IntegralGeneralInt
+import E213.Math.Analysis.Integration.IntegralIntInterval
+import E213.Math.Analysis.Integration.IntegralProperties
+import E213.Math.Analysis.Integration.IntegralViaAnti
+import E213.Math.Analysis.Integration.Integration
 
-import E213.Math.Real213.Core
-import E213.Math.Real213.CutContinuity
-/-!
-# Research.Real213Integration: Riemann integration (Phase F)
+/-! Spec-as-code entry point for `E213.Math.Analysis.Integration` — Integration on cuts.
 
-Partition + Cauchy sequence form limit from Riemann sum.
+  `IsAntiderivative`, integral classes, Riemann sum, indefinite + integer/dyadic intervals.
 
-## Definition
+  ## Files in this chapter
 
-For continuous f : CutFunction on bracket [a, b]:
-∫[a, b] f := limit of Riemann sums over n-partition.
-
-## Status of this file
-
-Interface — full algorithm (Riemann sum sequence + Cauchy completeness)
-is separate work.  Lebesgue is outside the framework (measure theory absent).
+    * `Antiderivative`
+    * `ClassicAnti`
+    * `CutRiemann`
+    * `IndefiniteIntegral`
+    * `IntegralDyadic`
+    * `IntegralGeneralInt`
+    * `IntegralIntInterval`
+    * `IntegralProperties`
+    * `IntegralViaAnti`
+    * `Integration`
 -/
-
-namespace E213.Math.Analysis.Integration
-
-open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
-open E213.Math.Real213.CutContinuity (constCutFn)
-
-/-- Riemann integration data. -/
-structure RiemannIntegrable (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
-    (a b : Nat → Nat → Bool) where
-  integral : Nat → Nat → Bool  -- ∫[a, b] f, as a cut
-  modulus : Nat → Nat → Nat  -- precision
-
-/-- Constant integration (trivial case). -/
-def constRiemannIntegrable (c : Nat → Nat → Bool) (a b : Nat → Nat → Bool) :
-    RiemannIntegrable (constCutFn c) a b where
-  integral := c  -- ∫[a, b] c dx = c * (b - a) — placeholder
-  modulus := fun _ _ => 0
-
-end E213.Math.Analysis.Integration

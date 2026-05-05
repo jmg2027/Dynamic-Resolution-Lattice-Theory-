@@ -1,112 +1,52 @@
-import E213.Math.Analysis.FluxDivergence
+import E213.Math.Analysis.FluxMVT.FTCRiemann
+import E213.Math.Analysis.FluxMVT.FluxCochain
+import E213.Math.Analysis.FluxMVT.FluxCut
+import E213.Math.Analysis.FluxMVT.FluxDivergence
+import E213.Math.Analysis.FluxMVT.FluxEquiv
+import E213.Math.Analysis.FluxMVT.FluxEquivOps
+import E213.Math.Analysis.FluxMVT.FluxFTC
+import E213.Math.Analysis.FluxMVT.FluxFTCPolynomial
+import E213.Math.Analysis.FluxMVT.FluxMVT
+import E213.Math.Analysis.FluxMVT.FluxMVTConcrete
+import E213.Math.Analysis.FluxMVT.FluxMVTPassthrough
+import E213.Math.Analysis.FluxMVT.FluxMVTPolynomial
+import E213.Math.Analysis.FluxMVT.FluxMVTPropagate
+import E213.Math.Analysis.FluxMVT.FluxMVTWitness
+import E213.Math.Analysis.FluxMVT.FluxMVTWitnessCombinators
+import E213.Math.Analysis.FluxMVT.FluxPassthroughCatalog
+import E213.Math.Analysis.FluxMVT.FluxPassthroughClass
+import E213.Math.Analysis.FluxMVT.FluxPolynomial
+import E213.Math.Analysis.FluxMVT.FluxSeries
+import E213.Math.Analysis.FluxMVT.HasDyadicMVTWitness
+import E213.Math.Analysis.FluxMVT.MVTWitnessCatalog
+import E213.Math.Analysis.FluxMVT.MVTWitnessChain
 
-import E213.Math.Real213.Core
-import E213.Math.Real213.CutContinuity
-import E213.Math.Real213.CutPow
-import E213.Math.Real213.CutSumTest
-import E213.Math.Analysis.DyadicBracket
-import E213.Math.Analysis.DyadicTrajectory
-import E213.Math.Analysis.FluxCochain
-import E213.Math.Analysis.FluxCut
-/-!
-# Research.Real213FluxMVT
+/-! Spec-as-code entry point for `E213.Math.Analysis.FluxMVT` — Flux-form Mean Value Theorem (cohomological).
 
-Phase AV-4: **Mean Value Theorem** in flux form (concrete cases).
+  Cochains + cuts + divergence + passthrough class + dyadic witnesses + FTC bridge.
 
-213-native MVT: localDivergence f db cohomologically matches
-f.derivative at a trajectory midpoint.
+  ## Files in this chapter
 
-The general statement requires the difference quotient bound theorem
-(Phase AW+).  This file establishes concrete cases:
-
-  fluxBalance              : cohomological equality predicate
-  mvt_const                : constants have balanced divergence
-  mvt_id_unit_form         : id at unitBracket — explicit form
-  localDivergence_id_form  : id divergence at any bracket
+    * `FTCRiemann`
+    * `FluxCochain`
+    * `FluxCut`
+    * `FluxDivergence`
+    * `FluxEquiv`
+    * `FluxEquivOps`
+    * `FluxFTC`
+    * `FluxFTCPolynomial`
+    * `FluxMVT`
+    * `FluxMVTConcrete`
+    * `FluxMVTPassthrough`
+    * `FluxMVTPolynomial`
+    * `FluxMVTPropagate`
+    * `FluxMVTWitness`
+    * `FluxMVTWitnessCombinators`
+    * `FluxPassthroughCatalog`
+    * `FluxPassthroughClass`
+    * `FluxPolynomial`
+    * `FluxSeries`
+    * `HasDyadicMVTWitness`
+    * `MVTWitnessCatalog`
+    * `MVTWitnessChain`
 -/
-
-namespace E213.Math.Analysis.FluxMVT
-
-open E213.Firmware E213.Hypervisor
-open E213.Math.Real213.Core (Real213)
-open E213.Math.Real213.CutPow (cutScale)
-open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.FluxCut (FluxCut)
-open E213.Math.Analysis.DyadicBracket (DyadicBracket)
-open E213.Math.Analysis.FluxCochain.FluxCut
-  (fluxAlong isBalanced fluxAlong_const_isBalanced)
-open E213.Math.Analysis.FluxDivergence.FluxCut
-  (fluxScale localDivergence fluxScale_balanced
-   localDivergence_const_balanced)
-open E213.Math.Analysis.DyadicTrajectory (unitBracket)
-
-namespace FluxCut
-
-/-- Cohomological equality: both components match pointwise.
-    This IS the 213-native FluxCut equivalence (avoids struct equality
-    which would require funext on the cut-function fields). -/
-def fluxBalance (a b : FluxCut) : Prop :=
-  ∀ m k, a.forward m k = b.forward m k ∧ a.backward m k = b.backward m k
-
-/-- Alias for `fluxBalance` — cleaner name when used as cut-equality. -/
-abbrev fluxCutEq := fluxBalance
-
-/-- `fluxCutEq` derived from struct equality (PURE: no funext). -/
-theorem fluxCutEq_of_eq {a b : FluxCut} (h : a = b) : fluxCutEq a b := by
-  intro m k
-  exact ⟨by rw [h], by rw [h]⟩
-
-/-- MVT for constants: localDivergence balanced (∂c = 0). -/
-theorem mvt_const (c : Nat → Nat → Bool) (db : DyadicBracket) :
-    isBalanced (localDivergence (constCutFn c) db) :=
-  localDivergence_const_balanced c db
-
-/-- MVT for identity at unit bracket: explicit forward/backward form. -/
-theorem mvt_id_unit_form :
-    (localDivergence id unitBracket).forward
-      = cutScale (2^0) 1 (constCut 1 1)
-    ∧ (localDivergence id unitBracket).backward
-      = cutScale (2^0) 1 (constCut 0 1) := ⟨rfl, rfl⟩
-
-/-- Identity local divergence form at any bracket. -/
-theorem localDivergence_id_form (db : DyadicBracket) :
-    localDivergence id db
-      = { forward := cutScale (2^db.expE) 1 db.rightCut,
-          backward := cutScale (2^db.expE) 1 db.leftCut } := rfl
-
-/-- fluxBalance is reflexive. -/
-theorem fluxBalance_refl (a : FluxCut) : fluxBalance a a :=
-  fun _ _ => ⟨rfl, rfl⟩
-
-/-- fluxBalance is symmetric. -/
-theorem fluxBalance_symm (a b : FluxCut) :
-    fluxBalance a b → fluxBalance b a := by
-  intro h m k
-  exact ⟨(h m k).1.symm, (h m k).2.symm⟩
-
-/-- fluxBalance is transitive. -/
-theorem fluxBalance_trans {a b c : FluxCut}
-    (hab : fluxBalance a b) (hbc : fluxBalance b c) : fluxBalance a c :=
-  fun m k => ⟨(hab m k).1.trans (hbc m k).1,
-              (hab m k).2.trans (hbc m k).2⟩
-
-/-- Pointwise field projections to fluxCutEq. -/
-theorem fluxCutEq_of_pointwise {a b : FluxCut}
-    (hf : ∀ m k, a.forward m k = b.forward m k)
-    (hb : ∀ m k, a.backward m k = b.backward m k) : fluxCutEq a b :=
-  fun m k => ⟨hf m k, hb m k⟩
-
-/-- Forward projection from fluxCutEq. -/
-theorem fluxCutEq_forward {a b : FluxCut} (h : fluxCutEq a b) :
-    ∀ m k, a.forward m k = b.forward m k :=
-  fun m k => (h m k).1
-
-/-- Backward projection from fluxCutEq. -/
-theorem fluxCutEq_backward {a b : FluxCut} (h : fluxCutEq a b) :
-    ∀ m k, a.backward m k = b.backward m k :=
-  fun m k => (h m k).2
-
-end FluxCut
-
-end E213.Math.Analysis.FluxMVT

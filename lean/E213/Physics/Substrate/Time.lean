@@ -43,12 +43,12 @@ namespace E213.Physics.Substrate.Time
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSum
-open E213.Math.Analysis.DyadicBracket
-open E213.Math.Analysis.DyadicTrajectory
+open E213.Math.Analysis.DyadicSearch.DyadicBracket
+open E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 open E213.Math.Analysis.PhysicsBridgeNT2 (nt2_step_count nt2_left_trajectory nt2_atomic_yields_dyadic)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Real213.CutSumTest (constCut)
-open E213.Math.Analysis.DyadicRiemann (riemannSampleSum)
+open E213.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
 
 /-- NT sector = atomic 2-block.  Phase 2 explicitly assigns Lens label
     "time-like" here. -/

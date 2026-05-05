@@ -1,5 +1,5 @@
-import E213.Math.Analysis.CutSeries
-import E213.Math.Analysis.CutGeomSeries
+import E213.Math.Analysis.Series.CutSeries
+import E213.Math.Analysis.Series.CutGeomSeries
 
 /-!
 # E213.Math.Series: series + specific functions

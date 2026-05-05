@@ -1,5 +1,5 @@
-import E213.Math.Analysis.DyadicBracket
-import E213.Math.Analysis.ConsistentOracle
+import E213.Math.Analysis.DyadicSearch.DyadicBracket
+import E213.Math.Analysis.DyadicSearch.ConsistentOracle
 
 import E213.Math.Real213.Core
 import E213.Math.Real213.Dyadic

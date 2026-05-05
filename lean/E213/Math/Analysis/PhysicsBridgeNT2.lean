@@ -1,11 +1,11 @@
 import E213.Math.Real213.MinimumProposition
 
-import E213.Math.Analysis.ConsistentOracle
+import E213.Math.Analysis.DyadicSearch.ConsistentOracle
 import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.CutSumTest
-import E213.Math.Analysis.DyadicBracket
-import E213.Math.Analysis.DyadicRiemann
-import E213.Math.Analysis.DyadicTrajectory
+import E213.Math.Analysis.DyadicSearch.DyadicBracket
+import E213.Math.Analysis.DyadicSearch.DyadicRiemann
+import E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 /-!
 # Research.Real213PhysicsBridgeNT2
 
@@ -38,11 +38,11 @@ namespace E213.Math.Analysis.PhysicsBridgeNT2
 open E213.Firmware E213.Hypervisor
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
-open E213.Math.Analysis.DyadicRiemann
+open E213.Math.Analysis.DyadicSearch.DyadicRiemann
   (riemannSampleSum riemannSampleSum_constCut riemannSampleSum_constCut_at)
-open E213.Math.Analysis.DyadicBracket
-open E213.Math.Analysis.ConsistentOracle
-open E213.Math.Analysis.DyadicTrajectory
+open E213.Math.Analysis.DyadicSearch.DyadicBracket
+open E213.Math.Analysis.DyadicSearch.ConsistentOracle
+open E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 
 /-- **B-1: NT=2 atom → 2^n leaves at depth n**.
     Iterated 2-block produces 2^n distinguishable Lens-output states. -/
