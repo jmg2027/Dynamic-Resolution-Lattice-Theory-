@@ -1,3 +1,18 @@
+import E213.Physics.AlphaEM
+import E213.Physics.Atomic
+import E213.Physics.Basel
+import E213.Physics.Cosmology
+import E213.Physics.Couplings
+import E213.Physics.Foundations
+import E213.Physics.Hadron
+import E213.Physics.Higgs
+import E213.Physics.Mass
+import E213.Physics.Mixing
+import E213.Physics.Nuclear
+import E213.Physics.Simplex
+import E213.Physics.Substrate
+import E213.Physics.YangMills
+
 /-! E213.Physics — DRLT physics deployment of the 213 axiom.
 
 Importing this single module pulls in every Physics sub-tree
@@ -25,18 +40,3 @@ Plus capstones at `OS/Physics/Capstones/`:
   PureAtomicObservables, ValidationStandardOne, FinitistObservableChain,
   PhysicsTrackComplete, MasterCatalog.
 -/
-
-import E213.Physics.AlphaEM
-import E213.Physics.Atomic
-import E213.Physics.Basel
-import E213.Physics.Cosmology
-import E213.Physics.Couplings
-import E213.Physics.Foundations
-import E213.Physics.Hadron
-import E213.Physics.Higgs
-import E213.Physics.Mass
-import E213.Physics.Mixing
-import E213.Physics.Nuclear
-import E213.Physics.Simplex
-import E213.Physics.Substrate
-import E213.Physics.YangMills
