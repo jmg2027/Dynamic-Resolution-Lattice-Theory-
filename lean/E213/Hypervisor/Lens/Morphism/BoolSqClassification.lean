@@ -1,4 +1,3 @@
-import E213.Math.Diagonal.Classification
 import E213.Hypervisor.Lens.Instances.NegSq
 
 /-!

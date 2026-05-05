@@ -1,5 +1,4 @@
 import E213.Hypervisor.Lens
-import E213.Math.Diagonal.Classification
 
 /-!
 # Research.NegSqLens: fifth category of diagonal classification

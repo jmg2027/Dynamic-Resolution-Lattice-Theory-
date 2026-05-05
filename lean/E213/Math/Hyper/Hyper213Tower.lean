@@ -40,7 +40,7 @@ namespace E213.Math.Hyper.Hyper213Tower
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
 open E213.Hypervisor.Lens.Compose.OnLens
-open E213.Math.Hyper213
+open E213.Math.Hyper.Hyper213
 
 /-- LensTower α n: n-fold lens-on-lens self-application. -/
 def LensTower (α : Type) [HasDistinguishing α] : Nat → Type
