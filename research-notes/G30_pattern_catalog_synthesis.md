@@ -421,3 +421,37 @@ The catalog now records, in Lean form:
   - what 213 *rejects* (heterogeneous-target dependent matching)
 
 three corrections deep, all ∅-axiom verified.
+
+## §16 Build-time enforcement — `∅-pure` as sorry-equivalent
+
+User directive (Mingu): treat any non-empty kernel-dependency set as
+functionally equivalent to `sorry`, and have Lean enforce it at
+elaboration time rather than via post-hoc Python audit.
+
+`lean/E213/Meta/Tactic/PureGuard.lean` provides three primitives:
+
+  `#guard_pure <name>`              — fail elaboration if any
+                                       kernel-dependency is found
+  `#guard_sealed <n> with [a,b,…]`  — fail unless deps ⊆ allow-list
+  `@[pure213]` attribute            — declaration-time guard,
+                                       attaches directly to def
+
+Implementation: `Lean.CollectAxioms.collect` walks the proof term
+and returns the kernel-dependency set.  Non-empty set → `throwError`
+→ build fails.
+
+`lean/E213/Meta/Tactic/PureGuardTest.lean` runs `#guard_pure` against
+19 representative catalog declarations (atomic instances, real Lens
+lifts, composites, closure instances, free-monoid theorems, span
+verdict).  Each emits `✓ '<name>' is ∅-pure` at build time; any
+future regression breaks the build.
+
+This **subsumes** `tools/scan_all_axioms.py` for guarded declarations:
+leaks now break compilation rather than being reported afterward.
+The Python script remains useful for repo-wide sweeps; for new
+catalog code, `@[pure213]` is the preferred enforcement mode.
+
+The sorry-equivalence framing is now structural: in 213's regime,
+**any kernel dependency IS a sorry** — both denote "incomplete proof
+relying on external content".  PureGuard makes this equivalence
+mechanical, not aspirational.
