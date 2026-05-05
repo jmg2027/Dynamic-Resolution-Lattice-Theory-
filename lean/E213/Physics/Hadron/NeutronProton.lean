@@ -3,7 +3,7 @@ import E213.Physics.Hadron.Masses
 /-!
 # Δm_np = m_n − m_p ≈ 1.27 MeV (0 axioms)
 
-DRLT formula (SM_022, ch09):
+DRLT formula:
 
   Δm_np = (m_d - m_u) · (1 - S(2)/ζ(2)) · 12
 
@@ -29,7 +29,7 @@ DRLT formula (SM_022, ch09):
   
   Δm_np ≈ 2.505 · 0.2402 · 12 / something... 
   
-  The actual DRLT computation is slightly more complex (per SM_022).
+  The actual DRLT computation is slightly more complex (per the closed Dyson form below).
   Result: Δm_np ≈ 1.275 MeV vs observed 1.293 (-1.5%)
 -/
 

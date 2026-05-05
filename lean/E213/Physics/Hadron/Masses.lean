@@ -3,7 +3,7 @@ import E213.Physics.Hadron.ProtonMass
 /-!
 # Hadron masses — GMOR + hyperfine lattice form (0 axioms part)
 
-DRLT formulae (HAD_001, HAD_005, ch09):
+DRLT formulae:
 
   GMOR (pseudoscalar):
     m_PS² = NS² · (m_q1 + m_q2) · Λ_QCD     [n_eff = NS² = 9]
@@ -32,7 +32,7 @@ DRLT formulae (HAD_001, HAD_005, ch09):
 
   - NS² = 9 prefactor (GMOR n_eff)
   - d/NT = 5/2 (hyperfine ratio)
-  - Λ_QCD scale (derived from HAD_005)
+  - Λ_QCD scale (derived from QCD-scale chain)
   - Closed propagator P(x) for heavy quarks
 -/
 

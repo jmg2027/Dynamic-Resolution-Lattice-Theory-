@@ -35,6 +35,8 @@ Physics/
 ├── Hadron/              8  — Bigrading, Bridge, Masses, NeutronProton,
 │                              ProtonElectronRatio, ProtonG, ProtonMass,
 │                              QuarkHierarchy
+│                              (ProtonMassPhase3Derivation +
+│                              ProtonMassSharp deleted 2026-05-05)
 ├── Mass/                4  — MuOverE{,Finitist}, TauOverMu, HierarchyTowers
 ├── Higgs/               4  — Mass, Master, Quartic, Vacuum
 │                              (MassFinitist + Phase3Derivation

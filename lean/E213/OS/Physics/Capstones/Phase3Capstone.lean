@@ -11,7 +11,7 @@ import E213.Physics.Couplings.CassiniLink
 import E213.Physics.AlphaEM.Phase3Sharp
 import E213.Physics.Mass.LeptonRatios
 import E213.Physics.Mixing.CKMSpecific
-import E213.Physics.Hadron.ProtonMassSharp
+import E213.Physics.Hadron.ProtonMass
 
 /-!
 # Phase 3 Capstone — single synthesis of all falsifiers

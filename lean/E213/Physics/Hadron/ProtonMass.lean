@@ -3,7 +3,7 @@ import E213.Physics.Higgs.Mass
 /-!
 # m_p = 938.27 MeV — closed propagator + atomic structure (0 axioms)
 
-DRLT formula (ch09 §proton, lib/drlt.py:611):
+DRLT formula:
 
   m_p = NS · Λ_QCD · P(α_GUT · NS / d)
 
@@ -27,7 +27,7 @@ DRLT formula (ch09 §proton, lib/drlt.py:611):
   Same P(x) appears in:
   - m_μ/m_e Dyson series (geometric)
   - m_p (this file)
-  - general fermion mass (ch09 closed propagator)
+  - general fermion mass (closed propagator)
 
 ## ★ Atomic ratio NS/d = 3/5 ★
 

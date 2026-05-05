@@ -3,7 +3,7 @@ import E213.Physics.Couplings.AlphaGUT
 /-!
 # Quark mass hierarchy — α_GUT structure (0 axioms)
 
-DRLT quark masses (ch09 sec 6, SM_024):
+DRLT quark masses:
 
   Generation 1:  m_u = 2.156 MeV,  m_d = 4.661 MeV
   Generation 2:  m_s ≈ 93 MeV,    m_c ≈ 1280 MeV
