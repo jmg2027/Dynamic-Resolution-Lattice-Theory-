@@ -111,10 +111,44 @@ Skeleton landed in
 All declarations strict ∅-axiom.  → closed-skeleton in
 `Math/Analysis/DyadicSearch/MinimalRootLens.lean`.
 
-## 5. Next milestone
+## 5. Layer 3b — Resolution-residue → cutEq bridge
 
-`monotonicConsistentOracle f hMono db hAB` — for monotonic f with
-sign change on [a, b], construct `ConsistentOracle db` whose
-oracle is `signedLeftOracle f`.  Yields the full IVTRoot via the
-G31 readout pattern.  No locatedness, no `Decidable`, no
-`propext`.
+Closed in `MinimalRootLensMonotone.lean`.  The user's framing:
+"부호 변화 불변량을 cutEq라는 렌즈의 언어로 번역."
+
+  * `cutEq_zero_of_ratioCut_at_unit` — for any `RatioCut x` with
+    `x 0 1 = true`, conclude `cutEq x (constCut 0 1)`.  Unit-precision
+    sign + structural cut-coherence ⇒ global zero certificate.  This
+    is the 213-native form of "value ≤ 0 at unit precision implies
+    value = 0 globally" — finite-resolution observation closing into
+    the cut-equality lens.
+
+  * `IVTRoot.fromConsistentOracleRatio` — packages the four 213-axes
+    into the full IVTRoot:
+      1. `LocallyDeterminedData f` (modulus axis)
+      2. `ConsistentOracle db` (trajectory axis)
+      3. `RatioCut (f c)` (structural-coherence axis)
+      4. `f c 0 1 = true` (finite-resolution residue axis)
+    No additional hypothesis enters.  Lower / upper come free from
+    the bracket-containment of Layer 3a; zero closes via the bridge.
+
+The user's slogan: this is the structural equivalent of Bishop
+locatedness made explicit.  Each axis is a typed datum supplied by
+the caller, not a classical assumption embedded in the framework.
+
+## 6. Layer 3c (next)
+
+Discharge axes (3) and (4) under stronger hypotheses on f:
+  * `RatioCutPreserving f` ⇒ axis (3) for `f c` whenever `c` is
+    `RatioCut` (the trajectory readout's RatioCut closure is
+    itself a Layer 3c subgoal — depends on consistency uniformity
+    across precisions).
+  * Combined with `BracketSignChange` n-step preservation
+    (Layer 2) + LDD-stability at unit precision ⇒ axis (4).
+
+The remaining work is the construction of `ConsistentOracle` from
+(LDD + BracketSignChange) — the existence of the typed protocol
+witness for any sign-changing locally-determined f.  This requires
+showing the trajectory's midCut sequence is Cauchy, which composes
+the `dyadic_bracket_cauchy_modulus` (already strict ∅-axiom) with
+LDD-stability at every (m, k).

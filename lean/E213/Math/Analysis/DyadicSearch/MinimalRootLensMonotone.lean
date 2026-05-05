@@ -1,6 +1,8 @@
 import E213.Math.Analysis.DyadicSearch.MinimalRootLens
 import E213.Math.Real213.CutFnData
 import E213.Math.Real213.Dyadic
+import E213.Math.Real213.ValidCut
+import E213.Math.Real213.CutPoset
 import E213.Kernel.Tactic.Nat213
 import E213.Kernel.Tactic.Pow213
 
@@ -157,5 +159,86 @@ theorem bisectN_signed_left_preserves_sign_change
     exact bisectN_signed_left_preserves_sign_change lf n
             (db.bisectStep (signedLeftOracle f))
             (bisectStep_signed_left_preserves_sign_change lf db sc)
+
+/-! ### Resolution-residue → cutEq bridge (Layer 3b core)
+
+The 213-native form of "f(c) = 0".  In the cut algebra, the
+proposition `cutEq x (constCut 0 1)` reduces to "x is true at every
+(m, k)".  For a `RatioCut` x (cuts respecting cross-multiplied
+rational ordering — including all `dyadicCut`s), it suffices to
+verify x's value at the single unit-precision query (0, 1).
+
+This is the Layer 3b structural translation: the user's
+"부호 변화 불변량을 cutEq라는 렌즈의 언어로 번역" — the unit-precision
+sign change `f rightCut 0 1 = true`, when paired with `RatioCut`
+on the f-image, is *automatically* a global cutEq with the zero cut. -/
+
+open E213.Math.Real213.ValidCut (RatioCut)
+open E213.Math.Real213.CutPoset (cutEq)
+open E213.Math.Real213.CutSumTest (constCut)
+
+/-- **constCut 0 1 is the always-true cut**: at every query `(m, k)`,
+    `constCut 0 1 m k = true`.  Pure decide-reduction. -/
+theorem constCut_zero_one_true (m k : Nat) :
+    constCut 0 1 m k = true := by
+  show decide (0 * k ≤ 1 * m) = true
+  apply decide_eq_true
+  rw [Nat.zero_mul]
+  exact Nat.zero_le _
+
+/-- **★ The Layer 3b bridge**: a `RatioCut` that is true at the
+    unit-precision query `(0, 1)` is *globally* the zero cut.
+
+Proof: `RatioCut`'s `ratioMono` lifts the unit query to any (m, k)
+since `0 / 1 ≤ m / k` always (cross-multiplied: `0 * k ≤ m * 1`,
+which is `0 ≤ m`).  This is the structural equivalent of "value ≤ 0
+at unit precision implies value ≤ m/k at every precision" —
+because in 213 the cut for value 0 *is* the always-true cut. -/
+theorem cutEq_zero_of_ratioCut_at_unit
+    (x : Nat → Nat → Bool) (hr : RatioCut x) (hu : x 0 1 = true) :
+    cutEq x (constCut 0 1) := by
+  intro m k
+  rw [constCut_zero_one_true]
+  -- ratioMono: 0/1 ≤ m/k via 0*k ≤ m*1 = m
+  exact hr.ratioMono 0 1 m k (by decide)
+    (by rw [Nat.zero_mul, Nat.mul_one]; exact Nat.zero_le _) hu
+
+open E213.Math.Analysis.DyadicSearch.MinimalRootLens
+  (signedLeftOracle MinimalRootCut)
+open E213.Math.Analysis.DyadicSearch.ConsistentOracle (ConsistentOracle)
+open E213.Math.Analysis.DyadicSearch.IVT (IVTHypothesis IVTRoot)
+
+/-- **★ Layer 3b closure** — the IVTRoot certificate from the
+    minimum 213-native data:
+
+  1. `lf : LocallyDeterminedData f` — the f's modulus.
+  2. `co : ConsistentOracle db` — the typed protocol witness.
+  3. `h_ratio : RatioCut (f (MinimalRootCut co))` — f-image inherits
+     the structural cut-coherence (would discharge for any
+     RatioCut-preserving f, e.g., polynomials).
+  4. `h_zero_unit : f (MinimalRootCut co) 0 1 = true` — the
+     unit-precision sign witness at the limit; future Layer 3c
+     work derives this from `BracketSignChange` + LDD-stability
+     at unit precision.
+
+The four pieces *exactly* match the four 213 axes — modulus,
+trajectory, structural coherence, finite-resolution residue.  No
+additional hypothesis enters.  The `lower` and `upper` bounds come
+free from `MinimalRootCut_{lower,upper}`; `zero` comes from the
+`cutEq_zero_of_ratioCut_at_unit` bridge.
+
+This is the structural equivalent of Bishop locatedness made
+explicit: each piece is a typed datum the user supplies, not an
+external classical assumption. -/
+def IVTRoot.fromConsistentOracleRatio
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (lf : LocallyDeterminedData f) {db : DyadicBracket}
+    (co : ConsistentOracle db)
+    (h_ratio : RatioCut (f (MinimalRootCut co)))
+    (h_zero_unit : f (MinimalRootCut co) 0 1 = true) :
+    IVTRoot { f := f, isLDD := lf,
+              a := db.leftCut, b := db.rightCut } :=
+  E213.Math.Analysis.DyadicSearch.MinimalRootLens.IVTRoot.fromConsistentOracle
+    lf co (cutEq_zero_of_ratioCut_at_unit _ h_ratio h_zero_unit)
 
 end E213.Math.Analysis.DyadicSearch.MinimalRootLensMonotone
