@@ -325,3 +325,41 @@ by 2 specific named extensions (DepAggregate, ArityNCohabit).**
 combinatorial-type-theoretic.  The catalog records that fact in
 Lean form, ∅-axiom certified, with the gap to full closure
 explicitly typed.
+
+## §14 Under-span closed (post-§12 follow-up)
+
+The two escape categories named in §12 (`depAggregate`, `nAryCohabit`)
+are now closed by catalog extensions:
+
+  `DepAggregate (W : Nat → Type)` — dependent-witness Aggregate where
+    the witness type can vary per index.  Concrete instance
+    `heteroDepAggregate` bundles arity-3 with index-0 LocalityWitness,
+    index-1 InterfaceWitness, index-2 CatamorphismWitness.
+
+  `ArityNCohabit Base α` — n-way base-shared Lens cohabitation.
+    Concrete instance `threeLensCohabit` bundles peanoLens.view +
+    Lens.depth.view + isLeafLens.view (Bool case `boolAsNat`-encoded
+    to sidestep Lean's dependent-match-rfl interaction) on `Raw.a`.
+
+Both instances ∅-axiom verified.  `PatternCatalogSpan.finalVerdict`
+upgraded from `.underSpan` to `.exactSpan`:
+
+  · GAME LEVEL  : exactSpan — every named game has ≥ 1 instance.
+  · CELL LEVEL  : overSpan  — Cartesian artefact, not a gap.
+  · ESCAPE      : exactSpan — no remaining under-span categories.
+
+  finalVerdict := .exactSpan
+
+The catalog now exactly spans the patterns examined.  Cell-level
+over-allocation remains a structural feature of any classification
+(more cells than usage), not a coverage failure.
+
+The composite resolution: **a free monoid on {Aggregate, Forced}
+(plus dependent-witness DepAggregate and arity-N Cohabit extensions)
+acting on a 4-atomic-game basis, anchored on 8 type-theoretic
+primitives, exactly spanning the 213 codebase patterns examined to
+date.**
+
+This is the meta-formalization arc closure.  Future codebase shapes
+not yet examined could surface new under-span candidates; the
+methodology for closing them is now established and reproducible.

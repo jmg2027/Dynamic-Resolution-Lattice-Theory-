@@ -150,6 +150,28 @@ structure CohabitationWitness (Base α β : Type) where
   eq_α       : view_α base = expected_α
   eq_β       : view_β base = expected_β
 
+/-- **N-ary Cohabitation** — `ArityNCohabit Base α`.
+
+    Closes the under-span escape `EscapeCandidate.nAryCohabit` named
+    in `PatternCatalogSpan`.  Where `CohabitationWitness` is ternary
+    (one Base + two views), `ArityNCohabit` parameterises by an
+    arbitrary arity.  At index `i`, the view targets type `α i`,
+    yielding `expected i` on the shared `base`.
+
+    Codebase candidate: any 3+-way Lens cohabitation on the same Raw
+    expression (peanoLens + Lens.depth + isLeafLens etc.). -/
+structure ArityNCohabit (Base : Type) (α : Nat → Type) where
+  /-- Arity (number of cohabitating views). -/
+  arity     : Nat
+  /-- The shared substrate. -/
+  base      : Base
+  /-- Per-index view function. -/
+  views     : (i : Nat) → Base → α i
+  /-- Per-index expected value. -/
+  expected  : (i : Nat) → α i
+  /-- Per-index agreement: view of base equals expected. -/
+  agree     : (i : Nat) → views i base = expected i
+
 /-- **Lens composite** = `Typeclass × Catamorphism` with field
     compatibility.  An `InterfaceWitness` provides `(base1, base2,
     combine)`; a `CatamorphismWitness` provides `(base_a, base_b,
@@ -226,6 +248,25 @@ structure Aggregate (W : Type) where
   arity  : Nat
   /-- Indexed family of underlying witnesses. -/
   facts  : Nat → W
+
+/-- **Dependent Aggregate** — `DepAggregate (W : Nat → Type)`.
+
+    Closes the under-span escape `EscapeCandidate.depAggregate` named
+    in `PatternCatalogSpan`.  Where `Aggregate W` requires a uniform
+    witness type, `DepAggregate W` lets the witness type vary per
+    index: index `n` carries a witness of type `W n`.
+
+    Codebase candidate: any capstone bundling theorems whose
+    *witness types* differ — e.g., a phase capstone collecting one
+    Locality witness, one Interface witness, one Cata witness all
+    in a single ∧-bundle. -/
+structure DepAggregate (W : Nat → Type) where
+  /-- Phase tag. -/
+  phase  : String
+  /-- Bundle cardinality. -/
+  arity  : Nat
+  /-- Dependent indexed family: at index `n`, the witness has type `W n`. -/
+  facts  : (n : Nat) → W n
 
 /-- Dynamical × Aggregation as a specialisation of `Aggregate`.
     Anchor specimen: `pisano_predict_realises_pell_N` (Pisano

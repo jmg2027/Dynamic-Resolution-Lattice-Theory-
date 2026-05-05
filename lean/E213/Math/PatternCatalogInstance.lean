@@ -2,6 +2,7 @@ import E213.Math.PatternCatalog
 import E213.Math.Real213.CutMulOne
 import E213.Firmware.Atomicity.Five
 import E213.Math.AxiomSystems.CrossTheoryCohabit
+import E213.Hypervisor.Lens.Properties.IsLeaf
 
 /-!
 # PatternCatalog — instance check
@@ -344,6 +345,81 @@ def addCataDynamical : CataDynamical Nat :=
                         output := id
                         period_witness := (0, 0) }
     step_eq_reduce := fun _ => rfl }
+
+/-! ## Closing under-span: DepAggregate + ArityNCohabit instances
+
+These two instances close the escapes flagged in
+`PatternCatalogSpan.EscapeCandidate.{depAggregate, nAryCohabit}`. -/
+
+open E213.Math.PatternCatalog (DepAggregate ArityNCohabit)
+
+/-- Witness-type family for the heterogeneous bundle:
+    index 0 → LocalityWitness; index 1 → InterfaceWitness;
+    other → CatamorphismWitness. -/
+def heteroW : Nat → Type
+  | 0 => LocalityWitness Nat Nat
+  | 1 => InterfaceWitness Nat
+  | _ => CatamorphismWitness Nat
+
+/-- Heterogeneous-witness DepAggregate of arity 3 — closes
+    `EscapeCandidate.depAggregate`. -/
+def heteroDepAggregate : DepAggregate heteroW :=
+  { phase := "hetero"
+    arity := 3
+    facts := fun n => match n with
+      | 0     => trivLoc 0
+      | 1     => { base1 := 0, base2 := 0, combine := (· + ·) }
+      | _ + 2 => trivCata 0 }
+
+/-! ### 3-way Lens cohabitation — implementation note
+
+The *ideal* heterogeneous type family
+`fun n => match n with | 0 | 1 => Nat | _ => Bool` triggers Lean's
+dependent-match-rfl interaction issue (the equation compiler doesn't
+reduce `f i` to its case branch in agreement proofs).  We use a
+*uniform Nat target* with the Bool case encoded via `boolAsNat`
+(true → 1, false → 0).  Structural content (ArityNCohabit + arity 3
++ Raw substrate + 3 distinct views) is preserved. -/
+
+/-- Bool → Nat coercion (true ↦ 1, false ↦ 0). -/
+def boolAsNat : Bool → Nat
+  | true  => 1
+  | false => 0
+
+/-- Constant Nat target family. -/
+def threeLensAlphaConst : Nat → Type := fun _ => Nat
+
+/-- Per-index view (pure Nat-valued; no dependent return). -/
+def threeLensViews (i : Nat) (r : E213.Firmware.Raw) : Nat :=
+  match i with
+  | 0     => peanoLens.view r
+  | 1     => E213.Hypervisor.Lens.depth.view r
+  | _ + 2 => boolAsNat
+              (E213.Hypervisor.Lens.Properties.IsLeaf.isLeafLens.view r)
+
+/-- Per-index expected value. -/
+def threeLensExpected (i : Nat) : Nat :=
+  match i with
+  | 0     => 1
+  | 1     => 0
+  | _ + 2 => 1
+
+/-- Per-index agreement. -/
+def threeLensAgree (i : Nat) :
+    threeLensViews i E213.Firmware.Raw.a = threeLensExpected i := by
+  match i with
+  | 0     => rfl
+  | 1     => rfl
+  | _ + 2 => rfl
+
+/-- 3-way Lens cohabitation on `Raw.a`. -/
+def threeLensCohabit :
+    ArityNCohabit E213.Firmware.Raw threeLensAlphaConst :=
+  { arity    := 3
+    base     := E213.Firmware.Raw.a
+    views    := threeLensViews
+    expected := threeLensExpected
+    agree    := threeLensAgree }
 
 /-! ## Real codebase Lens lifts — three concrete LensWitness instances
 

@@ -80,47 +80,48 @@ inductive EscapeCandidate where
   | classicalDemo
   deriving DecidableEq, Repr
 
-/-- Verdict per escape candidate. -/
+/-- Verdict per escape candidate.  Both former under-span candidates
+    `depAggregate` and `nAryCohabit` are now fitted by the catalog
+    extensions `DepAggregate` and `ArityNCohabit` respectively. -/
 def EscapeCandidate.fits : EscapeCandidate → Bool
-  | .depAggregate  => false  -- genuine escape; needs catalog extension
-  | .nAryCohabit   => false  -- arity-N Cohabitation not yet in catalog
+  | .depAggregate  => true   -- closed by DepAggregate (W : Nat → Type)
+  | .nAryCohabit   => true   -- closed by ArityNCohabit Base α
   | .recursiveLens => true   -- LensWitness is polymorphic; reuses cleanly
-  | .classicalDemo => true   -- out-of-scope by design (ε-axiom only)
+  | .classicalDemo => true   -- out-of-scope by design (∅-axiom only)
 
-/-- Honest under-span list: candidates that genuinely escape. -/
-def underSpanCandidates : EscapeCandidate → Bool
-  | .depAggregate  => true
-  | .nAryCohabit   => true
-  | _              => false
+/-- Honest under-span list: candidates that genuinely escape.  After
+    DepAggregate + ArityNCohabit additions, this list is empty. -/
+def underSpanCandidates : EscapeCandidate → Bool := fun _ => false
 
-/-! ## Final verdict
+/-! ## Final verdict (post-closure)
 
-Composite reading of game-level + cell-level + escape-check:
+After adding `DepAggregate` and `ArityNCohabit` to PatternCatalog,
+the escape categories that previously forced under-span are closed.
+Updated three-granularity reading:
 
   · GAME LEVEL  : exactSpan — every named game has ≥1 instance.
-  · CELL LEVEL  : overSpan  — most cross-cells are unpopulated.
-  · ESCAPE      : underSpan — at least 2 honest escape categories
-                              (depAggregate, nAryCohabit) point
-                              outside the current catalog.
+  · CELL LEVEL  : overSpan  — many cross-cells still unpopulated.
+  · ESCAPE      : exactSpan — no remaining under-span categories.
 
-These verdicts are NOT contradictory: they describe the catalog at
-different granularities.  The catalog **fits** the patterns it
-captures, **over-allocates** the Cartesian cell space, and
-**under-extends** in two specific directions that the next round
-of formalization could close.
+The composite verdict can now upgrade to **exactSpan** modulo
+cell-level over-allocation.  Reading "exactSpan" honestly: every
+codebase shape we have considered fits in some catalog cell, AND
+every catalog game type has at least one concrete witness.  The
+unpopulated cross-cells are Cartesian artefacts — game × statement-
+shape combinations that the codebase simply doesn't use, NOT
+catalog gaps. -/
 
-The composite verdict, summarising for a single label: -/
+def finalVerdict : SpanResult := .exactSpan
+  -- Reasoning: Game-level was already exact.  Escape categories
+  -- closed by DepAggregate + ArityNCohabit.  Cell-level over-span
+  -- is a Cartesian-product artefact, not a coverage failure.
 
-def finalVerdict : SpanResult := .underSpan
-  -- Reasoning: even though game-level and most-cell-level coverage
-  -- is exact-or-over, the existence of EscapeCandidate.depAggregate
-  -- and EscapeCandidate.nAryCohabit means there are codebase shapes
-  -- not yet typed.  Honesty-first: under-span wins the disjunction.
-
-/-- Concrete extension proposal for closing under-span: -/
-def proposedExtensions : List String :=
-  ["DepAggregate (W : Idx → Type) — heterogeneous-witness bundles",
-   "ArityNCohabit (n : Nat) — n-way base-shared Lens cohabitation",
-   "DepLocality (Idx → Val Idx) — Σ-typed Locality (codebase rare)"]
+/-- The under-span gap from prior verdict is now closed.  This list
+    used to contain depAggregate + nAryCohabit; both are now in the
+    catalog.  Future under-span candidates would surface from new
+    codebase patterns not yet examined. -/
+def closedExtensions : List String :=
+  ["DepAggregate (W : Nat → Type) — heterogeneous-witness bundles ✓",
+   "ArityNCohabit Base α — n-way base-shared Lens cohabitation ✓"]
 
 end E213.Math.PatternCatalogSpan
