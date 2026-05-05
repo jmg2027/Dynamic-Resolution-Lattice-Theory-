@@ -1,6 +1,9 @@
 import E213.Math.CayleyDickson.CDDouble
 import E213.Math.CayleyDickson.Cayley
 import E213.Math.CayleyDickson.F2CDTower
+import E213.Math.CayleyDickson.Pathion
+import E213.Math.CayleyDickson.Sedenion
+import E213.Math.CayleyDickson.Trigintaduonion
 import E213.Math.CayleyDickson.Z2Instance
 import E213.Math.CayleyDickson.ZI
 import E213.Math.CayleyDickson.ZIArith
@@ -16,26 +19,22 @@ import E213.Math.CayleyDickson.ZSqrt2Domain
 import E213.Math.CayleyDickson.ZSqrtDomain
 import E213.Math.CayleyDickson.ZSqrtInstance
 
-/-! Spec-as-code entry point for `E213.Math.CayleyDickson` —
-  Cayley-Dickson construction over 213.
+/-! Spec-as-code entry point for `E213.Math/CayleyDickson` — CayleyDickson library.
+
+  Cayley-Dickson layered construction over 213.
 
   ## Status
 
-  17 files included.  12 files excluded
-  (cascade still has minor issues — wrong-path qualifications
-  inserted by bulk regex, plus `decide` failures on combinator-
-  derived expressions; deferred):
+  20 files included.  9 files excluded
+  (pre-existing breakage):
 
-    - CDTower
-    - CayleyHeavy
-    - LipschitzHeavy
-    - LipschitzLens
-    - Pathion
-    - PathionHeavy
-    - R5Vacuity
-    - Sedenion
-    - SedenionHeavy
-    - TrigintaduoionionHeavy
-    - Trigintaduonion
-    - ZSqrtProduct
+    - CayleyDickson.CDTower
+    - CayleyDickson.CayleyHeavy
+    - CayleyDickson.LipschitzHeavy
+    - CayleyDickson.LipschitzLens
+    - CayleyDickson.PathionHeavy
+    - CayleyDickson.R5Vacuity
+    - CayleyDickson.SedenionHeavy
+    - CayleyDickson.TrigintaduoionionHeavy
+    - CayleyDickson.ZSqrtProduct
 -/

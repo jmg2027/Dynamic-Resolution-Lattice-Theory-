@@ -14,6 +14,8 @@ namespace E213.Math.CayleyDickson.Trigintaduonion
 
 open E213.Math.CayleyDickson.ZI
 open E213.Math.CayleyDickson.ZI.ZI
+open E213.Math.CayleyDickson.Sedenion
+open E213.Math.CayleyDickson.Sedenion.Sedenion
 /-- CD layer 4: the 32-dim trigintaduonions. -/
 structure Trigintaduonion where
   re : Sedenion

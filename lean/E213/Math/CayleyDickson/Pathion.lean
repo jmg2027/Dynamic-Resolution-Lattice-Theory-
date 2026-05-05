@@ -11,6 +11,8 @@ namespace E213.Math.CayleyDickson.Pathion
 
 open E213.Math.CayleyDickson.ZI
 open E213.Math.CayleyDickson.ZI.ZI
+open E213.Math.CayleyDickson.Trigintaduonion
+open E213.Math.CayleyDickson.Trigintaduonion.Trigintaduonion
 structure Pathion where
   re : Trigintaduonion
   im : Trigintaduonion

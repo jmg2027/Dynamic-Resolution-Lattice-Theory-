@@ -142,9 +142,9 @@ theorem R3_fails_on_sedenion :
    zd_product_zero⟩
 
 /-- Generators at sedenion level: Cayley generators lifted. -/
-def Sedenion.I' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.I', 0⟩
-def Sedenion.J' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.J', 0⟩
-def Sedenion.L' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.L, 0⟩
+def Sedenion.I' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.Cayley.Cayley.I', 0⟩
+def Sedenion.J' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.Cayley.Cayley.J', 0⟩
+def Sedenion.L' : Sedenion := ⟨E213.Math.CayleyDickson.Cayley.Cayley.L, 0⟩
 /-- New generator at sedenion level (the "M" imaginary). -/
 def M  : Sedenion := ⟨0, ⟨⟨⟨1, 0⟩, 0⟩, 0⟩⟩
 
@@ -183,6 +183,8 @@ theorem not_alternative :
 
 open E213.Math.CayleyDickson.Cayley
 
+namespace Sedenion
+
 -- ═══ Conjugation at Sedenion level ═══
 
 /-- CD conjugation for Sedenion. -/
@@ -207,5 +209,7 @@ theorem sub_re (u v : Sedenion) : (u - v).re = u.re - v.re := rfl
 theorem sub_im (u v : Sedenion) : (u - v).im = u.im - v.im := rfl
 theorem zero_re : (0 : Sedenion).re = 0 := rfl
 theorem zero_im : (0 : Sedenion).im = 0 := rfl
+
+end Sedenion
 
 end E213.Math.CayleyDickson.Sedenion
