@@ -174,13 +174,13 @@ theorem conj_mul_anti (u v : Lipschitz) :
   apply ext
   · show (u.re * v.re - v.im.conj * u.im).conj
          = v.re.conj * u.re.conj - (-u.im).conj * (-v.im)
-    rw [E213.Math.CayleyDickson.ZIArith.conj_sub, E213.Math.CayleyDickson.ZIHom.conj_mul, E213.Math.CayleyDickson.ZIHom.conj_mul, ZI.conj_conj,
-        E213.Math.CayleyDickson.ZIArith.conj_neg, E213.Math.CayleyDickson.ZIArith.neg_mul, E213.Math.CayleyDickson.ZIArith.mul_neg, E213.Math.CayleyDickson.ZIArith.neg_neg,
-        E213.Math.CayleyDickson.ZIDomain.mul_comm u.re.conj v.re.conj,
-        E213.Math.CayleyDickson.ZIDomain.mul_comm v.im u.im.conj]
+    rw [E213.Math.CayleyDickson.ZI.ZI.conj_sub, E213.Math.CayleyDickson.ZI.ZI.conj_mul, E213.Math.CayleyDickson.ZI.ZI.conj_mul, ZI.conj_conj,
+        E213.Math.CayleyDickson.ZI.ZI.conj_neg, E213.Math.CayleyDickson.ZI.ZI.neg_mul, E213.Math.CayleyDickson.ZI.ZI.mul_neg, E213.Math.CayleyDickson.ZI.ZI.neg_neg,
+        E213.Math.CayleyDickson.ZI.ZI.mul_comm u.re.conj v.re.conj,
+        E213.Math.CayleyDickson.ZI.ZI.mul_comm v.im u.im.conj]
   · show -(v.im * u.re + u.im * v.re.conj)
          = (-u.im) * v.re.conj + (-v.im) * (u.re.conj).conj
-    rw [ZI.conj_conj, E213.Math.CayleyDickson.ZIArith.neg_mul, E213.Math.CayleyDickson.ZIArith.neg_mul]
+    rw [ZI.conj_conj, E213.Math.CayleyDickson.ZI.ZI.neg_mul, E213.Math.CayleyDickson.ZI.ZI.neg_mul]
     apply ZI.ext
     · show -(v.im.re * u.re.re - v.im.im * u.re.im +
               (u.im.re * v.re.re - u.im.im * (-v.re.im)))
@@ -218,6 +218,9 @@ dedicated "tri-factor" tactic would close it.  Deferred.
 -/
 
 namespace E213.Math.CayleyDickson.LipschitzLens
+
+open E213.Math.CayleyDickson.CDDouble
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 /-- `I' ≠ 0` in Lipschitz. -/
 theorem I'_ne_zero : I' ≠ (0 : Lipschitz) := by decide
@@ -352,6 +355,9 @@ A dedicated tactic extension is deferred.
 -/
 
 namespace E213.Math.CayleyDickson.LipschitzLens
+
+open E213.Math.CayleyDickson.CDDouble
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 open E213.Math.CayleyDickson.ZI
 

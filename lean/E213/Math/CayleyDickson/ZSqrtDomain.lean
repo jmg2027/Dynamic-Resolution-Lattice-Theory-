@@ -13,11 +13,9 @@ Generic proofs over `D : Int`.  `normSq_nonneg`,
 `0 ≤ D` (positive-semidefinite norm).
 -/
 
-namespace E213.Math.CayleyDickson.ZSqrtDomain
+namespace E213.Math.CayleyDickson.ZSqrt.ZSqrt
 
 
-open E213.Math.CayleyDickson.ZSqrt
-open E213.Math.CayleyDickson.ZSqrt.ZSqrt
 variable {D : Int}
 
 theorem mul_comm (u v : ZSqrt D) : u * v = v * u := by
@@ -90,4 +88,4 @@ theorem no_zero_div (hD : 0 < D) (u v : ZSqrt D) :
   · exact Or.inl ((normSq_eq_zero_iff hD u).mp h)
   · exact Or.inr ((normSq_eq_zero_iff hD v).mp h)
 
-end E213.Math.CayleyDickson.ZSqrtDomain
+end E213.Math.CayleyDickson.ZSqrt.ZSqrt

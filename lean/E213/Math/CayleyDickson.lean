@@ -1,14 +1,19 @@
+import E213.Math.CayleyDickson.CDDouble
 import E213.Math.CayleyDickson.F2CDTower
+import E213.Math.CayleyDickson.Z2Instance
 import E213.Math.CayleyDickson.ZI
 import E213.Math.CayleyDickson.ZIArith
 import E213.Math.CayleyDickson.ZIDomain
 import E213.Math.CayleyDickson.ZIHom
+import E213.Math.CayleyDickson.ZIInstance
 import E213.Math.CayleyDickson.ZOmega
 import E213.Math.CayleyDickson.ZOmegaDomain
+import E213.Math.CayleyDickson.ZOmegaInstance
 import E213.Math.CayleyDickson.ZSqrt
 import E213.Math.CayleyDickson.ZSqrt2
 import E213.Math.CayleyDickson.ZSqrt2Domain
 import E213.Math.CayleyDickson.ZSqrtDomain
+import E213.Math.CayleyDickson.ZSqrtInstance
 
 /-! Spec-as-code entry point for `E213.Math.CayleyDickson` —
   Cayley-Dickson construction (octonion / sedenion / quaternion-style
@@ -16,13 +21,12 @@ import E213.Math.CayleyDickson.ZSqrtDomain
 
   ## Status
 
-  11 files included.  18 files excluded (pre-existing
-  breakage requires surgical archaeology — the namespace structure
-  uses doubled `ZI.ZI.*` paths and the `derive_conjugation_codomain`
-  tactic generates code expecting Z2/ZSqrt theorems in the type's
-  namespace, but they currently live in separate `*Domain` files):
+  16 files included.  13 files excluded
+  (Lipschitz cascade — the `conj` method is defined in
+  `LipschitzLens` namespace not `Lipschitz`, so dot-notation
+  `u.conj` for `u : Lipschitz` fails; needs structural namespace
+  reorganization deferred to future work):
 
-    - CDDouble
     - CDTower
     - Cayley
     - CayleyHeavy
@@ -35,9 +39,5 @@ import E213.Math.CayleyDickson.ZSqrtDomain
     - SedenionHeavy
     - TrigintaduoionionHeavy
     - Trigintaduonion
-    - Z2Instance
-    - ZIInstance
-    - ZOmegaInstance
-    - ZSqrtInstance
     - ZSqrtProduct
 -/

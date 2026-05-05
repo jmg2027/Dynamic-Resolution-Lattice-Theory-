@@ -24,7 +24,7 @@ namespace E213.Math.CayleyDickson.ZSqrt
 
 open E213.Math.CayleyDickson.ZSqrt
 open E213.Math.CayleyDickson.ZSqrt.ZSqrt
-open E213.Meta
+open E213.Meta.SelfRecognising
 
 /-- Generic ConjugationCodomain witness for `ZSqrt D` when `D > 0`. -/
 def conjugation_of_pos {D : Int} (hD : 0 < D) : ConjugationCodomain (ZSqrt D) where
@@ -44,9 +44,9 @@ def conjugation_of_pos {D : Int} (hD : 0 < D) : ConjugationCodomain (ZSqrt D) wh
 
 end E213.Math.CayleyDickson.ZSqrt
 
-namespace E213.Research
+namespace E213.Math.CayleyDickson.ZSqrt
 
-open E213.Meta
+open E213.Meta.SelfRecognising
 
 /-- `ℤ[√-3]`: `ConjugationCodomain` instance via `ZSqrt.conjugation_of_pos`. -/
 instance : ConjugationCodomain (ZSqrt 3) := ZSqrt.conjugation_of_pos (by decide)
@@ -57,4 +57,4 @@ instance : ConjugationCodomain (ZSqrt 5) := ZSqrt.conjugation_of_pos (by decide)
 /-- `ℤ[√-7]`. -/
 instance : ConjugationCodomain (ZSqrt 7) := ZSqrt.conjugation_of_pos (by decide)
 
-end E213.Research
+end E213.Math.CayleyDickson.ZSqrt

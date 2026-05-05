@@ -19,5 +19,7 @@ and synthesises the 13-field `instance`.
 -/
 
 open E213.Tactic
+open E213.Math.CayleyDickson.ZI
+open E213.Math.CayleyDickson.ZI.ZI
 
 derive_conjugation_codomain ZI with_bases I negI

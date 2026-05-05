@@ -15,10 +15,8 @@ is closed by `simp` with AC-arith + `omega` for cross-term
 cancellation.
 -/
 
-namespace E213.Math.CayleyDickson.ZIDomain
+namespace E213.Math.CayleyDickson.ZI.ZI
 
-open E213.Math.CayleyDickson.ZI
-open E213.Math.CayleyDickson.ZI.ZI
 
 theorem mul_comm (u v : ZI) : u * v = v * u := by
   apply ext
@@ -69,4 +67,4 @@ theorem no_zero_div (u v : ZI) : u * v = 0 → u = 0 ∨ v = 0 := by
 theorem mul_ne_zero_of_ne_zero {u v : ZI} (hu : u ≠ 0) (hv : v ≠ 0) :
     u * v ≠ 0 := fun h => (no_zero_div u v h).elim hu hv
 
-end E213.Math.CayleyDickson.ZIDomain
+end E213.Math.CayleyDickson.ZI.ZI

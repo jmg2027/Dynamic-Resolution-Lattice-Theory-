@@ -13,11 +13,10 @@ integral-domain property, and the fact that `conj` distributes
 over multiplication — all via `simp`+`omega` (no `ring`).
 -/
 
-namespace E213.Math.CayleyDickson.ZSqrt2Domain
+namespace E213.Math.CayleyDickson.ZSqrt2.Z2
 
 
 open E213.Math.CayleyDickson.ZSqrt2
-open E213.Math.CayleyDickson.ZSqrt2.Z2
 theorem mul_comm (u v : Z2) : u * v = v * u := by
   apply ext
   · show u.re * v.re - 2 * (u.im * v.im)
@@ -83,4 +82,4 @@ theorem no_zero_div (u v : Z2) : u * v = 0 → u = 0 ∨ v = 0 := by
 theorem mul_ne_zero_of_ne_zero {u v : Z2} (hu : u ≠ 0) (hv : v ≠ 0) :
     u * v ≠ 0 := fun h => (no_zero_div u v h).elim hu hv
 
-end E213.Math.CayleyDickson.ZSqrt2Domain
+end E213.Math.CayleyDickson.ZSqrt2.Z2

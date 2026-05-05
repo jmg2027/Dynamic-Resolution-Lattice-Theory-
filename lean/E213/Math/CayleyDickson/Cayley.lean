@@ -23,7 +23,8 @@ namespace E213.Math.CayleyDickson.Cayley
 
 open E213.Math.CayleyDickson.ZI
 open E213.Math.CayleyDickson.ZI.ZI
-open Lipschitz
+open E213.Math.CayleyDickson.CDDouble
+open E213.Math.CayleyDickson.CDDouble.Lipschitz
 
 /-- CD layer 2: the integer octonions. -/
 structure Cayley where

@@ -12,11 +12,9 @@ open E213.Tactic
 `2·(a² - ab + b²) = a² + b² + (a + -b)²`.
 -/
 
-namespace E213.Math.CayleyDickson.ZOmegaDomain
+namespace E213.Math.CayleyDickson.ZOmega.ZOmega
 
 
-open E213.Math.CayleyDickson.ZOmega
-open E213.Math.CayleyDickson.ZOmega.ZOmega
 theorem mul_comm (u v : ZOmega) : u * v = v * u := by
   apply ext
   · show u.re * v.re - u.im * v.im = v.re * u.re - v.im * u.im
@@ -113,4 +111,4 @@ theorem no_zero_div (u v : ZOmega) : u * v = 0 → u = 0 ∨ v = 0 := by
   · exact Or.inl ((normSq_eq_zero_iff u).mp h)
   · exact Or.inr ((normSq_eq_zero_iff v).mp h)
 
-end E213.Math.CayleyDickson.ZOmegaDomain
+end E213.Math.CayleyDickson.ZOmega.ZOmega

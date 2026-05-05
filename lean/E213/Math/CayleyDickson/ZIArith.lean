@@ -12,12 +12,9 @@ Cayley–Dickson doubling (`Research.CDDouble`).  Core Lean 4
 only, componentwise on `Int`.
 -/
 
-namespace E213.Math.CayleyDickson.ZIArith
+namespace E213.Math.CayleyDickson.ZI.ZI
 
 
-open E213.Math.CayleyDickson.ZI
-open E213.Math.CayleyDickson.ZI.ZI
-open E213.Math.CayleyDickson.ZIDomain
 instance : Add ZI := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
 instance : Neg ZI := ⟨fun u => ⟨-u.re, -u.im⟩⟩
 instance : Sub ZI := ⟨fun u v => u + (-v)⟩
@@ -135,4 +132,4 @@ theorem negI_re : (ZI.negI).re = 0 := rfl
 /-- `.im` of `ZI.negI`. -/
 theorem negI_im : (ZI.negI).im = -1 := rfl
 
-end E213.Math.CayleyDickson.ZIArith
+end E213.Math.CayleyDickson.ZI.ZI
