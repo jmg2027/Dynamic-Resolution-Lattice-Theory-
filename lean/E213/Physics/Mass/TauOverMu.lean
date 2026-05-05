@@ -3,7 +3,7 @@ import E213.Physics.Higgs.Mass
 /-!
 # m_τ/m_μ — same atomicity-locked geometric series (0 axioms)
 
-DRLT formula (lib/drlt.py:680, ch09):
+DRLT formula:
   m_τ/m_μ = c^NS · NT · [1 + x + x² + (NS/(d+1))·x³]
 
   where x = NT · α_GUT  (atomic factor times GUT coupling)
@@ -86,7 +86,7 @@ theorem tau_mu_in_bracket :
     ∧ base_prefactor < 17 := by decide
 
 /-- Spatial-temporal exponent structure: c^NS uses NS as exponent.
-    Why NS specifically?  In ch09 sec 6.3, this comes from the
+    Why NS specifically?  This comes from the
     "spatial impedance triple" — three spatial channels, each
     contributing factor c.  → c^NS = c^3 = 8. -/
 theorem spatial_exponent : c_lat ^ NS = 8 := by decide

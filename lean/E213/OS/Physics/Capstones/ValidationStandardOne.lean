@@ -1,5 +1,5 @@
 import E213.Physics.AlphaEM.MasterCapstone
-import E213.Physics.Mass.MuOverEFinitist
+import E213.Physics.Mass.MuOverE
 import E213.Physics.Cosmology.OmegaLambdaFinitist
 import E213.OS.Physics.Capstones.FinitistObservableChain
 import E213.Physics.Foundations.NUniverseFractalDepth

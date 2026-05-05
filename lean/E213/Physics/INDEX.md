@@ -37,7 +37,11 @@ Physics/
 │                              QuarkHierarchy
 │                              (ProtonMassPhase3Derivation +
 │                              ProtonMassSharp deleted 2026-05-05)
-├── Mass/                4  — MuOverE{,Finitist}, TauOverMu, HierarchyTowers
+├── Mass/                3  — MuOverE, TauOverMu, HierarchyTowers
+│                              (MuOverEFinitist, NoFourthGen,
+│                              LeptonRatios, LeptonRatioPhase3Derivation,
+│                              NeutrinoRatioPhase3Derivation deleted
+│                              2026-05-05 as orphan/transitive-only)
 ├── Higgs/               4  — Mass, Master, Quartic, Vacuum
 │                              (MassFinitist + Phase3Derivation
 │                              deleted 2026-05-05 as orphan traces)

@@ -3,7 +3,7 @@ import E213.Physics.AlphaEM.V137
 /-!
 # m_μ/m_e — same simplicial pattern (0 axioms)
 
-DRLT formula (lib/drlt.py:662, ch09):
+DRLT formula:
   m_μ/m_e = (NS/NT) · (1/α_em) · P · (1 + δ₁ + δ₂ + δ₃)
 
   P  = 1/(1 - α_GUT/(NS+1))     ← same Dyson tail as α_em IR
