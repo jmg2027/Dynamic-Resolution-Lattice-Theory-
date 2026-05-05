@@ -18,7 +18,6 @@ import E213.Math.Real213.CutMulComm
 import E213.Math.Real213.CutSumZero
 import E213.Math.Real213.CutSumEq
 import E213.Math.Real213.CutDouble
-import E213.Math.Real213.CutMoreTests
 import E213.Math.Real213.CutScaleLattice
 import E213.Math.Real213.CutLatticeEq
 import E213.Math.Real213.SignedMulConst

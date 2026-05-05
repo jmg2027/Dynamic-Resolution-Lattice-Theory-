@@ -39,9 +39,6 @@ import E213.Math.Real213.DifferentiableAffine
 import E213.Math.Real213.DifferentiableCompose
 import E213.Math.Real213.DifferentiableMegaCoverage
 import E213.Math.Real213.ConcreteDerivativeModulus
-import E213.Math.Real213.ConcreteDerivativeModulusHigh
-import E213.Math.Real213.ConcreteDerivativeModulusFinal
-import E213.Math.Real213.ConcreteDerivativeMega
 
 -- D. Cohomological framework
 import E213.Math.Real213.FluxCut
@@ -75,9 +72,6 @@ import E213.Math.Real213.FluxMVTPropagateCompose
 
 -- F. ClassicCalc unified class
 import E213.Math.Real213.ClassicCalc
-import E213.Math.Real213.ClassicCalcHigher
-import E213.Math.Real213.ClassicCalcExtreme
-import E213.Math.Real213.ClassicCalcGeneric
 import E213.Math.Real213.ClassicCalcMid
 import E213.Math.Real213.ClassicCalcCombinators
 import E213.Math.Real213.ClassicAnti

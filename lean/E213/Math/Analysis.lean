@@ -26,11 +26,7 @@ import E213.Math.Real213.DifferentiableCompose
 import E213.Math.Real213.DifferentiableHighOrder
 import E213.Math.Real213.DifferentiableMid
 import E213.Math.Real213.DifferentiableMegaCoverage
-import E213.Math.Real213.DerivativeDecide
 import E213.Math.Real213.ConcreteDerivativeModulus
-import E213.Math.Real213.ConcreteDerivativeModulusHigh
-import E213.Math.Real213.ConcreteDerivativeModulusFinal
-import E213.Math.Real213.ConcreteDerivativeMega
 import E213.Math.Real213.PolySumDerivativeModulus
 import E213.Math.Real213.ComposeDerivativeModulus
 import E213.Math.Real213.FluxCut
@@ -52,10 +48,7 @@ import E213.Math.Real213.FluxMVTClosure
 import E213.Math.Real213.FluxPassthroughClass
 import E213.Math.Real213.FluxPassthroughCatalog
 import E213.Math.Real213.ClassicCalc
-import E213.Math.Real213.ClassicCalcHigher
 import E213.Math.Real213.FluxSeries
-import E213.Math.Real213.ClassicCalcExtreme
-import E213.Math.Real213.ClassicCalcGeneric
 import E213.Math.Real213.FluxMVTWitness
 import E213.Math.Real213.ClassicCalcMid
 import E213.Math.Real213.HasDyadicMVTWitness
@@ -70,7 +63,6 @@ import E213.Math.Real213.FTCRiemannChain
 import E213.Math.Real213.ClassicCalcCombinators
 import E213.Math.Real213.FluxMVTNested
 import E213.Math.Real213.FluxMVTPattern
-import E213.Math.Real213.DerivativeShowcase
 import E213.Math.Real213.FluxMVTNested2
 import E213.Math.Real213.FluxMVTPropagate
 import E213.Math.Real213.FluxMVTPropagateCompose

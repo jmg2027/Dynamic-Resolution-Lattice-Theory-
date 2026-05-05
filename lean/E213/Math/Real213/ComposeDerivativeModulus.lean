@@ -1,5 +1,4 @@
 import E213.Math.Real213.DifferentiableCompose
-import E213.Math.Real213.ConcreteDerivativeMega
 
 /-!
 # Research.Real213ComposeDerivativeModulus

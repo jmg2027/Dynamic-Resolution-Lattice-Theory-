@@ -1,6 +1,5 @@
 import E213.Math.Max213
 import E213.Math.Real213.DifferentiableAffine
-import E213.Math.Real213.ConcreteDerivativeMega
 import E213.Kernel.Tactic.Omega213
 
 /-!
