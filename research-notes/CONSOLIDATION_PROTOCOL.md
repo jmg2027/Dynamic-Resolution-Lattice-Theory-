@@ -134,7 +134,7 @@ expectation: most leaf-directory variant content is redundant.
 | `Phase3Derivation`, `Phase3Sharp`, `Phase3Manifesto` | stale Phase-3 marathon trace | **almost always delete** if 0 importers (verified pattern from Leaf 3 Higgs/Phase3Derivation: literal aliases of canonical theorems) |
 | `Bound`, `BoundTight` | tight bound *extension* (not progression) — adds lower bound to canonical | merge into the canonical (Leaf 2 verified: BoundTight is strict superset of Bound) |
 | `Mass`, `MassFinitist` | finitist re-derivation of same observable | usually 0 importers — atomic-identity restatements already covered by canonical (Leaf 3 verified) |
-| `MagicNumbers`, `MagicNumbersAtomic`, `MagicNumbersFalsifier`, `MagicNumbersPhase3Derivation` | observable + atomic reading + falsifier + phase trace | typically: atomic + falsifier are real artifacts, Phase3 is trace |
+| `MagicNumbers`, `MagicNumbersAtomic`, `MagicNumbersFalsifier`, `MagicNumbersPhase3Derivation` | observable + atomic reading + falsifier + phase trace | **inspect content**: `Atomic` is real (unique decompositions); `Phase3` is alias-only (delete); `Falsifier` may be alias-only despite naming — verify with theorem read (Leaf 4 verified MagicNumbersFalsifier had no falsification logic, just rebundled equalities — deleted) |
 | `V1`, `V2`, `V3`, `V4` (no number-encoding role) | could be sub-topics OR variants | inspect each file's actual content |
 | `WithTail`, `WithoutTail`, `Unified` | term-coverage variants | usually `MasterCapstone` is the canonical with all terms |
 
@@ -156,15 +156,49 @@ file's docstring:
 
 ## "Orphan + alias" rule of thumb
 
-If a file has **0 importers** AND its theorems are mostly:
+A file is *practically orphan* when EITHER:
+  (i) **0 importers**, OR
+  (ii) only transitive importers (importer file doesn't reference
+       any of its theorems, just the import line — Leaf 4
+       MagicNumbersFalsifier ↪ Phase3Capstone pattern)
+
+If practically orphan AND its theorems are mostly:
   - `theorem foo := canonical_theorem_name`  (literal alias)
   - `theorem foo : <atomic identity already in Kernel/MonomialAxioms or AtomicSuperCatalog>`
   - `*_capstone` bundles repackaging existing canonical theorems
+  - `*_falsifier` bundle that encodes no actual falsification
+    logic (just `decide`-trivial equalities)
 
 → **Confidently delete.**  No need to "find a home" — the content
-is fully absorbed in canonical files.  This was the pattern for
-`Higgs/MassFinitist.lean` and `Higgs/Phase3Derivation.lean`
-(Leaf 3, both deleted).
+is fully absorbed in canonical files.  Verified pattern on:
+
+  - `Higgs/MassFinitist.lean`        (Leaf 3, 0 importers)
+  - `Higgs/Phase3Derivation.lean`    (Leaf 3, 0 importers)
+  - `Nuclear/MagicNumbersPhase3Derivation.lean` (Leaf 4, 0 importers)
+  - `Nuclear/MagicNumbersFalsifier.lean` (Leaf 4, 1 transitive
+    importer — *naming* "Falsifier" was misleading; content
+    inspection showed alias-only)
+
+**Naming alone is not classification.**  A file named
+`*Falsifier.lean` may genuinely encode falsification (`Mass/NoFourthGen`,
+`YangMills/WMassFalsifier` are real falsifiers) OR may just be a
+narrative-framing wrapper around `decide`-trivial atomic identities.
+Read the theorems before deciding.
+
+## Caller-usage check (Phase B refinement)
+
+When grep finds importers, distinguish:
+
+  - **Active importer**: the importing file uses ≥ 1 theorem from
+    the imported module (grep theorem names + check for refs).
+  - **Transitive importer**: import line exists but no theorem
+    reference — the import is dead code or only matters for some
+    other downstream import chain.
+
+A file with only transitive importers is effectively orphan.
+Deletion is safe IF the transitive importer is itself active and
+the dependency-chain function (e.g. providing namespace exports,
+instances) is preserved through other imports.
 
 ## What NOT to do (lessons from FamousCoincidences/)
 
