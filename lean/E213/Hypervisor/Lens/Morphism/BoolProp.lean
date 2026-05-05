@@ -15,7 +15,7 @@ namespace E213.Hypervisor.Lens.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.InstancesReach
+open E213.Hypervisor.Lens.Instances.Reach
 
 /-- Bool → Prop, b ↦ (b = true).  Structure preservation:
     Bool.and ↔ Prop.And. -/
@@ -42,7 +42,7 @@ namespace E213.Hypervisor.Lens.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.InstancesReach
+open E213.Hypervisor.Lens.Instances.Reach
 
 /-- **Functorial commutativity**: the images of Raw's universal morphism
     for Bool and for Prop (And) commute via boolToProp.
@@ -81,7 +81,7 @@ namespace E213.Hypervisor.Lens.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.InstancesReach
+open E213.Hypervisor.Lens.Instances.Reach
 
 /-! ### Commutativity of Bool with Xor + Prop with Xor
 
@@ -142,7 +142,7 @@ namespace E213.Hypervisor.Lens.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.InstancesReach
+open E213.Hypervisor.Lens.Instances.Reach
 
 /-! ### Functoriality of Or and Iff connective pairs -/
 
@@ -194,7 +194,7 @@ namespace E213.Hypervisor.Lens.Morphism.BoolProp
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.InstancesReach
+open E213.Hypervisor.Lens.Instances.Reach
 
 /-- Bool with beq (= equality on Bool) combine instance. -/
 def boolIffHasDistinguishing : HasDistinguishing Bool where

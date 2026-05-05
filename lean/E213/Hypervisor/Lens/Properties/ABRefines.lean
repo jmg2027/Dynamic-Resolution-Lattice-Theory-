@@ -38,7 +38,7 @@ private def sumParityFactor (p : Nat × Nat) : Bool :=
 theorem abLens_refines_parityLens : abLens.refines parityLens := by
   apply refines_of_factor abLens parityLens sumParityFactor
   intro r
-  rw [E213.Hypervisor.Lens.LeavesRefinesParity.parityLens_view_eq_leaves_odd]
+  rw [E213.Hypervisor.Lens.Leaves.RefinesParity.parityLens_view_eq_leaves_odd]
   show decide (Lens.leaves.view r % 2 = 1)
        = decide (((abLens.view r).1 + (abLens.view r).2) % 2 = 1)
   rw [abLens_sum_eq_leaves]

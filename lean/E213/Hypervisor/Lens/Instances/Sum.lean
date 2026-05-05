@@ -39,7 +39,7 @@ namespace E213.Hypervisor.Lens.Instances.Sum
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.InstancesReach
+open E213.Hypervisor.Lens.Instances.Reach
 
 /-- Priority-based combine for Sum type. -/
 def sumCombine {α β : Type} [d_α : HasDistinguishing α]

@@ -21,7 +21,7 @@ namespace E213.Hypervisor.Lens.Instances.FunctionSpace
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.InstancesReach
+open E213.Hypervisor.Lens.Instances.Reach
 
 /-- HasDistinguishing instance for function space `α → β`.
     α is assumed to be inhabited (a witness element is needed
@@ -48,7 +48,7 @@ namespace E213.Hypervisor.Lens.Instances.FunctionSpace
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.InstancesReach
+open E213.Hypervisor.Lens.Instances.Reach
 
 /-- **Universal morphism Raw → (α → β)** via function-space instance.
     Elements of Raw are mapped to functions (α → β). -/

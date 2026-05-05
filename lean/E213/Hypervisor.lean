@@ -1,0 +1,100 @@
+import E213.Hypervisor.API
+import E213.Hypervisor.Lens
+import E213.Hypervisor.Lens.AxiomLenses.Bridges.Funext
+import E213.Hypervisor.Lens.AxiomLenses.Bridges.QuotSound
+import E213.Hypervisor.Lens.AxiomLenses.Core.Funext
+import E213.Hypervisor.Lens.AxiomLenses.Core.Propext
+import E213.Hypervisor.Lens.AxiomLenses.Core.QuotSound
+import E213.Hypervisor.Lens.Characterisation.Catalog
+import E213.Hypervisor.Lens.Characterisation.Core
+import E213.Hypervisor.Lens.Compose.Factoring
+import E213.Hypervisor.Lens.Compose.ImageMinimum
+import E213.Hypervisor.Lens.Compose.Morphism
+import E213.Hypervisor.Lens.Compose.OnLens
+import E213.Hypervisor.Lens.Compose.OnLensImage
+import E213.Hypervisor.Lens.Compose.OnLensImageGeneric
+import E213.Hypervisor.Lens.Compose.OnLensImageLevel2
+import E213.Hypervisor.Lens.Initiality
+import E213.Hypervisor.Lens.Instances.AB
+import E213.Hypervisor.Lens.Instances.Bool
+import E213.Hypervisor.Lens.Instances.BoundedContext
+import E213.Hypervisor.Lens.Instances.Cauchy
+import E213.Hypervisor.Lens.Instances.CochainEntry
+import E213.Hypervisor.Lens.Instances.EndpointBehavior
+import E213.Hypervisor.Lens.Instances.F9
+import E213.Hypervisor.Lens.Instances.FunctionSpace
+import E213.Hypervisor.Lens.Instances.Identity
+import E213.Hypervisor.Lens.Instances.Max
+import E213.Hypervisor.Lens.Instances.Pair
+import E213.Hypervisor.Lens.Instances.Parity
+import E213.Hypervisor.Lens.Instances.Path
+import E213.Hypervisor.Lens.Instances.PointwiseProjection
+import E213.Hypervisor.Lens.Instances.Prism
+import E213.Hypervisor.Lens.Instances.RawMatching
+import E213.Hypervisor.Lens.Instances.Reach
+import E213.Hypervisor.Lens.Instances.Subtype
+import E213.Hypervisor.Lens.Instances.SubtypeClosed
+import E213.Hypervisor.Lens.Instances.Sum
+import E213.Hypervisor.Lens.Instances.SumNotCoproduct
+import E213.Hypervisor.Lens.Instances.SumNotCoproductGeneric
+import E213.Hypervisor.Lens.Instances.Swap
+import E213.Hypervisor.Lens.Instances.ZMod6
+import E213.Hypervisor.Lens.Kernel.CardinalityLB
+import E213.Hypervisor.Lens.Kernel.Congruence
+import E213.Hypervisor.Lens.Kernel.Corresp
+import E213.Hypervisor.Lens.Kernel.FourDistinct
+import E213.Hypervisor.Lens.Kernel.FreeAudit
+import E213.Hypervisor.Lens.Kernel.IdLensEq
+import E213.Hypervisor.Lens.Kernel.Space
+import E213.Hypervisor.Lens.Kernel.SwapInvariant
+import E213.Hypervisor.Lens.Lattice.FamilyJoin
+import E213.Hypervisor.Lens.Lattice.FamilyMeet
+import E213.Hypervisor.Lens.Lattice.IndexedJoin
+import E213.Hypervisor.Lens.Lattice.Join
+import E213.Hypervisor.Lens.Lattice.JoinEquiv
+import E213.Hypervisor.Lens.Lattice.Lattice
+import E213.Hypervisor.Lens.Lattice.Meet
+import E213.Hypervisor.Lens.Leaves.DepthIncomparable
+import E213.Hypervisor.Lens.Leaves.DepthJoin
+import E213.Hypervisor.Lens.Leaves.Mod3
+import E213.Hypervisor.Lens.Leaves.ModNat
+import E213.Hypervisor.Lens.Leaves.RefinesParity
+import E213.Hypervisor.Lens.Morphism.BoolProp
+import E213.Hypervisor.Lens.Morphism.DepthParityNotFold
+import E213.Hypervisor.Lens.Morphism.Dist
+import E213.Hypervisor.Lens.Morphism.FoldStructured
+import E213.Hypervisor.Lens.Morphism.NoDepthParity
+import E213.Hypervisor.Lens.Morphism.SlashSwap
+import E213.Hypervisor.Lens.Properties.CanonicalForm
+import E213.Hypervisor.Lens.Properties.ConstLensTotalKernel
+import E213.Hypervisor.Lens.Properties.EquivProperties
+import E213.Hypervisor.Lens.Properties.InjectiveClass
+import E213.Hypervisor.Lens.Properties.IsLeaf
+import E213.Hypervisor.Lens.Properties.ProdBelowId
+import E213.Hypervisor.Lens.Properties.TowerLevel3
+import E213.Hypervisor.Lens.Refines.Chain
+import E213.Hypervisor.Lens.Refines.Preorder
+import E213.Hypervisor.Lens.SemanticAtom
+import E213.Hypervisor.Lens.Universal.Flat
+import E213.Hypervisor.Lens.Universal.QuotLens
+
+/-! Spec-as-code entry point for `E213.Hypervisor` — hypervisor-tier modules.
+
+  Hypervisor layer (Hypervisor/) — the Lens algebra: Lens (root), AxiomLenses (Bridges/, Core/), Characterisation, Compose, Initiality, Instances (lens instance catalogue), Kernel (algebraic core), Lattice, Leaves, Morphism, Properties, Refines, SemanticAtom, Universal.
+
+  ## Status
+
+  79 files included.  10 files excluded
+  (pre-existing breakage):
+
+    - Lens.Instances.CompoundBool
+    - Lens.Instances.NegSq
+    - Lens.Instances.ParityXorIncomparable
+    - Lens.Instances.ParityXorJoin
+    - Lens.Instances.RawAChar
+    - Lens.Morphism.BoolSqClassification
+    - Lens.Morphism.SlashCharNotFold
+    - Lens.Properties.ABRefines
+    - Lens.Properties.Leaf
+    - Lens.Properties.ParityCollapseFalse
+-/

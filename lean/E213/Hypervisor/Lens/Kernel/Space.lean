@@ -27,7 +27,7 @@ Each KernelSpace element E is realized as the kernel of
 namespace E213.Hypervisor.Lens.Kernel.Space
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.KernelCorresp
+open E213.Hypervisor.Lens.Kernel.Corresp
 
 /-- Type-level representation of the Lens-kernel space. -/
 def KernelSpace : Type := { E : Raw → Raw → Prop // IsSlashCongruence E }
