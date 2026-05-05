@@ -23,9 +23,11 @@ communication layer for non-213-native readers.
 
   1. **Vocabulary mismatch with current 213**: papers used ZFC-style
      "asymptote", "limit", "transcendental input" framing.  213 is
-     now formalized as finitist-by-theorem (see CLAUDE.md "Finitism
-     is Forced, Not Chosen") — the paper framing is structurally
-     incompatible with the proven cut-algebra obstruction.
+     now formalized with cardinality as a per-lens output and
+     `N_U = 5²⁵` as a four-domain convergent structural invariant
+     (`seed/RESOLUTION_LIMIT_SPEC.md`); the paper framing imports
+     the "finite vs infinite" dichotomy that 213 does not commit to
+     at the T0 layer.
   2. **Stale claims**: numerical agreements quoted in papers were
      superseded by sub-ppb closures (α_em 0.18 ppb, m_p/m_e
      0.06 ppm, m_n/m_p 1 ppb, etc.) — the papers' precision tables

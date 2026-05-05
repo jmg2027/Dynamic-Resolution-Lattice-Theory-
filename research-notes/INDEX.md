@@ -45,10 +45,11 @@ research-notes/
   evidence base.  See `audit/INDEX.md`.
 
 - **`archive/`** — closed historical exploratory drafts.  Pre-G era
-  (17/19/30), kernel cardinality (A1/B1/B2/C1), finitism conviction
-  (D1/D2/D3), Real213 analysis roadmap (E1–E5), Real213 marathon
-  state (F0–F6).  All formalized or superseded; preserved as record
-  of path.  See `archive/INDEX.md`.
+  (17/19/30), kernel cardinality (A1/B1/B2/C1), resolution-limit
+  early framing (D1/D2/D3, originally "finitism conviction" — now
+  superseded by `seed/RESOLUTION_LIMIT_SPEC.md`), Real213 analysis
+  roadmap (E1–E5), Real213 marathon state (F0–F6).  All formalized
+  or superseded; preserved as record of path.  See `archive/INDEX.md`.
 
 ## Adding a new note
 

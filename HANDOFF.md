@@ -25,8 +25,8 @@ of the cheat seal that hid function-eq facade as "DIRTY-by-design").
       meaning" thesis): SemanticAtom (1)
     * Cantor cardinality (Iff between cardinality propositions):
       Math.Infinity.Godel (1)
-    * Cauchy-limit ZFC fiction (per CLAUDE.md "Finitism is Forced"):
-      DyadicTrajectory (1)
+    * Cauchy-limit type-distinction preserved by ∅-axiom (canonical:
+      `seed/RESOLUTION_LIMIT_SPEC.md` §1): DyadicTrajectory (1)
     * Bridges (intentional axiom demonstration): AxiomLenses.Bridges (1)
 
 ### Earlier "0 DIRTY" cheat seal (reverted)
@@ -70,8 +70,9 @@ The 19 sealed items have genuinely inherent propext justification:
      inherently uses propext (the "atom of meaning" thesis).
   4. **Cantor cardinality** (Math.Infinity.Godel) — Iff between
      cardinality propositions inherently uses propext.
-  5. **DyadicTrajectory** — documented in CLAUDE.md "Finitism is
-     Forced, Not Chosen" as Cauchy-limit ZFC fiction.
+  5. **DyadicTrajectory** — Cauchy-trajectory vs exact-value type
+     distinction preserved by ∅-axiom regime (canonical:
+     `seed/RESOLUTION_LIMIT_SPEC.md` §1).
   6. **Bridges** — intentional axiom demonstration cluster.
 
 ### Session 26 PURE additions (+29 theorems across 14 modules)

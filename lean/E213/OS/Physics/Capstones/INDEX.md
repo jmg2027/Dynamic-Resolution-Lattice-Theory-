@@ -26,8 +26,9 @@ single conjunctive `decide`-checked theorem.
                                         bundle
   · `PureAtomicObservables.lean`      → ★★★ pure-atomic observable
                                         catalog (no α correction)
-  · `FinitistObservableChain.lean`    → finitist chain (post-2026-04
-                                        finitism-forced framing)
+  · `FinitistObservableChain.lean`    → finite-rational observable
+                                        chain at N_U (resolution-
+                                        limit invariant framing)
   · `ValidationStandardOne.lean`      → CLAUDE.md validation
                                         standard #1 (precision
                                         formalized observables)

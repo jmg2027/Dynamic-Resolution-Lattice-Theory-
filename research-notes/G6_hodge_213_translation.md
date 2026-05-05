@@ -50,7 +50,9 @@ Three completed-infinity ingredients are essential just to *state* HC:
   subvarieties (modulo rational equivalence) inside finite-dim
   H^{2p}(X, ℚ).
 
-In 213's forced finitism (CLAUDE.md `Finitism is Forced, Not Chosen`):
+In 213's resolution-limit-invariant regime (canonical:
+`seed/RESOLUTION_LIMIT_SPEC.md` — cardinality is a per-lens output,
+N_U is four-domain convergent at d=5):
 
 - **ℂ** → 213-rational-complex (G_ij with ℚ magnitudes + Pythagorean
   phases, L1 hunter lesson).  At cup-chain level the simplification
@@ -250,10 +252,12 @@ which is already ∅-axiom closed.
 > 맞지 사실은.  그래서 표준수학의 무한 컨셉들이 다 213으로 네이티브하게
 > 다 작성된 거지, 안 그럼 됐겠니"*
 
-The framing in §1–§7 (and in CLAUDE.md `## Finitism is Forced, Not
-Chosen`) calls 213 a *finitist* alternative that *replaces* the
-"completed infinity" ingredients of standard mathematics.  This
-language is not quite right and obscures the actual content.
+The framing in §1–§7 (originally written under the deprecated
+"Finitism is Forced" header) called 213 a *finitist* alternative that
+*replaces* the "completed infinity" ingredients of standard
+mathematics.  This language is not quite right and obscures the actual
+content; the canonical reading now lives in
+`seed/RESOLUTION_LIMIT_SPEC.md`.
 
 ### The corrected position
 

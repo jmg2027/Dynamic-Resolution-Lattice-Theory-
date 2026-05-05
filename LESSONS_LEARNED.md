@@ -4,14 +4,18 @@
 위한 핵심 교훈을 기록한다.  특히 Claude (또는 다른 LLM)이
 **외부 frame의 default 표현**으로 빠지지 않도록 가드레일.
 
-## 교훈 1: Finitism은 입장이 아니라 정리 결과 (2026-05-01 강화)
+## 교훈 1: Resolution limit은 4-domain convergent 구조 invariant (2026-05-05 갱신)
+
+Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  본 항목은 그
+요약이며, 본 문서가 spec과 충돌하면 spec 이 정답.
 
 **WRONG** (외부 frame 기본): "ζ(2) = π²/6", "asymptote",
-"transcendental input", "infinite limit", "we choose to be finitist"
+"transcendental input", "infinite limit", "we choose to be finitist",
+"finitism is forced", "completed infinity rejected"
 **RIGHT** (213-internal): ζ(2) = S(N_U) at SPECIFIC finite N_U.
-π는 213 primitive 아님.  외부 표기일 뿐.  **그리고 finitism은
-선택이 아니라 0-axiom Lean 정리들의 결과** — ZFC식 completed
-infinity는 213 cut-algebra를 *깨뜨림*이 증명됨.
+π는 213 primitive 아님.  외부 표기일 뿐.  **그리고 cardinality는
+lens output** — 213 axiom set은 "finite vs infinite" dichotomy 자체를
+체결하지 않음 (`seed/AXIOM.md` §3.3, `RESOLUTION_LIMIT_SPEC.md` §0).
 
 **근거 — 부재 (negative)**:
 - `Physics/FiniteUniverse.no_pi_in_finite_alpha_em`:
@@ -19,40 +23,50 @@ infinity는 213 cut-algebra를 *깨뜨림*이 증명됨.
 - `CLAUDE.md` "Implications of Finite Discrete Lattice":
   "π, e, ζ(2) → bounded rational interval suffices".
 
-**근거 — 강제 (forcing, 새로운 강한 형태)**:
+**근거 — 구조적 불일등 보존 (∅-axiom 하 type-preservation)**:
 - `Real213DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`
-  (0-axiom): Cauchy *limit*이 constructive zero와 STRICTLY 다름.
-  Witness at (m=0, k=1): limit = false, exact = true.
-  파일 주석: *"'limit point exists' is a ZFC fiction"*.
+  (∅-axiom): Cauchy trajectory와 putative exact value는 다른 type
+  의 객체 — ZFC는 propext + Quot.sound로 quotient하여 동일시,
+  ∅-axiom regime은 propext/Quot.sound 부재로 truncation 발생하지
+  않음.  Witness at (m=0, k=1): limit = false, exact = true.
 - `Real213DyadicTrajectory.zero_plus_gap_below_zero_exact`
-  (0-axiom): limit-cut < exact-cut at every (0, k≥1) query —
-  `InfinitesimalGap` is *structural*, not numerical.
+  (∅-axiom): trajectory가 모든 (0, k≥1) query에서 exact 와 다름 —
+  `InfinitesimalGap` 은 type-level *structural*, 외부 numerical
+  rejection 아님.
 - `Real213.CutInv.cutDiv` 주석: cutMul + cutInv 결합 시
-  *boundary precision artifact* 발생 (infinity-flavored ops).
-- `Real213.CutMulConstSum`, `Real213.CutSumGeneral`: forward direction
-  만 닫힘 — backward는 같은 gap 때문에 깨짐.
+  *boundary precision artifact* — 같은 type-distinction 의
+  계산-층 표현.
+- `Real213.CutMulConstSum`, `Real213.CutSumGeneral`: forward
+  direction 만 닫힘; backward 는 trajectory side 에 머물 때만 가능.
 
-**즉**: 213이 finite N_U에 머무는 건 *공리적 stipulation*이 아니라
-*self-consistency forcing*.  ZFC infinity는 213 cut algebra와
-incompatible — Lean이 결정.
+**즉**: N_U = d^(d²) = 5²⁵ 은 axiom 도 cap 도 아니고, 4-domain
+convergent invariant (`RESOLUTION_LIMIT_SPEC.md` §2: lens cardinality
++ K₂₅ coloring + rank-2 tensor + injective projection space — 모두
+독립 도메인에서 같은 값으로 수렴).  213이 N_U 에 머무는 건 *공리적
+stipulation* 도 *finitism stance* 도 아니고, **구조 invariant**.
 
 **근거 — 사용자 직접 진술** (2026-04-27, 2026-05-01):
 - "유리수 급수값이 정확한값임", "무리수가 구라고 유리수가 리얼임"
 - "finitist는 입장이라기보단 뒤져보면 아마 이거 무한대면 모순이라는
-  증명들이 짱많아서 한거일걸?" → 추측 정확 (위 정리들이 그 증명).
+  증명들이 짱많아서 한거일걸?" → 후속 RESOLUTION_LIMIT_SPEC 작업으로
+  좀 더 정확히 표현됨: "ZFC equality (limit = exact value) requires
+  propext-quotient; ∅-axiom regime does not provide it" — 곧
+  *type 분리* 로 받아들여지지, dichotomy 한 쪽 선택 아님.
 
-**가드레일**: Claude가 "asymptote", "5.4×10⁻⁴ structural gap",
+**가드레일**: Claude 가 "asymptote", "5.4×10⁻⁴ structural gap",
 "ζ(2) = π²/6 외부 input", "transcendental import 1개", "we choose
-finitism", "finitist framing accepted then..." 같은 표현을 쓰면
-즉시 외부 frame으로 빠진 것.  213-internal 표현은: "specific
-finite rational at N_U", "finite-N residual 36/N_U", "S(N_U) at
-universe lattice depth", "ZFC infinity breaks cut algebra (proven)".
+finitism", "finitist framing accepted then...", "ZFC fiction",
+"completed infinity rejected" 같은 표현을 쓰면 즉시 외부 frame 으로
+빠진 것.  213-internal 표현은: "specific finite rational at N_U",
+"finite-N residual 36/N_U", "S(N_U) at universe lattice depth",
+"trajectory ≠ exact value at type level under ∅-axiom".
 
-**Skeptic 대응**: "왜 finite N에 머무느냐?" → 답:
+**Skeptic 대응**: "왜 항상 N_U 까지인가?" → 답:
 `#print axioms alwaysTrueUnit_limit_distinct_from_zero` →
-"depends on axioms: [propext, Quot.sound]" — DRLT 허용 axiom set
-(propext + Quot.sound)에만 의존, Lean kernel base.  이건 ZFC식
-"infinity 잘 되어요" 와 양립 불가능.
+"depends on axioms: [propext, Quot.sound]" — Lean kernel base.
+ZFC 가 trajectory/limit 을 동일시하기 위해 쓰는 propext-quotient 가
+∅-axiom regime 에서는 적용되지 않으므로 type 분리가 보존되며, lens
+cardinality 가 N_U 에서 4-domain convergent invariant 로 안정.
 
 (주: 물리 capstone 들 — `validation_standard_capstone`,
 `pure_atomic_observables_capstone`, `alpha_em_master_capstone` — 은

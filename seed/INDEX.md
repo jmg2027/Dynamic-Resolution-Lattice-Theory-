@@ -12,7 +12,8 @@ made here in prose.
 |---|---|---|---|
 | 1 | `ORIGIN.md` | DRLT origin story — minimal residue, 4-clause Raw axiom | First |
 | 2 | `AXIOM.md` | The axiom in English: relations, distinctness, /, depth | After ORIGIN |
-| 3 | `PHILOSOPHY.md` | Finitism, atomicity, why ZFC infinity fails | Before any Real213 work |
+| 3 | `PHILOSOPHY.md` | Position of the axiom, atomicity, residual import; for cardinality / N_U see `RESOLUTION_LIMIT_SPEC.md` | Before any Real213 work |
+| 3a | `RESOLUTION_LIMIT_SPEC.md` | Canonical mechanical-spec: cardinality as lens output, N_U as four-domain convergent invariant, type-preservation under ∅-axiom (Cantor + Cauchy) | Before any Real213 work |
 | 4 | `NOTATION.md` | Symbol conventions: NS, NT, d, c, α_GUT, K_{3,2}^{(2)} | Reference |
 | 5 | `FALSIFIABILITY.md` | 14 measurement propositions that would refute DRLT | When discussing experimental tests |
 | 6 | `IMPLEMENTATION.md` | Mapping seed → `lean/E213/Firmware/Raw` | When tracing axiom-to-code |

@@ -2,47 +2,55 @@ import E213.Math.Real213.DyadicTrajectory
 import E213.Physics.Foundations.NUniverseFractalDepth
 
 /-!
-# Finitism is a CONSEQUENCE, not a position — 0-axiom proof
+# Resolution-limit consequences — Cauchy trajectory ≠ exact value
+under ∅-axiom
 
-**핵심 명제**: 213-internal cut algebra는 ZFC-style "completed
-infinity" 와 양립하지 않음.  "Cauchy limit = exact value"가
-0-axiom으로 거짓임이 증명되어 있음.
+**핵심 명제** (canonical reading: `seed/RESOLUTION_LIMIT_SPEC.md` §1):
+ZFC merges Cauchy-trajectory and putative exact-value objects via
+`propext` / `Quot.sound` (quotient by Cauchy equivalence).  ∅-axiom
+regime does not admit `propext` or `Quot.sound`, so the trajectory
+and the exact-value live at distinct types and remain structurally
+inequal.
 
-따라서 213의 finitism은 철학적 선택이 아니라 자기-일관성을 위한
-구조적 강제.
+This file packages the existing 0-axiom witnesses of that type
+distinction.  The legacy theorem names (`completed_infinity_fails`,
+`finitism_is_consequence`) are retained for stability of external
+references; their content is type-distinction preservation, not
+philosophical rejection of "completed infinity".
 
-## Existing 0-axiom witnesses (in repo)
+## Existing ∅-axiom witnesses (in repo)
 
   - `Real213DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`:
-      Cauchy limit value at (0,1) ≠ exact value at (0,1)
-      → completed-infinity equality FAILS
+      Cauchy-trajectory value at (0, 1) (= `false`) and exact-value
+      at (0, 1) (= `true`) are structurally distinct under ∅-axiom.
 
   - `Real213DyadicTrajectory.zero_plus_gap_below_zero_exact`:
-      Infinitesimal gap structurally proven for all (0, k≥1)
-      → 0+ ≠ 0-exact at every infinitesimal precision
+      Gap structurally preserved for all (0, k ≥ 1) — type
+      distinction is universal across the boundary, not a single
+      precision artifact.
 
-  - 이 두 정리는 0-axiom이라 ZFC 논쟁 없이 Lean kernel level에서
-    검증 가능
+## Resolution-limit framing
 
-## Implication for finitism
+Per `RESOLUTION_LIMIT_SPEC.md` §3, the correct 213-internal reading:
 
-  ZFC + completed infinity → 213 cut algebra 깨짐 (proven above)
-  ⇒ 213 self-consistent ⇔ finite N에 머무름
-  ⇒ N_universe = d^(d²) 선택은 axiom 아니라 STRUCTURAL FORCE
+  > Resolution limit is a structural invariant emerging from
+  > four-domain convergence at d = 5.  Both potential infinity
+  > (unbounded inductive trajectories) and constructive infinity
+  > (Cantor tower, Bishop reals) are admitted; only completed-
+  > infinity equality (limit = exact value via propext-quotient) is
+  > structurally absent.
 
-## Strengthening of "Validation Standard #1"
-
-기존 framing: "Lean 0-axiom precision theorem이면 충족"
-강화 framing: "외부 검증자의 'finitism이 왜?' 질문은
-     `alwaysTrueUnit_limit_distinct_from_zero` 0-axiom 정리로 답.
-     ZFC infinity가 213을 깨뜨림이 증명됨.  finitism은 결과."
+The constant `N_U = d^(d²) = 5²⁵` is a four-domain convergent
+invariant (lens cardinality + K_{25} coloring + rank-2 tensor
+DOF + injective projection space), not an axiomatic cap.
 -/
 
 namespace E213.Physics.Foundations.FinitismIsConsequence
 
 open E213.Math.Real213.CutSum
 
-/-- ★★★ Completed-infinity equality FAILS in 213. -/
+/-- ★★★ Cauchy-trajectory ≠ exact value at type level under ∅-axiom
+    (canonical: `RESOLUTION_LIMIT_SPEC.md` §1).  Legacy name retained. -/
 theorem completed_infinity_fails :
     -- Cauchy limit at (0, 1) gives FALSE
     (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit 0 1 = false
@@ -57,11 +65,14 @@ theorem infinitesimal_gap_universal :
       ∧ (constCut 0 1) 0 k = true :=
   zero_plus_gap_below_zero_exact
 
-/-- ★★★★★★★★★★ FINITISM IS A CONSEQUENCE — meta principle.
+/-- ★★★★★★★★★★ Resolution-limit type distinction — meta capstone.
 
-  The proposition "Cauchy limit always equals exact value"
-  (key tenet of ZFC analysis) is provably FALSE in 213.  Hence
-  213's finitism is structural force, not philosophical choice. -/
+  ZFC equality between Cauchy-trajectory and exact-value uses
+  `propext` + `Quot.sound` to identify them; ∅-axiom regime does not
+  admit either, so the type distinction is preserved.  This bundles
+  the (0, 1) witness with the universal (0, k ≥ 1) family.
+  Canonical reading: `seed/RESOLUTION_LIMIT_SPEC.md` §1.  Legacy name
+  `finitism_is_consequence` retained for backward compatibility. -/
 theorem finitism_is_consequence :
     ((ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit 0 1 = false
      ∧ (constCut 0 1) 0 1 = true)

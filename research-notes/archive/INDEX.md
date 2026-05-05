@@ -21,11 +21,15 @@ to the current formalization.
 | `B2_hermite_direction.md` | Hermite direction attempt | `Meta/AxiomMinimality` |
 | `C1_kernel_cardinality_obstruction.md` | The formal block | `Meta/AxiomMinimality` |
 
-## Finitism conviction (3 files)
+## Resolution-limit early framing (3 files)
+
+Originally written under "finitism conviction" framing; superseded by
+`seed/RESOLUTION_LIMIT_SPEC.md` (cardinality is a per-lens output;
+N_U = 5²⁵ is a four-domain convergent invariant).
 
 | File | Theme | Closed in |
 |---|---|---|
-| `D1_zfc_real_as_final_boss.md` | "ZFC real as final boss" | `Real213.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero` + `LESSONS_LEARNED.md` 교훈 1 |
+| `D1_zfc_real_as_final_boss.md` | trajectory/exact type-distinction motivation | `Real213.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero` + `RESOLUTION_LIMIT_SPEC.md` §1 |
 | `D2_complexity_class_hierarchy.md` | Complexity class hierarchy | Real213 marathon |
 | `D3_real213_native_R.md` | Real213-native ℝ proposal | Real213 marathon |
 

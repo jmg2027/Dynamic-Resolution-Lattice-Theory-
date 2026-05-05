@@ -30,8 +30,8 @@ parallel-struct refactor PLUS deletion of ALL function-eq facade
     (the "atom of meaning" thesis).
   - Math.Infinity.Godel: Cantor-style countability/equipotence
     proofs use Iff between cardinality propositions.
-  - DyadicTrajectory: Cauchy-limit ZFC fiction documented in
-    CLAUDE.md "Finitism is Forced".
+  - DyadicTrajectory: Cauchy-limit structural inequality preserved by
+    ∅-axiom regime; documented in `seed/RESOLUTION_LIMIT_SPEC.md` §1.
   - Bridges: intentional axiom-demonstration cluster.
 
 **This is the canonical DRLT axiom standard** (formalized 2026-05-02,

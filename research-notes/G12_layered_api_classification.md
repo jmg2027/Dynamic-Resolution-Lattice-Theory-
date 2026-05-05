@@ -483,7 +483,9 @@ Ordered by ROI / safety:
 
   - `## Repository Organization Philosophy` — 8 numbered guidelines
     informing this classification
-  - `## Implications of Finite Discrete Lattice` — finitism rule
+  - `## Resolution limit is a structural invariant (not "finitism")`
+    — N_U as four-domain convergent invariant (canonical:
+    `seed/RESOLUTION_LIMIT_SPEC.md`)
   - `## DRLT Axiom Standard` — strict ∅-axiom requirement
 
 ---
