@@ -239,10 +239,10 @@ move (G7 §6):
      equivalence claim.
 
 The classical "completed-infinity ingredient" is, at every stage,
-redundant ZFC packaging (G6 §8 + G8): cycle moduli, harmonic forms
-on infinite-dim Hilbert space, p-adic limit completions, étale
-fundamental groups.  213 strips each and exposes the finite
-combinatorial content.
+redundant ZFC packaging (G6 §0 corrected position + G8): cycle
+moduli, harmonic forms on infinite-dim Hilbert space, p-adic limit
+completions, étale fundamental groups.  213 strips each and exposes
+the finite combinatorial content.
 
 This means the *entire* Hodge-adjacent landscape is a finite Lean
 theorem family — small per-item, large in count, uniformly closed
