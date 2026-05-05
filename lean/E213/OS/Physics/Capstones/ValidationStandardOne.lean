@@ -1,6 +1,6 @@
 import E213.Physics.AlphaEM.MasterCapstone
 import E213.Physics.Mass.MuOverE
-import E213.Physics.Cosmology.OmegaLambdaFinitist
+import E213.Physics.Cosmology.DarkEnergy
 import E213.OS.Physics.Capstones.FinitistObservableChain
 import E213.Physics.Foundations.NUniverseFractalDepth
 import E213.Physics.Simplex.Generations

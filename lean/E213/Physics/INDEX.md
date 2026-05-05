@@ -52,9 +52,12 @@ Physics/
 │                              2026-05-05 as alias-only orphans)
 ├── Mixing/              5  — CKMHierarchy, CPViolation, CabibboAngle,
 │                              Bridge, NeutrinoMixing
-├── Cosmology/           7  — Bridge, DarkEnergy, HubbleConstant,
-│                              NeffDerivation, OmegaLambdaFinitist,
-│                              GravityShadow, HorizonInformation
+├── Cosmology/           6  — Bridge, DarkEnergy, HubbleConstant,
+│                              NeffDerivation, GravityShadow,
+│                              HorizonInformation
+│                              (DarkEnergyPhase3Derivation +
+│                              OmegaLambdaFinitist + HubbleTension
+│                              deleted 2026-05-05 as alias-only orphans)
 ├── Atomic/              5  — Bridge, Screening, BondAngles, Helium, Hydrogen
 ├── Simplex/             7  — Counts, SubInventory, FoccSpectrum, FaceTerms,
 │                              MultiComposite, GenerationStructure, Generations

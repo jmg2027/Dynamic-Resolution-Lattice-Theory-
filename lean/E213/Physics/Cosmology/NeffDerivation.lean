@@ -4,7 +4,7 @@ import E213.Physics.Basel.WhyBasel
 /-!
 # N_eff per force from Gram-sector rank (0 axioms)
 
-ch08 §sec:Neff: each force has propagation horizon N_eff equal to
+Each force has propagation horizon N_eff equal to
 the rank exhaustion depth of its Gram sector.
 
   α_3 (AAA, pure ℂ³):   C(NS, NS) = C(3,3) = 1 → N_eff = 1

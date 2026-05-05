@@ -3,7 +3,7 @@ import E213.Physics.Higgs.Mass
 /-!
 # Ω_Λ = (1 − 1/π)·(1 + α_GUT/d) — same atomic cofactor (0 axioms part)
 
-DRLT formula (lib/drlt.py:810, ch13 sec 9.2):
+DRLT formula:
   Ω_Λ = (1 - 1/π)·(1 + α_GUT/d)
 
   Bare: 1 - c/(2π) = 1 - 1/π = 0.6817  [angular deficit at horizon]
@@ -20,7 +20,7 @@ DRLT formula (lib/drlt.py:810, ch13 sec 9.2):
 
   m_H/v_H = (1 + α_GUT)·(1 - α_GUT/d)/c    [HiggsMass.lean]
   Ω_Λ    = (1 - 1/π)·(1 + α_GUT/d)
-  He IE:    (1 + α_GUT/d) factor (per ch10)
+  He IE:    (1 + α_GUT/d) factor (see Atomic/Helium)
 
   ★ (1 ± α_GUT/d) trace-correction is universal ★ — same atomic
   ratio α_GUT/d appears in three different formulas across:

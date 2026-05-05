@@ -4,7 +4,7 @@ import E213.Physics.Foundations.MasslessParticles
 /-!
 # Gravity shadow W = |G|²/d (0 axioms part)
 
-DRLT gravity definition (lib/drlt.py:86, ch06):
+DRLT gravity definition:
 
   G_ij = ⟨ψ_i|ψ_j⟩    (complex Hermitian, holds phase + modulus)
   W_ij = |G_ij|²/d    (real, modulus shadow only)

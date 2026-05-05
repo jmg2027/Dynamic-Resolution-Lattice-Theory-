@@ -1,6 +1,6 @@
 import E213.Physics.AlphaEM.MasterCapstone
 import E213.Physics.Mass.MuOverE
-import E213.Physics.Cosmology.OmegaLambdaFinitist
+import E213.Physics.Cosmology.DarkEnergy
 import E213.Physics.Foundations.NUniverseFractalDepth
 import E213.Physics.Mass.HierarchyTowers
 
@@ -13,10 +13,12 @@ underlying simplex structure.
 
 ## Observables verified (all 213-internal finitist)
 
-  - 1/α_em(IR) — `AlphaEMMasterCapstone` (commit 46ca653)
-  - m_μ/m_e — `MuOverEFinitist` (commit c36348f)
-  - Ω_Λ — `OmegaLambdaFinitist` (commit d62197d)
-  - M_Pl/v_H = d^(d²)/(d+1) — `HierarchyTowers` (existing)
+  - 1/α_em(IR) — `AlphaEMMasterCapstone`
+  - m_μ/m_e — `Mass.MuOverE` (formerly via `MuOverEFinitist`,
+    absorbed back into MuOverE 2026-05-05)
+  - Ω_Λ — `Cosmology.DarkEnergy` (formerly via
+    `OmegaLambdaFinitist`, absorbed 2026-05-05)
+  - M_Pl/v_H = d^(d²)/(d+1) — `Mass.HierarchyTowers`
 
 All four share N_U = d^(d²).  No external π / transcendentals.
 

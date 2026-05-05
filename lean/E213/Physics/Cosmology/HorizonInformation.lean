@@ -6,7 +6,7 @@ import E213.Physics.Simplex.Counts
 User direction: N (universe lattice count) is the holographic
 information count, where each hinge carries 1 bit.
 
-## Per drlt-book ch04 + ch07
+## Setup
 
   1 hinge      = 1 bit (Holevo bound on Δ_h Gram sub-matrix)
   1 face (Δ³)  = 4 bits (4 hinges per tetrahedron boundary)
@@ -30,7 +30,7 @@ namespace E213.Physics.Cosmology.HorizonInformation
 
 open E213.Physics.Simplex.Counts (binom d NS NT)
 
-/-- Information per hinge (Holevo bound, ch07 thm:holevo). -/
+/-- Information per hinge (Holevo bound). -/
 def hinge_bits : Nat := 1
 
 /-- Hinge count of single Δ⁴ = C(5, 3) = 10. -/
@@ -61,7 +61,7 @@ theorem atomic_bit_signatures :
     Universe's N (lattice count) = total horizon hinges
     = π L² ≈ 2.27 × 10¹²² bits  [paper 6 + Bekenstein-Hawking]
 
-    Each hinge = 1 bit (ch07 Holevo).
+    Each hinge = 1 bit (Holevo bound).
     Δ⁴ surface = 10 bits (decide).
     Tetrahedron = 4 bits (decide). -/
 theorem holographic_N_atomic :

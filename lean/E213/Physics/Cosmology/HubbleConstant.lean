@@ -3,7 +3,7 @@ import E213.Physics.Simplex.Counts
 /-!
 # Hubble constant H_0 — DRLT structural form (0 axioms partial)
 
-DRLT (cosmic-structure CST_001 etc):
+DRLT cosmic-structure:
 
   H_0 ≈ 67.66 km/s/Mpc (Planck) or 73 (SH0ES) — Hubble tension
 
