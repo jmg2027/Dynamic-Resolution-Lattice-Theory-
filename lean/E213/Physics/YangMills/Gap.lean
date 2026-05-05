@@ -6,7 +6,7 @@ import E213.Physics.Couplings.PhotonKernel
 
 Clay Millennium Problem: prove SU(N) Yang-Mills has mass gap.
 
-DRLT answer (yang-mills/ + ch08):
+DRLT answer:
 
   Mass gap = lattice rank exhaustion at finite N_eff.
 
@@ -20,7 +20,7 @@ DRLT answer (yang-mills/ + ch08):
 
 ## Atomic structure of mass gap
 
-  Gap scale ~ Λ_QCD ≈ 308 MeV (HAD_005)
+  Gap scale ~ Λ_QCD ≈ 308 MeV (per QCD-scale chain)
   Λ_QCD related to lattice depth + α_GUT.
 
   Existence of mass gap = combinatorial property of K_{NS,NT}^{(c)}

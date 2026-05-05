@@ -3,7 +3,7 @@ import E213.Physics.Simplex.Counts
 /-!
 # Molecular bond angles — pure rational cos θ (0 axioms)
 
-DRLT formula (lib/drlt.py:713, ch10 sec 7.6):
+DRLT formula:
 
   CH₄ (methane):  cos θ = -1/NS         = -1/3   → θ ≈ 109.47°
   NH₃ (ammonia):  cos θ = -(NS+1)/(NS²+NS+1) = -4/13  → ≈ 107.25°

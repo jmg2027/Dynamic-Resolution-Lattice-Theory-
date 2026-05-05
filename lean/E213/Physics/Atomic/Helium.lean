@@ -4,7 +4,7 @@ import E213.Physics.Atomic.Screening
 /-!
 # Helium IE = 24.587 eV — screening σ_1s = 7/8 (0 axioms)
 
-DRLT formula (ATM_013, ch10):
+DRLT formula:
 
   IE(He) = (Z_eff)² · IE(H) · (1 + α_GUT/d) correction
   

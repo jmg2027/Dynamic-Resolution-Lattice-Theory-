@@ -4,7 +4,7 @@ import E213.Physics.Simplex.Generations
 /-!
 # Generation structure — Λᵏ(ℂ⁵) → 1 generation = 15 fermions (0 axioms)
 
-DRLT derivation (ch11 SU(5)):
+DRLT derivation (SU(5)):
 
   ∧¹(ℂ⁵) = 5̄ representation (dim 5)  → 5 fermions
   ∧²(ℂ⁵) = 10 representation (dim 10) → 10 fermions

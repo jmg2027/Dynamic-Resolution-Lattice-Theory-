@@ -17,7 +17,7 @@ DRLT derivation (atoms/CLAUDE.md, ATM series):
   Numerators/denominators come directly from {NS, NT, d, c} integers.
   Only one α_GUT correction (σ_df→p) is transcendental.
 
-## Numerical match (full periodic table z=1-118, ATM_021)
+## Numerical match (full periodic table z=1-118)
 
   H-Ne: all IE < 3% error
   Period 3-4: median 3.9-3.5%

@@ -4,7 +4,7 @@ import E213.Physics.Simplex.GenerationStructure
 /-!
 # SU(5) root system from 5-simplex (0 axioms)
 
-DRLT (ch11):
+DRLT:
 
   SU(5) Lie algebra rank = 4 (= d - 1).
   Roots in 4-dimensional weight space.
@@ -28,7 +28,7 @@ DRLT (ch11):
   Symmetric: (d² + d)/2 = 15
   Antisymmetric ∧²: 10 = d(d-1)/2
 
-## Mass matrix structure (ch11)
+## Mass matrix structure
 
   Up-quark mass matrix in DRLT: democratic seesaw
   (m_u : m_c : m_t) ratio coded in SU(5) structure.

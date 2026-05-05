@@ -3,7 +3,7 @@ import E213.Physics.AlphaEM.Core
 /-!
 # Hydrogen atom — Bohr formula's "2" = NT (0 axioms)
 
-DRLT formula (ch10 sec 7.3, lib/drlt.py:736):
+DRLT formula:
 
   E_n = -m_e · α_em² / (NT · n²)
 

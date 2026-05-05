@@ -3,7 +3,7 @@ import E213.Physics.AlphaEM.Core
 /-!
 # sin²θ_W = α_em/α_2 — same simplicial pattern (0 axioms)
 
-DRLT formula (lib/drlt.py:583, ch08 sec 5.5):
+DRLT formula:
   sin²θ_W(M_Z) = α_em / α_2 = 30 / (30 + 10π²)
 
   At M_Z (bare DRLT):
@@ -84,7 +84,7 @@ theorem weinberg_simplicial_atoms :
 
 /-- ★ Capstone — sin²θ_W same pattern + running gap signature ★
     Bare value bracketed at modest N.  Observed below bracket,
-    same as 1/α_em IR running case (ch08:289).
+    same as 1/α_em IR running case.
     Both share identical "running" structure that DRLT primitives
     don't yet capture. -/
 theorem weinberg_pattern_capstone :
