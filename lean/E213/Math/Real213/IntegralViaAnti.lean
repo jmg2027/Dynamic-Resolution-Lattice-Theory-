@@ -1,4 +1,3 @@
-import E213.Math.Real213.AntiderivativeStructural
 
 /-!
 # Research.Real213IntegralViaAnti

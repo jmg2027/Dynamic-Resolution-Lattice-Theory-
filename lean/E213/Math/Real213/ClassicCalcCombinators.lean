@@ -1,4 +1,3 @@
-import E213.Math.Real213.FTCRiemannChain
 
 /-!
 # Research.Real213ClassicCalcCombinators

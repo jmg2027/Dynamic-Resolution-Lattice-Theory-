@@ -66,8 +66,6 @@ import E213.Math.Real213.ClassicAnti
 
 -- G. Integration / antiderivatives
 import E213.Math.Real213.Antiderivative
-import E213.Math.Real213.AntiderivativeCombinators
-import E213.Math.Real213.AntiderivativeStructural
 import E213.Math.Real213.IntegralViaAnti
 import E213.Math.Real213.IntegralProperties
 import E213.Math.Real213.IndefiniteIntegral
@@ -79,15 +77,8 @@ import E213.Math.Real213.IntegralDyadic
 import E213.Math.Real213.FluxFTC
 import E213.Math.Real213.FluxFTCPolynomial
 import E213.Math.Real213.FTCRiemann
-import E213.Math.Real213.FTCRiemannSquare
-import E213.Math.Real213.FTCRiemannMid
-import E213.Math.Real213.FTCRiemannGeneric
-import E213.Math.Real213.FTCRiemannChain
 
 -- I. ODE + physics
-import E213.Math.Real213.ODELinear
-import E213.Math.Real213.ODECatalog
-import E213.Math.Real213.ODESecondOrder
 import E213.Math.Real213.NewtonFirst
 import E213.Math.Real213.NewtonSecond
 import E213.Math.Real213.CubeDerivativeAtZero
