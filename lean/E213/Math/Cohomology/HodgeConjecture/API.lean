@@ -48,7 +48,7 @@ The **Bridge/** layer is the public API surface — each file is a
 classical-area entry point a non-213 mathematician can recognise
 and start from.
 
-See `INDEX.md` for navigation, `research-notes/G6-G11` for the
+See `INDEX.md` for navigation, `research-notes/hodge/ (G6-G11)` for the
 philosophical / programme notes.
 -/
 

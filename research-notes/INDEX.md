@@ -10,8 +10,12 @@ Exploratory notes that fed into the formal Lean library.  Kept as
 research-notes/
 ├── INDEX.md             ← this file
 ├── 75, 76               ← semantic-atom thesis (active foundational)
-├── G1–G12               ← pre-audit insight notes
-├── G28, G29             ← corrected output of the G17–G27 audit arc
+├── G1–G5, G12           ← pre-audit insight notes (universal lens,
+│                          trajectory, chiral/phase, sublanguage,
+│                          layered API)
+├── G28, G29, G30        ← corrected output of the G17–G27 audit arc
+│                          + pattern catalog synthesis
+├── hodge/               ← G6–G11 Hodge program closure cluster (6 notes)
 ├── audit/               ← G17 empirical pattern audit + G18–G27 iterations
 └── archive/             ← closed historical: 17/19/30 + A1/B/C/D/E/F series
 ```
@@ -30,15 +34,16 @@ research-notes/
 | `G3_raw_as_universal_trajectory.md` | Raw = free magma on 2 generators (universal trajectory) | Cited from `LESSONS_LEARNED.md` |
 | `G4_chiral_phase_duality.md` | d=5 dual views (chiral / phase) | Cited from `HANDOFF.md` |
 | `G5_213_as_sublanguage.md` | 213 as the sublanguage of mathematics | Cited from `HANDOFF.md` |
-| `G6_hodge_213_translation.md` | Hodge translation strategy | Cited from `Math/Cohomology/HodgeConjecture/Foundation/*` |
-| `G7_lens_initiality_cup_blueprint.md` | Lens initiality + cup-product blueprint | Cited from `Foundation/LensCata.lean` |
-| `G8_hodge_213_bridge_to_standard_math.md` | Bridge to standard cohomology | Hodge work |
-| `G9_hodge_conjecture_complete.md` | Hodge conjecture closure narrative | Hodge work |
-| `G10_post_hodge_program.md` | Post-Hodge program sketch | Hodge work |
-| `G11_galois_at_eighty.md` | Galois angle | Hodge work |
+| `hodge/` (sub-tree, 6 notes) | Hodge program closure: G6 translation, G7 Lens initiality + cup blueprint, G8 standard-math bridge, G9 HC²¹³ closure, G10 17-theorem programme, G11 Galois historical | Closed in `Math/Cohomology/HodgeConjecture/`; see `hodge/INDEX.md` |
 | `G12_layered_api_classification.md` | Layered API classification (Hypervisor) | Cited from `Hypervisor/API.lean`, `OS/INDEX.md` |
 
 ## Subdirectories
+
+- **`hodge/`** — G6–G11 Hodge program closure (6 notes).  Reading
+  order, Lean closure mapping, framing-correction status all in
+  `hodge/INDEX.md`.  Each note is closed in
+  `lean/E213/Math/Cohomology/HodgeConjecture/` (Foundation +
+  Bridge + Refinement + Toolkit + Pairing + Structure).
 
 - **`audit/`** — G17 empirical pattern audit (6125 declarations) +
   G18–G27 classification iterations.  Superseded by G28/G29 at the

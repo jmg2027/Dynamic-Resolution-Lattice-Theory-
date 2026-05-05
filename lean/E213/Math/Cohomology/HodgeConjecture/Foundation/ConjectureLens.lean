@@ -19,7 +19,7 @@ Cross-references:
   * Canonical HC²¹³ capstone (Δ⁴ + K_{3,2}^{(c=2)}) —
     `../HodgeConjecture213.lean`
   * Standard ↔ 213 translation dictionary —
-    `research-notes/G6_hodge_213_translation.md`
+    `research-notes/hodge/G6_hodge_213_translation.md`
   * K_{3,2} class catalog (256 classes) — `LensClassifier.lean`
 -/
 

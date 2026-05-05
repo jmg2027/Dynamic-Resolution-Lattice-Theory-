@@ -113,7 +113,7 @@ abbrev HC_Involution : Prop :=
       · `HodgeConjectureLensCata.hc213_lens_cata_capstone` —
         atomic generators match binom(n, k) at every Δ⁴ stratum
 
-    See `research-notes/G6_hodge_213_translation.md` (translation
+    See `research-notes/hodge/G6_hodge_213_translation.md` (translation
     dictionary), `G7_lens_initiality_cup_blueprint.md` (uniform proof
     via Lens initiality), `G8_hodge_213_bridge_to_standard_math.md`
     (standard ↔ 213 bridge), `G9_hodge_conjecture_complete.md`

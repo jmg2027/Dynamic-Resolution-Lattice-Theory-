@@ -3,7 +3,10 @@ import E213.Math.Cohomology.HodgeConjecture.Bridge.DiscreteGeometry
 /-!
 # G6 — No continuum/discrete tradeoff: Lean witnesses for Class A
 
-Companion to `research-notes/G6_no_continuum_tradeoff.md`.
+Companion narrative: `research-notes/hodge/` (G6 series).  The
+"no-continuum-tradeoff" thesis is now part of the G6 §0 corrected
+position: 213 strips redundant completed-infinity packaging rather
+than rejecting infinity.
 
 The earlier "tradeoff" framing — claiming 213 gives only a
 "combinatorial shadow" of continuum DG — is logically broken: the

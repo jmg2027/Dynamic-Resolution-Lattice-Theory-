@@ -471,13 +471,13 @@ Ordered by ROI / safety:
 
 ### Companion notes
 
-  - `G6_hodge_213_translation.md` — standard ↔ 213 dictionary
-  - `G7_lens_initiality_cup_blueprint.md` — uniform proof sketch
+  - `hodge/G6_hodge_213_translation.md` — standard ↔ 213 dictionary
+  - `hodge/G7_lens_initiality_cup_blueprint.md` — uniform proof sketch
     (relevant to OS-layer Bridges)
-  - `G8_hodge_213_bridge_to_standard_math.md` — bridge concept
-  - `G9_hodge_conjecture_complete.md` — HC²¹³ closure
-  - `G10_post_hodge_program.md` — 17 post-HC theorems programme
-  - `G11_galois_at_eighty.md` — structural-foundations historical
+  - `hodge/G8_hodge_213_bridge_to_standard_math.md` — bridge concept
+  - `hodge/G9_hodge_conjecture_complete.md` — HC²¹³ closure
+  - `hodge/G10_post_hodge_program.md` — 17 post-HC theorems programme
+  - `hodge/G11_galois_at_eighty.md` — structural-foundations historical
 
 ### CLAUDE.md sections relevant
 

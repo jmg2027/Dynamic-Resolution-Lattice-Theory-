@@ -14,7 +14,7 @@ Cross-references:
   * Variant (B) — K_{3,2}^{(c=2)} lens-quotient — `Conjecture213Lens.lean`
   * Canonical capstone bundle (Δ⁴ + K_{3,2}) — `../HodgeConjecture213.lean`
   * Standard ↔ 213 dictionary, motivation, Lens-initiality strategy —
-    `research-notes/G6_hodge_213_translation.md`
+    `research-notes/hodge/G6_hodge_213_translation.md`
   * Operational toolkit (support, fromList, round-trip, classifier,
     Hodge ring, Hodge map) — sibling files `Toolkit.lean`,
     `RoundTrip{,Mid}.lean`, `LensClassifier.lean`, `HodgeRing.lean`,

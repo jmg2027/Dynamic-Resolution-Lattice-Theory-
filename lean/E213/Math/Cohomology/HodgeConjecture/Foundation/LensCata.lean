@@ -12,7 +12,7 @@ explicit atomic generator lists and their cardinality witnesses.
 The full uniform proof — that the Raw → C* cup-Lens morphism is a
 catamorphism whose surjectivity onto H* follows from Lens initiality
 (`Lens.view_unique`, see `Hypervisor/Lens/Initiality.lean`) — is
-detailed in `research-notes/G7_lens_initiality_cup_blueprint.md`.
+detailed in `research-notes/hodge/G7_lens_initiality_cup_blueprint.md`.
 
 STRICT ∅-AXIOM by `decide` on cardinalities.
 -/

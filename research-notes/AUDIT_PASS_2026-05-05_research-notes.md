@@ -19,12 +19,12 @@ deleted in this pass — only classified.
 | `G3_raw_as_universal_trajectory.md` | Raw = free magma on 2 generators | Foundational; formal anchor in `Firmware/Raw.lean` | Keep as-is |
 | `G4_chiral_phase_duality.md` | d=5 dual views (chiral / phase) | Foundational; anchor in `Math/Trajectory/PhaseChiralBridge.lean` | Keep as-is |
 | `G5_213_as_sublanguage.md` | 213 as the sublanguage of mathematics | Meta-principle | Keep as-is |
-| `G6_hodge_213_translation.md` | Hodge translation strategy | Closed in `Math/Cohomology/HodgeConjecture/Foundation/*` | Keep as record |
-| `G7_lens_initiality_cup_blueprint.md` | Lens initiality + cup-product blueprint | Closed in `Foundation/LensCata.lean` | Keep as record |
-| `G8_hodge_213_bridge_to_standard_math.md` | Bridge to standard cohomology | Hodge work | Keep as record |
-| `G9_hodge_conjecture_complete.md` | Hodge conjecture closure narrative | Hodge work | Keep as record |
-| `G10_post_hodge_program.md` | Post-Hodge program (17 classical theorems formalised) | Closed (138+ strict ∅-axiom theorems) | Keep as record |
-| `G11_galois_at_eighty.md` | Galois angle | Historical-philosophical note | Keep as record |
+| `hodge/G6_hodge_213_translation.md` | Hodge translation strategy | Closed in `Math/Cohomology/HodgeConjecture/Foundation/*` | Keep as record |
+| `hodge/G7_lens_initiality_cup_blueprint.md` | Lens initiality + cup-product blueprint | Closed in `Foundation/LensCata.lean` | Keep as record |
+| `hodge/G8_hodge_213_bridge_to_standard_math.md` | Bridge to standard cohomology | Hodge work | Keep as record |
+| `hodge/G9_hodge_conjecture_complete.md` | Hodge conjecture closure narrative | Hodge work | Keep as record |
+| `hodge/G10_post_hodge_program.md` | Post-Hodge program (17 classical theorems formalised) | Closed (138+ strict ∅-axiom theorems) | Keep as record |
+| `hodge/G11_galois_at_eighty.md` | Galois angle | Historical-philosophical note | Keep as record |
 | `G12_layered_api_classification.md` | Layered API classification (Hypervisor) | Architecture deliverable | Keep as-is |
 | `anthropic_outreach_draft.md` | Outreach draft (not sent) | Draft (Mingu Jeong author) | Keep as-is, leave unindexed (private draft) |
 
@@ -69,7 +69,7 @@ sub-tree (≥ 5 files)":
 
 After the 2026-05-05 wording sweep:
 
-  - `G6_hodge_213_translation.md` (lines 53, 255) — UPDATED to point
+  - `hodge/G6_hodge_213_translation.md` (lines 53, 255) — UPDATED to point
     at `seed/RESOLUTION_LIMIT_SPEC.md`.
   - `G12_layered_api_classification.md` (line 486) — UPDATED with
     resolution-limit framing.
