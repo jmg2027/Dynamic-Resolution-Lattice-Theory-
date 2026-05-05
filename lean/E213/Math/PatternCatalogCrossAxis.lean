@@ -166,19 +166,21 @@ F1-Atomic / F2-Aggregation columns, with F3 (universal) carrying
 the catamorphism + dynamical content.  F4–F6 are sparse, populated
 mainly by typeclass-image and reductio-style proofs.
 
-Of the 6 × 21 = 126 cross-cells, the codebase populates ≈ 13–15
-distinctly (the ones we've named).  This sparsity confirms the
-catalog is well-aligned with the actual theorem distribution: the
-non-empty cells are the ones the codebase *naturally* uses, not
-the full Cartesian product. -/
+Of the 6 × 21 = 126 cross-cells, this file names **exactly 13**
+specimens (counting `def specimen_*` declarations).  Canonical
+lower-bound encoded in `PatternCatalogSpan.occupiedCellLowerBound :
+Nat := 13`.  The sparsity (~10%) confirms the catalog is well-
+aligned with the actual theorem distribution: the non-empty cells
+are the ones the codebase *naturally* uses, not the full Cartesian
+product. -/
 
 /-! ## Observation
 
-Seven specimens occupy seven cells out of 6 × 7 = 42.  The corpus
-populates the cross-axis sparsely: F2 ∩ {Aggregation, Cohabitation,
-Forced-Uniqueness} dominate the bundle column; F1 ∩ {Catamorphism,
-Locality, Dynamical} dominate the atomic column.  Most cells are
-empty — not forbidden, just unrequired so far.  A future sweep can
-record cell occupancy by extending this list. -/
+The 13 specimens occupy 13 distinct cells out of 6 × 21 = 126.
+The corpus populates the cross-axis sparsely: F2 ∩ {Aggregation,
+Cohabitation, Forced-Uniqueness} dominate the bundle column; F1 ∩
+{Catamorphism, Locality, Dynamical} dominate the atomic column.
+Most cells are empty — not forbidden, just unrequired so far.
+A future sweep can record cell occupancy by extending this list. -/
 
 end E213.Math.PatternCatalogCrossAxis

@@ -133,7 +133,9 @@ CohabitationWitness` in PatternCatalogInstance.  No contradiction;
 both axes see the same theorem from different angles.
 
 Of the 6 × 21 = 126 cross-cells (6 statement shapes × 21 catalog
-games/composites), the codebase populates ~13–15 distinctly.  The
+games/composites), the codebase populates exactly 13 distinctly
+(canonical Lean fact:
+`PatternCatalogSpan.occupiedCellLowerBound : Nat := 13`).  The
 sparsity confirms the catalog is well-aligned with actual theorem
 distribution: non-empty cells are the ones the codebase *naturally*
 uses, not the full Cartesian product.
