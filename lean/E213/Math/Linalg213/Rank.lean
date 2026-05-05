@@ -10,6 +10,9 @@ collection (paper 1 compression theorem).
 
 namespace E213.Math.Linalg213.Rank
 
+open E213.Math.Linalg213.Vector
+open E213.Math.Linalg213.Gram
+
 /-- Integer coefficient vector. -/
 def IntCoeffs (N : Nat) : Type := Fin N → Int
 

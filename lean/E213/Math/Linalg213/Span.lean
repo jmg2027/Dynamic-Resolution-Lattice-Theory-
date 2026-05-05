@@ -19,6 +19,8 @@ Proven by `omega` (Nat linear arithmetic).
 
 namespace E213.Math.Linalg213.Span
 
+open E213.Math.Linalg213.Vector
+
 /-- Standard basis vectors at d=5. -/
 def e2_5 : Vec 5 := Vec.basis ⟨2, by decide⟩
 def e3_5 : Vec 5 := Vec.basis ⟨3, by decide⟩

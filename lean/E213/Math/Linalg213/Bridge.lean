@@ -29,6 +29,10 @@ analogue for — that lifts to 6.
 
 namespace E213.Math.Linalg213.Bridge
 
+open E213.Math.Linalg213.Vector
+open E213.Math.Linalg213.Span
+open E213.Math.Linalg213.Gram
+
 open E213.Physics.Simplex.Counts (NS NT)
 open E213.Math.Cohomology.Paper1Chiral (chiralDim)
 

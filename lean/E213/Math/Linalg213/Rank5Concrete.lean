@@ -30,6 +30,11 @@ So 6 vectors in Vec 5 are linearly dependent — concrete witness.
 
 namespace E213.Math.Linalg213.Rank5Concrete
 
+open E213.Math.Linalg213.Vector
+open E213.Math.Linalg213.Span
+open E213.Math.Linalg213.Gram
+open E213.Math.Linalg213.Rank
+
 /-- All-ones vector in Vec 5. -/
 def all_ones_5 : Vec 5 := fun _ => 1
 

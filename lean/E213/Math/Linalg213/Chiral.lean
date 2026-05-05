@@ -12,6 +12,8 @@ Vec_T = Fin 2 → Nat (NT=2 temporal).  Indices {0,1,2} S-type,
 namespace E213.Math.Linalg213.Chiral
 
 open E213.Physics.Simplex.Counts (NS NT)
+open E213.Math.Linalg213.Vector
+open E213.Math.Linalg213.Span
 
 /-- Spatial part. -/
 def VecS : Type := Fin 3 → Nat

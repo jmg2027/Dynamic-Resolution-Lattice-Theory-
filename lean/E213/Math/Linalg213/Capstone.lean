@@ -1,4 +1,6 @@
 import E213.Math.Linalg213.Bridge
+import E213.Math.Linalg213.Chiral
+import E213.Physics.Couplings.PhotonKernel
 import E213.Math.Cohomology.TopologyCompare
 
 /-!
@@ -28,6 +30,11 @@ is forced and unique" at multiple complementary levels.
 -/
 
 namespace E213.Math.Linalg213.Capstone
+
+open E213.Math.Linalg213.Vector
+open E213.Math.Linalg213.Span
+open E213.Math.Linalg213.Gram
+open E213.Math.Linalg213.Chiral
 
 open E213.Physics.Simplex.Counts (NS NT d)
 open E213.Math.Cohomology.Paper1Chiral (chiralDim)

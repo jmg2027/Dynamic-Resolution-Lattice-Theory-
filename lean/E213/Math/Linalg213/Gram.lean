@@ -23,6 +23,8 @@ next foundational piece (`Rank.lean`).
 
 namespace E213.Math.Linalg213.Gram
 
+open E213.Math.Linalg213.Vector
+
 /-- Inner product (213-native): Σ vᵢ · wᵢ over ℕ, computed via
     `List.range` for `decide`-friendliness. -/
 def Vec.inner {n : Nat} (v w : Vec n) : Nat :=
