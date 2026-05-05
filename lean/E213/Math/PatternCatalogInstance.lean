@@ -304,6 +304,77 @@ def forcedAggDemo : ForcedAggregate (Forced Nat) :=
     witness := specificBundle
     forced  := fun _ => Iff.rfl }
 
+/-! ## Atomic-pair composite instances (closure of binary products) -/
+
+open E213.Math.PatternCatalog
+  (LocalityInterface LocalityCata LocalityDynamical
+   InterfaceDynamical CataDynamical)
+
+/-- Toy LocalityInterface: indexed by Bool, two interfaces on Nat. -/
+def boolLocalityInterface : LocalityInterface Bool Nat :=
+  fun b =>
+    if b then { base1 := 1, base2 := 1, combine := (· + ·) }
+    else  { base1 := 0, base2 := 0, combine := (· * ·) }
+
+/-- Toy LocalityCata: indexed by Bool, two catamorphisms on Nat. -/
+def boolLocalityCata : LocalityCata Bool Nat :=
+  fun b =>
+    if b then { reduce := (· + ·), base_a := 1, base_b := 1, view := id }
+    else  { reduce := (· * ·), base_a := 0, base_b := 0, view := fun _ => 0 }
+
+/-- Toy LocalityDynamical: indexed by Bool, two FSMs at periods 2 and 3. -/
+def boolLocalityDynamical : LocalityDynamical Bool Nat Nat :=
+  fun b => modCounter (if b then 2 else 3)
+
+/-- Toy InterfaceDynamical: combine = +, FSM step s = base1 + s. -/
+def addInterfaceDynamical : InterfaceDynamical Nat :=
+  { iface            := { base1 := 1, base2 := 1, combine := (· + ·) }
+    dyn              := { init := 0
+                          step := fun s => 1 + s
+                          output := id
+                          period_witness := (0, 0) }
+    step_via_combine := fun _ => rfl }
+
+/-- Toy CataDynamical: reduce = +, base_a = 0, FSM step s = 0 + s = s. -/
+def addCataDynamical : CataDynamical Nat :=
+  { cata           := { reduce := (· + ·), base_a := 0, base_b := 0
+                        view   := fun _ => 0 }
+    dyn            := { init := 0
+                        step := fun s => 0 + s
+                        output := id
+                        period_witness := (0, 0) }
+    step_eq_reduce := fun _ => rfl }
+
+/-! ## Real codebase Lens lifts — three concrete LensWitness instances
+
+Beyond peanoLensWitness (already lifted from `Lens.leaves`), the
+codebase has multiple Lenses we can lift directly into the catalog. -/
+
+/-- `Lens.depth = ⟨0, 0, fun a b => 1 + max a b⟩` lifted into the
+    catalog's LensWitness composite.  Real codebase witness, NOT a toy. -/
+def depthLensWitness : LensWitness Nat :=
+  { interface       := { base1 := 0, base2 := 0
+                         combine := fun a b => 1 + max a b }
+    catamorphism    := { reduce := fun a b => 1 + max a b
+                         base_a := 0, base_b := 0
+                         view   := fun _ => 0 }
+    base_compat_1   := rfl
+    base_compat_2   := rfl
+    combine_compat  := rfl }
+
+/-- `isLeafLens = ⟨true, true, fun _ _ => false⟩` lifted as a
+    Bool-targeting LensWitness.  Demonstrates LensWitness is
+    polymorphic in target type. -/
+def isLeafLensWitness : LensWitness Bool :=
+  { interface       := { base1 := true, base2 := true
+                         combine := fun _ _ => false }
+    catamorphism    := { reduce := fun _ _ => false
+                         base_a := true, base_b := true
+                         view   := fun _ => true }
+    base_compat_1   := rfl
+    base_compat_2   := rfl
+    combine_compat  := rfl }
+
 /-! ## Operator self-composition instances
 
 Demonstrate non-idempotence concretely:

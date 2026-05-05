@@ -353,6 +353,47 @@ structure DynamicalForcedPeriod (S : Type) (Out : Type) where
   /-- Coherence: the forced witness is exactly the dyn's period. -/
   agree     : forcedNat.witness = dyn.period_witness.2
 
+/-! ## Atomic-pair composites (closure of binary products)
+
+The 4 atomic games (Locality, Typeclass, Cata, Dynamical) admit
+C(4,2) = 6 binary composites.  `Lens` covers Typeclass × Cata.  We
+type the remaining five here.  Most are pure Cartesian (no coherence
+constraint); two (`InterfaceDynamical`, `CataDynamical`) admit a
+natural coherence equation linking the two atoms. -/
+
+/-- Locality × Typeclass: an indexed family of typeclass interfaces. -/
+abbrev LocalityInterface (Idx α : Type) := Idx → InterfaceWitness α
+
+/-- Locality × Cata: an indexed family of catamorphisms. -/
+abbrev LocalityCata (Idx α : Type) := Idx → CatamorphismWitness α
+
+/-- Locality × Dynamical: an indexed family of dynamical systems
+    (per-location FSMs).  Codebase candidate: `BitFSM` cluster, where
+    each prime / index gets its own FSM (Pisano marathon). -/
+abbrev LocalityDynamical (Idx S Out : Type) := Idx → DynamicalWitness S Out
+
+/-- Typeclass × Dynamical: an interface paired with a dynamical
+    system on its carrier, with a coherence clause asserting that
+    the dynamical step factors through the interface's combine.
+
+    Codebase shape (latent): `Lens.combine` + FSM step where the
+    state-update rule reuses the lens's combine operation. -/
+structure InterfaceDynamical (α : Type) where
+  iface             : InterfaceWitness α
+  dyn               : DynamicalWitness α α
+  /-- Step rule: dyn.step s = iface.combine iface.base1 s. -/
+  step_via_combine  : ∀ s, dyn.step s = iface.combine iface.base1 s
+
+/-- Cata × Dynamical: a catamorphism paired with a dynamical system
+    whose step is the catamorphism's reduce-with-base.  Codebase
+    candidate: `BitFSM`/`ArithFSM` clusters where the FSM step is
+    literally a binary `combine`-shaped operation. -/
+structure CataDynamical (α : Type) where
+  cata             : CatamorphismWitness α
+  dyn              : DynamicalWitness α α
+  /-- Step rule: dyn.step s = cata.reduce cata.base_a s. -/
+  step_eq_reduce   : ∀ s, dyn.step s = cata.reduce cata.base_a s
+
 /-! ## Operator composition (C4)
 
 `Aggregate W` and `Forced T` are the two higher-order operators.
@@ -374,6 +415,19 @@ theorem of the abbreviations themselves).
 
 abbrev AggregateForced (T : Type) := Aggregate (Forced T)
 abbrev ForcedAggregate (W : Type) := Forced (Aggregate W)
+
+/-! ### Forced-of-witness abbrevs (uniqueness of structure)
+
+Apply `Forced` to each atomic-game witness type.  These assert the
+existence of a unique witness of that game-shape satisfying some
+condition.  Codebase candidates: Atomicity-style theorems that
+identify a unique Lens / unique FSM / etc. with a stipulated
+property. -/
+
+abbrev ForcedLocality (Idx Val : Type) := Forced (LocalityWitness Idx Val)
+abbrev ForcedInterface (α : Type) := Forced (InterfaceWitness α)
+abbrev ForcedCata (α : Type) := Forced (CatamorphismWitness α)
+abbrev ForcedDynamical (S Out : Type) := Forced (DynamicalWitness S Out)
 
 /-- Diagonal lift: a single `Forced T` becomes a constant
     `AggregateForced T` at any arity. -/
@@ -409,5 +463,37 @@ Self-composition produces strictly richer types. -/
 def Aggregate.firstInner {W : Type} (a : Aggregate (Aggregate W)) :
     Aggregate W :=
   a.facts 0
+
+/-! ## Operator algebra: free monoid (C5)
+
+Both operators are non-commutative (C4) and non-idempotent.  Their
+3-letter words generate distinct type-constructors:
+
+  AAA — Aggregate (Aggregate (Aggregate W))
+  AAF — Aggregate (Aggregate (Forced T))
+  AFA — Aggregate (Forced (Aggregate W))    = Aggregate (ForcedAggregate W)
+  AFF — Aggregate (Forced (Forced T))
+  FAA — Forced (Aggregate (Aggregate W))
+  FAF — Forced (Aggregate (Forced T))        = Forced (AggregateForced T)
+  FFA — Forced (Forced (Aggregate W))
+  FFF — Forced (Forced (Forced T))
+
+8 distinct 3-letter words; together with the 4 two-letter words
+(AA, AF, FA, FF) and 2 one-letter (A, F), the operator algebra
+behaves as a **free monoid on the 2-letter alphabet {A, F}**.
+
+No reduction laws, no commutativity, no idempotence.  Each word
+denotes a strictly different type constructor.  The catalog grows
+*linearly* in word length, NOT collapsing under any algebraic
+identity.
+
+We record only the 4 mixed 3-letter words (the others are pure
+nesting of one operator). -/
+
+abbrev AAF (T : Type) := Aggregate (Aggregate (Forced T))
+abbrev AFA (W : Type) := Aggregate (ForcedAggregate W)
+abbrev AFF (T : Type) := Aggregate (Forced (Forced T))
+abbrev FAF (T : Type) := Forced (AggregateForced T)
+abbrev FFA (W : Type) := Forced (Forced (Aggregate W))
 
 end E213.Math.PatternCatalog

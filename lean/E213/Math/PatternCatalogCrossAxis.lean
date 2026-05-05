@@ -42,15 +42,33 @@ inductive StatementShape where
   | negativeExist
   deriving DecidableEq, Repr
 
-/-- **Design-pattern axis** (PatternCatalog 6 atomic + 1 composite). -/
+/-- **Design-pattern axis** (PatternCatalog: 4 atomic + 2 operator +
+    composites, after H2 self-corrections). -/
 inductive PatternGame where
+  -- Atomic games (after Aggregation/ForcedUniq lifted to operators)
   | locality
-  | aggregation
   | typeclass
   | catamorphism
   | dynamical
-  | forcedUniq
-  | cohabitation
+  -- Operators (lift any game)
+  | aggregateOp
+  | forcedOp
+  -- Atomic-pair composites (closure of binary products)
+  | lens                  -- Typeclass × Cata
+  | cohabitation          -- Lens × Lens (ternary)
+  | localityInterface     -- Locality × Typeclass
+  | localityCata          -- Locality × Cata
+  | localityDynamical     -- Locality × Dynamical
+  | interfaceDynamical    -- Typeclass × Dynamical (with coherence)
+  | cataDynamical         -- Cata × Dynamical (with coherence)
+  -- Operator-application composites
+  | localityAggregate     -- Aggregate (LocalityWitness)
+  | dynamicalAggregate    -- Aggregate (DynamicalWitness)
+  | interfaceAggregate    -- Aggregate (InterfaceWitness)
+  | cataAggregate         -- Aggregate (CatamorphismWitness)
+  | localityForcedValue   -- Locality × Forced (per-index)
+  | cataForcedForm        -- Cata × Forced (form-level)
+  | dynamicalForcedPeriod -- Dynamical × Forced (period uniqueness)
   deriving DecidableEq, Repr
 
 /-- One cross-axis cell: a (shape, game) pair. -/
@@ -96,9 +114,10 @@ def specimen_F5_typeclass : CrossAxisSpecimen :=
   { cell    := { shape := .existential, game := .typeclass }
     witness := "image_contains_a" }
 
-/-- F2 × Forced-Uniqueness — `atomic_iff_five` (Iff = ∧ of fwd+back). -/
+/-- F2 × ForcedOp — `atomic_iff_five` (Iff = ∧ of fwd+back).  After
+    the H2 self-correction, `ForcedUniq` is the operator `Forced T`. -/
 def specimen_F2_forcedUniq : CrossAxisSpecimen :=
-  { cell    := { shape := .bundledChecks, game := .forcedUniq }
+  { cell    := { shape := .bundledChecks, game := .forcedOp }
     witness := "atomic_iff_five" }
 
 /-- F6 × Typeclass — `int_image_strict` (¬∃ Raw mapping to negative
@@ -106,6 +125,52 @@ def specimen_F2_forcedUniq : CrossAxisSpecimen :=
 def specimen_F6_typeclass : CrossAxisSpecimen :=
   { cell    := { shape := .negativeExist, game := .typeclass }
     witness := "int_image_strict" }
+
+/-! ## Extended specimens — H2 composites mapped to G24 cells -/
+
+/-- F2 × Lens — `succ_zero_view ∧ one_plus_one_view` style: bundles
+    Lens-view equalities. -/
+def specimen_F2_lens : CrossAxisSpecimen :=
+  { cell    := { shape := .bundledChecks, game := .lens }
+    witness := "succ_zero_view_bundle" }
+
+/-- F3 × Catamorphism — `getBase_eq` (∀ x h, x = .object (getBase x h)). -/
+def specimen_F3_catamorphism : CrossAxisSpecimen :=
+  { cell    := { shape := .universal, game := .catamorphism }
+    witness := "getBase_eq" }
+
+/-- F2 × DynamicalAggregate — `pisano_predict_realises_pell_N`. -/
+def specimen_F2_dynamicalAggregate : CrossAxisSpecimen :=
+  { cell    := { shape := .bundledChecks, game := .dynamicalAggregate }
+    witness := "pisano_predict_realises_pell_N" }
+
+/-- F2 × LocalityAggregate — `polynomial_mvt_unitBracket_capstone_pure`. -/
+def specimen_F2_localityAggregate : CrossAxisSpecimen :=
+  { cell    := { shape := .bundledChecks, game := .localityAggregate }
+    witness := "polynomial_mvt_unitBracket_capstone_pure" }
+
+/-- F3 × CataForcedForm — `getBase_eq` viewed as form-level forcing. -/
+def specimen_F3_cataForcedForm : CrossAxisSpecimen :=
+  { cell    := { shape := .universal, game := .cataForcedForm }
+    witness := "getBase_eq (form-level reading)" }
+
+/-- F1 × Lens — `Lens.leaves.view Raw.a = 1` (atomic Lens evaluation). -/
+def specimen_F1_lens : CrossAxisSpecimen :=
+  { cell    := { shape := .atomicCheck, game := .lens }
+    witness := "Lens.leaves_view_a" }
+
+/-! ## Coverage observation
+
+The cross-axis is **bias-saturated**: most theorems live in
+F1-Atomic / F2-Aggregation columns, with F3 (universal) carrying
+the catamorphism + dynamical content.  F4–F6 are sparse, populated
+mainly by typeclass-image and reductio-style proofs.
+
+Of the 6 × 21 = 126 cross-cells, the codebase populates ≈ 13–15
+distinctly (the ones we've named).  This sparsity confirms the
+catalog is well-aligned with the actual theorem distribution: the
+non-empty cells are the ones the codebase *naturally* uses, not
+the full Cartesian product. -/
 
 /-! ## Observation
 
