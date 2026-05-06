@@ -64,7 +64,7 @@ CLAUDE.md verification criterion (2): 1 measurement violation → 213 discard.
 ## ★ 213 Kernel axiom-free closure (KH marathon)
 
 The following falsifiers are formalized with *literally* 0 Lean axioms
-(`E213.Kernel.Cap_PhysicsFalsifiers` etc.):
+(`E213.Term.Cap_PhysicsFalsifiers` etc.):
 
   ★ F1  d ≠ 26, d ≠ 11           (absence of string/M-theory)
   ★ F4  θ_QCD bracket             (286 ∈ [251, 300])

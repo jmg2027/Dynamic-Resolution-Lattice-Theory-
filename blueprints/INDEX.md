@@ -23,14 +23,13 @@ formal fact.
   📋 `math/00_DIRECTORY_PROPOSAL.md`  — Math track directory proposal
   📋 `physics/00_PHYSICS_RESPONSE.md` — Physics track response (full agreement)
 
-  Final architecture (2026-05-01 actual state):
+  Final architecture (2026-05-06, post-M14 ring rename):
   - `seed/` (axioms + philosophy + falsifiability)
-  - `lean/E213/` (namespace preserved; ~970 .lean files;
-    layered Kernel/Firmware/Hypervisor/Meta/OS/App + topical
-    Math/Physics — see `lean/E213/ARCHITECTURE.md` (canonical layer
-    architecture).  Note: `OS/` was first retired then re-instated
-    2026-05-XX as orchestration layer (HodgeConjecture/Bridges/ +
-    Physics/Capstones/); see `lean/E213/OS/INDEX.md`.)
+  - `lean/E213/` (~825 .lean files; concentric ring model
+    Term/Theory/Lens/Meta/Lib/App — see `lean/E213/ARCHITECTURE.md`
+    canonical ring architecture.  Pre-M14 names
+    Kernel/Firmware/Hypervisor/Meta/App + OS orchestration ring
+    are preserved at `lean/E213/ARCHITECTURE_pre_M14.md`.)
   - `books/{math,physics}/`, `catalogs/`,
     `blueprints/{math,physics,meta}/`, `tools/`,
     `research-notes/`, `guide/`, `rust-engine/`

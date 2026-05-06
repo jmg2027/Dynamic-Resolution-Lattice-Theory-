@@ -62,13 +62,19 @@ binaries, choose `--theirs` (the `Rdn1r` side).
 Bridge/ files will reappear, which is fine — they were intentionally
 moved there for organization, not deleted from the project.
 
-## OS/ — under reconstruction
+## OS/ — dissolved (M14, 2026-05-06)
 
-`lean/E213/OS/` is being rebuilt (Mingu directive 2026-05-04).
-Both branches currently contain the old OS/ structure
-(`HodgeConjecture/Bridges/` + `Physics/Capstones/`).  Leave OS/
-untouched on both branches until the rebuild lands; do not delete,
-do not refactor, do not move OS/ files in either branch.
+The `lean/E213/OS/` orchestration ring was dissolved in M14 Phase A:
+  * `OS/HodgeConjecture/Bridges/*` (motivic bridges) →
+    `Lib/Math/Cohomology/HodgeConjecture/MotivicBridge/`
+  * `OS/Physics/Capstones/*` (5 capstones) →
+    `Lib/Physics/Capstones/`
+  * Empty `OS/` directory + `OS.lean` umbrella deleted.
+  * 1 vacuous duplicate (`BeilinsonRegulator.lean` stub) deleted in
+    favour of the substantive Math/Cohomology version.
+
+The merge concern that motivated this section is resolved.  See
+`HANDOFF.md` Part 33 for the full M14 timeline.
 
 ## Why the split
 

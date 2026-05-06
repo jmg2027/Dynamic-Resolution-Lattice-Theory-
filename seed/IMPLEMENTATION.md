@@ -255,7 +255,7 @@ encoding artifact leak."
 
 ### §3.4 Namespace / convention
 
-Example: `E213.Firmware.Internal` namespace, `private` modifier,
+Example: `E213.Theory.Internal` namespace, `private` modifier,
 "Internal open forbidden" convention in CLAUDE.md.
 
 - Lean 4 core is not a strict module system like Java / Haskell.

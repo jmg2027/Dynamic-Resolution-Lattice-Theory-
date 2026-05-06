@@ -74,7 +74,7 @@ Lean's Eq (intensional, 0 axiom).
      - `two_nS_sq`   2·n_S² = 18  (Argon)
      - `two_nS_cube` 2·n_S³ = 54  (Xe)
 
-  ✅ `lake build E213.Kernel.Demo` clean
+  ✅ `lake build E213.Term.Demo` clean
   ✅ `#print axioms` output 7/7 all "does not depend on any axioms"
 
 ## 4. Phase Plan (KB → KH Marathon)

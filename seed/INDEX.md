@@ -35,7 +35,7 @@ made here in prose.
 |---|---|---|
 | **213** | the formal axiom framework — Raw + 4-clause axiom + Lens framework + ∅-axiom commitment.  The mathematical / type-theoretic side. | seed/AXIOM.md uses "213 axiom" throughout; metatheorems and Lean tree are about 213. |
 | **DRLT** | "Dynamic Resolution Lattice Theory" — the physics deployment of 213.  Coined from the Zeno → pixels intuition (`ORIGIN.md` §3, table line "Zeno → pixels  →  DRLT's 'Dynamic Resolution' name"). | Physics constants table (CLAUDE.md), `Physics/` Lean tree, papers, "DRLT zero-parameters" capstones. |
-| **E213** | the Lean namespace.  Mechanical artifact (`namespace E213.Firmware`, `namespace E213.Hypervisor.Lens`, …). | Lean source only. |
+| **E213** | the Lean namespace.  Mechanical artifact (`namespace E213.Theory`, `namespace E213.Lens`, …). | Lean source only. |
 
 **Disambiguation rule.** Use **213** when discussing the axiom or
 mathematical framework (Raw, Lens, ∅-axiom standard, AXIOM.md, …).
