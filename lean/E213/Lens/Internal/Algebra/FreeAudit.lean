@@ -83,8 +83,8 @@ recursion.  Cost: a proportionally large refactor.  Current ratio:
 approximately ~30% of theorems are already axiom-free.
 -/
 
-namespace E213.Lens.Algebra.FreeAudit
+namespace E213.Lens.Internal.Algebra.FreeAudit
 
 -- This module records the audit results — no new theorems are added.
 
-end E213.Lens.Algebra.FreeAudit
+end E213.Lens.Internal.Algebra.FreeAudit

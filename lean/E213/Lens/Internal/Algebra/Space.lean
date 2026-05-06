@@ -24,7 +24,7 @@ Each KernelSpace element E is realized as the kernel of
 `universalLens E` (KernelCorresp.slash_cong_is_lens_kernel).
 -/
 
-namespace E213.Lens.Algebra.Space
+namespace E213.Lens.Internal.Algebra.Space
 
 open E213.Theory E213.Lens
 open E213.Lens.Algebra.Corresp
@@ -45,4 +45,4 @@ def fromLens {α : Type} (L : Lens α)
 def toLens (K : KernelSpace) : Lens (Raw → Prop) :=
   E213.Lens.Universal.QuotLens.universalLens K.val
 
-end E213.Lens.Algebra.Space
+end E213.Lens.Internal.Algebra.Space

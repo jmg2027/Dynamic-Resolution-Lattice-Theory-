@@ -1,11 +1,11 @@
 import E213.Lens.Algebra.CardinalityLB
 import E213.Lens.Algebra.Congruence
 import E213.Lens.Algebra.Corresp
-import E213.Lens.Algebra.FourDistinct
-import E213.Lens.Algebra.FreeAudit
+import E213.Lens.Internal.Algebra.FourDistinct
+import E213.Lens.Internal.Algebra.FreeAudit
 import E213.Lens.Algebra.IdLensEq
-import E213.Lens.Algebra.Space
-import E213.Lens.Algebra.SwapInvariant
+import E213.Lens.Internal.Algebra.Space
+import E213.Lens.Internal.Algebra.SwapInvariant
 
 /-! Spec-as-code entry point for `E213.Lens.Algebra`.
 

@@ -1,4 +1,4 @@
-import E213.Theory.Raw.Cmp
+import E213.Theory.Internal.Raw.Cmp
 
 /-!
 # Firmware.Raw.Swap: the swap automorphism + involutivity

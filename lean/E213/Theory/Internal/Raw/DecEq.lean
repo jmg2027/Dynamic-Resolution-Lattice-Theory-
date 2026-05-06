@@ -14,7 +14,7 @@ the elaborator can produce a witness.  Decidability is carried as
 data; no external LEM.
 -/
 
-namespace E213.Theory.Raw.DecEq
+namespace E213.Theory.Internal.Raw.DecEq
 
 open E213.Theory
 
@@ -25,4 +25,4 @@ instance : DecidableEq Raw := by
   | isTrue heq => exact isTrue (Subtype.ext heq)
   | isFalse hne => exact isFalse (fun heq => hne (congrArg Subtype.val heq))
 
-end E213.Theory.Raw.DecEq
+end E213.Theory.Internal.Raw.DecEq
