@@ -8,14 +8,21 @@ import E213.Math.Cohomology.Dyadic.Pisano.Predictor6
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor8
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic.Pisano` — Pisano sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic.Pisano`.
 
-  
+  Pisano-period predictor library — given a base b, computes the
+  Pisano period π(b) via the dyadic-FSM encoding.
 
-  ## Status
+  ## Files
 
-  9 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `Predictor`    — generic predictor scaffold
+    * `Predictor6`,
+      `Predictor7`,
+      `Predictor8`,
+      `Predictor11`,
+      `Predictor14`,
+      `Predictor17`,
+      `Predictor20`,
+      `Predictor22`  — per-base specialised predictors
+                       (small bases verified by `decide`).
 -/

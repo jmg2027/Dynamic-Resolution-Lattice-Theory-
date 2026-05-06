@@ -13,14 +13,36 @@ import E213.Math.Cohomology.Dyadic.Pell.ProperMod19
 import E213.Math.Cohomology.Dyadic.Pell.ProperMod23
 import E213.Math.Cohomology.Dyadic.Pell.ProperSmall
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic.Pell` — Pell sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic.Pell`.
 
-  
+  Pell-equation cluster — `x² - D y² = 1` and its dyadic-FSM
+  encoding.
+
+  ## Core
+
+    * `Family`,
+      `Bounds`        — Pell solution family + bound lemmas
+    * `Capstone`      — top-level Pell capstone
+
+  ## Lens encodings
+
+    * `Lens`          — single-Lens encoding
+    * `LensPairs`     — Lens-pair classifier
+    * `LensTriple`    — Lens-triple classifier
+
+  ## Proper-Pell (norm-form variant)
+
+    * `Proper`        — proper-Pell core
+    * `ProperSmall`   — small-D variant
+    * `Proper8`,
+      `ProperMod11`,
+      `ProperMod13`,
+      `ProperMod17`,
+      `ProperMod19`,
+      `ProperMod23`   — per-mod proper-Pell variants
 
   ## Status
 
-  14 files included.  1 files excluded
-  (pre-existing breakage):
-
-    - Cohomology.Dyadic.Pell.ProperBridge
+  14/15 included.  One deferred: `ProperBridge`
+  (pre-existing function-application type-mismatch).
 -/

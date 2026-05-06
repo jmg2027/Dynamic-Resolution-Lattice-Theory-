@@ -17,15 +17,45 @@ import E213.Math.Cohomology.CupAW.LeibnizMid
 import E213.Math.Cohomology.CupAW.Pointwise
 import E213.Math.Cohomology.CupAW.Zero
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology.CupAW` — Cohomology/CupAW cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.CupAW`.
 
-  
+  Alexander–Whitney cup product (`cupAW`) on the 213-native
+  cochain complex.  Companion to `Cup/` (strict cup product);
+  `cupAW` is the homotopy-coherent variant that survives the
+  algebraic-lift constructions.
+
+  ## Core
+
+    * `Core`           — `cupAW p q : Cochain n p → Cochain n q
+                          → Cochain n (p+q)` definition
+    * `Zero`           — `cupAW 0 _ _ = const false` etc.
+    * `Pointwise`      — pointwise rewriting rule
+    * `Bilinear`,
+      `BilinearFunc`   — bilinearity in either argument
+
+  ## Leibniz identities
+
+    * `Leibniz`        — Leibniz rule generic statement
+    * `BasisLeibniz`   — Leibniz on basis elements
+    * `LeibnizMid`     — middle-degree variant
+    * `Leibniz4Mixed`  — 4-mixed-degree case
+    * `Leibniz21Bridge`,
+      `Leibniz21Final` — (2, 1)-bridge + final form
+    * `Leibniz22Bridge`,
+      `Leibniz22Final` — (2, 2)-bridge + final form
+
+  ## Algebraic-lift bridges
+
+    * `LeibnizAlgLift`,
+      `LeibnizAlgLift21`,
+      `LeibnizAlgLift21Alpha`,
+      `LeibnizAlgLift22`,
+      `LeibnizAlgLift22Alpha` — algebraic-lift forms used by
+      `Universal/Prop*`.
 
   ## Status
 
-  18 files included.  2 files excluded
-  (pre-existing breakage):
-
-    - Cohomology.CupAW.LeibnizScaling
-    - Cohomology.CupAW.LeibnizSmall
+  18/20 included.  Two deferred (pre-existing API drift):
+  `LeibnizScaling`, `LeibnizSmall` — `Universal.Prop31.pattern_eq`
+  rename to `pattern_eq_at` changed the rewrite shape.
 -/
