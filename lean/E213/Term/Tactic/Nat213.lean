@@ -430,3 +430,29 @@ theorem le_max_right (a b : Nat) : b ≤ Nat.max a b :=
       (fun h => (if_pos h).symm ▸ Nat.le_refl b)
 
 end E213.Tactic.Nat213
+
+namespace E213.Tactic.Nat213
+
+/-- `2 * n = n + n`.  Term-mode by structural recursion.
+
+    Companion to Lean-core `Nat.two_mul` (also ∅-axiom);
+    provided here so 213 code can stay within `E213.Tactic.Nat213`
+    vocabulary without leaning on Lean-core Nat lemmas.
+
+    Term-mode only (no `rw`) for Term-layer purity. -/
+theorem two_mul : ∀ (n : Nat), 2 * n = n + n
+  | 0 => rfl
+  | n+1 =>
+    let ih : 2 * n = n + n := two_mul n
+    let h1 : 2 * (n + 1) = 2 * n + 2 := Nat.mul_succ 2 n
+    let h2 : 2 * n + 2 = n + n + 2 := congrArg (· + 2) ih
+    -- `(n+1) + (n+1) = ((n+1) + n) + 1 = ((n+n) + 1) + 1 = n + n + 2`.
+    -- Each step is either rfl (by Nat.add's definition) or
+    -- `Nat.succ_add n n : (n+1) + n = (n+n) + 1`.
+    let h3 : (n + 1) + n = n + n + 1 := Nat.succ_add n n
+    let h4 : (n + 1) + (n + 1) = ((n + 1) + n) + 1 := rfl
+    let h5 : ((n + 1) + n) + 1 = (n + n + 1) + 1 := congrArg (· + 1) h3
+    let h6 : (n + n + 1) + 1 = n + n + 2 := rfl
+    h1.trans (h2.trans (h4.trans (h5.trans h6)).symm)
+
+end E213.Tactic.Nat213
