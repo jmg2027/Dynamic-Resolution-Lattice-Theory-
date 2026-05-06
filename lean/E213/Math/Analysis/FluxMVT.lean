@@ -21,4 +21,44 @@ import E213.Math.Analysis.FluxMVT.FluxSeries
 import E213.Math.Analysis.FluxMVT.MVTWitnessCatalog
 import E213.Math.Analysis.FluxMVT.MVTWitnessChain
 
-/-! Spec-as-code entry point for `E213.Math.Analysis.FluxMVT` — Flux-form Mean Value Theorem (cohomological). -/
+/-! Spec-as-code entry point for `E213.Math.Analysis.FluxMVT`.
+
+  Flux-form Mean Value Theorem — a 213-native, cohomological
+  reformulation of MVT that tracks "flux through endpoints"
+  rather than tangent slopes.
+
+  ## Flux core
+
+    * `FluxCut`           — flux as a cut-level value
+    * `FluxCochain`       — flux as a Cochain (cohomological)
+    * `FluxDivergence`    — divergence theorem at cut level
+    * `FluxEquiv`,
+      `FluxEquivOps`      — flux-equivalence relation + ops
+
+  ## MVT witnesses
+
+    * `FluxMVT`                       — generic flux-MVT
+    * `FluxMVTConcrete`               — concrete witness
+    * `FluxMVTWitness`,
+      `FluxMVTWitnessCombinators`     — witness builders
+    * `MVTWitnessCatalog`,
+      `MVTWitnessChain`               — catalogue + chain
+    * `DyadicMVTWitness`              — dyadic-bracket variant
+
+  ## Polynomial / passthrough
+
+    * `FluxPolynomial`,
+      `FluxMVTPolynomial`,
+      `FluxFTCPolynomial`             — polynomial-input variants
+    * `FluxMVTPassthrough`,
+      `FluxPassthroughCatalog`,
+      `FluxPassthroughClass`          — passthrough machinery
+    * `FluxMVTPropagate`              — propagation lemmas
+
+  ## FTC + series
+
+    * `FluxFTC`           — fundamental-theorem-of-calculus
+                            in flux form
+    * `FTCRiemann`        — Riemann-form FTC
+    * `FluxSeries`        — flux applied to series
+-/

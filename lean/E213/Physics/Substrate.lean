@@ -13,9 +13,10 @@ import E213.Physics.Substrate.Phase1Bridge
 import E213.Physics.Substrate.Falsifier
 
 /-!
-# E213.Physics.Substrate.Origin — root entry
+# `E213.Physics.Substrate` — substrate-genesis cluster
 
-Phase 2 single import entry point.  Includes all 13 submodules.
+Single-import entry point for the substrate-genesis cluster
+(formerly "Phase 2" in earlier session naming).
 
 ## Modules
 
@@ -25,25 +26,22 @@ Phase 2 single import entry point.  Includes all 13 submodules.
   * `Pairs`         — AA(3) + BB(1) + AB(6) = 10
   * `Time`          — NT=2 → 2^n dyadic (math track bridge)
   * `Space`         — NS=3 → 3^n ternary, NT/NS asymmetry
-  * `Observable`    — 9 axiom-level measurable integers
+  * `Observable`    — 9 framework-level measurable integers
   * `Force`         — 3 channels = 3 force candidates
   * `Edges`         — c=2 doubling, b_1 = 8 = NS²-1
   * `Lens`          — Hypervisor explicit Lens (parityLens)
   * `Capstone`      — 26-conjunct single synthesis
-  * `Phase1Bridge`  — Phase 2 ↔ Phase 1 arithmetic identity (0 axioms)
-  * `Falsifier`    — CLAUDE.md criterion (2) falsifiable propositions
+  * `Phase1Bridge`  — substrate ↔ Phase-1 arithmetic identity
+  * `Falsifier`     — CLAUDE.md criterion (2) falsifiable propositions
 
 ## Guarantees
 
-All 0 sorry.  ≤ propext + Quot.sound (Lean 4 core only).
-Most are *completely axiom-free* (rfl + decide).
+All 0 sorry.  Most are completely axiom-free (rfl + decide);
+the rest stay within Lean 4 core (≤ propext + Quot.sound).
 
 ## Operating principles
 
-CLAUDE.md: Do not use "observer/structure/relation/space/perception" words
-in axiom descriptions.  Only "primitive distinction".  Everything else is
-explicitly output from Lens.
-
-`Phase2/AUDIT.md` — cross-audit against the math track (extreme rigor):
-**No Phase 2 violations**.  App/Simplex pattern preserved.
+Per CLAUDE.md: do not use "observer / structure / relation / space /
+perception" words in framework-level descriptions.  Only "primitive
+distinction"; everything else is explicit Lens output.
 -/

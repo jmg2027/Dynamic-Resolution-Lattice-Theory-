@@ -13,4 +13,30 @@ import E213.Math.Analysis.Differentiation.PolySumDerivativeModulus
 import E213.Math.Analysis.Differentiation.ResolutionDepth
 import E213.Math.Analysis.Differentiation.Smooth
 
-/-! Spec-as-code entry point for `E213.Math.Analysis.Differentiation` — Differential calculus on cuts. -/
+/-! Spec-as-code entry point for `E213.Math.Analysis.Differentiation`.
+
+  Differential calculus on cuts.
+
+  ## Type definitions
+
+    * `Differentiable`           — Differentiable predicate
+    * `DifferentiableMid`        — midpoint-localised variant
+    * `DifferentiableInstances`  — concrete instances
+    * `DifferentiableAffine`     — affine-function instance
+    * `DifferentiableCompose`    — composition of differentiables
+    * `Smooth`                   — `C^∞` smoothness predicate
+
+  ## Derivatives
+
+    * `DifferenceQuotient`       — difference-quotient builder
+    * `DerivativeForms`          — pointwise derivative forms
+    * `DerivativeDepth`          — derivative resolution depth
+    * `ResolutionDepth`          — resolution-depth bookkeeping
+
+  ## Concrete instances + supporting lemmas
+
+    * `CubeDerivativeAtZero`         — d/dx[x³] at 0 = 0
+    * `ConcreteDerivativeModulus`    — concrete-modulus witness
+    * `PolySumDerivativeModulus`     — polynomial-sum derivative
+    * `ModulusCombiner`              — modulus-combination utility
+-/

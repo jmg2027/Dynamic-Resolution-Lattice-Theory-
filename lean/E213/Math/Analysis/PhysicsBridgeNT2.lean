@@ -8,28 +8,30 @@ import E213.Math.Analysis.DyadicSearch.DyadicRiemann
 import E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 /-!
 # PhysicsBridgeNT2
-**Cross-track bridge** for physics-track Phase 2 (atomic NT-sector = 2).
+**Cross-track bridge** for the physics-track substrate-genesis
+NT-sector = 2 layer (`E213/Physics/Substrate/`).
 
-Physics-track Phase 2 (`E213/Physics/Phase2/`) has established:
+Physics-track substrate genesis has established:
 
   Atomicity (atom pair {2, 3}) → d = 5 → (3, 2) partition
 
 The 2-block (NT = 2) is the smallest atomic block.  Unfolded as a
 resolution sequence, its natural Lens output is **binary bisection** —
-the dyadic geometry already formalized in `Real213DyadicBracket` +
-`Real213DyadicTrajectory`.
+the dyadic geometry already formalised in `Analysis/DyadicSearch/
+{DyadicBracket, DyadicTrajectory}.lean`.
 
 This file is a **decoupled bridge**: 0 physics-track imports, only
-analysis-track theorems re-stated under physics-friendly names.  When
-physics-track Phase 2 reaches `Time.lean` / `Observable.lean`, this
-file is `import`-ready as a single line.
+analysis-track theorems re-stated under physics-friendly names.
 
 ## Bridge theorems
 
 (B-1) `nt2_step_count`           — depth-n bisection: 2^n leaves.
 (B-2) `nt2_left_trajectory`      — alwaysTrue: bracket (0, 1, n).
 (B-3) `nt2_right_trajectory`     — alwaysFalse: bracket numB = 2^n.
-(B-4) `nt2_atomic_yields_dyadic` — conjunctive bridge capstone.
+(B-4) `nt2_atomic_yields_dyadic_at` — conjunctive bridge capstone
+                                       (pointwise / `_at` form
+                                       after the Stage-27 function-eq
+                                       capstone delete).
 -/
 
 namespace E213.Math.Analysis.PhysicsBridgeNT2
