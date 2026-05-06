@@ -29,7 +29,7 @@ PURE chain doesn't link into facade chain (parallel by design).
 Reverse fails (node 0 still has consumer 1).
 -/
 
-namespace E213.Math.CascadeCalculusInstance
+namespace E213.Math.CascadeCalculus.Instance
 
 open E213.Math.CascadeCalculus
 
@@ -72,4 +72,4 @@ example : isDeletable g l0 N 0 = false := by decide
 /-- And node 1 is not deletable initially either. -/
 example : isDeletable g l0 N 1 = false := by decide
 
-end E213.Math.CascadeCalculusInstance
+end E213.Math.CascadeCalculus.Instance

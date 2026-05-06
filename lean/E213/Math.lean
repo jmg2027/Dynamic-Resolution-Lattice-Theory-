@@ -17,7 +17,6 @@ import E213.Math.PatternCatalog
 import E213.Math.ResolutionLimit
 import E213.Math.NatHelpers
 import E213.Math.CascadeCalculus
-import E213.Math.CascadeCalculusInstance
 import E213.Math.Pigeonhole
 import E213.Math.Polynomial213
 import E213.Math.PrimeDescentObservations

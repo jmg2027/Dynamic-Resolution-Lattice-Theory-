@@ -1,4 +1,4 @@
-import E213.Math.CascadeCalculus
+import E213.Math.CascadeCalculus.Core
 
 /-!
 # 213 Pattern Catalog
@@ -59,7 +59,7 @@ rather than atomic. -/
 
 namespace E213.Math.PatternCatalog.Core
 
-open E213.Math.CascadeCalculus
+open E213.Math.CascadeCalculus.Core
 
 /-- **Locality game**: a "global" function `f` plus a pointwise
     witness `f_at` that agrees with `f` at every test point.
