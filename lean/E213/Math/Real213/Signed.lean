@@ -4,11 +4,11 @@ import E213.Math.Real213.CutSumTest
 import E213.Math.Real213.CutMulComm
 
 /-!
-# Real213Signed: signed Real213 + negation (F3)
+# Signed: signed Real213 + negation
 
-F3 of `F0_213_native_arithmetic_synthesis.md`.  The native form of Real213
-is *non-negative* ratios (both (a, b) of abLens.view are ≥ 0).
-Sign extension for representing negatives.
+The native form of Real213 is *non-negative* ratios (both (a, b)
+of abLens.view are ≥ 0).  This module is the sign-extension
+layer for representing negatives.
 
 ## Definition
 

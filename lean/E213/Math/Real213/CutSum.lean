@@ -1,10 +1,10 @@
 import E213.Math.Cauchy.Archimedean
 
 /-!
-# Real213CutSum: cut-level addition (F1 of E5)
+# CutSum: cut-level addition
 
-F1 from `E5_213_stays_213.md`: orderProj-native arithmetic.  Direct
-sum definition on RealCut — bounded search over rational decomposition.
+orderProj-native arithmetic.  Direct sum definition on RealCut
+— bounded search over rational decomposition.
 
 ## Definition
 

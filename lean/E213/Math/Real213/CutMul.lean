@@ -1,10 +1,11 @@
 import E213.Math.Real213.CutSum
 
 /-!
-# Real213CutMul: cut-level multiplication (F2)
+# CutMul: cut-level multiplication
 
-F2 from `F0_213_native_arithmetic_synthesis.md`: cut-level multiplication
-of two RealCuts.
+Cut-level multiplication of two RealCuts.  Companion to
+`CutSum` (addition); together they comprise the rational
+arithmetic on Real213.
 
 ## Definition
 
