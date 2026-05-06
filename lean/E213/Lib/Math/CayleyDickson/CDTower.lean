@@ -31,8 +31,10 @@ namespace E213.Lib.Math.CayleyDickson.CDTower
 
 
 open E213.Lib.Math.CayleyDickson.ZI.ZI
-open E213.Lib.Math.CayleyDickson.ZI E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Cayley
-     E213.Lib.Math.CayleyDickson.Sedenion
+open E213.Lib.Math.CayleyDickson.ZI E213.Lib.Math.CayleyDickson.CDDouble
+     E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz E213.Lib.Math.CayleyDickson.Cayley
+     E213.Lib.Math.CayleyDickson.Sedenion E213.Lib.Math.CayleyDickson.Sedenion.Sedenion
+     E213.Lib.Math.CayleyDickson.LipschitzHeavy E213.Lib.Math.CayleyDickson.CayleyHeavy
 
 /-- **CD tower structural drop pattern.**  Each successive
     Cayley–Dickson doubling strictly loses one structural
@@ -105,16 +107,16 @@ theorem CD_tower_full :
     ∧ (∀ u v : Lipschitz, u * v = 0 → u = 0 ∨ v = 0)           -- CDTower.L1 R3
     ∧ (∃ u v w : Cayley, (u * v) * w ≠ u * (v * w))            -- CDTower.L2 NOT assoc
     ∧ (∀ a b : Cayley, (a * a) * b = a * (a * b))              -- CDTower.L2 alt left
-    ∧ (∀ u v : Cayley, Cayley.normSq (u * v)
-                        = Cayley.normSq u * Cayley.normSq v)   -- CDTower.L2 comp
+    ∧ (∀ u v : Cayley, E213.Lib.Math.CayleyDickson.CayleyHeavy.normSq (u * v)
+                        = E213.Lib.Math.CayleyDickson.CayleyHeavy.normSq u * E213.Lib.Math.CayleyDickson.CayleyHeavy.normSq v)   -- CDTower.L2 comp
     ∧ (∀ u v : Cayley, u * v = 0 → u = 0 ∨ v = 0)              -- CDTower.L2 R3
     ∧ (∃ u v : Sedenion, u ≠ 0 ∧ v ≠ 0 ∧ u * v = 0)            -- L3 NOT R3
     ∧ (∃ a b : Sedenion, (a * a) * b ≠ a * (a * b)) :=         -- L3 NOT alt
   ⟨ZI.mul_comm, ZI.mul_assoc, ZI.normSq_mul,
-   Lipschitz.mul_not_commutative, Lipschitz.mul_assoc,
-   Lipschitz.normSq_mul, Lipschitz.no_zero_div,
-   Cayley.mul_not_associative, Cayley.alt_left,
-   Cayley.normSq_mul, Cayley.no_zero_div,
+   Lipschitz.mul_not_commutative, E213.Lib.Math.CayleyDickson.LipschitzHeavy.mul_assoc,
+   E213.Lib.Math.CayleyDickson.LipschitzHeavy.normSq_mul, E213.Lib.Math.CayleyDickson.LipschitzHeavy.no_zero_div,
+   Cayley.mul_not_associative, E213.Lib.Math.CayleyDickson.CayleyHeavy.alt_left,
+   E213.Lib.Math.CayleyDickson.CayleyHeavy.normSq_mul, E213.Lib.Math.CayleyDickson.CayleyHeavy.no_zero_div,
    Sedenion.R3_fails_on_sedenion, Sedenion.not_alternative⟩
 
 end E213.Lib.Math.CayleyDickson.CDTower

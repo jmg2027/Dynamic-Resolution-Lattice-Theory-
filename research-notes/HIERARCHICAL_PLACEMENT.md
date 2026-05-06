@@ -166,15 +166,27 @@ Files: `CompoundBool`, `NegSq`, `ParityXor{Incomparable,Join}`,
   - `R5Vacuity` — same `E213.Meta` issue
   - `ZSqrtProduct` — `SwapMatching` + `D₁/D₂` variable-binding drift
 
-### 6.3 Cohomology (9 deferred)
+### 6.3 ~~Cohomology (9 deferred)~~ — RESOLVED 2026-05-06
 
-  - `CupAW.{LeibnizScaling, LeibnizSmall}` — `Universal.Prop31.pattern_eq`
-    became `pattern_eq_at` (index-pointwise vs function-level)
-  - `Dyadic.{ArithFSM.{Hierarchy,V1to2}, AlgebraicDegree, NumberTheory213}`
-    — `ArithFSM.V1.Ar*.padTo2` API rename
-  - `Dyadic.Archive.{EdgeSignature,SubwordComplexity}` — free-variable
-    elaboration drift
-  - `Dyadic.Pell.ProperBridge` — function-application type mismatch
+All 9 files restored (commit pending).  Method:
+
+  - `CupAW.LeibnizSmall` — replaced the `pattern_eq` (function-eq)
+    rewrite with the per-index-pointwise `pattern_eq_at` chain
+    (mirroring the existing `Leibniz.lean` n=5 proof).
+    `CupAW.LeibnizScaling` was indirect (LeibnizSmall import).
+  - `Dyadic.ArithFSM.V1to2` — moved `ArithFSM1.padTo2` def into
+    the `ArithFSM.V1` namespace so dot-notation `m.padTo2` resolves.
+    `Hierarchy` analogous: `ArithFSM2.padTo3` added at
+    `ArithFSM` namespace, `ArithFSM1.padTo3` moved to V1.
+  - `Dyadic.AlgebraicDegree`, `NumberTheory213` — added explicit
+    `open` lines for `padTo2_bits_eq` / `padTo3_bits_eq` and the
+    LCM/Pisano/Pell helpers (open dependencies were lost in
+    the M14 namespace consolidation).
+  - `Dyadic.Archive.{EdgeSignature, SubwordComplexity}` —
+    added missing `import` of `TierBridge` (where `bit13` lives).
+  - `Dyadic.Pell.ProperBridge` — added `open` for
+    `pellProperFSMmod`, `pisano_predict_proper`, and the three
+    `pellProperN_run_period_*` theorems.
 
 ### 6.4 Meta + OS (0 deferred — fully clean post-M11h)
 

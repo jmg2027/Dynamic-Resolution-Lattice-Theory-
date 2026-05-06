@@ -75,31 +75,26 @@ rust-engine/crates/
 
 ## Open / TODO
 
-### Pre-existing API drift (not introduced by M14)
+### ~~Pre-existing API drift~~ — ALL RESOLVED
 
-Originally 28 files documented in
-`research-notes/HIERARCHICAL_PLACEMENT.md` §6.  Now 18 remain:
-  * ~~**Lens** (10)~~ — RESOLVED in commit `687ff8b7` (A-task above).
-  * **CayleyDickson** (9): `hurwitz_ring` tactic plumbing +
-    `LipschitzLens / R5Vacuity / ZSqrtProduct`
-  * **Cohomology** (9): `Universal.Prop31.pattern_eq` rename
-    (`pattern_eq_at`), `Dyadic` API drift, `Pell.ProperBridge`
-
-Each remaining cluster is documented in its umbrella's
-"deferred" inline list.
+The original 28-file deferred-cluster (HIERARCHICAL_PLACEMENT.md §6)
+is now 0:
+  * ~~**Lens** (10)~~ — RESOLVED commit `687ff8b7` (A-task).
+  * ~~**CayleyDickson** (9)~~ — RESOLVED commit pending (this session).
+  * ~~**Cohomology** (9)~~ — RESOLVED commit pending (this session).
 
 ### ~~Padic / ProfiniteSeq propext residue~~ — RESOLVED
 
 12/12 PURE.  See B-task entry above.
 
-### PatternCatalog drift (surfaced during root-build verification)
+### ~~PatternCatalog drift~~ — RESOLVED commit pending
 
-`E213.Lib.Math.PatternCatalog.{Algebra, Instance}` fail to build
-under `lake build E213` — cascading errors from missing
-`InterfaceWitness`, `LocalityAggregate`, `Aggregate`,
-`CataForcedForm`, `LocalityForcedValue`, `CataAggregate` constants.
-Not in original deferred-28; appears unrelated to A/B tasks.
-Separate cluster for future investigation.
+`PatternCatalog.{Algebra, Instance}` fixed via
+`open E213.Lib.Math.PatternCatalog.Core` (the structures had been
+moved to a `.Core` sub-namespace post-M14; consumers' `open` lines
+weren't updated).  Plus `E213.Lens.depth.view` →
+`E213.Lens.Lens.depth.view` (doubled-namespace) and
+`UniformArityNCohabit` namespace fully-qualified.
 
 ### Documented namespace exceptions (not bugs)
 
@@ -136,10 +131,19 @@ choices; not blockers.
 
 ## Verdict
 
-A and B tasks complete on `claude/plan-next-task-qBnuS`.
-`lake build E213.Lens` clean (124/124).  Padic + ProfiniteSeq +
-ModNat + Cauchy upstream **all 12/12 PURE** (`#print axioms` ∅).
+A, B, and follow-up clusters complete on
+`claude/plan-next-task-qBnuS`:
 
-Branch is **READY TO MERGE** for the A+B follow-up; remaining work
-(CayleyDickson 9, Cohomology 9, PatternCatalog cluster) is
-documented above for future sessions.
+  * `lake build E213` (root) **clean** — every transitively-imported
+    file builds.
+  * `lake build E213.Lens` clean (124/124).
+  * `lake build E213.Lib.Math.CayleyDickson` clean (49/49).
+  * `lake build E213.Lib.Math.DyadicFSM` clean (139/139).
+  * `lake build E213.Lib.Math.Cohomology` clean (228/228).
+  * Padic + ProfiniteSeq + ModNat + Cauchy upstream **all 12/12 PURE**
+    (`#print axioms` ∅).
+
+The original 28-file pre-existing API-drift cluster + the M14-induced
+PatternCatalog + the Padic-axiom B-task are all resolved.
+
+Branch is **READY TO MERGE**.

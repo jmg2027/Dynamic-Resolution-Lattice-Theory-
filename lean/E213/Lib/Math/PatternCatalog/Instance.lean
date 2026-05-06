@@ -28,6 +28,7 @@ This is a structural observation: the catalog's "duality" is a
 namespace E213.Lib.Math.PatternCatalog.Instance
 
 open E213.Lib.Math.PatternCatalog
+open E213.Lib.Math.PatternCatalog.Core
 open E213.Lib.Math.Real213.CutMulOne (cutMul_one_one_at)
 open E213.Lib.Math.Real213.CutMul (cutMul)
 open E213.Lib.Math.Real213.CutSumTest (constCut)
@@ -110,7 +111,7 @@ def peanoDepthCohabit (h : Raw.a ≠ Raw.b) :
 fields and `CatamorphismWitness` fields are populated from the SAME
 underlying triple — that is the whole point of the composite. -/
 
-open E213.Lib.Math.PatternCatalog (InterfaceWitness CatamorphismWitness LensWitness)
+open E213.Lib.Math.PatternCatalog.Core (InterfaceWitness CatamorphismWitness LensWitness)
 
 /-- peanoLens lifted into the LensWitness composite.  All three
     compatibility proofs are `rfl` because both sides come from the
@@ -130,7 +131,7 @@ capstone_pure` shape (FluxMVTPolynomial, arity 3, phase "BB").  We
 bundle three trivial Locality witnesses on `(Nat, Nat)`, each the
 self-instance `f := f_at`. -/
 
-open E213.Lib.Math.PatternCatalog (LocalityAggregate)
+open E213.Lib.Math.PatternCatalog.Core (LocalityAggregate)
 
 /-- Trivial Locality witness on Nat: `f i = i`, agrees by rfl. -/
 def trivLoc (k : Nat) : LocalityWitness Nat Nat :=
@@ -156,7 +157,7 @@ Mirroring `pisano_predict_realises_pell_N` shape (multiple FSMs, each
 with its own period, bundled under one capstone).  We use mod-`p`
 counter FSMs with period `p`. -/
 
-open E213.Lib.Math.PatternCatalog (Aggregate DynamicalAggregate)
+open E213.Lib.Math.PatternCatalog.Core (Aggregate DynamicalAggregate)
 
 /-- Mod-`p` counter FSM: state `Nat`, step = `(· + 1) % p`,
     output = state.  Period = `p` (start = 0). -/
@@ -184,7 +185,7 @@ ArityForcingGeneral.lean` — when the catamorphism `isBase` returns
 We mirror that shape on `Option Nat` to keep imports minimal: when
 `Option.isSome o = true`, `o` is forced into form `some n`. -/
 
-open E213.Lib.Math.PatternCatalog (CataForcedForm)
+open E213.Lib.Math.PatternCatalog.Core (CataForcedForm)
 
 /-- Witness extractor: pull `n` out of a `some n` whose `isSome = true`. -/
 def optExtract : (o : Option Nat) → o.isSome = true → Nat
@@ -214,7 +215,7 @@ is exactly `if b then 1 else 0`.  Trivially forced; demonstrates the
 type.  Real codebase candidates: cut-algebra `_at` lemmas where each
 (m, k) position has a forced cut value. -/
 
-open E213.Lib.Math.PatternCatalog (LocalityForcedValue)
+open E213.Lib.Math.PatternCatalog.Core (LocalityForcedValue)
 
 /-- Toy Locality × ForcedUniq instance on Bool → Nat. -/
 def boolNatLocalityForced : LocalityForcedValue Bool Nat :=
@@ -230,7 +231,7 @@ Bundle three CatamorphismWitness Nat instances (placeholders for
 peanoLens / depthLens / leavesLens shape).  This is the "fan-out"
 pattern: multiple lenses on the same target type. -/
 
-open E213.Lib.Math.PatternCatalog (CataAggregate)
+open E213.Lib.Math.PatternCatalog.Core (CataAggregate)
 
 /-- Trivial Nat catamorphism witness. -/
 def trivCata (k : Nat) : CatamorphismWitness Nat :=
@@ -256,7 +257,7 @@ operator (mirror of `Aggregate W`).  Concrete uses: a Forced Nat (the
 unique Nat = 3) and a DynamicalForcedPeriod attaching it to the
 period-3 modCounter FSM. -/
 
-open E213.Lib.Math.PatternCatalog (Forced DynamicalForcedPeriod)
+open E213.Lib.Math.PatternCatalog.Core (Forced DynamicalForcedPeriod)
 
 /-- Trivially: 3 is the unique Nat = 3.  Demonstrates `Forced Nat`. -/
 def threeIsForced : Forced Nat :=
@@ -286,7 +287,7 @@ We demonstrate by:
 
 The shapes carry different information; no obvious bijection. -/
 
-open E213.Lib.Math.PatternCatalog (AggregateForced ForcedAggregate)
+open E213.Lib.Math.PatternCatalog.Core (AggregateForced ForcedAggregate)
 
 /-- Diagonal lift of threeIsForced at arity 5. -/
 def aggForcedDemo : AggregateForced Nat :=
@@ -307,7 +308,7 @@ def forcedAggDemo : ForcedAggregate (Forced Nat) :=
 
 /-! ## Atomic-pair composite instances (closure of binary products) -/
 
-open E213.Lib.Math.PatternCatalog
+open E213.Lib.Math.PatternCatalog.Core
   (LocalityInterface LocalityCata LocalityDynamical
    InterfaceDynamical CataDynamical)
 
@@ -351,7 +352,7 @@ def addCataDynamical : CataDynamical Nat :=
 These two instances close the escapes flagged in
 `PatternCatalogSpan.EscapeCandidate.{depAggregate, nAryCohabit}`. -/
 
-open E213.Lib.Math.PatternCatalog (DepAggregate ArityNCohabit)
+open E213.Lib.Math.PatternCatalog.Core (DepAggregate ArityNCohabit)
 
 /-- Witness-type family for the heterogeneous bundle:
     index 0 → LocalityWitness; index 1 → InterfaceWitness;
@@ -418,7 +419,7 @@ def threeLensAlphaConst : Nat → Type := fun _ => Nat
 def threeLensViews (i : Nat) (r : E213.Theory.Raw) : Nat :=
   match i with
   | 0     => peanoLens.view r
-  | 1     => E213.Lens.depth.view r
+  | 1     => E213.Lens.Lens.depth.view r
   | _ + 2 => boolAsNat
               (E213.Lens.Properties.IsLeaf.isLeafLens.view r)
 
@@ -441,7 +442,7 @@ def threeLensAgree (i : Nat) :
     `UniformArityNCohabit` form.  Target type T = Nat, with the Bool
     case (`isLeafLens.view`) `boolAsNat`-encoded into Nat resolution. -/
 def threeLensCohabit :
-    E213.Lib.Math.PatternCatalog.UniformArityNCohabit E213.Theory.Raw Nat :=
+    E213.Lib.Math.PatternCatalog.Core.UniformArityNCohabit E213.Theory.Raw Nat :=
   { arity    := 3
     base     := E213.Theory.Raw.a
     views    := threeLensViews
@@ -489,7 +490,7 @@ Demonstrate non-idempotence concretely:
     uniqueness statement we mean, and is genuinely different from
     `Forced Nat` itself. -/
 
-open E213.Lib.Math.PatternCatalog (Aggregate Forced)
+open E213.Lib.Math.PatternCatalog.Core (Aggregate Forced)
 
 /-- Aggregate of two AggregateForced bundles. -/
 def aggOfAgg : Aggregate (Aggregate (Forced Nat)) :=

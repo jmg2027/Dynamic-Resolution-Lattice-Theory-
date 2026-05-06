@@ -21,6 +21,8 @@ and D = 8 (Pell proper).
 namespace E213.Lib.Math.DyadicFSM.Pell.ProperBridge
 
 open E213.Lib.Math.DyadicFSM.Legendre.V213 (legendre213)
+open E213.Lib.Math.DyadicFSM.Pell.Proper (pellProperFSMmod pisano_predict_proper)
+open E213.Lib.Math.DyadicFSM.Pell.ProperSmall (pellProper3_run_period_8 pellProper5_run_period_12 pellProper7_run_period_6)
 
 
 /-- ★★★★★ Legendre 8 mod 3 = NQR. -/

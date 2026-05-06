@@ -13,6 +13,15 @@ namespace E213.Lib.Math.CayleyDickson.PathionHeavy
 
 open E213.Lib.Math.CayleyDickson.ZI
 open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Lib.Math.CayleyDickson.Pathion
+open E213.Lib.Math.CayleyDickson.Pathion.Pathion
+open E213.Lib.Math.CayleyDickson.Trigintaduonion
+open E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion
+open E213.Lib.Math.CayleyDickson.Sedenion
+open E213.Lib.Math.CayleyDickson.Sedenion.Sedenion
+open E213.Lib.Math.CayleyDickson.Cayley
+open E213.Lib.Math.CayleyDickson.CDDouble
+open E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
 open E213.Tactic
 
 set_option maxHeartbeats 128000000 in

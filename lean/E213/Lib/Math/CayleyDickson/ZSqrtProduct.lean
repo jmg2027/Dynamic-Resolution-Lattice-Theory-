@@ -35,6 +35,7 @@ namespace E213.Lib.Math.CayleyDickson.ZSqrtProduct
 open E213.Lib.Math.CayleyDickson.ZSqrt
 open E213.Lib.Math.CayleyDickson.ZSqrt.ZSqrt
 open E213.Theory E213.Lens E213.Meta.SelfRecognising
+open E213.Lens.Characterisation.Catalog (SwapMatching NonVanishing)
 
 variable {D₁ D₂ : Int}
 
@@ -52,6 +53,7 @@ def zSqrtProdConj (p : ZSqrt D₁ × ZSqrt D₂) : ZSqrt D₁ × ZSqrt D₂ :=
   (ZSqrt.conj p.1, ZSqrt.conj p.2)
 
 open E213.Theory E213.Lens E213.Meta.SelfRecognising
+open E213.Lens.Characterisation.Catalog (SwapMatching NonVanishing)
 
 -- ═══ R4 (SwapMatching) HOLDS ═══
 
@@ -100,6 +102,7 @@ theorem zSqrtProdLens_R4 :
       rw [ZSqrt.mul_comm u.1 v.1, ZSqrt.mul_comm u.2 v.2]) r
 
 open E213.Theory E213.Lens E213.Meta.SelfRecognising
+open E213.Lens.Characterisation.Catalog (SwapMatching NonVanishing)
 
 -- ═══ R3 FAILS on the product ═══
 

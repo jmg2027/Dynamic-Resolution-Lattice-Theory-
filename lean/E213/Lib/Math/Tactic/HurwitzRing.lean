@@ -45,31 +45,31 @@ componentwise-Int via iterated CD doubling).
 namespace E213.Tactic
 
 scoped macro "hurwitz_ring" : tactic => `(tactic|
-  ((try apply E213.Lib.Math.CayleyDickson.Pathion.ext) <;>
-   (try apply E213.Lib.Math.CayleyDickson.Trigintaduonion.ext) <;>
-   (try apply E213.Lib.Math.CayleyDickson.Sedenion.ext) <;>
-   (try apply E213.Lib.Math.CayleyDickson.Cayley.ext) <;>
+  ((try apply E213.Lib.Math.CayleyDickson.Pathion.Pathion.ext) <;>
+   (try apply E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.ext) <;>
+   (try apply E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.ext) <;>
+   (try apply E213.Lib.Math.CayleyDickson.Cayley.Cayley.ext) <;>
    (try apply E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz.ext) <;>
-   (try apply E213.Lib.Math.CayleyDickson.ZI.ext) <;>
+   (try apply E213.Lib.Math.CayleyDickson.ZI.ZI.ext) <;>
    simp only [
-     E213.Lib.Math.CayleyDickson.Pathion.mul_re, E213.Lib.Math.CayleyDickson.Pathion.mul_im,
-     E213.Lib.Math.CayleyDickson.Pathion.conj_re, E213.Lib.Math.CayleyDickson.Pathion.conj_im,
-     E213.Lib.Math.CayleyDickson.Pathion.add_re, E213.Lib.Math.CayleyDickson.Pathion.add_im,
-     E213.Lib.Math.CayleyDickson.Pathion.sub_re, E213.Lib.Math.CayleyDickson.Pathion.sub_im,
-     E213.Lib.Math.CayleyDickson.Pathion.neg_re, E213.Lib.Math.CayleyDickson.Pathion.neg_im,
-     E213.Lib.Math.CayleyDickson.Pathion.zero_re, E213.Lib.Math.CayleyDickson.Pathion.zero_im,
-     E213.Lib.Math.CayleyDickson.Trigintaduonion.mul_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.mul_im,
-     E213.Lib.Math.CayleyDickson.Trigintaduonion.conj_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.conj_im,
-     E213.Lib.Math.CayleyDickson.Trigintaduonion.add_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.add_im,
-     E213.Lib.Math.CayleyDickson.Trigintaduonion.sub_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.sub_im,
-     E213.Lib.Math.CayleyDickson.Trigintaduonion.neg_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.neg_im,
-     E213.Lib.Math.CayleyDickson.Trigintaduonion.zero_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.zero_im,
-     E213.Lib.Math.CayleyDickson.Sedenion.mul_re, E213.Lib.Math.CayleyDickson.Sedenion.mul_im,
-     E213.Lib.Math.CayleyDickson.Sedenion.conj_re, E213.Lib.Math.CayleyDickson.Sedenion.conj_im,
-     E213.Lib.Math.CayleyDickson.Sedenion.add_re, E213.Lib.Math.CayleyDickson.Sedenion.add_im,
-     E213.Lib.Math.CayleyDickson.Sedenion.sub_re, E213.Lib.Math.CayleyDickson.Sedenion.sub_im,
-     E213.Lib.Math.CayleyDickson.Sedenion.neg_re, E213.Lib.Math.CayleyDickson.Sedenion.neg_im,
-     E213.Lib.Math.CayleyDickson.Sedenion.zero_re, E213.Lib.Math.CayleyDickson.Sedenion.zero_im,
+     E213.Lib.Math.CayleyDickson.Pathion.Pathion.mul_re, E213.Lib.Math.CayleyDickson.Pathion.Pathion.mul_im,
+     E213.Lib.Math.CayleyDickson.Pathion.Pathion.conj_re, E213.Lib.Math.CayleyDickson.Pathion.Pathion.conj_im,
+     E213.Lib.Math.CayleyDickson.Pathion.Pathion.add_re, E213.Lib.Math.CayleyDickson.Pathion.Pathion.add_im,
+     E213.Lib.Math.CayleyDickson.Pathion.Pathion.sub_re, E213.Lib.Math.CayleyDickson.Pathion.Pathion.sub_im,
+     E213.Lib.Math.CayleyDickson.Pathion.Pathion.neg_re, E213.Lib.Math.CayleyDickson.Pathion.Pathion.neg_im,
+     E213.Lib.Math.CayleyDickson.Pathion.Pathion.zero_re, E213.Lib.Math.CayleyDickson.Pathion.Pathion.zero_im,
+     E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.mul_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.mul_im,
+     E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.conj_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.conj_im,
+     E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.add_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.add_im,
+     E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.sub_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.sub_im,
+     E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.neg_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.neg_im,
+     E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.zero_re, E213.Lib.Math.CayleyDickson.Trigintaduonion.Trigintaduonion.zero_im,
+     E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.mul_re, E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.mul_im,
+     E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.conj_re, E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.conj_im,
+     E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.add_re, E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.add_im,
+     E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.sub_re, E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.sub_im,
+     E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.neg_re, E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.neg_im,
+     E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.zero_re, E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.zero_im,
      E213.Lib.Math.CayleyDickson.Cayley.mul_re, E213.Lib.Math.CayleyDickson.Cayley.mul_im,
      E213.Lib.Math.CayleyDickson.Cayley.conj_re, E213.Lib.Math.CayleyDickson.Cayley.conj_im,
      E213.Lib.Math.CayleyDickson.Cayley.add_re, E213.Lib.Math.CayleyDickson.Cayley.add_im,
@@ -82,14 +82,14 @@ scoped macro "hurwitz_ring" : tactic => `(tactic|
      E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz.sub_re, E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz.sub_im,
      E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz.neg_re, E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz.neg_im,
      E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz.zero_re, E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz.zero_im,
-     E213.Lib.Math.CayleyDickson.ZI.mul_re, E213.Lib.Math.CayleyDickson.ZI.mul_im,
-     E213.Lib.Math.CayleyDickson.ZI.conj_re, E213.Lib.Math.CayleyDickson.ZI.conj_im,
-     E213.Lib.Math.CayleyDickson.ZI.add_re, E213.Lib.Math.CayleyDickson.ZI.add_im,
-     E213.Lib.Math.CayleyDickson.ZI.sub_re, E213.Lib.Math.CayleyDickson.ZI.sub_im,
-     E213.Lib.Math.CayleyDickson.ZI.neg_re, E213.Lib.Math.CayleyDickson.ZI.neg_im,
-     E213.Lib.Math.CayleyDickson.ZI.I_re, E213.Lib.Math.CayleyDickson.ZI.I_im,
-     E213.Lib.Math.CayleyDickson.ZI.negI_re, E213.Lib.Math.CayleyDickson.ZI.negI_im,
-     E213.Lib.Math.CayleyDickson.ZI.re_zero, E213.Lib.Math.CayleyDickson.ZI.im_zero,
+     E213.Lib.Math.CayleyDickson.ZI.ZI.mul_re, E213.Lib.Math.CayleyDickson.ZI.ZI.mul_im,
+     E213.Lib.Math.CayleyDickson.ZI.ZI.conj_re, E213.Lib.Math.CayleyDickson.ZI.ZI.conj_im,
+     E213.Lib.Math.CayleyDickson.ZI.ZI.add_re, E213.Lib.Math.CayleyDickson.ZI.ZI.add_im,
+     E213.Lib.Math.CayleyDickson.ZI.ZI.sub_re, E213.Lib.Math.CayleyDickson.ZI.ZI.sub_im,
+     E213.Lib.Math.CayleyDickson.ZI.ZI.neg_re, E213.Lib.Math.CayleyDickson.ZI.ZI.neg_im,
+     E213.Lib.Math.CayleyDickson.ZI.ZI.I_re, E213.Lib.Math.CayleyDickson.ZI.ZI.I_im,
+     E213.Lib.Math.CayleyDickson.ZI.ZI.negI_re, E213.Lib.Math.CayleyDickson.ZI.ZI.negI_im,
+     E213.Lib.Math.CayleyDickson.ZI.ZI.re_zero, E213.Lib.Math.CayleyDickson.ZI.ZI.im_zero,
      Int.sub_mul, Int.mul_sub, Int.add_mul, Int.mul_add,
      Int.mul_assoc, Int.mul_comm, Int.mul_left_comm,
      Int.sub_eq_add_neg, Int.neg_mul, Int.mul_neg, Int.neg_neg

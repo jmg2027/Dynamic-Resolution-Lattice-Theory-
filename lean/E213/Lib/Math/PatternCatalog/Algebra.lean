@@ -18,7 +18,7 @@ interpretation.
 
 namespace E213.Lib.Math.PatternCatalog.Algebra
 
-open E213.Lib.Math.PatternCatalog (Aggregate Forced)
+open E213.Lib.Math.PatternCatalog.Core (Aggregate Forced)
 
 /-- Words over the 2-letter alphabet {A (Aggregate), F (Forced)}.
     Stored prepend-style: `A w` means "apply A first, then w". -/

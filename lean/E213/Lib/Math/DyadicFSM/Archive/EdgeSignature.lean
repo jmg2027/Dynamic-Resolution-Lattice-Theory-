@@ -20,6 +20,7 @@ namespace E213.Lib.Math.DyadicFSM.Archive.EdgeSignature
 
 open E213.Lib.Math.DyadicFSM.Signature (nextVertex signature)
 open E213.Lib.Math.DyadicFSM.ThueMorse (thueMorse)
+open E213.Lib.Math.DyadicFSM.TierBridge (bit13)
 
 
 /-- Edge from vertex v with bit b in K_{3,2}^{(2)}.  Canonical

@@ -8,6 +8,8 @@ import E213.Lib.Math.Cohomology.CupAW.Leibniz21Final
 import E213.Lib.Math.Cohomology.CupAW.Leibniz22Bridge
 import E213.Lib.Math.Cohomology.CupAW.Leibniz22Final
 import E213.Lib.Math.Cohomology.CupAW.Leibniz4Mixed
+import E213.Lib.Math.Cohomology.CupAW.LeibnizScaling
+import E213.Lib.Math.Cohomology.CupAW.LeibnizSmall
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21
 import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha

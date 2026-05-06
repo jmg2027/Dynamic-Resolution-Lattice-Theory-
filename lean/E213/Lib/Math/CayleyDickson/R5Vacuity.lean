@@ -34,7 +34,7 @@ inside the axiom's Raw. This is the smuggling channel.
 
 namespace E213.Lib.Math.CayleyDickson.R5Vacuity
 
-open E213.Theory E213.Lens E213.Meta
+open E213.Theory E213.Lens
 
 /-- **Fold totality (R5' — finitist R5).** Every Raw term has
     a fully-determined Lens view. This is *automatic* for any
