@@ -1,4 +1,4 @@
-import E213.LensCore
+import E213.Lens.LensCore
 
 /-!
 # Prism: categorical dual of Lens

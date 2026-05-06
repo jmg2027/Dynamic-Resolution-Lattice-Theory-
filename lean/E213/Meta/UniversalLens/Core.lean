@@ -1,4 +1,4 @@
-import E213.LensCore
+import E213.Lens.LensCore
 import E213.Prelude
 import E213.Lens.Instances.Identity
 import E213.Lens.Lattice.Lattice

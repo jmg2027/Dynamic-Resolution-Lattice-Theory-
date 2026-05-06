@@ -1,5 +1,5 @@
 import E213.Theory.Raw
-import E213.LensCore
+import E213.Lens.LensCore
 
 /-!
 # RawInitiality: Raw is the initial object in the Raw-algebra category

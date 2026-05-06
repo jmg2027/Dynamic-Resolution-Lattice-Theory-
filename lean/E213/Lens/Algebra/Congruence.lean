@@ -1,4 +1,4 @@
-import E213.LensCore
+import E213.Lens.LensCore
 
 /-!
 # KernelCongruence: Lens kernel is a slash-congruence

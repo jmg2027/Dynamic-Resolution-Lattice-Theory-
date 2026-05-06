@@ -1,5 +1,5 @@
 import E213.Theory.Raw
-import E213.LensCore
+import E213.Lens.LensCore
 import E213.Lens.Instances.Bool
 import E213.Lens.Instances.Parity
 

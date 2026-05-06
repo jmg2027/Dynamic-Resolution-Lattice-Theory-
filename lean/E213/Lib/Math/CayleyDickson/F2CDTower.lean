@@ -1,5 +1,5 @@
 import E213.Theory.Raw
-import E213.LensCore
+import E213.Lens.LensCore
 
 /-!
 # F2CDTower: CD tower over 𝔽₂ — Bool/CD crossing point

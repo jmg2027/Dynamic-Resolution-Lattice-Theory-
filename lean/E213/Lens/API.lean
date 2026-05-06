@@ -1,4 +1,4 @@
-import E213.LensCore
+import E213.Lens.LensCore
 import E213.Lens.SemanticAtom
 import E213.Lens.Initiality
 import E213.Lens.Lattice.Lattice

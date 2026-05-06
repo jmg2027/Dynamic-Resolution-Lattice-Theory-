@@ -1,5 +1,5 @@
 import E213.Lens.API
-import E213.LensCore
+import E213.Lens.LensCore
 import E213.Lens.AxiomLenses.Bridges
 import E213.Lens.AxiomLenses.Core
 import E213.Lens.Characterisation

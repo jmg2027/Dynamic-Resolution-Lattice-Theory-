@@ -1,5 +1,5 @@
 import E213.Theory.Raw
-import E213.LensCore
+import E213.Lens.LensCore
 
 /-!
 # F9Lens: Raw → 𝔽₉ as R1-R5 counterexample witness

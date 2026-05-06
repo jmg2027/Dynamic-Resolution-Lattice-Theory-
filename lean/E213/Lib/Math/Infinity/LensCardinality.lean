@@ -2,7 +2,7 @@ import E213.Lib.Math.Infinity.Countable
 import E213.Term.Tactic.Nat213
 import E213.Lib.Math.Infinity.Cantor
 import E213.Lib.Math.Infinity.Godel
-import E213.LensCore
+import E213.Lens.LensCore
 import E213.Lens.Characterisation.Catalog
 import E213.Lens.Instances.Bool
 import E213.Lens.Instances.Parity

@@ -174,8 +174,8 @@ def cutHalfIterLDD : ∀ n, LocallyDeterminedData (cutHalfIter n)
     { N := fun m k => max m k
       prop := by
         intro m k cx cy h
-        exact h m k (E213.Lib.Math.Max213.le_max_left _ _)
-                    (E213.Lib.Math.Max213.le_max_right _ _) }
+        exact h m k (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _)
+                    (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _) }
   | n+1 => composeLDD cutHalfLDD (cutHalfIterLDD n)
 
 /-- **`cutHalf^n` has grade n**: structural induction on n.
@@ -369,6 +369,31 @@ theorem cutDouble_no_grade : ∀ E_g, ¬ IsResolutionShift cutDouble E_g := by
     apply decide_eq_true
     rw [Nat.one_mul, Nat.mul_one, Nat.zero_add]
     exact one_le_two_pow_local E_g
+  rw [hLHS, hRHS] at habs
+  exact Bool.noConfusion habs
+
+/-- **`cutSquare`**: squaring a cut via cutMul. -/
+def cutSquare (x : Nat → Nat → Bool) : Nat → Nat → Bool := cutMul x x
+
+/-- **Test 3 — `cutSquare` has NO grade (M-changing op REFINES scope)**.
+
+Squaring sends `M → M²`; IsResolutionShift requires M-preserving.
+ResolutionShift is the *linear (M-preserving) slice* of a richer
+2-D cut-algebra grading; polynomial ops need explicit extension.
+
+Test query: at `(M, E, m, k) = (2, 0, 2, 1)`, cutSquare gives
+`false` (decide-direct via cutMul algorithm), while any RHS
+`dyadicCut 2 (0+E_g) 2 1 = (2 ≤ 2^E_g * 2) = true`. -/
+theorem cutSquare_no_grade : ∀ E_g, ¬ IsResolutionShift cutSquare E_g := by
+  intro E_g h
+  have habs := h 2 0 2 1
+  have hLHS : cutSquare (dyadicCut 2 0) 2 1 = false := by decide
+  have hRHS : dyadicCut 2 (0 + E_g) 2 1 = true := by
+    show decide (2 * 1 ≤ 2^(0 + E_g) * 2) = true
+    apply decide_eq_true
+    rw [Nat.zero_add]
+    calc 2 * 1 = 1 * 2 := by decide
+      _ ≤ 2^E_g * 2 := Nat.mul_le_mul_right _ (one_le_two_pow_local E_g)
   rw [hLHS, hRHS] at habs
   exact Bool.noConfusion habs
 
