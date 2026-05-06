@@ -460,7 +460,7 @@ Imports flow top→bottom.  Theorems compose bottom→top.
 ## 5. Naming conventions (canonical)
 
   1. **Path = namespace** — `Math/Cohomology/Universal/Prop53.lean`
-     declares `namespace E213.Math.Cohomology.Universal.Prop53`.
+     declares `namespace E213.Lib.Math.Cohomology.Universal.Prop53`.
      Enforced by `tools/sync_namespaces.py` (skips intentional
      umbrella-shared dirs).
 

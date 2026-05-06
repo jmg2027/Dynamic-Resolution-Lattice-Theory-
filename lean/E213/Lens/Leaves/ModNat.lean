@@ -1,6 +1,6 @@
 import E213.LensCore
 import E213.Lens.Compose.Factoring
-import E213.Math.Infinity.LensCardinality
+import E213.Lib.Math.Infinity.LensCardinality
 
 /-!
 # LeavesModNat: divisibility → refinement for leaves mod m

@@ -26,7 +26,7 @@ id / linear / quadratic; involution is a fifth possibility.
 
 namespace E213.Lens.Instances.NegSq
 
-open E213.Theory E213.Lens E213.Math.DiagonalClassification
+open E213.Theory E213.Lens E213.Lib.Math.DiagonalClassification
 
 /-- Negation-sq Lens on Bool.  !v on the diagonal, true off-diagonal. -/
 def negSqLens : Lens Bool where

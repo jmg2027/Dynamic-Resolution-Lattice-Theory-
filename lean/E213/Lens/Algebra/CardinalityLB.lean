@@ -1,5 +1,5 @@
 import E213.Lens.Leaves.ModNat
-import E213.Math.Infinity.LensCardinality
+import E213.Lib.Math.Infinity.LensCardinality
 
 /-!
 # KernelCardinalityLB: lower bound on the Lens kernel space (≥ ℵ₀)

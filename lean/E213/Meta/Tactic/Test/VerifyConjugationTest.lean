@@ -1,8 +1,8 @@
 import E213.Meta.Tactic.VerifyConjugation
-import E213.Math.CayleyDickson.ZIInstance
-import E213.Math.CayleyDickson.Z2Instance
-import E213.Math.CayleyDickson.ZOmegaInstance
-import E213.Math.CayleyDickson.ZSqrtInstance
+import E213.Lib.Math.CayleyDickson.ZIInstance
+import E213.Lib.Math.CayleyDickson.Z2Instance
+import E213.Lib.Math.CayleyDickson.ZOmegaInstance
+import E213.Lib.Math.CayleyDickson.ZSqrtInstance
 
 /-!
 # Tests: `#verify_conjugation` scans all six ConjugationCodomain witnesses.
@@ -17,10 +17,10 @@ Full verification therefore requires the Raw build.
 -/
 
 open E213.Tactic
-open E213.Math.CayleyDickson.ZI
-open E213.Math.CayleyDickson.ZSqrt2
-open E213.Math.CayleyDickson.ZOmega
-open E213.Math.CayleyDickson.ZSqrt
+open E213.Lib.Math.CayleyDickson.ZI
+open E213.Lib.Math.CayleyDickson.ZSqrt2
+open E213.Lib.Math.CayleyDickson.ZOmega
+open E213.Lib.Math.CayleyDickson.ZSqrt
 
 -- Three concrete witnesses
 #verify_conjugation ZI

@@ -1,31 +1,25 @@
 -- Layered entry point for 213.
--- Canonical theoretical layer architecture: lean/E213/ARCHITECTURE.md
+-- Canonical ring-model architecture: lean/E213/ARCHITECTURE.md
 --
--- Per the Stage M11 organization sweep, every top-level layer now has
--- its own umbrella file:
+-- Concentric rings (imports flow inward):
 --
---   * E213.Kernel       — bare-metal type-theory primitives + tactics
---   * E213.Firmware     — Raw monad + forced-shape uniqueness scaffold
---   * E213.Hypervisor   — Lens algebra (instances, lattice, kernel, …)
---   * E213.Meta         — reflective primitives + meta tactics
---   * E213.App          — application-tier executables
---   * E213.Math         — math-cluster topical umbrella
---   * E213.Physics      — physics-cluster topical umbrella
+--   E213.Term     — type-theoretic primitives, 0-axiom mechanism
+--   E213.Theory   — Raw axiom + forced-shape uniqueness
+--   E213.Lens     — Lens catamorphism algebra
+--   E213.Meta     — metatheory of the framework
+--   E213.Lib.Math — mathematics library (495 files)
+--   E213.Lib.Physics — physics library (128 files)
+--   E213.App      — applications
 --
--- (Pre-M14: an `E213.OS` umbrella also existed; it was dissolved in
--- Phase A — HodgeConjecture motivic bridges absorbed into
--- Math.Cohomology.HodgeConjecture.MotivicBridge, physics capstones
--- absorbed into Physics.Capstones.)
---
--- The Math and Physics topical umbrellas have large dependency
+-- The library rings (Lib.Math, Lib.Physics) have large dependency
 -- closures and are *not* imported here en masse — consumers should
--- import the specific Math.<x> or Physics.<x> they need.
+-- import the specific Lib.Math.<x> or Lib.Physics.<x> they need.
 
-import E213.Kernel
-import E213.Firmware
-import E213.Hypervisor
+import E213.Term
+import E213.Theory
+import E213.Lens
 import E213.Meta
 import E213.App
 
 -- Universal Math infrastructure used at this top level.
-import E213.Math.Pigeonhole
+import E213.Lib.Math.Pigeonhole

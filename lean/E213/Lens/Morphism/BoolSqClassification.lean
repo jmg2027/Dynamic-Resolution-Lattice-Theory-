@@ -21,7 +21,7 @@ functions), the diagonal behavior is exactly 4 cases.  For a general
 
 namespace E213.Lens.Morphism.BoolSqClassification
 
-open E213.Theory E213.Lens E213.Math.DiagonalClassification
+open E213.Theory E213.Lens E213.Lib.Math.DiagonalClassification
 
 /-- Class where sq is negation. -/
 def NegSq {α : Type} (L : Lens α) (f : α → α) : Prop :=

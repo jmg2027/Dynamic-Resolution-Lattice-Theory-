@@ -1,4 +1,4 @@
-import E213.Physics.AlphaEM.Brackets
+import E213.Lib.Physics.AlphaEM.Brackets
 
 /-!
 # E213.Theory.Tools.CertChecker — anchor for Rust α_em bracket certificate.
@@ -22,7 +22,7 @@ each Apply via the cited def, compare bit-for-bit.
 
 namespace E213.Theory.Tools.CertChecker
 
-open E213.Physics.AlphaEM.V137Tight (capstone_n20 inv_lower_tight inv_upper)
+open E213.Lib.Physics.AlphaEM.V137Tight (capstone_n20 inv_lower_tight inv_upper)
 
 /-- ★ Trust-closure capstone for the Rust α_em bracket at N=20. -/
 theorem cert_anchor_n20 :
