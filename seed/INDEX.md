@@ -1,50 +1,137 @@
-# seed/ — DRLT 213 axiomatic + philosophical foundation
+# seed/ — DRLT 213 foundational corpus
 
-This directory contains the **non-Lean** foundational documents:
-the axioms (English), philosophy, falsifiability claims, and
-the DRLT origin narrative.  Most subsequent formalization in
-`lean/E213/` is the formal counterpart of statements first
-made here in prose.
+If you read one file in `seed/`, read **this one**.  It contains the
+axiom, the key concepts, and the falsifiability rule.  Everything
+else is detail.
 
-## Reading order (for new arrivals)
+---
 
-| # | File | What it does | When to read |
-|---|---|---|---|
-| 1 | `ORIGIN.md` | DRLT origin story — minimal residue, 4-clause Raw axiom | First |
-| 2 | `AXIOM.md` | The axiom in English: relations, distinctness, /, depth | After ORIGIN |
-| 3 | `PHILOSOPHY.md` | Finitism, atomicity, why ZFC infinity fails | Before any Real213 work |
-| 4 | `NOTATION.md` | Symbol conventions: NS, NT, d, c, α_GUT, K_{3,2}^{(2)} | Reference |
-| 5 | `FALSIFIABILITY.md` | 14 measurement propositions that would refute DRLT | When discussing experimental tests |
-| 6 | `IMPLEMENTATION.md` | Mapping seed → `lean/E213/Firmware/Raw` | When tracing axiom-to-code |
-| 7 | `AUDIT_Lean.md` | Audit guide for verifying Lean ↔ seed correspondence | When auditing |
-| 8 | `PAPER1.md` | Original seed paper (Raw + Lens, ZFC commitments, Cauchy completeness, demonstrations, falsifiability) — broader than `lean/E213/Math/Cohomology/Paper1Chiral.lean` (which only covers chiral compression).  Substantive narrative kept. | Historical / reference |
+## The axiom in 4 clauses (`AXIOM/02_statement.md`)
+
+1. **Something exists.**  At least two: `a`, `b`.  They stand in a
+   *primitive distinction* relation — no relation other than "not
+   equal" is presupposed.
+2. **Pairing of two somethings is yet another something.**
+   Recorded `a / b`.  Closed: paired again with other elements.
+3. **Pairing is symmetric.**  `a / b = b / a`.  No absolute order.
+4. **No pairing with oneself.**  `x / x` is undefined.  Self is
+   not distinguished from self.
+
+That is the entire commitment.  Every result of 213 is either
+derived from these 4 clauses, or it is a specific Lens choice on
+top.  No third option.
+
+---
+
+## Key concepts (what makes this corpus what it is)
+
+**Residue, not declaration.**  The axiom is not a claim about "the
+foundation of the world."  It is the minimum residue that
+inevitably remains the moment one tries to point at something.
+Notation, the moment it begins, endlessly produces new somethings;
+the axiom is the minimum expression of that recursion.
+
+**Primitive distinction.**  Not "relation" (which presupposes
+existing somethings + ZFC properties), not "difference" (which
+presupposes "sameness").  Primitive distinction operates *first*;
+"primitive" = a pledge of no further reducibility.
+
+**No exterior.**  Every act of describing the axiom **already
+occurs inside 213**.  "Lens", "derivation", "observer" — each is a
+something among somethings.  The dichotomy "is the Lens inside or
+outside the axiom?" does not hold.  See `AXIOM/07_self_reference.md`
+§8.4 for Claude's mandatory dichotomy-avoidance guide.
+
+**Derive, not reconcile.**  All results must come from the axiom +
+explicit Lens choices.  Substituting external constants, fitting
+to experimental values, importing structure from other theories —
+all are *fudge*.  When fudge is found, the Lens is corrected, not
+the formula.  If that fails too, the theory is abandoned.
+
+**Three-direction uniqueness.**  Raw is uniquely determined from
+all three sides:
+
+- *below* — removing any clause collapses to trivial / static /
+  void (`Meta/AxiomMinimality`).
+- *sideways* — any distinguishability framework factors through
+  Raw (`Meta/UniversalLens`).
+- *above* — Raw's shape is forced to (NS, NT, d) = (3, 2, 5)
+  (`Firmware/Atomicity/{Five, PairForcing, …}`, pure-ℕ, no Raw
+  import).
+
+---
+
+## The falsifiability rule (`AXIOM/04_falsifiability.md` §5.2.1)
+
+> 213 must never require any external axiom addition (no
+> Classical, LEM, native_decide, …).
+>
+> If any result is shown to be **absolutely impossible** without
+> adding an axiom, **the entirety of 213 is discarded**.  Not the
+> result alone — the theory itself.
+
+This is a direct consequence of "the axiom is a residue": if
+adding an axiom is genuinely necessary, Raw was not the minimum.
+
+The mechanical auditor of this rule is Lean's `#print axioms`
+command + the project's Mathlib-free + 0 sorry + 0 external axiom
+constraint.
+
+**Measurement falsifiers** (each violation = repo discarded):
+
+| Measurement | DRLT prediction |
+|---|---|
+| Neutrino ordering | normal |
+| θ_QCD | [2.5,3.0]×10⁻¹¹ |
+| 4th gen particles | absent |
+| Cabibbo λ | 5/22 ± 1% |
+| m_p | 938.27 atomic |
+| Magic numbers | {2,8,20,...} ✓ already verified |
+
+---
+
+## Directory layout
+
+```
+seed/
+├── INDEX.md                   ← this file (standalone entry)
+├── ORIGIN.md                  ← DRLT origin narrative
+├── PAPER1.md                  ← archival, cited by ~25 Lean files
+├── NOTATION.md                ← symbol conventions
+└── AXIOM/                     ← the axiom corpus, 12 chapters
+    ├── INDEX.md               ← chapter TOC
+    ├── 00_nature.md           ← residue, distinction, 3-dir uniqueness
+    ├── 01_notation_recursion.md
+    ├── 02_statement.md        ← the 4-clause axiom
+    ├── 03_form.md             ← why this form
+    ├── 04_falsifiability.md   ← discard rule + measurement falsifiers
+    ├── 05_primacy.md
+    ├── 06_formalization.md    ← Lean correspondence
+    ├── 07_self_reference.md   ← §8.4 dichotomy guide (Claude refresh)
+    ├── 08_implementation.md   ← Raw + Firmware faithful-emulator analysis
+    ├── 09_audit.md            ← Lean ↔ axiom cross-check
+    └── 99_history.md          ← deprecated R-frame + change log
+```
 
 ## What seed/ is NOT
 
-- **NOT the source of truth.**  `lean/E213/` is.  When seed and
+- **NOT the source of truth.**  `lean/E213/` is.  When seed/ and
   Lean disagree, Lean wins.
-- **NOT a reading order for the actual mathematics.**  For that,
-  see `guide/INDEX.md` (deductively-ordered narrative).
-- **NOT a paper draft.**  See `papers/README.md` (deprecated
-  archive — content moved to Lean + guide).
+- **NOT a reading order for the mathematics.**  See
+  `guide/INDEX.md` (deductively-ordered narrative).
+- **NOT a paper draft.**  `papers/` was deleted (commit a02b751);
+  only `papers/README.md` retained as historical marker.
 
-## Cross-references
+## Quick cross-references
 
-- `lean/E213/Firmware/Raw*.lean` — formal counterpart of `AXIOM.md`
-- `lean/E213/Firmware/Atomicity/Five.lean` +
-  `lean/E213/Firmware/Atomicity/PairForcing.lean` — formal
-  counterpart of "atomicity forces (NS=3, NT=2, d=5)".
-  (These were previously at `OS/` until 2026-05-XX dissolution;
-  see `lean/E213/ARCHITECTURE.md` for theory.)
+- `lean/E213/Firmware/Raw*.lean` — formal counterpart of the
+  4-clause axiom.
+- `lean/E213/Firmware/Atomicity/{Five, PairForcing}.lean` —
+  formal counterpart of "atomicity forces (NS=3, NT=2, d=5)".
 - `lean/E213/Physics/Foundations/FiniteUniverse.lean` — formal
-  counterpart of `PHILOSOPHY.md` finitist position
-- `LESSONS_LEARNED.md` (root) — guardrails extending PHILOSOPHY.md
-- `lean/E213/ARCHITECTURE.md` — canonical layer architecture
-  (where Firmware/Atomicity sub-cluster sits in the dependency graph)
-
-## Status
-
-  - `ORIGIN.md`, `AXIOM.md`, `PHILOSOPHY.md`, `NOTATION.md`: stable
-  - `IMPLEMENTATION.md`, `AUDIT_Lean.md`: should track Lean refactors
-  - `PAPER1.md`: archival reference, not actively maintained.  Still
-    cited from ~25 Lean files via `PAPER1 §X.Y` markers — do not delete.
+  counterpart of finitist position.
+- `LESSONS_LEARNED.md` (root) — guardrails extending the axiom
+  corpus.
+- `lean/E213/ARCHITECTURE.md` — canonical layer architecture.
+- `CLAUDE.md` boot sequence — read `AXIOM/07_self_reference.md`
+  §8.4 every session start.

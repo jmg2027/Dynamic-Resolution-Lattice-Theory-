@@ -158,8 +158,8 @@ of 213's foundational geometry.
 
 ## Cross-references
 
-  - `seed/PHILOSOPHY.md` — the axiom as residue of pointing
-  - `seed/AXIOM.md` §1.3 — atomicity (NS=3, NT=2, d=5)
+  - `seed/AXIOM/00_nature.md` §1.0 — the axiom as residue of pointing
+  - `seed/AXIOM/00_nature.md` §1.3 — atomicity (NS=3, NT=2, d=5)
   - `lean/E213/Kernel/Tactic/AXIOM_FREE_STATUS.md` — migration catalog
   - `lean/E213/Kernel/Tactic/Nat213.lean` — pure ℕ-arithmetic helpers
   - `lean/E213/Kernel/Tactic/Mod213.lean` — cohomological trajectory

@@ -144,7 +144,7 @@ theorems as the canonical bridge.
 
 ## Cross-references
 
-  - `seed/AXIOM.md` §1.3 — atomicity (NS, NT, d) = (3, 2, 5)
+  - `seed/AXIOM/00_nature.md` §1.3 — atomicity (NS, NT, d) = (3, 2, 5)
   - `Firmware/Atomicity/*` — atomicity forcing
   - `Kernel/Tactic/Mod213.lean` — phase-walk primitives (View A)
   - `Math/Linalg213/Chiral.lean` — chiral split (View B)

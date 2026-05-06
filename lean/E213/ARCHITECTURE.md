@@ -397,7 +397,7 @@ Imports flow top→bottom.  Theorems compose bottom→top.
     ArityForcing, ArityForcingGeneral, PrimitiveSizes}` — pure-ℕ
     forced-uniqueness proofs that mechanically belong at Kernel.
     Kept at Firmware because they document *Raw's forced shape*
-    (see `seed/AXIOM.md §1.3`); semantic adjacency to Raw outweighs
+    (see `seed/AXIOM/00_nature.md §1.3`); semantic adjacency to Raw outweighs
     mechanical depth.
   - `Hypervisor/Lens.lean` — only imports Firmware mechanically, but
     is the umbrella entry point for the entire Hypervisor layer.
