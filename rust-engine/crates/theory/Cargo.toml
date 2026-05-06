@@ -1,0 +1,17 @@
+[package]
+name = "drlt-theory"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "DRLT 213 Firmware — Raw (opaque), Lens (sealed). Mirrors lean/E213/Firmware/ + Hypervisor/Lens.lean."
+
+[dependencies]
+drlt-term = { path = "../term" }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+float_arithmetic = "deny"

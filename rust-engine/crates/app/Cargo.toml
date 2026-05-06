@@ -200,10 +200,9 @@ name = "hop-hypothesis"
 path = "src/bin/hop_hypothesis.rs"
 
 [dependencies]
-drlt-kernel     = { path = "../kernel" }
-drlt-firmware   = { path = "../firmware" }
-drlt-hypervisor = { path = "../hypervisor" }
-drlt-os         = { path = "../os" }
+drlt-term     = { path = "../term" }
+drlt-theory   = { path = "../theory" }
+drlt-lens = { path = "../lens" }
 num-bigint      = { workspace = true }
 
 [lints.rust]

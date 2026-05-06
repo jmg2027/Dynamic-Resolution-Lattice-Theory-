@@ -77,22 +77,22 @@ fn build_certificate(
     let mut c = Certificate::new();
     let s = s_partial(n);
     let u = upper(n);
-    c.push(Step::Cite { lemma: "E213.Physics.Basel.S".into() });
+    c.push(Step::Cite { lemma: "E213.Lib.Physics.Basel.S".into() });
     c.push(Step::Apply {
         op: "S".into(), args: vec![(nat(n), nat(1))], result: s.clone(),
     });
-    c.push(Step::Cite { lemma: "E213.Physics.Basel.upper".into() });
+    c.push(Step::Cite { lemma: "E213.Lib.Physics.Basel.upper".into() });
     c.push(Step::Apply {
         op: "upper".into(), args: vec![(nat(n), nat(1))], result: u.clone(),
     });
     c.push(Step::Cite {
-        lemma: "E213.Physics.AlphaEM137Tight.inv_lower_tight".into() });
+        lemma: "E213.Lib.Physics.AlphaEM137Tight.inv_lower_tight".into() });
     c.push(Step::Apply {
         op: "inv_lower_tight".into(),
         args: vec![(nat(n), nat(1))], result: r.lo.clone(),
     });
     c.push(Step::Cite {
-        lemma: "E213.Physics.AlphaEM137.inv_full_upper".into() });
+        lemma: "E213.Lib.Physics.AlphaEM137.inv_full_upper".into() });
     c.push(Step::Apply {
         op: "inv_full_upper".into(),
         args: vec![(nat(n), nat(1))], result: r.hi.clone(),
@@ -106,7 +106,7 @@ fn build_certificate(
         cmp: Cmp::Lt, rhs: r.hi.clone(),
     });
     c.push(Step::Cite {
-        lemma: format!("E213.Physics.AlphaEM137Tight.bracket_137_in_at_{n}_tight"),
+        lemma: format!("E213.Lib.Physics.AlphaEM137Tight.bracket_137_in_at_{n}_tight"),
     });
     c
 }

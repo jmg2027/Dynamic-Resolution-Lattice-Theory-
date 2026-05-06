@@ -8,7 +8,7 @@
 //! which classes are mapped vs unaccounted, making the "missing
 //! correction" search structural rather than numerical.
 
-use drlt_hypervisor::chiral_k32::chiral_dim;
+use drlt_lens::chiral_k32::chiral_dim;
 
 const NS: u64 = 3;
 const NT: u64 = 2;

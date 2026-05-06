@@ -10,66 +10,66 @@
 
 # ── Phase 0: kernel ────────────────────────────────────────────────
 [[op]]
-rust = "drlt_kernel::term::Term::eval"
-lean = "E213.Kernel.Term.eval"
+rust = "drlt_term::term::Term::eval"
+lean = "E213.Term.Term.eval"
 
 [[op]]
-rust = "drlt_kernel::term::Term::equiv"
-lean = "E213.Kernel.Term.equiv"
+rust = "drlt_term::term::Term::equiv"
+lean = "E213.Term.Term.equiv"
 
 [[op]]
-rust = "drlt_kernel::compare::le_b"
-lean = "E213.Kernel.Compare.le_b"
+rust = "drlt_term::compare::le_b"
+lean = "E213.Term.Compare.le_b"
 
 [[op]]
-rust = "drlt_kernel::compare::lt_b"
-lean = "E213.Kernel.Compare.lt_b"
+rust = "drlt_term::compare::lt_b"
+lean = "E213.Term.Compare.lt_b"
 
 [[op]]
-rust = "drlt_kernel::rat::equiv_q"
-lean = "E213.Kernel.Rat.equivQ"
+rust = "drlt_term::rat::equiv_q"
+lean = "E213.Term.Rat.equivQ"
 
 [[op]]
-rust = "drlt_kernel::rat::le_q"
-lean = "E213.Kernel.Rat.leQ"
+rust = "drlt_term::rat::le_q"
+lean = "E213.Term.Rat.leQ"
 
 # ── Phase 0: firmware ──────────────────────────────────────────────
 [[op]]
-rust = "drlt_firmware::raw::Raw::a"
-lean = "E213.Firmware.Raw.Core.Raw.a"
+rust = "drlt_theory::raw::Raw::a"
+lean = "E213.Theory.Raw.Core.Raw.a"
 
 [[op]]
-rust = "drlt_firmware::raw::Raw::b"
-lean = "E213.Firmware.Raw.Core.Raw.b"
+rust = "drlt_theory::raw::Raw::b"
+lean = "E213.Theory.Raw.Core.Raw.b"
 
 [[op]]
-rust = "drlt_firmware::raw::Raw::slash"
-lean = "E213.Firmware.Raw.Slash.slash"
+rust = "drlt_theory::raw::Raw::slash"
+lean = "E213.Theory.Raw.Slash.slash"
 
 [[op]]
-rust = "drlt_firmware::raw::Raw::depth"
-lean = "E213.Firmware.Raw.Slash.depth"
+rust = "drlt_theory::raw::Raw::depth"
+lean = "E213.Theory.Raw.Slash.depth"
 
 [[op]]
-rust = "drlt_firmware::raw::Raw::fold"
-lean = "E213.Firmware.Raw.Fold.fold"
+rust = "drlt_theory::raw::Raw::fold"
+lean = "E213.Theory.Raw.Fold.fold"
 
 [[op]]
-rust = "drlt_firmware::lens::Lens::view"
-lean = "E213.Hypervisor.Lens.view"
+rust = "drlt_theory::lens::Lens::view"
+lean = "E213.Lens.Lens.view"
 
 [[op]]
-rust = "drlt_firmware::lens::Lens::equiv"
-lean = "E213.Hypervisor.Lens.equiv"
+rust = "drlt_theory::lens::Lens::equiv"
+lean = "E213.Lens.Lens.equiv"
 
 # ── Phase 0: hypervisor (canonical lenses) ─────────────────────────
 [[op]]
-rust = "drlt_hypervisor::canonical::lens_leaves"
-lean = "E213.Hypervisor.Lens.leaves"
+rust = "drlt_lens::canonical::lens_leaves"
+lean = "E213.Lens.Lens.leaves"
 
 [[op]]
-rust = "drlt_hypervisor::canonical::lens_depth"
-lean = "E213.Hypervisor.Lens.depth"
+rust = "drlt_lens::canonical::lens_depth"
+lean = "E213.Lens.Lens.depth"
 
 # ── Phase 4: app layer (Simplex, Basel, AlphaEM) ───────────────────
 [[op]]
@@ -78,47 +78,47 @@ lean = "E213.App.Simplex.classify"
 
 [[op]]
 rust = "drlt_app::basel::s_partial"
-lean = "E213.Physics.BaselBound.S"
+lean = "E213.Lib.Physics.BaselBound.S"
 
 [[op]]
 rust = "drlt_app::basel::upper"
-lean = "E213.Physics.BaselBound.upper"
+lean = "E213.Lib.Physics.BaselBound.upper"
 
 [[op]]
 rust = "drlt_app::alpha_em::inv_full_upper"
-lean = "E213.Physics.AlphaEM137.inv_full_upper"
+lean = "E213.Lib.Physics.AlphaEM137.inv_full_upper"
 
 [[op]]
 rust = "drlt_app::alpha_em::inv_lower_tight"
-lean = "E213.Physics.AlphaEM137Tight.inv_lower_tight"
+lean = "E213.Lib.Physics.AlphaEM137Tight.inv_lower_tight"
 
 [[op]]
 rust = "drlt_app::alpha_em::bracket_137_at"
-lean = "E213.Physics.AlphaEM137Tight.capstone_n20"
+lean = "E213.Lib.Physics.AlphaEM137Tight.capstone_n20"
 
 [[op]]
 rust = "drlt_app::alpha_em::bracket_137036_at"
-lean = "E213.Physics.AlphaEMStructuralGap.n50_bracket_contains_observed"
+lean = "E213.Lib.Physics.AlphaEMStructuralGap.n50_bracket_contains_observed"
 
 [[op]]
 rust = "drlt_app::alpha_em::bracket_candidate_at"
-lean = "E213.Physics.AlphaEMStructuralGap.n50_bracket_contains_candidate"
+lean = "E213.Lib.Physics.AlphaEMStructuralGap.n50_bracket_contains_candidate"
 
 [[op]]
 rust = "drlt_app::alpha_em_with_tail::inv_lower_with_tail"
-lean = "E213.Physics.AlphaEMWithTail.inv_lower_with_tail"
+lean = "E213.Lib.Physics.AlphaEMWithTail.inv_lower_with_tail"
 
 [[op]]
 rust = "drlt_app::alpha_em_with_tail::inv_upper_with_tail"
-lean = "E213.Physics.AlphaEMWithTail.inv_upper_with_tail"
+lean = "E213.Lib.Physics.AlphaEMWithTail.inv_upper_with_tail"
 
 [[op]]
 rust = "drlt_app::alpha_em_with_tail::bracket_137036_with_tail_at"
-lean = "E213.Physics.AlphaEMWithTail.n50_with_tail_contains_observed"
+lean = "E213.Lib.Physics.AlphaEMWithTail.n50_with_tail_contains_observed"
 
 [[op]]
 rust = "drlt_app::alpha_em_with_tail::bracket_candidate_with_tail_at"
-lean = "E213.Physics.AlphaEMWithTail.n20_with_tail_contains_candidate"
+lean = "E213.Lib.Physics.AlphaEMWithTail.n20_with_tail_contains_candidate"
 
 [[op]]
 rust = "drlt_app::bin::alpha_em_bracket"
@@ -126,299 +126,299 @@ lean = "E213.Tools.CertChecker.cert_anchor_n20"
 
 # ── Phase 3: OS layer (atomicity, arity, canonical_part) ───────────
 [[op]]
-rust = "drlt_os::atomicity::is_atomic"
-lean = "E213.OS.Atomicity.atomic_iff_five"
+rust = "drlt_theory::atomicity::is_atomic"
+lean = "E213.Theory.Atomicity.atomic_iff_five"
 
 [[op]]
-rust = "drlt_os::atomicity::canonical_partition_holds"
-lean = "E213.OS.Atomicity.canonical_partition"
+rust = "drlt_theory::atomicity::canonical_partition_holds"
+lean = "E213.Theory.Atomicity.canonical_partition"
 
 [[op]]
-rust = "drlt_os::atomicity::is_alive"
-lean = "E213.OS.Alive.alive_iff_odd_pair"
+rust = "drlt_theory::atomicity::is_alive"
+lean = "E213.Theory.Alive.alive_iff_odd_pair"
 
 [[op]]
-rust = "drlt_os::atomicity::is_non_decomposable"
-lean = "E213.OS.NonDecomposable.non_decomposable_iff"
+rust = "drlt_theory::atomicity::is_non_decomposable"
+lean = "E213.Theory.NonDecomposable.non_decomposable_iff"
 
 [[op]]
-rust = "drlt_os::atomicity::pair_size_nondecomposable"
-lean = "E213.OS.PrimitiveSizes.pairSize_nondecomposable"
+rust = "drlt_theory::atomicity::pair_size_nondecomposable"
+lean = "E213.Theory.PrimitiveSizes.pairSize_nondecomposable"
 
 [[op]]
-rust = "drlt_os::arity::find_collision"
-lean = "E213.OS.Pigeonhole.no_inj_lt"
+rust = "drlt_theory::arity::find_collision"
+lean = "E213.Theory.Pigeonhole.no_inj_lt"
 
 [[op]]
-rust = "drlt_os::arity::reachable3"
-lean = "E213.OS.ArityForcing.reachable3_only_object"
+rust = "drlt_theory::arity::reachable3"
+lean = "E213.Theory.ArityForcing.reachable3_only_object"
 
 [[op]]
-rust = "drlt_os::canonical_part::canonical_split"
-lean = "E213.OS.PairForcing.atomic_23_iff_five"
+rust = "drlt_theory::canonical_part::canonical_split"
+lean = "E213.Theory.PairForcing.atomic_23_iff_five"
 
 # ── Phase 2: kernel normal_form rules ──────────────────────────────
 [[op]]
-rust = "drlt_kernel::normal_form::rules::NsMulNtEqSix"
-lean = "E213.Kernel.MonomialAxioms.ns_mul_nt_eq_six"
+rust = "drlt_term::normal_form::rules::NsMulNtEqSix"
+lean = "E213.Term.MonomialAxioms.ns_mul_nt_eq_six"
 
 [[op]]
-rust = "drlt_kernel::normal_form::rules::MulCommNsNt"
-lean = "E213.Kernel.MonomialAxioms.mul_comm_ns_nt"
+rust = "drlt_term::normal_form::rules::MulCommNsNt"
+lean = "E213.Term.MonomialAxioms.mul_comm_ns_nt"
 
 [[op]]
-rust = "drlt_kernel::normal_form::rules::NsSqEq9"
-lean = "E213.Kernel.MonomialAxioms.ns_sq_eq_9"
+rust = "drlt_term::normal_form::rules::NsSqEq9"
+lean = "E213.Term.MonomialAxioms.ns_sq_eq_9"
 
 [[op]]
-rust = "drlt_kernel::normal_form::rules::NtSqEq4"
-lean = "E213.Kernel.MonomialAxioms.nt_sq_eq_4"
+rust = "drlt_term::normal_form::rules::NtSqEq4"
+lean = "E213.Term.MonomialAxioms.nt_sq_eq_4"
 
 [[op]]
-rust = "drlt_kernel::normal_form::rules::DSqEq25"
-lean = "E213.Kernel.MonomialAxioms.d_sq_eq_25"
+rust = "drlt_term::normal_form::rules::DSqEq25"
+lean = "E213.Term.MonomialAxioms.d_sq_eq_25"
 
 # ── Phase 1: hypervisor (chiral K_{3,2}^{(2)}) ─────────────────────
 [[op]]
-rust = "drlt_hypervisor::chiral_k32::b1_bipartite"
-lean = "E213.Math.Cohomology.TopologyCompare.b1_bipartite"
+rust = "drlt_lens::chiral_k32::b1_bipartite"
+lean = "E213.Lib.Math.Cohomology.TopologyCompare.b1_bipartite"
 
 [[op]]
-rust = "drlt_hypervisor::chiral_k32::chiral_dim"
-lean = "E213.Math.Cohomology.Paper1Chiral.chiralDim"
+rust = "drlt_lens::chiral_k32::chiral_dim"
+lean = "E213.Lib.Math.Cohomology.Paper1Chiral.chiralDim"
 
 [[op]]
-rust = "drlt_hypervisor::chiral_k32::lens_st_count"
-lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"
+rust = "drlt_lens::chiral_k32::lens_st_count"
+lean = "E213.Lib.Math.Linalg213.Capstone.paper1_chiral_compression"
 
 [[op]]
-rust = "drlt_hypervisor::k32_graph::edges"
-lean = "E213.Math.Cohomology.TopologyCompare.K32_c2_b1"
+rust = "drlt_lens::k32_graph::edges"
+lean = "E213.Lib.Math.Cohomology.TopologyCompare.K32_c2_b1"
 
 [[op]]
-rust = "drlt_hypervisor::k32_graph::b1"
-lean = "E213.Math.Cohomology.TopologyCompare.K32_c2_b1"
+rust = "drlt_lens::k32_graph::b1"
+lean = "E213.Lib.Math.Cohomology.TopologyCompare.K32_c2_b1"
 
 [[op]]
-rust = "drlt_hypervisor::k32_graph::chiral_cells"
-lean = "E213.Math.Cohomology.Paper1Chiral.chiralDim"
+rust = "drlt_lens::k32_graph::chiral_cells"
+lean = "E213.Lib.Math.Cohomology.Paper1Chiral.chiralDim"
 
 [[op]]
-rust = "drlt_hypervisor::k32_cycles::cycle_basis"
-lean = "E213.Math.Cohomology.TopologyCompare.K32_c2_b1"
+rust = "drlt_lens::k32_cycles::cycle_basis"
+lean = "E213.Lib.Math.Cohomology.TopologyCompare.K32_c2_b1"
 
 [[op]]
 rust = "drlt_app::bin::simplex_inventory"
-lean = "E213.Physics.SubSimplexInventory.total_non_empty"
+lean = "E213.Lib.Physics.SubSimplexInventory.total_non_empty"
 
 [[op]]
 rust = "drlt_app::bin::triple_coupling"
-lean = "E213.Physics.TripleCoupling.triple_skeleton_bundle"
+lean = "E213.Lib.Physics.TripleCoupling.triple_skeleton_bundle"
 
 [[op]]
 rust = "drlt_app::bin::triple_coupling_v2"
-lean = "E213.Physics.TripleCouplingV2.triple_v2_skeleton"
+lean = "E213.Lib.Physics.TripleCouplingV2.triple_v2_skeleton"
 
 [[op]]
 rust = "drlt_app::bin::parity_check"
-lean = "E213.Physics.ParitySign.parity_skeleton"
+lean = "E213.Lib.Physics.ParitySign.parity_skeleton"
 
 [[op]]
 rust = "drlt_app::bin::mu_electron"
-lean = "E213.Physics.Phase3.LeptonRatioDerivation.lepton_ratio_derivation"
+lean = "E213.Lib.Physics.Phase3.LeptonRatioDerivation.lepton_ratio_derivation"
 
 [[op]]
 rust = "drlt_app::bin::m_proton"
-lean = "E213.Physics.ProtonMass.proton_simplicial_pattern"
+lean = "E213.Lib.Physics.ProtonMass.proton_simplicial_pattern"
 
 [[op]]
 rust = "drlt_app::bin::magic_numbers"
-lean = "E213.Physics.MagicNumbers.ho_magic_first_7"
+lean = "E213.Lib.Physics.MagicNumbers.ho_magic_first_7"
 
 [[op]]
 rust = "drlt_app::bin::higgs_quartic"
-lean = "E213.Physics.HiggsQuartic.lambda_leading_denom"
+lean = "E213.Lib.Physics.HiggsQuartic.lambda_leading_denom"
 
 [[op]]
 rust = "drlt_app::bin::m_tau_mu"
-lean = "E213.Physics.TauOverMu.base_eq_16"
+lean = "E213.Lib.Physics.TauOverMu.base_eq_16"
 
 [[op]]
 rust = "drlt_app::bin::higgs_master"
-lean = "E213.Physics.HiggsMaster.higgs_master_atomic"
+lean = "E213.Lib.Physics.HiggsMaster.higgs_master_atomic"
 
 [[op]]
 rust = "drlt_app::bin::finite_resonance"
-lean = "E213.Physics.FiniteResonanceN.finite_resonance_n_skeleton"
+lean = "E213.Lib.Physics.FiniteResonanceN.finite_resonance_n_skeleton"
 
 [[op]]
-rust = "drlt_hypervisor::chiral_k32::paper1_capstone_check"
-lean = "E213.Math.Linalg213.Capstone.paper1_chiral_compression"
+rust = "drlt_lens::chiral_k32::paper1_capstone_check"
+lean = "E213.Lib.Math.Linalg213.Capstone.paper1_chiral_compression"
 
 [[op]]
 rust = "drlt_app::bin::master_catalog"
-lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
+lean = "E213.Lib.Physics.MasterCatalog.master_atomic_catalog"
 
 [[op]]
 rust = "drlt_app::bin::weinberg_angle"
-lean = "E213.Physics.WeinbergAngle.sin2_W_v2_atomic"
+lean = "E213.Lib.Physics.WeinbergAngle.sin2_W_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::hydrogen_atom"
-lean = "E213.Physics.HydrogenAtom.hydrogen_atomic_pattern"
+lean = "E213.Lib.Physics.HydrogenAtom.hydrogen_atomic_pattern"
 
 [[op]]
 rust = "drlt_app::bin::neutron_proton"
-lean = "E213.Physics.NeutronProton.np_simplicial"
+lean = "E213.Lib.Physics.NeutronProton.np_simplicial"
 
 [[op]]
 rust = "drlt_app::bin::neutrino_mixing"
-lean = "E213.Physics.NeutrinoMixing.sin2_13_v2_atomic"
+lean = "E213.Lib.Physics.NeutrinoMixing.sin2_13_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::dark_energy"
-lean = "E213.Physics.DarkEnergy.dark_energy_pattern_capstone"
+lean = "E213.Lib.Physics.DarkEnergy.dark_energy_pattern_capstone"
 
 [[op]]
 rust = "drlt_app::bin::wz_bosons"
-lean = "E213.Physics.WZBosons.WZ_simplicial_pattern"
+lean = "E213.Lib.Physics.WZBosons.WZ_simplicial_pattern"
 
 [[op]]
 rust = "drlt_app::bin::cabibbo_angle"
-lean = "E213.Physics.CabibboAngle.irreducible_5_22"
+lean = "E213.Lib.Physics.CabibboAngle.irreducible_5_22"
 
 [[op]]
 rust = "drlt_app::bin::generations"
-lean = "E213.Physics.Generations.n_gen_eq_three"
+lean = "E213.Lib.Physics.Generations.n_gen_eq_three"
 
 [[op]]
 rust = "drlt_app::bin::hierarchy_towers"
-lean = "E213.Physics.HierarchyTowers.hierarchy_towers_master"
+lean = "E213.Lib.Physics.HierarchyTowers.hierarchy_towers_master"
 
 [[op]]
 rust = "drlt_app::bin::theta_qcd"
-lean = "E213.Physics.ThetaQCD.drlt_below_bound"
+lean = "E213.Lib.Physics.ThetaQCD.drlt_below_bound"
 
 [[op]]
 rust = "drlt_app::bin::muon_lifetime"
-lean = "E213.Physics.Phase4.Library.ParticleLibrary.muon_lifetime_192"
+lean = "E213.Lib.Physics.Phase4.Library.ParticleLibrary.muon_lifetime_192"
 
 [[op]]
 rust = "drlt_app::bin::ckm_wolfenstein"
-lean = "E213.Physics.CKMHierarchy.wolfenstein_atomic_capstone"
+lean = "E213.Lib.Physics.CKMHierarchy.wolfenstein_atomic_capstone"
 
 [[op]]
 rust = "drlt_app::bin::atomic_correspondences"
-lean = "E213.Physics.MasterCatalog.master_atomic_catalog"
+lean = "E213.Lib.Physics.MasterCatalog.master_atomic_catalog"
 
 [[op]]
 rust = "drlt_app::bin::fibonacci_atomic"
-lean = "E213.Physics.FibonacciAtomic.five_fib_atomic"
+lean = "E213.Lib.Physics.FibonacciAtomic.five_fib_atomic"
 
 [[op]]
 rust = "drlt_app::bin::drlt_zero_parameters"
-lean = "E213.Physics.DrltZeroParameters.drlt_zero_parameter_claim"
+lean = "E213.Lib.Physics.DrltZeroParameters.drlt_zero_parameter_claim"
 
 [[op]]
 rust = "drlt_app::bin::higgs_vacuum"
-lean = "E213.Physics.HiggsVacuum.hierarchy_atomic"
+lean = "E213.Lib.Physics.HiggsVacuum.hierarchy_atomic"
 
 [[op]]
 rust = "drlt_app::bin::horizon_info"
-lean = "E213.Physics.HorizonInformation.delta4_bits"
+lean = "E213.Lib.Physics.HorizonInformation.delta4_bits"
 
 [[op]]
 rust = "drlt_app::bin::asymptotic_freedom"
-lean = "E213.Physics.AsymptoticFreedom.inv_alpha_3_increasing"
+lean = "E213.Lib.Physics.AsymptoticFreedom.inv_alpha_3_increasing"
 
 [[op]]
 rust = "drlt_app::bin::deuteron_binding"
-lean = "E213.Physics.DeuteronBinding.deuteron_simplicial"
+lean = "E213.Lib.Physics.DeuteronBinding.deuteron_simplicial"
 
 [[op]]
 rust = "drlt_app::bin::bond_angles"
-lean = "E213.Physics.BondAngles.bond_angles_capstone"
+lean = "E213.Lib.Physics.BondAngles.bond_angles_capstone"
 
 [[op]]
 rust = "drlt_app::bin::nuclear_binding"
-lean = "E213.Physics.NuclearBinding.nuclear_simplicial_pattern"
+lean = "E213.Lib.Physics.NuclearBinding.nuclear_simplicial_pattern"
 
 [[op]]
 rust = "drlt_app::bin::golden_ratio"
-lean = "E213.Physics.GoldenRatio.golden_ratio_atomic"
+lean = "E213.Lib.Physics.GoldenRatio.golden_ratio_atomic"
 
 [[op]]
 rust = "drlt_app::bin::ie_capstone"
-lean = "E213.Physics.Phase4.IECapstone.IE_periodic_atomic"
+lean = "E213.Lib.Physics.Phase4.IECapstone.IE_periodic_atomic"
 
 [[op]]
 rust = "drlt_app::bin::quark_hierarchy"
-lean = "E213.Physics.QuarkHierarchy.mt_mb_dim"
+lean = "E213.Lib.Physics.QuarkHierarchy.mt_mb_dim"
 
 [[op]]
 rust = "drlt_app::bin::massless_particles"
-lean = "E213.Physics.MasslessParticles.three_force_mass_pattern"
+lean = "E213.Lib.Physics.MasslessParticles.three_force_mass_pattern"
 
 [[op]]
 rust = "drlt_app::bin::color_confinement"
-lean = "E213.Physics.ColorConfinement.confinement_is_combinatorial"
+lean = "E213.Lib.Physics.ColorConfinement.confinement_is_combinatorial"
 
 [[op]]
 rust = "drlt_app::bin::why_basel"
-lean = "E213.Physics.WhyBasel.prop_exponent_eq_2"
+lean = "E213.Lib.Physics.WhyBasel.prop_exponent_eq_2"
 
 [[op]]
 rust = "drlt_app::bin::hop_hypothesis"
-lean = "E213.Physics.HopHypothesis.hop_hypothesis_capstone"
+lean = "E213.Lib.Physics.HopHypothesis.hop_hypothesis_capstone"
 
 [[op]]
 rust = "drlt_app::bin::lambda_qcd_search"
-lean = "E213.Physics.LambdaQCDPhantom.lambda_qcd_phantom_count"
+lean = "E213.Lib.Physics.LambdaQCDPhantom.lambda_qcd_phantom_count"
 
 [[op]]
 rust = "drlt_app::bin::mb_mc_sweep"
-lean = "E213.Physics.QuarkHierarchy.mb_mc_correction_atomic"
+lean = "E213.Lib.Physics.QuarkHierarchy.mb_mc_correction_atomic"
 
 [[op]]
 rust = "drlt_app::bin::mt_mc_cohomology"
-lean = "E213.Physics.QuarkHierarchy.mt_mc_chain_atomic"
+lean = "E213.Lib.Physics.QuarkHierarchy.mt_mc_chain_atomic"
 
 [[op]]
 rust = "drlt_app::bin::top_yukawa"
-lean = "E213.Physics.QuarkHierarchy.top_yukawa_skeleton"
+lean = "E213.Lib.Physics.QuarkHierarchy.top_yukawa_skeleton"
 
 [[op]]
 rust = "drlt_app::bin::scale_ladder_classify"
-lean = "E213.Physics.Phase3.GravityNotInteraction.gravity_not_interaction"
+lean = "E213.Lib.Physics.Phase3.GravityNotInteraction.gravity_not_interaction"
 
 [[op]]
 rust = "drlt_app::bin::proton_radius"
-lean = "E213.Physics.ProtonMass.r_p_v2_atomic"
+lean = "E213.Lib.Physics.ProtonMass.r_p_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::koide_check"
-lean = "E213.Physics.KoideFormula.koide_atomic"
+lean = "E213.Lib.Physics.KoideFormula.koide_atomic"
 
 [[op]]
 rust = "drlt_app::bin::proton_g"
-lean = "E213.Physics.ProtonG.g_p_v2_atomic"
+lean = "E213.Lib.Physics.ProtonG.g_p_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::atomic_hunter"
-lean = "E213.Physics.ProtonElectronRatio.m_p_over_m_e_v2_atomic"
+lean = "E213.Lib.Physics.ProtonElectronRatio.m_p_over_m_e_v2_atomic"
 
 [[op]]
 rust = "drlt_app::bin::hadron_bigrading"
-lean = "E213.Physics.HadronBigrading.class_F_hadron_skeleton"
+lean = "E213.Lib.Physics.HadronBigrading.class_F_hadron_skeleton"
 
 [[op]]
 rust = "drlt_app::bin::mn_mp_split"
-lean = "E213.Physics.HadronBigrading.mn_mp_split_atomic"
+lean = "E213.Lib.Physics.HadronBigrading.mn_mp_split_atomic"
 
 [[op]]
 rust = "drlt_app::bin::mn_minus_mp_over_me"
-lean = "E213.Physics.HadronBigrading.mn_minus_mp_over_me_atomic"
+lean = "E213.Lib.Physics.HadronBigrading.mn_minus_mp_over_me_atomic"
 
 [[op]]
 rust = "drlt_app::bin::alpha_em_augmented"
-lean = "E213.Physics.AlphaEMGramSelfEnergy.alpha_em_gram_capstone"
+lean = "E213.Lib.Physics.AlphaEMGramSelfEnergy.alpha_em_gram_capstone"
