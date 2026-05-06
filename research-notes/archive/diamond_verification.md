@@ -4,7 +4,7 @@ Audit + lattice-count analysis.
 
 ## 1. Verification (strict 0-axiom Lean)
 
-`lean/E213/Math/Cohomology/DiamondAudit.lean`:
+`lean/E213/Lib/Math/Cohomology/DiamondAudit.lean`:
   - `diamond_audit_unified_atomic` — NS=3, NT=2, d=5, c=2
     appear identically across DiamondShape + HopHypothesis +
     Paper3Bundle.

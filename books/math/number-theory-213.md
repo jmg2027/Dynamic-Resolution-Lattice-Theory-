@@ -12,7 +12,7 @@ fold, Lens, ArithFSM, BitFSM, signature, atomicity.
 
 All theorems referenced are 0-sorry, 0-Mathlib, 0-Classical,
 ≤ {propext, Quot.sound} (Lean 4 kernel floor), as verified in
-`lean/E213/Math/Cohomology/Dyadic*.lean` and `lean/E213/Meta/`.
+`lean/E213/Lib/Math/Cohomology/Dyadic*.lean` and `lean/E213/Meta/`.
 
 ---
 
@@ -432,7 +432,7 @@ Top-level capstones (all ≤ {propext, Quot.sound}):
 - `algebraic_tier1_capstone` — quadratic + cubic unified
 - `pell_crt_fsm_capstone` — FSM-level Pisano CRT bundle
 
-Source files at `lean/E213/Math/Cohomology/Dyadic*.lean` and
+Source files at `lean/E213/Lib/Math/Cohomology/Dyadic*.lean` and
 `lean/E213/Meta/{BitPatternUniqueness, UniversalLensNat2{,Inj},
 UniversalLensQ213{,Inj}}.lean`.
 

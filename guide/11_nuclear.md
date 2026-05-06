@@ -60,6 +60,6 @@ coefficients. Ratios are tighter than absolute values.
 
 - `papers/paper3_zero_parameter_predictions.tex` (nuclear table)
 - `papers/drlt-book/chapters/ch16_compact_stars.tex`
-- `lean/E213/Physics/Nuclear/MagicNumbers.lean`, `NuclearBinding.lean`,
+- `lean/E213/Lib/Physics/Nuclear/MagicNumbers.lean`, `NuclearBinding.lean`,
   `NuclearShells.lean`, `DeuteronBinding.lean`.
 - `seed/FALSIFIABILITY.md` § 7 (magic numbers binding falsifier).

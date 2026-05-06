@@ -40,8 +40,8 @@ formal fact.
 
 ## Division of Work
 
-  - Math track: lean/E213/Math/, books/math/, blueprints/math/01-12,14
-  - Physics track: lean/E213/Physics/, books/physics/, blueprints/physics/all
+  - Math track: lean/E213/Lib/Math/, books/math/, blueprints/math/01-12,14
+  - Physics track: lean/E213/Lib/Physics/, books/physics/, blueprints/physics/all
   - Common: seed/, catalogs/, tools/, research-notes/
 
 ## Realization snapshot (2026-04-30)
@@ -49,7 +49,7 @@ formal fact.
 ### Math (3 of 15 fields realized)
 
 - ✅ **07 Number Theory 213** — REALIZED (~120 files in
-  `lean/E213/Math/Cohomology/Dyadic/` after Phase 3 reorg, organized
+  `lean/E213/Lib/Math/Cohomology/Dyadic/` after Phase 3 reorg, organized
   into 8 sub-clusters: ArithFSM/, BitFSM/, Pell/, Fib/, Trib/,
   Legendre/, Pisano/, Archive/.  See `books/math/number-theory-213.md`)
 - ✅ **13 213 Meta** — CORE CLOSED (Universal Lens at ℕ²/ℚ²,

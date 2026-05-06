@@ -33,7 +33,7 @@ trivial / static / void.  This is the framework-internal proof that
 the Raw axiom is the strict minimum of "two distinguishable bases +
 binary combine + distinctness."
 
-Results from `lean/E213/Hypervisor/Lens/SemanticAtom.lean`:
+Results from `lean/E213/Lens/SemanticAtom.lean`:
 - `HasDistinguishing` typeclass + `universalMorphism` — Raw as the
   partial form of the initial object in the distinguishing-framework
   category (generalization of RawInitiality).
@@ -91,7 +91,7 @@ framework — not elevated to a formal claim.
 
 A *third* pillar of axiom uniqueness, complementing §1.1 (minimality
 from below) and §1.2 (universality / philosophical extension), is now
-formalized in `lean/E213/Firmware/Atomicity/`:
+formalized in `lean/E213/Theory/Atomicity/`:
 
 - `Five.lean` — `atomic_iff_five`: a Raw shape is atomic iff its
   primitive carrier size is exactly 5.
@@ -334,7 +334,7 @@ this axiom; discrepancies are corrected or isolated.
 
 ### §7.1 Lean formalization (status 2026-05-XX)
 
-The current Raw implementation in `lean/E213/Firmware/` (2 elements a, b +
+The current Raw implementation in `lean/E213/Theory/` (2 elements a, b +
 binary slash, anti-reflexive, commutative) is a faithful machine representation
 of this axiom.  Audit reference: `seed/AUDIT_Lean.md` (2026-04-24,
 recommendations 1, 2, 3 + deep-audit items A-E).

@@ -67,7 +67,7 @@ multiple tiers per section.
 
 `tools/kernel_regress.sh` enforces 0-axiom invariant on every Kernel
 edit. `tools/FORBIDDEN.md` blocks `sorry`, `axiom`, `import Mathlib`,
-`open Classical`, `native_decide` in `lean/E213/Kernel/*.lean`.
+`open Classical`, `native_decide` in `lean/E213/Term/*.lean`.
 
 ## Update protocol
 

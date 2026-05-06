@@ -8,7 +8,7 @@ revised** 2026-05-05 — see §0 below.
 **Formalisation:** Claude (Anthropic)
 **Status:** Notational reduction — standard Hodge conjecture rewritten
 in 213-internal cup-chain cohomology without redundant ZFC packaging.
-Lean: `lean/E213/Math/Cohomology/HodgeConjecture213.lean`.
+Lean: `lean/E213/Lib/Math/Cohomology/HodgeConjecture213.lean`.
 
 > **Editorial note (2026-05-05).**  §1–§7 below were originally
 > drafted under a "Finitism is Forced" framing that has since been
@@ -39,7 +39,7 @@ the envelope as a separate ontological object.
 packaging* and writes the same content in its native form (rational
 lattice trajectory).  Empirical evidence:
 
-  * **Real213** (`lean/E213/Math/Real213/`): a working layer of
+  * **Real213** (`lean/E213/Lib/Math/Real213/`): a working layer of
     Bishop-style constructive real analysis — Cauchy sequences, cut
     algebra, completeness — *exists* and proves theorems in 213.
     Strongest possible refutation of the "213 rejects completeness"
@@ -255,7 +255,7 @@ enumeration.
 ## 7. Concrete next steps
 
 **A. `HodgeConjecture213.lean` skeleton** *(this session)* — file at
-`lean/E213/Math/Cohomology/HodgeConjecture213.lean`:
+`lean/E213/Lib/Math/Cohomology/HodgeConjecture213.lean`:
 
   - `def algSpan_at_5_1 : List (Cochain 5 1)` — the explicit list of
     atomic 1-cochain indicators on Δ⁴.

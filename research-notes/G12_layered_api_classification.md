@@ -456,16 +456,16 @@ Ordered by ROI / safety:
 ### Files cited
 
   - `lean/E213/ARCHITECTURE.md` — canonical layer definitions
-  - `lean/E213/Kernel/{Term, Compare, Pair, Rat, Decide, Sound,
+  - `lean/E213/Term/{Term, Compare, Pair, Rat, Decide, Sound,
     MonomialAxioms, Cap_*, Demo}.lean`
-  - `lean/E213/Kernel/Tactic/{Omega213, Nat213, Mod213, Pow213,
+  - `lean/E213/Term/Tactic/{Omega213, Nat213, Mod213, Pow213,
     Fin213}.lean`
-  - `lean/E213/Firmware/{Raw, RawLevels, RawSwap}.lean`
-  - `lean/E213/Firmware/Raw/*.lean` (13 files)
-  - `lean/E213/Firmware/Atomicity/*.lean` (8 files)
-  - `lean/E213/Firmware/Tools/CertChecker.lean`
-  - `lean/E213/Hypervisor/Lens.lean`
-  - `lean/E213/Hypervisor/Lens/*.lean` (77 files in 10 sub-clusters)
+  - `lean/E213/Theory/{Raw, RawLevels, RawSwap}.lean`
+  - `lean/E213/Theory/Raw/*.lean` (13 files)
+  - `lean/E213/Theory/Atomicity/*.lean` (8 files)
+  - `lean/E213/Theory/Tools/CertChecker.lean`
+  - `lean/E213/Lens.lean`
+  - `lean/E213/Lens/*.lean` (77 files in 10 sub-clusters)
   - `tools/layer_audit.py` — current mechanical-floor audit
   - `tools/sync_namespaces.py` — path↔namespace synchroniser
 
@@ -512,7 +512,7 @@ If you are reading this cold:
      substantial).
 
   5. **All HC²¹³ work** (this session series) is in
-     `lean/E213/Math/Cohomology/HodgeConjecture/` — 6 functional
+     `lean/E213/Lib/Math/Cohomology/HodgeConjecture/` — 6 functional
      sub-layers (Foundation/Toolkit/Structure/Refinement/Pairing/
      Bridge), 138+ strict ∅-axiom theorems, master citation:
      `HodgeConjecture.API.HC213`.

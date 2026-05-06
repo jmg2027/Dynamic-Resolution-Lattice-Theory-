@@ -96,7 +96,7 @@ own modulus; the lens carries its own monotone bounds.
 ## 4. First milestone (this commit)
 
 Skeleton landed in
-`lean/E213/Math/Analysis/DyadicSearch/MinimalRootLens.lean`:
+`lean/E213/Lib/Math/Analysis/DyadicSearch/MinimalRootLens.lean`:
 
   - `signedLeftOracle f` — the always-prefer-left oracle.
   - `signedLeftOracle_constTrue / constFalse` — sanity reductions

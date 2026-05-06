@@ -48,7 +48,7 @@ Any prediction violated outside its bracket → entire framework
 discarded. Binding — not "the section is revised". Mechanically
 enforced by `tools/kernel_regress.sh` and `tools/FORBIDDEN.md`, which
 forbid `sorry`, `axiom`, `import Mathlib`, `open Classical`,
-`native_decide` in `lean/E213/Kernel/*.lean`.
+`native_decide` in `lean/E213/Term/*.lean`.
 
 ## 213 sharpening
 

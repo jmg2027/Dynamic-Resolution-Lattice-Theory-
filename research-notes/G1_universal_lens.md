@@ -137,11 +137,11 @@ finite Raw tree under the right encoding.
 
 **Status (2026-04-30 follow-up).**  Formalised as:
 
-  - `lean/E213/Math/Cohomology/Dyadic/Conjecture.lean`:
+  - `lean/E213/Lib/Math/Cohomology/Dyadic/Conjecture.lean`:
     bit-walk language, period validation for 1/3 (period 2),
     1/5 (period 4), 1/7 (period 3) — all realised as
     K_{3,2}^{(2)} bit-walks, all STRICT 0-axiom.
-  - `lean/E213/Math/Cohomology/Dyadic/WalkUniversal.lean`:
+  - `lean/E213/Lib/Math/Cohomology/Dyadic/WalkUniversal.lean`:
     `chooseEdge : Fin 5 → Bool → Fin 12` constructive
     selector + `chooseEdge_bit_full` (10-case 0-axiom bundle).
 
@@ -422,9 +422,9 @@ or Kolmogorov-style finite-witness bound.
 - **Lean formalisation.**
   - `lean/E213/Meta/UniversalLens.lean` — Universal Lens
     metatheory.  ≤ {propext}; `refines_all` strict 0-axiom.
-  - `lean/E213/Math/Cohomology/Dyadic/Conjecture.lean` —
+  - `lean/E213/Lib/Math/Cohomology/Dyadic/Conjecture.lean` —
     bit-walk language + 1/3, 1/5, 1/7 walks (0-axiom).
-  - `lean/E213/Math/Cohomology/Dyadic/WalkUniversal.lean` —
+  - `lean/E213/Lib/Math/Cohomology/Dyadic/WalkUniversal.lean` —
     chooseEdge witness (0-axiom).
 - **Memo doc.** This file.
 - **Open.**

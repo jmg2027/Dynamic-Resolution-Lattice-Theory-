@@ -59,13 +59,13 @@ Lean's Eq (intensional, 0 axiom).
 
 ## 3. Already-Laid Building Blocks (Phase KA complete)
 
-  ✅ `lean/E213/Kernel/Term.lean`
+  ✅ `lean/E213/Term/Term.lean`
      - `Term` inductive (zero, succ, add, mul)
      - `eval : Term → ℕ`
      - `equiv : Term → Term → Bool`
      - Standard constants: nS=3, nT=2, d=5, c=2
 
-  ✅ `lean/E213/Kernel/Demo.lean` — 7 capstones, all 0 axiom:
+  ✅ `lean/E213/Term/Demo.lean` — 7 capstones, all 0 axiom:
      - `dim_law`     n_S + n_T ≡ d
      - `c_eq_nT`     c ≡ n_T
      - `d_sq_25`     d² ≡ 5·4 + 5

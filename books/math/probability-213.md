@@ -14,7 +14,7 @@ Companion volume to `analysis213.md`, `number-theory-213.md`,
 atomic count, dyadic depth, FluxCut, bisectN, riemannSampleSum.
 
 All theorems referenced are 0-sorry, 0-Mathlib, 0-Classical,
-≤ {propext, Quot.sound}, as verified in `lean/E213/Physics/Substrate/`,
+≤ {propext, Quot.sound}, as verified in `lean/E213/Lib/Physics/Substrate/`,
 `lean/E213/Research/Real213*Cut*.lean`, and related files.
 
 **Status**: This volume is *partially realised*.  Foundation paths

@@ -4,7 +4,7 @@
 **Author:** Mingu Jeong
 **Formalisation:** Claude (Anthropic)
 **Status:** Blueprint — concrete Lean witness in
-`lean/E213/Math/Cohomology/HodgeConjectureLensCata.lean` (10 strict
+`lean/E213/Lib/Math/Cohomology/HodgeConjectureLensCata.lean` (10 strict
 ∅-axiom).  Full uniform proof of HC²¹³ via Lens initiality sketched.
 
 ---

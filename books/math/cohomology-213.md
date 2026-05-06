@@ -14,7 +14,7 @@ Raw, slash, Lens, Cochain, δ, Cup, AW (Alexander-Whitney), Hodge ⋆,
 Bipartite32, K5.
 
 All theorems referenced are 0-sorry, 0-Mathlib, 0-Classical,
-≤ {propext, Quot.sound}, as verified in `lean/E213/Math/Cohomology/`.
+≤ {propext, Quot.sound}, as verified in `lean/E213/Lib/Math/Cohomology/`.
 
 ---
 
@@ -341,7 +341,7 @@ Key capstones (all ≤ {propext, Quot.sound}):
 - `betti_kernel` — b₁(K_{3,2}^{(c=2)}) = 8
 - `fractal_alpha_gut_decomp` — α_GUT cohomological factorisation
 
-Source files at `lean/E213/Math/Cohomology/`.
+Source files at `lean/E213/Lib/Math/Cohomology/`.
 
 ## Appendix B.  Verification standard
 

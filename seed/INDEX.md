@@ -16,9 +16,9 @@ made here in prose.
 | 3a | `RESOLUTION_LIMIT_SPEC.md` | Canonical mechanical-spec: cardinality as lens output, N_U as four-domain convergent invariant, type-preservation under ∅-axiom (Cantor + Cauchy) | Before any Real213 work |
 | 4 | `NOTATION.md` | Symbol conventions: NS, NT, d, c, α_GUT, K_{3,2}^{(2)} | Reference |
 | 5 | `FALSIFIABILITY.md` | 14 measurement propositions that would refute DRLT | When discussing experimental tests |
-| 6 | `IMPLEMENTATION.md` | Mapping seed → `lean/E213/Firmware/Raw` | When tracing axiom-to-code |
+| 6 | `IMPLEMENTATION.md` | Mapping seed → `lean/E213/Theory/Raw` | When tracing axiom-to-code |
 | 7 | `AUDIT_Lean.md` | Audit guide for verifying Lean ↔ seed correspondence | When auditing |
-| 8 | `PAPER1.md` | Original seed paper (Raw + Lens, ZFC commitments, Cauchy completeness, demonstrations, falsifiability) — broader than `lean/E213/Math/Cohomology/Paper1Chiral.lean` (which only covers chiral compression).  Substantive narrative kept. | Historical / reference |
+| 8 | `PAPER1.md` | Original seed paper (Raw + Lens, ZFC commitments, Cauchy completeness, demonstrations, falsifiability) — broader than `lean/E213/Lib/Math/Cohomology/Paper1Chiral.lean` (which only covers chiral compression).  Substantive narrative kept. | Historical / reference |
 
 ## What seed/ is NOT
 
@@ -48,13 +48,13 @@ specialization of 213).
 
 ## Cross-references
 
-- `lean/E213/Firmware/Raw*.lean` — formal counterpart of `AXIOM.md`
-- `lean/E213/Firmware/Atomicity/Five.lean` +
-  `lean/E213/Firmware/Atomicity/PairForcing.lean` — formal
+- `lean/E213/Theory/Raw*.lean` — formal counterpart of `AXIOM.md`
+- `lean/E213/Theory/Atomicity/Five.lean` +
+  `lean/E213/Theory/Atomicity/PairForcing.lean` — formal
   counterpart of "atomicity forces (NS=3, NT=2, d=5)".
   (These were previously at `OS/` until 2026-05-XX dissolution;
   see `lean/E213/ARCHITECTURE.md` for theory.)
-- `lean/E213/Physics/Foundations/FiniteUniverse.lean` — formal
+- `lean/E213/Lib/Physics/Foundations/FiniteUniverse.lean` — formal
   counterpart of `RESOLUTION_LIMIT_SPEC.md` (1/α_em rational at every
   finite N_U; π² is limit-label, not a 213 primitive)
 - `LESSONS_LEARNED.md` (root) — guardrails extending PHILOSOPHY.md

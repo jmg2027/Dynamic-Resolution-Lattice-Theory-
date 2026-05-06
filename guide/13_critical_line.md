@@ -57,4 +57,4 @@ P ≠ NP (paper11) at the meta-level via Abel-Ruffini analog.
 - `papers/paper10_hodge.tex`, `paper11_p_ne_np.tex`, `paper12_bsd.tex`,
   `paper13_poincare.tex`, `paper16_exponent_barrier.tex` —
   Millennium-class applications, all currently external-only.
-- `lean/E213/Physics/BaselBound.lean` (the only ζ-related Lean module).
+- `lean/E213/Lib/Physics/BaselBound.lean` (the only ζ-related Lean module).

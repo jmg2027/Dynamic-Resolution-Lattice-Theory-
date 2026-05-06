@@ -1,6 +1,6 @@
 # AUDIT_Lean.md — Lean framework × AXIOM.md cross-check
 
-**Audit target**: `lean/E213/Firmware/`
+**Audit target**: `lean/E213/Theory/`
 **Reference document**: `AXIOM.md` (2026-04-24)
 **Audit date**: 2026-04-24
 **Overall verdict**: **Faithful**.  No structural revision required.
@@ -89,8 +89,8 @@ Not present in Firmware itself.  The `Lens` in Hypervisor is a separate module.
 
 Lean `inductive` is by definition compatible with either Platonic or stepwise
 interpretation.  Companion narrative: `research-notes/archive/17_existence_mode_lens.md`.
-Current Lean coverage: `lean/E213/Math/Infinity/Tower.lean`,
-`lean/E213/Math/Infinity/Chain.lean`, and `lean/E213/Physics/Foundations/FiniteUniverse.lean`.
+Current Lean coverage: `lean/E213/Lib/Math/Infinity/Tower.lean`,
+`lean/E213/Lib/Math/Infinity/Chain.lean`, and `lean/E213/Lib/Physics/Foundations/FiniteUniverse.lean`.
 
 **Verdict**: ✓ Compliant.
 

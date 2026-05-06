@@ -93,5 +93,5 @@ When starting a new session:
 1. Read INDEX and select a priority field
 2. Read the blueprint carefully
 3. Follow the Phase plan for the marathon
-4. Place results in `lean/E213/Physics/<field>/`
+4. Place results in `lean/E213/Lib/Physics/<field>/`
 5. At marathon completion, add `<FIELD>213.md` paper + `catalogs/` entry

@@ -56,5 +56,5 @@ Narrative-only in `paper3` and `drlt-book ch19`. Formalization pending.
 
 - `papers/paper3_zero_parameter_predictions.tex` (hadron table)
 - `papers/drlt-book/chapters/ch19_qcd.tex`
-- `lean/E213/Physics/Hadron/Masses.lean`, `ColorConfinement.lean`,
+- `lean/E213/Lib/Physics/Hadron/Masses.lean`, `ColorConfinement.lean`,
   `AsymptoticFreedom.lean`, `QCD.lean`.

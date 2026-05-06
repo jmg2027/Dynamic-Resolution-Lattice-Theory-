@@ -16,7 +16,7 @@ to the current formalization.
 
 | File | Theme | Closed in |
 |---|---|---|
-| `A1_kernel_cardinality_investigation.md` | Initial investigation | `lean/E213/Kernel/` |
+| `A1_kernel_cardinality_investigation.md` | Initial investigation | `lean/E213/Term/` |
 | `B1_pure_descent_method.md` | Pure descent attack | `Meta/AxiomMinimality` |
 | `B2_hermite_direction.md` | Hermite direction attempt | `Meta/AxiomMinimality` |
 | `C1_kernel_cardinality_obstruction.md` | The formal block | `Meta/AxiomMinimality` |

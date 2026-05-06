@@ -3,13 +3,13 @@
 **Author:** Claude (synthesis); Mingu Jeong (originator + directives)
 **Date:** 2026-05-XX
 **Companion files (Lean):**
-  - `lean/E213/Math/CascadeCalculus.lean` (cascade-delete model)
-  - `lean/E213/Math/CascadeCalculusInstance.lean` (6-node branch instance)
-  - `lean/E213/Math/PatternCatalog.lean` (catalog as Lean structures)
-  - `lean/E213/Math/PatternCatalogInstance.lean` (concrete instances)
-  - `lean/E213/Math/PatternCatalogCrossAxis.lean` (G24 × catalog)
-  - `lean/E213/Math/PatternCatalogAlgebra.lean` (free-monoid + anchors)
-  - `lean/E213/Math/PatternCatalogSpan.lean` (span analysis)
+  - `lean/E213/Lib/Math/CascadeCalculus.lean` (cascade-delete model)
+  - `lean/E213/Lib/Math/CascadeCalculusInstance.lean` (6-node branch instance)
+  - `lean/E213/Lib/Math/PatternCatalog.lean` (catalog as Lean structures)
+  - `lean/E213/Lib/Math/PatternCatalogInstance.lean` (concrete instances)
+  - `lean/E213/Lib/Math/PatternCatalogCrossAxis.lean` (G24 × catalog)
+  - `lean/E213/Lib/Math/PatternCatalogAlgebra.lean` (free-monoid + anchors)
+  - `lean/E213/Lib/Math/PatternCatalogSpan.lean` (span analysis)
 
 ## §0 Origin
 

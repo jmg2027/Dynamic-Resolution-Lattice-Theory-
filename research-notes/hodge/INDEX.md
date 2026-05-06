@@ -1,7 +1,7 @@
 # research-notes/hodge/ — Hodge program closure (six notes)
 
 The Hodge-conjecture-translation arc, formalised in
-`lean/E213/Math/Cohomology/HodgeConjecture/`.  Six exploratory
+`lean/E213/Lib/Math/Cohomology/HodgeConjecture/`.  Six exploratory
 notes that fed into the closed Lean program (138+ strict ∅-axiom
 theorems, per G10).
 
@@ -25,9 +25,9 @@ theorems summarised in G10.
 
 ## Cross-references
 
-  - `lean/E213/Math/Cohomology/HodgeConjecture/INDEX.md` — formal
+  - `lean/E213/Lib/Math/Cohomology/HodgeConjecture/INDEX.md` — formal
     side navigation.
-  - `lean/E213/Math/Cohomology/HodgeConjecture/Foundation/` — Lens
+  - `lean/E213/Lib/Math/Cohomology/HodgeConjecture/Foundation/` — Lens
     initiality + cup-chain core.
   - `research-notes/INDEX.md` — top-level note registry.
 

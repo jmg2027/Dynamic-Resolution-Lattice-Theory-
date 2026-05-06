@@ -65,5 +65,5 @@ chapter(s) where its content is treated.
   are all external-only.
 - `Research/Real213*` (176 files) is the single largest body of
   213-internal mathematics; treated in Ch. 14.
-- `lean/E213/Physics/Atomic/IE/Library/` covers periodic table to ppb;
+- `lean/E213/Lib/Physics/Atomic/IE/Library/` covers periodic table to ppb;
   treated in Ch. 04 (formula) + Ch. 07 (table).

@@ -5,7 +5,7 @@
 **Formalisation:** Claude (Anthropic)
 **Status:** Closure — `hodge_conjecture_213_complete` is the single
 citable Lean theorem closing HC²¹³ at strict ∅-axiom.
-File: `lean/E213/Math/Cohomology/HodgeConjectureComplete.lean`.
+File: `lean/E213/Lib/Math/Cohomology/HodgeConjectureComplete.lean`.
 
 ---
 

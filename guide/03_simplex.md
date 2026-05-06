@@ -72,5 +72,5 @@ signed — the sign carries orientation, not arithmetic negation
 - `papers/paper6_simplex_coupling.tex`
 - `papers/drlt-book/chapters/ch04_simplex_geometry.tex`
 - `papers/drlt-book/chapters/ch06_geometry.tex`
-- `lean/E213/Physics/Simplex/Counts.lean`
-- `lean/E213/Physics/FoccSpectrum.lean`
+- `lean/E213/Lib/Physics/Simplex/Counts.lean`
+- `lean/E213/Lib/Physics/FoccSpectrum.lean`

@@ -74,5 +74,5 @@ formula is the wrong structural form for 1/α_em at the IR scale.
 - `papers/paper4_zeta_beta.tex` (coupling running)
 - `papers/paper6_simplex_coupling.tex`
 - `papers/drlt-book/chapters/ch08_couplings.tex`
-- `lean/E213/Physics/Couplings/AlphaGUT.lean`, `AlphaEM/V137.lean`,
+- `lean/E213/Lib/Physics/Couplings/AlphaGUT.lean`, `AlphaEM/V137.lean`,
   `BaselBound.lean`, `PhotonKernel.lean`.

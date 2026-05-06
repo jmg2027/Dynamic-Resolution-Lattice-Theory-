@@ -205,7 +205,7 @@ All three at axiom load ≤ {propext, Quot.sound}, in
 ### 4.1  213-native rationals
 
 The 213 framework includes a deep-embedded rational arithmetic
-in `lean/E213/Kernel/Rat.lean`.  Rather than introducing a
+in `lean/E213/Term/Rat.lean`.  Rather than introducing a
 quotient type, rationals are pairs of `Term`s
 
   Q213 := Term × Term
@@ -314,9 +314,9 @@ Gödel-immune.
 ## References
 
 1. Lean 4 core library, version 4.16.0.
-2. 213 repository: `lean/E213/Firmware/Raw.lean`,
-   `lean/E213/Hypervisor/Lens.lean`,
-   `lean/E213/Kernel/Rat.lean`,
+2. 213 repository: `lean/E213/Theory/Raw.lean`,
+   `lean/E213/Lens.lean`,
+   `lean/E213/Term/Rat.lean`,
    `lean/E213/Meta/{BitPatternUniqueness,
    UniversalLensNat2{,Inj}, UniversalLensQ213{,Inj}}.lean`.
 3. Companion exposition: `books/math/number-theory-213.md`,

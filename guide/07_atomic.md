@@ -55,8 +55,8 @@ exactly from simplex geometry on 4-simplex hinges. Match observed.
 
 - `papers/drlt-book/chapters/ch10_atoms.tex`
 - `papers/drlt-book/chapters/ch20_hydrogen.tex`
-- `lean/E213/Physics/Atomic/IE/Library/`
-- `lean/E213/Physics/AtomicScreening.lean`
-- `lean/E213/Physics/BondAngles.lean`
+- `lean/E213/Lib/Physics/Atomic/IE/Library/`
+- `lean/E213/Lib/Physics/AtomicScreening.lean`
+- `lean/E213/Lib/Physics/BondAngles.lean`
 - `books/physics/periodic-table.md` (213-internal narration)
 - `catalogs/atomic-integers.md`

@@ -14,7 +14,7 @@ Vec d, rank, span, chiral split, K_{3,2}^{(c=2)}.
 
 All theorems referenced are 0-sorry, 0-Mathlib, 0-Classical,
 ≤ {propext, Quot.sound}, as verified in
-`lean/E213/Math/Linalg213/`.
+`lean/E213/Lib/Math/Linalg213/`.
 
 ---
 
@@ -247,7 +247,7 @@ Key capstones (all ≤ {propext, Quot.sound}):
 - `atomic_split_consistent` — Linalg/Cohomology bridge
 - `K32_c2_b1` — b_1(K_{3,2}^{(c=2)}) = 8
 
-Source files at `lean/E213/Math/Linalg213/{Vector, Gram, Span,
+Source files at `lean/E213/Lib/Math/Linalg213/{Vector, Gram, Span,
 Rank, Rank5Concrete, Chiral, Bridge, Capstone}.lean`.
 
 ## Appendix B.  Verification standard

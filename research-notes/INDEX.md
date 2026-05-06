@@ -43,7 +43,7 @@ research-notes/
 - **`hodge/`** — G6–G11 Hodge program closure (6 notes).  Reading
   order, Lean closure mapping, framing-correction status all in
   `hodge/INDEX.md`.  Each note is closed in
-  `lean/E213/Math/Cohomology/HodgeConjecture/` (Foundation +
+  `lean/E213/Lib/Math/Cohomology/HodgeConjecture/` (Foundation +
   Bridge + Refinement + Toolkit + Pairing + Structure).
 
 - **`audit/`** — G17 empirical pattern audit (6125 declarations) +

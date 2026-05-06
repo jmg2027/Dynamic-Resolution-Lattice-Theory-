@@ -137,7 +137,7 @@ When this spec is integrated into the codebase audit:
      output); add cross-reference to this spec.
 
   4. **Lean formalization** — add a single file
-     `lean/E213/Math/Foundations/ResolutionLimit.lean` that types
+     `lean/E213/Lib/Math/Foundations/ResolutionLimit.lean` that types
      N_U + the 4-way convergence + cross-references the existing
      Cantor / Cauchy theorems.  Verified ∅-axiom + 213-native via
      PureGuard / NativeGuard.

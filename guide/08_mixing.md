@@ -61,6 +61,6 @@ mrad. Passing 4/27 standard at sub-percent.
 
 - `papers/paper3_zero_parameter_predictions.tex` (mixing entries)
 - `papers/drlt-book/chapters/ch11_mixing.tex`
-- `lean/E213/Physics/Mixing/CabibboAngle.lean`, `CKMHierarchy.lean`,
+- `lean/E213/Lib/Physics/Mixing/CabibboAngle.lean`, `CKMHierarchy.lean`,
   `NeutrinoMixing.lean`, `CPViolation.lean`.
 - `seed/FALSIFIABILITY.md` § 4–5 (PMNS, Cabibbo).
