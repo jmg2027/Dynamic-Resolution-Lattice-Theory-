@@ -340,4 +340,36 @@ theorem cutMid_dyadic_diag (M E m k : Nat) :
   · have h2 : 2 * (M * k) ≤ 2 * (2^E * m) := Nat.mul_le_mul_left 2 hge
     rw [decide_eq_true hge, decide_eq_true h2]
 
+/-- **Test 1 — `fun x => cutMid x x` ⇒ Grade 0 (PASSES)**.
+
+Standard math: `(x + x)/2 = x` — algebraic identity.  Grade 0
+captures this dimensional invariance at the cut layer. -/
+theorem IsResolutionShift_cutMid_diag :
+    IsResolutionShift (fun x => cutMid x x) 0 := by
+  intro M E m k
+  show cutMid (dyadicCut M E) (dyadicCut M E) m k = dyadicCut M (E + 0) m k
+  rw [cutMid_dyadic_diag, Nat.add_zero]
+
+/-- **`cutDouble`**: `cutDouble x m k = x m (2*k)` — anti-shift dual
+    to `cutHalf`.  Sends `M/2^E` to `M/2^(E-1)`. -/
+def cutDouble (x : Nat → Nat → Bool) : Nat → Nat → Bool :=
+  fun m k => x m (2*k)
+
+/-- **Test 2 — `cutDouble` has NO grade in ℕ (asymmetry CONFIRMED)**.
+
+Doubling is the inverse of `cutHalf`; would need negative grade.
+Confirms ℕ-grading is *one-way*: refinement (downward) only.  The
+algebraic shadow of "time's arrow" in the resolution lattice. -/
+theorem cutDouble_no_grade : ∀ E_g, ¬ IsResolutionShift cutDouble E_g := by
+  intro E_g h
+  have habs := h 1 0 1 1
+  have hLHS : cutDouble (dyadicCut 1 0) 1 1 = false := by decide
+  have hRHS : dyadicCut 1 (0 + E_g) 1 1 = true := by
+    show decide (1 * 1 ≤ 2^(0 + E_g) * 1) = true
+    apply decide_eq_true
+    rw [Nat.one_mul, Nat.mul_one, Nat.zero_add]
+    exact one_le_two_pow_local E_g
+  rw [hLHS, hRHS] at habs
+  exact Bool.noConfusion habs
+
 end E213.Lib.Math.Analysis.ResolutionShift

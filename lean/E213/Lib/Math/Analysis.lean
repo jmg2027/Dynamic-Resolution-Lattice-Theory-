@@ -9,6 +9,7 @@ import E213.Lib.Math.Analysis.Series
 import E213.Lib.Math.Analysis.BracketCauchyModulus
 import E213.Lib.Math.Analysis.CauchyComplete
 import E213.Lib.Math.Analysis.PhysicsBridgeNT2
+import E213.Lib.Math.Analysis.ResolutionShift
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Analysis`.
 
