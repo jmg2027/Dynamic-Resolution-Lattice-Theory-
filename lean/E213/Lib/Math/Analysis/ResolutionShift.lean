@@ -1,6 +1,8 @@
 import E213.Lib.Math.Real213.CutBisection
 import E213.Lib.Math.Real213.Dyadic
 import E213.Lib.Math.Real213.CutFnData
+import E213.Lib.Math.Real213.CutSumOne
+import E213.Lib.Math.Real213.CutMul
 import E213.Term.Tactic.Nat213
 import E213.Term.Tactic.Pow213
 
@@ -53,8 +55,22 @@ namespace E213.Lib.Math.Analysis.ResolutionShift
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Dyadic (dyadicCut)
-open E213.Lib.Math.Real213.CutBisection (cutHalf)
+open E213.Lib.Math.Real213.CutBisection (cutHalf cutMid)
 open E213.Lib.Math.Real213.CutFnData (LocallyDeterminedData composeLDD cutHalfLDD)
+open E213.Lib.Math.Real213.CutSum (cutSum)
+open E213.Lib.Math.Real213.CutSumOne (cutSum_self_at)
+open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.CutMul (cutMul)
+
+/-- Local helper: 1 ≤ 2^n.  Pure structural induction; ∅-axiom. -/
+private theorem one_le_two_pow_local : ∀ n, (1:Nat) ≤ 2^n
+  | 0 => Nat.le_refl 1
+  | k+1 => by
+    have ih := one_le_two_pow_local k
+    show 1 ≤ 2^k * 2
+    calc 1 ≤ 2^k := ih
+      _ = 2^k * 1 := (Nat.mul_one _).symm
+      _ ≤ 2^k * 2 := Nat.mul_le_mul_left _ (by decide)
 
 /-- **`IsResolutionShift g E_g`**: g sends `dyadicCut M E` to a cut
     pointwise-equal to `dyadicCut M (E + E_g)`.
@@ -294,5 +310,34 @@ example : cutHalfIter 2 (dyadicCut 1 0) 1 1 = dyadicCut 1 2 1 1 := by decide
 
 -- `cutHalfIter 3` sends `dyadicCut 1 0` to `dyadicCut 1 3 = 1/8`.
 example : cutHalfIter 3 (dyadicCut 1 0) 1 1 = dyadicCut 1 3 1 1 := by decide
+
+/-! ### Falsifiability tests — concrete grade computations
+
+Tests Mingu's claim that every well-defined cut transformer carries
+a *computable grade*.  Three concrete operations exercised; each
+either confirms the prediction or precisely identifies the boundary
+of the IsResolutionShift framework. -/
+
+/-- **Test 1 helper**: cutMid x x acts as identity on dyadicCut. -/
+theorem cutMid_dyadic_diag (M E m k : Nat) :
+    cutMid (dyadicCut M E) (dyadicCut M E) m k = dyadicCut M E m k := by
+  show cutSum (dyadicCut M E) (dyadicCut M E) (2*m) k = dyadicCut M E m k
+  show cutSum (constCut M (2^E)) (constCut M (2^E)) (2*m) k
+       = constCut M (2^E) m k
+  rw [cutSum_self_at M (2^E) (2*m) k]
+  show decide (2*M * k ≤ 2^E * (2*m)) = decide (M * k ≤ 2^E * m)
+  have e1 : 2 * M * k = 2 * (M * k) := E213.Tactic.Nat213.mul_assoc 2 M k
+  have e2 : 2^E * (2*m) = 2 * (2^E * m) := by
+    rw [Nat.mul_comm (2^E) (2*m), E213.Tactic.Nat213.mul_assoc 2 m (2^E),
+        Nat.mul_comm m (2^E)]
+  rw [e1, e2]
+  rcases Nat.lt_or_ge (2^E * m) (M * k) with hlt | hge
+  · have h1 : ¬ (M * k ≤ 2^E * m) := Nat.not_le_of_lt hlt
+    have h2 : ¬ (2 * (M * k) ≤ 2 * (2^E * m)) := by
+      intro habs
+      exact h1 (Nat.le_of_mul_le_mul_left habs (by decide))
+    rw [decide_eq_false h1, decide_eq_false h2]
+  · have h2 : 2 * (M * k) ≤ 2 * (2^E * m) := Nat.mul_le_mul_left 2 hge
+    rw [decide_eq_true hge, decide_eq_true h2]
 
 end E213.Lib.Math.Analysis.ResolutionShift
