@@ -1,92 +1,20 @@
 import E213.Math.Cohomology.Dyadic.Archive
 import E213.Math.Cohomology.Dyadic.ArithFSM
-import E213.Math.Cohomology.Dyadic.ArithFSM.Hardness
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod101
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod11
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod13
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod19
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod23
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod29
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod31
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod37
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod41
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod43
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod47
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod53
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod59
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod61
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod67
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod71
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod73
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod79
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod89
-import E213.Math.Cohomology.Dyadic.ArithFSM.Signature
-import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
-import E213.Math.Cohomology.Dyadic.ArithFSM.V1
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3Equiv
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3Hardness
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
 import E213.Math.Cohomology.Dyadic.BitAuto2
 import E213.Math.Cohomology.Dyadic.BitFSM
-import E213.Math.Cohomology.Dyadic.BitFSM.Bound
-import E213.Math.Cohomology.Dyadic.BitFSM.Converse
 import E213.Math.Cohomology.Dyadic.Classifier
 import E213.Math.Cohomology.Dyadic.ConcretePellSig
 import E213.Math.Cohomology.Dyadic.Conjecture
 import E213.Math.Cohomology.Dyadic.CrossClassLens
 import E213.Math.Cohomology.Dyadic.Fib
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod11
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod13
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod17
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod19
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod23
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod3
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod5
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod7
-import E213.Math.Cohomology.Dyadic.Fib.PellRelation
-import E213.Math.Cohomology.Dyadic.Fib.Pisano8
-import E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
 import E213.Math.Cohomology.Dyadic.ForwardClosure
 import E213.Math.Cohomology.Dyadic.ForwardEventual
 import E213.Math.Cohomology.Dyadic.ForwardPeriodicity
 import E213.Math.Cohomology.Dyadic.LCMClosure
 import E213.Math.Cohomology.Dyadic.Legendre
-import E213.Math.Cohomology.Dyadic.Legendre.Pisano
-import E213.Math.Cohomology.Dyadic.Legendre.PisanoExt
-import E213.Math.Cohomology.Dyadic.Legendre.Small
-import E213.Math.Cohomology.Dyadic.Legendre.V13_19
-import E213.Math.Cohomology.Dyadic.Legendre.V213
 import E213.Math.Cohomology.Dyadic.LucasFSMmod5
 import E213.Math.Cohomology.Dyadic.Pell
-import E213.Math.Cohomology.Dyadic.Pell.Bounds
-import E213.Math.Cohomology.Dyadic.Pell.Capstone
-import E213.Math.Cohomology.Dyadic.Pell.Family
-import E213.Math.Cohomology.Dyadic.Pell.Lens
-import E213.Math.Cohomology.Dyadic.Pell.LensPairs
-import E213.Math.Cohomology.Dyadic.Pell.LensTriple
-import E213.Math.Cohomology.Dyadic.Pell.Proper
-import E213.Math.Cohomology.Dyadic.Pell.Proper8
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod11
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod13
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod17
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod19
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod23
-import E213.Math.Cohomology.Dyadic.Pell.ProperSmall
 import E213.Math.Cohomology.Dyadic.Pisano
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor11
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor14
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor17
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor20
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor22
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor6
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor7
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor8
 import E213.Math.Cohomology.Dyadic.ProductFSM
 import E213.Math.Cohomology.Dyadic.ProductFSMPeriod
 import E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd
@@ -99,29 +27,28 @@ import E213.Math.Cohomology.Dyadic.ThueMorse
 import E213.Math.Cohomology.Dyadic.Tier2Hardness
 import E213.Math.Cohomology.Dyadic.TierBridge
 import E213.Math.Cohomology.Dyadic.Trib
-import E213.Math.Cohomology.Dyadic.Trib.CRT4Capstone
-import E213.Math.Cohomology.Dyadic.Trib.CRTCapstone
-import E213.Math.Cohomology.Dyadic.Trib.Capstone
-import E213.Math.Cohomology.Dyadic.Trib.FSMmod3
-import E213.Math.Cohomology.Dyadic.Trib.FSMmod5
-import E213.Math.Cohomology.Dyadic.Trib.FSMmod7
 import E213.Math.Cohomology.Dyadic.TwoLayerPredictor
 import E213.Math.Cohomology.Dyadic.WalkUniversal
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic` — Dyadic FSM cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic`.
 
-  
+  Dyadic / FSM theory cluster — the classification engine for
+  arithmetic FSM hardness behind the cohomology framework.
 
-  ## Status
+  ## Sub-clusters
 
-  109 files included.  7 files excluded
-  (pre-existing breakage):
+    * `ArithFSM/`   — arithmetic-FSM family (mod 5..89 + V1/V3/
+                      Bound/Equiv/Hardness/Signature/ToBitFSM)
+    * `BitFSM/`     — Bool-pred bit-FSM family
+    * `Fib/`        — Fibonacci-FSM mod-p variants + Pell relation
+                      + Pisano-8 + Pisano capstone
+    * `Legendre/`   — Legendre-symbol Pisano variants
+    * `Pell/`       — Pell-equation cluster + per-mod variants
+    * `Pisano/`     — Pisano-period predictor per base
+    * `Trib/`       — Tribonacci variants + CRT4Capstone
+    * `Archive/`    — historical / deferred files
 
-    - Cohomology.Dyadic.AlgebraicDegree
-    - Cohomology.Dyadic.Archive.EdgeSignature
-    - Cohomology.Dyadic.Archive.SubwordComplexity
-    - Cohomology.Dyadic.ArithFSM.Hierarchy
-    - Cohomology.Dyadic.ArithFSM.V1to2
-    - Cohomology.Dyadic.NumberTheory213
-    - Cohomology.Dyadic.Pell.ProperBridge
+  Pre-existing API drift on a small fixed set documented in
+  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.3 — see the
+  per-sub-cluster umbrella for inline status.
 -/
