@@ -1,5 +1,5 @@
 import E213.Firmware.Raw
-import E213.Hypervisor.LensCore
+import E213.HypervisorCore
 
 /-!
 # BootstrapWitness: Nat-bootstrap in Lens catalogue

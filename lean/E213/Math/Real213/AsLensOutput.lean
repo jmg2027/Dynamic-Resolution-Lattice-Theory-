@@ -1,4 +1,4 @@
-import E213.Hypervisor.LensCore
+import E213.HypervisorCore
 import E213.Math.Cauchy.Archimedean
 
 /-!

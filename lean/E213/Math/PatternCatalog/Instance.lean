@@ -2,7 +2,7 @@ import E213.Math.PatternCatalog.Core
 import E213.Math.Real213.CutMulOne
 import E213.Firmware.Atomicity.Five
 import E213.Math.AxiomSystems.CrossTheoryCohabit
-import E213.Hypervisor.Lens.Properties.IsLeaf
+import E213.Hypervisor.Properties.IsLeaf
 
 /-!
 # PatternCatalog — instance check
@@ -418,9 +418,9 @@ def threeLensAlphaConst : Nat → Type := fun _ => Nat
 def threeLensViews (i : Nat) (r : E213.Firmware.Raw) : Nat :=
   match i with
   | 0     => peanoLens.view r
-  | 1     => E213.Hypervisor.Lens.depth.view r
+  | 1     => E213.Hypervisor.depth.view r
   | _ + 2 => boolAsNat
-              (E213.Hypervisor.Lens.Properties.IsLeaf.isLeafLens.view r)
+              (E213.Hypervisor.Properties.IsLeaf.isLeafLens.view r)
 
 /-- Per-index expected value. -/
 def threeLensExpected (i : Nat) : Nat :=

@@ -22,7 +22,7 @@ namespace E213.Math.Analysis.Differentiation.ModulusCombiner
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Lens.Instances.AB
+open E213.Hypervisor.Instances.AB
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Real213.Core (Real213)
 
@@ -43,7 +43,7 @@ structure ModulusCombiner (combine : Raw → Raw → Raw) where
 
 open E213.Firmware E213.Hypervisor
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Lens.Instances.AB
+open E213.Hypervisor.Instances.AB
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Real213.Core (Real213)
 

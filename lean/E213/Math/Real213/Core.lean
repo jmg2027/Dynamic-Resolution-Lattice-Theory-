@@ -42,8 +42,8 @@ def Real213.equiv (r r' : Real213) : Prop :=
   ∀ m k, k ≥ 1 →
     ∃ N, ∀ i, i ≥ N →
       E213.Math.Cauchy.Archimedean.orderProj m k
-        (E213.Hypervisor.Lens.Instances.AB.abLens.view (r.xs i)) =
+        (E213.Hypervisor.Instances.AB.abLens.view (r.xs i)) =
       E213.Math.Cauchy.Archimedean.orderProj m k
-        (E213.Hypervisor.Lens.Instances.AB.abLens.view (r'.xs i))
+        (E213.Hypervisor.Instances.AB.abLens.view (r'.xs i))
 
 end E213.Math.Real213.Core

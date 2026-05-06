@@ -1,5 +1,5 @@
-import E213.Hypervisor.Lens.Leaves.ModNat
-import E213.Hypervisor.Lens.Instances.Cauchy
+import E213.Hypervisor.Leaves.ModNat
+import E213.Hypervisor.Instances.Cauchy
 import E213.Math.Cauchy.ProfiniteSeq
 
 /-!
@@ -55,7 +55,7 @@ the funext-by-design class of inherent-Quot.sound items.
 namespace E213.Math.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Leaves.ModNat E213.Hypervisor.Lens.Instances.Cauchy
+open E213.Hypervisor.Leaves.ModNat E213.Hypervisor.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
 end E213.Math.Hyper.Padic
@@ -63,7 +63,7 @@ end E213.Math.Hyper.Padic
 namespace E213.Math.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Leaves.ModNat E213.Hypervisor.Lens.Instances.Cauchy
+open E213.Hypervisor.Leaves.ModNat E213.Hypervisor.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
 /-! ### Power lemmas (based on Lean 4 core) -/
@@ -95,7 +95,7 @@ end E213.Math.Hyper.Padic
 namespace E213.Math.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Leaves.ModNat E213.Hypervisor.Lens.Instances.Cauchy
+open E213.Hypervisor.Leaves.ModNat E213.Hypervisor.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
 /-! ### p-adic Lens family -/
@@ -137,7 +137,7 @@ end E213.Math.Hyper.Padic
 namespace E213.Math.Hyper.Padic
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Leaves.ModNat E213.Hypervisor.Lens.Instances.Cauchy
+open E213.Hypervisor.Leaves.ModNat E213.Hypervisor.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
 /-- Family-Cauchy w.r.t. the entire p-adic tower. -/

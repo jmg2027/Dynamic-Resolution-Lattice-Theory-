@@ -1,21 +1,21 @@
-import E213.Hypervisor.LensCore
-import E213.Hypervisor.Lens.SemanticAtom
-import E213.Hypervisor.Lens.Initiality
-import E213.Hypervisor.Lens.Lattice.Lattice
-import E213.Hypervisor.Lens.Lattice.Join
-import E213.Hypervisor.Lens.Lattice.Meet
-import E213.Hypervisor.Lens.Lattice.FamilyJoin
-import E213.Hypervisor.Lens.Lattice.FamilyMeet
-import E213.Hypervisor.Lens.Lattice.IndexedJoin
-import E213.Hypervisor.Lens.Lattice.JoinEquiv
-import E213.Hypervisor.Lens.Compose.Factoring
-import E213.Hypervisor.Lens.Compose.ImageMinimum
-import E213.Hypervisor.Lens.Compose.OnLens
-import E213.Hypervisor.Lens.Universal.Flat
-import E213.Hypervisor.Lens.Universal.QuotLens
-import E213.Hypervisor.Lens.Properties.CanonicalForm
-import E213.Hypervisor.Lens.Refines.Chain
-import E213.Hypervisor.Lens.Refines.Preorder
+import E213.HypervisorCore
+import E213.Hypervisor.SemanticAtom
+import E213.Hypervisor.Initiality
+import E213.Hypervisor.Lattice.Lattice
+import E213.Hypervisor.Lattice.Join
+import E213.Hypervisor.Lattice.Meet
+import E213.Hypervisor.Lattice.FamilyJoin
+import E213.Hypervisor.Lattice.FamilyMeet
+import E213.Hypervisor.Lattice.IndexedJoin
+import E213.Hypervisor.Lattice.JoinEquiv
+import E213.Hypervisor.Compose.Factoring
+import E213.Hypervisor.Compose.ImageMinimum
+import E213.Hypervisor.Compose.OnLens
+import E213.Hypervisor.Universal.Flat
+import E213.Hypervisor.Universal.QuotLens
+import E213.Hypervisor.Properties.CanonicalForm
+import E213.Hypervisor.Refines.Chain
+import E213.Hypervisor.Refines.Preorder
 
 /-!
 # Hypervisor: Public API (re-export shim)

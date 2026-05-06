@@ -26,7 +26,7 @@ For m² > 2k²: (m² - 2k²) ≥ 1, so y² ≥ k² → conclusion.
 namespace E213.Math.Irrational.Sqrt2Cut
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- Pell-like condition. -/
 def IsPellSol (x y : Nat) : Prop := x * x = 2 * y * y + 1
@@ -51,7 +51,7 @@ end E213.Math.Irrational.Sqrt2Cut
 namespace E213.Math.Irrational.Sqrt2Cut
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Pell solutions: orderProj true when m/k > √2 (rationally
     captured as 2k² < m²)**.  Assumes y² ≥ k² (y sufficiently large). -/
@@ -102,7 +102,7 @@ end E213.Math.Irrational.Sqrt2Cut
 namespace E213.Math.Irrational.Sqrt2Cut
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Pell solutions: orderProj false when m/k < √2** (rationally
     captured as m² < 2k²).  Always (no y bound). -/

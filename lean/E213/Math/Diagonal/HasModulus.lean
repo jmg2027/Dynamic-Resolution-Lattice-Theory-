@@ -14,7 +14,7 @@ a demonstration of the applicability of the HasModulus typeclass.
 namespace E213.Math.Diagonal.HasModulus
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB
+open E213.Hypervisor.Instances.AB
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Modulus.HasModulus
 

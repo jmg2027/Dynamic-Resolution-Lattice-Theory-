@@ -1,4 +1,4 @@
-import E213.Hypervisor.Lens.Instances.AB
+import E213.Hypervisor.Instances.AB
 import E213.Math.Cauchy.Archimedean
 import E213.Kernel.Tactic.Nat213
 
@@ -34,7 +34,7 @@ Status: ∅-axiom on every theorem (`tools/scan_axioms.py` reports
 namespace E213.Math.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Hypotheses -/
 
@@ -54,7 +54,7 @@ end E213.Math.Cauchy.MonotonicBounded
 namespace E213.Math.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Monotonic chain (transitive form) -/
 
@@ -135,7 +135,7 @@ end E213.Math.Cauchy.MonotonicBounded
 namespace E213.Math.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### orderProj false propagates forward (monotonic) -/
 
@@ -191,7 +191,7 @@ end E213.Math.Cauchy.MonotonicBounded
 namespace E213.Math.Cauchy.MonotonicBounded
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Constructive Cauchy from a witness "false at N₀"
 

@@ -2,11 +2,11 @@ import E213.Math.Infinity.Countable
 import E213.Kernel.Tactic.Nat213
 import E213.Math.Infinity.Cantor
 import E213.Math.Infinity.Godel
-import E213.Hypervisor.LensCore
-import E213.Hypervisor.Lens.Characterisation.Catalog
-import E213.Hypervisor.Lens.Instances.Bool
-import E213.Hypervisor.Lens.Instances.Parity
-import E213.Hypervisor.Lens.Instances.Max
+import E213.HypervisorCore
+import E213.Hypervisor.Characterisation.Catalog
+import E213.Hypervisor.Instances.Bool
+import E213.Hypervisor.Instances.Parity
+import E213.Hypervisor.Instances.Max
 import E213.Prelude
 
 /-!
@@ -89,10 +89,10 @@ end E213.Infinity
 namespace E213.Infinity
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.Bool
-open E213.Hypervisor.Lens.Instances.Parity
-open E213.Hypervisor.Lens.Instances.Max
-open E213.Hypervisor.Lens.Characterisation.Catalog
+open E213.Hypervisor.Instances.Bool
+open E213.Hypervisor.Instances.Parity
+open E213.Hypervisor.Instances.Max
+open E213.Hypervisor.Characterisation.Catalog
 
 -- ═══ Finite-image Lenses ═══
 
@@ -155,7 +155,7 @@ end E213.Firmware.Internal
 namespace E213.Infinity
 
 open E213.Firmware E213.Firmware.Internal E213.Hypervisor
-open E213.Hypervisor.Lens.Characterisation.Catalog
+open E213.Hypervisor.Characterisation.Catalog
 
 /-- **signedLens surjective onto `{z : ℤ | z ≥ -1}`** via
     `rawTower`.  The full `ℤ` surjectivity (covering `z ≤ -2`)

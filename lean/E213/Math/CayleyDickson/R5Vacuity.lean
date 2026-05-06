@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
-import E213.Hypervisor.LensCore
-import E213.Hypervisor.Lens.Characterisation.Catalog
+import E213.HypervisorCore
+import E213.Hypervisor.Characterisation.Catalog
 
 /-!
 # the two halves of R5, and which half is

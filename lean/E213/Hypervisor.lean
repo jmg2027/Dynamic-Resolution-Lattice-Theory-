@@ -1,19 +1,19 @@
 import E213.Hypervisor.API
-import E213.Hypervisor.LensCore
-import E213.Hypervisor.Lens.AxiomLenses.Bridges
-import E213.Hypervisor.Lens.AxiomLenses.Core
-import E213.Hypervisor.Lens.Characterisation
-import E213.Hypervisor.Lens.Compose
-import E213.Hypervisor.Lens.Initiality
-import E213.Hypervisor.Lens.Instances
-import E213.Hypervisor.Lens.Algebra
-import E213.Hypervisor.Lens.Lattice
-import E213.Hypervisor.Lens.Leaves
-import E213.Hypervisor.Lens.Morphism
-import E213.Hypervisor.Lens.Properties
-import E213.Hypervisor.Lens.Refines
-import E213.Hypervisor.Lens.SemanticAtom
-import E213.Hypervisor.Lens.Universal
+import E213.HypervisorCore
+import E213.Hypervisor.AxiomLenses.Bridges
+import E213.Hypervisor.AxiomLenses.Core
+import E213.Hypervisor.Characterisation
+import E213.Hypervisor.Compose
+import E213.Hypervisor.Initiality
+import E213.Hypervisor.Instances
+import E213.Hypervisor.Algebra
+import E213.Hypervisor.Lattice
+import E213.Hypervisor.Leaves
+import E213.Hypervisor.Morphism
+import E213.Hypervisor.Properties
+import E213.Hypervisor.Refines
+import E213.Hypervisor.SemanticAtom
+import E213.Hypervisor.Universal
 
 /-! Spec-as-code entry point for `E213.Hypervisor`.
 

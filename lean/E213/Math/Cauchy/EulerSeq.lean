@@ -28,7 +28,7 @@ Status: ∅-axiom on every theorem (`tools/scan_axioms.py` reports
 namespace E213.Math.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 open E213.Math.Cauchy.PellSeq
 
 /-! ### Euler partial sum recursion -/
@@ -65,7 +65,7 @@ end E213.Math.Cauchy.EulerSeq
 namespace E213.Math.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Algebraic invariants -/
 
@@ -117,7 +117,7 @@ end E213.Math.Cauchy.EulerSeq
 namespace E213.Math.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Lower invariant** (n ≥ 2): a_n ≥ 2 * d_n + 1.  (S_n > 2 from n=2.)
     a_2 = 5, d_2 = 2: 5 = 2*2 + 1 ✓.
@@ -165,7 +165,7 @@ end E213.Math.Cauchy.EulerSeq
 namespace E213.Math.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 open E213.Math.Cauchy.PellSeq
 
 /-! ### Raw sequence + orderProj cuts -/
@@ -201,7 +201,7 @@ end E213.Math.Cauchy.EulerSeq
 namespace E213.Math.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Cut below 2**: m/k ≤ 2 (m ≤ 2k) → orderProj false (n ≥ 2).
     a_n ≥ 2 d_n + 1, so a_n * k ≥ (2 d_n + 1) * k > d_n * m. -/
@@ -257,7 +257,7 @@ end E213.Math.Cauchy.EulerSeq
 namespace E213.Math.Cauchy.EulerSeq
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Instances.AB E213.Math.Cauchy.Archimedean
+open E213.Hypervisor.Instances.AB E213.Math.Cauchy.Archimedean
 open E213.Math.Cauchy.MonotonicBounded
 
 /-! ### Monotonicity instance (for MonotonicBoundedCauchy) -/

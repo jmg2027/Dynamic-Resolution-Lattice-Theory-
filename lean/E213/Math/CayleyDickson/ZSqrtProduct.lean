@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
-import E213.Hypervisor.LensCore
-import E213.Hypervisor.Lens.Characterisation.Catalog
+import E213.HypervisorCore
+import E213.Hypervisor.Characterisation.Catalog
 import E213.Math.CayleyDickson.ZSqrt
 import E213.Math.CayleyDickson.ZSqrtDomain
 import E213.Meta.SelfRecognising

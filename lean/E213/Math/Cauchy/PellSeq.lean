@@ -22,7 +22,7 @@ This captures the Dedekind cut of √2 not abstractly but as a
 
 namespace E213.Math.Cauchy.PellSeq
 
-open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Instances.AB E213.Math.Irrational.Sqrt2Cut
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Instances.AB E213.Math.Irrational.Sqrt2Cut
 
 /-- Pell sequence (fundamental recursion preserving x² - 2y² = 1):
     (x, y) → (3x + 4y, 2x + 3y).
@@ -172,7 +172,7 @@ end E213.Math.Cauchy.PellSeq
 
 namespace E213.Math.Cauchy.PellSeq
 
-open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Instances.AB
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Instances.AB
 
 private theorem abLens_a : abLens.view Raw.a = (1, 0) := rfl
 private theorem abLens_b : abLens.view Raw.b = (0, 1) := rfl
@@ -193,7 +193,7 @@ end E213.Math.Cauchy.PellSeq
 
 namespace E213.Math.Cauchy.PellSeq
 
-open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Instances.AB
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Instances.AB
 
 /-- Constructive Σ-version: abLens_witness is an explicit Raw function.
     Constructive version of abLens_surjective — no Classical. -/
@@ -287,7 +287,7 @@ end E213.Math.Cauchy.PellSeq
 
 namespace E213.Math.Cauchy.PellSeq
 
-open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Instances.AB E213.Math.Irrational.Sqrt2Cut
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Instances.AB E213.Math.Irrational.Sqrt2Cut
 
 /-- Pell X positivity. -/
 theorem pellX_pos (n : Nat) : 1 ≤ pellX n := by
@@ -337,7 +337,7 @@ end E213.Math.Cauchy.PellSeq
 
 namespace E213.Math.Cauchy.PellSeq
 
-open E213.Firmware E213.Hypervisor E213.Hypervisor.Lens.Instances.AB E213.Math.Irrational.Sqrt2Cut
+open E213.Firmware E213.Hypervisor E213.Hypervisor.Instances.AB E213.Math.Irrational.Sqrt2Cut
 open E213.Math.Cauchy.Archimedean
 
 /-- Lower bound for Pell Y: y_n ≥ n + 2 (linear growth). -/
