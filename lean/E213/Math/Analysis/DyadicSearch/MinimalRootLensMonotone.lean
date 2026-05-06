@@ -160,6 +160,80 @@ theorem bisectN_signed_left_preserves_sign_change
             (db.bisectStep (signedLeftOracle f))
             (bisectStep_signed_left_preserves_sign_change lf db sc)
 
+/-! ### Dual policy lens: `BracketSignChangeUp` for `f` increasing
+
+The opposite sign convention: `f leftCut 0 1 = true` and
+`f rightCut 0 1 = false` (f *increasing* with `f(a) ≤ 0 ≤ f(b)`).
+Pairs with `signedRightOracle` from `MinimalRootLens.lean`.
+
+This is the **policy-lens enumeration insight**: the choice of
+oracle (signedLeft vs signedRight) is itself a finite-cardinality
+lens; together they cover the two boundary preferences within
+the d=5 finite-policy ladder. -/
+
+open E213.Math.Analysis.DyadicSearch.MinimalRootLens (signedRightOracle)
+
+/-- **BracketSignChangeUp**: dual precondition for the `signedRightOracle`
+    policy.  `f leftCut 0 1 = true` (f at left ≤ 0) and
+    `f rightCut 0 1 = false` (f at right > 0).  This matches the
+    standard IVT sign convention (f increasing). -/
+structure BracketSignChangeUp
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))
+    (db : DyadicBracket) : Prop where
+  signLeft : f db.leftCut 0 1 = true
+  signRight : f db.rightCut 0 1 = false
+
+/-- **One-step preservation under `signedRightOracle`**.  Same
+    structural pattern as the `signedLeftOracle` case (Layer 2),
+    via `dyadicCut_double_eq` + `LocallyDeterminedData`. -/
+theorem bisectStep_signed_right_preserves_sign_change_up
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (lf : LocallyDeterminedData f) (db : DyadicBracket)
+    (sc : BracketSignChangeUp f db) :
+    BracketSignChangeUp f (db.bisectStep (signedRightOracle f)) := by
+  show BracketSignChangeUp f
+    (bif !(f db.midCut 0 1) then db.leftHalf else db.rightHalf)
+  cases hmid : f db.midCut 0 1 with
+  | false =>
+    show BracketSignChangeUp f db.leftHalf
+    refine ⟨?_, ?_⟩
+    · show f (dyadicCut (2 * db.numA) (db.expE + 1)) 0 1 = true
+      have heq : ∀ m' k',
+          dyadicCut (2 * db.numA) (db.expE + 1) m' k' = db.leftCut m' k' :=
+        fun m' k' => dyadicCut_double_eq db.numA db.expE m' k'
+      rw [ldd_pointwise_eq_at lf _ db.leftCut heq 0 1]
+      exact sc.signLeft
+    · show f db.midCut 0 1 = false
+      exact hmid
+  | true =>
+    show BracketSignChangeUp f db.rightHalf
+    refine ⟨?_, ?_⟩
+    · show f db.midCut 0 1 = true
+      exact hmid
+    · show f (dyadicCut (2 * db.numB) (db.expE + 1)) 0 1 = false
+      have heq : ∀ m' k',
+          dyadicCut (2 * db.numB) (db.expE + 1) m' k' = db.rightCut m' k' :=
+        fun m' k' => dyadicCut_double_eq db.numB db.expE m' k'
+      rw [ldd_pointwise_eq_at lf _ db.rightCut heq 0 1]
+      exact sc.signRight
+
+/-- **n-step preservation** for `BracketSignChangeUp`.  Structural
+    induction on n. -/
+theorem bisectN_signed_right_preserves_sign_change_up
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (lf : LocallyDeterminedData f) :
+    ∀ n db, BracketSignChangeUp f db →
+      BracketSignChangeUp f
+        (DyadicBracket.bisectN (signedRightOracle f) n db)
+  | 0, _, sc => sc
+  | n+1, db, sc => by
+    show BracketSignChangeUp f
+      (DyadicBracket.bisectN (signedRightOracle f) n
+        (db.bisectStep (signedRightOracle f)))
+    exact bisectN_signed_right_preserves_sign_change_up lf n
+            (db.bisectStep (signedRightOracle f))
+            (bisectStep_signed_right_preserves_sign_change_up lf db sc)
+
 /-! ### Resolution-residue → cutEq bridge (Layer 3b core)
 
 The 213-native form of "f(c) = 0".  In the cut algebra, the

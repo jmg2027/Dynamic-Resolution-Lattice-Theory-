@@ -63,6 +63,44 @@ theorem signedLeftOracle_constTrue :
 theorem signedLeftOracle_constFalse :
     signedLeftOracle (fun _ _ _ => false) = alwaysFalse := rfl
 
+/-- **signedRightOracle**: dual policy — used for the *opposite*
+    sign convention (`f leftCut 0 1 = true`, `f rightCut 0 1 = false`,
+    i.e., f *increasing* with `f(a) ≤ 0 ≤ f(b)`).
+
+The oracle returns `!(f mid 0 1)`.  Interpretation: `true` ↔ go left
+↔ `f(mid) > 0` ↔ root is in `[a, mid]` (left half).
+
+Together with `signedLeftOracle`, this enumerates the two boundary
+preferences for the f-derived bisection trajectory; the choice of
+oracle *is itself a lens* (the meta-policy lens).  In d=5 finite
+structure, each `(m', k')`-precision query gives a candidate
+oracle, so the oracle space is finitely indexed. -/
+def signedRightOracle (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) :
+    DyadicOracle :=
+  fun mid => !(f mid 0 1)
+
+/-- Sanity: for the constantly-false cut function, `signedRightOracle`
+    reduces to `alwaysTrue`. -/
+theorem signedRightOracle_constFalse :
+    signedRightOracle (fun _ _ _ => false) = alwaysTrue := rfl
+
+/-- Sanity: for the constantly-true cut function, `signedRightOracle`
+    reduces to `alwaysFalse`. -/
+theorem signedRightOracle_constTrue :
+    signedRightOracle (fun _ _ _ => true) = alwaysFalse := rfl
+
+/-- The two policy oracles are pointwise Bool-negations: under any
+    midpoint cut, `signedLeftOracle f mid = !(signedRightOracle f mid)`.
+
+Demonstrates the **meta-policy duality** structurally — the choice
+between left-prefer and right-prefer at the boundary is a single
+Bool, exposed as a lens. -/
+theorem signedLeftOracle_eq_not_signedRightOracle
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) (mid : Nat → Nat → Bool) :
+    signedLeftOracle f mid = !(signedRightOracle f mid) := by
+  show f mid 0 1 = !(!(f mid 0 1))
+  cases f mid 0 1 <;> rfl
+
 /-- **MinimalRootCut**: trajectory readout under a `ConsistentOracle`.
 
 Given a typed-protocol witness `co : ConsistentOracle db`, the
