@@ -5,6 +5,7 @@ import E213.Math.Choice
 import E213.Math.Cohomology
 import E213.Math.Diagonal
 import E213.Math.DyadicFSM
+import E213.Math.HodgeConjecture
 import E213.Math.Hyper
 import E213.Math.Infinity
 import E213.Math.Irrational
@@ -59,6 +60,10 @@ The directory tree is the spec; this file is the top-level entry.
     * `DyadicFSM`       — dyadic / FSM / Pell / Pisano / Trib / Legendre
                           classification engine (116 files; promoted from
                           Cohomology/Dyadic in Phase C1)
+    * `HodgeConjecture` — Hodge-conjecture programme (Foundation /
+                          Structure / Pairing / Refinement / Toolkit /
+                          Bridge / MotivicBridge — 47 files; promoted
+                          from Cohomology/HodgeConjecture in Phase C2)
     * `Trajectory`      — sequence-trajectories
     * `PatternCatalog`  — pattern catalog metaformalization (G30)
     * `CascadeCalculus` — cascade-calculus locality / aggregation

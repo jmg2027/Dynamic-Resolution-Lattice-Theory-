@@ -14,7 +14,6 @@ import E213.Math.Cohomology.EncodingBijection52
 import E213.Math.Cohomology.EulerClosed
 import E213.Math.Cohomology.Fractal
 import E213.Math.Cohomology.Hodge
-import E213.Math.Cohomology.HodgeConjecture
 import E213.Math.Cohomology.K5
 import E213.Math.Cohomology.LeibnizFinding
 import E213.Math.Cohomology.Paper1Chiral
@@ -46,9 +45,11 @@ import E213.Math.Cohomology.XorPairCombine
     * `Fractal/`   — Fractal-level cardinality (AlphaGUT / V25 / Level).
     * `Hodge/`     — Hodge structure: Δ-Laplacian, Star-involution,
       Prop50 / 52 / 53 / 54 capstones.
-    * `HodgeConjecture/` — Hodge-conjecture bridge stack.
     * `Universal/` — Prop-level Universal δ²=0 lift (Prop31 …
       Prop53) and Universal.Core / Prop wrappers.
+
+  Note: HodgeConjecture/ was peer-promoted to `Math/HodgeConjecture/`
+  in M14 Phase C2 — see that umbrella for the bridge stack.
 
   Pre-existing API drift on a small fixed set of files documented
   in `research-notes/HIERARCHICAL_PLACEMENT.md` §6.3.  Each
