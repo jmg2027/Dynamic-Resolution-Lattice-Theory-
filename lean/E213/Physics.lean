@@ -1,6 +1,7 @@
 import E213.Physics.AlphaEM
 import E213.Physics.Atomic
 import E213.Physics.Basel
+import E213.Physics.Capstones
 import E213.Physics.Cosmology
 import E213.Physics.Couplings
 import E213.Physics.Foundations

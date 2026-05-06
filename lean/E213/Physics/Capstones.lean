@@ -1,20 +1,22 @@
-import E213.OS.Physics.Capstones.FinitistObservableChain
-import E213.OS.Physics.Capstones.MasterCatalog
-import E213.OS.Physics.Capstones.PhysicsTrackComplete
-import E213.OS.Physics.Capstones.PureAtomicObservables
-import E213.OS.Physics.Capstones.ValidationStandardOne
+import E213.Physics.Capstones.FinitistObservableChain
+import E213.Physics.Capstones.MasterCatalog
+import E213.Physics.Capstones.PhysicsTrackComplete
+import E213.Physics.Capstones.PureAtomicObservables
+import E213.Physics.Capstones.ValidationStandardOne
 
-/-! Spec-as-code entry point for `E213.OS.Physics.Capstones`.
+/-! Spec-as-code entry point for `E213.Physics.Capstones`.
 
   Top-level physics-track capstones integrating the per-cluster
   results from `Physics/{AlphaEM, Mass, Hadron, Cosmology, Higgs,
-  Mixing, Nuclear, ...}`.
+  Mixing, Nuclear, ...}`.  These were previously hosted under
+  `OS/Physics/Capstones/` (Phase A2 of the M14 refactor moved
+  them home to Physics/).
 
   ## Files
 
-    * `MasterCatalog`           — every precision target (1/α_em,
-                                  m_p, m_μ/m_e, m_H, Ω_Λ, magic
-                                  numbers, ...) in one synthesis
+    * `MasterCatalog`           — every precision target
+                                  (1/α_em, m_p, m_μ/m_e, m_H, Ω_Λ,
+                                  magic numbers, ...) in one synthesis
     * `PureAtomicObservables`   — observables expressible as
                                   atomic integers (no fits)
     * `PhysicsTrackComplete`    — completeness statement: every
