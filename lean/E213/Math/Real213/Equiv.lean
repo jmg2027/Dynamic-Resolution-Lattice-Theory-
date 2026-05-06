@@ -1,4 +1,4 @@
-import E213.Math.Max213
+import E213.Math.NatHelpers.Max213
 import E213.Math.Real213.Core
 
 /-!
@@ -43,8 +43,8 @@ theorem equiv_trans (r r' r'' : Real213) :
   obtain ⟨N1, h1N⟩ := h1 m k hk
   obtain ⟨N2, h2N⟩ := h2 m k hk
   refine ⟨max N1 N2, fun i hi => ?_⟩
-  have hi1 : i ≥ N1 := Nat.le_trans (E213.Math.Max213.le_max_left N1 N2) hi
-  have hi2 : i ≥ N2 := Nat.le_trans (E213.Math.Max213.le_max_right N1 N2) hi
+  have hi1 : i ≥ N1 := Nat.le_trans (E213.Math.NatHelpers.Max213.le_max_left N1 N2) hi
+  have hi2 : i ≥ N2 := Nat.le_trans (E213.Math.NatHelpers.Max213.le_max_right N1 N2) hi
   exact (h1N i hi1).trans (h2N i hi2)
 
 /-- Setoid instance for Real213 — typeclass form of equivalence properties. -/

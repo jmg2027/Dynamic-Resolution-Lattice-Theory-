@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3
 import E213.Math.Cohomology.Dyadic.BitFSM.Bound
-import E213.Math.NatDiv213
-import E213.Math.EncodePair213
+import E213.Math.NatHelpers.NatDiv213
+import E213.Math.NatHelpers.EncodePair213
 import E213.Kernel.Tactic.Nat213
 
 import E213.Math.Cohomology.Dyadic.BitFSM
@@ -20,8 +20,8 @@ namespace E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
 
 open E213.Math.Cohomology.Dyadic.ArithFSM.V3 (ArithFSM3)
 open E213.Math.Cohomology.Dyadic.BitFSM (BitFSM)
-open E213.Math.NatDiv213 (div_lt_of_lt_mul)
-open E213.Math.EncodePair213 (encode_div encode_mod)
+open E213.Math.NatHelpers.NatDiv213 (div_lt_of_lt_mul)
+open E213.Math.NatHelpers.EncodePair213 (encode_div encode_mod)
 
 
 private theorem encode3_bound {n : Nat} (a b c : Fin n) :

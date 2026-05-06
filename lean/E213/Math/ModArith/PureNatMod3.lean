@@ -1,4 +1,4 @@
-import E213.Math.PureNat
+import E213.Math.NatHelpers.PureNat
 
 /-!
 # PureNatMod3: mod-3 descent infrastructure
@@ -76,7 +76,7 @@ end E213.Math.ModArith.PureNatMod3
 
 namespace E213.Math.ModArith.PureNatMod3
 
-open E213.Math.PureNat
+open E213.Math.NatHelpers.PureNat
 
 /-- (3k)^2 = 3*(3*(k*k)). -/
 theorem three_mul_sq (k : Nat) :

@@ -1,4 +1,4 @@
-import E213.Math.Max213
+import E213.Math.NatHelpers.Max213
 import E213.Math.Analysis.CauchyComplete
 
 /-!
@@ -40,7 +40,7 @@ theorem id_locallyDetermined : isLocallyDetermined id := by
   intro m k
   refine ⟨max m k, ?_⟩
   intro cx cy h
-  exact h m k (E213.Math.Max213.le_max_left _ _) (E213.Math.Max213.le_max_right _ _)
+  exact h m k (E213.Math.NatHelpers.Max213.le_max_left _ _) (E213.Math.NatHelpers.Max213.le_max_right _ _)
 
 open E213.Firmware E213.Hypervisor
 

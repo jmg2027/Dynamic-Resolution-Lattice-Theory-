@@ -8,7 +8,7 @@ quadratic-extension `Domain` module (ZIDomain, ZSqrt2Domain,
 Both lemmas are pure Lean 4 core (no `ring`, no `nlinarith`).
 -/
 
-namespace E213.Math.IntHelpers
+namespace E213.Math.NatHelpers.IntHelpers
 
 /-- `0 ≤ a*a` for any integer `a`. -/
 protected theorem mul_self_nonneg (a : Int) : 0 ≤ a * a := by
@@ -25,4 +25,4 @@ protected theorem mul_self_eq_zero {a : Int} : a * a = 0 ↔ a = 0 := by
   intro h
   rcases Int.mul_eq_zero.mp h with h' | h' <;> exact h'
 
-end E213.Math.IntHelpers
+end E213.Math.NatHelpers.IntHelpers

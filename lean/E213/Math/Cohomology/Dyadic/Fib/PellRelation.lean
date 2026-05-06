@@ -1,6 +1,6 @@
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor
 import E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
-import E213.Math.AddMod213
+import E213.Math.NatHelpers.AddMod213
 import E213.Kernel.Tactic.Nat213
 
 import E213.Math.Cohomology.Dyadic.Legendre.V213
@@ -61,7 +61,7 @@ private theorem p_minus_one_mod_two {p : Nat} (hp1 : 0 < p)
   have h1 : p % 2 = (p - 1 + 1) % 2 := by
     rw [E213.Tactic.Nat213.sub_one_add_one (Nat.pos_iff_ne_zero.mp hp1)]
   rw [h1] at hodd
-  rw [E213.Math.AddMod213.add_mod_left (by decide : 0 < 2) (p - 1) 1] at hodd
+  rw [E213.Math.NatHelpers.AddMod213.add_mod_left (by decide : 0 < 2) (p - 1) 1] at hodd
   -- hodd : ((p - 1) % 2 + 1) % 2 = 1
   have hpm : (p - 1) % 2 < 2 := Nat.mod_lt _ (by decide)
   rcases Nat.lt_or_ge ((p - 1) % 2) 1 with h0 | h1'
@@ -87,7 +87,7 @@ private theorem fib_eq_two_pell_body
       have hpos : 0 < p := Nat.lt_of_succ_lt hp
       have hmod0 : (p - 1) % 2 = 0 := p_minus_one_mod_two hpos hodd
       have h1 : 2 * ((p - 1) / 2) + (p - 1) % 2 = p - 1 :=
-        E213.Math.AddMod213.div_add_mod (p - 1) 2
+        E213.Math.NatHelpers.AddMod213.div_add_mod (p - 1) 2
       rw [hmod0, Nat.add_zero] at h1
       exact h1.symm
     · -- v = 2

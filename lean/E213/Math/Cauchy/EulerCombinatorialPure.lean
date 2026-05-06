@@ -1,4 +1,4 @@
-import E213.Math.PureNat
+import E213.Math.NatHelpers.PureNat
 import E213.Math.Cauchy.EulerSeq
 
 /-!
@@ -23,7 +23,7 @@ e.  The basis showing the possibility of axiom-free formalization.
 
 namespace E213.Math.Cauchy.EulerCombinatorialPure
 
-open E213.Math.PureNat
+open E213.Math.NatHelpers.PureNat
 open E213.Math.Cauchy.EulerSeq
 
 /-- **Euler upper bound, axiom-free**: 3 * eulerDen n ≥ eulerNum n + 1.

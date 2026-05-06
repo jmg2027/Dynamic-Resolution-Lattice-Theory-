@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.Classifier
-import E213.Math.NatDiv213
+import E213.Math.NatHelpers.NatDiv213
 
 import E213.Math.Cohomology.Dyadic.Conjecture
 import E213.Math.Cohomology.Dyadic.Signature
@@ -56,7 +56,7 @@ def bit13 (k : Nat) : Bool := k % 2 == 1
 /-- STRICT ∅-AXIOM via 213-native add_mod_right_pos. -/
 theorem bit13_period_2 (k : Nat) : bit13 (k + 2) = bit13 k := by
   show ((k + 2) % 2 == 1) = (k % 2 == 1)
-  rw [E213.Math.NatDiv213.add_mod_right_pos (by decide : 0 < 2) k]
+  rw [E213.Math.NatHelpers.NatDiv213.add_mod_right_pos (by decide : 0 < 2) k]
 
 /-- ★ Concrete forward: 1/3 signature has period 2 from step 1.
     STRICT ∅-AXIOM (no omega). -/

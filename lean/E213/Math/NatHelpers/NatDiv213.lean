@@ -9,7 +9,7 @@ Lean-core `Nat.add_mul_div_left`, `Nat.add_mul_mod_self_left`,
 unblock the Pell/Trib FSM ↪ BitFSM lens cluster.
 -/
 
-namespace E213.Math.NatDiv213
+namespace E213.Math.NatHelpers.NatDiv213
 
 open E213.Tactic.Nat213 (sub_add_cancel add_sub_cancel_right)
 
@@ -58,4 +58,4 @@ theorem div_lt_of_lt_mul {b m a : Nat} (h : a < b * m) : a / b < m := by
     exact Nat.lt_irrefl a
       (Nat.lt_of_lt_of_le h (Nat.le_trans (hcomm ▸ hmul) hself))
 
-end E213.Math.NatDiv213
+end E213.Math.NatHelpers.NatDiv213

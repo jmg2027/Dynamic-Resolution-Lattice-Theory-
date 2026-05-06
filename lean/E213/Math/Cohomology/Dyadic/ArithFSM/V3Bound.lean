@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3Equiv
-import E213.Math.NatDiv213
+import E213.Math.NatHelpers.NatDiv213
 
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3
 import E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
@@ -39,9 +39,9 @@ theorem toBitFSM3_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) :
   have hvc : ((ArithFSM3.toBitFSM hn m).run k).val % n = (m.run k).2.2.val := by
     rw [hv]; exact encode3_mod_n _ _ _
   let aDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k).val / (n * n),
-    E213.Math.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
+    E213.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
   let bDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k).val % (n * n) / n,
-    E213.Math.NatDiv213.div_lt_of_lt_mul
+    E213.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul
       (Nat.mod_lt ((ArithFSM3.toBitFSM hn m).run k).val hnn)⟩
   let cDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k).val % n, Nat.mod_lt _ hn⟩
   have hdec : (aDec, bDec, cDec)

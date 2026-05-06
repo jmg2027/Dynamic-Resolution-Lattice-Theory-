@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.BitFSM.Bound
-import E213.Math.AddMod213
+import E213.Math.NatHelpers.AddMod213
 
 import E213.Math.Cohomology.Dyadic.BitFSM
 import E213.Math.Cohomology.Dyadic.ForwardPeriodicity
@@ -33,14 +33,14 @@ theorem bitFSMOfPure_run (bs : Nat → Bool) (p : Nat) (hp : 0 < p) :
     ∀ k, (bitFSMOfPure bs p hp).run k = ⟨k % p, Nat.mod_lt _ hp⟩ := by
   intro k
   induction k with
-  | zero => apply Fin.ext; show 0 = 0 % p; rw [E213.Math.AddMod213.zero_mod]
+  | zero => apply Fin.ext; show 0 = 0 % p; rw [E213.Math.NatHelpers.AddMod213.zero_mod]
   | succ k' ih =>
     show (bitFSMOfPure bs p hp).step ((bitFSMOfPure bs p hp).run k')
         = ⟨(k' + 1) % p, _⟩
     rw [ih]
     apply Fin.ext
     show (k' % p + 1) % p = (k' + 1) % p
-    exact E213.Math.AddMod213.mod_add_mod hp k' 1
+    exact E213.Math.NatHelpers.AddMod213.mod_add_mod hp k' 1
 
 /-- ★★★ Cyclic FSM bits = bs (mod p): bits k = bs (k % p). -/
 theorem bitFSMOfPure_bits (bs : Nat → Bool) (p : Nat) (hp : 0 < p) :
@@ -57,7 +57,7 @@ theorem bitFSMOfPure_correct (bs : Nat → Bool) (p : Nat) (hp : 0 < p)
   intro k
   rw [bitFSMOfPure_bits]
   have h1 : k % p + (k / p) * p = k := by
-    have h0 : p * (k / p) + k % p = k := E213.Math.AddMod213.div_add_mod k p
+    have h0 : p * (k / p) + k % p = k := E213.Math.NatHelpers.AddMod213.div_add_mod k p
     rw [Nat.add_comm, Nat.mul_comm]; exact h0
   have h2 : bs ((k % p) + (k / p) * p) = bs (k % p) :=
     bs_periodic_multiple bs p hbs (k / p) (k % p)

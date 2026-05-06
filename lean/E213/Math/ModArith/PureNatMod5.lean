@@ -1,4 +1,4 @@
-import E213.Math.PureNat
+import E213.Math.NatHelpers.PureNat
 
 /-!
 # PureNatMod5: mod-5 descent infrastructure
@@ -18,7 +18,7 @@ Squaring kernel = {0}.  Only 0 squares to 0.
 
 namespace E213.Math.ModArith.PureNatMod5
 
-open E213.Math.PureNat
+open E213.Math.NatHelpers.PureNat
 
 def mod5 : Nat → Nat
   | 0 => 0

@@ -1,4 +1,4 @@
-import E213.Math.NatDiv213
+import E213.Math.NatHelpers.NatDiv213
 import E213.Kernel.Tactic.Nat213
 
 /-!
@@ -9,10 +9,10 @@ unblocks `sub_is_multiple_of_p` and the
 `signature_eventually_periodic_of_periodic_bits` chain.
 -/
 
-namespace E213.Math.AddMod213
+namespace E213.Math.NatHelpers.AddMod213
 
 open E213.Tactic.Nat213 (sub_add_cancel)
-open E213.Math.NatDiv213 (add_mod_right_pos)
+open E213.Math.NatHelpers.NatDiv213 (add_mod_right_pos)
 
 /-- `(a + b) % n = (a % n + b) % n` when `0 < n`.  ∅-axiom via
     strong recursion on `a`. -/
@@ -102,4 +102,4 @@ theorem max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
     · rw [if_pos h]; exact Nat.le_antisymm hba h
     · rw [if_neg h]
 
-end E213.Math.AddMod213
+end E213.Math.NatHelpers.AddMod213

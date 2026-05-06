@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.Signature
-import E213.Math.AddMod213
+import E213.Math.NatHelpers.AddMod213
 
 /-!
 # K_{3,2}^{(2)} signature bipartite alternation invariant
@@ -76,7 +76,7 @@ theorem nextVertex_T_to_S (v : Fin 5) (hv : isT v) (b : Bool) :
 
 /-- Helper: (k+1) % 2 reduces to (k%2 + 1) % 2 via add_mod_left. -/
 private theorem succ_mod_two (k : Nat) : (k + 1) % 2 = (k % 2 + 1) % 2 :=
-  E213.Math.AddMod213.add_mod_left (by decide : 0 < 2) k 1
+  E213.Math.NatHelpers.AddMod213.add_mod_left (by decide : 0 < 2) k 1
 
 /-- Helper: (k+1) % 2 = 0 → k % 2 = 1.  STRICT ∅-AXIOM. -/
 private theorem succ_mod2_zero_imp {k : Nat} (h : (k + 1) % 2 = 0) :

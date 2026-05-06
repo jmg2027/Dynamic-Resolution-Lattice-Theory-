@@ -1,4 +1,4 @@
-import E213.Math.PureNat
+import E213.Math.NatHelpers.PureNat
 import E213.Math.Cauchy.EulerSeq
 
 /-!
@@ -36,7 +36,7 @@ also possible).
 
 namespace E213.Math.Cauchy.EulerGenericPure
 
-open E213.Math.PureNat
+open E213.Math.NatHelpers.PureNat
 open E213.Math.Cauchy.EulerSeq
 
 /-- **Inductive step lemma**: IH `b · a_k ≥ j · d_k + 1` →

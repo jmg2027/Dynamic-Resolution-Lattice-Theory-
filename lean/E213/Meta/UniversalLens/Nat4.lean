@@ -1,5 +1,5 @@
 import E213.Meta.UniversalLens.Padding
-import E213.Math.AddMod213
+import E213.Math.NatHelpers.AddMod213
 import E213.Meta.UniversalLens.Nat2
 import E213.Meta.UniversalLens.Nat2Inj
 
@@ -53,7 +53,7 @@ theorem expSumLens4_symmetric :
   · congr 1; exact Nat.add_comm _ _
   congr 1
   · exact Nat.add_comm _ _
-  · congr 1; exact E213.Math.AddMod213.max_comm _ _
+  · congr 1; exact E213.Math.NatHelpers.AddMod213.max_comm _ _
 
 /-- Concrete: view a = (1, 0, 1, 0). -/
 theorem expSumLens4_view_a : expSumLens4.view Raw.a = (1, 0, 1, 0) := rfl

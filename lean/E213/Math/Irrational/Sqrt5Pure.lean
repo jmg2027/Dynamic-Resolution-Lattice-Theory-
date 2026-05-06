@@ -20,7 +20,7 @@ trivial.
 
 namespace E213.Math.Irrational.Sqrt5Pure
 
-open E213.Math.PureNat
+open E213.Math.NatHelpers.PureNat
 open E213.Math.ModArith.PureNatMod5
 
 theorem m_mod5_zero_of_sq (m k : Nat) (heq : m * m = 5 * (k * k)) :

@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.Dyadic.ForwardClosure
-import E213.Math.EncodePair213
+import E213.Math.NatHelpers.EncodePair213
 import E213.Kernel.Tactic.Nat213
 
 import E213.Math.Cohomology.Dyadic.ForwardPeriodicity

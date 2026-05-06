@@ -1,4 +1,4 @@
-import E213.Math.Max213
+import E213.Math.NatHelpers.Max213
 import E213.Math.Analysis.Differentiation.DerivativeForms
 import E213.Math.Analysis.Differentiation.ResolutionDepth
 
@@ -69,7 +69,7 @@ theorem cutPowFn_derivative_modulus (n k : Nat) :
          = (m + 1) * k
     rw [ih, cutPowFnIsDifferentiable_modulus, Nat.add_zero,
         E213.Tactic.Nat213.add_mul, Nat.one_mul]
-    exact E213.Math.Max213.max_eq_left (Nat.le_add_right _ _)
+    exact E213.Math.NatHelpers.Max213.max_eq_left (Nat.le_add_right _ _)
 
 /-- **AD-3 unified capstone**: polynomial chain — function and
     derivative both have linearityModulus = n*k. -/

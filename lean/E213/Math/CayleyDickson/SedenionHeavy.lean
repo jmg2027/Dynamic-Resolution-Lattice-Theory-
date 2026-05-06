@@ -1,5 +1,5 @@
 import E213.Math.CayleyDickson.Sedenion
-import E213.Math.IntHelpers
+import E213.Math.NatHelpers.IntHelpers
 import E213.Math.CayleyDickson.CayleyHeavy
 import E213.Math.Tactic.HurwitzRing
 
