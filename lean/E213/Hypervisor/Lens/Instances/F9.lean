@@ -1,5 +1,5 @@
 import E213.Firmware.Raw
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 
 /-!
 # F9Lens: Raw → 𝔽₉ as R1-R5 counterexample witness

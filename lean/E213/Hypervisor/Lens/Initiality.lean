@@ -1,5 +1,5 @@
 import E213.Firmware.Raw
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 
 /-!
 # RawInitiality: Raw is the initial object in the Raw-algebra category

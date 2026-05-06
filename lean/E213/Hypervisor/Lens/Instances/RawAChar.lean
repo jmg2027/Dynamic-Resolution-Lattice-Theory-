@@ -1,4 +1,4 @@
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 import E213.Hypervisor.Lens.Compose.Factoring
 import E213.Hypervisor.Lens.Properties.Leaf
 

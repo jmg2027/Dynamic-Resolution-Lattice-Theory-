@@ -1,5 +1,5 @@
 import E213.Firmware.Raw
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 
 /-!
 # F2CDTower: CD tower over 𝔽₂ — Bool/CD crossing point

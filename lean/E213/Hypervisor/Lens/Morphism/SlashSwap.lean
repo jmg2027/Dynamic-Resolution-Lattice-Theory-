@@ -1,5 +1,5 @@
 import E213.Firmware.Raw
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 
 /-!
 # Lens.view is slash-arg-swap invariant — for *every* Lens

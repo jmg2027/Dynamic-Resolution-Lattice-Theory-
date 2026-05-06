@@ -1,4 +1,4 @@
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 
 /-!
 # LensMorphism: morphism between Lens-algebras

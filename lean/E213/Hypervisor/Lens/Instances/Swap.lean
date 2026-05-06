@@ -1,4 +1,4 @@
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 import E213.Hypervisor.Lens.Instances.Identity
 import E213.Firmware.Raw.SwapSlash
 

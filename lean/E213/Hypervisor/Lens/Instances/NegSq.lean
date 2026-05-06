@@ -1,4 +1,4 @@
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 
 /-!
 # NegSqLens: fifth category of diagonal classification

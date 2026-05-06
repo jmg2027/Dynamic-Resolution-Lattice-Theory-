@@ -1,4 +1,4 @@
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 import E213.Hypervisor.Lens.SemanticAtom
 import E213.Hypervisor.Lens.Initiality
 import E213.Hypervisor.Lens.Lattice.Lattice

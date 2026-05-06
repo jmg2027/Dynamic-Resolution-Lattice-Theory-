@@ -1,4 +1,4 @@
-import E213.Hypervisor.Lens
+import E213.Hypervisor.LensCore
 
 /-!
 # NoDepthParity: depth parity is not a Lens kernel
