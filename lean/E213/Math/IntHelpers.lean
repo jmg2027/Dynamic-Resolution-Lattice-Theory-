@@ -1,5 +1,5 @@
 /-!
-# Research: shared `Int` helpers
+# shared `Int` helpers
 
 Two basic facts about integer self-multiplication used by every
 quadratic-extension `Domain` module (ZIDomain, ZSqrt2Domain,

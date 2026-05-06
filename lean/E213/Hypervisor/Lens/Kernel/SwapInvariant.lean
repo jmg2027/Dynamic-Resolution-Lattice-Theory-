@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.SwapInvariantKernel: kernel structure of swap-invariant Lens
+# SwapInvariantKernel: kernel structure of swap-invariant Lens
 
 Raw.swap is the unique nontrivial automorphism of Raw (a ↔ b).
 If Lens L is **swap-invariant** (view ∘ swap = view), then L's

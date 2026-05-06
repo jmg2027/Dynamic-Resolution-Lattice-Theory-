@@ -1,7 +1,7 @@
 import E213.Math.PureNat
 
 /-!
-# Research.PureNatMod3: mod-3 descent infrastructure
+# PureNatMod3: mod-3 descent infrastructure
 
 Generalization of the `PureNat` mod-2 (isEven) family to p = 3.
 Same structural-recursion + Bool/Nat pattern.

@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Prelude
 
 /-!
-# Research.InjectiveLensClass: the unique equivalence class of injective Lenses
+# InjectiveLensClass: the unique equivalence class of injective Lenses
 
 **Observation**: From the perspective of equivalence classes in the
 refines preorder, **every injective Lens belongs to the same class**.

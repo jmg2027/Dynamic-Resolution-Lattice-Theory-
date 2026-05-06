@@ -1,7 +1,7 @@
 import E213.Firmware.Raw
 
 /-!
-# Research.Sqrt2Irrational: m² = 2k² impossible (k ≥ 1)
+# Sqrt2Irrational: m² = 2k² impossible (k ≥ 1)
 
 Elevates the input fact "irrationality of √2" from `Sqrt2Cut` to a
 framework-internal lemma.  Uses only Lean 4 core + descent.

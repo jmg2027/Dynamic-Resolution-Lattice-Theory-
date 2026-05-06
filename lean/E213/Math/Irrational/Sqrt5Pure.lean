@@ -1,7 +1,7 @@
 import E213.Math.ModArith.PureNatMod5
 
 /-!
-# Research.Sqrt5IrrationalPure: √5 irrationality, **truly axiom-free**
+# Sqrt5IrrationalPure: √5 irrationality, **truly axiom-free**
 
 Generalization of `Sqrt2IrrationalPure` + `Sqrt3IrrationalPure` to p = 5.
 Same 5-step descent template — evidence of robustness of descent for *prime* p.

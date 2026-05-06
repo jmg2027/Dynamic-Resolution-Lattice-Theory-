@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.SemanticAtom
 import E213.Hypervisor.Lens.Instances.Reach
 
 /-!
-# Research.PairInstance: categorical product of HasDistinguishing
+# PairInstance: categorical product of HasDistinguishing
 
 `α × β` is a HasDistinguishing instance — the categorical product of
 two instances.  universalMorphism splits componentwise as a fold.

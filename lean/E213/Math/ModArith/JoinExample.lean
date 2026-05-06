@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Leaves.ModNat
 
 /-!
-# Research.ModJoinExample: concrete example of Join = gcd
+# ModJoinExample: concrete example of Join = gcd
 
 Concrete instance of the "Join = gcd" claim in Note 45 §3.
 

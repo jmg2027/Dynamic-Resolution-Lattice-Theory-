@@ -1,5 +1,5 @@
 /-!
-# Research: Eisenstein integers `ℤ[ω]`, ω² + ω + 1 = 0
+# Eisenstein integers `ℤ[ω]`, ω² + ω + 1 = 0
 
 Third E2 witness (cross-term `-ab` Eisenstein norm).
 - Multiplication: `(a + bω)(c + dω) = (ac - bd) + (ad + bc - bd)ω`

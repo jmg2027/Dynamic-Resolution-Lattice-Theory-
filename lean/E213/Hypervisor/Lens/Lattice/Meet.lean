@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Lattice.Lattice
 import E213.Prelude
 
 /-!
-# Research.LensMeet: meet (greatest lower bound) of the refines preorder
+# LensMeet: meet (greatest lower bound) of the refines preorder
 
 Answer to note 37 Q37.1.
 

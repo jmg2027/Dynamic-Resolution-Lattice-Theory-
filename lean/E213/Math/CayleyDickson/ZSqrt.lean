@@ -1,5 +1,5 @@
 /-!
-# Research: parametric `ZSqrt D = ℤ[√-D]` family
+# parametric `ZSqrt D = ℤ[√-D]` family
 
 A single parameterised type covering all integer rings of the
 form `ℤ[√-D]` for `D : Int`.

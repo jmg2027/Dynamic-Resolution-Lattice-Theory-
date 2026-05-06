@@ -3,7 +3,7 @@ import E213.Math.Cauchy.PellSeq
 import E213.Math.Irrational.Sqrt2KernelFree
 
 /-!
-# Research.PellHasModulus: HasModulus instance for the Pell sequence
+# PellHasModulus: HasModulus instance for the Pell sequence
 
 The LEM-bound closure of PAPER1 §6.4 *fully closes* on the Pell
 sequence: the explicit modulus N(m, k) is constructed from the

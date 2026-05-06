@@ -1,7 +1,7 @@
 import E213.Math.Cauchy.EulerSeq
 
 /-!
-# Research.EulerSharperKernelFree: omega-free Euler sharper bound (partial)
+# EulerSharperKernelFree: omega-free Euler sharper bound (partial)
 
 Axiom-free version of EulerSharper.  Most uses of `omega` replaced by
 manual Nat arithmetic — `[propext]` only.

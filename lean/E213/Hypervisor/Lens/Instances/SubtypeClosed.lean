@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.SemanticAtom
 
 /-!
-# Research.SubtypeInstanceClosed: slash-based combine instance for
+# SubtypeInstanceClosed: slash-based combine instance for
 distinguishing-closed subtype
 
 Fix for the third closed boundary in PAPER1 §8.2: bypasses the nested-Subtype

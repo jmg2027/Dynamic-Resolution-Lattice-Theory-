@@ -2,7 +2,7 @@ import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSumDetermined
 
 /-!
-# Research.Real213CutMulDetermined: cutMul locality
+# Real213CutMulDetermined: cutMul locality
 
 locally-determined property of cutMul — bounded 2D search.
 -/

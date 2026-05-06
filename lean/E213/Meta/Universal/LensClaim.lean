@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.SemanticAtom
 import E213.Meta.Universal.Reflection
 
 /-!
-# Research.UniversalLensClaim: "every framework is a Lens" formal
+# UniversalLensClaim: "every framework is a Lens" formal
 
 The strongest claim in CLAUDE.md: "every framework — set theory,
 category theory, logic, language, physics — is ... Lenses."

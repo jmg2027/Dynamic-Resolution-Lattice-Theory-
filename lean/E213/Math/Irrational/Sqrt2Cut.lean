@@ -1,7 +1,7 @@
 import E213.Math.Cauchy.Archimedean
 
 /-!
-# Research.Sqrt2Cut: Dedekind cut of √2 (213 irrational instance)
+# Sqrt2Cut: Dedekind cut of √2 (213 irrational instance)
 
 Mingu (b): "killer demo" — Dedekind cut of a genuine irrational
 inside 213, without external ℝ.

@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Instances.Identity
 
 /-!
-# Research.IdLensKernelEq: idLens.equiv = equality
+# IdLensKernelEq: idLens.equiv = equality
 
 `idLens` is the finest Lens — its kernel is exactly `=` on Raw.
 Explicit theorem for the finest element claim of PAPER1 §3.3.

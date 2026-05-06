@@ -1,7 +1,7 @@
 import E213.Math.CayleyDickson.CDDouble
 
 /-!
-# Research: Cayley–Dickson layer 2 — integer octonions
+# Cayley–Dickson layer 2 — integer octonions
 
 `Cayley = Lipschitz × Lipschitz` with the same CD doubling
 formula applied again.  Classically gives the integer

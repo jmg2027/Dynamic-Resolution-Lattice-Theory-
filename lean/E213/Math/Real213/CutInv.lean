@@ -3,7 +3,7 @@ import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSumTest
 
 /-!
-# Research.Real213CutInv: cut-level reciprocal + division
+# Real213CutInv: cut-level reciprocal + division
 
 For positive c (c > 0): 1/c is well-defined.
 

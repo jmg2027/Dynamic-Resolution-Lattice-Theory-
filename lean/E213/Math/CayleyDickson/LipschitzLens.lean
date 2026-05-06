@@ -5,7 +5,7 @@ import E213.Math.CayleyDickson.CDDouble
 import E213.Prelude
 
 /-!
-# Research: Lipschitz-valued Lens
+# Lipschitz-valued Lens
 
 A Lens with codomain `Lipschitz` (the integer quaternions).
 This is a **non-commutative R4-like Lens**: the involution

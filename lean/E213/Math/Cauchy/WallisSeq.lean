@@ -5,7 +5,7 @@ import E213.Math.Polynomial213.Sound
 import E213.Math.Polynomial213.Ineq
 
 /-!
-# Research.WallisSeq: π/2 Dedekind cut via Wallis product
+# WallisSeq: π/2 Dedekind cut via Wallis product
 
 Wallis product partial form for π/2:
 

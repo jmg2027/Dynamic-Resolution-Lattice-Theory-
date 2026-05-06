@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.SemanticAtom
 import E213.Hypervisor.Lens.Instances.Reach
 
 /-!
-# Research.SumInstance: priority-based combine instance for Sum type
+# SumInstance: priority-based combine instance for Sum type
 
 User directive (2026-04-25): Direct attack on coproduct — Prism-like
 dual structure.

@@ -7,7 +7,7 @@ import E213.Math.Real213.CutSumComm
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutSum
 /-!
-# Research.Real213ValidCutOps: ValidCut closed under cut ops
+# Real213ValidCutOps: ValidCut closed under cut ops
 
 cutMax/cutMin/cutHalf/cutDouble/cutSum preserve ValidCut.
 -/

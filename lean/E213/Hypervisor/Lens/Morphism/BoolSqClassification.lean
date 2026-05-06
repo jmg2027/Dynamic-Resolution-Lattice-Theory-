@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Instances.NegSq
 
 /-!
-# Research.BoolSqClassification: Complete diagonal classification of Bool Lenses
+# BoolSqClassification: Complete diagonal classification of Bool Lenses
 
 Completion of note 35 + NegSqLens: **the sq function of a Bool-valued
 Lens is exactly one of 4 cases**.

@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Compose.OnLens
 
 /-!
-# Research.LensOnLensImageGeneric: generic Lens-on-Lens collapse
+# LensOnLensImageGeneric: generic Lens-on-Lens collapse
 
 Generalizes the Bool special case of `LensOnLensImage` to generic α.
 

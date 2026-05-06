@@ -1,7 +1,7 @@
 import E213.Firmware.Raw
 
 /-!
-# Research.Hyper213: Framework-internal type for a hyperreal-like structure
+# Hyper213: Framework-internal type for a hyperreal-like structure
 
 User insight: hyperreals are naturally captured in 213.  Sequences only —
 *without* a Cauchy modulus — with *cofinite equivalence* on top give a

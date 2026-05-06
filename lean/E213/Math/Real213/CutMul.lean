@@ -1,7 +1,7 @@
 import E213.Math.Real213.CutSum
 
 /-!
-# Research.Real213CutMul: cut-level multiplication (F2)
+# Real213CutMul: cut-level multiplication (F2)
 
 F2 from `F0_213_native_arithmetic_synthesis.md`: cut-level multiplication
 of two RealCuts.

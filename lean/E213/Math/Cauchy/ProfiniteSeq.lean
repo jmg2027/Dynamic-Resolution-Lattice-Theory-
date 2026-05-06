@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens.Leaves.ModNat
 import E213.Math.Infinity.LensCardinality
 
 /-!
-# Research.ProfiniteSeq: Cauchy instance for the leavesModNat family
+# ProfiniteSeq: Cauchy instance for the leavesModNat family
 
 Mingu proposal (b): formal demonstration that a specific Cauchy
 sequence for the leavesModNat family generates a structure analogous

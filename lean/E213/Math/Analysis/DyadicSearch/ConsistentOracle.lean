@@ -2,7 +2,7 @@ import E213.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Math.Analysis.CauchyComplete
 
 /-!
-# Research.Real213ConsistentOracle: oracle consistency as a typed
+# Real213ConsistentOracle: oracle consistency as a typed
   protocol — the 213-native solution to Cauchy Case C.
 
 ## User insight (Sec 1)

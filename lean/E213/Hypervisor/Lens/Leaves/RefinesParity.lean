@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Instances.Parity
 import E213.Hypervisor.Lens.Lattice.Lattice
 
 /-!
-# Research.LeavesRefinesParity: concrete witness for Q37.2
+# LeavesRefinesParity: concrete witness for Q37.2
 
 **Claim**: `Lens.leaves.refines parityLens`.
 

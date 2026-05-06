@@ -3,7 +3,7 @@ import E213.Math.Infinity.LensCardinality
 import E213.Kernel.Tactic.Nat213
 
 /-!
-# Research.PellSeq: Pell sequence Raw construction
+# PellSeq: Pell sequence Raw construction
 
 Mingu (priority): "demonstration that a Raw sequence satisfying
 abLens.view (xs n) = Pell solutions can actually be constructed."

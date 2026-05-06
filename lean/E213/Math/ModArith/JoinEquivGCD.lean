@@ -1,7 +1,7 @@
 import E213.Math.ModArith.JoinGCD
 
 /-!
-# Research.ModJoinEquivGCD: L_gcd.equiv ⊆ JoinEquiv L_m L_k
+# ModJoinEquivGCD: L_gcd.equiv ⊆ JoinEquiv L_m L_k
 
 The **converse direction** of `ModJoinGCD.joinEquiv_subset_gcd`.
 Together they establish **L_gcd.equiv = JoinEquiv L_m L_k** —

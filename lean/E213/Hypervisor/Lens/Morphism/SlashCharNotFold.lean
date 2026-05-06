@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Morphism.FoldStructured
 import E213.Hypervisor.Lens.Instances.RawAChar
 
 /-!
-# Research.SlashCharNotFold: the characteristic of a specific slash is not fold-structured
+# SlashCharNotFold: the characteristic of a specific slash is not fold-structured
 
 **Correspondence**: leaf characteristics are Lens-expressible (RawACharLens.lean)
 but **the characteristic of a specific slash is NOT**.

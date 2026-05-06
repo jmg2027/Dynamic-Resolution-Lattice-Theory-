@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.NoDepthParity: depth parity is not a Lens kernel
+# NoDepthParity: depth parity is not a Lens kernel
 
 **Observation**: the equivalence relation "depth r mod 2" is **not**
 a slash-congruence of Raw.  Therefore no Lens can extract depth

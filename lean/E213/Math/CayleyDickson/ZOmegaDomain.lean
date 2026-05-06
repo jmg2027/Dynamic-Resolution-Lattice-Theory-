@@ -6,7 +6,7 @@ open E213.Math.IntHelpers
 open E213.Tactic
 
 /-!
-# Research: `ℤ[ω]` integral domain (Eisenstein)
+# `ℤ[ω]` integral domain (Eisenstein)
 
 `quad_norm` macro for `normSq_mul`.  `normSq_nonneg` uses
 `2·(a² - ab + b²) = a² + b² + (a + -b)²`.

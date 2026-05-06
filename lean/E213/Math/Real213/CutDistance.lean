@@ -3,7 +3,7 @@ import E213.Math.Real213.SignedSum
 import E213.Math.Real213.Core
 import E213.Math.Real213.Signed
 /-!
-# Research.Real213CutDistance: cut-level distance function
+# Real213CutDistance: cut-level distance function
 
 |x - y| via abs ∘ signed-sub.
 

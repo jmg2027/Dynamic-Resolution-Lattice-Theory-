@@ -1,5 +1,5 @@
 /-!
-# Research: Gaussian integers `ℤ[i]`
+# Gaussian integers `ℤ[i]`
 
 Part of the r5-critique research track. Defines `ZI = ℤ[i]`,
 its arithmetic, and complex conjugation. This is the codomain

@@ -1,5 +1,5 @@
 /-!
-# Research.KernelFreeAudit: modularity audit of Lean kernel axioms
+# KernelFreeAudit: modularity audit of Lean kernel axioms
 
 User question (2026-04-26): `propext` and `Quot.sound` are also
 hard-coded into the Lean kernel — can even those be modularized?

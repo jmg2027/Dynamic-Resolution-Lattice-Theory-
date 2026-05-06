@@ -4,7 +4,7 @@ import E213.Math.CayleyDickson.ZSqrt2Domain
 import E213.Meta.Tactic.DeriveConjugationCodomain
 
 /-!
-# Research: `Z2 = ℤ[√-2]` as `ConjugationCodomain` instance
+# `Z2 = ℤ[√-2]` as `ConjugationCodomain` instance
 
 Same `derive_conjugation_codomain` elab as ZIInstance.  The
 naming convention finds Z2.I, Z2.negI, Z2.mul, Z2.conj plus the

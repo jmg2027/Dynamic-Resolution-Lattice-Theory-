@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Morphism.FoldStructured
 import E213.Hypervisor.Lens.Morphism.NoDepthParity
 
 /-!
-# Research.DepthParityNotFold: depth parity function is not fold-structured
+# DepthParityNotFold: depth parity function is not fold-structured
 
 `fun r => decide (Lens.depth.view r % 2 = 1)` — this Raw → Bool
 function is **not** fold-structured.

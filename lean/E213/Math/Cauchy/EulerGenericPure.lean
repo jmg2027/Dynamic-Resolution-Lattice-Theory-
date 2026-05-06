@@ -2,7 +2,7 @@ import E213.Math.PureNat
 import E213.Math.Cauchy.EulerSeq
 
 /-!
-# Research.EulerGenericPure: Generic Euler lower bound (meta-algorithm)
+# EulerGenericPure: Generic Euler lower bound (meta-algorithm)
 
 User insight: sharper Euler bounds for arbitrary b as a *parameterized*
 template.  Per-b manual work → *single generic theorem* + per-b base

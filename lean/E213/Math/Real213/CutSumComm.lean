@@ -3,7 +3,7 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 
 /-!
-# Research.Real213CutSumComm: cutSum commutativity (real proof)
+# Real213CutSumComm: cutSum commutativity (real proof)
 
 Strategy: prove iff existential, then bijection j = M - i.
 -/

@@ -3,7 +3,7 @@ import E213.Math.Real213.CutSumTest
 
 import E213.Math.Real213.Core
 /-!
-# Research.Real213CutMulTest: cutMul verification on rational products
+# Real213CutMulTest: cutMul verification on rational products
 
 Accuracy verification of cutMul from `Real213CutMul.lean` on const cuts (rationals).
 -/

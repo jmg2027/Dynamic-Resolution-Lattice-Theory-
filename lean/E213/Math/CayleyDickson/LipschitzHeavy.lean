@@ -3,7 +3,7 @@ import E213.Math.IntHelpers
 import E213.Math.Tactic.HurwitzRing
 
 /-!
-# Research: Lipschitz "heavy" identities via `hurwitz_ring`
+# Lipschitz "heavy" identities via `hurwitz_ring`
 
 Identities too large for `quad_norm` alone, closed by the
 new `hurwitz_ring` tactic which descends through

@@ -1,7 +1,7 @@
 import E213.Firmware.Raw
 
 /-!
-# Research.ComplexityClass: Lens-algorithm complexity class (D2 partial)
+# ComplexityClass: Lens-algorithm complexity class (D2 partial)
 
 Partial Lean formalization of Tier 1 (FSM) from
 `research/notes/D2_complexity_class_hierarchy.md`.

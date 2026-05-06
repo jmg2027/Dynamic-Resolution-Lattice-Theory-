@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.KernelCongruence: Lens kernel is a slash-congruence
+# KernelCongruence: Lens kernel is a slash-congruence
 
 **Theorem**: `L.equiv` is a **slash-congruence** on Raw —
 if x ~ x' and y ~ y' (when slash is defined) then slash(x, y)

@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Kernel.Congruence
 
 /-!
-# Research.UniversalQuotLens: general solution of Q37.3
+# UniversalQuotLens: general solution of Q37.3
 
 For **any slash-congruence E** (equivalence + slash preservation),
 constructs a concrete Lens L_E with kernel = E.

@@ -1,7 +1,7 @@
 import E213.Math.ModArith.JoinBezout
 
 /-!
-# Research.ModJoinEuclidean: Euclidean step — L_m + L_k → L_{m-k}
+# ModJoinEuclidean: Euclidean step — L_m + L_k → L_{m-k}
 
 General step via iteration of `ModJoinBezout.chain_step_sub`.
 

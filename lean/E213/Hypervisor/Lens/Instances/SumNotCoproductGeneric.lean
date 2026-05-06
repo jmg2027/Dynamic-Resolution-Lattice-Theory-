@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Instances.Sum
 import E213.Hypervisor.Lens.Morphism.BoolProp
 
 /-!
-# Research.SumNotCoproductGeneric: generic case of Sum α β coproduct failure
+# SumNotCoproductGeneric: generic case of Sum α β coproduct failure
 
 Extends the xor case of `SumNotCoproduct` to other commutative combines.
 The non-canonicity of Sum α β + priority combine is not `xor`-specific

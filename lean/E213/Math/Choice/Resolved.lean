@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Universal.QuotLens
 
 /-!
-# Research.ChoiceResolved: Formal version of "choice = Lens specification"
+# ChoiceResolved: Formal version of "choice = Lens specification"
 
 Explicit formalization of the thesis in Note 44:
 

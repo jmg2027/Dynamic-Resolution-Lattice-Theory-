@@ -3,7 +3,7 @@ import E213.Math.Cauchy.EulerSeq
 import E213.Math.Cauchy.EulerCombinatorialPure
 
 /-!
-# Research.EulerSharperPure: e > 8/3 strict (axiom-free)
+# EulerSharperPure: e > 8/3 strict (axiom-free)
 
 `euler_sharper_8_3_pure`: n ≥ 4 → 3 * eulerNum n ≥ 8 * eulerDen n + 1
 (== S_n > 8/3 strict).

@@ -2,7 +2,7 @@ import E213.Math.PureNat
 import E213.Math.Cauchy.EulerSeq
 
 /-!
-# Research.EulerCombinatorialPure: Euler bounds, axiom-free
+# EulerCombinatorialPure: Euler bounds, axiom-free
 
 Rewriting the omega-using inductive bounds of `EulerSeq` with manual
 Nat arithmetic.

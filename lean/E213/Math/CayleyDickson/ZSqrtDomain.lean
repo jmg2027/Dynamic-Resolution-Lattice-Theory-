@@ -6,7 +6,7 @@ open E213.Math.IntHelpers
 open E213.Tactic
 
 /-!
-# Research: parametric `ZSqrt D` integral-domain properties
+# parametric `ZSqrt D` integral-domain properties
 
 Generic proofs over `D : Int`.  `normSq_nonneg`,
 `normSq_eq_zero_iff`, and `no_zero_div` carry a hypothesis

@@ -2,7 +2,7 @@ import E213.Math.Modulus.HasModulus
 import E213.Math.Diagonal.HasModulus
 
 /-!
-# Research.StrongModulus: bounded view-variation modulus (attempt (B) for E3)
+# StrongModulus: bounded view-variation modulus (attempt (B) for E3)
 
 Resolution direction (B) for `E3_modulus_kernel_deep_obstruction.md` —
 213 form of the Bishop ε-N standard.  Strict strengthening of HasModulus:

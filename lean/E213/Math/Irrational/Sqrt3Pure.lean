@@ -1,7 +1,7 @@
 import E213.Math.ModArith.PureNatMod3
 
 /-!
-# Research.Sqrt3IrrationalPure: √3 irrationality, **truly axiom-free**
+# Sqrt3IrrationalPure: √3 irrationality, **truly axiom-free**
 
 Generalization of `Sqrt2IrrationalPure` to p = 3.  Same descent pattern —
 squaring map analysis of prime-modular structure + infinite descent.

@@ -7,7 +7,7 @@ import E213.Math.Real213.CutPow
 import E213.Math.Analysis.Differentiation.Differentiable
 import E213.Math.Analysis.Differentiation.Smooth
 /-!
-# Research.Real213DerivativeDepth: derivative resolution depth
+# Real213DerivativeDepth: derivative resolution depth
 
 -3: linearityModulus of the derivative for each constructor.
 

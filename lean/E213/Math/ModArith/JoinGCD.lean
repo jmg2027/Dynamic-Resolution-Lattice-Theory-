@@ -3,7 +3,7 @@ import E213.Math.ModArith.JoinEuclidean
 import E213.Hypervisor.Lens.Lattice.JoinEquiv
 
 /-!
-# Research.ModJoinGCD: general join = gcd (arbitrary m, k ≥ 2)
+# ModJoinGCD: general join = gcd (arbitrary m, k ≥ 2)
 
 Iterates `ModJoinEuclidean.euclidean_step` and
 `ModJoinBezout.consecutive_refines_const` via strong induction to

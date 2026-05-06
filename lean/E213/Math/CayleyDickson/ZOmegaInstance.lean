@@ -4,7 +4,7 @@ import E213.Math.CayleyDickson.ZOmegaDomain
 import E213.Meta.Tactic.DeriveConjugationCodomain
 
 /-!
-# Research: `ZOmega` (Eisenstein integers ℤ[ω]) as `ConjugationCodomain`
+# `ZOmega` (Eisenstein integers ℤ[ω]) as `ConjugationCodomain`
 
 Third confirmed counterexample to Paper 1's claim that the
 historical R1–R4 axiom set forces ℂ.  ℤ[ω] is the ring of

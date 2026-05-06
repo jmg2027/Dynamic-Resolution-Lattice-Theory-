@@ -4,7 +4,7 @@ import E213.Math.Real213.CutSumTest
 import E213.Math.Real213.CutMulComm
 
 /-!
-# Research.Real213Signed: signed Real213 + negation (F3)
+# Real213Signed: signed Real213 + negation (F3)
 
 F3 of `F0_213_native_arithmetic_synthesis.md`.  The native form of Real213
 is *non-negative* ratios (both (a, b) of abLens.view are ≥ 0).

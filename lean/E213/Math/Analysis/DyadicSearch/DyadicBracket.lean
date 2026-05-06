@@ -4,7 +4,7 @@ import E213.Kernel.Tactic.Nat213
 import E213.Kernel.Tactic.Pow213
 
 /-!
-# Research.Real213DyadicBracket: dyadic IVT bracket
+# Real213DyadicBracket: dyadic IVT bracket
 
 A bisection bracket [a, b] where both endpoints are dyadic
 constCut (numerator over 2^E).  Each bisection step descends one

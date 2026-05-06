@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Compose.Factoring
 
 /-!
-# Research.ABLens: Counting Raw.a and Raw.b separately
+# ABLens: Counting Raw.a and Raw.b separately
 
 `abLens : Lens (Nat × Nat)` — view r = (number of Raw.a leaves in r,
 number of Raw.b leaves in r).

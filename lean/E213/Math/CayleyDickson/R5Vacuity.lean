@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Characterisation.Catalog
 
 /-!
-# Research: the two halves of R5, and which half is
+# the two halves of R5, and which half is
 formalisable on inductive Raw
 
 Paper 1's R5 has two distinct components:

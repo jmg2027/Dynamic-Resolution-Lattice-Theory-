@@ -7,7 +7,7 @@ import E213.Math.Real213.CutPow
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213IsDifferentiable: differentiation filter
+# Real213IsDifferentiable: differentiation filter
 
 Extends `IsSmooth` with an explicit **derivative function** as
 constructive data.  -1 scope: structure + instances; the

@@ -1,7 +1,7 @@
 import E213.Math.Modulus.HasModulus
 
 /-!
-# Research.DiagonalHasModulus: HasModulus for the diagonal sequence
+# DiagonalHasModulus: HasModulus for the diagonal sequence
 
 The sequence `abLens.view (xs n) = (n+1, n+1)` (diagonal pair) has a
 HasModulus instance.  N(m, k) = 0 (orderProj is already constant for

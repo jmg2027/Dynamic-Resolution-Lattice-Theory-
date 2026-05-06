@@ -8,7 +8,7 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumComm
 import E213.Math.Real213.ValidCut
 /-!
-# Research.Real213CutMidMono: cutMid monotonicity (RatioCut)
+# Real213CutMidMono: cutMid monotonicity (RatioCut)
 
 For a, b RatioCut and cutLe a b, we prove cutLe a (cutMid a b).
 

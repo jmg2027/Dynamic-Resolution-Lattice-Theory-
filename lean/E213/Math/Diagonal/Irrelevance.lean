@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Prelude
 
 /-!
-# Research.DiagonalIrrelevance: Diagonal behavior of Lens combine
+# DiagonalIrrelevance: Diagonal behavior of Lens combine
 
 Lean formalization of Note 34 §3-§4.
 

@@ -6,7 +6,7 @@ open E213.Math.IntHelpers
 open E213.Tactic
 
 /-!
-# Research: `ZI` integral-domain properties
+# `ZI` integral-domain properties
 
 `ZI.mul_comm`, `ZI.normSq_mul` (Diophantus identity),
 `ZI.normSq_nonneg`, `ZI.normSq_eq_zero_iff`, `ZI.no_zero_div`.

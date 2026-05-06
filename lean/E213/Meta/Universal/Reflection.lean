@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.SemanticAtom
 
 /-!
-# Research.UniversalReflection: Lens reflection of universalMorphism
+# UniversalReflection: Lens reflection of universalMorphism
 
 User directive (2026-04-25): "Bypassing environment-level reduction of Raw.fold
 — mathematically bypassing the limits of the environment via a reflection

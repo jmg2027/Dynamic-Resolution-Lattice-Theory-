@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Leaves.ModNat
 
 /-!
-# Research.ModJoinCoprime: coprime m, k — Join = L_1 = constant
+# ModJoinCoprime: coprime m, k — Join = L_1 = constant
 
 **Theorem (specific case L_2, L_3)**:
 `(leavesModNat 2).refines N ∧ (leavesModNat 3).refines N`

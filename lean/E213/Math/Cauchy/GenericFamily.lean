@@ -4,7 +4,7 @@ import E213.Math.Cauchy.Archimedean
 import E213.Math.Cauchy.ProfiniteSeq
 
 /-!
-# Research.GenericFamilyCauchy: Unified framework for Lens + post-processing
+# GenericFamilyCauchy: Unified framework for Lens + post-processing
 
 Explicitly identifies ArchimedeanCauchy (orderProj family) and
 ProfiniteSeq (mod m family) as **two instances of the same abstraction**.

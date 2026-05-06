@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.SemanticAtom
 import E213.Hypervisor.Lens.Instances.Reach
 
 /-!
-# Research.LensOnLens: Lens itself as an instance of the semantic framework
+# LensOnLens: Lens itself as an instance of the semantic framework
 
 Mechanical proof of the thesis of Note 53 ("no meta-hierarchy —
 Lens is another instance within the framework").

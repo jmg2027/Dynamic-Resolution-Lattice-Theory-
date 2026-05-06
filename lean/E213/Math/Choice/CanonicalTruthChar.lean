@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.SemanticAtom
 
 /-!
-# Research.CanonicalTruthChar: Exact characterization of canonicalTruthMap
+# CanonicalTruthChar: Exact characterization of canonicalTruthMap
 
 The meaning of `SemanticAtom.canonicalTruthMap : Raw → Prop`
 (Xor-based): what determines the truth value of each Raw?

@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.SemanticAtom
 import E213.Hypervisor.Lens.Instances.Reach
 
 /-!
-# Research.FunctionSpace: function space `α → β` as a meaning-framework instance
+# FunctionSpace: function space `α → β` as a meaning-framework instance
 
 `HasDistinguishing β → HasDistinguishing (α → β)` (with α inhabited).
 Instance for function types — categorical exponential.

@@ -3,7 +3,7 @@ import E213.Math.CayleyDickson.SedenionHeavy
 import E213.Math.Tactic.HurwitzRing
 
 /-!
-# Research: Trigintaduonion "heavy" identities
+# Trigintaduonion "heavy" identities
 
 Testing `hurwitz_ring` at CD layer 4 (32-dim, 64 Int coords).
 -/

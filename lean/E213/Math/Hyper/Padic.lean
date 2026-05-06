@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens.Instances.Cauchy
 import E213.Math.Cauchy.ProfiniteSeq
 
 /-!
-# Research.Padic: p-adic ℤ_p as Lens sub-family
+# Padic: p-adic ℤ_p as Lens sub-family
 
 p-adic integers ℤ_p as the inverse limit of ℤ/p^k, realized in
 213 as a sub-family of `leavesModNat` (powers of a fixed base).

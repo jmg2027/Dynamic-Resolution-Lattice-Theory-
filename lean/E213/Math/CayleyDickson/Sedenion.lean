@@ -1,7 +1,7 @@
 import E213.Math.CayleyDickson.Cayley
 
 /-!
-# Research: Cayley–Dickson layer 3 — integer sedenions
+# Cayley–Dickson layer 3 — integer sedenions
 
 `Sedenion = Cayley × Cayley` with the same CD doubling formula.
 Classically gives the 16-dimensional sedenions.

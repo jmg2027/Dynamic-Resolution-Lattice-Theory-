@@ -3,7 +3,7 @@ import E213.Math.Analysis.Differentiation.DifferenceQuotient
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutContinuity
 /-!
-# Research.Real213Integration: Riemann integration ()
+# Real213Integration: Riemann integration ()
 
 Partition + Cauchy sequence form limit from Riemann sum.
 

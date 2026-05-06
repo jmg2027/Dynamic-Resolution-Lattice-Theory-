@@ -5,7 +5,7 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213CutSeries: series convergence framework
+# Real213CutSeries: series convergence framework
 
 Iterated partial sums + Cauchy form for series.
 

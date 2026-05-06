@@ -4,7 +4,7 @@ import E213.Hypervisor.Lens.Instances.Bool
 import E213.Hypervisor.Lens.Instances.Parity
 
 /-!
-# Research.CompoundBoolLens: Bool × Bool-valued Lens, bootstrap-free
+# CompoundBoolLens: Bool × Bool-valued Lens, bootstrap-free
 
 Note 25 §3 claim: there exist Lenses of backward-depth ≥ 2
 that do **not** touch `Nat` bootstrap — they stay within

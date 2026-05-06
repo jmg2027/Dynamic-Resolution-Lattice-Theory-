@@ -4,7 +4,7 @@ import E213.Hypervisor.Lens.Morphism.FoldStructured
 import E213.Hypervisor.Lens.Morphism.DepthParityNotFold
 
 /-!
-# Research.SemanticAtom: 213 = the atom of meaning (formal hub)
+# SemanticAtom: 213 = the atom of meaning (formal hub)
 
 Hub for the formalization of Note 75's thesis.  Clarifies that all previous
 vague framings (constructive subset, fold-structured, scale-invariance)

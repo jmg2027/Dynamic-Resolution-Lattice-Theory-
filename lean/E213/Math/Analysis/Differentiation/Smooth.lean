@@ -11,7 +11,7 @@ import E213.Math.Real213.CutPow
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213IsSmooth: smoothness as resolution-compression filter
+# Real213IsSmooth: smoothness as resolution-compression filter
 
 ## 213-native philosophy ()
 

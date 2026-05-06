@@ -2,7 +2,7 @@ import E213.Math.Real213.CutDistance
 
 import E213.Math.Real213.Core
 /-!
-# Research.Real213CutSequence: Real213-valued sequences + Cauchy + limit
+# Real213CutSequence: Real213-valued sequences + Cauchy + limit
 
 A sequence of cuts (or signed cuts) — Cauchy in cut-level form.
 

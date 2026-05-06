@@ -2,7 +2,7 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutMaxMin
 
 /-!
-# Research.Real213CutPoset: cut-level partial order
+# Real213CutPoset: cut-level partial order
 
 cutLe cx cy := "x ≤ y" via "every rational ≥ y is ≥ x".
 cutEq cx cy := pointwise Bool equality.

@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Leaves.ModNat
 
 /-!
-# Research.ModJoinBezout: parametric Bezout chain step
+# ModJoinBezout: parametric Bezout chain step
 
 Extracts the common pattern of `ModJoinExample` (m=4, k=6) and
 `ModJoinCoprime` (m=2, k=3) into a general lemma.

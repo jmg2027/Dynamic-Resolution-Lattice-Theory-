@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.LensFactoring: general sufficient condition for refines
+# LensFactoring: general sufficient condition for refines
 
 **Claim**: if M.view factors through L.view, then L.refines M.
 

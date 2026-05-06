@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Instances.Identity
 
 /-!
-# Research.RawMatchingLens: all Raw-matching Lenses have identity view
+# RawMatchingLens: all Raw-matching Lenses have identity view
 
 **Theorem**: if `L : Lens Raw` satisfies the following, then `L.view = id`:
 

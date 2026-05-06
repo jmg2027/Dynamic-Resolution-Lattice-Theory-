@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Universal.QuotLens
 import E213.Hypervisor.Lens.Lattice.IndexedJoin
 
 /-!
-# Research.LensCauchy: reduction of Cauchy completeness for 213
+# LensCauchy: reduction of Cauchy completeness for 213
 
 Proposed by Mingu (2026-04-25):
 - ε → "resolution of Lens L".

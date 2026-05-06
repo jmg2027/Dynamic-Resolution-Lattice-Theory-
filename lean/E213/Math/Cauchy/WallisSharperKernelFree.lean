@@ -1,7 +1,7 @@
 import E213.Math.Cauchy.WallisSeq
 
 /-!
-# Research.WallisSharperKernelFree: Wallis sharper at concrete n
+# WallisSharperKernelFree: Wallis sharper at concrete n
 (axiom-free)
 
 Axiom-free version of `WallisSharper` (concrete n).

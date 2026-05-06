@@ -2,7 +2,7 @@ import E213.Math.Max213
 import E213.Math.Analysis.CauchyComplete
 
 /-!
-# Research.Real213CutContinuity: continuity of cut-functions (1-D2)
+# Real213CutContinuity: continuity of cut-functions (1-D2)
 
 Cut-level continuity of functions f : RealCut → RealCut.
 

@@ -9,7 +9,7 @@ import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213DyadicRiemann: dyadic Riemann sample-sum trajectory
+# Real213DyadicRiemann: dyadic Riemann sample-sum trajectory
 
 ## 213-native philosophy (Sec 3)
 

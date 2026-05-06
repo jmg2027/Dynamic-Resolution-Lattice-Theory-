@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Compose.OnLensImageLevel2
 
 /-!
-# Research.LensTowerLevel3: Lens (Lens (Lens α)) image collapse
+# LensTowerLevel3: Lens (Lens (Lens α)) image collapse
 
 One step beyond `LensOnLensImageLevel2` — the universalMorphism of
 Lens (Lens (Lens α)) factors through α (3-level constLens nesting).

@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Universal.QuotLens
 import E213.Hypervisor.Lens.Kernel.Congruence
 
 /-!
-# Research.LensCanonicalForm: canonical form of a Lens via universalLens
+# LensCanonicalForm: canonical form of a Lens via universalLens
 
 Explicit refines-equivalence wrapping of `universalLens_recovers`
 (UniversalQuotLens.lean).  Formal expression of the framework's

@@ -7,7 +7,7 @@ import E213.Math.CayleyDickson.CayleyHeavy
 import E213.Math.CayleyDickson.Sedenion
 
 /-!
-# Research: Cayley–Dickson tower — unified structural summary
+# Cayley–Dickson tower — unified structural summary
 
 A single theorem packaging the 4-layer structural drop
 pattern across `ZI → Lipschitz → Cayley → Sedenion`:

@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens.Instances.Identity
 import E213.Firmware.Raw.SwapSlash
 
 /-!
-# Research.SwapLens: Lens with Raw.swap as its view
+# SwapLens: Lens with Raw.swap as its view
 
 **Lens**: `swapLens : Lens Raw` with `view = Raw.swap`.
 

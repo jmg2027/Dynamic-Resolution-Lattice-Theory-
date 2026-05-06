@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.LensMorphism: morphism between Lens-algebras
+# LensMorphism: morphism between Lens-algebras
 
 A Lens is (base_a, base_b, combine) data over α.  A **morphism**
 between two Lenses is a function preserving bases and combine:

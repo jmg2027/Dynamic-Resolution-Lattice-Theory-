@@ -3,7 +3,7 @@ import E213.Math.CayleyDickson.ZSqrt
 import E213.Math.CayleyDickson.ZSqrtDomain
 
 /-!
-# Research: `ZSqrt D = ℤ[√-D]` `ConjugationCodomain` instances
+# `ZSqrt D = ℤ[√-D]` `ConjugationCodomain` instances
 
 A single generic theorem `conjugation_of_pos hD` produces the
 instance for any `D` with `0 < D`.  Concrete `D = 3, 5, 7`

@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.SemanticAtom
 
 /-!
-# Research.InstanceReach: boundary of the image of universalMorphism
+# InstanceReach: boundary of the image of universalMorphism
 
 `universalMorphism α : Raw → α` from `SemanticAtom.lean` is a
 morphism into HasDistinguishing instance α.  Is the image *always*

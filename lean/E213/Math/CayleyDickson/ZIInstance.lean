@@ -5,7 +5,7 @@ import E213.Math.CayleyDickson.ZIHom
 import E213.Meta.Tactic.DeriveConjugationCodomain
 
 /-!
-# Research: `ZI` as `ConjugationCodomain` instance
+# `ZI` as `ConjugationCodomain` instance
 
 The instance is **derived** by the `derive_conjugation_codomain`
 elab (1).  By naming convention, the elab finds:

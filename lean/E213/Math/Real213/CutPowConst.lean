@@ -7,7 +7,7 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213CutPowConst: cutPow on const cuts
+# Real213CutPowConst: cutPow on const cuts
 
 cutPow (constCut a b) 0 = 1, cutPow (constCut a b) 1 = (constCut a b).
 -/

@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Instances.Parity
 
 /-!
-# Research.ParityLensCollapseFalse: parityLens is Collapse-False
+# ParityLensCollapseFalse: parityLens is Collapse-False
 
 Explicit witness for the BoolSqClassification claim in PAPER1 §3.4:
 parityLens.combine x x = false for all x.

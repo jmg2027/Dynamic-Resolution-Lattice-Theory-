@@ -3,7 +3,7 @@ import E213.Math.Cauchy.Archimedean
 import E213.Math.Cauchy.MonotonicBounded
 
 /-!
-# Research.EulerSeq: e (Euler) Dedekind cut via Σ 1/k!
+# EulerSeq: e (Euler) Dedekind cut via Σ 1/k!
 
 Stirling-flavored partial sums for e:
 

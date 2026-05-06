@@ -1,5 +1,5 @@
 /-!
-# Research: `ℤ[√-2]` — second quadratic-extension witness
+# `ℤ[√-2]` — second quadratic-extension witness
 
 Part of E2 (generalisation of the ℤ[i] counterexample).  Same
 structure as `ZI` but with `i² = -2` instead of `i² = -1`, so

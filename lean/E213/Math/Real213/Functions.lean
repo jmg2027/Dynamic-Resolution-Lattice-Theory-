@@ -2,7 +2,7 @@ import E213.Math.Analysis.Integration.Integration
 
 import E213.Math.Real213.Core
 /-!
-# Research.Real213Functions: exp / log / sin / cos / π ()
+# Real213Functions: exp / log / sin / cos / π ()
 
 Series-based definitions of standard transcendental functions.
 

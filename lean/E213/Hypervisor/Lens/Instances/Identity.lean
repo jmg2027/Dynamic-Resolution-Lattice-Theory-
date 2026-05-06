@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Prelude
 
 /-!
-# Research.IdentityLens: Raw → Raw identity Lens + Yoneda-dual
+# IdentityLens: Raw → Raw identity Lens + Yoneda-dual
 
 Partial answer to Note 34 Q34.4.
 

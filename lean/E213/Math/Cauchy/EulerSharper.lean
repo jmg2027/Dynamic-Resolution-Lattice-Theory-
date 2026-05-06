@@ -2,7 +2,7 @@ import E213.Math.Cauchy.EulerSeq
 import E213.Kernel.Tactic.Nat213
 
 /-!
-# Research.EulerSharper: e > 5/2 strict bound
+# EulerSharper: e > 5/2 strict bound
 
 A sharper version of the e > 2 bound from PAPER1 §7.4.
 

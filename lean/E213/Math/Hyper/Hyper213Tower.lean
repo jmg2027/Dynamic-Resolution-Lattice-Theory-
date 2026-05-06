@@ -2,7 +2,7 @@ import E213.Math.Hyper.Hyper213
 import E213.Hypervisor.Lens.Compose.OnLens
 
 /-!
-# Research.Hyper213Tower: Simultaneous capture of the Hyper213 × Lens tower
+# Hyper213Tower: Simultaneous capture of the Hyper213 × Lens tower
 
 User insight (2026-04-26): "Hyperreals or large axiom systems are
 rather naturally absorbed into 213.  The real final boss is ℝ as

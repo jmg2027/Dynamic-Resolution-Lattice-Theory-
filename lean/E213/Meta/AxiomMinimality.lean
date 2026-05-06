@@ -1,5 +1,5 @@
 /-!
-# Research.AxiomMinimality: Minimality of the Raw axioms
+# AxiomMinimality: Minimality of the Raw axioms
 
 Formal demonstration that the 3 clauses of the Raw axioms
 (Raw.a, Raw.b, slash with x ≠ y) are truly minimal.

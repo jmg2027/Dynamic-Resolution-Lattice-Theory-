@@ -1,7 +1,7 @@
 import E213.Math.PureNat
 
 /-!
-# Research.PureNatMod5: mod-5 descent infrastructure
+# PureNatMod5: mod-5 descent infrastructure
 
 Generalization of `PureNatMod3` to p = 5.  Same 5-step template
 applied — analysis of the squaring kernel of (Z/5)*.

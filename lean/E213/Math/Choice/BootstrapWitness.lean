@@ -2,7 +2,7 @@ import E213.Firmware.Raw
 import E213.Hypervisor.Lens
 
 /-!
-# Research.BootstrapWitness: Nat-bootstrap in Lens catalogue
+# BootstrapWitness: Nat-bootstrap in Lens catalogue
 
 Notes 23, 24 observation: `Lens.leaves` and `Lens.depth` are
 defined with codomain `Nat`, yet `Nat` is itself what a

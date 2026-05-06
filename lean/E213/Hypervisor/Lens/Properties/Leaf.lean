@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens.Compose.Factoring
 import E213.Hypervisor.Lens.Instances.Parity
 
 /-!
-# Research.LeafLens: observing whether a Raw term is a leaf via a Lens
+# LeafLens: observing whether a Raw term is a leaf via a Lens
 
 **Lens**: `leafLens : Lens Bool` extracts "is r a Raw.a or Raw.b?"
 combine = const true.

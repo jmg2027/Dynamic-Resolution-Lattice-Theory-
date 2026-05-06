@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens.Compose.Factoring
 import E213.Hypervisor.Lens.Properties.Leaf
 
 /-!
-# Research.RawACharLens: characteristic function of Raw.a is a Lens
+# RawACharLens: characteristic function of Raw.a is a Lens
 
 **Observation**: `fun r => decide (r = Raw.a)` is a fold-structured function
 (and therefore realizable as a Lens).

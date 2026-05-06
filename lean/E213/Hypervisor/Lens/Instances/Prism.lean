@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.Prism: categorical dual of Lens
+# Prism: categorical dual of Lens
 
 User directive (2026-04-25): "bring the Prism concept (dual of Lens)
 into the 213 grammar and build the algebraic dual."

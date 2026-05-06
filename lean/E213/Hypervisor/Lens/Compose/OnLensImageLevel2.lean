@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Compose.OnLensImageGeneric
 
 /-!
-# Research.LensOnLensImageLevel2: 2-level Lens-on-Lens collapse
+# LensOnLensImageLevel2: 2-level Lens-on-Lens collapse
 
 Application of `LensOnLensImageGeneric`: the universalMorphism of
 `Lens (Lens α)` also factors through the image of α.

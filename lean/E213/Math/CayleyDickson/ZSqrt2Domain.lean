@@ -6,7 +6,7 @@ open E213.Math.IntHelpers
 open E213.Tactic
 
 /-!
-# Research: `ℤ[√-2]` integral domain + conj ring homomorphism
+# `ℤ[√-2]` integral domain + conj ring homomorphism
 
 Multiplicativity of `normSq` (with factor 2 from `(√-2)²`),
 integral-domain property, and the fact that `conj` distributes

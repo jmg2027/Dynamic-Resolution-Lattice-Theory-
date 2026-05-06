@@ -5,7 +5,7 @@ import E213.Math.CayleyDickson.ZIDomain
 import E213.Math.CayleyDickson.ZIDomain
 
 /-!
-# Research: ZI ring-arithmetic supplement
+# ZI ring-arithmetic supplement
 
 Adds `Neg`, `Add`, `Sub` instances on `ZI` needed for the
 Cayley–Dickson doubling (`Research.CDDouble`).  Core Lean 4

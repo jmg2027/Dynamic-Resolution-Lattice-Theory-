@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Lattice.JoinEquiv
 
 /-!
-# Research.LeavesDepthJoin: leaves ⊔ depth ≠ constLens (non-trivial non-mod join)
+# LeavesDepthJoin: leaves ⊔ depth ≠ constLens (non-trivial non-mod join)
 
 `LeavesDepthIncomparable` confirmed that leaves and depth are
 incomparable.  Here we formally prove that their **join is not

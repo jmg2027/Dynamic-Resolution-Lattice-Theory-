@@ -2,7 +2,7 @@ import E213.Firmware.Raw.SwapSlash
 import E213.Prelude
 
 /-!
-# Research.SwapSlash: Function.Injective / Surjective form of Raw.swap
+# SwapSlash: Function.Injective / Surjective form of Raw.swap
 
 The key theorems `Raw.swap_injective` and `Raw.swap_slash` are in Firmware
 (`Firmware/Raw/Swap.lean`, `Firmware/Raw/SwapSlash.lean`).

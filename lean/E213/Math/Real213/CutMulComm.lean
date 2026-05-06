@@ -1,7 +1,7 @@
 import E213.Math.Real213.CutMul
 
 /-!
-# Research.Real213CutMulComm: cutMul commutativity (real proof)
+# Real213CutMulComm: cutMul commutativity (real proof)
 
 Strategy: iff existential characterization + bijection (m1, m2) → (m2, m1).
 -/

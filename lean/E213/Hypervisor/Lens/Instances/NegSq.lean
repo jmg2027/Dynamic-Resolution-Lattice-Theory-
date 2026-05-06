@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.NegSqLens: fifth category of diagonal classification
+# NegSqLens: fifth category of diagonal classification
 
 The 4-way classification of Note 35 (Collapse / Idempotent /
 Escalate / Multiply) is not exhaustive.  Over Bool there exists a

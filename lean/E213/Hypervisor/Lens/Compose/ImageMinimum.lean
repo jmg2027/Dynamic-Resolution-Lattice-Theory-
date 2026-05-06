@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.SemanticAtom
 
 /-!
-# Research.ImageMinimum: minimum closure of the universalMorphism image
+# ImageMinimum: minimum closure of the universalMorphism image
 
 Formal statement that the framework's reach (image of universalMorphism
 α) is always the *minimum distinguishing-closed subset* of α.

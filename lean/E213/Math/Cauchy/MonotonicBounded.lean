@@ -3,7 +3,7 @@ import E213.Math.Cauchy.Archimedean
 import E213.Kernel.Tactic.Nat213
 
 /-!
-# Research.MonotonicBoundedCauchy: monotonic ab-sequence → orderCauchy
+# MonotonicBoundedCauchy: monotonic ab-sequence → orderCauchy
 
 **Generalization** of specific transcendental cuts
 (e ∈ (2, 3), π/2 ∈ (1, 2), etc.): an ab-monotonically increasing

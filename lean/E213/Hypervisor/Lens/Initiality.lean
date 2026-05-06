@@ -2,7 +2,7 @@ import E213.Firmware.Raw
 import E213.Hypervisor.Lens
 
 /-!
-# Research.RawInitiality: Raw is the initial object in the Raw-algebra category
+# RawInitiality: Raw is the initial object in the Raw-algebra category
 
 Formalization of the Note 32 claim.  For any Lens `L : Lens α`,
 a homomorphism `Raw → α` exists (= `L.view`) and is unique.

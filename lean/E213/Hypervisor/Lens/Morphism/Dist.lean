@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.SemanticAtom
 
 /-!
-# Research.DistMorphism: Morphisms of the distinguishing-framework category
+# DistMorphism: Morphisms of the distinguishing-framework category
 
 Structure-preserving morphisms α → β between `HasDistinguishing`
 instances.  Identity + composition.

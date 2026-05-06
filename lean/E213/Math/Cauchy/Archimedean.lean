@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens.Instances.AB
 import E213.Kernel.Tactic.Nat213
 
 /-!
-# Research.ArchimedeanCauchy: ℝ-like completion via Dedekind cut
+# ArchimedeanCauchy: ℝ-like completion via Dedekind cut
 
 Mingu (C) direction (2026-04-25): abLens + order-projection family.
 

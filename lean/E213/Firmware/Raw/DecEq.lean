@@ -1,7 +1,7 @@
 import E213.Firmware.Raw
 
 /-!
-# Research.RawDecEq: DecidableEq Raw
+# RawDecEq: DecidableEq Raw
 
 Since `Tree` has `deriving DecidableEq` and `Raw` is
 `{t : Tree // canonicalBy t = true}`, equality on `Raw` is also

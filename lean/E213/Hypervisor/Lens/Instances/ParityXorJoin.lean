@@ -4,7 +4,7 @@ import E213.Hypervisor.Lens.Instances.Parity
 import E213.Hypervisor.Lens.Instances.Bool
 
 /-!
-# Research.ParityXorJoin: parityLens ⊔ boolXorLens = constant
+# ParityXorJoin: parityLens ⊔ boolXorLens = constant
 
 The first concrete example of a join for a non-mod family pair.
 

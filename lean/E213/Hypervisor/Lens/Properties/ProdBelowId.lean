@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Instances.Identity
 import E213.Hypervisor.Lens.Lattice.Meet
 
 /-!
-# Research.ProdBelowId: witness for Q39.2
+# ProdBelowId: witness for Q39.2
 
 `prodLens Lens.leaves Lens.depth ⊏ idLens` strictly.  That is,
 there exist distinct Raw elements with equal (leaves, depth) pairs.

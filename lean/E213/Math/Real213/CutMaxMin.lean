@@ -2,7 +2,7 @@ import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSumTest
 
 /-!
-# Research.Real213CutMaxMin: cutMax / cutMin (trivial cut operations)
+# Real213CutMaxMin: cutMax / cutMin (trivial cut operations)
 
 max(x, y) ≤ m/k iff x ≤ m/k AND y ≤ m/k → cut := cx ∧ cy.
 min(x, y) ≤ m/k iff x ≤ m/k OR y ≤ m/k → cut := cx ∨ cy.

@@ -1,7 +1,7 @@
 import E213.Math.Modulus.HasModulus
 
 /-!
-# Research.HasModulusBoundsExtra: trivial wrapping results for HasModulus
+# HasModulusBoundsExtra: trivial wrapping results for HasModulus
 
 Derived results natural to `HasModulus xs` — modulus monotonicity,
 fixed-N versions, etc.

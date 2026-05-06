@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Compose.OnLens
 import E213.Hypervisor.Lens.Morphism.BoolProp
 
 /-!
-# Research.LensOnLensImage: tower collapse of Lens-on-Lens
+# LensOnLensImage: tower collapse of Lens-on-Lens
 
 Exact characterization of the image of
 `lensUniversalMorphism : Raw → Lens Bool`.

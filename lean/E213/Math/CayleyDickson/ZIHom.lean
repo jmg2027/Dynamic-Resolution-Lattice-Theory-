@@ -1,7 +1,7 @@
 import E213.Math.CayleyDickson.ZI
 
 /-!
-# Research: `ZI.conj` is a ring homomorphism
+# `ZI.conj` is a ring homomorphism
 
 Proves `ZI.conj (u * v) = ZI.conj u * ZI.conj v` for Gaussian
 integers, plus `ZI.conj I = ZI.negI` (and conversely). These

@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Universal.QuotLens
 import E213.Hypervisor.Lens.Lattice.JoinEquiv
 
 /-!
-# Research.IndexedJoinLens: join of an arbitrary indexed family
+# IndexedJoinLens: join of an arbitrary indexed family
 
 If `JoinLens` is the binary join, this is the join of an arbitrary
 family `{L_i}_{i ∈ I}`.

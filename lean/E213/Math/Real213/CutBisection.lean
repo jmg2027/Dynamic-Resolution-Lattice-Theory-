@@ -3,7 +3,7 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 
 /-!
-# Research.Real213CutBisection: bisection (cutHalf, cutMid) — IVT support
+# Real213CutBisection: bisection (cutHalf, cutMid) — IVT support
 
 Half: c/2 ≤ m/k iff c ≤ 2m/k.
 Mid: (x+y)/2 cut.

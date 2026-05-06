@@ -1,7 +1,7 @@
 import E213.Math.Cauchy.Archimedean
 
 /-!
-# Research.HasModulus: Constructive Cauchy modulus typeclass
+# HasModulus: Constructive Cauchy modulus typeclass
 
 Canonical Bishop-style infrastructure bypassing the LEM-bound
 `∀ (m, k), ∃ N` closure from PAPER1 §6.4: an explicit modulus

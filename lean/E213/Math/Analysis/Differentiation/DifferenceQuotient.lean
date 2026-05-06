@@ -4,7 +4,7 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutContinuity
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213Diff: Differentiation (declarative form, )
+# Real213Diff: Differentiation (declarative form, )
 
 Bishop-style differentiation in 213 cut form.
 

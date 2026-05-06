@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Instances.Identity
 
 /-!
-# Research.FourDistinctKernels: explicit kernel pair distinctness
+# FourDistinctKernels: explicit kernel pair distinctness
 
 Multiple-element witness for the Lens-kernel space in PAPER1 §5.4:
 {idLens, Lens.leaves} have distinct kernels.

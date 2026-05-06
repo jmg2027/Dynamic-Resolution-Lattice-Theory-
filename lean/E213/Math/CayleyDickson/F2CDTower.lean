@@ -2,7 +2,7 @@ import E213.Firmware.Raw
 import E213.Hypervisor.Lens
 
 /-!
-# Research.F2CDTower: CD tower over 𝔽₂ — Bool/CD crossing point
+# F2CDTower: CD tower over 𝔽₂ — Bool/CD crossing point
 
 Note 26 claim: CD construction applied to Bool (= 𝔽₂) gives
 finite 2^(2^k)-dim 𝔽₂-algebras at each layer.  These sit at

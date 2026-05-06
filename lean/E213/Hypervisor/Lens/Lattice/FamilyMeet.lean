@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Universal.QuotLens
 
 /-!
-# Research.FamilyMeet: slash-congruence meet of an arbitrary-index family
+# FamilyMeet: slash-congruence meet of an arbitrary-index family
 
 Generalizes the single-`E` form of `UniversalQuotLens` to a family
 `⟨E_i⟩_{i ∈ I}`.  The cardinality of the index type `I` is arbitrary

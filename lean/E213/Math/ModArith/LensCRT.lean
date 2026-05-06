@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Leaves.ModNat
 import E213.Hypervisor.Lens.Lattice.Meet
 
 /-!
-# Research.ModLensCRT: prodLens(L_2, L_3) ≈ L_6 (CRT in Lens form)
+# ModLensCRT: prodLens(L_2, L_3) ≈ L_6 (CRT in Lens form)
 
 **Theorem**: `L_6` and `prodLens L_2 L_3` are refines-equivalent.
 

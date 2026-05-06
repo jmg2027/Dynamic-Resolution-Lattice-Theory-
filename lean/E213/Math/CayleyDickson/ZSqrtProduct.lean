@@ -7,7 +7,7 @@ import E213.Meta.SelfRecognising
 import E213.Prelude
 
 /-!
-# Research: product codomain `ZSqrt D₁ × ZSqrt D₂`
+# product codomain `ZSqrt D₁ × ZSqrt D₂`
 
 A deliberate R4-holds / R3-fails witness.
 

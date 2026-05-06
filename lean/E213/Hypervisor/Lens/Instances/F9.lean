@@ -2,7 +2,7 @@ import E213.Firmware.Raw
 import E213.Hypervisor.Lens
 
 /-!
-# Research.F9Lens: Raw → 𝔽₉ as R1-R5 counterexample witness
+# F9Lens: Raw → 𝔽₉ as R1-R5 counterexample witness
 
 Note 27 claim: Paper 1's "R1-R5 → ℂ uniquely" has a hole —
 finite fields like 𝔽₉ also satisfy R1-R5 (R5 is vacuous on

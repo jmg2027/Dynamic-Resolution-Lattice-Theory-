@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens.Leaves.RefinesParity
 import E213.Hypervisor.Lens.Instances.Bool
 
 /-!
-# Research.ABLensRefines: abLens ⊏ parityLens, abLens ⊏ boolXorLens
+# ABLensRefines: abLens ⊏ parityLens, abLens ⊏ boolXorLens
 
 abLens (a-count, b-count) refines both parityLens (total parity) and
 boolXorLens (a-count parity).  Transitively, abLens also refines

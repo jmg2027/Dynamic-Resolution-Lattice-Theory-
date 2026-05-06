@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Lattice.Lattice
 import E213.Hypervisor.Lens.Leaves.RefinesParity
 
 /-!
-# Research.RefinesChain: explicit chain in the Lens.refines preorder
+# RefinesChain: explicit chain in the Lens.refines preorder
 
 Concrete witness for the meet-semilattice claim in PAPER1 §3.3:
 4-step chain from finest (idLens) → ... → coarsest (constLens).

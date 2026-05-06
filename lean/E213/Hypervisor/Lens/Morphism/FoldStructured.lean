@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Initiality
 
 /-!
-# Research.FoldStructured: exact characterization of Lens-expressible functions
+# FoldStructured: exact characterization of Lens-expressible functions
 
 **Claim**: f : Raw → α is the view of some Lens ↔ f is
 **fold-structured** (satisfies the recurrence with base values +

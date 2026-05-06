@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Lattice.JoinEquiv
 import E213.Hypervisor.Lens.Universal.QuotLens
 
 /-!
-# Research.JoinLens: concrete join Lens for an arbitrary Lens pair
+# JoinLens: concrete join Lens for an arbitrary Lens pair
 
 `joinLens L M : Lens (Raw → Prop)` := `universalLens (JoinEquiv L M)`.
 

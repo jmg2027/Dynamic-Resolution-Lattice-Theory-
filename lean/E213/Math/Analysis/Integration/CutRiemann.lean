@@ -5,7 +5,7 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213CutRiemann: Riemann integration algorithm
+# Real213CutRiemann: Riemann integration algorithm
 
 ∫[a, b] f := lim Σ_{i=0}^{n-1} f(a + i*h) * h, h = (b-a)/n.
 

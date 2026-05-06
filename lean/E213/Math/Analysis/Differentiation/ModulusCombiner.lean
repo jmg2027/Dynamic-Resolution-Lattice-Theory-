@@ -3,7 +3,7 @@ import E213.Math.Real213.Core
 import E213.Math.Modulus.HasModulus
 
 /-!
-# Research.Real213ModulusCombiner: Generic kernel for combining HasModulus
+# Real213ModulusCombiner: Generic kernel for combining HasModulus
 
 User suggestion (2026-04-26): Like the meta-algorithm pattern of EulerGenericPure,
 abstract the *kernel* of modulus combination — isolating Cauchy bookkeeping

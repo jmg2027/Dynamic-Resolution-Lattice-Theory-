@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.SemanticAtom
 
 /-!
-# Research.SubtypeInstance: sub-instance of a distinguishing-closed predicate
+# SubtypeInstance: sub-instance of a distinguishing-closed predicate
 
 User directive (2026-04-25): Internalize the distinguishing-closed assumption
 of Subtype inside the framework.

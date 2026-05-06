@@ -1,7 +1,7 @@
 import E213.Math.CayleyDickson.Trigintaduonion
 
 /-!
-# Research: Cayley–Dickson layer 5 — integer pathions
+# Cayley–Dickson layer 5 — integer pathions
 
 `Pathion = Trigintaduonion × Trigintaduonion`, 64-dim.
 -/

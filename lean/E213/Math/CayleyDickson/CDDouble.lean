@@ -4,7 +4,7 @@ import E213.Math.CayleyDickson.ZIHom
 import E213.Math.CayleyDickson.ZIArith
 
 /-!
-# Research: Cayley–Dickson doubling of ZI → Lipschitz integers
+# Cayley–Dickson doubling of ZI → Lipschitz integers
 
 The **integer Lipschitz quaternions** arise as the CD doubling
 of the Gaussian integers `ZI`:

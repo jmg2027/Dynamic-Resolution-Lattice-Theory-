@@ -1,7 +1,7 @@
 import E213.Math.Real213.CutSum
 
 /-!
-# Research.Real213CauchyComplete: Cauchy completeness at cut level (3)
+# Real213CauchyComplete: Cauchy completeness at cut level (3)
 
 3 of `E1`: Cauchy completeness of Real213.
 

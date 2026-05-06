@@ -7,7 +7,7 @@ import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSumTest
 import E213.Math.Real213.Dyadic
 /-!
-# Research.Real213DyadicTrajectory: concrete bisection trajectories
+# Real213DyadicTrajectory: concrete bisection trajectories
 
 Sister-branch `WhyBasel.lean` style decide-based concrete examples:
 explicit trajectory unfoldings on simple oracles for the unit

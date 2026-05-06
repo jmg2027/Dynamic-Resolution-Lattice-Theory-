@@ -1,7 +1,7 @@
 import E213.Math.CayleyDickson.Sedenion
 
 /-!
-# Research: Cayley–Dickson layer 4 — integer trigintaduonions
+# Cayley–Dickson layer 4 — integer trigintaduonions
 
 `Trigintaduonion = Sedenion × Sedenion` via CD doubling.
 32-dimensional (64 Int coordinates per element).  Inherits

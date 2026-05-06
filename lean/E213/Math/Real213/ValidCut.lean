@@ -3,7 +3,7 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 
 /-!
-# Research.Real213ValidCut: ValidCut — monotone cut function structure
+# Real213ValidCut: ValidCut — monotone cut function structure
 
 A "valid cut" represents a real number x via the predicate
   c m k = decide(x ≤ m/k)

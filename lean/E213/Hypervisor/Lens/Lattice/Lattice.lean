@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Instances.Identity
 
 /-!
-# Research.LensLattice: structure of Lens.refines
+# LensLattice: structure of Lens.refines
 
 `Lens.refines` (Hypervisor/Lens.lean) is a preorder on the kernels
 of Lenses.  `L.refines M` iff `L.equiv` is finer than `M.equiv`

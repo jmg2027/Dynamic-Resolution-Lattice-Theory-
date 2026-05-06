@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens.Compose.OnLens
 import E213.Hypervisor.Lens.Compose.OnLensImageGeneric
 
 /-!
-# Research.UniversalMorphismFactor: image-Lens of universalMorphism
+# UniversalMorphismFactor: image-Lens of universalMorphism
 Functional form
 
 Application of the reflection theorem `UniversalReflection` from PAPER1 §9.2:

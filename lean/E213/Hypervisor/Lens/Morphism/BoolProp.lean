@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.SemanticAtom
 import E213.Hypervisor.Lens.Instances.Reach
 
 /-!
-# Research.BoolPropMorphism: Bool → Prop morphism
+# BoolPropMorphism: Bool → Prop morphism
 
 Both `Bool` and `Prop` are instances of the meaning framework.
 Direct formalization of the *structure-preserving morphism* between them.

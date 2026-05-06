@@ -11,7 +11,7 @@ import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213CutMidSelf: midpoint(c, c) = c for const cut
+# Real213CutMidSelf: midpoint(c, c) = c for const cut
 
 cutMid (constCut a b) (constCut a b) = constCut a b for b ≥ 1.
 

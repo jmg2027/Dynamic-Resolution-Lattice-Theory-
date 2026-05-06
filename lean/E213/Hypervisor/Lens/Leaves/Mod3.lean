@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Compose.Factoring
 
 /-!
-# Research.LeavesMod3: leaves count mod 3 Lens
+# LeavesMod3: leaves count mod 3 Lens
 
 **Lens**: `leavesMod3Lens : Lens (Fin 3)` observes leaves count mod 3.
 

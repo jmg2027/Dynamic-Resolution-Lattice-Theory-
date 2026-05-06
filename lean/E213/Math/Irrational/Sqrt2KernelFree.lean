@@ -1,5 +1,5 @@
 /-!
-# Research.Sqrt2IrrationalKernelFree: omega-free √2 irrationality
+# Sqrt2IrrationalKernelFree: omega-free √2 irrationality
 
 axiom-free version of `Sqrt2Irrational`: without `omega` (which uses
 `[propext, Quot.sound]`), so the resulting axiom is ≤ `[propext]`.

@@ -7,7 +7,7 @@ import E213.Math.Real213.CutPow
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213DerivativeForms: closed-form derivative theorems
+# Real213DerivativeForms: closed-form derivative theorems
 
 -2: rfl-clean closed forms for the `IsDifferentiable.derivative`
 field of each constructor.  These give a computational handle for

@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens
 
 /-!
-# Research.LensEquivProperties: Lens.equiv is an equivalence relation
+# LensEquivProperties: Lens.equiv is an equivalence relation
 
 Explicit theorems that `Lens.equiv` satisfies reflexivity + symmetry +
 transitivity, as stated in PAPER1 §3.2.

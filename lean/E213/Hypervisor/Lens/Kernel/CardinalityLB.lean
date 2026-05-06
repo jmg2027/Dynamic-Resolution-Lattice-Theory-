@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Leaves.ModNat
 import E213.Math.Infinity.LensCardinality
 
 /-!
-# Research.KernelCardinalityLB: lower bound on the Lens kernel space (≥ ℵ₀)
+# KernelCardinalityLB: lower bound on the Lens kernel space (≥ ℵ₀)
 
 The `leavesModNat m` family provides distinct kernels for each m,
 so the Lens kernel space is **at least countably infinite**.

@@ -4,7 +4,7 @@ import E213.Math.Analysis.Series.CutSeries
 import E213.Math.Real213.Core
 import E213.Math.Real213.CutSumTest
 /-!
-# Research.Real213CutGeomSeries: geometric series + concrete examples
+# Real213CutGeomSeries: geometric series + concrete examples
 
 (1/2)^i geometric series — partial sums computable.
 

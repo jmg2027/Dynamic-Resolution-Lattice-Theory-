@@ -4,7 +4,7 @@ import E213.Math.CayleyDickson.CayleyHeavy
 import E213.Math.Tactic.HurwitzRing
 
 /-!
-# Research: Sedenion "heavy" identities — observing tactic limits
+# Sedenion "heavy" identities — observing tactic limits
 
 At 16 coords per sedenion, 2-variable identities have
 32 Int coordinates, 3-variable identities 48 coordinates.

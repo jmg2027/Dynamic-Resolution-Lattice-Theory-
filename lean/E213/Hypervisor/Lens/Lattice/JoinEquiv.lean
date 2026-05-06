@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Kernel.Congruence
 
 /-!
-# Research.JoinEquiv: smallest slash-congruence as the join of two Lens kernels
+# JoinEquiv: smallest slash-congruence as the join of two Lens kernels
 
 **Claim**: for two Lenses L and M, JoinEquiv L M is the smallest
 **slash-congruence equivalence relation** containing L.equiv ∪ M.equiv.

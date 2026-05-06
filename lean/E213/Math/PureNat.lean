@@ -1,5 +1,5 @@
 /-!
-# Research.PureNat: custom axiom-free Nat lemmas
+# PureNat: custom axiom-free Nat lemmas
 
 `Nat.mul_assoc`, `Nat.add_mul`, `Nat.mul_mul_mul_comm`,
 `Nat.div_add_mod`, and `Nat.mul_mod` in the Lean 4 core all use

@@ -1,7 +1,7 @@
 import E213.Math.PureNat
 
 /-!
-# Research.Sqrt2IrrationalPure: √2 irrationality, **truly axiom-free**
+# Sqrt2IrrationalPure: √2 irrationality, **truly axiom-free**
 
 Removes even propext from `Sqrt2IrrationalKernelFree`.  Uses Lean as
 a *pure type checker* only — no axioms whatsoever (propext, Quot.sound,

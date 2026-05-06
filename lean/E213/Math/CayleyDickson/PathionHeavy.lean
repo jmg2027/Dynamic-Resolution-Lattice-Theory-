@@ -2,7 +2,7 @@ import E213.Math.CayleyDickson.Pathion
 import E213.Math.Tactic.HurwitzRing
 
 /-!
-# Research: Pathion layer 5 heavy identities
+# Pathion layer 5 heavy identities
 
 Testing `hurwitz_ring` at CD layer 5 (64-dim, 128 Int coords).
 1-variable identity = 128 Int vars.

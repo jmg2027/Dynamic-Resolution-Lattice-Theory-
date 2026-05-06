@@ -4,7 +4,7 @@ import E213.Math.Real213.CutDouble
 
 import E213.Math.Real213.Core
 /-!
-# Research.Real213CutScaleLattice: cutHalf/cutDouble × cutMax/cutMin commute
+# Real213CutScaleLattice: cutHalf/cutDouble × cutMax/cutMin commute
 
 These four commutation theorems are all rfl-trivial because
 cutHalf and cutDouble shift independent slots (m or k) while

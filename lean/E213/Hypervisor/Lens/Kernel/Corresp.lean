@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Universal.QuotLens
 import E213.Hypervisor.Lens.Kernel.Congruence
 
 /-!
-# Research.KernelCorresp: explicit two-direction bijection of
+# KernelCorresp: explicit two-direction bijection of
 Kernel ↔ slash-congruence
 
 Formal statement of the implicit bijection in PAPER1 §3.2-§3.3.

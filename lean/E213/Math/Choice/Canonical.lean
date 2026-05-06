@@ -1,7 +1,7 @@
 import E213.Firmware.Raw
 
 /-!
-# Research.CanonicalChoice: canonical-form selection as an internal
+# CanonicalChoice: canonical-form selection as an internal
 choice function
 
 Deeper formalization of PAPER1 §4.5 (encoding-artifact independence):

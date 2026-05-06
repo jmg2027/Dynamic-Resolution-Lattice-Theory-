@@ -1,7 +1,7 @@
 import E213.Math.Cauchy.WallisSeq
 
 /-!
-# Research.WallisSharper: π/2 > 64/45 strict bound (n ≥ 2)
+# WallisSharper: π/2 > 64/45 strict bound (n ≥ 2)
 
 Sharper version of the W_n ≥ 4/3 bound from PAPER1 §7.5.
 

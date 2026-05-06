@@ -3,7 +3,7 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 
 /-!
-# Research.Real213ConstCutScale: const cut scaling theorem
+# Real213ConstCutScale: const cut scaling theorem
 
 constCut a b = constCut (a*c) (b*c) for c ≥ 1.
 

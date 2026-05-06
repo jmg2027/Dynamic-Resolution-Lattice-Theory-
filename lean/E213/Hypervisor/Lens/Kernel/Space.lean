@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Kernel.Corresp
 
 /-!
-# Research.KernelSpace: framework-internal type of slash-congruences
+# KernelSpace: framework-internal type of slash-congruences
 
 Sigma type over `KernelCorresp.IsSlashCongruence` — the *type-level*
 representation of the Lens-kernel space.

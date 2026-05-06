@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens.Instances.Sum
 import E213.Hypervisor.Lens.Morphism.BoolProp
 
 /-!
-# Research.SumNotCoproduct: Sum α β is not a coproduct of DistMorphism
+# SumNotCoproduct: Sum α β is not a coproduct of DistMorphism
 
 Decisively closes the open question of PAPER1 §5.6, §9.4:
 *non-canonicity* of priority-based combine as a formal negative result.

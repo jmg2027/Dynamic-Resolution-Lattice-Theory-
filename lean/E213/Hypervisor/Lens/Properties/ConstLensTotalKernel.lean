@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Lattice.Lattice
 
 /-!
-# Research.ConstLensTotalKernel: kernel of constLens = total relation
+# ConstLensTotalKernel: kernel of constLens = total relation
 
 Explicit version of the coarsest element claim in PAPER1 §3.3:
 constLens's equiv is true for every (x, y) pair.

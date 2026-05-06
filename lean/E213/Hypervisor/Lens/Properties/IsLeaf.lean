@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Instances.Identity
 
 /-!
-# Research.IsLeafLens: "leaf indicator" as a valid Lens Bool
+# IsLeafLens: "leaf indicator" as a valid Lens Bool
 
 A natural entry in the Lens catalogue of PAPER1 §3.4:
 view r = true iff r is a leaf (Raw.a or Raw.b).

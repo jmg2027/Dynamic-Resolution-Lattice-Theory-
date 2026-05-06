@@ -1,5 +1,5 @@
 /-!
-# Research.PrimeDescentObservations: boundary observations of descent template
+# PrimeDescentObservations: boundary observations of descent template
 
 Direct experiment at the *boundary* of the robustness of
 `Sqrt2/3/5IrrationalPure`.

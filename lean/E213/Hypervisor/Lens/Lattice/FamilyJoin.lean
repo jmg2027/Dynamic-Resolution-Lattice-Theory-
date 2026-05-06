@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Universal.QuotLens
 
 /-!
-# Research.FamilyJoin: slash-congruence join of an arbitrary-index family
+# FamilyJoin: slash-congruence join of an arbitrary-index family
 
 Dual of `FamilyMeet`: the *smallest* slash-congruence containing all
 `E_i` for an arbitrary-index family `⟨E_i⟩_{i ∈ I}`.

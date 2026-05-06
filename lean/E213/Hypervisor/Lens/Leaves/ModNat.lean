@@ -3,7 +3,7 @@ import E213.Hypervisor.Lens.Compose.Factoring
 import E213.Math.Infinity.LensCardinality
 
 /-!
-# Research.LeavesModNat: divisibility → refinement for leaves mod m
+# LeavesModNat: divisibility → refinement for leaves mod m
 
 Unified form of the mod m family of Lenses.  For any m ≥ 2,
 observes leaves mod m via a Lens Nat.

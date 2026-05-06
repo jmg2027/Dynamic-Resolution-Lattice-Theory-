@@ -1,7 +1,7 @@
 import E213.Firmware.Raw
 
 /-!
-# Research.CmpIndependence: Axiom-independence of the cmp choice (foundational)
+# CmpIndependence: Axiom-independence of the cmp choice (foundational)
 
 Formalization of the foundational layer of the cmp-independence
 meta-theorem from `IMPLEMENTATION.md §5`.

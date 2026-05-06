@@ -1,7 +1,7 @@
 import E213.Hypervisor.Lens.Instances.Identity
 
 /-!
-# Research.UniverseFlat: universe-flat nature of 213 self-reference
+# UniverseFlat: universe-flat nature of 213 self-reference
 
 213's self-reference (idLens, Raw.eval) has no universe ascent.
 
