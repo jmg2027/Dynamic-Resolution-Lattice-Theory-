@@ -41,12 +41,15 @@ Together with CmpIndependence + Cauchy completeness, this extends the
 "ZFC replacement" claim of Paper 1 into the number-theoretic limit
 domain.
 
-`#print axioms`: propext only — no Classical.choice.
-
-## Changelog
-
-- 2026-04-25: padicFamily + factorial-seq instance.  Formalization as
-  a direct sub-tower of ProfiniteSeq.
+Status: 2 PURE / 5 DIRTY (`tools/scan_axioms.py`).  The five
+DIRTY theorems (`padic_family_cauchy`, `padic_family_limit_zero`,
+`padic_tower_refines`, `padic_familyCauchy`,
+`padic_limit_all_zero`) carry `[propext, Quot.sound]` — they
+assert function-equality between two ℕ → Bool families, which
+in Lean 4 routes through propext/Quot.sound.  Replacing the
+function-eq form with a per-index pointwise statement would
+collapse them to ∅-axiom.  See HIERARCHICAL_PLACEMENT §7 for
+the funext-by-design class of inherent-Quot.sound items.
 -/
 
 namespace E213.Math.Hyper.Padic

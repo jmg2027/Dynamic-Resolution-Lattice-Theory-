@@ -40,11 +40,8 @@ demonstrated:
 Together with EulerSeq (Σ 1/k!), a 213 Cauchy demonstration in the
 transcendental domain.  e: factorial denominator.  π: even²/odd² product.
 
-`#print axioms`: [propext] only.
-
-## Changelog
-
-- 2026-04-25: WallisSeq.lean written.  π/2 ∈ (1, 2) cuts.
+Status: ∅-axiom on every theorem (`tools/scan_axioms.py` reports
+18 PURE / 0 DIRTY).
 -/
 
 namespace E213.Math.Cauchy.WallisSeq

@@ -21,11 +21,8 @@ PellSeq + Sqrt2Cut covers √2 (algebraic irrational); EulerSeq covers
 e (transcendental).  A demonstration that the 213 framework can
 accommodate even transcendentals via constructive Cauchy.
 
-`#print axioms`: [propext] only.
-
-## Changelog
-
-- 2026-04-25: EulerSeq.lean written.  e ∈ (2, 3) cuts.
+Status: ∅-axiom on every theorem (`tools/scan_axioms.py` reports
+14 PURE / 0 DIRTY).
 -/
 
 namespace E213.Math.Cauchy.EulerSeq

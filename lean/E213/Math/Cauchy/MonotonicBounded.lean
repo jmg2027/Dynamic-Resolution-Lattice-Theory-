@@ -27,7 +27,8 @@ This general theorem automatically extends earlier specific cuts
 (m/k ≥ 3, m/k ≤ 2, etc.) to **all (m, k)** — strengthening the §7
 closure of Paper 1.
 
-`#print axioms`: [propext] only.
+Status: ∅-axiom on every theorem (`tools/scan_axioms.py` reports
+6 PURE / 0 DIRTY).
 -/
 
 namespace E213.Math.Cauchy.MonotonicBounded
