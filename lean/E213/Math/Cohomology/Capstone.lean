@@ -12,7 +12,7 @@ import E213.Math.Cohomology.Hodge.Involution
 import E213.Math.Cohomology.Hodge.Star
 import E213.Physics.Simplex.Counts
 /-!
-# Cohomology 213 — Marathon capstone ()
+# Cohomology 213 — Marathon capstone
 
 Bundles the five into a single 0-axiom theorem.
 Closes the Cohomology 213 marathon as a self-contained branch of

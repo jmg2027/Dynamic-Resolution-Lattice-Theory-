@@ -2,7 +2,7 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.Equiv
 
 /-!
-# E213.Math.Foundation: Real213 type-level foundation ()
+# E213.Math.Foundation: Real213 type-level foundation
 
 Real213 type, equivalence, constant embedding, order, sign.
 
