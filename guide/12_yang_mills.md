@@ -67,6 +67,6 @@ calculus of Ch. 14.
 
 - `papers/paper8_yang_mills_lean.tex`
 - `papers/drlt-book/chapters/ch15_yang_mills.tex`
-- `lean/E213/Physics/YangMillsGap.lean`,
+- `lean/E213/Lib/Physics/YangMillsGap.lean`,
   `PhotonKernel.lean`, `AsymptoticFreedom.lean`.
 - `lean/E213/Meta/R4Codomain.lean` (R4 no-go for massless gauge).

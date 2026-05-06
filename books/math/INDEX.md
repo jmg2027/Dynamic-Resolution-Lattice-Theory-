@@ -9,9 +9,9 @@ at ≤ {propext, Quot.sound} or STRICT 0-AXIOM.
 | # | Title | Lines | Lean source |
 |---|---|---|---|
 | 1 | `analysis213.md` | 906 | `lean/E213/Research/Real213/*.lean` (180 files) |
-| 2 | `number-theory-213.md` | 455 | `lean/E213/Math/Cohomology/Dyadic/**/*.lean` (~120 files) + `lean/E213/Meta/{BitPattern,UniversalLens*}.lean` |
-| 3 | `cohomology-213.md` | 362 | `lean/E213/Math/Cohomology/` |
-| 4 | `linalg-213.md` | 269 | `lean/E213/Math/Linalg213/` |
+| 2 | `number-theory-213.md` | 455 | `lean/E213/Lib/Math/Cohomology/Dyadic/**/*.lean` (~120 files) + `lean/E213/Meta/{BitPattern,UniversalLens*}.lean` |
+| 3 | `cohomology-213.md` | 362 | `lean/E213/Lib/Math/Cohomology/` |
+| 4 | `linalg-213.md` | 269 | `lean/E213/Lib/Math/Linalg213/` |
 | 5 | `probability-213.md` | 328 | `lean/E213/Research/Real213/*` (probability surface) |
 | 6 | `universal-lens-213.md` | 332 | `lean/E213/Meta/UniversalLens*.lean` + `Firmware/Raw.lean` (paper-style exposition) |
 
@@ -72,8 +72,6 @@ Total: ~2700 lines of narrative covering ~700 Lean files.
   verification; cross-checks Lean theorems via citation manifest.
 - **Blueprints**: `blueprints/math/` — planning roadmaps for
   remaining fields (probability, multivariable, topology, ...).
-- **Focused papers**: `books/math/papers/` — academic-paper-style
-  expositions of standalone results.
 - **Catalogs**: `catalogs/` — atomic-integer reference + falsifier
   ledger.
 

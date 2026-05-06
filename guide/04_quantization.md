@@ -68,6 +68,6 @@ five super-heavy candidates (Z = 119..168). Each row is closed by
 
 - `papers/drlt-book/chapters/ch07_hbar.tex`
 - `papers/paper4_zeta_beta.tex` (related: coupling running)
-- `lean/E213/Physics/Atomic/IE/HydrogenPPM.lean`
-- `lean/E213/Physics/Atomic/IE/Period1.lean` … `Period7IE.lean`
+- `lean/E213/Lib/Physics/Atomic/IE/HydrogenPPM.lean`
+- `lean/E213/Lib/Physics/Atomic/IE/Period1.lean` … `Period7IE.lean`
 - `catalogs/atomic-integers.md`

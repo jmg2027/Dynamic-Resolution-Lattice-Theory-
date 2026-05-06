@@ -7,7 +7,7 @@
 
 use drlt_app::basel::{s_partial, Q};
 use drlt_app::gap_explorer::{decimal, lt_q, nat};
-use drlt_hypervisor::chiral_k32::chiral_dim;
+use drlt_lens::chiral_k32::chiral_dim;
 
 const NS: u64 = 3;
 const NT: u64 = 2;

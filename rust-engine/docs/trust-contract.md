@@ -16,7 +16,7 @@ Every Rust function in `os/`, `hypervisor/`, `app/` that computes
 a 213 quantity declares:
 
 ```rust
-pub const LEAN_THM: &'static str = "E213.Physics.Basel.S_3";
+pub const LEAN_THM: &'static str = "E213.Lib.Physics.Basel.S_3";
 ```
 
 `whitelist.toml` is the single source of truth:
@@ -24,7 +24,7 @@ pub const LEAN_THM: &'static str = "E213.Physics.Basel.S_3";
 ```toml
 [[op]]
 rust = "app::basel::S"
-lean = "E213.Physics.Basel.S"
+lean = "E213.Lib.Physics.Basel.S"
 test = "S(3) == (49, 36)"
 ```
 

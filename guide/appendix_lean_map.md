@@ -31,7 +31,7 @@ chapter(s) where its content is treated.
 |-----------------------|---------------|
 | `SimplexCounts`, `FoccSpectrum` | Ch. 03 |
 | `BaselBound`, `WhyBasel` | Ch. 03, Ch. 05 |
-| `AlphaGUT`, `AlphaEM`, `AlphaEM/V137`, `AlphaEM/V137Tight`, `BaselBoundTight`, `AlphaEMStructuralGap`, `GUTUnification` | Ch. 05 |
+| `AlphaGUT`, `AlphaEM`, `AlphaEM/V137`, `AlphaEM/V137Tight`, `Basel/Bound` (BoundTight merged in 2026-05-05), `AlphaEMStructuralGap`, `GUTUnification` | Ch. 05 |
 | `Mass/MuOverE`, `TauOverMu`, `Hadron/ProtonMass`, `Higgs/Mass` | Ch. 06 |
 | `QuarkHierarchy`, `HierarchyTowers` | Ch. 06 |
 | `Mixing/CabibboAngle`, `CKMHierarchy`, `Mixing/NeutrinoMixing`, `CPViolation` | Ch. 08 |
@@ -65,5 +65,5 @@ chapter(s) where its content is treated.
   are all external-only.
 - `Research/Real213*` (176 files) is the single largest body of
   213-internal mathematics; treated in Ch. 14.
-- `lean/E213/Physics/Atomic/IE/Library/` covers periodic table to ppb;
+- `lean/E213/Lib/Physics/Atomic/IE/Library/` covers periodic table to ppb;
   treated in Ch. 04 (formula) + Ch. 07 (table).

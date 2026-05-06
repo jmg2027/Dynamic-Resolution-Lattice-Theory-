@@ -1,10 +1,9 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/kernel",
-    "crates/firmware",
-    "crates/hypervisor",
-    "crates/os",
+    "crates/term",
+    "crates/theory",
+    "crates/lens",
     "crates/app",
     "tools/verify-citations",
     "tools/lean-rust-diff",

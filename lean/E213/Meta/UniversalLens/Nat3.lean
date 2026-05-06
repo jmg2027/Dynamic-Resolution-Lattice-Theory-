@@ -21,7 +21,7 @@ higher codomains).
 
 namespace E213.Meta.UniversalLens.Nat3
 
-open E213.Firmware E213.Hypervisor
+open E213.Theory E213.Lens
 open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_slash expSumNat_inj)
 
 /-- Lens at ℕ³ = ℕ × (ℕ × ℕ).  Three independent encodings:

@@ -158,12 +158,12 @@ of 213's foundational geometry.
 
 ## Cross-references
 
-  - `seed/AXIOM/00_nature.md` §1.0 — the axiom as residue of pointing
+  - `seed/AXIOM/00_nature.md` — the axiom as residue of pointing
   - `seed/AXIOM/00_nature.md` §1.3 — atomicity (NS=3, NT=2, d=5)
-  - `lean/E213/Kernel/Tactic/AXIOM_FREE_STATUS.md` — migration catalog
-  - `lean/E213/Kernel/Tactic/Nat213.lean` — pure ℕ-arithmetic helpers
-  - `lean/E213/Kernel/Tactic/Mod213.lean` — cohomological trajectory
+  - `lean/E213/Term/Tactic/AXIOM_FREE_STATUS.md` — migration catalog
+  - `lean/E213/Term/Tactic/Nat213.lean` — pure ℕ-arithmetic helpers
+  - `lean/E213/Term/Tactic/Mod213.lean` — cohomological trajectory
     primitives (parity, mod3, mod6 + CRT pairing)
-  - `lean/E213/Math/Cohomology/Dyadic/Signature.lean` — base tile
+  - `lean/E213/Lib/Math/Cohomology/Dyadic/Signature.lean` — base tile
   - `research-notes/D2_complexity_class_hierarchy.md` — Tier 0/1/2/3
   - `research-notes/F0_213_native_arithmetic_synthesis.md` — earlier draft

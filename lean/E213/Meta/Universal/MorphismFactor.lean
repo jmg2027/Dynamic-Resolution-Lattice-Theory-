@@ -1,9 +1,9 @@
-import E213.Hypervisor.Lens.SemanticAtom
-import E213.Hypervisor.Lens.Compose.OnLens
-import E213.Hypervisor.Lens.Compose.OnLensImageGeneric
+import E213.Lens.SemanticAtom
+import E213.Lens.Compose.OnLens
+import E213.Lens.Compose.OnLensImageGeneric
 
 /-!
-# Research.UniversalMorphismFactor: image-Lens of universalMorphism
+# UniversalMorphismFactor: image-Lens of universalMorphism
 Functional form
 
 Application of the reflection theorem `UniversalReflection` from PAPER1 §9.2:
@@ -19,10 +19,10 @@ Direct consequence of the universalAsLens definition in `UniversalReflection.lea
 
 namespace E213.Meta.Universal.MorphismFactor
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.SemanticAtom
-open E213.Hypervisor.Lens.Compose.OnLens
-open E213.Hypervisor.Lens.Compose.OnLensImageGeneric
+open E213.Theory E213.Lens
+open E213.Lens.SemanticAtom
+open E213.Lens.Compose.OnLens
+open E213.Lens.Compose.OnLensImageGeneric
 
 /-- universalMorphism agrees with the view of universalAsLens (by
     definition of `universalAsLens`). -/

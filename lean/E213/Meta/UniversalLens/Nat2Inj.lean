@@ -1,6 +1,6 @@
 import E213.Meta.UniversalLens.Nat2
 import E213.Meta.BitPatternUniqueness
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 
 /-!
 # expSumLens.view injectivity (full universality of `Lens (ℕ × ℕ)`)
@@ -18,7 +18,7 @@ follows trivially (Prod.mk_injective.left).
 
 namespace E213.Meta.UniversalLens.Nat2Inj
 
-open E213.Firmware E213.Hypervisor E213.Meta.BitPatternUniqueness
+open E213.Theory E213.Lens E213.Meta.BitPatternUniqueness
 open E213.Meta.UniversalLens.Nat2 (expSumLens expSumLens_symmetric)
 
 /-- First-component encoding: `expSumNat = (expSumLens.view _).1`. -/

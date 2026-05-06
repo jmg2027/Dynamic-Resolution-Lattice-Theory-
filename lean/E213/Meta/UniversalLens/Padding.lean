@@ -23,7 +23,7 @@ become a one-liner application of `view_inj_of_inj_proj`.
 
 namespace E213.Meta.UniversalLens.Padding
 
-open E213.Firmware E213.Hypervisor
+open E213.Theory E213.Lens
 open E213.Meta.UniversalLens.Core
 
 /-- ★★★★ Generic injectivity-via-projection lemma.

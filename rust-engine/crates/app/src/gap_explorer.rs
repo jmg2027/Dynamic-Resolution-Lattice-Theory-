@@ -3,7 +3,7 @@
 //! + b1_bipartite + α_GUT bracket via ×, ÷.  No floats.
 
 use crate::basel::{s_partial, upper, Q};
-use drlt_hypervisor::{b1_bipartite, chiral_dim};
+use drlt_lens::{b1_bipartite, chiral_dim};
 use num_bigint::BigUint;
 
 pub fn nat(n: u64) -> BigUint { BigUint::from(n) }

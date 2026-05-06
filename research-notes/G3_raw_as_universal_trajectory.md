@@ -193,10 +193,9 @@ Raw-pullback of α-statements.**
 
 ## Cross-references
 
-  - `seed/AXIOM/00_nature.md` §1.1/§1.2/§1.3 — three-pillar Raw
-    uniqueness (below/sideways/above)
-  - `seed/AXIOM/00_nature.md` §1.0 — primitive distinction,
-    recursion of pointing
+  - `seed/AXIOM/00_nature.md` §1.1/§1.2/§1.3 — three-pillar Raw uniqueness
+    (below/sideways/above)
+  - `seed/AXIOM/00_nature.md` — primitive distinction, recursion of pointing
   - `Firmware/Raw.lean` — the Raw axiom
   - `Hypervisor/Lens.lean` — Lens type
   - `Hypervisor/Lens/Initiality.lean` — Raw-as-initial-object

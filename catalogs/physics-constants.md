@@ -47,7 +47,7 @@
 ## Usage
 
 ```lean
-import E213.Physics.Library.CouplingLibrary
-import E213.Physics.Library.PMNSLibrary
-import E213.Physics.Library.CKMLibrary
+import E213.Lib.Physics.Library.CouplingLibrary
+import E213.Lib.Physics.Library.PMNSLibrary
+import E213.Lib.Physics.Library.CKMLibrary
 ```

@@ -7,9 +7,9 @@
 //! Prints all 5 vertices, 12 edges, and 32 chiral cells across
 //! levels (i, j) with i ∈ [0, 3], j ∈ [0, 2].
 
-use drlt_hypervisor::chiral_k32::chiral_dim;
-use drlt_hypervisor::k32_cycles::{cycle_basis, cycle_length_distribution};
-use drlt_hypervisor::k32_graph::{b1, chiral_cells, edges, is_s, vertices, Vertex};
+use drlt_lens::chiral_k32::chiral_dim;
+use drlt_lens::k32_cycles::{cycle_basis, cycle_length_distribution};
+use drlt_lens::k32_graph::{b1, chiral_cells, edges, is_s, vertices, Vertex};
 
 fn name(v: Vertex) -> String {
     if is_s(v) { format!("s_{}", v) } else { format!("t_{}", v - 3) }

@@ -2,7 +2,7 @@
 
 (formerly seed/AUDIT_Lean.md)
 
-**Audit target**: `lean/E213/Firmware/`
+**Audit target**: `lean/E213/Theory/`
 **Reference**: `02_statement.md` (the 4-clause axiom)
 **Audit date**: 2026-04-24
 **Overall verdict**: **Faithful**.  No structural revision required.
@@ -14,7 +14,7 @@ Three minor sanding items recommended.
 
 ### Axiom 1: "Something exists.  At least two.  a, b.  Primitive distinction."
 
-Lean implementation (`Firmware/Raw/Core.lean`):
+Lean implementation (`Theory/Raw/Core.lean`):
 
 - `Raw.a : Raw := ⟨.a, rfl⟩` (line 60)
 - `Raw.b : Raw := ⟨.b, rfl⟩` (line 61)
@@ -25,7 +25,7 @@ Lean implementation (`Firmware/Raw/Core.lean`):
 
 ### Axiom 2: "Pairing of two somethings is yet another something."
 
-Lean implementation (`Firmware/Raw/Slash.lean`):
+Lean implementation (`Theory/Raw/Slash.lean`):
 
 - `Raw.slash (x y : Raw) (h : x ≠ y) : Raw` (line 20)
 - Result is again Raw — closed.
@@ -34,7 +34,7 @@ Lean implementation (`Firmware/Raw/Slash.lean`):
 
 ### Axiom 3: "Pairing is symmetric."
 
-Lean implementation (`Firmware/Raw/Slash.lean`):
+Lean implementation (`Theory/Raw/Slash.lean`):
 
 - `Raw.slash_comm : Raw.slash x y h = Raw.slash y x (Ne.symm h)`
   (line 31)
@@ -57,17 +57,17 @@ Lean implementation:
 
 ### Size / Cardinality / Finiteness / Infinity
 
-Firmware itself has no notion of size.  `leaves` and `depth` are
+Theory itself has no notion of size.  `leaves` and `depth` are
 defined but these are **observation results** via `Raw.fold`, not
 axioms.  The `Infinity/` module is also a separate folder
-(outside Firmware).
+(outside Theory).
 
 **Verdict**: ✓ Compliant.
 
 ### Order / Hierarchy / Ranking
 
 **Caution point (A)**.  The Internal namespace contains
-`Tree.cmp` (`Firmware/Raw/Core.lean:23–36`).  This is an
+`Tree.cmp` (`Theory/Raw/Core.lean:23–36`).  This is an
 **encoding device** for selecting canonical forms, not a
 property of Raw.  PAPER1.md (archival) §1.2 already states *"the
 ordering is the encoding's selection function, not a property of
@@ -84,13 +84,13 @@ artifact, not an axiom."
 
 Lean 4 core's `inductive Tree` is not a ZFC set (type theory).
 The `List Raw` in `RawLevels.lean` is a Lens-level enumeration;
-acceptable even at the outside-Firmware level.
+acceptable even at the outside-Theory level.
 
 **Verdict**: ✓ Compliant.
 
 ### Observer / Space / Perception / Structure / Geometry
 
-Not present in Firmware itself.  The `Lens` in Hypervisor is a
+Not present in Theory itself.  The `Lens` in Lens layer is a
 separate module.
 
 **Verdict**: ✓ Compliant.
@@ -99,10 +99,10 @@ separate module.
 
 Lean `inductive` is by definition compatible with either
 Platonic or stepwise interpretation.  Companion narrative:
-`research-notes/17_existence_mode_lens.md`.  Current Lean
-coverage: `lean/E213/Infinity/Tower.lean`,
-`lean/E213/Infinity/Chain.lean`, and
-`lean/E213/Physics/Foundations/FiniteUniverse.lean`.
+`research-notes/archive/17_existence_mode_lens.md`.  Current Lean
+coverage: `lean/E213/Lib/Math/Infinity/Tower.lean`,
+`lean/E213/Lib/Math/Infinity/Chain.lean`, and
+`lean/E213/Lib/Physics/Foundations/FiniteUniverse.lean`.
 
 **Verdict**: ✓ Compliant.
 
@@ -116,23 +116,23 @@ anti-reflexivity (Axiom 4).  Associativity, distributivity, etc.
 
 ---
 
-## §9.3 Firmware content **beyond** the axiom
+## §9.3 Theory content **beyond** the axiom
 
 Not forbidden by the axiom, but utility content beyond the axiom
-present in Firmware — review required.
+present in Theory — review required.
 
 ### Raw.fold (catamorphism)
 
-Location: `Firmware/Raw/Fold.lean`.  This is a wrapper around the
+Location: `Theory/Raw/Fold.lean`.  This is a wrapper around the
 standard eliminator of an inductive type, serving as **the tool
 for constructing all Lenses**, not a specific Lens.  Classified
 as consumer utility.
 
-**Verdict**: ✓ Accepted.  Firmware location OK.
+**Verdict**: ✓ Accepted.  Theory location OK.
 
 ### Raw.swap (automorphism)
 
-Location: `Firmware/Raw/Swap.lean`.  Swap is directly **derived**
+Location: `Theory/Raw/Swap.lean`.  Swap is directly **derived**
 from Axiom 1 ("a, b have no relation other than not being
 equal") — exchanging a ↔ b automatically becomes an
 automorphism.  This is the first derivation.
@@ -149,12 +149,12 @@ from Axiom 1."
 
 ### Raw.depth, Raw.leaves
 
-Location: `Firmware/Raw/Slash.lean:52`,
-`Firmware/Raw/Levels.lean`.
+Location: `Theory/Raw/Slash.lean:52`,
+`Theory/Raw/Levels.lean`.
 
 **Caution point (C)**.  `depth` and `leaves` are observables of
 specific Lenses (Lens.depth, Lens.leaves).  Their exposure in
-Firmware as `Raw.depth`, `Raw.leaves` is **Lens-layer bleed**.
+Theory as `Raw.depth`, `Raw.leaves` is **Lens-layer bleed**.
 
 `02_statement.md` §3.3 excludes "size / cardinality" from the
 axiom.  `Raw.leaves r` is **the observation result of a specific
@@ -166,21 +166,21 @@ Practically however:
 - Internal `Tree.depth`, `Tree.leaves` are used in
   canonicality-related invariant proofs — must be kept Internal.
 - Public `Raw.depth`, `Raw.leaves` should be **moved** to
-  Hypervisor.
+  the Lens layer.
 
 → **Recommendation 3**: Move public declarations of `Raw.depth`,
-`Raw.leaves` to the Hypervisor layer.  Internal declarations
+`Raw.leaves` to the Lens layer.  Internal declarations
 must be retained for canonicality proofs.
 
 **Verdict**: ✗ Lens-layer bleed.  Migration noted.
 
 ### Raw.fold_eq_depth / leaves / signed_swap / swap_hom
 
-Location: `Firmware/Raw/Signed.lean`, `Firmware/Raw/Hom.lean`.
+Location: `Theory/Raw/Signed.lean`, `Theory/Raw/Hom.lean`.
 
 These are "bridge theorems for reconstituting a specific Lens
 via Raw.fold."  They are **Lens-level theorems** belonging in
-Hypervisor or Meta.
+Lens or Meta.
 
 → Migrate together with Recommendation 3.
 
@@ -207,7 +207,7 @@ axiom updates.
 
 3. **Lens-layer bleed migration** — Move public declarations of
    `Raw.depth`, `Raw.leaves`, `Raw.fold_eq_*`,
-   `Raw.fold_signed_swap`, `Raw.fold_swap_hom` to Hypervisor or
+   `Raw.fold_signed_swap`, `Raw.fold_swap_hom` to Lens or
    Meta.  Retain Internal `Tree.*`.  (1-session task; downgraded
    to "acknowledged leak" per `06_formalization.md` §7.1.)
 
@@ -243,7 +243,7 @@ Lens will **carry encoding artifacts**.
 | `Raw.slash_comm` theorem | Slash.lean | Formal proof of symmetry |
 | `hsym` hypothesis in `fold_slash` | Fold.lean | Axiom-conforming results only with symmetric combine |
 | 4 hypotheses in `fold_swap_hom` | Hom.lean | Top-down congruence conforming only with symmetric+distributive |
-| `Internal` namespace separation | Core.lean | Tree not exposed by `open E213.Firmware` |
+| `Internal` namespace separation | Core.lean | Tree not exposed by `open E213.Theory` |
 | Mathlib-free + 0 sorry | Project convention | Blocks import of external axioms |
 | `@[elab_as_elim] Raw.rec` | Rec.lean | `induction` tactic forces Raw-layer eliminator |
 
@@ -295,18 +295,18 @@ the leak is small.  However, using `.val` in Lens semantics
 avoided.
 
 **Recommendation C**: Add to `seed/NOTATION.md`: "`.val` access
-is for internal Firmware proofs only; do not use in Lens
+is for internal Theory proofs only; do not use in Lens
 semantics."
 
-**(D) Convention-dependence of `open E213.Firmware.Internal` —
+**(D) Convention-dependence of `open E213.Theory.Internal` —
 MEDIUM**
 
 Lean 4 core has no strict visibility control (not a module
-system).  A user can `open E213.Firmware.Internal` from any
+system).  A user can `open E213.Theory.Internal` from any
 module to access Tree directly.
 
 **Recommendation D**: Add to `CLAUDE.md` DO-NOT: "`open` of
-`E213.Firmware.Internal` is forbidden outside Firmware internal
+`E213.Theory.Internal` is forbidden outside Theory internal
 modules."  Or add a grep rule to CI.
 
 **(E) Absence of `ValidLens` predicate / structure — MEDIUM (future)**
@@ -316,7 +316,7 @@ Combine symmetry / base symmetry / R1-R5 satisfaction are not
 verified at Lens definition time.
 
 **Recommendation E**: Introduce a `ValidLens` predicate in
-`Hypervisor/Lens.lean`.  At minimum, make combine symmetry a
+`Lens/LensCore.lean`.  At minimum, make combine symmetry a
 field.  All Lens declarations should be accompanied by a
 validity proof.
 

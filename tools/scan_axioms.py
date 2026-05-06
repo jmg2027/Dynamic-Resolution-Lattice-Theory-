@@ -2,15 +2,15 @@
 """Scan a Lean module's per-theorem axiom status.
 
 Usage:
-    tools/scan_axioms.py E213.Math.IntHelpers
-    tools/scan_axioms.py E213.Math.Pigeonhole E213.Math.IntHelpers ...
+    tools/scan_axioms.py E213.Lib.Math.IntHelpers
+    tools/scan_axioms.py E213.Lib.Math.Pigeonhole E213.Lib.Math.IntHelpers ...
 
 Generates a temporary probe file appending #print axioms for every
 top-level theorem/lemma/def in each module, builds it, and reports.
 
 Produces output like:
-    [PURE]  E213.Math.X.thm1
-    [DIRTY] E213.Math.X.thm2  [propext, Quot.sound]
+    [PURE]  E213.Lib.Math.X.thm1
+    [DIRTY] E213.Lib.Math.X.thm2  [propext, Quot.sound]
 """
 import subprocess, sys, re, pathlib, tempfile
 

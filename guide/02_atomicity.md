@@ -70,6 +70,6 @@ of K_{3,2}; b₁ = NS²−1 = 8 = 1/α₃ (confined). This identification holds
 
 - `papers/paper1_chiral_decomposition.tex`
 - `papers/drlt-book/chapters/ch02_whyd5.tex`
-- `lean/E213/Firmware/Atomicity/Five.lean`
-- `lean/E213/Physics/Foundations/FibonacciAtomic.lean`
-- `lean/E213/Physics/Couplings/PhotonKernel.lean`
+- `lean/E213/Theory/Atomicity/Five.lean`
+- `lean/E213/Lib/Physics/Foundations/FibonacciAtomic.lean`
+- `lean/E213/Lib/Physics/Couplings/PhotonKernel.lean`

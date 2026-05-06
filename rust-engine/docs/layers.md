@@ -1,6 +1,6 @@
 # Layers — per-crate responsibilities
 
-## `kernel/` — ℕ encoding + decidability
+## `term/` — ℕ encoding + decidability
 
 Mirrors `lean/E213/Kernel/`.  No physical content; pure
 combinatorial substrate.
@@ -14,7 +14,7 @@ combinatorial substrate.
 - `normal_form.rs` — `Monomial { p, q }` for `x^p y^q` canonical
   form.  `RewriteRule` trait with `LEAN_THM` citation.
 
-## `firmware/` — Raw + Lens primitives
+## `theory/` — Raw + Lens primitives
 
 Mirrors `lean/E213/Firmware/` and `lean/E213/Hypervisor/Lens.lean`.
 
@@ -25,9 +25,9 @@ Mirrors `lean/E213/Firmware/` and `lean/E213/Hypervisor/Lens.lean`.
   `leaves`.  `slash` requires a `NotEq` witness.
 - `lens.rs` — sealed `Lens<A>` with `lean_thm: &'static str`.
   `view = fold`, `equiv`, `refines`.  Constructor `__new__` is
-  `pub(crate)` — only `hypervisor/` factories can build new lenses.
+  `pub(crate)` — only `lens/` factories can build new lenses.
 
-## `hypervisor/` — Lens instances + cohomology
+## `lens/` — Lens instances + cohomology
 
 Mirrors Lean's canonical lens definitions and `Math/Cohomology/`.
 

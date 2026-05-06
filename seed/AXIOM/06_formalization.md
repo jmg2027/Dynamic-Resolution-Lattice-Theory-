@@ -5,7 +5,7 @@ against this axiom; discrepancies are corrected or isolated.
 
 ## §7.1 Lean formalization (status 2026-05-XX)
 
-The current Raw implementation in `lean/E213/Firmware/` (2 elements
+The current Raw implementation in `lean/E213/Theory/` (2 elements
 a, b + binary slash, anti-reflexive, commutative) is a faithful
 machine representation of this axiom.  Audit reference:
 `seed/AXIOM/09_audit.md` (2026-04-24, recommendations 1, 2, 3 +
@@ -27,11 +27,11 @@ commitment to the axiom):
 
 **Lens-layer bleed — current location (NOT yet migrated)**:
 
-`Raw.depth` (`Firmware/Raw/Slash.lean`), `Raw.leaves`
-(`Firmware/Raw/Levels.lean`), `Raw.fold_signed_swap`
-(`Firmware/Raw/Signed.lean`), `Raw.fold_swap_hom`
-(`Firmware/Raw/Hom.lean`) are observables / bridge theorems of
-specific Lenses but still live in Firmware.  Per
+`Raw.depth` (`Theory/Raw/Slash.lean`), `Raw.leaves`
+(`Theory/Raw/Levels.lean`), `Raw.fold_signed_swap`
+(`Theory/Raw/Signed.lean`), `Raw.fold_swap_hom`
+(`Theory/Raw/Hom.lean`) are observables / bridge theorems of
+specific Lenses but still live in Theory.  Per
 `lean/E213/ARCHITECTURE.md` §3 (Open Questions), this is now
 classified as *intentional convenience leak* — the proofs are
 pure-induction theorems on the Tree representation that any Lens
@@ -41,9 +41,9 @@ the axiom-minimality story.  Audit recommendation downgraded from
 breaks."
 
 **Forced shape uniqueness**: see `00_nature.md` §1.3.
-`Firmware/Atomicity/*` proofs (arity = 2, atomic ⇒ d = 5,
+`Theory/Atomicity/*` proofs (arity = 2, atomic ⇒ d = 5,
 (NS, NT) = (3, 2)) are pure-ℕ propositions that *do not import*
-Raw.  They sit in Firmware structurally — they are part of "what
+Raw.  They sit in Theory structurally — they are part of "what
 Raw must look like" — but their dependency on Raw is zero.
 
 **Universal-Lens metatheory**: see `00_nature.md` §1.2 cross-ref.
@@ -61,7 +61,7 @@ sub-directory remains as the **sole axiom corpus**.  Derivation is
 explored freely in `research-notes/` and in the Lean metatheory
 layer (`Meta/UniversalLens/`).
 
-Background: `research-notes/30_bool_is_liar_paradox.md`.  The R1-R5
+Background: `research-notes/archive/30_bool_is_liar_paradox.md`.  The R1-R5
 judgment game in Paper 1 was revealed to be an instance of a
 self-reference loop (Bool), so the frame itself was stepped back
 from.
@@ -81,7 +81,7 @@ is now enforced by the absence of such fudge in the Lean tree
 itself — every concrete numeric (d=5, NS=3, NT=2,
 1/α_em=137.036, …) is either a Lens construction or, for the
 shape parameters, a forced-uniqueness theorem in
-`Firmware/Atomicity/`.
+`Theory/Atomicity/`.
 
 ## §7.4 Book chapters (no longer applicable)
 

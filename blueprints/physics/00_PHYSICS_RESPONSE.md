@@ -52,15 +52,15 @@
 
 ## Division of Work (inter-track working agreement)
 
-  - Math track: lean/E213/Math/, books/math/, blueprints/01-12, 14
-  - Physics track: lean/E213/Physics/, books/physics/, blueprints/13
+  - Math track: lean/E213/Lib/Math/, books/math/, blueprints/01-12, 14
+  - Physics track: lean/E213/Lib/Physics/, books/physics/, blueprints/13
   - Common:    seed/, catalogs/, papers/, examples/, tools/
 
 ## Migration 8 Steps
 
   1. Write seed/ (AXIOM + PHILOSOPHY + FALSIFIABILITY new)
   2. Separate lean/ (213/framework/ → lean/)
-  3. Reorganize lean/E213/Math/ sub-dirs (Real213* → Analysis/)
+  3. Reorganize lean/E213/Lib/Math/ sub-dirs (Real213* → Analysis/)
   4. Hierarchize books/ (book/ + ANALYSIS213.md → books/{math,physics}/)
   5. New catalogs/ (CATALOG213.md → catalogs/math-theorems.md etc.)
   6. Move blueprints/ (research/blueprints/ → blueprints/)

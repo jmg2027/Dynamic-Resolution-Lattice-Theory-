@@ -64,5 +64,5 @@ the T3 path, not re-derived in 213.
 - `papers/paper1_chiral_decomposition.tex` — ℂ⁵ = ℂ²⊕ℂ³ uniqueness.
 - `papers/paper2_frobenius_to_gauge.tex` — full T3 substrate argument.
 - `papers/drlt-book/chapters/ch01_whyC.tex` — narrative version.
-- `lean/E213/Firmware/Atomicity/Five.lean` — d=5 theorem.
+- `lean/E213/Theory/Atomicity/Five.lean` — d=5 theorem.
 - `lean/E213/Meta/R4Codomain.lean` — R1–R4 typeclass.

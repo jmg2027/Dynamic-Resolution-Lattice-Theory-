@@ -62,6 +62,6 @@ quantization but not yet formalized.
 - `papers/paper3_zero_parameter_predictions.tex` (Ω_Λ, η_B, T_CMB)
 - `papers/drlt-book/chapters/ch13_cosmology.tex`
 - `papers/drlt-book/chapters/ch17_webb_dipole.tex`
-- `lean/E213/Physics/Cosmology/DarkEnergy.lean`, `HubbleConstant.lean`,
+- `lean/E213/Lib/Physics/Cosmology/DarkEnergy.lean`, `HubbleConstant.lean`,
   `GravityShadow.lean`.
 - `seed/AXIOM/04_falsifiability.md` (cosmology section).

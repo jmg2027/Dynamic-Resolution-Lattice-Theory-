@@ -73,6 +73,6 @@ Direct evidence of a single DRLT origin.
 ## Usage
 
 ```lean
-import E213.Physics.Library.MathLibrary
-import E213.Physics.Library.GeometryLibrary
+import E213.Lib.Physics.Library.MathLibrary
+import E213.Lib.Physics.Library.GeometryLibrary
 ```

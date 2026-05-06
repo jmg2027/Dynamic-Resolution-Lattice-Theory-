@@ -64,5 +64,5 @@ parameters. Match is at percent-level, not yet ppm.
 - `papers/paper1_chiral_decomposition.tex` (chiral mass structure)
 - `papers/paper3_zero_parameter_predictions.tex` (catalog)
 - `papers/drlt-book/chapters/ch09_masses.tex`
-- `lean/E213/Physics/Mass/MuOverE.lean`, `ProtonMass.lean`,
+- `lean/E213/Lib/Physics/Mass/MuOverE.lean`, `ProtonMass.lean`,
   `HiggsMass.lean`, `TauOverMu.lean`, `QuarkHierarchy.lean`.

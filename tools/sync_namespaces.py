@@ -19,28 +19,43 @@ E213 = LEAN_ROOT / "E213"
 # Their *path* (Kernel/Tactic/, Math/Tactic/, Meta/Tactic/) reflects the
 # import-derived layer, but the *namespace* is intentionally short.
 DEFAULT_SKIP = {
-    # Raw umbrella — multiple flat files share `E213.Firmware`
-    "lean/E213/Firmware/Raw",
-    "lean/E213/Firmware/Raw.lean",
-    "lean/E213/Firmware/RawLevels.lean",
-    "lean/E213/Firmware/RawSwap.lean",
-    # Hypervisor/Lens.lean uses `E213.Hypervisor` umbrella
-    "lean/E213/Hypervisor/Lens.lean",
-    # Kernel layer umbrella (101 thms in `namespace E213.Kernel`)
-    "lean/E213/Kernel",
+    # Raw umbrella — multiple flat files share `E213.Theory`
+    "lean/E213/Theory/Raw",
+    "lean/E213/Theory/Raw.lean",
+    "lean/E213/Theory/RawLevels.lean",
+    "lean/E213/Theory/RawSwap.lean",
+    # Hypervisor/Lens.lean uses `E213.Lens` umbrella
+    "lean/E213/Lens/Lens.lean",
+    # Kernel layer umbrella (101 thms in `namespace E213.Term`)
+    "lean/E213/Term",
     "lean/E213/Prelude.lean",
     # Tactic short-namespace umbrellas (post-2026-05-XX reorg).
     # Files at these paths declare `namespace E213.Tactic` for ergonomic
     # `open E213.Tactic` macro access.  Path is path-aligned-to-layer;
     # namespace is intentionally short.
-    "lean/E213/Kernel/Tactic",
-    "lean/E213/Math/Tactic",
+    "lean/E213/Term/Tactic",
+    "lean/E213/Lib/Math/Tactic",
     "lean/E213/Meta/Tactic",
     # Math/Infinity/ files share `namespace E213.Infinity` umbrella by
-    # design — they ALSO use `namespace E213.Firmware.Internal` for
+    # design — they ALSO use `namespace E213.Theory.Internal` for
     # helper access (multi-namespace files), which the auto-aligner
     # mis-handles.  Keep the umbrella stable.
-    "lean/E213/Math/Infinity",
+    "lean/E213/Lib/Math/Infinity",
+    # Math/Polynomial213/ — namespace `E213.Polynomial213` is the
+    # canonical reflection AST (top-level, like E213.Tactic).  Path
+    # is under Math/ for layer-classification, namespace is short.
+    "lean/E213/Lib/Math/Polynomial213.lean",
+    "lean/E213/Lib/Math/Polynomial213",
+    # Math/AxiomSystems/*AsLens.lean — file names use the "X AS LENS"
+    # description; namespaces use the bare X (e.g.,
+    # ZFCExtensionalityAsLens.lean → namespace E213.Lib.Math.AxiomSystems
+    # .ZFCExtensionality).  Intentional: file = exposition, namespace
+    # = subject matter.
+    "lean/E213/Lib/Math/AxiomSystems",
+    # ArithFSM/V2to3.lean — namespace ArithFSMto3 reflects the
+    # cross-FSM bridge concept (V2 → V3); the file path encodes
+    # the V2to3 sub-cluster.
+    "lean/E213/Lib/Math/Cohomology/Dyadic/ArithFSM/V2to3.lean",
 }
 
 

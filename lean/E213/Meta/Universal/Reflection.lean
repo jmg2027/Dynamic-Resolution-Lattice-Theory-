@@ -1,7 +1,7 @@
-import E213.Hypervisor.Lens.SemanticAtom
+import E213.Lens.SemanticAtom
 
 /-!
-# Research.UniversalReflection: Lens reflection of universalMorphism
+# UniversalReflection: Lens reflection of universalMorphism
 
 User directive (2026-04-25): "Bypassing environment-level reduction of Raw.fold
 — mathematically bypassing the limits of the environment via a reflection
@@ -22,8 +22,8 @@ reflects as a data-level Lens.
 
 namespace E213.Meta.Universal.Reflection
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.SemanticAtom
+open E213.Theory E213.Lens
+open E213.Lens.SemanticAtom
 
 /-- Reflection of a HasDistinguishing instance as a Lens. -/
 def universalAsLens (α : Type) [d : HasDistinguishing α] : Lens α :=

@@ -52,11 +52,18 @@ Quick navigation for major Lean capstones.  Updated 2026-05-01.
 - `Meta/UniversalLens/PaddingCapstone.padding_capstone`
   — abstract padding lemma + 4 instances
 
-## Class C atomic catalog (Famous Coincidences)
-- `Physics/FamousCoincidences/V1.famous_coincidences_capstone` — Lenz, Koide, r_p, hierarchy
-- `Physics/FamousCoincidences/V2.class_c_atomic_catalog`
-- `Physics/FamousCoincidences/V3.famous_coincidences_III_capstone` — gauge + reps
-- `Physics/FamousCoincidences/V4.famous_coincidences_IV_capstone` — exceptional Lie groups
+## Class C atomic catalog (multi-reading magic integers)
+- `Physics/AtomicCorrespondences/AtomicSuperCatalog.super_catalog` —
+  consolidated multi-output catalog (absorbs former
+  `FamousCoincidences/{Atomic, MultiReading, GaugeGroup, ExceptionalLie}`
+  cluster, 2026-05-05).  Covers integers 6, 8, 12, 16, 24, 25, 27,
+  32, 45, 60, 120, 192, 240, 248 with multi-reading atomic
+  decompositions.
+- Physics-named coincidences live in their natural topical files:
+  - `Physics/Hadron/ProtonElectronRatio.six_atomic_dual` (Lenz)
+  - `Physics/Foundations/KoideFormula.koide_atomic` (Koide)
+  - `Physics/Hadron/ProtonMass.r_p_v2_atomic` (proton radius)
+  - `Physics/Mass/HierarchyTowers.hierarchy_from_cardinality`
 - `Physics/Nuclear/MagicNumbersAtomic.nuclear_magic_atomic_capstone` — 7/7 magic
 
 ## Real213 precision artifact closures (F6 doc)
@@ -89,7 +96,7 @@ Must-read for new sessions:
 - `LESSONS_LEARNED.md` — finitist position guardrails
 - `HANDOFF.md` — current state
 - `CAPSTONE_INDEX.md` — this file
-- `seed/INDEX.md` (standalone summary), `seed/AXIOM/` (full corpus)
+- `seed/AXIOM/`, `seed/AXIOM/00_nature.md`
 
 ## Lean library map
 

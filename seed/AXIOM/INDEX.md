@@ -21,7 +21,7 @@ container shape changed.
 | 05 | `05_primacy.md` | Claim of primacy: every framework is a Lens on top (§6) |
 | 06 | `06_formalization.md` | Lean correspondence, encoding artifacts, deprecated paper / book references (§7) |
 | 07 | `07_self_reference.md` | No exterior; §8.4 dichotomy guide (re-read every Claude session) |
-| 08 | `08_implementation.md` | Raw + Firmware faithful-emulator analysis (α/β/γ/δ classification) |
+| 08 | `08_implementation.md` | Raw + Theory faithful-emulator analysis (α/β/γ/δ classification) |
 | 09 | `09_audit.md` | Lean ↔ axiom cross-check + corner cases + 5 leak paths |
 | 99 | `99_history.md` | Deprecated R1–R5 frame + change history of all absorbed sources |
 
@@ -41,4 +41,9 @@ container shape changed.
 - `seed/ORIGIN.md` — DRLT origin narrative (untouched).
 - `seed/PAPER1.md` — archival paper (cited by ~25 Lean files
   via `PAPER1 §X.Y`; do not modify).
+- `seed/RESOLUTION_LIMIT_SPEC.md` — N_U structural-invariant
+  authority statement (4-domain convergence at 5²⁵; cardinality
+  as lens output; Cantor + Cauchy under ∅-axiom).  The
+  `RESOLUTION_LIMIT_SPEC.md` wins when it diverges from any
+  AXIOM/ chapter on the resolution-limit topic.
 - `seed/NOTATION.md` — symbol conventions.

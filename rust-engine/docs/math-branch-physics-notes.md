@@ -1,13 +1,16 @@
 # Math branch → physics intuition mining notes
 
-Source branch: `claude/review-paper-directory-nDw9L` (not yet merged
-into main; surveying for physics-applicable computation/intuition).
+Source branch: `claude/review-paper-directory-nDw9L` (now landed —
+math content integrated into the main tree at
+`lean/E213/Math/{Cohomology,Linalg213,Hyper,…}/`).  This file is
+retained as the original mining record: a cross-walk of each Lean
+file's intended *physics* application.
 
 Format: one entry per math file mined.  Each entry has
-- **file** path on the math branch
+- **file** path (now under `lean/E213/Math/...`)
 - **what's there** (one-paragraph summary)
 - **physics intuition** (where this concretely buys you something)
-- **rust-engine application** (binary/Lean bridge to add when merged)
+- **rust-engine application** (binary/Lean bridge candidate)
 
 Keep entries short.  This file accumulates across sessions; do not
 try to digest the entire math branch in one pass.
@@ -1056,7 +1059,7 @@ product).
 **Computation lever**: When approaching a "what's the foundational
 representation of X" question, the answer should always start from
 ℕ-vectors and lift only as needed.  Anything starting from ℝ/ℂ
-is borrowing more structure than DRLT axioms provide.
+is borrowing more structure than 213 axioms provide.
 
 **Rust-engine application**: post-merge, `crates/firmware` already
 mirrors this principle — every numeric value is BigUint (≥ 0).

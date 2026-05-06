@@ -1,0 +1,87 @@
+import E213.Term.Tactic.Nat213
+import E213.Lib.Math.Real213.CutSum
+import E213.Lib.Math.Real213.CutSumTest
+
+/-!
+# ConstCutScale: const cut scaling theorem
+
+constCut a b = constCut (a*c) (b*c) for c ≥ 1.
+
+Equivalent rationals (1/2 = 2/4 = 3/6 = ...) yield same cut function.
+-/
+
+namespace E213.Lib.Math.Real213.ConstCutScale
+
+open E213.Theory E213.Lens
+open E213.Lib.Math.Real213.CutSumTest (constCut)
+
+/-- **constCut scaling pointwise**: ∀ m k, constCut a b m k = constCut (a*c) (b*c) m k.
+    ∅-axiom: pointwise variant (no funext).  Decides on the underlying
+    Nat inequality `a*k ≤ b*m` via `Nat.le_or_lt` (avoids by_cases). -/
+theorem constCut_scale_at (a b c : Nat) (hc : c ≥ 1) (m k : Nat) :
+    constCut a b m k = constCut (a*c) (b*c) m k := by
+  show decide (a*k ≤ b*m) = decide ((a*c)*k ≤ (b*c)*m)
+  -- Bridge: (a*c)*k = c*(a*k), (b*c)*m = c*(b*m).
+  have e1 : (a*c)*k = c*(a*k) := by
+    rw [Nat.mul_comm a c, E213.Tactic.Nat213.mul_assoc]
+  have e2 : (b*c)*m = c*(b*m) := by
+    rw [Nat.mul_comm b c, E213.Tactic.Nat213.mul_assoc]
+  rcases Nat.lt_or_ge (b*m) (a*k) with hlt | hge
+  · -- a*k > b*m: both decide give false.
+    have hnot : ¬ (a*k ≤ b*m) := Nat.not_le_of_lt hlt
+    have hnot' : ¬ ((a*c)*k ≤ (b*c)*m) := by
+      intro habs
+      apply hnot
+      rw [e1, e2] at habs
+      exact Nat.le_of_mul_le_mul_left habs hc
+    rw [decide_eq_false hnot, decide_eq_false hnot']
+  · -- a*k ≤ b*m: both decide give true.
+    have h' : (a*c)*k ≤ (b*c)*m := by
+      rw [e1, e2]
+      exact Nat.mul_le_mul_left c hge
+    rw [decide_eq_true hge, decide_eq_true h']
+
+/-- **constCut scaling**: constCut a b = constCut (a*c) (b*c) for c ≥ 1.
+    Function-equality form (uses `funext` — DIRTY).  Prefer the
+    pointwise `constCut_scale_at` for ∅-axiom downstream. -/
+theorem constCut_scale (a b c : Nat) (hc : c ≥ 1) :
+    ∀ m k, constCut a b m k = constCut (a*c) (b*c) m k :=
+  fun m k => constCut_scale_at a b c hc m k
+
+/-- 1/2 ≡ 2/4 (cutEq, PURE). -/
+example : ∀ m k, constCut 1 2 m k = constCut 2 4 m k :=
+  constCut_scale 1 2 2 (by decide)
+
+/-- 1/2 ≡ 3/6 (cutEq, PURE). -/
+example : ∀ m k, constCut 1 2 m k = constCut 3 6 m k :=
+  constCut_scale 1 2 3 (by decide)
+
+/-- 2/3 ≡ 4/6 (cutEq, PURE). -/
+example : ∀ m k, constCut 2 3 m k = constCut 4 6 m k :=
+  constCut_scale 2 3 2 (by decide)
+
+/-- constCut 1 1 m k = constCut a a m k pointwise (PURE). -/
+theorem constCut_one_one_eq_at (a : Nat) (ha : a ≥ 1) (m k : Nat) :
+    constCut 1 1 m k = constCut a a m k := by
+  have h := constCut_scale_at 1 1 a ha m k
+  rw [Nat.one_mul] at h
+  exact h
+
+/-- constCut 1 1 ≡ constCut a a (= "1") for a ≥ 1 (cutEq, PURE). -/
+theorem constCut_one_one_eq (a : Nat) (ha : a ≥ 1) :
+    ∀ m k, constCut 1 1 m k = constCut a a m k :=
+  constCut_one_one_eq_at a ha
+
+/-- constCut 0 1 m k = constCut 0 b m k pointwise (PURE). -/
+theorem constCut_zero_eq_at (b : Nat) (hb : b ≥ 1) (m k : Nat) :
+    constCut 0 1 m k = constCut 0 b m k := by
+  have h := constCut_scale_at 0 1 b hb m k
+  rw [Nat.zero_mul, Nat.one_mul] at h
+  exact h
+
+/-- constCut 0 1 = constCut 0 b (= "0") for b ≥ 1. -/
+theorem constCut_zero_eq (b : Nat) (hb : b ≥ 1) :
+    ∀ m k, constCut 0 1 m k = constCut 0 b m k :=
+  constCut_zero_eq_at b hb
+
+end E213.Lib.Math.Real213.ConstCutScale

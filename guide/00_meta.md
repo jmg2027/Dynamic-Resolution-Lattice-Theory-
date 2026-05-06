@@ -56,16 +56,13 @@ content** (every theorem computable; falsifiability mechanical).
 
 ## Sources
 
-- `seed/INDEX.md` — standalone summary (axiom + key concepts).
-- `seed/AXIOM/02_statement.md` — the four clauses, binding standard.
-- `seed/AXIOM/00_nature.md` — notation-of-notation, recursion
-  unavoidable.
-- `seed/AXIOM/04_falsifiability.md` — discard criteria; 7 explicit
-  falsifiers.
+- `seed/AXIOM/` — the four clauses, binding standard.
+- `seed/AXIOM/00_nature.md` — notation-of-notation, recursion unavoidable.
+- `seed/AXIOM/04_falsifiability.md` — discard criteria; 7 explicit falsifiers.
 - `papers/paper14_213.tex` — self-describing structure (current).
 - `papers/drlt-book/chapters/ch22_213.tex` — monograph version.
-- `lean/E213/Firmware/Raw.lean` — Raw type with smart constructor.
-- `lean/E213/Firmware/Atomicity/Five.lean` — d=5 proven as theorem.
+- `lean/E213/Theory/Raw.lean` — Raw type with smart constructor.
+- `lean/E213/Theory/Atomicity/Five.lean` — d=5 proven as theorem.
 
 ## Open / next
 

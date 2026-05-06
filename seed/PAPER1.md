@@ -15,12 +15,14 @@ appear in §8.4.
 >   reorganization (e.g., `Research/Padic.lean` is now
 >   `Research/Hyper/Padic.lean`).  Consult `lean/E213/ARCHITECTURE.md`
 >   for the canonical current architecture.
-> - The R1-R5 → ℂ derivation chain (§4) was the basis of the
->   now-deleted `213/PAPER.md`; the current uniqueness story is split
->   into three pillars — `Meta/UniversalLens/` (sideways
->   factorization), `Firmware/Atomicity/` (forced-shape from above),
->   and `Research/AxiomMinimality.lean` (minimality from below).
->   See `AXIOM.md §1.3, §9.4`.
+> - The R-game judgment frame referenced in §4 is **deprecated**
+>   (per `seed/AXIOM/99_history.md` §9, post-2026-05 cleanup).  The current
+>   uniqueness story is split into three pillars —
+>   `Meta/UniversalLens/` (sideways factorization),
+>   `Firmware/Atomicity/` (forced-shape from above), and
+>   `Research/AxiomMinimality.lean` (minimality from below).
+>   ℂ enters as a Lens construction (`Math/CayleyDickson/`), not
+>   as a consequence of any R-axiom set.
 > - The prose "atomicity → d=5" argument in §5 here is now formal:
 >   `Firmware/Atomicity/{Five, PairForcing, NonDecomposable, Alive,
 >   ArityForcing, ArityForcingGeneral, PrimitiveSizes}`.

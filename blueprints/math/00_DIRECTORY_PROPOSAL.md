@@ -225,7 +225,7 @@ Write new PHILOSOPHY.md, FALSIFIABILITY.md.
 `213/framework/` → `lean/`.  Move Lakefile + lean-toolchain.
 Keep `E213/` namespace as-is.
 
-### Step 3: lean/E213/Math/ per-field sub-dirs
+### Step 3: lean/E213/Lib/Math/ per-field sub-dirs
 
 Current `Real213*.lean` 176 modules → `Math/Analysis/Real213*.lean`.
 Keep filenames (renaming would require updating import paths).

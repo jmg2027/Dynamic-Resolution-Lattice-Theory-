@@ -20,7 +20,7 @@ witness within current 213-native infrastructure.
 
 namespace E213.Meta.UniversalLens.Nat2
 
-open E213.Firmware E213.Hypervisor
+open E213.Theory E213.Lens
 
 /-- Lens (ℕ × ℕ): first component = exp-sum bit encoding,
     second component = depth counter. -/

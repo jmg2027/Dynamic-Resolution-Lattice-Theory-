@@ -1,15 +1,44 @@
 # tools/ — repo automation scripts
 
+## Audit & verification
+
   - `kernel_regress.sh` — verify `E213.Kernel.*` 101 theorems remain
     literally 0-axiom.  Hook-invoked on Kernel edits.
-  - `audit_axioms.py` — `#print axioms` survey across whole tree.
-  - `port_candidates.py` — find unported Lean theorems for Rust mirror.
-  - `sync_namespaces.py` ★ — auto namespace↔path alignment for E213.
-    Detects mismatches between a file's path (e.g. `Math/Cohomology/
-    Universal/Prop53.lean`) and its `namespace ...` declaration
-    (`E213.Math.Cohomology.Universal.Prop53`).  Updates declarations
-    + global references in a single sentinel-protected pass to avoid
-    sed-cascade errors.
+  - `scan_axioms.py <module>` — per-module `#print axioms` audit.
+    Reports `[PURE]` (0 axioms) or `[DIRTY]` per top-level decl.
+  - `scan_all_axioms.py` — tree-wide PURE / real-DIRTY / sealed
+    classification with `SEALED_DIRTY_PREFIXES` for funext-by-design
+    items.  Cited from CLAUDE.md as the canonical audit.
+  - `audit_axioms.py [--filter K]` — older kernel-focused variant
+    (hardcoded module list).  Superseded by `scan_axioms.py` for
+    per-module work; kept for legacy invocation paths.
+  - `sync_strict_zero_axiom.py [--csv FILE]` — diff
+    `STRICT_ZERO_AXIOM.md` catalog vs reality (from
+    `scan_all_axioms.py`).  Lists in-catalog-but-not-PURE and
+    PURE-but-not-in-catalog candidates.
+
+## Theorem inspection
+
+  - `theorem_audit.py` — fingerprint extraction across the tree
+    (combo signatures: tactic mix per theorem).  Output feeds the
+    G17-G28 audit research notes.
+  - `theorem_inspect.py` — pull individual theorem bodies + axiom
+    status by name pattern.  Ad-hoc spelunking.
+
+## Architecture audits
+
+  - `layer_audit.py` — mechanical layer assignment (Kernel /
+    Firmware / Hypervisor / Meta / OS / App) for every Lean file
+    based on import closure.  Produces canonical layer report
+    cited from `lean/E213/ARCHITECTURE.md` + `INDEX.md`.
+
+## Maintenance
+
+  - `sync_namespaces.py [--apply] [--include-rust]` ★ — namespace ↔
+    path alignment for E213.  Detects mismatches between a file's
+    path and its `namespace ...` declaration; updates declarations
+    + global references in a single sentinel-protected pass to
+    avoid sed-cascade errors.
 
     Usage:
       python3 tools/sync_namespaces.py             # dry-run
@@ -24,12 +53,19 @@
 
     Exit codes: 0 OK, 1 unresolved mismatches, 2 build failed.
 
-  - `FORBIDDEN.md` — patterns blocked by hooks.
+  - `port_candidates.py [--limit N]` — heuristic finder for
+    short-proof theorems (`rfl`, `by decide`, etc.) suitable for
+    porting to Lean kernel `Cap_*.lean` modules as deep-embedded
+    Terms.
 
-## Notes for future tooling
+## Policy
 
-When introducing a sub-cluster reorg (move N files into a new dir),
-the workflow is:
+  - `FORBIDDEN.md` — patterns blocked by hooks (sorry, axiom,
+    Mathlib import, Classical, native_decide in Kernel).
+
+## Sub-cluster reorg workflow
+
+When introducing a sub-cluster reorg (move N files into a new dir):
 
   1. `git mv` the files into the new sub-dir.
   2. `python3 tools/sync_namespaces.py --apply --include-rust`.
@@ -37,5 +73,5 @@ the workflow is:
      across `lean/` and (with `--include-rust`) `rust-engine/`.
   4. Tool runs `lake build` automatically and reports.
 
-This replaced the previous error-prone manual `sed -i` workflow that
+Replaces the previous error-prone manual `sed -i` workflow that
 failed twice (cascade replacements; sentinel approach prevents this).

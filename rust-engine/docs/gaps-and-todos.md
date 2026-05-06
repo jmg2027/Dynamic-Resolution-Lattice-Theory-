@@ -36,7 +36,7 @@ now resolve at theorem-id level.
 
 `muon_lifetime` formerly cited the broad MasterCatalog; ✅ resolved
 2026-04-30 by retargeting to the existing 0-axiom theorem
-`E213.Physics.Phase4.Library.ParticleLibrary.muon_lifetime_192`,
+`E213.Lib.Physics.Phase4.Library.ParticleLibrary.muon_lifetime_192`,
 which states `(NS² − 1)·(d² − 1) = 192` — the EXACT atomic identity
 underlying the muon lifetime prefactor.  `atomic_correspondences`
 remains pointed at MasterCatalog: that's correct since it is itself

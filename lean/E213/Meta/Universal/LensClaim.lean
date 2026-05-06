@@ -1,8 +1,8 @@
-import E213.Hypervisor.Lens.SemanticAtom
+import E213.Lens.SemanticAtom
 import E213.Meta.Universal.Reflection
 
 /-!
-# Research.UniversalLensClaim: "every framework is a Lens" formal
+# UniversalLensClaim: "every framework is a Lens" formal
 
 The strongest claim in CLAUDE.md: "every framework — set theory,
 category theory, logic, language, physics — is ... Lenses."
@@ -32,8 +32,8 @@ claim in CLAUDE.md (partial — limited to α having HasDistinguishing).
 
 namespace E213.Meta.Universal.LensClaim
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.SemanticAtom
+open E213.Theory E213.Lens
+open E213.Lens.SemanticAtom
 
 /-- **Restated claim**: every HasDistinguishing instance is the codomain
     of a framework Lens.  Witness: universalAsLens. -/

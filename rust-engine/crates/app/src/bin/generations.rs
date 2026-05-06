@@ -3,7 +3,7 @@
 //! Standard Model treats N_gen = 3 as observation.  DRLT *derives* it
 //! from atomicity.  Sharper: no 4th generation slot exists in the lattice.
 
-use drlt_hypervisor::chiral_k32::binom;
+use drlt_lens::chiral_k32::binom;
 
 fn main() {
     let ns = 3u64; let nt = 2;

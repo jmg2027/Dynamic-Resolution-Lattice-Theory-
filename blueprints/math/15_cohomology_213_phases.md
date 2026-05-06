@@ -4,7 +4,7 @@ Companion to `15_cohomology_213.md`. Six-phase marathon following
 the Phase 1 Physics template. Each phase ≈ 4–8 commits, ~5–10 Lean
 files, 80-line limit per file.
 
-Target: `lean/E213/Math/Cohomology/`. Naming: `Cohomology<Topic>.lean`.
+Target: `lean/E213/Lib/Math/Cohomology/`. Naming: `Cohomology<Topic>.lean`.
 
 ## Phase CA — Cochain Complex Foundation
 

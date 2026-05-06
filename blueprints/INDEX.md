@@ -23,14 +23,13 @@ formal fact.
   📋 `math/00_DIRECTORY_PROPOSAL.md`  — Math track directory proposal
   📋 `physics/00_PHYSICS_RESPONSE.md` — Physics track response (full agreement)
 
-  Final architecture (2026-05-01 actual state):
+  Final architecture (2026-05-06, post-M14 ring rename):
   - `seed/` (axioms + philosophy + falsifiability)
-  - `lean/E213/` (namespace preserved; ~810 .lean files;
-    layered Kernel/Firmware/Hypervisor/Meta/App + horizontal
-    Math/Physics/Research/Infinity/Tactic/Tools — see
-    `lean/E213/ARCHITECTURE.md` (canonical layer architecture) and
-    `lean/E213/INDEX.md`.  Note: `OS/` was retired 2026-05-XX —
-    its files dissolved into Firmware/Atomicity/ and Math/Pigeonhole.)
+  - `lean/E213/` (~825 .lean files; concentric ring model
+    Term/Theory/Lens/Meta/Lib/App — see `lean/E213/ARCHITECTURE.md`
+    canonical ring architecture.  Pre-M14 names
+    Kernel/Firmware/Hypervisor/Meta/App + OS orchestration ring are
+    in `git log`.)
   - `books/{math,physics}/`, `catalogs/`,
     `blueprints/{math,physics,meta}/`, `tools/`,
     `research-notes/`, `guide/`, `rust-engine/`
@@ -41,8 +40,8 @@ formal fact.
 
 ## Division of Work
 
-  - Math track: lean/E213/Math/, books/math/, blueprints/math/01-12,14
-  - Physics track: lean/E213/Physics/, books/physics/, blueprints/physics/all
+  - Math track: lean/E213/Lib/Math/, books/math/, blueprints/math/01-12,14
+  - Physics track: lean/E213/Lib/Physics/, books/physics/, blueprints/physics/all
   - Common: seed/, catalogs/, tools/, research-notes/
 
 ## Realization snapshot (2026-04-30)
@@ -50,7 +49,7 @@ formal fact.
 ### Math (3 of 15 fields realized)
 
 - ✅ **07 Number Theory 213** — REALIZED (~120 files in
-  `lean/E213/Math/Cohomology/Dyadic/` after Phase 3 reorg, organized
+  `lean/E213/Lib/Math/Cohomology/Dyadic/` after Phase 3 reorg, organized
   into 8 sub-clusters: ArithFSM/, BitFSM/, Pell/, Fib/, Trib/,
   Legendre/, Pisano/, Archive/.  See `books/math/number-theory-213.md`)
 - ✅ **13 213 Meta** — CORE CLOSED (Universal Lens at ℕ²/ℚ²,

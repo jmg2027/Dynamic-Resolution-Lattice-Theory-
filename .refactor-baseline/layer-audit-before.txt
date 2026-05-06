@@ -1,0 +1,118 @@
+# Layer audit — 829 .lean files under lean/E213/
+
+Vertical: {'Kernel': 0, 'Firmware': 1, 'Hypervisor': 2, 'Meta': 3, 'App': 4}
+Horizontal: ['Math', 'Physics']
+
+## Violations: path layer < natural layer  (0)
+(file claims to be foundational but imports something higher)
+
+
+## Downgrade hints: path layer > natural layer  (28)
+(file could be moved down — informational, not a violation)
+
+  App -> could go to Firmware: 1 files
+      App/Simplex.lean
+  Firmware -> could go to Kernel: 7 files
+      Firmware/Atomicity/Alive.lean
+      Firmware/Atomicity/ArityForcing.lean
+      Firmware/Atomicity/ArityForcingGeneral.lean
+      ... +4 more
+  Hypervisor -> could go to Firmware: 1 files
+      Hypervisor/Lens.lean
+  Hypervisor -> could go to Kernel: 8 files
+      Hypervisor/Lens/AxiomLenses/Core/Funext.lean
+      Hypervisor/Lens/AxiomLenses/Core/Propext.lean
+      Hypervisor/Lens/AxiomLenses/Core/QuotSound.lean
+      ... +5 more
+  Meta -> could go to Hypervisor: 5 files
+      Meta/RawInductionDemo.lean
+      Meta/SelfRecognising.lean
+      Meta/Universal/MorphismFactor.lean
+      ... +2 more
+  Meta -> could go to Kernel: 6 files
+      Meta/AxiomMinimality.lean
+      Meta/BitPatternUniqueness.lean
+      Meta/Tactic/DeriveConjugationCodomain.lean
+      ... +3 more
+
+## Horizontal files reaching Meta/App  (8)
+  (root)/* uses App: 1 files
+  (root)/* uses Meta: 1 files
+  Math/* uses Meta: 6 files
+
+## Per-file natural vertical layer
+(every file lives in Kernel/Firmware/Hypervisor/Meta/App;
+ computed from import closure)
+
+  top-folder         Kernel    Firmware  Hypervisor        Meta         App   total
+  App                     0           0           0           0           1       1
+  App.lean                0           0           0           0           1       1
+  Firmware                0          27           0           0           0      27
+  Firmware.lean           0           1           0           0           0       1
+  Hypervisor              0           0         101           0           0     101
+  Hypervisor.lean          0           0           1           0           0       1
+  Kernel                 24           0           0           0           0      24
+  Kernel.lean             1           0           0           0           0       1
+  Math                   50         256         180           9           0     495
+  Math.lean               0           0           0           1           0       1
+  Meta                    0           0           0          30           0      30
+  Meta.lean               0           0           0           1           0       1
+  OS                      0          12           2           0           0      14
+  OS.lean                 0           0           1           0           0       1
+  Physics                 0         117          11           0           0     128
+  Physics.lean            0           0           1           0           0       1
+  Prelude.lean            1           0           0           0           0       1
+
+## Per-layer provider/consumer split (G12 T1 heuristic)
+(provider = file introduces def/struct/class in its dir-namespace;
+ consumer = uses level-N abstraction without adding new)
+
+  layer            provider    consumer   total
+  Kernel                 29          47      76
+  Firmware              217         196     413
+  Hypervisor            167         130     297
+  Meta                   15          26      41
+  App                     1           1       2
+
+## Horizontal cluster depth (within-cluster imports only)
+(span >= 15 → sub-clustering candidate)
+
+### Math/  (495 files, max depth 47)
+  sub                           n  min  med  max  flag
+  Trajectory                    1    0    0    0
+  Choice                        4    0    0    0
+  AxiomSystems                  4    0    0    1
+  Diagonal                      2    0    1    2
+  Irrational                    6    0    1    2
+  Infinity                      8    0    1    2
+  ModArith                      9    0    1    3
+  Hyper                         3    0    1    4
+  Linalg213                     8    0    3    6
+  Cauchy                       14    0    4    6
+  CayleyDickson                29    0    2   12
+  Cohomology                  239    0   17   46  WIDE
+  (top)                        38    0    3   47  WIDE
+  Polynomial213                 2    1    1    2
+  Modulus                       4    1    2    4
+  Tactic                        5    1    3    8
+  Real213                      45    1    4   11
+  Analysis                     74    2   13   28  WIDE
+
+### Physics/  (128 files, max depth 12)
+  sub                           n  min  med  max  flag
+  Simplex                       7    0    1    5
+  Substrate                    13    0    3    6
+  Basel                         2    1    2    3
+  Atomic                       21    1    4    8
+  Cosmology                     6    1    5    9
+  Higgs                         4    1    7    9
+  Hadron                        8    1    5   10
+  Foundations                  17    1    5   10
+  Mixing                        5    1    3   11
+  Nuclear                       6    1   10   11
+  Couplings                    11    2    5    9
+  YangMills                     5    3    5    6
+  AlphaEM                       6    3    5    8
+  (top)                        14    4   10   12
+  Mass                          3    5    8    9
+

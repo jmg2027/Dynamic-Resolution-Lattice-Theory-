@@ -1,11 +1,11 @@
-# §8a. Raw + Firmware implementation audit study
+# §8a. Raw + Theory implementation audit study
 
 (formerly seed/IMPLEMENTATION.md)
 
 ## Abstract
 
 This document structurally demonstrates that the Raw framework
-implemented in `lean/E213/Firmware/` is a **faithful emulator** of
+implemented in `lean/E213/Theory/` is a **faithful emulator** of
 the axiom in `02_statement.md`.  Specifically:
 
 1. Each implementation device in Lean 4 core (inductive type,
@@ -229,7 +229,7 @@ General principle:
 > clause, it is not (δ).  Adding a gate unrelated to any axiom
 > clause would make it (δ) and it should fail the audit.
 
-The only type-level gate in the current Firmware is `h : x ≠ y`.
+The only type-level gate in the current Theory is `h : x ≠ y`.
 This is a literal translation of Axiom 4.  → **no (δ)**.
 
 ### §I.3.2 Conditional preconditions of theorems
@@ -275,7 +275,7 @@ encoding artifact leak."
 
 ### §I.3.4 Namespace / convention
 
-Example: `E213.Firmware.Internal` namespace, `private` modifier,
+Example: `E213.Theory.Internal` namespace, `private` modifier,
 "Internal open forbidden" convention in CLAUDE.md.
 
 - Lean 4 core is not a strict module system like Java / Haskell.
@@ -319,7 +319,7 @@ axiom.  Summary:
 | B | `Raw.rec` asymmetric slash handling | Doc WARNING added | Introduce ValidLens predicate (future) |
 | C | Tree exposed via `.val` access | NOTATION.md convention done | none |
 | D | `Internal` open convention | CLAUDE.md DO-NOT done | More aggressive use of private (future) |
-| E | Absence of ValidLens predicate | Absent | Extend Hypervisor/Lens.lean (future) |
+| E | Absence of ValidLens predicate | Absent | Extend Lens/LensCore.lean (future) |
 
 **Important**: Even if all 5 items are unaddressed, **the axiom is
 not violated**.  It is merely that **a user's Lens may silently
@@ -338,13 +338,13 @@ To complete the argument, the following meta-theorem is needed:
 > "commutative-anti-reflexive equivalence" (i.e.,
 > `Tree.slash x y ~ Tree.slash y x`, reflexive slash forbidden),
 > then the two implementations `Raw_{cmp₁}`, `Raw_{cmp₂}` have a
-> type-level isomorphism, and all public theorems of Firmware
+> type-level isomorphism, and all public theorems of Theory
 > transport through this isomorphism.
 
 If this meta-theorem is formalized:
 
 - It is mechanically verified that the specific cmp choice in
-  Firmware **has no effect on any axiomatic conclusion**.
+  Theory **has no effect on any axiomatic conclusion**.
 - cmp being a choice external to the axiom is automatically
   proven.
 - ValidLens predicate / symmetric combine requirement is revealed
@@ -352,7 +352,7 @@ If this meta-theorem is formalized:
   choice."
 
 **Current status**: **Formalization complete**
-(`Firmware/Raw/CmpIndependence.lean`).
+(`Theory/Raw/CmpIndependence.lean`).
 
 - Phase 1: `CmpProps` (eq_iff + swap) abstraction, `canonicalBy` /
   `RawBy` defined for arbitrary cmp.
@@ -366,7 +366,7 @@ If this meta-theorem is formalized:
 Classical.choice absent.  `04_falsifiability.md` §5.2.1
 falsifiability maintained.
 
-Therefore the cmp choice in Firmware is mechanically verified to
+Therefore the cmp choice in Theory is mechanically verified to
 have **no effect on mathematical results**, and classification
 (β) — that cmp is an outside choice of encoding — is formally
 proven.
@@ -453,7 +453,7 @@ meaning?
 
 ### §I.7.1 Axiom faithfulness
 
-The Lean implementation of Raw + Firmware is a **faithful
+The Lean implementation of Raw + Theory is a **faithful
 emulator** of the axiom.  Classifying implementation devices:
 
 - (α) Type-level re-expression of the axiom: Tree's a, b, slash
@@ -483,10 +483,10 @@ same theorems.  Only the possibility of user misuse changes.
   **completed** (CmpIndependence.lean, 2026-04-25).
 - (future) Introduce ValidLens predicate (§I.4 E).
 - (short-term) Lens-layer bleed migration — move Raw.depth,
-  Raw.leaves, etc. to Hypervisor (§I.4, `09_audit.md` §3
+  Raw.leaves, etc. to Lens (§I.4, `09_audit.md` §3
   Recommendation 3).
 - (extension, completed) p-adic ℤ_p sub-tower formalization
-  (`Math/Hyper/Padic.lean`): leavesModNat sub-family + factorial
+  (`Lib/Math/Hyper/Padic.lean`): leavesModNat sub-family + factorial
   seq instance.  ZFC reduction scope extended to number-theoretic
   limit territory.
 

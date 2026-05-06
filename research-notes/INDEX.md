@@ -1,55 +1,64 @@
-# research-notes/ — exploratory drafts (numbered series)
+# research-notes/
 
-Chronological / thematic exploratory notes that **fed into** the
-formal Lean library.  Most claims here are now formalized in
-`lean/E213/` — these notes preserve the *thought process*, not
-the canonical statement.
+Exploratory notes that fed into the formal Lean library.  Kept as
+*record of the path*, not canonical statement.  Source of truth is
+`lean/E213/`.
 
-## Numbered series
+## Layout
 
-| Series | Theme | Status |
+```
+research-notes/
+├── INDEX.md             ← this file
+├── 75, 76               ← semantic-atom thesis (active foundational)
+├── G1–G5, G12           ← pre-audit insight notes (universal lens,
+│                          trajectory, chiral/phase, sublanguage,
+│                          layered API)
+├── G28, G29, G30        ← corrected output of the G17–G27 audit arc
+│                          + pattern catalog synthesis
+├── hodge/               ← G6–G11 Hodge program closure cluster (6 notes)
+├── audit/               ← G17 empirical pattern audit + G18–G27 iterations
+└── archive/             ← closed historical: 17/19/30 + A1/B/C/D/E/F series
+```
+
+## Top-level (active reference)
+
+| File | Theme | Status |
 |---|---|---|
-| `17`, `19`, `30` | Early lens / paradox notes | Historical |
-| `75`, `76` | Semantic atom / ouroboros — late-2025 reflections | Historical |
-| `A1` | Kernel cardinality investigation | Closed in `lean/E213/Kernel/` |
-| `B1`, `B2` | Pure descent + Hermite direction (D-attack on cardinality) | Inputs to AxiomMinimality |
-| `C1` | Kernel cardinality obstruction — the formal block | Closed in `Meta/AxiomMinimality` |
-| `D1` | "ZFC real as final boss" — finitist conviction | Now `LESSONS_LEARNED.md` 교훈 1 |
-| `D2`, `D3` | Complexity class hierarchy + Real213-native R proposal | Inputs to Real213 marathon |
-| `E1` – `E5` | Real213 analysis roadmap, obstructions, "213 stays 213" | Real213 marathon Phase A-H |
-| `F0` – `F6` | 213-native arithmetic synthesis, marathon final state | Real213 marathon Phase J-O capstones |
-| `G1` | Universal lens unification | Lens framework synthesis |
+| `G29_residue.md` | Foundational text — the residue of pointing | **Active** (boot-sequence read) |
+| `G28_every_pattern_present.md` | Operational primitives: every stateable pattern lives in 213 | Active (corrects G27) |
+| `G30_pattern_catalog_synthesis.md` | Pattern catalog synthesis (metaformalization arc closure) | Active; companions in `Math/PatternCatalog*` |
+| `75_semantic_atom.md` | 213 as the atom of meaning + existence | Foundational thesis |
+| `76_ultimate_ouroboros.md` | `Prop` instance via `propAsDistinguishing` | Formalization companion to 75 |
+| `G1_universal_lens.md` | Universal-lens unification | Closed in `Meta/UniversalLens*.lean` |
+| `G2_trajectory_principle.md` | 4-insight unification on Raw trajectory | Cited from `LESSONS_LEARNED.md` |
+| `G3_raw_as_universal_trajectory.md` | Raw = free magma on 2 generators (universal trajectory) | Cited from `LESSONS_LEARNED.md` |
+| `G4_chiral_phase_duality.md` | d=5 dual views (chiral / phase) | Cited from `HANDOFF.md` |
+| `G5_213_as_sublanguage.md` | 213 as the sublanguage of mathematics | Cited from `HANDOFF.md` |
+| `G31_minimal_root_lens.md` | Trajectory-as-witness IVT — `ConsistentOracle` readout = minimal-root cut, no locatedness | Skeleton closed in `Math/Analysis/DyadicSearch/MinimalRootLens.lean`; full IVTRoot pending monotone-poly milestone |
+| `hodge/` (sub-tree, 6 notes) | Hodge program closure: G6 translation, G7 Lens initiality + cup blueprint, G8 standard-math bridge, G9 HC²¹³ closure, G10 17-theorem programme, G11 Galois historical | Closed in `Math/Cohomology/HodgeConjecture/`; see `hodge/INDEX.md` |
+| `G12_layered_api_classification.md` | Layered API classification (Hypervisor) | Cited from `Hypervisor/API.lean`, `OS/INDEX.md` |
 
-## Reading order
+## Subdirectories
 
-For *historical* understanding (how DRLT got here): chronological by
-prefix → 17, 19, 30, 75, 76, A1, B1, B2, C1, D1, D2, D3, E1...
+- **`hodge/`** — G6–G11 Hodge program closure (6 notes).  Reading
+  order, Lean closure mapping, framing-correction status all in
+  `hodge/INDEX.md`.  Each note is closed in
+  `lean/E213/Lib/Math/Cohomology/HodgeConjecture/` (Foundation +
+  Bridge + Refinement + Toolkit + Pairing + Structure).
 
-For *current* state: don't read these.  Read instead:
-  - `HANDOFF.md` (current snapshot)
-  - `CAPSTONE_INDEX.md` (theorem map)
-  - `LESSONS_LEARNED.md` (guardrails)
-  - `lean/E213/` (formal source of truth)
+- **`audit/`** — G17 empirical pattern audit (6125 declarations) +
+  G18–G27 classification iterations.  Superseded by G28/G29 at the
+  conceptual level; raw audit data + tactic catalogues retained as
+  evidence base.  See `audit/INDEX.md`.
 
-## Status of each note
+- **`archive/`** — closed historical exploratory drafts.  Pre-G era
+  (17/19/30), kernel cardinality (A1/B1/B2/C1), resolution-limit
+  early framing (D1/D2/D3, originally "finitism conviction" — now
+  superseded by `seed/RESOLUTION_LIMIT_SPEC.md`), Real213 analysis
+  roadmap (E1–E5), Real213 marathon state (F0–F6).  All formalized
+  or superseded; preserved as record of path.  See `archive/INDEX.md`.
 
-Most notes describe **already-closed** problems or **superseded**
-roadmaps.  Specifically:
+## Adding a new note
 
-  - `D1_zfc_real_as_final_boss.md`: formalized as
-    `Real213.DyadicTrajectory.alwaysTrueUnit_limit_distinct_from_zero`
-  - `E1_real213_analysis_roadmap.md`: roadmap completed via Real213
-    Phase J-O capstones in `lean/E213/Research/`
-  - `F6_general_theorems_state.md`: state superseded by capstones
-    (`Real213/CutMulConstSum.lean`, `Real213/CutSumGeneral.lean` etc.,
-    namespaced under `E213.Research.Real213.*`).
-  - `G1_universal_lens.md`: closed in `Meta/UniversalLens*.lean`
-
-## When to add a new research note
-
-When a new exploratory direction starts that may or may not
-formalize.  Use next available prefix (currently `H1` or `100`+).
-
-Once formalized, **leave the note in place** with a "→ closed in
-<Lean module>" marker.  Don't delete — the note is the historical
-record of the *path*, not the conclusion.
+Use next available G prefix (currently G31+).  Once formalized, leave
+the note in place with a `→ closed in <Lean module>` marker.

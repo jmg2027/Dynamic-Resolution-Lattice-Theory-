@@ -1,7 +1,92 @@
-# STRICT ∅-AXIOM — the DRLT Axiom Standard
+# STRICT ∅-AXIOM — the 213 axiom standard
 
-**This is the canonical DRLT axiom standard** (formalized 2026-05-02,
-CLAUDE.md `## DRLT Axiom Standard`).  The DRLT axiom set is ∅.
+> **Canonical definitions (single source of truth):** see "Terms"
+> section below.  When other documents (HANDOFF.md, CLAUDE.md,
+> scan_all_axioms.py comments) drift from these definitions, this
+> file wins.  Falsifiability anchor: `seed/AXIOM/04_falsifiability.md` §5.2.1.
+
+## Terms (canonical)
+
+| Term | Definition |
+|---|---|
+| **PURE** | `#print axioms <thm>` returns "does not depend on any axioms".  Identical to "strict ∅-axiom".  This is the standard target. |
+| **DIRTY** | `#print axioms` returns "depends on axioms: [...]" with a non-empty list.  Any of `propext`, `Quot.sound`, `Classical.choice`, `Lean.ofReduceBool` (from `native_decide`), `sorryAx`. |
+| **sealed-DIRTY-by-design** | A DIRTY theorem accepted because (a) Lean-core boundary (well-founded recursion, Lean.Elab metaprogramming inheriting Classical.choice via the Lean.Elab.Command monad), or (b) Lens funext-by-design (higher-order Lens equality requires funext on the combine field, refactoring would redefine what "Lens equality" means).  Listed in `tools/scan_all_axioms.py` `SEALED_DIRTY_PREFIXES`. |
+| **real DIRTY** | DIRTY ∧ NOT sealed-by-design.  This is the regression budget. |
+
+**The 213 axiom set is ∅** — a theorem meets the standard iff PURE.
+
+**Forbidden absolutely** (per `seed/AXIOM/04_falsifiability.md` §5.2.1, falsifiability
+trigger): `Classical.choice` and `Lean.ofReduceBool` in **213
+mathematical content** (theorems about Raw, Lens, observables).
+Tactic files (`E213.Meta.Tactic.*`) that inherit Classical.choice
+purely via the Lean.Elab.Command monad are *plumbing*, not 213-math
+content; sealed under (a) above with explicit justification.
+
+**Always allowed but not target**: `propext` and `Quot.sound` are
+part of the Lean 4 core kernel base.  213 aims to avoid them where
+possible (PURE target) but does not falsify if a result requires
+them via Lean-core well-founded recursion proofs.
+
+---
+
+## Latest scan
+
+(Numbers vary by run due to scanner timeouts on slow modules; refer
+to HANDOFF.md "current state" for the freshest reading.  994 total
+`.lean` files; scanner enumerates ~500-800 ★-marked theorems
+depending on timeout state.)
+
+**2026-05-05** (post-AXIOM.md §9.1 rename audit pass): tree-wide
+scan reports approximately **541 PURE / 18 DIRTY / 14 sealed-DIRTY-
+by-design** (573 total counted).  Real DIRTY breakdown: 10 [propext]
++ 7 [propext, Quot.sound] + 1 [propext, Classical.choice, Quot.sound]
+(NativeGuard internal; Classical.choice via Lean.Elab API, sealed
+upstream).  Compared to pre-rename 2026-05-04 baseline (511/14/22),
+the rename caused +30 PURE (newly counted), +4 DIRTY (newly counted
+pre-existing items), -8 sealed (entries reclassified after seal-list
+update for `Meta.SelfRecognising` + `DeriveConjugationCodomain` +
+`VerifyConjugation`).  No new actual axiom dependencies were
+introduced by the rename.
+
+**Earlier session 27 milestone (2026-05-03)**: scan reported **2077
+PURE / 0 real DIRTY / 19 sealed**.  The 2077 count reflected a more
+permissive scanner regex catching additional ★-marked theorems
+across the Real213 marathon.  Cumulative arc 394 → 0 real DIRTY
+across sessions 19-27 via Plan 2 parallel-struct refactor PLUS
+deletion of ALL function-eq facade + consumer migration to `_at`
+pointwise form.
+
+**Genuine final state** (no cheat seal):
+  - The function-eq facade across Phase capstones, Flux*/FTC*
+    capstones, ClassicCalc/Passthrough/HasDyadicMVTWitness struct
+    families, and leaf cut lemmas (CutMulOne/SumZero/PowConst/MidSelf)
+    has been **completely deleted**.  All ~25 consumer files
+    migrated to use only `_at` pointwise variants.
+  - Function-eq cut equality on `Nat → Nat → Bool` would require
+    funext = Quot.sound — but it's no longer needed: every theorem
+    is now stated and proved pointwise.
+  - The 6 propext-bearing residuals (CubeDerivativeAtZero × 3,
+    PolySumDerivativeModulus × 3) refactored using
+    cutSumAux_congr / cutMulOuter_congr cascades + manual Nat
+    arithmetic avoiding `omega`/`Nat.max_eq_left`.
+
+**The 19 sealed items** are mathematically inherent (NOT facade):
+  - Lean-core boundary: Nat.lcm/gcd/add_mod/Int from kernel use
+    propext via well-founded recursion proofs (8 modules).
+  - Lens funext-by-design: higher-order Lens equality requires
+    funext on the combine field — restating it would redefine what
+    Lens IS (~18 modules under SEALED_DIRTY_PREFIXES).
+  - SemanticAtom: Iff/propAsDistinguishing inherently uses propext
+    (the "atom of meaning" thesis).
+  - Math.Infinity.Godel: Cantor-style countability/equipotence
+    proofs use Iff between cardinality propositions.
+  - DyadicTrajectory: Cauchy-limit structural inequality preserved by
+    ∅-axiom regime; documented in `seed/RESOLUTION_LIMIT_SPEC.md` §1.
+  - Bridges: intentional axiom-demonstration cluster.
+
+**This is the canonical 213 axiom standard** (formalized 2026-05-02,
+CLAUDE.md `## Strict ∅-axiom standard`).  The 213 axiom set is ∅.
 
 A theorem in `lean/E213/` meets the standard iff `#print axioms`
 returns:
@@ -13,7 +98,7 @@ no `native_decide`, no `sorryAx`.
 This file maintains the running catalog of theorems that meet the
 standard.  Theorems still on the migration backlog
 (carrying `[propext, Quot.sound]` from `omega` / `funext` / etc.) are
-listed in CLAUDE.md `## DRLT Axiom Standard → Migration backlog`.
+listed in CLAUDE.md `## Strict ∅-axiom standard → Migration backlog`.
 
 Verification: `python3 tools/scan_axioms.py <module>` — every
 theorem reports `[PURE]` (meets the standard) or `[DIRTY]` with

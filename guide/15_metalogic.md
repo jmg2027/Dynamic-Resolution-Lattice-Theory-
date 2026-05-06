@@ -48,7 +48,7 @@ Any prediction violated outside its bracket → entire framework
 discarded. Binding — not "the section is revised". Mechanically
 enforced by `tools/kernel_regress.sh` and `tools/FORBIDDEN.md`, which
 forbid `sorry`, `axiom`, `import Mathlib`, `open Classical`,
-`native_decide` in `lean/E213/Kernel/*.lean`.
+`native_decide` in `lean/E213/Term/*.lean`.
 
 ## 213 sharpening
 
@@ -70,8 +70,7 @@ forbid `sorry`, `axiom`, `import Mathlib`, `open Classical`,
 
 ## Sources
 
-- `seed/INDEX.md` (standalone summary), `seed/AXIOM/` (full corpus
-  — chapters 00 nature, 04 falsifiability are most relevant here).
+- `seed/AXIOM/`, `seed/AXIOM/00_nature.md`, `seed/AXIOM/04_falsifiability.md`.
 - `papers/paper14_213.tex` § Swap symmetry, decidability.
 - `lean/E213/Meta/R4Codomain.lean`, `Meta/LensCatalog.lean`.
 - `lean/E213/Tactic/VerifyR4.lean`.

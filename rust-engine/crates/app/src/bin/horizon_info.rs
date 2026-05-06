@@ -4,7 +4,7 @@
 //!   Tetrahedron hinges      :  C(4, 3) = 4   bits
 //!   Holographic N (universe):  derived from atomicity + bit count
 
-use drlt_hypervisor::chiral_k32::binom;
+use drlt_lens::chiral_k32::binom;
 
 fn main() {
     println!("=== Holographic bit counting on K_{{3,2}}^{{(2)}} ===\n");

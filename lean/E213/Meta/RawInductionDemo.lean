@@ -1,5 +1,5 @@
-import E213.Firmware.Raw
-import E213.Hypervisor.Lens
+import E213.Theory.Raw
+import E213.Lens.LensCore
 
 /-!
 # Demo: `Raw.rec` as native `induction` target
@@ -11,7 +11,7 @@ decomposes a `Raw` term through three cases
 access.
 
 This module re-proves `Raw.fold_signed_swap` using the new
-eliminator as a sanity-check that the Phase C3 refactor
+eliminator as a sanity-check that the 3 refactor
 actually works.  The `a` / `b` cases exercise `Raw.rec`
 directly; the `slash` case delegates to `Raw.fold_swap_hom`
 as a black-box (public API only, no Tree internals).
@@ -19,7 +19,7 @@ as a black-box (public API only, no Tree internals).
 
 namespace E213.Meta.RawInductionDemo
 
-open E213.Firmware E213.Hypervisor
+open E213.Theory E213.Lens
 
 /-- Demo: swap realises negation on the signed Lens,
     re-proved via `Raw.rec` (no Tree access).  Base cases

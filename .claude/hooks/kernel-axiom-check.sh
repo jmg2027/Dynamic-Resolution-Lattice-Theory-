@@ -15,7 +15,7 @@ case "$TOOL" in Write|Edit) ;; *) exit 0 ;; esac
 
 # Only kernel files
 case "$PATH_" in
-  */lean/E213/Kernel/*.lean) ;;
+  */lean/E213/Term/*.lean) ;;
   *) exit 0 ;;
 esac
 

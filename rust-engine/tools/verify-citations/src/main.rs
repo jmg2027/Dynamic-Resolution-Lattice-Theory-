@@ -69,7 +69,7 @@ fn main() -> ExitCode {
 
 enum Resolution { Ok, FileOnly(PathBuf), RootFallback, Missing }
 
-/// `E213.Physics.AlphaEM137.inv_full_upper` →
+/// `E213.Lib.Physics.AlphaEM137.inv_full_upper` →
 ///   1. find deepest path prefix matching a `.lean` file (depth ≥ 2)
 ///   2. require trailing segment to occur as a top-level identifier.
 fn resolve(lean_root: &Path, lemma: &str) -> Resolution {

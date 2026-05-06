@@ -1,5 +1,5 @@
 import E213.Meta.UniversalLens.Padding
-import E213.Math.AddMod213
+import E213.Lib.Math.NatHelpers.AddMod213
 import E213.Meta.UniversalLens.Nat2
 import E213.Meta.UniversalLens.Nat2Inj
 
@@ -23,7 +23,7 @@ without affecting injectivity.
 
 namespace E213.Meta.UniversalLens.Nat4
 
-open E213.Firmware E213.Hypervisor
+open E213.Theory E213.Lens
 open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_slash expSumNat_inj)
 
 abbrev Nat4 : Type := Nat × Nat × Nat × Nat
@@ -53,7 +53,7 @@ theorem expSumLens4_symmetric :
   · congr 1; exact Nat.add_comm _ _
   congr 1
   · exact Nat.add_comm _ _
-  · congr 1; exact E213.Math.AddMod213.max_comm _ _
+  · congr 1; exact E213.Lib.Math.NatHelpers.AddMod213.max_comm _ _
 
 /-- Concrete: view a = (1, 0, 1, 0). -/
 theorem expSumLens4_view_a : expSumLens4.view Raw.a = (1, 0, 1, 0) := rfl
