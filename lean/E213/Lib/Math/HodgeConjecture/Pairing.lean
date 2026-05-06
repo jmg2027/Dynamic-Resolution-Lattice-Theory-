@@ -6,6 +6,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP1Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemann
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2
 import E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
+import E213.Lib.Math.HodgeConjecture.Pairing.HirzebruchMultiplicative
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexGradeStructure
 import E213.Lib.Math.HodgeConjecture.Pairing.KahlerGradeStructure
 import E213.Lib.Math.HodgeConjecture.Pairing.SurfaceComparisonTheorem
