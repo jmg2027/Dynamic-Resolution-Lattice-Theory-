@@ -1,4 +1,4 @@
-import E213.Math.PatternCatalog
+import E213.Math.PatternCatalog.Core
 
 /-!
 # Pattern Catalog — Operator Algebra (free monoid on {A, F})
@@ -16,7 +16,7 @@ counts — which forces distinct types under the `apply`
 interpretation.
 -/
 
-namespace E213.Math.PatternCatalogAlgebra
+namespace E213.Math.PatternCatalog.Algebra
 
 open E213.Math.PatternCatalog (Aggregate Forced)
 
@@ -223,4 +223,4 @@ example : Primitive.inFloor .eq    = true  := rfl
 example : Primitive.inFloor .pair  = true  := rfl
 example : Primitive.inFloor .raw   = false := rfl
 
-end E213.Math.PatternCatalogAlgebra
+end E213.Math.PatternCatalog.Algebra

@@ -1,4 +1,4 @@
-import E213.Math.PatternCatalog
+import E213.Math.PatternCatalog.Core
 import E213.Math.AxiomSystems.CrossTheoryCohabit
 
 /-!
@@ -21,7 +21,7 @@ that powers `peanoDepthCohabit : CohabitationWitness Raw Nat Nat` in
 classifications see the same theorem from different angles.
 -/
 
-namespace E213.Math.PatternCatalogCrossAxis
+namespace E213.Math.PatternCatalog.CrossAxis
 
 open E213.Math.PatternCatalog
 
@@ -183,4 +183,4 @@ Cohabitation, Forced-Uniqueness} dominate the bundle column; F1 ∩
 Most cells are empty — not forbidden, just unrequired so far.
 A future sweep can record cell occupancy by extending this list. -/
 
-end E213.Math.PatternCatalogCrossAxis
+end E213.Math.PatternCatalog.CrossAxis

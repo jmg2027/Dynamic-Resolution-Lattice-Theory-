@@ -14,10 +14,6 @@ import E213.Math.Modulus
 import E213.Math.Tactic
 import E213.Math.Trajectory
 import E213.Math.PatternCatalog
-import E213.Math.PatternCatalogAlgebra
-import E213.Math.PatternCatalogCrossAxis
-import E213.Math.PatternCatalogInstance
-import E213.Math.PatternCatalogSpan
 import E213.Math.ResolutionLimit
 import E213.Math.NatHelpers
 import E213.Math.CascadeCalculus

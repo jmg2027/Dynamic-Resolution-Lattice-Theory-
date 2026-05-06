@@ -1,7 +1,7 @@
 import E213.Meta.Tactic.PureGuard
-import E213.Math.PatternCatalogInstance
-import E213.Math.PatternCatalogSpan
-import E213.Math.PatternCatalogAlgebra
+import E213.Math.PatternCatalog.Instance
+import E213.Math.PatternCatalog.Span
+import E213.Math.PatternCatalog.Algebra
 import E213.Math.ResolutionLimit
 
 /-!
@@ -21,33 +21,33 @@ namespace E213.Meta.Tactic.PureGuardTest
 open E213.Meta.Tactic.PureGuard
 
 -- Atomic-game instances
-#guard_pure E213.Math.PatternCatalogInstance.cutMulOneOne_localityWitness
-#guard_pure E213.Math.PatternCatalogInstance.boolOscillator
-#guard_pure E213.Math.PatternCatalogInstance.fiveIsForced
+#guard_pure E213.Math.PatternCatalog.Instance.cutMulOneOne_localityWitness
+#guard_pure E213.Math.PatternCatalog.Instance.boolOscillator
+#guard_pure E213.Math.PatternCatalog.Instance.fiveIsForced
 
 -- Real Lens lifts
-#guard_pure E213.Math.PatternCatalogInstance.peanoLensWitness
-#guard_pure E213.Math.PatternCatalogInstance.depthLensWitness
-#guard_pure E213.Math.PatternCatalogInstance.isLeafLensWitness
+#guard_pure E213.Math.PatternCatalog.Instance.peanoLensWitness
+#guard_pure E213.Math.PatternCatalog.Instance.depthLensWitness
+#guard_pure E213.Math.PatternCatalog.Instance.isLeafLensWitness
 
 -- Composite instances
-#guard_pure E213.Math.PatternCatalogInstance.peanoDepthCohabit
-#guard_pure E213.Math.PatternCatalogInstance.demoLocalityAggregate
-#guard_pure E213.Math.PatternCatalogInstance.pisanoLikeAggregate
-#guard_pure E213.Math.PatternCatalogInstance.fanOutCataAggregate
-#guard_pure E213.Math.PatternCatalogInstance.boolNatLocalityForced
-#guard_pure E213.Math.PatternCatalogInstance.optionCataForcedForm
-#guard_pure E213.Math.PatternCatalogInstance.modCounter3WithForcedPeriod
+#guard_pure E213.Math.PatternCatalog.Instance.peanoDepthCohabit
+#guard_pure E213.Math.PatternCatalog.Instance.demoLocalityAggregate
+#guard_pure E213.Math.PatternCatalog.Instance.pisanoLikeAggregate
+#guard_pure E213.Math.PatternCatalog.Instance.fanOutCataAggregate
+#guard_pure E213.Math.PatternCatalog.Instance.boolNatLocalityForced
+#guard_pure E213.Math.PatternCatalog.Instance.optionCataForcedForm
+#guard_pure E213.Math.PatternCatalog.Instance.modCounter3WithForcedPeriod
 
 -- Closure instances (DepAggregate + UniformArityNCohabit)
-#guard_pure E213.Math.PatternCatalogInstance.heteroDepAggregate
-#guard_pure E213.Math.PatternCatalogInstance.threeLensCohabit
+#guard_pure E213.Math.PatternCatalog.Instance.heteroDepAggregate
+#guard_pure E213.Math.PatternCatalog.Instance.threeLensCohabit
 
 -- Free-monoid + anchor + span theorems
-#guard_pure E213.Math.PatternCatalogAlgebra.OpWord.append_assoc
-#guard_pure E213.Math.PatternCatalogAlgebra.OpWord.aggCount_append
-#guard_pure E213.Math.PatternCatalogAlgebra.Locality.anchor
-#guard_pure E213.Math.PatternCatalogSpan.finalVerdict
+#guard_pure E213.Math.PatternCatalog.Algebra.OpWord.append_assoc
+#guard_pure E213.Math.PatternCatalog.Algebra.OpWord.aggCount_append
+#guard_pure E213.Math.PatternCatalog.Algebra.Locality.anchor
+#guard_pure E213.Math.PatternCatalog.Span.finalVerdict
 
 -- ResolutionLimit (canonical infinity/N_U spec, formalised)
 #guard_pure E213.Math.ResolutionLimit.N_U

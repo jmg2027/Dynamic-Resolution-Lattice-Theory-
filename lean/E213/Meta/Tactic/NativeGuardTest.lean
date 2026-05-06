@@ -1,7 +1,7 @@
 import E213.Meta.Tactic.NativeGuard
-import E213.Math.PatternCatalogInstance
-import E213.Math.PatternCatalogAlgebra
-import E213.Math.PatternCatalogSpan
+import E213.Math.PatternCatalog.Instance
+import E213.Math.PatternCatalog.Algebra
+import E213.Math.PatternCatalog.Span
 import E213.Math.ResolutionLimit
 
 /-!
@@ -23,37 +23,37 @@ namespace E213.Meta.Tactic.NativeGuardTest
 open E213.Meta.Tactic.NativeGuard
 
 -- Atomic-game instances
-#guard_native E213.Math.PatternCatalogInstance.cutMulOneOne_localityWitness
-#guard_native E213.Math.PatternCatalogInstance.boolOscillator
-#guard_native E213.Math.PatternCatalogInstance.fiveIsForced
+#guard_native E213.Math.PatternCatalog.Instance.cutMulOneOne_localityWitness
+#guard_native E213.Math.PatternCatalog.Instance.boolOscillator
+#guard_native E213.Math.PatternCatalog.Instance.fiveIsForced
 
 -- Real Lens lifts
-#guard_native E213.Math.PatternCatalogInstance.peanoLensWitness
-#guard_native E213.Math.PatternCatalogInstance.depthLensWitness
-#guard_native E213.Math.PatternCatalogInstance.isLeafLensWitness
+#guard_native E213.Math.PatternCatalog.Instance.peanoLensWitness
+#guard_native E213.Math.PatternCatalog.Instance.depthLensWitness
+#guard_native E213.Math.PatternCatalog.Instance.isLeafLensWitness
 
 -- Composite instances
-#guard_native E213.Math.PatternCatalogInstance.peanoDepthCohabit
-#guard_native E213.Math.PatternCatalogInstance.demoLocalityAggregate
-#guard_native E213.Math.PatternCatalogInstance.pisanoLikeAggregate
-#guard_native E213.Math.PatternCatalogInstance.fanOutCataAggregate
+#guard_native E213.Math.PatternCatalog.Instance.peanoDepthCohabit
+#guard_native E213.Math.PatternCatalog.Instance.demoLocalityAggregate
+#guard_native E213.Math.PatternCatalog.Instance.pisanoLikeAggregate
+#guard_native E213.Math.PatternCatalog.Instance.fanOutCataAggregate
 
 -- Closure instances
-#guard_native E213.Math.PatternCatalogInstance.heteroDepAggregate
-#guard_native E213.Math.PatternCatalogInstance.threeLensCohabit
+#guard_native E213.Math.PatternCatalog.Instance.heteroDepAggregate
+#guard_native E213.Math.PatternCatalog.Instance.threeLensCohabit
 
 -- Free-monoid theorems
-#guard_native E213.Math.PatternCatalogAlgebra.OpWord.append_assoc
-#guard_native E213.Math.PatternCatalogAlgebra.OpWord.append_nil
-#guard_native E213.Math.PatternCatalogAlgebra.OpWord.aggCount_append
+#guard_native E213.Math.PatternCatalog.Algebra.OpWord.append_assoc
+#guard_native E213.Math.PatternCatalog.Algebra.OpWord.append_nil
+#guard_native E213.Math.PatternCatalog.Algebra.OpWord.aggCount_append
 
 -- Anchor records (213-원론 anchors)
-#guard_native E213.Math.PatternCatalogAlgebra.Locality.anchor
-#guard_native E213.Math.PatternCatalogAlgebra.AggregateOp.anchor
-#guard_native E213.Math.PatternCatalogAlgebra.ForcedOp.anchor
+#guard_native E213.Math.PatternCatalog.Algebra.Locality.anchor
+#guard_native E213.Math.PatternCatalog.Algebra.AggregateOp.anchor
+#guard_native E213.Math.PatternCatalog.Algebra.ForcedOp.anchor
 
 -- Span verdict
-#guard_native E213.Math.PatternCatalogSpan.finalVerdict
+#guard_native E213.Math.PatternCatalog.Span.finalVerdict
 
 -- ResolutionLimit (canonical infinity/N_U spec)
 #guard_native E213.Math.ResolutionLimit.N_U

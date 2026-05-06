@@ -1,4 +1,4 @@
-import E213.Math.PatternCatalog
+import E213.Math.PatternCatalog.Core
 import E213.Math.Real213.CutMulOne
 import E213.Firmware.Atomicity.Five
 import E213.Math.AxiomSystems.CrossTheoryCohabit
@@ -25,7 +25,7 @@ This is a structural observation: the catalog's "duality" is a
 213 has unified the two sides.  See analysis at end of file.
 -/
 
-namespace E213.Math.PatternCatalogInstance
+namespace E213.Math.PatternCatalog.Instance
 
 open E213.Math.PatternCatalog
 open E213.Math.Real213.CutMulOne (cutMul_one_one_at)
@@ -543,4 +543,4 @@ time-less games:
 → Five games total: Locality / Aggregation / Typeclass /
    Catamorphism / Dynamical. -/
 
-end E213.Math.PatternCatalogInstance
+end E213.Math.PatternCatalog.Instance

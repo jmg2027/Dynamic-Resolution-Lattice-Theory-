@@ -1,5 +1,5 @@
-import E213.Math.PatternCatalogAlgebra
-import E213.Math.PatternCatalogCrossAxis
+import E213.Math.PatternCatalog.Algebra
+import E213.Math.PatternCatalog.CrossAxis
 
 /-!
 # Pattern Catalog — Span Analysis
@@ -20,10 +20,10 @@ This file records the catalog's span verdict empirically, with
 artifact), not prescriptive.
 -/
 
-namespace E213.Math.PatternCatalogSpan
+namespace E213.Math.PatternCatalog.Span
 
-open E213.Math.PatternCatalogAlgebra
-open E213.Math.PatternCatalogCrossAxis
+open E213.Math.PatternCatalog.Algebra
+open E213.Math.PatternCatalog.CrossAxis
 
 /-- Span outcome enumeration. -/
 inductive SpanResult where
@@ -124,4 +124,4 @@ def closedExtensions : List String :=
   ["DepAggregate (W : Nat → Type) — heterogeneous-witness bundles ✓",
    "ArityNCohabit Base α — n-way base-shared Lens cohabitation ✓"]
 
-end E213.Math.PatternCatalogSpan
+end E213.Math.PatternCatalog.Span
