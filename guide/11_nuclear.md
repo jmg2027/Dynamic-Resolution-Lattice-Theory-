@@ -22,7 +22,7 @@ M = 2, 8, 20, 28, 50, 82, 126   ← 7 of 7 exact
 `MagicNumbers.lean` closes `n(n+1)(n+2)/3 = magic[n]` by `decide` for
 each n. **Falsifier:** any nuclear shell experiment finding magic at
 M ∉ {2, 8, 20, 28, 50, 82, 126} → entire 213 framework discarded.
-This is `seed/FALSIFIABILITY.md` § 7.
+This is `seed/AXIOM/04_falsifiability.md` § 7 (magic numbers row).
 
 ### Binding energy (Bethe-Weizsäcker analog)
 
@@ -62,4 +62,5 @@ coefficients. Ratios are tighter than absolute values.
 - `papers/drlt-book/chapters/ch16_compact_stars.tex`
 - `lean/E213/Physics/Nuclear/MagicNumbers.lean`, `NuclearBinding.lean`,
   `NuclearShells.lean`, `DeuteronBinding.lean`.
-- `seed/FALSIFIABILITY.md` § 7 (magic numbers binding falsifier).
+- `seed/AXIOM/04_falsifiability.md` § 7 (magic numbers binding
+  falsifier).

@@ -222,8 +222,8 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `CLAUDE.md` — 프로젝트 instructions
 - `HANDOFF.md` — 현재 상태
 - `LESSONS_LEARNED.md` — 이 파일
-- `seed/AXIOM.md` — axiom seed doc
-- `seed/PHILOSOPHY.md` — 213 철학
+- `seed/INDEX.md` — standalone axiom summary
+- `seed/AXIOM/` — full axiom corpus (12 chapters)
 - `lean/E213/Physics/FiniteUniverse.lean` — finitist 입장
 - `lean/E213/Physics/AlphaEMMasterCapstone.lean` — α_em 닫힘
 - `lean/E213/Physics/Foundations/NUniverseFractalDepth.lean` — N_U = d^(d²)
