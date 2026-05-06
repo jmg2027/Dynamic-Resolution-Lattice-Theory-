@@ -18,6 +18,7 @@ import E213.Lib.Math.Cohomology.K5
 import E213.Lib.Math.Cohomology.LeibnizFinding
 import E213.Lib.Math.Cohomology.Paper1Chiral
 import E213.Lib.Math.Cohomology.Real213Bridge
+import E213.Lib.Math.Cohomology.Surfaces
 import E213.Lib.Math.Cohomology.SimplexBasis
 import E213.Lib.Math.Cohomology.TopologyCompare
 import E213.Lib.Math.Cohomology.TrivialCases
