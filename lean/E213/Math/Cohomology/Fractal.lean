@@ -2,7 +2,7 @@ import E213.Math.Cohomology.Fractal.AlphaGUT
 import E213.Math.Cohomology.Fractal.Level
 import E213.Math.Cohomology.Fractal.V25
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/Fractal` — Cohomology/Fractal cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Fractal` — Cohomology/Fractal cluster.
 
   
 

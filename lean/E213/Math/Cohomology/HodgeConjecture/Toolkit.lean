@@ -3,14 +3,14 @@ import E213.Math.Cohomology.HodgeConjecture.Toolkit.Primitives
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTrip
 import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTripMid
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/HodgeConjecture/Toolkit` — Toolkit sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.HodgeConjecture.Toolkit`.
 
-  
+  Reusable infrastructure for the bridge layer.
 
-  ## Status
+  ## Files
 
-  4 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `Primitives`     — primitive cohomology classes
+    * `LensClassifier` — Lens classifier for cohomology classes
+    * `RoundTrip`      — round-trip Lens ↔ class encoding
+    * `RoundTripMid`   — middle-degree variant
 -/

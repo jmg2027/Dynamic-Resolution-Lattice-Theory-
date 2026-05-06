@@ -17,7 +17,7 @@ import E213.Math.Cohomology.CupAW.LeibnizMid
 import E213.Math.Cohomology.CupAW.Pointwise
 import E213.Math.Cohomology.CupAW.Zero
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/CupAW` — Cohomology/CupAW cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.CupAW` — Cohomology/CupAW cluster.
 
   
 

@@ -2,7 +2,7 @@ import E213.Math.Cohomology.Cup.Core
 import E213.Math.Cohomology.Cup.Leibniz
 import E213.Math.Cohomology.Cup.Ring
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/Cup` — Cohomology/Cup cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Cup` — Cohomology/Cup cluster.
 
   
 

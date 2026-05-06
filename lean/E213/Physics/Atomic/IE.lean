@@ -14,7 +14,7 @@ import E213.Physics.Atomic.IE.PeriodClosures
 import E213.Physics.Atomic.IE.PeriodicTable
 import E213.Physics.Atomic.IE.SecondRow
 
-/-! Spec-as-code entry point for `E213.Physics/Atomic/IE` — IE sub-cluster.
+/-! Spec-as-code entry point for `E213.Physics.Atomic.IE` — IE sub-cluster.
 
   
 

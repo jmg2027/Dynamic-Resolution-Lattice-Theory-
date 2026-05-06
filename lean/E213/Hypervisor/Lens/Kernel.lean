@@ -7,14 +7,19 @@ import E213.Hypervisor.Lens.Kernel.IdLensEq
 import E213.Hypervisor.Lens.Kernel.Space
 import E213.Hypervisor.Lens.Kernel.SwapInvariant
 
-/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Kernel` — Kernel sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens.Kernel`.
 
-  
+  Lens algebraic-kernel cluster — the equational layer of the
+  Lens theory: equivalences, congruences, cardinality bounds.
 
-  ## Status
+  ## Files
 
-  8 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `Space`         — `KernelSpace` Σ-type over slash-congruences
+    * `Corresp`       — Lens kernel ↔ slash-congruence bijection
+    * `Congruence`    — slash-congruence definition + closure
+    * `IdLensEq`      — id-Lens equivalence class
+    * `SwapInvariant` — swap-invariance of the kernel
+    * `FourDistinct`  — four-distinct-kernel witness
+    * `CardinalityLB` — cardinality lower bound on Lens kernels
+    * `FreeAudit`     — free-Lens audit witnesses
 -/

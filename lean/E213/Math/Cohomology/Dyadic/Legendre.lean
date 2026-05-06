@@ -4,7 +4,7 @@ import E213.Math.Cohomology.Dyadic.Legendre.Small
 import E213.Math.Cohomology.Dyadic.Legendre.V13_19
 import E213.Math.Cohomology.Dyadic.Legendre.V213
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/Dyadic/Legendre` — Legendre sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic.Legendre` — Legendre sub-cluster.
 
   
 

@@ -1,14 +1,14 @@
 import E213.Hypervisor.Lens.Refines.Chain
 import E213.Hypervisor.Lens.Refines.Preorder
 
-/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Refines` — Refines sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens.Refines`.
 
-  
+  Refines preorder on Lenses (`L₁ ⊏ L₂`).
 
-  ## Status
+  ## Files
 
-  2 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `Preorder` — reflexivity, transitivity, antisymmetry
+                   structure of `Lens.refines`
+    * `Chain`    — refines-chain witnesses (chain of Lenses,
+                   not a single comparison)
 -/

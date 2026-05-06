@@ -108,7 +108,7 @@ import E213.Math.Cohomology.Dyadic.Trib.FSMmod7
 import E213.Math.Cohomology.Dyadic.TwoLayerPredictor
 import E213.Math.Cohomology.Dyadic.WalkUniversal
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/Dyadic` — Dyadic FSM cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic` — Dyadic FSM cluster.
 
   
 

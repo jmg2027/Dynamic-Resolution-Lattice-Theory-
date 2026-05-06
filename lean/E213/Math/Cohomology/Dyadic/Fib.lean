@@ -10,7 +10,7 @@ import E213.Math.Cohomology.Dyadic.Fib.PellRelation
 import E213.Math.Cohomology.Dyadic.Fib.Pisano8
 import E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/Dyadic/Fib` — Fib sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic.Fib` — Fib sub-cluster.
 
   
 

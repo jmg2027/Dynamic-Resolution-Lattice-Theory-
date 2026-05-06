@@ -6,14 +6,18 @@ import E213.Hypervisor.Lens.Lattice.JoinEquiv
 import E213.Hypervisor.Lens.Lattice.Lattice
 import E213.Hypervisor.Lens.Lattice.Meet
 
-/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Lattice` — Lattice sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens.Lattice`.
 
-  
+  Lens lattice structure: refines preorder gives rise to
+  binary join / meet and indexed / family-level operations.
 
-  ## Status
+  ## Files
 
-  7 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `Join`        — binary join of two Lenses
+    * `Meet`        — binary meet
+    * `JoinEquiv`   — join up-to-equivalence
+    * `IndexedJoin` — indexed join over a family
+    * `FamilyJoin`  — family-level join with witness
+    * `FamilyMeet`  — family-level meet
+    * `Lattice`     — Lens lattice combinator
 -/

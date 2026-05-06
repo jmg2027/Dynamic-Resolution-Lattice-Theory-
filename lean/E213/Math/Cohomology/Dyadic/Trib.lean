@@ -5,7 +5,7 @@ import E213.Math.Cohomology.Dyadic.Trib.FSMmod3
 import E213.Math.Cohomology.Dyadic.Trib.FSMmod5
 import E213.Math.Cohomology.Dyadic.Trib.FSMmod7
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/Dyadic/Trib` — Trib sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Dyadic.Trib` — Trib sub-cluster.
 
   
 

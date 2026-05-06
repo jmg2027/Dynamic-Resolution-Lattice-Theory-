@@ -10,14 +10,32 @@ import E213.Math.Cohomology.HodgeConjecture.Bridge.Potts
 import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlass
 import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlassGroundState
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/HodgeConjecture/Bridge` — Bridge sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.HodgeConjecture.Bridge`.
 
-  
+  Bridge layer connecting Hodge-conjecture cohomology to physics
+  + statistical-mechanics + computer-science models.
 
-  ## Status
+  ## Algebraic geometry
 
-  11 files included.  0 files excluded
-  (pre-existing breakage):
+    * `BeilinsonRegulator`   — Beilinson regulator construction
+    * `MotiveEtaleFusion`    — motive / étale fusion bridge
+    * `GaloisCounterfactual` — Galois-action counterfactual
 
-    (none)
+  ## Statistical-mechanics models
+
+    * `Ising`              — Ising-model Hodge-class encoding
+    * `Potts`              — Potts-model variant
+    * `SpinGlass`,
+      `SpinGlassGroundState` — spin-glass ground-state classification
+
+  ## Discrete geometry / phase
+
+    * `DiscreteGeometry`   — discrete-geometry bridge
+    * `PhaseRouting`       — phase-routing model
+    * `G6Vacuity`          — G6 vacuity claim
+
+  ## Computer science
+
+    * `MLDecoder`          — ML-decoder bridge (algorithmic
+                             interpretation of cup-classes)
 -/

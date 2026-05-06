@@ -1,14 +1,13 @@
 import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex
 import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology/HodgeConjecture/Pairing` — Pairing sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.HodgeConjecture.Pairing`.
 
-  
+  Pairings on H* — Hodge index + Hodge–Riemann.
 
-  ## Status
+  ## Files
 
-  2 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `HodgeIndex`   — Hodge-index theorem witness (signature of
+                       the cup pairing on middle cohomology)
+    * `HodgeRiemann` — Hodge–Riemann bilinear-form positivity
 -/

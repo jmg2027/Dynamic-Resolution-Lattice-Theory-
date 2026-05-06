@@ -1,14 +1,13 @@
 import E213.Hypervisor.Lens.Universal.Flat
 import E213.Hypervisor.Lens.Universal.QuotLens
 
-/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Universal` — Universal sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens.Universal`.
 
-  
+  Universal Lens constructions.
 
-  ## Status
+  ## Files
 
-  2 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `Flat`     — flat-Lens construction (no internal structure)
+    * `QuotLens` — quotient-Lens for a slash-congruence;
+                   inverse to `Lens.equiv`
 -/

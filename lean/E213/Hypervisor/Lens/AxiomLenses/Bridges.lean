@@ -1,14 +1,15 @@
 import E213.Hypervisor.Lens.AxiomLenses.Bridges.Funext
 import E213.Hypervisor.Lens.AxiomLenses.Bridges.QuotSound
 
-/-! Spec-as-code entry point for `E213.Hypervisor.Lens/AxiomLenses/Bridges` — Bridges sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens.AxiomLenses.Bridges`.
 
-  
+  Bridges between the AxiomLenses Core witnesses (Funext,
+  QuotSound) and the rest of the Lens algebra — i.e. how
+  downstream constructions in `Lens/{Compose, Lattice, …}`
+  invoke them, and what equational consequences follow.
 
-  ## Status
+  ## Files
 
-  2 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `Funext`    — Funext bridge
+    * `QuotSound` — Quot.sound bridge
 -/

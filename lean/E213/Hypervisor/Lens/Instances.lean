@@ -23,18 +23,43 @@ import E213.Hypervisor.Lens.Instances.SumNotCoproductGeneric
 import E213.Hypervisor.Lens.Instances.Swap
 import E213.Hypervisor.Lens.Instances.ZMod6
 
-/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Instances` — Instances sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens.Instances`.
 
-  
+  Catalogue of concrete `Lens` instances over Raw.  Importing
+  this module gives access to every clean instance witness.
+
+  ## Per-codomain instances
+
+    * `AB`            — abLens : Lens (Nat × Nat) (a-count, b-count)
+    * `Bool`          — boolXorLens / parityLens
+    * `Identity`      — id-Lens
+    * `Pair`          — Lens of pair-of-Lenses
+    * `Sum`           — disjoint-union Lens
+    * `Subtype`,
+      `SubtypeClosed` — Subtype-restricted Lens
+    * `Cauchy`        — Cauchy-decision Lens (used by
+                        `Math.Cauchy.ProfiniteSeq`)
+    * `Path`          — path-Lens
+    * `Prism`         — prism-shape Lens
+    * `Reach`         — reachability Lens
+    * `Swap`,
+      `RawMatching`   — swap-symmetric Lenses
+    * `Parity`        — Bool-parity
+    * `Max`           — max-Lens
+    * `BoundedContext`,
+      `EndpointBehavior`,
+      `CochainEntry`,
+      `F9`,
+      `FunctionSpace`,
+      `PointwiseProjection`,
+      `SumNotCoproduct`,
+      `SumNotCoproductGeneric`,
+      `ZMod6`         — additional research-track instances
 
   ## Status
 
-  24 files included.  5 files excluded
-  (pre-existing breakage):
-
-    - Lens.Instances.CompoundBool
-    - Lens.Instances.NegSq
-    - Lens.Instances.ParityXorIncomparable
-    - Lens.Instances.ParityXorJoin
-    - Lens.Instances.RawAChar
+  24/29 instances build clean.  Five deferred (pre-existing
+  API drift): `CompoundBool`, `NegSq`, `ParityXorIncomparable`,
+  `ParityXorJoin`, `RawAChar`.  See
+  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.1.
 -/
