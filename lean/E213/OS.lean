@@ -1,24 +1,20 @@
-import E213.OS.HodgeConjecture.Bridges.BeilinsonLichtenbaum
-import E213.OS.HodgeConjecture.Bridges.BeilinsonRegulator
-import E213.OS.HodgeConjecture.Bridges.BlochBeilinson
-import E213.OS.HodgeConjecture.Bridges.ChernCharacter
-import E213.OS.HodgeConjecture.Bridges.HodgeTate
-import E213.OS.HodgeConjecture.Bridges.MumfordTate
-import E213.OS.HodgeConjecture.Bridges.Tate
-import E213.OS.Physics.Capstones.FinitistObservableChain
-import E213.OS.Physics.Capstones.MasterCatalog
-import E213.OS.Physics.Capstones.PhysicsTrackComplete
-import E213.OS.Physics.Capstones.PureAtomicObservables
-import E213.OS.Physics.Capstones.ValidationStandardOne
+import E213.OS.HodgeConjecture.Bridges
+import E213.OS.Physics.Capstones
 
-/-! Spec-as-code entry point for `E213.OS` — OS-tier modules.
+/-! Spec-as-code entry point for `E213.OS`.
 
-  OS layer (OS/) — top-level domain capstones that integrate Math + Physics tracks.  Two clusters: HodgeConjecture/Bridges/ (motivic-cohomology bridges) + Physics/Capstones/.
+  OS layer — top-level domain capstones that integrate the
+  Math + Physics tracks.
 
-  ## Status
+  ## Sub-clusters
 
-  12 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `HodgeConjecture.Bridges` — 7 motivic-cohomology bridges
+      (BeilinsonLichtenbaum, BeilinsonRegulator, BlochBeilinson,
+      ChernCharacter, HodgeTate, MumfordTate, Tate).  These
+      cross-reference the standard algebraic-geometry literature
+      to the 213-native programme in
+      `Math.Cohomology.HodgeConjecture`.
+    * `Physics.Capstones`       — 5 physics-track capstones
+      (MasterCatalog, PureAtomicObservables, PhysicsTrackComplete,
+      ValidationStandardOne, FinitistObservableChain).
 -/
