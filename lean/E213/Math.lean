@@ -20,60 +20,56 @@ import E213.Math.CascadeCalculus
 import E213.Math.Pigeonhole
 import E213.Math.Polynomial213
 import E213.Math.PrimeDescentObservations
-import E213.Math.Foundation
-import E213.Math.CutOps
 import E213.Math.Cauchy
-import E213.Math.Series
-import E213.Math.Continuity
-import E213.Math.Generic
 
 /-! Spec-as-code entry point for `E213.Math` — full 213 mathematics library.
 
-Importing this single module pulls in **every working Math sub-tree**
-(post-session 27 cleanup + this session's M1–M6 reorganization).
+Importing this single module pulls in every Math sub-tree umbrella.
+The directory tree is the spec; this file is the top-level entry.
 
 ## Sub-tree umbrellas
 
-  ### Core analysis (Real213 + Analysis split, M5)
-    * `Real213`  — 213-native real-number type + cut algebra (44 files)
-    * `Analysis` — calculus on top: Differentiation / Integration /
-      FluxMVT / Cauchy / Series / DyadicSearch / ODE / ClassicCalc
-      (63 files in 7 chapter sub-directories)
+  ### Core analysis foundation
+    * `Real213`         — 213-native real-number type + cut algebra
+    * `Analysis`        — calculus on top (Differentiation / Integration
+                          / FluxMVT / Cauchy / Series / DyadicSearch /
+                          ODE / ClassicCalc — 7 chapter sub-directories)
+    * `Cauchy`          — Cauchy / Euler / Wallis / Pell sequences
+    * `Modulus`         — modulus combinators for cut-level analysis
+
+  ### Algebra + number theory
+    * `CayleyDickson`   — Cayley–Dickson layered construction (ZI →
+                          Lipschitz → Cayley → Sedenion → ...)
+    * `ModArith`        — modular arithmetic (Bézout / GCD / CRT)
+    * `Linalg213`       — 213-native linear algebra
+    * `Polynomial213`   — coefficient-array polynomial reflection
+    * `Hyper`           — hypernumber / large-cardinal-style
+
+  ### Foundations + meta
+    * `AxiomSystems`    — Peano / ZFC / classical-analysis-as-Lens
+    * `Choice`          — choice-related results (no Classical.choice)
+    * `Diagonal`        — diagonal arguments / Cantor-style fixed points
+    * `Infinity`        — lens cardinality, Cantor (∅-axiom)
+    * `Irrational`      — irrationality without ZFC
 
   ### Topical sub-trees
-    * `AxiomSystems`     — 213 axiom-system formal definitions
-    * `Choice`           — choice-related results (no Classical.choice)
-    * `Cohomology`       — K_NS,NT^(c) cohomology (202 files)
-    * `Diagonal`         — diagonal arguments / fixed points
-    * `Hyper`            — hypernumber-style constructions
-    * `Infinity`         — lens cardinality, Cantor (∅-axiom)
-    * `Irrational`       — irrationality without ZFC
-    * `Linalg213`        — 213-native linear algebra
-    * `ModArith`         — modular arithmetic
-    * `Modulus`          — modulus combinators
-    * `Trajectory`       — sequence-trajectories
+    * `Cohomology`      — K_{NS,NT}^{(c)} cohomology + Hodge programme
+                          (217 files, 10 sub-clusters)
+    * `Trajectory`      — sequence-trajectories
+    * `PatternCatalog`  — pattern catalog metaformalization (G30)
+    * `CascadeCalculus` — cascade-calculus locality / aggregation
 
-  ### Top-level standalone modules
-    * `PatternCatalog*`  — 5 pattern-catalog files
-    * `ResolutionLimit`  — N_U structural invariant
-    * `AddMod213`, `EncodePair213`, `IntHelpers`, `Max213`,
-      `NatDiv213`, `Pigeonhole`, `Polynomial213`, `PureNat`,
-      `PrimeDescentObservations`, `CascadeCalculus*`
-
-  ### Per-chapter sub-umbrellas (strict subsets of `Real213` /
-  `Analysis`; for consumers needing only a slice):
-    * `Foundation`, `CutOps`, `Cauchy`, `Series`, `Continuity`, `Generic`
-
-## Excluded (pre-existing breakage, deferred)
-
-  * `CayleyDickson` — deeply nested namespace `ZI.ZI.*` requires
-    careful surgical fix
-  * `Tactic` — `HurwitzRing` depends on CayleyDickson; load-bearing
-    for Cayley algebra work
-  * 24 Cohomology files inside `Cohomology/` directory but excluded
-    from `Cohomology.lean` umbrella (see umbrella docstring)
+  ### Tools + utility
+    * `Tactic`          — math-level tactics (HurwitzRing, IntSquare,
+                          QuadExtension)
+    * `NatHelpers`      — Nat / Int utility lemmas (6 files)
+    * `Pigeonhole`      — universal `Fin` pigeonhole infrastructure
+    * `ResolutionLimit` — N_U structural-invariant formalization
+    * `PrimeDescentObservations` — descent-style observations
 
 ## Status
 
-∅-axiom standard on the production critical path.
+∅-axiom standard on the production critical path.  Pre-existing
+API drift on a small set documented in
+`research-notes/HIERARCHICAL_PLACEMENT.md` §6.
 -/
