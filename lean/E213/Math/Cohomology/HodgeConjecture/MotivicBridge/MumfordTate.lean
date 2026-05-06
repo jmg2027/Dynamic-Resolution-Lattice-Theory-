@@ -1,4 +1,4 @@
-import E213.OS.HodgeConjecture.Bridges.Tate
+import E213.Math.Cohomology.HodgeConjecture.MotivicBridge.Tate
 import E213.Math.Cohomology.Hodge.InvolutionCapstone
 
 /-!
@@ -21,9 +21,9 @@ trivially; the non-trivial form requires ℚ²¹³ refinement.
 STRICT ∅-AXIOM by `decide`.
 -/
 
-namespace E213.OS.HodgeConjecture.Bridges.MumfordTate
+namespace E213.Math.Cohomology.HodgeConjecture.MotivicBridge.MumfordTate
 
-open E213.OS.HodgeConjecture.Bridges.Tate (frobenius)
+open E213.Math.Cohomology.HodgeConjecture.MotivicBridge.Tate (frobenius)
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Physics.Simplex.Counts (binom)
 
@@ -60,4 +60,4 @@ theorem mumford_tate_213_capstone :
     ∧ binom 5 2 = 10 :=
   ⟨frob_fixes_zero_5_1, frob_period_5_1, by decide, by decide⟩
 
-end E213.OS.HodgeConjecture.Bridges.MumfordTate
+end E213.Math.Cohomology.HodgeConjecture.MotivicBridge.MumfordTate

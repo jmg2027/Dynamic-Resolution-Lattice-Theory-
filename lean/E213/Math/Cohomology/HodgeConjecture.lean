@@ -1,6 +1,7 @@
 import E213.Math.Cohomology.HodgeConjecture.API
 import E213.Math.Cohomology.HodgeConjecture.Bridge
 import E213.Math.Cohomology.HodgeConjecture.Foundation
+import E213.Math.Cohomology.HodgeConjecture.MotivicBridge
 import E213.Math.Cohomology.HodgeConjecture.Pairing
 import E213.Math.Cohomology.HodgeConjecture.Refinement
 import E213.Math.Cohomology.HodgeConjecture.Structure
@@ -25,9 +26,14 @@ import E213.Math.Cohomology.HodgeConjecture.Toolkit
                        Lefschetz hyperplane / (1,1), standard
                        conjectures, Voisin
     * `Toolkit/`     — LensClassifier, Primitives, RoundTrip*
-    * `Bridge/`      — physics bridges: Beilinson regulator,
+    * `Bridge/`      — physics / CS bridges: Beilinson regulator,
                        discrete geometry, G6 vacuity, Galois
                        counterfactual, Ising, ML decoder, motive
                        etale fusion, phase routing, Potts, spin
                        glass (+ ground state)
+    * `MotivicBridge/` — motivic-cohomology bridges (classical-side
+                         counterparts): Beilinson-Lichtenbaum,
+                         Bloch-Beilinson, ChernCharacter, HodgeTate,
+                         MumfordTate, Tate.  Hosted under OS/ before
+                         Phase A3.
 -/

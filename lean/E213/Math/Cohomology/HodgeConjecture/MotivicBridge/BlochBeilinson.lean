@@ -20,7 +20,7 @@ filtration depths, which are exactly the binom(n, p) counts.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.OS.HodgeConjecture.Bridges.BlochBeilinson
+namespace E213.Math.Cohomology.HodgeConjecture.MotivicBridge.BlochBeilinson
 
 open E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata (atomicGens)
 open E213.Physics.Simplex.Counts (binom)
@@ -56,4 +56,4 @@ theorem bloch_beilinson_213_capstone :
     -- Total Chow group cardinality
     ∧ 1 + 5 + 10 + 10 + 5 + 1 = 2 ^ 5 := by decide
 
-end E213.OS.HodgeConjecture.Bridges.BlochBeilinson
+end E213.Math.Cohomology.HodgeConjecture.MotivicBridge.BlochBeilinson

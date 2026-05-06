@@ -1,5 +1,5 @@
 import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
-import E213.OS.HodgeConjecture.Bridges.Tate
+import E213.Math.Cohomology.HodgeConjecture.MotivicBridge.Tate
 
 /-!
 # Beilinson-Lichtenbaum Conjecture in 213
@@ -19,10 +19,10 @@ trivially / by definitional equality.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.OS.HodgeConjecture.Bridges.BeilinsonLichtenbaum
+namespace E213.Math.Cohomology.HodgeConjecture.MotivicBridge.BeilinsonLichtenbaum
 
 open E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata (atomicGens)
-open E213.OS.HodgeConjecture.Bridges.Tate (frobenius)
+open E213.Math.Cohomology.HodgeConjecture.MotivicBridge.Tate (frobenius)
 open E213.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Physics.Simplex.Counts (binom)
 
@@ -49,4 +49,4 @@ theorem beilinson_lichtenbaum_213_capstone :
          frobenius (fun _ : Fin (binom 5 1) => false) i = false) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.OS.HodgeConjecture.Bridges.BeilinsonLichtenbaum
+end E213.Math.Cohomology.HodgeConjecture.MotivicBridge.BeilinsonLichtenbaum
