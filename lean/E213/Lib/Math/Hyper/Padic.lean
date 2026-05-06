@@ -41,32 +41,25 @@ Together with CmpIndependence + Cauchy completeness, this extends the
 "ZFC replacement" claim of Paper 1 into the number-theoretic limit
 domain.
 
-Status: 2 PURE / 5 `[propext]`-only (post-2026-05 hardening).
-Earlier the 5 capstones carried `[propext, Quot.sound]`; the
-Quot.sound came from `omega` calls and was eliminated by:
-  * adding `E213.Tactic.Nat213.{zero_mod, mul_mod_right}`
-    (∅-axiom term-mode replacements for the Lean-core mod lemmas);
-  * inlining `(by omega)` calls as direct `Nat.le_succ_of_le` /
-    `Nat.le_trans`.
+Status: **7 / 7 PURE** (post-2026-05 hardening).  Every Padic
+capstone — `padic_family_cauchy`, `padic_family_limit_zero`,
+`padic_tower_refines`, `padic_familyCauchy`,
+`padic_limit_all_zero`, plus the 7 ProfiniteSeq leaves and
+ModNat / Cauchy upstream — is `#print axioms` ∅.
 
-The three ProfiniteSeq leaves (`factorial_pos`, `factorial_dvd`,
-`factorial_eventually_zero_mod`) are now ∅-axiom.  The remaining
-`[propext]` propagates from the Lens-layer pieces:
-  * `leavesModNat_view_eq` (uses Lean-core `Nat.add_mod`)
-  * `divides_refines` (uses `Nat.mod_mod_of_dvd`)
-  * `eventually_class_unique` (uses `Nat.le_max_{left,right}`)
-
-These three Lens-layer dependencies route through Lean-core
-`Nat.*` lemmas marked `[propext]`.  Eliminating them requires
-adding Lens-or-below `add_mod`, `mod_mod_of_dvd`, `le_max_*`
-PURE replacements (cf. `Lib/Math/NatHelpers/AddMod213` which
-already has `add_mod` ∅-axiom but is at Lib/Math layer, too
-high for ModNat to import).  Deferred — the Quot.sound
-elimination was the substantive falsifiability gain.
+History (for context):
+  * Originally `[propext, Quot.sound]` (5/5).
+  * Quot.sound eliminated by adding `Nat213.{zero_mod,
+    mul_mod_right}` and inlining `omega` as direct `Nat.le_*` calls.
+  * propext eliminated by adding `Nat213.le_max_{left,right}`
+    (term-mode), `AddMod213.{add_mod_gen, mod_mod_of_dvd}` ∅-axiom,
+    and routing `ModNat.leavesModNat_view_eq`, `divides_refines`,
+    `Cauchy.eventually_class_unique` through them.
 
 Earlier diagnosis ("function-eq between ℕ → Bool families")
 was incorrect: the theorems do not assert function-equality.
-The actual root cause is `omega` and Lean-core mod arithmetic.
+The root cause was `omega` + Lean-core `Nat.{add_mod, mod_mod_of_dvd,
+mul_mod_right, zero_mod, le_max_*}` (all `[propext]`-tainted).
 -/
 
 namespace E213.Lib.Math.Hyper.Padic

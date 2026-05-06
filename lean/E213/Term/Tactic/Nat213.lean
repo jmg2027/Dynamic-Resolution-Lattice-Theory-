@@ -409,3 +409,24 @@ theorem mul_mod_right (m : Nat) : ∀ b, m * b % m = 0
     (step1.trans (hms.trans step3)).trans ih
 
 end E213.Tactic.Nat213
+
+namespace E213.Tactic.Nat213
+
+/-- `a ≤ Nat.max a b`.  ∅-axiom replacement for Lean-core
+    `Nat.le_max_left` (`[propext]`).  Term-mode via `Decidable.casesOn`
+    on `Nat.decLe`.  No tactics — strict Term-layer purity. -/
+theorem le_max_left (a b : Nat) : a ≤ Nat.max a b :=
+  show a ≤ if a ≤ b then b else a from
+    (Nat.decLe a b).casesOn
+      (fun h => (if_neg h).symm ▸ Nat.le_refl a)
+      (fun h => (if_pos h).symm ▸ h)
+
+/-- `b ≤ Nat.max a b`.  ∅-axiom replacement for Lean-core
+    `Nat.le_max_right` (`[propext]`).  Term-mode. -/
+theorem le_max_right (a b : Nat) : b ≤ Nat.max a b :=
+  show b ≤ if a ≤ b then b else a from
+    (Nat.decLe a b).casesOn
+      (fun h => (if_neg h).symm ▸ Nat.le_of_lt (Nat.lt_of_not_le h))
+      (fun h => (if_pos h).symm ▸ Nat.le_refl b)
+
+end E213.Tactic.Nat213

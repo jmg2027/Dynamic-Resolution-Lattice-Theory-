@@ -60,6 +60,16 @@ theorem add_mod {n : Nat} (hn : 0 < n) (a b : Nat) :
   rw [add_mod_left hn a b]
   rw [Nat.add_comm (a % n) b, add_mod_left hn b (a % n), Nat.add_comm]
 
+/-- `(a + b) % n = (a % n + b % n) % n` for all `n` (incl. n = 0).
+    ∅-axiom replacement for Lean-core `Nat.add_mod` (`[propext]`). -/
+theorem add_mod_gen (a b n : Nat) :
+    (a + b) % n = (a % n + b % n) % n := by
+  rcases Nat.eq_zero_or_pos n with hn | hn
+  · subst hn
+    show (a + b) % 0 = (a % 0 + b % 0) % 0
+    rw [Nat.mod_zero a, Nat.mod_zero b]
+  · exact add_mod hn a b
+
 /-- `b * (a / b) + a % b = a` for all `a b`.  ∅-axiom replacement
     for `Nat.div_add_mod` (which leaks propext). -/
 theorem div_add_mod : ∀ (a b : Nat), b * (a / b) + a % b = a := fun a b =>
@@ -87,6 +97,30 @@ theorem div_add_mod : ∀ (a b : Nat), b * (a / b) + a % b = a := fun a b =>
           rw [hb_eq, Nat.zero_mul, Nat.zero_add]
           rw [Nat.mod_eq]
           rw [if_neg (fun h => absurd h.1 (Nat.lt_irrefl _))]
+
+/-- `(k ∣ m) → n % m % k = n % k`.  ∅-axiom replacement for
+    Lean-core `Nat.mod_mod_of_dvd` (`[propext]`).  Decomposes via
+    `div_add_mod`, then uses `Nat213.mul_mod_right` to kill the
+    multiple-of-k term.  Used by `Lens.Leaves.ModNat.divides_refines`. -/
+theorem mod_mod_of_dvd (n : Nat) {m k : Nat} (h : k ∣ m) :
+    n % m % k = n % k := by
+  obtain ⟨q, hq⟩ := h
+  rcases Nat.eq_zero_or_pos k with hk | hk
+  · subst hk
+    have hm : m = 0 := by rw [hq, Nat.zero_mul]
+    subst hm
+    rw [Nat.mod_zero, Nat.mod_zero]
+  have h1 : n = m * (n / m) + n % m := (div_add_mod n m).symm
+  have h2 : n % k = (m * (n / m) + n % m) % k := by rw [← h1]
+  have h3 : m * (n / m) = k * (q * (n / m)) := by
+    rw [hq, E213.Tactic.Nat213.mul_assoc]
+  have h4 : n % k = (k * (q * (n / m)) + n % m) % k := by rw [h2, h3]
+  have hkdvd : (k * (q * (n / m))) % k = 0 :=
+    E213.Tactic.Nat213.mul_mod_right k _
+  have h5 : (k * (q * (n / m)) + n % m) % k = (n % m) % k := by
+    rw [add_mod hk, hkdvd, Nat.zero_add]
+    exact mod_mod (n % m) k
+  rw [h4, h5]
 
 /-- 213-native `Nat.max_comm` (Lean-core leaks propext via max_eq_left). -/
 theorem max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by

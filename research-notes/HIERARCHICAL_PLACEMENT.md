@@ -218,32 +218,42 @@ The 10 deferred Lens files have been repaired (commit `687ff8b7`):
 `lake build E213.Lens` now reports 122/122 ✔.  CayleyDickson (9) and
 Cohomology (9) deferred clusters remain.
 
-### 7.4  Padic / ProfiniteSeq Quot.sound elimination (PARTIAL 2026-05-06)
+### 7.4  Padic / ProfiniteSeq full ∅-axiom (RESOLVED 2026-05-06)
 
-`Lib/Math/Hyper/Padic.lean` capstones — formerly 5×`[propext, Quot.sound]`
-— now carry `[propext]` only (commit pending).  Method:
-  * Add `E213.Tactic.Nat213.{zero_mod, mul_mod_right}` (term-mode
-    ∅-axiom replacements for Lean-core mod lemmas, hook-compliant).
-  * Inline `(by omega)` calls with direct `Nat.le_succ_of_le` /
-    `Nat.le_trans` chains.
-  * Three leaf theorems in `ProfiniteSeq` now ∅-axiom:
-    `factorial_pos`, `factorial_dvd`, `factorial_eventually_zero_mod`.
+`Lib/Math/Hyper/Padic.lean` and the entire upstream chain are now
+**12/12 PURE** (commit pending).  Verified via `#print axioms`:
 
-**Remaining propext** (NOT funext-by-design — earlier diagnosis was
-incorrect): the propagating sources are
-  * `E213.Lens.Leaves.ModNat.leavesModNat_view_eq` — uses Lean-core
-    `Nat.add_mod` `[propext]`.
-  * `E213.Lens.Leaves.ModNat.divides_refines` — uses
-    `Nat.mod_mod_of_dvd` `[propext]`.
-  * `E213.Lens.Instances.Cauchy.eventually_class_unique` — uses
-    `Nat.le_max_{left,right}` `[propext]`.
+  * **Padic capstones (5/5)**: `padic_family_cauchy`,
+    `padic_family_limit_zero`, `padic_tower_refines`,
+    `padic_familyCauchy`, `padic_limit_all_zero`.
+  * **ProfiniteSeq leaves (7/7)**: `factorial_pos`, `factorial_dvd`,
+    `factorial_eventually_zero_mod`, `factorial_seq_cauchy`,
+    `factorial_seq_limit_zero`, `factorial_seq_familyCauchy`,
+    `factorial_seq_limit_all_zero`.
+  * **Lens-layer dependents** also PURE:
+    `Lens.Leaves.ModNat.{leavesModNat_view_eq, divides_refines}`,
+    `Lens.Instances.Cauchy.eventually_class_unique`.
 
-Eliminating these requires PURE replacements at the Lens-or-below
-layer.  `Lib/Math/NatHelpers/AddMod213` already has a PURE `add_mod`
-but is at Lib/Math layer (too high for ModNat to import per the
-ring rule).  Either move the proof to Term/Theory, or add narrow
-Lens-layer copies.  Deferred — the substantive falsifiability gain
-(Quot.sound elimination) has been captured.
+Method (two-stage hardening):
+  1. **Quot.sound elimination**: add `Nat213.{zero_mod,
+     mul_mod_right}` (term-mode, hook-compliant); inline `omega` as
+     `Nat.le_succ_of_le` / `Nat.le_trans` / `Nat213.mul_assoc`.
+  2. **propext elimination**: add `Nat213.le_max_{left, right}`
+     (term-mode via `Decidable.casesOn` + `if_pos`/`if_neg`);
+     add `AddMod213.{add_mod_gen, mod_mod_of_dvd}` (Lib/Math layer,
+     PURE via existing `add_mod_left` + `div_add_mod` machinery);
+     route `ModNat` and `Cauchy` callers through these.
+
+`AddMod213` is at Lib/Math layer but still importable from
+Lens-layer `ModNat.lean` because Lib is the *horizontal* topical
+ring — not in the vertical `{Term < Theory < Lens < Meta < App}`
+ordering.  The architecture allows Lens → Lib (verified by
+`tools/layer_audit.py`: 0 violations).
+
+Earlier diagnosis ("function-eq between ℕ → Bool families")
+was incorrect: actual root cause was `omega` + Lean-core
+`Nat.{add_mod, mod_mod_of_dvd, mul_mod_right, zero_mod,
+le_max_*}` (all `[propext]`-tainted).
 
 ## 8. Verification command set
 
