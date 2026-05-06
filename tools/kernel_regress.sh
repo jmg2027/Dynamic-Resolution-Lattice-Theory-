@@ -23,11 +23,11 @@ KERNEL_TARGETS=(
 )
 
 OUT=$(lake build --rehash "${KERNEL_TARGETS[@]}" 2>&1)
-echo "$OUT" | grep -E "info: .*Kernel.*depends on axioms" && {
+echo "$OUT" | grep -E "info: .*Term.*depends on axioms" && {
   echo ""
   echo "❌ REGRESSION: kernel theorem with axiom dependency."
   exit 1
 }
 
-PURE=$(echo "$OUT" | grep -cE "info: .*Kernel.*does not depend on any axioms" || true)
+PURE=$(echo "$OUT" | grep -cE "info: .*Term.*does not depend on any axioms" || true)
 echo "✅ Kernel pure: ${PURE} theorems verified 0-axiom."

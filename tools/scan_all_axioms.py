@@ -115,76 +115,76 @@ SEALED_DIRTY_PREFIXES = (
     # Bridges/ are intentional Lean ↔ 213 axiom-bridge demonstrations.
     # Their DIRTY status is by design — sealed metatheoretic cluster,
     # not imported by 213 core.  Tracked separately from real DIRTY.
-    'E213.Hypervisor.Lens.AxiomLenses.Bridges',
+    'E213.Lens.Lens.AxiomLenses.Bridges',
     # SemanticAtom is Prop-level (propAsDistinguishing, canonicalIffMap,
     # iff_comm_eq, etc.).  Working with Prop equality intrinsically uses
     # propext — this is mathematically inherent to the meta-theoretic
     # "atom of meaning" thesis, not a refactorable propext leak.
     # Sealed as DIRTY-by-design 2026-05-XX (session 24).
-    'E213.Hypervisor.Lens.SemanticAtom',
+    'E213.Lens.Lens.SemanticAtom',
     # Lean-core boundary: items that depend on Nat.lcm/gcd/mod_two
     # well-founded definitions, or Int operations.  These bring propext
     # via Lean 4 core's well-founded-recursion proof of total termination.
     # Refactor would require building 213-native gcd/lcm/Int primitives —
     # out of scope.  Sealed as Lean-core-boundary by-design.
-    'E213.Math.Cohomology.Dyadic.LCMClosure',
-    'E213.Hypervisor.Lens.Leaves.ModNat',
-    'E213.Math.Irrational.Sqrt2KernelFree',
+    'E213.Lib.Math.Cohomology.Dyadic.LCMClosure',
+    'E213.Lens.Lens.Leaves.ModNat',
+    'E213.Lib.Math.Irrational.Sqrt2KernelFree',
     # LensCardinality has 5 DIRTY: 3 from Int operations (signedLens,
     # treeTower_signed) + 2 from Lens-on-Lens stress (sigma7).  The Int
     # ones are Lean-core boundary; the others cascade.
-    'E213.Math.Infinity.LensCardinality',
+    'E213.Lib.Math.Infinity.LensCardinality',
     # Catalog signed_R4 / depth_swap / leaves_swap / signed_swap —
     # Int / Raw.fold_signed_swap propext from Lean core.
-    'E213.Hypervisor.Lens.Characterisation.Catalog',
+    'E213.Lens.Lens.Characterisation.Catalog',
     # CardinalityLB.leavesModNat_kernel_neq cascades from ModNat.
-    'E213.Hypervisor.Lens.Kernel.CardinalityLB',
+    'E213.Lens.Lens.Kernel.CardinalityLB',
     # ProductFSMPeriod cascades from LCMClosure.
-    'E213.Math.Cohomology.Dyadic.ProductFSMPeriod',
+    'E213.Lib.Math.Cohomology.Dyadic.ProductFSMPeriod',
     # CabibboAngle.irreducible_5_22 = Nat.gcd 5 22 = 1 (Lean core).
-    'E213.Physics.Mixing.CabibboAngle',
+    'E213.Lib.Physics.Mixing.CabibboAngle',
     # Lens funext-by-design: higher-order Lens equality (Lens (Lens α),
     # dependent function lenses, Raw → Prop kernels) is intrinsically
     # pointwise.  Proving Lens equality requires funext on the combine
     # function field — refactoring would require redefining what "Lens
     # equality" means.  Sealed as funext-by-design.
-    'E213.Hypervisor.Lens.Compose.OnLens',
-    'E213.Hypervisor.Lens.Lattice.IndexedJoin',
-    'E213.Hypervisor.Lens.Universal.QuotLens',
+    'E213.Lens.Lens.Compose.OnLens',
+    'E213.Lens.Lens.Lattice.IndexedJoin',
+    'E213.Lens.Lens.Universal.QuotLens',
     # CanonicalForm + Corresp + Initiality cascade from QuotLens funext.
-    'E213.Hypervisor.Lens.Properties.CanonicalForm',
-    'E213.Hypervisor.Lens.Kernel.Corresp',
-    'E213.Hypervisor.Lens.Initiality',
+    'E213.Lens.Lens.Properties.CanonicalForm',
+    'E213.Lens.Lens.Kernel.Corresp',
+    'E213.Lens.Lens.Initiality',
     # Lattice family meet/join also funext-bearing (indexed family eq).
-    'E213.Hypervisor.Lens.Lattice.FamilyJoin',
-    'E213.Hypervisor.Lens.Lattice.FamilyMeet',
+    'E213.Lens.Lens.Lattice.FamilyJoin',
+    'E213.Lens.Lens.Lattice.FamilyMeet',
     # FoldStructured: fold-shape lens equality needs funext.
-    'E213.Hypervisor.Lens.Morphism.FoldStructured',
+    'E213.Lens.Lens.Morphism.FoldStructured',
     # Reach.fin3 / Refines.Chain cascade from Lens equality.
-    'E213.Hypervisor.Lens.Instances.Reach',
-    'E213.Hypervisor.Lens.Refines.Chain',
+    'E213.Lens.Lens.Instances.Reach',
+    'E213.Lens.Lens.Refines.Chain',
     # FunctionSpace + Cauchy + Parity instances: function-valued Lens.
-    'E213.Hypervisor.Lens.Instances.FunctionSpace',
-    'E213.Hypervisor.Lens.Instances.Cauchy',
-    'E213.Hypervisor.Lens.Instances.Parity',
-    'E213.Hypervisor.Lens.Instances.EndpointBehavior',
-    'E213.Hypervisor.Lens.Instances.BoundedContext',
-    'E213.Hypervisor.Lens.Instances.CochainEntry',
-    'E213.Hypervisor.Lens.Instances.PointwiseProjection',
+    'E213.Lens.Lens.Instances.FunctionSpace',
+    'E213.Lens.Lens.Instances.Cauchy',
+    'E213.Lens.Lens.Instances.Parity',
+    'E213.Lens.Lens.Instances.EndpointBehavior',
+    'E213.Lens.Lens.Instances.BoundedContext',
+    'E213.Lens.Lens.Instances.CochainEntry',
+    'E213.Lens.Lens.Instances.PointwiseProjection',
     # Properties cascade
-    'E213.Hypervisor.Lens.Properties.EquivProperties',
+    'E213.Lens.Lens.Properties.EquivProperties',
     # RefinesParity propext from Nat.add_mod (Lean core)
-    'E213.Hypervisor.Lens.Leaves.RefinesParity',
-    # E213.Math.Infinity.Godel: Cantor-style countability /
+    'E213.Lens.Lens.Leaves.RefinesParity',
+    # E213.Lib.Math.Infinity.Godel: Cantor-style countability /
     # equipotence proofs use propext intrinsically (Iff between
     # cardinality propositions; raw_at_most_countable +
     # raw_equipotent_nat).  Genuinely structural, not facade.
-    'E213.Math.Infinity.Godel',
+    'E213.Lib.Math.Infinity.Godel',
     # DyadicTrajectory: trajectory ≠ exact-value type-distinction
     # preserved by ∅-axiom (canonical: seed/RESOLUTION_LIMIT_SPEC.md
     # §1).  propext from Iff chains comparing structural cuts.
     # Genuinely structural by-design.
-    'E213.Math.Real213.DyadicTrajectory',
+    'E213.Lib.Math.Real213.DyadicTrajectory',
     # Lean.Elab metaprogramming boundary: command_elab tactics
     # transitively use the Lean.Elab.Command monad, which depends on
     # Classical.choice + propext + Quot.sound from Lean 4 core.  This

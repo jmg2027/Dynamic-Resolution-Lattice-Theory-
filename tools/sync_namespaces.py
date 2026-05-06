@@ -24,8 +24,8 @@ DEFAULT_SKIP = {
     "lean/E213/Theory/Raw.lean",
     "lean/E213/Theory/RawLevels.lean",
     "lean/E213/Theory/RawSwap.lean",
-    # Hypervisor/Lens.lean uses `E213.Hypervisor` umbrella
-    "lean/E213/Hypervisor/Lens.lean",
+    # Hypervisor/Lens.lean uses `E213.Lens` umbrella
+    "lean/E213/Lens/Lens.lean",
     # Kernel layer umbrella (101 thms in `namespace E213.Term`)
     "lean/E213/Term",
     "lean/E213/Prelude.lean",
@@ -34,28 +34,28 @@ DEFAULT_SKIP = {
     # `open E213.Tactic` macro access.  Path is path-aligned-to-layer;
     # namespace is intentionally short.
     "lean/E213/Term/Tactic",
-    "lean/E213/Math/Tactic",
+    "lean/E213/Lib/Math/Tactic",
     "lean/E213/Meta/Tactic",
     # Math/Infinity/ files share `namespace E213.Infinity` umbrella by
     # design — they ALSO use `namespace E213.Theory.Internal` for
     # helper access (multi-namespace files), which the auto-aligner
     # mis-handles.  Keep the umbrella stable.
-    "lean/E213/Math/Infinity",
+    "lean/E213/Lib/Math/Infinity",
     # Math/Polynomial213/ — namespace `E213.Polynomial213` is the
     # canonical reflection AST (top-level, like E213.Tactic).  Path
     # is under Math/ for layer-classification, namespace is short.
-    "lean/E213/Math/Polynomial213.lean",
-    "lean/E213/Math/Polynomial213",
+    "lean/E213/Lib/Math/Polynomial213.lean",
+    "lean/E213/Lib/Math/Polynomial213",
     # Math/AxiomSystems/*AsLens.lean — file names use the "X AS LENS"
     # description; namespaces use the bare X (e.g.,
-    # ZFCExtensionalityAsLens.lean → namespace E213.Math.AxiomSystems
+    # ZFCExtensionalityAsLens.lean → namespace E213.Lib.Math.AxiomSystems
     # .ZFCExtensionality).  Intentional: file = exposition, namespace
     # = subject matter.
-    "lean/E213/Math/AxiomSystems",
+    "lean/E213/Lib/Math/AxiomSystems",
     # ArithFSM/V2to3.lean — namespace ArithFSMto3 reflects the
     # cross-FSM bridge concept (V2 → V3); the file path encodes
     # the V2to3 sub-cluster.
-    "lean/E213/Math/Cohomology/Dyadic/ArithFSM/V2to3.lean",
+    "lean/E213/Lib/Math/Cohomology/Dyadic/ArithFSM/V2to3.lean",
 }
 
 

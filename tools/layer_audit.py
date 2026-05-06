@@ -6,11 +6,14 @@ philosophical question — it is mechanically determined by its import
 closure.  F's natural layer >= max(layer of each E213.* it imports).
 
 Corollary (Mingu, same day): EVERY file has a vertical layer.  The
-"horizontal" trees (Math/, Physics/, Research/, Infinity/, Tactic/,
-Tools/) are topical groupings, NOT separate axes — each file inside
-them lives in some Kernel/Firmware/Hypervisor/Meta/App layer
-determined by its imports.  This script computes that layer for
-every file and reports per-folder distributions.
+"horizontal" trees (Lib/Math/, Lib/Physics/) are topical groupings,
+NOT separate axes — each file inside them lives in some
+Term/Theory/Lens/Meta/App layer determined by its imports.
+
+Post-M14 ring model (2026-05-06):
+  Term → Theory → Lens → Meta → Lib/{Math,Physics} → App
+
+(Pre-M14 names: Kernel, Firmware, Hypervisor.)
 """
 from __future__ import annotations
 
@@ -22,13 +25,13 @@ ROOT = Path(__file__).resolve().parent.parent
 LEAN_ROOT = ROOT / "lean" / "E213"
 
 VERTICAL = {
-    "Kernel": 0,
-    "Firmware": 1,
-    "Hypervisor": 2,
+    "Term": 0,
+    "Theory": 1,
+    "Lens": 2,
     "Meta": 3,
     "App": 4,
 }
-HORIZONTAL = {"Math", "Physics"}
+HORIZONTAL = {"Lib"}
 
 
 def first_segment(path: Path) -> str:
@@ -98,7 +101,7 @@ def main() -> int:
     natural = {}
     for p, imps in imports.items():
         max_rank = -1
-        max_label = "Kernel"
+        max_label = "Term"
         for ip in imps:
             if ip not in by_path:
                 continue
@@ -135,7 +138,7 @@ def every_file_layer_report(files, imports, by_path):
     """Compute natural vertical layer for EVERY file (including Math,
     Physics, Research, …) and print per-top-folder distribution."""
     print("\n## Per-file natural vertical layer")
-    print("(every file lives in Kernel/Firmware/Hypervisor/Meta/App;")
+    print("(every file lives in Term/Theory/Lens/Meta/App;")
     print(" computed from import closure)\n")
     natural = {}
     for f in files:
