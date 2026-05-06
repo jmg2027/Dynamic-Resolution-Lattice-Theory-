@@ -261,3 +261,43 @@ constructible across an entire family of starting brackets via a
 single generalised proof.  This validates the policy-lens framework
 beyond the unit case and provides the template for the fully-general
 `(LDD f, BracketSignChange) → ConsistentOracle` closure.
+
+### 6g. Morphism collapse — `signedLeftOracle f` ↦ `alwaysTrue`
+
+Closed in `SignedLeftCollapse.lean`.  Mingu's framing:
+
+> "f가 특정 패턴을 만족할 때 signedLeftOracle이 alwaysTrue로
+> 환원되는 조건을 명시화하는 것은, 복잡한 함수 연산을 단순한
+> 상구조(Image)로 붕괴시키는 213 특유의 'Morphism 붕괴'를 보여주는
+> 핵심 작업."
+
+  * `CollapseCondition f db := ∀ k, f (dyadicCut db.numB (db.expE + k + 1)) 0 1 = true`
+    — the structural pattern: f is `true` at unit precision on the
+    alwaysTrue-trajectory's midCut sequence.
+  * `signedLeftOracle_eq_alwaysTrue_traj` — under collapse + `numA = 0`,
+    the trajectory under `signedLeftOracle f` is **structurally
+    identical** to the trajectory under `alwaysTrue`.  Proof by
+    induction on n; collapse propagates to `db.leftHalf` via depth-shift.
+  * `signedLeft_collapseTo_alwaysTrue_ConsistentOracle` — the
+    derived ConsistentOracle for `signedLeftOracle f` reduces
+    structurally to the alwaysTrue ConsistentOracle (Layer 3c §6f).
+
+**Reductionist closure**: f's complex computation collapses to a
+*constant Bool image* once its unit-precision pattern aligns with
+the bracket's natural alwaysTrue trajectory.  This is the 213
+realisation of categorical morphism reduction at the lens layer —
+no f-specific consistency proof required, only the discharge of
+`CollapseCondition`.
+
+The closure pattern: once `CollapseCondition` holds, the
+ConsistentOracle is automatically the alwaysTrue one.  Combined
+with Layer 3b's `cutEq_zero_of_ratioCut_at_unit`, the IVTRoot
+follows mechanically — given (LDD f, RatioCut on f's image, collapse
+condition, and unit-precision sign), the framework synthesises the
+full root certificate at strict ∅-axiom.
+
+**Concrete impact**: for any f satisfying CollapseCondition on a
+numA = 0 bracket, IVT becomes a *one-line corollary* via
+`signedLeft_collapseTo_alwaysTrue_ConsistentOracle` plumbed through
+`IVTRoot.fromConsistentOracleRatio`.  No additional sign-change
+analysis needed.
