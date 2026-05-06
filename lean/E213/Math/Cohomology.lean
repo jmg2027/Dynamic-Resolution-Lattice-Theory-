@@ -207,22 +207,63 @@ import E213.Math.Cohomology.Universal.Prop53
 import E213.Math.Cohomology.WhyDimFive
 import E213.Math.Cohomology.XorPairCombine
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology` — Cohomology library.
+/-! Spec-as-code entry point for `E213.Math.Cohomology`.
 
-  Cohomology / cup-product / Leibniz / spectral sequences over 213.
+  213-native cohomology: cochains, coboundary δ, cup products,
+  Hodge structures, dyadic FSM theory, and the Hodge-conjecture
+  bridge stack.  All ∅-axiom on the in-scope files.
+
+  ## Chapters (sub-directory umbrellas)
+
+    * `Bipartite/` — K_{NS,NT}^{(c)} bipartite graph cohomology
+      (V32 / V32Betti / Filled — 2-cell-filling of 4-cycles).
+    * `Cochain/`   — Cochain core type + V5 / V5_1 / V5_2 decomposition
+      lemmas underpinning the cup-AW machinery.
+    * `Cup/`       — Strict cup product (Cup.Core / Leibniz / Ring).
+    * `CupAW/`     — Alexander–Whitney cup-AW: bilinearity, Leibniz
+      identities at every (p,q,r) basis, alg-lift bridges.
+    * `Delta/`     — Coboundary δ: Core / Linear / Pointwise / SqZero
+      (δ²=0) / V4Capstone.
+    * `Dyadic/`    — 110-file dyadic / FSM / Pell / Pisano / Trib /
+      Legendre / WalkUniversal sub-cluster.  The classification
+      engine for arithmetic FSM hardness.
+    * `Fractal/`   — Fractal-level cardinality (AlphaGUT / V25 / Level).
+    * `Hodge/`     — Hodge structure: Δ-Laplacian, Star-involution,
+      Prop50 / 52 / 53 / 54 capstones.
+    * `HodgeConjecture/` — 34-file Hodge-conjecture bridge stack:
+      Foundation / Pairing / Refinement / Structure / Toolkit / Bridge
+      (Beilinson regulator, etale fusion, Galois, Ising, Potts,
+      SpinGlass, ML decoder, Discrete geometry, Phase routing).
+    * `Universal/` — Prop-level Universal δ²=0 lift (Prop31 / 41 / 42 /
+      51 / 52 / 53) and Universal.Core / Prop wrappers.
+
+  ## Top-level standalone modules
+
+    * `AlphaEMBridge`        — bridge to Physics/AlphaEM precision chain
+    * `BettiKernel`          — Betti-number kernel definition
+    * `Capstone`             — top-level Cohomology capstone
+    * `ClosureExtension`     — closure-extension witness
+    * `DiamondAudit`,
+      `DiamondShape`         — diamond-shape cocycle audit
+    * `EncodingBijection`,
+      `EncodingBijection52`  — encoding bijection witnesses
+    * `EulerClosed`          — Euler-characteristic closed-form
+    * `K5`                   — K_5 (complete-graph) special case
+    * `LeibnizFinding`       — Leibniz-identity discovery sweep
+    * `Paper1Chiral`         — Paper-1 chiral-phase cohomology
+    * `Real213Bridge`        — bridge to Math/Real213
+    * `SimplexBasis`         — Δ^n simplex basis encoding
+    * `TopologyCompare`      — comparison with classical topology
+    * `TrivialCases`         — degenerate / trivial-case audit
+    * `WhyDimFive`           — d = 5 selection witness
+    * `XorPairCombine`       — XOR-pair combine homomorphism
 
   ## Status
 
-  208 files included.  9 files excluded
-  (pre-existing breakage):
-
-    - Cohomology.CupAW.LeibnizScaling
-    - Cohomology.CupAW.LeibnizSmall
-    - Cohomology.Dyadic.AlgebraicDegree
-    - Cohomology.Dyadic.Archive.EdgeSignature
-    - Cohomology.Dyadic.Archive.SubwordComplexity
-    - Cohomology.Dyadic.ArithFSM.Hierarchy
-    - Cohomology.Dyadic.ArithFSM.V1to2
-    - Cohomology.Dyadic.NumberTheory213
-    - Cohomology.Dyadic.Pell.ProperBridge
+  208/217 files included.  9 files excluded (pre-existing API
+  drift documented in `research-notes/HIERARCHICAL_PLACEMENT.md`
+  §6.3): two CupAW Leibniz wrappers (`Prop31.pattern_eq` API
+  rename), four Dyadic files (`ArithFSM.V1.Ar*.padTo2` rename),
+  two `Dyadic/Archive/` free-variable elaboration drift, and
+  `Pell/ProperBridge` function-application drift.
 -/
