@@ -36,6 +36,10 @@ import E213.Lib.Math.Analysis.ResolutionShift
     * `BracketCauchyModulus`     — Cauchy modulus per dyadic bracket
     * `CauchyComplete`           — Cauchy completeness via direct construction
     * `PhysicsBridgeNT2`         — physics-track NT=2 atomic block ↔ dyadic geometry
+    * `ResolutionShift`          — concrete (Nat,+)-graded structure
+                                   on cut transformers; falsifiability
+                                   tests for the CollapseCondition
+                                   composition closure (G31 §6h)
 
   ## Status
 
