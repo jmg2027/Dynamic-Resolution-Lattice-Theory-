@@ -9,7 +9,6 @@ import E213.Math.Cohomology.CupAW
 import E213.Math.Cohomology.Delta
 import E213.Math.Cohomology.DiamondAudit
 import E213.Math.Cohomology.DiamondShape
-import E213.Math.Cohomology.Dyadic
 import E213.Math.Cohomology.EncodingBijection
 import E213.Math.Cohomology.EncodingBijection52
 import E213.Math.Cohomology.EulerClosed
@@ -44,9 +43,6 @@ import E213.Math.Cohomology.XorPairCombine
       Leibniz identities, alg-lift bridges.
     * `Delta/`     — Coboundary δ: Core / Linear / Pointwise /
       SqZero (δ²=0) / V4Capstone.
-    * `Dyadic/`    — Dyadic / FSM / Pell / Pisano / Trib /
-      Legendre / WalkUniversal sub-cluster.  The classification
-      engine for arithmetic FSM hardness.
     * `Fractal/`   — Fractal-level cardinality (AlphaGUT / V25 / Level).
     * `Hodge/`     — Hodge structure: Δ-Laplacian, Star-involution,
       Prop50 / 52 / 53 / 54 capstones.

@@ -4,6 +4,7 @@ import E213.Math.AxiomSystems
 import E213.Math.Choice
 import E213.Math.Cohomology
 import E213.Math.Diagonal
+import E213.Math.DyadicFSM
 import E213.Math.Hyper
 import E213.Math.Infinity
 import E213.Math.Irrational
@@ -54,7 +55,10 @@ The directory tree is the spec; this file is the top-level entry.
 
   ### Topical sub-trees
     * `Cohomology`      — K_{NS,NT}^{(c)} cohomology + Hodge programme
-                          (217 files, 10 sub-clusters)
+                          (~100 files post Phase C peer-promotion)
+    * `DyadicFSM`       — dyadic / FSM / Pell / Pisano / Trib / Legendre
+                          classification engine (116 files; promoted from
+                          Cohomology/Dyadic in Phase C1)
     * `Trajectory`      — sequence-trajectories
     * `PatternCatalog`  — pattern catalog metaformalization (G30)
     * `CascadeCalculus` — cascade-calculus locality / aggregation
