@@ -197,7 +197,81 @@ def unitAlwaysFalse_ConsistentOracle : ConsistentOracle unitBracket where
       rw [decide_eq_true (alwaysFalse_decide_true_aux n1 k m hge),
           decide_eq_true (alwaysFalse_decide_true_aux n2 k m hge)]
 
-end E213.Math.Analysis.DyadicSearch.UnitConsistentOracles
+/-! ### Layer 3c generalisation — alwaysTrue on `numA = 0` brackets
+
+Generalises `unitAlwaysTrue_ConsistentOracle` from `unitBracket` =
+`(0, 1, 0)` to **any** dyadic bracket with `numA = 0`.  Demonstrates
+that the policy-lens framework scales beyond the unit case — the
+ConsistentOracle is constructible for arbitrary
+`(0, B, E)`-shaped starting brackets. -/
+
+/-- After n alwaysTrue steps from a `numA = 0` bracket, numA stays 0. -/
+private theorem alwaysTrue_zero_numA (db : DyadicBracket)
+    (h : db.numA = 0) (n : Nat) :
+    (DyadicBracket.bisectN alwaysTrue n db).numA = 0 := by
+  rw [alwaysTrue_numA n db, h, Nat.mul_zero]
+
+/-- **Closed form**: midCut for alwaysTrue on numA=0 bracket at depth
+    n equals `dyadicCut db.numB (db.expE + n + 1)`.  Generalises
+    `alwaysTrue_unit_midCut` from `(0, 1, 0)` to `(0, B, E)`. -/
+private theorem alwaysTrue_zero_midCut (db : DyadicBracket)
+    (h : db.numA = 0) (n : Nat) :
+    (DyadicBracket.bisectN alwaysTrue n db).midCut
+    = dyadicCut db.numB (db.expE + n + 1) := by
+  show dyadicCut ((DyadicBracket.bisectN alwaysTrue n db).numA
+                + (DyadicBracket.bisectN alwaysTrue n db).numB)
+                ((DyadicBracket.bisectN alwaysTrue n db).expE + 1)
+       = dyadicCut db.numB (db.expE + n + 1)
+  rw [alwaysTrue_zero_numA db h n,
+      alwaysTrue_zero_numB_invariant n db h,
+      DyadicBracket.bisectN_expE alwaysTrue n db,
+      Nat.zero_add]
+
+/-- For `n ≥ B * k` and `m ≥ 1`, `B * k ≤ 2^(E + n + 1) * m`.
+
+Generalises `k_le_two_pow_succ_mul` to scale by `B = db.numB`.
+Combines `succ_le_two_pow` with monotonicity of `2^x`. -/
+private theorem Bk_le_two_pow_E_succ_mul (E n k m B : Nat)
+    (hkn : B * k ≤ n) (hm : 1 ≤ m) : B * k ≤ 2^(E + n + 1) * m := by
+  have hpow : (n + 1) + 1 ≤ 2^(n+1) := succ_le_two_pow (n+1)
+  have hbk2 : B * k ≤ n + 2 := Nat.le_trans hkn (Nat.le_add_right _ _)
+  have hbk_pow : B * k ≤ 2^(n+1) := Nat.le_trans hbk2 hpow
+  have hpow_E : (2:Nat)^(n+1) ≤ 2^(E + n + 1) := by
+    apply Nat.pow_le_pow_right (by decide : 1 ≤ 2)
+    calc n + 1 ≤ E + (n + 1) := Nat.le_add_left _ _
+      _ = E + n + 1 := by rw [Nat.add_assoc]
+  calc B * k ≤ 2^(n+1) := hbk_pow
+    _ ≤ 2^(E + n + 1) := hpow_E
+    _ = 2^(E + n + 1) * 1 := (Nat.mul_one _).symm
+    _ ≤ 2^(E + n + 1) * m := Nat.mul_le_mul_left _ hm
+
+/-- **★ Layer 3c generalisation**: alwaysTrue ConsistentOracle on
+    *any* `numA = 0` dyadic bracket.
+
+The trajectory steers always-left from `[0, B/2^E]`; midCut
+converges to `0`.  Threshold `N(m, k) = db.numB * k` works
+uniformly via `Bk_le_two_pow_E_succ_mul`.
+
+Specialises to `unitAlwaysTrue_ConsistentOracle` when
+`db = unitBracket` (`numB = 1`, `expE = 0`). -/
+def numA_zero_alwaysTrue_ConsistentOracle (db : DyadicBracket)
+    (h : db.numA = 0) : ConsistentOracle db where
+  oracle := alwaysTrue
+  thresholdN := fun _ k => db.numB * k
+  consistency := by
+    intro m k n1 n2 hn1 hn2
+    rw [alwaysTrue_zero_midCut db h n1, alwaysTrue_zero_midCut db h n2]
+    rcases Nat.eq_zero_or_pos m with hm | hm
+    · subst hm; rfl
+    · have h1 : dyadicCut db.numB (db.expE + n1 + 1) m k = true := by
+        show decide (db.numB * k ≤ 2^(db.expE + n1 + 1) * m) = true
+        apply decide_eq_true
+        exact Bk_le_two_pow_E_succ_mul db.expE n1 k m db.numB hn1 hm
+      have h2 : dyadicCut db.numB (db.expE + n2 + 1) m k = true := by
+        show decide (db.numB * k ≤ 2^(db.expE + n2 + 1) * m) = true
+        apply decide_eq_true
+        exact Bk_le_two_pow_E_succ_mul db.expE n2 k m db.numB hn2 hm
+      rw [h1, h2]
 
 
 

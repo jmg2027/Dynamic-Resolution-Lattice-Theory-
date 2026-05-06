@@ -234,3 +234,30 @@ Closing this in Lean is the next concrete milestone.  Architecture
 already established: each axis is a typed datum, no classical
 assumption enters, and the policy enumeration is within the
 finite-lens framework already formalised in `Meta.UniversalLens.*`.
+
+### 6f. First general ConsistentOracle beyond unitBracket
+
+`numA_zero_alwaysTrue_ConsistentOracle (db : DyadicBracket) (h : db.numA = 0) : ConsistentOracle db`
+**generalises** `unitAlwaysTrue_ConsistentOracle` from
+`unitBracket = (0, 1, 0)` to **any** `(0, B, E)`-shaped dyadic
+bracket.
+
+  * `alwaysTrue_zero_midCut` — closed form: midCut at depth n =
+    `dyadicCut db.numB (db.expE + n + 1)`.  Generalises
+    `alwaysTrue_unit_midCut`.
+  * `Bk_le_two_pow_E_succ_mul` — quantitative modulus extraction:
+    for `n ≥ B*k`, `m ≥ 1`, `B*k ≤ 2^(E+n+1)*m`.  Bonus axis:
+    *resolution map* `N(B, k) = B*k` quantifies "how much
+    bracket descent is needed at precision (m, k)".
+  * Threshold: `N(m, k) = db.numB * k` (specialises to `k` for
+    `unitBracket`).
+
+All strict ∅-axiom.  The `numA = 0` shape is the canonical
+"leftmost-pointing" bracket family; analogous results hold for
+`numB = 2^E * c` shapes (rightmost-pointing) under `alwaysFalse`.
+
+**Architectural takeaway**: `ConsistentOracle` is *uniformly*
+constructible across an entire family of starting brackets via a
+single generalised proof.  This validates the policy-lens framework
+beyond the unit case and provides the template for the fully-general
+`(LDD f, BracketSignChange) → ConsistentOracle` closure.
