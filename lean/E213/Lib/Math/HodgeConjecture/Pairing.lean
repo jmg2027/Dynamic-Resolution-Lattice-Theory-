@@ -3,6 +3,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexT2
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexT2Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemann
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2
+import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
 
 /-! Spec-as-code entry point for `E213.Lib.Math.HodgeConjecture.Pairing`.
 
@@ -21,6 +22,11 @@ import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2
                                   (positivity vacuous in ℤ/2)
     * `HodgeRiemannT2`         — ★ Non-vacuous lift: Kähler class
                                   with `cup(ω, ω) > 0` on T²
+    * `T2nPattern`             — ★★ **Pattern theorem**:
+                                  `signature(H^n; T²ⁿ) =
+                                   (½·C(2n,n), ½·C(2n,n))`,
+                                  bundling all n=1, n=2 witnesses
+                                  + numerical sequence for n≤5
 
   ## T²ⁿ signature pattern
 
