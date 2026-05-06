@@ -2,6 +2,8 @@ import E213.Lib.Math.Probability.Cut
 import E213.Lib.Math.Probability.UniformOnUnit
 import E213.Lib.Math.Probability.Bernoulli
 import E213.Lib.Math.Probability.Binomial
+import E213.Lib.Math.Probability.Expectation
+import E213.Lib.Math.Probability.Variance
 import E213.Lib.Math.Probability.Capstone
 
 /-!
