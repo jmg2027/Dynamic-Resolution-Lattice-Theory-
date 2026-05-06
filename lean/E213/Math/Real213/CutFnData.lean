@@ -24,7 +24,7 @@ structure LocallyDeterminedData (f : CutFunction) where
 
 namespace E213.Math.Real213.CutFnData
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutContinuity (constCutFn)
 
 /-- **LocallyDeterminedData**: explicit modulus carried as data. -/
@@ -48,7 +48,7 @@ def constLDD (c : Nat → Nat → Bool) : LocallyDeterminedData (constCutFn c) w
   N := fun _ _ => 0
   prop := fun _ _ _ _ _ => rfl
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 
 /-- Max over j ∈ [0, K] of f i j. -/
 def maxRangeRow (f : Nat → Nat → Nat) (i : Nat) : Nat → Nat
@@ -96,7 +96,7 @@ theorem maxRange_ge (f : Nat → Nat → Nat) (M K i j : Nat)
       show f i j ≤ max (maxRangeRow f (k+1) K) (maxRange f k K)
       exact Nat.le_trans (ih hik) (E213.Math.NatHelpers.Max213.le_max_right _ _)
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 
 /-- **LDD composition closure**: f ∘ g is LDD if both f and g are LDD. -/
 def composeLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
@@ -116,7 +116,7 @@ def composeLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
     · exact Nat.le_trans hk''
         (maxRange_ge lg.N (lf.N m k) (lf.N m k) m' k' hm' hk')
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutBisection (cutHalf)
 
 /-- LocallyDeterminedData for cutHalf. -/
@@ -127,7 +127,7 @@ def cutHalfLDD : LocallyDeterminedData cutHalf where
     show cx (2*m) k = cy (2*m) k
     exact h (2*m) k (E213.Math.NatHelpers.Max213.le_max_left _ _) (E213.Math.NatHelpers.Max213.le_max_right _ _)
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutMulDetermined (cutMulOuter_congr)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutScale)

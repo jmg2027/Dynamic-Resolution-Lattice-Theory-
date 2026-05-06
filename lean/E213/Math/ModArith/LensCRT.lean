@@ -1,5 +1,5 @@
-import E213.Hypervisor.Leaves.ModNat
-import E213.Hypervisor.Lattice.Meet
+import E213.Lens.Leaves.ModNat
+import E213.Lens.Lattice.Meet
 
 /-!
 # ModLensCRT: prodLens(L_2, L_3) ≈ L_6 (CRT in Lens form)
@@ -18,8 +18,8 @@ yield exactly the same kernel.
 
 namespace E213.Math.ModArith.LensCRT
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Leaves.ModNat E213.Hypervisor.Lattice.Meet
+open E213.Firmware E213.Lens
+open E213.Lens.Leaves.ModNat E213.Lens.Lattice.Meet
 
 /-- L_6 refines prodLens(L_2, L_3) — automatic from divides_refines
     + the meet universal property. -/

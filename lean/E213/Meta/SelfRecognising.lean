@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
-import E213.HypervisorCore
-import E213.Hypervisor.Characterisation.Catalog
+import E213.LensCore
+import E213.Lens.Characterisation.Catalog
 
 /-!
 # Meta: codomain typeclass hierarchy (3-tier `extends`)
@@ -31,7 +31,7 @@ AXIOM.md §9.1 audit recommendation.
 
 namespace E213.Meta.SelfRecognising
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 
 -- ═══ Tier 1: commutative binary combine ═══
 
@@ -57,8 +57,8 @@ end E213.Meta.SelfRecognising
 
 namespace E213.Meta.SelfRecognising
 
-open E213.Firmware E213.Hypervisor CommBinaryCodomain
-open E213.Hypervisor.Characterisation.Catalog
+open E213.Firmware E213.Lens CommBinaryCodomain
+open E213.Lens.Characterisation.Catalog
 
 -- ═══ Tier 2: NonVanishing (no zero divisors) ═══
 

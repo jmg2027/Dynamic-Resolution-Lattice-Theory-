@@ -25,7 +25,7 @@ Closed forms (by induction):
 
 namespace E213.Math.Analysis.DyadicSearch.DyadicTrajectory
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutPoset (cutEq cutLe)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Analysis.CauchyComplete (CauchyCutSeq)

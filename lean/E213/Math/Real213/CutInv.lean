@@ -13,7 +13,7 @@ Note: at exact rational boundary "c = k/m", returns false (lower bound).
 
 namespace E213.Math.Real213.CutInv
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.Core (Real213)

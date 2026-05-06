@@ -1,6 +1,6 @@
 import E213.Math.ModArith.JoinBezout
 import E213.Math.ModArith.JoinEuclidean
-import E213.Hypervisor.Lattice.JoinEquiv
+import E213.Lens.Lattice.JoinEquiv
 
 /-!
 # ModJoinGCD: general join = gcd (arbitrary m, k ≥ 2)
@@ -28,8 +28,8 @@ equivalent to "N constant."  Hence coprimality implies "N is constant."
 
 namespace E213.Math.ModArith.JoinGCD
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Leaves.ModNat E213.Math.ModArith.JoinBezout
+open E213.Firmware E213.Lens
+open E213.Lens.Leaves.ModNat E213.Math.ModArith.JoinBezout
 open E213.Math.ModArith.JoinEuclidean
 
 /-- gcd(m, k) = gcd(m - k, k) when k ≤ m. -/
@@ -61,8 +61,8 @@ end E213.Math.ModArith.JoinGCD
 
 namespace E213.Math.ModArith.JoinGCD
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Leaves.ModNat E213.Math.ModArith.JoinBezout
+open E213.Firmware E213.Lens
+open E213.Lens.Leaves.ModNat E213.Math.ModArith.JoinBezout
 open E213.Math.ModArith.JoinEuclidean
 
 /-- Sorted auxiliary: `m ≥ k` assumed.  Strong induction on s = m + k. -/
@@ -126,8 +126,8 @@ end E213.Math.ModArith.JoinGCD
 
 namespace E213.Math.ModArith.JoinGCD
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Leaves.ModNat
+open E213.Firmware E213.Lens
+open E213.Lens.Leaves.ModNat
 
 /-- **Sanity check**: L_4 + L_6 → L_2 is a special case of
     join_refines_gcd (gcd 4 6 = 2).  Consistent with the manual
@@ -160,8 +160,8 @@ end E213.Math.ModArith.JoinGCD
 
 namespace E213.Math.ModArith.JoinGCD
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Leaves.ModNat E213.Hypervisor.Lattice.JoinEquiv
+open E213.Firmware E213.Lens
+open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 
 /-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k is contained in
     the equivalence of L_gcd.  Direct consequence of

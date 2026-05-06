@@ -1,4 +1,4 @@
-import E213.Hypervisor.Leaves.ModNat
+import E213.Lens.Leaves.ModNat
 
 /-!
 # ModJoinExample: concrete example of Join = gcd
@@ -21,8 +21,8 @@ Combined: N.view Raw.a = N.view r'.
 
 namespace E213.Math.ModArith.JoinExample
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Leaves.ModNat
+open E213.Firmware E213.Lens
+open E213.Lens.Leaves.ModNat
 
 /-- Chain example: L_4 + L_6 → N equates leaves-1 and leaves-3. -/
 theorem mod_4_6_chain_example {α : Type} (N : Lens α)
@@ -47,8 +47,8 @@ end E213.Math.ModArith.JoinExample
 
 namespace E213.Math.ModArith.JoinExample
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Leaves.ModNat
+open E213.Firmware E213.Lens
+open E213.Lens.Leaves.ModNat
 
 /-- +2 step via L_6 then L_4: chain of length 2. -/
 theorem mod_4_6_step_two {α : Type} (N : Lens α)
@@ -113,8 +113,8 @@ end E213.Math.ModArith.JoinExample
 
 namespace E213.Math.ModArith.JoinExample
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Leaves.ModNat
+open E213.Firmware E213.Lens
+open E213.Lens.Leaves.ModNat
 
 /-- **L_4 + L_6 → L_2 complete**.  Least direction of
     Join(L_4, L_6) = L_2 = L_gcd(4,6) in the refines preorder. -/

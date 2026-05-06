@@ -1,4 +1,4 @@
-import E213.HypervisorCore
+import E213.LensCore
 import E213.Physics.Substrate.Origin
 
 /-!
@@ -37,7 +37,7 @@ needs a more complex definition, outside this file's scope.)
 
 namespace E213.Physics.Substrate.Lens
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 
 /-- First explicit Lens in Phase 2: parity (b-count mod 2). -/
 def parityLens : Lens Bool where

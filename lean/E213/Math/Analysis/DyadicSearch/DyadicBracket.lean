@@ -21,7 +21,7 @@ convergence, not point existence.
 
 namespace E213.Math.Analysis.DyadicSearch.DyadicBracket
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutPoset (cutLe cutLe_trans cutLe_refl)
 open E213.Math.Real213.Dyadic (dyadicCut)
 

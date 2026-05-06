@@ -11,7 +11,7 @@ import E213.Math.Real213.CutSumTest
 
 namespace E213.Math.Real213.CutPoly
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSum (cutSum)

@@ -20,7 +20,7 @@ of its computed derivative, plus the integral via flux.
 
 namespace E213.Math.Analysis.Integration.ClassicAnti
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)

@@ -30,7 +30,7 @@ Negation = sign flip.
 
 namespace E213.Math.Real213.Signed
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)

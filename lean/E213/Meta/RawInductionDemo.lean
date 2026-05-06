@@ -1,5 +1,5 @@
 import E213.Firmware.Raw
-import E213.HypervisorCore
+import E213.LensCore
 
 /-!
 # Demo: `Raw.rec` as native `induction` target
@@ -19,7 +19,7 @@ as a black-box (public API only, no Tree internals).
 
 namespace E213.Meta.RawInductionDemo
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 
 /-- Demo: swap realises negation on the signed Lens,
     re-proved via `Raw.rec` (no Tree access).  Base cases

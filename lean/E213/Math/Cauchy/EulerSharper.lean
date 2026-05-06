@@ -23,7 +23,7 @@ incremental bound.
 
 namespace E213.Math.Cauchy.EulerSharper
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Cauchy.EulerSeq
 
 /-- **e > 5/2 strict** (n ≥ 3): 2 * eulerNum n ≥ 5 * eulerDen n + 1. -/

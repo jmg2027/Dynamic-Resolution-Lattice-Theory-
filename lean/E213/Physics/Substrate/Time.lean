@@ -41,7 +41,7 @@ All actual proofs are already in the bridge — this file is a thin wrapper.
 
 namespace E213.Physics.Substrate.Time
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutSum
 open E213.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory

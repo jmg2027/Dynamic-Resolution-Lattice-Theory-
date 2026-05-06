@@ -22,7 +22,7 @@ bound = (m+1)*(k+1) — sufficient search space.
 
 namespace E213.Math.Real213.CutMul
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Cauchy.Archimedean
 
 /-- Inner: iterate m2 from 0 to m2Bound, m1 fixed. -/

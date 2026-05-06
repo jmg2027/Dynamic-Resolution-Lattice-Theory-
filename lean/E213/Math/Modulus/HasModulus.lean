@@ -28,8 +28,8 @@ derived without LEM.
 
 namespace E213.Math.Modulus.HasModulus
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 
 /-- **Constructive Cauchy modulus**: carries the stabilization of

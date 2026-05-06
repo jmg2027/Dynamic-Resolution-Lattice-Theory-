@@ -33,7 +33,7 @@ monotone f with sign change on [a, b].
 
 namespace E213.Math.Analysis.DyadicSearch.MinimalRootLens
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory
   (alwaysTrue alwaysFalse)

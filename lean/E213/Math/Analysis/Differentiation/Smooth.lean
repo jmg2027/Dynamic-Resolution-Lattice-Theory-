@@ -50,7 +50,7 @@ This inverts the ZFC bias and matches lattice ontology.
 namespace E213.Math.Analysis.Differentiation.Smooth
 
 open E213.Math.Real213.CutSum (cutSum)
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutBisection (cutHalf cutMid)
 open E213.Math.Real213.CutMul (cutMul cutMulOuter)
 open E213.Math.Real213.CutPow (cutPow cutScale)

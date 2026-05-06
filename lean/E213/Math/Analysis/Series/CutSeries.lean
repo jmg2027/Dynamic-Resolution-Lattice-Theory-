@@ -17,7 +17,7 @@ SeriesCauchy: explicit modulus form.
 
 namespace E213.Math.Analysis.Series.CutSeries
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)

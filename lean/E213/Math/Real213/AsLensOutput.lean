@@ -1,4 +1,4 @@
-import E213.HypervisorCore
+import E213.LensCore
 import E213.Math.Cauchy.Archimedean
 
 /-!
@@ -52,7 +52,7 @@ of real analysis in 213 form.
 
 namespace E213.Math.Real213.AsLensOutput
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 
 /-- **Real as Lens output** — inherent type of the framework. -/
 abbrev RealAsLensOutput := Nat → Nat → Bool

@@ -36,7 +36,7 @@ IsAntiderivative F sf f := { eq : sf.derivative = f }
 
 namespace E213.Math.Analysis.Integration.Antiderivative
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
@@ -98,7 +98,7 @@ end E213.Math.Analysis.Integration.Antiderivative
 
 namespace E213.Math.Analysis.AntiderivativeCombinators
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSum (cutSum)
@@ -148,7 +148,7 @@ end E213.Math.Analysis.AntiderivativeCombinators
 
 namespace E213.Math.Analysis.AntiderivativeStructural
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSum (cutSum)

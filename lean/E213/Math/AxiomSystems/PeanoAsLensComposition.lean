@@ -1,5 +1,5 @@
 import E213.Firmware.Raw
-import E213.HypervisorCore
+import E213.LensCore
 
 /-!
 # `PeanoAsLensComposition` — Peano arithmetic as a lens on Raw
@@ -37,7 +37,7 @@ Nat type, derived from Raw via this lens):
 namespace E213.Math.AxiomSystems.Peano
 
 open E213.Firmware (Raw)
-open E213.Hypervisor (Lens)
+open E213.Lens (Lens)
 
 /-- The Peano-view lens: counts base elements (= successor count). -/
 def peanoLens : Lens Nat := Lens.leaves

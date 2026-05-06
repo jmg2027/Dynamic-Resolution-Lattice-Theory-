@@ -1,5 +1,5 @@
 import E213.Math.Hyper.Hyper213
-import E213.Hypervisor.Compose.OnLens
+import E213.Lens.Compose.OnLens
 
 /-!
 # Hyper213Tower: Simultaneous capture of the Hyper213 × Lens tower
@@ -37,9 +37,9 @@ Only ZFC's *arbitrary subsets* (Dedekind cuts) are *external* to the framework.
 
 namespace E213.Math.Hyper.Hyper213Tower
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.SemanticAtom
-open E213.Hypervisor.Compose.OnLens
+open E213.Firmware E213.Lens
+open E213.Lens.SemanticAtom
+open E213.Lens.Compose.OnLens
 open E213.Math.Hyper.Hyper213
 
 /-- LensTower α n: n-fold lens-on-lens self-application. -/

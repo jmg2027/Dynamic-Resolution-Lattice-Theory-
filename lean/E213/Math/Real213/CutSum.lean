@@ -24,7 +24,7 @@ detail*; the primitive is bounded search.
 
 namespace E213.Math.Real213.CutSum
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Cauchy.Archimedean
 
 /-- Bounded search: whether there exists m1 ∈ [0, m1Max] such that

@@ -28,7 +28,7 @@ Workaround: setoid-style approach or raw subtype.
 
 namespace E213.Math.Real213.Core
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Modulus.HasModulus
 
 /-- Constructive Cauchy real: sequence + explicit modulus. -/
@@ -42,8 +42,8 @@ def Real213.equiv (r r' : Real213) : Prop :=
   ∀ m k, k ≥ 1 →
     ∃ N, ∀ i, i ≥ N →
       E213.Math.Cauchy.Archimedean.orderProj m k
-        (E213.Hypervisor.Instances.AB.abLens.view (r.xs i)) =
+        (E213.Lens.Instances.AB.abLens.view (r.xs i)) =
       E213.Math.Cauchy.Archimedean.orderProj m k
-        (E213.Hypervisor.Instances.AB.abLens.view (r'.xs i))
+        (E213.Lens.Instances.AB.abLens.view (r'.xs i))
 
 end E213.Math.Real213.Core

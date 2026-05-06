@@ -11,7 +11,7 @@ Lattice properties of cutMax, cutMin + cut zero/one properties.
 
 namespace E213.Math.Real213.CutAlgebraic
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.Core (Real213)

@@ -1,5 +1,5 @@
 import E213.Firmware.Raw
-import E213.HypervisorCore
+import E213.LensCore
 import E213.Math.AxiomSystems.PeanoAsLensComposition
 
 /-!
@@ -25,7 +25,7 @@ distinct numerical answers, with no conflict at the Raw level.
 namespace E213.Math.AxiomSystems.CrossTheoryCohabit
 
 open E213.Firmware (Raw)
-open E213.Hypervisor (Lens)
+open E213.Lens (Lens)
 open E213.Math.AxiomSystems.Peano (peanoLens)
 
 /-- A canonical Raw expression: `a / b` (depth 1, leaves 2). -/

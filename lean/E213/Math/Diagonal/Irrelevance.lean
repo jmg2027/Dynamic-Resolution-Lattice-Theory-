@@ -1,4 +1,4 @@
-import E213.HypervisorCore
+import E213.LensCore
 import E213.Prelude
 
 /-!
@@ -23,7 +23,7 @@ determined by the injectivity of view.
 
 namespace E213.Math.Diagonal.Irrelevance
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 
 /-- Two Lenses agree on base and off-diagonal combine. -/
 def OffDiagonalAgree {α : Type} (L L' : Lens α) : Prop :=

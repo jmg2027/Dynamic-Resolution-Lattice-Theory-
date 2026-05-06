@@ -28,7 +28,7 @@ issue vanish naturally.
 namespace E213.Math.Real213.Dyadic
 
 open E213.Math.Real213.CutSum (cutSum)
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.CutBisection (cutHalf cutHalf_constCut)
 open E213.Math.Real213.CutSumOne (cutSum_self)
 open E213.Math.Real213.CutSumTest (constCut)

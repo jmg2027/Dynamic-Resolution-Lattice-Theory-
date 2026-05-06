@@ -20,9 +20,9 @@ Per-operation (add, mul, ...) supplies only a ModulusCombiner instance.
 
 namespace E213.Math.Analysis.Differentiation.ModulusCombiner
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Instances.AB
+open E213.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Real213.Core (Real213)
 
@@ -41,9 +41,9 @@ structure ModulusCombiner (combine : Raw → Raw → Raw) where
       orderProj m k (abLens.view (combine x1 y1))
         = orderProj m k (abLens.view (combine x2 y2))
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Modulus.HasModulus
-open E213.Hypervisor.Instances.AB
+open E213.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Real213.Core (Real213)
 

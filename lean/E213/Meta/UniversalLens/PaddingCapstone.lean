@@ -19,7 +19,7 @@ trivial applications of the meta-theorem.
 
 namespace E213.Meta.UniversalLens.PaddingCapstone
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Meta.UniversalLens.Core (IsUniversal)
 open E213.Meta.UniversalLens.Padding (view_inj_of_inj_proj)
 

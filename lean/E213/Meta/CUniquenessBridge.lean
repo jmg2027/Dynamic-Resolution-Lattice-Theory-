@@ -1,4 +1,4 @@
-import E213.Hypervisor.Characterisation.Catalog
+import E213.Lens.Characterisation.Catalog
 import E213.Meta.SelfRecognising
 
 /-!
@@ -19,8 +19,8 @@ Failure case: swap-invariant Lenses (LensCatalog).
 -/
 
 namespace E213.Meta.CUniquenessBridge
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Characterisation.Catalog
+open E213.Firmware E213.Lens
+open E213.Lens.Characterisation.Catalog
 open E213.Meta.SelfRecognising
 
 /-- ★ Involution. -/

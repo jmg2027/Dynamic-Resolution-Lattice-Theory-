@@ -25,7 +25,7 @@ This is the Setoid that bridges *propositional* equality to dyadic
 
 namespace E213.Math.Analysis.FluxMVT.FluxEquiv
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPoset (cutEq cutEq_trans cutEq_refl cutEq_symm)
 open E213.Math.Analysis.FluxMVT.FluxCut (FluxCut)

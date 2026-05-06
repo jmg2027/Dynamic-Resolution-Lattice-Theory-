@@ -20,7 +20,7 @@ Operations on FluxCut all preserve the cohomEquiv Setoid structure
 
 namespace E213.Math.Analysis.FluxMVT.FluxEquivOps
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPoset (cutEq)
 open E213.Math.Real213.CutSumTest (constCut)

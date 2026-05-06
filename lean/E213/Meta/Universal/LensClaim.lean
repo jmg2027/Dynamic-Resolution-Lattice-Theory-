@@ -1,4 +1,4 @@
-import E213.Hypervisor.SemanticAtom
+import E213.Lens.SemanticAtom
 import E213.Meta.Universal.Reflection
 
 /-!
@@ -32,8 +32,8 @@ claim in CLAUDE.md (partial — limited to α having HasDistinguishing).
 
 namespace E213.Meta.Universal.LensClaim
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.SemanticAtom
+open E213.Firmware E213.Lens
+open E213.Lens.SemanticAtom
 
 /-- **Restated claim**: every HasDistinguishing instance is the codomain
     of a framework Lens.  Witness: universalAsLens. -/

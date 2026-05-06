@@ -1,5 +1,5 @@
-import E213.Hypervisor.Instances.Cauchy
-import E213.Hypervisor.Instances.AB
+import E213.Lens.Instances.Cauchy
+import E213.Lens.Instances.AB
 import E213.Kernel.Tactic.Nat213
 
 /-!
@@ -26,8 +26,8 @@ Mingu (C) direction (2026-04-25): abLens + order-projection family.
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB E213.Hypervisor.Instances.Cauchy
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB E213.Lens.Instances.Cauchy
 
 /-- **Order projection**: (a, b) ↦ decide (a * k ≤ b * m).
     Cross-multiplication form comparing a/b ≤ m/k (assuming k ≥ 1).
@@ -45,8 +45,8 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB
 
 /-- **orderProj is n-independent for (a, b) = (n, n) (n ≥ 1)**:
     Dedekind cut for the diagonal ratio 1/1 = 1. -/
@@ -65,8 +65,8 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB E213.Hypervisor.Instances.Cauchy
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB E213.Lens.Instances.Cauchy
 
 /-- **Order Cauchy data**: explicit witness structure (constructive). -/
 structure OrderCauchyData (xs : Nat → Raw) where
@@ -91,8 +91,8 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB
 
 /-- **Diagonal sequence (a=b=n+1) is Order-Cauchy**.
     Assumes abLens.view (xs n) = (n+1, n+1). -/
@@ -130,8 +130,8 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB
 
 /-- orderProj of the (n+1, n+2) sequence is eventually constant
     (N differs for each (m, k)). -/
@@ -187,8 +187,8 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB
 
 /-- **(n+1, n+2)-type sequence is Order-Cauchy** — approaches ratio 1
     from below. -/
@@ -217,8 +217,8 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB
 
 /-- **General rational p/q sequence**: orderProj of (a, b) =
     (p*(n+1), q*(n+1)) is n-independent. -/
@@ -256,8 +256,8 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB
 
 /-- **Half sequence (a = n+1, b = 2*(n+1))**: ratio 1/2. -/
 theorem half_seq_orderCauchy (xs : Nat → Raw)
@@ -294,7 +294,7 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 
 /-- **Cut equivalence**: two OrderCauchyData with the same Dedekind cut
     represent the same ℝ-element. -/

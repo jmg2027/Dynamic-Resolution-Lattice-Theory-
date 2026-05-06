@@ -51,7 +51,7 @@ grade, etc.) but don't fit `IsResolutionShift`.
 
 namespace E213.Math.Analysis.ResolutionShift
 
-open E213.Firmware E213.Hypervisor
+open E213.Firmware E213.Lens
 open E213.Math.Real213.Dyadic (dyadicCut)
 open E213.Math.Real213.CutBisection (cutHalf)
 open E213.Math.Real213.CutFnData (LocallyDeterminedData composeLDD cutHalfLDD)

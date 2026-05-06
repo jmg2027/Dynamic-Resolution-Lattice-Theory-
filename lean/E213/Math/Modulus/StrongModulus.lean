@@ -23,8 +23,8 @@ not only orderProj stability but also bounded *ratio variation* of the view.
 
 namespace E213.Math.Modulus.StrongModulus
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB
 
 /-- **StrongModulus**: bounded ratio variation. -/
 structure StrongModulus (xs : Nat → Raw) where
@@ -41,8 +41,8 @@ end E213.Math.Modulus.StrongModulus
 
 namespace E213.Math.Modulus.StrongModulus
 
-open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Instances.AB
+open E213.Firmware E213.Lens
+open E213.Lens.Instances.AB
 
 /-- **Diagonal sequence** (view (n+1, n+1)) is a StrongModulus instance.
     Constant ratio 1 → variation = 0 → trivial bound. -/

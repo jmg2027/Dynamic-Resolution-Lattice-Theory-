@@ -1,6 +1,6 @@
 import E213.Firmware.Raw
-import E213.HypervisorCore
-import E213.Hypervisor.Characterisation.Catalog
+import E213.LensCore
+import E213.Lens.Characterisation.Catalog
 import E213.Math.CayleyDickson.ZSqrt
 import E213.Math.CayleyDickson.ZSqrtDomain
 import E213.Meta.SelfRecognising
@@ -34,7 +34,7 @@ namespace E213.Math.CayleyDickson.ZSqrtProduct
 
 open E213.Math.CayleyDickson.ZSqrt
 open E213.Math.CayleyDickson.ZSqrt.ZSqrt
-open E213.Firmware E213.Hypervisor E213.Meta.SelfRecognising
+open E213.Firmware E213.Lens E213.Meta.SelfRecognising
 
 variable {D₁ D₂ : Int}
 
@@ -51,7 +51,7 @@ def zSqrtProdLens (D₁ D₂ : Int) :
 def zSqrtProdConj (p : ZSqrt D₁ × ZSqrt D₂) : ZSqrt D₁ × ZSqrt D₂ :=
   (ZSqrt.conj p.1, ZSqrt.conj p.2)
 
-open E213.Firmware E213.Hypervisor E213.Meta.SelfRecognising
+open E213.Firmware E213.Lens E213.Meta.SelfRecognising
 
 -- ═══ R4 (SwapMatching) HOLDS ═══
 
@@ -99,7 +99,7 @@ theorem zSqrtProdLens_R4 :
       show (u.1 * v.1, u.2 * v.2) = (v.1 * u.1, v.2 * u.2)
       rw [ZSqrt.mul_comm u.1 v.1, ZSqrt.mul_comm u.2 v.2]) r
 
-open E213.Firmware E213.Hypervisor E213.Meta.SelfRecognising
+open E213.Firmware E213.Lens E213.Meta.SelfRecognising
 
 -- ═══ R3 FAILS on the product ═══
 

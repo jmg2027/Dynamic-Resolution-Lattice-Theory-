@@ -173,7 +173,7 @@ between Raw axiom and any concrete α, providing a *view*
 abstraction.  Different α = different "VM" of 213.
 
 **Public API surface** (G12 §4.1, available via single-import
-`E213.Hypervisor.API`):
+`E213.Lens.API`):
 
   - **HV1 — Type API**: `Lens (α : Type)`, `Lens.view`,
     `Lens.{leaves, depth}`

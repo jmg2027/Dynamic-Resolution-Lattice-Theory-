@@ -1,5 +1,5 @@
 import E213.Firmware.Raw
-import E213.HypervisorCore
+import E213.LensCore
 
 /-!
 # `ClassicalAnalysisCompletenessAsLens` — completeness as composite lens
