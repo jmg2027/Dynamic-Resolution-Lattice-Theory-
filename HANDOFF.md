@@ -15,7 +15,8 @@ The branch has finished:
   * **Build clean** at every phase commit.  Roll-back via
     `git tag pre-refactor-snapshot`.
 
-Detailed history of past sessions: `HANDOFF_archive.md`.
+Detailed history of past sessions: `git log` (commits up to
+`a82e904`).
 
 ## Verification status (pre-merge)
 
@@ -36,7 +37,6 @@ Detailed history of past sessions: `HANDOFF_archive.md`.
 lean/E213/
 ├── E213.lean                     ← root umbrella
 ├── ARCHITECTURE.md               ← canonical ring-model doc
-├── ARCHITECTURE_pre_M14.md       ← preserved for history
 ├── INDEX.md
 ├── Term/      (24 files, 0-axiom, + API.lean)
 ├── Theory/    (28 files, + API.lean, + Internal/Raw/)

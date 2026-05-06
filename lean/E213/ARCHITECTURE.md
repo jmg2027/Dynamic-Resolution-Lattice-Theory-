@@ -6,7 +6,7 @@ together.  Everything else (INDEX.md, CLAUDE.md, sub-cluster
 READMEs) follows from this.
 
 Last revised: 2026-05-06 (post-M14 architectural rename).
-Pre-M14 doc preserved at `ARCHITECTURE_pre_M14.md` for history.
+Pre-M14 history available via `git log -- lean/E213/ARCHITECTURE.md`.
 
 ## 0. Concentric ring model
 

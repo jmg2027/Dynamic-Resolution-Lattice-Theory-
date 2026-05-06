@@ -71,11 +71,11 @@ definitions of each layer + the per-file layer-derivation rule.
 
 > **Architectural note (2026-05-06, M14)**: prior layer names were
 > Kernel/Firmware/Hypervisor (OS-metaphor); renamed to
-> Term/Theory/Lens (direct concept names).  Pre-M14 history is
-> preserved at `ARCHITECTURE_pre_M14.md`.  An `OS/` orchestration
-> ring also existed pre-M14; it was dissolved in Phase A
-> (HodgeConjecture motivic bridges → Lib/Math/Cohomology/
-> HodgeConjecture/MotivicBridge/, physics capstones →
+> Term/Theory/Lens (direct concept names).  Pre-M14 history is in
+> `git log`.  An `OS/` orchestration ring also existed pre-M14;
+> it was dissolved in Phase A (HodgeConjecture motivic bridges →
+> Lib/Math/Cohomology/HodgeConjecture/MotivicBridge/, physics
+> capstones →
 > Lib/Physics/Capstones/).
 
 ## Capstone navigation

@@ -28,8 +28,8 @@ formal fact.
   - `lean/E213/` (~825 .lean files; concentric ring model
     Term/Theory/Lens/Meta/Lib/App — see `lean/E213/ARCHITECTURE.md`
     canonical ring architecture.  Pre-M14 names
-    Kernel/Firmware/Hypervisor/Meta/App + OS orchestration ring
-    are preserved at `lean/E213/ARCHITECTURE_pre_M14.md`.)
+    Kernel/Firmware/Hypervisor/Meta/App + OS orchestration ring are
+    in `git log`.)
   - `books/{math,physics}/`, `catalogs/`,
     `blueprints/{math,physics,meta}/`, `tools/`,
     `research-notes/`, `guide/`, `rust-engine/`
