@@ -4,6 +4,7 @@ import E213.Lib.Math.Cohomology.Surfaces.T2Minimal.Signature
 import E213.Lib.Math.Cohomology.Surfaces.T2Squared
 import E213.Lib.Math.Cohomology.Surfaces.T2Squared.HardLefschetz
 import E213.Lib.Math.Cohomology.Surfaces.T2Squared.HodgeIndex
+import E213.Lib.Math.Cohomology.Surfaces.T2nBetti
 import E213.Lib.Math.Cohomology.Surfaces.P2Minimal
 import E213.Lib.Math.Cohomology.Surfaces.P1Squared
 

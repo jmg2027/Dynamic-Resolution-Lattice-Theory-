@@ -5,6 +5,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP2
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP1Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemann
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2
+import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexGradeStructure
 import E213.Lib.Math.HodgeConjecture.Pairing.SurfaceComparisonTheorem
 import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
 
