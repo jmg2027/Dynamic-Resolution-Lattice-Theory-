@@ -1,5 +1,4 @@
 import E213.OS.HodgeConjecture.Bridges.BeilinsonLichtenbaum
-import E213.OS.HodgeConjecture.Bridges.BeilinsonRegulator
 import E213.OS.HodgeConjecture.Bridges.BlochBeilinson
 import E213.OS.HodgeConjecture.Bridges.ChernCharacter
 import E213.OS.HodgeConjecture.Bridges.HodgeTate
@@ -17,7 +16,6 @@ import E213.OS.HodgeConjecture.Bridges.Tate
 
     * `BeilinsonLichtenbaum`  — Beilinson–Lichtenbaum motivic
                                 conjecture
-    * `BeilinsonRegulator`    — Beilinson regulator
     * `BlochBeilinson`        — Bloch–Beilinson filtration
     * `ChernCharacter`        — Chern character bridge
     * `HodgeTate`             — Hodge–Tate decomposition

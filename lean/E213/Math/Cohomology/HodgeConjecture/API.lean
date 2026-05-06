@@ -22,7 +22,7 @@ import E213.Math.Cohomology.HodgeConjecture.Refinement.CupAtomicGeneration
 import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzHyperplane
 import E213.OS.HodgeConjecture.Bridges.MumfordTate
 import E213.OS.HodgeConjecture.Bridges.BlochBeilinson
-import E213.OS.HodgeConjecture.Bridges.BeilinsonRegulator
+import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
 import E213.Math.Cohomology.HodgeConjecture.Refinement.Voisin
 import E213.OS.HodgeConjecture.Bridges.ChernCharacter
 import E213.OS.HodgeConjecture.Bridges.HodgeTate
