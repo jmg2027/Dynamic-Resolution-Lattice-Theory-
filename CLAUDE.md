@@ -141,7 +141,7 @@ needed is ℕ + ℚ + finite simplex combinatorics + interval bound at the
 N_U resolution.  The Real213 marathon (Bishop-style constructive
 analysis) is math-track, not on the physics critical path.
 
-Lean formalization of this spec: **`lean/E213/Math/Foundations/ResolutionLimit.lean`**
+Lean formalization of this spec: **`lean/E213/Lib/Math/Foundations/ResolutionLimit.lean`**
 (∅-axiom + 213-native verified).
 
 ---
@@ -179,7 +179,7 @@ Optimize for **readability, extensibility, modularity, well-formed classificatio
 6. No "phase" or session-number in long-lived names.
 7. INDEX.md per non-trivial sub-tree (≥ 5 files).
 
-**One vertical axis** (Kernel/Firmware/Hypervisor/Meta/App), Math/Physics as topical labels (not separate axis). See `lean/E213/ARCHITECTURE.md` for canonical layer definitions.
+**Concentric ring model** (Term → Theory → Lens → Meta → Lib → App). Lib/{Math, Physics} are bounded contexts inside the library ring. See `lean/E213/ARCHITECTURE.md` for canonical layer definitions.
 
 When deletion is right: deprecated content with no active dependents → delete (git history retains). Never delete content under active use.
 
@@ -192,7 +192,7 @@ When deletion is right: deprecated content with no active dependents → delete 
 | ENTRY | `README.md` | 30-second overview |
 | ENTRY | `HANDOFF.md` | current session state (volatile) |
 | ENTRY | `CLAUDE.md` | this file |
-| FORMAL | `lean/E213/` | the actual 213 (~994 .lean files, ∅-axiom standard).  Layers: `Kernel/` `Firmware/` `Hypervisor/` `Meta/` `OS/` `App/`.  `Math/`, `Physics/` are topical labels (vertical layer determined by import closure, see `lean/E213/ARCHITECTURE.md`). |
+| FORMAL | `lean/E213/` | the actual 213 (~994 .lean files, ∅-axiom standard).  Layers: `Term/` `Theory/` `Lens/` `Meta/` `OS/` `App/`.  `Lib/Math/`, `Lib/Physics/` are topical labels (vertical layer determined by import closure, see `lean/E213/ARCHITECTURE.md`). |
 | FORMAL | `rust-engine/` | Rust runtime (52+ binaries, ℕ-only) |
 | NARRATIVE | `guide/` | master deductive guide (16 chapters) |
 | NARRATIVE | `books/` | 213-internal narrative (math/, physics/) |
@@ -211,8 +211,8 @@ When deletion is right: deprecated content with no active dependents → delete 
 
 - Session start: read boot sequence (top of this file).
 - Commit after every meaningful change. Never amend.
-- Physics edits → `lean/E213/Physics/` or `rust-engine/`.
-- Math edits → `lean/E213/Math/`.
+- Physics edits → `lean/E213/Lib/Physics/` or `rust-engine/`.
+- Math edits → `lean/E213/Lib/Math/`.
 - Documentation: appropriate top-level dir per layout.
 - After edits, verify: `cd lean && lake build`. If clean, audit with `scan_axioms.py`.
 
