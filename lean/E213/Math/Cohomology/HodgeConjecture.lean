@@ -1,46 +1,33 @@
 import E213.Math.Cohomology.HodgeConjecture.API
-import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
-import E213.Math.Cohomology.HodgeConjecture.Bridge.DiscreteGeometry
-import E213.Math.Cohomology.HodgeConjecture.Bridge.G6Vacuity
-import E213.Math.Cohomology.HodgeConjecture.Bridge.GaloisCounterfactual
-import E213.Math.Cohomology.HodgeConjecture.Bridge.Ising
-import E213.Math.Cohomology.HodgeConjecture.Bridge.MLDecoder
-import E213.Math.Cohomology.HodgeConjecture.Bridge.MotiveEtaleFusion
-import E213.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting
-import E213.Math.Cohomology.HodgeConjecture.Bridge.Potts
-import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlass
-import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlassGroundState
-import E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
-import E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
-import E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
-import E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens
-import E213.Math.Cohomology.HodgeConjecture.Foundation.Filled
-import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
-import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex
-import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann
-import E213.Math.Cohomology.HodgeConjecture.Refinement.CupAtomicGeneration
-import E213.Math.Cohomology.HodgeConjecture.Refinement.GeneralizedHodge
-import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzHyperplane
-import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzOneOne
-import E213.Math.Cohomology.HodgeConjecture.Refinement.StandardConjectures
-import E213.Math.Cohomology.HodgeConjecture.Refinement.Voisin
-import E213.Math.Cohomology.HodgeConjecture.Structure.HardLefschetz
-import E213.Math.Cohomology.HodgeConjecture.Structure.Map
-import E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality
-import E213.Math.Cohomology.HodgeConjecture.Structure.Ring
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.Primitives
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTrip
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTripMid
+import E213.Math.Cohomology.HodgeConjecture.Bridge
+import E213.Math.Cohomology.HodgeConjecture.Foundation
+import E213.Math.Cohomology.HodgeConjecture.Pairing
+import E213.Math.Cohomology.HodgeConjecture.Refinement
+import E213.Math.Cohomology.HodgeConjecture.Structure
+import E213.Math.Cohomology.HodgeConjecture.Toolkit
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/HodgeConjecture` — Cohomology/HodgeConjecture cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.HodgeConjecture`.
 
-  
+  213-native Hodge-conjecture bridge stack.
 
-  ## Status
+  ## Top-level
 
-  34 files included.  0 files excluded
-  (pre-existing breakage):
+    * `API.lean` — public surface
 
-    (none)
+  ## Sub-cluster umbrellas
+
+    * `Foundation/`  — Canonical / Complete / Conjecture /
+                       ConjectureLens / Filled / LensCata
+    * `Structure/`   — algebraic structure (HardLefschetz, Map,
+                       PoincareDuality, Ring)
+    * `Pairing/`     — Hodge index / Hodge–Riemann pairings
+    * `Refinement/`  — cup-atomic, generalized Hodge,
+                       Lefschetz hyperplane / (1,1), standard
+                       conjectures, Voisin
+    * `Toolkit/`     — LensClassifier, Primitives, RoundTrip*
+    * `Bridge/`      — physics bridges: Beilinson regulator,
+                       discrete geometry, G6 vacuity, Galois
+                       counterfactual, Ising, ML decoder, motive
+                       etale fusion, phase routing, Potts, spin
+                       glass (+ ground state)
 -/
