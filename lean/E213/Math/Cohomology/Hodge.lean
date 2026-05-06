@@ -8,14 +8,24 @@ import E213.Math.Cohomology.Hodge.Prop53
 import E213.Math.Cohomology.Hodge.Prop54
 import E213.Math.Cohomology.Hodge.Star
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology.Hodge` — Cohomology/Hodge cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Hodge`.
 
-  
+  Hodge structure on the 213-native cochain complex — the
+  Δ-Laplacian + ⋆-involution machinery.
 
-  ## Status
+  ## Δ-Laplacian + ⋆ machinery
 
-  9 files included.  0 files excluded
-  (pre-existing breakage):
+    * `Star`               — Hodge ⋆ at cochain level
+    * `Involution`,
+      `InvolutionCapstone` — ⋆⋆ = id involution + capstone
+    * `Delta`              — codifferential δ* = ⋆δ⋆
 
-    (none)
+  ## Prop-level capstones
+
+    * `Prop`     — top-level Hodge proposition wrapper
+    * `Prop50`,
+      `Prop52`,
+      `Prop53`,
+      `Prop54`   — the Hodge series at increasing complexity
+                   (Universal-cochain lift theorems)
 -/

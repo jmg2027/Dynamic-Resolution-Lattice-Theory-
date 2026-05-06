@@ -4,14 +4,16 @@ import E213.Math.Cohomology.Delta.Pointwise
 import E213.Math.Cohomology.Delta.SqZero
 import E213.Math.Cohomology.Delta.V4Capstone
 
-/-! Spec-as-code entry point for `E213.Math.Cohomology.Delta` — Cohomology/Delta cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology.Delta`.
 
-  
+  Coboundary δ : Cᵏ → Cᵏ⁺¹ on the 213-native cochain complex.
 
-  ## Status
+  ## Files
 
-  5 files included.  0 files excluded
-  (pre-existing breakage):
-
-    (none)
+    * `Core`        — definition `δ : Cochain n k → Cochain n (k+1)`
+                      via boundary-of-subset XOR sum
+    * `Linear`      — δ is linear (δ commutes with XOR + scalar)
+    * `Pointwise`   — pointwise rewriting rule used by SqZero
+    * `SqZero`      — δ² = 0  (the cochain-complex axiom)
+    * `V4Capstone`  — V₄-level Universal δ²=0 capstone
 -/
