@@ -1,4 +1,5 @@
 import E213.Lib.Math.DyadicFSM.ThueMorse
+import E213.Lib.Math.DyadicFSM.TierBridge
 
 import E213.Lib.Math.DyadicFSM.Signature
 /-!
@@ -20,6 +21,7 @@ namespace E213.Lib.Math.DyadicFSM.Archive.SubwordComplexity
 
 open E213.Lib.Math.DyadicFSM.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ThueMorse (thueMorse)
+open E213.Lib.Math.DyadicFSM.TierBridge (bit13)
 
 
 /-- Length-L substrings of trajectory `s` starting at position

@@ -1,5 +1,5 @@
 /-!
-# Hypervisor.Lens.Instances.BoundedContext — bounded-context lens
+# Lens.Instances.BoundedContext — bounded-context lens
 
 The pattern that makes `cutMulOuter_congr` and `cutSumAux_congr`
 work as the engine of the funext refactor.  A function (possibly

@@ -41,15 +41,25 @@ Together with CmpIndependence + Cauchy completeness, this extends the
 "ZFC replacement" claim of Paper 1 into the number-theoretic limit
 domain.
 
-Status: 2 PURE / 5 DIRTY (`tools/scan_axioms.py`).  The five
-DIRTY theorems (`padic_family_cauchy`, `padic_family_limit_zero`,
+Status: **7 / 7 PURE** (post-2026-05 hardening).  Every Padic
+capstone — `padic_family_cauchy`, `padic_family_limit_zero`,
 `padic_tower_refines`, `padic_familyCauchy`,
-`padic_limit_all_zero`) carry `[propext, Quot.sound]` — they
-assert function-equality between two ℕ → Bool families, which
-in Lean 4 routes through propext/Quot.sound.  Replacing the
-function-eq form with a per-index pointwise statement would
-collapse them to ∅-axiom.  See HIERARCHICAL_PLACEMENT §7 for
-the funext-by-design class of inherent-Quot.sound items.
+`padic_limit_all_zero`, plus the 7 ProfiniteSeq leaves and
+ModNat / Cauchy upstream — is `#print axioms` ∅.
+
+History (for context):
+  * Originally `[propext, Quot.sound]` (5/5).
+  * Quot.sound eliminated by adding `Nat213.{zero_mod,
+    mul_mod_right}` and inlining `omega` as direct `Nat.le_*` calls.
+  * propext eliminated by adding `Nat213.le_max_{left,right}`
+    (term-mode), `AddMod213.{add_mod_gen, mod_mod_of_dvd}` ∅-axiom,
+    and routing `ModNat.leavesModNat_view_eq`, `divides_refines`,
+    `Cauchy.eventually_class_unique` through them.
+
+Earlier diagnosis ("function-eq between ℕ → Bool families")
+was incorrect: the theorems do not assert function-equality.
+The root cause was `omega` + Lean-core `Nat.{add_mod, mod_mod_of_dvd,
+mul_mod_right, zero_mod, le_max_*}` (all `[propext]`-tainted).
 -/
 
 namespace E213.Lib.Math.Hyper.Padic
@@ -74,15 +84,16 @@ private theorem pow_one_le (p : Nat) (hp : p ≥ 2) (k : Nat) :
   | zero => show 1 ≤ 1; exact Nat.le_refl 1
   | succ n ih =>
       show 1 ≤ p^n * p
+      have h1p : 1 ≤ p := Nat.le_trans (by decide : (1 : Nat) ≤ 2) hp
       calc 1 = 1 * 1 := rfl
-        _ ≤ p^n * p := Nat.mul_le_mul ih (by omega)
+        _ ≤ p^n * p := Nat.mul_le_mul ih h1p
 
 private theorem pow_succ_ge_two (p : Nat) (hp : p ≥ 2) (k : Nat) :
     2 ≤ p^(k+1) := by
   show 2 ≤ p^k * p
   have h1 : 1 ≤ p^k := pow_one_le p hp k
   have h2 : 1 * p ≤ p^k * p := Nat.mul_le_mul_right p h1
-  have h3 : 2 ≤ 1 * p := by rw [Nat.one_mul]; exact hp
+  have h3 : 2 ≤ 1 * p := (Nat.one_mul p).symm ▸ hp
   exact Nat.le_trans h3 h2
 
 private theorem pow_succ_dvd (p : Nat) (k : Nat) :

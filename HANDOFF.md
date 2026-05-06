@@ -1,22 +1,41 @@
 # Session Handoff — DRLT 213
 
-Branch: `claude/fix-propext-constraints-Rdn1r` (ready to merge into `main`).
+Branch: `claude/plan-next-task-qBnuS` (continuation of post-PR-#34 work).
 
 ## Current state (2026-05-06)
 
-The branch has finished:
-  * **M14 architectural refactor** — OS-metaphor 5-layer
-    (Kernel/Firmware/Hypervisor/Meta/App) → concentric 6-ring model
-    (Term → Theory → Lens → Meta → Lib → App).
-  * **Pre-merge audit** (5 commits) — every load-bearing doc
-    aligned to ring-model paths.
-  * **Rust engine mirror** — `crates/{term, theory, lens, app}`,
-    `os/` dissolved.
-  * **Build clean** at every phase commit.  Roll-back via
-    `git tag pre-refactor-snapshot`.
+This branch has completed two follow-up tasks ("A → B") on top of the
+M14 refactor (PR #34 already merged into `main`):
 
-Detailed history of past sessions: `git log` (commits up to
-`a82e904`).
+  * **A — Lens cluster repair** (commit `687ff8b7`):
+    10 deferred Lens files (CompoundBool, NegSq, ParityXor*, RawAChar,
+    Morphism.{BoolSqClassification, SlashCharNotFold},
+    Properties.{ABRefines, Leaf, ParityCollapseFalse}) restored;
+    `Hypervisor.Lens` namespace drift in 14 files fixed;
+    `E213.Lens.Diagonal` new module hosts the Collapse / Idempotent
+    classification predicates (lost in M14 Phase F when
+    `Math.Diagonal.Classification` was dropped).
+    `lake build E213.Lens` → 122/122 ✔.
+  * **B — Padic full ∅-axiom** (commits `301efe01` + pending):
+    All 5 `Lib/Math/Hyper/Padic` capstones + 7 ProfiniteSeq leaves +
+    upstream `ModNat` / `Cauchy` lemmas now `#print axioms` ∅
+    (**12/12 PURE**, end-to-end).  Two-stage hardening:
+      - Stage 1 (Quot.sound elimination): replace `omega` with
+        `Nat.le_succ_of_le` / `Nat.le_trans`; add
+        `Nat213.{zero_mod, mul_mod_right}` term-mode helpers.
+      - Stage 2 (propext elimination): add
+        `Nat213.le_max_{left, right}` (term-mode);
+        `AddMod213.{add_mod_gen, mod_mod_of_dvd}` ∅-axiom; route
+        ModNat / Cauchy callers through them.
+    HANDOFF's earlier "function-eq → per-index pointwise" diagnosis
+    was incorrect; actual root cause was `omega` + Lean-core
+    `Nat.{add_mod, mod_mod_of_dvd, mul_mod_right, zero_mod,
+    le_max_*}`.  See `research-notes/HIERARCHICAL_PLACEMENT.md`
+    §7.4.
+
+Earlier branch (`claude/fix-propext-constraints-Rdn1r`) merged via
+PR #34 — see commits up to `3ba54cc5` for the full M14 architectural
+refactor history.
 
 ## Verification status (pre-merge)
 
@@ -56,21 +75,26 @@ rust-engine/crates/
 
 ## Open / TODO
 
-### Pre-existing API drift (not introduced by M14)
+### ~~Pre-existing API drift~~ — ALL RESOLVED
 
-28 files documented in `research-notes/HIERARCHICAL_PLACEMENT.md` §6:
-  * **Lens** (10): `open E213.Meta` (now `Meta.SelfRecognising`),
-    `Raw.{a,b,slash}` rename, lens-API drift in
-    `CompoundBool / NegSq / ParityXor* / RawAChar / Morphism.* /
-    Properties.{ABRefines, Leaf, ParityCollapseFalse}`
-  * **CayleyDickson** (9): `hurwitz_ring` tactic plumbing +
-    `LipschitzLens / R5Vacuity / ZSqrtProduct`
-  * **Cohomology** (9): `Universal.Prop31.pattern_eq` rename
-    (`pattern_eq_at`), `Dyadic` API drift, `Pell.ProperBridge`
+The original 28-file deferred-cluster (HIERARCHICAL_PLACEMENT.md §6)
+is now 0:
+  * ~~**Lens** (10)~~ — RESOLVED commit `687ff8b7` (A-task).
+  * ~~**CayleyDickson** (9)~~ — RESOLVED commit pending (this session).
+  * ~~**Cohomology** (9)~~ — RESOLVED commit pending (this session).
 
-These don't block the merge — they were deferred before M14 and
-remain deferred.  Each is documented in its umbrella's
-"deferred" inline list.
+### ~~Padic / ProfiniteSeq propext residue~~ — RESOLVED
+
+12/12 PURE.  See B-task entry above.
+
+### ~~PatternCatalog drift~~ — RESOLVED commit pending
+
+`PatternCatalog.{Algebra, Instance}` fixed via
+`open E213.Lib.Math.PatternCatalog.Core` (the structures had been
+moved to a `.Core` sub-namespace post-M14; consumers' `open` lines
+weren't updated).  Plus `E213.Lens.depth.view` →
+`E213.Lens.Lens.depth.view` (doubled-namespace) and
+`UniformArityNCohabit` namespace fully-qualified.
 
 ### Documented namespace exceptions (not bugs)
 
@@ -79,14 +103,12 @@ remain deferred.  Each is documented in its umbrella's
 (type-defining / doubled-type-namespace R10 / Internal-shared
 umbrella / descriptive sub-namespace).
 
-### Padic.lean DIRTY (function-equality routing)
+### ~~Padic.lean DIRTY~~ — RESOLVED (12/12 PURE)
 
-5 theorems in `Lib/Math/Hyper/Padic.lean` carry
-`[propext, Quot.sound]` — they assert function-eq between
-ℕ → Bool families.  Replacing with per-index pointwise statements
-would collapse them to ∅-axiom.  See
-`research-notes/HIERARCHICAL_PLACEMENT.md` §7
-(funext-by-design class).
+Original diagnosis ("function-eq between ℕ → Bool families") was
+incorrect.  Actual root cause was `omega` + Lean-core
+`Nat.{add_mod, mod_mod_of_dvd, mul_mod_right, zero_mod, le_max_*}`.
+All cleared via `Nat213` and `AddMod213` extensions.
 
 ### Layer downgrade hints (informational)
 
@@ -109,4 +131,19 @@ choices; not blockers.
 
 ## Verdict
 
-# **READY TO MERGE**
+A, B, and follow-up clusters complete on
+`claude/plan-next-task-qBnuS`:
+
+  * `lake build E213` (root) **clean** — every transitively-imported
+    file builds.
+  * `lake build E213.Lens` clean (124/124).
+  * `lake build E213.Lib.Math.CayleyDickson` clean (49/49).
+  * `lake build E213.Lib.Math.DyadicFSM` clean (139/139).
+  * `lake build E213.Lib.Math.Cohomology` clean (228/228).
+  * Padic + ProfiniteSeq + ModNat + Cauchy upstream **all 12/12 PURE**
+    (`#print axioms` ∅).
+
+The original 28-file pre-existing API-drift cluster + the M14-induced
+PatternCatalog + the Padic-axiom B-task are all resolved.
+
+Branch is **READY TO MERGE**.

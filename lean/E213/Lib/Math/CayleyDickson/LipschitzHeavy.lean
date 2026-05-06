@@ -15,6 +15,8 @@ namespace E213.Lib.Math.CayleyDickson.LipschitzHeavy
 
 
 open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Lib.Math.CayleyDickson.CDDouble
+open E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
 open E213.Tactic
 
 /-- **Universal associativity** of Lipschitz multiplication.
@@ -44,45 +46,45 @@ theorem normSq_eq_zero_iff (u : Lipschitz) : normSq u = 0 ↔ u = 0 := by
   constructor
   · intro h
     show u = ⟨0, 0⟩
-    apply ext
+    apply Lipschitz.ext
     · show u.re = (0 : ZI)
-      apply ZI.ext
+      apply E213.Lib.Math.CayleyDickson.ZI.ZI.ext
       · show u.re.re = 0
         have : u.re.re * u.re.re + u.re.im * u.re.im +
                 (u.im.re * u.im.re + u.im.im * u.im.im) = 0 := h
-        have h1 : 0 ≤ u.re.re * u.re.re := IntHelpers.mul_self_nonneg _
-        have h2 : 0 ≤ u.re.im * u.re.im := IntHelpers.mul_self_nonneg _
-        have h3 : 0 ≤ u.im.re * u.im.re := IntHelpers.mul_self_nonneg _
-        have h4 : 0 ≤ u.im.im * u.im.im := IntHelpers.mul_self_nonneg _
+        have h1 : 0 ≤ u.re.re * u.re.re := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h2 : 0 ≤ u.re.im * u.re.im := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h3 : 0 ≤ u.im.re * u.im.re := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h4 : 0 ≤ u.im.im * u.im.im := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
         have hsq : u.re.re * u.re.re = 0 := by omega
         rcases Int.mul_eq_zero.mp hsq with h | h <;> exact h
       · show u.re.im = 0
         have : u.re.re * u.re.re + u.re.im * u.re.im +
                 (u.im.re * u.im.re + u.im.im * u.im.im) = 0 := h
-        have h1 : 0 ≤ u.re.re * u.re.re := IntHelpers.mul_self_nonneg _
-        have h2 : 0 ≤ u.re.im * u.re.im := IntHelpers.mul_self_nonneg _
-        have h3 : 0 ≤ u.im.re * u.im.re := IntHelpers.mul_self_nonneg _
-        have h4 : 0 ≤ u.im.im * u.im.im := IntHelpers.mul_self_nonneg _
+        have h1 : 0 ≤ u.re.re * u.re.re := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h2 : 0 ≤ u.re.im * u.re.im := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h3 : 0 ≤ u.im.re * u.im.re := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h4 : 0 ≤ u.im.im * u.im.im := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
         have hsq : u.re.im * u.re.im = 0 := by omega
         rcases Int.mul_eq_zero.mp hsq with h | h <;> exact h
     · show u.im = (0 : ZI)
-      apply ZI.ext
+      apply E213.Lib.Math.CayleyDickson.ZI.ZI.ext
       · show u.im.re = 0
         have : u.re.re * u.re.re + u.re.im * u.re.im +
                 (u.im.re * u.im.re + u.im.im * u.im.im) = 0 := h
-        have h1 : 0 ≤ u.re.re * u.re.re := IntHelpers.mul_self_nonneg _
-        have h2 : 0 ≤ u.re.im * u.re.im := IntHelpers.mul_self_nonneg _
-        have h3 : 0 ≤ u.im.re * u.im.re := IntHelpers.mul_self_nonneg _
-        have h4 : 0 ≤ u.im.im * u.im.im := IntHelpers.mul_self_nonneg _
+        have h1 : 0 ≤ u.re.re * u.re.re := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h2 : 0 ≤ u.re.im * u.re.im := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h3 : 0 ≤ u.im.re * u.im.re := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h4 : 0 ≤ u.im.im * u.im.im := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
         have hsq : u.im.re * u.im.re = 0 := by omega
         rcases Int.mul_eq_zero.mp hsq with h | h <;> exact h
       · show u.im.im = 0
         have : u.re.re * u.re.re + u.re.im * u.re.im +
                 (u.im.re * u.im.re + u.im.im * u.im.im) = 0 := h
-        have h1 : 0 ≤ u.re.re * u.re.re := IntHelpers.mul_self_nonneg _
-        have h2 : 0 ≤ u.re.im * u.re.im := IntHelpers.mul_self_nonneg _
-        have h3 : 0 ≤ u.im.re * u.im.re := IntHelpers.mul_self_nonneg _
-        have h4 : 0 ≤ u.im.im * u.im.im := IntHelpers.mul_self_nonneg _
+        have h1 : 0 ≤ u.re.re * u.re.re := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h2 : 0 ≤ u.re.im * u.re.im := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h3 : 0 ≤ u.im.re * u.im.re := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
+        have h4 : 0 ≤ u.im.im * u.im.im := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
         have hsq : u.im.im * u.im.im = 0 := by omega
         rcases Int.mul_eq_zero.mp hsq with h | h <;> exact h
   · rintro rfl; rfl

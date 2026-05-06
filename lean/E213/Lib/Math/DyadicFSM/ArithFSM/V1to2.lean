@@ -16,19 +16,29 @@ Each inclusion preserves the bit stream, so the *minimal degree*
 in which a stream appears = its 213-native algebraic degree.
 -/
 
-namespace E213.Lib.Math.DyadicFSM.ArithFSM.V1to2
+namespace E213.Lib.Math.DyadicFSM.ArithFSM.V1
 
-open E213.Lib.Math.DyadicFSM.ArithFSM.V1 (ArithFSM1)
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
 
-
 /-- Pad ArithFSM₁(n) into ArithFSM₂(n) by adding an inert
-    second component.  init = (a, 0), step ignores it. -/
+    second component.  init = (a, 0), step ignores it.
+
+    Defined at the `ArithFSM1` namespace so that dot notation
+    `m.padTo2 hn` resolves correctly (Lean's dot lookup walks the
+    type's namespace, which is `…V1.ArithFSM1`, not the
+    sibling `V1to2`). -/
 def ArithFSM1.padTo2 {n : Nat} (hn : 0 < n) (m : ArithFSM1 n) : ArithFSM2 n where
   init := (m.init, ⟨0, hn⟩)
   step p := let (a, _) := p
     (m.step a, ⟨0, hn⟩)
   out p := m.out p.1
+
+end E213.Lib.Math.DyadicFSM.ArithFSM.V1
+
+namespace E213.Lib.Math.DyadicFSM.ArithFSM.V1to2
+
+open E213.Lib.Math.DyadicFSM.ArithFSM.V1 (ArithFSM1)
+open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
 
 /-- ★★★ padTo2 preserves the run's first component. -/
 theorem padTo2_run_components {n : Nat} (hn : 0 < n) (m : ArithFSM1 n) (k : Nat) :

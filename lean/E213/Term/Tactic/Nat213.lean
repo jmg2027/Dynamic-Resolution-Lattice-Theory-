@@ -372,3 +372,87 @@ theorem mul_mul_mul_comm_213 (a b c d : Nat) :
   h1.trans ((congrArg (a * ·) middle).trans h5)
 
 end E213.Tactic.Nat213
+
+namespace E213.Tactic.Nat213
+
+/-- `0 % m = 0`.  ∅-axiom replacement for Lean-core `Nat.zero_mod`
+    (which is `[propext]`).  Term-mode pattern match on `m`.
+
+    Companion to `E213.Lib.Math.NatHelpers.AddMod213.zero_mod`
+    (Lib/Math layer); this Term-layer version is the bedrock. -/
+theorem zero_mod (m : Nat) : 0 % m = 0 :=
+  match m with
+  | 0 => rfl
+  | _+1 => rfl
+
+/-- `m * b % m = 0`.  ∅-axiom replacement for Lean-core
+    `Nat.mul_mod_right` (which uses `Nat.zero_mod` + `Nat.add_mod_right`,
+    both `[propext]`).  Term-mode recursion on `b` using PURE
+    `Nat.mod_eq_sub_mod` and `add_sub_cancel_right`.  No tactics
+    used (Term layer requires literally 0-axiom — no propext-tainted
+    `rw` infrastructure). -/
+theorem mul_mod_right (m : Nat) : ∀ b, m * b % m = 0
+  | 0 =>
+    let h1 : m * 0 = 0 := Nat.mul_zero m
+    h1.symm ▸ zero_mod m
+  | b+1 =>
+    let ih : m * b % m = 0 := mul_mod_right m b
+    let hsucc : m * (b + 1) = m * b + m := Nat.mul_succ m b
+    let hge : m ≤ m * b + m := Nat.le_add_left m (m * b)
+    let hms : (m * b + m) % m = (m * b + m - m) % m :=
+      Nat.mod_eq_sub_mod hge
+    let hcancel : m * b + m - m = m * b := add_sub_cancel_right (m * b) m
+    let step1 : m * (b + 1) % m = (m * b + m) % m :=
+      congrArg (· % m) hsucc
+    let step3 : (m * b + m - m) % m = m * b % m :=
+      congrArg (· % m) hcancel
+    (step1.trans (hms.trans step3)).trans ih
+
+end E213.Tactic.Nat213
+
+namespace E213.Tactic.Nat213
+
+/-- `a ≤ Nat.max a b`.  ∅-axiom replacement for Lean-core
+    `Nat.le_max_left` (`[propext]`).  Term-mode via `Decidable.casesOn`
+    on `Nat.decLe`.  No tactics — strict Term-layer purity. -/
+theorem le_max_left (a b : Nat) : a ≤ Nat.max a b :=
+  show a ≤ if a ≤ b then b else a from
+    (Nat.decLe a b).casesOn
+      (fun h => (if_neg h).symm ▸ Nat.le_refl a)
+      (fun h => (if_pos h).symm ▸ h)
+
+/-- `b ≤ Nat.max a b`.  ∅-axiom replacement for Lean-core
+    `Nat.le_max_right` (`[propext]`).  Term-mode. -/
+theorem le_max_right (a b : Nat) : b ≤ Nat.max a b :=
+  show b ≤ if a ≤ b then b else a from
+    (Nat.decLe a b).casesOn
+      (fun h => (if_neg h).symm ▸ Nat.le_of_lt (Nat.lt_of_not_le h))
+      (fun h => (if_pos h).symm ▸ Nat.le_refl b)
+
+end E213.Tactic.Nat213
+
+namespace E213.Tactic.Nat213
+
+/-- `2 * n = n + n`.  Term-mode by structural recursion.
+
+    Companion to Lean-core `Nat.two_mul` (also ∅-axiom);
+    provided here so 213 code can stay within `E213.Tactic.Nat213`
+    vocabulary without leaning on Lean-core Nat lemmas.
+
+    Term-mode only (no `rw`) for Term-layer purity. -/
+theorem two_mul : ∀ (n : Nat), 2 * n = n + n
+  | 0 => rfl
+  | n+1 =>
+    let ih : 2 * n = n + n := two_mul n
+    let h1 : 2 * (n + 1) = 2 * n + 2 := Nat.mul_succ 2 n
+    let h2 : 2 * n + 2 = n + n + 2 := congrArg (· + 2) ih
+    -- `(n+1) + (n+1) = ((n+1) + n) + 1 = ((n+n) + 1) + 1 = n + n + 2`.
+    -- Each step is either rfl (by Nat.add's definition) or
+    -- `Nat.succ_add n n : (n+1) + n = (n+n) + 1`.
+    let h3 : (n + 1) + n = n + n + 1 := Nat.succ_add n n
+    let h4 : (n + 1) + (n + 1) = ((n + 1) + n) + 1 := rfl
+    let h5 : ((n + 1) + n) + 1 = (n + n + 1) + 1 := congrArg (· + 1) h3
+    let h6 : (n + n + 1) + 1 = n + n + 2 := rfl
+    h1.trans (h2.trans (h4.trans (h5.trans h6)).symm)
+
+end E213.Tactic.Nat213

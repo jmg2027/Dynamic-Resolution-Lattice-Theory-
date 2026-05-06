@@ -31,7 +31,7 @@ namespace E213.Lens.Instances.Max
 open E213.Theory E213.Lens
 
 /-- **Max lens.**  `a ↦ 0`, `b ↦ 1`, combine = max. -/
-def maxLens : Hypervisor.Lens Nat where
+def maxLens : Lens Nat where
   base_a  := 0
   base_b  := 1
   combine := max

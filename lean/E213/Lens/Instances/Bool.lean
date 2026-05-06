@@ -28,12 +28,12 @@ open E213.Theory E213.Lens
 
 -- ═══ Swap-blind Bool lenses ═══
 
-def boolAndLens : Hypervisor.Lens Bool where
+def boolAndLens : Lens Bool where
   base_a  := true
   base_b  := true
   combine := (· && ·)
 
-def boolOrLens : Hypervisor.Lens Bool where
+def boolOrLens : Lens Bool where
   base_a  := true
   base_b  := true
   combine := (· || ·)
@@ -72,7 +72,7 @@ open E213.Theory E213.Lens
     FAILS R4: the natural involution candidate `conj = not`
     does not satisfy the homomorphism condition (conj does not
     distribute over xor in the right way). -/
-def boolXorLens : Hypervisor.Lens Bool where
+def boolXorLens : Lens Bool where
   base_a  := true
   base_b  := false
   combine := xor

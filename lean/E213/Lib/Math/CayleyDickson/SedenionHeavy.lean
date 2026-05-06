@@ -17,6 +17,9 @@ namespace E213.Lib.Math.CayleyDickson.SedenionHeavy
 
 open E213.Lib.Math.CayleyDickson.ZI
 open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Lib.Math.CayleyDickson.Sedenion
+open E213.Lib.Math.CayleyDickson.Sedenion.Sedenion
+open E213.Lib.Math.CayleyDickson.CayleyHeavy
 open E213.Tactic E213.Lib.Math.CayleyDickson.Cayley E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
 
 set_option maxHeartbeats 2000000 in
@@ -50,7 +53,7 @@ open E213.Lib.Math.CayleyDickson.Cayley E213.Lib.Math.CayleyDickson.CDDouble.Lip
 /-- Sedenion norm-squared: `re.normSq + im.normSq` at
     Cayley level. -/
 def normSq (u : Sedenion) : Int :=
-  Cayley.normSq u.re + Cayley.normSq u.im
+  E213.Lib.Math.CayleyDickson.CayleyHeavy.normSq u.re + E213.Lib.Math.CayleyDickson.CayleyHeavy.normSq u.im
 
 /-- `|zd_left|²` is nonzero. -/
 theorem normSq_zd_left_ne_zero : normSq zd_left ≠ 0 := by decide
@@ -60,7 +63,7 @@ theorem normSq_zd_right_ne_zero : normSq zd_right ≠ 0 := by decide
 
 /-- `normSq (0 : Sedenion) = 0`. -/
 theorem normSq_zero : normSq (0 : Sedenion) = 0 := by
-  show Cayley.normSq (0 : Cayley) + Cayley.normSq (0 : Cayley) = 0
+  show E213.Lib.Math.CayleyDickson.CayleyHeavy.normSq (0 : Cayley) + E213.Lib.Math.CayleyDickson.CayleyHeavy.normSq (0 : Cayley) = 0
   decide
 
 /-- **Norm multiplicativity FAILS at Sedenion.**

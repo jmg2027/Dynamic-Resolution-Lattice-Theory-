@@ -137,7 +137,7 @@ prerequisites.
 /-- The 𝔽₉ Lens.  `base_a = 1`, `base_b = i`, combine is
     𝔽₉ multiplication.  The image has 9 elements maximum
     — exactly what makes R5 vacuous on finite codomain. -/
-def f9Lens : Hypervisor.Lens F9 where
+def f9Lens : Lens F9 where
   base_a  := F9.one
   base_b  := F9.i
   combine := F9.mul

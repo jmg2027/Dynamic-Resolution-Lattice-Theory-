@@ -24,11 +24,11 @@ open E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
 
 open E213.Lib.Math.CayleyDickson.ZI
 open E213.Lib.Math.CayleyDickson.ZI.ZI
-open E213.Theory E213.Lens E213.Meta Lipschitz
+open E213.Theory E213.Lens Lipschitz
 
 /-- Lens with codomain `Lipschitz`.  `a ↦ i`, `b ↦ j`,
     combine = quaternion multiplication. -/
-def lipLens : Hypervisor.Lens Lipschitz where
+def lipLens : Lens Lipschitz where
   base_a  := Lipschitz.I'
   base_b  := Lipschitz.J
   combine := fun u v => u * v
@@ -48,7 +48,7 @@ theorem lipLens_combine_not_commutative :
   have : (1 : Int) = -1 := (ZI.mk.injEq ..).mp this |>.2
   exact absurd this (by decide)
 
-open E213.Theory E213.Lens E213.Meta Lipschitz
+open E213.Theory E213.Lens Lipschitz
 
 -- ═══ Direct view values ═══
 

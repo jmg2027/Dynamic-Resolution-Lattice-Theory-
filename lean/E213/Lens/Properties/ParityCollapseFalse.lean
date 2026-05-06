@@ -10,7 +10,7 @@ parityLens.combine x x = false for all x.
 namespace E213.Lens.Properties.ParityCollapseFalse
 
 open E213.Lens
-open E213.Meta
+open E213.Lens.Instances.Parity
 
 /-- The self-combine of parityLens is always false (Collapse-False class). -/
 theorem parityLens_collapse_false (x : Bool) :

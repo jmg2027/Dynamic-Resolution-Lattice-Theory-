@@ -1,9 +1,17 @@
 import E213.Lib.Math.CayleyDickson.CDDouble
+import E213.Lib.Math.CayleyDickson.CDTower
 import E213.Lib.Math.CayleyDickson.Cayley
+import E213.Lib.Math.CayleyDickson.CayleyHeavy
 import E213.Lib.Math.CayleyDickson.F2CDTower
+import E213.Lib.Math.CayleyDickson.LipschitzHeavy
+import E213.Lib.Math.CayleyDickson.LipschitzLens
 import E213.Lib.Math.CayleyDickson.Pathion
+import E213.Lib.Math.CayleyDickson.PathionHeavy
+import E213.Lib.Math.CayleyDickson.R5Vacuity
 import E213.Lib.Math.CayleyDickson.Sedenion
+import E213.Lib.Math.CayleyDickson.SedenionHeavy
 import E213.Lib.Math.CayleyDickson.Trigintaduonion
+import E213.Lib.Math.CayleyDickson.TrigintaduoionionHeavy
 import E213.Lib.Math.CayleyDickson.Z2Instance
 import E213.Lib.Math.CayleyDickson.ZI
 import E213.Lib.Math.CayleyDickson.ZIArith
@@ -18,6 +26,7 @@ import E213.Lib.Math.CayleyDickson.ZSqrt2
 import E213.Lib.Math.CayleyDickson.ZSqrt2Domain
 import E213.Lib.Math.CayleyDickson.ZSqrtDomain
 import E213.Lib.Math.CayleyDickson.ZSqrtInstance
+import E213.Lib.Math.CayleyDickson.ZSqrtProduct
 
 /-! Spec-as-code entry point for `E213.Lib.Math.CayleyDickson`.
 
@@ -69,8 +78,18 @@ import E213.Lib.Math.CayleyDickson.ZSqrtInstance
 
   ## Status
 
-  20/29 files included.  9 deferred (pre-existing API drift —
-  hurwitz_ring tactic plumbing + LipschitzLens / R5Vacuity /
-  ZSqrtProduct).  Inventory in
+  All 29 files included (post-2026-05-06 deferred-cluster repair).
+  The 9 formerly-deferred files (CDTower, CayleyHeavy, LipschitzHeavy,
+  LipschitzLens, PathionHeavy, R5Vacuity, SedenionHeavy,
+  TrigintaduoionionHeavy, ZSqrtProduct) all build clean.  Method:
+  fix `Hypervisor.Lens` → `Lens` namespace drift (already done in
+  the Lens-cluster A-task); update doubled-vs-single namespace
+  paths in the `hurwitz_ring` macro (Pathion / Trigintaduonion /
+  Sedenion / ZI use doubled `X.X.foo`, Cayley / CDDouble.Lipschitz
+  use single); add missing `open` lines for the type names
+  (`Lipschitz`, `Cayley`, etc.) in each Heavy file; route the
+  `normSq` / `mul_assoc` / etc. references in CDTower from the
+  no-longer-existing `Cayley.normSq` to `CayleyHeavy.normSq` and
+  `LipschitzHeavy.{normSq_mul, mul_assoc, no_zero_div}`.  See
   `research-notes/HIERARCHICAL_PLACEMENT.md` §6.2.
 -/

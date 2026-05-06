@@ -1,8 +1,11 @@
+import E213.Lens.Properties.ABRefines
 import E213.Lens.Properties.CanonicalForm
 import E213.Lens.Properties.ConstLensTotalKernel
 import E213.Lens.Properties.EquivProperties
 import E213.Lens.Properties.InjectiveClass
 import E213.Lens.Properties.IsLeaf
+import E213.Lens.Properties.Leaf
+import E213.Lens.Properties.ParityCollapseFalse
 import E213.Lens.Properties.ProdBelowId
 import E213.Lens.Properties.TowerLevel3
 
@@ -22,7 +25,7 @@ import E213.Lens.Properties.TowerLevel3
 
   ## Status
 
-  7/10 included.  Three deferred (pre-existing API drift):
-  `ABRefines`, `Leaf`, `ParityCollapseFalse`.  See
-  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.1.
+  All 10 included (post-M14 deferred-cluster repair):
+  `ABRefines`, `Leaf`, `ParityCollapseFalse` resolved by replacing
+  `open E213.Meta` with `open E213.Lens.Instances.{Bool,Parity}`.
 -/

@@ -57,32 +57,53 @@ Refinements, stronger forms, graded versions.
   · `LefschetzHyperplane.lean`    Δ⁴ → Δ³ restriction + Pascal
   · `Voisin.lean`                 Finite-dim motive (automatic)
 
-### 4. `Pairing/`  (2 files) — *bilinear forms*
+### 4. `Pairing/`  (4 files) — *bilinear forms*
 
 Cup-pairings: signature, kernel, positivity.
 
-  · `HodgeIndex.lean`        Cup-pairing signature on H¹
-  · `HodgeRiemann.lean`      Bilinear positivity (ℚ²¹³ pending)
+  · `HodgeIndex.lean`        Base capstone on K_{3,2}^{(c=2)}
+                              (graph; cup-pairing vacuously zero)
+  · `HodgeIndexT2.lean`      ★ Non-vacuous lift to T² minimal CW
+                              (signature (1, 1) by direct ℤ-decide;
+                              G10 Phase 2 follow-up closed)
+  · `HodgeRiemann.lean`      Base capstone on K_{3,2}^{(c=2)}
+                              (positivity vacuous in ℤ/2)
+  · `HodgeRiemannT2.lean`    ★ Non-vacuous lift: Kähler class
+                              with `cup(ω, ω) > 0` on T²;
+                              signature decomposition explicit
 
-### 5. ~~`Bridge/`~~ → **MOVED to `lean/E213/OS/HodgeConjecture/Bridges/`**
+### 5. `MotivicBridge/`  (6 files) — *motivic-cohomology bridges*
 
-The 7 cross-discipline interface files have been migrated to the
-new OS layer per G12 §5 Option γ.  They now live at namespace
-`E213.Lib.Math.Cohomology.HodgeConjecture.MotivicBridge.*`:
+Algebraic-geometry / arithmetic-geometry counterparts of the
+classical conjectures (G10 Phase 3).  Originally hosted under OS/
+prior to the M14 ring-model refactor; now live in
+`Math/HodgeConjecture/MotivicBridge/` with namespace
+`E213.Lib.Math.HodgeConjecture.MotivicBridge.*`:
 
-  · `Tate.lean`                  → ℓ-adic / Frobenius / char-p
-  · `MumfordTate.lean`           → Galois algebraic groups
-  · `BlochBeilinson.lean`        → motivic cohomology / Chow
-  · `BeilinsonRegulator.lean`    → L-function values (CLAUDE.md L1)
-  · `BeilinsonLichtenbaum.lean`  → motivic ↔ étale equivalence
-  · `ChernCharacter.lean`        → K-theory ↔ cohomology
-  · `HodgeTate.lean`             → p-adic Hodge (Real213-p deferred)
+  · `Tate.lean`                  ℓ-adic / Frobenius / char-p
+  · `MumfordTate.lean`           Galois algebraic groups
+  · `BlochBeilinson.lean`        motivic cohomology / Chow
+  · `BeilinsonLichtenbaum.lean`  motivic ↔ étale equivalence
+  · `ChernCharacter.lean`        K-theory ↔ cohomology
+  · `HodgeTate.lean`             p-adic Hodge (Real213-p deferred)
 
-Rationale: Bridges are *orchestration* of the HC²¹³ subsystem
-into adapters consumed by other classical disciplines — that is
-exactly the OS layer's role (per ARCHITECTURE.md §1.4.5 and G12
-§5).  Foundation/Toolkit/Structure/Refinement/Pairing remain in
-Math/ as they are *definitional* content (Hypervisor-flavored).
+### 6. `Bridge/`  (11 files) — *physics + statistical-mechanics + CS bridges*
+
+Cross-discipline interface layer.  Each file is the public API
+surface for one classical discipline, exporting HC²¹³ machinery
+into adapters consumed by physics / stat-mech / CS.
+
+  · `BeilinsonRegulator.lean`    L-function values (CLAUDE.md L1)
+  · `DiscreteGeometry.lean`      4-simplex face counts
+  · `G6Vacuity.lean`             G6 §0 corrected position witness
+  · `GaloisCounterfactual.lean`  G11 80-year Galois counterfactual
+  · `Ising.lean`                 Ising model on 4-simplex
+  · `MLDecoder.lean`             ML-decoder cohomology
+  · `MotiveEtaleFusion.lean`     motive ↔ étale fusion
+  · `PhaseRouting.lean`          phase-routing counterfactual
+  · `Potts.lean`                 Potts model on 4-simplex
+  · `SpinGlass.lean`             spin-glass cohomology
+  · `SpinGlassGroundState.lean`  NP-hard ground-state witness
 
 ---
 
@@ -90,17 +111,21 @@ Math/ as they are *definitional* content (Hypervisor-flavored).
 
 ```
 HodgeConjecture/
-├── API.lean         single-import entry point + HC213 alias
-├── INDEX.md         this file
-├── Foundation/  (6) — the HC²¹³ claim itself
-├── Toolkit/     (4) — compute layer
-├── Structure/   (4) — algebra + duality
-├── Refinement/  (6) — stronger HC²¹³
-└── Pairing/     (2) — bilinear forms
-   (Bridge/* MOVED to lean/E213/OS/HodgeConjecture/Bridges/)
+├── API.lean              single-import entry point + HC213 alias
+├── INDEX.md              this file
+├── Foundation/      (6)  — the HC²¹³ claim itself
+├── Toolkit/         (4)  — compute layer
+├── Structure/       (4)  — algebra + duality
+├── Refinement/      (6)  — stronger HC²¹³
+├── Pairing/         (2)  — bilinear forms
+├── MotivicBridge/   (6)  — motivic / arithmetic counterparts
+└── Bridge/          (11) — physics / stat-mech / CS interfaces
 ```
 
-Total: 29 .lean files, ~140 strict ∅-axiom theorems.
+Total: 39 sub-cluster files + API.lean = 40, plus umbrellas
+(7 sub-cluster `.lean` umbrellas + root) → **~80 .lean files
+under `Math/HodgeConjecture/`**, **31 master capstones**, all
+strict ∅-axiom (verified by `lake env lean` + `#print axioms`).
 
 ---
 

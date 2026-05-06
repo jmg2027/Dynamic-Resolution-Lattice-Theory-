@@ -35,7 +35,7 @@ open E213.Lens.Characterisation.Catalog
 
 /-- **Parity lens.**  `a ↦ true`, `b ↦ true`, combine = xor.
     View = `true` iff `Raw.leaves` is odd. -/
-def parityLens : Hypervisor.Lens Bool where
+def parityLens : Lens Bool where
   base_a  := true
   base_b  := true
   combine := xor

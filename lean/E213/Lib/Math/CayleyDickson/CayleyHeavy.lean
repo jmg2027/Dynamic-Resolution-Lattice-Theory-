@@ -8,7 +8,12 @@ namespace E213.Lib.Math.CayleyDickson.CayleyHeavy
 
 open E213.Lib.Math.CayleyDickson.ZI
 open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Lib.Math.CayleyDickson.Cayley
+open E213.Lib.Math.CayleyDickson.CDDouble
+open E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
 open E213.Tactic
+
+set_option maxHeartbeats 1000000
 
 /-- **Left alternativity** (universal): `(a·a)·b = a·(a·b)`. -/
 theorem alt_left (a b : Cayley) : (a * a) * b = a * (a * b) := by
@@ -52,10 +57,10 @@ private theorem lip_normSq_nonneg (u : Lipschitz) :
     0 ≤ Lipschitz.normSq u := by
   show 0 ≤ u.re.re * u.re.re + u.re.im * u.re.im +
            (u.im.re * u.im.re + u.im.im * u.im.im)
-  have h1a := IntHelpers.mul_self_nonneg u.re.re
-  have h1b := IntHelpers.mul_self_nonneg u.re.im
-  have h1c := IntHelpers.mul_self_nonneg u.im.re
-  have h1d := IntHelpers.mul_self_nonneg u.im.im
+  have h1a := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg u.re.re
+  have h1b := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg u.re.im
+  have h1c := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg u.im.re
+  have h1d := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg u.im.im
   omega
 
 /-- `Cayley.normSq u = 0 ↔ u = 0`.  Sum of 8 integer squares
@@ -71,10 +76,10 @@ theorem normSq_eq_zero_iff (u : Cayley) : normSq u = 0 ↔ u = 0 := by
     have him_z : Lipschitz.normSq u.im = 0 := by
       change Lipschitz.normSq u.re + Lipschitz.normSq u.im = 0 at h
       omega
-    have hre : u.re = 0 := (Lipschitz.normSq_eq_zero_iff u.re).mp hre_z
-    have him : u.im = 0 := (Lipschitz.normSq_eq_zero_iff u.im).mp him_z
+    have hre : u.re = 0 := (E213.Lib.Math.CayleyDickson.LipschitzHeavy.normSq_eq_zero_iff u.re).mp hre_z
+    have him : u.im = 0 := (E213.Lib.Math.CayleyDickson.LipschitzHeavy.normSq_eq_zero_iff u.im).mp him_z
     show u = ⟨0, 0⟩
-    apply ext <;> assumption
+    apply E213.Lib.Math.CayleyDickson.Cayley.Cayley.ext <;> assumption
   · rintro rfl; rfl
 
 /-- **R3 at Cayley (= integer octonions)**: no zero divisors.

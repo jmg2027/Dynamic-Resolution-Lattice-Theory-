@@ -166,15 +166,27 @@ Files: `CompoundBool`, `NegSq`, `ParityXor{Incomparable,Join}`,
   - `R5Vacuity` — same `E213.Meta` issue
   - `ZSqrtProduct` — `SwapMatching` + `D₁/D₂` variable-binding drift
 
-### 6.3 Cohomology (9 deferred)
+### 6.3 ~~Cohomology (9 deferred)~~ — RESOLVED 2026-05-06
 
-  - `CupAW.{LeibnizScaling, LeibnizSmall}` — `Universal.Prop31.pattern_eq`
-    became `pattern_eq_at` (index-pointwise vs function-level)
-  - `Dyadic.{ArithFSM.{Hierarchy,V1to2}, AlgebraicDegree, NumberTheory213}`
-    — `ArithFSM.V1.Ar*.padTo2` API rename
-  - `Dyadic.Archive.{EdgeSignature,SubwordComplexity}` — free-variable
-    elaboration drift
-  - `Dyadic.Pell.ProperBridge` — function-application type mismatch
+All 9 files restored (commit pending).  Method:
+
+  - `CupAW.LeibnizSmall` — replaced the `pattern_eq` (function-eq)
+    rewrite with the per-index-pointwise `pattern_eq_at` chain
+    (mirroring the existing `Leibniz.lean` n=5 proof).
+    `CupAW.LeibnizScaling` was indirect (LeibnizSmall import).
+  - `Dyadic.ArithFSM.V1to2` — moved `ArithFSM1.padTo2` def into
+    the `ArithFSM.V1` namespace so dot-notation `m.padTo2` resolves.
+    `Hierarchy` analogous: `ArithFSM2.padTo3` added at
+    `ArithFSM` namespace, `ArithFSM1.padTo3` moved to V1.
+  - `Dyadic.AlgebraicDegree`, `NumberTheory213` — added explicit
+    `open` lines for `padTo2_bits_eq` / `padTo3_bits_eq` and the
+    LCM/Pisano/Pell helpers (open dependencies were lost in
+    the M14 namespace consolidation).
+  - `Dyadic.Archive.{EdgeSignature, SubwordComplexity}` —
+    added missing `import` of `TierBridge` (where `bit13` lives).
+  - `Dyadic.Pell.ProperBridge` — added `open` for
+    `pellProperFSMmod`, `pisano_predict_proper`, and the three
+    `pellProperN_run_period_*` theorems.
 
 ### 6.4 Meta + OS (0 deferred — fully clean post-M11h)
 
@@ -205,12 +217,55 @@ Two valid resolutions:
 
 Deferred — both are acceptable.
 
-### 7.3  Lens namespace audit
+### 7.3  Lens namespace audit (RESOLVED 2026-05-06)
 
-The 10 deferred  Lens files share the `open E213.Meta` issue
-(namespace relocated in M-series).  A targeted Lens-cluster
-sweep — analogous to M11h's Cohomology fix — is the natural
-follow-up.
+The 10 deferred Lens files have been repaired (commit `687ff8b7`):
+  * `open E213.Meta` (deleted ns) → `open E213.Lens.Instances.{Bool,
+    Parity}` and a new `E213.Lens.Diagonal` module restored from the
+    M14-Phase-F-deleted `Math.Diagonal.Classification`.
+  * `Hypervisor.Lens` → `Lens` namespace drift in 14 additional files.
+  * `Kernel.Congruence.Lens.equiv_slash_congruence` rename in
+    `Lens.Algebra.Corresp`.
+
+`lake build E213.Lens` now reports 122/122 ✔.  CayleyDickson (9) and
+Cohomology (9) deferred clusters remain.
+
+### 7.4  Padic / ProfiniteSeq full ∅-axiom (RESOLVED 2026-05-06)
+
+`Lib/Math/Hyper/Padic.lean` and the entire upstream chain are now
+**12/12 PURE** (commit pending).  Verified via `#print axioms`:
+
+  * **Padic capstones (5/5)**: `padic_family_cauchy`,
+    `padic_family_limit_zero`, `padic_tower_refines`,
+    `padic_familyCauchy`, `padic_limit_all_zero`.
+  * **ProfiniteSeq leaves (7/7)**: `factorial_pos`, `factorial_dvd`,
+    `factorial_eventually_zero_mod`, `factorial_seq_cauchy`,
+    `factorial_seq_limit_zero`, `factorial_seq_familyCauchy`,
+    `factorial_seq_limit_all_zero`.
+  * **Lens-layer dependents** also PURE:
+    `Lens.Leaves.ModNat.{leavesModNat_view_eq, divides_refines}`,
+    `Lens.Instances.Cauchy.eventually_class_unique`.
+
+Method (two-stage hardening):
+  1. **Quot.sound elimination**: add `Nat213.{zero_mod,
+     mul_mod_right}` (term-mode, hook-compliant); inline `omega` as
+     `Nat.le_succ_of_le` / `Nat.le_trans` / `Nat213.mul_assoc`.
+  2. **propext elimination**: add `Nat213.le_max_{left, right}`
+     (term-mode via `Decidable.casesOn` + `if_pos`/`if_neg`);
+     add `AddMod213.{add_mod_gen, mod_mod_of_dvd}` (Lib/Math layer,
+     PURE via existing `add_mod_left` + `div_add_mod` machinery);
+     route `ModNat` and `Cauchy` callers through these.
+
+`AddMod213` is at Lib/Math layer but still importable from
+Lens-layer `ModNat.lean` because Lib is the *horizontal* topical
+ring — not in the vertical `{Term < Theory < Lens < Meta < App}`
+ordering.  The architecture allows Lens → Lib (verified by
+`tools/layer_audit.py`: 0 violations).
+
+Earlier diagnosis ("function-eq between ℕ → Bool families")
+was incorrect: actual root cause was `omega` + Lean-core
+`Nat.{add_mod, mod_mod_of_dvd, mul_mod_right, zero_mod,
+le_max_*}` (all `[propext]`-tainted).
 
 ## 8. Verification command set
 

@@ -1,6 +1,8 @@
 import E213.Lens.Instances.Cauchy
 import E213.Lens.Leaves.ModNat
 import E213.Lib.Math.Infinity.LensCardinality
+import E213.Term.Tactic.Nat213
+import E213.Term.Tactic.Omega213
 
 /-!
 # ProfiniteSeq: Cauchy instance for the leavesModNat family
@@ -41,30 +43,33 @@ def factorial : Nat → Nat
 
 theorem factorial_pos (n : Nat) : factorial n ≥ 1 := by
   induction n with
-  | zero => decide
+  | zero => exact Nat.le_refl 1
   | succ k ih =>
-      show (k+1) * factorial k ≥ 1
-      have := Nat.mul_le_mul_left (k+1) ih
-      simp at this
-      omega
+      show 1 ≤ (k+1) * factorial k
+      have h1 : 1 ≤ k + 1 := Nat.succ_le_succ (Nat.zero_le k)
+      have h2 : k + 1 ≤ (k + 1) * factorial k := by
+        have step : (k + 1) * 1 ≤ (k + 1) * factorial k :=
+          Nat.mul_le_mul_left (k + 1) ih
+        rw [Nat.mul_one] at step
+        exact step
+      exact Nat.le_trans h1 h2
 
-/-- factorial n is divisible by every m ≤ n. -/
+/-- factorial n is divisible by every m ≤ n.  ∅-axiom via
+    `E213.Tactic.Nat213.mul_assoc` and core-pure `Nat.mul_comm`. -/
 theorem factorial_dvd (m n : Nat) (h : 1 ≤ m) (hmn : m ≤ n) :
     m ∣ factorial n := by
   induction n with
-  | zero => omega
+  | zero => exact absurd (Nat.le_trans h hmn) (Nat.not_succ_le_zero 0)
   | succ k ih =>
       by_cases hkm : m ≤ k
       · have hdvd : m ∣ factorial k := ih hkm
         show m ∣ (k+1) * factorial k
         obtain ⟨q, hq⟩ := hdvd
         refine ⟨(k+1) * q, ?_⟩
-        calc (k + 1) * factorial k = (k + 1) * (m * q) := by rw [hq]
-          _ = m * ((k + 1) * q) := by
-              rw [← Nat.mul_assoc]
-              rw [Nat.mul_comm (k + 1) m]
-              rw [Nat.mul_assoc]
-      · have hmk1 : m = k + 1 := by omega
+        rw [hq, ← E213.Tactic.Nat213.mul_assoc (k+1) m q,
+            Nat.mul_comm (k+1) m, E213.Tactic.Nat213.mul_assoc m (k+1) q]
+      · have hmk1 : m = k + 1 :=
+          Nat.le_antisymm hmn (Nat.lt_of_not_le hkm)
         show m ∣ (k+1) * factorial k
         rw [hmk1]
         exact ⟨factorial k, rfl⟩
@@ -76,38 +81,42 @@ namespace E213.Lib.Math.Cauchy.ProfiniteSeq
 open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
 
-/-- The factorial sequence is eventually 0 mod m (when n + 1 ≥ m). -/
+/-- The factorial sequence is eventually 0 mod m (when n + 1 ≥ m).
+    ∅-axiom via `E213.Tactic.Nat213.mul_mod_right`. -/
 theorem factorial_eventually_zero_mod (m : Nat) (hm : 1 ≤ m)
     (n : Nat) (hn : n + 1 ≥ m) : factorial (n + 1) % m = 0 := by
   obtain ⟨q, hq⟩ := factorial_dvd m (n + 1) hm hn
-  rw [hq, Nat.mul_mod_right]
+  rw [hq, E213.Tactic.Nat213.mul_mod_right]
 
 /-- **Cauchy w.r.t. leavesModNat m**: the factorial-leaves sequence
-    is leavesModNat m Cauchy for each m ≥ 2. -/
+    is leavesModNat m Cauchy for each m ≥ 2.  ∅-axiom via 213-native
+    `Nat.le_trans` and `Nat.le_succ_of_le` (no `omega`). -/
 theorem factorial_seq_cauchy (xs : Nat → Raw)
     (hLeaves : ∀ n, Lens.leaves.view (xs n) = factorial (n + 1))
     (m : Nat) (hm : m ≥ 2) :
     LensCauchy (leavesModNat m) xs := by
+  have h1m : 1 ≤ m := Nat.le_trans (by decide : (1 : Nat) ≤ 2) hm
   refine ⟨m, ?_⟩
   intro k l hk hl
   show (leavesModNat m).view (xs k) = (leavesModNat m).view (xs l)
   rw [leavesModNat_view_eq, leavesModNat_view_eq]
   rw [hLeaves k, hLeaves l]
-  rw [factorial_eventually_zero_mod m (by omega) k (by omega)]
-  rw [factorial_eventually_zero_mod m (by omega) l (by omega)]
+  rw [factorial_eventually_zero_mod m h1m k (Nat.le_succ_of_le hk)]
+  rw [factorial_eventually_zero_mod m h1m l (Nat.le_succ_of_le hl)]
 
 /-- **Profinite limit**: the leavesModNat m limit of the
     factorial-leaves sequence is 0.  Corresponds exactly to the
-    profinite zero of Ẑ. -/
+    profinite zero of Ẑ.  ∅-axiom. -/
 theorem factorial_seq_limit_zero (xs : Nat → Raw)
     (hLeaves : ∀ n, Lens.leaves.view (xs n) = factorial (n + 1))
     (m : Nat) (hm : m ≥ 2) :
     EventuallyClass (leavesModNat m) xs 0 := by
+  have h1m : 1 ≤ m := Nat.le_trans (by decide : (1 : Nat) ≤ 2) hm
   refine ⟨m, ?_⟩
   intro n hn
   show (leavesModNat m).view (xs n) = 0
   rw [leavesModNat_view_eq, hLeaves n]
-  exact factorial_eventually_zero_mod m (by omega) n (by omega)
+  exact factorial_eventually_zero_mod m h1m n (Nat.le_succ_of_le hn)
 
 /-- **Family Cauchy** w.r.t. leavesModNat family ({m : m ≥ 2}). -/
 def leavesModNatFamily : { m : Nat // m ≥ 2 } → (α : Type) × Lens α :=

@@ -1,5 +1,5 @@
 /-!
-# Hypervisor.Lens.Instances.EndpointBehavior — endpoint-behavior lens
+# Lens.Instances.EndpointBehavior — endpoint-behavior lens
 
 The pattern formalised by `Passthrough_at` (parts 7+8 of the funext
 refactor).  A higher-order function `f : (Nat → Nat → Bool) → (Nat

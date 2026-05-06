@@ -24,16 +24,26 @@ For the streams we have:
   - tribFSMmod_n ∈ ArithFSM₃ (degree 3, cubic algebraic)
 -/
 
+namespace E213.Lib.Math.DyadicFSM.ArithFSM.V1
+
+open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
+open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (ArithFSM3)
+
+/-- Composed padding: ArithFSM₁(n) ↪ ArithFSM₃(n) via ArithFSM₂.
+    Defined at the `ArithFSM1` namespace so dot notation
+    `m.padTo3 hn` resolves on `m : ArithFSM1 n`. -/
+def ArithFSM1.padTo3 {n : Nat} (hn : 0 < n) (m : ArithFSM1 n) : ArithFSM3 n :=
+  (m.padTo2 hn).padTo3 hn
+
+end E213.Lib.Math.DyadicFSM.ArithFSM.V1
+
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Hierarchy
 
 open E213.Lib.Math.DyadicFSM.ArithFSM.V1 (ArithFSM1)
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (ArithFSM3)
-
-
-/-- Composed padding: ArithFSM₁(n) ↪ ArithFSM₃(n) via ArithFSM₂. -/
-def ArithFSM1.padTo3 {n : Nat} (hn : 0 < n) (m : ArithFSM1 n) : ArithFSM3 n :=
-  (m.padTo2 hn).padTo3 hn
+open E213.Lib.Math.DyadicFSM.ArithFSM.V1to2 (padTo2_bits_eq)
+open E213.Lib.Math.DyadicFSM.ArithFSM (padTo3_bits_eq)
 
 /-- ★★★★ Composed padding preserves bit stream (1 → 2 → 3). -/
 theorem padTo3_via_2_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM1 n) (k : Nat) :

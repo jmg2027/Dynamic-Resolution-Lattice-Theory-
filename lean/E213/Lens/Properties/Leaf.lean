@@ -71,7 +71,8 @@ end E213.Lens.Properties.Leaf
 
 namespace E213.Lens.Properties.Leaf
 
-open E213.Theory E213.Lens E213.Meta
+open E213.Theory E213.Lens
+open E213.Lens.Instances.Parity
 
 /-- leafLens does not refine parityLens.
     Witness: Raw.a vs slash(a, slash(a,b)) — different leaf-ness

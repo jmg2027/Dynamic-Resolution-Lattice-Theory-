@@ -6,6 +6,12 @@ import E213.Lib.Math.DyadicFSM.Pell.ProperBridge
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
+import E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
+import E213.Lib.Math.DyadicFSM.ArithFSM.Mod11
+import E213.Lib.Math.DyadicFSM.ArithFSM.Mod13
+import E213.Lib.Math.DyadicFSM.ArithFSM.Mod17
+import E213.Lib.Math.DyadicFSM.ArithFSM.Mod19
+import E213.Lib.Math.DyadicFSM.LCMClosure
 import E213.Lib.Math.DyadicFSM.Legendre.V213
 /-!
 # 213-native number theory — consolidated v1 + v2 + v3 master capstones
@@ -30,6 +36,21 @@ namespace E213.Lib.Math.DyadicFSM.NumberTheory213
 open E213.Lib.Math.DyadicFSM.Legendre.V213 (legendre213)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod3)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
+open E213.Lib.Math.DyadicFSM.ArithFSM.Mod7 (pellFSMmod7)
+open E213.Lib.Math.DyadicFSM.ArithFSM.Mod11 (pellFSMmod11)
+open E213.Lib.Math.DyadicFSM.ArithFSM.Mod13 (pellFSMmod13)
+open E213.Lib.Math.DyadicFSM.ArithFSM.Mod17 (pellFSMmod17)
+open E213.Lib.Math.DyadicFSM.ArithFSM.Mod19 (pellFSMmod19)
+open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (tribFSMmod2)
+open E213.Lib.Math.DyadicFSM.AlgebraicDegree
+  (HasDegree1 HasDegree2 HasDegree3 degree1_imp_degree2 degree2_imp_degree3
+   pellFSMmod3_has_degree2 tribFSMmod2_has_degree3)
+open E213.Lib.Math.DyadicFSM.LCMClosure (bs_combined_periodic_lcm)
+open E213.Lib.Math.DyadicFSM.Pell.ProperBridge
+  (legendre_8_mod_3 legendre_8_mod_5 legendre_8_mod_7 pisano_predict_proper_correct)
+open E213.Lib.Math.DyadicFSM.Pell.Proper (pisano_predict_proper)
+open E213.Lib.Math.DyadicFSM.Pisano.Predictor (pisano_predict pisano_predict_realises_pell)
+open E213.Lib.Math.DyadicFSM.Pisano.Predictor7 (pisano_predict_realises_pell_7)
 
 
 /-- ★★★★★★★★ v1: 213-native number theory edifice (4-prime). -/

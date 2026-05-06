@@ -1,6 +1,7 @@
 import E213.Lens.LensCore
 import E213.Lens.Compose.Factoring
 import E213.Lib.Math.Infinity.LensCardinality
+import E213.Lib.Math.NatHelpers.AddMod213
 
 /-!
 # LeavesModNat: divisibility → refinement for leaves mod m
@@ -48,7 +49,7 @@ theorem leavesModNat_view_eq (m : Nat) :
       show (((leavesModNat m).view x) + ((leavesModNat m).view y)) % m
            = (Lens.leaves.view x + Lens.leaves.view y) % m
       rw [ihx, ihy]
-      exact Nat.add_mod _ _ m |>.symm
+      exact (E213.Lib.Math.NatHelpers.AddMod213.add_mod_gen _ _ m).symm
 
 end E213.Lens.Leaves.ModNat
 
@@ -66,7 +67,7 @@ theorem divides_refines (m k : Nat) (hmk : k ∣ m) :
   obtain ⟨q, hq⟩ := hmk
   have : Lens.leaves.view r % m % k = Lens.leaves.view r % k := by
     rw [hq]
-    exact Nat.mod_mod_of_dvd _ ⟨q, rfl⟩
+    exact E213.Lib.Math.NatHelpers.AddMod213.mod_mod_of_dvd _ ⟨q, rfl⟩
   exact this.symm
 
 end E213.Lens.Leaves.ModNat

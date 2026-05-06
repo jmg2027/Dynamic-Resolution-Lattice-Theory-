@@ -39,7 +39,7 @@ namespace E213.Lens.Instances.Path
 open E213.Theory E213.Lens
 
 /-- **Path lens.**  `a ↦ [false]`, `b ↦ [true]`, combine = append. -/
-def pathLens : Hypervisor.Lens (List Bool) where
+def pathLens : Lens (List Bool) where
   base_a  := [false]
   base_b  := [true]
   combine := fun xs ys => xs ++ ys

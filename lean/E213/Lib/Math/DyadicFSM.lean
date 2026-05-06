@@ -1,5 +1,8 @@
+import E213.Lib.Math.DyadicFSM.AlgebraicDegree
 import E213.Lib.Math.DyadicFSM.Archive
 import E213.Lib.Math.DyadicFSM.ArithFSM
+import E213.Lib.Math.DyadicFSM.ArithFSM.Hierarchy
+import E213.Lib.Math.DyadicFSM.ArithFSM.V1to2
 import E213.Lib.Math.DyadicFSM.BitAuto2
 import E213.Lib.Math.DyadicFSM.BitFSM
 import E213.Lib.Math.DyadicFSM.Classifier
@@ -13,6 +16,7 @@ import E213.Lib.Math.DyadicFSM.ForwardPeriodicity
 import E213.Lib.Math.DyadicFSM.LCMClosure
 import E213.Lib.Math.DyadicFSM.Legendre
 import E213.Lib.Math.DyadicFSM.LucasFSMmod5
+import E213.Lib.Math.DyadicFSM.NumberTheory213
 import E213.Lib.Math.DyadicFSM.Pell
 import E213.Lib.Math.DyadicFSM.Pisano
 import E213.Lib.Math.DyadicFSM.ProductFSM

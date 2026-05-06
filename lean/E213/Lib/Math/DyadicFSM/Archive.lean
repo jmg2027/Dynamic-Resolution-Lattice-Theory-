@@ -1,13 +1,11 @@
+import E213.Lib.Math.DyadicFSM.Archive.EdgeSignature
+import E213.Lib.Math.DyadicFSM.Archive.SubwordComplexity
+
 /-! Spec-as-code entry point for `E213.Lib.Math.DyadicFSM.Archive`.
 
-  Historical sub-cluster preserved for reference.  Both current
-  members (`EdgeSignature`, `SubwordComplexity`) carry
-  pre-existing free-variable elaboration drift documented in
-  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.3.
-
-  The umbrella is intentionally empty (0 imports) — the
-  archived files are not part of the active build closure.
-  The docstring + namespace are kept so the archive remains
-  discoverable via tab-completion rather than raw filesystem
-  traversal.
+  Historical sub-cluster preserved for reference (post-2026-05-06
+  deferred-cluster repair).  Both members
+  (`EdgeSignature`, `SubwordComplexity`) build clean — the
+  formerly-recorded "free-variable elaboration drift" was a
+  missing `import` of `TierBridge` (the location of `bit13`).
 -/
