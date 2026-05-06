@@ -13,7 +13,7 @@ import E213.Math.Cohomology.Dyadic.Pell.ProperMod19
 import E213.Math.Cohomology.Dyadic.Pell.ProperMod23
 import E213.Math.Cohomology.Dyadic.Pell.ProperSmall
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/Dyadic/Pell` — Pell sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology/Dyadic/Pell` — Pell sub-cluster.
 
   
 

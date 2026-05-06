@@ -6,7 +6,7 @@ import E213.Hypervisor.Lens.Compose.OnLensImage
 import E213.Hypervisor.Lens.Compose.OnLensImageGeneric
 import E213.Hypervisor.Lens.Compose.OnLensImageLevel2
 
-/-! Spec-as-code entry point for `E213.Hypervisor/Lens/Compose` — Compose sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Compose` — Compose sub-cluster.
 
   
 

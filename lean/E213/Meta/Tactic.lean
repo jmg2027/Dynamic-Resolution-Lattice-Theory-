@@ -6,7 +6,7 @@ import E213.Meta.Tactic.PureGuardTest
 import E213.Meta.Tactic.Test.VerifyConjugationTest
 import E213.Meta.Tactic.VerifyConjugation
 
-/-! Spec-as-code entry point for `E213.Meta/Tactic` — Tactic sub-cluster.
+/-! Spec-as-code entry point for `E213.Meta.Tactic` — Tactic sub-cluster.
 
   
 

@@ -8,7 +8,7 @@ import E213.Math.Cohomology.Hodge.Prop53
 import E213.Math.Cohomology.Hodge.Prop54
 import E213.Math.Cohomology.Hodge.Star
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/Hodge` — Cohomology/Hodge cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology/Hodge` — Cohomology/Hodge cluster.
 
   
 

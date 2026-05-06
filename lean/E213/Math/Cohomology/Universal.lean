@@ -7,7 +7,7 @@ import E213.Math.Cohomology.Universal.Prop51
 import E213.Math.Cohomology.Universal.Prop52
 import E213.Math.Cohomology.Universal.Prop53
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/Universal` — Cohomology/Universal cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology/Universal` — Cohomology/Universal cluster.
 
   
 

@@ -6,7 +6,7 @@ import E213.Hypervisor.Lens.Lattice.JoinEquiv
 import E213.Hypervisor.Lens.Lattice.Lattice
 import E213.Hypervisor.Lens.Lattice.Meet
 
-/-! Spec-as-code entry point for `E213.Hypervisor/Lens/Lattice` — Lattice sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Lattice` — Lattice sub-cluster.
 
   
 

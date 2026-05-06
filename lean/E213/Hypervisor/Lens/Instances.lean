@@ -23,7 +23,7 @@ import E213.Hypervisor.Lens.Instances.SumNotCoproductGeneric
 import E213.Hypervisor.Lens.Instances.Swap
 import E213.Hypervisor.Lens.Instances.ZMod6
 
-/-! Spec-as-code entry point for `E213.Hypervisor/Lens/Instances` — Instances sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Instances` — Instances sub-cluster.
 
   
 

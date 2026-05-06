@@ -5,7 +5,7 @@ import E213.Hypervisor.Lens.Morphism.FoldStructured
 import E213.Hypervisor.Lens.Morphism.NoDepthParity
 import E213.Hypervisor.Lens.Morphism.SlashSwap
 
-/-! Spec-as-code entry point for `E213.Hypervisor/Lens/Morphism` — Morphism sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Morphism` — Morphism sub-cluster.
 
   
 

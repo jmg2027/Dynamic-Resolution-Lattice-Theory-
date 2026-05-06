@@ -5,7 +5,7 @@ import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzOneOne
 import E213.Math.Cohomology.HodgeConjecture.Refinement.StandardConjectures
 import E213.Math.Cohomology.HodgeConjecture.Refinement.Voisin
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/HodgeConjecture/Refinement` — Refinement sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology/HodgeConjecture/Refinement` — Refinement sub-cluster.
 
   
 

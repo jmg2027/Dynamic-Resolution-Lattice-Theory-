@@ -2,7 +2,7 @@ import E213.Math.Cohomology.Bipartite.Filled
 import E213.Math.Cohomology.Bipartite.V32
 import E213.Math.Cohomology.Bipartite.V32Betti
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/Bipartite` — Cohomology/Bipartite cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology/Bipartite` — Cohomology/Bipartite cluster.
 
   
 

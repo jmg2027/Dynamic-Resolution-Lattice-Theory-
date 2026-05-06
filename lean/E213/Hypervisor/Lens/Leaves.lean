@@ -4,7 +4,7 @@ import E213.Hypervisor.Lens.Leaves.Mod3
 import E213.Hypervisor.Lens.Leaves.ModNat
 import E213.Hypervisor.Lens.Leaves.RefinesParity
 
-/-! Spec-as-code entry point for `E213.Hypervisor/Lens/Leaves` — Leaves sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Leaves` — Leaves sub-cluster.
 
   
 

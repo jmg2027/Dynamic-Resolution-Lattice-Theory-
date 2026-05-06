@@ -3,7 +3,7 @@ import E213.Math.Cohomology.HodgeConjecture.Structure.Map
 import E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality
 import E213.Math.Cohomology.HodgeConjecture.Structure.Ring
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/HodgeConjecture/Structure` — Structure sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology/HodgeConjecture/Structure` — Structure sub-cluster.
 
   
 

@@ -10,7 +10,7 @@ import E213.Meta.UniversalLens.Q213Inj
 import E213.Meta.UniversalLens.Q213_3
 import E213.Meta.UniversalLens.TripleCapstone
 
-/-! Spec-as-code entry point for `E213.Meta/UniversalLens` — UniversalLens sub-cluster.
+/-! Spec-as-code entry point for `E213.Meta.UniversalLens` — UniversalLens sub-cluster.
 
   
 

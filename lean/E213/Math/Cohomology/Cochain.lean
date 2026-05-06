@@ -3,7 +3,7 @@ import E213.Math.Cohomology.Cochain.V5Decomp
 import E213.Math.Cohomology.Cochain.V5_1DecompR
 import E213.Math.Cohomology.Cochain.V5_2Decomp
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/Cochain` — Cohomology/Cochain cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology/Cochain` — Cohomology/Cochain cluster.
 
   
 

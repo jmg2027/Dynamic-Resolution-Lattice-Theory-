@@ -13,7 +13,7 @@ import E213.Math.Cauchy.WallisSeq
 import E213.Math.Cauchy.WallisSharper
 import E213.Math.Cauchy.WallisSharperKernelFree
 
-/-! Spec-as-code entry point for `E213.Math/Cauchy` — Cauchy library.
+/-! Spec-as-code entry point for `E213.Math.Cauchy` — Cauchy library.
 
   213-native Cauchy / Euler / Wallis / Pell / monotonic-bounded sequences and their convergence proofs.
 

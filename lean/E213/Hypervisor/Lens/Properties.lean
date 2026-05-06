@@ -6,7 +6,7 @@ import E213.Hypervisor.Lens.Properties.IsLeaf
 import E213.Hypervisor.Lens.Properties.ProdBelowId
 import E213.Hypervisor.Lens.Properties.TowerLevel3
 
-/-! Spec-as-code entry point for `E213.Hypervisor/Lens/Properties` — Properties sub-cluster.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens/Properties` — Properties sub-cluster.
 
   
 

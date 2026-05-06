@@ -10,7 +10,7 @@ import E213.Math.Cohomology.HodgeConjecture.Bridge.Potts
 import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlass
 import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlassGroundState
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/HodgeConjecture/Bridge` — Bridge sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology/HodgeConjecture/Bridge` — Bridge sub-cluster.
 
   
 

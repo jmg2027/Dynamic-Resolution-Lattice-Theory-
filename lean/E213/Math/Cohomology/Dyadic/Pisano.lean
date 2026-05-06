@@ -8,7 +8,7 @@ import E213.Math.Cohomology.Dyadic.Pisano.Predictor6
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor7
 import E213.Math.Cohomology.Dyadic.Pisano.Predictor8
 
-/-! Spec-as-code entry point for `E213.Math/Cohomology/Dyadic/Pisano` — Pisano sub-cluster.
+/-! Spec-as-code entry point for `E213.Math.Cohomology/Dyadic/Pisano` — Pisano sub-cluster.
 
   
 

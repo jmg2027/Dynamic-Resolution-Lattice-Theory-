@@ -19,7 +19,7 @@ import E213.Math.CayleyDickson.ZSqrt2Domain
 import E213.Math.CayleyDickson.ZSqrtDomain
 import E213.Math.CayleyDickson.ZSqrtInstance
 
-/-! Spec-as-code entry point for `E213.Math/CayleyDickson` — CayleyDickson library.
+/-! Spec-as-code entry point for `E213.Math.CayleyDickson` — CayleyDickson library.
 
   Cayley-Dickson layered construction over 213.
 
