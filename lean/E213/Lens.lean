@@ -4,6 +4,7 @@ import E213.Lens.AxiomLenses.Bridges
 import E213.Lens.AxiomLenses.Core
 import E213.Lens.Characterisation
 import E213.Lens.Compose
+import E213.Lens.Diagonal
 import E213.Lens.Initiality
 import E213.Lens.Instances
 import E213.Lens.Algebra
@@ -17,7 +18,7 @@ import E213.Lens.Universal
 
 /-! Spec-as-code entry point for `E213.Lens`.
 
-  Hypervisor layer — the Lens algebra.
+  Lens layer — the Lens algebra.
 
   ## Chapters (sub-cluster umbrellas)
 
@@ -26,6 +27,8 @@ import E213.Lens.Universal
     * `Lens.Characterisation`            — Catalog + Core
     * `Lens.Compose`                     — composition operators
       (Factoring, OnLens, ImageMinimum, Morphism, OnLensImage*)
+    * `Lens.Diagonal`                    — diagonal (sq) classification
+      (Collapse / Idempotent / Escalate / Multiply over Bool, Nat, F9)
     * `Lens.Instances`                   — concrete Lens instances
       (AB, Bool, Cauchy, Path, Prism, Reach, Subtype, Sum, Swap,
        ZMod6, …)
@@ -50,7 +53,10 @@ import E213.Lens.Universal
 
   ## Status
 
-  Pre-existing API drift on 10 files documented in
-  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.1.  Each
-  sub-cluster umbrella records its own deferred list inline.
+  Post-M14 deferred-cluster repair complete: all formerly-deferred
+  10 files (CompoundBool, NegSq, ParityXorIncomparable,
+  ParityXorJoin, RawAChar, BoolSqClassification, SlashCharNotFold,
+  ABRefines, Leaf, ParityCollapseFalse) restored.  `Diagonal.lean`
+  added to host the Collapse/Idempotent classification predicates
+  (formerly in deleted `Math.Diagonal.Classification`).
 -/

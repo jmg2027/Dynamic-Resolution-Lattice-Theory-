@@ -1,5 +1,5 @@
 /-!
-# Hypervisor.Lens.Instances.PointwiseProjection — pointwise projection lens
+# Lens.Instances.PointwiseProjection — pointwise projection lens
 
 The pattern that drove the Real213 funext refactor (parts 1-15 +
 Tier 3 F1).  Conceptually a Lens that views a *function*

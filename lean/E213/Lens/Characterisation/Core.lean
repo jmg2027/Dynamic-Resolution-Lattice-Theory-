@@ -43,7 +43,7 @@ open E213.Lens.Characterisation.Catalog
     `conj = id`; all three homomorphism clauses are trivial.
     -/
 theorem swap_invariant_of_base_eq_comm
-    {α : Type} (L : Hypervisor.Lens α)
+    {α : Type} (L : Lens α)
     (hbase : L.base_a = L.base_b)
     (hcomm : ∀ u v : α, L.combine u v = L.combine v u)
     (r : Raw) : L.view (Raw.swap r) = L.view r := by
@@ -65,7 +65,7 @@ open E213.Lens.Characterisation.Catalog
     commutativity needed); the backward direction uses
     `swap_invariant_of_base_eq_comm`. -/
 theorem swap_invariant_iff_base_eq_of_comm
-    {α : Type} (L : Hypervisor.Lens α)
+    {α : Type} (L : Lens α)
     (hcomm : ∀ u v : α, L.combine u v = L.combine v u) :
     (∀ r : Raw, L.view (Raw.swap r) = L.view r)
       ↔ L.base_a = L.base_b := by
@@ -82,7 +82,7 @@ theorem swap_invariant_iff_base_eq_of_comm
     value in the view-image (not necessarily on all of α).
     Proof by rewriting both sides to `view (Raw.swap r)`. -/
 theorem R4_conj_agrees_on_image
-    {α : Type} {L : Hypervisor.Lens α} {conj1 conj2 : α → α}
+    {α : Type} {L : Lens α} {conj1 conj2 : α → α}
     (h1 : SwapMatching L conj1) (h2 : SwapMatching L conj2)
     (r : Raw) : conj1 (L.view r) = conj2 (L.view r) := by
   have e1 := h1.2.2 r
@@ -93,7 +93,7 @@ theorem R4_conj_agrees_on_image
     surjective and two involutions both witness R4, they are
     equal as functions. -/
 theorem R4_conj_unique_of_surjective
-    {α : Type} {L : Hypervisor.Lens α} {conj1 conj2 : α → α}
+    {α : Type} {L : Lens α} {conj1 conj2 : α → α}
     (h1 : SwapMatching L conj1) (h2 : SwapMatching L conj2)
     (hsurj : Function.Surjective L.view) : conj1 = conj2 := by
   funext u
@@ -119,7 +119,7 @@ open E213.Lens.Characterisation.Catalog
     `combine ≠ 0` so long as both children's views are
     nonzero (inductive hypotheses). -/
 theorem R3_view_nonVanishing
-    {α : Type} [Zero α] (L : Hypervisor.Lens α)
+    {α : Type} [Zero α] (L : Lens α)
     (hba : L.base_a ≠ 0) (hbb : L.base_b ≠ 0)
     (hcomm : ∀ u v : α, L.combine u v = L.combine v u)
     (hnz : ∀ u v : α, L.combine u v = 0 → u = 0 ∨ v = 0)

@@ -28,7 +28,7 @@ open E213.Theory E213.Lens E213.Meta Lipschitz
 
 /-- Lens with codomain `Lipschitz`.  `a ↦ i`, `b ↦ j`,
     combine = quaternion multiplication. -/
-def lipLens : Hypervisor.Lens Lipschitz where
+def lipLens : Lens Lipschitz where
   base_a  := Lipschitz.I'
   base_b  := Lipschitz.J
   combine := fun u v => u * v

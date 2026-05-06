@@ -1,8 +1,10 @@
 import E213.Lens.Morphism.BoolProp
+import E213.Lens.Morphism.BoolSqClassification
 import E213.Lens.Morphism.DepthParityNotFold
 import E213.Lens.Morphism.Dist
 import E213.Lens.Morphism.FoldStructured
 import E213.Lens.Morphism.NoDepthParity
+import E213.Lens.Morphism.SlashCharNotFold
 import E213.Lens.Morphism.SlashSwap
 
 /-! Spec-as-code entry point for `E213.Lens.Morphism`.
@@ -22,7 +24,7 @@ import E213.Lens.Morphism.SlashSwap
 
   ## Status
 
-  6/8 included.  Two deferred (pre-existing API drift):
-  `BoolSqClassification`, `SlashCharNotFold`.  See
-  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.1.
+  All 8 included (post-M14 deferred-cluster repair).
+  `BoolSqClassification` re-routed through `E213.Lens.Diagonal`;
+  `SlashCharNotFold` resolved by namespace-drift repair.
 -/

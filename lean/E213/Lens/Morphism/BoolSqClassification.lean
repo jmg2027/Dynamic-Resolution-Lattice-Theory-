@@ -1,4 +1,5 @@
 import E213.Lens.Instances.NegSq
+import E213.Lens.Diagonal
 
 /-!
 # BoolSqClassification: Complete diagonal classification of Bool Lenses
@@ -21,7 +22,7 @@ functions), the diagonal behavior is exactly 4 cases.  For a general
 
 namespace E213.Lens.Morphism.BoolSqClassification
 
-open E213.Theory E213.Lens E213.Lib.Math.DiagonalClassification
+open E213.Theory E213.Lens E213.Lens.Diagonal
 
 /-- Class where sq is negation. -/
 def NegSq {α : Type} (L : Lens α) (f : α → α) : Prop :=

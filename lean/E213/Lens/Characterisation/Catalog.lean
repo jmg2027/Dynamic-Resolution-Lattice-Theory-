@@ -54,7 +54,7 @@ open E213.Theory
     negation on the image. This is the ℤ-level analogue of
     "swap realised as complex conjugation" (the axiom's ℂ-Lens
     identification of §4 of the paper). -/
-def signedLens : Hypervisor.Lens Int where
+def signedLens : Lens Int where
   base_a  := 1
   base_b  := -1
   combine := (· + ·)
@@ -76,7 +76,7 @@ open E213.Theory E213.Lens
     swap-invariant (view unchanged by swap), then in particular
     its value on `a` equals its value on `swap a = b`; hence the
     two base values coincide. -/
-theorem swap_invariant_base_eq {α : Type} {L : Hypervisor.Lens α}
+theorem swap_invariant_base_eq {α : Type} {L : Lens α}
     (h : ∀ r : Raw, L.view (Raw.swap r) = L.view r) :
     L.base_a = L.base_b := by
   have h0 := h Raw.a
@@ -98,7 +98,7 @@ open E213.Theory E213.Lens
 /-- **R3 — Non-vanishing.**  If two codomain values are both
     nonzero (present), their combine is also nonzero. Equivalently
     (for ℝ-algebra codomains) the combine has no zero divisors. -/
-def NonVanishing {α : Type} [Zero α] (L : Hypervisor.Lens α) : Prop :=
+def NonVanishing {α : Type} [Zero α] (L : Lens α) : Prop :=
   ∀ u v : α, u ≠ 0 → v ≠ 0 → L.combine u v ≠ 0
 
 /-- **R4 — Swap matches exactly one nontrivial involution.**  On
@@ -106,7 +106,7 @@ def NonVanishing {α : Type} [Zero α] (L : Hypervisor.Lens α) : Prop :=
     `conj` is an involution, `conj ≠ id`, and `view (swap r) = conj (view r)`
     for every `r`. Uniqueness (at most one such `conj`) is a
     separate condition on injective Lenses. -/
-def SwapMatching {α : Type} (L : Hypervisor.Lens α) (conj : α → α) : Prop :=
+def SwapMatching {α : Type} (L : Lens α) (conj : α → α) : Prop :=
   (∀ u, conj (conj u) = u) ∧
   conj ≠ id ∧
   (∀ r : Raw, L.view (Raw.swap r) = conj (L.view r))
@@ -117,7 +117,7 @@ def SwapMatching {α : Type} (L : Hypervisor.Lens α) (conj : α → α) : Prop 
     ℝ-algebra on which this is possible) is not expressible in
     Lean 4 core; we record the injectivity half and treat the
     minimality identification (→ ℝ) at the prose level. -/
-def Distinguishing {α : Type} (L : Hypervisor.Lens α) : Prop :=
+def Distinguishing {α : Type} (L : Lens α) : Prop :=
   Function.Injective L.view
 
 end E213.Lens.Characterisation.Catalog
@@ -143,7 +143,7 @@ theorem signed_R4 :
     `view (swap r) = view r` for all `r`, then any R4-candidate
     `conj` must fix every image point of `view`. -/
 theorem swap_invariant_R4_fixes_image
-    {α : Type} {L : Hypervisor.Lens α} {conj : α → α}
+    {α : Type} {L : Lens α} {conj : α → α}
     (hinv : ∀ r : Raw, L.view (Raw.swap r) = L.view r)
     (hmatch : SwapMatching L conj)
     (r : Raw) : conj (L.view r) = L.view r := by

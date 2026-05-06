@@ -31,7 +31,7 @@ open E213.Lens.Characterisation.Catalog
 
 /-- **ZMod-6 multiplicative lens.**  `a ↦ 2`, `b ↦ 3`,
     `combine u v = (u * v) mod 6`. -/
-def zmod6Lens : Hypervisor.Lens Nat where
+def zmod6Lens : Lens Nat where
   base_a  := 2
   base_b  := 3
   combine := fun u v => (u * v) % 6

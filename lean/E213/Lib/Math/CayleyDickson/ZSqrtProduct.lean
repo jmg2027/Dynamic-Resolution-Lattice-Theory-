@@ -42,7 +42,7 @@ instance : Zero (ZSqrt D₁ × ZSqrt D₂) := ⟨(0, 0)⟩
 
 /-- Product Lens: componentwise base values and combine. -/
 def zSqrtProdLens (D₁ D₂ : Int) :
-    Hypervisor.Lens (ZSqrt D₁ × ZSqrt D₂) where
+    Lens (ZSqrt D₁ × ZSqrt D₂) where
   base_a  := (ZSqrt.I,    ZSqrt.I)
   base_b  := (ZSqrt.negI, ZSqrt.negI)
   combine := fun p q => (p.1 * q.1, p.2 * q.2)

@@ -3,16 +3,21 @@ import E213.Lens.Instances.Bool
 import E213.Lens.Instances.BoundedContext
 import E213.Lens.Instances.Cauchy
 import E213.Lens.Instances.CochainEntry
+import E213.Lens.Instances.CompoundBool
 import E213.Lens.Instances.EndpointBehavior
 import E213.Lens.Instances.F9
 import E213.Lens.Instances.FunctionSpace
 import E213.Lens.Instances.Identity
 import E213.Lens.Instances.Max
+import E213.Lens.Instances.NegSq
 import E213.Lens.Instances.Pair
 import E213.Lens.Instances.Parity
+import E213.Lens.Instances.ParityXorIncomparable
+import E213.Lens.Instances.ParityXorJoin
 import E213.Lens.Instances.Path
 import E213.Lens.Instances.PointwiseProjection
 import E213.Lens.Instances.Prism
+import E213.Lens.Instances.RawAChar
 import E213.Lens.Instances.RawMatching
 import E213.Lens.Instances.Reach
 import E213.Lens.Instances.Subtype
@@ -58,8 +63,10 @@ import E213.Lens.Instances.ZMod6
 
   ## Status
 
-  24/29 instances build clean.  Five deferred (pre-existing
-  API drift): `CompoundBool`, `NegSq`, `ParityXorIncomparable`,
-  `ParityXorJoin`, `RawAChar`.  See
-  `research-notes/HIERARCHICAL_PLACEMENT.md` §6.1.
+  All 29 instances build clean (post-M14 deferred-cluster repair):
+  `CompoundBool`, `NegSq`, `ParityXorIncomparable`, `ParityXorJoin`,
+  `RawAChar` restored by namespace-drift fixes
+  (`open E213.Meta` → `open E213.Lens.Instances.{Bool,Parity}`,
+  `Hypervisor.Lens` → `Lens`, and re-routing `NegSq` through
+  `E213.Lens.Diagonal`).
 -/

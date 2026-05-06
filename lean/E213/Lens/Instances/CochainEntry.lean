@@ -1,5 +1,5 @@
 /-!
-# Hypervisor.Lens.Instances.CochainEntry — cochain-entry lens
+# Lens.Instances.CochainEntry — cochain-entry lens
 
 The pattern formalised by `delta_pointwise_eq` (Cohomology/Delta/
 Pointwise.lean).  A cochain `σ : Cochain n k = Fin (binom n k) →
