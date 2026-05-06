@@ -1,5 +1,55 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 31: M13 — Analysis G31 trajectory-as-witness IVT integration (2026-05-06)
+
+User directive: integrate 9 analysis-track commits from
+`claude/finish-analysis-placeholders-QnxoB` into the discovery
+surface.  All 9 cherry-picked clean.
+
+### What's new (4 files + 3 modifications + 1 research note)
+
+  ## Math/Analysis/DyadicSearch/ — 4 new files
+
+    * `MinimalRootLens.lean`           (211 lines, Layer 3a)
+    * `MinimalRootLensMonotone.lean`   (318 lines, Layer 2)
+    * `SignedLeftCollapse.lean`        (227 lines, Layer 3c)
+    * `UnitConsistentOracles.lean`     (277 lines, Layer 3c)
+
+  ## Math/Analysis modifications
+
+    * `DyadicSearch/IVT.lean`          (+32 lines)
+    * `Integration/CutRiemann.lean`    (+62 lines)
+    * `Integration/Integration.lean`   (+15 lines)
+
+  ## Research note
+
+    * `research-notes/G31_minimal_root_lens.md` (354 lines)
+
+### Key result
+
+`CollapseCondition` is a `(Nat, +)`-graded module over the monoid
+of resolution-shifters: when `g` is a `IsResolutionShift` with
+shift `E_g` and upstream `f` collapses at finer resolution `E + E_g`,
+the composite `f ∘ g` collapses at coarser `E`.  IVT becomes a
+*composable* tool — chains of resolution-shifters stack with
+additive total-resolution requirements.
+
+41 strict ∅-axiom declarations across the 9 commits: zero propext,
+zero Quot.sound, zero Classical.choice, zero `native_decide`.
+
+### Discovery-surface integration (M13)
+
+  * `Math/Analysis/DyadicSearch.lean` umbrella: 5 → 9 imports +
+    G31 trajectory-as-witness section in TOC.
+  * `Math/Analysis.lean` umbrella: DyadicSearch line updated +
+    G31 cross-reference added.
+  * `E213/INDEX.md` + `research-notes/HIERARCHICAL_PLACEMENT.md`:
+    Math/ file count 491 → 495, Hypervisor-layer Math 176 → 180.
+
+`lake build` clean.
+
+---
+
 ## ★★★ Part 30: M12 — Lean-tree book-feel audit (2026-05-06)
 
 User directive: read every file under `lean/E213/`, audit
