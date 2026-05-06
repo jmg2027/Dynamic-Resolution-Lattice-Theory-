@@ -4,7 +4,7 @@ import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Prelude
 
 /-!
-# Meta.ParityLens: finite-codomain R5-fail witness
+# ParityLens: finite-codomain R5-fail witness
 
 `parityLens : Lens Bool` with `base_a = true`, `base_b = true`,
 `combine = xor`.  The view tracks leaves mod 2 (true = odd,

@@ -4,7 +4,7 @@ import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Prelude
 
 /-!
-# Meta.PathLens: non-commutative-combine witness
+# PathLens: non-commutative-combine witness
 
 `pathLens : Lens (List Bool)` with `base_a = [false]`,
 `base_b = [true]`, `combine = List.append`.

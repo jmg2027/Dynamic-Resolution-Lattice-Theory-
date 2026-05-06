@@ -4,7 +4,7 @@ import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Prelude
 
 /-!
-# Meta.MaxLens: swap-visible but R4-fail via idempotence
+# MaxLens: swap-visible but R4-fail via idempotence
 
 `maxLens : Lens Nat` with `base_a = 0`, `base_b = 1`,
 `combine = max`.  Swap-visible on base objects

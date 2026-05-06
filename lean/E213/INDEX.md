@@ -17,35 +17,40 @@ roots whose individual files each live at one of the vertical
 layers (computed by `tools/layer_audit.py` from import closure).
 
 ```
-Kernel/      ★ 18 files, 101 theorems literally 0-axiom
-             + Tactic/Omega213, QuadNorm
+Kernel/      ★ 24 files, 0-axiom scaffolding
+             + Tactic/ (Nat213, Mod213, Fin213, Pow213,
+                        Omega213, QuadNorm + Test)
   ↓
-Firmware/    Raw axiom (a, b, slash, slash_comm)
+Firmware/    27 files: Raw axiom (a, b, slash, slash_comm)
              + Atomicity/ (forced d=5, (NS,NT)=(3,2))
              + Tools/CertChecker
   ↓
-Hypervisor/  Lens framework (78 files):
-             Lens.lean umbrella + Lens/{Instances, Characterisation,
-             Lattice, Compose, Properties, Morphism, Leaves, Refines,
-             Kernel, Universal}/ + Initiality.lean + SemanticAtom.lean
+Hypervisor/  101 files: Lens framework
+             Lens.lean umbrella + 12 sub-cluster umbrellas
+             (Instances/, Characterisation/, Lattice/, Compose/,
+              Properties/, Morphism/, Leaves/, Refines/, Kernel/,
+              Universal/, AxiomLenses/{Bridges, Core}/) +
+             Initiality.lean + SemanticAtom.lean
   ↓
-Meta/        true metatheory (23 files): UniversalLens family,
-             SelfRecognising codomain hierarchy
-             (CommBinary/NonVanishing/Conjugation),
+Meta/        30 files: UniversalLens / Universal / Tactic
+             sub-cluster umbrellas + SelfRecognising codomain
+             hierarchy (CommBinary/NonVanishing/Conjugation),
              AxiomMinimality{,Capstone}, BitPatternUniqueness,
-             RawInductionDemo, CUniquenessBridge +
-             Tactic/{VerifyConjugation, DeriveConjugationCodomain}
+             RawInductionDemo, CUniquenessBridge
   ↓
-App/         applications (Simplex)
+App/         1 file (Simplex)
+OS/          14 files: HodgeConjecture/Bridges/ +
+             Physics/Capstones/ (motivic-cohomology + physics
+             integration capstones)
 
-Math/        484 files (topical): Cohomology/, Linalg213/, Real213/,
+Math/        491 files (topical): Cohomology/, Real213/, Analysis/,
              CayleyDickson/, Cauchy/, ModArith/, Modulus/, Diagonal/,
-             Irrational/, Hyper/, Choice/, Infinity/, Tactic/
-             (HurwitzRing, IntSquare, QuadExtension), Pigeonhole, …
-Physics/     275 files (topical): AlphaEM, Couplings, Hadron, Higgs,
+             Irrational/, Hyper/, Choice/, Infinity/, Linalg213/,
+             AxiomSystems/, Polynomial213/, Trajectory/, Tactic/
+             (HurwitzRing, IntSquare, QuadExtension)
+Physics/     128 files (topical): AlphaEM, Couplings, Hadron, Higgs,
              Mass, Mixing, Nuclear, Cosmology, Atomic, Simplex,
-             Basel, YangMills, Capstones,
-             Library, Substrate, AtomicCorrespondences, Foundations
+             Basel, YangMills, Substrate, Foundations
 ```
 
 See `ARCHITECTURE.md` (this directory) for canonical theoretical
@@ -55,13 +60,14 @@ definitions of each layer + the per-file layer-derivation rule.
 
 | Layer | Purpose | Axiom load |
 |---|---|---|
-| Kernel/ | 18 files, 101 thms literally 0 axiom (scaffolding + Tactic/Omega213, QuadNorm) | none |
-| Firmware/ | Raw axiom (4-clause) + Atomicity/ + Tools/CertChecker | none |
-| Hypervisor/ | Lens framework (78 files: framework + 9 sub-clusters) | none |
-| Meta/ | metatheorems + Tactic/{VerifyConjugation, DeriveConjugationCodomain} | mostly none |
-| App/ | applications (Simplex) | none |
-| Math/ | 484 files topical math (Cohomology, Real213, …); each file at its natural vertical layer | mixed |
-| Physics/ | 275 files topical physics; each file at its natural vertical layer | mixed |
+| Kernel/ | 24 files, 0-axiom scaffolding + Tactic/ (Nat213, Mod213, Fin213, Pow213, Omega213, QuadNorm) | none |
+| Firmware/ | 27 files: Raw axiom (4-clause) + Atomicity/ + Tools/CertChecker | none |
+| Hypervisor/ | 101 files: Lens framework (umbrella + 12 sub-clusters) | none |
+| Meta/ | 30 files: metatheorems + Tactic/ + UniversalLens/ | mostly none |
+| App/ | 1 file (Simplex) | none |
+| OS/ | 14 files: top-level integration capstones (HodgeConjecture/Bridges, Physics/Capstones) | mostly none |
+| Math/ | 491 files topical math (Cohomology, Real213, …); each file at its natural vertical layer | mixed |
+| Physics/ | 128 files topical physics; each file at its natural vertical layer | mixed |
 
 > **Architectural note (2026-05-XX)**: the previous `OS/` directory
 > was a misnomer.  Its 7 atomicity-shape proofs were independent ℕ-
@@ -94,8 +100,8 @@ Top achievements:
 | "Why finite N only?" | `Math/Real213/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
 | "What are the atomic primitives?" | `Firmware/Atomicity/Five.lean` + `Firmware/Atomicity/PairForcing.lean` |
 | "How is the kernel 0-axiom?" | `Kernel/` 18 files + `tools/kernel_regress.sh` |
-| "Cohomology classes?" | `Math/Cohomology/` (~190 files in 10 sub-clusters) + `rust-engine/docs/cohomology-classes.md` |
-| "Lens framework?" | `Hypervisor/Lens.lean` + `Hypervisor/Lens/{Instances,Characterisation,Lattice,Compose,Properties,Morphism,Leaves,Refines,Kernel,Universal}/` + `Meta/UniversalLens/` |
+| "Cohomology classes?" | `Math/Cohomology/` (~217 files in 10 sub-clusters) + `rust-engine/docs/cohomology-classes.md` |
+| "Lens framework?" | `Hypervisor/Lens.lean` + 12 sub-cluster umbrellas under `Hypervisor/Lens/` + `Meta/UniversalLens/` |
 | "Theoretical architecture?" | `ARCHITECTURE.md` (this directory) |
 
 ## Build
@@ -118,23 +124,27 @@ lake env lean -e '...'           # eval (used by lean-rust-diff)
     vertical layer from import closure; reports violations + topical
     cluster depth
 
-## Cleanup status (2026-05-XX, post deep reorg)
+## Cleanup status (2026-05-XX, post-M11/M12 umbrella sweep)
 
-Lean tree: 907 files.  Top-level `Research/`, `Infinity/`, `Tactic/`,
-`Tools/` retired and fully distributed by content into Math/Physics +
-the vertical layers.  Math/ and Physics/ are the only topical roots.
+Lean tree: ~825 files (post-reorg + 38+ new sub-cluster umbrellas
+in M11/M12).  Every directory now has a `<DirName>.lean` umbrella
+(R2 / R7 of `research-notes/CONSOLIDATION_PROTOCOL.md`).
 
 Distribution (per `tools/layer_audit.py`):
 
 | top-folder | Kernel | Firmware | Hypervisor | Meta | App | total |
 |---|---|---|---|---|---|---|
-| Kernel/      | 18 |   0 |   0 |  0 | 0 | 18  |
-| Firmware/    |  0 |  25 |   0 |  0 | 0 | 25  |
-| Hypervisor/  |  0 |   0 |  78 |  0 | 0 | 78  |
-| Meta/        |  0 |   0 |   0 | 23 | 0 | 23  |
-| App/         |  0 |   0 |   0 |  0 | 1 |  1  |
-| Math/        | 36 | 211 | 231 |  6 | 0 | 484 |
-| Physics/     |  2 | 168 | 105 |  0 | 0 | 275 |
+| Kernel/      | 23 |   0 |   0 |  0 | 0 |  24 |
+| Firmware/    |  0 |  27 |   0 |  0 | 0 |  27 |
+| Hypervisor/  |  0 |   0 |  89 |  0 | 0 | 101 |
+| Meta/        |  0 |   0 |   0 | 27 | 0 |  30 |
+| App/         |  0 |   0 |   0 |  0 | 1 |   1 |
+| OS/          |  0 |  11 |   1 |  0 | 0 |  14 |
+| Math/        | 49 | 235 | 176 |  9 | 0 | 491 |
+| Physics/     |  0 | 116 |  11 |  0 | 0 | 128 |
+
+(Counts are total files including the new `<DirName>.lean`
+sub-cluster umbrellas.)
 
 Architecture audits (completed 2026-05-XX):
   - OS/ dissolved → Firmware/Atomicity/ + Math/Pigeonhole

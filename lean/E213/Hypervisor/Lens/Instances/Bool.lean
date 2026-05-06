@@ -3,22 +3,24 @@ import E213.Hypervisor.Lens
 import E213.Hypervisor.Lens.Characterisation.Catalog
 
 /-!
-# Meta.BoolLens: Bool-valued lenses — swap-blind vs swap-visible
+# Bool-valued Lenses — swap-blind vs swap-visible
 
-Three natural Bool lenses illustrate the spectrum:
+Three natural Bool Lenses illustrate the spectrum:
 
-- **AND lens**: `a ↦ true`, `b ↦ true`, `combine = and` — swap-blind.
-- **OR lens**:  `a ↦ true`, `b ↦ true`, `combine = or`  — swap-blind.
-- **XOR lens**: `a ↦ true`, `b ↦ false`, `combine = xor` — swap-visible.
+- **AND Lens**: `a ↦ true`, `b ↦ true`, `combine = and` — swap-blind.
+- **OR Lens**:  `a ↦ true`, `b ↦ true`, `combine = or`  — swap-blind.
+- **XOR Lens**: `a ↦ true`, `b ↦ false`, `combine = xor` — swap-visible.
 
-The XOR lens is swap-visible (swap flips the Bool) but FAILS R4:
-the involution candidate `conj = not` does not satisfy the
-distributivity requirement (conj does not distribute over xor).
+The XOR Lens is swap-visible (swap flips the Bool) but FAILS the
+`ConjugationCodomain` typeclass: the involution candidate
+`conj = not` does not satisfy the distributivity requirement
+(conj does not distribute over xor).
 
-Formally establishing this rules out the XOR lens as a
+Formally establishing this rules out the XOR Lens as a
 self-recognising Lens.  By contrast, the `signedLens` on `Int`
-(already in `LensCatalog.lean`) DOES satisfy R4 — verifying the
-paper's claim that R4 is a strong restriction.
+(in `Hypervisor/Lens/Characterisation/Catalog.lean`) DOES
+satisfy `ConjugationCodomain`, verifying that the conjugation
+clause is a strong restriction.
 -/
 
 namespace E213.Hypervisor.Lens.Instances.Bool

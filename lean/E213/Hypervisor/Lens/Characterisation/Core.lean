@@ -4,7 +4,7 @@ import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Prelude
 
 /-!
-# Meta.LensCharacterisation: structural iff theorems
+# LensCharacterisation: structural iff theorems
 
 Consolidates the Lens-level theorems that were previously
 sprinkled through `LensCatalog` and `SelfRecognising` into a

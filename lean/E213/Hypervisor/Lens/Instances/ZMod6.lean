@@ -4,7 +4,7 @@ import E213.Hypervisor.Lens.Characterisation.Catalog
 import E213.Prelude
 
 /-!
-# Meta.ZMod6Lens: R3 (no zero divisors) fail witness
+# ZMod6Lens: R3 (no zero divisors) fail witness
 
 `zmod6Lens : Lens Nat` with `base_a = 2`, `base_b = 3`,
 `combine u v = (u * v) % 6`.
