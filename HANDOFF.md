@@ -1,5 +1,73 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 30: M12 — Lean-tree book-feel audit (2026-05-06)
+
+User directive: read every file under `lean/E213/`, audit
+"book-feel" + structure + spec-as-code, fix tensions, multi-commit
+autonomously.
+
+Branch: `claude/fix-propext-constraints-Rdn1r`.
+
+### Stale-reference cleanup (M12a–M12h)
+
+  * **M12a** Cohomology umbrella TOC upgrade.
+  * **M12b** Drop `Research.` / `Research:` doc-title prefix
+    (208 files: Math 131 + Hypervisor 68 + Firmware 4 + Meta 5).
+  * **M12c** Refresh stale `[propext] only` claims in 4 files;
+    EulerSeq / WallisSeq / MonotonicBounded confirmed ∅-axiom.
+  * **M12d** Refresh CayleyDickson R-frame docstrings + 2 stale
+    `Research/` paths.
+  * **M12e** Drop archived F0 / F1 / F2 / E5 citations (3 Real213).
+  * **M12f** Drop redundant `Real213<X>` doc-title prefix (40 files).
+  * **M12g** Strip 13 empty `(, file N)` marathon-tag artifacts.
+  * **M12h** Strip 4 trailing empty `()` doc-title suffixes.
+
+### Sub-cluster umbrella additions (M12i–M12l, M12v) — R7 compliance
+
+  * **M12i** Add 16 Cohomology sub-cluster umbrellas (Bipartite,
+    Cochain, Cup, CupAW, Delta, Dyadic, Fractal, Hodge,
+    HodgeConjecture, Universal + 6 under Dyadic/).
+  * **M12j** Collapse `Cohomology.lean`: 208 → 28 imports.
+  * **M12k** Add 22 more sub-cluster umbrellas: Hypervisor (12),
+    Meta (3), Physics/Atomic/IE (1), HodgeConjecture (6).
+  * **M12l** Collapse Hypervisor / Meta / HodgeConjecture
+    umbrellas: 79 → 16, 27 → 9, 34 → 7 imports respectively.
+  * **M12v** Add 3 missing Kernel/Tactic + OS/HodgeConjecture/
+    Bridges + OS/Physics/Capstones umbrellas, then collapse
+    Kernel / Firmware / OS layer umbrellas to use them.
+
+### Path-notation fix (M12m + M12p)
+
+  * **M12m** Fix slash-vs-dot in 38 umbrella docstrings.
+  * **M12p** 12 more lower-level slash drift instances fixed.
+
+### Book-feel docstring upgrades (M12n–M12u, M12w) — 66+ files
+
+  * **M12n** 3 thin Math umbrellas → chapter narrative.
+  * **M12o** 11 Physics sub-cluster umbrellas.
+  * **M12p** 24 thin sub-cluster umbrellas (Hypervisor 12 +
+    Meta 3 + HodgeConjecture 6 + 3 typo fixes).
+  * **M12q** Math/Cohomology/Dyadic chapter TOC.
+  * **M12r** 6 Math/Cohomology sub-cluster TOCs.
+  * **M12s** 7 more Cohomology sub-cluster TOCs.
+  * **M12t** 7 small Math sub-tree TOCs (Infinity / Linalg213 /
+    ModArith / Modulus / Choice / AxiomSystems / Irrational).
+  * **M12u** Math/Analysis sub-cluster TOCs (7 files) + Substrate
+    "Phase 2" wording refresh + PhysicsBridgeNT2 docstring.
+  * **M12w** Refresh `E213/INDEX.md` with current file counts
+    + 12 sub-cluster Hypervisor reference.
+
+### Final state
+
+  * Every directory with ≥3 files has a `<DirName>.lean` umbrella.
+  * Every umbrella has a chapter-style TOC docstring matching the
+    Math/Analysis / Math/Real213 book-feel pattern.
+  * Stale Research / Phase 2 / R1–R5 references updated.
+  * Path-notation drift fully cleaned.
+  * `lake build` clean for the entire tree.
+
+---
+
 ## ★★★ Part 29: M11 — Layer-umbrella sweep + hierarchical placement (2026-05-05)
 
 User directive (verbatim):
