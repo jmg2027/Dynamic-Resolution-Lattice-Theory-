@@ -43,7 +43,7 @@ are pre-existing API drift, documented inline in each umbrella.
 
 | sub-tree         | files | imports | broken |
 |---|---|---|---|
-| Analysis         | 70  | 11  | 0 (chapter-style: 7 sub-dir umbrellas + 3 top-level files) |
+| Analysis         | 74  | 11  | 0 (chapter-style: 7 sub-dir umbrellas + 3 top-level files; DyadicSearch grew from 5→9 files for the G31 trajectory-as-witness IVT) |
 | AxiomSystems     | 4   | 4   | 0 |
 | Cauchy           | 14  | 14  | 0 |
 | CayleyDickson    | 29  | 20  | 9 (heavy variants, LipschitzLens, R5Vacuity, ZSqrtProduct) |
@@ -96,7 +96,7 @@ recompute.  Post-M11 distribution:
 | Meta/         | 0      | 0        | 0          | 27   | 0   | 27    |
 | App/          | 0      | 0        | 0          | 0    | 1   | 1     |
 | OS/           | 0      | 11       | 1          | 0    | 0   | 12    |
-| Math/ (469)   | 49     | 235      | 176        | 9    | 0   | 469   |
+| Math/ (495)   | 49     | 235      | 180        | 9    | 0   | 495   |
 | Physics/(127) | 0      | 116      | 11         | 0    | 0   | 127   |
 | Prelude.lean  | 1      | 0        | 0          | 0    | 0   | 1     |
 

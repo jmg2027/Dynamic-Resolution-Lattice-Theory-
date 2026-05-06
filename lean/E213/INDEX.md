@@ -43,7 +43,7 @@ OS/          14 files: HodgeConjecture/Bridges/ +
              Physics/Capstones/ (motivic-cohomology + physics
              integration capstones)
 
-Math/        491 files (topical): Cohomology/, Real213/, Analysis/,
+Math/        495 files (topical): Cohomology/, Real213/, Analysis/,
              CayleyDickson/, Cauchy/, ModArith/, Modulus/, Diagonal/,
              Irrational/, Hyper/, Choice/, Infinity/, Linalg213/,
              AxiomSystems/, Polynomial213/, Trajectory/, Tactic/
@@ -66,7 +66,7 @@ definitions of each layer + the per-file layer-derivation rule.
 | Meta/ | 30 files: metatheorems + Tactic/ + UniversalLens/ | mostly none |
 | App/ | 1 file (Simplex) | none |
 | OS/ | 14 files: top-level integration capstones (HodgeConjecture/Bridges, Physics/Capstones) | mostly none |
-| Math/ | 491 files topical math (Cohomology, Real213, …); each file at its natural vertical layer | mixed |
+| Math/ | 495 files topical math (Cohomology, Real213, …); each file at its natural vertical layer | mixed |
 | Physics/ | 128 files topical physics; each file at its natural vertical layer | mixed |
 
 > **Architectural note (2026-05-XX)**: the previous `OS/` directory
@@ -140,7 +140,7 @@ Distribution (per `tools/layer_audit.py`):
 | Meta/        |  0 |   0 |   0 | 27 | 0 |  30 |
 | App/         |  0 |   0 |   0 |  0 | 1 |   1 |
 | OS/          |  0 |  11 |   1 |  0 | 0 |  14 |
-| Math/        | 49 | 235 | 176 |  9 | 0 | 491 |
+| Math/        | 49 | 235 | 180 |  9 | 0 | 495 |
 | Physics/     |  0 | 116 |  11 |  0 | 0 | 128 |
 
 (Counts are total files including the new `<DirName>.lean`

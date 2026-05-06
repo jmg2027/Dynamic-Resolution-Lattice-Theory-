@@ -21,7 +21,10 @@ import E213.Math.Analysis.PhysicsBridgeNT2
 
     * `Analysis/ClassicCalc`     — applied calculus structure (3 files)
     * `Analysis/Differentiation` — differential calculus, polynomial chain (14)
-    * `Analysis/DyadicSearch`    — dyadic-search IVT (5)
+    * `Analysis/DyadicSearch`    — dyadic-search IVT (9 files,
+                                   includes G31 trajectory-as-witness
+                                   `MinimalRootLens` + Layer 3c
+                                   morphism-collapse closure)
     * `Analysis/FluxMVT`         — flux-form Mean Value Theorem (22)
     * `Analysis/Integration`     — integration on cuts (10)
     * `Analysis/ODE`             — ordinary differential equations (3)
@@ -35,6 +38,6 @@ import E213.Math.Analysis.PhysicsBridgeNT2
 
   ## Status
 
-  ∅-axiom standard on the production critical path.  63 files
-  organized into 7 chapters + 3 top-level (post M5c).
+  ∅-axiom standard on the production critical path.  Trajectory-as-
+  witness IVT design recorded in `research-notes/G31_minimal_root_lens.md`.
 -/
