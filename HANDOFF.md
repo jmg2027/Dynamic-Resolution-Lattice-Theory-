@@ -1,5 +1,38 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 32: M14 — Architectural rename to ring model (2026-05-06, IN PROGRESS)
+
+User directive: full architectural refactor.  OS-metaphor layer
+names → direct concept names.  Concentric ring model (Term →
+Theory → Lens → Meta → Lib/{Math, Physics} → App).  Per-layer
+`API.lean` and `Internal/` separation.  Math sub-cluster
+peer-promotion (DyadicFSM, HodgeConjecture).  Rust engine
+mirror.
+
+Plan: `/root/.claude/plans/melodic-weaving-babbage.md`.
+
+Starting tag: `pre-refactor-snapshot` at commit `128497c`.
+Baseline captured in `.refactor-baseline/`.
+
+Phasing:
+  - Phase 0 — pre-flight (this commit)
+  - Phase A — OS/ dissolution (4 commits)
+  - Phase B — Math root cleanup (4 commits)
+  - Phase C — Cohomology peer-promotion (3 commits)
+  - Phase D — Hypervisor doubled-namespace flatten (4 commits)
+  - Phase E — Layer renames (3 commits: Hypervisor→Lens,
+              Kernel→Term, Firmware→Theory)
+  - Phase F — Math/Physics → Lib/ (1 large commit)
+  - Phase G — API.lean creation (2 commits)
+  - Phase H — Internal/ adoption (3 commits)
+  - Phase I — Tools/scripts final sweep
+  - Phase J — Documentation (5 commits)
+  - Phase K — Rust engine mirror (5 commits)
+
+Total ~40 commits, each `lake build` clean.
+
+---
+
 ## ★★★ Part 31: M13 — Analysis G31 trajectory-as-witness IVT integration (2026-05-06)
 
 User directive: integrate 9 analysis-track commits from
