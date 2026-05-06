@@ -9,10 +9,10 @@ form `ℤ[√-D]` for `D : Int`.
 - `normSq = a² + D·b²` (positive-definite for `D > 0`)
 
 Concrete `ZI = ZSqrt 1` and `Z2 = ZSqrt 2` already exist as
-separate types in `Research/{ZI,ZSqrt2}.lean`.  This module
-demonstrates that adding D = 3, 5, 7, … requires only a
-single one-line instance per D — no per-D structure
-duplication.
+separate types in `Math/CayleyDickson/{ZI,ZSqrt2}.lean`.
+This module demonstrates that adding D = 3, 5, 7, … requires
+only a single one-line instance per D (via `quad_extension D`)
+— no per-D structure duplication.
 -/
 
 namespace E213.Math.CayleyDickson.ZSqrt

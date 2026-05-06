@@ -1,15 +1,20 @@
 /-!
-# `ℤ[√-2]` — second quadratic-extension witness
+# `ℤ[√-2]` — second quadratic-extension `ConjugationCodomain` witness
 
-Part of E2 (generalisation of the ℤ[i] counterexample).  Same
-structure as `ZI` but with `i² = -2` instead of `i² = -1`, so
-multiplication becomes
-`(a + b√-2)(c + d√-2) = (ac - 2bd) + (ad + bc)√-2`
+Companion to `ZI = ℤ[i]`.  Same structure as `ZI` but with
+`i² = -2` instead of `i² = -1`, so multiplication becomes
+
+  `(a + b√-2)(c + d√-2) = (ac - 2bd) + (ad + bc)√-2`
+
 and `normSq(a + b√-2) = a² + 2 b²`.
 
-If this Lens satisfies R1–R4, then H (R5 smuggles ℝ-algebra)
-is further confirmed: ℤ[√-2] is another countable quadratic
-extension that is self-recognising under R1–R4 alone.
+Together with `ZI`, `ZOmega`, and the parametric `ZSqrt D`
+family, `ℤ[√-2]` confirms that the three-tier codomain spec
+(`CommBinaryCodomain` + `NonVanishingCodomain` +
+`ConjugationCodomain` — formerly "R1–R4" in the deprecated
+R1–R5 judgment-game frame) does NOT pin the codomain to ℂ:
+multiple non-isomorphic countable quadratic extensions all
+satisfy it.
 -/
 
 namespace E213.Math.CayleyDickson.ZSqrt2

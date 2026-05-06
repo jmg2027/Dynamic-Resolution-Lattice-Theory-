@@ -7,7 +7,7 @@ Imports only the tactic; verifies the macro independently of
 the slow Raw.lean build (compiles in seconds).
 
 The tests target exactly the polynomial-identity shape used by
-`Research/{ZI,ZSqrt2}Domain.normSq_mul`.  Other polynomial
+`Math/CayleyDickson/{ZIDomain,ZSqrt2Domain}.normSq_mul`.  Other polynomial
 identities (e.g. expansions like `(a+b)² = a²+2ab+b²`) are NOT
 in `quad_norm`'s intended scope — `omega`'s atom-handling for
 constant multipliers `2*x` differs from constant binding

@@ -329,7 +329,7 @@ the following is the negative form: **existence of functions not
 expressible inside the framework**.
 
 Specific instances have already been formalized in
-`Research/{NoDepthParity, DepthParityNotFold, SlashCharNotFold}.lean`.
+`Hypervisor/Lens/Morphism/{NoDepthParity, DepthParityNotFold, SlashCharNotFold}.lean`.
 Here we state the unified statement — Lens-expressibility has a
 non-trivial boundary (not every Raw → α function is Lens-expressible).
 
