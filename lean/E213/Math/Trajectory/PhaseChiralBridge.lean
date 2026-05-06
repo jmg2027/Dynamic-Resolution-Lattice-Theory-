@@ -1,4 +1,4 @@
-import E213.Kernel.Tactic.Mod213
+import E213.Term.Tactic.Mod213
 import E213.Physics.Simplex.Counts
 
 /-!

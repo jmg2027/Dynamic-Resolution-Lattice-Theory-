@@ -1,5 +1,5 @@
 import E213.Meta.UniversalLens.Core
-import E213.Kernel.Rat
+import E213.Term.Rat
 
 /-!
 # Universal Lens at ℚ × ℚ — using 213-native rational
@@ -21,7 +21,7 @@ the same exp-sum encoding, lifted from ℕ × ℕ.
 
 namespace E213.Meta.UniversalLens.Q213
 
-open E213.Firmware E213.Lens E213.Kernel
+open E213.Firmware E213.Lens E213.Term
 
 /-- 213-native rational: pair of (numerator, denominator) Terms. -/
 abbrev Q213 : Type := Term × Term

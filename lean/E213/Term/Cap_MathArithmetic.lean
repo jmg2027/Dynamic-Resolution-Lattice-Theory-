@@ -1,7 +1,7 @@
-import E213.Kernel.Term
+import E213.Term.Term
 
 /-!
-# E213.Kernel.Cap_MathArithmetic — math arithmetic theorems, 0 axiom.
+# E213.Term.Cap_MathArithmetic — math arithmetic theorems, 0 axiom.
 
 `Nat.gcd` is defined by well-founded recursion → depends on propext.
 Alternative: express gcd results directly as *product/divisor* form.  E.g. gcd(4,6)=2
@@ -9,7 +9,7 @@ means `4 = 2·2 ∧ 6 = 2·3 ∧ 1 = gcd(2,3)`, but more simply as
 "d is a common divisor of 4 and 6".  Here we use modulus only.
 -/
 
-namespace E213.Kernel.Cap.MathArithmetic
+namespace E213.Term.Cap.MathArithmetic
 
 /-- Common divisor 2 of 4 and 6: 4 = 2·2 (Nat equality). -/
 theorem four_eq_two_two : (4 : Nat) = 2 * 2 := rfl
@@ -44,16 +44,16 @@ theorem square_linearity : (5 : Nat) * 2 = 10 := rfl
 /-- cubeIsSmooth.linearityModulus 5 = 15 = 3·d. -/
 theorem cube_linearity : (5 : Nat) * 3 = 15 := rfl
 
-end E213.Kernel.Cap.MathArithmetic
+end E213.Term.Cap.MathArithmetic
 
-#print axioms E213.Kernel.Cap.MathArithmetic.four_eq_two_two
-#print axioms E213.Kernel.Cap.MathArithmetic.six_eq_two_three
-#print axioms E213.Kernel.Cap.MathArithmetic.d_mod_nT
-#print axioms E213.Kernel.Cap.MathArithmetic.d_mod_nS
-#print axioms E213.Kernel.Cap.MathArithmetic.NSNT_mod_d
-#print axioms E213.Kernel.Cap.MathArithmetic.dsq_mod_d
-#print axioms E213.Kernel.Cap.MathArithmetic.twoNS2_mod_d
-#print axioms E213.Kernel.Cap.MathArithmetic.Z168_mod_dsq
-#print axioms E213.Kernel.Cap.MathArithmetic.id_smooth_linearity
-#print axioms E213.Kernel.Cap.MathArithmetic.square_linearity
-#print axioms E213.Kernel.Cap.MathArithmetic.cube_linearity
+#print axioms E213.Term.Cap.MathArithmetic.four_eq_two_two
+#print axioms E213.Term.Cap.MathArithmetic.six_eq_two_three
+#print axioms E213.Term.Cap.MathArithmetic.d_mod_nT
+#print axioms E213.Term.Cap.MathArithmetic.d_mod_nS
+#print axioms E213.Term.Cap.MathArithmetic.NSNT_mod_d
+#print axioms E213.Term.Cap.MathArithmetic.dsq_mod_d
+#print axioms E213.Term.Cap.MathArithmetic.twoNS2_mod_d
+#print axioms E213.Term.Cap.MathArithmetic.Z168_mod_dsq
+#print axioms E213.Term.Cap.MathArithmetic.id_smooth_linearity
+#print axioms E213.Term.Cap.MathArithmetic.square_linearity
+#print axioms E213.Term.Cap.MathArithmetic.cube_linearity

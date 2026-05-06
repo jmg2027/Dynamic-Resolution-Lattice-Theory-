@@ -1,5 +1,5 @@
 import E213.Math.NatHelpers.NatDiv213
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 
 /-!
 # 213-native `Nat.add_mod` (∅-axiom, Math layer)

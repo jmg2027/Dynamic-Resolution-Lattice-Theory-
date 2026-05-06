@@ -1,7 +1,7 @@
-import E213.Kernel.Term
+import E213.Term.Term
 
 /-!
-# E213.Kernel.Demo — first axiom-free capstone.
+# E213.Term.Demo — first axiom-free capstone.
 
 Vision check: proves core facts of 213 without using *any* of the
 Lean kernel axioms (propext, Quot.sound, Classical.choice).
@@ -9,7 +9,7 @@ All proofs are by `rfl` (definitional reduction) → `#print axioms`
 should return an empty list.
 -/
 
-namespace E213.Kernel.Demo
+namespace E213.Term.Demo
 
 open Term
 
@@ -39,17 +39,17 @@ theorem two_nS_sq : eval (mul (succ (succ zero)) (mul nS nS)) = 18 := rfl
 theorem two_nS_cube :
     eval (mul (succ (succ zero)) (mul nS (mul nS nS))) = 54 := rfl
 
-end E213.Kernel.Demo
+end E213.Term.Demo
 
 /-! ## Axiom audit
 
 Prints which axioms each capstone depends on.
 Expected: all empty lists (no axioms). -/
 
-#print axioms E213.Kernel.Demo.dim_law
-#print axioms E213.Kernel.Demo.c_eq_nT
-#print axioms E213.Kernel.Demo.d_sq_25
-#print axioms E213.Kernel.Demo.eval_d_sq
-#print axioms E213.Kernel.Demo.nSnT_sq_36
-#print axioms E213.Kernel.Demo.two_nS_sq
-#print axioms E213.Kernel.Demo.two_nS_cube
+#print axioms E213.Term.Demo.dim_law
+#print axioms E213.Term.Demo.c_eq_nT
+#print axioms E213.Term.Demo.d_sq_25
+#print axioms E213.Term.Demo.eval_d_sq
+#print axioms E213.Term.Demo.nSnT_sq_36
+#print axioms E213.Term.Demo.two_nS_sq
+#print axioms E213.Term.Demo.two_nS_cube

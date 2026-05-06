@@ -1,4 +1,4 @@
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 import E213.Math.Real213.CutSumOne
 import E213.Math.Real213.ConstCutScale
 import E213.Math.Real213.CutBisection

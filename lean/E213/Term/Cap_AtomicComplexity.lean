@@ -1,7 +1,7 @@
-import E213.Kernel.Term
+import E213.Term.Term
 
 /-!
-# E213.Kernel.Cap_AtomicComplexity — atomic-1 integer representation verification.
+# E213.Term.Cap_AtomicComplexity — atomic-1 integer representation verification.
 
 Re-states only the *pure arithmetic* among the complexity theorems from
 Phase4/AtomicReps.lean.  6 = NS·NT, 8 = NT³, 25 = d², ...
@@ -10,7 +10,7 @@ The complexity function itself is hard to port (it is a function over Expr).
 Here we only prove that *each result integer can be expressed in exactly that form* → 0 axiom.
 -/
 
-namespace E213.Kernel.Cap.AtomicComplexity
+namespace E213.Term.Cap.AtomicComplexity
 
 -- 213 atomic constants
 def NS : Nat := 3
@@ -58,20 +58,20 @@ theorem seventeen_neq_NSNT : Nat.beq 17 (NS * NT) = false := rfl
 theorem nineteen_neq_dsq : Nat.beq 19 (d * d) = false := rfl
 theorem twentythree_neq_dsq : Nat.beq 23 (d * d) = false := rfl
 
-end E213.Kernel.Cap.AtomicComplexity
+end E213.Term.Cap.AtomicComplexity
 
-#print axioms E213.Kernel.Cap.AtomicComplexity.six_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.eight_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.ten_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.sixteen_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.twentyfive_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.twelve_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.twentyfour_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.thirteen_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.sixty_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.oneNinetytwo_atomic
-#print axioms E213.Kernel.Cap.AtomicComplexity.eleven_neq_NS
-#print axioms E213.Kernel.Cap.AtomicComplexity.thirteen_neq_NS
-#print axioms E213.Kernel.Cap.AtomicComplexity.seventeen_neq_NSNT
-#print axioms E213.Kernel.Cap.AtomicComplexity.nineteen_neq_dsq
-#print axioms E213.Kernel.Cap.AtomicComplexity.twentythree_neq_dsq
+#print axioms E213.Term.Cap.AtomicComplexity.six_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.eight_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.ten_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.sixteen_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.twentyfive_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.twelve_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.twentyfour_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.thirteen_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.sixty_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.oneNinetytwo_atomic
+#print axioms E213.Term.Cap.AtomicComplexity.eleven_neq_NS
+#print axioms E213.Term.Cap.AtomicComplexity.thirteen_neq_NS
+#print axioms E213.Term.Cap.AtomicComplexity.seventeen_neq_NSNT
+#print axioms E213.Term.Cap.AtomicComplexity.nineteen_neq_dsq
+#print axioms E213.Term.Cap.AtomicComplexity.twentythree_neq_dsq

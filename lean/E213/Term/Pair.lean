@@ -1,7 +1,7 @@
-import E213.Kernel.Term
+import E213.Term.Term
 
 /-!
-# E213.Kernel.Pair — pairwise relation primitive of Raw.
+# E213.Term.Pair — pairwise relation primitive of Raw.
 
 CLAUDE.md axiom: "Things exist with pairwise relations.
 G_ij = ⟨ψ_i|ψ_j⟩."
@@ -13,7 +13,7 @@ Representing G_ij via Lens identity check:
 Uses only `Bool.cond` → 0 axiom maintained.
 -/
 
-namespace E213.Kernel.Term
+namespace E213.Term.Term
 
 /-- Lens distinguishability primitive: G_ij ∈ {0, 1}. -/
 def pair (a b : Term) : Term :=
@@ -22,9 +22,9 @@ def pair (a b : Term) : Term :=
 /-- Off-diagonal count: G value of a pair of two distinct Terms. -/
 def offDiag (a b : Term) : Term := pair a b
 
-end E213.Kernel.Term
+end E213.Term.Term
 
-namespace E213.Kernel.Pair
+namespace E213.Term.Pair
 
 open Term
 
@@ -53,14 +53,14 @@ theorem off_count_d :
 /-- Number of pairs in (n_S, n_T) bipartite K_{3,2} = 6. -/
 theorem K32_pairs : eval (mul nS nT) = 6 := rfl
 
-end E213.Kernel.Pair
+end E213.Term.Pair
 
-#print axioms E213.Kernel.Pair.pair_self_nS
-#print axioms E213.Kernel.Pair.pair_self_d
-#print axioms E213.Kernel.Pair.pair_nS_nT
-#print axioms E213.Kernel.Pair.pair_nS_d
-#print axioms E213.Kernel.Pair.pair_nT_d
-#print axioms E213.Kernel.Pair.pair_symm_nS_nT
-#print axioms E213.Kernel.Pair.diag_trace_zero
-#print axioms E213.Kernel.Pair.off_count_d
-#print axioms E213.Kernel.Pair.K32_pairs
+#print axioms E213.Term.Pair.pair_self_nS
+#print axioms E213.Term.Pair.pair_self_d
+#print axioms E213.Term.Pair.pair_nS_nT
+#print axioms E213.Term.Pair.pair_nS_d
+#print axioms E213.Term.Pair.pair_nT_d
+#print axioms E213.Term.Pair.pair_symm_nS_nT
+#print axioms E213.Term.Pair.diag_trace_zero
+#print axioms E213.Term.Pair.off_count_d
+#print axioms E213.Term.Pair.K32_pairs

@@ -1,7 +1,7 @@
-import E213.Kernel.Term
+import E213.Term.Term
 
 /-!
-# E213.Kernel.Decide — finite-enumeration decision procedures.
+# E213.Term.Decide — finite-enumeration decision procedures.
 
 Lean's `decide` tactic often pulls in `Decidable` typeclass + Classical.
 For a finite discrete lattice, *pure Bool functions + finite recursion* are
@@ -13,7 +13,7 @@ sufficient → bypassing the typeclass.
 All use structural induction + Bool operations → 0 axiom.
 -/
 
-namespace E213.Kernel.Decide
+namespace E213.Term.Decide
 
 /-- Bool version of ∀ x < n, p x. -/
 def allBelow : Nat → (Nat → Bool) → Bool
@@ -25,9 +25,9 @@ def existsBelow : Nat → (Nat → Bool) → Bool
   | 0,     _ => false
   | n+1,   p => (existsBelow n p) || p n
 
-end E213.Kernel.Decide
+end E213.Term.Decide
 
-namespace E213.Kernel.Decide.Tests
+namespace E213.Term.Decide.Tests
 
 /-- All numbers less than d (= 5) are ≤ 4. -/
 theorem all_lt_d_le_4 :
@@ -55,11 +55,11 @@ theorem magic_le_126 :
 theorem magic_all_even :
     [2, 8, 20, 28, 50, 82, 126].all (fun n => Nat.beq (n % 2) 0) = true := rfl
 
-end E213.Kernel.Decide.Tests
+end E213.Term.Decide.Tests
 
-#print axioms E213.Kernel.Decide.Tests.all_lt_d_le_4
-#print axioms E213.Kernel.Decide.Tests.exists_lt_d_eq_4
-#print axioms E213.Kernel.Decide.Tests.no_lt_d_eq_5
-#print axioms E213.Kernel.Decide.Tests.pair_sum_bound
-#print axioms E213.Kernel.Decide.Tests.magic_le_126
-#print axioms E213.Kernel.Decide.Tests.magic_all_even
+#print axioms E213.Term.Decide.Tests.all_lt_d_le_4
+#print axioms E213.Term.Decide.Tests.exists_lt_d_eq_4
+#print axioms E213.Term.Decide.Tests.no_lt_d_eq_5
+#print axioms E213.Term.Decide.Tests.pair_sum_bound
+#print axioms E213.Term.Decide.Tests.magic_le_126
+#print axioms E213.Term.Decide.Tests.magic_all_even

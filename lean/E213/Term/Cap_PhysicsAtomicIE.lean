@@ -1,7 +1,7 @@
-import E213.Kernel.Term
+import E213.Term.Term
 
 /-!
-# E213.Kernel.Cap_PhysicsAtomicIE — element ionization energy ratio brackets.
+# E213.Term.Cap_PhysicsAtomicIE — element ionization energy ratio brackets.
 
 Ports the ratio bracket theorems from Phase4/PeriodicTableIE.lean into
 kernel form.  IE values are inlined (pure Nat) → 0 axiom.
@@ -10,7 +10,7 @@ Each theorem: verifies the IE_X / IE_H ratio via cross-multiplication.
 All use `Nat.ble = true ∧ Nat.ble = true := ⟨rfl, rfl⟩`.
 -/
 
-namespace E213.Kernel.Cap.PhysicsAtomicIE
+namespace E213.Term.Cap.PhysicsAtomicIE
 
 -- Ionization energies (× 10⁻⁵ eV, integer encoding)
 def IE_H  : Nat := 13598434
@@ -46,11 +46,11 @@ theorem mmu_me_bracket :
 /-- Precise m_μ/m_e: 2067682 < x < 2067683 (×10⁻⁴). -/
 theorem mmu_me_precise : Nat.ble 2067682 2067682 = true := rfl
 
-end E213.Kernel.Cap.PhysicsAtomicIE
+end E213.Term.Cap.PhysicsAtomicIE
 
-#print axioms E213.Kernel.Cap.PhysicsAtomicIE.Li_H_ratio_bracket
-#print axioms E213.Kernel.Cap.PhysicsAtomicIE.Be_H_ratio_bracket
-#print axioms E213.Kernel.Cap.PhysicsAtomicIE.B_H_ratio_bracket
-#print axioms E213.Kernel.Cap.PhysicsAtomicIE.C_H_ratio_bracket
-#print axioms E213.Kernel.Cap.PhysicsAtomicIE.mmu_me_bracket
-#print axioms E213.Kernel.Cap.PhysicsAtomicIE.mmu_me_precise
+#print axioms E213.Term.Cap.PhysicsAtomicIE.Li_H_ratio_bracket
+#print axioms E213.Term.Cap.PhysicsAtomicIE.Be_H_ratio_bracket
+#print axioms E213.Term.Cap.PhysicsAtomicIE.B_H_ratio_bracket
+#print axioms E213.Term.Cap.PhysicsAtomicIE.C_H_ratio_bracket
+#print axioms E213.Term.Cap.PhysicsAtomicIE.mmu_me_bracket
+#print axioms E213.Term.Cap.PhysicsAtomicIE.mmu_me_precise

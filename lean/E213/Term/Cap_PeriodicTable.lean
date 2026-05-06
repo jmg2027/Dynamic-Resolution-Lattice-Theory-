@@ -1,8 +1,8 @@
-import E213.Kernel.Term
-import E213.Kernel.Sound
+import E213.Term.Term
+import E213.Term.Sound
 
 /-!
-# E213.Kernel.Cap_PeriodicTable — periodic table capstone, 0 axiom.
+# E213.Term.Cap_PeriodicTable — periodic table capstone, 0 axiom.
 
 Core result of 213: the noble gas Z values (2,10,18,36,54,86,118) all
 *exactly* match the cumulative sum of shell closures (period length 2·n²).
@@ -11,7 +11,7 @@ Next prediction: Z=168 (super-heavy beyond Og, HO magic 7).
 Each capstone uses `rfl` or the KF Sound bridge → 0 axiom.
 -/
 
-namespace E213.Kernel.Cap.PeriodicTable
+namespace E213.Term.Cap.PeriodicTable
 
 open Term
 
@@ -61,12 +61,12 @@ theorem eight_eq_two_nTsq :
 /-- period 1 length = 2 = n_T (He, the simplest closure). -/
 theorem two_eq_nT : eval nT = 2 := rfl
 
-end E213.Kernel.Cap.PeriodicTable
+end E213.Term.Cap.PeriodicTable
 
-#print axioms E213.Kernel.Cap.PeriodicTable.noble_from_periods
-#print axioms E213.Kernel.Cap.PeriodicTable.Z8_eq_168
-#print axioms E213.Kernel.Cap.PeriodicTable.fifty_eq_two_dsq
-#print axioms E213.Kernel.Cap.PeriodicTable.eighteen_eq_two_nSsq
-#print axioms E213.Kernel.Cap.PeriodicTable.thirtytwo_eq_two_nT4
-#print axioms E213.Kernel.Cap.PeriodicTable.eight_eq_two_nTsq
-#print axioms E213.Kernel.Cap.PeriodicTable.two_eq_nT
+#print axioms E213.Term.Cap.PeriodicTable.noble_from_periods
+#print axioms E213.Term.Cap.PeriodicTable.Z8_eq_168
+#print axioms E213.Term.Cap.PeriodicTable.fifty_eq_two_dsq
+#print axioms E213.Term.Cap.PeriodicTable.eighteen_eq_two_nSsq
+#print axioms E213.Term.Cap.PeriodicTable.thirtytwo_eq_two_nT4
+#print axioms E213.Term.Cap.PeriodicTable.eight_eq_two_nTsq
+#print axioms E213.Term.Cap.PeriodicTable.two_eq_nT

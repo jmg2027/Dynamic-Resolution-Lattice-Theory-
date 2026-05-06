@@ -1,6 +1,6 @@
 import E213.Math.CayleyDickson.ZI
 import E213.Math.NatHelpers.IntHelpers
-import E213.Kernel.Tactic.QuadNorm
+import E213.Term.Tactic.QuadNorm
 
 open E213.Math.NatHelpers
 open E213.Math.NatHelpers.IntHelpers

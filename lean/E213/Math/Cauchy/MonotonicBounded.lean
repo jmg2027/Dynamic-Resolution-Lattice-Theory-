@@ -1,6 +1,6 @@
 import E213.Lens.Instances.AB
 import E213.Math.Cauchy.Archimedean
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 
 /-!
 # MonotonicBoundedCauchy: monotonic ab-sequence → orderCauchy

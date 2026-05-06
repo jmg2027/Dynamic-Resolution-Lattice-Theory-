@@ -1,7 +1,7 @@
-import E213.Kernel.Term
+import E213.Term.Term
 
 /-!
-# E213.Kernel.MonomialAxioms — basic algebra over `Term`.
+# E213.Term.MonomialAxioms — basic algebra over `Term`.
 
 Concrete-value rewrite axioms used by the Rust `normal_form` mapper.
 Each closes by `rfl` because both sides reduce to the same `Nat`
@@ -17,7 +17,7 @@ Lean citations (all 0 axiom):
   ns_plus_nt_eq_d.
 -/
 
-namespace E213.Kernel.MonomialAxioms
+namespace E213.Term.MonomialAxioms
 
 open Term
 
@@ -39,11 +39,11 @@ theorem d_sq_eq_25 : eval (mul d d) = 25 := rfl
 /-- `NS + NT = d` (= 5). -/
 theorem ns_plus_nt_eq_d : eval (add nS nT) = eval d := rfl
 
-end E213.Kernel.MonomialAxioms
+end E213.Term.MonomialAxioms
 
-#print axioms E213.Kernel.MonomialAxioms.ns_mul_nt_eq_six
-#print axioms E213.Kernel.MonomialAxioms.mul_comm_ns_nt
-#print axioms E213.Kernel.MonomialAxioms.ns_sq_eq_9
-#print axioms E213.Kernel.MonomialAxioms.nt_sq_eq_4
-#print axioms E213.Kernel.MonomialAxioms.d_sq_eq_25
-#print axioms E213.Kernel.MonomialAxioms.ns_plus_nt_eq_d
+#print axioms E213.Term.MonomialAxioms.ns_mul_nt_eq_six
+#print axioms E213.Term.MonomialAxioms.mul_comm_ns_nt
+#print axioms E213.Term.MonomialAxioms.ns_sq_eq_9
+#print axioms E213.Term.MonomialAxioms.nt_sq_eq_4
+#print axioms E213.Term.MonomialAxioms.d_sq_eq_25
+#print axioms E213.Term.MonomialAxioms.ns_plus_nt_eq_d

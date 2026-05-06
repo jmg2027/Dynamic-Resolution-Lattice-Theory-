@@ -1,8 +1,8 @@
-import E213.Kernel.Term
-import E213.Kernel.Compare
+import E213.Term.Term
+import E213.Term.Compare
 
 /-!
-# E213.Kernel.Rat — rational arithmetic of 213 (cross-multiplication).
+# E213.Term.Rat — rational arithmetic of 213 (cross-multiplication).
 
 CLAUDE.md: "finite discrete lattice — ÷ (division) → byproduct of ℚ arithmetic".
 Does not create ℚ as a separate type.  Carries numerator/denominator as two Terms,
@@ -13,7 +13,7 @@ checks equality by *cross-multiplication* → stays within ℕ.
 → No Lean Rat, no quotient.  0 axiom maintained.
 -/
 
-namespace E213.Kernel.Term
+namespace E213.Term.Term
 
 /-- Rational equivalence via cross-multiplication (Bool). -/
 def equivQ (p q r s : Term) : Bool :=
@@ -24,9 +24,9 @@ def equivQ (p q r s : Term) : Bool :=
 def leQ (p q r s : Term) : Bool :=
   le_b (mul p s) (mul q r)
 
-end E213.Kernel.Term
+end E213.Term.Term
 
-namespace E213.Kernel.Rat
+namespace E213.Term.Rat
 
 open Term
 
@@ -57,10 +57,10 @@ theorem alphaGUT_lt_quarter :
     leQ n6 n25 (succ zero) (mul (succ (succ zero)) (succ (succ zero)))
     = true := rfl
 
-end E213.Kernel.Rat
+end E213.Term.Rat
 
-#print axioms E213.Kernel.Rat.six_ten_eq_three_five
-#print axioms E213.Kernel.Rat.half_eq_five_ten
-#print axioms E213.Kernel.Rat.alphaGUT_base
-#print axioms E213.Kernel.Rat.dsq_over_four_irred
-#print axioms E213.Kernel.Rat.alphaGUT_lt_quarter
+#print axioms E213.Term.Rat.six_ten_eq_three_five
+#print axioms E213.Term.Rat.half_eq_five_ten
+#print axioms E213.Term.Rat.alphaGUT_base
+#print axioms E213.Term.Rat.dsq_over_four_irred
+#print axioms E213.Term.Rat.alphaGUT_lt_quarter

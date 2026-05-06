@@ -1,22 +1,22 @@
-import E213.Kernel.API
-import E213.Kernel.Cap_AtomicComplexity
-import E213.Kernel.Cap_MathArithmetic
-import E213.Kernel.Cap_PeriodicTable
-import E213.Kernel.Cap_PhysicsAtomicIE
-import E213.Kernel.Cap_PhysicsBrackets
-import E213.Kernel.Cap_PhysicsFalsifiers
-import E213.Kernel.Cap_PhysicsObservables
-import E213.Kernel.Compare
-import E213.Kernel.Decide
-import E213.Kernel.Demo
-import E213.Kernel.MonomialAxioms
-import E213.Kernel.Pair
-import E213.Kernel.Rat
-import E213.Kernel.Sound
-import E213.Kernel.Tactic
-import E213.Kernel.Term
+import E213.Term.API
+import E213.Term.Cap_AtomicComplexity
+import E213.Term.Cap_MathArithmetic
+import E213.Term.Cap_PeriodicTable
+import E213.Term.Cap_PhysicsAtomicIE
+import E213.Term.Cap_PhysicsBrackets
+import E213.Term.Cap_PhysicsFalsifiers
+import E213.Term.Cap_PhysicsObservables
+import E213.Term.Compare
+import E213.Term.Decide
+import E213.Term.Demo
+import E213.Term.MonomialAxioms
+import E213.Term.Pair
+import E213.Term.Rat
+import E213.Term.Sound
+import E213.Term.Tactic
+import E213.Term.Term
 
-/-! Spec-as-code entry point for `E213.Kernel`.
+/-! Spec-as-code entry point for `E213.Term`.
 
   Bare-metal type-theory layer — lowest in the ARCHITECTURE.md
   vertical stack.

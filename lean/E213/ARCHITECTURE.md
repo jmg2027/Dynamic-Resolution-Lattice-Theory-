@@ -88,13 +88,13 @@ Verified by `tools/kernel_regress.sh`.
 **Files**: 14 — `Term`, `Compare`, `Pair`, `Rat`, `Decide`, `Sound`,
 `MonomialAxioms`, `Demo`, `Cap_*` capstones (capability collection).
 
-**Naming convention**: `Cap_X.lean` files use `namespace E213.Kernel.Cap.X`
+**Naming convention**: `Cap_X.lean` files use `namespace E213.Term.Cap.X`
 (intentional — Cap is a deliberate sub-namespace, file name uses `_`
 for grouping in directory listing).  `{Term,Compare,Pair,Rat}.lean`
-share `namespace E213.Kernel.Term` umbrella (also intentional).
+share `namespace E213.Term.Term` umbrella (also intentional).
 
 **Public API surface** (G12 §2.1, available via single-import
-`E213.Kernel.API`):
+`E213.Term.API`):
 
   - **K1 — Data API**: `Term`, `Term.eval`, atomic constants
     `Term.{nS, nT, d, c}`

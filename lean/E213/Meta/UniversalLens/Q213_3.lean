@@ -16,7 +16,7 @@ Closes part of HANDOFF Open Continuation #5.
 
 namespace E213.Meta.UniversalLens.Q213_3
 
-open E213.Firmware E213.Lens E213.Kernel
+open E213.Firmware E213.Lens E213.Term
 open E213.Meta.UniversalLens.Q213 (Q213 q213Lens q213Lens_view_a q213Lens_view_b)
 open E213.Meta.UniversalLens.Q213Inj (Q213_ofNat_eval qNat qNat_eq_expSumNat)
 open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_a expSumNat_b expSumNat_slash expSumNat_inj)

@@ -1,12 +1,12 @@
-import E213.Kernel.Tactic.Fin213
-import E213.Kernel.Tactic.Mod213
-import E213.Kernel.Tactic.Nat213
-import E213.Kernel.Tactic.Omega213
-import E213.Kernel.Tactic.Pow213
-import E213.Kernel.Tactic.QuadNorm
-import E213.Kernel.Tactic.Test.QuadNormTest
+import E213.Term.Tactic.Fin213
+import E213.Term.Tactic.Mod213
+import E213.Term.Tactic.Nat213
+import E213.Term.Tactic.Omega213
+import E213.Term.Tactic.Pow213
+import E213.Term.Tactic.QuadNorm
+import E213.Term.Tactic.Test.QuadNormTest
 
-/-! Spec-as-code entry point for `E213.Kernel.Tactic`.
+/-! Spec-as-code entry point for `E213.Term.Tactic`.
 
   213-native tactics at the Kernel layer — replacements for
   Lean's `omega` / `simp` that bring zero hidden axioms.

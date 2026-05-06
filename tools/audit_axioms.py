@@ -6,7 +6,7 @@ as pure (0 axioms) or dirty (depends on propext/Quot.sound/etc).
 
 Usage:
     python3 tools/audit_axioms.py                # all kernel + audited
-    python3 tools/audit_axioms.py --filter Kernel  # only E213.Kernel.*
+    python3 tools/audit_axioms.py --filter Kernel  # only E213.Term.*
 
 Run from repo root.
 """
@@ -21,15 +21,15 @@ LINE = re.compile(
 
 
 KERNEL_MODULES = [
-    'E213.Kernel.Term', 'E213.Kernel.Compare', 'E213.Kernel.Pair',
-    'E213.Kernel.Rat', 'E213.Kernel.Decide', 'E213.Kernel.Sound',
-    'E213.Kernel.Demo', 'E213.Kernel.Cap_PeriodicTable',
-    'E213.Kernel.Cap_PhysicsBrackets',
-    'E213.Kernel.Cap_PhysicsObservables',
-    'E213.Kernel.Cap_PhysicsFalsifiers',
-    'E213.Kernel.Cap_PhysicsAtomicIE',
-    'E213.Kernel.Cap_AtomicComplexity',
-    'E213.Kernel.Cap_MathArithmetic',
+    'E213.Term.Term', 'E213.Term.Compare', 'E213.Term.Pair',
+    'E213.Term.Rat', 'E213.Term.Decide', 'E213.Term.Sound',
+    'E213.Term.Demo', 'E213.Term.Cap_PeriodicTable',
+    'E213.Term.Cap_PhysicsBrackets',
+    'E213.Term.Cap_PhysicsObservables',
+    'E213.Term.Cap_PhysicsFalsifiers',
+    'E213.Term.Cap_PhysicsAtomicIE',
+    'E213.Term.Cap_AtomicComplexity',
+    'E213.Term.Cap_MathArithmetic',
 ]
 
 

@@ -1,13 +1,13 @@
-import E213.Kernel.Term
+import E213.Term.Term
 
 /-!
-# E213.Kernel.Compare — decidable comparison over Term.
+# E213.Term.Compare — decidable comparison over Term.
 
 Returns Bool — bypasses Lean `decide` / `Decidable` typeclass.
 All theorems via `rfl` or structural recursion → 0 axiom maintained.
 -/
 
-namespace E213.Kernel.Term
+namespace E213.Term.Term
 
 /-- Bool version of `a ≤ b` (based on Nat.ble). -/
 def le_b (a b : Term) : Bool := Nat.ble (eval a) (eval b)
@@ -15,9 +15,9 @@ def le_b (a b : Term) : Bool := Nat.ble (eval a) (eval b)
 /-- Bool version of `a < b`. -/
 def lt_b (a b : Term) : Bool := Nat.ble (Nat.succ (eval a)) (eval b)
 
-end E213.Kernel.Term
+end E213.Term.Term
 
-namespace E213.Kernel.Compare
+namespace E213.Term.Compare
 
 open Term
 
@@ -42,11 +42,11 @@ theorem two_nS_sq_lt_d_sq_plus_1 :
     lt_b (mul (succ (succ zero)) (mul nS nS))
          (add (mul d d) (succ zero)) = true := rfl
 
-end E213.Kernel.Compare
+end E213.Term.Compare
 
-#print axioms E213.Kernel.Compare.nT_lt_nS
-#print axioms E213.Kernel.Compare.nS_lt_d
-#print axioms E213.Kernel.Compare.nT_le_c
-#print axioms E213.Kernel.Compare.dsq_ge_2nSsq
-#print axioms E213.Kernel.Compare.two_nS_cube_le_d_cube
-#print axioms E213.Kernel.Compare.two_nS_sq_lt_d_sq_plus_1
+#print axioms E213.Term.Compare.nT_lt_nS
+#print axioms E213.Term.Compare.nS_lt_d
+#print axioms E213.Term.Compare.nT_le_c
+#print axioms E213.Term.Compare.dsq_ge_2nSsq
+#print axioms E213.Term.Compare.two_nS_cube_le_d_cube
+#print axioms E213.Term.Compare.two_nS_sq_lt_d_sq_plus_1

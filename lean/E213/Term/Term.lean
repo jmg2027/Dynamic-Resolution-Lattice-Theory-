@@ -1,5 +1,5 @@
 /-!
-# E213.Kernel.Term — deep-embedded AST of 213.
+# E213.Term.Term — deep-embedded AST of 213.
 
 Vision: Lean is the syntactic host, 213 is the real kernel.
 Term is *data*, and all meaning is determined by *total functions* over Term.
@@ -15,7 +15,7 @@ Raw primitives (CLAUDE.md axiom: "things exist with pairwise relations"):
 The next layer defines entity arithmetic + Lens distinction via add/mul.
 -/
 
-namespace E213.Kernel
+namespace E213.Term
 
 inductive Term : Type
   | zero : Term
@@ -46,4 +46,4 @@ def eval : Term → Nat
 def equiv (a b : Term) : Bool := Nat.beq (eval a) (eval b)
 
 end Term
-end E213.Kernel
+end E213.Term

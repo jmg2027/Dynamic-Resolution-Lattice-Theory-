@@ -1,7 +1,7 @@
 import E213.Math.DyadicFSM.ArithFSM.V3toBitFSM
 import E213.Math.NatHelpers.NatDiv213
 import E213.Math.NatHelpers.EncodePair213
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 
 import E213.Math.DyadicFSM.ArithFSM.V3
 /-!

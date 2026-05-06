@@ -1,8 +1,8 @@
-import E213.Kernel.Term
-import E213.Kernel.Compare
+import E213.Term.Term
+import E213.Term.Compare
 
 /-!
-# E213.Kernel.Cap_PhysicsObservables — core physics observable brackets ported.
+# E213.Term.Cap_PhysicsObservables — core physics observable brackets ported.
 
 Re-states the bracket theorems from Physics/*.lean (which use the decide tactic)
 in kernel `Nat.ble` form → 0 axiom.
@@ -12,7 +12,7 @@ Each line = an actual 213 observable (CLAUDE.md "Key Precision Results"):
   λ_C (Cabibbo), δ_CKM (CP violation).
 -/
 
-namespace E213.Kernel.Cap.PhysicsObservables
+namespace E213.Term.Cap.PhysicsObservables
 
 /-- Δm_np ≈ 127 (centi-MeV), bracket [120, 135]. -/
 theorem dmnp_bracket :
@@ -49,14 +49,14 @@ theorem twenty_four_ne_thirty :
 theorem eight_ne_ten :
     Nat.beq 8 10 = false := rfl
 
-end E213.Kernel.Cap.PhysicsObservables
+end E213.Term.Cap.PhysicsObservables
 
-#print axioms E213.Kernel.Cap.PhysicsObservables.dmnp_bracket
-#print axioms E213.Kernel.Cap.PhysicsObservables.H_E1_bracket
-#print axioms E213.Kernel.Cap.PhysicsObservables.E_d_bracket
-#print axioms E213.Kernel.Cap.PhysicsObservables.omega_lambda_bracket
-#print axioms E213.Kernel.Cap.PhysicsObservables.lambda_C_lt_quarter
-#print axioms E213.Kernel.Cap.PhysicsObservables.mH_vH_bracket
-#print axioms E213.Kernel.Cap.PhysicsObservables.delta_close_1196
-#print axioms E213.Kernel.Cap.PhysicsObservables.twenty_four_ne_thirty
-#print axioms E213.Kernel.Cap.PhysicsObservables.eight_ne_ten
+#print axioms E213.Term.Cap.PhysicsObservables.dmnp_bracket
+#print axioms E213.Term.Cap.PhysicsObservables.H_E1_bracket
+#print axioms E213.Term.Cap.PhysicsObservables.E_d_bracket
+#print axioms E213.Term.Cap.PhysicsObservables.omega_lambda_bracket
+#print axioms E213.Term.Cap.PhysicsObservables.lambda_C_lt_quarter
+#print axioms E213.Term.Cap.PhysicsObservables.mH_vH_bracket
+#print axioms E213.Term.Cap.PhysicsObservables.delta_close_1196
+#print axioms E213.Term.Cap.PhysicsObservables.twenty_four_ne_thirty
+#print axioms E213.Term.Cap.PhysicsObservables.eight_ne_ten

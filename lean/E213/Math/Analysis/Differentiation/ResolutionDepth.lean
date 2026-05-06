@@ -1,5 +1,5 @@
 import E213.Math.Analysis.Differentiation.Smooth
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 
 import E213.Math.Real213.CutPow
 import E213.Math.Real213.CutSumTest

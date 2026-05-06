@@ -1,5 +1,5 @@
 import E213.Math.Infinity.Countable
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 import E213.Math.Infinity.Cantor
 import E213.Math.Infinity.Godel
 import E213.LensCore

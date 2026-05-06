@@ -1,8 +1,8 @@
-import E213.Kernel.Term
-import E213.Kernel.Compare
+import E213.Term.Term
+import E213.Term.Compare
 
 /-!
-# E213.Kernel.Cap_PhysicsFalsifiers — measurement falsifier theorems, 0 axiom.
+# E213.Term.Cap_PhysicsFalsifiers — measurement falsifier theorems, 0 axiom.
 
 DRLT *falsifiers* — explicitly specifies which observations would refute the theory.
 Satisfies the second condition of CLAUDE.md "DRLT validation criteria (absolute principle)":
@@ -12,7 +12,7 @@ Each theorem: uses only kernel `Nat.ble` / `Nat.beq` → 0 axiom.
 Once closed, each falsifier itself becomes a *formally measurable proposition*.
 -/
 
-namespace E213.Kernel.Cap.PhysicsFalsifiers
+namespace E213.Term.Cap.PhysicsFalsifiers
 
 /-- θ_QCD 213 prediction: 250 < θ_QCD * 10^11 < 300. -/
 theorem thetaQCD_lower : Nat.ble 251 286 = true := rfl
@@ -57,14 +57,14 @@ theorem mtheory_d_absent : Nat.beq 5 11 = false := rfl
 /-- Static couplings gap atomic: 8340 - 8333 = 7. -/
 theorem gap_atomic : Nat.ble 8334 8340 = true := rfl
 
-end E213.Kernel.Cap.PhysicsFalsifiers
+end E213.Term.Cap.PhysicsFalsifiers
 
-#print axioms E213.Kernel.Cap.PhysicsFalsifiers.thetaQCD_lower
-#print axioms E213.Kernel.Cap.PhysicsFalsifiers.thetaQCD_upper
-#print axioms E213.Kernel.Cap.PhysicsFalsifiers.cdf_W_in_bracket
-#print axioms E213.Kernel.Cap.PhysicsFalsifiers.lambda_Cabibbo_lower
-#print axioms E213.Kernel.Cap.PhysicsFalsifiers.T23_lower
-#print axioms E213.Kernel.Cap.PhysicsFalsifiers.drlt_neq_tbm_2_neq_3
-#print axioms E213.Kernel.Cap.PhysicsFalsifiers.string_d_absent
-#print axioms E213.Kernel.Cap.PhysicsFalsifiers.mtheory_d_absent
-#print axioms E213.Kernel.Cap.PhysicsFalsifiers.gap_atomic
+#print axioms E213.Term.Cap.PhysicsFalsifiers.thetaQCD_lower
+#print axioms E213.Term.Cap.PhysicsFalsifiers.thetaQCD_upper
+#print axioms E213.Term.Cap.PhysicsFalsifiers.cdf_W_in_bracket
+#print axioms E213.Term.Cap.PhysicsFalsifiers.lambda_Cabibbo_lower
+#print axioms E213.Term.Cap.PhysicsFalsifiers.T23_lower
+#print axioms E213.Term.Cap.PhysicsFalsifiers.drlt_neq_tbm_2_neq_3
+#print axioms E213.Term.Cap.PhysicsFalsifiers.string_d_absent
+#print axioms E213.Term.Cap.PhysicsFalsifiers.mtheory_d_absent
+#print axioms E213.Term.Cap.PhysicsFalsifiers.gap_atomic

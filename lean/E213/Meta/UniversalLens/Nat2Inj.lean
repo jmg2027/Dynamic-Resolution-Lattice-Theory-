@@ -1,6 +1,6 @@
 import E213.Meta.UniversalLens.Nat2
 import E213.Meta.BitPatternUniqueness
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 
 /-!
 # expSumLens.view injectivity (full universality of `Lens (ℕ × ℕ)`)

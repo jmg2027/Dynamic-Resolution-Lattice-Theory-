@@ -9,7 +9,7 @@ standard (formalized 2026-05-02) is the strict ∅-axiom set, i.e.
 `#print axioms` returning "does not depend on any axioms".  See
 `CLAUDE.md ## DRLT Axiom Standard`.
 
-`omega213` (in `E213.Kernel.Tactic.Omega213`) is an axiom-free replacement
+`omega213` (in `E213.Term.Tactic.Omega213`) is an axiom-free replacement
 for the patterns 213 actually uses.
 
 ## Empirical data point
@@ -52,7 +52,7 @@ suggested manual replacements:
 ## Migration procedure
 
 1. Identify a file with many `by omega` calls.
-2. `import E213.Kernel.Tactic.Omega213` and `open E213.Tactic`.
+2. `import E213.Term.Tactic.Omega213` and `open E213.Tactic`.
 3. For each `by omega`:
    a. Try `by omega213` first.  If it builds + 0-axiom, done.
    b. Otherwise inline a specific Nat lemma: `exact Nat.foo h`.

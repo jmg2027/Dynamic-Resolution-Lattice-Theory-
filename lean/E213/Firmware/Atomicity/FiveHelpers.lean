@@ -1,4 +1,4 @@
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 /-!
 # Five.lean helpers — ∅-axiom (Nat-arith + Bézout shifts)
 

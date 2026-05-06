@@ -1,5 +1,5 @@
 import E213.Firmware.Atomicity.Five
-import E213.Kernel.Tactic.Mod213
+import E213.Term.Tactic.Mod213
 
 /-!
 # Pair Forcing: (2, 3) is the unique coprime pair with a unique atomic n

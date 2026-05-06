@@ -1,8 +1,8 @@
-import E213.Kernel.Term
-import E213.Kernel.Compare
+import E213.Term.Term
+import E213.Term.Compare
 
 /-!
-# E213.Kernel.Sound — bridge between deep ↔ shallow embedding.
+# E213.Term.Sound — bridge between deep ↔ shallow embedding.
 
 `equiv a b = true` (Bool, deep) → `eval a = eval b` (Lean Eq, shallow).
 `Nat.eq_of_beq_eq_true` uses only structural induction, no propext dependency →
@@ -12,7 +12,7 @@ The Sound bridge is needed to *upgrade* deep capstone results into
 shallow Lean theorems — making them convenient to cite externally.
 -/
 
-namespace E213.Kernel.Sound
+namespace E213.Term.Sound
 
 open Term
 
@@ -46,11 +46,11 @@ theorem two_nSsq_lt_dsq :
     eval (mul (succ (succ zero)) (mul nS nS)) < eval (mul d d) :=
   Nat.lt_of_lt_of_le (by decide : 18 < 25) (Nat.le_refl 25)
 
-end E213.Kernel.Sound
+end E213.Term.Sound
 
-#print axioms E213.Kernel.Sound.of_equiv
-#print axioms E213.Kernel.Sound.of_le_b
-#print axioms E213.Kernel.Sound.to_equiv
-#print axioms E213.Kernel.Sound.dim_law_eq
-#print axioms E213.Kernel.Sound.d_sq_eq_25
-#print axioms E213.Kernel.Sound.two_nSsq_lt_dsq
+#print axioms E213.Term.Sound.of_equiv
+#print axioms E213.Term.Sound.of_le_b
+#print axioms E213.Term.Sound.to_equiv
+#print axioms E213.Term.Sound.dim_law_eq
+#print axioms E213.Term.Sound.d_sq_eq_25
+#print axioms E213.Term.Sound.two_nSsq_lt_dsq

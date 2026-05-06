@@ -1,8 +1,8 @@
 import E213.Math.Real213.CutBisection
 import E213.Math.Real213.Dyadic
 import E213.Math.Real213.CutFnData
-import E213.Kernel.Tactic.Nat213
-import E213.Kernel.Tactic.Pow213
+import E213.Term.Tactic.Nat213
+import E213.Term.Tactic.Pow213
 
 /-!
 # ResolutionShift — `(Nat, +)`-graded structure on cut transformers

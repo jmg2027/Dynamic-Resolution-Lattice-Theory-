@@ -4,7 +4,7 @@
 #   Tier 1 (모든 lean/E213/*.lean):  CLAUDE.md 의 5 forbidden
 #     - sorry, 외부 axiom, Mathlib, Classical, native_decide
 #
-#   Tier 2 (lean/E213/Kernel/**):  비전 강제 — *literally 0 axiom*
+#   Tier 2 (lean/E213/Term/**):  비전 강제 — *literally 0 axiom*
 #     - 위 5개 +
 #     - simp / rw / cases-on-Eq / Iff = / decide-tactic
 #       (모두 propext 또는 Quot.sound 끌어올 수 있음)
@@ -48,7 +48,7 @@ echo "$CONTENT" | grep -q 'open Classical' \
 
 # Tier 2 — Kernel strict
 case "$PATH_" in
-  */lean/E213/Kernel/*.lean)
+  */lean/E213/Term/*.lean)
     # 'decide' tactic (Decidable Eq Nat → Nat.beq_eq → propext)
     echo "$CONTENT" | grep -qE '(^|[^a-zA-Z_])by[[:space:]]+decide([^a-zA-Z_]|$)|:=[[:space:]]*by[[:space:]]+decide' \
       && VIOLATIONS="${VIOLATIONS}kernel:decide "
@@ -64,7 +64,7 @@ esac
 if [ -n "$VIOLATIONS" ]; then
   REASON="DRLT 213 purity 위반: ${VIOLATIONS}"
   case "$PATH_" in
-    */lean/E213/Kernel/*.lean)
+    */lean/E213/Term/*.lean)
       REASON="${REASON}— Kernel 은 *literally 0 axiom* 강제. propext/Quot.sound 도 안 됨. Eq.subst, Bool.cond, 구조귀납 으로 우회."
       ;;
     *)

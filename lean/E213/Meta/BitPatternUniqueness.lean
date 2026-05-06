@@ -1,6 +1,6 @@
-import E213.Kernel.Tactic.Pow213
-import E213.Kernel.Tactic.Mod213
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Pow213
+import E213.Term.Tactic.Mod213
+import E213.Term.Tactic.Nat213
 
 /-!
 # Bit-pattern uniqueness — key lemma for expSumLens injectivity (∅-axiom)

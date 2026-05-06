@@ -1,7 +1,7 @@
 import E213.Math.DyadicFSM.Pisano.Predictor
 import E213.Math.DyadicFSM.Fib.PisanoCapstone
 import E213.Math.NatHelpers.AddMod213
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 
 import E213.Math.DyadicFSM.Legendre.V213
 /-!

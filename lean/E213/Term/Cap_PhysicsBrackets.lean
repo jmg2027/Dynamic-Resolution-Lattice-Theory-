@@ -1,8 +1,8 @@
-import E213.Kernel.Term
-import E213.Kernel.Compare
+import E213.Term.Term
+import E213.Term.Compare
 
 /-!
-# E213.Kernel.Cap_PhysicsBrackets — physics bracket theorems ported, 0 axiom.
+# E213.Term.Cap_PhysicsBrackets — physics bracket theorems ported, 0 axiom.
 
 Re-expresses the bracket theorems from lean/E213/Physics/HadronMasses.lean
 (which rely on the decide tactic) using the kernel's `lt_b` → guarantees axiom-free.
@@ -10,7 +10,7 @@ Re-expresses the bracket theorems from lean/E213/Physics/HadronMasses.lean
 Each bracket check: `lt_b lo m = true ∧ lt_b m hi = true`.
 -/
 
-namespace E213.Kernel.Cap.PhysicsBrackets
+namespace E213.Term.Cap.PhysicsBrackets
 
 open Term
 
@@ -39,10 +39,10 @@ theorem inv_alpha_em_bracket :
     Nat.ble (1370) 1370 = true ∧ Nat.ble (1371) 1380 = true :=
   ⟨rfl, rfl⟩
 
-end E213.Kernel.Cap.PhysicsBrackets
+end E213.Term.Cap.PhysicsBrackets
 
-#print axioms E213.Kernel.Cap.PhysicsBrackets.mpi_sq_bracket
-#print axioms E213.Kernel.Cap.PhysicsBrackets.mrho_sq_bracket
-#print axioms E213.Kernel.Cap.PhysicsBrackets.hyperfine_sq_bracket
-#print axioms E213.Kernel.Cap.PhysicsBrackets.mp_bracket
-#print axioms E213.Kernel.Cap.PhysicsBrackets.inv_alpha_em_bracket
+#print axioms E213.Term.Cap.PhysicsBrackets.mpi_sq_bracket
+#print axioms E213.Term.Cap.PhysicsBrackets.mrho_sq_bracket
+#print axioms E213.Term.Cap.PhysicsBrackets.hyperfine_sq_bracket
+#print axioms E213.Term.Cap.PhysicsBrackets.mp_bracket
+#print axioms E213.Term.Cap.PhysicsBrackets.inv_alpha_em_bracket

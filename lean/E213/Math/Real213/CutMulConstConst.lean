@@ -1,4 +1,4 @@
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutMulComm
 import E213.Math.Real213.CutSumTest

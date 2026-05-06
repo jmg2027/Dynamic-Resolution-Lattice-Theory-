@@ -26,14 +26,14 @@ DEFAULT_SKIP = {
     "lean/E213/Firmware/RawSwap.lean",
     # Hypervisor/Lens.lean uses `E213.Hypervisor` umbrella
     "lean/E213/Hypervisor/Lens.lean",
-    # Kernel layer umbrella (101 thms in `namespace E213.Kernel`)
-    "lean/E213/Kernel",
+    # Kernel layer umbrella (101 thms in `namespace E213.Term`)
+    "lean/E213/Term",
     "lean/E213/Prelude.lean",
     # Tactic short-namespace umbrellas (post-2026-05-XX reorg).
     # Files at these paths declare `namespace E213.Tactic` for ergonomic
     # `open E213.Tactic` macro access.  Path is path-aligned-to-layer;
     # namespace is intentionally short.
-    "lean/E213/Kernel/Tactic",
+    "lean/E213/Term/Tactic",
     "lean/E213/Math/Tactic",
     "lean/E213/Meta/Tactic",
     # Math/Infinity/ files share `namespace E213.Infinity` umbrella by

@@ -1,5 +1,5 @@
 import E213.Prelude
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 open E213.Tactic.Nat213
 
 /-!

@@ -3,8 +3,8 @@ import E213.Math.Real213.CutFnData
 import E213.Math.Real213.Dyadic
 import E213.Math.Real213.ValidCut
 import E213.Math.Real213.CutPoset
-import E213.Kernel.Tactic.Nat213
-import E213.Kernel.Tactic.Pow213
+import E213.Term.Tactic.Nat213
+import E213.Term.Tactic.Pow213
 
 /-!
 # MinimalRootLensMonotone — sign-change invariance under bisection

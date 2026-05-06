@@ -1,5 +1,5 @@
 import E213.Math.DyadicFSM.ForwardPeriodicity
-import E213.Kernel.Tactic.Nat213
+import E213.Term.Tactic.Nat213
 import E213.Math.NatHelpers.AddMod213
 
 import E213.Math.DyadicFSM.Signature

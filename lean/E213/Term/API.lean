@@ -1,10 +1,10 @@
-import E213.Kernel.Term
-import E213.Kernel.Compare
-import E213.Kernel.Pair
-import E213.Kernel.Rat
-import E213.Kernel.Decide
-import E213.Kernel.Sound
-import E213.Kernel.MonomialAxioms
+import E213.Term.Term
+import E213.Term.Compare
+import E213.Term.Pair
+import E213.Term.Rat
+import E213.Term.Decide
+import E213.Term.Sound
+import E213.Term.MonomialAxioms
 
 /-!
 # Kernel: Public API (re-export shim)
@@ -12,7 +12,7 @@ import E213.Kernel.MonomialAxioms
 G12 D1: single-import entry point for the Kernel layer's public API.
 Pattern follows `Firmware/Raw.lean` precedent (refactor shim).
 
-Downstream code can `import E213.Kernel.API` and access K1+K2+K3:
+Downstream code can `import E213.Term.API` and access K1+K2+K3:
 
 **K1 — Data API**: 213 syntactic objects
   - `Term` (deep-embedded AST)
