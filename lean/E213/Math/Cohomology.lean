@@ -1,194 +1,21 @@
 import E213.Math.Cohomology.AlphaEMBridge
 import E213.Math.Cohomology.BettiKernel
-import E213.Math.Cohomology.Bipartite.Filled
-import E213.Math.Cohomology.Bipartite.V32
-import E213.Math.Cohomology.Bipartite.V32Betti
+import E213.Math.Cohomology.Bipartite
 import E213.Math.Cohomology.Capstone
 import E213.Math.Cohomology.ClosureExtension
-import E213.Math.Cohomology.Cochain.Core
-import E213.Math.Cohomology.Cochain.V5Decomp
-import E213.Math.Cohomology.Cochain.V5_1DecompR
-import E213.Math.Cohomology.Cochain.V5_2Decomp
-import E213.Math.Cohomology.Cup.Core
-import E213.Math.Cohomology.Cup.Leibniz
-import E213.Math.Cohomology.Cup.Ring
-import E213.Math.Cohomology.CupAW.BasisLeibniz
-import E213.Math.Cohomology.CupAW.Bilinear
-import E213.Math.Cohomology.CupAW.BilinearFunc
-import E213.Math.Cohomology.CupAW.Core
-import E213.Math.Cohomology.CupAW.Leibniz
-import E213.Math.Cohomology.CupAW.Leibniz21Bridge
-import E213.Math.Cohomology.CupAW.Leibniz21Final
-import E213.Math.Cohomology.CupAW.Leibniz22Bridge
-import E213.Math.Cohomology.CupAW.Leibniz22Final
-import E213.Math.Cohomology.CupAW.Leibniz4Mixed
-import E213.Math.Cohomology.CupAW.LeibnizAlgLift
-import E213.Math.Cohomology.CupAW.LeibnizAlgLift21
-import E213.Math.Cohomology.CupAW.LeibnizAlgLift21Alpha
-import E213.Math.Cohomology.CupAW.LeibnizAlgLift22
-import E213.Math.Cohomology.CupAW.LeibnizAlgLift22Alpha
-import E213.Math.Cohomology.CupAW.LeibnizMid
-import E213.Math.Cohomology.CupAW.Pointwise
-import E213.Math.Cohomology.CupAW.Zero
-import E213.Math.Cohomology.Delta.Core
-import E213.Math.Cohomology.Delta.Linear
-import E213.Math.Cohomology.Delta.Pointwise
-import E213.Math.Cohomology.Delta.SqZero
-import E213.Math.Cohomology.Delta.V4Capstone
+import E213.Math.Cohomology.Cochain
+import E213.Math.Cohomology.Cup
+import E213.Math.Cohomology.CupAW
+import E213.Math.Cohomology.Delta
 import E213.Math.Cohomology.DiamondAudit
 import E213.Math.Cohomology.DiamondShape
-import E213.Math.Cohomology.Dyadic.ArithFSM
-import E213.Math.Cohomology.Dyadic.ArithFSM.Hardness
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod101
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod11
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod13
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod17
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod19
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod23
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod29
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod31
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod37
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod41
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod43
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod47
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod5
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod53
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod59
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod61
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod67
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod7
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod71
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod73
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod79
-import E213.Math.Cohomology.Dyadic.ArithFSM.Mod89
-import E213.Math.Cohomology.Dyadic.ArithFSM.Signature
-import E213.Math.Cohomology.Dyadic.ArithFSM.ToBitFSM
-import E213.Math.Cohomology.Dyadic.ArithFSM.V1
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3Bound
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3Equiv
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3Hardness
-import E213.Math.Cohomology.Dyadic.ArithFSM.V3toBitFSM
-import E213.Math.Cohomology.Dyadic.BitAuto2
-import E213.Math.Cohomology.Dyadic.BitFSM
-import E213.Math.Cohomology.Dyadic.BitFSM.Bound
-import E213.Math.Cohomology.Dyadic.BitFSM.Converse
-import E213.Math.Cohomology.Dyadic.Classifier
-import E213.Math.Cohomology.Dyadic.ConcretePellSig
-import E213.Math.Cohomology.Dyadic.Conjecture
-import E213.Math.Cohomology.Dyadic.CrossClassLens
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod11
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod13
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod17
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod19
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod23
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod3
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod5
-import E213.Math.Cohomology.Dyadic.Fib.FSMmod7
-import E213.Math.Cohomology.Dyadic.Fib.PellRelation
-import E213.Math.Cohomology.Dyadic.Fib.Pisano8
-import E213.Math.Cohomology.Dyadic.Fib.PisanoCapstone
-import E213.Math.Cohomology.Dyadic.ForwardClosure
-import E213.Math.Cohomology.Dyadic.ForwardEventual
-import E213.Math.Cohomology.Dyadic.ForwardPeriodicity
-import E213.Math.Cohomology.Dyadic.LCMClosure
-import E213.Math.Cohomology.Dyadic.Legendre.Pisano
-import E213.Math.Cohomology.Dyadic.Legendre.PisanoExt
-import E213.Math.Cohomology.Dyadic.Legendre.Small
-import E213.Math.Cohomology.Dyadic.Legendre.V13_19
-import E213.Math.Cohomology.Dyadic.Legendre.V213
-import E213.Math.Cohomology.Dyadic.LucasFSMmod5
-import E213.Math.Cohomology.Dyadic.Pell.Bounds
-import E213.Math.Cohomology.Dyadic.Pell.Capstone
-import E213.Math.Cohomology.Dyadic.Pell.Family
-import E213.Math.Cohomology.Dyadic.Pell.Lens
-import E213.Math.Cohomology.Dyadic.Pell.LensPairs
-import E213.Math.Cohomology.Dyadic.Pell.LensTriple
-import E213.Math.Cohomology.Dyadic.Pell.Proper
-import E213.Math.Cohomology.Dyadic.Pell.Proper8
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod11
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod13
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod17
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod19
-import E213.Math.Cohomology.Dyadic.Pell.ProperMod23
-import E213.Math.Cohomology.Dyadic.Pell.ProperSmall
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor11
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor14
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor17
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor20
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor22
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor6
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor7
-import E213.Math.Cohomology.Dyadic.Pisano.Predictor8
-import E213.Math.Cohomology.Dyadic.ProductFSM
-import E213.Math.Cohomology.Dyadic.ProductFSMPeriod
-import E213.Math.Cohomology.Dyadic.ProductFSMPeriodDvd
-import E213.Math.Cohomology.Dyadic.ProductFSMRun
-import E213.Math.Cohomology.Dyadic.ProductHelpers
-import E213.Math.Cohomology.Dyadic.Signature
-import E213.Math.Cohomology.Dyadic.SignatureBipartite
-import E213.Math.Cohomology.Dyadic.SignaturePredict
-import E213.Math.Cohomology.Dyadic.ThueMorse
-import E213.Math.Cohomology.Dyadic.Tier2Hardness
-import E213.Math.Cohomology.Dyadic.TierBridge
-import E213.Math.Cohomology.Dyadic.Trib.CRT4Capstone
-import E213.Math.Cohomology.Dyadic.Trib.CRTCapstone
-import E213.Math.Cohomology.Dyadic.Trib.Capstone
-import E213.Math.Cohomology.Dyadic.Trib.FSMmod3
-import E213.Math.Cohomology.Dyadic.Trib.FSMmod5
-import E213.Math.Cohomology.Dyadic.Trib.FSMmod7
-import E213.Math.Cohomology.Dyadic.TwoLayerPredictor
-import E213.Math.Cohomology.Dyadic.WalkUniversal
+import E213.Math.Cohomology.Dyadic
 import E213.Math.Cohomology.EncodingBijection
 import E213.Math.Cohomology.EncodingBijection52
 import E213.Math.Cohomology.EulerClosed
-import E213.Math.Cohomology.Fractal.AlphaGUT
-import E213.Math.Cohomology.Fractal.Level
-import E213.Math.Cohomology.Fractal.V25
-import E213.Math.Cohomology.Hodge.Delta
-import E213.Math.Cohomology.Hodge.Involution
-import E213.Math.Cohomology.Hodge.InvolutionCapstone
-import E213.Math.Cohomology.Hodge.Prop
-import E213.Math.Cohomology.Hodge.Prop50
-import E213.Math.Cohomology.Hodge.Prop52
-import E213.Math.Cohomology.Hodge.Prop53
-import E213.Math.Cohomology.Hodge.Prop54
-import E213.Math.Cohomology.Hodge.Star
-import E213.Math.Cohomology.HodgeConjecture.API
-import E213.Math.Cohomology.HodgeConjecture.Bridge.BeilinsonRegulator
-import E213.Math.Cohomology.HodgeConjecture.Bridge.DiscreteGeometry
-import E213.Math.Cohomology.HodgeConjecture.Bridge.G6Vacuity
-import E213.Math.Cohomology.HodgeConjecture.Bridge.GaloisCounterfactual
-import E213.Math.Cohomology.HodgeConjecture.Bridge.Ising
-import E213.Math.Cohomology.HodgeConjecture.Bridge.MLDecoder
-import E213.Math.Cohomology.HodgeConjecture.Bridge.MotiveEtaleFusion
-import E213.Math.Cohomology.HodgeConjecture.Bridge.PhaseRouting
-import E213.Math.Cohomology.HodgeConjecture.Bridge.Potts
-import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlass
-import E213.Math.Cohomology.HodgeConjecture.Bridge.SpinGlassGroundState
-import E213.Math.Cohomology.HodgeConjecture.Foundation.Canonical
-import E213.Math.Cohomology.HodgeConjecture.Foundation.Complete
-import E213.Math.Cohomology.HodgeConjecture.Foundation.Conjecture
-import E213.Math.Cohomology.HodgeConjecture.Foundation.ConjectureLens
-import E213.Math.Cohomology.HodgeConjecture.Foundation.Filled
-import E213.Math.Cohomology.HodgeConjecture.Foundation.LensCata
-import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeIndex
-import E213.Math.Cohomology.HodgeConjecture.Pairing.HodgeRiemann
-import E213.Math.Cohomology.HodgeConjecture.Refinement.CupAtomicGeneration
-import E213.Math.Cohomology.HodgeConjecture.Refinement.GeneralizedHodge
-import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzHyperplane
-import E213.Math.Cohomology.HodgeConjecture.Refinement.LefschetzOneOne
-import E213.Math.Cohomology.HodgeConjecture.Refinement.StandardConjectures
-import E213.Math.Cohomology.HodgeConjecture.Refinement.Voisin
-import E213.Math.Cohomology.HodgeConjecture.Structure.HardLefschetz
-import E213.Math.Cohomology.HodgeConjecture.Structure.Map
-import E213.Math.Cohomology.HodgeConjecture.Structure.PoincareDuality
-import E213.Math.Cohomology.HodgeConjecture.Structure.Ring
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.LensClassifier
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.Primitives
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTrip
-import E213.Math.Cohomology.HodgeConjecture.Toolkit.RoundTripMid
+import E213.Math.Cohomology.Fractal
+import E213.Math.Cohomology.Hodge
+import E213.Math.Cohomology.HodgeConjecture
 import E213.Math.Cohomology.K5
 import E213.Math.Cohomology.LeibnizFinding
 import E213.Math.Cohomology.Paper1Chiral
@@ -196,14 +23,7 @@ import E213.Math.Cohomology.Real213Bridge
 import E213.Math.Cohomology.SimplexBasis
 import E213.Math.Cohomology.TopologyCompare
 import E213.Math.Cohomology.TrivialCases
-import E213.Math.Cohomology.Universal.Core
-import E213.Math.Cohomology.Universal.Prop
-import E213.Math.Cohomology.Universal.Prop31
-import E213.Math.Cohomology.Universal.Prop41
-import E213.Math.Cohomology.Universal.Prop42
-import E213.Math.Cohomology.Universal.Prop51
-import E213.Math.Cohomology.Universal.Prop52
-import E213.Math.Cohomology.Universal.Prop53
+import E213.Math.Cohomology.Universal
 import E213.Math.Cohomology.WhyDimFive
 import E213.Math.Cohomology.XorPairCombine
 
@@ -213,57 +33,28 @@ import E213.Math.Cohomology.XorPairCombine
   Hodge structures, dyadic FSM theory, and the Hodge-conjecture
   bridge stack.  All ∅-axiom on the in-scope files.
 
-  ## Chapters (sub-directory umbrellas)
+  ## Chapters (each = a `<DirName>.lean` umbrella under this dir)
 
     * `Bipartite/` — K_{NS,NT}^{(c)} bipartite graph cohomology
       (V32 / V32Betti / Filled — 2-cell-filling of 4-cycles).
-    * `Cochain/`   — Cochain core type + V5 / V5_1 / V5_2 decomposition
-      lemmas underpinning the cup-AW machinery.
-    * `Cup/`       — Strict cup product (Cup.Core / Leibniz / Ring).
-    * `CupAW/`     — Alexander–Whitney cup-AW: bilinearity, Leibniz
-      identities at every (p,q,r) basis, alg-lift bridges.
-    * `Delta/`     — Coboundary δ: Core / Linear / Pointwise / SqZero
-      (δ²=0) / V4Capstone.
-    * `Dyadic/`    — 110-file dyadic / FSM / Pell / Pisano / Trib /
+    * `Cochain/`   — Cochain core type + V5 / V5_1 / V5_2
+      decomposition lemmas underpinning the cup-AW machinery.
+    * `Cup/`       — Strict cup product (Core / Leibniz / Ring).
+    * `CupAW/`     — Alexander–Whitney cup-AW: bilinearity,
+      Leibniz identities, alg-lift bridges.
+    * `Delta/`     — Coboundary δ: Core / Linear / Pointwise /
+      SqZero (δ²=0) / V4Capstone.
+    * `Dyadic/`    — Dyadic / FSM / Pell / Pisano / Trib /
       Legendre / WalkUniversal sub-cluster.  The classification
       engine for arithmetic FSM hardness.
     * `Fractal/`   — Fractal-level cardinality (AlphaGUT / V25 / Level).
     * `Hodge/`     — Hodge structure: Δ-Laplacian, Star-involution,
       Prop50 / 52 / 53 / 54 capstones.
-    * `HodgeConjecture/` — 34-file Hodge-conjecture bridge stack:
-      Foundation / Pairing / Refinement / Structure / Toolkit / Bridge
-      (Beilinson regulator, etale fusion, Galois, Ising, Potts,
-      SpinGlass, ML decoder, Discrete geometry, Phase routing).
-    * `Universal/` — Prop-level Universal δ²=0 lift (Prop31 / 41 / 42 /
-      51 / 52 / 53) and Universal.Core / Prop wrappers.
+    * `HodgeConjecture/` — Hodge-conjecture bridge stack.
+    * `Universal/` — Prop-level Universal δ²=0 lift (Prop31 …
+      Prop53) and Universal.Core / Prop wrappers.
 
-  ## Top-level standalone modules
-
-    * `AlphaEMBridge`        — bridge to Physics/AlphaEM precision chain
-    * `BettiKernel`          — Betti-number kernel definition
-    * `Capstone`             — top-level Cohomology capstone
-    * `ClosureExtension`     — closure-extension witness
-    * `DiamondAudit`,
-      `DiamondShape`         — diamond-shape cocycle audit
-    * `EncodingBijection`,
-      `EncodingBijection52`  — encoding bijection witnesses
-    * `EulerClosed`          — Euler-characteristic closed-form
-    * `K5`                   — K_5 (complete-graph) special case
-    * `LeibnizFinding`       — Leibniz-identity discovery sweep
-    * `Paper1Chiral`         — Paper-1 chiral-phase cohomology
-    * `Real213Bridge`        — bridge to Math/Real213
-    * `SimplexBasis`         — Δ^n simplex basis encoding
-    * `TopologyCompare`      — comparison with classical topology
-    * `TrivialCases`         — degenerate / trivial-case audit
-    * `WhyDimFive`           — d = 5 selection witness
-    * `XorPairCombine`       — XOR-pair combine homomorphism
-
-  ## Status
-
-  208/217 files included.  9 files excluded (pre-existing API
-  drift documented in `research-notes/HIERARCHICAL_PLACEMENT.md`
-  §6.3): two CupAW Leibniz wrappers (`Prop31.pattern_eq` API
-  rename), four Dyadic files (`ArithFSM.V1.Ar*.padTo2` rename),
-  two `Dyadic/Archive/` free-variable elaboration drift, and
-  `Pell/ProperBridge` function-application drift.
+  Pre-existing API drift on a small fixed set of files documented
+  in `research-notes/HIERARCHICAL_PLACEMENT.md` §6.3.  Each
+  sub-cluster umbrella records its own deferred list inline.
 -/
