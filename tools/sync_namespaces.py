@@ -19,11 +19,11 @@ E213 = LEAN_ROOT / "E213"
 # Their *path* (Kernel/Tactic/, Math/Tactic/, Meta/Tactic/) reflects the
 # import-derived layer, but the *namespace* is intentionally short.
 DEFAULT_SKIP = {
-    # Raw umbrella — multiple flat files share `E213.Firmware`
-    "lean/E213/Firmware/Raw",
-    "lean/E213/Firmware/Raw.lean",
-    "lean/E213/Firmware/RawLevels.lean",
-    "lean/E213/Firmware/RawSwap.lean",
+    # Raw umbrella — multiple flat files share `E213.Theory`
+    "lean/E213/Theory/Raw",
+    "lean/E213/Theory/Raw.lean",
+    "lean/E213/Theory/RawLevels.lean",
+    "lean/E213/Theory/RawSwap.lean",
     # Hypervisor/Lens.lean uses `E213.Hypervisor` umbrella
     "lean/E213/Hypervisor/Lens.lean",
     # Kernel layer umbrella (101 thms in `namespace E213.Term`)
@@ -37,7 +37,7 @@ DEFAULT_SKIP = {
     "lean/E213/Math/Tactic",
     "lean/E213/Meta/Tactic",
     # Math/Infinity/ files share `namespace E213.Infinity` umbrella by
-    # design — they ALSO use `namespace E213.Firmware.Internal` for
+    # design — they ALSO use `namespace E213.Theory.Internal` for
     # helper access (multi-namespace files), which the auto-aligner
     # mis-handles.  Keep the umbrella stable.
     "lean/E213/Math/Infinity",

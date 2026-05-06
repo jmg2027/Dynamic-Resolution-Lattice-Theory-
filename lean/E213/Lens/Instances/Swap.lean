@@ -1,6 +1,6 @@
 import E213.LensCore
 import E213.Lens.Instances.Identity
-import E213.Firmware.Raw.SwapSlash
+import E213.Theory.Raw.SwapSlash
 
 /-!
 # SwapLens: Lens with Raw.swap as its view
@@ -25,7 +25,7 @@ RawMatchingLens.lean).  Swapping just the base yields view = Raw.swap.
 
 namespace E213.Lens.Instances.Swap
 
-open E213.Firmware E213.Lens E213.Lens.Instances.Identity
+open E213.Theory E213.Lens E213.Lens.Instances.Identity
 
 /-- Swap Lens: Lens whose view is Raw.swap. -/
 def swapLens : Lens Raw where
@@ -72,7 +72,7 @@ end E213.Lens.Instances.Swap
 
 namespace E213.Lens.Instances.Swap
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.Identity
 
 /-- idLens and swapLens are refines-equivalent.  Both are injective,

@@ -27,7 +27,7 @@ sequence converging to root.
 
 namespace E213.Math.Real213.CutBisectionAlgo
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.Core (Real213)
 
@@ -49,7 +49,7 @@ def bisectN (a b : Nat → Nat → Bool) (oracle : Nat → Nat → Bool → Bool
     if oracle m k (mid m k) then bisectN a mid oracle n m k
     else bisectN mid b oracle n m k
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.Core (Real213)
 

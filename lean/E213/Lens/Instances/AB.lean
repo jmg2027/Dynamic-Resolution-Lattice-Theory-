@@ -21,7 +21,7 @@ each level of the refines preorder").
 
 namespace E213.Lens.Instances.AB
 
-open E213.Firmware E213.Lens E213.Lens.Compose.Factoring
+open E213.Theory E213.Lens E213.Lens.Compose.Factoring
 
 /-- Track Raw.a count and Raw.b count componentwise. -/
 def abLens : Lens (Nat × Nat) where
@@ -69,7 +69,7 @@ end E213.Lens.Instances.AB
 
 namespace E213.Lens.Instances.AB
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Witness: 2a + 1b. -/
 def rAAB : Raw :=

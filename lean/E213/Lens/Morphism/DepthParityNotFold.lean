@@ -18,7 +18,7 @@ Concrete application of both perspectives (note 42 §1).
 
 namespace E213.Lens.Morphism.DepthParityNotFold
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Morphism.FoldStructured E213.Lens.Morphism.NoDepthParity
 
 /-- The depth parity function. -/

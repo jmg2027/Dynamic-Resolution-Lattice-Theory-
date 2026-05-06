@@ -22,7 +22,7 @@ of the refines preorder.
 
 namespace E213.Lens.Lattice.Join
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Lattice.JoinEquiv E213.Lens.Universal.QuotLens
 
 /-- JoinEquiv L M is an equivalence relation. -/

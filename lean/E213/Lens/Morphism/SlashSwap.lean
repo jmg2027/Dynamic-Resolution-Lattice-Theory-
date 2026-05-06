@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 
 /-!
@@ -47,7 +47,7 @@ introduced.  Verifies via `#print axioms`.
 
 namespace E213.Lens.Morphism.SlashSwap
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Slash arg-swap invariance of every Lens.view.**
     No commutativity hypothesis on `L.combine` — the invariance

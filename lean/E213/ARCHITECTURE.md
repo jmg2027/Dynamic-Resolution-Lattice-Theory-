@@ -118,11 +118,11 @@ of 213.  Plus the proofs that this shape is *forced uniquely*.
 
   `Firmware/Raw/` (8 files) — internal implementation of Raw +
     eliminator, fold, swap, comparison.  Internal namespace
-    `E213.Firmware.Internal` (umbrella shared, intentional).
+    `E213.Theory.Internal` (umbrella shared, intentional).
 
   `Firmware/Raw.lean`, `RawLevels.lean`, `RawSwap.lean` (3 files at
     root) — public Raw API + level-bounded variants + swap
-    automorphism.  All under `namespace E213.Firmware` umbrella.
+    automorphism.  All under `namespace E213.Theory` umbrella.
 
   `Firmware/Atomicity/` (7 files) — **forced shape uniqueness
     proofs**.  Pure-ℕ theorems that don't import Raw.  They prove
@@ -139,10 +139,10 @@ forced-uniqueness proofs play the same role.
 
 **Public API surface** (G12 §3.1, available via single-imports):
 
-  - **FW-A — Raw API** (`E213.Firmware.Raw`):
+  - **FW-A — Raw API** (`E213.Theory.Raw`):
     `Raw`, `Raw.{a, b, slash, slash_comm, depth, leaves, fold,
     swap, rec}`, `Raw.fold_*`, `Raw.swap_*`, `RawLevels`, `RawSwap`
-  - **FW-B — Atomicity API** (`E213.Firmware.Atomicity`, NEW G12 D2):
+  - **FW-B — Atomicity API** (`E213.Theory.Atomicity`, NEW G12 D2):
     `Atomicity.{Five.atomic_iff_five, canonical_partition,
     PairForcing.pair_iff_two, NonDecomposable.closure_iff_three,
     ArityForcing.arity_iff_two, PrimitiveSizes.{pairSize,

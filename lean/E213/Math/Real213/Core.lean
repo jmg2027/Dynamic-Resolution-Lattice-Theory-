@@ -28,7 +28,7 @@ Workaround: setoid-style approach or raw subtype.
 
 namespace E213.Math.Real213.Core
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Modulus.HasModulus
 
 /-- Constructive Cauchy real: sequence + explicit modulus. -/

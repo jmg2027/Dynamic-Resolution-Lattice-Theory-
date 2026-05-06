@@ -19,7 +19,7 @@ coarser than leaves (less information), and incomparable with parity.
 
 namespace E213.Lens.Properties.Leaf
 
-open E213.Firmware E213.Lens E213.Lens.Compose.Factoring
+open E213.Theory E213.Lens E213.Lens.Compose.Factoring
 
 /-- Is r a leaf (Raw.a or Raw.b)? -/
 def leafLens : Lens Bool where
@@ -71,7 +71,7 @@ end E213.Lens.Properties.Leaf
 
 namespace E213.Lens.Properties.Leaf
 
-open E213.Firmware E213.Lens E213.Meta
+open E213.Theory E213.Lens E213.Meta
 
 /-- leafLens does not refine parityLens.
     Witness: Raw.a vs slash(a, slash(a,b)) — different leaf-ness

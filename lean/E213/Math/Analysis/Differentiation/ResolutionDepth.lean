@@ -24,7 +24,7 @@ needs d dyadic levels per output unit.
 
 namespace E213.Math.Analysis.Differentiation.ResolutionDepth
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutPow (cutPow)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Analysis.Differentiation.Smooth (idIsSmooth squareIsSmooth cubeIsSmooth quarticIsSmooth quinticIsSmooth sexticIsSmooth septicIsSmooth octicIsSmooth IsSmooth constIsSmooth cutScaleIsSmooth composeIsSmooth midIsSmooth cutPowFnIsSmooth addIsSmooth mulIsSmooth cutHalfIsSmooth decicIsSmooth hexadecicIsSmooth nonicIsSmooth twelfthIsSmooth fifteenthIsSmooth eleventhIsSmooth thirteenthIsSmooth fourteenthIsSmooth)

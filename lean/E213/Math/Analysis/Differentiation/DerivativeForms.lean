@@ -26,7 +26,7 @@ field of each constructor.  These give a computational handle for
 
 namespace E213.Math.Analysis.Differentiation.DerivativeForms
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutPow)

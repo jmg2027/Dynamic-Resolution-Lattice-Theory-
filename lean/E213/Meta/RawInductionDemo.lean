@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 
 /-!
@@ -19,7 +19,7 @@ as a black-box (public API only, no Tree internals).
 
 namespace E213.Meta.RawInductionDemo
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Demo: swap realises negation on the signed Lens,
     re-proved via `Raw.rec` (no Tree access).  Base cases

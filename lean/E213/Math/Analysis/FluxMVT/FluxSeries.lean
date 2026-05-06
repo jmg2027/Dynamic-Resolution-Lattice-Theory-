@@ -20,7 +20,7 @@ specific (m, k) thresholds.
 
 namespace E213.Math.Analysis.FluxMVT.FluxSeries
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSum (cutSum)
 open E213.Math.Real213.CutSumTest (constCut)

@@ -20,7 +20,7 @@ This file is the **function version**.
 
 namespace E213.Lens.Morphism.FoldStructured
 
-open E213.Firmware E213.Lens E213.Lens.Initiality
+open E213.Theory E213.Lens E213.Lens.Initiality
 
 /-- `f : Raw → α` is fold-structured. -/
 def FoldStructured {α : Type} (f : Raw → α) : Prop :=
@@ -51,7 +51,7 @@ end E213.Lens.Morphism.FoldStructured
 
 namespace E213.Lens.Morphism.FoldStructured
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Main theorem (iff)**: f is the view of some symmetric-combine Lens
     ↔ f is fold-structured. -/

@@ -30,7 +30,7 @@ bundle was a trivial conjunction of them.)
 
 namespace E213.Math.Real213.MinimumProposition
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum riemannSampleSum_constCut)

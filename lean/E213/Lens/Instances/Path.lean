@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 import E213.Lens.Characterisation.Catalog
 import E213.Prelude
@@ -36,7 +36,7 @@ deliberately *non-commutative* witness.
 -/
 
 namespace E213.Lens.Instances.Path
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Path lens.**  `a ↦ [false]`, `b ↦ [true]`, combine = append. -/
 def pathLens : Hypervisor.Lens (List Bool) where
@@ -60,7 +60,7 @@ theorem pathLens_view_ba_via_comm :
 
 end E213.Lens.Instances.Path
 namespace E213.Lens.Instances.Path
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 theorem pathLens_view_a_slash_ab :
     pathLens.view (Raw.slash Raw.a (Raw.slash Raw.a Raw.b (by decide))

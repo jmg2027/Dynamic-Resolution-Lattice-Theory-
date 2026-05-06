@@ -21,7 +21,7 @@ and true false = false.  Contradiction (true ≠ false).
 
 namespace E213.Lens.Instances.SumNotCoproductGeneric
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Sum
 open E213.Lens.Morphism.BoolProp

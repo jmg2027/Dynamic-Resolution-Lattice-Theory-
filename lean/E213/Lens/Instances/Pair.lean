@@ -20,7 +20,7 @@ atoms.
 
 namespace E213.Lens.Instances.Pair
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Pair instance: the product of two HasDistinguishing instances. -/
@@ -40,7 +40,7 @@ end E213.Lens.Instances.Pair
 
 namespace E213.Lens.Instances.Pair
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **Universal property of binary product**: universalMorphism (α × β)
@@ -84,7 +84,7 @@ end E213.Lens.Instances.Pair
 
 namespace E213.Lens.Instances.Pair
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Pair forget projections (categorical projection morphisms)
@@ -128,7 +128,7 @@ end E213.Lens.Instances.Pair
 
 namespace E213.Lens.Instances.Pair
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Combination of universal property and forget projections

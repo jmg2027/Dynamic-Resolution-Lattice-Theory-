@@ -23,7 +23,7 @@ without affecting injectivity.
 
 namespace E213.Meta.UniversalLens.Nat4
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_slash expSumNat_inj)
 
 abbrev Nat4 : Type := Nat × Nat × Nat × Nat

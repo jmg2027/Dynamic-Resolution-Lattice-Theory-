@@ -27,7 +27,7 @@ Status: ∅-axiom on every theorem (`tools/scan_axioms.py` reports
 
 namespace E213.Math.Cauchy.EulerSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 open E213.Math.Cauchy.PellSeq
 
@@ -64,7 +64,7 @@ end E213.Math.Cauchy.EulerSeq
 
 namespace E213.Math.Cauchy.EulerSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Algebraic invariants -/
@@ -116,7 +116,7 @@ end E213.Math.Cauchy.EulerSeq
 
 namespace E213.Math.Cauchy.EulerSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Lower invariant** (n ≥ 2): a_n ≥ 2 * d_n + 1.  (S_n > 2 from n=2.)
@@ -164,7 +164,7 @@ end E213.Math.Cauchy.EulerSeq
 
 namespace E213.Math.Cauchy.EulerSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 open E213.Math.Cauchy.PellSeq
 
@@ -200,7 +200,7 @@ end E213.Math.Cauchy.EulerSeq
 
 namespace E213.Math.Cauchy.EulerSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Cut below 2**: m/k ≤ 2 (m ≤ 2k) → orderProj false (n ≥ 2).
@@ -256,7 +256,7 @@ end E213.Math.Cauchy.EulerSeq
 
 namespace E213.Math.Cauchy.EulerSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 open E213.Math.Cauchy.MonotonicBounded
 

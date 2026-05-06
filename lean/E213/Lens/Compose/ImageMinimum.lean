@@ -37,7 +37,7 @@ proof.  This result is a component of that proof:
 
 namespace E213.Lens.Compose.ImageMinimum
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **Image minimum property**: the image of `universalMorphism α` is

@@ -15,7 +15,7 @@ Specific algebraic identity: 0 + 0 = 0 at cut level.
 
 namespace E213.Math.Real213.CutSumZero
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutHalf cutMid)
 open E213.Math.Real213.CutMul (cutMul cutMulOuter)

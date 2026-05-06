@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 
 /-!
@@ -124,7 +124,7 @@ end E213.Lens.Instances.F9
 
 namespace E213.Lens.Instances.F9
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ## §4. Raw → 𝔽₉ Lens
 

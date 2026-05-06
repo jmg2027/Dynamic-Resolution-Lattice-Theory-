@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 import E213.Lens.Characterisation.Catalog
 
@@ -34,7 +34,7 @@ inside the axiom's Raw. This is the smuggling channel.
 
 namespace E213.Math.CayleyDickson.R5Vacuity
 
-open E213.Firmware E213.Lens E213.Meta
+open E213.Theory E213.Lens E213.Meta
 
 /-- **Fold totality (R5' — finitist R5).** Every Raw term has
     a fully-determined Lens view. This is *automatic* for any

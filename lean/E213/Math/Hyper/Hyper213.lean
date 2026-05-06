@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 
 /-!
 # Hyper213: Framework-internal type for a hyperreal-like structure
@@ -36,7 +36,7 @@ Only *arbitrary subsets* (power sets) are rejected by the framework.
 
 namespace E213.Math.Hyper.Hyper213
 
-open E213.Firmware
+open E213.Theory
 
 /-- Hyperreal-like sequence (no modulus). -/
 def Hyper213 : Type := Nat → Raw
@@ -65,7 +65,7 @@ end E213.Math.Hyper.Hyper213
 
 namespace E213.Math.Hyper.Hyper213
 
-open E213.Firmware
+open E213.Theory
 
 /-- Constant hyperreal embedding: each Raw r → constant sequence. -/
 def constHyper (r : Raw) : Hyper213 := fun _ => r

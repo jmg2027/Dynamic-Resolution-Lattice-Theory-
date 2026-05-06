@@ -27,7 +27,7 @@ Lens-on-Lens collapses at the image level to the a-leaf parity.
 
 namespace E213.Lens.Compose.OnLensImage
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Lens.Morphism.BoolProp
@@ -43,7 +43,7 @@ end E213.Lens.Compose.OnLensImage
 
 namespace E213.Lens.Compose.OnLensImage
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Lens.Morphism.BoolProp
@@ -66,7 +66,7 @@ end E213.Lens.Compose.OnLensImage
 
 namespace E213.Lens.Compose.OnLensImage
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Lens.Morphism.BoolProp
@@ -82,7 +82,7 @@ end E213.Lens.Compose.OnLensImage
 
 namespace E213.Lens.Compose.OnLensImage
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Lens.Morphism.BoolProp
@@ -114,7 +114,7 @@ end E213.Lens.Compose.OnLensImage
 
 namespace E213.Lens.Compose.OnLensImage
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Lens.Morphism.BoolProp
@@ -132,7 +132,7 @@ end E213.Lens.Compose.OnLensImage
 
 namespace E213.Lens.Compose.OnLensImage
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Lens.Morphism.BoolProp

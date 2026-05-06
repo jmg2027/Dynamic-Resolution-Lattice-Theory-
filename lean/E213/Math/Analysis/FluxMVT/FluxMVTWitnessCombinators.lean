@@ -32,7 +32,7 @@ Each derivative is `1` at `c = 1/2`, so each function admits a
 -/
 namespace E213.Math.Analysis.FluxMVTMore
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutMul (cutMul)
@@ -121,7 +121,7 @@ end E213.Math.Analysis.FluxMVTMore
 
 namespace E213.Math.Analysis.FluxMVTNested
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSumTest (constCut)
@@ -185,7 +185,7 @@ end E213.Math.Analysis.FluxMVTNested
 
 namespace E213.Math.Analysis.FluxMVTNested2
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutSumTest (constCut)

@@ -30,7 +30,7 @@ Proof: Cantor's diagonal.  Given `f : ℕ → (ℕ → Raw)`, define
 
 namespace E213.Infinity
 
-open E213.Firmware
+open E213.Theory
 
 /-- **Chain-space uncountability.**  No function `ℕ → (ℕ →
     Raw)` is surjective. -/

@@ -10,7 +10,7 @@ Compatibility of lattice ops with the cut order/equiv structure.
 
 namespace E213.Math.Real213.CutLatticeEq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutPoset (cutLe cutEq cutEq_trans cutLe_trans)
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 open E213.Math.Real213.Core (Real213)

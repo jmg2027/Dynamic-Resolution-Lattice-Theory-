@@ -33,7 +33,7 @@ This file is the formal expression of that unification.
 
 namespace E213.Math.Cauchy.GenericFamily
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Generic family-Cauchy**: Cauchy condition for a family of derived
     projections F over the view of Lens L. -/
@@ -66,7 +66,7 @@ end E213.Math.Cauchy.GenericFamily
 
 namespace E213.Math.Cauchy.GenericFamily
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.Cauchy
 
 /-- **LensCauchy is GFCauchy instance** with trivial family
@@ -84,7 +84,7 @@ end E213.Math.Cauchy.GenericFamily
 
 namespace E213.Math.Cauchy.GenericFamily
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **ArchimedeanCauchy is GFCauchy instance**: orderProj family +
     abLens is GFCauchy with ι = Nat × Nat, β = Bool. -/
@@ -112,7 +112,7 @@ end E213.Math.Cauchy.GenericFamily
 
 namespace E213.Math.Cauchy.GenericFamily
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Profinite (factorial) Cauchy is GFCauchy instance**:
     Lens.leaves + (· % (m+1)) family.  Index is ℕ with m+1 ensuring
@@ -134,7 +134,7 @@ end E213.Math.Cauchy.GenericFamily
 
 namespace E213.Math.Cauchy.GenericFamily
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **ProjectionLens**: when F is fold-compatible, constructs a
     single Lens (ι → β). -/
@@ -181,7 +181,7 @@ end E213.Math.Cauchy.GenericFamily
 
 namespace E213.Math.Cauchy.GenericFamily
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Mod family projectionLens**: leaves + mod are fold-compatible,
     giving a single fold-structured Lens (Nat → Nat). -/

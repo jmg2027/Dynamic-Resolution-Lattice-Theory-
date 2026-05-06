@@ -19,7 +19,7 @@ analogous to Lens.
 
 namespace E213.Lens.Instances.FunctionSpace
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Reach
 
@@ -46,7 +46,7 @@ end E213.Lens.Instances.FunctionSpace
 
 namespace E213.Lens.Instances.FunctionSpace
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Reach
 

@@ -19,7 +19,7 @@ provides only the constructive direction.
 
 namespace E213.Lens.Compose.Factoring
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Factoring → Refinement**: if M.view factors through L.view,
     then L.refines M. -/

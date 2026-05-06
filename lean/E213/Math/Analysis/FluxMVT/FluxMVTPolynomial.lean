@@ -38,7 +38,7 @@ Sub-namespaces preserved so external `open … FluxMVTHigh` and
 
 namespace E213.Math.Analysis.FluxMVT.FluxMVTPolynomial
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul cutMulOuter)
 open E213.Math.Real213.CutSumTest (constCut)
@@ -195,7 +195,7 @@ end E213.Math.Analysis.FluxMVT.FluxMVTPolynomial
 
 namespace E213.Math.Analysis.FluxMVTHigh
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul cutMulOuter)
 open E213.Math.Real213.CutSumTest (constCut)
@@ -335,7 +335,7 @@ end E213.Math.Analysis.FluxMVTHigh
 
 namespace E213.Math.Analysis.FluxMVTGeneric
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPow (cutPow)

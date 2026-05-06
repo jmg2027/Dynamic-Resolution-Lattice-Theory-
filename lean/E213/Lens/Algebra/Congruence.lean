@@ -26,7 +26,7 @@ is slash-compatible).
 
 namespace E213.Lens.Algebra.Congruence
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Lens kernel congruence**: if x ~ x' and y ~ y' then
     the slash values are also equivalent.  `hsym` requires

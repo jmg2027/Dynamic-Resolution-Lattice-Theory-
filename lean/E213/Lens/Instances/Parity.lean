@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 import E213.Lens.Characterisation.Catalog
 import E213.Prelude
@@ -30,7 +30,7 @@ level.
 -/
 
 namespace E213.Lens.Instances.Parity
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Characterisation.Catalog
 
 /-- **Parity lens.**  `a ↦ true`, `b ↦ true`, combine = xor.
@@ -57,7 +57,7 @@ theorem parityLens_swap_invariant (r : Raw) :
 
 end E213.Lens.Instances.Parity
 namespace E213.Lens.Instances.Parity
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Characterisation.Catalog
 
 /-- **R5 fails.**  `Raw.a ≠ Raw.b` but both map to `true`. -/

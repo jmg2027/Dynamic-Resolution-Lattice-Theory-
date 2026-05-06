@@ -23,7 +23,7 @@ is constant 1 (i.e., g = id), the chain-rule witness is f's witness.
 
 namespace E213.Math.Analysis.FluxMVT.MVTWitnessChain
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)

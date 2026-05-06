@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 import E213.Math.AxiomSystems.PeanoAsLensComposition
 
@@ -24,7 +24,7 @@ distinct numerical answers, with no conflict at the Raw level.
 
 namespace E213.Math.AxiomSystems.CrossTheoryCohabit
 
-open E213.Firmware (Raw)
+open E213.Theory (Raw)
 open E213.Lens (Lens)
 open E213.Math.AxiomSystems.Peano (peanoLens)
 

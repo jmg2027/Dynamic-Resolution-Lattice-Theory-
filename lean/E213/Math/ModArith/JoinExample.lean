@@ -21,7 +21,7 @@ Combined: N.view Raw.a = N.view r'.
 
 namespace E213.Math.ModArith.JoinExample
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 /-- Chain example: L_4 + L_6 → N equates leaves-1 and leaves-3. -/
@@ -47,7 +47,7 @@ end E213.Math.ModArith.JoinExample
 
 namespace E213.Math.ModArith.JoinExample
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 /-- +2 step via L_6 then L_4: chain of length 2. -/
@@ -113,7 +113,7 @@ end E213.Math.ModArith.JoinExample
 
 namespace E213.Math.ModArith.JoinExample
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 /-- **L_4 + L_6 → L_2 complete**.  Least direction of

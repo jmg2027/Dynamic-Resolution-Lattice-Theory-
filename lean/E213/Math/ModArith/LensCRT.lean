@@ -18,7 +18,7 @@ yield exactly the same kernel.
 
 namespace E213.Math.ModArith.LensCRT
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Lattice.Meet
 
 /-- L_6 refines prodLens(L_2, L_3) — automatic from divides_refines

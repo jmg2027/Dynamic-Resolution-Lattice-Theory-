@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 import E213.Lens.Characterisation.Catalog
 import E213.Prelude
@@ -32,7 +32,7 @@ clean "necessary and sufficient" toolkit.
 -/
 
 namespace E213.Lens.Characterisation.Core
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Characterisation.Catalog
 
 -- ═══ Characterisation 1: swap-invariance ═══
@@ -56,7 +56,7 @@ theorem swap_invariant_of_base_eq_comm
 
 end E213.Lens.Characterisation.Core
 namespace E213.Lens.Characterisation.Core
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Characterisation.Catalog
 
 /-- **Full characterisation under commutative combine.**  The
@@ -104,7 +104,7 @@ theorem R4_conj_unique_of_surjective
 
 end E213.Lens.Characterisation.Core
 namespace E213.Lens.Characterisation.Core
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Characterisation.Catalog
 
 -- ═══ Characterisation 3: R3 lifts from base to Raw ═══

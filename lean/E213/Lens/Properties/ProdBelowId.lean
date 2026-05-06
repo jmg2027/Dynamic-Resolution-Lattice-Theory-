@@ -17,7 +17,7 @@ Not distinguishable by (leaves, depth), but distinguishable by idLens.
 
 namespace E213.Lens.Properties.ProdBelowId
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.Identity E213.Lens.Lattice.Meet
 
 /-- Witness A: `a / (a / (a/b))`. -/

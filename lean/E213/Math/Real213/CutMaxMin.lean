@@ -16,7 +16,7 @@ determined.  Continuity is also trivially obvious.
 
 namespace E213.Math.Real213.CutMaxMin
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutSumTest (constCut)
 
 /-- **cutMax**: max cut. -/

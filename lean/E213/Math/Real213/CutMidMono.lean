@@ -21,7 +21,7 @@ Strategy:
 
 namespace E213.Math.Real213.CutMidMono
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutMid)
 open E213.Math.Real213.CutPoset (cutLe)

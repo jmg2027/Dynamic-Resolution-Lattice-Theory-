@@ -48,7 +48,7 @@ dropped.)
 
 namespace E213.Math.Analysis.FluxMVT.FTCRiemann
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
@@ -86,7 +86,7 @@ end E213.Math.Analysis.FluxMVT.FTCRiemann
 
 namespace E213.Math.Analysis.FTCRiemannSquare
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutSumTest (constCut)
@@ -124,7 +124,7 @@ end E213.Math.Analysis.FTCRiemannSquare
 
 namespace E213.Math.Analysis.FTCRiemannMid
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)
@@ -145,7 +145,7 @@ end E213.Math.Analysis.FTCRiemannMid
 
 namespace E213.Math.Analysis.FTCRiemannGeneric
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Analysis.DyadicSearch.DyadicRiemann (riemannSampleSum)

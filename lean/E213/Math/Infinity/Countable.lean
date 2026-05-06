@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.Prelude
 
 /-!
@@ -20,7 +20,7 @@ at least ℕ-many elements; combined with Cantor (Σ5) it
 shows `Raw → Bool` is strictly larger than Raw.
 -/
 
-namespace E213.Firmware.Internal
+namespace E213.Theory.Internal
 
 /-- Right-leaning Tree tower: `treeTower 0 = b`,
     `treeTower (n+1) = a / (treeTower n)`.  Canonical at every
@@ -55,11 +55,11 @@ theorem treeTower_leaves :
       show 1 + (m + 1) = m + 1 + 1
       rw [Nat.add_comm 1 (m+1)]
 
-end E213.Firmware.Internal
+end E213.Theory.Internal
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Firmware.Internal
+open E213.Theory E213.Theory.Internal
 
 /-- Lift the Tree tower to Raw by wrapping with canonicality. -/
 def rawTower (n : Nat) : Raw := ⟨treeTower n, treeTower_canonical n⟩

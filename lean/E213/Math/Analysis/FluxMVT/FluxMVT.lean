@@ -26,7 +26,7 @@ The general statement requires the difference quotient bound theorem
 
 namespace E213.Math.Analysis.FluxMVT.FluxMVT
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSumTest (constCut)

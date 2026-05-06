@@ -21,7 +21,7 @@ of the two Lenses differ (separated at some r, r').
 
 namespace E213.Lens.Algebra.CardinalityLB
 
-open E213.Firmware E213.Lens E213.Lens.Leaves.ModNat
+open E213.Theory E213.Lens E213.Lens.Leaves.ModNat
 
 /-- If m ≠ k (both ≥ 2) then the kernel of leavesModNat m ≠
     the kernel of leavesModNat k.  Witness: Raw.a (leaves=1) and
@@ -71,7 +71,7 @@ end E213.Lens.Algebra.CardinalityLB
 
 namespace E213.Lens.Algebra.CardinalityLB
 
-open E213.Firmware E213.Lens E213.Lens.Leaves.ModNat
+open E213.Theory E213.Lens E213.Lens.Leaves.ModNat
 
 /-- **Distinct mod kernels for distinct moduli (m ≠ k, both ≥ 2)**.
     In at least one direction k ∤ m, so the above lemma applies. -/

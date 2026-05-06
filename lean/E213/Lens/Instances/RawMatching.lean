@@ -24,7 +24,7 @@ view.  This is a stronger expression of the Note 34-35 observation that
 
 namespace E213.Lens.Instances.RawMatching
 
-open E213.Firmware E213.Lens E213.Lens.Instances.Identity
+open E213.Theory E213.Lens E213.Lens.Instances.Identity
 
 /-- A Lens satisfying the Raw-matching conditions with a free diagonal has view = id. -/
 theorem rawMatching_view_is_id (L : Lens Raw)

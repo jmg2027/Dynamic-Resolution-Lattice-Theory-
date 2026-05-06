@@ -14,7 +14,7 @@ cutPow (constCut a b) 0 = 1, cutPow (constCut a b) 1 = (constCut a b).
 
 namespace E213.Math.Real213.CutPowConst
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul cutMulOuter)
 open E213.Math.Real213.CutPow (cutPow)

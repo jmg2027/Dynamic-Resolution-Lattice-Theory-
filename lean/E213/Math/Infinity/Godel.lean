@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.Math.Infinity.Pair
 import E213.Math.Infinity.Countable
 import E213.Prelude
@@ -29,7 +29,7 @@ Combined with `Σ3` (`rawTower_injective`) this establishes
 `|Raw| = |ℕ|` — Raw is countable.
 -/
 
-namespace E213.Firmware.Internal
+namespace E213.Theory.Internal
 
 /-- Gödel numbering of `Tree`. -/
 def Tree.toNat : Tree → Nat
@@ -43,9 +43,9 @@ theorem Tree.toNat_slash (x y : Tree) :
     (Tree.slash x y).toNat
       = 2 + 2 * E213.Infinity.pair x.toNat y.toNat := rfl
 
-end E213.Firmware.Internal
+end E213.Theory.Internal
 
-namespace E213.Firmware.Internal
+namespace E213.Theory.Internal
 
 open E213.Infinity
 
@@ -99,11 +99,11 @@ theorem Tree.toNat_injective :
           obtain ⟨hxn, hyn⟩ := pair_injective_4 _ _ _ _ hp
           rw [ihx x2 hxn, ihy y2 hyn]
 
-end E213.Firmware.Internal
+end E213.Theory.Internal
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Firmware.Internal
+open E213.Theory E213.Theory.Internal
 
 /-- **Σ2 (Raw level).**  Raw's Gödel number = underlying
     Tree's Gödel number. -/
@@ -126,7 +126,7 @@ end E213.Infinity
 
 namespace E213.Infinity
 
-open E213.Firmware
+open E213.Theory
 
 /-- **Σ2 ∧ Σ3: Raw is equipotent to ℕ.**  Concrete witnesses
     in both directions — Gödel numbering (`Raw.toNat`) and

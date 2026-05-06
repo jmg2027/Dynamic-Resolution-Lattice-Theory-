@@ -35,7 +35,7 @@ abstraction (the 4 cases of AxiomMinimality are the negative direction).
 
 namespace E213.Lens.SemanticAtom
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ### HasDistinguishing typeclass — abstraction of the meaning framework
 
@@ -58,7 +58,7 @@ end E213.Lens.SemanticAtom
 
 namespace E213.Lens.SemanticAtom
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ### Raw as HasDistinguishing instance
 
@@ -80,7 +80,7 @@ end E213.Lens.SemanticAtom
 
 namespace E213.Lens.SemanticAtom
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ### Universal morphism: Raw → α (HasDistinguishing α)
 
@@ -114,7 +114,7 @@ end E213.Lens.SemanticAtom
 
 namespace E213.Lens.SemanticAtom
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ### Lens as a specific instance of HasDistinguishing
 
@@ -143,7 +143,7 @@ end E213.Lens.SemanticAtom
 
 namespace E213.Lens.SemanticAtom
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ### `Prop` as a `HasDistinguishing` instance
 
@@ -222,7 +222,7 @@ end E213.Lens.SemanticAtom
 
 namespace E213.Lens.SemanticAtom
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ### Alternative connective: `Iff`
 
@@ -318,7 +318,7 @@ end E213.Lens.SemanticAtom
 
 namespace E213.Lens.SemanticAtom
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Morphism.FoldStructured
 
 /-! ### Negative direction: boundary of Lens-expressibility
@@ -367,7 +367,7 @@ end E213.Lens.SemanticAtom
 
 namespace E213.Lens.SemanticAtom
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Initiality
 
 /-! ### Universal property of `HasDistinguishing` category

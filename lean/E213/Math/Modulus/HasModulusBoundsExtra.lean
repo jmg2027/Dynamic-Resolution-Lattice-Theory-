@@ -9,7 +9,7 @@ fixed-N versions, etc.
 
 namespace E213.Math.Modulus.HasModulusBoundsExtra
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Modulus.HasModulus

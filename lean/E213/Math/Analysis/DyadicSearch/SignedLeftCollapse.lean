@@ -38,7 +38,7 @@ the ConsistentOracle for `alwaysTrue` (already constructed in
 
 namespace E213.Math.Analysis.DyadicSearch.SignedLeftCollapse
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Math.Analysis.DyadicSearch.DyadicTrajectory
   (alwaysTrue alwaysTrue_step)

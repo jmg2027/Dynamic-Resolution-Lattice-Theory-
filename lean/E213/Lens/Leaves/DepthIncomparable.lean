@@ -19,7 +19,7 @@ pairs (n, depth) in Raw is rich enough that both are independent.
 
 namespace E213.Lens.Leaves.DepthIncomparable
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Deep witness: `a / (b / (a / (a/b)))`, leaves=5, depth=4. -/
 def rDeep : Raw :=
@@ -55,7 +55,7 @@ end E213.Lens.Leaves.DepthIncomparable
 
 namespace E213.Lens.Leaves.DepthIncomparable
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Shallow narrow witness: `a / ((a/b) / b)`, leaves=4, depth=3. -/
 def rShallowNarrow : Raw :=

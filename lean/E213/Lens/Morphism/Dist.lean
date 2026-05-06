@@ -27,7 +27,7 @@ universalMorphism in SemanticAtom).
 
 namespace E213.Lens.Morphism.Dist
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **Distinguishing-framework morphism** (abstract, all cases). -/
@@ -43,7 +43,7 @@ end E213.Lens.Morphism.Dist
 
 namespace E213.Lens.Morphism.Dist
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Identity distinguishing morphism. -/

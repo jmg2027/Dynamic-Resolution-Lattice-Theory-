@@ -22,7 +22,7 @@ of the complete-lattice structure: the set of slash-congruences is a
 
 namespace E213.Lens.Lattice.FamilyJoin
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Universal.QuotLens
 
 /-- Index-wise family join: smallest slash-congruence
@@ -43,7 +43,7 @@ end E213.Lens.Lattice.FamilyJoin
 
 namespace E213.Lens.Lattice.FamilyJoin
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Universal.QuotLens
 
 /-- **Family join via universalLens**: the join of an arbitrary family

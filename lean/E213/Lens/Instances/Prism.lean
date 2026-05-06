@@ -29,7 +29,7 @@ Each prism extracts a specific element of Raw *distinguishably*.
 
 namespace E213.Lens.Instances.Prism
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- 213-style Prism: categorical dual of Lens.
 
@@ -45,7 +45,7 @@ end E213.Lens.Instances.Prism
 
 namespace E213.Lens.Instances.Prism
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Specific case Prism from decidable equality on Raw. -/
 def caseElement (target : Raw) : Prism Unit where
@@ -65,7 +65,7 @@ end E213.Lens.Instances.Prism
 
 namespace E213.Lens.Instances.Prism
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- aPrism preview is some at Raw.a and none at Raw.b. -/
 theorem aPrism_a : aPrism.preview Raw.a = some () := by
@@ -92,7 +92,7 @@ end E213.Lens.Instances.Prism
 
 namespace E213.Lens.Instances.Prism
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ### Disjointness of Prisms (categorical universal property)
 

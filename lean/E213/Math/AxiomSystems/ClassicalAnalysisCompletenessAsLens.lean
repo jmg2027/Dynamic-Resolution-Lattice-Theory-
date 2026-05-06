@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 
 /-!
@@ -43,7 +43,7 @@ We sketch the lens-composition shape:
 
 namespace E213.Math.AxiomSystems.CompletenessLens
 
-open E213.Firmware (Raw)
+open E213.Theory (Raw)
 
 /-- A "Cauchy view" of a sequence: its limit (if applied
     completeness lens) or the sequence itself (without). -/

@@ -20,7 +20,7 @@ open E213.Math.Real213.CutSumOne (cutSum_self cutSum_self_at)
 open E213.Math.Real213.CutBisection (cutHalf cutHalf_constCut cutMid)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPoset (cutEq cutLe)
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **cutDouble**: 2x cut. -/
 def cutDouble (c : Nat → Nat → Bool) : Nat → Nat → Bool :=

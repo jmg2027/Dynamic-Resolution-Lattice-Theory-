@@ -23,7 +23,7 @@ determined by the injectivity of view.
 
 namespace E213.Math.Diagonal.Irrelevance
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Two Lenses agree on base and off-diagonal combine. -/
 def OffDiagonalAgree {α : Type} (L L' : Lens α) : Prop :=

@@ -22,7 +22,7 @@ That is, the "space" of injective Lenses is a single point (up to equivalence).
 
 namespace E213.Lens.Properties.InjectiveClass
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Injective equivalence**: two injective Lenses refine each other. -/
 theorem injective_equiv {α β : Type} (L : Lens α) (M : Lens β)

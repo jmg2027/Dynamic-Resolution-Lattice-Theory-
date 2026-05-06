@@ -31,7 +31,7 @@ of Bishop completeness is trivial.
 
 namespace E213.Math.Analysis.CauchyComplete
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Cauchy.Archimedean
 
 /-- **CauchyCutSeq**: Cauchy sequence of cuts with explicit modulus. -/
@@ -51,7 +51,7 @@ theorem CauchyCutSeq.limit_eq_at (ccs : CauchyCutSeq)
   unfold CauchyCutSeq.limit
   exact ccs.cauchy m k (ccs.N m k) i (Nat.le_refl _) hi
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ### Constant Cauchy sequence — sanity check -/
 

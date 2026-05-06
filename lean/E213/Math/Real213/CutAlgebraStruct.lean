@@ -14,7 +14,7 @@ for cut-level rational arithmetic.
 
 namespace E213.Math.Real213.CutAlgebraStruct
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutBisection (cutMid cutHalf)
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 open E213.Math.Real213.CutMul (cutMul)

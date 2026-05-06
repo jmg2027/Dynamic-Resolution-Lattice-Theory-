@@ -16,7 +16,7 @@ Well-definedness of cutSum modulo cutEq.
 namespace E213.Math.Real213.CutSumEq
 
 open E213.Math.Real213.CutSum (cutSum)
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutPoset (cutEq)
@@ -51,7 +51,7 @@ theorem cutMul_cutEq_right (cx cy cy' : Nat → Nat → Bool)
   obtain ⟨N, hN⟩ := cutMul_locallyDetermined m k
   exact hN cx cx cy cy' (fun _ _ _ _ => rfl) (fun m' k' _ _ => h m' k')
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutMul (cutMul)
 open E213.Math.Real213.CutMulComm (cutMul_comm cutMul_mono_left cutMul_mono_right)

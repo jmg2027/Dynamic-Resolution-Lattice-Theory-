@@ -24,7 +24,7 @@ Lens-kernel space.
 
 namespace E213.Lens.Lattice.FamilyMeet
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Universal.QuotLens
 
 /-- Index-wise intersection of a slash-congruence family. -/
@@ -59,7 +59,7 @@ end E213.Lens.Lattice.FamilyMeet
 
 namespace E213.Lens.Lattice.FamilyMeet
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Universal.QuotLens
 
 /-- **Family meet via universalLens**: the simultaneous slash-congruence

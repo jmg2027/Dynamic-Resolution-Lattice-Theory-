@@ -20,7 +20,7 @@ design requires additional work due to Lean infrastructure constraints.
 
 namespace E213.Lens.Instances.Subtype
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Sub-instance for a distinguishing-closed predicate (degenerate
@@ -43,7 +43,7 @@ end E213.Lens.Instances.Subtype
 
 namespace E213.Lens.Instances.Subtype
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Universal morphism Raw → {r : Raw // P r} via degenerate

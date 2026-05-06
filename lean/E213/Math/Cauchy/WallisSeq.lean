@@ -46,7 +46,7 @@ Status: ∅-axiom on every theorem (`tools/scan_axioms.py` reports
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 open E213.Math.Cauchy.PellSeq
 
@@ -96,7 +96,7 @@ end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Polynomial213 (Poly eval C X add scale mul
                           eval_add eval_mul eval_scale eval_C eval_X
                           eval_le_of_add eval_lt_of_add_succ)
@@ -140,7 +140,7 @@ end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Algebraic invariants -/
@@ -188,7 +188,7 @@ end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Monotonicity (partial Cauchy demonstration) -/
@@ -222,7 +222,7 @@ end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 open E213.Math.Cauchy.PellSeq
 
@@ -284,7 +284,7 @@ end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Polynomial213 (Poly eval C X add scale mul
                           eval_add eval_mul eval_scale eval_C eval_X)
 
@@ -333,7 +333,7 @@ end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Upper invariant**: `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`.
@@ -406,7 +406,7 @@ end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Cut above 2**: m/k ≥ 2 (2k ≤ m) → orderProj true (∀ n).
@@ -460,7 +460,7 @@ end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Order Cauchy** at thresholds m/k ≥ 2 ∨ m/k ≤ 1.
@@ -483,7 +483,7 @@ end E213.Math.Cauchy.WallisSeq
 
 namespace E213.Math.Cauchy.WallisSeq
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 open E213.Math.Cauchy.MonotonicBounded
 

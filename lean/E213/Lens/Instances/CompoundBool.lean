@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 import E213.Lens.Instances.Bool
 import E213.Lens.Instances.Parity
@@ -23,7 +23,7 @@ base values (matching each inner Lens).
 
 namespace E213.Lens.Instances.CompoundBool
 
-open E213.Firmware E213.Lens E213.Meta
+open E213.Theory E213.Lens E213.Meta
 
 /-- Bool × Bool compound: first component tracks parity (like
     `parityLens`), second component tracks swap-visible xor
@@ -63,7 +63,7 @@ end E213.Lens.Instances.CompoundBool
 
 namespace E213.Lens.Instances.CompoundBool
 
-open E213.Firmware E213.Lens E213.Meta
+open E213.Theory E213.Lens E213.Meta
 
 /-! ## §2. Second component = boolXorLens -/
 
@@ -100,7 +100,7 @@ end E213.Lens.Instances.CompoundBool
 
 namespace E213.Lens.Instances.CompoundBool
 
-open E213.Firmware E213.Lens E213.Meta
+open E213.Theory E213.Lens E213.Meta
 
 /-! ## §3. Image has ≥ 3 elements — genuinely Bool × Bool valued
 
@@ -142,7 +142,7 @@ end E213.Lens.Instances.CompoundBool
 
 namespace E213.Lens.Instances.CompoundBool
 
-open E213.Firmware E213.Lens E213.Meta
+open E213.Theory E213.Lens E213.Meta
 
 /-! ## §4. Bootstrap-free claim (informal)
 

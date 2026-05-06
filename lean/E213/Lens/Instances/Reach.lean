@@ -33,7 +33,7 @@ Note 80 analysis.
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Witness: trivial-combine instance on Fin 3 -/
@@ -61,7 +61,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **Strict subset of the image**: element 2 of Fin 3 is outside
@@ -79,7 +79,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Dual: Bool instance is surjective
@@ -107,7 +107,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Minimality property of the image (closure under bases) -/
@@ -135,7 +135,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Infinite surjective: Nat with addition
@@ -161,7 +161,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Concrete witnesses for small Nat values — Raw.a, Raw.b cover
@@ -183,7 +183,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Nat surjective: complete proof
@@ -221,7 +221,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### natWitness construction note
@@ -256,7 +256,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Helper: combined `r ≠ Raw.b` for both Raw.a and slash forms. -/
@@ -271,7 +271,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **Nat surjective with form invariant**: for every n, simultaneously
@@ -304,7 +304,7 @@ end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Int with addition: infinite non-surjective

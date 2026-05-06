@@ -37,7 +37,7 @@ content — interesting to analyze.)
 
 namespace E213.Lens.Instances.Sum
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Reach
 
@@ -59,7 +59,7 @@ end E213.Lens.Instances.Sum
 
 namespace E213.Lens.Instances.Sum
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- HasDistinguishing instance for Sum type. -/

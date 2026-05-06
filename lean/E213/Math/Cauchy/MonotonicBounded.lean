@@ -33,7 +33,7 @@ Status: ∅-axiom on every theorem (`tools/scan_axioms.py` reports
 
 namespace E213.Math.Cauchy.MonotonicBounded
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Hypotheses -/
@@ -53,7 +53,7 @@ end E213.Math.Cauchy.MonotonicBounded
 
 namespace E213.Math.Cauchy.MonotonicBounded
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Monotonic chain (transitive form) -/
@@ -134,7 +134,7 @@ end E213.Math.Cauchy.MonotonicBounded
 
 namespace E213.Math.Cauchy.MonotonicBounded
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### orderProj false propagates forward (monotonic) -/
@@ -190,7 +190,7 @@ end E213.Math.Cauchy.MonotonicBounded
 
 namespace E213.Math.Cauchy.MonotonicBounded
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-! ### Constructive Cauchy from a witness "false at N₀"

@@ -35,7 +35,7 @@ baseline).
 
 namespace E213.Lens.Universal.QuotLens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 variable (E : Raw → Raw → Prop)
 variable (hrefl : ∀ r, E r r)
@@ -134,7 +134,7 @@ end E213.Lens.Universal.QuotLens
 
 namespace E213.Lens.Universal.QuotLens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Canonical form theorem**: for any Lens M, the kernel of
     universalLens M.equiv equals the kernel of M.  That is,

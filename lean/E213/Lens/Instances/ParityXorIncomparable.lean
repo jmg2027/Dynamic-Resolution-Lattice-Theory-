@@ -25,7 +25,7 @@ The two Lenses extract **different information**:
 
 namespace E213.Lens.Instances.ParityXorIncomparable
 
-open E213.Firmware E213.Lens E213.Meta
+open E213.Theory E213.Lens E213.Meta
 
 theorem parity_equates_ab :
     parityLens.view Raw.a = parityLens.view Raw.b := by decide

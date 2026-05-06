@@ -26,7 +26,7 @@ Analysis of Note 78.
 
 namespace E213.Lens.Properties.CanonicalForm
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Universal.QuotLens
 
 /-- **Lens refines-equivalence**: two Lenses share the same kernel. -/
@@ -44,7 +44,7 @@ end E213.Lens.Properties.CanonicalForm
 
 namespace E213.Lens.Properties.CanonicalForm
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Universal.QuotLens
 
 /-- **Self-stabilization**: any Lens M is refines-equivalent to

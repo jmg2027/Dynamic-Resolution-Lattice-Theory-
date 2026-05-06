@@ -28,7 +28,7 @@ equivalent to "N constant."  Hence coprimality implies "N is constant."
 
 namespace E213.Math.ModArith.JoinGCD
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Math.ModArith.JoinBezout
 open E213.Math.ModArith.JoinEuclidean
 
@@ -61,7 +61,7 @@ end E213.Math.ModArith.JoinGCD
 
 namespace E213.Math.ModArith.JoinGCD
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Math.ModArith.JoinBezout
 open E213.Math.ModArith.JoinEuclidean
 
@@ -126,7 +126,7 @@ end E213.Math.ModArith.JoinGCD
 
 namespace E213.Math.ModArith.JoinGCD
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 /-- **Sanity check**: L_4 + L_6 → L_2 is a special case of
@@ -160,7 +160,7 @@ end E213.Math.ModArith.JoinGCD
 
 namespace E213.Math.ModArith.JoinGCD
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 
 /-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k is contained in

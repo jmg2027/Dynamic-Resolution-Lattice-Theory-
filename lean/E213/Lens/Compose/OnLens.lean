@@ -26,7 +26,7 @@ atom.
 
 namespace E213.Lens.Compose.OnLens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Constant-true Lens. -/
@@ -46,7 +46,7 @@ end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Pointwise xor combine of Lenses. -/
@@ -67,7 +67,7 @@ end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **Lens-on-Lens**: Lens Bool itself is a HasDistinguishing instance. -/
@@ -82,7 +82,7 @@ end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Universal morphism Raw → Lens Bool
@@ -111,7 +111,7 @@ end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Generic Lens-on-Lens: recursive self-application
@@ -151,7 +151,7 @@ end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **Generic Lens-on-Lens**: `HasDistinguishing α → HasDistinguishing
@@ -172,7 +172,7 @@ end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Reach
 

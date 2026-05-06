@@ -18,7 +18,7 @@ Replaces the degenerate combine of `SubtypeInstance.lean`.
 
 namespace E213.Lens.Instances.SubtypeClosed
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- `P` is closed over `Raw.slash`: P is preserved on distinct args. -/
@@ -29,7 +29,7 @@ end E213.Lens.Instances.SubtypeClosed
 
 namespace E213.Lens.Instances.SubtypeClosed
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Slash-based combine on Subtype.  Falls back to base_a when
@@ -58,7 +58,7 @@ end E213.Lens.Instances.SubtypeClosed
 
 namespace E213.Lens.Instances.SubtypeClosed
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **Slash-based HasDistinguishing instance** on
@@ -82,7 +82,7 @@ end E213.Lens.Instances.SubtypeClosed
 
 namespace E213.Lens.Instances.SubtypeClosed
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Concrete instance: `True`-predicate (the trivial slash-closed)

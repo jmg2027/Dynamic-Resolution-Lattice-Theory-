@@ -27,7 +27,7 @@ of these "derived" observations.
 
 namespace E213.Lens.Properties.ABRefines
 
-open E213.Firmware E213.Lens E213.Meta
+open E213.Theory E213.Lens E213.Meta
 open E213.Lens.Instances.AB E213.Lens.Compose.Factoring
 
 /-- Factor function: (a, b) ↦ parity of sum. -/
@@ -47,7 +47,7 @@ end E213.Lens.Properties.ABRefines
 
 namespace E213.Lens.Properties.ABRefines
 
-open E213.Firmware E213.Lens E213.Meta
+open E213.Theory E213.Lens E213.Meta
 open E213.Lens.Instances.AB E213.Lens.Compose.Factoring
 
 /-- Factor function: (a, b) ↦ parity of a. -/

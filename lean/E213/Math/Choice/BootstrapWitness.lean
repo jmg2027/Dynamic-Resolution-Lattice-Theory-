@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 
 /-!
@@ -27,7 +27,7 @@ to Raw's `a, b`.  No `Nat` needed, no bootstrap.
 
 namespace E213.Math.Choice.BootstrapWitness
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- The simplest Lens: maps `a ↦ false`, `b ↦ true`, combine
     is exclusive-or.  Backward-depth 1, no bootstrap. -/
@@ -46,7 +46,7 @@ end E213.Math.Choice.BootstrapWitness
 
 namespace E213.Math.Choice.BootstrapWitness
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ## §2. Nat-valued Lens (bootstrap present)
 
@@ -91,7 +91,7 @@ end E213.Math.Choice.BootstrapWitness
 
 namespace E213.Math.Choice.BootstrapWitness
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ## §3. Attempted "Raw-first" Nat
 

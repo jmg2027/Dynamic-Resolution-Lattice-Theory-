@@ -44,7 +44,7 @@ The pure sample sum is the natural primitive.
 namespace E213.Math.Analysis.DyadicSearch.DyadicRiemann
 
 open E213.Math.Real213.CutSum (cutSum)
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutPoset (cutEq)
 open E213.Math.Real213.CutSumOne (cutSum_self cutSum_half_general
   cutSum_int_int cutSum_self_at)

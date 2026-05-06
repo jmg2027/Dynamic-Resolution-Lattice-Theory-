@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 
 /-!
@@ -24,7 +24,7 @@ conditions, then f = Lens.view.
 
 namespace E213.Lens.Initiality
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Uniqueness of Raw-algebra homomorphisms (commutative combine).**
 
@@ -66,7 +66,7 @@ end E213.Lens.Initiality
 
 namespace E213.Lens.Initiality
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-! ## §2. Existence + uniqueness = universal property
 

@@ -18,7 +18,7 @@ namespace E213.Math.Real213.ValidCut
 
 open E213.Math.Real213.CutSumTest (constCut)
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **ValidCut**: cut function with the two monotonicity properties
     of a real-number cut. -/

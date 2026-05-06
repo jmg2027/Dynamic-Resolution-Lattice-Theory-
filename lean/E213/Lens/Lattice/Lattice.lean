@@ -26,7 +26,7 @@ world.
 
 namespace E213.Lens.Lattice.Lattice
 
-open E213.Firmware E213.Lens E213.Lens.Instances.Identity
+open E213.Theory E213.Lens E213.Lens.Instances.Identity
 
 /-- Terminal Lens: maps every Raw to a single point e. -/
 def constLens {α : Type} (e : α) : Lens α where
@@ -50,7 +50,7 @@ end E213.Lens.Lattice.Lattice
 
 namespace E213.Lens.Lattice.Lattice
 
-open E213.Firmware E213.Lens E213.Lens.Instances.Identity
+open E213.Theory E213.Lens E213.Lens.Instances.Identity
 
 /-- **Bottom**: idLens refines every Lens.  Since the kernel of
     idLens is Raw equality `=`, it is contained in every kernel. -/
@@ -74,7 +74,7 @@ end E213.Lens.Lattice.Lattice
 
 namespace E213.Lens.Lattice.Lattice
 
-open E213.Firmware E213.Lens E213.Lens.Instances.Identity
+open E213.Theory E213.Lens E213.Lens.Instances.Identity
 
 /-- **Injectivity characterisation**: L refines idLens ↔ L.view is
     injective. -/

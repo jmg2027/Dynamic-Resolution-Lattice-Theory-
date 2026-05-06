@@ -37,7 +37,7 @@ Only ZFC's *arbitrary subsets* (Dedekind cuts) are *external* to the framework.
 
 namespace E213.Math.Hyper.Hyper213Tower
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Math.Hyper.Hyper213

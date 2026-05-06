@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 
 /-!
@@ -38,7 +38,7 @@ demonstrates the lens shape conceptually.
 
 namespace E213.Math.AxiomSystems.ZFCExtensionality
 
-open E213.Firmware (Raw)
+open E213.Theory (Raw)
 
 /-- A "set view" of a Raw expression: its membership function.
     Two Raws are *extensionally equal* (under the ZFC ext lens)

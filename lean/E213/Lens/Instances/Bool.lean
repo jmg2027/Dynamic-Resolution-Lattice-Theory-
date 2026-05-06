@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 import E213.Lens.Characterisation.Catalog
 
@@ -24,7 +24,7 @@ clause is a strong restriction.
 -/
 
 namespace E213.Lens.Instances.Bool
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 -- ═══ Swap-blind Bool lenses ═══
 
@@ -63,7 +63,7 @@ theorem boolOrLens_view_const (r : Raw) : boolOrLens.view r = true := by
 
 end E213.Lens.Instances.Bool
 namespace E213.Lens.Instances.Bool
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 -- ═══ Swap-visible Bool lens: XOR ═══
 

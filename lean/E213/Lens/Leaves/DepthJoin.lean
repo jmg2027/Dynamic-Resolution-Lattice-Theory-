@@ -29,7 +29,7 @@ they are separated by JoinEquiv.
 
 namespace E213.Lens.Leaves.DepthJoin
 
-open E213.Firmware E213.Lens E213.Lens.Lattice.JoinEquiv
+open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
 
 /-- `small r` := r is a base (Raw.a or Raw.b), leaves=1. -/
 private def small (r : Raw) : Prop := Lens.leaves.view r = 1
@@ -158,7 +158,7 @@ end E213.Lens.Leaves.DepthJoin
 
 namespace E213.Lens.Leaves.DepthJoin
 
-open E213.Firmware E213.Lens E213.Lens.Lattice.JoinEquiv
+open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
 
 /-- For non-small r: leaves r = 2 → depth r = 1 (all children of
     the slash are small). -/
@@ -369,7 +369,7 @@ end E213.Lens.Leaves.DepthJoin
 
 namespace E213.Lens.Leaves.DepthJoin
 
-open E213.Firmware E213.Lens E213.Lens.Lattice.JoinEquiv
+open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
 
 /-- **Tier invariant**: tier is preserved under JoinEquiv leaves depth. -/
 theorem tier_invariant (r r' : Raw)
@@ -391,7 +391,7 @@ end E213.Lens.Leaves.DepthJoin
 
 namespace E213.Lens.Leaves.DepthJoin
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **tierLens**: concrete common upper bound of leaves and depth.
     view = tier r ∈ {0, 1, 2}. -/
@@ -429,7 +429,7 @@ end E213.Lens.Leaves.DepthJoin
 
 namespace E213.Lens.Leaves.DepthJoin
 
-open E213.Firmware E213.Lens E213.Lens.Lattice.JoinEquiv
+open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
 
 /-- Concrete Raws: representatives of tiers 0, 1, 2. -/
 private def repr0 : Raw := Raw.a
@@ -495,7 +495,7 @@ end E213.Lens.Leaves.DepthJoin
 
 namespace E213.Lens.Leaves.DepthJoin
 
-open E213.Firmware E213.Lens E213.Lens.Lattice.JoinEquiv
+open E213.Theory E213.Lens E213.Lens.Lattice.JoinEquiv
 
 /-- **leaves refines tierLens** (tierLens is an upper bound of leaves). -/
 theorem leaves_refines_tierLens : Lens.leaves.refines tierLens := by

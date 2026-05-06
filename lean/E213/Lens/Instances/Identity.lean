@@ -25,7 +25,7 @@ This dual is `Lens.view L : Raw → α` viewed from the Raw side.
 
 namespace E213.Lens.Instances.Identity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Identity Lens: view = id on Raw.  combine is Raw.slash
     (x ≠ y branch), diagonal fallback to Raw.a — the diagonal
@@ -50,7 +50,7 @@ end E213.Lens.Instances.Identity
 
 namespace E213.Lens.Instances.Identity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 theorem idLens_is_id : ∀ r : Raw, idLens.view r = r := by
   intro r
@@ -71,7 +71,7 @@ end E213.Lens.Instances.Identity
 
 namespace E213.Lens.Instances.Identity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- `idLens.view` is injective (in fact, the identity). -/
 theorem idLens_injective : Function.Injective idLens.view := by

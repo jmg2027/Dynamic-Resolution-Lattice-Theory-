@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 import E213.Prelude
 
@@ -23,7 +23,7 @@ complex conjugation.
 -/
 
 namespace E213.Lens.Characterisation.Catalog
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 -- ═══ Swap-blind lenses ═══
 
@@ -47,7 +47,7 @@ end E213.Lens.Characterisation.Catalog
 -- ═══ Swap-visible lens: signed (Int) ═══
 
 namespace E213.Lens.Characterisation.Catalog
-open E213.Firmware
+open E213.Theory
 
 /-- Signed lens: `a ↦ 1`, `b ↦ -1`, combine = `+`.
     Base values differ in sign, so `swap` becomes visible as
@@ -68,7 +68,7 @@ theorem signed_swap_neg (r : Raw) :
 
 end E213.Lens.Characterisation.Catalog
 namespace E213.Lens.Characterisation.Catalog
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 -- ═══ Swap-invariance characterisation ═══
 
@@ -87,7 +87,7 @@ theorem swap_invariant_base_eq {α : Type} {L : Hypervisor.Lens α}
 
 end E213.Lens.Characterisation.Catalog
 namespace E213.Lens.Characterisation.Catalog
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 -- ═══ R3–R5 — structural Lens requirements ═══
 
@@ -122,7 +122,7 @@ def Distinguishing {α : Type} (L : Hypervisor.Lens α) : Prop :=
 
 end E213.Lens.Characterisation.Catalog
 namespace E213.Lens.Characterisation.Catalog
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 -- ═══ signedLens: verified R4 (swap = negation) ═══
 

@@ -24,7 +24,7 @@ the image is the 2-element subset
 
 namespace E213.Lens.Compose.OnLensImageLevel2
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Lens.Compose.OnLensImageGeneric

@@ -37,7 +37,7 @@ capstone bundles dropped.)
 
 namespace E213.Math.Analysis.ODELinear
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutPow (cutScale)
 open E213.Math.Real213.CutSum (cutSum)
@@ -72,7 +72,7 @@ end E213.Math.Analysis.ODELinear
 
 namespace E213.Math.Analysis.ODECatalog
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutHalf)
 open E213.Math.Real213.CutPow (cutScale)
@@ -113,7 +113,7 @@ end E213.Math.Analysis.ODECatalog
 
 namespace E213.Math.Analysis.ODESecondOrder
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)

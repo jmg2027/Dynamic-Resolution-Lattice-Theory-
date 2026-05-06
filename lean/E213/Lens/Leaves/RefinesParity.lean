@@ -16,7 +16,7 @@ In the refines preorder from note 37: `Lens.leaves ⊑ parityLens`
 
 namespace E213.Lens.Leaves.RefinesParity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.Parity (parityLens)
 
 /-- PURE Nat.mod-2 case-analysis (replaces Nat.mod_two_eq_zero_or_one). -/
@@ -69,7 +69,7 @@ end E213.Lens.Leaves.RefinesParity
 
 namespace E213.Lens.Leaves.RefinesParity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.Parity (parityLens)
 
 /-- Witness Raw element with leaves=3, parity=true. -/

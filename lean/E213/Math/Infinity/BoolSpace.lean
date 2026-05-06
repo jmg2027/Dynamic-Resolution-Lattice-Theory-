@@ -22,7 +22,7 @@ to injectivity of `nToRawBool`.
 
 namespace E213.Infinity
 
-open E213.Firmware
+open E213.Theory
 
 /-- Indicator of `{rawTower n}`. -/
 def nToRawBool (n : Nat) : Raw → Bool :=
@@ -57,7 +57,7 @@ end E213.Infinity
 
 namespace E213.Infinity
 
-open E213.Firmware
+open E213.Theory
 
 /-- **`Raw → Bool` has at least ℕ-many distinct elements.** -/
 theorem boolSpace_at_least_countable :

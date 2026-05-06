@@ -9,7 +9,7 @@ transitivity, as stated in PAPER1 §3.2.
 
 namespace E213.Lens.Properties.EquivProperties
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 theorem lens_equiv_refl {α : Type} (L : Lens α) (x : Raw) :
     L.equiv x x := rfl

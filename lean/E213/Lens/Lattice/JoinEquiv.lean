@@ -17,7 +17,7 @@ preorder — the smallest congruence that refines both kernels.
 
 namespace E213.Lens.Lattice.JoinEquiv
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Smallest slash-congruence containing the kernels of two Lenses. -/
 inductive JoinEquiv {α β : Type} (L : Lens α) (M : Lens β) : Raw → Raw → Prop where
@@ -53,7 +53,7 @@ end E213.Lens.Lattice.JoinEquiv
 
 namespace E213.Lens.Lattice.JoinEquiv
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Algebra.Congruence
 
 /-- **Join universal property**: if both L and M refine N (i.e.,

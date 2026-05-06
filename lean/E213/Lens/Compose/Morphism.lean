@@ -23,7 +23,7 @@ structure**.
 
 namespace E213.Lens.Compose.Morphism
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- h is an L-M Lens morphism. -/
 def IsLensMorphism {α β : Type} (h : α → β) (L : Lens α) (M : Lens β) :
@@ -58,7 +58,7 @@ end E213.Lens.Compose.Morphism
 
 namespace E213.Lens.Compose.Morphism
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Morphism → Refinement**: if h is an L-M morphism then
     L.refines M (given symmetric combine). -/

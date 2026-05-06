@@ -19,7 +19,7 @@ Induction on |leaves r' - leaves r| for an arbitrary leaves difference.
 
 namespace E213.Math.ModArith.JoinCoprime
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
@@ -62,7 +62,7 @@ end E213.Math.ModArith.JoinCoprime
 
 namespace E213.Math.ModArith.JoinCoprime
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 /-- +k step via iteration. -/
@@ -93,7 +93,7 @@ end E213.Math.ModArith.JoinCoprime
 
 namespace E213.Math.ModArith.JoinCoprime
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 /-- **Main**: L_2.refines N ∧ L_3.refines N → N is constant.

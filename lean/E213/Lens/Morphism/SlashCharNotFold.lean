@@ -31,7 +31,7 @@ Lens only permits fold-compositional observation.
 
 namespace E213.Lens.Morphism.SlashCharNotFold
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Morphism.FoldStructured
 
 /-- slashAB = slash(Raw.a, Raw.b). -/
@@ -48,7 +48,7 @@ end E213.Lens.Morphism.SlashCharNotFold
 
 namespace E213.Lens.Morphism.SlashCharNotFold
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Morphism.FoldStructured
 
 private theorem slashCharFn_a : slashCharFn Raw.a = false := by decide

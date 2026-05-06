@@ -25,7 +25,7 @@ constructively without LEM.  The first concrete instance of the
 
 namespace E213.Math.Modulus.PellHasModulus
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Modulus.HasModulus
@@ -43,7 +43,7 @@ end E213.Math.Modulus.PellHasModulus
 
 namespace E213.Math.Modulus.PellHasModulus
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Modulus.HasModulus
@@ -88,7 +88,7 @@ end E213.Math.Modulus.PellHasModulus
 
 namespace E213.Math.Modulus.PellHasModulus
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Cauchy.Archimedean
 open E213.Math.Modulus.HasModulus
 open E213.Math.Cauchy.PellSeq

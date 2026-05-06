@@ -28,7 +28,7 @@ existing catalog's leafLens ({leaves} vs {slashes}).
 
 namespace E213.Lens.Instances.RawAChar
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Characteristic Lens of Raw.a. -/
 def rawACharLens : Lens Bool where
@@ -54,21 +54,21 @@ theorem rawACharLens_view_eq :
         intro heq
         have hv : (Raw.slash x y h).val = Raw.a.val :=
           congrArg Subtype.val heq
-        have hra : Raw.a.val = (.a : E213.Firmware.Internal.Tree) := rfl
+        have hra : Raw.a.val = (.a : E213.Theory.Internal.Tree) := rfl
         rw [hra] at hv
         unfold Raw.slash at hv
         split at hv <;> rename_i hcmp
-        · exact E213.Firmware.Internal.Tree.noConfusion hv
-        · exact E213.Firmware.Internal.Tree.noConfusion hv
+        · exact E213.Theory.Internal.Tree.noConfusion hv
+        · exact E213.Theory.Internal.Tree.noConfusion hv
         · exact h (Subtype.ext
-            ((E213.Firmware.Internal.Tree.cmp_eq_iff _ _).mp hcmp))
+            ((E213.Theory.Internal.Tree.cmp_eq_iff _ _).mp hcmp))
       rw [decide_eq_false hne]
 
 end E213.Lens.Instances.RawAChar
 
 namespace E213.Lens.Instances.RawAChar
 
-open E213.Firmware E213.Lens E213.Lens.Properties.Leaf
+open E213.Theory E213.Lens E213.Lens.Properties.Leaf
 
 /-- Raw.a vs Raw.b: leafLens equates them, rawACharLens distinguishes them. -/
 theorem leafLens_equates_a_b :

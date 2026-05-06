@@ -14,7 +14,7 @@ Native order on RealCut in 213.  Cut form of Bishop's ≤.
 
 namespace E213.Math.Real213.CutPoset
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 
 /-- **cutEq**: pointwise Bool equality of cuts. -/
@@ -65,7 +65,7 @@ theorem cutEq_of_cutLe_both (cx cy : Nat → Nat → Bool) :
       exact Bool.noConfusion hcx
     | false => rfl
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutMaxMin (cutMax cutMin)
 
 /-- **x ≤ max(x, y)**: cutLe cx (cutMax cx cy). -/

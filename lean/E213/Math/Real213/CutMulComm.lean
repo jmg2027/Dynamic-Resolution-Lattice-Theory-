@@ -8,7 +8,7 @@ Strategy: iff existential characterization + bijection (m1, m2) → (m2, m1).
 
 namespace E213.Math.Real213.CutMulComm
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
 
 /-- cutMulInner true iff existential witness on m2. -/
@@ -89,7 +89,7 @@ theorem cutMulInner_eq_true_iff (cx cy : Nat → Nat → Bool)
         rw [rec_true]
         cases (cx m1 k && cy (j+1) k && decide (m1 * (j+1) ≤ m * k)) <;> rfl
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
 
 /-- cutMulOuter true iff ∃ m1 ≤ n, ∃ m2 ≤ m2Bound, witnesses.
@@ -151,7 +151,7 @@ theorem cutMulOuter_eq_true_iff (cx cy : Nat → Nat → Bool)
         rw [outer_true]
         cases cutMulInner cx cy k m (j+1) m2Bound <;> rfl
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutMul (cutMul cutMulInner cutMulOuter)
 
 private theorem bool_eq_of_iff_true' (a b : Bool)

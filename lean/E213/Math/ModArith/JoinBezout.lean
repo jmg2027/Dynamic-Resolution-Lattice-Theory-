@@ -18,7 +18,7 @@ chain.
 
 namespace E213.Math.ModArith.JoinBezout
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
@@ -55,7 +55,7 @@ end E213.Math.ModArith.JoinBezout
 
 namespace E213.Math.ModArith.JoinBezout
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 /-- Same leaves → same N-view via arbitrary L_k. -/
@@ -96,7 +96,7 @@ end E213.Math.ModArith.JoinBezout
 
 namespace E213.Math.ModArith.JoinBezout
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat
 
 /-- **Consecutive coprime → Join = constLens**.

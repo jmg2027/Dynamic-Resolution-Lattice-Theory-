@@ -20,7 +20,7 @@ K = {Lens kernels} = {slash-congruences}.
 
 namespace E213.Lens.Algebra.Corresp
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Universal.QuotLens
 
 /-- Slash-congruence predicate. -/
@@ -48,7 +48,7 @@ end E213.Lens.Algebra.Corresp
 
 namespace E213.Lens.Algebra.Corresp
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Universal.QuotLens
 
 /-- **Direction 2**: any slash-congruence is the kernel of some Lens.

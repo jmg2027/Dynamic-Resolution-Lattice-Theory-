@@ -49,7 +49,7 @@ Questions answered by each file + comprehensive single theorem.
 
 namespace E213.Physics.Substrate.Capstone
 
-open E213.Firmware.Atomicity.Five
+open E213.Theory.Atomicity.Five
 open E213.Physics.Substrate.Existence
 open E213.Physics.Substrate.Pairs
 
@@ -92,10 +92,10 @@ theorem phase2_absolute :
     ∧ (8 = E213.Physics.Substrate.Edges.NS_atomic
             * E213.Physics.Substrate.Edges.NS_atomic - 1)
     -- (10) Lens: Hypervisor explicit Lens demo
-    ∧ (E213.Physics.Substrate.Lens.parityLens.view E213.Firmware.Raw.a = false)
-    ∧ (E213.Physics.Substrate.Lens.parityLens.view E213.Firmware.Raw.b = true)
-    ∧ (E213.Physics.Substrate.Lens.bCountLens.view E213.Firmware.Raw.a = 0)
-    ∧ (E213.Physics.Substrate.Lens.bCountLens.view E213.Firmware.Raw.b = 1) := by
+    ∧ (E213.Physics.Substrate.Lens.parityLens.view E213.Theory.Raw.a = false)
+    ∧ (E213.Physics.Substrate.Lens.parityLens.view E213.Theory.Raw.b = true)
+    ∧ (E213.Physics.Substrate.Lens.bCountLens.view E213.Theory.Raw.a = 0)
+    ∧ (E213.Physics.Substrate.Lens.bCountLens.view E213.Theory.Raw.b = 1) := by
   refine ⟨atomic_five, fun n => atomic_implies_five n, ?_⟩
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_,
           ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩

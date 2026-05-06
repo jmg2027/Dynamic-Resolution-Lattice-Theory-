@@ -14,7 +14,7 @@ Therefore leaves-equiv, but idLens is not-equiv.
 
 namespace E213.Lens.Algebra.FourDistinct
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.Identity
 
 /-- Kernels of idLens and Lens.leaves are pairwise distinct.

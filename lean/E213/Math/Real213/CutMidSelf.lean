@@ -20,7 +20,7 @@ Via cutSum_self + cutHalf_constCut + constCut_scale.
 
 namespace E213.Math.Real213.CutMidSelf
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.Core (Real213)
 open E213.Math.Real213.CutBisection (cutHalf cutHalf_constCut cutHalf_constCut_at cutMid)
 open E213.Math.Real213.CutMul (cutMul)

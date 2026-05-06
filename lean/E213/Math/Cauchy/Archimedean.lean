@@ -26,7 +26,7 @@ Mingu (C) direction (2026-04-25): abLens + order-projection family.
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Lens.Instances.Cauchy
 
 /-- **Order projection**: (a, b) ↦ decide (a * k ≤ b * m).
@@ -45,7 +45,7 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 
 /-- **orderProj is n-independent for (a, b) = (n, n) (n ≥ 1)**:
@@ -65,7 +65,7 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Lens.Instances.Cauchy
 
 /-- **Order Cauchy data**: explicit witness structure (constructive). -/
@@ -91,7 +91,7 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 
 /-- **Diagonal sequence (a=b=n+1) is Order-Cauchy**.
@@ -130,7 +130,7 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 
 /-- orderProj of the (n+1, n+2) sequence is eventually constant
@@ -187,7 +187,7 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 
 /-- **(n+1, n+2)-type sequence is Order-Cauchy** — approaches ratio 1
@@ -217,7 +217,7 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 
 /-- **General rational p/q sequence**: orderProj of (a, b) =
@@ -256,7 +256,7 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB
 
 /-- **Half sequence (a = n+1, b = 2*(n+1))**: ratio 1/2. -/
@@ -294,7 +294,7 @@ end E213.Math.Cauchy.Archimedean
 
 namespace E213.Math.Cauchy.Archimedean
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Cut equivalence**: two OrderCauchyData with the same Dedekind cut
     represent the same ℝ-element. -/

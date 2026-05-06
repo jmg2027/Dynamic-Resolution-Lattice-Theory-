@@ -25,7 +25,7 @@ For m² > 2k²: (m² - 2k²) ≥ 1, so y² ≥ k² → conclusion.
 
 namespace E213.Math.Irrational.Sqrt2Cut
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- Pell-like condition. -/
@@ -50,7 +50,7 @@ end E213.Math.Irrational.Sqrt2Cut
 
 namespace E213.Math.Irrational.Sqrt2Cut
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Pell solutions: orderProj true when m/k > √2 (rationally
@@ -101,7 +101,7 @@ end E213.Math.Irrational.Sqrt2Cut
 
 namespace E213.Math.Irrational.Sqrt2Cut
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.AB E213.Math.Cauchy.Archimedean
 
 /-- **Pell solutions: orderProj false when m/k < √2** (rationally

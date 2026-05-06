@@ -19,7 +19,7 @@ Direct consequence of the universalAsLens definition in `UniversalReflection.lea
 
 namespace E213.Meta.Universal.MorphismFactor
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 open E213.Lens.Compose.OnLensImageGeneric

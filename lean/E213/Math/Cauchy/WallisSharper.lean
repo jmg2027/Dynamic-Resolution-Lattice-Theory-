@@ -22,7 +22,7 @@ case-by-case.
 
 namespace E213.Math.Cauchy.WallisSharper
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Cauchy.WallisSeq
 
 /-- Polynomial: `4(k+1)² ≥ (2k+1)(2k+3)`. -/
@@ -49,7 +49,7 @@ end E213.Math.Cauchy.WallisSharper
 
 namespace E213.Math.Cauchy.WallisSharper
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Cauchy.WallisSeq
 
 /-- **W_n ≥ 64/45 strict** (n ≥ 2): 45 * wallisNum n ≥ 64 *

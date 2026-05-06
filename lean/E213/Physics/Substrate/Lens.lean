@@ -37,7 +37,7 @@ needs a more complex definition, outside this file's scope.)
 
 namespace E213.Physics.Substrate.Lens
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- First explicit Lens in Phase 2: parity (b-count mod 2). -/
 def parityLens : Lens Bool where
@@ -80,8 +80,8 @@ theorem phase2_lens_demo :
     ∧ (bCountLens.view Raw.a = 0)
     ∧ (bCountLens.view Raw.b = 1)
     -- d=5 cosmos (Origin)
-    ∧ E213.Firmware.Atomicity.Five.Atomic 5 := by
+    ∧ E213.Theory.Atomicity.Five.Atomic 5 := by
   refine ⟨rfl, rfl, rfl, rfl, ?_⟩
-  exact E213.Firmware.Atomicity.Five.atomic_five
+  exact E213.Theory.Atomicity.Five.atomic_five
 
 end E213.Physics.Substrate.Lens

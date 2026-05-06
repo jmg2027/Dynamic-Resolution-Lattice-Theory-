@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 
 /-!
 # Hypervisor: Lens layer
@@ -18,7 +18,7 @@ internal `Tree` type and its ordering are not referenced.
 
 namespace E213.Lens
 
-open E213.Firmware
+open E213.Theory
 
 /-- A Lens: two base values + a binary op. -/
 structure Lens (α : Type) where

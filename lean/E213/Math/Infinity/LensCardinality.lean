@@ -37,7 +37,7 @@ the precise content of "cardinality is Lens-output".
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 -- ═══ leaves surjective onto ℕ≥1 ═══
 
@@ -54,7 +54,7 @@ theorem leaves_surjective_pos :
 
 end E213.Infinity
 
-namespace E213.Firmware.Internal
+namespace E213.Theory.Internal
 
 /-- Depth of the tree tower: equals `n` at every level. -/
 theorem treeTower_depth : ∀ n, (treeTower n).depth = n := by
@@ -68,11 +68,11 @@ theorem treeTower_depth : ∀ n, (treeTower n).depth = n := by
       have hzm : Nat.max 0 m = m := Nat.zero_max m
       rw [hzm, Nat.add_comm 1 m]
 
-end E213.Firmware.Internal
+end E213.Theory.Internal
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Firmware.Internal E213.Lens
+open E213.Theory E213.Theory.Internal E213.Lens
 
 -- ═══ depth surjective onto ℕ ═══
 
@@ -88,7 +88,7 @@ end E213.Infinity
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.Bool
 open E213.Lens.Instances.Parity
 open E213.Lens.Instances.Max
@@ -137,7 +137,7 @@ theorem maxLens_image_binary :
 
 end E213.Infinity
 
-namespace E213.Firmware.Internal
+namespace E213.Theory.Internal
 
 /-- Signed-view of the tree tower: `view(treeTower n) = n - 1`
     as an Int.  tower_0 = Tree.b → -1; each slash adds `1`. -/
@@ -150,11 +150,11 @@ theorem treeTower_signed :
              = (m + 1 : Int) - 1
       rw [ih]; push_cast; omega
 
-end E213.Firmware.Internal
+end E213.Theory.Internal
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Firmware.Internal E213.Lens
+open E213.Theory E213.Theory.Internal E213.Lens
 open E213.Lens.Characterisation.Catalog
 
 /-- **signedLens surjective onto `{z : ℤ | z ≥ -1}`** via
@@ -186,7 +186,7 @@ end E213.Infinity
 
 namespace E213.Infinity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 -- ═══ Σ7 summary — cardinality spectrum ═══
 

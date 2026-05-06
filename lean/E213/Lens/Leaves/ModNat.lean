@@ -17,7 +17,7 @@ Concrete structure of the countably infinite lower bound from note 41 §4.
 
 namespace E213.Lens.Leaves.ModNat
 
-open E213.Firmware E213.Lens E213.Lens.Compose.Factoring
+open E213.Theory E213.Lens E213.Lens.Compose.Factoring
 
 /-- Leaves mod m Lens (m ≥ 2).  view r = leaves r % m. -/
 def leavesModNat (m : Nat) : Lens Nat where
@@ -54,7 +54,7 @@ end E213.Lens.Leaves.ModNat
 
 namespace E213.Lens.Leaves.ModNat
 
-open E213.Firmware E213.Lens E213.Lens.Compose.Factoring
+open E213.Theory E213.Lens E213.Lens.Compose.Factoring
 
 /-- divisibility → refinement: k ∣ m ⟹ mod m refines mod k. -/
 theorem divides_refines (m k : Nat) (hmk : k ∣ m) :
@@ -73,7 +73,7 @@ end E213.Lens.Leaves.ModNat
 
 namespace E213.Lens.Leaves.ModNat
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Converse (k ≥ 2): mod m refines mod k ⟹ k ∣ m.  Witness:
     leaves = m+1 (exists — leaves_surjective_pos) vs leaves = 1
@@ -114,7 +114,7 @@ end E213.Lens.Leaves.ModNat
 
 namespace E213.Lens.Leaves.ModNat
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- L_gcd(m, k) is an upper bound of both L_m and L_k (in the refines order).
     Direct consequence of divides_refines. -/

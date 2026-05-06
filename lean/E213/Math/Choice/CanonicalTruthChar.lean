@@ -23,7 +23,7 @@ And canonicalTruthMap r is the Prop translation of
 
 namespace E213.Math.Choice.CanonicalTruthChar
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Bool-valued a-count parity Lens. -/
@@ -44,7 +44,7 @@ end E213.Math.Choice.CanonicalTruthChar
 
 namespace E213.Math.Choice.CanonicalTruthChar
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- Specific reduction of canonicalTruthMap at a. -/
@@ -66,7 +66,7 @@ end E213.Math.Choice.CanonicalTruthChar
 
 namespace E213.Math.Choice.CanonicalTruthChar
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **Main characterization**: canonicalTruthMap r ↔ aCountParityLens.view r = true. -/
@@ -87,7 +87,7 @@ end E213.Math.Choice.CanonicalTruthChar
 
 namespace E213.Math.Choice.CanonicalTruthChar
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Characterization of the Iff alternative
@@ -116,7 +116,7 @@ end E213.Math.Choice.CanonicalTruthChar
 
 namespace E213.Math.Choice.CanonicalTruthChar
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-- **The morphisms of two Prop instances differ**: the results of
@@ -157,7 +157,7 @@ end E213.Math.Choice.CanonicalTruthChar
 
 namespace E213.Math.Choice.CanonicalTruthChar
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Iff alternative characterization (b-count parity) -/
@@ -188,7 +188,7 @@ end E213.Math.Choice.CanonicalTruthChar
 
 namespace E213.Math.Choice.CanonicalTruthChar
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### And-based characterization: r = Raw.a iff canonicalAndMap
@@ -234,7 +234,7 @@ end E213.Math.Choice.CanonicalTruthChar
 
 namespace E213.Math.Choice.CanonicalTruthChar
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 
 /-! ### Or-based characterization: r ≠ Raw.b iff canonicalOrMap

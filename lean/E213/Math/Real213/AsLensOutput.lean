@@ -52,7 +52,7 @@ of real analysis in 213 form.
 
 namespace E213.Math.Real213.AsLensOutput
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Real as Lens output** — inherent type of the framework. -/
 abbrev RealAsLensOutput := Nat → Nat → Bool

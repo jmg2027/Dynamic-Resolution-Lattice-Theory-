@@ -22,7 +22,7 @@ and the refinement application of `hLm`, `hLk` is replaced with the
 
 namespace E213.Math.ModArith.JoinEquivGCD
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv E213.Math.ModArith.JoinGCD
 
 private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by

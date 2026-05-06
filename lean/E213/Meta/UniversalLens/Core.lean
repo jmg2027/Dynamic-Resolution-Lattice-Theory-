@@ -23,7 +23,7 @@ Heavy lifting reused from `Research.IdentityLens` (existence:
 
 namespace E213.Meta.UniversalLens.Core
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Instances.Identity (idLens idLens_injective)
 open E213.Lens.Lattice.Lattice (refines_idLens_iff_injective)
 

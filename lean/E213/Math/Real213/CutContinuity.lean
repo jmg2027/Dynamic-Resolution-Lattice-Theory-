@@ -22,7 +22,7 @@ consistent with Bishop locatedness.
 
 namespace E213.Math.Real213.CutContinuity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **CutFunction**: cut → cut transformer. -/
 abbrev CutFunction := (Nat → Nat → Bool) → (Nat → Nat → Bool)
@@ -42,7 +42,7 @@ theorem id_locallyDetermined : isLocallyDetermined id := by
   intro cx cy h
   exact h m k (E213.Math.NatHelpers.Max213.le_max_left _ _) (E213.Math.NatHelpers.Max213.le_max_right _ _)
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Const cut function**: f cx = c (fixed). -/
 def constCutFn (c : Nat → Nat → Bool) : CutFunction := fun _ => c

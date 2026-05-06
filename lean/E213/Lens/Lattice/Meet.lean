@@ -23,7 +23,7 @@ The view is the pair `(L.view r, M.view r)` and the kernel is
 
 namespace E213.Lens.Lattice.Meet
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Product Lens: componentwise data. -/
 def prodLens {α β : Type} (L : Lens α) (M : Lens β) : Lens (α × β) where
@@ -61,7 +61,7 @@ end E213.Lens.Lattice.Meet
 
 namespace E213.Lens.Lattice.Meet
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- the product refines the left Lens. -/
 theorem prodLens_refines_fst {α β : Type} (L : Lens α) (M : Lens β)
@@ -93,7 +93,7 @@ end E213.Lens.Lattice.Meet
 
 namespace E213.Lens.Lattice.Meet
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Meet universal property**: if N refines both L and M, then N
     also refines their product.  Hence prodLens L M is the greatest

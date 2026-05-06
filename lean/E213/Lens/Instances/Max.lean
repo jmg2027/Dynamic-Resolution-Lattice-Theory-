@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 import E213.Lens.Characterisation.Catalog
 import E213.Prelude
@@ -28,7 +28,7 @@ break any lattice-valued Lens with non-discrete base values.
 -/
 
 namespace E213.Lens.Instances.Max
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Max lens.**  `a ↦ 0`, `b ↦ 1`, combine = max. -/
 def maxLens : Hypervisor.Lens Nat where
@@ -54,7 +54,7 @@ theorem slash_ab_swap_fixed :
 
 end E213.Lens.Instances.Max
 namespace E213.Lens.Instances.Max
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Characterisation.Catalog
 
 -- ═══ R4 fails: two Raw terms force inconsistent `conj 1` values ═══

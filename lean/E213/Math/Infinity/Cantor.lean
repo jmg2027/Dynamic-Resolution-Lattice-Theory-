@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.Prelude
 
 /-!
@@ -16,7 +16,7 @@ observation, not an input.
 
 namespace E213.Infinity
 
-open E213.Firmware
+open E213.Theory
 
 /-- **Cantor's theorem, generic form.**  For any type `X`,
     no function `f : X → (X → Bool)` is surjective. -/

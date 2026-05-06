@@ -31,7 +31,7 @@ is separate.
 
 namespace E213.Lens.Instances.Cauchy
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Lens-Cauchy**: Cauchy with respect to a single Lens L. -/
 def LensCauchy {α : Type} (L : Lens α) (xs : Nat → Raw) : Prop :=
@@ -73,7 +73,7 @@ end E213.Lens.Instances.Cauchy
 
 namespace E213.Lens.Instances.Cauchy
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Cauchy witness structure**: explicit N + Cauchy property.
     Constructive (no Classical.choice). -/
@@ -108,7 +108,7 @@ end E213.Lens.Instances.Cauchy
 
 namespace E213.Lens.Instances.Cauchy
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Family-Cauchy**: Cauchy with respect to every (F i).2. -/
 def FamilyCauchy {ι : Type} (F : ι → (α : Type) × Lens α)
@@ -129,7 +129,7 @@ end E213.Lens.Instances.Cauchy
 
 namespace E213.Lens.Instances.Cauchy
 
-open E213.Firmware E213.Lens E213.Lens.Lattice.IndexedJoin
+open E213.Theory E213.Lens E213.Lens.Lattice.IndexedJoin
 
 /-- **Pointwise limit match**: the limit assignment of a family-Cauchy
     sequence agrees pointwise with the view of iProdLens F. -/
@@ -148,7 +148,7 @@ end E213.Lens.Instances.Cauchy
 
 namespace E213.Lens.Instances.Cauchy
 
-open E213.Firmware E213.Lens E213.Lens.Universal.QuotLens
+open E213.Theory E213.Lens E213.Lens.Universal.QuotLens
 
 /-- **Tail congruence**: minimum slash-congruence starting from the
     tail of sequence xs.  All tail elements (xs m, xs k) for m, k ≥ N

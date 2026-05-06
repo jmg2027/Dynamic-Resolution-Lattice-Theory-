@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 import E213.LensCore
 
 /-!
@@ -36,7 +36,7 @@ Nat type, derived from Raw via this lens):
 
 namespace E213.Math.AxiomSystems.Peano
 
-open E213.Firmware (Raw)
+open E213.Theory (Raw)
 open E213.Lens (Lens)
 
 /-- The Peano-view lens: counts base elements (= successor count). -/

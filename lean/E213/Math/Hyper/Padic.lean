@@ -54,7 +54,7 @@ the funext-by-design class of inherent-Quot.sound items.
 
 namespace E213.Math.Hyper.Padic
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
@@ -62,7 +62,7 @@ end E213.Math.Hyper.Padic
 
 namespace E213.Math.Hyper.Padic
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
@@ -94,7 +94,7 @@ end E213.Math.Hyper.Padic
 
 namespace E213.Math.Hyper.Padic
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 
@@ -136,7 +136,7 @@ end E213.Math.Hyper.Padic
 
 namespace E213.Math.Hyper.Padic
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Math.Cauchy.ProfiniteSeq
 

@@ -24,7 +24,7 @@ swap-orbits.  That is, in the refines preorder, the "swap-orbit Lens"
 
 namespace E213.Lens.Algebra.SwapInvariant
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- The kernel of a swap-invariant Lens collapses swap-orbits. -/
 theorem swap_invariant_equates_orbit {α : Type} (L : Lens α)

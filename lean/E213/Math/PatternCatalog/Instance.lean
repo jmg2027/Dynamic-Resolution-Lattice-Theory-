@@ -1,6 +1,6 @@
 import E213.Math.PatternCatalog.Core
 import E213.Math.Real213.CutMulOne
-import E213.Firmware.Atomicity.Five
+import E213.Theory.Atomicity.Five
 import E213.Math.AxiomSystems.CrossTheoryCohabit
 import E213.Lens.Properties.IsLeaf
 
@@ -72,11 +72,11 @@ The Raw axiom does NOT stipulate `d = 5`.  Instead, given atoms
 This is what `atomic_iff_five` proves. -/
 
 /-- d = 5 as a ForcedValueWitness instance.  Direct lift of
-    `E213.Firmware.Atomicity.Five.atomic_iff_five`. -/
+    `E213.Theory.Atomicity.Five.atomic_iff_five`. -/
 def fiveIsForced : ForcedValueWitness Nat :=
   { value  := 5
-    cond   := E213.Firmware.Atomicity.Five.Atomic
-    forced := E213.Firmware.Atomicity.Five.atomic_iff_five }
+    cond   := E213.Theory.Atomicity.Five.Atomic
+    forced := E213.Theory.Atomicity.Five.atomic_iff_five }
 
 /-! ## CohabitationWitness instance — Peano × Depth on the same Raw
 
@@ -87,7 +87,7 @@ The Raw expression `r := slash a b h` validates simultaneously:
 with no conflict.  This is `Catamorphism × Catamorphism` cohabitation
 witnessed by `cohabit_peano_depth`. -/
 
-open E213.Firmware (Raw)
+open E213.Theory (Raw)
 open E213.Lens (Lens)
 open E213.Math.AxiomSystems.Peano (peanoLens)
 open E213.Math.AxiomSystems.CrossTheoryCohabit (r peano_view depth_view)
@@ -415,7 +415,7 @@ def boolAsNat : Bool → Nat
 def threeLensAlphaConst : Nat → Type := fun _ => Nat
 
 /-- Per-index view (pure Nat-valued; no dependent return). -/
-def threeLensViews (i : Nat) (r : E213.Firmware.Raw) : Nat :=
+def threeLensViews (i : Nat) (r : E213.Theory.Raw) : Nat :=
   match i with
   | 0     => peanoLens.view r
   | 1     => E213.Lens.depth.view r
@@ -431,7 +431,7 @@ def threeLensExpected (i : Nat) : Nat :=
 
 /-- Per-index agreement. -/
 def threeLensAgree (i : Nat) :
-    threeLensViews i E213.Firmware.Raw.a = threeLensExpected i := by
+    threeLensViews i E213.Theory.Raw.a = threeLensExpected i := by
   match i with
   | 0     => rfl
   | 1     => rfl
@@ -441,9 +441,9 @@ def threeLensAgree (i : Nat) :
     `UniformArityNCohabit` form.  Target type T = Nat, with the Bool
     case (`isLeafLens.view`) `boolAsNat`-encoded into Nat resolution. -/
 def threeLensCohabit :
-    E213.Math.PatternCatalog.UniformArityNCohabit E213.Firmware.Raw Nat :=
+    E213.Math.PatternCatalog.UniformArityNCohabit E213.Theory.Raw Nat :=
   { arity    := 3
-    base     := E213.Firmware.Raw.a
+    base     := E213.Theory.Raw.a
     views    := threeLensViews
     expected := threeLensExpected
     agree    := threeLensAgree }

@@ -21,7 +21,7 @@ Provides new expressiveness for infinite families.
 
 namespace E213.Lens.Lattice.IndexedJoin
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Lattice.JoinEquiv E213.Lens.Universal.QuotLens
 
 /-- Indexed join equivalence: smallest slash-congruence containing
@@ -93,7 +93,7 @@ end E213.Lens.Lattice.IndexedJoin
 
 namespace E213.Lens.Lattice.IndexedJoin
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- **Indexed product Lens (meet)**: concrete meet of an arbitrary
     family `{L_i}` — codomain is the dependent function space.

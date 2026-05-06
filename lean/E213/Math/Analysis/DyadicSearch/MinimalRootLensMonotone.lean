@@ -34,7 +34,7 @@ bisection, given a locally-determined cut function `f`.
 
 namespace E213.Math.Analysis.DyadicSearch.MinimalRootLensMonotone
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Math.Analysis.DyadicSearch.MinimalRootLens (signedLeftOracle)
 open E213.Math.Real213.Dyadic (dyadicCut)

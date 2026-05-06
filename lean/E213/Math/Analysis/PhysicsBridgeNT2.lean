@@ -36,7 +36,7 @@ analysis-track theorems re-stated under physics-friendly names.
 
 namespace E213.Math.Analysis.PhysicsBridgeNT2
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutContinuity (constCutFn)
 open E213.Math.Analysis.DyadicSearch.DyadicRiemann

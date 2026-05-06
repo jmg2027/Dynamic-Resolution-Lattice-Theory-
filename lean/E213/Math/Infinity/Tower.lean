@@ -24,7 +24,7 @@ phenomenon for mathematicians.
 
 namespace E213.Infinity
 
-open E213.Firmware
+open E213.Theory
 
 /-- Layer-1 abbreviation: `L1 = Raw → Bool`. -/
 abbrev L1 : Type := Raw → Bool
@@ -52,7 +52,7 @@ end E213.Infinity
 
 namespace E213.Infinity
 
-open E213.Firmware
+open E213.Theory
 
 /-- Layer-4 abbreviation. -/
 abbrev L4 : Type := L3 → Bool

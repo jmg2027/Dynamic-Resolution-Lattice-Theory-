@@ -37,7 +37,7 @@ Therefore depth parity cannot be extracted by any Lens.
 
 namespace E213.Lens.Morphism.NoDepthParity
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- depth 1 witness: `a / b`. -/
 def rA1 : Raw := Raw.slash Raw.a Raw.b (by decide)

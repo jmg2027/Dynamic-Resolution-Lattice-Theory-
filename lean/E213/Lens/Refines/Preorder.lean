@@ -9,7 +9,7 @@ reflexivity + transitivity.
 
 namespace E213.Lens.Refines.Preorder
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Reflexivity. -/
 theorem refines_refl {α : Type} (L : Lens α) : L.refines L := by

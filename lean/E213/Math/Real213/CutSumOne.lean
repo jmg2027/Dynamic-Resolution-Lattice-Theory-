@@ -11,7 +11,7 @@ import E213.Math.Real213.CutSumTest
 
 namespace E213.Math.Real213.CutSumOne
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Real213.CutSum (cutSum cutSumAux)
 open E213.Math.Real213.CutSumTest (constCut)
 open E213.Math.Real213.CutSumComm (cutSumAux_eq_true_iff cutSum_comm)

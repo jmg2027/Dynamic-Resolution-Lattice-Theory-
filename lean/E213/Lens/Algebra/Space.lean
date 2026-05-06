@@ -26,7 +26,7 @@ Each KernelSpace element E is realized as the kernel of
 
 namespace E213.Lens.Algebra.Space
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Lens.Algebra.Corresp
 
 /-- Type-level representation of the Lens-kernel space. -/

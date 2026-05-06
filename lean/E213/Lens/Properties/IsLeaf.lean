@@ -19,7 +19,7 @@ BoolSqClassification: since combine x x = false, this is Collapse-False.
 
 namespace E213.Lens.Properties.IsLeaf
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 
 /-- Leaf-indicator Lens. -/
 def isLeafLens : Lens Bool := ⟨true, true, fun _ _ => false⟩

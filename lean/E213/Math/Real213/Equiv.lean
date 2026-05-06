@@ -20,7 +20,7 @@ multiplication, etc. — separate work.)
 
 namespace E213.Math.Real213.Equiv
 
-open E213.Firmware E213.Lens
+open E213.Theory E213.Lens
 open E213.Math.Modulus.HasModulus
 open E213.Math.Real213.Core (Real213)
 

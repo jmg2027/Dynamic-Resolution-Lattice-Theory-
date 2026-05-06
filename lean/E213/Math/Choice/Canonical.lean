@@ -1,4 +1,4 @@
-import E213.Firmware.Raw
+import E213.Theory.Raw
 
 /-!
 # CanonicalChoice: canonical-form selection as an internal
@@ -22,8 +22,8 @@ In settings where ZFC Choice is used for representative selection,
 
 namespace E213.Math.Choice.Canonical
 
-open E213.Firmware
-open E213.Firmware.Internal
+open E213.Theory
+open E213.Theory.Internal
 
 /-- **Trichotomy of canonical-form selection**: for distinct
     `x, y : Raw`, exactly one of (lt, gt) holds.  That is,
