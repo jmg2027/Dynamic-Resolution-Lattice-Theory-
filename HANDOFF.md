@@ -1,5 +1,48 @@
 # Session Handoff — 2026-05-XX (axiom-strip migration begun)
 
+## ★★★ Part 33: M14 phases A-J COMPLETE (2026-05-06)
+
+OS-metaphor 5-layer (Kernel/Firmware/Hypervisor/Meta/App) replaced
+with **concentric 6-ring model** (Term → Theory → Lens → Meta →
+Lib → App).  Per-layer `API.lean` discipline + `Internal/`
+separation + OS/ dissolution + Math content peer-promotion.
+
+### Completed phases (~30 atomic commits, each `lake build` clean)
+
+  * **0** — pre-flight tag + baseline
+  * **A** — OS/ dissolution (4 commits)
+  * **B** — Math root cleanup (4 commits): NatHelpers/,
+    PatternCatalog/, CascadeCalculus/, stale-shim audit
+  * **C** — Cohomology peer-promotion (3 commits): DyadicFSM/
+    (116 files), HodgeConjecture/ (47 files) promoted to peers
+  * **D** — Hypervisor flatten (4 commits): doubled-namespace
+    `E213.Hypervisor.Lens.X` flattened to `E213.Hypervisor.X`
+  * **E** — Layer renames (3 commits): Hypervisor→Lens (286),
+    Kernel→Term (76), Firmware→Theory (285)
+  * **F** — Math/Physics → Lib/ (1 commit, 647 refs)
+  * **G** — Theory/API.lean + Meta/API.lean created
+  * **H** — Internal/ pattern (Theory/Internal/Raw +
+    Lens/Internal/Algebra)
+  * **I** — tools / hooks final sweep
+  * **J** — docs (ARCHITECTURE.md rewritten, INDEX.md +
+    CLAUDE.md updated)
+
+### Pending — Phase K (Rust engine mirror)
+
+  * crate rename: kernel → term, firmware → theory,
+    hypervisor → lens
+  * dissolve os/ crate
+  * per-crate api.rs
+  * whitelist.toml + LEAN_NAMESPACE constants
+  * Cargo.toml + docs/architecture.md
+
+### Roll-back safety net
+
+`git tag pre-refactor-snapshot` at the pre-M14 commit — every
+phase is `git reset --hard` revertable.
+
+---
+
 ## ★★★ Part 32: M14 — Architectural rename to ring model (2026-05-06, IN PROGRESS)
 
 User directive: full architectural refactor.  OS-metaphor layer

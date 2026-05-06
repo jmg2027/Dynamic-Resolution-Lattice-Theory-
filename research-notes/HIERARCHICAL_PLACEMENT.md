@@ -27,9 +27,9 @@ Every top-level layer + every Math/Physics sub-tree has an umbrella.
 
 | umbrella | files | imports | covers |
 |---|---|---|---|
-| `E213/Kernel.lean`     | 23  | 23  | bare-metal type theory + `Tactic/` macros |
-| `E213/Firmware.lean`   | 27  | 27  | Raw monad, Atomicity/, Tools/ |
-| `E213/Hypervisor.lean` | 89  | 79  | Lens algebra (10 deferred — pre-existing API drift) |
+| `E213/Term.lean`     | 23  | 23  | bare-metal type theory + `Tactic/` macros |
+| `E213/Theory.lean`   | 27  | 27  | Raw monad, Atomicity/, Tools/ |
+| `E213/Lens.lean` | 89  | 79  | Lens algebra (10 deferred — pre-existing API drift) |
 | `E213/Meta.lean`       | 27  | 27  | reflective primitives + meta tactics |
 | `E213/App.lean`        | 1   | 1   | Simplex executable |
 | `E213/OS.lean`         | 12  | 12  | HodgeConjecture/Bridges + Physics/Capstones |
@@ -88,21 +88,20 @@ Per `ARCHITECTURE.md` §0, every file's natural layer is mechanically
 determined by its import closure.  Run `tools/layer_audit.py` to
 recompute.  Post-M11 distribution:
 
-| top-folder    | Kernel | Firmware | Hypervisor | Meta | App | total |
+| top-folder    |  Term |  Theory |  Lens | Meta | App | total |
 |---|---|---|---|---|---|---|
-| Kernel/       | 23     | 0        | 0          | 0    | 0   | 23    |
-| Firmware/     | 0      | 27       | 0          | 0    | 0   | 27    |
-| Hypervisor/   | 0      | 0        | 89         | 0    | 0   | 89    |
-| Meta/         | 0      | 0        | 0          | 27   | 0   | 27    |
+| Term/         | 24     | 0        | 0          | 0    | 0   | 24    |
+| Theory/       | 0      | 27       | 0          | 0    | 0   | 27    |
+| Lens/         | 0      | 0        | 105        | 0    | 0   | 105   |
+| Meta/         | 0      | 0        | 0          | 30   | 0   | 30    |
 | App/          | 0      | 0        | 0          | 0    | 1   | 1     |
-| OS/           | 0      | 11       | 1          | 0    | 0   | 12    |
-| Math/ (495)   | 49     | 235      | 180        | 9    | 0   | 495   |
+| Lib/Math/     | 49     | 235      | 180        | 9    | 0   | 525   |
 | Physics/(127) | 0      | 116      | 11         | 0    | 0   | 127   |
 | Prelude.lean  | 1      | 0        | 0          | 0    | 0   | 1     |
 
-**Reading**: `Kernel/X.lean` files are at Kernel by both path AND
+**Reading**: `Term/X.lean` files are at  Term by both path AND
 mechanical computation.  `Math/X.lean` files' mechanical layer is
-distributed across {Kernel, Firmware, Hypervisor, Meta} — the path
+distributed across {Term, Theory, Lens, Meta} — the path
 encodes the *topical* axis only.
 
 ## 3. Layer-claim violations: 0
@@ -115,15 +114,15 @@ No file imports a layer above its claimed level.
 These files could mechanically move to a lower layer; they're not
 violations, just below-claimed-cost.  Listed for future audit.
 
-  - **App → Firmware**: `App/Simplex.lean` (1)
-  - **Firmware → Kernel**: 7 files in `Firmware/Atomicity/`
-  - **Hypervisor → Firmware**: `Hypervisor/Lens.lean` (1)
-  - **Hypervisor → Kernel**: 8 files in `Hypervisor/Lens/AxiomLenses/Core/`
-  - **Meta → Hypervisor**: 5 files (`SelfRecognising`, `Universal/`, etc.)
-  - **Meta → Kernel**: 6 files (`AxiomMinimality`, `Tactic/Derive*`, etc.)
+  - **App → Theory**: `App/Simplex.lean` (1)
+  - **Theory → Term**: 7 files in `Theory/Atomicity/`
+  - **Lens → Theory**: `Lens/LensCore.lean` (1)
+  - **Lens → Term**: 8 files in `Lens/AxiomLenses/Core/`
+  - **Meta → Lens**: 5 files (`SelfRecognising`, `Universal/`, etc.)
+  - **Meta → Term**: 6 files (`AxiomMinimality`, `Tactic/Derive*`, etc.)
 
-These are *path locality* decisions: e.g. `Firmware/Atomicity/Alive`
-is mechanically Kernel-level but lives under Firmware/ because it
+These are *path locality* decisions: e.g. `Theory/Atomicity/Alive`
+is mechanically Term-level but lives under Theory/ because it
 groups topically with the rest of `Atomicity/`.  Moving them down
 is optional and can be deferred.
 
@@ -148,11 +147,11 @@ is optional and can be deferred.
 All deferred files are pre-existing API drift, NOT regressions caused
 by the M11 sweep.  They're documented inline in each umbrella.
 
-### 6.1 Hypervisor (10 deferred)
+### 6.1  Lens (10 deferred)
 
 Common patterns:
   - `open E213.Meta` (now `E213.Meta.SelfRecognising`)
-  - `E213.Math.DiagonalClassification` (namespace deleted)
+  - `E213.Lib.Math.DiagonalClassification` (namespace deleted)
   - cascading API drift in lens-refines combinators
 
 Files: `CompoundBool`, `NegSq`, `ParityXor{Incomparable,Join}`,
@@ -206,10 +205,10 @@ Two valid resolutions:
 
 Deferred — both are acceptable.
 
-### 7.3 Hypervisor namespace audit
+### 7.3  Lens namespace audit
 
-The 10 deferred Hypervisor files share the `open E213.Meta` issue
-(namespace relocated in M-series).  A targeted Hypervisor-cluster
+The 10 deferred  Lens files share the `open E213.Meta` issue
+(namespace relocated in M-series).  A targeted Lens-cluster
 sweep — analogous to M11h's Cohomology fix — is the natural
 follow-up.
 
@@ -217,8 +216,8 @@ follow-up.
 
 ```bash
 cd lean
-lake build E213.Kernel E213.Firmware E213.Hypervisor E213.Meta \
-            E213.App E213.OS E213.Math E213.Physics
+lake build E213.Term E213.Theory E213.Lens E213.Meta \
+            E213.App E213.OS E213.Lib.Math E213.Lib.Physics
 # Each should report ✔ Built E213.<Layer>.
 
 python3 ../tools/layer_audit.py | head -10
