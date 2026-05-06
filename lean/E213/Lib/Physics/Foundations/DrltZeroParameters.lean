@@ -1,5 +1,5 @@
-import E213.OS.Physics.Capstones.MasterCatalog
-import E213.OS.Physics.Capstones.PhysicsTrackComplete
+import E213.Lib.Physics.Capstones.MasterCatalog
+import E213.Lib.Physics.Capstones.PhysicsTrackComplete
 import E213.Lib.Physics.Mass.HierarchyTowers
 import E213.Lib.Physics.Foundations.FibonacciExtended
 import E213.Lib.Physics.Couplings.ColorConfinement

@@ -1,7 +1,7 @@
 import E213.Lib.Physics.AlphaEM.Capstone
 import E213.Lib.Physics.Mass.MuOverE
 import E213.Lib.Physics.Cosmology.DarkEnergy
-import E213.OS.Physics.Capstones.FinitistObservableChain
+import E213.Lib.Physics.Capstones.FinitistObservableChain
 import E213.Lib.Physics.Foundations.NUniverseFractalDepth
 import E213.Lib.Physics.Simplex.Generations
 import E213.Lib.Physics.Nuclear.MagicNumbers
@@ -33,7 +33,7 @@ This file demonstrates 213 satisfies **BOTH** standards via:
   - hierarchy ratio = d^(d²)/(d+1) (no fine-tuning)
 -/
 
-namespace E213.OS.Physics.Capstones.ValidationStandardOne
+namespace E213.Lib.Physics.Capstones.ValidationStandardOne
 
 open E213.Lib.Physics.Simplex.Counts
 open E213.Lib.Physics.Foundations.NUniverseFractalDepth
@@ -66,4 +66,4 @@ theorem validation_standard_capstone :
     ∧ NS + NT = d := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide
 
-end E213.OS.Physics.Capstones.ValidationStandardOne
+end E213.Lib.Physics.Capstones.ValidationStandardOne

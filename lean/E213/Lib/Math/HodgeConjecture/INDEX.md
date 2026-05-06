@@ -68,7 +68,7 @@ Cup-pairings: signature, kernel, positivity.
 
 The 7 cross-discipline interface files have been migrated to the
 new OS layer per G12 §5 Option γ.  They now live at namespace
-`E213.OS.HodgeConjecture.Bridges.*`:
+`E213.Lib.Math.Cohomology.HodgeConjecture.MotivicBridge.*`:
 
   · `Tate.lean`                  → ℓ-adic / Frobenius / char-p
   · `MumfordTate.lean`           → Galois algebraic groups
