@@ -37,7 +37,7 @@ This keeps `#verify_conjugation` free of Firmware rebuild cost.
 
 This tactic was previously `#verify_r4` referring to the "R4
 axiom" in the deprecated R1–R5 judgment-game frame
-(`seed/AXIOM.md` §9).  Renamed per AXIOM.md §9.1 audit pass.
+(`seed/AXIOM/99_history.md` §9).  Renamed per AXIOM.md §9.1 audit pass.
 -/
 
 namespace E213.Tactic

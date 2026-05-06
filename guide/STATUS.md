@@ -55,7 +55,7 @@ multiple tiers per section.
 | Quark hierarchy | percent | ppm | Ch. 06 |
 | RH and Millennium-class | external-only | first Lean | Ch. 13 |
 
-## Falsifiers (binding — 7 from seed/FALSIFIABILITY.md)
+## Falsifiers (binding — 7 from seed/AXIOM/04_falsifiability.md)
 
 1. Neutrino ordering (JUNO ~2030) — pending
 2. θ_QCD bracket (next-gen nEDM 2027–30) — pending

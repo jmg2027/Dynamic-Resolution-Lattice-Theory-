@@ -6,7 +6,7 @@ Operating instructions for Claude on the DRLT 213 codebase.
 
 ## Boot sequence (read in this order)
 
-1. **`seed/AXIOM.md` §8** — *Self-reference and absence of an exterior*. §8.4 is a dichotomy-avoidance guide written specifically for Claude. **Re-read every session start.** False dichotomies (inside/outside 213, classical/213, foundation/derivation, observer-added-to-axiom) are the most common slip; §8.4 catalogs them.
+1. **`seed/AXIOM/07_self_reference.md` §8** — *Self-reference and absence of an exterior*. §8.4 is a dichotomy-avoidance guide written specifically for Claude. **Re-read every session start.** False dichotomies (inside/outside 213, classical/213, foundation/derivation, observer-added-to-axiom) are the most common slip; §8.4 catalogs them.
 2. **`research-notes/G29_residue.md`** — clean foundational text. What 213 *is*, in minimum-commitment language with no comparison frames.
 3. **`HANDOFF.md`** (if exists) — current session state.
 4. **This file** — operating principles + hard rules.
@@ -36,7 +36,7 @@ DRLT is a physics specialization.
 
 Every word imports residual meaning. Minimize, acknowledge, don't add.
 
-The most common Claude failure mode: silently adding a comparison frame ("213 vs ZFC", "foundation vs derivation", "internal vs external") and then arguing against it. The frame itself is the addition. Per `seed/PHILOSOPHY.md` *Linguistic inevitability*: "Minimization is possible; elimination is not." Acknowledge residual import; don't introduce more.
+The most common Claude failure mode: silently adding a comparison frame ("213 vs ZFC", "foundation vs derivation", "internal vs external") and then arguing against it. The frame itself is the addition. Per `seed/AXIOM/00_nature.md` *Linguistic inevitability*: "Minimization is possible; elimination is not." Acknowledge residual import; don't introduce more.
 
 When in doubt about a word choice, ask: *does this add meaning?* If yes and the addition isn't an explicit Lens definition, don't use it.
 
@@ -59,7 +59,7 @@ Default response language: English. Match the user's language when they speak Ko
 | Rule | Reason |
 |---|---|
 | 80-line edit limit (chunk-guard hook) | Avoid context-window flooding. Use `Bash(cat <<'EOF'…')` for larger files. |
-| 0 sorry, 0 external axioms | Falsifiability contract. See `seed/FALSIFIABILITY.md`. |
+| 0 sorry, 0 external axioms | Falsifiability contract. See `seed/AXIOM/04_falsifiability.md`. |
 | Zero Mathlib imports | Mathlib brings hidden axiom dependencies. |
 | Never add `Classical.*`, `native_decide`, or weaken the axiom set | Adding axiom = theory falsified per §5.2.1. |
 | Never amend commits | Always create new commits. |
@@ -109,7 +109,7 @@ drifts from that spec, the spec wins.
 
 213's axiom set commits to NO cardinality / finite / infinite property at
 the T0 (Raw) layer.  Cardinality is a **lens output**, not a primitive
-(`seed/AXIOM.md` §3.3, `Math/Infinity/LensCardinality.lean`).
+(`seed/AXIOM/02_statement.md` §3.3, `Math/Infinity/LensCardinality.lean`).
 
 The constant `N_U = d^(d²) = 5²⁵` is a **system invariant**, not a cap.
 It arises independently in 4 mathematical domains, all converging to
@@ -254,7 +254,7 @@ N_U = d^(d²) = 5²⁵              (finite lattice size)
 ## Self-check before responding
 
 Before any substantive answer, ask:
-1. Did I just import a comparison frame I'm about to argue against? → If yes, stop and remove the frame (per `seed/AXIOM.md` §8.4).
+1. Did I just import a comparison frame I'm about to argue against? → If yes, stop and remove the frame (per `seed/AXIOM/07_self_reference.md` §8.4).
 2. Am I using a word that imports meaning beyond what's been explicitly Lens-defined? → If yes, replace with minimum-commitment expression or acknowledge as residual import.
 3. Am I treating 213 as one thing among others, with an "outside" from which to view it? → There is no outside (per §8.1).
 4. Am I producing a classification when the user wants something different? → Re-read the prompt for the actual question.

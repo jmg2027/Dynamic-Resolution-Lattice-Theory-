@@ -64,4 +64,4 @@ quantization but not yet formalized.
 - `papers/drlt-book/chapters/ch17_webb_dipole.tex`
 - `lean/E213/Lib/Physics/Cosmology/DarkEnergy.lean`, `HubbleConstant.lean`,
   `GravityShadow.lean`.
-- `seed/FALSIFIABILITY.md` (cosmology section).
+- `seed/AXIOM/04_falsifiability.md` (cosmology section).

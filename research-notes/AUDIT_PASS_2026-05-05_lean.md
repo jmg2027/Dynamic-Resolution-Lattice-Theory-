@@ -91,10 +91,10 @@ consolidation needed.
 
 Initial recommendation in this note was to **REJECT** the rename
 on the grounds that R12/R3/R4 was "load-bearing" cross-reference
-to seed/AXIOM.md.
+to the seed/AXIOM/ corpus.
 
 That recommendation was **wrong** and is reversed.  Re-reading
-seed/AXIOM.md §9 directly:
+seed/AXIOM/99_history.md §9 directly:
 
   - §9.0 declares the R1–R5 frame **stepped back from**
     (deprecated; cf. `archive/30_bool_is_liar_paradox.md`).
@@ -102,9 +102,9 @@ seed/AXIOM.md §9 directly:
     future audit pass may rename these typeclasses to remove
     the historical R-prefix while preserving semantics."
 
-So AXIOM.md itself **invites** the rename.  The "load-bearing"
-framing was Claude importing a software-engineering frame that
-seed/AXIOM.md does not endorse.
+So the AXIOM corpus itself **invites** the rename.  The
+"load-bearing" framing was Claude importing a software-engineering
+frame that the seed/AXIOM/ corpus does not endorse.
 
 **Rename executed in the same audit pass** (16-file change):
 

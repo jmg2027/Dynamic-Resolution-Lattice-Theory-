@@ -8,9 +8,9 @@ to the current formalization.
 
 | File | Theme | Now at |
 |---|---|---|
-| `17_existence_mode_lens.md` | Early lens semantics (existence-mode interpretation) | Cited from `seed/AUDIT_Lean.md` §6.5 |
+| `17_existence_mode_lens.md` | Early lens semantics (existence-mode interpretation) | Cited from `seed/AXIOM/09_audit.md` §6.5 |
 | `19_lens_not_functor.md` | Lens vs functor distinction | Lens framework |
-| `30_bool_is_liar_paradox.md` | Bool/liar-paradox interaction | R1–R5 judgment-game (`seed/AXIOM.md` §7) |
+| `30_bool_is_liar_paradox.md` | Bool/liar-paradox interaction | R1–R5 judgment-game (`seed/AXIOM/06_formalization.md` §7) |
 
 ## Kernel cardinality (4 files)
 

@@ -15,7 +15,7 @@ Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  본 항목은 그
 **RIGHT** (213-internal): ζ(2) = S(N_U) at SPECIFIC finite N_U.
 π는 213 primitive 아님.  외부 표기일 뿐.  **그리고 cardinality는
 lens output** — 213 axiom set은 "finite vs infinite" dichotomy 자체를
-체결하지 않음 (`seed/AXIOM.md` §3.3, `RESOLUTION_LIMIT_SPEC.md` §0).
+체결하지 않음 (`seed/AXIOM/02_statement.md` §3.3, `RESOLUTION_LIMIT_SPEC.md` §0).
 
 **근거 — 부재 (negative)**:
 - `Physics/FiniteUniverse.no_pi_in_finite_alpha_em`:
@@ -239,8 +239,8 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `CLAUDE.md` — 프로젝트 instructions
 - `HANDOFF.md` — 현재 상태
 - `LESSONS_LEARNED.md` — 이 파일
-- `seed/AXIOM.md` — axiom seed doc
-- `seed/PHILOSOPHY.md` — 213 철학
+- `seed/AXIOM/` — axiom seed doc
+- `seed/AXIOM/00_nature.md` — 213 철학
 - `lean/E213/Physics/FiniteUniverse.lean` — finitist 입장
 - `lean/E213/Physics/AlphaEMMasterCapstone.lean` — α_em 닫힘
 - `lean/E213/Physics/Foundations/NUniverseFractalDepth.lean` — N_U = d^(d²)

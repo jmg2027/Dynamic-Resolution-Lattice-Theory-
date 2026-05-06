@@ -3,7 +3,7 @@
 > **Canonical definitions (single source of truth):** see "Terms"
 > section below.  When other documents (HANDOFF.md, CLAUDE.md,
 > scan_all_axioms.py comments) drift from these definitions, this
-> file wins.  Falsifiability anchor: `seed/AXIOM.md` §5.2.1.
+> file wins.  Falsifiability anchor: `seed/AXIOM/04_falsifiability.md` §5.2.1.
 
 ## Terms (canonical)
 
@@ -16,7 +16,7 @@
 
 **The 213 axiom set is ∅** — a theorem meets the standard iff PURE.
 
-**Forbidden absolutely** (per `seed/AXIOM.md` §5.2.1, falsifiability
+**Forbidden absolutely** (per `seed/AXIOM/04_falsifiability.md` §5.2.1, falsifiability
 trigger): `Classical.choice` and `Lean.ofReduceBool` in **213
 mathematical content** (theorems about Raw, Lens, observables).
 Tactic files (`E213.Meta.Tactic.*`) that inherit Classical.choice

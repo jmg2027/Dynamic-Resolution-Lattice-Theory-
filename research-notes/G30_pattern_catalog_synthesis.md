@@ -170,7 +170,7 @@ calculus is *coarser* than the catalog and survives reframing.
 **It is not**:
   - A complete classification of every theorem in 213.  The cross-
     axis cell occupancy is sparse; we name only ~15 cells.
-  - An ontological commitment.  Per `seed/AXIOM.md` §8.4 and the
+  - An ontological commitment.  Per `seed/AXIOM/07_self_reference.md` §8.4 and the
     "give meaning to nothing" principle, the catalog is a working
     vocabulary, not a metaphysics.  Specifically, we deliberately
     did NOT map G29 residue principles to atomic games, since that

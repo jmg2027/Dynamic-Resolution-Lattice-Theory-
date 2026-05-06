@@ -15,7 +15,7 @@ separate types `Z3`, `Z5`, `Z7`, we instantiate the
 `ZSqrt D` family with specific `D` values.
 
 Naming history: previously named `R4_of_pos` referring to the
-"R4 axiom" in the deprecated R1–R5 frame (`seed/AXIOM.md` §9);
+"R4 axiom" in the deprecated R1–R5 frame (`seed/AXIOM/99_history.md` §9);
 renamed per AXIOM.md §9.1 audit pass.
 -/
 

@@ -53,7 +53,7 @@ For `derive_conjugation_codomain α with_bases b₁ b₂` the namespace
 
 This tactic was previously `derive_r4_codomain` referring to the
 "R4 axiom" in the deprecated R1–R5 judgment-game frame
-(`seed/AXIOM.md` §9).  Renamed per AXIOM.md §9.1 audit pass.
+(`seed/AXIOM/99_history.md` §9).  Renamed per AXIOM.md §9.1 audit pass.
 -/
 
 namespace E213.Tactic

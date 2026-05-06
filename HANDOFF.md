@@ -97,7 +97,7 @@ choices; not blockers.
 
 ## Hand-off pointers for the next session
 
-1. **Read first**: `seed/AXIOM.md` §8 (boot ritual), then
+1. **Read first**: `seed/AXIOM/07_self_reference.md` §8 (boot ritual), then
    `research-notes/G29_residue.md`, then this file, then
    `CLAUDE.md`.
 2. **Architecture canonical**: `lean/E213/ARCHITECTURE.md`.

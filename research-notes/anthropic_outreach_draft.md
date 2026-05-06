@@ -56,7 +56,7 @@ Mingu Jeong
 1. **What strict ∅-axiom buys you**: every theorem is decidable in
    bare-metal Lean kernel.  No hidden dependency on classical logic,
    set-theoretic foundations, or Mathlib.  Falsifiability contract:
-   adding a single axiom = theory falsified per `seed/AXIOM.md` §5.2.1.
+   adding a single axiom = theory falsified per `seed/AXIOM/04_falsifiability.md` §5.2.1.
 
 2. **Why this is hard manually**: cascade-delete of `propext` /
    `Quot.sound` leaks across 970 files requires top-down dependency

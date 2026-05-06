@@ -5,19 +5,19 @@ within 213.  Replaces the prior "Finitism is forced" framing.
 
 This document is mechanical-spec level: language is minimised,
 metaphor and value-judgment are excluded.  It is the source of
-truth.  When `CLAUDE.md`, `seed/AXIOM.md`, narrative docs, or Lean
+truth.  When `CLAUDE.md`, `seed/AXIOM/`, narrative docs, or Lean
 file docstrings drift from this spec, this spec wins.
 
 ## Section 0 — T0 (Raw) layer commits to nothing about cardinality
 
-The 213 axiom set (`seed/AXIOM.md` §3.3) explicitly excludes from
+The 213 axiom set (`seed/AXIOM/02_statement.md` §3.3) explicitly excludes from
 its commitment list: size, cardinality, finiteness, infinity, order,
 hierarchy, set/element relation, observer, space, perception.
 
 Raw is an inductive trajectory carrier, not a set.  At the T0 layer
 no cardinality predicate is defined.  "Finite" and "infinite" are
 NOT properties of Raw — they are outputs of specific lens
-applications (`seed/AXIOM.md` §3.3, `Math/Infinity/LensCardinality
+applications (`seed/AXIOM/02_statement.md` §3.3, `Math/Infinity/LensCardinality
 .lean`).
 
 Implication: *both* "Strict finitism" and "completed infinity
@@ -133,8 +133,8 @@ When this spec is integrated into the codebase audit:
      wording with "structural inequality preserved by ∅-axiom
      regime" wording from §1.
 
-  3. **seed/AXIOM.md** §3.3 — already correct (cardinality is lens
-     output); add cross-reference to this spec.
+  3. **`seed/AXIOM/02_statement.md`** §3.3 — already correct
+     (cardinality is lens output); add cross-reference to this spec.
 
   4. **Lean formalization** — add a single file
      `lean/E213/Lib/Math/Foundations/ResolutionLimit.lean` that types

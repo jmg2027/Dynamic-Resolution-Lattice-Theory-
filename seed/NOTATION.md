@@ -147,7 +147,7 @@ canonical form).  Principle:
 - If `r.val.depth`, `r.val.cmp`, etc. appear in user code,
   it is an encoding artifact leaking into the Lens layer.  Requires correction.
 
-This reflects the recommendation of `AUDIT_Lean.md` §5.2(C).
+This reflects the recommendation of `AXIOM/09_audit.md` §9.5.2(C).
 
 ## Enforcement
 

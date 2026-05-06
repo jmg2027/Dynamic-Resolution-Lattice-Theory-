@@ -16,7 +16,7 @@ appear in §8.4.
 >   `Research/Hyper/Padic.lean`).  Consult `lean/E213/ARCHITECTURE.md`
 >   for the canonical current architecture.
 > - The R-game judgment frame referenced in §4 is **deprecated**
->   (per `seed/AXIOM.md` §9, post-2026-05 cleanup).  The current
+>   (per `seed/AXIOM/99_history.md` §9, post-2026-05 cleanup).  The current
 >   uniqueness story is split into three pillars —
 >   `Meta/UniversalLens/` (sideways factorization),
 >   `Firmware/Atomicity/` (forced-shape from above), and
