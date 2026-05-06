@@ -5,7 +5,16 @@ import E213.Physics.Cosmology.HorizonInformation
 import E213.Physics.Cosmology.HubbleConstant
 import E213.Physics.Cosmology.NeffDerivation
 
-/-! Spec-as-code entry point for E213.Physics.Cosmology.
-    Importing this single module pulls in every public file
-    of the Cosmology/ sub-cluster.  The first-line module name
-    matches the directory name; the directory is the spec. -/
+/-! Spec-as-code entry point for `E213.Physics.Cosmology`.
+
+  Cosmological-observable cluster.
+
+  ## Files
+
+    * `DarkEnergy`         — Ω_Λ ≈ 0.685 (target 0.0008 % error)
+    * `HubbleConstant`     — H_0 derivation
+    * `NeffDerivation`     — N_eff (effective neutrino number)
+    * `HorizonInformation` — horizon-information bound
+    * `GravityShadow`      — gravity as radiative-shadow effect
+    * `Bridge`             — Math.Cohomology / Foundations bridge
+-/

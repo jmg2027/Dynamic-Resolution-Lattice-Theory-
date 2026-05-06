@@ -16,7 +16,37 @@ import E213.Physics.Foundations.ResolutionDepth
 import E213.Physics.Foundations.TightenBracket
 import E213.Physics.Foundations.UnifiedPattern
 
-/-! Spec-as-code entry point for E213.Physics.Foundations.
-    Importing this single module pulls in every public file
-    of the Foundations/ sub-cluster.  The first-line module name
-    matches the directory name; the directory is the spec. -/
+/-! Spec-as-code entry point for `E213.Physics.Foundations`.
+
+  Foundational physics scaffolding — N_universe cardinality, atomic
+  constants, finiteness witnesses, resonance structure.
+
+  ## N_universe = d^(d²) = 5²⁵ scaffold
+
+    * `NUniverseFromFractal`        — fractal-lens derivation of 5²⁵
+    * `NUniverseFractalDepth`       — depth-as-fractal-level witness
+    * `FractalLensCardinality`      — combinatorial enumeration
+    * `LensCardinalityFractalLevels` — per-level cardinality lemmas
+    * `ResolutionDepth`             — N_U as resolution-limit invariant
+    * `FiniteUniverse`              — finiteness from resolution limit
+    * `FiniteResonanceN`            — resonance count = N
+
+  ## Atomic-constant catalog
+
+    * `AtomicSuperCatalog`          — every atomic integer in one table
+    * `DrltZeroParameters`          — zero-parameter discipline witness
+    * `UnifiedPattern`              — unified pattern across observables
+
+  ## Number-theoretic structure
+
+    * `FibonacciAtomic`,
+      `FibonacciExtended`           — Fibonacci atomicity
+    * `GoldenRatio`                 — φ from atomic integers
+    * `KoideFormula`                — Koide-type charged-lepton formula
+    * `HopHypothesis`               — hop-counting hypothesis
+
+  ## Bracket tools
+
+    * `TightenBracket`              — bracket-narrowing tactic helper
+    * `MasslessParticles`           — massless-particle counting
+-/

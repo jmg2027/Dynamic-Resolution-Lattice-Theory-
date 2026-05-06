@@ -10,7 +10,31 @@ import E213.Physics.Couplings.SpectrumComplete
 import E213.Physics.Couplings.ThetaQCD
 import E213.Physics.Couplings.TripleCoupling
 
-/-! Spec-as-code entry point for E213.Physics.Couplings.
-    Importing this single module pulls in every public file
-    of the Couplings/ sub-cluster.  The first-line module name
-    matches the directory name; the directory is the spec. -/
+/-! Spec-as-code entry point for `E213.Physics.Couplings`.
+
+  Gauge-coupling cluster — α_GUT, α_3 (strong), α_2 (weak),
+  unification, propagator structure.
+
+  ## Couplings + unification
+
+    * `AlphaGUT`            — α_GUT = 6/(25π²) ≈ 0.02433
+    * `GUTUnification`      — running-coupling unification scale
+    * `TripleCoupling`      — α_1 / α_2 / α_3 triple structure
+
+  ## Strong / colour
+
+    * `ColorConfinement`    — colour-confinement structural witness
+    * `AsymptoticFreedom`   — β-function negative leading term
+    * `SpectrumComplete`    — full coupling-spectrum closure
+
+  ## Propagator + Dyson
+
+    * `PhotonKernel`        — photon two-point kernel
+    * `ClosedPropagator`    — closed-form propagator factor
+    * `DysonStructure`      — Dyson-tail summation
+    * `RunningGap`          — running gap profile
+
+  ## CP-violation
+
+    * `ThetaQCD`            — θ_QCD < J·α⁴ falsifier target
+-/

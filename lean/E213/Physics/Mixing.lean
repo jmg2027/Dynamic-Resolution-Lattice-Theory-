@@ -4,7 +4,16 @@ import E213.Physics.Mixing.CPViolation
 import E213.Physics.Mixing.CabibboAngle
 import E213.Physics.Mixing.NeutrinoMixing
 
-/-! Spec-as-code entry point for E213.Physics.Mixing.
-    Importing this single module pulls in every public file
-    of the Mixing/ sub-cluster.  The first-line module name
-    matches the directory name; the directory is the spec. -/
+/-! Spec-as-code entry point for `E213.Physics.Mixing`.
+
+  Quark + lepton mixing-matrix cluster.
+
+  ## Files
+
+    * `CabibboAngle`    — sin θ_C / sin²θ_13 atomic prediction
+    * `CKMHierarchy`    — quark-mixing CKM matrix structure
+    * `NeutrinoMixing`  — PMNS matrix (lepton sector)
+    * `CPViolation`     — CP-phase + Jarlskog invariant
+    * `Bridge`          — cross-reference layer to Foundations
+                          (atomic angle inputs)
+-/
