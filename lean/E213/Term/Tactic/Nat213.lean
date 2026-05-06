@@ -372,3 +372,40 @@ theorem mul_mul_mul_comm_213 (a b c d : Nat) :
   h1.trans ((congrArg (a * ·) middle).trans h5)
 
 end E213.Tactic.Nat213
+
+namespace E213.Tactic.Nat213
+
+/-- `0 % m = 0`.  ∅-axiom replacement for Lean-core `Nat.zero_mod`
+    (which is `[propext]`).  Term-mode pattern match on `m`.
+
+    Companion to `E213.Lib.Math.NatHelpers.AddMod213.zero_mod`
+    (Lib/Math layer); this Term-layer version is the bedrock. -/
+theorem zero_mod (m : Nat) : 0 % m = 0 :=
+  match m with
+  | 0 => rfl
+  | _+1 => rfl
+
+/-- `m * b % m = 0`.  ∅-axiom replacement for Lean-core
+    `Nat.mul_mod_right` (which uses `Nat.zero_mod` + `Nat.add_mod_right`,
+    both `[propext]`).  Term-mode recursion on `b` using PURE
+    `Nat.mod_eq_sub_mod` and `add_sub_cancel_right`.  No tactics
+    used (Term layer requires literally 0-axiom — no propext-tainted
+    `rw` infrastructure). -/
+theorem mul_mod_right (m : Nat) : ∀ b, m * b % m = 0
+  | 0 =>
+    let h1 : m * 0 = 0 := Nat.mul_zero m
+    h1.symm ▸ zero_mod m
+  | b+1 =>
+    let ih : m * b % m = 0 := mul_mod_right m b
+    let hsucc : m * (b + 1) = m * b + m := Nat.mul_succ m b
+    let hge : m ≤ m * b + m := Nat.le_add_left m (m * b)
+    let hms : (m * b + m) % m = (m * b + m - m) % m :=
+      Nat.mod_eq_sub_mod hge
+    let hcancel : m * b + m - m = m * b := add_sub_cancel_right (m * b) m
+    let step1 : m * (b + 1) % m = (m * b + m) % m :=
+      congrArg (· % m) hsucc
+    let step3 : (m * b + m - m) % m = m * b % m :=
+      congrArg (· % m) hcancel
+    (step1.trans (hms.trans step3)).trans ih
+
+end E213.Tactic.Nat213

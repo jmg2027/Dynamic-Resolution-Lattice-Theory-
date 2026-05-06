@@ -1,22 +1,34 @@
 # Session Handoff — DRLT 213
 
-Branch: `claude/fix-propext-constraints-Rdn1r` (ready to merge into `main`).
+Branch: `claude/plan-next-task-qBnuS` (continuation of post-PR-#34 work).
 
 ## Current state (2026-05-06)
 
-The branch has finished:
-  * **M14 architectural refactor** — OS-metaphor 5-layer
-    (Kernel/Firmware/Hypervisor/Meta/App) → concentric 6-ring model
-    (Term → Theory → Lens → Meta → Lib → App).
-  * **Pre-merge audit** (5 commits) — every load-bearing doc
-    aligned to ring-model paths.
-  * **Rust engine mirror** — `crates/{term, theory, lens, app}`,
-    `os/` dissolved.
-  * **Build clean** at every phase commit.  Roll-back via
-    `git tag pre-refactor-snapshot`.
+This branch has completed two follow-up tasks ("A → B") on top of the
+M14 refactor (PR #34 already merged into `main`):
 
-Detailed history of past sessions: `git log` (commits up to
-`a82e904`).
+  * **A — Lens cluster repair** (commit `687ff8b7`):
+    10 deferred Lens files (CompoundBool, NegSq, ParityXor*, RawAChar,
+    Morphism.{BoolSqClassification, SlashCharNotFold},
+    Properties.{ABRefines, Leaf, ParityCollapseFalse}) restored;
+    `Hypervisor.Lens` namespace drift in 14 files fixed;
+    `E213.Lens.Diagonal` new module hosts the Collapse / Idempotent
+    classification predicates (lost in M14 Phase F when
+    `Math.Diagonal.Classification` was dropped).
+    `lake build E213.Lens` → 122/122 ✔.
+  * **B — Padic Quot.sound elimination** (commit pending):
+    All 5 `Lib/Math/Hyper/Padic` capstones moved from
+    `[propext, Quot.sound]` to `[propext]`-only by replacing
+    `omega` calls and adding `Nat213.{zero_mod, mul_mod_right}`
+    term-mode ∅-axiom helpers.  Three ProfiniteSeq leaves now PURE.
+    HANDOFF's earlier "function-eq → per-index pointwise" diagnosis
+    was incorrect; actual root cause is `omega` + Lean-core
+    `Nat.*` mod lemmas.  See `research-notes/HIERARCHICAL_PLACEMENT.md`
+    §7.4 for the corrected diagnosis.
+
+Earlier branch (`claude/fix-propext-constraints-Rdn1r`) merged via
+PR #34 — see commits up to `3ba54cc5` for the full M14 architectural
+refactor history.
 
 ## Verification status (pre-merge)
 
@@ -58,19 +70,33 @@ rust-engine/crates/
 
 ### Pre-existing API drift (not introduced by M14)
 
-28 files documented in `research-notes/HIERARCHICAL_PLACEMENT.md` §6:
-  * **Lens** (10): `open E213.Meta` (now `Meta.SelfRecognising`),
-    `Raw.{a,b,slash}` rename, lens-API drift in
-    `CompoundBool / NegSq / ParityXor* / RawAChar / Morphism.* /
-    Properties.{ABRefines, Leaf, ParityCollapseFalse}`
+Originally 28 files documented in
+`research-notes/HIERARCHICAL_PLACEMENT.md` §6.  Now 18 remain:
+  * ~~**Lens** (10)~~ — RESOLVED in commit `687ff8b7` (A-task above).
   * **CayleyDickson** (9): `hurwitz_ring` tactic plumbing +
     `LipschitzLens / R5Vacuity / ZSqrtProduct`
   * **Cohomology** (9): `Universal.Prop31.pattern_eq` rename
     (`pattern_eq_at`), `Dyadic` API drift, `Pell.ProperBridge`
 
-These don't block the merge — they were deferred before M14 and
-remain deferred.  Each is documented in its umbrella's
+Each remaining cluster is documented in its umbrella's
 "deferred" inline list.
+
+### Padic / ProfiniteSeq propext residue
+
+5 Padic capstones now carry `[propext]` only (Quot.sound eliminated
+in B-task above).  Remaining propext propagates from Lens-layer
+ModNat + Cauchy.  Eliminating it requires PURE `add_mod`,
+`mod_mod_of_dvd`, `le_max_{left,right}` at the Lens-or-below layer.
+See HIERARCHICAL_PLACEMENT.md §7.4.
+
+### PatternCatalog drift (surfaced during root-build verification)
+
+`E213.Lib.Math.PatternCatalog.{Algebra, Instance}` fail to build
+under `lake build E213` — cascading errors from missing
+`InterfaceWitness`, `LocalityAggregate`, `Aggregate`,
+`CataForcedForm`, `LocalityForcedValue`, `CataAggregate` constants.
+Not in original deferred-28; appears unrelated to A/B tasks.
+Separate cluster for future investigation.
 
 ### Documented namespace exceptions (not bugs)
 
@@ -79,14 +105,14 @@ remain deferred.  Each is documented in its umbrella's
 (type-defining / doubled-type-namespace R10 / Internal-shared
 umbrella / descriptive sub-namespace).
 
-### Padic.lean DIRTY (function-equality routing)
+### ~~Padic.lean DIRTY (function-equality routing)~~ — diagnosis corrected
 
-5 theorems in `Lib/Math/Hyper/Padic.lean` carry
-`[propext, Quot.sound]` — they assert function-eq between
-ℕ → Bool families.  Replacing with per-index pointwise statements
-would collapse them to ∅-axiom.  See
-`research-notes/HIERARCHICAL_PLACEMENT.md` §7
-(funext-by-design class).
+The earlier diagnosis was incorrect: Padic theorems do NOT assert
+function-eq between ℕ → Bool families.  Actual root cause: `omega`
+tactic + Lean-core `Nat.add_mod`/`Nat.mod_mod_of_dvd`/
+`Nat.le_max_{left,right}` (all carry `[propext]` or
+`[propext, Quot.sound]`).  Quot.sound now eliminated; propext
+residue documented above.
 
 ### Layer downgrade hints (informational)
 
@@ -109,4 +135,10 @@ choices; not blockers.
 
 ## Verdict
 
-# **READY TO MERGE**
+A and B tasks complete on `claude/plan-next-task-qBnuS`.
+`lake build E213.Lens` clean (122/122).  Padic capstones reduced
+from `[propext, Quot.sound]` to `[propext]`-only.
+
+Branch is **READY TO MERGE** for the A+B follow-up; remaining work
+(CayleyDickson 9, Cohomology 9, PatternCatalog cluster, Padic
+propext residue) is documented above for future sessions.

@@ -205,12 +205,45 @@ Two valid resolutions:
 
 Deferred — both are acceptable.
 
-### 7.3  Lens namespace audit
+### 7.3  Lens namespace audit (RESOLVED 2026-05-06)
 
-The 10 deferred  Lens files share the `open E213.Meta` issue
-(namespace relocated in M-series).  A targeted Lens-cluster
-sweep — analogous to M11h's Cohomology fix — is the natural
-follow-up.
+The 10 deferred Lens files have been repaired (commit `687ff8b7`):
+  * `open E213.Meta` (deleted ns) → `open E213.Lens.Instances.{Bool,
+    Parity}` and a new `E213.Lens.Diagonal` module restored from the
+    M14-Phase-F-deleted `Math.Diagonal.Classification`.
+  * `Hypervisor.Lens` → `Lens` namespace drift in 14 additional files.
+  * `Kernel.Congruence.Lens.equiv_slash_congruence` rename in
+    `Lens.Algebra.Corresp`.
+
+`lake build E213.Lens` now reports 122/122 ✔.  CayleyDickson (9) and
+Cohomology (9) deferred clusters remain.
+
+### 7.4  Padic / ProfiniteSeq Quot.sound elimination (PARTIAL 2026-05-06)
+
+`Lib/Math/Hyper/Padic.lean` capstones — formerly 5×`[propext, Quot.sound]`
+— now carry `[propext]` only (commit pending).  Method:
+  * Add `E213.Tactic.Nat213.{zero_mod, mul_mod_right}` (term-mode
+    ∅-axiom replacements for Lean-core mod lemmas, hook-compliant).
+  * Inline `(by omega)` calls with direct `Nat.le_succ_of_le` /
+    `Nat.le_trans` chains.
+  * Three leaf theorems in `ProfiniteSeq` now ∅-axiom:
+    `factorial_pos`, `factorial_dvd`, `factorial_eventually_zero_mod`.
+
+**Remaining propext** (NOT funext-by-design — earlier diagnosis was
+incorrect): the propagating sources are
+  * `E213.Lens.Leaves.ModNat.leavesModNat_view_eq` — uses Lean-core
+    `Nat.add_mod` `[propext]`.
+  * `E213.Lens.Leaves.ModNat.divides_refines` — uses
+    `Nat.mod_mod_of_dvd` `[propext]`.
+  * `E213.Lens.Instances.Cauchy.eventually_class_unique` — uses
+    `Nat.le_max_{left,right}` `[propext]`.
+
+Eliminating these requires PURE replacements at the Lens-or-below
+layer.  `Lib/Math/NatHelpers/AddMod213` already has a PURE `add_mod`
+but is at Lib/Math layer (too high for ModNat to import per the
+ring rule).  Either move the proof to Term/Theory, or add narrow
+Lens-layer copies.  Deferred — the substantive falsifiability gain
+(Quot.sound elimination) has been captured.
 
 ## 8. Verification command set
 

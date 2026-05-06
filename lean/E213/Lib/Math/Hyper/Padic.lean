@@ -41,15 +41,32 @@ Together with CmpIndependence + Cauchy completeness, this extends the
 "ZFC replacement" claim of Paper 1 into the number-theoretic limit
 domain.
 
-Status: 2 PURE / 5 DIRTY (`tools/scan_axioms.py`).  The five
-DIRTY theorems (`padic_family_cauchy`, `padic_family_limit_zero`,
-`padic_tower_refines`, `padic_familyCauchy`,
-`padic_limit_all_zero`) carry `[propext, Quot.sound]` — they
-assert function-equality between two ℕ → Bool families, which
-in Lean 4 routes through propext/Quot.sound.  Replacing the
-function-eq form with a per-index pointwise statement would
-collapse them to ∅-axiom.  See HIERARCHICAL_PLACEMENT §7 for
-the funext-by-design class of inherent-Quot.sound items.
+Status: 2 PURE / 5 `[propext]`-only (post-2026-05 hardening).
+Earlier the 5 capstones carried `[propext, Quot.sound]`; the
+Quot.sound came from `omega` calls and was eliminated by:
+  * adding `E213.Tactic.Nat213.{zero_mod, mul_mod_right}`
+    (∅-axiom term-mode replacements for the Lean-core mod lemmas);
+  * inlining `(by omega)` calls as direct `Nat.le_succ_of_le` /
+    `Nat.le_trans`.
+
+The three ProfiniteSeq leaves (`factorial_pos`, `factorial_dvd`,
+`factorial_eventually_zero_mod`) are now ∅-axiom.  The remaining
+`[propext]` propagates from the Lens-layer pieces:
+  * `leavesModNat_view_eq` (uses Lean-core `Nat.add_mod`)
+  * `divides_refines` (uses `Nat.mod_mod_of_dvd`)
+  * `eventually_class_unique` (uses `Nat.le_max_{left,right}`)
+
+These three Lens-layer dependencies route through Lean-core
+`Nat.*` lemmas marked `[propext]`.  Eliminating them requires
+adding Lens-or-below `add_mod`, `mod_mod_of_dvd`, `le_max_*`
+PURE replacements (cf. `Lib/Math/NatHelpers/AddMod213` which
+already has `add_mod` ∅-axiom but is at Lib/Math layer, too
+high for ModNat to import).  Deferred — the Quot.sound
+elimination was the substantive falsifiability gain.
+
+Earlier diagnosis ("function-eq between ℕ → Bool families")
+was incorrect: the theorems do not assert function-equality.
+The actual root cause is `omega` and Lean-core mod arithmetic.
 -/
 
 namespace E213.Lib.Math.Hyper.Padic
@@ -74,15 +91,16 @@ private theorem pow_one_le (p : Nat) (hp : p ≥ 2) (k : Nat) :
   | zero => show 1 ≤ 1; exact Nat.le_refl 1
   | succ n ih =>
       show 1 ≤ p^n * p
+      have h1p : 1 ≤ p := Nat.le_trans (by decide : (1 : Nat) ≤ 2) hp
       calc 1 = 1 * 1 := rfl
-        _ ≤ p^n * p := Nat.mul_le_mul ih (by omega)
+        _ ≤ p^n * p := Nat.mul_le_mul ih h1p
 
 private theorem pow_succ_ge_two (p : Nat) (hp : p ≥ 2) (k : Nat) :
     2 ≤ p^(k+1) := by
   show 2 ≤ p^k * p
   have h1 : 1 ≤ p^k := pow_one_le p hp k
   have h2 : 1 * p ≤ p^k * p := Nat.mul_le_mul_right p h1
-  have h3 : 2 ≤ 1 * p := by rw [Nat.one_mul]; exact hp
+  have h3 : 2 ≤ 1 * p := (Nat.one_mul p).symm ▸ hp
   exact Nat.le_trans h3 h2
 
 private theorem pow_succ_dvd (p : Nat) (k : Nat) :
