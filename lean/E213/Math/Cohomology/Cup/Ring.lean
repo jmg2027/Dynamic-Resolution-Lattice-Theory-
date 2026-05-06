@@ -5,7 +5,7 @@ import E213.Math.Cohomology.Cup.Core
 import E213.Math.Cohomology.Hodge.Involution
 import E213.Physics.Simplex.Counts
 /-!
-# Cohomology — ring structure on H* (, file 3)
+# Cohomology — ring structure on H*
 
 Cup makes H*(Δⁿ⁻¹) into a graded-commutative ring.  We verify
 the key identities at concrete cochains on Δ⁴ (n=5):

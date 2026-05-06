@@ -5,7 +5,7 @@ import E213.Math.Cohomology.Delta.Core
 import E213.Math.Cohomology.Hodge.Star
 import E213.Physics.Simplex.Counts
 /-!
-# Cohomology — codifferential δ* = ⋆δ⋆ (, file 3)
+# Cohomology — codifferential δ* = ⋆δ⋆
 
 The codifferential `codiff = ⋆ ∘ δ ∘ ⋆ : Cᵏ → Cᵏ⁻¹` lowers degree.
 Combined with the standard differential δ, it builds the Laplacian

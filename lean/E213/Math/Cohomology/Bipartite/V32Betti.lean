@@ -1,7 +1,7 @@
 import E213.Math.Cohomology.Bipartite.V32
 
 /-!
-# Cohomology — Betti numbers of K_{3,2}^{(2)} (, file 2)
+# Cohomology — Betti numbers of K_{3,2}^{(2)}
 
 Computes b₀, b₁ of the bipartite multigraph K_{3,2}^{(2)} via
 direct enumeration of vertex cochains.

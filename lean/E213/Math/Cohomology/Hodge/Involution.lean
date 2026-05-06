@@ -3,7 +3,7 @@ import E213.Math.Cohomology.Hodge.Star
 import E213.Math.Cohomology.Cochain.Core
 import E213.Physics.Simplex.Counts
 /-!
-# Cohomology — ⋆⋆ = id (, file 2)
+# Cohomology — ⋆⋆ = id
 
 In ℤ/2 cohomology the Hodge star is an involution:
   ⋆ : Cᵏ → Cⁿ⁻ᵏ,   ⋆⋆ : Cᵏ → Cᵏ

@@ -6,7 +6,7 @@ import E213.Math.Cohomology.Hodge.Involution
 import E213.Math.Cohomology.SimplexBasis
 import E213.Physics.Simplex.Counts
 /-!
-# Cohomology — cup product (, file 1)
+# Cohomology — cup product
 
 Alexander–Whitney cup product
     ⌣ : Cᵏ × Cˡ → Cᵏ⁺ˡ

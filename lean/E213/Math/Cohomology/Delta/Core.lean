@@ -3,7 +3,7 @@ import E213.Math.Cohomology.Cochain.Core
 
 import E213.Physics.Simplex.Counts
 /-!
-# Cohomology — coboundary δ : Cᵏ → Cᵏ⁺¹ (, file 3)
+# Cohomology — coboundary δ : Cᵏ → Cᵏ⁺¹
 
 The simplicial coboundary with ℤ/2 coefficients (XOR alternating sum).
 

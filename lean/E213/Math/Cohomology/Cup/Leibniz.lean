@@ -5,7 +5,7 @@ import E213.Math.Cohomology.Delta.Core
 import E213.Math.Cohomology.Hodge.Involution
 import E213.Physics.Simplex.Counts
 /-!
-# Cohomology — cup-product Leibniz rule (, file 2)
+# Cohomology — cup-product Leibniz rule
 
 The compatibility identity making cup descend to H*:
 

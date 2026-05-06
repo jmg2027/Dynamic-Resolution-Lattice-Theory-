@@ -1,7 +1,7 @@
 import E213.Physics.Simplex.Counts
 
 /-!
-# Cohomology — k-cochain type with ℤ/2 coefficients (, file 1)
+# Cohomology — k-cochain type with ℤ/2 coefficients
 
 213-internal cochain complex foundation, Mathlib-free, 0 axiom.
 
@@ -10,7 +10,7 @@ the i-th k-element subset of n vertices (i ∈ Fin (binom n k)).
 ℤ/2 = Bool with XOR; coefficient (−1) is identity in ℤ/2.
 
 This file defines the type + zero + add (XOR) only.
-δ (coboundary) lives in `CohomologyDelta.lean` (file 3).
+δ (coboundary) lives in the sibling `Delta/Core.lean`.
 -/
 
 namespace E213.Math.Cohomology.Cochain.Core

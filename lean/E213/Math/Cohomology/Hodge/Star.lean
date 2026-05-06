@@ -4,7 +4,7 @@ import E213.Math.Cohomology.Cochain.Core
 import E213.Math.Cohomology.SimplexBasis
 import E213.Physics.Simplex.Counts
 /-!
-# Cohomology — Hodge ⋆ at cochain level (, file 1)
+# Cohomology — Hodge ⋆ at cochain level
 
 The Hodge star ⋆: Cᵏ(Δⁿ⁻¹) → Cⁿ⁻ᵏ(Δⁿ⁻¹) maps each cochain on
 k-subsets to its set-theoretic-complement cochain on (n−k)-subsets.
