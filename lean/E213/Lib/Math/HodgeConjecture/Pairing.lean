@@ -1,8 +1,11 @@
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndex
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexT2
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexT2Squared
+import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP2
+import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP1Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemann
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2
+import E213.Lib.Math.HodgeConjecture.Pairing.SurfaceComparisonTheorem
 import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
 
 /-! Spec-as-code entry point for `E213.Lib.Math.HodgeConjecture.Pairing`.
@@ -18,6 +21,12 @@ import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
     * `HodgeIndexT2Squared`    — ★ Hodge Index on T²×T² (4-fold):
                                   signature (3, 3) on H², three
                                   hyperbolic blocks
+    * `HodgeIndexP2`           — ★ Hodge Index on ℙ² (h^{2,0}=0,
+                                  h^{1,1}=1): signature (1, 0) on H²
+    * `HodgeIndexP1Squared`    — ★ Hodge Index on ℙ¹×ℙ¹
+                                  (h^{2,0}=0, h^{1,1}=2):
+                                  signature (1, 1) — same as T²
+                                  but distinct Hodge structure
     * `HodgeRiemann`           — base capstone on K_{3,2}^{(c=2)}
                                   (positivity vacuous in ℤ/2)
     * `HodgeRiemannT2`         — ★ Non-vacuous lift: Kähler class
@@ -27,6 +36,13 @@ import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
                                    (½·C(2n,n), ½·C(2n,n))`,
                                   bundling all n=1, n=2 witnesses
                                   + numerical sequence for n≤5
+    * `SurfaceComparisonTheorem` — ★★ **Comparison theorem**
+                                  across 4 Kähler 2-folds (T²,
+                                  ℙ², ℙ¹×ℙ¹, T²×T²): Hodge
+                                  diamonds, Hodge Index Theorem
+                                  formula `(1+2h^{2,0}, h^{1,1}-1)`,
+                                  signature-vs-Hodge-structure
+                                  coarseness witness
 
   ## T²ⁿ signature pattern
 
