@@ -301,3 +301,54 @@ numA = 0 bracket, IVT becomes a *one-line corollary* via
 `signedLeft_collapseTo_alwaysTrue_ConsistentOracle` plumbed through
 `IVTRoot.fromConsistentOracleRatio`.  No additional sign-change
 analysis needed.
+
+### 6h. Composition closure — `(Nat, +)`-graded structure
+
+Mingu's framing: "CollapseCondition이 합성에 닫혀있으면 — IVT가
+단독 정리가 아니라 합성 가능한 도구가 돼.  E''이 어떻게 결정되는지가
+핵심이야 ... E'' = E + E' 형태로 나올 가능성이 있어."
+
+  * `CollapseConditionAt f B E` — `(B, E)`-parameterised form
+    decoupled from `DyadicBracket`'s structure overhead.
+  * `CollapseCondition_eq_at` — `Iff.rfl`-equivalence with the
+    bracket form.
+
+**Resolution monotonicity** (`(Nat, +)` action):
+
+  * `CollapseConditionAt_resolution_shift` —
+    `CollapseConditionAt f B E → ∀ d, CollapseConditionAt f B (E + d)`.
+    Selecting the suffix at `E + d + 1` of the original sequence;
+    establishes a canonical `(Nat, +)`-filtration with `E ↦ E + d`
+    an inclusion.
+
+**Composition with resolution shifters** (Mingu's `E'' = E + E'`):
+
+  * `IsResolutionShift g E_g := ∀ M E m k, g (dyadicCut M E) m k =
+    dyadicCut M (E + E_g) m k` — g zooms dyadic resolution upward
+    by `E_g`.
+  * `CollapseConditionAt_compose_resolution_shift` — given
+    `LocallyDeterminedData f`, `IsResolutionShift g E_g`, and
+    `CollapseConditionAt f B (E + E_g)`, conclude
+    `CollapseConditionAt (f ∘ g) B E`.  Requires LDD on f to
+    bridge pointwise equality of `g (dyadicCut M E)` and
+    `dyadicCut M (E + E_g)` into equal f-values at unit precision
+    (no funext).
+
+**The grading**: `f` and `g` carry resolution-grade integers; their
+composition's grade is the sum.  `f ∘ g` collapses at coarser
+resolution `E` *iff* `f` collapses at finer resolution `E + E_g`.
+The user's `E'' = E + E'` reads as "to collapse the composition at
+`E_db`, require the upstream `f` to collapse at `E_db + g`'s shift".
+
+**Architectural impact**: CollapseCondition is now a *graded
+monoid module* over `(Nat, +)`, with composition closing under the
+graded action.  This makes IVT a **composable tool** — chains of
+resolution-shifters can stack, with the total resolution requirement
+being additive.  The framework now supports the kind of "resolution
+arithmetic" that ODE and PDE local-solution constructions require.
+
+**Bonus**: arbitrary function composition (without ResolutionShift
+hypothesis) is *not* generally closed — counter-examples exist
+(e.g., negation ∘ negation = id, which has different collapse
+structure).  ResolutionShift is the *minimal sufficient
+structural hypothesis* that makes the grading work.

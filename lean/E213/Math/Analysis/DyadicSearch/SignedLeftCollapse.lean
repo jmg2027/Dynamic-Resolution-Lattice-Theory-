@@ -136,5 +136,92 @@ def signedLeft_collapseTo_alwaysTrue_ConsistentOracle
     exact (numA_zero_alwaysTrue_ConsistentOracle db h).consistency
             m k n1 n2 hn1 hn2
 
-end E213.Math.Analysis.DyadicSearch.SignedLeftCollapse
+/-! ### Composition closure — `(Nat, +)` monoid action on resolution
+
+Mingu's hypothesis: CollapseCondition is graded by E (the bracket
+exponent), with composition adding the grades.  This formalises the
+graded structure as a `(Nat, +)` action on a `(B, E)`-parameterised
+form of CollapseCondition. -/
+
+/-- `(B, E)`-parameterised CollapseCondition (decoupled from
+    `DyadicBracket`'s structure overhead).  Equivalent to
+    `CollapseCondition f db` when `db.numB = B`, `db.expE = E`. -/
+def CollapseConditionAt
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) (B E : Nat) : Prop :=
+  ∀ k, f (dyadicCut B (E + k + 1)) 0 1 = true
+
+/-- Equivalence between the bracket form and the `(B, E)` form. -/
+theorem CollapseCondition_eq_at
+    (f : (Nat → Nat → Bool) → (Nat → Nat → Bool)) (db : DyadicBracket) :
+    CollapseCondition f db ↔ CollapseConditionAt f db.numB db.expE :=
+  Iff.rfl
+
+/-- **Resolution monotonicity** — the `(Nat, +)`-action: shifting `E`
+    upward by `d` preserves CollapseCondition.
+
+The intuition: `CollapseConditionAt f B E` states the property at
+all queries `(B, E+1), (B, E+2), …`.  Shifting to `(B, E+d)` selects
+the *suffix* starting at `E+d+1`, which is a subset of the original
+sequence.  Hence the new condition follows from the old.
+
+This is the *graded structure* — `CollapseConditionAt` carries a
+canonical `(Nat, +)` filtration with `E ↦ E + d` an inclusion. -/
+theorem CollapseConditionAt_resolution_shift
+    {f : (Nat → Nat → Bool) → (Nat → Nat → Bool)} {B E : Nat}
+    (h : CollapseConditionAt f B E) (d : Nat) :
+    CollapseConditionAt f B (E + d) := by
+  intro k
+  show f (dyadicCut B ((E + d) + k + 1)) 0 1 = true
+  have eq : (E + d) + k + 1 = E + (d + k) + 1 := by
+    rw [Nat.add_assoc E d k]
+  rw [eq]
+  exact h (d + k)
+
+/-- **`IsResolutionShift g E_g`**: g sends `dyadicCut M E` to a cut
+    pointwise-equal to `dyadicCut M (E + E_g)` — a "zoom-in" map
+    that shifts dyadic resolution upward by `E_g`.
+
+Pointwise equality (no funext): `g (dyadicCut M E) m k = dyadicCut M (E + E_g) m k`. -/
+def IsResolutionShift
+    (g : (Nat → Nat → Bool) → (Nat → Nat → Bool)) (E_g : Nat) : Prop :=
+  ∀ M E m k, g (dyadicCut M E) m k = dyadicCut M (E + E_g) m k
+
+/-- **★ Composition closure under resolution shift** —
+    Mingu's `E'' = E + E'` formalised.
+
+When `g` is a resolution shifter by `E_g` and `f` satisfies
+`CollapseConditionAt` at the *finer* resolution `E + E_g`, then the
+composition `f ∘ g` satisfies `CollapseConditionAt` at the
+*coarser* resolution `E`.
+
+The grades subtract on g's side: g "zooms in" by `E_g`, so f's
+collapse at depth `E + E_g` propagates back to depth `E` for the
+composition.  Equivalently: `f ∘ g`'s collapse at `E` *adds* g's
+shift to f's required depth — the user's `E'' = E + E'` form,
+read as "to collapse `f ∘ g` at `E_db`, require `f` to collapse at
+`E_db + E_g`".
+
+Requires `LocallyDeterminedData f` to bridge the *pointwise*
+equality of `g (dyadicCut M E)` and `dyadicCut M (E + E_g)` into
+equal `f`-values at the unit-precision query (no funext needed). -/
+theorem CollapseConditionAt_compose_resolution_shift
+    {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
+    (lf : E213.Math.Real213.CutFnData.LocallyDeterminedData f)
+    {B E E_g : Nat}
+    (hg : IsResolutionShift g E_g)
+    (hf : CollapseConditionAt f B (E + E_g)) :
+    CollapseConditionAt (f ∘ g) B E := by
+  intro k
+  show f (g (dyadicCut B (E + k + 1))) 0 1 = true
+  have heq : ∀ m' k', g (dyadicCut B (E + k + 1)) m' k'
+                    = dyadicCut B (E + k + 1 + E_g) m' k' :=
+    fun m' k' => hg B (E + k + 1) m' k'
+  have lf_bridge : f (g (dyadicCut B (E + k + 1))) 0 1
+                 = f (dyadicCut B (E + k + 1 + E_g)) 0 1 :=
+    lf.prop 0 1 _ _ (fun m' k' _ _ => heq m' k')
+  rw [lf_bridge]
+  have eq2 : E + k + 1 + E_g = E + E_g + k + 1 := by
+    rw [Nat.add_right_comm (E+k) 1 E_g, Nat.add_right_comm E k E_g]
+  rw [eq2]
+  exact hf k
 
