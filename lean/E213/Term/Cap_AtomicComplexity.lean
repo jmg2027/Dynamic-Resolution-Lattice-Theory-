@@ -3,8 +3,8 @@ import E213.Term.Term
 /-!
 # E213.Term.Cap_AtomicComplexity — atomic-1 integer representation verification.
 
-Re-states only the *pure arithmetic* among the complexity theorems from
-Phase4/AtomicReps.lean.  6 = NS·NT, 8 = NT³, 25 = d², ...
+Re-states only the *pure arithmetic* among the historical
+"AtomicReps" complexity theorems.  6 = NS·NT, 8 = NT³, 25 = d², ...
 
 The complexity function itself is hard to port (it is a function over Expr).
 Here we only prove that *each result integer can be expressed in exactly that form* → 0 axiom.

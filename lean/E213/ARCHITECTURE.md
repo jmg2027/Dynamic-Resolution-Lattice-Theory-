@@ -196,7 +196,26 @@ references are explicit, named, and grep-discoverable.
 
   1. **Path = namespace** — `Lib/Math/Cohomology/Universal/Prop53.lean`
      declares `namespace E213.Lib.Math.Cohomology.Universal.Prop53`.
-     Enforced by `tools/sync_namespaces.py`.
+     Enforced by `tools/sync_namespaces.py`.  Intentional exceptions
+     (path ≠ namespace, ~15 files, documented):
+       - **Type-defining files** keep the bare type-namespace
+         (e.g. `Lens/LensCore.lean` declares `namespace E213.Lens`,
+         not `E213.Lens.LensCore`, because the file *is* the
+         `Lens` type).
+       - **Doubled-type-namespace pattern** (CayleyDickson) — when a
+         structure of the same name as the file lives inside the
+         file's namespace (e.g. `namespace E213.Lib.Math.CayleyDickson.ZI`
+         + `structure ZI`), downstream extension files
+         (`ZIDomain`, `ZIArith`, `ZIHom`) declare
+         `namespace E213.Lib.Math.CayleyDickson.ZI.ZI` to attach
+         dot-notation to ZI values.  This is R10 in
+         `research-notes/CONSOLIDATION_PROTOCOL.md`.
+       - **Internal-shared umbrella** (e.g. `Theory/Internal/Raw/`
+         files share `namespace E213.Theory.Internal`).
+       - **Descriptive sub-namespace** when the namespace label
+         conveys the *content* better than the file name
+         (e.g. `Lib/Physics/AlphaEM/Augmented.lean` declares
+         `namespace E213.Lib.Physics.AlphaEM.BracketWithDysonTail`).
 
   2. **No session-numbered labels** — no `Phase2/`, `Phase3/` etc.
      for long-lived names.
