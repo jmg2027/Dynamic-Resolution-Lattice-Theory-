@@ -1,7 +1,7 @@
 import E213.Math.Real213.CutSum
 
 /-!
-# Real213CutSumTest: concrete verification of cutSum on rationals
+# CutSumTest: concrete verification of cutSum on rationals
 
 Accuracy verification of cutSum from `Real213CutSum.lean` on
 *constant cuts* (rational reals).

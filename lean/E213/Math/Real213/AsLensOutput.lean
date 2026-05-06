@@ -2,7 +2,7 @@ import E213.Hypervisor.Lens
 import E213.Math.Cauchy.Archimedean
 
 /-!
-# Real213AsLensOutput: real = Lens output (User insight 2026-04-26)
+# AsLensOutput: real = Lens output (User insight 2026-04-26)
 
 User insight: "Aren't there infinitely many different ways to extract
 natural numbers from 213?  Of course reals exist then.  Computation?

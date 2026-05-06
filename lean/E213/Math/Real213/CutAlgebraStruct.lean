@@ -6,7 +6,7 @@ import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Real213CutAlgebraStruct: structured cut algebra
+# CutAlgebraStruct: structured cut algebra
 
 Bind all cut operations into a single struct.  Reusable abstraction
 for cut-level rational arithmetic.

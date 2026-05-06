@@ -8,7 +8,7 @@ import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Real213CutSumZero: cutSum (zero) (zero) = zero
+# CutSumZero: cutSum (zero) (zero) = zero
 
 Specific algebraic identity: 0 + 0 = 0 at cut level.
 -/

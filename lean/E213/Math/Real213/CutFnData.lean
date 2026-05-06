@@ -7,7 +7,7 @@ import E213.Math.Max213
 import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSumTest
 /-!
-# Real213CutFnData: data-bearing local determinedness
+# CutFnData: data-bearing local determinedness
 
 *Data* form of `isLocallyDetermined` — cut function counterpart of
 Bishop modulus.  The existence-only form requires Classical.choose during

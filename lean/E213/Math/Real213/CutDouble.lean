@@ -7,7 +7,7 @@ import E213.Math.Real213.CutPoset
 
 import E213.Math.Real213.CutMul
 /-!
-# Real213CutDouble: 2x cut function
+# CutDouble: 2x cut function
 
 cutDouble c := "2x ≤ m/k" iff "x ≤ m/(2k)" → c m (2k).
 -/

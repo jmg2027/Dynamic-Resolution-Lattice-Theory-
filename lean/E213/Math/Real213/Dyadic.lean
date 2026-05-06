@@ -7,7 +7,7 @@ import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Real213Dyadic: dyadic cuts (denominator = 2^E)
+# Dyadic: dyadic cuts (denominator = 2^E)
 
 213's universe is a binary tree.  cutMid is a bit-shift, not a
 continuous halving.  So the natural cut representation is *dyadic*:

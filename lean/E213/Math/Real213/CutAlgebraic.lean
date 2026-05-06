@@ -4,7 +4,7 @@ import E213.Math.Real213.CutPoset
 
 import E213.Math.Real213.CutSumTest
 /-!
-# Real213CutAlgebraic: algebraic properties of cut operations
+# CutAlgebraic: algebraic properties of cut operations
 
 Lattice properties of cutMax, cutMin + cut zero/one properties.
 -/

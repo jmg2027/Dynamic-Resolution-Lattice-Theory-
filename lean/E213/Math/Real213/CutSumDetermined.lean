@@ -3,7 +3,7 @@ import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutContinuity
 
 /-!
-# Real213CutSumDetermined: cutSum locality framework
+# CutSumDetermined: cutSum locality framework
 
 Depends only on *bounded values* of `cutSum` — 213 counterpart of
 Bishop locatedness.

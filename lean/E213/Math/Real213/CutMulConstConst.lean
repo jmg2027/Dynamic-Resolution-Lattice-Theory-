@@ -5,7 +5,7 @@ import E213.Math.Real213.CutSumTest
 
 import E213.Math.Real213.Core
 /-!
-# Real213CutMulConstConst — precision artifact characterization
+# CutMulConstConst — precision artifact characterization
 
 Resolves the long-standing `cutMul` precision boundary issue
 (F5/F6 docs: "cutMul has precision artifacts, only special cases

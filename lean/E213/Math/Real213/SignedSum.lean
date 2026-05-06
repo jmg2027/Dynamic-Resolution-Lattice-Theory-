@@ -7,7 +7,7 @@ import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Real213SignedSum: signed sum + subtraction
+# SignedSum: signed sum + subtraction
 
 cutSignedSum: case analysis on signs.
 cutSignedSub: cutSignedSum with negated second arg.

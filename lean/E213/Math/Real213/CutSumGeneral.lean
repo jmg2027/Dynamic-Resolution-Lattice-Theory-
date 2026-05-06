@@ -5,7 +5,7 @@ import E213.Math.Real213.CutSumTest
 
 import E213.Math.Real213.Core
 /-!
-# Real213CutSumGeneral — generic cutSum over any denominator
+# CutSumGeneral — generic cutSum over any denominator
 
 Resolves the F6 doc's open status:
 "cutSum_assoc on arbitrary same-denom (blocked at b ≥ 3 by

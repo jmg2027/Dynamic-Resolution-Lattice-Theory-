@@ -3,7 +3,7 @@ import E213.Math.Real213.CutPoset
 
 import E213.Math.Real213.Core
 /-!
-# Real213CutBisectionAlgo: bisection iteration + IVT scaffold
+# CutBisectionAlgo: bisection iteration + IVT scaffold
 
 ## Algorithm
 

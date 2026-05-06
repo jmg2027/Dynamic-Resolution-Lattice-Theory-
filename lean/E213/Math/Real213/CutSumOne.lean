@@ -6,7 +6,7 @@ import E213.Math.Real213.CutPoset
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Real213CutSumOne: cutSum (1)(1) = constCut 2 1 (general theorem)
+# CutSumOne: cutSum (1)(1) = constCut 2 1 (general theorem)
 -/
 
 namespace E213.Math.Real213.CutSumOne

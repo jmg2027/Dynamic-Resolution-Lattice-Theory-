@@ -3,7 +3,7 @@ import E213.Math.Real213.CutSum
 
 import E213.Math.Real213.Core
 /-!
-# Real213CutBinary: generic 2D bounded-search cut operation
+# CutBinary: generic 2D bounded-search cut operation
 
 User directive (2026-04-26): "Let's go generic in the 213 style."
 

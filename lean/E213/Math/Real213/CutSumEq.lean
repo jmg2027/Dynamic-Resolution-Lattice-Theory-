@@ -8,7 +8,7 @@ import E213.Math.Real213.CutMulComm
 import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSum
 /-!
-# Real213CutSumEq: cutSum / cutMul respect cutEq
+# CutSumEq: cutSum / cutMul respect cutEq
 
 Well-definedness of cutSum modulo cutEq.
 -/

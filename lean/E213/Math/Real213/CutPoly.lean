@@ -4,7 +4,7 @@ import E213.Math.Real213.Core
 import E213.Math.Real213.CutSum
 import E213.Math.Real213.CutSumTest
 /-!
-# Real213CutPoly: polynomial evaluation at cut level
+# CutPoly: polynomial evaluation at cut level
 
 Σ_{i=0}^n a_i x^i — cut-level polynomial evaluation.
 -/

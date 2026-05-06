@@ -3,7 +3,7 @@ import E213.Math.Real213.CutPoset
 
 import E213.Math.Real213.Core
 /-!
-# Real213CutLatticeEq: cutMax/cutMin preserve cutEq + cutLe
+# CutLatticeEq: cutMax/cutMin preserve cutEq + cutLe
 
 Compatibility of lattice ops with the cut order/equiv structure.
 -/

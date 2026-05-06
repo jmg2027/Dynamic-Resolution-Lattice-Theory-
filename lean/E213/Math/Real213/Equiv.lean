@@ -2,7 +2,7 @@ import E213.Math.Max213
 import E213.Math.Real213.Core
 
 /-!
-# Real213Equiv: equivalence properties of Real213.equiv (D3-A)
+# Equiv: equivalence properties of Real213.equiv (D3-A)
 
 D3-A first step from `D3_real213_native_R.md` — verifying that the
 equiv relation on Real213 is a *genuine* equivalence (reflexive,

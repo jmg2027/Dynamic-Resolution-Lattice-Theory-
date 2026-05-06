@@ -2,7 +2,7 @@ import E213.Math.Real213.CutMul
 import E213.Math.Real213.CutSumTest
 
 /-!
-# Real213CutPow: cut-level powers + polynomial building blocks
+# CutPow: cut-level powers + polynomial building blocks
 
 x^n via repeated cutMul.
 
