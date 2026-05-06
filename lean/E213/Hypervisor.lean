@@ -6,7 +6,7 @@ import E213.Hypervisor.Lens.Characterisation
 import E213.Hypervisor.Lens.Compose
 import E213.Hypervisor.Lens.Initiality
 import E213.Hypervisor.Lens.Instances
-import E213.Hypervisor.Lens.Kernel
+import E213.Hypervisor.Lens.Algebra
 import E213.Hypervisor.Lens.Lattice
 import E213.Hypervisor.Lens.Leaves
 import E213.Hypervisor.Lens.Morphism

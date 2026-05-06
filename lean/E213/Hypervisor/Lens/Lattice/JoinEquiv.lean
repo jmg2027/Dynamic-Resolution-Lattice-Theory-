@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens
-import E213.Hypervisor.Lens.Kernel.Congruence
+import E213.Hypervisor.Lens.Algebra.Congruence
 
 /-!
 # JoinEquiv: smallest slash-congruence as the join of two Lens kernels
@@ -54,7 +54,7 @@ end E213.Hypervisor.Lens.Lattice.JoinEquiv
 namespace E213.Hypervisor.Lens.Lattice.JoinEquiv
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Kernel.Congruence
+open E213.Hypervisor.Lens.Algebra.Congruence
 
 /-- **Join universal property**: if both L and M refine N (i.e.,
     N.equiv contains both L.equiv and M.equiv) and N's combine is

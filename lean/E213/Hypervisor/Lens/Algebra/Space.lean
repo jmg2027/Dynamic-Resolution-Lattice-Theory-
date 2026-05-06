@@ -1,4 +1,4 @@
-import E213.Hypervisor.Lens.Kernel.Corresp
+import E213.Hypervisor.Lens.Algebra.Corresp
 
 /-!
 # KernelSpace: framework-internal type of slash-congruences
@@ -24,10 +24,10 @@ Each KernelSpace element E is realized as the kernel of
 `universalLens E` (KernelCorresp.slash_cong_is_lens_kernel).
 -/
 
-namespace E213.Hypervisor.Lens.Kernel.Space
+namespace E213.Hypervisor.Lens.Algebra.Space
 
 open E213.Firmware E213.Hypervisor
-open E213.Hypervisor.Lens.Kernel.Corresp
+open E213.Hypervisor.Lens.Algebra.Corresp
 
 /-- Type-level representation of the Lens-kernel space. -/
 def KernelSpace : Type := { E : Raw → Raw → Prop // IsSlashCongruence E }
@@ -45,4 +45,4 @@ def fromLens {α : Type} (L : Lens α)
 def toLens (K : KernelSpace) : Lens (Raw → Prop) :=
   E213.Hypervisor.Lens.Universal.QuotLens.universalLens K.val
 
-end E213.Hypervisor.Lens.Kernel.Space
+end E213.Hypervisor.Lens.Algebra.Space

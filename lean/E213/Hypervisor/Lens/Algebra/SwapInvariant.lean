@@ -22,7 +22,7 @@ swap-orbits.  That is, in the refines preorder, the "swap-orbit Lens"
 (if it exists) is the bottom of all swap-invariant Lenses.
 -/
 
-namespace E213.Hypervisor.Lens.Kernel.SwapInvariant
+namespace E213.Hypervisor.Lens.Algebra.SwapInvariant
 
 open E213.Firmware E213.Hypervisor
 
@@ -44,4 +44,4 @@ theorem swap_invariant_kernel_swap_closed {α : Type} (L : Lens α)
   rw [hinv r, hinv r']
   exact hrr'
 
-end E213.Hypervisor.Lens.Kernel.SwapInvariant
+end E213.Hypervisor.Lens.Algebra.SwapInvariant

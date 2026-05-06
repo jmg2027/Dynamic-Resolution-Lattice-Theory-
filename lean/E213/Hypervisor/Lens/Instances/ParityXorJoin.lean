@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens.Lattice.JoinEquiv
-import E213.Hypervisor.Lens.Kernel.Congruence
+import E213.Hypervisor.Lens.Algebra.Congruence
 import E213.Hypervisor.Lens.Instances.Parity
 import E213.Hypervisor.Lens.Instances.Bool
 

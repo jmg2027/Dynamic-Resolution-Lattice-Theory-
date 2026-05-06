@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens.Universal.QuotLens
-import E213.Hypervisor.Lens.Kernel.Congruence
+import E213.Hypervisor.Lens.Algebra.Congruence
 
 /-!
 # LensCanonicalForm: canonical form of a Lens via universalLens

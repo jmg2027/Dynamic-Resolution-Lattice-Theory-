@@ -1,5 +1,5 @@
 import E213.Hypervisor.Lens.Universal.QuotLens
-import E213.Hypervisor.Lens.Kernel.Congruence
+import E213.Hypervisor.Lens.Algebra.Congruence
 
 /-!
 # KernelCorresp: explicit two-direction bijection of
@@ -18,7 +18,7 @@ These two directions together formalize the bijection
 K = {Lens kernels} = {slash-congruences}.
 -/
 
-namespace E213.Hypervisor.Lens.Kernel.Corresp
+namespace E213.Hypervisor.Lens.Algebra.Corresp
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.Universal.QuotLens
@@ -44,9 +44,9 @@ theorem lens_kernel_is_slash_cong {α : Type} (L : Lens α)
     exact Kernel.Congruence.Lens.equiv_slash_congruence L hsym
       x x' y y' h h' hxx hyy
 
-end E213.Hypervisor.Lens.Kernel.Corresp
+end E213.Hypervisor.Lens.Algebra.Corresp
 
-namespace E213.Hypervisor.Lens.Kernel.Corresp
+namespace E213.Hypervisor.Lens.Algebra.Corresp
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.Universal.QuotLens
@@ -82,4 +82,4 @@ theorem kernel_correspondence
     exact propext (hbi r r')
   rw [← hext]; exact hLcong
 
-end E213.Hypervisor.Lens.Kernel.Corresp
+end E213.Hypervisor.Lens.Algebra.Corresp

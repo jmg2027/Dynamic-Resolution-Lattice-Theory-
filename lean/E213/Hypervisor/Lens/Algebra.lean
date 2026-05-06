@@ -1,13 +1,13 @@
-import E213.Hypervisor.Lens.Kernel.CardinalityLB
-import E213.Hypervisor.Lens.Kernel.Congruence
-import E213.Hypervisor.Lens.Kernel.Corresp
-import E213.Hypervisor.Lens.Kernel.FourDistinct
-import E213.Hypervisor.Lens.Kernel.FreeAudit
-import E213.Hypervisor.Lens.Kernel.IdLensEq
-import E213.Hypervisor.Lens.Kernel.Space
-import E213.Hypervisor.Lens.Kernel.SwapInvariant
+import E213.Hypervisor.Lens.Algebra.CardinalityLB
+import E213.Hypervisor.Lens.Algebra.Congruence
+import E213.Hypervisor.Lens.Algebra.Corresp
+import E213.Hypervisor.Lens.Algebra.FourDistinct
+import E213.Hypervisor.Lens.Algebra.FreeAudit
+import E213.Hypervisor.Lens.Algebra.IdLensEq
+import E213.Hypervisor.Lens.Algebra.Space
+import E213.Hypervisor.Lens.Algebra.SwapInvariant
 
-/-! Spec-as-code entry point for `E213.Hypervisor.Lens.Kernel`.
+/-! Spec-as-code entry point for `E213.Hypervisor.Lens.Algebra`.
 
   Lens algebraic-kernel cluster — the equational layer of the
   Lens theory: equivalences, congruences, cardinality bounds.

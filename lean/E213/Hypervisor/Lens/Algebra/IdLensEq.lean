@@ -7,7 +7,7 @@ import E213.Hypervisor.Lens.Instances.Identity
 Explicit theorem for the finest element claim of PAPER1 §3.3.
 -/
 
-namespace E213.Hypervisor.Lens.Kernel.IdLensEq
+namespace E213.Hypervisor.Lens.Algebra.IdLensEq
 
 open E213.Firmware E213.Hypervisor
 open E213.Hypervisor.Lens.Instances.Identity
@@ -17,4 +17,4 @@ theorem idLens_equiv_eq (x y : Raw) : idLens.equiv x y ↔ x = y := by
   unfold Lens.equiv
   rw [idLens_is_id, idLens_is_id]
 
-end E213.Hypervisor.Lens.Kernel.IdLensEq
+end E213.Hypervisor.Lens.Algebra.IdLensEq

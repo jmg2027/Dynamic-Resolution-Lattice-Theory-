@@ -209,7 +209,7 @@ private theorem tailCong_implies_equiv {α : Type} (N : Lens α)
   | symm _ ih => exact ih.symm
   | trans _ _ ih1 ih2 => exact ih1.trans ih2
   | slash_cong hxy hx'y' _ _ ih1 ih2 =>
-      exact E213.Hypervisor.Lens.Kernel.Congruence.Lens.equiv_slash_congruence
+      exact E213.Hypervisor.Lens.Algebra.Congruence.Lens.equiv_slash_congruence
         N hNsym _ _ _ _ hxy hx'y' ih1 ih2
 
 /-- **Universal property of limitLens (least tail-collapsing Lens)**:
