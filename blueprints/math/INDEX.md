@@ -31,7 +31,7 @@ illustrates the standard.
 | 02 | **Multivariable Calculus 213** ✅ REALIZED | (blueprint retired) | — |
 | 03 | **Topology 213** ✅ REALIZED | (blueprint retired) | — |
 | 04 | **Complex Analysis 213** (over Cayley) | (blueprint retired) | ★★ |
-| 05 | **Measure Theory 213** (σ-algebra rejected) | `05_measure_213.md` | ★★ |
+| 05 | **Measure Theory 213** ✅ REALIZED | (blueprint retired) | — |
 
 ### Phase B — Applied Mathematics
 
@@ -87,21 +87,22 @@ Split into base spec + phases file (`15_cohomology_213.md` +
 | 15 | **Cohomology 213** | ✅ **CORE CLOSED** | 147 files in `Math/Cohomology/`; Δ⁴ Leibniz coverage; CupAW bilinearity; K_{3,2}^{(c=2)} structure; A/B/C/D/E classification. |
 | 09 | **Linear Algebra 213** | 🟡 **CORE BUILT** | `Math/Linalg213/` with capstones; Gram matrix machinery in place. |
 | 10 | **Combinatorics 213** | 🟡 **PARTIAL** | Pell ArithFSM hierarchy + Pisano CRT lcm closure realised. Generating-function side open. |
-| 02 | Multivariable 213 | ⏳ **Pending** | Next-marathon candidate. |
-| 03 | Topology 213 | ⏳ **Pending** | Next-marathon candidate. |
-| 04 | Complex Analysis 213 | ⏳ **Pending** | Cayley framework foundation in cohomology. |
-| 05 | Measure Theory 213 | ⏳ **Pending** | Bishop-style approach. |
+| 02 | **Multivariable 213** | ✅ **REALIZED** | `Math/Multivariable/` (5 files + Capstone); MultiCut, partials, gradient/divergence, multi-integral, Stokes 1D bridge. |
+| 03 | **Topology 213** | ✅ **REALIZED** | `Math/Topology/` (5 files + Capstone); DyadicOpen, Heine-Borel = `rfl`, continuity modulus, χ classification incl. K_{3,2}^{(c=2)} = -7. |
+| 04 | **Complex Analysis 213** | ✅ **REALIZED** | `Math/Complex/` (3 files + Capstone); ComplexCut = (Cut, Cut), CR-skeleton, polynomial = power series via Grade-N nilpotency, `cExp(0)=1`. |
+| 05 | **Measure Theory 213** | ✅ **REALIZED** | `Math/Measure/` (4 files + Capstone); σ-algebra rejected, dyadic-list measurable sets, finite-sum integral, Lp atom. |
 | 06 | Differential Equations 213 | ⏳ **Pending** | |
 | 08 | Functional Analysis 213 | ⏳ **Pending** | |
 | 11 | Group Theory 213 | ⏳ **Pending** | |
-| 12 | Information Theory 213 | ⏳ **Pending** | |
-| 14 | Logic / Proof Theory 213 | ⏳ **Pending** | Note: ∅-axiom standard already eliminates propext / Quot.sound at the theorem level (= sorry-equivalent treatment).  Logic-track work is structural (intuitionistic predicate calculus, proof = trajectory), not axiom-trimming. |
+| 12 | **Information Theory 213** | ✅ **REALIZED** | 7 atomic files + Capstone (8 witnesses); BitDepth, Entropy, MutualInfo, KL, Channel, Coding, Kolmogorov K(213)=4. |
+| 14 | **Logic / Proof Theory 213** | ✅ **REALIZED** | `Math/Logic/` (3 files + Capstone); intuitionistic predicate calculus, Trajectory = List Bool, proofLength composition. |
 
-Summary: **4 of 15 fields fully or substantially realized**
-(01 Probability, 07 Number Theory, 13 213-Meta, 15 Cohomology;
-plus 09 Linalg + 10 Combinatorics partial).
-Originally planned ★★★ priorities Phase A (02-03) deferred behind
-opportunistic completions in 01, 07, 13, 15.
+Summary: **11 of 15 fields fully or substantially realized**
+(01 Probability, 02 Multivariable, 03 Topology, 04 Complex, 05
+Measure, 07 Number Theory, 10 Combinatorics, 12 Information,
+13 213-Meta, 14 Logic, 15 Cohomology; plus 09 Linalg partial).
+Remaining: 06 Differential Equations, 08 Functional Analysis,
+11 Group Theory.
 
 ---
 
