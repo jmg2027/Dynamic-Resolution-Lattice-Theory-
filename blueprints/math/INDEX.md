@@ -29,7 +29,7 @@ illustrates the standard.
 |---|---|---|---|
 | 01 | **Probability 213** ✅ REALIZED | (blueprint retired) | — |
 | 02 | **Multivariable Calculus 213** | `02_multivariable_213.md` | ★★★ |
-| 03 | **Topology 213** | `03_topology_213.md` | ★★★ |
+| 03 | **Topology 213** ✅ REALIZED | (blueprint retired) | — |
 | 04 | **Complex Analysis 213** (over Cayley) | `04_complex_213.md` | ★★ |
 | 05 | **Measure Theory 213** (σ-algebra rejected) | `05_measure_213.md` | ★★ |
 
