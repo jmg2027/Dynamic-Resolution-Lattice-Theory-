@@ -2,6 +2,7 @@ import E213.Lib.Math.Probability.Capstone
 import E213.Lib.Math.Information.Capstone
 import E213.Lib.Math.Logic.Capstone
 import E213.Lib.Math.Combinatorics.Capstone
+import E213.Lib.Math.Topology.Capstone
 import E213.Lib.Physics.AlphaEM.GradedDecomposition
 import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 import E213.Lib.Physics.AlphaEM.CupChannelInventory
@@ -112,13 +113,14 @@ namespace E213.Lib.Math.CrossDomainUnification
     structural signature of unification.
 
     Domains witnessed:
-      (i)   Combinatorics 213 — Pascal grade truncation
-      (ii)  Probability 213    — `total_witness 4 2`
-      (iii) Information 213    — `total_witness 3 3 3 [true]`
-      (iv)  Logic 213          — `total_witness sampleP true 3 3 sampleT`
-      (v)   Cup-Ring core      — `cup_channel_inventory_master`
-      (vi)  Cup-Ring core      — `channel_cohomology_loss_master`
-      (vii) Cup-Ring core      — `graded_decomposition_master`. -/
+      (i)    Combinatorics 213 — Pascal grade truncation
+      (ii)   Probability 213    — `total_witness 4 2`
+      (iii)  Information 213    — `total_witness 3 3 3 [true]`
+      (iv)   Logic 213          — `total_witness sampleP true 3 3 sampleT`
+      (v)    Topology 213       — `total_witness []` (post-merge)
+      (vi)   Cup-Ring core      — `cup_channel_inventory_master`
+      (vii)  Cup-Ring core      — `channel_cohomology_loss_master`
+      (viii) Cup-Ring core      — `graded_decomposition_master`. -/
 theorem cross_domain_unification_master : True := by
   -- Each `have` forces Lean to type-check that the corresponding
   -- domain Capstone is constructible.  Failure of any one would
@@ -129,6 +131,7 @@ theorem cross_domain_unification_master : True := by
   have _hI := E213.Lib.Math.Information.Capstone.total_witness 3 3 3 [true]
   have _hL :=
     E213.Lib.Math.Logic.Capstone.total_witness sampleP true 3 3 sampleT
+  have _hT := E213.Lib.Math.Topology.Capstone.total_witness []
   have _h1 :=
     E213.Lib.Physics.AlphaEM.CupChannelInventory.cup_channel_inventory_master
   have _h2 :=

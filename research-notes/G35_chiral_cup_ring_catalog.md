@@ -35,8 +35,8 @@ rather than re-treading the components.
 ## §0  How to read this document
 
   · **§1** — naming, scope, what 213-Algebra is and is not.
-  · **§2** — sixteen constituent domains, each with file pointers
-    to existing infrastructure (12 original + 4 marathon-added).
+  · **§2** — seventeen constituent domains, each with file pointers
+    to existing infrastructure (12 original + 5 marathon-added).
   · **§3** — established theorems within each domain.
   · **§4** — six ambitious open conjectures of the field.
   · **§5** — methodological discipline (tightened ∅-axiom standard).
@@ -319,9 +319,29 @@ Generating functions = finite polynomials modulo nilpotency
          `GeneratingFunction.lean`, `Capstone.lean`
   Status: ★★ marathon COMPLETE — 37 atomic facts, all ∅-axiom.
 
+#### **D17.  Topology 213**
+
+`DyadicBracket`-based open sets (= List, structurally finite),
+trivial Heine–Borel (covers ARE finite by `List`), continuity
+as `Nat → Nat` modulus (no ε/δ), connectedness as finite-list
+adjacency chains, Euler χ as atomic alternating sum of binom.
+
+  Theorems include:
+    · χ(Δ⁴) = 1, χ(S³) = 0, χ(K_{3,2}^{(c=2)}) = −7
+    · DyadicOpen size additive under union
+    · Heine–Borel trivialised at the list level
+    · Identity / constant / composition continuity
+
+  Files: `Lib/Math/Topology/` (6 .lean files + INDEX):
+         `DyadicOpen.lean`, `Compactness.lean`, `Continuity.lean`,
+         `Connectedness.lean`, `EulerChi.lean`, `Capstone.lean`
+  Status: ★★ marathon COMPLETE — 46 atomic facts, all ∅-axiom.
+          Out of scope: Tychonoff, manifold-as-bracket-atlas,
+          fundamental group / homotopy.
+
 ### §2.6  Cross-domain unification
 
-The four marathon domains (D13–D16) and the cup-ring core
+The five marathon domains (D13–D17) and the cup-ring core
 (D1–D9) share a single 213-native paradigm:
 
   · **classical analysis residue → 213-native nilpotency**
@@ -339,6 +359,11 @@ The four marathon domains (D13–D16) and the cup-ring core
   · **classical LEM → atomic Bool decidability**
     (Logic 213 confirms: no Classical.em needed; per-Bool
     `decide` suffices)
+
+  · **continuous topology → list-finite topology**
+    (Topology 213: open sets = `List DyadicBracket`, Heine–Borel
+    = `rfl`, continuity = `Nat → Nat` modulus.  No σ-algebra,
+    no completeness-of-ℝ.)
 
 This single paradigm shift is the deepest unifying observation
 of the framework — what allows ALL these domains to close
@@ -455,10 +480,11 @@ Decomposes (per current evidence) into FOUR graded layers:
   · k=2  : cup-product correction = d²/NS = 25/3
   · k=3,4: Hodge pairing = 1/(NS·NT·S_Wallis(N_U)⁵)  (conjecture)
 
-Status: integer coefficients (60, 30, 25/3, 4, 45) all decoded
-from K↔Δ⁴ projection geometry (∅-axiom).  π⁵ form numerically
-~13× closer to observed structural gap than α_GUT/45.  Full
-∅-axiom rational closure at finite N_U remains open.
+Status: **Step 1 closed** (commit `aadafc0c`,
+`AlphaEM/GradedFormula.lean`).  Five-layer formula evaluates to
+137.0360011 vs observed 137.0359991 at 9-digit π precision —
+2 ppm match, decide-checked.  Step 2 (full Wallis precision at
+N_U) remains open.
 
 References: `AlphaEM/CupChannelInventory.lean`, `ProjectionRatios.lean`,
 `PiFiveGap.lean`, `LaplacianSpectrum.lean`, `GradedDecomposition.lean`,
@@ -477,8 +503,10 @@ Already known constraints:
     at NT=2)
   · K↔Δ projection coverage ratio = NS/d (= inverse of Y-norm 5/3)
 
-Status: partial.  Multiple constraints satisfied; uniqueness
-proof open.
+Status: **Step 1 closed** (commit `94701e1b`,
+`Foundations/AtomicConstantsUnique.lean`).  Bounded uniqueness
+(m, n, c) < 7 decide-checked: 213 (3, 2, 2, 5) is the unique
+non-trivial integer solution.  Step 2 (full ∀ uniqueness) open.
 
 References: `Lib/Math/ResolutionLimit.lean`,
 `AlphaEM/ChannelCohomologyLoss.lean`.
@@ -490,12 +518,24 @@ References: `Lib/Math/ResolutionLimit.lean`,
 > consequence of `Aut(K_{3,2}^{(c=2)}) = Sym(3) × Sym(2) × C_2^6`
 > acting on the cohomology ring H*(K, Δ⁴).
 
-Status: largely **unexplored**.  Adjoint SU(NS) appears in
-1/α_3 = NS² − 1; (d−1)(d+1) = 24 = adjoint SU(d) hint in
-`Bare.lean alpha_2_prefactor_eq_adjoint_su5`.  Systematic
-representation-decomposition not yet done.
+Status: **Step 1 closed** (commit `1990951f`,
+`AlphaEM/Symmetry/AutKChiral.lean`):
+  · |Aut| = NS! · NT! · 2^(NS·NT) = 6 · 2 · 64 = **768**
+  · External (Sym(NS) × Sym(NT)) order = 12, internal C_2^6 = 64
+  · adj SU(NS) = 8, adj SU(NT) = 3, adj SU(d) = 24
 
-This is plausibly the **largest single structural gap** in the
+**Physical interpretation (user's insight, this session)**: the
+8-dim H¹(K_{3,2}^{(c=2)}) (= ker(ι*: H¹(K) → H¹(Δ⁴)) — the "lost
+cohomology") IS structurally the **8 SU(3) gluon color-charge
+DOF**.  The χ(K) = −7 = b₀ − b₁ = 1 − 8 is the geometric
+"stress" of the bipartite multigraph forcing exactly 8
+topological holes — exactly the number of independent gluon
+channels.  This identifies the cohomological loss as **physical
+gauge channel**, deepening C3 from "structural emergence" to
+"explicit channel-counting matches QCD".
+
+Step 2 (representation-decomposition of Aut acting on H*) remains
+open and is plausibly the **largest single structural gap** in the
 current 213-Algebra infrastructure.
 
 ### §C4.  Σ-spectral signature theorem
@@ -506,9 +546,10 @@ current 213-Algebra infrastructure.
 > their products) within 213-Algebra, with precision controlled
 > by N_U.
 
-Status: T²ⁿ closed ∅-axiom (G14, this branch).  Σ_g closed
-∅-axiom (this branch).  Künneth tensor signature closed ∅-axiom
-(this branch).  Combined parametric meta-theorem: open.
+Status: **Step 1 closed** (commit `03b9d77a`,
+`HodgeConjecture/Pairing/SignatureMetaTheorem.lean`).  Three
+masters bundled (T²ⁿ inductive, Σ_g parametric, Tensor Künneth).
+Step 2 (extension to all closed orientable surfaces) open.
 
 References: `T2nInductive.lean`, `GenusGSurface.lean`,
 `TensorSignature.lean`.
@@ -520,9 +561,11 @@ References: `T2nInductive.lean`, `GenusGSurface.lean`,
 > continuum ζ(2) = π²/6 as L → 25, with rational bracketing
 > at each finite L.
 
-Status: **conjecture**.  At L=1, ζ_K(1) = 23/15 ≈ 1.533,
-within 7% of continuum 1.6449.  Higher-L lift not yet defined
-formally.  Convergence rate controlled by lattice resolution.
+Status: **Step 1 closed** (commit `03b9d77a`,
+`AlphaEM/FractalLevelZetaBracket.lean`).  L=1 baseline
+sandwich `S(3) = 1.361 < ζ_K(L=1) = 1.533 < ζ(2) ≈ 1.644`
+decide-checked.  Step 2 (define K^(L) lift, prove convergence
+to ζ(2) as L → 25) open.
 
 References: `LaplacianSpectrum.lean`,
 `ResolutionLimit.lean`, conceptual sketch in this catalog.
@@ -537,9 +580,12 @@ References: `LaplacianSpectrum.lean`,
 > reduces to a `Cochain n k` truncation at appropriate grade k,
 > with N_U = 5²⁵ as the resolution cutoff.
 
-Status: **observed empirically** in marathon completions (each
-domain ∅-axiom-closed using the same Nat213/AddMod213/decide
-toolkit), but not yet formalised as a single Lean meta-theorem.
+Status: **Step 1 closed** (commit `f370ba67`,
+`Lib/Math/CrossDomainUnification.lean`).  Empirical witness:
+seven domains' Capstones (Probability, Information, Logic,
+Combinatorics + 3 cup-ring masters) typecheck simultaneously
+under one ∅-axiom proof body.  Step 2 (single graded-ring
+algebraic object spanning all domains) remains open.
 
 The closure of C6 would be the final structural confirmation
 that 213-Algebra is internally coherent — that the four marathon
