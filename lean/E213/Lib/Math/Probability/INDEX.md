@@ -37,14 +37,20 @@ Blueprint: `blueprints/math/01_probability_213.md`.
 |---|---|---|---|
 | `Gaussian.lean` | `expSumAtZero = 1`, peak = 1, CLT centering / variance | 9 | 9/9 ∅-axiom |
 
+## Independence + conditional
+
+| File | Topic | Theorems | Status |
+|---|---|---|---|
+| `Independence.lean` | `joint a b` (product mass), `conditionalNum`/`Den`, comm + identity laws | 12 | 12/12 ∅-axiom |
+
 ## Synthesis
 
 | File | Topic | Theorems | Status |
 |---|---|---|---|
-| `Capstone.lean` | per-cluster witnesses + `total_witness` (20-fact bundle) | 6 | ∅-axiom |
+| `Capstone.lean` | per-cluster witnesses + `total_witness` (20-fact bundle) | 7 | ∅-axiom |
 | `Probability.lean` | umbrella | — | — |
 
-**Total**: 108 atomic facts, all ∅-axiom verified.
+**Total**: 121 atomic facts, all ∅-axiom verified.
 
 ## Atomic content
 
@@ -98,7 +104,14 @@ Blueprint: `blueprints/math/01_probability_213.md`.
     structurally).  `CLT_fair_variance_marker` matches Bernoulli
     `Var = 1/4`.
 
-  * **`total_witness`** ★★★ — 20-fact grand bundle (4 per cluster).
+  * **Independence**: `joint a b` is the *product mass* —
+    numerator and denominator factorize.  Joint with `unit` is
+    identity, joint with `zero` is `zero`.  Commutative.
+    `conditionalNum a b = a.num`, `conditionalDen a b = b.num` —
+    the atomic ratio form of `P(A | B)` at common scale.
+
+  * **`total_witness`** ★★★ — 20-fact grand bundle (4 per cluster
+    of the original five clusters).
 
 ## Open follow-ups (deferred)
 
@@ -106,3 +119,5 @@ Blueprint: `blueprints/math/01_probability_213.md`.
   * Beta density on dyadic [0, 1] (continuous form requires the
     deferred Real213 integration step).
   * Hoeffding-style atomic concentration bounds.
+  * Conditional independence + Markov property (chain of
+    `BetaCount` updates as a sufficient statistic).

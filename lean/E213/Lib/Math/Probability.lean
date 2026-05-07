@@ -8,6 +8,7 @@ import E213.Lib.Math.Probability.SampleMean
 import E213.Lib.Math.Probability.LLN
 import E213.Lib.Math.Probability.Bayesian
 import E213.Lib.Math.Probability.Gaussian
+import E213.Lib.Math.Probability.Independence
 import E213.Lib.Math.Probability.Capstone
 
 /-!

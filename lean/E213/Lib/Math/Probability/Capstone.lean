@@ -8,6 +8,7 @@ import E213.Lib.Math.Probability.SampleMean
 import E213.Lib.Math.Probability.LLN
 import E213.Lib.Math.Probability.Bayesian
 import E213.Lib.Math.Probability.Gaussian
+import E213.Lib.Math.Probability.Independence
 
 /-!
 # Probability — synthesis bundles
@@ -246,5 +247,34 @@ theorem total_witness (N n : Nat) :
   , E213.Lib.Math.Probability.Gaussian.expSumAtZero_eq_one N
   , rfl, rfl
   , E213.Lib.Math.Probability.Gaussian.CLT_fair_centered n ⟩
+
+/-- ★ **Independence / conditional witness** ★ — joint and ratio.
+
+    Closure facts:
+      1. `joint a b` numerator factorizes: `a.num · b.num`;
+      2. `joint a b` denominator factorizes: `a.den · b.den`;
+      3. `joint unit a = a` (numerator);
+      4. `joint zero a` numerator = 0;
+      5. `joint` commutative (numerator);
+      6. `conditionalNum a b = a.num`. -/
+theorem independence_witness (a b : ProbabilityCut) :
+    (E213.Lib.Math.Probability.Independence.joint a b).num
+      = a.num * b.num
+    ∧ (E213.Lib.Math.Probability.Independence.joint a b).den
+        = a.den * b.den
+    ∧ (E213.Lib.Math.Probability.Independence.joint
+        ProbabilityCut.unit a).num = a.num
+    ∧ (E213.Lib.Math.Probability.Independence.joint
+        ProbabilityCut.zero a).num = 0
+    ∧ (E213.Lib.Math.Probability.Independence.joint a b).num
+        = (E213.Lib.Math.Probability.Independence.joint b a).num
+    ∧ E213.Lib.Math.Probability.Independence.conditionalNum a b
+        = a.num :=
+  ⟨ E213.Lib.Math.Probability.Independence.joint_num a b
+  , E213.Lib.Math.Probability.Independence.joint_den a b
+  , E213.Lib.Math.Probability.Independence.joint_unit_left_num a
+  , E213.Lib.Math.Probability.Independence.joint_zero_left_num a
+  , E213.Lib.Math.Probability.Independence.joint_comm_num a b
+  , E213.Lib.Math.Probability.Independence.conditionalNum_eq a b ⟩
 
 end E213.Lib.Math.Probability.Capstone
