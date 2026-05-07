@@ -39,7 +39,7 @@ illustrates the standard.
 |---|---|---|---|
 | 06 | **Differential Equations 213** ✅ REALIZED | (blueprint retired) | — |
 | 07 | **Number Theory 213** (dyadic native) | `07_number_213.md` | ★★ |
-| 08 | **Functional Analysis 213** | `08_functional_213.md` | ★ |
+| 08 | **Functional Analysis 213** ✅ REALIZED | (blueprint retired) | — |
 
 ### Phase C — Algebra / Discrete
 
@@ -92,17 +92,16 @@ Split into base spec + phases file (`15_cohomology_213.md` +
 | 04 | **Complex Analysis 213** | ✅ **REALIZED** | `Math/Complex/` (3 files + Capstone); ComplexCut = (Cut, Cut), CR-skeleton, polynomial = power series via Grade-N nilpotency, `cExp(0)=1`. |
 | 05 | **Measure Theory 213** | ✅ **REALIZED** | `Math/Measure/` (4 files + Capstone); σ-algebra rejected, dyadic-list measurable sets, finite-sum integral, Lp atom. |
 | 06 | **Differential Equations 213** | ✅ **REALIZED** | `Math/ODE/` (4 files + Capstone); discrete Picard iteration, linear/exponential ODE closed forms, 1D periodic heat + leapfrog wave equations. |
-| 08 | Functional Analysis 213 | ⏳ **Pending** | |
+| 08 | **Functional Analysis 213** | ✅ **REALIZED** | `Math/Functional/` (4 files + Capstone); finite-grid `lInfNorm`/`l1Norm`, inner product (sym + bilinear), `LinOp` algebra, spectrum (id/scale/zero eigenvalues).  Hahn-Banach rejected as feature. |
 | 11 | Group Theory 213 | ⏳ **Pending** | |
 | 12 | **Information Theory 213** | ✅ **REALIZED** | 7 atomic files + Capstone (8 witnesses); BitDepth, Entropy, MutualInfo, KL, Channel, Coding, Kolmogorov K(213)=4. |
 | 14 | **Logic / Proof Theory 213** | ✅ **REALIZED** | `Math/Logic/` (3 files + Capstone); intuitionistic predicate calculus, Trajectory = List Bool, proofLength composition. |
 
-Summary: **12 of 15 fields fully or substantially realized**
+Summary: **13 of 15 fields fully or substantially realized**
 (01 Probability, 02 Multivariable, 03 Topology, 04 Complex, 05
-Measure, 06 ODE/PDE, 07 Number Theory, 10 Combinatorics, 12
-Information, 13 213-Meta, 14 Logic, 15 Cohomology; plus 09
-Linalg partial).  Remaining: 08 Functional Analysis, 11 Group
-Theory.
+Measure, 06 ODE/PDE, 07 Number Theory, 08 Functional, 10
+Combinatorics, 12 Information, 13 213-Meta, 14 Logic, 15
+Cohomology; plus 09 Linalg partial).  Remaining: 11 Group Theory.
 
 ---
 
