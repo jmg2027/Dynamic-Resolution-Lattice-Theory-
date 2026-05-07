@@ -6,6 +6,7 @@ import E213.Lib.Math.Probability.Expectation
 import E213.Lib.Math.Probability.Variance
 import E213.Lib.Math.Probability.SampleMean
 import E213.Lib.Math.Probability.LLN
+import E213.Lib.Math.Probability.Bayesian
 
 /-!
 # Probability — Phase EA Capstone
@@ -123,5 +124,35 @@ theorem phaseEC_synthesis (n : Nat) :
    (E213.Lib.Math.Probability.LLN.LLN_unit n).1,
    (E213.Lib.Math.Probability.LLN.LLN_unit n).2,
    E213.Lib.Math.Probability.LLN.fair_LLN n⟩
+
+/-- ★ **Phase ED Bayesian synthesis** ★
+
+    Five closure facts on Beta-Binomial conjugate update:
+
+    1. uniform prior posterior mean = 1/2;
+    2. uniform + 1 success → posterior 2/3 (Laplace's rule);
+    3. uniform + 1 failure → posterior 1/3 (symmetric);
+    4. sequential single-success ≡ batch (1, 0) on the count fields;
+    5. updateBatch zero is a no-op on count fields. -/
+theorem phaseED_synthesis :
+    -- (1-2) uniform prior posterior mean
+    E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.posteriorMean.num = 1
+    ∧ E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.posteriorMean.den = 2
+    -- (3) Laplace one success → 2/3
+    ∧ E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.updateOnSuccess.posteriorMean.num
+        = 2
+    ∧ E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.updateOnSuccess.posteriorMean.den
+        = 3
+    -- (4) Laplace one failure → 1/3
+    ∧ E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.updateOnFailure.posteriorMean.num
+        = 1
+    ∧ E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.updateOnFailure.posteriorMean.den
+        = 3
+    -- (5) zero batch is no-op
+    ∧ (E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.updateBatch 0 0).successes
+        = E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.successes :=
+  ⟨rfl, rfl, rfl, rfl, rfl, rfl,
+   (E213.Lib.Math.Probability.Bayesian.BetaCount.updateBatch_zero
+     E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior).1⟩
 
 end E213.Lib.Math.Probability.Capstone

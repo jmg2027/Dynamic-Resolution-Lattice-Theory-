@@ -26,14 +26,20 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
 | `SampleMean.lean` | `countTrue`, all-heads/tails closed form, `length_replicate` | 11 | 11/11 ∅-axiom |
 | `LLN.lean` | balanced sequence sample mean = E[X], `LLN_unit`, fair-coin LLN | 8 | 8/8 ∅-axiom |
 
+## Phase ED — Bayesian conjugate update
+
+| File | Topic | Theorems | Status |
+|---|---|---|---|
+| `Bayesian.lean` | `BetaCount` + `posteriorMean` + Laplace rule + sequential↔batch | 14 | 14/14 ∅-axiom |
+
 ## Synthesis
 
 | File | Topic | Theorems | Status |
 |---|---|---|---|
-| `Capstone.lean` | Phase EA + EB + EC synthesis bundles | 3 | ∅-axiom |
+| `Capstone.lean` | Phase EA + EB + EC + ED synthesis bundles | 4 | ∅-axiom |
 | `Probability.lean` | umbrella | — | — |
 
-**Total**: 81 atomic facts, all ∅-axiom verified.
+**Total**: 95 atomic facts, all ∅-axiom verified.
 
 ## Atomic content
 
@@ -55,7 +61,6 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
 
 ## Next phases (per blueprint)
 
-  * **Phase ED** — Bayesian framework.
   * **Phase EE** — CLT + Gaussian peak.
   * **Phase EF** — Final capstone (18+ fact bundle).
 
@@ -93,3 +98,23 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
 
   * 213-native `length_replicate` and `length_append` term-mode
     helpers (Lean-core variants leaked `propext` via `simp`).
+
+## Phase ED content notes
+
+  * **`BetaCount`**: `(α, β)` pair of effective counts with
+    `0 < α + β`.  No continuous Beta density — just two `Nat`s.
+
+  * **`posteriorMean`**: `α / (α + β)` as a `ProbabilityCut`.
+    Bayes' update is **count addition** in this conjugate framework.
+
+  * **`updateOnSuccess` / `updateOnFailure`**: `+1` on the matching
+    field.  `updateBatch ks fs` does `+ks, +fs` in one step.
+
+  * **Laplace's rule of succession**: `uniformPrior = (1, 1)` →
+    `posteriorMean = 1/2`.  After one success → `2/3`; after one
+    failure → `1/3`.  Pure `rfl`.
+
+  * **Sequential ↔ batch**: `updateOnSuccess` count-equals
+    `updateBatch 1 0`; two successes count-equals `updateBatch 2 0`.
+    Bayesian update is associative + commutative *because Nat
+    addition is*.
