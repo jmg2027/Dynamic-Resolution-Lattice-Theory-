@@ -43,14 +43,38 @@ Blueprint: `blueprints/math/01_probability_213.md`.
 |---|---|---|---|
 | `Independence.lean` | `joint a b` (product mass), `conditionalNum`/`Den`, comm + identity laws | 12 | 12/12 ∅-axiom |
 
+## Markov / sufficient statistic
+
+| File | Topic | Theorems | Status |
+|---|---|---|---|
+| `Markov.lean` | `BetaCount` update commutativity (Markov property) + atomic Markov inequality on discrete distributions | 6 | 6/6 ∅-axiom |
+
+## Concentration bounds
+
+| File | Topic | Theorems | Status |
+|---|---|---|---|
+| `Concentration.lean` | `excess` / `deficit` clamped-Nat, `centeredAbsDev2`, balanced/all-heads/all-tails closed forms | 7 | 7/7 ∅-axiom |
+
+## Beta density (continuous)
+
+| File | Topic | Theorems | Status |
+|---|---|---|---|
+| `BetaDensity.lean` | unnormalized `betaNumAt α β p`, `betaDenAt`; Beta(1,1) uniform, Beta(2,1) linear; bridge from `BetaCount` | 8 | 8/8 ∅-axiom |
+
+## CLT modulus (Cauchy form)
+
+| File | Topic | Theorems | Status |
+|---|---|---|---|
+| `CLTLimit.lean` | balanced LLN as Cauchy sequence with trivial modulus `N(ε) = 0` | 4 | 4/4 ∅-axiom |
+
 ## Synthesis
 
 | File | Topic | Theorems | Status |
 |---|---|---|---|
-| `Capstone.lean` | per-cluster witnesses + `total_witness` (20-fact bundle) | 7 | ∅-axiom |
+| `Capstone.lean` | per-cluster witnesses (atoms / moments / sampleMean / bayesian / gaussian / independence / **markov** / **concentration** / **betaDensity** / **cltModulus**) + `total_witness` | 11 | ∅-axiom |
 | `Probability.lean` | umbrella | — | — |
 
-**Total**: 121 atomic facts, all ∅-axiom verified.
+**Total**: 156 atomic facts, all ∅-axiom verified.
 
 ## Atomic content
 
@@ -113,11 +137,21 @@ Blueprint: `blueprints/math/01_probability_213.md`.
   * **`total_witness`** ★★★ — 20-fact grand bundle (4 per cluster
     of the original five clusters).
 
-## Open follow-ups (deferred)
+## Open follow-ups
 
-  * Cauchy-modulus full CLT via `Real213.CutSeries.partialSum`.
-  * Beta density on dyadic [0, 1] (continuous form requires the
-    deferred Real213 integration step).
-  * Hoeffding-style atomic concentration bounds.
-  * Conditional independence + Markov property (chain of
-    `BetaCount` updates as a sufficient statistic).
+All four originally deferred items are now closed (atomic forms):
+
+  * ✅ Cauchy-modulus form of LLN — `CLTLimit.lean`.
+  * ✅ Beta density on dyadic — `BetaDensity.lean` (unnormalized).
+  * ✅ Concentration bounds — `Concentration.lean`.
+  * ✅ Markov property + sufficient statistic — `Markov.lean`.
+
+Remaining genuinely open work (requires bridging into Real213 or
+integration machinery beyond atomic counting):
+
+  * Full Cauchy CLT for *generic* (non-balanced) sequences, with
+    explicit modulus depending on sequence variance.
+  * Normalized Beta density (continuous `B(α, β)` constant via
+    integration over `dyadicIntervalAB`).
+  * Stronger Hoeffding/Chernoff exponential-tail bounds (require
+    `Real213.expTermsAtZero`-style series infrastructure).

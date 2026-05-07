@@ -9,6 +9,10 @@ import E213.Lib.Math.Probability.LLN
 import E213.Lib.Math.Probability.Bayesian
 import E213.Lib.Math.Probability.Gaussian
 import E213.Lib.Math.Probability.Independence
+import E213.Lib.Math.Probability.Markov
+import E213.Lib.Math.Probability.Concentration
+import E213.Lib.Math.Probability.BetaDensity
+import E213.Lib.Math.Probability.CLTLimit
 
 /-!
 # Probability — synthesis bundles
@@ -276,5 +280,58 @@ theorem independence_witness (a b : ProbabilityCut) :
   , E213.Lib.Math.Probability.Independence.joint_zero_left_num a
   , E213.Lib.Math.Probability.Independence.joint_comm_num a b
   , E213.Lib.Math.Probability.Independence.conditionalNum_eq a b ⟩
+
+/-- ★ **Markov / sufficient-statistic witness** ★ — `BetaCount` updates
+    are commutative on the count fields; Markov inequality holds for
+    discrete distributions. -/
+theorem markov_witness (b : E213.Lib.Math.Probability.Bayesian.BetaCount)
+    (k₁ f₁ k₂ f₂ : Nat) :
+    ((b.updateBatch k₁ f₁).updateBatch k₂ f₂).successes
+      = ((b.updateBatch k₂ f₂).updateBatch k₁ f₁).successes
+    ∧ ∀ a, ∀ xs : List (Nat × Nat),
+        a * E213.Lib.Math.Probability.Markov.tailMassNum a xs
+          ≤ E213.Lib.Math.Probability.Markov.tailMomentNum a xs :=
+  ⟨E213.Lib.Math.Probability.Markov.updateBatch_comm_successes b k₁ f₁ k₂ f₂,
+   E213.Lib.Math.Probability.Markov.markov_inequality⟩
+
+/-- ★ **Concentration witness** ★ — balanced 2n has zero deviation,
+    all-heads/all-tails have full bias `n`. -/
+theorem concentration_witness (n : Nat) :
+    E213.Lib.Math.Probability.Concentration.centeredAbsDev2
+      (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) = 0
+    ∧ E213.Lib.Math.Probability.Concentration.centeredAbsDev2
+        (List.replicate n true) = n
+    ∧ E213.Lib.Math.Probability.Concentration.centeredAbsDev2
+        (List.replicate n false) = n :=
+  ⟨E213.Lib.Math.Probability.Concentration.centeredAbsDev2_balanced n,
+   E213.Lib.Math.Probability.Concentration.centeredAbsDev2_allHeads n,
+   E213.Lib.Math.Probability.Concentration.centeredAbsDev2_allTails n⟩
+
+/-- ★ **Beta density witness** ★ — Beta(1,1) is uniform; Beta(2,1)
+    linear in `p`; uniform-prior posterior at any `p` is `1/1`. -/
+theorem beta_density_witness (p : ProbabilityCut) :
+    E213.Lib.Math.Probability.BetaDensity.betaNumAt 1 1 p = 1
+    ∧ E213.Lib.Math.Probability.BetaDensity.betaDenAt 1 1 p = 1
+    ∧ E213.Lib.Math.Probability.BetaDensity.betaNumAt 2 1 p = p.num
+    ∧ E213.Lib.Math.Probability.BetaDensity.fromBetaCount
+        E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior p
+      = (1, 1) :=
+  ⟨E213.Lib.Math.Probability.BetaDensity.beta_uniform_num p,
+   E213.Lib.Math.Probability.BetaDensity.beta_uniform_den p,
+   E213.Lib.Math.Probability.BetaDensity.beta_2_1_num p,
+   E213.Lib.Math.Probability.BetaDensity.fromBetaCount_uniformPrior p⟩
+
+/-- ★ **CLT-modulus witness** ★ — balanced LLN has trivial Cauchy
+    modulus `N(ε) = 0`; deviation is identically zero across n. -/
+theorem clt_modulus_witness (n m ε : Nat) :
+    (∃ N, ∀ k, N ≤ k →
+      E213.Lib.Math.Probability.Concentration.centeredAbsDev2
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails k) ≤ ε)
+    ∧ E213.Lib.Math.Probability.Concentration.centeredAbsDev2
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n)
+      = E213.Lib.Math.Probability.Concentration.centeredAbsDev2
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails m) :=
+  ⟨E213.Lib.Math.Probability.CLTLimit.balanced_LLN_modulus ε,
+   E213.Lib.Math.Probability.CLTLimit.balanced_cauchy n m⟩
 
 end E213.Lib.Math.Probability.Capstone
