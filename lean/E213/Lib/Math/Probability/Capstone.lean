@@ -4,6 +4,8 @@ import E213.Lib.Math.Probability.Bernoulli
 import E213.Lib.Math.Probability.Binomial
 import E213.Lib.Math.Probability.Expectation
 import E213.Lib.Math.Probability.Variance
+import E213.Lib.Math.Probability.SampleMean
+import E213.Lib.Math.Probability.LLN
 
 /-!
 # Probability — Phase EA Capstone
@@ -86,5 +88,40 @@ theorem phaseEB_synthesis :
       = E213.Lib.Math.Probability.Expectation.discreteNum
         [(3, 0), (1, 0), (6, 1)] :=
   ⟨rfl, rfl, rfl, by decide, by decide, by decide, by decide, by decide⟩
+
+/-- ★ **Phase EC LLN synthesis** ★
+
+    Five closure facts on sample-mean / LLN:
+
+    1. all-heads of length `n` → numerator = `n`, denominator = `n`;
+    2. all-tails of length `n` → numerator = `0`;
+    3. balanced-heads-tails of length `2n` → numerator = `n`;
+    4. balanced-heads-tails length = `2n` (even by construction);
+    5. fair-coin LLN cross-product (`n · 2 = 2n · 1`). -/
+theorem phaseEC_synthesis (n : Nat) :
+    -- (1) all-heads
+    E213.Lib.Math.Probability.SampleMean.sampleMeanNum
+        (List.replicate n true) = n
+    ∧ E213.Lib.Math.Probability.SampleMean.sampleMeanDen
+        (List.replicate n true) = n
+    -- (2) all-tails numerator
+    ∧ E213.Lib.Math.Probability.SampleMean.sampleMeanNum
+        (List.replicate n false) = 0
+    -- (3-4) balanced sample
+    ∧ E213.Lib.Math.Probability.SampleMean.sampleMeanNum
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) = n
+    ∧ E213.Lib.Math.Probability.SampleMean.sampleMeanDen
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) = 2 * n
+    -- (5) fair-coin LLN cross-product
+    ∧ E213.Lib.Math.Probability.SampleMean.sampleMeanNum
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) * 2
+      = E213.Lib.Math.Probability.SampleMean.sampleMeanDen
+          (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) * 1 :=
+  ⟨(E213.Lib.Math.Probability.SampleMean.allHeads_sampleMean n).1,
+   (E213.Lib.Math.Probability.SampleMean.allHeads_sampleMean n).2,
+   (E213.Lib.Math.Probability.SampleMean.allTails_sampleMean n).1,
+   (E213.Lib.Math.Probability.LLN.LLN_unit n).1,
+   (E213.Lib.Math.Probability.LLN.LLN_unit n).2,
+   E213.Lib.Math.Probability.LLN.fair_LLN n⟩
 
 end E213.Lib.Math.Probability.Capstone

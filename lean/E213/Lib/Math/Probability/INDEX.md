@@ -19,14 +19,21 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
 | `Expectation.lean` | Bernoulli `E[X] = p`, discrete weighted sum | 11 | 11/11 ∅-axiom |
 | `Variance.lean` | Bernoulli `Var[X] = p(1−p)`, second moments | 12 | 12/12 ∅-axiom |
 
+## Phase EC — sample mean + Law of Large Numbers
+
+| File | Topic | Theorems | Status |
+|---|---|---|---|
+| `SampleMean.lean` | `countTrue`, all-heads/tails closed form, `length_replicate` | 11 | 11/11 ∅-axiom |
+| `LLN.lean` | balanced sequence sample mean = E[X], `LLN_unit`, fair-coin LLN | 8 | 8/8 ∅-axiom |
+
 ## Synthesis
 
 | File | Topic | Theorems | Status |
 |---|---|---|---|
-| `Capstone.lean` | Phase EA + EB synthesis bundles | 2 | ∅-axiom |
+| `Capstone.lean` | Phase EA + EB + EC synthesis bundles | 3 | ∅-axiom |
 | `Probability.lean` | umbrella | — | — |
 
-**Total**: 62 atomic facts, all ∅-axiom verified.
+**Total**: 81 atomic facts, all ∅-axiom verified.
 
 ## Atomic content
 
@@ -48,7 +55,6 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
 
 ## Next phases (per blueprint)
 
-  * **Phase EC** — Law of Large Numbers.
   * **Phase ED** — Bayesian framework.
   * **Phase EE** — CLT + Gaussian peak.
   * **Phase EF** — Final capstone (18+ fact bundle).
@@ -68,3 +74,22 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
   * **AB-indicator** (`success = AB`): variance numerator = 24,
     denominator = 100 (= 6·4 / 10² = p(1−p)).
     Second moment equals first moment (`X² = X` for indicator).
+
+## Phase EC content notes
+
+  * **Sample mean**: `sampleMeanNum xs = countTrue xs`,
+    `sampleMeanDen xs = xs.length` (just `Nat` counts of `Bool`s).
+
+  * **Closed forms**: all-heads of length `n` → `n/n`; all-tails → `0/n`;
+    balanced `(replicate n true) ++ (replicate n false)` → `n/(2n)`.
+
+  * **`LLN_unit`** ★ — balanced fair-coin sample of length `2n` has
+    sample mean *exactly* `1/2` for every `n` (no limit needed —
+    structural exactness under balance).
+
+  * **`bernoulli_LLN_exact`** — for any sample where empirical count
+    matches theoretical ratio (`countTrue · den = length · num`),
+    `sampleMean = E[X]` via cross-multiplication.
+
+  * 213-native `length_replicate` and `length_append` term-mode
+    helpers (Lean-core variants leaked `propext` via `simp`).

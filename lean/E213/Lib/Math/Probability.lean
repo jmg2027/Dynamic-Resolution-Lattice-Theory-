@@ -4,11 +4,14 @@ import E213.Lib.Math.Probability.Bernoulli
 import E213.Lib.Math.Probability.Binomial
 import E213.Lib.Math.Probability.Expectation
 import E213.Lib.Math.Probability.Variance
+import E213.Lib.Math.Probability.SampleMean
+import E213.Lib.Math.Probability.LLN
 import E213.Lib.Math.Probability.Capstone
 
 /-!
 # Probability 213 — umbrella
 
-Imports the four Phase-EA foundational files and the synthesis capstone.
+Imports Phases EA (atomic foundations), EB (expectation/variance), and
+EC (sample mean / LLN), plus the synthesis capstone.
 See `Probability/INDEX.md` for the marathon plan.
 -/
