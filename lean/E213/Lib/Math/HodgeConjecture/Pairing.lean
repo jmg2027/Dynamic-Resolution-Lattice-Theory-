@@ -12,6 +12,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.KahlerGradeStructure
 import E213.Lib.Math.HodgeConjecture.Pairing.SurfaceComparisonTheorem
 import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
 import E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
+import E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 
 /-! Spec-as-code entry point for `E213.Lib.Math.HodgeConjecture.Pairing`.
 
@@ -49,6 +50,13 @@ import E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
                                   every `n ≥ 1`, via binom symmetry
                                   `central_binom_is_double`.
                                   STRICT ∅-AXIOM.
+    * `TensorSignature`        — ★★★ **Tensor / Künneth signature
+                                  theorem on (pos, neg) pair**:
+                                  closes G12 §6 follow-up by
+                                  refining Hirzebruch multiplicativity
+                                  from σ-only to the full pair-level
+                                  Künneth rule `(p·p' + q·q',
+                                  p·q' + q·p')`.  STRICT ∅-AXIOM.
     * `SurfaceComparisonTheorem` — ★★ **Comparison theorem**
                                   across 4 Kähler 2-folds (T²,
                                   ℙ², ℙ¹×ℙ¹, T²×T²): Hodge
