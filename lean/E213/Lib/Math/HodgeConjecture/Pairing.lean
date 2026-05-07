@@ -13,6 +13,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.SurfaceComparisonTheorem
 import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
 import E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
 import E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
+import E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
 
 /-! Spec-as-code entry point for `E213.Lib.Math.HodgeConjecture.Pairing`.
 
@@ -57,6 +58,12 @@ import E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
                                   from σ-only to the full pair-level
                                   Künneth rule `(p·p' + q·q',
                                   p·q' + q·p')`.  STRICT ∅-AXIOM.
+    * `GenusGSurface`          — ★★★ **Σ_g surface signature
+                                  (parametric in genus)**: closes G12
+                                  §6 follow-up `signature(Σ_g) = (g, g)`
+                                  for all g ≥ 0, with connected-sum
+                                  additivity `Σ_{g+h} = Σ_g # Σ_h`.
+                                  STRICT ∅-AXIOM.
     * `SurfaceComparisonTheorem` — ★★ **Comparison theorem**
                                   across 4 Kähler 2-folds (T²,
                                   ℙ², ℙ¹×ℙ¹, T²×T²): Hodge
