@@ -46,7 +46,7 @@ illustrates the standard.
 | # | Field | File | Priority |
 |---|---|---|---|
 | 09 | **Linear Algebra 213** | `09_linear_algebra_213.md` | ★★ |
-| 10 | **Combinatorics 213** (atomic native) | `10_combinatorics_213.md` | ★★★ |
+| 10 | **Combinatorics 213** ✅ REALIZED | (blueprint retired) | — |
 | 11 | **Group Theory 213** | `11_group_213.md` | ★ |
 | 12 | **Information Theory 213** ✅ REALIZED | (blueprint retired) | — |
 
