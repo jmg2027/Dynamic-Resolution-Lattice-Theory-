@@ -11,6 +11,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexGradeStructure
 import E213.Lib.Math.HodgeConjecture.Pairing.KahlerGradeStructure
 import E213.Lib.Math.HodgeConjecture.Pairing.SurfaceComparisonTheorem
 import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
+import E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
 
 /-! Spec-as-code entry point for `E213.Lib.Math.HodgeConjecture.Pairing`.
 
@@ -40,6 +41,14 @@ import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
                                    (½·C(2n,n), ½·C(2n,n))`,
                                   bundling all n=1, n=2 witnesses
                                   + numerical sequence for n≤5
+    * `T2nInductive`           — ★★★ **Pattern theorem (G14, full
+                                  inductive form)**: parametric
+                                  `T2n_blocks_inductive n hn`
+                                  closes the open follow-up from
+                                  `BalancedSignature.lean` for
+                                  every `n ≥ 1`, via binom symmetry
+                                  `central_binom_is_double`.
+                                  STRICT ∅-AXIOM.
     * `SurfaceComparisonTheorem` — ★★ **Comparison theorem**
                                   across 4 Kähler 2-folds (T²,
                                   ℙ², ℙ¹×ℙ¹, T²×T²): Hodge
