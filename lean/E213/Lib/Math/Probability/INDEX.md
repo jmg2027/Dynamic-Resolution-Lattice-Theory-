@@ -38,14 +38,21 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
 |---|---|---|---|
 | `Gaussian.lean` | `expSumAtZero = 1`, Gaussian peak = 1, CLT centering / variance marker | 9 | 9/9 ∅-axiom |
 
+## Phase EF — Marathon final capstone
+
+| File | Topic | Theorems | Status |
+|---|---|---|---|
+| `MarathonCapstone.lean` | ★ `phaseEF_marathon_capstone` ★ — 20-fact grand synthesis (4 per phase × 5 phases) | 1 | ∅-axiom |
+
 ## Synthesis
 
 | File | Topic | Theorems | Status |
 |---|---|---|---|
 | `Capstone.lean` | Phase EA + EB + EC + ED + EE synthesis bundles | 5 | ∅-axiom |
+| `MarathonCapstone.lean` | Phase EF marathon final | 1 | ∅-axiom |
 | `Probability.lean` | umbrella | — | — |
 
-**Total**: 104 atomic facts, all ∅-axiom verified.
+**Total**: 105 atomic facts (incl. 20-fact marathon capstone), all ∅-axiom.
 
 ## Atomic content
 
@@ -65,9 +72,19 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
     Bernoulli view: `ABBernoulli` with `p = 6/10`, `failure = 4/10`.
     Product mass for `n` independent trials via `trialSequenceNum`.
 
-## Next phases (per blueprint)
+## Marathon status
 
-  * **Phase EF** — Final capstone (18+ fact bundle).
+**Probability 213 marathon: COMPLETE.**  All five planned phases
+(EA atomic foundations, EB expectation/variance, EC LLN, ED Bayesian,
+EE CLT/Gaussian) delivered with 0 sorry, 0 external axioms, 0 Mathlib.
+Marathon capstone bundles 20 headline facts in a single ∅-axiom theorem.
+
+## Open follow-ups (deferred)
+
+  * Cauchy-modulus full CLT via `Real213.CutSeries.partialSum`.
+  * Beta density on dyadic [0, 1] (continuous form requires the
+    deferred Real213 integration phase).
+  * Hoeffding-style atomic concentration bounds.
 
 ## Phase EB content notes
 

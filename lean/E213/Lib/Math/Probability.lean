@@ -9,6 +9,7 @@ import E213.Lib.Math.Probability.LLN
 import E213.Lib.Math.Probability.Bayesian
 import E213.Lib.Math.Probability.Gaussian
 import E213.Lib.Math.Probability.Capstone
+import E213.Lib.Math.Probability.MarathonCapstone
 
 /-!
 # Probability 213 — umbrella
