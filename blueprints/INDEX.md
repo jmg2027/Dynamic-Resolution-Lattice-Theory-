@@ -20,12 +20,14 @@ formal fact.
 
 ## Architecture
 
-  📋 `math/00_DIRECTORY_PROPOSAL.md`  — Math track directory proposal
-  📋 `physics/00_PHYSICS_RESPONSE.md` — Physics track response (full agreement)
+  Canonical: `lean/E213/ARCHITECTURE.md`.  Historical inter-track
+  directory proposals (math `00_DIRECTORY_PROPOSAL.md` +
+  physics `00_PHYSICS_RESPONSE.md`) deleted 2026-05-07; M14 ring rename
+  superseded both.
 
-  Final architecture (2026-05-06, post-M14 ring rename):
+  Final architecture (2026-05-07, post-M14 ring rename):
   - `seed/` (axioms + philosophy + falsifiability)
-  - `lean/E213/` (~825 .lean files; concentric ring model
+  - `lean/E213/` (~866 .lean files; concentric ring model
     Term/Theory/Lens/Meta/Lib/App — see `lean/E213/ARCHITECTURE.md`
     canonical ring architecture.  Pre-M14 names
     Kernel/Firmware/Hypervisor/Meta/App + OS orchestration ring are
@@ -40,14 +42,18 @@ formal fact.
 
 ## Division of Work
 
-  - Math track: lean/E213/Lib/Math/, books/math/, blueprints/math/01-12,14
+  - Math track: lean/E213/Lib/Math/, books/math/, blueprints/math/02-12,14,15
   - Physics track: lean/E213/Lib/Physics/, books/physics/, blueprints/physics/all
   - Common: seed/, catalogs/, tools/, research-notes/
 
-## Realization snapshot (2026-04-30)
+## Realization snapshot (2026-05-07)
 
-### Math (3 of 15 fields realized)
+### Math (4 of 15 fields realized)
 
+- ✅ **01 Probability 213** — REALIZED (`lean/E213/Lib/Math/Probability/`,
+  11 files, 121 atomic facts; every probability is a `(Nat, Nat)`
+  ratio — no Ω, no σ-algebra, no Choice.  Bishop-style.  Blueprint
+  retired.)
 - ✅ **07 Number Theory 213** — REALIZED (~120 files in
   `lean/E213/Lib/Math/Cohomology/Dyadic/` after Phase 3 reorg, organized
   into 8 sub-clusters: ArithFSM/, BitFSM/, Pell/, Fib/, Trib/,
@@ -57,7 +63,7 @@ formal fact.
 - ✅ **15 Cohomology 213** — CORE CLOSED (147 files, A/B/C/D/E
   classification)
 - 🟡 **09 Linear Algebra** / **10 Combinatorics** — partial
-- ⏳ Remaining 10 fields pending
+- ⏳ Remaining 9 fields pending
 
 ### Physics (5 REALIZED, 6 PARTIAL — see `physics/INDEX.md` for detail)
 
