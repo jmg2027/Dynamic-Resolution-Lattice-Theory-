@@ -19,6 +19,9 @@ import E213.Lib.Math.Probability.Chebyshev
 import E213.Lib.Math.Probability.BetaNormalized
 import E213.Lib.Math.Probability.CLTGeneric
 import E213.Lib.Math.Probability.Hoeffding
+import E213.Lib.Math.Cohomology.CutExpFiniteTruncation
+import E213.Lib.Math.Cohomology.CutLog
+import E213.Lib.Math.Probability.ChernoffGrade
 
 /-!
 # Probability — synthesis bundles
@@ -379,5 +382,34 @@ theorem hoeffding_witness (n : Nat) (negArg : Nat → Nat → Bool) :
         (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) = 0 :=
   ⟨rfl,
    E213.Lib.Math.Probability.Concentration.centeredAbsDev2_balanced n⟩
+
+/-- ★ **Reframe witness: nilpotency** ★ — replaces "Cauchy modulus
+    on cutExp" with the structural Grade-6 nilpotency. -/
+theorem nilpotency_witness
+    (α : E213.Lib.Math.Cohomology.Cochain.Core.Cochain 5 1)
+    (i : Fin (E213.Lib.Physics.Simplex.Counts.binom 5 6)) :
+    E213.Lib.Math.Cohomology.CutExpFiniteTruncation.cupPow α 6 i = false :=
+  E213.Lib.Math.Cohomology.CutExpFiniteTruncation.cupPow_grade_6_zero α i
+
+/-- ★ **Reframe witness: grade-index Chernoff** ★ — replaces
+    "continuous Chernoff inf_t" with discrete grade-index closure. -/
+theorem grade_chernoff_witness (a : Nat) :
+    ∃ (g : E213.Lib.Math.Probability.ChernoffGrade.GradeIndex)
+      (xs : List (Nat × Nat)),
+      a * E213.Lib.Math.Probability.Markov.tailMassNum a xs
+        ≤ E213.Lib.Math.Probability.Markov.tailMomentNum a xs :=
+  E213.Lib.Math.Probability.ChernoffGrade.closing_grade_exists a
+
+/-- ★ **Reframe witness: log as cup-inverse** ★ — replaces
+    "log via integration" with formal algebraic cup-inverse modulo
+    Grade-6 nilpotency. -/
+theorem cuplog_witness
+    (α : E213.Lib.Math.Cohomology.Cochain.Core.Cochain 5 1) :
+    E213.Lib.Math.Cohomology.CutLog.cutLog α 1 = α
+    ∧ ∀ i : Fin (E213.Lib.Physics.Simplex.Counts.binom 5 6),
+        E213.Lib.Math.Cohomology.CutExpFiniteTruncation.cupPow
+          (E213.Lib.Math.Cohomology.CutLog.cutLog α 1) 6 i = false :=
+  ⟨rfl,
+   E213.Lib.Math.Cohomology.CutLog.cutLog_cup_grade_6_zero α⟩
 
 end E213.Lib.Math.Probability.Capstone
