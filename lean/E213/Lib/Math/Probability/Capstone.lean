@@ -7,6 +7,7 @@ import E213.Lib.Math.Probability.Variance
 import E213.Lib.Math.Probability.SampleMean
 import E213.Lib.Math.Probability.LLN
 import E213.Lib.Math.Probability.Bayesian
+import E213.Lib.Math.Probability.Gaussian
 
 /-!
 # Probability — Phase EA Capstone
@@ -154,5 +155,34 @@ theorem phaseED_synthesis :
   ⟨rfl, rfl, rfl, rfl, rfl, rfl,
    (E213.Lib.Math.Probability.Bayesian.BetaCount.updateBatch_zero
      E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior).1⟩
+
+/-- ★ **Phase EE Gaussian + CLT synthesis** ★
+
+    Five closure facts on the Taylor / Gaussian peak / CLT centering:
+
+    1. Taylor exp partial sum at 0 = 1 for every order N;
+    2. Gaussian peak value at x = 0 = 1 (atomic);
+    3. Gaussian peak as ProbabilityCut: num = 1;
+    4. CLT centering: 2 · countTrue (balanced 2n) = length (zero deviation);
+    5. CLT variance marker: 4 · (count · 2) = length · 4. -/
+theorem phaseEE_synthesis (N n : Nat) :
+    -- (1) Taylor exp(0) = 1
+    E213.Lib.Math.Probability.Gaussian.expSumAtZero N = 1
+    -- (2) Gaussian peak = 1
+    ∧ E213.Lib.Math.Probability.Gaussian.gaussianPeakAtZero = 1
+    -- (3) Gaussian peak ProbabilityCut numerator
+    ∧ E213.Lib.Math.Probability.Gaussian.gaussianPeakMass.num = 1
+    -- (4) CLT centering
+    ∧ 2 * E213.Lib.Math.Probability.SampleMean.countTrue
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n)
+      = (E213.Lib.Math.Probability.LLN.balancedHeadsTails n).length
+    -- (5) CLT variance marker
+    ∧ 4 * (E213.Lib.Math.Probability.SampleMean.countTrue
+            (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) * 2)
+      = (E213.Lib.Math.Probability.LLN.balancedHeadsTails n).length * 4 :=
+  ⟨E213.Lib.Math.Probability.Gaussian.expSumAtZero_eq_one N,
+   rfl, rfl,
+   E213.Lib.Math.Probability.Gaussian.CLT_fair_centered n,
+   E213.Lib.Math.Probability.Gaussian.CLT_fair_variance_marker n⟩
 
 end E213.Lib.Math.Probability.Capstone

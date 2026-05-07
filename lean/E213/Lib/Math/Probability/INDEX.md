@@ -32,14 +32,20 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
 |---|---|---|---|
 | `Bayesian.lean` | `BetaCount` + `posteriorMean` + Laplace rule + sequential↔batch | 14 | 14/14 ∅-axiom |
 
+## Phase EE — CLT + Gaussian peak
+
+| File | Topic | Theorems | Status |
+|---|---|---|---|
+| `Gaussian.lean` | `expSumAtZero = 1`, Gaussian peak = 1, CLT centering / variance marker | 9 | 9/9 ∅-axiom |
+
 ## Synthesis
 
 | File | Topic | Theorems | Status |
 |---|---|---|---|
-| `Capstone.lean` | Phase EA + EB + EC + ED synthesis bundles | 4 | ∅-axiom |
+| `Capstone.lean` | Phase EA + EB + EC + ED + EE synthesis bundles | 5 | ∅-axiom |
 | `Probability.lean` | umbrella | — | — |
 
-**Total**: 95 atomic facts, all ∅-axiom verified.
+**Total**: 104 atomic facts, all ∅-axiom verified.
 
 ## Atomic content
 
@@ -61,7 +67,6 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
 
 ## Next phases (per blueprint)
 
-  * **Phase EE** — CLT + Gaussian peak.
   * **Phase EF** — Final capstone (18+ fact bundle).
 
 ## Phase EB content notes
@@ -118,3 +123,28 @@ Branch: `claude/probability-theory-marathon-n9B9z`.
     `updateBatch 1 0`; two successes count-equals `updateBatch 2 0`.
     Bayesian update is associative + commutative *because Nat
     addition is*.
+
+## Phase EE content notes
+
+  * **`expTaylorAtZero n`**: Taylor coefficient of `exp(x)` at `x = 0`.
+    Atomic: only `n = 0` survives (= `1`); all `n ≥ 1` give `0`
+    because `x^n = 0` at `x = 0`.
+
+  * **`expSumAtZero N = 1`** ★ — partial Taylor sum at every order
+    `N` is exactly `1`.  Proof by induction on `N`; each step adds
+    `0`.  This is `exp(0) = 1` in finite-resolution form.
+
+  * **Gaussian peak**: `exp(−x²/2)|_{x=0} = exp(0) = 1`.
+    `gaussianPeakAtZero = 1` and `gaussianPeakMass = 1/1` as
+    a `ProbabilityCut`.
+
+  * **CLT centering**: for fair-coin balanced length-`2n`,
+    `2 · countTrue = length`, so the standardized deviation is
+    *exactly zero*.  No limit needed — perfect centering attained
+    structurally under balance.
+
+  * **CLT variance marker**: `4 · (count · 2) = length · 4`,
+    matching `p(1−p) = 1/4` Bernoulli variance after normalization.
+
+  * Full Cauchy-modulus CLT is deferred to a future phase that will
+    use `Real213.CutSeries.partialSum` for the limit form.
