@@ -5,6 +5,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP2
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP1Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemann
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2
+import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 import E213.Lib.Math.HodgeConjecture.Pairing.HirzebruchMultiplicative
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexGradeStructure
@@ -38,6 +39,15 @@ import E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
                                   (positivity vacuous in ℤ/2)
     * `HodgeRiemannT2`         — ★ Non-vacuous lift: Kähler class
                                   with `cup(ω, ω) > 0` on T²
+    * `HodgeRiemannT2Squared`  — ★★★ **HR ℚ-positivity refinement
+                                  on T²×T² (1,1) primitive part**:
+                                  closes G12 §6 by exhibiting 3
+                                  primitive (1,1) classes η₁, η₂, η₃
+                                  with `cup(η_i, η_i) = −2 < 0`
+                                  and mutual orthogonality.
+                                  Cup-pairing on `P^{1,1}` is
+                                  diag(−2,−2,−2) — negative-definite
+                                  per classical HR.  STRICT ∅-AXIOM.
     * `T2nPattern`             — ★★ **Pattern theorem**:
                                   `signature(H^n; T²ⁿ) =
                                    (½·C(2n,n), ½·C(2n,n))`,
