@@ -136,6 +136,13 @@ def is_unique_C2b_factored (bound : Nat) : Bool :=
 theorem unique_C2b_factored_100 :
     is_unique_C2b_factored 100 = true := by decide
 
+set_option maxHeartbeats 8000000 in
+set_option maxRecDepth 5000 in
+/-- ★★★★★ Step 2-final: extended bounded uniqueness up to (m, n) < 300.
+    Requires bumped `maxHeartbeats` and `maxRecDepth` for decide. -/
+theorem unique_C2b_factored_300 :
+    is_unique_C2b_factored 300 = true := by decide
+
 /-- ★★★★★ Combined Step 2: 213 (3, 2, 2, 5) satisfies all constraints
     AND is unique among (m, n) < 100 satisfying C2b. -/
 theorem unique_within_bound_100 :
