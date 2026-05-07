@@ -8,19 +8,26 @@ Next: KI+ (deep porting of Real213/Phase, expanding auto_port.py patterns).
 
 ## 1. Why This Domain
 
-The "0 external axioms" so far is *Lean kernel-relative*:
-  - propext, Quot.sound, Classical.choice are assumed as *given*
-  - Behind DRLT's single line "things with pairwise relations" *Lean CIC also sits*
-  - That is, Lean is more fundamental than 213.  Violates the vision.
+Historical setup (legacy text — kept for context): "0 external
+axioms" was once read as *Lean kernel-relative*, with `propext`,
+`Quot.sound`, and `Classical.choice` tolerated as given primitives.
+
+**Current standard (post-Phase KH):** ∅-axiom is THE standard.
+A theorem with *any* non-empty `#print axioms` output is
+`sorry`-equivalent; `propext` and `Quot.sound` are now in the same
+dirty bucket as `Classical.choice` and `Lean.ofReduceBool`.  The
+prior tolerance is deprecated.
 
 **Vision:** Raw/Lens is the *true floor*, Lean is the *syntactic host*.
-Because it is a finite discrete lattice, infinite-type-theory axioms
-such as `propext` and `Quot.sound` are *not needed in the first place*
-(same spirit as CLAUDE.md "÷, ∫, π unnecessary").
+Because 213 is a finite discrete lattice, infinite-type-theory axioms
+such as `propext` and `Quot.sound` are not needed.  This is now
+realized — the kernel marathon (KA→KH) closed every load-bearing
+fact under ∅-axiom.
 
 **Goal:** Ensure that *none* of the Lean kernel axioms are load-bearing
 for the truth value of any 213 theorem — `#print axioms` yields a
-*literally* empty list.
+*literally* empty list.  This goal is now THE standard, not the
+asymptotic target.
 
 Analogy: instead of building a "real program like C++" in Lean, we
 borrow Lean to host a deep embedding of 213.  Lean serves only as a

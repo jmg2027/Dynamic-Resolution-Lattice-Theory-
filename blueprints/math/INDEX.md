@@ -12,10 +12,12 @@ across future sessions. Each document covers:
 - *Open problems*
 
 The 100% marathon of Analysis 213 (`books/math/analysis213.md` +
-`catalogs/math-theorems.md`) is the *template*.  Each field proceeds
-under the same *tightness + propEq 0 sorry + axioms ≤ {propext,
-Quot.sound}* standard.  Probability 213 (∅-axiom standard, 121 facts)
-later reaffirmed the template at the strictest tier.
+`catalogs/math-theorems.md`) is the *template*.  Standard for every
+field: **0 sorry + ∅-axiom** — `#print axioms T` must yield the empty
+list.  The legacy `≤ {propext, Quot.sound}` tier is **deprecated**;
+any non-empty axiom list is `sorry`-equivalent and does not count
+toward closure.  Probability 213 (121 facts, 100% ∅-axiom)
+illustrates the standard.
 
 ---
 
@@ -93,7 +95,7 @@ Split into base spec + phases file (`15_cohomology_213.md` +
 | 08 | Functional Analysis 213 | ⏳ **Pending** | |
 | 11 | Group Theory 213 | ⏳ **Pending** | |
 | 12 | Information Theory 213 | ⏳ **Pending** | |
-| 14 | Logic / Proof Theory 213 | ⏳ **Pending** | Long-term: self-bootstrapping `Kernel.Proof` to eliminate propext + Quot.sound. |
+| 14 | Logic / Proof Theory 213 | ⏳ **Pending** | Note: ∅-axiom standard already eliminates propext / Quot.sound at the theorem level (= sorry-equivalent treatment).  Logic-track work is structural (intuitionistic predicate calculus, proof = trajectory), not axiom-trimming. |
 
 Summary: **4 of 15 fields fully or substantially realized**
 (01 Probability, 07 Number Theory, 13 213-Meta, 15 Cohomology;

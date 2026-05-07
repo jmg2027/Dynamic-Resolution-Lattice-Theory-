@@ -13,10 +13,15 @@ The *map* of the 213 library — future marathons + Kernel meta.
   - `meta/01_213_kernel.md`         Vision + building blocks + Phase overview
   - `meta/01_213_kernel_phases.md`  KB→KH detail + open problems
 
-Status: **All 101 theorems verified 0 axiom** (`./tools/kernel_regress.sh`).
-None of propext / Quot.sound / Classical.choice in the Lean kernel are
-load-bearing — "Lean = syntactic host, 213 = real foundation" is a
-formal fact.
+Status: **All 101 theorems verified ∅-axiom** (`./tools/kernel_regress.sh`).
+None of propext / Quot.sound / Classical.choice / native_decide /
+Mathlib in the Lean kernel are load-bearing — "Lean = syntactic
+host, 213 = real foundation" is a formal fact.
+
+**Standard (THE standard):** every theorem must satisfy
+`#print axioms T → "does not depend on any axioms"`.  Any
+non-empty axiom list = `sorry`-equivalent (CLAUDE.md +
+`seed/AXIOM/04_falsifiability.md` §5.2.1).
 
 ## Architecture
 
@@ -95,5 +100,7 @@ New session:
 ```bash
 cd lean/
 lake build E213
-# → Both tracks clean, 0 sorry, ≤ propext + Quot.sound
+# → Both tracks clean, 0 sorry, ∅-axiom (no propext, no Quot.sound,
+# no Classical, no Mathlib, no native_decide).  Anything with a
+# non-empty `#print axioms` output is sorry-equivalent.
 ```

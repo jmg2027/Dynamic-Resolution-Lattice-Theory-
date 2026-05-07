@@ -19,10 +19,15 @@ DRLT (Dynamic Resolution Lattice Theory)
 
 ## Core stakes
 
-- **0 sorry, 0 Mathlib, 0 Classical, 0 native_decide**
-- ≤ {propext, Quot.sound} (Lean 4 kernel floor; many results STRICT 0-AXIOM)
-- ★ **Kernel layer 0-axiom**: deep-embedded `Term` system; neither
-  propext nor Quot.sound is load-bearing for the kernel itself.
+- **0 sorry, 0 Mathlib, 0 Classical, 0 native_decide, 0 axiom**
+- ★ **∅-axiom is THE standard** — every theorem must satisfy
+  `#print axioms T → "does not depend on any axioms"`.  Any
+  non-empty axiom list (incl. `propext`, `Quot.sound`) is
+  `sorry`-equivalent and does not count toward closure.  See
+  `seed/AXIOM/04_falsifiability.md` §5.2.1 + `CLAUDE.md`
+  "∅-axiom standard".
+- ★ **Kernel layer ∅-axiom**: deep-embedded `Term` system; neither
+  propext nor Quot.sound is load-bearing.
   Verify: `./tools/kernel_regress.sh`
 - *No numerical analysis* — ℕ + ℚ-as-(ℕ, ℕ) only.  π via Wallis brackets,
   ζ(2) via Basel — no transcendental hardcodes.
@@ -58,10 +63,10 @@ q213Lens   : Lens (Q213 × Q213)  Function.Injective q213Lens.view
                                   (Q213 := Term × Term, 213-native ℚ)
 ```
 
-Both at ≤ {propext, Quot.sound}.  Every Raw element is uniquely
-encoded as a pair of 213-native rationals via a symmetric commutative
-magma operation — the formal expression of the G1 thesis
-("213 is the precondition for any describing").
+Both at ∅-axiom (audit: `tools/scan_axioms.py`).  Every Raw element
+is uniquely encoded as a pair of 213-native rationals via a
+symmetric commutative magma operation — the formal expression of
+the G1 thesis ("213 is the precondition for any describing").
 
 ## Quick navigation (INDEX files)
 
@@ -132,7 +137,8 @@ research-notes/  research notes
 ```bash
 cd lean/
 lake build E213
-# → ≤ {propext, Quot.sound}, no Mathlib, no Classical, no sorry
+# → ∅-axiom, no Mathlib, no Classical, no sorry, no native_decide.
+# Anything with a non-empty `#print axioms` output = sorry-equivalent.
 ```
 
 ## Math books
