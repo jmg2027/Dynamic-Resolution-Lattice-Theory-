@@ -5,6 +5,7 @@ import E213.Lib.Physics.AlphaEM.Capstone
 import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 import E213.Lib.Physics.AlphaEM.CupChannelInventory
 import E213.Lib.Physics.AlphaEM.CupRingTrace
+import E213.Lib.Physics.AlphaEM.GradedDecomposition
 import E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 import E213.Lib.Physics.AlphaEM.NUniverseCandidates
 import E213.Lib.Physics.AlphaEM.PiFiveGap
@@ -13,7 +14,7 @@ import E213.Lib.Physics.AlphaEM.StructuralGap
 
 /-! Spec-as-code entry point for E213.Lib.Physics.AlphaEM.
 
-  1/α_em derivation cluster — twelve topical files:
+  1/α_em derivation cluster — thirteen topical files:
 
   * `Augmented.lean`            — Dyson tail + SO(10) + Gram self-energy bracket
   * `Bare.lean`                 — atomic integers + lattice prefactors + 5-term
@@ -31,6 +32,14 @@ import E213.Lib.Physics.AlphaEM.StructuralGap
   * `CupRingTrace.lean`         — bottom-up cup-ring functional tests
                                   (Test 1): F₁..F₅ — none give 137,
                                   pointing to Laplacian or N_U
+  * `GradedDecomposition.lean`  — 5-fold output-grade decomposition
+                                  of the 785 cross-terms
+                                  (25/100/200/250/210), with three
+                                  structural properties: topological
+                                  grade isolation, chirality
+                                  (cup non-commutativity), and top
+                                  hard wall (binom 5 k = 0 for k≥6).
+                                  STRICT ∅-AXIOM.
   * `LaplacianSpectrum.lean`    — finite ζ-analog via cochain Laplacian
                                   (Test 2): Δ⁴ rank=30 uniform ev=5,
                                   ζ_Δ(2)=6/5; K_{3,2}^{(c=2)} spec
@@ -54,5 +63,5 @@ import E213.Lib.Physics.AlphaEM.StructuralGap
                                   NT, d.  STRICT ∅-AXIOM.
   * `StructuralGap.lean`        — open 5.4×10⁻⁴ falsifier target
 
-  Importing this single module pulls in all twelve.
+  Importing this single module pulls in all thirteen.
 -/
