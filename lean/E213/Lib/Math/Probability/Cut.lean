@@ -4,7 +4,7 @@ import E213.Lib.Math.Real213.CutPoset
 import E213.Term.Tactic.Nat213
 
 /-!
-# Probability — Phase EA-1: `ProbabilityCut` (atomic mass)
+# Probability — `ProbabilityCut` (atomic mass)
 
 A *probability cut* is an atomic rational mass `num / den` with
 `0 < den` and `num ≤ den`.  It embeds in `FluxCut` as the pure-forward

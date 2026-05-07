@@ -1,7 +1,7 @@
 import E213.Lib.Math.Probability.SampleMean
 
 /-!
-# Probability — Phase EC-2: Law of Large Numbers (atomic)
+# Probability — Law of Large Numbers (atomic)
 
 The 213-native LLN, atomic (no limit, no σ-algebra):
 

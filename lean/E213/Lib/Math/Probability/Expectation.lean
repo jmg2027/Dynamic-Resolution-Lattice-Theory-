@@ -1,7 +1,7 @@
 import E213.Lib.Math.Probability.Bernoulli
 
 /-!
-# Probability — Phase EB-1: `Expectation`
+# Probability — `Expectation`
 
 Expected value as **atomic weighted counting**.
 

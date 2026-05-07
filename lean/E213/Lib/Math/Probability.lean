@@ -9,13 +9,12 @@ import E213.Lib.Math.Probability.LLN
 import E213.Lib.Math.Probability.Bayesian
 import E213.Lib.Math.Probability.Gaussian
 import E213.Lib.Math.Probability.Capstone
-import E213.Lib.Math.Probability.MarathonCapstone
 
 /-!
 # Probability 213 — umbrella
 
-Imports Phases EA (atomic foundations), EB (expectation/variance),
-EC (sample mean / LLN), ED (Bayesian conjugate update), and EE
-(CLT + Gaussian peak), plus the synthesis capstone.  See
-`Probability/INDEX.md` for the marathon plan.
+Imports the topical clusters (Cut, UniformOnUnit, Bernoulli, Binomial,
+Expectation, Variance, SampleMean, LLN, Bayesian, Gaussian) plus the
+`Capstone` synthesis bundles (per-cluster witnesses + `total_witness`).
+See `INDEX.md` for the file map.
 -/

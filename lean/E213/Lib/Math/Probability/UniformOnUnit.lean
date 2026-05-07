@@ -2,7 +2,7 @@ import E213.Lib.Math.Probability.Cut
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 
 /-!
-# Probability — Phase EA-2: `UniformOnUnit`
+# Probability — `UniformOnUnit`
 
 The uniform distribution on the unit interval, atomic form.
 

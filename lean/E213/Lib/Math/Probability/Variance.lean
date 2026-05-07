@@ -2,7 +2,7 @@ import E213.Lib.Math.Probability.Expectation
 import E213.Lib.Math.Probability.Binomial
 
 /-!
-# Probability — Phase EB-2: `Variance`
+# Probability — `Variance`
 
 Variance as **atomic squared spread**.
 

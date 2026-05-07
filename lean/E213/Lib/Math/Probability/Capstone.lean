@@ -10,20 +10,26 @@ import E213.Lib.Math.Probability.Bayesian
 import E213.Lib.Math.Probability.Gaussian
 
 /-!
-# Probability — Phase EA Capstone
+# Probability — synthesis bundles
 
-Synthesis bundle for the four foundational atoms:
+Six closure-fact bundles, one per topical cluster, plus a final
+total-witness bundling all five clusters into one ∅-axiom theorem.
 
-  * `ProbabilityCut`   — atomic mass `num/den ∈ [0, 1]`.
-  * `UnitSubBracket`   — sub-bracket of `[0, 1]`.
-  * `Bernoulli`        — two-outcome distribution.
-  * `Binomial`         — n-trial product mass + K_{3,2} pair atomic.
+Topical bundles:
 
-All facts are ∅-axiom (verified by `_AxiomScanProbe`).  The capstone
-records the closure properties: total mass = 1 across each atom.
+  * `atoms_witness`        — Cut / Uniform / Bernoulli / Binomial (4)
+  * `moments_witness`      — Expectation / Variance (4)
+  * `sampleMean_witness`   — SampleMean / LLN (4)
+  * `bayesian_witness`     — BetaCount / posteriorMean (4)
+  * `gaussian_witness`     — Gaussian peak / CLT centering (4)
 
-Phase EA delivers the **atomic counting = probability** core: no Ω, no
-σ-algebra, no Choice — every probability is a `(Nat, Nat)` ratio.
+Total witness:
+
+  * `total_witness`        — 20-fact grand bundle (4 per cluster).
+
+Every theorem is `#print axioms` ∅ — Bishop-style atomic counting,
+no Ω, no σ-algebra, no Choice.  Every probability is a `(Nat, Nat)`
+ratio.
 -/
 
 namespace E213.Lib.Math.Probability.Capstone
@@ -34,16 +40,15 @@ open E213.Lib.Math.Probability.Bernoulli (Bernoulli)
 open E213.Lib.Math.Probability.Binomial
   (pAA pBB pAB ABBernoulli trialSequenceNum trialSequenceDen)
 
-/-- ★ **Phase EA atomic-probability synthesis** ★
+/-- ★ **Atomic-probability synthesis** ★ — Cut/Uniform/Bernoulli/Binomial.
 
-    Five closure facts establishing the atomic-counting foundation:
-
-    1. unit's forward leg is constant `1/1`;
-    2. zero's forward leg is constant `0/1`;
-    3. uniform mass on the whole unit is `1/1`;
-    4. K_{3,2} pair total: `3 + 1 + 6 = 10`;
-    5. fair-coin two-heads numerator = 1 (atomic product). -/
-theorem phaseEA_synthesis :
+    Closure facts:
+      1. unit's forward leg = `constCut 1 1`;
+      2. zero's forward leg = `constCut 0 1`;
+      3. uniform mass on whole unit = `1/1`;
+      4. K_{3,2} pair total: `3 + 1 + 6 = 10`;
+      5. fair-coin two-heads atomic product. -/
+theorem atoms_witness :
     -- (1) unit forward leg
     ProbabilityCut.unit.toFlux.forward
       = E213.Lib.Math.Real213.CutSumTest.constCut 1 1
@@ -60,17 +65,16 @@ theorem phaseEA_synthesis :
     ∧ trialSequenceDen Bernoulli.fair 2 = 4 :=
   ⟨rfl, rfl, rfl, rfl, by decide, by decide, by decide⟩
 
-/-- ★ **Phase EB expectation/variance synthesis** ★
+/-- ★ **Moments synthesis** ★ — Expectation + Variance.
 
-    Six closure facts on first and second moments:
-
-    1. fair-coin `E[X] = 1/2`;
-    2. impossible Bernoulli `E[X] = 0`;
-    3. K_{3,2} discrete expectation numerator = 13 (D = 10);
-    4. fair-coin `Var[X] = 1/4`;
-    5. AB-indicator `Var = 24/100 = p(1−p) = (6·4)/100`;
-    6. AB-indicator second moment equals first moment (X² = X). -/
-theorem phaseEB_synthesis :
+    Closure facts:
+      1. fair-coin `E[X] = 1/2`;
+      2. impossible Bernoulli `E[X] = 0`;
+      3. K_{3,2} discrete expectation numerator = `13` (D = 10);
+      4. fair-coin `Var[X] = 1/4`;
+      5. AB-indicator `Var = 24/100 = p(1−p)`;
+      6. AB-indicator second moment = first moment (X² = X). -/
+theorem moments_witness :
     -- (1) fair-coin E[X]
     (E213.Lib.Math.Probability.Expectation.bernoulli Bernoulli.fair).num = 1
     ∧ (E213.Lib.Math.Probability.Expectation.bernoulli Bernoulli.fair).den = 2
@@ -91,16 +95,15 @@ theorem phaseEB_synthesis :
         [(3, 0), (1, 0), (6, 1)] :=
   ⟨rfl, rfl, rfl, by decide, by decide, by decide, by decide, by decide⟩
 
-/-- ★ **Phase EC LLN synthesis** ★
+/-- ★ **Sample-mean / LLN synthesis** ★.
 
-    Five closure facts on sample-mean / LLN:
-
-    1. all-heads of length `n` → numerator = `n`, denominator = `n`;
-    2. all-tails of length `n` → numerator = `0`;
-    3. balanced-heads-tails of length `2n` → numerator = `n`;
-    4. balanced-heads-tails length = `2n` (even by construction);
-    5. fair-coin LLN cross-product (`n · 2 = 2n · 1`). -/
-theorem phaseEC_synthesis (n : Nat) :
+    Closure facts:
+      1. all-heads of length `n` → numerator = `n`, denominator = `n`;
+      2. all-tails of length `n` → numerator = `0`;
+      3. balanced-heads-tails of length `2n` → numerator = `n`;
+      4. balanced-heads-tails length = `2n`;
+      5. fair-coin LLN cross-product (`n · 2 = 2n · 1`). -/
+theorem sampleMean_witness (n : Nat) :
     -- (1) all-heads
     E213.Lib.Math.Probability.SampleMean.sampleMeanNum
         (List.replicate n true) = n
@@ -126,16 +129,14 @@ theorem phaseEC_synthesis (n : Nat) :
    (E213.Lib.Math.Probability.LLN.LLN_unit n).2,
    E213.Lib.Math.Probability.LLN.fair_LLN n⟩
 
-/-- ★ **Phase ED Bayesian synthesis** ★
+/-- ★ **Bayesian conjugate synthesis** ★ — BetaCount / posteriorMean.
 
-    Five closure facts on Beta-Binomial conjugate update:
-
-    1. uniform prior posterior mean = 1/2;
-    2. uniform + 1 success → posterior 2/3 (Laplace's rule);
-    3. uniform + 1 failure → posterior 1/3 (symmetric);
-    4. sequential single-success ≡ batch (1, 0) on the count fields;
-    5. updateBatch zero is a no-op on count fields. -/
-theorem phaseED_synthesis :
+    Closure facts:
+      1. uniform prior posterior mean = `1/2`;
+      2. uniform + 1 success → posterior `2/3` (Laplace's rule);
+      3. uniform + 1 failure → posterior `1/3` (symmetric);
+      4. `updateBatch 0 0` is a no-op on count fields. -/
+theorem bayesian_witness :
     -- (1-2) uniform prior posterior mean
     E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.posteriorMean.num = 1
     ∧ E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.posteriorMean.den = 2
@@ -156,16 +157,15 @@ theorem phaseED_synthesis :
    (E213.Lib.Math.Probability.Bayesian.BetaCount.updateBatch_zero
      E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior).1⟩
 
-/-- ★ **Phase EE Gaussian + CLT synthesis** ★
+/-- ★ **Gaussian peak / CLT synthesis** ★.
 
-    Five closure facts on the Taylor / Gaussian peak / CLT centering:
-
-    1. Taylor exp partial sum at 0 = 1 for every order N;
-    2. Gaussian peak value at x = 0 = 1 (atomic);
-    3. Gaussian peak as ProbabilityCut: num = 1;
-    4. CLT centering: 2 · countTrue (balanced 2n) = length (zero deviation);
-    5. CLT variance marker: 4 · (count · 2) = length · 4. -/
-theorem phaseEE_synthesis (N n : Nat) :
+    Closure facts:
+      1. Taylor `exp` partial sum at `0` = `1` for every order `N`;
+      2. Gaussian peak value at `x = 0` = `1`;
+      3. Gaussian peak as `ProbabilityCut`: `num = 1`;
+      4. CLT centering: `2 · countTrue` (balanced 2n) = `length`;
+      5. CLT variance marker: `4 · (count · 2) = length · 4`. -/
+theorem gaussian_witness (N n : Nat) :
     -- (1) Taylor exp(0) = 1
     E213.Lib.Math.Probability.Gaussian.expSumAtZero N = 1
     -- (2) Gaussian peak = 1
@@ -184,5 +184,67 @@ theorem phaseEE_synthesis (N n : Nat) :
    rfl, rfl,
    E213.Lib.Math.Probability.Gaussian.CLT_fair_centered n,
    E213.Lib.Math.Probability.Gaussian.CLT_fair_variance_marker n⟩
+
+/-- ★★★ **Total witness** ★★★ — 20-fact grand bundle (4 per cluster).
+
+    Selected one headline fact per major theme:
+      4 atoms (Cut/Uniform/K_{3,2}/Bernoulli)
+      4 moments (E[fair], Var[fair] num/den, K_{3,2} sum)
+      4 sample-mean / LLN
+      4 Bayesian (uniform prior, Laplace ±, batch zero)
+      4 Gaussian / CLT
+    All `#print axioms` ∅ — Bishop-style atomic counting only. -/
+theorem total_witness (N n : Nat) :
+    -- ☆ atoms
+    ProbabilityCut.unit.toFlux.forward
+      = E213.Lib.Math.Real213.CutSumTest.constCut 1 1
+    ∧ (UnitSubBracket.uniform UnitSubBracket.whole).num = 1
+    ∧ pAA.num + pBB.num + pAB.num = pAA.den
+    ∧ Bernoulli.fair.success.num + Bernoulli.fair.failure.num
+        = Bernoulli.fair.p.den
+    -- ☆ moments
+    ∧ (E213.Lib.Math.Probability.Expectation.bernoulli
+         Bernoulli.fair).num = 1
+    ∧ E213.Lib.Math.Probability.Variance.bernoulliNum Bernoulli.fair = 1
+    ∧ E213.Lib.Math.Probability.Variance.bernoulliDen Bernoulli.fair = 4
+    ∧ E213.Lib.Math.Probability.Expectation.discreteNum
+        [(3, 0), (1, 1), (6, 2)] = 13
+    -- ☆ sample mean / LLN
+    ∧ E213.Lib.Math.Probability.SampleMean.sampleMeanNum
+        (List.replicate n true) = n
+    ∧ E213.Lib.Math.Probability.SampleMean.sampleMeanNum
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) = n
+    ∧ E213.Lib.Math.Probability.SampleMean.sampleMeanDen
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) = 2 * n
+    ∧ E213.Lib.Math.Probability.SampleMean.sampleMeanNum
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) * 2
+      = E213.Lib.Math.Probability.SampleMean.sampleMeanDen
+          (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) * 1
+    -- ☆ Bayesian
+    ∧ E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.posteriorMean.num = 1
+    ∧ E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.updateOnSuccess.posteriorMean.num = 2
+    ∧ E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.updateOnFailure.posteriorMean.num = 1
+    ∧ (E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.updateBatch 0 0).successes
+        = E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior.successes
+    -- ☆ Gaussian / CLT
+    ∧ E213.Lib.Math.Probability.Gaussian.expSumAtZero N = 1
+    ∧ E213.Lib.Math.Probability.Gaussian.gaussianPeakAtZero = 1
+    ∧ E213.Lib.Math.Probability.Gaussian.gaussianPeakMass.num = 1
+    ∧ 2 * E213.Lib.Math.Probability.SampleMean.countTrue
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n)
+      = (E213.Lib.Math.Probability.LLN.balancedHeadsTails n).length :=
+  ⟨ rfl, rfl, by decide
+  , E213.Lib.Math.Probability.Bernoulli.Bernoulli.sum_to_one Bernoulli.fair
+  , rfl, by decide, by decide, by decide
+  , (E213.Lib.Math.Probability.SampleMean.allHeads_sampleMean n).1
+  , (E213.Lib.Math.Probability.LLN.LLN_unit n).1
+  , (E213.Lib.Math.Probability.LLN.LLN_unit n).2
+  , E213.Lib.Math.Probability.LLN.fair_LLN n
+  , rfl, rfl, rfl
+  , (E213.Lib.Math.Probability.Bayesian.BetaCount.updateBatch_zero
+      E213.Lib.Math.Probability.Bayesian.BetaCount.uniformPrior).1
+  , E213.Lib.Math.Probability.Gaussian.expSumAtZero_eq_one N
+  , rfl, rfl
+  , E213.Lib.Math.Probability.Gaussian.CLT_fair_centered n ⟩
 
 end E213.Lib.Math.Probability.Capstone

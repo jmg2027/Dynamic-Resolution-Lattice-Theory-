@@ -1,7 +1,7 @@
 import E213.Lib.Math.Probability.Cut
 
 /-!
-# Probability — Phase ED: Bayesian framework (atomic conjugate)
+# Probability — Bayesian framework (atomic conjugate)
 
 Beta-Binomial conjugacy as **count addition**.
 

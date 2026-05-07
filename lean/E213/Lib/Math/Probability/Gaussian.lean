@@ -3,7 +3,7 @@ import E213.Lib.Math.Probability.SampleMean
 import E213.Lib.Math.Probability.LLN
 
 /-!
-# Probability — Phase EE: CLT + Gaussian (atomic)
+# Probability — CLT + Gaussian (atomic)
 
 The Gaussian peak `exp(−x²/2)|_{x=0} = exp(0) = 1` and a CLT
 skeleton — standardized partial sums with mean 0 and variance

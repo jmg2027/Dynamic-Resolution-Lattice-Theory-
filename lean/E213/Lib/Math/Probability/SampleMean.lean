@@ -1,7 +1,7 @@
 import E213.Lib.Math.Probability.Bernoulli
 
 /-!
-# Probability — Phase EC-1: `SampleMean`
+# Probability — `SampleMean`
 
 The sample mean as **atomic frequency counting**.
 

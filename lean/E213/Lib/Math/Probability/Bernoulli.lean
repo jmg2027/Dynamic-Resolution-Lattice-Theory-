@@ -2,7 +2,7 @@ import E213.Lib.Math.Probability.Cut
 import E213.Term.Tactic.Nat213
 
 /-!
-# Probability — Phase EA-3: `Bernoulli`
+# Probability — `Bernoulli`
 
 The atomic two-outcome distribution: `P(X = 1) = p`, `P(X = 0) = 1 − p`.
 

@@ -1,7 +1,7 @@
 import E213.Lib.Math.Probability.Bernoulli
 
 /-!
-# Probability — Phase EA-4: `Binomial` (atomic K_{3,2} counting)
+# Probability — `Binomial` (atomic K_{3,2} counting)
 
 Independent Bernoulli trials as **atomic counting**.
 
