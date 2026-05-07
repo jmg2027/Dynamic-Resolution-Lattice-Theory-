@@ -3,6 +3,9 @@ import E213.Lib.Math.Information.Capstone
 import E213.Lib.Math.Logic.Capstone
 import E213.Lib.Math.Combinatorics.Capstone
 import E213.Lib.Math.Topology.Capstone
+import E213.Lib.Math.Multivariable.Capstone
+import E213.Lib.Math.Complex.Capstone
+import E213.Lib.Math.Measure.Capstone
 import E213.Lib.Physics.AlphaEM.GradedDecomposition
 import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 import E213.Lib.Physics.AlphaEM.CupChannelInventory
@@ -97,6 +100,24 @@ def sampleP : E213.Lib.Math.Logic.Predicate.Predicate :=
 /-- Sample atomic Trajectory for Logic. -/
 def sampleT : E213.Lib.Math.Logic.Proof.Trajectory := []
 
+/-- Sample atomic Cut (single dimension). -/
+def sampleCut : Nat → Nat → Bool := fun _ _ => true
+
+/-- Sample MultiCut for Multivariable domain. -/
+def sampleMC : E213.Lib.Math.Multivariable.MultiCut.MultiCut 5 :=
+  fun _ _ _ => true
+
+/-- Sample ComplexCut for Complex domain. -/
+def sampleZ : E213.Lib.Math.Complex.ComplexCut.ComplexCut :=
+  (fun _ _ => true, fun _ _ => false)
+
+/-- Sample DyadicBracket for Measure domain. -/
+def sampleDB : E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket.DyadicBracket :=
+  ⟨0, 0, 0, Nat.le_refl 0⟩
+
+/-- Sample DyadicMeasurableSet (= List DyadicBracket). -/
+def sampleMS : E213.Lib.Math.Measure.MeasurableSet.DyadicMeasurableSet := []
+
 end E213.Lib.Math.CrossDomainUnification
 
 namespace E213.Lib.Math.CrossDomainUnification
@@ -112,15 +133,18 @@ namespace E213.Lib.Math.CrossDomainUnification
     The fact that THIS conjunction itself closes ∅-axiom is the
     structural signature of unification.
 
-    Domains witnessed:
-      (i)    Combinatorics 213 — Pascal grade truncation
-      (ii)   Probability 213    — `total_witness 4 2`
-      (iii)  Information 213    — `total_witness 3 3 3 [true]`
-      (iv)   Logic 213          — `total_witness sampleP true 3 3 sampleT`
-      (v)    Topology 213       — `total_witness []` (post-merge)
-      (vi)   Cup-Ring core      — `cup_channel_inventory_master`
-      (vii)  Cup-Ring core      — `channel_cohomology_loss_master`
-      (viii) Cup-Ring core      — `graded_decomposition_master`. -/
+    Domains witnessed (all marathon Capstones + cup-ring core):
+      (i)    Combinatorics 213
+      (ii)   Probability 213
+      (iii)  Information 213
+      (iv)   Logic 213
+      (v)    Topology 213
+      (vi)   Multivariable Calculus 213
+      (vii)  Complex Analysis 213
+      (viii) Measure Theory 213
+      (ix)   Cup-Ring core — `cup_channel_inventory_master`
+      (x)    Cup-Ring core — `channel_cohomology_loss_master`
+      (xi)   Cup-Ring core — `graded_decomposition_master`. -/
 theorem cross_domain_unification_master : True := by
   -- Each `have` forces Lean to type-check that the corresponding
   -- domain Capstone is constructible.  Failure of any one would
@@ -132,6 +156,11 @@ theorem cross_domain_unification_master : True := by
   have _hL :=
     E213.Lib.Math.Logic.Capstone.total_witness sampleP true 3 3 sampleT
   have _hT := E213.Lib.Math.Topology.Capstone.total_witness []
+  have _hM := E213.Lib.Math.Multivariable.Capstone.total_witness
+                ⟨0, by decide⟩ sampleMC sampleCut sampleCut 0
+  have _hCx := E213.Lib.Math.Complex.Capstone.total_witness sampleZ
+  have _hMs := E213.Lib.Math.Measure.Capstone.total_witness
+                 0 (fun n => n) sampleDB sampleMS sampleMS
   have _h1 :=
     E213.Lib.Physics.AlphaEM.CupChannelInventory.cup_channel_inventory_master
   have _h2 :=
