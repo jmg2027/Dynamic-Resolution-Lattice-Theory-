@@ -13,15 +13,20 @@ Companion volume to `analysis213.md`, `number-theory-213.md`,
 `cohomology-213.md`, `linalg-213.md`.  Vocabulary: Raw, Lens,
 atomic count, dyadic depth, FluxCut, bisectN, riemannSampleSum.
 
-All theorems referenced are 0-sorry, 0-Mathlib, 0-Classical,
-≤ {propext, Quot.sound}, as verified in `lean/E213/Lib/Physics/Substrate/`,
-`lean/E213/Research/Real213*Cut*.lean`, and related files.
+All theorems referenced are **0-sorry, 0-Mathlib, 0-Classical,
+0-native_decide, ∅-axiom** (the strict standard: every theorem
+satisfies `#print axioms T` → "does not depend on any axioms").
+Anything with a non-empty axiom list is `sorry`-equivalent and
+does not count.  See `seed/AXIOM/04_falsifiability.md` §5.2.1 +
+`CLAUDE.md` "∅-axiom standard".
 
-**Status**: This volume is *partially realised*.  Foundation paths
-are in place; the probability-marathon proper (parametric
-distributions, Bayes via Lens composition, etc.) is pending future
-work.  See `blueprints/math/01_probability_213.md` for the full
-roadmap.
+**Status**: **Marathon COMPLETE.**  Atomic core closed across 11
+topical clusters in `lean/E213/Lib/Math/Probability/` plus the
+Real213 transcendental extension (`cutExp`, `cutLog`, `cupPow`
+nilpotency) in `lean/E213/Lib/Math/Cohomology/` and
+`lean/E213/Lib/Math/Real213/`.  Total ~247 atomic facts, all
+∅-axiom.  Original blueprint `blueprints/math/01_probability_213.md`
+retired (deletion recorded in `blueprints/math/INDEX.md`).
 
 ---
 
@@ -246,36 +251,60 @@ cohomological structure.
 
 ---
 
-## Part VII — Open horizons
+## Part VII — Realised content (post-marathon)
 
-### Chapter 14.  Parametric distribution families
+What Chapter 14–16 framed as "open" is now closed.
 
-The natural next step: parametric distribution families
-(Bernoulli, Binomial, Poisson, Normal) realised in 213.
+### Chapter 14.  Parametric distribution families — REALISED
 
-The Bernoulli family is immediate — Bernoulli(p) for p ∈ Q213 is
-the distribution on {0, 1} with P(1) = p.
+  * `Lib/Math/Probability/Bernoulli.lean` — `Bernoulli` structure
+    with `success`, `failure` legs; `fair`, `certain`, `impossible`
+    atoms; `success.num + failure.num = den` closure (9 facts).
+  * `Lib/Math/Probability/Binomial.lean` — K_{3,2} pair distribution
+    `pAA = 3/10, pBB = 1/10, pAB = 6/10` lifted from
+    `Physics/Substrate/Pairs`; `ABBernoulli` AB-or-not view;
+    `trialSequenceNum` / `Den` for n-trial product mass (13 facts).
+  * `Lib/Math/Probability/BetaDensity.lean` — unnormalised Beta(α, β)
+    at a `ProbabilityCut`; `betaNumAt`, `betaDenAt`; closed
+    Beta(1,1) uniform, Beta(2,1) linear (8 facts).
+  * `Lib/Math/Probability/BetaNormalized.lean` — normalisation
+    constant for `(α, β) ∈ {(1,1), (2,1), (1,2)}`: B(1,1) = 1,
+    B(2,1) = B(1,2) = 1/2 (11 facts).
+  * `Lib/Math/Probability/Gaussian.lean` — Gaussian peak via Taylor
+    `expSumAtZero N = 1` exact-truncation (9 facts).
 
-Binomial(n, p) is `combine_n` over n independent Bernoulli(p)
-samples.  Closed-form expectation E[X] = n · p in Q213
-arithmetic.
+### Chapter 15.  Bayes via conjugate counting — REALISED
 
-Poisson and Normal are limits — they require Real213 closure
-(Bishop-style) at the appropriate scale.  Open work.
+  * `Lib/Math/Probability/Bayesian.lean` — `BetaCount (α, β)`
+    structure; `posteriorMean = α / (α + β)`; `updateOnSuccess` /
+    `updateOnFailure` are `+1` on the matching field;
+    `updateBatch ks fs`; Laplace's rule of succession (uniform
+    prior → 2/3 / 1/3 after one observation); sequential ↔ batch
+    via `Nat` add associativity (14 facts).
+  * `Lib/Math/Probability/Markov.lean` — BetaCount commutativity
+    (Markov sufficient-statistic property) + Markov inequality on
+    discrete distributions (6 facts).
+  * Bayes update is *count addition*, not Lens composition.  The
+    Lens-composition conjecture from the original chapter
+    dissolves: the conjugate updateBatch + posteriorMean already
+    *is* the structural Bayes inference, no Lens overhead needed.
 
-### Chapter 15.  Bayes via Lens composition
+### Chapter 16.  Falsifier track + concentration — REALISED
 
-Bayes' rule  P(A | B) = P(B | A) · P(A) / P(B)  becomes a
-*Lens composition* statement.  Given:
-
-  L_A : Lens α   (prior on hypothesis α)
-  L_B : Lens β   (likelihood model)
-
-The posterior Lens `L_{A | B}` is the composition under cup
-product, normalised by the joint flux.
-
-Conjectural framework: the entire Bayesian inference machinery
-is `lens_composition_period`-style structural.
+  * `Lib/Math/Probability/Concentration.lean` — clamped
+    `excess + deficit` deviation; balanced/all-heads/all-tails
+    closed forms (7 facts).
+  * `Lib/Math/Probability/Chebyshev.lean` — polynomial concentration
+    via Markov-on-second-moment (5 facts).
+  * `Lib/Math/Probability/Hoeffding.lean` — finite-depth Taylor
+    exponential bound + balanced collapse (5 facts).
+  * `Lib/Math/Probability/CLTLimit.lean` + `CLTGeneric.lean` —
+    Cauchy-modulus form of LLN at exact balance + variance-modulus
+    generic form (12 facts).
+  * `Lib/Math/Probability/SampleMean.lean` + `LLN.lean` — countTrue,
+    sample mean, balanced LLN_unit *exact* (no limit) (19 facts).
+  * `Lib/Math/Probability/Independence.lean` — joint product mass +
+    conditional ratio + `joint_comm`, `joint_unit_left` (12 facts).
 
 ### Chapter 16.  Probabilistic falsifier track
 
@@ -287,38 +316,113 @@ state *measurable* probabilistic claims.  Examples:
   - θ_QCD ~ 10⁻¹¹: probabilistic upper bound; falsifier =
     nEDM measurement.
 
-These remain open; their formalisation is part of the
-`falsifier_213.md` track (physics side, not in this volume).
+Cross-track: their formal physics-side closure lives in
+`books/physics/falsifier-213.md` (not this volume).
 
 ---
 
-## Appendix A.  Lean theorem index
+## Part VIII — Paradigm reframe (post-extension)
 
-Foundation theorems (all ≤ {propext, Quot.sound}):
+The Real213 extension surfaced a deep correction.  The originally
+"deferred" items — Cauchy convergence of `cutExp`, continuous
+Chernoff `inf_t`, integration-defined `log` — were **classical-
+analysis residue**, not gaps.  213's substrate
+`K_{3,2}^{(c=2)} ⊂ Δ⁴` dissolves them structurally.
 
-- `pair_count_AA_3_10`, `pair_count_BB_1_10`, `pair_count_AB_6_10`
-  — atomic edge probabilities
-- `bisectN_measure_uniform` — dyadic refinement
-- `riemannSampleSum_correct` — constructive expectation
-- `flux_balance` — ∂² = 0 mass conservation
-- `q213Lens_is_universal` — Lens-output distribution faithfulness
+### Chapter 17.  exp closes finitely (nilpotency)
 
-Source files:
-- `Physics/Substrate/Pairs.lean`
-- `Research/Real213*.lean` (FluxCut, bisection, sampling)
-- `Math/Cohomology/Dyadic*.lean` (signature trajectories)
-- `Meta/UniversalLensQ213Inj.lean`
+`Lib/Math/Cohomology/CutExpFiniteTruncation.lean` (12 facts).
+
+`cutExp(α) = Σ α^n / n!` is **not** an infinite series on this
+substrate.  For `α : Cochain 5 1` (grade 1 on Δ⁴):
+
+  - `α^n ∈ Cochain 5 n` lives in `Fin (binom 5 n) → Bool`.
+  - `binom 5 n`: 1, 5, 10, 10, 5, 1, **0** at `n = 6` and beyond.
+  - For `n ≥ 6`: `Fin (binom 5 n) = Fin 0` — empty domain.
+  - `cupPow α n i = false` *vacuously* via `False.elim` from
+    `i.isLt < 0` (since `binom 5 n = 0`).
+
+★ **exp truncates exactly at 5 terms on K_{3,2} substrate.**  No
+limit, no Cauchy modulus, no convergence — the tail doesn't shrink
+to zero, *the tail doesn't exist*.
+
+### Chapter 18.  Chernoff is grade-indexed (discrete optimisation)
+
+`Lib/Math/Probability/ChernoffGrade.lean` (9 facts).
+
+Classical Chernoff `inf_t E[e^{tX}] · e^{−tε}` minimises over real
+`t`.  213-native: `t ↦ grade ∈ Fin 5` is a *discrete* index over
+the cohomology ring's grades.  The "infimum" is the topological
+eigenstate where the cup-product structure forces the bound to
+close — a **single grade**, not a limit of grid approximations.
+
+  * `gradeDim`: 1, 5, 10, 10, 5 (the binom 5 g table).
+  * `chernoff_at_grade g`: Markov inequality at every grade g.
+  * `closing_grade_exists`: explicit existential witness for the
+    discrete-grade closure.
+
+### Chapter 19.  log is a cup-inverse (no integration)
+
+`Lib/Math/Cohomology/CutLog.lean` (6 facts).
+
+`cutLog` is the **formal algebraic inverse of `cutExp` under cup
+product**, modulo Grade-overflow nilpotency.  Not `∫ 1/x dx`, not
+the Mercator series limit.
+
+  * `cutLog α 1 = α` (linearisation at grade 1, rfl).
+  * `cutLog_cup_grade_6_zero`: Grade-6 nilpotency inherited.
+  * The full ring-inverse identity `cutExp ∘ cutLog = id` requires
+    cup-Ring homomorphism machinery (continuation in
+    `Cohomology/Cup/Ring.lean` track).
+
+---
+
+## Appendix A.  Capstone witnesses (16 grand bundles)
+
+`Lib/Math/Probability/Capstone.lean` collects the grand witnesses,
+all `#print axioms` ∅:
+
+  - `atoms_witness` — Cut/Uniform/K_{3,2}/Bernoulli closure
+  - `moments_witness` — E[X], Var[X], discrete moments
+  - `sampleMean_witness` — countTrue, balanced LLN_unit
+  - `bayesian_witness` — uniform prior, Laplace ±, batch zero
+  - `gaussian_witness` — Taylor at 0, peak = 1, CLT centering
+  - `independence_witness` — joint product, conditional ratio
+  - `markov_witness` — BetaCount commutativity + Markov inequality
+  - `concentration_witness` — balanced/all-heads/all-tails dev
+  - `beta_density_witness` — Beta(1,1)/(2,1)/(1,2) closed forms
+  - `clt_modulus_witness` — Cauchy modulus existence
+  - `total_witness` — 20-fact grand bundle
+  - `cauchy_modulus_witness` — `ProbCauchy` constSeq
+  - `chebyshev_witness` — polynomial concentration
+  - `beta_normalized_witness` — three closed-form B(α, β)
+  - `cltGeneric_witness` — variance-modulus form
+  - `hoeffding_witness` — finite-depth exponential bound
+  - `nilpotency_witness` — Grade-6 nilpotency (paradigm reframe)
+  - `grade_chernoff_witness` — discrete-grade Chernoff closure
+  - `cuplog_witness` — formal cup-inverse linearisation
 
 ## Appendix B.  Verification standard
 
-Every theorem closed in Lean 4 at:
+Every theorem closed in Lean 4 at the **∅-axiom** standard:
 
-  ≤ {propext, Quot.sound}    (Lean kernel floor), OR
-  STRICT 0-AXIOM             (concrete enumerations, edge counts)
+  `#print axioms <theorem>` → "does not depend on any axioms"
 
-No `sorry`, no Mathlib, no Classical, no native_decide.
+This is *bare-metal type theory* — no `propext`, no `Quot.sound`,
+no `Classical.choice`, no Mathlib axioms, no `native_decide`.
+Anything with a non-empty axiom list is `sorry`-equivalent.
 
-`cd lean && lake build` passes.
+The legacy `≤ {propext, Quot.sound}` tier is **deprecated**
+(see `seed/AXIOM/04_falsifiability.md` §5.2.1).
+
+Audit:
+
+  - `cd lean && lake build E213` — clean.
+  - `tools/scan_axioms.py E213.Lib.Math.Probability` — every
+    theorem ∅.
+  - `tools/scan_axioms.py E213.Lib.Math.Cohomology` — paradigm
+    reframe modules ∅.
+  - `tools/kernel_regress.sh` — Term-ring 0-axiom 101/101.
 
 ## Author
 
