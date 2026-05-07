@@ -48,7 +48,7 @@ illustrates the standard.
 | 09 | **Linear Algebra 213** | `09_linear_algebra_213.md` | ★★ |
 | 10 | **Combinatorics 213** (atomic native) | `10_combinatorics_213.md` | ★★★ |
 | 11 | **Group Theory 213** | `11_group_213.md` | ★ |
-| 12 | **Information Theory 213** (binary tree native) | `12_information_213.md` | ★★ |
+| 12 | **Information Theory 213** ✅ REALIZED | (blueprint retired) | — |
 
 ### Phase D — Meta / Philosophy
 
