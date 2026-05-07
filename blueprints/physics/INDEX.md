@@ -41,13 +41,11 @@
 | 13 | **Beyond SM 213** | `13_beyond_sm_213.md` | ★★★ |
 | 14 | **Condensed Matter 213** | `14_condensed_matter_213.md` | ★★ |
 
-## Additional — Architecture Response
-
-- `00_PHYSICS_RESPONSE.md` — Directory consensus response.
-
 ## Completed (2026-04-27)
 
-✅ 14 fields + RESPONSE = 15 documents.
+✅ 14 field blueprints written (the inter-track directory consensus
+note `00_PHYSICS_RESPONSE.md` was deleted 2026-05-07 once the M14
+ring rename canonized the layout in `lean/E213/ARCHITECTURE.md`).
 
 ---
 

@@ -58,8 +58,8 @@ identities at all dimensions.
 
 | Tool | Module | Purpose |
 |---|---|---|
-| `FluxCut`, `cohomEquiv` | `Real213FluxCut/Equiv` | 1-cochain |
-| `fluxAlong`, `localDivergence` | `Real213FluxCochain/Divergence` | δ on 0/1 cells |
+| `FluxCut`, `cohomEquiv` | `Lib/Math/Analysis/FluxMVT/{FluxCut,FluxEquiv}.lean` | 1-cochain |
+| `fluxAlong`, `localDivergence` | `Lib/Math/Analysis/FluxMVT/{FluxCochain,FluxDivergence}.lean` | δ on 0/1 cells |
 | `binom`, `lambda_dim` | `Physics/SimplexCounts` | face counts on Δᵈ |
 | `hodge_1..hodge_4` | `Physics/SimplexCounts` | Hodge dim duality |
 | `b_1`, `num_edges`, `num_vertices` | `Physics/PhotonKernel` | b₀, b₁ on graph |

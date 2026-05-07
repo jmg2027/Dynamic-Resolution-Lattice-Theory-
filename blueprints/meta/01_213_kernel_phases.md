@@ -3,7 +3,7 @@
 Each Phase = single Lean file (~80 lines); must finish with `#print axioms`
 yielding an empty list for all theorems.
 
-## Phase KB — Comparison primitives  (`Kernel/Compare.lean`)
+## Phase KB — Comparison primitives  (`Term/Compare.lean`)
 
 Goal: add decidable comparisons of the form `Term → Term → Bool`.
   - `Term.le_b` : `a ≤ b` as Bool
@@ -12,7 +12,7 @@ Goal: add decidable comparisons of the form `Term → Term → Bool`.
 
 Verification: `#print axioms` empty list.  ← `decide`/`Classical` not used.
 
-## Phase KC — Pair / G-relation  (`Kernel/Pair.lean`)
+## Phase KC — Pair / G-relation  (`Term/Pair.lean`)
 
 Directly reflects CLAUDE.md axiom "things with pairwise relations":
   - Add `pair : Term → Term → Term` to `Term`
@@ -21,7 +21,7 @@ Directly reflects CLAUDE.md axiom "things with pairwise relations":
 
 This brings the *diagonal/off-diagonal* distinction into the kernel.
 
-## Phase KD — Rational arithmetic  (`Kernel/Rat.lean`)
+## Phase KD — Rational arithmetic  (`Term/Rat.lean`)
 
 DRLT needs only ℕ + ℚ (CLAUDE.md "finite discrete lattice").
   - Add `frac : Term → Term → Term` to `Term` (numerator/denominator)
@@ -30,7 +30,7 @@ DRLT needs only ℕ + ℚ (CLAUDE.md "finite discrete lattice").
 
 Result: 213 ratios such as 6/10 and 137/100 become axiom-free.
 
-## Phase KE — Decide procedure  (`Kernel/Decide.lean`)
+## Phase KE — Decide procedure  (`Term/Decide.lean`)
 
 Bypass the Lean `decide` tactic.  Finite enumeration is sufficient:
   - `Term.holds : Term → Bool`  (truth of a predicate Term)
@@ -38,7 +38,7 @@ Bypass the Lean `decide` tactic.  Finite enumeration is sufficient:
 
 Once this is in place, propositions like "all pairs up to n" become axiom-free.
 
-## Phase KF — Soundness bridge  (`Kernel/Sound.lean`)
+## Phase KF — Soundness bridge  (`Term/Sound.lean`)
 
 Bridge between deep ↔ shallow:
   - `Sound_eq : equiv a b = true → eval a = eval b`
@@ -49,7 +49,7 @@ Proof: structural induction + Nat arithmetic.  Uses only Lean Eq
 
 Once these theorems are closed, Bool results → Prop results *upgrade* is free.
 
-## Phase KG — Core capstone porting  (`Kernel/Cap_*.lean`)
+## Phase KG — Core capstone porting  (`Term/Cap_*.lean`)
 
 Ambitious milestone: encode 213's core integer results as Term:
   - Integer foundation of α_GUT (d², 6, 25)
@@ -60,7 +60,7 @@ Ambitious milestone: encode 213's core integer results as Term:
 
 ## Phase KH — Incremental porting tools (`tools/`) ✅ Complete
 
-Automated assistance to port 634 existing files → kernel encoding:
+Automated assistance to port 800+ existing files → kernel encoding:
   - `audit_axioms.py`     parses `lake build` + `#print axioms`
   - `port_candidates.py`  auto-identifies short-proof candidates (85+ found)
   - `auto_port.py`        auto-converts bracket patterns (LO < N < HI)
