@@ -37,7 +37,7 @@ illustrates the standard.
 
 | # | Field | File | Priority |
 |---|---|---|---|
-| 06 | **Differential Equations 213** | `06_ode_pde_213.md` | ★★ |
+| 06 | **Differential Equations 213** ✅ REALIZED | (blueprint retired) | — |
 | 07 | **Number Theory 213** (dyadic native) | `07_number_213.md` | ★★ |
 | 08 | **Functional Analysis 213** | `08_functional_213.md` | ★ |
 
@@ -91,18 +91,18 @@ Split into base spec + phases file (`15_cohomology_213.md` +
 | 03 | **Topology 213** | ✅ **REALIZED** | `Math/Topology/` (5 files + Capstone); DyadicOpen, Heine-Borel = `rfl`, continuity modulus, χ classification incl. K_{3,2}^{(c=2)} = -7. |
 | 04 | **Complex Analysis 213** | ✅ **REALIZED** | `Math/Complex/` (3 files + Capstone); ComplexCut = (Cut, Cut), CR-skeleton, polynomial = power series via Grade-N nilpotency, `cExp(0)=1`. |
 | 05 | **Measure Theory 213** | ✅ **REALIZED** | `Math/Measure/` (4 files + Capstone); σ-algebra rejected, dyadic-list measurable sets, finite-sum integral, Lp atom. |
-| 06 | Differential Equations 213 | ⏳ **Pending** | |
+| 06 | **Differential Equations 213** | ✅ **REALIZED** | `Math/ODE/` (4 files + Capstone); discrete Picard iteration, linear/exponential ODE closed forms, 1D periodic heat + leapfrog wave equations. |
 | 08 | Functional Analysis 213 | ⏳ **Pending** | |
 | 11 | Group Theory 213 | ⏳ **Pending** | |
 | 12 | **Information Theory 213** | ✅ **REALIZED** | 7 atomic files + Capstone (8 witnesses); BitDepth, Entropy, MutualInfo, KL, Channel, Coding, Kolmogorov K(213)=4. |
 | 14 | **Logic / Proof Theory 213** | ✅ **REALIZED** | `Math/Logic/` (3 files + Capstone); intuitionistic predicate calculus, Trajectory = List Bool, proofLength composition. |
 
-Summary: **11 of 15 fields fully or substantially realized**
+Summary: **12 of 15 fields fully or substantially realized**
 (01 Probability, 02 Multivariable, 03 Topology, 04 Complex, 05
-Measure, 07 Number Theory, 10 Combinatorics, 12 Information,
-13 213-Meta, 14 Logic, 15 Cohomology; plus 09 Linalg partial).
-Remaining: 06 Differential Equations, 08 Functional Analysis,
-11 Group Theory.
+Measure, 06 ODE/PDE, 07 Number Theory, 10 Combinatorics, 12
+Information, 13 213-Meta, 14 Logic, 15 Cohomology; plus 09
+Linalg partial).  Remaining: 08 Functional Analysis, 11 Group
+Theory.
 
 ---
 
