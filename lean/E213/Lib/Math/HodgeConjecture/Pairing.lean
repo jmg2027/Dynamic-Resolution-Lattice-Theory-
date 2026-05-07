@@ -5,12 +5,16 @@ import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP2
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP1Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemann
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2
+import E213.Lib.Math.HodgeConjecture.Pairing.HodgeRiemannT2Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
 import E213.Lib.Math.HodgeConjecture.Pairing.HirzebruchMultiplicative
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexGradeStructure
 import E213.Lib.Math.HodgeConjecture.Pairing.KahlerGradeStructure
 import E213.Lib.Math.HodgeConjecture.Pairing.SurfaceComparisonTheorem
 import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
+import E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
+import E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
+import E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
 
 /-! Spec-as-code entry point for `E213.Lib.Math.HodgeConjecture.Pairing`.
 
@@ -35,11 +39,41 @@ import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
                                   (positivity vacuous in ℤ/2)
     * `HodgeRiemannT2`         — ★ Non-vacuous lift: Kähler class
                                   with `cup(ω, ω) > 0` on T²
+    * `HodgeRiemannT2Squared`  — ★★★ **HR ℚ-positivity refinement
+                                  on T²×T² (1,1) primitive part**:
+                                  closes G12 §6 by exhibiting 3
+                                  primitive (1,1) classes η₁, η₂, η₃
+                                  with `cup(η_i, η_i) = −2 < 0`
+                                  and mutual orthogonality.
+                                  Cup-pairing on `P^{1,1}` is
+                                  diag(−2,−2,−2) — negative-definite
+                                  per classical HR.  STRICT ∅-AXIOM.
     * `T2nPattern`             — ★★ **Pattern theorem**:
                                   `signature(H^n; T²ⁿ) =
                                    (½·C(2n,n), ½·C(2n,n))`,
                                   bundling all n=1, n=2 witnesses
                                   + numerical sequence for n≤5
+    * `T2nInductive`           — ★★★ **Pattern theorem (G14, full
+                                  inductive form)**: parametric
+                                  `T2n_blocks_inductive n hn`
+                                  closes the open follow-up from
+                                  `BalancedSignature.lean` for
+                                  every `n ≥ 1`, via binom symmetry
+                                  `central_binom_is_double`.
+                                  STRICT ∅-AXIOM.
+    * `TensorSignature`        — ★★★ **Tensor / Künneth signature
+                                  theorem on (pos, neg) pair**:
+                                  closes G12 §6 follow-up by
+                                  refining Hirzebruch multiplicativity
+                                  from σ-only to the full pair-level
+                                  Künneth rule `(p·p' + q·q',
+                                  p·q' + q·p')`.  STRICT ∅-AXIOM.
+    * `GenusGSurface`          — ★★★ **Σ_g surface signature
+                                  (parametric in genus)**: closes G12
+                                  §6 follow-up `signature(Σ_g) = (g, g)`
+                                  for all g ≥ 0, with connected-sum
+                                  additivity `Σ_{g+h} = Σ_g # Σ_h`.
+                                  STRICT ∅-AXIOM.
     * `SurfaceComparisonTheorem` — ★★ **Comparison theorem**
                                   across 4 Kähler 2-folds (T²,
                                   ℙ², ℙ¹×ℙ¹, T²×T²): Hodge
