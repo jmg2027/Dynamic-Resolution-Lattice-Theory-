@@ -152,10 +152,9 @@ from Real213 extension program; 5 new capstone witnesses).
   * **`total_witness`** ★★★ — 20-fact grand bundle (4 per cluster
     of the original five clusters).
 
-## Open follow-ups (after Real213 extension)
+## Closed atomic follow-ups (after Real213 extension)
 
-All originally-deferred items now have at least atomic ∅-axiom
-witnesses:
+All originally-deferred items now have ∅-axiom atomic witnesses:
 
   * ✅ Cauchy-modulus form of LLN — `CLTLimit.lean` + `CauchyModulus.lean`.
   * ✅ Beta density on dyadic — `BetaDensity.lean` (unnormalized) +
@@ -168,11 +167,81 @@ witnesses:
   * ✅ `cutExp` transcendental layer — `Real213/CutExpSeries.lean`
     (Taylor) + `Real213/CutExpODE.lean` (discrete ODE recurrence).
 
-Remaining genuine gaps (separate marathon territory):
+## Reframe — what the previous "remaining gaps" actually were
 
-  * Full Cauchy convergence modulus for `cutExp` partial sums on
-    `x ≠ 0` — requires geometric-majorant ratio test on
-    `partialSum`'s upstream.
-  * Continuous Chernoff `inf_t` over real-valued `t` (finite-grid
-    approximation feasible with explicit error bound).
-  * `Real213.log` for symmetric tightness bounds.
+The earlier list of "remaining genuine gaps" framed three items in
+classical-analysis vocabulary (Cauchy convergence, continuous
+infimum, integration-defined log).  That framing was a category
+error — it imported `N → ∞`, real-valued continuity, and integral
+transcendentals that **the 213 framework does not have**.
+
+The 213 substrate is `K_{3,2}^{(c=2)} ⊂ Δ⁴`, a finite cohomology
+ring graded `0..4`.  The correct restatements use *nilpotency,
+discrete grade index, and algebraic inverse* respectively:
+
+### 1. cutExp tail behaviour — *exact truncation*, not Cauchy convergence
+
+The Taylor series `Σ x^n / n!` is **structurally finite** on the
+213 substrate.  Reason: `x` lives in a graded ring; `x^n` has grade
+`n`; for `n > 4` the grade exceeds the dimension of `Δ⁴`, so
+`x^n = 0` *algebraically* (nilpotent).  There is no residue to
+shrink to zero — there is *no residue at all*.
+
+**Concrete obligation** (replaces "Cauchy modulus on partial sums"):
+
+  Prove `∀ n > 4, expTerm x n = 0` for `x` of grade `≥ 1`.
+  Then `expPartialSum x N = expPartialSum x 4` for every `N ≥ 4`,
+  by exact-truncation lemma over the cohomology grade structure.
+
+Sits naturally over `Lib/Math/Cohomology/Bipartite/` which already
+encodes `K_{3,2}^{(c=2)}` and the grade lattice.
+
+### 2. Chernoff `inf_t` — *grade-index optimisation*, not continuous-t
+
+`inf_t E[e^{tX}] · e^{−tε}` is not a real-valued infimum to be
+approximated by a finer and finer grid.  In the 213 ring `t` is a
+**discrete grade index** (an integer in `{0, 1, 2, 3, 4}`); the
+Chernoff bound closes at the grade where the cup-product structure
+forces the inequality.
+
+**Concrete obligation** (replaces "finite-grid approximation"):
+
+  Map `t ↦ grade(t) ∈ Fin 5`.  For each candidate grade `g`, the
+  inequality `Σ_grade=g (mgf · e^{−tε}) ≤ bound` is a decidable
+  `Nat`-arithmetic statement.  The "infimum" is the topological
+  eigenstate where the bound closes — a *single* grade, not a limit
+  of approximations.
+
+### 3. log — *cohomology-decomposition operator*, not integration
+
+`cutLog` is **not** `∫ 1/x dx` and not the inverse of an infinite
+Taylor series.  In 213, `cutLog` is the **formal algebraic inverse
+of `cutExp` under cup product**: it decomposes the cup-graded ring
+back to the `⊕`-XOR base.
+
+**Concrete obligation** (replaces "log via integral / inverse series"):
+
+  Build `cutLog` as the polynomial-ring inverse of `cutExp` modulo
+  Grade 4 nilpotency.  `cutExp : (R, ⊕) → (R, ⌣)` is a finite ring
+  isomorphism; `cutLog` is its inverse, computable by polynomial
+  division over `Fin 5` grade.
+
+### Meta — translation residue
+
+These three reframings came from translating classical analysis
+word-by-word into 213 vocabulary while retaining the connecting
+tissue (limits, continuity, integrals) that 213 dissolves
+structurally.  Replacement vocabulary: **소멸 (nilpotency),
+정합성 (discrete grade closure), 대수적 역원 (algebraic inverse)**.
+
+## Tractable next-marathon entries (post-reframe)
+
+  * `Real213/CutExpFiniteTruncation.lean` — `expTerm x n = 0` for
+    `n > 4` via the `Cohomology/Bipartite` grade lemma; corollary
+    `cutExp = expPartialSum 4` exactly.
+  * `Probability/ChernoffGrade.lean` — discrete grade-index
+    optimisation; `chernoff_at_grade g` decidable `Nat` inequality
+    with explicit witness for the closing grade.
+  * `Real213/CutLog.lean` — `cutLog` as polynomial inverse of
+    `cutExp` modulo Grade 4 nilpotency; algebraic ring-isomorphism
+    inverse, no integral.
