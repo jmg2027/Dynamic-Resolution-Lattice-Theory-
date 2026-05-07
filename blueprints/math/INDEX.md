@@ -47,7 +47,7 @@ illustrates the standard.
 |---|---|---|---|
 | 09 | **Linear Algebra 213** | `09_linear_algebra_213.md` | ★★ |
 | 10 | **Combinatorics 213** ✅ REALIZED | (blueprint retired) | — |
-| 11 | **Group Theory 213** | `11_group_213.md` | ★ |
+| 11 | **Group Theory 213** ✅ REALIZED | (blueprint retired) | — |
 | 12 | **Information Theory 213** ✅ REALIZED | (blueprint retired) | — |
 
 ### Phase D — Meta / Philosophy
@@ -93,15 +93,17 @@ Split into base spec + phases file (`15_cohomology_213.md` +
 | 05 | **Measure Theory 213** | ✅ **REALIZED** | `Math/Measure/` (4 files + Capstone); σ-algebra rejected, dyadic-list measurable sets, finite-sum integral, Lp atom. |
 | 06 | **Differential Equations 213** | ✅ **REALIZED** | `Math/ODE/` (4 files + Capstone); discrete Picard iteration, linear/exponential ODE closed forms, 1D periodic heat + leapfrog wave equations. |
 | 08 | **Functional Analysis 213** | ✅ **REALIZED** | `Math/Functional/` (4 files + Capstone); finite-grid `lInfNorm`/`l1Norm`, inner product (sym + bilinear), `LinOp` algebra, spectrum (id/scale/zero eigenvalues).  Hahn-Banach rejected as feature. |
-| 11 | Group Theory 213 | ⏳ **Pending** | |
+| 11 | **Group Theory 213** | ✅ **REALIZED** | `Math/Group/` (4 files + Capstone); ℤ/nℤ via Nat mod, Sₙ via `Nat → Nat`, group action + orbit, SU(5) GUT channel counting (25 = 5⊗5, 24 generators, 5²⁵ N_U link). |
 | 12 | **Information Theory 213** | ✅ **REALIZED** | 7 atomic files + Capstone (8 witnesses); BitDepth, Entropy, MutualInfo, KL, Channel, Coding, Kolmogorov K(213)=4. |
 | 14 | **Logic / Proof Theory 213** | ✅ **REALIZED** | `Math/Logic/` (3 files + Capstone); intuitionistic predicate calculus, Trajectory = List Bool, proofLength composition. |
 
-Summary: **13 of 15 fields fully or substantially realized**
+Summary: **14 of 15 fields fully or substantially realized**
 (01 Probability, 02 Multivariable, 03 Topology, 04 Complex, 05
 Measure, 06 ODE/PDE, 07 Number Theory, 08 Functional, 10
-Combinatorics, 12 Information, 13 213-Meta, 14 Logic, 15
-Cohomology; plus 09 Linalg partial).  Remaining: 11 Group Theory.
+Combinatorics, 11 Group, 12 Information, 13 213-Meta, 14 Logic,
+15 Cohomology; plus 09 Linalg partial).  All 15 blueprints
+processed; 09 Linalg has core capstones in
+`Lib/Math/Linalg213/`, gap-fill marathon scheduled separately.
 
 ---
 
