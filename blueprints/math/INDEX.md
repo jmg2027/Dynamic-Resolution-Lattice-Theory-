@@ -30,7 +30,7 @@ illustrates the standard.
 | 01 | **Probability 213** ✅ REALIZED | (blueprint retired) | — |
 | 02 | **Multivariable Calculus 213** ✅ REALIZED | (blueprint retired) | — |
 | 03 | **Topology 213** ✅ REALIZED | (blueprint retired) | — |
-| 04 | **Complex Analysis 213** (over Cayley) | `04_complex_213.md` | ★★ |
+| 04 | **Complex Analysis 213** (over Cayley) | (blueprint retired) | ★★ |
 | 05 | **Measure Theory 213** (σ-algebra rejected) | `05_measure_213.md` | ★★ |
 
 ### Phase B — Applied Mathematics
