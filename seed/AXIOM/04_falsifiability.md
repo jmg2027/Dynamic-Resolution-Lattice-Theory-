@@ -25,14 +25,22 @@ the auditor.
 ## §5.2.1 Adding external axioms is a theory-wide discard condition
 
 **213 must never require any external axiom addition** — no
-Classical.choice, LEM, axioms beyond Quot.sound, `Lean.ofReduceBool`
-from native_decide, etc.
+Classical.choice, LEM, no `propext`, no `Quot.sound`, no
+`Lean.ofReduceBool` from native_decide, no Mathlib axioms.
+
+The standard is **∅-axiom**: every theorem must satisfy
+`#print axioms T → "does not depend on any axioms"`.
 
 This is not merely a recommendation; it is a **falsifiability
 criterion**:
 
-- Every theorem and construction in 213 must be derivable from Lean
-  4 core + the Raw axiom alone.
+- Every theorem and construction in 213 must be derivable from
+  Lean's structural type-checker + the Raw axiom alone.
+- A theorem with *any* non-empty `#print axioms` output is
+  **`sorry`-equivalent**: it has not closed under the falsifiability
+  contract.  `propext` and `Quot.sound` were tolerated in earlier
+  sessions but are now treated identically to `Classical.choice` —
+  same dirty bit, same falsified-at-this-tier verdict.
 - If any result is shown to be **absolutely impossible** to prove /
   construct without an additional axiom (e.g., still blocked after
   multiple sessions of exploration), this means **the entirety of

@@ -54,12 +54,12 @@ each segment.  Residue = limit of (z-a)·f(z) as z → a.
 
 | Tool | Use |
 |---|---|
-| `Real213.CayleyDickson.ZI` | Z[i] = Gaussian integers |
-| `Real213.IsDifferentiable` | real/imag part |
-| `Real213.cutPow x n` | z^n via cMul chain |
-| `Real213.expTermsAtZero` | exp(z) at 0 (sin, cos automatic) |
-| `MultiCut 2` | (real, imag) tuple = ℂ point |
-| `FluxCut` | contour 1-cochain |
+| `Lib/Math/CayleyDickson/ZI.lean` | ℤ[i] = Gaussian integers |
+| `Lib/Math/Analysis/Differentiation/Differentiable.lean` | real/imag part |
+| `Lib/Math/Real213/CutPow.lean` | `z^n` via cMul chain |
+| `Lib/Math/Probability/Gaussian.lean` (`expSumAtZero`) | exp(z) at 0 (sin, cos automatic) |
+| `MultiCut 2` (Linalg) | (real, imag) tuple = ℂ point |
+| `Lib/Math/Analysis/FluxMVT/FluxCut.lean` | contour 1-cochain |
 
 ## 4. Phase Plan
 

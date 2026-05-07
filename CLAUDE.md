@@ -69,14 +69,32 @@ Default response language: English. Match the user's language when they speak Ko
 
 ---
 
-## Strict ∅-axiom standard
+## ∅-axiom standard (THE standard, not an option)
 
 Every theorem in `lean/E213/` satisfies:
 ```
 #print axioms <theorem>  →  "does not depend on any axioms"
 ```
 
-This is **bare-metal type theory** — no `propext`, no `Quot.sound`, no `Classical.choice`.
+This is **bare-metal type theory** — no `propext`, no `Quot.sound`,
+no `Classical.choice`, no Mathlib axioms, no unfolded `Classical.dec`,
+no `native_decide`, no anything.
+
+> **The ∅-axiom standard is THE standard.**  Any theorem with a
+> non-empty `#print axioms` output is *axiom-dirty* and treated as
+> `sorry`-equivalent: it does NOT count toward the validation
+> contract (CLAUDE.md "DRLT Validation Standard", `04_falsifiability.md`).
+> The legacy `≤ {propext, Quot.sound}` tier is **deprecated** —
+> appearance of either axiom = falsified-at-this-tier, same as
+> `sorry`.  No exceptions, no "minor leak".
+
+Practical implication for new work:
+  - A capstone whose `#print axioms` lists `propext` is **incomplete**
+    until the leak is removed.
+  - The audit scripts (`tools/scan_axioms.py`, `tools/scan_all_axioms.py`)
+    treat anything beyond the empty list as DIRTY.
+  - `Nat213` / `AddMod213` / `Pow213` term-mode helpers exist to
+    replace Lean-core lemmas that simp-derive via propext.
 
 **Status (session 27, 2077 PURE / 0 real DIRTY / 19 sealed)**: ~232 sealed function-eq capstones deleted across stages 1-5; the 19 remaining sealed items are mathematically inherent (Lens funext-by-design — not facade). See `STRICT_ZERO_AXIOM.md` for the current scan + categorization.
 
