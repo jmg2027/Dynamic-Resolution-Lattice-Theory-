@@ -13,6 +13,12 @@ import E213.Lib.Math.Probability.Markov
 import E213.Lib.Math.Probability.Concentration
 import E213.Lib.Math.Probability.BetaDensity
 import E213.Lib.Math.Probability.CLTLimit
+import E213.Lib.Math.Probability.CauchyModulus
+import E213.Lib.Math.Probability.RiemannBridge
+import E213.Lib.Math.Probability.Chebyshev
+import E213.Lib.Math.Probability.BetaNormalized
+import E213.Lib.Math.Probability.CLTGeneric
+import E213.Lib.Math.Probability.Hoeffding
 
 /-!
 # Probability — synthesis bundles
@@ -333,5 +339,45 @@ theorem clt_modulus_witness (n m ε : Nat) :
         (E213.Lib.Math.Probability.LLN.balancedHeadsTails m) :=
   ⟨E213.Lib.Math.Probability.CLTLimit.balanced_LLN_modulus ε,
    E213.Lib.Math.Probability.CLTLimit.balanced_cauchy n m⟩
+
+/-- ★ **Cauchy modulus witness** ★ — `ProbCauchy` constSeq has
+    modulus 0 (Tier 0 of Real213 extension program). -/
+theorem cauchy_modulus_witness (a : ProbabilityCut) (ε : Nat) :
+    (E213.Lib.Math.Probability.CauchyModulus.constSeq_cauchy a).N ε = 0
+    ∧ (E213.Lib.Math.Probability.CauchyModulus.constSeq_cauchy a).target = a :=
+  ⟨E213.Lib.Math.Probability.CauchyModulus.constSeq_modulus_zero a ε,
+   E213.Lib.Math.Probability.CauchyModulus.constSeq_target a⟩
+
+/-- ★ **Chebyshev witness** ★ — polynomial concentration
+    via Markov-on-second-moment. -/
+theorem chebyshev_witness (a n : Nat) :
+    a * E213.Lib.Math.Probability.Markov.tailMassNum a [(1, n * n)]
+      ≤ E213.Lib.Math.Probability.Markov.tailMomentNum a [(1, n * n)] :=
+  E213.Lib.Math.Probability.Chebyshev.chebyshev_allHeads_witness a n
+
+/-- ★ **Beta normalised witness** ★ — closed-form `B(α, β)` for
+    `(1,1), (2,1), (1,2)`. -/
+theorem beta_normalized_witness :
+    E213.Lib.Math.Probability.BetaNormalized.betaNorm 1 1 = (1, 1)
+    ∧ E213.Lib.Math.Probability.BetaNormalized.betaNorm 2 1 = (1, 2)
+    ∧ E213.Lib.Math.Probability.BetaNormalized.betaNorm 1 2 = (1, 2) :=
+  ⟨rfl, rfl, rfl⟩
+
+/-- ★ **Generic CLT witness** ★ — variance-modulus
+    `cltModulus_of_varBound V ε := V · ε`, monotone in V and ε. -/
+theorem cltGeneric_witness (V ε : Nat) :
+    E213.Lib.Math.Probability.CLTGeneric.cltModulus_of_varBound V ε = V * ε
+    ∧ E213.Lib.Math.Probability.CLTGeneric.cltModulus_of_varBound 1 0 = 0 :=
+  ⟨rfl, rfl⟩
+
+/-- ★ **Hoeffding witness** ★ — finite-depth Taylor partial sum
+    bound + balanced collapse to zero deviation. -/
+theorem hoeffding_witness (n : Nat) (negArg : Nat → Nat → Bool) :
+    E213.Lib.Math.Probability.Hoeffding.hoeffdingBoundAtDepth negArg 0
+      = E213.Lib.Math.Real213.CutSumTest.constCut 0 1
+    ∧ E213.Lib.Math.Probability.Concentration.centeredAbsDev2
+        (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) = 0 :=
+  ⟨rfl,
+   E213.Lib.Math.Probability.Concentration.centeredAbsDev2_balanced n⟩
 
 end E213.Lib.Math.Probability.Capstone

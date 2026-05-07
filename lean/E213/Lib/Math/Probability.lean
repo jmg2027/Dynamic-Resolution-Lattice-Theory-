@@ -13,6 +13,12 @@ import E213.Lib.Math.Probability.Markov
 import E213.Lib.Math.Probability.Concentration
 import E213.Lib.Math.Probability.BetaDensity
 import E213.Lib.Math.Probability.CLTLimit
+import E213.Lib.Math.Probability.CauchyModulus
+import E213.Lib.Math.Probability.RiemannBridge
+import E213.Lib.Math.Probability.Chebyshev
+import E213.Lib.Math.Probability.BetaNormalized
+import E213.Lib.Math.Probability.CLTGeneric
+import E213.Lib.Math.Probability.Hoeffding
 import E213.Lib.Math.Probability.Capstone
 
 /-!
