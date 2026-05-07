@@ -234,14 +234,32 @@ tissue (limits, continuity, integrals) that 213 dissolves
 structurally.  Replacement vocabulary: **소멸 (nilpotency),
 정합성 (discrete grade closure), 대수적 역원 (algebraic inverse)**.
 
-## Tractable next-marathon entries (post-reframe)
+## Reframed entries — implemented (post-paradigm-shift)
 
-  * `Real213/CutExpFiniteTruncation.lean` — `expTerm x n = 0` for
-    `n > 4` via the `Cohomology/Bipartite` grade lemma; corollary
-    `cutExp = expPartialSum 4` exactly.
-  * `Probability/ChernoffGrade.lean` — discrete grade-index
-    optimisation; `chernoff_at_grade g` decidable `Nat` inequality
-    with explicit witness for the closing grade.
-  * `Real213/CutLog.lean` — `cutLog` as polynomial inverse of
-    `cutExp` modulo Grade 4 nilpotency; algebraic ring-isomorphism
-    inverse, no integral.
+All three reframed obligations now have ∅-axiom skeleton modules:
+
+  * ✅ `Lib/Math/Cohomology/CutExpFiniteTruncation.lean` (12 thms)
+    — `cupPow` n-fold cup-power; **Grade-6 nilpotency**:
+    `cupPow_grade_6_zero`, `cupPow_grade_7_zero`,
+    `cupPow_grade_8_zero` derive `False.elim` from
+    `i.isLt < binom 5 n = 0`.  General lemma
+    `cupPow_zero_of_binom_zero` for any overflow grade.
+    Tables `grade_5_top_dim` (`= 1`) and `grade_dim_table` (1, 5,
+    10, 10, 5, 1, 0).
+  * ✅ `Lib/Math/Probability/ChernoffGrade.lean` (9 thms) —
+    `GradeIndex := Fin 5`, `gradeDim` table, `chernoff_at_grade`
+    via `markov_inequality`, `closing_grade_exists` existential
+    witness for the discrete-grade closure.
+  * ✅ `Lib/Math/Cohomology/CutLog.lean` (6 thms) — formal `cutLog`
+    skeleton; linear-order linearisation + Grade-6 nilpotency
+    inheritance + grade table.  Full ring-inverse identity
+    requires cup-Ring homomorphism (separate continuation).
+
+Three new capstone witnesses:
+
+  * `nilpotency_witness` — replaces "Cauchy modulus" framing.
+  * `grade_chernoff_witness` — replaces "continuous inf_t" framing.
+  * `cuplog_witness` — replaces "log via integral" framing.
+
+Total new theorems: 27 + 3 capstones = 30 atomic facts under the
+reframed paradigm.  All `#print axioms` ∅.
