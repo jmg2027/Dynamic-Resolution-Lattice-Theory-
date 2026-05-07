@@ -6,6 +6,7 @@ import E213.Lib.Physics.AlphaEM.ChannelCohomologyLoss
 import E213.Lib.Physics.AlphaEM.CupChannelInventory
 import E213.Lib.Physics.AlphaEM.CupRingTrace
 import E213.Lib.Physics.AlphaEM.GradedDecomposition
+import E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 import E213.Lib.Physics.AlphaEM.GradedFormula
 import E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 import E213.Lib.Physics.AlphaEM.NUniverseCandidates

@@ -15,6 +15,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.T2nPattern
 import E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
 import E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 import E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
+import E213.Lib.Math.HodgeConjecture.Pairing.SignatureMetaTheorem
 
 /-! Spec-as-code entry point for `E213.Lib.Math.HodgeConjecture.Pairing`.
 
