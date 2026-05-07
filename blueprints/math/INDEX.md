@@ -55,7 +55,7 @@ illustrates the standard.
 | # | Field | File | Priority |
 |---|---|---|---|
 | 13 | **213 self-deepening** | `13_213_meta.md` | ★★★ |
-| 14 | **Logic / Proof Theory 213** | `14_logic_213.md` | ★ |
+| 14 | **Logic / Proof Theory 213** ✅ REALIZED | (blueprint retired) | — |
 
 ### Phase E — Cohomology (added 2026-04-27)
 
