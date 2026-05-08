@@ -17,16 +17,26 @@ theorem Tree.swap_depth :
   | a => rfl
   | b => rfl
   | slash x y ihx ihy =>
-      have hc := h
-      simp only [Tree.canonical, Bool.and_eq_true] at hc
-      obtain ⟨⟨hx, hy⟩, _⟩ := hc
+      have hcan := h
+      unfold Tree.canonical at hcan
+      obtain ⟨hxy_can, _⟩ := Bool.and_eq_true_to_pair hcan
+      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy_can
       have hlt := Tree.canonical_slash_lt h
       have ihx' := ihx hx
       have ihy' := ihy hy
-      simp only [Tree.swap]
+      show (match Tree.cmp (Tree.swap x) (Tree.swap y) with
+            | .lt => Tree.slash (Tree.swap x) (Tree.swap y)
+            | .gt => Tree.slash (Tree.swap y) (Tree.swap x)
+            | .eq => Tree.swap x).depth
+            = (Tree.slash x y).depth
       split <;> rename_i hcmp
-      · simp only [Tree.depth, ihx', ihy']
-      · simp only [Tree.depth, ihx', ihy', Nat.max_comm]
+      · show 1 + max (Tree.swap x).depth (Tree.swap y).depth
+             = 1 + max x.depth y.depth
+        rw [ihx', ihy']
+      · show 1 + max (Tree.swap y).depth (Tree.swap x).depth
+             = 1 + max x.depth y.depth
+        rw [ihx', ihy']
+        exact congrArg (1 + ·) (Nat213.max_comm y.depth x.depth)
       · exact (Tree.swap_eq_unreach hx hy hlt hcmp).elim
 
 def Tree.leaves : Tree → Nat
@@ -41,16 +51,25 @@ theorem Tree.swap_leaves :
   | a => rfl
   | b => rfl
   | slash x y ihx ihy =>
-      have hc := h
-      simp only [Tree.canonical, Bool.and_eq_true] at hc
-      obtain ⟨⟨hx, hy⟩, _⟩ := hc
+      have hcan := h
+      unfold Tree.canonical at hcan
+      obtain ⟨hxy_can, _⟩ := Bool.and_eq_true_to_pair hcan
+      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy_can
       have hlt := Tree.canonical_slash_lt h
       have ihx' := ihx hx
       have ihy' := ihy hy
-      simp only [Tree.swap]
+      show (match Tree.cmp (Tree.swap x) (Tree.swap y) with
+            | .lt => Tree.slash (Tree.swap x) (Tree.swap y)
+            | .gt => Tree.slash (Tree.swap y) (Tree.swap x)
+            | .eq => Tree.swap x).leaves
+            = (Tree.slash x y).leaves
       split <;> rename_i hcmp
-      · simp only [Tree.leaves, ihx', ihy']
-      · simp only [Tree.leaves, ihx', ihy', Nat.add_comm]
+      · show (Tree.swap x).leaves + (Tree.swap y).leaves
+             = x.leaves + y.leaves
+        rw [ihx', ihy']
+      · show (Tree.swap y).leaves + (Tree.swap x).leaves
+             = x.leaves + y.leaves
+        rw [ihx', ihy', Nat.add_comm]
       · exact (Tree.swap_eq_unreach hx hy hlt hcmp).elim
 
 end E213.Theory.Internal

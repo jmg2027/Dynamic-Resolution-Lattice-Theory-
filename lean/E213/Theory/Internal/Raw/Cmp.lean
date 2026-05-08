@@ -120,4 +120,20 @@ theorem Bool.and_eq_true_to_pair : ∀ {a b : Bool},
   | false, _, h => by cases h
   | true, false, h => by cases h
 
+/-- 213-native `Nat.max_comm` (Lean-core `Nat.max_comm` leaks
+    `propext` via `Nat.max_eq_left`).  Used by `Tree.swap_depth`
+    on the `.gt` branch where the swapped children appear in
+    reverse order.  Pure: ∅-axiom. -/
+theorem Nat213.max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
+  show (if a ≤ b then b else a) = (if b ≤ a then a else b)
+  rcases Nat.le_total a b with hab | hba
+  · rw [if_pos hab]
+    by_cases h : b ≤ a
+    · rw [if_pos h]; exact Nat.le_antisymm h hab
+    · rw [if_neg h]
+  · rw [if_pos hba]
+    by_cases h : a ≤ b
+    · rw [if_pos h]; exact Nat.le_antisymm hba h
+    · rw [if_neg h]
+
 end E213.Theory.Internal

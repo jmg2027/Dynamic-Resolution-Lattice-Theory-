@@ -131,30 +131,13 @@ theorem swap_bab : Raw.swap bab = aab := by apply Subtype.ext; rfl
 /-- Swap is involutive on every Raw. -/
 theorem swap_swap (r : Raw) : Raw.swap (Raw.swap r) = r := Raw.swap_swap r
 
-/-- Swap preserves `depth` — by `rfl` on every level-≤2 term. -/
-theorem swap_depth_a   : (Raw.swap Raw.a).depth = Raw.depth Raw.a := rfl
-theorem swap_depth_b   : (Raw.swap Raw.b).depth = Raw.depth Raw.b := rfl
-theorem swap_depth_ab  : (Raw.swap ab   ).depth = Raw.depth ab    := rfl
-theorem swap_depth_aab : (Raw.swap aab  ).depth = Raw.depth aab   := rfl
-theorem swap_depth_bab : (Raw.swap bab  ).depth = Raw.depth bab   := rfl
+/-- Swap preserves `depth` — *general* statement, ∅-axiom. -/
+theorem swap_depth (r : Raw) : (Raw.swap r).depth = r.depth :=
+  Raw.swap_depth r
 
-/-- Swap preserves `leaves` — by `rfl` on every level-≤2 term. -/
-theorem swap_leaves_a   : (Raw.swap Raw.a).leaves = Raw.leaves Raw.a := rfl
-theorem swap_leaves_b   : (Raw.swap Raw.b).leaves = Raw.leaves Raw.b := rfl
-theorem swap_leaves_ab  : (Raw.swap ab   ).leaves = Raw.leaves ab    := rfl
-theorem swap_leaves_aab : (Raw.swap aab  ).leaves = Raw.leaves aab   := rfl
-theorem swap_leaves_bab : (Raw.swap bab  ).leaves = Raw.leaves bab   := rfl
-
-/-
-The corresponding *general* statements
-  `(Raw.swap r).depth  = r.depth`
-  `(Raw.swap r).leaves = r.leaves`
-hold for every `r : Raw` (Theory/Raw/Levels.lean), but those upstream
-proofs go through `simp only`, which leaks `propext`.  Under the
-∅-axiom standard (CLAUDE.md) any `propext` leak fails the purity
-contract — so this demo stops at the bare-metal `rfl`-level instances
-above and does not re-export the leaky generalisations.
--/
+/-- Swap preserves `leaves` — *general* statement, ∅-axiom. -/
+theorem swap_leaves (r : Raw) : (Raw.swap r).leaves = r.leaves :=
+  Raw.swap_leaves r
 
 end E213.Theory.Raw.Demo
 
@@ -175,9 +158,5 @@ end E213.Theory.Raw.Demo
 #print axioms E213.Theory.Raw.Demo.swap_ab
 #print axioms E213.Theory.Raw.Demo.swap_aab
 #print axioms E213.Theory.Raw.Demo.swap_swap
-#print axioms E213.Theory.Raw.Demo.swap_depth_a
-#print axioms E213.Theory.Raw.Demo.swap_depth_ab
-#print axioms E213.Theory.Raw.Demo.swap_depth_aab
-#print axioms E213.Theory.Raw.Demo.swap_leaves_a
-#print axioms E213.Theory.Raw.Demo.swap_leaves_ab
-#print axioms E213.Theory.Raw.Demo.swap_leaves_aab
+#print axioms E213.Theory.Raw.Demo.swap_depth
+#print axioms E213.Theory.Raw.Demo.swap_leaves
