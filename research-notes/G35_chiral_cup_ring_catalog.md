@@ -512,17 +512,27 @@ Already known constraints:
     at NT=2)
   · K↔Δ projection coverage ratio = NS/d (= inverse of Y-norm 5/3)
 
-Status: **Steps 1 + 2 + 3 closed** (commits `94701e1b`, `3015800a`).
+Status: **Steps 1 + 2 + 3 + 4 closed** (commits `94701e1b`,
+`3015800a`, `efdfa7f7`, + `AtomicConstantsParametric.lean`).
   · Step 1: bounded uniqueness (m, n, c) < 7 (triple loop)
   · Step 2: factored search (m, n) < 100; algebraic case witnesses
     n=2 only m=3, n=3 only m=2, n ≥ 4 no m < 100.
   · Step 3 (`unique_C2b_factored_300`): bound extended to 300
     via bumped `maxHeartbeats 8000000`; bound 500 attempted but
-    timed out (the limit is computational, not theoretical).  At
-    bound 300 the only solution remains (m, n) = (3, 2).
-Step 4 (full ∀ parametric uniqueness) remains open — likely
-requires an algebraic argument bounding `m ≥ NS+1` solutions
-via a quadratic discriminant computation.
+    timed out (the limit is computational, not theoretical).
+  · Step 4 (`AtomicConstantsParametric.lean`):
+    **fully general ∀ m : Nat at fixed n = 2** — no bounds.
+    Proves `c2b_n2_iff_m3 : ∀ m : Nat, constraint_C2b m 2 = true ↔ m = 3`
+    by: (a) `msq_gt_2m_p3` — `m·m > 2m + 3` for m ≥ 4 via Nat
+    monotonicity (`Nat.mul_le_mul_left/right` chain), (b)
+    Nat-sub-aware bridge `mp2_sq_sub_1_lt_msub1_mul3` showing
+    `(m+2)² − 1 < (m² − 1)·3`, (c) propext-free Bool refutation.
+    No `omega`, no `ring`, no Mathlib — pure Nat213/Omega213 +
+    `sq_of_add` polynomial identity.  STRICT ∅-AXIOM (15+ PURE).
+Step 5+ (parametric ∀ m at fixed n = 3, then ∀ (m, n) free)
+remains open — n = 3 needs the quadratic 7m² − 6m − 16 = 0
+to have only m = 2 as Nat solution; same Nat-monotonicity
+machinery should suffice.
 
 References: `Lib/Math/ResolutionLimit.lean`,
 `AlphaEM/ChannelCohomologyLoss.lean`.
