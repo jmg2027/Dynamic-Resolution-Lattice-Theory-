@@ -29,6 +29,15 @@ sub-tree is to make the chain *visible in one place*.
 |--------------------------------|-----------|
 | `Lawvere.lean`                 | Lawvere fixed-point theorem (Russell / Curry / Girard / Cantor common mechanism); Cantor as corollary |
 | `SelfReferenceClosure.lean`    | Raw admits universal Lens (safe self-reference) ∧ no Bool-surjection on Raw (paradoxical self-reference structurally blocked) |
+| `Godel.lean`                   | Abstract Gödel-incompleteness via Lawvere: any (Pr, Repr, Repr_correct) is contradictory; Tarski's undefinability of truth; specialised to Raw |
+
+### Completeness ledger
+
+| Sense              | Holds in 213? | Witness |
+|--------------------|---------------|---------|
+| **Constructive**   | ✓             | ∅-axiom standard (every theorem `#print axioms` empty) |
+| **Decidability**   | partial       | every `Decidable P` instance decides `P` |
+| **Gödel**          | ✗             | `Godel.no_self_referential_decision` (abstract / via Lawvere) |
 
 Each step imports only the previous step + the underlying
 existing modules.
