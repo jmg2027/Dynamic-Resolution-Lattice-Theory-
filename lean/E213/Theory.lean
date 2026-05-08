@@ -19,7 +19,7 @@ import E213.Theory.Tools.CertChecker
     * `Raw/`        — public Raw API (Core, Slash, Swap, SwapSlash,
                       Fold, Hom, Levels, Rec, Signed)
     * `Internal/`   — implementation detail (Raw/Cmp,
-                      CmpIndependence, ComplexityClass);
+                      CmpIndependence);
                       direct import discouraged
 
   ## Top-level

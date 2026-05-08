@@ -71,8 +71,8 @@ uniquely.
                             ArityForcingGeneral, PrimitiveSizes,
                             Alive)
   * `Theory/Internal/`   — implementation detail (Raw/Cmp,
-                            CmpIndependence, ComplexityClass,
-                            DecEq, SwapSlashInjective).  Direct
+                            CmpIndependence, DecEq,
+                            SwapSlashInjective).  Direct
                             import discouraged.
 
 **Public API**: `Theory/API.lean` bundles:
@@ -176,7 +176,7 @@ Implementation detail lives in `<Ring>/Internal/`.  Direct import
 of `Internal/*` from outside the ring is a code-review smell.
 Currently:
   * `Theory/Internal/Raw/`    — DecEq, Cmp, CmpIndependence,
-                                 ComplexityClass, SwapSlashInjective
+                                 SwapSlashInjective
   * `Lens/Internal/Algebra/`  — FreeAudit, FourDistinct,
                                  SwapInvariant, Space
 
