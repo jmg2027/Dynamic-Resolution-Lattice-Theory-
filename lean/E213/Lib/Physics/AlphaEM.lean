@@ -13,6 +13,7 @@ import E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 import E213.Lib.Physics.AlphaEM.GradedFormula
 import E213.Lib.Physics.AlphaEM.GradedFormulaPrecision
 import E213.Lib.Physics.AlphaEM.GramSelfConsistency
+import E213.Lib.Physics.AlphaEM.GramHigherOrder
 import E213.Lib.Physics.AlphaEM.LaplacianSpectrum
 import E213.Lib.Physics.AlphaEM.NUniverseCandidates
 import E213.Lib.Physics.AlphaEM.PiFiveGap

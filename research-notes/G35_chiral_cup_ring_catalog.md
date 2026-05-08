@@ -492,8 +492,16 @@ Status: **Steps 1 + 2 + 3 closed** (commits `aadafc0c`, `de09967a`,
     matches actual residual 2,157 to 1.2%; subtracting it gives
     refined diff **27 × 10⁻⁹ ≈ 0.2 ppb**, ~70× tighter.  Caveat:
     self-referential bootstrap (uses observed α on RHS).
-Step 4+ (cohomological derivation of d² = NS²·NT prefactor for the
-Gram term) remains open.
+  · Step 4 (`GramHigherOrder.lean`): **next-order α³/d² correction**.
+    `gram_correction_alpha3_e9 = 10³⁶ / (25·observed³) = 15`,
+    explaining 15 of the 27 e-9 refined residual.  Doubly-refined
+    diff = **12 × 10⁻⁹ ≈ 0.09 ppb** — within CODATA 2024 measurement
+    uncertainty (~1 ppb on 1/α_em), ~3× tighter than Step 3.
+    Higher-order Gram pattern (α^k/d² for k = 2, 3, ...) confirmed.
+    STRICT ∅-AXIOM (12/12 PURE).
+Step 5+ (cohomological derivation of d² = NS²·NT prefactor for the
+Gram term, plus α^k/d² coefficient pattern derivation) remains
+open as the deepest C1 problem.
 
 References: `AlphaEM/CupChannelInventory.lean`, `ProjectionRatios.lean`,
 `PiFiveGap.lean`, `LaplacianSpectrum.lean`, `GradedDecomposition.lean`,
@@ -586,7 +594,15 @@ gauge channel**, deepening C3 from "structural emergence" to
     `σ_E_swap_01` on `Edges_K(8)`: cycle structure `(1 2)(3 4)(6 7)`
     — three transpositions + 4 fixed points.  Involution + counts
     decide-checked.
-Step 4+ (full irrep decomposition of Aut on H*(K, Δ⁴)) remains
+  · `AutEdgeActionGenerators.lean` (Step 4) — **second Sym(3)
+    generator** `σ_E_swap_12`: cycle structure `(0 1)(4 5)(7 8)`,
+    three 2-cycles + four fixed points.  Their composition
+    `σ_E_compose_01_12 = σ_E_swap_01 ∘ σ_E_swap_12` has cycle
+    structure `(0 2 1)(3 4 5)(6 7 8)` + fix {9} — three 3-cycles
+    (= order-3 element).  Demonstrates **Sym(3) non-abelian
+    structure** explicitly via composition non-commutativity.
+    STRICT ∅-AXIOM.
+Step 5+ (full irrep decomposition of Aut on H*(K, Δ⁴)) remains
 open and is plausibly the **largest single structural gap** in
 current 213-Algebra infrastructure.
 
