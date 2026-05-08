@@ -12,6 +12,8 @@ sub-tree is to make the chain *visible in one place*.
 
 ## Reading order
 
+### Forward chain (Atomicity → N_U)
+
 | File              | Step | Statement |
 |-------------------|------|-----------|
 | `Atomicity.lean`     | 1 | `Atomic n ⟺ n = 5` |
@@ -19,7 +21,14 @@ sub-tree is to make the chain *visible in one place*.
 | `PairAxes.lean`      | 3 | `NS = 3, NT = 2, NS + NT = d` |
 | `Recursion.lean`     | 4 | `numV L = 5^L`; self-ref `L = d² = 25` |
 | `Universe.lean`      | 5 | `N_U = d^(d²) = 5²⁵` |
-| `Synthesis.lean`     | — | full chain bundle |
+| `Synthesis.lean`     | — | full forward chain bundle |
+
+### Self-reference closure (why 213 doesn't explode)
+
+| File                           | Statement |
+|--------------------------------|-----------|
+| `Lawvere.lean`                 | Lawvere fixed-point theorem (Russell / Curry / Girard / Cantor common mechanism); Cantor as corollary |
+| `SelfReferenceClosure.lean`    | Raw admits universal Lens (safe self-reference) ∧ no Bool-surjection on Raw (paradoxical self-reference structurally blocked) |
 
 Each step imports only the previous step + the underlying
 existing modules.
