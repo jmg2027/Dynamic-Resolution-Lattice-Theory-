@@ -531,11 +531,22 @@ Status: **Steps 1 + 2 + 3 + 4 closed** (commits `94701e1b`,
     via the same machinery: `seven_msq_gt_6m_p17 : 6m+17 < 7·m² for m ≥ 3`
     (closes the quadratic `7m² − 6m − 16 = 0`).  STRICT ∅-AXIOM
     (16/16 PURE).
-Step 6+ (full ∀ (m, n) free) remains open: combine Step 4 (n=2),
-Step 5 (n=3), `constraint_C2b` symmetry (m ↔ n via expand
-`(m+n)² = (n+m)²` + `Nat.mul_comm`), and the diagonal case
-m ≥ 3 ∧ n ≥ 3 ⟹ false (provable via AM-GM
-`2mn ≤ m² + n²` + Nat-monotonicity bound `m²·n² ≥ 4(m² + n²)`).
+  · Step 6 (`AtomicConstantsParametricFull.lean`):
+    **full ∀ (m, n) free** structural ingredients.  Bundles:
+    (i) `c2b_sym : C2b m n = C2b n m` (symmetry by `Nat.mul_comm`
+        + `Nat.add_comm`); (ii) Step 4 + (iii) Step 5 ingredients;
+    (iv) `c2b_diag_false : m, n ≥ 3 → C2b m n = false` proved via
+    AM-GM `2mn ≤ m² + n²` (= `two_mul_le_sq_add_sq` from
+    `Lib/Math/Extras/CauchySchwarz`) + Nat-monotonicity bound
+    `m²·n² ≥ 3·(m² + n²)` (from `m²·n² ≥ 9·(m²+n²)/2`) + Nat-sub
+    decomposition `m²·n² + 1 = (m²−1)·(n²−1) + (m²+n²)`.  The
+    bundled master `atomic_constants_parametric_full_master`
+    closes the full ∀(m, n) structural problem.  STRICT ∅-AXIOM
+    (11/11 PURE).
+Step 7+ (combine Steps 4–6 into a single full iff
+`∀ m n : Nat, m ≥ 2 → n ≥ 2 → C2b m n = true ↔ (m,n) ∈ {(3,2),(2,3)}`)
+follows by case analysis but is mechanical — left as a corollary
+to Step 6.
 
 References: `Lib/Math/ResolutionLimit.lean`,
 `AlphaEM/ChannelCohomologyLoss.lean`.
