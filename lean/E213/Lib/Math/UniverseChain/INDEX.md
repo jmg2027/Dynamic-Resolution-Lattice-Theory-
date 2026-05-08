@@ -14,15 +14,27 @@ sub-tree is to make the chain *visible in one place*.
 
 | File              | Step | Statement |
 |-------------------|------|-----------|
+| `Residue.lean`       | 0 | distinction → residue (Raw inhabitant) → recursion automatic |
 | `Atomicity.lean`     | 1 | `Atomic n ⟺ n = 5` |
 | `Decomposition.lean` | 2 | `5 = 2·1 + 3·1`, unique alive decomp |
 | `PairAxes.lean`      | 3 | `NS = 3, NT = 2, NS + NT = d` |
 | `Recursion.lean`     | 4 | `numV L = 5^L`; self-ref `L = d² = 25` |
 | `Universe.lean`      | 5 | `N_U = d^(d²) = 5²⁵` |
-| `Synthesis.lean`     | — | full chain bundle |
+| `Synthesis.lean`     | — | full chain bundle (Steps 1–5) |
 
 Each step imports only the previous step + the underlying
 existing modules.
+
+**Step 0 (Residue)** formalises Mingu's articulation
+> "구분을 하면 항상 잔여물이 남는거 아냐?"
+
+= G29 point 3 ("그 짝도 다시 가리킬 수 있다")
+= the type signature `slash : (x y : Raw) → x ≠ y → Raw`.
+
+The codomain `Raw` of `slash` makes the residue an inhabitant of
+the same type as its inputs — so it can re-enter the constructor.
+Recursion is *not* a separate Lens layer; it is the structure of
+distinction itself.
 
 ## ∅-axiom status
 
