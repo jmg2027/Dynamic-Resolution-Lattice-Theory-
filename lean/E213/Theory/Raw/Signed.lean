@@ -1,6 +1,7 @@
 import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Fold
 import E213.Theory.Raw.Hom
+import E213.Theory.Internal.Int213
 
 /-!
 # Firmware.Raw.Signed: fold_signed_swap — swap as negation
@@ -19,8 +20,8 @@ theorem Tree.fold_signed_swap :
       = - Tree.fold (1 : Int) (-1) (· + ·) t :=
   Tree.fold_swap_hom (1 : Int) (-1) (· + ·) (fun n => -n)
     (by decide) (by decide)
-    (fun _ _ => Int.neg_add ..)
-    (fun _ _ => Int.add_comm ..)
+    (fun u v => Int213.neg_add u v)
+    (fun u v => Int213.add_comm u v)
 
 end E213.Theory.Internal
 

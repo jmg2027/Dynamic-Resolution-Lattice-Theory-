@@ -1,4 +1,5 @@
 import E213.Theory.Raw
+import E213.Theory.Internal.Int213
 import E213.Lens.LensCore
 
 /-!
@@ -40,8 +41,8 @@ theorem raw_fold_signed_swap_demo (r : Raw) :
   | slash x y h _ihx _ihy =>
       exact Raw.fold_swap_hom (1 : Int) (-1) (· + ·) (fun n => -n)
         (by decide) (by decide)
-        (fun u v => by show -(u + v) = -u + -v; omega)
-        (fun u v => by show u + v = v + u; omega)
+        (fun u v => E213.Theory.Internal.Int213.neg_add u v)
+        (fun u v => E213.Theory.Internal.Int213.add_comm u v)
         (Raw.slash x y h)
 
 end E213.Meta.RawInductionDemo
