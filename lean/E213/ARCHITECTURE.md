@@ -133,10 +133,10 @@ unique".
                              PureGuard)
 
 **Top-level**: SelfRecognising (codomain typeclass hierarchy),
-AxiomMinimality{,Capstone}, BitPatternUniqueness.
+AxiomMinimality{,Capstone}, BitPatternUniqueness, LensInternality.
 
 **Public API**: `Meta/API.lean` bundles ME-1 SelfRecognising +
-ME-2 AxiomMinimality + ME-3 UniversalLens.
+ME-2 AxiomMinimality + ME-3 LensInternality + ME-4 UniversalLens.
 Tactic is a separate import (cross-cutting).
 
 ### Lib/  (Ring 4 — content libraries)

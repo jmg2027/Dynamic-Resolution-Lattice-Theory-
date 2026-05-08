@@ -32,10 +32,11 @@ Lens/  101 files: Lens framework
               Universal/, AxiomLenses/{Bridges, Core}/) +
              Initiality.lean + SemanticAtom.lean
   ↓
-Meta/        25 files: UniversalLens / Tactic sub-cluster
+Meta/        26 files: UniversalLens / Tactic sub-cluster
              umbrellas + SelfRecognising codomain
              hierarchy (CommBinary/NonVanishing/Conjugation),
-             AxiomMinimality{,Capstone}, BitPatternUniqueness
+             AxiomMinimality{,Capstone}, BitPatternUniqueness,
+             LensInternality
   ↓
 App/         1 file (Simplex)
 OS/          14 files: HodgeConjecture/Bridges/ +
@@ -62,7 +63,7 @@ definitions of each layer + the per-file layer-derivation rule.
 | Term/ | 24 files, 0-axiom scaffolding + Tactic/ (Nat213, Mod213, Fin213, Pow213, Omega213, QuadNorm) | none |
 | Theory/ | 27 files: Raw axiom (4-clause) + Atomicity/ + Tools/CertChecker | none |
 | Lens/ | 101 files: Lens framework (umbrella + 12 sub-clusters) | none |
-| Meta/ | 25 files: metatheorems + Tactic/ + UniversalLens/ | mostly none |
+| Meta/ | 26 files: metatheorems + Tactic/ + UniversalLens/ | mostly none |
 | App/ | 1 file (Simplex) | none |
 | OS/ | 14 files: top-level integration capstones (HodgeConjecture/Bridges, Physics/Capstones) | mostly none |
 | Math/ | 495 files topical math (Cohomology, Real213, …); each file at its natural vertical layer | mixed |
