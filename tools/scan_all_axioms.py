@@ -127,7 +127,13 @@ SEALED_DIRTY_PREFIXES = (
     # via Lean 4 core's well-founded-recursion proof of total termination.
     # Refactor would require building 213-native gcd/lcm/Int primitives —
     # out of scope.  Sealed as Lean-core-boundary by-design.
-    'E213.Lens.Lens.Leaves.ModNat',
+    # ModNat.refines_implies_divides + ModNat.gcd_upper_bound (real path
+    # `E213.Lens.Leaves.ModNat`) — `gcd_upper_bound` mentions
+    # `Nat.gcd m k` in its statement (propext via Lean-core gcd
+    # termination); a generic `common_divisor_upper_bound` ∅-axiom
+    # alternative coexists.  `refines_implies_divides` cascades from
+    # `Math.Infinity.leaves_surjective_pos` + `omega` + `Nat.mod_*`.
+    'E213.Lens.Leaves.ModNat',
     'E213.Lib.Math.Irrational.Sqrt2KernelFree',
     # LensCardinality has 5 DIRTY: 3 from Int operations (signedLens,
     # treeTower_signed) + 2 from Lens-on-Lens stress (sigma7).  The Int
@@ -168,8 +174,6 @@ SEALED_DIRTY_PREFIXES = (
     'E213.Lens.Lens.Instances.PointwiseProjection',
     # Properties cascade
     'E213.Lens.Lens.Properties.EquivProperties',
-    # RefinesParity propext from Nat.add_mod (Lean core)
-    'E213.Lens.Lens.Leaves.RefinesParity',
     # E213.Lib.Math.Infinity.Godel: Cantor-style countability /
     # equipotence proofs use propext intrinsically (Iff between
     # cardinality propositions; raw_at_most_countable +
