@@ -543,10 +543,13 @@ Status: **Steps 1 + 2 + 3 + 4 closed** (commits `94701e1b`,
     bundled master `atomic_constants_parametric_full_master`
     closes the full ∀(m, n) structural problem.  STRICT ∅-AXIOM
     (11/11 PURE).
-Step 7+ (combine Steps 4–6 into a single full iff
-`∀ m n : Nat, m ≥ 2 → n ≥ 2 → C2b m n = true ↔ (m,n) ∈ {(3,2),(2,3)}`)
-follows by case analysis but is mechanical — left as a corollary
-to Step 6.
+  · Step 7 (`AtomicConstantsParametricFullIff.lean`):
+    **single full iff theorem** combining Steps 4-6.
+    `c2b_full_iff : ∀ m n : Nat, 2 ≤ m → 2 ≤ n →
+      constraint_C2b m n = true ↔ (m=3 ∧ n=2) ∨ (m=2 ∧ n=3)`.
+    Mechanical case split on (n, m) ∈ {2, 3, k+4}² using
+    Step 4 (n=2), Step 5 (n=3), symmetry, and Step 6 diagonal.
+    STRICT ∅-AXIOM (5/5 PURE).  **C2 conjecture fully closed.**
 
 References: `Lib/Math/ResolutionLimit.lean`,
 `AlphaEM/ChannelCohomologyLoss.lean`.
