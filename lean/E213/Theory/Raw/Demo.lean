@@ -1,5 +1,4 @@
 import E213.Theory.Raw
-import E213.Theory.RawLevels
 
 /-!
 # Raw.Demo — bare-metal generation of Raw, ∅-axiom
