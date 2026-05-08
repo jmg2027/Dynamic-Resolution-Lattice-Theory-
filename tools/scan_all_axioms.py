@@ -134,7 +134,6 @@ SEALED_DIRTY_PREFIXES = (
     # alternative coexists.  `refines_implies_divides` cascades from
     # `Math.Infinity.leaves_surjective_pos` + `omega` + `Nat.mod_*`.
     'E213.Lens.Leaves.ModNat',
-    'E213.Lib.Math.Irrational.Sqrt2KernelFree',
     # LensCardinality has 5 DIRTY: 3 from Int operations (signedLens,
     # treeTower_signed) + 2 from Lens-on-Lens stress (sigma7).  The Int
     # ones are Lean-core boundary; the others cascade.
