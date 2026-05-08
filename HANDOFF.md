@@ -1,149 +1,210 @@
 # Session Handoff — DRLT 213
 
-Branch: `claude/plan-next-task-qBnuS` (continuation of post-PR-#34 work).
+Branch: `claude/topology-precision` (UniverseChain marathon).
 
-## Current state (2026-05-06)
+## Current state (2026-05-08)
 
-This branch has completed two follow-up tasks ("A → B") on top of the
-M14 refactor (PR #34 already merged into `main`):
+`lean/E213/Lib/Math/UniverseChain/` — 13 files, ~57 ∅-axiom
+theorems verified.  The deductive chain *pointing → atomicity →
+5 + recurrence* is **rigorously closed**.
 
-  * **A — Lens cluster repair** (commit `687ff8b7`):
-    10 deferred Lens files (CompoundBool, NegSq, ParityXor*, RawAChar,
-    Morphism.{BoolSqClassification, SlashCharNotFold},
-    Properties.{ABRefines, Leaf, ParityCollapseFalse}) restored;
-    `Hypervisor.Lens` namespace drift in 14 files fixed;
-    `E213.Lens.Diagonal` new module hosts the Collapse / Idempotent
-    classification predicates (lost in M14 Phase F when
-    `Math.Diagonal.Classification` was dropped).
-    `lake build E213.Lens` → 122/122 ✔.
-  * **B — Padic full ∅-axiom** (commits `301efe01` + pending):
-    All 5 `Lib/Math/Hyper/Padic` capstones + 7 ProfiniteSeq leaves +
-    upstream `ModNat` / `Cauchy` lemmas now `#print axioms` ∅
-    (**12/12 PURE**, end-to-end).  Two-stage hardening:
-      - Stage 1 (Quot.sound elimination): replace `omega` with
-        `Nat.le_succ_of_le` / `Nat.le_trans`; add
-        `Nat213.{zero_mod, mul_mod_right}` term-mode helpers.
-      - Stage 2 (propext elimination): add
-        `Nat213.le_max_{left, right}` (term-mode);
-        `AddMod213.{add_mod_gen, mod_mod_of_dvd}` ∅-axiom; route
-        ModNat / Cauchy callers through them.
-    HANDOFF's earlier "function-eq → per-index pointwise" diagnosis
-    was incorrect; actual root cause was `omega` + Lean-core
-    `Nat.{add_mod, mod_mod_of_dvd, mul_mod_right, zero_mod,
-    le_max_*}`.  See `research-notes/HIERARCHICAL_PLACEMENT.md`
-    §7.4.
+### What's proven (∅-axiom)
 
-Earlier branch (`claude/fix-propext-constraints-Rdn1r`) merged via
-PR #34 — see commits up to `3ba54cc5` for the full M14 architectural
-refactor history.
+**Step 0 — Residue / generation rule** (`Residue.lean`):
+  * G29 point 3 formalised as `slash : Raw → Raw → _ → Raw`
+    output-type-as-Raw.  Recursion automatic from constructor.
 
-## Verification status (pre-merge)
+**Steps 1–5 — Atomicity → N_U** (existing chain):
+  * `Atomicity.lean`: `Atomic n ⟺ n = 5`
+  * `Decomposition.lean`: `5 = 2·1 + 3·1` unique alive
+  * `PairAxes.lean`: `(NS, NT) = (3, 2)` forced (`pair_forcing`
+    cleaned to ∅-axiom this session)
+  * `Recursion.lean`, `Universe.lean`, `Synthesis.lean`: chain bundle
+
+**Raw enumeration / recurrence** (this session's main work):
+  * `RawDepthCount.lean`: depth ≤ 2 = **5** Raws (matches d = 5)
+  * `RawBipartition.lean`: leftmost-atom partition (3, 2) — flagged
+    as *non-canonical* (one of many possible partitions)
+  * `RawDepth3.lean`: depth ≤ 3 = 12 Raws; (3, 2) ratio breaks
+    at higher depth → (8, 4)
+  * `RawRecurrence.lean`: **clean recurrence
+    `|S_n| = 2 + C(|S_{n-1}|, 2)`** — corrects earlier
+    `a_{n+1} = a_n + C(a_n, 2)` guess
+  * `RawEnumeration.lean`: **GENERAL THEOREM ∀n —
+    `(enumTreeDepth n).length = rawCount n`** — induction proof,
+    avoids Lean-core propext leaks via `myLengthAppend`/`myLengthMap`
+  * `RawCountGeneric.lean`: N-generic recurrence
+    `|S_n| = N + C(|S_{n-1}|, 2)` for arbitrary atom count
+
+### What was retired this session
+
+  * Earlier *Gödel/Lawvere* marathon (3 commits) reverted —
+    framing required Raw-universal-Lens grounding for every term;
+    deferred as too heavy.  PairForcing ∅-axiom cleanup retained.
+
+### Solid base (won't drift)
+
+```
+[pointing → atomicity → d = 5]    ✅ proven
+[5 = NS + NT = 3 + 2]              ✅ proven
+[arity = 2 forced]                 ✅ proven (ArityForcing)
+[recurrence |S_n| = N + C(|S_{n-1}|, 2)]  ✅ proven (general n)
+[N = 2 unique minimum]             ✅ proven (§4.2 + AxiomMinimality)
+```
+
+This base is **rigorously closed and physics-solid up to 4D
+projection + chirality emergence** (per AutKChiral).  Three open
+programs remain.
+
+---
+
+## Open programs (next-session marathons)
+
+### Marathon A — Mathematical closure (replace physics observation)
+
+**Problem**: `TopologyCompare.lean` selects K_{3,2}^(c=2) among
+bipartite candidates because `b_1 = 8 = 1/α_3` (physics
+observation).  This is **empirical selection**, not pure derivation.
+
+**Goal**: derive K_{3,2}^(c=2) from atomicity-internal arguments
+alone, without invoking physics observation.
+
+**Sub-tasks**:
+  1. Prove `b_1 = NS² - 1` is forced by atomicity (currently
+     `Counts.inv_alpha_3_confined : NS · NS - 1 = 8` is `decide`,
+     but the *interpretation as Betti* is post-hoc).
+  2. Prove c = 2 (multiplicity) from chirality / NT structure
+     (currently `c` appears in TopologyCompare with no
+     atomicity-internal derivation).
+  3. Show K_{3,2}^(c=2) is the *unique* (NS, NT, c) bipartite
+     multigraph satisfying atomicity-internal constraints —
+     without `b_1 = 8` as input.
+
+**Critical files**:
+  * `lean/E213/Lib/Math/Cohomology/TopologyCompare.lean`
+  * `lean/E213/Lib/Math/Cohomology/Bipartite/V32.lean`
+  * `lean/E213/Lib/Physics/Simplex/Counts.lean`
+
+**Difficulty**: high.  May require new typeclass for
+"atomicity-internal Betti" or proven fact that 1/α_3 = NS² - 1
+is structurally forced rather than empirically matched.
+
+---
+
+### Marathon B — Graph theory formalisation
+
+**Problem**: K_{3,2}^(c=2) ⊂ Δ⁴ relationship currently only at
+underlying-edge level (`UniverseChain.BipartiteFractal.bip_edge_in_K5`).
+Multigraph version refuted (`multiplicity_lost`).  `research-notes/
+G1_universal_lens.md` *conjectures* "any 5 elements force
+K_{3,2}^(c=2)" but no formal proof exists.
+
+**Goal**: formalise K_{3,2}^(c=2) inevitability + structural
+relationships to Δ⁴ + graph-theoretic foundations.
+
+**Sub-tasks**:
+  1. Prove "any 5 elements satisfying atomicity-derived constraints
+     form K_{3,2}^(c=2)" — uniqueness up to isomorphism.
+  2. Vertex-transitivity / automorphism analysis of K_{25} (level
+     2 fractal); extend `AutKChiral.lean` to K_{5^L}.
+  3. Formalise Kuratowski-style result: K_5 = first non-planar
+     coincides with d = 5 from atomicity (currently a numerical
+     "signature").
+  4. K_{3,2}^(c=2) as Cayley-type graph with internal labelling
+     (each vertex = its slash-tree).
+
+**Critical files** (existing):
+  * `lean/E213/Lib/Math/Cohomology/Bipartite/V32.lean`
+  * `lean/E213/Lib/Math/Cohomology/K5.lean`
+  * `lean/E213/Lib/Physics/Symmetry/AutKChiral.lean`
+  * `research-notes/G1_universal_lens.md` (conjecture)
+
+**Difficulty**: medium-high.  Graph-isomorphism uniqueness needs
+combinatorial enumeration; planarity formalisation is non-trivial
+∅-axiom.
+
+---
+
+### Marathon C — Fractal theory formalisation
+
+**Problem**: `numV L = 5^L` is *defined* recursively
+(`Cohomology/Fractal/Level.lean`).  "Each vertex of Δ⁴ becomes a
+Δ⁴" is *postulated* in `NUniverseFromFractal.lean` docstring.
+`L = d² = 25` as "self-referential level" is *named*, not derived.
+N_U = 5²⁵ thus rests on a chain of *definitions*.
+
+**Goal**: formalise fractal self-similarity as a *fixed-point
+theorem*, not a definition.
+
+**Sub-tasks**:
+  1. Define a self-similar map `F : Δ⁴ → Δ⁴ ⊗ Δ⁴` (vertex
+     replacement) and prove it's a fixed-point of some natural
+     transformation.
+  2. Prove `L = d²` is the *unique* self-referential closure
+     level (currently `universe_level_eq_gram` is `rfl`, ie. just
+     renaming).
+  3. Prove `N_U = 5^25` is *forced* (not chosen) — perhaps as
+     unique cardinality where local + global structure coincide.
+  4. Connect to `RawEnumeration.enumTreeDepth_length`: relate Raw
+     inhabitant count to fractal vertex count at appropriate
+     depth.
+
+**Critical files**:
+  * `lean/E213/Lib/Math/Cohomology/Fractal/{Level, V25}.lean`
+  * `lean/E213/Lib/Physics/Foundations/{NUniverseFromFractal,
+     NUniverseFractalDepth, FractalLensCardinality}.lean`
+  * `lean/E213/Lib/Math/UniverseChain/RawEnumeration.lean`
+
+**Difficulty**: highest.  Fixed-point theorems on graph
+endomorphisms + uniqueness up to isomorphism + closure level
+characterisation — these are deep graph/category theory.
+
+---
+
+## Suggested execution order
+
+A → C → B  (or in parallel if scope allows).
+
+  1. **A first**: replacing `b_1 = 8` physics observation with
+     atomicity-internal derivation of NS² - 1 is the *narrowest*
+     gap and would unlock TopologyCompare's claim.
+  2. **C second**: fractal self-similarity is the *biggest open
+     question* — without it the whole `5²⁵` story is definitional.
+  3. **B last**: graph-theoretic foundations support both A and C,
+     could be developed alongside but isolated.
+
+Each marathon ends with: per-theorem `#print axioms` ∅, full
+`lake build E213` clean, separate commit per file.
+
+---
+
+## Verification status (current branch)
 
 | Check | Result |
 |---|---|
-| `lake build` (clean) | ✓ 829 .lean files |
-| `tools/layer_audit.py` violations | ✓ 0 |
-| `tools/kernel_regress.sh` (Term ring 0-axiom) | ✓ 101/101 |
-| Strict purity (no Mathlib / sorry / Classical) | ✓ |
-| Stale-path sweep across docs | ✓ 0 |
-| ARCHITECTURE / CLAUDE / HANDOFF / seed cross-check | ✓ aligned |
-| Working tree | ✓ clean |
+| `lake build E213.Lib.Math.UniverseChain.RawEnumeration` | ✓ |
+| Per-theorem ∅-axiom (UniverseChain ~57 thms) | ✓ |
+| `Theory.Atomicity.PairForcing` (cleaned this session) | ✓ ∅-axiom |
 | Branch ahead-of-origin | ✓ pushed |
 
-## Tree shape
+## Hand-off pointers
 
-```
-lean/E213/
-├── E213.lean                     ← root umbrella
-├── ARCHITECTURE.md               ← canonical ring-model doc
-├── INDEX.md
-├── Term/      (24 files, 0-axiom, + API.lean)
-├── Theory/    (28 files, + API.lean, + Internal/Raw/)
-├── Lens/     (101 files, + API.lean, + Internal/Algebra/)
-├── Meta/      (31 files, + API.lean)
-├── App/        (1 file)
-└── Lib/       (637 files)
-    ├── Math/       (~501 files; DyadicFSM + HodgeConjecture peers)
-    └── Physics/    (~133 files; Capstones absorbed from former OS/)
+  1. **Read first**: `seed/AXIOM/{00_nature, 02_statement, 03_form,
+     07_self_reference}.md`, then `research-notes/G29_residue.md`.
+  2. **Boot file**: this `HANDOFF.md`, then `CLAUDE.md`.
+  3. **Architecture canonical**: `lean/E213/ARCHITECTURE.md`.
+  4. **UniverseChain INDEX**: `lean/E213/Lib/Math/UniverseChain/
+     INDEX.md` (extend with new marathon files).
 
-rust-engine/crates/
-├── term/      ↔ Term/
-├── theory/    ↔ Theory/  (+ atomicity/ absorbed from former os/)
-├── lens/      ↔ Lens/
-└── app/       ↔ App/ + Lib/
-```
+## Key insight to preserve
 
-## Open / TODO
+The path *pointing → atomicity → 5 → recurrence* is **closed and
+∅-axiom**.  Beyond that, *fractality / 5²⁵ / K_{3,2}^(c=2)
+inevitability* are **definitional or conjecture**, awaiting
+Marathons A, B, C.
 
-### ~~Pre-existing API drift~~ — ALL RESOLVED
+The `pair_forcing` cleanup (this session) showed that *omega →
+∅-axiom* hardening is feasible via `half : Nat → Nat`-style
+structural rewrites + careful avoidance of `Nat.gcd` / `Nat.div`.
 
-The original 28-file deferred-cluster (HIERARCHICAL_PLACEMENT.md §6)
-is now 0:
-  * ~~**Lens** (10)~~ — RESOLVED commit `687ff8b7` (A-task).
-  * ~~**CayleyDickson** (9)~~ — RESOLVED commit pending (this session).
-  * ~~**Cohomology** (9)~~ — RESOLVED commit pending (this session).
-
-### ~~Padic / ProfiniteSeq propext residue~~ — RESOLVED
-
-12/12 PURE.  See B-task entry above.
-
-### ~~PatternCatalog drift~~ — RESOLVED commit pending
-
-`PatternCatalog.{Algebra, Instance}` fixed via
-`open E213.Lib.Math.PatternCatalog.Core` (the structures had been
-moved to a `.Core` sub-namespace post-M14; consumers' `open` lines
-weren't updated).  Plus `E213.Lens.depth.view` →
-`E213.Lens.Lens.depth.view` (doubled-namespace) and
-`UniformArityNCohabit` namespace fully-qualified.
-
-### Documented namespace exceptions (not bugs)
-
-15 files have `path ≠ namespace` by design — see
-`ARCHITECTURE.md` naming rule 1 for the 4 exception categories
-(type-defining / doubled-type-namespace R10 / Internal-shared
-umbrella / descriptive sub-namespace).
-
-### ~~Padic.lean DIRTY~~ — RESOLVED (12/12 PURE)
-
-Original diagnosis ("function-eq between ℕ → Bool families") was
-incorrect.  Actual root cause was `omega` + Lean-core
-`Nat.{add_mod, mod_mod_of_dvd, mul_mod_right, zero_mod, le_max_*}`.
-All cleared via `Nat213` and `AddMod213` extensions.
-
-### Layer downgrade hints (informational)
-
-`tools/layer_audit.py` reports 44 hints — files that *could* live
-at a lower ring (e.g., `App/Simplex.lean` → Theory; 7
-`Theory/Atomicity/*` → Term).  All are deliberate path-locality
-choices; not blockers.
-
-## Hand-off pointers for the next session
-
-1. **Read first**: `seed/AXIOM/07_self_reference.md` §8 (boot ritual), then
-   `research-notes/G29_residue.md`, then this file, then
-   `CLAUDE.md`.
-2. **Architecture canonical**: `lean/E213/ARCHITECTURE.md`.
-3. **Pre-merge audit log**: 5 commits at HEAD of branch
-   (Phase 0 baseline tag → Phase 9 verdict).
-4. **Roll-back**: `git tag pre-refactor-snapshot` is at the pre-M14
-   commit; `git reset --hard pre-refactor-snapshot` reverts the
-   entire refactor.
-
-## Verdict
-
-A, B, and follow-up clusters complete on
-`claude/plan-next-task-qBnuS`:
-
-  * `lake build E213` (root) **clean** — every transitively-imported
-    file builds.
-  * `lake build E213.Lens` clean (124/124).
-  * `lake build E213.Lib.Math.CayleyDickson` clean (49/49).
-  * `lake build E213.Lib.Math.DyadicFSM` clean (139/139).
-  * `lake build E213.Lib.Math.Cohomology` clean (228/228).
-  * Padic + ProfiniteSeq + ModNat + Cauchy upstream **all 12/12 PURE**
-    (`#print axioms` ∅).
-
-The original 28-file pre-existing API-drift cluster + the M14-induced
-PatternCatalog + the Padic-axiom B-task are all resolved.
-
-Branch is **READY TO MERGE**.
+Branch **READY for next marathon**.  Solid base intact.
