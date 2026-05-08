@@ -602,9 +602,21 @@ gauge channel**, deepening C3 from "structural emergence" to
     (= order-3 element).  Demonstrates **Sym(3) non-abelian
     structure** explicitly via composition non-commutativity.
     STRICT ∅-AXIOM.
-Step 5+ (full irrep decomposition of Aut on H*(K, Δ⁴)) remains
-open and is plausibly the **largest single structural gap** in
-current 213-Algebra infrastructure.
+  · `AutEdgeOrbits.lean` (Step 5) — **full Sym(3) orbit
+    decomposition** on Edges_K(10), encoded via `EdgePred =
+    Fin 10 → Bool` (Logic.Predicate-style from main #43):
+      O₁ = {0, 1, 2}     (size 3, S-S edges)
+      O₂ = {3, 4, 5}     (size 3, S-T via T=3)
+      O₃ = {6, 7, 8}     (size 3, S-T via T=4)
+      O₄ = {9}           (size 1, T-T edge)
+    Orbit type (3, 3, 3, 1) summing to 10.  Each orbit closed
+    under both generators, orbits cover and are pairwise disjoint.
+    Geometrically classifies edges by their S/T endpoint
+    structure.  STRICT ∅-AXIOM (24/24 PURE).
+Step 6+ (full irrep decomposition of Aut on H*(K, Δ⁴) — orbit-of
+H¹ classes, character table) remains open and is plausibly the
+**largest single structural gap** in current 213-Algebra
+infrastructure.
 
 ### §C4.  Σ-spectral signature theorem
 
@@ -661,7 +673,16 @@ Status: **Steps 1 + 2 + 3 closed** (commits `03b9d77a`, `cf669e54`,
     ζ(2) = π²/6 ≈ 1.64493 → 164,493·10⁻⁵.  Gap |ζ_K(1) − ζ(2)|
     = 11,161·10⁻⁵ ≈ 0.112.  Plus full monotonicity ζ_K(s+1) <
     ζ_K(s) for s = 1, 2, 3.  STRICT ∅-AXIOM (13/13 PURE).
-Step 5+ (Laplacian spectrum on K^(L≥2), prove ζ_K^(L) → ζ(2)
+  · Step 5 (`FractalLevelZetaCoeffSeq.lean`):
+    **eigenvalue multiplicity as `CoeffSeq`** + Information.Bit
+    bracket.  Encodes Spec(Δ_1) on K^(L=1) as `laplacian_spec :
+    CoeffSeq` (= Nat→Nat indexed by eigenvalue, multiplicity
+    values).  Total nonzero multiplicity = 4 (= cochain image
+    rank).  H¹ rank = 8 = 2³ = `bitsAfterBisections 3` carries
+    exactly 3 bits = 1 octal digit (matching SU(3) gluon octet).
+    Uses `GeneratingFunction.CoeffSeq` + `Information.Bit` from
+    main #44 / #42.  STRICT ∅-AXIOM (12/12 PURE).
+Step 6+ (Laplacian spectrum on K^(L≥2), prove ζ_K^(L) → ζ(2)
 as L → 24) open.
 
 References: `LaplacianSpectrum.lean`,

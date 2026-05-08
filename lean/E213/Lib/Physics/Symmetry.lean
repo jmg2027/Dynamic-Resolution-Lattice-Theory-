@@ -1,6 +1,7 @@
 import E213.Lib.Physics.Symmetry.AutAction
 import E213.Lib.Physics.Symmetry.AutEdgeAction
 import E213.Lib.Physics.Symmetry.AutEdgeActionGenerators
+import E213.Lib.Physics.Symmetry.AutEdgeOrbits
 import E213.Lib.Physics.Symmetry.AutKChiral
 import E213.Lib.Physics.Symmetry.GluonChannelInterpretation
 
