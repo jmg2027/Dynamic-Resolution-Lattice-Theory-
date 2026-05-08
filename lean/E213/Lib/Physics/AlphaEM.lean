@@ -8,6 +8,7 @@ import E213.Lib.Physics.AlphaEM.CupRingTrace
 import E213.Lib.Physics.AlphaEM.GradedDecomposition
 import E213.Lib.Physics.AlphaEM.FractalLevelLift
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaSpectrum
+import E213.Lib.Physics.AlphaEM.FractalLevelZetaConvergence
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaBracket
 import E213.Lib.Physics.AlphaEM.GradedFormula
 import E213.Lib.Physics.AlphaEM.GradedFormulaPrecision

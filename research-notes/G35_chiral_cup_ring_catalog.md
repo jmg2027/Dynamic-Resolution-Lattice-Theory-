@@ -608,7 +608,14 @@ Status: **Steps 1 + 2 + 3 closed** (commits `03b9d77a`, `92767b7d`,
   · Step 3 (`TripleProductSurface.lean`): triple product
     Σ_1³ = T⁶ middle signature `(10, 10)` on H³ via T²ⁿ inductive
     at n=3: ½·C(6,3) = ½·20 = 10.  Total rank 20.
-Step 4+ (parametric Σ_g × Σ_h × Σ_k, non-orientable surfaces) open.
+  · Step 4 (`TripleProductSurfaceParametric.lean`):
+    **fully parametric** Σ_g × Σ_h × Σ_k middle H³ signature
+    via triple Künneth:
+      `triple_signature g h k = (4ghk + 2(g+h+k), 4ghk + 2(g+h+k))`.
+    Specific cases verified: (1,1,1)→(10,10), (2,1,1)→(16,16),
+    (2,2,1)→(26,26), (3,2,1)→(36,36), (2,2,2)→(44,44).
+    STRICT ∅-AXIOM (9/9 PURE).
+Step 5+ (non-orientable surfaces, higher-dim products) open.
 
 References: `T2nInductive.lean`, `GenusGSurface.lean`,
 `TensorSignature.lean`.
@@ -632,7 +639,13 @@ Status: **Steps 1 + 2 + 3 closed** (commits `03b9d77a`, `cf669e54`,
   · Step 3 (`FractalLevelZetaSpectrum.lean`): ζ-spectrum on
     K^(L=1) at multiple s — `ζ_K(0) = 8`, `ζ_K(3) ≈ 7,374·10⁻⁵`,
     `ζ_K(4) = 1,736·10⁻⁵`.  Decreasing in s.
-Step 4+ (Laplacian spectrum on K^(L≥2), prove ζ_K^(L) → ζ(2)
+  · Step 4 (`FractalLevelZetaConvergence.lean`):
+    **convergence bracket to ζ(2)**.  Adds ζ_K(1) = 153,332·10⁻⁵
+    (≈1.5333) and ζ_K(2) = 32,554·10⁻⁵.  Continuum target
+    ζ(2) = π²/6 ≈ 1.64493 → 164,493·10⁻⁵.  Gap |ζ_K(1) − ζ(2)|
+    = 11,161·10⁻⁵ ≈ 0.112.  Plus full monotonicity ζ_K(s+1) <
+    ζ_K(s) for s = 1, 2, 3.  STRICT ∅-AXIOM (13/13 PURE).
+Step 5+ (Laplacian spectrum on K^(L≥2), prove ζ_K^(L) → ζ(2)
 as L → 24) open.
 
 References: `LaplacianSpectrum.lean`,
@@ -661,9 +674,16 @@ Status: **Steps 1 + 2 + 3 closed** (commits `f370ba67`, `93b11f18`,
     Probability, Information, Logic, Topology, Multivariable,
     Complex, Measure + ResolutionLimit) all uniform with
     `truncation_grade = 5` (= d).  Uniform-paradigm master ∅-axiom.
-Step 4+ (single graded-ring algebraic object instantiating the
-typeclass with explicit ⊕_k Cochain n k structure) remains open
-as the deeper structural unification.
+  · Step 4 (`Lib/Math/ParadigmDomainGraded.lean`):
+    **explicit shared graded operator**.  Defines
+    `trunc_op (g) := if g ≤ 5 then binom 5 g else 0`.
+    Sequence (1, 5, 10, 10, 5, 1, 0, 0, ...) is identical
+    across all 9 domains; total `Σ_{g=0..5} trunc_op g = 32 = 2⁵`
+    (= |2^Δ⁴| Δ⁴ power-set).  Vanishing beyond grade 5 = d
+    captured structurally.  STRICT ∅-AXIOM (15/15 PURE).
+Step 5+ (full graded-ring algebraic object with cup-product
+multiplication realizing each domain's atom-operation as a
+specific `trunc_op`-driven instance) remains open.
 
 The closure of C6 would be the final structural confirmation
 that 213-Algebra is internally coherent — that the four marathon
