@@ -127,7 +127,6 @@ SEALED_DIRTY_PREFIXES = (
     # via Lean 4 core's well-founded-recursion proof of total termination.
     # Refactor would require building 213-native gcd/lcm/Int primitives —
     # out of scope.  Sealed as Lean-core-boundary by-design.
-    'E213.Lib.Math.Cohomology.Dyadic.LCMClosure',
     'E213.Lens.Lens.Leaves.ModNat',
     'E213.Lib.Math.Irrational.Sqrt2KernelFree',
     # LensCardinality has 5 DIRTY: 3 from Int operations (signedLens,
@@ -139,8 +138,6 @@ SEALED_DIRTY_PREFIXES = (
     'E213.Lens.Lens.Characterisation.Catalog',
     # CardinalityLB.leavesModNat_kernel_neq cascades from ModNat.
     'E213.Lens.Lens.Kernel.CardinalityLB',
-    # ProductFSMPeriod cascades from LCMClosure.
-    'E213.Lib.Math.Cohomology.Dyadic.ProductFSMPeriod',
     # Lens funext-by-design: higher-order Lens equality (Lens (Lens α),
     # dependent function lenses, Raw → Prop kernels) is intrinsically
     # pointwise.  Proving Lens equality requires funext on the combine
