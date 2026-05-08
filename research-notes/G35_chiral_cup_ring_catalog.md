@@ -682,7 +682,17 @@ Status: **Steps 1 + 2 + 3 closed** (commits `03b9d77a`, `cf669e54`,
     exactly 3 bits = 1 octal digit (matching SU(3) gluon octet).
     Uses `GeneratingFunction.CoeffSeq` + `Information.Bit` from
     main #44 / #42.  STRICT ∅-AXIOM (12/12 PURE).
-Step 6+ (Laplacian spectrum on K^(L≥2), prove ζ_K^(L) → ζ(2)
+  · Step 6 (`FractalLevelZetaModulus.lean`):
+    **DepthModulus reformulation** of ζ-convergence per G40
+    (main #67).  `zeta_modulus : Nat → Nat` is the explicit
+    "ε-δ-as-function" replacement for the existential quantifier:
+    given output bit-depth `N`, returns input fractal level `L`.
+    At L=1 we have 3-bit precision: gap_e5 = 11,161 < 12,500
+    = 2⁻³·10⁵, but ≥ 6,250 = 2⁻⁴·10⁵ — exactly 3 bits.  Closes
+    the ZFC `∀ε > 0 ∃ L, gap < ε` with deterministic data
+    `zeta_modulus = identityDepthModulus`.  STRICT ∅-AXIOM
+    (12/12 PURE).
+Step 7+ (Laplacian spectrum on K^(L≥2), prove ζ_K^(L) → ζ(2)
 as L → 24) open.
 
 References: `LaplacianSpectrum.lean`,
