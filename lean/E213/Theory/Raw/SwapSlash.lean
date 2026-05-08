@@ -2,7 +2,7 @@ import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Slash
 
 /-!
-# Firmware.Raw.SwapSlash: compatibility of Raw.swap and Raw.slash
+# Theory.Raw.SwapSlash: compatibility of Raw.swap and Raw.slash
 
 **Theorem**: `Raw.swap (Raw.slash x y h) = Raw.slash (swap x) (swap y) h'`.
 

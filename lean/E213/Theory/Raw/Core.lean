@@ -1,13 +1,10 @@
 /-!
-# Firmware.Raw.Core: canonical-form subtype
+# Theory.Raw.Core: canonical-form subtype
 
 Foundational module — the ordered `Tree` scaffolding lives in
 the sub-namespace `E213.Theory.Internal` so downstream code
 that does `open E213.Theory` does NOT see it.  Sub-modules
-within `Firmware/Raw/` open `E213.Theory.Internal` explicitly.
-
-Split out of monolithic `Raw.lean` () for incremental
-compilation.
+within `Theory/Raw/` open `E213.Theory.Internal` explicitly.
 -/
 
 namespace E213.Theory.Internal

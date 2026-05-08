@@ -1,12 +1,12 @@
 import E213.Theory.Raw.Core
 
 /-!
-# Firmware.Raw.Cmp: lexicographic lemmas on `Tree.cmp`
+# Theory.Internal.Raw.Cmp: lexicographic lemmas on `Tree.cmp`
++ ∅-axiom Bool / Nat helpers (`Bool.and_eq_true_to_pair`,
+`Nat213.max_comm`) used by Slash / Swap / Rec / Levels.
 
 Three support lemmas in `E213.Theory.Internal`, used by
 `Slash`, `Swap`, and `Rec` sub-modules.
-
-Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Theory.Internal

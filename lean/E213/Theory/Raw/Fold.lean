@@ -1,7 +1,7 @@
 import E213.Theory.Raw.Slash
 
 /-!
-# Firmware.Raw.Fold: catamorphism + compatibility with `slash`
+# Theory.Raw.Fold: catamorphism + compatibility with `slash`
 
 The catamorphism `Raw.fold` is the unique homomorphism into
 `(α, combine)` with given base values.  Lens implementations
@@ -16,9 +16,6 @@ ordering (= an encoding artifact, not an axiom).  Such a Lens is a
 **silent leak** violating the axiom.  Every use of `Raw.fold` must
 verify that `combine` is symmetric (∀ u v, combine u v = combine v u).
 The `fold_slash` theorem already documents this symmetry assumption.
-`AUDIT_Lean.md` §5.2(A).
-
-Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Theory.Internal

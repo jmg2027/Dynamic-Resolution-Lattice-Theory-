@@ -1,12 +1,10 @@
 import E213.Theory.Internal.Raw.Cmp
 
 /-!
-# Firmware.Raw.Swap: the swap automorphism + involutivity
+# Theory.Raw.Swap: the swap automorphism + involutivity
 
 Swap preserves canonicality by re-ordering children after
 recursive swap.  `Raw.swap_swap` is Theorem 3.2 of the paper.
-
-Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Theory.Internal

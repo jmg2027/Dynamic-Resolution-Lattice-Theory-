@@ -2,10 +2,8 @@ import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Fold
 
 /-!
-# Firmware.Raw.Levels: swap-depth / swap-leaves invariance
+# Theory.Raw.Levels: swap-depth / swap-leaves invariance
 + fold-bridges into depth / leaves observables.
-
-Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Theory.Internal

@@ -4,12 +4,10 @@ import E213.Theory.Raw.Hom
 import E213.Theory.Internal.Int213
 
 /-!
-# Firmware.Raw.Signed: fold_signed_swap — swap as negation
+# Theory.Raw.Signed: fold_signed_swap — swap as negation
 
 The signed Lens (base_a=1, base_b=-1, combine=+) realises swap
-as integer negation.  Used by Hypervisor / App layers.
-
-Extracted from monolithic `Raw.lean` ().
+as integer negation.  Used by Lens / App layers.
 -/
 
 namespace E213.Theory.Internal
