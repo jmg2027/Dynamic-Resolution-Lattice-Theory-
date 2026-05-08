@@ -523,16 +523,19 @@ Status: **Steps 1 + 2 + 3 + 4 closed** (commits `94701e1b`,
   · Step 4 (`AtomicConstantsParametric.lean`):
     **fully general ∀ m : Nat at fixed n = 2** — no bounds.
     Proves `c2b_n2_iff_m3 : ∀ m : Nat, constraint_C2b m 2 = true ↔ m = 3`
-    by: (a) `msq_gt_2m_p3` — `m·m > 2m + 3` for m ≥ 4 via Nat
-    monotonicity (`Nat.mul_le_mul_left/right` chain), (b)
-    Nat-sub-aware bridge `mp2_sq_sub_1_lt_msub1_mul3` showing
-    `(m+2)² − 1 < (m² − 1)·3`, (c) propext-free Bool refutation.
-    No `omega`, no `ring`, no Mathlib — pure Nat213/Omega213 +
-    `sq_of_add` polynomial identity.  STRICT ∅-AXIOM (15+ PURE).
-Step 5+ (parametric ∀ m at fixed n = 3, then ∀ (m, n) free)
-remains open — n = 3 needs the quadratic 7m² − 6m − 16 = 0
-to have only m = 2 as Nat solution; same Nat-monotonicity
-machinery should suffice.
+    via Nat-monotonicity (`msq_gt_2m_p3 : 2m + 3 < m·m for m ≥ 4`)
+    + Nat-sub bridge.  STRICT ∅-AXIOM (16/16 PURE).
+  · Step 5 (`AtomicConstantsParametricN3.lean`):
+    **fully general ∀ m : Nat at fixed n = 3** — no bounds.
+    Proves `c2b_n3_iff_m2 : ∀ m : Nat, constraint_C2b m 3 = true ↔ m = 2`
+    via the same machinery: `seven_msq_gt_6m_p17 : 6m+17 < 7·m² for m ≥ 3`
+    (closes the quadratic `7m² − 6m − 16 = 0`).  STRICT ∅-AXIOM
+    (16/16 PURE).
+Step 6+ (full ∀ (m, n) free) remains open: combine Step 4 (n=2),
+Step 5 (n=3), `constraint_C2b` symmetry (m ↔ n via expand
+`(m+n)² = (n+m)²` + `Nat.mul_comm`), and the diagonal case
+m ≥ 3 ∧ n ≥ 3 ⟹ false (provable via AM-GM
+`2mn ≤ m² + n²` + Nat-monotonicity bound `m²·n² ≥ 4(m² + n²)`).
 
 References: `Lib/Math/ResolutionLimit.lean`,
 `AlphaEM/ChannelCohomologyLoss.lean`.
