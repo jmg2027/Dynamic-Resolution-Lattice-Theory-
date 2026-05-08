@@ -1,0 +1,95 @@
+import E213.Lib.Math.UniverseChain.RawRecurrence
+
+/-!
+# Raw enumeration: general theorem |S_n| = rawCount n (∅-axiom)
+
+General recurrence proof: actual canonical-Tree enumeration length
+matches `rawCount n` for ALL n.
+
+Avoids Lean-core `List.length_append` and `List.length_map` (which
+leak `propext`); uses term-mode replacements `myLengthAppend` and
+`myLengthMap`.
+-/
+
+namespace E213.Lib.Math.UniverseChain.RawEnumeration
+
+open E213.Theory.Internal (Tree)
+open E213.Lib.Math.UniverseChain.RawRecurrence (choose2)
+
+/-- ∅-axiom replacement for `List.length_append` (reversed form
+    avoids `0 + n` reduction issue). -/
+theorem myLengthAppend : ∀ (L1 L2 : List α),
+    (L1 ++ L2).length = L2.length + L1.length
+  | [], _ => rfl
+  | _ :: rest, L2 => congrArg (· + 1) (myLengthAppend rest L2)
+
+/-- ∅-axiom replacement for `List.length_map`. -/
+theorem myLengthMap : ∀ (L : List α) (f : α → β),
+    (L.map f).length = L.length
+  | [], _ => rfl
+  | _ :: rest, f => congrArg (· + 1) (myLengthMap rest f)
+
+/-- `choose2 (n+1) = n + choose2 n` (bridge for clean recurrence). -/
+theorem choose2_succ (n : Nat) : choose2 (n + 1) = n + choose2 n := by
+  match n with
+  | 0 => rfl
+  | k + 1 =>
+    show choose2 (k + 1) + (k + 1) = (k + 1) + choose2 (k + 1)
+    exact Nat.add_comm _ _
+
+/-- For each (x, y) pair where x is earlier than y, generate
+    `Tree.slash x y`. -/
+def newSlashes : List Tree → List Tree
+  | [] => []
+  | x :: rest => rest.map (Tree.slash x) ++ newSlashes rest
+
+/-- ★ `newSlashes` length = `choose2` of input length. -/
+theorem newSlashes_length : ∀ L : List Tree,
+    (newSlashes L).length = choose2 L.length
+  | [] => rfl
+  | x :: rest => by
+    show (rest.map (Tree.slash x) ++ newSlashes rest).length
+       = choose2 (rest.length + 1)
+    rw [myLengthAppend, myLengthMap, newSlashes_length, choose2_succ]
+    exact Nat.add_comm _ _
+
+/-- Recursive enumeration of canonical Trees at depth ≤ n. -/
+def enumTreeDepth : Nat → List Tree
+  | 0 => [Tree.a, Tree.b]
+  | n + 1 => [Tree.a, Tree.b] ++ newSlashes (enumTreeDepth n)
+
+theorem enumTreeDepth_succ (n : Nat) :
+    enumTreeDepth (n + 1) = [Tree.a, Tree.b] ++ newSlashes (enumTreeDepth n) :=
+  rfl
+
+/-- ★★★ **General theorem**: enumeration length = `rawCount n`
+    for all n. -/
+theorem enumTreeDepth_length (n : Nat) :
+    (enumTreeDepth n).length
+      = E213.Lib.Math.UniverseChain.RawRecurrence.rawCount n := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    show ([Tree.a, Tree.b] ++ newSlashes (enumTreeDepth k)).length
+       = 2 + choose2 (E213.Lib.Math.UniverseChain.RawRecurrence.rawCount k)
+    rw [myLengthAppend, newSlashes_length, ih]
+    exact Nat.add_comm _ _
+
+/-- ★ Concrete checks. -/
+theorem enumLength_0 : (enumTreeDepth 0).length = 2 := by decide
+theorem enumLength_1 : (enumTreeDepth 1).length = 3 := by decide
+theorem enumLength_2 : (enumTreeDepth 2).length = 5 := by decide
+theorem enumLength_3 : (enumTreeDepth 3).length = 12 := by decide
+
+/-- ★★★ **Capstone**: general recurrence + low-n checks. -/
+theorem enumeration_capstone :
+    (∀ n, (enumTreeDepth n).length
+        = E213.Lib.Math.UniverseChain.RawRecurrence.rawCount n)
+    ∧ (enumTreeDepth 0).length = 2
+    ∧ (enumTreeDepth 1).length = 3
+    ∧ (enumTreeDepth 2).length = 5
+    ∧ (enumTreeDepth 3).length = 12 :=
+  ⟨enumTreeDepth_length, enumLength_0, enumLength_1,
+   enumLength_2, enumLength_3⟩
+
+end E213.Lib.Math.UniverseChain.RawEnumeration
