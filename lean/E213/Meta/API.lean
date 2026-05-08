@@ -1,12 +1,11 @@
 import E213.Meta.SelfRecognising
 import E213.Meta.AxiomMinimalityCapstone
-import E213.Meta.Universal
 import E213.Meta.UniversalLens
 
 /-! # Meta layer public API
 
-  Single import for downstream consumers.  Bundles the four
-  pillars of the framework metatheory:
+  Single import for downstream consumers.  Bundles the three
+  formal pillars of the framework metatheory:
 
   ## ME-1 — SelfRecognising codomain hierarchy
 
@@ -30,17 +29,7 @@ import E213.Meta.UniversalLens
     * `Meta.AxiomMinimality.*` — 4-case minimality proof
     * `Meta.AxiomMinimalityCapstone.raw_minimality_capstone`
 
-  ## ME-3 — Universal-Lens metatheorems
-
-  "Every framework is a Lens" — formal claim + image
-  factorisation + reflection.
-
-  Public names:
-    * `Meta.Universal.LensClaim`
-    * `Meta.Universal.MorphismFactor`
-    * `Meta.Universal.Reflection`
-
-  ## ME-4 — UniversalLens concrete witnesses
+  ## ME-3 — UniversalLens concrete witnesses
 
   Concrete universal-Lens instances at codomains
   {ℕ², ℕ³, ℕ⁴, Q213, Q213³} + padding theorems +
@@ -60,9 +49,8 @@ import E213.Meta.UniversalLens
       `NativeGuard`, `PureGuard`).  Tactic API is cross-cutting;
       consumers import on demand.
 
-    * `Meta.BitPatternUniqueness`, `Meta.RawInductionDemo`,
-      `Meta.CUniquenessBridge` — supporting lemmas used by ME-2/4
-      but not part of the stable surface.
+    * `Meta.BitPatternUniqueness` — supporting lemma used by
+      `UniversalLens/Nat2Inj`; not part of the stable surface.
 
   ## Layered position
 
