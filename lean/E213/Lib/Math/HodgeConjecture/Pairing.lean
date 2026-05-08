@@ -17,6 +17,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.TensorSignature
 import E213.Lib.Math.HodgeConjecture.Pairing.GenusGSurface
 import E213.Lib.Math.HodgeConjecture.Pairing.SignatureMetaTheorem
 import E213.Lib.Math.HodgeConjecture.Pairing.ProductSurfaceSignature
+import E213.Lib.Math.HodgeConjecture.Pairing.TripleProductSurface
 
 /-! Spec-as-code entry point for `E213.Lib.Math.HodgeConjecture.Pairing`.
 

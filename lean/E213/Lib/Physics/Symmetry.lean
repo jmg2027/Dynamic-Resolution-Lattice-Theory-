@@ -1,4 +1,5 @@
 import E213.Lib.Physics.Symmetry.AutAction
+import E213.Lib.Physics.Symmetry.AutEdgeAction
 import E213.Lib.Physics.Symmetry.AutKChiral
 import E213.Lib.Physics.Symmetry.GluonChannelInterpretation
 
