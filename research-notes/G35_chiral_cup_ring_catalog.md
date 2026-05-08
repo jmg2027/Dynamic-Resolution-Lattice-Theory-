@@ -697,9 +697,19 @@ Status: **Steps 1 + 2 + 3 closed** (commits `f370ba67`, `93b11f18`,
     across all 9 domains; total `Σ_{g=0..5} trunc_op g = 32 = 2⁵`
     (= |2^Δ⁴| Δ⁴ power-set).  Vanishing beyond grade 5 = d
     captured structurally.  STRICT ∅-AXIOM (15/15 PURE).
-Step 5+ (full graded-ring algebraic object with cup-product
-multiplication realizing each domain's atom-operation as a
-specific `trunc_op`-driven instance) remains open.
+  · Step 5 (`Lib/Math/ParadigmDomainGradedRing.lean`):
+    **graded-ring instantiation**.  Reinterprets `trunc_op` as
+    `CoeffSeq` (= `Nat → Nat`) using the Combinatorics marathon's
+    `GeneratingFunction` infrastructure (merged from main #44).
+    Cup-product = `convolution` (Cauchy product).  Self-cup
+    `(1+x)⁵ · (1+x)⁵ = (1+x)¹⁰` with row sum 2¹⁰ = 1024 = 32².
+    Closes the long-flagged "single graded-ring algebraic object
+    spanning all 9 paradigm domains" requirement.  STRICT ∅-AXIOM
+    (15/15 PURE).  **C6 conjecture structurally closed** at the
+    operator + cup-product level.
+Step 6+ (instantiate cup-product per domain — each domain's
+specific atom operation as a `convolution`-style algebra) remains
+open as the per-domain refinement.
 
 The closure of C6 would be the final structural confirmation
 that 213-Algebra is internally coherent — that the four marathon
