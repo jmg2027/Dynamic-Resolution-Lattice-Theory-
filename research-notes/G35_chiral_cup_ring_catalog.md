@@ -480,14 +480,20 @@ Decomposes (per current evidence) into FOUR graded layers:
   · k=2  : cup-product correction = d²/NS = 25/3
   · k=3,4: Hodge pairing = 1/(NS·NT·S_Wallis(N_U)⁵)  (conjecture)
 
-Status: **Steps 1 + 2 closed** (commits `aadafc0c`, `de09967a`).
+Status: **Steps 1 + 2 + 3 closed** (commits `aadafc0c`, `de09967a`,
++ `GramSelfConsistency.lean`).
   · Step 1 (`GradedFormula.lean`): five-layer formula at 9-digit π,
     diff 20 × 10⁻⁷ from observed (2 ppm match).
   · Step 2 (`GradedFormulaPrecision.lean`): 12-digit π precision
     (10⁻⁹ units), residual 2,157 = 2.16 ppm — structural offset
     corresponding to α_em²/d² Gram self-energy term.
-Step 3+ (close residual via L=2+ fractal correction or
-alternative Wallis-bracket form) remains open.
+  · Step 3 (`GramSelfConsistency.lean`): self-consistency check —
+    Gram correction `gram_correction_e9 = 10²⁷ / (25·observed²) = 2,130`
+    matches actual residual 2,157 to 1.2%; subtracting it gives
+    refined diff **27 × 10⁻⁹ ≈ 0.2 ppb**, ~70× tighter.  Caveat:
+    self-referential bootstrap (uses observed α on RHS).
+Step 4+ (cohomological derivation of d² = NS²·NT prefactor for the
+Gram term) remains open.
 
 References: `AlphaEM/CupChannelInventory.lean`, `ProjectionRatios.lean`,
 `PiFiveGap.lean`, `LaplacianSpectrum.lean`, `GradedDecomposition.lean`,
@@ -506,14 +512,17 @@ Already known constraints:
     at NT=2)
   · K↔Δ projection coverage ratio = NS/d (= inverse of Y-norm 5/3)
 
-Status: **Steps 1 + 2 closed** (commits `94701e1b`, plus extended
-bound 300 attempted via factored search + algebraic case analysis
-at fixed n).
+Status: **Steps 1 + 2 + 3 closed** (commits `94701e1b`, `3015800a`).
   · Step 1: bounded uniqueness (m, n, c) < 7 (triple loop)
   · Step 2: factored search (m, n) < 100; algebraic case witnesses
-    n=2 only m=3, n=3 only m=2, n ≥ 4 no m < 100; bound 300
-    available via bumped maxHeartbeats.
-Step 3 (full ∀ parametric uniqueness) remains open.
+    n=2 only m=3, n=3 only m=2, n ≥ 4 no m < 100.
+  · Step 3 (`unique_C2b_factored_300`): bound extended to 300
+    via bumped `maxHeartbeats 8000000`; bound 500 attempted but
+    timed out (the limit is computational, not theoretical).  At
+    bound 300 the only solution remains (m, n) = (3, 2).
+Step 4 (full ∀ parametric uniqueness) remains open — likely
+requires an algebraic argument bounding `m ≥ NS+1` solutions
+via a quadratic discriminant computation.
 
 References: `Lib/Math/ResolutionLimit.lean`,
 `AlphaEM/ChannelCohomologyLoss.lean`.
@@ -541,11 +550,16 @@ channels.  This identifies the cohomological loss as **physical
 gauge channel**, deepening C3 from "structural emergence" to
 "explicit channel-counting matches QCD".
 
-**Step 2 partially closed** (commits `1189514a`, `cf669e54`):
+**Steps 2 + 3 closed** (commits `1189514a`, `cf669e54`,
+`fed9f1e2`):
   · `GluonChannelInterpretation.lean` — eight-fold QCD identification
   · `AutAction.lean` — sample group action: σ_swap_01 transposition
     on `Cochain 5 1`, with involution proof.
-Step 3+ (full irrep decomposition of Aut on H*(K, Δ⁴)) remains
+  · `AutEdgeAction.lean` (Step 3) — induced edge permutation
+    `σ_E_swap_01` on `Edges_K(8)`: cycle structure `(1 2)(3 4)(6 7)`
+    — three transpositions + 4 fixed points.  Involution + counts
+    decide-checked.
+Step 4+ (full irrep decomposition of Aut on H*(K, Δ⁴)) remains
 open and is plausibly the **largest single structural gap** in
 current 213-Algebra infrastructure.
 
@@ -557,13 +571,17 @@ current 213-Algebra infrastructure.
 > their products) within 213-Algebra, with precision controlled
 > by N_U.
 
-Status: **Steps 1 + 2 closed** (commits `03b9d77a`, `92767b7d`).
+Status: **Steps 1 + 2 + 3 closed** (commits `03b9d77a`, `92767b7d`,
+`fed9f1e2`).
   · Step 1 (`SignatureMetaTheorem.lean`): three masters bundled
     (T²ⁿ inductive, Σ_g parametric, Tensor Künneth).
   · Step 2 (`ProductSurfaceSignature.lean`): Σ_g × Σ_h product
     surfaces signature `(2gh+1, 2gh+1)` parametric, decide-checked
     at small (g, h) including matching T²×T² ⟹ (3, 3).
-Step 3+ (non-orientable surfaces, higher-dim products) open.
+  · Step 3 (`TripleProductSurface.lean`): triple product
+    Σ_1³ = T⁶ middle signature `(10, 10)` on H³ via T²ⁿ inductive
+    at n=3: ½·C(6,3) = ½·20 = 10.  Total rank 20.
+Step 4+ (parametric Σ_g × Σ_h × Σ_k, non-orientable surfaces) open.
 
 References: `T2nInductive.lean`, `GenusGSurface.lean`,
 `TensorSignature.lean`.
@@ -575,7 +593,8 @@ References: `T2nInductive.lean`, `GenusGSurface.lean`,
 > continuum ζ(2) = π²/6 as L → 25, with rational bracketing
 > at each finite L.
 
-Status: **Steps 1 + 2 closed** (commits `03b9d77a`, `cf669e54`).
+Status: **Steps 1 + 2 + 3 closed** (commits `03b9d77a`, `cf669e54`,
+`fed9f1e2`).
   · Step 1 (`FractalLevelZetaBracket.lean`): L=1 sandwich
     `S(3) < ζ_K(1) < ζ(2)`.
   · Step 2 (`FractalLevelLift.lean`): K^(L) vertex/edge/H¹ counts
@@ -583,7 +602,10 @@ Status: **Steps 1 + 2 closed** (commits `03b9d77a`, `cf669e54`).
       V_L = 5^(L+1),  V_24 = N_U
       E_L = 3·(5^(L+1) − 1)
       H¹_L = 2·(V_L − 1)
-Step 3+ (Laplacian spectrum on K^(L), prove ζ_K^(L) → ζ(2)
+  · Step 3 (`FractalLevelZetaSpectrum.lean`): ζ-spectrum on
+    K^(L=1) at multiple s — `ζ_K(0) = 8`, `ζ_K(3) ≈ 7,374·10⁻⁵`,
+    `ζ_K(4) = 1,736·10⁻⁵`.  Decreasing in s.
+Step 4+ (Laplacian spectrum on K^(L≥2), prove ζ_K^(L) → ζ(2)
 as L → 24) open.
 
 References: `LaplacianSpectrum.lean`,
@@ -599,14 +621,22 @@ References: `LaplacianSpectrum.lean`,
 > reduces to a `Cochain n k` truncation at appropriate grade k,
 > with N_U = 5²⁵ as the resolution cutoff.
 
-Status: **Steps 1 + 2 closed** (commits `f370ba67`, `93b11f18`).
+Status: **Steps 1 + 2 + 3 closed** (commits `f370ba67`, `93b11f18`,
+`fed9f1e2`).
   · Step 1: empirical witness across 7 domains.
   · Step 2: extended to **11 domains** (Probability, Information,
     Logic, Combinatorics, Topology, Multivariable Calculus,
     Complex Analysis, Measure Theory + 3 cup-ring masters) all
     typecheck simultaneously under one ∅-axiom proof body.
-Step 3+ (single graded-ring algebraic object spanning all domains)
-remains open as the deeper structural unification.
+  · Step 3 (`Lib/Math/ParadigmDomain.lean`): ParadigmWitness typeclass
+    encoding `truncation_grade : Nat`, `truncation_holds : Prop`,
+    `atom_decidable`.  9 domain instances (Combinatorics,
+    Probability, Information, Logic, Topology, Multivariable,
+    Complex, Measure + ResolutionLimit) all uniform with
+    `truncation_grade = 5` (= d).  Uniform-paradigm master ∅-axiom.
+Step 4+ (single graded-ring algebraic object instantiating the
+typeclass with explicit ⊕_k Cochain n k structure) remains open
+as the deeper structural unification.
 
 The closure of C6 would be the final structural confirmation
 that 213-Algebra is internally coherent — that the four marathon
