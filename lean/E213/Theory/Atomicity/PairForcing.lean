@@ -1,4 +1,5 @@
 import E213.Theory.Atomicity.Five
+import E213.Term.Tactic.Nat213
 import E213.Term.Tactic.Mod213
 
 /-!
@@ -11,24 +12,24 @@ This file strengthens `E213.Theory.Atomicity.Five.atomic_iff_five` to the
       the count of atomic decompositions equals 1
       ⟺ (p, q) = (2, 3).
 
+## ∅-axiom note (2026-05)
+
+The original proof used `omega` on `Nat.div` predicates, which leaks
+`propext` and `Quot.sound` through Lean-core lemmas like
+`Nat.div_add_mod`, `Nat.div_lt_iff_lt_mul`, `Nat.le_div_iff_mul_le`.
+This file rewrites the count formula via a *structurally recursive*
+`half : Nat → Nat` (peel off 2 at a time), bypassing `Nat.div`
+entirely.  All theorems below verify `#print axioms` empty.
+
 ## The count formula
 
 For any 2 ≤ p < q, the *atomic candidates* are pairs (a, b)
 with both odd positive, a < q, and b < p. The number of such
-pairs is
-```
-  count(p, q) = ⌊p/2⌋ · ⌊q/2⌋.
-```
-This count equals 1 iff both `⌊p/2⌋ = 1` and `⌊q/2⌋ = 1`, iff
-`p, q ∈ {2, 3}`. Combined with `p < q`, the unique choice is
-`(p, q) = (2, 3)`.
-
-Connection to Atomic: the (2, 3) case recovers
-`E213.Theory.Atomicity.Five.atomic_iff_five`.
+pairs is `count(p, q) = half(p) · half(q)` (= ⌊p/2⌋ · ⌊q/2⌋
+mathematically).  This count equals 1 iff `(p, q) = (2, 3)`.
 -/
 
 namespace E213.Theory.Atomicity.PairForcing
-open Nat
 
 /-- n decomposes as p*a + q*b. -/
 def Decomp (p q n a b : Nat) : Prop := n = p * a + q * b
@@ -43,10 +44,22 @@ def Atomic (p q n : Nat) : Prop :=
   ∃ a b, Decomp p q n a b ∧ IsAlive a b ∧
          ∀ a' b', Decomp p q n a' b' → a' = a ∧ b' = b
 
+/-- Floor-half via structural recursion (∅-axiom replacement for `/2`). -/
+def half : Nat → Nat
+  | 0 => 0
+  | 1 => 0
+  | n + 2 => half n + 1
+
+theorem half_step (n : Nat) : half (n + 2) = half n + 1 := rfl
+theorem half_zero : half 0 = 0 := rfl
+theorem half_one  : half 1 = 0 := rfl
+theorem half_two  : half 2 = 1 := rfl
+theorem half_three: half 3 = 1 := rfl
+
 /-- Count of atomic candidate pairs (a, b):
     a odd positive, a < q; b odd positive, b < p.
-    Equals ⌊p/2⌋ · ⌊q/2⌋. -/
-def count (p q : Nat) : Nat := (p / 2) * (q / 2)
+    Equals half(p) · half(q). -/
+def count (p q : Nat) : Nat := half p * half q
 
 -- Sanity checks.
 example : count 2 3 = 1 := rfl
@@ -55,94 +68,134 @@ example : count 4 5 = 4 := rfl
 example : count 5 7 = 6 := rfl
 
 end E213.Theory.Atomicity.PairForcing
--- ═══ Core arithmetic theorem ═══
+-- ═══ Core arithmetic helpers ═══
 
 namespace E213.Theory.Atomicity.PairForcing
-/-- Helper: in ℕ, `a * b = 1` with `a ≥ 1` and `b ≥ 1` forces `a = 1 ∧ b = 1`. -/
+
+/-- `a * b = 1` with `1 ≤ a` and `1 ≤ b` forces `a = 1 ∧ b = 1`.
+    ∅-axiom replacement for the original omega-based proof. -/
 private theorem mul_eq_one_of_pos (a b : Nat) (ha : 1 ≤ a) (hb : 1 ≤ b)
     (h : a * b = 1) : a = 1 ∧ b = 1 := by
   refine ⟨?_, ?_⟩
   · cases a with
-    | zero => omega
+    | zero => exact absurd ha (by decide)
     | succ n =>
       cases n with
       | zero => rfl
       | succ m =>
         exfalso
         have hge : 2 * b ≤ (m + 2) * b :=
-          Nat.mul_le_mul_right b (by omega : 2 ≤ m + 2)
-        have : 2 * b ≤ 1 := h ▸ hge
-        omega
+          Nat.mul_le_mul_right b (Nat.le_add_left 2 m)
+        have hle : 2 * b ≤ 1 := h ▸ hge
+        have h2b : 2 ≤ 2 * b := Nat.mul_le_mul_left 2 hb
+        exact absurd (Nat.le_trans h2b hle) (by decide)
   · cases b with
-    | zero => omega
+    | zero => exact absurd hb (by decide)
     | succ n =>
       cases n with
       | zero => rfl
       | succ m =>
         exfalso
         have hge : a * 2 ≤ a * (m + 2) :=
-          Nat.mul_le_mul_left a (by omega : 2 ≤ m + 2)
-        have : a * 2 ≤ 1 := h ▸ hge
-        omega
+          Nat.mul_le_mul_left a (Nat.le_add_left 2 m)
+        have hle : a * 2 ≤ 1 := h ▸ hge
+        have h2a : 2 ≤ a * 2 := Nat.mul_le_mul_right 2 ha
+        exact absurd (Nat.le_trans h2a hle) (by decide)
 
-/-- Arithmetic fact: ⌊p/2⌋ = 1 iff p ∈ {2, 3}, for p ≥ 2. -/
-private theorem div_two_eq_one_iff (p : Nat) (hp : 2 ≤ p) :
-    p / 2 = 1 ↔ p = 2 ∨ p = 3 := by
-  constructor
-  · intro h; omega
-  · rintro (rfl | rfl) <;> rfl
+/-- For `p ≥ 2`, `half p ≥ 1`. -/
+private theorem half_pos_of_ge_two (p : Nat) (hp : 2 ≤ p) : 1 ≤ half p := by
+  cases p with
+  | zero => exact absurd hp (by decide)
+  | succ n =>
+    cases n with
+    | zero => exact absurd hp (by decide)
+    | succ m =>
+      -- half (m + 2) = half m + 1 ≥ 1
+      show 1 ≤ half m + 1
+      exact Nat.le_add_left 1 (half m)
+
+/-- Forward: `half p = 1 → p = 2 ∨ p = 3`.  Term-mode recursion;
+    contradiction at `n + 4` via inequality `2 ≤ half n + 2` (avoids
+    `Nat.succ.inj` which leaks `propext`). -/
+private theorem half_eq_one_imp : ∀ (p : Nat), half p = 1 → p = 2 ∨ p = 3
+  | 0, h => absurd h (by decide)
+  | 1, h => absurd h (by decide)
+  | 2, _ => Or.inl rfl
+  | 3, _ => Or.inr rfl
+  | n + 4, h =>
+    absurd (h ▸ Nat.le_add_left 2 (half n) : (2 : Nat) ≤ 1) (by decide)
+
+/-- Backward: `p = 2 ∨ p = 3 → half p = 1`. -/
+private theorem half_imp_one_or : ∀ (p : Nat), p = 2 ∨ p = 3 → half p = 1
+  | _, Or.inl rfl => rfl
+  | _, Or.inr rfl => rfl
+
+/-- `half p = 1 ↔ p = 2 ∨ p = 3`. -/
+theorem half_eq_one_iff (p : Nat) : half p = 1 ↔ p = 2 ∨ p = 3 :=
+  ⟨half_eq_one_imp p, half_imp_one_or p⟩
 
 end E213.Theory.Atomicity.PairForcing
 -- ═══ Main theorems ═══
 
 namespace E213.Theory.Atomicity.PairForcing
-/-- **Key arithmetic theorem.** For coprime `(p, q)` with `2 ≤ p < q`,
-    `count(p, q) = 1` iff `(p, q) = (2, 3)`. -/
+
+/-- **Key arithmetic theorem.** For `2 ≤ p < q`, `count(p, q) = 1`
+    iff `(p, q) = (2, 3)`.  (Coprimality is *implicit* at `(2, 3)`
+    since `gcd 2 3 = 1`; an explicit `Nat.gcd p q = 1` parameter
+    would leak `propext` through the `Nat.gcd` definition, so we
+    drop it.) -/
 theorem count_eq_one_iff
-    (p q : Nat) (hp : 2 ≤ p) (hpq : p < q) (hcop : Nat.gcd p q = 1) :
+    (p q : Nat) (hp : 2 ≤ p) (hpq : p < q) :
     count p q = 1 ↔ (p = 2 ∧ q = 3) := by
-  unfold count
-  have hq : 2 ≤ q := by omega
-  have hp_pos : 1 ≤ p / 2 := by omega
-  have hq_pos : 1 ≤ q / 2 := by omega
+  show half p * half q = 1 ↔ (p = 2 ∧ q = 3)
+  have hq : 2 ≤ q := Nat.le_trans hp (Nat.le_of_lt hpq)
+  have hp_pos : 1 ≤ half p := half_pos_of_ge_two p hp
+  have hq_pos : 1 ≤ half q := half_pos_of_ge_two q hq
   constructor
   · intro h
     obtain ⟨hp2, hq2⟩ := mul_eq_one_of_pos _ _ hp_pos hq_pos h
-    have hp_cases : p = 2 ∨ p = 3 := (div_two_eq_one_iff p hp).mp hp2
-    have hq_cases : q = 2 ∨ q = 3 := (div_two_eq_one_iff q hq).mp hq2
-    -- p < q + p, q ∈ {2, 3} → (p, q) = (2, 3)
-    rcases hp_cases with rfl | rfl <;> rcases hq_cases with rfl | rfl
-    · exact absurd hpq (by omega)       -- (2, 2) : p < q fails
-    · exact ⟨rfl, rfl⟩                   -- (2, 3) : ✓
-    · exact absurd hpq (by omega)       -- (3, 2) : p < q fails
-    · exact absurd hpq (by omega)       -- (3, 3) : p < q fails
-  · rintro ⟨rfl, rfl⟩
-    rfl
+    have hp_cases : p = 2 ∨ p = 3 := (half_eq_one_iff p).mp hp2
+    have hq_cases : q = 2 ∨ q = 3 := (half_eq_one_iff q).mp hq2
+    cases hp_cases with
+    | inl hp_eq =>
+      cases hq_cases with
+      | inl hq_eq =>
+        subst hp_eq; subst hq_eq; exact absurd hpq (by decide)
+      | inr hq_eq =>
+        subst hp_eq; subst hq_eq; exact ⟨rfl, rfl⟩
+    | inr hp_eq =>
+      cases hq_cases with
+      | inl hq_eq =>
+        subst hp_eq; subst hq_eq; exact absurd hpq (by decide)
+      | inr hq_eq =>
+        subst hp_eq; subst hq_eq; exact absurd hpq (by decide)
+  · intro h
+    obtain ⟨hp_eq, hq_eq⟩ := h
+    subst hp_eq; subst hq_eq; rfl
 
 end E213.Theory.Atomicity.PairForcing
+
 -- ═══ Connection to Atomic (bridge to §6.3) ═══
 
 namespace E213.Theory.Atomicity.PairForcing
+
 /-- The specialization `(p, q) = (2, 3)` of `Atomic` coincides with
-    `E213.Theory.Atomicity.Five.Atomic`. -/
+    `E213.Theory.Atomicity.Five.Atomic` definitionally. -/
 theorem atomic_23_eq (n : Nat) :
-    Atomic 2 3 n ↔ E213.Theory.Atomicity.Five.Atomic n := by
-  unfold Atomic E213.Theory.Atomicity.Five.Atomic Decomp E213.Theory.Atomicity.Five.Decomp
-         IsAlive E213.Theory.Atomicity.Five.IsAlive
-  rfl
+    Atomic 2 3 n ↔ E213.Theory.Atomicity.Five.Atomic n := Iff.rfl
 
 /-- **Main connection.** For the unique coprime pair `(2, 3)`,
     `Atomic 2 3 n ↔ n = 5`. -/
-theorem atomic_23_iff_five (n : Nat) : Atomic 2 3 n ↔ n = 5 := by
-  rw [atomic_23_eq]
-  exact E213.Theory.Atomicity.Five.atomic_iff_five n
+theorem atomic_23_iff_five (n : Nat) : Atomic 2 3 n ↔ n = 5 :=
+  E213.Theory.Atomicity.Five.atomic_iff_five n
 
 /-- **Pair Forcing Theorem (paper §6 core).**
-    For coprime `(p, q)` with `2 ≤ p < q`, the pair has a unique
-    atomic vertex count iff it is `(2, 3)`, and that count is `5`. -/
+    For `2 ≤ p < q`, the pair has a unique atomic candidate count
+    iff it is `(2, 3)` (which is the unique coprime pair in this
+    range). -/
 theorem pair_forcing
-    (p q : Nat) (hp : 2 ≤ p) (hpq : p < q) (hcop : Nat.gcd p q = 1) :
+    (p q : Nat) (hp : 2 ≤ p) (hpq : p < q) :
     count p q = 1 ↔ (p = 2 ∧ q = 3) :=
-  count_eq_one_iff p q hp hpq hcop
+  count_eq_one_iff p q hp hpq
 
 end E213.Theory.Atomicity.PairForcing

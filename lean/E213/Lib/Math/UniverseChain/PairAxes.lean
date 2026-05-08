@@ -1,5 +1,6 @@
 import E213.Lib.Math.UniverseChain.Decomposition
 import E213.Lib.Physics.Simplex.Counts
+import E213.Theory.Atomicity.PairForcing
 
 /-!
 # Step 3 — Two axes of sizes 3 and 2 (∅-axiom)
@@ -16,13 +17,12 @@ which already pins them as `Nat` values.  No physics meaning is
 imported here — the names are just labels for the two atomic
 pieces of the unique decomposition.
 
-The single ∅-axiom fact at this layer: **NS + NT = d**.  The
-*uniqueness* statement (that the pair `(p, q) = (2, 3)` is the
-only coprime pair admitting a single atomic decomposition) lives
-in `Theory.Atomicity.PairForcing.lean`, which currently leaks
-`propext` via `omega`.  We record only the clean `partition_sum`
-identity here and treat full pair forcing as a separate (later)
-∅-axiom marathon.
+Two ∅-axiom facts at this layer:
+  * **partition_sum**: `NS + NT = d` (3 + 2 = 5).
+  * **pair_forcing**: `(p, q) = (2, 3)` is the unique pair with
+    `2 ≤ p < q` and `count p q = 1` (uniqueness of the candidate
+    count).  Cleaned to ∅-axiom 2026-05 by replacing `Nat.div`
+    with a structural `half : Nat → Nat`.
 -/
 
 namespace E213.Lib.Math.UniverseChain.PairAxes
@@ -49,5 +49,11 @@ theorem three_plus_two_eq_five : (3 : Nat) + 2 = 5 := rfl
 theorem two_axes_bundle :
     NS = 3 ∧ NT = 2 ∧ d = 5 ∧ NS + NT = d :=
   ⟨rfl, rfl, rfl, partition_sum⟩
+
+/-- ★★ Pair-forcing uniqueness: `(2, 3)` is the only `2 ≤ p < q`
+    pair with candidate count 1. -/
+theorem pair_uniqueness (p q : Nat) (hp : 2 ≤ p) (hpq : p < q) :
+    E213.Theory.Atomicity.PairForcing.count p q = 1 ↔ (p = 2 ∧ q = 3) :=
+  E213.Theory.Atomicity.PairForcing.pair_forcing p q hp hpq
 
 end E213.Lib.Math.UniverseChain.PairAxes
