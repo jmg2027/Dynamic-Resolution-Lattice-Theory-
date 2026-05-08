@@ -455,4 +455,25 @@ theorem two_mul : ∀ (n : Nat), 2 * n = n + n
     let h6 : (n + n + 1) + 1 = n + n + 2 := rfl
     h1.trans (h2.trans (h4.trans (h5.trans h6)).symm)
 
+/-! ### `gcd213` — 213-native gcd (∅-axiom)
+
+    Lean-core `Nat.gcd` uses well-founded recursion whose termination
+    proof brings `propext` into any `#print axioms` of theorems that
+    mention `Nat.gcd 〈literal〉 〈literal〉`.  This 213-native variant
+    uses fuel-driven structural recursion: closed terms reduce by
+    `rfl` and stay ∅-axiom.
+
+    `gcdFuel n a b` runs the Euclidean step at most `n` times.
+    `gcd213 a b` allocates `a + b + 1` fuel — sufficient for any
+    Euclidean descent on `(a, b)`. -/
+
+/-- Fuel-driven Euclidean recursion (structural on fuel). -/
+def gcdFuel : Nat → Nat → Nat → Nat
+  | 0,    a,    _ => a
+  | _+1,  0,    b => b
+  | n+1,  a+1,  b => gcdFuel n (b % (a+1)) (a+1)
+
+/-- 213-native gcd.  `rfl` reduces closed terms; ∅-axiom. -/
+def gcd213 (a b : Nat) : Nat := gcdFuel (a + b + 1) a b
+
 end E213.Tactic.Nat213

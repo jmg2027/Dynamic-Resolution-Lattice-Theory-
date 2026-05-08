@@ -1,4 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
+import E213.Term.Tactic.Nat213
 
 /-!
 # Cabibbo angle — sin θ_C = 5/22 (pure rational from DRLT integers)
@@ -66,9 +67,13 @@ theorem within_one_percent :
     p.2 * 224 < p.1 * 1000 ∧ p.1 * 1000 < p.2 * 230 := by decide
 
 /-- Sanity: 5/22 is irreducible (gcd(5, 22) = 1).
-    5 is prime, 22 = 2·11, no common factor. -/
+    5 is prime, 22 = 2·11, no common factor.
+
+    Uses `Nat213.gcd213` (∅-axiom fuel-driven gcd) instead of
+    Lean-core `Nat.gcd` whose well-founded termination proof brings
+    `propext`. -/
 theorem irreducible_5_22 :
-    Nat.gcd 5 22 = 1 := by decide
+    E213.Tactic.Nat213.gcd213 5 22 = 1 := rfl
 
 /-- Falsifiability: if any future precision measurement of sin θ_C
     shows |sin θ_C - 5/22| > 1% (i.e., outside [0.225, 0.230]),

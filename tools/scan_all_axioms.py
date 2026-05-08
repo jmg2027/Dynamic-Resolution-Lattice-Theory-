@@ -141,8 +141,6 @@ SEALED_DIRTY_PREFIXES = (
     'E213.Lens.Lens.Kernel.CardinalityLB',
     # ProductFSMPeriod cascades from LCMClosure.
     'E213.Lib.Math.Cohomology.Dyadic.ProductFSMPeriod',
-    # CabibboAngle.irreducible_5_22 = Nat.gcd 5 22 = 1 (Lean core).
-    'E213.Lib.Physics.Mixing.CabibboAngle',
     # Lens funext-by-design: higher-order Lens equality (Lens (Lens α),
     # dependent function lenses, Raw → Prop kernels) is intrinsically
     # pointwise.  Proving Lens equality requires funext on the combine
