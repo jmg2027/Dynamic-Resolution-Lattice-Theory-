@@ -28,153 +28,189 @@ theorems verified.  The deductive chain *pointing → atomicity →
   * `RawDepth3.lean`: depth ≤ 3 = 12 Raws; (3, 2) ratio breaks
     at higher depth → (8, 4)
   * `RawRecurrence.lean`: **clean recurrence
-    `|S_n| = 2 + C(|S_{n-1}|, 2)`** — corrects earlier
-    `a_{n+1} = a_n + C(a_n, 2)` guess
+    `|S_n| = 2 + C(|S_{n-1}|, 2)`**
   * `RawEnumeration.lean`: **GENERAL THEOREM ∀n —
     `(enumTreeDepth n).length = rawCount n`** — induction proof,
     avoids Lean-core propext leaks via `myLengthAppend`/`myLengthMap`
   * `RawCountGeneric.lean`: N-generic recurrence
     `|S_n| = N + C(|S_{n-1}|, 2)` for arbitrary atom count
 
-### What was retired this session
-
-  * Earlier *Gödel/Lawvere* marathon (3 commits) reverted —
-    framing required Raw-universal-Lens grounding for every term;
-    deferred as too heavy.  PairForcing ∅-axiom cleanup retained.
-
 ### Solid base (won't drift)
 
 ```
-[pointing → atomicity → d = 5]    ✅ proven
-[5 = NS + NT = 3 + 2]              ✅ proven
-[arity = 2 forced]                 ✅ proven (ArityForcing)
-[recurrence |S_n| = N + C(|S_{n-1}|, 2)]  ✅ proven (general n)
-[N = 2 unique minimum]             ✅ proven (§4.2 + AxiomMinimality)
+[pointing → atomicity → d = 5]                ✅ proven
+[5 = NS + NT = 3 + 2]                          ✅ proven
+[arity = 2 forced]                             ✅ proven (ArityForcing)
+[recurrence |S_n| = N + C(|S_{n-1}|, 2)]      ✅ proven (general n)
+[N = 2 unique minimum]                         ✅ proven (§4.2 + AxiomMinimality)
 ```
 
 This base is **rigorously closed and physics-solid up to 4D
-projection + chirality emergence** (per AutKChiral).  Three open
-programs remain.
+projection + chirality emergence**.  Beyond this, two big
+mathematical reconstructions are needed before downstream
+closures become tractable.
 
 ---
 
-## Open programs (next-session marathons)
+## Two big mathematical-field reconstructions (next sessions)
 
-### Marathon A — Mathematical closure (replace physics observation)
+Like `Lib/Math/{Probability, Logic, Combinatorics, Information,
+Real213, Cohomology}` were built — *full reconstructions of
+mathematical fields in 213-native style* (∅-axiom, ℕ-only, no
+Mathlib, internal Lens-based).
 
-**Problem**: `TopologyCompare.lean` selects K_{3,2}^(c=2) among
-bipartite candidates because `b_1 = 8 = 1/α_3` (physics
-observation).  This is **empirical selection**, not pure derivation.
+### Marathon I — Graph 213 (`lean/E213/Lib/Math/Graph213/`)
 
-**Goal**: derive K_{3,2}^(c=2) from atomicity-internal arguments
-alone, without invoking physics observation.
+**Goal**: reconstruct graph theory in 213-native style.
 
-**Sub-tasks**:
-  1. Prove `b_1 = NS² - 1` is forced by atomicity (currently
-     `Counts.inv_alpha_3_confined : NS · NS - 1 = 8` is `decide`,
-     but the *interpretation as Betti* is post-hoc).
-  2. Prove c = 2 (multiplicity) from chirality / NT structure
-     (currently `c` appears in TopologyCompare with no
-     atomicity-internal derivation).
-  3. Show K_{3,2}^(c=2) is the *unique* (NS, NT, c) bipartite
-     multigraph satisfying atomicity-internal constraints —
-     without `b_1 = 8` as input.
+**Anticipated modules** (~30-50 files):
 
-**Critical files**:
-  * `lean/E213/Lib/Math/Cohomology/TopologyCompare.lean`
-  * `lean/E213/Lib/Math/Cohomology/Bipartite/V32.lean`
-  * `lean/E213/Lib/Physics/Simplex/Counts.lean`
+  * `Vertex.lean` — vertex set as Lens-output (List-based, finite
+    by construction)
+  * `Edge.lean` — unordered pair of distinct vertices
+  * `Multigraph.lean` — edges with multiplicity (for K_{3,2}^(c=2))
+  * `Subgraph.lean` — sub-edge / sub-vertex inclusion
+  * `Isomorphism.lean` — graph iso via vertex bijection +
+    edge-preservation
+  * `Bipartite.lean` — vertex partition (NS, NT)
+  * `Complete.lean` — K_n constructive
+  * `Path.lean`, `Cycle.lean` — finite walks
+  * `Connected.lean` — already partial in `Topology/Connectedness`
+  * `Tree.lean` — acyclic connected
+  * `Coloring.lean` — Lens to Fin n
+  * `Automorphism.lean` — extends `AutKChiral` to general
+  * `Planar.lean` — Kuratowski formalised (K_5, K_{3,3} forbidden)
+  * `Embedding.lean` — graph → simplicial complex (graph as
+    1-skeleton)
+  * `Cayley.lean` — Cayley graph from generators (Raw atoms +
+    slash → Cayley structure)
+  * `Cohomology.lean` — re-export from existing
+    `Lib/Math/Cohomology/`
+  * `Capstone.lean` — bundle
 
-**Difficulty**: high.  May require new typeclass for
-"atomicity-internal Betti" or proven fact that 1/α_3 = NS² - 1
-is structurally forced rather than empirically matched.
+**Reused / extended (existing)**:
+  * `Lib/Math/Cohomology/{Bipartite/V32, K5, Fractal/{V25, Level}}.lean`
+  * `Lib/Math/Topology/{Connectedness, EulerChi, Compactness}.lean`
+  * `Lib/Math/Cohomology/TopologyCompare.lean`
+  * `Lib/Physics/Symmetry/AutKChiral.lean`
 
----
+**Difficulty**: medium-high.  Lots of ∅-axiom care needed for
+graph isomorphism (function equality on Fin n), planarity
+(Kuratowski's theorem ∅-axiom), automorphism groups (group action).
 
-### Marathon B — Graph theory formalisation
-
-**Problem**: K_{3,2}^(c=2) ⊂ Δ⁴ relationship currently only at
-underlying-edge level (`UniverseChain.BipartiteFractal.bip_edge_in_K5`).
-Multigraph version refuted (`multiplicity_lost`).  `research-notes/
-G1_universal_lens.md` *conjectures* "any 5 elements force
-K_{3,2}^(c=2)" but no formal proof exists.
-
-**Goal**: formalise K_{3,2}^(c=2) inevitability + structural
-relationships to Δ⁴ + graph-theoretic foundations.
-
-**Sub-tasks**:
-  1. Prove "any 5 elements satisfying atomicity-derived constraints
-     form K_{3,2}^(c=2)" — uniqueness up to isomorphism.
-  2. Vertex-transitivity / automorphism analysis of K_{25} (level
-     2 fractal); extend `AutKChiral.lean` to K_{5^L}.
-  3. Formalise Kuratowski-style result: K_5 = first non-planar
-     coincides with d = 5 from atomicity (currently a numerical
-     "signature").
-  4. K_{3,2}^(c=2) as Cayley-type graph with internal labelling
-     (each vertex = its slash-tree).
-
-**Critical files** (existing):
-  * `lean/E213/Lib/Math/Cohomology/Bipartite/V32.lean`
-  * `lean/E213/Lib/Math/Cohomology/K5.lean`
-  * `lean/E213/Lib/Physics/Symmetry/AutKChiral.lean`
-  * `research-notes/G1_universal_lens.md` (conjecture)
-
-**Difficulty**: medium-high.  Graph-isomorphism uniqueness needs
-combinatorial enumeration; planarity formalisation is non-trivial
-∅-axiom.
+**Estimated**: 40-60 hours of marathon.
 
 ---
 
-### Marathon C — Fractal theory formalisation
+### Marathon II — Fractal 213 (`lean/E213/Lib/Math/Fractal213/`)
 
-**Problem**: `numV L = 5^L` is *defined* recursively
-(`Cohomology/Fractal/Level.lean`).  "Each vertex of Δ⁴ becomes a
-Δ⁴" is *postulated* in `NUniverseFromFractal.lean` docstring.
-`L = d² = 25` as "self-referential level" is *named*, not derived.
-N_U = 5²⁵ thus rests on a chain of *definitions*.
+**Goal**: reconstruct fractal theory in 213-native style — finite-
+trajectory, Lens-based, no measure theory or Hausdorff dimension.
 
-**Goal**: formalise fractal self-similarity as a *fixed-point
-theorem*, not a definition.
+**Anticipated modules** (~25-40 files):
 
-**Sub-tasks**:
-  1. Define a self-similar map `F : Δ⁴ → Δ⁴ ⊗ Δ⁴` (vertex
-     replacement) and prove it's a fixed-point of some natural
-     transformation.
-  2. Prove `L = d²` is the *unique* self-referential closure
-     level (currently `universe_level_eq_gram` is `rfl`, ie. just
-     renaming).
-  3. Prove `N_U = 5^25` is *forced* (not chosen) — perhaps as
-     unique cardinality where local + global structure coincide.
-  4. Connect to `RawEnumeration.enumTreeDepth_length`: relate Raw
-     inhabitant count to fractal vertex count at appropriate
-     depth.
+  * `IFS.lean` — iterated function system (finite list of
+    contractions on a 213-native space)
+  * `SelfSimilarMap.lean` — vertex-replacement maps Δ⁴ → Δ⁴ ⊗ Δ⁴
+  * `FixedPoint.lean` — Banach-style fixed point (constructive,
+    via dyadic Cauchy)
+  * `Uniqueness.lean` — fixed point unique up to iso
+  * `Recursion.lean` — recursive level structure (extends
+    existing `Cohomology/Fractal/Level.lean`)
+  * `SelfReferential.lean` — closure-level characterisation
+    (when `numV L = d^L` matches structural invariants)
+  * `Replication.lean` — vertex-replacement K_5 → K_{25}
+  * `Similarity.lean` — local ↔ global structural identity
+  * `Dimension.lean` — fractal dim as Lens-output (atomic, not
+    real-valued)
+  * `Cantor.lean` — Cantor-set-like structures via dyadic
+  * `Capstone.lean` — bundle
 
-**Critical files**:
-  * `lean/E213/Lib/Math/Cohomology/Fractal/{Level, V25}.lean`
-  * `lean/E213/Lib/Physics/Foundations/{NUniverseFromFractal,
-     NUniverseFractalDepth, FractalLensCardinality}.lean`
-  * `lean/E213/Lib/Math/UniverseChain/RawEnumeration.lean`
+**Reused / extended (existing)**:
+  * `Lib/Math/Cohomology/Fractal/{V25, Level, AlphaGUT}.lean`
+  * `Lib/Physics/Foundations/{NUniverseFromFractal,
+     NUniverseFractalDepth, FractalLensCardinality,
+     LensCardinalityFractalLevels}.lean`
+  * `Lib/Math/Real213/` (dyadic Cauchy machinery)
+  * `Lib/Math/UniverseChain/RawEnumeration.lean` (recursive
+    enumeration as fractal-style growth)
 
-**Difficulty**: highest.  Fixed-point theorems on graph
-endomorphisms + uniqueness up to isomorphism + closure level
-characterisation — these are deep graph/category theory.
+**Difficulty**: high.  Fixed-point theorems in 213-native style
+without measure theory; constructive uniqueness up to iso; closure-
+level characterisation requires graph-theory infrastructure
+(Marathon I).
+
+**Estimated**: 50-80 hours of marathon.
+
+**Recommended order**: Marathon I first (Graph 213 supports
+Fractal 213's vertex-replication map definitions).
+
+---
+
+## Downstream applications (after I + II land)
+
+With Graph 213 + Fractal 213 in hand, the small closure tasks
+become tractable:
+
+### Application A — TopologyCompare physics-elimination
+
+Replace `TopologyCompare.K32_c2_b1 = 8 = 1/α_3` (empirical
+selection) with **atomicity-internal derivation of K_{3,2}^(c=2)**.
+
+  * Use `Graph213.Bipartite` + `Multigraph` to enumerate
+    candidates with NS+NT ≤ 5, c ≤ 3.
+  * Use `Graph213.Cohomology.b1_bipartite` to compute Betti.
+  * Show `b_1 = NS² - 1` is forced *structurally* (not via
+    α_3 observation) — likely needs `NS² - 1 = adjoint(SU(NS))`
+    derivation from atomicity + spectral arguments.
+  * Result: K_{3,2}^(c=2) selected without physics input.
+
+Files to update: `Lib/Math/Cohomology/TopologyCompare.lean`.
+
+### Application B — K_{3,2}^(c=2) inevitability
+
+Prove "any 5 elements satisfying atomicity-derived constraints
+form K_{3,2}^(c=2)" (G1 conjecture).
+
+  * Use `Graph213.Isomorphism` to formalise "form".
+  * Use `Graph213.Multigraph` + atomic constraints to enumerate
+    5-vertex multigraphs.
+  * Show K_{3,2}^(c=2) is *unique* up to iso under those
+    constraints.
+
+Files: extend `UniverseChain/BipartiteFractal.lean` or new
+`Graph213/Inevitability.lean`.
+
+### Application C — N_U = 5²⁵ forced
+
+Prove `L = d²` is unique self-referential closure + `N_U = 5²⁵`
+forced (not chosen).
+
+  * Use `Fractal213.SelfReferential` to characterise closure
+    levels.
+  * Use `Fractal213.FixedPoint` to derive uniqueness.
+  * Use `Fractal213.Replication` for vertex-replication step.
+  * Connect to `RawEnumeration.enumTreeDepth_length`: relate
+    Raw inhabitant count to fractal vertex count at appropriate
+    depth.
+
+Files: extend `Lib/Physics/Foundations/NUniverseFractalDepth.lean`
++ new `Fractal213/UniverseClosure.lean`.
 
 ---
 
 ## Suggested execution order
 
-A → C → B  (or in parallel if scope allows).
+1. **Marathon I — Graph 213** (foundational, supports II)
+2. **Marathon II — Fractal 213** (uses graph infrastructure)
+3. **Applications A, B, C** (use both reconstructions)
 
-  1. **A first**: replacing `b_1 = 8` physics observation with
-     atomicity-internal derivation of NS² - 1 is the *narrowest*
-     gap and would unlock TopologyCompare's claim.
-  2. **C second**: fractal self-similarity is the *biggest open
-     question* — without it the whole `5²⁵` story is definitional.
-  3. **B last**: graph-theoretic foundations support both A and C,
-     could be developed alongside but isolated.
+Each marathon ends with: (a) per-theorem `#print axioms` ∅,
+(b) full `lake build E213` clean, (c) capstone witness, (d) INDEX.md
++ catalog updates, (e) blueprint document if appropriate.
 
-Each marathon ends with: per-theorem `#print axioms` ∅, full
-`lake build E213` clean, separate commit per file.
+Mid-marathon insights may reveal additional sub-modules or
+unexpected gaps — adapt as needed.
 
 ---
 
@@ -190,21 +226,31 @@ Each marathon ends with: per-theorem `#print axioms` ∅, full
 ## Hand-off pointers
 
   1. **Read first**: `seed/AXIOM/{00_nature, 02_statement, 03_form,
-     07_self_reference}.md`, then `research-notes/G29_residue.md`.
+     07_self_reference}.md`, then `research-notes/G29_residue.md`,
+     then `research-notes/G1_universal_lens.md` (K_{3,2}^(c=2)
+     conjecture).
   2. **Boot file**: this `HANDOFF.md`, then `CLAUDE.md`.
   3. **Architecture canonical**: `lean/E213/ARCHITECTURE.md`.
-  4. **UniverseChain INDEX**: `lean/E213/Lib/Math/UniverseChain/
-     INDEX.md` (extend with new marathon files).
+  4. **UniverseChain INDEX**: `lean/E213/Lib/Math/UniverseChain/INDEX.md`.
+  5. **Reference reconstructions**: `Lib/Math/{Probability,
+     Logic, Combinatorics, Information, Real213}/INDEX.md` —
+     model patterns for new Graph 213 / Fractal 213 marathons.
 
 ## Key insight to preserve
 
-The path *pointing → atomicity → 5 → recurrence* is **closed and
+The path *pointing → atomicity → 5 + recurrence* is **closed and
 ∅-axiom**.  Beyond that, *fractality / 5²⁵ / K_{3,2}^(c=2)
-inevitability* are **definitional or conjecture**, awaiting
-Marathons A, B, C.
+inevitability* are **definitional or conjecture**.
+
+The path forward: **first reconstruct Graph 213 + Fractal 213
+as full mathematical sub-fields** (like Probability 213, Real213,
+etc.), then **use those reconstructions** to derive the
+closure-level claims that currently rest on physics observation
+or definitional choice.
 
 The `pair_forcing` cleanup (this session) showed that *omega →
 ∅-axiom* hardening is feasible via `half : Nat → Nat`-style
 structural rewrites + careful avoidance of `Nat.gcd` / `Nat.div`.
 
-Branch **READY for next marathon**.  Solid base intact.
+Branch **READY** for next marathon (Graph 213 first).  Solid
+base intact.
