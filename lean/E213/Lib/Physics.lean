@@ -12,6 +12,7 @@ import E213.Lib.Physics.Mixing
 import E213.Lib.Physics.Nuclear
 import E213.Lib.Physics.Simplex
 import E213.Lib.Physics.Substrate
+import E213.Lib.Physics.Symmetry
 import E213.Lib.Physics.YangMills
 
 /-! E213.Lib.Physics — DRLT physics deployment of the 213 axiom.
@@ -35,6 +36,9 @@ Sub-trees (each = a sub-directory + a `<DirName>.lean` umbrella):
   Nuclear       — Binding, DeuteronBinding, MagicNumbers, Shells
   Simplex       — Δ⁴ counts, generations, f_occ spectrum
   Substrate     — Phase 2 substrate-genesis (origin, edges, etc.)
+  Symmetry      — Aut(K) group structure (C3 step 1: |Aut| = 768
+                  decomposed into external Sym(NS)×Sym(NT) and
+                  internal C_2^(NS·NT)); pointers to gauge group emergence
   YangMills     — SU(5) roots, WZ bosons, Weinberg angle, mass gap
 
 Plus capstones at `OS/Physics/Capstones/`:

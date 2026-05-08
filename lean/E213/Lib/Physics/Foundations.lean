@@ -1,3 +1,8 @@
+import E213.Lib.Physics.Foundations.AtomicConstantsUnique
+import E213.Lib.Physics.Foundations.AtomicConstantsParametric
+import E213.Lib.Physics.Foundations.AtomicConstantsParametricN3
+import E213.Lib.Physics.Foundations.AtomicConstantsParametricFull
+import E213.Lib.Physics.Foundations.AtomicConstantsParametricFullIff
 import E213.Lib.Physics.Foundations.AtomicSuperCatalog
 import E213.Lib.Physics.Foundations.DrltZeroParameters
 import E213.Lib.Physics.Foundations.FibonacciAtomic
