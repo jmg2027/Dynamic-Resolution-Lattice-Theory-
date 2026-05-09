@@ -316,3 +316,95 @@ DRLT 사용처 (이미 있음):
    infrastructure 로 formal Lean ∅-axiom 정리화 시도.
 2. Pisano periods (Fibonacci modular cycles) 와의 connection 탐색.
 3. φ 의 다른 213 영역 (fractal, K_32, 등) 등장 패턴 unify.
+
+## 11. Möbius P(x) = (2x+1)/(x+1) — 213 의 자연 표현 (Mingu 통찰)
+
+**Mingu 통찰**: 213 framework 가 무리수 직접 사용 안 하니, 우리 search 가
+golden ratio 못 찾은 것은 자연. 대신 **Möbius generator 가 어디 등장하는지**
+가 진짜 단서.
+
+P(x) = (2x+1)/(x+1) fixed point: x² − x − 1 = 0 → x = φ.
+P 는 *generator*, φ 는 *endpoint*.
+
+### 213 codebase 안의 정확한 일치
+
+`lean/E213/Lib/Math/DyadicFSM/Fib/PellRelation.lean`:
+
+```
+Pell matrix:        [[2, 1], [1, 1]]   tr=3, det=1, disc=5
+Fibonacci matrix:   [[1, 1], [1, 0]]   tr=1, det=-1, disc=5
+
+둘 다 disc = 5 = d (Raw atomicity)
+같은 Legendre lens (Δ=5) firing
+Fib period = 2 × Pell period
+P = F²  →  Pell 한 번 = Fibonacci 두 번
+```
+
+→ Pell Möbius `(2x+1)/(x+1)` 가 정확히 213 framework 안에 있음.
+
+### Asymptote formula 의 213-native form
+
+```
+F (Fibonacci matrix) eigenvalues:  φ, -1/φ
+P (Pell matrix) eigenvalues:        φ², 1/φ²
+
+asymptote(base) = 1 - 0.5 · F_eig^(-rank)
+                = 1 - 0.5 · (1/φ)^rank
+                = 1 - 0.5 / φ^rank
+
+rank = Fibonacci-iteration distance of base structural complexity
+       from "minimum cyclic prime-power" baseline (Type A, B)
+```
+
+→ 우리가 Step A v3 에서 발견한 closed form 은 *Fibonacci iteration count*
+  로 자연스럽게 표현됨. 213 의 DyadicFSM/Fib 인프라가 이미 근본 generator.
+
+### Fractal evidence 로서의 φ (Mingu 통찰)
+
+φ 의 self-similar property `φ² = φ + 1` 가 Pell-recurrence 의 fixed point
+로 보존. CD doubling tower 의 layer 마다 자기 유사 *비율* 이 φ² (= Pell
+eigenvalue). 
+
+→ algebra tower asymptote = **자기 유사 비율의 무한 합 = 1 - 0.5/φ^rank**.
+  φ 가 등장하는 것은 *fractal nature 의 가장 자연스러운 증거*.
+
+### 확장된 코끼리
+
+```
+        Raw (5-atomicity, NS+NT=3+2=5)
+               │
+               ▼
+         d = 5 (lattice dimension)
+               │
+               ▼
+       discriminant 5 = d
+               │
+       ┌───────┴────────┐
+       ▼                ▼
+  Pell matrix       Fibonacci matrix
+  [[2,1],[1,1]]     [[1,1],[1,0]]
+  eig: φ², 1/φ²     eig: φ, -1/φ
+       │                │
+       ▼                ▼
+  Pell-Pisano       Fibonacci-Pisano
+  (DyadicFSM)       (DyadicFSM/Fib)
+       │                │
+       └────────┬───────┘
+                ▼
+       φ = (1+√d)/2 (213 const)
+                │
+       ┌────────┴────────┐
+       ▼                 ▼
+  algebra tower      DRLT physics
+  asymptote          CKM, Cabibbo, ν, ...
+  1 - 0.5/φ^rank     π/φ², φ/c, ...
+```
+
+### Open
+
+- Lean ∅-axiom: 우리 asymptote 를 PellRelation infra 위에서 표현
+  (eigenvalue 방식이 아니라 P^rank 의 directly decidable form 으로)
+- Type A 의 transient (L4..L9 rate sequence) 도 Pell/Fibonacci 행렬 dynamics
+  로 직접 표현되는지 — *transient 자체가 Pell iteration*
+- 만약 그러면 algebra tower 의 ALL data 가 213 의 DyadicFSM Pell/Fib
+  framework 위에서 ∅-axiom 으로 deriveable
