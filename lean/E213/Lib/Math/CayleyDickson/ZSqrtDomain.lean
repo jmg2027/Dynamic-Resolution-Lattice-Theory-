@@ -1,6 +1,7 @@
 import E213.Lib.Math.CayleyDickson.ZSqrt
 import E213.Lib.Math.NatHelpers.IntHelpers
 import E213.Term.Tactic.QuadNorm
+import E213.Theory.Internal.Int213
 
 open E213.Lib.Math.NatHelpers
 open E213.Lib.Math.NatHelpers.IntHelpers
@@ -23,10 +24,12 @@ theorem mul_comm (u v : ZSqrt D) : u * v = v * u := by
   apply ext
   · show u.re * v.re - D * (u.im * v.im)
        = v.re * u.re - D * (v.im * u.im)
-    rw [Int.mul_comm u.re v.re, Int.mul_comm u.im v.im]
+    rw [E213.Theory.Internal.Int213.mul_comm u.re v.re,
+        E213.Theory.Internal.Int213.mul_comm u.im v.im]
   · show u.re * v.im + u.im * v.re = v.re * u.im + v.im * u.re
-    rw [Int.mul_comm u.re v.im, Int.mul_comm u.im v.re,
-        Int.add_comm]
+    rw [E213.Theory.Internal.Int213.mul_comm u.re v.im,
+        E213.Theory.Internal.Int213.mul_comm u.im v.re,
+        E213.Theory.Internal.Int213.add_comm]
 
 /-- `|uv|² = |u|²·|v|²` for any `D`. -/
 theorem normSq_mul (u v : ZSqrt D) :

@@ -99,3 +99,122 @@ theorem neg_add : ∀ (a b : Int), -(a + b) = -a + -b := by
           rw [Nat.succ_add m n]
 
 end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+/-- ∅-axiom `Int.mul_comm` via 4-case analysis on Int constructors. -/
+theorem mul_comm : ∀ (a b : Int), a * b = b * a
+  | .ofNat m, .ofNat n => by
+    show Int.ofNat (m * n) = Int.ofNat (n * m); rw [Nat.mul_comm]
+  | .ofNat m, .negSucc n => by
+    show Int.negOfNat (m * (n+1)) = Int.negOfNat ((n+1) * m); rw [Nat.mul_comm]
+  | .negSucc m, .ofNat n => by
+    show Int.negOfNat ((m+1) * n) = Int.negOfNat (n * (m+1)); rw [Nat.mul_comm]
+  | .negSucc m, .negSucc n => by
+    show Int.ofNat ((m+1) * (n+1)) = Int.ofNat ((n+1) * (m+1)); rw [Nat.mul_comm]
+
+/-- ∅-axiom `Int.zero_mul`. -/
+theorem zero_mul : ∀ (a : Int), 0 * a = 0
+  | .ofNat n => by
+    show Int.ofNat (0 * n) = (0 : Int); rw [Nat.zero_mul]; rfl
+  | .negSucc n => by
+    show Int.negOfNat (0 * (n+1)) = (0 : Int); rw [Nat.zero_mul]; rfl
+
+/-- ∅-axiom `Int.add_left_neg`: `-a + a = 0`. -/
+theorem add_left_neg : ∀ (a : Int), -a + a = 0
+  | .ofNat 0 => rfl
+  | .ofNat (n+1) => by
+    show Int.subNatNat (n+1) (n+1) = 0
+    rw [Int.subNatNat_self]
+  | .negSucc n => by
+    show Int.subNatNat (n+1) (n+1) = 0
+    rw [Int.subNatNat_self]
+
+end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+/-- ∅-axiom `Int.add_nonneg`: `0 ≤ a → 0 ≤ b → 0 ≤ a + b`.
+    Replaces propext-bearing `Int.add_nonneg`. -/
+theorem add_nonneg : ∀ {a b : Int}, 0 ≤ a → 0 ≤ b → 0 ≤ a + b
+  | .ofNat m, .ofNat n, _, _ => by
+    show (0 : Int) ≤ Int.ofNat (m + n); exact Int.ofNat_nonneg _
+  | .ofNat _, .negSucc _, _, hb => by cases hb
+  | .negSucc _, _, ha, _ => by cases ha
+
+end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+/-- ∅-axiom: from `0 ≤ a`, `0 ≤ b`, `a + b = 0`, derive both zero. -/
+theorem add_eq_zero_of_nonneg :
+    ∀ {a b : Int}, 0 ≤ a → 0 ≤ b → a + b = 0 → a = 0 ∧ b = 0
+  | .ofNat m, .ofNat n, _, _, h => by
+    have h1 : Int.ofNat (m + n) = (0 : Int) := h
+    have h2 : m + n = 0 := Int.ofNat.inj h1
+    have hm : m = 0 := Nat.eq_zero_of_add_eq_zero_right h2
+    have hn : n = 0 := Nat.eq_zero_of_add_eq_zero_left h2
+    refine ⟨?_, ?_⟩
+    · rw [hm]; rfl
+    · rw [hn]; rfl
+  | .ofNat _, .negSucc _, _, hb, _ => by cases hb
+  | .negSucc _, _, ha, _, _ => by cases ha
+
+end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+/-- ∅-axiom Nat helper: `a * b = 0 → a = 0 ∨ b = 0`. -/
+theorem mul_eq_zero_nat : ∀ {a b : Nat}, a * b = 0 → a = 0 ∨ b = 0
+  | 0, _, _ => Or.inl rfl
+  | _+1, 0, _ => Or.inr rfl
+  | a+1, b+1, h =>
+    let h1 : (a+1) * (b+1) = (a+1) * b + (a+1) := Nat.mul_succ (a+1) b
+    let h2 : (a+1) * b + (a+1) = 0 := h1 ▸ h
+    let h3 : (a+1) * b + (a + 1) = ((a+1) * b + a).succ := Nat.add_succ _ _
+    let h4 : ((a+1) * b + a).succ = 0 := h3 ▸ h2
+    Nat.noConfusion h4
+
+/-- ∅-axiom `Int.mul_eq_zero` (forward direction): no zero divisors
+    in `Int`.  Replaces the propext-bearing Iff `Int.mul_eq_zero`. -/
+theorem mul_eq_zero : ∀ {a b : Int}, a * b = 0 → a = 0 ∨ b = 0
+  | .ofNat m, .ofNat n, h => by
+    have h2 : m * n = 0 := Int.ofNat.inj h
+    rcases mul_eq_zero_nat h2 with hm | hn
+    · left; rw [hm]; rfl
+    · right; rw [hn]; rfl
+  | .ofNat 0, .negSucc _, _ => Or.inl rfl
+  | .ofNat (k+1), .negSucc n, h => by
+    exfalso
+    have h1 : Int.negOfNat ((k+1) * (n+1)) = (0 : Int) := h
+    have hpos : (k+1) * (n+1) = ((k+1) * n + k).succ := by
+      rw [Nat.mul_succ, Nat.add_succ]
+    rw [hpos] at h1
+    cases h1
+  | .negSucc m, .ofNat 0, _ => Or.inr rfl
+  | .negSucc m, .ofNat (k+1), h => by
+    exfalso
+    have h1 : Int.negOfNat ((m+1) * (k+1)) = (0 : Int) := h
+    have hpos : (m+1) * (k+1) = ((m+1) * k + m).succ := by
+      rw [Nat.mul_succ, Nat.add_succ]
+    rw [hpos] at h1
+    cases h1
+  | .negSucc m, .negSucc n, h => by
+    have h1 : Int.ofNat ((m+1) * (n+1)) = (0 : Int) := h
+    have h2 : (m+1) * (n+1) = 0 := Int.ofNat.inj h1
+    rcases mul_eq_zero_nat h2 with hm | hn
+    · exact Nat.noConfusion hm
+    · exact Nat.noConfusion hn
+
+end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+/-- ∅-axiom `Int.mul_nonneg`: `0 ≤ a → 0 ≤ b → 0 ≤ a * b`. -/
+theorem mul_nonneg : ∀ {a b : Int}, 0 ≤ a → 0 ≤ b → 0 ≤ a * b
+  | .ofNat m, .ofNat n, _, _ => by
+    show (0 : Int) ≤ Int.ofNat (m * n); exact Int.ofNat_nonneg _
+  | .ofNat _, .negSucc _, _, hb => by cases hb
+  | .negSucc _, _, ha, _ => by cases ha
+
+end E213.Theory.Internal.Int213

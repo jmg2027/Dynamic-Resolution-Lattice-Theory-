@@ -1,3 +1,5 @@
+import E213.Theory.Internal.Int213
+
 /-!
 # shared `Int` helpers
 
@@ -5,24 +7,54 @@ Two basic facts about integer self-multiplication used by every
 quadratic-extension `Domain` module (ZIDomain, ZSqrt2Domain,
 …).  Extracted here to remove duplication.
 
-Both lemmas are pure Lean 4 core (no `ring`, no `nlinarith`).
+Both lemmas ∅-axiom — direct case-analysis on `Int` constructors
+(no `omega`, no `Int.mul_nonneg`/`Int.mul_eq_zero` propext-bearing
+core lemmas).
 -/
 
 namespace E213.Lib.Math.NatHelpers.IntHelpers
 
-/-- `0 ≤ a*a` for any integer `a`. -/
-protected theorem mul_self_nonneg (a : Int) : 0 ≤ a * a := by
-  by_cases h : 0 ≤ a
-  · exact Int.mul_nonneg h h
-  · have h' : 0 ≤ -a := by omega
-    have eq : (-a) * (-a) = a * a := by
-      rw [Int.neg_mul, Int.mul_neg, Int.neg_neg]
-    rw [← eq]; exact Int.mul_nonneg h' h'
+open E213.Theory.Internal.Int213 (zero_mul)
 
-/-- `a*a = 0 ↔ a = 0` for any integer `a`. -/
-protected theorem mul_self_eq_zero {a : Int} : a * a = 0 ↔ a = 0 := by
-  refine ⟨?_, fun h => by rw [h]; simp⟩
+/-- `0 ≤ a*a` for any integer `a`.  ∅-axiom. -/
+protected theorem mul_self_nonneg : ∀ (a : Int), 0 ≤ a * a
+  | .ofNat n => by
+    show (0 : Int) ≤ Int.ofNat (n * n)
+    exact Int.ofNat_nonneg _
+  | .negSucc n => by
+    show (0 : Int) ≤ Int.ofNat ((n+1) * (n+1))
+    exact Int.ofNat_nonneg _
+
+/-- `a*a = 0 ↔ a = 0` for any integer `a`.  ∅-axiom. -/
+protected theorem mul_self_eq_zero : ∀ {a : Int}, a * a = 0 ↔ a = 0 := by
+  intro a
+  refine ⟨?_, fun h => by rw [h, zero_mul]⟩
   intro h
-  rcases Int.mul_eq_zero.mp h with h' | h' <;> exact h'
+  match a with
+  | .ofNat n =>
+    have h1 : Int.ofNat (n * n) = (0 : Int) := h
+    have h2 : n * n = 0 := Int.ofNat.inj h1
+    have h3 : n = 0 := by
+      match n with
+      | 0 => rfl
+      | k+1 =>
+        exfalso
+        have h_ge_1 : (k+1) * (k+1) ≥ 1 :=
+          calc 1 = 1 * 1 := rfl
+            _ ≤ (k+1) * 1 := Nat.mul_le_mul_right 1 (Nat.succ_le_succ (Nat.zero_le _))
+            _ ≤ (k+1) * (k+1) := Nat.mul_le_mul_left (k+1) (Nat.succ_le_succ (Nat.zero_le _))
+        rw [h2] at h_ge_1
+        exact absurd h_ge_1 (by decide)
+    rw [h3]; rfl
+  | .negSucc n =>
+    exfalso
+    have h1 : Int.ofNat ((n+1) * (n+1)) = (0 : Int) := h
+    have h2 : (n+1) * (n+1) = 0 := Int.ofNat.inj h1
+    have h_ge_1 : (n+1) * (n+1) ≥ 1 :=
+      calc 1 = 1 * 1 := rfl
+        _ ≤ (n+1) * 1 := Nat.mul_le_mul_right 1 (Nat.succ_le_succ (Nat.zero_le _))
+        _ ≤ (n+1) * (n+1) := Nat.mul_le_mul_left (n+1) (Nat.succ_le_succ (Nat.zero_le _))
+    rw [h2] at h_ge_1
+    exact absurd h_ge_1 (by decide)
 
 end E213.Lib.Math.NatHelpers.IntHelpers
