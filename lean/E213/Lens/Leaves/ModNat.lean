@@ -2,6 +2,7 @@ import E213.Lens.LensCore
 import E213.Lens.Compose.Factoring
 import E213.Lib.Math.Infinity.LensCardinality
 import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Lib.Math.NatHelpers.Gcd213
 
 /-!
 # LeavesModNat: divisibility → refinement for leaves mod m
@@ -155,12 +156,26 @@ theorem product_lower_bound (m k : Nat) :
 
     DIRTY-by-design (`[propext]`): the statement mentions `Nat.gcd m k`
     whose well-founded termination proof brings `propext`.  Use
-    `common_divisor_upper_bound` for a generic ∅-axiom alternative. -/
+    `gcd213_upper_bound` (below, PURE) for ∅-axiom downstream. -/
 theorem gcd_upper_bound (m k : Nat) :
     (leavesModNat m).refines (leavesModNat (Nat.gcd m k)) ∧
     (leavesModNat k).refines (leavesModNat (Nat.gcd m k)) :=
   common_divisor_upper_bound m k (Nat.gcd m k)
     (Nat.gcd_dvd_left m k) (Nat.gcd_dvd_right m k)
+
+/-- ★★★★★ **`gcd213` upper bound (∅-axiom)**: same content as
+    `gcd_upper_bound` but using 213-native `gcd213` (fuel-driven
+    Euclidean) instead of Lean-core `Nat.gcd` (well-founded
+    termination = `propext`).
+
+    Use this in ∅-axiom downstream theorems.  Migration target
+    for the JoinGCD chain. -/
+theorem gcd213_upper_bound (m k : Nat) :
+    (leavesModNat m).refines (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) ∧
+    (leavesModNat k).refines (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) :=
+  common_divisor_upper_bound m k (E213.Tactic.Nat213.gcd213 m k)
+    (E213.Lib.Math.NatHelpers.Gcd213.gcd213_dvd_left m k)
+    (E213.Lib.Math.NatHelpers.Gcd213.gcd213_dvd_right m k)
 
 /-! ## Converse (least upper bound / greatest lower bound) direction
 

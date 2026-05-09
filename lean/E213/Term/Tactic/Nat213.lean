@@ -464,8 +464,9 @@ theorem two_mul : ∀ (n : Nat), 2 * n = n + n
     `rfl` and stay ∅-axiom.
 
     `gcdFuel n a b` runs the Euclidean step at most `n` times.
-    `gcd213 a b` allocates `a + b + 1` fuel — sufficient for any
-    Euclidean descent on `(a, b)`. -/
+    `gcd213 a b` allocates `2 * (a + b) + 1` fuel — sufficient for
+    any Euclidean descent on `(a, b)` (the bound `M(a, b) :=
+    Nat.max a b + a` strictly decreases each step; `2*(a+b) ≥ M`). -/
 
 /-- Fuel-driven Euclidean recursion (structural on fuel). -/
 def gcdFuel : Nat → Nat → Nat → Nat
@@ -474,6 +475,6 @@ def gcdFuel : Nat → Nat → Nat → Nat
   | n+1,  a+1,  b => gcdFuel n (b % (a+1)) (a+1)
 
 /-- 213-native gcd.  `rfl` reduces closed terms; ∅-axiom. -/
-def gcd213 (a b : Nat) : Nat := gcdFuel (a + b + 1) a b
+def gcd213 (a b : Nat) : Nat := gcdFuel (2 * (a + b) + 1) a b
 
 end E213.Tactic.Nat213
