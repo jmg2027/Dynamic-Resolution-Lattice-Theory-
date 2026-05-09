@@ -74,12 +74,12 @@ theorem conj_conj (u : Cayley) : conj (conj u) = u := by
     apply Lipschitz.ext
     · show (-(-u.im)).re = u.im.re
       apply ZI.ext
-      · show -(-u.im.re.re) = u.im.re.re; omega
-      · show -(-u.im.re.im) = u.im.re.im; omega
+      · show -(-u.im.re.re) = u.im.re.re; exact Int.neg_neg _
+      · show -(-u.im.re.im) = u.im.re.im; exact Int.neg_neg _
     · show (-(-u.im)).im = u.im.im
       apply ZI.ext
-      · show -(-u.im.im.re) = u.im.im.re; omega
-      · show -(-u.im.im.im) = u.im.im.im; omega
+      · show -(-u.im.im.re) = u.im.im.re; exact Int.neg_neg _
+      · show -(-u.im.im.im) = u.im.im.im; exact Int.neg_neg _
 
 /-- `Cayley.conj` has a non-fixed point — witness `L`. -/
 theorem conj_ne_id : ∃ x : Cayley, conj x ≠ x := by
