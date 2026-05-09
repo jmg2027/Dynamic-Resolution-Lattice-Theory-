@@ -49,12 +49,15 @@ class StarRing213 (α : Type) extends Ring213 α where
 /-- Integer-normed *-Ring: norm lands in Int, lifted via `ofInt`,
     with `a · conj a = ofInt (normSq a)` (the central identity).
     `ofInt_central` says integer scalars commute with everything,
-    `ofInt_inj` lifts equalities back to Int. -/
+    `ofInt_inj` lifts equalities back to Int.
+    `ofInt_add` is the additive ring-hom property — needed for
+    norm-additivity at higher CD layers. -/
 class IntegerNormed213 (α : Type) extends StarRing213 α where
   ofInt         : Int → α
   normSq        : α → Int
   self_mul_conj : ∀ a   : α, a * conj a = ofInt (normSq a)
   ofInt_mul     : ∀ a b : Int, ofInt a * ofInt b = ofInt (a * b)
+  ofInt_add     : ∀ a b : Int, ofInt a + ofInt b = ofInt (a + b)
   ofInt_central : ∀ (z : Int) (a : α), ofInt z * a = a * ofInt z
   ofInt_inj     : ∀ {a b : Int}, ofInt a = ofInt b → a = b
 

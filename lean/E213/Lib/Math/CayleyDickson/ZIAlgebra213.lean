@@ -94,6 +94,11 @@ private theorem ofInt_mul' (a b : Int) : ofInt a * ofInt b = ofInt (a * b) := by
   · show a * 0 + 0 * b = 0
     rw [Int.mul_zero, E213.Theory.Internal.Int213.zero_mul, Int.add_zero]
 
+private theorem ofInt_add' (a b : Int) : ofInt a + ofInt b = ofInt (a + b) := by
+  apply ext
+  · show a + b = a + b; rfl
+  · show (0 : Int) + 0 = 0; rfl
+
 private theorem ofInt_central' (z : Int) (a : ZI) :
     ofInt z * a = a * ofInt z := by
   apply ext
@@ -129,6 +134,7 @@ instance : IntegerNormed213 ZI where
   normSq        := normSq
   self_mul_conj := self_mul_conj'
   ofInt_mul     := ofInt_mul'
+  ofInt_add     := ofInt_add'
   ofInt_central := ofInt_central'
   ofInt_inj     := ofInt_inj'
 
