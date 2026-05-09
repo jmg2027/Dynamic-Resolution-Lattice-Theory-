@@ -16,6 +16,14 @@ import E213.Lib.Math.Modulus
 import E213.Lib.Math.Tactic
 import E213.Lib.Math.Trajectory
 import E213.Lib.Math.PatternCatalog
+import E213.Lib.Math.Probability
+import E213.Lib.Math.Information
+import E213.Lib.Math.Logic
+import E213.Lib.Math.Combinatorics
+import E213.Lib.Math.CrossDomainUnification
+import E213.Lib.Math.ParadigmDomain
+import E213.Lib.Math.ParadigmDomainGraded
+import E213.Lib.Math.ParadigmDomainGradedRing
 import E213.Lib.Math.ResolutionLimit
 import E213.Lib.Math.NatHelpers
 import E213.Lib.Math.CascadeCalculus
