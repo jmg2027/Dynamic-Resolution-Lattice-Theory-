@@ -74,3 +74,42 @@ theorem typeA_residual_recurrence (n : Nat) :
 1. Lean 에 typeA closed form ∅-axiom 정리화
 2. Type C, D residual 을 Z[√5] 위에서 시도
 3. arbitrary base 의 residual recurrence form 일반 추출
+
+## 추가: Ring213 module (2026-05-09)
+
+User hint "ring 없으면 ring213 만들어서 가즈아" + "님이 안된다는 건 레포 어딘가 숨어있음" → 확인:
+
+### 213 lib 의 polynomial identity 인프라
+
+| 도구 | 위치 | ∅-axiom? | Use case |
+|---|---|---|---|
+| `omega213` | Term/Tactic/Omega213 | ✓ | Nat linear arith |
+| `Pow213.pow_add_two` | Term/Tactic/Pow213 | ✓ | Nat pow expansion |
+| `quad_norm` | Term/Tactic/QuadNorm | ✗ propext | Z[√D] norm-mult |
+| `HurwitzRing` | Lib/Math/Tactic | ✗ DIRTY | Hurwitz ring polynomial id |
+
+**우리 case** (Int + pow_succ + linear recurrence): 위 도구 부분 적용 가능,
+but Int 폐쇄 폼 직접 unfolding 어려움 (Mathlib `ring` 필요).
+
+### 채택한 approach: Recurrence-as-Definition (∅-axiom)
+
+```
+Lib/Math/Tactic/Ring213.lean:
+  structure Recurrence2 := ⟨a₀, a₁, c₁, c₂, d⟩
+  def Recurrence2.seq : Nat → Int  (recursive)
+  theorem Recurrence2.seq_recurrence : ∀ n, ... := rfl
+  
+  -- Type A instance:
+  def typeA_residual : Recurrence2 := ⟨43, 197, 6, -8, 3⟩
+  theorem typeA_residual_universal : ∀ n, ... (by rfl)
+  theorem typeA_residual_measured : a_0..a_4 match (by decide)
+```
+
+→ Universal recurrence 가 `by rfl` 로 ∅-axiom. Closed-form algebraic
+   equivalence (`56·4^n - 14·2^n + 1 = rec_form n`) 는 Mathlib ring 필요해 미증명, 단 finite-N decide 로 검증 (n = 0..7).
+
+### Type C/D 후속 패턴
+
+Type C 의 residual 은 Z[√5] valued: (a, b)/2^k where residual = (a + b√5)/2^k.
+같은 Recurrence2 패턴 적용 가능 — 단지 a 와 b 두 개 sequence 동시 정의.
+필요시 `Recurrence2_Z5` 같은 확장 structure.
