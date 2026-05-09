@@ -366,3 +366,62 @@ theorem gcd213_rec (a b : Nat) (ha : 0 < a) : gcd213 a b = gcd213 (b % a) a := b
         (gcd213_dvd_right (b % a) a) (gcd213_dvd_left (b % a) a)
 
 end E213.Lib.Math.NatHelpers.Gcd213
+
+namespace E213.Lib.Math.NatHelpers.Gcd213
+
+open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
+
+/-- `g ∣ x ∧ g ∣ y → g ∣ (x + y)`.  ∅-axiom. -/
+theorem dvd_add_213 (g x y : Nat) (hx : g ∣ x) (hy : g ∣ y) : g ∣ (x + y) := by
+  obtain ⟨c1, hc1⟩ := hx
+  obtain ⟨c2, hc2⟩ := hy
+  exact ⟨c1 + c2, by rw [hc1, hc2, Nat.mul_add]⟩
+
+/-- ★★★★★ **Subtraction step**: `k ≤ m → gcd213 m k = gcd213 (m - k) k`.
+    ∅-axiom.  Standard proof via `dvd_antisymm` + `dvd_sub_213` +
+    `dvd_add_213`. -/
+theorem gcd213_sub_left (m k : Nat) (h : k ≤ m) :
+    gcd213 m k = gcd213 (m - k) k := by
+  apply dvd_antisymm_213
+  · apply gcd213_greatest
+    · exact dvd_sub_213 k m _ h (gcd213_dvd_right m k) (gcd213_dvd_left m k)
+    · exact gcd213_dvd_right m k
+  · apply gcd213_greatest
+    · have h_sum : (m - k) + k = m := sub_add_cancel h
+      have h1 : gcd213 (m - k) k ∣ ((m - k) + k) :=
+        dvd_add_213 _ (m - k) k (gcd213_dvd_left (m - k) k)
+          (gcd213_dvd_right (m - k) k)
+      rw [h_sum] at h1
+      exact h1
+    · exact gcd213_dvd_right (m - k) k
+
+end E213.Lib.Math.NatHelpers.Gcd213
+
+namespace E213.Lib.Math.NatHelpers.Gcd213
+
+open E213.Tactic.Nat213 (gcd213)
+
+/-- `(k + 1) - k = 1` term-mode (∅-axiom).
+    Lean-core `Nat.add_sub_cancel_left` brings `propext`. -/
+theorem succ_sub_self_213 : ∀ (k : Nat), k + 1 - k = 1
+  | 0 => rfl
+  | k+1 => by
+    show (k + 1) + 1 - (k + 1) = 1
+    rw [Nat.succ_sub_succ_eq_sub]
+    exact succ_sub_self_213 k
+
+/-- ★★★★★ **`gcd213 1 k = 1`**.  ∅-axiom. -/
+theorem gcd213_one_left (k : Nat) : gcd213 1 k = 1 := by
+  apply dvd_antisymm_213
+  · exact gcd213_dvd_left 1 k
+  · exact ⟨gcd213 1 k, (Nat.one_mul _).symm⟩
+
+/-- ★★★★★ **`gcd213 (k + 1) k = 1`**: consecutive integers are
+    coprime.  ∅-axiom (uses `gcd213_sub_left` + `succ_sub_self_213`
+    + `gcd213_one_left`). -/
+theorem gcd213_succ_self (k : Nat) : gcd213 (k + 1) k = 1 := by
+  rw [gcd213_sub_left (k+1) k (Nat.le_succ k)]
+  rw [succ_sub_self_213 k]
+  exact gcd213_one_left k
+
+end E213.Lib.Math.NatHelpers.Gcd213

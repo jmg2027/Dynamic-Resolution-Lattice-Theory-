@@ -165,7 +165,11 @@ open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 
 /-- **JoinEquiv ⊆ L_gcd.equiv**: JoinEquiv L_m L_k is contained in
     the equivalence of L_gcd.  Direct consequence of
-    `JoinEquiv_is_least` + `gcd_upper_bound`. -/
+    `JoinEquiv_is_least` + `gcd_upper_bound`.
+
+    DIRTY-by-design (`[propext]`): the statement mentions
+    `Nat.gcd m k`.  Use `joinEquiv_subset_gcd213` (PURE alternative)
+    in ∅-axiom downstream. -/
 theorem joinEquiv_subset_gcd (m k : Nat)
     (x y : Raw)
     (h : JoinEquiv (leavesModNat m) (leavesModNat k) x y) :
@@ -179,6 +183,28 @@ theorem joinEquiv_subset_gcd (m k : Nat)
     (gcd_upper_bound m k).1
   have hLk_gcd : (leavesModNat k).refines (leavesModNat (Nat.gcd m k)) :=
     (gcd_upper_bound m k).2
+  exact JoinEquiv_is_least _ _ _ hsym hLm_gcd hLk_gcd x y h
+
+/-- ★★★★★ **`gcd213` version (∅-axiom)**: same content as
+    `joinEquiv_subset_gcd` but using 213-native `gcd213` instead of
+    Lean-core `Nat.gcd`. -/
+theorem joinEquiv_subset_gcd213 (m k : Nat)
+    (x y : Raw)
+    (h : JoinEquiv (leavesModNat m) (leavesModNat k) x y) :
+    (leavesModNat (E213.Tactic.Nat213.gcd213 m k)).equiv x y := by
+  have hsym : ∀ u v,
+      (leavesModNat (E213.Tactic.Nat213.gcd213 m k)).combine u v
+        = (leavesModNat (E213.Tactic.Nat213.gcd213 m k)).combine v u := by
+    intro u v
+    show (u + v) % E213.Tactic.Nat213.gcd213 m k
+           = (v + u) % E213.Tactic.Nat213.gcd213 m k
+    rw [Nat.add_comm]
+  have hLm_gcd : (leavesModNat m).refines
+                   (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) :=
+    (gcd213_upper_bound m k).1
+  have hLk_gcd : (leavesModNat k).refines
+                   (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) :=
+    (gcd213_upper_bound m k).2
   exact JoinEquiv_is_least _ _ _ hsym hLm_gcd hLk_gcd x y h
 
 end E213.Lib.Math.ModArith.JoinGCD
