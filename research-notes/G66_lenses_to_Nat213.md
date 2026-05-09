@@ -128,3 +128,67 @@ of `(ba, bb, combine) ∈ Nat213² × (Nat213 → Nat213 → Nat213)`.
 - `lean/E213/Theory/Raw/Fold.lean` — Raw.fold catamorphism
 - `lean/E213/Theory/Nat213/Core.lean` — Nat213 type
 - `research-notes/G65_nat213_proper_type_synthesis.md` — Nat213 motivation
+
+## Update: equivalence vs difference (formal)
+
+Reformulation per user clarification (2026-05-09):
+
+> "Raw 타입에 항등렌즈를 씌우고 그걸 세는걸 자연수라고 정의했을 때,
+> 다른 렌즈들에서 이게 똑같이 나오느냐"
+
+The question is about whether **different lenses produce the SAME
+or DIFFERENT** values when applied to the same Raw.
+
+### Formal answer: GENERALLY DIFFERENT
+
+| Pair of lenses | Same output? | Witness |
+|---|---|---|
+| `lensLeafCount` vs `lensWeighted21` | NO | `Raw.a`: 1 vs 2 |
+| `lensWeighted21` vs `lensWeighted12` | NO | `Raw.a`: 2 vs 1 |
+| `lensLeafCount` vs `lensProduct` | NO | `slash a b`: 2 vs 1 |
+| Same (ba, bb, combine) | YES | catamorphism uniqueness |
+
+### What IS preserved across all Nat213-lenses
+
+1. **Atomic image determined by (ba, bb)**: regardless of combine,
+   `L Raw.a = ba` and `L Raw.b = bb`.
+2. **Image always ≥ 1**: every value lies in Nat213.
+3. **Catamorphism structure**: `L (slash x y) = combine (L x) (L y)`.
+4. **No-zero-image**: no Raw maps to 0 (since 0 ∉ Nat213).
+
+### What VARIES across lenses
+
+1. Atomic weights (ba, bb)
+2. Combination operation (+, ·, max, min, ...)
+3. Resulting interpretation (count, product, weighted, depth-like)
+4. Sub-monoid of Nat213 produced as image
+
+### Lean ∅-axiom witnesses (this update)
+
+Added 5 more theorems to `Theory/Nat213/Lenses.lean`:
+- `weighted_lenses_differ_on_atom` — (2,1,+) ≠ (1,2,+) on Raw.a
+- `add_vs_mul_differ_on_compound` — `+` ≠ `·` on slash a b
+- `lenses_not_all_equivalent` — ∃ Raw where outputs differ
+- `atom_value_independent_of_combine` — atom values ⊥ combine
+- `same_params_same_output` — catamorphism uniqueness
+
+Total 11 ∅-axiom theorems on Nat213-lens characterization.
+
+### Conclusion
+
+**다른 lens들은 같은 값을 안 줌** (in general).  Only when the
+parameter triple `(ba, bb, combine)` matches do two lenses agree
+everywhere.
+
+But ALL Nat213-lenses share:
+- Catamorphism property
+- Both-atom-positive constraint (forced by Nat213's no-zero design)
+- Image ⊆ Nat213 (≥ 1)
+
+So the **structural shape** of "Nat213-counting" is invariant
+(determined by Raw's catamorphism + Nat213's no-zero), while the
+**specific numerical values** depend on the lens choice.
+
+This is a meaningful answer to the user's question: lenses are
+NOT all equivalent at the value level, but they all share the
+same structural skeleton dictated by Raw + Nat213.
