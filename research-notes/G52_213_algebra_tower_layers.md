@@ -839,3 +839,56 @@ L(Type C) = ~0.69 (between 11/16 and 7/10)
   이 bottleneck — 1024+ units 에서 mul-table 만들 때 매 cell 이 deep cd_mul)
 - Type C asymptote 정확히 11/16, 2/3, 0.69, 다른 값 결정: L10, L11 ZOmega
 - 새 Type D base 후보 (Hurwitz, Eisenstein-Gaussian) 측정
+
+---
+
+## Hurwitz L8 + asymptote 정밀 추정 (2026-05-09)
+
+Build_mul_table 도 std::thread::scope 병렬화 → Hurwitz L8 (1536 units,
+3.6B Moufang triples) 2분 45초 완료.
+
+### Type D rate sequence (정밀)
+
+```
+L4: 0.310    diff:
+L5: 0.542    0.232
+L6: 0.672    0.130   ratio: 0.560
+L7: 0.740    0.068   ratio: 0.523
+L8: 0.7746   0.0346  ratio: 0.509  →  → 0.5 ✓
+```
+
+### Universal asymptote formula
+
+Ratio = 0.5 을 가정하면 `limit ≈ rate_n + diff_{n-1→n}`:
+
+| Type | rate at L_n | diff | limit estimate |
+|---|---|---|---|
+| A | 0.473 (L9) | 0.026 | **0.499 → 1/2** ✓ |
+| B | (= A shifted) | | **1/2** |
+| C | 0.652 (L9) | 0.037 | **0.689 ≈ 11/16** |
+| D | 0.7746 (L8) | 0.0346 | **0.809 ≈ 13/16** |
+
+분수 후보: 1/2 = 8/16, 11/16, 13/16.
+
+Closed form 미확정. 단순 base unit count 기반 formula (1 − center/units)
+는 Type A 에만 정확:
+- A: 1 − 2/4 = 1/2 ✓
+- C: 1 − 2/6 = 2/3 ≠ 0.689
+- D: 1 − 2/24 = 11/12 ≠ 0.809
+
+→ asymptote 은 *unit count 만이 아니라 base 의 non-comm 정도 등 다른
+구조* 도 영향. 추가 데이터 (Type C L10) 또는 이론적 도출 필요.
+
+### Universal CD-doubling laws (재정리)
+
+| Law | Type A | Type B | Type C | Type D |
+|---|---|---|---|---|
+| pow-assoc-viol (units) | 0 | 0 | 0 | 0 |
+| alt-L viol (units) | 0 | 0 | 0 | 0 |
+| alt-R viol (units) | 0 | 0 | 0 | 0 |
+| flex viol (units) | 0 | 0 | 0 | 0 |
+| nm-fail (units) | 0 | 0 | 0 | 0 |
+| Order-4 monopoly | ✓ | ✓ | ✓ | ✓ |
+| Diff ratio → 1/2 | ✓ | ✓ | ✓ | ✓ |
+
+→ 7 universal laws. Base 는 첫 Mou-fail layer 와 asymptote 결정.

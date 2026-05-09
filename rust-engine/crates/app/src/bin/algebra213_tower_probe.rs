@@ -93,14 +93,31 @@ fn build_mul_table(b: &Base, units: &[V]) -> Vec<Vec<usize>> {
     let lookup: HashMap<V, usize> =
         units.iter().cloned().enumerate().map(|(i,u)| (u,i)).collect();
     let n = units.len();
-    let mut t = vec![vec![0usize; n]; n];
-    for i in 0..n {
-        for j in 0..n {
-            let p = cd_mul(b, &units[i], &units[j]);
-            t[i][j] = *lookup.get(&p).expect("nm-fail: unit×unit not in unit set");
-        }
-    }
-    t
+    let n_threads = std::thread::available_parallelism().map(|p| p.get()).unwrap_or(4);
+    let chunk = (n + n_threads - 1) / n_threads;
+    std::thread::scope(|s| {
+        let handles: Vec<_> = (0..n_threads).map(|c| {
+            let start = c * chunk;
+            let end = ((c + 1) * chunk).min(n);
+            let lookup_ref = &lookup;
+            let units_ref = units;
+            s.spawn(move || {
+                let mut rows = Vec::with_capacity(end - start);
+                for i in start..end {
+                    let mut row = vec![0usize; n];
+                    for j in 0..n {
+                        let p = cd_mul(b, &units_ref[i], &units_ref[j]);
+                        row[j] = *lookup_ref.get(&p).expect("nm-fail: unit×unit not in unit set");
+                    }
+                    rows.push(row);
+                }
+                rows
+            })
+        }).collect();
+        let mut t: Vec<Vec<usize>> = Vec::with_capacity(n);
+        for h in handles { t.extend(h.join().unwrap()); }
+        t
+    })
 }
 
 fn run_layer(b: &Base, n: usize, name: &str) {
@@ -180,7 +197,7 @@ fn run_layer(b: &Base, n: usize, name: &str) {
 fn main() {
     println!("# 213 algebra tower probe — Type D Hurwitz raid\n");
     // Hurwitz base (24 units) — predicts L3 Moufang loss already.
-    for n in 2..=7 {
-        run_layer(&Base::Hurwitz, n, "Hurwitz");
-    }
+    // Push Type D to L8 (1536 units, 3.6B Moufang triples) for asymptote nail.
+    run_layer(&Base::Hurwitz, 7, "Hurwitz");
+    run_layer(&Base::Hurwitz, 8, "Hurwitz");
 }
