@@ -123,18 +123,15 @@ theorem zSqrtProdLens_R3_fails :
   intro h
   have hnz1 : (zSqrtProdLens_I0 : ZSqrt D₁ × ZSqrt D₂) ≠ 0 := by
     intro heq
-    have hfst : (ZSqrt.I : ZSqrt D₁) = 0 :=
-      (Prod.mk.injEq ..).mp heq |>.1
-    have : (⟨0, 1⟩ : ZSqrt D₁) = ⟨0, 0⟩ := hfst
-    have : (1 : Int) = 0 := (ZSqrt.mk.injEq ..).mp this |>.2
-    exact absurd this (by decide)
+    -- Project .fst then .im to get 1 = 0
+    have hfst : (ZSqrt.I : ZSqrt D₁) = 0 := congrArg Prod.fst heq
+    have h_im : (1 : Int) = 0 := congrArg ZSqrt.im hfst
+    exact absurd h_im (by decide)
   have hnz2 : (zSqrtProdLens_0I : ZSqrt D₁ × ZSqrt D₂) ≠ 0 := by
     intro heq
-    have hsnd : (ZSqrt.I : ZSqrt D₂) = 0 :=
-      (Prod.mk.injEq ..).mp heq |>.2
-    have : (⟨0, 1⟩ : ZSqrt D₂) = ⟨0, 0⟩ := hsnd
-    have : (1 : Int) = 0 := (ZSqrt.mk.injEq ..).mp this |>.2
-    exact absurd this (by decide)
+    have hsnd : (ZSqrt.I : ZSqrt D₂) = 0 := congrArg Prod.snd heq
+    have h_im : (1 : Int) = 0 := congrArg ZSqrt.im hsnd
+    exact absurd h_im (by decide)
   have hne :
       (zSqrtProdLens D₁ D₂).combine zSqrtProdLens_I0 zSqrtProdLens_0I ≠ 0 :=
     h zSqrtProdLens_I0 zSqrtProdLens_0I hnz1 hnz2
