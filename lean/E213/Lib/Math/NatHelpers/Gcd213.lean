@@ -1,4 +1,5 @@
 import E213.Term.Tactic.Nat213
+import E213.Lib.Math.NatHelpers.AddMod213
 
 /-!
 # 213-native `gcd213` divisibility infrastructure (∅-axiom)
@@ -423,5 +424,91 @@ theorem gcd213_succ_self (k : Nat) : gcd213 (k + 1) k = 1 := by
   rw [gcd213_sub_left (k+1) k (Nat.le_succ k)]
   rw [succ_sub_self_213 k]
   exact gcd213_one_left k
+
+end E213.Lib.Math.NatHelpers.Gcd213
+
+namespace E213.Lib.Math.NatHelpers.Gcd213
+
+open E213.Tactic.Nat213
+open E213.Lib.Math.NatHelpers.AddMod213
+
+/-- `a + b = a + c → b = c`.  ∅-axiom replacement for
+    `Nat.add_left_cancel`. -/
+theorem add_left_cancel_213 (a : Nat) : ∀ {b c : Nat}, a + b = a + c → b = c := by
+  induction a with
+  | zero => intro b c h; rwa [Nat.zero_add, Nat.zero_add] at h
+  | succ a' ih =>
+    intro b c h
+    apply ih
+    have h' : (a' + b).succ = (a' + c).succ := by
+      rw [← Nat.succ_add, ← Nat.succ_add]; exact h
+    exact Nat.succ.inj h'
+
+/-- `d % n = 0 → n ∣ d` via fuel-induction.  ∅-axiom replacement for
+    `Nat.dvd_of_mod_eq_zero`. -/
+theorem mod_zero_dvd : ∀ (fuel d n : Nat), 0 < n → d ≤ fuel → d % n = 0 → n ∣ d
+  | 0, d, n, _, hd, _ => by
+    have : d = 0 := Nat.le_zero.mp hd
+    exact ⟨0, by rw [this, Nat.mul_zero]⟩
+  | k+1, d, n, hn, hd, hmod => by
+    by_cases hdn : d < n
+    · rw [Nat.mod_eq_of_lt hdn] at hmod
+      exact ⟨0, by rw [hmod, Nat.mul_zero]⟩
+    · have hdn' : n ≤ d := Nat.le_of_not_lt hdn
+      rw [Nat.mod_eq_sub_mod hdn'] at hmod
+      have h_d_n_le : d - n ≤ k :=
+        Nat.le_trans (Nat.sub_le_sub_right hd n) (succ_sub_le_self k n hn)
+      have h_dvd_sub : n ∣ (d - n) := mod_zero_dvd k (d - n) n hn h_d_n_le hmod
+      obtain ⟨q, hq⟩ := h_dvd_sub
+      exact ⟨q + 1, by rw [Nat.mul_succ, ← hq, sub_add_cancel hdn']⟩
+
+/-- ★★★★★ **Modular equality ↔ divisibility of difference**
+    (Bezout-direction): `a % n = b % n → b ≤ a → n ∣ (a - b)`.
+    ∅-axiom — the keystone for migrating `JoinEuclidean.euclidean_step`. -/
+theorem mod_eq_dvd_sub (a b n : Nat) (hn : 0 < n) (hab : b ≤ a)
+    (heq : a % n = b % n) : n ∣ (a - b) := by
+  have ha_eq : a = b + (a - b) := by
+    rw [← Nat.add_comm (a - b) b]
+    exact (sub_add_cancel hab).symm
+  have h_bd : (b + (a - b)) % n = b % n := ha_eq ▸ heq
+  rw [add_mod_gen] at h_bd
+  have hr : b % n < n := Nat.mod_lt b hn
+  have hs : (a - b) % n < n := Nat.mod_lt (a - b) hn
+  have hs_zero : (a - b) % n = 0 := by
+    by_cases hsum : (b % n) + ((a - b) % n) < n
+    · rw [Nat.mod_eq_of_lt hsum] at h_bd
+      have h_zero : (b % n) + ((a - b) % n) = (b % n) + 0 := by
+        rw [Nat.add_zero]; exact h_bd
+      exact add_left_cancel_213 _ h_zero
+    · have hsum_ge : n ≤ (b % n) + ((a - b) % n) := Nat.le_of_not_lt hsum
+      rw [Nat.mod_eq_sub_mod hsum_ge] at h_bd
+      have h_2n : (b % n) + ((a - b) % n) < n + n := Nat.add_lt_add hr hs
+      have h_diff_lt : (b % n) + ((a - b) % n) - n < n := by
+        have h2 : ((b % n) + ((a - b) % n) - n) + n
+                  = (b % n) + ((a - b) % n) := sub_add_cancel hsum_ge
+        exact Nat.lt_of_add_lt_add_right (h2 ▸ h_2n)
+      rw [Nat.mod_eq_of_lt h_diff_lt] at h_bd
+      exfalso
+      have h_sum_decomp : (b % n) + ((a - b) % n) = (b % n) + n := by
+        have h_step : ((b % n) + ((a - b) % n) - n) + n
+                        = (b % n) + ((a - b) % n) := sub_add_cancel hsum_ge
+        rw [h_bd] at h_step
+        exact h_step.symm
+      have h_eq_n : (a - b) % n = n := add_left_cancel_213 _ h_sum_decomp
+      rw [h_eq_n] at hs
+      exact absurd hs (Nat.lt_irrefl n)
+  exact mod_zero_dvd (a - b) (a - b) n hn (Nat.le_refl _) hs_zero
+
+/-- ★★★★★ **Existential form**: `a % n = b % n → b ≤ a →
+    ∃ q, a = b + q * n`.  Direct corollary of `mod_eq_dvd_sub`;
+    used by `JoinEuclidean.euclidean_step` migration. -/
+theorem mod_eq_exists_mul_add (a b n : Nat) (hn : 0 < n) (hab : b ≤ a)
+    (heq : a % n = b % n) : ∃ q, a = b + q * n := by
+  have h_dvd : n ∣ (a - b) := mod_eq_dvd_sub a b n hn hab heq
+  obtain ⟨q, hq⟩ := h_dvd
+  refine ⟨q, ?_⟩
+  have h1 : a = b + (a - b) := by
+    rw [Nat.add_comm]; exact (sub_add_cancel hab).symm
+  rw [h1, hq, Nat.mul_comm]
 
 end E213.Lib.Math.NatHelpers.Gcd213
