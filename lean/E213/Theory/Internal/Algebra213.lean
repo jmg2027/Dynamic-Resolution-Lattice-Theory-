@@ -125,6 +125,17 @@ theorem add_4_swap_mid (A X Y Z : α) :
       add_left_comm X Y Z,
       ← @Ring213.add_assoc α inst A Y (X + Z)]
 
+/-- Generic Ring213 `add_5_perm`: 5-term permutation
+    `A + P + (Q + R + S) = A + Q + (R + P + S)`.  Used by ZOmega
+    mul_assoc.re (Eisenstein -ab structure). -/
+theorem add_5_perm (A P Q R S : α) :
+    A + P + (Q + R + S) = A + Q + (R + P + S) := by
+  rw [@Ring213.add_assoc α inst Q R S, @Ring213.add_assoc α inst R P S,
+      @Ring213.add_assoc α inst A P (Q + (R + S)),
+      @Ring213.add_assoc α inst A Q (R + (P + S))]
+  congr 1
+  rw [add_left_comm P Q (R + S), add_left_comm P R S]
+
 /-- Generic Ring213 `zero_mul`: `0 * a = 0`. -/
 theorem zero_mul (a : α) : (0 : α) * a = 0 := by
   have h1 : (0 : α) * a = (0 + 0) * a :=
