@@ -136,6 +136,28 @@ fn first_nonunit_zd(b: &Base, sums: &[V], dim: usize) -> Option<(V, V)> {
     None
 }
 
+// Power-associativity: count units a where (a*a)*a ≠ a*(a*a).
+fn pow_assoc_violations(b: &Base, units: &[V]) -> usize {
+    let mut bad = 0;
+    for a in units {
+        let aa = cd_mul(b, a, a);
+        if cd_mul(b, &aa, a) != cd_mul(b, a, &aa) { bad += 1; }
+    }
+    bad
+}
+
+// 4-power consistency: count a where (a^2)^2 ≠ a*(a*(a*a)).
+fn pow4_consistent_violations(b: &Base, units: &[V]) -> usize {
+    let mut bad = 0;
+    for a in units {
+        let aa = cd_mul(b, a, a);
+        let aaaa_left = cd_mul(b, &aa, &aa);
+        let aaaa_right = cd_mul(b, a, &cd_mul(b, a, &aa));
+        if aaaa_left != aaaa_right { bad += 1; }
+    }
+    bad
+}
+
 fn run_layer(b: &Base, n: usize, name: &str) {
     let units = enumerate_units(b, n);
     let dim = units[0].len();
@@ -167,9 +189,13 @@ fn run_layer(b: &Base, n: usize, name: &str) {
     for u in &units { *counts.entry(order_of(b, u, &id)).or_insert(0usize) += 1; }
     let order_str: String = counts.iter().map(|(k,c)| format!("{k}:{c}")).collect::<Vec<_>>().join(",");
 
+    let pa = pow_assoc_violations(b, &units);
+    let p4 = pow4_consistent_violations(b, &units);
+
     println!("{name} L{n}  dim={dim} units={nu}");
     println!("  comm={comm}/{total}  assoc={assoc}/{assoc_total}");
     println!("  alt-L={alt_l}  alt-R={alt_r}  flex={flex}  Moufang={mou}/{assoc_total}  nm-fail={nm}");
+    println!("  pow-assoc-viol={pa}/{nu}  pow4-viol={p4}/{nu}");
     println!("  order_dist={{{order_str}}}");
 
     // Ring-level (non-unit) probes
@@ -189,10 +215,12 @@ fn run_layer(b: &Base, n: usize, name: &str) {
 
 fn main() {
     println!("# 213 algebra tower — generic base × layer probe\n");
-    for n in 3..=6 {
+    for n in 3..=7 {
         run_layer(&Base::ZSqrt(1),  n, "D=1     ");
         run_layer(&Base::ZSqrt(2),  n, "D=2     ");
         run_layer(&Base::ZOmega,    n, "ZOmega  ");
         println!("─────────────────────────────────────────");
     }
+    // L8 only for smaller types (D=2 has 128 units, manageable)
+    run_layer(&Base::ZSqrt(2),  8, "D=2     ");
 }
