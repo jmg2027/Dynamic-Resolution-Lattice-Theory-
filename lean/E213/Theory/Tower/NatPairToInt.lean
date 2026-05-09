@@ -122,4 +122,49 @@ theorem npairToInt_translation_invariant (a b k : Nat) :
   rw [E213.Tactic.Nat213.add_sub_add_right b k a,
       E213.Tactic.Nat213.add_sub_add_right a k b]
 
+-- ═══ "Lost properties" ℕ → ℤ (G62) — concrete witnesses ═══
+
+/-- ★ Loss 1 — Fiber multiplicity at 0.  In ℕ the integer `0` has
+    a unique representation (just `0`).  Under the orthogonal-axis
+    projection `ℕ × ℕ → ℤ`, the integer `0` has *infinitely many*
+    representatives `(k, k)` for every `k`.  Concrete witness: 4
+    distinct NPairs all projecting to 0. -/
+theorem zero_fiber_multiple :
+    npairToInt (0, 0) = npairToInt (1, 1) ∧
+    npairToInt (1, 1) = npairToInt (2, 2) ∧
+    npairToInt (2, 2) = npairToInt (5, 5) ∧
+    npairToInt (5, 5) = 0 := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> rfl
+
+/-- ★ Loss 2 — Negative axis emerges.  Integers below 0 exist in
+    ℤ but not in ℕ.  Concrete: `-1` is reached via the anti-axis
+    embedding, NOT via the +ℕ embedding. -/
+theorem negative_axis_witness :
+    npairToInt (natToNPairNeg 1) = -1 ∧
+    ∀ n : Nat, npairToInt (natToNPair n) ≠ -1 := by
+  refine ⟨?_, ?_⟩
+  · exact npairToInt_natToNPairNeg 1
+  · intro n h
+    rw [npairToInt_natToNPair] at h
+    -- h : Int.ofNat n = -1.  Both sides are different constructors:
+    -- LHS = Int.ofNat n, RHS = -1 = Int.negSucc 0 (different ctor).
+    cases n with
+    | zero => exact absurd h (by decide)
+    | succ _ => exact Int.noConfusion h
+
+/-- ★ Loss 3 — Swap-symmetry forced.  In ℕ, the operation
+    "swap (a, b) = (b, a)" has fixed points only on the
+    diagonal `a = b`.  Under the projection to ℤ, swap becomes
+    NEGATION — every non-zero integer is moved to its negative.
+    Witness: `swap (5, 0) ↦ (0, 5)`, `npairToInt (5, 0) = 5`,
+    `npairToInt (0, 5) = -5`. -/
+theorem swap_realizes_negation :
+    npairToInt (5, 0) = 5 ∧
+    npairToInt (0, 5) = -5 ∧
+    npairToInt (0, 5) = -(npairToInt (5, 0)) := by
+  refine ⟨?_, ?_, ?_⟩
+  · exact npairToInt_natToNPair 5
+  · exact npairToInt_natToNPairNeg 5
+  · rfl
+
 end E213.Theory.Tower.NatPairToInt
