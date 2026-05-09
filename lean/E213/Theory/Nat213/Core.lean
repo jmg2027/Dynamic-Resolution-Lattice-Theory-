@@ -113,6 +113,31 @@ theorem add_comm : ∀ m n : Nat213, add m n = add n m
       show succ (add m n) = add n (succ m)
       rw [add_succ_right n m, add_comm m n]
 
+/-- ★★★ NO ADDITIVE IDENTITY: there is no `z : Nat213` such that
+    `add z one = one`.  In standard ℕ-with-0, `0 + 1 = 1` (identity).
+    In Nat213, no such `z` exists — proves ℕ-with-0's identity
+    structure is foreign to Nat213. -/
+theorem no_additive_identity_at_one :
+    ¬ ∃ z : Nat213, add z one = one := by
+  intro ⟨z, h⟩
+  rw [add_one_right z] at h
+  exact Nat213.noConfusion h
+
+/-- ★★★ NO CLOSED SUBTRACTION: there is no function
+    `sub : Nat213 → Nat213 → Nat213` such that `add (sub n n) n = n`
+    for every `n`.  Proof: setting `n = one`, the equation forces
+    `sub one one` to be an additive identity at one, which doesn't
+    exist (`no_additive_identity_at_one`).
+
+    Therefore subtraction MUST escape Nat213 (= go to ℤ via the
+    orthogonal-axis-generator fold). -/
+theorem no_closed_subtraction :
+    ¬ ∃ sub : Nat213 → Nat213 → Nat213,
+        ∀ n : Nat213, add (sub n n) n = n := by
+  intro ⟨sub, h⟩
+  have h1 : add (sub one one) one = one := h one
+  exact no_additive_identity_at_one ⟨sub one one, h1⟩
+
 -- ═══ NO ABSORPTION: there is no zero in Nat213 ═══
 
 /-- Helper: `mul_succ_two_strictly_grows` — if z = succ z', then
