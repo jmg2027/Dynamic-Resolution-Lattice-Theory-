@@ -1,16 +1,10 @@
-// 213 algebra tower probe — generic base × layer cross-section.
-// Bases: ZSqrt(D) for D ≥ 1, ZOmega = ℤ[ω] (ω³ = 1).
-// L_n = "n-2 CD doublings of base"; component count = 2 × (base components) × 2^(n-2).
-
+// 213 algebra tower probe — mul-table optimized.
+use std::collections::HashMap;
 type V = Vec<i64>;
 
 #[derive(Clone, Copy)]
-enum Base {
-    ZSqrt(i64),  // ℤ[√-D]: norm a²+Db², conj (a, -b), mul (a₀b₀-Da₁b₁, a₀b₁+a₁b₀)
-    ZOmega,       // ℤ[ω]:    norm a²-ab+b², conj (a-b, -b), mul (a₀b₀-a₁b₁, a₀b₁+a₁b₀-a₁b₁)
-}
-
-fn base_size(_b: &Base) -> usize { 2 }
+enum Base { ZSqrt(i64), ZOmega }
+fn base_size(_: &Base) -> usize { 2 }
 
 fn base_mul(b: &Base, a: &[i64], v: &[i64]) -> V {
     match b {
@@ -21,27 +15,17 @@ fn base_mul(b: &Base, a: &[i64], v: &[i64]) -> V {
 fn base_conj(b: &Base, a: &[i64]) -> V {
     match b {
         Base::ZSqrt(_) => vec![a[0], -a[1]],
-        Base::ZOmega   => vec![a[0] - a[1], -a[1]],
-    }
-}
-fn base_normsq(b: &Base, a: &[i64]) -> i64 {
-    match b {
-        Base::ZSqrt(d) => a[0]*a[0] + d * a[1]*a[1],
-        Base::ZOmega   => a[0]*a[0] - a[0]*a[1] + a[1]*a[1],
+        Base::ZOmega   => vec![a[0]-a[1], -a[1]],
     }
 }
 fn base_units(b: &Base) -> Vec<V> {
     match b {
         Base::ZSqrt(d) => {
-            let mut us = vec![vec![1, 0], vec![-1, 0]];
-            if *d == 1 { us.push(vec![0, 1]); us.push(vec![0, -1]); }
+            let mut us = vec![vec![1,0], vec![-1,0]];
+            if *d == 1 { us.push(vec![0,1]); us.push(vec![0,-1]); }
             us
         }
-        Base::ZOmega => {
-            // 6 units: ±1, ±ω, ±(1+ω) ... actually solving a²-ab+b² = 1
-            //   (1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1)
-            vec![vec![1,0], vec![-1,0], vec![0,1], vec![0,-1], vec![1,1], vec![-1,-1]]
-        }
+        Base::ZOmega => vec![vec![1,0],vec![-1,0],vec![0,1],vec![0,-1],vec![1,1],vec![-1,-1]],
     }
 }
 
@@ -51,19 +35,14 @@ fn neg(a: &[i64]) -> V { a.iter().map(|x| -x).collect() }
 
 fn cd_conj(b: &Base, a: &[i64]) -> V {
     if a.len() == base_size(b) { return base_conj(b, a); }
-    let h = a.len() / 2;
+    let h = a.len()/2;
     let mut out = cd_conj(b, &a[..h]);
     out.extend(neg(&a[h..]));
     out
 }
-fn cd_normsq(b: &Base, a: &[i64]) -> i64 {
-    if a.len() == base_size(b) { return base_normsq(b, a); }
-    let h = a.len() / 2;
-    cd_normsq(b, &a[..h]) + cd_normsq(b, &a[h..])
-}
 fn cd_mul(b: &Base, a: &[i64], v: &[i64]) -> V {
     if a.len() == base_size(b) { return base_mul(b, a, v); }
-    let h = a.len() / 2;
+    let h = a.len()/2;
     let (ar, ai) = (&a[..h], &a[h..]);
     let (vr, vi) = (&v[..h], &v[h..]);
     let new_re = sub(&cd_mul(b, ar, vr), &cd_mul(b, &cd_conj(b, vi), ai));
@@ -71,156 +50,102 @@ fn cd_mul(b: &Base, a: &[i64], v: &[i64]) -> V {
     [new_re, new_im].concat()
 }
 
-fn zero(n: usize) -> V { vec![0; n] }
-fn one(n: usize) -> V { let mut v = vec![0; n]; v[0] = 1; v }
-
-// Recursively enumerate L_n units: L_n units = {(u, 0)} ∪ {(0, u)} for u ∈ L_{n-1} units.
 fn enumerate_units(b: &Base, n: usize) -> Vec<V> {
-    let mut current: Vec<V> = base_units(b);
+    let mut cur = base_units(b);
     for _ in 2..n {
-        let half_dim = current[0].len();
-        let mut next = Vec::new();
-        for u in &current {
-            let mut left = u.clone(); left.extend(vec![0; half_dim]);
-            next.push(left);
-            let mut right = vec![0; half_dim]; right.extend(u.iter());
-            next.push(right);
+        let h = cur[0].len();
+        let mut nx = Vec::new();
+        for u in &cur {
+            let mut l = u.clone(); l.extend(vec![0; h]); nx.push(l);
+            let mut r = vec![0; h]; r.extend(u.iter()); nx.push(r);
         }
-        current = next;
+        cur = nx;
     }
-    current
+    cur
 }
 
-fn order_of(b: &Base, u: &[i64], identity: &[i64]) -> usize {
-    let mut cur = u.to_vec();
-    for k in 1..=128 {
-        if cur == identity { return k; }
-        cur = cd_mul(b, &cur, u);
-    }
-    0
-}
-
-// Non-unit elements: pairwise sums of basis units (skipping zero sums).
-fn nonunit_sums(b: &Base, units: &[V]) -> Vec<V> {
-    let mut sums = Vec::new();
-    for (i, a) in units.iter().enumerate() {
-        for v in units.iter().skip(i + 1) {
-            let s = add(a, v);
-            if cd_normsq(b, &s) > 0 { sums.push(s); }
+fn build_mul_table(b: &Base, units: &[V]) -> Vec<Vec<usize>> {
+    let lookup: HashMap<V, usize> =
+        units.iter().cloned().enumerate().map(|(i,u)| (u,i)).collect();
+    let n = units.len();
+    let mut t = vec![vec![0usize; n]; n];
+    for i in 0..n {
+        for j in 0..n {
+            let p = cd_mul(b, &units[i], &units[j]);
+            t[i][j] = *lookup.get(&p).expect("nm-fail: unit×unit not in unit set");
         }
     }
-    sums
-}
-
-// First (a, v) violating alt-L on non-unit elements: a*(a*v) ≠ (a*a)*v.
-fn first_nonunit_altL(b: &Base, sums: &[V]) -> Option<(V, V)> {
-    for a in sums {
-        let aa = cd_mul(b, a, a);
-        for v in sums {
-            if cd_mul(b, a, &cd_mul(b, a, v)) != cd_mul(b, &aa, v) {
-                return Some((a.clone(), v.clone()));
-            }
-        }
-    }
-    None
-}
-
-// First non-unit (a, v) with a*v = 0.
-fn first_nonunit_zd(b: &Base, sums: &[V], dim: usize) -> Option<(V, V)> {
-    let zv = vec![0i64; dim];
-    for a in sums {
-        for v in sums {
-            if cd_mul(b, a, v) == zv { return Some((a.clone(), v.clone())); }
-        }
-    }
-    None
-}
-
-// Power-associativity: count units a where (a*a)*a ≠ a*(a*a).
-fn pow_assoc_violations(b: &Base, units: &[V]) -> usize {
-    let mut bad = 0;
-    for a in units {
-        let aa = cd_mul(b, a, a);
-        if cd_mul(b, &aa, a) != cd_mul(b, a, &aa) { bad += 1; }
-    }
-    bad
-}
-
-// 4-power consistency: count a where (a^2)^2 ≠ a*(a*(a*a)).
-fn pow4_consistent_violations(b: &Base, units: &[V]) -> usize {
-    let mut bad = 0;
-    for a in units {
-        let aa = cd_mul(b, a, a);
-        let aaaa_left = cd_mul(b, &aa, &aa);
-        let aaaa_right = cd_mul(b, a, &cd_mul(b, a, &aa));
-        if aaaa_left != aaaa_right { bad += 1; }
-    }
-    bad
+    t
 }
 
 fn run_layer(b: &Base, n: usize, name: &str) {
     let units = enumerate_units(b, n);
     let dim = units[0].len();
-    let id = one(dim);
     let nu = units.len();
-    let total = nu * nu;
-    let assoc_total = nu.pow(3);
+    let t = build_mul_table(b, &units);
+    let id_idx = (0..nu).find(|&i| units[i][0] == 1 && units[i].iter().skip(1).all(|&x| x == 0)).unwrap();
 
-    let (mut comm, mut assoc, mut alt_l, mut alt_r, mut flex, mut mou, mut nm) =
-        (0,0,0,0,0,0,0);
-    for a in &units {
-        let aa = cd_mul(b, a, a);
-        for v in &units {
-            if cd_mul(b, a, v) != cd_mul(b, v, a) { comm += 1; }
-            if cd_mul(b, a, &cd_mul(b, a, v)) != cd_mul(b, &aa, v) { alt_l += 1; }
-            if cd_mul(b, &cd_mul(b, v, a), a) != cd_mul(b, v, &aa) { alt_r += 1; }
-            if cd_mul(b, a, &cd_mul(b, v, a)) != cd_mul(b, &cd_mul(b, a, v), a) { flex += 1; }
-            if cd_normsq(b, &cd_mul(b, a, v)) != cd_normsq(b, a) * cd_normsq(b, v) { nm += 1; }
-            let av = cd_mul(b, a, v);
-            for c in &units {
-                if cd_mul(b, &av, c) != cd_mul(b, a, &cd_mul(b, v, c)) { assoc += 1; }
-                let lhs = cd_mul(b, &cd_mul(b, &cd_mul(b, a, v), a), c);
-                let rhs = cd_mul(b, a, &cd_mul(b, v, &cd_mul(b, a, c)));
+    let mut comm = 0; let mut assoc = 0; let mut alt_l = 0; let mut alt_r = 0;
+    let mut flex = 0; let mut mou = 0;
+    for i in 0..nu {
+        let ii = t[i][i];
+        for j in 0..nu {
+            if t[i][j] != t[j][i] { comm += 1; }
+            if t[i][t[i][j]] != t[ii][j] { alt_l += 1; }
+            if t[t[j][i]][i] != t[j][ii] { alt_r += 1; }
+            if t[i][t[j][i]] != t[t[i][j]][i] { flex += 1; }
+            let aj = t[i][j];
+            for k in 0..nu {
+                if t[aj][k] != t[i][t[j][k]] { assoc += 1; }
+                let lhs = t[t[t[i][j]][i]][k];
+                let rhs = t[i][t[j][t[i][k]]];
                 if lhs != rhs { mou += 1; }
             }
         }
     }
+
+    let total = nu * nu;
+    let assoc_total = nu.pow(3);
+
+    // order distribution via table walk
     let mut counts = std::collections::BTreeMap::new();
-    for u in &units { *counts.entry(order_of(b, u, &id)).or_insert(0usize) += 1; }
+    for i in 0..nu {
+        let mut cur = i;
+        let mut ord = 0;
+        for k in 1..=128 {
+            if cur == id_idx { ord = k; break; }
+            cur = t[cur][i];
+        }
+        *counts.entry(ord).or_insert(0usize) += 1;
+    }
     let order_str: String = counts.iter().map(|(k,c)| format!("{k}:{c}")).collect::<Vec<_>>().join(",");
 
-    let pa = pow_assoc_violations(b, &units);
-    let p4 = pow4_consistent_violations(b, &units);
+    // power-associativity (still on units)
+    let mut pa = 0;
+    for i in 0..nu {
+        let ii = t[i][i];
+        if t[ii][i] != t[i][ii] { pa += 1; }
+    }
 
-    println!("{name} L{n}  dim={dim} units={nu}");
+    println!("{name} L{n} dim={dim} units={nu}");
     println!("  comm={comm}/{total}  assoc={assoc}/{assoc_total}");
-    println!("  alt-L={alt_l}  alt-R={alt_r}  flex={flex}  Moufang={mou}/{assoc_total}  nm-fail={nm}");
-    println!("  pow-assoc-viol={pa}/{nu}  pow4-viol={p4}/{nu}");
-    println!("  order_dist={{{order_str}}}");
-
-    // Ring-level (non-unit) probes
-    let sums = nonunit_sums(b, &units);
-    let n_sums = sums.len().min(200); // cap to keep search tractable
-    let sums_capped: Vec<V> = sums.into_iter().take(n_sums).collect();
-    match first_nonunit_altL(b, &sums_capped) {
-        Some((a, v)) => println!("  ring-level alt-L FAILS  (a={:?}, v={:?})", a, v),
-        None => println!("  ring-level alt-L holds (on {} non-unit sums)", n_sums),
-    }
-    match first_nonunit_zd(b, &sums_capped, dim) {
-        Some((a, v)) => println!("  zero divisor FOUND  (a={:?}, v={:?})", a, v),
-        None => println!("  no zero divisor (on {} non-unit sums)", n_sums),
-    }
+    println!("  alt-L={alt_l} alt-R={alt_r} flex={flex} Mou={mou}/{assoc_total} pow-assoc-viol={pa}");
+    println!("  order={{{order_str}}}");
     println!();
 }
 
 fn main() {
-    println!("# 213 algebra tower — generic base × layer probe\n");
+    println!("# 213 algebra tower probe — mul-table optimized\n");
     for n in 3..=7 {
-        run_layer(&Base::ZSqrt(1),  n, "D=1     ");
-        run_layer(&Base::ZSqrt(2),  n, "D=2     ");
-        run_layer(&Base::ZOmega,    n, "ZOmega  ");
+        run_layer(&Base::ZSqrt(1), n, "D=1   ");
+        run_layer(&Base::ZSqrt(2), n, "D=2   ");
+        run_layer(&Base::ZOmega,   n, "ZOmega");
         println!("─────────────────────────────────────────");
     }
-    // L8 only for smaller types (D=2 has 128 units, manageable)
-    run_layer(&Base::ZSqrt(2),  8, "D=2     ");
+    // Push higher for smaller types
+    run_layer(&Base::ZSqrt(2), 8, "D=2   ");
+    run_layer(&Base::ZSqrt(2), 9, "D=2   ");
+    run_layer(&Base::ZSqrt(2), 10, "D=2   ");
+    run_layer(&Base::ZSqrt(1), 8, "D=1   ");
+    run_layer(&Base::ZSqrt(1), 9, "D=1   ");
 }
