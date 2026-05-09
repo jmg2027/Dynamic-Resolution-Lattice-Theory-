@@ -101,3 +101,40 @@ private theorem add_mul' (u v w : Lipschitz) : (u + v) * w = u * w + v * w := by
     exact Ring213.add_4_swap_mid _ _ _ _
 
 end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+namespace E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+open E213.Lib.Math.CayleyDickson.ZI
+open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Theory.Internal.Algebra213
+
+/-- ∅-axiom Lipschitz `mul_add`: `u * (v + w) = u * v + u * w`. -/
+private theorem mul_add' (u v w : Lipschitz) : u * (v + w) = u * v + u * w := by
+  apply ext
+  · -- (u * (v + w)).re = u.re * (v + w).re - (v + w).im.conj * u.im
+    --                 = u.re * (v.re + w.re) - (v.im + w.im).conj * u.im
+    show u.re * (v.re + w.re) - (v.im + w.im).conj * u.im
+       = (u.re * v.re - v.im.conj * u.im) + (u.re * w.re - w.im.conj * u.im)
+    -- Distribute conj over +
+    rw [conj_add (v.im) (w.im)]
+    -- Goal: u.re * (v.re + w.re) - (v.im.conj + w.im.conj) * u.im = ...
+    rw [Ring213.mul_add u.re v.re w.re, Ring213.add_mul v.im.conj w.im.conj u.im]
+    show (u.re * v.re + u.re * w.re) + (-(v.im.conj * u.im + w.im.conj * u.im))
+       = (u.re * v.re + (-(v.im.conj * u.im))) + (u.re * w.re + (-(w.im.conj * u.im)))
+    rw [show (-(v.im.conj * u.im + w.im.conj * u.im) : ZI)
+            = (-(v.im.conj * u.im)) + (-(w.im.conj * u.im))
+        from by
+          apply ZI.ZI.ext
+          · exact E213.Theory.Internal.Int213.neg_add _ _
+          · exact E213.Theory.Internal.Int213.neg_add _ _]
+    exact Ring213.add_4_swap_mid _ _ _ _
+  · -- (u * (v + w)).im = (v + w).im * u.re + u.im * (v + w).re.conj
+    show (v.im + w.im) * u.re + u.im * (v.re + w.re).conj
+       = (v.im * u.re + u.im * v.re.conj) + (w.im * u.re + u.im * w.re.conj)
+    rw [conj_add v.re w.re,
+        Ring213.add_mul v.im w.im u.re, Ring213.mul_add u.im v.re.conj w.re.conj]
+    -- Goal: v.im*u.re + w.im*u.re + (u.im*v.re.conj + u.im*w.re.conj)
+    --     = (v.im*u.re + u.im*v.re.conj) + (w.im*u.re + u.im*w.re.conj)
+    exact Ring213.add_4_swap_mid _ _ _ _
+
+end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
