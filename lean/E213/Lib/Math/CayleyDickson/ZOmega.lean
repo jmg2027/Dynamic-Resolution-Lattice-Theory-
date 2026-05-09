@@ -1,3 +1,5 @@
+import E213.Theory.Internal.Int213
+
 /-!
 # Eisenstein integers `ℤ[ω]`, ω² + ω + 1 = 0
 
@@ -47,9 +49,13 @@ theorem ext {u v : ZOmega} (hr : u.re = v.re) (hi : u.im = v.im) :
 theorem conj_conj (u : ZOmega) : u.conj.conj = u := by
   apply ext
   · show (u.re - u.im) - (-u.im) = u.re
-    omega
-  · show -(-u.im) = u.im
-    omega
+    -- (a - b) - (-b) = (a - b) + b = a (via sub_add_cancel_int)
+    have h1 : (u.re - u.im) - (-u.im) = (u.re - u.im) + u.im := by
+      show (u.re - u.im) + (-(-u.im)) = (u.re - u.im) + u.im
+      rw [Int.neg_neg]
+    rw [h1]
+    exact E213.Theory.Internal.Int213.sub_add_cancel_int u.re u.im
+  · show -(-u.im) = u.im; exact Int.neg_neg _
 
 theorem conj_ne_id : ∃ x : ZOmega, conj x ≠ x := by
   refine ⟨Omega, ?_⟩
@@ -61,8 +67,11 @@ theorem conj_ne_id : ∃ x : ZOmega, conj x ≠ x := by
 theorem conj_Omega : conj Omega = Omega2 := rfl
 
 theorem conj_Omega2 : conj Omega2 = Omega := by
-  show (⟨-1 - -1, -(-1)⟩ : ZOmega) = ⟨0, 1⟩
-  apply ext <;> simp
+  apply ext
+  · show -1 - -1 = (0 : Int)
+    rw [Int.sub_eq_add_neg, Int.neg_neg]
+    rfl
+  · show -(-1) = (1 : Int); exact Int.neg_neg _
 
 end ZOmega
 

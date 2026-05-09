@@ -334,3 +334,90 @@ theorem subNatNat_zero_succ (m : Nat) : Int.subNatNat 0 (m+1) = Int.negSucc m :=
 
 
 end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+open E213.Tactic.Nat213
+  (sub_add_cancel add_sub_of_le add_sub_cancel_right
+   sub_pos_of_lt le_sub_of_add_le)
+
+/-- ★★★★★ ∅-axiom: `subNatNat k m + negSucc k = negSucc m`.
+    The negSucc analog of `subNatNat_add_self`.  Critical for
+    the negSucc/negSucc case of `Int.sub_add_cancel`. -/
+theorem subNatNat_add_negSucc_self (k m : Nat) :
+    Int.subNatNat k m + Int.negSucc k = Int.negSucc m := by
+  rcases Nat.lt_or_ge m k with h_lt | h_ge
+  · have h_eq : m - k = 0 := sub_eq_zero_of_le_nat (Nat.le_of_lt h_lt)
+    show (match m - k with | 0 => Int.ofNat (k - m) | j+1 => Int.negSucc j)
+            + Int.negSucc k = Int.negSucc m
+    rw [h_eq]
+    show Int.subNatNat (k - m) (k + 1) = Int.negSucc m
+    have h_k1 : k + 1 = (m + 1) + (k - m) := by
+      have h_km : m + (k - m) = k := add_sub_of_le (Nat.le_of_lt h_lt)
+      rw [Nat.add_right_comm, h_km]
+    rw [h_k1]
+    have hsa : Int.subNatNat (0 + (k - m)) ((m + 1) + (k - m))
+                = Int.subNatNat 0 (m+1) :=
+      subNatNat_add_add 0 (m+1) (k-m)
+    rw [Nat.zero_add] at hsa
+    rw [hsa]
+    rfl
+  · rcases Nat.eq_or_lt_of_le h_ge with h_eq | h_gt
+    · rw [← h_eq]
+      show Int.subNatNat k k + Int.negSucc k = Int.negSucc k
+      rw [Int.subNatNat_self]
+      rfl
+    · have h_ge1 : 1 ≤ m - k := sub_pos_of_lt h_gt
+      have h_eq : m - k = (m - k - 1) + 1 := by
+        rw [Nat.sub_one_add_one_eq_of_pos h_ge1]
+      show (match m - k with | 0 => Int.ofNat (k - m) | j+1 => Int.negSucc j)
+              + Int.negSucc k = Int.negSucc m
+      rw [h_eq]
+      show Int.negSucc ((m - k - 1) + k).succ = Int.negSucc m
+      congr 1
+      show (m - k - 1) + k + 1 = m
+      have h1 : (m - k - 1) + 1 = m - k := by rw [← h_eq]
+      rw [Nat.add_right_comm (m - k - 1) k 1, h1]
+      exact sub_add_cancel (Nat.le_of_lt h_gt)
+
+/-- ★★★★★★★ ∅-axiom: `Int.sub_add_cancel`: `a - b + b = a`.
+    Foundation for `Int.add_assoc` of specific shapes. -/
+theorem sub_add_cancel_int (a b : Int) : a - b + b = a := by
+  rw [Int.sub_eq_add_neg]
+  cases b with
+  | ofNat n =>
+    cases n with
+    | zero =>
+      show a + 0 + 0 = a
+      rw [Int.add_zero, Int.add_zero]
+    | succ k =>
+      show a + Int.negSucc k + Int.ofNat (k+1) = a
+      cases a with
+      | ofNat m =>
+        show Int.subNatNat m (k+1) + Int.ofNat (k+1) = Int.ofNat m
+        exact subNatNat_add_self m (k+1)
+      | negSucc m =>
+        show Int.subNatNat (k+1) (m+k+1+1) = Int.negSucc m
+        have heq : m+k+1+1 = (m+1) + (k+1) := by
+          rw [Nat.add_right_comm m k 1, Nat.add_assoc (m+1) k 1]
+        rw [heq]
+        have h1 : Int.subNatNat ((0 : Nat) + (k+1)) ((m+1) + (k+1))
+                = Int.subNatNat 0 (m+1) := subNatNat_add_add 0 (m+1) (k+1)
+        rw [Nat.zero_add] at h1
+        rw [h1]
+        rfl
+  | negSucc k =>
+    show a + Int.ofNat (k+1) + Int.negSucc k = a
+    cases a with
+    | ofNat m =>
+      show Int.subNatNat (m + (k+1)) (k+1) = Int.ofNat m
+      have h1 : Int.subNatNat (m + (k+1)) (0 + (k+1)) = Int.subNatNat m 0 :=
+        subNatNat_add_add m 0 (k+1)
+      rw [Nat.zero_add] at h1
+      rw [h1, subNatNat_zero]
+    | negSucc m =>
+      show Int.subNatNat (k+1) (m+1) + Int.negSucc k = Int.negSucc m
+      rw [subNatNat_succ_succ]
+      exact subNatNat_add_negSucc_self k m
+
+end E213.Theory.Internal.Int213
