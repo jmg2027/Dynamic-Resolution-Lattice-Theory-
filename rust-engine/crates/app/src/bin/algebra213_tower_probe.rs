@@ -100,6 +100,42 @@ fn order_of(b: &Base, u: &[i64], identity: &[i64]) -> usize {
     0
 }
 
+// Non-unit elements: pairwise sums of basis units (skipping zero sums).
+fn nonunit_sums(b: &Base, units: &[V]) -> Vec<V> {
+    let mut sums = Vec::new();
+    for (i, a) in units.iter().enumerate() {
+        for v in units.iter().skip(i + 1) {
+            let s = add(a, v);
+            if cd_normsq(b, &s) > 0 { sums.push(s); }
+        }
+    }
+    sums
+}
+
+// First (a, v) violating alt-L on non-unit elements: a*(a*v) ≠ (a*a)*v.
+fn first_nonunit_altL(b: &Base, sums: &[V]) -> Option<(V, V)> {
+    for a in sums {
+        let aa = cd_mul(b, a, a);
+        for v in sums {
+            if cd_mul(b, a, &cd_mul(b, a, v)) != cd_mul(b, &aa, v) {
+                return Some((a.clone(), v.clone()));
+            }
+        }
+    }
+    None
+}
+
+// First non-unit (a, v) with a*v = 0.
+fn first_nonunit_zd(b: &Base, sums: &[V], dim: usize) -> Option<(V, V)> {
+    let zv = vec![0i64; dim];
+    for a in sums {
+        for v in sums {
+            if cd_mul(b, a, v) == zv { return Some((a.clone(), v.clone())); }
+        }
+    }
+    None
+}
+
 fn run_layer(b: &Base, n: usize, name: &str) {
     let units = enumerate_units(b, n);
     let dim = units[0].len();
@@ -135,6 +171,19 @@ fn run_layer(b: &Base, n: usize, name: &str) {
     println!("  comm={comm}/{total}  assoc={assoc}/{assoc_total}");
     println!("  alt-L={alt_l}  alt-R={alt_r}  flex={flex}  Moufang={mou}/{assoc_total}  nm-fail={nm}");
     println!("  order_dist={{{order_str}}}");
+
+    // Ring-level (non-unit) probes
+    let sums = nonunit_sums(b, &units);
+    let n_sums = sums.len().min(200); // cap to keep search tractable
+    let sums_capped: Vec<V> = sums.into_iter().take(n_sums).collect();
+    match first_nonunit_altL(b, &sums_capped) {
+        Some((a, v)) => println!("  ring-level alt-L FAILS  (a={:?}, v={:?})", a, v),
+        None => println!("  ring-level alt-L holds (on {} non-unit sums)", n_sums),
+    }
+    match first_nonunit_zd(b, &sums_capped, dim) {
+        Some((a, v)) => println!("  zero divisor FOUND  (a={:?}, v={:?})", a, v),
+        None => println!("  no zero divisor (on {} non-unit sums)", n_sums),
+    }
     println!();
 }
 

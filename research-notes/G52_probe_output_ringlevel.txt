@@ -1,0 +1,60 @@
+D=1      L3  dim=4 units=8
+  comm=24/64  assoc=0/512
+  alt-L=0  alt-R=0  flex=0  Moufang=0/512  nm-fail=0
+  ring-level alt-L holds (on 24 non-unit sums)
+  no zero divisor (on 24 non-unit sums)
+D=2      L3  dim=4 units=4
+  comm=0/16  assoc=0/64
+  alt-L=0  alt-R=0  flex=0  Moufang=0/64  nm-fail=0
+  ring-level alt-L holds (on 4 non-unit sums)
+  no zero divisor (on 4 non-unit sums)
+ZOmega   L3  dim=4 units=12
+  comm=72/144  assoc=0/1728
+  alt-L=0  alt-R=0  flex=0  Moufang=0/1728  nm-fail=0
+  ring-level alt-L holds (on 60 non-unit sums)
+  no zero divisor (on 60 non-unit sums)
+D=1      L4  dim=8 units=16
+  comm=168/256  assoc=1344/4096
+  alt-L=0  alt-R=0  flex=0  Moufang=0/4096  nm-fail=0
+  ring-level alt-L holds (on 112 non-unit sums)
+  no zero divisor (on 112 non-unit sums)
+D=2      L4  dim=8 units=8
+  comm=24/64  assoc=0/512
+  alt-L=0  alt-R=0  flex=0  Moufang=0/512  nm-fail=0
+  ring-level alt-L holds (on 24 non-unit sums)
+  no zero divisor (on 24 non-unit sums)
+ZOmega   L4  dim=8 units=24
+  comm=432/576  assoc=6048/13824
+  alt-L=0  alt-R=0  flex=0  Moufang=0/13824  nm-fail=0
+  ring-level alt-L holds (on 200 non-unit sums)
+  no zero divisor (on 200 non-unit sums)
+D=1      L5  dim=16 units=32
+  comm=840/1024  assoc=14784/32768
+  alt-L=0  alt-R=0  flex=0  Moufang=5376/32768  nm-fail=0
+  ring-level alt-L FAILS  (a=[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], v=[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  zero divisor FOUND  (a=[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], v=[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1])
+D=2      L5  dim=16 units=16
+  comm=168/256  assoc=1344/4096
+  alt-L=0  alt-R=0  flex=0  Moufang=0/4096  nm-fail=0
+  ring-level alt-L holds (on 112 non-unit sums)
+  no zero divisor (on 112 non-unit sums)
+ZOmega   L5  dim=16 units=48
+  comm=2016/2304  assoc=68256/110592
+  alt-L=0  alt-R=0  flex=0  Moufang=24192/110592  nm-fail=0
+  ring-level alt-L FAILS  (a=[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], v=[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  no zero divisor (on 200 non-unit sums)
+D=1      L6  dim=32 units=64
+  comm=3720/4096  assoc=127680/262144
+  alt-L=0  alt-R=0  flex=0  Moufang=80640/262144  nm-fail=0
+  ring-level alt-L FAILS  (a=[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], v=[1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  no zero divisor (on 200 non-unit sums)
+D=2      L6  dim=32 units=32
+  comm=840/1024  assoc=14784/32768
+  alt-L=0  alt-R=0  flex=0  Moufang=5376/32768  nm-fail=0
+  ring-level alt-L FAILS  (a=[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], v=[1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  zero divisor FOUND  (a=[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], v=[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0])
+ZOmega   L6  dim=32 units=96
+  comm=8640/9216  assoc=593568/884736
+  alt-L=0  alt-R=0  flex=0  Moufang=369792/884736  nm-fail=0
+  ring-level alt-L FAILS  (a=[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], v=[1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  no zero divisor (on 200 non-unit sums)
