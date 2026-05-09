@@ -1,11 +1,18 @@
 import E213.Lib.Math.CayleyDickson.Trigintaduonion
 import E213.Lib.Math.CayleyDickson.SedenionHeavy
+import E213.Lib.Math.CayleyDickson.LipschitzAlgebra213
 import E213.Lib.Math.Tactic.HurwitzRing
+import E213.Theory.Internal.Algebra213
 
 /-!
 # Trigintaduonion "heavy" identities
 
-Testing `hurwitz_ring` at CD layer 4 (32-dim, 64 Int coords).
+`conj_conj` migrated to ∅-axiom via Ring213.neg_neg cascade
+(Lipschitz Ring213 instance + componentwise structural
+recursion through Cayley → Sedenion → Trigintaduonion).
+
+`conj_mul_anti` still uses hurwitz_ring (DIRTY) — 128-Int-var
+2-factor polynomial.
 -/
 
 namespace E213.Lib.Math.CayleyDickson.TrigintaduoionionHeavy
@@ -20,31 +27,36 @@ open E213.Lib.Math.CayleyDickson.Sedenion.Sedenion
 open E213.Lib.Math.CayleyDickson.Cayley
 open E213.Lib.Math.CayleyDickson.CDDouble
 open E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+open E213.Theory.Internal.Algebra213
 open E213.Tactic
 
-set_option maxHeartbeats 8000000 in
-/-- Involutivity of conjugation at layer 4 — 1-var, 64 Int
-    coords.  Stress test. -/
+/-- ∅-axiom Cayley `neg_neg` via Lipschitz Ring213. -/
+private theorem cayley_neg_neg (u : E213.Lib.Math.CayleyDickson.Cayley.Cayley) :
+    -(-u) = u := by
+  apply E213.Lib.Math.CayleyDickson.Cayley.Cayley.ext
+  · show -(-u.re) = u.re; exact Ring213.neg_neg u.re
+  · show -(-u.im) = u.im; exact Ring213.neg_neg u.im
+
+/-- ∅-axiom Sedenion `neg_neg` via Cayley. -/
+private theorem sedenion_neg_neg
+    (u : E213.Lib.Math.CayleyDickson.Sedenion.Sedenion) :
+    -(-u) = u := by
+  apply E213.Lib.Math.CayleyDickson.Sedenion.Sedenion.ext
+  · show -(-u.re) = u.re; exact cayley_neg_neg u.re
+  · show -(-u.im) = u.im; exact cayley_neg_neg u.im
+
+/-- ★ ∅-axiom Trigintaduonion conjugation involutive via Sedenion cascade. -/
 theorem conj_conj (u : Trigintaduonion) : conj (conj u) = u := by
-  hurwitz_ring
-
-open E213.Tactic
+  apply Trigintaduonion.ext
+  · show u.re.conj.conj = u.re
+    exact E213.Lib.Math.CayleyDickson.SedenionHeavy.conj_conj u.re
+  · show -(-u.im) = u.im
+    exact sedenion_neg_neg u.im
 
 set_option maxHeartbeats 32000000 in
-/-- Anti-distributivity at layer 4: `conj(u·v) = conj(v) · conj(u)`.
-    128 Int vars, 2-factor polynomial.  Ambitious stress test. -/
+/-- Anti-distributivity at layer 4 — DIRTY (128 Int vars). -/
 theorem conj_mul_anti (u v : Trigintaduonion) :
     conj (u * v) = conj v * conj u := by
   hurwitz_ring
 
 end E213.Lib.Math.CayleyDickson.TrigintaduoionionHeavy
-
-/-
-**Trigintaduonion flexibility** `(a·b)·a = a·(b·a)` is a
-128-Int-var 3-factor polynomial identity.  Attempted with
-`set_option maxHeartbeats 128000000` but ~12 minutes of CPU
-did not complete — at or past the `hurwitz_ring` + omega
-practical ceiling.  Classically flexibility holds at all CD
-layers (consequence of CD structure); obstruction here is
-tactic cost, not truth.  Deferred.
--/
