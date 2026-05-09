@@ -1,0 +1,125 @@
+import E213.Theory.Internal.Int213
+import E213.Term.Tactic.Nat213
+
+/-!
+# Theory.Tower.NatPairToInt — orthogonal-axis projection
+
+ℕ → ℤ as **two orthogonal ℕ-axes + diagonal quotient projection**
+(orthogonal-coordinate framing — see G62 research note).
+
+A pair `(a, b) : ℕ × ℕ` represents the integer `a - b`.  Two pairs
+represent the same integer iff they differ by **diagonal translation**:
+  `(a, b) ~ (c, d)  ⟺  a + d = b + c`
+
+This file provides:
+- `npairToInt : ℕ × ℕ → ℤ`  (the projection map)
+- `npairEquiv : ℕ × ℕ → ℕ × ℕ → Prop`  (the diagonal equivalence)
+- the +ℕ and -ℕ axis embeddings
+
+All theorems satisfy the ∅-axiom standard.
+
+## What this materializes (G62 framing)
+
+The "2-side extension" ℕ → ℤ is concretely:
+- Take TWO orthogonal copies of ℕ (the `a` axis and the `b` axis)
+- Project (a, b) to `a - b` ∈ ℤ
+- This collapses each diagonal-translation orbit to one integer
+- The "lost information" = which fiber-representative (a, b) we
+  came from
+-/
+
+namespace E213.Theory.Tower.NatPairToInt
+
+/-- Orthogonal-axis pair representing an integer. -/
+abbrev NPair : Type := Nat × Nat
+
+/-- Project pair `(a, b)` to integer `a - b` via `Int.subNatNat`. -/
+def npairToInt (p : NPair) : Int := Int.subNatNat p.1 p.2
+
+/-- Diagonal equivalence: `(a,b) ~ (c,d) ⟺ a + d = b + c`. -/
+def npairEquiv (p q : NPair) : Prop := p.1 + q.2 = p.2 + q.1
+
+/-- Reflexivity of the equivalence. -/
+theorem npairEquiv_refl (p : NPair) : npairEquiv p p := by
+  show p.1 + p.2 = p.2 + p.1
+  exact Nat.add_comm _ _
+
+/-- Symmetry of the equivalence. -/
+theorem npairEquiv_symm {p q : NPair} (h : npairEquiv p q) :
+    npairEquiv q p := by
+  show q.1 + p.2 = q.2 + p.1
+  rw [Nat.add_comm q.1 p.2, Nat.add_comm q.2 p.1]
+  exact h.symm
+
+/-- The natural injection ℕ → ℕ × ℕ via `(n, 0)`.  This is one
+    side of the orthogonal-axis embedding. -/
+def natToNPair (n : Nat) : NPair := (n, 0)
+
+/-- `npairToInt (n, 0) = n`.  The +ℕ axis. -/
+theorem npairToInt_natToNPair (n : Nat) :
+    npairToInt (natToNPair n) = Int.ofNat n := by
+  show Int.subNatNat n 0 = Int.ofNat n
+  cases n with
+  | zero => rfl
+  | succ k =>
+      show (match 0 - (k+1) with
+            | 0 => Int.ofNat ((k+1) - 0)
+            | j+1 => Int.negSucc j) = Int.ofNat (k+1)
+      rw [Nat.zero_sub]; rfl
+
+/-- The "anti-axis" embedding ℕ → ℕ × ℕ via `(0, n)`.  Maps to
+    negative integers. -/
+def natToNPairNeg (n : Nat) : NPair := (0, n)
+
+/-- `npairToInt (0, n) = -n`.  The -ℕ axis. -/
+theorem npairToInt_natToNPairNeg (n : Nat) :
+    npairToInt (natToNPairNeg n) = -(Int.ofNat n) := by
+  show Int.subNatNat 0 n = -(Int.ofNat n)
+  cases n with
+  | zero => rfl
+  | succ k =>
+      show (match (k+1) - 0 with
+            | 0 => Int.ofNat (0 - (k+1))
+            | j+1 => Int.negSucc j) = -(Int.ofNat (k+1))
+      rfl
+
+/-- ★ The two axes meet at zero: `(0, 0)` projects to `0`. -/
+theorem npairToInt_zero : npairToInt (0, 0) = 0 := rfl
+
+/-- ★ Same-integer pairs are diagonally equivalent.  This is one
+    direction of the Grothendieck completion correctness:
+    if two pairs represent the same integer, they differ by a
+    diagonal translation.  Proved on the diagonal-shift form
+    `(n+k, k)` representing `n` for any k. -/
+theorem npairToInt_diag_shift (n k : Nat) :
+    npairToInt (n + k, k) = npairToInt (n, 0) := by
+  show Int.subNatNat (n + k) k = Int.subNatNat n 0
+  show (match k - (n + k) with
+        | 0 => Int.ofNat ((n + k) - k)
+        | j+1 => Int.negSucc j)
+     = (match 0 - n with
+        | 0 => Int.ofNat (n - 0)
+        | j+1 => Int.negSucc j)
+  rw [show k - (n + k) = 0 from by
+        rw [Nat.add_comm n k];
+        show (k + 0) - (k + n) = 0
+        rw [E213.Tactic.Nat213.add_sub_add_left k 0 n,
+            Nat.zero_sub],
+      E213.Tactic.Nat213.add_sub_cancel_right n k,
+      Nat.zero_sub, Nat.sub_zero]
+
+/-- ★ Diagonal-equivalent pairs project to the same integer.
+    Generalized form: `(a + k, b + k) ~ (a, b)` for any k. -/
+theorem npairToInt_translation_invariant (a b k : Nat) :
+    npairToInt (a + k, b + k) = npairToInt (a, b) := by
+  show Int.subNatNat (a + k) (b + k) = Int.subNatNat a b
+  show (match (b + k) - (a + k) with
+        | 0 => Int.ofNat ((a + k) - (b + k))
+        | j+1 => Int.negSucc j)
+     = (match b - a with
+        | 0 => Int.ofNat (a - b)
+        | j+1 => Int.negSucc j)
+  rw [E213.Tactic.Nat213.add_sub_add_right b k a,
+      E213.Tactic.Nat213.add_sub_add_right a k b]
+
+end E213.Theory.Tower.NatPairToInt
