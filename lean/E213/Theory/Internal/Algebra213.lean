@@ -122,6 +122,31 @@ theorem add_4_swap_mid (A X Y Z : α) :
       add_left_comm X Y Z,
       ← @Ring213.add_assoc α inst A Y (X + Z)]
 
+/-- Generic Ring213 `zero_mul`: `0 * a = 0`. -/
+theorem zero_mul (a : α) : (0 : α) * a = 0 := by
+  have h1 : (0 : α) * a = (0 + 0) * a :=
+    congrArg (· * a) (@Ring213.add_zero α inst 0).symm
+  rw [@Ring213.add_mul α inst] at h1
+  -- h1 : 0 * a = 0 * a + 0 * a
+  -- Apply: -(0*a) + (0*a) = -(0*a) + (0*a + 0*a), so 0 = -(0*a) + (0*a + 0*a)
+  -- = (-(0*a) + 0*a) + 0*a = 0 + 0*a = 0*a
+  have h2 : -(0 * a) + (0 * a) = -(0 * a) + (0 * a + 0 * a) :=
+    congrArg ((-(0*a)) + ·) h1
+  rw [@Ring213.add_left_neg α inst, ← @Ring213.add_assoc α inst,
+      @Ring213.add_left_neg α inst, zero_add] at h2
+  exact h2.symm
+
+/-- Generic Ring213 `mul_zero`: `a * 0 = 0`. -/
+theorem mul_zero (a : α) : a * (0 : α) = 0 := by
+  have h1 : a * (0 : α) = a * (0 + 0) :=
+    congrArg (a * ·) (@Ring213.add_zero α inst 0).symm
+  rw [@Ring213.mul_add α inst] at h1
+  have h2 : -(a * 0) + (a * 0) = -(a * 0) + (a * 0 + a * 0) :=
+    congrArg ((-(a*0)) + ·) h1
+  rw [@Ring213.add_left_neg α inst, ← @Ring213.add_assoc α inst,
+      @Ring213.add_left_neg α inst, zero_add] at h2
+  exact h2.symm
+
 end Ring213
 
 end E213.Theory.Internal.Algebra213
