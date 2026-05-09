@@ -111,3 +111,63 @@ L2 분기는 본질적으로 **유닛 군 위수**의 차이 (Z₄ vs Z₆).
 4. **유닛 군 layer별 trace**: 각 base의 unit group 위수를 layer별로 추적, 유닛 군이 어떻게 변하는지 관측.
 
 이 모두 *213-native*: 특정 외부 frame (Hurwitz, Frobenius 등) 없이 각 layer의 자체 데이터만 봄.
+
+---
+
+## 추가 관측 (이어서) — 유닛 군 위수 layer별 추적
+
+Brute-force 계수 ∈ {-2..2} (L3) 또는 {-1..1} (L4) 검색.
+
+| Layer | nat 수 | ZI base 갈래 | ZOmega base 갈래 | ZOmega/ZI 비율 |
+|---|---|---|---|---|
+| L2 | 4 | **4** | **6** | 1.5 |
+| L3 | 8 | **8** | **12** | 1.5 |
+| L4 | 16 | **16** | **24** | 1.5 |
+
+**성장 패턴**: 각 layer마다 유닛 수가 정확히 *2배*.
+- ZI ladder: 4, 8, 16, 32, ... (= 4 · 2^(L-2))
+- ZOmega ladder: 6, 12, 24, 48, ... (= 6 · 2^(L-2)) = 3 · 2^(L-1)
+
+**비율 보존**: ZOmega/ZI 유닛 비 = 1.5 = 6/4 (L2의 비와 동일) 모든 layer에서.
+
+L2 분기에서 결정된 "6 vs 4"가 *ladder 전체에 2배수 곱해져 전파*됨.
+
+### 군 구조 식별 (L3)
+
+ZI L3 유닛 (8개) = `{±1, ±i, ±j, ±k}` = **Q₈** (quaternion 군, binary dihedral order 8).
+
+ZOmega L3 유닛 (12개) decomposition (brute-force 결과):
+- re-only 6: `{±1, ±ω, ±ω²}` (= ZOmega 유닛 lift)
+- im-only 6: `{±j, ±ωj, ±ω²j}` (j 방향에 동일 구조)
+- mixed 0
+- 군 구조: **Dic₃ = Q₁₂** (binary dihedral order 12)
+  - 생성원: `a = -ω` (위수 6), `b = j` (b² = -1, bab⁻¹ = a⁻¹)
+  - 검증: `a⁶ = 1`, `b² = j² = -1 = a³`, `bab⁻¹ = j·(-ω)·j⁻¹ = -ω² = a⁻¹` (모두 #eval 확인됨)
+
+### L4 유닛 군 (위수 24, ZOmega 갈래)
+
+24 = order of *binary tetrahedral group* 2T (Hurwitz integer 유닛 군과 일치하는 위수).
+구조 확인은 곱셈표 비교 필요 (미수행).
+
+만약 ZOmegaQuad L4 유닛 ≅ 2T라면 — Hurwitz integer 유닛 군이 ZOmega ladder의 자연스러운 위치에 등장한 것.
+
+### 패턴 요약
+
+L2 base 선택 (4 vs 6) → ladder 전체의 *유닛 군 위수*를 2배수 등비로 결정.
+- L_n unit count = (L2 base unit count) × 2^(n-2)
+
+이것이 **사용자의 "3-axis 임베딩" 직관의 정량적 표현**:
+- 2-axis (CD level): doubling 한 번마다 ×2
+- 3-axis (base 선택): L2에서 결정된 위수 (4, 6, ...)가 multiplier로 ladder 전체에 전파
+
+### 추가 가설
+
+C3. **L2 base 선택의 효과는 multiplicative**.  ZSqrt[D] for various D는
+또 다른 L2 유닛 위수를 줄 것 (ZSqrt[2] = 무한? 단위는 √2 + 1 같은 것
+들; 다항 단위 체계 다름).  이게 ladder 전체에 어떻게 전파될지가
+검증 가능한 가설.
+
+C4. **24, 48 같은 위수가 known finite 군 (binary tetrahedral 2T,
+binary octahedral 2O 등)과 일치하면**, ZOmega ladder가 Hurwitz
+integer / icosian ring 같은 *exceptional* 유닛 군을 자연 도출할 수
+있음.
