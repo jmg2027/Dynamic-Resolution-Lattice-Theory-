@@ -40,4 +40,21 @@ theorem L6T_order_4_count :
     L6T_units.countP (fun u => L6T_orderOf u = 4) = 30 :=
   L6T_order_distribution.2.2.1
 
+/-- L5T -1 lifted to L6T. -/
+def L6T_minus_one : L6T := L6T_left L5T_minus_one
+
+set_option maxHeartbeats 4000000 in
+/-- ★★★ ORDER-4 MONOPOLY MECHANISM at L6: every L6T_right unit
+    (lifted from L5T via CD doubling's "im axis") squares to -1.
+    Same identity as L5T: (0, u)² = (-N(u), 0) = (-1, 0). -/
+theorem L6T_right_squared_is_minus_one_first8 :
+    ∀ u ∈ (L4T_units.map L5T_left),
+    L6T_right u * L6T_right u = L6T_minus_one := by decide
+
+set_option maxHeartbeats 4000000 in
+/-- Same for L5T_right lifted. -/
+theorem L6T_right_squared_is_minus_one_last8 :
+    ∀ u ∈ (L4T_units.map L5T_right),
+    L6T_right u * L6T_right u = L6T_minus_one := by decide
+
 end E213.Lib.Math.CayleyDickson.ZSqrtMinus2

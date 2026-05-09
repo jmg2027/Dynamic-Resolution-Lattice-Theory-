@@ -48,4 +48,33 @@ theorem L5T_order_4_count :
     L5T_units.countP (fun u => L5T_orderOf u = 4) = 14 :=
   L5T_order_distribution.2.2.1
 
+/-- L4T value -1 lifted as L5T (= ⟨L4T_minus_one, L4T_zero⟩). -/
+def L5T_minus_one : L5T := L5T_left L4T_minus_one
+
+/-- ★★★ ORDER-4 MONOPOLY (CORE): every L5T_right unit (lifted from L4T)
+    squares to L5T_minus_one. This is the *mechanism* behind the order-4
+    monopoly: CD doubling's new "im axis" elements satisfy x² = −1 by
+    construction (since the doubling formula gives (0, u)·(0, u) =
+    (−conj(u)·u, 0) = (−1, 0) when u is a unit). -/
+theorem L5T_right_squared_is_minus_one :
+    L5T_right L4T_unit_0 * L5T_right L4T_unit_0 = L5T_minus_one ∧
+    L5T_right L4T_unit_1 * L5T_right L4T_unit_1 = L5T_minus_one ∧
+    L5T_right L4T_unit_2 * L5T_right L4T_unit_2 = L5T_minus_one ∧
+    L5T_right L4T_unit_3 * L5T_right L4T_unit_3 = L5T_minus_one ∧
+    L5T_right L4T_unit_4 * L5T_right L4T_unit_4 = L5T_minus_one ∧
+    L5T_right L4T_unit_5 * L5T_right L4T_unit_5 = L5T_minus_one ∧
+    L5T_right L4T_unit_6 * L5T_right L4T_unit_6 = L5T_minus_one ∧
+    L5T_right L4T_unit_7 * L5T_right L4T_unit_7 = L5T_minus_one := by decide
+
+/-- ★ ORDER-4 MONOPOLY (consequence): every L5T_right unit has order 4. -/
+theorem L5T_right_all_order_4 :
+    L5T_orderOf (L5T_right L4T_unit_0) = 4 ∧
+    L5T_orderOf (L5T_right L4T_unit_1) = 4 ∧
+    L5T_orderOf (L5T_right L4T_unit_2) = 4 ∧
+    L5T_orderOf (L5T_right L4T_unit_3) = 4 ∧
+    L5T_orderOf (L5T_right L4T_unit_4) = 4 ∧
+    L5T_orderOf (L5T_right L4T_unit_5) = 4 ∧
+    L5T_orderOf (L5T_right L4T_unit_6) = 4 ∧
+    L5T_orderOf (L5T_right L4T_unit_7) = 4 := by decide
+
 end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
