@@ -1,146 +1,149 @@
-// 213 algebra tower probe — generic ZSqrt(D) base, D ∈ {1, 2, ...}, layer ∈ {3..6}.
-// L_n = 2^(n-1) i64 components; D=1 → ZI (Gaussian) base, D=2 → ZSqrt[-2] base, etc.
+// 213 algebra tower probe — generic base × layer cross-section.
+// Bases: ZSqrt(D) for D ≥ 1, ZOmega = ℤ[ω] (ω³ = 1).
+// L_n = "n-2 CD doublings of base"; component count = 2 × (base components) × 2^(n-2).
 
 type V = Vec<i64>;
 
-fn zd_mul(d: i64, a: &[i64], b: &[i64]) -> V {
-    vec![a[0] * b[0] - d * a[1] * b[1], a[0] * b[1] + a[1] * b[0]]
+#[derive(Clone, Copy)]
+enum Base {
+    ZSqrt(i64),  // ℤ[√-D]: norm a²+Db², conj (a, -b), mul (a₀b₀-Da₁b₁, a₀b₁+a₁b₀)
+    ZOmega,       // ℤ[ω]:    norm a²-ab+b², conj (a-b, -b), mul (a₀b₀-a₁b₁, a₀b₁+a₁b₀-a₁b₁)
 }
-fn zd_conj(a: &[i64]) -> V { vec![a[0], -a[1]] }
-fn zd_normsq(d: i64, a: &[i64]) -> i64 { a[0] * a[0] + d * a[1] * a[1] }
 
-fn add(a: &[i64], b: &[i64]) -> V { a.iter().zip(b).map(|(x, y)| x + y).collect() }
-fn sub(a: &[i64], b: &[i64]) -> V { a.iter().zip(b).map(|(x, y)| x - y).collect() }
+fn base_size(_b: &Base) -> usize { 2 }
+
+fn base_mul(b: &Base, a: &[i64], v: &[i64]) -> V {
+    match b {
+        Base::ZSqrt(d) => vec![a[0]*v[0] - d*a[1]*v[1], a[0]*v[1] + a[1]*v[0]],
+        Base::ZOmega   => vec![a[0]*v[0] - a[1]*v[1], a[0]*v[1] + a[1]*v[0] - a[1]*v[1]],
+    }
+}
+fn base_conj(b: &Base, a: &[i64]) -> V {
+    match b {
+        Base::ZSqrt(_) => vec![a[0], -a[1]],
+        Base::ZOmega   => vec![a[0] - a[1], -a[1]],
+    }
+}
+fn base_normsq(b: &Base, a: &[i64]) -> i64 {
+    match b {
+        Base::ZSqrt(d) => a[0]*a[0] + d * a[1]*a[1],
+        Base::ZOmega   => a[0]*a[0] - a[0]*a[1] + a[1]*a[1],
+    }
+}
+fn base_units(b: &Base) -> Vec<V> {
+    match b {
+        Base::ZSqrt(d) => {
+            let mut us = vec![vec![1, 0], vec![-1, 0]];
+            if *d == 1 { us.push(vec![0, 1]); us.push(vec![0, -1]); }
+            us
+        }
+        Base::ZOmega => {
+            // 6 units: ±1, ±ω, ±(1+ω) ... actually solving a²-ab+b² = 1
+            //   (1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1)
+            vec![vec![1,0], vec![-1,0], vec![0,1], vec![0,-1], vec![1,1], vec![-1,-1]]
+        }
+    }
+}
+
+fn add(a: &[i64], b: &[i64]) -> V { a.iter().zip(b).map(|(x,y)| x+y).collect() }
+fn sub(a: &[i64], b: &[i64]) -> V { a.iter().zip(b).map(|(x,y)| x-y).collect() }
 fn neg(a: &[i64]) -> V { a.iter().map(|x| -x).collect() }
 
-fn cd_conj(a: &[i64]) -> V {
-    let n = a.len();
-    if n == 2 { return zd_conj(a); }
-    let h = n / 2;
-    let mut out = cd_conj(&a[..h]);
+fn cd_conj(b: &Base, a: &[i64]) -> V {
+    if a.len() == base_size(b) { return base_conj(b, a); }
+    let h = a.len() / 2;
+    let mut out = cd_conj(b, &a[..h]);
     out.extend(neg(&a[h..]));
     out
 }
-fn cd_normsq(d: i64, a: &[i64]) -> i64 {
-    let n = a.len();
-    if n == 2 { return zd_normsq(d, a); }
-    let h = n / 2;
-    cd_normsq(d, &a[..h]) + cd_normsq(d, &a[h..])
+fn cd_normsq(b: &Base, a: &[i64]) -> i64 {
+    if a.len() == base_size(b) { return base_normsq(b, a); }
+    let h = a.len() / 2;
+    cd_normsq(b, &a[..h]) + cd_normsq(b, &a[h..])
 }
-fn cd_mul(d: i64, a: &[i64], b: &[i64]) -> V {
-    let n = a.len();
-    if n == 2 { return zd_mul(d, a, b); }
-    let h = n / 2;
-    let (a_re, a_im) = (&a[..h], &a[h..]);
-    let (b_re, b_im) = (&b[..h], &b[h..]);
-    let new_re = sub(&cd_mul(d, a_re, b_re), &cd_mul(d, &cd_conj(b_im), a_im));
-    let new_im = add(&cd_mul(d, b_im, a_re), &cd_mul(d, a_im, &cd_conj(b_re)));
+fn cd_mul(b: &Base, a: &[i64], v: &[i64]) -> V {
+    if a.len() == base_size(b) { return base_mul(b, a, v); }
+    let h = a.len() / 2;
+    let (ar, ai) = (&a[..h], &a[h..]);
+    let (vr, vi) = (&v[..h], &v[h..]);
+    let new_re = sub(&cd_mul(b, ar, vr), &cd_mul(b, &cd_conj(b, vi), ai));
+    let new_im = add(&cd_mul(b, vi, ar), &cd_mul(b, ai, &cd_conj(b, vr)));
     [new_re, new_im].concat()
 }
 
 fn zero(n: usize) -> V { vec![0; n] }
 fn one(n: usize) -> V { let mut v = vec![0; n]; v[0] = 1; v }
 
-// Units: ±1 at any position contributing weight 1 to the norm.
-// For D=1, every position has weight 1. For D≠1, only "real-slot" positions
-// (even indices at deepest level) have weight 1; "im" positions have weight D.
-fn enumerate_units(d: i64, n: usize) -> Vec<V> {
-    let dim = 1 << (n - 1);
-    let step = if d == 1 { 1 } else { 2 };
-    let mut units = Vec::new();
-    for i in (0..dim).step_by(step) {
-        for &s in &[1i64, -1] {
-            let mut u = vec![0i64; dim];
-            u[i] = s;
-            units.push(u);
+// Recursively enumerate L_n units: L_n units = {(u, 0)} ∪ {(0, u)} for u ∈ L_{n-1} units.
+fn enumerate_units(b: &Base, n: usize) -> Vec<V> {
+    let mut current: Vec<V> = base_units(b);
+    for _ in 2..n {
+        let half_dim = current[0].len();
+        let mut next = Vec::new();
+        for u in &current {
+            let mut left = u.clone(); left.extend(vec![0; half_dim]);
+            next.push(left);
+            let mut right = vec![0; half_dim]; right.extend(u.iter());
+            next.push(right);
         }
+        current = next;
     }
-    units
+    current
 }
 
-fn order_of(d: i64, u: &[i64], identity: &[i64]) -> usize {
+fn order_of(b: &Base, u: &[i64], identity: &[i64]) -> usize {
     let mut cur = u.to_vec();
     for k in 1..=128 {
         if cur == identity { return k; }
-        cur = cd_mul(d, &cur, u);
+        cur = cd_mul(b, &cur, u);
     }
     0
 }
 
-fn run_layer(d: i64, n: usize) {
-    let dim = 1 << (n - 1);
-    let units = enumerate_units(d, n);
+fn run_layer(b: &Base, n: usize, name: &str) {
+    let units = enumerate_units(b, n);
+    let dim = units[0].len();
     let id = one(dim);
     let nu = units.len();
     let total = nu * nu;
     let assoc_total = nu.pow(3);
 
-    let mut comm_bad = 0;
-    let mut assoc_bad = 0;
-    let mut alt_l = 0; let mut alt_r = 0; let mut flex = 0; let mut moufang = 0;
-    let mut nm_fail = 0;
+    let (mut comm, mut assoc, mut alt_l, mut alt_r, mut flex, mut mou, mut nm) =
+        (0,0,0,0,0,0,0);
     for a in &units {
-        let aa = cd_mul(d, a, a);
-        for b in &units {
-            if cd_mul(d, a, b) != cd_mul(d, b, a) { comm_bad += 1; }
-            if cd_mul(d, a, &cd_mul(d, a, b)) != cd_mul(d, &aa, b) { alt_l += 1; }
-            if cd_mul(d, &cd_mul(d, b, a), a) != cd_mul(d, b, &aa) { alt_r += 1; }
-            if cd_mul(d, a, &cd_mul(d, b, a)) != cd_mul(d, &cd_mul(d, a, b), a) { flex += 1; }
-            if cd_normsq(d, &cd_mul(d, a, b)) != cd_normsq(d, a) * cd_normsq(d, b) { nm_fail += 1; }
-            let ab = cd_mul(d, a, b);
+        let aa = cd_mul(b, a, a);
+        for v in &units {
+            if cd_mul(b, a, v) != cd_mul(b, v, a) { comm += 1; }
+            if cd_mul(b, a, &cd_mul(b, a, v)) != cd_mul(b, &aa, v) { alt_l += 1; }
+            if cd_mul(b, &cd_mul(b, v, a), a) != cd_mul(b, v, &aa) { alt_r += 1; }
+            if cd_mul(b, a, &cd_mul(b, v, a)) != cd_mul(b, &cd_mul(b, a, v), a) { flex += 1; }
+            if cd_normsq(b, &cd_mul(b, a, v)) != cd_normsq(b, a) * cd_normsq(b, v) { nm += 1; }
+            let av = cd_mul(b, a, v);
             for c in &units {
-                if cd_mul(d, &ab, c) != cd_mul(d, a, &cd_mul(d, b, c)) { assoc_bad += 1; }
-                let lhs = cd_mul(d, &cd_mul(d, &cd_mul(d, a, b), a), c);
-                let rhs = cd_mul(d, a, &cd_mul(d, b, &cd_mul(d, a, c)));
-                if lhs != rhs { moufang += 1; }
+                if cd_mul(b, &av, c) != cd_mul(b, a, &cd_mul(b, v, c)) { assoc += 1; }
+                let lhs = cd_mul(b, &cd_mul(b, &cd_mul(b, a, v), a), c);
+                let rhs = cd_mul(b, a, &cd_mul(b, v, &cd_mul(b, a, c)));
+                if lhs != rhs { mou += 1; }
             }
         }
     }
-
     let mut counts = std::collections::BTreeMap::new();
-    for u in &units { *counts.entry(order_of(d, u, &id)).or_insert(0usize) += 1; }
+    for u in &units { *counts.entry(order_of(b, u, &id)).or_insert(0usize) += 1; }
     let order_str: String = counts.iter().map(|(k,c)| format!("{k}:{c}")).collect::<Vec<_>>().join(",");
 
-    // Zero divisor search via nonzero unit-sum products
-    let zero_v = zero(dim);
-    let mut sums: Vec<V> = Vec::new();
-    for (i, a) in units.iter().enumerate() {
-        for b in units.iter().skip(i + 1) {
-            let s = add(a, b);
-            if s != zero_v { sums.push(s); }
-        }
-    }
-    let mut zd = 0;
-    let mut zd_sample: Option<(V, V)> = None;
-    'outer: for a in &sums {
-        for b in &sums {
-            if cd_mul(d, a, b) == zero_v {
-                zd += 1;
-                if zd_sample.is_none() { zd_sample = Some((a.clone(), b.clone())); }
-                if zd > 100 { break 'outer; }  // cap, just need existence
-            }
-        }
-    }
-
-    println!("D={d} L{n} dim={dim} units={nu}");
-    println!("  comm_fail={comm_bad}/{total}  assoc_fail={assoc_bad}/{assoc_total}");
-    println!("  alt-L={alt_l}/{total}  alt-R={alt_r}/{total}  flex={flex}/{total}");
-    println!("  Moufang={moufang}/{assoc_total}  normMult_fail={nm_fail}/{total}");
+    println!("{name} L{n}  dim={dim} units={nu}");
+    println!("  comm={comm}/{total}  assoc={assoc}/{assoc_total}");
+    println!("  alt-L={alt_l}  alt-R={alt_r}  flex={flex}  Moufang={mou}/{assoc_total}  nm-fail={nm}");
     println!("  order_dist={{{order_str}}}");
-    println!("  zd_count={zd}");
-    if let Some((a, b)) = &zd_sample {
-        println!("  zd_a={:?}", a);
-        println!("  zd_b={:?}", b);
-    }
     println!();
 }
 
 fn main() {
-    println!("# 213 algebra tower probe — base D × layer L_n cross-section");
-    println!("# (alt-L/R/flex/Moufang/normMult/zd measured on units)\n");
-    for &d in &[1i64, 2, 3, 5, 7] {
-        for n in 3..=5 {  // L=6 too slow if we test many D
-            run_layer(d, n);
-        }
+    println!("# 213 algebra tower — generic base × layer probe\n");
+    for n in 3..=5 {
+        run_layer(&Base::ZSqrt(1),  n, "D=1     ");
+        run_layer(&Base::ZSqrt(2),  n, "D=2     ");
+        run_layer(&Base::ZOmega,    n, "ZOmega  ");
+        println!("─────────────────────────────────────────");
     }
 }

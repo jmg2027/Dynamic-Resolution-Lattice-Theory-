@@ -577,3 +577,57 @@ small enough → decide.
 2. D=1 L4 (= Lipschitz Q_8) vs D=2 L4 (= ZSqrt[-2] L4) 사이 explicit
    isomorphism Lean에서 ∅-axiom decide
 3. Non-unit triple로 alt-law 측정 — D coefficient effect 처음으로 보일 layer
+
+---
+
+## ZOmega base 측정 (2026-05-09): 3-row matrix 확립
+
+| Layer | Type A (D=1) | Type B (D≥2) | Type C (ZOmega) |
+|---|---|---|---|
+| L3 | 8u, Q_8 (comm=24) | 4u, Z_4 (comm=0) | 12u, Dic_3 (comm=72, ord {1,2,3:2,4:6,6:2}) |
+| L4 | 16u, M_16 (Mou=0) | 8u, Q_8 (comm=24) | 24u, M_24 (Mou=0, ord {1,2,3:2,4:18,6:2}) |
+| L5 | 32u, Mou✗ (5376/32768) | 16u, M_16 (Mou=0) | 48u, Mou✗ (24192/110592 ≈ 21.9%) |
+
+### Refined transition rule
+
+- abelian → non-abelian: Type A 와 C 는 L2→L3; Type B 는 L3→L4 (한 layer 늦음)
+- Moufang loss: Type A 와 C 는 L4→L5; Type B 는 L5→L6
+
+→ **Shift는 base unit count 가 < 4 일 때만 일어남** (Type B 만).
+   A (4 units) 와 C (6 units) 는 같은 transition layer.
+
+### Cyclotomic order 보존
+
+ZOmega 의 cyclotomic order 3 (ω³=1) element 가 모든 layer 에서
+order distribution 에 `{3:2, 6:2}` 정확히 보존:
+- ZOmega L3, L4, L5 모두 같은 (3:2, 6:2) tail
+- Type A, B 는 order 2 와 4 만
+
+→ **CD doubling 은 base 의 cyclotomic order 깨지 않음**. Base의 회전
+대칭이 layer 마다 그대로 propagate.
+
+### 행렬 view: rows = base cyclotomic class
+
+```
+             cyclotomic order 4    cyclotomic order 3 or 6
+             (ZI base)              (ZOmega base)
+             ──────────            ──────────────
+unit count   Type A (base 4u)      Type C (base 6u)
+class:       Type B (base 2u)         (no analog with 2u base)
+```
+
+Sparse — cyclotomic order 후보 자체가 finite (Q(ζ_n) 의 정수환에서
+unit이 finite인 n ∈ {1, 2, 3, 4, 6}).
+
+### 가능한 Type D
+
+- Q(ζ_8) 정수환: 4 base units (cyclotomic order 8)
+- 측정 안 됨, base mul 새로 정의 필요
+
+### 다음 실험
+
+1. Q(ζ_8) base 추가 시 row 4번째 채울 수 있는지
+2. Type C 의 Moufang loss layer (L5) 에서 zero divisor 존재? 
+   ZOmega L5 nm-fail 측정 필요 (현재 probe 출력에서 볼 수 있음 = 0,
+   그러면 Type C 도 unit 위에선 zd 안 보임)
+3. Base "unit count 8" 같은 더 큰 base 만들어서 Type D, E 실험
