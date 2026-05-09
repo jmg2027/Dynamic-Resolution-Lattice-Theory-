@@ -53,13 +53,16 @@ theorem ext {u v : Z2} (hr : u.re = v.re) (hi : u.im = v.im) : u = v := by
   cases u; cases v; congr
 
 theorem conj_conj (u : Z2) : u.conj.conj = u := by
-  apply ext <;> simp [conj]
+  apply ext
+  · show u.re = u.re; rfl
+  · show -(-u.im) = u.im; exact Int.neg_neg _
 
 theorem conj_ne_id : ∃ x : Z2, conj x ≠ x := by
   refine ⟨I, ?_⟩
   intro himEq
-  have h_im : (-1 : Int) = 1 := (Z2.mk.injEq ..).mp himEq |>.2
-  exact absurd h_im (by decide)
+  have h_im : (conj I).im = (I : Z2).im := by rw [himEq]
+  have h_neg_one : (-1 : Int) = 1 := h_im
+  exact absurd h_neg_one (by decide)
 
 end Z2
 

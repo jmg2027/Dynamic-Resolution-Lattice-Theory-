@@ -54,14 +54,16 @@ theorem ext {u v : ZI} (hr : u.re = v.re) (hi : u.im = v.im) : u = v := by
   cases u; cases v; congr
 
 theorem conj_conj (u : ZI) : u.conj.conj = u := by
-  apply ext <;> simp [conj]
+  apply ext
+  · show u.re = u.re; rfl
+  · show -(-u.im) = u.im; exact Int.neg_neg _
 
 theorem conj_ne_id : ∃ x : ZI, conj x ≠ x := by
   refine ⟨I, ?_⟩
   intro himEq
-  -- conj I = ⟨0, -1⟩, I = ⟨0, 1⟩.  himEq says they're equal.
-  have h_im : (-1 : Int) = 1 := (ZI.mk.injEq ..).mp himEq |>.2
-  exact absurd h_im (by decide)
+  have h_im : (conj I).im = (I : ZI).im := by rw [himEq]
+  have h_neg_one : (-1 : Int) = 1 := h_im
+  exact absurd h_neg_one (by decide)
 
 end ZI
 

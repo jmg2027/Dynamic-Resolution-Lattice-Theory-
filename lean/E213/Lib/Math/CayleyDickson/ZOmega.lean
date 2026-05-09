@@ -54,9 +54,9 @@ theorem conj_conj (u : ZOmega) : u.conj.conj = u := by
 theorem conj_ne_id : ∃ x : ZOmega, conj x ≠ x := by
   refine ⟨Omega, ?_⟩
   intro hEq
-  -- conj Omega = ⟨-1, -1⟩, Omega = ⟨0, 1⟩.
-  have h_re : (-1 : Int) = 0 := (ZOmega.mk.injEq ..).mp hEq |>.1
-  exact absurd h_re (by decide)
+  have h_re : (conj Omega).re = (Omega : ZOmega).re := by rw [hEq]
+  have h_neg_one : (-1 : Int) = 0 := h_re
+  exact absurd h_neg_one (by decide)
 
 theorem conj_Omega : conj Omega = Omega2 := rfl
 
