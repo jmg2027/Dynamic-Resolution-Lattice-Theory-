@@ -94,17 +94,16 @@ theorem conj_conj (u : Lipschitz) : (conj (conj u)) = u := by
     exact ZI.conj_conj u.re
   · show -(-u.im) = u.im
     apply ZI.ext
-    · show -(-u.im.re) = u.im.re; omega
-    · show -(-u.im.im) = u.im.im; omega
+    · show -(-u.im.re) = u.im.re; exact Int.neg_neg _
+    · show -(-u.im.im) = u.im.im; exact Int.neg_neg _
 
 /-- `conj` has a non-fixed point — witness `J`. -/
 theorem conj_ne_id : ∃ x : Lipschitz, conj x ≠ x := by
   refine ⟨J, ?_⟩
   intro hJ
-  -- conj J = (0, ⟨-1, 0⟩), J = (0, ⟨1, 0⟩)
-  have h_im : (conj J).im = J.im := by rw [hJ]
-  have h_im' : (⟨-1, 0⟩ : ZI) = ⟨1, 0⟩ := h_im
-  have h_re : (-1 : Int) = 1 := (ZI.mk.injEq ..).mp h_im' |>.1
+  -- conj J = (0, ⟨-1, 0⟩), J = (0, ⟨1, 0⟩).  Project .im then .re.
+  have h_im : (conj J).im = J.im := congrArg Lipschitz.im hJ
+  have h_re : (-1 : Int) = 1 := congrArg ZI.re h_im
   exact absurd h_re (by decide)
 
 open E213.Lib.Math.CayleyDickson.ZI
@@ -149,11 +148,11 @@ theorem mul_not_commutative : ∃ u v : Lipschitz, u * v ≠ v * u := by
   refine ⟨I', J, ?_⟩
   intro h
   rw [I_mul_J, J_mul_I] at h
-  have hr : (⟨0, ZI.I⟩ : Lipschitz).im = (⟨0, ZI.negI⟩ : Lipschitz).im := by
-    rw [h]
-  have : ZI.I = ZI.negI := hr
-  have : (1 : Int) = -1 := (ZI.mk.injEq ..).mp this |>.2
-  exact absurd this (by decide)
+  -- Project .im then .im to get 1 = -1
+  have h_im : (⟨0, ZI.I⟩ : Lipschitz).im = (⟨0, ZI.negI⟩ : Lipschitz).im :=
+    congrArg Lipschitz.im h
+  have h_im2 : (1 : Int) = -1 := congrArg ZI.im h_im
+  exact absurd h_im2 (by decide)
 
 open E213.Lib.Math.CayleyDickson.ZI
 
@@ -180,16 +179,19 @@ theorem conj_mul_anti (u v : Lipschitz) :
          = (-u.im) * v.re.conj + (-v.im) * (u.re.conj).conj
     rw [ZI.conj_conj, E213.Lib.Math.CayleyDickson.ZI.ZI.neg_mul, E213.Lib.Math.CayleyDickson.ZI.ZI.neg_mul]
     apply ZI.ext
-    · show -(v.im.re * u.re.re - v.im.im * u.re.im +
+    · -- -(P + Q) = -Q + -P via neg_add + add_comm
+      show -(v.im.re * u.re.re - v.im.im * u.re.im +
               (u.im.re * v.re.re - u.im.im * (-v.re.im)))
            = -(u.im.re * v.re.re - u.im.im * (-v.re.im))
              + -(v.im.re * u.re.re - v.im.im * u.re.im)
-      omega
+      rw [E213.Theory.Internal.Int213.neg_add,
+          E213.Theory.Internal.Int213.add_comm]
     · show -(v.im.re * u.re.im + v.im.im * u.re.re +
               (u.im.re * (-v.re.im) + u.im.im * v.re.re))
            = -(u.im.re * (-v.re.im) + u.im.im * v.re.re)
              + -(v.im.re * u.re.im + v.im.im * u.re.re)
-      omega
+      rw [E213.Theory.Internal.Int213.neg_add,
+          E213.Theory.Internal.Int213.add_comm]
 
 open E213.Lib.Math.CayleyDickson.ZI
 
@@ -311,7 +313,9 @@ theorem normSq_K : normSq (I' * J) = 1 := by decide
 /-- `|1+i|² = 2`. -/
 theorem normSq_one_plus_I : normSq (⟨⟨1, 0⟩, 0⟩ + I') = 2 := by decide
 
-/-- `|-u|² = |u|²`. -/
+/-- `|-u|² = |u|²`.  ∅-axiom: replace propext-bearing
+    `Int.neg_mul_neg` with PURE `Int213.neg_mul` + `Int213.mul_neg`
+    + `Int.neg_neg` chain. -/
 theorem normSq_neg (u : Lipschitz) : normSq (-u) = normSq u := by
   show (-u).re.normSq + (-u).im.normSq = u.re.normSq + u.im.normSq
   unfold ZI.normSq
@@ -319,12 +323,15 @@ theorem normSq_neg (u : Lipschitz) : normSq (-u) = normSq u := by
        ((-u.im).re * (-u.im).re + (-u.im).im * (-u.im).im)
      = u.re.re * u.re.re + u.re.im * u.re.im +
        (u.im.re * u.im.re + u.im.im * u.im.im)
+  -- (-x) * (-x) = -(x * (-x)) = -(-(x * x)) = x * x via neg_mul + mul_neg + neg_neg.
+  have hnn : ∀ x : Int, (-x) * (-x) = x * x := fun x => by
+    rw [E213.Theory.Internal.Int213.neg_mul,
+        E213.Theory.Internal.Int213.mul_neg, Int.neg_neg]
   rw [show (-u.re).re = -u.re.re from rfl,
       show (-u.re).im = -u.re.im from rfl,
       show (-u.im).re = -u.im.re from rfl,
       show (-u.im).im = -u.im.im from rfl,
-      Int.neg_mul_neg, Int.neg_mul_neg,
-      Int.neg_mul_neg, Int.neg_mul_neg]
+      hnn u.re.re, hnn u.re.im, hnn u.im.re, hnn u.im.im]
 
 open E213.Lib.Math.CayleyDickson.ZI E213.Tactic
 
