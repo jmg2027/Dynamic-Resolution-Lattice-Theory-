@@ -167,4 +167,53 @@ theorem swap_realizes_negation :
   · exact npairToInt_natToNPairNeg 5
   · rfl
 
+-- ═══ Emergence of 0 as algebraic center (G64) ═══
+
+/-- ★ Loss/Gain 4 — `0` acquires a NEW algebraic role in ℤ that
+    has no analog in ℕ: it is the **unique fixed point of negation**.
+    In ℕ, negation isn't defined, so 0 has no such role.  In ℤ,
+    `-z = z ⟹ z = 0` (and conversely `-0 = 0`). -/
+theorem zero_unique_negation_fixed (z : Int) : -z = z ↔ z = 0 := by
+  refine ⟨?_, ?_⟩
+  · intro h
+    cases z with
+    | ofNat n =>
+        cases n with
+        | zero => rfl
+        | succ k =>
+            -- h : -(Int.ofNat (k+1)) = Int.ofNat (k+1)
+            -- LHS = Int.negSucc k, RHS = Int.ofNat (k+1) — different ctors
+            exact Int.noConfusion h
+    | negSucc n =>
+        -- h : -(Int.negSucc n) = Int.negSucc n
+        -- LHS = Int.ofNat (n+1), RHS = Int.negSucc n — different ctors
+        exact Int.noConfusion h
+  · intro h
+    rw [h]; rfl
+
+/-- ★ The integer `0` is the **collapse of the entire diagonal**:
+    every pair `(k, k) : NPair` projects to `0`.  In ℕ, `0` is just
+    one element; in ℤ via NPair, `0` is the swap-fixed-set
+    (= diagonal `{(k, k)}`) materialized as a single point. -/
+theorem zero_is_diagonal_collapse : ∀ (k : Nat), npairToInt (k, k) = 0
+  | 0 => rfl
+  | (k+1) => by
+      show Int.subNatNat (k+1) (k+1) = 0
+      show (match (k+1) - (k+1) with
+            | 0 => Int.ofNat ((k+1) - (k+1))
+            | (j+1) => Int.negSucc j) = (0 : Int)
+      rw [Nat.succ_sub_succ_eq_sub]
+      exact zero_is_diagonal_collapse k
+
+/-- ★ "0 lost its boundary role": in ℕ, only 0 has no predecessor;
+    in ℤ, EVERY integer has a predecessor.  Witness for `0 : Int`. -/
+theorem zero_has_predecessor_in_int :
+    ∃ p : Int, p + 1 = 0 := ⟨-1, rfl⟩
+
+/-- ★ Symmetric counterpart: 0 has a successor in both ℕ and ℤ —
+    this part is preserved.  But the asymmetry is only between
+    successor and predecessor at 0. -/
+theorem zero_has_successor_in_int :
+    ∃ s : Int, 0 + 1 = s := ⟨1, rfl⟩
+
 end E213.Theory.Tower.NatPairToInt
