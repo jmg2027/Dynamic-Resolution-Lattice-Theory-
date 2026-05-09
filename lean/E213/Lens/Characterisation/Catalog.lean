@@ -131,7 +131,7 @@ open E213.Theory E213.Lens
 theorem signed_R4 :
     SwapMatching signedLens (fun n : Int => -n) := by
   refine ⟨?_, ?_, ?_⟩
-  · intro u; simp
+  · intro u; exact Int.neg_neg u
   · intro h
     have : (-(1 : Int)) = (1 : Int) := by
       have := congrFun h (1 : Int); exact this

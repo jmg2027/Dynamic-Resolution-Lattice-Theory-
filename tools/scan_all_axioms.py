@@ -138,9 +138,9 @@ SEALED_DIRTY_PREFIXES = (
     # treeTower_signed) + 2 from Lens-on-Lens stress (sigma7).  The Int
     # ones are Lean-core boundary; the others cascade.
     'E213.Lib.Math.Infinity.LensCardinality',
-    # Catalog signed_R4 / depth_swap / leaves_swap / signed_swap —
-    # Int / Raw.fold_signed_swap propext from Lean core.
-    'E213.Lens.Lens.Characterisation.Catalog',
+    # Catalog previously leaked propext via `signed_R4` (`simp` in
+    # the involution clause); now ∅-axiom (replaced `simp` with
+    # explicit `Int.neg_neg`).  No seal needed.
     # CardinalityLB.leavesModNat_kernel_neq cascades from ModNat.
     'E213.Lens.Lens.Kernel.CardinalityLB',
     # Lens funext-by-design: higher-order Lens equality (Lens (Lens α),
@@ -166,7 +166,13 @@ SEALED_DIRTY_PREFIXES = (
     # FunctionSpace + Cauchy + Parity instances: function-valued Lens.
     'E213.Lens.Lens.Instances.FunctionSpace',
     'E213.Lens.Lens.Instances.Cauchy',
-    'E213.Lens.Lens.Instances.Parity',
+    # Parity (real path: `E213.Lens.Instances.Parity`):
+    # `parityLens_R4_fails` uses `funext` to produce `conj = id` for
+    # contradiction with `SwapMatching.conj ≠ id`.  The function-eq
+    # `conj ≠ id` is funext-by-design at the `SwapMatching` typeclass
+    # level — restating pointwise would change what SwapMatching is.
+    # All other 5 declarations in this module are PURE.
+    'E213.Lens.Instances.Parity',
     'E213.Lens.Lens.Instances.EndpointBehavior',
     'E213.Lens.Lens.Instances.BoundedContext',
     'E213.Lens.Lens.Instances.CochainEntry',
