@@ -50,3 +50,41 @@ results of the axiom, a separate Lens derivation is required.
 If any of these appears during derivation, it is **the result of
 applying a specific Lens**, not the axiom itself.  Which Lens it came
 from must be made explicit.
+
+## §3.4 Algebraic signature — Möbius interpretation (∅-axiom theorem)
+
+The 4-clause axiom admits a compact algebraic encoding as the
+Möbius matrix `[[2, 1], [1, 1]]`:
+
+  - "2" — clause 1 (two somethings `a`, `b`)
+  - "1" — clause 4 (no self-pairing = identity preservation, det = 1)
+  - "3" — trace = 2 + 1 (the spatial dimension `NS`)
+  - disc = trace² − 4·det = 9 − 4 = **5 = NS + NT** (atomicity sum)
+  - eigenvalues = `(3 ± √5)/2` = `φ²`, `1/φ²`
+
+This is an *interpretation*, not an addition to the axiom.  The
+axiom remains minimum-commitment; the Möbius reading is a
+∅-axiom-derived bridge theorem at:
+
+  - `lean/E213/Theory/Raw/Mobius.lean` (P_numerator, P_denominator,
+    discriminant, trace, det)
+
+The Möbius P(x) = (2x+1)/(x+1) iterator is the *natural form* of
+Raw's binary slash applied with identity preservation:
+
+```
+slash x identity         ←→  x + 1
+slash (slash x x) ident  ←→  2x + 1
+```
+
+The fixed point of P is the golden ratio φ = (1+√5)/2, identified
+with the residue of self-pointing iteration (cf. G29_residue,
+G57_213_mobius_signature).
+
+The same φ appears in DRLT physics (CKM phase δ = π/φ², Cabibbo
+Wolfenstein A = φ/c, neutrino mass ratios) and in the algebra
+tower asymptote (1 − 0.5/φ^rank).  Cross-domain consistency.
+
+**This is not a modification to the axiom.** The 4 clauses in
+§3.2 remain the minimum-commitment statement; §3.4 records an
+algebraic *consequence* expressible as a Theory-level theorem.

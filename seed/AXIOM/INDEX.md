@@ -47,3 +47,26 @@ container shape changed.
   `RESOLUTION_LIMIT_SPEC.md` wins when it diverges from any
   AXIOM/ chapter on the resolution-limit topic.
 - `seed/NOTATION.md` — symbol conventions.
+
+## Möbius signature appendices (2026-05-09)
+
+The 4-clause axiom admits an algebraic encoding as the Möbius
+matrix `[[2, 1], [1, 1]]` corresponding to the iterator
+`P(x) = (2x+1)/(x+1)`.  Cross-references:
+
+- `02_statement.md §3.4` — algebraic signature interpretation
+  (trace 3 = NS, det 1, disc 5 = NS+NT, eigenvalues φ², 1/φ²)
+- `03_form.md §4.4` — `(x+1) → (2x+1)` iterator as Raw's natural
+  form induced by minimum "two + binary" axiom
+- `07_self_reference.md §8.5` — Möbius P(x) as concrete model
+  of the self-reference loop; fixed point φ = minimum residue
+
+These additions are *interpretive*, not modifications to the
+axiom.  The bridge theorem is at `lean/E213/Theory/Raw/Mobius.lean`
+(7 ∅-axiom theorems including discriminant, trace, det, Pell-Fib
+recurrences).
+
+The same φ appears in DRLT physics (CKM δ = π/φ², Cabibbo
+Wolfenstein A = φ/c, neutrino mass ratios) and in the algebra
+tower asymptote (1 − 0.5/φ^rank).  See `research-notes/G57_213
+_mobius_signature.md` for the full multi-layer reading.

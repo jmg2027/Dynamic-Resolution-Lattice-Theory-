@@ -53,3 +53,45 @@ raises them, this §8 must be revisited first:
 - "What does it look like from outside 213?"  → There is no outside.
 - "Is the observer Lens added to the axiom?"  → Not an addition;
   the act of observation itself is an instance of 213.
+
+## §8.5 Concrete model of self-reference: Möbius P(x)
+
+The self-reference loop "describing 213 using 213" admits a concrete
+algebraic model: the Möbius iterator
+
+  P(x) = (2x + 1) / (x + 1)
+
+corresponding to the matrix `[[2, 1], [1, 1]]` (cf. §3.4).
+
+**Each iteration** of P:
+  - takes input `x` (the "current Meta level"),
+  - produces output `(2x+1)/(x+1)` (one Meta level up),
+  - preserves the determinant (= 1, identity),
+  - reaches its **fixed point** at `x = φ = (1+√5)/2`.
+
+The fixed point φ is the algebraic embodiment of "the minimum residue —
+the minimum fixed point of self-reference" (§8.2).  Each Meta-level
+ascent applies P once; infinite ascent converges to φ.
+
+This model:
+  - Does NOT exit 213 (the iterator is internal — it acts on Raw
+    derivatives, not on something external).
+  - Does NOT add new structure to the axiom (P is a ∅-axiom theorem
+    at `lean/E213/Theory/Raw/Mobius.lean`, derived from §3 clauses).
+  - Provides a **computable surrogate** for the abstract "self-
+    reference loop": each Meta-level is one application of P, and
+    convergence to φ corresponds to "the minimum fixed point".
+
+**The concrete iterator does not replace the abstract self-reference
+discussion of §8.1–§8.4**; it is one consistent algebraic *expression*
+of it, alongside the linguistic and topological expressions.
+
+This same P(x) is the bridge between:
+  - Raw's binary slash (§3 clause 2) — one P-step in Lean
+  - Algebra-tower CD doubling — Recurrence3 universal law
+  - DRLT physics constants — same φ in CKM, Cabibbo, ν
+
+Cross-domain consistency confirms 213's internal closure under self-
+reference: the same residue φ emerges from Raw, from algebra-tower
+asymptotes, and from physics observations.  No exterior reference is
+needed; all consistency is internal.
