@@ -134,3 +134,55 @@ research-notes/
    - 무리수 우회: Z[√5] integer-pair (a, b)/D
    - Mathlib ring 우회: Recurrence-as-definition (by rfl)
    - propext 우회: 모든 정리 ∅-axiom decide
+
+## 추가 (2026-05-09 후속): 모든 Type 의 Order-4 monopoly ∅-axiom
+
+이번 push 에서 Type A side 와 Type C side 도 explicit ∅-axiom 으로 박힘:
+
+**Type A (ZI tower, Lipschitz-Cayley-Sedenion)**:
+- LipschitzOrder4Monopoly: L3 Q_8 = (1, 1, 6) ∅-axiom
+- CayleyOrder4Monopoly: L4 M_16 = (1, 1, 14) ∅-axiom  
+- SedenionOrder4Monopoly: L5 = (1, 1, 30) ∅-axiom (first past-Moufang 검증)
+
+**Type C (ZOmega tower, ZOmegaDouble-ZOmegaQuad)**:
+- ZOmegaDoubleOrderDist: L3 Dic_3 = (1, 1, 2, 6, 2) ∅-axiom
+- ZOmegaQuadOrderDist: L4 M_24 = (1, 1, 2, 18, 2) ∅-axiom (Chein loop)
+
+**Cyclotomic preservation 정리**:
+- zod_cyclotomic_preserved: L3 ZOmega 의 order-3,6 count = 4
+- zoq_cyclotomic_preserved: L4 ZOmega 의 order-3,6 count = 4
+→ CD doubling 이 cyclotomic 보존하는 정리 ∅-axiom 으로 박힘
+
+**Theory level (모든 base 통합)**:
+- Theory/CDDouble/UniversalOrder4: cdd_lift_squared (generic)
+- Theory/Raw/Mobius: P [[2,1],[1,1]] generator (Pell-Fib bridge)
+
+**총 누적 ∅-axiom 정리** (algebra tower discovery):
+- App level: ~36 specific instances (Type A: 6, Type B: 9, Type C: 6, ...)
+- Theory level: 9 generic mechanisms
+- Search infrastructure: 5 universal instances
+- **Total: ~50 ∅-axiom theorems**
+
+**Capstone bundle**: AlgebraTowerCapstone.lean imports all → sentinel 정리.
+
+## 알고리즘적 발견 cycle 완성 
+
+```
+Mingu intuition (213 = (x+1→2x+1) iterator)
+       ↓
+   reframe (Möbius signature)
+       ↓
+   Rust empirical search (level2_search → φ-formula)
+       ↓
+   pattern detection (1-0.5/φ^rank, eigenvalues 2,4,8)
+       ↓
+   Lean formalization (Recurrence3 universal + Order-4 mechanism)
+       ↓
+   cross-domain consistency (DRLT physics 의 same φ)
+       ↓
+   seed/AXIOM appendix (interpretive 통일)
+```
+
+이 cycle 이 G54 의 substitution-discovery algorithm 의 *완전 instance*.
+무한 (CD doubling tower 의 모든 layer) → 유한 (Recurrence3 + 닫힌 형태)
+substitution 한 바퀴.
