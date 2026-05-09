@@ -452,3 +452,62 @@ ZSqrt[-2] L6:         alt-L ✓,   alt-R ✓,   flex ✓,   Moufang fail
 
 세 base ladder의 *L = "first past Hurwitz" 위치*가 다른 transition 패턴을
 보여줄 수 있음.
+
+---
+
+## L1 cross-base data (2026-05-09): SHIFT RULE 정량 확인
+
+이전 "L6 ZSqrt[-2]는 sedenion보다 더 associative" 주장은 **취소**.
+
+Rust probe `algebra213-tower-probe`를 D ∈ {1, 2} × L ∈ {3..6} 격자
+로 실행한 결과, 모든 측정값이 **D=2 L_n = D=1 L_{n-1}** 관계로
+EXACT 일치:
+
+| Property | D=1 L_{n-1} | D=2 L_n | match? |
+|---|---|---|---|
+| unit count | same as D=1 | same | ✓ (n=4..7) |
+| comm_fail | 24, 168, 840, 3720 | 24, 168, 840 | ✓ (각 n) |
+| assoc_fail (units) | 0, 1344, 14784 | 0, 1344, 14784 | ✓ |
+| alt-L/R/flex | 0 (모든 layer) | 0 | ✓ |
+| Moufang fail | 0, 0, 5376, 80640 | 0, 0, 5376 | ✓ |
+| normMult fail (units) | 0 | 0 | ✓ |
+| order distribution | {1:1, 2:1, 4:6/14/30/62} | shifted by one | ✓ |
+| zd onset layer | L5 (D=1) | L6 (D=2) | ✓ shifted +1 |
+
+### 측정 시 주의: alt-laws 'unit-restricted'
+
+이전 "L6 ZSqrt[-2]는 alt-laws 지키는 새 구조" 주장의 오류는 **측정
+범위 제한** 때문이었음:
+
+- 본 probe는 *unit set 위에서만* alt-L/R/flex 측정.
+- Sedenion (D=1 L5) 도 unit set 위에선 alt-L=0; non-unit 일반 ring
+  level에서 alt-law fail.
+- 따라서 unit-restricted 비교에선 D=1 L5 = D=2 L6 모두 동일 (alt 0,
+  Moufang fail).
+
+알트 law의 *진짜* loss는 ring 전체에서 측정해야 함 (random non-unit
+triple). 다음 step.
+
+### Shift rule 진술 (∅-axiom 후보)
+
+```
+SHIFT RULE  :  D=2 L_n unit Moufang loop ≅ D=1 L_{n-1} unit Moufang loop
+              for n ≥ 3 (measured up to n=6)
+```
+
+증명 후보 경로:
+1. Fingerprint 일치는 `findCounterexample`로 mechanical (모든 측정
+   불일치 0개) — ∅-axiom decide 가능.
+2. 진짜 isomorphism은 `findHomomorphism` (또는 `findIsomorphism`)
+   적용해서 explicit bijection witness 추출 — 이것도 ∅-axiom decide
+   가능.
+
+### 다음 step
+
+1. D=1 L5 = sedenion zd witness pin (D=2 L6 witness와 parallel) — 즉시 가능.
+2. `findIsomorphism` Lean 빌드 — ZSqrt[-2] L_n ↔ ZI L_{n-1} bijection
+   탐색 + ∅-axiom로 박기.
+3. ZOmega 베이스 (D=3? 아님, ω 다른 구조) 추가 — third base axis.
+4. Non-unit triple로 alt-law 측정 (ring-level 실제 transition layer 확인).
+
+Probe output 원본: `G52_probe_output_2026_05_09.txt`.
