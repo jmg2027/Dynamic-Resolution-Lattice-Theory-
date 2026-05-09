@@ -135,17 +135,9 @@ fn run_layer(b: &Base, n: usize, name: &str) {
 }
 
 fn main() {
-    println!("# 213 algebra tower probe — mul-table optimized\n");
-    for n in 3..=7 {
-        run_layer(&Base::ZSqrt(1), n, "D=1   ");
-        run_layer(&Base::ZSqrt(2), n, "D=2   ");
-        run_layer(&Base::ZOmega,   n, "ZOmega");
-        println!("─────────────────────────────────────────");
-    }
-    // Push higher for smaller types
-    run_layer(&Base::ZSqrt(2), 8, "D=2   ");
-    run_layer(&Base::ZSqrt(2), 9, "D=2   ");
-    run_layer(&Base::ZSqrt(2), 10, "D=2   ");
-    run_layer(&Base::ZSqrt(1), 8, "D=1   ");
-    run_layer(&Base::ZSqrt(1), 9, "D=1   ");
+    println!("# 213 algebra tower probe — Type C deep push\n");
+    // Already-cached data for D=1, D=2 we know from previous runs.
+    // This run focuses on ZOmega L8 (384 units, 56M triples) to determine
+    // Type C Moufang-rate asymptote.
+    run_layer(&Base::ZOmega, 8, "ZOmega");
 }

@@ -763,3 +763,40 @@ Ring-level 에선 alt-L 가 sedenion (D=1 L5) / shifted-sedenion (D=2 L6)
 2. Asymptote 정확히 1/2 인가, 아니면 1/2 + ε 작은 상수?
 3. ZOmega rate evolution: Type C 도 → 0.5 인가? (현재까지 0.219, 0.418, 0.544 — 다른 asymptote 가능)
 4. 다음 Mersenne (M_11 부재, M_13 = 8191) 첫 등장 layer = ?
+
+---
+
+## ZOmega L8 + asymptote divergence (2026-05-09 후속)
+
+ZOmega L8 (384 units, 56M triples): Mou = 10075/16384 ≈ 0.615.
+
+### Type A vs Type C asymptote
+
+Type A (D=1) Moufang fail rate → **0.5** (under, geometric ratio → 0.5)
+
+Type C (ZOmega) sequence: 0.219, 0.418, 0.544, 0.615 — already past 0.5.
+(0.75 − rate) ratio: 0.625, 0.620, 0.655 — **suggests asymptote 0.75**
+with ratio ≈ 0.625 = 5/8 (tentative).
+
+→ **다른 Type 의 asymptote 가 다름**. Base 의 cyclotomic order 가
+asymptotic Moufang fail rate 결정.
+
+### CD doubling preserves cyclotomic substructure (persistence law)
+
+Order distribution per layer:
+
+| Type | Pattern (n-th layer) |
+|---|---|
+| A (Z_4 base) | {1:1, 2:1, 4:2^n − 2} |
+| B (Z_2 base) | {1:1, 2:1, 4:2^(n−1) − 2} |
+| C (Z_6 base) | {1:1, 2:1, 3:2, 4:6·2^(n−2) − 6, 6:2} |
+
+→ Base 의 cyclotomic subgroup (Z_2, Z_4, Z_6) 완전히 보존; CD doubling은
+*order 4 elements 만 추가*. 이건 layer 무관 영구 invariant.
+
+### 다음 측정
+
+L9 ZOmega (768 units, 453M triples) 가능하지만 single-thread 30+ 분.
+Multi-threading 추가 후 진행 권장.
+
+Or: L11, L12, L13 D=2 까지 push 해서 Type A asymptote 확정 (1/2 정확한지).
