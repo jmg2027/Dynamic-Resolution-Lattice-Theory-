@@ -1,11 +1,11 @@
 import E213.Lib.Math.CayleyDickson.ZI
 import E213.Lib.Math.NatHelpers.IntHelpers
-import E213.Term.Tactic.QuadNorm
+import E213.Lib.Math.CayleyDickson.QuadIdentities
 import E213.Theory.Internal.Int213
 
 open E213.Lib.Math.NatHelpers
 open E213.Lib.Math.NatHelpers.IntHelpers
-open E213.Tactic
+open E213.Lib.Math.CayleyDickson.QuadIdentities
 
 /-!
 # `ZI` integral-domain properties
@@ -36,7 +36,7 @@ theorem normSq_mul (u v : ZI) :
   show (u.re*v.re - u.im*v.im)*(u.re*v.re - u.im*v.im)
      + (u.re*v.im + u.im*v.re)*(u.re*v.im + u.im*v.re)
      = (u.re*u.re + u.im*u.im) * (v.re*v.re + v.im*v.im)
-  quad_norm
+  exact int_quad_diophantus u.re u.im v.re v.im
 
 theorem normSq_nonneg (u : ZI) : 0 ≤ u.normSq := by
   show 0 ≤ u.re * u.re + u.im * u.im

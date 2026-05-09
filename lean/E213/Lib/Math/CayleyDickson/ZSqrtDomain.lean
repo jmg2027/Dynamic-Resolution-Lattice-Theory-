@@ -1,11 +1,11 @@
 import E213.Lib.Math.CayleyDickson.ZSqrt
 import E213.Lib.Math.NatHelpers.IntHelpers
-import E213.Term.Tactic.QuadNorm
+import E213.Lib.Math.CayleyDickson.QuadIdentities
 import E213.Theory.Internal.Int213
 
 open E213.Lib.Math.NatHelpers
 open E213.Lib.Math.NatHelpers.IntHelpers
-open E213.Tactic
+open E213.Lib.Math.CayleyDickson.QuadIdentities
 
 /-!
 # parametric `ZSqrt D` integral-domain properties
@@ -37,7 +37,7 @@ theorem normSq_mul (u v : ZSqrt D) :
   show (u.re*v.re - D*(u.im*v.im))*(u.re*v.re - D*(u.im*v.im))
      + D*((u.re*v.im + u.im*v.re)*(u.re*v.im + u.im*v.re))
      = (u.re*u.re + D*(u.im*u.im)) * (v.re*v.re + D*(v.im*v.im))
-  quad_norm
+  exact int_quad_diophantus_sqrt D u.re u.im v.re v.im
 
 /-- `conj` distributes over multiplication. -/
 theorem conj_mul (u v : ZSqrt D) :
@@ -98,9 +98,11 @@ theorem no_zero_div (hD : 0 < D) (u v : ZSqrt D) :
     u * v = 0 → u = 0 ∨ v = 0 := by
   intro huv
   have hn : (u * v).normSq = 0 := by
-    rw [huv]; show (0 : Int) * 0 + D * (0 * 0) = 0; simp
+    rw [huv]
+    show (0 : Int) * 0 + D * (0 * 0) = 0
+    rw [Int.mul_zero, Int.mul_zero, E213.Theory.Internal.Int213.zero_add]
   rw [normSq_mul] at hn
-  rcases Int.mul_eq_zero.mp hn with h | h
+  rcases E213.Theory.Internal.Int213.mul_eq_zero hn with h | h
   · exact Or.inl ((normSq_eq_zero_iff hD u).mp h)
   · exact Or.inr ((normSq_eq_zero_iff hD v).mp h)
 

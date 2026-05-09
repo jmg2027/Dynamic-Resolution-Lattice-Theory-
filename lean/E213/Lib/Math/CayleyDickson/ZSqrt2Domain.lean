@@ -1,11 +1,11 @@
 import E213.Lib.Math.CayleyDickson.ZSqrt2
 import E213.Lib.Math.NatHelpers.IntHelpers
-import E213.Term.Tactic.QuadNorm
+import E213.Lib.Math.CayleyDickson.QuadIdentities
 import E213.Theory.Internal.Int213
 
 open E213.Lib.Math.NatHelpers
 open E213.Lib.Math.NatHelpers.IntHelpers
-open E213.Tactic
+open E213.Lib.Math.CayleyDickson.QuadIdentities
 
 /-!
 # `ℤ[√-2]` integral domain + conj ring homomorphism
@@ -37,7 +37,7 @@ theorem normSq_mul (u v : Z2) :
   show (u.re*v.re - 2*(u.im*v.im))*(u.re*v.re - 2*(u.im*v.im))
      + 2*((u.re*v.im + u.im*v.re)*(u.re*v.im + u.im*v.re))
      = (u.re*u.re + 2*(u.im*u.im)) * (v.re*v.re + 2*(v.im*v.im))
-  quad_norm
+  exact int_quad_diophantus_sqrt2 u.re u.im v.re v.im
 
 /-- `conj` distributes over multiplication in `ℤ[√-2]`. -/
 theorem conj_mul (u v : Z2) : conj (u * v) = conj u * conj v := by
