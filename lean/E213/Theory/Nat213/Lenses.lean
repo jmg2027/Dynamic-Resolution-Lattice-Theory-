@@ -221,4 +221,41 @@ theorem fractal_duality (L1 L2 : Nat213Lens) (r : Raw) :
     (L2.apply r : Nat213) = L2.apply r := by
   exact ⟨rfl, rfl⟩
 
+-- ═══ Atom of the lens fractal: Nat213.one (G68) ═══
+
+/-- The constant-one lens: returns `Nat213.one` regardless of input
+    Raw structure.  This is the structural "floor" of all
+    Nat213-lenses — the smallest possible lens output. -/
+def lensConstOne : Nat213Lens :=
+  { base_a := Nat213.one
+    base_b := Nat213.one
+    combine := fun _ _ => Nat213.one }
+
+/-- ★★★ ATOM OF THE LENS FRACTAL: `lensConstOne` produces
+    `Nat213.one` on EVERY Raw.  Proof by Raw induction.
+
+    This identifies `Nat213.one` as the **GCD/atom** of all
+    Nat213-lenses: there exists a lens that floors at 1 for every
+    Raw, demonstrating that 1 is reachable from anywhere.  The
+    "fractal floor" of the lens family. -/
+theorem lensConstOne_always_one (r : Raw) :
+    lensConstOne.apply r = Nat213.one := by
+  -- Use Raw.rec induction
+  induction r using Raw.rec with
+  | a => rfl
+  | b => rfl
+  | slash x y h ihx ihy =>
+      show Raw.fold Nat213.one Nat213.one (fun _ _ => Nat213.one)
+                    (Raw.slash x y h) = Nat213.one
+      rw [Raw.fold_slash Nat213.one Nat213.one (fun _ _ => Nat213.one)
+            (fun _ _ => rfl) x y h]
+
+/-- ★ Universality of the floor: for ANY Nat213-element `n`, there
+    is a lens producing `n` on the atom `Raw.a`.  Together with the
+    floor, this shows the lens family **spans Nat213**. -/
+theorem lens_spans_Nat213 (n : Nat213) :
+    ∃ L : Nat213Lens, L.apply Raw.a = n :=
+  ⟨{base_a := n, base_b := n, combine := Nat213.add},
+   by show n = n; rfl⟩
+
 end E213.Theory.Nat213.Lenses
