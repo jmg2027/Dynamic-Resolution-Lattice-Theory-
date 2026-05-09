@@ -230,3 +230,37 @@ private theorem self_mul_conj' (z : Lipschitz) :
     exact Ring213.add_left_neg _
 
 end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+namespace E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+open E213.Lib.Math.CayleyDickson.ZI
+open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Theory.Internal.Algebra213
+
+/-- ∅-axiom Lipschitz `ofInt_central`: ofInt z commutes with all a. -/
+private theorem ofInt_central' (z : Int) (a : Lipschitz) :
+    ofInt z * a = a * ofInt z := by
+  apply ext
+  · -- LHS .re: (ZI.ofInt z) * a.re - a.im.conj * 0
+    -- RHS .re: a.re * (ZI.ofInt z) - (ZI.conj 0) * a.im
+    show ZI.ZI.ofInt z * a.re - a.im.conj * 0
+       = a.re * ZI.ZI.ofInt z - ZI.conj 0 * a.im
+    rw [conj_zero_zi]
+    rw [Ring213.mul_zero (a.im.conj : ZI), Ring213.zero_mul (a.im : ZI)]
+    -- Goal: ZI.ofInt z * a.re - 0 = a.re * ZI.ofInt z - 0
+    show ZI.ZI.ofInt z * a.re + (-(0 : ZI))
+       = a.re * ZI.ZI.ofInt z + (-(0 : ZI))
+    rw [show (-(0 : ZI)) = 0 from by
+          apply ZI.ZI.ext
+          · show -(0 : Int) = 0; exact Int.neg_zero
+          · show -(0 : Int) = 0; exact Int.neg_zero,
+        Ring213.add_zero, Ring213.add_zero]
+    exact @CommRing213.mul_comm ZI _ _ _
+  · -- LHS .im: a.im * (ZI.ofInt z) + 0 * a.re.conj
+    -- RHS .im: 0 * a.re + a.im * (ZI.ofInt z).conj
+    show a.im * ZI.ZI.ofInt z + 0 * a.re.conj
+       = 0 * a.re + a.im * (ZI.ZI.ofInt z).conj
+    rw [conj_ofInt_zi z, Ring213.zero_mul, Ring213.zero_mul,
+        Ring213.add_zero, Ring213.zero_add]
+
+end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
