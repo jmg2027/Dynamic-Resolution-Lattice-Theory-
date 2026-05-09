@@ -67,4 +67,28 @@ theorem L4T_unit_7_order_4 :
     L4T_unit_7 * L4T_unit_7 = L4T_minus_one ∧
     L4T_unit_7 * L4T_unit_7 * (L4T_unit_7 * L4T_unit_7) = L4T_one := by decide
 
+/-- Full unit list. -/
+def L4T_units : List L4T :=
+  [L4T_unit_0, L4T_unit_1, L4T_unit_2, L4T_unit_3,
+   L4T_unit_4, L4T_unit_5, L4T_unit_6, L4T_unit_7]
+
+/-- Bounded order: 1, 2, 4, or 0 (not in those). -/
+def L4T_orderOf (u : L4T) : Nat :=
+  if u = L4T_one then 1
+  else if u * u = L4T_one then 2
+  else if u * u * u * u = L4T_one then 4
+  else 0
+
+/-- ★ Order distribution of L4T units: (1, 1, 6) for orders (1, 2, 4). -/
+theorem L4T_order_distribution :
+    L4T_units.countP (fun u => L4T_orderOf u = 1) = 1 ∧
+    L4T_units.countP (fun u => L4T_orderOf u = 2) = 1 ∧
+    L4T_units.countP (fun u => L4T_orderOf u = 4) = 6 ∧
+    L4T_units.countP (fun u => L4T_orderOf u = 0) = 0 := by decide
+
+/-- ★ Order-4 Monopoly at L4 (Type B): exactly 6 elements of order 4
+    out of 8 units; only ±1 have other orders. -/
+theorem L4T_order_4_count : L4T_units.countP (fun u => L4T_orderOf u = 4) = 6 :=
+  L4T_order_distribution.2.2.1
+
 end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
