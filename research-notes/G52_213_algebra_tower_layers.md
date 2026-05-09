@@ -222,3 +222,57 @@ integer / icosian ring 같은 *exceptional* 유닛 군을 자연 도출할 수
 이 자체는 **사용자의 "3-axis 임베딩" 가설의 강한 정량적 evidence**.
 ZOmega base가 standard CD ladder에 *없는* (또는 분류 가장자리의)
 구조를 자연 도출한다는 것.
+
+---
+
+## 통제 실험: ZSqrt[-2] base 갈래 (3번째 ladder)
+
+ZSqrt[-2] = ℤ[√-2], norm = a² + 2b².
+유닛: a² + 2b² = 1 → (a, b) = (±1, 0) → **2개**.
+
+가설: L_n unit count = 2 × 2^(n-2)
+
+### 측정 결과
+
+| Layer | nat 수 | unit count | (예측) |
+|---|---|---|---|
+| L2 (= ZSqrt[-2]) | 4 | **2** | 2 |
+| L3 (= ZSqrt[-2]Double) | 8 | **4** | 4 |
+| L4 (= ZSqrt[-2]Quad) | 16 | **8** | 8 |
+
+세 layer 모두 가설과 정확히 일치.
+
+### 군 구조 식별 (L3, 4 원소)
+
+L3 ZSqrt[-2]Double 4 유닛: `{1, -1, j, -j}` with `j² = -1`.
+
+위수 분포: `{1: 1, 2: 1, 4: 2}` → **Z_4 (cyclic of order 4)**.
+
+### 3 ladder L3 unit group 비교
+
+| Base | L2 unit count | L3 unit group |
+|---|---|---|
+| ZSqrt[-2] | 2 | Z_4 (cyclic, 4 원소) |
+| ZI | 4 | Q_8 = Dic_2 (quaternion, 8 원소) |
+| ZOmega | 6 | Q_12 = Dic_3 (binary dihedral, 12 원소) |
+
+**구조 패턴**: 모두 **dicyclic 군 Dic_n** 패밀리.
+- `n = (L2 base unit count) / 2`
+- ZSqrt[-2]: n = 1 → Dic_1 = Z_4 (degenerate dicyclic = cyclic of order 4)
+- ZI: n = 2 → Dic_2 = Q_8
+- ZOmega: n = 3 → Dic_3 = Q_12
+
+→ L2 base 유닛 군 위수가 *L3 dicyclic 군 차수 (4n)* 를 결정.
+
+### 메타 결론
+
+**Multiplicative ratio formula** (3 base에서 검증):
+- L_n unit count = (L2 base unit count) × 2^(n-2)
+- per-layer multiplier: ×2 (CD doubling factor, base 무관)
+- L2 base의 위상 (4-fold/6-fold/2-fold 회전 대칭) 이 ladder *전체 unit count*를 곱셈적으로 결정
+
+**G50 M3 (CD-doubling functor) 의 정량 검증 완료**:
+- functor가 L2 base 선택을 받아 ladder 전체에 unit group 구조를 generate.
+- L3에서 generated unit group은 Dic_n (n = base_units / 2).
+
+3-axis (base 선택) × 2-axis (layer index)의 *분리* 가 데이터로 확정.
