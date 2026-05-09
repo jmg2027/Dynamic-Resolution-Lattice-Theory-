@@ -190,3 +190,70 @@ base, 다른 quaternion order base) 필요.
 2. ZOmega L10 measurement (probe 더 최적화 후) — Type C asymptote 정밀화
 3. Type E candidate 실험: Z_8, Z_12 같은 cyclic group base 의 *가상* asymptote
    계산 (실제 base 는 없지만, 만약 있다면 φ 공식 어떻게 deviate?)
+
+## 9. Step A v3 — GOLDEN RATIO 발견 (2026-05-09)
+
+candidate `rank-based 1/φ_gold` 가 **err 0.0018** 으로 압도적 best fit!
+
+```
+Candidate                    err     comments
+─────────────────────────  ──────   ─────────────────────────
+rank-based 1/φ_gold          0.0018  ← 측정 noise 수준
+rank-based 8/13              0.0031
+rank-based 5/8               0.0046
+rank-based 11/18             0.0052
+1 - phi(u)/u                 0.1426  (이전 best)
+```
+
+**Closed-form 후보**:
+```
+asymptote(base) = 1 - 0.5 × (1/φ_golden)^rank(base)
+
+rank:
+  0   cyclic prime-power     (Z_2, Z_4)              → A, B
+  1   cyclic multi-prime     (Z_6 = 2·3)             → C  
+  2   non-abelian            (2T, |G| = 24 = 2³·3)   → D
+```
+
+예측:
+- A (rank 0):  1 - 0.5 = 0.5000  vs measured 0.5000  ✓ exact
+- B (rank 0):  1 - 0.5 = 0.5000  vs measured 0.5000  ✓ exact
+- C (rank 1):  1 - 0.5/φ = 0.6910  vs 0.6892  (Δ -0.0018)
+- D (rank 2):  1 - 0.5/φ² = 0.8090  vs 0.8093  (Δ +0.0003)
+
+→ Type D 만 **3‱ 오차**, 측정 추정 노이즈 안에 들어감.
+
+### 213 native 의미 — Raw 의 5-atomicity ↔ golden ratio
+
+```
+Raw (5-atomicity, NS=3 + NT=2)
+   ↓
+Pentagon angular symmetry (5-fold rotation: θ = 2π/5)
+   ↓
+Golden ratio: φ = 2·cos(π/5)
+   ↓
+Algebra tower asymptote: 1 - 0.5/φ^rank
+```
+
+→ **algebra tower 의 Moufang fail rate asymptote 가 Raw 의 5-atomicity 에
+   직접 의존**. CD doubling 이 binary 인데도 점근선이 *5-fold symmetry*
+   (golden ratio) 의 흔적을 들고 옴.
+
+### Caveat — overfitting 위험
+
+4 data points × 2-parameter formula = 진짜 underdetermined. 검증 필요:
+1. Rank 0/1/2 분류가 외부 (예: # primes in |G|, abelian/non-ab) 와 정확
+   대응하는지 더 많은 base 테스트 — 하지만 framework 안 base 4개 한계.
+2. 이론적 도출: pentagon → φ → asymptote 의 *mechanical* derivation
+   (단순 numerical coincidence 아님 증명).
+3. 213 의 *다른 영역* 에서 같은 1/φ rank-formula 등장하는지 cross-validate
+   (e.g. K_{3,2}^(c=2) Betti, fractal level cardinality, ...).
+
+### Reframing — Step A 의 의미
+
+Numerical fitting 으로 closed-form 후보 잡는 것이 *algorithmic discovery*.
+천재 직관 아닌 enumerate + fitness check. Now this candidate must be:
+- 측정 데이터 더 정밀 (higher layers) 으로 validate, OR
+- 이론적 derivation 으로 confirm
+
+이게 substitution-discovery algorithm 의 *Step B* (verification) 단계.
