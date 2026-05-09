@@ -147,6 +147,60 @@ theorem mul_zero (a : α) : a * (0 : α) = 0 := by
       @Ring213.add_left_neg α inst, zero_add] at h2
   exact h2.symm
 
+/-- Generic Ring213 `neg_add_cancel_self`: `(-a) + a = 0`.  Just a re-export of `add_left_neg`. -/
+theorem neg_add_cancel_self (a : α) : -a + a = 0 :=
+  @Ring213.add_left_neg α inst a
+
+/-- Generic Ring213 `neg_mul`: `(-a) * b = -(a * b)`.  Derived
+    from `(-a) * b + a * b = (-a + a) * b = 0 * b = 0`,
+    so `(-a) * b` is the additive inverse of `a * b`. -/
+theorem neg_mul (a b : α) : (-a) * b = -(a * b) := by
+  have h1 : (-a + a) * b = (0 : α) * b := by rw [@Ring213.add_left_neg α inst]
+  rw [@Ring213.add_mul α inst, zero_mul] at h1
+  have h2 : -(a * b) + ((-a) * b + a * b) = -(a * b) + 0 := by rw [h1]
+  rw [← @Ring213.add_assoc α inst, @Ring213.add_comm α inst (-(a*b)) (-a*b),
+      @Ring213.add_assoc α inst, @Ring213.add_left_neg α inst,
+      @Ring213.add_zero α inst, @Ring213.add_zero α inst] at h2
+  exact h2
+
+/-- Generic Ring213 `mul_neg`: `a * (-b) = -(a * b)`.  Same shape
+    as `neg_mul`, using `mul_add` instead. -/
+theorem mul_neg (a b : α) : a * (-b) = -(a * b) := by
+  have h1 : a * (-b + b) = a * (0 : α) := by rw [@Ring213.add_left_neg α inst]
+  rw [@Ring213.mul_add α inst, mul_zero] at h1
+  have h2 : -(a * b) + (a * (-b) + a * b) = -(a * b) + 0 := by rw [h1]
+  rw [← @Ring213.add_assoc α inst, @Ring213.add_comm α inst (-(a*b)) (a*(-b)),
+      @Ring213.add_assoc α inst, @Ring213.add_left_neg α inst,
+      @Ring213.add_zero α inst, @Ring213.add_zero α inst] at h2
+  exact h2
+
+/-- Generic Ring213 `neg_neg`: `-(-a) = a`. -/
+theorem neg_neg (a : α) : -(-a) = a := by
+  have h1 : -(-a) + (-a) = 0 := @Ring213.add_left_neg α inst (-a)
+  have h2 : -(-a) + (-a) + a = 0 + a := by rw [h1]
+  rw [@Ring213.add_assoc α inst, @Ring213.add_left_neg α inst,
+      @Ring213.add_zero α inst, zero_add] at h2
+  exact h2
+
+/-- Generic Ring213 `neg_add`: `-(a + b) = -a + -b`.  Derives via
+    showing `(a+b) + (-b+-a) = 0`, then unique inverse + add_comm. -/
+theorem neg_add (a b : α) : -(a + b) = -a + -b := by
+  -- (a + b) + (-b + -a) = 0
+  have h_inv : (a + b) + (-b + -a) = 0 := by
+    rw [@Ring213.add_assoc α inst a b (-b + -a),
+        ← @Ring213.add_assoc α inst b (-b) (-a),
+        @Ring213.add_comm α inst b (-b),
+        @Ring213.add_left_neg α inst b,
+        zero_add,
+        @Ring213.add_comm α inst a (-a),
+        @Ring213.add_left_neg α inst a]
+  -- From h_inv, -(a+b) = -b + -a (unique inverse)
+  have h2 : -(a + b) + ((a + b) + (-b + -a)) = -(a + b) + 0 := by rw [h_inv]
+  rw [← @Ring213.add_assoc α inst, @Ring213.add_left_neg α inst,
+      zero_add, @Ring213.add_zero α inst] at h2
+  -- h2 : -b + -a = -(a + b)
+  rw [← h2, @Ring213.add_comm α inst (-b) (-a)]
+
 end Ring213
 
 end E213.Theory.Internal.Algebra213
