@@ -58,3 +58,30 @@ theorem typeA_residual_measured :
     typeA_residual.seq 4 = 14113 := by decide
 
 end E213.Lib.Math.Tactic.Ring213
+
+namespace E213.Lib.Math.Tactic.Ring213
+
+/-- Z[√5]-valued sequence: (a + b·√5) coefficients per index. -/
+structure RecurrenceZ5_b where
+  b₀ : Int          -- initial √5 coefficient
+  ratio : Int       -- multiplicative ratio per step (b_{n+1} = ratio · b_n)
+
+/-- Geometric Z[√5] sequence: b_n = b₀ · ratio^n. -/
+def RecurrenceZ5_b.bSeq (R : RecurrenceZ5_b) : Nat → Int
+  | 0 => R.b₀
+  | n + 1 => R.ratio * R.bSeq n
+
+theorem RecurrenceZ5_b.bSeq_recurrence (R : RecurrenceZ5_b) (n : Nat) :
+    R.bSeq (n + 1) = R.ratio * R.bSeq n := rfl
+
+/-- Type C residual b_n (√5 coefficient at L_{n+5}). -/
+def typeC_residual_b : RecurrenceZ5_b := { b₀ := 8, ratio := 8 }
+
+theorem typeC_residual_b_measured :
+    typeC_residual_b.bSeq 0 = 8 ∧
+    typeC_residual_b.bSeq 1 = 64 ∧
+    typeC_residual_b.bSeq 2 = 512 ∧
+    typeC_residual_b.bSeq 3 = 4096 ∧
+    typeC_residual_b.bSeq 4 = 32768 := by decide
+
+end E213.Lib.Math.Tactic.Ring213
