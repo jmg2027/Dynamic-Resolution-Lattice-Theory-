@@ -565,3 +565,150 @@ theorem add_assoc (a b c : Int) : a + b + c = a + (b + c) := by
       Nat.add_assoc, Nat.add_assoc]
 
 end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+open E213.Tactic.Nat213
+  (sub_add_cancel sub_pos_of_lt add_sub_cancel_right mul_sub_distrib)
+
+/-- ∅-axiom: `negOfNat n = subNatNat 0 n`. -/
+theorem negOfNat_eq_subNatNat (n : Nat) :
+    Int.negOfNat n = Int.subNatNat 0 n := by
+  cases n with
+  | zero => rfl
+  | succ k => rfl
+
+/-- ∅-axiom: `subNatNat A B * ofNat γ = subNatNat (A*γ) (B*γ)`. -/
+theorem subNatNat_mul_ofNat (a b c : Nat) :
+    Int.subNatNat a b * Int.ofNat c = Int.subNatNat (a * c) (b * c) := by
+  rcases Nat.lt_or_ge a b with hab | hab
+  · -- a < b
+    rw [subNatNat_of_lt hab]
+    have hba_pos : 1 ≤ b - a := sub_pos_of_lt hab
+    show Int.negOfNat (((b - a - 1) + 1) * c) = Int.subNatNat (a * c) (b * c)
+    rw [Nat.sub_one_add_one_eq_of_pos hba_pos, negOfNat_eq_subNatNat,
+        ← subNatNat_add_add 0 ((b - a) * c) (a * c), Nat.zero_add]
+    congr 1
+    rw [← E213.Tactic.Nat213.add_mul, sub_add_cancel (Nat.le_of_lt hab)]
+  · -- b ≤ a
+    rw [subNatNat_of_le hab]
+    show Int.ofNat ((a - b) * c) = Int.subNatNat (a * c) (b * c)
+    have hac : b * c ≤ a * c := Nat.mul_le_mul_right c hab
+    rw [subNatNat_of_le hac, Nat.mul_comm (a-b) c, mul_sub_distrib hab,
+        Nat.mul_comm c a, Nat.mul_comm c b]
+
+/-- ∅-axiom: `subNatNat A B * negSucc δ = subNatNat (B*(δ+1)) (A*(δ+1))`. -/
+theorem subNatNat_mul_negSucc (a b d : Nat) :
+    Int.subNatNat a b * Int.negSucc d
+      = Int.subNatNat (b * (d + 1)) (a * (d + 1)) := by
+  rcases Nat.lt_or_ge a b with hab | hab
+  · -- a < b
+    rw [subNatNat_of_lt hab]
+    have hba_pos : 1 ≤ b - a := sub_pos_of_lt hab
+    show Int.ofNat (((b - a - 1) + 1) * (d + 1))
+       = Int.subNatNat (b * (d + 1)) (a * (d + 1))
+    rw [Nat.sub_one_add_one_eq_of_pos hba_pos]
+    have h : a * (d + 1) ≤ b * (d + 1) :=
+      Nat.mul_le_mul_right (d + 1) (Nat.le_of_lt hab)
+    rw [subNatNat_of_le h, Nat.mul_comm (b-a) (d+1), mul_sub_distrib (Nat.le_of_lt hab),
+        Nat.mul_comm (d+1) b, Nat.mul_comm (d+1) a]
+  · -- b ≤ a
+    rw [subNatNat_of_le hab]
+    show Int.negOfNat ((a - b) * (d + 1))
+       = Int.subNatNat (b * (d + 1)) (a * (d + 1))
+    rw [negOfNat_eq_subNatNat,
+        ← subNatNat_add_add 0 ((a - b) * (d + 1)) (b * (d + 1)),
+        Nat.zero_add]
+    congr 1
+    rw [← E213.Tactic.Nat213.add_mul, sub_add_cancel hab]
+
+/-- ★★★★★★★ ∅-axiom: `Int.add_mul`: `(a + b) * c = a * c + b * c`. -/
+theorem add_mul (a b c : Int) : (a + b) * c = a * c + b * c := by
+  obtain ⟨a1, a2, ha⟩ := subNatNat_repr a
+  obtain ⟨b1, b2, hb⟩ := subNatNat_repr b
+  rw [ha, hb, subNatNat_add_subNatNat]
+  cases c with
+  | ofNat γ =>
+    rw [subNatNat_mul_ofNat, subNatNat_mul_ofNat, subNatNat_mul_ofNat,
+        subNatNat_add_subNatNat,
+        E213.Tactic.Nat213.add_mul a1 b1 γ,
+        E213.Tactic.Nat213.add_mul a2 b2 γ]
+  | negSucc δ =>
+    rw [subNatNat_mul_negSucc, subNatNat_mul_negSucc, subNatNat_mul_negSucc,
+        subNatNat_add_subNatNat,
+        E213.Tactic.Nat213.add_mul a2 b2 (δ + 1),
+        E213.Tactic.Nat213.add_mul a1 b1 (δ + 1)]
+
+/-- ∅-axiom: `Int.mul_add`: `a * (b + c) = a*b + a*c`. -/
+theorem mul_add (a b c : Int) : a * (b + c) = a * b + a * c := by
+  rw [mul_comm a (b + c), add_mul, mul_comm b a, mul_comm c a]
+
+end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+open E213.Tactic.Nat213
+  (sub_add_cancel sub_pos_of_lt mul_sub_distrib)
+
+/-- ∅-axiom Nat helper: `(p-q) + (q+r) = p+r` when `q ≤ p`. -/
+private theorem nat_help_subadd1 {p q r : Nat} (h : q ≤ p) :
+    (p - q) + (q + r) = p + r := by
+  rw [← Nat.add_assoc (p - q) q r, sub_add_cancel h]
+
+/-- ∅-axiom Nat helper: `(p-q) + (r+q) = r+p` when `q ≤ p`. -/
+private theorem nat_help_subadd2 {p q r : Nat} (h : q ≤ p) :
+    (p - q) + (r + q) = r + p := by
+  rw [Nat.add_comm r q, nat_help_subadd1 h, Nat.add_comm p r]
+
+/-- ★★★★★★★ ∅-axiom Multiplication keystone:
+    `subNatNat a b * subNatNat c d = subNatNat (a*c + b*d) (a*d + b*c)`. -/
+theorem subNatNat_mul_subNatNat (a b c d : Nat) :
+    Int.subNatNat a b * Int.subNatNat c d
+      = Int.subNatNat (a * c + b * d) (a * d + b * c) := by
+  rcases Nat.lt_or_ge c d with hcd | hcd
+  · -- c < d: subNatNat c d = negSucc (d-c-1)
+    rw [subNatNat_of_lt hcd]
+    have hdc_pos : 1 ≤ d - c := sub_pos_of_lt hcd
+    rw [subNatNat_mul_negSucc]
+    show Int.subNatNat (b * ((d - c - 1) + 1)) (a * ((d - c - 1) + 1))
+       = Int.subNatNat (a * c + b * d) (a * d + b * c)
+    rw [Nat.sub_one_add_one_eq_of_pos hdc_pos]
+    rw [← subNatNat_add_add (b * (d - c)) (a * (d - c)) (a * c + b * c)]
+    have hcd_le : c ≤ d := Nat.le_of_lt hcd
+    have hbc_le : b * c ≤ b * d := Nat.mul_le_mul_left b hcd_le
+    have hac_le : a * c ≤ a * d := Nat.mul_le_mul_left a hcd_le
+    rw [mul_sub_distrib hcd_le, mul_sub_distrib hcd_le,
+        nat_help_subadd2 hbc_le, nat_help_subadd1 hac_le]
+  · -- d ≤ c: subNatNat c d = ofNat (c-d)
+    rw [subNatNat_of_le hcd]
+    rw [subNatNat_mul_ofNat]
+    rw [← subNatNat_add_add (a * (c - d)) (b * (c - d)) (a * d + b * d)]
+    have hbd_le : b * d ≤ b * c := Nat.mul_le_mul_left b hcd
+    have had_le : a * d ≤ a * c := Nat.mul_le_mul_left a hcd
+    rw [mul_sub_distrib hcd, mul_sub_distrib hcd,
+        nat_help_subadd1 had_le, nat_help_subadd2 hbd_le]
+
+/-- ★★★★★★★ ∅-axiom: `Int.mul_assoc`: `a * b * c = a * (b * c)`. -/
+theorem mul_assoc (a b c : Int) : a * b * c = a * (b * c) := by
+  obtain ⟨a1, a2, ha⟩ := subNatNat_repr a
+  obtain ⟨b1, b2, hb⟩ := subNatNat_repr b
+  rw [ha, hb]
+  cases c with
+  | ofNat γ =>
+    rw [subNatNat_mul_subNatNat, subNatNat_mul_ofNat, subNatNat_mul_ofNat,
+        subNatNat_mul_subNatNat,
+        E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.add_mul,
+        E213.Tactic.Nat213.mul_assoc, E213.Tactic.Nat213.mul_assoc,
+        E213.Tactic.Nat213.mul_assoc, E213.Tactic.Nat213.mul_assoc]
+  | negSucc δ =>
+    rw [subNatNat_mul_subNatNat, subNatNat_mul_negSucc, subNatNat_mul_negSucc,
+        subNatNat_mul_subNatNat,
+        E213.Tactic.Nat213.add_mul, E213.Tactic.Nat213.add_mul,
+        E213.Tactic.Nat213.mul_assoc, E213.Tactic.Nat213.mul_assoc,
+        E213.Tactic.Nat213.mul_assoc, E213.Tactic.Nat213.mul_assoc]
+
+/-- ∅-axiom: `Int.mul_left_comm`: `a * (b * c) = b * (a * c)`. -/
+theorem mul_left_comm (a b c : Int) : a * (b * c) = b * (a * c) := by
+  rw [← mul_assoc, mul_comm a b, mul_assoc]
+
+end E213.Theory.Internal.Int213
