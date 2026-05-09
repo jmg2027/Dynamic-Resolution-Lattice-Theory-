@@ -89,6 +89,30 @@ theorem add_succ_left (m n : Nat213) :
 /-- ★ `one + n = succ n` — adding 1 yields successor. -/
 theorem one_add (n : Nat213) : add one n = succ n := rfl
 
+/-- ★ `n + one = succ n` — right-identity-succ.  Induction on n. -/
+theorem add_one_right : ∀ n : Nat213, add n one = succ n
+  | one    => rfl
+  | succ k => by
+      show succ (add k one) = succ (succ k)
+      rw [add_one_right k]
+
+/-- ★ `m + (succ n) = succ (m + n)` — succ on right.  Induction. -/
+theorem add_succ_right : ∀ m n : Nat213, add m (succ n) = succ (add m n)
+  | one,    n => rfl
+  | succ m, n => by
+      show succ (add m (succ n)) = succ (succ (add m n))
+      rw [add_succ_right m n]
+
+/-- ★ Commutativity of `add`.  Standard induction. -/
+theorem add_comm : ∀ m n : Nat213, add m n = add n m
+  | one,    one    => rfl
+  | one,    succ k => by
+      show succ (succ k) = add (succ k) one
+      rw [add_one_right (succ k)]
+  | succ m, n      => by
+      show succ (add m n) = add n (succ m)
+      rw [add_succ_right n m, add_comm m n]
+
 -- ═══ NO ABSORPTION: there is no zero in Nat213 ═══
 
 /-- Helper: `mul_succ_two_strictly_grows` — if z = succ z', then

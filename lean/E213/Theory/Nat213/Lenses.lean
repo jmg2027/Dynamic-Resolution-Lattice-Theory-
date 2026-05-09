@@ -258,4 +258,33 @@ theorem lens_spans_Nat213 (n : Nat213) :
   ⟨{base_a := n, base_b := n, combine := Nat213.add},
    by show n = n; rfl⟩
 
+-- ═══ Addition as slash-projection via atomCount lens (G69) ═══
+
+/-- ★★★ ADDITION = SLASH-PROJECTION VIA atomCount LENS:
+    `lensLeafCount` maps Raw's `slash` to Nat213's `add`.  This is
+    the structural origin of natural-number addition: it's not a
+    primitive operation, it's the IMAGE of Raw's `slash` under the
+    atomCount lens. -/
+theorem slash_projects_to_add (x y : Raw) (h : x ≠ y) :
+    lensLeafCount.apply (Raw.slash x y h)
+    = Nat213.add (lensLeafCount.apply x) (lensLeafCount.apply y) :=
+  lens_slash_decomposition lensLeafCount Nat213.add_comm x y h
+
+/-- ★ Concrete witness: slash of two atoms via atomCount = 1 + 1 = 2. -/
+theorem atomCount_slash_ab :
+    lensLeafCount.apply rawAB = Nat213.two :=
+  rfl
+
+/-- ★ "Fold-of-fold" structure: addition combines two atomCount-fold
+    results.  Each `apply` is one fold (over Raw); the resulting `+`
+    is another fold (over Nat213's `one | succ` structure, since
+    `Nat213.add` recurses on first arg = succ-iteration). -/
+theorem fold_of_fold_witness (x y : Raw) (h : x ≠ y) :
+    -- Outer slash projects to Nat213.add
+    lensLeafCount.apply (Raw.slash x y h)
+    -- = result of inner Raw-folds combined by inner Nat213-fold (= add)
+    = Nat213.add (Raw.fold Nat213.one Nat213.one Nat213.add x)
+                 (Raw.fold Nat213.one Nat213.one Nat213.add y) :=
+  slash_projects_to_add x y h
+
 end E213.Theory.Nat213.Lenses
