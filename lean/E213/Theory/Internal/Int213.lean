@@ -421,3 +421,147 @@ theorem sub_add_cancel_int (a b : Int) : a - b + b = a := by
       exact subNatNat_add_negSucc_self k m
 
 end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+open E213.Tactic.Nat213
+  (sub_add_cancel add_sub_of_le add_sub_cancel_right
+   sub_pos_of_lt add_sub_assoc)
+
+/-- ∅-axiom: when `b ≤ a`, `subNatNat a b = ofNat (a - b)`. -/
+theorem subNatNat_of_le {a b : Nat} (h : b ≤ a) :
+    Int.subNatNat a b = Int.ofNat (a - b) := by
+  show (match (b - a : Nat) with
+        | 0 => Int.ofNat (a - b)
+        | k+1 => Int.negSucc k) = Int.ofNat (a - b)
+  have hba : b - a = 0 := sub_eq_zero_of_le_nat h
+  rw [hba]
+
+/-- ∅-axiom: when `a < b`, `subNatNat a b = negSucc (b - a - 1)`. -/
+theorem subNatNat_of_lt {a b : Nat} (h : a < b) :
+    Int.subNatNat a b = Int.negSucc (b - a - 1) := by
+  show (match (b - a : Nat) with
+        | 0 => Int.ofNat (a - b)
+        | k+1 => Int.negSucc k) = Int.negSucc (b - a - 1)
+  have h1 : 1 ≤ b - a := sub_pos_of_lt h
+  generalize hba : b - a = m at h1 ⊢
+  cases m with
+  | zero => exact absurd h1 (by decide)
+  | succ k => rfl
+
+/-- ∅-axiom Nat helper: `(a-b) + (c-d) = (a+c) - (b+d)` when `b ≤ a, d ≤ c`. -/
+theorem nat_diff_add_diff {a b c d : Nat} (h1 : b ≤ a) (h2 : d ≤ c) :
+    (a - b) + (c - d) = (a + c) - (b + d) := by
+  -- Strategy: ((a-b)+(c-d)) + (b+d) = a+c, then add_sub_cancel_right.
+  have h_eq : ((a - b) + (c - d)) + (b + d) = a + c := by
+    -- Rearrange: ((a-b)+(c-d)) + (b+d) = ((a-b)+b) + ((c-d)+d) = a + c.
+    have rearrange : ((a - b) + (c - d)) + (b + d)
+                   = ((a - b) + b) + ((c - d) + d) := by
+      rw [Nat.add_assoc (a - b) (c - d) (b + d),
+          ← Nat.add_assoc (c - d) b d,
+          Nat.add_comm (c - d) b,
+          Nat.add_assoc b (c - d) d,
+          ← Nat.add_assoc (a - b) b ((c - d) + d)]
+    rw [rearrange, sub_add_cancel h1, sub_add_cancel h2]
+  -- ((a-b)+(c-d)) + (b+d) - (b+d) = (a-b)+(c-d) by add_sub_cancel_right
+  have h_cancel : ((a - b) + (c - d)) + (b + d) - (b + d) = (a - b) + (c - d) :=
+    add_sub_cancel_right _ _
+  -- Substitute h_eq into h_cancel
+  rw [h_eq] at h_cancel
+  exact h_cancel.symm
+
+end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+open E213.Tactic.Nat213
+  (sub_add_cancel add_sub_of_le add_sub_cancel_right
+   sub_pos_of_lt add_sub_assoc)
+
+/-- ∅-axiom Nat helper: `X + Y + 1 = (X + 1) + (Y + 1) - 1`. -/
+private theorem add_one_add_one_sub_one (X Y : Nat) :
+    X + Y + 1 = (X + 1) + (Y + 1) - 1 := by
+  have h : (X + 1) + (Y + 1) = (X + Y + 1) + 1 := by
+    rw [Nat.add_assoc X 1 (Y + 1),
+        Nat.add_comm 1 (Y + 1),
+        ← Nat.add_assoc X (Y + 1) 1,
+        ← Nat.add_assoc X Y 1]
+  rw [h]
+  exact (add_sub_cancel_right (X + Y + 1) 1).symm
+
+/-- ★★★★★★★ ∅-axiom Keystone:
+    `subNatNat a b + subNatNat c d = subNatNat (a+c) (b+d)`.
+    Unifies all 4 Int.add cases via subNatNat representation;
+    foundation for `add_assoc` and downstream ring identities. -/
+theorem subNatNat_add_subNatNat (a b c d : Nat) :
+    Int.subNatNat a b + Int.subNatNat c d = Int.subNatNat (a + c) (b + d) := by
+  rcases Nat.lt_or_ge a b with hab | hab
+  · rcases Nat.lt_or_ge c d with hcd | hcd
+    · -- Case IV: a < b, c < d. Both negSucc.
+      rw [subNatNat_of_lt hab, subNatNat_of_lt hcd]
+      have hac : a + c < b + d := Nat.add_lt_add hab hcd
+      rw [subNatNat_of_lt hac]
+      show Int.negSucc ((b - a - 1) + (d - c - 1) + 1)
+         = Int.negSucc ((b + d) - (a + c) - 1)
+      congr 1
+      have h_diff : (b + d) - (a + c) = (b - a) + (d - c) :=
+        (nat_diff_add_diff (Nat.le_of_lt hab) (Nat.le_of_lt hcd)).symm
+      rw [h_diff]
+      have hba_pos : 1 ≤ b - a := sub_pos_of_lt hab
+      have hdc_pos : 1 ≤ d - c := sub_pos_of_lt hcd
+      have h_b_split : b - a = (b - a - 1) + 1 :=
+        (Nat.sub_one_add_one_eq_of_pos hba_pos).symm
+      have h_d_split : d - c = (d - c - 1) + 1 :=
+        (Nat.sub_one_add_one_eq_of_pos hdc_pos).symm
+      rw [h_b_split, h_d_split]
+      exact add_one_add_one_sub_one _ _
+    · -- Case III: a < b, d ≤ c. Mixed (negSucc + ofNat).
+      rw [subNatNat_of_lt hab, subNatNat_of_le hcd]
+      have hba_pos : 1 ≤ b - a := sub_pos_of_lt hab
+      show Int.subNatNat (c - d) ((b - a - 1) + 1)
+         = Int.subNatNat (a + c) (b + d)
+      rw [Nat.sub_one_add_one_eq_of_pos hba_pos]
+      have h1 : (c - d) + (a + d) = a + c := by
+        rw [Nat.add_comm a d, ← Nat.add_assoc (c - d) d a,
+            sub_add_cancel hcd, Nat.add_comm c a]
+      have h2 : (b - a) + (a + d) = b + d := by
+        rw [← Nat.add_assoc (b - a) a d, sub_add_cancel (Nat.le_of_lt hab)]
+      rw [← h1, ← h2]
+      exact (subNatNat_add_add (c - d) (b - a) (a + d)).symm
+  · rcases Nat.lt_or_ge c d with hcd | hcd
+    · -- Case II: b ≤ a, c < d. Mixed (ofNat + negSucc).
+      rw [subNatNat_of_le hab, subNatNat_of_lt hcd]
+      have hdc_pos : 1 ≤ d - c := sub_pos_of_lt hcd
+      show Int.subNatNat (a - b) ((d - c - 1) + 1)
+         = Int.subNatNat (a + c) (b + d)
+      rw [Nat.sub_one_add_one_eq_of_pos hdc_pos]
+      have h1 : (a - b) + (b + c) = a + c := by
+        rw [← Nat.add_assoc (a - b) b c, sub_add_cancel hab]
+      have h2 : (d - c) + (b + c) = b + d := by
+        rw [Nat.add_comm b c, ← Nat.add_assoc (d - c) c b,
+            sub_add_cancel (Nat.le_of_lt hcd), Nat.add_comm d b]
+      rw [← h1, ← h2]
+      exact (subNatNat_add_add (a - b) (d - c) (b + c)).symm
+    · -- Case I: b ≤ a, d ≤ c. Both ofNat.
+      rw [subNatNat_of_le hab, subNatNat_of_le hcd]
+      have hac : b + d ≤ a + c := Nat.add_le_add hab hcd
+      rw [subNatNat_of_le hac]
+      show Int.ofNat ((a - b) + (c - d)) = Int.ofNat ((a + c) - (b + d))
+      rw [nat_diff_add_diff hab hcd]
+
+/-- ∅-axiom: every Int has a `subNatNat` representation. -/
+theorem subNatNat_repr : ∀ (a : Int), ∃ p q, a = Int.subNatNat p q
+  | .ofNat n   => ⟨n, 0,   (subNatNat_zero n).symm⟩
+  | .negSucc n => ⟨0, n+1, (subNatNat_zero_succ n).symm⟩
+
+/-- ★★★★★★★ ∅-axiom: `Int.add_assoc`. -/
+theorem add_assoc (a b c : Int) : a + b + c = a + (b + c) := by
+  obtain ⟨a1, a2, ha⟩ := subNatNat_repr a
+  obtain ⟨b1, b2, hb⟩ := subNatNat_repr b
+  obtain ⟨c1, c2, hc⟩ := subNatNat_repr c
+  rw [ha, hb, hc,
+      subNatNat_add_subNatNat, subNatNat_add_subNatNat,
+      subNatNat_add_subNatNat, subNatNat_add_subNatNat,
+      Nat.add_assoc, Nat.add_assoc]
+
+end E213.Theory.Internal.Int213
