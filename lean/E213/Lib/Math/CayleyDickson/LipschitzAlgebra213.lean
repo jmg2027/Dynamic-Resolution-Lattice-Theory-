@@ -186,3 +186,47 @@ private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
   exact h_int
 
 end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+namespace E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+open E213.Lib.Math.CayleyDickson.ZI
+open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Theory.Internal.Algebra213
+
+/-- ★ ∅-axiom Lipschitz `self_mul_conj`: `z * conj z = ofInt z.normSq`.
+    Uses ZI's `IntegerNormed213.self_mul_conj` recursively + ZI mul_comm
+    (since ZI is commutative).  No Int polynomial expansion. -/
+private theorem self_mul_conj' (z : Lipschitz) :
+    z * conj z = ofInt (Lipschitz.normSq z) := by
+  apply ext
+  · -- re: z.re * z.re.conj - (-z.im).conj * z.im
+    show z.re * z.re.conj - (-z.im).conj * z.im
+       = ZI.ZI.ofInt (z.re.normSq + z.im.normSq)
+    -- conj_neg: (-z.im).conj = -(z.im.conj)
+    rw [ZI.ZI.conj_neg z.im]
+    -- (-z.im.conj) * z.im = -(z.im.conj * z.im)  [Ring213.neg_mul at ZI level]
+    rw [Ring213.neg_mul z.im.conj z.im]
+    -- a - (-b) = a + b via sub_eq_add_neg + neg_neg
+    show z.re * z.re.conj + (-(-(z.im.conj * z.im)))
+       = ZI.ZI.ofInt (z.re.normSq + z.im.normSq)
+    rw [Ring213.neg_neg (z.im.conj * z.im)]
+    -- Goal: z.re * z.re.conj + z.im.conj * z.im = ofInt (...)
+    -- ZI.conj is the concrete .conj here, but typeclass uses StarRing213.conj.
+    -- They coincide via the instance.  Convert via `have`:
+    have hre : z.re * z.re.conj = ZI.ZI.ofInt z.re.normSq :=
+      @IntegerNormed213.self_mul_conj ZI _ z.re
+    have him : z.im * z.im.conj = ZI.ZI.ofInt z.im.normSq :=
+      @IntegerNormed213.self_mul_conj ZI _ z.im
+    have hmc : z.im.conj * z.im = z.im * z.im.conj :=
+      @CommRing213.mul_comm ZI _ z.im.conj z.im
+    rw [hre, hmc, him]
+    exact @IntegerNormed213.ofInt_add ZI _ z.re.normSq z.im.normSq
+  · -- im: -z.im * z.re + z.im * z.re.conj.conj
+    show -z.im * z.re + z.im * z.re.conj.conj = 0
+    rw [ZI.ZI.conj_conj z.re]
+    -- Goal: -z.im * z.re + z.im * z.re = 0
+    rw [Ring213.neg_mul z.im z.re]
+    -- Goal: -(z.im * z.re) + z.im * z.re = 0
+    exact Ring213.add_left_neg _
+
+end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
