@@ -88,14 +88,16 @@ theorem conj_sub (u v : ZI) : (u - v).conj = u.conj - v.conj := by
 theorem neg_mul (u v : ZI) : (-u) * v = -(u * v) := by
   apply ext
   · show -u.re * v.re - -u.im * v.im = -(u.re * v.re - u.im * v.im)
-    rw [Int.neg_mul, Int.neg_mul]
+    rw [E213.Theory.Internal.Int213.neg_mul,
+        E213.Theory.Internal.Int213.neg_mul]
     have hL : -(u.re * v.re) - -(u.im * v.im) = -(u.re * v.re) + u.im * v.im := by
       rw [Int.sub_eq_add_neg, Int.neg_neg]
     have hR : -(u.re * v.re - u.im * v.im) = -(u.re * v.re) + u.im * v.im := by
       rw [Int.sub_eq_add_neg, neg_add, Int.neg_neg]
     exact hL.trans hR.symm
   · show -u.re * v.im + -u.im * v.re = -(u.re * v.im + u.im * v.re)
-    rw [Int.neg_mul, Int.neg_mul, ← neg_add]
+    rw [E213.Theory.Internal.Int213.neg_mul,
+        E213.Theory.Internal.Int213.neg_mul, ← neg_add]
 
 theorem mul_neg (u v : ZI) : u * (-v) = -(u * v) := by
   rw [mul_comm, neg_mul, mul_comm v u]

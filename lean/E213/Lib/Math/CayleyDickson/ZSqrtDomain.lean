@@ -45,18 +45,24 @@ theorem conj_mul (u v : ZSqrt D) :
   apply ext
   · show u.re * v.re - D * (u.im * v.im)
        = u.re * v.re - D * ((-u.im) * (-v.im))
-    simp only [Int.neg_mul, Int.mul_neg, Int.neg_neg]
+    have h : (-u.im) * (-v.im) = u.im * v.im := by
+      rw [E213.Theory.Internal.Int213.neg_mul,
+          E213.Theory.Internal.Int213.mul_neg, Int.neg_neg]
+    rw [h]
   · show -(u.re * v.im + u.im * v.re)
        = u.re * (-v.im) + (-u.im) * v.re
-    simp only [Int.neg_mul, Int.mul_neg, Int.neg_add]
+    rw [E213.Theory.Internal.Int213.mul_neg,
+        E213.Theory.Internal.Int213.neg_mul,
+        ← E213.Theory.Internal.Int213.neg_add]
 
 theorem normSq_nonneg (hD : 0 ≤ D) (u : ZSqrt D) :
     0 ≤ u.normSq := by
   show 0 ≤ u.re * u.re + D * (u.im * u.im)
   have h1 := IntHelpers.mul_self_nonneg u.re
   have h2 := IntHelpers.mul_self_nonneg u.im
-  have h3 : 0 ≤ D * (u.im * u.im) := Int.mul_nonneg hD h2
-  omega
+  have h3 : 0 ≤ D * (u.im * u.im) :=
+    E213.Theory.Internal.Int213.mul_nonneg hD h2
+  exact E213.Theory.Internal.Int213.add_nonneg h1 h3
 
 variable {D : Int}
 
@@ -67,20 +73,26 @@ theorem normSq_eq_zero_iff (hD : 0 < D) (u : ZSqrt D) :
     have h_eq : u.re * u.re + D * (u.im * u.im) = 0 := h
     have h1 := IntHelpers.mul_self_nonneg u.re
     have h2 := IntHelpers.mul_self_nonneg u.im
-    have hDnn : (0 : Int) ≤ D := by omega
-    have h3 : 0 ≤ D * (u.im * u.im) := Int.mul_nonneg hDnn h2
-    have hre : u.re * u.re = 0 := by omega
-    have hd_im : D * (u.im * u.im) = 0 := by omega
+    -- Convert 0 < D to 0 ≤ D via case analysis on D
+    have hDnn : (0 : Int) ≤ D := match D, hD with
+      | .ofNat _, _ => Int.ofNat_nonneg _
+      | .negSucc _, h => by cases h
+    have h3 : 0 ≤ D * (u.im * u.im) :=
+      E213.Theory.Internal.Int213.mul_nonneg hDnn h2
+    obtain ⟨hre, hd_im⟩ :=
+      E213.Theory.Internal.Int213.add_eq_zero_of_nonneg h1 h3 h_eq
     have him : u.im * u.im = 0 := by
-      rcases Int.mul_eq_zero.mp hd_im with h | h
-      · omega
+      rcases E213.Theory.Internal.Int213.mul_eq_zero hd_im with hD0 | h
+      · exfalso; rw [hD0] at hD; cases hD
       · exact h
     apply ext
     · exact IntHelpers.mul_self_eq_zero.mp hre
     · exact IntHelpers.mul_self_eq_zero.mp him
   · rintro rfl
     show (0 : Int) * 0 + D * (0 * 0) = 0
-    simp
+    -- 0 * 0 = 0 (rfl), then D * 0 = 0 (mul_zero), then 0 + 0 = 0 (add_zero)
+    show (0 : Int) + D * 0 = 0
+    rw [Int.mul_zero, Int.add_zero]
 
 theorem no_zero_div (hD : 0 < D) (u v : ZSqrt D) :
     u * v = 0 → u = 0 ∨ v = 0 := by

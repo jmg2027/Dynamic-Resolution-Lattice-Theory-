@@ -218,3 +218,29 @@ theorem mul_nonneg : ∀ {a b : Int}, 0 ≤ a → 0 ≤ b → 0 ≤ a * b
   | .negSucc _, _, ha, _ => by cases ha
 
 end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+/-- ∅-axiom `Int.neg_mul`: `(-a) * b = -(a * b)` via 8-case analysis. -/
+theorem neg_mul : ∀ (a b : Int), (-a) * b = -(a * b)
+  | .ofNat 0, .ofNat n => by
+    show Int.ofNat (0 * n) = -Int.ofNat (0 * n); rw [Nat.zero_mul]; rfl
+  | .ofNat 0, .negSucc n => by
+    show Int.negOfNat (0 * (n+1)) = -Int.negOfNat (0 * (n+1))
+    rw [Nat.zero_mul]; rfl
+  | .ofNat (k+1), .ofNat 0 => by
+    show Int.negOfNat ((k+1) * 0) = -Int.ofNat ((k+1) * 0)
+    rw [Nat.mul_zero]; rfl
+  | .ofNat (_+1), .ofNat (_+1) => rfl
+  | .ofNat (_+1), .negSucc _ => rfl
+  | .negSucc m, .ofNat 0 => by
+    show Int.ofNat ((m+1) * 0) = -Int.negOfNat ((m+1) * 0)
+    rw [Nat.mul_zero]; rfl
+  | .negSucc _, .ofNat (_+1) => rfl
+  | .negSucc _, .negSucc _ => rfl
+
+/-- ∅-axiom `Int.mul_neg`: `a * (-b) = -(a * b)` via `mul_comm` + `neg_mul`. -/
+theorem mul_neg (a b : Int) : a * (-b) = -(a * b) := by
+  rw [mul_comm a (-b), neg_mul, mul_comm b a]
+
+end E213.Theory.Internal.Int213
