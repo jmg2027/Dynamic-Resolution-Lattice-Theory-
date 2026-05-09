@@ -1,0 +1,107 @@
+# 213 algebra tower probe — mul-table optimized
+
+D=1    L3 dim=4 units=8
+  comm=24/64  assoc=0/512
+  alt-L=0 alt-R=0 flex=0 Mou=0/512 pow-assoc-viol=0
+  order={1:1,2:1,4:6}
+
+D=2    L3 dim=4 units=4
+  comm=0/16  assoc=0/64
+  alt-L=0 alt-R=0 flex=0 Mou=0/64 pow-assoc-viol=0
+  order={1:1,2:1,4:2}
+
+ZOmega L3 dim=4 units=12
+  comm=72/144  assoc=0/1728
+  alt-L=0 alt-R=0 flex=0 Mou=0/1728 pow-assoc-viol=0
+  order={1:1,2:1,3:2,4:6,6:2}
+
+─────────────────────────────────────────
+D=1    L4 dim=8 units=16
+  comm=168/256  assoc=1344/4096
+  alt-L=0 alt-R=0 flex=0 Mou=0/4096 pow-assoc-viol=0
+  order={1:1,2:1,4:14}
+
+D=2    L4 dim=8 units=8
+  comm=24/64  assoc=0/512
+  alt-L=0 alt-R=0 flex=0 Mou=0/512 pow-assoc-viol=0
+  order={1:1,2:1,4:6}
+
+ZOmega L4 dim=8 units=24
+  comm=432/576  assoc=6048/13824
+  alt-L=0 alt-R=0 flex=0 Mou=0/13824 pow-assoc-viol=0
+  order={1:1,2:1,3:2,4:18,6:2}
+
+─────────────────────────────────────────
+D=1    L5 dim=16 units=32
+  comm=840/1024  assoc=14784/32768
+  alt-L=0 alt-R=0 flex=0 Mou=5376/32768 pow-assoc-viol=0
+  order={1:1,2:1,4:30}
+
+D=2    L5 dim=16 units=16
+  comm=168/256  assoc=1344/4096
+  alt-L=0 alt-R=0 flex=0 Mou=0/4096 pow-assoc-viol=0
+  order={1:1,2:1,4:14}
+
+ZOmega L5 dim=16 units=48
+  comm=2016/2304  assoc=68256/110592
+  alt-L=0 alt-R=0 flex=0 Mou=24192/110592 pow-assoc-viol=0
+  order={1:1,2:1,3:2,4:42,6:2}
+
+─────────────────────────────────────────
+D=1    L6 dim=32 units=64
+  comm=3720/4096  assoc=127680/262144
+  alt-L=0 alt-R=0 flex=0 Mou=80640/262144 pow-assoc-viol=0
+  order={1:1,2:1,4:62}
+
+D=2    L6 dim=32 units=32
+  comm=840/1024  assoc=14784/32768
+  alt-L=0 alt-R=0 flex=0 Mou=5376/32768 pow-assoc-viol=0
+  order={1:1,2:1,4:30}
+
+ZOmega L6 dim=32 units=96
+  comm=8640/9216  assoc=593568/884736
+  alt-L=0 alt-R=0 flex=0 Mou=369792/884736 pow-assoc-viol=0
+  order={1:1,2:1,3:2,4:90,6:2}
+
+─────────────────────────────────────────
+D=1    L7 dim=64 units=128
+  comm=15624/16384  assoc=1041600/2097152
+  alt-L=0 alt-R=0 flex=0 Mou=833280/2097152 pow-assoc-viol=0
+  order={1:1,2:1,4:126}
+
+D=2    L7 dim=64 units=64
+  comm=3720/4096  assoc=127680/262144
+  alt-L=0 alt-R=0 flex=0 Mou=80640/262144 pow-assoc-viol=0
+  order={1:1,2:1,4:62}
+
+ZOmega L7 dim=64 units=192
+  comm=35712/36864  assoc=4851360/7077888
+  alt-L=0 alt-R=0 flex=0 Mou=3853440/7077888 pow-assoc-viol=0
+  order={1:1,2:1,3:2,4:186,6:2}
+
+─────────────────────────────────────────
+D=2    L8 dim=128 units=128
+  comm=15624/16384  assoc=1041600/2097152
+  alt-L=0 alt-R=0 flex=0 Mou=833280/2097152 pow-assoc-viol=0
+  order={1:1,2:1,4:126}
+
+D=2    L9 dim=256 units=256
+  comm=64008/65536  assoc=8374464/16777216
+  alt-L=0 alt-R=0 flex=0 Mou=7499520/16777216 pow-assoc-viol=0
+  order={1:1,2:1,4:254}
+
+D=2    L10 dim=512 units=512
+  comm=259080/262144  assoc=67080384/134217728
+  alt-L=0 alt-R=0 flex=0 Mou=63495936/134217728 pow-assoc-viol=0
+  order={1:1,2:1,4:510}
+
+D=1    L8 dim=128 units=256
+  comm=64008/65536  assoc=8374464/16777216
+  alt-L=0 alt-R=0 flex=0 Mou=7499520/16777216 pow-assoc-viol=0
+  order={1:1,2:1,4:254}
+
+D=1    L9 dim=256 units=512
+  comm=259080/262144  assoc=67080384/134217728
+  alt-L=0 alt-R=0 flex=0 Mou=63495936/134217728 pow-assoc-viol=0
+  order={1:1,2:1,4:510}
+

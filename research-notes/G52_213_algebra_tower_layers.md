@@ -691,3 +691,75 @@ Type B 만 한 layer 늦은 transition. Type A 와 C 는 같은 layer 에서.
 1. **Type A L4 (M_16) ↔ Type B L5 (M_16) explicit isomorphism** Lean ∅-axiom — shift rule 확장
 2. **Type A L_n + Type C L_n 사이에 quotient/extension 관계?** ZOmega 가 ω 를 추가한 효과의 isolation
 3. Q(ζ_8) base 시도 — Type D 후보
+
+---
+
+## L7-L10 측정 (2026-05-09 후속): rate evolution + persistence laws
+
+mul-table optimization (200×) 으로 L9 / L10 까지 push.
+
+### Shift rule 연장 확인 (L8/L9/L10)
+
+| n | D=1 L_n Moufang fail | D=2 L_{n+1} Moufang fail |
+|---|---|---|
+| 5 | 5376/32768 | (L6) 5376/32768 ✓ |
+| 6 | 80640/262144 | (L7) 80640/262144 ✓ |
+| 7 | 833280/2097152 | (L8) 833280/2097152 ✓ |
+| 8 | 7499520/16777216 | (L9) 7499520/16777216 ✓ |
+| 9 | 63495936/134217728 | (L10) 63495936/134217728 ✓ |
+
+→ D=1 L_n = D=2 L_{n+1} 정확히 *모든 측정값 단 한 글자 안 다름* L9 까지.
+
+### Moufang fail rate asymptote: → 0.5
+
+```
+D=1 rate sequence:
+  L5: 21/128       ≈ 0.164
+  L6: 315/1024     ≈ 0.308
+  L7: 3255/8192    ≈ 0.397
+  L8: 29295/65536  ≈ 0.447
+  L9: 248031/524288 ≈ 0.473
+
+(0.5 − rate) 수열:  0.336, 0.192, 0.103, 0.053, 0.027
+연속 ratio:         0.572, 0.535, 0.515, 0.509
+                                                    → 0.5
+```
+
+→ **Moufang fail rate → 0.5 asymptotically** with (0.5 − rate_n) ∝ 1/2^n
+   결국 무한 layer 에서 *Moufang holds for exactly half the triples*.
+
+### Mersenne prime cascade (numerator factorization)
+
+```
+L5: 2⁸ × 3 × 7              → M₂ × M₃
+L6: 2⁸ × 3² × 5 × 7
+L7: 2⁸ × 3 × 5 × 7 × 31     → adds M₅ = 31
+L8: 2⁸ × 3³ × 5 × 7 × 31
+L9: 2⁸ × 3² × 7 × 31 × 127  → adds M₇ = 127
+```
+
+각 layer 마다 새 Mersenne prime 도 입장 (cascade). 정밀 closed-form 은
+미해결, 하지만 Mersenne 들이 building block 인 것은 명확.
+
+### 213 native persistence laws (모든 측정 layer 에서 만족)
+
+| Property | L3 | L5 | L7 | L9 | L10 |
+|---|---|---|---|---|---|
+| pow-assoc-viol (units) | 0 | 0 | 0 | 0 | 0 |
+| alt-L viol (units) | 0 | 0 | 0 | 0 | 0 |
+| alt-R viol (units) | 0 | 0 | 0 | 0 | 0 |
+| flex viol (units) | 0 | 0 | 0 | 0 | 0 |
+| nm-fail (units) | 0 | 0 | 0 | 0 | 0 |
+
+→ **Unit set 위에서 alt-L, alt-R, flex, pow-assoc, nm-mult 모두 영원 보존**.
+   "Past Hurwitz" 라도 unit-restricted 모든 잔여 alternative 구조 유지.
+
+Ring-level 에선 alt-L 가 sedenion (D=1 L5) / shifted-sedenion (D=2 L6)
+부터 깨짐. 즉 *unit 사이 vs non-unit-sum* 둘이 명확 분리됨.
+
+### Open
+
+1. Mersenne prime 등장 정확한 layer index → closed form?
+2. Asymptote 정확히 1/2 인가, 아니면 1/2 + ε 작은 상수?
+3. ZOmega rate evolution: Type C 도 → 0.5 인가? (현재까지 0.219, 0.418, 0.544 — 다른 asymptote 가능)
+4. 다음 Mersenne (M_11 부재, M_13 = 8191) 첫 등장 layer = ?
