@@ -137,3 +137,56 @@ subgroup, 등)을 enumerator 에 추가하고 다시 search.
 
 또한 ZOmega L10+ 측정으로 Type C 의 정확한 asymptote 결정 (φ 공식 정확히
 맞는지 vs 약간 다른 값인지) 확정 필요.
+
+## 8. Step A v2 — non-cyclic invariants 추가 (2026-05-09)
+
+candidate 19개 (commutator, abelianization, conj_classes 추가) 실행.
+
+**Best**: `1 - phi(abel)/u` err 0.107 (φ formula 보다 약간 좋음)
+**Second**: `1 - phi(u)/u` err 0.143
+
+| Candidate | A | B | C (obs 0.689) | D (obs 0.809) |
+|---|---|---|---|---|
+| 1 - φ(u)/u | 0.500 ✓ | 0.500 ✓ | 0.667 (-0.022) | 0.667 (-0.143) |
+| 1 - φ(abel)/u | 0.500 ✓ | 0.500 ✓ | 0.667 (-0.022) | 0.917 (+0.107) |
+
+→ A, B 둘 다 perfect. C, D 어느 후보로도 deviation 잡히지 않음.
+
+### 핵심 통찰: ratio → 0.5 패턴이 φ 정확성 *반증*
+
+만약 Type C asymptote = 2/3 (φ 공식), residual ratio:
+```
+L6: 0.555, L7: 0.491, L8: 0.426, L9: 0.288
+```
+→ 0.5 으로 안 수렴, 점점 감소. universal pattern 깨짐.
+
+만약 asymptote = 0.689 (measured 추정):
+```
+L6: 0.577, L7: 0.535, L8: 0.510, L9: 0.500
+```
+→ 0.5 으로 깔끔 수렴.
+
+→ **Type C 의 진짜 asymptote 는 φ 공식과 안 맞음**. measurement 추정 0.689 가 정확.
+
+### 추측: φ + correction
+
+```
+asymptote = 1 - φ(u)/u + δ(base extra structure)
+
+δ(Z_2) = 0
+δ(Z_4) = 0
+δ(Z_6) = 0.022   (multiple prime factors? 2 × 3)
+δ(2T)  = 0.143   (non-abelian + multiple primes)
+```
+
+correction δ 가 *base 의 prime-factor 다양성* 또는 *non-abelian 정도* 에
+linear / functional dependent. 정확 form 은 더 많은 데이터 (다른 cyclic Z_n
+base, 다른 quaternion order base) 필요.
+
+### 다음
+
+1. Lean ∅-axiom: `phi(4)/4 = 1/2`, `phi(6)/6 = 1/3`, `phi(24)/24 = 1/3`
+   (cyclic part 의 number-theoretic identity, decidable)
+2. ZOmega L10 measurement (probe 더 최적화 후) — Type C asymptote 정밀화
+3. Type E candidate 실험: Z_8, Z_12 같은 cyclic group base 의 *가상* asymptote
+   계산 (실제 base 는 없지만, 만약 있다면 φ 공식 어떻게 deviate?)
