@@ -9,6 +9,7 @@ import E213.Lib.Math.CayleyDickson.LipschitzOrder4Monopoly
 import E213.Lib.Math.CayleyDickson.CayleyOrder4Monopoly
 import E213.Lib.Math.CayleyDickson.SedenionOrder4Monopoly
 import E213.Lib.Math.CayleyDickson.ZOmegaDoubleOrderDist
+import E213.Lib.Math.CayleyDickson.ZOmegaQuadOrderDist
 import E213.Lib.Math.Tactic.Ring213
 import E213.Theory.Raw.Mobius
 import E213.Theory.CDDouble.UniversalOrder4
