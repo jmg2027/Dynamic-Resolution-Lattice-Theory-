@@ -712,3 +712,27 @@ theorem mul_left_comm (a b c : Int) : a * (b * c) = b * (a * c) := by
   rw [← mul_assoc, mul_comm a b, mul_assoc]
 
 end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+/-- ∅-axiom: `Int.zero_add` (Lean-core is propext). -/
+theorem zero_add (a : Int) : 0 + a = a := by
+  rw [add_comm, Int.add_zero]
+
+/-- ∅-axiom: `a + -a = 0`. -/
+theorem add_neg_cancel (a : Int) : a + -a = 0 := by
+  rw [add_comm, add_left_neg]
+
+/-- ∅-axiom: `Int.add_left_comm`: `a + (b + c) = b + (a + c)`. -/
+theorem add_left_comm (a b c : Int) : a + (b + c) = b + (a + c) := by
+  rw [← add_assoc, add_comm a b, add_assoc]
+
+/-- ∅-axiom: `Int.add_right_comm`: `a + b + c = a + c + b`. -/
+theorem add_right_comm (a b c : Int) : a + b + c = a + c + b := by
+  rw [add_assoc, add_comm b c, ← add_assoc]
+
+/-- ∅-axiom: `Int.mul_one`. -/
+theorem mul_one (a : Int) : a * 1 = a := by
+  rw [mul_comm]; exact Int.one_mul a
+
+end E213.Theory.Internal.Int213
