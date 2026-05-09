@@ -631,3 +631,63 @@ unit이 finite인 n ∈ {1, 2, 3, 4, 6}).
    ZOmega L5 nm-fail 측정 필요 (현재 probe 출력에서 볼 수 있음 = 0,
    그러면 Type C 도 unit 위에선 zd 안 보임)
 3. Base "unit count 8" 같은 더 큰 base 만들어서 Type D, E 실험
+
+---
+
+## L6 측정 (3 rows, 2026-05-09 후속)
+
+| Layer | Type A (D=1) | Type B (D≥2) | Type C (ZOmega) |
+|---|---|---|---|
+| L6 unit count | 64 | 32 | 96 |
+| comm fail | 3720/4096 (90.8%) | 840/1024 (82.0%) | 8640/9216 (93.8%) |
+| assoc fail | 127680/262144 (48.7%) | 14784/32768 (45.1%) | 593568/884736 (67.1%) |
+| Moufang fail | 80640/262144 (30.8%) | 5376/32768 (16.4%) | 369792/884736 (41.8%) |
+| alt-L/R/flex on units | 0 | 0 | 0 |
+| nm-fail on units | 0 | 0 | 0 |
+| order dist | {1,2,4:62} | {1,2,4:30} | {1,2,3:2,4:90,6:2} |
+
+### 관찰: Type C 의 cyclotomic preservation
+
+ZOmega L3..L6 의 order distribution 에서 `{3:2, 6:2}` 는 정확히 모든
+layer 에 보존. 즉:
+- L3 ZOmega: 12 units = (2 of order 3) + (2 of order 6) + (1+1+6 의 normal Q-loop subgroup)
+- L4 ZOmega: 24 units = (2 of order 3) + (2 of order 6) + (1+1+18)
+- L5 ZOmega: 48 units = (2 of order 3) + (2 of order 6) + (1+1+42)
+- L6 ZOmega: 96 units = (2 of order 3) + (2 of order 6) + (1+1+90)
+
+→ Order-3 와 order-6 element 는 **base 의 ω 와 ω² 가 그대로 살아남는** 것.
+   각 layer 의 unit set = "base 의 ω-cyclotomic part" ⊕ "doubling-derived order-2,4 part".
+
+### 패턴: Type A vs Type C 비교
+
+비교를 normalize 해 보면 (Type A 와 Type C 모두 같은 transition layer):
+
+| Quantity | Type A L_n | Type C L_n | 비율 |
+|---|---|---|---|
+| unit count | 2^n | 6 · 2^(n-2) = 1.5 · 2^n | 1.5 |
+| comm fail | varies | varies | ≈ 2.25 (= 1.5²) |
+| assoc fail | varies | varies | ≈ 4.6 (≈ 1.5³ × ε) |
+| Moufang fail | varies | varies | ≈ 4.6 (≈ 1.5³ × ε) |
+
+대략 unit count ratio (= 1.5) 의 거듭제곱 비율. assoc = ratio³ 등.
+
+→ Type A 와 Type C 는 **structurally similar Moufang loop 의 1.5x scaling**일 수 있음.
+   하지만 ZOmega 의 ω cyclotomic substructure 는 Type A 에 없음.
+
+### Refined Matrix (3 cells × 4 layers)
+
+```
+            L3      L4      L5         L6
+        ──────────────────────────────────
+Type A   8u      16u    32u Mou✗     64u Mou✗
+Type B   4u       8u    16u           32u Mou✗
+Type C  12u      24u    48u Mou✗     96u Mou✗
+```
+
+Type B 만 한 layer 늦은 transition. Type A 와 C 는 같은 layer 에서.
+
+### 다음 개구지
+
+1. **Type A L4 (M_16) ↔ Type B L5 (M_16) explicit isomorphism** Lean ∅-axiom — shift rule 확장
+2. **Type A L_n + Type C L_n 사이에 quotient/extension 관계?** ZOmega 가 ω 를 추가한 효과의 isolation
+3. Q(ζ_8) base 시도 — Type D 후보

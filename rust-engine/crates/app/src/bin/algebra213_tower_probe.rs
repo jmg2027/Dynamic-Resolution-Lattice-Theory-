@@ -140,7 +140,7 @@ fn run_layer(b: &Base, n: usize, name: &str) {
 
 fn main() {
     println!("# 213 algebra tower — generic base × layer probe\n");
-    for n in 3..=5 {
+    for n in 3..=6 {
         run_layer(&Base::ZSqrt(1),  n, "D=1     ");
         run_layer(&Base::ZSqrt(2),  n, "D=2     ");
         run_layer(&Base::ZOmega,    n, "ZOmega  ");
