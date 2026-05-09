@@ -63,4 +63,27 @@ theorem int_quad_diophantus_sqrt2 (a b c d : Int) :
              add_assoc, add_comm, add_left_comm, Int.add_zero, zero_add]
   rw [cancel_two_pairs]
 
+/-- ∅-axiom helper: `A + X + (Y + Z) = A + Y + (Z + X)`.
+    Closes the simp residue for ZI mul_assoc identities. -/
+private theorem add_4_reorder (A X Y Z : Int) :
+    A + X + (Y + Z) = A + Y + (Z + X) := by
+  rw [add_assoc A X (Y+Z), ← add_assoc X Y Z, add_comm X Y,
+      add_assoc Y X Z, add_comm X Z, ← add_assoc A Y (Z+X)]
+
+/-- ★ ∅-axiom **ZI mul_assoc real component** identity. -/
+theorem int_zi_mul_assoc_re (a b c d e f : Int) :
+    (a*c - b*d)*e - (a*d + b*c)*f
+  = a*(c*e - d*f) - b*(c*f + d*e) := by
+  simp only [Int.sub_eq_add_neg, neg_mul, mul_neg, Int.neg_neg,
+             neg_add, add_mul, mul_add, mul_assoc]
+  rw [add_4_reorder]
+
+/-- ★ ∅-axiom **ZI mul_assoc imag component** identity. -/
+theorem int_zi_mul_assoc_im (a b c d e f : Int) :
+    (a*c - b*d)*f + (a*d + b*c)*e
+  = a*(c*f + d*e) + b*(c*e - d*f) := by
+  simp only [Int.sub_eq_add_neg, neg_mul, mul_neg, Int.neg_neg,
+             neg_add, add_mul, mul_add, mul_assoc]
+  rw [add_4_reorder]
+
 end E213.Lib.Math.CayleyDickson.QuadIdentities

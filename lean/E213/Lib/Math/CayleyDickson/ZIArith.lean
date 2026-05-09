@@ -1,6 +1,6 @@
 import E213.Lib.Math.CayleyDickson.ZI
 import E213.Lib.Math.CayleyDickson.ZIDomain
-import E213.Term.Tactic.QuadNorm
+import E213.Lib.Math.CayleyDickson.QuadIdentities
 import E213.Theory.Internal.Int213
 
 /-!
@@ -108,18 +108,18 @@ theorem neg_neg (u : ZI) : -(-u) = u := by
 theorem sub_neg_neg (u v : ZI) : u - (-(-v)) = u - v := by
   rw [neg_neg]
 
-open E213.Tactic
+open E213.Lib.Math.CayleyDickson.QuadIdentities
 
 /-- **ZI multiplication is associative.**  Polynomial identity
-    in 6 Int variables, closed by `quad_norm`. -/
+    in 6 Int variables, closed by `int_zi_mul_assoc_{re,im}`. -/
 theorem mul_assoc (u v w : ZI) : (u * v) * w = u * (v * w) := by
   apply ext
   · show (u.re * v.re - u.im * v.im) * w.re - (u.re * v.im + u.im * v.re) * w.im
        = u.re * (v.re * w.re - v.im * w.im) - u.im * (v.re * w.im + v.im * w.re)
-    quad_norm
+    exact int_zi_mul_assoc_re u.re u.im v.re v.im w.re w.im
   · show (u.re * v.re - u.im * v.im) * w.im + (u.re * v.im + u.im * v.re) * w.re
        = u.re * (v.re * w.im + v.im * w.re) + u.im * (v.re * w.re - v.im * w.im)
-    quad_norm
+    exact int_zi_mul_assoc_im u.re u.im v.re v.im w.re w.im
 
 -- ═══ Projection simp lemmas for tactic (hurwitz_ring) ═══
 
