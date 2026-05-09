@@ -73,3 +73,71 @@ def normSq (u : L4T) : Int :=
 end L4T
 
 end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
+
+namespace E213.Lib.Math.CayleyDickson.ZSqrtMinus2
+
+namespace L4T
+  instance : Add L4T := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+  instance : Neg L4T := ⟨fun u => ⟨-u.re, -u.im⟩⟩
+  instance : Sub L4T := ⟨fun u v => u + (-v)⟩
+
+  def conj (u : L4T) : L4T := ⟨L3T.conj u.re, -u.im⟩
+end L4T
+
+structure L5T where
+  re : L4T
+  im : L4T
+  deriving DecidableEq, Repr
+
+namespace L5T
+
+instance : Zero L5T := ⟨⟨0, 0⟩⟩
+
+def mul (u v : L5T) : L5T :=
+  ⟨u.re * v.re - (L4T.conj v.im) * u.im,
+    v.im * u.re + u.im * (L4T.conj v.re)⟩
+instance : Mul L5T := ⟨mul⟩
+
+def normSq (u : L5T) : Int :=
+  L4T.normSq u.re + L4T.normSq u.im
+
+end L5T
+
+end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
+namespace E213.Lib.Math.CayleyDickson.ZSqrtMinus2
+
+namespace L5T
+  instance : Add L5T := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+  instance : Neg L5T := ⟨fun u => ⟨-u.re, -u.im⟩⟩
+  instance : Sub L5T := ⟨fun u v => u + (-v)⟩
+
+  def conj (u : L5T) : L5T := ⟨L4T.conj u.re, -u.im⟩
+end L5T
+
+-- L6 (shifted "sedenion" position; 32 units expected, past Moufang)
+structure L6T where
+  re : L5T
+  im : L5T
+  deriving DecidableEq, Repr
+
+namespace L6T
+
+instance : Zero L6T := ⟨⟨0, 0⟩⟩
+
+def mul (u v : L6T) : L6T :=
+  ⟨u.re * v.re - (L5T.conj v.im) * u.im,
+    v.im * u.re + u.im * (L5T.conj v.re)⟩
+instance : Mul L6T := ⟨mul⟩
+
+def normSq (u : L6T) : Int :=
+  L5T.normSq u.re + L5T.normSq u.im
+
+instance : Add L6T := ⟨fun u v => ⟨u.re + v.re, u.im + v.im⟩⟩
+instance : Neg L6T := ⟨fun u => ⟨-u.re, -u.im⟩⟩
+instance : Sub L6T := ⟨fun u v => u + (-v)⟩
+
+def conj (u : L6T) : L6T := ⟨L5T.conj u.re, -u.im⟩
+
+end L6T
+
+end E213.Lib.Math.CayleyDickson.ZSqrtMinus2
