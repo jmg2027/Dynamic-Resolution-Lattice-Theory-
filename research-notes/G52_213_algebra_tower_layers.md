@@ -800,3 +800,42 @@ L9 ZOmega (768 units, 453M triples) 가능하지만 single-thread 30+ 분.
 Multi-threading 추가 후 진행 권장.
 
 Or: L11, L12, L13 D=2 까지 push 해서 Type A asymptote 확정 (1/2 정확한지).
+
+---
+
+## ZOmega L9 + universal geometric ratio (2026-05-09 추가)
+
+Multi-threaded probe (std::thread::scope, 4 cores) → ZOmega L9 (768 units,
+453M triples) in 8 minutes.
+
+ZOmega rate refined:
+```
+L5: 7/32      = 0.219
+L6: 107/256   = 0.418
+L7: 1115/2048 = 0.544
+L8: 10075/16384 = 0.615
+L9: ?/?       = 0.6520
+```
+
+Type C asymptote ~ 0.69 (or 11/16 = 0.6875), with (limit − rate) ratio
+converging to 0.5 — *same geometric ratio as Type A*.
+
+### Universal pattern (cross-Type)
+
+```
+∀ Type X, rate_n(X) → L(X) with (L(X) − rate_n) ∝ (1/2)^n
+
+L(Type A) = 1/2
+L(Type B) = 1/2 (shift rule, identical to A)
+L(Type C) = ~0.69 (between 11/16 and 7/10)
+```
+
+→ **모든 Type 의 Moufang fail rate 가 동일한 geometric convergence 속도**
+   (1/2 ratio) 로 자기 asymptote 향함. Asymptote 만 base 가 결정.
+
+### 후속
+
+- Type A asymptote 정확히 1/2 인지: L11, L12 데이터 (이미 build_mul_table
+  이 bottleneck — 1024+ units 에서 mul-table 만들 때 매 cell 이 deep cd_mul)
+- Type C asymptote 정확히 11/16, 2/3, 0.69, 다른 값 결정: L10, L11 ZOmega
+- 새 Type D base 후보 (Hurwitz, Eisenstein-Gaussian) 측정

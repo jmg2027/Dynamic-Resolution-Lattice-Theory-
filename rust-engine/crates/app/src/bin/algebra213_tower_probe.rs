@@ -85,24 +85,41 @@ fn run_layer(b: &Base, n: usize, name: &str) {
     let t = build_mul_table(b, &units);
     let id_idx = (0..nu).find(|&i| units[i][0] == 1 && units[i].iter().skip(1).all(|&x| x == 0)).unwrap();
 
-    let mut comm = 0; let mut assoc = 0; let mut alt_l = 0; let mut alt_r = 0;
-    let mut flex = 0; let mut mou = 0;
-    for i in 0..nu {
-        let ii = t[i][i];
-        for j in 0..nu {
-            if t[i][j] != t[j][i] { comm += 1; }
-            if t[i][t[i][j]] != t[ii][j] { alt_l += 1; }
-            if t[t[j][i]][i] != t[j][ii] { alt_r += 1; }
-            if t[i][t[j][i]] != t[t[i][j]][i] { flex += 1; }
-            let aj = t[i][j];
-            for k in 0..nu {
-                if t[aj][k] != t[i][t[j][k]] { assoc += 1; }
-                let lhs = t[t[t[i][j]][i]][k];
-                let rhs = t[i][t[j][t[i][k]]];
-                if lhs != rhs { mou += 1; }
-            }
-        }
-    }
+    // Multi-threaded: chunks of `i` distributed across N threads.
+    let n_threads = std::thread::available_parallelism().map(|p| p.get()).unwrap_or(4);
+    let chunk_size = (nu + n_threads - 1) / n_threads;
+    let totals: Vec<(usize, usize, usize, usize, usize, usize)> =
+        std::thread::scope(|s| {
+            let handles: Vec<_> = (0..n_threads).map(|c| {
+                let start = c * chunk_size;
+                let end = ((c + 1) * chunk_size).min(nu);
+                let t_ref = &t;
+                s.spawn(move || {
+                    let mut lc = 0; let mut la = 0; let mut ll = 0; let mut lr = 0;
+                    let mut lf = 0; let mut lm = 0;
+                    for i in start..end {
+                        let ii = t_ref[i][i];
+                        for j in 0..nu {
+                            if t_ref[i][j] != t_ref[j][i] { lc += 1; }
+                            if t_ref[i][t_ref[i][j]] != t_ref[ii][j] { ll += 1; }
+                            if t_ref[t_ref[j][i]][i] != t_ref[j][ii] { lr += 1; }
+                            if t_ref[i][t_ref[j][i]] != t_ref[t_ref[i][j]][i] { lf += 1; }
+                            let aj = t_ref[i][j];
+                            for k in 0..nu {
+                                if t_ref[aj][k] != t_ref[i][t_ref[j][k]] { la += 1; }
+                                let lhs = t_ref[t_ref[t_ref[i][j]][i]][k];
+                                let rhs = t_ref[i][t_ref[j][t_ref[i][k]]];
+                                if lhs != rhs { lm += 1; }
+                            }
+                        }
+                    }
+                    (lc, la, ll, lr, lf, lm)
+                })
+            }).collect();
+            handles.into_iter().map(|h| h.join().unwrap()).collect()
+        });
+    let (comm, assoc, alt_l, alt_r, flex, mou) = totals.iter().fold((0,0,0,0,0,0),
+        |a, b| (a.0+b.0, a.1+b.1, a.2+b.2, a.3+b.3, a.4+b.4, a.5+b.5));
 
     let total = nu * nu;
     let assoc_total = nu.pow(3);
@@ -135,9 +152,9 @@ fn run_layer(b: &Base, n: usize, name: &str) {
 }
 
 fn main() {
-    println!("# 213 algebra tower probe — Type C deep push\n");
-    // Already-cached data for D=1, D=2 we know from previous runs.
-    // This run focuses on ZOmega L8 (384 units, 56M triples) to determine
-    // Type C Moufang-rate asymptote.
+    println!("# 213 algebra tower probe — multi-threaded\n");
+    // ZOmega L9 to nail Type C asymptote. 768 units, 453M triples.
+    // With multi-threading should be tractable.
     run_layer(&Base::ZOmega, 8, "ZOmega");
+    run_layer(&Base::ZOmega, 9, "ZOmega");
 }

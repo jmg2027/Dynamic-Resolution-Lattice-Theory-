@@ -1,0 +1,12 @@
+# 213 algebra tower probe — multi-threaded
+
+ZOmega L8 dim=128 units=384
+  comm=145152/147456  assoc=39024288/56623104
+  alt-L=0 alt-R=0 flex=0 Mou=34819200/56623104 pow-assoc-viol=0
+  order={1:1,2:1,3:2,4:378,6:2}
+
+ZOmega L9 dim=256 units=768
+  comm=585216/589824  assoc=312628896/452984832
+  alt-L=0 alt-R=0 flex=0 Mou=295373952/452984832 pow-assoc-viol=0
+  order={1:1,2:1,3:2,4:762,6:2}
+
