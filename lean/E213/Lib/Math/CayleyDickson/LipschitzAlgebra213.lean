@@ -138,3 +138,51 @@ private theorem mul_add' (u v w : Lipschitz) : u * (v + w) = u * v + u * w := by
     exact Ring213.add_4_swap_mid _ _ _ _
 
 end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+namespace E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+open E213.Lib.Math.CayleyDickson.ZI
+open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Theory.Internal.Algebra213
+
+/-- Helper: `ZI.conj 0 = 0`. -/
+private theorem conj_zero_zi : ZI.conj (0 : ZI) = 0 := by
+  apply ZI.ZI.ext
+  · show (0 : Int) = 0; rfl
+  · show -(0 : Int) = 0; exact Int.neg_zero
+
+/-- Helper: `ZI.conj (ZI.ofInt z) = ZI.ofInt z` (real elements are
+    fixed by conjugation). -/
+private theorem conj_ofInt_zi (z : Int) :
+    ZI.conj (ZI.ZI.ofInt z) = ZI.ZI.ofInt z := by
+  apply ZI.ZI.ext
+  · show z = z; rfl
+  · show -(0 : Int) = 0; exact Int.neg_zero
+
+/-- ∅-axiom: `ofInt a * ofInt b = ofInt (a * b)` for Lipschitz. -/
+private theorem ofInt_mul' (a b : Int) :
+    ofInt a * ofInt b = ofInt (a * b) := by
+  apply ext
+  · show ZI.ZI.ofInt a * ZI.ZI.ofInt b - ZI.conj 0 * 0 = ZI.ZI.ofInt (a * b)
+    rw [conj_zero_zi, Ring213.zero_mul]
+    -- Goal: ZI.ofInt a * ZI.ofInt b - 0 = ZI.ofInt (a * b)
+    rw [show ((ZI.ZI.ofInt a * ZI.ZI.ofInt b - 0 : ZI))
+            = ZI.ZI.ofInt a * ZI.ZI.ofInt b
+        from by
+          show ZI.ZI.ofInt a * ZI.ZI.ofInt b + (-0 : ZI) = _
+          rw [show (-0 : ZI) = 0 from by
+                apply ZI.ZI.ext
+                · show -(0 : Int) = 0; exact Int.neg_zero
+                · show -(0 : Int) = 0; exact Int.neg_zero]
+          exact Ring213.add_zero _]
+    exact IntegerNormed213.ofInt_mul a b
+  · show 0 * ZI.ZI.ofInt a + 0 * (ZI.ZI.ofInt b).conj = 0
+    rw [conj_ofInt_zi b, Ring213.zero_mul, Ring213.zero_mul, Ring213.add_zero]
+
+/-- ∅-axiom: `ofInt_inj`. -/
+private theorem ofInt_inj' {a b : Int} (h : ofInt a = ofInt b) : a = b := by
+  have h_re : ZI.ZI.ofInt a = ZI.ZI.ofInt b := congrArg Lipschitz.re h
+  have h_int : a = b := congrArg ZI.re h_re
+  exact h_int
+
+end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
