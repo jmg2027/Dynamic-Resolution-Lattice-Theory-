@@ -197,7 +197,6 @@ fn run_layer(b: &Base, n: usize, name: &str) {
 fn main() {
     println!("# 213 algebra tower probe — Type D Hurwitz raid\n");
     // Hurwitz base (24 units) — predicts L3 Moufang loss already.
-    // Push Type D to L8 (1536 units, 3.6B Moufang triples) for asymptote nail.
-    run_layer(&Base::Hurwitz, 7, "Hurwitz");
-    run_layer(&Base::Hurwitz, 8, "Hurwitz");
+    // Type C L10 (1536 units) to nail asymptote ~11/16.
+    run_layer(&Base::ZOmega, 10, "ZOmega");
 }
