@@ -257,3 +257,62 @@ Numerical fitting 으로 closed-form 후보 잡는 것이 *algorithmic discovery
 - 이론적 derivation 으로 confirm
 
 이게 substitution-discovery algorithm 의 *Step B* (verification) 단계.
+
+## 10. CROSS-VALIDATION: golden ratio = 213 의 기존 physics constant
+
+`lean/E213/Lib/Physics/Foundations/GoldenRatio.lean` 이미 존재:
+
+```
+φ = (1 + √d)/2   where d = 5
+(2φ - 1)² = 5 = d   ← φ는 d=5 lattice의 자연 invariant
+
+DRLT 사용처 (이미 있음):
+  - δ_CKM = π/φ² ≈ 68.75°  (CP phase)
+  - Cabibbo Wolfenstein A = φ/c
+  - ν m₃/m₂ ratios
+  
+이번 추가 (Step A v3):
+  - algebra tower asymptote = 1 - 0.5/φ^rank
+```
+
+→ **같은 φ, 같은 5-atomicity 출처**. 우리가 algebra tower 에서 발견한
+   asymptote 는 213 physics 와 *동일한 structural invariant*.
+
+### 코끼리 본체
+
+```
+            Raw (5-atomicity)
+                  │
+                  ▼
+              d = 5 lattice
+                  │
+                  ▼
+            φ = (1+√d)/2
+                  │
+        ┌─────────┴─────────┐
+        ▼                   ▼
+   algebra tower        DRLT physics
+   asymptote             CKM, ν, ...
+   1 - 0.5/φ^rank        π/φ², φ/c, ...
+```
+
+→ algebra side 와 physics side 가 *같은 φ* 로 묶임. 이게 213 의
+   *internal consistency* — Raw 의 5-atomicity 가 모든 영역에서 동일
+   structural invariant 로 manifest.
+
+### Status reset
+
+이전 "코끼리 본체 미발견" 상태에서 → **본체 부분 식별**:
+- Mechanism: Raw 5-atomicity → φ (이미 213 안에 박힘)
+- φ-rank rule 의 "rank" 는 base 의 *structural complexity* (cyclic/multi-prime/non-ab)
+- 모든 layer 의 universal "diff ratio → 0.5" 는 binary CD doubling
+- 4-row matrix 한계는 Dirichlet unit 정리
+
+남은 다리들이 본체의 어디에 붙는지 명확해짐. φ 가 unifier.
+
+### 다음 step
+
+1. Algebra tower asymptote 의 closed form 을 213 physics 의 GoldenRatio.lean
+   infrastructure 로 formal Lean ∅-axiom 정리화 시도.
+2. Pisano periods (Fibonacci modular cycles) 와의 connection 탐색.
+3. φ 의 다른 213 영역 (fractal, K_32, 등) 등장 패턴 unify.
