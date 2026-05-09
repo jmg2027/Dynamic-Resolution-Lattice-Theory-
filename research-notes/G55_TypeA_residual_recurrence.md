@@ -113,3 +113,25 @@ Lib/Math/Tactic/Ring213.lean:
 Type C 의 residual 은 Z[√5] valued: (a, b)/2^k where residual = (a + b√5)/2^k.
 같은 Recurrence2 패턴 적용 가능 — 단지 a 와 b 두 개 sequence 동시 정의.
 필요시 `Recurrence2_Z5` 같은 확장 structure.
+
+## Type D 분석 (open)
+
+Unreduced rational part rat_n: -211968, -8266752, -95597568, -887804928, -7603688448
+
+3단계 chain 분석 (eigenvalues 8, 4, 2):
+```
+Level 1 (8·rat_n - rat_{n+1}):   6571008, 29463552, 123024384, 501249024
+Level 2 (4·L1_n - L1_{n+1}):    -3179520, -5170176, -9151488
+Level 3 (2·L2_n - L2_{n+1}):    -1188864 (CONSTANT) ✓
+```
+
+Level 3 constant = -1188864 = -2^10·27·43.
+
+**문제**: Closed form 시도시 constant 396288 forcing 의 particular solution
+이 -396288/7 (비정수). Type D rat_n 은 순수 Int closed form 없음.
+
+추측: Z[√5] coupling 또는 Hurwitz 의 *3-fold 와 7-or-43-related* 추가 구조.
+간단 Int recurrence 로 닫히지 않음.
+
+Type D 의 algebraic 형식화는 Z[√5]-valued recurrence 또는 더 큰 cyclotomic
+ring 위에서 가능할 듯. 현재 framework 한계.
