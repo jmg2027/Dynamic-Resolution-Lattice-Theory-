@@ -21,6 +21,7 @@ import E213.Theory.Raw.Mobius
 import E213.Theory.CDDouble.UniversalOrder4
 import E213.Theory.Internal.Algebra213CDDoubleStar
 import E213.Theory.CDDouble.GenericLiftDemo
+import E213.Lib.Math.CayleyDickson.TowerFixedPoint
 
 /-!
 # Algebra Tower Capstone
