@@ -511,3 +511,69 @@ SHIFT RULE  :  D=2 L_n unit Moufang loop ≅ D=1 L_{n-1} unit Moufang loop
 4. Non-unit triple로 alt-law 측정 (ring-level 실제 transition layer 확인).
 
 Probe output 원본: `G52_probe_output_2026_05_09.txt`.
+
+---
+
+## 추가 (2026-05-09): D 디코토미 — 모든 D ≥ 2 동일
+
+D ∈ {1, 2, 3, 5, 7} × L ∈ {3, 4, 5} 격자 측정 결과:
+
+**D ∈ {2, 3, 5, 7}의 모든 fingerprint 한 글자도 안 다름**.
+
+| D | L3 | L4 | L5 |
+|---|---|---|---|
+| 1 | 8 units, comm=24, ord {1:1,2:1,4:6} | 16, 168, {..., 4:14} | 32, 840, ZD onset |
+| 2 | 4 units, comm=0, ord {1:1,2:1,4:2} | 8, 24, {..., 4:6} | 16, 168, {..., 4:14} |
+| 3 | **동일** | **동일** | **동일** |
+| 5 | **동일** | **동일** | **동일** |
+| 7 | **동일** | **동일** | **동일** |
+
+### 디코토미 설명 (mechanical)
+
+CD-double 의 mul 공식:
+```
+(a, b) · (c, d) = (a·c − conj(d)·b, d·a + b·conj(c))
+```
+
+D coefficient는 base level `zd_mul`의 `a[0]*b[0] − D*a[1]*b[1]`에만
+등장 — 즉 *imaginary slot* 곱셈에서만.
+
+Unit은 imaginary slot = 0 강제 (norm 1 = sum of weighted squares = 1
+요구) → unit-unit 곱셈은 D 좌표 한 번도 안 만남 → **D 값과 무관**.
+
+D 값은 *non-unit* 곱셈에서만 차이 만듦. Unit Moufang loop 는 D=1
+vs D≥2 한 비트만 보고 결정됨.
+
+### Refined SHIFT RULE
+
+```
+Unit Moufang loop (Tower D, L_n) ≅ Unit Moufang loop (Tower 1, L_{n-1})
+                                   for any D ≥ 2, all n ≥ 2.
+```
+
+즉 D ≥ 2 ladder 는 **하나의** ladder (D 값 무관). D = 1 ladder만 별
+도 ladder. 213 algebra tower 는 사실상 *2-fold dichotomy* 임:
+
+- **Type A** (D = 1): 풀 tower, ZI-base
+- **Type B** (D ≥ 2): 한 layer 늦은 동일 tower
+
+ZOmega base (6 units) 는 또 다른 type 일 가능성 — 별도 측정 필요.
+
+### ∅-axiom 후보 statement
+
+```
+theorem D_independence_of_unit_loop (D D' : Int) (hD : D ≥ 2) (hD' : D' ≥ 2)
+    (n : Nat) :
+    UnitMoufangLoop (Tower D n) ≅ UnitMoufangLoop (Tower D' n)
+```
+
+증명 sketch: explicit basis bijection (e_i ↔ e_i'), Cayley table
+matches by D-independence of unit-unit mul. Finite per (D, D', n)
+small enough → decide.
+
+### 다음
+
+1. ZOmega base 측정 (6 base units → "Type C" 후보)
+2. D=1 L4 (= Lipschitz Q_8) vs D=2 L4 (= ZSqrt[-2] L4) 사이 explicit
+   isomorphism Lean에서 ∅-axiom decide
+3. Non-unit triple로 alt-law 측정 — D coefficient effect 처음으로 보일 layer

@@ -138,8 +138,8 @@ fn run_layer(d: i64, n: usize) {
 fn main() {
     println!("# 213 algebra tower probe — base D × layer L_n cross-section");
     println!("# (alt-L/R/flex/Moufang/normMult/zd measured on units)\n");
-    for &d in &[1i64, 2] {
-        for n in 3..=6 {
+    for &d in &[1i64, 2, 3, 5, 7] {
+        for n in 3..=5 {  // L=6 too slow if we test many D
             run_layer(d, n);
         }
     }

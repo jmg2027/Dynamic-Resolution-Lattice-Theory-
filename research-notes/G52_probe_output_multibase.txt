@@ -1,0 +1,110 @@
+# 213 algebra tower probe — base D × layer L_n cross-section
+# (alt-L/R/flex/Moufang/normMult/zd measured on units)
+
+D=1 L3 dim=4 units=8
+  comm_fail=24/64  assoc_fail=0/512
+  alt-L=0/64  alt-R=0/64  flex=0/64
+  Moufang=0/512  normMult_fail=0/64
+  order_dist={1:1,2:1,4:6}
+  zd_count=0
+
+D=1 L4 dim=8 units=16
+  comm_fail=168/256  assoc_fail=1344/4096
+  alt-L=0/256  alt-R=0/256  flex=0/256
+  Moufang=0/4096  normMult_fail=0/256
+  order_dist={1:1,2:1,4:14}
+  zd_count=0
+
+D=1 L5 dim=16 units=32
+  comm_fail=840/1024  assoc_fail=14784/32768
+  alt-L=0/1024  alt-R=0/1024  flex=0/1024
+  Moufang=5376/32768  normMult_fail=0/1024
+  order_dist={1:1,2:1,4:30}
+  zd_count=101
+  zd_a=[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+  zd_b=[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+
+D=2 L3 dim=4 units=4
+  comm_fail=0/16  assoc_fail=0/64
+  alt-L=0/16  alt-R=0/16  flex=0/16
+  Moufang=0/64  normMult_fail=0/16
+  order_dist={1:1,2:1,4:2}
+  zd_count=0
+
+D=2 L4 dim=8 units=8
+  comm_fail=24/64  assoc_fail=0/512
+  alt-L=0/64  alt-R=0/64  flex=0/64
+  Moufang=0/512  normMult_fail=0/64
+  order_dist={1:1,2:1,4:6}
+  zd_count=0
+
+D=2 L5 dim=16 units=16
+  comm_fail=168/256  assoc_fail=1344/4096
+  alt-L=0/256  alt-R=0/256  flex=0/256
+  Moufang=0/4096  normMult_fail=0/256
+  order_dist={1:1,2:1,4:14}
+  zd_count=0
+
+D=3 L3 dim=4 units=4
+  comm_fail=0/16  assoc_fail=0/64
+  alt-L=0/16  alt-R=0/16  flex=0/16
+  Moufang=0/64  normMult_fail=0/16
+  order_dist={1:1,2:1,4:2}
+  zd_count=0
+
+D=3 L4 dim=8 units=8
+  comm_fail=24/64  assoc_fail=0/512
+  alt-L=0/64  alt-R=0/64  flex=0/64
+  Moufang=0/512  normMult_fail=0/64
+  order_dist={1:1,2:1,4:6}
+  zd_count=0
+
+D=3 L5 dim=16 units=16
+  comm_fail=168/256  assoc_fail=1344/4096
+  alt-L=0/256  alt-R=0/256  flex=0/256
+  Moufang=0/4096  normMult_fail=0/256
+  order_dist={1:1,2:1,4:14}
+  zd_count=0
+
+D=5 L3 dim=4 units=4
+  comm_fail=0/16  assoc_fail=0/64
+  alt-L=0/16  alt-R=0/16  flex=0/16
+  Moufang=0/64  normMult_fail=0/16
+  order_dist={1:1,2:1,4:2}
+  zd_count=0
+
+D=5 L4 dim=8 units=8
+  comm_fail=24/64  assoc_fail=0/512
+  alt-L=0/64  alt-R=0/64  flex=0/64
+  Moufang=0/512  normMult_fail=0/64
+  order_dist={1:1,2:1,4:6}
+  zd_count=0
+
+D=5 L5 dim=16 units=16
+  comm_fail=168/256  assoc_fail=1344/4096
+  alt-L=0/256  alt-R=0/256  flex=0/256
+  Moufang=0/4096  normMult_fail=0/256
+  order_dist={1:1,2:1,4:14}
+  zd_count=0
+
+D=7 L3 dim=4 units=4
+  comm_fail=0/16  assoc_fail=0/64
+  alt-L=0/16  alt-R=0/16  flex=0/16
+  Moufang=0/64  normMult_fail=0/16
+  order_dist={1:1,2:1,4:2}
+  zd_count=0
+
+D=7 L4 dim=8 units=8
+  comm_fail=24/64  assoc_fail=0/512
+  alt-L=0/64  alt-R=0/64  flex=0/64
+  Moufang=0/512  normMult_fail=0/64
+  order_dist={1:1,2:1,4:6}
+  zd_count=0
+
+D=7 L5 dim=16 units=16
+  comm_fail=168/256  assoc_fail=1344/4096
+  alt-L=0/256  alt-R=0/256  flex=0/256
+  Moufang=0/4096  normMult_fail=0/256
+  order_dist={1:1,2:1,4:14}
+  zd_count=0
+
