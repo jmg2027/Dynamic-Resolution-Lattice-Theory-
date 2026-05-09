@@ -1,0 +1,32 @@
+# 213 algebra tower probe — Type D Hurwitz raid
+
+Hurwitz L2 dim=4 units=24
+  comm=408/576  assoc=0/13824
+  alt-L=0 alt-R=0 flex=0 Mou=0/13824 pow-assoc-viol=0
+  order={1:1,2:1,3:8,4:6,6:8}
+
+Hurwitz L3 dim=8 units=48
+  comm=1992/2304  assoc=68544/110592
+  alt-L=0 alt-R=0 flex=0 Mou=0/110592 pow-assoc-viol=0
+  order={1:1,2:1,3:8,4:30,6:8}
+
+Hurwitz L4 dim=16 units=96
+  comm=8616/9216  assoc=684864/884736
+  alt-L=0 alt-R=0 flex=0 Mou=274176/884736 pow-assoc-viol=0
+  order={1:1,2:1,3:8,4:78,6:8}
+
+Hurwitz L5 dim=32 units=192
+  comm=35688/36864  assoc=5677632/7077888
+  alt-L=0 alt-R=0 flex=0 Mou=3836160/7077888 pow-assoc-viol=0
+  order={1:1,2:1,3:8,4:174,6:8}
+
+Hurwitz L6 dim=64 units=384
+  comm=145128/147456  assoc=45744192/56623104
+  alt-L=0 alt-R=0 flex=0 Mou=38055168/56623104 pow-assoc-viol=0
+  order={1:1,2:1,3:8,4:366,6:8}
+
+Hurwitz L7 dim=128 units=768
+  comm=585192/589824  assoc=366525504/452984832
+  alt-L=0 alt-R=0 flex=0 Mou=335197440/452984832 pow-assoc-viol=0
+  order={1:1,2:1,3:8,4:750,6:8}
+

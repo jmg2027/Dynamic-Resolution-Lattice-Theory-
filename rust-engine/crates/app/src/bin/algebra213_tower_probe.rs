@@ -3,19 +3,29 @@ use std::collections::HashMap;
 type V = Vec<i64>;
 
 #[derive(Clone, Copy)]
-enum Base { ZSqrt(i64), ZOmega }
-fn base_size(_: &Base) -> usize { 2 }
+enum Base { ZSqrt(i64), ZOmega, Hurwitz }
+fn base_size(b: &Base) -> usize {
+    match b { Base::Hurwitz => 4, _ => 2 }
+}
 
 fn base_mul(b: &Base, a: &[i64], v: &[i64]) -> V {
     match b {
         Base::ZSqrt(d) => vec![a[0]*v[0] - d*a[1]*v[1], a[0]*v[1] + a[1]*v[0]],
         Base::ZOmega   => vec![a[0]*v[0] - a[1]*v[1], a[0]*v[1] + a[1]*v[0] - a[1]*v[1]],
+        // Hurwitz: scaled rep (×2), quaternion mul, divide by 2 at end (closed for Hurwitz).
+        Base::Hurwitz => vec![
+            (a[0]*v[0] - a[1]*v[1] - a[2]*v[2] - a[3]*v[3]) / 2,
+            (a[0]*v[1] + a[1]*v[0] + a[2]*v[3] - a[3]*v[2]) / 2,
+            (a[0]*v[2] - a[1]*v[3] + a[2]*v[0] + a[3]*v[1]) / 2,
+            (a[0]*v[3] + a[1]*v[2] - a[2]*v[1] + a[3]*v[0]) / 2,
+        ],
     }
 }
 fn base_conj(b: &Base, a: &[i64]) -> V {
     match b {
         Base::ZSqrt(_) => vec![a[0], -a[1]],
         Base::ZOmega   => vec![a[0]-a[1], -a[1]],
+        Base::Hurwitz  => vec![a[0], -a[1], -a[2], -a[3]],
     }
 }
 fn base_units(b: &Base) -> Vec<V> {
@@ -26,6 +36,21 @@ fn base_units(b: &Base) -> Vec<V> {
             us
         }
         Base::ZOmega => vec![vec![1,0],vec![-1,0],vec![0,1],vec![0,-1],vec![1,1],vec![-1,-1]],
+        Base::Hurwitz => {
+            // scaled ×2: 8 Lipschitz axis ±2 in one slot + 16 half-integer ±1 in all slots.
+            let mut us = Vec::new();
+            for i in 0..4 {
+                for &s in &[2i64, -2] {
+                    let mut u = vec![0i64; 4]; u[i] = s; us.push(u);
+                }
+            }
+            for &a in &[1i64, -1] { for &b in &[1i64, -1] {
+                for &c in &[1i64, -1] { for &d in &[1i64, -1] {
+                    us.push(vec![a, b, c, d]);
+                }}
+            }}
+            us
+        }
     }
 }
 
@@ -83,7 +108,8 @@ fn run_layer(b: &Base, n: usize, name: &str) {
     let dim = units[0].len();
     let nu = units.len();
     let t = build_mul_table(b, &units);
-    let id_idx = (0..nu).find(|&i| units[i][0] == 1 && units[i].iter().skip(1).all(|&x| x == 0)).unwrap();
+    let id_first: i64 = match b { Base::Hurwitz => 2, _ => 1 };
+    let id_idx = (0..nu).find(|&i| units[i][0] == id_first && units[i].iter().skip(1).all(|&x| x == 0)).unwrap();
 
     // Multi-threaded: chunks of `i` distributed across N threads.
     let n_threads = std::thread::available_parallelism().map(|p| p.get()).unwrap_or(4);
@@ -152,9 +178,9 @@ fn run_layer(b: &Base, n: usize, name: &str) {
 }
 
 fn main() {
-    println!("# 213 algebra tower probe — multi-threaded\n");
-    // ZOmega L9 to nail Type C asymptote. 768 units, 453M triples.
-    // With multi-threading should be tractable.
-    run_layer(&Base::ZOmega, 8, "ZOmega");
-    run_layer(&Base::ZOmega, 9, "ZOmega");
+    println!("# 213 algebra tower probe — Type D Hurwitz raid\n");
+    // Hurwitz base (24 units) — predicts L3 Moufang loss already.
+    for n in 2..=7 {
+        run_layer(&Base::Hurwitz, n, "Hurwitz");
+    }
 }
