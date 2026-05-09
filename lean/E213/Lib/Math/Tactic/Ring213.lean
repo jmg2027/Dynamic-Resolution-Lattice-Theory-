@@ -85,3 +85,58 @@ theorem typeC_residual_b_measured :
     typeC_residual_b.bSeq 4 = 32768 := by decide
 
 end E213.Lib.Math.Tactic.Ring213
+
+namespace E213.Lib.Math.Tactic.Ring213
+
+/-- 3rd-order linear inhomogeneous recurrence over Int. -/
+structure Recurrence3 where
+  a₀ : Int
+  a₁ : Int
+  a₂ : Int
+  c₁ : Int  -- coeff of (n+2) term
+  c₂ : Int  -- coeff of (n+1) term
+  c₃ : Int  -- coeff of n term
+  d  : Int  -- constant
+
+def Recurrence3.seq (R : Recurrence3) : Nat → Int
+  | 0     => R.a₀
+  | 1     => R.a₁
+  | 2     => R.a₂
+  | n + 3 => R.c₁ * R.seq (n+2) + R.c₂ * R.seq (n+1) + R.c₃ * R.seq n + R.d
+
+/-- ★ Universal 3rd-order recurrence theorem (∅-axiom by `rfl`). -/
+theorem Recurrence3.seq_recurrence (R : Recurrence3) (n : Nat) :
+    R.seq (n + 3) = R.c₁ * R.seq (n+2) + R.c₂ * R.seq (n+1) + R.c₃ * R.seq n + R.d := rfl
+
+-- UNIVERSAL CD-doubling transient law: all 4 Types share coefficients
+-- (14, -56, 64), only constant `d` is base-dependent.
+-- Char poly: x³ - 14x² + 56x - 64 = (x-2)(x-4)(x-8) — eigenvalues 2, 4, 8.
+
+/-- Type A (ZI) unreduced residual rat sequence. -/
+def typeA_rat_uni : Recurrence3 :=
+  { a₀ := 4096,    a₁ := 22016,    a₂ := 100864
+  , c₁ := 14, c₂ := -56, c₃ := 64, d := -10752 }
+
+/-- Type C (ZOmega) unreduced residual rat sequence. -/
+def typeC_rat_uni : Recurrence3 :=
+  { a₀ := 456192,  a₁ := 2944512,  a₂ := 19975680
+  , c₁ := 14, c₂ := -56, c₃ := 64, d := -124416 }
+
+/-- Type D (Hurwitz) unreduced residual rat sequence. -/
+def typeD_rat_uni : Recurrence3 :=
+  { a₀ := -211968, a₁ := -8266752, a₂ := -95597568
+  , c₁ := 14, c₂ := -56, c₃ := 64, d := 1188864 }
+
+theorem typeA_rat_uni_measured :
+    typeA_rat_uni.seq 3 = 430592 ∧
+    typeA_rat_uni.seq 4 = 1778176 := by decide
+
+theorem typeC_rat_uni_measured :
+    typeC_rat_uni.seq 3 = 143838720 ∧
+    typeC_rat_uni.seq 4 = 1083428352 := by decide
+
+theorem typeD_rat_uni_measured :
+    typeD_rat_uni.seq 3 = -887804928 ∧
+    typeD_rat_uni.seq 4 = -7603688448 := by decide
+
+end E213.Lib.Math.Tactic.Ring213
