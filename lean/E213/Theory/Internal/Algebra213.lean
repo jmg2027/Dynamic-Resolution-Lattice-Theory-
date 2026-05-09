@@ -97,4 +97,31 @@ theorem normSq_mul {α : Type} [inst : IntegerNormed213 α] (u v : α) :
 
 end IntegerNormed213
 
+namespace Ring213
+
+variable {α : Type} [inst : Ring213 α]
+
+/-- Generic Ring213 `add_left_comm`. -/
+theorem add_left_comm (a b c : α) : a + (b + c) = b + (a + c) := by
+  rw [← @Ring213.add_assoc α inst, @Ring213.add_comm α inst a b,
+      @Ring213.add_assoc α inst]
+
+/-- Generic Ring213 `add_right_comm`. -/
+theorem add_right_comm (a b c : α) : a + b + c = a + c + b := by
+  rw [@Ring213.add_assoc α inst, @Ring213.add_comm α inst b c,
+      ← @Ring213.add_assoc α inst]
+
+/-- Generic Ring213 `zero_add`. -/
+theorem zero_add (a : α) : 0 + a = a := by
+  rw [@Ring213.add_comm α inst, @Ring213.add_zero α inst]
+
+/-- Generic Ring213 `add_4_swap_mid`: `A + X + (Y + Z) = A + Y + (X + Z)`. -/
+theorem add_4_swap_mid (A X Y Z : α) :
+    A + X + (Y + Z) = A + Y + (X + Z) := by
+  rw [@Ring213.add_assoc α inst A X (Y + Z),
+      add_left_comm X Y Z,
+      ← @Ring213.add_assoc α inst A Y (X + Z)]
+
+end Ring213
+
 end E213.Theory.Internal.Algebra213
