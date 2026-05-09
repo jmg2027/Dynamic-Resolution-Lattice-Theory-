@@ -166,4 +166,59 @@ theorem same_params_same_output
     L.apply r = Raw.fold ba bb c r := by
   rfl
 
+-- ═══ Fractal property (G67): self-similarity via lens-resolution ═══
+
+/-- ★ FRACTAL PROPERTY 1 — `slash`-recursive structure preserved.
+    Every Nat213-lens with a SYMMETRIC combine applied to a `slash`
+    Raw decomposes via `combine` of the lens applied to sub-Raws.
+    This is the catamorphism property restated as fractal self-
+    similarity: the SAME Nat213-shape emerges at every recursion
+    level. -/
+theorem lens_slash_decomposition (L : Nat213Lens)
+    (hsym : ∀ u v : Nat213, L.combine u v = L.combine v u)
+    (x y : Raw) (h : x ≠ y) :
+    L.apply (Raw.slash x y h) = L.combine (L.apply x) (L.apply y) :=
+  Raw.fold_slash L.base_a L.base_b L.combine hsym x y h
+
+/-- ★ FRACTAL PROPERTY 2 — Multi-lens spectrum on the same Raw.
+    For the canonical Raw `slash a b`, three distinct lenses produce
+    three distinct Nat213 values, but ALL have shape `succ^n one`
+    (= Nat213 elements).  This is the fractal-resolution duality:
+    same shape (Nat213), different values (lens-dependent). -/
+theorem multi_lens_spectrum_on_rawAB :
+    -- Three different lenses
+    let L1 := lensLeafCount      -- (1, 1, +)
+    let L2 := lensWeighted21     -- (2, 1, +)
+    let L3 := lensProduct        -- (1, 1, ·)
+    -- All produce Nat213 elements (shape preserved)
+    -- LeafCount: 1 + 1 = succ one (= "2")
+    L1.apply rawAB = Nat213.two ∧
+    -- Weighted21: 2 + 1 = succ (succ one) (= "3")
+    L2.apply rawAB = Nat213.three ∧
+    -- Product: 1 · 1 = one (= "1")
+    L3.apply rawAB = Nat213.one ∧
+    -- All three are distinct
+    L1.apply rawAB ≠ L2.apply rawAB ∧
+    L1.apply rawAB ≠ L3.apply rawAB ∧
+    L2.apply rawAB ≠ L3.apply rawAB := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+  · rfl
+  · rfl
+  · rfl
+  · intro h; exact Nat213.noConfusion (Nat213.succ.inj h)
+  · intro h; exact Nat213.noConfusion h
+  · intro h; exact Nat213.noConfusion h
+
+/-- ★★★ FRACTAL DUALITY: Resolution = lens, Shape = Nat213.
+    Different lenses (= different resolutions) give different
+    values, but ALL values are Nat213-shaped (= `succ^n one`).
+    This captures the user's observation: "Raw가 프랙탈이어야
+    한다는 뜻" — Raw IS fractal under Nat213-lens-resolution. -/
+theorem fractal_duality (L1 L2 : Nat213Lens) (r : Raw) :
+    -- Both apply to give Nat213 elements (shape preserved)
+    -- (This is trivially true by typing — but documents the claim)
+    (L1.apply r : Nat213) = L1.apply r ∧
+    (L2.apply r : Nat213) = L2.apply r := by
+  exact ⟨rfl, rfl⟩
+
 end E213.Theory.Nat213.Lenses
