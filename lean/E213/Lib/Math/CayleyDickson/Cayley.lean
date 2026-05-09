@@ -81,18 +81,18 @@ theorem conj_conj (u : Cayley) : conj (conj u) = u := by
       · show -(-u.im.im.re) = u.im.im.re; omega
       · show -(-u.im.im.im) = u.im.im.im; omega
 
-/-- `Cayley.conj` is not the identity. -/
-theorem conj_ne_id : (conj : Cayley → Cayley) ≠ id := by
-  intro h
-  have hL : conj L = id L := congrFun h L
-  have hLim : (conj L).im = (id L).im := by rw [hL]
+/-- `Cayley.conj` has a non-fixed point — witness `L`. -/
+theorem conj_ne_id : ∃ x : Cayley, conj x ≠ x := by
+  refine ⟨L, ?_⟩
+  intro hL
+  have hLim : (conj L).im = L.im := by rw [hL]
   have hLim' : -(⟨⟨1, 0⟩, 0⟩ : Lipschitz) = ⟨⟨1, 0⟩, 0⟩ := hLim
   have hre : (-(⟨⟨1, 0⟩, 0⟩ : Lipschitz)).re = ((⟨⟨1, 0⟩, 0⟩ : Lipschitz)).re := by
     rw [hLim']
   have hre' : -(⟨1, 0⟩ : ZI) = ⟨1, 0⟩ := hre
   have hreZ : (-(⟨1, 0⟩ : ZI)).re = ((⟨1, 0⟩ : ZI)).re := by rw [hre']
-  have : (-1 : Int) = 1 := hreZ
-  exact absurd this (by decide)
+  have h_re : (-1 : Int) = 1 := hreZ
+  exact absurd h_re (by decide)
 
 end E213.Lib.Math.CayleyDickson.Cayley
 

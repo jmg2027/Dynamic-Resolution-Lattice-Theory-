@@ -65,15 +65,16 @@ theorem zSqrtProdConj_involution (p : ZSqrt D₁ × ZSqrt D₂) :
   rw [ZSqrt.conj_conj, ZSqrt.conj_conj]
 
 theorem zSqrtProdConj_ne_id :
-    (zSqrtProdConj : ZSqrt D₁ × ZSqrt D₂ → _) ≠ id := by
+    ∃ x : ZSqrt D₁ × ZSqrt D₂, zSqrtProdConj x ≠ x := by
+  refine ⟨(ZSqrt.I, ZSqrt.I), ?_⟩
   intro h
-  have := congrFun h (ZSqrt.I, ZSqrt.I)
+  -- zSqrtProdConj (I, I) = (conj I, conj I) = (negI, negI) ≠ (I, I)
   have hfst : (ZSqrt.conj (ZSqrt.I : ZSqrt D₁)) = ZSqrt.I :=
-    (Prod.mk.injEq ..).mp this |>.1
+    (Prod.mk.injEq ..).mp h |>.1
   rw [ZSqrt.conj_I] at hfst
-  have : (⟨0, -1⟩ : ZSqrt D₁) = ⟨0, 1⟩ := hfst
-  have : (-1 : Int) = 1 := (ZSqrt.mk.injEq ..).mp this |>.2
-  exact absurd this (by decide)
+  have hmk : (⟨0, -1⟩ : ZSqrt D₁) = ⟨0, 1⟩ := hfst
+  have h_im : (-1 : Int) = 1 := (ZSqrt.mk.injEq ..).mp hmk |>.2
+  exact absurd h_im (by decide)
 
 /-- R4 (SwapMatching) for the product Lens. -/
 theorem zSqrtProdLens_R4 :

@@ -55,12 +55,11 @@ theorem ext {u v : Z2} (hr : u.re = v.re) (hi : u.im = v.im) : u = v := by
 theorem conj_conj (u : Z2) : u.conj.conj = u := by
   apply ext <;> simp [conj]
 
-theorem conj_ne_id : conj ≠ id := by
-  intro h
-  have hI : conj I = id I := congrFun h I
-  have himEq : (⟨0, -1⟩ : Z2) = ⟨0, 1⟩ := hI
-  have : (-1 : Int) = 1 := (Z2.mk.injEq ..).mp himEq |>.2
-  exact absurd this (by decide)
+theorem conj_ne_id : ∃ x : Z2, conj x ≠ x := by
+  refine ⟨I, ?_⟩
+  intro himEq
+  have h_im : (-1 : Int) = 1 := (Z2.mk.injEq ..).mp himEq |>.2
+  exact absurd h_im (by decide)
 
 end Z2
 

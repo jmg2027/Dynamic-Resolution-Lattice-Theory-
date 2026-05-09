@@ -163,16 +163,16 @@ SEALED_DIRTY_PREFIXES = (
     # Reach.fin3 / Refines.Chain cascade from Lens equality.
     'E213.Lens.Lens.Instances.Reach',
     'E213.Lens.Lens.Refines.Chain',
-    # FunctionSpace + Cauchy + Parity instances: function-valued Lens.
+    # FunctionSpace + Cauchy instances: function-valued Lens.
     'E213.Lens.Lens.Instances.FunctionSpace',
     'E213.Lens.Lens.Instances.Cauchy',
-    # Parity (real path: `E213.Lens.Instances.Parity`):
-    # `parityLens_R4_fails` uses `funext` to produce `conj = id` for
-    # contradiction with `SwapMatching.conj ≠ id`.  The function-eq
-    # `conj ≠ id` is funext-by-design at the `SwapMatching` typeclass
-    # level — restating pointwise would change what SwapMatching is.
-    # All other 5 declarations in this module are PURE.
-    'E213.Lens.Instances.Parity',
+    # `Parity` (real path: `E213.Lens.Instances.Parity`) was previously
+    # sealed because `parityLens_R4_fails` derived `conj = id` via
+    # `funext` to contradict `SwapMatching.conj ≠ id`.  Resolution: the
+    # `conj ≠ id` clause of `SwapMatching` was redefined to the
+    # mathematically-equivalent point-wise `∃ x, conj x ≠ x`, which
+    # is consumed by direct case-split on the witness without funext.
+    # `parityLens_R4_fails` is now ∅-axiom.
     'E213.Lens.Lens.Instances.EndpointBehavior',
     'E213.Lens.Lens.Instances.BoundedContext',
     'E213.Lens.Lens.Instances.CochainEntry',

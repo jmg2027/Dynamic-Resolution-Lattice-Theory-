@@ -103,12 +103,18 @@ def NonVanishing {α : Type} [Zero α] (L : Lens α) : Prop :=
 
 /-- **R4 — Swap matches exactly one nontrivial involution.**  On
     the codomain `α` there is a function `conj : α → α` such that
-    `conj` is an involution, `conj ≠ id`, and `view (swap r) = conj (view r)`
-    for every `r`. Uniqueness (at most one such `conj`) is a
-    separate condition on injective Lenses. -/
+    `conj` is an involution, has a non-fixed point
+    (`∃ x, conj x ≠ x`), and `view (swap r) = conj (view r)` for
+    every `r`.
+
+    The non-trivial clause is **point-wise** (`∃ x, conj x ≠ x`)
+    rather than the function-level inequality `conj ≠ id` — the
+    point-wise form is ∅-axiom-friendly (no `funext` needed when
+    consumed), and mathematically equivalent (every concrete
+    instance constructs the witness directly). -/
 def SwapMatching {α : Type} (L : Lens α) (conj : α → α) : Prop :=
   (∀ u, conj (conj u) = u) ∧
-  conj ≠ id ∧
+  (∃ x, conj x ≠ x) ∧
   (∀ r : Raw, L.view (Raw.swap r) = conj (L.view r))
 
 /-- **R5 — Distinguishing.**  Different Raw terms have different
@@ -127,15 +133,13 @@ open E213.Theory E213.Lens
 -- ═══ signedLens: verified R4 (swap = negation) ═══
 
 /-- `signedLens` realises R4 with `conj = Neg.neg` on `Int`:
-    swap on `Raw` corresponds to negation on the image. -/
+    swap on `Raw` corresponds to negation on the image.
+    ∅-axiom — uses `∃`-form non-trivial witness (x = 1, -1 ≠ 1). -/
 theorem signed_R4 :
     SwapMatching signedLens (fun n : Int => -n) := by
   refine ⟨?_, ?_, ?_⟩
   · intro u; exact Int.neg_neg u
-  · intro h
-    have : (-(1 : Int)) = (1 : Int) := by
-      have := congrFun h (1 : Int); exact this
-    exact absurd this (by decide)
+  · exact ⟨1, by decide⟩
   · intro r
     exact signed_swap_neg r
 

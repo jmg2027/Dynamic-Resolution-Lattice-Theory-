@@ -97,17 +97,15 @@ theorem conj_conj (u : Lipschitz) : (conj (conj u)) = u := by
     · show -(-u.im.re) = u.im.re; omega
     · show -(-u.im.im) = u.im.im; omega
 
-/-- `conj` is not the identity. -/
-theorem conj_ne_id : (conj : Lipschitz → Lipschitz) ≠ id := by
-  intro h
-  have hJ : conj J = id J := congrFun h J
-  -- conj J = (conj 0, -(⟨1,0⟩)) = (0, ⟨-1, 0⟩)
-  -- id J = J = (0, ⟨1, 0⟩)
-  -- so need (⟨-1, 0⟩ : ZI) = ⟨1, 0⟩ → contradiction
-  have : (conj J).im = (id J).im := by rw [hJ]
-  have : (⟨-1, 0⟩ : ZI) = ⟨1, 0⟩ := this
-  have : (-1 : Int) = 1 := (ZI.mk.injEq ..).mp this |>.1
-  exact absurd this (by decide)
+/-- `conj` has a non-fixed point — witness `J`. -/
+theorem conj_ne_id : ∃ x : Lipschitz, conj x ≠ x := by
+  refine ⟨J, ?_⟩
+  intro hJ
+  -- conj J = (0, ⟨-1, 0⟩), J = (0, ⟨1, 0⟩)
+  have h_im : (conj J).im = J.im := by rw [hJ]
+  have h_im' : (⟨-1, 0⟩ : ZI) = ⟨1, 0⟩ := h_im
+  have h_re : (-1 : Int) = 1 := (ZI.mk.injEq ..).mp h_im' |>.1
+  exact absurd h_re (by decide)
 
 open E213.Lib.Math.CayleyDickson.ZI
 

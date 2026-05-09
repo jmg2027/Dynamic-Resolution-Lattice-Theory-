@@ -51,12 +51,12 @@ theorem conj_conj (u : ZOmega) : u.conj.conj = u := by
   · show -(-u.im) = u.im
     omega
 
-theorem conj_ne_id : conj ≠ id := by
-  intro h
-  have : conj Omega = id Omega := congrFun h Omega
-  have hEq : (⟨-1, -1⟩ : ZOmega) = ⟨0, 1⟩ := this
-  have : (-1 : Int) = 0 := (ZOmega.mk.injEq ..).mp hEq |>.1
-  exact absurd this (by decide)
+theorem conj_ne_id : ∃ x : ZOmega, conj x ≠ x := by
+  refine ⟨Omega, ?_⟩
+  intro hEq
+  -- conj Omega = ⟨-1, -1⟩, Omega = ⟨0, 1⟩.
+  have h_re : (-1 : Int) = 0 := (ZOmega.mk.injEq ..).mp hEq |>.1
+  exact absurd h_re (by decide)
 
 theorem conj_Omega : conj Omega = Omega2 := rfl
 

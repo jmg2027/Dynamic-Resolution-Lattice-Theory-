@@ -56,12 +56,12 @@ theorem ext {u v : ZI} (hr : u.re = v.re) (hi : u.im = v.im) : u = v := by
 theorem conj_conj (u : ZI) : u.conj.conj = u := by
   apply ext <;> simp [conj]
 
-theorem conj_ne_id : conj ≠ id := by
-  intro h
-  have hI : conj I = id I := congrFun h I
-  have himEq : (⟨0, -1⟩ : ZI) = ⟨0, 1⟩ := hI
-  have : (-1 : Int) = 1 := (ZI.mk.injEq ..).mp himEq |>.2
-  exact absurd this (by decide)
+theorem conj_ne_id : ∃ x : ZI, conj x ≠ x := by
+  refine ⟨I, ?_⟩
+  intro himEq
+  -- conj I = ⟨0, -1⟩, I = ⟨0, 1⟩.  himEq says they're equal.
+  have h_im : (-1 : Int) = 1 := (ZI.mk.injEq ..).mp himEq |>.2
+  exact absurd h_im (by decide)
 
 end ZI
 

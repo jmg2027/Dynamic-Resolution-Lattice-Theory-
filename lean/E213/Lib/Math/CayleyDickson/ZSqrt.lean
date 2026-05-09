@@ -51,12 +51,11 @@ theorem ext {u v : ZSqrt D} (hr : u.re = v.re) (hi : u.im = v.im) :
 theorem conj_conj (u : ZSqrt D) : u.conj.conj = u := by
   apply ext <;> simp [conj]
 
-theorem conj_ne_id : (conj : ZSqrt D → ZSqrt D) ≠ id := by
-  intro h
-  have hI : conj (I : ZSqrt D) = id I := congrFun h I
-  have himEq : (⟨0, -1⟩ : ZSqrt D) = ⟨0, 1⟩ := hI
-  have : (-1 : Int) = 1 := (ZSqrt.mk.injEq ..).mp himEq |>.2
-  exact absurd this (by decide)
+theorem conj_ne_id : ∃ x : ZSqrt D, conj x ≠ x := by
+  refine ⟨I, ?_⟩
+  intro himEq
+  have h_im : (-1 : Int) = 1 := (ZSqrt.mk.injEq ..).mp himEq |>.2
+  exact absurd h_im (by decide)
 
 theorem conj_I : conj (I : ZSqrt D) = negI := rfl
 
