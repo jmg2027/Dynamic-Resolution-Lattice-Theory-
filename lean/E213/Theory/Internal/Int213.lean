@@ -1,3 +1,5 @@
+import E213.Term.Tactic.Nat213
+
 /-!
 # Int213 — ∅-axiom Int arithmetic helpers
 
@@ -242,5 +244,93 @@ theorem neg_mul : ∀ (a b : Int), (-a) * b = -(a * b)
 /-- ∅-axiom `Int.mul_neg`: `a * (-b) = -(a * b)` via `mul_comm` + `neg_mul`. -/
 theorem mul_neg (a b : Int) : a * (-b) = -(a * b) := by
   rw [mul_comm a (-b), neg_mul, mul_comm b a]
+
+end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+open E213.Tactic.Nat213 (sub_add_cancel add_sub_of_le add_sub_cancel_right)
+
+/-- ∅-axiom Nat helper: `a ≤ b → a - b = 0`. -/
+private theorem sub_eq_zero_of_le_nat : ∀ {a b : Nat}, a ≤ b → a - b = 0
+  | 0, b, _ => Nat.zero_sub b
+  | _+1, 0, h => absurd h (Nat.not_succ_le_zero _)
+  | a'+1, b'+1, h => by
+    show (a' + 1) - (b' + 1) = 0
+    rw [Nat.succ_sub_succ_eq_sub]
+    exact sub_eq_zero_of_le_nat (Nat.le_of_succ_le_succ h)
+
+/-- ∅-axiom: `subNatNat (a+1) (b+1) = subNatNat a b`. -/
+theorem subNatNat_succ_succ (a b : Nat) :
+    Int.subNatNat (a+1) (b+1) = Int.subNatNat a b := by
+  show (match (b+1) - (a+1) with
+        | 0 => Int.ofNat ((a+1) - (b+1))
+        | j+1 => Int.negSucc j)
+       = (match b - a with
+          | 0 => Int.ofNat (a - b)
+          | j+1 => Int.negSucc j)
+  rw [Nat.succ_sub_succ_eq_sub, Nat.succ_sub_succ_eq_sub]
+
+/-- ∅-axiom: `subNatNat (a+c) (b+c) = subNatNat a b`. -/
+theorem subNatNat_add_add : ∀ (a b c : Nat),
+    Int.subNatNat (a + c) (b + c) = Int.subNatNat a b := by
+  intro a b c
+  induction c with
+  | zero => rfl
+  | succ k ih =>
+    show Int.subNatNat ((a + k) + 1) ((b + k) + 1) = Int.subNatNat a b
+    rw [subNatNat_succ_succ]
+    exact ih
+
+/-- ★★★★★ ∅-axiom: `subNatNat m n + ofNat n = ofNat m`.
+    The keystone identity for deriving `Int.add_assoc` /
+    `Int.sub_add_cancel` PURE. -/
+theorem subNatNat_add_self : ∀ (m n : Nat),
+    Int.subNatNat m n + Int.ofNat n = Int.ofNat m := by
+  intro m n
+  show (match (n - m : Nat) with
+        | 0 => Int.ofNat (m - n)
+        | k+1 => Int.negSucc k) + Int.ofNat n = Int.ofNat m
+  match h : n - m with
+  | 0 =>
+    show Int.ofNat ((m - n) + n) = Int.ofNat m
+    have hle : n ≤ m := Nat.le_of_sub_eq_zero h
+    rw [sub_add_cancel hle]
+  | k+1 =>
+    show Int.subNatNat n (k+1) = Int.ofNat m
+    show (match ((k+1) - n : Nat) with
+          | 0 => Int.ofNat (n - (k+1))
+          | j+1 => Int.negSucc j) = Int.ofNat m
+    have hle : m ≤ n := by
+      rcases Nat.lt_or_ge n m with h_lt | h_ge
+      · have h0 : n - m = 0 := sub_eq_zero_of_le_nat (Nat.le_of_lt h_lt)
+        rw [h0] at h
+        exact Nat.noConfusion h
+      · exact h_ge
+    have hn_eq : n = m + (k+1) := by
+      have hsa : (n - m) + m = n := by
+        rw [Nat.add_comm]; exact add_sub_of_le hle
+      rw [h, Nat.add_comm] at hsa
+      exact hsa.symm
+    have h_n_ge : k + 1 ≤ n := by rw [hn_eq]; exact Nat.le_add_left _ _
+    have h_kn_zero : (k+1) - n = 0 := sub_eq_zero_of_le_nat h_n_ge
+    rw [h_kn_zero]
+    show Int.ofNat (n - (k+1)) = Int.ofNat m
+    rw [hn_eq, add_sub_cancel_right]
+
+end E213.Theory.Internal.Int213
+
+namespace E213.Theory.Internal.Int213
+
+/-- ∅-axiom: `subNatNat m 0 = ofNat m`. -/
+theorem subNatNat_zero (m : Nat) : Int.subNatNat m 0 = Int.ofNat m := by
+  show (match (0 - m : Nat) with
+        | 0 => Int.ofNat (m - 0)
+        | k+1 => Int.negSucc k) = Int.ofNat m
+  rw [Nat.zero_sub]; rfl
+
+/-- ∅-axiom: `subNatNat 0 (m+1) = negSucc m`. -/
+theorem subNatNat_zero_succ (m : Nat) : Int.subNatNat 0 (m+1) = Int.negSucc m := rfl
+
 
 end E213.Theory.Internal.Int213
