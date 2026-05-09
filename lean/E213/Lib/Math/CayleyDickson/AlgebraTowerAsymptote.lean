@@ -35,12 +35,47 @@ inductive BaseType where
   | D   -- Hurwitz quaternion order, 24 units, 2T (binary tetrahedral)
   deriving DecidableEq, Repr
 
-/-- Structural complexity rank (Fibonacci iterations of complexity). -/
+/-- Structural complexity rank (Fibonacci iterations of complexity).
+    Computable from group order |G| and abelian-ness:
+      rank(G) = (# distinct prime factors of |G| − 1) + (1 if non-abelian else 0)
+-/
 def rank : BaseType → Nat
   | .A => 0
   | .B => 0
   | .C => 1
   | .D => 2
+
+/-- Order of base unit group. -/
+def unitOrder : BaseType → Nat
+  | .A => 4    -- Z_4
+  | .B => 2    -- Z_2
+  | .C => 6    -- Z_6
+  | .D => 24   -- 2T
+
+/-- Whether base unit group is non-abelian. -/
+def nonAbelian : BaseType → Bool
+  | .A => false
+  | .B => false
+  | .C => false
+  | .D => true
+
+/-- Primality test as Bool (decidable kernel-friendly). -/
+def isPrimeBool (n : Nat) : Bool :=
+  if n < 2 then false
+  else (List.range n).filter (fun k => 2 ≤ k ∧ n % k = 0) |>.isEmpty
+
+/-- ω(n) — number of distinct prime factors of n. -/
+def omega (n : Nat) : Nat :=
+  (List.range (n + 1)).filter (fun p => isPrimeBool p && n % p = 0) |>.length
+
+/-- Computable rank from group structure (matches manual rank assignment). -/
+def computedRank (b : BaseType) : Nat :=
+  (omega (unitOrder b) - 1) + (if nonAbelian b then 1 else 0)
+
+/-- ★ The hand-assigned rank matches the computable formula for all 4 Types. -/
+theorem rank_matches_computed : ∀ b : BaseType, rank b = computedRank b := by
+  intro b
+  cases b <;> decide
 
 /-- Asymptote in (a, b) form representing (a + b·√5)/4 in Z[√5]. -/
 def asymptote_ab : BaseType → Int × Int
