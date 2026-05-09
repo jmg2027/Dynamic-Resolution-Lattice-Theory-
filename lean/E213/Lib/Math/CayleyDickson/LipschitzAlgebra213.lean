@@ -264,3 +264,146 @@ private theorem ofInt_central' (z : Int) (a : Lipschitz) :
         Ring213.add_zero, Ring213.zero_add]
 
 end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+namespace E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+open E213.Lib.Math.CayleyDickson.ZI
+open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Theory.Internal.Algebra213
+
+/-- Generic Ring213 4-term cycle helper: `A + B + C + D = A + C + D + B`. -/
+private theorem add_4_cycle {α : Type} [Ring213 α] (A B C D : α) :
+    A + B + C + D = A + C + D + B := by
+  rw [Ring213.add_right_comm A B C, Ring213.add_right_comm (A + C) B D]
+
+/-- ★ ∅-axiom Lipschitz `mul_assoc.re`.  No Int polynomial — uses
+    ZI ring axioms (mul_assoc, mul_comm, add_mul, mul_add, neg_mul,
+    mul_neg, neg_add, add_4_cycle) only. -/
+private theorem mul_assoc_re' (u v w : Lipschitz) :
+    ((u * v) * w).re = (u * (v * w)).re := by
+  show (u.re * v.re + -(v.im.conj * u.im)) * w.re
+       + -(w.im.conj * (v.im * u.re + u.im * v.re.conj))
+     = u.re * (v.re * w.re + -(w.im.conj * v.im))
+       + -((w.im * v.re + v.im * w.re.conj).conj * u.im)
+  rw [ZI.conj_add (w.im * v.re) (v.im * w.re.conj),
+      ZI.conj_mul w.im v.re, ZI.conj_mul v.im w.re.conj, ZI.conj_conj w.re]
+  rw [@Ring213.add_mul ZI _ (u.re * v.re) (-(v.im.conj * u.im)) w.re,
+      @Ring213.mul_add ZI _ w.im.conj (v.im * u.re) (u.im * v.re.conj),
+      @Ring213.mul_add ZI _ u.re (v.re * w.re) (-(w.im.conj * v.im)),
+      @Ring213.add_mul ZI _ (w.im.conj * v.re.conj) (v.im.conj * w.re) u.im]
+  rw [@Ring213.neg_add ZI _ (w.im.conj * (v.im * u.re)) (w.im.conj * (u.im * v.re.conj)),
+      @Ring213.neg_add ZI _ (w.im.conj * v.re.conj * u.im) (v.im.conj * w.re * u.im)]
+  rw [@Ring213.neg_mul ZI _ (v.im.conj * u.im) w.re,
+      @Ring213.mul_neg ZI _ u.re (w.im.conj * v.im)]
+  rw [@Ring213.mul_assoc ZI _ u.re v.re w.re]
+  rw [show v.im.conj * u.im * w.re = v.im.conj * w.re * u.im
+      from by rw [@Ring213.mul_assoc ZI _ v.im.conj u.im w.re,
+                  @CommRing213.mul_comm ZI _ u.im w.re,
+                  ← @Ring213.mul_assoc ZI _ v.im.conj w.re u.im]]
+  rw [show w.im.conj * (v.im * u.re) = u.re * (w.im.conj * v.im)
+      from by rw [← @Ring213.mul_assoc ZI _ w.im.conj v.im u.re,
+                  @CommRing213.mul_comm ZI _ (w.im.conj * v.im) u.re]]
+  rw [show w.im.conj * (u.im * v.re.conj) = w.im.conj * v.re.conj * u.im
+      from by rw [@CommRing213.mul_comm ZI _ u.im v.re.conj,
+                  ← @Ring213.mul_assoc ZI _ w.im.conj v.re.conj u.im]]
+  rw [← @Ring213.add_assoc ZI _ (u.re * (v.re * w.re) + -(v.im.conj * w.re * u.im))
+        (-(u.re * (w.im.conj * v.im))) (-(w.im.conj * v.re.conj * u.im))]
+  rw [← @Ring213.add_assoc ZI _ (u.re * (v.re * w.re) + -(u.re * (w.im.conj * v.im)))
+        (-(w.im.conj * v.re.conj * u.im)) (-(v.im.conj * w.re * u.im))]
+  exact add_4_cycle _ _ _ _
+
+end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+namespace E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+open E213.Lib.Math.CayleyDickson.ZI
+open E213.Lib.Math.CayleyDickson.ZI.ZI
+open E213.Theory.Internal.Algebra213
+
+/-- ★ ∅-axiom Lipschitz `mul_assoc.im`.  Same pattern as .re. -/
+private theorem mul_assoc_im' (u v w : Lipschitz) :
+    ((u * v) * w).im = (u * (v * w)).im := by
+  show w.im * (u.re * v.re + -(v.im.conj * u.im))
+       + (v.im * u.re + u.im * v.re.conj) * w.re.conj
+     = (w.im * v.re + v.im * w.re.conj) * u.re
+       + u.im * (v.re * w.re + -(w.im.conj * v.im)).conj
+  rw [ZI.conj_add (v.re * w.re) (-(w.im.conj * v.im)),
+      ZI.conj_mul v.re w.re, ZI.conj_neg (w.im.conj * v.im),
+      ZI.conj_mul w.im.conj v.im, ZI.conj_conj w.im]
+  rw [@Ring213.mul_add ZI _ w.im (u.re * v.re) (-(v.im.conj * u.im)),
+      @Ring213.add_mul ZI _ (v.im * u.re) (u.im * v.re.conj) w.re.conj,
+      @Ring213.add_mul ZI _ (w.im * v.re) (v.im * w.re.conj) u.re,
+      @Ring213.mul_add ZI _ u.im (v.re.conj * w.re.conj) (-(w.im * v.im.conj))]
+  rw [@Ring213.mul_neg ZI _ w.im (v.im.conj * u.im),
+      @Ring213.mul_neg ZI _ u.im (w.im * v.im.conj)]
+  rw [show w.im * (u.re * v.re) = w.im * v.re * u.re
+      from by rw [@CommRing213.mul_comm ZI _ u.re v.re,
+                  ← @Ring213.mul_assoc ZI _ w.im v.re u.re]]
+  rw [show w.im * (v.im.conj * u.im) = u.im * (w.im * v.im.conj)
+      from by rw [← @Ring213.mul_assoc ZI _ w.im v.im.conj u.im,
+                  @CommRing213.mul_comm ZI _ (w.im * v.im.conj) u.im]]
+  rw [show v.im * u.re * w.re.conj = v.im * w.re.conj * u.re
+      from by rw [@Ring213.mul_assoc ZI _ v.im u.re w.re.conj,
+                  @CommRing213.mul_comm ZI _ u.re w.re.conj,
+                  ← @Ring213.mul_assoc ZI _ v.im w.re.conj u.re]]
+  rw [@Ring213.mul_assoc ZI _ u.im v.re.conj w.re.conj]
+  rw [← @Ring213.add_assoc ZI _ (w.im * v.re * u.re + -(u.im * (w.im * v.im.conj)))
+        (v.im * w.re.conj * u.re) (u.im * (v.re.conj * w.re.conj))]
+  rw [@add_4_cycle ZI _ (w.im * v.re * u.re) (-(u.im * (w.im * v.im.conj)))
+        (v.im * w.re.conj * u.re) (u.im * (v.re.conj * w.re.conj))]
+  rw [@Ring213.add_assoc ZI _ (w.im * v.re * u.re + v.im * w.re.conj * u.re)
+        (u.im * (v.re.conj * w.re.conj)) (-(u.im * (w.im * v.im.conj)))]
+
+/-- ★★★★★★★ ∅-axiom Lipschitz `mul_assoc`. -/
+private theorem mul_assoc' (u v w : Lipschitz) :
+    (u * v) * w = u * (v * w) := by
+  apply ext
+  · exact mul_assoc_re' u v w
+  · exact mul_assoc_im' u v w
+
+end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+
+namespace E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
+open E213.Lib.Math.CayleyDickson.ZI
+open E213.Lib.Math.CayleyDickson.ZI.ZI
+
+open E213.Theory.Internal.Algebra213
+
+/-- ★ Lipschitz `Ring213` instance — all axioms PURE via ZI projections. -/
+instance : Ring213 Lipschitz where
+  add_assoc    := add_assoc'
+  add_comm     := add_comm'
+  add_zero     := add_zero'
+  add_left_neg := add_left_neg'
+  mul_assoc    := mul_assoc'
+  add_mul      := add_mul'
+  mul_add      := mul_add'
+
+/-- ★ Lipschitz `StarRing213` instance.  NOT a CommRing213 — Lipschitz
+    multiplication is non-commutative.  Conjugation is anti-distributive. -/
+instance : StarRing213 Lipschitz where
+  conj      := conj
+  conj_conj := conj_conj
+  conj_add  := conj_add'
+  conj_mul  := conj_mul_anti
+
+/-- ★ Lipschitz `IntegerNormed213` instance.  All fields PURE via
+    ZI ring axioms — no Int polynomial expansion at this layer. -/
+instance : IntegerNormed213 Lipschitz where
+  ofInt         := ofInt
+  normSq        := normSq
+  self_mul_conj := self_mul_conj'
+  ofInt_mul     := ofInt_mul'
+  ofInt_add     := by
+    intro a b
+    apply ext
+    · show ZI.ZI.ofInt a + ZI.ZI.ofInt b = ZI.ZI.ofInt (a + b)
+      exact @IntegerNormed213.ofInt_add ZI _ a b
+    · show (0 : ZI) + 0 = 0
+      apply ZI.ZI.ext
+      · show (0 : Int) + 0 = 0; rfl
+      · show (0 : Int) + 0 = 0; rfl
+  ofInt_central := ofInt_central'
+  ofInt_inj     := ofInt_inj'
+
+end E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
