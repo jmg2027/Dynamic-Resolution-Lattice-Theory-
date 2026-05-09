@@ -393,3 +393,62 @@ ZSqrt[-2] L_n unit group ≅ ZI L_{n-1} unit group. **한 layer shift 가설 데
 3. **L5 ZOmega** (48 유닛 예상): ZI sedenion과 quotient 구조 비교.
 
 기계적 데이터 수집 계속.
+
+---
+
+## L6 ZSqrt[-2] 측정 (2026-05-09 후속): "shifted sedenion" 가설 BREAK
+
+### Probe 결과 (Rust binary `algebra213-tower-probe`, 32 units brute force)
+
+| 검사 | ZSqrt[-2] L6 (32 유닛) | 비교: ZI L5 = Sedenion |
+|---|---|---|
+| Unit count | 32 | 32 |
+| comm | 840/1024 (82.0% non-comm) | 같음 |
+| assoc | 14784/32768 (45.1% non-assoc) | 비슷 |
+| **alt-L** (a(ab) = (aa)b) | **0/1024 ✓ holds** | **fails** |
+| **alt-R** (b(aa) = (ba)a) | **0/1024 ✓ holds** | **fails** |
+| **flex** (a(ba) = (ab)a) | **0/1024 ✓ holds** | **holds** |
+| **Moufang** ((ab)a)c = a(b(ac)) | 5376/32768 (16.4% fail) = 21/128 | fails |
+| normMult on units | 0/1024 | 0 (units only) |
+| order dist | `{1:1, 2:1, 4:30}` | `{1:1, 2:1, 4:30}` |
+| zero divisor (nonzero unit-sum × unit-sum) | **1344 found** | exists |
+
+**Sample zero divisor (ZSqrt[-2] L6)**:
+- a = e_1 + e_10  (normSq = 2)
+- b = e_4 − e_15  (normSq = 2)
+- **a · b = 0**
+
+(인덱스 {1, 4, 10, 15} = 표준 sedenion zero divisor 인덱스와 동일.)
+
+### 가설 정정
+
+**ZSqrt[-2] L_n ≅ ZI L_{n-1} 구조 동일** 가설은 n ≤ 5 까지만 성립.
+
+L6에서 break:
+- L6 ZSqrt[-2]은 **모든 alternative law 유지** (alt-L, alt-R, flex = 0)
+- 동시에 **zero divisor 존재** (past Hurwitz)
+- Moufang identity는 fail (21/128 = 16.4%)
+
+이는 *real sedenion보다 더 associative*인 새로운 종류의 32-dim 대수 구조.
+ZSqrt[-2] 베이스의 e_1² = −2 (vs ZI의 i² = −1) 차이가 sedenion 단계의
+non-alternativity를 *흡수*하는 듯.
+
+### 정량 fingerprint
+
+```
+sedenion (ZI L5):     alt-L fail, alt-R fail, flex ?, Moufang fail
+ZSqrt[-2] L6:         alt-L ✓,   alt-R ✓,   flex ✓,   Moufang fail
+                      └─ basis units only
+```
+
+**Open question**: L6 ZSqrt[-2]의 alternativity가 *basis units only*인지,
+*전체 ring level*에서도 유지되는지? Random non-unit triple 측정 필요.
+
+### 다음 step
+
+1. Random non-unit (small-coord) triple로 alt-L 깨지는지 직접 측정
+2. ZI L5 = Sedenion 동일 probe로 비교 데이터 (32-dim, ZI 베이스)
+3. ZOmega L5 (32-dim ZOmega 베이스) 동일 probe — 3 base의 L_n 직접 비교
+
+세 base ladder의 *L = "first past Hurwitz" 위치*가 다른 transition 패턴을
+보여줄 수 있음.
