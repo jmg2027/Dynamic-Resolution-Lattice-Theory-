@@ -19,6 +19,8 @@ import E213.Theory.CDDouble.UniversalInduction
 import E213.Lib.Math.Tactic.Ring213
 import E213.Theory.Raw.Mobius
 import E213.Theory.CDDouble.UniversalOrder4
+import E213.Theory.Internal.Algebra213CDDoubleStar
+import E213.Theory.CDDouble.GenericLiftDemo
 
 /-!
 # Algebra Tower Capstone
