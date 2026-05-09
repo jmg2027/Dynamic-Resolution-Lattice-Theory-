@@ -5,6 +5,9 @@ import E213.Lib.Math.CayleyDickson.Order4Monopoly_L6T
 import E213.Lib.Math.CayleyDickson.ShiftRule_ZI_L3
 import E213.Lib.Math.CayleyDickson.TypeAResidualClosedForm
 import E213.Lib.Math.CayleyDickson.ZSqrtMinus2L6Search
+import E213.Lib.Math.CayleyDickson.LipschitzOrder4Monopoly
+import E213.Lib.Math.CayleyDickson.CayleyOrder4Monopoly
+import E213.Lib.Math.CayleyDickson.SedenionOrder4Monopoly
 import E213.Lib.Math.Tactic.Ring213
 import E213.Theory.Raw.Mobius
 import E213.Theory.CDDouble.UniversalOrder4
