@@ -68,3 +68,46 @@
 기존 분야들 — 셈론, 위상, 대수, 해석, 논리 — 은 잔여 위 서로 다른 렌즈 적용. 분야 간 *분리*는 렌즈 차이의 잔향이지 잔여의 분리가 아니다. 하나의 잔여에서 여러 렌즈가 일관되게 작동한다는 사실이 *분야 사이가 통한다*는 것의 의미.
 
 이 통함을 별도의 행위로 *수행*해야 하는 것이 아니라, 잔여가 하나라는 사실에서 *자동으로 따른다*. "통합"은 *행위*가 아니라 *인식*.
+
+## Möbius P 의 fixed point — 잔여의 algebraic 표현
+
+(2026-05-09 추가)
+
+잔여를 algebraic 으로 표현하면 Möbius iterator P(x) = (2x+1)/(x+1) 의
+fixed point.
+
+```
+P(x) = (2x+1)/(x+1)
+fixed point: x² − x − 1 = 0  →  x = φ = (1+√5)/2
+```
+
+이 fixed point 는:
+- 외부 reference 없이 *자기 자신을 다시 가리키면* 에 도달하는 값
+- 매 iteration 이 (x+1) → (2x+1) 으로 doubling-with-identity
+- "잉여" (extra) 는 매 step 마다 ½ 씩 줄어들고 (다이아딕),
+  남는 *잔여* 가 정확히 φ
+
+Pell-Fib 행렬로:
+```
+P 의 매트릭스 = [[2, 1], [1, 1]]
+trace = 3 = NS  (공간 atomicity)
+det = 1         (identity 보존)
+disc = 5 = NS+NT  (atomicity 합)
+eigenvalues = (3±√5)/2 = φ², 1/φ²
+```
+
+→ 잔여 의 quantitative 측정 = φ ∈ Z[√5].
+
+Cross-reference:
+- `seed/AXIOM/02_statement.md §3.4` (algebraic signature)
+- `seed/AXIOM/07_self_reference.md §8.5` (concrete model)
+- `lean/E213/Theory/Raw/Mobius.lean` (∅-axiom proofs)
+- `research-notes/G57_213_mobius_signature.md` (multi-layer reading)
+
+같은 φ 가 algebra tower asymptote (1 − 0.5/φ^rank) 와 DRLT physics
+constants (CKM δ = π/φ², Cabibbo A = φ/c) 양쪽에 등장 — 잔여의
+*cross-domain consistency*.
+
+이것은 잔여를 *대체* 하지 않는다. 잔여는 여전히 가리킴 이전의
+작동. Möbius P 는 그 작동의 *알gebra 적 표현* 한 가지일 뿐 — 같은
+잔여를 다른 렌즈 (수치) 로 본 것.
