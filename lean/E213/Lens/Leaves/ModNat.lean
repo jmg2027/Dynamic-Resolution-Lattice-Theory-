@@ -77,11 +77,40 @@ namespace E213.Lens.Leaves.ModNat
 
 open E213.Theory E213.Lens
 
--- Note: a converse `refines_implies_divides : refines L_m L_k → k ∣ m`
--- existed but used `omega` + `Nat.mod_lt` + `Nat.add_mod_left` etc. that
--- bring `propext` via Lean-core well-founded termination.  Removed under
--- the "design-by-funext/propext 금지" directive.  The forward direction
--- (`divides_refines`) is the only one needed downstream.
+/-- Converse (k ≥ 2): mod m refines mod k ⟹ k ∣ m.  Witness:
+    leaves = m+1 (exists — leaves_surjective_pos) vs leaves = 1
+    (= Raw.a). -/
+theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
+    (hrefines : (leavesModNat m).refines (leavesModNat k)) :
+    k ∣ m := by
+  obtain ⟨r, hr⟩ := E213.Infinity.leaves_surjective_pos (m + 1) (by omega)
+  have h_leaves_a : Lens.leaves.view Raw.a = 1 := rfl
+  -- In mod m, Raw.a and r are equal (both have leaves ≡ 1 mod m)
+  have hm_eq : (leavesModNat m).view Raw.a = (leavesModNat m).view r := by
+    rw [leavesModNat_view_eq, leavesModNat_view_eq, h_leaves_a, hr]
+    show 1 % m = (m + 1) % m
+    rw [Nat.add_mod_left, Nat.mod_eq_of_lt (by omega)]
+  -- By refines, they are also equal under mod k
+  have hk_eq : (leavesModNat k).view Raw.a = (leavesModNat k).view r :=
+    hrefines Raw.a r hm_eq
+  rw [leavesModNat_view_eq, leavesModNat_view_eq, h_leaves_a, hr] at hk_eq
+  -- hk_eq : 1 % k = (m + 1) % k
+  -- k ≥ 2 → 1 % k = 1
+  rw [Nat.mod_eq_of_lt (show 1 < k from hk)] at hk_eq
+  -- hk_eq : 1 = (m + 1) % k
+  -- (m + 1) % k = (m % k + 1) % k
+  have hstep : (m + 1) % k = (m % k + 1) % k := by
+    rw [Nat.add_mod, Nat.mod_eq_of_lt (show (1 : Nat) < k from hk)]
+  rw [hstep] at hk_eq
+  -- hk_eq : 1 = (m % k + 1) % k
+  have hmk : m % k < k := Nat.mod_lt _ (by omega)
+  have hm_zero : m % k = 0 := by
+    by_cases h : m % k + 1 < k
+    · rw [Nat.mod_eq_of_lt h] at hk_eq; omega
+    · have h_eq : m % k + 1 = k := by omega
+      rw [h_eq, Nat.mod_self] at hk_eq
+      exact absurd hk_eq (by decide)
+  exact Nat.dvd_of_mod_eq_zero hm_zero
 
 end E213.Lens.Leaves.ModNat
 
@@ -122,13 +151,21 @@ theorem product_lower_bound (m k : Nat) :
   common_multiple_lower_bound m k (m * k)
     ⟨k, rfl⟩ ⟨m, Nat.mul_comm m k⟩
 
--- L_gcd(m, k) is an upper bound of both L_m and L_k (in the refines order).
--- A `gcd_upper_bound` variant using Lean-core `Nat.gcd` was removed —
--- `Nat.gcd` brings `propext` via its well-founded termination proof.
--- Use the 213-native `gcd213_upper_bound` (below, PURE) instead.
+/-- L_gcd(m, k) is an upper bound of both L_m and L_k (in the refines order).
+    Direct consequence of divides_refines.
 
-/-- ★★★★★ **`gcd213` upper bound (∅-axiom)**: 213-native `gcd213`
-    (fuel-driven Euclidean) instead of Lean-core `Nat.gcd` (well-founded
+    DIRTY-by-design (`[propext]`): the statement mentions `Nat.gcd m k`
+    whose well-founded termination proof brings `propext`.  Use
+    `gcd213_upper_bound` (below, PURE) for ∅-axiom downstream. -/
+theorem gcd_upper_bound (m k : Nat) :
+    (leavesModNat m).refines (leavesModNat (Nat.gcd m k)) ∧
+    (leavesModNat k).refines (leavesModNat (Nat.gcd m k)) :=
+  common_divisor_upper_bound m k (Nat.gcd m k)
+    (Nat.gcd_dvd_left m k) (Nat.gcd_dvd_right m k)
+
+/-- ★★★★★ **`gcd213` upper bound (∅-axiom)**: same content as
+    `gcd_upper_bound` but using 213-native `gcd213` (fuel-driven
+    Euclidean) instead of Lean-core `Nat.gcd` (well-founded
     termination = `propext`).
 
     Use this in ∅-axiom downstream theorems.  Migration target
