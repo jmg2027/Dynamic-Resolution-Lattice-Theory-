@@ -256,3 +256,42 @@ theorem value_mul (m n : Theory.Nat213.Nat213) :
   rw [← toRaw_mul, value_toRaw, value_toRaw, value_toRaw, toNat_mul]
 
 end E213.Theory.Closed.Nat213Bridge
+
+namespace E213.Theory.Closed.Nat213Bridge
+
+open E213.Theory
+
+/-! ### leavesCountRaw 가 Layer 2 image 위 identity
+
+`leavesCountRaw : Raw → Raw` 는 Lean-free leaves count (Method A 인코딩).
+toRaw image 위에서 identity — Method A chain 들이 leaves-count quotient
+의 canonical representative.
+
+이게 leavesCountRaw 의 닫힘 성질의 정확한 표현:
+  - Raw → Raw projection
+  - 출력은 항상 Method A chain
+  - chain 위에서 idempotent (한번 더 적용해도 그대로) -/
+
+/-- **`leavesCountRaw (toRaw k) = toRaw k`** — Layer 2 element 의 Layer 1
+    image 는 leavesCountRaw 의 fixed point. -/
+theorem leavesCountRaw_toRaw (k : Theory.Nat213.Nat213) :
+    Theory.Closed.Nat213.leavesCountRaw (toRaw k) = toRaw k := by
+  induction k with
+  | one => rfl
+  | succ k' ih =>
+      -- toRaw (succ k') = succ (toRaw k'), and toRaw k' ≠ Raw.b
+      show Theory.Closed.Nat213.leavesCountRaw
+              (Theory.Closed.Nat213.succ (toRaw k'))
+         = Theory.Closed.Nat213.succ (toRaw k')
+      rw [Theory.Closed.Nat213.leavesCountRaw_succ _ (toRaw_ne_b k'), ih]
+
+/-- **Boundary corollary**: Lean-free leaves count 와 Lean-Nat leaves count
+    이 toRaw image 위에서 일치.  `value (leavesCountRaw r) = value r`
+    의 chain-restricted 형태. -/
+theorem value_leavesCountRaw (k : Theory.Nat213.Nat213) :
+    Theory.Closed.Nat213.value
+        (Theory.Closed.Nat213.leavesCountRaw (toRaw k))
+      = Theory.Closed.Nat213.value (toRaw k) := by
+  rw [leavesCountRaw_toRaw]
+
+end E213.Theory.Closed.Nat213Bridge
