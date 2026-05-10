@@ -37,6 +37,45 @@ to HANDOFF.md "current state" for the freshest reading.  994 total
 `.lean` files; scanner enumerates ~500-800 ★-marked theorems
 depending on timeout state.)
 
+**2026-05-09 (later, marathon batch 1)**: User directive "seal
+없애버리고 다 213 native로" — emptied SEALED_DIRTY_PREFIXES.  Full
+scan post-seal-empty: **2491 PURE / 164 DIRTY / 0 sealed**.
+
+After batch 1 fixes (5 theorems converted): **2496 PURE / 159
+DIRTY / 0 sealed**.  Patterns established:
+- `omega` → `Nat.le_trans` + `Nat.le_add_right` + `Nat.add_le_add`
+- `cases h` (impossible Nat eq) → `absurd h (by decide)`
+- `injEq.mp` → `congrArg <projector>`
+- `Tree.cmp_eq_iff.mp` → `Tree.cmp_eq_to_eq` (∅-axiom direct lemma)
+- `simp [this]` (using Iff hypothesis) → `decide_eq_true` direct
+
+Files now PURE (was DIRTY):
+- E213.Lens.Properties.Leaf (was 2 dirty)
+- E213.Lens.Diagonal (was 1 dirty)
+- E213.Lib.Math.CayleyDickson.LipschitzLens (was 1 dirty)
+- E213.Lens.Instances.RawAChar (was 1 dirty)
+
+**Remaining marathon**: 159 items.  Categorization:
+  62  [propext]                          — most tractable
+  55  [propext, Quot.sound]              — Lens funext typically
+  31  [Quot.sound]                       — funext usage
+   9  [propext, Classical.choice, Quot.sound]  — Lean.Elab plumbing
+   2  [propext, Quot.sound] (split format)
+
+Top remaining DIRTY modules:
+  25  E213.Lens.SemanticAtom (Prop-level "atom of meaning")
+  14  E213.Lens.Compose.OnLens (Lens funext-by-design)
+  10  E213.Lens.Leaves.DepthJoin (JoinEquiv on Raw + Classical)
+  10  E213.Lens.Morphism.BoolProp
+   6  Lens.Instances.Reach, Lens.Lattice.IndexedJoin, Lib.Math.
+       CayleyDickson.CayleyHeavy
+
+**Hard categories requiring structural refactor**:
+- Lens equality redefinition (avoid funext): ~90 items
+- Math.Infinity Iff/Cantor proofs: ~5 items
+- Heavy ring polynomials (CayleyHeavy etc.): ~15 items
+- Lean.Elab Tactic plumbing: 9 items
+
 **2026-05-09** (post-Möbius-extension session, pre-merge audit):
 seal list updated to use single-`Lens.*` prefixes (was `Lens.Lens.*`
 — stale from earlier nesting).  Tree-wide scan after seal-list fix
