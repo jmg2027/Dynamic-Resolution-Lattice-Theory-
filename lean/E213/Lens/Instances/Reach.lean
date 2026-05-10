@@ -31,6 +31,51 @@ can carry "unreachable" elements above it.  This makes the framework's
 Note 80 analysis.
 -/
 
+namespace E213.Lens.Instances.Reach
+
+open E213.Theory E213.Lens
+open E213.Lens.SemanticAtom
+
+/-! ### Witness: trivial-combine instance on Fin 3 -/
+
+instance fin3HasDistinguishing : HasDistinguishing (Fin 3) where
+  a := 0
+  b := 1
+  distinct := by decide
+  combine _ _ := 0
+  combine_sym _ _ := rfl
+
+/-- Forward closure of the image: universalMorphism (Fin 3) always
+    yields 0 or 1 (combine always returns 0). -/
+theorem fin3_image_in_01 (r : Raw) :
+    universalMorphism (Fin 3) r = 0 ∨ universalMorphism (Fin 3) r = 1 := by
+  induction r using Raw.rec with
+  | a => left; exact universalMorphism_a (Fin 3)
+  | b => right; exact universalMorphism_b (Fin 3)
+  | slash x y h _ _ =>
+      left
+      rw [universalMorphism_slash (Fin 3) x y h]
+      rfl
+
+end E213.Lens.Instances.Reach
+
+namespace E213.Lens.Instances.Reach
+
+open E213.Theory E213.Lens
+open E213.Lens.SemanticAtom
+
+/-- **Strict subset of the image**: element 2 of Fin 3 is outside
+    the image of universalMorphism.  Explicit witness of the separation
+    between the framework's reach and the carrier. -/
+theorem fin3_image_strict :
+    ∃ x : Fin 3, ¬ ∃ r : Raw, universalMorphism (Fin 3) r = x := by
+  refine ⟨2, ?_⟩
+  intro ⟨r, hr⟩
+  rcases fin3_image_in_01 r with h | h
+  · rw [h] at hr; exact absurd hr (by decide)
+  · rw [h] at hr; exact absurd hr (by decide)
+
+end E213.Lens.Instances.Reach
 
 namespace E213.Lens.Instances.Reach
 
@@ -275,3 +320,51 @@ theorem nat_image_surjective :
 
 end E213.Lens.Instances.Reach
 
+namespace E213.Lens.Instances.Reach
+
+open E213.Theory E213.Lens
+open E213.Lens.SemanticAtom
+
+/-! ### Int with addition: infinite non-surjective
+
+Bool finite surj, Fin 3 finite non-surj, Nat infinite surj.
+Int with addition: **infinite non-surjective** — only the positive
+part of Nat ⊊ Int is reachable; negative numbers are unreachable
+(combine = + is always non-decreasing).
+
+This is an explicit witness of surjectivity failure for an infinite
+carrier — the image is a *strict* infinite subset. -/
+
+instance intHasDistinguishing : HasDistinguishing Int where
+  a := 0
+  b := 1
+  distinct := by decide
+  combine := (· + ·)
+  combine_sym := Int.add_comm
+
+/-- Forward closure of the image: universalMorphism Int always
+    yields a result ≥ 0. -/
+theorem int_image_nonneg (r : Raw) : 0 ≤ universalMorphism Int r := by
+  induction r using Raw.rec with
+  | a =>
+      rw [universalMorphism_a Int]
+      exact Int.le_refl 0
+  | b =>
+      rw [universalMorphism_b Int]
+      decide
+  | slash x y h ihx ihy =>
+      rw [universalMorphism_slash Int x y h]
+      exact Int.add_nonneg ihx ihy
+
+/-- **Strict subset of the image (infinite case)**: -1 ∈ Int is
+    outside the image of universalMorphism.  Non-surjectivity witness
+    for an infinite carrier. -/
+theorem int_image_strict :
+    ∃ x : Int, ¬ ∃ r : Raw, universalMorphism Int r = x := by
+  refine ⟨-1, ?_⟩
+  intro ⟨r, hr⟩
+  have h_nonneg : 0 ≤ universalMorphism Int r := int_image_nonneg r
+  rw [hr] at h_nonneg
+  exact absurd h_nonneg (by decide)
+
+end E213.Lens.Instances.Reach

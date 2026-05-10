@@ -1,4 +1,6 @@
 import E213.Meta.Tactic.DeriveConjugationCodomain
+import E213.Meta.Tactic.NativeGuard
+import E213.Meta.Tactic.NativeGuardTest
 import E213.Meta.Tactic.PureGuard
 import E213.Meta.Tactic.PureGuardTest
 import E213.Meta.Tactic.Test.VerifyConjugationTest
