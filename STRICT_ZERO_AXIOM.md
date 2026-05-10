@@ -94,7 +94,18 @@ Patterns added to playbook:
     `(L).eqPW M` sibling without removing the DIRTY original; new
     consumers migrate gradually.
 
-**Post-session scan (verified, mid-session)**: **2644 PURE / 133 DIRTY** (2777 total).
+**Post-session scan (verified, final)**: **2654 PURE / 129 DIRTY** (2783 total).
+(Mid-session checkpoint: 2644/133 — continuation batch +10 PURE, -4 DIRTY.)
+
+DIRTY breakdown (cumulative session):
+  - 54  [propext]                              (was 50 at session start)
+  - 46  [propext, Quot.sound]                  (was 50)
+  - 18  [Quot.sound]                           (was 33 — **−15** from Cat 1 work)
+  - 9   [propext, Classical.choice, Quot.sound] (Lean.Elab plumbing)
+  - 2   [propext, Quot.sound] (split format)
+
+The `[Quot.sound]`-only category dropped 33 → 18 (−15, ~45% reduction) —
+direct hit of the G83 Lens-equality refactor.
 
 **Continuation batch**: more PURE wins via the eqPW-companion + typeclass-
 bypass patterns:
