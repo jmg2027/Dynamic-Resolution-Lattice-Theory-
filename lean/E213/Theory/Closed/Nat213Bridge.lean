@@ -120,3 +120,41 @@ theorem toRaw_mul (m n : Theory.Nat213.Nat213) :
       rw [toRaw_add, ih]
 
 end E213.Theory.Closed.Nat213Bridge
+
+namespace E213.Theory.Closed.Nat213Bridge
+
+open E213.Theory
+
+/-! ### + family laws lifted via bridge
+
+Layer 2 의 정리들 (add_comm, add_one_right, add_succ_right) 을
+toRaw bridge 통해 Layer 1 (closed Raw chain) 으로 lift.
+
+이게 G84 Tier 2 작업 — Layer 2 에서 이미 증명된 정리를 Layer 1 에서
+재증명 하지 않고 동형성으로 이전. -/
+
+/-- `add_comm` (Layer 1, Method A chain 위): `add m n = add n m` for chains
+    coming from Layer 2.  toRaw bridge 통해 Layer 2 add_comm 활용. -/
+theorem add_comm (m n : Theory.Nat213.Nat213) :
+    Theory.Closed.Nat213.add (toRaw m) (toRaw n)
+      = Theory.Closed.Nat213.add (toRaw n) (toRaw m) := by
+  rw [← toRaw_add, ← toRaw_add, Theory.Nat213.Nat213.add_comm]
+
+/-- `add_one_right`: `add m one = succ m` for chains from Layer 2.
+    Layer 2 의 `add_one_right` 직접 활용. -/
+theorem add_one_right (m : Theory.Nat213.Nat213) :
+    Theory.Closed.Nat213.add (toRaw m) Theory.Closed.Nat213.one
+      = Theory.Closed.Nat213.succ (toRaw m) := by
+  rw [← toRaw_one, ← toRaw_add, Theory.Nat213.Nat213.add_one_right, toRaw_succ]
+
+/-- `add_succ_right`: `add m (succ n) = succ (add m n)` (chains).  Layer 2
+    의 `add_succ_right` 활용. -/
+theorem add_succ_right (m n : Theory.Nat213.Nat213) :
+    Theory.Closed.Nat213.add (toRaw m)
+        (Theory.Closed.Nat213.succ (toRaw n))
+      = Theory.Closed.Nat213.succ
+          (Theory.Closed.Nat213.add (toRaw m) (toRaw n)) := by
+  rw [← toRaw_succ, ← toRaw_add, Theory.Nat213.Nat213.add_succ_right,
+      toRaw_succ, toRaw_add]
+
+end E213.Theory.Closed.Nat213Bridge
