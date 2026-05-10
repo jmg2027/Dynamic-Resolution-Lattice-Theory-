@@ -94,7 +94,23 @@ Patterns added to playbook:
     `(L).eqPW M` sibling without removing the DIRTY original; new
     consumers migrate gradually.
 
-**Post-session scan (verified)**: **2644 PURE / 133 DIRTY** (2777 total).
+**Post-session scan (verified, mid-session)**: **2644 PURE / 133 DIRTY** (2777 total).
+
+**Continuation batch**: more PURE wins via the eqPW-companion + typeclass-
+bypass patterns:
+  - `Compose.OnLens.universalMorphismLevelTwo`             [Quot.sound] → ∅
+  - `Compose.OnLens.universalMorphismLevelThree`           [Quot.sound] → ∅
+  - `Lens.Instances.FunctionSpace.funUniversalMorphism`    [Quot.sound] → ∅
+  - `Lens.Instances.FunctionSpace.boolFunUniversal`        [Quot.sound] → ∅
+
+New PURE eqPW companions (alongside DIRTY originals):
+  - `EqPW.Lens.view_unique_eqPW`              (∅-axiom view-unique companion)
+  - `OnLens.lensXor_eqPW_cong`                (eqPW-congruence of lensXor)
+  - `OnLens.lensCombineGeneric_eqPW_cong`     (eqPW-congruence of generic)
+  - `OnLensImage.lensUniversalMorphism_factors_eqPW`     (factor PURE)
+  - `OnLensImage.lensUniversalMorphism_image_eqPW`       (image PURE)
+  - `OnLensImageGeneric.lensUniversalMorphism_factors_generic_eqPW`
+  - `Lattice.IndexedJoin.iProdLens_is_greatest_pw`        (per-index PURE)
 
 DIRTY breakdown:
   - 54  [propext]                                     (was 50)
