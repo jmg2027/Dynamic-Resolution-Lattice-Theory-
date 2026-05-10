@@ -127,6 +127,7 @@ seed/
 ├── ORIGIN.md                  ← DRLT origin narrative
 ├── PAPER1.md                  ← archival, cited by ~25 Lean files
 ├── RESOLUTION_LIMIT_SPEC.md   ← N_U structural-invariant authority
+├── CLOSED_FORM_SPEC.md        ← 4-domain meta-pattern + bridge catalog
 ├── NOTATION.md                ← symbol conventions
 └── AXIOM/                     ← the axiom corpus, 12 chapters
     ├── INDEX.md               ← chapter TOC
