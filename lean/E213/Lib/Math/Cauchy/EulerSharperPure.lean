@@ -1,6 +1,7 @@
 import E213.Lib.Math.NatHelpers.PureNat
 import E213.Lib.Math.Cauchy.EulerSeq
 import E213.Lib.Math.Cauchy.EulerCombinatorialPure
+import E213.Term.Tactic.Nat213
 
 /-!
 # EulerSharperPure: e > 8/3 strict (axiom-free)
@@ -97,13 +98,11 @@ theorem e_partial_neq_third_a (a : Nat) (ha : a ≥ 1) (N : Nat) (hN : N ≥ 4) 
   have h_upper3 : 3 * eulerNum N + 3 ≤ 9 * eulerDen N := by
     have h1 : 3 * (eulerNum N + 1) ≤ 3 * (3 * eulerDen N) :=
       Nat.mul_le_mul_left 3 h_upper
-    have h2 : 3 * (3 * eulerDen N) = 9 * eulerDen N := by
-      rw [← mul_assoc]
-    rw [h2] at h1
+    have h2 : 3 * (3 * eulerDen N) = 9 * eulerDen N :=
+      (E213.Tactic.Nat213.mul_assoc 3 3 (eulerDen N)).symm
     have h3 : 3 * (eulerNum N + 1) = 3 * eulerNum N + 3 := by
       rw [Nat.mul_add, Nat.mul_one]
-    rw [h3] at h1
-    exact h1
+    exact h2 ▸ h3 ▸ h1
   -- Now: heq : 3 * eulerNum N = a * eulerDen N
   -- h_lower: a * eulerDen N ≥ 8 * eulerDen N + 1
   -- h_upper3: a * eulerDen N + 3 ≤ 9 * eulerDen N
@@ -133,10 +132,10 @@ theorem e_partial_neq_third_a (a : Nat) (ha : a ≥ 1) (N : Nat) (hN : N ≥ 4) 
     Nat.mul_le_mul_right (eulerDen N) h_a_ge_9
   have h_plus3 : a * eulerDen N + 3 ≥ 9 * eulerDen N + 3 :=
     Nat.add_le_add_right h_amul9 3
-  have : 9 * eulerDen N + 3 ≤ 9 * eulerDen N :=
+  have hcontra : 9 * eulerDen N + 3 ≤ 9 * eulerDen N :=
     Nat.le_trans h_plus3 h_upper3
   -- 9 * eulerDen N + 3 ≤ 9 * eulerDen N means 3 ≤ 0, false.
-  have h3le0 : 3 ≤ 0 := Nat.le_of_add_le_add_left this
+  have h3le0 : 3 ≤ 0 := E213.Tactic.Nat213.le_of_add_le_add_left hcontra
   exact Nat.not_succ_le_zero 2 h3le0
 
 end E213.Lib.Math.Cauchy.EulerSharperPure
