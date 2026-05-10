@@ -159,11 +159,6 @@ namespace E213.Infinity
 open E213.Theory E213.Theory.Internal E213.Lens
 open E213.Lens.Characterisation.Catalog
 
-/-- **signedLens surjective onto `{z : ℤ | z ≥ -1}`** via
-    `rawTower`.  The full `ℤ` surjectivity (covering `z ≤ -2`)
-    would require a dual "b-tower"; skipped here since
-    unboundedness of the image is enough for the Σ4
-    cardinality claim. -/
 -- Note: theorems `signedLens_image_ge_neg_one` and
 -- `signedLens_unbounded_above` were deleted under
 -- "design-by-funext/propext 금지".  Their proofs used `omega` +
@@ -176,18 +171,6 @@ namespace E213.Infinity
 
 open E213.Theory E213.Lens
 
--- ═══ Σ7 summary — cardinality spectrum ═══
-
-/-- **Σ7 (summary formal statement).**  The Raw axiom is
-    syntactic-finite and has no cardinality clause; yet
-    observation via Lens / function-space lifts exhibits a
-    full Cantor ladder of cardinalities.  This theorem
-    packages the four structural witnesses:
-
-    (i) Raw ≤ ℕ (Σ2); (ii) Raw ≥ ℕ (Σ3); (iii) `Raw → Bool`
-    strictly larger than Raw (Σ5); (iv) `X → Bool` strictly
-    larger than `X` for every `X` (Cantor general), giving
-    a tower of any depth. -/
 -- Note: theorem `sigma7_cardinality_is_lens_output` was deleted —
 -- its conjuncts (`raw_at_most_countable`, `cantor_raw_bool`, etc.)
 -- bring `propext` via Lean-core Function.Surjective decidability.

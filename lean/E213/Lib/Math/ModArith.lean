@@ -2,7 +2,6 @@ import E213.Lib.Math.ModArith.JoinBezout
 import E213.Lib.Math.ModArith.JoinCoprime
 import E213.Lib.Math.ModArith.JoinEquivGCD
 import E213.Lib.Math.ModArith.JoinEuclidean
-import E213.Lib.Math.ModArith.JoinExample
 import E213.Lib.Math.ModArith.JoinGCD
 import E213.Lib.Math.ModArith.LensCRT
 import E213.Lib.Math.ModArith.PureNatMod3
