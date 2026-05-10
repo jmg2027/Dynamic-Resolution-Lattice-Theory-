@@ -238,3 +238,34 @@ example : leavesCountRaw (numeral 2) = numeral 2 := rfl  -- "3" leaves
 example : leavesCountRaw (numeral 3) = numeral 3 := rfl  -- "4" leaves
 
 end E213.Theory.Closed.Nat213
+
+namespace E213.Theory.Closed.Nat213
+
+open E213.Theory E213.Theory.Internal E213.Theory.Closed
+
+/-! ### Chain invariants — leavesCountRaw 분석을 위한 보조 -/
+
+/-- 모든 Method A chain (numeral n) 은 Raw.b 와 다름.  Method A 의
+    structural invariant. -/
+theorem numeral_ne_b (n : Nat) : numeral n ≠ Raw.b := by
+  induction n with
+  | zero =>
+      -- numeral 0 = zero = Raw.a ≠ Raw.b
+      intro h
+      exact Tree.noConfusion (congrArg Subtype.val h)
+  | succ k ih =>
+      -- numeral (k+1) = succ (numeral k) = slashOrSelf (numeral k) Raw.b
+      show succ (numeral k) ≠ Raw.b
+      unfold succ slashOrSelf
+      rw [dif_neg ih]
+      intro h
+      have hval : (Raw.slash (numeral k) Raw.b ih).val = Raw.b.val :=
+        congrArg Subtype.val h
+      unfold Raw.slash at hval
+      split at hval
+      · exact Tree.noConfusion hval
+      · exact Tree.noConfusion hval
+      · rename_i hcmp
+        exact ih (Subtype.ext (Tree.cmp_eq_to_eq _ _ hcmp))
+
+end E213.Theory.Closed.Nat213
