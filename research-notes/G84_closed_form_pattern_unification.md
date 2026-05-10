@@ -192,13 +192,73 @@ User 직관 정확:
 Foundation level 반복 수정의 이유 명확해짐 — 압축의 일관된 anchor
 구축이 가장 큰 win.
 
+## Update (2026-05-10 — vertical-internal projection 발견)
+
+이번 세션에서 위 thesis 의 정확한 구체화 — **vertical-internal projection**
+이라는 새 종류의 동형성을 발견.
+
+### 4 종류 동형성
+
+ZFC 의 동형성/quotient 처리가 213 에서 분류되는 4 종류:
+
+  1. **수평 (Layer A ↔ Layer B)** — 같은 우주의 다른 표현 사이.
+     예: closed Raw chain ↔ inductive Nat213 (`Nat213Bridge.toRaw_*`).
+  2. **수평 (System A ↔ System B)** — Boolean/Numbering system 의 다른
+     인코딩 선택 사이.  예: `Bool213System.iso`, `NumberingSystem.iso`.
+  3. **수직-외부 (Raw → Lean type)** — Raw 의 boundary projection.
+     예: `Nat213.value : Raw → Nat`, `Nat213Bridge.value_*`.
+  4. **수직-내부 (Raw → Raw 자기-projection)** — ★ **새 발견** ★.
+     같은 우주 안 endomorphism 으로 canonical form 으로 collapse.
+     ZFC 의 quotient (`Quot.mk`) 와 정확히 같은 역할이지만,
+     type/axiom 추가 없이 `Raw → Raw` 한 줄.
+
+### 수직-내부 projection 메타 패턴 (3-domain catalog)
+
+세 도메인에서 동일한 형태로 작동:
+
+| 도메인 | object | projection | base/combine | image predicate |
+|---|---|---|---|---|
+| Nat213 | Raw | `leavesCountRaw` | `one`, `add` | `IsChain r := ∃ k, r = toRaw k` |
+| Bool213 | Raw | `booleanProj` | `T`, `and` | `IsBool213 r := r = T ∨ r = F` |
+| RawCut | Raw → Raw → Raw | `cutBooleanProj` | pointwise | `IsBoolValued cx := ∀ m k, cx m k ∈ {T, F}` |
+
+세 도메인 모두 같은 세 정리 (모두 PURE, ∅-axiom):
+
+  - **closure**:    projection r 이 항상 image 안.
+  - **idempotence**: `projection² = projection`.
+  - **image-fixed-point ↔**: `projection r = r ↔ image predicate r`.
+
+### Lean module 위치
+
+- `lean/E213/Theory/Closed/Nat213.lean` — leavesCountRaw + chain identity.
+- `lean/E213/Theory/Closed/Nat213Bridge.lean` — `leavesCountRaw_chain`,
+  `_idempotent`, `_id_iff_isChain`, `value_leavesCountRaw_general`.
+- `lean/E213/Theory/Closed/Bool213.lean` — booleanProj + `_isBool`,
+  `_idempotent`, `_id_iff_isBool213`.
+- `lean/E213/Theory/Closed/RawCut.lean` — cutBooleanProj +
+  `_isBool`, `_idempotent`, `_id_iff_isBool` (pointwise rawCutEq).
+
+### 해석 — funext / Quot.sound / propext 의 자리
+
+ZFC 에서 외부 axiom 이 들어가던 자리:
+
+  - **funext / propext** → pointwise eq (`rawCutEq`, `cutEq`, `eqPW`).
+    함수 비교 → 점별 Raw eq.  RawCut 의 `cutBooleanProj_idempotent`
+    가 함수공간에서 시범.
+  - **Quot.sound** (quotient projection) → vertical-internal projection.
+    `Quot.mk : α → α/~` 의 역할을 `Raw → Raw` endomorphism 한 줄이.
+    image 가 실제 동치류 대표 (canonical form).
+
+이 두 대체가 합쳐지면 ZFC 의 모든 quotient/equivalence 작업이
+∅-axiom 으로 표현됨 — funext 도 propext 도 Quot.sound 도 필요 없음.
+
 ## See also
 
 - `lean/E213/Lib/Math/Real213/CutPoset.lean`
 - `lean/E213/Lib/Math/Analysis/CauchyComplete.lean`
 - `lean/E213/Lib/Math/Analysis/DyadicSearch/DyadicTrajectory.lean`
 - `lean/E213/Lib/Math/Real213/MinimumProposition.lean`
-- `lean/E213/Theory/Closed/*` (이번 세션)
+- `lean/E213/Theory/Closed/*` (이번 세션 + 후속)
 - `lean/E213/Lib/Math/AxiomSystems/ClassicalAnalysisCompletenessAsLens.lean`
 - `seed/RESOLUTION_LIMIT_SPEC.md` §1
 - `research-notes/G83_lens_equality_refactor_strategy.md`
