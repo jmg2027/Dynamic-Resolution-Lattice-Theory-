@@ -47,13 +47,12 @@ def LensTower (α : Type) [HasDistinguishing α] : Nat → Type
   | 0 => α
   | n + 1 => Lens (LensTower α n)
 
--- Note: an iterated `HasDistinguishing (LensTower α n)` instance would
--- need `lensHasDistinguishing` recursively, whose `combine_sym` is
--- DIRTY (Lens-equality requires funext on the combine field).  The
--- LensTower *type* and the HyperTower combination below are PURE;
--- the iterated typeclass instance is intentionally omitted.  Consumers
--- needing kernel-level reasoning at level n use the eqPW companions
--- in `Lens.EqPW` and `Lens.Compose.OnLensImageGeneric`.
+/-- HasDistinguishing instance for LensTower α n — recursive. -/
+def lensTowerHasDistinguishing (α : Type) [d : HasDistinguishing α] :
+    (n : Nat) → HasDistinguishing (LensTower α n)
+  | 0 => d
+  | n + 1 => lensHasDistinguishing (LensTower α n)
+              (d := lensTowerHasDistinguishing α n)
 
 /-- HyperTower α n := Nat → LensTower α n.  Combining two axes. -/
 def HyperTower (α : Type) [HasDistinguishing α] (n : Nat) : Type :=
