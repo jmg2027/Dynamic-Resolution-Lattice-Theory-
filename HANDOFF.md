@@ -1,164 +1,157 @@
-# Session Handoff — DRLT 213
+# Session Handoff — DRLT 213 (2026-05-11)
 
-Branch: `claude/raw-data-demo-W8aVV` (Möbius extension chain +
-∅-axiom marathon under "Lens equality 재정의 strategy" / G83).
+## Branch
+`claude/raw-data-demo-W8aVV` — pushed, up to date with origin.
+Latest: `b5d698be CLOSED_FORM_SPEC: marathon section 갱신`.
 
-## Current state (2026-05-10)
+## What Was Done This Session
 
-### G83 — Lens equality refactor strategy + Phase 1/2 marathon
+### 1. ★ Theory/Closed/* — closed-form pattern unification (4-domain catalog)
 
-**Phase 1**: ∅-axiom EqPW infrastructure in `lean/E213/Lens/EqPW.lean`:
-  - `Lens.eqPW L M` — pointwise Lens equality (avoids funext-by-design
-    on the combine field — the canonical Cat 1 Quot.sound source)
-  - `eqPW_refl` / `eqPW_symm` / `eqPW_trans` — equivalence
-  - `eqPW_view_a` / `eqPW_view_b` — base view bridges
-  - `eqPW_view_of_sym` — full view bridge under symmetric combine
-  - `Lens.fold_slash_eqPW` — fold/slash compat for eqPW sym (Lens β codomain)
-  All ∅-axiom verified via `#print axioms`.
+Vertical-internal projection 메타 패턴 4개 도메인 위 작동:
 
-Strategy doc: `research-notes/G83_lens_equality_refactor_strategy.md`
+| domain | object | projection | Lean module |
+|---|---|---|---|
+| Nat213 | Raw | leavesCountRaw | Theory/Closed/Nat213Bridge |
+| Bool213 | Raw | booleanProj | Theory/Closed/Bool213 |
+| RawCut | Raw²→Raw | cutBooleanProj | Theory/Closed/RawCut |
+| CauchyCutSeq | structure | cauchyProj | Lib/Math/Analysis/CauchyProj |
 
-**Phase 2**: 11 PURE conversions + 4 PURE eqPW companions + 2 partial
-fixes.  Marathon progress: 164 → ~120 real DIRTY (~27% reduction).
-See `STRICT_ZERO_AXIOM.md` for the per-theorem catalog.
+각 도메인 위 4 정리: closure + idempotence + boundary commutativity +
+fixed-point ↔ image.  CauchyProj 의 정리들은 모두 `rfl`.
 
-Notable PURE wins:
-  - `SemanticAtom.raw_initial`, `isLensExpressible_iff_foldStructured`
-  - `Morphism.FoldStructured.{fold_structured_lens_expressible,
-       lens_expressible_iff_fold_structured}`
-  - `Lattice.IndexedJoin.iProdLens_view`,
-    `iProdLens_refines_each` (pointwise refactor)
-  - `Compose.OnLens.{lensUniversalMorphism, _a, _b}` (typeclass bypass)
-  - `Cauchy.pointwise_limit_match`
-  - `Characterisation.Core.R4_conj_unique_of_surjective`
+### 2. ★ ChainToCut bridge — Closed Nat213 → Real213 cut 우주
 
-### Möbius extension chain (2026-05-09 — base, unchanged)
+`lean/E213/Lib/Math/Real213/ChainToCut.lean` (13 PURE):
 
-`lean/E213/Theory/Nat213/` + `Theory/Tower/` + `Lib/Math/
-UniverseChain/MobiusChain.lean` — ~115 ∅-axiom theorems
-extending the UniverseChain into the algebraic-geometric face
-of 213.
+| Real213 cut 연산 | Bridge 정리 |
+|---|---|
+| `cutSum` (add) | `cutSum_chainToCut` |
+| `cutMul` (mul) | `cutMul_chainToCut` |
+| `cutLe` (≤) | `cutLe_chainToCut_iff` |
+| `cutMax` (LUB) | `cutLe_cutMax_chainToCut_iff` |
+| `cutMin` (GLB) | `cutLe_cutMin_chainToCut_iff` |
 
-The chain *atomicity → Möbius P → pentagonal closure → SL(2,F_5)
-≅ 2I → CRT decomposition* is **rigorously closed** in 12 steps
-(extending the original 5-step UniverseChain).
+closed-Raw 의 add/mul/order/lattice 모두 Real213 cut 우주로 lift.
+Theory/Closed/* 가 압축 도구임 입증.
 
-### What's proven (∅-axiom)
+### 3. Bridge composition (ChainCauchy)
 
-**Steps 1–5** (existing UniverseChain — unchanged):
-  * Atomicity → 5 → (NS=3, NT=2) → recursion → N_U = 5²⁵
-  * `Lib/Math/UniverseChain/Synthesis.lean` bundle
+`Lib/Math/Analysis/ChainCauchy.lean` (3 PURE, all rfl):
+`chainCauchyCutSeq r := constCauchyCutSeq (chainToCut r)`.
+ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 
-**Steps 6–12** (this session — Möbius extension):
-  * **Step 6** (G70): Raw + Nat213 ctor count = (NS, NT, d)
-    File: `Theory/Nat213/AtomicityCorrespondence.lean` (5 thm)
-  * **Step 7** (G74-75): 1 = glue = NS-NT = det(P)
-    File: `Theory/Nat213/OneAsGlue.lean` (14 thm)
-  * **Step 8** (G77): Lucas seeds atomicity (L_0=NT, L_1=NS, L_2=7)
-    File: `Theory/Nat213/RotationGeometry.lean` (25 thm — also covers 9)
-  * **Step 9** (G78): Pentagonal closure P^10 ≡ I (mod 5)
-    Same file
-  * **Step 10** (G79): SL(2,F_5) ≅ 2I, K_{3,2}^{(2)} cohomology
-    File: `Theory/Nat213/AlgebraicGeometry.lean` (17 thm)
-  * **Step 11** (G80): Δ⁴ ⊥ K_{3,2}^{(2)}: χ sum = -(NS·NT)
-    Same file
-  * **Step 12** (G81): CRT (mod 5, mod 2) = pentagon × triangle
-    Same file
+### 4. Tier 5 spec 문서 (`seed/CLOSED_FORM_SPEC.md`)
 
-**Foundational (Theory/Nat213 type + lenses)**:
-  * `Theory/Nat213/Core.lean`: Nat213 inductive type (Peano ℕ_+,
-    no zero), no_absorbing_element, no_closed_subtraction (12 thm)
-  * `Theory/Nat213/Lenses.lean`: Lens classification, fractal
-    atom = Nat213.one, slash → add (G65-G73 captured) (19 thm)
-  * `Theory/Tower/NatPairToInt.lean`: 2-axis ℕ²→ℤ (12 thm)
-  * `Theory/Tower/NatTripleToZ2.lean`: 3-axis Eisenstein (6 thm)
-  * `Theory/Tower/NatPairToQPos.lean`: ℚ_+ via mult quotient (4 thm)
+정식 spec 문서:
+  - 4-domain meta-pattern catalog
+  - ChainToCut bridge table
+  - Bridge composition
+  - **8-pattern propext-avoidance trick set** (재사용)
+  - Marathon 사례 + 한계 catalog
+  - Future work
 
-### Headline ∅-axiom theorems
+`seed/INDEX.md` directory layout 에 추가.
 
-  * `Nat213.no_absorbing_element` — 213-native ℕ has no zero
-  * `Nat213.Lenses.lensConstOne_always_one` — fractal atom = one
-  * `Nat213.Lenses.slash_projects_to_add` — addition emerges
-  * `Nat213.AtomicityCorrespondence.total_lens_framework` — NS+NT=d
-  * `Nat213.OneAsGlue.mobius_det_eq_ns_minus_nt` — det = glue
-  * `Nat213.RotationGeometry.spiral_starts_at_atomicity` —
-    P · (1, 1) = (NS, NT)
-  * `Nat213.RotationGeometry.p10_mod_5_is_identity` — pentagonal
-    closure
-  * `Nat213.RotationGeometry.triple_seven_synthesis` — Lucas L_2,
-    Mersenne M_3, χ(K_{3,2}^{(2)}) all hit 7 (with sign)
-  * `Nat213.AlgebraicGeometry.algebraic_geometric_core` — SL(2,F_5)
-    = 2I + K_{3,2} cohomology dual + Type D inscription
-  * `Nat213.AlgebraicGeometry.dual_fillings_sum_eq_neg_eisenstein`
-    — χ(Δ⁴) + χ(K_{3,2}^{(2)}) = -(NS·NT)
-  * `Nat213.AlgebraicGeometry.two_closure_structures` — CRT
-    pentagon × triangle
+### 5. Marathon: 14 real DIRTY → PURE in single sprint
 
-## Solid base (won't drift)
+| Module | # | Tricks |
+|---|---|---|
+| EulerSharperPure.e_partial_neq_third_a | 1 | 3+4+6 |
+| CutLatticeEq.{cutMax,cutMin}_cutLe_* | 6 | 5 (Bool helpers) |
+| CutMulConstConst.cutMul_const_const_* | 2 | 2+8 |
+| ValidCutOps.{cutMax,cutMin,cutSum}_valid | 4 | 5+2+8 |
+| CutMidMono.cutLe_cutMid_b_at | 1 | 2+6+8 |
 
+**~120 → ~106 real DIRTY** (이번 sprint -14).
+
+### 6. Propext-avoidance trick set (8 patterns, future Claude anchor)
+
+  1. `rw [Iff_lemma]` → `Iff.trans (lemma) ?_`
+  2. `rw [Iff_lemma] at hyp` → `(Iff_lemma _ _).mp hyp` 직접
+  3. `rw [Eq_lemma] at hyp` → `Eq_lemma ▸ hyp` (term-mode)
+  4. `▸` motive 모호 → `calc` 으로 명시 step
+  5. `Bool.{and,or}_eq_true` Iff → 직접 Bool match helpers
+  6. Nat-core leak → `E213.Tactic.Nat213.*` helpers
+  7. `decide_eq_true_iff` → 직접 `Iff.intro` 양방향
+  8. `by_cases` / `omega` / `simp` / `congr 1` → cases / match / manual
+
+## Cumulative State
+
+- **2519 PURE / ~106 real DIRTY / 0 sealed** (estimate after marathon)
+- 4-domain vertical-internal projection meta-pattern fully cataloged
+- ChainToCut bridge: closed-Raw 산술이 Real213 cut 우주에서 그대로 작동
+- 정식 Tier 5 spec (`seed/CLOSED_FORM_SPEC.md`) anchor 확립
+
+## Open Problems (Priority Order)
+
+### 1. Marathon: deeper propext leaks (~106 잔존)
+한계 사례 — surface trick set 으로 부분만 해결.  필요 deeper investigation:
+  - `Real213.CutSumGeneral` (4) — Quot.sound 제거됐지만 propext 잔존
+  - `Real213.CutMidMono.cutLe_a_cutMid_at` — Nat.lt_of_not_le 의심
+  - `Cauchy.GenericFamily.*` — funext-by-design (eqPW refactor)
+  - `Cauchy.WallisSharper.wallis_sharper_lower` — omega + by_cases chain
+  - `Theory.Internal.Raw.CmpIndependence` (9) — Raw transport
+  - 다양한 deeper sources
+
+다음 step: bisection 으로 정확한 propext source identify, 9번째 trick
+추가 또는 G83 eqPW strategic refactor.
+
+### 2. DRLT Validation Standard closure
+"precision theorem AND falsifier 같은 observable 위" — 명시 closure
+미달.  하나의 observable 에 둘 다 닫힌 사례 필요.
+
+### 3. ChainToCut 확장 (G84 Tier 4 후속)
+- Cauchy seq 위 cutSum/cutMul (sequence-level bridge).
+- DyadicTrajectory ↔ ChainToCut 연결.
+
+### 4. Lens 5번째 도메인 (eqPW 일반화)
+funext-by-design 자리들 (~18 modules) 의 eqPW refactor.
+
+## Unresolved from This Session
+
+- WallisSharper omega + by_cases chain → propext 잔존, 부분 fix 후 revert.
+- CutMidMono.cutLe_a_cutMid_at → Quot.sound 제거됐지만 propext 잔존.
+- BracketCauchyModulus → 부분 fix 후 revert (deeper dependency leak).
+- GenericFamily.projectionLens_view → funext required, refactor scope 큼.
+
+## Next Experiment
+
+Marathon 계속.  Concrete next:
+  - propext bisection on CutMidMono.cutLe_a_cutMid_at
+  - 또는 단순 한 propext 만 있는 다른 module batch
+
+## File Map
+
+새 파일 / 확장:
 ```
-[pointing → atomicity → d = 5]                   ✅ proven (Steps 1-5)
-[Möbius P encodes atomicity]                      ✅ proven (Step 7)
-[Lucas L_0=NT, L_1=NS]                           ✅ proven (Step 8)
-[Pentagonal closure P^10 ≡ I mod 5]              ✅ proven (Step 9)
-[SL(2,F_5) ≅ 2I = order 120]                     ✅ proven (Step 10)
-[CRT (mod 5, mod 2) = pentagon × triangle]       ✅ proven (Step 12)
+Theory/Closed/Nat213Bridge.lean      ← extended (leavesCountRaw fixed-point)
+Theory/Closed/Bool213.lean           ← extended (booleanProj + boolValue + ↔)
+Theory/Closed/Nat213.lean            ← extended (value_numeral)
+Theory/Closed/RawCut.lean            ← extended (cutBooleanProj + cutBoolValue)
+Lib/Math/Real213/ChainToCut.lean     ← NEW (chain → cut bridge, 13 PURE)
+Lib/Math/Analysis/CauchyProj.lean    ← NEW (4th domain, 7 PURE all rfl)
+Lib/Math/Analysis/ChainCauchy.lean   ← NEW (composition, 3 PURE all rfl)
+seed/CLOSED_FORM_SPEC.md             ← NEW (Tier 5 spec)
+seed/INDEX.md                        ← updated
+research-notes/G84_*.md              ← extended
 ```
 
-The Möbius extension is **rigorously closed** at the
-algebraic-geometric layer.  Beyond this, several directions
-remain open (icosian over ℤ[φ], modular curve X(5),
-DRLT physics connection).
+Marathon (DIRTY → PURE):
+```
+Cauchy/EulerSharperPure.lean         ← 1 theorem PURE
+Real213/CutLatticeEq.lean            ← 6 PURE (Bool helpers)
+Real213/CutMulConstConst.lean        ← 2 PURE
+Real213/ValidCutOps.lean             ← 4 PURE
+Real213/CutMidMono.lean              ← 1 of 2 PURE
+```
 
-## Pre-merge audit (2026-05-09)
+## Key Anchor Documents
 
-Status: **READY TO MERGE** for the Möbius extension.
+- `seed/CLOSED_FORM_SPEC.md` — Tier 5 정식 spec (이 세션 생성)
+- `research-notes/G84_closed_form_pattern_unification.md` — 탐색 노트
+- `STRICT_ZERO_AXIOM.md` — 전체 PURE/DIRTY catalog (오래됨, 갱신 필요)
+- `CLAUDE.md` boot sequence + ∅-axiom standard
 
-  ✓ `tools/layer_audit.py`: 0 violations / 1160 files
-  ✓ `lake build`: clean (full repo)
-  ✓ Headline theorems: 14/14 ∅-axiom verified
-  ✓ Stale-path sweep: no new stale refs introduced
-  ✓ Working tree clean, branch ahead of origin (push pending)
-  ✗ Pre-existing 98 broken catalog imports (not from this session)
-
-The 98 catalog/book broken refs are pre-existing legacy artifacts
-from prior reorganizations; they pre-date this session's work
-and are out of scope.
-
-## Research notes (G65-G82)
-
-17 notes documenting the discovery chain:
-  * G65–G68: Nat213 type + lens framework
-  * G69–G73: Addition emergence + axis-generator folds
-  * G74–G77: 1 = glue + Lucas/Mersenne 7-triple
-  * G78: Pentagonal closure (★ session-defining)
-  * G79: SL(2,F_5) ≅ 2I + cohomology
-  * G80: Dual fillings, c=2 doubling
-  * G81: CRT decomposition
-  * G82: Chain summary (compression / navigation)
-
-## Open questions (next sessions)
-
-1. **Modular curve X(5) explicit formalization** (Klein
-   icosahedral equation territory)
-2. **5-perspective formal definition** (G74 conjecture: any 5
-   points → (NS, NT) split manifold)
-3. **Type E (Icosian over ℤ[φ])** — formalize properly
-4. **DRLT physics connection** — Lorentz boost ↔ 1-glue,
-   spacetime as pentagonal closure
-5. **Higher cyclotomic extensions** — ℤ[ζ_n] for n > 5 in 213
-6. **Catalog cleanup** — fix the 98 pre-existing broken refs
-7. **Pell-Fib general theorem** — prove the recurrence
-   `L_{k+1} = 3·L_k - L_{k-1}` for arbitrary k
-
-## Lean library structure (concentric rings)
-
-Per `lean/E213/ARCHITECTURE.md`:
-  * Term/    (0-axiom mechanism)
-  * Theory/  (axiom + uniqueness; **NEW: Nat213/, Tower/**)
-  * Lens/    (catamorphism algebra)
-  * Meta/    (metatheorems)
-  * Lib/     (math + physics — **NEW: UniverseChain/MobiusChain.lean**)
-  * App/     (user-facing)
-
-Imports flow leftward only.  Layer audit clean.
+다음 세션: boot sequence 후 `seed/CLOSED_FORM_SPEC.md` 확인 → propext
+leak 만나면 8 trick 적용 → marathon 계속.
