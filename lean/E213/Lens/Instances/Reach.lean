@@ -200,6 +200,20 @@ Trick: induction with strong invariant — r n ≠ Raw.a for n ≥ 1
 + universalMorphism r n = n.  Then slash Raw.a (r n) (a ≠ rn).
 -/
 
+/-- Inline 213-native max_comm helper (avoiding Nat.max_comm propext leak). -/
+private theorem nat_max_comm_pure (a b : Nat) : Nat.max a b = Nat.max b a := by
+  rcases Nat.le_total a b with hab | hba
+  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
+    rw [if_pos hab]
+    by_cases h : b ≤ a
+    · rw [if_pos h]; exact Nat.le_antisymm h hab
+    · rw [if_neg h]
+  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
+    rw [if_pos hba]
+    by_cases h : a ≤ b
+    · rw [if_pos h]; exact Nat.le_antisymm hba h
+    · rw [if_neg h]
+
 /-- Helper: result of Raw.slash differs from Raw.a (depth-based proof). -/
 private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
     Raw.slash x y h ≠ Raw.a := by
@@ -210,12 +224,15 @@ private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
     apply Raw.fold_slash
     intro u v
     show 1 + max u v = 1 + max v u
-    rw [Nat.max_comm]
+    exact congrArg (1 + ·) (nat_max_comm_pure u v)
   rw [hslash] at hview
   show False
   have h_a : Lens.depth.view Raw.a = 0 := rfl
   rw [h_a] at hview
-  omega
+  -- hview : 1 + max ... = 0.  Use Nat.add_comm to get succ form.
+  rw [Nat.add_comm 1 (max _ _)] at hview
+  -- hview : Nat.succ (max ...) = 0 — impossible
+  cases hview
 
 end E213.Lens.Instances.Reach
 
@@ -245,12 +262,13 @@ private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
     apply Raw.fold_slash
     intro u v
     show 1 + max u v = 1 + max v u
-    rw [Nat.max_comm]
+    exact congrArg (1 + ·) (nat_max_comm_pure u v)
   rw [hslash] at hview
   show False
   have h_b : Lens.depth.view Raw.b = 0 := rfl
   rw [h_b] at hview
-  omega
+  rw [Nat.add_comm 1 (max _ _)] at hview
+  cases hview
 
 end E213.Lens.Instances.Reach
 
