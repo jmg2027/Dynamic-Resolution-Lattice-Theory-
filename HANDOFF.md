@@ -88,11 +88,23 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 ### 1. Marathon: deeper propext leaks (~106 잔존)
 한계 사례 — surface trick set 으로 부분만 해결.  필요 deeper investigation:
   - `Real213.CutSumGeneral` (4) — Quot.sound 제거됐지만 propext 잔존
-  - `Real213.CutMidMono.cutLe_a_cutMid_at` — Nat.lt_of_not_le 의심
-  - `Cauchy.GenericFamily.*` — funext-by-design (eqPW refactor)
+  - `Real213.CutMidMono.cutLe_a_cutMid_at` — `Nat.sub_le_sub_left` 또는
+    `Nat.lt_of_not_le` 의심.  PURE Nat sub 시리즈 helpers 필요.
+  - `Cauchy.GenericFamily.*` — funext-by-design (Lens combine_sym 자리)
   - `Cauchy.WallisSharper.wallis_sharper_lower` — omega + by_cases chain
   - `Theory.Internal.Raw.CmpIndependence` (9) — Raw transport
-  - 다양한 deeper sources
+  - `Lens.Instances.{Cauchy, FunctionSpace, Reach}` — funext-by-design
+    (combine_sym field) 또는 `propAsDistinguishing` 의 propext-by-design
+  - `Lens.SemanticAtom.*` (~23 DIRTY) — propext-by-design "atom of
+    meaning" 정리들
+
+### 2. Marathon 한계 분석
+이번 sprint 끝에서 진단:
+  - **Lib/Math/Real213/*** 거의 모두 PURE (CutMidMono 1, CutSumGeneral 4 만 잔존)
+  - **Lib/Math/Cauchy/*** 1-4 modules DIRTY 잔존 (BracketCauchyModulus,
+    GenericFamily, WallisSharper, EulerSharperPure 처리 완료)
+  - **Lens/*** 깊은 refactor 필요 (eqPW or propAsDistinguishing 재정의)
+  - **SemanticAtom**, **Theory.Internal.Raw.CmpIndependence** by-design
 
 다음 step: bisection 으로 정확한 propext source identify, 9번째 trick
 추가 또는 G83 eqPW strategic refactor.
