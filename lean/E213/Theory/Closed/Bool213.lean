@@ -142,4 +142,34 @@ theorem booleanProj_idempotent (r : Raw) :
   · rw [h]; exact booleanProj_T
   · rw [h]; exact booleanProj_F
 
+/-! ### Fixed-point 특성화 — Bool213 image 가 정확히 booleanProj 의 fixed point
+
+세 도메인 (Nat213, Bool213, RawCut) 위 vertical-internal projection 이
+모두 동일 메타 패턴: closure + idempotence + image-fixed-point ↔.
+이 section 이 Bool213 쪽 ↔ 형태 완성. -/
+
+/-- Raw r 이 Bool213 image 안 — `r = T` 또는 `r = F`. -/
+def IsBool213 (r : Raw) : Prop := r = T ∨ r = F
+
+/-- Bool213 면 booleanProj 의 fixed point. -/
+theorem booleanProj_id_of_isBool213 (r : Raw) (h : IsBool213 r) :
+    booleanProj r = r := by
+  rcases h with hT | hF
+  · rw [hT]; exact booleanProj_T
+  · rw [hF]; exact booleanProj_F
+
+/-- 역방향: booleanProj 의 fixed point 면 Bool213. -/
+theorem isBool213_of_booleanProj_id (r : Raw) (h : booleanProj r = r) :
+    IsBool213 r := by
+  rcases booleanProj_isBool r with hT | hF
+  · left; rw [← h]; exact hT
+  · right; rw [← h]; exact hF
+
+/-- **Fixed-point 특성화**: booleanProj 가 r 을 그대로 두는 것 ↔ r 이
+    Bool213 ({T, F}).  Nat213 의 `leavesCountRaw_id_iff_isChain`,
+    RawCut 의 `cutBooleanProj_id_iff_isBool` 와 평행. -/
+theorem booleanProj_id_iff_isBool213 (r : Raw) :
+    booleanProj r = r ↔ IsBool213 r :=
+  ⟨isBool213_of_booleanProj_id r, booleanProj_id_of_isBool213 r⟩
+
 end E213.Theory.Closed.Bool213
