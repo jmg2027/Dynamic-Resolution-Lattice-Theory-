@@ -50,14 +50,18 @@ open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Instances.Reach
 
-/-- **Universal morphism Raw → (α → β)** via function-space instance.
-    Elements of Raw are mapped to functions (α → β). -/
-def funUniversalMorphism (α β : Type) [Inhabited α]
-    [HasDistinguishing β] : Raw → (α → β) :=
-  @universalMorphism (α → β) (funHasDistinguishing α β)
+/-- **Universal morphism Raw → (α → β)** — defined directly via
+    `Raw.fold`, bypassing the DIRTY `funHasDistinguishing` typeclass
+    (whose `combine_sym` field uses funext on the function-space).
+    Definitionally equivalent to `@universalMorphism (α → β)
+    (funHasDistinguishing α β)` but ∅-axiom. -/
+def funUniversalMorphism (α β : Type) [d_β : HasDistinguishing β] :
+    Raw → (α → β) :=
+  Raw.fold (fun _ => d_β.a) (fun _ => d_β.b)
+           (fun f g x => d_β.combine (f x) (g x))
 
 /-- **Concrete instance**: universal morphism for Bool → Bool. -/
 def boolFunUniversal : Raw → (Bool → Bool) :=
-  @funUniversalMorphism Bool Bool _ boolHasDistinguishing
+  @funUniversalMorphism Bool Bool boolHasDistinguishing
 
 end E213.Lens.Instances.FunctionSpace
