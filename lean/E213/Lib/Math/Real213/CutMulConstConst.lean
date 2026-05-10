@@ -73,8 +73,8 @@ theorem cutMul_const_const_forward (a b c d m k : Nat)
     constCut (a * c) (b * d) m k = true := by
   change cutMulOuter (constCut a b) (constCut c d) k m
         ((m+1)*(k+1)) ((m+1)*(k+1)) = true at h
-  rw [cutMulOuter_eq_true_iff] at h
-  obtain ⟨m1, _, m2, _, hcx, hcy, hmul⟩ := h
+  obtain ⟨m1, _, m2, _, hcx, hcy, hmul⟩ :=
+    (cutMulOuter_eq_true_iff _ _ _ _ _ _).mp h
   have h_bm1 : a * k ≤ b * m1 := of_decide_eq_true hcx
   have h_dm2 : c * k ≤ d * m2 := of_decide_eq_true hcy
   show decide (a * c * k ≤ b * d * m) = true
@@ -91,7 +91,10 @@ theorem cutMul_const_const_forward (a b c d m k : Nat)
   have h_combine : a * c * (k * k) ≤ b * d * (m * k) :=
     Nat.le_trans h_prod h_step
   cases k with
-  | zero => simp
+  | zero =>
+      show a * c * 0 ≤ b * d * m
+      rw [Nat.mul_zero]
+      exact Nat.zero_le _
   | succ j =>
     -- a*c*(k*k) = (a*c*k)*k, b*d*(m*k) = (b*d*m)*k.  Cancel right k.
     have h_lhs_assoc : a * c * ((j + 1) * (j + 1)) = a * c * (j + 1) * (j + 1) :=
