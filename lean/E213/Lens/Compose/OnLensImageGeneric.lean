@@ -74,16 +74,11 @@ open E213.Theory E213.Lens
 open E213.Lens.SemanticAtom
 open E213.Lens.Compose.OnLens
 
-/-- **Generic tower collapse**: for any `α` with HasDistinguishing,
+/-- **Generic tower collapse** for any `α` with HasDistinguishing,
     the Lens-on-Lens universalMorphism factors through α via
-    constLens.
-
-    Generalizes `LensOnLensImage` (Bool case) — regardless of type α,
-    the image of `Lens α` is the constLens pullback of the image of
-    `α`. -/
-/-- **Generic tower collapse** stated pointwise (eqPW) — the strict
-    `=` form would require funext on the `Lens α` combine field.
-    Uses `Lens.view_unique_eqPW` with `lensCombineGeneric_comm_eqPW`
+    constLens.  Stated pointwise (eqPW) — the strict `=` form would
+    require funext on the `Lens α` combine field.  Uses
+    `Lens.view_unique_eqPW` with `lensCombineGeneric_comm_eqPW`
     and `lensCombineGeneric_eqPW_cong`. -/
 theorem lensUniversalMorphism_factors_generic_eqPW
     (α : Type) [d : HasDistinguishing α] (r : Raw) :

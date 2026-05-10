@@ -1,4 +1,4 @@
-import E213.Lens.Universal.QuotLens
+import E213.Lens.LensCore
 import E213.Lens.Lattice.IndexedJoin
 import E213.Term.Tactic.Nat213
 
@@ -149,7 +149,7 @@ end E213.Lens.Instances.Cauchy
 
 namespace E213.Lens.Instances.Cauchy
 
-open E213.Theory E213.Lens E213.Lens.Universal.QuotLens
+open E213.Theory E213.Lens
 
 /-- **Tail congruence**: minimum slash-congruence starting from the
     tail of sequence xs.  All tail elements (xs m, xs k) for m, k ≥ N
@@ -172,33 +172,16 @@ theorem tailCong_slash_cong (xs : Nat → Raw) (N : Nat)
     TailCong xs N (Raw.slash x y hxy) (Raw.slash x' y' hx'y') :=
   TailCong.slash_cong hxy hx'y' hxx' hyy'
 
-/-- **Limit Lens**: the universalLens of TailCong is the limit Lens of
-    the sequence.  Integration of Q37.3 + Cauchy completeness. -/
-def limitLens (xs : Nat → Raw) (N : Nat) : Lens (Raw → Prop) :=
-  universalLens (TailCong xs N)
+-- Note: a `limitLens` was previously defined here as the
+-- `universalLens (TailCong xs N) : Lens (Raw → Prop)`.  Removed under
+-- the "design-by-funext/propext 금지" directive — `Raw → Prop` codomain
+-- requires propext for equality.  Use `TailCong xs N` directly as a
+-- relation; the universal-property style theorems are restated as
+-- relation lemmas if needed.
 
-/-- **Kernel of limitLens = TailCong**.  Direct consequence of
-    universalLens. -/
-theorem limitLens_kernel (xs : Nat → Raw) (N : Nat) (r r' : Raw) :
-    (limitLens xs N).view r = (limitLens xs N).view r'
-      ↔ TailCong xs N r r' := by
-  apply universalLens_kernel_eq_E
-  · exact fun x => TailCong.refl x
-  · exact fun _ _ h => TailCong.symm h
-  · exact fun _ _ _ h1 h2 => TailCong.trans h1 h2
-  · exact fun _ _ _ _ hxy hx'y' h1 h2 =>
-      TailCong.slash_cong hxy hx'y' h1 h2
-
-/-- **Tail collapse**: all tail elements (xs m, xs k) (m, k ≥ N)
-    form a single class under limitLens.  Core expression of Cauchy
-    completeness. -/
-theorem limitLens_tail_collapse (xs : Nat → Raw) (N : Nat)
-    (m k : Nat) (hm : m ≥ N) (hk : k ≥ N) :
-    (limitLens xs N).view (xs m) = (limitLens xs N).view (xs k) :=
-  (limitLens_kernel xs N (xs m) (xs k)).mpr (TailCong.tail_eq m k hm hk)
-
-/-- TailCong ⊆ N.equiv (helper for universal property). -/
-private theorem tailCong_implies_equiv {α : Type} (N : Lens α)
+/-- TailCong ⊆ N.equiv: any sym-combine Lens N that collapses the tail
+    of `xs` agrees with TailCong on every related pair. -/
+theorem tailCong_implies_equiv {α : Type} (N : Lens α)
     (hNsym : ∀ u v, N.combine u v = N.combine v u)
     (xs : Nat → Raw) (M : Nat)
     (hCollapse : ∀ m k, m ≥ M → k ≥ M → N.equiv (xs m) (xs k))
@@ -212,19 +195,5 @@ private theorem tailCong_implies_equiv {α : Type} (N : Lens α)
   | slash_cong hxy hx'y' _ _ ih1 ih2 =>
       exact E213.Lens.Algebra.Congruence.Lens.equiv_slash_congruence
         N hNsym _ _ _ _ hxy hx'y' ih1 ih2
-
-/-- **Universal property of limitLens (least tail-collapsing Lens)**:
-    if any Lens N (with symmetric combine) collapses the tail, then
-    limitLens refines N.  That is, limitLens is the finest
-    tail-collapsing Lens — the universal characterization of the limit
-    Lens of a Cauchy sequence. -/
-theorem limitLens_is_least {α : Type} (N : Lens α)
-    (hNsym : ∀ u v, N.combine u v = N.combine v u)
-    (xs : Nat → Raw) (M : Nat)
-    (hCollapse : ∀ m k, m ≥ M → k ≥ M → N.equiv (xs m) (xs k)) :
-    (limitLens xs M).refines N := by
-  intro r r' h
-  have hTC : TailCong xs M r r' := (limitLens_kernel xs M r r').mp h
-  exact tailCong_implies_equiv N hNsym xs M hCollapse r r' hTC
 
 end E213.Lens.Instances.Cauchy

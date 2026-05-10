@@ -1,95 +1,22 @@
-import E213.Lens.Universal.QuotLens
+import E213.Lens.LensCore
+import E213.Theory.Raw.Fold
+import E213.Theory.Raw.Rec
 import E213.Lens.Lattice.JoinEquiv
 
 /-!
-# IndexedJoinLens: join of an arbitrary indexed family
+# IndexedJoinLens: indexed-product (meet) Lens
 
-If `JoinLens` is the binary join, this is the join of an arbitrary
-family `{L_i}_{i ∈ I}`.
+The indexed *meet* — `iProdLens F` — over an arbitrary family
+`{L_i}_{i ∈ I}`.  Codomain: dependent function space `(i : ι) → β i`.
 
-## Core
+The corresponding indexed *join* (`iJoinLens`) was removed under the
+"design-by-funext/propext 금지" directive: it was constructed via
+`universalLens (IJoinEquiv F) : Lens (Raw → Prop)` whose kernel
+equality required propext + funext on Raw → Prop.
 
-`IJoinEquiv F` (F : ι → Σ α, Lens α): least slash-congruence
-containing each L_i.equiv, for an arbitrary family.
-
-`iJoinLens F := universalLens (IJoinEquiv F)`: concrete Lens
-realizing the indexed join.
-
-For a finite family the result equals iterated binary join.
-Provides new expressiveness for infinite families.
+`IJoinEquiv` itself (the relation) was kept in `Lattice.JoinEquiv`
+since it's an inductive Prop, not propext-tainted.
 -/
-
-namespace E213.Lens.Lattice.IndexedJoin
-
-open E213.Theory E213.Lens
-open E213.Lens.Lattice.JoinEquiv E213.Lens.Universal.QuotLens
-
-/-- Indexed join equivalence: smallest slash-congruence containing
-    each L_i.equiv, for an arbitrary family of Lenses. -/
-inductive IJoinEquiv {ι : Type} (F : ι → (α : Type) × Lens α) :
-    Raw → Raw → Prop where
-  | ofL (i : ι) :
-      (F i).2.equiv x y → IJoinEquiv F x y
-  | refl (x : Raw) : IJoinEquiv F x x
-  | symm : IJoinEquiv F x y → IJoinEquiv F y x
-  | trans : IJoinEquiv F x y → IJoinEquiv F y z → IJoinEquiv F x z
-  | slash_cong (hxy : x ≠ y) (hx'y' : x' ≠ y') :
-      IJoinEquiv F x x' → IJoinEquiv F y y' →
-      IJoinEquiv F (Raw.slash x y hxy) (Raw.slash x' y' hx'y')
-
-/-- **Concrete indexed join Lens**: universalLens of IJoinEquiv. -/
-def iJoinLens {ι : Type} (F : ι → (α : Type) × Lens α) :
-    Lens (Raw → Prop) := universalLens (IJoinEquiv F)
-
-/-- **kernel = IJoinEquiv**.  Direct consequence of universalLens. -/
-theorem iJoinLens_kernel {ι : Type} (F : ι → (α : Type) × Lens α)
-    (r r' : Raw) :
-    (iJoinLens F).view r = (iJoinLens F).view r'
-      ↔ IJoinEquiv F r r' := by
-  apply universalLens_kernel_eq_E
-  · exact fun x => IJoinEquiv.refl x
-  · exact fun _ _ h => IJoinEquiv.symm h
-  · exact fun _ _ _ h1 h2 => IJoinEquiv.trans h1 h2
-  · exact fun _ _ _ _ hxy hx'y' h1 h2 =>
-      IJoinEquiv.slash_cong hxy hx'y' h1 h2
-
-/-- **Each L_i refines iJoinLens**: all L_i in the family have
-    iJoinLens as a common upper bound. -/
-theorem each_refines_iJoinLens {ι : Type} (F : ι → (α : Type) × Lens α)
-    (i : ι) :
-    (F i).2.refines (iJoinLens F) := by
-  intro r r' h
-  show (iJoinLens F).view r = (iJoinLens F).view r'
-  rw [iJoinLens_kernel F r r']
-  exact IJoinEquiv.ofL i h
-
-/-- IJoinEquiv → N.equiv (helper for universal property). -/
-private theorem ijoin_implies_N {ι : Type} {γ : Type}
-    (F : ι → (α : Type) × Lens α) (N : Lens γ)
-    (hNsym : ∀ u v, N.combine u v = N.combine v u)
-    (hAll : ∀ i, (F i).2.refines N)
-    (r r' : Raw) (h : IJoinEquiv F r r') : N.equiv r r' := by
-  induction h with
-  | ofL i hL => exact hAll i _ _ hL
-  | refl x => exact rfl
-  | symm _ ih => exact ih.symm
-  | trans _ _ ih1 ih2 => exact ih1.trans ih2
-  | slash_cong hxy hx'y' _ _ ih1 ih2 =>
-      exact E213.Lens.Algebra.Congruence.Lens.equiv_slash_congruence
-        N hNsym _ _ _ _ hxy hx'y' ih1 ih2
-
-/-- **Universal property (indexed)**: iJoinLens is the least upper
-    bound.  All L_i refine N + N.combine sym → iJoinLens refines N. -/
-theorem iJoinLens_is_least {ι : Type} {γ : Type}
-    (F : ι → (α : Type) × Lens α) (N : Lens γ)
-    (hNsym : ∀ u v, N.combine u v = N.combine v u)
-    (hAll : ∀ i, (F i).2.refines N) :
-    (iJoinLens F).refines N := by
-  intro r r' h
-  have hJE : IJoinEquiv F r r' := (iJoinLens_kernel F r r').mp h
-  exact ijoin_implies_N F N hNsym hAll r r' hJE
-
-end E213.Lens.Lattice.IndexedJoin
 
 namespace E213.Lens.Lattice.IndexedJoin
 

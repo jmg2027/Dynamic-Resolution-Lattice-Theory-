@@ -14,49 +14,37 @@ import E213.Lens.Morphism
 import E213.Lens.Properties
 import E213.Lens.Refines
 import E213.Lens.SemanticAtom
-import E213.Lens.Universal
+import E213.Lens.EqPW
 
 /-! Spec-as-code entry point for `E213.Lens`.
 
   Lens layer — the Lens algebra.
 
-  ## Chapters (sub-cluster umbrellas)
+  Removed (design-by-funext/propext 금지):
+    * `Lens.Universal` umbrella — `universalLens (Raw → Prop)`
+      construction was propext-by-design; replaced with `Lens.EqPW`
+      (pointwise equality, ∅-axiom).
 
-    * `Lens.AxiomLenses.{Bridges, Core}` — axiom-lens family
-      (Funext / Propext / QuotSound)
-    * `Lens.Characterisation`            — Catalog + Core
-    * `Lens.Compose`                     — composition operators
-      (Factoring, OnLens, ImageMinimum, Morphism, OnLensImage*)
-    * `Lens.Diagonal`                    — diagonal (sq) classification
-      (Collapse / Idempotent / Escalate / Multiply over Bool, Nat, F9)
-    * `Lens.Instances`                   — concrete Lens instances
-      (AB, Bool, Cauchy, Path, Prism, Reach, Subtype, Sum, Swap,
-       ZMod6, …)
-    * `Lens.Kernel`                      — algebraic kernel
-      (CardinalityLB, Congruence, Corresp, FourDistinct, FreeAudit,
-       IdLensEq, Space, SwapInvariant)
-    * `Lens.Lattice`                     — join/meet (Family*,
-      Indexed, Join, JoinEquiv, Lattice, Meet)
-    * `Lens.Leaves`                      — depth-leaf hierarchy
-      (DepthIncomparable, DepthJoin, Mod3, ModNat, RefinesParity)
-    * `Lens.Morphism`                    — morphism shape catalogue
-    * `Lens.Properties`                  — derived predicates
-    * `Lens.Refines`                     — refines preorder
-    * `Lens.Universal`                   — Universal flat / quot lens
+  ## Chapters
+
+    * `AxiomLenses` — axiom-lens family
+    * `Characterisation` — Catalog + Core
+    * `Compose` — composition operators (Factoring, OnLens, ImageMinimum,
+                    Morphism, OnLensImage / OnLensImageGeneric eqPW chains)
+    * `Diagonal` — diagonal (sq) classification
+    * `Instances` — concrete Lens instances
+    * `Algebra` — equational layer (Congruence, IdLensEq, etc.)
+    * `Lattice` — Meet + IndexedJoin (lower-bound)
+    * `Leaves` — depth-leaf hierarchy
+    * `Morphism` — morphism shape catalogue
+    * `Properties` — derived predicates
+    * `Refines` — refines preorder
+    * `EqPW` — pointwise Lens equality (avoids funext-by-design)
 
   ## Top-level
 
-    * `API.lean`            — public surface
-    * `Lens.lean`           — Lens type + view/equiv
-    * `Lens/Initiality.lean`    — initiality of the Lens category
-    * `Lens/SemanticAtom.lean`  — semantic-atom characterisation
-
-  ## Status
-
-  Post-M14 deferred-cluster repair complete: all formerly-deferred
-  10 files (CompoundBool, NegSq, ParityXorIncomparable,
-  ParityXorJoin, RawAChar, BoolSqClassification, SlashCharNotFold,
-  ABRefines, Leaf, ParityCollapseFalse) restored.  `Diagonal.lean`
-  added to host the Collapse/Idempotent classification predicates
-  (formerly in deleted `Math.Diagonal.Classification`).
+    * `API.lean` — public surface
+    * `LensCore.lean` — Lens type + view/equiv
+    * `Initiality.lean` — initiality
+    * `SemanticAtom.lean` — semantic-atom characterisation
 -/
