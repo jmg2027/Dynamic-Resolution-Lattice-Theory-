@@ -173,3 +173,66 @@ theorem booleanProj_id_iff_isBool213 (r : Raw) :
   ⟨isBool213_of_booleanProj_id r, booleanProj_id_of_isBool213 r⟩
 
 end E213.Theory.Closed.Bool213
+
+namespace E213.Theory.Closed.Bool213
+
+open E213.Theory E213.Theory.Internal E213.Theory.Closed
+
+/-! ### Boundary mapping — Bool213 → Lean Bool
+
+Nat213 의 `value : Raw → Nat` 와 평행: Bool 쪽 boundary projection.
+
+`boolValue := Raw.fold true false (·&&·)` — universal-true form,
+모든 leaves 가 `a` 일 때만 true.
+
+성질 (수직-외부 동형성):
+  - `boolValue T = true`, `boolValue F = false`  (base)
+  - `boolValue ∘ booleanProj = boolValue`         (commutativity with vertical-internal)
+
+이게 G84 의 4 종류 동형성 중 #3 (수직-외부, Raw → Lean type) 의 Bool 사례.
+Nat213 의 `value_leavesCountRaw_general` 와 정확히 평행. -/
+
+/-- Boundary mapping — Bool213 universe → Lean Bool.  Universal-true form. -/
+def boolValue : Raw → Bool := Raw.fold true false (· && ·)
+
+theorem boolValue_T : boolValue T = true := rfl
+theorem boolValue_F : boolValue F = false := rfl
+
+/-- 보조: Tree induction — `Tree.fold T F and t` (with α = Raw) 의 값이
+    항상 T 또는 F. -/
+private theorem fold_T_F_and_isBool (t : Tree) :
+    Tree.fold (α := Raw) T F and t = T ∨ Tree.fold (α := Raw) T F and t = F := by
+  induction t with
+  | a => left; rfl
+  | b => right; rfl
+  | slash _ _ _ _ => exact and_isBool _ _
+
+/-- 보조: `and X Y` 의 boolValue 가 곱 — X, Y ∈ {T, F} 가정. -/
+private theorem boolValue_and_of_isBool (x y : Raw)
+    (hx : x = T ∨ x = F) (hy : y = T ∨ y = F) :
+    boolValue (and x y) = (boolValue x && boolValue y) := by
+  rcases hx with hxT | hxF
+  · rcases hy with hyT | hyF
+    · subst hxT; subst hyT; decide
+    · subst hxT; subst hyF; decide
+  · rcases hy with hyT | hyF
+    · subst hxF; subst hyT; decide
+    · subst hxF; subst hyF; decide
+
+/-- **Boundary commutativity**: `boolValue (booleanProj r) = boolValue r`
+    for any Raw r.  수직-외부 동형성 + 수직-내부 projection 의 호환. -/
+theorem boolValue_booleanProj (r : Raw) :
+    boolValue (booleanProj r) = boolValue r := by
+  show boolValue (Tree.fold (α := Raw) T F and r.val)
+     = Tree.fold true false (· && ·) r.val
+  generalize r.val = t
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash x y ihx ihy =>
+      show boolValue (and (Tree.fold _ _ _ x) (Tree.fold _ _ _ y))
+         = ((Tree.fold true false (· && ·) x) && (Tree.fold true false (· && ·) y))
+      rw [boolValue_and_of_isBool _ _ (fold_T_F_and_isBool x) (fold_T_F_and_isBool y),
+          ihx, ihy]
+
+end E213.Theory.Closed.Bool213
