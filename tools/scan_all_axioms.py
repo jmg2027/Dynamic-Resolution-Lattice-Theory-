@@ -111,103 +111,10 @@ def scan_batch(modules, batch_size=50):
     return results
 
 
-SEALED_DIRTY_PREFIXES = (
-    # Bridges/ are intentional Lean ↔ 213 axiom-bridge demonstrations.
-    # Their DIRTY status is by design — sealed metatheoretic cluster,
-    # not imported by 213 core.  Tracked separately from real DIRTY.
-    'E213.Lens.Lens.AxiomLenses.Bridges',
-    # SemanticAtom is Prop-level (propAsDistinguishing, canonicalIffMap,
-    # iff_comm_eq, etc.).  Working with Prop equality intrinsically uses
-    # propext — this is mathematically inherent to the meta-theoretic
-    # "atom of meaning" thesis, not a refactorable propext leak.
-    # Sealed as DIRTY-by-design 2026-05-XX (session 24).
-    'E213.Lens.Lens.SemanticAtom',
-    # Lean-core boundary: items that depend on Nat.lcm/gcd/mod_two
-    # well-founded definitions, or Int operations.  These bring propext
-    # via Lean 4 core's well-founded-recursion proof of total termination.
-    # Refactor would require building 213-native gcd/lcm/Int primitives —
-    # out of scope.  Sealed as Lean-core-boundary by-design.
-    # ModNat.refines_implies_divides + ModNat.gcd_upper_bound (real path
-    # `E213.Lens.Leaves.ModNat`) — `gcd_upper_bound` mentions
-    # `Nat.gcd m k` in its statement (propext via Lean-core gcd
-    # termination); a generic `common_divisor_upper_bound` ∅-axiom
-    # alternative coexists.  `refines_implies_divides` cascades from
-    # `Math.Infinity.leaves_surjective_pos` + `omega` + `Nat.mod_*`.
-    'E213.Lens.Leaves.ModNat',
-    # LensCardinality has 5 DIRTY: 3 from Int operations (signedLens,
-    # treeTower_signed) + 2 from Lens-on-Lens stress (sigma7).  The Int
-    # ones are Lean-core boundary; the others cascade.
-    'E213.Lib.Math.Infinity.LensCardinality',
-    # Catalog previously leaked propext via `signed_R4` (`simp` in
-    # the involution clause); now ∅-axiom (replaced `simp` with
-    # explicit `Int.neg_neg`).  No seal needed.
-    # CardinalityLB.leavesModNat_kernel_neq cascades from ModNat.
-    'E213.Lens.Lens.Kernel.CardinalityLB',
-    # Lens funext-by-design: higher-order Lens equality (Lens (Lens α),
-    # dependent function lenses, Raw → Prop kernels) is intrinsically
-    # pointwise.  Proving Lens equality requires funext on the combine
-    # function field — refactoring would require redefining what "Lens
-    # equality" means.  Sealed as funext-by-design.
-    'E213.Lens.Lens.Compose.OnLens',
-    'E213.Lens.Lens.Lattice.IndexedJoin',
-    'E213.Lens.Lens.Universal.QuotLens',
-    # CanonicalForm + Corresp + Initiality cascade from QuotLens funext.
-    'E213.Lens.Lens.Properties.CanonicalForm',
-    'E213.Lens.Lens.Kernel.Corresp',
-    'E213.Lens.Lens.Initiality',
-    # Lattice family meet/join also funext-bearing (indexed family eq).
-    'E213.Lens.Lens.Lattice.FamilyJoin',
-    'E213.Lens.Lens.Lattice.FamilyMeet',
-    # FoldStructured: fold-shape lens equality needs funext.
-    'E213.Lens.Lens.Morphism.FoldStructured',
-    # Reach.fin3 / Refines.Chain cascade from Lens equality.
-    'E213.Lens.Lens.Instances.Reach',
-    'E213.Lens.Lens.Refines.Chain',
-    # FunctionSpace + Cauchy instances: function-valued Lens.
-    'E213.Lens.Lens.Instances.FunctionSpace',
-    'E213.Lens.Lens.Instances.Cauchy',
-    # `Parity` (real path: `E213.Lens.Instances.Parity`) was previously
-    # sealed because `parityLens_R4_fails` derived `conj = id` via
-    # `funext` to contradict `SwapMatching.conj ≠ id`.  Resolution: the
-    # `conj ≠ id` clause of `SwapMatching` was redefined to the
-    # mathematically-equivalent point-wise `∃ x, conj x ≠ x`, which
-    # is consumed by direct case-split on the witness without funext.
-    # `parityLens_R4_fails` is now ∅-axiom.
-    'E213.Lens.Lens.Instances.EndpointBehavior',
-    'E213.Lens.Lens.Instances.BoundedContext',
-    'E213.Lens.Lens.Instances.CochainEntry',
-    'E213.Lens.Lens.Instances.PointwiseProjection',
-    # Properties cascade
-    'E213.Lens.Lens.Properties.EquivProperties',
-    # E213.Lib.Math.Infinity.Godel: Cantor-style countability /
-    # equipotence proofs use propext intrinsically (Iff between
-    # cardinality propositions; raw_at_most_countable +
-    # raw_equipotent_nat).  Genuinely structural, not facade.
-    'E213.Lib.Math.Infinity.Godel',
-    # DyadicTrajectory: trajectory ≠ exact-value type-distinction
-    # preserved by ∅-axiom (canonical: seed/RESOLUTION_LIMIT_SPEC.md
-    # §1).  propext from Iff chains comparing structural cuts.
-    # Genuinely structural by-design.
-    'E213.Lib.Math.Real213.DyadicTrajectory',
-    # Lean.Elab metaprogramming boundary: command_elab tactics
-    # transitively use the Lean.Elab.Command monad, which depends on
-    # Classical.choice + propext + Quot.sound from Lean 4 core.  This
-    # is a Lean-core API boundary (the Elab framework itself is
-    # Classical), not a 213-fixable issue.  All E213.Tactic.elab*
-    # definitions inherit these axioms from `Lean.Elab.Command`.
-    'E213.Meta.Tactic.DeriveConjugationCodomain',
-    'E213.Meta.Tactic.VerifyConjugation',
-    # SelfRecognising.specLens_swapMatching uses Raw.fold_swap_hom
-    # (Firmware) whose proof goes through structural recursion;
-    # propext leaks via the typeclass `extends` chain
-    # (CommBinary → NonVanishing → Conjugation).  Lens funext-by-
-    # design at the typeclass tier (analogous to other funext-bearing
-    # entries above).  The other two declarations in this module
-    # (CommBinaryCodomain.specLens, NonVanishingCodomain.specLens_nonVanishing)
-    # remain PURE — only the Conjugation-level theorem touches the
-    # propext-bearing path.
-    'E213.Meta.SelfRecognising',
-)
+# SEALED_DIRTY_PREFIXES emptied per user directive 2026-05-09:
+# "seal 없애버리고 다 213 native로 바꿔버리셈"
+# Marathon target: convert ALL items to ∅-axiom.  No exceptions.
+SEALED_DIRTY_PREFIXES = ()
 
 
 def is_sealed_dirty(module: str) -> bool:

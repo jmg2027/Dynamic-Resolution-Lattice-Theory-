@@ -37,6 +37,33 @@ to HANDOFF.md "current state" for the freshest reading.  994 total
 `.lean` files; scanner enumerates ~500-800 ★-marked theorems
 depending on timeout state.)
 
+**2026-05-09** (post-Möbius-extension session, pre-merge audit):
+seal list updated to use single-`Lens.*` prefixes (was `Lens.Lens.*`
+— stale from earlier nesting).  Tree-wide scan after seal-list fix
+reports **2491 PURE / 75 DIRTY + 89 sealed-DIRTY-by-design** (2655
+total).  Real DIRTY breakdown: 32 [propext, Quot.sound] + 32
+[propext] + 7 [propext, Classical.choice, Quot.sound] +
+2 [Quot.sound] + 2 [propext, Quot.sound] (split format).
+
+The 75 real DIRTY items are **pre-existing** from before the
+Möbius-extension session.  All 102 ∅-axiom theorems newly added
+in `Theory/Nat213/` + `Theory/Tower/` + `Lib/Math/UniverseChain/
+MobiusChain.lean` are PURE.
+
+Topical breakdown of remaining DIRTY:
+- Lens.Leaves.DepthJoin (10): JoinEquiv-on-Raw uses Classical.choice
+- Lens.Morphism.BoolProp (10): BoolProp morphisms via propext
+- Lib.Math.CayleyDickson.CayleyHeavy (6): heavy ring polynomial
+  identities via simp
+- Lens.Universal.QuotLens (5): Lens funext-by-design
+- Lib.Math.CayleyDickson.ZOmegaDomain (5): ring axioms via simp
+- Lens.Instances.Swap, Sum, CompoundBool (3-4 each): Lens patterns
+- Misc Lens + Math files (1-3 each): scattered residuals
+
+These need separate marathons; many would seal under expanded
+"Lens funext-by-design" or "heavy polynomial identity" categories,
+but proper triage requires per-theorem inspection.
+
 **2026-05-05** (post-AXIOM.md §9.1 rename audit pass): tree-wide
 scan reports approximately **541 PURE / 18 DIRTY / 14 sealed-DIRTY-
 by-design** (573 total counted).  Real DIRTY breakdown: 10 [propext]
