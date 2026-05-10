@@ -1,5 +1,6 @@
 import E213.Theory.Closed.Nat213
 import E213.Theory.Nat213.Core
+import E213.Lib.Math.NatHelpers.PureNat
 
 /-!
 # Theory.Closed.Nat213Bridge — Layer 1 ↔ Layer 2 동형성
@@ -156,5 +157,102 @@ theorem add_succ_right (m n : Theory.Nat213.Nat213) :
           (Theory.Closed.Nat213.add (toRaw m) (toRaw n)) := by
   rw [← toRaw_succ, ← toRaw_add, Theory.Nat213.Nat213.add_succ_right,
       toRaw_succ, toRaw_add]
+
+end E213.Theory.Closed.Nat213Bridge
+
+namespace E213.Theory.Closed.Nat213Bridge
+
+open E213.Theory
+
+/-! ### value 동형성 — Layer 1 → Lean Nat
+
+추가 bridge: closed Raw chain 의 leaves count (`value`) 가 Lean Nat 의
+산술과 호환.  inductive Nat213 의 `toNat` 과 일치.
+
+이게 두 번째 종류의 bridge:
+  - 첫 번째 (toRaw): Layer 2 → Layer 1 (inductive → closed Raw)
+  - 두 번째 (value): Layer 1 → Lean Nat (closed Raw → 외부 Nat) -/
+
+/-- Layer 2 toNat 와 Layer 1 value 가 toRaw 따라 일치. -/
+theorem value_toRaw (m : Theory.Nat213.Nat213) :
+    Theory.Closed.Nat213.value (toRaw m) = m.toNat := by
+  induction m with
+  | one => rfl
+  | succ k ih =>
+      -- value (succ (toRaw k)) = (toRaw k) + 1 since toRaw k ≠ Raw.b
+      -- toNat (succ k) = k.toNat + 1
+      show Theory.Closed.Nat213.value
+              (Theory.Closed.Nat213.succ (toRaw k))
+         = k.toNat + 1
+      rw [Theory.Closed.Nat213.value_succ_of_ne _ (toRaw_ne_b k), ih]
+
+/-! ### Layer 2 toNat additive homomorphism (보조 lemma) -/
+
+/-- Layer 2 의 toNat 가 add 를 보존: `(add m n).toNat = m.toNat + n.toNat`.
+    이게 Layer 1 value_add 의 enabler. -/
+private theorem toNat_add (m n : Theory.Nat213.Nat213) :
+    (Theory.Nat213.Nat213.add m n).toNat = m.toNat + n.toNat := by
+  induction m with
+  | one =>
+      -- Layer 2: add one n = succ n.  toNat: 1 + n.toNat.
+      show (Theory.Nat213.Nat213.succ n).toNat = 1 + n.toNat
+      show n.toNat + 1 = 1 + n.toNat
+      exact Nat.add_comm _ _
+  | succ k ih =>
+      -- Layer 2: add (succ k) n = succ (add k n).  toNat: (add k n).toNat + 1
+      --                                                = (k.toNat + n.toNat) + 1
+      -- RHS: (succ k).toNat + n.toNat = (k.toNat + 1) + n.toNat
+      show (Theory.Nat213.Nat213.add k n).toNat + 1
+         = (k.toNat + 1) + n.toNat
+      rw [ih]
+      -- Goal: k.toNat + n.toNat + 1 = k.toNat + 1 + n.toNat
+      exact (Nat.add_right_comm _ _ _).symm
+
+/-! ### value_add (★ 핵심): closed-Raw add 가 Lean Nat add 와 호환 -/
+
+/-- **`value (add m n) = value m + value n`** — Layer 1 (closed Raw)
+    덧셈이 Lean Nat 덧셈과 정확히 일치 (Layer 2 chain 위).
+
+    이게 closed-form ↔ external Nat 의 정확한 동형성 표현. -/
+theorem value_add (m n : Theory.Nat213.Nat213) :
+    Theory.Closed.Nat213.value
+        (Theory.Closed.Nat213.add (toRaw m) (toRaw n))
+      = Theory.Closed.Nat213.value (toRaw m)
+      + Theory.Closed.Nat213.value (toRaw n) := by
+  rw [← toRaw_add, value_toRaw, value_toRaw, value_toRaw, toNat_add]
+
+end E213.Theory.Closed.Nat213Bridge
+
+namespace E213.Theory.Closed.Nat213Bridge
+
+open E213.Theory
+
+/-! ### Layer 2 toNat multiplicative homomorphism + value_mul -/
+
+/-- Layer 2 toNat 가 mul 도 보존. -/
+private theorem toNat_mul (m n : Theory.Nat213.Nat213) :
+    (Theory.Nat213.Nat213.mul m n).toNat = m.toNat * n.toNat := by
+  induction m with
+  | one =>
+      -- Layer 2: mul one n = n.  toNat: 1 * n.toNat.
+      show n.toNat = 1 * n.toNat
+      rw [Nat.one_mul]
+  | succ k ih =>
+      -- Layer 2: mul (succ k) n = add n (mul k n).
+      show (Theory.Nat213.Nat213.add n
+              (Theory.Nat213.Nat213.mul k n)).toNat
+         = (k.toNat + 1) * n.toNat
+      rw [toNat_add, ih]
+      -- Goal: n.toNat + k.toNat * n.toNat = (k.toNat + 1) * n.toNat
+      rw [E213.Lib.Math.NatHelpers.PureNat.add_mul, Nat.one_mul, Nat.add_comm]
+
+/-- **`value (mul m n) = value m * value n`** — Layer 1 곱셈이
+    Lean Nat 곱셈과 일치. -/
+theorem value_mul (m n : Theory.Nat213.Nat213) :
+    Theory.Closed.Nat213.value
+        (Theory.Closed.Nat213.mul (toRaw m) (toRaw n))
+      = Theory.Closed.Nat213.value (toRaw m)
+      * Theory.Closed.Nat213.value (toRaw n) := by
+  rw [← toRaw_mul, value_toRaw, value_toRaw, value_toRaw, toNat_mul]
 
 end E213.Theory.Closed.Nat213Bridge
