@@ -79,3 +79,41 @@ example : rawCutEq constTrueCut constTrueCut := rawCutEq_refl _
 example : rawCutLe constTrueCut constTrueCut := rawCutLe_refl _
 
 end E213.Theory.Closed.RawCut
+
+namespace E213.Theory.Closed.RawCut
+
+open E213.Theory
+open E213.Theory.Closed.Bool213 (T F booleanProj booleanProj_isBool booleanProj_idempotent)
+
+/-! ### Vertical-internal projection on RawCut
+
+leavesCountRaw (Nat213) / booleanProj (Bool213) 의 함수공간 (RawCut) 버전.
+임의 RawCut 의 각 점 출력을 booleanProj 통과 → 출력값이 항상 {T, F}.
+
+함수 등호는 funext 필요 (axiom-cost 발생).  대신 **rawCutEq** (pointwise
+Bool eq, Lean-free pattern) 으로 idempotence 표현 — 같은 도메인에서
+같은 메타 패턴이 함수공간에서도 작동 입증.
+
+세 도메인 (Nat213, Bool213, RawCut) 위 vertical-internal projection 이
+모두 같은 closure + idempotence 형태:
+  - Nat213:  leavesCountRaw r = leavesCountRaw² r,    output ∈ chain
+  - Bool213: booleanProj r = booleanProj² r,           output ∈ {T, F}
+  - RawCut:  cutBooleanProj cx ≈ cutBooleanProj² cx,   output ∈ Bool213-cut
+-/
+
+/-- Cut 위 vertical-internal projection — 점별 booleanProj. -/
+def cutBooleanProj (cx : RawCut) : RawCut :=
+  fun m k => booleanProj (cx m k)
+
+/-- **Closure**: cutBooleanProj 의 점값이 항상 T 또는 F. -/
+theorem cutBooleanProj_isBool (cx : RawCut) (m k : Raw) :
+    cutBooleanProj cx m k = T ∨ cutBooleanProj cx m k = F :=
+  booleanProj_isBool (cx m k)
+
+/-- **Idempotence (pointwise)**: `cutBooleanProj² ≈ cutBooleanProj` via rawCutEq.
+    funext 안 쓰고 점별 Bool eq — Real213 cutEq 와 같은 pattern. -/
+theorem cutBooleanProj_idempotent (cx : RawCut) :
+    rawCutEq (cutBooleanProj (cutBooleanProj cx)) (cutBooleanProj cx) :=
+  fun m k => booleanProj_idempotent (cx m k)
+
+end E213.Theory.Closed.RawCut
