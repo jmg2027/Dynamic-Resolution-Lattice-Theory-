@@ -190,9 +190,8 @@ theorem isLensExpressible_iff_foldStructured {α : Type} (f : Raw → α) :
 theorem exists_non_lens_expressible :
     ∃ f : Raw → Bool, ¬ IsLensExpressible f := by
   refine ⟨E213.Lens.Morphism.DepthParityNotFold.depthParityFn, ?_⟩
-  intro hLE
+  rw [isLensExpressible_iff_foldStructured]
   exact E213.Lens.Morphism.DepthParityNotFold.depthParityFn_not_fold_structured
-    ((isLensExpressible_iff_foldStructured _).mp hLE)
 
 end E213.Lens.SemanticAtom
 

@@ -4,10 +4,12 @@ import E213.Lib.Math.Cauchy.EulerGenericPure
 import E213.Lib.Math.Cauchy.EulerSeq
 import E213.Lib.Math.Cauchy.EulerSharper
 import E213.Lib.Math.Cauchy.EulerSharperKernelFree
+import E213.Lib.Math.Cauchy.EulerSharperPure
 import E213.Lib.Math.Cauchy.MonotonicBounded
 import E213.Lib.Math.Cauchy.PellSeq
 import E213.Lib.Math.Cauchy.ProfiniteSeq
 import E213.Lib.Math.Cauchy.WallisSeq
+import E213.Lib.Math.Cauchy.WallisSharper
 import E213.Lib.Math.Cauchy.WallisSharperKernelFree
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cauchy`.

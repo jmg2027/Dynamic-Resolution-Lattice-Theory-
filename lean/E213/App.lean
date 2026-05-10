@@ -1,10 +1,14 @@
+import E213.App.Simplex
+
 /-! Spec-as-code entry point for `E213.App` — application-tier modules.
 
   The App layer hosts user-facing executables built on the firmware/
-  hypervisor stack.
+  hypervisor stack.  Currently a single member: `Simplex` — the
+  finite-simplex combinatorics demonstrator referenced by
+  `seed/RESOLUTION_LIMIT_SPEC.md` §3 (N_U = d^(d²) cardinality
+  invariant verified by direct enumeration).
 
-  Currently empty.  `Simplex` (4-simplex Aut-invariance demo) was
-  removed under the "design-by-funext/propext 금지" directive — its
-  case analysis used `if_pos`/`if_neg` whose Decidable resolution
-  brings propext.
+  ## Status
+
+  1 file included.  0 files excluded.
 -/

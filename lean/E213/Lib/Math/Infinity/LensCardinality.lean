@@ -164,11 +164,25 @@ open E213.Lens.Characterisation.Catalog
     would require a dual "b-tower"; skipped here since
     unboundedness of the image is enough for the Σ4
     cardinality claim. -/
--- Note: theorems `signedLens_image_ge_neg_one` and
--- `signedLens_unbounded_above` were deleted under
--- "design-by-funext/propext 금지".  Their proofs used `omega` +
--- `Int.toNat_of_nonneg` + `Int.le_refl` which bring `propext` via
--- Lean-core Decidable resolution.
+theorem signedLens_image_ge_neg_one :
+    ∀ z : Int, -1 ≤ z → ∃ r : Raw, signedLens.view r = z := by
+  intro z hz
+  have ⟨n, hn⟩ : ∃ n : Nat, z = (n : Int) - 1 := by
+    refine ⟨(z + 1).toNat, ?_⟩
+    rw [Int.toNat_of_nonneg (by omega)]
+    omega
+  refine ⟨rawTower n, ?_⟩
+  show Raw.fold (1 : Int) (-1) (· + ·) (rawTower n) = z
+  rw [hn]
+  exact treeTower_signed n
+
+/-- **signedLens image is unbounded above.**  For every
+    `N : ℕ`, some Raw term has signed view `≥ N`. -/
+theorem signedLens_unbounded_above :
+    ∀ N : Nat, ∃ r : Raw, (N : Int) ≤ signedLens.view r := by
+  intro N
+  obtain ⟨r, hr⟩ := signedLens_image_ge_neg_one (N : Int) (by omega)
+  exact ⟨r, by rw [hr]; exact Int.le_refl _⟩
 
 end E213.Infinity
 
@@ -188,8 +202,13 @@ open E213.Theory E213.Lens
     strictly larger than Raw (Σ5); (iv) `X → Bool` strictly
     larger than `X` for every `X` (Cantor general), giving
     a tower of any depth. -/
--- Note: theorem `sigma7_cardinality_is_lens_output` was deleted —
--- its conjuncts (`raw_at_most_countable`, `cantor_raw_bool`, etc.)
--- bring `propext` via Lean-core Function.Surjective decidability.
+theorem sigma7_cardinality_is_lens_output :
+    (∃ g : Raw → Nat, Function.Injective g)
+      ∧ (∃ f : Nat → Raw, Function.Injective f)
+      ∧ (¬ ∃ h : Raw → (Raw → Bool), Function.Surjective h)
+      ∧ (∀ X : Type, ¬ ∃ k : X → (X → Bool), Function.Surjective k) := by
+  refine ⟨raw_at_most_countable, raw_at_least_countable,
+          cantor_raw_bool, ?_⟩
+  intro _; exact cantor_general
 
 end E213.Infinity
