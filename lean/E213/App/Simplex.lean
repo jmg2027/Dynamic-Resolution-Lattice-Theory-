@@ -52,6 +52,28 @@ def AutInvariant {α : Type} (W : Fin 5 → Fin 5 → α) : Prop :=
 def BlockConstant {α : Type} (W : Fin 5 → Fin 5 → α) : Prop :=
   ∃ f : BlockPair → α, ∀ i j, W i j = f (classify i j)
 
+/-- classify is invariant under partition-preserving injections:
+    classify (σ i) (σ j) = classify i j.  Proved by case analysis on
+    the four (isA i, isA j) cases and decidable Fin equality, avoiding
+    the propext leak of `simp [Iff_hyp]`. -/
+private theorem classify_aut_inv (σ : Fin 5 → Fin 5)
+    (hσ : PreservesPartition σ) (hinj : ∀ x y, σ x = σ y → x = y)
+    (i j : Fin 5) : classify (σ i) (σ j) = classify i j := by
+  unfold classify
+  rw [hσ i, hσ j]
+  cases isA i <;> cases isA j <;> simp only []
+  all_goals {
+    match h : decide (i = j) with
+    | true =>
+        have heq : i = j := of_decide_eq_true h
+        have hσeq : σ i = σ j := by rw [heq]
+        rw [if_pos hσeq, if_pos heq]
+    | false =>
+        have hne : i ≠ j := of_decide_eq_false h
+        have hσne : σ i ≠ σ j := fun he => hne (hinj _ _ he)
+        rw [if_neg hσne, if_neg hne]
+  }
+
 /-- **Easy direction:** block-constant ⟹ Aut-invariant.
     Any partition-preserving injection sends a block-pair class to
     itself, so a function factoring through `classify` is invariant. -/
@@ -59,13 +81,6 @@ theorem block_constant_implies_aut_invariant {α : Type}
     (W : Fin 5 → Fin 5 → α) (h : BlockConstant W) : AutInvariant W := by
   obtain ⟨f, hf⟩ := h
   intro σ hσ hinj i j
-  rw [hf (σ i) (σ j), hf i j]
-  -- classify (σ i) (σ j) = classify i j : partition is preserved and
-  -- i = j ↔ σ i = σ j (by injectivity).
-  have hi : isA (σ i) = isA i := hσ i
-  have hj : isA (σ j) = isA j := hσ j
-  have heq : (σ i = σ j) ↔ (i = j) :=
-    ⟨fun h => hinj i j h, fun h => h ▸ rfl⟩
-  simp [classify, hi, hj, heq]
+  rw [hf (σ i) (σ j), hf i j, classify_aut_inv σ hσ hinj i j]
 
 end E213.App.Simplex
