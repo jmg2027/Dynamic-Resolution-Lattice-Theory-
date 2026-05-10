@@ -41,7 +41,28 @@ depending on timeout state.)
 없애버리고 다 213 native로" — emptied SEALED_DIRTY_PREFIXES.  Full
 scan post-seal-empty: **2491 PURE / 164 DIRTY / 0 sealed**.
 
-After batch 1 fixes (5 theorems converted): **2496 PURE / 159
+After batch 1-5 fixes (16 theorems converted): **2507 PURE / 148
+DIRTY / 0 sealed**.
+
+Modules now PURE:
+- E213.Lens.Properties.Leaf (was 2 dirty)
+- E213.Lens.Diagonal (was 1 dirty)
+- E213.Lib.Math.CayleyDickson.LipschitzLens (was 1 dirty)
+- E213.Lens.Instances.RawAChar (was 1 dirty)
+- E213.Lens.Instances.SumNotCoproduct (was 1 dirty)
+- E213.Lens.Instances.SumNotCoproductGeneric (was 1 dirty)
+- E213.Lens.Instances.CompoundBool (was 4 dirty)
+- E213.Lens.Instances.Sum (was 3 dirty)
+- E213.Lens.Characterisation.Core (was 3 dirty, now 1 — funext only)
+
+Patterns established (5 reusable):
+1. omega → Nat.le_trans + Nat.le_add_right + Nat.add_le_add
+2. cases h (impossible Nat eq) → absurd h (by decide)
+3. injEq.mp .2 → congrArg <projector>
+4. cmp_eq_iff.mp → cmp_eq_to_eq (existing direct lemma)
+5. simp [...] → show <expanded> + rw [explicit lemma] / absurd
+
+Earlier batch 1 fixes (5 theorems converted): **2496 PURE / 159
 DIRTY / 0 sealed**.  Patterns established:
 - `omega` → `Nat.le_trans` + `Nat.le_add_right` + `Nat.add_le_add`
 - `cases h` (impossible Nat eq) → `absurd h (by decide)`
