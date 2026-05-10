@@ -113,6 +113,17 @@ theorem Tree.cmp_gt_to_lt_swap (x y : Tree) (h : Tree.cmp x y = .gt) :
   | eq => rw [hyx] at h; cases h
   | gt => rw [hyx] at h; cases h
 
+/-- Direct: `Tree.cmp x y = .lt → Tree.cmp y x = .gt` (no iff).
+    Reverse direction of cmp_gt_to_lt_swap. -/
+theorem Tree.cmp_lt_to_gt_swap (x y : Tree) (h : Tree.cmp x y = .lt) :
+    Tree.cmp y x = .gt := by
+  have hsw : Tree.cmp x y = (Tree.cmp y x).swap := Tree.cmp_swap x y
+  rw [hsw] at h
+  cases hyx : Tree.cmp y x with
+  | lt => rw [hyx] at h; cases h
+  | eq => rw [hyx] at h; cases h
+  | gt => rfl
+
 /-- ∅-axiom Bool destructor: `a && b = true → a = true ∧ b = true`. -/
 theorem Bool.and_eq_true_to_pair : ∀ {a b : Bool},
     (a && b) = true → a = true ∧ b = true
