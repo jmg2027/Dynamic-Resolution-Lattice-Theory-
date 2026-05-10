@@ -41,8 +41,26 @@ depending on timeout state.)
 없애버리고 다 213 native로" — emptied SEALED_DIRTY_PREFIXES.  Full
 scan post-seal-empty: **2491 PURE / 164 DIRTY / 0 sealed**.
 
-After batch 1-5 fixes (16 theorems converted): **2507 PURE / 148
+After batch 1-10 fixes (27 theorems converted): **2519 PURE / 137
 DIRTY / 0 sealed**.
+
+Marathon progress this session: **27/164 (16.5%)**.
+
+Patterns established (8 reusable):
+1. omega → Nat.le_trans + Nat.le_add_right + Nat.add_le_add
+2. cases h (impossible Nat eq) → absurd h (by decide)
+3. injEq.mp .2 → congrArg <projector>
+4. cmp_eq_iff.mp → cmp_eq_to_eq (existing direct lemma)
+5. simp [...] → show <expanded> + rw [explicit lemma] / absurd
+6. Iff lemma cascade → direct .mp/.mpr lemmas (cmp_gt_to_lt_swap etc.)
+7. simp only [def, h] → show <unfolded match form>; rw [h]
+8. inline 213-native max_comm via case-split (avoid Nat.max_comm propext)
+
+Cascade fix found: Raw.swap_slash → Lens.Swap (5 fixes from 1 source).
+
+After batch 1-5 fixes: 2507 PURE / 148 DIRTY.
+
+Earlier batch 1 fixes (5 theorems):
 
 Modules now PURE:
 - E213.Lens.Properties.Leaf (was 2 dirty)
