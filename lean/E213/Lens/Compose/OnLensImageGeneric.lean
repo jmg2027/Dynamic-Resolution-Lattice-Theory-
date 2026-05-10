@@ -81,20 +81,9 @@ open E213.Lens.Compose.OnLens
     Generalizes `LensOnLensImage` (Bool case) — regardless of type α,
     the image of `Lens α` is the constLens pullback of the image of
     `α`. -/
-theorem lensUniversalMorphism_factors_generic
-    (α : Type) [d : HasDistinguishing α] (r : Raw) :
-    @universalMorphism (Lens α) (lensHasDistinguishing α) r =
-      constComposite α r := by
-  have := @universalMorphism_unique (Lens α) (lensHasDistinguishing α)
-    (constComposite α)
-    (constComposite_a α)
-    (constComposite_b α)
-    (constComposite_slash α) r
-  exact this.symm
-
-/-- ∅-axiom companion: pointwise (eqPW) version of the generic
-    Lens-on-Lens tower-collapse factorization.  Uses
-    `Lens.view_unique_eqPW` with `lensCombineGeneric_comm_eqPW`
+/-- **Generic tower collapse** stated pointwise (eqPW) — the strict
+    `=` form would require funext on the `Lens α` combine field.
+    Uses `Lens.view_unique_eqPW` with `lensCombineGeneric_comm_eqPW`
     and `lensCombineGeneric_eqPW_cong`. -/
 theorem lensUniversalMorphism_factors_generic_eqPW
     (α : Type) [d : HasDistinguishing α] (r : Raw) :
