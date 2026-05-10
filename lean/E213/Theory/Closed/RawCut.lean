@@ -84,7 +84,8 @@ namespace E213.Theory.Closed.RawCut
 
 open E213.Theory
 open E213.Theory.Closed.Bool213 (T F booleanProj booleanProj_T booleanProj_F
-                                  booleanProj_isBool booleanProj_idempotent)
+                                  booleanProj_isBool booleanProj_idempotent
+                                  boolValue boolValue_booleanProj)
 
 /-! ### Vertical-internal projection on RawCut
 
@@ -156,5 +157,26 @@ theorem cutBooleanProj_constTrue :
 theorem cutBooleanProj_constFalse :
     rawCutEq (cutBooleanProj constFalseCut) constFalseCut :=
   fun _ _ => booleanProj_F
+
+/-! ### Boundary mapping — RawCut → (Raw → Raw → Bool)
+
+Nat213 의 `value` / Bool213 의 `boolValue` 와 평행: 함수공간의 boundary.
+점별 boolValue.
+
+세 도메인 평행 완성:
+  Nat213:  value : Raw → Nat                        + value_leavesCountRaw_general
+  Bool213: boolValue : Raw → Bool                    + boolValue_booleanProj
+  RawCut:  cutBoolValue : RawCut → (Raw → Raw → Bool) + cutBoolValue_cutBooleanProj
+-/
+
+/-- Cut 의 boundary projection — 점별 boolValue. -/
+def cutBoolValue (cx : RawCut) : Raw → Raw → Bool :=
+  fun m k => boolValue (cx m k)
+
+/-- **Boundary commutativity** (pointwise): cutBoolValue ∘ cutBooleanProj = cutBoolValue.
+    수직-외부 + 수직-내부 호환의 점별 표현. -/
+theorem cutBoolValue_cutBooleanProj (cx : RawCut) (m k : Raw) :
+    cutBoolValue (cutBooleanProj cx) m k = cutBoolValue cx m k :=
+  boolValue_booleanProj (cx m k)
 
 end E213.Theory.Closed.RawCut
