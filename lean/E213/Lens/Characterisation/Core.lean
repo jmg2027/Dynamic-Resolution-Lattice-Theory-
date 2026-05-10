@@ -50,7 +50,7 @@ theorem swap_invariant_of_base_eq_comm
   show Raw.fold L.base_a L.base_b L.combine (Raw.swap r)
      = Raw.fold L.base_a L.base_b L.combine r
   have h := Raw.fold_swap_hom L.base_a L.base_b L.combine id
-    (by simp [hbase]) (by simp [hbase])
+    hbase hbase.symm
     (fun _ _ => rfl) hcomm r
   exact h
 
