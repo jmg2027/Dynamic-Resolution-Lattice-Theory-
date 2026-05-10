@@ -2,6 +2,7 @@ import E213.Lib.Math.Infinity.Countable
 import E213.Term.Tactic.Nat213
 import E213.Lib.Math.Infinity.Cantor
 import E213.Lib.Math.Infinity.Godel
+import E213.Lib.Math.NatHelpers.AddMod213
 import E213.Lens.LensCore
 import E213.Lens.Characterisation.Catalog
 import E213.Lens.Instances.Bool
@@ -131,7 +132,8 @@ theorem maxLens_image_binary :
   | b => right; rfl
   | slash x y h ihx ihy =>
       rw [Raw.fold_slash _ _ _
-           (fun u v => by show max u v = max v u; omega) x y h]
+           (fun u v => E213.Lib.Math.NatHelpers.AddMod213.max_comm u v)
+           x y h]
       rcases ihx with hx | hx <;> rcases ihy with hy | hy <;>
         rw [hx, hy] <;> decide
 
