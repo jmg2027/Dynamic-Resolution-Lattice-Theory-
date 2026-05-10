@@ -21,9 +21,30 @@ sub-tree is to make the chain *visible in one place*.
 | `Recursion.lean`     | 4 | `numV L = 5^L`; self-ref `L = d² = 25` |
 | `Universe.lean`      | 5 | `N_U = d^(d²) = 5²⁵` |
 | `Synthesis.lean`     | — | full chain bundle (Steps 1–5) |
+| `MobiusChain.lean`   | 6–12 | **Möbius P extension** (G65–G81) — atomicity → algebraic geometry |
 
 Each step imports only the previous step + the underlying
 existing modules.
+
+## Steps 6–12 (Möbius extension)
+
+Continuation: post-atomicity → algebraic-geometric realization
+of (NS, NT, d) via Möbius P matrix `[[2, 1], [1, 1]]`.
+
+| Step | Source | Statement |
+|------|--------|-----------|
+| 6 | G70 | Raw + Nat213 ctors → (NS=3, NT=2, d=5) |
+| 7 | G74-75 | `1 = glue = NS-NT = det(P)` (axis-generator output) |
+| 8 | G77 | Lucas seeds atomicity: L_0=NT, L_1=NS, L_2=7 |
+| 9 | G78 | Pentagonal closure: P^10 ≡ I (mod 5) |
+| 10 | G79 | SL(2,F_5) ≅ 2I (\|2I\|=120=24·5) |
+| 11 | G80 | Δ⁴ ⊥ K_{3,2}^{(2)}: χ sum = -(NS·NT) |
+| 12 | G81 | CRT (mod 5, mod 2) = pentagon × triangle |
+
+Theorems in `Theory/Nat213/{Core,Lenses,AtomicityCorrespondence,
+OneAsGlue,RotationGeometry,AlgebraicGeometry}.lean` and
+`Theory/Tower/{NatPairToInt,NatTripleToZ2,NatPairToQPos}.lean`.
+102 ∅-axiom theorems in the extension.
 
 **Step 0 (Residue)** formalises Mingu's articulation
 > "구분을 하면 항상 잔여물이 남는거 아냐?"
