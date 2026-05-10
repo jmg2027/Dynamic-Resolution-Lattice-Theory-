@@ -94,8 +94,20 @@ Patterns added to playbook:
     `(L).eqPW M` sibling without removing the DIRTY original; new
     consumers migrate gradually.
 
-Running total marathon: 164 → ~120 real DIRTY (~27% reduction).
-The remaining ~120 DIRTY split:
+**Post-session scan (verified)**: **2644 PURE / 133 DIRTY** (2777 total).
+
+DIRTY breakdown:
+  - 54  [propext]                                     (was 50)
+  - 46  [propext, Quot.sound]                         (was 50)
+  - 22  [Quot.sound]                                  (was 33 — **Cat 1 hit**)
+  - 9   [propext, Classical.choice, Quot.sound]       (was 9 — Lean.Elab plumbing)
+  - 2   [propext, Quot.sound] (split format)          (was 2)
+
+The `[Quot.sound]`-only column dropping 33 → 22 (-11) is the
+direct Cat 1 conversion signal — those were genuine "Lens equality
+via funext on combine" leaks, exactly the G83 target.
+
+The remaining DIRTY split:
   - Inherent Prop-codomain (`Raw → Prop` from `universalLens`):
     [propext, Quot.sound] — universalLens / FamilyJoinEquiv / Lattice.Join
   - Inherent Lens-eq-on-Bool (Cat 1 with no eqPW migration yet):
