@@ -278,3 +278,62 @@ theorem cutLe_chainToCut_iff (a b : Theory.Nat213.Nat213) :
     exact (chainToCut_toRaw a m k).symm ▸ decide_eq_true h_ak_le_m
 
 end E213.Lib.Math.Real213.ChainToCut
+
+namespace E213.Lib.Math.Real213.ChainToCut
+
+open E213.Theory
+open E213.Theory.Closed.Nat213Bridge (toRaw)
+open E213.Lib.Math.Real213.CutMaxMin (cutMax cutMin)
+open E213.Lib.Math.Real213.CutPoset
+  (cutLe cutLe_trans cutLe_cutMax_left cutLe_cutMax_right cutMax_lub
+   cutLe_cutMin_left cutLe_cutMin_right cutMin_glb)
+
+/-! ### Lattice characterization — cutMax / cutMin 위 chain bridge
+
+Nat213.toNat 의 max/min 정의 없이도, cutLe + lattice 정리들로 cutMax /
+cutMin 의 chain bridge characterization 달성.
+
+`cutMax (chain a) (chain b)` 가 chain a, chain b 의 LUB → cutLe 통해
+"양쪽 ≤ chain c iff a ≤ c ∧ b ≤ c".
+
+대칭으로 cutMin 은 GLB. -/
+
+/-- **cutMax LUB characterization**: cutMax (chain a) (chain b) ≤ chain c
+    iff a ≤ c ∧ b ≤ c (둘 다 ≤ c). -/
+theorem cutLe_cutMax_chainToCut_iff (a b c : Theory.Nat213.Nat213) :
+    cutLe (cutMax (chainToCut (toRaw a)) (chainToCut (toRaw b)))
+          (chainToCut (toRaw c))
+    ↔ a.toNat ≤ c.toNat ∧ b.toNat ≤ c.toNat := by
+  constructor
+  · intro h
+    have ha : cutLe (chainToCut (toRaw a)) (chainToCut (toRaw c)) :=
+      cutLe_trans _ _ _ (cutLe_cutMax_left _ _) h
+    have hb : cutLe (chainToCut (toRaw b)) (chainToCut (toRaw c)) :=
+      cutLe_trans _ _ _ (cutLe_cutMax_right _ _) h
+    exact ⟨(cutLe_chainToCut_iff a c).mp ha,
+           (cutLe_chainToCut_iff b c).mp hb⟩
+  · rintro ⟨ha, hb⟩
+    exact cutMax_lub _ _ _
+      ((cutLe_chainToCut_iff a c).mpr ha)
+      ((cutLe_chainToCut_iff b c).mpr hb)
+
+/-- **cutMin GLB characterization**: chain c ≤ cutMin (chain a) (chain b)
+    iff c ≤ a ∧ c ≤ b (c ≤ both). -/
+theorem cutLe_cutMin_chainToCut_iff (a b c : Theory.Nat213.Nat213) :
+    cutLe (chainToCut (toRaw c))
+          (cutMin (chainToCut (toRaw a)) (chainToCut (toRaw b)))
+    ↔ c.toNat ≤ a.toNat ∧ c.toNat ≤ b.toNat := by
+  constructor
+  · intro h
+    have ha : cutLe (chainToCut (toRaw c)) (chainToCut (toRaw a)) :=
+      cutLe_trans _ _ _ h (cutLe_cutMin_left _ _)
+    have hb : cutLe (chainToCut (toRaw c)) (chainToCut (toRaw b)) :=
+      cutLe_trans _ _ _ h (cutLe_cutMin_right _ _)
+    exact ⟨(cutLe_chainToCut_iff c a).mp ha,
+           (cutLe_chainToCut_iff c b).mp hb⟩
+  · rintro ⟨ha, hb⟩
+    exact cutMin_glb _ _ _
+      ((cutLe_chainToCut_iff c a).mpr ha)
+      ((cutLe_chainToCut_iff c b).mpr hb)
+
+end E213.Lib.Math.Real213.ChainToCut
