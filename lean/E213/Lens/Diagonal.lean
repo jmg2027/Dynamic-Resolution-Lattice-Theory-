@@ -75,7 +75,7 @@ theorem leaves_escalate (v : Nat) :
 theorem leaves_not_idempotent : ¬ Idempotent Lens.leaves := by
   intro hI
   have h : (1 : Nat) + 1 = 1 := hI 1
-  cases h
+  exact absurd h (by decide)
 
 end E213.Lens.Diagonal
 

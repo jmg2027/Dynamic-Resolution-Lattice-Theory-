@@ -44,9 +44,11 @@ theorem lipLens_combine_not_commutative :
       I_mul_J, J_mul_I] at this
   have hr : (⟨0, ZI.I⟩ : Lipschitz).im = (⟨0, ZI.negI⟩ : Lipschitz).im := by
     rw [this]
-  have : ZI.I = ZI.negI := hr
-  have : (1 : Int) = -1 := (ZI.mk.injEq ..).mp this |>.2
-  exact absurd this (by decide)
+  have hI_eq : ZI.I = ZI.negI := hr
+  -- Avoid `ZI.mk.injEq` (propext-leaking).  Use `congrArg ZI.im`
+  -- to project to the im component directly.
+  have him : ZI.I.im = ZI.negI.im := congrArg ZI.im hI_eq
+  exact absurd him (by decide)
 
 open E213.Theory E213.Lens Lipschitz
 
