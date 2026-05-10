@@ -126,3 +126,84 @@ def mul (m n : Raw) : Raw := mulAux n m.val
 theorem one_mul (n : Raw) : mul one n = n := rfl
 
 end E213.Theory.Closed.Nat213
+
+namespace E213.Theory.Closed.Nat213
+
+open E213.Theory E213.Theory.Internal E213.Theory.Closed
+
+/-! ### Key arithmetic laws — Layer 2 (inductive Nat213) 와 일치성 위한 핵심 lemma -/
+
+/-- **add_succ_left**: `add (succ k) n = succ (add k n)` (k ≠ Raw.b 가정).
+    inductive Nat213 의 `add (succ m) n = succ (add m n)` 의 closed-Raw 버전.
+
+    canonical-form 분석: succ k 의 underlying Tree 는 cmp(k.val, .b) 에 따라
+    `.slash k.val .b` 또는 `.slash .b k.val` — 두 layout 모두에서 addAux 의
+    조건 분기가 같은 결과를 줌. -/
+theorem add_succ_left (k n : Raw) (hk : k ≠ Raw.b) :
+    add (succ k) n = succ (add k n) := by
+  show addAux n (succ k).val = succ (addAux n k.val)
+  unfold succ slashOrSelf
+  rw [dif_neg hk]
+  -- 목표: addAux n (Raw.slash k Raw.b hk).val = succ (addAux n k.val)
+  show addAux n (Raw.slash k Raw.b hk).val = succ (addAux n k.val)
+  unfold Raw.slash
+  -- match cmp k.val .b 분기
+  split <;> rename_i hcmp
+  · -- cmp = lt: val = Tree.slash k.val .b
+    show addAux n (Tree.slash k.val Tree.b) = succ (addAux n k.val)
+    -- addAux 의 .slash 분기, x = k.val, y = .b
+    show (if k.val = Tree.b then succ (addAux n Tree.b) else succ (addAux n k.val))
+       = succ (addAux n k.val)
+    rw [if_neg]
+    -- 증명: k.val ≠ Tree.b — k ≠ Raw.b 로부터
+    intro hkb
+    apply hk
+    apply Subtype.ext
+    exact hkb
+  · -- cmp = gt: val = Tree.slash .b k.val
+    show addAux n (Tree.slash Tree.b k.val) = succ (addAux n k.val)
+    show (if Tree.b = Tree.b then succ (addAux n k.val) else succ (addAux n Tree.b))
+       = succ (addAux n k.val)
+    rw [if_pos rfl]
+  · -- cmp = eq: absurd (k = Raw.b 로 귀결)
+    exfalso
+    apply hk
+    apply Subtype.ext
+    exact Tree.cmp_eq_to_eq _ _ hcmp
+
+end E213.Theory.Closed.Nat213
+
+namespace E213.Theory.Closed.Nat213
+
+open E213.Theory E213.Theory.Internal E213.Theory.Closed
+
+/-- **mul_succ_left**: `mul (succ k) n = add n (mul k n)` (k ≠ Raw.b 가정).
+    inductive Nat213 의 `mul (succ m) n = add n (mul m n)` 의 closed-Raw 버전. -/
+theorem mul_succ_left (k n : Raw) (hk : k ≠ Raw.b) :
+    mul (succ k) n = add n (mul k n) := by
+  show mulAux n (succ k).val = add n (mulAux n k.val)
+  unfold succ slashOrSelf
+  rw [dif_neg hk]
+  show mulAux n (Raw.slash k Raw.b hk).val = add n (mulAux n k.val)
+  unfold Raw.slash
+  split <;> rename_i hcmp
+  · -- cmp = lt: val = .slash k.val .b
+    show mulAux n (Tree.slash k.val Tree.b) = add n (mulAux n k.val)
+    show (if k.val = Tree.b then add n (mulAux n Tree.b) else add n (mulAux n k.val))
+       = add n (mulAux n k.val)
+    rw [if_neg]
+    intro hkb
+    apply hk
+    apply Subtype.ext
+    exact hkb
+  · -- cmp = gt: val = .slash .b k.val
+    show mulAux n (Tree.slash Tree.b k.val) = add n (mulAux n k.val)
+    show (if Tree.b = Tree.b then add n (mulAux n k.val) else add n (mulAux n Tree.b))
+       = add n (mulAux n k.val)
+    rw [if_pos rfl]
+  · exfalso
+    apply hk
+    apply Subtype.ext
+    exact Tree.cmp_eq_to_eq _ _ hcmp
+
+end E213.Theory.Closed.Nat213
