@@ -356,3 +356,13 @@ Estimated upgrades: ~50-100 theorems possible.
   - `CAPSTONE_INDEX.md` — all capstones (mixed axiom levels)
   - `LESSONS_LEARNED.md` — finitist guardrails
   - `HANDOFF.md` — current state
+
+**2026-05-09 (later, marathon batches 1-12 continued)**: 30 theorems
+converted to ∅-axiom (with some net adjustments due to new helpers).
+Final scan: **2542 PURE / 144 DIRTY / 0 sealed**.
+
+Cumulative session reduction: **164 → 144 DIRTY (12.2% reduction)**.
+
+Additional modules PURE in batches 11-12:
+- E213.Lib.Math.Choice.Canonical (was 1 dirty)
+- E213.Lens.Compose.OnLensImage (4 → 2, 2 fixes)
