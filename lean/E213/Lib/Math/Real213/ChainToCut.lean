@@ -42,7 +42,7 @@ theorem chainToCut_numeral (n : Nat) (m k : Nat) :
 
 /-! ### Layer 2 image bridge — toRaw chain → Lean Nat cut -/
 
-open E213.Theory.Closed.Nat213Bridge (toRaw value_toRaw value_add)
+open E213.Theory.Closed.Nat213Bridge (toRaw value_toRaw value_add value_mul)
 
 /-- **toRaw image 의 cut**: Layer 2 element m 의 chain image 가 정수
     `m.toNat` 의 cut. -/
@@ -61,5 +61,15 @@ theorem chainToCut_add (m n : Theory.Nat213.Nat213) (mu k : Nat) :
                   (Theory.Closed.Nat213.add (toRaw m) (toRaw n)) * k ≤ mu)
      = decide ((m.toNat + n.toNat) * k ≤ mu)
   rw [value_add, value_toRaw, value_toRaw]
+
+/-- **Mul homomorphism (pointwise)**: closed-Raw mul 의 chain image 가
+    Lean Nat mul 의 cut. -/
+theorem chainToCut_mul (m n : Theory.Nat213.Nat213) (mu k : Nat) :
+    chainToCut (Theory.Closed.Nat213.mul (toRaw m) (toRaw n)) mu k
+      = decide ((m.toNat * n.toNat) * k ≤ mu) := by
+  show decide (Theory.Closed.Nat213.value
+                  (Theory.Closed.Nat213.mul (toRaw m) (toRaw n)) * k ≤ mu)
+     = decide ((m.toNat * n.toNat) * k ≤ mu)
+  rw [value_mul, value_toRaw, value_toRaw]
 
 end E213.Lib.Math.Real213.ChainToCut
