@@ -53,7 +53,17 @@ def sumCombine {α β : Type} [d_α : HasDistinguishing α]
 theorem sumCombine_comm {α β : Type} [d_α : HasDistinguishing α]
     [d_β : HasDistinguishing β] (x y : Sum α β) :
     sumCombine x y = sumCombine y x := by
-  cases x <;> cases y <;> simp [sumCombine, d_α.combine_sym, d_β.combine_sym]
+  cases x with
+  | inl a => cases y with
+    | inl b =>
+        show Sum.inl (d_α.combine a b) = Sum.inl (d_α.combine b a)
+        rw [d_α.combine_sym]
+    | inr _ => rfl
+  | inr a => cases y with
+    | inl _ => rfl
+    | inr b =>
+        show Sum.inr (d_β.combine a b) = Sum.inr (d_β.combine b a)
+        rw [d_β.combine_sym]
 
 end E213.Lens.Instances.Sum
 
