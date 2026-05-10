@@ -1,5 +1,4 @@
 import E213.Lens.Leaves.DepthIncomparable
-import E213.Lens.Leaves.Mod3
 import E213.Lens.Leaves.ModNat
 import E213.Lens.Leaves.RefinesParity
 

@@ -1,4 +1,3 @@
-import E213.Lens.Properties.ABRefines
 import E213.Lens.Properties.ConstLensTotalKernel
 import E213.Lens.Properties.EquivProperties
 import E213.Lens.Properties.InjectiveClass

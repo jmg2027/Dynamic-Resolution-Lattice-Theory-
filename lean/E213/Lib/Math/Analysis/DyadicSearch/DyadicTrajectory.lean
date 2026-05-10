@@ -459,21 +459,10 @@ example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 10 5
 /-- **0+ ≤ 1- in the cut order**: the alwaysTrue limit (representing
     "infinitesimally above 0") is ≤ the alwaysFalse limit (representing
     "infinitesimally below 1") cut-wise.  Mathematical sanity. -/
-theorem alwaysTrue_le_alwaysFalse_at_limit :
-    cutLe (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
-          (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit := by
-  intro m k h
-  rw [alwaysFalseUnit_limit_value] at h
-  rw [alwaysTrueUnit_limit_value]
-  apply decide_eq_true
-  have h1 : (2^(k+1) - 1) * k ≤ 2^(k+1) * m := of_decide_eq_true h
-  have h_pow : 2^(k+1) ≥ 2 := by
-    have := two_pow_ge_succ k; omega
-  have e : (2^(k+1) - 1) * k = 2^(k+1) * k - k := by
-    rw [Nat.mul_comm, Nat.mul_sub_left_distrib, Nat.mul_one, Nat.mul_comm k]
-  rw [e] at h1
-  have h_mul_ge : 2^(k+1) * k ≥ 2 * k := Nat.mul_le_mul_right k h_pow
-  omega
+-- Note: a theorem `alwaysTrue_le_alwaysFalse_at_limit` was deleted
+-- here under the "design-by-funext/propext 금지" directive.  Its
+-- proof used `omega` + `decide_eq_true`/`of_decide_eq_true` which
+-- bring `propext` via Lean-core Decidable resolution.
 
 /-- **alwaysTrueUnit limit is NOT cutEq with constCut 0 1**.
 
@@ -725,21 +714,9 @@ theorem alwaysTrueUnit_limit_not_cutEq_zero :
 
     This formalizes the precise location of the cut-distinctness
     asymmetry: it's a single-point boundary phenomenon. -/
-theorem alwaysTrueUnit_limit_eq_zero_at_pos_m (m k : Nat) (hm : m ≥ 1) :
-    (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit m k
-    = constCut 0 1 m k := by
-  rw [alwaysTrueUnit_limit_value]
-  show decide (k ≤ 2^(k+1) * m) = decide (0 * k ≤ 1 * m)
-  rw [Nat.zero_mul, Nat.one_mul]
-  -- LHS: decide(k ≤ 2^(k+1) * m).  RHS: decide(0 ≤ m).
-  -- For m ≥ 1: both true.
-  have h_pow : 2^(k+1) ≥ k + 1 := by have := two_pow_ge_succ k; omega
-  have h_lhs : k ≤ 2^(k+1) * m := by
-    have h_prod : 2^(k+1) * m ≥ 2^(k+1) :=
-      Nat.le_mul_of_pos_right _ (by omega : 0 < m)
-    omega
-  have h_rhs : (0 : Nat) ≤ m := Nat.zero_le _
-  rw [decide_eq_true h_lhs, decide_eq_true h_rhs]
+-- Note: a theorem `alwaysTrueUnit_limit_eq_zero_at_pos_m` was deleted
+-- here under the "design-by-funext/propext 금지" directive.  Its proof
+-- used `omega` + `decide_eq_true` which bring `propext`.
 
 /-- **T2: ConsistentOracle existence witnesses**.  Three concrete
     (db, oracle) pairs covered: any oracle on collapsed bracket,
