@@ -337,4 +337,14 @@ theorem leavesCountRaw_numeral (n : Nat) :
       show leavesCountRaw (succ (numeral k)) = succ (numeral k)
       rw [leavesCountRaw_succ _ (numeral_ne_b k), ih]
 
+/-- **Numeral value**: `value (numeral n) = n + 1` — Method A chain n 이
+    Lean Nat (n+1) 에 대응.  Real213 cut 우주로의 bridge 의 핵심. -/
+theorem value_numeral (n : Nat) : value (numeral n) = n + 1 := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+      -- value (numeral (k+1)) = value (succ (numeral k)) = value (numeral k) + 1
+      show value (succ (numeral k)) = (k + 1) + 1
+      rw [value_succ_of_ne _ (numeral_ne_b k), ih]
+
 end E213.Theory.Closed.Nat213
