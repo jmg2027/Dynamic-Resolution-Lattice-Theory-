@@ -24,6 +24,34 @@ open E213.Lib.Math.Real213.CutSumComm (cutSumAux_eq_true_iff)
 open E213.Lib.Math.Real213.ValidCut (ValidCut)
 open E213.Lib.Math.Real213.CutDouble (cutDouble)
 
+/-- Helper: `(a && b) = true → a = true`.  PURE. -/
+private theorem and_left {a b : Bool} (h : (a && b) = true) : a = true :=
+  match a, h with
+  | true, _ => rfl
+  | false, h => Bool.noConfusion h
+
+/-- Helper: `(a && b) = true → b = true`.  PURE. -/
+private theorem and_right {a b : Bool} (h : (a && b) = true) : b = true :=
+  match a, h with
+  | true, h => h
+  | false, h => Bool.noConfusion h
+
+private theorem and_intro {a b : Bool} (ha : a = true) (hb : b = true) :
+    (a && b) = true := by rw [ha, hb]; rfl
+
+/-- Helper: `(a || b) = true → a = true ∨ b = true`. -/
+private theorem or_cases {a b : Bool} (h : (a || b) = true) :
+    a = true ∨ b = true :=
+  match a, h with
+  | true, _ => Or.inl rfl
+  | false, h => Or.inr h
+
+private theorem or_left {a b : Bool} (h : a = true) : (a || b) = true := by
+  rw [h]; rfl
+
+private theorem or_right {a b : Bool} (h : b = true) : (a || b) = true := by
+  rw [h]; cases a <;> rfl
+
 /-- cutMax preserves ValidCut. -/
 theorem cutMax_valid (cx cy : Nat → Nat → Bool)
     (hx : ValidCut cx) (hy : ValidCut cy) : ValidCut (cutMax cx cy) where
@@ -31,16 +59,14 @@ theorem cutMax_valid (cx cy : Nat → Nat → Bool)
     intro m1 m2 k hm h
     show (cx m2 k && cy m2 k) = true
     have h' : (cx m1 k && cy m1 k) = true := h
-    rw [Bool.and_eq_true] at h'
-    rw [Bool.and_eq_true]
-    exact ⟨hx.upM m1 m2 k hm h'.1, hy.upM m1 m2 k hm h'.2⟩
+    exact and_intro (hx.upM m1 m2 k hm (and_left h'))
+                    (hy.upM m1 m2 k hm (and_right h'))
   dnK := by
     intro m k1 k2 hk h
     show (cx m k1 && cy m k1) = true
     have h' : (cx m k2 && cy m k2) = true := h
-    rw [Bool.and_eq_true] at h'
-    rw [Bool.and_eq_true]
-    exact ⟨hx.dnK m k1 k2 hk h'.1, hy.dnK m k1 k2 hk h'.2⟩
+    exact and_intro (hx.dnK m k1 k2 hk (and_left h'))
+                    (hy.dnK m k1 k2 hk (and_right h'))
 
 /-- cutMin preserves ValidCut. -/
 theorem cutMin_valid (cx cy : Nat → Nat → Bool)
@@ -49,20 +75,16 @@ theorem cutMin_valid (cx cy : Nat → Nat → Bool)
     intro m1 m2 k hm h
     show (cx m2 k || cy m2 k) = true
     have h' : (cx m1 k || cy m1 k) = true := h
-    rw [Bool.or_eq_true] at h'
-    rw [Bool.or_eq_true]
-    rcases h' with h1 | h2
-    · exact Or.inl (hx.upM m1 m2 k hm h1)
-    · exact Or.inr (hy.upM m1 m2 k hm h2)
+    rcases or_cases h' with h1 | h2
+    · exact or_left (hx.upM m1 m2 k hm h1)
+    · exact or_right (hy.upM m1 m2 k hm h2)
   dnK := by
     intro m k1 k2 hk h
     show (cx m k1 || cy m k1) = true
     have h' : (cx m k2 || cy m k2) = true := h
-    rw [Bool.or_eq_true] at h'
-    rw [Bool.or_eq_true]
-    rcases h' with h1 | h2
-    · exact Or.inl (hx.dnK m k1 k2 hk h1)
-    · exact Or.inr (hy.dnK m k1 k2 hk h2)
+    rcases or_cases h' with h1 | h2
+    · exact or_left (hx.dnK m k1 k2 hk h1)
+    · exact or_right (hy.dnK m k1 k2 hk h2)
 
 /-- cutHalf preserves ValidCut. -/
 theorem cutHalf_valid (c : Nat → Nat → Bool) (hc : ValidCut c) :
@@ -94,23 +116,24 @@ theorem cutSum_valid (cx cy : Nat → Nat → Bool)
   upM := by
     intro m1 m2 k hm h
     show cutSumAux cx cy k (2*m2) (2*m2) = true
-    rw [cutSumAux_eq_true_iff]
     have h1 : cutSumAux cx cy k (2*m1) (2*m1) = true := h
-    rw [cutSumAux_eq_true_iff] at h1
-    obtain ⟨i, hi, hci, hcsi⟩ := h1
+    obtain ⟨i, hi, hci, hcsi⟩ :=
+      (cutSumAux_eq_true_iff _ _ _ _ _).mp h1
     have hi2 : i ≤ 2*m2 := Nat.le_trans hi (Nat.mul_le_mul_left 2 hm)
-    have h_le : 2*m1 - i ≤ 2*m2 - i := by omega
-    exact ⟨i, hi2, hci, hy.upM (2*m1 - i) (2*m2 - i) (2*k) h_le hcsi⟩
+    have h_le : 2*m1 - i ≤ 2*m2 - i :=
+      Nat.sub_le_sub_right (Nat.mul_le_mul_left 2 hm) i
+    exact (cutSumAux_eq_true_iff _ _ _ _ _).mpr
+      ⟨i, hi2, hci, hy.upM (2*m1 - i) (2*m2 - i) (2*k) h_le hcsi⟩
   dnK := by
     intro m k1 k2 hk h
     show cutSumAux cx cy k1 (2*m) (2*m) = true
-    rw [cutSumAux_eq_true_iff]
     have h1 : cutSumAux cx cy k2 (2*m) (2*m) = true := h
-    rw [cutSumAux_eq_true_iff] at h1
-    obtain ⟨i, hi, hci, hcsi⟩ := h1
-    exact ⟨i, hi,
-           hx.dnK i (2*k1) (2*k2) (Nat.mul_le_mul_left 2 hk) hci,
-           hy.dnK (2*m - i) (2*k1) (2*k2) (Nat.mul_le_mul_left 2 hk) hcsi⟩
+    obtain ⟨i, hi, hci, hcsi⟩ :=
+      (cutSumAux_eq_true_iff _ _ _ _ _).mp h1
+    exact (cutSumAux_eq_true_iff _ _ _ _ _).mpr
+      ⟨i, hi,
+       hx.dnK i (2*k1) (2*k2) (Nat.mul_le_mul_left 2 hk) hci,
+       hy.dnK (2*m - i) (2*k1) (2*k2) (Nat.mul_le_mul_left 2 hk) hcsi⟩
 
 /-- cutMid preserves ValidCut (cutMid = cutHalf ∘ cutSum). -/
 theorem cutMid_valid (cx cy : Nat → Nat → Bool)
