@@ -234,9 +234,12 @@ ZFC 의 동형성/quotient 처리가 213 에서 분류되는 4 종류:
 - `lean/E213/Theory/Closed/Nat213Bridge.lean` — `leavesCountRaw_chain`,
   `_idempotent`, `_id_iff_isChain`, `value_leavesCountRaw_general`.
 - `lean/E213/Theory/Closed/Bool213.lean` — booleanProj + `_isBool`,
-  `_idempotent`, `_id_iff_isBool213`.
+  `_idempotent`, `_id_iff_isBool213` + boolValue boundary.
 - `lean/E213/Theory/Closed/RawCut.lean` — cutBooleanProj +
-  `_isBool`, `_idempotent`, `_id_iff_isBool` (pointwise rawCutEq).
+  `_isBool`, `_idempotent`, `_id_iff_isBool` (pointwise rawCutEq) +
+  cutBoolValue boundary.
+- `lean/E213/Lib/Math/Real213/ChainToCut.lean` — Closed Nat213 →
+  Real213 cut bridge.  cutSum / cutMul / cutLe 모두 commute.
 
 ### 해석 — funext / Quot.sound / propext 의 자리
 
@@ -251,6 +254,53 @@ ZFC 에서 외부 axiom 이 들어가던 자리:
 
 이 두 대체가 합쳐지면 ZFC 의 모든 quotient/equivalence 작업이
 ∅-axiom 으로 표현됨 — funext 도 propext 도 Quot.sound 도 필요 없음.
+
+## Update 2 (2026-05-11 — ChainToCut bridge + propext-avoidance catalog)
+
+### ChainToCut bridge — Theory/Closed → Real213 압축 도구 입증
+
+`lean/E213/Lib/Math/Real213/ChainToCut.lean` 추가.
+
+  - `chainToCut : Raw → (Nat → Nat → Bool)` — Method A chain 의 정수
+    Dedekind cut.
+  - `chainToCut_numeral` — numeral n 의 chain image 가 정수 (n+1) 의 cut.
+  - `chainToCut_toRaw / _add / _mul` — Layer 2 → cut value-level
+    homomorphism.
+
+★ **substantive**:
+  - `cutSum_chainToCut` — Real213 cutSum 이 closed-Raw add 와 commute.
+  - `cutMul_chainToCut` — Real213 cutMul 이 closed-Raw mul 과 commute.
+  - `cutLe_chainToCut_iff` — Real213 cutLe 이 Nat213.toNat ≤ 와 commute.
+
+이게 G84 Tier 4 의 진정한 evidence — closed-Raw 산술 + order 가 Real213
+cut 우주에서 그대로 작동.  Theory/Closed/* 가 self-contained island
+이 아니라 Real213 의 진짜 압축 도구.
+
+### Propext-avoidance catalog (재사용 가능 trick set)
+
+cutSum_chainToCut / cutMul_chainToCut 증명 중 발견된 propext leak
+회피 패턴.  Future Claude 가 propext leak 만나면 즉시 적용:
+
+  1. **`rw [Iff_lemma]` 회피** — `Iff.trans (lemma) ?_` 으로 교체.
+     `rw` 가 Iff 통해 동치성 substitute 하면 propext.
+  2. **`rw [Eq_lemma] at hyp` 회피 (가능 시)** — `Eq_lemma ▸ hyp` (term-mode
+     ▸) 으로 교체.  더 simple, propext 안 끌어옴.
+  3. **`▸` motive 모호 시** — `calc` 로 명시적 단계 분리.  Lean 이
+     잘못된 motive 잡으면 type mismatch.
+  4. **Nat 산술 leak 회피** — `E213.Tactic.Nat213.*` helpers 사용:
+     - `mul_assoc` (vs `Nat.mul_assoc`)
+     - `add_mul`, `mul_add` 일부 case
+     - `add_sub_of_le`, `le_sub_of_add_le`
+     - `mul_mul_mul_comm_213`
+     - `le_of_mul_le_mul_right`
+  5. **`decide_eq_true_iff` 안 씀** — `Iff.intro` 으로 직접 양방향 구성:
+     `· intro h; exact decide_eq_true (..mp h)`
+     `· intro h; exact ...mpr (of_decide_eq_true h)`
+  6. **`by_cases hp : P`** — propext 끌어옴 가능성.  대신
+     `cases hyp` 또는 `match` 사용.
+
+이 catalog 가 Theory/Closed/* 위 future bridge 작업 (cutMax / cutMin /
+Cauchy seq / 다른 cut 연산) 의 PURE 유지 anchor.
 
 ## See also
 
