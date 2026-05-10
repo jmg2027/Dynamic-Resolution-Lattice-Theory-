@@ -344,4 +344,43 @@ theorem leavesCountRaw_idempotent (r : Raw) :
   obtain ⟨k, hk⟩ := leavesCountRaw_chain r
   rw [hk, leavesCountRaw_toRaw]
 
+/-! ### value preservation 일반화 (chain restriction 없이)
+
+위 `value_leavesCountRaw` 는 chain image (toRaw k) 위에 한정.
+이 section 은 임의 Raw r 위:
+
+  value (leavesCountRaw r) = value r
+
+Lean-free leaves count 가 Lean-Nat boundary leaves count 와 정확히 일치 —
+leavesCountRaw 가 정보-보존 projection. -/
+
+/-- 보조: Tree induction.  `Tree.fold one one add` 의 value 가
+    `Tree.fold 1 1 (·+·)` 와 일치.  slash 분기에서 fold_chain 으로 양쪽
+    inner fold 를 toRaw image 로 옮기고 value_add 적용. -/
+private theorem value_fold_one_one_add (t : Tree) :
+    Theory.Closed.Nat213.value
+        (Tree.fold (α := Raw)
+            Theory.Closed.Nat213.one Theory.Closed.Nat213.one
+            Theory.Closed.Nat213.add t)
+      = Tree.fold 1 1 (· + ·) t := by
+  induction t with
+  | a => rfl
+  | b => rfl
+  | slash x y ihx ihy =>
+      obtain ⟨k₁, hk₁⟩ := fold_chain x
+      obtain ⟨k₂, hk₂⟩ := fold_chain y
+      show Theory.Closed.Nat213.value
+              (Theory.Closed.Nat213.add
+                  (Tree.fold _ _ _ x) (Tree.fold _ _ _ y))
+         = Tree.fold 1 1 (· + ·) x + Tree.fold 1 1 (· + ·) y
+      rw [hk₁, hk₂, value_add, ← hk₁, ← hk₂, ihx, ihy]
+
+/-- **`value (leavesCountRaw r) = value r`** for any Raw r — chain
+    restriction 없이 일반화.  Lean-free leaves count 와 Lean-Nat
+    boundary leaves count 가 정확히 일치, 모든 Raw 위. -/
+theorem value_leavesCountRaw_general (r : Raw) :
+    Theory.Closed.Nat213.value (Theory.Closed.Nat213.leavesCountRaw r)
+      = Theory.Closed.Nat213.value r :=
+  value_fold_one_one_add r.val
+
 end E213.Theory.Closed.Nat213Bridge
