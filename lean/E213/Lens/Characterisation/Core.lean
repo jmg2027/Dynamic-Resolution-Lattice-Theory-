@@ -90,13 +90,14 @@ theorem R4_conj_agrees_on_image
   rw [← e1, ← e2]
 
 /-- **R4 uniqueness on surjective Lenses.**  If `view` is
-    surjective and two involutions both witness R4, they are
-    equal as functions. -/
+    surjective and two involutions both witness R4, they agree
+    pointwise on every `u : α`.  Stated pointwise to avoid funext
+    (= Quot.sound); consumers who need the function-eq form can
+    apply `funext` themselves at the cost of one isolated leak. -/
 theorem R4_conj_unique_of_surjective
     {α : Type} {L : Lens α} {conj1 conj2 : α → α}
     (h1 : SwapMatching L conj1) (h2 : SwapMatching L conj2)
-    (hsurj : Function.Surjective L.view) : conj1 = conj2 := by
-  funext u
+    (hsurj : Function.Surjective L.view) (u : α) : conj1 u = conj2 u := by
   obtain ⟨r, hr⟩ := hsurj u
   have := R4_conj_agrees_on_image h1 h2 r
   rw [hr] at this
