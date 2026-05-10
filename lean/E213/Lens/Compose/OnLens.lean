@@ -79,6 +79,21 @@ theorem lensXor_comm_eqPW (L M : Lens Bool) :
     show xor (L.combine x y) (M.combine x y) = xor (M.combine x y) (L.combine x y)
     cases L.combine x y <;> cases M.combine x y <;> rfl
 
+/-- `lensXor` is eqPW-congruent in both arguments — required to use
+    `Lens.view_unique_eqPW` for the lensXor combine. -/
+theorem lensXor_eqPW_cong (L1 L2 M1 M2 : Lens Bool)
+    (hL : L1.eqPW L2) (hM : M1.eqPW M2) :
+    (lensXor L1 M1).eqPW (lensXor L2 M2) := by
+  refine ⟨?_, ?_, ?_⟩
+  · show xor L1.base_a M1.base_a = xor L2.base_a M2.base_a
+    rw [hL.1, hM.1]
+  · show xor L1.base_b M1.base_b = xor L2.base_b M2.base_b
+    rw [hL.2.1, hM.2.1]
+  · intro x y
+    show xor (L1.combine x y) (M1.combine x y)
+       = xor (L2.combine x y) (M2.combine x y)
+    rw [hL.2.2 x y, hM.2.2 x y]
+
 end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
@@ -187,6 +202,21 @@ theorem lensCombineGeneric_comm_eqPW {α : Type} (c : α → α → α)
   · exact hsym _ _
   · intro x y; exact hsym _ _
 
+/-- `lensCombineGeneric c` is eqPW-congruent in both arguments — required
+    to use `Lens.view_unique_eqPW` for the generic-Lens combine. -/
+theorem lensCombineGeneric_eqPW_cong {α : Type} (c : α → α → α)
+    (L1 L2 M1 M2 : Lens α)
+    (hL : L1.eqPW L2) (hM : M1.eqPW M2) :
+    (lensCombineGeneric c L1 M1).eqPW (lensCombineGeneric c L2 M2) := by
+  refine ⟨?_, ?_, ?_⟩
+  · show c L1.base_a M1.base_a = c L2.base_a M2.base_a
+    rw [hL.1, hM.1]
+  · show c L1.base_b M1.base_b = c L2.base_b M2.base_b
+    rw [hL.2.1, hM.2.1]
+  · intro x y
+    show c (L1.combine x y) (M1.combine x y) = c (L2.combine x y) (M2.combine x y)
+    rw [hL.2.2 x y, hM.2.2 x y]
+
 end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
@@ -240,14 +270,22 @@ def levelThree : HasDistinguishing (Lens (Lens (Lens Bool))) :=
 def levelFour : HasDistinguishing (Lens (Lens (Lens (Lens Bool)))) :=
   lensHasDistinguishing (Lens (Lens (Lens Bool))) (d := levelThree)
 
-/-! ### Universal morphisms at each level -/
+/-! ### Universal morphisms at each level
+
+These are direct `Raw.fold` definitions that bypass the DIRTY
+`levelN` typeclass instances (whose `combine_sym` field requires
+funext on the `Lens^n α` combine).  Definitionally equivalent to
+`@universalMorphism (Lens^n α) levelN`, but ∅-axiom. -/
 
 /-- Raw → Lens (Lens Bool) universal morphism. -/
 def universalMorphismLevelTwo : Raw → Lens (Lens Bool) :=
-  @universalMorphism (Lens (Lens Bool)) levelTwo
+  Raw.fold (constLens (constLens true)) (constLens (constLens false))
+           (lensCombineGeneric (lensCombineGeneric and))
 
 /-- Raw → Lens (Lens (Lens Bool)) universal morphism. -/
 def universalMorphismLevelThree : Raw → Lens (Lens (Lens Bool)) :=
-  @universalMorphism (Lens (Lens (Lens Bool))) levelThree
+  Raw.fold (constLens (constLens (constLens true)))
+           (constLens (constLens (constLens false)))
+           (lensCombineGeneric (lensCombineGeneric (lensCombineGeneric and)))
 
 end E213.Lens.Compose.OnLens

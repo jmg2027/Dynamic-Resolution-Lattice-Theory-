@@ -142,3 +142,47 @@ theorem fold_slash_eqPW {β : Type}
 end Lens
 
 end E213.Lens
+
+namespace E213.Lens
+
+open E213.Theory
+
+namespace Lens
+
+/-! ### View-unique under eqPW symmetry (with combine congruence)
+
+Companion to `Lens.view_unique` where the codomain is `Lens β` and
+all equational obligations are pointwise (eqPW).  Funext-free.
+
+`L.combine` must additionally be eqPW-congruent — provided by every
+specific construction (e.g. `lensXor`) but not generically derivable
+from `Lens` alone.  Specific eqPW-congruence proofs are provided
+alongside each combine. -/
+
+theorem view_unique_eqPW {β : Type} (L : Lens (Lens β))
+    (hsym_pw : ∀ u v, (L.combine u v).eqPW (L.combine v u))
+    (hcong : ∀ u u' v v' : Lens β,
+             u.eqPW u' → v.eqPW v' → (L.combine u v).eqPW (L.combine u' v'))
+    (f : Raw → Lens β)
+    (ha : (f Raw.a).eqPW L.base_a)
+    (hb : (f Raw.b).eqPW L.base_b)
+    (hslash : ∀ (x y : Raw) (h : x ≠ y),
+              (f (Raw.slash x y h)).eqPW (L.combine (f x) (f y)))
+    (r : Raw) : (f r).eqPW (L.view r) := by
+  induction r using Raw.rec with
+  | a => exact ha
+  | b => exact hb
+  | slash x y h ihx ihy =>
+      have step1 := hslash x y h
+      have step2 := hcong _ _ _ _ ihx ihy
+      have step3 : (L.view (Raw.slash x y h)).eqPW
+                     (L.combine (L.view x) (L.view y)) := by
+        show (Raw.fold L.base_a L.base_b L.combine (Raw.slash x y h)).eqPW
+              (L.combine (Raw.fold L.base_a L.base_b L.combine x)
+                         (Raw.fold L.base_a L.base_b L.combine y))
+        exact fold_slash_eqPW L.base_a L.base_b L.combine hsym_pw x y h
+      exact eqPW_trans step1 (eqPW_trans step2 (eqPW_symm step3))
+
+end Lens
+
+end E213.Lens
