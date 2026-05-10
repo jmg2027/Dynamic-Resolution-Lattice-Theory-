@@ -49,10 +49,13 @@ theorem cutLe_a_cutMid_at (a b : Nat → Nat → Bool)
       exact Nat.mul_le_mul_right k hcase
     exact hra.ratioMono i (2*k) m k h_2k hratio hai
   | isFalse hcase =>
-    have h_2m_le_i : 2*m ≤ i := Nat.le_of_lt (Nat.lt_of_not_le hcase)
+    have h_2m_le_i : 2*m ≤ i := by
+      rcases Nat.le_total i (2*m) with h | h
+      · exact absurd h hcase
+      · exact h
     have h_4m_i : 2*(2*m) - i ≤ 2*m := by
       calc 2*(2*m) - i ≤ 2*(2*m) - 2*m :=
-              Nat.sub_le_sub_left h_2m_le_i (2*(2*m))
+              E213.Tactic.Nat213.sub_le_sub_left (2*(2*m)) h_2m_le_i
         _ = (2*m + 2*m) - 2*m := by rw [E213.Tactic.Nat213.two_mul]
         _ = 2*m := E213.Tactic.Nat213.add_sub_cancel_right (2*m) (2*m)
     have hratio : (2*(2*m) - i) * k ≤ m * (2*k) := by
