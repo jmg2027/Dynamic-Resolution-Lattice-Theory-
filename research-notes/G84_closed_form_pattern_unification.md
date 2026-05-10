@@ -221,6 +221,11 @@ ZFC 의 동형성/quotient 처리가 213 에서 분류되는 4 종류:
 | Nat213 | Raw | `leavesCountRaw` | `one`, `add` | `IsChain r := ∃ k, r = toRaw k` |
 | Bool213 | Raw | `booleanProj` | `T`, `and` | `IsBool213 r := r = T ∨ r = F` |
 | RawCut | Raw → Raw → Raw | `cutBooleanProj` | pointwise | `IsBoolValued cx := ∀ m k, cx m k ∈ {T, F}` |
+| **CauchyCutSeq** | **structure** | **`cauchyProj`** | **constCauchyCutSeq ∘ limit** | **`IsConstAtLimit`** |
+
+**4-domain catalog** (Update 3 추가): 메타 패턴이 sequence + modulus
+구조까지 일반화.  CauchyProj 의 정리들 모두 `rfl` — Bool eq / funext
+없이 structure eq 만으로 닫힘.
 
 세 도메인 모두 같은 세 정리 (모두 PURE, ∅-axiom):
 
@@ -240,6 +245,8 @@ ZFC 의 동형성/quotient 처리가 213 에서 분류되는 4 종류:
   cutBoolValue boundary.
 - `lean/E213/Lib/Math/Real213/ChainToCut.lean` — Closed Nat213 →
   Real213 cut bridge.  cutSum / cutMul / cutLe 모두 commute.
+- `lean/E213/Lib/Math/Analysis/CauchyProj.lean` — 4번째 도메인
+  (CauchyCutSeq) 위 vertical-internal projection.  모든 정리 rfl.
 
 ### 해석 — funext / Quot.sound / propext 의 자리
 
