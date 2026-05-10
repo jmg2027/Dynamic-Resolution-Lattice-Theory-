@@ -269,3 +269,72 @@ theorem numeral_ne_b (n : Nat) : numeral n ≠ Raw.b := by
         exact ih (Subtype.ext (Tree.cmp_eq_to_eq _ _ hcmp))
 
 end E213.Theory.Closed.Nat213
+
+namespace E213.Theory.Closed.Nat213
+
+open E213.Theory E213.Theory.Internal E213.Theory.Closed
+
+/-! ### leavesCountRaw 의 step lemma + chain identity -/
+
+/-- **Step**: `leavesCountRaw (succ r) = succ (leavesCountRaw r)` for r ≠ Raw.b.
+    canonical-form 분석: succ r 의 underlying Tree 가 cmp(r.val, .b) 에 따라
+    `.slash r.val .b` (cmp=lt) 또는 `.slash .b r.val` (cmp=gt) — 양쪽
+    모두 fold 결과가 `succ (leavesCountRaw r)` 와 일치. -/
+theorem leavesCountRaw_succ (r : Raw) (h : r ≠ Raw.b) :
+    leavesCountRaw (succ r) = succ (leavesCountRaw r) := by
+  show Raw.fold one one add (succ r) = succ (Raw.fold one one add r)
+  unfold succ slashOrSelf
+  rw [dif_neg h]
+  show Raw.fold one one add (Raw.slash r Raw.b h)
+     = succ (Raw.fold one one add r)
+  unfold Raw.fold Raw.slash
+  split <;> rename_i hcmp
+  · -- cmp = lt: val = Tree.slash r.val .b
+    show Tree.fold one one add (Tree.slash r.val Tree.b)
+       = succ (Tree.fold one one add r.val)
+    show add (Tree.fold one one add r.val) (Tree.fold one one add Tree.b)
+       = succ (Tree.fold one one add r.val)
+    show add (Tree.fold one one add r.val) one
+       = succ (Tree.fold one one add r.val)
+    -- need: add x one = succ x for x = leavesCountRaw r
+    -- one = Raw.a, so add x one = addAux one x.val = ... need x ≠ b
+    -- For r = Raw.a (the only cmp=lt case), leavesCountRaw r = one ≠ b
+    -- We just compute: x = one. add one one = succ one (rfl since one_add).
+    have h_r_eq_a : r = Raw.a := by
+      apply Subtype.ext
+      cases hr : r.val with
+      | a => rfl
+      | b => exfalso; exact h (Subtype.ext hr)
+      | slash _ _ =>
+          -- r.val = slash → cmp(slash, b) = gt, but we're in cmp=lt branch
+          rw [hr] at hcmp
+          exact Ordering.noConfusion hcmp
+    rw [h_r_eq_a]
+    rfl
+  · -- cmp = gt: val = Tree.slash .b r.val
+    show Tree.fold one one add (Tree.slash Tree.b r.val)
+       = succ (Tree.fold one one add r.val)
+    show add (Tree.fold one one add Tree.b) (Tree.fold one one add r.val)
+       = succ (Tree.fold one one add r.val)
+    show add one (Tree.fold one one add r.val)
+       = succ (Tree.fold one one add r.val)
+    -- one_add: add one x = succ x by rfl
+    rfl
+  · -- cmp = eq: r = b, contradiction
+    exfalso
+    apply h
+    apply Subtype.ext
+    exact Tree.cmp_eq_to_eq _ _ hcmp
+
+/-- **Chain identity**: leavesCountRaw 가 numeral chain 위에서 identity.
+    Method A chain 들이 leaves-count quotient 의 canonical representative. -/
+theorem leavesCountRaw_numeral (n : Nat) :
+    leavesCountRaw (numeral n) = numeral n := by
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+      -- numeral (k+1) = succ (numeral k)
+      show leavesCountRaw (succ (numeral k)) = succ (numeral k)
+      rw [leavesCountRaw_succ _ (numeral_ne_b k), ih]
+
+end E213.Theory.Closed.Nat213
