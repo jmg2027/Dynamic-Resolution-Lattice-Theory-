@@ -383,4 +383,33 @@ theorem value_leavesCountRaw_general (r : Raw) :
       = Theory.Closed.Nat213.value r :=
   value_fold_one_one_add r.val
 
+/-! ### Fixed-point 특성화 — chain image 가 정확히 leavesCountRaw 의 fixed point
+
+RawCut 의 `cutBooleanProj_id_iff_isBool` 와 평행한 형태.
+세 도메인 (Nat213, Bool213, RawCut) 위 vertical-internal projection 이
+모두 같은 형태의 fixed-point ↔ image 특성화 를 가짐. -/
+
+/-- Raw r 이 Layer 2 chain image 안 — `∃ k, r = toRaw k`. -/
+def IsChain (r : Raw) : Prop :=
+  ∃ k : Theory.Nat213.Nat213, r = toRaw k
+
+/-- Chain 이면 leavesCountRaw 의 fixed point. -/
+theorem leavesCountRaw_id_of_isChain (r : Raw) (h : IsChain r) :
+    Theory.Closed.Nat213.leavesCountRaw r = r := by
+  obtain ⟨k, hk⟩ := h
+  rw [hk, leavesCountRaw_toRaw]
+
+/-- 역방향: leavesCountRaw 의 fixed point 면 chain. -/
+theorem isChain_of_leavesCountRaw_id (r : Raw)
+    (h : Theory.Closed.Nat213.leavesCountRaw r = r) : IsChain r := by
+  obtain ⟨k, hk⟩ := leavesCountRaw_chain r
+  exact ⟨k, h.symm.trans hk⟩
+
+/-- **Fixed-point 특성화**: leavesCountRaw 가 r 을 그대로 두는 것 ↔ r 이
+    Method A chain image 안.  vertical-internal projection 의 정확한
+    image 결정 — RawCut 의 `cutBooleanProj_id_iff_isBool` 와 평행. -/
+theorem leavesCountRaw_id_iff_isChain (r : Raw) :
+    Theory.Closed.Nat213.leavesCountRaw r = r ↔ IsChain r :=
+  ⟨isChain_of_leavesCountRaw_id r, leavesCountRaw_id_of_isChain r⟩
+
 end E213.Theory.Closed.Nat213Bridge
