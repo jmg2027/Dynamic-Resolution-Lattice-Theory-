@@ -88,8 +88,22 @@ PURE 유지 위한 패턴 set (재사용 가능).  Future Claude 가 propext lea
   - `Real213.CutLatticeEq.{cutMax,cutMin}_cutLe_*` (6, trick 5)
   - `Real213.CutMulConstConst.cutMul_const_const_*` (2, trick 2+8)
   - `Real213.ValidCutOps.{cutMax,cutMin,cutSum}_valid` (4, trick 5+2+8)
+  - `Real213.CutMidMono.cutLe_cutMid_b_at` (1, trick 2+6+8)
 
-총 **13 real DIRTY → PURE** in single sprint.
+총 **14 real DIRTY → PURE** in single sprint.
+
+## 한계 사례 (deeper propext leak)
+
+다음 modules 은 surface trick set 으로 부분만 해결.  deeper investigation
+필요 (예: Lean-core Nat.{mul_comm, mul_le_mul_*} 의 propext chain):
+
+  - `Real213.CutSumGeneral` — 4 DIRTY, Quot.sound 제거됐지만 propext 잔존
+  - `Real213.CutMidMono.cutLe_a_cutMid_at` — Quot.sound 제거됐지만 propext 잔존
+  - `Cauchy.GenericFamily.*` — funext-by-design (Lens combine 관련)
+  - `Cauchy.WallisSharper.wallis_sharper_lower` — omega + by_cases + decide chain
+
+이런 케이스들은 Lean-core 의 더 깊은 propext-laden lemma 의존성 필요.
+G83 strategy 따른 eqPW 또는 단계적 refactor 가 답.
 
 ## Future work
 
