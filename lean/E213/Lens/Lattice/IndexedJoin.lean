@@ -180,4 +180,18 @@ theorem iProdLens_is_greatest {ι : Type} {α : Type}
   rw [iProdLens_view F hAllSym r i, iProdLens_view F hAllSym r' i]
   exact hAll i r r' h
 
+/-- ∅-axiom companion: greatest-lower-bound property stated **pointwise
+    at each index** to avoid `funext` on the dependent function-space
+    codomain.  The full `refines` form (above) follows by `funext i`. -/
+theorem iProdLens_is_greatest_pw {ι : Type} {α : Type}
+    (F : ι → (β : Type) × Lens β) (L : Lens α)
+    (hAllSym : ∀ i (u v : (F i).1),
+                (F i).2.combine u v = (F i).2.combine v u)
+    (hAll : ∀ i, L.refines (F i).2) :
+    ∀ r r' : Raw, L.equiv r r' →
+      ∀ i, (iProdLens F).view r i = (iProdLens F).view r' i := by
+  intro r r' h i
+  rw [iProdLens_view F hAllSym r i, iProdLens_view F hAllSym r' i]
+  exact hAll i r r' h
+
 end E213.Lens.Lattice.IndexedJoin
