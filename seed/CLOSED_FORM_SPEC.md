@@ -56,19 +56,40 @@ Lean: `lean/E213/Lib/Math/Analysis/ChainCauchy.lean`.  모든 정리 rfl.
 
 ## Propext-avoidance trick set
 
-PURE 유지 위한 6 패턴 (재사용 가능).  Future Claude 가 propext leak
+PURE 유지 위한 패턴 set (재사용 가능).  Future Claude 가 propext leak
 만나면 즉시 적용:
 
   1. **`rw [Iff_lemma]`** → `Iff.trans (lemma) ?_`.  Iff rewrite 가 propext.
-  2. **`rw [Eq_lemma] at hyp`** → `Eq_lemma ▸ hyp` (term-mode).
-  3. **`▸` motive 모호** → `calc` 으로 명시 step 분리.
-  4. **Nat-core leak** → `E213.Tactic.Nat213.*` helpers:
+  2. **`rw [Iff_lemma] at hyp`** → `(Iff_lemma _ _).mp hyp` 직접.
+  3. **`rw [Eq_lemma] at hyp`** → `Eq_lemma ▸ hyp` (term-mode).
+  4. **`▸` motive 모호** → `calc` 으로 명시 step 분리.
+  5. **`Bool.and_eq_true`** / **`Bool.or_eq_true`** Iff 회피 — 직접
+     match-mode 헬퍼:
+     ```
+     and_left  : (a && b) = true → a = true   -- match a; case false → noConfusion
+     and_right : (a && b) = true → b = true
+     and_intro : a = true → b = true → (a && b) = true
+     or_cases  : (a || b) = true → a = true ∨ b = true
+     or_left, or_right : a/b = true → (a || b) = true
+     ```
+  6. **Nat-core leak** → `E213.Tactic.Nat213.*` helpers:
      `mul_assoc`, `add_mul`, `add_sub_of_le`, `le_sub_of_add_le`,
      `mul_mul_mul_comm_213`, `le_of_mul_le_mul_right`.
-  5. **`decide_eq_true_iff`** → 직접 `Iff.intro` 양방향:
+  7. **`decide_eq_true_iff`** → 직접 `Iff.intro` 양방향:
      `· intro h; exact decide_eq_true (..mp h)`
      `· intro h; exact ...mpr (of_decide_eq_true h)`.
-  6. **`by_cases`** → `cases` / `match`.
+  8. **`by_cases` / `omega` / `simp`** → `cases` / `match` /
+     manual Nat lemmas.
+
+## Marathon 사례
+
+이번 cycle 에서 변환 완료 (DIRTY → PURE):
+  - `Cauchy.EulerSharperPure.e_partial_neq_third_a` (1, trick 3+4+6)
+  - `Real213.CutLatticeEq.{cutMax,cutMin}_cutLe_*` (6, trick 5)
+  - `Real213.CutMulConstConst.cutMul_const_const_*` (2, trick 2+8)
+  - `Real213.ValidCutOps.{cutMax,cutMin,cutSum}_valid` (4, trick 5+2+8)
+
+총 **13 real DIRTY → PURE** in single sprint.
 
 ## Future work
 
