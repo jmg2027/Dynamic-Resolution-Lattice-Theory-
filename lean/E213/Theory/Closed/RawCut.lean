@@ -83,7 +83,8 @@ end E213.Theory.Closed.RawCut
 namespace E213.Theory.Closed.RawCut
 
 open E213.Theory
-open E213.Theory.Closed.Bool213 (T F booleanProj booleanProj_isBool booleanProj_idempotent)
+open E213.Theory.Closed.Bool213 (T F booleanProj booleanProj_T booleanProj_F
+                                  booleanProj_isBool booleanProj_idempotent)
 
 /-! ### Vertical-internal projection on RawCut
 
@@ -115,5 +116,45 @@ theorem cutBooleanProj_isBool (cx : RawCut) (m k : Raw) :
 theorem cutBooleanProj_idempotent (cx : RawCut) :
     rawCutEq (cutBooleanProj (cutBooleanProj cx)) (cutBooleanProj cx) :=
   fun m k => booleanProj_idempotent (cx m k)
+
+/-! ### Fixed-point 특성화 — Bool-valued 인 cut 들이 정확히 fixed point -/
+
+/-- Cut 의 점값이 모두 Bool213 ({T, F}) 안. -/
+def IsBoolValued (cx : RawCut) : Prop :=
+  ∀ m k, cx m k = T ∨ cx m k = F
+
+/-- Bool-valued 면 cutBooleanProj 의 fixed point (rawCutEq 위). -/
+theorem cutBooleanProj_id_of_isBool (cx : RawCut) (h : IsBoolValued cx) :
+    rawCutEq (cutBooleanProj cx) cx := by
+  intro m k
+  show booleanProj (cx m k) = cx m k
+  rcases h m k with hT | hF
+  · rw [hT]; exact booleanProj_T
+  · rw [hF]; exact booleanProj_F
+
+/-- 역방향: cutBooleanProj 의 fixed point 면 Bool-valued. -/
+theorem isBool_of_cutBooleanProj_id (cx : RawCut)
+    (h : rawCutEq (cutBooleanProj cx) cx) : IsBoolValued cx := by
+  intro m k
+  have hck : booleanProj (cx m k) = cx m k := h m k
+  rcases booleanProj_isBool (cx m k) with hT | hF
+  · left; rw [← hck]; exact hT
+  · right; rw [← hck]; exact hF
+
+/-- **Fixed-point 특성화**: cutBooleanProj 가 cx 를 그대로 두는 것 ↔ cx 가
+    Bool-valued.  vertical-internal projection 의 정확한 image 결정. -/
+theorem cutBooleanProj_id_iff_isBool (cx : RawCut) :
+    rawCutEq (cutBooleanProj cx) cx ↔ IsBoolValued cx :=
+  ⟨isBool_of_cutBooleanProj_id cx, cutBooleanProj_id_of_isBool cx⟩
+
+/-! ### Concrete examples — 두 trivial cut 위 fixed point -/
+
+theorem cutBooleanProj_constTrue :
+    rawCutEq (cutBooleanProj constTrueCut) constTrueCut :=
+  fun _ _ => booleanProj_T
+
+theorem cutBooleanProj_constFalse :
+    rawCutEq (cutBooleanProj constFalseCut) constFalseCut :=
+  fun _ _ => booleanProj_F
 
 end E213.Theory.Closed.RawCut
