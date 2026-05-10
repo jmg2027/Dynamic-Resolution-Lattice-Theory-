@@ -87,3 +87,59 @@ theorem and_comm (x y : Raw) : and x y = and y x := by
       · rintro ⟨h1, _⟩; exact hxT (of_decide_eq_true h1)
 
 end E213.Theory.Closed.Bool213
+
+namespace E213.Theory.Closed.Bool213
+
+open E213.Theory E213.Theory.Internal E213.Theory.Closed
+
+/-! ### Vertical-internal projection — Raw → Bool213 canonical form
+
+leavesCountRaw 의 Bool 대응 (Nat213 와 같은 패턴):
+임의 Raw 를 Bool213 의 두 canonical form (T, F) 중 하나로 collapse.
+
+정의:  `booleanProj := Raw.fold T F and` — universal-T form,
+       leaves 모두가 T 일 때만 T, 하나라도 F 면 F.
+
+성질 (leavesCountRaw 와 동일):
+  1. closure:    `booleanProj r ∈ {T, F}`  (모든 r 위)
+  2. idempotence: `booleanProj² = booleanProj`  (모든 r 위)
+
+이게 Bool 쪽 vertical-internal projection 의 정확한 표현.
+Nat213 의 leavesCountRaw 와 같은 메타 패턴. -/
+
+/-- Bool 쪽 vertical-internal projection — Raw → Bool213 canonical form. -/
+def booleanProj : Raw → Raw := Raw.fold T F and
+
+theorem booleanProj_T : booleanProj T = T := rfl
+theorem booleanProj_F : booleanProj F = F := rfl
+
+/-- `and` 의 출력은 정의로 항상 T 또는 F. -/
+theorem and_isBool (x y : Raw) : and x y = T ∨ and x y = F := by
+  unfold and
+  split
+  · left; rfl
+  · right; rfl
+
+/-- **Closure**: `booleanProj r ∈ {T, F}` for any Raw r.  Tree
+    induction; slash 분기는 `and_isBool` 로 즉시 닫힘. -/
+theorem booleanProj_isBool (r : Raw) :
+    booleanProj r = T ∨ booleanProj r = F := by
+  show Tree.fold T F and r.val = T ∨ Tree.fold T F and r.val = F
+  generalize r.val = t
+  induction t with
+  | a => left; rfl
+  | b => right; rfl
+  | slash _ _ _ _ =>
+      -- Tree.fold T F and (slash x y) = and (Tree.fold _ x) (Tree.fold _ y)
+      show and _ _ = T ∨ and _ _ = F
+      exact and_isBool _ _
+
+/-- **Idempotence**: `booleanProj (booleanProj r) = booleanProj r`.
+    closure 로부터 즉시 — booleanProj r 이 이미 T 또는 F. -/
+theorem booleanProj_idempotent (r : Raw) :
+    booleanProj (booleanProj r) = booleanProj r := by
+  rcases booleanProj_isBool r with h | h
+  · rw [h]; exact booleanProj_T
+  · rw [h]; exact booleanProj_F
+
+end E213.Theory.Closed.Bool213
