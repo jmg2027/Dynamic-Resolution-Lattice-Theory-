@@ -207,3 +207,34 @@ theorem mul_succ_left (k n : Raw) (hk : k ≠ Raw.b) :
     exact Tree.cmp_eq_to_eq _ _ hcmp
 
 end E213.Theory.Closed.Nat213
+
+namespace E213.Theory.Closed.Nat213
+
+open E213.Theory E213.Theory.Closed
+
+/-! ### Lean-free value: Raw → Raw
+
+기존 `value : Raw → Nat` 은 Lean Nat 를 사용 (boundary layer).
+다음 정의는 출력도 Raw (Method A chain) — Lean 격리 layer 한 발 더 안쪽.
+
+`leavesCountRaw r` = r 의 leaves 수를 Method A Nat213 chain 으로 인코딩.
+즉 leavesCount(numeral n) = numeral n 자기 자신 (numeral n 은 n+1 leaves).
+
+이게 "Lean 타입을 격리 레이어로만 사용" 의 시범:
+  - 입력 Raw, 출력 Raw
+  - 외부 Nat/Bool 의존 없음
+  - 대신 Method A chain 표기 사용 -/
+
+/-- Lean-free leaves count — 출력도 Raw (Method A chain). -/
+def leavesCountRaw : Raw → Raw := Raw.fold one one add
+
+theorem leavesCountRaw_a : leavesCountRaw Raw.a = one := rfl
+theorem leavesCountRaw_b : leavesCountRaw Raw.b = one := rfl
+
+/-- 동작 sanity — 처음 4개 numeral. -/
+example : leavesCountRaw (numeral 0) = numeral 0 := rfl  -- "1" leaf
+example : leavesCountRaw (numeral 1) = numeral 1 := rfl  -- "2" leaves
+example : leavesCountRaw (numeral 2) = numeral 2 := rfl  -- "3" leaves
+example : leavesCountRaw (numeral 3) = numeral 3 := rfl  -- "4" leaves
+
+end E213.Theory.Closed.Nat213
