@@ -1,8 +1,38 @@
 # Session Handoff — DRLT 213
 
-Branch: `claude/raw-data-demo-W8aVV` (Möbius extension chain).
+Branch: `claude/raw-data-demo-W8aVV` (Möbius extension chain +
+∅-axiom marathon under "Lens equality 재정의 strategy" / G83).
 
-## Current state (2026-05-09)
+## Current state (2026-05-10)
+
+### G83 — Lens equality refactor strategy + Phase 1/2 marathon
+
+**Phase 1**: ∅-axiom EqPW infrastructure in `lean/E213/Lens/EqPW.lean`:
+  - `Lens.eqPW L M` — pointwise Lens equality (avoids funext-by-design
+    on the combine field — the canonical Cat 1 Quot.sound source)
+  - `eqPW_refl` / `eqPW_symm` / `eqPW_trans` — equivalence
+  - `eqPW_view_a` / `eqPW_view_b` — base view bridges
+  - `eqPW_view_of_sym` — full view bridge under symmetric combine
+  - `Lens.fold_slash_eqPW` — fold/slash compat for eqPW sym (Lens β codomain)
+  All ∅-axiom verified via `#print axioms`.
+
+Strategy doc: `research-notes/G83_lens_equality_refactor_strategy.md`
+
+**Phase 2**: 11 PURE conversions + 4 PURE eqPW companions + 2 partial
+fixes.  Marathon progress: 164 → ~120 real DIRTY (~27% reduction).
+See `STRICT_ZERO_AXIOM.md` for the per-theorem catalog.
+
+Notable PURE wins:
+  - `SemanticAtom.raw_initial`, `isLensExpressible_iff_foldStructured`
+  - `Morphism.FoldStructured.{fold_structured_lens_expressible,
+       lens_expressible_iff_fold_structured}`
+  - `Lattice.IndexedJoin.iProdLens_view`,
+    `iProdLens_refines_each` (pointwise refactor)
+  - `Compose.OnLens.{lensUniversalMorphism, _a, _b}` (typeclass bypass)
+  - `Cauchy.pointwise_limit_match`
+  - `Characterisation.Core.R4_conj_unique_of_surjective`
+
+### Möbius extension chain (2026-05-09 — base, unchanged)
 
 `lean/E213/Theory/Nat213/` + `Theory/Tower/` + `Lib/Math/
 UniverseChain/MobiusChain.lean` — ~115 ∅-axiom theorems

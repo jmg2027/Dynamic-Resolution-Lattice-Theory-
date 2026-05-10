@@ -46,6 +46,65 @@ DIRTY / 0 sealed**.
 
 Marathon progress this session: **27/164 (16.5%)**.
 
+**2026-05-10 (continuation, Lens equality refactor / G83 marathon)**:
+Continuation of marathon under "Lens equality 재정의 strategy"
+directive.  Phase 1 + Phase 2 complete with eqPW infrastructure:
+
+Phase 1 — Infrastructure (`lean/E213/Lens/EqPW.lean`):
+  - `Lens.eqPW L M` — pointwise Lens equality definition
+  - `eqPW_refl`, `eqPW_symm`, `eqPW_trans` — equivalence
+  - `eqPW_view_a`, `eqPW_view_b`, `eqPW_combine_sym_transfer`
+  - `eqPW_view_of_sym` — view bridge under symmetric combine
+  - `Lens.fold_slash_eqPW` — fold/slash compatibility for eqPW sym
+  All ∅-axiom (PURE).
+
+Phase 2 — Cat 1 conversions (11 PURE + 4 PURE companions + 2 partial):
+
+PURE (was DIRTY):
+  - SemanticAtom.isLensExpressible_iff_foldStructured  [Quot.sound] → ∅
+  - SemanticAtom.raw_initial                          [Quot.sound] → ∅
+  - Morphism.FoldStructured.fold_structured_lens_expressible      → ∅
+  - Morphism.FoldStructured.lens_expressible_iff_fold_structured  → ∅
+  - Lattice.IndexedJoin.iProdLens_view              [Quot.sound] → ∅
+  - Lattice.IndexedJoin.iProdLens_refines_each      [Quot.sound] → ∅
+  - Instances.Cauchy.pointwise_limit_match          [Quot.sound] → ∅
+  - Characterisation.Core.R4_conj_unique_of_surjective [Quot.sound] → ∅
+  - Compose.OnLens.lensUniversalMorphism            [Quot.sound] → ∅
+  - Compose.OnLens.lensUniversalMorphism_a          [Quot.sound] → ∅
+  - Compose.OnLens.lensUniversalMorphism_b          [Quot.sound] → ∅
+
+NEW PURE eqPW companions (alongside existing DIRTY originals):
+  - Compose.OnLens.lensXor_comm_eqPW
+  - Compose.OnLens.lensCombineGeneric_comm_eqPW
+  - Compose.OnLens.lensUniversalMorphism_slash_eqPW
+
+Partial (Quot.sound removed but propext remains):
+  - Leaves.Mod3.leavesMod3Lens_view_eq    [propext, Quot.sound] → [propext]
+  - Leaves.Mod3.leaves_refines_mod3       [propext, Quot.sound] → [propext]
+  - App.Simplex.block_constant_implies_aut_invariant
+                                          [propext, Quot.sound] → [propext]
+
+Patterns added to playbook:
+9. Function-eq capstone (`f = g : Raw → α`) → pointwise (`∀ r, f r = g r`)
+   to avoid funext.  Trivial change at the leaf, downstream consumers
+   adjust.
+10. Index-pointwise iProdLens — split on canonical-form cmp at the
+    index level instead of going through function-level Raw.fold_slash.
+11. eqPW companion pattern — for Cat 1 `L = M : Lens α` lemmas, add
+    `(L).eqPW M` sibling without removing the DIRTY original; new
+    consumers migrate gradually.
+
+Running total marathon: 164 → ~120 real DIRTY (~27% reduction).
+The remaining ~120 DIRTY split:
+  - Inherent Prop-codomain (`Raw → Prop` from `universalLens`):
+    [propext, Quot.sound] — universalLens / FamilyJoinEquiv / Lattice.Join
+  - Inherent Lens-eq-on-Bool (Cat 1 with no eqPW migration yet):
+    [Quot.sound] — lensBoolHasDistinguishing chain, Tower levels
+  - Inherent simp-from-omega: [propext] — Mod3, Cauchy, etc.
+  - Heavy ring polynomial: [propext, Quot.sound] — CayleyHeavy, Sedenion
+  - Lean.Elab plumbing: [propext, Classical.choice, Quot.sound] —
+    NativeGuard, DepthJoin (uses Classical.choice indirectly)
+
 Patterns established (8 reusable):
 1. omega → Nat.le_trans + Nat.le_add_right + Nat.add_le_add
 2. cases h (impossible Nat eq) → absurd h (by decide)
