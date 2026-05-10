@@ -1,5 +1,6 @@
 import E213.Lib.Math.Choice.BootstrapWitness
 import E213.Lib.Math.Choice.Canonical
+import E213.Lib.Math.Choice.Resolved
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Choice`.
 

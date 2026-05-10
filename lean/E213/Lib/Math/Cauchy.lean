@@ -5,6 +5,7 @@ import E213.Lib.Math.Cauchy.EulerSeq
 import E213.Lib.Math.Cauchy.EulerSharper
 import E213.Lib.Math.Cauchy.EulerSharperKernelFree
 import E213.Lib.Math.Cauchy.EulerSharperPure
+import E213.Lib.Math.Cauchy.GenericFamily
 import E213.Lib.Math.Cauchy.MonotonicBounded
 import E213.Lib.Math.Cauchy.PellSeq
 import E213.Lib.Math.Cauchy.ProfiniteSeq

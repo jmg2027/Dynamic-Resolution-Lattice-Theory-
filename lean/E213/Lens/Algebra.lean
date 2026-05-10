@@ -1,8 +1,10 @@
 import E213.Lens.Algebra.CardinalityLB
 import E213.Lens.Algebra.Congruence
+import E213.Lens.Algebra.Corresp
 import E213.Lens.Internal.Algebra.FourDistinct
 import E213.Lens.Internal.Algebra.FreeAudit
 import E213.Lens.Algebra.IdLensEq
+import E213.Lens.Internal.Algebra.Space
 import E213.Lens.Internal.Algebra.SwapInvariant
 
 /-! Spec-as-code entry point for `E213.Lens.Algebra`.
@@ -10,14 +12,11 @@ import E213.Lens.Internal.Algebra.SwapInvariant
   Lens algebraic-kernel cluster — the equational layer of the
   Lens theory: equivalences, congruences, cardinality bounds.
 
-  Removed (design-by-funext/propext 금지):
-    * `Algebra.Corresp` — Lens kernel ↔ slash-congruence bijection
-                          (used `universalLens (Raw → Prop)`)
-    * `Internal.Algebra.Space` — KernelSpace Σ-type via `universalLens`
+  ## Files
 
-  ## Remaining Files
-
-    * `Congruence`    — slash-congruence definition + closure (relation)
+    * `Space`         — `KernelSpace` Σ-type over slash-congruences
+    * `Corresp`       — Lens kernel ↔ slash-congruence bijection
+    * `Congruence`    — slash-congruence definition + closure
     * `IdLensEq`      — id-Lens equivalence class
     * `SwapInvariant` — swap-invariance of the kernel
     * `FourDistinct`  — four-distinct-kernel witness

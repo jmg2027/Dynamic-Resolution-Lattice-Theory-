@@ -4,6 +4,7 @@ import E213.Lens.Compose.Morphism
 import E213.Lens.Compose.OnLens
 import E213.Lens.Compose.OnLensImage
 import E213.Lens.Compose.OnLensImageGeneric
+import E213.Lens.Compose.OnLensImageLevel2
 
 /-! Spec-as-code entry point for `E213.Lens.Compose`.
 
