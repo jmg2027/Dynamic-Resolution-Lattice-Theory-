@@ -295,3 +295,53 @@ theorem value_leavesCountRaw (k : Theory.Nat213.Nat213) :
   rw [leavesCountRaw_toRaw]
 
 end E213.Theory.Closed.Nat213Bridge
+
+namespace E213.Theory.Closed.Nat213Bridge
+
+open E213.Theory E213.Theory.Internal
+
+/-! ### leavesCountRaw 의 일반 idempotence — 모든 Raw 위
+
+위 `leavesCountRaw_toRaw` 는 chain image 에 한정.  이 section 은
+임의 Raw r 위에서:
+  1. `leavesCountRaw r` 는 항상 Layer 2 chain image 안 (`leavesCountRaw_chain`).
+  2. 따라서 `leavesCountRaw² r = leavesCountRaw r` (idempotence).
+
+leavesCountRaw 가 Raw 우주 위 projection 임의 정확한 표현. -/
+
+/-- 보조: 임의 Tree 위 `Tree.fold one one add` 의 결과가 toRaw image.
+    Tree induction; slash 분기는 toRaw_add 로 결합. -/
+private theorem fold_chain (t : Tree) :
+    ∃ k : Theory.Nat213.Nat213,
+      Tree.fold (α := Raw)
+          Theory.Closed.Nat213.one Theory.Closed.Nat213.one
+          Theory.Closed.Nat213.add t
+        = toRaw k := by
+  induction t with
+  | a => exact ⟨.one, rfl⟩
+  | b => exact ⟨.one, rfl⟩
+  | slash x y ihx ihy =>
+      obtain ⟨k₁, hk₁⟩ := ihx
+      obtain ⟨k₂, hk₂⟩ := ihy
+      refine ⟨Theory.Nat213.Nat213.add k₁ k₂, ?_⟩
+      show Theory.Closed.Nat213.add
+              (Tree.fold _ _ _ x) (Tree.fold _ _ _ y)
+         = toRaw (Theory.Nat213.Nat213.add k₁ k₂)
+      rw [hk₁, hk₂, toRaw_add]
+
+/-- **`leavesCountRaw r` 는 항상 Layer 2 chain image** — 임의 Raw r 위. -/
+theorem leavesCountRaw_chain (r : Raw) :
+    ∃ k : Theory.Nat213.Nat213,
+      Theory.Closed.Nat213.leavesCountRaw r = toRaw k :=
+  fold_chain r.val
+
+/-- **General idempotence**: `leavesCountRaw² r = leavesCountRaw r` for any Raw r.
+    chain restriction 없이 일반화 — leavesCountRaw 가 Raw 우주 위 projection. -/
+theorem leavesCountRaw_idempotent (r : Raw) :
+    Theory.Closed.Nat213.leavesCountRaw
+        (Theory.Closed.Nat213.leavesCountRaw r)
+      = Theory.Closed.Nat213.leavesCountRaw r := by
+  obtain ⟨k, hk⟩ := leavesCountRaw_chain r
+  rw [hk, leavesCountRaw_toRaw]
+
+end E213.Theory.Closed.Nat213Bridge
