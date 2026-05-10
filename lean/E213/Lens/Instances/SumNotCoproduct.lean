@@ -57,7 +57,8 @@ theorem sum_not_coproduct_xor :
   have h4 := hcomb (Sum.inl true) (Sum.inr true)
   rw [h3] at h4
   rw [h1, h2] at h4
-  -- h4 : true = xor true true.  xor true true = false → true = false → False
-  simp at h4
+  -- h4 : true = xor true true.  xor true true = false (by rfl reduction)
+  -- so h4 : true = false → False
+  exact absurd h4 (by decide)
 
 end E213.Lens.Instances.SumNotCoproduct
