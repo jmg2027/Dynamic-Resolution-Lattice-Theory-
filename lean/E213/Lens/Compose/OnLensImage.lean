@@ -75,8 +75,23 @@ open E213.Lens.Morphism.BoolProp
 theorem boolToConstLens_xor (x y : Bool) :
     boolToConstLens (xor x y) =
       lensXor (boolToConstLens x) (boolToConstLens y) := by
-  cases x <;> cases y <;>
-    simp [boolToConstLens, lensXor_TT, lensXor_TF, lensXor_FT, lensXor_FF]
+  cases x with
+  | true => cases y with
+    | true =>
+        -- xor true true = false; lensXor constTrueLens constTrueLens = constFalseLens
+        show constFalseLens = lensXor constTrueLens constTrueLens
+        exact lensXor_TT.symm
+    | false =>
+        -- xor true false = true; lensXor constTrueLens constFalseLens = constTrueLens
+        show constTrueLens = lensXor constTrueLens constFalseLens
+        exact lensXor_TF.symm
+  | false => cases y with
+    | true =>
+        show constTrueLens = lensXor constFalseLens constTrueLens
+        exact lensXor_FT.symm
+    | false =>
+        show constFalseLens = lensXor constFalseLens constFalseLens
+        exact lensXor_FF.symm
 
 end E213.Lens.Compose.OnLensImage
 
