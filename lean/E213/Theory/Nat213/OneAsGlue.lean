@@ -86,4 +86,27 @@ theorem det_uses_axis_generator (a b c d : Int) :
     The 1 in det IS the glue (rotation axis). -/
 theorem mobius_det_is_unit : (2 : Int) * 1 - 1 * 1 = 1 := by decide
 
+-- The inverse of Möbius P explicitly: P^(-1) = adj(P) / det(P)
+-- For P = [[2, 1], [1, 1]]:
+--   adj(P) = [[1, -1], [-1, 2]]
+--   det(P) = 1
+--   P^(-1) = [[1, -1], [-1, 2]]
+-- All integer entries because det = 1 (the glue).
+
+/-- Möbius P times its adjugate equals det (= 1) times identity.
+    Matrix mult: P · adj(P) is computed entry-by-entry.
+    Showing entry (1,1): 2·1 + 1·(-1) = 1 = det. -/
+theorem mobius_inverse_top_left : (2 : Int) * 1 + 1 * (-1) = 1 := by decide
+
+/-- Entry (1,2) of P · adj(P): 2·(-1) + 1·2 = 0. -/
+theorem mobius_inverse_top_right : (2 : Int) * (-1) + 1 * 2 = 0 := by decide
+
+/-- Entry (2,1): 1·1 + 1·(-1) = 0. -/
+theorem mobius_inverse_bot_left : (1 : Int) * 1 + 1 * (-1) = 0 := by decide
+
+/-- Entry (2,2): 1·(-1) + 1·2 = 1 = det.  Confirms P · adj(P) =
+    det · I = 1 · I = I.  Therefore P^(-1) = adj(P) (no division
+    needed because det = 1). -/
+theorem mobius_inverse_bot_right : (1 : Int) * (-1) + 1 * 2 = 1 := by decide
+
 end E213.Theory.Nat213.OneAsGlue
