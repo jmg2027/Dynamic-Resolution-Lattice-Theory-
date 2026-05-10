@@ -245,4 +245,36 @@ theorem cutMul_chainToCut (a b : Theory.Nat213.Nat213) (m k : Nat) :
   · intro h
     exact (cutMul_chainToCut_iff a b m k).mpr (of_decide_eq_true h)
 
+/-! ### cutLe compatibility — order 보존 (chain → cut)
+
+bounded search 없는 단순 case.  closed-Raw 의 ≤ (Nat213.toNat 통해) 가
+Real213 cutLe 와 정확히 commute. -/
+
+open E213.Lib.Math.Real213.CutPoset (cutLe)
+
+/-- **Order 보존**: chain a ≤ chain b iff a ≤ b (as Nat213.toNat). -/
+theorem cutLe_chainToCut_iff (a b : Theory.Nat213.Nat213) :
+    cutLe (chainToCut (toRaw a)) (chainToCut (toRaw b)) ↔ a.toNat ≤ b.toNat := by
+  constructor
+  · intro h
+    -- Take (m, k) = (b.toNat, 1).  chain b at this point is true.
+    have hbb_le : b.toNat * 1 ≤ b.toNat := by
+      calc b.toNat * 1 = b.toNat := Nat.mul_one _
+        _ ≤ b.toNat := Nat.le_refl _
+    have hbb : chainToCut (toRaw b) b.toNat 1 = true :=
+      (chainToCut_toRaw b b.toNat 1).symm ▸ decide_eq_true hbb_le
+    have hab : chainToCut (toRaw a) b.toNat 1 = true := h _ _ hbb
+    have hab2 : decide (a.toNat * 1 ≤ b.toNat) = true :=
+      chainToCut_toRaw a b.toNat 1 ▸ hab
+    have h3 : a.toNat * 1 ≤ b.toNat := of_decide_eq_true hab2
+    calc a.toNat = a.toNat * 1 := (Nat.mul_one _).symm
+      _ ≤ b.toNat := h3
+  · intro hab m k hcb
+    have hcb2 : decide (b.toNat * k ≤ m) = true :=
+      chainToCut_toRaw b m k ▸ hcb
+    have hbk : b.toNat * k ≤ m := of_decide_eq_true hcb2
+    have hak : a.toNat * k ≤ b.toNat * k := Nat.mul_le_mul_right _ hab
+    have h_ak_le_m : a.toNat * k ≤ m := Nat.le_trans hak hbk
+    exact (chainToCut_toRaw a m k).symm ▸ decide_eq_true h_ak_le_m
+
 end E213.Lib.Math.Real213.ChainToCut
