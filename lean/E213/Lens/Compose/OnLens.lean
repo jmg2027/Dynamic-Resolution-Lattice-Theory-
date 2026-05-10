@@ -1,5 +1,6 @@
 import E213.Lens.SemanticAtom
 import E213.Lens.Instances.Reach
+import E213.Lens.EqPW
 
 /-!
 # LensOnLens: Lens itself as an instance of the semantic framework
@@ -63,6 +64,21 @@ theorem lensXor_comm (L M : Lens Bool) : lensXor L M = lensXor M L := by
   · funext x y
     cases L.combine x y <;> cases M.combine x y <;> rfl
 
+/-- Pointwise (eqPW) commutativity of `lensXor` — ∅-axiom companion
+    to `lensXor_comm` (which uses funext on the combine field).
+    For Lens-equality consumers that can be expressed via eqPW,
+    this companion eliminates the Quot.sound dependency. -/
+theorem lensXor_comm_eqPW (L M : Lens Bool) :
+    (lensXor L M).eqPW (lensXor M L) := by
+  refine ⟨?_, ?_, ?_⟩
+  · show xor L.base_a M.base_a = xor M.base_a L.base_a
+    cases L.base_a <;> cases M.base_a <;> rfl
+  · show xor L.base_b M.base_b = xor M.base_b L.base_b
+    cases L.base_b <;> cases M.base_b <;> rfl
+  · intro x y
+    show xor (L.combine x y) (M.combine x y) = xor (M.combine x y) (L.combine x y)
+    cases L.combine x y <;> cases M.combine x y <;> rfl
+
 end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
@@ -111,6 +127,15 @@ theorem lensUniversalMorphism_slash (x y : Raw) (h : x ≠ y) :
   unfold lensUniversalMorphism
   exact Raw.fold_slash _ _ _ lensXor_comm x y h
 
+/-- ∅-axiom companion to `lensUniversalMorphism_slash`: pointwise
+    Lens equality (eqPW) of the slash image with the lensXor of the
+    children, derived via `Lens.fold_slash_eqPW` and `lensXor_comm_eqPW`. -/
+theorem lensUniversalMorphism_slash_eqPW (x y : Raw) (h : x ≠ y) :
+    (lensUniversalMorphism (Raw.slash x y h)).eqPW
+      (lensXor (lensUniversalMorphism x) (lensUniversalMorphism y)) := by
+  unfold lensUniversalMorphism
+  exact Lens.fold_slash_eqPW _ _ _ lensXor_comm_eqPW x y h
+
 end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
@@ -150,6 +175,17 @@ theorem lensCombineGeneric_comm {α : Type} (c : α → α → α)
   · exact hsym _ _
   · exact hsym _ _
   · funext x y; exact hsym _ _
+
+/-- Pointwise (eqPW) version — ∅-axiom companion to
+    `lensCombineGeneric_comm`, which uses funext on the combine field.
+    Sufficient for any consumer reasoning at the kernel level. -/
+theorem lensCombineGeneric_comm_eqPW {α : Type} (c : α → α → α)
+    (hsym : ∀ u v, c u v = c v u) (L M : Lens α) :
+    (lensCombineGeneric c L M).eqPW (lensCombineGeneric c M L) := by
+  refine ⟨?_, ?_, ?_⟩
+  · exact hsym _ _
+  · exact hsym _ _
+  · intro x y; exact hsym _ _
 
 end E213.Lens.Compose.OnLens
 

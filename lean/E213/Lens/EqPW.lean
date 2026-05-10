@@ -108,3 +108,37 @@ theorem eqPW_view_of_sym {α : Type} {L M : Lens α} (h : L.eqPW M)
 end Lens
 
 end E213.Lens
+
+namespace E213.Lens
+
+open E213.Theory E213.Theory.Internal
+
+namespace Lens
+
+/-! ### Fold/slash compatibility under eqPW symmetry
+
+Companion to `Raw.fold_slash` for codomain `Lens β` where `combine`
+sym is naturally pointwise (`eqPW`) rather than function-level.  The
+canonical-form swap is discharged with `hsym_pw` in the gt branch. -/
+
+/-- Fold/slash compatibility: if `c : Lens β → Lens β → Lens β` is
+    eqPW-symmetric pointwise, then folding over `Raw.slash x y h`
+    yields a `Lens β` that's eqPW-equal to `c (fold x) (fold y)`. -/
+theorem fold_slash_eqPW {β : Type}
+    (ba bb : Lens β) (c : Lens β → Lens β → Lens β)
+    (hsym_pw : ∀ u v : Lens β, (c u v).eqPW (c v u))
+    (x y : Raw) (h : x ≠ y) :
+    (Raw.fold ba bb c (Raw.slash x y h)).eqPW
+      (c (Raw.fold ba bb c x) (Raw.fold ba bb c y)) := by
+  unfold Raw.slash Raw.fold
+  split <;> rename_i hc
+  · exact eqPW_refl _
+  · -- gt: canonical form swaps; recover via hsym_pw on the swapped inputs
+    show (c (Tree.fold ba bb c y.val) (Tree.fold ba bb c x.val)).eqPW
+         (c (Tree.fold ba bb c x.val) (Tree.fold ba bb c y.val))
+    exact hsym_pw _ _
+  · exact absurd (Tree.cmp_eq_to_eq _ _ hc) (fun e => h (Subtype.ext e))
+
+end Lens
+
+end E213.Lens
