@@ -1,6 +1,7 @@
 import E213.Theory.Closed.Nat213Bridge
 import E213.Lib.Math.Real213.CutPoset
 import E213.Lib.Math.Real213.CutSumComm
+import E213.Lib.Math.Real213.CutMulComm
 import E213.Term.Tactic.Nat213
 
 /-!
@@ -157,5 +158,91 @@ theorem cutSum_chainToCut (a b : Theory.Nat213.Nat213) (m k : Nat) :
     exact decide_eq_true ((cutSum_chainToCut_iff a b m k).mp h)
   · intro h
     exact (cutSum_chainToCut_iff a b m k).mpr (of_decide_eq_true h)
+
+end E213.Lib.Math.Real213.ChainToCut
+
+namespace E213.Lib.Math.Real213.ChainToCut
+
+open E213.Theory
+open E213.Theory.Closed.Nat213Bridge (toRaw value_toRaw value_mul)
+open E213.Lib.Math.Real213.CutMul (cutMul cutMulOuter)
+open E213.Lib.Math.Real213.CutMulComm (cutMulOuter_eq_true_iff)
+
+/-! ### cutMul compatibility — Real213 cutMul 와 chain bridge 의 commute
+
+cutSum 과 같은 패턴 mul 쪽.  closed-Raw mul 이 Real213 cutMul 과 정확히
+일치 (point 별).  Nat213 의 toNat ≥ 1 invariant 가 bound check 의 enabler. -/
+
+/-- 보조: `(a*k)*(b*k) = (a*b*k)*k`.  mul_mul_mul_comm + mul_assoc. -/
+private theorem prod_rearrange (a b k : Nat) :
+    a * k * (b * k) = a * b * k * k := by
+  rw [E213.Tactic.Nat213.mul_mul_mul_comm_213,
+      ← E213.Tactic.Nat213.mul_assoc]
+
+/-- 보조: `m ≤ (m+1)*(k+1)`.  trivial bound. -/
+private theorem le_succ_mul_succ (m k : Nat) : m ≤ (m+1)*(k+1) := by
+  calc m ≤ m + 1 := Nat.le_succ m
+    _ = (m+1) * 1 := (Nat.mul_one (m+1)).symm
+    _ ≤ (m+1) * (k+1) :=
+      Nat.mul_le_mul_left _ (Nat.succ_le_succ (Nat.zero_le _))
+
+/-- **★ Iff 핵심 (mul) ★**: integer chain 의 cutMul 의 truth value 가
+    `a*b*k ≤ m` 과 동치.  Nat213.toNat_ge_one 가 enabler. -/
+theorem cutMul_chainToCut_iff (a b : Theory.Nat213.Nat213) (m k : Nat) :
+    cutMul (chainToCut (toRaw a)) (chainToCut (toRaw b)) m k = true
+    ↔ a.toNat * b.toNat * k ≤ m := by
+  show cutMulOuter _ _ k m ((m+1)*(k+1)) ((m+1)*(k+1)) = true ↔ _
+  refine Iff.trans (cutMulOuter_eq_true_iff _ _ _ _ _ _) ?_
+  constructor
+  · rintro ⟨m1, _, m2, _, hcx, hcy, hmul⟩
+    have h1 : a.toNat * k ≤ m1 :=
+      of_decide_eq_true (chainToCut_toRaw a m1 k ▸ hcx)
+    have h2 : b.toNat * k ≤ m2 :=
+      of_decide_eq_true (chainToCut_toRaw b m2 k ▸ hcy)
+    have hprod : a.toNat * k * (b.toNat * k) ≤ m * k :=
+      Nat.le_trans (Nat.le_trans
+        (Nat.mul_le_mul_right _ h1) (Nat.mul_le_mul_left m1 h2)) hmul
+    rw [prod_rearrange a.toNat b.toNat k] at hprod
+    cases k with
+    | zero => show a.toNat * b.toNat * 0 ≤ m
+              rw [Nat.mul_zero]; exact Nat.zero_le _
+    | succ k' =>
+      exact E213.Tactic.Nat213.le_of_mul_le_mul_right (Nat.succ_pos k') hprod
+  · intro hsum
+    have ha_pos : 1 ≤ a.toNat := Theory.Nat213.Nat213.toNat_ge_one a
+    have hb_pos : 1 ≤ b.toNat := Theory.Nat213.Nat213.toNat_ge_one b
+    have h_ak_le_m : a.toNat * k ≤ m := by
+      calc a.toNat * k = a.toNat * (1 * k) := by rw [Nat.one_mul]
+        _ ≤ a.toNat * (b.toNat * k) :=
+          Nat.mul_le_mul_left _ (Nat.mul_le_mul_right k hb_pos)
+        _ = a.toNat * b.toNat * k := (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+        _ ≤ m := hsum
+    have h_bk_le_m : b.toNat * k ≤ m := by
+      calc b.toNat * k = 1 * (b.toNat * k) := (Nat.one_mul _).symm
+        _ ≤ a.toNat * (b.toNat * k) := Nat.mul_le_mul_right _ ha_pos
+        _ = a.toNat * b.toNat * k := (E213.Tactic.Nat213.mul_assoc _ _ _).symm
+        _ ≤ m := hsum
+    refine ⟨a.toNat * k, ?_, b.toNat * k, ?_, ?_, ?_, ?_⟩
+    · exact Nat.le_trans h_ak_le_m (le_succ_mul_succ m k)
+    · exact Nat.le_trans h_bk_le_m (le_succ_mul_succ m k)
+    · exact (chainToCut_toRaw a (a.toNat * k) k).symm ▸
+        decide_eq_true (Nat.le_refl _)
+    · exact (chainToCut_toRaw b (b.toNat * k) k).symm ▸
+        decide_eq_true (Nat.le_refl _)
+    · rw [prod_rearrange a.toNat b.toNat k]
+      exact Nat.mul_le_mul_right k hsum
+
+/-- **★ cutMul compatibility ★**: Real213 cutMul 이 closed-Raw mul 의
+    bridge 와 commute.  cutSum 과 함께 + family 산술 전체 lift. -/
+theorem cutMul_chainToCut (a b : Theory.Nat213.Nat213) (m k : Nat) :
+    cutMul (chainToCut (toRaw a)) (chainToCut (toRaw b)) m k
+      = chainToCut (Theory.Closed.Nat213.mul (toRaw a) (toRaw b)) m k := by
+  rw [chainToCut_mul]
+  apply bool_eq_of_iff_true
+  constructor
+  · intro h
+    exact decide_eq_true ((cutMul_chainToCut_iff a b m k).mp h)
+  · intro h
+    exact (cutMul_chainToCut_iff a b m k).mpr (of_decide_eq_true h)
 
 end E213.Lib.Math.Real213.ChainToCut
