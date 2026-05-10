@@ -90,22 +90,26 @@ open E213.Lens.SemanticAtom
 The sharpest self-application instance — elements of Raw map to
 Lenses (= the representation unit of the framework). -/
 
-/-- Universal morphism Raw → Lens Bool via lens-on-lens instance. -/
+/-- Universal morphism Raw → Lens Bool.  Defined directly via
+    `Raw.fold` on `(constTrueLens, constFalseLens, lensXor)`,
+    bypassing the DIRTY `lensBoolHasDistinguishing` instance.
+    Definitionally equal to `@universalMorphism (Lens Bool)
+    lensBoolHasDistinguishing` but ∅-axiom (the indirect route
+    pulls in `lensXor_comm`'s funext via the typeclass field). -/
 def lensUniversalMorphism : Raw → Lens Bool :=
-  @universalMorphism (Lens Bool) lensBoolHasDistinguishing
+  Raw.fold constTrueLens constFalseLens lensXor
 
 theorem lensUniversalMorphism_a :
-    lensUniversalMorphism Raw.a = constTrueLens :=
-  @universalMorphism_a (Lens Bool) lensBoolHasDistinguishing
+    lensUniversalMorphism Raw.a = constTrueLens := rfl
 
 theorem lensUniversalMorphism_b :
-    lensUniversalMorphism Raw.b = constFalseLens :=
-  @universalMorphism_b (Lens Bool) lensBoolHasDistinguishing
+    lensUniversalMorphism Raw.b = constFalseLens := rfl
 
 theorem lensUniversalMorphism_slash (x y : Raw) (h : x ≠ y) :
     lensUniversalMorphism (Raw.slash x y h)
-      = lensXor (lensUniversalMorphism x) (lensUniversalMorphism y) :=
-  @universalMorphism_slash (Lens Bool) lensBoolHasDistinguishing x y h
+      = lensXor (lensUniversalMorphism x) (lensUniversalMorphism y) := by
+  unfold lensUniversalMorphism
+  exact Raw.fold_slash _ _ _ lensXor_comm x y h
 
 end E213.Lens.Compose.OnLens
 
