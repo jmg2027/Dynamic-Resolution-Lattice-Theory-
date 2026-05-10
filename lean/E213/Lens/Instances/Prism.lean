@@ -107,19 +107,22 @@ theorem caseElement_disjoint (target1 target2 : Raw) (h : target1 ≠ target2)
     ¬ ((caseElement target1).preview r = some () ∧
        (caseElement target2).preview r = some ()) := by
   intro ⟨h1, h2⟩
-  unfold caseElement at h1 h2
   show False
-  -- preview r = if r = target then some () else none.
   by_cases ht1 : r = target1
-  · -- r = target1.
-    by_cases ht2 : r = target2
-    · -- r = target2 also.  target1 = target2 contradiction.
+  · by_cases ht2 : r = target2
+    · -- r = target1 ∧ r = target2 → target1 = target2 contradiction.
       rw [← ht1, ht2] at h
       exact h rfl
-    · -- r ≠ target2 → preview target2 r = none → contradicts h2.
-      simp [ht2] at h2
-  · -- r ≠ target1 → preview target1 r = none → contradicts h1.
-    simp [ht1] at h1
+    · -- r ≠ target2 → preview target2 r = none → contradicts h2
+      have h2_form : (if r = target2 then some () else none : Option Unit)
+                   = some () := h2
+      rw [if_neg ht2] at h2_form
+      exact Option.noConfusion h2_form
+  · -- r ≠ target1 → preview target1 r = none → contradicts h1
+    have h1_form : (if r = target1 then some () else none : Option Unit)
+                 = some () := h1
+    rw [if_neg ht1] at h1_form
+    exact Option.noConfusion h1_form
 
 /-- Specific instance: disjointness of aPrism and bPrism. -/
 theorem aPrism_bPrism_disjoint (r : Raw) :
