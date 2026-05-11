@@ -53,7 +53,7 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 
 `seed/INDEX.md` directory layout 에 추가.
 
-### 5. Marathon: 21 real DIRTY → PURE in cycle
+### 5. Marathon: 26 real DIRTY → PURE in cycle
 
 | Module | # | Tricks |
 |---|---|---|
@@ -64,8 +64,10 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 | CutMidMono.cutLe_{a,b}_cutMid_at | 2 | 6 + 신규 sub_le_sub_left |
 | CutSumGeneral.cutSum_{same,diff}_denom_* | 4 | 2+6+8 |
 | BracketCauchyModulus.dyadic_bracket_* | 2 | 신규 one_le_two_pow_pure |
+| Infinity.BoolSpace.nToRawBool_* + cantor_gap | 5 | decide_eq_true/false 직접 |
 
-**Real213/* 전체 PURE, BracketCauchyModulus PURE**.  ~120 → ~99 real DIRTY.
+**Real213/* 전체 PURE, BracketCauchyModulus PURE, BoolSpace PURE**.
+~120 → ~94 real DIRTY.
 
 ### 6. 신규 Nat213 PURE helpers (이번 cycle)
 

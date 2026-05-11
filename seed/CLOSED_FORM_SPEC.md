@@ -91,8 +91,13 @@ PURE 유지 위한 패턴 set (재사용 가능).  Future Claude 가 propext lea
   - `Real213.CutMidMono.cutLe_{a,b}_cutMid_at` (2, trick 6 + 신규 sub_le_sub_left)
   - `Real213.CutSumGeneral.cutSum_{same,diff}_denom_{forward,contrapositive}` (4, trick 2+6+8)
 
-**총 19 real DIRTY → PURE** in this cycle.
-**Real213/* 전체 PURE 완료** (~120 → ~101 잔존).
+**총 26 real DIRTY → PURE** in this cycle.
+**Real213/* 전체 PURE + BracketCauchyModulus + BoolSpace** (~120 → ~94 잔존).
+
+Additional 발견 (10번째 trick):
+  10. **`rw [decide_eq_true_eq]` / `rw [decide_eq_false_iff_not]`** → 직접
+      `decide_eq_true (proof)` / `decide_eq_false (fun h => ...)` 사용.
+      Decide-Iff 가 propext.  BoolSpace 의 5 DIRTY 한 번에 해결.
 
 ## 한계 사례 (deeper propext leak)
 
