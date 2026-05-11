@@ -59,43 +59,50 @@ theorem Tree.toNat_injective :
       intro t2 heq
       cases t2 with
       | a => rfl
-      | b => exact absurd heq (by decide)
+      | b =>
+          have h : (0 : Nat) = 1 := heq
+          exact Nat.noConfusion h
       | slash x y =>
-          rw [Tree.toNat_a, Tree.toNat_slash,
-              Nat.add_comm 2 (2 * pair x.toNat y.toNat)] at heq
-          exact absurd heq.symm (Nat.succ_ne_zero _)
+          have h0 : (0 : Nat) = 2 + 2 * pair x.toNat y.toNat := heq
+          have h1 : (0 : Nat) = 2 * pair x.toNat y.toNat + 2 :=
+            h0.trans (Nat.add_comm 2 (2 * pair x.toNat y.toNat))
+          exact Nat.noConfusion h1
   | b =>
       intro t2 heq
       cases t2 with
-      | a => exact absurd heq (by decide)
+      | a =>
+          have h : (1 : Nat) = 0 := heq
+          exact Nat.noConfusion h
       | b => rfl
       | slash x y =>
-          rw [Tree.toNat_b, Tree.toNat_slash,
-              Nat.add_comm 2 (2 * pair x.toNat y.toNat)] at heq
-          have h1 : (0 : Nat) = 2 * pair x.toNat y.toNat + 1 :=
-            Nat.succ.inj heq
-          exact absurd h1.symm (Nat.succ_ne_zero _)
+          have h0 : (1 : Nat) = 2 + 2 * pair x.toNat y.toNat := heq
+          have h1 : (1 : Nat) = 2 * pair x.toNat y.toNat + 2 :=
+            h0.trans (Nat.add_comm 2 (2 * pair x.toNat y.toNat))
+          exact Nat.noConfusion (Nat.succ.inj h1)
   | slash x1 y1 ihx ihy =>
       intro t2 heq
       cases t2 with
       | a =>
-          rw [Tree.toNat_slash, Tree.toNat_a,
-              Nat.add_comm 2 (2 * pair x1.toNat y1.toNat)] at heq
-          exact absurd heq (Nat.succ_ne_zero _)
+          have h0 : 2 + 2 * pair x1.toNat y1.toNat = (0 : Nat) := heq
+          have h1 : 2 * pair x1.toNat y1.toNat + 2 = (0 : Nat) :=
+            (Nat.add_comm 2 (2 * pair x1.toNat y1.toNat)).symm.trans h0
+          exact Nat.noConfusion h1
       | b =>
-          rw [Tree.toNat_slash, Tree.toNat_b,
-              Nat.add_comm 2 (2 * pair x1.toNat y1.toNat)] at heq
-          have h1 : 2 * pair x1.toNat y1.toNat + 1 = (0 : Nat) :=
-            Nat.succ.inj heq
-          exact absurd h1 (Nat.succ_ne_zero _)
+          have h0 : 2 + 2 * pair x1.toNat y1.toNat = (1 : Nat) := heq
+          have h1 : 2 * pair x1.toNat y1.toNat + 2 = (1 : Nat) :=
+            (Nat.add_comm 2 (2 * pair x1.toNat y1.toNat)).symm.trans h0
+          exact Nat.noConfusion (Nat.succ.inj h1)
       | slash x2 y2 =>
-          rw [Tree.toNat_slash, Tree.toNat_slash,
-              Nat.add_comm 2 (2 * pair x1.toNat y1.toNat),
-              Nat.add_comm 2 (2 * pair x2.toNat y2.toNat)] at heq
-          have h1 : 2 * pair x1.toNat y1.toNat = 2 * pair x2.toNat y2.toNat :=
-            Nat.succ.inj (Nat.succ.inj heq)
+          have h0 : 2 + 2 * pair x1.toNat y1.toNat
+                  = 2 + 2 * pair x2.toNat y2.toNat := heq
+          have h1 : 2 * pair x1.toNat y1.toNat + 2
+                  = 2 * pair x2.toNat y2.toNat + 2 :=
+            ((Nat.add_comm 2 (2 * pair x1.toNat y1.toNat)).symm.trans h0).trans
+              (Nat.add_comm 2 (2 * pair x2.toNat y2.toNat))
+          have h2 : 2 * pair x1.toNat y1.toNat = 2 * pair x2.toNat y2.toNat :=
+            Nat.succ.inj (Nat.succ.inj h1)
           have hp : pair x1.toNat y1.toNat = pair x2.toNat y2.toNat :=
-            Nat.eq_of_mul_eq_mul_left (by decide) h1
+            Nat.eq_of_mul_eq_mul_left (by decide) h2
           obtain ⟨hxn, hyn⟩ := pair_injective_4 _ _ _ _ hp
           rw [ihx x2 hxn, ihy y2 hyn]
 
