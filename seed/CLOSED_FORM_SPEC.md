@@ -74,7 +74,7 @@ PURE 유지 위한 패턴 set (재사용 가능).  Future Claude 가 propext lea
      ```
   6. **Nat-core leak** → `E213.Tactic.Nat213.*` helpers:
      `mul_assoc`, `add_mul`, `add_sub_of_le`, `le_sub_of_add_le`,
-     `mul_mul_mul_comm_213`, `le_of_mul_le_mul_right`.
+     `mul_mul_mul_comm_213`, `le_of_mul_le_mul_right`, **`sub_le_sub_left`** (2026-05-11 추가).
   7. **`decide_eq_true_iff`** → 직접 `Iff.intro` 양방향:
      `· intro h; exact decide_eq_true (..mp h)`
      `· intro h; exact ...mpr (of_decide_eq_true h)`.
@@ -88,9 +88,11 @@ PURE 유지 위한 패턴 set (재사용 가능).  Future Claude 가 propext lea
   - `Real213.CutLatticeEq.{cutMax,cutMin}_cutLe_*` (6, trick 5)
   - `Real213.CutMulConstConst.cutMul_const_const_*` (2, trick 2+8)
   - `Real213.ValidCutOps.{cutMax,cutMin,cutSum}_valid` (4, trick 5+2+8)
-  - `Real213.CutMidMono.cutLe_cutMid_b_at` (1, trick 2+6+8)
+  - `Real213.CutMidMono.cutLe_{a,b}_cutMid_at` (2, trick 6 + 신규 sub_le_sub_left)
+  - `Real213.CutSumGeneral.cutSum_{same,diff}_denom_{forward,contrapositive}` (4, trick 2+6+8)
 
-총 **14 real DIRTY → PURE** in single sprint.
+**총 19 real DIRTY → PURE** in this cycle.
+**Real213/* 전체 PURE 완료** (~120 → ~101 잔존).
 
 ## 한계 사례 (deeper propext leak)
 
