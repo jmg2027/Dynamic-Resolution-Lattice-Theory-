@@ -53,7 +53,7 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 
 `seed/INDEX.md` directory layout 에 추가.
 
-### 5. Marathon: 29 real DIRTY → PURE in cycle
+### 5. Marathon: 30 real DIRTY → PURE in cycle
 
 | Module | # | Tricks |
 |---|---|---|
@@ -66,10 +66,11 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 | BracketCauchyModulus.dyadic_bracket_* | 2 | 신규 one_le_two_pow_pure |
 | Infinity.BoolSpace.nToRawBool_* + cantor_gap | 5 | decide_eq_true/false 직접 |
 | Godel.{Tree.toNat_injective, raw_at_most_countable, raw_equipotent_nat} | 3 | rw → trans/symm |
+| Hyper.Hyper213.cofinite_trans | 1 | Nat213.le_max_left/right |
 | LensCardinality.sigma7_cardinality_is_lens_output | (propagated) | (Godel 의존) |
 
-**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel** 모두 PURE.
-~120 → ~91 real DIRTY.
+**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213** PURE.
+~120 → ~90 real DIRTY.
 
 ### By-design DIRTY (변환 불가, 발견 catalog):
 
