@@ -53,7 +53,7 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 
 `seed/INDEX.md` directory layout 에 추가.
 
-### 5. Marathon: 14 real DIRTY → PURE in single sprint
+### 5. Marathon: 21 real DIRTY → PURE in cycle
 
 | Module | # | Tricks |
 |---|---|---|
@@ -61,9 +61,20 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 | CutLatticeEq.{cutMax,cutMin}_cutLe_* | 6 | 5 (Bool helpers) |
 | CutMulConstConst.cutMul_const_const_* | 2 | 2+8 |
 | ValidCutOps.{cutMax,cutMin,cutSum}_valid | 4 | 5+2+8 |
-| CutMidMono.cutLe_cutMid_b_at | 1 | 2+6+8 |
+| CutMidMono.cutLe_{a,b}_cutMid_at | 2 | 6 + 신규 sub_le_sub_left |
+| CutSumGeneral.cutSum_{same,diff}_denom_* | 4 | 2+6+8 |
+| BracketCauchyModulus.dyadic_bracket_* | 2 | 신규 one_le_two_pow_pure |
 
-**~120 → ~106 real DIRTY** (이번 sprint -14).
+**Real213/* 전체 PURE, BracketCauchyModulus PURE**.  ~120 → ~99 real DIRTY.
+
+### 6. 신규 Nat213 PURE helpers (이번 cycle)
+
+  - `E213.Tactic.Nat213.sub_le_sub_left` — Lean-core 의 propext 회피.
+    Term-mode 4-case pattern on (a, b) + recursion on c.
+
+  추가 local helpers (modules 내):
+  - `BracketCauchyModulus.one_le_two_pow_pure` — Nat.one_le_two_pow 대체.
+  - `CutLatticeEq.{and_left, and_right, and_intro, or_cases, or_left, or_right}`
 
 ### 6. Propext-avoidance trick set (8 patterns, future Claude anchor)
 
