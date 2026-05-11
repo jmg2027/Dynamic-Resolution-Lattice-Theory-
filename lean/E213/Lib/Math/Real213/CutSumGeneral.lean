@@ -63,8 +63,7 @@ theorem cutSum_same_denom_forward (a b c m k : Nat)
     (h : cutSum (constCut a b) (constCut c b) m k = true) :
     constCut (a + c) b m k = true := by
   change cutSumAux (constCut a b) (constCut c b) k (2*m) (2*m) = true at h
-  rw [cutSumAux_eq_true_iff] at h
-  obtain ⟨i, hi, hci, hcsi⟩ := h
+  obtain ⟨i, hi, hci, hcsi⟩ := (cutSumAux_eq_true_iff _ _ _ _ _).mp h
   have h_ai : a * (2 * k) ≤ b * i := of_decide_eq_true hci
   have h_ci : c * (2 * k) ≤ b * (2 * m - i) := of_decide_eq_true hcsi
   show decide ((a + c) * k ≤ b * m) = true
@@ -73,20 +72,20 @@ theorem cutSum_same_denom_forward (a b c m k : Nat)
   have h_add_le : a * (2*k) + c * (2*k) ≤ b * i + b * (2*m - i) :=
     Nat.add_le_add h_ai h_ci
   have h_ri : b * i + b * (2*m - i) = b * (2*m) := by
-    rw [← Nat.mul_add]
-    congr 1
-    omega
+    rw [← Nat.mul_add, E213.Tactic.Nat213.add_sub_of_le hi]
   rw [h_ri] at h_add_le
   -- LHS = (a+c)·(2k) = 2·((a+c)·k)
   have h_lhs : a * (2*k) + c * (2*k) = 2 * ((a+c) * k) := by
-    rw [show a * (2*k) = 2 * (a*k) from by
-          rw [Nat.mul_comm a, E213.Tactic.Nat213.mul_assoc, Nat.mul_comm k a]]
-    rw [show c * (2*k) = 2 * (c*k) from by
-          rw [Nat.mul_comm c, E213.Tactic.Nat213.mul_assoc, Nat.mul_comm k c]]
-    rw [← Nat.mul_add, Nat.add_mul]
+    calc a * (2*k) + c * (2*k)
+        = (a + c) * (2*k) := (E213.Tactic.Nat213.add_mul a c (2*k)).symm
+      _ = (a + c) * (k * 2) := by rw [Nat.mul_comm 2 k]
+      _ = ((a + c) * k) * 2 := (E213.Tactic.Nat213.mul_assoc (a+c) k 2).symm
+      _ = 2 * ((a + c) * k) := Nat.mul_comm _ _
   -- RHS = b·(2m) = 2·(b·m)
   have h_rhs : b * (2 * m) = 2 * (b * m) := by
-    rw [Nat.mul_comm b, E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m b]
+    calc b * (2 * m) = b * (m * 2) := by rw [Nat.mul_comm 2 m]
+      _ = (b * m) * 2 := (E213.Tactic.Nat213.mul_assoc b m 2).symm
+      _ = 2 * (b * m) := Nat.mul_comm _ _
   rw [h_lhs, h_rhs] at h_add_le
   exact Nat.le_of_mul_le_mul_left h_add_le (by decide : 0 < 2)
 
@@ -104,8 +103,7 @@ theorem cutSum_diff_denom_forward (a b c d m k : Nat)
     (h : cutSum (constCut a b) (constCut c d) m k = true) :
     constCut (a * d + b * c) (b * d) m k = true := by
   change cutSumAux (constCut a b) (constCut c d) k (2*m) (2*m) = true at h
-  rw [cutSumAux_eq_true_iff] at h
-  obtain ⟨i, hi, hci, hcsi⟩ := h
+  obtain ⟨i, hi, hci, hcsi⟩ := (cutSumAux_eq_true_iff _ _ _ _ _).mp h
   have h_ai : a * (2 * k) ≤ b * i := of_decide_eq_true hci
   have h_ci : c * (2 * k) ≤ d * (2 * m - i) := of_decide_eq_true hcsi
   show decide ((a * d + b * c) * k ≤ b * d * m) = true
@@ -125,9 +123,7 @@ theorem cutSum_diff_denom_forward (a b c d m k : Nat)
       rw [← E213.Tactic.Nat213.mul_assoc, Nat.mul_comm d b]
     have e2 : b * (d * (2 * m - i)) = b * d * (2 * m - i) := by
       rw [← E213.Tactic.Nat213.mul_assoc]
-    rw [e1, e2, ← Nat.mul_add]
-    congr 1
-    omega
+    rw [e1, e2, ← Nat.mul_add, E213.Tactic.Nat213.add_sub_of_le hi]
   rw [h_rhs_eq] at h_sum
   -- LHS simplification: d·(a·2k) + b·(c·2k) = 2·(ad+bc)·k.
   have h_lhs_eq : d * (a * (2 * k)) + b * (c * (2 * k))
@@ -137,10 +133,12 @@ theorem cutSum_diff_denom_forward (a b c d m k : Nat)
           E213.Tactic.Nat213.mul_left_comm (a*d) 2 k]
     have e2 : b * (c * (2 * k)) = 2 * (b * c * k) := by
       rw [← E213.Tactic.Nat213.mul_assoc b c (2*k), E213.Tactic.Nat213.mul_left_comm (b*c) 2 k]
-    rw [e1, e2, ← Nat.mul_add, Nat.add_mul]
+    rw [e1, e2, ← Nat.mul_add, E213.Tactic.Nat213.add_mul]
   -- RHS into 2-form: bd·(2m) = 2·(bd·m).
   have h_rhs2 : b * d * (2 * m) = 2 * (b * d * m) := by
-    rw [Nat.mul_comm (b*d), E213.Tactic.Nat213.mul_assoc, Nat.mul_comm m (b*d)]
+    calc b * d * (2 * m) = b * d * (m * 2) := by rw [Nat.mul_comm 2 m]
+      _ = (b * d * m) * 2 := (E213.Tactic.Nat213.mul_assoc (b*d) m 2).symm
+      _ = 2 * (b * d * m) := Nat.mul_comm _ _
   rw [h_lhs_eq, h_rhs2] at h_sum
   exact Nat.le_of_mul_le_mul_left h_sum (by decide : 0 < 2)
 
