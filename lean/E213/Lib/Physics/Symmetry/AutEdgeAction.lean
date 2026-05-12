@@ -67,10 +67,10 @@ def aut_act_edge (σ_E : Fin 10 → Fin 10) (α : Cochain 5 2) : Cochain 5 2 :=
 /-- Identity action on edges: σ_E = id ⟹ aut_act_edge id α = α. -/
 theorem aut_act_edge_id (α : Cochain 5 2) : aut_act_edge id α = α := rfl
 
-/-- Edge action involutive when σ_E is involutive. -/
-theorem aut_act_edge_involution (α : Cochain 5 2) :
-    aut_act_edge σ_E_swap_01 (aut_act_edge σ_E_swap_01 α) = α := by
-  funext e
+/-- Edge action involutive when σ_E is involutive (pointwise;
+    funext would leak Quot.sound).  PURE. -/
+theorem aut_act_edge_involution (α : Cochain 5 2) (e : Fin 10) :
+    aut_act_edge σ_E_swap_01 (aut_act_edge σ_E_swap_01 α) e = α e := by
   show α (σ_E_swap_01 (σ_E_swap_01 e)) = α e
   rw [σ_E_swap_01_involution]
 
