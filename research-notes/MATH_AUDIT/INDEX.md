@@ -10,7 +10,7 @@ lines target.
 | # | File | Clusters | Files | Status |
 |---|---|---|---|---|
 | 1 | `C_algebra.md` | CayleyDickson, Group, Polynomial213, Linalg213 | 77 | ✓ initial pass (2026-05-12) |
-| 2 | `A_foundations.md` | NatHelpers, Modulus, ModArith, Choice, AxiomSystems, Tactic, Logic, Search | ~45 | pending |
+| 2 | `A_foundations.md` | NatHelpers, Modulus, ModArith, Choice, AxiomSystems, Tactic, Logic, Search | 42 | ✓ initial pass (2026-05-12) |
 | 3 | `G_cohomology.md` | Cohomology, HodgeConjecture | 161 | pending |
 | 4 | `F_dyadic_fsm.md` | DyadicFSM | 116 | pending |
 | 5 | `E_analysis.md` | Analysis, CascadeCalculus, ODE, Multivariable, Functional, Measure, Trajectory | ~98 | pending |
