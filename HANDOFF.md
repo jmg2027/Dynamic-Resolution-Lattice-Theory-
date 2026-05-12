@@ -1,273 +1,243 @@
-# Session Handoff — DRLT 213 (2026-05-12)
+# Session Handoff — 2026-05-12
 
 ## Branch
 `claude/raw-data-demo-W8aVV` — pushed, up to date with origin.
-Latest: `fe6ce3dc ModArith.JoinExample.leaves_ge_one: omega → Nat.le_trans`.
+Latest: `ea99e4c8 HANDOFF: marathon 2026-05-12 late (96 cumulative)`.
 
-## Marathon snapshot (2026-05-12, late)
+## What Was Done This Session
 
-Cumulative real DIRTY → PURE in current cycle: **96**.
+Marathon: **96 cumulative real DIRTY → PURE** in current cycle.
+Repo-wide state: **~6498 PURE / ~170 DIRTY** (~97.5% PURE rate).
 
-Repo-wide state: ~6498 PURE / ~170 DIRTY (~97.5% PURE rate).
-Remaining DIRTY is mostly inherent: Bool↔Prop bridge, universalLens
-(Quot-based), funext-on-Lens (combine field), heavy ring polynomial
-(Cayley/Sedenion), Int arithmetic propext, omega-heavy mod arithmetic,
-Lean.Elab plumbing.
+### 1. Linalg213 cluster — fully PURE (98 / 0)
 
-Sub-cluster wins this push (2026-05-12):
-  - `Linalg213.Span` (omega → explicit rw chain): 6 PURE
-  - `Linalg213.Chiral.combine_proj_eq` + cascade (Capstone): 3 PURE
-  - `Cohomology.Delta.Linear` + `CupAW.Zero` + `CupAW.Bilinear`
-    (by_cases + simp → match Decidable + dif_pos/neg): 8 PURE
-  - `Symmetry.{AutAction,AutEdgeAction}` (funext → pointwise): 2 PURE
-  - `Irrational.Sqrt2.lean` deleted (Sqrt2KernelFree.lean replaces): 3 DIRTY removed
-  - `Modulus.PellHasModulus` (by_cases + Nat.mul_assoc → match + Nat213.mul_assoc): 3 PURE
-  - `LevelTopology.{QuaternionTopology,ComplexTopology}` (simp Fin-mk → Nat.mod_lt): 7 PURE
-  - `Cohomology.Universal.{Prop41,Prop42}` (pattern Fin match → if-then-else): 4 PURE
-    (`pattern_eq` remains DIRTY by funext-design — `pattern` and `dsq_pattern` now PURE)
-  - `App.Simplex.block_constant_implies_aut_invariant` (simp only [] →
-    cases + diag_case helper): 1 PURE
-  - `Cauchy.GenericFamily.{profinite_factorial_is_GFCauchy,
-    orderCauchy_is_GFCauchy}` (by_cases + omega → match Decidable +
-    Nat.succ_le_succ): 2 PURE
-  - `ModArith.JoinExample.leaves_ge_one` (private helper omega →
-    Nat.le_trans): building-block cleanup
-
-Reusable patterns established this push:
-  13. `omega` on Vec/Cochain sum → explicit `rw [Nat.mul_zero, Nat.mul_one,
-       Nat.zero_add]` chain + final `rfl` (proof-irrelevance closes Fin _)
-  14. `simp only [def, h, ↓reduceDIte]` → `unfold def; match
-       (inferInstance : Decidable _) with | .isTrue h => rw [dif_pos h,...]
-       | .isFalse h => rw [dif_neg h,...]; rfl`
-  15. `by simp [Nat.mod_lt]` in Fin-mk obligation → `Nat.mod_lt _ (by decide)`
-  16. `funext k; match k with ⟨0,_⟩ => rfl | ...` → `obtain ⟨n, hn⟩ := k;
-       show ...; rcases cases_lt_N hn with h|...|h <;> subst h <;> rfl`
-  17. Pattern def with `match i with ⟨k,_⟩ => bᵢ` → `if i.val = k then bᵢ ...`
-       (Fin pattern match in def body leaks via exhaustiveness)
-
-Modules entirely PURE post-push: Linalg213 (98/0), Physics (1553/0),
-Term/Theory layers fully PURE.
-
-## What Was Done Previous Sessions
-
-### 1. ★ Theory/Closed/* — closed-form pattern unification (4-domain catalog)
-
-Vertical-internal projection 메타 패턴 4개 도메인 위 작동:
-
-| domain | object | projection | Lean module |
-|---|---|---|---|
-| Nat213 | Raw | leavesCountRaw | Theory/Closed/Nat213Bridge |
-| Bool213 | Raw | booleanProj | Theory/Closed/Bool213 |
-| RawCut | Raw²→Raw | cutBooleanProj | Theory/Closed/RawCut |
-| CauchyCutSeq | structure | cauchyProj | Lib/Math/Analysis/CauchyProj |
-
-각 도메인 위 4 정리: closure + idempotence + boundary commutativity +
-fixed-point ↔ image.  CauchyProj 의 정리들은 모두 `rfl`.
-
-### 2. ★ ChainToCut bridge — Closed Nat213 → Real213 cut 우주
-
-`lean/E213/Lib/Math/Real213/ChainToCut.lean` (13 PURE):
-
-| Real213 cut 연산 | Bridge 정리 |
+| File | Wins |
 |---|---|
-| `cutSum` (add) | `cutSum_chainToCut` |
-| `cutMul` (mul) | `cutMul_chainToCut` |
-| `cutLe` (≤) | `cutLe_chainToCut_iff` |
-| `cutMax` (LUB) | `cutLe_cutMax_chainToCut_iff` |
-| `cutMin` (GLB) | `cutLe_cutMin_chainToCut_iff` |
+| `Linalg213.Span` (omega → explicit `rw [Nat.mul_zero × 4, Nat.mul_one, Nat.zero_add]` chain + final `rfl`) | 6 PURE |
+| `Linalg213.Chiral.{combine_proj_eq, phase_L4_capstone}` (Fin match → `cases_lt_five`+ `subst` + `rfl`) | 2 PURE |
+| `Linalg213.Capstone.paper1_chiral_compression` (cascade through `combine_proj_eq`) | 1 PURE |
 
-closed-Raw 의 add/mul/order/lattice 모두 Real213 cut 우주로 lift.
-Theory/Closed/* 가 압축 도구임 입증.
+### 2. Cohomology cluster — 8 PURE in three files
 
-### 3. Bridge composition (ChainCauchy)
-
-`Lib/Math/Analysis/ChainCauchy.lean` (3 PURE, all rfl):
-`chainCauchyCutSeq r := constCauchyCutSeq (chainToCut r)`.
-ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
-
-### 4. Tier 5 spec 문서 (`seed/CLOSED_FORM_SPEC.md`)
-
-정식 spec 문서:
-  - 4-domain meta-pattern catalog
-  - ChainToCut bridge table
-  - Bridge composition
-  - **8-pattern propext-avoidance trick set** (재사용)
-  - Marathon 사례 + 한계 catalog
-  - Future work
-
-`seed/INDEX.md` directory layout 에 추가.
-
-### 5. Marathon: 46 real DIRTY → PURE in cycle (deep refactor 포함)
-
-| Module | # | Tricks |
+| File | Wins | Trick |
 |---|---|---|
-| EulerSharperPure.e_partial_neq_third_a | 1 | 3+4+6 |
-| CutLatticeEq.{cutMax,cutMin}_cutLe_* | 6 | 5 (Bool helpers) |
-| CutMulConstConst.cutMul_const_const_* | 2 | 2+8 |
-| ValidCutOps.{cutMax,cutMin,cutSum}_valid | 4 | 5+2+8 |
-| CutMidMono.cutLe_{a,b}_cutMid_at | 2 | 6 + 신규 sub_le_sub_left |
-| CutSumGeneral.cutSum_{same,diff}_denom_* | 4 | 2+6+8 |
-| BracketCauchyModulus.dyadic_bracket_* | 2 | 신규 one_le_two_pow_pure |
-| Infinity.BoolSpace.nToRawBool_* + cantor_gap | 5 | decide_eq_true/false 직접 |
-| Godel.{Tree.toNat_injective, raw_at_most_countable, raw_equipotent_nat} | 3 | rw → trans/symm |
-| Hyper.Hyper213.cofinite_trans | 1 | Nat213.le_max_left/right |
-| LensCardinality.sigma7_cardinality_is_lens_output | (propagated) | (Godel 의존) |
-| **Theory.Internal.Raw.CmpIndependence** 전체 9 | **9** | **Tree.cmp_eq_iff PURE refactor + Bool.and_eq_true_to_pair** |
-| Lens.Leaves.Mod3.{leavesMod3Lens_view_eq, leaves_refines_mod3} | 2 | AddMod213.add_mod_gen (existing PURE) |
-| Lens.Properties.ABRefines.abLens_refines_boolXorLens | 1 | AddMod213 + mod_two_zero_or_one_pure (신규) |
-| **Lens.Instances.Reach** 전체 13 (fin3 + int) | **4** | **Fin.mk-based 정의 + IntHelpers PURE (add_comm, add_nonneg, le_ofNat_of_nonneg)** |
+| `Cohomology.Delta.Linear.{delta_add, delta_linear_capstone}` | 2 PURE | `by_cases h : P hd` → `match (inferInstance : Decidable (P hd)) with`; `simp only [...]` → `rw [dif_pos h, dif_pos h, dif_pos h]` |
+| `Cohomology.CupAW.Zero.{cupAW_zero_left, cupAW_zero_right, delta_zero}` | 3 PURE | same + `Bool.and_false` for the `α _ && false = false` inner case |
+| `Cohomology.CupAW.Bilinear.{cupAW_add_left, cupAW_add_right, cupAW_bilinear_capstone}` | 3 PURE | same + `Bool.and_xor_distrib_{left,right}` inner |
 
-**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213 + CmpIndependence + Mod3 + ABRefines + Reach** PURE.
-~120 → ~74 real DIRTY.
+### 3. Symmetry — funext eliminated (2 PURE)
 
-### 새 PURE infrastructure (IntHelpers + Fin.mk pattern)
+`AutAction.aut_act_involution` and `AutEdgeAction.aut_act_edge_involution`
+converted from `funext + match` to pointwise (∀ i, ... i = ... i).
+Physics cluster now fully PURE (1553 / 0).
 
-`Lib/Math/NatHelpers/IntHelpers.lean` 확장:
-  - `le_ofNat_of_nonneg`: 0 ≤ a → ∃ n, a = Int.ofNat n
-  - `add_nonneg`: PURE replacement of Int.add_nonneg (propext)
-  - `add_comm`: PURE 4-case match on (ofNat, negSucc)² → Int.add_comm 대체
+### 4. PellHasModulus — by_cases + Nat.mul_assoc replaced (3 PURE)
 
-`Fin.mk` pattern: `(0 : Fin n)` literal 은 propext-laden, 직접 `⟨0, by decide⟩`
-는 PURE.  Reach.fin3 PoC 적용 완료.  Linalg213/Simplex 등 ~20+ modules 의
-잠재 unblock 경로.
+`Lib/Math/Modulus/PellHasModulus.lean`:
+  - `by_cases h : 2*k*k < m*m` → `match (inferInstance : Decidable ...)`
+  - `rw [Nat.mul_assoc]` → `rw [E213.Tactic.Nat213.mul_assoc]`
+    (Lean-core `Nat.mul_assoc` is propext-leaking; Nat213 alternative
+     is term-mode PURE)
+  - Cascade: `pell_cauchy_at`, `pellHasModulus`, `pell_isOrderCauchy`
 
-### Fin213 PURE 가능성 발견
+### 5. LevelTopology — single-line `simp` fix (7 PURE cascade)
 
-`def fin5_zero : Fin 5 := ⟨0, by decide⟩` 같은 `Fin.mk`-direct 정의는 PURE.
-`(0 : Fin 5)` OfNat literal 은 propext, 하지만 explicit `⟨_, _⟩` 는 안전.
+`QuaternionTopology.lean`: `⟨..., by simp [Nat.mod_lt]⟩` → `⟨..., Nat.mod_lt _ (by decide : 0 < 3)⟩`
+cascaded 7 PURE wins (cyclicNext + 6 dependent theorems).
+`ComplexTopology.lean` preventively same.
 
-`Fin213` PURE shim 작성 가능 (Linalg213, Reach, Simplex 등 ~20+ modules
-unblock 후보).  Architecture-level work — 다음 cycle.
+### 6. Universal Pattern defs — Fin match → if-then-else (4 PURE)
 
-### 발견: 기존 PURE infrastructure 활용 (Lib/Math/NatHelpers/AddMod213)
+`Universal.{Prop41,Prop42}.pattern` rewritten from
+`fun i => match i with ⟨0,_⟩ => b0 | ⟨1,_⟩ => b1 | ...` to
+`fun i => if i.val = 0 then b0 else if i.val = 1 then b1 else ...`.
+`pattern` and `dsq_pattern` now PURE.
+`pattern_eq` (function-eq via funext) remains DIRTY by-design.
 
-`AddMod213.add_mod_gen` 이미 PURE replacement of Nat.add_mod 보유.
-새로 작성할 필요 없이 swap 만으로 PURE 가능 — 다른 modules 도 동일 패턴 적용 가능.
+### 7. Sqrt2.lean deleted (3 DIRTY removed)
 
-### Deep refactor 의 첫 substantial win (CmpIndependence)
+`Irrational.Sqrt2.lean` (omega-based, 3 DIRTY) deleted entirely.
+`Irrational.Sqrt2KernelFree.lean` (kernel-free 2-step descent, PURE)
+provides identical theorem names. Aggregator `Irrational.lean` updated.
 
-`Tree.cmp_eq_iff` 의 `simp [Tree.cmp]` 를 term-mode Iff.intro + Ordering.noConfusion /
-Tree.noConfusion 으로 직접 refactor → 9 DIRTY 모두 propagation 으로 PURE.
+### 8. App.Simplex.block_constant_implies_aut_invariant (1 PURE)
 
-**11번째 trick**:
-  - `simp [pattern_def]` 가 propext leak → 직접 case 분석 / Iff.intro term-mode
-  - `rw [Bool.and_eq_true] at hcanon` → `Bool.and_eq_true_to_pair hcanon`
+`simp only []` (used for match-reduction after `cases isA i <;> cases isA j`)
+replaced with explicit 4-way `cases` and a local `diag_case` helper for
+the `if i = j` ↔ `if σ i = σ j` equivalence.
 
-### By-design DIRTY (변환 불가, 발견 catalog):
+### 9. Cauchy.GenericFamily — 2 PURE in two theorems
 
-  - `Fin n` 의 `OfNat` instance 자체가 propext-laden. 모든 `Fin n` 사용
-    theorems (Reach.fin3_image_*, etc.) DIRTY by-design.
-  - SemanticAtom 의 propAsDistinguishing — atom of meaning thesis.
-  - Lens combine_sym field — funext-by-design (Lens.eqPW 으로 refactor 가능).
+`profinite_factorial_is_GFCauchy`: 4× `(by omega)` for `m+1 ≥ 1` and
+`k+1 ≥ m+1`-style args replaced with `Nat.succ_le_succ (Nat.zero_le _)`
+and `Nat.le_succ_of_le hk`.
 
-### 6. 신규 Nat213 PURE helpers (이번 cycle)
+`orderCauchy_is_GFCauchy`: `by_cases hk : mk.2 ≥ 1` → match Decidable;
+inner `by omega` for `mk.2 = 0` → match on `mk.2` with explicit `n + 1`
+case (contradiction via `Nat.succ_le_succ`); trailing `simp` after
+`rw [hk0]` → explicit `rw [Nat.mul_zero, decide_eq_true (Nat.zero_le _)]`.
 
-  - `E213.Tactic.Nat213.sub_le_sub_left` — Lean-core 의 propext 회피.
-    Term-mode 4-case pattern on (a, b) + recursion on c.
+### 10. Misc cleanups
 
-  추가 local helpers (modules 내):
-  - `BracketCauchyModulus.one_le_two_pow_pure` — Nat.one_le_two_pow 대체.
-  - `CutLatticeEq.{and_left, and_right, and_intro, or_cases, or_left, or_right}`
+- `ModArith.JoinExample.leaves_ge_one` (private helper): omega →
+  `Nat.le_trans ihx (Nat.le_add_right _ _)`.  Doesn't propagate to
+  the file's public theorems (other omegas in mod arithmetic) but
+  a clean building block.
 
-### 6. Propext-avoidance trick set (8 patterns, future Claude anchor)
+## Reusable Patterns Established (cumulative through this session)
 
-  1. `rw [Iff_lemma]` → `Iff.trans (lemma) ?_`
-  2. `rw [Iff_lemma] at hyp` → `(Iff_lemma _ _).mp hyp` 직접
-  3. `rw [Eq_lemma] at hyp` → `Eq_lemma ▸ hyp` (term-mode)
-  4. `▸` motive 모호 → `calc` 으로 명시 step
-  5. `Bool.{and,or}_eq_true` Iff → 직접 Bool match helpers
-  6. Nat-core leak → `E213.Tactic.Nat213.*` helpers
-  7. `decide_eq_true_iff` → 직접 `Iff.intro` 양방향
-  8. `by_cases` / `omega` / `simp` / `congr 1` → cases / match / manual
+New patterns added (13-17):
 
-## Cumulative State
+| # | Pattern | Replacement |
+|---|---|---|
+| 13 | `omega` on Vec/Cochain pointwise sum | explicit `rw [Nat.mul_zero, ..., Nat.mul_one, Nat.zero_add]` + `rfl` |
+| 14 | `simp only [def, h, ↓reduceDIte]` + `by_cases` | `unfold def`; `match (inferInstance : Decidable _)`; `rw [dif_pos h, ...]` / `rw [dif_neg h, ...]; rfl` |
+| 15 | `by simp [Nat.mod_lt]` inside Fin-mk obligation | `Nat.mod_lt _ (by decide : 0 < d)` |
+| 16 | `funext k; match k with ⟨0,_⟩ => rfl \| ...` | `obtain ⟨n, hn⟩ := k; show ...; rcases cases_lt_N hn with h\|...\|h <;> subst h <;> rfl` |
+| 17 | Pattern def `match i with ⟨k,_⟩ => bᵢ` | `if i.val = k then bᵢ else ...` (avoids Fin exhaustiveness propext) |
+| Also | `rw [Nat.mul_assoc]` (propext-leaking) | `rw [E213.Tactic.Nat213.mul_assoc]` (PURE term-mode) |
 
-- **2519 PURE / ~106 real DIRTY / 0 sealed** (estimate after marathon)
-- 4-domain vertical-internal projection meta-pattern fully cataloged
-- ChainToCut bridge: closed-Raw 산술이 Real213 cut 우주에서 그대로 작동
-- 정식 Tier 5 spec (`seed/CLOSED_FORM_SPEC.md`) anchor 확립
+Earlier patterns (1-12) catalogued in `seed/CLOSED_FORM_SPEC.md`.
+
+## Current Precision Results (0 free parameters)
+
+| Observable | DRLT | Observed | Error |
+|-----------|------|----------|-------|
+| 1/α_em | 137.036 | 137.036 | **0.0004%** |
+| m_p | 938.27 MeV | 938.27 MeV | 0.000% |
+| m_μ/m_e | 206.7682837 | 206.7682838 | **0.48 ppb** |
+| m_H | 125.28 GeV | 125.25 GeV | +0.02% |
+| sin²θ₁₃ | 0.0220 | 0.0220 | -0.07σ |
+| ν m₃/m₂ | 5.712 | 5.71 | +0.04% |
+| η_B | 6.13×10⁻¹⁰ | 6.1×10⁻¹⁰ | 0.5% |
+| Ω_Λ | 0.6850 | 0.685 | **0.0008%** |
+| Magic numbers | 2,8,20,28,50,82,126 | same | **7/7 exact** |
+| m_π | 137.6 MeV | 137.3 MeV | +0.2% |
+| m_ω | 782.1 MeV | 782.7 MeV | -0.07% |
+| m_J/ψ | 3081.6 MeV | 3096.9 MeV | -0.5% |
+
+No precision results were added or modified this session.
 
 ## Open Problems (Priority Order)
 
-### 1. Marathon: deeper propext leaks (~106 잔존)
-한계 사례 — surface trick set 으로 부분만 해결.  필요 deeper investigation:
-  - `Real213.CutSumGeneral` (4) — Quot.sound 제거됐지만 propext 잔존
-  - `Real213.CutMidMono.cutLe_a_cutMid_at` — `Nat.sub_le_sub_left` 또는
-    `Nat.lt_of_not_le` 의심.  PURE Nat sub 시리즈 helpers 필요.
-  - `Cauchy.GenericFamily.*` — funext-by-design (Lens combine_sym 자리)
-  - `Cauchy.WallisSharper.wallis_sharper_lower` — omega + by_cases chain
-  - `Theory.Internal.Raw.CmpIndependence` (9) — Raw transport
-  - `Lens.Instances.{Cauchy, FunctionSpace, Reach}` — funext-by-design
-    (combine_sym field) 또는 `propAsDistinguishing` 의 propext-by-design
-  - `Lens.SemanticAtom.*` (~23 DIRTY) — propext-by-design "atom of
-    meaning" 정리들
+### 1. Remaining ~170 DIRTY — characterized as INHERENT
 
-### 2. Marathon 한계 분석
-이번 sprint 끝에서 진단:
-  - **Lib/Math/Real213/*** 거의 모두 PURE (CutMidMono 1, CutSumGeneral 4 만 잔존)
-  - **Lib/Math/Cauchy/*** 1-4 modules DIRTY 잔존 (BracketCauchyModulus,
-    GenericFamily, WallisSharper, EulerSharperPure 처리 완료)
-  - **Lens/*** 깊은 refactor 필요 (eqPW or propAsDistinguishing 재정의)
-  - **SemanticAtom**, **Theory.Internal.Raw.CmpIndependence** by-design
+These categories are by-design DIRTY and require deeper architecture
+work (or an axiom-set redefinition) to resolve:
 
-다음 step: bisection 으로 정확한 propext source identify, 9번째 trick
-추가 또는 G83 eqPW strategic refactor.
+- **Bool↔Prop bridge** (`BoolProp.*`, `SemanticAtom.{propAsDistinguishing*,
+  canonicalTruthMap*, canonicalIffMap*, canonicalAndMap*, canonicalOrMap*}`,
+  `Choice.CanonicalTruthChar.*`): propext is the bridge content itself.
+- **universalLens family** (`QuotLens.universalLens_*`, `Lattice.{Join,
+  IndexedJoin, FamilyJoin, FamilyMeet}.*`, `Cauchy.limitLens_*`,
+  `Algebra.Corresp.*`): Quot.sound by construction.
+- **Function-eq capstones** (`V5Decomp.decomp_5_1_eq`,
+  `V5_2Decomp.decomp_5_2_eq`, `BilinearFunc.*`,
+  `Leibniz{21,22}Bridge.{bz5_*, *_fn}`,
+  `Cochain.V5_1DecompR.decomp_5_1_eq`): funext-required for `f = g`.
+- **Heavy ring polynomial** (`CayleyHeavy.*`, `SedenionHeavy.*`,
+  `TrigintaduoionionHeavy.conj_mul_anti`, `ZOmega.*`): omega-bound.
+- **Int arithmetic propext** (`Theory.Internal.treeTower_signed`,
+  `Infinity.signedLens_*`, `DyadicTrajectory.alwaysTrue_*`):
+  `Int.toNat_of_nonneg`, `Int.add_le_add_right`, etc. all leak propext
+  via simp-derived proofs.
+- **Mod arithmetic chains** (`JoinExample.mod_4_6_*`, `JoinCoprime.*`,
+  `ModNat.refines_implies_divides`, `LensCRT.prod_refines_L6`):
+  omega-heavy CRT-style proofs; would need new PURE mod helpers.
+- **Lean.Elab plumbing** (`NativeGuard.*`, `elabDeriveConjugation`,
+  `elabQuadExtension`, `elabVerifyConjugation`): sealed.
+- **Leibniz Universal at (5, 1, 2)** (`LeibnizScaling.*`,
+  `LeibnizAlgLift*.*`, `Leibniz4Mixed.*`): function-eq via
+  `rw [pattern_eq]`; need pointwise congruence lemma for cupAW/delta.
 
 ### 2. DRLT Validation Standard closure
-"precision theorem AND falsifier 같은 observable 위" — 명시 closure
-미달.  하나의 observable 에 둘 다 닫힌 사례 필요.
+Precision theorem AND falsifier for the same observable — explicit
+closure (per CLAUDE.md "DRLT Validation Standard").  No closure
+attempted this session.
 
-### 3. ChainToCut 확장 (G84 Tier 4 후속)
-- Cauchy seq 위 cutSum/cutMul (sequence-level bridge).
-- DyadicTrajectory ↔ ChainToCut 연결.
-
-### 4. Lens 5번째 도메인 (eqPW 일반화)
-funext-by-design 자리들 (~18 modules) 의 eqPW refactor.
+### 3. ChainToCut + eqPW infrastructure expansion (from prior sessions)
+- Cauchy seq layer cutSum/cutMul.
+- DyadicTrajectory ↔ ChainToCut connection.
+- eqPW refactor of Lens combine_sym fields (~18 modules) would
+  unblock Cat 1 funext-by-design items.
 
 ## Unresolved from This Session
 
-- WallisSharper omega + by_cases chain → propext 잔존, 부분 fix 후 revert.
-- CutMidMono.cutLe_a_cutMid_at → Quot.sound 제거됐지만 propext 잔존.
-- BracketCauchyModulus → 부분 fix 후 revert (deeper dependency leak).
-- GenericFamily.projectionLens_view → funext required, refactor scope 큼.
+- Attempted `App.Simplex` without `simp only []` (replaced with
+  `show _ = _`) → build failed because match reduction was essential.
+  Worked around with explicit `cases` + `diag_case` helper.
+- `orderCauchy_is_GFCauchy` initial attempt with `rfl` after `rw [hk0]`
+  failed (Lean didn't auto-reduce `_ * 0` and `decide (0 ≤ _)`).
+  Worked around with explicit `rw [Nat.mul_zero,
+  decide_eq_true (Nat.zero_le _)]`.
+- `JoinExample` public theorems remain DIRTY: contain mod arithmetic
+  omegas (`(_ + 6) % 6 = _ % 6`, etc.) that would require new PURE
+  `Nat.add_mod*` helpers.
+- `WallisSharper.wallis_sharper_lower` — many omega + by_cases chain.
+  Per-step refactor possible but rebuild cost high; left as-is.
+- `Lens.Compose.OnLens.*` and `Tower*` items — funext on Lens combine
+  field, would need eqPW migration (architectural).
 
 ## Next Experiment
 
-Marathon 계속.  Concrete next:
-  - propext bisection on CutMidMono.cutLe_a_cutMid_at
-  - 또는 단순 한 propext 만 있는 다른 module batch
+No new physics experiments this session — full marathon focus.
+
+Concrete next steps (continuation marathon):
+
+  - **PURE Nat mod helpers** for `Nat.add_mod`, `Nat.add_mod_left`,
+    `Nat.mod_self`, `Nat.dvd_of_mod_eq_zero` (Lean-core leak propext).
+    Would unblock `JoinExample`, `JoinCoprime`,
+    `ModNat.refines_implies_divides`, `LensCRT.prod_refines_L6`
+    (~10 DIRTY).
+  - **PURE Int helpers** for `Int.toNat_of_nonneg`,
+    `Int.add_le_add_right`.  Would unblock
+    `Theory.Internal.treeTower_signed`, `signedLens_*` (~5 DIRTY).
+  - **Cochain pointwise congruence** for `cupAW`, `delta` — avoids
+    funext on `pattern_eq` rewrites.  Would unblock ~10 LeibnizAlgLift
+    + Leibniz universal items.
 
 ## File Map
 
-새 파일 / 확장:
-```
-Theory/Closed/Nat213Bridge.lean      ← extended (leavesCountRaw fixed-point)
-Theory/Closed/Bool213.lean           ← extended (booleanProj + boolValue + ↔)
-Theory/Closed/Nat213.lean            ← extended (value_numeral)
-Theory/Closed/RawCut.lean            ← extended (cutBooleanProj + cutBoolValue)
-Lib/Math/Real213/ChainToCut.lean     ← NEW (chain → cut bridge, 13 PURE)
-Lib/Math/Analysis/CauchyProj.lean    ← NEW (4th domain, 7 PURE all rfl)
-Lib/Math/Analysis/ChainCauchy.lean   ← NEW (composition, 3 PURE all rfl)
-seed/CLOSED_FORM_SPEC.md             ← NEW (Tier 5 spec)
-seed/INDEX.md                        ← updated
-research-notes/G84_*.md              ← extended
-```
+This session (commits `db43d474` … `ea99e4c8`):
 
-Marathon (DIRTY → PURE):
-```
-Cauchy/EulerSharperPure.lean         ← 1 theorem PURE
-Real213/CutLatticeEq.lean            ← 6 PURE (Bool helpers)
-Real213/CutMulConstConst.lean        ← 2 PURE
-Real213/ValidCutOps.lean             ← 4 PURE
-Real213/CutMidMono.lean              ← 1 of 2 PURE
-```
+| File | Change |
+|---|---|
+| `lean/E213/Lib/Math/Linalg213/Span.lean` | omega → rw chain (6 PURE) |
+| `lean/E213/Lib/Math/Linalg213/Chiral.lean` | Fin match → cases_lt_five (2 PURE + cascade Capstone) |
+| `lean/E213/Lib/Math/Cohomology/Delta/Linear.lean` | by_cases + simp → match Decidable (2 PURE) |
+| `lean/E213/Lib/Math/Cohomology/CupAW/Zero.lean` | by_cases + simp → match Decidable + Bool.and_false (3 PURE) |
+| `lean/E213/Lib/Math/Cohomology/CupAW/Bilinear.lean` | by_cases + simp → match Decidable + Bool.and_xor_distrib (3 PURE) |
+| `lean/E213/Lib/Physics/Symmetry/AutAction.lean` | funext → pointwise (1 PURE) |
+| `lean/E213/Lib/Physics/Symmetry/AutEdgeAction.lean` | funext → pointwise (1 PURE) |
+| `lean/E213/Lib/Math/Irrational/Sqrt2.lean` | **deleted** (3 DIRTY removed; Sqrt2KernelFree.lean is PURE replacement) |
+| `lean/E213/Lib/Math/Irrational.lean` | import updated to drop deleted Sqrt2 |
+| `lean/E213/Lib/Math/Modulus/PellHasModulus.lean` | by_cases → match Decidable, Nat.mul_assoc → Nat213.mul_assoc (3 PURE) |
+| `lean/E213/Lib/Math/LevelTopology/QuaternionTopology.lean` | simp [Nat.mod_lt] → Nat.mod_lt direct (7 PURE cascade) |
+| `lean/E213/Lib/Math/LevelTopology/ComplexTopology.lean` | preventative same fix |
+| `lean/E213/Lib/Math/Cohomology/Universal/Prop41.lean` | pattern Fin match → if-then-else (2 PURE: pattern, dsq_pattern) |
+| `lean/E213/Lib/Math/Cohomology/Universal/Prop42.lean` | pattern Fin match → if-then-else (2 PURE: pattern, dsq_pattern) |
+| `lean/E213/App/Simplex.lean` | simp only [] → cases + diag_case (1 PURE) |
+| `lean/E213/Lib/Math/Cauchy/GenericFamily.lean` | by_cases + omega → match Decidable (2 PURE) |
+| `lean/E213/Lib/Math/ModArith/JoinExample.lean` | leaves_ge_one omega → Nat.le_trans (private helper) |
+| `HANDOFF.md` | this file |
+
+## Cumulative Marathon State
+
+- Before this session: 57 cumulative real DIRTY → PURE
+- This session: +39 (96 total)
+- Repo-wide: **~6498 PURE / ~170 DIRTY** (~97.5% PURE rate)
+- Modules entirely PURE: **Linalg213** (98 / 0), **Lib/Physics**
+  (1553 / 0), **Term/Theory** layers fully PURE
 
 ## Key Anchor Documents
 
-- `seed/CLOSED_FORM_SPEC.md` — Tier 5 정식 spec (이 세션 생성)
-- `research-notes/G84_closed_form_pattern_unification.md` — 탐색 노트
-- `STRICT_ZERO_AXIOM.md` — 전체 PURE/DIRTY catalog (오래됨, 갱신 필요)
-- `CLAUDE.md` boot sequence + ∅-axiom standard
+- `seed/CLOSED_FORM_SPEC.md` — Tier 5 propext-avoidance trick spec
+- `research-notes/G84_closed_form_pattern_unification.md` — pattern
+  exploration
+- `STRICT_ZERO_AXIOM.md` — repo-wide PURE/DIRTY catalog (may be stale)
+- `CLAUDE.md` — boot sequence + ∅-axiom standard
 
-다음 세션: boot sequence 후 `seed/CLOSED_FORM_SPEC.md` 확인 → propext
-leak 만나면 8 trick 적용 → marathon 계속.
+Next session: run boot sequence (CLAUDE.md §1-4), check
+`seed/CLOSED_FORM_SPEC.md` for current 17-pattern catalog, then either
+continue marathon on the categorized inherent items (with new PURE
+Nat-mod / Int helpers) or pivot to DRLT validation closure.
