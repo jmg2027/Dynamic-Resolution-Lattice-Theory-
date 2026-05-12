@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cohomology.CupAW.BasisLeibniz
+import E213.Term.Tactic.Nat213
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 /-!
@@ -28,23 +29,46 @@ def decomp_5_1 (β : Cochain 5 1) : Cochain 5 1 :=
         (Cochain.add (bz5_1 β ⟨3, by decide⟩)
           (bz5_1 β ⟨4, by decide⟩))))
 
-/-- Per-j decomposition step. -/
-private theorem decomp_step (β : Cochain 5 1) (j : Fin 5) :
-    decomp_5_1 β j = β j := by
-  match j with
-  | ⟨0, _⟩ => simp only [decomp_5_1, bz5_1, Cochain.add]
-              cases (β ⟨0, by decide⟩) <;> rfl
-  | ⟨1, _⟩ => simp only [decomp_5_1, bz5_1, Cochain.add]
-              cases (β ⟨1, by decide⟩) <;> rfl
-  | ⟨2, _⟩ => simp only [decomp_5_1, bz5_1, Cochain.add]
-              cases (β ⟨2, by decide⟩) <;> rfl
-  | ⟨3, _⟩ => simp only [decomp_5_1, bz5_1, Cochain.add]
-              cases (β ⟨3, by decide⟩) <;> rfl
-  | ⟨4, _⟩ => simp only [decomp_5_1, bz5_1, Cochain.add]
-              cases (β ⟨4, by decide⟩) <;> rfl
+/-- Per-index helpers (PUBLIC PURE).  Single literal `k`, see
+    V5_2Decomp.decomp_step_at_* for design rationale. -/
+theorem decomp_step_at_0 (β : Cochain 5 1) :
+    decomp_5_1 β ⟨0, by decide⟩ = β ⟨0, by decide⟩ := by
+  show xor (β ⟨0, by decide⟩) false = β ⟨0, by decide⟩
+  cases (β ⟨0, by decide⟩) <;> rfl
 
-/-- Decomposition is identity on Cochain 5 1. -/
+theorem decomp_step_at_1 (β : Cochain 5 1) :
+    decomp_5_1 β ⟨1, by decide⟩ = β ⟨1, by decide⟩ := by
+  show xor false (xor (β ⟨1, by decide⟩) false) = β ⟨1, by decide⟩
+  cases (β ⟨1, by decide⟩) <;> rfl
+
+theorem decomp_step_at_2 (β : Cochain 5 1) :
+    decomp_5_1 β ⟨2, by decide⟩ = β ⟨2, by decide⟩ := by
+  show xor false (xor false (xor (β ⟨2, by decide⟩) false))
+       = β ⟨2, by decide⟩
+  cases (β ⟨2, by decide⟩) <;> rfl
+
+theorem decomp_step_at_3 (β : Cochain 5 1) :
+    decomp_5_1 β ⟨3, by decide⟩ = β ⟨3, by decide⟩ := by
+  show xor false (xor false (xor false (xor (β ⟨3, by decide⟩) false)))
+       = β ⟨3, by decide⟩
+  cases (β ⟨3, by decide⟩) <;> rfl
+
+theorem decomp_step_at_4 (β : Cochain 5 1) :
+    decomp_5_1 β ⟨4, by decide⟩ = β ⟨4, by decide⟩ := by
+  show xor false (xor false (xor false (xor false (β ⟨4, by decide⟩))))
+       = β ⟨4, by decide⟩
+  cases (β ⟨4, by decide⟩) <;> rfl
+
+/-- Decomposition is identity on Cochain 5 1.  DIRTY-by-design via
+    funext (Cat 1 inherent).  Use `decomp_step_at_*` for PURE per-`k`. -/
 theorem decomp_5_1_eq (β : Cochain 5 1) : decomp_5_1 β = β := by
-  funext j; exact decomp_step β j
+  funext j
+  rcases j with ⟨n, hn⟩
+  rcases (E213.Tactic.Nat213.cases_lt_five hn) with rfl | rfl | rfl | rfl | rfl
+  · exact decomp_step_at_0 β
+  · exact decomp_step_at_1 β
+  · exact decomp_step_at_2 β
+  · exact decomp_step_at_3 β
+  · exact decomp_step_at_4 β
 
 end E213.Lib.Math.Cohomology.Cochain.V5_1DecompR
