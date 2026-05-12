@@ -397,6 +397,25 @@ theorem sub_le_sub_left :
       Eq.subst (motive := fun x => x ≤ (c+1) - (a+1)) h_eq1
         (Eq.subst (motive := fun x => c - b ≤ x) h_eq2 ih)
 
+/-- ∅-axiom replacement for `Nat.mod_mod` (Lean-core leaks `propext`).
+    Direct case on `n`: `0 → rfl` via mod_zero, `n+1 → Nat.mod_eq_of_lt`. -/
+theorem mod_mod_pure : ∀ (a n : Nat), a % n % n = a % n
+  | a, 0 =>
+      let h : a % 0 = a := Nat.mod_zero a
+      h.symm ▸ h
+  | a, n+1 => Nat.mod_eq_of_lt (Nat.mod_lt a (Nat.succ_pos n))
+
+/-- `(a + n) % n = a % n` PURE (n ≥ 0 case included).  Building block
+    for `add_mod_pure`.  Uses `Nat.mod_eq_sub_mod` + `add_sub_cancel_right`. -/
+theorem add_self_mod_pure : ∀ (a n : Nat), (a + n) % n = a % n
+  | a, 0 => rfl
+  | a, n'+1 =>
+      let hle : n'+1 ≤ a + (n'+1) := Nat.le_add_left _ _
+      let h1 : (a + (n'+1)) % (n'+1) = (a + (n'+1) - (n'+1)) % (n'+1) :=
+        Nat.mod_eq_sub_mod hle
+      let h2 : a + (n'+1) - (n'+1) = a := add_sub_cancel_right a (n'+1)
+      h1.trans (congrArg (· % (n'+1)) h2)
+
 end E213.Tactic.Nat213
 
 namespace E213.Tactic.Nat213
