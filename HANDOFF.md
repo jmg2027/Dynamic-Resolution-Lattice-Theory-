@@ -53,7 +53,7 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 
 `seed/INDEX.md` directory layout 에 추가.
 
-### 5. Marathon: 42 real DIRTY → PURE in cycle (deep refactor 포함)
+### 5. Marathon: 46 real DIRTY → PURE in cycle (deep refactor 포함)
 
 | Module | # | Tricks |
 |---|---|---|
@@ -71,9 +71,21 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 | **Theory.Internal.Raw.CmpIndependence** 전체 9 | **9** | **Tree.cmp_eq_iff PURE refactor + Bool.and_eq_true_to_pair** |
 | Lens.Leaves.Mod3.{leavesMod3Lens_view_eq, leaves_refines_mod3} | 2 | AddMod213.add_mod_gen (existing PURE) |
 | Lens.Properties.ABRefines.abLens_refines_boolXorLens | 1 | AddMod213 + mod_two_zero_or_one_pure (신규) |
+| **Lens.Instances.Reach** 전체 13 (fin3 + int) | **4** | **Fin.mk-based 정의 + IntHelpers PURE (add_comm, add_nonneg, le_ofNat_of_nonneg)** |
 
-**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213 + CmpIndependence + Mod3 + ABRefines** PURE.
-~120 → ~78 real DIRTY.
+**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213 + CmpIndependence + Mod3 + ABRefines + Reach** PURE.
+~120 → ~74 real DIRTY.
+
+### 새 PURE infrastructure (IntHelpers + Fin.mk pattern)
+
+`Lib/Math/NatHelpers/IntHelpers.lean` 확장:
+  - `le_ofNat_of_nonneg`: 0 ≤ a → ∃ n, a = Int.ofNat n
+  - `add_nonneg`: PURE replacement of Int.add_nonneg (propext)
+  - `add_comm`: PURE 4-case match on (ofNat, negSucc)² → Int.add_comm 대체
+
+`Fin.mk` pattern: `(0 : Fin n)` literal 은 propext-laden, 직접 `⟨0, by decide⟩`
+는 PURE.  Reach.fin3 PoC 적용 완료.  Linalg213/Simplex 등 ~20+ modules 의
+잠재 unblock 경로.
 
 ### Fin213 PURE 가능성 발견
 
