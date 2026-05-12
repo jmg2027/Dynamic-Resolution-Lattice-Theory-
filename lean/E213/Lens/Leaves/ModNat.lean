@@ -161,25 +161,17 @@ theorem product_lower_bound (m k : Nat) :
   common_multiple_lower_bound m k (m * k)
     ⟨k, rfl⟩ ⟨m, Nat.mul_comm m k⟩
 
-/-- L_gcd(m, k) is an upper bound of both L_m and L_k (in the refines order).
-    Direct consequence of divides_refines.
+/-! Note: the funext-based `gcd_upper_bound` (using Lean-core
+    `Nat.gcd`, [propext]-DIRTY) was removed — it had no remaining
+    consumers, and `gcd213_upper_bound` below provides the same
+    content in PURE form using 213-native `gcd213`. -/
 
-    DIRTY-by-design (`[propext]`): the statement mentions `Nat.gcd m k`
-    whose well-founded termination proof brings `propext`.  Use
-    `gcd213_upper_bound` (below, PURE) for ∅-axiom downstream. -/
-theorem gcd_upper_bound (m k : Nat) :
-    (leavesModNat m).refines (leavesModNat (Nat.gcd m k)) ∧
-    (leavesModNat k).refines (leavesModNat (Nat.gcd m k)) :=
-  common_divisor_upper_bound m k (Nat.gcd m k)
-    (Nat.gcd_dvd_left m k) (Nat.gcd_dvd_right m k)
-
-/-- ★★★★★ **`gcd213` upper bound (∅-axiom)**: same content as
-    `gcd_upper_bound` but using 213-native `gcd213` (fuel-driven
+/-- ★★★★★ **`gcd213` upper bound (∅-axiom)**: the L_gcd(m, k)
+    upper-bound property using 213-native `gcd213` (fuel-driven
     Euclidean) instead of Lean-core `Nat.gcd` (well-founded
     termination = `propext`).
 
-    Use this in ∅-axiom downstream theorems.  Migration target
-    for the JoinGCD chain. -/
+    Use this in ∅-axiom downstream theorems. -/
 theorem gcd213_upper_bound (m k : Nat) :
     (leavesModNat m).refines (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) ∧
     (leavesModNat k).refines (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) :=
