@@ -18,10 +18,10 @@ import E213.Lens.Refines.Chain
 import E213.Lens.Refines.Preorder
 
 /-!
-# Hypervisor: Public API (re-export shim)
+# Lens ring: Public API (re-export shim)
 
-G12 D3: single-import entry point for the Hypervisor (Lens framework)
-public API.  Pattern follows `Firmware/Raw.lean` precedent.
+single-import entry point for the Lens framework
+public API.  Pattern follows `Theory/Raw.lean` precedent.
 
 Downstream code can `import E213.Lens.API` and access the
 6-category public surface (HV1–HV6 in G12 §4.1 classification):
@@ -55,15 +55,15 @@ Downstream code can `import E213.Lens.API` and access the
   - `Properties.CanonicalForm.universalLens_recovers`
 
 **Optional (NOT bundled in this shim)**:
-  - HV7 = `Hypervisor/Lens/Instances/*` (catalog of 25+ concrete
+  - HV7 = `Lens/Instances/*` (catalog of 25+ concrete
     Lenses) — import individually as needed
-  - HV8 = `Hypervisor/Lens/Characterisation/*` (refines-relation
+  - HV8 = `Lens/Characterisation/*` (refines-relation
     catalog) — import individually as needed
   - `Lens/Kernel/{FreeAudit, FourDistinct, ...}` — internal,
     supporting infra for HV3/HV6, not consumed directly
 
-**Imports**: Firmware (Raw API).  No upward imports — Hypervisor
-is the catamorphism layer, consumed by Meta and App.
+**Imports**: Theory (Raw API).  No upward imports — Lens ring
+is the catamorphism layer, consumed by Lib.
 
 **Axiom status**: `Lens.view`, `Lens.view_unique`, and the
 universalLens construction are PURE (∅-axiom).  Some lattice and

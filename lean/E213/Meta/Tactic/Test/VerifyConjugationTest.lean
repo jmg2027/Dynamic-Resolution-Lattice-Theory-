@@ -12,7 +12,7 @@ should succeed for each registered type.  Verifies that
 typeclass synthesis reaches every instance.
 
 NB: this file imports the Instance modules which depend
-transitively on `Firmware.Raw` (for `Raw.fold_swap_hom`).
+transitively on `Theory.Raw` (for `Raw.fold_swap_hom`).
 Full verification therefore requires the Raw build.
 -/
 

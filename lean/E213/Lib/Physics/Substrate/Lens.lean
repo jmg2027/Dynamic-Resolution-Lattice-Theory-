@@ -4,13 +4,13 @@ import E213.Lib.Physics.Substrate.Origin
 /-!
 # Phase 2 Lens — actual Lens objects (as recommended by audit)
 
-**Layer: Hypervisor** (direct Lens object definition + Raw usage).
+**Layer: Lens** (direct Lens object definition + Raw usage).
 
 Previous Phase 2 files were *App-layer* arithmetic (partition over Fin 5).
 This file goes one level deeper — defining actual Lens objects at the
-*Hypervisor-layer* + demo of operation over Raw.
+*Lens-layer* + demo of operation over Raw.
 
-## Math track Lens definition (Hypervisor/Lens.lean)
+## Math track Lens definition (Lens.lean)
 
 ```lean
 structure Lens (α : Type) where

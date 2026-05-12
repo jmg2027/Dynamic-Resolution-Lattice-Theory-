@@ -32,7 +32,7 @@ Questions answered by each file + comprehensive single theorem.
 7. **Observable**: Measurable quantities? → 9 atomic-derived integers
 8. **Force**: 3 channels = 3 forces (AA, BB, AB)
 9. **Edges**: c=2 doubling → 12 directed, b_1 = 8 = NS²-1
-10. **Lens**: Hypervisor explicit Lens (parityLens, bCountLens)
+10. **Lens**: explicit Lens (parityLens, bCountLens)
 
 ## Key derived findings
 
@@ -42,7 +42,7 @@ Questions answered by each file + comprehensive single theorem.
 - NS=3 → ternary, NT vs NS asymmetry (3/2)^n
 - 3 channels (AA/BB/AB) = 3 forces (axiom origin of Phase 1 α_3, α_2, α_1)
 - 12 directed edges → cycle space b_1 = 8 = NS² - 1 = 1/α_3
-- Lens objects defined directly at Hypervisor-layer (fold over Raw)
+- Lens objects defined directly at Lens-layer (fold over Raw)
 - (3/2) asymmetry is the *axiom-level origin* of Phase 1's m_μ/m_e factor, Y-norm,
   and Fibonacci F_5/F_4
 -/
@@ -91,7 +91,7 @@ theorem phase2_absolute :
     ∧ (E213.Lib.Physics.Substrate.Edges.num_directed_edges - 5 + 1 = 8)
     ∧ (8 = E213.Lib.Physics.Substrate.Edges.NS_atomic
             * E213.Lib.Physics.Substrate.Edges.NS_atomic - 1)
-    -- (10) Lens: Hypervisor explicit Lens demo
+    -- (10) Lens: explicit Lens demo
     ∧ (E213.Lib.Physics.Substrate.Lens.parityLens.view E213.Theory.Raw.a = false)
     ∧ (E213.Lib.Physics.Substrate.Lens.parityLens.view E213.Theory.Raw.b = true)
     ∧ (E213.Lib.Physics.Substrate.Lens.bCountLens.view E213.Theory.Raw.a = 0)

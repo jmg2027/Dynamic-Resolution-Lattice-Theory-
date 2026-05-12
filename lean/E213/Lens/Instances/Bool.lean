@@ -18,7 +18,7 @@ The XOR Lens is swap-visible (swap flips the Bool) but FAILS the
 
 Formally establishing this rules out the XOR Lens as a
 self-recognising Lens.  By contrast, the `signedLens` on `Int`
-(in `Hypervisor/Lens/Characterisation/Catalog.lean`) DOES
+(in `Lens/Characterisation/Catalog.lean`) DOES
 satisfy `ConjugationCodomain`, verifying that the conjugation
 clause is a strong restriction.
 -/

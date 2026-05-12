@@ -67,6 +67,6 @@ import E213.Lens.Instances.ZMod6
   `CompoundBool`, `NegSq`, `ParityXorIncomparable`, `ParityXorJoin`,
   `RawAChar` restored by namespace-drift fixes
   (`open E213.Meta` → `open E213.Lens.Instances.{Bool,Parity}`,
-  `Hypervisor.Lens` → `Lens`, and re-routing `NegSq` through
+  `Lens` → `Lens`, and re-routing `NegSq` through
   `E213.Lens.Diagonal`).
 -/

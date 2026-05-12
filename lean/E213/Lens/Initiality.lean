@@ -73,7 +73,7 @@ open E213.Theory E213.Lens
 Existence: `Lens.view L` is itself the required homomorphism.
 Uniqueness: `Lens.view_unique` (§1).
 
-### §2.1 Existence witnesses (already in Firmware)
+### §2.1 Existence witnesses (already in Theory.Raw)
 -/
 
 /-- `L.view` sends Raw.a to base_a. -/

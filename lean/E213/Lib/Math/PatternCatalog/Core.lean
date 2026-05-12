@@ -122,7 +122,7 @@ structure DynamicalWitness (S : Type) (Out : Type) where
     Atomicity cluster).  Captures the `*_iff_value` pattern:
     "the unique X satisfying condition C is V".
 
-    Examples (all in `Firmware/Atomicity/`):
+    Examples (all in `Theory/Atomicity/`):
       atomic_iff_five     : Atomic n ↔ n = 5
       atomic_23_iff_five  : Atomic 2 3 n ↔ n = 5
       arity_iff_two       : (cond) ↔ k = 2
@@ -307,7 +307,7 @@ abbrev DynamicalAggregate (S : Type) (Out : Type) :=
 
     Catamorphism view + forcing on view-results + extractor +
     injector + the forcing equation.  Anchor specimen:
-    `getBase_eq` (`Firmware/Atomicity/ArityForcingGeneral.lean`):
+    `getBase_eq` (`Theory/Atomicity/ArityForcingGeneral.lean`):
 
     ```
     ∀ (x : RawNk N k) (h : isBase x = true), x = .object (getBase x h)

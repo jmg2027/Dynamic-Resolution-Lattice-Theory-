@@ -11,7 +11,7 @@ The elab does **not** import `E213.Meta.SelfRecognising` — it
 only generates *syntax* that references the class.  At the
 client site (where `derive_conjugation_codomain` is invoked), the
 import must already be in place.  This avoids transitively
-rebuilding `Firmware/Raw.lean` when the elab itself is edited.
+rebuilding `Theory/Raw/API.lean` when the elab itself is edited.
 
 ## Usage
 

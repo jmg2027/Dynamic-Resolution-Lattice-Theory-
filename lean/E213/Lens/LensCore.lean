@@ -1,7 +1,7 @@
 import E213.Theory.Raw
 
 /-!
-# Hypervisor: Lens layer
+# Lens ring
 
 Each `Lens` supplies a codomain `α` with two base values and a
 binary op. `Lens.view` is the catamorphism `Raw → α`, implemented
@@ -11,7 +11,7 @@ The Lens's kernel `L.equiv x y := L.view x = L.view y` supplies
 the first notion of equality on `Raw`. Different Lenses impose
 different equalities; none is part of the axiom.
 
-**This module uses only the Firmware's public API** (`Raw`,
+**This module uses only the Theory's public API (Theory.Raw)** (`Raw`,
 `Raw.a`, `Raw.b`, `Raw.slash`, `Raw.fold`, `Raw.slash_comm`). The
 internal `Tree` type and its ordering are not referenced.
 -/

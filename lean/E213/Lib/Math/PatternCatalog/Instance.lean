@@ -179,7 +179,7 @@ def pisanoLikeAggregate : DynamicalAggregate Nat Nat :=
 
 /-! ## CataForcedForm instance — Option Nat (toy mirror of getBase_eq)
 
-Real codebase specimen: `getBase_eq` in `Firmware/Atomicity/
+Real codebase specimen: `getBase_eq` in `Theory/Atomicity/
 ArityForcingGeneral.lean` — when the catamorphism `isBase` returns
 `true`, the `RawNk N k` source is forced into form `.object i`.
 We mirror that shape on `Option Nat` to keep imports minimal: when

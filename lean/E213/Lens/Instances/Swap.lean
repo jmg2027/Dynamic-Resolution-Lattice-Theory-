@@ -7,7 +7,7 @@ import E213.Lens.Instances.Identity
 
 **Lens**: `swapLens : Lens Raw` with `view = Raw.swap`.
 
-Construction is only provable with swap_slash (Firmware).
+Construction is only provable with swap_slash (via Theory.Raw).
 
 ## Significance
 

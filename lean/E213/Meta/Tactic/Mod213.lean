@@ -15,7 +15,7 @@ Rationale (`research-notes/G2_trajectory_principle.md`,
   - Defining mod by step-N recursion makes every reduction lemma
     a structural `rfl`.  ∅-axiom by construction.
 
-Atomic alphabet {2, 3} (from `Firmware/Atomicity/NonDecomposable`):
+Atomic alphabet {2, 3} (from `Theory/Atomicity/NonDecomposable`):
 every `n ≥ 2 = 2a + 3b` (Frobenius), so all modular trajectories
 cascade from `parity` (mod 2) and `mod3` (mod 3) — exactly what
 this module provides.

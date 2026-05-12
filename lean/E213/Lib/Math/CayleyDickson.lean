@@ -82,7 +82,7 @@ import E213.Lib.Math.CayleyDickson.ZSqrtProduct
   The 9 formerly-deferred files (CDTower, CayleyHeavy, LipschitzHeavy,
   LipschitzLens, PathionHeavy, R5Vacuity, SedenionHeavy,
   TrigintaduoionionHeavy, ZSqrtProduct) all build clean.  Method:
-  fix `Hypervisor.Lens` → `Lens` namespace drift (already done in
+  fix `Lens` → `Lens` namespace drift (already done in
   the Lens-cluster A-task); update doubled-vs-single namespace
   paths in the `hurwitz_ring` macro (Pathion / Trigintaduonion /
   Sedenion / ZI use doubled `X.X.foo`, Cayley / CDDouble.Lipschitz

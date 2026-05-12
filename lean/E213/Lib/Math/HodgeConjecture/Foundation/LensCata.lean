@@ -13,7 +13,7 @@ explicit atomic generator lists and their cardinality witnesses.
 
 The full uniform proof — that the Raw → C* cup-Lens morphism is a
 catamorphism whose surjectivity onto H* follows from Lens initiality
-(`Lens.view_unique`, see `Hypervisor/Lens/Initiality.lean`) — is
+(`Lens.view_unique`, see `Lens/Initiality.lean`) — is
 detailed in `research-notes/hodge/G7_lens_initiality_cup_blueprint.md`.
 
 STRICT ∅-AXIOM by `decide` on cardinalities.
@@ -55,7 +55,7 @@ theorem delta4_atomic_total : 1 + 5 + 10 + 10 + 5 + 1 = 2 ^ 5 := by decide
       · K_{3,2}^{(c=2)}: 12 edge indicators (= NS·NT·c²)
 
     Combined with Lens-initiality (`Lens.view_unique`,
-    `Hypervisor/Lens/Initiality.lean`), the Raw → C* cup-morphism
+    `Lens/Initiality.lean`), the Raw → C* cup-morphism
     is the *unique* algebra homomorphism, and its image is the full
     cohomology — closing HC²¹³ uniformly across all 213-canonical
     complexes.
