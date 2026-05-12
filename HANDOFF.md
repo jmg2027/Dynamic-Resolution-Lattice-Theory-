@@ -53,7 +53,7 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 
 `seed/INDEX.md` directory layout 에 추가.
 
-### 5. Marathon: 30 real DIRTY → PURE in cycle
+### 5. Marathon: 39 real DIRTY → PURE in cycle (deep refactor 포함)
 
 | Module | # | Tricks |
 |---|---|---|
@@ -68,9 +68,19 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 | Godel.{Tree.toNat_injective, raw_at_most_countable, raw_equipotent_nat} | 3 | rw → trans/symm |
 | Hyper.Hyper213.cofinite_trans | 1 | Nat213.le_max_left/right |
 | LensCardinality.sigma7_cardinality_is_lens_output | (propagated) | (Godel 의존) |
+| **Theory.Internal.Raw.CmpIndependence** 전체 9 | **9** | **Tree.cmp_eq_iff PURE refactor + Bool.and_eq_true_to_pair** |
 
-**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213** PURE.
-~120 → ~90 real DIRTY.
+**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213 + CmpIndependence** PURE.
+~120 → ~81 real DIRTY.
+
+### Deep refactor 의 첫 substantial win (CmpIndependence)
+
+`Tree.cmp_eq_iff` 의 `simp [Tree.cmp]` 를 term-mode Iff.intro + Ordering.noConfusion /
+Tree.noConfusion 으로 직접 refactor → 9 DIRTY 모두 propagation 으로 PURE.
+
+**11번째 trick**:
+  - `simp [pattern_def]` 가 propext leak → 직접 case 분석 / Iff.intro term-mode
+  - `rw [Bool.and_eq_true] at hcanon` → `Bool.and_eq_true_to_pair hcanon`
 
 ### By-design DIRTY (변환 불가, 발견 catalog):
 
