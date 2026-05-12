@@ -218,3 +218,105 @@ The cluster taxonomy is sound:
 
 Once the 8 violations are processed, Theory ring is in a clean
 canonical state per ARCHITECTURE.md (2026-05-12).
+
+---
+
+## 4. Content-level audit (2026-05-12 pass 2)
+
+§1–3 위는 import-level 분석.  이 §4 는 각 .lean 파일의 docstring +
+실제 내용을 읽어 cluster 의 *진정한 정체성* + naming 평가 + 재배치
+후보를 기록한 audit pass.  실행은 보류 (기록만).
+
+### 4.1 각 cluster 의 진정한 정체성
+
+| 현재 cluster | docstring 기반 정체성 | 잘 묶여있나? |
+|---|---|---|
+| `Raw/` (11) | Raw axiom 공개 + 따라오는 정리 (catamorphism, swap, levels) | ✓ (Mobius 제외) |
+| `Atomicity/` (8) | forced (NS,NT,d)=(3,2,5) proof (pure-ℕ, no Raw import) | ✓ (ArityForcingGeneral 제외) |
+| `Internal/` (6) | **3 가지 성격 혼재** (아래 §4.2) | ✗ |
+| `Nat213/` (6) | Layer 2 ℕ + Lens + **응용 (Lib 성격 혼재)** (아래 §4.3) | ✗ |
+| `Closed/` (7) | Raw 위 catamorphism fixed-point universe — Lean type 외부 의존 없는 Raw-내 인코딩 | ✓ (이름만 비유적) |
+| `Tower/` (3) | Grothendieck pair-quotient completion (NatPair→Int, Q+, Z²) | ✓ (이름 부정확) |
+| `CDDouble/` (3) | Generic Order-4 typeclass mechanism (CD doubling functor 의 universal property) | ✓ |
+| `Tools/` (1) | Lean-side certificate verifier — **명백히 Lib.Physics 결과 cite** | ✗ |
+| `top-level` (3) | API/Atomicity/Raw aggregator shim | ✓ |
+
+### 4.2 `Internal/` 의 3 가지 성격 (해체 가능)
+
+| 그룹 | 파일 | 줄수 | 성격 |
+|---|---|---|---|
+| (a) Int helpers | `Int213.lean` + `Int213Instance.lean` | 770 | Lean Int 위 0-axiom helpers + `CommRing213` instance.  `Raw/Signed.lean` 이 사용. |
+| (b) Algebra typeclass | `Algebra213.lean` + `Algebra213CDDouble.lean` + `Algebra213CDDoubleStar.lean` | 700+ | `Ring213`, `StarRing213`, `CDDouble` functor typeclass tower.  Cayley-Dickson doubling 의 generic infrastructure. |
+| (c) Encoding meta | `RawCmpIndependence.lean` | 552 | cmp choice 의 axiom-independence meta-theorem. |
+
+이 3 성격은 본질적으로 다른 의미의 "internal" — 하나는 arithmetic
+helpers, 하나는 abstract algebra, 하나는 encoding meta-theorem.
+한 디렉토리 안에 묶을 이유 약함.
+
+### 4.3 `Nat213/` 의 분열
+
+| 파일 | 줄수 | 진정한 성격 |
+|---|---|---|
+| `Core.lean` | 216 | Layer 2 inductive ℕ_+ (Theory 정합) |
+| `Lenses.lean` | 290 | Raw → Nat213 lens characterization (Theory 정합) |
+| `AtomicityCorrespondence.lean` | 56 | (NS,NT,d) ↔ ctor count bridge (Theory 정합, helper inline 가능) |
+| `OneAsGlue.lean` | 112 | Möbius P matrix structural read (**`Raw/Mobius.lean` 의 cousin**) |
+| `RotationGeometry.lean` | 259 | K_{3,2}^{(2)} graph + spiral (**Lib.Math.Geometry**) |
+| `AlgebraicGeometry.lean` | 186 | SL(2,F_5) + Hurwitz Betti (**Lib.Math.AlgebraicGeometry**) |
+
+Cluster 가 "Layer 2 ℕ + 그 위 응용 모두" 를 한 디렉토리에 묶음 —
+응용 (Geometry 류) 은 Lib 성격이 더 강함.
+
+### 4.4 Naming 평가
+
+| 현재 | 평가 | 후보 |
+|---|---|---|
+| `Raw/` | 정확 | 유지 |
+| `Atomicity/` | 정확 | 유지 |
+| `CDDouble/` | 약어 OK | 유지 (또는 `CD/`) |
+| `Closed/` | "closed universe" 비유 (Lean 외부 type 의존 없음 = closed) | **`CataImage/`** 또는 **`Inside/`** 또는 **`RawInside/`** |
+| `Tower/` | "stack" 비유, 실제는 pair quotient | **`Completion/`** 또는 **`PairQuotient/`** |
+| `Internal/` | 3 성격 묶음 — vague | **분리**: `Int213/`, `Algebra/`, `Encoding/` (또는 단순 file flatten) |
+| `Nat213/` | Layer 2 + 응용 혼재 | **slim** (Core, Lenses, AtomicityCorrespondence, OneAsGlue 만), 나머지 → Lib |
+| `Tools/` | 1 file vague | **제거** (CertChecker → Lib) |
+
+### 4.5 전체 재배치 제안 (실행 보류, 결정 받은 후 진행)
+
+```
+Theory/
+├── Raw/                          (유지) — axiom public surface
+├── Atomicity/                    (유지) — forced-shape proofs
+├── CDDouble/                     (유지) — Order-4 universal mechanism
+├── Algebra/                      (new ← Internal/) — Ring213/StarRing213/CDDouble functor
+├── Int213/                       (new ← Internal/) — Int 213-arith helpers
+├── Encoding/                     (new ← Internal/) — RawCmpIndependence meta
+├── CataImage/                    (renamed ← Closed/) — catamorphism fixed-point universes
+├── Completion/                   (renamed ← Tower/) — Grothendieck pair-quotient
+└── Nat213/                       (slimmed) — Core + Lenses + AtomicityCorrespondence + OneAsGlue 만
+```
+
+이동 (Lib 로):
+- `Raw/Mobius.lean` → `Lib/Math/Mobius213.lean`
+- `Nat213/{RotationGeometry, AlgebraicGeometry}.lean` → `Lib/Math/Geometry/Nat213_*.lean`
+- `Tools/CertChecker.lean` → `Lib/Physics/Certificates/Checker.lean`
+- `CDDouble/UniversalInduction.lean` → `Lib/Math/CayleyDickson/UniversalInduction.lean`
+
+inline (Lib helper 사용 작아서 흡수):
+- `Atomicity/ArityForcingGeneral.lean` — Pigeonhole 조각 inline
+- `Closed/Nat213Bridge.lean` — `add_mul` 등 PureNat helper inline
+- `Nat213/AtomicityCorrespondence.lean` — Simplex/UniverseChain 상수 inline
+
+### 4.6 변경 규모 가늠
+
+- Phase 1 (이동만 4 파일): 위반 8 → 4 ring violations
+- Phase 2 (rename Closed/Tower): 큰 sed 광역 변경 (downstream import 영향)
+- Phase 3 (Internal 분리): 6 파일 git mv + namespace 유지
+- Phase 4 (Nat213 slim + 응용 Lib 이동): 2 파일 git mv + import 갱신
+- Phase 5 (inline 3 위반): 각 파일 안 helper 인라인 + Lib import 제거
+
+총 ~14 파일 이동/rename + 3 파일 inline + 다수 import 갱신.
+
+### 4.7 결정 보류
+
+위 §4.4–§4.6 의 모든 작업은 **기록만** 한 상태 — Mingu Jeong 결정
+대기.  실행 전에 우선순위와 진행 단위 결정 필요.
