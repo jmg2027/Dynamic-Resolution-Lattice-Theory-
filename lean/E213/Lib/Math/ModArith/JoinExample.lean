@@ -84,7 +84,8 @@ private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
                    = Lens.leaves.view x + Lens.leaves.view y := by
         apply Raw.fold_slash
         intro u v; exact Nat.add_comm u v
-      rw [hfs]; omega
+      rw [hfs]
+      exact Nat.le_trans ihx (Nat.le_add_right _ _)
 
 /-- General chain: +2k step. -/
 theorem mod_4_6_step_2k {α : Type} (N : Lens α)
