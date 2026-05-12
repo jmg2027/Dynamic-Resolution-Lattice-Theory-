@@ -19,7 +19,7 @@ Hilbert-ε.  Here we replace `Exists.choose` by a `Bool`-guard
 `isBase` + a constructive total function `getBase`.
 -/
 
-namespace E213.Theory.Atomicity.ArityForcingGeneral
+namespace E213.Lib.Math.Atomicity.ArityForcingGeneral
 /-- Raw with base `Fin N` and relation arity `k` (encoded as functions
     `Fin k → RawNk`). -/
 inductive RawNk (N k : Nat) where
@@ -53,9 +53,9 @@ theorem getBase_eq {N k : Nat} :
   | .object _, _ => rfl
   | .rel _,    h => by cases h
 
-end E213.Theory.Atomicity.ArityForcingGeneral
+end E213.Lib.Math.Atomicity.ArityForcingGeneral
 
-namespace E213.Theory.Atomicity.ArityForcingGeneral
+namespace E213.Lib.Math.Atomicity.ArityForcingGeneral
 
 /-- **Constructive core.**  ReachableNk x → isBase x = true.
     The step case discharges via pigeonhole; the witness `g i` is
@@ -96,4 +96,4 @@ theorem no_reachable_rel {N k : Nat} (h : N < k)
 -- `(k = 2, N = 2)` is the unique minimal non-degenerate, non-vacuous
 -- choice.
 
-end E213.Theory.Atomicity.ArityForcingGeneral
+end E213.Lib.Math.Atomicity.ArityForcingGeneral

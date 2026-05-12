@@ -1,6 +1,6 @@
 import E213.Theory.Closed.Nat213
 import E213.Theory.Nat213.Core
-import E213.Lib.Math.NatHelpers.PureNat
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Theory.Closed.Nat213Bridge — Layer 1 ↔ Layer 2 동형성
@@ -214,7 +214,7 @@ private theorem toNat_mul (m n : Theory.Nat213.Nat213) :
          = (k.toNat + 1) * n.toNat
       rw [toNat_add, ih]
       -- Goal: n.toNat + k.toNat * n.toNat = (k.toNat + 1) * n.toNat
-      rw [E213.Lib.Math.NatHelpers.PureNat.add_mul, Nat.one_mul, Nat.add_comm]
+      rw [E213.Tactic.Nat213.add_mul, Nat.one_mul, Nat.add_comm]
 
 /-- **`value (mul m n) = value m * value n`** — Layer 1 곱셈이
     Lean Nat 곱셈과 일치. -/

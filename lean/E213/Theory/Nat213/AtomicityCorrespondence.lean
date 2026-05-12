@@ -1,7 +1,5 @@
 import E213.Theory.Nat213.Core
-import E213.Theory.Raw
-import E213.Lib.Physics.Simplex.Counts
-import E213.Lib.Math.UniverseChain.PairAxes
+import E213.Theory.Raw.API
 
 /-!
 # Theory.Nat213.AtomicityCorrespondence — 2/3/5 in lens fractal
@@ -21,16 +19,19 @@ So the atomicity decomposition `d = NS + NT = 3 + 2 = 5` is
 **realized at the inductive-type-signature level** of the
 Raw → Nat213 lens framework.
 
-- 3 = Raw constructors (= source of lens) = NS
-- 2 = Nat213 constructors (= target of lens) = NT
-- 5 = total fractal-framework signature = d
-
 All theorems ∅-axiom.
 -/
 
 namespace E213.Theory.Nat213.AtomicityCorrespondence
 
-open E213.Lib.Physics.Simplex.Counts (d NS NT partition_sum)
+/-- Spatial atomic count (= Raw constructors: a, b, slash). -/
+def NS : Nat := 3
+/-- Temporal atomic count (= Nat213 constructors: one, succ). -/
+def NT : Nat := 2
+/-- Universe count = NS + NT = 5. -/
+def d : Nat := 5
+/-- The atomicity-sum equality. -/
+theorem partition_sum : NS + NT = d := rfl
 
 /-- ★ Raw has 3 constructors (a, b, slash) — matching NS = 3. -/
 theorem raw_constructor_count : 3 = NS := rfl
@@ -49,8 +50,7 @@ theorem total_lens_framework : 3 + 2 = d := partition_sum
     the `slash` operation. -/
 theorem raw_atom_count : 2 = NT := rfl
 
-/-- ★ Raw operation count: 1 (the slash).  This is the
-    "non-atom" side of Raw's signature. -/
+/-- ★ Raw operation count: 1 (the slash). -/
 theorem raw_operation_count : 1 = 1 := rfl
 
 end E213.Theory.Nat213.AtomicityCorrespondence
