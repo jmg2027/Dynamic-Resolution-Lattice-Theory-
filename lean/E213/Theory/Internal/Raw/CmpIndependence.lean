@@ -222,8 +222,7 @@ theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
     {x y : Tree} (h : canonicalBy cmp (.slash x y) = true) :
     cmp x y = .lt := by
   unfold canonicalBy at h
-  rw [Bool.and_eq_true] at h
-  obtain ⟨_, hlt_raw⟩ := h
+  obtain ⟨_, hlt_raw⟩ := Bool.and_eq_true_to_pair h
   match hm : cmp x y with
   | .lt => rfl
   | .eq => rw [hm] at hlt_raw; cases hlt_raw
@@ -255,8 +254,8 @@ private noncomputable def RawBy.recAux {cmp : Tree → Tree → Ordering}
       intro hcanon
       have hc := hcanon
       unfold canonicalBy at hc
-      rw [Bool.and_eq_true, Bool.and_eq_true] at hc
-      obtain ⟨⟨hx, hy⟩, _⟩ := hc
+      obtain ⟨h_xy_and, _⟩ := Bool.and_eq_true_to_pair hc
+      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair h_xy_and
       have hcmp := canonicalBy_slash_lt hcanon
       let x' : RawBy cmp := ⟨x, hx⟩
       let y' : RawBy cmp := ⟨y, hy⟩
@@ -414,8 +413,8 @@ theorem transportTree_roundtrip
   | slash s u ihs ihu =>
       have hsu : cmp2 s u = .lt := canonicalBy_slash_lt hcanon
       unfold canonicalBy at hcanon
-      rw [Bool.and_eq_true, Bool.and_eq_true] at hcanon
-      obtain ⟨⟨hcs, hcu⟩, _⟩ := hcanon
+      obtain ⟨h_su_and, _⟩ := Bool.and_eq_true_to_pair hcanon
+      obtain ⟨hcs, hcu⟩ := Bool.and_eq_true_to_pair h_su_and
       have ihs' := ihs hcs
       have ihu' := ihu hcu
       rw [transportTree_slash]
@@ -472,8 +471,8 @@ theorem transportTree_canonical
   | slash s u ihs ihu =>
       have hsu1 : cmp1 s u = .lt := canonicalBy_slash_lt hcanon1
       unfold canonicalBy at hcanon1
-      rw [Bool.and_eq_true, Bool.and_eq_true] at hcanon1
-      obtain ⟨⟨hcs, hcu⟩, _⟩ := hcanon1
+      obtain ⟨h_su_and, _⟩ := Bool.and_eq_true_to_pair hcanon1
+      obtain ⟨hcs, hcu⟩ := Bool.and_eq_true_to_pair h_su_and
       have ihs' := ihs hcs
       have ihu' := ihu hcu
       -- transportTree cmp2 s, u canonical-by-cmp2 (IH).

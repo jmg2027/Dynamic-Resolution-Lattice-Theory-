@@ -13,24 +13,39 @@ namespace E213.Theory.Internal
 
 theorem Tree.cmp_eq_iff (x y : Tree) : Tree.cmp x y = .eq ↔ x = y := by
   induction x generalizing y with
-  | a => cases y <;> simp [Tree.cmp]
-  | b => cases y <;> simp [Tree.cmp]
+  | a =>
+      cases y with
+      | a => exact ⟨fun _ => rfl, fun _ => rfl⟩
+      | b => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
+      | slash _ _ => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
+  | b =>
+      cases y with
+      | a => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
+      | b => exact ⟨fun _ => rfl, fun _ => rfl⟩
+      | slash _ _ => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
   | slash x₁ y₁ ihx ihy =>
       cases y with
-      | a => simp [Tree.cmp]
-      | b => simp [Tree.cmp]
+      | a => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
+      | b => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
       | slash x₂ y₂ =>
-          simp only [Tree.cmp]
+          show (match Tree.cmp x₁ x₂ with
+                | .eq => Tree.cmp y₁ y₂
+                | .lt => .lt
+                | .gt => .gt) = .eq ↔ _
           constructor
           · intro h
             split at h <;> rename_i hc
-            · rw [(ihy y₂).mp h, show x₁ = x₂ from (ihx x₂).mp hc]
-            all_goals cases h
+            · have hx : x₁ = x₂ := (ihx x₂).mp hc
+              have hy : y₁ = y₂ := (ihy y₂).mp h
+              exact hx ▸ hy ▸ rfl
+            · exact Ordering.noConfusion h
+            · exact Ordering.noConfusion h
           · intro h
             injection h with hx hy
-            rw [← hx, ← hy]
-            rw [show Tree.cmp x₁ x₁ = .eq from (ihx x₁).mpr rfl]
-            exact (ihy y₁).mpr rfl
+            have hcx : Tree.cmp x₁ x₂ = .eq := (ihx x₂).mpr hx
+            have hcy : Tree.cmp y₁ y₂ = .eq := (ihy y₂).mpr hy
+            rw [hcx]
+            exact hcy
 
 theorem Tree.cmp_swap (x y : Tree) :
     Tree.cmp x y = (Tree.cmp y x).swap := by
