@@ -98,29 +98,61 @@ forced shape uniqueness 증명.  **Term API 만 사용**.
 (`Lens.view = Raw.fold`).  Universal "viewing" 기계.
 **Theory API 만 사용**.
 
-**Sub-clusters**:
+Lens layer 는 다른 ring 들 보다 **확장이 빈번** — 새 lens 추가,
+새 codomain, 새 property predicate 등.  따라서 API discipline 도
+**2-tier**:
+
+#### Tier 1 — Core API (안정, `Lens/API.lean`)
+
+외부 consumer 가 반드시 import.  Lens 의 **본질만** — 새 lens
+추가시에도 안 바뀜.
+
+  * **HV1 — Type**: `Lens (α : Type)`, `Lens.view`, `Lens.mk`,
+    projections
+  * **HV2 — Basic algebra**: `Lens.equiv`, `Lens.refines` + closures,
+    `Lens.compose` (functor-like)
+  * **HV3 — Universal property**: `Universal.universalLens`,
+    `Universal.Flat`, `Universal.factorization` — *모든
+    distinguishability framework 가 Raw 위 lens 로 factor* 의 정리
+
+#### Tier 2 — 확장 sub-API (필요시 import)
+
+확장 자주 일어나는 영역은 영역별 별도 import.
+
+  * `Lens/Instances.lean`     — 25+ concrete lens 카탈로그
+  * `Lens/Lattice.lean`       — join / meet / Family lattice
+  * `Lens/Compose.lean`       — composition operators
+  * `Lens/Properties.lean`    — predicate catalog (IsLeaf, IsBoolValued, …)
+  * `Lens/Codomain.lean`      — *(TBD)* codomain type catalog
+                                (Bool213, Nat213, Int213, …)
+
+외부 consumer 패턴:
+```lean
+import E213.Lens.API                  -- 핵심 (필수)
+import E213.Lens.Instances            -- instance catalog 필요시
+import E213.Lens.Lattice              -- lattice 정리 필요시
+-- …
+```
+
+#### Sub-clusters (현재 디렉토리)
+
   * `Lens/Algebra/`          — algebraic kernel (CardinalityLB,
                                 Congruence, Corresp, IdLensEq)
   * `Lens/AxiomLenses/`      — Lean-axiom Lens witnesses (Funext,
                                 Propext, QuotSound) + Bridges
   * `Lens/Characterisation/` — characterisation typeclasses + catalog
   * `Lens/Compose/`          — composition operators
-  * `Lens/Instances/`        — 24+ concrete Lens instances
+  * `Lens/Instances/`        — 29 concrete Lens instances
   * `Lens/Lattice/`          — refines lattice (Join, Meet, Family*)
   * `Lens/Leaves/`           — depth-leaf hierarchy
   * `Lens/Morphism/`         — morphism shape catalogue
   * `Lens/Properties/`       — derived predicates
-  * `Lens/Refines/`          — refines preorder (Chain, Preorder)
+  * `Lens/Refines/`          — refines preorder
   * `Lens/Universal/`        — Universal flat / quot lens
-  * `Lens/Internal/`         — internal proof infra (Algebra/{
-                                FreeAudit, FourDistinct,
-                                SwapInvariant, Space})
+  * `Lens/Internal/`         — internal proof infra
 
-**Public API**: `Lens/API.lean` exposes HV1–HV6:
-  * HV1 — Type, HV2 — Equivalence, HV3 — Initiality,
-    HV4 — Lattice, HV5 — Composition, HV6 — Canonical Form
-
-Optional separate imports: HV7 (Instances), HV8 (Characterisation).
+(13 sub-clusters; `research-notes/LENS_AUDIT.md` 에 정리 가능성
+catalog.)
 
 ### Lib/  (Mathematics + Physics content)
 
