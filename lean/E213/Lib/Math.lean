@@ -14,7 +14,6 @@ import E213.Lib.Math.CayleyDickson
 import E213.Lib.Math.ModArith
 import E213.Lib.Math.Modulus
 import E213.Lib.Math.Tactic
-import E213.Lib.Math.Trajectory
 import E213.Lib.Math.PatternCatalog
 import E213.Lib.Math.Probability
 import E213.Lib.Math.Information
@@ -72,7 +71,6 @@ The directory tree is the spec; this file is the top-level entry.
                           Structure / Pairing / Refinement / Toolkit /
                           Bridge / MotivicBridge — 47 files; promoted
                           from Cohomology/HodgeConjecture in Phase C2)
-    * `Trajectory`      — sequence-trajectories
     * `PatternCatalog`  — pattern catalog metaformalization (G30)
     * `CascadeCalculus` — cascade-calculus locality / aggregation
 

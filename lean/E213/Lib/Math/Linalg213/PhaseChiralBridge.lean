@@ -26,7 +26,7 @@ theorem that needs either view, ensuring the two foundational
 decompositions are pulled in together.
 -/
 
-namespace E213.Lib.Math.Trajectory.PhaseChiralBridge
+namespace E213.Lib.Math.Linalg213.PhaseChiralBridge
 
 open E213.Tactic.Mod213
 open E213.Lib.Physics.Simplex.Counts
@@ -87,4 +87,4 @@ theorem chiralPair_table :
     ∧ chiralPair 4 = (false, 1) ∧ chiralPair 5 = (true, 2) :=
   ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
 
-end E213.Lib.Math.Trajectory.PhaseChiralBridge
+end E213.Lib.Math.Linalg213.PhaseChiralBridge
