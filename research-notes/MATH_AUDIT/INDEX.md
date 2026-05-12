@@ -12,7 +12,7 @@ lines target.
 | 1 | `C_algebra.md` | CayleyDickson, Group, Polynomial213, Linalg213 | 77 | ✓ initial pass (2026-05-12) |
 | 2 | `A_foundations.md` | NatHelpers, Modulus, ModArith, Choice, AxiomSystems, Tactic, Logic, Search | 42 | ✓ initial pass (2026-05-12) |
 | 3 | `G_cohomology.md` | Cohomology, HodgeConjecture | 161 | ✓ initial pass (2026-05-12) |
-| 4 | `F_dyadic_fsm.md` | DyadicFSM | 116 | pending |
+| 4 | `F_dyadic_fsm.md` | DyadicFSM | 116 | ✓ initial pass (2026-05-12) |
 | 5 | `E_analysis.md` | Analysis, CascadeCalculus, ODE, Multivariable, Functional, Measure, Trajectory | ~98 | pending |
 | 6 | `B_numerical.md` | Real213, SignedCut, Cauchy, EpsilonDeltaModulus, Complex, Hyper, Infinity, Irrational, NumberGrid | ~127 | pending |
 | 7 | `D_topology.md` | Combinatorics, Topology, LevelTopology, OperationTopology, AngleStructure, TriangularTower, BipartiteDecomp, CartesianVsDisjoint, Diagonal | ~38 | pending |
