@@ -74,15 +74,14 @@ theorem projT_e4_5 :
 
 /-- ★ Chiral round-trip pointwise: combine (projS v) (projT v) k
     equals v k at every k.  Proves Vec 5 = VecS ⊕ VecT
-    (paper 1 chiral split at vector level). -/
+    (paper 1 chiral split at vector level).  PURE via cases_lt_five
+    + subst (Fin pattern match would leak Quot.sound). -/
 theorem combine_proj_eq (v : Vec 5) (k : Fin 5) :
     combine (projS v) (projT v) k = v k := by
-  match k with
-  | ⟨0, _⟩ => rfl
-  | ⟨1, _⟩ => rfl
-  | ⟨2, _⟩ => rfl
-  | ⟨3, _⟩ => rfl
-  | ⟨4, _⟩ => rfl
+  obtain ⟨n, hn⟩ := k
+  show combine (projS v) (projT v) ⟨n, hn⟩ = v ⟨n, hn⟩
+  rcases E213.Tactic.Nat213.cases_lt_five hn
+    with h | h | h | h | h <;> subst h <;> rfl
 
 /-- ★ 4 capstone. -/
 theorem phase_L4_capstone :
