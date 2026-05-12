@@ -40,8 +40,9 @@ the axiom.
 ## Cross-references at seed/ root
 
 - `seed/ORIGIN.md` — DRLT origin narrative (untouched).
-- `seed/PAPER1.md` — archival paper (cited by ~25 Lean files via
-  `PAPER1 §X.Y`; do not modify).
+- `seed/PAPER1.md` — **deleted 2026-05-12**.  Historical citations
+  in Lean docstrings (`PAPER1 §X.Y`) remain as narrative references
+  with no live target.
 - `seed/RESOLUTION_LIMIT_SPEC.md` — N_U structural-invariant
   authority (4-domain convergence at 5²⁵).  Wins over any AXIOM/
   chapter on resolution-limit topics.

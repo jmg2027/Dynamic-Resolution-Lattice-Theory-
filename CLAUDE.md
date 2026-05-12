@@ -122,7 +122,7 @@ Canonical reading: **`seed/RESOLUTION_LIMIT_SPEC.md`**.  Summary:
   - Physics formalization uses ℕ + ℚ + finite simplex combinatorics +
     interval bound at N_U; ÷, ∫, π, e, ζ(2) are unnecessary.
 
-Lean ref: `lean/E213/Lib/Math/Foundations/ResolutionLimit.lean`.
+Lean ref: `lean/E213/Lib/Math/ResolutionLimit.lean`.
 
 ## Operating principles
 

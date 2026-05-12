@@ -145,8 +145,5 @@ the uniqueness statement to all three directions:
 - above — Raw's own shape is forced         (Theory/Atomicity)
 
 The architectural placement of these proofs (Theory/Atomicity/)
-is canonicalized in `lean/E213/ARCHITECTURE.md`.  Historical note:
-an earlier `OS/` directory was first retired (atomicity proofs
-absorbed into Theory/Atomicity/) and later partially re-instated
-as the orchestration layer.  The atomicity material did not move
-back.
+is canonicalized in `lean/E213/ARCHITECTURE.md` (4 ring + Meta
+since 2026-05-12).

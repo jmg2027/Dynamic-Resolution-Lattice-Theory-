@@ -3,19 +3,21 @@
 This §7 is an audit target list.  Each item must be cross-checked
 against this axiom; discrepancies are corrected or isolated.
 
-## §7.1 Lean formalization (status 2026-05-XX)
+## §7.1 Lean formalization
 
 The current Raw implementation in `lean/E213/Theory/` (2 elements
 a, b + binary slash, anti-reflexive, commutative) is a faithful
-machine representation of this axiom.  Audit reference:
-`lean/E213/AUDIT.md` (2026-04-24, recommendations 1, 2, 3 +
-deep-audit items A-E).
+machine representation of this axiom.  Detailed device-by-device
+classification (α/β/γ/δ) + axiom × Lean cross-check:
+`lean/E213/AUDIT.md`.
 
 **Encoding note**: Lean 4 core has no primitive quotient, so Raw is
 implemented as a subtype `{t : Tree // t.canonical = true}`.  The
 Internal `Tree.cmp` (ordering) is an **encoding artifact** for
 selecting canonical forms, not an axiom.  The axiom contains no
-ordering whatsoever.
+ordering whatsoever.  Cmp-independence is mechanically verified at
+`lean/E213/Theory/Internal/RawCmpIndependence.lean`.  Full encoding-
+cost catalog: `08_encoding_costs.md`.
 
 Things that **automatically follow** from derivation (no additional
 commitment to the axiom):
@@ -25,20 +27,13 @@ commitment to the axiom):
 - `Raw.fold` (catamorphism) — standard eliminator wrapper of an
   inductive type, the tool for constructing all Lenses.
 
-**Lens-layer bleed — current location (NOT yet migrated)**:
-
-`Raw.depth` (`Theory/Raw/Slash.lean`), `Raw.leaves`
+**Lens-layer bleed** (Theory currently holds some Lens-flavored
+observables): `Raw.depth` (`Theory/Raw/Slash.lean`), `Raw.leaves`
 (`Theory/Raw/Levels.lean`), `Raw.fold_signed_swap`
-(`Theory/Raw/Signed.lean`), `Raw.fold_swap_hom`
-(`Theory/Raw/Hom.lean`) are observables / bridge theorems of
-specific Lenses but still live in Theory.  Per
-`lean/E213/ARCHITECTURE.md` §3 (Open Questions), this is now
-classified as *intentional convenience leak* — the proofs are
-pure-induction theorems on the Tree representation that any Lens
-consumer eventually needs, and relocating them gains nothing for
-the axiom-minimality story.  Audit recommendation downgraded from
-"must migrate" to "acknowledged leak; revisit if abstraction
-breaks."
+(`Theory/Raw/Signed.lean`), `Raw.fold_swap_hom` (`Theory/Raw/Hom
+.lean`).  Classified as *intentional convenience leak* — these are
+pure-induction theorems on Tree that every Lens consumer eventually
+needs, and relocating gains nothing for axiom-minimality.
 
 **Forced shape uniqueness**: see `00_nature.md` §1.3.
 `Theory/Atomicity/*` proofs (arity = 2, atomic ⇒ d = 5,
@@ -53,39 +48,35 @@ distinguishability framework factors through Raw" obligation.
 Together with §1.3 these close axiom-uniqueness in three directions
 (below/sideways/above).
 
-## §7.2 Papers 1 and 2 deleted (2026-04-24)
+## §7.2 Deleted paper drafts
 
-The previous `213/PAPER.md` (R1-R5 → ℂ derivation) and
-`213/PAPER2.md` (r5-critique) have been deleted.  The seed/AXIOM/
-sub-directory remains as the **sole axiom corpus**.  Derivation is
-explored freely in `research-notes/` and in the Lean metatheory
-layer (`Meta/UniversalLens/`).
+- `seed/PAPER1.md` (1377 lines, archival seed paper) — deleted
+  2026-05-12.  Historical citations in Lean docstrings
+  (`PAPER1 §X.Y`, ~25 files) remain as narrative references with
+  no live target.
+- `213/PAPER.md` (R1-R5 → ℂ derivation), `213/PAPER2.md` (r5-
+  critique) — deleted 2026-04-24.  Background:
+  `research-notes/archive/30_bool_is_liar_paradox.md` (the R1-R5
+  judgment game was revealed to be a self-reference loop on Bool).
+- `papers/` directory: only `papers/README.md` retained as historical
+  marker; original paper sources deleted (commit a02b751).
 
-Background: `research-notes/archive/30_bool_is_liar_paradox.md`.  The R1-R5
-judgment game in Paper 1 was revealed to be an instance of a
-self-reference loop (Bool), so the frame itself was stepped back
-from.
+The seed/AXIOM/ sub-directory remains as the **sole axiom corpus**.
+Derivation is explored freely in `research-notes/` and in the Lean
+metatheory layer (`Meta/UniversalLens/`).
 
-## §7.3 ch22 / book/ (deprecated — directory empty)
+## §7.3 Book / chapter audit (no longer applicable)
 
 The previous reference target `book/chapters/ch22_213.tex` no
-longer exists — `book/` now contains only `README.md`.  Likewise
-`papers/` was deleted (commit a02b751; only `papers/README.md`
-retained as historical marker).
+longer exists.  `book/` was emptied; new authoritative narratives
+now live in:
 
-The original §7.3 critique of ch22 stands historically: any
-external substitution called `eval` ("a choice external to the
-structure") that imports the §3.3 prohibited list (d=5,
-(n_S, n_T), K=ℂ) as fudge is disqualified.  This audit standard
-is now enforced by the absence of such fudge in the Lean tree
-itself — every concrete numeric (d=5, NS=3, NT=2,
-1/α_em=137.036, …) is either a Lens construction or, for the
-shape parameters, a forced-uniqueness theorem in
+- `guide/` — deductively-ordered narrative (T0/T1/T2/T3 tags)
+- `books/{math,physics}/` — 213-internal narrative
+
+The historical critique of ch22 (external `eval` substitution
+importing the §3.3 prohibited list as fudge) is enforced
+mechanically in the current Lean tree: every concrete numeric
+(d=5, NS=3, NT=2, 1/α_em=137.036, …) is either a Lens construction
+or, for the shape parameters, a forced-uniqueness theorem in
 `Theory/Atomicity/`.
-
-## §7.4 Book chapters (no longer applicable)
-
-ch01–ch21 audit is moot — `book/AUDIT.md` was never created and
-the chapter sources do not exist.  Auditable artifacts now live in
-`guide/` (deductively-ordered narrative, T0/T1/T2/T3 tags) and
-`books/{math,physics}/` (213-internal narrative).
