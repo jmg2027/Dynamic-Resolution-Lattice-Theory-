@@ -142,15 +142,31 @@ end E213.Infinity
 namespace E213.Theory.Internal
 
 /-- Signed-view of the tree tower: `view(treeTower n) = n - 1`
-    as an Int.  tower_0 = Tree.b → -1; each slash adds `1`. -/
+    as an Int.  tower_0 = Tree.b → -1; each slash adds `1`.
+
+    ∅-axiom (PURE) — replaces earlier `push_cast; omega` step with
+    explicit Int213 manipulation: `1 + (a - 1) = a` via add_comm +
+    sub_add_cancel_int; RHS `((n+1 : Nat) : Int) - 1 = (n : Int)`
+    via subNatNat_of_le + Nat213.add_sub_cancel_right. -/
 theorem treeTower_signed :
     ∀ n, Tree.fold (1 : Int) (-1) (· + ·) (treeTower n) = (n : Int) - 1 := by
   intro n; induction n with
   | zero => rfl
   | succ m ih =>
       show (1 : Int) + Tree.fold (1 : Int) (-1) (· + ·) (treeTower m)
-             = (m + 1 : Int) - 1
-      rw [ih]; push_cast; omega
+             = ((m + 1 : Nat) : Int) - 1
+      rw [ih]
+      -- Goal: 1 + ((m : Int) - 1) = ((m + 1 : Nat) : Int) - 1.
+      -- Both sides equal (m : Int).
+      have lhs_eq : (1 : Int) + ((m : Int) - 1) = (m : Int) :=
+        (E213.Theory.Internal.Int213.add_comm 1 ((m : Int) - 1)).trans
+          (E213.Theory.Internal.Int213.sub_add_cancel_int (m : Int) 1)
+      have rhs_eq : ((m + 1 : Nat) : Int) - 1 = (m : Int) := by
+        show Int.subNatNat (m + 1) 1 = Int.ofNat m
+        rw [E213.Theory.Internal.Int213.subNatNat_of_le (Nat.le_add_left 1 m)]
+        show Int.ofNat (m + 1 - 1) = Int.ofNat m
+        rw [E213.Tactic.Nat213.add_sub_cancel_right m 1]
+      exact lhs_eq.trans rhs_eq.symm
 
 end E213.Theory.Internal
 
@@ -163,26 +179,57 @@ open E213.Lens.Characterisation.Catalog
     `rawTower`.  The full `ℤ` surjectivity (covering `z ≤ -2`)
     would require a dual "b-tower"; skipped here since
     unboundedness of the image is enough for the Σ4
-    cardinality claim. -/
+    cardinality claim.
+
+    ∅-axiom (PURE) — case-split on the Int constructor: `ofNat n` →
+    witness `rawTower (n+1)`; `negSucc 0` (z = -1) → `rawTower 0`;
+    `negSucc (k+1)` → discharge `-1 ≤ z` via `cases`. -/
 theorem signedLens_image_ge_neg_one :
     ∀ z : Int, -1 ≤ z → ∃ r : Raw, signedLens.view r = z := by
   intro z hz
-  have ⟨n, hn⟩ : ∃ n : Nat, z = (n : Int) - 1 := by
-    refine ⟨(z + 1).toNat, ?_⟩
-    rw [Int.toNat_of_nonneg (by omega)]
-    omega
-  refine ⟨rawTower n, ?_⟩
-  show Raw.fold (1 : Int) (-1) (· + ·) (rawTower n) = z
-  rw [hn]
-  exact treeTower_signed n
+  match z, hz with
+  | Int.ofNat n, _ =>
+      refine ⟨rawTower (n + 1), ?_⟩
+      show Raw.fold (1 : Int) (-1) (· + ·) (rawTower (n + 1)) = Int.ofNat n
+      have h_tree : Tree.fold (1 : Int) (-1) (· + ·) (treeTower (n + 1))
+                  = ((n + 1 : Nat) : Int) - 1 :=
+        treeTower_signed (n + 1)
+      have h_rhs : ((n + 1 : Nat) : Int) - 1 = Int.ofNat n := by
+        show Int.subNatNat (n + 1) 1 = Int.ofNat n
+        rw [E213.Theory.Internal.Int213.subNatNat_of_le (Nat.le_add_left 1 n)]
+        show Int.ofNat (n + 1 - 1) = Int.ofNat n
+        rw [E213.Tactic.Nat213.add_sub_cancel_right n 1]
+      exact h_tree.trans h_rhs
+  | Int.negSucc 0, _ =>
+      -- z = -1; rawTower 0 = Raw.b → fold = -1 = Int.negSucc 0.
+      exact ⟨rawTower 0, rfl⟩
+  | Int.negSucc (k + 1), hz =>
+      -- (-1 : Int) ≤ Int.negSucc (k + 1) is False — Int.NonNeg only
+      -- holds for ofNat constructors, and the relevant difference is negSucc.
+      exact absurd hz (by intro h; cases h)
 
 /-- **signedLens image is unbounded above.**  For every
-    `N : ℕ`, some Raw term has signed view `≥ N`. -/
+    `N : ℕ`, some Raw term has signed view `≥ N`.
+
+    ∅-axiom (PURE) — `(N : Int) ≥ -1` for every Nat (trivially); apply
+    image_ge_neg_one and use Int.le_refl. -/
 theorem signedLens_unbounded_above :
     ∀ N : Nat, ∃ r : Raw, (N : Int) ≤ signedLens.view r := by
   intro N
-  obtain ⟨r, hr⟩ := signedLens_image_ge_neg_one (N : Int) (by omega)
-  exact ⟨r, by rw [hr]; exact Int.le_refl _⟩
+  -- -1 ≤ (N : Int): the difference (N : Int) - (-1) reduces to
+  -- Int.ofNat (N + 1), which is NonNeg by construction.
+  have h_neg_one_le : (-1 : Int) ≤ (N : Int) := Int.NonNeg.mk (N + 1)
+  obtain ⟨r, hr⟩ := signedLens_image_ge_neg_one (N : Int) h_neg_one_le
+  -- Want (N : Int) ≤ signedLens.view r.  Use hr to reduce to (N : Int) ≤ (N : Int).
+  have h_refl_N : (N : Int) ≤ (N : Int) := by
+    show Int.NonNeg ((N : Int) - (N : Int))
+    have hzero : (N : Int) - (N : Int) = 0 := by
+      show (N : Int) + (-(N : Int)) = 0
+      exact (E213.Theory.Internal.Int213.add_comm _ _).trans
+        (E213.Theory.Internal.Int213.add_left_neg _)
+    rw [hzero]
+    exact Int.NonNeg.mk 0
+  exact ⟨r, Eq.subst (motive := fun x => (N : Int) ≤ x) hr.symm h_refl_N⟩
 
 end E213.Infinity
 
