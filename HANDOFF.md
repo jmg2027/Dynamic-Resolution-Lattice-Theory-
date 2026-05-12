@@ -2,11 +2,17 @@
 
 ## Branch
 `claude/raw-data-demo-W8aVV` — pushed, up to date with origin.
-Latest: `21f563b8 Universal.{Prop41,Prop42}: Fin match → if-then-else (4 PURE)`.
+Latest: `fe6ce3dc ModArith.JoinExample.leaves_ge_one: omega → Nat.le_trans`.
 
 ## Marathon snapshot (2026-05-12, late)
 
-Cumulative real DIRTY → PURE in current cycle: **93**.
+Cumulative real DIRTY → PURE in current cycle: **96**.
+
+Repo-wide state: ~6498 PURE / ~170 DIRTY (~97.5% PURE rate).
+Remaining DIRTY is mostly inherent: Bool↔Prop bridge, universalLens
+(Quot-based), funext-on-Lens (combine field), heavy ring polynomial
+(Cayley/Sedenion), Int arithmetic propext, omega-heavy mod arithmetic,
+Lean.Elab plumbing.
 
 Sub-cluster wins this push (2026-05-12):
   - `Linalg213.Span` (omega → explicit rw chain): 6 PURE
@@ -19,6 +25,13 @@ Sub-cluster wins this push (2026-05-12):
   - `LevelTopology.{QuaternionTopology,ComplexTopology}` (simp Fin-mk → Nat.mod_lt): 7 PURE
   - `Cohomology.Universal.{Prop41,Prop42}` (pattern Fin match → if-then-else): 4 PURE
     (`pattern_eq` remains DIRTY by funext-design — `pattern` and `dsq_pattern` now PURE)
+  - `App.Simplex.block_constant_implies_aut_invariant` (simp only [] →
+    cases + diag_case helper): 1 PURE
+  - `Cauchy.GenericFamily.{profinite_factorial_is_GFCauchy,
+    orderCauchy_is_GFCauchy}` (by_cases + omega → match Decidable +
+    Nat.succ_le_succ): 2 PURE
+  - `ModArith.JoinExample.leaves_ge_one` (private helper omega →
+    Nat.le_trans): building-block cleanup
 
 Reusable patterns established this push:
   13. `omega` on Vec/Cochain sum → explicit `rw [Nat.mul_zero, Nat.mul_one,
