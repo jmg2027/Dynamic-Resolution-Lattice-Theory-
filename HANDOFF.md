@@ -1,10 +1,41 @@
-# Session Handoff — DRLT 213 (2026-05-11)
+# Session Handoff — DRLT 213 (2026-05-12)
 
 ## Branch
 `claude/raw-data-demo-W8aVV` — pushed, up to date with origin.
-Latest: `b5d698be CLOSED_FORM_SPEC: marathon section 갱신`.
+Latest: `21f563b8 Universal.{Prop41,Prop42}: Fin match → if-then-else (4 PURE)`.
 
-## What Was Done This Session
+## Marathon snapshot (2026-05-12, late)
+
+Cumulative real DIRTY → PURE in current cycle: **93**.
+
+Sub-cluster wins this push (2026-05-12):
+  - `Linalg213.Span` (omega → explicit rw chain): 6 PURE
+  - `Linalg213.Chiral.combine_proj_eq` + cascade (Capstone): 3 PURE
+  - `Cohomology.Delta.Linear` + `CupAW.Zero` + `CupAW.Bilinear`
+    (by_cases + simp → match Decidable + dif_pos/neg): 8 PURE
+  - `Symmetry.{AutAction,AutEdgeAction}` (funext → pointwise): 2 PURE
+  - `Irrational.Sqrt2.lean` deleted (Sqrt2KernelFree.lean replaces): 3 DIRTY removed
+  - `Modulus.PellHasModulus` (by_cases + Nat.mul_assoc → match + Nat213.mul_assoc): 3 PURE
+  - `LevelTopology.{QuaternionTopology,ComplexTopology}` (simp Fin-mk → Nat.mod_lt): 7 PURE
+  - `Cohomology.Universal.{Prop41,Prop42}` (pattern Fin match → if-then-else): 4 PURE
+    (`pattern_eq` remains DIRTY by funext-design — `pattern` and `dsq_pattern` now PURE)
+
+Reusable patterns established this push:
+  13. `omega` on Vec/Cochain sum → explicit `rw [Nat.mul_zero, Nat.mul_one,
+       Nat.zero_add]` chain + final `rfl` (proof-irrelevance closes Fin _)
+  14. `simp only [def, h, ↓reduceDIte]` → `unfold def; match
+       (inferInstance : Decidable _) with | .isTrue h => rw [dif_pos h,...]
+       | .isFalse h => rw [dif_neg h,...]; rfl`
+  15. `by simp [Nat.mod_lt]` in Fin-mk obligation → `Nat.mod_lt _ (by decide)`
+  16. `funext k; match k with ⟨0,_⟩ => rfl | ...` → `obtain ⟨n, hn⟩ := k;
+       show ...; rcases cases_lt_N hn with h|...|h <;> subst h <;> rfl`
+  17. Pattern def with `match i with ⟨k,_⟩ => bᵢ` → `if i.val = k then bᵢ ...`
+       (Fin pattern match in def body leaks via exhaustiveness)
+
+Modules entirely PURE post-push: Linalg213 (98/0), Physics (1553/0),
+Term/Theory layers fully PURE.
+
+## What Was Done Previous Sessions
 
 ### 1. ★ Theory/Closed/* — closed-form pattern unification (4-domain catalog)
 
