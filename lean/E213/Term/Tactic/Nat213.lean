@@ -301,6 +301,14 @@ theorem le_of_mul_le_mul_right {a b c : Nat} (hc : 1 ≤ c)
   Nat.le_of_mul_le_mul_left
     ((Nat.mul_comm a c).symm ▸ (Nat.mul_comm b c).symm ▸ h) hc
 
+/-- Left mul cancellation: `0 < c ∧ c*a = c*b → a = b`.  ∅-axiom
+    via antisymmetry of `≤` on `Nat.le_of_mul_le_mul_left`. -/
+theorem mul_left_cancel_pos {c : Nat} (hc : 0 < c) {a b : Nat}
+    (h : c * a = c * b) : a = b :=
+  Nat.le_antisymm
+    (Nat.le_of_mul_le_mul_left (Nat.le_of_eq h) hc)
+    (Nat.le_of_mul_le_mul_left (Nat.le_of_eq h.symm) hc)
+
 /-- `b ≤ a → c * (a - b) = c*a - c*b`.  ∅-axiom. -/
 theorem mul_sub_distrib {a b c : Nat} (h : b ≤ a) :
     c * (a - b) = c * a - c * b := by
