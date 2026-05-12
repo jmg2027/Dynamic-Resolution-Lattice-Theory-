@@ -1,5 +1,6 @@
 import E213.Lib.Math.Cohomology.Surfaces.T2Minimal
 import E213.Lib.Math.NatHelpers.IntHelpers
+import E213.Theory.Internal.Int213
 
 /-!
 # Cup-pairing on H¹(T²; ℤ) — hyperbolic intersection form
@@ -59,13 +60,17 @@ theorem cup_ba : cup basis_b basis_a Cell2.f = 1 := by decide
 /-- Matrix entry: `(basis_b ⌣ basis_b)(f) = 0`. -/
 theorem cup_bb : cup basis_b basis_b Cell2.f = 0 := by decide
 
-/-- Cup is symmetric: `α ⌣ β = β ⌣ α`. -/
+/-- Cup is symmetric: `α ⌣ β = β ⌣ α`.  PURE (modulo funext-by-design)
+    via `Int213.mul_comm` + `Int213.add_comm` in place of Lean-core
+    Int.mul_comm / Int.add_comm (which are propext-leaking). -/
 theorem cup_symm (α β : C1) : cup α β = cup β α := by
   funext _
   show α Cell1.a * β Cell1.b + α Cell1.b * β Cell1.a
      = β Cell1.a * α Cell1.b + β Cell1.b * α Cell1.a
-  have h1 : α Cell1.a * β Cell1.b = β Cell1.b * α Cell1.a := Int.mul_comm _ _
-  have h2 : α Cell1.b * β Cell1.a = β Cell1.a * α Cell1.b := Int.mul_comm _ _
-  rw [h1, h2, Int.add_comm]
+  have h1 : α Cell1.a * β Cell1.b = β Cell1.b * α Cell1.a :=
+    E213.Theory.Internal.Int213.mul_comm _ _
+  have h2 : α Cell1.b * β Cell1.a = β Cell1.a * α Cell1.b :=
+    E213.Theory.Internal.Int213.mul_comm _ _
+  rw [h1, h2, E213.Theory.Internal.Int213.add_comm]
 
 end E213.Lib.Math.Cohomology.Surfaces.T2Minimal.CupPairing

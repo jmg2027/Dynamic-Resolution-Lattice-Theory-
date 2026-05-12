@@ -32,13 +32,12 @@ theorem cartesian_product_card : (3 : Nat) * 2 = 6 := rfl
 theorem disjoint_neq_cartesian : (5 : Nat) ≠ 6 := by decide
 
 /-- ★ **Power-sum (binomial) vs Power-product**: at level 25,
-    binomial gives `5²⁵`, product gives `6²⁵`. -/
+    binomial gives `5²⁵`, product gives `6²⁵`.  PURE — both sides
+    evaluate to literal Nat values, closed by `decide`. -/
 theorem power_dichotomy :
     ((3 : Nat) + 2) ^ 25 = (5 : Nat) ^ 25
-    ∧ (3 : Nat) ^ 25 * (2 : Nat) ^ 25 = (6 : Nat) ^ 25 := by
-  refine ⟨rfl, ?_⟩
-  show (3 : Nat) ^ 25 * (2 : Nat) ^ 25 = (3 * 2 : Nat) ^ 25
-  rw [Nat.mul_pow]
+    ∧ (3 : Nat) ^ 25 * (2 : Nat) ^ 25 = (6 : Nat) ^ 25 :=
+  ⟨rfl, by decide⟩
 
 /-- ★ **Strict separation**: `5²⁵ < 6²⁵` (binomial < product). -/
 theorem strict_sep :
