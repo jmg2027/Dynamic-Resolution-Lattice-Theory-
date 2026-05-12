@@ -157,6 +157,8 @@ classification** — NOT file count or merge density.
 4. Path = namespace, ideally.
 5. No "phase" / session-number in long-lived names.
 6. INDEX.md per non-trivial sub-tree (≥ 5 files).
+7. Same-topic evolution (Seq → Pure) / instance sets (per modulus, per dim) — **한 파일에** 통합, 별도 파일 X.
+8. `open` repetition within a file (namespace 블록마다 반복) **금지** — 파일 top 한 번 또는 단일 namespace.
 
 **Layer architecture**: `lean/E213/ARCHITECTURE.md` (4 ring + Meta since
 2026-05-12, canonical).  Ground truth — never duplicate here.
