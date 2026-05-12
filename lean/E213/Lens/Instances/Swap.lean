@@ -1,6 +1,6 @@
+import E213.Theory.Raw.API
 import E213.Lens.LensCore
 import E213.Lens.Instances.Identity
-import E213.Theory.Raw.SwapSlash
 
 /-!
 # SwapLens: Lens with Raw.swap as its view

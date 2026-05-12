@@ -1,8 +1,4 @@
-import E213.Theory.Raw.Fold
-import E213.Theory.Raw.Swap
-import E213.Theory.Raw.Slash
-import E213.Theory.Raw.SwapSlash
-import E213.Theory.Raw.Rec
+import E213.Theory.Raw.API
 
 /-!
 # Theory.Closed.FoldRaw — endomorphic fold (closed universe)

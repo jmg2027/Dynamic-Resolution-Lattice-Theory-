@@ -1,5 +1,5 @@
+import E213.Theory.Raw.API
 import E213.Theory.Closed.Bool213
-import E213.Theory.Raw.Rec
 
 /-!
 # Theory.Closed.Bool213System — meta pattern over (T, F) choices
