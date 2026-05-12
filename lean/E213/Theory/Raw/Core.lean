@@ -1,45 +1,16 @@
+import E213.Term.Internal.Tree
+
 /-!
 # Theory.Raw.Core: canonical-form subtype
 
-Foundational module — the ordered `Tree` scaffolding lives in
-the sub-namespace `E213.Theory.Internal` so downstream code
-that does `open E213.Theory` does NOT see it.  Sub-modules
-within `Theory/Raw/` open `E213.Theory.Internal` explicitly.
+`Raw` 의 public 표면.  Underlying `Tree` machinery (inductive +
+`cmp` + `canonical`) 는 Term 링의 `Term/Internal/Tree.lean` 에
+있음 — ARCHITECTURE.md (2026-05-12) "Raw 의 구현체 (Tree 등)"
+spec 에 따른 분리.
+
+이 파일은 그 Tree 위에 `Raw := {t : Tree // canonical t}` 를
+얹는 layer — Theory ring 의 Raw axiom public 표면.
 -/
-
-namespace E213.Theory.Internal
-
--- ═══ Internal scaffolding: ordered tree ═══
-
-inductive Tree : Type
-  | a     : Tree
-  | b     : Tree
-  | slash : Tree → Tree → Tree
-  deriving DecidableEq, Repr
-
-def Tree.cmp : Tree → Tree → Ordering
-  | .a,         .a         => .eq
-  | .a,         .b         => .lt
-  | .a,         .slash _ _ => .lt
-  | .b,         .a         => .gt
-  | .b,         .b         => .eq
-  | .b,         .slash _ _ => .lt
-  | .slash _ _, .a         => .gt
-  | .slash _ _, .b         => .gt
-  | .slash x₁ y₁, .slash x₂ y₂ =>
-      match Tree.cmp x₁ x₂ with
-      | .eq => Tree.cmp y₁ y₂
-      | .lt => .lt
-      | .gt => .gt
-
-def Tree.canonical : Tree → Bool
-  | .a         => true
-  | .b         => true
-  | .slash x y =>
-      x.canonical && y.canonical &&
-      (match Tree.cmp x y with | .lt => true | _ => false)
-
-end E213.Theory.Internal
 
 namespace E213.Theory
 
