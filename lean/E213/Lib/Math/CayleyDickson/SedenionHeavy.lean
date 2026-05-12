@@ -3,7 +3,7 @@ import E213.Lib.Math.CayleyDickson.LipschitzAlgebra213
 import E213.Lib.Math.NatHelpers.IntHelpers
 import E213.Lib.Math.CayleyDickson.CayleyHeavy
 import E213.Lib.Math.Tactic.HurwitzRing
-import E213.Theory.Internal.Algebra213
+import E213.Meta.Algebra213.Core
 
 /-!
 # Sedenion "heavy" identities

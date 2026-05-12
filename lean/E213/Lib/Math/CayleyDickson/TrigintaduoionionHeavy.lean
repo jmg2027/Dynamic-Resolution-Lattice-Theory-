@@ -2,7 +2,7 @@ import E213.Lib.Math.CayleyDickson.Trigintaduonion
 import E213.Lib.Math.CayleyDickson.SedenionHeavy
 import E213.Lib.Math.CayleyDickson.LipschitzAlgebra213
 import E213.Lib.Math.Tactic.HurwitzRing
-import E213.Theory.Internal.Algebra213
+import E213.Meta.Algebra213.Core
 
 /-!
 # Trigintaduonion "heavy" identities

@@ -1,4 +1,4 @@
-import E213.Theory.Internal.Algebra213CDDouble
+import E213.Meta.Algebra213.CDDouble
 
 /-!
 # Theory.CDDouble.UniversalOrder4 — generic Order-4 Monopoly mechanism

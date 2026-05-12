@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Surfaces.T2Minimal
 import E213.Lib.Math.NatHelpers.IntHelpers
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 # Cup-pairing on H¹(T²; ℤ) — hyperbolic intersection form

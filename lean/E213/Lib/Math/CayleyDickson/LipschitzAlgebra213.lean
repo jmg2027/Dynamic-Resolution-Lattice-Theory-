@@ -1,7 +1,7 @@
 import E213.Lib.Math.CayleyDickson.CDDouble
 import E213.Lib.Math.CayleyDickson.ZIAlgebra213
-import E213.Theory.Internal.Algebra213
-import E213.Theory.Internal.Int213
+import E213.Meta.Algebra213.Core
+import E213.Meta.Int213.Core
 
 /-!
 # `Lipschitz` as an `IntegerNormed213` instance

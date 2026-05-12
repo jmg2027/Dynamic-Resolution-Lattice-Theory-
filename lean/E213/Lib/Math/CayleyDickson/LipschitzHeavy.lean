@@ -1,8 +1,8 @@
 import E213.Lib.Math.CayleyDickson.CDDouble
 import E213.Lib.Math.CayleyDickson.LipschitzAlgebra213
 import E213.Lib.Math.NatHelpers.IntHelpers
-import E213.Theory.Internal.Algebra213
-import E213.Theory.Internal.Int213
+import E213.Meta.Algebra213.Core
+import E213.Meta.Int213.Core
 
 /-!
 # Lipschitz "heavy" identities — ∅-axiom via Algebra213 typeclass

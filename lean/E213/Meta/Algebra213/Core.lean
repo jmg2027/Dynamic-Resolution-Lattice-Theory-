@@ -1,4 +1,4 @@
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 # Algebra213 — abstract algebra layer over Int213

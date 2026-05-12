@@ -2,8 +2,8 @@ import E213.Lib.Math.CayleyDickson.ZI
 import E213.Lib.Math.CayleyDickson.ZIArith
 import E213.Lib.Math.CayleyDickson.ZIDomain
 import E213.Lib.Math.CayleyDickson.ZIHom
-import E213.Theory.Internal.Algebra213
-import E213.Theory.Internal.Int213
+import E213.Meta.Algebra213.Core
+import E213.Meta.Int213.Core
 
 /-!
 # `ZI` as an `IntegerNormed213` instance

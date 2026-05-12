@@ -19,7 +19,7 @@ import E213.Lib.Math.CayleyDickson.UniversalInduction
 import E213.Lib.Math.Tactic.Ring213
 import E213.Lib.Math.Mobius213
 import E213.Theory.CDDouble.UniversalOrder4
-import E213.Theory.Internal.Algebra213CDDoubleStar
+import E213.Meta.Algebra213.CDDoubleStar
 import E213.Theory.CDDouble.GenericLiftDemo
 import E213.Lib.Math.CayleyDickson.TowerFixedPoint
 

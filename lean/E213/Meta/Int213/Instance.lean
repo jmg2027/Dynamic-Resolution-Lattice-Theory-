@@ -1,5 +1,5 @@
-import E213.Theory.Internal.Int213
-import E213.Theory.Internal.Algebra213
+import E213.Meta.Int213.Core
+import E213.Meta.Algebra213.Core
 
 /-!
 # `Int` as a `CommRing213` instance

@@ -5,7 +5,7 @@ import E213.Lib.Math.CayleyDickson.ZSqrt
 import E213.Lib.Math.CayleyDickson.ZSqrtDomain
 import E213.Meta.SelfRecognising
 import E213.Prelude
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 # product codomain `ZSqrt D₁ × ZSqrt D₂`

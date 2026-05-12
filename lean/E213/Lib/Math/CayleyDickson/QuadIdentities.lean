@@ -1,4 +1,4 @@
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 # `quad_norm` identities — ∅-axiom polynomial identities

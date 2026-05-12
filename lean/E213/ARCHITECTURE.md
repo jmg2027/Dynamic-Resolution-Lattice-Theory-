@@ -82,11 +82,10 @@ forced shape uniqueness 증명.  **Term API 만 사용**.
                            FiveHelpers, PairForcing,
                            NonDecomposable, ArityForcing,
                            ArityForcingGeneral, PrimitiveSizes, Alive)
-  * `Theory/Internal/`  — implementation detail (Algebra213*,
-                           Int213*, RawCmpIndependence).
-                           Direct import 외부에서 권장 안 됨.
-                           (Tree machinery 는 Term/Internal/Tree*
-                           로 이동 — 2026-05-12 Theory→Term split.)
+  * `Theory/RawCmpIndependence.lean` — axiom-independence of
+                           cmp choice (meta-theorem).  Theory.Internal/
+                           directory 제거 (2026-05-12 cleanup) — Int213
+                           및 Algebra213 family 는 Meta 로 promotion.
 
 **Public API**: `Theory/API.lean` bundles:
   * **TH-A — Raw axiom data**: Raw + 4 clauses + structural primitives
@@ -221,8 +220,9 @@ Implementation detail 은 `<Ring>/Internal/` 안에.  Ring 외부에서
 직접 import 는 smell.  현재:
   * `Term/Internal/Tree*`     — Tree (inductive), Tree.cmp lemmas
                                  (moved from Theory 2026-05-12)
-  * `Theory/Internal/`        — Algebra213*, Int213*,
-                                 RawCmpIndependence
+  * `Meta/Int213/`, `Meta/Algebra213/` — Int / Ring213 typeclass
+                                 helpers (promoted from Theory.Internal
+                                 2026-05-12; ring-independent so Meta 거주)
   * `Lens/Internal/Algebra/`  — FreeAudit, FourDistinct,
                                  SwapInvariant, Space
 

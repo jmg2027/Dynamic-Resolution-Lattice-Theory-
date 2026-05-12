@@ -1,4 +1,4 @@
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 # Eisenstein integers `ℤ[ω]`, ω² + ω + 1 = 0

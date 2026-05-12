@@ -1,5 +1,5 @@
 import E213.Lib.Math.CayleyDickson.ZOmega
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 # `ZOmegaDouble` — CD-doubling of Eisenstein integers

@@ -1,5 +1,5 @@
 import E213.Lib.Math.CayleyDickson.ZSqrt
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 ZSqrt[-2] = ℤ[√-2] = `ZSqrt 2` (D=2 since ZSqrt D = ℤ[√-D]).

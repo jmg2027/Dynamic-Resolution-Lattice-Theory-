@@ -1,4 +1,4 @@
-import E213.Theory.Internal.Algebra213CDDoubleStar
+import E213.Meta.Algebra213.CDDoubleStar
 import E213.Theory.CDDouble.UniversalOrder4
 
 /-!

@@ -1,7 +1,7 @@
 import E213.Lib.Math.CayleyDickson.ZI
 import E213.Lib.Math.CayleyDickson.ZIDomain
 import E213.Lib.Math.CayleyDickson.QuadIdentities
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 # ZI ring-arithmetic supplement

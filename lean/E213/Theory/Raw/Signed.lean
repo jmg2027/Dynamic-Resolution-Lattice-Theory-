@@ -1,7 +1,7 @@
 import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Fold
 import E213.Theory.Raw.Hom
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 # Theory.Raw.Signed: fold_signed_swap — swap as negation
