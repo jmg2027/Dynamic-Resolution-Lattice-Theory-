@@ -41,31 +41,39 @@ theorem decomp_at_0 (v : Vec 5) :
     basisDecompAt v ⟨0, by decide⟩ = v ⟨0, by decide⟩ := by
   show v ⟨0, _⟩ * 1 + v ⟨1, _⟩ * 0 + v ⟨2, _⟩ * 0
        + v ⟨3, _⟩ * 0 + v ⟨4, _⟩ * 0 = v ⟨0, _⟩
-  omega
+  rw [Nat.mul_zero, Nat.mul_zero, Nat.mul_zero, Nat.mul_zero, Nat.mul_one]
+  rfl
 
 theorem decomp_at_1 (v : Vec 5) :
     basisDecompAt v ⟨1, by decide⟩ = v ⟨1, by decide⟩ := by
   show v ⟨0, _⟩ * 0 + v ⟨1, _⟩ * 1 + v ⟨2, _⟩ * 0
        + v ⟨3, _⟩ * 0 + v ⟨4, _⟩ * 0 = v ⟨1, _⟩
-  omega
+  rw [Nat.mul_zero, Nat.mul_zero, Nat.mul_zero, Nat.mul_zero,
+      Nat.mul_one, Nat.zero_add]
+  rfl
 
 theorem decomp_at_2 (v : Vec 5) :
     basisDecompAt v ⟨2, by decide⟩ = v ⟨2, by decide⟩ := by
   show v ⟨0, _⟩ * 0 + v ⟨1, _⟩ * 0 + v ⟨2, _⟩ * 1
        + v ⟨3, _⟩ * 0 + v ⟨4, _⟩ * 0 = v ⟨2, _⟩
-  omega
+  rw [Nat.mul_zero, Nat.mul_zero, Nat.mul_zero, Nat.mul_zero,
+      Nat.mul_one, Nat.zero_add]
+  rfl
 
 theorem decomp_at_3 (v : Vec 5) :
     basisDecompAt v ⟨3, by decide⟩ = v ⟨3, by decide⟩ := by
   show v ⟨0, _⟩ * 0 + v ⟨1, _⟩ * 0 + v ⟨2, _⟩ * 0
        + v ⟨3, _⟩ * 1 + v ⟨4, _⟩ * 0 = v ⟨3, _⟩
-  omega
+  rw [Nat.mul_zero, Nat.mul_zero, Nat.mul_zero, Nat.mul_zero,
+      Nat.mul_one, Nat.zero_add]
+  rfl
 
 theorem decomp_at_4 (v : Vec 5) :
     basisDecompAt v ⟨4, by decide⟩ = v ⟨4, by decide⟩ := by
   show v ⟨0, _⟩ * 0 + v ⟨1, _⟩ * 0 + v ⟨2, _⟩ * 0
        + v ⟨3, _⟩ * 0 + v ⟨4, _⟩ * 1 = v ⟨4, _⟩
-  omega
+  rw [Nat.mul_zero, Nat.mul_zero, Nat.mul_zero, Nat.mul_zero,
+      Nat.mul_one, Nat.zero_add]
 
 /-- ★ 3 capstone: every `v : Vec 5` admits the basis
     decomposition `v = Σ_{k=0}^{4} v(k) · e_k` pointwise.
