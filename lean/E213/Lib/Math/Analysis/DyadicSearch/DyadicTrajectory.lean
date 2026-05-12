@@ -462,18 +462,40 @@ example : (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit 10 5
 theorem alwaysTrue_le_alwaysFalse_at_limit :
     cutLe (ConsistentOracle.alwaysTrueUnit).toCauchyCutSeq.limit
           (ConsistentOracle.alwaysFalseUnit).toCauchyCutSeq.limit := by
-  intro m k h
-  rw [alwaysFalseUnit_limit_value] at h
+  intro m k _h
   rw [alwaysTrueUnit_limit_value]
   apply decide_eq_true
-  have h1 : (2^(k+1) - 1) * k ≤ 2^(k+1) * m := of_decide_eq_true h
-  have h_pow : 2^(k+1) ≥ 2 := by
-    have := two_pow_ge_succ k; omega
+  -- Goal: k ≤ 2^(k+1) * m.
+  -- Two cases on m: m = 0 trivializes via `h`; m ≥ 1 via 2^(k+1) ≥ k+1 ≥ k.
+  -- Strategy: derive k ≤ 2^(k+1) * m unconditionally from `h`.
+  rw [alwaysFalseUnit_limit_value] at _h
+  have h1 : (2^(k+1) - 1) * k ≤ 2^(k+1) * m := of_decide_eq_true _h
+  -- (2^(k+1) - 1) * k = 2^(k+1) * k - k (since 2^(k+1) ≥ 1).
+  -- Use Nat213.mul_sub (PURE) instead of Nat.mul_sub_left_distrib (propext).
   have e : (2^(k+1) - 1) * k = 2^(k+1) * k - k := by
-    rw [Nat.mul_comm, Nat.mul_sub_left_distrib, Nat.mul_one, Nat.mul_comm k]
+    rw [Nat.mul_comm (2^(k+1) - 1) k]
+    rw [E213.Tactic.Nat213.mul_sub k (2^(k+1)) 1]
+    rw [Nat.mul_one, Nat.mul_comm k (2^(k+1))]
   rw [e] at h1
-  have h_mul_ge : 2^(k+1) * k ≥ 2 * k := Nat.mul_le_mul_right k h_pow
-  omega
+  -- 2^(k+1) * k ≥ 2 * k via two_pow_ge_succ + monotonicity.
+  have h_pow_ge_2 : (2 : Nat) ≤ 2^(k+1) := by
+    -- 2^(k+1) = 2 * 2^k ≥ 2 * 1 = 2 (using Nat.pow_pos for 2^k ≥ 1).
+    have h_2k_pos : 0 < 2^k := Nat.pow_pos (by decide : (0:Nat) < 2)
+    have h_2k_ge_1 : 1 ≤ 2^k := h_2k_pos
+    rw [Nat.pow_succ, Nat.mul_comm]
+    -- Goal: 2 ≤ 2 * 2^k
+    exact Nat.mul_le_mul_left 2 h_2k_ge_1
+  have h_mul_ge : 2 * k ≤ 2^(k+1) * k := Nat.mul_le_mul_right k h_pow_ge_2
+  -- 2 * k = k + k, so 2 * k - k = k via Nat213 add_sub_cancel_right.
+  have h_2k_sub : 2 * k - k = k :=
+    (congrArg (· - k) (Nat.two_mul k)).trans
+      (E213.Tactic.Nat213.add_sub_cancel_right k k)
+  -- k ≤ 2^(k+1) * k - k via subtraction monotonicity, substituting 2*k - k = k.
+  have h_sub_mono : 2 * k - k ≤ 2^(k+1) * k - k :=
+    Nat.sub_le_sub_right h_mul_ge k
+  have h_k_le_sub : k ≤ 2^(k+1) * k - k :=
+    Eq.subst (motive := fun x => x ≤ 2^(k+1) * k - k) h_2k_sub h_sub_mono
+  exact Nat.le_trans h_k_le_sub h1
 
 /-- **alwaysTrueUnit limit is NOT cutEq with constCut 0 1**.
 
@@ -731,13 +753,13 @@ theorem alwaysTrueUnit_limit_eq_zero_at_pos_m (m k : Nat) (hm : m ≥ 1) :
   rw [alwaysTrueUnit_limit_value]
   show decide (k ≤ 2^(k+1) * m) = decide (0 * k ≤ 1 * m)
   rw [Nat.zero_mul, Nat.one_mul]
-  -- LHS: decide(k ≤ 2^(k+1) * m).  RHS: decide(0 ≤ m).
-  -- For m ≥ 1: both true.
-  have h_pow : 2^(k+1) ≥ k + 1 := by have := two_pow_ge_succ k; omega
-  have h_lhs : k ≤ 2^(k+1) * m := by
-    have h_prod : 2^(k+1) * m ≥ 2^(k+1) :=
-      Nat.le_mul_of_pos_right _ (by omega : 0 < m)
-    omega
+  -- LHS: decide(k ≤ 2^(k+1) * m).  RHS: decide(0 ≤ m).  Both true for m ≥ 1.
+  have h_pow : k + 1 ≤ 2^(k+1) := two_pow_ge_succ k
+  have h_prod : 2^(k+1) ≤ 2^(k+1) * m :=
+    Nat.le_mul_of_pos_right _ hm
+  have h_k_le_succ : k ≤ k + 1 := Nat.le_succ k
+  have h_lhs : k ≤ 2^(k+1) * m :=
+    Nat.le_trans (Nat.le_trans h_k_le_succ h_pow) h_prod
   have h_rhs : (0 : Nat) ≤ m := Nat.zero_le _
   rw [decide_eq_true h_lhs, decide_eq_true h_rhs]
 
