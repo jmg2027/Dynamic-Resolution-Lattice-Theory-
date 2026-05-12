@@ -82,9 +82,11 @@ forced shape uniqueness 증명.  **Term API 만 사용**.
                            FiveHelpers, PairForcing,
                            NonDecomposable, ArityForcing,
                            ArityForcingGeneral, PrimitiveSizes, Alive)
-  * `Theory/Internal/`  — implementation detail (DecEq, Cmp,
-                           CmpIndependence, SwapSlashInjective).
+  * `Theory/Internal/`  — implementation detail (Algebra213*,
+                           Int213*, RawCmpIndependence).
                            Direct import 외부에서 권장 안 됨.
+                           (Tree machinery 는 Term/Internal/Tree*
+                           로 이동 — 2026-05-12 Theory→Term split.)
 
 **Public API**: `Theory/API.lean` bundles:
   * **TH-A — Raw axiom data**: Raw + 4 clauses + structural primitives
@@ -185,8 +187,10 @@ code-review smell.
 
 Implementation detail 은 `<Ring>/Internal/` 안에.  Ring 외부에서
 직접 import 는 smell.  현재:
-  * `Theory/Internal/Raw/`    — DecEq, Cmp, CmpIndependence,
-                                 SwapSlashInjective
+  * `Term/Internal/Tree*`     — Tree (inductive), Tree.cmp lemmas
+                                 (moved from Theory 2026-05-12)
+  * `Theory/Internal/`        — Algebra213*, Int213*,
+                                 RawCmpIndependence
   * `Lens/Internal/Algebra/`  — FreeAudit, FourDistinct,
                                  SwapInvariant, Space
 
@@ -215,8 +219,10 @@ named, grep-discoverable.
          file's namespace, downstream extension files declare a
          doubled namespace.  R10 in
          `research-notes/CONSOLIDATION_PROTOCOL.md`.
-       - **Internal-shared umbrella** (e.g. `Theory/Internal/Raw/`
-         files share `namespace E213.Theory.Internal`).
+       - **Internal-shared umbrella** — files under
+         `Term/Internal/Tree*` share `namespace E213.Theory.Internal`
+         (Tree machinery imported by Theory).  Same pattern in
+         `Meta/Tactic/{Nat213,Mod213,…}` sharing `E213.Tactic.*`.
        - **Descriptive sub-namespace** when the namespace label
          conveys content better than the file name.
 

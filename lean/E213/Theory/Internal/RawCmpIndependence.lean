@@ -30,7 +30,7 @@ scaffolding (Tree, Tree.cmp).
   * `RawBy_bijection`                       — final closure
 -/
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -74,9 +74,9 @@ theorem cmpRev_props (cmp : Tree → Tree → Ordering) (h : CmpProps cmp) :
     unfold cmpRev
     rw [h.swap x y, Ordering_swap_swap]
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -113,9 +113,9 @@ theorem RawBy_Tree_cmp_iff (t : Tree) :
 def RawBy.a (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.a, rfl⟩
 def RawBy.b (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.b, rfl⟩
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -211,9 +211,9 @@ theorem RawBy.slash_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
   exact slashTree_comm cmp h x.val y.val
     (fun heq => hxy (Subtype.ext heq))
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -228,9 +228,9 @@ theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
   | .eq => rw [hm] at hlt_raw; cases hlt_raw
   | .gt => rw [hm] at hlt_raw; cases hlt_raw
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -287,9 +287,9 @@ noncomputable def RawBy.rec {cmp : Tree → Tree → Ordering}
     (r : RawBy cmp) : motive r :=
   RawBy.recAux hP a_case b_case slash_case r.val r.property
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -314,9 +314,9 @@ noncomputable def transport (cmp1 cmp2 : Tree → Tree → Ordering)
       else RawBy.a cmp2)
     r
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -330,9 +330,9 @@ theorem transport_b (cmp1 cmp2 : Tree → Tree → Ordering)
     (h1 : CmpProps cmp1) (h2 : CmpProps cmp2) :
     transport cmp1 cmp2 h1 h2 (RawBy.b cmp1) = RawBy.b cmp2 := rfl
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -347,9 +347,9 @@ def transportTree (cmp2 : Tree → Tree → Ordering) : Tree → Tree
   | .b => .b
   | .slash x y => slashTree cmp2 (transportTree cmp2 x) (transportTree cmp2 y)
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -364,9 +364,9 @@ theorem transportTree_slash (cmp2 : Tree → Tree → Ordering) (x y : Tree) :
     transportTree cmp2 (.slash x y)
       = slashTree cmp2 (transportTree cmp2 x) (transportTree cmp2 y) := rfl
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -394,9 +394,9 @@ theorem slashTree_of_pair_eq {cmp : Tree → Tree → Ordering}
     unfold slashTree
     rw [hus]
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -452,9 +452,9 @@ theorem transportTree_roundtrip
           rw [(h2.eq_iff u u).mpr rfl] at hsu
           cases hsu
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -515,9 +515,9 @@ theorem transportTree_canonical
           rw [hus]
           rfl
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence
 
-namespace E213.Theory.Internal.Raw.CmpIndependence
+namespace E213.Theory.Internal.RawCmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
@@ -549,4 +549,4 @@ theorem RawBy_bijection (cmp1 cmp2 : Tree → Tree → Ordering)
           (transportRawBy cmp2 cmp1 h2 h1 r) = r :=
   transportRawBy_roundtrip cmp1 cmp2 h1 h2
 
-end E213.Theory.Internal.Raw.CmpIndependence
+end E213.Theory.Internal.RawCmpIndependence

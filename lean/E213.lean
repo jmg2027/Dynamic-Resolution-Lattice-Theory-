@@ -1,15 +1,13 @@
 -- Layered entry point for 213.
--- Canonical ring-model architecture: lean/E213/ARCHITECTURE.md
+-- Canonical layer architecture: lean/E213/ARCHITECTURE.md (2026-05-12).
 --
--- Concentric rings (imports flow inward):
+-- 4 ring + Meta (each ring uses immediate-below ring's API + Meta):
 --
---   E213.Term     — type-theoretic primitives, 0-axiom mechanism
---   E213.Theory   — Raw axiom + forced-shape uniqueness
---   E213.Lens     — Lens catamorphism algebra
---   E213.Meta     — metatheory of the framework
---   E213.Lib.Math — mathematics library (495 files)
---   E213.Lib.Physics — physics library (128 files)
---   E213.App      — applications
+--   E213.Term     — Raw 의 구현체 (Tree 등)
+--   E213.Theory   — Term API 위 Raw axiom + forced-shape uniqueness
+--   E213.Lens     — Theory API 위 Lens catamorphism algebra
+--   E213.Lib.Math, E213.Lib.Physics — Lens API 위 content libraries
+--   E213.Meta     — ring-independent (Lean 4 bridge); usable from any ring
 --
 -- The library rings (Lib.Math, Lib.Physics) have large dependency
 -- closures and are *not* imported here en masse — consumers should
