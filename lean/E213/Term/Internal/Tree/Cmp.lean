@@ -1,4 +1,4 @@
-import E213.Theory.Raw.Core
+import E213.Term.Internal.Tree
 
 /-!
 # Theory.Internal.Raw.Cmp: lexicographic lemmas on `Tree.cmp`
