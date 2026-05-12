@@ -1,6 +1,6 @@
 import E213.Lib.Math.NatHelpers.Max213
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableAffine
-import E213.Term.Tactic.Omega213
+import E213.Meta.Tactic.Omega213
 
 import E213.Lib.Math.Analysis.Differentiation.ConcreteDerivativeModulus
 import E213.Lib.Math.Real213.Core

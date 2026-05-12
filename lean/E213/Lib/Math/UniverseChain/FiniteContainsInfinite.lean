@@ -3,7 +3,7 @@ import E213.Lib.Math.UniverseChain.Recursion
 import E213.Lib.Math.GenerationRule.TriangleIteration
 import E213.Lib.Math.UniverseChain.BipartiteFractal
 import E213.Lib.Math.NatHelpers.AddMod213
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Steps 5,6 — Finite fractal vs infinite triangle iteration (∅-axiom)

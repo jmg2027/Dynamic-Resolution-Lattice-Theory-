@@ -6,15 +6,15 @@ import E213.Term.MonomialAxioms
 import E213.Term.Pair
 import E213.Term.Rat
 import E213.Term.Sound
-import E213.Term.Tactic
 import E213.Term.Term
 
 /-! Spec-as-code entry point for `E213.Term`.
 
-  Bare-metal type-theory layer — lowest in the ARCHITECTURE.md
-  vertical stack (Ring 0).
+  Bare-metal type-theory layer — Term ring (ARCHITECTURE.md
+  2026-05-12).  Raw 의 구현체 (Tree 등) 와 Theory 에 공개할
+  API 구현부.
 
-  ## Core engine (Ring 0 substrate)
+  ## Core engine (Term ring substrate)
 
     * `Term`              — deep-embedded 4-constructor AST
                             (zero/succ/add/mul → ℕ via eval)
@@ -31,17 +31,16 @@ import E213.Term.Term
     * `Demo`              — first 0-axiom capstone demonstrations
     * `API`               — K1+K2+K3 public surface re-export
 
-  ## Sub-cluster
-
-    * `Tactic/`           — 213-native tactic suite (Nat213, Mod213,
-                            Fin213, Pow213, Omega213, QuadNorm).
-                            K4 layer; consumed by every ring above.
-
   ## What's NOT here (moved out)
 
-  Earlier `Cap_*.lean` capability ledgers (PhysicsAtomicIE,
-  PeriodicTable, etc.) were deleted from Term/ — they are
-  end-of-pipeline content endpoints (terminal nodes), not Ring 0
-  engine parts.  Future capstone ledgers will be rebuilt in
-  `Lib/{Math,Physics}/Capstones/` where they belong semantically.
+  - `Tactic/` (Nat213, Mod213, Fin213, Pow213, Omega213, QuadNorm)
+    — moved to `Meta/Tactic/` per ARCHITECTURE.md spec update
+    (2026-05-12).  These are Lean-side helpers (Lean Nat / Mod /
+    Fin 위 PURE 보조 도구) — ring-independent, so they belong in
+    Meta (Lean 4 bridge).
+
+  - `Cap_*.lean` capability ledgers (PhysicsAtomicIE, PeriodicTable,
+    etc.) — deleted from Term/.  End-of-pipeline content endpoints,
+    not Term ring engine parts.  Future capstone ledgers will be
+    rebuilt in `Lib/{Math,Physics}/Capstones/`.
 -/

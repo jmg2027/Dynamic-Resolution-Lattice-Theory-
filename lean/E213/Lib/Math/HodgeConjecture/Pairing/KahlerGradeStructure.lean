@@ -3,7 +3,7 @@ import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexT2
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexT2Squared
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP2
 import E213.Lib.Math.HodgeConjecture.Pairing.HodgeIndexP1Squared
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # B — Abstract Kähler Grade Structure → Hodge Index Theorem

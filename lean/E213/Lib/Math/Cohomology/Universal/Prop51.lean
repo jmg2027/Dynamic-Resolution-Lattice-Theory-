@@ -1,6 +1,6 @@
 import E213.Lib.Math.Cohomology.Universal.Prop31
 import E213.Lib.Math.Cohomology.Delta.Pointwise
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Delta.Core

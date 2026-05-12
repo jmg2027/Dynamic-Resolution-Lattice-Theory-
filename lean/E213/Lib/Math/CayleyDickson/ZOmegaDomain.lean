@@ -1,6 +1,6 @@
 import E213.Lib.Math.CayleyDickson.ZOmega
 import E213.Lib.Math.NatHelpers.IntHelpers
-import E213.Term.Tactic.QuadNorm
+import E213.Meta.Tactic.QuadNorm
 
 open E213.Lib.Math.NatHelpers
 open E213.Lib.Math.NatHelpers.IntHelpers

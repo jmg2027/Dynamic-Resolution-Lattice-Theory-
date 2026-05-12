@@ -1,5 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Cabibbo angle — sin θ_C = 5/22 (pure rational from DRLT integers)

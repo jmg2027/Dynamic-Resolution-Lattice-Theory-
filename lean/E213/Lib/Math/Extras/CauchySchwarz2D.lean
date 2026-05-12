@@ -1,5 +1,5 @@
 import E213.Lib.Math.Extras.CauchySchwarz
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # n = 2 Cauchy-Schwarz (Σ-side aggregator, Nat-side, ∅-axiom)

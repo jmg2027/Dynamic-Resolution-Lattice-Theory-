@@ -1,5 +1,5 @@
 import E213.Lib.Physics.Simplex.Counts
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # G14 — Binom symmetry: `C(n, k) = C(n, n − k)` (213-native ∅-axiom)

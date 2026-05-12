@@ -1,5 +1,5 @@
 import E213.Lib.Math.Probability.LLN
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Probability — atomic concentration bounds

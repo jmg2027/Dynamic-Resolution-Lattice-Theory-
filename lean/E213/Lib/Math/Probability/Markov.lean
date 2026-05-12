@@ -1,6 +1,6 @@
 import E213.Lib.Math.Probability.Bayesian
 import E213.Lib.Math.Probability.Expectation
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Probability — Markov property + Markov inequality (atomic)

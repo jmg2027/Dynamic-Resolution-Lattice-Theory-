@@ -1,5 +1,5 @@
 import E213.Lib.Math.Extras.CauchySchwarz2D
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # n = 3 Σ-Cauchy-Schwarz (Nat-side, ∅-axiom)

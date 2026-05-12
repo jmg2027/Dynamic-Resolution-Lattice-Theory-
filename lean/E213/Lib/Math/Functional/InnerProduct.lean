@@ -1,5 +1,5 @@
 import E213.Lib.Math.Functional.Norm
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Functional Analysis 213 — Inner product (atomic, finite-grid)

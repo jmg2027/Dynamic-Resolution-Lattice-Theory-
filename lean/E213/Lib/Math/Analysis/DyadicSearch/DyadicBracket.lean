@@ -1,7 +1,7 @@
 import E213.Lib.Math.Real213.Dyadic
 import E213.Lib.Math.Real213.CutPoset
-import E213.Term.Tactic.Nat213
-import E213.Term.Tactic.Pow213
+import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.Pow213
 
 /-!
 # Real213DyadicBracket: dyadic IVT bracket

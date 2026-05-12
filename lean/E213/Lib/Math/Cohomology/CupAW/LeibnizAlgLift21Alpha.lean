@@ -2,7 +2,7 @@ import E213.Lib.Math.Cohomology.CupAW.LeibnizAlgLift21
 import E213.Lib.Math.Cohomology.CupAW.Pointwise
 import E213.Lib.Math.Cohomology.CupAW.PointwiseBilinear
 import E213.Lib.Math.Cohomology.Delta.Pointwise
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Cochain.V5_2Decomp

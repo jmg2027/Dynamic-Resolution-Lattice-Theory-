@@ -1,7 +1,7 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 import E213.Lib.Math.Real213.CutSumTest
 import E213.Lib.Math.Real213.CutPoset
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Probability — `ProbabilityCut` (atomic mass)

@@ -1,6 +1,6 @@
 import E213.Lib.Math.Extras.CauchySchwarz
 import E213.Lib.Math.Extras.CauchySchwarz2D
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Brahmagupta-Fibonacci exact identity (∅-axiom)

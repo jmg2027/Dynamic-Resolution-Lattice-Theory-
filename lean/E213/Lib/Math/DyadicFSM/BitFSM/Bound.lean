@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.BitFSM
 import E213.Lib.Math.NatHelpers.EncodePair213
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.DyadicFSM.ForwardPeriodicity
 import E213.Lib.Math.DyadicFSM.Signature

@@ -1,8 +1,8 @@
 import E213.Lens.Instances.Cauchy
 import E213.Lens.Leaves.ModNat
 import E213.Lib.Math.Infinity.LensCardinality
-import E213.Term.Tactic.Nat213
-import E213.Term.Tactic.Omega213
+import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.Omega213
 
 /-!
 # ProfiniteSeq: Cauchy instance for the leavesModNat family

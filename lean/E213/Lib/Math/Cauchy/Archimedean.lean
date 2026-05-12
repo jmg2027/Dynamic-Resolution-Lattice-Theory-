@@ -1,6 +1,6 @@
 import E213.Lens.Instances.Cauchy
 import E213.Lens.Instances.AB
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # ArchimedeanCauchy: ℝ-like completion via Dedekind cut

@@ -2,7 +2,7 @@ import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLens
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle
 import E213.Lib.Math.Real213.Dyadic
-import E213.Term.Tactic.Pow213
+import E213.Meta.Tactic.Pow213
 
 /-!
 # Concrete `ConsistentOracle` instances on the unit bracket — Layer 3c

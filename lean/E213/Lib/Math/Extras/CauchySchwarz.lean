@@ -1,4 +1,4 @@
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Cauchy-Schwarz / AM-GM (atomic, Nat-side, ∅-axiom)

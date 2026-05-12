@@ -1,4 +1,4 @@
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Int213 — ∅-axiom Int arithmetic helpers

@@ -1,4 +1,4 @@
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Differential Equations 213 — Discrete wave equation (1D)

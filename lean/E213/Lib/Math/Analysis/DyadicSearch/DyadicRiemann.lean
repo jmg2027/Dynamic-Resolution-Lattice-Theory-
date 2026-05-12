@@ -3,7 +3,7 @@ import E213.Lib.Math.Real213.CutSumOne
 import E213.Lib.Math.Real213.CutSumPointwise
 import E213.Lib.Math.Real213.CutContinuity
 import E213.Lib.Math.Real213.ConstCutScale
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.Real213.CutPoset
 import E213.Lib.Math.Real213.CutSum

@@ -1,5 +1,5 @@
 import E213.Lib.Math.Linalg213.Gap.MatrixMul
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Linalg213 Gap — Determinant (atomic, 2×2 / 3×3 closed form)

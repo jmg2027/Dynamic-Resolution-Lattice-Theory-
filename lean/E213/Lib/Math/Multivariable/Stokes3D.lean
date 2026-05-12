@@ -1,5 +1,5 @@
 import E213.Lib.Math.Multivariable.Stokes2D
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Multivariable — 3D Divergence theorem (atomic, constant fields)

@@ -1,6 +1,6 @@
 import E213.Lib.Physics.Foundations.AtomicConstantsUnique
-import E213.Term.Tactic.Nat213
-import E213.Term.Tactic.Omega213
+import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.Omega213
 
 /-!
 # Atomic Constants Parametric Uniqueness (C2 Step 4)

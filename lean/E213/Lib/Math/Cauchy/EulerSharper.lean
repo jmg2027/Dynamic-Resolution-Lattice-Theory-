@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cauchy.EulerSeq
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # EulerSharper: e > 5/2 strict bound

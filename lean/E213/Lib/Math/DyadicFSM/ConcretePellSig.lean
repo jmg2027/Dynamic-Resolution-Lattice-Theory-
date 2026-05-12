@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.Signature
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5

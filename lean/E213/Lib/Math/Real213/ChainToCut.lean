@@ -2,7 +2,7 @@ import E213.Theory.Closed.Nat213Bridge
 import E213.Lib.Math.Real213.CutPoset
 import E213.Lib.Math.Real213.CutSumComm
 import E213.Lib.Math.Real213.CutMulComm
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Real213.ChainToCut — Closed Nat213 chain → Real213 cut bridge

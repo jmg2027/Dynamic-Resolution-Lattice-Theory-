@@ -1,5 +1,5 @@
 import E213.Theory.Raw
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Hyper213: Framework-internal type for a hyperreal-like structure

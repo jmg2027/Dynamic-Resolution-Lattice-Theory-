@@ -1,5 +1,5 @@
 import E213.Lib.Math.Linalg213.Span
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # 213 Linear Algebra — chirality bigrading (4)
