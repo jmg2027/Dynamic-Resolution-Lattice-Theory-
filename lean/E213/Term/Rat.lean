@@ -2,15 +2,16 @@ import E213.Term.Term
 import E213.Term.Compare
 
 /-!
-# E213.Term.Rat — rational arithmetic of 213 (cross-multiplication).
+# Term.Rat — rational arithmetic via cross-multiplication
 
-CLAUDE.md: "finite discrete lattice — ÷ (division) → byproduct of ℚ arithmetic".
-Does not create ℚ as a separate type.  Carries numerator/denominator as two Terms,
-checks equality by *cross-multiplication* → stays within ℕ.
+Per `seed/RESOLUTION_LIMIT_SPEC.md`: 213 uses ℕ + ℚ + finite
+simplex combinatorics (no ÷, no separate ℚ type).  Carries
+numerator/denominator as two Terms, checks equality by
+**cross-multiplication** → stays within ℕ.
 
   p/q ≡ r/s  ⇔  p·s = q·r
 
-→ No Lean Rat, no quotient.  0 axiom maintained.
+No Lean Rat, no quotient.  0 axiom maintained.
 -/
 
 namespace E213.Term.Term

@@ -1,12 +1,18 @@
 import E213.Term.Internal.Tree
 
 /-!
-# Theory.Internal.Raw.Cmp: lexicographic lemmas on `Tree.cmp`
-+ ∅-axiom Bool / Nat helpers (`Bool.and_eq_true_to_pair`,
-`Nat213.max_comm`) used by Slash / Swap / Rec / Levels.
+# Term.Internal.Tree.Cmp — lexicographic lemmas on `Tree.cmp`
 
-Three support lemmas in `E213.Theory.Internal`, used by
-`Slash`, `Swap`, and `Rec` sub-modules.
+Tree.cmp lex / swap / eq lemmas + supporting Bool / Nat helpers
+(`Bool.and_eq_true_to_pair`, `Nat213.max_comm`).
+
+Used by `Theory.Raw.{Slash, Swap, Rec, Levels}` via the public
+`Term.Tree` re-export.  All theorems ∅-axiom.
+
+Namespace `E213.Theory.Internal` retained (Internal-shared
+umbrella, ARCHITECTURE.md naming exceptions) — avoids mass
+rename of downstream references.  Path-namespace mismatch is
+deliberate (same pattern as `E213.Tactic.*` in `Meta/Tactic/`).
 -/
 
 namespace E213.Theory.Internal
