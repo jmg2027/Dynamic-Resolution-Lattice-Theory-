@@ -8,7 +8,7 @@ to the current formalization.
 
 | File | Theme | Now at |
 |---|---|---|
-| `17_existence_mode_lens.md` | Early lens semantics (existence-mode interpretation) | Cited from `seed/AXIOM/09_audit.md` §6.5 |
+| `17_existence_mode_lens.md` | Early lens semantics (existence-mode interpretation) | Cited from `lean/E213/AUDIT.md` §6.5 |
 | `19_lens_not_functor.md` | Lens vs functor distinction | Lens framework |
 | `30_bool_is_liar_paradox.md` | Bool/liar-paradox interaction | R1–R5 judgment-game (`seed/AXIOM/06_formalization.md` §7) |
 

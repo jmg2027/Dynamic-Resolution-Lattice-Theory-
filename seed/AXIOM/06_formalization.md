@@ -8,7 +8,7 @@ against this axiom; discrepancies are corrected or isolated.
 The current Raw implementation in `lean/E213/Theory/` (2 elements
 a, b + binary slash, anti-reflexive, commutative) is a faithful
 machine representation of this axiom.  Audit reference:
-`seed/AXIOM/09_audit.md` (2026-04-24, recommendations 1, 2, 3 +
+`lean/E213/AUDIT.md` (2026-04-24, recommendations 1, 2, 3 +
 deep-audit items A-E).
 
 **Encoding note**: Lean 4 core has no primitive quotient, so Raw is

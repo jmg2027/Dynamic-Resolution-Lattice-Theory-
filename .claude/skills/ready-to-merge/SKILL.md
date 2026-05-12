@@ -177,8 +177,8 @@ For each, verify:
 Then check seed/ ↔ Lean alignment:
 
   - `seed/AXIOM/06_formalization.md` §7 path references point to files that exist
-  - `seed/AXIOM/08_implementation.md` cross-refs are at current paths
-  - `seed/AXIOM/09_audit.md` recommendation status reflects whether each
+  - `lean/E213/AUDIT.md` cross-refs are at current paths
+  - `lean/E213/AUDIT.md` recommendation status reflects whether each
     has been done / superseded / deferred
   - `seed/INDEX.md` table rows match `ls seed/`
   - `seed/PAPER1.md` archival header (if present) is honest about
