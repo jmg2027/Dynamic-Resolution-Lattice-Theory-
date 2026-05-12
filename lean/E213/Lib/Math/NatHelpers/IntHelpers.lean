@@ -1,5 +1,3 @@
-import E213.Theory.Internal.Int213
-
 /-!
 # shared `Int` helpers
 
@@ -14,7 +12,12 @@ core lemmas).
 
 namespace E213.Lib.Math.NatHelpers.IntHelpers
 
-open E213.Theory.Internal.Int213 (zero_mul)
+/-- ∅-axiom `Int.zero_mul`, inlined from `Theory.Internal.Int213.zero_mul`. -/
+private theorem zero_mul : ∀ (a : Int), 0 * a = 0
+  | .ofNat n => by
+    show Int.ofNat (0 * n) = (0 : Int); rw [Nat.zero_mul]; rfl
+  | .negSucc n => by
+    show Int.negOfNat (0 * (n+1)) = (0 : Int); rw [Nat.zero_mul]; rfl
 
 /-- `0 ≤ a*a` for any integer `a`.  ∅-axiom. -/
 protected theorem mul_self_nonneg : ∀ (a : Int), 0 ≤ a * a

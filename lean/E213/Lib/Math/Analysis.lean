@@ -7,6 +7,8 @@ import E213.Lib.Math.Analysis.Integration
 import E213.Lib.Math.Analysis.ODE
 import E213.Lib.Math.Analysis.Series
 import E213.Lib.Math.Analysis.BracketCauchyModulus
+import E213.Lib.Math.Analysis.CauchyProj
+import E213.Lib.Math.Analysis.ChainCauchy
 import E213.Lib.Math.Analysis.CauchyComplete
 import E213.Lib.Math.Analysis.PhysicsBridgeNT2
 import E213.Lib.Math.Analysis.ResolutionShift
