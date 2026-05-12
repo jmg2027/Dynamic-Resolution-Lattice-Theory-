@@ -59,20 +59,26 @@ def BlockConstant {α : Type} (W : Fin 5 → Fin 5 → α) : Prop :=
 private theorem classify_aut_inv (σ : Fin 5 → Fin 5)
     (hσ : PreservesPartition σ) (hinj : ∀ x y, σ x = σ y → x = y)
     (i j : Fin 5) : classify (σ i) (σ j) = classify i j := by
+  have hi := hσ i
+  have hj := hσ j
   unfold classify
-  rw [hσ i, hσ j]
-  cases isA i <;> cases isA j <;> simp only []
-  all_goals {
-    match h : decide (i = j) with
-    | true =>
-        have heq : i = j := of_decide_eq_true h
-        have hσeq : σ i = σ j := by rw [heq]
-        rw [if_pos hσeq, if_pos heq]
-    | false =>
-        have hne : i ≠ j := of_decide_eq_false h
-        have hσne : σ i ≠ σ j := fun he => hne (hinj _ _ he)
-        rw [if_neg hσne, if_neg hne]
-  }
+  rw [hi, hj]
+  -- Common helper: dispatch i = j vs i ≠ j (for the diagonal cases).
+  have diag_case : ∀ (D₁ D₂ : BlockPair),
+      (if σ i = σ j then D₁ else D₂) = (if i = j then D₁ else D₂) := by
+    intro D₁ D₂
+    match (inferInstance : Decidable (i = j)) with
+    | .isTrue heq =>
+      have hσeq : σ i = σ j := by rw [heq]
+      rw [if_pos hσeq, if_pos heq]
+    | .isFalse hne =>
+      have hσne : σ i ≠ σ j := fun he => hne (hinj _ _ he)
+      rw [if_neg hσne, if_neg hne]
+  cases isA i <;> cases isA j
+  · exact diag_case _ _    -- false, false → BBdiag / BBoff
+  · rfl                    -- false, true  → BA
+  · rfl                    -- true,  false → AB
+  · exact diag_case _ _    -- true,  true  → AAdiag / AAoff
 
 /-- **Easy direction:** block-constant ⟹ Aut-invariant.
     Any partition-preserving injection sends a block-pair class to
