@@ -1,5 +1,5 @@
 import E213.Theory.Raw.Core
-import E213.Term.Internal.Tree.Cmp
+import E213.Term.Tree
 import E213.Theory.Raw.Slash
 import E213.Theory.Raw.Fold
 import E213.Theory.Raw.Swap

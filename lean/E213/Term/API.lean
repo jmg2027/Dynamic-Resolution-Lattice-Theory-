@@ -5,6 +5,7 @@ import E213.Term.Rat
 import E213.Term.Decide
 import E213.Term.Sound
 import E213.Term.MonomialAxioms
+import E213.Term.Tree
 
 /-!
 # Kernel: Public API (re-export shim)

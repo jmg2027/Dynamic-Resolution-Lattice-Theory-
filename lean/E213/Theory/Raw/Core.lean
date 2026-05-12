@@ -1,4 +1,4 @@
-import E213.Term.Internal.Tree
+import E213.Term.Tree
 
 /-!
 # Theory.Raw.Core: canonical-form subtype
