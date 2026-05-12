@@ -39,12 +39,6 @@ theorem pattern_eq_at (σ : Cochain 4 1) (k : Fin (binom 4 1)) :
   rcases E213.Tactic.Nat213.cases_lt_four hn with h | h | h | h <;>
     subst h <;> rfl
 
-/-- Any σ : Cochain 4 1 equals its pattern.  DIRTY-by-design via funext. -/
-theorem pattern_eq (σ : Cochain 4 1) :
-    σ = pattern (σ ⟨0, by decide⟩) (σ ⟨1, by decide⟩)
-                (σ ⟨2, by decide⟩) (σ ⟨3, by decide⟩) := by
-  funext k; exact pattern_eq_at σ k
-
 /-- δ²=0 on every (4, 1) pattern: 16 patterns × 4 indices. -/
 theorem dsq_pattern :
     ∀ b0 b1 b2 b3 : Bool, ∀ i : Fin (binom 4 3),

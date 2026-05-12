@@ -59,16 +59,8 @@ theorem decomp_step_at_4 (β : Cochain 5 1) :
        = β ⟨4, by decide⟩
   cases (β ⟨4, by decide⟩) <;> rfl
 
-/-- Decomposition is identity on Cochain 5 1.  DIRTY-by-design via
-    funext (Cat 1 inherent).  Use `decomp_step_at_*` for PURE per-`k`. -/
-theorem decomp_5_1_eq (β : Cochain 5 1) : decomp_5_1 β = β := by
-  funext j
-  rcases j with ⟨n, hn⟩
-  rcases (E213.Tactic.Nat213.cases_lt_five hn) with rfl | rfl | rfl | rfl | rfl
-  · exact decomp_step_at_0 β
-  · exact decomp_step_at_1 β
-  · exact decomp_step_at_2 β
-  · exact decomp_step_at_3 β
-  · exact decomp_step_at_4 β
+/-! Note: the funext-based `decomp_5_1_eq : decomp_5_1 β = β` was
+    removed (LeibnizAlgLift21 now uses the per-index `decomp_step_at_*`
+    PURE helpers above). -/
 
 end E213.Lib.Math.Cohomology.Cochain.V5_1DecompR

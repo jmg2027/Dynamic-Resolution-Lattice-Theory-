@@ -40,13 +40,6 @@ theorem pattern_eq_at (σ : Cochain 4 2) (k : Fin (binom 4 2)) :
     with h | h | h | h | h | h <;>
     subst h <;> rfl
 
-/-- Any σ : Cochain 4 2 equals its pattern.  DIRTY-by-design via funext. -/
-theorem pattern_eq (σ : Cochain 4 2) :
-    σ = pattern (σ ⟨0, by decide⟩) (σ ⟨1, by decide⟩)
-                (σ ⟨2, by decide⟩) (σ ⟨3, by decide⟩)
-                (σ ⟨4, by decide⟩) (σ ⟨5, by decide⟩) := by
-  funext k; exact pattern_eq_at σ k
-
 /-- δ²=0 on every (4, 2) pattern: 64 patterns × 1 index. -/
 theorem dsq_pattern :
     ∀ b0 b1 b2 b3 b4 b5 : Bool, ∀ i : Fin (binom 4 4),

@@ -102,23 +102,10 @@ theorem decomp_step_at_9 (β : Cochain 5 2) :
        = β ⟨9, by decide⟩
   cases (β ⟨9, by decide⟩) <;> rfl
 
-/-- Decomposition is identity on Cochain 5 2.
-    DIRTY-by-design via funext (Cat 1 inherent).  Use `decomp_step_at_*`
-    for PURE per-`k` access. -/
-theorem decomp_5_2_eq (β : Cochain 5 2) : decomp_5_2 β = β := by
-  funext j
-  rcases j with ⟨n, hn⟩
-  rcases (E213.Tactic.Nat213.cases_lt_ten hn)
-    with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-  · exact decomp_step_at_0 β
-  · exact decomp_step_at_1 β
-  · exact decomp_step_at_2 β
-  · exact decomp_step_at_3 β
-  · exact decomp_step_at_4 β
-  · exact decomp_step_at_5 β
-  · exact decomp_step_at_6 β
-  · exact decomp_step_at_7 β
-  · exact decomp_step_at_8 β
-  · exact decomp_step_at_9 β
+/-! Note: the funext-based `decomp_5_2_eq : decomp_5_2 β = β` was
+    removed (it had no remaining consumers — all LeibnizAlgLift*
+    refactors now go through the per-index `decomp_step_at_*` PURE
+    helpers above).  Eliminating it removed the file's last DIRTY
+    entry (Quot.sound via funext, Cat 1 inherent). -/
 
 end E213.Lib.Math.Cohomology.Cochain.V5_2Decomp

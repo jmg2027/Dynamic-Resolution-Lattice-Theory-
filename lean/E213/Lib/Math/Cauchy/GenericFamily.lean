@@ -2,6 +2,7 @@ import E213.Lens.Instances.Cauchy
 import E213.Lens.Instances.AB
 import E213.Lib.Math.Cauchy.Archimedean
 import E213.Lib.Math.Cauchy.ProfiniteSeq
+import E213.Lib.Math.NatHelpers.AddMod213
 
 /-!
 # GenericFamilyCauchy: Unified framework for Lens + post-processing
@@ -202,12 +203,15 @@ def leavesModAllLens : Lens (Nat → Nat) :=
     (fun (m : Nat) (n : Nat) => n % (m + 1))
     (fun (m : Nat) (a b : Nat) => (a + b) % (m + 1))
 
-/-- The m-th component of leavesModAllLens.view r = leaves r % (m+1). -/
+/-- The m-th component of leavesModAllLens.view r = leaves r % (m+1).
+    PURE — uses `AddMod213.add_mod_gen` (∅-axiom) in place of
+    Lean-core `Nat.add_mod` (propext-leaking). -/
 theorem leavesModAllLens_view (r : Raw) :
     leavesModAllLens.view r = fun m => Lens.leaves.view r % (m + 1) := by
   apply projectionLens_view
   · intro u v; exact Nat.add_comm u v
   · intro _ u v; rw [Nat.add_comm u v]
-  · intro m u v; exact Nat.add_mod u v (m + 1)
+  · intro m u v
+    exact E213.Lib.Math.NatHelpers.AddMod213.add_mod_gen u v (m + 1)
 
 end E213.Lib.Math.Cauchy.GenericFamily
