@@ -1,5 +1,6 @@
 import E213.Lens.LensCore
 import E213.Lens.Compose.Factoring
+import E213.Lib.Math.NatHelpers.AddMod213
 
 /-!
 # LeavesMod3: leaves count mod 3 Lens
@@ -40,8 +41,8 @@ private theorem f3add_comm (a b : Fin 3) : f3add a b = f3add b a := by
   rw [Nat.add_comm a.val b.val]
 
 private theorem f3add_mod (a b : Nat) :
-    (a % 3 + b % 3) % 3 = (a + b) % 3 := by
-  rw [← Nat.add_mod]
+    (a % 3 + b % 3) % 3 = (a + b) % 3 :=
+  (E213.Lib.Math.NatHelpers.AddMod213.add_mod_gen a b 3).symm
 
 theorem leavesMod3Lens_view_eq :
     ∀ r : Raw, (leavesMod3Lens.view r).val = Lens.leaves.view r % 3 := by
