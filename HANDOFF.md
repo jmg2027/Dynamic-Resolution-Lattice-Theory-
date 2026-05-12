@@ -53,7 +53,7 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 
 `seed/INDEX.md` directory layout 에 추가.
 
-### 5. Marathon: 41 real DIRTY → PURE in cycle (deep refactor 포함)
+### 5. Marathon: 42 real DIRTY → PURE in cycle (deep refactor 포함)
 
 | Module | # | Tricks |
 |---|---|---|
@@ -70,9 +70,18 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 | LensCardinality.sigma7_cardinality_is_lens_output | (propagated) | (Godel 의존) |
 | **Theory.Internal.Raw.CmpIndependence** 전체 9 | **9** | **Tree.cmp_eq_iff PURE refactor + Bool.and_eq_true_to_pair** |
 | Lens.Leaves.Mod3.{leavesMod3Lens_view_eq, leaves_refines_mod3} | 2 | AddMod213.add_mod_gen (existing PURE) |
+| Lens.Properties.ABRefines.abLens_refines_boolXorLens | 1 | AddMod213 + mod_two_zero_or_one_pure (신규) |
 
-**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213 + CmpIndependence + Mod3** PURE.
-~120 → ~79 real DIRTY.
+**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213 + CmpIndependence + Mod3 + ABRefines** PURE.
+~120 → ~78 real DIRTY.
+
+### Fin213 PURE 가능성 발견
+
+`def fin5_zero : Fin 5 := ⟨0, by decide⟩` 같은 `Fin.mk`-direct 정의는 PURE.
+`(0 : Fin 5)` OfNat literal 은 propext, 하지만 explicit `⟨_, _⟩` 는 안전.
+
+`Fin213` PURE shim 작성 가능 (Linalg213, Reach, Simplex 등 ~20+ modules
+unblock 후보).  Architecture-level work — 다음 cycle.
 
 ### 발견: 기존 PURE infrastructure 활용 (Lib/Math/NatHelpers/AddMod213)
 
