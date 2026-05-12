@@ -21,21 +21,20 @@ open E213.Lib.Math.Cohomology.Delta.Core (delta)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Lib.Math.Cohomology.Cochain.V5_1DecompR (bz5_1)
 
-/-- bz5_1 with β k = false reduces to Cochain.zero. -/
-theorem bz5_1_false (β : Cochain 5 1) (k : Fin 5)
-    (hβ : β k = false) :
-    bz5_1 β k = Cochain.zero 5 1 := by
-  funext j
+/-- Pointwise (PURE): bz5_1 β k j = false (= Cochain.zero 5 1 j)
+    when β k = false. -/
+theorem bz5_1_false_at (β : Cochain 5 1) (k : Fin 5)
+    (hβ : β k = false) (j : Fin 5) :
+    bz5_1 β k j = Cochain.zero 5 1 j := by
   show ((k.val == j.val) && β k) = false
   rw [hβ]
   show ((k.val == j.val) && false) = false
   cases (k.val == j.val) <;> rfl
 
-/-- bz5_1 with β k = true reduces to basis 5 1 k. -/
-theorem bz5_1_true (β : Cochain 5 1) (k : Fin 5)
-    (hβ : β k = true) :
-    bz5_1 β k = basis 5 1 k := by
-  funext j
+/-- Pointwise (PURE): bz5_1 β k j = basis 5 1 k j when β k = true. -/
+theorem bz5_1_true_at (β : Cochain 5 1) (k : Fin 5)
+    (hβ : β k = true) (j : Fin 5) :
+    bz5_1 β k j = basis 5 1 k j := by
   show ((k.val == j.val) && β k) = basis 5 1 k j
   rw [hβ]
   show ((k.val == j.val) && true) = (k.val == j.val)
