@@ -53,7 +53,7 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 
 `seed/INDEX.md` directory layout 에 추가.
 
-### 5. Marathon: 39 real DIRTY → PURE in cycle (deep refactor 포함)
+### 5. Marathon: 41 real DIRTY → PURE in cycle (deep refactor 포함)
 
 | Module | # | Tricks |
 |---|---|---|
@@ -69,9 +69,15 @@ ChainToCut + CauchyProj 자연스럽게 결합, 추가 axiom 0.
 | Hyper.Hyper213.cofinite_trans | 1 | Nat213.le_max_left/right |
 | LensCardinality.sigma7_cardinality_is_lens_output | (propagated) | (Godel 의존) |
 | **Theory.Internal.Raw.CmpIndependence** 전체 9 | **9** | **Tree.cmp_eq_iff PURE refactor + Bool.and_eq_true_to_pair** |
+| Lens.Leaves.Mod3.{leavesMod3Lens_view_eq, leaves_refines_mod3} | 2 | AddMod213.add_mod_gen (existing PURE) |
 
-**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213 + CmpIndependence** PURE.
-~120 → ~81 real DIRTY.
+**Real213/* PURE + BracketCauchyModulus + BoolSpace + Godel + Hyper213 + CmpIndependence + Mod3** PURE.
+~120 → ~79 real DIRTY.
+
+### 발견: 기존 PURE infrastructure 활용 (Lib/Math/NatHelpers/AddMod213)
+
+`AddMod213.add_mod_gen` 이미 PURE replacement of Nat.add_mod 보유.
+새로 작성할 필요 없이 swap 만으로 PURE 가능 — 다른 modules 도 동일 패턴 적용 가능.
 
 ### Deep refactor 의 첫 substantial win (CmpIndependence)
 
