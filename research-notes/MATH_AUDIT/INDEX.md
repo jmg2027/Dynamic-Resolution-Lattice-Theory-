@@ -17,7 +17,7 @@ lines target.
 | 6 | `B_numerical.md` | Real213, SignedCut, Cauchy, EpsilonDeltaModulus, Complex, Hyper, Infinity, Irrational, NumberGrid | 134 | ✓ initial pass (2026-05-12) |
 | 7 | `D_topology.md` | Combinatorics, Topology, LevelTopology, OperationTopology, AngleStructure, TriangularTower, BipartiteDecomp, CartesianVsDisjoint, Diagonal | 42 | ✓ initial pass (2026-05-12) |
 | 8 | `H_probability.md` | Probability, Information | 33 | ✓ initial pass (2026-05-12) |
-| 9 | `I_misc.md` | Extras, DialogueAudit, GenerationRule, PatternCatalog, UniverseChain | ~46 | pending |
+| 9 | `I_misc.md` | Extras, DialogueAudit, GenerationRule, PatternCatalog, UniverseChain | 46 | ✓ initial pass (2026-05-12) |
 
 ## Phase 1 cross-Math summary (Explore pass 2026-05-12)
 
@@ -30,6 +30,25 @@ lines target.
 - **0 actual sorry** (R5Vacuity 의 "sorry" 는 docstring comment).
 - **PURE 2654 / DIRTY 129 / 0 sealed** (~95% PURE).
 - **16 tiny clusters** (1–4 files) — fold candidates.
+
+## Audit 완료 — chunk-별 위반 분포 (2026-05-12)
+
+| Chunk | Files | Violations | Notable |
+|---|---|---|---|
+| C (Algebra) | 77 | 20 | CayleyDickson 압도 |
+| A (Foundations) | 42 | 7 | AxiomSystems/Choice 주제적 |
+| G (Cohomology) | 161 | 1 | best-organized (HodgeConjecture API.lean) |
+| F (DyadicFSM) | 116 | 0 | ~95% PURE |
+| E (Analysis) | 104 | 0 | ODE 중복 (top-level vs Analysis 내부) |
+| B (Numerical) | 134 | 5 | Infinity 의 Raw cardinality (주제적) |
+| D (Topology) | 42 | 0 | ~100% PURE, 가장 깨끗 |
+| H (Probability) | 33 | 0 | ~100% PURE |
+| I (Misc) | 46 | 5 | UniverseChain (주제적, Raw axiom chain) |
+| **Total** | **755** | **38** | **~95% files clean** |
+
+Math 의 ring 위반 ~5% — Phase 1 의 "22 Theory.Internal" + 16
+Theory.Raw 직접 reach (대부분 주제적).  실제 spec violations 중
+정리 대상은 ~20 (CayleyDickson 의 Internal reach-in 그룹).
 
 ## Per-chunk content 형식
 
