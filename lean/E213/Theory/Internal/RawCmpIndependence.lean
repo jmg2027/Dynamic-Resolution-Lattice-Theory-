@@ -74,12 +74,6 @@ theorem cmpRev_props (cmp : Tree → Tree → Ordering) (h : CmpProps cmp) :
     unfold cmpRev
     rw [h.swap x y, Ordering_swap_swap]
 
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
-
 /-- **canonicalBy cmp**: Tree is cmp-canonical (the left child of
     slash is strictly less under cmp). -/
 def canonicalBy (cmp : Tree → Tree → Ordering) : Tree → Bool
@@ -112,12 +106,6 @@ theorem RawBy_Tree_cmp_iff (t : Tree) :
 /-- **Polymorphic constructors**: base and slash of RawBy cmp. -/
 def RawBy.a (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.a, rfl⟩
 def RawBy.b (cmp : Tree → Tree → Ordering) : RawBy cmp := ⟨.b, rfl⟩
-
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
 
 /-- **Polymorphic slash**: slash of RawBy cmp canonicalized by cmp.
     Generalization of the original Raw.slash. -/
@@ -211,12 +199,6 @@ theorem RawBy.slash_comm (cmp : Tree → Tree → Ordering) (h : CmpProps cmp)
   exact slashTree_comm cmp h x.val y.val
     (fun heq => hxy (Subtype.ext heq))
 
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
-
 /-- Extract lt from canonicalBy slash. -/
 theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
     {x y : Tree} (h : canonicalBy cmp (.slash x y) = true) :
@@ -227,12 +209,6 @@ theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
   | .lt => rfl
   | .eq => rw [hm] at hlt_raw; cases hlt_raw
   | .gt => rw [hm] at hlt_raw; cases hlt_raw
-
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
 
 /-- **RawBy.recAux**: structural recursion on Tree, canonical
     form re-assembled via cmp-parameterized RawBy.slash. -/
@@ -287,12 +263,6 @@ noncomputable def RawBy.rec {cmp : Tree → Tree → Ordering}
     (r : RawBy cmp) : motive r :=
   RawBy.recAux hP a_case b_case slash_case r.val r.property
 
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
-
 /-- DecidableEq on RawBy. -/
 instance (cmp : Tree → Tree → Ordering) : DecidableEq (RawBy cmp) :=
   fun x y => by
@@ -314,12 +284,6 @@ noncomputable def transport (cmp1 cmp2 : Tree → Tree → Ordering)
       else RawBy.a cmp2)
     r
 
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
-
 /-- transport of RawBy.a. -/
 theorem transport_a (cmp1 cmp2 : Tree → Tree → Ordering)
     (h1 : CmpProps cmp1) (h2 : CmpProps cmp2) :
@@ -329,12 +293,6 @@ theorem transport_a (cmp1 cmp2 : Tree → Tree → Ordering)
 theorem transport_b (cmp1 cmp2 : Tree → Tree → Ordering)
     (h1 : CmpProps cmp1) (h2 : CmpProps cmp2) :
     transport cmp1 cmp2 h1 h2 (RawBy.b cmp1) = RawBy.b cmp2 := rfl
-
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
 
 /-- **Tree-level transport**: canonicalize Tree under cmp2.
     Computable, inductively defined on Tree.
@@ -347,12 +305,6 @@ def transportTree (cmp2 : Tree → Tree → Ordering) : Tree → Tree
   | .b => .b
   | .slash x y => slashTree cmp2 (transportTree cmp2 x) (transportTree cmp2 y)
 
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
-
 /-- transportTree reductions (computable, automatic). -/
 theorem transportTree_a (cmp2 : Tree → Tree → Ordering) :
     transportTree cmp2 .a = .a := rfl
@@ -363,12 +315,6 @@ theorem transportTree_b (cmp2 : Tree → Tree → Ordering) :
 theorem transportTree_slash (cmp2 : Tree → Tree → Ordering) (x y : Tree) :
     transportTree cmp2 (.slash x y)
       = slashTree cmp2 (transportTree cmp2 x) (transportTree cmp2 y) := rfl
-
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
 
 /-- Key consequence of slashTree commutativity: result for canonical input. -/
 theorem slashTree_canonical_input {cmp : Tree → Tree → Ordering}
@@ -393,12 +339,6 @@ theorem slashTree_of_pair_eq {cmp : Tree → Tree → Ordering}
       | gt => rfl
     unfold slashTree
     rw [hus]
-
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
 
 /-- **Round-trip on canonical**: f(g(t)) = t for canonical-by-cmp2 t.
     f := transportTree cmp2, g := transportTree cmp1. -/
@@ -451,12 +391,6 @@ theorem transportTree_roundtrip
           rw [hsu_eq] at hsu
           rw [(h2.eq_iff u u).mpr rfl] at hsu
           cases hsu
-
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
 
 /-- transportTree maps canonical-by-cmp1 → canonical-by-cmp2.
     Injectivity derived via symmetric application of g∘f = id. -/
@@ -514,12 +448,6 @@ theorem transportTree_canonical
             | gt => rw [hus_val] at hsw; cases hsw
           rw [hus]
           rfl
-
-end E213.Theory.Internal.RawCmpIndependence
-
-namespace E213.Theory.Internal.RawCmpIndependence
-
-open E213.Theory E213.Theory.Internal
 
 /-- **Forward bijection**: RawBy cmp1 → RawBy cmp2 via transportTree. -/
 def transportRawBy (cmp1 cmp2 : Tree → Tree → Ordering)

@@ -57,12 +57,6 @@ theorem methodA_numeral_eq_nat213 (n : Nat) :
   | zero => rfl
   | succ k ih => show succ methodA _ = Nat213.succ _; rw [ih]; rfl
 
-end E213.Theory.Closed.NumberingSystem
-
-namespace E213.Theory.Closed.NumberingSystem
-
-open E213.Theory E213.Theory.Closed
-
 /-! ### Isomorphism via foldRaw
 
 Method A → S 변환:

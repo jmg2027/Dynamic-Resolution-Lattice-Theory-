@@ -59,12 +59,6 @@ def methodA : BooleanSystem where
     have hval : Raw.a.val = Raw.b.val := congrArg Subtype.val h
     exact Theory.Internal.Tree.noConfusion hval
 
-end E213.Theory.Closed.Bool213System
-
-namespace E213.Theory.Closed.Bool213System
-
-open E213.Theory E213.Theory.Closed
-
 /-! ### Iso between systems -/
 
 /-- A → B 동형 사상.  T ↦ T', F ↦ F', 그 외 fallback. -/
