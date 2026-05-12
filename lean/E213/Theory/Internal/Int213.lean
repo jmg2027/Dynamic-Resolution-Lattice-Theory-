@@ -17,6 +17,8 @@ no `omega`, no Mathlib.
 
 namespace E213.Theory.Internal.Int213
 
+open E213.Tactic.Nat213
+
 /-- ∅-axiom `Int.add_comm`. -/
 theorem add_comm : ∀ (a b : Int), a + b = b + a
   | .ofNat m,   .ofNat n   => by
@@ -100,10 +102,6 @@ theorem neg_add : ∀ (a b : Int), -(a + b) = -a + -b := by
           show Int.ofNat ((m + n + 1) + 1) = Int.ofNat ((m + 1) + n + 1)
           rw [Nat.succ_add m n]
 
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
 /-- ∅-axiom `Int.mul_comm` via 4-case analysis on Int constructors. -/
 theorem mul_comm : ∀ (a b : Int), a * b = b * a
   | .ofNat m, .ofNat n => by
@@ -132,10 +130,6 @@ theorem add_left_neg : ∀ (a : Int), -a + a = 0
     show Int.subNatNat (n+1) (n+1) = 0
     rw [Int.subNatNat_self]
 
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
 /-- ∅-axiom `Int.add_nonneg`: `0 ≤ a → 0 ≤ b → 0 ≤ a + b`.
     Replaces propext-bearing `Int.add_nonneg`. -/
 theorem add_nonneg : ∀ {a b : Int}, 0 ≤ a → 0 ≤ b → 0 ≤ a + b
@@ -143,10 +137,6 @@ theorem add_nonneg : ∀ {a b : Int}, 0 ≤ a → 0 ≤ b → 0 ≤ a + b
     show (0 : Int) ≤ Int.ofNat (m + n); exact Int.ofNat_nonneg _
   | .ofNat _, .negSucc _, _, hb => by cases hb
   | .negSucc _, _, ha, _ => by cases ha
-
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
 
 /-- ∅-axiom: from `0 ≤ a`, `0 ≤ b`, `a + b = 0`, derive both zero. -/
 theorem add_eq_zero_of_nonneg :
@@ -161,10 +151,6 @@ theorem add_eq_zero_of_nonneg :
     · rw [hn]; rfl
   | .ofNat _, .negSucc _, _, hb, _ => by cases hb
   | .negSucc _, _, ha, _, _ => by cases ha
-
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
 
 /-- ∅-axiom Nat helper: `a * b = 0 → a = 0 ∨ b = 0`. -/
 theorem mul_eq_zero_nat : ∀ {a b : Nat}, a * b = 0 → a = 0 ∨ b = 0
@@ -208,20 +194,12 @@ theorem mul_eq_zero : ∀ {a b : Int}, a * b = 0 → a = 0 ∨ b = 0
     · exact Nat.noConfusion hm
     · exact Nat.noConfusion hn
 
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
 /-- ∅-axiom `Int.mul_nonneg`: `0 ≤ a → 0 ≤ b → 0 ≤ a * b`. -/
 theorem mul_nonneg : ∀ {a b : Int}, 0 ≤ a → 0 ≤ b → 0 ≤ a * b
   | .ofNat m, .ofNat n, _, _ => by
     show (0 : Int) ≤ Int.ofNat (m * n); exact Int.ofNat_nonneg _
   | .ofNat _, .negSucc _, _, hb => by cases hb
   | .negSucc _, _, ha, _ => by cases ha
-
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
 
 /-- ∅-axiom `Int.neg_mul`: `(-a) * b = -(a * b)` via 8-case analysis. -/
 theorem neg_mul : ∀ (a b : Int), (-a) * b = -(a * b)
@@ -244,12 +222,6 @@ theorem neg_mul : ∀ (a b : Int), (-a) * b = -(a * b)
 /-- ∅-axiom `Int.mul_neg`: `a * (-b) = -(a * b)` via `mul_comm` + `neg_mul`. -/
 theorem mul_neg (a b : Int) : a * (-b) = -(a * b) := by
   rw [mul_comm a (-b), neg_mul, mul_comm b a]
-
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
-open E213.Tactic.Nat213 (sub_add_cancel add_sub_of_le add_sub_cancel_right)
 
 /-- ∅-axiom Nat helper: `a ≤ b → a - b = 0`. -/
 private theorem sub_eq_zero_of_le_nat : ∀ {a b : Nat}, a ≤ b → a - b = 0
@@ -318,10 +290,6 @@ theorem subNatNat_add_self : ∀ (m n : Nat),
     show Int.ofNat (n - (k+1)) = Int.ofNat m
     rw [hn_eq, add_sub_cancel_right]
 
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
 /-- ∅-axiom: `subNatNat m 0 = ofNat m`. -/
 theorem subNatNat_zero (m : Nat) : Int.subNatNat m 0 = Int.ofNat m := by
   show (match (0 - m : Nat) with
@@ -333,11 +301,6 @@ theorem subNatNat_zero (m : Nat) : Int.subNatNat m 0 = Int.ofNat m := by
 theorem subNatNat_zero_succ (m : Nat) : Int.subNatNat 0 (m+1) = Int.negSucc m := rfl
 
 
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
-open E213.Tactic.Nat213
   (sub_add_cancel add_sub_of_le add_sub_cancel_right
    sub_pos_of_lt le_sub_of_add_le)
 
@@ -420,11 +383,6 @@ theorem sub_add_cancel_int (a b : Int) : a - b + b = a := by
       rw [subNatNat_succ_succ]
       exact subNatNat_add_negSucc_self k m
 
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
-open E213.Tactic.Nat213
   (sub_add_cancel add_sub_of_le add_sub_cancel_right
    sub_pos_of_lt add_sub_assoc)
 
@@ -470,11 +428,6 @@ theorem nat_diff_add_diff {a b c d : Nat} (h1 : b ≤ a) (h2 : d ≤ c) :
   rw [h_eq] at h_cancel
   exact h_cancel.symm
 
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
-open E213.Tactic.Nat213
   (sub_add_cancel add_sub_of_le add_sub_cancel_right
    sub_pos_of_lt add_sub_assoc)
 
@@ -564,11 +517,6 @@ theorem add_assoc (a b c : Int) : a + b + c = a + (b + c) := by
       subNatNat_add_subNatNat, subNatNat_add_subNatNat,
       Nat.add_assoc, Nat.add_assoc]
 
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
-open E213.Tactic.Nat213
   (sub_add_cancel sub_pos_of_lt add_sub_cancel_right mul_sub_distrib)
 
 /-- ∅-axiom: `negOfNat n = subNatNat 0 n`. -/
@@ -643,11 +591,6 @@ theorem add_mul (a b c : Int) : (a + b) * c = a * c + b * c := by
 theorem mul_add (a b c : Int) : a * (b + c) = a * b + a * c := by
   rw [mul_comm a (b + c), add_mul, mul_comm b a, mul_comm c a]
 
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
-
-open E213.Tactic.Nat213
   (sub_add_cancel sub_pos_of_lt mul_sub_distrib)
 
 /-- ∅-axiom Nat helper: `(p-q) + (q+r) = p+r` when `q ≤ p`. -/
@@ -710,10 +653,6 @@ theorem mul_assoc (a b c : Int) : a * b * c = a * (b * c) := by
 /-- ∅-axiom: `Int.mul_left_comm`: `a * (b * c) = b * (a * c)`. -/
 theorem mul_left_comm (a b c : Int) : a * (b * c) = b * (a * c) := by
   rw [← mul_assoc, mul_comm a b, mul_assoc]
-
-end E213.Theory.Internal.Int213
-
-namespace E213.Theory.Internal.Int213
 
 /-- ∅-axiom: `Int.zero_add` (Lean-core is propext). -/
 theorem zero_add (a : Int) : 0 + a = a := by

@@ -1,6 +1,6 @@
 import E213.Theory.Nat213.AtomicityCorrespondence
 import E213.Theory.Nat213.OneAsGlue
-import E213.Theory.Raw.Mobius
+import E213.Lib.Math.Mobius213
 import E213.Lib.Math.Topology.EulerChi
 
 /-!
@@ -18,7 +18,7 @@ Connects:
 All theorems ∅-axiom.
 -/
 
-namespace E213.Theory.Nat213.RotationGeometry
+namespace E213.Lib.Math.Geometry.Nat213Rotation
 
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 
@@ -256,4 +256,4 @@ theorem mobius_p_dihedral_order :
     (89 : Nat) % 5 = 4 ∧ (10946 : Nat) % 5 = 1 := by
   refine ⟨?_, ?_⟩ <;> decide
 
-end E213.Theory.Nat213.RotationGeometry
+end E213.Lib.Math.Geometry.Nat213Rotation

@@ -42,7 +42,7 @@ This module currently anchors **N = 20** for the α_em bracket
 and matching `boundsOk` theorems.
 -/
 
-namespace E213.Theory.Tools.CertChecker
+namespace E213.Lib.Physics.Certificates.Checker
 
 open E213.Lib.Physics.Basel.Bound (S upper)
 open E213.Lib.Physics.AlphaEM.V137Tight
@@ -94,9 +94,9 @@ def Step.boundOk : Step → Bool
 /-- A certificate's bound steps are all valid. -/
 def Cert.boundsOk (c : Cert) : Bool := c.all Step.boundOk
 
-end E213.Theory.Tools.CertChecker
+end E213.Lib.Physics.Certificates.Checker
 
-namespace E213.Theory.Tools.CertChecker
+namespace E213.Lib.Physics.Certificates.Checker
 
 open E213.Lib.Physics.Basel.Bound (S upper)
 open E213.Lib.Physics.AlphaEM.V137Tight
@@ -145,9 +145,9 @@ theorem cert_anchor_n20 :
     (lo.1 < 137 * lo.2 ∧ 137 * hi.2 < hi.1) ∧ (hi.1 < 138 * hi.2) :=
   capstone_n20
 
-end E213.Theory.Tools.CertChecker
+end E213.Lib.Physics.Certificates.Checker
 
 /-! ## Axiom audit (∅-axiom expected) -/
-#print axioms E213.Theory.Tools.CertChecker.cert_n20_boundsOk
-#print axioms E213.Theory.Tools.CertChecker.cert_n20_length
-#print axioms E213.Theory.Tools.CertChecker.cert_anchor_n20
+#print axioms E213.Lib.Physics.Certificates.Checker.cert_n20_boundsOk
+#print axioms E213.Lib.Physics.Certificates.Checker.cert_n20_length
+#print axioms E213.Lib.Physics.Certificates.Checker.cert_anchor_n20

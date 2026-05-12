@@ -1,4 +1,4 @@
-import E213.Theory.Nat213.RotationGeometry
+import E213.Lib.Math.Geometry.Nat213Rotation
 import E213.Lib.Math.Topology.EulerChi
 import E213.Lib.Math.CayleyDickson.Hurwitz213
 
@@ -27,7 +27,7 @@ Three key connections:
 All theorems ∅-axiom.
 -/
 
-namespace E213.Theory.Nat213.AlgebraicGeometry
+namespace E213.Lib.Math.Geometry.Nat213AlgebraicGeometry
 
 open E213.Lib.Physics.Simplex.Counts (d NS NT)
 
@@ -183,4 +183,4 @@ theorem two_closure_structures :
     (10 : Nat) * 3 = 30 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
 
-end E213.Theory.Nat213.AlgebraicGeometry
+end E213.Lib.Math.Geometry.Nat213AlgebraicGeometry

@@ -15,7 +15,7 @@ Each statement: "for ALL units of layer L_{n-1}, the lifted (0, u) at
 layer L_n has order 4". Decidable via finite list enumeration.
 -/
 
-namespace E213.Theory.CDDouble.UniversalInduction
+namespace E213.Lib.Math.CayleyDickson.UniversalInduction
 
 open E213.Lib.Math.CayleyDickson.ZSqrtMinus2
 open E213.Lib.Math.CayleyDickson.CDDouble.Lipschitz
@@ -44,4 +44,4 @@ theorem CDDouble_inductive_summary :
     (∀ u ∈ L4T_units, L5T_right u * L5T_right u = L5T_minus_one) :=
   ⟨typeA_L3_L4_lift_mechanism, typeB_L4_L5_lift_mechanism⟩
 
-end E213.Theory.CDDouble.UniversalInduction
+end E213.Lib.Math.CayleyDickson.UniversalInduction

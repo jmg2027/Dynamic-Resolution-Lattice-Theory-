@@ -61,20 +61,18 @@ fi
 # Exceptions:
 #   - files in Theory/Raw/ itself (own cluster, OK)
 #   - import of Theory.Raw.API or Theory.Raw (allowed)
-#   - import of Theory.Raw.Mobius (TEMPORARY — Mobius migration to
-#     Lib/Math/Mobius213 is queued per THEORY_AUDIT.md §4; remove
-#     this exception once migrated)
+#   - (no more Mobius exception — migrated to Lib/Math/Mobius213
+#     in 2026-05-12 cleanup)
 case "$PATH_" in
   */lean/E213/Theory/Raw/*) ;;  # own cluster — skip
   *)
     SPECIFIC=$(printf '%s' "$CONTENT" \
       | grep -E "^import E213\\.Theory\\.Raw\\.[A-Z][A-Za-z0-9]*$" \
       | grep -v "^import E213\\.Theory\\.Raw\\.API$" \
-      | grep -v "^import E213\\.Theory\\.Raw\\.Mobius$" \
       | head -3)
     if [ -n "$SPECIFIC" ]; then
       SPECIFIC_SUMMARY=$(printf '%s' "$SPECIFIC" | tr '\n' ';' | sed 's/;$//')
-      REASON="layer-import-guard: ${PATH_##*/} reaches into Theory.Raw specific submodules [${SPECIFIC_SUMMARY}]. Theory/Raw/ exposes a single explicit public surface — use 'import E213.Theory.Raw.API' (or 'import E213.Theory.Raw' alias). Reach-in to Theory.Raw.{Slash, Fold, Swap, SwapSlash, Rec, Levels, Hom, Signed, Core, Demo} is a discipline violation per ARCHITECTURE.md (2026-05-12).  (Mobius reach-in temporarily allowed; remove that exception after Lib/Math/Mobius213 migration.)"
+      REASON="layer-import-guard: ${PATH_##*/} reaches into Theory.Raw specific submodules [${SPECIFIC_SUMMARY}]. Theory/Raw/ exposes a single explicit public surface — use 'import E213.Theory.Raw.API' (or 'import E213.Theory.Raw' alias). Reach-in to Theory.Raw.{Slash, Fold, Swap, SwapSlash, Rec, Levels, Hom, Signed, Core, Demo} is a discipline violation per ARCHITECTURE.md (2026-05-12)."
       echo "{\"decision\":\"block\",\"reason\":\"${REASON}\"}"
       exit 0
     fi

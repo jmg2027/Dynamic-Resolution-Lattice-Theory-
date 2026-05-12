@@ -1,6 +1,5 @@
 import E213.Theory.Atomicity
 import E213.Theory.Raw
-import E213.Theory.Tools.CertChecker
 
 /-! Spec-as-code entry point for `E213.Theory`.
 
@@ -28,5 +27,4 @@ import E213.Theory.Tools.CertChecker
   ## Top-level
 
     * `Raw.lean`              — Raw cluster re-export shim
-    * `Tools/CertChecker`     — certificate-checking utility
 -/

@@ -25,7 +25,7 @@ Pell-Fib numerators/denominators converging to φ.
 All theorems ∅-axiom (using Recurrence2 from Ring213).
 -/
 
-namespace E213.Theory.Raw.Mobius
+namespace E213.Lib.Math.Mobius213
 
 open E213.Lib.Math.Tactic.Ring213
 
@@ -75,4 +75,4 @@ theorem mobius_213_trace : (2 : Int) + 1 = 3 := by decide
 /-- ★ det = 1 (norm preservation, identity). -/
 theorem mobius_213_det : (2 : Int) * 1 - 1 * 1 = 1 := by decide
 
-end E213.Theory.Raw.Mobius
+end E213.Lib.Math.Mobius213

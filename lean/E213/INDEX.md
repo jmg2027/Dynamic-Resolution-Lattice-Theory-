@@ -23,7 +23,6 @@ Term/      ★ 24 files, 0-axiom scaffolding
   ↓
 Theory/    27 files: Raw axiom (a, b, slash, slash_comm)
              + Atomicity/ (forced d=5, (NS,NT)=(3,2))
-             + Tools/CertChecker
   ↓
 Lens/  101 files: Lens framework
              Lens.lean umbrella + 12 sub-cluster umbrellas
@@ -61,7 +60,6 @@ definitions of each layer + the per-file layer-derivation rule.
 | Layer | Purpose | Axiom load |
 |---|---|---|
 | Term/ | 24 files, 0-axiom scaffolding + Tactic/ (Nat213, Mod213, Fin213, Pow213, Omega213, QuadNorm) | none |
-| Theory/ | 27 files: Raw axiom (4-clause) + Atomicity/ + Tools/CertChecker | none |
 | Lens/ | 101 files: Lens framework (umbrella + 12 sub-clusters) | none |
 | Meta/ | 26 files: metatheorems + Tactic/ + UniversalLens/ | mostly none |
 | App/ | 1 file (Simplex) | none |
@@ -119,7 +117,6 @@ lake env lean -e '...'           # eval (used by lean-rust-diff)
     short-form for ergonomic `open E213.Tactic`)
   - `Meta/Tactic/VerifyConjugation.lean` — `ConjugationCodomain`
     instance diagnostic (`#verify_conjugation MyType`)
-  - `Theory/Tools/CertChecker.lean` — Lean-side certificate verifier
   - `tools/layer_audit.py` (repo root) — derive each file's natural
     vertical layer from import closure; reports violations + topical
     cluster depth
@@ -154,7 +151,6 @@ Architecture audits (completed 2026-05-XX):
     Meta/{AxiomMinimality}, Theory/Raw/{DecEq, …}
   - Infinity/ → Math/Infinity/
   - Tactic/ distributed by import-derived layer (Term, Lib.Math, Meta)
-  - Tools/ → Theory/Tools/
   - namespace ↔ path alignment via `tools/sync_namespaces.py`
   - Layer audit zero-violations enforced via `tools/layer_audit.py`
 

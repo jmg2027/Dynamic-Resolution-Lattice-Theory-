@@ -1,4 +1,4 @@
-import E213.Theory.Nat213.AlgebraicGeometry
+import E213.Lib.Math.Geometry.Nat213AlgebraicGeometry
 import E213.Lib.Math.UniverseChain.Synthesis
 
 /-!
