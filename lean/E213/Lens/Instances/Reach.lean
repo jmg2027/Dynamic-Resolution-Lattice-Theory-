@@ -38,24 +38,31 @@ open E213.Lens.SemanticAtom
 
 /-! ### Witness: trivial-combine instance on Fin 3 -/
 
+/-- PURE `0 : Fin 3` (avoiding `(0 : Fin 3)` OfNat propext leak). -/
+private def fin3Zero : Fin 3 := ⟨0, by decide⟩
+/-- PURE `1 : Fin 3`. -/
+private def fin3One : Fin 3 := ⟨1, by decide⟩
+/-- PURE `2 : Fin 3`. -/
+private def fin3Two : Fin 3 := ⟨2, by decide⟩
+
 instance fin3HasDistinguishing : HasDistinguishing (Fin 3) where
-  a := 0
-  b := 1
-  distinct := by decide
-  combine _ _ := 0
+  a := fin3Zero
+  b := fin3One
+  distinct := fun h => Nat.noConfusion (congrArg Fin.val h)
+  combine _ _ := fin3Zero
   combine_sym _ _ := rfl
 
 /-- Forward closure of the image: universalMorphism (Fin 3) always
     yields 0 or 1 (combine always returns 0). -/
 theorem fin3_image_in_01 (r : Raw) :
-    universalMorphism (Fin 3) r = 0 ∨ universalMorphism (Fin 3) r = 1 := by
-  induction r using Raw.rec with
-  | a => left; exact universalMorphism_a (Fin 3)
-  | b => right; exact universalMorphism_b (Fin 3)
-  | slash x y h _ _ =>
-      left
-      rw [universalMorphism_slash (Fin 3) x y h]
-      rfl
+    universalMorphism (Fin 3) r = fin3Zero ∨ universalMorphism (Fin 3) r = fin3One :=
+  Raw.rec
+    (motive := fun r =>
+      universalMorphism (Fin 3) r = fin3Zero ∨ universalMorphism (Fin 3) r = fin3One)
+    (Or.inl (universalMorphism_a (Fin 3)))
+    (Or.inr (universalMorphism_b (Fin 3)))
+    (fun x y h _ _ => Or.inl (universalMorphism_slash (Fin 3) x y h))
+    r
 
 end E213.Lens.Instances.Reach
 
@@ -69,11 +76,13 @@ open E213.Lens.SemanticAtom
     between the framework's reach and the carrier. -/
 theorem fin3_image_strict :
     ∃ x : Fin 3, ¬ ∃ r : Raw, universalMorphism (Fin 3) r = x := by
-  refine ⟨2, ?_⟩
+  refine ⟨fin3Two, ?_⟩
   intro ⟨r, hr⟩
   rcases fin3_image_in_01 r with h | h
-  · rw [h] at hr; exact absurd hr (by decide)
-  · rw [h] at hr; exact absurd hr (by decide)
+  · rw [h] at hr
+    exact absurd (congrArg Fin.val hr) (by decide)
+  · rw [h] at hr
+    exact absurd (congrArg Fin.val hr) (by decide)
 
 end E213.Lens.Instances.Reach
 
