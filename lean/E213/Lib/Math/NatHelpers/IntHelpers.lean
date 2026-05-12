@@ -57,4 +57,34 @@ protected theorem mul_self_eq_zero : ∀ {a : Int}, a * a = 0 ↔ a = 0 := by
     rw [h2] at h_ge_1
     exact absurd h_ge_1 (by decide)
 
+/-- ∅-axiom: `0 ≤ a` implies `a = Int.ofNat n` for some `n`.
+    Direct match on `Int.NonNeg` constructor (only `ofNat` form). -/
+protected theorem le_ofNat_of_nonneg {a : Int} (h : (0 : Int) ≤ a) :
+    ∃ n : Nat, a = Int.ofNat n := by
+  match a, h with
+  | Int.ofNat n, _ => exact ⟨n, rfl⟩
+  | Int.negSucc k, h => cases h
+
+/-- ∅-axiom replacement for `Int.add_nonneg` (which leaks propext).
+    Reduces to ofNat case via `le_ofNat_of_nonneg`. -/
+protected theorem add_nonneg {a b : Int} (ha : (0 : Int) ≤ a) (hb : (0 : Int) ≤ b) :
+    (0 : Int) ≤ a + b := by
+  obtain ⟨m, hm⟩ := IntHelpers.le_ofNat_of_nonneg ha
+  obtain ⟨n, hn⟩ := IntHelpers.le_ofNat_of_nonneg hb
+  subst hm; subst hn
+  show (0 : Int) ≤ Int.ofNat m + Int.ofNat n
+  exact Int.ofNat_nonneg _
+
+/-- ∅-axiom replacement for `Int.add_comm` (Lean-core leaks propext).
+    Term-mode 4-case match on (a, b) ∈ {ofNat, negSucc}². -/
+protected theorem add_comm : ∀ (a b : Int), a + b = b + a
+  | Int.ofNat m, Int.ofNat n => by
+      show Int.ofNat (m + n) = Int.ofNat (n + m)
+      rw [Nat.add_comm]
+  | Int.ofNat _, Int.negSucc _ => rfl
+  | Int.negSucc _, Int.ofNat _ => rfl
+  | Int.negSucc m, Int.negSucc n => by
+      show Int.negSucc (m + n + 1) = Int.negSucc (n + m + 1)
+      rw [Nat.add_comm m n]
+
 end E213.Lib.Math.NatHelpers.IntHelpers
