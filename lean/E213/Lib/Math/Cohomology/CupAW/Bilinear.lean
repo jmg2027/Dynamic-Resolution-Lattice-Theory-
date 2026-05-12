@@ -44,24 +44,44 @@ theorem cupAW_add_left (n a b : Nat) (α α' : Cochain n a) (β : Cochain n b)
     (τ_idx : Fin (binom n (a + b - 1))) :
     cupAW n a b (Cochain.add α α') β τ_idx
       = xor (cupAW n a b α β τ_idx) (cupAW n a b α' β τ_idx) := by
-  simp only [cupAW, Cochain.add]
-  by_cases hf : subsetIdx n a ((kSubset n (a + b - 1) τ_idx.val).take a) < binom n a
-  · by_cases hb : subsetIdx n b ((kSubset n (a + b - 1) τ_idx.val).drop (a - 1)) < binom n b
-    · simp [hf, hb, Bool.and_xor_distrib_right]
-    · simp [hf, hb]
-  · simp [hf]
+  unfold cupAW Cochain.add
+  match (inferInstance : Decidable
+      (subsetIdx n a ((kSubset n (a + b - 1) τ_idx.val).take a) < binom n a)) with
+  | .isTrue hf =>
+    rw [dif_pos hf, dif_pos hf, dif_pos hf]
+    match (inferInstance : Decidable
+        (subsetIdx n b ((kSubset n (a + b - 1) τ_idx.val).drop (a - 1)) < binom n b)) with
+    | .isTrue hb =>
+      rw [dif_pos hb, dif_pos hb, dif_pos hb]
+      exact Bool.and_xor_distrib_right _ _ _
+    | .isFalse hb =>
+      rw [dif_neg hb, dif_neg hb, dif_neg hb]
+      rfl
+  | .isFalse hf =>
+    rw [dif_neg hf, dif_neg hf, dif_neg hf]
+    rfl
 
 /-- ★ cupAW is XOR-bilinear in the right argument. -/
 theorem cupAW_add_right (n a b : Nat) (α : Cochain n a) (β β' : Cochain n b)
     (τ_idx : Fin (binom n (a + b - 1))) :
     cupAW n a b α (Cochain.add β β') τ_idx
       = xor (cupAW n a b α β τ_idx) (cupAW n a b α β' τ_idx) := by
-  simp only [cupAW, Cochain.add]
-  by_cases hf : subsetIdx n a ((kSubset n (a + b - 1) τ_idx.val).take a) < binom n a
-  · by_cases hb : subsetIdx n b ((kSubset n (a + b - 1) τ_idx.val).drop (a - 1)) < binom n b
-    · simp [hf, hb, Bool.and_xor_distrib_left]
-    · simp [hf, hb]
-  · simp [hf]
+  unfold cupAW Cochain.add
+  match (inferInstance : Decidable
+      (subsetIdx n a ((kSubset n (a + b - 1) τ_idx.val).take a) < binom n a)) with
+  | .isTrue hf =>
+    rw [dif_pos hf, dif_pos hf, dif_pos hf]
+    match (inferInstance : Decidable
+        (subsetIdx n b ((kSubset n (a + b - 1) τ_idx.val).drop (a - 1)) < binom n b)) with
+    | .isTrue hb =>
+      rw [dif_pos hb, dif_pos hb, dif_pos hb]
+      exact Bool.and_xor_distrib_left _ _ _
+    | .isFalse hb =>
+      rw [dif_neg hb, dif_neg hb, dif_neg hb]
+      rfl
+  | .isFalse hf =>
+    rw [dif_neg hf, dif_neg hf, dif_neg hf]
+    rfl
 
 /-- ★★★ Cup AW bilinearity capstone — both arguments distribute
     over XOR (Bool ℤ/2 sum). -/
