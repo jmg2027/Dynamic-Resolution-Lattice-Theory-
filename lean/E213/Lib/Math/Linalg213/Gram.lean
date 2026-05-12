@@ -49,10 +49,10 @@ theorem inner_symm_e0_e1 : Vec.inner e0_5 e1_5 = Vec.inner e1_5 e0_5 := by decid
 def Gram (N d : Nat) (vs : Fin N → Vec d) : Fin N → Fin N → Nat :=
   fun i j => Vec.inner (vs i) (vs j)
 
-/-- A 2-vector collection in Vec 5: [e_0, e_1]. -/
-def vs2 : Fin 2 → Vec 5
-  | ⟨0, _⟩ => e0_5
-  | ⟨1, _⟩ => e1_5
+/-- A 2-vector collection in Vec 5: [e_0, e_1].  PURE via if-then-else
+    on `i.val` (Fin pattern match would leak propext via exhaustiveness). -/
+def vs2 : Fin 2 → Vec 5 := fun i =>
+  if i.val = 0 then e0_5 else e1_5
 
 /-- Smoke: Gram of [e_0, e_1] is the 2x2 identity over ℕ. -/
 theorem gram_orthonormal_2 :

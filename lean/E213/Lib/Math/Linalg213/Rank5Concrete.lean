@@ -38,14 +38,15 @@ open E213.Lib.Math.Linalg213.Rank
 /-- All-ones vector in Vec 5. -/
 def all_ones_5 : Vec 5 := fun _ => 1
 
-/-- 6 vectors: 5 standard basis + all-ones. -/
-def vs6 : Fin 6 → Vec 5
-  | ⟨0, _⟩ => e0_5
-  | ⟨1, _⟩ => e1_5
-  | ⟨2, _⟩ => e2_5
-  | ⟨3, _⟩ => e3_5
-  | ⟨4, _⟩ => e4_5
-  | ⟨5, _⟩ => all_ones_5
+/-- 6 vectors: 5 standard basis + all-ones.  PURE via if-then-else on
+    i.val (Fin pattern match would leak propext via exhaustiveness). -/
+def vs6 : Fin 6 → Vec 5 := fun i =>
+  if i.val = 0 then e0_5
+  else if i.val = 1 then e1_5
+  else if i.val = 2 then e2_5
+  else if i.val = 3 then e3_5
+  else if i.val = 4 then e4_5
+  else all_ones_5
 
 /-- Coefficients (-1, -1, -1, -1, -1, +1). -/
 def cs6 : IntCoeffs 6 := fun i =>

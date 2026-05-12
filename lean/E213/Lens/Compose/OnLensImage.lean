@@ -1,5 +1,6 @@
 import E213.Lens.Compose.OnLens
 import E213.Lens.Morphism.BoolProp
+import E213.Lens.EqPW
 
 /-!
 # LensOnLensImage: tower collapse of Lens-on-Lens
@@ -75,8 +76,23 @@ open E213.Lens.Morphism.BoolProp
 theorem boolToConstLens_xor (x y : Bool) :
     boolToConstLens (xor x y) =
       lensXor (boolToConstLens x) (boolToConstLens y) := by
-  cases x <;> cases y <;>
-    simp [boolToConstLens, lensXor_TT, lensXor_TF, lensXor_FT, lensXor_FF]
+  cases x with
+  | true => cases y with
+    | true =>
+        -- xor true true = false; lensXor constTrueLens constTrueLens = constFalseLens
+        show constFalseLens = lensXor constTrueLens constTrueLens
+        exact lensXor_TT.symm
+    | false =>
+        -- xor true false = true; lensXor constTrueLens constFalseLens = constTrueLens
+        show constTrueLens = lensXor constTrueLens constFalseLens
+        exact lensXor_TF.symm
+  | false => cases y with
+    | true =>
+        show constTrueLens = lensXor constFalseLens constTrueLens
+        exact lensXor_FT.symm
+    | false =>
+        show constFalseLens = lensXor constFalseLens constFalseLens
+        exact lensXor_FF.symm
 
 end E213.Lens.Compose.OnLensImage
 
@@ -128,6 +144,29 @@ theorem lensUniversalMorphism_factors (r : Raw) :
     composite composite_a composite_b composite_slash r
   exact h.symm
 
+/-- ∅-axiom companion to `lensUniversalMorphism_factors`: pointwise
+    Lens equality (eqPW) of `lensUniversalMorphism r` and `composite r`,
+    avoiding funext on the combine field via `Lens.view_unique_eqPW`. -/
+theorem lensUniversalMorphism_factors_eqPW (r : Raw) :
+    (lensUniversalMorphism r).eqPW (composite r) := by
+  have h := Lens.view_unique_eqPW
+    (β := Bool)
+    (L := ⟨constTrueLens, constFalseLens, lensXor⟩)
+    (fun u v => lensXor_comm_eqPW u v)
+    (fun u u' v v' hu hv => lensXor_eqPW_cong u u' v v' hu hv)
+    composite
+    (by show (composite Raw.a).eqPW constTrueLens
+        rw [composite_a]; exact Lens.eqPW_refl _)
+    (by show (composite Raw.b).eqPW constFalseLens
+        rw [composite_b]; exact Lens.eqPW_refl _)
+    (by intro x y h
+        show (composite (Raw.slash x y h)).eqPW
+              (lensXor (composite x) (composite y))
+        rw [composite_slash x y h]; exact Lens.eqPW_refl _)
+    r
+  -- h : (composite r).eqPW (⟨...⟩.view r) = (composite r).eqPW (lensUniversalMorphism r)
+  exact Lens.eqPW_symm h
+
 end E213.Lens.Compose.OnLensImage
 
 namespace E213.Lens.Compose.OnLensImage
@@ -147,5 +186,22 @@ theorem lensUniversalMorphism_image (r : Raw) :
   cases @universalMorphism Bool boolXorHasDistinguishing r
   · right; rfl
   · left; rfl
+
+/-- ∅-axiom companion: pointwise (eqPW) image characterization. -/
+theorem lensUniversalMorphism_image_eqPW (r : Raw) :
+    (lensUniversalMorphism r).eqPW constTrueLens ∨
+    (lensUniversalMorphism r).eqPW constFalseLens := by
+  have hf := lensUniversalMorphism_factors_eqPW r
+  -- composite r = boolToConstLens (universalMorphism Bool ... r)
+  -- boolToConstLens true = constTrueLens, boolToConstLens false = constFalseLens
+  cases hum : @universalMorphism Bool boolXorHasDistinguishing r
+  · right
+    have : composite r = constFalseLens := by
+      unfold composite; rw [hum]; rfl
+    exact this ▸ hf
+  · left
+    have : composite r = constTrueLens := by
+      unfold composite; rw [hum]; rfl
+    exact this ▸ hf
 
 end E213.Lens.Compose.OnLensImage

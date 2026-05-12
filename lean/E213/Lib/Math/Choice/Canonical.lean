@@ -35,10 +35,10 @@ theorem canonical_trichotomy (x y : Raw) (h : x ≠ y) :
   | .lt => exact Or.inl rfl
   | .gt =>
       have hlt : Tree.cmp y.val x.val = .lt :=
-        (Tree.cmp_gt_iff_lt_swap x.val y.val).mp hc
+        Tree.cmp_gt_to_lt_swap x.val y.val hc
       exact Or.inr hlt
   | .eq =>
       exfalso
-      exact h (Subtype.ext ((Tree.cmp_eq_iff _ _).mp hc))
+      exact h (Subtype.ext (Tree.cmp_eq_to_eq _ _ hc))
 
 end E213.Lib.Math.Choice.Canonical

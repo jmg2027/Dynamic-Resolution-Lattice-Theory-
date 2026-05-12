@@ -41,12 +41,22 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Core (Real213)
 open E213.Lib.Math.Real213.Dyadic (dyadicCut)
 
+/-- PURE replacement of Nat.one_le_two_pow (propext-laden in core). -/
+private theorem one_le_two_pow_pure : ∀ k, 1 ≤ 2^k
+  | 0 => Nat.le_refl _
+  | k+1 =>
+      let ih : 1 ≤ 2^k := one_le_two_pow_pure k
+      let h_pow : 2^(k+1) = 2^k * 2 := Nat.pow_succ 2 k
+      let h_le : (1 : Nat) ≤ 2^k * 2 :=
+        Nat.le_trans ih (Nat.le_mul_of_pos_right (2^k) (by decide : 0 < 2))
+      h_pow.symm ▸ h_le
+
 /-- Lemma: n + 1 ≤ 2^n for all n.  (Tight at n=1: 2 ≤ 2.) -/
 private theorem succ_le_two_pow : ∀ n, n + 1 ≤ 2^n
   | 0 => by decide
   | k + 1 => by
     have ih := succ_le_two_pow k
-    have h2k : 1 ≤ 2^k := Nat.one_le_two_pow
+    have h2k : 1 ≤ 2^k := one_le_two_pow_pure k
     calc k + 1 + 1 = (k + 1) + 1 := rfl
       _ ≤ 2^k + 1 := Nat.add_le_add_right ih 1
       _ ≤ 2^k + 2^k := Nat.add_le_add_left h2k _
@@ -84,9 +94,8 @@ theorem dyadic_bracket_cauchy_modulus (L E m k : Nat) (hm : 1 ≤ m) :
   have h_succ : n + 1 ≤ 2^n := succ_le_two_pow n
   -- Step 3: 2^(E+n) * m ≥ 2^(E+n) * 1 = 2^(E+n).
   have h_m_pow : 2^(E + n) ≤ 2^(E + n) * m := by
-    have : 2^(E + n) * 1 ≤ 2^(E + n) * m :=
-      Nat.mul_le_mul_left _ hm
-    rwa [Nat.mul_one] at this
+    calc 2^(E + n) = 2^(E + n) * 1 := (Nat.mul_one _).symm
+      _ ≤ 2^(E + n) * m := Nat.mul_le_mul_left _ hm
   -- Combine: L*k ≤ n ≤ n + 1 ≤ 2^n ≤ 2^(E+n) ≤ 2^(E+n) * m.
   calc L * k ≤ n := hLkn
     _ ≤ n + 1 := Nat.le_succ _

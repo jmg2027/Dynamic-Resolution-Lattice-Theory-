@@ -1,10 +1,11 @@
 import E213.Lib.Math.CayleyDickson.ZI
 import E213.Lib.Math.NatHelpers.IntHelpers
-import E213.Term.Tactic.QuadNorm
+import E213.Lib.Math.CayleyDickson.QuadIdentities
+import E213.Theory.Internal.Int213
 
 open E213.Lib.Math.NatHelpers
 open E213.Lib.Math.NatHelpers.IntHelpers
-open E213.Tactic
+open E213.Lib.Math.CayleyDickson.QuadIdentities
 
 /-!
 # `ZI` integral-domain properties
@@ -22,9 +23,12 @@ namespace E213.Lib.Math.CayleyDickson.ZI.ZI
 theorem mul_comm (u v : ZI) : u * v = v * u := by
   apply ext
   · show u.re * v.re - u.im * v.im = v.re * u.re - v.im * u.im
-    rw [Int.mul_comm u.re v.re, Int.mul_comm u.im v.im]
+    rw [E213.Theory.Internal.Int213.mul_comm u.re v.re,
+        E213.Theory.Internal.Int213.mul_comm u.im v.im]
   · show u.re * v.im + u.im * v.re = v.re * u.im + v.im * u.re
-    rw [Int.mul_comm u.re v.im, Int.mul_comm u.im v.re, Int.add_comm]
+    rw [E213.Theory.Internal.Int213.mul_comm u.re v.im,
+        E213.Theory.Internal.Int213.mul_comm u.im v.re,
+        E213.Theory.Internal.Int213.add_comm]
 
 /-- **Diophantus identity.** `|uv|² = |u|² · |v|²`. -/
 theorem normSq_mul (u v : ZI) :
@@ -32,13 +36,12 @@ theorem normSq_mul (u v : ZI) :
   show (u.re*v.re - u.im*v.im)*(u.re*v.re - u.im*v.im)
      + (u.re*v.im + u.im*v.re)*(u.re*v.im + u.im*v.re)
      = (u.re*u.re + u.im*u.im) * (v.re*v.re + v.im*v.im)
-  quad_norm
+  exact int_quad_diophantus u.re u.im v.re v.im
 
 theorem normSq_nonneg (u : ZI) : 0 ≤ u.normSq := by
   show 0 ≤ u.re * u.re + u.im * u.im
-  have h1 := IntHelpers.mul_self_nonneg u.re
-  have h2 := IntHelpers.mul_self_nonneg u.im
-  omega
+  exact E213.Theory.Internal.Int213.add_nonneg
+    (IntHelpers.mul_self_nonneg u.re) (IntHelpers.mul_self_nonneg u.im)
 
 theorem normSq_eq_zero_iff (u : ZI) : u.normSq = 0 ↔ u = 0 := by
   refine ⟨?_, ?_⟩
@@ -46,22 +49,22 @@ theorem normSq_eq_zero_iff (u : ZI) : u.normSq = 0 ↔ u = 0 := by
     have h1 := IntHelpers.mul_self_nonneg u.re
     have h2 := IntHelpers.mul_self_nonneg u.im
     have h_eq : u.re * u.re + u.im * u.im = 0 := h
-    have hre : u.re * u.re = 0 := by omega
-    have him : u.im * u.im = 0 := by omega
+    obtain ⟨hre, him⟩ :=
+      E213.Theory.Internal.Int213.add_eq_zero_of_nonneg h1 h2 h_eq
     apply ext
     · exact IntHelpers.mul_self_eq_zero.mp hre
     · exact IntHelpers.mul_self_eq_zero.mp him
   · rintro rfl
     show (0 : Int) * 0 + 0 * 0 = 0
-    simp
+    rfl
 
 /-- **Integral-domain property.** `ZI.mul` has no zero divisors. -/
 theorem no_zero_div (u v : ZI) : u * v = 0 → u = 0 ∨ v = 0 := by
   intro huv
   have hn : (u * v).normSq = 0 := by
-    rw [huv]; show (0 : Int) * 0 + 0 * 0 = 0; simp
+    rw [huv]; show (0 : Int) * 0 + 0 * 0 = 0; rfl
   rw [normSq_mul] at hn
-  rcases Int.mul_eq_zero.mp hn with h | h
+  rcases E213.Theory.Internal.Int213.mul_eq_zero hn with h | h
   · exact Or.inl ((normSq_eq_zero_iff u).mp h)
   · exact Or.inr ((normSq_eq_zero_iff v).mp h)
 

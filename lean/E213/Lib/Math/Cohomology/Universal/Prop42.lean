@@ -17,15 +17,15 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Delta.Core (delta)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 
-/-- Cochain 4 2 parametrized by 6 Bool values. -/
+/-- Cochain 4 2 parametrized by 6 Bool values.  PURE via if-then-else
+    on `i.val` (Fin pattern match would leak propext/Quot.sound). -/
 def pattern (b0 b1 b2 b3 b4 b5 : Bool) : Cochain 4 2 := fun i =>
-  match i with
-  | ⟨0, _⟩ => b0
-  | ⟨1, _⟩ => b1
-  | ⟨2, _⟩ => b2
-  | ⟨3, _⟩ => b3
-  | ⟨4, _⟩ => b4
-  | ⟨5, _⟩ => b5
+  if i.val = 0 then b0
+  else if i.val = 1 then b1
+  else if i.val = 2 then b2
+  else if i.val = 3 then b3
+  else if i.val = 4 then b4
+  else b5
 
 /-- Any σ : Cochain 4 2 equals its pattern. -/
 theorem pattern_eq (σ : Cochain 4 2) :

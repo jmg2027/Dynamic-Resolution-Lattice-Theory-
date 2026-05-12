@@ -70,6 +70,19 @@ theorem add_mod_gen (a b n : Nat) :
     rw [Nat.mod_zero a, Nat.mod_zero b]
   · exact add_mod hn a b
 
+/-- `n % 2 = 0 ∨ n % 2 = 1`.  ∅-axiom replacement for
+    `Nat.mod_two_eq_zero_or_one` (which leaks propext + Quot.sound).
+    Direct match on `n % 2` with `Nat.mod_lt` bound. -/
+theorem mod_two_zero_or_one (n : Nat) : n % 2 = 0 ∨ n % 2 = 1 := by
+  have hlt : n % 2 < 2 := Nat.mod_lt n (by decide)
+  match h : n % 2 with
+  | 0 => exact Or.inl rfl
+  | 1 => exact Or.inr rfl
+  | k+2 =>
+      exfalso
+      rw [h] at hlt
+      exact Nat.lt_irrefl 2 (Nat.lt_of_le_of_lt (Nat.le_add_left 2 k) hlt)
+
 /-- `b * (a / b) + a % b = a` for all `a b`.  ∅-axiom replacement
     for `Nat.div_add_mod` (which leaks propext). -/
 theorem div_add_mod : ∀ (a b : Nat), b * (a / b) + a % b = a := fun a b =>

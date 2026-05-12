@@ -1,13 +1,13 @@
 import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Fold
+import E213.Theory.Raw.Hom
+import E213.Theory.Internal.Int213
 
 /-!
-# Firmware.Raw.Signed: fold_signed_swap — swap as negation
+# Theory.Raw.Signed: fold_signed_swap — swap as negation
 
 The signed Lens (base_a=1, base_b=-1, combine=+) realises swap
-as integer negation.  Used by Hypervisor / App layers.
-
-Extracted from monolithic `Raw.lean` ().
+as integer negation.  Used by Lens / App layers.
 -/
 
 namespace E213.Theory.Internal
@@ -15,27 +15,11 @@ namespace E213.Theory.Internal
 theorem Tree.fold_signed_swap :
     ∀ t : Tree, t.canonical = true →
     Tree.fold (1 : Int) (-1) (· + ·) (Tree.swap t)
-      = - Tree.fold (1 : Int) (-1) (· + ·) t := by
-  intro t h
-  induction t with
-  | a => decide
-  | b => decide
-  | slash x y ihx ihy =>
-      have hc := h
-      simp only [Tree.canonical, Bool.and_eq_true] at hc
-      obtain ⟨⟨hx, hy⟩, _⟩ := hc
-      have hlt := Tree.canonical_slash_lt h
-      have ihx' := ihx hx
-      have ihy' := ihy hy
-      simp only [Tree.swap]
-      split <;> rename_i hcmp_inner
-      · show Tree.fold _ _ _ (Tree.swap x) + Tree.fold _ _ _ (Tree.swap y)
-             = -(Tree.fold _ _ _ x + Tree.fold _ _ _ y)
-        rw [ihx', ihy', Int.neg_add]
-      · show Tree.fold _ _ _ (Tree.swap y) + Tree.fold _ _ _ (Tree.swap x)
-             = -(Tree.fold _ _ _ x + Tree.fold _ _ _ y)
-        rw [ihx', ihy', Int.neg_add, Int.add_comm]
-      · exact (Tree.swap_eq_unreach hx hy hlt hcmp_inner).elim
+      = - Tree.fold (1 : Int) (-1) (· + ·) t :=
+  Tree.fold_swap_hom (1 : Int) (-1) (· + ·) (fun n => -n)
+    (by decide) (by decide)
+    (fun u v => Int213.neg_add u v)
+    (fun u v => Int213.add_comm u v)
 
 end E213.Theory.Internal
 

@@ -1,4 +1,5 @@
 import E213.Lens.SemanticAtom
+import E213.Lib.Math.NatHelpers.IntHelpers
 
 /-!
 # InstanceReach: boundary of the image of universalMorphism
@@ -38,24 +39,31 @@ open E213.Lens.SemanticAtom
 
 /-! ### Witness: trivial-combine instance on Fin 3 -/
 
+/-- PURE `0 : Fin 3` (avoiding `(0 : Fin 3)` OfNat propext leak). -/
+private def fin3Zero : Fin 3 := ⟨0, by decide⟩
+/-- PURE `1 : Fin 3`. -/
+private def fin3One : Fin 3 := ⟨1, by decide⟩
+/-- PURE `2 : Fin 3`. -/
+private def fin3Two : Fin 3 := ⟨2, by decide⟩
+
 instance fin3HasDistinguishing : HasDistinguishing (Fin 3) where
-  a := 0
-  b := 1
-  distinct := by decide
-  combine _ _ := 0
+  a := fin3Zero
+  b := fin3One
+  distinct := fun h => Nat.noConfusion (congrArg Fin.val h)
+  combine _ _ := fin3Zero
   combine_sym _ _ := rfl
 
 /-- Forward closure of the image: universalMorphism (Fin 3) always
     yields 0 or 1 (combine always returns 0). -/
 theorem fin3_image_in_01 (r : Raw) :
-    universalMorphism (Fin 3) r = 0 ∨ universalMorphism (Fin 3) r = 1 := by
-  induction r using Raw.rec with
-  | a => left; exact universalMorphism_a (Fin 3)
-  | b => right; exact universalMorphism_b (Fin 3)
-  | slash x y h _ _ =>
-      left
-      rw [universalMorphism_slash (Fin 3) x y h]
-      rfl
+    universalMorphism (Fin 3) r = fin3Zero ∨ universalMorphism (Fin 3) r = fin3One :=
+  Raw.rec
+    (motive := fun r =>
+      universalMorphism (Fin 3) r = fin3Zero ∨ universalMorphism (Fin 3) r = fin3One)
+    (Or.inl (universalMorphism_a (Fin 3)))
+    (Or.inr (universalMorphism_b (Fin 3)))
+    (fun x y h _ _ => Or.inl (universalMorphism_slash (Fin 3) x y h))
+    r
 
 end E213.Lens.Instances.Reach
 
@@ -69,11 +77,13 @@ open E213.Lens.SemanticAtom
     between the framework's reach and the carrier. -/
 theorem fin3_image_strict :
     ∃ x : Fin 3, ¬ ∃ r : Raw, universalMorphism (Fin 3) r = x := by
-  refine ⟨2, ?_⟩
+  refine ⟨fin3Two, ?_⟩
   intro ⟨r, hr⟩
   rcases fin3_image_in_01 r with h | h
-  · rw [h] at hr; exact absurd hr (by decide)
-  · rw [h] at hr; exact absurd hr (by decide)
+  · rw [h] at hr
+    exact absurd (congrArg Fin.val hr) (by decide)
+  · rw [h] at hr
+    exact absurd (congrArg Fin.val hr) (by decide)
 
 end E213.Lens.Instances.Reach
 
@@ -200,6 +210,20 @@ Trick: induction with strong invariant — r n ≠ Raw.a for n ≥ 1
 + universalMorphism r n = n.  Then slash Raw.a (r n) (a ≠ rn).
 -/
 
+/-- Inline 213-native max_comm helper (avoiding Nat.max_comm propext leak). -/
+private theorem nat_max_comm_pure (a b : Nat) : Nat.max a b = Nat.max b a := by
+  rcases Nat.le_total a b with hab | hba
+  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
+    rw [if_pos hab]
+    by_cases h : b ≤ a
+    · rw [if_pos h]; exact Nat.le_antisymm h hab
+    · rw [if_neg h]
+  · show (if a ≤ b then b else a) = (if b ≤ a then a else b)
+    rw [if_pos hba]
+    by_cases h : a ≤ b
+    · rw [if_pos h]; exact Nat.le_antisymm hba h
+    · rw [if_neg h]
+
 /-- Helper: result of Raw.slash differs from Raw.a (depth-based proof). -/
 private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
     Raw.slash x y h ≠ Raw.a := by
@@ -210,12 +234,15 @@ private theorem slash_ne_a (x y : Raw) (h : x ≠ y) :
     apply Raw.fold_slash
     intro u v
     show 1 + max u v = 1 + max v u
-    rw [Nat.max_comm]
+    exact congrArg (1 + ·) (nat_max_comm_pure u v)
   rw [hslash] at hview
   show False
   have h_a : Lens.depth.view Raw.a = 0 := rfl
   rw [h_a] at hview
-  omega
+  -- hview : 1 + max ... = 0.  Use Nat.add_comm to get succ form.
+  rw [Nat.add_comm 1 (max _ _)] at hview
+  -- hview : Nat.succ (max ...) = 0 — impossible
+  cases hview
 
 end E213.Lens.Instances.Reach
 
@@ -245,12 +272,13 @@ private theorem slash_ne_b (x y : Raw) (h : x ≠ y) :
     apply Raw.fold_slash
     intro u v
     show 1 + max u v = 1 + max v u
-    rw [Nat.max_comm]
+    exact congrArg (1 + ·) (nat_max_comm_pure u v)
   rw [hslash] at hview
   show False
   have h_b : Lens.depth.view Raw.b = 0 := rfl
   rw [h_b] at hview
-  omega
+  rw [Nat.add_comm 1 (max _ _)] at hview
+  cases hview
 
 end E213.Lens.Instances.Reach
 
@@ -322,21 +350,24 @@ instance intHasDistinguishing : HasDistinguishing Int where
   b := 1
   distinct := by decide
   combine := (· + ·)
-  combine_sym := Int.add_comm
+  combine_sym := E213.Lib.Math.NatHelpers.IntHelpers.add_comm
 
 /-- Forward closure of the image: universalMorphism Int always
     yields a result ≥ 0. -/
-theorem int_image_nonneg (r : Raw) : 0 ≤ universalMorphism Int r := by
+theorem int_image_nonneg (r : Raw) : (0 : Int) ≤ universalMorphism Int r := by
   induction r using Raw.rec with
   | a =>
+      show (0 : Int) ≤ universalMorphism Int Raw.a
       rw [universalMorphism_a Int]
-      exact Int.le_refl 0
+      decide
   | b =>
+      show (0 : Int) ≤ universalMorphism Int Raw.b
       rw [universalMorphism_b Int]
       decide
   | slash x y h ihx ihy =>
+      show (0 : Int) ≤ universalMorphism Int (Raw.slash x y h)
       rw [universalMorphism_slash Int x y h]
-      exact Int.add_nonneg ihx ihy
+      exact E213.Lib.Math.NatHelpers.IntHelpers.add_nonneg ihx ihy
 
 /-- **Strict subset of the image (infinite case)**: -1 ∈ Int is
     outside the image of universalMorphism.  Non-surjectivity witness

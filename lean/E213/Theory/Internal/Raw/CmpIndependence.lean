@@ -1,10 +1,13 @@
 import E213.Theory.Raw
 
 /-!
-# CmpIndependence: Axiom-independence of the cmp choice (foundational)
+# CmpIndependence: Axiom-independence of the cmp choice
 
-Formalization of the foundational layer of the cmp-independence
-meta-theorem from `IMPLEMENTATION.md §5`.
+Meta-theorem: the choice of total order `Tree.cmp` for canonical
+form is an *encoding* artifact, not part of the axiom.  Any
+well-behaved comparison `cmp` (satisfying `CmpProps`) yields a
+type `RawBy cmp` bijective with `RawBy Tree.cmp` via a Tree-level
+transport.  Hence the 213 axiom is independent of the cmp choice.
 
 ## Justification for internal access
 
@@ -13,16 +16,18 @@ to the general CLAUDE.md rule ("no Internal open in user code") —
 this file itself verifies the axiom-independence of the encoding
 scaffolding (Tree, Tree.cmp).
 
-## Formalization phases
+## Contents
 
-Phase 1 (this file):
-- `CmpProps`: abstraction of well-behaved order conditions for cmp.
-- `Tree.cmp` satisfies CmpProps.
-- `cmpRev` also satisfies CmpProps (involutive).
-- `canonicalBy cmp`, `RawBy cmp`: cmp-parametric.
-- Agreement with original Raw: `canonicalBy Tree.cmp = Tree.canonical`.
-
-Phase 2 (future): bijection RawBy cmp1 ≃ RawBy cmp2.
+  * `CmpProps`                              — abstract well-behaved cmp
+  * `Tree.cmp` / `cmpRev` satisfy CmpProps
+  * `canonicalBy cmp`, `RawBy cmp`          — cmp-parametric type
+  * `RawBy_Tree_cmp_iff`                    — agreement with `Raw`
+  * `RawBy.{a, b, slash, slash_comm, rec}`  — polymorphic API
+  * `transportTree`                         — Tree-level canonicalisation
+  * `transportTree_roundtrip`               — g ∘ f = id on canonical input
+  * `transportTree_canonical`               — preserves canonical-by-cmp
+  * `transportRawBy` + `transportRawBy_roundtrip`
+  * `RawBy_bijection`                       — final closure
 -/
 
 namespace E213.Theory.Internal.Raw.CmpIndependence
@@ -217,8 +222,7 @@ theorem canonicalBy_slash_lt {cmp : Tree → Tree → Ordering}
     {x y : Tree} (h : canonicalBy cmp (.slash x y) = true) :
     cmp x y = .lt := by
   unfold canonicalBy at h
-  rw [Bool.and_eq_true] at h
-  obtain ⟨_, hlt_raw⟩ := h
+  obtain ⟨_, hlt_raw⟩ := Bool.and_eq_true_to_pair h
   match hm : cmp x y with
   | .lt => rfl
   | .eq => rw [hm] at hlt_raw; cases hlt_raw
@@ -250,8 +254,8 @@ private noncomputable def RawBy.recAux {cmp : Tree → Tree → Ordering}
       intro hcanon
       have hc := hcanon
       unfold canonicalBy at hc
-      rw [Bool.and_eq_true, Bool.and_eq_true] at hc
-      obtain ⟨⟨hx, hy⟩, _⟩ := hc
+      obtain ⟨h_xy_and, _⟩ := Bool.and_eq_true_to_pair hc
+      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair h_xy_and
       have hcmp := canonicalBy_slash_lt hcanon
       let x' : RawBy cmp := ⟨x, hx⟩
       let y' : RawBy cmp := ⟨y, hy⟩
@@ -297,8 +301,8 @@ instance (cmp : Tree → Tree → Ordering) : DecidableEq (RawBy cmp) :=
     · exact .isTrue (Subtype.ext heq)
 
 /-- **Transport**: RawBy cmp1 → RawBy cmp2 via RawBy.rec.
-    Mingu hint: "the transformation itself is a Lens" — a fold
-    using cmp2's constructors for base+slash. -/
+    The transformation itself is a Lens — a fold using cmp2's
+    constructors for base + slash. -/
 noncomputable def transport (cmp1 cmp2 : Tree → Tree → Ordering)
     (h1 : CmpProps cmp1) (h2 : CmpProps cmp2)
     (r : RawBy cmp1) : RawBy cmp2 :=
@@ -332,40 +336,12 @@ namespace E213.Theory.Internal.Raw.CmpIndependence
 
 open E213.Theory E213.Theory.Internal
 
--- The manual reduction of transport_slash requires orchestrating the
--- internal Eq.mpr / cast / Subtype.ext of the noncomputable rec.
--- Subtype.ext demotion + recAux Tree-level reduction + Eq.mpr cleanup.
--- Phase 3.5 in progress — concrete attempt deferred.
-
-end E213.Theory.Internal.Raw.CmpIndependence
-
-namespace E213.Theory.Internal.Raw.CmpIndependence
-
-open E213.Theory E213.Theory.Internal
-
--- recAux_slash auxiliary lemma (Phase 3.5): explicitly states how
--- RawBy.recAux reduces when given a Tree.slash input — Mingu hint #2.
--- Challenge: the noncomputable rec does not auto-reduce, so manual
--- Eq.mpr / cast cleanup is needed.  Expected obstacles:
--- A. Tree.rec.{u} universe.
--- B. match branch for (RawBy.slash _).val.
--- C. proof of (RawBy.slash _).property.
--- D. Eq.mpr from rw [heq].
--- E. absence of let-zeta.
--- The manual orchestration of this part is the final closure of
--- transport_slash.  Additional simp [Eq.mpr, cast] may help.
-
-end E213.Theory.Internal.Raw.CmpIndependence
-
-namespace E213.Theory.Internal.Raw.CmpIndependence
-
-open E213.Theory E213.Theory.Internal
-
--- Phase 3.5 alternative path: define transportTree directly at Tree level.
--- Avoids the reduction of the noncomputable RawBy.rec.
-
 /-- **Tree-level transport**: canonicalize Tree under cmp2.
-    Computable, inductively defined on Tree. -/
+    Computable, inductively defined on Tree.
+
+    A direct Tree-level transport sidesteps the reduction obstacles of
+    the noncomputable `RawBy.rec` (universe constraints, match-branch
+    `.val` projections, `Eq.mpr` cleanup from rewrites). -/
 def transportTree (cmp2 : Tree → Tree → Ordering) : Tree → Tree
   | .a => .a
   | .b => .b
@@ -437,8 +413,8 @@ theorem transportTree_roundtrip
   | slash s u ihs ihu =>
       have hsu : cmp2 s u = .lt := canonicalBy_slash_lt hcanon
       unfold canonicalBy at hcanon
-      rw [Bool.and_eq_true, Bool.and_eq_true] at hcanon
-      obtain ⟨⟨hcs, hcu⟩, _⟩ := hcanon
+      obtain ⟨h_su_and, _⟩ := Bool.and_eq_true_to_pair hcanon
+      obtain ⟨hcs, hcu⟩ := Bool.and_eq_true_to_pair h_su_and
       have ihs' := ihs hcs
       have ihu' := ihu hcu
       rw [transportTree_slash]
@@ -495,8 +471,8 @@ theorem transportTree_canonical
   | slash s u ihs ihu =>
       have hsu1 : cmp1 s u = .lt := canonicalBy_slash_lt hcanon1
       unfold canonicalBy at hcanon1
-      rw [Bool.and_eq_true, Bool.and_eq_true] at hcanon1
-      obtain ⟨⟨hcs, hcu⟩, _⟩ := hcanon1
+      obtain ⟨h_su_and, _⟩ := Bool.and_eq_true_to_pair hcanon1
+      obtain ⟨hcs, hcu⟩ := Bool.and_eq_true_to_pair h_su_and
       have ihs' := ihs hcs
       have ihu' := ihu hcu
       -- transportTree cmp2 s, u canonical-by-cmp2 (IH).

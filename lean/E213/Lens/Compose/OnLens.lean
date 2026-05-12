@@ -1,5 +1,6 @@
 import E213.Lens.SemanticAtom
 import E213.Lens.Instances.Reach
+import E213.Lens.EqPW
 
 /-!
 # LensOnLens: Lens itself as an instance of the semantic framework
@@ -63,6 +64,36 @@ theorem lensXor_comm (L M : Lens Bool) : lensXor L M = lensXor M L := by
   · funext x y
     cases L.combine x y <;> cases M.combine x y <;> rfl
 
+/-- Pointwise (eqPW) commutativity of `lensXor` — ∅-axiom companion
+    to `lensXor_comm` (which uses funext on the combine field).
+    For Lens-equality consumers that can be expressed via eqPW,
+    this companion eliminates the Quot.sound dependency. -/
+theorem lensXor_comm_eqPW (L M : Lens Bool) :
+    (lensXor L M).eqPW (lensXor M L) := by
+  refine ⟨?_, ?_, ?_⟩
+  · show xor L.base_a M.base_a = xor M.base_a L.base_a
+    cases L.base_a <;> cases M.base_a <;> rfl
+  · show xor L.base_b M.base_b = xor M.base_b L.base_b
+    cases L.base_b <;> cases M.base_b <;> rfl
+  · intro x y
+    show xor (L.combine x y) (M.combine x y) = xor (M.combine x y) (L.combine x y)
+    cases L.combine x y <;> cases M.combine x y <;> rfl
+
+/-- `lensXor` is eqPW-congruent in both arguments — required to use
+    `Lens.view_unique_eqPW` for the lensXor combine. -/
+theorem lensXor_eqPW_cong (L1 L2 M1 M2 : Lens Bool)
+    (hL : L1.eqPW L2) (hM : M1.eqPW M2) :
+    (lensXor L1 M1).eqPW (lensXor L2 M2) := by
+  refine ⟨?_, ?_, ?_⟩
+  · show xor L1.base_a M1.base_a = xor L2.base_a M2.base_a
+    rw [hL.1, hM.1]
+  · show xor L1.base_b M1.base_b = xor L2.base_b M2.base_b
+    rw [hL.2.1, hM.2.1]
+  · intro x y
+    show xor (L1.combine x y) (M1.combine x y)
+       = xor (L2.combine x y) (M2.combine x y)
+    rw [hL.2.2 x y, hM.2.2 x y]
+
 end E213.Lens.Compose.OnLens
 
 namespace E213.Lens.Compose.OnLens
@@ -90,22 +121,35 @@ open E213.Lens.SemanticAtom
 The sharpest self-application instance — elements of Raw map to
 Lenses (= the representation unit of the framework). -/
 
-/-- Universal morphism Raw → Lens Bool via lens-on-lens instance. -/
+/-- Universal morphism Raw → Lens Bool.  Defined directly via
+    `Raw.fold` on `(constTrueLens, constFalseLens, lensXor)`,
+    bypassing the DIRTY `lensBoolHasDistinguishing` instance.
+    Definitionally equal to `@universalMorphism (Lens Bool)
+    lensBoolHasDistinguishing` but ∅-axiom (the indirect route
+    pulls in `lensXor_comm`'s funext via the typeclass field). -/
 def lensUniversalMorphism : Raw → Lens Bool :=
-  @universalMorphism (Lens Bool) lensBoolHasDistinguishing
+  Raw.fold constTrueLens constFalseLens lensXor
 
 theorem lensUniversalMorphism_a :
-    lensUniversalMorphism Raw.a = constTrueLens :=
-  @universalMorphism_a (Lens Bool) lensBoolHasDistinguishing
+    lensUniversalMorphism Raw.a = constTrueLens := rfl
 
 theorem lensUniversalMorphism_b :
-    lensUniversalMorphism Raw.b = constFalseLens :=
-  @universalMorphism_b (Lens Bool) lensBoolHasDistinguishing
+    lensUniversalMorphism Raw.b = constFalseLens := rfl
 
 theorem lensUniversalMorphism_slash (x y : Raw) (h : x ≠ y) :
     lensUniversalMorphism (Raw.slash x y h)
-      = lensXor (lensUniversalMorphism x) (lensUniversalMorphism y) :=
-  @universalMorphism_slash (Lens Bool) lensBoolHasDistinguishing x y h
+      = lensXor (lensUniversalMorphism x) (lensUniversalMorphism y) := by
+  unfold lensUniversalMorphism
+  exact Raw.fold_slash _ _ _ lensXor_comm x y h
+
+/-- ∅-axiom companion to `lensUniversalMorphism_slash`: pointwise
+    Lens equality (eqPW) of the slash image with the lensXor of the
+    children, derived via `Lens.fold_slash_eqPW` and `lensXor_comm_eqPW`. -/
+theorem lensUniversalMorphism_slash_eqPW (x y : Raw) (h : x ≠ y) :
+    (lensUniversalMorphism (Raw.slash x y h)).eqPW
+      (lensXor (lensUniversalMorphism x) (lensUniversalMorphism y)) := by
+  unfold lensUniversalMorphism
+  exact Lens.fold_slash_eqPW _ _ _ lensXor_comm_eqPW x y h
 
 end E213.Lens.Compose.OnLens
 
@@ -146,6 +190,32 @@ theorem lensCombineGeneric_comm {α : Type} (c : α → α → α)
   · exact hsym _ _
   · exact hsym _ _
   · funext x y; exact hsym _ _
+
+/-- Pointwise (eqPW) version — ∅-axiom companion to
+    `lensCombineGeneric_comm`, which uses funext on the combine field.
+    Sufficient for any consumer reasoning at the kernel level. -/
+theorem lensCombineGeneric_comm_eqPW {α : Type} (c : α → α → α)
+    (hsym : ∀ u v, c u v = c v u) (L M : Lens α) :
+    (lensCombineGeneric c L M).eqPW (lensCombineGeneric c M L) := by
+  refine ⟨?_, ?_, ?_⟩
+  · exact hsym _ _
+  · exact hsym _ _
+  · intro x y; exact hsym _ _
+
+/-- `lensCombineGeneric c` is eqPW-congruent in both arguments — required
+    to use `Lens.view_unique_eqPW` for the generic-Lens combine. -/
+theorem lensCombineGeneric_eqPW_cong {α : Type} (c : α → α → α)
+    (L1 L2 M1 M2 : Lens α)
+    (hL : L1.eqPW L2) (hM : M1.eqPW M2) :
+    (lensCombineGeneric c L1 M1).eqPW (lensCombineGeneric c L2 M2) := by
+  refine ⟨?_, ?_, ?_⟩
+  · show c L1.base_a M1.base_a = c L2.base_a M2.base_a
+    rw [hL.1, hM.1]
+  · show c L1.base_b M1.base_b = c L2.base_b M2.base_b
+    rw [hL.2.1, hM.2.1]
+  · intro x y
+    show c (L1.combine x y) (M1.combine x y) = c (L2.combine x y) (M2.combine x y)
+    rw [hL.2.2 x y, hM.2.2 x y]
 
 end E213.Lens.Compose.OnLens
 
@@ -200,14 +270,22 @@ def levelThree : HasDistinguishing (Lens (Lens (Lens Bool))) :=
 def levelFour : HasDistinguishing (Lens (Lens (Lens (Lens Bool)))) :=
   lensHasDistinguishing (Lens (Lens (Lens Bool))) (d := levelThree)
 
-/-! ### Universal morphisms at each level -/
+/-! ### Universal morphisms at each level
+
+These are direct `Raw.fold` definitions that bypass the DIRTY
+`levelN` typeclass instances (whose `combine_sym` field requires
+funext on the `Lens^n α` combine).  Definitionally equivalent to
+`@universalMorphism (Lens^n α) levelN`, but ∅-axiom. -/
 
 /-- Raw → Lens (Lens Bool) universal morphism. -/
 def universalMorphismLevelTwo : Raw → Lens (Lens Bool) :=
-  @universalMorphism (Lens (Lens Bool)) levelTwo
+  Raw.fold (constLens (constLens true)) (constLens (constLens false))
+           (lensCombineGeneric (lensCombineGeneric and))
 
 /-- Raw → Lens (Lens (Lens Bool)) universal morphism. -/
 def universalMorphismLevelThree : Raw → Lens (Lens (Lens Bool)) :=
-  @universalMorphism (Lens (Lens (Lens Bool))) levelThree
+  Raw.fold (constLens (constLens (constLens true)))
+           (constLens (constLens (constLens false)))
+           (lensCombineGeneric (lensCombineGeneric (lensCombineGeneric and)))
 
 end E213.Lens.Compose.OnLens

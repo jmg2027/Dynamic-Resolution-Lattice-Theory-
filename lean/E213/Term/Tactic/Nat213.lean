@@ -375,6 +375,51 @@ end E213.Tactic.Nat213
 
 namespace E213.Tactic.Nat213
 
+/-- ∅-axiom replacement for `Nat.sub_le_sub_left` (Lean-core leaks
+    `propext`).  Term-mode recursion on `c` + 4-case pattern on (a, b). -/
+theorem sub_le_sub_left :
+    ∀ (c : Nat) {a b : Nat}, a ≤ b → c - b ≤ c - a
+  | 0, a, b, _ =>
+      let h1 : (0 : Nat) - b = 0 := Nat.zero_sub b
+      let h2 : (0 : Nat) - a = 0 := Nat.zero_sub a
+      h1.symm ▸ h2.symm ▸ Nat.le_refl 0
+  | _+1, 0, 0, _ => Nat.le_refl _
+  | _+1, _+1, 0, h => absurd h (Nat.not_succ_le_zero _)
+  | c+1, 0, b+1, _ =>
+      let h_eq : c - b = (c+1) - (b+1) := (Nat.succ_sub_succ_eq_sub c b).symm
+      let h_le : c - b ≤ c + 1 := Nat.le_trans (Nat.sub_le c b) (Nat.le_succ c)
+      h_eq ▸ h_le
+  | c+1, a+1, b+1, h =>
+      let h' : a ≤ b := Nat.le_of_succ_le_succ h
+      let ih : c - b ≤ c - a := sub_le_sub_left c h'
+      let h_eq1 : c - b = (c+1) - (b+1) := (Nat.succ_sub_succ_eq_sub c b).symm
+      let h_eq2 : c - a = (c+1) - (a+1) := (Nat.succ_sub_succ_eq_sub c a).symm
+      Eq.subst (motive := fun x => x ≤ (c+1) - (a+1)) h_eq1
+        (Eq.subst (motive := fun x => c - b ≤ x) h_eq2 ih)
+
+/-- ∅-axiom replacement for `Nat.mod_mod` (Lean-core leaks `propext`).
+    Direct case on `n`: `0 → rfl` via mod_zero, `n+1 → Nat.mod_eq_of_lt`. -/
+theorem mod_mod_pure : ∀ (a n : Nat), a % n % n = a % n
+  | a, 0 =>
+      let h : a % 0 = a := Nat.mod_zero a
+      h.symm ▸ h
+  | a, n+1 => Nat.mod_eq_of_lt (Nat.mod_lt a (Nat.succ_pos n))
+
+/-- `(a + n) % n = a % n` PURE (n ≥ 0 case included).  Building block
+    for `add_mod_pure`.  Uses `Nat.mod_eq_sub_mod` + `add_sub_cancel_right`. -/
+theorem add_self_mod_pure : ∀ (a n : Nat), (a + n) % n = a % n
+  | a, 0 => rfl
+  | a, n'+1 =>
+      let hle : n'+1 ≤ a + (n'+1) := Nat.le_add_left _ _
+      let h1 : (a + (n'+1)) % (n'+1) = (a + (n'+1) - (n'+1)) % (n'+1) :=
+        Nat.mod_eq_sub_mod hle
+      let h2 : a + (n'+1) - (n'+1) = a := add_sub_cancel_right a (n'+1)
+      h1.trans (congrArg (· % (n'+1)) h2)
+
+end E213.Tactic.Nat213
+
+namespace E213.Tactic.Nat213
+
 /-- `0 % m = 0`.  ∅-axiom replacement for Lean-core `Nat.zero_mod`
     (which is `[propext]`).  Term-mode pattern match on `m`.
 
@@ -454,5 +499,27 @@ theorem two_mul : ∀ (n : Nat), 2 * n = n + n
     let h5 : ((n + 1) + n) + 1 = (n + n + 1) + 1 := congrArg (· + 1) h3
     let h6 : (n + n + 1) + 1 = n + n + 2 := rfl
     h1.trans (h2.trans (h4.trans (h5.trans h6)).symm)
+
+/-! ### `gcd213` — 213-native gcd (∅-axiom)
+
+    Lean-core `Nat.gcd` uses well-founded recursion whose termination
+    proof brings `propext` into any `#print axioms` of theorems that
+    mention `Nat.gcd 〈literal〉 〈literal〉`.  This 213-native variant
+    uses fuel-driven structural recursion: closed terms reduce by
+    `rfl` and stay ∅-axiom.
+
+    `gcdFuel n a b` runs the Euclidean step at most `n` times.
+    `gcd213 a b` allocates `2 * (a + b) + 1` fuel — sufficient for
+    any Euclidean descent on `(a, b)` (the bound `M(a, b) :=
+    Nat.max a b + a` strictly decreases each step; `2*(a+b) ≥ M`). -/
+
+/-- Fuel-driven Euclidean recursion (structural on fuel). -/
+def gcdFuel : Nat → Nat → Nat → Nat
+  | 0,    a,    _ => a
+  | _+1,  0,    b => b
+  | n+1,  a+1,  b => gcdFuel n (b % (a+1)) (a+1)
+
+/-- 213-native gcd.  `rfl` reduces closed terms; ∅-axiom. -/
+def gcd213 (a b : Nat) : Nat := gcdFuel (2 * (a + b) + 1) a b
 
 end E213.Tactic.Nat213

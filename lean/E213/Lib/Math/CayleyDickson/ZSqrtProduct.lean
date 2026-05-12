@@ -5,6 +5,7 @@ import E213.Lib.Math.CayleyDickson.ZSqrt
 import E213.Lib.Math.CayleyDickson.ZSqrtDomain
 import E213.Meta.SelfRecognising
 import E213.Prelude
+import E213.Theory.Internal.Int213
 
 /-!
 # product codomain `ZSqrt D₁ × ZSqrt D₂`
@@ -65,15 +66,17 @@ theorem zSqrtProdConj_involution (p : ZSqrt D₁ × ZSqrt D₂) :
   rw [ZSqrt.conj_conj, ZSqrt.conj_conj]
 
 theorem zSqrtProdConj_ne_id :
-    (zSqrtProdConj : ZSqrt D₁ × ZSqrt D₂ → _) ≠ id := by
+    ∃ x : ZSqrt D₁ × ZSqrt D₂, zSqrtProdConj x ≠ x := by
+  refine ⟨(ZSqrt.I, ZSqrt.I), ?_⟩
   intro h
-  have := congrFun h (ZSqrt.I, ZSqrt.I)
-  have hfst : (ZSqrt.conj (ZSqrt.I : ZSqrt D₁)) = ZSqrt.I :=
-    (Prod.mk.injEq ..).mp this |>.1
-  rw [ZSqrt.conj_I] at hfst
-  have : (⟨0, -1⟩ : ZSqrt D₁) = ⟨0, 1⟩ := hfst
-  have : (-1 : Int) = 1 := (ZSqrt.mk.injEq ..).mp this |>.2
-  exact absurd this (by decide)
+  -- Project .fst then .im to get -1 = 1, contradiction
+  have hfst : (zSqrtProdConj ((ZSqrt.I, ZSqrt.I) : ZSqrt D₁ × ZSqrt D₂)).fst
+                = ((ZSqrt.I, ZSqrt.I) : ZSqrt D₁ × ZSqrt D₂).fst :=
+    congrArg Prod.fst h
+  have h_im : (ZSqrt.conj (ZSqrt.I : ZSqrt D₁)).im = (ZSqrt.I : ZSqrt D₁).im :=
+    congrArg ZSqrt.im hfst
+  have h_neg_one : (-1 : Int) = 1 := h_im
+  exact absurd h_neg_one (by decide)
 
 /-- R4 (SwapMatching) for the product Lens. -/
 theorem zSqrtProdLens_R4 :
@@ -88,15 +91,15 @@ theorem zSqrtProdLens_R4 :
   exact Raw.fold_swap_hom _ _ _ zSqrtProdConj
     (by show (ZSqrt.conj ZSqrt.I, ZSqrt.conj ZSqrt.I)
           = (ZSqrt.negI, ZSqrt.negI)
-        simp only [ZSqrt.conj_I])
+        rw [ZSqrt.conj_I, ZSqrt.conj_I])
     (by show (ZSqrt.conj ZSqrt.negI, ZSqrt.conj ZSqrt.negI)
           = (ZSqrt.I, ZSqrt.I)
-        simp only [ZSqrt.conj_negI])
+        rw [ZSqrt.conj_negI, ZSqrt.conj_negI])
     (fun u v => by
       show (ZSqrt.conj (u.1 * v.1), ZSqrt.conj (u.2 * v.2))
          = ((ZSqrt.conj u.1) * (ZSqrt.conj v.1),
             (ZSqrt.conj u.2) * (ZSqrt.conj v.2))
-      simp only [ZSqrt.conj_mul])
+      rw [ZSqrt.conj_mul, ZSqrt.conj_mul])
     (fun u v => by
       show (u.1 * v.1, u.2 * v.2) = (v.1 * u.1, v.2 * u.2)
       rw [ZSqrt.mul_comm u.1 v.1, ZSqrt.mul_comm u.2 v.2]) r
@@ -120,32 +123,37 @@ theorem zSqrtProdLens_R3_fails :
   intro h
   have hnz1 : (zSqrtProdLens_I0 : ZSqrt D₁ × ZSqrt D₂) ≠ 0 := by
     intro heq
-    have hfst : (ZSqrt.I : ZSqrt D₁) = 0 :=
-      (Prod.mk.injEq ..).mp heq |>.1
-    have : (⟨0, 1⟩ : ZSqrt D₁) = ⟨0, 0⟩ := hfst
-    have : (1 : Int) = 0 := (ZSqrt.mk.injEq ..).mp this |>.2
-    exact absurd this (by decide)
+    -- Project .fst then .im to get 1 = 0
+    have hfst : (ZSqrt.I : ZSqrt D₁) = 0 := congrArg Prod.fst heq
+    have h_im : (1 : Int) = 0 := congrArg ZSqrt.im hfst
+    exact absurd h_im (by decide)
   have hnz2 : (zSqrtProdLens_0I : ZSqrt D₁ × ZSqrt D₂) ≠ 0 := by
     intro heq
-    have hsnd : (ZSqrt.I : ZSqrt D₂) = 0 :=
-      (Prod.mk.injEq ..).mp heq |>.2
-    have : (⟨0, 1⟩ : ZSqrt D₂) = ⟨0, 0⟩ := hsnd
-    have : (1 : Int) = 0 := (ZSqrt.mk.injEq ..).mp this |>.2
-    exact absurd this (by decide)
+    have hsnd : (ZSqrt.I : ZSqrt D₂) = 0 := congrArg Prod.snd heq
+    have h_im : (1 : Int) = 0 := congrArg ZSqrt.im hsnd
+    exact absurd h_im (by decide)
   have hne :
       (zSqrtProdLens D₁ D₂).combine zSqrtProdLens_I0 zSqrtProdLens_0I ≠ 0 :=
     h zSqrtProdLens_I0 zSqrtProdLens_0I hnz1 hnz2
   apply hne
   show ((ZSqrt.I : ZSqrt D₁) * 0, (0 : ZSqrt D₂) * ZSqrt.I) = 0
-  apply Prod.mk.injEq .. |>.mpr
-  refine ⟨?_, ?_⟩
-  · show ZSqrt.mul ZSqrt.I 0 = 0
+  -- (I * 0, 0 * I) = (0, 0).  Prove component-wise without Iff.
+  have hp1 : (ZSqrt.I : ZSqrt D₁) * 0 = 0 := by
+    show ZSqrt.mul ZSqrt.I 0 = 0
     apply ZSqrt.ext
-    · show (0 : Int) * 0 - D₁ * (1 * 0) = 0; simp
-    · show (0 : Int) * 0 + 1 * 0 = 0; simp
-  · show ZSqrt.mul 0 ZSqrt.I = 0
+    · show (0 : Int) * 0 - D₁ * (1 * 0) = 0
+      rw [Int.mul_zero, Int.mul_zero, Int.mul_zero]; rfl
+    · show (0 : Int) * 0 + 1 * 0 = 0
+      rw [Int.mul_zero, Int.mul_zero]; rfl
+  have hp2 : (0 : ZSqrt D₂) * ZSqrt.I = 0 := by
+    show ZSqrt.mul 0 ZSqrt.I = 0
     apply ZSqrt.ext
-    · show (0 : Int) * 0 - D₂ * (0 * 1) = 0; simp
-    · show (0 : Int) * 1 + 0 * 0 = 0; simp
+    · show (0 : Int) * 0 - D₂ * (0 * 1) = 0
+      rw [Int.mul_zero, E213.Theory.Internal.Int213.zero_mul, Int.mul_zero]
+      rfl
+    · show (0 : Int) * 1 + 0 * 0 = 0
+      rw [E213.Theory.Internal.Int213.zero_mul, Int.mul_zero]; rfl
+  rw [hp1, hp2]
+  rfl
 
 end E213.Lib.Math.CayleyDickson.ZSqrtProduct

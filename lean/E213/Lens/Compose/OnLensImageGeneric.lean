@@ -1,4 +1,5 @@
 import E213.Lens.Compose.OnLens
+import E213.Lens.EqPW
 
 /-!
 # LensOnLensImageGeneric: generic Lens-on-Lens collapse
@@ -90,5 +91,33 @@ theorem lensUniversalMorphism_factors_generic
     (constComposite_b α)
     (constComposite_slash α) r
   exact this.symm
+
+/-- ∅-axiom companion: pointwise (eqPW) version of the generic
+    Lens-on-Lens tower-collapse factorization.  Uses
+    `Lens.view_unique_eqPW` with `lensCombineGeneric_comm_eqPW`
+    and `lensCombineGeneric_eqPW_cong`. -/
+theorem lensUniversalMorphism_factors_generic_eqPW
+    (α : Type) [d : HasDistinguishing α] (r : Raw) :
+    (Raw.fold (constLens d.a) (constLens d.b)
+              (lensCombineGeneric d.combine) r).eqPW
+      (constComposite α r) := by
+  have h := Lens.view_unique_eqPW
+    (β := α)
+    (L := ⟨constLens d.a, constLens d.b, lensCombineGeneric d.combine⟩)
+    (fun u v => lensCombineGeneric_comm_eqPW d.combine d.combine_sym u v)
+    (fun u u' v v' hu hv =>
+       lensCombineGeneric_eqPW_cong d.combine u u' v v' hu hv)
+    (constComposite α)
+    (by show (constComposite α Raw.a).eqPW (constLens d.a)
+        rw [constComposite_a α]; exact Lens.eqPW_refl _)
+    (by show (constComposite α Raw.b).eqPW (constLens d.b)
+        rw [constComposite_b α]; exact Lens.eqPW_refl _)
+    (by intro x y h
+        show (constComposite α (Raw.slash x y h)).eqPW
+              (lensCombineGeneric d.combine (constComposite α x)
+                                             (constComposite α y))
+        rw [constComposite_slash α x y h]; exact Lens.eqPW_refl _)
+    r
+  exact Lens.eqPW_symm h
 
 end E213.Lens.Compose.OnLensImageGeneric

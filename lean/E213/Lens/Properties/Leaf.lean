@@ -27,7 +27,8 @@ def leafLens : Lens Bool where
   base_b := false
   combine _ _ := true
 
-/-- leaves r ≥ 1 for all r : Raw. -/
+/-- leaves r ≥ 1 for all r : Raw.  ∅-axiom: replaced `omega` with
+    `Nat.le_trans` + `Nat.le_add_right`. -/
 private theorem leaves_ge_one : ∀ r : Raw, 1 ≤ Lens.leaves.view r := by
   intro r
   induction r using Raw.rec with
@@ -38,9 +39,12 @@ private theorem leaves_ge_one : ∀ r : Raw, 1 ≤ Lens.leaves.view r := by
                    = Lens.leaves.view x + Lens.leaves.view y := by
         apply Raw.fold_slash
         intro u v; exact Nat.add_comm u v
-      rw [hfs]; omega
+      rw [hfs]
+      exact Nat.le_trans ihx (Nat.le_add_right _ _)
 
-/-- leafLens.view r = decide (leaves r ≥ 2). -/
+/-- leafLens.view r = decide (leaves r ≥ 2).  ∅-axiom: avoids
+    `omega` + `simp [this]` propext leak by manual Nat ≥ proof
+    + `decide_eq_true` direct application. -/
 theorem leafLens_view_eq :
     ∀ r : Raw, leafLens.view r = decide (Lens.leaves.view r ≥ 2) := by
   intro r
@@ -55,11 +59,13 @@ theorem leafLens_view_eq :
                     = Lens.leaves.view x + Lens.leaves.view y := by
         apply Raw.fold_slash
         intro u v; exact Nat.add_comm u v
-      have hx := leaves_ge_one x
-      have hy := leaves_ge_one y
+      have hx : Lens.leaves.view x ≥ 1 := leaves_ge_one x
+      have hy : Lens.leaves.view y ≥ 1 := leaves_ge_one y
       rw [hfsL, hfsN]
-      have : Lens.leaves.view x + Lens.leaves.view y ≥ 2 := by omega
-      simp [this]
+      -- 1 + 1 ≤ x.view + y.view
+      have h_sum : Lens.leaves.view x + Lens.leaves.view y ≥ 2 :=
+        Nat.add_le_add hx hy
+      exact (decide_eq_true h_sum).symm
 
 /-- **Lens.leaves refines leafLens** (leaves count determines
     leaf/slash status).  Via the factoring lemma. -/

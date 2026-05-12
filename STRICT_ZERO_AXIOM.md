@@ -37,6 +37,209 @@ to HANDOFF.md "current state" for the freshest reading.  994 total
 `.lean` files; scanner enumerates ~500-800 ★-marked theorems
 depending on timeout state.)
 
+**2026-05-09 (later, marathon batch 1)**: User directive "seal
+없애버리고 다 213 native로" — emptied SEALED_DIRTY_PREFIXES.  Full
+scan post-seal-empty: **2491 PURE / 164 DIRTY / 0 sealed**.
+
+After batch 1-10 fixes (27 theorems converted): **2519 PURE / 137
+DIRTY / 0 sealed**.
+
+Marathon progress this session: **27/164 (16.5%)**.
+
+**2026-05-10 (continuation, Lens equality refactor / G83 marathon)**:
+Continuation of marathon under "Lens equality 재정의 strategy"
+directive.  Phase 1 + Phase 2 complete with eqPW infrastructure:
+
+Phase 1 — Infrastructure (`lean/E213/Lens/EqPW.lean`):
+  - `Lens.eqPW L M` — pointwise Lens equality definition
+  - `eqPW_refl`, `eqPW_symm`, `eqPW_trans` — equivalence
+  - `eqPW_view_a`, `eqPW_view_b`, `eqPW_combine_sym_transfer`
+  - `eqPW_view_of_sym` — view bridge under symmetric combine
+  - `Lens.fold_slash_eqPW` — fold/slash compatibility for eqPW sym
+  All ∅-axiom (PURE).
+
+Phase 2 — Cat 1 conversions (11 PURE + 4 PURE companions + 2 partial):
+
+PURE (was DIRTY):
+  - SemanticAtom.isLensExpressible_iff_foldStructured  [Quot.sound] → ∅
+  - SemanticAtom.raw_initial                          [Quot.sound] → ∅
+  - Morphism.FoldStructured.fold_structured_lens_expressible      → ∅
+  - Morphism.FoldStructured.lens_expressible_iff_fold_structured  → ∅
+  - Lattice.IndexedJoin.iProdLens_view              [Quot.sound] → ∅
+  - Lattice.IndexedJoin.iProdLens_refines_each      [Quot.sound] → ∅
+  - Instances.Cauchy.pointwise_limit_match          [Quot.sound] → ∅
+  - Characterisation.Core.R4_conj_unique_of_surjective [Quot.sound] → ∅
+  - Compose.OnLens.lensUniversalMorphism            [Quot.sound] → ∅
+  - Compose.OnLens.lensUniversalMorphism_a          [Quot.sound] → ∅
+  - Compose.OnLens.lensUniversalMorphism_b          [Quot.sound] → ∅
+
+NEW PURE eqPW companions (alongside existing DIRTY originals):
+  - Compose.OnLens.lensXor_comm_eqPW
+  - Compose.OnLens.lensCombineGeneric_comm_eqPW
+  - Compose.OnLens.lensUniversalMorphism_slash_eqPW
+
+Partial (Quot.sound removed but propext remains):
+  - Leaves.Mod3.leavesMod3Lens_view_eq    [propext, Quot.sound] → [propext]
+  - Leaves.Mod3.leaves_refines_mod3       [propext, Quot.sound] → [propext]
+  - App.Simplex.block_constant_implies_aut_invariant
+                                          [propext, Quot.sound] → [propext]
+
+Patterns added to playbook:
+9. Function-eq capstone (`f = g : Raw → α`) → pointwise (`∀ r, f r = g r`)
+   to avoid funext.  Trivial change at the leaf, downstream consumers
+   adjust.
+10. Index-pointwise iProdLens — split on canonical-form cmp at the
+    index level instead of going through function-level Raw.fold_slash.
+11. eqPW companion pattern — for Cat 1 `L = M : Lens α` lemmas, add
+    `(L).eqPW M` sibling without removing the DIRTY original; new
+    consumers migrate gradually.
+
+**Post-session scan (verified, final)**: **2654 PURE / 129 DIRTY** (2783 total).
+(Mid-session checkpoint: 2644/133 — continuation batch +10 PURE, -4 DIRTY.)
+
+DIRTY breakdown (cumulative session):
+  - 54  [propext]                              (was 50 at session start)
+  - 46  [propext, Quot.sound]                  (was 50)
+  - 18  [Quot.sound]                           (was 33 — **−15** from Cat 1 work)
+  - 9   [propext, Classical.choice, Quot.sound] (Lean.Elab plumbing)
+  - 2   [propext, Quot.sound] (split format)
+
+The `[Quot.sound]`-only category dropped 33 → 18 (−15, ~45% reduction) —
+direct hit of the G83 Lens-equality refactor.
+
+**Continuation batch**: more PURE wins via the eqPW-companion + typeclass-
+bypass patterns:
+  - `Compose.OnLens.universalMorphismLevelTwo`             [Quot.sound] → ∅
+  - `Compose.OnLens.universalMorphismLevelThree`           [Quot.sound] → ∅
+  - `Lens.Instances.FunctionSpace.funUniversalMorphism`    [Quot.sound] → ∅
+  - `Lens.Instances.FunctionSpace.boolFunUniversal`        [Quot.sound] → ∅
+
+New PURE eqPW companions (alongside DIRTY originals):
+  - `EqPW.Lens.view_unique_eqPW`              (∅-axiom view-unique companion)
+  - `OnLens.lensXor_eqPW_cong`                (eqPW-congruence of lensXor)
+  - `OnLens.lensCombineGeneric_eqPW_cong`     (eqPW-congruence of generic)
+  - `OnLensImage.lensUniversalMorphism_factors_eqPW`     (factor PURE)
+  - `OnLensImage.lensUniversalMorphism_image_eqPW`       (image PURE)
+  - `OnLensImageGeneric.lensUniversalMorphism_factors_generic_eqPW`
+  - `Lattice.IndexedJoin.iProdLens_is_greatest_pw`        (per-index PURE)
+
+DIRTY breakdown:
+  - 54  [propext]                                     (was 50)
+  - 46  [propext, Quot.sound]                         (was 50)
+  - 22  [Quot.sound]                                  (was 33 — **Cat 1 hit**)
+  - 9   [propext, Classical.choice, Quot.sound]       (was 9 — Lean.Elab plumbing)
+  - 2   [propext, Quot.sound] (split format)          (was 2)
+
+The `[Quot.sound]`-only column dropping 33 → 22 (-11) is the
+direct Cat 1 conversion signal — those were genuine "Lens equality
+via funext on combine" leaks, exactly the G83 target.
+
+The remaining DIRTY split:
+  - Inherent Prop-codomain (`Raw → Prop` from `universalLens`):
+    [propext, Quot.sound] — universalLens / FamilyJoinEquiv / Lattice.Join
+  - Inherent Lens-eq-on-Bool (Cat 1 with no eqPW migration yet):
+    [Quot.sound] — lensBoolHasDistinguishing chain, Tower levels
+  - Inherent simp-from-omega: [propext] — Mod3, Cauchy, etc.
+  - Heavy ring polynomial: [propext, Quot.sound] — CayleyHeavy, Sedenion
+  - Lean.Elab plumbing: [propext, Classical.choice, Quot.sound] —
+    NativeGuard, DepthJoin (uses Classical.choice indirectly)
+
+Patterns established (8 reusable):
+1. omega → Nat.le_trans + Nat.le_add_right + Nat.add_le_add
+2. cases h (impossible Nat eq) → absurd h (by decide)
+3. injEq.mp .2 → congrArg <projector>
+4. cmp_eq_iff.mp → cmp_eq_to_eq (existing direct lemma)
+5. simp [...] → show <expanded> + rw [explicit lemma] / absurd
+6. Iff lemma cascade → direct .mp/.mpr lemmas (cmp_gt_to_lt_swap etc.)
+7. simp only [def, h] → show <unfolded match form>; rw [h]
+8. inline 213-native max_comm via case-split (avoid Nat.max_comm propext)
+
+Cascade fix found: Raw.swap_slash → Lens.Swap (5 fixes from 1 source).
+
+After batch 1-5 fixes: 2507 PURE / 148 DIRTY.
+
+Earlier batch 1 fixes (5 theorems):
+
+Modules now PURE:
+- E213.Lens.Properties.Leaf (was 2 dirty)
+- E213.Lens.Diagonal (was 1 dirty)
+- E213.Lib.Math.CayleyDickson.LipschitzLens (was 1 dirty)
+- E213.Lens.Instances.RawAChar (was 1 dirty)
+- E213.Lens.Instances.SumNotCoproduct (was 1 dirty)
+- E213.Lens.Instances.SumNotCoproductGeneric (was 1 dirty)
+- E213.Lens.Instances.CompoundBool (was 4 dirty)
+- E213.Lens.Instances.Sum (was 3 dirty)
+- E213.Lens.Characterisation.Core (was 3 dirty, now 1 — funext only)
+
+Patterns established (5 reusable):
+1. omega → Nat.le_trans + Nat.le_add_right + Nat.add_le_add
+2. cases h (impossible Nat eq) → absurd h (by decide)
+3. injEq.mp .2 → congrArg <projector>
+4. cmp_eq_iff.mp → cmp_eq_to_eq (existing direct lemma)
+5. simp [...] → show <expanded> + rw [explicit lemma] / absurd
+
+Earlier batch 1 fixes (5 theorems converted): **2496 PURE / 159
+DIRTY / 0 sealed**.  Patterns established:
+- `omega` → `Nat.le_trans` + `Nat.le_add_right` + `Nat.add_le_add`
+- `cases h` (impossible Nat eq) → `absurd h (by decide)`
+- `injEq.mp` → `congrArg <projector>`
+- `Tree.cmp_eq_iff.mp` → `Tree.cmp_eq_to_eq` (∅-axiom direct lemma)
+- `simp [this]` (using Iff hypothesis) → `decide_eq_true` direct
+
+Files now PURE (was DIRTY):
+- E213.Lens.Properties.Leaf (was 2 dirty)
+- E213.Lens.Diagonal (was 1 dirty)
+- E213.Lib.Math.CayleyDickson.LipschitzLens (was 1 dirty)
+- E213.Lens.Instances.RawAChar (was 1 dirty)
+
+**Remaining marathon**: 159 items.  Categorization:
+  62  [propext]                          — most tractable
+  55  [propext, Quot.sound]              — Lens funext typically
+  31  [Quot.sound]                       — funext usage
+   9  [propext, Classical.choice, Quot.sound]  — Lean.Elab plumbing
+   2  [propext, Quot.sound] (split format)
+
+Top remaining DIRTY modules:
+  25  E213.Lens.SemanticAtom (Prop-level "atom of meaning")
+  14  E213.Lens.Compose.OnLens (Lens funext-by-design)
+  10  E213.Lens.Leaves.DepthJoin (JoinEquiv on Raw + Classical)
+  10  E213.Lens.Morphism.BoolProp
+   6  Lens.Instances.Reach, Lens.Lattice.IndexedJoin, Lib.Math.
+       CayleyDickson.CayleyHeavy
+
+**Hard categories requiring structural refactor**:
+- Lens equality redefinition (avoid funext): ~90 items
+- Math.Infinity Iff/Cantor proofs: ~5 items
+- Heavy ring polynomials (CayleyHeavy etc.): ~15 items
+- Lean.Elab Tactic plumbing: 9 items
+
+**2026-05-09** (post-Möbius-extension session, pre-merge audit):
+seal list updated to use single-`Lens.*` prefixes (was `Lens.Lens.*`
+— stale from earlier nesting).  Tree-wide scan after seal-list fix
+reports **2491 PURE / 75 DIRTY + 89 sealed-DIRTY-by-design** (2655
+total).  Real DIRTY breakdown: 32 [propext, Quot.sound] + 32
+[propext] + 7 [propext, Classical.choice, Quot.sound] +
+2 [Quot.sound] + 2 [propext, Quot.sound] (split format).
+
+The 75 real DIRTY items are **pre-existing** from before the
+Möbius-extension session.  All 102 ∅-axiom theorems newly added
+in `Theory/Nat213/` + `Theory/Tower/` + `Lib/Math/UniverseChain/
+MobiusChain.lean` are PURE.
+
+Topical breakdown of remaining DIRTY:
+- Lens.Leaves.DepthJoin (10): JoinEquiv-on-Raw uses Classical.choice
+- Lens.Morphism.BoolProp (10): BoolProp morphisms via propext
+- Lib.Math.CayleyDickson.CayleyHeavy (6): heavy ring polynomial
+  identities via simp
+- Lens.Universal.QuotLens (5): Lens funext-by-design
+- Lib.Math.CayleyDickson.ZOmegaDomain (5): ring axioms via simp
+- Lens.Instances.Swap, Sum, CompoundBool (3-4 each): Lens patterns
+- Misc Lens + Math files (1-3 each): scattered residuals
+
+These need separate marathons; many would seal under expanded
+"Lens funext-by-design" or "heavy polynomial identity" categories,
+but proper triage requires per-theorem inspection.
+
 **2026-05-05** (post-AXIOM.md §9.1 rename audit pass): tree-wide
 scan reports approximately **541 PURE / 18 DIRTY / 14 sealed-DIRTY-
 by-design** (573 total counted).  Real DIRTY breakdown: 10 [propext]
@@ -251,3 +454,13 @@ Estimated upgrades: ~50-100 theorems possible.
   - `CAPSTONE_INDEX.md` — all capstones (mixed axiom levels)
   - `LESSONS_LEARNED.md` — finitist guardrails
   - `HANDOFF.md` — current state
+
+**2026-05-09 (later, marathon batches 1-12 continued)**: 30 theorems
+converted to ∅-axiom (with some net adjustments due to new helpers).
+Final scan: **2542 PURE / 144 DIRTY / 0 sealed**.
+
+Cumulative session reduction: **164 → 144 DIRTY (12.2% reduction)**.
+
+Additional modules PURE in batches 11-12:
+- E213.Lib.Math.Choice.Canonical (was 1 dirty)
+- E213.Lens.Compose.OnLensImage (4 → 2, 2 fixes)

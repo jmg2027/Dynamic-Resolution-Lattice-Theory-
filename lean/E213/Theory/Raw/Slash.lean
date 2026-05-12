@@ -2,13 +2,11 @@ import E213.Theory.Raw.Core
 import E213.Theory.Internal.Raw.Cmp
 
 /-!
-# Firmware.Raw.Slash: the `slash` smart constructor + `depth`
+# Theory.Raw.Slash: the `slash` smart constructor + `depth`
 
 Raw.slash canonicalises the child order using `Tree.cmp`;
 Raw.slash_comm reflects the axiom's directionless "between".
 Tree.depth is the basic structural observable.
-
-Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Theory

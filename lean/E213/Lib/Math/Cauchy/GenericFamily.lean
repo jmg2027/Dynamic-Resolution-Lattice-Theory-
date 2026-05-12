@@ -95,18 +95,27 @@ theorem orderCauchy_is_GFCauchy
       (fun (mk : Nat × Nat) (p : Nat × Nat) =>
          E213.Lib.Math.Cauchy.Archimedean.orderProj mk.1 mk.2 p) xs := by
   intro mk
-  by_cases hk : mk.2 ≥ 1
-  · obtain ⟨N, hN⟩ := h mk.1 mk.2 hk
+  match (inferInstance : Decidable (mk.2 ≥ 1)) with
+  | .isTrue hk =>
+    obtain ⟨N, hN⟩ := h mk.1 mk.2 hk
     exact ⟨N, hN⟩
-  · -- mk.2 = 0: orderProj is always true (since p.1 * 0 = 0 ≤ p.2 * mk.1)
+  | .isFalse hk =>
+    -- mk.2 = 0: orderProj is always true (since p.1 * 0 = 0 ≤ p.2 * mk.1)
     refine ⟨0, ?_⟩
     intro k l _ _
     show E213.Lib.Math.Cauchy.Archimedean.orderProj mk.1 mk.2 _ =
          E213.Lib.Math.Cauchy.Archimedean.orderProj mk.1 mk.2 _
-    have hk0 : mk.2 = 0 := by omega
+    have hk0 : mk.2 = 0 := by
+      match hmk2 : mk.2 with
+      | 0 => rfl
+      | n + 1 =>
+        exfalso
+        apply hk
+        rw [hmk2]
+        exact Nat.succ_le_succ (Nat.zero_le n)
     unfold E213.Lib.Math.Cauchy.Archimedean.orderProj
-    rw [hk0]
-    simp
+    rw [hk0, Nat.mul_zero, Nat.mul_zero]
+    rw [decide_eq_true (Nat.zero_le _), decide_eq_true (Nat.zero_le _)]
 
 end E213.Lib.Math.Cauchy.GenericFamily
 
@@ -127,8 +136,11 @@ theorem profinite_factorial_is_GFCauchy
   intro k l hk hl
   show Lens.leaves.view (xs k) % (m + 1) = Lens.leaves.view (xs l) % (m + 1)
   rw [hLeaves k, hLeaves l]
-  rw [E213.Lib.Math.Cauchy.ProfiniteSeq.factorial_eventually_zero_mod (m+1) (by omega) k (by omega),
-      E213.Lib.Math.Cauchy.ProfiniteSeq.factorial_eventually_zero_mod (m+1) (by omega) l (by omega)]
+  have hmp : 1 ≤ m + 1 := Nat.succ_le_succ (Nat.zero_le m)
+  rw [E213.Lib.Math.Cauchy.ProfiniteSeq.factorial_eventually_zero_mod
+        (m+1) hmp k (Nat.le_succ_of_le hk),
+      E213.Lib.Math.Cauchy.ProfiniteSeq.factorial_eventually_zero_mod
+        (m+1) hmp l (Nat.le_succ_of_le hl)]
 
 end E213.Lib.Math.Cauchy.GenericFamily
 

@@ -2,36 +2,27 @@ import E213.Lib.Math.DyadicFSM.ForwardClosure
 
 import E213.Lib.Math.DyadicFSM.ForwardPeriodicity
 /-!
-# LCM closure — periodic streams combine multiplicatively
+# Common-multiple closure — periodic streams combine multiplicatively
 
 Pisano-style CRT structural lemma at the stream level:
 
 If `bs` has period `p`, then `bs` has period `kp` for any `k`
 (already proven in `bs_periodic_multiple`).  In particular, for
-any `q`, `bs` has period `lcm(p, q)`.
+any common multiple `N` of `p` and `q`, both `bs1` and `bs2` are
+periodic at `N` simultaneously.  Combining them via any function
+yields a stream with period dividing `N`.
 
-Symmetrically, two streams with periods `p, q` *both* have period
-`lcm(p, q)` simultaneously.  Combining them via any function
-yields a stream with period dividing `lcm(p, q)` — the formal
-content of CRT period multiplicativity.
+This was previously formulated using `Nat.lcm p q` as the canonical
+common multiple, but `Nat.lcm` (and the cascade `Nat.gcd`) brings
+`propext` from Lean-core well-founded termination proofs.  We now
+take an *arbitrary* common multiple `N` and specialise to `p * q`
+(the trivially-correct common multiple) in the API surface used by
+downstream capstones — staying ∅-axiom while preserving content.
 -/
 
 namespace E213.Lib.Math.DyadicFSM.LCMClosure
 
 open E213.Lib.Math.DyadicFSM.ForwardPeriodicity (bs_periodic_multiple)
-
-
-/-- Nat.lcm positivity. -/
-theorem Nat.lcm_pos {p q : Nat} (hp : 0 < p) (hq : 0 < q) : 0 < Nat.lcm p q := by
-  show 0 < p * q / _root_.Nat.gcd p q
-  have h1 : 0 < p * q := _root_.Nat.mul_pos hp hq
-  have h2 : 0 < _root_.Nat.gcd p q := _root_.Nat.gcd_pos_of_pos_left q hp
-  have h3 : _root_.Nat.gcd p q ∣ p * q :=
-    _root_.Nat.dvd_trans (_root_.Nat.gcd_dvd_left p q) (_root_.Nat.dvd_mul_right p q)
-  have h4 : _root_.Nat.gcd p q ≤ p * q := _root_.Nat.le_of_dvd h1 h3
-  have h5 : 1 ≤ p * q / _root_.Nat.gcd p q :=
-    (_root_.Nat.le_div_iff_mul_le h2).mpr (by omega)
-  omega
 
 /-- ★★★ A purely-periodic stream is periodic at any multiple of its period.
     (Pure-periodic strengthening of bs_periodic_multiple.) -/
@@ -54,27 +45,42 @@ theorem bs_periodic_of_dvd (bs : Nat → Bool) (p q : Nat) (hp : 0 < p)
   rw [_root_.Nat.mul_comm p m]
   exact bs_periodic_at_multiple bs p hp h k m
 
-/-- ★★★★★ A stream periodic with two periods is periodic with their LCM. -/
-theorem bs_periodic_lcm (bs : Nat → Bool) (p q : Nat)
-    (hp : 0 < p) (hq : 0 < q)
-    (h_p : ∀ k, bs (k + p) = bs k) (h_q : ∀ k, bs (k + q) = bs k) :
-    ∀ k, bs (k + Nat.lcm p q) = bs k := by
-  intro k
-  exact bs_periodic_of_dvd bs p (Nat.lcm p q) hp (_root_.Nat.dvd_lcm_left p q) h_p k
+/-- ★★★★★ A stream periodic with period `p` is periodic at any `N`
+    with `p ∣ N`.  General common-multiple form (∅-axiom). -/
+theorem bs_periodic_at_common_multiple
+    (bs : Nat → Bool) (p N : Nat) (hp : 0 < p) (hpN : p ∣ N)
+    (h : ∀ k, bs (k + p) = bs k) :
+    ∀ k, bs (k + N) = bs k :=
+  bs_periodic_of_dvd bs p N hp hpN h
 
-/-- ★★★★★★ CRT period multiplicativity: two streams with periods p, q
-    combined via any function g have period dividing lcm(p, q). -/
-theorem bs_combined_periodic_lcm (bs1 bs2 : Nat → Bool) (p q : Nat)
+/-- ★★★★★★ CRT period multiplicativity (general form): two streams
+    with periods `p`, `q` and *any* common multiple `N` of both
+    combine via `g` to a stream periodic at `N`.  Specialise via
+    `bs_combined_periodic_product` for `N := p * q`. -/
+theorem bs_combined_periodic_at
+    (bs1 bs2 : Nat → Bool) (p q N : Nat)
+    (hp : 0 < p) (hq : 0 < q)
+    (hpN : p ∣ N) (hqN : q ∣ N)
+    (h1 : ∀ k, bs1 (k + p) = bs1 k) (h2 : ∀ k, bs2 (k + q) = bs2 k)
+    (g : Bool → Bool → Bool) :
+    ∀ k, g (bs1 (k + N)) (bs2 (k + N)) = g (bs1 k) (bs2 k) := by
+  intro k
+  have h1' : bs1 (k + N) = bs1 k :=
+    bs_periodic_of_dvd bs1 p N hp hpN h1 k
+  have h2' : bs2 (k + N) = bs2 k :=
+    bs_periodic_of_dvd bs2 q N hq hqN h2 k
+  rw [h1', h2']
+
+/-- ★★★★★★ Trivial-common-multiple specialisation: `N := p * q`.
+    Drop-in replacement for the previous `bs_combined_periodic_lcm`
+    that avoids `Nat.lcm` and stays ∅-axiom. -/
+theorem bs_combined_periodic_product
+    (bs1 bs2 : Nat → Bool) (p q : Nat)
     (hp : 0 < p) (hq : 0 < q)
     (h1 : ∀ k, bs1 (k + p) = bs1 k) (h2 : ∀ k, bs2 (k + q) = bs2 k)
     (g : Bool → Bool → Bool) :
-    ∀ k, g (bs1 (k + Nat.lcm p q)) (bs2 (k + Nat.lcm p q))
-        = g (bs1 k) (bs2 k) := by
-  intro k
-  have h1' : bs1 (k + Nat.lcm p q) = bs1 k :=
-    bs_periodic_of_dvd bs1 p (Nat.lcm p q) hp (_root_.Nat.dvd_lcm_left p q) h1 k
-  have h2' : bs2 (k + Nat.lcm p q) = bs2 k :=
-    bs_periodic_of_dvd bs2 q (Nat.lcm p q) hq (_root_.Nat.dvd_lcm_right p q) h2 k
-  rw [h1', h2']
+    ∀ k, g (bs1 (k + p * q)) (bs2 (k + p * q)) = g (bs1 k) (bs2 k) :=
+  bs_combined_periodic_at bs1 bs2 p q (p * q) hp hq
+    ⟨q, rfl⟩ ⟨p, _root_.Nat.mul_comm p q⟩ h1 h2 g
 
 end E213.Lib.Math.DyadicFSM.LCMClosure

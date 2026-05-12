@@ -1,36 +1,51 @@
 import E213.Theory.Raw.Core
 
 /-!
-# Firmware.Raw.Cmp: lexicographic lemmas on `Tree.cmp`
+# Theory.Internal.Raw.Cmp: lexicographic lemmas on `Tree.cmp`
++ ∅-axiom Bool / Nat helpers (`Bool.and_eq_true_to_pair`,
+`Nat213.max_comm`) used by Slash / Swap / Rec / Levels.
 
 Three support lemmas in `E213.Theory.Internal`, used by
 `Slash`, `Swap`, and `Rec` sub-modules.
-
-Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Theory.Internal
 
 theorem Tree.cmp_eq_iff (x y : Tree) : Tree.cmp x y = .eq ↔ x = y := by
   induction x generalizing y with
-  | a => cases y <;> simp [Tree.cmp]
-  | b => cases y <;> simp [Tree.cmp]
+  | a =>
+      cases y with
+      | a => exact ⟨fun _ => rfl, fun _ => rfl⟩
+      | b => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
+      | slash _ _ => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
+  | b =>
+      cases y with
+      | a => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
+      | b => exact ⟨fun _ => rfl, fun _ => rfl⟩
+      | slash _ _ => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
   | slash x₁ y₁ ihx ihy =>
       cases y with
-      | a => simp [Tree.cmp]
-      | b => simp [Tree.cmp]
+      | a => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
+      | b => exact ⟨fun h => Ordering.noConfusion h, fun h => Tree.noConfusion h⟩
       | slash x₂ y₂ =>
-          simp only [Tree.cmp]
+          show (match Tree.cmp x₁ x₂ with
+                | .eq => Tree.cmp y₁ y₂
+                | .lt => .lt
+                | .gt => .gt) = .eq ↔ _
           constructor
           · intro h
             split at h <;> rename_i hc
-            · rw [(ihy y₂).mp h, show x₁ = x₂ from (ihx x₂).mp hc]
-            all_goals cases h
+            · have hx : x₁ = x₂ := (ihx x₂).mp hc
+              have hy : y₁ = y₂ := (ihy y₂).mp h
+              exact hx ▸ hy ▸ rfl
+            · exact Ordering.noConfusion h
+            · exact Ordering.noConfusion h
           · intro h
             injection h with hx hy
-            rw [← hx, ← hy]
-            rw [show Tree.cmp x₁ x₁ = .eq from (ihx x₁).mpr rfl]
-            exact (ihy y₁).mpr rfl
+            have hcx : Tree.cmp x₁ x₂ = .eq := (ihx x₂).mpr hx
+            have hcy : Tree.cmp y₁ y₂ = .eq := (ihy y₂).mpr hy
+            rw [hcx]
+            exact hcy
 
 theorem Tree.cmp_swap (x y : Tree) :
     Tree.cmp x y = (Tree.cmp y x).swap := by
@@ -113,11 +128,38 @@ theorem Tree.cmp_gt_to_lt_swap (x y : Tree) (h : Tree.cmp x y = .gt) :
   | eq => rw [hyx] at h; cases h
   | gt => rw [hyx] at h; cases h
 
+/-- Direct: `Tree.cmp x y = .lt → Tree.cmp y x = .gt` (no iff).
+    Reverse direction of cmp_gt_to_lt_swap. -/
+theorem Tree.cmp_lt_to_gt_swap (x y : Tree) (h : Tree.cmp x y = .lt) :
+    Tree.cmp y x = .gt := by
+  have hsw : Tree.cmp x y = (Tree.cmp y x).swap := Tree.cmp_swap x y
+  rw [hsw] at h
+  cases hyx : Tree.cmp y x with
+  | lt => rw [hyx] at h; cases h
+  | eq => rw [hyx] at h; cases h
+  | gt => rfl
+
 /-- ∅-axiom Bool destructor: `a && b = true → a = true ∧ b = true`. -/
 theorem Bool.and_eq_true_to_pair : ∀ {a b : Bool},
     (a && b) = true → a = true ∧ b = true
   | true, true, _ => ⟨rfl, rfl⟩
   | false, _, h => by cases h
   | true, false, h => by cases h
+
+/-- 213-native `Nat.max_comm` (Lean-core `Nat.max_comm` leaks
+    `propext` via `Nat.max_eq_left`).  Used by `Tree.swap_depth`
+    on the `.gt` branch where the swapped children appear in
+    reverse order.  Pure: ∅-axiom. -/
+theorem Nat213.max_comm (a b : Nat) : Nat.max a b = Nat.max b a := by
+  show (if a ≤ b then b else a) = (if b ≤ a then a else b)
+  rcases Nat.le_total a b with hab | hba
+  · rw [if_pos hab]
+    by_cases h : b ≤ a
+    · rw [if_pos h]; exact Nat.le_antisymm h hab
+    · rw [if_neg h]
+  · rw [if_pos hba]
+    by_cases h : a ≤ b
+    · rw [if_pos h]; exact Nat.le_antisymm hba h
+    · rw [if_neg h]
 
 end E213.Theory.Internal

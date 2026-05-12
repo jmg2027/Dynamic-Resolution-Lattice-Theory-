@@ -30,28 +30,23 @@ def nToRawBool (n : Nat) : Raw → Bool :=
 
 /-- `nToRawBool n` evaluated at `rawTower n` is `true`. -/
 theorem nToRawBool_self (n : Nat) :
-    nToRawBool n (rawTower n) = true := by
-  show decide (rawTower n = rawTower n) = true
-  rw [decide_eq_true_eq]
+    nToRawBool n (rawTower n) = true :=
+  decide_eq_true (Eq.refl (rawTower n))
 
 /-- `nToRawBool n` evaluated at `rawTower m` is `false`
     when `n ≠ m`. -/
 theorem nToRawBool_other (n m : Nat) (hne : n ≠ m) :
-    nToRawBool n (rawTower m) = false := by
-  show decide (rawTower m = rawTower n) = false
-  rw [decide_eq_false_iff_not]
-  intro heq
-  exact hne (rawTower_injective heq).symm
+    nToRawBool n (rawTower m) = false :=
+  decide_eq_false (fun heq => hne (rawTower_injective heq).symm)
 
 /-- **`nToRawBool` is injective.** -/
 theorem nToRawBool_injective : Function.Injective nToRawBool := by
   intro n m heq
   have h1 : nToRawBool n (rawTower n) = nToRawBool m (rawTower n) :=
     congrFun heq _
-  rw [nToRawBool_self] at h1
-  have h2 : decide (rawTower n = rawTower m) = true := h1.symm
-  rw [decide_eq_true_eq] at h2
-  exact rawTower_injective h2
+  have h2 : nToRawBool m (rawTower n) = true := h1.symm.trans (nToRawBool_self n)
+  have h3 : rawTower n = rawTower m := of_decide_eq_true h2
+  exact rawTower_injective h3
 
 end E213.Infinity
 

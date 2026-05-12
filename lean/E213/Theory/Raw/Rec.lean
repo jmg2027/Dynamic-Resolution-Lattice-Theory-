@@ -2,15 +2,15 @@ import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Slash
 
 /-!
-# Firmware.Raw.Rec: `@[elab_as_elim] Raw.rec`
+# Theory.Raw.Rec: `@[elab_as_elim] Raw.rec`
 
 Custom induction principle for Raw that destructures a canonical
 Raw term through three cases — `a`, `b`, `slash x y h ihx ihy` —
 with no Tree-level exposure required at use-sites.
 
-Introduced in 3.  Raw-level induction is the intended
-way to reason about Raw values in Hypervisor / OS / App; client
-code writes `induction r using Raw.rec with | a | b | slash …`.
+Raw-level induction is the intended way to reason about Raw
+values in Lens / App; client code writes
+`induction r using Raw.rec with | a | b | slash …`.
 
 **WARNING — axiom compliance (AXIOM.md §3)**: the order of the `(x, y)`
 pair passed to the slash branch of `Raw.rec` comes from canonical form
@@ -18,7 +18,7 @@ pair passed to the slash branch of `Raw.rec` comes from canonical form
 `y` asymmetrically** in that branch (e.g., `f x ≠ f y` is not
 covariant under swap), the result depends on an encoding artifact (the
 cmp choice).  Every motive value in the slash branch must be invariant
-under swapping x and y.  `AUDIT_Lean.md` §5.2(B).
+under swapping x and y.
 
 Note: Lean 4 core has `@[elab_as_elim]` but not `@[eliminator]`
 (the latter is Mathlib only); `using Raw.rec` is therefore

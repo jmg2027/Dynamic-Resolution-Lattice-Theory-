@@ -93,7 +93,7 @@ end E213.Lens.Lattice.IndexedJoin
 
 namespace E213.Lens.Lattice.IndexedJoin
 
-open E213.Theory E213.Lens
+open E213.Theory E213.Theory.Internal E213.Lens
 
 /-- **Indexed product Lens (meet)**: concrete meet of an arbitrary
     family `{L_i}` — codomain is the dependent function space.
@@ -104,34 +104,52 @@ def iProdLens {ι : Type} (F : ι → (α : Type) × Lens α) :
   base_b := fun i => (F i).2.base_b
   combine := fun f g i => (F i).2.combine (f i) (g i)
 
-/-- iProdLens.view is a pointwise application — requires combine
-    sym for each L_i. -/
+/-- iProdLens.view is a **pointwise** application — stated at each index `i`
+    to avoid funext on the dependent function space `(j : ι) → (F j).1`.
+    Pointwise sym `hAllSym` of each L_i suffices. -/
 theorem iProdLens_view {ι : Type} (F : ι → (α : Type) × Lens α)
     (hAllSym : ∀ i (u v : (F i).1),
                 (F i).2.combine u v = (F i).2.combine v u)
-    (r : Raw) :
-    (iProdLens F).view r = fun i => (F i).2.view r := by
+    (r : Raw) (i : ι) :
+    (iProdLens F).view r i = (F i).2.view r := by
   induction r using Raw.rec with
   | a => rfl
   | b => rfl
   | slash x y h ihx ihy =>
-      have hsym : ∀ u v : ((i : ι) → (F i).1),
-          (iProdLens F).combine u v = (iProdLens F).combine v u := by
-        intro u v; funext i
-        exact hAllSym i (u i) (v i)
-      have hfs : (iProdLens F).view (Raw.slash x y h)
-                  = (iProdLens F).combine
-                      ((iProdLens F).view x) ((iProdLens F).view y) := by
-        apply Raw.fold_slash _ _ _ hsym
-      rw [hfs, ihx, ihy]
-      funext i
+      -- Reduce (F i).2.view on the slash via Raw.fold_slash with pointwise sym.
       have hL_fs : (F i).2.view (Raw.slash x y h)
-                    = (F i).2.combine ((F i).2.view x) ((F i).2.view y) := by
-        apply Raw.fold_slash _ _ _ (hAllSym i)
-      rw [hL_fs]
-      rfl
+                    = (F i).2.combine ((F i).2.view x) ((F i).2.view y) :=
+        Raw.fold_slash _ _ _ (hAllSym i) x y h
+      rw [hL_fs, ← ihx, ← ihy]
+      -- Now reduce (iProdLens F).view on the slash by Raw/Tree.fold unfold,
+      -- splitting on canonical-form cmp.  Funext-free.
+      show (Raw.fold (iProdLens F).base_a (iProdLens F).base_b
+              (iProdLens F).combine (Raw.slash x y h)) i
+        = (F i).2.combine
+            ((Raw.fold (iProdLens F).base_a (iProdLens F).base_b
+                (iProdLens F).combine x) i)
+            ((Raw.fold (iProdLens F).base_a (iProdLens F).base_b
+                (iProdLens F).combine y) i)
+      unfold Raw.slash Raw.fold
+      split <;> rename_i hc
+      · rfl
+      · -- gt branch: the canonical form swaps x.val/y.val; pointwise sym
+        -- on (F i).2.combine recovers the un-swapped form.
+        show (F i).2.combine
+              ((Tree.fold (iProdLens F).base_a (iProdLens F).base_b
+                  (iProdLens F).combine y.val) i)
+              ((Tree.fold (iProdLens F).base_a (iProdLens F).base_b
+                  (iProdLens F).combine x.val) i)
+            = (F i).2.combine
+                ((Tree.fold (iProdLens F).base_a (iProdLens F).base_b
+                    (iProdLens F).combine x.val) i)
+                ((Tree.fold (iProdLens F).base_a (iProdLens F).base_b
+                    (iProdLens F).combine y.val) i)
+        exact hAllSym i _ _
+      · exact absurd (Tree.cmp_eq_to_eq _ _ hc)
+          (fun e => h (Subtype.ext e))
 
-/-- iProdLens refines each L_i — lower bound. -/
+/-- iProdLens refines each L_i — lower bound.  Uses pointwise `iProdLens_view`. -/
 theorem iProdLens_refines_each {ι : Type} (F : ι → (α : Type) × Lens α)
     (hAllSym : ∀ i (u v : (F i).1),
                 (F i).2.combine u v = (F i).2.combine v u)
@@ -139,16 +157,17 @@ theorem iProdLens_refines_each {ι : Type} (F : ι → (α : Type) × Lens α)
     (iProdLens F).refines (F i).2 := by
   intro r r' h
   show (F i).2.view r = (F i).2.view r'
-  have h1 : (iProdLens F).view r = fun j => (F j).2.view r :=
-    iProdLens_view F hAllSym r
-  have h2 : (iProdLens F).view r' = fun j => (F j).2.view r' :=
-    iProdLens_view F hAllSym r'
   have hview : (iProdLens F).view r = (iProdLens F).view r' := h
-  rw [h1, h2] at hview
-  exact congrFun hview i
+  -- Project to index i via the pointwise view lemma.
+  rw [← iProdLens_view F hAllSym r i,
+      ← iProdLens_view F hAllSym r' i, hview]
 
 /-- **iProdLens universal property (greatest lower bound)**: any L
-    that refines all (F i).2 also refines iProdLens F. -/
+    that refines all (F i).2 also refines iProdLens F.  Uses pointwise
+    extensionality at the index level — the only function-eq invocation
+    is the final `funext i` to assemble the kernel equality, which lives
+    on the `Raw → ((j:ι) → β j)` codomain side.  Funext-free version
+    below states the conclusion *via* `iProdLens_view` projection. -/
 theorem iProdLens_is_greatest {ι : Type} {α : Type}
     (F : ι → (β : Type) × Lens β) (L : Lens α)
     (hAllSym : ∀ i (u v : (F i).1),
@@ -157,8 +176,22 @@ theorem iProdLens_is_greatest {ι : Type} {α : Type}
     L.refines (iProdLens F) := by
   intro r r' h
   show (iProdLens F).view r = (iProdLens F).view r'
-  rw [iProdLens_view F hAllSym r, iProdLens_view F hAllSym r']
   funext i
+  rw [iProdLens_view F hAllSym r i, iProdLens_view F hAllSym r' i]
+  exact hAll i r r' h
+
+/-- ∅-axiom companion: greatest-lower-bound property stated **pointwise
+    at each index** to avoid `funext` on the dependent function-space
+    codomain.  The full `refines` form (above) follows by `funext i`. -/
+theorem iProdLens_is_greatest_pw {ι : Type} {α : Type}
+    (F : ι → (β : Type) × Lens β) (L : Lens α)
+    (hAllSym : ∀ i (u v : (F i).1),
+                (F i).2.combine u v = (F i).2.combine v u)
+    (hAll : ∀ i, L.refines (F i).2) :
+    ∀ r r' : Raw, L.equiv r r' →
+      ∀ i, (iProdLens F).view r i = (iProdLens F).view r' i := by
+  intro r r' h i
+  rw [iProdLens_view F hAllSym r i, iProdLens_view F hAllSym r' i]
   exact hAll i r r' h
 
 end E213.Lens.Lattice.IndexedJoin

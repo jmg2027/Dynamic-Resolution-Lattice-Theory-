@@ -274,3 +274,11 @@ path = "src/bin/k5_decoder.rs"
 [[bin]]
 name = "k5-discrete-geom"
 path = "src/bin/k5_discrete_geom.rs"
+
+[[bin]]
+name = "algebra213-tower-probe"
+path = "src/bin/algebra213_tower_probe.rs"
+
+[[bin]]
+name = "level2-search"
+path = "src/bin/level2_search.rs"

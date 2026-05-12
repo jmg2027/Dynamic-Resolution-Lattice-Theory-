@@ -1,4 +1,5 @@
 import E213.Lib.Math.Linalg213.Span
+import E213.Term.Tactic.Nat213
 
 /-!
 # 213 Linear Algebra — chirality bigrading (4)
@@ -22,16 +23,27 @@ def VecS : Type := Fin 3 → Nat
 def VecT : Type := Fin 2 → Nat
 
 /-- Project Vec 5 onto spatial part. -/
-def projS (v : Vec 5) : VecS := fun i => v ⟨i.val, by omega⟩
+def projS (v : Vec 5) : VecS := fun i =>
+  v ⟨i.val, Nat.lt_of_lt_of_le i.isLt (by decide : 3 ≤ 5)⟩
 
 /-- Project Vec 5 onto temporal part. -/
-def projT (v : Vec 5) : VecT := fun i => v ⟨3 + i.val, by omega⟩
+def projT (v : Vec 5) : VecT := fun i =>
+  v ⟨3 + i.val, by
+    have h1 : i.val < 2 := i.isLt
+    have h2 : 3 + i.val < 3 + 2 := Nat.add_lt_add_left h1 3
+    exact h2⟩
 
 /-- Combine S-part and T-part back into Vec 5. -/
 def combine (s : VecS) (t : VecT) : Vec 5 :=
   fun k =>
     if h : k.val < 3 then s ⟨k.val, h⟩
-    else t ⟨k.val - 3, by have := k.isLt; omega⟩
+    else t ⟨k.val - 3, by
+      have hkLt : k.val < 5 := k.isLt
+      have hge : 3 ≤ k.val := Nat.le_of_not_lt h
+      have hadd_eq : k.val - 3 + 3 = k.val :=
+        E213.Tactic.Nat213.sub_add_cancel hge
+      have hadd_lt : k.val - 3 + 3 < 2 + 3 := hadd_eq ▸ hkLt
+      exact Nat.lt_of_add_lt_add_right hadd_lt⟩
 
 /-- projS e0_5 = (1, 0, 0). -/
 theorem projS_e0_5 :
@@ -62,15 +74,14 @@ theorem projT_e4_5 :
 
 /-- ★ Chiral round-trip pointwise: combine (projS v) (projT v) k
     equals v k at every k.  Proves Vec 5 = VecS ⊕ VecT
-    (paper 1 chiral split at vector level). -/
+    (paper 1 chiral split at vector level).  PURE via cases_lt_five
+    + subst (Fin pattern match would leak Quot.sound). -/
 theorem combine_proj_eq (v : Vec 5) (k : Fin 5) :
     combine (projS v) (projT v) k = v k := by
-  match k with
-  | ⟨0, _⟩ => rfl
-  | ⟨1, _⟩ => rfl
-  | ⟨2, _⟩ => rfl
-  | ⟨3, _⟩ => rfl
-  | ⟨4, _⟩ => rfl
+  obtain ⟨n, hn⟩ := k
+  show combine (projS v) (projT v) ⟨n, hn⟩ = v ⟨n, hn⟩
+  rcases E213.Tactic.Nat213.cases_lt_five hn
+    with h | h | h | h | h <;> subst h <;> rfl
 
 /-- ★ 4 capstone. -/
 theorem phase_L4_capstone :

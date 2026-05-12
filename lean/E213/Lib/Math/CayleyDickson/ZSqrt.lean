@@ -49,20 +49,25 @@ theorem ext {u v : ZSqrt D} (hr : u.re = v.re) (hi : u.im = v.im) :
     u = v := by cases u; cases v; congr
 
 theorem conj_conj (u : ZSqrt D) : u.conj.conj = u := by
-  apply ext <;> simp [conj]
+  apply ext
+  · show u.re = u.re; rfl
+  · show -(-u.im) = u.im; exact Int.neg_neg _
 
-theorem conj_ne_id : (conj : ZSqrt D → ZSqrt D) ≠ id := by
-  intro h
-  have hI : conj (I : ZSqrt D) = id I := congrFun h I
-  have himEq : (⟨0, -1⟩ : ZSqrt D) = ⟨0, 1⟩ := hI
-  have : (-1 : Int) = 1 := (ZSqrt.mk.injEq ..).mp himEq |>.2
-  exact absurd this (by decide)
+theorem conj_ne_id : ∃ x : ZSqrt D, conj x ≠ x := by
+  refine ⟨I, ?_⟩
+  intro himEq
+  -- himEq : conj I = I, i.e., ⟨0, -1⟩ = ⟨0, 1⟩.
+  -- Take .im of both sides: -1 = 1.
+  have h_im : (conj (I : ZSqrt D)).im = (I : ZSqrt D).im := by rw [himEq]
+  have h_neg_one : (-1 : Int) = 1 := h_im
+  exact absurd h_neg_one (by decide)
 
 theorem conj_I : conj (I : ZSqrt D) = negI := rfl
 
 theorem conj_negI : conj (negI : ZSqrt D) = I := by
-  show (⟨0, -(-1)⟩ : ZSqrt D) = ⟨0, 1⟩
-  apply ext <;> simp
+  apply ext
+  · show (0 : Int) = 0; rfl
+  · show -(-1 : Int) = 1; exact Int.neg_neg _
 
 end ZSqrt
 

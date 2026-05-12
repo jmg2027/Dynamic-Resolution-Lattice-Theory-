@@ -37,15 +37,20 @@ theorem lens_view_fold_structured {α : Type} (L : Lens α)
   intro x y h
   exact Raw.fold_slash L.base_a L.base_b L.combine hsym x y h
 
-/-- **Backward**: a fold-structured function is realizable as a Lens view. -/
+/-- **Backward**: a fold-structured function is realizable as a Lens view.
+
+Stated *pointwise* (`∀ r, L.view r = f r`) instead of as a function
+equality, to avoid funext (= Quot.sound).  Consumers who really need
+the function-eq form can apply `funext` themselves at the cost of one
+isolated leak. -/
 theorem fold_structured_lens_expressible {α : Type} (f : Raw → α)
     (hfold : FoldStructured f) :
-    ∃ L : Lens α, (∀ u v, L.combine u v = L.combine v u) ∧ L.view = f := by
+    ∃ L : Lens α, (∀ u v, L.combine u v = L.combine v u) ∧
+                   ∀ r, L.view r = f r := by
   obtain ⟨ba, bb, c, hba, hbb, hsym, hslash⟩ := hfold
   refine ⟨⟨ba, bb, c⟩, hsym, ?_⟩
-  funext r
-  have := Lens.view_unique (α := α) ⟨ba, bb, c⟩ hsym f hba hbb hslash r
-  exact this.symm
+  intro r
+  exact (Lens.view_unique (α := α) ⟨ba, bb, c⟩ hsym f hba hbb hslash r).symm
 
 end E213.Lens.Morphism.FoldStructured
 
@@ -53,15 +58,24 @@ namespace E213.Lens.Morphism.FoldStructured
 
 open E213.Theory E213.Lens
 
-/-- **Main theorem (iff)**: f is the view of some symmetric-combine Lens
-    ↔ f is fold-structured. -/
+/-- **Main theorem (iff)**: f is (pointwise) the view of some
+    symmetric-combine Lens ↔ f is fold-structured.  Pointwise form
+    avoids funext. -/
 theorem lens_expressible_iff_fold_structured {α : Type} (f : Raw → α) :
-    (∃ L : Lens α, (∀ u v, L.combine u v = L.combine v u) ∧ L.view = f)
+    (∃ L : Lens α, (∀ u v, L.combine u v = L.combine v u) ∧
+                    ∀ r, L.view r = f r)
       ↔ FoldStructured f := by
   constructor
-  · intro ⟨L, hsym, hview⟩
-    rw [← hview]
-    exact lens_view_fold_structured L hsym
+  · rintro ⟨L, hsym, hview⟩
+    -- L.view r = f r pointwise; transport FoldStructured along it.
+    obtain ⟨ba, bb, c, hba, hbb, hcs, hslash⟩ :=
+      lens_view_fold_structured L hsym
+    refine ⟨ba, bb, c, ?_, ?_, hcs, ?_⟩
+    · rw [← hview Raw.a]; exact hba
+    · rw [← hview Raw.b]; exact hbb
+    · intro x y h
+      rw [← hview (Raw.slash x y h), ← hview x, ← hview y]
+      exact hslash x y h
   · exact fold_structured_lens_expressible f
 
 end E213.Lens.Morphism.FoldStructured

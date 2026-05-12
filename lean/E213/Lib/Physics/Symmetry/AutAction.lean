@@ -47,10 +47,10 @@ def aut_act (σ : Fin 5 → Fin 5) (α : Cochain 5 1) : Cochain 5 1 :=
 /-- Identity action: σ = id ⟹ aut_act id α = α. -/
 theorem aut_act_id (α : Cochain 5 1) : aut_act id α = α := rfl
 
-/-- Action is involutive when σ is involutive. -/
-theorem aut_act_involution (α : Cochain 5 1) :
-    aut_act σ_swap_01 (aut_act σ_swap_01 α) = α := by
-  funext i
+/-- Action is involutive when σ is involutive (pointwise; funext
+    would leak Quot.sound).  PURE — use this version directly. -/
+theorem aut_act_involution (α : Cochain 5 1) (i : Fin 5) :
+    aut_act σ_swap_01 (aut_act σ_swap_01 α) i = α i := by
   show α (σ_swap_01 (σ_swap_01 i)) = α i
   rw [σ_swap_01_involution]
 

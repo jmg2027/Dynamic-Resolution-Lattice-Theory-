@@ -1,12 +1,10 @@
 import E213.Theory.Internal.Raw.Cmp
 
 /-!
-# Firmware.Raw.Swap: the swap automorphism + involutivity
+# Theory.Raw.Swap: the swap automorphism + involutivity
 
 Swap preserves canonicality by re-ordering children after
 recursive swap.  `Raw.swap_swap` is Theorem 3.2 of the paper.
-
-Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Theory.Internal
@@ -129,10 +127,10 @@ theorem Tree.swap_eq_unreach
     (hcmp : Tree.cmp (Tree.swap x) (Tree.swap y) = .eq) : False := by
   have ihx' := Tree.swap_swap x hx
   have ihy' := Tree.swap_swap y hy
-  have hxy' : Tree.swap x = Tree.swap y := (Tree.cmp_eq_iff _ _).mp hcmp
+  have hxy' : Tree.swap x = Tree.swap y := Tree.cmp_eq_to_eq _ _ hcmp
   have hxy : x = y := by rw [← ihx', ← ihy', hxy']
   rw [hxy] at hlt
-  rw [show Tree.cmp y y = .eq from (Tree.cmp_eq_iff _ _).mpr rfl] at hlt
+  rw [Tree.cmp_self_eq y] at hlt
   cases hlt
 
 end E213.Theory.Internal

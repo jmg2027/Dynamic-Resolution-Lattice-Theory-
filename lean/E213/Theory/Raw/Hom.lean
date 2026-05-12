@@ -2,14 +2,12 @@ import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Fold
 
 /-!
-# Firmware.Raw.Hom: general fold_swap_hom
+# Theory.Raw.Hom: general fold_swap_hom
 
 For any `conj : α → α` that exchanges the base values and
 distributes over a symmetric `combine`, `Raw.fold` on `Raw.swap`
 equals `conj` applied to `Raw.fold`.  Consumers instantiate for
 their own codomain (e.g., ℤ[i] with conj = complex conj).
-
-Extracted from monolithic `Raw.lean` ().
 -/
 
 namespace E213.Theory.Internal
@@ -26,13 +24,19 @@ theorem Tree.fold_swap_hom {α : Type}
   | a => exact h_ba.symm
   | b => exact h_bb.symm
   | slash x y ihx ihy =>
-      have hc := h
-      simp only [Tree.canonical, Bool.and_eq_true] at hc
-      obtain ⟨⟨hx, hy⟩, _⟩ := hc
+      have hcan := h
+      unfold Tree.canonical at hcan
+      obtain ⟨hxy_can, _⟩ := Bool.and_eq_true_to_pair hcan
+      obtain ⟨hx, hy⟩ := Bool.and_eq_true_to_pair hxy_can
       have hlt := Tree.canonical_slash_lt h
       have ihx' := ihx hx
       have ihy' := ihy hy
-      simp only [Tree.swap]
+      show Tree.fold ba bb c
+             (match Tree.cmp (Tree.swap x) (Tree.swap y) with
+              | .lt => Tree.slash (Tree.swap x) (Tree.swap y)
+              | .gt => Tree.slash (Tree.swap y) (Tree.swap x)
+              | .eq => Tree.swap x)
+           = conj (Tree.fold ba bb c (Tree.slash x y))
       split <;> rename_i hcmp_inner
       · show c (Tree.fold ba bb c (Tree.swap x)) (Tree.fold ba bb c (Tree.swap y))
              = conj (c (Tree.fold ba bb c x) (Tree.fold ba bb c y))

@@ -1,4 +1,5 @@
 import E213.Lib.Math.ModArith.JoinBezout
+import E213.Lib.Math.NatHelpers.Gcd213
 
 /-!
 # ModJoinEuclidean: Euclidean step — L_m + L_k → L_{m-k}
@@ -20,12 +21,13 @@ private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
   | a => decide
   | b => decide
-  | slash x y h ihx ihy =>
+  | slash x y h ihx _ihy =>
       have hfs : Lens.leaves.view (Raw.slash x y h)
                    = Lens.leaves.view x + Lens.leaves.view y := by
         apply Raw.fold_slash
         intro u v; exact Nat.add_comm u v
-      rw [hfs]; omega
+      rw [hfs]
+      exact Nat.le_trans ihx (Nat.le_add_right _ _)
 
 private theorem same_leaves_N_local {α : Type} (N : Lens α) (k : Nat)
     (hLk : (leavesModNat k).refines N) (r r' : Raw)
@@ -35,7 +37,7 @@ private theorem same_leaves_N_local {α : Type} (N : Lens α) (k : Nat)
   show (leavesModNat k).view r = (leavesModNat k).view r'
   rw [leavesModNat_view_eq, leavesModNat_view_eq, hr]
 
-/-- +n*(m-k) step (iteration of chain_step_sub). -/
+/-- +n*(m-k) step (iteration of chain_step_sub).  ∅-axiom. -/
 theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
     (hk : k ≥ 2) (hmk : m > k)
     (hLm : (leavesModNat m).refines N)
@@ -47,13 +49,12 @@ theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
   | zero =>
       intro r' hr'
       apply same_leaves_N_local N k hLk
-      omega
+      rw [Nat.zero_mul, Nat.add_zero] at hr'
+      exact hr'.symm
   | succ n ih =>
       intro r' hr'
-      have h_r_ge : 1 ≤ Lens.leaves.view r := leaves_ge_one_local r
-      have h_bound : 1 ≤ Lens.leaves.view r + n * (m - k) := by
-        have : 0 ≤ n * (m - k) := Nat.zero_le _
-        omega
+      have h_bound : 1 ≤ Lens.leaves.view r + n * (m - k) :=
+        Nat.le_trans (leaves_ge_one_local r) (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
         E213.Infinity.leaves_surjective_pos
           (Lens.leaves.view r + n * (m - k)) h_bound
@@ -62,8 +63,9 @@ theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
         Nat.succ_mul n (m - k)
       have step2 : N.view r'' = N.view r' := by
         apply chain_step_sub N m k hk hmk hLm hLk r'' r'
-        rw [hr', hr'', hexpand]
-        omega
+        -- view r' = view r + (n+1)*(m-k) = view r + (n*(m-k) + (m-k))
+        --        = (view r + n*(m-k)) + (m-k) = view r'' + (m-k)
+        rw [hr', hexpand, ← Nat.add_assoc, ← hr'']
       exact step1.trans step2
 
 end E213.Lib.Math.ModArith.JoinEuclidean
@@ -74,7 +76,10 @@ open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 
 /-- **Euclidean step**: when m > k ≥ 2 and m - k ≥ 2,
-    L_m + L_k → L_{m-k}. -/
+    L_m + L_k → L_{m-k}.  ∅-axiom (uses
+    `Gcd213.mod_eq_exists_mul_add` to extract the quotient `q`
+    from `view r % (m-k) = view r' % (m-k)`, then iterates
+    `step_plus_nd q` times). -/
 theorem euclidean_step {α : Type} (N : Lens α) (m k : Nat)
     (hk : k ≥ 2) (hmk : m > k) (hdiff : m - k ≥ 2)
     (hLm : (leavesModNat m).refines N)
@@ -87,34 +92,14 @@ theorem euclidean_step {α : Type} (N : Lens α) (m k : Nat)
              = (leavesModNat (m - k)).view r' := h_equiv
     rw [leavesModNat_view_eq, leavesModNat_view_eq] at this
     exact this
-  have hd_pos : m - k > 0 := by omega
-  have key : ∀ (a b : Nat), a % (m - k) = b % (m - k) → b ≤ a →
-             a = b + ((a - b) / (m - k)) * (m - k) := by
-    intro a b hmod hab
-    have h1 := Nat.div_add_mod a (m - k)
-    have h2 := Nat.div_add_mod b (m - k)
-    have hb_le_a_div : b / (m - k) ≤ a / (m - k) := by
-      have hamod := Nat.mod_lt a hd_pos
-      have hbmod := Nat.mod_lt b hd_pos
-      by_cases hle : b / (m - k) ≤ a / (m - k)
-      · exact hle
-      · exfalso
-        have hlt : a / (m - k) < b / (m - k) := Nat.lt_of_not_le hle
-        have hgt : b / (m - k) ≥ a / (m - k) + 1 := hlt
-        have hmul_ge : (m - k) * (a / (m - k) + 1) ≤ (m - k) * (b / (m - k)) :=
-          Nat.mul_le_mul_left _ hgt
-        have hexp : (m - k) * (a / (m - k) + 1)
-                      = (m - k) * (a / (m - k)) + (m - k) :=
-          Nat.mul_succ (m - k) (a / (m - k))
-        omega
-    have hsub : a - b = (m - k) * (a / (m - k) - b / (m - k)) := by
-      rw [Nat.mul_sub_left_distrib]; omega
-    rw [hsub, Nat.mul_div_cancel_left _ hd_pos, Nat.mul_comm]
-    omega
+  have hd_pos : 0 < m - k :=
+    Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hdiff
   rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
-  · exact step_plus_nd N m k hk hmk hLm hLk r _ r'
-      (key _ _ h_mod.symm hle)
-  · exact (step_plus_nd N m k hk hmk hLm hLk r' _ r
-      (key _ _ h_mod hle)).symm
+  · obtain ⟨q, hq⟩ := E213.Lib.Math.NatHelpers.Gcd213.mod_eq_exists_mul_add
+      (Lens.leaves.view r') (Lens.leaves.view r) (m - k) hd_pos hle h_mod.symm
+    exact step_plus_nd N m k hk hmk hLm hLk r q r' hq
+  · obtain ⟨q, hq⟩ := E213.Lib.Math.NatHelpers.Gcd213.mod_eq_exists_mul_add
+      (Lens.leaves.view r) (Lens.leaves.view r') (m - k) hd_pos hle h_mod
+    exact (step_plus_nd N m k hk hmk hLm hLk r' q r hq).symm
 
 end E213.Lib.Math.ModArith.JoinEuclidean

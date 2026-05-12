@@ -3,7 +3,7 @@ import E213.Term.Tactic.Nat213
 # Five.lean helpers — ∅-axiom (Nat-arith + Bézout shifts)
 
 Splits out the arithmetic helper lemmas needed by
-`Firmware/Atomicity/Five.atomic_implies_five`.  Pure ℕ, no `omega`,
+`Theory/Atomicity/Five.atomic_implies_five`.  Pure ℕ, no `omega`,
 no `simp`.  All theorems verified ∅-axiom.
 
 The two main moves are:

@@ -61,7 +61,7 @@ theorem rawACharLens_view_eq :
         · exact E213.Theory.Internal.Tree.noConfusion hv
         · exact E213.Theory.Internal.Tree.noConfusion hv
         · exact h (Subtype.ext
-            ((E213.Theory.Internal.Tree.cmp_eq_iff _ _).mp hcmp))
+            (E213.Theory.Internal.Tree.cmp_eq_to_eq _ _ hcmp))
       rw [decide_eq_false hne]
 
 end E213.Lens.Instances.RawAChar

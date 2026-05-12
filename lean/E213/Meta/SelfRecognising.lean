@@ -82,7 +82,10 @@ end NonVanishingCodomain
 class ConjugationCodomain (α : Type) [Zero α] extends NonVanishingCodomain α where
   conj            : α → α
   conj_involution : ∀ u : α, conj (conj u) = u
-  conj_ne_id      : conj ≠ id
+  /-- Non-trivial witness: some element where `conj` does not fix.
+      Point-wise form (`∃` rather than `conj ≠ id`) keeps downstream
+      `SwapMatching` consumers funext-free. -/
+  conj_ne_id      : ∃ x, conj x ≠ x
   conj_dist       : ∀ u v : α, conj (CommBinaryCodomain.combine u v)
                                 = CommBinaryCodomain.combine (conj u) (conj v)
   conj_swap_a     : conj (CommBinaryCodomain.base_a (α := α))

@@ -37,14 +37,22 @@ private theorem List.foldl_xor_dist
   induction xs generalizing a b with
   | nil => rfl
   | cons hd tl ih =>
-    by_cases h : P hd
-    · simp only [_root_.List.foldl, h, ↓reduceDIte]
+    match (inferInstance : Decidable (P hd)) with
+    | .isTrue h =>
+      show tl.foldl _ (if h' : P hd then xor (xor a b) (xor (f hd h') (g hd h')) else (xor a b))
+            = xor (tl.foldl _ (if h' : P hd then xor a (f hd h') else a))
+                  (tl.foldl _ (if h' : P hd then xor b (g hd h') else b))
+      rw [dif_pos h, dif_pos h, dif_pos h]
       have heq : xor (xor a b) (xor (f hd h) (g hd h))
                   = xor (xor a (f hd h)) (xor b (g hd h)) := by
         cases a <;> cases b <;> cases (f hd h) <;> cases (g hd h) <;> rfl
       rw [heq]
       exact ih (xor a (f hd h)) (xor b (g hd h))
-    · simp only [_root_.List.foldl, h, ↓reduceDIte]
+    | .isFalse h =>
+      show tl.foldl _ (if h' : P hd then xor (xor a b) (xor (f hd h') (g hd h')) else (xor a b))
+            = xor (tl.foldl _ (if h' : P hd then xor a (f hd h') else a))
+                  (tl.foldl _ (if h' : P hd then xor b (g hd h') else b))
+      rw [dif_neg h, dif_neg h, dif_neg h]
       exact ih a b
 
 /-- ★ δ is XOR-linear: δ(σ.add τ)(τ_idx) = xor (δσ τ_idx) (δτ τ_idx). -/

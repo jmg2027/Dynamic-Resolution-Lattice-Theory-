@@ -53,12 +53,18 @@ theorem parityXor_fst_eq_parity (r : Raw) :
             (fun p q : Bool × Bool => (xor p.1 q.1, xor p.2 q.2)) u v
           = (fun p q : Bool × Bool => (xor p.1 q.1, xor p.2 q.2)) v u := by
         intro u v
-        simp [Bool.xor_comm]
-      have hsym_xor : ∀ u v : Bool, xor u v = xor v u := by
-        intro u v; exact Bool.xor_comm u v
+        show (xor u.1 v.1, xor u.2 v.2) = (xor v.1 u.1, xor v.2 u.2)
+        rw [Bool.xor_comm u.1 v.1, Bool.xor_comm u.2 v.2]
+      have hsym_xor : ∀ u v : Bool, xor u v = xor v u :=
+        fun u v => Bool.xor_comm u v
       rw [Raw.fold_slash _ _ _ hsym_pair x y h,
           Raw.fold_slash _ _ _ hsym_xor x y h]
-      simp [ihx, ihy]
+      show xor (Raw.fold (true, true) (true, false)
+                 (fun p q => (xor p.1 q.1, xor p.2 q.2)) x).1
+               (Raw.fold (true, true) (true, false)
+                 (fun p q => (xor p.1 q.1, xor p.2 q.2)) y).1
+           = xor (Raw.fold true true xor x) (Raw.fold true true xor y)
+      rw [ihx, ihy]
 
 end E213.Lens.Instances.CompoundBool
 
@@ -83,12 +89,18 @@ theorem parityXor_snd_eq_boolXor (r : Raw) :
             (fun p q : Bool × Bool => (xor p.1 q.1, xor p.2 q.2)) u v
           = (fun p q : Bool × Bool => (xor p.1 q.1, xor p.2 q.2)) v u := by
         intro u v
-        simp [Bool.xor_comm]
-      have hsym_xor : ∀ u v : Bool, xor u v = xor v u := by
-        intro u v; exact Bool.xor_comm u v
+        show (xor u.1 v.1, xor u.2 v.2) = (xor v.1 u.1, xor v.2 u.2)
+        rw [Bool.xor_comm u.1 v.1, Bool.xor_comm u.2 v.2]
+      have hsym_xor : ∀ u v : Bool, xor u v = xor v u :=
+        fun u v => Bool.xor_comm u v
       rw [Raw.fold_slash _ _ _ hsym_pair x y h,
           Raw.fold_slash _ _ _ hsym_xor x y h]
-      simp [ihx, ihy]
+      show xor (Raw.fold (true, true) (true, false)
+                 (fun p q => (xor p.1 q.1, xor p.2 q.2)) x).2
+               (Raw.fold (true, true) (true, false)
+                 (fun p q => (xor p.1 q.1, xor p.2 q.2)) y).2
+           = xor (Raw.fold true false xor x) (Raw.fold true false xor y)
+      rw [ihx, ihy]
 
 /-- **Compound factorisation.**  The Bool × Bool Lens IS the
     pairwise product of parityLens and boolXorLens. -/
@@ -127,7 +139,8 @@ theorem parityXor_ab : parityXorLens.view ab = (false, true) := by
         (fun p q : Bool × Bool => (xor p.1 q.1, xor p.2 q.2)) u v
       = (fun p q : Bool × Bool => (xor p.1 q.1, xor p.2 q.2)) v u := by
     intro u v
-    simp [Bool.xor_comm]
+    show (xor u.1 v.1, xor u.2 v.2) = (xor v.1 u.1, xor v.2 u.2)
+    rw [Bool.xor_comm u.1 v.1, Bool.xor_comm u.2 v.2]
   rw [Raw.fold_slash _ _ _ hsym_pair Raw.a Raw.b (by decide)]
   rfl
 

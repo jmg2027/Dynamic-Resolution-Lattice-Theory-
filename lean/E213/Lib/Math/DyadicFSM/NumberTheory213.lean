@@ -45,7 +45,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (tribFSMmod2)
 open E213.Lib.Math.DyadicFSM.AlgebraicDegree
   (HasDegree1 HasDegree2 HasDegree3 degree1_imp_degree2 degree2_imp_degree3
    pellFSMmod3_has_degree2 tribFSMmod2_has_degree3)
-open E213.Lib.Math.DyadicFSM.LCMClosure (bs_combined_periodic_lcm)
+open E213.Lib.Math.DyadicFSM.LCMClosure (bs_combined_periodic_product)
 open E213.Lib.Math.DyadicFSM.Pell.ProperBridge
   (legendre_8_mod_3 legendre_8_mod_5 legendre_8_mod_7 pisano_predict_proper_correct)
 open E213.Lib.Math.DyadicFSM.Pell.Proper (pisano_predict_proper)
@@ -60,7 +60,7 @@ theorem number_theory_213_capstone :
       0 < p → 0 < q →
       (∀ k, bs1 (k + p) = bs1 k) → (∀ k, bs2 (k + q) = bs2 k) →
       ∀ (g : Bool → Bool → Bool) k,
-        g (bs1 (k + Nat.lcm p q)) (bs2 (k + Nat.lcm p q))
+        g (bs1 (k + p * q)) (bs2 (k + p * q))
         = g (bs1 k) (bs2 k))
     -- Step 2: Pisano predictor realises Pell period at all 4 primes
     ∧ ((∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
@@ -76,7 +76,7 @@ theorem number_theory_213_capstone :
         ∧ (∀ bs, HasDegree2 bs → HasDegree3 bs)
         ∧ HasDegree2 pellFSMmod3.bits
         ∧ HasDegree3 tribFSMmod2.bits) :=
-  ⟨bs_combined_periodic_lcm,
+  ⟨bs_combined_periodic_product,
    pisano_predict_realises_pell,
    ⟨degree1_imp_degree2,
     degree2_imp_degree3,
@@ -90,7 +90,7 @@ theorem number_theory_213_capstone_v2 :
       0 < p → 0 < q →
       (∀ k, bs1 (k + p) = bs1 k) → (∀ k, bs2 (k + q) = bs2 k) →
       ∀ (g : Bool → Bool → Bool) k,
-        g (bs1 (k + Nat.lcm p q)) (bs2 (k + Nat.lcm p q))
+        g (bs1 (k + p * q)) (bs2 (k + p * q))
         = g (bs1 k) (bs2 k))
     -- Step 2: Pisano predictor at 7 primes
     ∧ ((∀ k, pellFSMmod3.bits (k + pisano_predict 3 (by decide))
@@ -112,7 +112,7 @@ theorem number_theory_213_capstone_v2 :
         ∧ (∀ bs, HasDegree2 bs → HasDegree3 bs)
         ∧ HasDegree2 pellFSMmod3.bits
         ∧ HasDegree3 tribFSMmod2.bits) :=
-  ⟨bs_combined_periodic_lcm,
+  ⟨bs_combined_periodic_product,
    pisano_predict_realises_pell_7,
    ⟨degree1_imp_degree2,
     degree2_imp_degree3,
@@ -126,7 +126,7 @@ theorem number_theory_213_capstone_v3 :
       0 < p → 0 < q →
       (∀ k, bs1 (k + p) = bs1 k) → (∀ k, bs2 (k + q) = bs2 k) →
       ∀ (g : Bool → Bool → Bool) k,
-        g (bs1 (k + Nat.lcm p q)) (bs2 (k + Nat.lcm p q))
+        g (bs1 (k + p * q)) (bs2 (k + p * q))
         = g (bs1 k) (bs2 k))
     -- Pell proper (D=8) at 3 primes, both branches
     ∧ (legendre213 8 3 (by decide) = ⟨2, by decide⟩
@@ -135,7 +135,7 @@ theorem number_theory_213_capstone_v3 :
         ∧ pisano_predict_proper 3 (by decide) = 8
         ∧ pisano_predict_proper 5 (by decide) = 12
         ∧ pisano_predict_proper 7 (by decide) = 6) := by
-  refine ⟨bs_combined_periodic_lcm, ?_⟩
+  refine ⟨bs_combined_periodic_product, ?_⟩
   refine ⟨legendre_8_mod_3, legendre_8_mod_5, legendre_8_mod_7,
           ?_, ?_, ?_⟩ <;> decide
 

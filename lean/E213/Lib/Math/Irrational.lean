@@ -1,4 +1,3 @@
-import E213.Lib.Math.Irrational.Sqrt2
 import E213.Lib.Math.Irrational.Sqrt2Cut
 import E213.Lib.Math.Irrational.Sqrt2KernelFree
 import E213.Lib.Math.Irrational.Sqrt2Pure
@@ -12,11 +11,12 @@ import E213.Lib.Math.Irrational.Sqrt5Pure
 
   ## Files
 
-    * `Sqrt2`           — main √2 irrationality result
+    * `Sqrt2KernelFree` — main √2 irrationality (PURE / ∅-axiom).
+                          Descent without `omega`, kernel-free.
+                          Supersedes the deleted `Sqrt2.lean`
+                          (DIRTY [propext, Quot.sound] via omega).
     * `Sqrt2Cut`        — cut-form variant (RealCut at √2)
     * `Sqrt2Pure`       — pure-Nat variant (avoids cut)
-    * `Sqrt2KernelFree` — Kernel/Tactic-free variant
-                          (descent without `omega`)
     * `Sqrt3Pure`       — √3 irrationality (pure-Nat)
     * `Sqrt5Pure`       — √5 irrationality (pure-Nat)
 -/

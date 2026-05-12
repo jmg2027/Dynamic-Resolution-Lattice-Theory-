@@ -19,11 +19,14 @@ namespace E213.Lib.Math.CayleyDickson.ZOmega.ZOmega
 theorem mul_comm (u v : ZOmega) : u * v = v * u := by
   apply ext
   · show u.re * v.re - u.im * v.im = v.re * u.re - v.im * u.im
-    rw [Int.mul_comm u.re v.re, Int.mul_comm u.im v.im]
+    rw [E213.Theory.Internal.Int213.mul_comm u.re v.re,
+        E213.Theory.Internal.Int213.mul_comm u.im v.im]
   · show u.re * v.im + u.im * v.re - u.im * v.im
        = v.re * u.im + v.im * u.re - v.im * u.im
-    rw [Int.mul_comm u.re v.im, Int.mul_comm u.im v.re,
-        Int.mul_comm u.im v.im, Int.add_comm (v.im * u.re)]
+    rw [E213.Theory.Internal.Int213.mul_comm u.re v.im,
+        E213.Theory.Internal.Int213.mul_comm u.im v.re,
+        E213.Theory.Internal.Int213.mul_comm u.im v.im,
+        E213.Theory.Internal.Int213.add_comm (v.im * u.re)]
 
 /-- `|uv|² = |u|²·|v|²` for the Eisenstein norm. -/
 theorem normSq_mul (u v : ZOmega) :

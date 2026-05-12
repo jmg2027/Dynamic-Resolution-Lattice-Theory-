@@ -46,6 +46,6 @@ theorem sum_not_coproduct_and :
   have h4 := hcomb (Sum.inl true) (Sum.inr false)
   rw [h3] at h4
   rw [h1, h2] at h4
-  simp at h4
+  exact absurd h4 (by decide)
 
 end E213.Lens.Instances.SumNotCoproductGeneric

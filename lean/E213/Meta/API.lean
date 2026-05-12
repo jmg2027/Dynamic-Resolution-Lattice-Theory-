@@ -1,12 +1,12 @@
 import E213.Meta.SelfRecognising
 import E213.Meta.AxiomMinimalityCapstone
-import E213.Meta.Universal
+import E213.Meta.LensInternality
 import E213.Meta.UniversalLens
 
 /-! # Meta layer public API
 
   Single import for downstream consumers.  Bundles the four
-  pillars of the framework metatheory:
+  formal pillars of the framework metatheory:
 
   ## ME-1 — SelfRecognising codomain hierarchy
 
@@ -30,15 +30,20 @@ import E213.Meta.UniversalLens
     * `Meta.AxiomMinimality.*` — 4-case minimality proof
     * `Meta.AxiomMinimalityCapstone.raw_minimality_capstone`
 
-  ## ME-3 — Universal-Lens metatheorems
+  ## ME-3 — LensInternality
 
-  "Every framework is a Lens" — formal claim + image
-  factorisation + reflection.
+  The 213-internal counterpart of "every framework is a Lens": every
+  Lens is structurally a triple `(base_a, base_b, combine) ∈ α³`,
+  and its view is exactly `Raw.fold` of that triple.  Lens is not
+  imported from outside Raw; it is the canonical name for the α-side
+  data needed to fold Raw.
 
   Public names:
-    * `Meta.Universal.LensClaim`
-    * `Meta.Universal.MorphismFactor`
-    * `Meta.Universal.Reflection`
+    * `Meta.LensInternality.{toData, ofData}`
+    * `Meta.LensInternality.{toData_ofData, ofData_toData}`
+      (round-trip)
+    * `Meta.LensInternality.view_eq_fold`
+    * `Meta.LensInternality.lens_is_raw_internal` (∅-axiom capstone)
 
   ## ME-4 — UniversalLens concrete witnesses
 
@@ -60,9 +65,16 @@ import E213.Meta.UniversalLens
       `NativeGuard`, `PureGuard`).  Tactic API is cross-cutting;
       consumers import on demand.
 
-    * `Meta.BitPatternUniqueness`, `Meta.RawInductionDemo`,
-      `Meta.CUniquenessBridge` — supporting lemmas used by ME-2/4
-      but not part of the stable surface.
+    * `Meta.BitPatternUniqueness` — supporting lemma used by
+      `UniversalLens/Nat2Inj`; not part of the stable surface.
+
+  ## Adjacent (NOT in this Meta cluster)
+
+    * `Lens/Initiality.lean::Lens.initiality` — categorical universality
+      of `Raw.fold` (∃! Raw → α homomorphism per Lens).  Sealed
+      `Quot.sound`-dependent (Raw.fold quotient lifting); paired with
+      `LensInternality` it gives the full picture but stays in the
+      Lens layer rather than Meta.
 
   ## Layered position
 

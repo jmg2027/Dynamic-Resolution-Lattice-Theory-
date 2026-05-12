@@ -71,8 +71,8 @@ uniquely.
                             ArityForcingGeneral, PrimitiveSizes,
                             Alive)
   * `Theory/Internal/`   — implementation detail (Raw/Cmp,
-                            CmpIndependence, ComplexityClass,
-                            DecEq, SwapSlashInjective).  Direct
+                            CmpIndependence, DecEq,
+                            SwapSlashInjective).  Direct
                             import discouraged.
 
 **Public API**: `Theory/API.lean` bundles:
@@ -125,7 +125,6 @@ Comm/NonVanishing/Conjugation hierarchy", "Raw bit patterns are
 unique".
 
 **Sub-clusters**:
-  * `Meta/Universal/`     — Universal Lens metatheorems
   * `Meta/UniversalLens/` — concrete witnesses (Nat2/3/4, Q213,
                             Padding, TripleCapstone)
   * `Meta/Tactic/`        — meta-level tactics
@@ -134,11 +133,10 @@ unique".
                              PureGuard)
 
 **Top-level**: SelfRecognising (codomain typeclass hierarchy),
-AxiomMinimality{,Capstone}, BitPatternUniqueness,
-RawInductionDemo, CUniquenessBridge.
+AxiomMinimality{,Capstone}, BitPatternUniqueness, LensInternality.
 
 **Public API**: `Meta/API.lean` bundles ME-1 SelfRecognising +
-ME-2 AxiomMinimality + ME-3 Universal + ME-4 UniversalLens.
+ME-2 AxiomMinimality + ME-3 LensInternality + ME-4 UniversalLens.
 Tactic is a separate import (cross-cutting).
 
 ### Lib/  (Ring 4 — content libraries)
@@ -176,7 +174,7 @@ Implementation detail lives in `<Ring>/Internal/`.  Direct import
 of `Internal/*` from outside the ring is a code-review smell.
 Currently:
   * `Theory/Internal/Raw/`    — DecEq, Cmp, CmpIndependence,
-                                 ComplexityClass, SwapSlashInjective
+                                 SwapSlashInjective
   * `Lens/Internal/Algebra/`  — FreeAudit, FourDistinct,
                                  SwapInvariant, Space
 

@@ -57,8 +57,9 @@ theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
     orderProj m k (abLens.view (pellRawSeq i)) =
     orderProj m k (abLens.view (pellRawSeq j)) := by
   unfold pellRawSeq
-  by_cases h : 2 * k * k < m * m
-  · -- above: both true.  Inline the logic of pellRaw_cut_above (N = k).
+  match (inferInstance : Decidable (2 * k * k < m * m)) with
+  | .isTrue h =>
+    -- above: both true.  Inline the logic of pellRaw_cut_above (N = k).
     have hN : pellModulusN m k = k := if_pos h
     rw [hN] at hi hj
     have above : ∀ n, n ≥ k →
@@ -74,11 +75,13 @@ theorem pell_cauchy_at (m k : Nat) (hk : k ≥ 1)
       exact pell_orderProj_above (pellX n) (pellY n) m k
         (pell_invariant n) h hyn_sq
     rw [above i hi, above j hj]
-  · -- ¬ (2k² < m²) → m² ≤ 2k².  m² = 2k² is impossible (sqrt2_irrational).
+  | .isFalse h =>
+    -- ¬ (2k² < m²) → m² ≤ 2k².  m² = 2k² is impossible (sqrt2_irrational).
     have hle : m * m ≤ 2 * k * k := Nat.le_of_not_lt h
     have hne : m * m ≠ 2 * k * k := by
       intro heq
-      have h2 : 2 * (k * k) = 2 * k * k := by rw [Nat.mul_assoc]
+      have h2 : 2 * (k * k) = 2 * k * k := by
+        rw [E213.Tactic.Nat213.mul_assoc]
       exact sqrt2_irrational k hk m (heq.trans h2.symm)
     have hbelow : m * m < 2 * k * k := Nat.lt_of_le_of_ne hle hne
     rw [pellRaw_cut_below m k hk hbelow i,

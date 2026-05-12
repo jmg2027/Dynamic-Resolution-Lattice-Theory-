@@ -348,12 +348,17 @@ theorem isLensExpressible_iff_foldStructured {α : Type} (f : Raw → α) :
   unfold IsLensExpressible
   constructor
   · rintro ⟨L, hsym, hview⟩
-    have h : L.view = f := funext hview
-    rw [← h]
-    exact lens_view_fold_structured L hsym
+    obtain ⟨ba, bb, c, hba, hbb, hcs, hslash⟩ :=
+      lens_view_fold_structured L hsym
+    refine ⟨ba, bb, c, ?_, ?_, hcs, ?_⟩
+    · rw [← hview Raw.a]; exact hba
+    · rw [← hview Raw.b]; exact hbb
+    · intro x y h
+      rw [← hview (Raw.slash x y h), ← hview x, ← hview y]
+      exact hslash x y h
   · intro hfs
     obtain ⟨L, hsym, hview⟩ := fold_structured_lens_expressible f hfs
-    exact ⟨L, hsym, fun r => congrFun hview r⟩
+    exact ⟨L, hsym, hview⟩
 
 /-- **Negative existence**: ∃ f : Raw → Bool, f is not Lens-expressible.
     Direct evidence for the boundary of the semantic atom thesis. -/
@@ -394,8 +399,10 @@ theorem universalMorphism_unique (α : Type) [d : HasDistinguishing α]
     for any instance α, the distinguishing-preserving function
     Raw → α *uniquely* exists (= `universalMorphism α`).
     This is the categorical statement of "the 213 axiom is the minimum
-    for every meaning framework".  (∃! syntax absent in Lean 4 core;
-    expressed as explicit existence + uniqueness conjunction.) -/
+    for every meaning framework".  Uniqueness stated **pointwise**
+    (`∀ r, g r = f r`) instead of as function equality, to avoid
+    funext (= Quot.sound).  (∃! syntax absent in Lean 4 core; expressed
+    as explicit existence + uniqueness conjunction.) -/
 theorem raw_initial (α : Type) [d : HasDistinguishing α] :
     ∃ f : Raw → α,
       (f Raw.a = d.a) ∧
@@ -407,13 +414,12 @@ theorem raw_initial (α : Type) [d : HasDistinguishing α] :
         g Raw.b = d.b →
         (∀ (x y : Raw) (h : x ≠ y),
           g (Raw.slash x y h) = d.combine (g x) (g y)) →
-        g = f) := by
+        ∀ r : Raw, g r = f r) := by
   refine ⟨universalMorphism α, ?_, ?_, ?_, ?_⟩
   · exact universalMorphism_a α
   · exact universalMorphism_b α
   · intro x y h; exact universalMorphism_slash α x y h
-  · intro g hga hgb hgslash
-    funext r
+  · intro g hga hgb hgslash r
     exact universalMorphism_unique α g hga hgb hgslash r
 
 end E213.Lens.SemanticAtom

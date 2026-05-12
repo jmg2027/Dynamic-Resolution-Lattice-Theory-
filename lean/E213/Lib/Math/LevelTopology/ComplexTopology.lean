@@ -40,7 +40,7 @@ def neg_i_node : CycleNode := ⟨3, by decide⟩
 
 /-- The 4-cycle next-step (90° rotation). -/
 def cycleStep (n : CycleNode) : CycleNode :=
-  ⟨(n.val + 1) % 4, by simp [Nat.mod_lt]⟩
+  ⟨(n.val + 1) % 4, Nat.mod_lt _ (by decide : 0 < 4)⟩
 
 /-- ★ Cycle step from 1: → i. -/
 theorem step_one : cycleStep one_node = i_node := by decide

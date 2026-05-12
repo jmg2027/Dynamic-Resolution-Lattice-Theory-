@@ -81,11 +81,16 @@ theorem parityLens_sample_even_view :
 
 /-- **R4 fails.**  Swap-blindness forces any matching `conj`
     to fix every image point; with both `true` and `false`
-    reachable, that forces `conj = id`, contradicting the
-    `conj ≠ id` clause of R4. -/
+    reachable, that forces `conj true = true ∧ conj false = false`,
+    contradicting the `∃ x, conj x ≠ x` clause of R4 directly
+    (case-split on the witness `x : Bool`).
+
+    ∅-axiom — uses the new `∃`-form of `SwapMatching` so no
+    `funext` is needed to derive `conj = id`. -/
 theorem parityLens_R4_fails :
     ¬ ∃ conj : Bool → Bool, SwapMatching parityLens conj := by
   rintro ⟨conj, hmatch⟩
+  obtain ⟨x, hx⟩ := hmatch.2.1
   have hsw : ∀ r : Raw, parityLens.view (Raw.swap r) = parityLens.view r :=
     parityLens_swap_invariant
   have hfix : ∀ r : Raw, conj (parityLens.view r) = parityLens.view r :=
@@ -95,10 +100,9 @@ theorem parityLens_R4_fails :
     have h := hfix parityLens_sample_even
     rw [parityLens_sample_even_view] at h
     exact h
-  have hid : conj = id := by
-    funext u; cases u
-    · exact hfalse
-    · exact htrue
-  exact hmatch.2.1 hid
+  -- Direct case-split on the witness x; both cases contradict hx
+  cases x
+  · exact hx hfalse
+  · exact hx htrue
 
 end E213.Lens.Instances.Parity
