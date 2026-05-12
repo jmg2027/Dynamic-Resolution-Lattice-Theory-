@@ -44,7 +44,7 @@ def k_basis : QuatBasis := ⟨2, by decide⟩
 
 /-- Cyclic next in the i→j→k→i cycle. -/
 def cyclicNext (b : QuatBasis) : QuatBasis :=
-  ⟨(b.val + 1) % 3, by simp [Nat.mod_lt]⟩
+  ⟨(b.val + 1) % 3, Nat.mod_lt _ (by decide : 0 < 3)⟩
 
 /-- ★ i → j (cyclic). -/
 theorem next_i_is_j : cyclicNext i_basis = j_basis := by decide
