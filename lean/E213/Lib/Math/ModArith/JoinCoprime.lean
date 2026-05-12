@@ -31,7 +31,8 @@ private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
                    = Lens.leaves.view x + Lens.leaves.view y := by
         apply Raw.fold_slash
         intro u v; exact Nat.add_comm u v
-      rw [hfs]; omega
+      rw [hfs]
+      exact Nat.le_trans ihx (Nat.le_add_right _ _)
 
 /-- +1 step via L_3 then L_2: chain length 2. -/
 private theorem step_plus_one {α : Type} (N : Lens α)
@@ -39,14 +40,22 @@ private theorem step_plus_one {α : Type} (N : Lens α)
     (h3 : (leavesModNat 3).refines N)
     (r r' : Raw) (hdiff : Lens.leaves.view r' = Lens.leaves.view r + 1) :
     N.view r = N.view r' := by
+  have hadd3_pos : 0 < Lens.leaves.view r + 3 :=
+    Nat.lt_of_lt_of_le (by decide : (0:Nat) < 3) (Nat.le_add_left _ _)
   obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
-    (Lens.leaves.view r + 3) (by omega)
+    (Lens.leaves.view r + 3) hadd3_pos
   have h_r_w : (leavesModNat 3).view r = (leavesModNat 3).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw]
-    omega
+    -- Goal: Lens.leaves.view r % 3 = (Lens.leaves.view r + 3) % 3
+    exact (E213.Tactic.Nat213.add_self_mod_pure (Lens.leaves.view r) 3).symm
   have h_w_r' : (leavesModNat 2).view w = (leavesModNat 2).view r' := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw, hdiff]
-    omega
+    -- Goal: (Lens.leaves.view r + 3) % 2 = (Lens.leaves.view r + 1) % 2
+    -- view r + 3 = (view r + 1) + 2.
+    have h_split : Lens.leaves.view r + 3 = (Lens.leaves.view r + 1) + 2 := by
+      rw [Nat.add_assoc]
+    rw [h_split]
+    exact E213.Tactic.Nat213.add_self_mod_pure (Lens.leaves.view r + 1) 2
   exact (h3 _ _ h_r_w).trans (h2 _ _ h_w_r')
 
 /-- Same leaves → same N-view via L_2. -/
@@ -76,17 +85,26 @@ theorem step_plus_k {α : Type} (N : Lens α)
   | zero =>
       intro r' hr'
       apply same_leaves N h2
-      omega
+      -- hr' : Lens.leaves.view r' = Lens.leaves.view r + 0
+      -- Goal: Lens.leaves.view r = Lens.leaves.view r'
+      exact hr'.symm
   | succ k ih =>
       intro r' hr'
       have h_r_ge := leaves_ge_one r
+      have h_r_add_k_pos : 0 < Lens.leaves.view r + k :=
+        Nat.lt_of_lt_of_le h_r_ge (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
         E213.Infinity.leaves_surjective_pos
-          (Lens.leaves.view r + k) (by omega)
+          (Lens.leaves.view r + k) h_r_add_k_pos
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have step2 : N.view r'' = N.view r' := by
         apply step_plus_one N h2 h3 r'' r'
-        omega
+        -- hr' : Lens.leaves.view r' = Lens.leaves.view r + (k + 1)
+        -- hr'' : Lens.leaves.view r'' = Lens.leaves.view r + k
+        -- Goal: Lens.leaves.view r' = Lens.leaves.view r'' + 1
+        have hsucc : Lens.leaves.view r + (k + 1) = (Lens.leaves.view r + k) + 1 :=
+          (Nat.add_assoc _ k 1).symm
+        rw [hr', hsucc, ← hr'']
       exact step1.trans step2
 
 end E213.Lib.Math.ModArith.JoinCoprime
@@ -105,10 +123,22 @@ theorem mod_2_3_refines_const {α : Type} (N : Lens α)
   intro r r'
   rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
   · have heq : Lens.leaves.view r' = Lens.leaves.view r
-              + (Lens.leaves.view r' - Lens.leaves.view r) := by omega
+              + (Lens.leaves.view r' - Lens.leaves.view r) := by
+      have h1 := E213.Tactic.Nat213.sub_add_cancel hle
+      -- h1 : Lens.leaves.view r' - Lens.leaves.view r + Lens.leaves.view r
+      --      = Lens.leaves.view r'
+      have h2 : Lens.leaves.view r + (Lens.leaves.view r' - Lens.leaves.view r)
+              = Lens.leaves.view r' - Lens.leaves.view r + Lens.leaves.view r :=
+        Nat.add_comm _ _
+      exact (h2.trans h1).symm
     exact step_plus_k N h2 h3 r _ r' heq
   · have heq : Lens.leaves.view r = Lens.leaves.view r'
-              + (Lens.leaves.view r - Lens.leaves.view r') := by omega
+              + (Lens.leaves.view r - Lens.leaves.view r') := by
+      have h1 := E213.Tactic.Nat213.sub_add_cancel hle
+      have h2 : Lens.leaves.view r' + (Lens.leaves.view r - Lens.leaves.view r')
+              = Lens.leaves.view r - Lens.leaves.view r' + Lens.leaves.view r' :=
+        Nat.add_comm _ _
+      exact (h2.trans h1).symm
     exact (step_plus_k N h2 h3 r' _ r heq).symm
 
 end E213.Lib.Math.ModArith.JoinCoprime

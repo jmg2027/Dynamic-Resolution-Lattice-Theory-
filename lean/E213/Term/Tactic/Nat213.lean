@@ -215,6 +215,16 @@ theorem cases_lt_five {n : Nat} (h : n < 5) :
     Or.inr (Or.inr (Or.inr (Or.inr
       (Nat.le_antisymm (Nat.le_of_lt_succ h) hge))))
 
+/-- `n < 6 → n ∈ {0,1,2,3,4,5}`.  ∅-axiom — used for CRT mod-6
+    enumeration in `Lib.Math.ModArith.LensCRT.prod_refines_L6`. -/
+theorem cases_lt_six {n : Nat} (h : n < 6) :
+    n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4 ∨ n = 5 :=
+  match Nat.lt_or_ge n 5 with
+  | Or.inl hlt => (cases_lt_five hlt).imp id (·.imp id (·.imp id (·.imp id Or.inl)))
+  | Or.inr hge =>
+    Or.inr (Or.inr (Or.inr (Or.inr (Or.inr
+      (Nat.le_antisymm (Nat.le_of_lt_succ h) hge)))))
+
 /-- `n < 10 → n ∈ {0,…,9}`.  ∅-axiom — used for `Fin 10` decomposition
     (Cochain 5 2/3 = Fin (binom 5 2/3) → Bool) in Universal.Prop52/53. -/
 theorem cases_lt_ten {n : Nat} (h : n < 10) :
