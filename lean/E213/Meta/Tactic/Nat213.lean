@@ -441,7 +441,7 @@ namespace E213.Tactic.Nat213
 /-- `0 % m = 0`.  ∅-axiom replacement for Lean-core `Nat.zero_mod`
     (which is `[propext]`).  Term-mode pattern match on `m`.
 
-    Companion to `E213.Lib.Math.NatHelpers.AddMod213.zero_mod`
+    Companion to `E213.Meta.Nat.AddMod213.zero_mod`
     (Lib/Math layer); this Term-layer version is the bedrock. -/
 theorem zero_mod (m : Nat) : 0 % m = 0 :=
   match m with

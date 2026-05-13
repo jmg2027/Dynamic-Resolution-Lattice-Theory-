@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
-import E213.Lib.Math.NatHelpers.NatDiv213
-import E213.Lib.Math.NatHelpers.EncodePair213
+import E213.Meta.Nat.NatDiv213
+import E213.Meta.Nat.EncodePair213
 import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
@@ -37,7 +37,7 @@ theorem encode3_mod_n {n : Nat} (a b c : Fin n) :
           (E213.Tactic.Nat213.mul_assoc _ _ _).symm,
         ← add_mul_213]
   rw [hreshape]
-  exact E213.Lib.Math.NatHelpers.EncodePair213.encode_mod hn (a.val * n + b.val) c.val c.isLt
+  exact E213.Meta.Nat.EncodePair213.encode_mod hn (a.val * n + b.val) c.val c.isLt
 
 /-- Helper: b * n + c < n * n when b, c < n.  ∅-axiom. -/
 private theorem bn_plus_c_lt_nn {n : Nat} (b c : Fin n) :
@@ -58,7 +58,7 @@ theorem encode3_mod_nn_pub {n : Nat} (a b c : Fin n) :
   have hnn : 0 < n * n := Nat.mul_pos hn hn
   have hbcs : b.val * n + c.val < n * n := bn_plus_c_lt_nn b c
   rw [Nat.add_assoc]
-  exact E213.Lib.Math.NatHelpers.EncodePair213.encode_mod hnn a.val (b.val * n + c.val) hbcs
+  exact E213.Meta.Nat.EncodePair213.encode_mod hnn a.val (b.val * n + c.val) hbcs
 
 /-- Encoded value's div-n² block recovers a.  STRICT ∅-AXIOM. -/
 theorem encode3_div_nn_pub {n : Nat} (hn : 0 < n) (a b c : Fin n) :
@@ -66,13 +66,13 @@ theorem encode3_div_nn_pub {n : Nat} (hn : 0 < n) (a b c : Fin n) :
   have hnn : 0 < n * n := Nat.mul_pos hn hn
   have hbcs : b.val * n + c.val < n * n := bn_plus_c_lt_nn b c
   rw [Nat.add_assoc]
-  exact E213.Lib.Math.NatHelpers.EncodePair213.encode_div hnn a.val (b.val * n + c.val) hbcs
+  exact E213.Meta.Nat.EncodePair213.encode_div hnn a.val (b.val * n + c.val) hbcs
 
 /-- Inner mod/div recovers b.  STRICT ∅-AXIOM. -/
 theorem encode3_inner_div_pub {n : Nat} (hn : 0 < n) (a b c : Fin n) :
     ((a.val * (n * n) + b.val * n + c.val) % (n * n)) / n = b.val := by
   rw [encode3_mod_nn_pub a b c]
-  exact E213.Lib.Math.NatHelpers.EncodePair213.encode_div hn b.val c.val c.isLt
+  exact E213.Meta.Nat.EncodePair213.encode_div hn b.val c.val c.isLt
 
 /-- ★★★ ArithFSM3.toBitFSM run agrees with original (under triple-encoding). -/
 theorem toBitFSM3_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) :
@@ -92,9 +92,9 @@ theorem toBitFSM3_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM3 n) (k : Nat) 
     have hvc : ((ArithFSM3.toBitFSM hn m).run k').val % n = (m.run k').2.2.val := by
       rw [ih]; exact encode3_mod_n _ _ _
     let aDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k').val / (n * n),
-      E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
+      E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
     let bDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k').val % (n * n) / n,
-      E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul
+      E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul
         (Nat.mod_lt ((ArithFSM3.toBitFSM hn m).run k').val hnn)⟩
     let cDec : Fin n := ⟨((ArithFSM3.toBitFSM hn m).run k').val % n, Nat.mod_lt _ hn⟩
     have hdec : (aDec, bDec, cDec)

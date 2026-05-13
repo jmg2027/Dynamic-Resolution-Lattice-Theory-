@@ -3,7 +3,7 @@ import E213.Lib.Math.Infinity.Cantor
 import E213.Lib.Math.Infinity.Chain
 import E213.Lib.Math.Infinity.Countable
 import E213.Lib.Math.Infinity.Godel
-import E213.Lib.Math.Infinity.LensCardinality
+import E213.Lens.Algebra.LensCardinality
 import E213.Lib.Math.Infinity.Pair
 import E213.Lib.Math.Infinity.Tower
 

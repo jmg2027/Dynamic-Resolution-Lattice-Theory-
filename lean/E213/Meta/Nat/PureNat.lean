@@ -15,7 +15,7 @@ purity* of having no dependency even on the standard Nat library of
 Lean 4 core.
 -/
 
-namespace E213.Lib.Math.NatHelpers.PureNat
+namespace E213.Meta.Nat.PureNat
 
 /-- mul_assoc, axiom-free. -/
 theorem mul_assoc (a b c : Nat) : a * b * c = a * (b * c) := by
@@ -46,13 +46,13 @@ theorem mul_mul_mul_comm (a b c d : Nat) :
   rw [mul_assoc, ← mul_assoc b c d, Nat.mul_comm b c,
       mul_assoc c b d, ← mul_assoc]
 
-end E213.Lib.Math.NatHelpers.PureNat
+end E213.Meta.Nat.PureNat
 
-namespace E213.Lib.Math.NatHelpers.PureNat
+namespace E213.Meta.Nat.PureNat
 
-end E213.Lib.Math.NatHelpers.PureNat
+end E213.Meta.Nat.PureNat
 
-namespace E213.Lib.Math.NatHelpers.PureNat
+namespace E213.Meta.Nat.PureNat
 
 /-- Custom even-detection, structural recursion (no well-founded). -/
 def isEven : Nat → Bool
@@ -131,4 +131,4 @@ theorem isEven_self_mul (m : Nat) : isEven (m * m) = isEven m := by
       obtain ⟨k, hk⟩ := h
       rw [hk, isEven_sq_of_odd, isEven_two_mul_succ]
 
-end E213.Lib.Math.NatHelpers.PureNat
+end E213.Meta.Nat.PureNat

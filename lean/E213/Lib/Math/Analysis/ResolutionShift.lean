@@ -174,8 +174,8 @@ def cutHalfIterLDD : ∀ n, LocallyDeterminedData (cutHalfIter n)
     { N := fun m k => max m k
       prop := by
         intro m k cx cy h
-        exact h m k (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _)
-                    (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _) }
+        exact h m k (E213.Meta.Nat.Max213.le_max_left _ _)
+                    (E213.Meta.Nat.Max213.le_max_right _ _) }
   | n+1 => composeLDD cutHalfLDD (cutHalfIterLDD n)
 
 /-- **`cutHalf^n` has grade n**: structural induction on n.

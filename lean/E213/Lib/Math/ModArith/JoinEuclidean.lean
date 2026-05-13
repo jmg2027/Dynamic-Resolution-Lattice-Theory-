@@ -1,5 +1,5 @@
 import E213.Lib.Math.ModArith.JoinBezout
-import E213.Lib.Math.NatHelpers.Gcd213
+import E213.Meta.Nat.Gcd213
 
 /-!
 # ModJoinEuclidean: Euclidean step — L_m + L_k → L_{m-k}
@@ -95,10 +95,10 @@ theorem euclidean_step {α : Type} (N : Lens α) (m k : Nat)
   have hd_pos : 0 < m - k :=
     Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hdiff
   rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
-  · obtain ⟨q, hq⟩ := E213.Lib.Math.NatHelpers.Gcd213.mod_eq_exists_mul_add
+  · obtain ⟨q, hq⟩ := E213.Meta.Nat.Gcd213.mod_eq_exists_mul_add
       (Lens.leaves.view r') (Lens.leaves.view r) (m - k) hd_pos hle h_mod.symm
     exact step_plus_nd N m k hk hmk hLm hLk r q r' hq
-  · obtain ⟨q, hq⟩ := E213.Lib.Math.NatHelpers.Gcd213.mod_eq_exists_mul_add
+  · obtain ⟨q, hq⟩ := E213.Meta.Nat.Gcd213.mod_eq_exists_mul_add
       (Lens.leaves.view r) (Lens.leaves.view r') (m - k) hd_pos hle h_mod
     exact (step_plus_nd N m k hk hmk hLm hLk r' q r hq).symm
 

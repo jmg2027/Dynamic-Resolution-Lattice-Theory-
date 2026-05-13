@@ -1,6 +1,6 @@
 import E213.Lens.Instances.Parity
 import E213.Lens.Lattice.Lattice
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Meta.Nat.AddMod213
 
 /-!
 # LeavesRefinesParity: concrete witness for Q37.2
@@ -34,7 +34,7 @@ private theorem bool_xor_parity (a b : Nat) :
     decide ((a + b) % 2 = 1)
       = xor (decide (a % 2 = 1)) (decide (b % 2 = 1)) := by
   have hadd : (a + b) % 2 = (a % 2 + b % 2) % 2 :=
-    E213.Lib.Math.NatHelpers.AddMod213.add_mod_gen a b 2
+    E213.Meta.Nat.AddMod213.add_mod_gen a b 2
   rw [hadd]
   rcases mod_two_pure a with ha | ha <;>
     rcases mod_two_pure b with hb | hb <;>

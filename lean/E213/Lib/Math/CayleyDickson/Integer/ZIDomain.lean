@@ -1,10 +1,10 @@
 import E213.Lib.Math.CayleyDickson.Integer.ZI
-import E213.Lib.Math.NatHelpers.IntHelpers
+import E213.Meta.Nat.IntHelpers
 import E213.Lib.Math.CayleyDickson.Misc.QuadIdentities
 import E213.Meta.Int213.Core
 
-open E213.Lib.Math.NatHelpers
-open E213.Lib.Math.NatHelpers.IntHelpers
+open E213.Meta.Nat
+open E213.Meta.Nat.IntHelpers
 open E213.Lib.Math.CayleyDickson.Misc.QuadIdentities
 
 /-!

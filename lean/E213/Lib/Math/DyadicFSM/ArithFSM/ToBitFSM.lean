@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.BitFSM.Bound
-import E213.Lib.Math.NatHelpers.EncodePair213
+import E213.Meta.Nat.EncodePair213
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.Signature.Signature
@@ -27,11 +27,11 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
 
 private theorem encode_div {n : Nat} (hn : 0 < n) (a b : Fin n) :
     (a.val * n + b.val) / n = a.val :=
-  E213.Lib.Math.NatHelpers.EncodePair213.encode_div hn a.val b.val b.isLt
+  E213.Meta.Nat.EncodePair213.encode_div hn a.val b.val b.isLt
 
 private theorem encode_mod {n : Nat} (hn : 0 < n) (a b : Fin n) :
     (a.val * n + b.val) % n = b.val :=
-  E213.Lib.Math.NatHelpers.EncodePair213.encode_mod hn a.val b.val b.isLt
+  E213.Meta.Nat.EncodePair213.encode_mod hn a.val b.val b.isLt
 
 /-- ArithFSM2.toBitFSM run agrees with original (under pair-encoding). -/
 theorem toBitFSM_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
@@ -49,7 +49,7 @@ theorem toBitFSM_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
       rw [ih]; exact encode_mod hn _ _
     let aDec : Fin n :=
       ⟨((m.toBitFSM hn).run k').val / n,
-       E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
+       E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
     let bDec : Fin n :=
       ⟨((m.toBitFSM hn).run k').val % n, Nat.mod_lt _ hn⟩
     have hdec : (aDec, bDec) = ((m.run k').1, (m.run k').2) := by
@@ -73,7 +73,7 @@ theorem toBitFSM_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
     rw [hv]; exact encode_mod hn _ _
   let aDec : Fin n :=
     ⟨((m.toBitFSM hn).run k).val / n,
-     E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
+     E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
   let bDec : Fin n :=
     ⟨((m.toBitFSM hn).run k).val % n, Nat.mod_lt _ hn⟩
   have hdec : (aDec, bDec) = ((m.run k).1, (m.run k).2) := by

@@ -1,4 +1,4 @@
-import E213.Lib.Math.NatHelpers.NatDiv213
+import E213.Meta.Nat.NatDiv213
 
 /-!
 # Pair-encoding helpers (∅-axiom, Math layer)
@@ -7,9 +7,9 @@ Encoding `(a, b) : Fin n × Fin n` as `a * n + b : Fin (n*n)`,
 with axiom-free div/mod decoders.  Used by `ArithFSM.toBitFSM`.
 -/
 
-namespace E213.Lib.Math.NatHelpers.EncodePair213
+namespace E213.Meta.Nat.EncodePair213
 
-open E213.Lib.Math.NatHelpers.NatDiv213 (add_div_right_pos add_mod_right_pos)
+open E213.Meta.Nat.NatDiv213 (add_div_right_pos add_mod_right_pos)
 
 /-- `(a * n + b) / n = a` when `b < n`.  ∅-axiom. -/
 theorem encode_div {n : Nat} (hn : 0 < n) :
@@ -37,4 +37,4 @@ theorem encode_mod {n : Nat} (hn : 0 < n) :
     rw [hreorder, add_mod_right_pos hn]
     rw [encode_mod hn k b hb]
 
-end E213.Lib.Math.NatHelpers.EncodePair213
+end E213.Meta.Nat.EncodePair213

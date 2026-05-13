@@ -1,11 +1,11 @@
-import E213.Lib.Math.NatHelpers.AddMod213
-import E213.Lib.Math.NatHelpers.EncodePair213
-import E213.Lib.Math.NatHelpers.IntHelpers
-import E213.Lib.Math.NatHelpers.Max213
-import E213.Lib.Math.NatHelpers.NatDiv213
-import E213.Lib.Math.NatHelpers.PureNat
+import E213.Meta.Nat.AddMod213
+import E213.Meta.Nat.EncodePair213
+import E213.Meta.Nat.IntHelpers
+import E213.Meta.Nat.Max213
+import E213.Meta.Nat.NatDiv213
+import E213.Meta.Nat.PureNat
 
-/-! Spec-as-code entry point for `E213.Lib.Math.NatHelpers`.
+/-! Spec-as-code entry point for `E213.Meta.Nat`.
 
   Pure-ℕ / pure-ℤ utility helpers used across Math + Physics.
   Every file is leaf-level — no E213-internal imports beyond

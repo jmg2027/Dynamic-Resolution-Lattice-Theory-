@@ -66,13 +66,13 @@ theorem prod_refines_L6 :
   have h6r : Lens.leaves.view r % 6 < 6 := Nat.mod_lt _ (by decide)
   have h6r' : Lens.leaves.view r' % 6 < 6 := Nat.mod_lt _ (by decide)
   have e2r : Lens.leaves.view r % 6 % 2 = Lens.leaves.view r % 2 :=
-    E213.Lib.Math.NatHelpers.AddMod213.mod_mod_of_dvd _ ⟨3, rfl⟩
+    E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨3, rfl⟩
   have e2r' : Lens.leaves.view r' % 6 % 2 = Lens.leaves.view r' % 2 :=
-    E213.Lib.Math.NatHelpers.AddMod213.mod_mod_of_dvd _ ⟨3, rfl⟩
+    E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨3, rfl⟩
   have e3r : Lens.leaves.view r % 6 % 3 = Lens.leaves.view r % 3 :=
-    E213.Lib.Math.NatHelpers.AddMod213.mod_mod_of_dvd _ ⟨2, rfl⟩
+    E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨2, rfl⟩
   have e3r' : Lens.leaves.view r' % 6 % 3 = Lens.leaves.view r' % 3 :=
-    E213.Lib.Math.NatHelpers.AddMod213.mod_mod_of_dvd _ ⟨2, rfl⟩
+    E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨2, rfl⟩
   have k2 : Lens.leaves.view r % 6 % 2 = Lens.leaves.view r' % 6 % 2 := by
     rw [e2r, e2r']; exact h2
   have k3 : Lens.leaves.view r % 6 % 3 = Lens.leaves.view r' % 6 % 3 := by

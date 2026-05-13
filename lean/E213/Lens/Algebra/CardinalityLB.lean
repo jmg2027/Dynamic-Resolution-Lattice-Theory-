@@ -1,7 +1,7 @@
 import E213.Lens.Leaves.ModNat
-import E213.Lib.Math.Infinity.LensCardinality
-import E213.Lib.Math.NatHelpers.Gcd213
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Lens.Algebra.LensCardinality
+import E213.Meta.Nat.Gcd213
+import E213.Meta.Nat.AddMod213
 
 /-!
 # KernelCardinalityLB: lower bound on the Lens kernel space (≥ ℵ₀)
@@ -29,8 +29,8 @@ manual Nat arithmetic.
 namespace E213.Lens.Algebra.CardinalityLB
 
 open E213.Theory E213.Lens E213.Lens.Leaves.ModNat
-open E213.Lib.Math.NatHelpers.Gcd213 (mod_self_pos mod_zero_dvd)
-open E213.Lib.Math.NatHelpers.AddMod213 (add_mod_gen)
+open E213.Meta.Nat.Gcd213 (mod_self_pos mod_zero_dvd)
+open E213.Meta.Nat.AddMod213 (add_mod_gen)
 
 /-- `(a + b) % a = b % a` when `0 < a`.  ∅-axiom. -/
 private theorem add_mod_left_pos (a b : Nat) (ha : 0 < a) :

@@ -1,4 +1,4 @@
-import E213.Lib.Math.NatHelpers.Max213
+import E213.Meta.Nat.Max213
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableAffine
 import E213.Meta.Tactic.Omega213
 

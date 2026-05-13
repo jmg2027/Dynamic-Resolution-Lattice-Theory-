@@ -2,7 +2,7 @@ import E213.Lib.Math.DyadicFSM.ArithFSM.ModLarge
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModMedium
 import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.BitAuto2
-import E213.Lib.Math.NatHelpers.NatDiv213
+import E213.Meta.Nat.NatDiv213
 
 import E213.Lib.Math.DyadicFSM.BitFSM
 /-!
@@ -134,7 +134,7 @@ def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
       Nat.mul_le_mul_right n h1
     exact Nat.lt_of_lt_of_le step1 (step2 ▸ step3)⟩
   step v :=
-    let a : Fin n := ⟨v.val / n, E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul v.isLt⟩
+    let a : Fin n := ⟨v.val / n, E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul v.isLt⟩
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     let (a', b') := m.step (a, b)
     ⟨a'.val * n + b'.val, by
@@ -148,7 +148,7 @@ def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
         Nat.mul_le_mul_right n h1
       exact Nat.lt_of_lt_of_le step1 (step2 ▸ step3)⟩
   out v :=
-    let a : Fin n := ⟨v.val / n, E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul v.isLt⟩
+    let a : Fin n := ⟨v.val / n, E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul v.isLt⟩
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     m.out (a, b)
 

@@ -1,7 +1,7 @@
 import E213.Lib.Math.ModArith.JoinBezout
 import E213.Lib.Math.ModArith.JoinEuclidean
 import E213.Lens.Lattice.JoinEquiv
-import E213.Lib.Math.NatHelpers.Gcd213
+import E213.Meta.Nat.Gcd213
 
 /-!
 # ModJoinGCD: general join = gcd (arbitrary m, k ≥ 2)
@@ -30,7 +30,7 @@ open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 open E213.Lib.Math.ModArith.JoinEuclidean
 open E213.Tactic.Nat213 (gcd213)
-open E213.Lib.Math.NatHelpers.Gcd213
+open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left gcd213_succ_self)
 
 /-- Sorted auxiliary: `m ≥ k` assumed.  Strong induction on s = m + k.

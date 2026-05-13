@@ -1,5 +1,5 @@
 import E213.Lib.Math.ModArith.JoinGCD
-import E213.Lib.Math.NatHelpers.NatDiv213
+import E213.Meta.Nat.NatDiv213
 
 /-!
 # ModJoinEquivGCD: L_gcd.equiv ⊆ JoinEquiv L_m L_k
@@ -18,9 +18,9 @@ open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
-open E213.Lib.Math.NatHelpers.Gcd213
+open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left mod_eq_exists_mul_add)
-open E213.Lib.Math.NatHelpers.NatDiv213 (add_mod_right_pos)
+open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
 
 private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
@@ -125,7 +125,7 @@ open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
-open E213.Lib.Math.NatHelpers.Gcd213
+open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left succ_sub_self_213)
 
 /-- **Consecutive** at JE level. ∅-axiom. -/
@@ -180,7 +180,7 @@ open E213.Theory E213.Lens
 open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
-open E213.Lib.Math.NatHelpers.Gcd213
+open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left)
 
 /-- **Main theorem (sorted)**: strong induction on m + k, m ≥ k assumed.

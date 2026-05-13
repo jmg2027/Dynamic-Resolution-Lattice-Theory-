@@ -1,7 +1,7 @@
 import E213.Lens.Instances.AB
 import E213.Lens.Leaves.RefinesParity
 import E213.Lens.Instances.Bool
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Meta.Nat.AddMod213
 
 /-!
 # ABLensRefines: abLens ⊏ parityLens, abLens ⊏ boolXorLens
@@ -90,7 +90,7 @@ private theorem boolXorLens_view_eq (r : Raw) :
       rw [hfsB, hfsA, ihx, ihy]
       have hmod : ((abLens.view x).1 + (abLens.view y).1) % 2
                 = ((abLens.view x).1 % 2 + (abLens.view y).1 % 2) % 2 :=
-        E213.Lib.Math.NatHelpers.AddMod213.add_mod_gen _ _ 2
+        E213.Meta.Nat.AddMod213.add_mod_gen _ _ 2
       rw [hmod]
       rcases mod_two_zero_or_one_pure (abLens.view x).1 with ha | ha
       · rcases mod_two_zero_or_one_pure (abLens.view y).1 with hb | hb

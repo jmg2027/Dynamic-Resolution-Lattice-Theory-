@@ -1,6 +1,6 @@
 import E213.Lib.Math.CayleyDickson.Levels.Sedenion
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzAlgebra213
-import E213.Lib.Math.NatHelpers.IntHelpers
+import E213.Meta.Nat.IntHelpers
 import E213.Lib.Math.CayleyDickson.Levels.CayleyHeavy
 import E213.Lib.Math.Tactic.HurwitzRing
 import E213.Meta.Algebra213.Core

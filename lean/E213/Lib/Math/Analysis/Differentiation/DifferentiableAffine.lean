@@ -1,5 +1,5 @@
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
-import E213.Lib.Math.NatHelpers.Max213
+import E213.Meta.Nat.Max213
 
 import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Real213.Bisection.CutContinuity
@@ -61,7 +61,7 @@ theorem affine_derivative_form (a b : Nat) (x : Nat → Nat → Bool) :
 theorem affineIsDifferentiable_modulus (a b k : Nat) :
     (affineIsDifferentiable a b).linearityModulus k = k := by
   show max k 0 = k
-  exact E213.Lib.Math.NatHelpers.Max213.max_eq_left (Nat.zero_le _)
+  exact E213.Meta.Nat.Max213.max_eq_left (Nat.zero_le _)
 
 /-- x ↦ x² + x. -/
 def squarePlusIdIsDifferentiable :
@@ -74,7 +74,7 @@ theorem squarePlusIdIsDifferentiable_modulus (k : Nat) :
   show max (squareIsDifferentiable.linearityModulus k) k = 2 * k
   rw [squareIsDifferentiable_modulus]
   -- 2*k ≥ k via Nat.le_mul_of_pos_left or k = 1*k ≤ 2*k.
-  exact E213.Lib.Math.NatHelpers.Max213.max_eq_left
+  exact E213.Meta.Nat.Max213.max_eq_left
     (Nat.le_trans (Nat.le_of_eq (Nat.one_mul k).symm)
       (Nat.mul_le_mul_right k (Nat.le_succ 1)))
 
@@ -96,7 +96,7 @@ theorem cubePlusSquareIsDifferentiable_modulus (k : Nat) :
            (squareIsDifferentiable.linearityModulus k) = 3 * k
   rw [cubeIsDifferentiable_modulus, squareIsDifferentiable_modulus]
   -- 2*k ≤ 3*k via Nat.mul_le_mul_right with 2 ≤ 3.
-  exact E213.Lib.Math.NatHelpers.Max213.max_eq_left
+  exact E213.Meta.Nat.Max213.max_eq_left
     (Nat.mul_le_mul_right k (Nat.le_succ 2))
 
 /-- capstone: polynomial sum moduli. -/

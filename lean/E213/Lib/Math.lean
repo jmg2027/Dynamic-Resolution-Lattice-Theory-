@@ -23,7 +23,7 @@ import E213.Lib.Math.ParadigmDomain
 import E213.Lib.Math.ParadigmDomainGraded
 import E213.Lib.Math.ParadigmDomainGradedRing
 import E213.Lib.Math.ResolutionLimit
-import E213.Lib.Math.NatHelpers
+import E213.Meta.Nat
 import E213.Lib.Math.CascadeCalculus
 import E213.Lib.Math.Pigeonhole
 import E213.Lib.Math.Polynomial213

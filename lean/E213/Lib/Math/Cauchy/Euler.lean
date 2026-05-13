@@ -1,7 +1,7 @@
 import E213.Lib.Math.Cauchy.Archimedean
 import E213.Lib.Math.Cauchy.MonotonicBounded
 import E213.Lib.Math.Cauchy.PellSeq
-import E213.Lib.Math.NatHelpers.PureNat
+import E213.Meta.Nat.PureNat
 import E213.Meta.Tactic.Nat213
 
 /-!
@@ -357,7 +357,7 @@ end E213.Lib.Math.Cauchy.EulerSharperKernelFree
 
 namespace E213.Lib.Math.Cauchy.EulerSharperPure
 
-open E213.Lib.Math.NatHelpers.PureNat
+open E213.Meta.Nat.PureNat
 open E213.Lib.Math.Cauchy.EulerSeq
 
 /-- **e > 8/3 strict** (n ≥ 4): 3 * eulerNum n ≥ 8 * eulerDen n + 1.
@@ -484,7 +484,7 @@ end E213.Lib.Math.Cauchy.EulerSharperPure
 
 namespace E213.Lib.Math.Cauchy.EulerGenericPure
 
-open E213.Lib.Math.NatHelpers.PureNat
+open E213.Meta.Nat.PureNat
 open E213.Lib.Math.Cauchy.EulerSeq
 
 /-- **Inductive step lemma**: IH `b · a_k ≥ j · d_k + 1` →
@@ -720,7 +720,7 @@ end E213.Lib.Math.Cauchy.EulerGenericPure
 
 namespace E213.Lib.Math.Cauchy.EulerCombinatorialPure
 
-open E213.Lib.Math.NatHelpers.PureNat
+open E213.Meta.Nat.PureNat
 open E213.Lib.Math.Cauchy.EulerSeq
 
 /-- **Euler upper bound, axiom-free**: 3 * eulerDen n ≥ eulerNum n + 1.

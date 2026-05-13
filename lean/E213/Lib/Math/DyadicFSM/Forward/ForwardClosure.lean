@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
 import E213.Meta.Tactic.Nat213
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Meta.Nat.AddMod213
 
 import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
@@ -36,14 +36,14 @@ theorem sub_is_multiple_of_p (i j p : Nat) (hp : 0 < p)
   have h1 : (j - i) % p = 0 := by
     have hji : i + (j - i) = j := E213.Tactic.Nat213.add_sub_of_le hij
     have hadd : j % p = (i % p + (j - i)) % p := by
-      have h := E213.Lib.Math.NatHelpers.AddMod213.add_mod_left hp i (j - i)
+      have h := E213.Meta.Nat.AddMod213.add_mod_left hp i (j - i)
       rw [hji] at h
       exact h
     rw [hmod] at hadd
     have hadd2 : (j % p + (j - i)) % p
                 = (j % p % p + (j - i) % p) % p :=
-      E213.Lib.Math.NatHelpers.AddMod213.add_mod hp _ _
-    rw [E213.Lib.Math.NatHelpers.AddMod213.mod_mod] at hadd2
+      E213.Meta.Nat.AddMod213.add_mod hp _ _
+    rw [E213.Meta.Nat.AddMod213.mod_mod] at hadd2
     rw [hadd2] at hadd
     -- hadd : j % p = (j % p + (j - i) % p) % p
     by_cases hsum : j % p + (j - i) % p < p
@@ -74,7 +74,7 @@ theorem sub_is_multiple_of_p (i j p : Nat) (hp : 0 < p)
       have hcontra : (j - i) % p < (j - i) % p := h_p_eq ▸ hslt
       exact Nat.lt_irrefl _ hcontra
   have h2 : p * ((j - i) / p) + (j - i) % p = j - i :=
-    E213.Lib.Math.NatHelpers.AddMod213.div_add_mod (j - i) p
+    E213.Meta.Nat.AddMod213.div_add_mod (j - i) p
   rw [h1, Nat.add_zero] at h2
   rw [Nat.mul_comm] at h2
   exact h2.symm

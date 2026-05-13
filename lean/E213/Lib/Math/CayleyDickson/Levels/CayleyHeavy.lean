@@ -1,5 +1,5 @@
 import E213.Lib.Math.CayleyDickson.Levels.Cayley
-import E213.Lib.Math.NatHelpers.IntHelpers
+import E213.Meta.Nat.IntHelpers
 import E213.Lib.Math.CayleyDickson.Lipschitz.LipschitzHeavy
 import E213.Lib.Math.Tactic.HurwitzRing
 
@@ -57,10 +57,10 @@ private theorem lip_normSq_nonneg (u : Lipschitz) :
     0 ≤ Lipschitz.normSq u := by
   show 0 ≤ u.re.re * u.re.re + u.re.im * u.re.im +
            (u.im.re * u.im.re + u.im.im * u.im.im)
-  have h1a := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg u.re.re
-  have h1b := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg u.re.im
-  have h1c := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg u.im.re
-  have h1d := E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg u.im.im
+  have h1a := E213.Meta.Nat.IntHelpers.mul_self_nonneg u.re.re
+  have h1b := E213.Meta.Nat.IntHelpers.mul_self_nonneg u.re.im
+  have h1c := E213.Meta.Nat.IntHelpers.mul_self_nonneg u.im.re
+  have h1d := E213.Meta.Nat.IntHelpers.mul_self_nonneg u.im.im
   omega
 
 /-- `Cayley.normSq u = 0 ↔ u = 0`.  Sum of 8 integer squares

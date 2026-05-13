@@ -2,7 +2,7 @@ import E213.Lib.Math.Real213.Bisection.CutContinuity
 import E213.Lib.Math.Real213.Bisection.CutBisection
 import E213.Lib.Math.Real213.Mul.CutMulDetermined
 import E213.Lib.Math.Real213.Mul.CutPow
-import E213.Lib.Math.NatHelpers.Max213
+import E213.Meta.Nat.Max213
 
 import E213.Lib.Math.Real213.Mul.CutMul
 import E213.Lib.Math.Real213.Sum.CutSumTest
@@ -40,8 +40,8 @@ def idLDD : LocallyDeterminedData id where
   N := fun m k => max m k
   prop := by
     intro m k cx cy h
-    exact h m k (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _)
-                (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _)
+    exact h m k (E213.Meta.Nat.Max213.le_max_left _ _)
+                (E213.Meta.Nat.Max213.le_max_right _ _)
 
 /-- LocallyDeterminedData for const. -/
 def constLDD (c : Nat → Nat → Bool) : LocallyDeterminedData (constCutFn c) where
@@ -73,10 +73,10 @@ theorem maxRangeRow_ge (f : Nat → Nat → Nat) (i K j : Nat) (hj : j ≤ K) :
     rcases Nat.eq_or_lt_of_le hj with heq | hlt
     · subst heq
       show f i (k+1) ≤ max (f i (k+1)) (maxRangeRow f i k)
-      exact E213.Lib.Math.NatHelpers.Max213.le_max_left _ _
+      exact E213.Meta.Nat.Max213.le_max_left _ _
     · have hjk : j ≤ k := Nat.lt_succ_iff.mp hlt
       show f i j ≤ max (f i (k+1)) (maxRangeRow f i k)
-      exact Nat.le_trans (ih hjk) (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _)
+      exact Nat.le_trans (ih hjk) (E213.Meta.Nat.Max213.le_max_right _ _)
 
 /-- Upper bound property of maxRange. -/
 theorem maxRange_ge (f : Nat → Nat → Nat) (M K i j : Nat)
@@ -91,10 +91,10 @@ theorem maxRange_ge (f : Nat → Nat → Nat) (M K i j : Nat)
     rcases Nat.eq_or_lt_of_le hi with heq | hlt
     · subst heq
       show f (k+1) j ≤ max (maxRangeRow f (k+1) K) (maxRange f k K)
-      exact Nat.le_trans (maxRangeRow_ge f (k+1) K j hj) (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _)
+      exact Nat.le_trans (maxRangeRow_ge f (k+1) K j hj) (E213.Meta.Nat.Max213.le_max_left _ _)
     · have hik : i ≤ k := Nat.lt_succ_iff.mp hlt
       show f i j ≤ max (maxRangeRow f (k+1) K) (maxRange f k K)
-      exact Nat.le_trans (ih hik) (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _)
+      exact Nat.le_trans (ih hik) (E213.Meta.Nat.Max213.le_max_right _ _)
 
 open E213.Theory E213.Lens
 
@@ -125,7 +125,7 @@ def cutHalfLDD : LocallyDeterminedData cutHalf where
   prop := by
     intro m k cx cy h
     show cx (2*m) k = cy (2*m) k
-    exact h (2*m) k (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _) (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _)
+    exact h (2*m) k (E213.Meta.Nat.Max213.le_max_left _ _) (E213.Meta.Nat.Max213.le_max_right _ _)
 
 open E213.Theory E213.Lens
 open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)

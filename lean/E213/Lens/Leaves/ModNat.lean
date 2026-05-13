@@ -1,8 +1,8 @@
 import E213.Lens.LensCore
 import E213.Lens.Compose.Factoring
-import E213.Lib.Math.Infinity.LensCardinality
-import E213.Lib.Math.NatHelpers.AddMod213
-import E213.Lib.Math.NatHelpers.Gcd213
+import E213.Lens.Algebra.LensCardinality
+import E213.Meta.Nat.AddMod213
+import E213.Meta.Nat.Gcd213
 
 /-!
 # LeavesModNat: divisibility → refinement for leaves mod m
@@ -50,7 +50,7 @@ theorem leavesModNat_view_eq (m : Nat) :
       show (((leavesModNat m).view x) + ((leavesModNat m).view y)) % m
            = (Lens.leaves.view x + Lens.leaves.view y) % m
       rw [ihx, ihy]
-      exact (E213.Lib.Math.NatHelpers.AddMod213.add_mod_gen _ _ m).symm
+      exact (E213.Meta.Nat.AddMod213.add_mod_gen _ _ m).symm
 
 end E213.Lens.Leaves.ModNat
 
@@ -68,7 +68,7 @@ theorem divides_refines (m k : Nat) (hmk : k ∣ m) :
   obtain ⟨q, hq⟩ := hmk
   have : Lens.leaves.view r % m % k = Lens.leaves.view r % k := by
     rw [hq]
-    exact E213.Lib.Math.NatHelpers.AddMod213.mod_mod_of_dvd _ ⟨q, rfl⟩
+    exact E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨q, rfl⟩
   exact this.symm
 
 end E213.Lens.Leaves.ModNat
@@ -93,7 +93,7 @@ theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
   have hm_eq : (leavesModNat m).view Raw.a = (leavesModNat m).view r := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, h_leaves_a, hr]
     show 1 % m = (m + 1) % m
-    rw [E213.Lib.Math.NatHelpers.AddMod213.add_mod_left_pure,
+    rw [E213.Meta.Nat.AddMod213.add_mod_left_pure,
         Nat.mod_eq_of_lt (Nat.lt_of_lt_of_le (by decide : (1:Nat) < 2) hm)]
   -- By refines, they are also equal under mod k
   have hk_eq : (leavesModNat k).view Raw.a = (leavesModNat k).view r :=
@@ -104,7 +104,7 @@ theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
   -- hk_eq : 1 = (m + 1) % k
   -- (m + 1) % k = (m % k + 1) % k
   have hstep : (m + 1) % k = (m % k + 1) % k := by
-    rw [E213.Lib.Math.NatHelpers.AddMod213.add_mod_gen,
+    rw [E213.Meta.Nat.AddMod213.add_mod_gen,
         Nat.mod_eq_of_lt hk_one]
   rw [hstep] at hk_eq
   -- hk_eq : 1 = (m % k + 1) % k
@@ -118,9 +118,9 @@ theorem refines_implies_divides (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
       have h_ge : k ≤ m % k + 1 := Nat.le_of_not_lt h
       have h_le : m % k + 1 ≤ k := Nat.succ_le_of_lt hmk
       have h_eq : m % k + 1 = k := Nat.le_antisymm h_le h_ge
-      rw [h_eq, E213.Lib.Math.NatHelpers.AddMod213.mod_self] at hk_eq
+      rw [h_eq, E213.Meta.Nat.AddMod213.mod_self] at hk_eq
       exact absurd hk_eq (by decide)
-  exact E213.Lib.Math.NatHelpers.AddMod213.dvd_of_mod_eq_zero hm_zero
+  exact E213.Meta.Nat.AddMod213.dvd_of_mod_eq_zero hm_zero
 
 end E213.Lens.Leaves.ModNat
 
@@ -176,8 +176,8 @@ theorem gcd213_upper_bound (m k : Nat) :
     (leavesModNat m).refines (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) ∧
     (leavesModNat k).refines (leavesModNat (E213.Tactic.Nat213.gcd213 m k)) :=
   common_divisor_upper_bound m k (E213.Tactic.Nat213.gcd213 m k)
-    (E213.Lib.Math.NatHelpers.Gcd213.gcd213_dvd_left m k)
-    (E213.Lib.Math.NatHelpers.Gcd213.gcd213_dvd_right m k)
+    (E213.Meta.Nat.Gcd213.gcd213_dvd_left m k)
+    (E213.Meta.Nat.Gcd213.gcd213_dvd_right m k)
 
 /-! ## Converse (least upper bound / greatest lower bound) direction
 

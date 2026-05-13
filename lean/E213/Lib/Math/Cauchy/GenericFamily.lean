@@ -2,7 +2,7 @@ import E213.Lens.Instances.Cauchy
 import E213.Lens.Instances.AB
 import E213.Lib.Math.Cauchy.Archimedean
 import E213.Lib.Math.Cauchy.ProfiniteSeq
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Meta.Nat.AddMod213
 
 /-!
 # GenericFamilyCauchy: Unified framework for Lens + post-processing
@@ -212,6 +212,6 @@ theorem leavesModAllLens_view (r : Raw) :
   · intro u v; exact Nat.add_comm u v
   · intro _ u v; rw [Nat.add_comm u v]
   · intro m u v
-    exact E213.Lib.Math.NatHelpers.AddMod213.add_mod_gen u v (m + 1)
+    exact E213.Meta.Nat.AddMod213.add_mod_gen u v (m + 1)
 
 end E213.Lib.Math.Cauchy.GenericFamily

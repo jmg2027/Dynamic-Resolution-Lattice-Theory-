@@ -31,7 +31,7 @@ constructable, and the master A theorem extends to all `n`.
 STRICT ∅-AXIOM.
 -/
 
-namespace E213.Lib.Math.NatHelpers.BinomSymm
+namespace E213.Meta.Nat.BinomSymm
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 
@@ -97,9 +97,9 @@ theorem binom_symm : ∀ {n k : Nat}, k ≤ n → binom n k = binom n (n - k)
       rw [hk_eq, binom_diag, Nat.sub_self]
       rfl
 
-end E213.Lib.Math.NatHelpers.BinomSymm
+end E213.Meta.Nat.BinomSymm
 
-namespace E213.Lib.Math.NatHelpers.BinomSymm
+namespace E213.Meta.Nat.BinomSymm
 
 open E213.Lib.Physics.Simplex.Counts (binom)
 
@@ -146,4 +146,4 @@ theorem central_binom_is_double (n : Nat) :
   rw [h_symm]
   exact (E213.Tactic.Nat213.two_mul (binom (2 * n + 1) (n + 1))).symm
 
-end E213.Lib.Math.NatHelpers.BinomSymm
+end E213.Meta.Nat.BinomSymm

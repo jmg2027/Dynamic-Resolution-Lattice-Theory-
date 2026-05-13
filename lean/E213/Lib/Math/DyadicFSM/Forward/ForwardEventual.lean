@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.Forward.ForwardClosure
-import E213.Lib.Math.NatHelpers.EncodePair213
+import E213.Meta.Nat.EncodePair213
 import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity

@@ -1,6 +1,6 @@
 import E213.Lib.Math.ModArith.PureNatMod3
 import E213.Lib.Math.ModArith.PureNatMod5
-import E213.Lib.Math.NatHelpers.PureNat
+import E213.Meta.Nat.PureNat
 
 /-!
 # Irrational.SqrtPure — √p irrationality, truly axiom-free (p ∈ {2, 3, 5})
@@ -20,7 +20,7 @@ Per-prime namespaces preserved (`Sqrt{p}Pure`).
 
 namespace E213.Lib.Math.Irrational.Sqrt2Pure
 
-open E213.Lib.Math.NatHelpers.PureNat
+open E213.Meta.Nat.PureNat
 
 /-- m^2 = 2*(k*k) → m even. -/
 theorem m_even_of_sq (m k : Nat) (heq : m * m = 2 * (k * k)) :
@@ -102,7 +102,7 @@ end E213.Lib.Math.Irrational.Sqrt2Pure
 
 namespace E213.Lib.Math.Irrational.Sqrt3Pure
 
-open E213.Lib.Math.NatHelpers.PureNat
+open E213.Meta.Nat.PureNat
 open E213.Lib.Math.ModArith.PureNatMod3
 
 /-- m^2 = 3*(k*k) → mod3 m = 0. -/
@@ -193,7 +193,7 @@ end E213.Lib.Math.Irrational.Sqrt3Pure
 
 namespace E213.Lib.Math.Irrational.Sqrt5Pure
 
-open E213.Lib.Math.NatHelpers.PureNat
+open E213.Meta.Nat.PureNat
 open E213.Lib.Math.ModArith.PureNatMod5
 
 theorem m_mod5_zero_of_sq (m k : Nat) (heq : m * m = 5 * (k * k)) :

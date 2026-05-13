@@ -1,5 +1,5 @@
 import E213.Lens.Leaves.ModNat
-import E213.Lib.Math.NatHelpers.NatDiv213
+import E213.Meta.Nat.NatDiv213
 
 /-!
 # ModJoinBezout: parametric Bezout chain step
@@ -50,7 +50,7 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
     (Lens.leaves.view r + m) h_pos
   have h_r_w : (leavesModNat m).view r = (leavesModNat m).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw,
-        E213.Lib.Math.NatHelpers.NatDiv213.add_mod_right_pos hm_pos]
+        E213.Meta.Nat.NatDiv213.add_mod_right_pos hm_pos]
   have h_w_r' : (leavesModNat k).view w = (leavesModNat k).view r' := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw, hdiff]
     have hkm_le : k ≤ m := Nat.le_of_lt hmk
@@ -59,7 +59,7 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
     have hrewrite : Lens.leaves.view r + m
                       = (Lens.leaves.view r + (m - k)) + k := by
       rw [Nat.add_assoc, h_sub_add]
-    rw [hrewrite, E213.Lib.Math.NatHelpers.NatDiv213.add_mod_right_pos hk_pos]
+    rw [hrewrite, E213.Meta.Nat.NatDiv213.add_mod_right_pos hk_pos]
   exact (hLm _ _ h_r_w).trans (hLk _ _ h_w_r')
 
 end E213.Lib.Math.ModArith.JoinBezout
@@ -101,7 +101,7 @@ theorem consecutive_step_plus_n {α : Type} (N : Lens α) (m k : Nat)
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have hmk_lt : m > k := by rw [hmk]; exact Nat.lt_succ_self k
       have hmk_diff : m - k = 1 := by
-        rw [hmk]; exact E213.Lib.Math.NatHelpers.Gcd213.succ_sub_self_213 k
+        rw [hmk]; exact E213.Meta.Nat.Gcd213.succ_sub_self_213 k
       have step2 : N.view r'' = N.view r' := by
         apply chain_step_sub N m k hk hmk_lt hLm hLk r'' r'
         -- Need: view r' = view r'' + (m - k) = view r'' + 1

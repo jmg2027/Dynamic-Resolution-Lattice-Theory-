@@ -1,4 +1,4 @@
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Meta.Nat.AddMod213
 
 /-!
 # Max213 — `Nat.max` helpers (∅-axiom)
@@ -19,7 +19,7 @@ Lean-core leak status (probed):
   - `Nat.le_total`            PURE
 -/
 
-namespace E213.Lib.Math.NatHelpers.Max213
+namespace E213.Meta.Nat.Max213
 
 /-- ∅-axiom replacement for `Nat.max_eq_left` (when `b ≤ a`). -/
 theorem max_eq_left {a b : Nat} (h : b ≤ a) : Nat.max a b = a :=
@@ -32,7 +32,7 @@ theorem max_eq_left {a b : Nat} (h : b ≤ a) : Nat.max a b = a :=
   | Or.inr hba =>
     -- b ≤ a from le_total — chain via Nat.max_self when a = b
     -- General case: use bridge via 213-native max_comm.
-    let h1 : Nat.max a b = Nat.max b a := E213.Lib.Math.NatHelpers.AddMod213.max_comm a b
+    let h1 : Nat.max a b = Nat.max b a := E213.Meta.Nat.AddMod213.max_comm a b
     h1.trans (Nat.max_eq_right hba)
 
 /-- ∅-axiom replacement for `Nat.le_max_left`. -/
@@ -59,4 +59,4 @@ theorem le_max_right (a b : Nat) : b ≤ Nat.max a b :=
     let h1 : Nat.max a b = a := max_eq_left hba
     h1.symm ▸ hba
 
-end E213.Lib.Math.NatHelpers.Max213
+end E213.Meta.Nat.Max213

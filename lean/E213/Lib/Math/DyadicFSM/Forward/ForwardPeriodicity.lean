@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.Tier.TierBridge
 import E213.Lib.Math.Pigeonhole
-import E213.Lib.Math.NatHelpers.EncodePair213
+import E213.Meta.Nat.EncodePair213
 
 import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
@@ -152,10 +152,10 @@ theorem collTest_imp_val_eq {N k : Nat} (g : Fin k → Fin N)
 theorem encode_inj {p : Nat} (hp : 0 < p)
     (a b r1 r2 : Nat) (h1 : r1 < p) (h2 : r2 < p)
     (heq : a * p + r1 = b * p + r2) : a = b ∧ r1 = r2 := by
-  have ha : (a * p + r1) / p = a := E213.Lib.Math.NatHelpers.EncodePair213.encode_div hp a r1 h1
-  have hb : (b * p + r2) / p = b := E213.Lib.Math.NatHelpers.EncodePair213.encode_div hp b r2 h2
-  have hra : (a * p + r1) % p = r1 := E213.Lib.Math.NatHelpers.EncodePair213.encode_mod hp a r1 h1
-  have hrb : (b * p + r2) % p = r2 := E213.Lib.Math.NatHelpers.EncodePair213.encode_mod hp b r2 h2
+  have ha : (a * p + r1) / p = a := E213.Meta.Nat.EncodePair213.encode_div hp a r1 h1
+  have hb : (b * p + r2) / p = b := E213.Meta.Nat.EncodePair213.encode_div hp b r2 h2
+  have hra : (a * p + r1) % p = r1 := E213.Meta.Nat.EncodePair213.encode_mod hp a r1 h1
+  have hrb : (b * p + r2) % p = r2 := E213.Meta.Nat.EncodePair213.encode_mod hp b r2 h2
   exact ⟨ha.symm.trans (heq ▸ hb), hra.symm.trans (heq ▸ hrb)⟩
 
 /-- ★ Joint state collision: ∃ i < j ≤ 5p with sig & mod equal.

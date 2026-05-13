@@ -153,13 +153,13 @@ theorem mod_4_6_refines_parity {α : Type} (N : Lens α)
       -- view r' = view r + 2 * ((view r' - view r) / 2).
       -- Use mod_diff_eq_zero_of_le + div_add_mod.
       have hmod0 : (Lens.leaves.view r' - Lens.leaves.view r) % 2 = 0 :=
-        E213.Lib.Math.NatHelpers.AddMod213.mod_diff_eq_zero_of_le
+        E213.Meta.Nat.AddMod213.mod_diff_eq_zero_of_le
           (by decide : (0:Nat) < 2) hle hp
       have hdam :
           2 * ((Lens.leaves.view r' - Lens.leaves.view r) / 2)
           + (Lens.leaves.view r' - Lens.leaves.view r) % 2
           = Lens.leaves.view r' - Lens.leaves.view r :=
-        E213.Lib.Math.NatHelpers.AddMod213.div_add_mod _ 2
+        E213.Meta.Nat.AddMod213.div_add_mod _ 2
       have h2div :
           2 * ((Lens.leaves.view r' - Lens.leaves.view r) / 2)
           = Lens.leaves.view r' - Lens.leaves.view r := by
@@ -180,13 +180,13 @@ theorem mod_4_6_refines_parity {α : Type} (N : Lens α)
   · obtain ⟨k, hk⟩ : ∃ k, Lens.leaves.view r = Lens.leaves.view r' + 2 * k := by
       refine ⟨(Lens.leaves.view r - Lens.leaves.view r') / 2, ?_⟩
       have hmod0 : (Lens.leaves.view r - Lens.leaves.view r') % 2 = 0 :=
-        E213.Lib.Math.NatHelpers.AddMod213.mod_diff_eq_zero_of_le
+        E213.Meta.Nat.AddMod213.mod_diff_eq_zero_of_le
           (by decide : (0:Nat) < 2) hle hp.symm
       have hdam :
           2 * ((Lens.leaves.view r - Lens.leaves.view r') / 2)
           + (Lens.leaves.view r - Lens.leaves.view r') % 2
           = Lens.leaves.view r - Lens.leaves.view r' :=
-        E213.Lib.Math.NatHelpers.AddMod213.div_add_mod _ 2
+        E213.Meta.Nat.AddMod213.div_add_mod _ 2
       have h2div :
           2 * ((Lens.leaves.view r - Lens.leaves.view r') / 2)
           = Lens.leaves.view r - Lens.leaves.view r' := by

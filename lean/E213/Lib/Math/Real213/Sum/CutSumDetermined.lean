@@ -1,4 +1,4 @@
-import E213.Lib.Math.NatHelpers.Max213
+import E213.Meta.Nat.Max213
 import E213.Lib.Math.Real213.Sum.CutSum
 import E213.Lib.Math.Real213.Bisection.CutContinuity
 
@@ -63,11 +63,11 @@ theorem cutSum_locallyDetermined : isLocallyDetermined2 cutSum := by
   show cutSumAux cx1 cy1 k (2*m) (2*m) = cutSumAux cx2 cy2 k (2*m) (2*m)
   apply cutSumAux_congr
   · intro m' hm'
-    exact hx m' (2*k) (Nat.le_trans hm' (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _))
-                       (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _)
+    exact hx m' (2*k) (Nat.le_trans hm' (E213.Meta.Nat.Max213.le_max_left _ _))
+                       (E213.Meta.Nat.Max213.le_max_right _ _)
   · intro m' hm'
-    exact hy m' (2*k) (Nat.le_trans hm' (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _))
-                       (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _)
+    exact hy m' (2*k) (Nat.le_trans hm' (E213.Meta.Nat.Max213.le_max_left _ _))
+                       (E213.Meta.Nat.Max213.le_max_right _ _)
   · exact Nat.le_refl _
 
 end E213.Lib.Math.Real213.Sum.CutSumDetermined

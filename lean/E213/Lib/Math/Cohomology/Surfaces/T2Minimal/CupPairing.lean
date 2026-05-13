@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Surfaces.T2Minimal
-import E213.Lib.Math.NatHelpers.IntHelpers
+import E213.Meta.Nat.IntHelpers
 import E213.Meta.Int213.Core
 
 /-!

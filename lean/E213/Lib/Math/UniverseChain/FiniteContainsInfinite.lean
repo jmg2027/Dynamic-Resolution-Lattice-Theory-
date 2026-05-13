@@ -2,7 +2,7 @@ import E213.Lib.Math.Cohomology.Fractal.Level
 import E213.Lib.Math.UniverseChain.Recursion
 import E213.Lib.Math.GenerationRule.TriangleIteration
 import E213.Lib.Math.UniverseChain.BipartiteFractal
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Meta.Nat.AddMod213
 import E213.Meta.Tactic.Nat213
 
 /-!
@@ -37,13 +37,13 @@ theorem replicate_injective (i j i' j' : Fin 5)
     Fin.mk.inj h
   -- Step 1: j.val = j'.val via (5*i+j) % 5 = j (since j < 5).
   have h_mod_lhs : (5 * i.val + j.val) % 5 = j.val := by
-    rw [E213.Lib.Math.NatHelpers.AddMod213.add_mod_left (by decide : 0 < 5)]
+    rw [E213.Meta.Nat.AddMod213.add_mod_left (by decide : 0 < 5)]
     rw [E213.Tactic.Nat213.mul_mod_right]
     show (0 + j.val) % 5 = j.val
     rw [Nat.zero_add]
     exact Nat.mod_eq_of_lt j.isLt
   have h_mod_rhs : (5 * i'.val + j'.val) % 5 = j'.val := by
-    rw [E213.Lib.Math.NatHelpers.AddMod213.add_mod_left (by decide : 0 < 5)]
+    rw [E213.Meta.Nat.AddMod213.add_mod_left (by decide : 0 < 5)]
     rw [E213.Tactic.Nat213.mul_mod_right]
     show (0 + j'.val) % 5 = j'.val
     rw [Nat.zero_add]

@@ -10,7 +10,7 @@ Both lemmas ∅-axiom — direct case-analysis on `Int` constructors
 core lemmas).
 -/
 
-namespace E213.Lib.Math.NatHelpers.IntHelpers
+namespace E213.Meta.Nat.IntHelpers
 
 /-- ∅-axiom `Int.zero_mul`, inlined from `Theory.Internal.Int213.zero_mul`. -/
 private theorem zero_mul : ∀ (a : Int), 0 * a = 0
@@ -90,4 +90,4 @@ protected theorem add_comm : ∀ (a b : Int), a + b = b + a
       show Int.negSucc (m + n + 1) = Int.negSucc (n + m + 1)
       rw [Nat.add_comm m n]
 
-end E213.Lib.Math.NatHelpers.IntHelpers
+end E213.Meta.Nat.IntHelpers
