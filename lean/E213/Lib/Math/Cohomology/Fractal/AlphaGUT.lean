@@ -1,4 +1,5 @@
 import E213.Lib.Math.Cohomology.Fractal.V25
+import E213.Lib.Math.Cohomology.Examples.K5
 import E213.Lib.Physics.Couplings.AlphaGUT
 
 import E213.Lib.Physics.Simplex.Counts
@@ -34,8 +35,8 @@ open E213.Lib.Physics.Simplex.Counts (d)
 /-- α_GUT numerator = b_1 of K_5 (single 4-simplex 1-skeleton). -/
 theorem numerator_eq_b1_K5 :
     (6 : Nat) = (10 - 5 + 1)
-    ∧ K5.kerSizeDelta0 = 2 := by
-  exact ⟨by decide, K5.kerSize_K5⟩
+    ∧ E213.Lib.Math.Cohomology.Examples.K5.kerSizeDelta0 = 2 := by
+  exact ⟨by decide, E213.Lib.Math.Cohomology.Examples.K5.kerSize_K5⟩
 
 /-- α_GUT denominator integer = numV of 2-level fractal K_{25}. -/
 theorem denominator_eq_numV_fractal :

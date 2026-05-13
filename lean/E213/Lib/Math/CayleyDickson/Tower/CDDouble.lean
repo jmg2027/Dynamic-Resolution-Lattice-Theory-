@@ -43,7 +43,7 @@ style tactics; deferred.
 namespace E213.Lib.Math.CayleyDickson.Tower.CDDouble
 
 
-open E213.Lib.Math.CayleyDickson.Integer.ZI.ZI
+open E213.Lib.Math.CayleyDickson.Integer.ZI
 open ZI
 
 /-- The Lipschitz integer quaternion: CD-double of ZI. -/

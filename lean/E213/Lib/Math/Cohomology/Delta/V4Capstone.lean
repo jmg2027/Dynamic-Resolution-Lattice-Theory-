@@ -70,8 +70,8 @@ theorem leibniz_universal_delta4 :
 /-- ★★★ Encoding bijection at (5, 1). -/
 theorem encoding_bijection_delta4 :
     ∀ σ : Cochain 5 1, ∀ j : Fin 5,
-      σ j = cochainAt 5 1 (EncodingBijection.encode_5_1 σ) j :=
-  EncodingBijection.encode_bijection
+      σ j = cochainAt 5 1 (E213.Lib.Math.Cohomology.Examples.EncodingBijection.encode_5_1 σ) j :=
+  E213.Lib.Math.Cohomology.Examples.EncodingBijection.encode_bijection
 
 /-- ★★★★★ Δ⁴ Cohomology capstone — full Prop-level lift of
     cohomology axioms on the atomic substrate. -/

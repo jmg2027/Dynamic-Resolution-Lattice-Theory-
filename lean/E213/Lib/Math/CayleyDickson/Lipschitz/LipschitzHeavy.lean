@@ -54,13 +54,13 @@ theorem normSq_eq_zero_iff (u : Lipschitz) : normSq u = 0 ↔ u = 0 := by
   refine ⟨?_, ?_⟩
   · intro h
     have h_eq : u.re.normSq + u.im.normSq = 0 := h
-    have h1 : 0 ≤ u.re.normSq := ZI.ZI.normSq_nonneg u.re
-    have h2 : 0 ≤ u.im.normSq := ZI.ZI.normSq_nonneg u.im
+    have h1 : 0 ≤ u.re.normSq := ZI.normSq_nonneg u.re
+    have h2 : 0 ≤ u.im.normSq := ZI.normSq_nonneg u.im
     obtain ⟨hre, him⟩ :=
       E213.Meta.Int213.add_eq_zero_of_nonneg h1 h2 h_eq
     apply Lipschitz.ext
-    · exact (ZI.ZI.normSq_eq_zero_iff u.re).mp hre
-    · exact (ZI.ZI.normSq_eq_zero_iff u.im).mp him
+    · exact (ZI.normSq_eq_zero_iff u.re).mp hre
+    · exact (ZI.normSq_eq_zero_iff u.im).mp him
   · rintro rfl; rfl
 
 /-- ★ **R3 at Lipschitz** (= integer quaternions): no zero divisors.
