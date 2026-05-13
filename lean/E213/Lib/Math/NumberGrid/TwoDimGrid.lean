@@ -1,6 +1,6 @@
 import E213.Lib.Math.NumberGrid.FSMGradeTaxonomy
 import E213.Lib.Math.NumberGrid.HorizontalAxis
-import E213.Lib.Math.SignedCut.CDTowerLevel
+import E213.Lib.Math.SignedCut.CD.CDTowerLevel
 
 /-!
 # Two-Dimensional Number-System Grid (∅-axiom)
@@ -15,7 +15,7 @@ namespace E213.Lib.Math.NumberGrid.TwoDimGrid
 open E213.Lib.Math.NumberGrid.FSMGradeTaxonomy
   (fsmGradeStates grade_25_states)
 open E213.Lib.Math.NumberGrid.HorizontalAxis (NumberType gradeToType)
-open E213.Lib.Math.SignedCut.CDTowerLevel (CDLevel levelDim)
+open E213.Lib.Math.SignedCut.CD.CDTowerLevel (CDLevel levelDim)
 
 /-- Grid cell: pair `(CD level, FSM grade)`. -/
 abbrev GridCell := Nat × Nat

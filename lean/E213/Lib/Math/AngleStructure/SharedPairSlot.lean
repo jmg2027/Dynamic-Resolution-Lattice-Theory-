@@ -1,4 +1,4 @@
-import E213.Lib.Math.SignedCut.CDMulRule
+import E213.Lib.Math.SignedCut.CD.CDMulRule
 import E213.Lib.Math.Real213.Sum.CutSumTest
 
 /-!
@@ -30,7 +30,7 @@ each rule, shown by `decide`-style witness.
 
 namespace E213.Lib.Math.AngleStructure.SharedPairSlot
 
-open E213.Lib.Math.SignedCut.CDMulRule (signMul complexMul)
+open E213.Lib.Math.SignedCut.CD.CDMulRule (signMul complexMul)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- The shared "orthogonal slot" `(0, 1)` — second component
