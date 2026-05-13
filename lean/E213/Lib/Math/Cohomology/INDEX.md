@@ -1,47 +1,27 @@
-# Math/Cohomology/ — sub-cluster index
+# Cohomology — Module Index (sub-organized 2026-05-13)
 
-After Phase 3 + Phase 7 reorg (2026-05-01), this directory is
-organized into topical sub-clusters.
+213-native algebraic topology + simplicial cohomology.  94 files
+across 12 sub-clusters + 10 top-level.
 
-## Sub-directories (10 sub-clusters, ~175 files)
+## Sub-clusters
 
-| Subdir | Files | Topic |
+| Dir | Files | Topic |
 |---|---|---|
-| `Bipartite/` | 3 | K_{3,2}^{(c=2)} bipartite graph (V32, V32Betti, Filled) |
-| `Cochain/` | 4 | Cochain framework (Core, V5{Decomp, _1DecompR, _2Decomp}) |
-| `Cup/` | 3 | Cup product (Core, Ring, Leibniz) |
-| `CupAW/` | 20 | Cup-AW Leibniz family (CupAW.Leibniz* steps to Δ⁴ capstone) |
-| `Delta/` | 5 | δ operator (Core, Linear, SqZero, V4Capstone, V4LeibnizCapstone) |
-| `Fractal/` | 3 | Fractal levels (V25, AlphaGUT, Level) |
-| `Hodge/` | 9 | Hodge involution (Core, Star, Delta, Involution{,Capstone}, Prop{,50,52,53,54}) |
-| `Universal/` | 8 | Universal property (Core, Prop{,31,41,42,51,52,53}) |
-| `Dyadic/` | ~120 | Dyadic FSM family (8 sub-sub-clusters) |
-| └─ `Dyadic/ArithFSM/` | 34 | ArithFSM (V1-V3 variants + Mod{N} primes 5..101) |
-| └─ `Dyadic/BitFSM/` | 3 | BitFSM helpers (Bound, Converse, Examples) |
-| └─ `Dyadic/Pell/` | 17 | Pell-CRT framework |
-| └─ `Dyadic/Fib/` | 11 | Fibonacci predictor |
-| └─ `Dyadic/Trib/` | 6 | Tribonacci CRT |
-| └─ `Dyadic/Legendre/` | 5 | Legendre symbol + V213, V13_19 |
-| └─ `Dyadic/Pisano/` | 9 | Pisano predictors (4..22 prime evidence) |
-| └─ `Dyadic/Archive/` | 3 | Exploratory historical (Capstone, EdgeSignature, SubwordComplexity) |
+| `Cochain/` | 4 | 213-native cochain complex foundation |
+| `Cup/` | 3 | strict cup product on Cochains |
+| `CupAW/` | 21 | Alexander–Whitney cup (homotopy-coherent variant) |
+| `Delta/` | 5 | δ : Cᵏ → Cᵏ⁺¹ coboundary |
+| `Bipartite/` | 3 | K_{3,2}^{(2)} bipartite multigraph cohomology |
+| `Fractal/` | 3 | fractal-lens cardinality scaffold (N_U = 5²⁵) |
+| `Hodge/` | 9 | Δ-Laplacian + ⋆-involution machinery |
+| `Surfaces/` | 9 | concrete surface examples (T² Minimal + T² Squared) |
+| `Universal/` | 8 | δ²=0 Prop-level universal lift |
+| `Examples/` | 10 | BettiKernel, K5, Diamond{Shape,Audit}, EulerClosed, TopologyCompare, EncodingBijection{,52}, SimplexBasis, WhyDimFive |
+| `Bridge/` | 9 | AlphaEMBridge, Real213Bridge, Paper1Chiral, ClosureExtension, CutExpFiniteTruncation, CutLog, LeibnizFinding, TrivialCases, XorPairCombine |
 
-## Files at root (~25, framework / utilities)
+## Top-level (10 aggregators)
 
-K5.lean, AlphaEMBridge, Audit, BettiKernel, ClosureExtension,
-DiamondAudit, DiamondShape, EncodingBijection, EncodingBijection52,
-EulerClosed, LeibnizFinding, Paper1Chiral, Real213Bridge,
-SimplexBasis, TopologyCompare, TrivialCases, WhyDimFive,
-XorPairCombine
+Cochain, Cup, CupAW, Delta, Fractal, Hodge, Bipartite, Surfaces,
+Universal, Capstone (final bundle).
 
-## Naming conventions
-
-- **Core.lean** — namespace anchor (was bare ClusterName.lean)
-- **V{digit}.lean** — versioned variants (Lean module names cannot
-  start with a digit; V prefix added: V213, V25, V32, V4Capstone, ...)
-- **Mod{N}.lean** — arithmetic modulus N variants (Mod7, Mod11, ...)
-
-## See also
-
-- `INDEX.md` — this file
-- `../INDEX.md` (lean/E213/INDEX.md) — full library map
-- `STRICT_ZERO_AXIOM.md` (root) — strict-0-axiom achievements
+`Cohomology.lean` — single import for downstream.
