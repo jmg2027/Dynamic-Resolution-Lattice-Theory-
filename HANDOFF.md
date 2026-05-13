@@ -2,7 +2,7 @@
 
 ## Branch
 `claude/zero-axiom-work-P9NPI` — pushed.
-Latest: `d079264f Audit: SignedCut.Core.Core + DyadicFSM.Signature.Signature + ArithFSM cycle`.
+Latest: `47d0b553 Lib.Math 빌드 clean: CDTower + Euler 잔존 fix`.
 
 ## Current state snapshot
 
@@ -14,39 +14,66 @@ INDEX.md coverage:  90 / 90 (5+ files clusters)
 build status:
   lake build (no args)         ✔ Term + Theory + Lens + Meta clean
   lake build E213.Term         ✔
-  lake build E213.Theory       ✔ (Session I: Swap/Signed/Bool213/Nat213Bridge fixed)
-  lake build E213.Lens         ✔ (Session I: Cardinality dot-notation fixed)
-  lake build E213.Meta         ✔ (Session I: Int213/Core orphan tuples removed)
-  lake build E213.Lib.Math     ✗ (latent breakage from sub-org sed; Session I 진행 중)
-  lake build E213.Lib.Physics  ✗ (untested, likely similar)
+  lake build E213.Theory       ✔ (Session I)
+  lake build E213.Lens         ✔ (Session I)
+  lake build E213.Meta         ✔ (Session I)
+  lake build E213.Lib.Math     ✔ (Session I — 첫 검증; 760+ 파일 clean)
+  lake build E213.Lib.Physics  ? (user halted full sweep mid-run)
 ```
 
-## ★ Session I — full-tree audit 발견 (2 commits 까지 push)
+## ★ Session I — full-tree audit (8 commits push, Lib.Physics 보류)
 
 `lake build` (no args) 가 default target 없이 "Build completed
 successfully" 만 보고 → 실제로는 Term/Theory/Lens/Meta 만 reachable.
-Lib.Math 트리는 Session C sub-org 후 한 번도 검증되지 않은 상태.
+Lib.Math 트리는 Session C sub-org 후 한 번도 검증되지 않은 상태였음.
+이번 audit 에서 **Lib.Math 첫 clean 빌드 달성**.
 
-### Fix (Session I commits)
-- `7462bda9` Umbrella aggregator gap closure — Lib/Math, Lib/Physics,
-  Theory, Lens, Meta 의 누락된 sub-aggregator import 추가 + 12 신규
-  aggregator 파일 (UniverseChain, LevelTopology 등)
-- `ebc608a6` Theory + Lens + Real213 latent bug fixes (46 파일):
-  Theory.Raw.Swap missing import, Meta.Int213.Core orphan tuples 5
-  곳, Real213.Core.Core path/namespace doubled 등
-- `d079264f` SignedCut.Core.Core, SignedCut.Bridge.Bridge, DyadicFSM.
-  Signature.Signature 같은 패턴 fix + ArithFSM build cycle 일부
+### Session I commits
 
-### 잔존 (follow-up 필요)
-- DyadicFSM/ArithFSM ↔ ConcretePellSig **real circular dep**
-  (signature_period_of_bits_period_and_anchor 가 양방향 사용) —
-  공통 utility 파일로 분리 필요
-- Lib/Math/Cohomology/Fractal/AlphaGUT: K5.kerSize 식별자 unresolved
-- Lib.Math/Lib.Physics 의 다른 latent bug 다수 (각 cluster 별 빌드
-  시도해서 잡아내야)
-- 새로 추가한 12 sub-aggregator 의 일부가 broken sub-cluster 를
-  pulling — full Lib.Math build 가 깨끗해질 때까지 default 빌드에는
-  영향 없음 (E213.lean 이 Lib 를 import 하지 않음)
+| Commit | 작업 |
+|---|---|
+| `7462bda9` | Umbrella aggregator gap closure (16 신규 aggregator) |
+| `ebc608a6` | Theory + Lens + Real213 latent bugs (46 파일) — Swap missing import, Int213.Core orphan tuples, Real213.Core.Core doubled namespace |
+| `d079264f` | SignedCut.Core.Core + SignedCut.Bridge.Bridge + DyadicFSM.Signature.Signature 같은 패턴 |
+| `65d77bff` | DyadicFSM: ArithFSM↔ConcretePellSig 사이클 (PeriodClosure 분리) + ToBitFSM↔ModSmall + Pisano↔Legendre dead import + Legendre 5-sub-ns 재정렬 + Pell.ProperMod — DyadicFSM clean |
+| `6cc7c680` | Cohomology + CD Tower/Lipschitz + Cascade (V4Capstone, K5.kerSize, CascadeCalculus.Instance, Mobius213OneAsGlue, CDDouble, LipschitzAlgebra/Heavy ZI.ZI→ZI) |
+| `47d0b553` | Lib.Math clean: CDTower namespace + Euler.lean 재정렬 |
+
+### 핵심 audit 발견
+
+> Sub-org sed 가 다음 패턴을 처리 못 함: file basename == outer
+> namespace 마지막 segment (예: `Integer/ZI.lean` 의 `namespace
+> Integer.ZI` + 내부 `namespace ZI`).  결과 `ZI.ZI.method` 가
+> consumer 에서 `Integer.ZI.ZI.ZI.method` 로 4-level 분해되며 broken.
+> Real213.Core / SignedCut.Core/Bridge / DyadicFSM.Signature / CDDouble
+> / Lipschitz / CDTower 모두 같은 패턴 — 이번 Session 일괄 fix.
+
+### Forward-reference 패턴 (별개 audit 발견)
+
+단일 .lean 파일 내 `namespace` 블록의 순서가 잘못되어 forward
+reference 가 unknown identifier 로 실패:
+- `Legendre/Legendre.lean`: Pisano/PisanoExt 가 V213/Small 보다 먼저
+  → V213 → Small → V13_19 → Pisano → PisanoExt 로 재정렬
+- `Cauchy/Euler.lean`: EulerSharperPure 가 EulerCombinatorialPure
+  사용 → 후자를 전자 앞으로 이동
+
+### Build cycles (별개 audit 발견)
+
+3 개 real circular dep:
+- `ArithFSM ↔ ConcretePellSig` — common util `PeriodClosure.lean` 추출
+- `ToBitFSM ↔ ModSmall` — `pellFSMmod5_signature_period_bound` 를
+  ModSmall 로 이동 (namespace `ToBitFSM` 보존)
+- `Pisano.Predictor ↔ Legendre.Legendre` — Legendre 의 dead import 제거
+
+### 잔존 (다음 세션 follow-up)
+
+- `lake build E213.Lib.Physics` 전체 검증 미완료 (사용자 중단).
+  실행 부분: AlphaEM, Foundations 일부 build 됨; 나머지 미검증.
+- E213.lean 에 `import E213.Lib.Math` / `import E213.Lib.Physics`
+  추가 → default `lake build` 가 진짜 전체 검증하도록 (Lib.Physics
+  clean 확인 후).
+- 빌드 warning 잔존 (unused variable linter, 비차단).
+- G17 audit 데이터 재생성 (`tools/theorem_inspect.py`).
 
 ### 권장 다음 단계
 1. ArithFSM/SigPeriod.lean (공통 utility) 신규 생성 → cycle 해소
