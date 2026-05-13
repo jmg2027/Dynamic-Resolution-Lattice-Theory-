@@ -1,7 +1,10 @@
+import E213.Meta.Algebra213
 import E213.Meta.AxiomMinimality
 import E213.Meta.AxiomMinimalityCapstone
 import E213.Meta.BitPatternUniqueness
+import E213.Meta.Int213
 import E213.Meta.LensInternality
+import E213.Meta.Nat
 import E213.Meta.SelfRecognising
 import E213.Meta.Tactic
 

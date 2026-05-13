@@ -1,7 +1,6 @@
 import E213.Lens.API
 import E213.Lens.LensCore
-import E213.Lens.AxiomLenses.Bridges
-import E213.Lens.AxiomLenses.Core
+import E213.Lens.AxiomLenses
 import E213.Lens.Compose
 import E213.Lens.Initiality
 import E213.Lens.Instances
