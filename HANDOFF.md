@@ -18,7 +18,7 @@ build status:
   lake build E213.Lens         ✔ (Session I)
   lake build E213.Meta         ✔ (Session I)
   lake build E213.Lib.Math     ✔ (Session I — 첫 검증; 760+ 파일 clean)
-  lake build E213.Lib.Physics  ? (user halted full sweep mid-run)
+  lake build E213.Lib.Physics  ✔ (Session I — 254/254 clean)
 ```
 
 ## ★ Session I — full-tree audit (8 commits push, Lib.Physics 보류)
@@ -67,11 +67,9 @@ reference 가 unknown identifier 로 실패:
 
 ### 잔존 (다음 세션 follow-up)
 
-- `lake build E213.Lib.Physics` 전체 검증 미완료 (사용자 중단).
-  실행 부분: AlphaEM, Foundations 일부 build 됨; 나머지 미검증.
-- E213.lean 에 `import E213.Lib.Math` / `import E213.Lib.Physics`
-  추가 → default `lake build` 가 진짜 전체 검증하도록 (Lib.Physics
-  clean 확인 후).
+- Lib.Physics 254/254 clean 확인됨 — E213.lean 에 `import E213.Lib.
+  Math` / `import E213.Lib.Physics` 추가하면 default `lake build` 가
+  진짜 전체 검증함 (현재는 E213.lean 이 Lib 를 import 안 함).
 - 빌드 warning 잔존 (unused variable linter, 비차단).
 - G17 audit 데이터 재생성 (`tools/theorem_inspect.py`).
 
