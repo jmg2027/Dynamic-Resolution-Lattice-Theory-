@@ -24,9 +24,9 @@ theorem cs_2d_witness (a1 a2 b1 b2 : Nat) :
 
 /-- ★ **Hoeffding finite-N witness** — N = 1, 2 closed forms. -/
 theorem hoeffding_finiteN_witness (negArg : Nat → Nat → Bool) :
-    E213.Lib.Math.Probability.Hoeffding.hoeffdingBoundAtDepth negArg 1
+    E213.Lib.Math.Probability.Inequality.Hoeffding.hoeffdingBoundAtDepth negArg 1
       = E213.Lib.Math.Real213.ExpLog.CutExpSeries.expPartialSum negArg 1
-    ∧ E213.Lib.Math.Probability.Hoeffding.hoeffdingBoundAtDepth negArg 2
+    ∧ E213.Lib.Math.Probability.Inequality.Hoeffding.hoeffdingBoundAtDepth negArg 2
         = E213.Lib.Math.Real213.ExpLog.CutExpSeries.expPartialSum negArg 2 :=
   ⟨hoeffdingBound_depth_one negArg, hoeffdingBound_depth_two negArg⟩
 
@@ -34,7 +34,7 @@ theorem hoeffding_finiteN_witness (negArg : Nat → Nat → Bool) :
 theorem total_witness (a1 a2 b1 b2 : Nat) (negArg : Nat → Nat → Bool) :
     (a1 * b1 + a2 * b2) * (a1 * b1 + a2 * b2)
       ≤ (a1 * a1 + a2 * a2) * (b1 * b1 + b2 * b2)
-    ∧ E213.Lib.Math.Probability.Hoeffding.hoeffdingBoundAtDepth negArg 2
+    ∧ E213.Lib.Math.Probability.Inequality.Hoeffding.hoeffdingBoundAtDepth negArg 2
         = E213.Lib.Math.Real213.ExpLog.CutExpSeries.expPartialSum negArg 2 :=
   ⟨cs_2d_le a1 a2 b1 b2, hoeffdingBound_depth_two negArg⟩
 

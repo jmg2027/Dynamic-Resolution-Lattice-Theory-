@@ -1,6 +1,6 @@
-import E213.Lib.Math.Probability.Cut
-import E213.Lib.Math.Probability.SampleMean
-import E213.Lib.Math.Probability.LLN
+import E213.Lib.Math.Probability.Foundation.Cut
+import E213.Lib.Math.Probability.Foundation.SampleMean
+import E213.Lib.Math.Probability.Limit.LLN
 
 /-!
 # Probability — CLT + Gaussian (atomic)
@@ -18,10 +18,10 @@ The `partialSum`-based Cauchy-modulus form of full CLT lives in
 identity and standardization scaffolding.
 -/
 
-namespace E213.Lib.Math.Probability.Gaussian
+namespace E213.Lib.Math.Probability.Distribution.Gaussian
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
-open E213.Lib.Math.Probability.SampleMean (countTrue)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.SampleMean (countTrue)
 
 /-- Taylor coefficient of `exp(x)` at order `n`, evaluated at `x = 0`.
     Only the `n = 0` term survives (`x^n` vanishes for `n ≥ 1`). -/
@@ -72,10 +72,10 @@ theorem gaussianPeakMass_num : gaussianPeakMass.num = 1 := rfl
     `2·heads − length` equals `0` exactly.  Centering *attained
     structurally*, no limit needed. -/
 theorem CLT_fair_centered (n : Nat) :
-    2 * countTrue (E213.Lib.Math.Probability.LLN.balancedHeadsTails n)
-    = (E213.Lib.Math.Probability.LLN.balancedHeadsTails n).length := by
-  rw [E213.Lib.Math.Probability.LLN.balanced_countTrue,
-      E213.Lib.Math.Probability.LLN.balanced_length]
+    2 * countTrue (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails n)
+    = (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails n).length := by
+  rw [E213.Lib.Math.Probability.Limit.LLN.balanced_countTrue,
+      E213.Lib.Math.Probability.Limit.LLN.balanced_length]
 
 /-- **CLT variance preservation**: balanced fair-coin variance
     numerator = `n` over total trial count `2n`, matching
@@ -83,13 +83,13 @@ theorem CLT_fair_centered (n : Nat) :
     Atomic marker: each balanced trial contributes `1/4` to the
     centered second moment. -/
 theorem CLT_fair_variance_marker (n : Nat) :
-    4 * (countTrue (E213.Lib.Math.Probability.LLN.balancedHeadsTails n)
+    4 * (countTrue (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails n)
        * 2)
-    = (E213.Lib.Math.Probability.LLN.balancedHeadsTails n).length
+    = (E213.Lib.Math.Probability.Limit.LLN.balancedHeadsTails n).length
         * 4 := by
-  rw [E213.Lib.Math.Probability.LLN.balanced_countTrue,
-      E213.Lib.Math.Probability.LLN.balanced_length]
+  rw [E213.Lib.Math.Probability.Limit.LLN.balanced_countTrue,
+      E213.Lib.Math.Probability.Limit.LLN.balanced_length]
   show 4 * (n * 2) = 2 * n * 4
   rw [Nat.mul_comm 2 n, Nat.mul_comm 4 (n * 2)]
 
-end E213.Lib.Math.Probability.Gaussian
+end E213.Lib.Math.Probability.Distribution.Gaussian

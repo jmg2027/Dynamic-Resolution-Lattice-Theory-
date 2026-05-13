@@ -1,6 +1,6 @@
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
 import E213.Lib.Math.Analysis.BracketCauchyModulus
-import E213.Lib.Math.Probability.Cut
+import E213.Lib.Math.Probability.Foundation.Cut
 import E213.Lib.Math.Real213.Core.Core.Dyadic
 
 /-!
@@ -21,7 +21,7 @@ Convergence modulus inherits from
 precision, exponentially reliable.
 -/
 
-namespace E213.Lib.Math.Probability.RiemannBridge
+namespace E213.Lib.Math.Probability.Bridge.RiemannBridge
 
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Real213.Core.Core.Dyadic (dyadicCut)
@@ -93,4 +93,4 @@ theorem convergence_modulus_const (m k : Nat) (hm : 1 ≤ m) :
       (Nat.mul_le_mul_left (2 ^ n) hm)
   exact Nat.le_trans h1 h2
 
-end E213.Lib.Math.Probability.RiemannBridge
+end E213.Lib.Math.Probability.Bridge.RiemannBridge

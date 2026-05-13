@@ -1,5 +1,5 @@
 import E213.Lib.Math.Information.Bit
-import E213.Lib.Math.Probability.Cut
+import E213.Lib.Math.Probability.Foundation.Cut
 
 /-!
 # Information — Shannon entropy (atomic dyadic form)
@@ -23,7 +23,7 @@ a continuation marathon.
 namespace E213.Lib.Math.Information.Entropy
 
 open E213.Lib.Math.Information.Bit (bitDepth bitsAfterBisections)
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
 
 /-- Shannon entropy of the uniform distribution over `2^n` outcomes
     is exactly `n` bits.  This is *the definition* on the dyadic

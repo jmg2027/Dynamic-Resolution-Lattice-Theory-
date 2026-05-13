@@ -1,5 +1,5 @@
-import E213.Lib.Math.Probability.Bayesian
-import E213.Lib.Math.Probability.Expectation
+import E213.Lib.Math.Probability.Bridge.Bayesian
+import E213.Lib.Math.Probability.Foundation.Expectation
 import E213.Meta.Tactic.Nat213
 
 /-!
@@ -20,9 +20,9 @@ Two Markov-flavoured facts:
 filtration.
 -/
 
-namespace E213.Lib.Math.Probability.Markov
+namespace E213.Lib.Math.Probability.Inequality.Markov
 
-open E213.Lib.Math.Probability.Bayesian (BetaCount)
+open E213.Lib.Math.Probability.Bridge.Bayesian (BetaCount)
 
 /-- Sequential `(k₁, f₁)` then `(k₂, f₂)` equals batch `(k₁+k₂, f₁+f₂)`
     on the success count (rfl unfolding `updateBatch`). -/
@@ -83,4 +83,4 @@ theorem markov_inequality (a : Nat) :
       rw [if_pos h, if_pos h, Nat.mul_comm a m]
       exact Nat.mul_le_mul_left m h
 
-end E213.Lib.Math.Probability.Markov
+end E213.Lib.Math.Probability.Inequality.Markov

@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Cut
+import E213.Lib.Math.Probability.Foundation.Cut
 import E213.Meta.Tactic.Nat213
 
 /-!
@@ -13,9 +13,9 @@ The two outcomes always sum to 1 — `success.num + failure.num = p.den`.
 masses whose numerators sum to the common denominator.
 -/
 
-namespace E213.Lib.Math.Probability.Bernoulli
+namespace E213.Lib.Math.Probability.Foundation.Bernoulli
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
 
 /-- Bernoulli distribution with success probability `p = num/den`. -/
 structure Bernoulli where
@@ -65,4 +65,4 @@ theorem fair_balanced :
 
 end Bernoulli
 
-end E213.Lib.Math.Probability.Bernoulli
+end E213.Lib.Math.Probability.Foundation.Bernoulli

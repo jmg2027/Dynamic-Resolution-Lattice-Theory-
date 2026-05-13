@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Cut
+import E213.Lib.Math.Probability.Foundation.Cut
 
 /-!
 # Probability — Bayesian framework (atomic conjugate)
@@ -15,9 +15,9 @@ Conjugate update = atomic counting addition.  This is the cleanest
 form of "frequency = belief" in a finite-resolution universe.
 -/
 
-namespace E213.Lib.Math.Probability.Bayesian
+namespace E213.Lib.Math.Probability.Bridge.Bayesian
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
 
 /-- Effective `(α, β)` count of successes / failures, with at least
     one observation (so the posterior mass is well-defined). -/
@@ -120,4 +120,4 @@ theorem laplace_one_failure :
 
 end BetaCount
 
-end E213.Lib.Math.Probability.Bayesian
+end E213.Lib.Math.Probability.Bridge.Bayesian

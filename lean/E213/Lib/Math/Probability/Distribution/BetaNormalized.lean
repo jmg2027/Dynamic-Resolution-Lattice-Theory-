@@ -1,5 +1,5 @@
-import E213.Lib.Math.Probability.BetaDensity
-import E213.Lib.Math.Probability.RiemannBridge
+import E213.Lib.Math.Probability.Distribution.BetaDensity
+import E213.Lib.Math.Probability.Bridge.RiemannBridge
 
 /-!
 # Probability — Beta normalisation (closed-form integer cases)
@@ -16,10 +16,10 @@ Reuses `BetaDensity.betaNumAt`, `RiemannBridge` modulus, and
 `Cut.ProbabilityCut` from existing modules.
 -/
 
-namespace E213.Lib.Math.Probability.BetaNormalized
+namespace E213.Lib.Math.Probability.Distribution.BetaNormalized
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
-open E213.Lib.Math.Probability.BetaDensity (betaNumAt betaDenAt)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Distribution.BetaDensity (betaNumAt betaDenAt)
 
 /-- Closed-form Beta normalisation `B(α, β)` for the three integer
     triples handled here, returned as a `(num, den) : Nat × Nat`. -/
@@ -48,14 +48,14 @@ def betaNormalizedAt (α β : Nat) (p : ProbabilityCut) : Nat × Nat :=
 theorem beta_1_1_normalized_eq_one (p : ProbabilityCut) :
     betaNormalizedAt 1 1 p = (1, 1) := by
   show (betaNumAt 1 1 p * 1, betaDenAt 1 1 p * 1) = (1, 1)
-  rw [E213.Lib.Math.Probability.BetaDensity.beta_uniform_num,
-      E213.Lib.Math.Probability.BetaDensity.beta_uniform_den]
+  rw [E213.Lib.Math.Probability.Distribution.BetaDensity.beta_uniform_num,
+      E213.Lib.Math.Probability.Distribution.BetaDensity.beta_uniform_den]
 
 /-- Beta(2,1) at `p`: numerator factorises (rfl-stable for `betaNumAt`). -/
 theorem beta_2_1_normalized_num (p : ProbabilityCut) :
     (betaNormalizedAt 2 1 p).fst = p.num * 2 := by
   show betaNumAt 2 1 p * 2 = p.num * 2
-  rw [E213.Lib.Math.Probability.BetaDensity.beta_2_1_num]
+  rw [E213.Lib.Math.Probability.Distribution.BetaDensity.beta_2_1_num]
 
 /-- Closed-form integral of constant 1 over `[0, 1]` = 1, exactly at
     every depth (no Cauchy modulus needed). -/
@@ -75,4 +75,4 @@ theorem betaNorm_modulus_zero (α β : Nat) (h : (α, β) = (1, 1) ∨ (α, β) 
     ∃ N : Nat, ∀ n : Nat, N ≤ n → True :=
   ⟨0, fun _ _ => trivial⟩
 
-end E213.Lib.Math.Probability.BetaNormalized
+end E213.Lib.Math.Probability.Distribution.BetaNormalized

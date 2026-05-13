@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Bernoulli
+import E213.Lib.Math.Probability.Foundation.Bernoulli
 
 /-!
 # Probability — `SampleMean`
@@ -16,7 +16,7 @@ Closed forms:
 213-native: no limits, no σ-algebra.  Just `Nat` counts of `Bool`s.
 -/
 
-namespace E213.Lib.Math.Probability.SampleMean
+namespace E213.Lib.Math.Probability.Foundation.SampleMean
 
 /-- Count of `true` outcomes in a Bool list. -/
 def countTrue : List Bool → Nat
@@ -80,4 +80,4 @@ theorem balanced_four_mean :
     ∧ sampleMeanDen [true, true, false, false] = 4 :=
   ⟨by decide, by decide⟩
 
-end E213.Lib.Math.Probability.SampleMean
+end E213.Lib.Math.Probability.Foundation.SampleMean

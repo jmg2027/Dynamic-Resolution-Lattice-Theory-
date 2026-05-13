@@ -1,5 +1,5 @@
-import E213.Lib.Math.Probability.Cut
-import E213.Lib.Math.Probability.Bayesian
+import E213.Lib.Math.Probability.Foundation.Cut
+import E213.Lib.Math.Probability.Bridge.Bayesian
 
 /-!
 # Probability — Beta(α, β) atomic density
@@ -20,10 +20,10 @@ the *parameter* of the Beta posterior; this file evaluates the density
 power-product on `(Nat, Nat)` ratios.
 -/
 
-namespace E213.Lib.Math.Probability.BetaDensity
+namespace E213.Lib.Math.Probability.Distribution.BetaDensity
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
-open E213.Lib.Math.Probability.Bayesian (BetaCount)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Bridge.Bayesian (BetaCount)
 
 /-- Beta(α, β) density numerator at `p`: `num^(α-1) · (den-num)^(β-1)`. -/
 def betaNumAt (α β : Nat) (p : ProbabilityCut) : Nat :=
@@ -67,4 +67,4 @@ theorem fromBetaCount_uniformPrior (p : ProbabilityCut) :
   show (betaNumAt 1 1 p, betaDenAt 1 1 p) = (1, 1)
   rw [beta_uniform_num, beta_uniform_den]
 
-end E213.Lib.Math.Probability.BetaDensity
+end E213.Lib.Math.Probability.Distribution.BetaDensity

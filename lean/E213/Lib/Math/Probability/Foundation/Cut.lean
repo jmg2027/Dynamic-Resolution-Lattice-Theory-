@@ -16,7 +16,7 @@ leg `constCut num den` with zero backward leg.
 no Quot.sound.
 -/
 
-namespace E213.Lib.Math.Probability.Cut
+namespace E213.Lib.Math.Probability.Foundation.Cut
 
 open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq)
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
@@ -85,4 +85,4 @@ theorem complement_num_involutive (p : ProbabilityCut) :
 
 end ProbabilityCut
 
-end E213.Lib.Math.Probability.Cut
+end E213.Lib.Math.Probability.Foundation.Cut

@@ -1,5 +1,5 @@
-import E213.Lib.Math.Probability.Markov
-import E213.Lib.Math.Probability.Concentration
+import E213.Lib.Math.Probability.Inequality.Markov
+import E213.Lib.Math.Probability.Inequality.Concentration
 import E213.Lib.Math.Cohomology.CutExpFiniteTruncation
 
 /-!
@@ -20,9 +20,9 @@ Reuses `Markov.markov_inequality` (the workhorse) and the
 `g = 0..5`).
 -/
 
-namespace E213.Lib.Math.Probability.ChernoffGrade
+namespace E213.Lib.Math.Probability.Inequality.ChernoffGrade
 
-open E213.Lib.Math.Probability.Markov
+open E213.Lib.Math.Probability.Inequality.Markov
   (markov_inequality tailMomentNum tailMassNum)
 open E213.Lib.Physics.Simplex.Counts (binom)
 
@@ -68,4 +68,4 @@ theorem closing_grade_exists (a : Nat) :
       a * tailMassNum a xs ≤ tailMomentNum a xs :=
   ⟨⟨0, by decide⟩, [], markov_inequality a []⟩
 
-end E213.Lib.Math.Probability.ChernoffGrade
+end E213.Lib.Math.Probability.Inequality.ChernoffGrade

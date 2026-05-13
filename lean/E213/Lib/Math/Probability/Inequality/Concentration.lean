@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.LLN
+import E213.Lib.Math.Probability.Limit.LLN
 import E213.Meta.Tactic.Nat213
 
 /-!
@@ -23,10 +23,10 @@ Closed forms:
 bounded by sample size, no exp transcendentals needed.
 -/
 
-namespace E213.Lib.Math.Probability.Concentration
+namespace E213.Lib.Math.Probability.Inequality.Concentration
 
-open E213.Lib.Math.Probability.SampleMean (countTrue length_replicate)
-open E213.Lib.Math.Probability.LLN
+open E213.Lib.Math.Probability.Foundation.SampleMean (countTrue length_replicate)
+open E213.Lib.Math.Probability.Limit.LLN
   (balancedHeadsTails balanced_countTrue balanced_length)
 
 /-- Excess: `2·countTrue − length` clamped at 0. -/
@@ -68,7 +68,7 @@ theorem centeredAbsDev2_allHeads (n : Nat) :
         - (List.replicate n true).length)
        + ((List.replicate n true).length
           - 2 * countTrue (List.replicate n true)) = n
-  rw [E213.Lib.Math.Probability.SampleMean.countTrue_allHeads,
+  rw [E213.Lib.Math.Probability.Foundation.SampleMean.countTrue_allHeads,
       length_replicate]
   show (2 * n - n) + (n - 2 * n) = n
   rw [n_sub_two_mul, Nat.add_zero, Nat.two_mul,
@@ -81,9 +81,9 @@ theorem centeredAbsDev2_allTails (n : Nat) :
         - (List.replicate n false).length)
        + ((List.replicate n false).length
           - 2 * countTrue (List.replicate n false)) = n
-  rw [E213.Lib.Math.Probability.SampleMean.countTrue_allTails,
+  rw [E213.Lib.Math.Probability.Foundation.SampleMean.countTrue_allTails,
       length_replicate]
   show (2 * 0 - n) + (n - 2 * 0) = n
   rw [Nat.mul_zero, Nat.zero_sub, Nat.zero_add, Nat.sub_zero]
 
-end E213.Lib.Math.Probability.Concentration
+end E213.Lib.Math.Probability.Inequality.Concentration

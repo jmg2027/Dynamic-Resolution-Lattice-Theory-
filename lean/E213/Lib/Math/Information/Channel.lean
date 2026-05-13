@@ -1,5 +1,5 @@
 import E213.Lib.Math.Information.MutualInfo
-import E213.Lib.Math.Probability.Bernoulli
+import E213.Lib.Math.Probability.Foundation.Bernoulli
 
 /-!
 # Information — Channel + capacity (atomic dyadic)
@@ -24,7 +24,7 @@ namespace E213.Lib.Math.Information.Channel
 
 open E213.Lib.Math.Information.MutualInfo
   (mutualInfoIndependent mutualInfoBits)
-open E213.Lib.Math.Probability.Bernoulli (Bernoulli)
+open E213.Lib.Math.Probability.Foundation.Bernoulli (Bernoulli)
 
 /-- Noiseless binary channel: input bit = output bit; no flip. -/
 def noiselessChannel : Nat := 1

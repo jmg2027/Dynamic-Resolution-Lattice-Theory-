@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Hoeffding
+import E213.Lib.Math.Probability.Inequality.Hoeffding
 import E213.Lib.Math.Real213.ExpLog.CutExpSeries
 
 /-!
@@ -21,7 +21,7 @@ argument (which would need `Real213.log` and is genuinely deferred).
 
 namespace E213.Lib.Math.Extras.HoeffdingFiniteN
 
-open E213.Lib.Math.Probability.Hoeffding (hoeffdingBoundAtDepth)
+open E213.Lib.Math.Probability.Inequality.Hoeffding (hoeffdingBoundAtDepth)
 open E213.Lib.Math.Real213.ExpLog.CutExpSeries
   (expPartialSum expPartialSum_zero expPartialSum_succ
    expTerm expTerm_zero)

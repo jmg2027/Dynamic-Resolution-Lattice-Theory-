@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Concentration
+import E213.Lib.Math.Probability.Inequality.Concentration
 
 /-!
 # Probability — Cauchy-modulus form of LLN
@@ -18,11 +18,11 @@ balanced specialisation collapses to the trivial modulus.
 beyond what `Nat` arithmetic can express.
 -/
 
-namespace E213.Lib.Math.Probability.CLTLimit
+namespace E213.Lib.Math.Probability.Limit.CLTLimit
 
-open E213.Lib.Math.Probability.SampleMean (countTrue)
-open E213.Lib.Math.Probability.LLN (balancedHeadsTails)
-open E213.Lib.Math.Probability.Concentration
+open E213.Lib.Math.Probability.Foundation.SampleMean (countTrue)
+open E213.Lib.Math.Probability.Limit.LLN (balancedHeadsTails)
+open E213.Lib.Math.Probability.Inequality.Concentration
   (centeredAbsDev2 centeredAbsDev2_balanced)
 
 /-- ★ **Cauchy-modulus LLN (atomic form)** ★ — balanced fair-coin
@@ -55,6 +55,6 @@ theorem modulus_witness (ε : Nat) :
 theorem balanced_eq_half (n : Nat) :
     countTrue (balancedHeadsTails n) * 2
     = (balancedHeadsTails n).length * 1 :=
-  E213.Lib.Math.Probability.LLN.fair_LLN n
+  E213.Lib.Math.Probability.Limit.LLN.fair_LLN n
 
-end E213.Lib.Math.Probability.CLTLimit
+end E213.Lib.Math.Probability.Limit.CLTLimit

@@ -1,5 +1,5 @@
-import E213.Lib.Math.Probability.Expectation
-import E213.Lib.Math.Probability.Binomial
+import E213.Lib.Math.Probability.Foundation.Expectation
+import E213.Lib.Math.Probability.Distribution.Binomial
 
 /-!
 # Probability — `Variance`
@@ -16,11 +16,11 @@ For a discrete distribution with values `v_i` and masses `m_i / D`:
 `successNum · failureNum` (numerator) and `den²` (denominator).
 -/
 
-namespace E213.Lib.Math.Probability.Variance
+namespace E213.Lib.Math.Probability.Foundation.Variance
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
-open E213.Lib.Math.Probability.Bernoulli (Bernoulli)
-open E213.Lib.Math.Probability.Expectation (discreteNum)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.Bernoulli (Bernoulli)
+open E213.Lib.Math.Probability.Foundation.Expectation (discreteNum)
 
 /-- Bernoulli variance numerator: `success.num · failure.num`. -/
 def bernoulliNum (b : Bernoulli) : Nat :=
@@ -67,8 +67,8 @@ theorem AB_indicator_secondMoment_eq_firstMoment :
 /-- **AB-indicator variance numerator** (Bernoulli view, `p = 6/10`):
     `success · failure = 6 · 4 = 24`, denominator = 100. -/
 theorem AB_indicator_variance :
-    bernoulliNum E213.Lib.Math.Probability.Binomial.ABBernoulli = 24
-    ∧ bernoulliDen E213.Lib.Math.Probability.Binomial.ABBernoulli = 100 :=
+    bernoulliNum E213.Lib.Math.Probability.Distribution.Binomial.ABBernoulli = 24
+    ∧ bernoulliDen E213.Lib.Math.Probability.Distribution.Binomial.ABBernoulli = 100 :=
   ⟨by decide, by decide⟩
 
-end E213.Lib.Math.Probability.Variance
+end E213.Lib.Math.Probability.Foundation.Variance

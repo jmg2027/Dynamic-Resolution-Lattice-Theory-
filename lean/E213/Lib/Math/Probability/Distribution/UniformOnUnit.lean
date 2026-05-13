@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Cut
+import E213.Lib.Math.Probability.Foundation.Cut
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 
 /-!
@@ -14,10 +14,10 @@ length-of-bracket / total-length, with no integration step needed —
 just structural data.
 -/
 
-namespace E213.Lib.Math.Probability.UniformOnUnit
+namespace E213.Lib.Math.Probability.Distribution.UniformOnUnit
 
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
 
 /-- A *unit sub-bracket*: a `DyadicBracket` contained in `[0, 1]`,
     enforced by `numB ≤ 2^expE`. -/
@@ -63,4 +63,4 @@ theorem uniform_mass_eq (u : UnitSubBracket) :
 
 end UnitSubBracket
 
-end E213.Lib.Math.Probability.UniformOnUnit
+end E213.Lib.Math.Probability.Distribution.UniformOnUnit

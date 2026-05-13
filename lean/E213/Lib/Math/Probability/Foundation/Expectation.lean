@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Bernoulli
+import E213.Lib.Math.Probability.Foundation.Bernoulli
 
 /-!
 # Probability — `Expectation`
@@ -14,10 +14,10 @@ For a discrete distribution `[(mass_i, value_i)]` with common denominator
 213-native: no integral, no σ-algebra.  Just weighted sums of `Nat`s.
 -/
 
-namespace E213.Lib.Math.Probability.Expectation
+namespace E213.Lib.Math.Probability.Foundation.Expectation
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
-open E213.Lib.Math.Probability.Bernoulli (Bernoulli)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.Bernoulli (Bernoulli)
 
 /-- Bernoulli expectation: `E[X] = p` (success probability). -/
 def bernoulli (b : Bernoulli) : ProbabilityCut := b.success
@@ -62,4 +62,4 @@ theorem K32_expectation_num :
 theorem AB_indicator_expectation_num :
     discreteNum [(3, 0), (1, 0), (6, 1)] = 6 := by decide
 
-end E213.Lib.Math.Probability.Expectation
+end E213.Lib.Math.Probability.Foundation.Expectation

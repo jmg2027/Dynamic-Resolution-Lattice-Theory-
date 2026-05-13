@@ -1,7 +1,7 @@
-import E213.Lib.Math.Probability.Bernoulli
-import E213.Lib.Math.Probability.Variance
-import E213.Lib.Math.Probability.Concentration
-import E213.Lib.Math.Probability.CauchyModulus
+import E213.Lib.Math.Probability.Foundation.Bernoulli
+import E213.Lib.Math.Probability.Foundation.Variance
+import E213.Lib.Math.Probability.Inequality.Concentration
+import E213.Lib.Math.Probability.Bridge.CauchyModulus
 
 /-!
 # Probability — Generic CLT (variance-modulus form)
@@ -18,21 +18,21 @@ balanced LLN.
 Cauchy structure is `ProbCauchy` from Tier 0.
 -/
 
-namespace E213.Lib.Math.Probability.CLTGeneric
+namespace E213.Lib.Math.Probability.Limit.CLTGeneric
 
-open E213.Lib.Math.Probability.Bernoulli (Bernoulli)
-open E213.Lib.Math.Probability.Variance (bernoulliNum bernoulliDen)
-open E213.Lib.Math.Probability.Concentration
+open E213.Lib.Math.Probability.Foundation.Bernoulli (Bernoulli)
+open E213.Lib.Math.Probability.Foundation.Variance (bernoulliNum bernoulliDen)
+open E213.Lib.Math.Probability.Inequality.Concentration
   (centeredAbsDev2 centeredAbsDev2_balanced)
-open E213.Lib.Math.Probability.CauchyModulus
+open E213.Lib.Math.Probability.Bridge.CauchyModulus
   (ProbCauchy absDevCross constSeq_cauchy)
-open E213.Lib.Math.Probability.LLN (balancedHeadsTails)
+open E213.Lib.Math.Probability.Limit.LLN (balancedHeadsTails)
 
 /-- Generic centered absolute deviation for `xs : List Bool` against
     target `p : Bernoulli` (cross-multiplied form).  Generalises
     `Concentration.centeredAbsDev2` from `p = fair` to arbitrary `p`. -/
 def genericCenteredDev2 (xs : List Bool) (p : Bernoulli) : Nat :=
-  let c := E213.Lib.Math.Probability.SampleMean.countTrue xs
+  let c := E213.Lib.Math.Probability.Foundation.SampleMean.countTrue xs
   (p.p.den * c - p.p.num * xs.length)
     + (p.p.num * xs.length - p.p.den * c)
 

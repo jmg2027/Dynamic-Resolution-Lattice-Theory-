@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Bernoulli
+import E213.Lib.Math.Probability.Foundation.Bernoulli
 
 /-!
 # Probability — `Binomial` (atomic K_{3,2} counting)
@@ -17,10 +17,10 @@ Two views:
     multiplication.  No σ-algebra, no Choice — just product counting.
 -/
 
-namespace E213.Lib.Math.Probability.Binomial
+namespace E213.Lib.Math.Probability.Distribution.Binomial
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
-open E213.Lib.Math.Probability.Bernoulli (Bernoulli)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.Bernoulli (Bernoulli)
 
 /-- AA-pair atomic mass: 3/10 (within big block, K_{3,2}). -/
 def pAA : ProbabilityCut where
@@ -83,4 +83,4 @@ theorem fair_two_tails :
 theorem fair_two_den :
     trialSequenceDen Bernoulli.fair 2 = 4 := by decide
 
-end E213.Lib.Math.Probability.Binomial
+end E213.Lib.Math.Probability.Distribution.Binomial

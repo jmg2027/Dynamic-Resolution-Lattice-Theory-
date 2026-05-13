@@ -1,7 +1,7 @@
-import E213.Lib.Math.Probability.Cut
-import E213.Lib.Math.Probability.LLN
-import E213.Lib.Math.Probability.Concentration
-import E213.Lib.Math.Probability.CLTLimit
+import E213.Lib.Math.Probability.Foundation.Cut
+import E213.Lib.Math.Probability.Limit.LLN
+import E213.Lib.Math.Probability.Inequality.Concentration
+import E213.Lib.Math.Probability.Limit.CLTLimit
 
 /-!
 # Probability — atomic Cauchy modulus framework
@@ -20,9 +20,9 @@ The trivial witness (`constSeq_cauchy`, modulus 0) specialises to
 the existing `CLTLimit.balanced_LLN_modulus`.
 -/
 
-namespace E213.Lib.Math.Probability.CauchyModulus
+namespace E213.Lib.Math.Probability.Bridge.CauchyModulus
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
 
 /-- Cross-multiplied absolute deviation between two probability cuts,
     in `Nat` via clamped sub (one term is zero). -/
@@ -67,14 +67,14 @@ theorem bridge_to_balancedLLN (ε : Nat) :
     ∃ N : Nat, ∀ n, N ≤ n →
       absDevCross
         ((constSeq_cauchy
-          (E213.Lib.Math.Probability.Bernoulli.Bernoulli.fair).p).f n)
-        (E213.Lib.Math.Probability.Bernoulli.Bernoulli.fair).p
+          (E213.Lib.Math.Probability.Foundation.Bernoulli.Bernoulli.fair).p).f n)
+        (E213.Lib.Math.Probability.Foundation.Bernoulli.Bernoulli.fair).p
       ≤ ε *
-        ((E213.Lib.Math.Probability.Bernoulli.Bernoulli.fair).p.den *
-         (E213.Lib.Math.Probability.Bernoulli.Bernoulli.fair).p.den) :=
+        ((E213.Lib.Math.Probability.Foundation.Bernoulli.Bernoulli.fair).p.den *
+         (E213.Lib.Math.Probability.Foundation.Bernoulli.Bernoulli.fair).p.den) :=
   ⟨0, fun n _ =>
     (constSeq_cauchy
-      (E213.Lib.Math.Probability.Bernoulli.Bernoulli.fair).p).cauchy
+      (E213.Lib.Math.Probability.Foundation.Bernoulli.Bernoulli.fair).p).cauchy
       ε n (Nat.zero_le _)⟩
 
-end E213.Lib.Math.Probability.CauchyModulus
+end E213.Lib.Math.Probability.Bridge.CauchyModulus

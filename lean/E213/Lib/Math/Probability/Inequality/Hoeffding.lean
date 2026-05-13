@@ -1,5 +1,5 @@
 import E213.Lib.Math.Real213.ExpLog.CutExpSeries
-import E213.Lib.Math.Probability.Concentration
+import E213.Lib.Math.Probability.Inequality.Concentration
 
 /-!
 # Probability — Hoeffding-style exponential bound (atomic)
@@ -18,12 +18,12 @@ the modulus argument is left as a follow-up
 (`Real213.CutExpSeries` Cauchy-modulus is the gating piece).
 -/
 
-namespace E213.Lib.Math.Probability.Hoeffding
+namespace E213.Lib.Math.Probability.Inequality.Hoeffding
 
 open E213.Lib.Math.Real213.ExpLog.CutExpSeries (expPartialSum cutExp)
-open E213.Lib.Math.Probability.Concentration
+open E213.Lib.Math.Probability.Inequality.Concentration
   (centeredAbsDev2 centeredAbsDev2_balanced)
-open E213.Lib.Math.Probability.LLN (balancedHeadsTails)
+open E213.Lib.Math.Probability.Limit.LLN (balancedHeadsTails)
 
 /-- Atomic Hoeffding bound at finite Taylor depth `N`:
     `2 · expPartialSum x N`, where `x` encodes `−2 n ε²`.  Returns a
@@ -61,4 +61,4 @@ theorem hoeffdingBound_eq_partialSum
     (negArg : Nat → Nat → Bool) (N : Nat) :
     hoeffdingBoundAtDepth negArg N = expPartialSum negArg N := rfl
 
-end E213.Lib.Math.Probability.Hoeffding
+end E213.Lib.Math.Probability.Inequality.Hoeffding

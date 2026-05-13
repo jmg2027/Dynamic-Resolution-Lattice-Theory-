@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Cut
+import E213.Lib.Math.Probability.Foundation.Cut
 
 /-!
 # Probability — Independence + conditional (atomic)
@@ -18,9 +18,9 @@ mass equals `joint a b` (factorization), achieved structurally here
 by *defining* the joint as the product.
 -/
 
-namespace E213.Lib.Math.Probability.Independence
+namespace E213.Lib.Math.Probability.Foundation.Independence
 
-open E213.Lib.Math.Probability.Cut (ProbabilityCut)
+open E213.Lib.Math.Probability.Foundation.Cut (ProbabilityCut)
 
 /-- Joint mass of two independent events: `(a.num · b.num) / (a.den · b.den)`. -/
 def joint (a b : ProbabilityCut) : ProbabilityCut where
@@ -74,4 +74,4 @@ theorem conditionalNum_eq (a b : ProbabilityCut) :
 theorem conditionalDen_eq (a b : ProbabilityCut) :
     conditionalDen a b = b.num := rfl
 
-end E213.Lib.Math.Probability.Independence
+end E213.Lib.Math.Probability.Foundation.Independence

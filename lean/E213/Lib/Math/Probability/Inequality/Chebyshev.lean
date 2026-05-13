@@ -1,6 +1,6 @@
-import E213.Lib.Math.Probability.Markov
-import E213.Lib.Math.Probability.Concentration
-import E213.Lib.Math.Probability.Variance
+import E213.Lib.Math.Probability.Inequality.Markov
+import E213.Lib.Math.Probability.Inequality.Concentration
+import E213.Lib.Math.Probability.Foundation.Variance
 
 /-!
 # Probability — Chebyshev polynomial concentration
@@ -20,14 +20,14 @@ The closed form `a² · 1 ≤ length²` is the extremal all-heads case.
 Reuses `Markov.markov_inequality` (already proven), no new infra.
 -/
 
-namespace E213.Lib.Math.Probability.Chebyshev
+namespace E213.Lib.Math.Probability.Inequality.Chebyshev
 
-open E213.Lib.Math.Probability.Markov
+open E213.Lib.Math.Probability.Inequality.Markov
   (markov_inequality tailMomentNum tailMassNum)
-open E213.Lib.Math.Probability.Concentration
+open E213.Lib.Math.Probability.Inequality.Concentration
   (centeredAbsDev2 centeredAbsDev2_balanced centeredAbsDev2_allHeads
    centeredAbsDev2_allTails)
-open E213.Lib.Math.Probability.LLN (balancedHeadsTails)
+open E213.Lib.Math.Probability.Limit.LLN (balancedHeadsTails)
 
 /-- Chebyshev-style cross-multiplied bound: applying
     `markov_inequality` at threshold `a` to the singleton
@@ -74,4 +74,4 @@ theorem chebyshev_allHeads_dev_eq (n : Nat) :
       centeredAbsDev2 (List.replicate n true) = n * n := by
   rw [centeredAbsDev2_allHeads]
 
-end E213.Lib.Math.Probability.Chebyshev
+end E213.Lib.Math.Probability.Inequality.Chebyshev

@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.SampleMean
+import E213.Lib.Math.Probability.Foundation.SampleMean
 
 /-!
 # Probability — Law of Large Numbers (atomic)
@@ -18,9 +18,9 @@ The Cauchy-modulus convergence form is deferred to a future phase
 that will lean on `Real213.CutSeries.partialSum`.
 -/
 
-namespace E213.Lib.Math.Probability.LLN
+namespace E213.Lib.Math.Probability.Limit.LLN
 
-open E213.Lib.Math.Probability.SampleMean
+open E213.Lib.Math.Probability.Foundation.SampleMean
   (countTrue sampleMeanNum sampleMeanDen length_replicate)
 
 /-- `countTrue` distributes over append. -/
@@ -49,8 +49,8 @@ theorem balanced_countTrue (n : Nat) :
     countTrue (balancedHeadsTails n) = n := by
   show countTrue (List.replicate n true ++ List.replicate n false) = n
   rw [countTrue_append,
-      E213.Lib.Math.Probability.SampleMean.countTrue_allHeads,
-      E213.Lib.Math.Probability.SampleMean.countTrue_allTails,
+      E213.Lib.Math.Probability.Foundation.SampleMean.countTrue_allHeads,
+      E213.Lib.Math.Probability.Foundation.SampleMean.countTrue_allTails,
       Nat.add_zero]
 
 /-- Balanced sample has length `2n`. -/
@@ -80,4 +80,4 @@ theorem fair_LLN (n : Nat) :
       = sampleMeanDen (balancedHeadsTails n) * 1 := by
   rw [(LLN_unit n).1, (LLN_unit n).2, Nat.mul_one, Nat.mul_comm 2 n]
 
-end E213.Lib.Math.Probability.LLN
+end E213.Lib.Math.Probability.Limit.LLN

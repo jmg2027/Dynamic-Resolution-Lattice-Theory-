@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Hoeffding
+import E213.Lib.Math.Probability.Inequality.Hoeffding
 import E213.Lib.Math.Real213.ExpLog.CutLogSeries
 import E213.Lib.Math.Real213.ExpLog.CutLogExpInverse
 
@@ -25,7 +25,7 @@ content is the *commuting square* between `cutExp` / `cutLog`
 formal partial sums.
 -/
 
-namespace E213.Lib.Math.Probability.HoeffdingClosed
+namespace E213.Lib.Math.Probability.Inequality.HoeffdingClosed
 
 open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
@@ -65,4 +65,4 @@ theorem hoeffdingClosed_depth_one (negArg : Nat → Nat → Bool) :
     hoeffdingClosedNum negArg 1
     = cutSum (expPartialSum negArg 1) (expPartialSum negArg 1) := rfl
 
-end E213.Lib.Math.Probability.HoeffdingClosed
+end E213.Lib.Math.Probability.Inequality.HoeffdingClosed

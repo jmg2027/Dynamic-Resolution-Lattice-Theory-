@@ -1,6 +1,6 @@
 import E213.Lib.Math.Extras.CauchySchwarz
 import E213.Lib.Math.Real213.ExpLog.CutLogCapstone
-import E213.Lib.Math.Probability.HoeffdingClosed
+import E213.Lib.Math.Probability.Inequality.HoeffdingClosed
 
 /-!
 # Math Extras — Real213.log marathon Capstone (∅-axiom)
@@ -23,7 +23,7 @@ open E213.Lib.Math.Real213.ExpLog.CutLogExpInverse
   (exp_of_log_zero log_of_exp_zero)
 open E213.Lib.Math.Extras.CauchySchwarzList
   (dotList sumSqList cs_zero cs_one cs_two)
-open E213.Lib.Math.Probability.HoeffdingClosed
+open E213.Lib.Math.Probability.Inequality.HoeffdingClosed
   (hoeffdingClosedNum hoeffdingClosed_depth_zero
    hoeffdingClosed_depth_one log_exp_inverse_at_zero)
 
