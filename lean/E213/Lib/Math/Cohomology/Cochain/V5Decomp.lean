@@ -31,39 +31,9 @@ def decomp_5_1 (α : Cochain 5 1) : Cochain 5 1 :=
       (bz5_1 α ⟨3, by decide⟩))
     (bz5_1 α ⟨4, by decide⟩)
 
-/-- Decomposition is identity on Cochain 5 1. -/
-theorem decomp_5_1_eq (α : Cochain 5 1) : decomp_5_1 α = α := by
-  funext j
-  match j with
-  | ⟨0, _⟩ =>
-    show (decomp_5_1 α) ⟨0, _⟩ = α ⟨0, _⟩
-    unfold decomp_5_1 bz5_1 basis Cochain.add Cochain.zero
-    cases (α ⟨0, by decide⟩) <;> cases (α ⟨1, by decide⟩) <;>
-      cases (α ⟨2, by decide⟩) <;> cases (α ⟨3, by decide⟩) <;>
-      cases (α ⟨4, by decide⟩) <;> rfl
-  | ⟨1, _⟩ =>
-    show (decomp_5_1 α) ⟨1, _⟩ = α ⟨1, _⟩
-    unfold decomp_5_1 bz5_1 basis Cochain.add Cochain.zero
-    cases (α ⟨0, by decide⟩) <;> cases (α ⟨1, by decide⟩) <;>
-      cases (α ⟨2, by decide⟩) <;> cases (α ⟨3, by decide⟩) <;>
-      cases (α ⟨4, by decide⟩) <;> rfl
-  | ⟨2, _⟩ =>
-    show (decomp_5_1 α) ⟨2, _⟩ = α ⟨2, _⟩
-    unfold decomp_5_1 bz5_1 basis Cochain.add Cochain.zero
-    cases (α ⟨0, by decide⟩) <;> cases (α ⟨1, by decide⟩) <;>
-      cases (α ⟨2, by decide⟩) <;> cases (α ⟨3, by decide⟩) <;>
-      cases (α ⟨4, by decide⟩) <;> rfl
-  | ⟨3, _⟩ =>
-    show (decomp_5_1 α) ⟨3, _⟩ = α ⟨3, _⟩
-    unfold decomp_5_1 bz5_1 basis Cochain.add Cochain.zero
-    cases (α ⟨0, by decide⟩) <;> cases (α ⟨1, by decide⟩) <;>
-      cases (α ⟨2, by decide⟩) <;> cases (α ⟨3, by decide⟩) <;>
-      cases (α ⟨4, by decide⟩) <;> rfl
-  | ⟨4, _⟩ =>
-    show (decomp_5_1 α) ⟨4, _⟩ = α ⟨4, _⟩
-    unfold decomp_5_1 bz5_1 basis Cochain.add Cochain.zero
-    cases (α ⟨0, by decide⟩) <;> cases (α ⟨1, by decide⟩) <;>
-      cases (α ⟨2, by decide⟩) <;> cases (α ⟨3, by decide⟩) <;>
-      cases (α ⟨4, by decide⟩) <;> rfl
+/-! Note: the funext-based `decomp_5_1_eq` was removed (unused).
+    This file currently exists for the bz5_1/decomp_5_1 definitions
+    only; no theorems remain.  See `V5_1DecompR.lean` for the AND-form
+    variant with PURE per-index `decomp_step_at_*` helpers. -/
 
 end E213.Lib.Math.Cohomology.Cochain.V5Decomp

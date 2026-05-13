@@ -1,10 +1,10 @@
-import E213.Lib.Math.Real213.CutBisection
-import E213.Lib.Math.Real213.Dyadic
-import E213.Lib.Math.Real213.CutFnData
-import E213.Lib.Math.Real213.CutSumOne
-import E213.Lib.Math.Real213.CutMul
-import E213.Term.Tactic.Nat213
-import E213.Term.Tactic.Pow213
+import E213.Lib.Math.Real213.Bisection.CutBisection
+import E213.Lib.Math.Real213.Core.Dyadic
+import E213.Lib.Math.Real213.Core.CutFnData
+import E213.Lib.Math.Real213.Sum.CutSumOne
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.Pow213
 
 /-!
 # ResolutionShift — `(Nat, +)`-graded structure on cut transformers
@@ -54,13 +54,13 @@ grade, etc.) but don't fit `IsResolutionShift`.
 namespace E213.Lib.Math.Analysis.ResolutionShift
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Dyadic (dyadicCut)
-open E213.Lib.Math.Real213.CutBisection (cutHalf cutMid)
-open E213.Lib.Math.Real213.CutFnData (LocallyDeterminedData composeLDD cutHalfLDD)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutSumOne (cutSum_self_at)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutMul (cutMul)
+open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.Real213.Bisection.CutBisection (cutHalf cutMid)
+open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData composeLDD cutHalfLDD)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Sum.CutSumOne (cutSum_self_at)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
 
 /-- Local helper: 1 ≤ 2^n.  Pure structural induction; ∅-axiom. -/
 private theorem one_le_two_pow_local : ∀ n, (1:Nat) ≤ 2^n
@@ -174,8 +174,8 @@ def cutHalfIterLDD : ∀ n, LocallyDeterminedData (cutHalfIter n)
     { N := fun m k => max m k
       prop := by
         intro m k cx cy h
-        exact h m k (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _)
-                    (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _) }
+        exact h m k (E213.Meta.Nat.Max213.le_max_left _ _)
+                    (E213.Meta.Nat.Max213.le_max_right _ _) }
   | n+1 => composeLDD cutHalfLDD (cutHalfIterLDD n)
 
 /-- **`cutHalf^n` has grade n**: structural induction on n.

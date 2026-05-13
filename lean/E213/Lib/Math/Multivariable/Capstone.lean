@@ -28,8 +28,8 @@ open E213.Lib.Math.Multivariable.Stokes (stokes1D ddOmega_zero_skeleton)
 /-- ★ **MultiCut witness** ★ — update / zero / one structural. -/
 theorem multiCut_witness (i : Fin 5) (c : Nat → Nat → Bool) :
     update (zero 5) i c i = c
-    ∧ zero 5 i = E213.Lib.Math.Real213.CutSumTest.constCut 0 1
-    ∧ one 5 i = E213.Lib.Math.Real213.CutSumTest.constCut 1 1 :=
+    ∧ zero 5 i = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1
+    ∧ one 5 i = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1 :=
   ⟨E213.Lib.Math.Multivariable.MultiCut.update_self _ i c, rfl, rfl⟩
 
 /-- ★ **Partial-derivative witness** ★ — proj's partial slice

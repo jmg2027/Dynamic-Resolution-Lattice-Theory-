@@ -27,6 +27,7 @@ import E213.Lens.Instances.SumNotCoproduct
 import E213.Lens.Instances.SumNotCoproductGeneric
 import E213.Lens.Instances.Swap
 import E213.Lens.Instances.ZMod6
+import E213.Lens.Instances.Leaves
 
 /-! Spec-as-code entry point for `E213.Lens.Instances`.
 
@@ -60,6 +61,10 @@ import E213.Lens.Instances.ZMod6
       `SumNotCoproduct`,
       `SumNotCoproductGeneric`,
       `ZMod6`         — additional research-track instances
+    * `Leaves/`       — depth-leaf hierarchy sub-cluster
+                        (Mod3, ModNat, DepthJoin, DepthIncomparable,
+                         RefinesParity) — 2026-05-13 folded from
+                        `Lens/Leaves/` per LENS_AUDIT §4
 
   ## Status
 
@@ -67,6 +72,6 @@ import E213.Lens.Instances.ZMod6
   `CompoundBool`, `NegSq`, `ParityXorIncomparable`, `ParityXorJoin`,
   `RawAChar` restored by namespace-drift fixes
   (`open E213.Meta` → `open E213.Lens.Instances.{Bool,Parity}`,
-  `Hypervisor.Lens` → `Lens`, and re-routing `NegSq` through
-  `E213.Lens.Diagonal`).
+  `Lens` → `Lens`, and re-routing `NegSq` through
+  `E213.Lens.Properties.Diagonal`).
 -/

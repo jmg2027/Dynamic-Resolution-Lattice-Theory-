@@ -1,5 +1,5 @@
-import E213.Theory.Internal.Int213
-import E213.Term.Tactic.Nat213
+import E213.Meta.Int213.Core
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Theory.Tower.NatPairToInt — orthogonal-axis projection

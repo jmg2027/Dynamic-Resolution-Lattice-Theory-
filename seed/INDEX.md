@@ -124,24 +124,26 @@ name; DRLT is a physics specialization).
 ```
 seed/
 ├── INDEX.md                   ← this file (standalone entry)
-├── ORIGIN.md                  ← DRLT origin narrative
-├── PAPER1.md                  ← archival, cited by ~25 Lean files
+├── ORIGIN.md                  ← DRLT origin narrative (archival)
 ├── RESOLUTION_LIMIT_SPEC.md   ← N_U structural-invariant authority
 ├── CLOSED_FORM_SPEC.md        ← 4-domain meta-pattern + bridge catalog
 ├── NOTATION.md                ← symbol conventions
-└── AXIOM/                     ← the axiom corpus, 12 chapters
+└── AXIOM/                     ← the axiom corpus, 10 chapters
     ├── INDEX.md               ← chapter TOC
     ├── 00_nature.md           ← residue, distinction, 3-dir uniqueness
     ├── 01_notation_recursion.md
-    ├── 02_statement.md        ← the 4-clause axiom
+    ├── 02_statement.md        ← the 4-clause axiom (+ encoding-cost markers)
     ├── 03_form.md             ← why this form
     ├── 04_falsifiability.md   ← discard rule + measurement falsifiers
     ├── 05_primacy.md
     ├── 06_formalization.md    ← Lean correspondence
     ├── 07_self_reference.md   ← §8.4 dichotomy guide (Claude refresh)
-    ├── 08_implementation.md   ← Raw + Theory faithful-emulator analysis
-    ├── 09_audit.md            ← Lean ↔ axiom cross-check
+    ├── 08_encoding_costs.md   ← Lean codomain costs (inductive / cmp / subtype / ≠)
     └── 99_history.md          ← deprecated R-frame + change log
+
+# Lean implementation audit lives at lean/E213/AUDIT.md (moved 2026-05-12).
+# PAPER1.md (archival seed paper) deleted 2026-05-12; historical citations
+# in Lean docstrings (PAPER1 §X.Y) remain as narrative references.
 ```
 
 ## What seed/ is NOT

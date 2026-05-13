@@ -6,7 +6,7 @@ import E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 import E213.Lib.Math.DyadicFSM.BitFSM
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Tribonacci ArithFSM3 family — capstone
 
@@ -31,7 +31,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.V3Hardness (aperiodic_bits_imp_not_ArithFS
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (ArithFSM3)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)

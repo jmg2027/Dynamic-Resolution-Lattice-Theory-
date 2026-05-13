@@ -1,4 +1,4 @@
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Meta.Nat.AddMod213
 
 /-!
 # Sqrt2IrrationalKernelFree: ∅-axiom √2 irrationality
@@ -28,7 +28,7 @@ recursion on Nat (no well-founded gcd / div termination).
 
 namespace E213.Lib.Math.Irrational.Sqrt2KernelFree
 
-open E213.Lib.Math.NatHelpers.AddMod213
+open E213.Meta.Nat.AddMod213
 
 /-! ## Local ∅-axiom helpers -/
 
@@ -73,7 +73,7 @@ end E213.Lib.Math.Irrational.Sqrt2KernelFree
 
 namespace E213.Lib.Math.Irrational.Sqrt2KernelFree
 
-open E213.Lib.Math.NatHelpers.AddMod213
+open E213.Meta.Nat.AddMod213
 
 /-! ## Core square + modular-2 lemmas -/
 

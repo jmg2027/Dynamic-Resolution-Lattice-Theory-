@@ -1,7 +1,7 @@
 import E213.Lib.Math.Linalg213.Bridge
 import E213.Lib.Math.Linalg213.Chiral
 import E213.Lib.Physics.Couplings.PhotonKernel
-import E213.Lib.Math.Cohomology.TopologyCompare
+import E213.Lib.Math.Cohomology.Examples.TopologyCompare
 
 /-!
 # Linalg213 — 6 Capstone
@@ -37,8 +37,8 @@ open E213.Lib.Math.Linalg213.Gram
 open E213.Lib.Math.Linalg213.Chiral
 
 open E213.Lib.Physics.Simplex.Counts (NS NT d)
-open E213.Lib.Math.Cohomology.Paper1Chiral (chiralDim)
-open E213.Lib.Math.Cohomology.TopologyCompare (b1_bipartite b1_complete)
+open E213.Lib.Math.Cohomology.Bridge.Paper1Chiral (chiralDim)
+open E213.Lib.Math.Cohomology.Examples.TopologyCompare (b1_bipartite b1_complete)
 
 /-- ★★★ PAPER 1 CHIRAL COMPRESSION — 213 CAPSTONE ★★★
 

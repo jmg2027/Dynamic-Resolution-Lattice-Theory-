@@ -1,5 +1,4 @@
-import E213.Lib.Math.Extras.CauchySchwarz4D
-import E213.Lib.Math.Extras.CauchySchwarzInductive
+import E213.Lib.Math.Extras.CauchySchwarz
 import E213.Lib.Math.Multivariable.Stokes3D
 import E213.Lib.Math.Topology.ContinuityArith
 

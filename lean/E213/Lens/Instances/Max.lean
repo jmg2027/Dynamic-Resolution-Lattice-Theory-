@@ -1,6 +1,6 @@
 import E213.Theory.Raw
 import E213.Lens.LensCore
-import E213.Lens.Characterisation.Catalog
+import E213.Lens.Properties.Characterisation.Catalog
 import E213.Prelude
 
 /-!
@@ -55,7 +55,7 @@ theorem slash_ab_swap_fixed :
 end E213.Lens.Instances.Max
 namespace E213.Lens.Instances.Max
 open E213.Theory E213.Lens
-open E213.Lens.Characterisation.Catalog
+open E213.Lens.Properties.Characterisation.Catalog
 
 -- ═══ R4 fails: two Raw terms force inconsistent `conj 1` values ═══
 

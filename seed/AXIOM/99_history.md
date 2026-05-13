@@ -122,7 +122,7 @@ R1–R5 as the canonical uniqueness story.
 - **2026-04-24**: Initial audit.  Session
   `claude/lean-infinity-explanation-QqnSp`.
 - **2026-05-XX**: Stale-reference cleanup.  PAPER.md →
-  PAPER1.md (archival);
+  PAPER1.md (later deleted 2026-05-12);
   `Infinity/notes/17_existence_mode_lens.md` →
   `research-notes/archive/17_existence_mode_lens.md`; §3 Steps
   3/4 deprecated (book/, papers/ deleted; superseded by AXIOM
@@ -142,9 +142,9 @@ R1–R5 as the canonical uniqueness story.
 - **2026-XX-XX**: 5 seed/ files (`AXIOM.md`, `PHILOSOPHY.md`,
   `FALSIFIABILITY.md`, `IMPLEMENTATION.md`, `AUDIT_Lean.md`)
   integrated into `seed/AXIOM/` chapter sub-directory.
-  Authority documents (`ORIGIN.md`, `PAPER1.md`,
-  `RESOLUTION_LIMIT_SPEC.md`, `NOTATION.md`) remain at `seed/`
-  root.  `seed/INDEX.md` rewritten as standalone entry point
+  Authority documents (`ORIGIN.md`, `RESOLUTION_LIMIT_SPEC.md`,
+  `NOTATION.md`) remain at `seed/` root.  (`PAPER1.md` later
+  deleted 2026-05-12.)  `seed/INDEX.md` rewritten as standalone entry point
   (4-clause axiom + key concepts + falsifiability rule visible
   in one screen).
 

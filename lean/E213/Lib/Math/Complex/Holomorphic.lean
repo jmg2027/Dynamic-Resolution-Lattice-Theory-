@@ -45,8 +45,8 @@ def squareHolomorphic : ComplexCut → ComplexCut :=
 /-- Square of zero is `(0, 0)` via cMul → cutMul (real part: 0·0 = 0). -/
 theorem square_zero_real :
     re (squareHolomorphic zero)
-      = E213.Lib.Math.Real213.CutMul.cutMul
-          (E213.Lib.Math.Real213.CutSumTest.constCut 0 1)
-          (E213.Lib.Math.Real213.CutSumTest.constCut 0 1) := rfl
+      = E213.Lib.Math.Real213.Mul.CutMul.cutMul
+          (E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1)
+          (E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1) := rfl
 
 end E213.Lib.Math.Complex.Holomorphic

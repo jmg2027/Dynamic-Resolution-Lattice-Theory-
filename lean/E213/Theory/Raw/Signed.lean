@@ -1,7 +1,7 @@
 import E213.Theory.Raw.Swap
 import E213.Theory.Raw.Fold
 import E213.Theory.Raw.Hom
-import E213.Theory.Internal.Int213
+import E213.Meta.Int213.Core
 
 /-!
 # Theory.Raw.Signed: fold_signed_swap — swap as negation
@@ -12,14 +12,16 @@ as integer negation.  Used by Lens / App layers.
 
 namespace E213.Theory.Internal
 
+open E213.Meta.Int213 (neg_add add_comm)
+
 theorem Tree.fold_signed_swap :
     ∀ t : Tree, t.canonical = true →
     Tree.fold (1 : Int) (-1) (· + ·) (Tree.swap t)
       = - Tree.fold (1 : Int) (-1) (· + ·) t :=
   Tree.fold_swap_hom (1 : Int) (-1) (· + ·) (fun n => -n)
     (by decide) (by decide)
-    (fun u v => Int213.neg_add u v)
-    (fun u v => Int213.add_comm u v)
+    (fun u v => neg_add u v)
+    (fun u v => add_comm u v)
 
 end E213.Theory.Internal
 

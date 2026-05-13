@@ -122,29 +122,30 @@ Equivalent shorter forms acceptable:
   - "ZFC equality between trajectory and limit requires propext;
      ∅-axiom regime does not provide it."
 
-## Section 4 — Refactoring directives
+## Section 4 — Refactoring directives (status: completed)
 
-When this spec is integrated into the codebase audit:
+When this spec was first written (2026-04), the following directives
+were proposed.  All five have since been applied; this section is
+retained as historical record of the integration.
 
-  1. **CLAUDE.md** — replace the "Finitism is forced" section with
-     a pointer to this spec + a short framing matching §3 above.
+  1. ✓ **CLAUDE.md** — "Finitism is forced" section replaced with a
+     pointer to this spec.  (Currently: §"Resolution limit is
+     structural".)
 
-  2. **DyadicTrajectory.lean** docstrings — replace "ZFC fiction"
-     wording with "structural inequality preserved by ∅-axiom
-     regime" wording from §1.
+  2. ✓ **DyadicTrajectory.lean** docstrings — "ZFC fiction" wording
+     replaced with "structural inequality preserved" framing
+     matching §1.
 
-  3. **`seed/AXIOM/02_statement.md`** §3.3 — already correct
-     (cardinality is lens output); add cross-reference to this spec.
+  3. ✓ **`seed/AXIOM/02_statement.md`** §3.3 — cross-reference to
+     this spec added.
 
-  4. **Lean formalization** — add a single file
-     `lean/E213/Lib/Math/Foundations/ResolutionLimit.lean` that types
-     N_U + the 4-way convergence + cross-references the existing
-     Cantor / Cauchy theorems.  Verified ∅-axiom + 213-native via
-     PureGuard / NativeGuard.
+  4. ✓ **Lean formalization** — `lean/E213/Lib/Math/ResolutionLimit
+     .lean` types `N_U` + the 4-way convergence + Cantor / Cauchy
+     theorems cross-references.  ∅-axiom + 213-native verified.
 
-  5. **Narrative docs** (`books/`, `guide/`) — sweep for
-     "completed infinity rejected" / "finitism" wording and replace
-     with §3 framing.
+  5. ✓ **Narrative docs** (`books/`, `guide/`) — "completed infinity
+     rejected" / "finitism" wording swept and replaced with §3
+     framing.
 
 ## Section 5 — Why this spec, in two sentences
 

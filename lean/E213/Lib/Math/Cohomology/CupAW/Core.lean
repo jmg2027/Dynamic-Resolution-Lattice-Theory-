@@ -3,7 +3,7 @@ import E213.Lib.Math.Cohomology.Cup.Core
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Delta.Core
 import E213.Lib.Math.Cohomology.Hodge.Involution
-import E213.Lib.Math.Cohomology.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # Alexander–Whitney cup with overlap (cupAW)
@@ -25,7 +25,7 @@ namespace E213.Lib.Math.Cohomology.CupAW.Core
 
 open E213.Lib.Physics.Simplex.Counts (binom d NS NT)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
-open E213.Lib.Math.Cohomology.SimplexBasis (kSubset)
+open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 open E213.Lib.Math.Cohomology.Delta.Core (subsetIdx)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Lib.Math.Cohomology.Cup.Core (cup)

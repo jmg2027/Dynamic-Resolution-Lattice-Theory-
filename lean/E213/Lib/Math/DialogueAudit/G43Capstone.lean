@@ -24,8 +24,8 @@ open E213.Lib.Math.DialogueAudit.BitPrecision
 
 /-- ★ **Vertical 2-adic, Horizontal 5-adic, ceilings unequal**. -/
 theorem axis_witness (n j : Nat) :
-    E213.Lib.Math.SignedCut.CDTowerLevel.levelDim (n + 1)
-      = 2 * E213.Lib.Math.SignedCut.CDTowerLevel.levelDim n
+    E213.Lib.Math.SignedCut.CD.CDTowerLevel.levelDim (n + 1)
+      = 2 * E213.Lib.Math.SignedCut.CD.CDTowerLevel.levelDim n
     ∧ E213.Lib.Math.NumberGrid.FSMGradeTaxonomy.fsmGradeStates (j + 1)
       = E213.Lib.Math.NumberGrid.FSMGradeTaxonomy.fsmGradeStates j * 5 :=
   ⟨vertical_2adic n, horizontal_5adic j⟩
@@ -44,18 +44,18 @@ theorem bit_precision_witness :
 
 /-- ★ **Joint saturation** at index 25, different values. -/
 theorem joint_witness :
-    E213.Lib.Math.SignedCut.CDTowerLevel.levelDim 25 = 33554432
+    E213.Lib.Math.SignedCut.CD.CDTowerLevel.levelDim 25 = 33554432
     ∧ E213.Lib.Math.NumberGrid.FSMGradeTaxonomy.fsmGradeStates 25
       = 298023223876953125
-    ∧ E213.Lib.Math.SignedCut.CDTowerLevel.levelDim 25
+    ∧ E213.Lib.Math.SignedCut.CD.CDTowerLevel.levelDim 25
       ≠ E213.Lib.Math.NumberGrid.FSMGradeTaxonomy.fsmGradeStates 25 :=
   ⟨vertical_at_25, horizontal_at_25, ceilings_unequal⟩
 
 /-- ★★★ **Total audit witness** ★★★. -/
 theorem total_witness :
-    E213.Lib.Math.SignedCut.CDTowerLevel.levelDim 25 = 33554432
+    E213.Lib.Math.SignedCut.CD.CDTowerLevel.levelDim 25 = 33554432
     ∧ (5 : Nat) ^ 25 = 298023223876953125
-    ∧ E213.Lib.Math.SignedCut.CDTowerLevel.levelDim 25
+    ∧ E213.Lib.Math.SignedCut.CD.CDTowerLevel.levelDim 25
       < E213.Lib.Math.NumberGrid.FSMGradeTaxonomy.fsmGradeStates 25 :=
   ⟨vertical_at_25, n_u_distinguishable, horizontal_strictly_greater⟩
 

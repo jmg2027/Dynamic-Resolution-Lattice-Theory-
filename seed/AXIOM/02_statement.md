@@ -7,84 +7,83 @@ residual import, and is used because no better expression yet exists.
 They are adopted as minimum-commitment expressions **with
 acknowledgment** of the residual import.
 
-- **"Something"** — a unit that can be pointed at.  Any choice among
-  "thing," "entity," "term," etc. carries import.
+- **"Something"** — a unit that can be pointed at.
 - **"Distinction"** — the confirmation of "not being equal."
-  "Difference" is avoided since it presupposes "sameness."
-  "Distinction" is currently the minimum.
-- **"Primitive"** — no longer reducible further.  A pledge not to
-  attempt further decomposition.
+  "Difference" presupposes "sameness"; "distinction" is the minimum.
+- **"Primitive"** — no longer reducible further.
 
-## §3.2 The axiom
+## §3.2 The axiom — minimum-commitment statement
 
-1. **Something exists.**  At least two.  These are recorded as `a`,
-   `b` for convenience.  `a` and `b` stand in a **primitive
-   distinction** relation — i.e., no relation other than "not equal"
-   is presupposed between the two.
+The 213 axiom is **the closure of "something exists" under primitive
+distinction**.  In minimum-commitment language:
 
-2. **The pairing of two somethings is yet another something.**  The
-   pairing of `a`, `b` is recorded as `a / b` for convenience.
-   `a / b` is a new element of Raw and can be paired again with other
-   Raw elements.
+> **"a (exists)"** — and this very pointing automatically commits to
+> the residue: "something distinguishable from a" (= b), "the residue
+> of distinguishing a and b" (= a/b), "the residue of distinguishing
+> a and a/b" (= a/(a/b)), …
+>
+> The family of all such residues is what we call **Raw**.  That is
+> the whole axiom.
 
-3. **Pairing is symmetric.**  `a / b` and `b / a` are the same Raw
-   element.  There is no absolute order for which comes "first."
+In particular: `/` (slash) is **not an operator**.  "a/b exists" is a
+*consequence* of "a exists", not "the application of slash on a, b".
+The slash is a **referring** — a way of pointing to a particular
+member of the residue family.
 
-4. **There is no pairing with oneself.**  For any Raw element `x`,
-   `x / x` is undefined.  Oneself is not distinguished from oneself,
-   so it cannot be an object of primitive distinction.
+### Code-friendly 4-clause restatement (with cost markers)
+
+For Lean implementation, the axiom is restated as 4 clauses.  Clauses
+3 and 4 are NOT in the axiom proper — they are imposed by the **Lean
+type-theory codomain** as encoding costs (no order, no self-residue
+in the axiom).  Details: `seed/AXIOM/08_encoding_costs.md`.
+
+| # | Clause | Status |
+|---|---|---|
+| 1 | Something exists.  At least two.  Recorded `a`, `b`. | **axiom** (re-expression of "a exists" together with its inevitable distinguishing residue) |
+| 2 | Pairing of two somethings is yet another something. `a/b`. | **axiom** (auto-emergence of the residue family — `/` is *referring*, not operator) |
+| 3 | Pairing is symmetric: `a/b = b/a`. | **encoding cost** (order is absent from the axiom; Lean's inductive imposes argument positions, so symmetry must be declared as quotient) |
+| 4 | No pairing with oneself: `x/x` undefined. | **encoding cost** (the concept "self-residue" is absent from the axiom; Lean must declare the precondition `x ≠ y` explicitly to block `slash x x`) |
 
 ## §3.3 What is **absent** from the axiom
 
-Things **not** contained in the axiom — to use any of these as
-results of the axiom, a separate Lens derivation is required.
+Things **not** contained in the axiom.  To use any of these as
+results, a separate Lens derivation is required.  If any appears
+during derivation, it is **the result of applying a specific Lens**
+— which Lens must be made explicit.
 
-- Size / cardinality / finiteness / infinity.
-- Order / hierarchy / ranking.
-- Set / element relation / membership.
-- Observer / space / perception / structure / geometry.
-- Mode of existence (already present vs. being generated).
-- Algebraic laws: associativity, distributivity, identity element,
+- **Size / cardinality / finiteness / infinity** — Lens output.
+- **Order / hierarchy / ranking / sequence** — `Tree.cmp` in Lean is
+  encoding artifact, not axiom.
+- **Set / element relation / membership** — set theory is foreign.
+- **Operator / operation** — `/` is referring, not an operation.
+- **Inductive structure** — induction principle imports ℕ from Lean's
+  type theory; ℕ is itself a Lens result, so importing it priorly is
+  an encoding cost (`08_encoding_costs.md`).
+- **Equality and its negation `≠`** — borrowed from Lean's metatheory.
+- **Observer / space / perception / structure / geometry**.
+- **Mode of existence** (already-present vs. being-generated).
+- **Algebraic laws**: associativity, distributivity, identity,
   inverse, etc.
 
-If any of these appears during derivation, it is **the result of
-applying a specific Lens**, not the axiom itself.  Which Lens it came
-from must be made explicit.
+## §3.4 Algebraic signature — Möbius interpretation
 
-## §3.4 Algebraic signature — Möbius interpretation (∅-axiom theorem)
+The 4-clause restatement (§3.2 code-friendly form) admits a compact
+algebraic encoding as the Möbius matrix `[[2, 1], [1, 1]]`:
 
-The 4-clause axiom admits a compact algebraic encoding as the
-Möbius matrix `[[2, 1], [1, 1]]`:
-
-  - "2" — clause 1 (two somethings `a`, `b`)
-  - "1" — clause 4 (no self-pairing = identity preservation, det = 1)
+  - "2" — two somethings `a`, `b`
+  - "1" — identity preservation (det = 1)
   - "3" — trace = 2 + 1 (the spatial dimension `NS`)
   - disc = trace² − 4·det = 9 − 4 = **5 = NS + NT** (atomicity sum)
   - eigenvalues = `(3 ± √5)/2` = `φ²`, `1/φ²`
 
-This is an *interpretation*, not an addition to the axiom.  The
-axiom remains minimum-commitment; the Möbius reading is a
-∅-axiom-derived bridge theorem at:
+The Möbius iterator `P(x) = (2x+1)/(x+1)` is the natural form of the
+"two + binary" choice.  Fixed point φ = (1+√5)/2 = the residue of
+self-pointing iteration (cf. G29_residue, G57_213_mobius_signature).
 
-  - `lean/E213/Theory/Raw/Mobius.lean` (P_numerator, P_denominator,
-    discriminant, trace, det)
+The same φ appears in DRLT physics (CKM δ, Cabibbo, ν mass ratios)
+and in the algebra tower asymptote — cross-domain consistency.
 
-The Möbius P(x) = (2x+1)/(x+1) iterator is the *natural form* of
-Raw's binary slash applied with identity preservation:
-
-```
-slash x identity         ←→  x + 1
-slash (slash x x) ident  ←→  2x + 1
-```
-
-The fixed point of P is the golden ratio φ = (1+√5)/2, identified
-with the residue of self-pointing iteration (cf. G29_residue,
-G57_213_mobius_signature).
-
-The same φ appears in DRLT physics (CKM phase δ = π/φ², Cabibbo
-Wolfenstein A = φ/c, neutrino mass ratios) and in the algebra
-tower asymptote (1 − 0.5/φ^rank).  Cross-domain consistency.
-
-**This is not a modification to the axiom.** The 4 clauses in
+**Note**: this is an *interpretation*, not an addition.  Bridge
+theorem at `lean/E213/Theory/Raw/Mobius.lean`.  The 4 clauses in
 §3.2 remain the minimum-commitment statement; §3.4 records an
-algebraic *consequence* expressible as a Theory-level theorem.
+algebraic *consequence* (∅-axiom theorem).

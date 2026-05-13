@@ -1,7 +1,7 @@
 import E213.Lens.Instances.AB
-import E213.Lens.Leaves.RefinesParity
+import E213.Lens.Instances.Leaves.RefinesParity
 import E213.Lens.Instances.Bool
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Meta.Nat.AddMod213
 
 /-!
 # ABLensRefines: abLens ⊏ parityLens, abLens ⊏ boolXorLens
@@ -39,7 +39,7 @@ private def sumParityFactor (p : Nat × Nat) : Bool :=
 theorem abLens_refines_parityLens : abLens.refines parityLens := by
   apply refines_of_factor abLens parityLens sumParityFactor
   intro r
-  rw [E213.Lens.Leaves.RefinesParity.parityLens_view_eq_leaves_odd]
+  rw [E213.Lens.Instances.Leaves.RefinesParity.parityLens_view_eq_leaves_odd]
   show decide (Lens.leaves.view r % 2 = 1)
        = decide (((abLens.view r).1 + (abLens.view r).2) % 2 = 1)
   rw [abLens_sum_eq_leaves]
@@ -90,7 +90,7 @@ private theorem boolXorLens_view_eq (r : Raw) :
       rw [hfsB, hfsA, ihx, ihy]
       have hmod : ((abLens.view x).1 + (abLens.view y).1) % 2
                 = ((abLens.view x).1 % 2 + (abLens.view y).1 % 2) % 2 :=
-        E213.Lib.Math.NatHelpers.AddMod213.add_mod_gen _ _ 2
+        E213.Meta.Nat.AddMod213.add_mod_gen _ _ 2
       rw [hmod]
       rcases mod_two_zero_or_one_pure (abLens.view x).1 with ha | ha
       · rcases mod_two_zero_or_one_pure (abLens.view y).1 with hb | hb

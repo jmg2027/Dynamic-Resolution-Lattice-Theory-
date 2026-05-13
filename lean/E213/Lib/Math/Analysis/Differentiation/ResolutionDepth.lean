@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.Differentiation.Smooth
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
-import E213.Lib.Math.Real213.CutPow
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Mul.CutPow
+import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
 # Real213ResolutionDepth: linearityModulus = resolution depth
 
@@ -25,8 +25,8 @@ needs d dyadic levels per output unit.
 namespace E213.Lib.Math.Analysis.Differentiation.ResolutionDepth
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.CutPow (cutPow)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Mul.CutPow (cutPow)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Smooth (idIsSmooth squareIsSmooth cubeIsSmooth quarticIsSmooth quinticIsSmooth sexticIsSmooth septicIsSmooth octicIsSmooth IsSmooth constIsSmooth cutScaleIsSmooth composeIsSmooth midIsSmooth cutPowFnIsSmooth addIsSmooth mulIsSmooth cutHalfIsSmooth decicIsSmooth hexadecicIsSmooth nonicIsSmooth twelfthIsSmooth fifteenthIsSmooth eleventhIsSmooth thirteenthIsSmooth fourteenthIsSmooth)
 
 /-- **Identity has resolution depth 1**: linearityModulus n = n. -/

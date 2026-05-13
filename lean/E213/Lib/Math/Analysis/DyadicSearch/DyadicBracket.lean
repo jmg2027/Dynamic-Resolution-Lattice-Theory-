@@ -1,7 +1,7 @@
-import E213.Lib.Math.Real213.Dyadic
-import E213.Lib.Math.Real213.CutPoset
-import E213.Term.Tactic.Nat213
-import E213.Term.Tactic.Pow213
+import E213.Lib.Math.Real213.Core.Dyadic
+import E213.Lib.Math.Real213.Core.CutPoset
+import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.Pow213
 
 /-!
 # Real213DyadicBracket: dyadic IVT bracket
@@ -22,8 +22,8 @@ convergence, not point existence.
 namespace E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.CutPoset (cutLe cutLe_trans cutLe_refl)
-open E213.Lib.Math.Real213.Dyadic (dyadicCut)
+open E213.Lib.Math.Real213.Core.CutPoset (cutLe cutLe_trans cutLe_refl)
+open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
 
 /-- **DyadicBracket**: bracket [numA, numB] over common denom 2^E.
     Numerators ordered: numA ≤ numB. -/

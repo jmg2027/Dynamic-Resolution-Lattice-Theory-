@@ -1,4 +1,4 @@
-import E213.Lens.Leaves.ModNat
+import E213.Lens.Instances.Leaves.ModNat
 
 /-!
 # ModJoinExample: concrete example of Join = gcd
@@ -22,7 +22,7 @@ Combined: N.view Raw.a = N.view r'.
 namespace E213.Lib.Math.ModArith.JoinExample
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 
 /-- Chain example: L_4 + L_6 → N equates leaves-1 and leaves-3. -/
 theorem mod_4_6_chain_example {α : Type} (N : Lens α)
@@ -30,7 +30,7 @@ theorem mod_4_6_chain_example {α : Type} (N : Lens α)
     (h6 : (leavesModNat 6).refines N) :
     ∀ r : Raw, Lens.leaves.view r = 3 → N.view Raw.a = N.view r := by
   intro r hr
-  obtain ⟨r_7, hr_7⟩ := E213.Infinity.leaves_surjective_pos 7 (by omega)
+  obtain ⟨r_7, hr_7⟩ := E213.Lens.Cardinality.leaves_surjective_pos 7 (by decide)
   have h_leaves_a : Lens.leaves.view Raw.a = 1 := rfl
   -- Step 1: Raw.a ~_L_6 r_7  (1 ≡ 7 mod 6)
   have h_1_7 : (leavesModNat 6).view Raw.a = (leavesModNat 6).view r_7 := by
@@ -48,7 +48,7 @@ end E213.Lib.Math.ModArith.JoinExample
 namespace E213.Lib.Math.ModArith.JoinExample
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 
 /-- +2 step via L_6 then L_4: chain of length 2. -/
 theorem mod_4_6_step_two {α : Type} (N : Lens α)
@@ -56,14 +56,21 @@ theorem mod_4_6_step_two {α : Type} (N : Lens α)
     (h6 : (leavesModNat 6).refines N)
     (r r' : Raw) (hdiff : Lens.leaves.view r' = Lens.leaves.view r + 2) :
     N.view r = N.view r' := by
-  obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
-    (Lens.leaves.view r + 6) (by omega)
+  have hadd6_pos : 0 < Lens.leaves.view r + 6 :=
+    Nat.lt_of_lt_of_le (by decide : (0:Nat) < 6) (Nat.le_add_left _ _)
+  obtain ⟨w, hw⟩ := E213.Lens.Cardinality.leaves_surjective_pos
+    (Lens.leaves.view r + 6) hadd6_pos
   have h_r_w : (leavesModNat 6).view r = (leavesModNat 6).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw]
-    omega
+    -- Goal: view r % 6 = (view r + 6) % 6
+    exact (E213.Tactic.Nat213.add_self_mod_pure (Lens.leaves.view r) 6).symm
   have h_w_r' : (leavesModNat 4).view w = (leavesModNat 4).view r' := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw, hdiff]
-    omega
+    -- Goal: (view r + 6) % 4 = (view r + 2) % 4
+    have h_split : Lens.leaves.view r + 6 = (Lens.leaves.view r + 2) + 4 := by
+      rw [Nat.add_assoc]
+    rw [h_split]
+    exact E213.Tactic.Nat213.add_self_mod_pure (Lens.leaves.view r + 2) 4
   exact (h6 _ _ h_r_w).trans (h4 _ _ h_w_r')
 
 /-- Same leaves → same N-view (via L_4). -/
@@ -79,7 +86,7 @@ private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
   | a => decide
   | b => decide
-  | slash x y h ihx ihy =>
+  | slash x y h ihx _ =>
       have hfs : Lens.leaves.view (Raw.slash x y h)
                    = Lens.leaves.view x + Lens.leaves.view y := by
         apply Raw.fold_slash
@@ -97,17 +104,29 @@ theorem mod_4_6_step_2k {α : Type} (N : Lens α)
   | zero =>
       intro r' hr'
       apply same_leaves_same_N N h4
-      omega
+      -- hr' : Lens.leaves.view r' = Lens.leaves.view r + 2 * 0
+      -- 2 * 0 = 0, view r + 0 = view r, so view r' = view r.
+      have h_eq : Lens.leaves.view r + 2 * 0 = Lens.leaves.view r := by
+        rw [Nat.mul_zero, Nat.add_zero]
+      exact (hr'.trans h_eq).symm
   | succ k ih =>
       intro r' hr'
       have h_r_ge := leaves_ge_one r
+      have h_r_add_2k_pos : 0 < Lens.leaves.view r + 2 * k :=
+        Nat.lt_of_lt_of_le h_r_ge (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos
-          (Lens.leaves.view r + 2 * k) (by omega)
+        E213.Lens.Cardinality.leaves_surjective_pos
+          (Lens.leaves.view r + 2 * k) h_r_add_2k_pos
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have step2 : N.view r'' = N.view r' := by
         apply mod_4_6_step_two N h4 h6 r'' r'
-        omega
+        -- hr' : view r' = view r + 2 * (k + 1)
+        -- hr'' : view r'' = view r + 2 * k
+        -- Goal: view r' = view r'' + 2
+        have h_step : Lens.leaves.view r + 2 * (k + 1)
+                    = (Lens.leaves.view r + 2 * k) + 2 := by
+          rw [Nat.mul_succ, ← Nat.add_assoc]
+        rw [hr', h_step, ← hr'']
       exact step1.trans step2
 
 end E213.Lib.Math.ModArith.JoinExample
@@ -115,7 +134,7 @@ end E213.Lib.Math.ModArith.JoinExample
 namespace E213.Lib.Math.ModArith.JoinExample
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 
 /-- **L_4 + L_6 → L_2 complete**.  Least direction of
     Join(L_4, L_6) = L_2 = L_gcd(4,6) in the refines preorder. -/
@@ -131,11 +150,58 @@ theorem mod_4_6_refines_parity {α : Type} (N : Lens α)
   rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
   · obtain ⟨k, hk⟩ : ∃ k, Lens.leaves.view r' = Lens.leaves.view r + 2 * k := by
       refine ⟨(Lens.leaves.view r' - Lens.leaves.view r) / 2, ?_⟩
-      omega
+      -- view r' = view r + 2 * ((view r' - view r) / 2).
+      -- Use mod_diff_eq_zero_of_le + div_add_mod.
+      have hmod0 : (Lens.leaves.view r' - Lens.leaves.view r) % 2 = 0 :=
+        E213.Meta.Nat.AddMod213.mod_diff_eq_zero_of_le
+          (by decide : (0:Nat) < 2) hle hp
+      have hdam :
+          2 * ((Lens.leaves.view r' - Lens.leaves.view r) / 2)
+          + (Lens.leaves.view r' - Lens.leaves.view r) % 2
+          = Lens.leaves.view r' - Lens.leaves.view r :=
+        E213.Meta.Nat.AddMod213.div_add_mod _ 2
+      have h2div :
+          2 * ((Lens.leaves.view r' - Lens.leaves.view r) / 2)
+          = Lens.leaves.view r' - Lens.leaves.view r := by
+        rw [hmod0, Nat.add_zero] at hdam; exact hdam
+      have hsac : Lens.leaves.view r' - Lens.leaves.view r + Lens.leaves.view r
+                = Lens.leaves.view r' :=
+        E213.Tactic.Nat213.sub_add_cancel hle
+      -- view r + (view r' - view r) = view r' - view r + view r = view r'.
+      have hcomm :
+          Lens.leaves.view r + (Lens.leaves.view r' - Lens.leaves.view r)
+          = Lens.leaves.view r' - Lens.leaves.view r + Lens.leaves.view r :=
+        Nat.add_comm _ _
+      have hsum :
+          Lens.leaves.view r + (Lens.leaves.view r' - Lens.leaves.view r)
+          = Lens.leaves.view r' := hcomm.trans hsac
+      rw [h2div]; exact hsum.symm
     exact mod_4_6_step_2k N h4 h6 r k r' hk
   · obtain ⟨k, hk⟩ : ∃ k, Lens.leaves.view r = Lens.leaves.view r' + 2 * k := by
       refine ⟨(Lens.leaves.view r - Lens.leaves.view r') / 2, ?_⟩
-      omega
+      have hmod0 : (Lens.leaves.view r - Lens.leaves.view r') % 2 = 0 :=
+        E213.Meta.Nat.AddMod213.mod_diff_eq_zero_of_le
+          (by decide : (0:Nat) < 2) hle hp.symm
+      have hdam :
+          2 * ((Lens.leaves.view r - Lens.leaves.view r') / 2)
+          + (Lens.leaves.view r - Lens.leaves.view r') % 2
+          = Lens.leaves.view r - Lens.leaves.view r' :=
+        E213.Meta.Nat.AddMod213.div_add_mod _ 2
+      have h2div :
+          2 * ((Lens.leaves.view r - Lens.leaves.view r') / 2)
+          = Lens.leaves.view r - Lens.leaves.view r' := by
+        rw [hmod0, Nat.add_zero] at hdam; exact hdam
+      have hsac : Lens.leaves.view r - Lens.leaves.view r' + Lens.leaves.view r'
+                = Lens.leaves.view r :=
+        E213.Tactic.Nat213.sub_add_cancel hle
+      have hcomm :
+          Lens.leaves.view r' + (Lens.leaves.view r - Lens.leaves.view r')
+          = Lens.leaves.view r - Lens.leaves.view r' + Lens.leaves.view r' :=
+        Nat.add_comm _ _
+      have hsum :
+          Lens.leaves.view r' + (Lens.leaves.view r - Lens.leaves.view r')
+          = Lens.leaves.view r := hcomm.trans hsac
+      rw [h2div]; exact hsum.symm
     exact (mod_4_6_step_2k N h4 h6 r' k r hk).symm
 
 end E213.Lib.Math.ModArith.JoinExample

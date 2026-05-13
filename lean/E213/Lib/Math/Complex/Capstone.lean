@@ -16,9 +16,9 @@ open E213.Lib.Math.Complex.PowerSeries (polyId polyConst cExpAtZero)
 
 /-- ★ **ComplexCut witness** ★ — zero/one/i basic identities. -/
 theorem complexCut_witness :
-    re zero = E213.Lib.Math.Real213.CutSumTest.constCut 0 1
-    ∧ re one = E213.Lib.Math.Real213.CutSumTest.constCut 1 1
-    ∧ im i = E213.Lib.Math.Real213.CutSumTest.constCut 1 1 :=
+    re zero = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1
+    ∧ re one = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1
+    ∧ im i = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1 :=
   ⟨rfl, rfl, rfl⟩
 
 /-- ★ **Holomorphic witness** ★ — identity holomorphic, constant
@@ -35,8 +35,8 @@ theorem powerSeries_witness :
 /-- ★★★ **Total witness** ★★★ — 4-fact grand bundle. -/
 theorem total_witness (z : ComplexCut) :
     idHolomorphic z = z
-    ∧ re i = E213.Lib.Math.Real213.CutSumTest.constCut 0 1
-    ∧ im i = E213.Lib.Math.Real213.CutSumTest.constCut 1 1
+    ∧ re i = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1
+    ∧ im i = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1
     ∧ cExpAtZero = one := ⟨rfl, rfl, rfl, rfl⟩
 
 end E213.Lib.Math.Complex.Capstone

@@ -1,5 +1,5 @@
 import E213.Lens.SemanticAtom
-import E213.Lib.Math.NatHelpers.IntHelpers
+import E213.Meta.Nat.IntHelpers
 
 /-!
 # InstanceReach: boundary of the image of universalMorphism
@@ -350,7 +350,7 @@ instance intHasDistinguishing : HasDistinguishing Int where
   b := 1
   distinct := by decide
   combine := (· + ·)
-  combine_sym := E213.Lib.Math.NatHelpers.IntHelpers.add_comm
+  combine_sym := E213.Meta.Nat.IntHelpers.add_comm
 
 /-- Forward closure of the image: universalMorphism Int always
     yields a result ≥ 0. -/
@@ -367,7 +367,7 @@ theorem int_image_nonneg (r : Raw) : (0 : Int) ≤ universalMorphism Int r := by
   | slash x y h ihx ihy =>
       show (0 : Int) ≤ universalMorphism Int (Raw.slash x y h)
       rw [universalMorphism_slash Int x y h]
-      exact E213.Lib.Math.NatHelpers.IntHelpers.add_nonneg ihx ihy
+      exact E213.Meta.Nat.IntHelpers.add_nonneg ihx ihy
 
 /-- **Strict subset of the image (infinite case)**: -1 ∈ Int is
     outside the image of universalMorphism.  Non-surjectivity witness

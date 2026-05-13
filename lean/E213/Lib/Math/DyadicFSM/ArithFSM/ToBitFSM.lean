@@ -1,9 +1,8 @@
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
 import E213.Lib.Math.DyadicFSM.BitFSM.Bound
-import E213.Lib.Math.NatHelpers.EncodePair213
+import E213.Meta.Nat.EncodePair213
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # ArithFSM2(n) ⊂ BitFSM(n²) — bit-stream equivalence
 
@@ -18,20 +17,19 @@ explicit period ≤ 5n² (via `fsm_signature_period_bound`).
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 
 open E213.Lib.Math.DyadicFSM.BitFSM.Bound (fsm_signature_period_bound)
-open E213.Lib.Math.DyadicFSM.Signature (signature_eq_of_pointwise_eq)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature_eq_of_pointwise_eq)
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
-open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 
 
 private theorem encode_div {n : Nat} (hn : 0 < n) (a b : Fin n) :
     (a.val * n + b.val) / n = a.val :=
-  E213.Lib.Math.NatHelpers.EncodePair213.encode_div hn a.val b.val b.isLt
+  E213.Meta.Nat.EncodePair213.encode_div hn a.val b.val b.isLt
 
 private theorem encode_mod {n : Nat} (hn : 0 < n) (a b : Fin n) :
     (a.val * n + b.val) % n = b.val :=
-  E213.Lib.Math.NatHelpers.EncodePair213.encode_mod hn a.val b.val b.isLt
+  E213.Meta.Nat.EncodePair213.encode_mod hn a.val b.val b.isLt
 
 /-- ArithFSM2.toBitFSM run agrees with original (under pair-encoding). -/
 theorem toBitFSM_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
@@ -49,7 +47,7 @@ theorem toBitFSM_run_encode {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
       rw [ih]; exact encode_mod hn _ _
     let aDec : Fin n :=
       ⟨((m.toBitFSM hn).run k').val / n,
-       E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
+       E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
     let bDec : Fin n :=
       ⟨((m.toBitFSM hn).run k').val % n, Nat.mod_lt _ hn⟩
     have hdec : (aDec, bDec) = ((m.run k').1, (m.run k').2) := by
@@ -73,7 +71,7 @@ theorem toBitFSM_bits_eq {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) (k : Nat) :
     rw [hv]; exact encode_mod hn _ _
   let aDec : Fin n :=
     ⟨((m.toBitFSM hn).run k).val / n,
-     E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
+     E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul hv_isLt⟩
   let bDec : Fin n :=
     ⟨((m.toBitFSM hn).run k).val % n, Nat.mod_lt _ hn⟩
   have hdec : (aDec, bDec) = ((m.run k).1, (m.run k).2) := by
@@ -104,13 +102,9 @@ theorem arithFSM2_signature_period_bound {n : Nat} (hn : 0 < n)
     signature_eq_of_pointwise_eq _ _ h_pt k
   exact h1.symm.trans (h_sig.trans h2)
 
-/-- ★★★★★★ Pell mod-5 signature: explicit period bound 125 = 5·25. -/
-theorem pellFSMmod5_signature_period_bound :
-    ∃ N P, 0 < P ∧ N + P ≤ 125
-      ∧ ∀ k, k ≥ N →
-        signature pellFSMmod5.bits (k + P) = signature pellFSMmod5.bits k := by
-  obtain ⟨N, P, hP, hbound, hk⟩ :=
-    arithFSM2_signature_period_bound (n := 5) (by decide) pellFSMmod5
-  exact ⟨N, P, hP, hbound, hk⟩
+-- `pellFSMmod5_signature_period_bound` (concrete instance) moved to
+-- `ArithFSM/ModSmall.lean` 2026-05-13 to break the ToBitFSM ↔ ModSmall
+-- build cycle.  Namespace `E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM`
+-- preserved for consumer compatibility.
 
 end E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM

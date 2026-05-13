@@ -1,6 +1,6 @@
-import E213.Lib.Math.Real213.CutSumTest
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutMul
+import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Mul.CutMul
 
 /-!
 # Complex Analysis — `ComplexCut` (real + imaginary pair)
@@ -23,9 +23,9 @@ formalized — this file connects it to single-variable Analysis 213.
 
 namespace E213.Lib.Math.Complex.ComplexCut
 
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
 
 /-- A complex number = pair of cuts (real, imag). -/
 abbrev ComplexCut := (Nat → Nat → Bool) × (Nat → Nat → Bool)

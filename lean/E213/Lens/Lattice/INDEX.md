@@ -1,28 +1,31 @@
-# `Hypervisor/Lens/Lattice/` — Lens lattice structure
+# `Lens/Lattice/` — Lens refines preorder + lattice structure
 
-The `refines` preorder on `Lens α` carries a lattice structure.
-This sub-cluster provides join (least upper bound) and meet
-(greatest lower bound) constructions, plus their universal
-properties.
+`Lens.refines` preorder + lattice structure (join / meet).  Folded
+2026-05-13 from `Lens/Refines/` (preorder is structurally a Lattice
+prerequisite).
 
-## Files (7)
+## Files (9)
 
-  - `Lattice.lean` — main lattice scaffolding
-  - `Join.lean` — `joinLens` (binary least upper bound) +
-    universal property `joinLens_is_least`
-  - `Meet.lean` — `prodLens` (binary greatest lower bound)
+### Refines (preorder)
+  - `Chain.lean`    — refines-chain composition (`L₁ ⊑ L₂ ⊑ L₃`)
+  - `Preorder.lean` — refl / trans / antisymm-failure of `Lens.refines`
+
+### Lattice (join / meet)
+  - `Lattice.lean`    — main lattice scaffolding
+  - `Join.lean`       — `joinLens` (LUB) + `joinLens_is_least`
+  - `Meet.lean`       — `prodLens` (GLB)
   - `FamilyJoin.lean` — finite-family join (List of Lenses)
   - `FamilyMeet.lean` — finite-family meet
-  - `IndexedJoin.lean` — index-set join (∀ i, Lens (α i))
-  - `JoinEquiv.lean` — equivalence properties of join
+  - `IndexedJoin.lean`— index-set join (∀ i, Lens (α i))
+  - `JoinEquiv.lean`  — equivalence properties of join
 
 ## Public API
 
-Re-exported via `E213.Lens.API` (HV4 category).
+Re-exported via `E213.Lens.API` (HV2 — Refines, HV4 — Lattice).
 
-## Where to add new Lens-lattice theorems
+## Where to add new files
 
-  - Binary operations → `Join.lean` or `Meet.lean`
-  - Family/indexed → `FamilyJoin.lean`, `FamilyMeet.lean`,
-    `IndexedJoin.lean`
-  - Algebraic identities → `Lattice.lean`
+  - Refines-side theorem  → `Chain.lean` / `Preorder.lean`
+  - Binary lattice op     → `Join.lean` / `Meet.lean`
+  - Family / indexed      → `Family*` / `IndexedJoin`
+  - Algebraic identity    → `Lattice.lean`

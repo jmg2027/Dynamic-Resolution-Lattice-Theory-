@@ -4,8 +4,8 @@ import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.Integration.IndefiniteIntegral
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
 # IntegralIntInterval
 ★ integration over integer intervals [0, n] ★
@@ -19,8 +19,8 @@ In flux form: fluxAlong id (bracket [0, n]) = ofCut (constCut n 1).
 namespace E213.Lib.Math.Analysis.Integration.IntegralIntInterval
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Integration.IntegralViaAnti.IsAntiderivative (integral)
 open E213.Lib.Math.Analysis.Integration.Antiderivative.IsAntiderivative (id_anti)
 open E213.Lib.Math.Analysis.Integration.Antiderivative (IsAntiderivative)

@@ -1,8 +1,9 @@
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 /-!
 # Non-decomposable integers: {2, 3}
 
-Proposition 6.5 of PAPER.md: an integer `n ≥ 2` cannot be expressed
+Proposition (per archival PAPER1 §6.5, deleted 2026-05-12):
+  an integer `n ≥ 2` cannot be expressed
 as a sum `n = n_1 + … + n_k` with `k ≥ 2` and each `n_i ≥ 2` iff
 `n ∈ {2, 3}`.
 

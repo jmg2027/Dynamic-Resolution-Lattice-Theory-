@@ -18,7 +18,7 @@ operation 들도 Raw → Raw 또는 Raw → Raw → Raw 로 닫혀 있음.
 
 namespace E213.Theory.Closed.Bool213
 
-open E213.Theory E213.Theory.Closed
+open E213.Theory E213.Theory.Closed E213.Theory.Internal
 
 /-! ### Method A: T = a, F = b (canonical) -/
 
@@ -35,12 +35,6 @@ theorem T_ne_F : T ≠ F := by
   -- Raw 는 Subtype { t : Tree // canonical }; 두 인스턴스의 .val 이 다름
   have hval : (Raw.a.val) = (Raw.b.val) := congrArg Subtype.val h
   exact E213.Theory.Internal.Tree.noConfusion hval
-
-end E213.Theory.Closed.Bool213
-
-namespace E213.Theory.Closed.Bool213
-
-open E213.Theory E213.Theory.Closed
 
 /-! ### Bool213 operations (Raw → Raw 또는 Raw² → Raw 닫힘) -/
 
@@ -85,12 +79,6 @@ theorem and_comm (x y : Raw) : and x y = and y x := by
     · rw [if_neg, if_neg]
       · rintro ⟨h1, _⟩; exact hyT (of_decide_eq_true h1)
       · rintro ⟨h1, _⟩; exact hxT (of_decide_eq_true h1)
-
-end E213.Theory.Closed.Bool213
-
-namespace E213.Theory.Closed.Bool213
-
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
 
 /-! ### Vertical-internal projection — Raw → Bool213 canonical form
 
@@ -171,12 +159,6 @@ theorem isBool213_of_booleanProj_id (r : Raw) (h : booleanProj r = r) :
 theorem booleanProj_id_iff_isBool213 (r : Raw) :
     booleanProj r = r ↔ IsBool213 r :=
   ⟨isBool213_of_booleanProj_id r, booleanProj_id_of_isBool213 r⟩
-
-end E213.Theory.Closed.Bool213
-
-namespace E213.Theory.Closed.Bool213
-
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
 
 /-! ### Boundary mapping — Bool213 → Lean Bool
 

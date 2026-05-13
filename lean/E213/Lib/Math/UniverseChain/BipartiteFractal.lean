@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.Bipartite.V32
-import E213.Lib.Math.Cohomology.K5
+import E213.Lib.Math.Cohomology.Examples.K5
 import E213.Lib.Math.Cohomology.Fractal.Level
 
 /-!
@@ -16,7 +16,7 @@ namespace E213.Lib.Math.UniverseChain.BipartiteFractal
 
 open E213.Lib.Math.Cohomology.Bipartite.V32
   renaming srcFin → srcFinB, tgtFin → tgtFinB
-open E213.Lib.Math.Cohomology.K5
+open E213.Lib.Math.Cohomology.Examples.K5
   renaming srcFin → srcFinK, tgtFin → tgtFinK
 open E213.Lib.Math.Cohomology.Fractal.Level (numV)
 

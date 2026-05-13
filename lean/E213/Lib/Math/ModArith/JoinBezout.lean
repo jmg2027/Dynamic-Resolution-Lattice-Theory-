@@ -1,5 +1,5 @@
-import E213.Lens.Leaves.ModNat
-import E213.Lib.Math.NatHelpers.NatDiv213
+import E213.Lens.Instances.Leaves.ModNat
+import E213.Meta.Nat.NatDiv213
 
 /-!
 # ModJoinBezout: parametric Bezout chain step
@@ -20,7 +20,7 @@ chain.
 namespace E213.Lib.Math.ModArith.JoinBezout
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 
 private theorem leaves_ge_one (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
@@ -46,11 +46,11 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
     Nat.le_trans (leaves_ge_one r) (Nat.le_add_right _ _)
   have hk_pos : 0 < k := Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hk
   have hm_pos : 0 < m := Nat.lt_trans hk_pos hmk
-  obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
+  obtain ⟨w, hw⟩ := E213.Lens.Cardinality.leaves_surjective_pos
     (Lens.leaves.view r + m) h_pos
   have h_r_w : (leavesModNat m).view r = (leavesModNat m).view w := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw,
-        E213.Lib.Math.NatHelpers.NatDiv213.add_mod_right_pos hm_pos]
+        E213.Meta.Nat.NatDiv213.add_mod_right_pos hm_pos]
   have h_w_r' : (leavesModNat k).view w = (leavesModNat k).view r' := by
     rw [leavesModNat_view_eq, leavesModNat_view_eq, hw, hdiff]
     have hkm_le : k ≤ m := Nat.le_of_lt hmk
@@ -59,7 +59,7 @@ theorem chain_step_sub {α : Type} (N : Lens α) (m k : Nat)
     have hrewrite : Lens.leaves.view r + m
                       = (Lens.leaves.view r + (m - k)) + k := by
       rw [Nat.add_assoc, h_sub_add]
-    rw [hrewrite, E213.Lib.Math.NatHelpers.NatDiv213.add_mod_right_pos hk_pos]
+    rw [hrewrite, E213.Meta.Nat.NatDiv213.add_mod_right_pos hk_pos]
   exact (hLm _ _ h_r_w).trans (hLk _ _ h_w_r')
 
 end E213.Lib.Math.ModArith.JoinBezout
@@ -67,7 +67,7 @@ end E213.Lib.Math.ModArith.JoinBezout
 namespace E213.Lib.Math.ModArith.JoinBezout
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 
 /-- Same leaves → same N-view via arbitrary L_k. -/
 private theorem same_leaves_N {α : Type} (N : Lens α) (k : Nat) (hk : k ≥ 2)
@@ -97,11 +97,11 @@ theorem consecutive_step_plus_n {α : Type} (N : Lens α) (m k : Nat)
       have h_pos : 1 ≤ Lens.leaves.view r + n :=
         Nat.le_trans (leaves_ge_one r) (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos (Lens.leaves.view r + n) h_pos
+        E213.Lens.Cardinality.leaves_surjective_pos (Lens.leaves.view r + n) h_pos
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have hmk_lt : m > k := by rw [hmk]; exact Nat.lt_succ_self k
       have hmk_diff : m - k = 1 := by
-        rw [hmk]; exact E213.Lib.Math.NatHelpers.Gcd213.succ_sub_self_213 k
+        rw [hmk]; exact E213.Meta.Nat.Gcd213.succ_sub_self_213 k
       have step2 : N.view r'' = N.view r' := by
         apply chain_step_sub N m k hk hmk_lt hLm hLk r'' r'
         -- Need: view r' = view r'' + (m - k) = view r'' + 1
@@ -115,7 +115,7 @@ end E213.Lib.Math.ModArith.JoinBezout
 namespace E213.Lib.Math.ModArith.JoinBezout
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat
+open E213.Lens.Instances.Leaves.ModNat
 
 /-- **Consecutive coprime → Join = constLens**.
     L_{k+1}.refines N ∧ L_k.refines N → N is constant.  ∅-axiom. -/

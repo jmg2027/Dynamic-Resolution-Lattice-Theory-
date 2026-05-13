@@ -1,7 +1,7 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
 
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # ArithFSM3 — 3-state arithmetic FSM (cubic / Tribonacci class)
 
@@ -14,7 +14,7 @@ Joint state space: Fin n × Fin n × Fin n with n³ values.
 
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.V3
 
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 

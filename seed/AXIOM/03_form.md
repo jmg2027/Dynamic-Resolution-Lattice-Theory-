@@ -41,30 +41,12 @@ That is, **two + binary** is the unique minimum choice.
   object of distinction (oneself is not distinguished from oneself).
   This directly conflicts with Axiom 1 (primitive distinction).
 
-## §4.4 The (x+1) → (2x+1) iterator: Raw's natural form
+## §4.4 Algebraic signature (cross-ref)
 
-The "two + binary" choice (§4.2) admits a uniform algebraic
-expression as the iterator:
-
-  x  →  (2x + 1) / (x + 1)
-
-corresponding to the Möbius matrix `[[2, 1], [1, 1]]`.
-
-  - "(x + 1)" — clause 2 (binary pairing of `x` with identity)
-  - "(2x + 1)" — repeated pairing (binary applied twice with identity)
-  - division — clause 1 (distinction between two paired forms)
-
-This iterator captures the *minimal form* of repeated identity-
-preserving binary pairing.  Its fixed point is
-
-  x² − x − 1 = 0  →  x = (1 + √5)/2 = φ
-
-where 5 = trace²−4·det = 9−4 = NS+NT (the atomicity sum, §3.4).
-
-The choice "two + binary" therefore generates the φ-residue
-algebraically, with no further commitment beyond the four clauses.
-This is recorded as the bridge theorem:
-
-  `lean/E213/Theory/Raw/Mobius.lean`
-
-The form is *not assumed*; it is *induced* by the minimal axiom.
+The "two + binary" choice (§4.2) admits the Möbius iterator
+`P(x) = (2x+1)/(x+1)` as natural form, fixed point φ = (1+√5)/2.
+See `02_statement.md §3.4` for the algebraic signature
+(`[[2,1],[1,1]]` matrix, trace 3 = NS, det 1, disc 5 = NS+NT,
+eigenvalues φ², 1/φ²).  Bridge theorem: `lean/E213/Theory/Raw/
+Mobius.lean`.  The form is *induced* by the minimum axiom, not
+assumed.

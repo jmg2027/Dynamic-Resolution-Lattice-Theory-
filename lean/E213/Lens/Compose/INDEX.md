@@ -1,4 +1,4 @@
-# `Hypervisor/Lens/Compose/` — Lens factoring + composition
+# `Lens/Compose/` — Lens factoring + composition
 
 How a Lens factors through other Lenses, and how composition
 relates to the `refines` preorder.

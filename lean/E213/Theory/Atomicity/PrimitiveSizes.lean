@@ -3,7 +3,7 @@ import E213.Theory.Atomicity.NonDecomposable
 /-!
 # Primitive sizes: `{2, 3}` from the axiom
 
-Remark 6.6(b) of PAPER.md: the atom set is read directly off the
+Remark (per archival PAPER1 §6.6, deleted 2026-05-12): the atom set is read directly off the
 axiom, which names exactly two sizes:
 
 - `pairSize = 2`: the input pair (the axiom's "two objects").

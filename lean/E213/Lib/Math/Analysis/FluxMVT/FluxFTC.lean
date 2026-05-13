@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTConcrete
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutContinuity
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Bisection.CutContinuity
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.FluxMVT.FluxCochain
@@ -34,9 +34,9 @@ The cohomEquiv between these is the FTC.
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxFTC
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutContinuity (constCutFn)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCochain.FluxCut

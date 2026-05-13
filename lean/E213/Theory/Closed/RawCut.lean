@@ -46,13 +46,6 @@ def rawCutEq (cx cy : RawCut) : Prop := ∀ m k, cx m k = cy m k
 def rawCutLe (cx cy : RawCut) : Prop :=
   ∀ m k, cy m k = T → cx m k = T
 
-end E213.Theory.Closed.RawCut
-
-namespace E213.Theory.Closed.RawCut
-
-open E213.Theory
-open E213.Theory.Closed.Bool213 (T F)
-
 /-! ### Equivalence + order properties (Lean-free) -/
 
 theorem rawCutEq_refl (c : RawCut) : rawCutEq c c := fun _ _ => rfl

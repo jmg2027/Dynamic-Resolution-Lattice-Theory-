@@ -1,4 +1,4 @@
-import E213.Lens.Leaves.ModNat
+import E213.Lens.Instances.Leaves.ModNat
 import E213.Lens.Instances.Cauchy
 import E213.Lib.Math.Cauchy.ProfiniteSeq
 
@@ -65,7 +65,7 @@ mul_mod_right, zero_mod, le_max_*}` (all `[propext]`-tainted).
 namespace E213.Lib.Math.Hyper.Padic
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 end E213.Lib.Math.Hyper.Padic
@@ -73,7 +73,7 @@ end E213.Lib.Math.Hyper.Padic
 namespace E213.Lib.Math.Hyper.Padic
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-! ### Power lemmas (based on Lean 4 core) -/
@@ -106,7 +106,7 @@ end E213.Lib.Math.Hyper.Padic
 namespace E213.Lib.Math.Hyper.Padic
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-! ### p-adic Lens family -/
@@ -148,7 +148,7 @@ end E213.Lib.Math.Hyper.Padic
 namespace E213.Lib.Math.Hyper.Padic
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Instances.Cauchy
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Instances.Cauchy
 open E213.Lib.Math.Cauchy.ProfiniteSeq
 
 /-- Family-Cauchy w.r.t. the entire p-adic tower. -/

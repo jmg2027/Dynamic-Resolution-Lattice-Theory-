@@ -1,7 +1,7 @@
 import E213.Lib.Math.DyadicFSM.ThueMorse
-import E213.Lib.Math.DyadicFSM.TierBridge
+import E213.Lib.Math.DyadicFSM.Tier.TierBridge
 
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Subword complexity of K_{3,2}^{(2)} signature trajectories
 
@@ -19,9 +19,9 @@ for periodic and aperiodic example signatures.
 
 namespace E213.Lib.Math.DyadicFSM.Archive.SubwordComplexity
 
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ThueMorse (thueMorse)
-open E213.Lib.Math.DyadicFSM.TierBridge (bit13)
+open E213.Lib.Math.DyadicFSM.Tier.TierBridge (bit13)
 
 
 /-- Length-L substrings of trajectory `s` starting at position

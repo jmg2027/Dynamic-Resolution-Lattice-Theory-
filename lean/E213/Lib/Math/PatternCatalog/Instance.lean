@@ -1,5 +1,5 @@
 import E213.Lib.Math.PatternCatalog.Core
-import E213.Lib.Math.Real213.CutMulOne
+import E213.Lib.Math.Real213.Mul.CutMulOne
 import E213.Theory.Atomicity.Five
 import E213.Lib.Math.AxiomSystems.CrossTheoryCohabit
 import E213.Lens.Properties.IsLeaf
@@ -29,9 +29,9 @@ namespace E213.Lib.Math.PatternCatalog.Instance
 
 open E213.Lib.Math.PatternCatalog
 open E213.Lib.Math.PatternCatalog.Core
-open E213.Lib.Math.Real213.CutMulOne (cutMul_one_one_at)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- Post-extermination self-instance: `f` and `f_at` are the same
     function (function-eq form was deleted).  Trivially `agrees`. -/
@@ -179,7 +179,7 @@ def pisanoLikeAggregate : DynamicalAggregate Nat Nat :=
 
 /-! ## CataForcedForm instance — Option Nat (toy mirror of getBase_eq)
 
-Real codebase specimen: `getBase_eq` in `Firmware/Atomicity/
+Real codebase specimen: `getBase_eq` in `Theory/Atomicity/
 ArityForcingGeneral.lean` — when the catamorphism `isBase` returns
 `true`, the `RawNk N k` source is forced into form `.object i`.
 We mirror that shape on `Option Nat` to keep imports minimal: when

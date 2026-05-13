@@ -1,16 +1,15 @@
-import E213.Lib.Math.DyadicFSM.ProductFSMPeriod
-import E213.Lib.Math.DyadicFSM.ProductFSMPeriodDvd
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
+import E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriod
+import E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.BitFSM
-import E213.Lib.Math.DyadicFSM.ProductFSM
+import E213.Lib.Math.DyadicFSM.Product.ProductFSM
 /-!
 # Pell lens composition — concrete CRT applications
 
-Compose the Pell ArithFSM2 instances via E213.Lib.Math.DyadicFSM.ProductFSM.BitFSM.product.
+Compose the Pell ArithFSM2 instances via E213.Lib.Math.DyadicFSM.Product.ProductFSM.BitFSM.product.
 
 For Pell mod a × Pell mod b (gcd-free), the resulting product
 BitFSM has period dividing lcm(period(mod a), period(mod b))
@@ -33,19 +32,19 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod3_bits_period_4)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.ProductFSM
-open E213.Lib.Math.DyadicFSM.ProductFSMPeriodDvd (lens_composition_period_dvd)
+open E213.Lib.Math.DyadicFSM.Product.ProductFSM
+open E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd (lens_composition_period_dvd)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (toBitFSM_bits_eq)
 
 
 /-- ★★★★★★ Lens-composed Pell mod 3 × mod 5 (XOR readout): period | 20.
     Tactic-free to keep ∅-axiom. -/
 theorem pellLens_3x5_period_20 :
-    ∀ k, (E213.Lib.Math.DyadicFSM.ProductFSM.BitFSM.product (n := 9) (m := 25) (by decide)
+    ∀ k, (E213.Lib.Math.DyadicFSM.Product.ProductFSM.BitFSM.product (n := 9) (m := 25) (by decide)
             (ArithFSM2.toBitFSM (by decide : 0 < 3) pellFSMmod3)
             (ArithFSM2.toBitFSM (by decide : 0 < 5) pellFSMmod5)
             xor).bits (k + 20)
-        = (E213.Lib.Math.DyadicFSM.ProductFSM.BitFSM.product (n := 9) (m := 25) (by decide)
+        = (E213.Lib.Math.DyadicFSM.Product.ProductFSM.BitFSM.product (n := 9) (m := 25) (by decide)
             (ArithFSM2.toBitFSM (by decide : 0 < 3) pellFSMmod3)
             (ArithFSM2.toBitFSM (by decide : 0 < 5) pellFSMmod5)
             xor).bits k := fun k =>

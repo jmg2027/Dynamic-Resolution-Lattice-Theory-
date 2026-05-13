@@ -2,7 +2,7 @@ import E213.Lib.Math.Cohomology.CupAW.Core
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Delta.Core
-import E213.Lib.Math.Cohomology.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # Alexander–Whitney cup — pointwise extensionality (∅-axiom)
@@ -23,7 +23,7 @@ namespace E213.Lib.Math.Cohomology.CupAW.Pointwise
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
-open E213.Lib.Math.Cohomology.SimplexBasis (kSubset)
+open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 open E213.Lib.Math.Cohomology.Delta.Core (subsetIdx)
 
 /-- ★ `cupAW` is pointwise-extensional in both arguments.  ∅-axiom. -/

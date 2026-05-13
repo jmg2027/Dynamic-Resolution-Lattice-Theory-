@@ -1,5 +1,5 @@
-import E213.Term.Tactic.Nat213
-import E213.Term.Tactic.Mod213
+import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.Mod213
 import E213.Theory.Atomicity.FiveHelpers
 /-!
 # Atomicity: d = 5 as a theorem (not an axiom)

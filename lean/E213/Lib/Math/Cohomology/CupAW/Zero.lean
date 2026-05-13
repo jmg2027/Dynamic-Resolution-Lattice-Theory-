@@ -3,7 +3,7 @@ import E213.Lib.Math.Cohomology.Delta.Core
 
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Hodge.Involution
-import E213.Lib.Math.Cohomology.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # Zero lemmas for cupAW and delta
@@ -22,7 +22,7 @@ open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
 open E213.Lib.Math.Cohomology.Delta.Core (delta deltaAt subsetIdx)
-open E213.Lib.Math.Cohomology.SimplexBasis (kSubset)
+open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 
 /-- cupAW with zero left = zero, universally. -/

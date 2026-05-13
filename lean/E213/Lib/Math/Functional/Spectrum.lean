@@ -1,5 +1,5 @@
 import E213.Lib.Math.Functional.LinearOperator
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Functional Analysis 213 — Spectrum (atomic, finite-grid)

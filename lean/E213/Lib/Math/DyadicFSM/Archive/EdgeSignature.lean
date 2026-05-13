@@ -1,6 +1,6 @@
 import E213.Lib.Math.DyadicFSM.Archive.SubwordComplexity
 
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 import E213.Lib.Math.DyadicFSM.ThueMorse
 /-!
 # Edge-based K_{3,2}^{(2)} signature variant
@@ -18,9 +18,9 @@ This gives a Fin 12 trajectory with up to 12 distinct values vs
 
 namespace E213.Lib.Math.DyadicFSM.Archive.EdgeSignature
 
-open E213.Lib.Math.DyadicFSM.Signature (nextVertex signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (nextVertex signature)
 open E213.Lib.Math.DyadicFSM.ThueMorse (thueMorse)
-open E213.Lib.Math.DyadicFSM.TierBridge (bit13)
+open E213.Lib.Math.DyadicFSM.Tier.TierBridge (bit13)
 
 
 /-- Edge from vertex v with bit b in K_{3,2}^{(2)}.  Canonical

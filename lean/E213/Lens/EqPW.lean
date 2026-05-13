@@ -1,6 +1,5 @@
+import E213.Theory.Raw.API
 import E213.Lens.LensCore
-import E213.Theory.Raw.Fold
-import E213.Theory.Raw.Rec
 
 /-!
 # Lens.EqPW — pointwise Lens equality (avoids funext-by-design)

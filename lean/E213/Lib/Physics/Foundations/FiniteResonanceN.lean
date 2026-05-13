@@ -1,5 +1,5 @@
 import E213.Lib.Physics.Couplings.AlphaGUT
-import E213.Lib.Math.Cohomology.TopologyCompare
+import E213.Lib.Math.Cohomology.Examples.TopologyCompare
 
 /-!
 # Finite-N self-resonance: each gauge coupling has its own lattice N.

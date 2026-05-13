@@ -1,4 +1,4 @@
-import E213.Lib.Math.SignedCut.CDTowerLevel
+import E213.Lib.Math.SignedCut.CD.CDTowerLevel
 import E213.Lib.Math.NumberGrid.FSMGradeTaxonomy
 
 /-!
@@ -26,7 +26,7 @@ This file formalizes the distinction.
 
 namespace E213.Lib.Math.DialogueAudit.AxisDistinction
 
-open E213.Lib.Math.SignedCut.CDTowerLevel (levelDim)
+open E213.Lib.Math.SignedCut.CD.CDTowerLevel (levelDim)
 open E213.Lib.Math.NumberGrid.FSMGradeTaxonomy (fsmGradeStates)
 
 /-- ★ **Vertical at level 25** = 2²⁵ = 33,554,432. -/

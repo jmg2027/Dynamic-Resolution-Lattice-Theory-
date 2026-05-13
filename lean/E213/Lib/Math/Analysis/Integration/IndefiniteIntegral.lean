@@ -3,9 +3,9 @@ import E213.Lib.Math.Analysis.Integration.Antiderivative
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Lib.Math.Analysis.ODE.NewtonSecond
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 /-!
 # IndefiniteIntegral
@@ -23,9 +23,9 @@ This represents ∫_0^x f dt cohomologically.
 
 namespace E213.Lib.Math.Analysis.Integration.IndefiniteIntegral
 
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable

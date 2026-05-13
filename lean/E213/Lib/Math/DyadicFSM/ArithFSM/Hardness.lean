@@ -1,5 +1,5 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
-import E213.Lib.Math.DyadicFSM.Tier2Hardness
+import E213.Lib.Math.DyadicFSM.Tier.Tier2Hardness
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 /-!
@@ -18,7 +18,7 @@ transcendental streams in the Tier hierarchy *via the ArithFSM lens*.
 
 namespace E213.Lib.Math.DyadicFSM.ArithFSM.Hardness
 
-open E213.Lib.Math.DyadicFSM.Tier2Hardness (aperiodic_bits_imp_not_BitFSM BitFSM_generable_imp_eventually_periodic)
+open E213.Lib.Math.DyadicFSM.Tier.Tier2Hardness (aperiodic_bits_imp_not_BitFSM BitFSM_generable_imp_eventually_periodic)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (toBitFSM_bits_eq)
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)

@@ -56,7 +56,7 @@ What we provide here:
 
 ## Connection to AxiomLenses/
 
-`Hypervisor/Lens/AxiomLenses/{Propext, Funext, QuotSound}.lean`
+`Lens/AxiomLenses/{Propext, Funext, QuotSound}.lean`
 formalises the *Lean kernel axioms* as lens choices.  This
 sub-cluster (`Math/AxiomSystems/`) goes one level higher: entire
 **axiom systems** (foundations) as lens compositions.  The two

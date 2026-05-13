@@ -1,8 +1,4 @@
-import E213.Theory.Raw.Fold
-import E213.Theory.Raw.Swap
-import E213.Theory.Raw.Slash
-import E213.Theory.Raw.SwapSlash
-import E213.Theory.Raw.Rec
+import E213.Theory.Raw.API
 
 /-!
 # Theory.Closed.FoldRaw — endomorphic fold (closed universe)
@@ -52,12 +48,6 @@ theorem slashOrSelf_of_ne {x y : Raw} (h : x ≠ y) :
 theorem slashOrSelf_self (x : Raw) : slashOrSelf x x = x := by
   unfold slashOrSelf; rw [dif_pos rfl]
 
-end E213.Theory.Closed
-
-namespace E213.Theory.Closed
-
-open E213.Theory
-
 /-! ### foldRaw — endomorphic fold (codomain = Raw) -/
 
 /-- `foldRaw fa fb fc r` — 끝(leaf)에서 `fa`/`fb` 로 시작해
@@ -80,12 +70,6 @@ theorem foldRaw_slash (fa fb : Raw) (fc : Raw → Raw → Raw)
     foldRaw fa fb fc (Raw.slash x y h)
       = fc (foldRaw fa fb fc x) (foldRaw fa fb fc y) :=
   Raw.fold_slash fa fb fc hsym x y h
-
-end E213.Theory.Closed
-
-namespace E213.Theory.Closed
-
-open E213.Theory
 
 /-! ### Demo: swap = foldRaw with (fa=b, fb=a, fc=slashOrSelf) -/
 

@@ -1,8 +1,8 @@
-import E213.Lib.Math.DyadicFSM.ForwardEventual
-import E213.Term.Tactic.Nat213
+import E213.Lib.Math.DyadicFSM.Forward.ForwardEventual
+import E213.Meta.Tactic.Nat213
 
-import E213.Lib.Math.DyadicFSM.ForwardPeriodicity
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # BitFSM — finite-state-machine generated bit streams
 
@@ -19,10 +19,10 @@ BitFSM}.  Tier 2 (e, π, etc.) is conjecturally OUTSIDE this class.
 
 namespace E213.Lib.Math.DyadicFSM.BitFSM
 
-open E213.Lib.Math.DyadicFSM.ForwardPeriodicity
+open E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
   (pigeonhole_collision collisionTest collTest_imp_val_eq)
-open E213.Lib.Math.DyadicFSM.Signature (signature nextVertex)
-open E213.Lib.Math.DyadicFSM.ForwardEventual (signature_eventually_periodic_of_eventually_periodic_bits)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature nextVertex)
+open E213.Lib.Math.DyadicFSM.Forward.ForwardEventual (signature_eventually_periodic_of_eventually_periodic_bits)
 
 /-- A BitFSM with `n` states. -/
 structure BitFSM (n : Nat) where

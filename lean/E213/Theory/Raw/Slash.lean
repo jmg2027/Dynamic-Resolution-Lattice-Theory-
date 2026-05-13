@@ -1,5 +1,5 @@
 import E213.Theory.Raw.Core
-import E213.Theory.Internal.Raw.Cmp
+import E213.Term.Tree
 
 /-!
 # Theory.Raw.Slash: the `slash` smart constructor + `depth`

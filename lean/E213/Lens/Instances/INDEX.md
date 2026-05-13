@@ -1,4 +1,4 @@
-# `Hypervisor/Lens/Instances/` — Concrete Lens catalog
+# `Lens/Instances/` — Concrete Lens catalog
 
 Concrete `Lens α` instances for specific α codomains.  Each file
 provides one or more concrete Lens — useful as building blocks for

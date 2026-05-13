@@ -1,11 +1,11 @@
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutBisection
-import E213.Lib.Math.Real213.CutContinuity
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Bisection.CutBisection
+import E213.Lib.Math.Real213.Bisection.CutContinuity
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableMid
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.FluxMVT.FluxCochain
@@ -37,9 +37,9 @@ IsAntiderivative F sf f := { eq : sf.derivative = f }
 namespace E213.Lib.Math.Analysis.Integration.Antiderivative
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutContinuity (constCutFn)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
@@ -99,10 +99,10 @@ end E213.Lib.Math.Analysis.Integration.Antiderivative
 namespace E213.Lib.Math.Analysis.AntiderivativeCombinators
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutBisection (cutMid)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable addIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)
@@ -149,10 +149,10 @@ end E213.Lib.Math.Analysis.AntiderivativeCombinators
 namespace E213.Lib.Math.Analysis.AntiderivativeStructural
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable (IsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
   (squareIsDifferentiable cubeIsDifferentiable)

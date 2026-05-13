@@ -1,12 +1,12 @@
 import E213.Term.Term
 
 /-!
-# E213.Term.Pair — pairwise relation primitive of Raw.
+# Term.Pair — pairwise distinguishability primitive
 
-CLAUDE.md axiom: "Things exist with pairwise relations.
-G_ij = ⟨ψ_i|ψ_j⟩."
+Per `seed/AXIOM/02_statement.md` §3.2 clause 2: "pairing of two
+somethings is yet another something".  This file represents the
+binary distinguishability check `G(i, j)` via a Lens identity:
 
-Representing G_ij via Lens identity check:
   G(i,j) = 0  if i ≡ j  (diagonal, self-identity)
   G(i,j) = 1  if i ≢ j  (off-diagonal, distinguishable)
 

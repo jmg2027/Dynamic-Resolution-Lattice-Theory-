@@ -1,9 +1,9 @@
-import E213.Lib.Math.NatHelpers.Max213
+import E213.Meta.Nat.Max213
 import E213.Lib.Math.Analysis.Differentiation.DerivativeForms
 import E213.Lib.Math.Analysis.Differentiation.ResolutionDepth
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutPow
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Mul.CutPow
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 import E213.Lib.Math.Analysis.Differentiation.Smooth
 /-!
@@ -27,8 +27,8 @@ modulus equality.
 namespace E213.Lib.Math.Analysis.Differentiation.DerivativeDepth
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutPow (cutPow)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutPow (cutPow)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
@@ -69,7 +69,7 @@ theorem cutPowFn_derivative_modulus (n k : Nat) :
          = (m + 1) * k
     rw [ih, cutPowFnIsDifferentiable_modulus, Nat.add_zero,
         E213.Tactic.Nat213.add_mul, Nat.one_mul]
-    exact E213.Lib.Math.NatHelpers.Max213.max_eq_left (Nat.le_add_right _ _)
+    exact E213.Meta.Nat.Max213.max_eq_left (Nat.le_add_right _ _)
 
 /-- **AD-3 unified capstone**: polynomial chain — function and
     derivative both have linearityModulus = n*k. -/

@@ -1,5 +1,5 @@
-import E213.Lib.Math.NatHelpers.Max213
-import E213.Lib.Math.Real213.Core
+import E213.Meta.Nat.Max213
+import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Modulus.HasModulus
 
 /-!
@@ -24,7 +24,7 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Modulus.HasModulus
 open E213.Lens.Instances.AB
 open E213.Lib.Math.Cauchy.Archimedean
-open E213.Lib.Math.Real213.Core (Real213)
+open E213.Lib.Math.Real213.Core.Core (Real213)
 
 /-- **ModulusCombiner**: abstract kernel for sequence combine + Cauchy preservation. -/
 structure ModulusCombiner (combine : Raw → Raw → Raw) where
@@ -45,7 +45,7 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Modulus.HasModulus
 open E213.Lens.Instances.AB
 open E213.Lib.Math.Cauchy.Archimedean
-open E213.Lib.Math.Real213.Core (Real213)
+open E213.Lib.Math.Real213.Core.Core (Real213)
 
 /-- **Generic combine theorem**: ModulusCombiner + two HasModulus → combined HasModulus. -/
 def combineModulus {xs ys : Nat → Raw}
@@ -61,13 +61,13 @@ def combineModulus {xs ys : Nat → Raw}
     show orderProj m k (abLens.view (combine (xs i) (ys i)))
        = orderProj m k (abLens.view (combine (xs j) (ys j)))
     have hi_x : i ≥ mod_x.N (mc.precX m k).1 (mc.precX m k).2 :=
-      Nat.le_trans (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _) hi
+      Nat.le_trans (E213.Meta.Nat.Max213.le_max_left _ _) hi
     have hi_y : i ≥ mod_y.N (mc.precY m k).1 (mc.precY m k).2 :=
-      Nat.le_trans (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _) hi
+      Nat.le_trans (E213.Meta.Nat.Max213.le_max_right _ _) hi
     have hj_x : j ≥ mod_x.N (mc.precX m k).1 (mc.precX m k).2 :=
-      Nat.le_trans (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _) hj
+      Nat.le_trans (E213.Meta.Nat.Max213.le_max_left _ _) hj
     have hj_y : j ≥ mod_y.N (mc.precY m k).1 (mc.precY m k).2 :=
-      Nat.le_trans (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _) hj
+      Nat.le_trans (E213.Meta.Nat.Max213.le_max_right _ _) hj
     have hx := mod_x.cauchy_at (mc.precX m k).1 (mc.precX m k).2
                  (mc.precX_k_pos m k hk) i j hi_x hj_x
     have hy := mod_y.cauchy_at (mc.precY m k).1 (mc.precY m k).2

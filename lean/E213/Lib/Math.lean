@@ -1,20 +1,35 @@
 import E213.Lib.Math.Real213
 import E213.Lib.Math.Analysis
+import E213.Lib.Math.AngleStructure
+import E213.Lib.Math.Atomicity
 import E213.Lib.Math.AxiomSystems
+import E213.Lib.Math.BipartiteDecomp
+import E213.Lib.Math.CartesianVsDisjoint
 import E213.Lib.Math.Choice
 import E213.Lib.Math.Cohomology
-import E213.Lib.Math.Diagonal
+import E213.Lib.Math.Complex
+import E213.Lib.Math.DialogueAudit
 import E213.Lib.Math.DyadicFSM
+import E213.Lib.Math.Extras
+import E213.Lib.Math.Functional
+import E213.Lib.Math.GenerationRule
+import E213.Lib.Math.Geometry
+import E213.Lib.Math.Group
 import E213.Lib.Math.HodgeConjecture
 import E213.Lib.Math.Hyper
-import E213.Lib.Math.Infinity
 import E213.Lib.Math.Irrational
+import E213.Lib.Math.LevelTopology
 import E213.Lib.Math.Linalg213
 import E213.Lib.Math.CayleyDickson
+import E213.Lib.Math.Measure
 import E213.Lib.Math.ModArith
 import E213.Lib.Math.Modulus
+import E213.Lib.Math.Multivariable
+import E213.Lib.Math.NumberGrid
+import E213.Lib.Math.ODE
+import E213.Lib.Math.OperationTopology
+import E213.Lib.Math.SignedCut
 import E213.Lib.Math.Tactic
-import E213.Lib.Math.Trajectory
 import E213.Lib.Math.PatternCatalog
 import E213.Lib.Math.Probability
 import E213.Lib.Math.Information
@@ -25,7 +40,10 @@ import E213.Lib.Math.ParadigmDomain
 import E213.Lib.Math.ParadigmDomainGraded
 import E213.Lib.Math.ParadigmDomainGradedRing
 import E213.Lib.Math.ResolutionLimit
-import E213.Lib.Math.NatHelpers
+import E213.Lib.Math.Topology
+import E213.Lib.Math.TriangularTower
+import E213.Lib.Math.UniverseChain
+import E213.Meta.Nat
 import E213.Lib.Math.CascadeCalculus
 import E213.Lib.Math.Pigeonhole
 import E213.Lib.Math.Polynomial213
@@ -59,8 +77,12 @@ The directory tree is the spec; this file is the top-level entry.
     * `AxiomSystems`    — Peano / ZFC / classical-analysis-as-Lens
     * `Choice`          — choice-related results (no Classical.choice)
     * `Diagonal`        — diagonal arguments / Cantor-style fixed points
-    * `Infinity`        — lens cardinality, Cantor (∅-axiom)
     * `Irrational`      — irrationality without ZFC
+
+    Cardinality observables (Cantor, Tower, Countable, BoolSpace, Pair,
+    Gödel, Chain, LensCardinality, CardinalityLB) live under
+    `Lens.Cardinality` — they are Lens-ring observables of Raw, not
+    Lib-tier facts (move 2026-05-13, see `Lens/Cardinality/INDEX.md`).
 
   ### Topical sub-trees
     * `Cohomology`      — K_{NS,NT}^{(c)} cohomology + Hodge programme
@@ -72,7 +94,6 @@ The directory tree is the spec; this file is the top-level entry.
                           Structure / Pairing / Refinement / Toolkit /
                           Bridge / MotivicBridge — 47 files; promoted
                           from Cohomology/HodgeConjecture in Phase C2)
-    * `Trajectory`      — sequence-trajectories
     * `PatternCatalog`  — pattern catalog metaformalization (G30)
     * `CascadeCalculus` — cascade-calculus locality / aggregation
 

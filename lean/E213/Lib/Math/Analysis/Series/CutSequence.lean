@@ -1,6 +1,6 @@
-import E213.Lib.Math.Real213.CutDistance
+import E213.Lib.Math.Real213.Mul.CutDistance
 
-import E213.Lib.Math.Real213.Core
+import E213.Lib.Math.Real213.Core.Core
 /-!
 # Real213CutSequence: Real213-valued sequences + Cauchy + limit
 
@@ -21,7 +21,7 @@ Cauchy structure, axiom-free.
 namespace E213.Lib.Math.Analysis.Series.CutSequence
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
+open E213.Lib.Math.Real213.Core.Core (Real213)
 
 /-- Sequence of cuts. -/
 abbrev CutSeq := Nat → (Nat → Nat → Bool)

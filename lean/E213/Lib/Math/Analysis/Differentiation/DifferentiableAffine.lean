@@ -1,12 +1,12 @@
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
-import E213.Lib.Math.NatHelpers.Max213
+import E213.Meta.Nat.Max213
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutContinuity
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutPow
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Bisection.CutContinuity
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Mul.CutPow
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 /-!
 # DifferentiableAffine
@@ -24,12 +24,12 @@ f(x) = ax + b or f(x) = x² + ax + b.
 namespace E213.Lib.Math.Analysis.Differentiation.DifferentiableAffine
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutPow (cutScale)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutContinuity (constCutFn)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Mul.CutPow (cutScale)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
@@ -61,7 +61,7 @@ theorem affine_derivative_form (a b : Nat) (x : Nat → Nat → Bool) :
 theorem affineIsDifferentiable_modulus (a b k : Nat) :
     (affineIsDifferentiable a b).linearityModulus k = k := by
   show max k 0 = k
-  exact E213.Lib.Math.NatHelpers.Max213.max_eq_left (Nat.zero_le _)
+  exact E213.Meta.Nat.Max213.max_eq_left (Nat.zero_le _)
 
 /-- x ↦ x² + x. -/
 def squarePlusIdIsDifferentiable :
@@ -74,7 +74,7 @@ theorem squarePlusIdIsDifferentiable_modulus (k : Nat) :
   show max (squareIsDifferentiable.linearityModulus k) k = 2 * k
   rw [squareIsDifferentiable_modulus]
   -- 2*k ≥ k via Nat.le_mul_of_pos_left or k = 1*k ≤ 2*k.
-  exact E213.Lib.Math.NatHelpers.Max213.max_eq_left
+  exact E213.Meta.Nat.Max213.max_eq_left
     (Nat.le_trans (Nat.le_of_eq (Nat.one_mul k).symm)
       (Nat.mul_le_mul_right k (Nat.le_succ 1)))
 
@@ -96,7 +96,7 @@ theorem cubePlusSquareIsDifferentiable_modulus (k : Nat) :
            (squareIsDifferentiable.linearityModulus k) = 3 * k
   rw [cubeIsDifferentiable_modulus, squareIsDifferentiable_modulus]
   -- 2*k ≤ 3*k via Nat.mul_le_mul_right with 2 ≤ 3.
-  exact E213.Lib.Math.NatHelpers.Max213.max_eq_left
+  exact E213.Meta.Nat.Max213.max_eq_left
     (Nat.mul_le_mul_right k (Nat.le_succ 2))
 
 /-- capstone: polynomial sum moduli. -/

@@ -1,6 +1,6 @@
-import E213.Term.Tactic.Omega213
-import E213.Term.Tactic.Nat213
-import E213.Term.Tactic.Fin213
+import E213.Meta.Tactic.Omega213
+import E213.Meta.Tactic.Nat213
+import E213.Meta.Tactic.Fin213
 /-!
 # Pigeonhole for `Fin`: no injection `Fin (N+1) → Fin N`
 

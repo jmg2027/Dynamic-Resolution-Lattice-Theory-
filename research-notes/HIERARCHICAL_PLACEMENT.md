@@ -222,7 +222,9 @@ Deferred — both are acceptable.
 The 10 deferred Lens files have been repaired (commit `687ff8b7`):
   * `open E213.Meta` (deleted ns) → `open E213.Lens.Instances.{Bool,
     Parity}` and a new `E213.Lens.Diagonal` module restored from the
-    M14-Phase-F-deleted `Math.Diagonal.Classification`.
+    M14-Phase-F-deleted `Math.Diagonal.Classification`.  (2026-05-13
+    Session H: `Lens/Diagonal.lean` 흡수되어 `Lens/Properties/Diagonal.
+    lean` — namespace `E213.Lens.Properties.Diagonal`.)
   * `Hypervisor.Lens` → `Lens` namespace drift in 14 additional files.
   * `Kernel.Congruence.Lens.equiv_slash_congruence` rename in
     `Lens.Algebra.Corresp`.
@@ -243,7 +245,7 @@ Cohomology (9) deferred clusters remain.
     `factorial_seq_limit_zero`, `factorial_seq_familyCauchy`,
     `factorial_seq_limit_all_zero`.
   * **Lens-layer dependents** also PURE:
-    `Lens.Leaves.ModNat.{leavesModNat_view_eq, divides_refines}`,
+    `Lens.Instances.Leaves.ModNat.{leavesModNat_view_eq, divides_refines}`,
     `Lens.Instances.Cauchy.eventually_class_unique`.
 
 Method (two-stage hardening):

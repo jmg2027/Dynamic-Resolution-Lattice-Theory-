@@ -1,6 +1,6 @@
+import E213.Lib.Math.Extras.CauchySchwarz
 import E213.Lib.Physics.Foundations.AtomicConstantsParametric
 import E213.Lib.Physics.Foundations.AtomicConstantsParametricN3
-import E213.Lib.Math.Extras.CauchySchwarz
 
 /-!
 # Atomic Constants Full ∀(m, n) Uniqueness (C2 Step 6)

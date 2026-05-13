@@ -1,11 +1,10 @@
 import E213.Meta.SelfRecognising
 import E213.Meta.AxiomMinimalityCapstone
 import E213.Meta.LensInternality
-import E213.Meta.UniversalLens
 
 /-! # Meta layer public API
 
-  Single import for downstream consumers.  Bundles the four
+  Single import for downstream consumers.  Bundles the three
   formal pillars of the framework metatheory:
 
   ## ME-1 — SelfRecognising codomain hierarchy
@@ -45,19 +44,6 @@ import E213.Meta.UniversalLens
     * `Meta.LensInternality.view_eq_fold`
     * `Meta.LensInternality.lens_is_raw_internal` (∅-axiom capstone)
 
-  ## ME-4 — UniversalLens concrete witnesses
-
-  Concrete universal-Lens instances at codomains
-  {ℕ², ℕ³, ℕ⁴, Q213, Q213³} + padding theorems +
-  triple capstone.
-
-  Public names:
-    * `Meta.UniversalLens.Core`
-    * `Meta.UniversalLens.{Nat2, Nat3, Nat4}`
-    * `Meta.UniversalLens.{Q213, Q213_3}`
-    * `Meta.UniversalLens.{Padding, PaddingCapstone}`
-    * `Meta.UniversalLens.TripleCapstone`
-
   ## Optional separate imports (NOT bundled in this shim)
 
     * `Meta.Tactic` — code-generators + verification
@@ -66,7 +52,13 @@ import E213.Meta.UniversalLens
       consumers import on demand.
 
     * `Meta.BitPatternUniqueness` — supporting lemma used by
-      `UniversalLens/Nat2Inj`; not part of the stable surface.
+      `Lens.Universal.Witnesses.Nat2Inj`; not part of the stable
+      surface.
+
+    * `Lens.Universal.Witnesses` — concrete universal-Lens instances
+      at codomains {ℕ², ℕ³, ℕ⁴, Q213, Q213³} + padding + triple
+      capstone.  Moved out of Meta 2026-05-13 (LENS_AUDIT §4):
+      Lens-content, not ring-independent Meta.
 
   ## Adjacent (NOT in this Meta cluster)
 

@@ -31,7 +31,7 @@ open E213.Tactic
 The command imports only `Lean` (for metaprogramming API).
 At client invocation, the client must already have imported
 `E213.Meta.SelfRecognising` and the target instance module.
-This keeps `#verify_conjugation` free of Firmware rebuild cost.
+This keeps `#verify_conjugation` free of Theory rebuild cost.
 
 ## Naming history
 

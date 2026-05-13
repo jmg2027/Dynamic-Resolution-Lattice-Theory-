@@ -1,9 +1,9 @@
 import E213.Lib.Math.Analysis.Series.CutGeomSeries
 
-import E213.Lib.Math.Real213.Core
+import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Analysis.Series.CutSeries
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 /-!
 # FluxSeries
@@ -21,9 +21,9 @@ specific (m, k) thresholds.
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxSeries
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut zero)
 open E213.Lib.Math.Analysis.Series.CutSeries (partialSum)

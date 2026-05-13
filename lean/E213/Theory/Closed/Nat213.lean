@@ -17,7 +17,7 @@ Method A:
 
 namespace E213.Theory.Closed.Nat213
 
-open E213.Theory E213.Theory.Closed
+open E213.Theory E213.Theory.Internal E213.Theory.Closed
 
 /-! ### Method A primitives -/
 
@@ -34,12 +34,6 @@ def numeral : Nat → Raw
 
 theorem numeral_zero : numeral 0 = zero := rfl
 theorem numeral_succ (n : Nat) : numeral (n + 1) = succ (numeral n) := rfl
-
-end E213.Theory.Closed.Nat213
-
-namespace E213.Theory.Closed.Nat213
-
-open E213.Theory E213.Theory.Closed
 
 /-! ### Projection back to external Nat (= leaves count) -/
 
@@ -63,12 +57,6 @@ theorem value_succ_of_ne (n : Raw) (h : n ≠ Raw.b) :
   show Raw.fold 1 1 (· + ·) n + Raw.fold 1 1 (· + ·) Raw.b
      = Raw.fold 1 1 (· + ·) n + 1
   rfl
-
-end E213.Theory.Closed.Nat213
-
-namespace E213.Theory.Closed.Nat213
-
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
 
 /-! ### Arithmetic (closed in Raw)
 
@@ -101,12 +89,6 @@ def add (m n : Raw) : Raw := addAux n m.val
 /-- `add` 는 left-arg 가 `one` (= Raw.a) 일 때 단순 succ. -/
 theorem one_add (n : Raw) : add one n = succ n := rfl
 
-end E213.Theory.Closed.Nat213
-
-namespace E213.Theory.Closed.Nat213
-
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
-
 /-! ### Multiplication (closed in Raw) -/
 
 /-- Closed-Raw multiplication via Tree-structural recursion.
@@ -124,12 +106,6 @@ private def mulAux (n : Raw) : Tree → Raw
 def mul (m n : Raw) : Raw := mulAux n m.val
 
 theorem one_mul (n : Raw) : mul one n = n := rfl
-
-end E213.Theory.Closed.Nat213
-
-namespace E213.Theory.Closed.Nat213
-
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
 
 /-! ### Key arithmetic laws — Layer 2 (inductive Nat213) 와 일치성 위한 핵심 lemma -/
 
@@ -171,12 +147,6 @@ theorem add_succ_left (k n : Raw) (hk : k ≠ Raw.b) :
     apply Subtype.ext
     exact Tree.cmp_eq_to_eq _ _ hcmp
 
-end E213.Theory.Closed.Nat213
-
-namespace E213.Theory.Closed.Nat213
-
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
-
 /-- **mul_succ_left**: `mul (succ k) n = add n (mul k n)` (k ≠ Raw.b 가정).
     inductive Nat213 의 `mul (succ m) n = add n (mul m n)` 의 closed-Raw 버전. -/
 theorem mul_succ_left (k n : Raw) (hk : k ≠ Raw.b) :
@@ -206,12 +176,6 @@ theorem mul_succ_left (k n : Raw) (hk : k ≠ Raw.b) :
     apply Subtype.ext
     exact Tree.cmp_eq_to_eq _ _ hcmp
 
-end E213.Theory.Closed.Nat213
-
-namespace E213.Theory.Closed.Nat213
-
-open E213.Theory E213.Theory.Closed
-
 /-! ### Lean-free value: Raw → Raw
 
 기존 `value : Raw → Nat` 은 Lean Nat 를 사용 (boundary layer).
@@ -237,12 +201,6 @@ example : leavesCountRaw (numeral 1) = numeral 1 := rfl  -- "2" leaves
 example : leavesCountRaw (numeral 2) = numeral 2 := rfl  -- "3" leaves
 example : leavesCountRaw (numeral 3) = numeral 3 := rfl  -- "4" leaves
 
-end E213.Theory.Closed.Nat213
-
-namespace E213.Theory.Closed.Nat213
-
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
-
 /-! ### Chain invariants — leavesCountRaw 분석을 위한 보조 -/
 
 /-- 모든 Method A chain (numeral n) 은 Raw.b 와 다름.  Method A 의
@@ -267,12 +225,6 @@ theorem numeral_ne_b (n : Nat) : numeral n ≠ Raw.b := by
       · exact Tree.noConfusion hval
       · rename_i hcmp
         exact ih (Subtype.ext (Tree.cmp_eq_to_eq _ _ hcmp))
-
-end E213.Theory.Closed.Nat213
-
-namespace E213.Theory.Closed.Nat213
-
-open E213.Theory E213.Theory.Internal E213.Theory.Closed
 
 /-! ### leavesCountRaw 의 step lemma + chain identity -/
 

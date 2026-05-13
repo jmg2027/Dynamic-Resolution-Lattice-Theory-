@@ -1,6 +1,6 @@
 import E213.Lib.Physics.Simplex.SubInventory
 import E213.Lib.Physics.AlphaEM.Bare
-import E213.Lib.Math.Cohomology.Paper1Chiral
+import E213.Lib.Math.Cohomology.Bridge.Paper1Chiral
 
 /-!
 # Triple coupling decomposition (user spec 2026-04).
@@ -39,7 +39,7 @@ Consolidation note (2026-05-05): formerly split into TripleCoupling
 
 namespace E213.Lib.Physics.Couplings.TripleCoupling
 
-open E213.Lib.Math.Cohomology.Paper1Chiral (chiralDim)
+open E213.Lib.Math.Cohomology.Bridge.Paper1Chiral (chiralDim)
 
 -- ═══ v1: leading integer skeleton ═══
 

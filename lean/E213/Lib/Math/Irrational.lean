@@ -1,8 +1,6 @@
+import E213.Lib.Math.Irrational.SqrtPure
 import E213.Lib.Math.Irrational.Sqrt2Cut
 import E213.Lib.Math.Irrational.Sqrt2KernelFree
-import E213.Lib.Math.Irrational.Sqrt2Pure
-import E213.Lib.Math.Irrational.Sqrt3Pure
-import E213.Lib.Math.Irrational.Sqrt5Pure
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Irrational`.
 

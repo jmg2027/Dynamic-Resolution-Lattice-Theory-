@@ -1,9 +1,7 @@
 import E213.Lib.Math.DyadicFSM.Trib.CRT4Capstone
 import E213.Lib.Math.DyadicFSM.Trib.CRTCapstone
+import E213.Lib.Math.DyadicFSM.Trib.FSMmod
 import E213.Lib.Math.DyadicFSM.Trib.Capstone
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod3
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod5
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod7
 
 /-! Spec-as-code entry point for `E213.Lib.Math.DyadicFSM.Trib`.
 

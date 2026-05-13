@@ -29,7 +29,7 @@ Single-import entry point for the substrate-genesis cluster
   * `Observable`    — 9 framework-level measurable integers
   * `Force`         — 3 channels = 3 force candidates
   * `Edges`         — c=2 doubling, b_1 = 8 = NS²-1
-  * `Lens`          — Hypervisor explicit Lens (parityLens)
+  * `Lens`          — explicit Lens (parityLens)
   * `Capstone`      — 26-conjunct single synthesis
   * `Phase1Bridge`  — substrate ↔ Phase-1 arithmetic identity
   * `Falsifier`     — CLAUDE.md criterion (2) falsifiable propositions

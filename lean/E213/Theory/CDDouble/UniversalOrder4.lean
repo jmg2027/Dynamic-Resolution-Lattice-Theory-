@@ -1,4 +1,4 @@
-import E213.Theory.Internal.Algebra213CDDouble
+import E213.Meta.Algebra213.CDDouble
 
 /-!
 # Theory.CDDouble.UniversalOrder4 — generic Order-4 Monopoly mechanism
@@ -22,8 +22,8 @@ layer.
 
 namespace E213.Theory.CDDouble.UniversalOrder4
 
-open E213.Theory.Internal.Algebra213
-open E213.Theory.Internal.Algebra213.CDDouble
+open E213.Meta.Algebra213
+open E213.Meta.Algebra213.CDDouble
 
 variable {α : Type} [StarRing213 α]
 

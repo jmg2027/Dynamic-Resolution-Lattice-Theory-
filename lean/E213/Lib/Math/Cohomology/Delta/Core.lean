@@ -1,4 +1,4 @@
-import E213.Lib.Math.Cohomology.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Math.Cohomology.Cochain.Core
 
 import E213.Lib.Physics.Simplex.Counts
@@ -20,7 +20,7 @@ XOR — which is exactly what makes δ²=0 still hold in mod-2.
 namespace E213.Lib.Math.Cohomology.Delta.Core
 
 open E213.Lib.Physics.Simplex.Counts (binom d NS NT)
-open E213.Lib.Math.Cohomology.SimplexBasis
+open E213.Lib.Math.Cohomology.Examples.SimplexBasis
 open E213.Lib.Math.Cohomology.Cochain.Core
 
 /-- The colex index of a sorted k-subset `s` of {0..n-1}.

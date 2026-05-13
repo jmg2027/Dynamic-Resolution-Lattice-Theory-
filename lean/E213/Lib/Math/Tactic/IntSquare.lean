@@ -1,4 +1,4 @@
-import E213.Lib.Math.NatHelpers.IntHelpers
+import E213.Meta.Nat.IntHelpers
 
 /-!
 # Tactic: `int_square`
@@ -23,7 +23,7 @@ namespace E213.Tactic
 
 scoped macro "int_square" : tactic => `(tactic|
   first
-    | exact E213.Lib.Math.NatHelpers.IntHelpers.mul_self_nonneg _
-    | exact E213.Lib.Math.NatHelpers.IntHelpers.mul_self_eq_zero)
+    | exact E213.Meta.Nat.IntHelpers.mul_self_nonneg _
+    | exact E213.Meta.Nat.IntHelpers.mul_self_eq_zero)
 
 end E213.Tactic

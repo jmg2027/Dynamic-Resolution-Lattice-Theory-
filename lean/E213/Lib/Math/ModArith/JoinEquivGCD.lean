@@ -1,5 +1,5 @@
 import E213.Lib.Math.ModArith.JoinGCD
-import E213.Lib.Math.NatHelpers.NatDiv213
+import E213.Meta.Nat.NatDiv213
 
 /-!
 # ModJoinEquivGCD: L_gcd.equiv ⊆ JoinEquiv L_m L_k
@@ -15,12 +15,12 @@ Uses 213-native `gcd213` (∅-axiom) instead of Lean-core `Nat.gcd`.
 namespace E213.Lib.Math.ModArith.JoinEquivGCD
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
-open E213.Lib.Math.NatHelpers.Gcd213
+open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left mod_eq_exists_mul_add)
-open E213.Lib.Math.NatHelpers.NatDiv213 (add_mod_right_pos)
+open E213.Meta.Nat.NatDiv213 (add_mod_right_pos)
 
 private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
@@ -43,7 +43,7 @@ theorem chain_step_sub_JE (m k : Nat) (hk : k ≥ 2) (hmk : m > k)
     Nat.le_trans (leaves_ge_one_local r) (Nat.le_add_right _ _)
   have hk_pos : 0 < k := Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hk
   have hm_pos : 0 < m := Nat.lt_trans hk_pos hmk
-  obtain ⟨w, hw⟩ := E213.Infinity.leaves_surjective_pos
+  obtain ⟨w, hw⟩ := E213.Lens.Cardinality.leaves_surjective_pos
     (Lens.leaves.view r + m) h_pos
   have h_rw_m : (leavesModNat m).equiv r w := by
     show (leavesModNat m).view r = (leavesModNat m).view w
@@ -84,7 +84,7 @@ theorem step_plus_nd_JE (m k : Nat) (hk : k ≥ 2) (hmk : m > k)
       have h_bound : 1 ≤ Lens.leaves.view r + n * (m - k) :=
         Nat.le_trans (leaves_ge_one_local r) (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos
+        E213.Lens.Cardinality.leaves_surjective_pos
           (Lens.leaves.view r + n * (m - k)) h_bound
       have step1 : JoinEquiv (leavesModNat m) (leavesModNat k) r r'' :=
         ih r'' hr''
@@ -122,10 +122,10 @@ end E213.Lib.Math.ModArith.JoinEquivGCD
 namespace E213.Lib.Math.ModArith.JoinEquivGCD
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
-open E213.Lib.Math.NatHelpers.Gcd213
+open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left succ_sub_self_213)
 
 /-- **Consecutive** at JE level. ∅-axiom. -/
@@ -177,10 +177,10 @@ end E213.Lib.Math.ModArith.JoinEquivGCD
 namespace E213.Lib.Math.ModArith.JoinEquivGCD
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.JoinEquiv
 open E213.Lib.Math.ModArith.JoinGCD
 open E213.Tactic.Nat213 (gcd213 sub_add_cancel)
-open E213.Lib.Math.NatHelpers.Gcd213
+open E213.Meta.Nat.Gcd213
   (gcd213_self gcd213_comm gcd213_sub_left)
 
 /-- **Main theorem (sorted)**: strong induction on m + k, m ≥ k assumed.

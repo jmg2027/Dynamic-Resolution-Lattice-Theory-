@@ -1,11 +1,11 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxCochain
-import E213.Lib.Math.Real213.CutMulDetermined
+import E213.Lib.Math.Real213.Mul.CutMulDetermined
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutContinuity
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutPow
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Bisection.CutContinuity
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Mul.CutPow
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
@@ -21,11 +21,11 @@ density, no limits, no arithmetic ratio.
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxDivergence
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutPow (cutScale)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutContinuity (constCutFn)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Mul.CutPow (cutScale)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCochain.FluxCut
@@ -51,11 +51,11 @@ theorem fluxScale_balanced (a b : Nat) (fc : FluxCut) (h : isBalanced fc) :
   intro m k
   show cutMul (constCut a b) fc.forward m k
        = cutMul (constCut a b) fc.backward m k
-  show E213.Lib.Math.Real213.CutMul.cutMulOuter (constCut a b) fc.forward k m
+  show E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut a b) fc.forward k m
          ((m+1)*(k+1)) ((m+1)*(k+1))
-     = E213.Lib.Math.Real213.CutMul.cutMulOuter (constCut a b) fc.backward k m
+     = E213.Lib.Math.Real213.Mul.CutMul.cutMulOuter (constCut a b) fc.backward k m
          ((m+1)*(k+1)) ((m+1)*(k+1))
-  exact E213.Lib.Math.Real213.CutMulDetermined.cutMulOuter_congr
+  exact E213.Lib.Math.Real213.Mul.CutMulDetermined.cutMulOuter_congr
     k m ((m+1)*(k+1)) ((m+1)*(k+1))
     (constCut a b) (constCut a b) fc.forward fc.backward
     (fun _ _ => rfl) (fun m' _ => h m' k)

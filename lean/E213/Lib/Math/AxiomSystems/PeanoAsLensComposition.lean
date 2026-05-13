@@ -6,7 +6,7 @@ import E213.Lens.LensCore
 
 ★ G12 Tier 5 C1 — Peano arithmetic emerges from Raw via the
 **leaves Lens**: counting base-element occurrences (Lens.leaves
-in Hypervisor/Lens.lean) is precisely "successor counting" =
+in Lens.lean) is precisely "successor counting" =
 Peano's primitive operation.
 
 ## The lens composition

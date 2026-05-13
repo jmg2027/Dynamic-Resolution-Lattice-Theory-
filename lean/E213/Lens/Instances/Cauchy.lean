@@ -1,6 +1,6 @@
 import E213.Lens.Universal.QuotLens
 import E213.Lens.Lattice.IndexedJoin
-import E213.Term.Tactic.Nat213
+import E213.Meta.Tactic.Nat213
 
 /-!
 # LensCauchy: reduction of Cauchy completeness for 213

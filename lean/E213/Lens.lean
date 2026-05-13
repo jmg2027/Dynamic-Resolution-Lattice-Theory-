@@ -1,18 +1,13 @@
 import E213.Lens.API
 import E213.Lens.LensCore
-import E213.Lens.AxiomLenses.Bridges
-import E213.Lens.AxiomLenses.Core
-import E213.Lens.Characterisation
+import E213.Lens.AxiomLenses
 import E213.Lens.Compose
-import E213.Lens.Diagonal
 import E213.Lens.Initiality
 import E213.Lens.Instances
 import E213.Lens.Algebra
+import E213.Lens.Cardinality
 import E213.Lens.Lattice
-import E213.Lens.Leaves
-import E213.Lens.Morphism
 import E213.Lens.Properties
-import E213.Lens.Refines
 import E213.Lens.SemanticAtom
 import E213.Lens.Universal
 
@@ -24,25 +19,30 @@ import E213.Lens.Universal
 
     * `Lens.AxiomLenses.{Bridges, Core}` — axiom-lens family
       (Funext / Propext / QuotSound)
-    * `Lens.Characterisation`            — Catalog + Core
     * `Lens.Compose`                     — composition operators
       (Factoring, OnLens, ImageMinimum, Morphism, OnLensImage*)
-    * `Lens.Diagonal`                    — diagonal (sq) classification
-      (Collapse / Idempotent / Escalate / Multiply over Bool, Nat, F9)
     * `Lens.Instances`                   — concrete Lens instances
       (AB, Bool, Cauchy, Path, Prism, Reach, Subtype, Sum, Swap,
-       ZMod6, …)
-    * `Lens.Kernel`                      — algebraic kernel
-      (CardinalityLB, Congruence, Corresp, FourDistinct, FreeAudit,
-       IdLensEq, Space, SwapInvariant)
-    * `Lens.Lattice`                     — join/meet (Family*,
-      Indexed, Join, JoinEquiv, Lattice, Meet)
-    * `Lens.Leaves`                      — depth-leaf hierarchy
-      (DepthIncomparable, DepthJoin, Mod3, ModNat, RefinesParity)
-    * `Lens.Morphism`                    — morphism shape catalogue
-    * `Lens.Properties`                  — derived predicates
-    * `Lens.Refines`                     — refines preorder
+       ZMod6, …) + `Leaves/` sub-cluster (Mod3, ModNat, DepthJoin,
+      DepthIncomparable, RefinesParity) — 2026-05-13 폴드
+    * `Lens.Algebra`                     — algebraic kernel
+      (Congruence, Corresp, FourDistinct, FreeAudit, IdLensEq,
+       Space, SwapInvariant)
+    * `Lens.Cardinality`                 — cardinality observables
+      (Cantor, Tower, BoolSpace, Countable, Pair, Godel, Chain,
+       LensCardinality, CardinalityLB) — moved 2026-05-13 from
+      Lib/Math/Infinity + Lens/Algebra
+    * `Lens.Lattice`                     — refines preorder
+      (Chain, Preorder) + lattice (Join, Meet, JoinEquiv,
+       IndexedJoin, FamilyJoin/Meet) — Refines 폴드 2026-05-13
+    * `Lens.Properties`                  — derived predicates +
+      `Diagonal` (sq classification: Collapse/Idempotent/Escalate/
+      Multiply) + `Characterisation/` (Catalog + Core) +
+      `Morphism/` (8 files: FoldStructured, BoolProp, Dist,
+      SlashSwap, NoDepthParity, DepthParityNotFold, SlashCharNotFold,
+      BoolSqClassification) — 2026-05-13 폴드
     * `Lens.Universal`                   — Universal flat / quot lens
+                                            + `Witnesses/`
 
   ## Top-level
 

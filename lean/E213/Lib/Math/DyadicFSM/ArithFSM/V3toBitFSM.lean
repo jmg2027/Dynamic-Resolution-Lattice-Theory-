@@ -1,8 +1,8 @@
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 import E213.Lib.Math.DyadicFSM.BitFSM.Bound
-import E213.Lib.Math.NatHelpers.NatDiv213
-import E213.Lib.Math.NatHelpers.EncodePair213
-import E213.Term.Tactic.Nat213
+import E213.Meta.Nat.NatDiv213
+import E213.Meta.Nat.EncodePair213
+import E213.Meta.Tactic.Nat213
 
 import E213.Lib.Math.DyadicFSM.BitFSM
 /-!
@@ -20,8 +20,8 @@ namespace E213.Lib.Math.DyadicFSM.ArithFSM.V3toBitFSM
 
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (ArithFSM3)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
-open E213.Lib.Math.NatHelpers.NatDiv213 (div_lt_of_lt_mul)
-open E213.Lib.Math.NatHelpers.EncodePair213 (encode_div encode_mod)
+open E213.Meta.Nat.NatDiv213 (div_lt_of_lt_mul)
+open E213.Meta.Nat.EncodePair213 (encode_div encode_mod)
 
 
 private theorem encode3_bound {n : Nat} (a b c : Fin n) :

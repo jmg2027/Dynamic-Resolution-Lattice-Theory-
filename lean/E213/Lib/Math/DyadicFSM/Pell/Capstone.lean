@@ -1,11 +1,11 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.ArithFSM.Hardness
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.BitFSM
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Pell ArithFSM family — capstone
 
@@ -30,7 +30,7 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (toBitFSM_bits_eq arithFSM2_signa
 open E213.Lib.Math.DyadicFSM.ArithFSM.Hardness (aperiodic_bits_imp_not_ArithFSM2)
 
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ArithFSM (pellFSMmod2 pellFSMmod3)
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_10)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)

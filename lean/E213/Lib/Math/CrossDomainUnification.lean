@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.Capstone
+import E213.Lib.Math.Probability.Foundation.Capstone
 import E213.Lib.Math.Information.Capstone
 import E213.Lib.Math.Logic.Capstone
 import E213.Lib.Math.Combinatorics.Capstone
@@ -151,7 +151,7 @@ theorem cross_domain_unification_master : True := by
   -- block this proof.  Conclusion `True` is trivial; the
   -- unification content is in the existence of the witnesses.
   have _hC := E213.Lib.Math.Combinatorics.Capstone.total_witness
-  have _hP := E213.Lib.Math.Probability.Capstone.total_witness 4 2
+  have _hP := E213.Lib.Math.Probability.Foundation.Capstone.total_witness 4 2
   have _hI := E213.Lib.Math.Information.Capstone.total_witness 3 3 3 [true]
   have _hL :=
     E213.Lib.Math.Logic.Capstone.total_witness sampleP true 3 3 sampleT

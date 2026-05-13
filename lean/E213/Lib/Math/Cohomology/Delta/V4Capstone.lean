@@ -4,16 +4,16 @@ import E213.Lib.Math.Cohomology.Universal.Prop53
 import E213.Lib.Math.Cohomology.Hodge.Prop
 import E213.Lib.Math.Cohomology.Hodge.Prop52
 import E213.Lib.Math.Cohomology.CupAW.Leibniz
-import E213.Lib.Math.Cohomology.EncodingBijection
+import E213.Lib.Math.Cohomology.Examples.EncodingBijection
 
-import E213.Lib.Math.Cohomology.BettiKernel
+import E213.Lib.Math.Cohomology.Examples.BettiKernel
 import E213.Lib.Math.Cohomology.Cochain.Core
 import E213.Lib.Math.Cohomology.Cup.Core
 import E213.Lib.Math.Cohomology.CupAW.Core
 import E213.Lib.Math.Cohomology.Delta.Core
 import E213.Lib.Math.Cohomology.Hodge.Involution
 import E213.Lib.Math.Cohomology.Hodge.Star
-import E213.Lib.Math.Cohomology.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 import E213.Lib.Physics.Simplex.Counts
 /-!
 # Δ⁴ Cohomology — Prop-level capstone bundle
@@ -31,12 +31,12 @@ namespace E213.Lib.Math.Cohomology.Delta.V4Capstone
 open E213.Lib.Physics.Simplex.Counts (binom)
 open E213.Lib.Math.Cohomology.Cochain.Core (Cochain)
 open E213.Lib.Math.Cohomology.Delta.Core (delta deltaAt subsetIdx)
-open E213.Lib.Math.Cohomology.SimplexBasis (kSubset)
+open E213.Lib.Math.Cohomology.Examples.SimplexBasis (kSubset)
 open E213.Lib.Math.Cohomology.Hodge.Star (hodgeStar)
 open E213.Lib.Math.Cohomology.Hodge.Involution (v0_5)
 open E213.Lib.Math.Cohomology.Cup.Core (cup)
 open E213.Lib.Math.Cohomology.CupAW.Core (cupAW)
-open E213.Lib.Math.Cohomology.BettiKernel (cochainAt)
+open E213.Lib.Math.Cohomology.Examples.BettiKernel (cochainAt)
 
 /-- ★★★ Δ⁴ Universal δ²=0 over all interior strata. -/
 theorem dsq_zero_universal_delta4 :
@@ -70,8 +70,8 @@ theorem leibniz_universal_delta4 :
 /-- ★★★ Encoding bijection at (5, 1). -/
 theorem encoding_bijection_delta4 :
     ∀ σ : Cochain 5 1, ∀ j : Fin 5,
-      σ j = cochainAt 5 1 (EncodingBijection.encode_5_1 σ) j :=
-  EncodingBijection.encode_bijection
+      σ j = cochainAt 5 1 (E213.Lib.Math.Cohomology.Examples.EncodingBijection.encode_5_1 σ) j :=
+  E213.Lib.Math.Cohomology.Examples.EncodingBijection.encode_bijection
 
 /-- ★★★★★ Δ⁴ Cohomology capstone — full Prop-level lift of
     cohomology axioms on the atomic substrate. -/

@@ -23,7 +23,7 @@ open E213.Lib.Math.NumberGrid.HorizontalAxis
 open E213.Lib.Math.NumberGrid.TwoDimGrid
   (gridSize grid_size_eq_625 cell_naturals cell_integers
    cell_complex_rational cell_substrate_ceiling joint_saturation)
-open E213.Lib.Math.SignedCut.CDTowerLevel (levelDim)
+open E213.Lib.Math.SignedCut.CD.CDTowerLevel (levelDim)
 
 /-- ★ **FSM grade taxonomy witness** — 0/1/25 grades. -/
 theorem fsm_grades_witness :

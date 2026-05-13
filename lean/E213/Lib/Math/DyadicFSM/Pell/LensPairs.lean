@@ -1,13 +1,12 @@
+import E213.Lib.Math.DyadicFSM.ArithFSM.ModSmall
 import E213.Lib.Math.DyadicFSM.Pell.Lens
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
-import E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.BitFSM
-import E213.Lib.Math.DyadicFSM.ProductFSM
-import E213.Lib.Math.DyadicFSM.ProductFSMPeriod
-import E213.Lib.Math.DyadicFSM.ProductFSMPeriodDvd
+import E213.Lib.Math.DyadicFSM.Product.ProductFSM
+import E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriod
+import E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd
 /-!
 # Pell lens — all pairwise compositions
 
@@ -23,9 +22,9 @@ open E213.Lib.Math.DyadicFSM.ArithFSM.Mod5 (pellFSMmod5 pellFSMmod5_bits_period_
 open E213.Lib.Math.DyadicFSM.ArithFSM.Mod7 (pellFSMmod7 pellFSMmod7_bits_period_8)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
 open E213.Lib.Math.DyadicFSM.ArithFSM (ArithFSM2)
-open E213.Lib.Math.DyadicFSM.ProductFSM
-open E213.Lib.Math.DyadicFSM.ProductFSMPeriod (lens_composition_period)
-open E213.Lib.Math.DyadicFSM.ProductFSMPeriodDvd (lens_composition_period_dvd)
+open E213.Lib.Math.DyadicFSM.Product.ProductFSM
+open E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriod (lens_composition_period)
+open E213.Lib.Math.DyadicFSM.Product.ProductFSMPeriodDvd (lens_composition_period_dvd)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (toBitFSM_bits_eq)
 
 
@@ -52,11 +51,11 @@ theorem pellMod7_BitFSM_bits_period_8 :
 
 /-- ★★★★★★ Pell mod 3 × mod 7 (XOR): period | 8.  Tactic-free ∅-axiom. -/
 theorem pellLens_3x7_period_8 :
-    ∀ k, (E213.Lib.Math.DyadicFSM.ProductFSM.BitFSM.product (n := 9) (m := 49) (by decide)
+    ∀ k, (E213.Lib.Math.DyadicFSM.Product.ProductFSM.BitFSM.product (n := 9) (m := 49) (by decide)
             (ArithFSM2.toBitFSM (by decide : 0 < 3) pellFSMmod3)
             (ArithFSM2.toBitFSM (by decide : 0 < 7) pellFSMmod7)
             xor).bits (k + 8)
-        = (E213.Lib.Math.DyadicFSM.ProductFSM.BitFSM.product (n := 9) (m := 49) (by decide)
+        = (E213.Lib.Math.DyadicFSM.Product.ProductFSM.BitFSM.product (n := 9) (m := 49) (by decide)
             (ArithFSM2.toBitFSM (by decide : 0 < 3) pellFSMmod3)
             (ArithFSM2.toBitFSM (by decide : 0 < 7) pellFSMmod7)
             xor).bits k := fun k =>
@@ -68,11 +67,11 @@ theorem pellLens_3x7_period_8 :
 
 /-- ★★★★★★ Pell mod 5 × mod 7 (XOR): period | 40.  Tactic-free ∅-axiom. -/
 theorem pellLens_5x7_period_40 :
-    ∀ k, (E213.Lib.Math.DyadicFSM.ProductFSM.BitFSM.product (n := 25) (m := 49) (by decide)
+    ∀ k, (E213.Lib.Math.DyadicFSM.Product.ProductFSM.BitFSM.product (n := 25) (m := 49) (by decide)
             (ArithFSM2.toBitFSM (by decide : 0 < 5) pellFSMmod5)
             (ArithFSM2.toBitFSM (by decide : 0 < 7) pellFSMmod7)
             xor).bits (k + 40)
-        = (E213.Lib.Math.DyadicFSM.ProductFSM.BitFSM.product (n := 25) (m := 49) (by decide)
+        = (E213.Lib.Math.DyadicFSM.Product.ProductFSM.BitFSM.product (n := 25) (m := 49) (by decide)
             (ArithFSM2.toBitFSM (by decide : 0 < 5) pellFSMmod5)
             (ArithFSM2.toBitFSM (by decide : 0 < 7) pellFSMmod7)
             xor).bits k := fun k =>

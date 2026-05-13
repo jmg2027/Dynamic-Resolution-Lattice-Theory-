@@ -1,4 +1,4 @@
-import E213.Lens.Leaves.ModNat
+import E213.Lens.Instances.Leaves.ModNat
 import E213.Lens.Lattice.Meet
 
 /-!
@@ -19,7 +19,7 @@ yield exactly the same kernel.
 namespace E213.Lib.Math.ModArith.LensCRT
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lens.Lattice.Meet
+open E213.Lens.Instances.Leaves.ModNat E213.Lens.Lattice.Meet
 
 /-- L_6 refines prodLens(L_2, L_3) — automatic from divides_refines
     + the meet universal property. -/
@@ -60,6 +60,33 @@ theorem prod_refines_L6 :
     congrArg Prod.snd hpair_view
   show (leavesModNat 6).view r = (leavesModNat 6).view r'
   rw [leavesModNat_view_eq 6, leavesModNat_view_eq 6]
-  omega
+  -- Goal: Lens.leaves.view r % 6 = Lens.leaves.view r' % 6
+  -- CRT (6 = 2*3, gcd = 1).  Project view r, view r' down to %6, then
+  -- enumerate the 36 residue cases.
+  have h6r : Lens.leaves.view r % 6 < 6 := Nat.mod_lt _ (by decide)
+  have h6r' : Lens.leaves.view r' % 6 < 6 := Nat.mod_lt _ (by decide)
+  have e2r : Lens.leaves.view r % 6 % 2 = Lens.leaves.view r % 2 :=
+    E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨3, rfl⟩
+  have e2r' : Lens.leaves.view r' % 6 % 2 = Lens.leaves.view r' % 2 :=
+    E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨3, rfl⟩
+  have e3r : Lens.leaves.view r % 6 % 3 = Lens.leaves.view r % 3 :=
+    E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨2, rfl⟩
+  have e3r' : Lens.leaves.view r' % 6 % 3 = Lens.leaves.view r' % 3 :=
+    E213.Meta.Nat.AddMod213.mod_mod_of_dvd _ ⟨2, rfl⟩
+  have k2 : Lens.leaves.view r % 6 % 2 = Lens.leaves.view r' % 6 % 2 := by
+    rw [e2r, e2r']; exact h2
+  have k3 : Lens.leaves.view r % 6 % 3 = Lens.leaves.view r' % 6 % 3 := by
+    rw [e3r, e3r']; exact h3
+  -- Enumerate residues 0..5 via cases_lt_six.
+  rcases E213.Tactic.Nat213.cases_lt_six h6r
+    with hr | hr | hr | hr | hr | hr <;>
+  rcases E213.Tactic.Nat213.cases_lt_six h6r'
+    with hr' | hr' | hr' | hr' | hr' | hr' <;>
+  rw [hr, hr'] at k2 k3 <;>
+  rw [hr, hr'] <;>
+  first
+  | rfl
+  | exact absurd k2 (by decide)
+  | exact absurd k3 (by decide)
 
 end E213.Lib.Math.ModArith.LensCRT

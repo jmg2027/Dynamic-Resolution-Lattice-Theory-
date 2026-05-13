@@ -1,5 +1,5 @@
 import E213.Lib.Math.Cohomology.CupAW.BasisLeibniz
-import E213.Lib.Math.Cohomology.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
 
 /-!
 # 1/α_em — cup-channel inventory on Δ⁴

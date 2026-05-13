@@ -1,4 +1,4 @@
-# `Hypervisor/Lens/Properties/` — Lens predicates + properties
+# `Lens/Properties/` — Lens predicates + properties
 
 Predicates *about* a Lens (is it a leaf? canonical?  does it have
 A-B refinement?  ...) and the theorems characterising them.

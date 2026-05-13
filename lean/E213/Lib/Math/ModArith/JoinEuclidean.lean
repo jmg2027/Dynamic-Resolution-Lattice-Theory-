@@ -1,5 +1,5 @@
 import E213.Lib.Math.ModArith.JoinBezout
-import E213.Lib.Math.NatHelpers.Gcd213
+import E213.Meta.Nat.Gcd213
 
 /-!
 # ModJoinEuclidean: Euclidean step — L_m + L_k → L_{m-k}
@@ -15,7 +15,7 @@ That is, the Euclidean step operates at the Lens refinement level.
 namespace E213.Lib.Math.ModArith.JoinEuclidean
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
+open E213.Lens.Instances.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 
 private theorem leaves_ge_one_local (r : Raw) : 1 ≤ Lens.leaves.view r := by
   induction r using Raw.rec with
@@ -56,7 +56,7 @@ theorem step_plus_nd {α : Type} (N : Lens α) (m k : Nat)
       have h_bound : 1 ≤ Lens.leaves.view r + n * (m - k) :=
         Nat.le_trans (leaves_ge_one_local r) (Nat.le_add_right _ _)
       obtain ⟨r'', hr''⟩ :=
-        E213.Infinity.leaves_surjective_pos
+        E213.Lens.Cardinality.leaves_surjective_pos
           (Lens.leaves.view r + n * (m - k)) h_bound
       have step1 : N.view r = N.view r'' := ih r'' hr''
       have hexpand : (n + 1) * (m - k) = n * (m - k) + (m - k) :=
@@ -73,7 +73,7 @@ end E213.Lib.Math.ModArith.JoinEuclidean
 namespace E213.Lib.Math.ModArith.JoinEuclidean
 
 open E213.Theory E213.Lens
-open E213.Lens.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
+open E213.Lens.Instances.Leaves.ModNat E213.Lib.Math.ModArith.JoinBezout
 
 /-- **Euclidean step**: when m > k ≥ 2 and m - k ≥ 2,
     L_m + L_k → L_{m-k}.  ∅-axiom (uses
@@ -95,10 +95,10 @@ theorem euclidean_step {α : Type} (N : Lens α) (m k : Nat)
   have hd_pos : 0 < m - k :=
     Nat.lt_of_lt_of_le (by decide : (0:Nat) < 2) hdiff
   rcases Nat.le_total (Lens.leaves.view r) (Lens.leaves.view r') with hle | hle
-  · obtain ⟨q, hq⟩ := E213.Lib.Math.NatHelpers.Gcd213.mod_eq_exists_mul_add
+  · obtain ⟨q, hq⟩ := E213.Meta.Nat.Gcd213.mod_eq_exists_mul_add
       (Lens.leaves.view r') (Lens.leaves.view r) (m - k) hd_pos hle h_mod.symm
     exact step_plus_nd N m k hk hmk hLm hLk r q r' hq
-  · obtain ⟨q, hq⟩ := E213.Lib.Math.NatHelpers.Gcd213.mod_eq_exists_mul_add
+  · obtain ⟨q, hq⟩ := E213.Meta.Nat.Gcd213.mod_eq_exists_mul_add
       (Lens.leaves.view r) (Lens.leaves.view r') (m - k) hd_pos hle h_mod
     exact (step_plus_nd N m k hk hmk hLm hLk r' q r hq).symm
 

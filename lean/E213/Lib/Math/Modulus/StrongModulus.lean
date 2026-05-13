@@ -1,5 +1,5 @@
 import E213.Lib.Math.Modulus.HasModulus
-import E213.Lib.Math.Diagonal.HasModulus
+import E213.Lib.Math.Modulus.DiagonalHasModulus
 
 /-!
 # StrongModulus: bounded view-variation modulus (attempt (B) for E3)

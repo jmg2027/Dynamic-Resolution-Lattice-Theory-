@@ -25,6 +25,12 @@
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/purity-guard.sh",
             "timeout": 10,
             "statusMessage": "DRLT 213 purity check..."
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/layer-import-guard.sh",
+            "timeout": 5,
+            "statusMessage": "Layer-import discipline check..."
           }
         ]
       },
@@ -49,6 +55,12 @@
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/kernel-axiom-check.sh",
             "timeout": 60,
             "statusMessage": "Kernel axiom regression check..."
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/size-guard.sh",
+            "timeout": 5,
+            "statusMessage": "CLAUDE.md size discipline check..."
           }
         ]
       }

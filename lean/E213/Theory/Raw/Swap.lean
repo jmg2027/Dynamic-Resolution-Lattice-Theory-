@@ -1,4 +1,5 @@
-import E213.Theory.Internal.Raw.Cmp
+import E213.Term.Tree
+import E213.Theory.Raw.Core
 
 /-!
 # Theory.Raw.Swap: the swap automorphism + involutivity

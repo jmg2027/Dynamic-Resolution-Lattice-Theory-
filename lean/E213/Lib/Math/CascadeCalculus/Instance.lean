@@ -1,4 +1,4 @@
-import E213.Lib.Math.CascadeCalculus
+import E213.Lib.Math.CascadeCalculus.Core
 
 /-!
 # Cascade-Delete Calculus — branch-instance test case
@@ -31,7 +31,7 @@ Reverse fails (node 0 still has consumer 1).
 
 namespace E213.Lib.Math.CascadeCalculus.Instance
 
-open E213.Lib.Math.CascadeCalculus
+open E213.Lib.Math.CascadeCalculus.Core
 
 /-- The 6-node graph.  Edges: 2→1, 1→0, 5→4, 4→3. -/
 def g : DepGraph := fun n d =>

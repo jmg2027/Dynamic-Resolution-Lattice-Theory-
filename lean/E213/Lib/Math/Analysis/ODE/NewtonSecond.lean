@@ -16,9 +16,9 @@ The position equation x = at²/2 + v0t + x0 has the 1/2 issue
 namespace E213.Lib.Math.Analysis.ODE.NewtonSecond
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutContinuity (constCutFn)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.ODELinear
   (linearWithIntercept linearWithIntercept_isDifferentiable
    linearWithIntercept_derivative_at)

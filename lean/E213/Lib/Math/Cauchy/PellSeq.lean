@@ -1,6 +1,6 @@
 import E213.Lib.Math.Irrational.Sqrt2Cut
-import E213.Lib.Math.Infinity.LensCardinality
-import E213.Term.Tactic.Nat213
+import E213.Lens.Cardinality.LensCardinality
+import E213.Meta.Tactic.Nat213
 
 /-!
 # PellSeq: Pell sequence Raw construction

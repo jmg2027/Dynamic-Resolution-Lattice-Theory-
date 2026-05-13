@@ -2,6 +2,7 @@ import E213.Lib.Physics.AlphaEM
 import E213.Lib.Physics.Atomic
 import E213.Lib.Physics.Basel
 import E213.Lib.Physics.Capstones
+import E213.Lib.Physics.Certificates
 import E213.Lib.Physics.Cosmology
 import E213.Lib.Physics.Couplings
 import E213.Lib.Physics.Foundations

@@ -1,15 +1,15 @@
-import E213.Lib.Math.NatHelpers.Max213
-import E213.Lib.Math.Real213.CutFnData
-import E213.Lib.Math.Real213.Dyadic
-import E213.Lib.Math.Real213.CutSumDetermined
-import E213.Lib.Math.Real213.CutMulDetermined
+import E213.Meta.Nat.Max213
+import E213.Lib.Math.Real213.Core.CutFnData
+import E213.Lib.Math.Real213.Core.Dyadic
+import E213.Lib.Math.Real213.Sum.CutSumDetermined
+import E213.Lib.Math.Real213.Mul.CutMulDetermined
 
-import E213.Lib.Math.Real213.CutBisection
-import E213.Lib.Math.Real213.CutContinuity
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutPow
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Bisection.CutBisection
+import E213.Lib.Math.Real213.Bisection.CutContinuity
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Mul.CutPow
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
 # Real213IsSmooth: smoothness as resolution-compression filter
 
@@ -49,17 +49,17 @@ This inverts the ZFC bias and matches lattice ontology.
 
 namespace E213.Lib.Math.Analysis.Differentiation.Smooth
 
-open E213.Lib.Math.Real213.CutSum (cutSum)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.CutBisection (cutHalf cutMid)
-open E213.Lib.Math.Real213.CutMul (cutMul cutMulOuter)
-open E213.Lib.Math.Real213.CutPow (cutPow cutScale)
-open E213.Lib.Math.Real213.CutSum (cutSumAux)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutFnData (LocallyDeterminedData idLDD constLDD cutScaleLDD cutHalfLDD composeLDD maxRange maxRange_ge)
-open E213.Lib.Math.Real213.CutContinuity (constCutFn)
-open E213.Lib.Math.Real213.CutSumDetermined (cutSumAux_congr)
-open E213.Lib.Math.Real213.CutMulDetermined (cutMulOuter_congr)
+open E213.Lib.Math.Real213.Bisection.CutBisection (cutHalf cutMid)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul cutMulOuter)
+open E213.Lib.Math.Real213.Mul.CutPow (cutPow cutScale)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSumAux)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.CutFnData (LocallyDeterminedData idLDD constLDD cutScaleLDD cutHalfLDD composeLDD maxRange maxRange_ge)
+open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.Real213.Sum.CutSumDetermined (cutSumAux_congr)
+open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 
 /-- **IsSmooth** : differentiability as a constructive filter.
 
@@ -132,20 +132,20 @@ def addLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
       apply hagree
       · exact Nat.le_trans hm''
           (Nat.le_trans (maxRange_ge sf.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _))
+            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_left _ _))
       · exact Nat.le_trans hk''
           (Nat.le_trans (maxRange_ge sf.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _))
+            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_left _ _))
     · intro m' hm'
       apply sg.prop
       intro m'' k'' hm'' hk''
       apply hagree
       · exact Nat.le_trans hm''
           (Nat.le_trans (maxRange_ge sg.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _))
+            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_right _ _))
       · exact Nat.le_trans hk''
           (Nat.le_trans (maxRange_ge sg.N (2*m) (2*k) m' (2*k)
-            hm' (Nat.le_refl _)) (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _))
+            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_right _ _))
     · exact Nat.le_refl _
 
 /-- **Pointwise sum of smooth is smooth**.  Per user's Sec 2:
@@ -183,20 +183,20 @@ def mulLDD {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
       apply hagree
       · exact Nat.le_trans hm''
           (Nat.le_trans (maxRange_ge sf.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _))
+            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_left _ _))
       · exact Nat.le_trans hk''
           (Nat.le_trans (maxRange_ge sf.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (E213.Lib.Math.NatHelpers.Max213.le_max_left _ _))
+            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_left _ _))
     · intro m' hm'
       apply sg.prop
       intro m'' k'' hm'' hk''
       apply hagree
       · exact Nat.le_trans hm''
           (Nat.le_trans (maxRange_ge sg.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _))
+            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_right _ _))
       · exact Nat.le_trans hk''
           (Nat.le_trans (maxRange_ge sg.N ((m+1)*(k+1)) k m' k
-            hm' (Nat.le_refl _)) (E213.Lib.Math.NatHelpers.Max213.le_max_right _ _))
+            hm' (Nat.le_refl _)) (E213.Meta.Nat.Max213.le_max_right _ _))
     · exact Nat.le_refl _
 
 /-- **Pointwise product of smooth is smooth**.  Per user's Sec 2:

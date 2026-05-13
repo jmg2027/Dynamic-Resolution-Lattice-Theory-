@@ -1,30 +1,17 @@
 import E213.Lens.LensCore
 import E213.Lens.SemanticAtom
 import E213.Lens.Initiality
-import E213.Lens.Lattice.Lattice
-import E213.Lens.Lattice.Join
-import E213.Lens.Lattice.Meet
-import E213.Lens.Lattice.FamilyJoin
-import E213.Lens.Lattice.FamilyMeet
-import E213.Lens.Lattice.IndexedJoin
-import E213.Lens.Lattice.JoinEquiv
-import E213.Lens.Compose.Factoring
-import E213.Lens.Compose.ImageMinimum
-import E213.Lens.Compose.OnLens
-import E213.Lens.Universal.Flat
-import E213.Lens.Universal.QuotLens
-import E213.Lens.Properties.CanonicalForm
-import E213.Lens.Refines.Chain
-import E213.Lens.Refines.Preorder
+import E213.Lens.Lattice.Chain
+import E213.Lens.Lattice.Preorder
 
 /-!
-# Hypervisor: Public API (re-export shim)
+# Lens ring: Public API (Tier 1 — core surface)
 
-G12 D3: single-import entry point for the Hypervisor (Lens framework)
-public API.  Pattern follows `Firmware/Raw.lean` precedent.
+Single-import entry point for the Lens framework Tier 1 public
+API.  Pattern follows `Theory/Raw.lean` precedent.
 
-Downstream code can `import E213.Lens.API` and access the
-6-category public surface (HV1–HV6 in G12 §4.1 classification):
+**Tier 1 (this shim, bundled)** — the three core hypervisor
+classes (HV1 + HV2 + HV3):
 
 **HV1 — Type API**: Lens type + catamorphism
   - `Lens (α : Type)` — structure `{base_a, base_b, combine}`
@@ -39,36 +26,53 @@ Downstream code can `import E213.Lens.API` and access the
 **HV3 — Initiality API**: universal property of Raw → α
   - `Lens.view_unique` — uniqueness up to commutative-Raw-algebra
   - `SemanticAtom.{HasDistinguishing, Raw.instHasDistinguishing}`
-  - `Universal.Flat.every_lens_factors_through_idLens`
 
-**HV4 — Lattice API**: refines preorder lattice structure
+## Tier 2 (NOT bundled — import the dedicated aggregators)
+
+**HV4 — Lattice API** (`import E213.Lens.Lattice`):
   - `joinLens`, `prodLens` (join + meet)
   - `joinLens_{kernel, is_least}`
   - `Lattice.{FamilyJoin, FamilyMeet, IndexedJoin, JoinEquiv}`
 
-**HV5 — Composition API**: Lens factoring + image
+**HV5 — Composition API** (`import E213.Lens.Compose`):
   - `Compose.Factoring.factors_through_implies_refines`
   - `Compose.{ImageMinimum, OnLens}`
 
-**HV6 — Canonical Form API**: universalLens construction
+**HV6 — Canonical Form API** (`import E213.Lens.Universal`):
+  - `Universal.Flat.every_lens_factors_through_idLens`
   - `Universal.QuotLens.universalLens`
   - `Properties.CanonicalForm.universalLens_recovers`
+  - `Universal.Witnesses.*` — concrete universal-Lens witnesses
+    at Nat2/3/4, Q213, Q213³ (moved from Meta 2026-05-13)
 
-**Optional (NOT bundled in this shim)**:
-  - HV7 = `Hypervisor/Lens/Instances/*` (catalog of 25+ concrete
-    Lenses) — import individually as needed
-  - HV8 = `Hypervisor/Lens/Characterisation/*` (refines-relation
-    catalog) — import individually as needed
-  - `Lens/Kernel/{FreeAudit, FourDistinct, ...}` — internal,
+## Optional (NOT bundled — import individually)
+
+  - HV7 = `Lens/Instances/*` (catalog of 30+ concrete Lenses)
+  - HV8 = `Lens/Characterisation/*` (refines-relation catalog)
+  - `Lens/Algebra/{FreeAudit, FourDistinct, ...}` — internal,
     supporting infra for HV3/HV6, not consumed directly
 
-**Imports**: Firmware (Raw API).  No upward imports — Hypervisor
-is the catamorphism layer, consumed by Meta and App.
+## Layered position
 
-**Axiom status**: `Lens.view`, `Lens.view_unique`, and the
-universalLens construction are PURE (∅-axiom).  Some lattice and
-characterisation theorems inherit ≤ {propext, Quot.sound} from
-their underlying decidability machinery.
+  - **Imports**: Theory (Raw API).  No upward imports — Lens ring
+    is the catamorphism layer, consumed by Lib.
+
+## Axiom status
+
+`Lens.view`, `Lens.view_unique`, and the universalLens construction
+are PURE (∅-axiom).  Some lattice and characterisation theorems
+inherit ≤ {propext, Quot.sound} from their underlying decidability
+machinery.
+
+## Tier 1/2 split rationale
+
+Tier 1 (HV1–HV3) is the always-needed kernel any Lens consumer
+imports.  Tier 2 (HV4–HV6) covers the lattice / compose / canonical-
+form algebras — useful but not always needed; importing them
+on-demand via `Lens.{Lattice, Compose, Universal}` keeps the
+common-import surface narrow.
+
+Split executed 2026-05-13 per `research-notes/LENS_AUDIT.md` §5.
 
 See `research-notes/G12_layered_api_classification.md` §4 for the
 rigorous public-API classification.

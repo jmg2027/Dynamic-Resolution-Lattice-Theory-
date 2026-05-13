@@ -1,4 +1,4 @@
-import E213.Lib.Math.Probability.LLNCauchy
+import E213.Lib.Math.Probability.Limit.LLNCauchy
 import E213.Lib.Math.Combinatorics.CatalanExtended
 import E213.Lib.Math.Multivariable.Stokes4D
 
@@ -18,7 +18,7 @@ cleanup pass:
 
 namespace E213.Lib.Math.Extras.ResidualPass3Capstone
 
-open E213.Lib.Math.Probability.LLNCauchy
+open E213.Lib.Math.Probability.Limit.LLNCauchy
   (fairLLN_modulus_zero fairLLN_dev_zero)
 open E213.Lib.Math.Combinatorics.CatalanExtended
   (catalan_recursion_5 catalan_recursion_6 catalan_recursion_7)
@@ -32,10 +32,10 @@ open E213.Lib.Math.Multivariable.Stokes4D
 theorem llnCauchy_witness (ε n : Nat) :
     fairLLN_modulus_zero ε
       = fairLLN_modulus_zero ε
-    ∧ E213.Lib.Math.Probability.LLNCauchy.fairLLN_cauchy.N ε = 0
-    ∧ E213.Lib.Math.Probability.CauchyModulus.absDevCross
-        (E213.Lib.Math.Probability.LLNCauchy.fairLLN_cauchy.f n)
-        E213.Lib.Math.Probability.LLNCauchy.fairLLN_cauchy.target = 0 :=
+    ∧ E213.Lib.Math.Probability.Limit.LLNCauchy.fairLLN_cauchy.N ε = 0
+    ∧ E213.Lib.Math.Probability.Bridge.CauchyModulus.absDevCross
+        (E213.Lib.Math.Probability.Limit.LLNCauchy.fairLLN_cauchy.f n)
+        E213.Lib.Math.Probability.Limit.LLNCauchy.fairLLN_cauchy.target = 0 :=
   ⟨rfl, fairLLN_modulus_zero ε, fairLLN_dev_zero n⟩
 
 /-- ★ **Catalan recursion witness** at n = 5, 6, 7. -/
@@ -64,7 +64,7 @@ theorem stokes_4d_witness (c : Nat) :
 
 /-- ★★★ **Total witness** ★★★. -/
 theorem total_witness (ε n c : Nat) :
-    E213.Lib.Math.Probability.LLNCauchy.fairLLN_cauchy.N ε = 0
+    E213.Lib.Math.Probability.Limit.LLNCauchy.fairLLN_cauchy.N ε = 0
     ∧ catalan 5 = 42
     ∧ E213.Lib.Math.Multivariable.Stokes4D.stokes4D_constNum c = 0 :=
   ⟨fairLLN_modulus_zero ε, rfl, stokes4D_const_zero c⟩

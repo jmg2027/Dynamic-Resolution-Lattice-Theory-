@@ -1,9 +1,14 @@
 import E213.Lib.Math.DyadicFSM.BitAuto2
-import E213.Lib.Math.NatHelpers.NatDiv213
-
+import E213.Meta.Nat.NatDiv213
 import E213.Lib.Math.DyadicFSM.BitFSM
+
 /-!
 # ArithFSM — multi-state arithmetic recurrence (Tier 1 abstraction)
+
+Note: per-prime instance files (`ArithFSM/Mod{Small, Medium, Large}.
+lean`) IMPORT this file, so they cannot be imported here without
+creating a build cycle.  They are pulled in by the parent
+`DyadicFSM.lean` aggregator instead.
 
 Captures the structure of Pell-like sequences for algebraic
 irrationals.  An `ArithFSM2` has a 2-component state vector
@@ -131,7 +136,7 @@ def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
       Nat.mul_le_mul_right n h1
     exact Nat.lt_of_lt_of_le step1 (step2 ▸ step3)⟩
   step v :=
-    let a : Fin n := ⟨v.val / n, E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul v.isLt⟩
+    let a : Fin n := ⟨v.val / n, E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul v.isLt⟩
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     let (a', b') := m.step (a, b)
     ⟨a'.val * n + b'.val, by
@@ -145,7 +150,7 @@ def ArithFSM2.toBitFSM {n : Nat} (hn : 0 < n) (m : ArithFSM2 n) :
         Nat.mul_le_mul_right n h1
       exact Nat.lt_of_lt_of_le step1 (step2 ▸ step3)⟩
   out v :=
-    let a : Fin n := ⟨v.val / n, E213.Lib.Math.NatHelpers.NatDiv213.div_lt_of_lt_mul v.isLt⟩
+    let a : Fin n := ⟨v.val / n, E213.Meta.Nat.NatDiv213.div_lt_of_lt_mul v.isLt⟩
     let b : Fin n := ⟨v.val % n, Nat.mod_lt _ hn⟩
     m.out (a, b)
 

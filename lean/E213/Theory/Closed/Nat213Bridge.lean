@@ -1,6 +1,6 @@
 import E213.Theory.Closed.Nat213
 import E213.Theory.Nat213.Core
-import E213.Lib.Math.NatHelpers.PureNat
+import E213.Meta.Tactic.Nat213
 
 /-!
 # Theory.Closed.Nat213Bridge — Layer 1 ↔ Layer 2 동형성
@@ -18,7 +18,7 @@ import E213.Lib.Math.NatHelpers.PureNat
 
 namespace E213.Theory.Closed.Nat213Bridge
 
-open E213.Theory
+open E213.Theory E213.Theory.Internal
 
 /-! ### Layer 2 → Layer 1: inductive Nat213 → Method A Raw chain -/
 
@@ -35,12 +35,6 @@ theorem toRaw_one :
 theorem toRaw_succ (k : Theory.Nat213.Nat213) :
     toRaw (Theory.Nat213.Nat213.succ k)
       = Theory.Closed.Nat213.succ (toRaw k) := rfl
-
-end E213.Theory.Closed.Nat213Bridge
-
-namespace E213.Theory.Closed.Nat213Bridge
-
-open E213.Theory
 
 /-! ### Layer 1 chain 은 항상 Raw.b ≠ — bridge homomorphism 의 보조 lemma -/
 
@@ -92,12 +86,6 @@ theorem toRaw_add (m n : Theory.Nat213.Nat213) :
               (Theory.Closed.Nat213.succ (toRaw k)) (toRaw n)
       rw [toRaw_succ, Theory.Closed.Nat213.add_succ_left _ _ (toRaw_ne_b k), ih]
 
-end E213.Theory.Closed.Nat213Bridge
-
-namespace E213.Theory.Closed.Nat213Bridge
-
-open E213.Theory
-
 /-! ### × family homomorphism: toRaw 가 mul 도 보존 -/
 
 /-- **`toRaw (mul m n) = mul (toRaw m) (toRaw n)`** — 곱셈도 bridge 를
@@ -119,12 +107,6 @@ theorem toRaw_mul (m n : Theory.Nat213.Nat213) :
               (Theory.Closed.Nat213.succ (toRaw k)) (toRaw n)
       rw [Theory.Closed.Nat213.mul_succ_left _ _ (toRaw_ne_b k)]
       rw [toRaw_add, ih]
-
-end E213.Theory.Closed.Nat213Bridge
-
-namespace E213.Theory.Closed.Nat213Bridge
-
-open E213.Theory
 
 /-! ### + family laws lifted via bridge
 
@@ -157,12 +139,6 @@ theorem add_succ_right (m n : Theory.Nat213.Nat213) :
           (Theory.Closed.Nat213.add (toRaw m) (toRaw n)) := by
   rw [← toRaw_succ, ← toRaw_add, Theory.Nat213.Nat213.add_succ_right,
       toRaw_succ, toRaw_add]
-
-end E213.Theory.Closed.Nat213Bridge
-
-namespace E213.Theory.Closed.Nat213Bridge
-
-open E213.Theory
 
 /-! ### value 동형성 — Layer 1 → Lean Nat
 
@@ -221,12 +197,6 @@ theorem value_add (m n : Theory.Nat213.Nat213) :
       + Theory.Closed.Nat213.value (toRaw n) := by
   rw [← toRaw_add, value_toRaw, value_toRaw, value_toRaw, toNat_add]
 
-end E213.Theory.Closed.Nat213Bridge
-
-namespace E213.Theory.Closed.Nat213Bridge
-
-open E213.Theory
-
 /-! ### Layer 2 toNat multiplicative homomorphism + value_mul -/
 
 /-- Layer 2 toNat 가 mul 도 보존. -/
@@ -244,7 +214,7 @@ private theorem toNat_mul (m n : Theory.Nat213.Nat213) :
          = (k.toNat + 1) * n.toNat
       rw [toNat_add, ih]
       -- Goal: n.toNat + k.toNat * n.toNat = (k.toNat + 1) * n.toNat
-      rw [E213.Lib.Math.NatHelpers.PureNat.add_mul, Nat.one_mul, Nat.add_comm]
+      rw [E213.Tactic.Nat213.add_mul, Nat.one_mul, Nat.add_comm]
 
 /-- **`value (mul m n) = value m * value n`** — Layer 1 곱셈이
     Lean Nat 곱셈과 일치. -/
@@ -254,12 +224,6 @@ theorem value_mul (m n : Theory.Nat213.Nat213) :
       = Theory.Closed.Nat213.value (toRaw m)
       * Theory.Closed.Nat213.value (toRaw n) := by
   rw [← toRaw_mul, value_toRaw, value_toRaw, value_toRaw, toNat_mul]
-
-end E213.Theory.Closed.Nat213Bridge
-
-namespace E213.Theory.Closed.Nat213Bridge
-
-open E213.Theory
 
 /-! ### leavesCountRaw 가 Layer 2 image 위 identity
 
@@ -293,12 +257,6 @@ theorem value_leavesCountRaw (k : Theory.Nat213.Nat213) :
         (Theory.Closed.Nat213.leavesCountRaw (toRaw k))
       = Theory.Closed.Nat213.value (toRaw k) := by
   rw [leavesCountRaw_toRaw]
-
-end E213.Theory.Closed.Nat213Bridge
-
-namespace E213.Theory.Closed.Nat213Bridge
-
-open E213.Theory E213.Theory.Internal
 
 /-! ### leavesCountRaw 의 일반 idempotence — 모든 Raw 위
 

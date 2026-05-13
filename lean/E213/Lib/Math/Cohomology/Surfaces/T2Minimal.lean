@@ -1,4 +1,4 @@
-import E213.Lib.Math.NatHelpers.IntHelpers
+import E213.Meta.Nat.IntHelpers
 
 /-!
 # Minimal CW complex for the 2-torus T² — 213-native form

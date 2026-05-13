@@ -1,9 +1,9 @@
 import E213.Lib.Math.DyadicFSM.BitFSM
-import E213.Lib.Math.NatHelpers.EncodePair213
-import E213.Term.Tactic.Nat213
+import E213.Meta.Nat.EncodePair213
+import E213.Meta.Tactic.Nat213
 
-import E213.Lib.Math.DyadicFSM.ForwardPeriodicity
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Explicit signature period bound for BitFSM-generated streams
 
@@ -22,9 +22,9 @@ This is the formal shape of "Tier 2 ⊄ BitFSM-class".
 
 namespace E213.Lib.Math.DyadicFSM.BitFSM.Bound
 
-open E213.Lib.Math.DyadicFSM.ForwardPeriodicity
+open E213.Lib.Math.DyadicFSM.Forward.ForwardPeriodicity
   (collisionTest pigeonhole_collision collTest_imp_val_eq encode_inj)
-open E213.Lib.Math.DyadicFSM.Signature (nextVertex signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (nextVertex signature)
 open E213.Lib.Math.DyadicFSM.BitFSM (BitFSM)
 
 

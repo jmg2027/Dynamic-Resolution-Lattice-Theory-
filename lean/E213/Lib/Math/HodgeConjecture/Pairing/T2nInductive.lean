@@ -1,6 +1,6 @@
 import E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
-import E213.Lib.Math.NatHelpers.BinomSymm
-import E213.Lib.Math.NatHelpers.AddMod213
+import E213.Meta.Nat.BinomSymm
+import E213.Meta.Nat.AddMod213
 
 /-!
 # G14 — T²ⁿ Pattern Theorem (full inductive form)
@@ -45,7 +45,7 @@ STRICT ∅-AXIOM.
 namespace E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
 
 open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
-open E213.Lib.Math.NatHelpers.BinomSymm
+open E213.Meta.Nat.BinomSymm
 open E213.Lib.Physics.Simplex.Counts (binom)
 
 end E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
@@ -53,7 +53,7 @@ end E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
 namespace E213.Lib.Math.HodgeConjecture.Pairing.T2nInductive
 
 open E213.Lib.Math.HodgeConjecture.Pairing.BalancedSignature
-open E213.Lib.Math.NatHelpers.BinomSymm
+open E213.Meta.Nat.BinomSymm
 open E213.Lib.Physics.Simplex.Counts (binom)
 
 /-! ## §0 — `2 * x / 2 = x` (213-native PURE)

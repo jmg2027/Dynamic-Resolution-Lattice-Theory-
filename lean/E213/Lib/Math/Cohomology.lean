@@ -1,30 +1,30 @@
-import E213.Lib.Math.Cohomology.AlphaEMBridge
-import E213.Lib.Math.Cohomology.BettiKernel
+import E213.Lib.Math.Cohomology.Bridge.AlphaEMBridge
+import E213.Lib.Math.Cohomology.Examples.BettiKernel
 import E213.Lib.Math.Cohomology.Bipartite
 import E213.Lib.Math.Cohomology.Capstone
-import E213.Lib.Math.Cohomology.ClosureExtension
+import E213.Lib.Math.Cohomology.Bridge.ClosureExtension
 import E213.Lib.Math.Cohomology.Cochain
 import E213.Lib.Math.Cohomology.Cup
 import E213.Lib.Math.Cohomology.CupAW
 import E213.Lib.Math.Cohomology.Delta
-import E213.Lib.Math.Cohomology.DiamondAudit
-import E213.Lib.Math.Cohomology.DiamondShape
-import E213.Lib.Math.Cohomology.EncodingBijection
-import E213.Lib.Math.Cohomology.EncodingBijection52
-import E213.Lib.Math.Cohomology.EulerClosed
+import E213.Lib.Math.Cohomology.Examples.DiamondAudit
+import E213.Lib.Math.Cohomology.Examples.DiamondShape
+import E213.Lib.Math.Cohomology.Examples.EncodingBijection
+import E213.Lib.Math.Cohomology.Examples.EncodingBijection52
+import E213.Lib.Math.Cohomology.Examples.EulerClosed
 import E213.Lib.Math.Cohomology.Fractal
 import E213.Lib.Math.Cohomology.Hodge
-import E213.Lib.Math.Cohomology.K5
-import E213.Lib.Math.Cohomology.LeibnizFinding
-import E213.Lib.Math.Cohomology.Paper1Chiral
-import E213.Lib.Math.Cohomology.Real213Bridge
+import E213.Lib.Math.Cohomology.Examples.K5
+import E213.Lib.Math.Cohomology.Bridge.LeibnizFinding
+import E213.Lib.Math.Cohomology.Bridge.Paper1Chiral
+import E213.Lib.Math.Cohomology.Bridge.Real213Bridge
 import E213.Lib.Math.Cohomology.Surfaces
-import E213.Lib.Math.Cohomology.SimplexBasis
-import E213.Lib.Math.Cohomology.TopologyCompare
-import E213.Lib.Math.Cohomology.TrivialCases
+import E213.Lib.Math.Cohomology.Examples.SimplexBasis
+import E213.Lib.Math.Cohomology.Examples.TopologyCompare
+import E213.Lib.Math.Cohomology.Bridge.TrivialCases
 import E213.Lib.Math.Cohomology.Universal
-import E213.Lib.Math.Cohomology.WhyDimFive
-import E213.Lib.Math.Cohomology.XorPairCombine
+import E213.Lib.Math.Cohomology.Examples.WhyDimFive
+import E213.Lib.Math.Cohomology.Bridge.XorPairCombine
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Cohomology`.
 

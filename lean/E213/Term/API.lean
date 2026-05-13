@@ -5,43 +5,37 @@ import E213.Term.Rat
 import E213.Term.Decide
 import E213.Term.Sound
 import E213.Term.MonomialAxioms
+import E213.Term.Tree
 
 /-!
-# Kernel: Public API (re-export shim)
+# Term ring — public API (re-export shim)
 
-G12 D1: single-import entry point for the Kernel layer's public API.
-Pattern follows `Firmware/Raw.lean` precedent (refactor shim).
+Single-import entry point for Term ring per ARCHITECTURE.md
+(2026-05-12).  Downstream code (`Theory`, …) imports this for the
+Raw-implementation substrate.
 
-Downstream code can `import E213.Term.API` and access K1+K2+K3:
-
-**K1 — Data API**: 213 syntactic objects
-  - `Term` (deep-embedded AST)
+**K1 — Data API**:
+  - `Term` (deep-embedded AST of 213's syntactic objects)
   - `Term.eval`, `Term.{nS, nT, d, c}` (atomic constants)
+  - `Tree`, `Tree.cmp`, `Tree.canonical` (Raw 의 구현체 — used by
+    `Theory.Raw.Core` to define `Raw := {t : Tree // canonical t}`)
 
-**K2 — Computation API**: Bool-returning total functions (∅-axiom)
+**K2 — Computation API** (Bool-returning total functions, ∅-axiom):
   - `Term.{equiv, le_b, lt_b}` (comparators)
   - `Term.{pair, offDiag}` (Lens distinguishability primitive)
   - `Term.{equivQ, leQ}` (rational cross-multiplication)
   - `Decide.{allBelow, existsBelow}` (bounded quantifiers)
 
-**K3 — Soundness API**: Bool→Prop bridges (load-bearing for upstream)
+**K3 — Soundness API** (Bool→Prop bridges):
   - `Sound.{of_equiv, of_le_b, of_lt_b}`
   - `Sound.{of_equivQ, of_leQ}`
 
-**Sealed (NOT API)**:
-  - `Cap_*.lean` (capability ledgers, end-of-pipeline summaries)
-  - `Demo.lean` (examples only)
-  - `MonomialAxioms.lean` (concrete monomial equalities — borderline)
+**Not bundled** (separate concerns):
+  - `Demo` — bare-metal demonstration of axiom-free reasoning
+  - `MonomialAxioms` — concrete monomial equalities cited by
+    `rust-engine/crates/kernel/src/normal_form.rs`
 
-**Cross-cutting (separate import)**:
-  - `Tactic/{Omega213, Nat213, Mod213, Pow213, Fin213, QuadNorm}` (K4)
-    — these are 213-native proof automation, consumed at every layer
-    above Kernel; deliberately not re-exported here.
-
-**Axiom status**: every Kernel theorem is *literally 0-axiom*.
-`#print axioms` returns "does not depend on any axioms".  Verified
-by `tools/kernel_regress.sh` and `tools/scan_all_axioms.py`.
-
-See `research-notes/G12_layered_api_classification.md` §2 for the
-rigorous public-API classification.
+**Axiom status**: every Term theorem is *literally 0-axiom*.
+`#print axioms <thm>` returns "does not depend on any axioms".
+Verified by `tools/kernel_regress.sh`.
 -/

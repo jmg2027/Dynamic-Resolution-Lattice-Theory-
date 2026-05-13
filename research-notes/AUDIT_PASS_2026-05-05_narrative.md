@@ -19,7 +19,7 @@ repository layout).
     cardinality / N_U / type-preservation.
   - `FALSIFIABILITY.md`, `IMPLEMENTATION.md`, `AUDIT_Lean.md` —
     operational specs, stable.
-  - `PAPER1.md` — original seed paper (kept for historical reference).
+  - `PAPER1.md` — **deleted 2026-05-12**.  Original seed paper; Lean docstring citations (`PAPER1 §X.Y`) remain as historical references.
   - `INDEX.md` — UPDATED in this audit pass to add
     `RESOLUTION_LIMIT_SPEC.md` row + correct PHILOSOPHY.md description.
 

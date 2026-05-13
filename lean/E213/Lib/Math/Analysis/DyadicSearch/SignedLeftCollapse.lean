@@ -44,7 +44,7 @@ open E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
   (alwaysTrue alwaysTrue_step)
 open E213.Lib.Math.Analysis.DyadicSearch.ConsistentOracle (ConsistentOracle)
 open E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLens (signedLeftOracle)
-open E213.Lib.Math.Real213.Dyadic (dyadicCut)
+open E213.Lib.Math.Real213.Core.Dyadic (dyadicCut)
 open E213.Lib.Math.Analysis.DyadicSearch.UnitConsistentOracles
   (numA_zero_alwaysTrue_ConsistentOracle)
 
@@ -206,7 +206,7 @@ equality of `g (dyadicCut M E)` and `dyadicCut M (E + E_g)` into
 equal `f`-values at the unit-precision query (no funext needed). -/
 theorem CollapseConditionAt_compose_resolution_shift
     {f g : (Nat → Nat → Bool) → (Nat → Nat → Bool)}
-    (lf : E213.Lib.Math.Real213.CutFnData.LocallyDeterminedData f)
+    (lf : E213.Lib.Math.Real213.Core.CutFnData.LocallyDeterminedData f)
     {B E E_g : Nat}
     (hg : IsResolutionShift g E_g)
     (hf : CollapseConditionAt f B (E + E_g)) :

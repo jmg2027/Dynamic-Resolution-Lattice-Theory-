@@ -1,12 +1,10 @@
+import E213.Lib.Math.DyadicFSM.Trib.FSMmod
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod3
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod5
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod7
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
 
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
-import E213.Lib.Math.DyadicFSM.Signature
+import E213.Lib.Math.DyadicFSM.Signature.Signature
 /-!
 # Tribonacci CRT capstone — 3 cubic moduli {2, 3, 5}
 
@@ -33,7 +31,7 @@ Cubic class status (Tier 1 hardness):
 
 namespace E213.Lib.Math.DyadicFSM.Trib.CRTCapstone
 
-open E213.Lib.Math.DyadicFSM.Signature (signature)
+open E213.Lib.Math.DyadicFSM.Signature.Signature (signature)
 open E213.Lib.Math.DyadicFSM.ConcretePellSig (signature_period_of_bits_period_and_anchor signature_period_of_bits_period_and_anchor_from)
 open E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM (arithFSM2_signature_period_bound)
 open E213.Lib.Math.DyadicFSM.ArithFSM.V3 (tribFSMmod2 tribFSMmod2_bits_period_4 tribFSMmod2_signature_period_4_from_1)
