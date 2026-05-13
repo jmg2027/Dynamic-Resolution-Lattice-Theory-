@@ -1,47 +1,19 @@
-import E213.Lib.Math.Cauchy.PellSeq
 import E213.Lib.Math.Cauchy.Archimedean
 import E213.Lib.Math.Cauchy.MonotonicBounded
-import E213.Lib.Math.Polynomial213.Sound
+import E213.Lib.Math.Cauchy.PellSeq
 import E213.Lib.Math.Polynomial213.Ineq
+import E213.Lib.Math.Polynomial213.Sound
 
 /-!
-# WallisSeq: π/2 Dedekind cut via Wallis product
+# Cauchy.Wallis — π/2 Dedekind cut + sharper bounds (consolidated)
 
-Wallis product partial form for π/2:
+| Section | Topic |
+|---|---|
+| `WallisSeq` | Wallis product partial form for π/2 |
+| `WallisSharper` | π/2 > 64/45 strict bound (n ≥ 2) |
+| `WallisSharperKernelFree` | propext-reduced concrete n version |
 
-  π/2 = ∏_{k=1}^∞ (2k)² / ((2k-1)(2k+1))
-
-Partial products:
-- W_n = ∏_{k=1..n} (2k)² / ((2k-1)(2k+1))
-- W_0 = 1, W_1 = 4/3, W_2 = 64/45, ... → π/2 ≈ 1.5708.
-
-`wallisNum`, `wallisDen` integer recursion.
-
-## Invariants (all closed)
-
-- **Monotonic**: `wallisNum n * wallisDen (n+1) < wallisNum (n+1) * wallisDen n`.
-  W_n strictly increasing.
-- **Lower** (n ≥ 1): `3 * wallisNum n ≥ 4 * wallisDen n`.
-  (W_n ≥ 4/3 > 1 from n=1.)
-- **Upper**: `wallisNum n * (2n+1) ≤ (4n+1) * wallisDen n`
-  (W_n ≤ 2 - 1/(2n+1) < 2).  Polynomial identity
-  `(4k+1)*4(k+1)² + 1 = (4k+5)*(2k+1)²` (degree-3 in k) closed
-  via **Flat-Monomial Strategy**: `K := k*k`, `M := k*(k*k)`
-  two-generalize + `Nat.mul_mul_mul_comm` + omega (proposed by Mingu,
-  note 72).  Lean 4 core only — no `ring`.
-
-Therefore, both sides of the W_n ∈ (1, 2) Dedekind cut are fully
-demonstrated:
-- m/k ≤ 1 → orderProj false (n ≥ 1).  [closed]
-- m/k ≥ 2 → orderProj true (∀ n).  [closed]
-
-## Significance
-
-Together with EulerSeq (Σ 1/k!), a 213 Cauchy demonstration in the
-transcendental domain.  e: factorial denominator.  π: even²/odd² product.
-
-Status: ∅-axiom on every theorem (`tools/scan_axioms.py` reports
-18 PURE / 0 DIRTY).
+Per-section namespaces preserved.
 -/
 
 namespace E213.Lib.Math.Cauchy.WallisSeq
@@ -527,3 +499,82 @@ theorem wallis_isAbPositiveB : IsAbPositiveB wallisRawSeq := by
   exact wallisDen_pos n
 
 end E213.Lib.Math.Cauchy.WallisSeq
+
+namespace E213.Lib.Math.Cauchy.WallisSharper
+
+open E213.Theory E213.Lens
+open E213.Lib.Math.Cauchy.WallisSeq
+
+/-- Polynomial: `4(k+1)² ≥ (2k+1)(2k+3)`. -/
+private theorem poly_ineq (k : Nat) :
+    4 * (k + 1) * (k + 1) ≥ (2 * k + 1) * (2 * k + 3) := by
+  have e1 : 4 * (k + 1) * (k + 1) = 4 + 8 * k + 4 * (k * k) := by
+    have := Nat.mul_mul_mul_comm 4 (k+1) 1 (k+1)
+    have ee : (4 * (k+1)) * (k+1) = 4 * ((k+1) * (k+1)) := by
+      rw [Nat.mul_assoc]
+    rw [ee]
+    have step : (k+1) * (k+1) = k*k + 2*k + 1 := by
+      have : (k+1)*(k+1) = k*(k+1) + 1*(k+1) := Nat.add_mul k 1 (k+1)
+      rw [this, Nat.mul_add, Nat.mul_add]; omega
+    rw [step]; omega
+  have e2 : (2 * k + 1) * (2 * k + 3) = 3 + 8 * k + 4 * (k * k) := by
+    have h0 : (2*k+1) * (2*k+3) = 2*k*(2*k+3) + 1*(2*k+3) := Nat.add_mul _ _ _
+    have h1 : 2*k*(2*k+3) = 2*k*(2*k) + 2*k*3 := Nat.mul_add _ _ _
+    have h2 : 1*(2*k+3) = 1*(2*k) + 1*3 := Nat.mul_add _ _ _
+    have h3 : 2*k*(2*k) = 4 * (k*k) := Nat.mul_mul_mul_comm _ _ _ _
+    rw [h0, h1, h2, h3]; omega
+  rw [e1, e2]; omega
+
+end E213.Lib.Math.Cauchy.WallisSharper
+
+namespace E213.Lib.Math.Cauchy.WallisSharper
+
+open E213.Theory E213.Lens
+open E213.Lib.Math.Cauchy.WallisSeq
+
+/-- **W_n ≥ 64/45 strict** (n ≥ 2): 45 * wallisNum n ≥ 64 *
+    wallisDen n.  Inductive base W_2 = 64/45, then monotonic
+    via 4(k+1)² ≥ (2k+1)(2k+3). -/
+theorem wallis_sharper_lower (n : Nat) (hn : n ≥ 2) :
+    45 * wallisNum n ≥ 64 * wallisDen n := by
+  induction n with
+  | zero => omega
+  | succ k ih =>
+      by_cases hk : k = 1
+      · subst hk
+        show 45 * wallisNum 2 ≥ 64 * wallisDen 2
+        decide
+      · have hk2 : k ≥ 2 := by omega
+        have h_inv := ih hk2
+        have h_poly := poly_ineq k
+        show 45 * (wallisNum k * (4 * (k+1) * (k+1))) ≥
+             64 * (wallisDen k * ((2*k+1) * (2*k+3)))
+        -- IH * (4*(k+1)*(k+1)) and poly * (64 * wallisDen k)
+        have h1 : 45 * wallisNum k * (4 * (k+1) * (k+1)) ≥
+                  64 * wallisDen k * (4 * (k+1) * (k+1)) :=
+          Nat.mul_le_mul_right _ h_inv
+        have h2 : 64 * wallisDen k * (4 * (k+1) * (k+1)) ≥
+                  64 * wallisDen k * ((2*k+1) * (2*k+3)) :=
+          Nat.mul_le_mul_left (64 * wallisDen k) h_poly
+        have eq1 : 45 * (wallisNum k * (4 * (k+1) * (k+1)))
+                 = 45 * wallisNum k * (4 * (k+1) * (k+1)) :=
+          (Nat.mul_assoc _ _ _).symm
+        have eq2 : 64 * (wallisDen k * ((2*k+1) * (2*k+3)))
+                 = 64 * wallisDen k * ((2*k+1) * (2*k+3)) :=
+          (Nat.mul_assoc _ _ _).symm
+        rw [eq1, eq2]
+        exact Nat.le_trans h2 h1
+
+end E213.Lib.Math.Cauchy.WallisSharper
+
+namespace E213.Lib.Math.Cauchy.WallisSharperKernelFree
+
+open E213.Lib.Math.Cauchy.WallisSeq
+
+/-- W_2 = 64/45 (base of sharper bound, axiom-free). -/
+theorem wallis_sharper_n2 : 45 * wallisNum 2 ≥ 64 * wallisDen 2 := by decide
+
+/-- W_3 ≥ 64/45 (one step beyond base, axiom-free). -/
+theorem wallis_sharper_n3 : 45 * wallisNum 3 ≥ 64 * wallisDen 3 := by decide
+
+end E213.Lib.Math.Cauchy.WallisSharperKernelFree
