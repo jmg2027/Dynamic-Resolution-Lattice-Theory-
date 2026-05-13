@@ -1,4 +1,4 @@
-# `Hypervisor/Lens/Kernel/` — Lens-kernel theory (internal)
+# `Lens/Algebra/` — Lens-kernel theory (internal)
 
 Internal theory about *Lens kernels* (the equivalence relation
 `Lens.equiv`): congruence, correspondence, free audits, four-distinct
@@ -7,7 +7,7 @@ witness construction.
 These are infrastructure for HV3 (Initiality) and HV6 (Universal
 Form), not directly consumed by App or downstream code.
 
-## Files (8)
+## Files (7)
 
   - `Congruence.lean` — Lens-kernel is a congruence on Raw
   - `Corresp.lean` — Lens-kernel correspondence theorems
@@ -17,7 +17,12 @@ Form), not directly consumed by App or downstream code.
   - `IdLensEq.lean` — identity Lens kernel = `Eq`
   - `Space.lean` — Lens-kernel space structure
   - `SwapInvariant.lean` — swap-invariant Lens characterisation
-  - `CardinalityLB.lean` — Lens-kernel cardinality lower bounds
+
+Cardinality lower bound (`CardinalityLB.lean`) + Lens-image
+cardinality (`LensCardinality.lean`) moved 2026-05-13 to
+`Lens/Cardinality/` together with the Cantor / Tower / Countable /
+Gödel / BoolSpace / Pair / Chain files relocated from
+`Lib/Math/Infinity/`.
 
 ## Public API
 
@@ -27,5 +32,6 @@ form) but are not exported by `E213.Lens.API`.
 ## Where to add new kernel-theory facts
 
   - About Lens.equiv → `Congruence.lean`, `Corresp.lean`
-  - About Lens injectivity → `FourDistinct.lean`,
-    `CardinalityLB.lean`
+  - About Lens injectivity → `FourDistinct.lean`
+  - About cardinality (Lens kernel space or Lens-image / Raw) →
+    `Lens/Cardinality/`

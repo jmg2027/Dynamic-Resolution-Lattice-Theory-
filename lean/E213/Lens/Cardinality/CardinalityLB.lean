@@ -1,5 +1,5 @@
 import E213.Lens.Leaves.ModNat
-import E213.Lens.Algebra.LensCardinality
+import E213.Lens.Cardinality.LensCardinality
 import E213.Meta.Nat.Gcd213
 import E213.Meta.Nat.AddMod213
 
@@ -26,7 +26,7 @@ of the two Lenses differ.
 manual Nat arithmetic.
 -/
 
-namespace E213.Lens.Algebra.CardinalityLB
+namespace E213.Lens.Cardinality.CardinalityLB
 
 open E213.Theory E213.Lens E213.Lens.Leaves.ModNat
 open E213.Meta.Nat.Gcd213 (mod_self_pos mod_zero_dvd)
@@ -92,9 +92,9 @@ private theorem mod_kernel_separates (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
       rw [heq, mod_self_pos k hk_pos]
       decide
 
-end E213.Lens.Algebra.CardinalityLB
+end E213.Lens.Cardinality.CardinalityLB
 
-namespace E213.Lens.Algebra.CardinalityLB
+namespace E213.Lens.Cardinality.CardinalityLB
 
 open E213.Theory E213.Lens E213.Lens.Leaves.ModNat
 
@@ -144,4 +144,4 @@ theorem leavesModNat_kernel_neq (m k : Nat) (hm : m ≥ 2) (hk : k ≥ 2)
     obtain ⟨r, r', heqk, hneqm⟩ := mod_kernel_separates k m hk hm hnotdvd
     exact ⟨r, r', fun h => hneqm (h.mpr heqk)⟩
 
-end E213.Lens.Algebra.CardinalityLB
+end E213.Lens.Cardinality.CardinalityLB

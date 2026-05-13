@@ -1,5 +1,5 @@
 import E213.Lib.Math.Irrational.Sqrt2Cut
-import E213.Lens.Algebra.LensCardinality
+import E213.Lens.Cardinality.LensCardinality
 import E213.Meta.Tactic.Nat213
 
 /-!

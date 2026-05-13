@@ -8,6 +8,7 @@ import E213.Lens.Diagonal
 import E213.Lens.Initiality
 import E213.Lens.Instances
 import E213.Lens.Algebra
+import E213.Lens.Cardinality
 import E213.Lens.Lattice
 import E213.Lens.Leaves
 import E213.Lens.Morphism
@@ -33,8 +34,12 @@ import E213.Lens.Universal
       (AB, Bool, Cauchy, Path, Prism, Reach, Subtype, Sum, Swap,
        ZMod6, …)
     * `Lens.Kernel`                      — algebraic kernel
-      (CardinalityLB, Congruence, Corresp, FourDistinct, FreeAudit,
-       IdLensEq, Space, SwapInvariant)
+      (Congruence, Corresp, FourDistinct, FreeAudit, IdLensEq,
+       Space, SwapInvariant)
+    * `Lens.Cardinality`                 — cardinality observables
+      (Cantor, Tower, BoolSpace, Countable, Pair, Godel, Chain,
+       LensCardinality, CardinalityLB) — moved 2026-05-13 from
+      Lib/Math/Infinity + Lens/Algebra
     * `Lens.Lattice`                     — join/meet (Family*,
       Indexed, Join, JoinEquiv, Lattice, Meet)
     * `Lens.Leaves`                      — depth-leaf hierarchy

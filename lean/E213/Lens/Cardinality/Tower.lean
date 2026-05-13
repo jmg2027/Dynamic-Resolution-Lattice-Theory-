@@ -1,4 +1,4 @@
-import E213.Lib.Math.Infinity.Cantor
+import E213.Lens.Cardinality.Cantor
 
 /-!
 # Infinity.Tower: Cantor tower — iterated function spaces

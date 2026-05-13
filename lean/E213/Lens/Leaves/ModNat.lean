@@ -1,6 +1,6 @@
 import E213.Lens.LensCore
 import E213.Lens.Compose.Factoring
-import E213.Lens.Algebra.LensCardinality
+import E213.Lens.Cardinality.LensCardinality
 import E213.Meta.Nat.AddMod213
 import E213.Meta.Nat.Gcd213
 

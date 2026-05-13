@@ -1,6 +1,6 @@
 import E213.Theory.Raw
-import E213.Lib.Math.Infinity.Pair
-import E213.Lib.Math.Infinity.Countable
+import E213.Lens.Cardinality.Pair
+import E213.Lens.Cardinality.Countable
 import E213.Prelude
 
 /-!

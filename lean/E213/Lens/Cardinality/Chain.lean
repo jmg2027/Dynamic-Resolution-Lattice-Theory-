@@ -1,5 +1,5 @@
-import E213.Lib.Math.Infinity.Cantor
-import E213.Lib.Math.Infinity.Countable
+import E213.Lens.Cardinality.Cantor
+import E213.Lens.Cardinality.Countable
 import E213.Prelude
 
 /-!

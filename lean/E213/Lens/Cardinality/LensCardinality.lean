@@ -1,7 +1,7 @@
-import E213.Lib.Math.Infinity.Countable
+import E213.Lens.Cardinality.Countable
 import E213.Meta.Tactic.Nat213
-import E213.Lib.Math.Infinity.Cantor
-import E213.Lib.Math.Infinity.Godel
+import E213.Lens.Cardinality.Cantor
+import E213.Lens.Cardinality.Godel
 import E213.Meta.Nat.AddMod213
 import E213.Lens.LensCore
 import E213.Lens.Characterisation.Catalog

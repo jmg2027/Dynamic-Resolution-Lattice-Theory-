@@ -6,7 +6,6 @@ import E213.Lib.Math.Cohomology
 import E213.Lib.Math.DyadicFSM
 import E213.Lib.Math.HodgeConjecture
 import E213.Lib.Math.Hyper
-import E213.Lib.Math.Infinity
 import E213.Lib.Math.Irrational
 import E213.Lib.Math.Linalg213
 import E213.Lib.Math.CayleyDickson
@@ -57,8 +56,12 @@ The directory tree is the spec; this file is the top-level entry.
     * `AxiomSystems`    — Peano / ZFC / classical-analysis-as-Lens
     * `Choice`          — choice-related results (no Classical.choice)
     * `Diagonal`        — diagonal arguments / Cantor-style fixed points
-    * `Infinity`        — lens cardinality, Cantor (∅-axiom)
     * `Irrational`      — irrationality without ZFC
+
+    Cardinality observables (Cantor, Tower, Countable, BoolSpace, Pair,
+    Gödel, Chain, LensCardinality, CardinalityLB) live under
+    `Lens.Cardinality` — they are Lens-ring observables of Raw, not
+    Lib-tier facts (move 2026-05-13, see `Lens/Cardinality/INDEX.md`).
 
   ### Topical sub-trees
     * `Cohomology`      — K_{NS,NT}^{(c)} cohomology + Hodge programme
