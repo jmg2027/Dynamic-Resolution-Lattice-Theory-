@@ -1,5 +1,5 @@
 import Lean
-import E213.Lib.Math.CayleyDickson.ZSqrtInstance
+import E213.Lib.Math.CayleyDickson.Integer.ZSqrtInstance
 
 /-!
 # Tactic: `quad_extension D` — parametric `ℤ[√-D]` one-liner
@@ -8,8 +8,8 @@ A command-level macro that registers a `ConjugationCodomain
 (ZSqrt D)` instance for a positive natural `D`.  Equivalent to:
 
 ```
-instance : E213.Meta.SelfRecognising.ConjugationCodomain (E213.Lib.Math.CayleyDickson.ZSqrt.ZSqrt D) :=
-  E213.Lib.Math.CayleyDickson.ZSqrt.conjugation_of_pos (by decide)
+instance : E213.Meta.SelfRecognising.ConjugationCodomain (E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ZSqrt D) :=
+  E213.Lib.Math.CayleyDickson.Integer.ZSqrt.conjugation_of_pos (by decide)
 ```
 
 but reduces the per-D boilerplate to a single keyword + literal.
@@ -53,8 +53,8 @@ def elabQuadExtension : CommandElab := fun stx => do
                     ℤ[√0] = ℤ has no nontrivial involution, so the \
                     swap-matching axiom fails"
       let cmd ← `(command|
-        instance : E213.Meta.SelfRecognising.ConjugationCodomain (E213.Lib.Math.CayleyDickson.ZSqrt.ZSqrt $d) :=
-          E213.Lib.Math.CayleyDickson.ZSqrt.conjugation_of_pos (by decide))
+        instance : E213.Meta.SelfRecognising.ConjugationCodomain (E213.Lib.Math.CayleyDickson.Integer.ZSqrt.ZSqrt $d) :=
+          E213.Lib.Math.CayleyDickson.Integer.ZSqrt.conjugation_of_pos (by decide))
       elabCommand cmd
       logInfo m!"✓ quad_extension {dVal}: ConjugationCodomain (ZSqrt {dVal}) registered"
   | _ => throwUnsupportedSyntax

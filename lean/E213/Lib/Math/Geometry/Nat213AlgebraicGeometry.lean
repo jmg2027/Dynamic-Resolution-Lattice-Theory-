@@ -1,6 +1,6 @@
 import E213.Lib.Math.Geometry.Nat213Rotation
 import E213.Lib.Math.Topology.EulerChi
-import E213.Lib.Math.CayleyDickson.Hurwitz213
+import E213.Lib.Math.CayleyDickson.Integer.Hurwitz213
 
 /-!
 # Theory.Nat213.AlgebraicGeometry — 213's algebraic-geometric face
