@@ -167,7 +167,27 @@ Lens/  (sub-cluster 14 → 13 — Leaves 폴드)
 └── ... (다른 10 sub-clusters)
 ```
 
-## 총 누적 (6 sessions, 45 commits):
+## 추가 라운드 — Session G (namespace alignment + INDEX.md 마무리, 5 commits)
+
+| Commit | 작업 |
+|---|---|
+| `da394cfa` | Lens/Cardinality namespace 정리 — `E213.Infinity` → `E213.Lens.Cardinality` (17 파일); Theory.Internal helper 블록도 Lens.Cardinality 로 통일 |
+| `d3e93a4a` | Meta/Int213 + Meta/Algebra213 namespace path-align (25 파일) — Session A promotion 후 잔존했던 path-namespace mismatch 해소 |
+| `300b8b32` | INDEX.md 11 클러스터 (6-file 그룹: Symmetry, Nuclear, Cosmology, LevelTopology, HC/{Foundation,Refinement,MotivicBridge}, …) |
+| `915e72f2` | INDEX.md 14 클러스터 (5-file 그룹: YangMills, Mixing, Capstones, TriangularTower, Real213/Lattice, …) |
+| `53641991` | INDEX.md Lib/Math + Lib/Physics root umbrella (90/90 커버리지 달성) |
+
+**INDEX.md 커버리지**: 17 → **90 / 90** (CLAUDE.md rule 6 완전 충족).
+
+**Path-namespace mismatch 잔존**:
+- Theory/Raw/{Signed, Fold, Swap, Levels, Hom} — sealed namespace
+  E213.Theory.Internal 사용 (의도된 internal/public 분리 — Raw.API
+  가 public, Internal 은 helpers)
+- Term/Internal/Tree — namespace E213.Theory.Internal 사용
+  (ARCHITECTURE.md "Internal-shared umbrella" 의도된 exception,
+  56 downstream rename 방지)
+
+## 총 누적 (7 sessions, 50 commits):
 
 - Session A: structural cleanup (10)
 - Session B: file consolidation (10)
@@ -176,13 +196,13 @@ Lens/  (sub-cluster 14 → 13 — Leaves 폴드)
 - Session E: Lens ring discipline 완료 (2)
 - Session E+: UniversalLens 이동 (2)
 - Session F: organization polish + INDEX.md harvest (9)
+- Session G: namespace alignment + INDEX.md 마무리 (5)
 
-## 진행 중인 후속 (Session F+ 후보)
+## 후속 (Session G+ 후보, lower priority)
 
-- INDEX.md 잔여 34 clusters (5+ files, 주로 6-7 files 작은 것들)
-- Namespace 정리: E213.Infinity → E213.Lens.Cardinality (path 와
-  align, Cardinality 이동 시 보류한 것)
-- Lens sub-cluster 13 → 7 추가 통합 (LENS_AUDIT §4 권장; Refines +
+- Lens sub-cluster 13 → 7 추가 통합 (LENS_AUDIT §4 권장 — Refines +
   Lattice, Properties + Characterisation + Morphism + Diagonal,
-  Core/ 신규)
-- Math 측 path-namespace mismatch 정리 (E213.Infinity 외 다수)
+  Core/ 신규).  현재 14 sub-clusters → 13 (Leaves 폴드 완료).
+- Theory/Raw/* internal helpers 의 sealed namespace 정리 검토
+  (의도된 분리 vs path-align trade-off)
+- App/ legacy 정리 (HANDOFF backlog)
