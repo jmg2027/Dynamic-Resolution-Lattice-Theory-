@@ -1,5 +1,5 @@
+import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.ArithFSM.Hierarchy
-import E213.Lib.Math.DyadicFSM.Legendre.V213
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.V1

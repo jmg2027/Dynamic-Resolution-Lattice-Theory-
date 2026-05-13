@@ -1,5 +1,5 @@
+import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
-import E213.Lib.Math.DyadicFSM.Legendre.V13_19
 
 import E213.Lib.Math.DyadicFSM.ArithFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod11

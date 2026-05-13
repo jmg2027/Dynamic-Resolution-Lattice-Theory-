@@ -1,3 +1,4 @@
+import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.ProductFSMPeriod
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor7
@@ -12,7 +13,6 @@ import E213.Lib.Math.DyadicFSM.ArithFSM.Mod13
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod17
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod19
 import E213.Lib.Math.DyadicFSM.LCMClosure
-import E213.Lib.Math.DyadicFSM.Legendre.V213
 /-!
 # 213-native number theory — consolidated v1 + v2 + v3 master capstones
 

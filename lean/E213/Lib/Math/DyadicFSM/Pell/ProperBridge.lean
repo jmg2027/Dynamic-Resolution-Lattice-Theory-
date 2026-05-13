@@ -1,6 +1,6 @@
+import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.Pell.ProperSmall
 
-import E213.Lib.Math.DyadicFSM.Legendre.V213
 /-!
 # Pell proper Legendre-Pisano bridge (D = 8)
 

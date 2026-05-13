@@ -1,3 +1,4 @@
+import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.TwoLayerPredictor
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod23
 
@@ -8,7 +9,6 @@ import E213.Lib.Math.DyadicFSM.ArithFSM.Mod17
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod19
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod5
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod7
-import E213.Lib.Math.DyadicFSM.Legendre.V213
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor7
 /-!

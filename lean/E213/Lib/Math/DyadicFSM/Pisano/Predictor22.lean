@@ -1,8 +1,8 @@
+import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor20
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod79
 import E213.Lib.Math.DyadicFSM.ArithFSM.Mod89
 
-import E213.Lib.Math.DyadicFSM.Legendre.V213
 /-!
 # Pisano predictor — 22-prime evidence + sub-tight pattern
 

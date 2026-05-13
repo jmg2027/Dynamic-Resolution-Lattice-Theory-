@@ -1,7 +1,7 @@
+import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.Fib.FSMmod
 import E213.Lib.Math.DyadicFSM.Fib.PisanoCapstone
 
-import E213.Lib.Math.DyadicFSM.Legendre.V213
 /-!
 # Fibonacci-Pisano predictor — 8-prime evidence (mod 13, 17, 19, 23 added)
 

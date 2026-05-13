@@ -1,13 +1,11 @@
+import E213.Lib.Math.DyadicFSM.Trib.FSMmod
 import E213.Lib.Math.DyadicFSM.Trib.CRTCapstone
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod7
 
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
 import E213.Lib.Math.DyadicFSM.ConcretePellSig
 import E213.Lib.Math.DyadicFSM.Signature
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod3
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod5
 /-!
 # Tribonacci CRT — 4 cubic moduli {2, 3, 5, 7}
 

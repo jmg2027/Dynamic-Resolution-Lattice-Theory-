@@ -1,7 +1,5 @@
+import E213.Lib.Math.DyadicFSM.Trib.FSMmod
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod3
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod5
-import E213.Lib.Math.DyadicFSM.Trib.FSMmod7
 import E213.Lib.Math.DyadicFSM.ArithFSM.V3Bound
 
 import E213.Lib.Math.DyadicFSM.ArithFSM.ToBitFSM

@@ -1,9 +1,9 @@
+import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 import E213.Lib.Math.DyadicFSM.Pisano.Predictor
 import E213.Lib.Math.DyadicFSM.Fib.PisanoCapstone
 import E213.Lib.Math.NatHelpers.AddMod213
 import E213.Meta.Tactic.Nat213
 
-import E213.Lib.Math.DyadicFSM.Legendre.V213
 /-!
 # Cross-recurrence relation: Fib predictor = 2 × Pell predictor
 

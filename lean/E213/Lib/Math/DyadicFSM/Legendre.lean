@@ -1,8 +1,4 @@
-import E213.Lib.Math.DyadicFSM.Legendre.Pisano
-import E213.Lib.Math.DyadicFSM.Legendre.PisanoExt
-import E213.Lib.Math.DyadicFSM.Legendre.Small
-import E213.Lib.Math.DyadicFSM.Legendre.V13_19
-import E213.Lib.Math.DyadicFSM.Legendre.V213
+import E213.Lib.Math.DyadicFSM.Legendre.Legendre
 
 /-! Spec-as-code entry point for `E213.Lib.Math.DyadicFSM.Legendre`.
 
