@@ -168,3 +168,19 @@ end E213.Foo
     (Meta vs research-notes).
 14. **Lens layer Tier 1/Tier 2 분리** (LENS_AUDIT 권장) + Math 에
     Codomain.lean 같은 entry.
+
+## Sub-organization 진행 (2026-05-13)
+
+평탄 cluster 들의 sub-directory 분할 + tiny cluster fold 적용:
+
+| Cluster | 평탄 → sub-org |
+|---|---|
+| CayleyDickson (chunk C) | 57 → 5 sub-dirs (Tower/Integer/Levels/Lipschitz/Misc) |
+| Real213 (chunk B) | 57 → 7 sub-dirs (Core/Sum/Mul/Lattice/Bisection/ExpLog/Cauchy) |
+| SignedCut (chunk B) | 35 → 6 sub-dirs (Core/CD/Hurwitz/Level/Bridge/Octonion) |
+| Probability (chunk H) | 25 → 5 sub-dirs (Foundation/Distribution/Inequality/Limit/Bridge) |
+| Cohomology (chunk G) | top-level 29 → 10 + 2 sub-dirs (Examples/Bridge) |
+| DyadicFSM (chunk F) | top-level 33 → 14 + 4 sub-dirs (Product/Signature/Forward/Tier) |
+| Diagonal + EpsilonDeltaModulus | → Modulus (tiny fold) |
+
+§5 priority 의 Phase β (sub-organization) 대부분 실행 완료.

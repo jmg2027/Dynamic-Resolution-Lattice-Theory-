@@ -158,8 +158,23 @@ catalog.)
 **Role**: 213 위에서 구현된 수학/물리 콘텐츠.  **Lens API 만 사용**.
 
 Two bounded contexts:
-  * `Lib/Math/`     — 213-native mathematics (~495 files)
-  * `Lib/Physics/`  — 213-native physics (~128 files)
+  * `Lib/Math/`     — 213-native mathematics (~38 sub-clusters)
+  * `Lib/Physics/`  — 213-native physics (~13 sub-clusters)
+
+**Lib/Math/ — major sub-organized clusters** (2026-05-13 sub-org
+pass 후):
+  * `CayleyDickson/{Tower,Integer,Levels,Lipschitz,Misc}` (5 sub-dirs, 57 files)
+  * `Real213/{Core,Sum,Mul,Lattice,Bisection,ExpLog,Cauchy}` (7 sub-dirs, 57 files)
+  * `SignedCut/{Core,CD,Hurwitz,Level,Bridge,Octonion}` (6 sub-dirs, 35 files)
+  * `Probability/{Foundation,Distribution,Inequality,Limit,Bridge}` (5 sub-dirs, 25 files)
+  * `Cohomology/{Examples,Bridge,Cochain,Cup,CupAW,Delta,Fractal,
+                  Hodge,Bipartite,Surfaces,Universal}` (11 sub-dirs)
+  * `DyadicFSM/{Product,Signature,Forward,Tier,ArithFSM,Pell,Fib,
+                Pisano,Trib,Legendre,BitFSM,Archive}` (12 sub-dirs)
+  * `HodgeConjecture/{Foundation,Structure,Pairing,Refinement,
+                       Bridge,MotivicBridge,Toolkit}` (7 sub-dirs)
+  * `Analysis/{ClassicCalc,Differentiation,DyadicSearch,FluxMVT,
+                Integration,ODE,Series}` (7 sub-dirs)
 
 각 Lib sub-tree 는 cross-context citation 용 `Bridge.lean` 보유
 (anti-corruption layer pattern).
@@ -177,6 +192,11 @@ ring-independence 등 trade-off 존재).
                              (DeriveConjugationCodomain,
                               VerifyConjugation, NativeGuard,
                               PureGuard)
+  * `Meta/Int213/`        — Lean Int 위 ∅-axiom helpers
+                             (promoted from Theory.Internal 2026-05-12)
+  * `Meta/Algebra213/`    — Ring213/StarRing213/CDDouble functor
+                             typeclass tower
+                             (promoted from Theory.Internal 2026-05-12)
   * **Top-level**: SelfRecognising (codomain typeclass hierarchy),
                    AxiomMinimality{,Capstone}, BitPatternUniqueness,
                    LensInternality
