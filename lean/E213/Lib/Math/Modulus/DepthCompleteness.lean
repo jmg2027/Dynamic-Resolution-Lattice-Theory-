@@ -1,4 +1,4 @@
-import E213.Lib.Math.EpsilonDeltaModulus.InfoClosure
+import E213.Lib.Math.Modulus.InfoClosure
 
 /-!
 # Depth Completeness — 213-native completeness via modulus (∅-axiom)
@@ -10,10 +10,10 @@ an explicit `Nat → Nat` depth modulus.  No Cauchy completion;
 the substrate IS the trajectory.
 -/
 
-namespace E213.Lib.Math.EpsilonDeltaModulus.DepthCompleteness
+namespace E213.Lib.Math.Modulus.DepthCompleteness
 
-open E213.Lib.Math.EpsilonDeltaModulus.Translation (DepthModulus)
-open E213.Lib.Math.EpsilonDeltaModulus.InfoClosure
+open E213.Lib.Math.Modulus.Translation (DepthModulus)
+open E213.Lib.Math.Modulus.InfoClosure
   (IsInfoClosed idInfoClosed constInfoClosed)
 
 /-- Depth-completeness predicate: f admits an explicit modulus. -/
@@ -43,4 +43,4 @@ theorem quantifier_free_completeness :
     ∧ DepthComplete (fun _ => fun _ _ : Nat => false) :=
   ⟨id_depth_complete, const_depth_complete _⟩
 
-end E213.Lib.Math.EpsilonDeltaModulus.DepthCompleteness
+end E213.Lib.Math.Modulus.DepthCompleteness

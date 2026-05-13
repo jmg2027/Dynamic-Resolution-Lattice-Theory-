@@ -1,4 +1,4 @@
-import E213.Lib.Math.EpsilonDeltaModulus.Translation
+import E213.Lib.Math.Modulus.Translation
 
 /-!
 # Information-Theoretic Closure (∅-axiom)
@@ -22,9 +22,9 @@ Atomic content:
   * Composition: `g ∘ f` info-closed via modulus composition.
 -/
 
-namespace E213.Lib.Math.EpsilonDeltaModulus.InfoClosure
+namespace E213.Lib.Math.Modulus.InfoClosure
 
-open E213.Lib.Math.EpsilonDeltaModulus.Translation
+open E213.Lib.Math.Modulus.Translation
   (DepthModulus identityDepthModulus constantDepthModulus)
 
 /-- **Information-theoretic closure**: a function `f` is
@@ -72,4 +72,4 @@ theorem no_infinite_descent
     hf.modulus n < hf.modulus n + 1 :=
   hf.modulus_finite n
 
-end E213.Lib.Math.EpsilonDeltaModulus.InfoClosure
+end E213.Lib.Math.Modulus.InfoClosure

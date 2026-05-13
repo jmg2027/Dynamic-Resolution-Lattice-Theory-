@@ -1,6 +1,6 @@
-import E213.Lib.Math.EpsilonDeltaModulus.Translation
-import E213.Lib.Math.EpsilonDeltaModulus.InfoClosure
-import E213.Lib.Math.EpsilonDeltaModulus.DepthCompleteness
+import E213.Lib.Math.Modulus.Translation
+import E213.Lib.Math.Modulus.InfoClosure
+import E213.Lib.Math.Modulus.DepthCompleteness
 
 /-!
 # G40 Capstone — ε-δ as Discrete Depth Modulus (∅-axiom)
@@ -16,16 +16,16 @@ This Capstone closes the **completeness** layer of the CD-tower
 stack, completing the math-side closure begun in PRs #62-#67.
 -/
 
-namespace E213.Lib.Math.EpsilonDeltaModulus.G40Capstone
+namespace E213.Lib.Math.Modulus.G40Capstone
 
-open E213.Lib.Math.EpsilonDeltaModulus.Translation
+open E213.Lib.Math.Modulus.Translation
   (DepthModulus identityDepthModulus identityDepthModulus_eq
    constantDepthModulus_zero)
-open E213.Lib.Math.EpsilonDeltaModulus.InfoClosure
+open E213.Lib.Math.Modulus.InfoClosure
   (IsInfoClosed idInfoClosed constInfoClosed
    id_modulus const_modulus finite_depth_universal
    no_infinite_descent)
-open E213.Lib.Math.EpsilonDeltaModulus.DepthCompleteness
+open E213.Lib.Math.Modulus.DepthCompleteness
   (DepthComplete id_depth_complete const_depth_complete
    no_cauchy_chase_needed quantifier_free_completeness)
 
@@ -67,4 +67,4 @@ theorem total_witness (n : Nat) (c : Nat → Nat → Bool) :
   ⟨identityDepthModulus_eq n, id_modulus n, id_depth_complete,
    const_depth_complete c⟩
 
-end E213.Lib.Math.EpsilonDeltaModulus.G40Capstone
+end E213.Lib.Math.Modulus.G40Capstone

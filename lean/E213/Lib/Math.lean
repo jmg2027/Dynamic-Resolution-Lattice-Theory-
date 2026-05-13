@@ -3,7 +3,6 @@ import E213.Lib.Math.Analysis
 import E213.Lib.Math.AxiomSystems
 import E213.Lib.Math.Choice
 import E213.Lib.Math.Cohomology
-import E213.Lib.Math.Diagonal
 import E213.Lib.Math.DyadicFSM
 import E213.Lib.Math.HodgeConjecture
 import E213.Lib.Math.Hyper

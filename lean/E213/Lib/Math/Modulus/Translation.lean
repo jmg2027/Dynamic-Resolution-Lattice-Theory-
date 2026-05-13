@@ -26,7 +26,7 @@ Atomic content: bridge between the existing
 "epsilon-delta-as-function" data type.
 -/
 
-namespace E213.Lib.Math.EpsilonDeltaModulus.Translation
+namespace E213.Lib.Math.Modulus.Translation
 
 open E213.Lib.Math.Topology.Continuity (IsContinuousModulus)
 
@@ -67,4 +67,4 @@ theorem no_existential_in_modulus
     (hf : IsContinuousModulus f) (n : Nat) :
     fromIsContinuousModulus hf n = hf.modulus n := rfl
 
-end E213.Lib.Math.EpsilonDeltaModulus.Translation
+end E213.Lib.Math.Modulus.Translation

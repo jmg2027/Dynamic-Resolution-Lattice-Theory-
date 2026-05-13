@@ -1,5 +1,5 @@
 import E213.Lib.Physics.AlphaEM.FractalLevelZetaConvergence
-import E213.Lib.Math.EpsilonDeltaModulus.Translation
+import E213.Lib.Math.Modulus.Translation
 
 /-!
 # Fractal Level ζ Convergence Modulus (C5 Step 6)
@@ -31,7 +31,7 @@ STRICT ∅-AXIOM (decide on Nat).
 
 namespace E213.Lib.Physics.AlphaEM.FractalLevelZetaModulus
 
-open E213.Lib.Math.EpsilonDeltaModulus.Translation (DepthModulus)
+open E213.Lib.Math.Modulus.Translation (DepthModulus)
 open E213.Lib.Physics.AlphaEM.FractalLevelZetaConvergence
 
 /-! ## §1 — `2⁻ᴺ` table at 10⁻⁵ scale -/
