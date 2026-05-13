@@ -1,6 +1,6 @@
+import E213.Lib.Math.Extras.CauchySchwarz
 import E213.Lib.Math.SignedCut.CDNorm
 import E213.Lib.Math.SignedCut.CDMulRule
-import E213.Lib.Math.Extras.CauchySchwarz2D
 
 /-!
 # Hurwitz norm-product preservation (∅-axiom)

@@ -1,6 +1,5 @@
+import E213.Lib.Math.Extras.CauchySchwarz
 import E213.Lib.Math.Real213.CutLogCapstone
-import E213.Lib.Math.Extras.CauchySchwarzList
-import E213.Lib.Math.Extras.CauchySchwarz3D
 import E213.Lib.Math.Probability.HoeffdingClosed
 
 /-!

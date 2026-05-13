@@ -1,4 +1,4 @@
-import E213.Lib.Math.Extras.CauchySchwarz2D
+import E213.Lib.Math.Extras.CauchySchwarz
 import E213.Lib.Math.Extras.HoeffdingFiniteN
 
 /-!
