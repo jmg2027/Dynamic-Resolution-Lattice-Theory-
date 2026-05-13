@@ -42,7 +42,7 @@ open E213.Theory E213.Lens
     `combine (view x) (view y)` or `combine (view y) (view x)`.
     For these to be equal, combine must be symmetric.  See note 25 §3
     Lens-layer observation.  -/
-theorem Lens.view_unique {α : Type} (L : Lens α)
+protected theorem Lens.view_unique {α : Type} (L : Lens α)
     (hsym : ∀ u v : α, L.combine u v = L.combine v u)
     (f : Raw → α)
     (ha : f Raw.a = L.base_a)
@@ -77,13 +77,13 @@ Uniqueness: `Lens.view_unique` (§1).
 -/
 
 /-- `L.view` sends Raw.a to base_a. -/
-theorem Lens.view_a {α : Type} (L : Lens α) : L.view Raw.a = L.base_a := rfl
+protected theorem Lens.view_a {α : Type} (L : Lens α) : L.view Raw.a = L.base_a := rfl
 
 /-- `L.view` sends Raw.b to base_b. -/
-theorem Lens.view_b {α : Type} (L : Lens α) : L.view Raw.b = L.base_b := rfl
+protected theorem Lens.view_b {α : Type} (L : Lens α) : L.view Raw.b = L.base_b := rfl
 
 /-- `L.view` sends slashes to combine (under commutative combine). -/
-theorem Lens.view_slash {α : Type} (L : Lens α)
+protected theorem Lens.view_slash {α : Type} (L : Lens α)
     (hsym : ∀ u v : α, L.combine u v = L.combine v u)
     (x y : Raw) (h : x ≠ y) :
     L.view (Raw.slash x y h) = L.combine (L.view x) (L.view y) :=
@@ -98,7 +98,7 @@ is exactly one.
 /-- **Universal property — existence + uniqueness (conditioned on commutativity)**.
     Raw is the initial object in the commutative Raw-algebra category.
     For a given L, the L-compatible function is exactly `L.view`. -/
-theorem Lens.initiality {α : Type} (L : Lens α)
+protected theorem Lens.initiality {α : Type} (L : Lens α)
     (hsym : ∀ u v : α, L.combine u v = L.combine v u) :
     ∃ f : Raw → α,
       (f Raw.a = L.base_a) ∧

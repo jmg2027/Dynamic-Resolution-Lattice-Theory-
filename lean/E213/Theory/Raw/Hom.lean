@@ -52,7 +52,7 @@ namespace E213.Theory
 
 open E213.Theory.Internal
 
-theorem Raw.fold_swap_hom {α : Type}
+protected theorem Raw.fold_swap_hom {α : Type}
     (ba bb : α) (c : α → α → α) (conj : α → α)
     (h_ba : conj ba = bb) (h_bb : conj bb = ba)
     (h_dist : ∀ u v, conj (c u v) = c (conj u) (conj v))

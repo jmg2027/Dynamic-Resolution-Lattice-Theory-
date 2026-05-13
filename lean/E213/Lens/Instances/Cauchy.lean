@@ -122,7 +122,7 @@ structure LimitAssignment {ι : Type} (F : ι → (α : Type) × Lens α)
   data : ∀ i, CauchyData (F i).2 xs
 
 /-- Limit value extraction — limit class for each i. -/
-def LimitAssignment.limit {ι : Type} {F : ι → (α : Type) × Lens α}
+protected def LimitAssignment.limit {ι : Type} {F : ι → (α : Type) × Lens α}
     {xs : Nat → Raw} (la : LimitAssignment F xs) (i : ι) : (F i).1 :=
   limitClass (la.data i)
 

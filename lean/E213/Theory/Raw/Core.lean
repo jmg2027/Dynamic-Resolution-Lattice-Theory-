@@ -25,7 +25,7 @@ instance : DecidableEq Raw := fun ⟨x, _⟩ ⟨y, _⟩ =>
   | .isTrue h  => .isTrue (Subtype.ext h)
   | .isFalse h => .isFalse (fun e => h (congrArg Subtype.val e))
 
-def Raw.a : Raw := ⟨.a, rfl⟩
-def Raw.b : Raw := ⟨.b, rfl⟩
+protected def Raw.a : Raw := ⟨.a, rfl⟩
+protected def Raw.b : Raw := ⟨.b, rfl⟩
 
 end E213.Theory

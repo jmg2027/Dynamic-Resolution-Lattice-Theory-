@@ -52,7 +52,7 @@ open E213.Theory E213.Lens
 /-- **Slash arg-swap invariance of every Lens.view.**
     No commutativity hypothesis on `L.combine` — the invariance
     comes entirely from `Raw.slash_comm`. -/
-theorem Lens.view_slash_swap {α : Type} (L : Lens α)
+protected theorem Lens.view_slash_swap {α : Type} (L : Lens α)
     (x y : Raw) (h : x ≠ y) :
     L.view (Raw.slash x y h)
       = L.view (Raw.slash y x (Ne.symm h)) :=
@@ -63,7 +63,7 @@ theorem Lens.view_slash_swap {α : Type} (L : Lens α)
     the kernel relation `L.equiv` always identifies
     `slash x y` with `slash y x`.  So any "Raw quotient" obtained
     by Lens-pulling identifies slash-arg-swap pairs *for free*. -/
-theorem Lens.equiv_slash_swap {α : Type} (L : Lens α)
+protected theorem Lens.equiv_slash_swap {α : Type} (L : Lens α)
     (x y : Raw) (h : x ≠ y) :
     L.equiv (Raw.slash x y h) (Raw.slash y x (Ne.symm h)) :=
   Lens.view_slash_swap L x y h

@@ -31,7 +31,7 @@ open E213.Theory E213.Lens
 /-- **Lens kernel congruence**: if x ~ x' and y ~ y' then
     the slash values are also equivalent.  `hsym` requires
     symmetry at the AXIOM level. -/
-theorem Lens.equiv_slash_congruence {α : Type} (L : Lens α)
+protected theorem Lens.equiv_slash_congruence {α : Type} (L : Lens α)
     (hsym : ∀ u v : α, L.combine u v = L.combine v u)
     (x x' y y' : Raw) (hx : x ≠ y) (hx' : x' ≠ y')
     (hxx' : L.equiv x x') (hyy' : L.equiv y y') :

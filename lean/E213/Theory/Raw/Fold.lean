@@ -41,14 +41,14 @@ protected def Raw.fold {α : Type}
 example : Raw.fold (0 : Nat) 1 (· + ·) Raw.a = 0 := rfl
 example : Raw.fold (0 : Nat) 1 (· + ·) Raw.b = 1 := rfl
 
-theorem Raw.fold_a {α : Type} (ba bb : α) (c : α → α → α) :
+protected theorem Raw.fold_a {α : Type} (ba bb : α) (c : α → α → α) :
     Raw.fold ba bb c Raw.a = ba := rfl
 
-theorem Raw.fold_b {α : Type} (ba bb : α) (c : α → α → α) :
+protected theorem Raw.fold_b {α : Type} (ba bb : α) (c : α → α → α) :
     Raw.fold ba bb c Raw.b = bb := rfl
 
 /-- Fold / slash compatibility for symmetric `combine`. -/
-theorem Raw.fold_slash {α : Type}
+protected theorem Raw.fold_slash {α : Type}
     (ba bb : α) (c : α → α → α)
     (hsym : ∀ u v : α, c u v = c v u)
     (x y : Raw) (h : x ≠ y) :

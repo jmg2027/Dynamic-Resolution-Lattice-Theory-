@@ -143,15 +143,15 @@ open E213.Theory.Internal
 protected def Raw.swap (r : Raw) : Raw :=
   ⟨Tree.swap r.val, Tree.swap_canonical r.val r.property⟩
 
-theorem Raw.swap_a : Raw.swap Raw.a = Raw.b := rfl
-theorem Raw.swap_b : Raw.swap Raw.b = Raw.a := rfl
+protected theorem Raw.swap_a : Raw.swap Raw.a = Raw.b := rfl
+protected theorem Raw.swap_b : Raw.swap Raw.b = Raw.a := rfl
 
-theorem Raw.swap_swap (r : Raw) : Raw.swap (Raw.swap r) = r := by
+protected theorem Raw.swap_swap (r : Raw) : Raw.swap (Raw.swap r) = r := by
   apply Subtype.ext
   exact Tree.swap_swap r.val r.property
 
 /-- Raw.swap is injective.  Follows directly from involutivity. -/
-theorem Raw.swap_injective {x y : Raw} (h : Raw.swap x = Raw.swap y) : x = y := by
+protected theorem Raw.swap_injective {x y : Raw} (h : Raw.swap x = Raw.swap y) : x = y := by
   have hswap : Raw.swap (Raw.swap x) = Raw.swap (Raw.swap y) :=
     congrArg Raw.swap h
   rw [Raw.swap_swap, Raw.swap_swap] at hswap

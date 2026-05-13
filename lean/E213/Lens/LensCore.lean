@@ -34,21 +34,21 @@ protected def Lens.view {α : Type} (L : Lens α) (r : Raw) : α :=
 protected def Lens.equiv {α : Type} (L : Lens α) (x y : Raw) : Prop :=
   L.view x = L.view y
 
-theorem Lens.equiv_refl {α} (L : Lens α) (x : Raw) : L.equiv x x := rfl
+protected theorem Lens.equiv_refl {α} (L : Lens α) (x : Raw) : L.equiv x x := rfl
 
-theorem Lens.equiv_symm {α} (L : Lens α) {x y : Raw} :
+protected theorem Lens.equiv_symm {α} (L : Lens α) {x y : Raw} :
     L.equiv x y → L.equiv y x := Eq.symm
 
-theorem Lens.equiv_trans {α} (L : Lens α) {x y z : Raw} :
+protected theorem Lens.equiv_trans {α} (L : Lens α) {x y z : Raw} :
     L.equiv x y → L.equiv y z → L.equiv x z := Eq.trans
 
 -- Canonical Lenses.
 
 /-- Leaves: counts base-object occurrences. -/
-def Lens.leaves : Lens Nat := ⟨1, 1, (· + ·)⟩
+protected def Lens.leaves : Lens Nat := ⟨1, 1, (· + ·)⟩
 
 /-- Depth: tree height. -/
-def Lens.depth : Lens Nat := ⟨0, 0, fun a b => 1 + max a b⟩
+protected def Lens.depth : Lens Nat := ⟨0, 0, fun a b => 1 + max a b⟩
 
 -- Base-value computations (smoke tests).
 example : Lens.leaves.view Raw.a = 1 := rfl
@@ -60,9 +60,9 @@ example : Lens.depth.view Raw.b = 0 := rfl
 protected def Lens.refines {α β : Type} (L : Lens α) (M : Lens β) : Prop :=
   ∀ x y : Raw, L.equiv x y → M.equiv x y
 
-theorem Lens.refines_refl {α} (L : Lens α) : L.refines L := fun _ _ h => h
+protected theorem Lens.refines_refl {α} (L : Lens α) : L.refines L := fun _ _ h => h
 
-theorem Lens.refines_trans {α β γ} {L : Lens α} {M : Lens β} {N : Lens γ} :
+protected theorem Lens.refines_trans {α β γ} {L : Lens α} {M : Lens β} {N : Lens γ} :
     L.refines M → M.refines N → L.refines N :=
   fun h1 h2 x y h => h2 x y (h1 x y h)
 

@@ -101,19 +101,19 @@ namespace E213.Theory
 
 open E213.Theory.Internal
 
-theorem Raw.swap_depth (r : Raw) : (Raw.swap r).depth = r.depth :=
+protected theorem Raw.swap_depth (r : Raw) : (Raw.swap r).depth = r.depth :=
   Tree.swap_depth r.val r.property
 
 protected def Raw.leaves (r : Raw) : Nat := r.val.leaves
 
-theorem Raw.swap_leaves (r : Raw) : (Raw.swap r).leaves = r.leaves :=
+protected theorem Raw.swap_leaves (r : Raw) : (Raw.swap r).leaves = r.leaves :=
   Tree.swap_leaves r.val r.property
 
-theorem Raw.fold_eq_depth (r : Raw) :
+protected theorem Raw.fold_eq_depth (r : Raw) :
     Raw.fold 0 0 (fun a b => 1 + max a b) r = r.depth :=
   Tree.fold_eq_depth r.val
 
-theorem Raw.fold_eq_leaves (r : Raw) :
+protected theorem Raw.fold_eq_leaves (r : Raw) :
     Raw.fold 1 1 (· + ·) r = r.leaves :=
   Tree.fold_eq_leaves r.val
 
@@ -124,17 +124,17 @@ theorem Raw.fold_eq_leaves (r : Raw) :
 /-- Level-≤1 witnesses: the Raw terms `a`, `b`, `a/b`
     (a `List Raw`, not a ZFC set; order is the enumeration
     Lens choice, not axiomatic). -/
-def Raw.level1_set : List Raw :=
+protected def Raw.level1_set : List Raw :=
   [Raw.a, Raw.b, Raw.slash Raw.a Raw.b (by decide)]
 
 /-- Level-2 additions: the Raw terms `a/(a/b)`, `b/(a/b)`. -/
-def Raw.level2_new : List Raw :=
+protected def Raw.level2_new : List Raw :=
   [Raw.slash Raw.a (Raw.slash Raw.a Raw.b (by decide)) (by decide),
    Raw.slash Raw.b (Raw.slash Raw.a Raw.b (by decide)) (by decide)]
 
-theorem Raw.level1_card : Raw.level1_set.length = 3 := rfl
-theorem Raw.level2_new_card : Raw.level2_new.length = 2 := rfl
-theorem Raw.level2_total_card :
+protected theorem Raw.level1_card : Raw.level1_set.length = 3 := rfl
+protected theorem Raw.level2_new_card : Raw.level2_new.length = 2 := rfl
+protected theorem Raw.level2_total_card :
     (Raw.level1_set ++ Raw.level2_new).length = 5 := rfl
 
 example : (Raw.level1_set ++ Raw.level2_new).Nodup := by decide

@@ -29,7 +29,7 @@ namespace E213.Theory
 
 open E213.Theory.Internal
 
-theorem Raw.fold_signed_swap (r : Raw) :
+protected theorem Raw.fold_signed_swap (r : Raw) :
     Raw.fold (1 : Int) (-1) (· + ·) (Raw.swap r)
       = - Raw.fold (1 : Int) (-1) (· + ·) r :=
   Tree.fold_signed_swap r.val r.property

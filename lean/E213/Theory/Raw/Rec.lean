@@ -74,7 +74,7 @@ private noncomputable def Raw.recAux {motive : Raw → Sort u}
     `elab_as_elim` so the elaborator treats it correctly in
     `induction`-style tactic applications.) -/
 @[elab_as_elim]
-noncomputable def Raw.rec {motive : Raw → Sort u}
+protected noncomputable def Raw.rec {motive : Raw → Sort u}
     (a : motive Raw.a)
     (b : motive Raw.b)
     (slash : ∀ (x y : Raw) (h : x ≠ y),
