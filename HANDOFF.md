@@ -139,9 +139,50 @@ Meta/
 └── (UniversalLens/ — 삭제, Lens/Universal/Witnesses/ 로 이동)
 ```
 
-총 누적 (5+ sessions, 36 commits):
+## 추가 라운드 — Session F (organization polish, 9 commits)
+
+Cluster reorganization + API tier split + INDEX.md harvest.
+
+| Commit | 작업 |
+|---|---|
+| `80738409` | Lens/Leaves → Lens/Instances/Leaves 폴드 (sub-cluster 14→13) |
+| `76bc28eb` | Lens/API.lean Tier 1/Tier 2 분리 (HV1+HV2+HV3 만 bundle) |
+| `28e40c97` | INDEX.md batch 1: 6 large clusters (CD/Integer, FluxMVT 등) |
+| `b31ad8c9` | INDEX.md batch 2: 9 clusters (Theory/Raw, Real213 sub-dirs 등) |
+| `fe70d080` | INDEX.md batch 3: 4 clusters (ArithFSM, CD/Tower, HC/Bridge, Pell) |
+| `72935727` | INDEX.md batch 4: 5 clusters (Modulus, Linalg, Integration 등) |
+| `420bfec8` | INDEX.md batch 5: 9 clusters (Analysis 통합 + 9-file 그룹) |
+| `568ee768` | INDEX.md batch 6: 8 clusters + Atomicity README→INDEX rename |
+
+INDEX.md coverage: 90 5+-files clusters 중 **56** 가 INDEX.md
+보유 (Session F 시작 17 → 56, **+39 신규**).  나머지 34 는 후속.
+
+```
+Lens/  (sub-cluster 14 → 13 — Leaves 폴드)
+├── Cardinality/     (9 — Session E)
+├── Universal/       (2 + Witnesses/ 11 — Session E+)
+├── Instances/       (29 flat + Leaves/ 5 — Session F-1)
+├── Algebra/         (7 kernel-theory만)
+├── API.lean         (Tier 1: HV1+HV2+HV3 — Session F-2)
+└── ... (다른 10 sub-clusters)
+```
+
+## 총 누적 (6 sessions, 45 commits):
+
 - Session A: structural cleanup (10)
 - Session B: file consolidation (10)
 - Session C: sub-organization + tiny fold (8)
 - Session D: documentation alignment (4)
 - Session E: Lens ring discipline 완료 (2)
+- Session E+: UniversalLens 이동 (2)
+- Session F: organization polish + INDEX.md harvest (9)
+
+## 진행 중인 후속 (Session F+ 후보)
+
+- INDEX.md 잔여 34 clusters (5+ files, 주로 6-7 files 작은 것들)
+- Namespace 정리: E213.Infinity → E213.Lens.Cardinality (path 와
+  align, Cardinality 이동 시 보류한 것)
+- Lens sub-cluster 13 → 7 추가 통합 (LENS_AUDIT §4 권장; Refines +
+  Lattice, Properties + Characterisation + Morphism + Diagonal,
+  Core/ 신규)
+- Math 측 path-namespace mismatch 정리 (E213.Infinity 외 다수)
