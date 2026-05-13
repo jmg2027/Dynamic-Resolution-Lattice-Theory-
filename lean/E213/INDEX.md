@@ -10,71 +10,68 @@ body of work or derived artifacts.
 > questions.  This INDEX.md is a *navigation* document; for *theory*,
 > read ARCHITECTURE.md first.
 
-## Layered architecture (post-2026-05-XX deep reorg)
+## Layered architecture (4 ring + Meta, 2026-05-12 spec)
 
-ONE vertical axis (Term → App), Math/ and Physics/ as topical
-roots whose individual files each live at one of the vertical
-layers (computed by `tools/layer_audit.py` from import closure).
+213 is a **4-ring** hierarchy (Term → Theory → Lens → Lib) plus
+**Meta** as a ring-independent Lean 4 bridge.  Each ring imports
+only from the immediately-below ring's `API.lean` (and from Meta).
+See `ARCHITECTURE.md` (this directory) for the canonical spec.
 
 ```
-Term/      ★ 24 files, 0-axiom scaffolding
-             + Tactic/ (Nat213, Mod213, Fin213, Pow213,
-                        Omega213, QuadNorm + Test)
+Term/     ★ 12 files — Raw 의 구현체 (deep-embedded Tree
+            substrate, Bool comparators, Sound bridges, Pair/Rat,
+            Decide, Demo, MonomialAxioms).  ★ literally 0-axiom.
   ↓
-Theory/    27 files: Raw axiom (a, b, slash, slash_comm)
-             + Atomicity/ (forced d=5, (NS,NT)=(3,2))
+Theory/   41 files — 213 axiom 자체 (Raw + 4-clause commitments)
+            + Atomicity (forced d=5, (NS,NT)=(3,2))
+            + Closed (Bool213, Nat213, RawCut, NumberingSystem)
+            + Nat213/Tower/CDDouble/RawCmpIndependence.
   ↓
-Lens/  101 files: Lens framework
-             Lens.lean umbrella + 12 sub-cluster umbrellas
-             (Instances/, Characterisation/, Lattice/, Compose/,
-              Properties/, Morphism/, Leaves/, Refines/, Term/,
-              Universal/, AxiomLenses/{Bridges, Core}/) +
-             Initiality.lean + SemanticAtom.lean
+Lens/    121 files — Lens framework (catamorphism Raw → α).
+            Algebra/ AxiomLenses/ Cardinality/ Compose/
+            Instances/ Lattice/ Properties/ Universal/ Internal/
+            sub-clusters + Initiality + SemanticAtom + EqPW.
   ↓
-Meta/        26 files: UniversalLens / Tactic sub-cluster
-             umbrellas + SelfRecognising codomain
-             hierarchy (CommBinary/NonVanishing/Conjugation),
-             AxiomMinimality{,Capstone}, BitPatternUniqueness,
-             LensInternality
-  ↓
-App/         1 file (Simplex)
-OS/          14 files: HodgeConjecture/Bridges/ +
-             Physics/Capstones/ (motivic-cohomology + physics
-             integration capstones)
+Lib/Math/    743 files (43 sub-clusters): CayleyDickson, Real213,
+             SignedCut, Probability, Cohomology, DyadicFSM,
+             HodgeConjecture, Analysis, Linalg213, Cauchy,
+             ModArith, Modulus, Irrational, Polynomial213,
+             Trajectory, …
+Lib/Physics/ 165 files (17 sub-clusters): AlphaEM, Couplings,
+             Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology,
+             Atomic, Simplex, Basel, YangMills, Capstones,
+             Substrate, Foundations, Certificates, …
 
-Math/        495 files (topical): Cohomology/, Real213/, Analysis/,
-             CayleyDickson/, Cauchy/, ModArith/, Modulus/, Diagonal/,
-             Irrational/, Hyper/, Choice/, Infinity/, Linalg213/,
-             AxiomSystems/, Polynomial213/, Trajectory/, Tactic/
-             (HurwitzRing, IntSquare, QuadExtension)
-Physics/     128 files (topical): AlphaEM, Couplings, Hadron, Higgs,
-             Mass, Mixing, Nuclear, Cosmology, Atomic, Simplex,
-             Basel, YangMills, Substrate, Foundations
+Meta/    37 files (ring-independent) — Lean 4 bridge.
+             SelfRecognising (CommBinary/NonVanishing/Conjugation
+             Codomain typeclass tower), AxiomMinimality{,Capstone},
+             LensInternality, BitPatternUniqueness, Tactic/
+             (Nat213, Mod213, Fin213, Pow213, Omega213, QuadNorm,
+              NativeGuard, PureGuard, VerifyConjugation,
+              DeriveConjugationCodomain), Nat/Int213/Algebra213
+             helpers.  Any ring may import from Meta.
 ```
-
-See `ARCHITECTURE.md` (this directory) for canonical theoretical
-definitions of each layer + the per-file layer-derivation rule.
 
 ## Layer roles
 
-| Layer | Purpose | Axiom load |
-|---|---|---|
-| Term/ | 24 files, 0-axiom scaffolding + Tactic/ (Nat213, Mod213, Fin213, Pow213, Omega213, QuadNorm) | none |
-| Lens/ | 101 files: Lens framework (umbrella + 12 sub-clusters) | none |
-| Meta/ | 26 files: metatheorems + Tactic/ + UniversalLens/ | mostly none |
-| App/ | 1 file (Simplex) | none |
-| OS/ | 14 files: top-level integration capstones (HodgeConjecture/Bridges, Physics/Capstones) | mostly none |
-| Math/ | 495 files topical math (Cohomology, Real213, …); each file at its natural vertical layer | mixed |
-| Physics/ | 128 files topical physics; each file at its natural vertical layer | mixed |
+| Layer | Files | Role | Axiom load |
+|---|---|---|---|
+| Term/      | 12  | Raw 의 구현체 (Tree, Term, comparators)  | ★ 0  |
+| Theory/    | 41  | Raw axiom + Atomicity + Closed types     | mostly 0 |
+| Lens/      | 121 | Lens framework + sub-clusters            | mostly 0 |
+| Lib/Math/  | 743 | 213-native mathematics (43 sub-clusters) | mixed |
+| Lib/Physics/| 165| 213-native physics (17 sub-clusters)     | mixed |
+| Meta/      | 37  | Lean 4 bridge (tactics + typeclasses)    | mostly 0 |
 
-> **Architectural note (2026-05-06, M14)**: prior layer names were
-> Kernel/Firmware/Hypervisor (OS-metaphor); renamed to
-> Term/Theory/Lens (direct concept names).  Pre-M14 history is in
-> `git log`.  An `OS/` orchestration ring also existed pre-M14;
-> it was dissolved in Phase A (HodgeConjecture motivic bridges →
-> Lib/Math/Cohomology/HodgeConjecture/MotivicBridge/, physics
-> capstones →
-> Lib/Physics/Capstones/).
+Total: 1127 .lean files.
+
+> **Architectural history**: Pre-2026-05-12 layers were named
+> Kernel/Firmware/Hypervisor (OS-metaphor) and there was an
+> orchestration ring `OS/`; both renamings + the OS/ dissolution
+> are in `git log`.  Pre-2026-05-13 `App/` directory was also
+> dissolved (its sole file `App/Simplex.lean` moved to
+> `Lib/Math/Combinatorics/Simplex5.lean`).  Current spec is in
+> `ARCHITECTURE.md`.
 
 ## Capstone navigation
 
@@ -92,15 +89,17 @@ Top achievements:
 
 | Question | Where to look |
 |---|---|
-| "What does DRLT compute?" | `Physics/Capstones/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
-| "How does α_em derive?" | `Physics/AlphaEM/` chain (18 files) |
-| "Where is N_universe?" | `Physics/Foundations/NUniverseFractalDepth.lean` |
-| "Why finite N only?" | `Math/Real213/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
+| "What does DRLT compute?"     | `Lib/Physics/Capstones/PureAtomicObservables.lean` + `CAPSTONE_INDEX.md` |
+| "How does α_em derive?"       | `Lib/Physics/AlphaEM/` chain |
+| "Where is N_universe?"        | `Lib/Physics/Foundations/NUniverseFractalDepth.lean` |
+| "Why finite N only?"          | `Lib/Math/Real213/Bisection/DyadicTrajectory.lean` (limit ≠ exact) + `LESSONS_LEARNED.md` |
 | "What are the atomic primitives?" | `Theory/Atomicity/Five.lean` + `Theory/Atomicity/PairForcing.lean` |
-| "How is the kernel 0-axiom?" | `Term/` 18 files + `tools/kernel_regress.sh` |
-| "Cohomology classes?" | `Math/Cohomology/` (~217 files in 10 sub-clusters) + `rust-engine/docs/cohomology-classes.md` |
-| "Lens framework?" | `Lens/Lens.lean` + 12 sub-cluster umbrellas under `Lens/Lens/` + `Meta/UniversalLens/` |
-| "Theoretical architecture?" | `ARCHITECTURE.md` (this directory) |
+| "How is Term ring 0-axiom?"   | `Term/` 12 files + `tools/kernel_regress.sh` + `STRICT_ZERO_AXIOM.md` |
+| "Cohomology classes?"         | `Lib/Math/Cohomology/` (94 files in 11 sub-clusters) + `rust-engine/docs/cohomology-classes.md` |
+| "Lens framework?"             | `Lens/LensCore.lean` + 9 sub-cluster umbrellas under `Lens/` + `Lens/Universal/Witnesses/` |
+| "Universal-Lens witnesses?"   | `Lens/Universal/Witnesses/` (moved from Meta 2026-05-13) |
+| "Raw-native number types?"    | `Theory/Closed/Nat213.lean` + `Theory/Nat213/Core.lean` + `Theory/Tower/{NatPairToInt,NatPairToQPos,NatTripleToZ2}.lean` |
+| "Theoretical architecture?"   | `ARCHITECTURE.md` (this directory) |
 
 ## Build
 
@@ -112,50 +111,51 @@ lake env lean -e '...'           # eval (used by lean-rust-diff)
 
 ## Tooling
 
-  - `Term/Tactic/Omega213.lean` — axiom-free Nat arithmetic
-    (drop-in for omega; macro lives in `namespace E213.Tactic`
-    short-form for ergonomic `open E213.Tactic`)
+  - `Meta/Tactic/Omega213.lean` — axiom-free Nat arithmetic
+    (drop-in for omega; macro lives in `namespace E213.Tactic`,
+    short-form for ergonomic `open E213.Tactic`).
+    Moved from Term/Tactic/ 2026-05-12 (ring-independent → Meta).
   - `Meta/Tactic/VerifyConjugation.lean` — `ConjugationCodomain`
-    instance diagnostic (`#verify_conjugation MyType`)
+    instance diagnostic (`#verify_conjugation MyType`).
+  - `Meta/Tactic/PureGuard.lean`, `NativeGuard.lean` — runtime
+    axiom-purity / native-decide guards.
   - `tools/layer_audit.py` (repo root) — derive each file's natural
-    vertical layer from import closure; reports violations + topical
-    cluster depth
+    vertical layer from import closure; reports violations +
+    topical cluster depth.
+  - `tools/sync_namespaces.py` — namespace ↔ path alignment.
+  - `tools/scan_axioms.py` — per-module axiom audit.
+  - `.claude/hooks/layer-import-guard.sh` — blocks new
+    cross-ring reach-ins to `E213.<lower>.Internal.*` at edit-time.
 
-## Cleanup status (2026-05-XX, post-M11/M12 umbrella sweep)
+## Distribution (per `tools/layer_audit.py`)
 
-Lean tree: ~825 files (post-reorg + 38+ new sub-cluster umbrellas
-in M11/M12).  Every directory now has a `<DirName>.lean` umbrella
-(R2 / R7 of `research-notes/CONSOLIDATION_PROTOCOL.md`).
-
-Distribution (per `tools/layer_audit.py`):
-
-| top-folder | Term | Theory | Lens | Meta | App | total |
+| top-folder      | Term | Theory | Lens | Lib | Meta | total |
 |---|---|---|---|---|---|---|
-| Term/      | 23 |   0 |   0 |  0 | 0 |  24 |
-| Theory/    |  0 |  27 |   0 |  0 | 0 |  27 |
-| Lens/  |  0 |   0 |  89 |  0 | 0 | 101 |
-| Meta/        |  0 |   0 |   0 | 27 | 0 |  30 |
-| App/         |  0 |   0 |   0 |  0 | 1 |   1 |
-| OS/          |  0 |  11 |   1 |  0 | 0 |  14 |
-| Math/        | 49 | 235 | 180 |  9 | 0 | 495 |
-| Physics/     |  0 | 116 |  11 |  0 | 0 | 128 |
+| Term/           | 12  |   0  |  0  |   0  |  0  |   12 |
+| Theory/         |  0  |  41  |  0  |   0  |  0  |   41 |
+| Lens/           |  0  |   0  | 121 |   0  |  0  |  121 |
+| Lib/Math/       |  —  |   —  |  —  | 743  |  —  |  743 |
+| Lib/Physics/    |  —  |   —  |  —  | 165  |  —  |  165 |
+| Meta/           |  0  |   0  |  0  |   0  | 37  |   37 |
 
-(Counts are total files including the new `<DirName>.lean`
-sub-cluster umbrellas.)
+Total: 1127 .lean files.
 
-Architecture audits (completed 2026-05-XX):
-  - OS/ dissolved → Theory/Atomicity/ + Math/Pigeonhole
-  - Phase{2,3,4} retired → distributed across Physics/ topical clusters
-  - Research/ marker eliminated → Math/Real213/, Math/CayleyDickson/,
-    Math/Cauchy/, Lens/Lens/{Lattice,Compose,Properties,…}/,
-    Meta/{AxiomMinimality}, Theory/Raw/{DecEq, …}
-  - Infinity/ → Math/Infinity/
-  - Tactic/ distributed by import-derived layer (Term, Lib.Math, Meta)
-  - namespace ↔ path alignment via `tools/sync_namespaces.py`
-  - Layer audit zero-violations enforced via `tools/layer_audit.py`
+(Lib files each live at one natural vertical layer.  Per the 4-ring
+spec, Lib/Math + Lib/Physics use Lens API only — they don't reach
+into Theory or Term directly.)
 
-## Branches
+Architecture audits (completed):
+  - 4-ring + Meta finalised 2026-05-12 (rename of Kernel→Term,
+    Firmware→Theory, Hypervisor→Lens; OS/ dissolved earlier).
+  - App/ dissolved 2026-05-13 (Simplex.lean → Lib/Math/Combinatorics).
+  - Universal-Lens witnesses moved Meta → Lens 2026-05-13.
+  - NatHelpers moved Lib/Math → Meta/Nat 2026-05-13.
+  - Term/Tactic moved to Meta/Tactic 2026-05-12.
+  - Ring-discipline (Term ⊆ Theory ⊆ Lens ⊆ Lib + Meta any-ring)
+    hook-enforced at edit-time.
 
-  - `main` — base
-  - `claude/213-rust-engine-SloKB` — current head (rust-engine + merged math)
-  - `claude/review-paper-directory-nDw9L` — math-track parallel
+## Branch
+
+  - Current: `claude/encapsulate-ring-structure-CLeEG` —
+    Lean 4 native encapsulation pass (private + protected on
+    framework rings).  See `HANDOFF.md`.

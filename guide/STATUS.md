@@ -28,7 +28,7 @@ multiple tiers per section.
 | 6 | m₃ / m₂ (ν) | +0.04% | `Mixing/NeutrinoMixing` | Ch. 08 |
 | 7 | Ω_Λ | 0.0008% | `Cosmology/DarkEnergy` | Ch. 09 |
 | 8 | Magic numbers 7/7 | exact | `Nuclear/MagicNumbers` | Ch. 11 |
-| 9 | d = 5 atomicity | exact (theorem) | `Firmware/Atomicity/Five` | Ch. 02 |
+| 9 | d = 5 atomicity | exact (theorem) | `Theory/Atomicity/Five` | Ch. 02 |
 | 10 | 1/α₃ = 8 | exact | `PhotonKernel` | Ch. 05/Ch. 10 |
 | 11 | Periodic table Z=1..118 | ppb-level | `Library` | Ch. 07 |
 | 12 | CH₄/H₂O/NH₃ angles | exact | `BondAngles` | Ch. 07 |

@@ -36,7 +36,7 @@ appropriate limit — is **open**.
 
 - 1/α₃ = 8 (Ch. 10) — color confinement formula closed.
 - `paper8` no-go: continuum massless gauge field over d = 5 lattice
-  cannot satisfy R4 (`Meta/R4Codomain.lean`) — formal incompatibility.
+  cannot satisfy R4 (`Meta/SelfRecognising.lean`) — formal incompatibility.
 
 ### Hadamard, deficit angle
 
@@ -69,4 +69,4 @@ calculus of Ch. 14.
 - `papers/drlt-book/chapters/ch15_yang_mills.tex`
 - `lean/E213/Lib/Physics/YangMillsGap.lean`,
   `PhotonKernel.lean`, `AsymptoticFreedom.lean`.
-- `lean/E213/Meta/R4Codomain.lean` (R4 no-go for massless gauge).
+- `lean/E213/Meta/SelfRecognising.lean` (R4 no-go for massless gauge).

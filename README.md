@@ -92,31 +92,42 @@ Active branch split (transient): `BRANCH_MERGE_GUIDE.md`.
 
 ```
 seed/            axioms + philosophy + falsifiability
-lean/E213/       Lean 4 formal library (~840 files)
+lean/E213/       Lean 4 formal library (~1127 files)
                  — see `lean/E213/ARCHITECTURE.md` for canonical
-                   theoretical layer definitions
-  ├── Kernel/    ★ Lean-side scaffolding (deep-embedded Term,
-  │              0-axiom self-bootstrap path; 14 files, 101 thms)
-  ├── Firmware/  Raw axiom (4-clause) + Atomicity/ sub-cluster
-  │              (forced shape uniqueness — d=5, NS=3, NT=2,
-  │              proven from outside without Raw import)
-  ├── Hypervisor/ Lens framework (catamorphism Raw → α) +
-  │              Lens/{Instances, Characterisation}/ sub-clusters
-  ├── Meta/      true metatheory: UniversalLens family,
-  │              SelfRecognising (R1-R4), BitPatternUniqueness
-  ├── App/       concrete applications (Simplex)
-  ├── Math/      Cohomology (~175 files in 10 sub-clusters),
-  │              Linalg213, Cauchy/Real213 plumbing, Pigeonhole
-  ├── Physics/   267 files in 18 topical sub-clusters (AlphaEM,
-  │              Couplings, Hadron, Higgs, Mass, Mixing, Nuclear,
-  │              Cosmology, Atomic, Simplex, Basel,
-  │              YangMills, Capstones, Library, Substrate,
-  │              AtomicCorrespondences, Foundations)
-  ├── Research/  research / exploratory (332 files; Real213/ alone is
-  │              180 of those, 17 sub-clusters total)
-  ├── Infinity/  limit / compactification (external bridges)
-  ├── Tactic/    custom tactics (Omega213, VerifyR4, ...)
-  └── Tools/     Lean-side analysis tools (CertChecker)
+                   theoretical layer definitions (4 ring + Meta
+                   since 2026-05-12)
+  ├── Term/      12 files — Raw 의 구현체 (deep-embedded Tree
+  │              substrate + ∅-axiom Bool comparators / soundness
+  │              bridges / Demo / MonomialAxioms).  Theory 가
+  │              사용할 base API.  ★ literally 0-axiom.
+  ├── Theory/    41 files — 213 axiom 자체 (Raw + 4-clause
+  │              definitional commitments) + Atomicity (forced
+  │              d=5, (NS,NT)=(3,2)) + Closed (Bool213, Nat213,
+  │              RawCut) + Nat213/Tower/CDDouble.  Term API 만 사용.
+  ├── Lens/      121 files — Lens framework (catamorphism Raw → α)
+  │              + Algebra/AxiomLenses/Cardinality/Compose/
+  │              Instances/Lattice/Properties/Universal sub-clusters.
+  │              Theory API 만 사용.
+  ├── Lib/Math/  743 files (43 sub-clusters): CayleyDickson,
+  │              Real213, SignedCut, Probability, Cohomology,
+  │              DyadicFSM, HodgeConjecture, Analysis,
+  │              Linalg213, Cauchy, ModArith, Modulus, Irrational,
+  │              Hyper, Choice, Polynomial213, Trajectory, …
+  │              Lens API 만 사용.
+  ├── Lib/Physics/ 165 files (17 sub-clusters): AlphaEM, Couplings,
+  │              Hadron, Higgs, Mass, Mixing, Nuclear, Cosmology,
+  │              Atomic, Simplex, Basel, YangMills, Capstones,
+  │              Substrate, Foundations, Certificates, …
+  │              Lens API 만 사용.
+  └── Meta/      37 files — ring-independent Lean 4 bridge.
+                 SelfRecognising (CommBinary/NonVanishing/
+                 Conjugation Codomain typeclass tower),
+                 AxiomMinimality{,Capstone}, LensInternality,
+                 BitPatternUniqueness + Tactic/ (Nat213, Mod213,
+                 Fin213, Pow213, Omega213, QuadNorm, PureGuard,
+                 NativeGuard, …) + Nat/Int213/Algebra213 helpers.
+                 Universal-Lens witnesses moved to
+                 `Lens/Universal/Witnesses/` 2026-05-13.
 rust-engine/     Independent ℕ-only verification (53 binaries,
                  184 tests, 94 citations)
 blueprints/      math/14 + physics/14 + meta/2 (status snapshots)

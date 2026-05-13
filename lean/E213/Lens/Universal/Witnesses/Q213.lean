@@ -4,7 +4,7 @@ import E213.Term.Rat
 /-!
 # Universal Lens at ℚ × ℚ — using 213-native rational
 
-213's rational arithmetic (`Kernel/Rat.lean`) does NOT define a
+213's rational arithmetic (`Term/Rat.lean`) does NOT define a
 separate `ℚ` type — instead, rationals are pairs of `Term`s
 (numerator, denominator) with cross-multiplication equivalence:
 

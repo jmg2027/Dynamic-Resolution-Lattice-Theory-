@@ -6,7 +6,7 @@ import E213.Lib.Math.Tactic.Test.QuadExtensionTest
 
 /-! Spec-as-code entry point for `E213.Lib.Math.Tactic`.
 
-  213-native math tactics — one notch above `Kernel/Tactic/`
+  213-native math tactics — one notch above `Meta/Tactic/`
   (Omega213, QuadNorm, Pow213, …) since these tactics target
   the CayleyDickson / ZSqrt typeclass ecosystem.
 

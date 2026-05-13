@@ -27,8 +27,15 @@ Raw-implementation substrate.
   - `Decide.{allBelow, existsBelow}` (bounded quantifiers)
 
 **K3 — Soundness API** (Bool→Prop bridges):
-  - `Sound.{of_equiv, of_le_b, of_lt_b}`
-  - `Sound.{of_equivQ, of_leQ}`
+  - `Sound.of_equiv` (`equiv = true → eval a = eval b`)
+  - `Sound.of_le_b` (`le_b = true → eval a ≤ eval b`)
+  - `Sound.to_equiv` (converse: `eval a = eval b → equiv = true`)
+  - `Sound.dim_law_eq`, `Sound.d_sq_eq_25`, `Sound.two_nSsq_lt_dsq`
+    (Lean-Eq application capstones)
+
+(Note: `Sound.of_lt_b`, `Sound.of_equivQ`, `Sound.of_leQ` are not
+provided — `lt_b` and the rational `equivQ`/`leQ` are consumed via
+`of_le_b` plus `eval (mul · ·)` rewriting at call sites.)
 
 **Not bundled** (separate concerns):
   - `Demo` — bare-metal demonstration of axiom-free reasoning

@@ -2,8 +2,17 @@
 
 **Date:** 2026-05-XX (continuing G6–G11)
 **Author:** Mingu Jeong (architectural insights), Claude (rigorous classification)
-**Status:** Architecture deliverable.  Conceptual analysis only — no
-file moves yet.  Designed for handoff to another agent session.
+**Status:** Historical research note.  Predates the 2026-05-12 layer
+rename (Kernel → Term, Firmware → Theory, Hypervisor → Lens) and
+the 2026-05-13 App/ dissolution.  The structural conclusions
+remain valid; only the layer-name terminology is stale.  Cited from
+`Lens/API.lean` for the layered-API split (HV1–HV6 → Tier 1/Tier 2).
+For current canonical layer spec, see `lean/E213/ARCHITECTURE.md`.
+Stale theorem names mentioned here (`pair_iff_two`,
+`closure_iff_three`, `arity_iff_two`, `Sound.of_lt_b`,
+`Sound.of_equivQ`, `Sound.of_leQ`) are placeholders that were
+not adopted; current canonical names are in `Theory/API.lean` and
+`Term/API.lean` respectively.
 
 ---
 

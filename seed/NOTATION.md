@@ -141,7 +141,7 @@ Since Raw is a subtype, `r.val : Tree` access is available.
 `.val` exposes the encoding layer (the underlying Tree of the
 canonical form).  Principle:
 
-- `.val` is used **only in Firmware internal proofs**.
+- `.val` is used **only in Theory internal proofs**.
 - **Forbidden in Lens semantics.**  Lens observations always
   go through `Lens.view` / `Raw.fold`.
 - If `r.val.depth`, `r.val.cmp`, etc. appear in user code,

@@ -2,7 +2,7 @@
 
 **Tier:** T0
 **Status:** Closed Lean theorem + Phase 1 Discovery 1 (Fibonacci).
-**Lean:** `Firmware/Atomicity/Five.lean`, `Physics/Foundations/FibonacciAtomic.lean`.
+**Lean:** `Theory/Atomicity/Five.lean`, `Lib/Physics/Foundations/FibonacciAtomic.lean`.
 
 ## Best current statement
 

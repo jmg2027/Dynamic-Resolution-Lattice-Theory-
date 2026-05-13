@@ -137,8 +137,8 @@ involution) fail.
 4. IsAlive parity definition
 
 NS=3, NT=2, d=5는 **derived theorems** (`atomic_iff_five` in
-`Firmware/Atomicity/Five.lean`, `count_eq_one_iff` in
-`Firmware/Atomicity/PairForcing.lean`).  Lean kernel 기준
+`Theory/Atomicity/Five.lean`, `count_eq_one_iff` in
+`Theory/Atomicity/PairForcing.lean`).  Lean kernel 기준
 0개 axiom (host axioms 별개).
 
 **가드레일**: "the four axioms NS=3 NT=2 d=5 c=2"는 잘못.
@@ -242,10 +242,10 @@ backward direction에서만 발생.  "compatible 분모" (b∣k 류)
 - `seed/AXIOM/` — axiom seed doc
 - `seed/AXIOM/00_nature.md` — 213 철학
 - `lean/E213/Physics/FiniteUniverse.lean` — finitist 입장
-- `lean/E213/Physics/AlphaEMMasterCapstone.lean` — α_em 닫힘
-- `lean/E213/Physics/Foundations/NUniverseFractalDepth.lean` — N_U = d^(d²)
-- `lean/E213/Research/AxiomMinimalityCapstone.lean` — 4-clause minimality
-- `lean/E213/Firmware/Atomicity/PairForcing.lean` — (NS,NT,d) derivation
+- `lean/E213/Lib/Physics/AlphaEM/MasterCapstone.lean` — α_em 닫힘
+- `lean/E213/Lib/Physics/Foundations/NUniverseFractalDepth.lean` — N_U = d^(d²)
+- `lean/E213/Meta/AxiomMinimalityCapstone.lean` — 4-clause minimality
+- `lean/E213/Theory/Atomicity/PairForcing.lean` — (NS,NT,d) derivation
 - `guide/01_substrate.md` — substrate 도출 path
 - `guide/15_metalogic.md` — falsifiability + R4 framework
 
@@ -284,8 +284,8 @@ chain으로 노출.
 
 **근거 — 출처**:
 - `research-notes/G2_trajectory_principle.md` (이 통찰의 종합)
-- `lean/E213/Kernel/Tactic/Nat213.lean` (trajectory 어휘 형식화)
-- `lean/E213/Kernel/Tactic/AXIOM_FREE_STATUS.md` (propext-leak catalog)
+- `lean/E213/Meta/Tactic/Nat213.lean` (trajectory 어휘 형식화)
+- `lean/E213/Meta/Tactic/AXIOM_FREE_STATUS.md` (propext-leak catalog)
 
 **가드레일**: 마이그레이션을 단순 "axiom 줄이기 chore"로 보지 말 것.
 *매 변환이 213의 기하학적 본질의 한 instance*.  trajectory를 노출하지
@@ -316,9 +316,9 @@ distinguishing framework가 Raw → α의 Lens로 factor (Initiality).
 - 외부 frame (set theory, universe ascent, axiom of choice) 불필요.
 
 **근거 — 출처**:
-- `Firmware/Raw.lean` (Raw 정의)
-- `Hypervisor/Lens.lean` + `Initiality.lean` (Lens factoring)
-- `Meta/UniversalLens/*` (universality)
+- `Theory/Raw/Core.lean` (Raw 정의)
+- `Lens/LensCore.lean` + `Lens/Initiality.lean` (Lens factoring)
+- `Lens/Universal/Witnesses/*` (universality; moved from `Meta/UniversalLens/` 2026-05-13)
 - `research-notes/G3_raw_as_universal_trajectory.md` (G3 종합)
 
 **가드레일**: 213이 어떻게 어떤 분야를 다룰 수 있냐 의문이 들면,

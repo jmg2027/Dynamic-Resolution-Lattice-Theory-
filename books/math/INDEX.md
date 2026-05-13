@@ -13,7 +13,7 @@ at ≤ {propext, Quot.sound} or STRICT 0-AXIOM.
 | 3 | `cohomology-213.md` | 362 | `lean/E213/Lib/Math/Cohomology/` |
 | 4 | `linalg-213.md` | 269 | `lean/E213/Lib/Math/Linalg213/` |
 | 5 | `probability-213.md` | 328 | `lean/E213/Research/Real213/*` (probability surface) |
-| 6 | `universal-lens-213.md` | 332 | `lean/E213/Meta/UniversalLens*.lean` + `Firmware/Raw.lean` (paper-style exposition) |
+| 6 | `universal-lens-213.md` | 332 | `lean/E213/Lens/Universal/Witnesses/*.lean` + `Theory/Raw/Core.lean` (paper-style exposition) |
 
 Total: ~2700 lines of narrative covering ~700 Lean files.
 

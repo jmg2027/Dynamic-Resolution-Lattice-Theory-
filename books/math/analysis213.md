@@ -870,25 +870,27 @@ Key: id antiderivative directly reduces — `id.derivative = constCutFn (1/1)`,
 ### 15.1 Layer structure
 
 ```
-Firmware (Raw axiom)
+Term/   (Raw 의 구현체 — Tree substrate, comparators)
     ↓
-Hypervisor (Lens abstraction)
+Theory/ (Raw axiom + Atomicity)
     ↓
-OS (Atomicity, Pigeonhole)
+Lens/   (Lens abstraction = catamorphism)
     ↓
-App (Simplex, BlockPair)
-    ↓
-Research/Real213*  ← Analysis 213 territory (this document)
-    ↓
-Math/Analysis      ← umbrella import
+Lib/Math/Real213/  ← Analysis 213 territory (this document)
+Lib/Math/Analysis/ ← umbrella + bridge files
 ```
+
+(Per `lean/E213/ARCHITECTURE.md` 2026-05-12 — 4-ring + Meta.
+Pre-M14 names Firmware/Hypervisor/OS/App are in `git log`.)
 
 ### 15.2 Real213 module family
 
 (Next section — catalog format, details in `CATALOG213.md`)
 
 Detailed catalog provided in separate file `CATALOG213.md`.
-Library entry point: `framework/E213/Math/Analysis213.lean`.
+Library entry points: `lean/E213/Lib/Math/Real213/` (sub-org:
+Core, Sum, Mul, Lattice, Bisection, ExpLog, Cauchy) +
+`lean/E213/Lib/Math/Analysis/`.
 
 ---
 

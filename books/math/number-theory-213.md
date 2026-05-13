@@ -41,7 +41,7 @@ A *trajectory* is a function `bs : ℕ → α` for some readout type
 α.  For α = Bool we call it a *bit stream*; for α = Fin 5 we call
 it a *signature trajectory* (visiting K_{3,2}^{(c=2)} vertices).
 
-A *Lens α* (Hypervisor layer) packages two base values and a
+A *Lens α* (Lens ring) packages two base values and a
 symmetric combine, producing a fold `Lens.view : Raw → α`.  Every
 trajectory in 213 factors through some Lens.
 

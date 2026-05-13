@@ -10,7 +10,7 @@ K_{3,2}^{(2)} skeleton (atomic shape (NS, NT, d) = (3, 2, 5)):
   - **View A (, cyclotomic)**:
     `mod6 n ↔ (parity n, mod3 n)` — CRT
     ℤ/6 ≅ ℤ/2 × ℤ/3, the Eisenstein 6th-roots-of-unity walk.
-    Lives in `Kernel/Tactic/Mod213.lean`.
+    Lives in `Meta/Tactic/Mod213.lean`.
 
   - **View B (chiral split, vertex-count)**:
     `NS + NT = d`  —  Vec 5 = VecS ⊕ VecT, direct sum.
