@@ -1,6 +1,6 @@
-import E213.Meta.UniversalLens.Core
-import E213.Meta.UniversalLens.Nat2
-import E213.Meta.UniversalLens.Nat2Inj
+import E213.Lens.Universal.Witnesses.Core
+import E213.Lens.Universal.Witnesses.Nat2
+import E213.Lens.Universal.Witnesses.Nat2Inj
 
 /-!
 # Universal Lens at ℕ³ — triple-codomain universality
@@ -19,10 +19,10 @@ Closes part of HANDOFF Open Continuation #5 (Universal Lens at
 higher codomains).
 -/
 
-namespace E213.Meta.UniversalLens.Nat3
+namespace E213.Lens.Universal.Witnesses.Nat3
 
 open E213.Theory E213.Lens
-open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_slash expSumNat_inj)
+open E213.Lens.Universal.Witnesses.Nat2Inj (expSumNat expSumNat_slash expSumNat_inj)
 
 /-- Lens at ℕ³ = ℕ × (ℕ × ℕ).  Three independent encodings:
     - 1st: bit-pattern `2^x.1 + 2^y.1` (universal injector)
@@ -84,7 +84,7 @@ theorem expSumLens3_view_inj : Function.Injective expSumLens3.view := by
 
 /-- ★★★★★★★★★ expSumLens3 is a Universal Lens at ℕ³ codomain. -/
 theorem expSumLens3_is_universal :
-    E213.Meta.UniversalLens.Core.IsUniversal expSumLens3 :=
+    E213.Lens.Universal.Witnesses.Core.IsUniversal expSumLens3 :=
   expSumLens3_view_inj
 
-end E213.Meta.UniversalLens.Nat3
+end E213.Lens.Universal.Witnesses.Nat3

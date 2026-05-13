@@ -1,4 +1,4 @@
-import E213.Meta.UniversalLens.Nat2
+import E213.Lens.Universal.Witnesses.Nat2
 import E213.Meta.BitPatternUniqueness
 import E213.Meta.Tactic.Nat213
 
@@ -16,10 +16,10 @@ Once first-component injectivity is established, full view injectivity
 follows trivially (Prod.mk_injective.left).
 -/
 
-namespace E213.Meta.UniversalLens.Nat2Inj
+namespace E213.Lens.Universal.Witnesses.Nat2Inj
 
 open E213.Theory E213.Lens E213.Meta.BitPatternUniqueness
-open E213.Meta.UniversalLens.Nat2 (expSumLens expSumLens_symmetric)
+open E213.Lens.Universal.Witnesses.Nat2 (expSumLens expSumLens_symmetric)
 
 /-- First-component encoding: `expSumNat = (expSumLens.view _).1`. -/
 def expSumNat (r : Raw) : Nat := (expSumLens.view r).1
@@ -146,10 +146,10 @@ theorem expSumLens_view_inj : Function.Injective expSumLens.view := by
   rw [hrs]
 
 /-- ★★★★★★★★★ expSumLens is a Universal Lens (in the sense of
-    `E213.Meta.UniversalLens.IsUniversal`).  This is the first
+    `E213.Lens.Universal.Witnesses.IsUniversal`).  This is the first
     non-trivial universal lens — codomain ℕ × ℕ rather than Raw. -/
 theorem expSumLens_is_universal :
-    E213.Meta.UniversalLens.Core.IsUniversal expSumLens :=
+    E213.Lens.Universal.Witnesses.Core.IsUniversal expSumLens :=
   expSumLens_view_inj
 
-end E213.Meta.UniversalLens.Nat2Inj
+end E213.Lens.Universal.Witnesses.Nat2Inj

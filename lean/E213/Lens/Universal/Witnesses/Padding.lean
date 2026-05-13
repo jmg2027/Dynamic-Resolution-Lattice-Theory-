@@ -1,4 +1,4 @@
-import E213.Meta.UniversalLens.Core
+import E213.Lens.Universal.Witnesses.Core
 
 /-!
 # Universal Lens padding lemma (abstract codomain extension)
@@ -21,10 +21,10 @@ Result: future universal-lens constructions at richer codomains
 become a one-liner application of `view_inj_of_inj_proj`.
 -/
 
-namespace E213.Meta.UniversalLens.Padding
+namespace E213.Lens.Universal.Witnesses.Padding
 
 open E213.Theory E213.Lens
-open E213.Meta.UniversalLens.Core
+open E213.Lens.Universal.Witnesses.Core
 
 /-- ★★★★ Generic injectivity-via-projection lemma.
 
@@ -72,4 +72,4 @@ theorem view_inj_of_fst_eq_universal_triple {α β γ : Type}
     IsUniversal M :=
   view_inj_of_inj_proj M Prod.fst L.view hL hproj
 
-end E213.Meta.UniversalLens.Padding
+end E213.Lens.Universal.Witnesses.Padding

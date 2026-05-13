@@ -1,5 +1,5 @@
-import E213.Meta.UniversalLens.Nat3
-import E213.Meta.UniversalLens.Q213_3
+import E213.Lens.Universal.Witnesses.Nat3
+import E213.Lens.Universal.Witnesses.Q213_3
 
 /-!
 # Triple-codomain Universal Lens capstone
@@ -21,9 +21,9 @@ long as the existing components are unchanged in the combine
 operator (separability of the catamorphism).
 -/
 
-namespace E213.Meta.UniversalLens.TripleCapstone
+namespace E213.Lens.Universal.Witnesses.TripleCapstone
 
-open E213.Meta.UniversalLens.Core (IsUniversal)
+open E213.Lens.Universal.Witnesses.Core (IsUniversal)
 
 /-- ★★★★★★★★ Triple-codomain universality capstone.
 
@@ -37,13 +37,13 @@ open E213.Meta.UniversalLens.Core (IsUniversal)
   All four at ≤ {propext, Quot.sound}.  Each codomain extension
   preserves the bit-pattern injectivity of expSumNat. -/
 theorem universal_lens_triple_capstone :
-    IsUniversal E213.Meta.UniversalLens.Nat2.expSumLens
-    ∧ IsUniversal E213.Meta.UniversalLens.Q213.q213Lens
-    ∧ IsUniversal E213.Meta.UniversalLens.Nat3.expSumLens3
-    ∧ IsUniversal E213.Meta.UniversalLens.Q213_3.q213Lens3 :=
-  ⟨E213.Meta.UniversalLens.Nat2Inj.expSumLens_is_universal,
-   E213.Meta.UniversalLens.Q213Inj.q213Lens_is_universal,
-   E213.Meta.UniversalLens.Nat3.expSumLens3_is_universal,
-   E213.Meta.UniversalLens.Q213_3.q213Lens3_is_universal⟩
+    IsUniversal E213.Lens.Universal.Witnesses.Nat2.expSumLens
+    ∧ IsUniversal E213.Lens.Universal.Witnesses.Q213.q213Lens
+    ∧ IsUniversal E213.Lens.Universal.Witnesses.Nat3.expSumLens3
+    ∧ IsUniversal E213.Lens.Universal.Witnesses.Q213_3.q213Lens3 :=
+  ⟨E213.Lens.Universal.Witnesses.Nat2Inj.expSumLens_is_universal,
+   E213.Lens.Universal.Witnesses.Q213Inj.q213Lens_is_universal,
+   E213.Lens.Universal.Witnesses.Nat3.expSumLens3_is_universal,
+   E213.Lens.Universal.Witnesses.Q213_3.q213Lens3_is_universal⟩
 
-end E213.Meta.UniversalLens.TripleCapstone
+end E213.Lens.Universal.Witnesses.TripleCapstone

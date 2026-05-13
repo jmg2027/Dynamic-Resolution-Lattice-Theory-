@@ -1,5 +1,5 @@
-import E213.Meta.UniversalLens.Q213
-import E213.Meta.UniversalLens.Nat2Inj
+import E213.Lens.Universal.Witnesses.Q213
+import E213.Lens.Universal.Witnesses.Nat2Inj
 
 /-!
 # q213Lens.view full injectivity (Open Problem #6 ℚ²-discrete CLOSED)
@@ -11,11 +11,11 @@ this equals `expSumNat r`.  Then injectivity follows from
 Key bridge lemma: `(Q213.ofNat n).1.eval = n` (round-trip).
 -/
 
-namespace E213.Meta.UniversalLens.Q213Inj
+namespace E213.Lens.Universal.Witnesses.Q213Inj
 
 open E213.Theory E213.Lens E213.Term
-open E213.Meta.UniversalLens.Q213 (Q213 q213Lens q213Lens_symmetric q213Lens_view_a q213Lens_view_b)
-open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_a expSumNat_b expSumNat_inj)
+open E213.Lens.Universal.Witnesses.Q213 (Q213 q213Lens q213Lens_symmetric q213Lens_view_a q213Lens_view_b)
+open E213.Lens.Universal.Witnesses.Nat2Inj (expSumNat expSumNat_a expSumNat_b expSumNat_inj)
 
 /-- Round-trip: encoding then evaluating recovers the Nat. -/
 theorem Q213_ofNat_eval (n : Nat) : (Q213.ofNat n).1.eval = n := by
@@ -50,7 +50,7 @@ theorem qNat_eq_expSumNat (r : Raw) : qNat r = expSumNat r := by
     show (Q213.ofNat (2 ^ qNat x + 2 ^ qNat y)).1.eval
         = expSumNat (Raw.slash x y h)
     rw [Q213_ofNat_eval,
-        E213.Meta.UniversalLens.Nat2Inj.expSumNat_slash _ _ h, ihx, ihy]
+        E213.Lens.Universal.Witnesses.Nat2Inj.expSumNat_slash _ _ h, ihx, ihy]
 
 /-- ★★★★★★★★ qNat is injective (via correspondence with expSumNat). -/
 theorem qNat_inj : Function.Injective qNat := by
@@ -71,7 +71,7 @@ theorem q213Lens_view_inj : Function.Injective q213Lens.view := by
     `IsUniversal` metatheory sense.  Open Problem #6 ℚ²-discrete
     refinement: STRUCTURALLY CLOSED. -/
 theorem q213Lens_is_universal :
-    E213.Meta.UniversalLens.Core.IsUniversal q213Lens :=
+    E213.Lens.Universal.Witnesses.Core.IsUniversal q213Lens :=
   q213Lens_view_inj
 
-end E213.Meta.UniversalLens.Q213Inj
+end E213.Lens.Universal.Witnesses.Q213Inj

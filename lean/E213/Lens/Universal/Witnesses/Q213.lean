@@ -1,4 +1,4 @@
-import E213.Meta.UniversalLens.Core
+import E213.Lens.Universal.Witnesses.Core
 import E213.Term.Rat
 
 /-!
@@ -19,7 +19,7 @@ This file constructs `Lens ((Term × Term) × (Term × Term))` using
 the same exp-sum encoding, lifted from ℕ × ℕ.
 -/
 
-namespace E213.Meta.UniversalLens.Q213
+namespace E213.Lens.Universal.Witnesses.Q213
 
 open E213.Theory E213.Lens E213.Term
 
@@ -77,4 +77,4 @@ theorem q213Lens_distinguishes_a_b :
   show False
   exact absurd h3 (by decide)
 
-end E213.Meta.UniversalLens.Q213
+end E213.Lens.Universal.Witnesses.Q213

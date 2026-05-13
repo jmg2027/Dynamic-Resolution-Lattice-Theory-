@@ -1,7 +1,7 @@
-import E213.Meta.UniversalLens.Padding
+import E213.Lens.Universal.Witnesses.Padding
 import E213.Meta.Nat.AddMod213
-import E213.Meta.UniversalLens.Nat2
-import E213.Meta.UniversalLens.Nat2Inj
+import E213.Lens.Universal.Witnesses.Nat2
+import E213.Lens.Universal.Witnesses.Nat2Inj
 
 /-!
 # Universal Lens at ℕ⁴ — quadruple-codomain via padding lemma
@@ -21,10 +21,10 @@ demonstrates that arbitrary additional readings can be packed
 without affecting injectivity.
 -/
 
-namespace E213.Meta.UniversalLens.Nat4
+namespace E213.Lens.Universal.Witnesses.Nat4
 
 open E213.Theory E213.Lens
-open E213.Meta.UniversalLens.Nat2Inj (expSumNat expSumNat_slash expSumNat_inj)
+open E213.Lens.Universal.Witnesses.Nat2Inj (expSumNat expSumNat_slash expSumNat_inj)
 
 abbrev Nat4 : Type := Nat × Nat × Nat × Nat
 
@@ -83,8 +83,8 @@ theorem expSumLens4_view_fst (r : Raw) :
   This proof is *one line* by leveraging the padding theory.
   Compare to the 100+ LOC induction in `UniversalLensNat2Inj`. -/
 theorem expSumLens4_is_universal :
-    E213.Meta.UniversalLens.Core.IsUniversal expSumLens4 :=
-  E213.Meta.UniversalLens.Padding.view_inj_of_inj_proj
+    E213.Lens.Universal.Witnesses.Core.IsUniversal expSumLens4 :=
+  E213.Lens.Universal.Witnesses.Padding.view_inj_of_inj_proj
     expSumLens4 Prod.fst expSumNat expSumNat_inj expSumLens4_view_fst
 
-end E213.Meta.UniversalLens.Nat4
+end E213.Lens.Universal.Witnesses.Nat4
