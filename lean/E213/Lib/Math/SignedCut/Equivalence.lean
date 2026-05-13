@@ -1,6 +1,6 @@
 import E213.Lib.Math.SignedCut.Core
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Sum.CutSumTest
 
 /-!
 # SignedCut — Cancellation equivalence (∅-axiom)
@@ -27,8 +27,8 @@ remain distinct types.
 namespace E213.Lib.Math.SignedCut.Equivalence
 
 open E213.Lib.Math.SignedCut.Core (SignedCut pos neg ofPos)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- Pointwise cross-additive equality on a single (m, k) pair. -/
 def signedEqAt (s t : SignedCut) (m k : Nat) : Prop :=

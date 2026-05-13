@@ -1,5 +1,5 @@
 import E213.Lib.Math.Probability.Hoeffding
-import E213.Lib.Math.Real213.CutExpSeries
+import E213.Lib.Math.Real213.ExpLog.CutExpSeries
 
 /-!
 # Hoeffding finite-N concrete witnesses (∅-axiom)
@@ -22,21 +22,21 @@ argument (which would need `Real213.log` and is genuinely deferred).
 namespace E213.Lib.Math.Extras.HoeffdingFiniteN
 
 open E213.Lib.Math.Probability.Hoeffding (hoeffdingBoundAtDepth)
-open E213.Lib.Math.Real213.CutExpSeries
+open E213.Lib.Math.Real213.ExpLog.CutExpSeries
   (expPartialSum expPartialSum_zero expPartialSum_succ
    expTerm expTerm_zero)
 
 /-- ★ Partial sum at N=1 = 0 + first term (rfl). -/
 theorem expPartialSum_one (x : Nat → Nat → Bool) :
     expPartialSum x 1
-    = E213.Lib.Math.Real213.CutSum.cutSum
-        (E213.Lib.Math.Real213.CutSumTest.constCut 0 1)
+    = E213.Lib.Math.Real213.Sum.CutSum.cutSum
+        (E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1)
         (expTerm x 0) := rfl
 
 /-- ★ Partial sum at N=2 = (sum at 1) + second term (rfl). -/
 theorem expPartialSum_two (x : Nat → Nat → Bool) :
     expPartialSum x 2
-    = E213.Lib.Math.Real213.CutSum.cutSum
+    = E213.Lib.Math.Real213.Sum.CutSum.cutSum
         (expPartialSum x 1) (expTerm x 1) := rfl
 
 /-- ★ Hoeffding bound at depth 1 IS `expPartialSum x 1` (rfl). -/

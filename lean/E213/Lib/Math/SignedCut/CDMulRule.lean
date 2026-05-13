@@ -1,6 +1,6 @@
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Sum.CutSumTest
 
 /-!
 # CD Multiplication Rule (∅-axiom)
@@ -18,8 +18,8 @@ to the field.
 
 namespace E213.Lib.Math.SignedCut.CDMulRule
 
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
 
 /-- CD multiplication rule indicator. -/
 inductive CDRule where

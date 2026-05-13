@@ -13,7 +13,7 @@ lost** (Cayley-Dickson loses one property per level after this).
 
 namespace E213.Lib.Math.SignedCut.OctonionMulRule
 
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.SignedCut.QuaternionMulRule (Quat quatOne)
 
 /-- An octonion 8-tuple as nested level-3 pair. -/

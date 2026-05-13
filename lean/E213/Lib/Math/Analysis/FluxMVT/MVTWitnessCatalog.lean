@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitnessCombinators
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableMid
 import E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness
@@ -23,8 +23,8 @@ is a witness.  For x², c = 1/2.  For mid(x, x²), c = 1/2.
 namespace E213.Lib.Math.Analysis.FluxMVT.MVTWitnessCatalog
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)

@@ -13,7 +13,7 @@ namespace E213.Lib.Math.SignedCut.QuaternionMulTable
 
 open E213.Lib.Math.SignedCut.QuaternionMulRule
   (Quat quatOne quatI quatJ quatK)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- Helper: `(constCut 1 1) ≠ (constCut 0 1)` pointwise at (0,1). -/
 theorem cuts_distinct_at_0_1 :

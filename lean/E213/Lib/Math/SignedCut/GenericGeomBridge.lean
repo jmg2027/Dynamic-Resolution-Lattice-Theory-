@@ -1,7 +1,7 @@
 import E213.Lib.Math.SignedCut.Core
 import E213.Lib.Math.SignedCut.Algebra
-import E213.Lib.Math.Real213.GeomCutInvBridge
-import E213.Lib.Math.Real213.GeomSeriesIdentity
+import E213.Lib.Math.Real213.ExpLog.GeomCutInvBridge
+import E213.Lib.Math.Real213.ExpLog.GeomSeriesIdentity
 
 /-!
 # SignedCut — generic-x cutInv geometric bridge (∅-axiom)
@@ -22,10 +22,10 @@ namespace E213.Lib.Math.SignedCut.GenericGeomBridge
 open E213.Lib.Math.SignedCut.Core
   (SignedCut zero one ofPos ofNeg pos neg
    signedNeg signedAdd signedSub signedMul)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutLogODE (geomPartialSum)
-open E213.Lib.Math.Real213.GeomSeriesIdentity (geom_right_shift)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.ExpLog.CutLogODE (geomPartialSum)
+open E213.Lib.Math.Real213.ExpLog.GeomSeriesIdentity (geom_right_shift)
 
 /-- ★ **`oneMinus x` represents `1 − x`** as a signed cut. -/
 def oneMinus (x : Nat → Nat → Bool) : SignedCut :=
@@ -58,7 +58,7 @@ theorem signedGeomLimit_baseline (x : Nat → Nat → Bool) :
 theorem signedGeom_recurrence (x : Nat → Nat → Bool) (N : Nat) :
     geomPartialSum x (N + 1)
       = cutSum (geomPartialSum x N)
-          (E213.Lib.Math.Real213.CutPow.cutPow x N) :=
+          (E213.Lib.Math.Real213.Mul.CutPow.cutPow x N) :=
   geom_right_shift x N
 
 /-- ★ **Generic-x fixpoint witness baseline**: structural identity

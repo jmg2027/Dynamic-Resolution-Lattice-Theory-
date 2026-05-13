@@ -65,10 +65,10 @@ open E213.Lib.Math.Probability.Binomial
 theorem atoms_witness :
     -- (1) unit forward leg
     ProbabilityCut.unit.toFlux.forward
-      = E213.Lib.Math.Real213.CutSumTest.constCut 1 1
+      = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1
     -- (2) zero forward leg
     ∧ ProbabilityCut.zero.toFlux.forward
-        = E213.Lib.Math.Real213.CutSumTest.constCut 0 1
+        = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1
     -- (3) uniform on whole unit = 1/1
     ∧ (UnitSubBracket.uniform UnitSubBracket.whole).num = 1
     ∧ (UnitSubBracket.uniform UnitSubBracket.whole).den = 1
@@ -211,7 +211,7 @@ theorem gaussian_witness (N n : Nat) :
 theorem total_witness (N n : Nat) :
     -- ☆ atoms
     ProbabilityCut.unit.toFlux.forward
-      = E213.Lib.Math.Real213.CutSumTest.constCut 1 1
+      = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1
     ∧ (UnitSubBracket.uniform UnitSubBracket.whole).num = 1
     ∧ pAA.num + pBB.num + pAB.num = pAA.den
     ∧ Bernoulli.fair.success.num + Bernoulli.fair.failure.num
@@ -377,7 +377,7 @@ theorem cltGeneric_witness (V ε : Nat) :
     bound + balanced collapse to zero deviation. -/
 theorem hoeffding_witness (n : Nat) (negArg : Nat → Nat → Bool) :
     E213.Lib.Math.Probability.Hoeffding.hoeffdingBoundAtDepth negArg 0
-      = E213.Lib.Math.Real213.CutSumTest.constCut 0 1
+      = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1
     ∧ E213.Lib.Math.Probability.Concentration.centeredAbsDev2
         (E213.Lib.Math.Probability.LLN.balancedHeadsTails n) = 0 :=
   ⟨rfl,

@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Lib.Math.Analysis.ClassicCalc.ClassicCalcMid
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 /-!
@@ -24,8 +24,8 @@ For x², we have the former; for x³, only the latter.
 namespace E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable

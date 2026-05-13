@@ -16,7 +16,7 @@ namespace E213.Lib.Math.SignedCut.Algebra
 open E213.Lib.Math.SignedCut.Core
   (SignedCut zero one negOne ofPos ofNeg pos neg
    signedNeg signedAdd signedSub signedMul)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- ★ **Negation is involutive** (rfl). -/
 theorem signedNeg_involutive (s : SignedCut) :
@@ -59,13 +59,13 @@ theorem ofPos_neg_components (c : Nat → Nat → Bool) :
     represents 0 at the real layer modulo `cutSum` commutativity. -/
 theorem signedSub_self (s : SignedCut) :
     signedSub s s
-      = (E213.Lib.Math.Real213.CutSum.cutSum s.1 s.2,
-         E213.Lib.Math.Real213.CutSum.cutSum s.2 s.1) := rfl
+      = (E213.Lib.Math.Real213.Sum.CutSum.cutSum s.1 s.2,
+         E213.Lib.Math.Real213.Sum.CutSum.cutSum s.2 s.1) := rfl
 
 /-- ★ **`signedAdd s zero = (s.1 + 0, s.2 + 0)`** (rfl). -/
 theorem signedAdd_zero_right (s : SignedCut) :
     signedAdd s zero
-      = (E213.Lib.Math.Real213.CutSum.cutSum s.1 (constCut 0 1),
-         E213.Lib.Math.Real213.CutSum.cutSum s.2 (constCut 0 1)) := rfl
+      = (E213.Lib.Math.Real213.Sum.CutSum.cutSum s.1 (constCut 0 1),
+         E213.Lib.Math.Real213.Sum.CutSum.cutSum s.2 (constCut 0 1)) := rfl
 
 end E213.Lib.Math.SignedCut.Algebra

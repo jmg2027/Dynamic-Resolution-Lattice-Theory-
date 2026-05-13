@@ -1,6 +1,6 @@
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Sum.CutSumTest
 
 /-!
 # SignedCut — signed Cut layer (213-native, ∅-axiom)
@@ -24,9 +24,9 @@ purely *structural* via the pair.  The "value" is recovered by
 
 namespace E213.Lib.Math.SignedCut.Core
 
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- A signed `Cut`: pair (positive part, negative part). -/
 abbrev SignedCut := (Nat → Nat → Bool) × (Nat → Nat → Bool)

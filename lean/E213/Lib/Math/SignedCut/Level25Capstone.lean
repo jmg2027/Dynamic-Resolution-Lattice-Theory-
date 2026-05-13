@@ -48,9 +48,9 @@ theorem conjugation_witness (n : Nat) (z : CDLevel n) :
 
 /-- ★ **Norm map witness** (substrate-valued at every level). -/
 theorem norm_witness (z : CDLevel 1) :
-    cdNormSq 1 z = E213.Lib.Math.Real213.CutSum.cutSum
-                     (E213.Lib.Math.Real213.CutMul.cutMul z.1 z.1)
-                     (E213.Lib.Math.Real213.CutMul.cutMul z.2 z.2) :=
+    cdNormSq 1 z = E213.Lib.Math.Real213.Sum.CutSum.cutSum
+                     (E213.Lib.Math.Real213.Mul.CutMul.cutMul z.1 z.1)
+                     (E213.Lib.Math.Real213.Mul.CutMul.cutMul z.2 z.2) :=
   cdNormSq_one z
 
 /-- ★ **Level-25 residual triple**: bit-dim, N_U, ceiling. -/

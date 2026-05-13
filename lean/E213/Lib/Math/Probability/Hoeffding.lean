@@ -1,4 +1,4 @@
-import E213.Lib.Math.Real213.CutExpSeries
+import E213.Lib.Math.Real213.ExpLog.CutExpSeries
 import E213.Lib.Math.Probability.Concentration
 
 /-!
@@ -20,7 +20,7 @@ the modulus argument is left as a follow-up
 
 namespace E213.Lib.Math.Probability.Hoeffding
 
-open E213.Lib.Math.Real213.CutExpSeries (expPartialSum cutExp)
+open E213.Lib.Math.Real213.ExpLog.CutExpSeries (expPartialSum cutExp)
 open E213.Lib.Math.Probability.Concentration
   (centeredAbsDev2 centeredAbsDev2_balanced)
 open E213.Lib.Math.Probability.LLN (balancedHeadsTails)
@@ -37,7 +37,7 @@ def hoeffdingBoundAtDepth (negArg : Nat → Nat → Bool) (N : Nat)
     grows as `N` increases. -/
 theorem hoeffdingBound_depth_zero (negArg : Nat → Nat → Bool) :
     hoeffdingBoundAtDepth negArg 0
-    = E213.Lib.Math.Real213.CutSumTest.constCut 0 1 := rfl
+    = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1 := rfl
 
 /-- ★ **Balanced collapse** ★ — for fair-coin balanced sample of
     length `2n`, the deviation is identically zero.  This is the
@@ -52,7 +52,7 @@ theorem hoeffding_balanced_zero_dev (n : Nat) :
     full Hoeffding bound which kicks in at `N ≥ 1`. -/
 theorem cutExp_zero_baseline (negArg : Nat → Nat → Bool) :
     cutExp negArg 0
-    = E213.Lib.Math.Real213.CutSumTest.constCut 0 1 := rfl
+    = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1 := rfl
 
 /-- Hoeffding bound at depth `N` is the cut-function partial Taylor
     sum (rfl, by definition).  Convergence to `2 · exp(...)` as

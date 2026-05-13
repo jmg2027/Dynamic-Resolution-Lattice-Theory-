@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLens
-import E213.Lib.Math.Real213.CutFnData
-import E213.Lib.Math.Real213.Dyadic
-import E213.Lib.Math.Real213.ValidCut
-import E213.Lib.Math.Real213.CutPoset
+import E213.Lib.Math.Real213.Core.Core.CutFnData
+import E213.Lib.Math.Real213.Core.Core.Dyadic
+import E213.Lib.Math.Real213.Core.Core.ValidCut
+import E213.Lib.Math.Real213.Core.Core.CutPoset
 import E213.Meta.Tactic.Nat213
 import E213.Meta.Tactic.Pow213
 
@@ -37,8 +37,8 @@ namespace E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLensMonotone
 open E213.Theory E213.Lens
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 open E213.Lib.Math.Analysis.DyadicSearch.MinimalRootLens (signedLeftOracle)
-open E213.Lib.Math.Real213.Dyadic (dyadicCut)
-open E213.Lib.Math.Real213.CutFnData (LocallyDeterminedData)
+open E213.Lib.Math.Real213.Core.Core.Dyadic (dyadicCut)
+open E213.Lib.Math.Real213.Core.Core.CutFnData (LocallyDeterminedData)
 
 /-- **Resolution-doubling preserves the rational pointwise**:
     `dyadicCut (2*M) (E+1) m k = dyadicCut M E m k`.
@@ -247,9 +247,9 @@ This is the Layer 3b structural translation: the user's
 sign change `f rightCut 0 1 = true`, when paired with `RatioCut`
 on the f-image, is *automatically* a global cutEq with the zero cut. -/
 
-open E213.Lib.Math.Real213.ValidCut (RatioCut)
-open E213.Lib.Math.Real213.CutPoset (cutEq)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core.ValidCut (RatioCut)
+open E213.Lib.Math.Real213.Core.Core.CutPoset (cutEq)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- **constCut 0 1 is the always-true cut**: at every query `(m, k)`,
     `constCut 0 1 m k = true`.  Pure decide-reduction. -/

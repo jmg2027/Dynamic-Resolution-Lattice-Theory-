@@ -27,8 +27,8 @@ open E213.Lib.Math.SignedCut.Inv
 open E213.Lib.Math.SignedCut.UnifiedGenericInv
   (signedGeomLimitOf signedGeomLimitOf_pos signedGeomLimitOf_neg
    unified_fixpoint)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutInv (cutInv)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Mul.CutInv (cutInv)
 
 /-- ★ **Bridge witness** (magnitude-sign ↔ pair). -/
 theorem bridge_witness (c : Nat → Nat → Bool) :
@@ -51,7 +51,7 @@ theorem unified_witness (x : Nat → Nat → Bool) (N : Nat) :
                     (E213.Lib.Math.SignedCut.GenericGeomBridge.oneMinus x))
     ∧ E213.Lib.Math.SignedCut.Core.neg (signedGeomLimitOf x)
         = constCut 0 1
-    ∧ E213.Lib.Math.Real213.CutLogODE.geomPartialSum x 0 = constCut 0 1 :=
+    ∧ E213.Lib.Math.Real213.ExpLog.CutLogODE.geomPartialSum x 0 = constCut 0 1 :=
   ⟨signedGeomLimitOf_pos x, signedGeomLimitOf_neg x,
    (unified_fixpoint x N).1⟩
 

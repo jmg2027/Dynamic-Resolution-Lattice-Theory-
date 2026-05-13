@@ -31,7 +31,7 @@ namespace E213.Lib.Math.AngleStructure.GaugeDiagonal
 
 open E213.Lib.Math.SignedCut.Core (SignedCut signedAdd ofPos ofNeg)
 open E213.Lib.Math.SignedCut.Equivalence (signedEqAt)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- The 45° gauge diagonal direction: `(c, c)` for any `c`. -/
 def gaugeDiagonal (c : Nat → Nat → Bool) : SignedCut := (c, c)

@@ -1,4 +1,4 @@
-import E213.Lib.Math.Real213.CutSum
+import E213.Lib.Math.Real213.Sum.CutSum
 
 /-!
 # Real213CauchyComplete: Cauchy completeness at cut level (3)

@@ -2,7 +2,7 @@ import E213.Lib.Math.SignedCut.Core
 import E213.Lib.Math.SignedCut.Bridge
 import E213.Lib.Math.SignedCut.Inv
 import E213.Lib.Math.SignedCut.GenericGeomBridge
-import E213.Lib.Math.Real213.SignedSum
+import E213.Lib.Math.Real213.Sum.SignedSum
 
 /-!
 # SignedCut — Unified generic-x cutInv bridge (∅-axiom)
@@ -21,10 +21,10 @@ open E213.Lib.Math.SignedCut.Core
 open E213.Lib.Math.SignedCut.Inv (signedInvPos)
 open E213.Lib.Math.SignedCut.GenericGeomBridge
   (oneMinus oneMinus_pos oneMinus_neg)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutInv (cutInv)
-open E213.Lib.Math.Real213.CutLogODE (geomPartialSum)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Mul.CutInv (cutInv)
+open E213.Lib.Math.Real213.ExpLog.CutLogODE (geomPartialSum)
 
 /-- ★ **Generic-x signed geometric limit**: `1 / (1 − x)` via the
     positive-form inverse on `oneMinus x`'s positive part. -/
@@ -50,9 +50,9 @@ theorem unified_fixpoint (x : Nat → Nat → Bool) (N : Nat) :
     geomPartialSum x 0 = constCut 0 1
     ∧ geomPartialSum x (N + 1)
         = cutSum (geomPartialSum x N)
-            (E213.Lib.Math.Real213.CutPow.cutPow x N)
+            (E213.Lib.Math.Real213.Mul.CutPow.cutPow x N)
     ∧ pos (oneMinus x) = cutSum (constCut 1 1) (constCut 0 1) := by
   refine ⟨rfl, ?_, oneMinus_pos x⟩
-  exact E213.Lib.Math.Real213.GeomSeriesIdentity.geom_right_shift x N
+  exact E213.Lib.Math.Real213.ExpLog.GeomSeriesIdentity.geom_right_shift x N
 
 end E213.Lib.Math.SignedCut.UnifiedGenericInv

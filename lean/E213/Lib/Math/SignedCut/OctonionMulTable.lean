@@ -60,14 +60,14 @@ theorem octOne_neq_octE4 : octOne ≠ octE4 := by
   rw [hone, he4] at h1
   -- quatOne ≠ quatZero via component (1,1) check
   have h2 : quatOne.1.1 = quatZero.1.1 := by rw [h1]
-  have hone2 : quatOne.1.1 = E213.Lib.Math.Real213.CutSumTest.constCut 1 1
+  have hone2 : quatOne.1.1 = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1
               := rfl
-  have hzero2 : quatZero.1.1 = E213.Lib.Math.Real213.CutSumTest.constCut 0 1
+  have hzero2 : quatZero.1.1 = E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1
               := rfl
   rw [hone2, hzero2] at h2
-  have hpt : (E213.Lib.Math.Real213.CutSumTest.constCut 1 1
+  have hpt : (E213.Lib.Math.Real213.Sum.CutSumTest.constCut 1 1
               : Nat → Nat → Bool) 0 1
-           = (E213.Lib.Math.Real213.CutSumTest.constCut 0 1
+           = (E213.Lib.Math.Real213.Sum.CutSumTest.constCut 0 1
               : Nat → Nat → Bool) 0 1 := by rw [h2]
   have ⟨e1, e2⟩ := cuts_distinct_at_0_1
   rw [e1, e2] at hpt

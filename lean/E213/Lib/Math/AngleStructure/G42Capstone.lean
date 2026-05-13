@@ -24,7 +24,7 @@ open E213.Lib.Math.AngleStructure.OrthogonalDoubling
   (concrete_dims level25_orthogonal_axes imaginaryAxesAtLevel
    level25_imaginaries)
 open E213.Lib.Math.SignedCut.CDTowerLevel (levelDim)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- ★ **Angle witness**: 180° (negative) ↔ 90° (imaginary). -/
 theorem angle_witness :

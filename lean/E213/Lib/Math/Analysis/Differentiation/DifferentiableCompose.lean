@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableAffine
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutMul
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Mul.CutMul
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 /-!
 # DifferentiableCompose
@@ -20,8 +20,8 @@ instances yield closed-form moduli via the chain rule.
 namespace E213.Lib.Math.Analysis.Differentiation.DifferentiableCompose
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutMul (cutMul)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable

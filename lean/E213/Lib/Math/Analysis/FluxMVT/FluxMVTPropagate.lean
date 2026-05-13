@@ -2,15 +2,15 @@ import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitnessCombinators
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutBisection
-import E213.Lib.Math.Real213.CutMidSelf
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutMulDetermined
-import E213.Lib.Math.Real213.CutMulOne
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutSumDetermined
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Bisection.CutBisection
+import E213.Lib.Math.Real213.Lattice.CutMidSelf
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Mul.CutMulDetermined
+import E213.Lib.Math.Real213.Mul.CutMulOne
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Sum.CutSumDetermined
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableMid
 import E213.Lib.Math.Analysis.Differentiation.Differentiable
 /-!
@@ -34,9 +34,9 @@ bundles dropped.)
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxMVTPropagate
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutBisection (cutMid)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Bisection.CutBisection (cutMid)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable constIsDifferentiable
    addIsDifferentiable mulIsDifferentiable composeIsDifferentiable
@@ -54,7 +54,7 @@ open E213.Lib.Math.Analysis.DifferentiableHigherPow
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 open E213.Lib.Math.Analysis.FluxMVTMore (mid_id_square_derivative_at_half_at)
-open E213.Lib.Math.Real213.CutMidSelf (cutMid_self_constCut_at)
+open E213.Lib.Math.Real213.Lattice.CutMidSelf (cutMid_self_constCut_at)
 
 /-- Generic mid witness propagation at c = 1/2 (pointwise PURE). -/
 theorem mid_witness_propagates_at {f g}
@@ -66,19 +66,19 @@ theorem mid_witness_propagates_at {f g}
       = constCut 1 1 m k := by
   show cutMid (sf.derivative (constCut 1 2))
               (sg.derivative (constCut 1 2)) m k = constCut 1 1 m k
-  show E213.Lib.Math.Real213.CutSum.cutSum (sf.derivative (constCut 1 2))
+  show E213.Lib.Math.Real213.Sum.CutSum.cutSum (sf.derivative (constCut 1 2))
                   (sg.derivative (constCut 1 2)) (2*m) k
        = constCut 1 1 m k
-  show E213.Lib.Math.Real213.CutSum.cutSumAux (sf.derivative (constCut 1 2))
+  show E213.Lib.Math.Real213.Sum.CutSum.cutSumAux (sf.derivative (constCut 1 2))
                  (sg.derivative (constCut 1 2)) k (2*(2*m)) (2*(2*m))
        = constCut 1 1 m k
   have step :
-      E213.Lib.Math.Real213.CutSum.cutSumAux
+      E213.Lib.Math.Real213.Sum.CutSum.cutSumAux
                 (sf.derivative (constCut 1 2))
                 (sg.derivative (constCut 1 2)) k (2*(2*m)) (2*(2*m))
-      = E213.Lib.Math.Real213.CutSum.cutSumAux
+      = E213.Lib.Math.Real213.Sum.CutSum.cutSumAux
                 (constCut 1 1) (constCut 1 1) k (2*(2*m)) (2*(2*m)) :=
-    E213.Lib.Math.Real213.CutSumDetermined.cutSumAux_congr k (2*(2*m))
+    E213.Lib.Math.Real213.Sum.CutSumDetermined.cutSumAux_congr k (2*(2*m))
       (sf.derivative (constCut 1 2)) (constCut 1 1)
       (sg.derivative (constCut 1 2)) (constCut 1 1)
       (fun m' _ => hf m' (2*k))
@@ -93,18 +93,18 @@ end E213.Lib.Math.Analysis.FluxMVT.FluxMVTPropagate
 namespace E213.Lib.Math.Analysis.FluxMVTPropagateCompose
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableMid (midIsDifferentiable)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 open E213.Lib.Math.Analysis.FluxMVTMore (mid_id_square_derivative_at_half_at)
-open E213.Lib.Math.Real213.CutMulOne (cutMul_one_one_at)
-open E213.Lib.Math.Real213.CutMul (cutMulOuter)
-open E213.Lib.Math.Real213.CutMulDetermined (cutMulOuter_congr)
+open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMulOuter)
+open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 
 /-- id-compose witness propagation at c = 1/2 (pointwise PURE).
     For `g ∘ f` via `composeIsDifferentiable f g`, chain rule gives

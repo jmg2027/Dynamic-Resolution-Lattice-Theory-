@@ -1,7 +1,7 @@
 import E213.Lib.Math.SignedCut.Core
 import E213.Lib.Math.SignedCut.Bridge
-import E213.Lib.Math.Real213.CutInv
-import E213.Lib.Math.Real213.Signed
+import E213.Lib.Math.Real213.Mul.CutInv
+import E213.Lib.Math.Real213.Sum.Signed
 
 /-!
 # SignedCut — Multiplicative inverse (∅-axiom)
@@ -30,9 +30,9 @@ namespace E213.Lib.Math.SignedCut.Inv
 
 open E213.Lib.Math.SignedCut.Core
   (SignedCut zero one negOne ofPos ofNeg pos neg signedNeg)
-open E213.Lib.Math.Real213.CutInv (cutInv)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.Signed (cutNeg signedConstCut)
+open E213.Lib.Math.Real213.Mul.CutInv (cutInv)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.Signed (cutNeg signedConstCut)
 
 /-- `signedInvPos`: inverse for the positive-only case
     `(c, 0)  ↦  (cutInv c, 0)`. -/

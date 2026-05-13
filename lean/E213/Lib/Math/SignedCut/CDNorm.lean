@@ -1,7 +1,7 @@
 import E213.Lib.Math.SignedCut.CDConjugation
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Sum.CutSumTest
 
 /-!
 # CD Tower — Substrate-valued norm map (∅-axiom)
@@ -29,9 +29,9 @@ norm to each component.
 namespace E213.Lib.Math.SignedCut.CDNorm
 
 open E213.Lib.Math.SignedCut.CDTowerLevel (CDLevel)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- Norm-squared map: `CDLevel n → Cut` (level-0).  At each
     level, sum the inner norms of the pair components. -/

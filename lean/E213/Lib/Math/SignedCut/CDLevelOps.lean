@@ -23,8 +23,8 @@ namespace E213.Lib.Math.SignedCut.CDLevelOps
 open E213.Lib.Math.SignedCut.CDMulRule
   (signMul complexMul signMul_fst signMul_snd
    complexMul_fst complexMul_snd)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
 
 /-- ★ **Sign rule first component** matches the existing
     `Math.SignedCut.signedMul` first-component formula. -/

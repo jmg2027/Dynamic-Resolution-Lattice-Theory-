@@ -1,7 +1,7 @@
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicRiemann
 import E213.Lib.Math.Analysis.BracketCauchyModulus
 import E213.Lib.Math.Probability.Cut
-import E213.Lib.Math.Real213.Dyadic
+import E213.Lib.Math.Real213.Core.Core.Dyadic
 
 /-!
 # Probability — Riemann bridge for dyadic integration
@@ -24,7 +24,7 @@ precision, exponentially reliable.
 namespace E213.Lib.Math.Probability.RiemannBridge
 
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
-open E213.Lib.Math.Real213.Dyadic (dyadicCut)
+open E213.Lib.Math.Real213.Core.Core.Dyadic (dyadicCut)
 open E213.Lib.Math.Analysis.BracketCauchyModulus
   (dyadic_bracket_cauchy_modulus)
 

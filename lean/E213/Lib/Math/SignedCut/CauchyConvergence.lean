@@ -1,6 +1,6 @@
 import E213.Lib.Math.SignedCut.UnifiedGenericInv
 import E213.Lib.Math.SignedCut.Equivalence
-import E213.Lib.Math.Real213.GeomSeriesIdentity
+import E213.Lib.Math.Real213.ExpLog.GeomSeriesIdentity
 
 /-!
 # SignedCut — Continuous-x Cauchy convergence (∅-axiom)
@@ -35,10 +35,10 @@ open E213.Lib.Math.SignedCut.UnifiedGenericInv
   (signedGeomLimitOf signedGeomLimitOf_pos signedGeomLimitOf_neg)
 open E213.Lib.Math.SignedCut.GenericGeomBridge
   (oneMinus oneMinus_pos)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutLogODE (geomPartialSum)
-open E213.Lib.Math.Real213.GeomSeriesIdentity (geom_right_shift)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.ExpLog.CutLogODE (geomPartialSum)
+open E213.Lib.Math.Real213.ExpLog.GeomSeriesIdentity (geom_right_shift)
 
 /-- Cauchy modulus structure for a generic-x geometric series:
     at every depth `≥ N ε`, the partial sum agrees with the
@@ -50,7 +50,7 @@ structure GenericGeomCauchy (x : Nat → Nat → Bool) where
   adj : ∀ ε n, N ε ≤ n →
     geomPartialSum x (n + 1)
       = cutSum (geomPartialSum x n)
-          (E213.Lib.Math.Real213.CutPow.cutPow x n)
+          (E213.Lib.Math.Real213.Mul.CutPow.cutPow x n)
 
 /-- ★ **Trivial Cauchy modulus**: depth-zero suffices, since the
     adjacent-difference identity is *structural* (holds at every
@@ -71,9 +71,9 @@ theorem trivial_modulus_zero (x : Nat → Nat → Bool) (ε : Nat) :
 theorem end_to_end_convergence (x : Nat → Nat → Bool) (N : Nat) :
     geomPartialSum x (N + 1)
       = cutSum (geomPartialSum x N)
-          (E213.Lib.Math.Real213.CutPow.cutPow x N)
+          (E213.Lib.Math.Real213.Mul.CutPow.cutPow x N)
     ∧ pos (signedGeomLimitOf x)
-        = E213.Lib.Math.Real213.CutInv.cutInv (pos (oneMinus x))
+        = E213.Lib.Math.Real213.Mul.CutInv.cutInv (pos (oneMinus x))
     ∧ neg (signedGeomLimitOf x) = constCut 0 1 :=
   ⟨geom_right_shift x N, signedGeomLimitOf_pos x,
    signedGeomLimitOf_neg x⟩
@@ -82,7 +82,7 @@ theorem end_to_end_convergence (x : Nat → Nat → Bool) (N : Nat) :
     cutInv of the `oneMinus 0` positive part, baseline witness. -/
 theorem limit_at_zero_baseline :
     pos (signedGeomLimitOf (constCut 0 1))
-      = E213.Lib.Math.Real213.CutInv.cutInv
+      = E213.Lib.Math.Real213.Mul.CutInv.cutInv
           (cutSum (constCut 1 1) (constCut 0 1)) := rfl
 
 end E213.Lib.Math.SignedCut.CauchyConvergence

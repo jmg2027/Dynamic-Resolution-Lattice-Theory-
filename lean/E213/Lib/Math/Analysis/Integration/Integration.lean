@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.Differentiation.DifferenceQuotient
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutContinuity
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Bisection.CutContinuity
+import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
 # Real213Integration: Riemann integration
 
@@ -22,9 +22,9 @@ is separate work.  Lebesgue is outside the framework (measure theory absent).
 namespace E213.Lib.Math.Analysis.Integration.Integration
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutContinuity (constCutFn)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- Riemann integration data. -/
 structure RiemannIntegrable (f : (Nat → Nat → Bool) → (Nat → Nat → Bool))

@@ -23,9 +23,9 @@ open E213.Lib.Math.SignedCut.Algebra
    signedAdd_zero_right)
 open E213.Lib.Math.SignedCut.GenericGeomBridge
   (oneMinus oneMinus_pos oneMinus_neg signedGeom_recurrence)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutLogODE (geomPartialSum)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.ExpLog.CutLogODE (geomPartialSum)
 
 /-- ★ **Algebra witness**. -/
 theorem algebra_witness (s : SignedCut) :
@@ -44,7 +44,7 @@ theorem fixpoint_witness (x : Nat → Nat → Bool) (N : Nat) :
     geomPartialSum x 0 = constCut 0 1
     ∧ geomPartialSum x (N + 1)
         = cutSum (geomPartialSum x N)
-            (E213.Lib.Math.Real213.CutPow.cutPow x N)
+            (E213.Lib.Math.Real213.Mul.CutPow.cutPow x N)
     ∧ pos (oneMinus x) = cutSum (constCut 1 1) (constCut 0 1) :=
   ⟨rfl, signedGeom_recurrence x N, oneMinus_pos x⟩
 
@@ -55,7 +55,7 @@ theorem total_witness (s : SignedCut) (x : Nat → Nat → Bool) (N : Nat) :
     ∧ pos (oneMinus x) = cutSum (constCut 1 1) (constCut 0 1)
     ∧ geomPartialSum x (N + 1)
         = cutSum (geomPartialSum x N)
-            (E213.Lib.Math.Real213.CutPow.cutPow x N) :=
+            (E213.Lib.Math.Real213.Mul.CutPow.cutPow x N) :=
   ⟨signedNeg_involutive s, signedNeg_one,
    oneMinus_pos x, signedGeom_recurrence x N⟩
 

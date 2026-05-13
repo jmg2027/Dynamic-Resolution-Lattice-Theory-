@@ -1,5 +1,5 @@
 import E213.Lib.Math.NatHelpers.Max213
-import E213.Lib.Math.Real213.Core
+import E213.Lib.Math.Real213.Core.Core
 import E213.Lib.Math.Modulus.HasModulus
 
 /-!
@@ -24,7 +24,7 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Modulus.HasModulus
 open E213.Lens.Instances.AB
 open E213.Lib.Math.Cauchy.Archimedean
-open E213.Lib.Math.Real213.Core (Real213)
+open E213.Lib.Math.Real213.Core.Core (Real213)
 
 /-- **ModulusCombiner**: abstract kernel for sequence combine + Cauchy preservation. -/
 structure ModulusCombiner (combine : Raw → Raw → Raw) where
@@ -45,7 +45,7 @@ open E213.Theory E213.Lens
 open E213.Lib.Math.Modulus.HasModulus
 open E213.Lens.Instances.AB
 open E213.Lib.Math.Cauchy.Archimedean
-open E213.Lib.Math.Real213.Core (Real213)
+open E213.Lib.Math.Real213.Core.Core (Real213)
 
 /-- **Generic combine theorem**: ModulusCombiner + two HasModulus → combined HasModulus. -/
 def combineModulus {xs ys : Nat → Raw}

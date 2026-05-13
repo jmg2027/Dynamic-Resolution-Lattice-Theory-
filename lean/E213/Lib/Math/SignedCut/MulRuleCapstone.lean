@@ -24,8 +24,8 @@ open E213.Lib.Math.SignedCut.CDLevelOps
 open E213.Lib.Math.SignedCut.HurwitzCeiling
   (dim_tower_through_5 n_u_finite ceiling_param
    hurwitz_d5_ceiling n_u_value_closed)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
 open E213.Lib.Math.SignedCut.CDTowerLevel (levelDim)
 
 /-- ★ **Mul-rule witness**. -/

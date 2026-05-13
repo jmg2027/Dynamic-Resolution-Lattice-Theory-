@@ -23,7 +23,7 @@ namespace E213.Lib.Math.SignedCut.HurwitzFailure
 
 open E213.Lib.Math.SignedCut.OctonionMulRule (Oct octOne quatZero)
 open E213.Lib.Math.SignedCut.QuaternionMulRule (Quat quatOne)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- A "sedenion" = level-4 element = `Oct × Oct`. -/
 abbrev Sed := Oct × Oct

@@ -1,11 +1,11 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTPolynomial
-import E213.Lib.Math.Real213.CutMulDetermined
+import E213.Lib.Math.Real213.Mul.CutMulDetermined
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutMulOne
-import E213.Lib.Math.Real213.CutSumTest
-import E213.Lib.Math.Real213.CutSumZero
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Mul.CutMulOne
+import E213.Lib.Math.Real213.Sum.CutSumTest
+import E213.Lib.Math.Real213.Sum.CutSumZero
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.FluxMVT.FluxCochain
@@ -31,9 +31,9 @@ equality between rate (divergence) and boundary (flux) forms.
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxFTCPolynomial
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
@@ -42,10 +42,10 @@ open E213.Lib.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTPolynomial.FluxCut
   (mvt_square_unitBracket_pure mvt_cube_unitBracket_pure)
-open E213.Lib.Math.Real213.CutMul (cutMulOuter)
-open E213.Lib.Math.Real213.CutMulOne (cutMul_one_one_at)
-open E213.Lib.Math.Real213.CutSumZero (cutMul_zero_zero_at)
-open E213.Lib.Math.Real213.CutMulDetermined (cutMulOuter_congr)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMulOuter)
+open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at)
+open E213.Lib.Math.Real213.Sum.CutSumZero (cutMul_zero_zero_at)
+open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 
 namespace FluxCut
 

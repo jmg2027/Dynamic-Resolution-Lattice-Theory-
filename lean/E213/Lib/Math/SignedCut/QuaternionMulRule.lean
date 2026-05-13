@@ -1,6 +1,6 @@
-import E213.Lib.Math.Real213.CutSum
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Sum.CutSum
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Sum.CutSumTest
 
 /-!
 # Quaternion multiplication rule (CD Level 2, ∅-axiom)
@@ -16,7 +16,7 @@ Atomic content:
 
 namespace E213.Lib.Math.SignedCut.QuaternionMulRule
 
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- A quaternion 4-tuple as nested level-2 pair. -/
 abbrev Quat := ((Nat → Nat → Bool) × (Nat → Nat → Bool))

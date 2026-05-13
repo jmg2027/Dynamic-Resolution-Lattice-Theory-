@@ -1,6 +1,6 @@
 import E213.Lib.Math.SignedCut.Core
-import E213.Lib.Math.Real213.Signed
-import E213.Lib.Math.Real213.SignedSum
+import E213.Lib.Math.Real213.Sum.Signed
+import E213.Lib.Math.Real213.Sum.SignedSum
 
 /-!
 # SignedCut — Bridge to existing `Real213.Signed` (∅-axiom)
@@ -26,14 +26,14 @@ namespace E213.Lib.Math.SignedCut.Bridge
 
 open E213.Lib.Math.SignedCut.Core
   (SignedCut ofPos ofNeg signedNeg)
-open E213.Lib.Math.Real213.Signed
+open E213.Lib.Math.Real213.Sum.Signed
   (cutNeg signedConstCut)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- Convert magnitude-sign form to pair form:
     `{sign := true, cut := c}  ↦  (c, 0)`,
     `{sign := false, cut := c} ↦  (0, c)`. -/
-def fromMagSign (s : E213.Lib.Math.Real213.Signed.SignedCut) : SignedCut :=
+def fromMagSign (s : E213.Lib.Math.Real213.Sum.Signed.SignedCut) : SignedCut :=
   if s.sign then ofPos s.cut else ofNeg s.cut
 
 /-- ★ Magnitude-sign positive maps to `ofPos`. -/
@@ -50,7 +50,7 @@ theorem fromMagSign_neg (c : Nat → Nat → Bool) :
 
 /-- ★ Negation preserved by bridge:
     `fromMagSign (cutNeg s)` flips the pair components. -/
-theorem fromMagSign_neg_distrib (s : E213.Lib.Math.Real213.Signed.SignedCut) :
+theorem fromMagSign_neg_distrib (s : E213.Lib.Math.Real213.Sum.Signed.SignedCut) :
     fromMagSign (cutNeg s) = signedNeg (fromMagSign s) := by
   cases s with
   | mk sign cut =>

@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.ODE.ODE
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutContinuity
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Bisection.CutContinuity
+import E213.Lib.Math.Real213.Sum.CutSumTest
 /-!
 # NewtonFirst
 ★ Newton's first law in 213 native form ★
@@ -21,9 +21,9 @@ Our framework formalizes this propEq:
 namespace E213.Lib.Math.Analysis.ODE.NewtonFirst
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutContinuity (constCutFn)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.ODELinear
   (linearWithIntercept linearWithIntercept_isDifferentiable
    linearWithIntercept_derivative_at)

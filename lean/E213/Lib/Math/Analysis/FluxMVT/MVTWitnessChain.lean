@@ -1,11 +1,11 @@
 import E213.Lib.Math.Analysis.FluxMVT.MVTWitnessCatalog
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableCompose
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutMulDetermined
-import E213.Lib.Math.Real213.CutMulOne
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Mul.CutMulDetermined
+import E213.Lib.Math.Real213.Mul.CutMulOne
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness
 import E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness
@@ -24,18 +24,18 @@ is constant 1 (i.e., g = id), the chain-rule witness is f's witness.
 namespace E213.Lib.Math.Analysis.FluxMVT.MVTWitnessChain
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 open E213.Lib.Math.Analysis.Differentiation.Differentiable
   (IsDifferentiable idIsDifferentiable composeIsDifferentiable)
 open E213.Lib.Math.Analysis.Differentiation.DifferentiableInstances (squareIsDifferentiable)
 open E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness (HasDyadicMVTWitness_at)
 open E213.Lib.Math.Analysis.FluxMVT.DyadicMVTWitness.HasDyadicMVTWitness_at
   (mvt_exists_at)
-open E213.Lib.Math.Real213.CutMul (cutMulOuter)
-open E213.Lib.Math.Real213.CutMulOne (cutMul_one_one_at)
-open E213.Lib.Math.Real213.CutMulDetermined (cutMulOuter_congr)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMulOuter)
+open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at)
+open E213.Lib.Math.Real213.Mul.CutMulDetermined (cutMulOuter_congr)
 open E213.Lib.Math.Analysis.FluxMVT.FluxMVTWitness (squareDerivative_at_half_at)
 
 /-- ★ id ∘ x² derivative at c = 1/2 = 1 — pointwise (∅-axiom). -/

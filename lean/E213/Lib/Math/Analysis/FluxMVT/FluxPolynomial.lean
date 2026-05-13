@@ -1,8 +1,8 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxMVT
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutPow
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Mul.CutPow
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.FluxMVT.FluxCut
 import E213.Lib.Math.Analysis.FluxMVT.FluxDivergence
@@ -20,9 +20,9 @@ giving direct computational access.
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxPolynomial
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutPow (cutPow cutScale)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Mul.CutPow (cutPow cutScale)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence)

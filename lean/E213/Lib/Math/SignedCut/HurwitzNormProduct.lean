@@ -27,7 +27,7 @@ witness (sedenion zero divisor).
 namespace E213.Lib.Math.SignedCut.HurwitzNormProduct
 
 open E213.Lib.Math.Extras.CauchySchwarz2D (cs_2d_le)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
 
 /-- ★ **Brahmagupta-Fibonacci magnitude bound** (Nat-side):
     `(a·c + b·d)² ≤ (a² + b²) · (c² + d²)`.

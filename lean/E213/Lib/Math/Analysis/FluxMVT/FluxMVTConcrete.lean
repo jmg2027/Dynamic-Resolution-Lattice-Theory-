@@ -1,11 +1,11 @@
 import E213.Lib.Math.Analysis.FluxMVT.FluxEquivOps
-import E213.Lib.Math.Real213.CutMulOne
+import E213.Lib.Math.Real213.Mul.CutMulOne
 
-import E213.Lib.Math.Real213.Core
-import E213.Lib.Math.Real213.CutContinuity
-import E213.Lib.Math.Real213.CutMul
-import E213.Lib.Math.Real213.CutPow
-import E213.Lib.Math.Real213.CutSumTest
+import E213.Lib.Math.Real213.Core.Core
+import E213.Lib.Math.Real213.Bisection.CutContinuity
+import E213.Lib.Math.Real213.Mul.CutMul
+import E213.Lib.Math.Real213.Mul.CutPow
+import E213.Lib.Math.Real213.Sum.CutSumTest
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket
 import E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory
 import E213.Lib.Math.Analysis.FluxMVT.FluxCochain
@@ -31,11 +31,11 @@ unit bracket case.
 namespace E213.Lib.Math.Analysis.FluxMVT.FluxMVTConcrete
 
 open E213.Theory E213.Lens
-open E213.Lib.Math.Real213.Core (Real213)
-open E213.Lib.Math.Real213.CutMul (cutMul)
-open E213.Lib.Math.Real213.CutPow (cutScale)
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutContinuity (constCutFn)
+open E213.Lib.Math.Real213.Core.Core (Real213)
+open E213.Lib.Math.Real213.Mul.CutMul (cutMul)
+open E213.Lib.Math.Real213.Mul.CutPow (cutScale)
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Bisection.CutContinuity (constCutFn)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut (FluxCut)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicBracket (DyadicBracket)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCochain.FluxCut
@@ -43,7 +43,7 @@ open E213.Lib.Math.Analysis.FluxMVT.FluxCochain.FluxCut
 open E213.Lib.Math.Analysis.FluxMVT.FluxDivergence.FluxCut
   (fluxScale localDivergence)
 open E213.Lib.Math.Analysis.DyadicSearch.DyadicTrajectory (unitBracket)
-open E213.Lib.Math.Real213.CutMulOne (cutMul_one_one_at cutMul_one_const_at)
+open E213.Lib.Math.Real213.Mul.CutMulOne (cutMul_one_one_at cutMul_one_const_at)
 open E213.Lib.Math.Analysis.FluxMVT.FluxCut.FluxCut (ofCut add neg)
 open E213.Lib.Math.Analysis.FluxMVT.FluxEquiv.FluxCut (cohomEquiv cohomEquiv_refl)
 open E213.Lib.Math.Analysis.FluxMVT.FluxDivergence.FluxCut (localDivergence_const_balanced)

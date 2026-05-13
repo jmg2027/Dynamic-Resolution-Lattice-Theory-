@@ -1,6 +1,6 @@
 import E213.Lib.Math.Probability.Hoeffding
-import E213.Lib.Math.Real213.CutLogSeries
-import E213.Lib.Math.Real213.CutLogExpInverse
+import E213.Lib.Math.Real213.ExpLog.CutLogSeries
+import E213.Lib.Math.Real213.ExpLog.CutLogExpInverse
 
 /-!
 # Probability — Hoeffding closed-form via `cutLog` (atomic, ∅-axiom)
@@ -27,11 +27,11 @@ formal partial sums.
 
 namespace E213.Lib.Math.Probability.HoeffdingClosed
 
-open E213.Lib.Math.Real213.CutSumTest (constCut)
-open E213.Lib.Math.Real213.CutSum (cutSum)
-open E213.Lib.Math.Real213.CutLogSeries (cutLog)
-open E213.Lib.Math.Real213.CutExpSeries (cutExp expPartialSum)
-open E213.Lib.Math.Real213.CutLogExpInverse
+open E213.Lib.Math.Real213.Sum.CutSumTest (constCut)
+open E213.Lib.Math.Real213.Sum.CutSum (cutSum)
+open E213.Lib.Math.Real213.ExpLog.CutLogSeries (cutLog)
+open E213.Lib.Math.Real213.ExpLog.CutExpSeries (cutExp expPartialSum)
+open E213.Lib.Math.Real213.ExpLog.CutLogExpInverse
   (exp_log_zero_baseline exp_of_log_zero log_of_exp_zero)
 
 /-- Hoeffding closed-form bound at depth `N` — `2·cutExp(negArg) N`
